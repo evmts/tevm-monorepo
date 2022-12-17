@@ -1,0 +1,18 @@
+[submodule "lib/forge-std"]
+	path = lib/forge-std
+	url = https://github.com/foundry-rs/forge-std
+[submodule "lib/optimism"]
+	path = lib/optimism
+	url = https://github.com/ethereum-optimism/optimism
+[submodule "lib/wagmi-references"]
+	path = lib/wagmi-references
+	url = https://github.com/evmts/references
+[submodule "lib/wagmi"]
+	path = lib/wagmi
+	url = https://github.com/wagmi-dev/wagmi
+[submodule "lib/helios"]
+	path = lib/helios
+	url = https://github.com/a16z/helios
+[submodule "lib/ethereumjs-monorepo"]
+	path = lib/ethereumjs-monorepo
+	url = git@github.com:ethereumjs/ethereumjs-monorepo.git

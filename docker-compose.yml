@@ -1,0 +1,59 @@
+version: '3.8'
+
+services:
+  evmts-playground:
+    environment:
+      - HOST=0.0.0.0
+      - PORT=3000
+      - NX_CLOUD_ACCESS_TOKEN=${NX_CLOUD_ACCESS_TOKEN}
+    build:
+      context: .
+      target: evmts-playground-runner
+    ports:
+      - 3000:80
+    healthcheck:
+      # curl is not installed on this container so we use wget
+      test: wget localhost:80 -q -O - > /dev/null 2>&1
+
+  anvil:
+    image: ghcr.io/foundry-rs/foundry
+    platform: linux/amd64
+    environment:
+      - ANVIL_IP_ADDR=0.0.0.0
+    command: anvil
+    ports:
+      - 8545:8545
+    healthcheck:
+      test: cast block-number --rpc-url http://0.0.0.0:8545
+
+  contracts-deployer:
+    platform: linux/amd64
+    environment:
+      - DEPLOYER_PRIVATE_KEY=${DEPLOYER_PRIVATE_KEY}
+    build:
+      context: .
+      target: contracts-deployer
+    restart: "no"
+    depends_on:
+      anvil:
+        condition: service_healthy
+
+  e2e:
+    environment:
+      - BASE_URL=http://evmts-playground:3000
+      - NX_CLOUD_ACCESS_TOKEN=${NX_CLOUD_ACCESS_TOKEN}
+    build:
+      target: e2e
+      context: .
+    depends_on:
+      contracts-deployer:
+        condition: service_completed_successfully
+      evmts-playground:
+        condition: service_healthy
+
+  tests:
+    build:
+      target: monorepo
+      context: .
+    environment:
+      - NX_CLOUD_ACCESS_TOKEN=${NX_CLOUD_ACCESS_TOKEN}

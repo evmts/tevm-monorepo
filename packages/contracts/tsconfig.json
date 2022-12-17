@@ -1,0 +1,12 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "composite": true,
+    "target": "ESNext",
+    "lib": ["esnext"],
+    "strict": true,
+    "module": "commonjs",
+    "jsx": "react-jsx"
+  },
+  "include": ["dist", "dist/**/*.json"]
+}

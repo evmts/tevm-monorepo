@@ -1,0 +1,41 @@
+{
+  "private": false,
+  "name": "@evmts/contracts",
+  "type": "module",
+  "version": "0.0.0",
+  "main": "dist/evmts-contracts.cjs",
+  "module": "dist/evmts-contracts.js",
+  "types": "dist/evmts-contracts.ts",
+  "scripts": {
+    "prebuild": "forge install",
+    "build": "wagmi generate && tsup",
+    "build:optimized": "FOUNDRY_PROFILE=optimized forge build",
+    "prettier": "prettier --check src/**/*.sol",
+    "prettier:list": "prettier --list-different src/**/*.sol",
+    "prettier:fix": "prettier --write src/**/*.sol",
+    "solhint": "solhint --config ./.solhint.json 'src/**/*.sol'",
+    "solhint:fix": "solhint --config ./.solhint.json 'src/**/*.sol' --fix",
+    "lint": "pnpm prettier:fix && pnpm solhint:fix",
+    "lint:check": "pnpm prettier && pnpm solhint",
+    "test": "forge test -vvv",
+    "test:watch": "forge test -vvv --watch",
+    "test:coverage": "forge coverage -vvv --watch",
+    "start:devnet": "anvil",
+    "predeploy": "source ../../.env",
+    "deploy:goerli": "pnpm predeploy && forge script script/Deploy.s.sol:Deploy --fork-url http://localhost:8545 --broadcast --verify -vvvv",
+    "deploy:devnet": "forge script script/Deploy.s.sol:Deploy --rpc-url http://localhost:8545 --broadcast -vvvv",
+    "deploy:optimism": "pnpm predeploy && forge script script/Deploy.s.sol:Deploy --rpc-url $OPTIMISM_RPC_URL --broadcast --verify -vvvv"
+  },
+  "devDependencies": {
+    "@wagmi/cli": "^0.1.6",
+    "concurrently": "^7.6.0",
+    "ethers": "^5.7.1",
+    "forge-std": "^1.1.2",
+    "solhint": "^3.3.8",
+    "tsup": "^6.6.0",
+    "typescript": "^4.9.5"
+  },
+  "dependencies": {
+    "wagmi": "~0.11.5"
+  }
+}

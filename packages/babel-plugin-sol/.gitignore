@@ -1,15 +1,12 @@
 .env
 
-/target/
-**/*.rs.bk
-
 cache
 forge-artifacts
 broadcast
 
 # compiled output
+dist
 packages/*/dist
-apps/*/dist
 tmp
 /out-tsc
 **/tsconfig.tsbuildinfo
@@ -50,4 +47,3 @@ Thumbs.db
 
 # My personal files
 .zshrc
-/target

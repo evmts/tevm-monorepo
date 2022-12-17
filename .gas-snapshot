@@ -1,0 +1,6 @@
+AssetReceiverTest:test_AppEntrypoint_append_sources() (gas: 529389)
+AssetReceiverTest:test_AppEntrypoint_create_app_already_exist() (gas: 361774)
+AssetReceiverTest:test_AppEntrypoint_create_app_happy() (gas: 404695)
+AssetReceiverTest:test_AppEntrypoint_create_app_integrity_not_set() (gas: 43442)
+AssetReceiverTest:test_AppEntrypoint_init() (gas: 8131)
+AssetReceiverTest:test_AppEntrypoint_update_mutable_data() (gas: 372850)
