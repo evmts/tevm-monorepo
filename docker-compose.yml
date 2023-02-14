@@ -10,6 +10,20 @@ services:
       context: .
       target: playground-runner
     ports:
+      - 5173:80
+    healthcheck:
+      # curl is not installed on this container so we use wget
+      test: wget localhost:80 -q -O - > /dev/null 2>&1
+
+  docs:
+    environment:
+      - HOST=0.0.0.0
+      - PORT=3000
+      - NX_CLOUD_ACCESS_TOKEN=${NX_CLOUD_ACCESS_TOKEN}
+    build:
+      context: .
+      target: docs-runner
+    ports:
       - 3000:80
     healthcheck:
       # curl is not installed on this container so we use wget

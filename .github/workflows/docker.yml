@@ -63,6 +63,18 @@ jobs:
         env:
           NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
 
+      - name: Publish docs image to docker
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          push: ${{ github.event_name == 'push' }}
+          target: 'docs-runner'
+          tags: 'willcory10/docs:latest'
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,mode=max,dest=/tmp/.buildx-cache-new
+        env:
+          NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
+
       - name: Clean cache
         run: |
           rm -rf /tmp/.buildx-cache
