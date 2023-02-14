@@ -1,14 +1,6 @@
-import { evmts, run } from '@evmts/core'
-import { useQuery } from '@tanstack/react-query'
 import { useState } from 'react'
 
-const forgeScript = evmts`
-contract Script {
-    function run() external returns (string memory) {
-        return "Hello, World!";
-    }
-}
-`
+import { Pure } from './pure/Pure'
 
 const w = window as any
 w.process = {
@@ -17,21 +9,22 @@ w.process = {
   },
 }
 
+const options = [Pure]
+
 export const App = () => {
-  const [isEnabled, setIsEnabled] = useState(false)
-  const { data, error, isLoading } = useQuery(
-    ['helloWorldQuery'],
-    async () => {
-      return run(forgeScript)
-    },
-    { enabled: isEnabled },
-  )
+  const [selected, setSelected] = useState(Pure.name)
   return (
     <div>
-      <button onClick={() => setIsEnabled(!isEnabled)}>Click to run tx</button>
-      {isLoading && <div>Loading...</div>}
-      {error && <div>Error: {(error as Error).message}</div>}
-      {data && <div>{data}</div>}
+      <div>
+        {options.map((Option) => (
+          <button key={Option.name} onClick={() => setSelected(Option.name)}>
+            {Option.name}
+          </button>
+        ))}
+      </div>
+      <div>
+        {options.map((Option) => Option.name === selected && <Option />)}
+      </div>
     </div>
   )
 }

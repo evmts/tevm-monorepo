@@ -2,6 +2,7 @@
   "name": "@evmts/e2e",
   "version": "0.0.1",
   "private": true,
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\""
   },

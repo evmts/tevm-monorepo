@@ -26,8 +26,8 @@
     "//test": "vitest",
     "//test:ui": "vitest --ui",
     "//test:run": "vitest run",
-    "lint": "eslint \"**/*.{ts,tsx}\" --fix && prettier \"src/**/*.{ts,tsx}\" --write",
-    "lint:check": "eslint \"**/*.{ts,tsx}\" && prettier --check \"src/**/*.{ts,tsx}\""
+    "lint": "rome check . --apply-suggested",
+    "lint:check": "rome check ."
   },
   "peerDependencies": {
     "@babel/core": ">7.0.0"

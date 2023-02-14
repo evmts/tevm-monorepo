@@ -42,21 +42,30 @@ module.exports = {
 
 Under the hood this plugin will transform solidity imports
 
-This module import of a solidity script
+When the plugin sees a solidity import it will make the following changes
+
+1. Update the import to import a .ts file
 
 ```typescript
-import scripts from './MyScript.sol.ts'
+- import scripts from './MyScript.sol'
++ import scripts from './MyScript.sol.ts'
 ```
 
-Transforms into this javascript object
+Insert a new typescript file MyScript.sol.ts as an artifact
 
 ```typescript
-const scripts = {
+// MyScript.sol.ts
+export default {
+  name,
+  artifactPath,
+  contractPath,
+  address,
   abi,
   bytecode,
-  source,
 }
 ```
+
+The typescript can then go ahead and use the artifacts however it pleases
 
 ## Usage in @evmts/core
 

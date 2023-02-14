@@ -186,7 +186,7 @@ solc = "${solc}"
           tempForgeProjectPath,
           'out',
           `${contractName}.sol`,
-          `Script.json`,
+          "Script.json",
         )
         const { abi, bytecode } = forgeArtifactsValidator.parse(
           JSON.parse(
