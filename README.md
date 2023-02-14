@@ -49,8 +49,8 @@ evmts enables direct evm execution clientside with forge cheat codes and direct 
 
 [apps](https://github.com/evmts/evmts-monorepo/tree/main/apps)
 
-- [@evmts/evmts-playground](https://github.com/evmts/evmts-monorepo/tree/main/apps/evmts-playground) contains an example vite app for developing on evmts
-- [@evmts/e2e](https://github.com/evmts/evmts-monorepo/tree/main/apps/evmts-playground) contains e2e tests that run against all example apps
+- [@evmts/playground](https://github.com/evmts/evmts-monorepo/tree/main/apps/playground) contains an example vite app for developing on evmts
+- [@evmts/e2e](https://github.com/evmts/evmts-monorepo/tree/main/apps/e2e) contains e2e tests that run against all example apps
 - [@evmts/docs](https://github.com/evmts/evmts-monorepo/tree/main/apps/docs) contains the docs astro app
 
 ## Getting started

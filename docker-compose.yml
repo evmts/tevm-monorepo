@@ -1,14 +1,14 @@
 version: '3.8'
 
 services:
-  evmts-playground:
+  playground:
     environment:
       - HOST=0.0.0.0
       - PORT=3000
       - NX_CLOUD_ACCESS_TOKEN=${NX_CLOUD_ACCESS_TOKEN}
     build:
       context: .
-      target: evmts-playground-runner
+      target: playground-runner
     ports:
       - 3000:80
     healthcheck:
@@ -40,7 +40,7 @@ services:
 
   e2e:
     environment:
-      - BASE_URL=http://evmts-playground:3000
+      - BASE_URL=http://playground:3000
       - NX_CLOUD_ACCESS_TOKEN=${NX_CLOUD_ACCESS_TOKEN}
     build:
       target: e2e
@@ -48,7 +48,7 @@ services:
     depends_on:
       contracts-deployer:
         condition: service_completed_successfully
-      evmts-playground:
+      playground:
         condition: service_healthy
 
   tests:

@@ -56,8 +56,8 @@ jobs:
         with:
           context: .
           push: ${{ github.event_name == 'push' }}
-          target: 'evmts-playground-runner'
-          tags: 'willcory10/evmts-playground:latest'
+          target: 'playground-runner'
+          tags: 'willcory10/playground:latest'
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,mode=max,dest=/tmp/.buildx-cache-new
         env:

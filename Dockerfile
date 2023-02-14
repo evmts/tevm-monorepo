@@ -150,9 +150,9 @@ CMD ["pnpm", "nx", "run-many", "--targets=test,lint,typecheck", "--all", "--para
 # get the right dependencies installed for the various packages we use.
 # it only supports very specific node.js versions (well) for the most part
 # and it's even more difficult to get playwright or puppeteer to work on it.
-FROM nginx:stable-alpine as evmts-playground-runner
-COPY --from=monorepo /monorepo/apps/evmts-playground/dist /usr/share/nginx/html
-COPY apps/evmts-playground/nginx.conf /etc/nginx/conf.d/default.conf
+FROM nginx:stable-alpine as playground-runner
+COPY --from=monorepo /monorepo/apps/playground/dist /usr/share/nginx/html
+COPY apps/playground/nginx.conf /etc/nginx/conf.d/default.conf
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
 

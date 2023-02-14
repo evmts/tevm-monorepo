@@ -275,9 +275,9 @@ The belief is that this solidity-like syntax will plug into the [OP Stack](https
 
 ### Packages (aka where is the code?)
 
-## evmts-playground
+## playground
 
-[packages/evmts-playground](https://github.com/evmts/evmts-monorepo/tree/main/apps/evmts-playground) is a simple vite app used to test and develop on evmts e2e.
+[apps/playground](https://github.com/evmts/evmts-monorepo/tree/main/apps/playground) is a simple vite app used to test and develop on evmts e2e.
 
 ## evmts (POC 0)
 
