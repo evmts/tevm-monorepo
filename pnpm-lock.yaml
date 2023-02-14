@@ -228,6 +228,45 @@ importers:
       vitest: 0.28.4_@vitest+ui@0.28.4
       zod: 3.20.6
 
+  packages/plugin-rollup:
+    specifiers:
+      '@babel/core': ^7.20.12
+      '@babel/helper-plugin-utils': ^7.20.2
+      '@babel/parser': ^7.20.15
+      '@babel/traverse': ^7.20.13
+      '@types/babel-core': ^6.25.7
+      '@types/babel__core': ^7.20.0
+      '@types/babel__helper-plugin-utils': ^7.10.0
+      '@vitest/ui': ^0.28.4
+      core: link:@types/babel/core
+      ethers: ^6.0.2
+      helper-plugin-utils: link:@types/babel/helper-plugin-utils
+      traverse: link:@types/babel/traverse
+      tsup: ^6.6.0
+      typescript: ^4.9.5
+      vite: ^4.1.1
+      vitest: ^0.28.4
+      zod: ^3.20.6
+    dependencies:
+      '@babel/helper-plugin-utils': 7.20.2
+      '@babel/parser': 7.20.15
+      '@types/babel-core': 6.25.7
+      ethers: 6.0.2
+    devDependencies:
+      '@babel/core': 7.20.12
+      '@babel/traverse': 7.20.13
+      '@types/babel__core': 7.20.0
+      '@types/babel__helper-plugin-utils': 7.10.0
+      '@vitest/ui': 0.28.4
+      core: link:@types/babel/core
+      helper-plugin-utils: link:@types/babel/helper-plugin-utils
+      traverse: link:@types/babel/traverse
+      tsup: 6.6.0_typescript@4.9.5
+      typescript: 4.9.5
+      vite: 4.1.1
+      vitest: 0.28.4_@vitest+ui@0.28.4
+      zod: 3.20.6
+
 packages:
 
   /@adobe/css-tools/4.1.0:
