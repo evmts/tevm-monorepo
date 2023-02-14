@@ -1,5 +1,5 @@
 {
-  "name": "@evmts/core-playground",
+  "name": "@evmts/playground",
   "version": "0.0.1",
   "private": true,
   "type": "module",

@@ -1,5 +1,5 @@
 {
-  "name": "docs",
+  "name": "@evmts/docs",
   "version": "0.0.7",
   "private": true,
   "scripts": {

@@ -209,7 +209,7 @@ importers:
   apps/e2e:
     specifiers: {}
 
-  apps/evmts-playground:
+  apps/playground:
     specifiers:
       '@babel/core': ^7.20.12
       '@babel/plugin-syntax-flow': ^7.18.6
