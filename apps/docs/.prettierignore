@@ -1,0 +1,8 @@
+dist
+node_modules
+.github
+.changeset
+*.md
+*.mdx
+src/pages/lighthouse/*.astro
+pnpm-lock.yaml
