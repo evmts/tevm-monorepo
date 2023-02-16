@@ -113,6 +113,10 @@ export function envTsPluginRollup(options: FoundryOptions = {}): Plugin {
 
       const contractName = id.split("/").at(-1);
 
+      if (!contractName) {
+        throw new Error("contract name not found");
+      }
+
       const contract = contracts[contractName];
 
       const out = `

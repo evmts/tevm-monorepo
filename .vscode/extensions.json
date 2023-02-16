@@ -5,9 +5,8 @@
   // List of extensions which should be recommended for users of this workspace.
   "recommendations": [
     "ms-azuretools.vscode-docker",
-    "dbaeumer.vscode-eslint",
     "ms-vsliveshare.vsliveshare",
-    "esbenp.prettier-vscode",
+    "rome.rome",
     "JuanBlanco.solidity",
     // there is no angular in this repo!
     // but this is useful for running nx commands in vscode
