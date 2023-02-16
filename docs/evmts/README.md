@@ -29,12 +29,12 @@ contract TransferAllMutation is Script {
 
 ```typescript
 // src/index.ts
-import { TransferAllMutation } from './TransferAllMutation.s.sol'
-import { prepareMutate, mutate } from '@evmts/core'
-import detectEthereumProvider from '@metamask/detect-provider'
-import addresses from './my-constants/addresses'
+import { TransferAllMutation } from "./TransferAllMutation.s.sol";
+import { prepareMutate, mutate } from "@evmts/core";
+import detectEthereumProvider from "@metamask/detect-provider";
+import addresses from "./my-constants/addresses";
 
-const signer = await detectEthereumProvider()
+const signer = await detectEthereumProvider();
 
 const prepareConfig = await prepareMutate(TransferAllMutation, {
   env: {
@@ -42,14 +42,14 @@ const prepareConfig = await prepareMutate(TransferAllMutation, {
     TOKEN_ADDRESS: addresses.myToken,
     TO: addresses.someOtherWallet,
   },
-})
+});
 
-console.log(prepareConfig.gasLimit)
-console.log(prepareConfig.expectedEvents)
+console.log(prepareConfig.gasLimit);
+console.log(prepareConfig.expectedEvents);
 
-const result = await mutate(prepareConfig)
+const result = await mutate(prepareConfig);
 
-console.log(result.txHash)
+console.log(result.txHash);
 ```
 
 ## Getting started
@@ -165,20 +165,20 @@ The typescript api borrows heavily from [@wagmi/core]https://www.npmjs.com/packa
 To use the query action simply pass the query and the env variables into the query. PROVIDER is required. Whatever is returned from the solidity script will be returned from the query.
 
 ```typescript
-import { MyQuery } from './MyQuery.t.sol'
-import { query } from '@evmts/core'
-import ethers from 'ethers'
+import { MyQuery } from "./MyQuery.t.sol";
+import { query } from "@evmts/core";
+import ethers from "ethers";
 
-const provider = new ethers.providers.JSONRpcProvider(process.env.RPC_URL)
+const provider = new ethers.providers.JSONRpcProvider(process.env.RPC_URL);
 
 try {
   const queryResult = query(MyQuery, {
     env: {
       PROVIDER: provider,
     },
-  })
+  });
 } catch (e) {
-  console.error(e)
+  console.error(e);
 }
 ```
 
@@ -193,12 +193,12 @@ See [wagmi docs](https://wagmi.sh/react/prepare-hooks) for why this library sepe
 To prepare a mutation it's just like the query hook. Only difference is SIGNER is required rather than PROVIDER. Use gasLimit and expectedEvent to provide optimal ux for your users.
 
 ```typescript
-import { TransferAllMutation } from './TransferAllMutation.s.sol'
-import { prepareMutate, mutate } from '@evmts/core'
-import detectEthereumProvider from '@metamask/detect-provider'
-import addresses from './my-constants/addresses'
+import { TransferAllMutation } from "./TransferAllMutation.s.sol";
+import { prepareMutate, mutate } from "@evmts/core";
+import detectEthereumProvider from "@metamask/detect-provider";
+import addresses from "./my-constants/addresses";
 
-const signer = await detectEthereumProvider()
+const signer = await detectEthereumProvider();
 
 const prepareConfig = await prepareMutate(TransferAllMutation, {
   env: {
@@ -207,20 +207,20 @@ const prepareConfig = await prepareMutate(TransferAllMutation, {
     TOKEN_ADDRESS: addresses.myToken,
     TO: addresses.someOtherWallet,
   },
-})
+});
 
-console.log(prepareConfig.gasLimit) // the gas limit as a javascript BigNumber
-console.log(prepareConfig.expectedEvents) // events triggered by the simulated tx
-console.log(prepareConfig.mode) // returns 'prepared'
-console.log(prepareConfig.chainId) // the chain id
+console.log(prepareConfig.gasLimit); // the gas limit as a javascript BigNumber
+console.log(prepareConfig.expectedEvents); // events triggered by the simulated tx
+console.log(prepareConfig.mode); // returns 'prepared'
+console.log(prepareConfig.chainId); // the chain id
 
-const result = await mutate(prepareConfig)
+const result = await mutate(prepareConfig);
 
-console.log(result.txHash)
-console.log(result.mode) // returns 'submitted'
-console.log(result.chainId) // returns the chainId
-console.log(result.gasLimit) // returns the gas limit
-conosole.log(result.gasUsed) // returns the gas used
+console.log(result.txHash);
+console.log(result.mode); // returns 'submitted'
+console.log(result.chainId); // returns the chainId
+console.log(result.gasLimit); // returns the gas limit
+conosole.log(result.gasUsed); // returns the gas used
 ```
 
 If a different chain than what the provider or signer is connected to it will automatically request the user to switch chains when mutate is called.
@@ -286,7 +286,7 @@ The belief is that this solidity-like syntax will plug into the [OP Stack](https
 POC 1 unlike future versions of evmts operates with template strings
 
 ```typescript
-import { evmts } from '@evmts/core'
+import { evmts } from "@evmts/core";
 
 const query = evmts`
 contract Script {
@@ -294,12 +294,8 @@ contract Script {
         return "Hello, World!";
     }
 }
-`
+`;
 ```
-
-## babel-plugin-sol (POC 0)
-
-[packages/babel-plugin-sol](https://github.com/evmts/evmts-monorepo/tree/main/packages/babel-plugin-sol) is where the code for the POC 1. It uses forge in a temporary directory to replace the template string with an object containing the byte code and the json abi
 
 ## @evmts/core (POC 2)
 

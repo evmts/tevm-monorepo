@@ -1,14 +1,13 @@
 # Packages
 
-## babel-plugin-sol
-
-A plugin used to compile solidity in javascript files
-
 ## contracts
 
-All smart contracts are here
+Contract code for evmts
 
-## evmts
+## core
 
-A libary that allows one to execute the evm clientside in typescript code
+Core ts library for evmts
 
+## plugin-rollup
+
+A rollup/vite plugin for evmts

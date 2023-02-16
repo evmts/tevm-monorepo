@@ -14,7 +14,6 @@
   },
   "dependencies": {
     "@babel/core": "^7.20.12",
-    "@evmts/babel-plugin-sol": "workspace:^0.0.1",
     "@evmts/core": "workspace:^0.0.1",
     "@evmts/plugin-rollup": "workspace:^0.0.0",
     "@tanstack/query-core": "^4.24.4",
