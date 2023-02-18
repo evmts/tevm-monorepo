@@ -56,7 +56,13 @@ pnpm nx run-many --target=build
 Test everything
 
 ```bash
-pnpm nx run-many --target=test
+pnpm nx run-many --targets=test
+```
+
+Run e2e tests
+
+```bash
+pnpm e2e
 ```
 
 Lint/prettier everything

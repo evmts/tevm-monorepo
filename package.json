@@ -15,6 +15,7 @@
     "typecheck": "nx run-many --target=typecheck",
     "test": "nx run-many --target=test",
     "build": "nx run-many --target=build",
+    "e2e": "nx e2e @evmts/e2e",
     "serve": "nx run-many --target=serve",
     "serve:docker": "docker-compose up",
     "lint": "nx run-many --target=lint",
