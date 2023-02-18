@@ -56,11 +56,11 @@ evmts enables direct evm execution clientside with forge cheat codes and direct 
 
 ## Getting started
 
-See [docs/evmts](https://github.com/evmts/evmts-monorepo-monorepo/tree/main/docs/evmts) for installation and and more detailed usage documentation.
+See [docs/evmts](https://github.com/evmts/evmts-monorepo/blob/main/packages/core) for installation and and more detailed usage documentation.
 
-See [docs/monorepo](https://github.com/evmts/evmts-monorepo-monorepo/tree/main/docs/monorepo) for documentation on how to execute the monorepo with nx
+See [docs/monorepo](https://github.com/evmts/evmts-monorepo/blob/main/docs/monorepo.md) for documentation on how to execute the monorepo with nx
 
-See [docs/contributing](https://github.com/evmts/evmts-monorepo-monorepo/tree/main/docs/contributing) for documentation on how to contribute to evmts. No contribution is too small
+See [docs/contributing](https://github.com/evmts/evmts-monorepo/blob/main/docs/contributing.md) for documentation on how to contribute to evmts. No contribution is too small
 
 ## Basic usage
 

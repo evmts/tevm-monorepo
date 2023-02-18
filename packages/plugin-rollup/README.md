@@ -2,6 +2,8 @@
 
 A rollup plugin for importing solidity files.
 
+Currently @evmts/plugin-rollup only works in forge projects but work to make it support [all wagmi plugins](https://wagmi.sh/cli/plugins) is underway
+
 ## Instalation
 
 ```bash
@@ -19,23 +21,36 @@ npm i @evmts/plugin-rollup
 Add to your vite config
 
 ```typescript
-import { tsSolPlugin } from '@evmts/plugin-rollup`
+import { evmtsPluginrollup } from '@evmts/plugin-rollup`
 import { defineConfig } from 'vite'
 
 export default defineConfig({
-  plugins: [tsSolPlugin()]
+  plugins: [evmtsPluginRollup()]
 })
 ```
 
 ## Rollup usage
 
 ```typescript
-const { tsSolPlugin } = require('@evmts');
+const { evmtsPlugin } = require('@evmts/plugin-rollup');
 
 module.exports = {
   ...
-  plugins: [tsSolPlugin()]
+  plugins: [evmtsPlugin()]
 };
+```
+
+## ConfigOptions
+
+To configure pass in the forge executable and the root folder that your foundery.toml is in
+
+```typescript
+plugins: [
+  evmtsPlugin({
+    forgeExecutable: "forge",
+    projectRoot: __dirname,
+  }),
+];
 ```
 
 ## How it works
@@ -62,7 +77,7 @@ export default {
   address,
   abi,
   bytecode,
-}
+};
 ```
 
 The typescript can then go ahead and use the artifacts however it pleases

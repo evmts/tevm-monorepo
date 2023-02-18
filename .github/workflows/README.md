@@ -2,28 +2,26 @@
 
 Workflows that are run in CI
 
+### docker.yml
+
+Builds all docker containers and deploys to dockerhub on release
+
+## e2e.yml
+
+Runs playwright tests vs the example apps
+
 ### lint.yml
 
 Runs prettier and eslint
 
-### publish-dry.yml
+### npm.yml
 
-Runs npm publish without actually publishing to check that publishing will still work
-
-### tests.yml
-
-Runs test script
+Runs npm publish in dry mode. On workflow releases it will actually publish
 
 ### typecheck.yml
 
 Runs the typechecker. Since build is done (faster) with babel typechecker must be run as a seperate lint step.
 
-## CD
+### unit.yml
 
-### docker.yml
-
-Builds docker container and deploys to dockerhub on release
-
-### publish.yml
-
-Publishes package to npm on release
+Runs run unit tests for all packages

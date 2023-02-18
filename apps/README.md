@@ -2,12 +2,16 @@
 
 ## @evmts/e2e
 
-E2e test suite WIP
+Playwright based e2e tests that test next and vite example apps using evmts
 
 ## @evmts/playground
 
-A vite app currently being used to to test the experimental evmts and sol-babel-plugin packages e2e
+A react-vite based playground app using @evmts/plugin-rollup
+
+## @evmts/playground-next
+
+A nextjs playground app using @evmts/plugin-webpack
 
 ## @evmts/docs
 
-An astro docs site
+An astro based docs site originally forked from Astros official docs
