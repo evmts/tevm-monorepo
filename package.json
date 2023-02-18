@@ -25,7 +25,8 @@
   "license": "MIT",
   "packageManager": "pnpm@7.18.2",
   "dependencies": {
-    "@evmts/plugin-webpack": "workspace:^0.0.0",
+    "@changesets/cli": "^2.26.0",
+    "@evmts/plugin-webpack": "workspace:^0.0.1",
     "@nrwl/nx-cloud": "^15.0.3",
     "dotenv": "^16.0.3",
     "eslint-plugin-import": "^2.27.5",

@@ -1,5 +1,11 @@
 # docs
 
+## 0.0.8
+
+### Patch Changes
+
+- Release working proof of concept
+
 ## 0.0.7
 
 ### Patch Changes

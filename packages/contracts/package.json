@@ -2,7 +2,7 @@
   "private": false,
   "name": "@evmts/contracts",
   "type": "module",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "main": "dist/evmts-contracts.cjs",
   "module": "dist/evmts-contracts.js",
   "types": "dist/evmts-contracts.ts",
