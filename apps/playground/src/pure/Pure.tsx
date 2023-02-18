@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 
 // @ts-ignore - TODO make a ts plugin TODO make a global .t.sol module type
-import PureQuery from "./PureQuery.t.sol";
+import PureQuery from "./PureQuery.s.sol";
 
 export const Pure = () => {
 	const [num1, setNum1] = useState(0);
