@@ -30,10 +30,10 @@
     "lint:check": "rome check ."
   },
   "devDependencies": {
-    "@vitest/ui": "^0.28.4",
-    "tsup": "^6.6.0",
+    "@vitest/ui": "^0.28.5",
+    "tsup": "^6.6.3",
     "typescript": "^4.9.5",
-    "vitest": "^0.28.4",
+    "vitest": "^0.28.5",
     "zod": "^3.20.6"
   },
   "dependencies": {
@@ -44,7 +44,8 @@
     "@ethereumjs/util": "^8.0.3",
     "@ethereumjs/vm": "^6.3.0",
     "@ethersproject/abi": "^5.7.0",
-    "@types/babel-core": "^6.25.7"
+    "@types/babel-core": "^6.25.7",
+    "ethers": "^6.0.4"
   },
   "keywords": [
     "solidity",
