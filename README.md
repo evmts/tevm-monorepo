@@ -10,7 +10,8 @@
   Execute solidity scripts in browser
 <p>
 
-[![CI](https://github.com/evmts/evmts-monorepo/actions/workflows/tests.yml/badge.svg)](https://github.com/evmts/evmts-monorepo/actions/workflows/tests.yml)
+[![CI](https://github.com/evmts/evmts-monorepo/actions/workflows/e2e.yml/badge.svg)](https://github.com/evmts/evmts-monorepo/actions/workflows/e2e.yml)
+[![CI](https://github.com/evmts/evmts-monorepo/actions/workflows/unit.yml/badge.svg)](https://github.com/evmts/evmts-monorepo/actions/workflows/unit.yml)
 [![CI](https://github.com/evmts/evmts-monorepo/actions/workflows/lint.yml/badge.svg)](https://github.com/evmts/evmts-monorepo/actions/workflows/lint.yml)
 [![CI](https://github.com/evmts/evmts-monorepo/actions/workflows/typecheck.yml/badge.svg)](https://github.com/evmts/evmts-monorepo/actions/workflows/typecheck.yml)
 [![CI](https://github.com/evmts/evmts-monorepo/actions/workflows/docker.yml/badge.svg)](https://github.com/evmts/evmts-monorepo/actions/workflows/docker.yml)
@@ -90,12 +91,12 @@ contract TransferAllMutation is Script {
 2. Now execute that script in your clientside typescript code
 
 ```typescript
-import { TransferAllMutation } from './TransferAllMutation.s.sol'
-import { prepareMutate, mutate } from '@evmts/core'
-import detectEthereumProvider from '@metamask/detect-provider'
-import addresses from './my-constants/addresses'
+import { TransferAllMutation } from "./TransferAllMutation.s.sol";
+import { prepareMutate, mutate } from "@evmts/core";
+import detectEthereumProvider from "@metamask/detect-provider";
+import addresses from "./my-constants/addresses";
 
-const signer = await detectEthereumProvider()
+const signer = await detectEthereumProvider();
 
 const prepareConfig = await prepareMutate(TransferAllMutation, {
   env: {
@@ -103,14 +104,14 @@ const prepareConfig = await prepareMutate(TransferAllMutation, {
     TOKEN_ADDRESS: addresses.myToken,
     TO: addresses.someOtherWallet,
   },
-})
+});
 
-console.log(prepareConfig.gasLimit)
-console.log(prepareConfig.expectedEvents)
+console.log(prepareConfig.gasLimit);
+console.log(prepareConfig.expectedEvents);
 
-const result = await mutate(prepareConfig)
+const result = await mutate(prepareConfig);
 
-console.log(result.txHash)
+console.log(result.txHash);
 ```
 
 ## Authors

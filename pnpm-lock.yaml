@@ -213,7 +213,10 @@ importers:
       vitest: 0.25.8_sass@1.58.1
 
   apps/e2e:
-    specifiers: {}
+    specifiers:
+      '@playwright/test': ^1.30.0
+    dependencies:
+      '@playwright/test': 1.30.0
 
   apps/playground:
     specifiers:
@@ -4218,9 +4221,8 @@ packages:
     engines: {node: '>=14'}
     hasBin: true
     dependencies:
-      '@types/node': 18.13.0
+      '@types/node': 18.14.0
       playwright-core: 1.30.0
-    dev: true
 
   /@pnpm/network.ca-file/1.0.2:
     resolution: {integrity: sha512-YcPQ8a0jwYU9bTdJDpXjMi7Brhkr1mXsXrUJvjqM2mQDgkRiz8jFaQGOdaLxgjtUfQgZhKy/O3cG/YwmgKaxLA==}
@@ -14018,7 +14020,6 @@ packages:
     resolution: {integrity: sha512-7AnRmTCf+GVYhHbLJsGUtskWTE33SwMZkybJ0v6rqR1boxq2x36U7p1vDRV7HO2IwTZgmycracLxPEJI49wu4g==}
     engines: {node: '>=14'}
     hasBin: true
-    dev: true
 
   /pluralize/8.0.0:
     resolution: {integrity: sha512-Nc3IT5yHzflTfbjgqWcCPpo7DaKy4FnpB0l/zCAW0Tc7jxAiuqSxHasntB3D7887LSrA93kDJ9IXovxJYxyLCA==}

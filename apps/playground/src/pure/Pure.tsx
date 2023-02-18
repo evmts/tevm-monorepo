@@ -32,7 +32,7 @@ export const Pure = () => {
 					value={num2}
 					onChange={(e) => setNum2(Number(e.target.value))}
 				/>{" "}
-				=<div>{data}</div>
+				=<div id="data">{data}</div>
 				{error && <div>{JSON.stringify(error)}</div>}
 				{isLoading && <div>Loading...</div>}
 			</div>

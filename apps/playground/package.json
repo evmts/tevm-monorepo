@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite --open",
     "build": "vite build",
-    "serve": "serve -s -l tcp://0.0.0.0:3000 dist",
+    "serve": "serve -s -l tcp://0.0.0.0:5173 dist",
     "test": "vitest",
     "lint": "rome check . --apply-suggested",
     "lint:check": "rome check .",

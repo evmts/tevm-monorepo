@@ -8,11 +8,12 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
-name: Tests
+name: E2E
 
 jobs:
   check:
-    name: Tests
+    name: E2E
+    timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -20,10 +21,13 @@ jobs:
           fetch-depth: 0
           submodules: recursive
 
-      - name: 'Setup'
+      - name: "Setup"
         uses: ./.github/actions/setup
 
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+
       - name: Run tests
-        run: pnpm nx affected --target=test
+        run: pnpm nx e2e @evmts/e2e
         env:
           NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}

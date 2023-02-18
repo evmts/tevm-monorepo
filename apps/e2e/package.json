@@ -4,8 +4,12 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\""
+    "e2e": "playwright test",
+    "typecheck": "tsc --noEmit",
+    "lint": "rome check . --apply-suggested",
+    "lint:check": "rome check ."
   },
-  "dependencies": {},
-  "devDependencies": {}
+  "dependencies": {
+    "@playwright/test": "^1.30.0"
+  }
 }
