@@ -16,15 +16,6 @@
 [![CI](https://github.com/evmts/evmts-monorepo/actions/workflows/typecheck.yml/badge.svg)](https://github.com/evmts/evmts-monorepo/actions/workflows/typecheck.yml)
 [![CI](https://github.com/evmts/evmts-monorepo/actions/workflows/docker.yml/badge.svg)](https://github.com/evmts/evmts-monorepo/actions/workflows/docker.yml)
 [![CI](https://github.com/evmts/evmts-monorepo/actions/workflows/npm.yml/badge.svg)](https://github.com/evmts/evmts-monorepo/actions/workflows/npm.yml)
-<a href="https://twitter.com/fucory">
-<img alt="Twitter" src="https://img.shields.io/twitter/url.svg?label=%40fucory&style=social&url=https%3A%2F%2Ftwitter.com%2Ffucory" />
-</a>
-<a href="https://gitmoji.dev">
-<img
-    src="https://img.shields.io/badge/gitmoji-%20😜%20😍-FFDD67.svg?style=flat-square"
-    alt="Gitmoji"
-  />
-</a>
 <a href="https://www.npmjs.com/package/@evmts/core" target="\_parent">
 <img alt="" src="https://img.shields.io/npm/dm/@evmts/core.svg" />
 </a>

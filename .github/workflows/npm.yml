@@ -5,7 +5,7 @@ on:
     branches:
       - main
 
-name: NPM
+name: NPM Build
 
 jobs:
   build:
@@ -17,7 +17,7 @@ jobs:
           fetch-depth: 0
           submodules: recursive
 
-      - name: 'Setup'
+      - name: "Setup"
         uses: ./.github/actions/setup
 
       - name: Run build
