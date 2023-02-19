@@ -300,6 +300,7 @@ importers:
       '@evmts/core': workspace:^0.0.2
       '@evmts/plugin-webpack': workspace:^0.0.1
       '@next/font': 13.1.6
+      '@tanstack/react-query': ^4.24.6
       '@types/node': 18.14.0
       '@types/react': 18.0.28
       '@types/react-dom': 18.0.11
@@ -311,6 +312,7 @@ importers:
       '@evmts/core': link:../../packages/core
       '@evmts/plugin-webpack': link:../../packages/plugin-webpack
       '@next/font': 13.1.6
+      '@tanstack/react-query': 4.24.6_biqbaboplfbrettd7655fr4n2y
       '@types/node': 18.14.0
       '@types/react': 18.0.28
       '@types/react-dom': 18.0.11
@@ -434,11 +436,13 @@ importers:
       '@babel/helper-plugin-utils': ^7.20.2
       '@babel/parser': ^7.20.15
       '@babel/traverse': ^7.20.13
+      '@evmts/plugins': workspace:^0.0.1
       '@types/babel-core': ^6.25.7
       '@types/babel__core': ^7.20.0
       '@types/babel__helper-plugin-utils': ^7.10.0
       '@types/fs-extra': ^11.0.1
       '@vitest/ui': ^0.28.5
+      acorn: ^8.8.2
       core: link:@types/babel/core
       ethers: ^6.0.4
       execa: ^7.0.0
@@ -456,8 +460,10 @@ importers:
     dependencies:
       '@babel/helper-plugin-utils': 7.20.2
       '@babel/parser': 7.20.15
+      '@evmts/plugins': link:../plugins
       '@types/babel-core': 6.25.7
       '@types/fs-extra': 11.0.1
+      acorn: 8.8.2
       ethers: 6.0.4
       execa: 7.0.0
       fs-extra: 11.1.0
