@@ -1,7 +1,11 @@
 export const createModule = (contract: Record<string, any>) => {
-  return Object.entries(contract)
+  const out = Object.entries(contract)
     .map(([key, value]) => {
       return `export const ${key} = ${JSON.stringify(value)}`
     })
-    .join('/n')
+
+  out.push(`export default ${JSON.stringify(contract)}`)
+
+  return out
+    .join('\n')
 }
