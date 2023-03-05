@@ -27,15 +27,15 @@
     "deploy:optimism": "pnpm predeploy && forge script script/Deploy.s.sol:Deploy --rpc-url $OPTIMISM_RPC_URL --broadcast --verify -vvvv"
   },
   "devDependencies": {
-    "@wagmi/cli": "^0.1.6",
-    "concurrently": "^7.6.0",
+    "@wagmi/cli": "^0.1.15",
+    "concurrently": "^8.0.1",
     "ethers": "^5.7.1",
     "forge-std": "^1.1.2",
-    "solhint": "^3.3.8",
-    "tsup": "^6.6.0",
-    "typescript": "^4.9.5"
+    "solhint": "^3.4.1",
+    "tsup": "^6.7.0",
+    "typescript": "^5.0.4"
   },
   "dependencies": {
-    "wagmi": "~0.11.5"
+    "wagmi": "~0.12.10"
   }
 }

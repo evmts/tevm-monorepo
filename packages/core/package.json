@@ -44,8 +44,7 @@
     "@ethereumjs/util": "^8.0.3",
     "@ethereumjs/vm": "^6.3.0",
     "@ethersproject/abi": "^5.7.0",
-    "@types/babel-core": "^6.25.7",
-    "ethers": "^6.0.4"
+    "@types/babel-core": "^6.25.7"
   },
   "keywords": [
     "solidity",

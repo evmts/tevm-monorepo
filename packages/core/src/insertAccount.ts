@@ -7,6 +7,5 @@ export const insertAccount = async (vm: VM, address: Address) => {
 		balance: BigInt(10) ** BigInt(18), // 1 eth
 	};
 	const account = Account.fromAccountData(acctData);
-
 	await vm.stateManager.putAccount(address, account);
 };

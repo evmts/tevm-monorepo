@@ -36,8 +36,8 @@ evmts enables direct evm execution clientside with forge cheat codes and direct 
 - [@evmts/core](https://github.com/evmts/evmts-monorepo/tree/main/packages/core) is the core typescript library for evmts
 - [@evmts/contracts](https://github.com/evmts/evmts-monorepo/tree/main/packages/contracts) contains all contract code for evmts
 - [@evmts/plugin-vite](https://github.com/evmts/evmts-monorepo/tree/main/packages/plugin-vite) contains the vite plugin
+- [@evmts/plugin-internal](https://github.com/evmts/evmts-monorepo/tree/main/packages/plugin-internal) internal package for building plugins
 - [@evmts/plugin-rollup](https://github.com/evmts/evmts-monorepo/tree/main/packages/plugin-rollup) contains the rollup plugin
-- [@evmts/plugin-webpack](https://github.com/evmts/evmts-monorepo/tree/main/packages/plugin-webpack) contains the webpack plugin
 
 [apps](https://github.com/evmts/evmts-monorepo/tree/main/apps)
 

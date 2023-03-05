@@ -102,7 +102,7 @@ module.exports = {
 };
 ```
 
-#### Next.js / Create React App / Webpack installation
+#### Next.js / Create React App / Webpack installation (Coming soon)
 
 Install webpack plugin
 

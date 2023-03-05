@@ -1,5 +1,5 @@
 {
-  "name": "@evmts/plugin-rollup",
+  "name": "@evmts/plugin-internal",
   "description": "A rollup plugin for evmts",
   "version": "0.0.1",
   "main": "dist/index.js",
@@ -7,11 +7,11 @@
   "types": "src/index.ts",
   "type": "module",
   "license": "MIT",
-  "private": false,
+  "private": true,
   "repository": {
     "type": "git",
     "url": "https://github.com/evmts/evmts-monorepo.git",
-    "directory": "packages/plugin-rollup"
+    "directory": "packages/plugins"
   },
   "files": [
     "dist"
@@ -21,7 +21,6 @@
   },
   "scripts": {
     "typecheck": "tsc --noEmit",
-    "envSchema": "ts-node src/scripts/envSchema.ts",
     "build": "tsup",
     "//test": "vitest",
     "//test:ui": "vitest --ui",
@@ -29,18 +28,8 @@
     "lint": "rome check . --apply-suggested",
     "lint:check": "rome check ."
   },
-  "peerDependencies": {
-    "@babel/core": ">7.0.0"
-  },
   "devDependencies": {
-    "@babel/core": "^7.20.12",
-    "@babel/traverse": "^7.20.13",
-    "@types/babel__core": "^7.20.0",
-    "@types/babel__helper-plugin-utils": "^7.10.0",
     "@vitest/ui": "^0.28.5",
-    "core": "link:@types/babel/core",
-    "helper-plugin-utils": "link:@types/babel/helper-plugin-utils",
-    "traverse": "link:@types/babel/traverse",
     "tsup": "^6.6.3",
     "typescript": "^4.9.5",
     "vite": "^4.1.2",
@@ -48,23 +37,15 @@
     "zod": "^3.20.6"
   },
   "keywords": [
-    "babel",
     "plugin",
     "solidity",
     "sol",
     "evmts"
   ],
   "dependencies": {
-    "@babel/helper-plugin-utils": "^7.20.2",
-    "@babel/parser": "^7.20.15",
-    "@evmts/plugin-internal": "workspace:^0.0.1",
-    "@rollup/pluginutils": "^5.0.2",
-    "@types/babel-core": "^6.25.7",
-    "@types/fs-extra": "^11.0.1",
     "execa": "^7.0.0",
     "fs-extra": "^11.1.0",
     "globby": "^13.1.3",
-    "pathe": "^1.1.0",
-    "rollup": "^3.17.0"
+    "pathe": "^1.1.0"
   }
 }

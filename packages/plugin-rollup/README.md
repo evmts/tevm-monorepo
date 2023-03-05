@@ -97,7 +97,3 @@ For typesafety and autocompletion in your editor add [@evmts/ts-plugin](https://
 **Custom Ts plugins are for developer experience only**
 
 The typescript compiler does not use custom ts plugins at compile time only in your editor. You will get red squiggly lines telling you something is wrong but it will still compile.
-
-## Other plugins
-
-See [plugin-webpack](https://github.com/evmts/evmts-monorepo-monorepo/tree/main/packages/plugin-webpack) if using webpack
