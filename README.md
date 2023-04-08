@@ -14,7 +14,6 @@
 [![CI](https://github.com/evmts/evmts-monorepo/actions/workflows/unit.yml/badge.svg)](https://github.com/evmts/evmts-monorepo/actions/workflows/unit.yml)
 [![CI](https://github.com/evmts/evmts-monorepo/actions/workflows/lint.yml/badge.svg)](https://github.com/evmts/evmts-monorepo/actions/workflows/lint.yml)
 [![CI](https://github.com/evmts/evmts-monorepo/actions/workflows/typecheck.yml/badge.svg)](https://github.com/evmts/evmts-monorepo/actions/workflows/typecheck.yml)
-[![CI](https://github.com/evmts/evmts-monorepo/actions/workflows/docker.yml/badge.svg)](https://github.com/evmts/evmts-monorepo/actions/workflows/docker.yml)
 [![CI](https://github.com/evmts/evmts-monorepo/actions/workflows/npm.yml/badge.svg)](https://github.com/evmts/evmts-monorepo/actions/workflows/npm.yml)
 <a href="https://www.npmjs.com/package/@evmts/core" target="\_parent">
 <img alt="" src="https://img.shields.io/npm/dm/@evmts/core.svg" />
