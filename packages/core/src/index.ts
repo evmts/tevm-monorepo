@@ -1,11 +1,11 @@
 import { Address } from "@ethereumjs/util";
 import type { JsonFragment } from "@ethersproject/abi";
 import { defaultAbiCoder as AbiCoder, Interface } from "@ethersproject/abi";
-import { ethers } from "ethers";
 import { block } from "./block";
 import { createVm } from "./createVm";
 import { deployContract } from "./deployContract";
 import { insertAccount } from "./insertAccount";
+import { generatePrivateKey } from 'viem/accounts'
 
 type TODOInfer = any;
 
@@ -19,17 +19,17 @@ export const run = async (
 	const { abi, bytecode } = script;
 	const vm = await createVm();
 
-	const wallet = ethers.Wallet.createRandom();
+	const privateKey = generatePrivateKey()
 
 	const address = Address.fromPrivateKey(
-		Buffer.from(wallet.privateKey.slice(2), "hex"),
+		Buffer.from(privateKey.slice(2), "hex"),
 	);
 
 	await insertAccount(vm, address);
 
 	const contractAddress = await deployContract(
 		vm,
-		Buffer.from(wallet.privateKey.slice(2), "hex"),
+		Buffer.from(privateKey.slice(2), "hex"),
 		Buffer.from(bytecode.object.slice(2), "hex"),
 	);
 
