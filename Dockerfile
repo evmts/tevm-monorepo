@@ -81,7 +81,7 @@ RUN curl -L https://foundry.paradigm.xyz | bash && \
   forge --version && \
   anvil --version && \
   cast --version && \
-  npm i pnpm@7.26.2 --global
+  npm i pnpm@8.1.1 --global
 
 WORKDIR /monorepo
 
