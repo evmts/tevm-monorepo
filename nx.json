@@ -19,12 +19,11 @@
       "dependsOn": ["^build"]
     },
     "serve": {
-      "dependsOn": ["build"],
-      "outputs": ["{projectRoot}/dist"]
+      "dependsOn": ["build"]
     },
     "build": {
       "dependsOn": ["^build"],
-      "outputs": ["{projectRoot}/dist"]
+      "outputs": ["{projectRoot}/dist", "{projectRoot}/.vitepress"]
     },
     "dev": {
       "dependsOn": ["^build"]

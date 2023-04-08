@@ -27,7 +27,7 @@
 
 evmts enables direct evm execution clientside with forge cheat codes and direct solidity file imports.
 
-## Visit [Docs (under construction)](https://evmts-docs-fx6udvub5-evmts.vercel.app/en/getting-started) for docs, guides, API and more!
+## Visit [Docs](https://evmts-monorepo-docs.vercel.app/) for docs, guides, API and more!
 
 ## Packages and apps
 

@@ -135,18 +135,6 @@ COPY apps/playground/nginx.conf /etc/nginx/conf.d/default.conf
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
 
-# ██████╗░░█████╗░░█████╗░░██████╗
-# ██╔══██╗██╔══██╗██╔══██╗██╔════╝
-# ██║░░██║██║░░██║██║░░╚═╝╚█████╗░
-# ██║░░██║██║░░██║██║░░██╗░╚═══██╗
-# ██████╔╝╚█████╔╝╚█████╔╝██████╔╝
-# ╚═════╝░░╚════╝░░╚════╝░╚═════╝░
-FROM nginx:stable-alpine as docs-runner
-COPY --from=monorepo /monorepo/apps/playground/dist /usr/share/nginx/html
-COPY apps/playground/nginx.conf /etc/nginx/conf.d/default.conf
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
-
 # ░█████╗░░█████╗░███╗░░██╗████████╗██████╗░░█████╗░░█████╗░████████╗░██████╗
 # ██╔══██╗██╔══██╗████╗░██║╚══██╔══╝██╔══██╗██╔══██╗██╔══██╗╚══██╔══╝██╔════╝
 # ██║░░╚═╝██║░░██║██╔██╗██║░░░██║░░░██████╔╝███████║██║░░╚═╝░░░██║░░░╚█████╗░
