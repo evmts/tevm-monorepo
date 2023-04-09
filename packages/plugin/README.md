@@ -1,13 +1,13 @@
-# @evmts/plugin-rollup
+# @evmts/plugin
 
 A rollup plugin for importing solidity files.
 
-Currently @evmts/plugin-rollup only works in forge projects but work to make it support [all wagmi plugins](https://wagmi.sh/cli/plugins) is underway
+Currently @evmts/plugin only works in forge projects but work to make it support [all wagmi plugins](https://wagmi.sh/cli/plugins) is underway
 
 ## Instalation
 
 ```bash
-pnpm i @evmts/plugin-rollup
+pnpm i @evmts/plugin
 ```
 
 ## Vite usage
@@ -15,13 +15,13 @@ pnpm i @evmts/plugin-rollup
 Install rollup plugin
 
 ```bash
-npm i @evmts/plugin-rollup
+npm i @evmts/plugin
 ```
 
 Add to your vite config
 
 ```typescript
-import { evmtsPluginrollup } from '@evmts/plugin-rollup`
+import { evmtsPluginrollup } from '@evmts/plugin`
 import { defineConfig } from 'vite'
 
 export default defineConfig({
@@ -32,7 +32,7 @@ export default defineConfig({
 ## Rollup usage
 
 ```typescript
-const { evmtsPlugin } = require('@evmts/plugin-rollup');
+const { evmtsPlugin } = require('@evmts/plugin');
 
 module.exports = {
   ...

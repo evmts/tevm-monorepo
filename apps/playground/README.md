@@ -1,6 +1,6 @@
 # @evmts/playground (experimental)
 
-A vite based playground app built with @evmts/plugin-rollup and @evmts/core.
+A vite based playground app built with @evmts/plugin and @evmts/core.
 
 ## Getting started
 

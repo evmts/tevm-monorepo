@@ -1,5 +1,5 @@
 {
-  "name": "@evmts/plugin-rollup",
+  "name": "@evmts/plugin",
   "description": "A rollup plugin for evmts",
   "version": "0.0.1",
   "main": "dist/index.js",
@@ -11,7 +11,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/evmts/evmts-monorepo.git",
-    "directory": "packages/plugin-rollup"
+    "directory": "packages/plugin"
   },
   "files": [
     "dist"

@@ -1,4 +1,4 @@
-# @evmts/plugin-rollup
+# @evmts/plugin
 
 ## 0.0.1
 

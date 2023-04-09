@@ -77,13 +77,13 @@ Ts-sol keeps itself peformant with regard to peformance and bundle size while al
 Install rollup plugin
 
 ```bash
-npm i @evmts/plugin-rollup
+npm i @evmts/plugin
 ```
 
 If using vite add to your vite config
 
 ```typescript
-import tsSolPlugin from '@evmts/plugin-rollup`
+import tsSolPlugin from '@evmts/plugin`
 import { defineConfig } from 'vite'
 
 export default defineConfig({
@@ -301,7 +301,7 @@ contract Script {
 
 Currently in design
 
-## @evmts/plugin-rollup (POC 2)
+## @evmts/plugin (POC 2)
 
 Currently in design
 

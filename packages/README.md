@@ -8,6 +8,6 @@ Contract code for evmts
 
 Core ts library for evmts
 
-## plugin-rollup
+## plugin
 
 A rollup/vite plugin for evmts

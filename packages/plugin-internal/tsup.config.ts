@@ -1,7 +1,7 @@
 import { defineConfig } from "tsup";
 
 export default defineConfig({
-  name: "@evmts/plugin-rollup",
+  name: "@evmts/plugin",
   entry: ["src/index.ts"],
   outDir: "dist",
   format: ["esm"],

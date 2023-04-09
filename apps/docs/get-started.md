@@ -35,12 +35,14 @@ import { readContract } from "@evmts/core";
 const balance = await readContract(MyERC20.balanceOf, ["vitalik.eth"]);
 ```
 
+See [how-it-works](./how-plugin-works)
+
 ### Vite setup
 
 1. Install rollup plugin for use within vite
 
 ```bash
-npm i @evmts/plugin-rollup
+npm i @evmts/plugin
 ```
 
 2. Add to vite config
@@ -57,7 +59,7 @@ export default defineConfig({
 ### Rollup setup
 
 ```typescript
-const { evmtsPlugin } = require('@evmts/plugin-rollup');
+const { evmtsPlugin } = require('@evmts/plugin');
 
 module.exports = {
   ...
