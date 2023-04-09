@@ -2,153 +2,134 @@
 
 Welcome to EVMts documentation! You will learn
 
+::: info You will learn
+
 - How to install and setup the EVMts vite plugin
 - How to write your first forge script
 - How to write to blockchain
 - How to simulate execution and read events
+  :::
 
-## create-evmts-app
+## Try EVMts
 
-A fresh project using EVMts can be initiated with the create-evmts-app
+You don't need to install anything just to play with EVMts. Try editing this sandbox
 
-`npx create-evmts-app`
+[TODO](https://github.com/evmts/evmts-monorepo/issues/10)
 
-The starter app is built with react
+<iframe frameborder="0" width="100%" height="500" src="https://stackblitz.com/edit/github-dluehe-d7t42l?file=README.md"></iframe>
 
-## Add to existing project
+## Installation
 
-EVMts is modular
+### Install dependencies
 
-- The core library can be used with no build tool
-- The build tool can be used with other libraries such as [viem](./viem-usage) to create a similar developer experience
+`@evmts/core` will allow you to execute the EVM in your typescript code
 
-But for best developer experience it is recomended to use the build tool and the core library together.
+npm
+::: code-group
 
-## Install build tools
-
-Evmts abstracts away the concept of ABIs via it's vite plugin. After configuring the plugin you will be able to import solidity contracts directly into your typescript code
-
-```typescript
-import MyERC20 from "./MyERC20.sol";
-import { readContract } from "@evmts/core";
-
-const balance = await readContract(MyERC20.balanceOf, ["vitalik.eth"]);
+```npm
+npm i @evmts/core
 ```
 
-See [how-it-works](./how-plugin-works)
-
-### Vite setup
-
-1. Install rollup plugin for use within vite
-
-```bash
-npm i @evmts/plugin
+```pnpm
+pnpm i @evmts/core
 ```
 
-2. Add to vite config
+```yarn
+yarn add @evmts/core
+```
 
-```typescript
-import { vitePlugin } from '@evmts/plugin`
+:::
+
+### Install evmts build and ts plugin
+
+`@evmts/plugin` will allow you to directly import contracts in your typescript code.
+`@evmts/ts-plugin` will provide typescript type inference to your contracts
+
+::: code-group
+
+```npm
+npm i @evmts/plugin @evmts/ts-plugin
+```
+
+```pnpm
+pnpm i @evmts/plugin @evmts/ts-plugin
+```
+
+```yarn
+yarn add @evmts/plugin @evmts/ts-plugin
+```
+
+:::
+
+### Add evmts to your build config
+
+::: details Vite Setup
+
+Add rollup plugin to vite config
+
+```typescript{5}
+import { rollupPlugin } from '@evmts/plugin`
 import { defineConfig } from 'vite'
 
 export default defineConfig({
-  plugins: [vitePlugin()]
+  plugins: [rollupPlugin()]
 })
 ```
 
-### Rollup setup
+:::
 
-```typescript
-const { evmtsPlugin } = require('@evmts/plugin');
+::: details Rollup Setup
+
+```typescript{5}
+const { rollupPlugin } = require('@evmts/plugin');
 
 module.exports = {
   ...
-  plugins: [evmtsPlugin()]
+  plugins: [rollupPlugin()]
 };
 ```
 
-## Next.js usage
+:::
 
-Currently only vite and rollup have first class support but webpack support for Next.js or create react app is coming soon!
+::: details Next.js setup
+Coming soon
+:::
 
-## Syntax Highlighting
+## Create a contract
 
-VitePress provides Syntax Highlighting powered by [Shiki](https://github.com/shikijs/shiki), with additional features like line-highlighting:
+Now let's create a simple hello-world contract `src/HelloWorld.s.sol`.
 
-**Input**
+The `.s.sol` is a convention from [forge scripts](https://book.getfoundry.sh/reference/forge/forge-script). You can think of evmts scripts as being forge scripts you are executing in the browser.
 
-````
-```js{4}
-export default {
-  data () {
-    return {
-      msg: 'Highlighted!'
+```solidity
+pragma solidity 0.8.13;
+contract HelloWorld {
+    function run() public pure returns (string memory) {
+        return "Hello World";
     }
-  }
-}
-```
-````
-
-**Output**
-
-```js{4}
-export default {
-  data () {
-    return {
-      msg: 'Highlighted!'
-    }
-  }
 }
 ```
 
-## Custom Containers
+## Use contract in typescript code
 
-**Input**
+Now we can import our contract and execute it with `@evmts/core`
 
-```md
-::: info
-This is an info box.
-:::
+```typescript
+import { executeScript } from "@evmts/core";
+import { HelloWorld } from "./HelloWorld.s.sol";
 
-::: tip
-This is a tip.
-:::
-
-::: warning
-This is a warning.
-:::
-
-::: danger
-This is a dangerous warning.
-:::
-
-::: details
-This is a details block.
-:::
+executeScript(HelloWorld).then((greeting) => {
+  console.log(greeting);
+});
 ```
 
-**Output**
+## Next steps
 
-::: info
-This is an info box.
-:::
+### Configure EVMts with your forge project
 
-::: tip
-This is a tip.
-:::
+### Configure EVMts with your hardhat project
 
-::: warning
-This is a warning.
-:::
+### Learn how to use forge cheat codes in EVMts
 
-::: danger
-This is a dangerous warning.
-:::
-
-::: details
-This is a details block.
-:::
-
-## More
-
-Check out the documentation for the [full list of markdown extensions](https://vitepress.dev/guide/markdown).
+### Learn how you can contribute to EVMts
