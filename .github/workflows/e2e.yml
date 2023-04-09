@@ -1,4 +1,5 @@
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
@@ -25,7 +26,7 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Install Playwright Browsers
-        run: pnpm i && npx playwright install --with-deps
+        run: pnpm i -D -w playwright && npx playwright install --with-deps
 
       - name: Run tests
         run: pnpm nx e2e @evmts/e2e
