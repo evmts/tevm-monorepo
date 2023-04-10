@@ -8,7 +8,7 @@ export default defineConfig({
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: "Home", link: "/" },
-      { text: "API", link: "/api" },
+      { text: "API", link: "/reference/api" },
     ],
 
     sidebar: [
@@ -31,7 +31,7 @@ export default defineConfig({
         text: "reference",
         items: [
           { text: "Usage with viem contracts", link: "/reference/contract" },
-          { text: "execute", link: "/reference/contract" },
+          { text: "execute", link: "/reference/execute" },
           { text: "http-fork", link: "/reference/http-fork" },
           { text: "public-client", link: "/reference/public-client" },
           { text: "wallet-client", link: "/reference/wallet-client" },
