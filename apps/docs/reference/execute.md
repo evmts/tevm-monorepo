@@ -1,6 +1,6 @@
-# executeScript()
+# execute()
 
-Executes a script.
+Executes a script in the clientside vm
 
 - **Type**
 
@@ -13,18 +13,108 @@ function executeScript(
 
 - **Details**
 
-The first argument is a Script object. The second object has options. The options should be familiar if you are used to using forge scripts.
+`execute` executes scripts which are written in `.s.sol` files.
+
+These scripts are not sent to an RPC but instead are executed clientside in a fork of a network. This is analogous to executing [forge scripts](https://book.getfoundry.sh/reference/forge/forge-script) from your typescript code.
+
+If any transactions are broadcasted using the `startBroadcast` cheat code the results of all simulated broadcasts are returned with their event logs, gas estimations, and more information. `executionResult.broadcast()` can then be called to send the broadcast on chain.
 
 - **Example**
 
-```ts
-import { executeScript } from "@evmts/core";
-import { HelloWorld } from "./HelloWorld.s.sol";
+::: code-group
 
-executeScript(HelloWorld).then((scriptResult) => {
+```ts [example.ts]
+import { execute } from "@evmts/core";
+import { TransferAllScript } from "./TransferAllScript.s.sol";
+import { MyERC20 } from "./MyERC20.sol";
+import { walletClient } from "./walletClient";
+import { publicClient } from "./publicClient";
+
+const vitalikAddress = publicClient.getEnsAddress({name: normalize('vitalik.eth')})
+
+const simulatedExecution = execute({
+  script: TransferAllScript,
+  walletClient,
+  publicClient,
+  args: [vitalikAddress];
+}).then((scriptResult) => {
   console.log(scriptResult.value);
 });
+simulatedExecution.broadcast().then(res => {
+  console.log(res.txHash)
+})
 ```
+
+```solidity [TransferAllScript.s.sol]
+pragma solidity ^0.8.17;
+
+import {Script} from "forge-std/Script.sol";
+import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+
+contract TransferAllScript is Script {
+    function run(ERC20 contract, address recipient) external {
+        address signer = vm.envUint("EVMTS_SIGNER")
+
+        uint256 totalBalance = contract.balanceOf(signer)
+
+        vm.startBroadcast(signer);
+        contract.transferFrom(signer, recipient, totalBalance)
+        vm.stopBroadcast();
+    }
+}
+```
+
+```ts [walletClient.ts]
+import { readContract } from "@evmts/core";
+import { httpFork } from "@evmts/core";
+import { createWalletClient } from "viem";
+import { optimism } from "viem/chains";
+
+export const walletClient = createWalletClient({
+  chain: optimism,
+  transport: httpFork({
+    chain: optimism,
+    forkUrl: `https://mainnet.optimism.io`,
+    wallet: window.ethereum,
+  }),
+});
+```
+
+```ts [publicClient.ts]
+import { httpFork } from "@evmts/core";
+import { createPublicClient } from "viem";
+import { optimism } from "viem/chains";
+
+export const publicClient = createPublicClient({
+  chain: optimism,
+  transport: httpFork({
+    chain: optimism,
+    forkUrl: `https://mainnet.optimism.io`,
+  }),
+});
+```
+
+```ts [vite.config.ts]
+const { rollupPlugin, foundry } = require("@evmts/plugin");
+
+module.exports = {
+  plugins: [
+    rollupPlugin({
+      plugins: [
+        foundry({
+          deployments: {
+            MyERC20: {
+              10: "0x112234455c3a32fd11230c42e7bccd4a84e02010",
+            },
+          },
+        }),
+      ],
+    }),
+  ],
+};
+```
+
+:::
 
 - **Live example**
 
@@ -40,13 +130,12 @@ TODO stackblitz
 type ScriptOptions = {
   args?: ArgsTuple;
   broadcast?: boolean = false;
-  chain?: ViemChain;
   contractAddress?: Address;
-  forkBlockNumber?: number;
-  forkUrl?: string;
   functionName?: string = "run";
+  publicClient?: viem.PublicClient;
+  script: Contract;
   sender?: Address;
-  walletClient?: ViemWalletClient;
+  walletClient?: viem.WalletClient;
 };
 ```
 
@@ -79,40 +168,6 @@ executeScript(
   console.log(balance);
 });
 ```
-
-### broadcast
-
-- **Type:** `Boolean`
-
-Whether to broadcast any transactions. Defaults to `false`
-
-- **See also:** [Broadcasting transactions](/guide/broadcasting-transactions)
-
-### chain
-
-- **Type:** `ViemChain`
-
-The chain object.
-
-- **Example**
-
-```ts
-import { executeScript } from "@evmts/core";
-import { optimism } from "viem/chains"; // [!code  focus]
-import { MyScript } from "./MyScript.s.sol";
-
-executeScript(MyScript, {
-  chain: optimism, // [!code focus]
-}).then((scriptResult) => {
-  console.log(scriptResult.value);
-});
-```
-
-### forkBlockNumber
-
-- **Type:** `number`
-
-Fetch state from a specific block number over the remote endpoint specified by forkUrl
 
 ### forkUrl
 

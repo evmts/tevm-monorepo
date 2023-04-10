@@ -1,3 +1,0 @@
-# Broadcasting transactions
-
-TODO

@@ -27,15 +27,15 @@ You don't need to install anything just to play with EVMts. Try editing this san
 npm
 ::: code-group
 
-```npm
+```bash [npm]
 npm i @evmts/core viem
 ```
 
-```pnpm
+```bash [pnpm]
 pnpm i @evmts/core viem
 ```
 
-```yarn
+```bash [yarn]
 yarn add @evmts/core viem
 ```
 
@@ -48,15 +48,15 @@ yarn add @evmts/core viem
 
 ::: code-group
 
-```npm
+```bash [npm]
 npm i @evmts/plugin @evmts/ts-plugin
 ```
 
-```pnpm
+```bash [pnpm]
 pnpm i @evmts/plugin @evmts/ts-plugin
 ```
 
-```yarn
+```bash [yarn]
 yarn add @evmts/plugin @evmts/ts-plugin
 ```
 

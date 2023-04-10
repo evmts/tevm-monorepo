@@ -1,3 +1,0 @@
-# prepareWriteScript()
-
-TODO
