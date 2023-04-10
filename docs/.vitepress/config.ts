@@ -15,26 +15,26 @@ export default defineConfig({
       {
         text: "Introduction",
         items: [
-          { text: "home", link: "/" },
-          { text: "get started", link: "/get-started" },
-          { text: "api reference", link: "/reference/api" },
+          { text: "Home", link: "/" },
+          { text: "Get started", link: "/get-started" },
+          { text: "Api reference", link: "/reference/api" },
         ],
       },
       {
         text: "Guides",
         items: [
-          { text: "cheat codes", link: "/guide/cheat-codes" },
-          { text: "scripting", link: "/guides/scripting" },
+          { text: "Cheat codes", link: "/guide/cheat-codes" },
+          { text: "Scripting", link: "/guides/scripting" },
         ],
       },
       {
         text: "Reference",
         items: [
-          { text: "usage with viem contracts", link: "/reference/contract" },
-          { text: "execute", link: "/reference/execute" },
-          { text: "http-fork", link: "/reference/http-fork" },
-          { text: "public-client", link: "/reference/public-client" },
-          { text: "wallet-client", link: "/reference/wallet-client" },
+          { text: "Usage with viem", link: "/reference/contract" },
+          { text: "Execute scripts", link: "/reference/execute" },
+          { text: "Create fork", link: "/reference/http-fork" },
+          { text: "Public client", link: "/reference/public-client" },
+          { text: "Wallet client", link: "/reference/wallet-client" },
         ],
       },
     ],

@@ -4,7 +4,7 @@ layout: home
 
 hero:
   name: "EVMts"
-  text: "Solidity+Typescript"
+  text: "Solidity+TypeScript"
   tagline: Execute solidity in browser
   actions:
     - theme: brand
@@ -20,5 +20,5 @@ features:
   - title: Execute solidity clientside
     details: Do blazingly fast gas estimation and simulate execution clientside
   - title: Access to forge cheat codes
-    details: API equivelence with forge for low switching cost and maximum code reuse
+    details: The full power of forge scripts now in your web apps
 ---
