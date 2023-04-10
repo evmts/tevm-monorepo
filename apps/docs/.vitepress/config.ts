@@ -15,22 +15,22 @@ export default defineConfig({
       {
         text: "Introduction",
         items: [
-          { text: "Home", link: "/" },
-          { text: "Get started", link: "/get-started" },
-          { text: "Api reference", link: "/reference/api" },
+          { text: "home", link: "/" },
+          { text: "get started", link: "/get-started" },
+          { text: "api reference", link: "/reference/api" },
         ],
       },
       {
         text: "Guides",
         items: [
-          { text: "Cheat codes", link: "/guide/cheat-codes" },
-          { text: "Scripting", link: "/guides/scripting" },
+          { text: "cheat codes", link: "/guide/cheat-codes" },
+          { text: "scripting", link: "/guides/scripting" },
         ],
       },
       {
-        text: "reference",
+        text: "Reference",
         items: [
-          { text: "Usage with viem contracts", link: "/reference/contract" },
+          { text: "usage with viem contracts", link: "/reference/contract" },
           { text: "execute", link: "/reference/execute" },
           { text: "http-fork", link: "/reference/http-fork" },
           { text: "public-client", link: "/reference/public-client" },
