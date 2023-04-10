@@ -33,7 +33,9 @@ RUN apk add coreutils
 WORKDIR /tmp
 COPY tsconfig.json .gitmodules pnpm-workspace.yaml pnpm-lock.yaml .nvmrc package.json ./src/
 COPY packages src/packages/
-COPY apps src/apps/
+COPY playground src/playground/
+COPY docs src/docs/
+COPY e2e src/e2e/
 RUN mkdir manifests && \
   cd src && \
   # copy package.json recursively
@@ -130,10 +132,23 @@ CMD ["pnpm", "nx", "run-many", "--targets=test,lint,typecheck", "--all", "--para
 # it only supports very specific node.js versions (well) for the most part
 # and it's even more difficult to get playwright or puppeteer to work on it.
 FROM nginx:stable-alpine as playground-runner
-COPY --from=monorepo /monorepo/apps/playground/dist /usr/share/nginx/html
-COPY apps/playground/nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=monorepo /monorepo/playground/dist /usr/share/nginx/html
+COPY playground/nginx.conf /etc/nginx/conf.d/default.conf
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
+
+# ██████╗░░█████╗░░█████╗░░██████╗
+# ██╔══██╗██╔══██╗██╔══██╗██╔════╝
+# ██║░░██║██║░░██║██║░░╚═╝╚█████╗░
+# ██║░░██║██║░░██║██║░░██╗░╚═══██╗
+# ██████╔╝╚█████╔╝╚█████╔╝██████╔╝
+# ╚═════╝░░╚════╝░░╚════╝░╚═════╝░
+FROM nginx:stable-alpine as docs-runner
+COPY --from=monorepo /monorepo/docs/.vitepress/dist /usr/share/nginx/html
+COPY docs/nginx.conf /etc/nginx/conf.d/default.conf
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
+
 
 # ░█████╗░░█████╗░███╗░░██╗████████╗██████╗░░█████╗░░█████╗░████████╗░██████╗
 # ██╔══██╗██╔══██╗████╗░██║╚══██╔══╝██╔══██╗██╔══██╗██╔══██╗╚══██╔══╝██╔════╝
