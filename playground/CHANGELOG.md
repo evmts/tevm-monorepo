@@ -1,5 +1,13 @@
 # @evmts/playground
 
+## 0.0.3
+
+### Patch Changes
+
+- Updated dependencies [801928c]
+  - @evmts/core@0.0.3
+  - @evmts/plugin@0.0.2
+
 ## 0.0.2
 
 ### Patch Changes
