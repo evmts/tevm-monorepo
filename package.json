@@ -21,7 +21,9 @@
     "lint": "nx run-many --target=lint",
     "lint:check": "nx run-many --target=lint:check",
     "release": "pnpm publish -r --access=public",
-    "release:dry": "pnpm publish -r --access=public --dry-run"
+    "release:dry": "pnpm publish -r --access=public --dry-run",
+    "changeset:release": "pnpm build && changeset publish",
+    "changeset:version": "changeset version && pnpm install --lockfile-only"
   },
   "license": "MIT",
   "packageManager": "pnpm@7.18.2",
