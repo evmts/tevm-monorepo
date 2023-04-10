@@ -17,7 +17,7 @@ export default defineConfig({
         items: [
           { text: "Home", link: "/" },
           { text: "Get started", link: "/get-started" },
-          { text: "Api reference", link: "/api" },
+          { text: "Api reference", link: "/reference/api" },
         ],
       },
       {
