@@ -14,20 +14,18 @@ services:
     healthcheck:
       test: wget localhost:80 -q -O - > /dev/null 2>&1
 
-# vitepress docs not implemented yet
-# currently deployed with vercel
-#  docs:
-#    environment:
-#      - HOST=0.0.0.0
-#      - PORT=3000
-#      - NX_CLOUD_ACCESS_TOKEN=${NX_CLOUD_ACCESS_TOKEN}
-#    build:
-#      context: .
-#      target: docs-runner
-#    ports:
-#      - 3000:80
-#    healthcheck:
-#      test: wget localhost:80 -q -O - > /dev/null 2>&1
+docs:
+  environment:
+    - HOST=0.0.0.0
+    - PORT=3000
+    - NX_CLOUD_ACCESS_TOKEN=${NX_CLOUD_ACCESS_TOKEN}
+  build:
+    context: .
+    target: docs-runner
+  ports:
+    - 3000:80
+  healthcheck:
+    test: wget localhost:80 -q -O - > /dev/null 2>&1
 
   anvil:
     image: ghcr.io/foundry-rs/foundry
@@ -57,7 +55,7 @@ services:
       - BASE_URL=http://playground:3000
       - NX_CLOUD_ACCESS_TOKEN=${NX_CLOUD_ACCESS_TOKEN}
     build:
-      target: e2e
+      target: e2e-runner
       context: .
     depends_on:
       contracts-deployer:

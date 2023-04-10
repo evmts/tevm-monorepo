@@ -172,3 +172,38 @@ RUN forge install && \
 
 ENTRYPOINT ["forge", "script", "packages/contracts/script/Deploy.s.sol:Deploy"]
 CMD [ "--rpc-url", "http://anvil:8545" ]
+
+# ███████╗██████╗░███████╗
+# ██╔════╝╚════██╗██╔════╝
+# █████╗░░░░███╔═╝█████╗░░
+# ██╔══╝░░██╔══╝░░██╔══╝░░
+# ███████╗███████╗███████╗
+# ╚══════╝╚══════╝╚══════╝
+FROM mcr.microsoft.com/playwright:v1.29.0-focal as e2e-runner
+
+WORKDIR /monorepo
+
+# Copy manifest files into the image in
+# preparation for `yarn install`.
+COPY --from=manifests --chown=node:node /tmp/manifests  ./
+
+RUN rm -rf packages && \
+  rm -rf docs && \
+  rm -rf playground
+
+# install e2e deps
+RUN pnpm i
+
+# set NODE_ENV after installing so dev deps get installed
+ENV NODE_ENV=production
+
+# Copy e2e source
+COPY e2e ./e2e
+
+# Make sure browser binaries are installed
+RUN pnpm i -D -w playwright && npx playwright install --with-deps
+
+COPY nx.json ./nx.json
+
+# Run tests
+CMD [ "pnpm", "nx", "e2e", "@evmts/e2e" ]
