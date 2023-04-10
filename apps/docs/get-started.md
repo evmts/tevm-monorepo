@@ -20,23 +20,23 @@ You don't need to install anything just to play with EVMts. Try editing this san
 
 ## Installation
 
-### Install dependencies
+### Install dependencies and peer dependencies.
 
-`@evmts/core` will allow you to execute the EVM in your typescript code
+`@evmts/core` will allow you to execute the EVM in your typescript code. You will also need [viem](https://viem.sh/docs/clients/public.html)
 
 npm
 ::: code-group
 
 ```npm
-npm i @evmts/core
+npm i @evmts/core viem
 ```
 
 ```pnpm
-pnpm i @evmts/core
+pnpm i @evmts/core viem
 ```
 
 ```yarn
-yarn add @evmts/core
+yarn add @evmts/core viem
 ```
 
 :::
