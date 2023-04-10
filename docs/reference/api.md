@@ -10,13 +10,12 @@ For the most part there is one key method in `@evmts/core` and that is [execute(
 
 ## Reference
 
+### Setting up clients
+
+- [public-client](./public-client.md)
+- [wallet-client](./public-client.md)
+
 ### Core library
 
 - [execute](./execute.md)
 - [http-fork](./http-fork.md)
-
-### Usage with viem
-
-- [viem contract isntances](./contract.md)
-- [public-client](./public-client.md)
-- [wallet-client](./public-client.md)
