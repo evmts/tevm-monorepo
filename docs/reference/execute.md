@@ -36,10 +36,8 @@ const simulatedExecution = execute({
   script: TransferAllScript,
   walletClient,
   publicClient,
-  args: [vitalikAddress];
-}).then((scriptResult) => {
-  console.log(scriptResult.value);
-});
+  args: [MyERC20, vitalikAddress];
+})
 simulatedExecution.broadcast().then(res => {
   console.log(res.txHash)
 })

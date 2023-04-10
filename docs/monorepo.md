@@ -119,4 +119,4 @@ All ci/cd workflows are in the [github workflows folder](https://github.com/evmt
 
 ## License
 
-[MIT](LICENSE) © 2023 evmts
+[MIT](https://github.com/evmts/evmts-monorepo/blob/main/LICENSE) © 2023 evmts
