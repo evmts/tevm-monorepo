@@ -294,10 +294,10 @@ importers:
         specifier: ^7.20.12
         version: 7.20.12
       '@evmts/core':
-        specifier: workspace:^0.0.2
+        specifier: workspace:^0.0.3
         version: link:../packages/core
       '@evmts/plugin':
-        specifier: workspace:^0.0.1
+        specifier: workspace:^0.0.2
         version: link:../packages/plugin
       '@tanstack/query-core':
         specifier: ^4.24.6
