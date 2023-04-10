@@ -12,7 +12,7 @@ hero:
       link: /get-started
     - theme: alt
       text: API reference
-      link: /api
+      link: reference/api
 
 features:
   - title: Directly import solidity
