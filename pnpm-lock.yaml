@@ -294,7 +294,7 @@ importers:
         specifier: ^7.20.12
         version: 7.20.12
       '@evmts/core':
-        specifier: workspace:^0.0.2
+        specifier: workspace:^0.0.3
         version: link:../packages/core
       '@evmts/plugin':
         specifier: workspace:^0.0.1
