@@ -1,12 +1,12 @@
-# EVMts Contracts
+# ethers.js usage
 
-EVMts can be used to create [viem contract instances](https://viem.sh/docs/contract/getContract.html)
+EVMts is built on top of viem and provides first-class viem support
 
-- **Details**
+::: info You will learn
 
-To read from a live deployed contract use [getContract](https://viem.sh/docs/contract/getContract.html) from `viem` to create a viem contract instance. Evmts is only for running forge-style scripts but it's build tool provides a handy way of using viem contracts.
-
-Instead of needing to import the ABI and contract addresses manually, simply [configure deployments](../plugin-reference/forge.md) for your contracts and then use some of the evmts contract properties to initialize your contract.
+- How to create a viem contract
+- TODO
+  :::
 
 - **Example**
 

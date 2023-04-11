@@ -45,6 +45,10 @@ The typescript can then go ahead and use the artifacts however it pleases includ
 
 @evmts/core as a standard has an API where you pass around the entire contract address so the developer never needs to think about the abi or bytecode and both melt away as a implementation detail of the library.
 
+## Details
+
+## There are 4 core concepts to understand
+
 ## Plugin configuration
 
 Under the hood evmts is using a lightly modified version of the [wagmi cli](https://wagmi.sh/cli/getting-started). It works with many projects with no additional configuration but can be custom configured via the [foundry plugin](https://wagmi.sh/cli/plugins/foundry) and the [hardhat plugin](https://wagmi.sh/cli/plugins/hardhat).
