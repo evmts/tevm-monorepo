@@ -11,8 +11,6 @@
   Execute solidity scripts in browser 🏗️🚧
 <p>
 
-_EVMts is a work in progress_
-
 [![CI](https://github.com/evmts/evmts-monorepo/actions/workflows/e2e.yml/badge.svg)](https://github.com/evmts/evmts-monorepo/actions/workflows/e2e.yml)
 [![CI](https://github.com/evmts/evmts-monorepo/actions/workflows/unit.yml/badge.svg)](https://github.com/evmts/evmts-monorepo/actions/workflows/unit.yml)
 <a href="https://www.npmjs.com/package/@evmts/core">
@@ -26,6 +24,8 @@ _EVMts is a work in progress_
 </a><a href="#badge">
 
 # evmts-monorepo
+
+_EVMts is a work in progress_
 
 EVMts enables direct evm execution clientside with forge cheat codes and direct solidity file imports.
 
