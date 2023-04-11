@@ -47,7 +47,7 @@ EVMts enables direct evm execution clientside with forge cheat codes and direct 
 
 ## 🏗️ Getting started
 
-See [docs/evmts](/docs/get-started.md) for installation and and more detailed usage documentation.
+See [docs/evmts](/docs/introduction/get-started.md) for installation and and more detailed usage documentation.
 
 See [docs/monorepo](/docs/monorepo.md) for documentation on how to execute the monorepo with nx
 

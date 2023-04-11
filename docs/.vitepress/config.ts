@@ -14,11 +14,14 @@ export default defineConfig({
     sidebar: [
       {
         text: "Introduction",
-        link: "/get-started",
+        link: "/introduction/intro",
         items: [
           { text: "Home", link: "/" },
-          { text: "Get started", link: "/get-started" },
-          { text: "Api reference", link: "/reference/api" },
+          { text: "Why EVMts", link: "/introduction/intro" },
+          { text: "Get started", link: "/introduction/get-started" },
+          { text: "Installation", link: "/introduction/installation" },
+          { text: "Plugin configuration", link: "/introduction/plugin-configuration" },
+          { text: "Hello world", link: "/introduction/hello-world" },
         ],
       },
       {
