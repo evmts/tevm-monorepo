@@ -8,8 +8,10 @@
 </p>
 
 <p align="center">
-  Execute solidity scripts in browser
+  Execute solidity scripts in browser 🏗️🚧
 <p>
+
+_EVMts is a work in progress_
 
 [![CI](https://github.com/evmts/evmts-monorepo/actions/workflows/e2e.yml/badge.svg)](https://github.com/evmts/evmts-monorepo/actions/workflows/e2e.yml)
 [![CI](https://github.com/evmts/evmts-monorepo/actions/workflows/unit.yml/badge.svg)](https://github.com/evmts/evmts-monorepo/actions/workflows/unit.yml)
