@@ -27,11 +27,11 @@
 
 EVMts enables direct evm execution clientside with forge cheat codes and direct solidity file imports.
 
-## Visit [Docs](https://evmts-monorepo-docs.vercel.app/) for docs, guides, API and more!
+## 📄 Visit [Docs](https://evmts-monorepo-docs.vercel.app/) for docs, guides, API and more!
 
-## See [EVMts Beta project board](https://github.com/orgs/evmts/projects/1) for progress on the upcoming beta release!
+## 💥 See [EVMts Beta project board](https://github.com/orgs/evmts/projects/1) for progress on the upcoming beta release!
 
-## Packages and apps
+## 📦 Packages and apps
 
 [packages](/packages)
 
@@ -43,7 +43,7 @@ EVMts enables direct evm execution clientside with forge cheat codes and direct 
 - [@evmts/e2e](/e2e) contains e2e tests that run against all example apps
 - [@evmts/docs](/docs) contains the docs astro app
 
-## Getting started
+## 🏗️ Getting started
 
 See [docs/evmts](/docs/get-started.md) for installation and and more detailed usage documentation.
 
@@ -51,7 +51,7 @@ See [docs/monorepo](/docs/monorepo.md) for documentation on how to execute the m
 
 See [docs/contributing](/docs/contributing.md) for documentation on how to contribute to evmts. No contribution is too small
 
-## Basic usage
+## ✨ Basic usage
 
 1. Write a [solidity script](/docs/guide/scripting.md). These work just like [forge scripts](https://book.getfoundry.sh/reference/forge/forge-script)
 
@@ -91,15 +91,15 @@ execute({
 }).broadcast().then(({txHash}) => console.log(txHash))
 ```
 
-## Author
+## ✍️ Author
 
 - Will Cory ([@fucory](https://twitter.com/fucory))
 
-## Security
+## 🔒 Security
 
 If you believe you have found a security vulnerability we encourage you to responsibly disclose this and not open a public issue. We will investigate all legitimate reports. Email `will@oplabs.co` to disclose any security vulnerabilities.
 
-## Contributing
+## 💻 Contributing
 
 Please see our [contributing.md](/docs/contributing.md).
 
@@ -111,7 +111,7 @@ Looking to get started building a production-ready dapp? Check out [viem](https:
 
 Interested in the OP stack? Check out op stack blog here: https://optimism.mirror.xyz/fLk5UGjZDiXFuvQh6R_HscMQuuY9ABYNF7PI76-qJYs
 
-## Check out these tools
+## 🔧 Check out these tools
 
 Enjoy this tool? Check out these other awesome tools [Foundry](https://github.com/foundry-rs/foundry/tree/master/forge), [viem](https://viem.sh), [abitype](https://abitype.dev/), [ethereumjs-monorepo](https://github.com/ethereumjs/ethereumjs-monorepo), [wagmi](https://wagmi.sh/react/comparison), [Verifiable rpc](https://github.com/liamzebedee/eth-verifiable-rpc), [Optimism (I work here)](https://github.com/ethereum-optimism/optimism), [helios](https://github.com/a16z/helios)
 
