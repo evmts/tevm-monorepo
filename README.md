@@ -114,3 +114,7 @@ Interested in the OP stack? Check out op stack blog here: https://optimism.mirro
 ## Check out these tools
 
 Enjoy this tool? Check out these other awesome tools [Foundry](https://github.com/foundry-rs/foundry/tree/master/forge), [viem](https://viem.sh), [abitype](https://abitype.dev/), [ethereumjs-monorepo](https://github.com/ethereumjs/ethereumjs-monorepo), [wagmi](https://wagmi.sh/react/comparison), [Verifiable rpc](https://github.com/liamzebedee/eth-verifiable-rpc), [Optimism (I work here)](https://github.com/ethereum-optimism/optimism), [helios](https://github.com/a16z/helios)
+
+## 📄 License
+
+<img src="https://user-images.githubusercontent.com/35039927/231030761-66f5ce58-a4e9-4695-b1fe-255b1bceac92.png" width="200" />
