@@ -7,7 +7,7 @@
 Add rollup plugin to vite config
 
 ```typescript{5}
-import { rollupPlugin } from '@evmts/plugin`
+import { rollupPlugin } from '@evmts/plugins`
 import { defineConfig } from 'vite'
 
 export default defineConfig({
@@ -20,7 +20,7 @@ export default defineConfig({
 ::: details Rollup Setup
 
 ```typescript{5}
-const { rollupPlugin } = require('@evmts/plugin');
+const { rollupPlugin } = require('@evmts/plugins');
 
 module.exports = {
   ...

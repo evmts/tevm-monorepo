@@ -1,6 +1,6 @@
 ## Installation
 
-### Install dependencies and peer dependencies.
+### Install `@evmts/core` and peer dependencies.
 
 `@evmts/core` will allow you to execute the EVM in your typescript code. You will also need [viem](https://viem.sh/docs/clients/public.html)
 
@@ -21,23 +21,22 @@ yarn add @evmts/core viem
 
 :::
 
-### Install evmts build and ts plugin
+### Install `@evmts/plugins`
 
-`@evmts/plugin` will allow you to directly import contracts in your typescript code.
-`@evmts/ts-plugin` will provide typescript type inference to your contracts
+`@evmts/plugins` will allow you to directly import contracts in your typescript code with full typesafety
 
 ::: code-group
 
 ```bash [npm]
-npm i @evmts/plugin @evmts/ts-plugin
+npm i @evmts/plugins
 ```
 
 ```bash [pnpm]
-pnpm i @evmts/plugin @evmts/ts-plugin
+pnpm i @evmts/plugins
 ```
 
 ```bash [yarn]
-yarn add @evmts/plugin @evmts/ts-plugin
+yarn add @evmts/plugins
 ```
 
 :::

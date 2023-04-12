@@ -15,15 +15,34 @@ contract HelloWorld {
 }
 ```
 
-## Use contract in typescript code
+## Create an EVMts client
 
-Now we can import our contract and execute it with `@evmts/core`
+The EVMts client is build on top of [viem](https://viem.sh/docs/clients/intro.html) clients and are used to execute the EVM
 
 ```typescript
-import { executeScript } from "@evmts/core";
+import { httpFork, createPublicClient, optimism } from "@evmts/core";
+
+export const client = createPublicClient({
+  chain: optimism,
+  transport: httpFork({
+    forkUrl: `https://mainnet.optimism.io`,
+  }),
+});
+```
+
+## Now execute the HelloWorld.s.sol script
+
+Simply import the client and the `.s.sol` script to execute clientside
+
+```typescript
+import { client } from "./evmtsClient";
 import { HelloWorld } from "./HelloWorld.s.sol";
 
-executeScript(HelloWorld).then((greeting) => {
-  console.log(greeting);
-});
+client
+  .query({
+    script: HelloWorld,
+  })
+  .then((greeting) => {
+    console.log(greeting);
+  });
 ```

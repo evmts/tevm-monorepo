@@ -4,9 +4,14 @@ EVMts is a new way of building evm based frontends so in this guide we will prov
 
 ::: info You will learn
 
+- how to name your files
 - why you should avoid referencing properties on the contract directly
 - TODO
   :::
+
+## File naming
+
+By convention contracts that are deployed to a live network should be suffixed `.sol` while scripts that are only executed locally are suffixed `.s.sol`. In future versions EVMts may throw if it detects those files are not following this convention.
 
 ## Avoid referencing contract properties directly
 

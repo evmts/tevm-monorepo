@@ -1,5 +1,7 @@
 # execute()
 
+**Warning** this API has since changed radically. TODO update to the new client.query client.mutate api
+
 Executes a script in the clientside vm
 
 - **Type**
@@ -93,7 +95,7 @@ export const publicClient = createPublicClient({
 ```
 
 ```ts [vite.config.ts]
-const { rollupPlugin, foundry } = require("@evmts/plugin");
+const { rollupPlugin, foundry } = require("@evmts/plugins");
 
 module.exports = {
   plugins: [

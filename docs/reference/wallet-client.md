@@ -11,15 +11,12 @@ A [viem wallet client](https://viem.sh/docs/clients/wallet.html) is used write t
 - **Example**
 
 ```ts
-import { readContract } from "@evmts/core";
-import { httpFork } from "@evmts/core";
-import { createWalletClient } from "viem";
+import { createWalletClient, httpFork } from "@evmts/core";
 import { optimism } from "viem/chains";
 
 export const client = createWalletClient({
   chain: optimism,
   transport: httpFork({
-    chain: optimism,
     forkUrl: `https://mainnet.optimism.io`,
     wallet: window.ethereum,
   }),

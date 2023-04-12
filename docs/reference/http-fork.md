@@ -22,10 +22,9 @@ import { optimism } from "viem/chains";
 
 export const client = createWalletClient({
   chain: optimism,
-  transport: httpFork({ // [!code focus]
-    chain: optimism, // [!code focus]
+  transport: httpFork({
     forkUrl: `https://mainnet.optimism.io`, // [!code focus]
     wallet: window.ethereum, // [!code focus]
-  }), // [!code focus]
+  }),
 });
 ```
