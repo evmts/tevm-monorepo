@@ -11,14 +11,11 @@ A [viem public client](https://viem.sh/docs/clients/public.html) is used read fr
 - **Example**
 
 ```ts
-import { httpFork } from "@evmts/core";
-import { createPublicClient } from "viem";
-import { optimism } from "viem/chains";
+import { httpFork, createPublicClient, optimism } from "@evmts/core";
 
 export const client = createPublicClient({
   chain: optimism,
   transport: httpFork({
-    chain: optimism,
     forkUrl: `https://mainnet.optimism.io`,
   }),
 });

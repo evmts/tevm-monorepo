@@ -15,10 +15,10 @@ hero:
       link: reference/api
 
 features:
-  - title: Directly import solidity
+  - title: Local execution for optimized user experience
+    details: Execute the EVM in the browser for blazingly fast gas estimation and transaction simulation
+  - title: Streamlined developer experience
     details: Import solidity files directly into TS.   No more juggling abis
-  - title: Execute solidity clientside
-    details: Do blazingly fast gas estimation and simulate execution clientside
   - title: Access to forge cheat codes
-    details: The full power of forge scripts now in your web apps
+    details: Use the same forge cheat codes you know and love int he browser
 ---
