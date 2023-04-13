@@ -4,9 +4,9 @@ outline: deep
 
 # API Reference
 
-EVMts is a pretty light wrapper around [forge scripts](https://book.getfoundry.sh/reference/forge/forge-script) and [viem](https://viem.sh/). It's simplicity combined with the power of forge scripts is what makes it so powerful.
+EVMts is a pretty light wrapper around [forge scripts](https://book.getfoundry.sh/reference/forge/forge-script) and [viem](https://viem.sh/). EVMts stays as close to both of these tools as possible in it's API design.
 
-For the most part there is one key method in `@evmts/core` and that is [execute()](./execute.md)
+Anyone already familiar with Foundry and Viem can head over to the [online demo](https://todo.stackblitz.lol)
 
 ## Reference
 

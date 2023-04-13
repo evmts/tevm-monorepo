@@ -2,10 +2,6 @@
 
 Welcome to the EVMts docs!
 
-::: tip
-The stackblitz demo at the bottom of this page is the quickest way to get introduced to EVMts
-:::
-
 ## Overview
 
 EVMts brings the developer experience of Forge scripts to the browser.
@@ -14,7 +10,11 @@ EVMts brings the developer experience of Forge scripts to the browser.
 - _Solidity imports in JavaScript_ ABIs melt away with the ability to import contracts directly
 - _Powerful but simple_ api for interacting with the EVM including the [forge cheat codes](https://book.getfoundry.sh/forge/cheatcodes)
 
-## How to use EVMts
+::: tip
+Just want to try it out? Skip to the [live demo](https://stackblitz.com/edit/github-dluehe-d7t42l)
+:::
+
+## EVMts is simple
 
 ### 1. First write a script in solidity
 
@@ -38,19 +38,12 @@ contract TransferOneToken is Script {
 }
 ```
 
-### 2. Now create a client and execute it
+### 2. Now execute the solidity script
 
 ```ts [example.ts]
 // import solidity directly in your typescript files
 import { TransferAllScript } from "./TransferAllScript.s.sol";
-import { httpFork, createPublicClient, optimism } from "@evmts/core";
-
-export const client = createPublicClient({
-  chain: optimism,
-  transport: httpFork({
-    forkUrl: `https://mainnet.optimism.io`,
-  }),
-});
+import { client } from "./client";
 
 client.mutate({
   script: TransferAllScript,
@@ -64,8 +57,8 @@ client.mutate({
 
 ## Try EVMts now
 
-You don't need to install anything just to play with EVMts! Try editing this sandbox.
+You don't need to install anything just to play with EVMts! Try editing this sandbox or continue on for installation instructions
 
 [TODO](https://github.com/evmts/evmts-monorepo/issues/10)
 
-<iframe frameborder="0" width="100%" height="500" src="https://stackblitz.com/edit/github-dluehe-d7t42l?file=README.md"></iframe>
+<iframe frameborder="0" width="100%" height="500" src="https://stackblitz.com/edit/github-dluehe-d7t42l"></iframe>

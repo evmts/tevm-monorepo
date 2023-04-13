@@ -2,34 +2,21 @@
 
 ### Add evmts to your build config
 
-::: details Vite Setup
+Currently EVMts only supports vite and rollup. See [NEXTjs](https://lol.nextjs.lol.webpack) for instructions on how to use EVMts in NextJS.
 
 Add rollup plugin to vite config
 
 ```typescript{5}
-import { rollupPlugin } from '@evmts/plugins`
+import { rollupPluginFoundry } from '@evmts/plugins`
 import { defineConfig } from 'vite'
 
 export default defineConfig({
-  plugins: [rollupPlugin()]
+  plugins: [rollupPluginFoundry({
+    project: '.',
+  })]
 })
 ```
 
-:::
+See [rollup-plugin-foundry reference](../plugin-reference/rollup-plugin-foundry.md) for configuration details.
 
-::: details Rollup Setup
-
-```typescript{5}
-const { rollupPlugin } = require('@evmts/plugins');
-
-module.exports = {
-  ...
-  plugins: [rollupPlugin()]
-};
-```
-
-:::
-
-::: details Next.js setup
-Coming soon
-:::
+See [hardhat-plugin](../plugin-reference/hardhat-plugin.md) for hardhat instructions.
