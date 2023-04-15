@@ -3,13 +3,25 @@
   "description": "A typescript plugin for evmts",
   "version": "0.0.0",
   "license": "MIT",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "src/index.ts",
+  "type": "module",
   "private": false,
+  "scripts": {
+    "build": "tsup",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/evmts/evmts-monorepo.git",
     "directory": "packages/ts-plugin"
   },
-  "scripts": {},
+  "dependencies": {
+    "tsup": "^6.7.0",
+    "typescript": "^4.4.3"
+  },
   "keywords": [
     "typescript",
     "plugin",

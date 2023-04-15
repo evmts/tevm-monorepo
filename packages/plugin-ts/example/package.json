@@ -1,0 +1,7 @@
+{
+    "name": "example-tsc-codebase",
+    "dependencies": {
+        "tsserver-plugin": "file:..",
+        "typescript": "^4.4.3"
+    }
+}
