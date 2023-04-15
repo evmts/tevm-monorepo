@@ -1,8 +1,10 @@
 ## Installation
 
+To use EVMts install EVMts and it's plugins
+
 ### Install `@evmts/core` and peer dependencies.
 
-`@evmts/core` will allow you to execute the EVM in your typescript code. You will also need [viem](https://viem.sh/docs/clients/public.html)
+Install `@evmts/core` and [viem](https://viem.sh/docs/clients/public.html)
 
 npm
 ::: code-group
@@ -21,22 +23,28 @@ yarn add @evmts/core viem
 
 :::
 
-### Install `@evmts/plugins`
+### Install EVMts build plugins
 
-`@evmts/plugins` will allow you to directly import contracts in your typescript code with full typesafety
+It is highly recomended to use the `@evmts/plugin-rollup` and `@evmts/plugin-ts` with EVMts. EVMts build tools give you a tight typescript integration with your solidity contracts including autocomplete and autoimports of your solidity contracts. You can even use it with other libraries such as [viem](../guide/viem-usage.md) and [ethers.js](../guide/ethers-usage.md)
+
+::: tip
+Unable to use a build plugin? See the guide [using EVMts without plugins](../guide/using-evmts-without-plugins.md).
+:::
+
+Install `@evmts/plugin-rollup` and `@evmts/plugin-ts`
 
 ::: code-group
 
 ```bash [npm]
-npm i @evmts/plugins
+npm i @evmts/plugin-rollup @evmts/plugin-ts
 ```
 
 ```bash [pnpm]
-pnpm i @evmts/plugins
+pnpm i @evmts/plugin-rollup @evmts/plugin-ts
 ```
 
 ```bash [yarn]
-yarn add @evmts/plugins
+yarn add @evmts/plugin-rollup @evmts/plugin-ts
 ```
 
 :::
