@@ -25,7 +25,7 @@
 
 # evmts-monorepo
 
-_EVMts is a work in progress_
+_🏗️🚧 EVMts is a work in progress_
 
 EVMts enables direct evm execution clientside with forge cheat codes and direct solidity file imports.
 
@@ -55,43 +55,55 @@ See [docs/contributing](/docs/contributing.md) for documentation on how to contr
 
 ## Basic usage ✨
 
-1. Write a [solidity script](/docs/guide/scripting.md). These work just like [forge scripts](https://book.getfoundry.sh/reference/forge/forge-script)
+### 1. First write a script in solidity
 
-```solidity [TransferAllScript.s.sol]
+Scripts in EVMts work exactly like the [scripts in forge](https://book.getfoundry.sh/tutorials/solidity-scripting)
+
+```solidity [Example.s.sol]
 pragma solidity ^0.8.17;
 
 import {Script} from "forge-std/Script.sol";
 import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
-contract TransferAllScript is Script {
-    function run(ERC20 contract, address recipient) external {
-        address signer = vm.envUint("EVMTS_SIGNER")
-
-        uint256 totalBalance = contract.balanceOf(signer)
-
+contract Example is Script {
+    function run(ERC20 erc20Contract, address recipient, uint256 amount) external {
+        address signer = vm.envUint("SIGNER");
         vm.startBroadcast(signer);
-        contract.transferFrom(signer, recipient, totalBalance)
+        contract.transferFrom(signer, recipient, amount);
         vm.stopBroadcast();
     }
 }
 ```
 
-2. Now execute that script in your clientside typescript code
+### 2. Then execute your script in TypeScript
+
+- no code gen step
+- no abis
+- no boilerplate
+
+Just import your script and run it.
 
 ```ts [example.ts]
-import { execute } from "@evmts/core";
-import { TransferAllScript } from "./TransferAllScript.s.sol";
-import { MyERC20 } from "./MyERC20.sol";
-import { walletClient } from "./walletClient";
-import { publicClient } from "./publicClient";
+import { Example } from "./Example.s.sol"; // [!code focus]
+import { evmts } from "./evmts";
+import { Address } from "@evmts/core";
 
-execute({
-  script: TransferAllScript,
-  args: [MyERC20, '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045'];
-  walletClient,
-  publicClient,
-}).broadcast().then(({txHash}) => console.log(txHash))
+const tokenAddress: Address = "0x4200000000000000000000000000000000000042";
+const recipient: Address = "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045";
+const amount = BigInt(420);
+
+evmts // [!code focus]
+  .script(Example) // [!code focus]
+  .run(tokenAddress, receipeint, amount) // [!code focus]
+  .broadcast()
+  .then(({ txHash }) => {
+    console.log(txHash);
+  });
 ```
+
+## Try EVMts now
+
+You don't need to install anything just to play with EVMts! Try [editing this sandbox](https://github.com/evmts/evmts-monorepo/issues/10) or check out the [getting started docs](https://evmts-monorepo-docs.vercel.app/introduction/installation.html)
 
 ## Author ✍️
 

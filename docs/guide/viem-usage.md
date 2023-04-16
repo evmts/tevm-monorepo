@@ -23,27 +23,27 @@ The viem contract minimally extends viems contract in the following ways:
 ::: code-group
 
 ```ts [example.ts]
-import { getContract } from "viem";
-import { optimism } from "viem/chains";
-import { publicClient } from "./publicClient";
-import { HelloWorld } from "./HelloWorld.sol";
+import { evmts } from "./evmts";
+import { ERC20 } from "./ERC20.sol";
 
-const viemContract = getContract({
-  address: HelloWorld.deployments[optimism.id].contractAddress,
-  abi: HelloWorld.abi,
-  publicClient,
-});
+const viemContract = evmts.contract(ERC20);
+
+viemContract.read
+  .balanceOf(["0xa5cc3c03994DB5b0d9A5eEdD10CabaB0813678AC"])
+  .then((balance) => {
+    console.log(balance);
+  });
 ```
 
-```solidity [HelloWorld.sol]
+```solidity [ERC20.sol]
 pragma solidity ^0.8.17;
 
-contract HelloWorld {
-    string public greet = "Hello World!";
+contract ERC20 {
+    ...
 }
 ```
 
-```ts [publicClient.ts]
+```ts [evmts.ts]
 import { httpFork } from "@evmts/core";
 import { createPublicClient } from "viem";
 import { optimism } from "viem/chains";

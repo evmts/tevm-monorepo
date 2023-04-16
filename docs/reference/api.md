@@ -12,8 +12,8 @@ Anyone already familiar with Foundry and Viem can head over to the [online demo]
 
 ### Setting up clients
 
-- [public-client](./public-client.md)
-- [wallet-client](./public-client.md)
+- [public-client](./client.md)
+- [wallet-client](./client.md)
 
 ### Core library
 

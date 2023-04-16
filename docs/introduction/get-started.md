@@ -18,41 +18,48 @@ Just want to try it out? Skip to the [live demo](https://stackblitz.com/edit/git
 
 ### 1. First write a script in solidity
 
-```solidity [TransferAllScript.s.sol]
+Scripts in EVMts work exactly like the [scripts in forge](https://book.getfoundry.sh/tutorials/solidity-scripting)
+
+```solidity [Example.s.sol]
 pragma solidity ^0.8.17;
 
 import {Script} from "forge-std/Script.sol";
 import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
-contract TransferOneToken is Script {
-    function run(ERC20 contract, address recipient) external {
-        address signer = vm.envUint("EVMTS_SIGNER");
-        uint256 amount = 1;
-
+contract Example is Script {
+    function run(ERC20 erc20Contract, address recipient, uint256 amount) external {
+        address signer = vm.envUint("SIGNER");
         vm.startBroadcast(signer);
-
-        contract.transferFrom(signer, recipient, totalBalance);
-
+        contract.transferFrom(signer, recipient, amount);
         vm.stopBroadcast();
     }
 }
 ```
 
-### 2. Now execute the solidity script
+### 2. Then execute your script in TypeScript
+
+- no code gen step
+- no abis
+- no boilerplate
+
+Just import your script and run it.
 
 ```ts [example.ts]
-// import solidity directly in your typescript files
-import { TransferAllScript } from "./TransferAllScript.s.sol";
-import { client } from "./client";
+import { Example } from "./Example.s.sol"; // [!code focus]
+import { evmts } from "./evmts";
+import { Address } from "@evmts/core";
 
-client.mutate({
-  script: TransferAllScript,
-  args: [
-    '0x6B175474E89094C44Da98b954EedeAC495271d0F', '0x6387a88a199120aD52Dd9742C7430847d3cB2CD4'
-  ];
-}).broadcast().then(({txHash}) => {
-  console.log(txHash)
-})
+const tokenAddress: Address = "0x4200000000000000000000000000000000000042";
+const recipient: Address = "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045";
+const amount = BigInt(420);
+
+evmts // [!code focus]
+  .script(Example) // [!code focus]
+  .run(tokenAddress, receipeint, amount) // [!code focus]
+  .broadcast()
+  .then(({ txHash }) => {
+    console.log(txHash);
+  });
 ```
 
 ## Try EVMts now
