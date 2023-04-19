@@ -1,5 +1,5 @@
 {
-  "name": "@evmts/ts-plugin",
+  "name": "@evmts/plugin-ts",
   "description": "A typescript plugin for evmts",
   "version": "0.0.0",
   "license": "MIT",
@@ -16,7 +16,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/evmts/evmts-monorepo.git",
-    "directory": "packages/ts-plugin"
+    "directory": "packages/plugin-ts"
   },
   "dependencies": {
     "tsup": "^6.7.0",

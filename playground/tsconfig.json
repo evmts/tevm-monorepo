@@ -1,5 +1,10 @@
 {
   "compilerOptions": {
+    "plugins": [
+      {
+        "name": "@evmts/plugin-ts",
+      }
+    ],
     "allowJs": false,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": false,

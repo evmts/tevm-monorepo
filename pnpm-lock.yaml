@@ -303,9 +303,6 @@ importers:
       '@evmts/core':
         specifier: workspace:^0.0.3
         version: link:../packages/core
-      '@evmts/plugin':
-        specifier: workspace:^0.0.1
-        version: link:../packages/plugin
       '@tanstack/query-core':
         specifier: ^4.24.6
         version: 4.24.6
@@ -352,6 +349,12 @@ importers:
       '@babel/plugin-transform-react-jsx':
         specifier: ^7.20.13
         version: 7.20.13(@babel/core@7.20.12)
+      '@evmts/plugin-rollup':
+        specifier: workspace:^0.0.1
+        version: link:../packages/plugin
+      '@evmts/plugin-ts':
+        specifier: workspace:^0.0.0
+        version: link:../packages/plugin-ts
       '@playwright/test':
         specifier: ^1.30.0
         version: 1.32.2

@@ -7,7 +7,7 @@ Currently @evmts/plugin only works in forge projects but work to make it support
 ## Instalation
 
 ```bash
-pnpm i @evmts/plugin
+pnpm i @evmts/plugin-rollup
 ```
 
 ## Vite usage
@@ -15,13 +15,13 @@ pnpm i @evmts/plugin
 Install rollup plugin
 
 ```bash
-npm i @evmts/plugin
+npm i @evmts/plugin-rollup
 ```
 
 Add to your vite config
 
 ```typescript
-import { evmtsPluginrollup } from '@evmts/plugin`
+import { evmtsPluginrollup } from '@evmts/plugin-rollup`
 import { defineConfig } from 'vite'
 
 export default defineConfig({
@@ -92,7 +92,7 @@ Currently only `@evmts/core` is using this but this could easily be adapted or e
 
 ## Autocompletion and Typesafety
 
-For typesafety and autocompletion in your editor add [@evmts/ts-plugin](https://github.com/evmts/evmts-monorepo-monorepo/tree/main/packages/ts-plugin) to your tsconfig.json.
+For typesafety and autocompletion in your editor add [@evmts/plugin-ts](../plugin-ts) to your tsconfig.json.
 
 **Custom Ts plugins are for developer experience only**
 

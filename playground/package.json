@@ -15,7 +15,6 @@
   "dependencies": {
     "@babel/core": "^7.20.12",
     "@evmts/core": "workspace:^0.0.3",
-    "@evmts/plugin": "workspace:^0.0.1",
     "@tanstack/query-core": "^4.24.6",
     "@tanstack/react-query": "^4.24.6",
     "@types/testing-library__jest-dom": "^5.14.5",
@@ -33,6 +32,8 @@
   "devDependencies": {
     "@babel/plugin-syntax-flow": "^7.18.6",
     "@babel/plugin-transform-react-jsx": "^7.20.13",
+    "@evmts/plugin-rollup": "workspace:^0.0.1",
+    "@evmts/plugin-ts": "workspace:^0.0.0",
     "@playwright/test": "^1.30.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",

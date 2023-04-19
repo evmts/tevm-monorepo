@@ -2,4 +2,3 @@
 
 const anExampleVariable = "Hello World"
 console.log(anExampleVariable)
-a

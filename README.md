@@ -38,12 +38,12 @@ EVMts enables direct evm execution clientside with forge cheat codes and direct 
 [packages](/packages)
 
 - [@evmts/core](/packages/core) core evmts library
-- [@evmts/plugin](/packages/plugin) rollup/vite plugin enabling solidity imports in Typescript files
-- [@evmts/tsplugin](/packages/ts-plugin)
+- [@evmts/plugin-rollup](/packages/plugin-rollup) rollup/vite plugin enabling solidity imports in Typescript files
+- [@evmts/plugin-ts](/packages/plugin-ts)
 
-- [@evmts/playground](/playground) contains an example vite app for developing on evmts
-- [@evmts/e2e](/e2e) contains e2e tests that run against all example apps
-- [@evmts/docs](/docs) contains the docs astro app
+[@evmts/playground](/playground) contains an example vite app for developing on evmts
+[@evmts/e2e](/e2e) contains e2e tests that run against all example apps
+[@evmts/docs](/docs) contains the docs astro app
 
 ## Getting started 🏗️
 

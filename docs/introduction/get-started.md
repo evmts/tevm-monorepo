@@ -30,7 +30,7 @@ contract Example is Script {
     function run(ERC20 erc20Contract, address recipient, uint256 amount) external {
         address signer = vm.envUint("SIGNER");
         vm.startBroadcast(signer);
-        contract.transferFrom(signer, recipient, amount);
+        erc20Contract.transferFrom(signer, recipient, amount);
         vm.stopBroadcast();
     }
 }
