@@ -1,4 +1,5 @@
 {
+  "defaultProject": "@evmts/playground",
   "implicitDependencies": {
     "package.json": "*",
     "tsconfig.json": "*",
