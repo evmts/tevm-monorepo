@@ -46,7 +46,7 @@ export const forgeArtifactsValidator = z.object({
 	}),
 });
 
-export const evmtsPlugin = (options: FoundryOptions = {}): Plugin => {
+export const foundry = (options: FoundryOptions = {}): Plugin => {
 	const foundryOptions = forgeOptionsValidator.parse(options);
 	const foundryConfig = getFoundryConfig(foundryOptions);
 
@@ -75,3 +75,12 @@ export const evmtsPlugin = (options: FoundryOptions = {}): Plugin => {
 		},
 	};
 };
+
+/**
+ * @deprecated
+ */
+export const evmtsPlugin = foundry
+
+/**
+ * @deprecated
+ */
