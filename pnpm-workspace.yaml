@@ -1,5 +1,6 @@
 packages:
   - "packages/*"
   - "playground"
+  - "playground-next"
   - "e2e"
   - "docs"
