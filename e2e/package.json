@@ -10,7 +10,7 @@
     "lint:check": "rome check ."
   },
   "dependencies": {
-    "@playwright/test": "^1.32.2",
-    "viem": "^0.2.12"
+    "@playwright/test": "^1.32.3",
+    "viem": "^0.3.6"
   }
 }
