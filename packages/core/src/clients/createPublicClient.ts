@@ -10,7 +10,12 @@ type EVMtsContract<TAbi> = {
   deployments: Deployments
 }
 
-type RunResult<TAbi> = {}
+type Hash = any // TODO
+
+type RunResult<TAbi> = {
+  data: unknown,
+  txHash: Hash,
+}
 
 type RunOptions<TAbi> = {}
 
@@ -18,8 +23,8 @@ type BroadcastOptions<TAbi> = {}
 type BroadcastResults<TAbi> = {}
 
 type Script<TAbi> = {
-  run: (runOptions: RunOptions<TAbi>) => Promise<RunResult<TAbi>>
-  broadcast: (runOptions: BroadcastOptions<TAbi>) => Promise<BroadcastResults<TAbi>>
+  run: (runOptions?: RunOptions<TAbi>) => Promise<RunResult<TAbi>>
+  broadcast: (runOptions?: BroadcastOptions<TAbi>) => Promise<BroadcastResults<TAbi>>
 }
 
 type ScriptFactory = <TAbi>(contract: EVMtsContract<TAbi>) => Script<TAbi>
