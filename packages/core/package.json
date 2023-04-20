@@ -30,22 +30,22 @@
     "lint:check": "rome check ."
   },
   "devDependencies": {
-    "@vitest/ui": "^0.28.5",
-    "tsup": "^6.6.3",
-    "typescript": "^4.9.5",
-    "vitest": "^0.28.5",
-    "zod": "^3.20.6"
+    "@vitest/ui": "^0.30.1",
+    "tsup": "^6.7.0",
+    "typescript": "^5.0.4",
+    "vitest": "^0.30.1",
+    "zod": "^3.21.4"
   },
   "dependencies": {
     "@babel/helper-plugin-utils": "^7.20.2",
-    "@ethereumjs/block": "^4.1.0",
-    "@ethereumjs/common": "^3.0.2",
-    "@ethereumjs/tx": "^4.0.2",
-    "@ethereumjs/util": "^8.0.3",
-    "@ethereumjs/vm": "^6.3.0",
+    "@ethereumjs/block": "^4.2.1",
+    "@ethereumjs/common": "^3.1.1",
+    "@ethereumjs/tx": "^4.1.1",
+    "@ethereumjs/util": "^8.0.5",
+    "@ethereumjs/vm": "^6.4.1",
     "@ethersproject/abi": "^5.7.0",
     "@types/babel-core": "^6.25.7",
-    "viem": "^0.2.12"
+    "viem": "^0.3.6"
   },
   "keywords": [
     "solidity",
