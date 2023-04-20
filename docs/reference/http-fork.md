@@ -10,8 +10,6 @@ EVMts scripts execute clientside just like forge scripts on a local vm. Only whe
 
 The evmts transport will use the local execution environment by default but does proxy some reads/writes to the underlying forkUrl.
 
-If familiar with forge, you can think of EVMts [execute](./execute.md) as calling [forge script](https://book.getfoundry.sh/tutorials/solidity-scripting) on your `.s.sol` script file and this transport as being [anvil](https://book.getfoundry.sh/anvil/)
-
 - **Example**
 
 ```ts

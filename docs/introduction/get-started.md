@@ -4,11 +4,11 @@ Welcome to the EVMts docs!
 
 ## Overview
 
-EVMts brings the developer experience of Forge scripts to the browser.
+EVMts brings Forge scripts to the browser.
 
-- _Local execution_ such as the ability simulate transactions locally and quickly surface any information about the events emitted
-- _Solidity imports in JavaScript_ ABIs melt away with the ability to import contracts directly
-- _Powerful but simple_ api for interacting with the EVM including the [forge cheat codes](https://book.getfoundry.sh/forge/cheatcodes)
+- **Execute solidity scripts** directly from your typescript code
+- **Solidity imports in JavaScript** ABIs melt away with the ability to import contracts directly
+- **Simple yet powerful** api including [forge cheat codes](https://book.getfoundry.sh/forge/cheatcodes)
 
 ::: tip
 Just want to try it out? Skip to the [live demo](https://stackblitz.com/edit/github-dluehe-d7t42l)
@@ -45,7 +45,7 @@ contract Example is Script {
 Just import your script and run it.
 
 ```ts [example.ts]
-import { Example } from "./Example.s.sol"; // [!code focus]
+import { Example } from "./Example.s.sol";
 import { evmts } from "./evmts";
 import { Address } from "@evmts/core";
 
@@ -53,9 +53,9 @@ const tokenAddress: Address = "0x4200000000000000000000000000000000000042";
 const recipient: Address = "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045";
 const amount = BigInt(420);
 
-evmts // [!code focus]
-  .script(Example) // [!code focus]
-  .run(tokenAddress, receipeint, amount) // [!code focus]
+evmts
+  .script(Example)
+  .run(tokenAddress, receipeint, amount)
   .broadcast()
   .then(({ txHash }) => {
     console.log(txHash);
@@ -64,7 +64,7 @@ evmts // [!code focus]
 
 ## Try EVMts now
 
-You don't need to install anything just to play with EVMts! Try editing this sandbox or continue on for installation instructions
+Just looking to try out EVMts? Try editing this sandbox or continue on for installation instructions
 
 [TODO](https://github.com/evmts/evmts-monorepo/issues/10)
 

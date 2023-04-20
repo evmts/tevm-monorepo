@@ -6,7 +6,8 @@
 2. How to setup your EVMts client
 3. How to import your script to create a `Script` instance
 4. How to execute your script
-   :::
+
+:::
 
 ## 1. Create a script
 
@@ -42,7 +43,7 @@ export const evmts = createPublicClient({
 
 ## 3. Create a new script instance
 
-To create a new contract instance simply [import your contract](./plugin-configuration.md) and pass it into [client.script](../reference/client).
+To create a new contract instance simply [import your contract](./plugin-configuration.md) and pass it into [client.script](../reference/public-client).
 
 ```typescript helloWorld.ts
 import { evmts } from "./evmts";
@@ -61,7 +62,11 @@ import { HelloWorld } from "./HelloWorld.s.sol";
 
 const helloWorldScript = evmts.script(HelloWorld);
 
-helloWorldScript.greet().then((res) => { // [!code focus]
-  console.log(res.data); // [!code focus]
-}); // [!code focus]
+helloWorldScript // [!code focus]
+  .greet() // [!code focus]
+  .run() // [!code focus]
+  .then((res) => {
+    // [!code focus]
+    console.log(res.data); // [!code focus]
+  }); // [!code focus]
 ```

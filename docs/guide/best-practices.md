@@ -7,7 +7,8 @@ EVMts is a new way of building evm based frontends so in this guide we will prov
 - how to name your files
 - why you should avoid referencing properties on the contract directly
 - TODO
-  :::
+
+:::
 
 ## File naming
 

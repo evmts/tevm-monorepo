@@ -12,10 +12,12 @@ Anyone already familiar with Foundry and Viem can head over to the [online demo]
 
 ### Setting up clients
 
-- [public-client](./client.md)
-- [wallet-client](./client.md)
+- [createPublicClient](./create-public-client.md)
+- [createWalletClient](./create-wallet-client.md)
+- [httpFork](./http-fork.md)
 
 ### Core library
 
-- [execute](./execute.md)
-- [http-fork](./http-fork.md)
+- [PublicClient](./public-client.md)
+- [WalletClient](./wallet-client.md)
+- [ScriptInstance](./script-instance.md)
