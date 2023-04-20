@@ -13,7 +13,7 @@ export const forgeArtifactsValidator = z.object({
           type: z.string(),
         }),
       ),
-      name: z.string(),
+      name: z.string().optional(),
       outputs: z
         .array(
           z.object({

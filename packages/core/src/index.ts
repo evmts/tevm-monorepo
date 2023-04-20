@@ -8,7 +8,7 @@ import { insertAccount } from "./insertAccount";
 import { generatePrivateKey } from "viem/accounts";
 import { forkUrl } from "./transports/forkUrl";
 import { createPublicClient } from "./clients/createPublicClient";
-import { optimism } from "viem/dist/chains";
+import { optimism } from "viem/chains";
 
 type TODOInfer = any;
 

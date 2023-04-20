@@ -9,7 +9,7 @@ contract Example is Script {
         address recipient,
         uint256 amount
     ) external {
-        address signer = vm.envUint("SIGNER");
+        address signer = vm.envAddress("SIGNER");
         vm.startBroadcast(signer);
         erc20Contract.transferFrom(signer, recipient, amount);
         vm.stopBroadcast();

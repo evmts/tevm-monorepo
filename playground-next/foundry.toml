@@ -10,6 +10,10 @@ bytecode_hash = "none"
 
 solc = "0.8.17"
 
+allow_paths = ["../node_modules"]
+remappings = [
+  '@openzeppelin/contracts/=node_modules/@openzeppelin/contracts/',
+]
 [rpc_endpoints]
 mainnet = "${RPC_URL_MAINNET}"
 goerli = "${RPC_URL_GOERLI}"
