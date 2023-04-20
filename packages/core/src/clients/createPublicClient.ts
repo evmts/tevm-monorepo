@@ -14,14 +14,20 @@ type Hash = any // TODO
 
 type RunResult<TAbi> = {
   data: unknown,
+  todo: TAbi,
 }
 
-type RunOptions<TAbi> = {}
+type RunOptions<TAbi> = {
+  todo: TAbi
+}
 
-type BroadcastOptions<TAbi> = {}
+type BroadcastOptions<TAbi> = {
+  todo: TAbi
+}
 type BroadcastResults<TAbi> = {
   data: unknown,
   txHash: Hash,
+  todo: TAbi
 }
 
 type Script<TAbi> = {
@@ -46,5 +52,6 @@ export type PublicClientOptions = {
 export const createPublicClient = (
   options: PublicClientOptions
 ): PublicClient => {
+  console.log(options)
   return {} as any
 };

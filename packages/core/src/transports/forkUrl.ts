@@ -5,5 +5,6 @@ type ForkUrlOptions = {
 };
 
 export const forkUrl = (options: ForkUrlOptions): Transport => {
+  console.log(options)
   return {} as any;
 };

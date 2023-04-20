@@ -12,5 +12,6 @@ export type WalletClientOptions = {
 export const createWalletClient = (
   options: WalletClientOptions
 ): WalletClient => {
+  console.log(options)
   return {};
 };
