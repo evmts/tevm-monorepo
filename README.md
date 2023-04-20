@@ -67,7 +67,7 @@ import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
 contract Example is Script {
     function run(ERC20 erc20Contract, address recipient, uint256 amount) external {
-        address signer = vm.envUint("SIGNER");
+        address signer = vm.envAddress("SIGNER");
         vm.startBroadcast(signer);
         contract.transferFrom(signer, recipient, amount);
         vm.stopBroadcast();
