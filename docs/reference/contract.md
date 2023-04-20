@@ -41,13 +41,13 @@ contract ERC20 {
 ```
 
 ```ts [evmts.ts]
-import { httpFork } from "@evmts/core";
+import { forkUrl } from "@evmts/core";
 import { createPublicClient } from "viem";
 import { optimism } from "viem/chains";
 
 export const publicClient = createPublicClient({
   chain: optimism,
-  transport: httpFork({
+  transport: forkUrl({
     chain: optimism,
     forkUrl: `https://mainnet.optimism.io`,
   }),

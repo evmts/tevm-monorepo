@@ -31,12 +31,12 @@ contract HelloWorld {
 The EVMts client is build on top of [viem](https://viem.sh/docs/clients/intro.html) clients and add the ability to execute scripts and simulate contracts clientside.
 
 ```typescript evmts.ts
-import { httpFork, createPublicClient, optimism } from "@evmts/core";
+import { forkUrl, createPublicClient, optimism } from "@evmts/core";
 
 export const evmts = createPublicClient({
   chain: optimism,
-  transport: httpFork({
-    forkUrl: `https://mainnet.optimism.io`,
+  transport: forkUrl({
+    url: `https://mainnet.optimism.io`,
   }),
 });
 ```

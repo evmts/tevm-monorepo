@@ -1,4 +1,4 @@
-# httpFork()
+# forkUrl()
 
 Creates a [viem transport](https://viem.sh/docs/clients/transports/http.html) that talks to the forked vm instance
 
@@ -14,13 +14,13 @@ The evmts transport will use the local execution environment by default but does
 
 ```ts
 import { readContract } from "@evmts/core";
-import { httpFork } from "@evmts/core"; // [!code focus]
+import { forkUrl } from "@evmts/core"; // [!code focus]
 import { createWalletClient } from "viem";
 import { optimism } from "viem/chains";
 
 export const client = createWalletClient({
   chain: optimism,
-  transport: httpFork({
+  transport: forkUrl({
     forkUrl: `https://mainnet.optimism.io`, // [!code focus]
     wallet: window.ethereum, // [!code focus]
   }),
