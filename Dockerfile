@@ -34,6 +34,7 @@ WORKDIR /tmp
 COPY tsconfig.json .gitmodules pnpm-workspace.yaml pnpm-lock.yaml .nvmrc package.json ./src/
 COPY packages src/packages/
 COPY playground src/playground/
+COPY playground-next src/playground-next/
 COPY docs src/docs/
 COPY e2e src/e2e/
 RUN mkdir manifests && \
