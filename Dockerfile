@@ -101,6 +101,10 @@ ENV NODE_ENV=production
 # copy rest of repo and buildd
 COPY . .
 
+# Workaround for parallel building with forge:
+# https://github.com/foundry-rs/foundry/issues/4736
+RUN forge build
+
 # build all apps and packages
 RUN pnpm build && rm -rf node_modules/.cache
 
