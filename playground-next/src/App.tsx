@@ -1,15 +1,9 @@
 import { useState } from 'react'
 
 import { Pure } from './pure/Pure'
+import { ExecuteScript } from './script/executeScript'
 
-const w = window as any
-w.process = {
-  env: {
-    DEBUG: 'ethjs',
-  },
-}
-
-const options = [Pure]
+const options = [Pure, ExecuteScript]
 
 export const App = () => {
   const [selected, setSelected] = useState(Pure.name)
