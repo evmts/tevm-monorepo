@@ -92,7 +92,7 @@ Currently only `@evmts/core` is using this but this could easily be adapted or e
 
 ## Autocompletion and Typesafety
 
-For typesafety and autocompletion in your editor add [@evmts/plugin-ts](../plugin-ts) to your tsconfig.json.
+For typesafety and autocompletion in your editor add [@evmts/ts-plugin](../ts-plugin) to your tsconfig.json.
 
 **Custom Ts plugins are for developer experience only**
 

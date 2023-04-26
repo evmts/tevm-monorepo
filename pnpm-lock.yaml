@@ -285,7 +285,7 @@ importers:
         specifier: ^3.21.4
         version: 3.21.4
 
-  packages/plugin-ts:
+  packages/ts-plugin:
     dependencies:
       tsup:
         specifier: ^6.7.0
@@ -351,9 +351,9 @@ importers:
       "@evmts/rollup-plugin":
         specifier: workspace:^0.0.1
         version: link:../packages/rollup-plugin
-      "@evmts/plugin-ts":
+      "@evmts/ts-plugin":
         specifier: workspace:^0.0.0
-        version: link:../packages/plugin-ts
+        version: link:../packages/ts-plugin
       "@playwright/test":
         specifier: ^1.30.0
         version: 1.32.2
@@ -466,9 +466,9 @@ importers:
       "@evmts/rollup-plugin":
         specifier: workspace:^0.0.1
         version: link:../packages/rollup-plugin
-      "@evmts/plugin-ts":
+      "@evmts/ts-plugin":
         specifier: workspace:^0.0.0
-        version: link:../packages/plugin-ts
+        version: link:../packages/ts-plugin
       "@playwright/test":
         specifier: ^1.32.3
         version: 1.32.3

@@ -39,7 +39,7 @@ EVMts enables direct evm execution clientside with forge cheat codes and direct 
 
 - [@evmts/core](/packages/core) core evmts library
 - [@evmts/rollup-plugin](/packages/rollup-plugin) rollup/vite plugin enabling solidity imports in Typescript files
-- [@evmts/plugin-ts](/packages/plugin-ts)
+- [@evmts/ts-plugin](/packages/ts-plugin)
 
 [@evmts/playground](/playground) contains an example vite app for developing on evmts
 [@evmts/e2e](/e2e) contains e2e tests that run against all example apps
