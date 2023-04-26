@@ -1,6 +1,6 @@
-import { foundry } from "@evmts/plugin-rollup";
+import { foundry } from "@evmts/rollup-plugin";
 import react from "@vitejs/plugin-react";
-import {join} from "path"
+import { join } from "path";
 import { defineConfig } from "vitest/config";
 
 /**
@@ -19,7 +19,7 @@ export default defineConfig({
 		react(),
 		foundry({
 			forgeExecutable: "forge",
-			project: join(__dirname, '..'),
+			project: join(__dirname, ".."),
 		}),
 	],
 });

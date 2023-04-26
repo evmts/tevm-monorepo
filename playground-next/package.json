@@ -33,7 +33,7 @@
   "devDependencies": {
     "@babel/plugin-syntax-flow": "^7.21.4",
     "@babel/plugin-transform-react-jsx": "^7.21.0",
-    "@evmts/plugin-rollup": "workspace:^0.0.1",
+    "@evmts/rollup-plugin": "workspace:^0.0.1",
     "@evmts/plugin-ts": "workspace:^0.0.0",
     "@playwright/test": "^1.32.3",
     "@testing-library/jest-dom": "^5.16.5",

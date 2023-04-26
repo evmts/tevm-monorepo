@@ -1,5 +1,5 @@
 {
-  "name": "@evmts/plugin-rollup",
+  "name": "@evmts/rollup-plugin",
   "description": "A rollup plugin for evmts",
   "version": "0.0.1",
   "main": "dist/index.js",

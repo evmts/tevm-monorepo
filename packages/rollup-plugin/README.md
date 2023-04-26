@@ -7,7 +7,7 @@ Currently @evmts/plugin only works in forge projects but work to make it support
 ## Instalation
 
 ```bash
-pnpm i @evmts/plugin-rollup
+pnpm i @evmts/rollup-plugin
 ```
 
 ## Vite usage
@@ -15,13 +15,13 @@ pnpm i @evmts/plugin-rollup
 Install rollup plugin
 
 ```bash
-npm i @evmts/plugin-rollup
+npm i @evmts/rollup-plugin
 ```
 
 Add to your vite config
 
 ```typescript
-import { evmtsPluginrollup } from '@evmts/plugin-rollup`
+import { evmtsPluginrollup } from '@evmts/rollup-plugin`
 import { defineConfig } from 'vite'
 
 export default defineConfig({

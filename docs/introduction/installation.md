@@ -33,20 +33,20 @@ EVMts plugins give you a tight typescript integration with your solidity contrac
 Unable to use a build plugin? See the guide [using EVMts without plugins](../guide/using-evmts-without-plugins.md).
 :::
 
-Install [@evmts/plugin-rollup](../plugin-reference/rollup.md) and [@evmts/plugin-ts](../plugin-reference/rollup.md)
+Install [@evmts/rollup-plugin](../plugin-reference/rollup.md) and [@evmts/plugin-ts](../plugin-reference/rollup.md)
 
 ::: code-group
 
 ```bash [npm]
-npm i @evmts/plugin-rollup @evmts/plugin-ts
+npm i @evmts/rollup-plugin @evmts/plugin-ts
 ```
 
 ```bash [pnpm]
-pnpm i @evmts/plugin-rollup @evmts/plugin-ts
+pnpm i @evmts/rollup-plugin @evmts/plugin-ts
 ```
 
 ```bash [yarn]
-yarn add @evmts/plugin-rollup @evmts/plugin-ts
+yarn add @evmts/rollup-plugin @evmts/plugin-ts
 ```
 
 :::
