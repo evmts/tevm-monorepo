@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite --open",
-    "build": "vite build",
+    "//build": "vite build",
     "serve": "serve -s -l tcp://0.0.0.0:5173 dist",
     "//test": "vitest",
     "lint": "rome check . --apply-suggested",
