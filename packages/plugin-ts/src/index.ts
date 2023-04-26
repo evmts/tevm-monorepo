@@ -1,8 +1,8 @@
 import type typescript from "typescript/lib/tsserverlibrary";
-import { createLogger } from "./creatLogger";
+import { createLogger } from "./createLogger";
 
 function init(modules: {
-	typescript: typeof import("typescript/lib/tsserverlibrary");
+	typescript: typeof typescript;
 }) {
 	const ts = modules.typescript;
 
