@@ -1,6 +1,9 @@
 import type typescript from "typescript/lib/tsserverlibrary";
 import { createLogger } from "./createLogger";
-import { TsPlugin } from "./TsPlugin";
+import { decorate } from "./decorators/decorate";
+import { resolveModuleNameLiteralsDecorator } from "./decorators/resolveModuleNameLiterals";
+import { getScriptSnapshotDecorator } from "./decorators/getScriptSnapshot";
+import { getScriptKindDecorator } from "./decorators/getScriptKind";
 
 const init = (modules: {
 	typescript: typeof typescript;
@@ -8,8 +11,13 @@ const init = (modules: {
 	const ts = modules.typescript;
 
 	function create(createInfo: typescript.server.PluginCreateInfo) {
-		const plugin = new TsPlugin(createInfo, ts);
-		return plugin.create();
+		const logger = createLogger(createInfo);
+
+		return decorate(createInfo.languageServiceHost, createInfo, ts, logger, [
+			resolveModuleNameLiteralsDecorator,
+			getScriptSnapshotDecorator,
+			getScriptKindDecorator,
+		]);
 	}
 
 	return { create };
