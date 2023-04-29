@@ -35,7 +35,6 @@
     "@babel/plugin-transform-react-jsx": "^7.21.0",
     "@evmts/rollup-plugin": "workspace:^0.0.1",
     "@evmts/ts-plugin": "workspace:^0.0.0",
-    "@playwright/test": "^1.32.3",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
     "@types/node": "^18.15.12",
