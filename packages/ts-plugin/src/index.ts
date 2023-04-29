@@ -2,6 +2,8 @@ import type typescript from "typescript/lib/tsserverlibrary";
 import { createLogger } from "./createLogger";
 import fs from "fs";
 import path from "path";
+import { isSolidity } from "./isSolidity";
+import { isRelativeSolidity } from "./isRelativeSolidity";
 
 function init(modules: {
 	typescript: typeof typescript;
@@ -19,10 +21,6 @@ function init(modules: {
 				return languageServiceHost[key] ?? target[key];
 			},
 		});
-
-		const isSolidity = (fileName: string) => fileName.endsWith(".sol");
-		const isRelativeSolidity = (fileName: string) =>
-			fileName.startsWith(".") && isSolidity(fileName);
 
 		languageServiceHost.getScriptKind = (fileName) => {
 			if (!createInfo.languageServiceHost.getScriptKind) {
