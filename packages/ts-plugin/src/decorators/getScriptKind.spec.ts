@@ -2,7 +2,6 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import { getScriptKindDecorator } from "./getScriptKind";
 import typescript from "typescript/lib/tsserverlibrary";
 
-// rome-ignore lint/suspicious/noExplicitAny: <explanation>
 type TestAny = any;
 
 describe(getScriptKindDecorator.name, () => {
@@ -25,12 +24,7 @@ describe(getScriptKindDecorator.name, () => {
 
 	it("should decorate getScriptKind", () => {
 		expect(
-			getScriptKindDecorator(
-				createInfo.languageServiceHost,
-				createInfo,
-				typescript,
-				logger,
-			).getScriptKind,
+			getScriptKindDecorator(createInfo, typescript, logger).getScriptKind,
 		).toBeInstanceOf(Function);
 	});
 
@@ -42,24 +36,14 @@ describe(getScriptKindDecorator.name, () => {
 			warn: vi.fn(),
 			error: vi.fn(),
 		};
-		const decorated = getScriptKindDecorator(
-			createInfo.languageServiceHost,
-			createInfo,
-			typescript,
-			logger,
-		);
+		const decorated = getScriptKindDecorator(createInfo, typescript, logger);
 		expect(decorated.getScriptKind?.("foo")).toBe(
 			typescript.ScriptKind.Unknown,
 		);
 	});
 
 	it("Should return TS if file is solidity", () => {
-		const decorated = getScriptKindDecorator(
-			createInfo.languageServiceHost,
-			createInfo,
-			typescript,
-			logger,
-		);
+		const decorated = getScriptKindDecorator(createInfo, typescript, logger);
 		expect(decorated.getScriptKind?.("foo.sol")).toBe(typescript.ScriptKind.TS);
 		expect(decorated.getScriptKind?.("./foo.sol")).toBe(
 			typescript.ScriptKind.TS,
@@ -67,12 +51,7 @@ describe(getScriptKindDecorator.name, () => {
 	});
 
 	it("Should proxy to languageServiceHost.getScriptKind if not solidity", () => {
-		const decorated = getScriptKindDecorator(
-			createInfo.languageServiceHost,
-			createInfo,
-			typescript,
-			logger,
-		);
+		const decorated = getScriptKindDecorator(createInfo, typescript, logger);
 		const expected = typescript.ScriptKind.JS;
 		createInfo.languageServiceHost.getScriptKind.mockReturnValue(expected);
 		const fileNames = [

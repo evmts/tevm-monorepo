@@ -9,7 +9,6 @@ const init = (modules: {
 		create: (createInfo: typescript.server.PluginCreateInfo) => {
 			const logger = createLogger(createInfo);
 			return languageServiceHostDecorator(
-				createInfo.languageServiceHost,
 				createInfo,
 				modules.typescript,
 				logger,

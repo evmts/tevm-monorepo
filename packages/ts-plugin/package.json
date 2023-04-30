@@ -12,7 +12,9 @@
     "build": "tsup",
     "test": "vitest",
     "typecheck": "tsc --noEmit",
-    "clean": "rm -rf dist"
+    "clean": "rm -rf dist",
+    "lint": "rome check . --apply-unsafe",
+    "lint:check": "rome check ."
   },
   "repository": {
     "type": "git",

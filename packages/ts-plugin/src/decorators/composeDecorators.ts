@@ -6,20 +6,20 @@ import { Decorator } from "./Decorator";
  * @returns
  */
 export const composeDecorators = (...decorators: Decorator[]): Decorator => {
-	return (host, createInfo, ts, logger) => {
+	return (createInfo, ts, logger) => {
 		if (decorators.length === 0) {
-			return host;
+			return createInfo.languageServiceHost;
 		}
 
 		const [nextDecorator, ...restDecorators] = decorators;
 
-		const decoratedHost = nextDecorator(host, createInfo, ts, logger);
+		const decoratedHost = nextDecorator(createInfo, ts, logger);
 
-		return composeDecorators(...restDecorators)(
-			decoratedHost,
-			createInfo,
-			ts,
-			logger,
-		);
+		const wrappedCreateInfo = {
+			...createInfo,
+			languageServiceHost: decoratedHost,
+		};
+
+		return composeDecorators(...restDecorators)(wrappedCreateInfo, ts, logger);
 	};
 };

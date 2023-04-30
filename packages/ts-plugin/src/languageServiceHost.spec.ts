@@ -3,7 +3,6 @@ import { languageServiceHostDecorator } from "./languageServiceHost";
 import typescript from "typescript/lib/tsserverlibrary";
 import { createLogger } from "./factories/logger";
 
-// rome-ignore lint/suspicious/noExplicitAny: <explanation>
 type TestAny = any;
 
 describe(languageServiceHostDecorator.name, () => {
@@ -25,12 +24,7 @@ describe(languageServiceHostDecorator.name, () => {
 			},
 		} as TestAny;
 		const logger = createLogger(createInfo);
-		const host = languageServiceHostDecorator(
-			createInfo.languageServiceHost,
-			createInfo,
-			typescript,
-			logger,
-		);
+		const host = languageServiceHostDecorator(createInfo, typescript, logger);
 		expect(host).toMatchInlineSnapshot(`
 			{
 			  "getResolvedModuleWithFailedLookupLocationsFromCache": [MockFunction spy],

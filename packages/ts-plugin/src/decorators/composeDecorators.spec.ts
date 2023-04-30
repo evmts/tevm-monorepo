@@ -3,24 +3,25 @@ import { Decorator, composeDecorators } from ".";
 import typescript from "typescript/lib/tsserverlibrary";
 import { createProxy } from "../factories";
 
-// rome-ignore lint/suspicious/noExplicitAny: <explanation>
 type TestAny = any;
 
 describe(composeDecorators.name, () => {
 	it("composes decorators into a single decorator", () => {
-		const decorator1 = vi.fn();
-		const decorator2 = vi.fn();
-		const decorator3 = vi.fn();
-
-		const mockDecoratorImplementation =
-			(i: number): Decorator =>
-			(host, createInfo, ts, logger) => {
-				return createProxy(host, { [i]: "decorated" });
-			};
-
-		decorator1.mockImplementation(mockDecoratorImplementation(1));
-		decorator2.mockImplementation(mockDecoratorImplementation(2));
-		decorator3.mockImplementation(mockDecoratorImplementation(3));
+		const decorator1: Decorator = (createInfo) => {
+			return createProxy(createInfo.languageServiceHost, {
+				decorator1: "decorated",
+			} as TestAny);
+		};
+		const decorator2: Decorator = (createInfo) => {
+			return createProxy(createInfo.languageServiceHost, {
+				decorator2: "decorated",
+			} as TestAny);
+		};
+		const decorator3: Decorator = (createInfo) => {
+			return createProxy(createInfo.languageServiceHost, {
+				decorator3: "decorated",
+			} as TestAny);
+		};
 
 		const composedDecorator = composeDecorators(
 			decorator1,
@@ -29,7 +30,7 @@ describe(composeDecorators.name, () => {
 		);
 
 		const host = { isHost: true };
-		const createInfo = { isCreateInfo: true };
+		const createInfo = { isCreateInfo: true, languageServiceHost: host };
 		const logger = {
 			log: vi.fn(),
 			info: vi.fn(),
@@ -38,33 +39,14 @@ describe(composeDecorators.name, () => {
 		};
 
 		const decoratedHost = composedDecorator(
-			host as TestAny,
 			createInfo as TestAny,
 			typescript,
 			logger,
 		);
 
-		expect((decoratedHost as TestAny)[1]).toBe("decorated");
-		expect((decoratedHost as TestAny)[2]).toBe("decorated");
-		expect((decoratedHost as TestAny)[3]).toBe("decorated");
-
-		expect(decorator1).toHaveBeenCalledWith(
-			host,
-			createInfo,
-			typescript,
-			logger,
-		);
-		expect(decorator2).toHaveBeenCalledWith(
-			host,
-			createInfo,
-			typescript,
-			logger,
-		);
-		expect(decorator3).toHaveBeenCalledWith(
-			host,
-			createInfo,
-			typescript,
-			logger,
-		);
+		expect((decoratedHost as TestAny).isHost).toBe(true);
+		expect((decoratedHost as TestAny)["decorator1"]).toBe("decorated");
+		expect((decoratedHost as TestAny)["decorator2"]).toBe("decorated");
+		expect((decoratedHost as TestAny)["decorator3"]).toBe("decorated");
 	});
 });

@@ -2,7 +2,6 @@ import { describe, it, expect, vi } from "vitest";
 import init from ".";
 import typescript from "typescript/lib/tsserverlibrary";
 
-// rome-ignore lint/suspicious/noExplicitAny: <explanation>
 type TestAny = any;
 
 const createInfo: typescript.server.PluginCreateInfo = {

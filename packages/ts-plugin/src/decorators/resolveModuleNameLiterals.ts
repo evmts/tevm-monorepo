@@ -6,11 +6,11 @@ import { createProxy } from "../factories";
 import { Decorator } from "./Decorator";
 
 export const resolveModuleNameLiteralsDecorator: Decorator = (
-	host,
 	createInfo,
 	ts,
 	logger,
 ) => {
+	const host = createInfo.languageServiceHost;
 	return createProxy(host, {
 		resolveModuleNameLiterals: (moduleNames, containingFile, ...rest) => {
 			const _resolveModuleNameLiterals =
