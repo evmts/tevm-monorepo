@@ -1,10 +1,10 @@
 import { describe, expect, it, vi } from "vitest";
-import { Decorator, decorate } from ".";
+import { Decorator, composeDecorators } from ".";
 
 // rome-ignore lint/suspicious/noExplicitAny: <explanation>
 type TestAny = any;
 
-describe(decorate.name, () => {
+describe(composeDecorators.name, () => {
 	it("should return the instance if there are no decorators", () => {
 		const instance = {} as TestAny;
 		const createInfo = {} as TestAny;
@@ -12,7 +12,12 @@ describe(decorate.name, () => {
 		const logger = {} as TestAny;
 		const decorators = [] as TestAny[];
 
-		const result = decorate(instance, createInfo, ts, logger, decorators);
+		const result = composeDecorators(...decorators)(
+			instance,
+			createInfo,
+			ts,
+			logger,
+		);
 
 		expect(result).toBe(instance);
 	});
@@ -29,14 +34,13 @@ describe(decorate.name, () => {
 		const ts = {} as TestAny;
 		const logger = {} as TestAny;
 		const expected = "expected";
-		const decorators = [() => ({ decoratedMethod: () => expected })];
+		const decorators: TestAny = [() => ({ decoratedMethod: () => expected })];
 
-		const result = decorate(
+		const result = composeDecorators(...decorators)(
 			instance,
 			createInfo,
 			ts,
 			logger,
-			decorators as TestAny,
 		);
 
 		expect((result as TestAny).decoratedMethod()).toBe(expected);
@@ -56,17 +60,16 @@ describe(decorate.name, () => {
 		const logger = {} as TestAny;
 		const expected = "expected";
 		const expected2 = "expected2";
-		const decorators = [
+		const decorators: TestAny = [
 			() => ({ decoratedMethod: () => expected }),
 			() => ({ decoratedMethod2: () => expected2 }),
 		];
 
-		const result = decorate(
+		const result = composeDecorators(...decorators)(
 			instance,
 			createInfo,
 			ts,
 			logger,
-			decorators as TestAny,
 		);
 
 		expect((result as TestAny).decoratedMethod()).toBe(expected);
@@ -89,12 +92,11 @@ describe(decorate.name, () => {
 		});
 		const decorators: Decorator[] = [decoreator];
 
-		const result = decorate(
+		const result = composeDecorators(...decorators)(
 			instance,
 			createInfo,
 			ts,
 			logger,
-			decorators as TestAny,
 		);
 
 		expect((result as TestAny).decoratedMethod()).toBe(expected);

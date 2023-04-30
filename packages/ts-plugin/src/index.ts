@@ -1,10 +1,21 @@
 import type typescript from "typescript/lib/tsserverlibrary";
-import { createFactory } from "./factories";
+import { createLogger } from "./factories";
+import { languageServiceHostDecorator } from "./languageServiceHost";
 
 const init = (modules: {
 	typescript: typeof typescript;
 }) => {
-	return { create: createFactory(modules.typescript) };
+	return {
+		create: (createInfo: typescript.server.PluginCreateInfo) => {
+			const logger = createLogger(createInfo);
+			return languageServiceHostDecorator(
+				createInfo.languageServiceHost,
+				createInfo,
+				modules.typescript,
+				logger,
+			);
+		},
+	};
 };
 
 export = init;

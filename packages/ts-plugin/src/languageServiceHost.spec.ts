@@ -1,13 +1,13 @@
 import { describe, expect, it, vi } from "vitest";
-import { createFactory } from "./create";
+import { languageServiceHostDecorator } from "./languageServiceHost";
 import typescript from "typescript/lib/tsserverlibrary";
+import { createLogger } from "./factories/logger";
 
 // rome-ignore lint/suspicious/noExplicitAny: <explanation>
 type TestAny = any;
 
-describe(createFactory.name, () => {
-	it("returns a typescript create", () => {
-		const create = createFactory(typescript);
+describe(languageServiceHostDecorator.name, () => {
+	it("decorates a languageServiceHost", () => {
 		const createInfo: typescript.server.PluginCreateInfo = {
 			languageServiceHost: {
 				resolveModuleNameLiterals: vi.fn(),
@@ -24,8 +24,13 @@ describe(createFactory.name, () => {
 				},
 			},
 		} as TestAny;
-		expect(create).toBeInstanceOf(Function);
-		const host = create(createInfo);
+		const logger = createLogger(createInfo);
+		const host = languageServiceHostDecorator(
+			createInfo.languageServiceHost,
+			createInfo,
+			typescript,
+			logger,
+		);
 		expect(host).toMatchInlineSnapshot(`
 			{
 			  "getResolvedModuleWithFailedLookupLocationsFromCache": [MockFunction spy],
