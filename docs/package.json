@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "vitepress dev .",
     "build": "vitepress build .",
-    "preview": "vitepress preview ."
+    "preview": "vitepress preview .",
+    "lint": "rome check . --apply-unsafe",
+    "lint:check": "rome check ."
   },
   "devDependencies": {
     "vitepress": "1.0.0-alpha.73"
