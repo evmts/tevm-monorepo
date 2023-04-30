@@ -12,6 +12,7 @@
     "url": "https://github.com/evmts/evmts-monorepo.git"
   },
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
     "typecheck": "nx run-many --target=typecheck",
     "test": "nx run-many --target=test",
     "build": "nx run-many --target=build",

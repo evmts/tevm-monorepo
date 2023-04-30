@@ -20,6 +20,7 @@
     "access": "public"
   },
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
     "typecheck": "tsc --noEmit",
     "build": "tsup",
     "//test": "vitest",

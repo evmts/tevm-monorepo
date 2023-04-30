@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
     "dev": "vite --open",
     "//build": "vite build",
     "serve": "serve -s -l tcp://0.0.0.0:5173 dist",

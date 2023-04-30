@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
     "e2e": "playwright test",
     "typecheck": "tsc --noEmit",
     "format": "rome format . --write",

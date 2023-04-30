@@ -7,6 +7,7 @@
   "module": "dist/evmts-contracts.js",
   "types": "dist/evmts-contracts.ts",
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
     "prebuild": "forge install",
     "build": "wagmi generate && tsup",
     "build:optimized": "FOUNDRY_PROFILE=optimized forge build",

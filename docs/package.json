@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
     "dev": "vitepress dev .",
     "build": "vitepress build .",
     "preview": "vitepress preview .",

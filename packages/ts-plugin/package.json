@@ -9,6 +9,7 @@
   "type": "module",
   "private": false,
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
     "build": "tsup",
     "test": "vitest",
     "typecheck": "tsc --noEmit",
