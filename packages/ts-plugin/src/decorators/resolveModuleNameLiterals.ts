@@ -5,6 +5,9 @@ import { existsSync } from 'fs'
 import path from 'path'
 import type typescript from 'typescript/lib/tsserverlibrary'
 
+/**
+ * Decorates the server host with `resolveModuleNameLiterals` proxy to return the correct module object for `.sol` files.
+ */
 export const resolveModuleNameLiteralsDecorator: Decorator = (
   createInfo,
   ts,

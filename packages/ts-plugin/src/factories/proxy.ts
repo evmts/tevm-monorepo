@@ -1,3 +1,6 @@
+/**
+ * A light helper class for decorating the typescript language server
+ */
 export const createProxy = <T extends object>(
   instance: T,
   proxy: Partial<T>,

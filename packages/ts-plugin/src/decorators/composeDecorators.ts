@@ -1,9 +1,7 @@
 import { Decorator } from './Decorator'
 
 /**
- *
- * @param decorators
- * @returns
+ * Util used to turn an array of decorators into a single decorator
  */
 export const composeDecorators = (...decorators: Decorator[]): Decorator => {
   return (createInfo, ts, logger) => {

@@ -1,11 +1,18 @@
 import type typescript from 'typescript/lib/tsserverlibrary'
 
+/**
+ * The logger used internally within the package
+ */
 export type Logger = {
   info: (msg: string) => void
   warn: (msg: string) => void
   error: (msg: string) => void
 }
 
+/**
+ * Factory to create a logger
+ * @see {@link Logger}
+ */
 export const createLogger = (
   pluginCreateInfo: typescript.server.PluginCreateInfo,
 ): Logger => {
