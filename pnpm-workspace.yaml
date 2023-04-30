@@ -1,6 +1,6 @@
 packages:
   - "packages/*"
   - "playground"
-  - "playground-next"
+  - "playground-legacy"
   - "e2e"
   - "docs"
