@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'vitest'
 import { isRelativeSolidity } from './isRelativeSolidity'
+import { describe, expect, it } from 'vitest'
 
 describe(isRelativeSolidity.name, () => {
   it('should return true for .sol files', () => {

@@ -1,6 +1,6 @@
+import { createProxy } from '../factories'
 import { isSolidity } from '../utils/isSolidity'
 import { Decorator } from './Decorator'
-import { createProxy } from '../factories'
 
 export const getScriptKindDecorator: Decorator = (createInfo, ts) => {
   return createProxy(createInfo.languageServiceHost, {

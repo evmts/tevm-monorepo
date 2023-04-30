@@ -1,5 +1,5 @@
-import path from 'pathe'
 import { execaCommandSync } from 'execa'
+import path from 'pathe'
 import { z } from 'zod'
 
 export const foundryConfigValidator = z.object({

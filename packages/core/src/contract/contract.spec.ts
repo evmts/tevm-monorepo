@@ -1,12 +1,12 @@
-import { beforeEach, describe, expect, it } from 'vitest'
-import { forkUrl } from '../transports/forkUrl'
 import {
   EVMtsContract,
   PublicClient,
   createPublicClient,
 } from '../clients/createPublicClient'
-import { optimism } from 'viem/chains'
+import { forkUrl } from '../transports/forkUrl'
 import { contract } from './contract'
+import { optimism } from 'viem/chains'
+import { beforeEach, describe, expect, it } from 'vitest'
 
 const erc20: EVMtsContract<any> = {
   abi: 'TODO' as any,

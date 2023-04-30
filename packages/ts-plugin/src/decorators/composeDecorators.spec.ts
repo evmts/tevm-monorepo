@@ -1,7 +1,7 @@
-import { describe, expect, it, vi } from 'vitest'
 import { Decorator, composeDecorators } from '.'
-import typescript from 'typescript/lib/tsserverlibrary'
 import { createProxy } from '../factories'
+import typescript from 'typescript/lib/tsserverlibrary'
+import { describe, expect, it, vi } from 'vitest'
 
 type TestAny = any
 

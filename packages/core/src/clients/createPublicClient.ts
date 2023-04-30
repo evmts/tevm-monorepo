@@ -1,5 +1,5 @@
+import { Address, GetContractReturnType, Transport } from 'viem'
 import { Chain } from 'viem/chains'
-import { Address, Transport, GetContractReturnType } from 'viem'
 
 export type Deployments = Record<number, Address> | Address
 

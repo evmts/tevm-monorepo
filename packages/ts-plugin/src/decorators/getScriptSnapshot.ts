@@ -1,7 +1,7 @@
-import { isSolidity } from '../utils/isSolidity'
-import { existsSync } from 'fs'
 import { createProxy } from '../factories/proxy'
+import { isSolidity } from '../utils/isSolidity'
 import { Decorator } from './Decorator'
+import { existsSync } from 'fs'
 
 /**
  * This appears to return a .d.ts file for a .sol file

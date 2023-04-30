@@ -1,11 +1,11 @@
-import { VM } from '@ethereumjs/vm'
-import { Address } from '@ethereumjs/util'
+import { block } from './block'
+import { buildTransaction } from './buildTransaction'
 import { encodeDeployment } from './encodeDeployment'
 import { getAccountNonce } from './getAccountNonce'
-import { Transaction } from '@ethereumjs/tx'
-import { buildTransaction } from './buildTransaction'
 import { common } from './hardFork'
-import { block } from './block'
+import { Transaction } from '@ethereumjs/tx'
+import { Address } from '@ethereumjs/util'
+import { VM } from '@ethereumjs/vm'
 
 export const deployContract = async (
   vm: VM,

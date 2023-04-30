@@ -1,13 +1,13 @@
-// @ts-ignore - TODO figure out why these types don't work
-import { readJSON } from 'fs-extra/esm'
 import { forgeArtifactsValidator } from '.'
-import {
-  forgeOptionsValidator,
-  FoundryOptions,
-  getFoundryConfig,
-} from './getFoundryConfig'
 import { getArtifactPaths } from './getArtifactsPath'
 import { getContractName } from './getContractName'
+import {
+  FoundryOptions,
+  forgeOptionsValidator,
+  getFoundryConfig,
+} from './getFoundryConfig'
+// @ts-ignore - TODO figure out why these types don't work
+import { readJSON } from 'fs-extra/esm'
 
 export type Artifacts = Record<string, Awaited<ReturnType<typeof getContract>>>
 

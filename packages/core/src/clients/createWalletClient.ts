@@ -1,5 +1,5 @@
-import { Chain } from 'viem/chains'
 import { Transport } from 'viem'
+import { Chain } from 'viem/chains'
 
 type WalletClient = {}
 

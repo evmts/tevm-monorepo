@@ -1,5 +1,5 @@
-import { VM } from '@ethereumjs/vm'
 import { common } from './hardFork'
+import { VM } from '@ethereumjs/vm'
 
 /*
  * VM.create is an async factory function

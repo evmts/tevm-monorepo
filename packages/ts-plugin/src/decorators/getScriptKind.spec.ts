@@ -1,6 +1,6 @@
-import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { getScriptKindDecorator } from './getScriptKind'
 import typescript from 'typescript/lib/tsserverlibrary'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 type TestAny = any
 

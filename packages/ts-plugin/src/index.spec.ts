@@ -1,6 +1,6 @@
-import { describe, it, expect, vi } from 'vitest'
 import init from '.'
 import typescript from 'typescript/lib/tsserverlibrary'
+import { describe, expect, it, vi } from 'vitest'
 
 type TestAny = any
 

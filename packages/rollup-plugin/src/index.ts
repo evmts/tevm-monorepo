@@ -1,9 +1,9 @@
 import {
   Artifacts,
+  FoundryOptions,
   buildContracts,
   createModule,
   forgeOptionsValidator,
-  FoundryOptions,
   getArtifacts,
   getContractName,
   getFoundryConfig,

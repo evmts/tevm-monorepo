@@ -1,4 +1,4 @@
-import { forkUrl, createPublicClient, optimism } from '@evmts/core'
+import { createPublicClient, forkUrl, optimism } from '@evmts/core'
 
 export const publicClient = createPublicClient({
   chain: optimism,

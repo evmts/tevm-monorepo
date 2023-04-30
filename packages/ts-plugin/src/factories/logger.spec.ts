@@ -1,5 +1,5 @@
-import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { createLogger } from './logger'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 type TestAny = any
 

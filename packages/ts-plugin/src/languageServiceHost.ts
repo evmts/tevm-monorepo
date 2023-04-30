@@ -1,9 +1,9 @@
 import {
-  composeDecorators,
-  resolveModuleNameLiteralsDecorator,
-  getScriptSnapshotDecorator,
-  getScriptKindDecorator,
   Decorator,
+  composeDecorators,
+  getScriptKindDecorator,
+  getScriptSnapshotDecorator,
+  resolveModuleNameLiteralsDecorator,
 } from './decorators'
 
 export const languageServiceHostDecorator: Decorator = composeDecorators(

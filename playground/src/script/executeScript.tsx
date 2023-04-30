@@ -1,7 +1,7 @@
-import { useState } from 'react'
 import { publicClient } from '../clients/publicClient'
 import { HelloWorld } from './HelloWorld.s.sol'
 import { useQuery } from '@tanstack/react-query'
+import { useState } from 'react'
 
 const helloWorldScript = publicClient.script(HelloWorld)
 

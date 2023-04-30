@@ -1,7 +1,7 @@
-import { describe, expect, it, vi } from 'vitest'
+import { createLogger } from './factories/logger'
 import { languageServiceHostDecorator } from './languageServiceHost'
 import typescript from 'typescript/lib/tsserverlibrary'
-import { createLogger } from './factories/logger'
+import { describe, expect, it, vi } from 'vitest'
 
 type TestAny = any
 
