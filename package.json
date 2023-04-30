@@ -33,9 +33,7 @@
     "dotenv": "^16.0.3",
     "eslint-plugin-import": "^2.27.5",
     "nx": "^16.0.1",
-    "prettier": "^2.8.8",
     "prettier-plugin-solidity": "^1.1.3",
-    "rome": "^12.0.0",
     "solhint": "^3.4.1",
     "solhint-plugin-prettier": "^0.0.5",
     "typescript": "^5.0.4"
@@ -56,7 +54,7 @@
     "eslint-plugin-react-query": "^1.3.0",
     "eslint-plugin-simple-import-sort": "^10.0.0",
     "gitmoji-cli": "^8.1.1",
-    "prettier": "^2.8.3",
+    "prettier": "^2.8.8",
     "ts-node": "^10.9.1",
     "wait-on": "^7.0.1"
   }

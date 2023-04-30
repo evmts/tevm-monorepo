@@ -9,7 +9,7 @@
     "serve": "serve -s -l tcp://0.0.0.0:5173 dist",
     "//test": "vitest",
     "lint": "rome check . --apply-unsafe",
-    "lint:check": "rome check .",
+    "lint:check": "rome check . --verbose",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -48,6 +48,7 @@
     "matchers": "link:@types/@testing-library/jest-dom/matchers",
     "react-helmet": "^6.1.0",
     "serve": "^14.2.0",
+    "rome": "^12.0.0",
     "typescript": "^5.0.4",
     "vite": "^4.3.0",
     "vitest": "^0.30.1"

@@ -8,9 +8,10 @@
     "build": "vitepress build .",
     "preview": "vitepress preview .",
     "lint": "rome check . --apply-unsafe",
-    "lint:check": "rome check ."
+    "lint:check": "rome check . --verbose"
   },
   "devDependencies": {
-    "vitepress": "1.0.0-alpha.73"
+    "vitepress": "1.0.0-alpha.73",
+    "rome": "^12.0.0"
   }
 }

@@ -27,7 +27,7 @@
     "//test:ui": "vitest --ui",
     "//test:run": "vitest run",
     "lint": "rome check . --apply-unsafe",
-    "lint:check": "rome check ."
+    "lint:check": "rome check . --verbose"
   },
   "peerDependencies": {
     "@babel/core": ">7.0.0"
@@ -40,6 +40,7 @@
     "@vitest/ui": "^0.30.1",
     "core": "link:@types/babel/core",
     "helper-plugin-utils": "link:@types/babel/helper-plugin-utils",
+    "rome": "^12.0.0",
     "traverse": "link:@types/babel/traverse",
     "tsup": "^6.7.0",
     "typescript": "^5.0.4",
