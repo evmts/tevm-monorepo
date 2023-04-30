@@ -1,5 +1,5 @@
 import type typescript from "typescript/lib/tsserverlibrary";
-import { createLogger } from "./createLogger";
+import { createLogger } from "./utils/createLogger";
 import { decorate } from "./decorators/decorate";
 import { resolveModuleNameLiteralsDecorator } from "./decorators/resolveModuleNameLiterals";
 import { getScriptSnapshotDecorator } from "./decorators/getScriptSnapshot";

@@ -1,7 +1,7 @@
 import type typescript from "typescript/lib/tsserverlibrary";
-import { isRelativeSolidity } from "../isRelativeSolidity";
+import { isRelativeSolidity } from "../utils/isRelativeSolidity";
 import path from "path";
-import { isSolidity } from "../isSolidity";
+import { isSolidity } from "../utils/isSolidity";
 import { existsSync } from "fs";
 import { Decorator } from "./decorate";
 

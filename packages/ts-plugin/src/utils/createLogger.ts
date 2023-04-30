@@ -15,11 +15,11 @@ export const createLogger = (
 		);
 	const warn = (msg: string) =>
 		pluginCreateInfo.project.projectService.logger.info(
-			`[evmts-ts-plugin] ${msg}`,
+			`[evmts-ts-plugin] warning: ${msg}`,
 		);
 	const error = (msg: string) =>
 		pluginCreateInfo.project.projectService.logger.info(
-			`[evmts-ts-plugin] ${msg}`,
+			`[evmts-ts-plugin] error: ${msg}`,
 		);
 	return { info, warn, error };
 };

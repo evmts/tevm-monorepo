@@ -1,5 +1,5 @@
 import type typescript from "typescript/lib/tsserverlibrary";
-import { Logger } from "../createLogger";
+import { Logger } from "../utils/createLogger";
 
 export type Decorator = (
 	createInfo: typescript.server.PluginCreateInfo,
