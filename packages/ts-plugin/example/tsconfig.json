@@ -2,7 +2,7 @@
   "compilerOptions": {
     // This matches the package name given in this package.json
     "plugins": [{
-      "name": "tsserver-plugin"
+      "name": "@evmts/ts-plugin"
     }],
 
     // Everything below is just the default for `tsc --init`

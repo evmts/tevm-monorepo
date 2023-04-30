@@ -1,7 +1,7 @@
 {
-    "name": "example-tsc-codebase",
-    "dependencies": {
-        "tsserver-plugin": "file:..",
-        "typescript": "^4.4.3"
-    }
+  "name": "example-tsc-codebase",
+  "dependencies": {
+    "@evmts/ts-plugin": "file:..",
+    "typescript": "5.0.4"
+  }
 }
