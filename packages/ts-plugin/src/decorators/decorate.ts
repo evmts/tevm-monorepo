@@ -1,11 +1,6 @@
 import type typescript from "typescript/lib/tsserverlibrary";
-import { Logger } from "../utils/createLogger";
-
-export type Decorator = (
-	createInfo: typescript.server.PluginCreateInfo,
-	ts: typeof typescript,
-	logger: Logger,
-) => Partial<typescript.LanguageServiceHost>;
+import { Logger } from "../utils";
+import { Decorator } from "./Decorator";
 
 export const decorate = (
 	instance: typescript.LanguageServiceHost,

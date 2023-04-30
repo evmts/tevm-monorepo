@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import { Decorator, decorate } from "./decorate";
+import { Decorator, decorate } from ".";
 
 // rome-ignore lint/suspicious/noExplicitAny: <explanation>
 type TestAny = any;

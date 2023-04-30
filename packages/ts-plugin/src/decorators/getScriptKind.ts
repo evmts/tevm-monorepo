@@ -1,5 +1,5 @@
 import { isSolidity } from "../utils/isSolidity";
-import { Decorator } from "./decorate";
+import { Decorator } from "./Decorator";
 
 export const getScriptKindDecorator: Decorator = (createInfo, ts) => ({
 	getScriptKind: (fileName) => {

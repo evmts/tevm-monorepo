@@ -1,9 +1,8 @@
 import type typescript from "typescript/lib/tsserverlibrary";
-import { isRelativeSolidity } from "../utils/isRelativeSolidity";
 import path from "path";
-import { isSolidity } from "../utils/isSolidity";
+import { isSolidity, isRelativeSolidity } from "../utils";
 import { existsSync } from "fs";
-import { Decorator } from "./decorate";
+import { Decorator } from "./Decorator";
 
 export const resolveModuleNameLiteralsDecorator: Decorator = (
 	createInfo,

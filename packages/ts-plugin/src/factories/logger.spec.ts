@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { createLogger } from "./createLogger";
+import { createLogger } from "./logger";
 
 // rome-ignore lint/suspicious/noExplicitAny: <explanation>
 type TestAny = any;

@@ -1,7 +1,6 @@
-import type typescript from "typescript/lib/tsserverlibrary";
 import { isSolidity } from "../utils/isSolidity";
 import { existsSync } from "fs";
-import { Decorator } from "./decorate";
+import { Decorator } from "./Decorator";
 
 /**
  * This appears to return a .d.ts file for a .sol file
