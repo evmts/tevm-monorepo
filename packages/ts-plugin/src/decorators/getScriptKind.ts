@@ -1,9 +1,9 @@
-import { createProxy } from '../factories'
+import { createDecorator } from '../factories/decorator'
 import { isSolidity } from '../utils/isSolidity'
-import { createDecorator } from './createDecorator'
 
 /**
- * Decorates the server host with `getScriptKind` proxy to return typescript for `.sol` files.
+ * Decorate `LangaugeServerHost.getScriptKind` to return TS type for `.sol` files
+ * This lets the ts-server expect `.sol` files to resolve to `.d.ts` files in `resolveModuleNameLiterals`
  */
 export const getScriptKindDecorator = createDecorator((createInfo, ts) => {
   return {

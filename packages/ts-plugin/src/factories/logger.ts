@@ -2,6 +2,7 @@ import type typescript from 'typescript/lib/tsserverlibrary'
 
 /**
  * The logger used internally within the package
+ * @see {@link createLogger}
  */
 export type Logger = {
   info: (msg: string) => void
@@ -12,6 +13,9 @@ export type Logger = {
 /**
  * Factory to create a logger
  * @see {@link Logger}
+ * @example
+ * const logger = createLogger(createInfo)
+ * logger.info('hello world')
  */
 export const createLogger = (
   pluginCreateInfo: typescript.server.PluginCreateInfo,

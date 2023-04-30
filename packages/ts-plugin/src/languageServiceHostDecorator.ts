@@ -1,10 +1,9 @@
 import {
-  Decorator,
-  composeDecorators,
   getScriptKindDecorator,
   getScriptSnapshotDecorator,
   resolveModuleNameLiteralsDecorator,
 } from './decorators'
+import { Decorator, composeDecorators } from './factories'
 
 /**
  * Decorates the server host with functionality to handle `.sol` files.

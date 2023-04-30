@@ -1,5 +1,5 @@
-import { createLogger } from './factories/logger'
-import { languageServiceHostDecorator } from './languageServiceHost'
+import { createLogger } from './factories'
+import { languageServiceHostDecorator } from './languageServiceHostDecorator'
 import typescript from 'typescript/lib/tsserverlibrary'
 import { describe, expect, it, vi } from 'vitest'
 
