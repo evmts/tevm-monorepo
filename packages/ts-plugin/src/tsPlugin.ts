@@ -19,28 +19,33 @@ import type typescript from 'typescript/lib/tsserverlibrary'
  * @see https://github.com/microsoft/TypeScript/wiki/Writing-a-Language-Service-Plugin#decorator-creation
  */
 export const tsPlugin = ({
+  /**
+   * We must always use this version of typescript to ensure compatibility with the
+   * version of typescript used by the client
+   */
   typescript: ts,
 }: {
   typescript: typeof typescript
 }) => {
   /**
-   * Compose the decorators into a single decorator
+   * Compose the 3 decorators into a single decorator
+   *
+   * `getScriptKindDecorator`
+   * Decorates ts-server with functionality to treat `.sol` files as `.ts` files
+   * @see {@link resolveModuleNameLiteralsDecorator}
+   *
+   * `resolveModuleNameLiteralsDecorator`
+   * Decorates ts-server to return correct metadata for `.sol` files
+   * @see {@link resolveModuleNameLiteralsDecorator}
+   *
+   * `getScriptSnapshotDecorator`
+   * Decorates ts-server with functionality to generate `.d.ts` files for `.sol` files
+   * @see {@link resolveModuleNameLiteralsDecorator}
+   *
    */
-  const lsDecorator = composeDecorators(
-    /**
-     * Decorates ts-server with functionality to treat `.sol` files as `.ts` files
-     * @see {@link resolveModuleNameLiteralsDecorator}
-     */
+  const decorator = composeDecorators(
     getScriptKindDecorator,
-    /**
-     * Decorates ts-server to return correct metadata for `.sol` files
-     * @see {@link resolveModuleNameLiteralsDecorator}
-     */
     resolveModuleNameLiteralsDecorator,
-    /**
-     * Decorates ts-server with functionality to generate `.d.ts` files for `.sol` files
-     * @see {@link resolveModuleNameLiteralsDecorator}
-     */
     getScriptSnapshotDecorator,
   )
 
@@ -51,7 +56,7 @@ export const tsPlugin = ({
   const create = (
     createInfo: typescript.server.PluginCreateInfo,
   ): typescript.LanguageServiceHost => {
-    return lsDecorator(createInfo, ts, createLogger(createInfo))
+    return decorator(createInfo, ts, createLogger(createInfo))
   }
 
   return {
