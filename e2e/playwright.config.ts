@@ -4,7 +4,7 @@ const config: PlaywrightTestConfig = {
   testDir: 'src',
   retries: 3,
   webServer: {
-    command: 'pnpm nx serve playground',
+    command: 'pnpm nx serve playground-legacy',
     port: 5173,
     reuseExistingServer: true,
     timeout: 180000,
