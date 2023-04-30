@@ -1,5 +1,5 @@
-import { createDecorator } from '../factories/decorator'
-import { solidityModuleResolver } from '../utils/solidityModuleResolver'
+import { createDecorator } from '../factories'
+import { solidityModuleResolver } from '../utils'
 
 /**
  * Decorate `LangaugeServerHost.resolveModuleNameLiterals` to return config object to resolve `.sol` files

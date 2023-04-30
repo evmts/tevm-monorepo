@@ -1,4 +1,4 @@
-import { getScriptKindDecorator } from './getScriptKind'
+import { getScriptKindDecorator } from '.'
 import typescript from 'typescript/lib/tsserverlibrary'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 

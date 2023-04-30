@@ -1,5 +1,5 @@
-import { createDecorator } from '../factories/decorator'
-import { isSolidity } from '../utils/isSolidity'
+import { createDecorator } from '../factories'
+import { isSolidity } from '../utils'
 
 /**
  * Decorate `LangaugeServerHost.getScriptKind` to return TS type for `.sol` files

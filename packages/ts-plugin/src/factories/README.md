@@ -9,7 +9,3 @@ Factories used for generating ts language server decorators
 #### [logger](./logger.ts)
 
 The logger used internally within the package
-
-#### [proxy](./proxy.ts)
-
-A light helper class for decorating the typescript language server

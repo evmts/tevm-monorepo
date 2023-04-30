@@ -1,9 +1,7 @@
-import {
-  getScriptKindDecorator,
-  getScriptSnapshotDecorator,
-  resolveModuleNameLiteralsDecorator,
-} from './decorators'
-import { Decorator, composeDecorators } from './factories'
+import { Decorator, composeDecorators } from '../factories'
+import { getScriptKindDecorator } from './getScriptKind'
+import { getScriptSnapshotDecorator } from './getScriptSnapshot'
+import { resolveModuleNameLiteralsDecorator } from './resolveModuleNameLiterals'
 
 /**
  * Decorates the server host with functionality to handle `.sol` files.

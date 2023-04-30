@@ -10,6 +10,12 @@ Decorates the server host with `getScriptKind` proxy to return typescript for `.
 
 Decorates the server host with `getScriptSnapshot` proxy to return the correct .d.ts files for the `.sol` files.
 
+#### [langaugeServiceHost](./langaugeServiceHost.ts)
+
+The main decorator composed from all the other decorators.
+
+The [typescript language server decorator](https://github.com/microsoft/TypeScript/wiki/Writing-a-Language-Service-Plugin#decorator-creation) to wrap the typescript language server with `.sol` file support.
+
 #### [resolveModuleNameLiterals](./resolveModuleNameLiterals.ts)
 
 Decorates the server host with `resolveModuleNameLiterals` proxy to return the correct module object for `.sol` files.

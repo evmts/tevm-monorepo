@@ -1,5 +1,4 @@
-import type { Logger } from '.'
-import { LanguageServiceHost } from 'typescript'
+import type { Logger } from './logger'
 import type typescript from 'typescript/lib/tsserverlibrary'
 
 /**
@@ -11,7 +10,7 @@ export type Decorator = (
   createInfo: typescript.server.PluginCreateInfo,
   ts: typeof typescript,
   logger: Logger,
-) => LanguageServiceHost
+) => typescript.LanguageServiceHost
 
 /**
  * Type of function passed into createDecorator

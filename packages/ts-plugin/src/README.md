@@ -1,12 +1,8 @@
 ## @evmts/ts-plugin/src
 
-#### [index.ts](./index.ts)
+#### [tsPlugin.ts](./index.ts)
 
 Entrypoint to the [ts-plugin](https://github.com/microsoft/TypeScript/wiki/Writing-a-Language-Service-Plugin)
-
-#### [langaugeServiceHost](./langaugeServiceHost.ts)
-
-The [typescript language server decorator](https://github.com/microsoft/TypeScript/wiki/Writing-a-Language-Service-Plugin#decorator-creation) to wrap the typescript language server with `.sol` file support.
 
 #### [decorators](./decorators/README.md)
 

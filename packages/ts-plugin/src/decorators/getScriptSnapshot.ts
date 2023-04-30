@@ -1,5 +1,5 @@
-import { createDecorator } from '../factories/decorator'
-import { isSolidity } from '../utils/isSolidity'
+import { createDecorator } from '../factories'
+import { isSolidity } from '../utils'
 import { existsSync } from 'fs'
 
 /**
