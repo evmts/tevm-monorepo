@@ -1,17 +1,17 @@
-import { Chain } from "viem/chains";
-import { Transport } from "viem";
+import { Chain } from 'viem/chains'
+import { Transport } from 'viem'
 
 type WalletClient = {}
 
 export type WalletClientOptions = {
-  chain: Chain;
+  chain: Chain
   // TODO make this our transport isntead
-  transport: Transport;
-};
+  transport: Transport
+}
 
 export const createWalletClient = (
-  options: WalletClientOptions
+  options: WalletClientOptions,
 ): WalletClient => {
   console.log(options)
-  return {};
-};
+  return {}
+}

@@ -6,6 +6,8 @@
   "scripts": {
     "e2e": "playwright test",
     "typecheck": "tsc --noEmit",
+    "format": "rome format . --write",
+    "format:check": "rome format .",
     "lint": "rome check . --apply-unsafe",
     "lint:check": "rome check . --verbose"
   },

@@ -1,93 +1,93 @@
-import { defineConfig } from "vitepress";
+import { defineConfig } from 'vitepress'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  title: "EVMts docs",
-  description: "Execute solidity scripts in the browser",
+  title: 'EVMts docs',
+  description: 'Execute solidity scripts in the browser',
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [
-      { text: "Home", link: "/" },
-      { text: "API", link: "/reference/api" },
+      { text: 'Home', link: '/' },
+      { text: 'API', link: '/reference/api' },
     ],
     footer: {
-      message: "Released under the MIT License.",
+      message: 'Released under the MIT License.',
     },
     editLink: {
-      pattern: "https://github.com/evmts/evmts-monorepo/edit/main/docs/:path",
-      text: "Edit this page on GitHub",
+      pattern: 'https://github.com/evmts/evmts-monorepo/edit/main/docs/:path',
+      text: 'Edit this page on GitHub',
     },
     sidebar: [
       {
-        text: "Introduction",
-        link: "/introduction/intro",
+        text: 'Introduction',
+        link: '/introduction/intro',
         items: [
-          { text: "Home", link: "/" },
-          { text: "Why EVMts", link: "/introduction/intro" },
-          { text: "Get started", link: "/introduction/get-started" },
-          { text: "Installation", link: "/introduction/installation" },
+          { text: 'Home', link: '/' },
+          { text: 'Why EVMts', link: '/introduction/intro' },
+          { text: 'Get started', link: '/introduction/get-started' },
+          { text: 'Installation', link: '/introduction/installation' },
           {
-            text: "Plugin configuration",
-            link: "/introduction/plugin-configuration",
+            text: 'Plugin configuration',
+            link: '/introduction/plugin-configuration',
           },
-          { text: "Hello world", link: "/introduction/hello-world" },
+          { text: 'Hello world', link: '/introduction/hello-world' },
         ],
       },
       {
-        text: "EVMts Core",
+        text: 'EVMts Core',
         items: [
           {
-            text: "Clients and Transports",
+            text: 'Clients and Transports',
             items: [
-              { text: "PublicClient", link: "/reference/public-client" },
-              { text: "WalletClient", link: "/reference/wallet-client" },
-              { text: "HttpFork", link: "/reference/http-fork" },
+              { text: 'PublicClient', link: '/reference/public-client' },
+              { text: 'WalletClient', link: '/reference/wallet-client' },
+              { text: 'HttpFork', link: '/reference/http-fork' },
             ],
           },
           {
-            text: "Contracts and Scripts",
+            text: 'Contracts and Scripts',
             items: [
               {
-                text: "Script",
-                link: "/reference/script",
+                text: 'Script',
+                link: '/reference/script',
               },
-              { text: "Contract", link: "/reference/contract" },
-              { text: "HttpFork", link: "/reference/http-fork" },
+              { text: 'Contract', link: '/reference/contract' },
+              { text: 'HttpFork', link: '/reference/http-fork' },
             ],
           },
         ],
       },
       {
-        text: "EVMts Build Plugins",
+        text: 'EVMts Build Plugins',
         collapsed: true,
         items: [
-          { text: "Typescript Plugin", link: "/plugin-reference/typescript" },
+          { text: 'Typescript Plugin', link: '/plugin-reference/typescript' },
           {
-            text: "Rollup Plugin",
-            link: "/plugin-reference/rollup",
+            text: 'Rollup Plugin',
+            link: '/plugin-reference/rollup',
             collapsed: true,
             items: [
-              { text: "Forge", link: "/plugin-reference/forge" },
-              { text: "Hardhat", link: "/plugin-reference/hardhat" },
+              { text: 'Forge', link: '/plugin-reference/forge' },
+              { text: 'Hardhat', link: '/plugin-reference/hardhat' },
             ],
           },
-          { text: "Webpack", link: "/plugin-reference/webpack" },
+          { text: 'Webpack', link: '/plugin-reference/webpack' },
         ],
       },
       {
-        text: "Guides",
+        text: 'Guides',
         collapsed: true,
         items: [
-          { text: "Configuring configuring forge", link: "/guide/forge" },
-          { text: "Configuring hardhat", link: "/guide/hardhat" },
-          { text: "Writing solidity scripts", link: "/guide/scripting" },
-          { text: "Testing scripts", link: "/guide/testing" },
+          { text: 'Configuring configuring forge', link: '/guide/forge' },
+          { text: 'Configuring hardhat', link: '/guide/hardhat' },
+          { text: 'Writing solidity scripts', link: '/guide/scripting' },
+          { text: 'Testing scripts', link: '/guide/testing' },
         ],
       },
     ],
     socialLinks: [
-      { icon: "github", link: "https://github.com/evmts/evmts-monorepo" },
-      { icon: "twitter", link: "https://twitter.com/FUCORY" },
+      { icon: 'github', link: 'https://github.com/evmts/evmts-monorepo' },
+      { icon: 'twitter', link: 'https://twitter.com/FUCORY' },
     ],
   },
-});
+})

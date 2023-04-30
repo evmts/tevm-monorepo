@@ -1,9 +1,6 @@
 {
   "files": {
-    "ignore": [
-      "coverage", "node_modules", "dist", "artifacts", ".vitepress/cache",
-      ".vitepress/dist"
-    ]
+    "ignore": ["coverage", "node_modules", "dist", "artifacts"]
   },
   "formatter": {
     "enabled": true,

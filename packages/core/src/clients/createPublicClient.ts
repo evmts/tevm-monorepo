@@ -1,20 +1,20 @@
-import { Chain } from "viem/chains";
-import { Address, Transport, GetContractReturnType } from "viem";
+import { Chain } from 'viem/chains'
+import { Address, Transport, GetContractReturnType } from 'viem'
 
 export type Deployments = Record<number, Address> | Address
 
 export type EVMtsContract<TAbi> = {
-  abi:  TAbi,
-  bytecode: string,
-  id: string,
+  abi: TAbi
+  bytecode: string
+  id: string
   deployments: Deployments
 }
 
 export type Hash = any // TODO
 
 export type RunResult<TAbi> = {
-  data: unknown,
-  todo: TAbi,
+  data: unknown
+  todo: TAbi
 }
 
 export type RunOptions<TAbi> = {
@@ -26,18 +26,24 @@ export type BroadcastOptions<TAbi> = {
 }
 
 export type BroadcastResults<TAbi> = {
-  data: unknown,
-  txHash: Hash,
+  data: unknown
+  txHash: Hash
   todo: TAbi
 }
 
 export type Script<TAbi> = {
   run: (runOptions?: RunOptions<TAbi>) => Promise<RunResult<TAbi>>
-  broadcast: (runOptions?: BroadcastOptions<TAbi>) => Promise<BroadcastResults<TAbi>>
+  broadcast: (
+    runOptions?: BroadcastOptions<TAbi>,
+  ) => Promise<BroadcastResults<TAbi>>
 }
 
-export type ScriptFactory = <TAbi>(contract: EVMtsContract<TAbi>) => Script<TAbi>
-export type ContractFactory = <TAbi>(contract: EVMtsContract<TAbi>) => GetContractReturnType
+export type ScriptFactory = <TAbi>(
+  contract: EVMtsContract<TAbi>,
+) => Script<TAbi>
+export type ContractFactory = <TAbi>(
+  contract: EVMtsContract<TAbi>,
+) => GetContractReturnType
 
 export type PublicClient = {
   script: ScriptFactory
@@ -45,14 +51,14 @@ export type PublicClient = {
 }
 
 export type PublicClientOptions = {
-  chain: Chain;
+  chain: Chain
   // TODO make this our transport isntead
-  transport: Transport;
-};
+  transport: Transport
+}
 
 export const createPublicClient = (
-  options: PublicClientOptions
+  options: PublicClientOptions,
 ): PublicClient => {
   console.log(options)
   return {} as any
-};
+}

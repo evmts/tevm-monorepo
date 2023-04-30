@@ -18,8 +18,8 @@
     "e2e": "nx e2e e2e",
     "serve": "nx run-many --target=serve",
     "serve:docker": "docker-compose up",
-    "lint": "nx run-many --target=lint",
-    "lint:check": "nx run-many --target=lint:check",
+    "lint": "nx run-many --targets=lint,format",
+    "lint:check": "nx run-many --target=lint:check,format:check",
     "release": "pnpm publish -r --access=public",
     "release:dry": "pnpm publish -r --access=public --dry-run",
     "changeset:release": "pnpm build && changeset publish",
@@ -55,6 +55,7 @@
     "eslint-plugin-simple-import-sort": "^10.0.0",
     "gitmoji-cli": "^8.1.1",
     "prettier": "^2.8.8",
+    "rome": "^12.0.0",
     "ts-node": "^10.9.1",
     "wait-on": "^7.0.1"
   }

@@ -25,6 +25,8 @@
     "//test": "vitest",
     "//test:ui": "vitest --ui",
     "//test:run": "vitest run",
+    "format": "rome format . --write",
+    "format:check": "rome format .",
     "lint": "rome check . --apply-unsafe",
     "lint:check": "rome check . --verbose"
   },

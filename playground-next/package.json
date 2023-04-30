@@ -10,6 +10,8 @@
     "//test": "vitest",
     "lint": "rome check . --apply-unsafe",
     "lint:check": "rome check . --verbose",
+    "format": "rome format . --write",
+    "format:check": "rome format .",
     "preview": "vite preview"
   },
   "dependencies": {

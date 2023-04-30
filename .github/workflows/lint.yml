@@ -21,6 +21,6 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Run Linters
-        run: pnpm nx affected --target=lint:check
+        run: pnpm nx affected --targets=lint:check,format:check
         env:
           NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}

@@ -8,6 +8,8 @@
     "build": "vite build",
     "serve": "serve -s -l tcp://0.0.0.0:5173 dist",
     "//test": "vitest",
+    "format": "rome format . --write",
+    "format:check": "rome format .",
     "lint": "rome check . --apply-unsafe",
     "lint:check": "rome check . --verbose",
     "preview": "vite preview"
