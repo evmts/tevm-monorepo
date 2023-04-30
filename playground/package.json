@@ -4,16 +4,16 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "preinstall": "npx only-allow pnpm",
-    "dev": "vite --open",
     "//build": "vite build",
-    "serve": "serve -s -l tcp://0.0.0.0:5173 dist",
     "//test": "vitest",
-    "lint": "rome check . --apply-unsafe",
-    "lint:check": "rome check . --verbose",
+    "dev": "vite --open",
     "format": "rome format . --write",
     "format:check": "rome format .",
-    "preview": "vite preview"
+    "preinstall": "npx only-allow pnpm",
+    "lint": "rome check . --apply-unsafe",
+    "lint:check": "rome check . --verbose",
+    "preview": "vite preview",
+    "serve": "serve -s -l tcp://0.0.0.0:5173 dist"
   },
   "dependencies": {
     "@babel/core": "^7.21.4",
@@ -50,8 +50,8 @@
     "jsdom": "^21.1.1",
     "matchers": "link:@types/@testing-library/jest-dom/matchers",
     "react-helmet": "^6.1.0",
-    "serve": "^14.2.0",
     "rome": "^12.0.0",
+    "serve": "^14.2.0",
     "typescript": "^5.0.4",
     "vite": "^4.3.0",
     "vitest": "^0.30.1"

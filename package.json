@@ -2,32 +2,29 @@
   "name": "evmts",
   "version": "0.0.0",
   "private": true,
-  "type": "module",
-  "engines": {
-    "node": ">=18",
-    "pnpm": ">=8"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/evmts/evmts-monorepo.git"
   },
+  "license": "MIT",
+  "type": "module",
   "scripts": {
-    "preinstall": "npx only-allow pnpm",
-    "typecheck": "nx run-many --target=typecheck",
-    "test": "nx run-many --target=test",
     "build": "nx run-many --target=build",
+    "changeset:release": "pnpm build && changeset publish",
+    "changeset:version": "changeset version && pnpm install --lockfile-only",
     "e2e": "nx e2e e2e",
-    "serve": "nx run-many --target=serve",
-    "serve:docker": "docker-compose up",
+    "preinstall": "npx only-allow pnpm",
     "lint": "nx run-many --targets=lint,format",
     "lint:check": "nx run-many --target=lint:check,format:check",
     "release": "pnpm publish -r --access=public",
     "release:dry": "pnpm publish -r --access=public --dry-run",
-    "changeset:release": "pnpm build && changeset publish",
-    "changeset:version": "changeset version && pnpm install --lockfile-only"
+    "serve": "nx run-many --target=serve",
+    "serve:docker": "docker-compose up",
+    "sort-package-json": "sort-package-json package.json 'packages/*/package.json' '*/package.json' 'packages/*/example/package.json'",
+    "sort-package-json:check": "sort-package-json package.json 'packages/*/package.json' '*/package.json' 'packages/*/example/package.json' && git diff --exit-code",
+    "test": "nx run-many --target=test",
+    "typecheck": "nx run-many --target=typecheck"
   },
-  "license": "MIT",
-  "packageManager": "pnpm@7.18.2",
   "dependencies": {
     "@changesets/cli": "^2.26.1",
     "@nrwl/nx-cloud": "^16.0.5",
@@ -57,7 +54,13 @@
     "gitmoji-cli": "^8.1.1",
     "prettier": "^2.8.8",
     "rome": "^12.0.0",
+    "sort-package-json": "^2.4.1",
     "ts-node": "^10.9.1",
     "wait-on": "^7.0.1"
+  },
+  "packageManager": "pnpm@7.18.2",
+  "engines": {
+    "node": ">=18",
+    "pnpm": ">=8"
   }
 }

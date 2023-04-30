@@ -4,13 +4,13 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "preinstall": "npx only-allow pnpm",
     "e2e": "playwright test",
-    "typecheck": "tsc --noEmit",
     "format": "rome format . --write",
     "format:check": "rome format .",
+    "preinstall": "npx only-allow pnpm",
     "lint": "rome check . --apply-unsafe",
-    "lint:check": "rome check . --verbose"
+    "lint:check": "rome check . --verbose",
+    "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
     "@playwright/test": "^1.33.0",

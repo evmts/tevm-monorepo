@@ -1,42 +1,42 @@
 {
   "name": "@evmts/ts-plugin",
-  "description": "A typescript plugin for evmts",
   "version": "0.0.0",
-  "license": "MIT",
-  "main": "dist/index.cjs",
-  "module": "dist/index.js",
-  "types": "src/index.ts",
-  "type": "module",
   "private": false,
-  "scripts": {
-    "preinstall": "npx only-allow pnpm",
-    "build": "tsup",
-    "test": "vitest",
-    "typecheck": "tsc --noEmit",
-    "clean": "rm -rf dist",
-    "format": "rome format . --write",
-    "format:check": "rome format .",
-    "lint": "rome check . --apply-unsafe",
-    "lint:check": "rome check . --verbose"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/evmts/evmts-monorepo.git",
-    "directory": "packages/ts-plugin"
-  },
-  "dependencies": {
-    "typescript": "^5.0.4"
-  },
-  "devDependencies": {
-    "tsup": "^6.7.0",
-    "vitest": "^0.30.1",
-    "rome": "^12.0.0"
-  },
+  "description": "A typescript plugin for evmts",
   "keywords": [
     "typescript",
     "plugin",
     "solidity",
     "sol",
     "evmts"
-  ]
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/evmts/evmts-monorepo.git",
+    "directory": "packages/ts-plugin"
+  },
+  "license": "MIT",
+  "type": "module",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "src/index.ts",
+  "scripts": {
+    "build": "tsup",
+    "clean": "rm -rf dist",
+    "format": "rome format . --write",
+    "format:check": "rome format .",
+    "preinstall": "npx only-allow pnpm",
+    "lint": "rome check . --apply-unsafe",
+    "lint:check": "rome check . --verbose",
+    "test": "vitest",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "typescript": "^5.0.4"
+  },
+  "devDependencies": {
+    "rome": "^12.0.0",
+    "tsup": "^6.7.0",
+    "vitest": "^0.30.1"
+  }
 }

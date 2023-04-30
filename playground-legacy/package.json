@@ -4,16 +4,16 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "preinstall": "npx only-allow pnpm",
-    "dev": "vite --open",
-    "build": "vite build",
-    "serve": "serve -s -l tcp://0.0.0.0:5173 dist",
     "//test": "vitest",
+    "build": "vite build",
+    "dev": "vite --open",
     "format": "rome format . --write",
     "format:check": "rome format .",
+    "preinstall": "npx only-allow pnpm",
     "lint": "rome check . --apply-unsafe",
     "lint:check": "rome check . --verbose",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "serve": "serve -s -l tcp://0.0.0.0:5173 dist"
   },
   "dependencies": {
     "@babel/core": "^7.20.12",

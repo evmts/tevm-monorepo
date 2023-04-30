@@ -4,17 +4,17 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "preinstall": "npx only-allow pnpm",
-    "dev": "vitepress dev .",
     "build": "vitepress build .",
-    "preview": "vitepress preview .",
+    "dev": "vitepress dev .",
     "format": "rome format . --write",
     "format:check": "rome format .",
+    "preinstall": "npx only-allow pnpm",
     "lint": "rome check . --apply-unsafe",
-    "lint:check": "rome check . --verbose"
+    "lint:check": "rome check . --verbose",
+    "preview": "vitepress preview ."
   },
   "devDependencies": {
-    "vitepress": "1.0.0-alpha.73",
-    "rome": "^12.0.0"
+    "rome": "^12.0.0",
+    "vitepress": "1.0.0-alpha.73"
   }
 }
