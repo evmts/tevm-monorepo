@@ -6,6 +6,10 @@
 
 Util used to turn an array of decorators into a single decorator
 
+#### [createDecorator](./createDecorator.ts)
+
+Typesafe util to define a TSServer decorator
+
 #### [Decorator](./Decorator.ts)
 
 Internal Decorator type used by the decorator implementations

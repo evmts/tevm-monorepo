@@ -1,12 +1,12 @@
 import { createProxy } from '../factories'
 import { isSolidity } from '../utils/isSolidity'
-import { Decorator } from './Decorator'
+import { createDecorator } from './createDecorator'
 
 /**
  * Decorates the server host with `getScriptKind` proxy to return typescript for `.sol` files.
  */
-export const getScriptKindDecorator: Decorator = (createInfo, ts) => {
-  return createProxy(createInfo.languageServiceHost, {
+export const getScriptKindDecorator = createDecorator((createInfo, ts) => {
+  return {
     getScriptKind: (fileName) => {
       if (!createInfo.languageServiceHost.getScriptKind) {
         return ts.ScriptKind.Unknown
@@ -16,5 +16,5 @@ export const getScriptKindDecorator: Decorator = (createInfo, ts) => {
       }
       return createInfo.languageServiceHost.getScriptKind(fileName)
     },
-  })
-}
+  }
+})
