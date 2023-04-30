@@ -97,3 +97,7 @@ For typesafety and autocompletion in your editor add [@evmts/ts-plugin](../ts-pl
 **Custom Ts plugins are for developer experience only**
 
 The typescript compiler does not use custom ts plugins at compile time only in your editor. You will get red squiggly lines telling you something is wrong but it will still compile.
+
+## License 📄
+
+<a href="./LICENSE"><img src="https://user-images.githubusercontent.com/35039927/231030761-66f5ce58-a4e9-4695-b1fe-255b1bceac92.png" width="200" /></a>

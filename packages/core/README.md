@@ -27,3 +27,7 @@ evmts enables direct evm execution clientside with forge cheat codes and direct 
 ## Visit [Docs](https://evmts-monorepo-docs.vercel.app/) for docs, guides, API and more!
 
 ## See [EVMts Beta project board](https://github.com/orgs/evmts/projects/1) for progress on the upcoming beta release
+
+## License 📄
+
+<a href="./LICENSE"><img src="https://user-images.githubusercontent.com/35039927/231030761-66f5ce58-a4e9-4695-b1fe-255b1bceac92.png" width="200" /></a>
