@@ -6,7 +6,7 @@
   "scripts": {
     "e2e": "playwright test",
     "typecheck": "tsc --noEmit",
-    "lint": "rome check . --apply-suggested",
+    "lint": "rome check . --apply-unsafe",
     "lint:check": "rome check ."
   },
   "dependencies": {

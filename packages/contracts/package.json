@@ -15,7 +15,7 @@
     "prettier:fix": "prettier --write src/**/*.sol",
     "solhint": "solhint --config ./.solhint.json 'src/**/*.sol'",
     "solhint:fix": "solhint --config ./.solhint.json 'src/**/*.sol' --fix",
-    "lint": "rome check . --apply-suggested",
+    "lint": "rome check . --apply-unsafe",
     "lint:check": "rome check .",
     "test": "forge test -vvv",
     "test:watch": "forge test -vvv --watch",

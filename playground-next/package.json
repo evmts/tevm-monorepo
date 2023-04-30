@@ -8,7 +8,7 @@
     "//build": "vite build",
     "serve": "serve -s -l tcp://0.0.0.0:5173 dist",
     "//test": "vitest",
-    "lint": "rome check . --apply-suggested",
+    "lint": "rome check . --apply-unsafe",
     "lint:check": "rome check .",
     "preview": "vite preview"
   },

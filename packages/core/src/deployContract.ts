@@ -30,5 +30,11 @@ export const deployContract = async (
 		throw deploymentResult.execResult.exceptionError;
 	}
 
-	return deploymentResult.createdAddress!;
+	const { createdAddress } = deploymentResult;
+
+	if (!createdAddress) {
+		throw new Error("No created address");
+	}
+
+	return createdAddress;
 };
