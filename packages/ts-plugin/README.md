@@ -2,6 +2,9 @@
 
 A typescript plugin for adding typescript support and autocomplete to your `.sol` file imports.
 
+![image](https://user-images.githubusercontent.com/35039927/235395618-21bfd0c2-d5db-43f1-8264-2d425616fb59.png)
+
+
 #### Docs
 
 For full documentumentation see [evmts docs](../../docs/introduction/get-started.md)
