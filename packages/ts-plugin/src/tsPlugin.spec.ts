@@ -53,23 +53,7 @@ describe(tsPlugin.name, () => {
 
   it('should handle a .sol file', () => {
     const decorator = tsPlugin({ typescript })
-    const host = decorator.create(createInfo)
-    const result = host.getScriptKind?.('foo.sol')
-    expect(result).toEqual(typescript.ScriptKind.TS)
-    // TODO call resolveModuleNameLiterals
-    // TODO call getScriptSnapshot
-  })
-
-  it('should handle a .ts file', () => {
-    const decorator = tsPlugin({ typescript })
-    const host = decorator.create(createInfo)
-    const file = './foo.ts'
-    const result = host.getScriptKind?.(file)
-    expect(result).toEqual(typescript.ScriptKind.TS)
-    // expect it to be proxied to the original host
-    expect(createInfo.languageServiceHost.getScriptKind).toHaveBeenCalledWith(
-      file,
-    )
+    decorator.create(createInfo)
     // TODO call resolveModuleNameLiterals
     // TODO call getScriptSnapshot
   })

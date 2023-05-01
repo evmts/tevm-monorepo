@@ -15,11 +15,11 @@
     "url": "https://github.com/evmts/evmts-monorepo.git",
     "directory": "packages/ts-plugin"
   },
+  "license": "MIT",
+  "main": "dist/index.js",
   "files": [
     "dist"
   ],
-  "license": "MIT",
-  "main": "dist/index.js",
   "scripts": {
     "build": "rm -rf ./dist && tsc --project tsconfig.build.json",
     "clean": "rm -rf dist",
@@ -31,9 +31,6 @@
     "test": "vitest",
     "typecheck": "tsc --noEmit"
   },
-  "peerDependencies": {
-    "typescript": ">=5.0.0"
-  },
   "dependencies": {
     "typescript": "^5.0.4",
     "zod": "^3.21.4"
@@ -41,5 +38,8 @@
   "devDependencies": {
     "rome": "^12.0.0",
     "vitest": "^0.30.1"
+  },
+  "peerDependencies": {
+    "typescript": ">=5.0.0"
   }
 }
