@@ -1,5 +1,6 @@
 {
   "npm.packageManager": "pnpm",
+  "typescript.tsdk": "node_modules/typescript/lib",
   "editor.formatOnSaveMode": "file",
   "editor.tabCompletion": "on",
   "editor.tabSize": 2,
