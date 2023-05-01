@@ -4,6 +4,7 @@ import {
   resolveModuleNameLiteralsDecorator,
 } from './decorators'
 import { composeDecorators, createConfig, createLogger } from './factories'
+import { isSolidity } from './utils'
 import type typescript from 'typescript/lib/tsserverlibrary'
 
 /**
@@ -18,13 +19,7 @@ import type typescript from 'typescript/lib/tsserverlibrary'
  * @see {@link typescript.server.PluginCreateInfo}
  * @see https://github.com/microsoft/TypeScript/wiki/Writing-a-Language-Service-Plugin#decorator-creation
  */
-export const tsPlugin = ({
-  /**
-   * We must always use this version of typescript to ensure compatibility with the
-   * version of typescript used by the client
-   */
-  typescript: ts,
-}: {
+export const tsPlugin = (modules: {
   typescript: typeof typescript
 }) => {
   /**
@@ -55,14 +50,22 @@ export const tsPlugin = ({
    */
   const create = (
     createInfo: typescript.server.PluginCreateInfo,
-  ): typescript.LanguageServiceHost => {
+  ): typescript.LanguageService => {
     const config = createConfig(createInfo)
     const logger = createLogger(createInfo)
-    const lsHost = decorator(createInfo, ts, logger, config)
-    return lsHost
+    logger.info('Creating language service host')
+    const lsHost = decorator(createInfo, modules.typescript, logger, config)
+    return modules.typescript.createLanguageService(lsHost)
+  }
+
+  const getExternalFiles = (
+    project: typescript.server.ConfiguredProject,
+  ): string[] => {
+    return project.getFileNames().filter(isSolidity)
   }
 
   return {
     create,
+    getExternalFiles,
   }
 }
