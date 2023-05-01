@@ -309,6 +309,9 @@ importers:
 
   packages/ts-plugin:
     dependencies:
+      globby:
+        specifier: ^13.1.4
+        version: 13.1.4
       typescript:
         specifier: ^5.0.4
         version: 5.0.4

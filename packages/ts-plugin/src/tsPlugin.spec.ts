@@ -6,6 +6,7 @@ import { Mock, describe, expect, it, vi } from 'vitest'
 type TestAny = any
 
 const config: Config = {
+  out: 'out',
   name: '@evmts/ts-plugin',
   project: '.',
 }
@@ -13,6 +14,7 @@ const config: Config = {
 const createInfo: typescript.server.PluginCreateInfo = {
   config,
   languageServiceHost: {
+    getCurrentDirectory: vi.fn(),
     resolveModuleNameLiterals: vi.fn(),
     getScriptSnapshot: vi.fn(),
     getScriptKind: vi.fn(),
@@ -39,16 +41,85 @@ const createInfo: typescript.server.PluginCreateInfo = {
 describe(tsPlugin.name, () => {
   it('should return a create decorator', () => {
     const decorator = tsPlugin({ typescript })
-    expect(Object.keys(decorator)).toEqual(['create'])
+    expect(Object.keys(decorator)).toMatchInlineSnapshot(`
+      [
+        "create",
+        "getExternalFiles",
+      ]
+    `)
     const host = decorator.create(createInfo)
     expect(host).toMatchInlineSnapshot(`
-			{
-			  "getResolvedModuleWithFailedLookupLocationsFromCache": [MockFunction spy],
-			  "getScriptKind": [Function],
-			  "getScriptSnapshot": [Function],
-			  "resolveModuleNameLiterals": [Function],
-			}
-		`)
+      {
+        "applyCodeActionCommand": [Function],
+        "cleanupSemanticCache": [Function],
+        "clearSourceMapperCache": [Function],
+        "commentSelection": [Function],
+        "dispose": [Function],
+        "findReferences": [Function],
+        "findRenameLocations": [Function],
+        "getApplicableRefactors": [Function],
+        "getAutoImportProvider": [Function],
+        "getBraceMatchingAtPosition": [Function],
+        "getBreakpointStatementAtPosition": [Function],
+        "getCodeFixesAtPosition": [Function],
+        "getCombinedCodeFix": [Function],
+        "getCompilerOptionsDiagnostics": [Function],
+        "getCompletionEntryDetails": [Function],
+        "getCompletionEntrySymbol": [Function],
+        "getCompletionsAtPosition": [Function],
+        "getCurrentProgram": [Function],
+        "getDefinitionAndBoundSpan": [Function],
+        "getDefinitionAtPosition": [Function],
+        "getDocCommentTemplateAtPosition": [Function],
+        "getDocumentHighlights": [Function],
+        "getEditsForFileRename": [Function],
+        "getEditsForRefactor": [Function],
+        "getEmitOutput": [Function],
+        "getEncodedSemanticClassifications": [Function],
+        "getEncodedSyntacticClassifications": [Function],
+        "getFileReferences": [Function],
+        "getFormattingEditsAfterKeystroke": [Function],
+        "getFormattingEditsForDocument": [Function],
+        "getFormattingEditsForRange": [Function],
+        "getImplementationAtPosition": [Function],
+        "getIndentationAtPosition": [Function],
+        "getJsxClosingTagAtPosition": [Function],
+        "getNameOrDottedNameSpan": [Function],
+        "getNavigateToItems": [Function],
+        "getNavigationBarItems": [Function],
+        "getNavigationTree": [Function],
+        "getNonBoundSourceFile": [Function],
+        "getOccurrencesAtPosition": [Function],
+        "getOutliningSpans": [Function],
+        "getProgram": [Function],
+        "getQuickInfoAtPosition": [Function],
+        "getReferencesAtPosition": [Function],
+        "getRenameInfo": [Function],
+        "getSemanticClassifications": [Function],
+        "getSemanticDiagnostics": [Function],
+        "getSignatureHelpItems": [Function],
+        "getSmartSelectionRange": [Function],
+        "getSourceMapper": [Function],
+        "getSpanOfEnclosingComment": [Function],
+        "getSuggestionDiagnostics": [Function],
+        "getSupportedCodeFixes": [Function],
+        "getSyntacticClassifications": [Function],
+        "getSyntacticDiagnostics": [Function],
+        "getTodoComments": [Function],
+        "getTypeDefinitionAtPosition": [Function],
+        "isValidBraceCompletionAtPosition": [Function],
+        "organizeImports": [Function],
+        "prepareCallHierarchy": [Function],
+        "provideCallHierarchyIncomingCalls": [Function],
+        "provideCallHierarchyOutgoingCalls": [Function],
+        "provideInlayHints": [Function],
+        "toLineColumnOffset": [Function],
+        "toggleLineComment": [Function],
+        "toggleMultilineComment": [Function],
+        "uncommentSelection": [Function],
+        "updateIsDefinitionOfReferencedSymbols": [Function],
+      }
+    `)
   })
 
   it('should handle a .sol file', () => {

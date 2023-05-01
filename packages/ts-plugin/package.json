@@ -32,6 +32,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "globby": "^13.1.4",
     "typescript": "^5.0.4",
     "zod": "^3.21.4"
   },

@@ -7,6 +7,7 @@ describe(createConfig.name, () => {
       config: {
         name: '@evmts/ts-plugin',
         project: '../',
+        out: 'out',
       },
     }
     expect(createConfig(createOptions as any)).toEqual(createOptions.config)
@@ -21,6 +22,7 @@ describe(createConfig.name, () => {
     expect(createConfig(createOptions as any)).toEqual({
       ...createOptions.config,
       project: '.',
+      out: 'out',
     })
   })
 
@@ -29,6 +31,7 @@ describe(createConfig.name, () => {
       config: {
         name: '@evmts/ts-plugin',
         project: './foundry.toml',
+        out: 'out',
       },
     }
     expect(createConfig(createOptions as any)).toEqual({
@@ -39,6 +42,7 @@ describe(createConfig.name, () => {
       config: {
         name: '@evmts/ts-plugin',
         project: 'foundry.toml',
+        out: 'out',
       },
     }
     expect(createConfig(createOptions as any)).toEqual({

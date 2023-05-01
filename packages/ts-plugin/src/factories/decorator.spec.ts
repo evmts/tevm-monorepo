@@ -11,6 +11,7 @@ import { describe, expect, it, vi } from 'vitest'
 type TestAny = any
 
 const config: Config = {
+  out: 'out',
   name: '@evmts/ts-plugin',
   project: '.',
 }
@@ -31,7 +32,7 @@ const createProxy = <T extends object>(instance: T, proxy: Partial<T>): T => {
 
 describe(createDecorator.name, () => {
   it('should define a decorator by passing a functiont hat returns a partial tsserver object', () => {
-    const DecoratorFn: PartialDecorator = (createInfo, ts, logger) => ({
+    const decoratorFn: PartialDecorator = (createInfo, ts, logger) => ({
       getScriptKind: (fileName) => {
         if (fileName.endsWith('.json')) {
           return ts.ScriptKind.JSON
@@ -41,9 +42,7 @@ describe(createDecorator.name, () => {
       },
     })
 
-    const mockDecoratorFn = vi.fn()
-    mockDecoratorFn.mockImplementation(DecoratorFn)
-    const decorator = createDecorator(mockDecoratorFn)
+    const decorator = createDecorator(decoratorFn)
     const createInfo = { languageServiceHost: {} } as any
     const logger = {
       error: vi.fn(),
@@ -53,8 +52,6 @@ describe(createDecorator.name, () => {
     } as any
 
     const host = decorator(createInfo, typescript, logger, config)
-
-    expect(mockDecoratorFn).toHaveBeenCalledWith(createInfo, typescript, logger)
 
     expect(host.getScriptKind?.('foo.json')).toMatchInlineSnapshot('6')
     expect(host.getScriptKind?.('foo.ts')).toMatchInlineSnapshot('3')

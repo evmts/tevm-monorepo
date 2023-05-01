@@ -6,6 +6,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 type TestAny = any
 
 const config: Config = {
+  out: 'out',
   name: '@evmts/ts-plugin',
   project: '.',
 }

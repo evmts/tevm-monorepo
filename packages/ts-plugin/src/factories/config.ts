@@ -6,6 +6,7 @@ const configValidator = z.object({
    * The name of the plugin
    */
   name: z.literal('@evmts/ts-plugin').describe('The name of the plugin'),
+  out: z.string().optional().default('out').describe('The output directory'),
   project: z
     .string()
     .optional()

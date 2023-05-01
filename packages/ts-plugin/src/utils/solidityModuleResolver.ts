@@ -1,3 +1,4 @@
+import { Config } from '../factories'
 import { isRelativeSolidity } from './isRelativeSolidity'
 import { isSolidity } from './isSolidity'
 import { existsSync } from 'fs'
@@ -6,13 +7,13 @@ import type typescript from 'typescript/lib/tsserverlibrary'
 
 /**
  * Resolves a Solidity module to a file path and Dts extension.
- * TODO
  */
 export const solidityModuleResolver = (
   moduleName: string,
   ts: typeof typescript,
   createInfo: typescript.server.PluginCreateInfo,
   containingFile: string,
+  config: Config,
 ): typescript.ResolvedModuleFull | undefined => {
   if (isRelativeSolidity(moduleName)) {
     return {

@@ -4,6 +4,7 @@ import typescript from 'typescript/lib/tsserverlibrary'
 import { describe, expect, it, vi } from 'vitest'
 
 const config: Config = {
+  out: 'out',
   name: '@evmts/ts-plugin',
   project: '.',
 }

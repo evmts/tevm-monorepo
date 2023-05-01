@@ -31,6 +31,7 @@ export type PartialDecorator = (
   createInfo: typescript.server.PluginCreateInfo,
   ts: typeof typescript,
   logger: Logger,
+  config: Config,
 ) => Partial<typescript.LanguageServiceHost>
 
 /**
@@ -49,9 +50,9 @@ export type PartialDecorator = (
  * })
  */
 export const createDecorator = (decorator: PartialDecorator): Decorator => {
-  return (createInfo, ts, logger) => {
+  return (createInfo, ts, logger, config) => {
     const host = createInfo.languageServiceHost
-    const proxy = decorator(createInfo, ts, logger)
+    const proxy = decorator(createInfo, ts, logger, config)
     return new Proxy(host, {
       get(target, key) {
         // If the key is one of the keys that are to be proxied, return the proxy value.
