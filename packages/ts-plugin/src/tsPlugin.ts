@@ -56,12 +56,10 @@ export const tsPlugin = ({
   const create = (
     createInfo: typescript.server.PluginCreateInfo,
   ): typescript.LanguageServiceHost => {
-    return decorator(
-      createInfo,
-      ts,
-      createLogger(createInfo),
-      createConfig(createInfo),
-    )
+    const config = createConfig(createInfo)
+    const logger = createLogger(createInfo)
+    const lsHost = decorator(createInfo, ts, logger, config)
+    return lsHost
   }
 
   return {
