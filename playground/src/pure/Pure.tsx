@@ -2,8 +2,9 @@ import { run } from '@evmts/core'
 import { useQuery } from '@tanstack/react-query'
 import { useState } from 'react'
 
-// @ts-ignore - TODO make a ts plugin TODO make a global .t.sol module type
-import PureQuery from './PureQuery.s.sol'
+import {PureQuery, artifactPath, artifactsDirectory,contractName, fileName} from './PureQuery.s.sol'
+
+type Abi = typeof PureQuery.abi
 
 export const Pure = () => {
   const [num1, setNum1] = useState(0)

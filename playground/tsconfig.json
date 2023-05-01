@@ -3,6 +3,8 @@
     "plugins": [
       {
         "name": "@evmts/ts-plugin",
+        "project": ".",
+        "out": "artifacts"
       }
     ],
     "allowJs": false,
