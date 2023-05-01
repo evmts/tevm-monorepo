@@ -64,7 +64,7 @@ export const getScriptSnapshotDecorator = createDecorator(
         if (isSolidity(fileName) && existsSync(fileName)) {
           return ts.ScriptSnapshot.fromString(
             `
-              const abi = ${getAbi()}
+              const abi = ${getAbi()} as const
               export let PureQuery: {
                 abi: typeof abi
               }
