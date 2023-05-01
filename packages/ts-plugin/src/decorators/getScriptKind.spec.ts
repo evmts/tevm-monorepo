@@ -1,8 +1,14 @@
 import { getScriptKindDecorator } from '.'
+import { Config } from '../factories'
 import typescript from 'typescript/lib/tsserverlibrary'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 type TestAny = any
+
+const config: Config = {
+  name: '@evmts/ts-plugin',
+  project: '.',
+}
 
 describe(getScriptKindDecorator.name, () => {
   let createInfo: TestAny
@@ -24,7 +30,8 @@ describe(getScriptKindDecorator.name, () => {
 
   it('should decorate getScriptKind', () => {
     expect(
-      getScriptKindDecorator(createInfo, typescript, logger).getScriptKind,
+      getScriptKindDecorator(createInfo, typescript, logger, config)
+        .getScriptKind,
     ).toBeInstanceOf(Function)
   })
 
@@ -36,12 +43,22 @@ describe(getScriptKindDecorator.name, () => {
       warn: vi.fn(),
       error: vi.fn(),
     }
-    const decorated = getScriptKindDecorator(createInfo, typescript, logger)
+    const decorated = getScriptKindDecorator(
+      createInfo,
+      typescript,
+      logger,
+      config,
+    )
     expect(decorated.getScriptKind?.('foo')).toBe(typescript.ScriptKind.Unknown)
   })
 
   it('Should return TS if file is solidity', () => {
-    const decorated = getScriptKindDecorator(createInfo, typescript, logger)
+    const decorated = getScriptKindDecorator(
+      createInfo,
+      typescript,
+      logger,
+      config,
+    )
     expect(decorated.getScriptKind?.('foo.sol')).toBe(typescript.ScriptKind.TS)
     expect(decorated.getScriptKind?.('./foo.sol')).toBe(
       typescript.ScriptKind.TS,
@@ -49,7 +66,12 @@ describe(getScriptKindDecorator.name, () => {
   })
 
   it('Should proxy to languageServiceHost.getScriptKind if not solidity', () => {
-    const decorated = getScriptKindDecorator(createInfo, typescript, logger)
+    const decorated = getScriptKindDecorator(
+      createInfo,
+      typescript,
+      logger,
+      config,
+    )
     const expected = typescript.ScriptKind.JS
     createInfo.languageServiceHost.getScriptKind.mockReturnValue(expected)
     const fileNames = [

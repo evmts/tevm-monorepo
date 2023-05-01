@@ -3,7 +3,7 @@ import {
   getScriptSnapshotDecorator,
   resolveModuleNameLiteralsDecorator,
 } from './decorators'
-import { composeDecorators, createLogger } from './factories'
+import { composeDecorators, createConfig, createLogger } from './factories'
 import type typescript from 'typescript/lib/tsserverlibrary'
 
 /**
@@ -56,7 +56,12 @@ export const tsPlugin = ({
   const create = (
     createInfo: typescript.server.PluginCreateInfo,
   ): typescript.LanguageServiceHost => {
-    return decorator(createInfo, ts, createLogger(createInfo))
+    return decorator(
+      createInfo,
+      ts,
+      createLogger(createInfo),
+      createConfig(createInfo),
+    )
   }
 
   return {

@@ -1,10 +1,17 @@
 import tsPlugin from '.'
+import { Config } from './factories'
 import typescript from 'typescript/lib/tsserverlibrary'
 import { Mock, describe, expect, it, vi } from 'vitest'
 
 type TestAny = any
 
+const config: Config = {
+  name: '@evmts/ts-plugin',
+  project: '.',
+}
+
 const createInfo: typescript.server.PluginCreateInfo = {
+  config,
   languageServiceHost: {
     resolveModuleNameLiterals: vi.fn(),
     getScriptSnapshot: vi.fn(),

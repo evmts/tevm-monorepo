@@ -4,10 +4,16 @@ import {
   composeDecorators,
   createDecorator,
 } from '.'
+import { Config } from './config'
 import typescript from 'typescript/lib/tsserverlibrary'
 import { describe, expect, it, vi } from 'vitest'
 
 type TestAny = any
+
+const config: Config = {
+  name: '@evmts/ts-plugin',
+  project: '.',
+}
 
 const createProxy = <T extends object>(instance: T, proxy: Partial<T>): T => {
   return new Proxy(instance, {
@@ -46,7 +52,7 @@ describe(createDecorator.name, () => {
       warn: vi.fn(),
     } as any
 
-    const host = decorator(createInfo, typescript, logger)
+    const host = decorator(createInfo, typescript, logger, config)
 
     expect(mockDecoratorFn).toHaveBeenCalledWith(createInfo, typescript, logger)
 
@@ -92,6 +98,7 @@ describe(composeDecorators.name, () => {
       createInfo as TestAny,
       typescript,
       logger,
+      config,
     )
 
     expect((decoratedHost as TestAny).isHost).toBe(true)

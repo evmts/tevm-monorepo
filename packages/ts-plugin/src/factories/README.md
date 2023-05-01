@@ -6,6 +6,10 @@
 
 Factories used for generating ts language server decorators
 
+#### [config](./config.ts)
+
+Parses and validates the user provided config with zod
+
 #### [logger](./logger.ts)
 
 The logger used internally within the package

@@ -1,6 +1,12 @@
 import { getScriptSnapshotDecorator } from '.'
+import { Config } from '../factories'
 import typescript from 'typescript/lib/tsserverlibrary'
 import { describe, expect, it, vi } from 'vitest'
+
+const config: Config = {
+  name: '@evmts/ts-plugin',
+  project: '.',
+}
 
 describe(getScriptSnapshotDecorator.name, () => {
   it('should proxy to the languageServiceHost for non solidity files', () => {
@@ -21,6 +27,7 @@ describe(getScriptSnapshotDecorator.name, () => {
       { languageServiceHost } as any,
       typescript,
       logger,
+      config,
     )
     const fileName = 'foo.ts'
     const result = decorator.getScriptSnapshot(fileName)

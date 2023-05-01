@@ -1,3 +1,4 @@
+import { Config } from './config'
 import type { Logger } from './logger'
 import type typescript from 'typescript/lib/tsserverlibrary'
 
@@ -10,6 +11,7 @@ export type Decorator = (
   createInfo: typescript.server.PluginCreateInfo,
   ts: typeof typescript,
   logger: Logger,
+  config: Config,
 ) => typescript.LanguageServiceHost
 
 /**
@@ -75,20 +77,25 @@ export const createDecorator = (decorator: PartialDecorator): Decorator => {
  * )
  */
 export const composeDecorators = (...decorators: Decorator[]): Decorator => {
-  return (createInfo, ts, logger) => {
+  return (createInfo, ts, logger, config) => {
     if (decorators.length === 0) {
       return createInfo.languageServiceHost
     }
 
     const [nextDecorator, ...restDecorators] = decorators
 
-    const decoratedHost = nextDecorator(createInfo, ts, logger)
+    const decoratedHost = nextDecorator(createInfo, ts, logger, config)
 
     const decoratedCreateInfo = {
       ...createInfo,
       languageServiceHost: decoratedHost,
     }
 
-    return composeDecorators(...restDecorators)(decoratedCreateInfo, ts, logger)
+    return composeDecorators(...restDecorators)(
+      decoratedCreateInfo,
+      ts,
+      logger,
+      config,
+    )
   }
 }

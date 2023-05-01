@@ -1,6 +1,12 @@
 import { resolveModuleNameLiteralsDecorator } from '.'
+import { Config } from '../factories/config'
 import typescript from 'typescript/lib/tsserverlibrary'
 import { describe, expect, it, vi } from 'vitest'
+
+const config: Config = {
+  name: '@evmts/ts-plugin',
+  project: '.',
+}
 
 describe(resolveModuleNameLiteralsDecorator.name, () => {
   it('should decorate resolveModuleNameLiterals', () => {
@@ -27,6 +33,7 @@ describe(resolveModuleNameLiteralsDecorator.name, () => {
       createInfo,
       typescript,
       logger,
+      config,
     )
 
     expect(host).toMatchInlineSnapshot(`
