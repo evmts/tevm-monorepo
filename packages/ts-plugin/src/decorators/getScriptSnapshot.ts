@@ -1,5 +1,6 @@
 import { createDecorator } from '../factories'
 import { isSolidity } from '../utils'
+import { getArtifactPathSync } from '../utils/getArtifactPathSync'
 import { existsSync, readFileSync } from 'fs'
 import { globSync } from 'glob'
 import { join, resolve } from 'path'
@@ -35,49 +36,45 @@ const defaultExcludes = [
  */
 export const getScriptSnapshotDecorator = createDecorator(
   ({ languageServiceHost, project }, ts, logger, config) => {
-    /**
-     * Gets artifacts path
-     * @see https://github.com/wagmi-dev/wagmi/blob/main/packages/cli/src/plugins/foundry.ts
-     */
-    const getArtifactPaths = (include = defaultIncludes) => {
-      const artifactsDirectory = join(
-        project.getCurrentDirectory(),
-        config.project,
-        config.out,
-      )
-      return globSync([...include.map((x) => `${artifactsDirectory}/**/${x}`)])
-    }
+    // return getArtifactPathSync(
+    //  include[0],
+    //         project.getCurrentDirectory(),
+    //       config
+    //   )
+    const getAbiSync = (contractName?: string) => {
+      if (!contractName) {
+        logger.error(`no contract with name ${contractName} found`)
+        return
+      }
 
-    const getAbi = (contractName?: string) => {
-      const artifactPath = getArtifactPaths(
-        contractName ? [`${contractName}/*.json`] : undefined,
+      const artifactPath = getArtifactPathSync(
+        contractName,
+        project.getCurrentDirectory(),
+        config,
+        logger,
       )[0] as string | undefined
+
       logger.info(`artifactPath: ${artifactPath}`)
+
       if (!artifactPath) {
         return '[]'
       }
       // TODO error catch
       // TODO zod
       const abi = readFileSync(artifactPath, 'utf8')
+
       logger.info(abi)
+
       return abi
     }
+
     return {
       getScriptSnapshot: (fileName) => {
         if (isSolidity(fileName) && existsSync(fileName)) {
           return ts.ScriptSnapshot.fromString(
             `
-              const abi = ${getAbi(fileName.split('/').at(-1))} as const
+              const abi = ${getAbiSync(fileName.split('/').at(-1))} as const
               export const fileName = ${JSON.stringify(fileName)} as const
-              export const contractName = ${JSON.stringify(
-                fileName.split('/').at(-1),
-              )}'))} as const
-              export const artifactPath = ${JSON.stringify(
-                getArtifactPaths([`${fileName.split('/').at(-1)}/*.json`])[0],
-              )} as const
-              export const artifactsDirectory = ${JSON.stringify(
-                join(config.project, config.out),
-              )} as const
               export const PureQuery: {
                 abi: typeof abi
               } as const

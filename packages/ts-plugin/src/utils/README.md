@@ -1,6 +1,6 @@
 ## @evmts/ts-plugin/src/utils
 
-Pure functions used internally by the plugin
+Functions used internally by the plugin
 
 #### [isRelativeSolidity](./isRelativeSolidity.ts)
 
