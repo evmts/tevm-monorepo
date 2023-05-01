@@ -1,4 +1,4 @@
-import { resolveModuleNameLiteralsDecorator } from './resolveModuleNameLiterals'
+import { resolveModuleNameLiteralsDecorator } from '.'
 import typescript from 'typescript/lib/tsserverlibrary'
 import { describe, expect, it, vi } from 'vitest'
 

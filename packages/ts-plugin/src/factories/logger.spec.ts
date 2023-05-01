@@ -1,4 +1,4 @@
-import { createLogger } from './logger'
+import { createLogger } from '.'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 type TestAny = any

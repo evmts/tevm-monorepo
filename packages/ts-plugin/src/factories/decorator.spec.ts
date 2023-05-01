@@ -3,7 +3,7 @@ import {
   PartialDecorator,
   composeDecorators,
   createDecorator,
-} from './decorator'
+} from '.'
 import typescript from 'typescript/lib/tsserverlibrary'
 import { describe, expect, it, vi } from 'vitest'
 

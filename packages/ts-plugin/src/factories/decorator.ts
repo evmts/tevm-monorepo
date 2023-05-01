@@ -84,11 +84,11 @@ export const composeDecorators = (...decorators: Decorator[]): Decorator => {
 
     const decoratedHost = nextDecorator(createInfo, ts, logger)
 
-    const wrappedCreateInfo = {
+    const decoratedCreateInfo = {
       ...createInfo,
       languageServiceHost: decoratedHost,
     }
 
-    return composeDecorators(...restDecorators)(wrappedCreateInfo, ts, logger)
+    return composeDecorators(...restDecorators)(decoratedCreateInfo, ts, logger)
   }
 }

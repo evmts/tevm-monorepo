@@ -1,4 +1,4 @@
-import { isSolidity } from './isSolidity'
+import { isSolidity } from '.'
 import { describe, expect, it } from 'vitest'
 
 describe(isSolidity.name, () => {

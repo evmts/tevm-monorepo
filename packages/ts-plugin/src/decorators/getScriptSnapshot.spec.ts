@@ -1,4 +1,4 @@
-import { getScriptSnapshotDecorator } from './getScriptSnapshot'
+import { getScriptSnapshotDecorator } from '.'
 import typescript from 'typescript/lib/tsserverlibrary'
 import { describe, expect, it, vi } from 'vitest'
 

@@ -4,6 +4,10 @@ import { existsSync } from 'fs'
 import path from 'path'
 import type typescript from 'typescript/lib/tsserverlibrary'
 
+/**
+ * Resolves a Solidity module to a file path and Dts extension.
+ * TODO
+ */
 export const solidityModuleResolver = (
   moduleName: string,
   ts: typeof typescript,
