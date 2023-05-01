@@ -1,7 +1,0 @@
-{
-  "name": "example-tsc-codebase",
-  "dependencies": {
-    "@evmts/ts-plugin": "file:..",
-    "typescript": "5.0.4"
-  }
-}
