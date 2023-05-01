@@ -15,7 +15,6 @@
     "deploy:optimism": "pnpm predeploy && forge script script/Deploy.s.sol:Deploy --rpc-url $OPTIMISM_RPC_URL --broadcast --verify -vvvv",
     "format": "prettier --write src/**/*.sol && rome format . --write",
     "format:check": "prettier --check src/**/*.sol && rome format .",
-    "preinstall": "npx only-allow pnpm",
     "lint": "rome check . --apply-unsafe",
     "lint:check": "rome check .",
     "predeploy": "source ../../.env",

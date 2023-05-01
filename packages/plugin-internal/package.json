@@ -29,7 +29,6 @@
     "build": "tsup",
     "format": "rome format . --write",
     "format:check": "rome format .",
-    "preinstall": "npx only-allow pnpm",
     "lint": "rome check . --apply-unsafe",
     "lint:check": "rome check . --verbose",
     "typecheck": "tsc --noEmit"
