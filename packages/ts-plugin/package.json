@@ -22,13 +22,13 @@
   ],
   "scripts": {
     "build": "rm -rf ./dist && tsc --project tsconfig.build.json",
-    "pretest": "forge build",
     "clean": "rm -rf dist",
     "dev": "TSS_DEBUG_BRK=9559 code ../../playground",
     "format": "rome format . --write",
     "format:check": "rome format .",
     "lint": "rome check . --apply-unsafe",
     "lint:check": "rome check . --verbose",
+    "pretest": "forge build",
     "test": "vitest",
     "typecheck": "tsc --noEmit"
   },
