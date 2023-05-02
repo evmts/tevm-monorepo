@@ -53,8 +53,8 @@ describe(createDecorator.name, () => {
 
     const host = decorator(createInfo, typescript, logger, config)
 
-    expect(host.getScriptKind?.('foo.json')).toMatchInlineSnapshot('6')
-    expect(host.getScriptKind?.('foo.ts')).toMatchInlineSnapshot('3')
+    expect(host.getScriptKind?.('foo.json')).toBe(typescript.ScriptKind.JSON)
+    expect(host.getScriptKind?.('foo.ts')).toBe(typescript.ScriptKind.TS)
   })
 })
 

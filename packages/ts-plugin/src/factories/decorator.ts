@@ -18,7 +18,7 @@ export type Decorator = (
  * Type of function passed into createDecorator
  * @see {@link createDecorator}
  * @example
- * const decoratorFn: DecoratorFn = (createInfo, ts, logger) => ({
+ * const decoratorFn: PartialDecorator = (createInfo, ts, logger) => ({
  * getScriptKind: (fileName) => {
  *   if (fileName.endsWith('.sol')) {
  *     return ts.ScriptKind.TS
@@ -39,7 +39,7 @@ export type PartialDecorator = (
  * A decoratorFn is a function that returns a partial LanguageServiceHost
  * @see {@link PartialDecorator}
  * @example
- * const DecoratorFn: DecoratorFn = (createInfo, ts, logger) => ({
+ * const DecoratorFn: PartialDecorator = (createInfo, ts, logger) => ({
  *  getScriptKind: (fileName) => {
  *   if (fileName.endsWith('.json')) {
  *    return ts.ScriptKind.JSON
@@ -50,16 +50,14 @@ export type PartialDecorator = (
  * })
  */
 export const createDecorator = (decorator: PartialDecorator): Decorator => {
-  return (createInfo, ts, logger, config) => {
-    const host = createInfo.languageServiceHost
-    const proxy = decorator(createInfo, ts, logger, config)
-    return new Proxy(host, {
+  return (createInfo, ...rest) => {
+    const proxy = decorator(createInfo, ...rest)
+    return new Proxy(createInfo.languageServiceHost, {
       get(target, key) {
         // If the key is one of the keys that are to be proxied, return the proxy value.
         if (key in proxy) {
           return proxy[key as keyof typescript.LanguageServiceHost]
         }
-
         // Otherwise, return the host value.
         return target[key as keyof typescript.LanguageServiceHost]
       },
@@ -78,25 +76,24 @@ export const createDecorator = (decorator: PartialDecorator): Decorator => {
  * )
  */
 export const composeDecorators = (...decorators: Decorator[]): Decorator => {
-  return (createInfo, ts, logger, config) => {
+  return (createInfo, ...rest) => {
     if (decorators.length === 0) {
       return createInfo.languageServiceHost
     }
 
     const [nextDecorator, ...restDecorators] = decorators
 
-    const decoratedHost = nextDecorator(createInfo, ts, logger, config)
+    const decoratedHost = nextDecorator(createInfo, ...rest)
 
-    const decoratedCreateInfo = {
-      ...createInfo,
-      languageServiceHost: decoratedHost,
-    }
+    const decoratedCreateInfo = new Proxy(createInfo, {
+      get(target, key) {
+        if (key === 'languageServiceHost') {
+          return decoratedHost
+        }
+        return target[key as keyof typeof target]
+      },
+    })
 
-    return composeDecorators(...restDecorators)(
-      decoratedCreateInfo,
-      ts,
-      logger,
-      config,
-    )
+    return composeDecorators(...restDecorators)(decoratedCreateInfo, ...rest)
   }
 }
