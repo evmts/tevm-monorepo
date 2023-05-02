@@ -11,45 +11,49 @@ import { existsSync, readFileSync } from 'fs'
  */
 export const getScriptSnapshotDecorator = createDecorator(
   ({ languageServiceHost, project }, ts, logger, config) => {
-    const getAbiSync = (contractName?: string) => {
-      if (!contractName) {
-        logger.error(`no contract with name ${contractName} found`)
-        return
-      }
-
-      const artifactPath = getArtifactPathSync(
-        contractName,
-        project.getCurrentDirectory(),
-        config,
-        logger,
-      ) as string | undefined
-
-      console.log({ artifactPath })
-      logger.info(`artifactPath: ${artifactPath}`)
-
-      if (!artifactPath) {
-        return '[]'
-      }
-      // TODO error catch
-      // TODO zod
-      const abi = readFileSync(artifactPath, 'utf8')
-
-      logger.info(abi)
-
-      return abi
-    }
-
     return {
       getScriptSnapshot: (fileName) => {
+        const solFile = fileName.split('/').at(-1)
+        if (!solFile) {
+          throw new Error('no solFile found')
+        }
+        const defaultDts = ts.ScriptSnapshot.fromString(`
+        export {}
+        `)
         if (isSolidity(fileName) && existsSync(fileName)) {
+          if (!solFile) {
+            logger.error(`no .sol file with name ${solFile} found`)
+            return defaultDts
+          }
+
+          const artifactPaths = getArtifactPathSync(
+            solFile,
+            project.getCurrentDirectory(),
+            config,
+            logger,
+          )
+
+          if (!artifactPaths.length) {
+            logger.error(`no artifactPaths found for ${solFile}`)
+            return defaultDts
+          }
+          const contractJsons = artifactPaths.map((artifactPath) => {
+            const contractName = artifactPath
+              .split('/')
+              .at(-1)
+              ?.replace('.json', '')
+            return {
+              contractName,
+              json: readFileSync(artifactPath, 'utf-8'),
+            }
+          })
           return ts.ScriptSnapshot.fromString(
-            `
-              const abi = ${getAbiSync(fileName.split('/').at(-1))} as const
-              export const fileName = ${JSON.stringify(fileName)} as const
-              export const ${fileName.replace('.json', '')}: {
-                abi: typeof abi
-              } as const
-              `,
+            contractJsons
+              .map(
+                (contract) =>
+                  `export const ${contract.contractName} = ${contract.json} as const`,
+              )
+              .join('\n'),
           )
         }
         return languageServiceHost.getScriptSnapshot(fileName)
