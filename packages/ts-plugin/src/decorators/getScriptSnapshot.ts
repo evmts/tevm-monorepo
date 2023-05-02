@@ -12,51 +12,35 @@ import { existsSync, readFileSync } from 'fs'
 export const getScriptSnapshotDecorator = createDecorator(
   ({ languageServiceHost, project }, ts, logger, config) => {
     return {
-      getScriptSnapshot: (fileName) => {
-        const solFile = fileName.split('/').at(-1)
-        if (!solFile) {
-          throw new Error('no solFile found')
+      getScriptSnapshot: (filePath) => {
+        if (!isSolidity(filePath) || !existsSync(filePath)) {
+          return languageServiceHost.getScriptSnapshot(filePath)
         }
-        const defaultDts = ts.ScriptSnapshot.fromString(`
-        export {}
-        `)
-        if (isSolidity(fileName) && existsSync(fileName)) {
-          if (!solFile) {
-            logger.error(`no .sol file with name ${solFile} found`)
-            return defaultDts
-          }
 
-          const artifactPaths = getArtifactPathSync(
-            solFile,
-            project.getCurrentDirectory(),
-            config,
-            logger,
-          )
+        const fileName = filePath.split('/').at(-1) as string
 
-          if (!artifactPaths.length) {
-            logger.error(`no artifactPaths found for ${solFile}`)
-            return defaultDts
-          }
-          const contractJsons = artifactPaths.map((artifactPath) => {
-            const contractName = artifactPath
-              .split('/')
-              .at(-1)
-              ?.replace('.json', '')
-            return {
-              contractName,
-              json: readFileSync(artifactPath, 'utf-8'),
-            }
-          })
-          return ts.ScriptSnapshot.fromString(
-            contractJsons
-              .flatMap((contract) => [
-                `const _${contract.contractName} = ${contract.json} as const`,
-                `export declare const ${contract.contractName}: typeof _${contract.contractName}`,
-              ])
-              .join('\n'),
-          )
-        }
-        return languageServiceHost.getScriptSnapshot(fileName)
+        const artifactPaths = getArtifactPathSync(
+          fileName,
+          project.getCurrentDirectory(),
+          config,
+          logger,
+        )
+
+        return ts.ScriptSnapshot.fromString(
+          artifactPaths
+            .flatMap((artifactPath) => {
+              const contractName = artifactPath
+                .split('/')
+                .at(-1)
+                ?.replace('.json', '')
+              const contractJson = readFileSync(artifactPath, 'utf-8')
+              return [
+                `const _${contractName} = ${contractJson} as const`,
+                `export declare const ${contractName}: typeof _${contractName}`,
+              ]
+            })
+            .join('\n'),
+        )
       },
     }
   },
