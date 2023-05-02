@@ -8,11 +8,11 @@ import { isSolidity } from '../utils'
 export const getScriptKindDecorator = createDecorator((createInfo, ts) => {
   return {
     getScriptKind: (fileName) => {
-      if (!createInfo.languageServiceHost.getScriptKind) {
-        return ts.ScriptKind.Unknown
-      }
       if (isSolidity(fileName)) {
         return ts.ScriptKind.TS
+      }
+      if (!createInfo.languageServiceHost.getScriptKind) {
+        return ts.ScriptKind.Unknown
       }
       return createInfo.languageServiceHost.getScriptKind(fileName)
     },
