@@ -10,6 +10,7 @@
     "preinstall": "npx only-allow pnpm",
     "lint": "rome check . --apply-unsafe",
     "lint:check": "rome check . --verbose",
+    "package:up": "pnpm up --latest",
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
