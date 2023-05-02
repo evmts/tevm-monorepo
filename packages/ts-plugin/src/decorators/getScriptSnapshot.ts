@@ -22,8 +22,9 @@ export const getScriptSnapshotDecorator = createDecorator(
         project.getCurrentDirectory(),
         config,
         logger,
-      )[0] as string | undefined
+      ) as string | undefined
 
+      console.log({ artifactPath })
       logger.info(`artifactPath: ${artifactPath}`)
 
       if (!artifactPath) {
@@ -45,7 +46,7 @@ export const getScriptSnapshotDecorator = createDecorator(
             `
               const abi = ${getAbiSync(fileName.split('/').at(-1))} as const
               export const fileName = ${JSON.stringify(fileName)} as const
-              export const PureQuery: {
+              export const ${fileName.replace('.json', '')}: {
                 abi: typeof abi
               } as const
               `,

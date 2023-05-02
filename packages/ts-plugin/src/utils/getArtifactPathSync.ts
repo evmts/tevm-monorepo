@@ -13,7 +13,7 @@ export const getArtifactPathSync = (
   logger: Logger,
 ) => {
   const artifactsDirectory = join(currentDirectory, config.project, config.out)
-  const files = globSync([`${artifactsDirectory}/**/${solFile}`])
+  const files = globSync([`${artifactsDirectory}/**/${solFile}/*.json`])
 
   if (files.length > 1) {
     logger.warn(
