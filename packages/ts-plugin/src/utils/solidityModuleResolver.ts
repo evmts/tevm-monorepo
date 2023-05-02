@@ -26,6 +26,15 @@ export const solidityModuleResolver = (
     createInfo.languageServiceHost
       .getResolvedModuleWithFailedLookupLocationsFromCache
   ) {
+    /**
+     * This section is for solidity modules that are not relative.
+     * Currently not implemented.
+     */
+    const TODO = true
+    if (TODO) {
+      throw new Error('Not implemented')
+    }
+
     // TODO: Move this section to a separate file and add basic tests.
     // Attempts to locate the module using TypeScript's previous search paths. These include "baseUrl" and "paths".
     const failedModule =
