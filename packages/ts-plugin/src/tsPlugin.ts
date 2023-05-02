@@ -53,9 +53,13 @@ export const tsPlugin = (modules: {
   ): typescript.LanguageService => {
     const config = createConfig(createInfo)
     const logger = createLogger(createInfo)
-    logger.info('Creating language service host')
-    const lsHost = decorator(createInfo, modules.typescript, logger, config)
-    return modules.typescript.createLanguageService(lsHost)
+    const languageServiceHost = decorator(
+      createInfo,
+      modules.typescript,
+      logger,
+      config,
+    )
+    return modules.typescript.createLanguageService(languageServiceHost)
   }
 
   const getExternalFiles = (
