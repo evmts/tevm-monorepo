@@ -22,6 +22,7 @@
   ],
   "scripts": {
     "build": "rm -rf ./dist && tsc --project tsconfig.build.json",
+    "pretest": "forge build",
     "clean": "rm -rf dist",
     "dev": "TSS_DEBUG_BRK=9559 code ../../playground",
     "format": "rome format . --write",

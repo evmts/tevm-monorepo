@@ -8,7 +8,7 @@
   },
   "targetDefaults": {
     "test": {
-      "dependsOn": ["^build", "build", "nx:pretest"]
+      "dependsOn": ["^build", "pretest"]
     },
     "test:watch": {
       "dependsOn": ["^build"]
