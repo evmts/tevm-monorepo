@@ -64,7 +64,7 @@ describe(getScriptSnapshotDecorator.name, () => {
     const result = decorator.getScriptSnapshot(fileName)
     expect(project.getCurrentDirectory).toHaveBeenCalledOnce()
     expect((result as any).text).toMatchInlineSnapshot(`
-      "export const HelloWorld2 = {
+      "const _HelloWorld2 = {
         \\"abi\\": [
           {
             \\"inputs\\": [],
@@ -395,7 +395,8 @@ describe(getScriptSnapshotDecorator.name, () => {
         },
         \\"id\\": 0
       } as const
-      export const HelloWorld = {
+      export declare const HelloWorld2: typeof _HelloWorld2
+      const _HelloWorld = {
         \\"abi\\": [
           {
             \\"inputs\\": [],
@@ -725,7 +726,8 @@ describe(getScriptSnapshotDecorator.name, () => {
           ]
         },
         \\"id\\": 0
-      } as const"
+      } as const
+      export declare const HelloWorld: typeof _HelloWorld"
     `)
   })
 })

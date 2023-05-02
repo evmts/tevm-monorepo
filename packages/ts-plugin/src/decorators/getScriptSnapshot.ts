@@ -49,10 +49,10 @@ export const getScriptSnapshotDecorator = createDecorator(
           })
           return ts.ScriptSnapshot.fromString(
             contractJsons
-              .map(
-                (contract) =>
-                  `export const ${contract.contractName} = ${contract.json} as const`,
-              )
+              .flatMap((contract) => [
+                `const _${contract.contractName} = ${contract.json} as const`,
+                `export declare const ${contract.contractName}: typeof _${contract.contractName}`,
+              ])
               .join('\n'),
           )
         }
