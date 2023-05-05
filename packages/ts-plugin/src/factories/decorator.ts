@@ -68,14 +68,14 @@ export const createDecorator = (decorator: PartialDecorator): Decorator => {
 /**
  * Util used to turn an array of decorators into a single decorator
  * @example
- * const composedDecorators = composeDecorators(
+ * const composedDecorators = decorate(
  *   decorator1,
  *   decorator2,
  *   decorator3,
  *   decorator4,
  * )
  */
-export const composeDecorators = (...decorators: Decorator[]): Decorator => {
+export const decorate = (...decorators: Decorator[]): Decorator => {
   return (createInfo, ...rest) => {
     if (decorators.length === 0) {
       return createInfo.languageServiceHost
@@ -94,6 +94,6 @@ export const composeDecorators = (...decorators: Decorator[]): Decorator => {
       },
     })
 
-    return composeDecorators(...restDecorators)(decoratedCreateInfo, ...rest)
+    return decorate(...restDecorators)(decoratedCreateInfo, ...rest)
   }
 }

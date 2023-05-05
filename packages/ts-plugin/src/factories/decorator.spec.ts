@@ -1,9 +1,4 @@
-import {
-  Decorator,
-  PartialDecorator,
-  composeDecorators,
-  createDecorator,
-} from '.'
+import { Decorator, PartialDecorator, createDecorator, decorate } from '.'
 import { Config } from './config'
 import typescript from 'typescript/lib/tsserverlibrary'
 import { describe, expect, it, vi } from 'vitest'
@@ -58,7 +53,7 @@ describe(createDecorator.name, () => {
   })
 })
 
-describe(composeDecorators.name, () => {
+describe(decorate.name, () => {
   it('composes decorators into a single decorator', () => {
     const decorator1: Decorator = (createInfo) => {
       return createProxy(createInfo.languageServiceHost, {
@@ -76,11 +71,7 @@ describe(composeDecorators.name, () => {
       } as TestAny)
     }
 
-    const composedDecorator = composeDecorators(
-      decorator1,
-      decorator2,
-      decorator3,
-    )
+    const composedDecorator = decorate(decorator1, decorator2, decorator3)
 
     const host = { isHost: true }
     const createInfo = { isCreateInfo: true, languageServiceHost: host }

@@ -6,7 +6,7 @@ Entrypoint to the [ts-plugin](https://github.com/microsoft/TypeScript/wiki/Writi
 
 #### [decorators](./decorators/README.md)
 
-Internal decorators [composed](./decorators/composeDecorators.ts) together into [languageServiceHostDecorator](./languageServiceHost.ts)
+Internal decorators [composed](./decorators/decorate.ts) together into [languageServiceHostDecorator](./languageServiceHost.ts)
 
 #### [factories](./factories/README.md)
 
