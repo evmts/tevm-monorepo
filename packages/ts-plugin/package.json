@@ -17,6 +17,9 @@
   },
   "license": "MIT",
   "main": "dist/index.js",
+  "bin": {
+    "evmts-gen": "./dist/bin/evmts-gen.js"
+  },
   "files": [
     "dist"
   ],
