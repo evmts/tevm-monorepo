@@ -14,7 +14,8 @@
     "lint:check": "rome check . --verbose",
     "package:up": "pnpm up --latest",
     "preview": "vite preview",
-    "serve": "serve -s -l tcp://0.0.0.0:5173 dist"
+    "serve": "serve -s -l tcp://0.0.0.0:5173 dist",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@babel/core": "^7.21.4",

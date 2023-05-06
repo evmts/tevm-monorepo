@@ -5,9 +5,12 @@ export type Deployments = Record<number, Address> | Address
 
 export type EVMtsContract<TAbi> = {
   abi: TAbi
-  bytecode: string
-  id: string
-  deployments: Deployments
+  bytecode: {
+    object: `0x${string}`
+    sourceMap: string
+    linkReferences: object
+  }
+  deployments?: Deployments
 }
 
 export type Hash = any // TODO

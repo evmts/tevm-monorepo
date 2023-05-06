@@ -64,7 +64,6 @@ const helloWorldScript = evmts.script(HelloWorld);
 
 helloWorldScript // [!code focus]
   .greet() // [!code focus]
-  .run() // [!code focus]
   .then((res) => {
     // [!code focus]
     console.log(res.data); // [!code focus]

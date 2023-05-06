@@ -3,7 +3,15 @@ import { readFileSync, writeFileSync } from 'fs'
 import { glob } from 'glob'
 import path from 'path'
 
-const files = glob.sync([path.join(process.cwd(), '**/*.sol')])
+const files = glob.sync('src/**/*.sol', {
+  cwd: process.cwd(),
+})
+
+console.log([path.join(process.cwd(), 'src/**/*.sol')])
+
+if (files.length === 0) {
+  throw new Error('No files found')
+}
 
 files.forEach((file) => {
   const fileName = file.split('/').at(-1) as string

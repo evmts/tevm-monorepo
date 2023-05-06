@@ -1,16 +1,12 @@
-import { run } from '@evmts/core'
 import { useQuery } from '@tanstack/react-query'
 import { useState } from 'react'
 
+import { publicClient } from '../clients/publicClient'
 import {
   PureQuery,
-  artifactPath,
-  artifactsDirectory,
-  contractName,
-  fileName,
 } from './PureQuery.s.sol'
 
-type Abi = typeof PureQuery.abi
+const script = publicClient.script(PureQuery)
 
 export const Pure = () => {
   const [num1, setNum1] = useState(0)
@@ -18,7 +14,13 @@ export const Pure = () => {
   const { data, error, isLoading } = useQuery(
     [PureQuery.id, num1, num2],
     async () => {
-      return run(PureQuery, [num1, num2])
+      return script
+        // TODO abitype
+        .run([num1, num2] as any)
+        .then(res => {
+          // TODO abitype
+          return res.data as number
+        })
     },
   )
   return (
@@ -40,7 +42,7 @@ export const Pure = () => {
           onChange={(e) => setNum2(Number(e.target.value))}
         />{' '}
         =<div id="data">{data}</div>
-        {error && <div>{JSON.stringify(error)}</div>}
+        {error ? <div>{JSON.stringify(error)}</div> : null}
         {isLoading && <div>Loading...</div>}
       </div>
     </div>
