@@ -23,7 +23,7 @@ npm i @evmts/rollup-plugin @evmts/ts-plugin
     "plugins": [
       {
         "name": "@evmts/ts-plugin",
-        "project": "../"
+        "project": "./contracts"
       }
     ]
   }
