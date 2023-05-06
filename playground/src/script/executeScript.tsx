@@ -1,16 +1,16 @@
 import { publicClient } from '../clients/publicClient'
-import { HelloWorld } from './HelloWorld.s.sol'
+import { Example } from './Example.s.sol'
 import { useQuery } from '@tanstack/react-query'
 import { useState } from 'react'
 
-const helloWorldScript = publicClient.script(HelloWorld)
+const helloWorldScript = publicClient.script(Example as any)
 
 export const ExecuteScript = () => {
   const [contractAddress, setContractAddress] = useState('0x4200000000')
   const [recipient, setRecipient] = useState('0x42000000')
   const [amount, setAmount] = useState(10)
   const { data, error, isLoading } = useQuery(
-    [HelloWorld.id, contractAddress, recipient, amount],
+    [Example.id, contractAddress, recipient, amount],
     async () => {
       return helloWorldScript.run()
     },
@@ -38,9 +38,9 @@ export const ExecuteScript = () => {
           onChange={(e) => setAmount(Number(e.target.value))}
         />{' '}
         Result:
-        <div id="data">{data?.data}</div>
+        <div id="data">{data?.data as string}</div>
         TxHash:
-        {error && <div>{JSON.stringify(error)}</div>}
+        {error ? <div>{JSON.stringify(error)}</div> : null}
         {isLoading && <div>Loading...</div>}
       </div>
     </div>
