@@ -25,6 +25,7 @@ export default defineConfig({
           { text: 'Home', link: '/' },
           { text: 'Why EVMts', link: '/introduction/intro' },
           { text: 'Get started', link: '/introduction/get-started' },
+          { text: 'Quick start', link: '/introduction/quick-start' },
           { text: 'Installation', link: '/introduction/installation' },
           {
             text: 'Plugin configuration',

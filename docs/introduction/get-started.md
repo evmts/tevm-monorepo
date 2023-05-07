@@ -4,7 +4,7 @@ Welcome to the EVMts docs!
 
 ## Overview
 
-EVMts brings Forge scripts to the browser.
+EVMts brings the EVM to the browser.
 
 - **Execute solidity scripts** directly from your typescript code
 - **Solidity imports in JavaScript** ABIs melt away with the ability to import contracts directly
