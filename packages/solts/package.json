@@ -1,0 +1,55 @@
+{
+  "name": "@evmts/solts",
+  "version": "0.0.3",
+  "private": false,
+  "description": "A generic library for converting between solidity and typescript types used internally in evmts",
+  "keywords": [
+    "evmts",
+    "solidity",
+    "forge",
+    "foundry",
+    "sol",
+    "typescript",
+    "web3",
+    "blockchain"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/evmts/evmts-monorepo.git",
+    "directory": "packages/solts"
+  },
+  "license": "MIT",
+  "type": "module",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "src/index.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "test": "vitest",
+    "test:run": "vitest run",
+    "test:ui": "vitest --ui",
+    "build": "tsup",
+    "format": "rome format . --write",
+    "format:check": "rome format .",
+    "lint": "rome check . --apply-unsafe",
+    "lint:check": "rome check . --verbose",
+    "package:up": "pnpm up --latest",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+    "@vitest/ui": "^0.30.1",
+    "rome": "^12.0.0",
+    "tsup": "^6.7.0",
+    "typescript": "^5.0.4",
+    "viem": "^0.3.6",
+    "vitest": "^0.30.1",
+    "zod": "^3.21.4"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
