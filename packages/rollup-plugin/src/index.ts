@@ -38,6 +38,7 @@ export const forgeArtifactsValidator = z.object({
 type FoundryOptions = {}
 
 export const foundry = (options: FoundryOptions = {}): Plugin => {
+  console.log('options', options)
   return {
     name: '@evmts/rollup-plugin',
     version: '0.0.0',
@@ -53,6 +54,7 @@ export const foundry = (options: FoundryOptions = {}): Plugin => {
 type HardhatOptions = {}
 
 export const hardhat = (options: HardhatOptions = {}): Plugin => {
+  console.log('options', options)
   return {
     name: '@evmts/rollup-plugin',
     version: '0.0.0',
