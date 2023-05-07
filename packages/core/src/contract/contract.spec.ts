@@ -12,7 +12,6 @@ const erc20: EVMtsContract<any> = {
   abi: 'TODO' as any,
   bytecode: 'TODO' as any,
   deployments: 'TODO' as any,
-  id: 'TODO' as any,
 }
 
 describe.skipIf(process.env['CI'])(contract.name, () => {
