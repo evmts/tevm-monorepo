@@ -2,9 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import { useState } from 'react'
 
 import { publicClient } from '../clients/publicClient'
-import {
-  PureQuery,
-} from './PureQuery.s.sol'
+import { PureQuery } from './PureQuery.s.sol'
 
 const script = publicClient.script(PureQuery)
 
@@ -14,13 +12,15 @@ export const Pure = () => {
   const { data, error, isLoading } = useQuery(
     [PureQuery.id, num1, num2],
     async () => {
-      return script
-        // TODO abitype
-        .run([num1, num2] as any)
-        .then(res => {
+      return (
+        script
           // TODO abitype
-          return res.data as number
-        })
+          .run([num1, num2] as any)
+          .then((res) => {
+            // TODO abitype
+            return res.data as number
+          })
+      )
     },
   )
   return (
