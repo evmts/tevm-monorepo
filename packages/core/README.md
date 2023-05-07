@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://evmts-monorepo-docs.vercel.app/">
+  <a href="https://evmts.dev/">
     <picture>
       <source media="(prefers-color-scheme: dark)" srcset="https://user-images.githubusercontent.com/35039927/218812217-92f0f784-cb85-43b9-9ca6-e2b9effd9eb2.png">
       <img alt="wagmi logo" src="https://user-images.githubusercontent.com/35039927/218812217-92f0f784-cb85-43b9-9ca6-e2b9effd9eb2.png" width="auto" height="300">
@@ -24,7 +24,7 @@
 
 evmts enables direct evm execution clientside with forge cheat codes and direct solidity file imports.
 
-## Visit [Docs](https://evmts-monorepo-docs.vercel.app/) for docs, guides, API and more!
+## Visit [Docs](https://evmts.dev/) for docs, guides, API and more!
 
 ## See [EVMts Beta project board](https://github.com/orgs/evmts/projects/1) for progress on the upcoming beta release
 
