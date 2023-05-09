@@ -1,8 +1,7 @@
-import { helloFoundry } from './index'
 import { describe, expect, it } from 'vitest'
 
 describe('solts', () => {
-  it('is a boilerplate', () => {
-    expect(helloFoundry).toMatchInlineSnapshot('undefined')
+  it('should write tests', () => {
+    expect(parseInt('420wtf')).toBe(420)
   })
 })

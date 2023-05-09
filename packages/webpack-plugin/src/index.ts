@@ -1,16 +1,14 @@
-const {
-  Artifacts,
-  FoundryOptions,
+import {
   buildContracts,
   createModule,
   forgeOptionsValidator,
   getArtifacts,
   getContractName,
   getFoundryConfig,
-} = require('@evmts/plugin-internal')
-const fs = require('fs-extra')
-const { validate } = require('schema-utils')
-const schema = require('./evmts-webpack-plugin.schema.js')
+} from '@evmts/plugin-internal'
+// @ts-ignore
+import fs from 'fs-extra'
+import { validate } from 'schema-utils'
 
 type TODO = any
 
@@ -18,7 +16,7 @@ export class EvmtsWebpackPlugin {
   private artifacts: TODO = {}
 
   constructor(private readonly options: TODO = {}) {
-    validate(schema, options, {
+    validate(options, options, {
       name: 'EvmtsWebpackPlugin',
       baseDataPath: 'options',
     })
