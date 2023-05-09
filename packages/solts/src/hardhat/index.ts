@@ -1,1 +1,1 @@
-export const todo = 'todo' as const
+export const todoHardhat = 'todo' as const
