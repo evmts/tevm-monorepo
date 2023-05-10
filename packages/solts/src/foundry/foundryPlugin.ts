@@ -1,5 +1,8 @@
 import { FoundryPlugin } from '../types/FoundryPlugin'
-import { resolveArtifactPaths, resolveArtifactPathsSync } from './resolveArtifactPaths'
+import {
+  resolveArtifactPaths,
+  resolveArtifactPathsSync,
+} from './resolveArtifactPaths'
 import { readFileSync } from 'fs'
 import { readFile } from 'fs/promises'
 
@@ -8,20 +11,24 @@ export const foundryPlugin: FoundryPlugin = (config, logger) => {
     name: foundryPlugin.name,
     config,
     resolveArtifactPaths: async (module) => {
-      return new Set(await resolveArtifactPaths(
-        module,
-        config.project ?? '.',
-        { out: config.out },
-        logger,
-      ))
+      return new Set(
+        await resolveArtifactPaths(
+          module,
+          config.project ?? '.',
+          { out: config.out },
+          logger,
+        ),
+      )
     },
     resolveArtifactPathsSync: (module) => {
-      return new Set(resolveArtifactPathsSync(
-        module,
-        config.project ?? '.',
-        { out: config.out },
-        logger,
-      ))
+      return new Set(
+        resolveArtifactPathsSync(
+          module,
+          config.project ?? '.',
+          { out: config.out },
+          logger,
+        ),
+      )
     },
     resolveDts: async (module) => {
       const artifactPaths = await resolveArtifactPaths(
@@ -30,8 +37,8 @@ export const foundryPlugin: FoundryPlugin = (config, logger) => {
         { out: config.out },
         logger,
       )
-      const exports = await Promise.all(artifactPaths
-        .flatMap(async (artifactPath) => {
+      const exports = await Promise.all(
+        artifactPaths.flatMap(async (artifactPath) => {
           const contractName = artifactPath
             .split('/')
             .at(-1)
@@ -41,9 +48,9 @@ export const foundryPlugin: FoundryPlugin = (config, logger) => {
             `const _${contractName} = ${contractJson} as const`,
             `export declare const ${contractName}: typeof _${contractName}`,
           ]
-        }))
-      return exports
-        .join('\n')
+        }),
+      )
+      return exports.join('\n')
     },
     resolveDtsSync: (module) => {
       return resolveArtifactPathsSync(
@@ -72,15 +79,16 @@ export const foundryPlugin: FoundryPlugin = (config, logger) => {
         { out: config.out },
         logger,
       )
-      const entries = await Promise.all(artifactPaths
-        .map(async (artifactPath) => {
+      const entries = await Promise.all(
+        artifactPaths.map(async (artifactPath) => {
           const contractName = artifactPath
             .split('/')
             .at(-1)
             ?.replace('.json', '')
           const contractJson = await readFile(artifactPath, 'utf-8')
           return [contractName, contractJson]
-        }))
+        }),
+      )
       return Object.fromEntries(entries)
     },
     resolveJsonSync: (module) => {
@@ -107,17 +115,17 @@ export const foundryPlugin: FoundryPlugin = (config, logger) => {
         { out: config.out },
         logger,
       )
-      const exports = await Promise.all(artifactPaths
-        .map(async (artifactPath) => {
+      const exports = await Promise.all(
+        artifactPaths.map(async (artifactPath) => {
           const contractName = artifactPath
             .split('/')
             .at(-1)
             ?.replace('.json', '')
           const contractJson = await readFile(artifactPath, 'utf-8')
           return `export const ${contractName} = ${contractJson} as const`
-        }))
-      return exports
-        .join('\n')
+        }),
+      )
+      return exports.join('\n')
     },
     resolveTsModuleSync: (module) => {
       return resolveArtifactPathsSync(
@@ -143,19 +151,17 @@ export const foundryPlugin: FoundryPlugin = (config, logger) => {
         { out: config.out },
         logger,
       )
-      const exports = await Promise.all(artifactPaths
-        .map(async (artifactPath) => {
+      const exports = await Promise.all(
+        artifactPaths.map(async (artifactPath) => {
           const contractName = artifactPath
             .split('/')
             .at(-1)
             ?.replace('.json', '')
           const contractJson = await readFile(artifactPath, 'utf-8')
-          return (
-            `module.exports.${contractName} = ${contractJson}`
-          )
-        }))
-      return exports
-        .join('\n')
+          return `module.exports.${contractName} = ${contractJson}`
+        }),
+      )
+      return exports.join('\n')
     },
     resolveCjsModuleSync: (module) => {
       return resolveArtifactPathsSync(
@@ -170,9 +176,7 @@ export const foundryPlugin: FoundryPlugin = (config, logger) => {
             .at(-1)
             ?.replace('.json', '')
           const contractJson = readFileSync(artifactPath, 'utf-8')
-          return (
-            `module.exports.${contractName} = ${contractJson}`
-          )
+          return `module.exports.${contractName} = ${contractJson}`
         })
         .join('\n')
     },
@@ -183,19 +187,17 @@ export const foundryPlugin: FoundryPlugin = (config, logger) => {
         { out: config.out },
         logger,
       )
-      const exports = await Promise.all(artifactPaths
-        .map(async (artifactPath) => {
+      const exports = await Promise.all(
+        artifactPaths.map(async (artifactPath) => {
           const contractName = artifactPath
             .split('/')
             .at(-1)
             ?.replace('.json', '')
           const contractJson = await readFile(artifactPath, 'utf-8')
-          return (
-            `export const _${contractName} = ${contractJson}`
-          )
-        }))
-      return exports
-        .join('\n')
+          return `export const _${contractName} = ${contractJson}`
+        }),
+      )
+      return exports.join('\n')
     },
     resolveEsmModuleSync: (module) => {
       return resolveArtifactPathsSync(
@@ -210,12 +212,9 @@ export const foundryPlugin: FoundryPlugin = (config, logger) => {
             .at(-1)
             ?.replace('.json', '')
           const contractJson = readFileSync(artifactPath, 'utf-8')
-          return (
-            `export const _${contractName} = ${contractJson}`
-          )
+          return `export const _${contractName} = ${contractJson}`
         })
         .join('\n')
     },
   }
 }
-

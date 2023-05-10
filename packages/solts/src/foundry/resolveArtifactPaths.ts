@@ -24,7 +24,7 @@ export const resolveArtifactPathsSync = (
   return files
 }
 
-export const resolveArtifactPaths= async (
+export const resolveArtifactPaths = async (
   solFile: string,
   projectDir: string,
   { out = 'artifacts' }: FoundryToml,
@@ -40,4 +40,3 @@ export const resolveArtifactPaths= async (
 
   return files
 }
-
