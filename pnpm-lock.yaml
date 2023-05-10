@@ -235,6 +235,9 @@ importers:
       '@babel/parser':
         specifier: ^7.21.4
         version: 7.21.4
+      '@evmts/solts':
+        specifier: workspace:^
+        version: link:../solts
       '@rollup/pluginutils':
         specifier: ^5.0.2
         version: 5.0.2(rollup@3.20.6)
