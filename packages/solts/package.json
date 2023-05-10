@@ -38,7 +38,9 @@
     "test:ui": "vitest --ui",
     "typecheck": "tsc --noEmit"
   },
-  "dependencies": {},
+  "dependencies": {
+    "glob": "^10.2.2"
+  },
   "devDependencies": {
     "@vitest/ui": "^0.30.1",
     "rome": "^12.0.0",
