@@ -1,3 +1,4 @@
+import { foundryPlugin } from '@evmts/solts'
 import { createDecorator } from '../factories'
 import { isSolidity } from '../utils'
 import { getArtifactPathSync } from '../utils/getArtifactPathSync'
@@ -10,36 +11,20 @@ import { existsSync, readFileSync } from 'fs'
  * TODO replace with plugin-internal for code reuse
  */
 export const getScriptSnapshotDecorator = createDecorator(
-  ({ languageServiceHost, project }, ts, logger, config) => {
+  ({ languageServiceHost }, ts, logger, config) => {
     return {
       getScriptSnapshot: (filePath) => {
         if (!isSolidity(filePath) || !existsSync(filePath)) {
           return languageServiceHost.getScriptSnapshot(filePath)
         }
 
-        const fileName = filePath.split('/').at(-1) as string
-
-        const artifactPaths = getArtifactPathSync(
-          fileName,
-          project.getCurrentDirectory(),
-          config,
-          logger,
-        )
+        const plugin = foundryPlugin({
+          out: config.out,
+          project: config.project,
+        }, logger as any)
 
         return ts.ScriptSnapshot.fromString(
-          artifactPaths
-            .flatMap((artifactPath) => {
-              const contractName = artifactPath
-                .split('/')
-                .at(-1)
-                ?.replace('.json', '')
-              const contractJson = readFileSync(artifactPath, 'utf-8')
-              return [
-                `const _${contractName} = ${contractJson} as const`,
-                `export declare const ${contractName}: typeof _${contractName}`,
-              ]
-            })
-            .join('\n'),
+          plugin.resolveDtsSync(filePath),
         )
       },
     }
