@@ -38,7 +38,7 @@ export const foundryPlugin: FoundryPlugin = (config, logger) => {
         logger,
       )
       const exports = await Promise.all(
-        artifactPaths.flatMap(async (artifactPath) => {
+        artifactPaths.map(async (artifactPath) => {
           const contractName = artifactPath
             .split('/')
             .at(-1)
@@ -50,7 +50,7 @@ export const foundryPlugin: FoundryPlugin = (config, logger) => {
           ]
         }),
       )
-      return exports.join('\n')
+      return exports.flat().join('\n')
     },
     resolveDtsSync: (module) => {
       return resolveArtifactPathsSync(

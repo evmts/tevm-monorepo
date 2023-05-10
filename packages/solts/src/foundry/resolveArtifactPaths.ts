@@ -1,7 +1,7 @@
 import { Logger } from '../types'
 import { FoundryToml } from '../types/FoundryToml'
 import { glob, globSync } from 'glob'
-import { join } from 'path'
+import { join, basename } from 'path'
 
 /**
  * Gets artifacts path
@@ -13,8 +13,9 @@ export const resolveArtifactPathsSync = (
   { out = 'artifacts' }: FoundryToml,
   logger: Logger,
 ): string[] => {
+  const fileName = basename(solFile)
   const artifactsDirectory = join(projectDir, out)
-  const files = globSync([`${artifactsDirectory}/**/${solFile}/*.json`])
+  const files = globSync([`${artifactsDirectory}/**/${fileName}/*.json`])
 
   if (files.length === 0) {
     logger.error(`No files found for ${solFile} in ${projectDir}`)
@@ -30,8 +31,9 @@ export const resolveArtifactPaths = async (
   { out = 'artifacts' }: FoundryToml,
   logger: Logger,
 ): Promise<string[]> => {
+  const fileName = basename(solFile)
   const artifactsDirectory = join(projectDir, out)
-  const files = await glob([`${artifactsDirectory}/**/${solFile}/*.json`])
+  const files = await glob([`${artifactsDirectory}/**/${fileName}/*.json`])
 
   if (files.length === 0) {
     logger.error(`No files found for ${solFile} in ${projectDir}`)

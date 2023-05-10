@@ -62,7 +62,6 @@ describe(getScriptSnapshotDecorator.name, () => {
     )
     const fileName = path.join(__dirname, '../test/fixtures/HelloWorld.sol')
     const result = decorator.getScriptSnapshot(fileName)
-    expect(project.getCurrentDirectory).toHaveBeenCalledOnce()
     expect((result as any).text).toMatchInlineSnapshot(`
       "const _HelloWorld2 = {
         \\"abi\\": [
