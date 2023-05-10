@@ -1,4 +1,4 @@
-import { FoundryPlugin } from '../types/FoundryPlugin'
+import { FoundryPlugin } from '../types'
 import {
   resolveArtifactPaths,
   resolveArtifactPathsSync,

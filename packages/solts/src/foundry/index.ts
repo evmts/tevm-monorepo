@@ -1,1 +1,3 @@
-export const todoFoundry = 'todo' as const
+export {foundryPlugin} from './foundryPlugin'
+export {resolveArtifactPaths, resolveArtifactPathsSync} from './resolveArtifactPaths'
+
