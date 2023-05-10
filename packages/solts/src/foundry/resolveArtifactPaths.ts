@@ -1,4 +1,5 @@
-import { Config, Logger } from '../factories'
+import { Logger } from '../types'
+import { FoundryToml } from '../types/FoundryToml'
 import { globSync } from 'glob'
 import { join } from 'path'
 
@@ -6,17 +7,17 @@ import { join } from 'path'
  * Gets artifacts path
  * @see https://github.com/wagmi-dev/wagmi/blob/main/packages/cli/src/plugins/foundry.ts
  */
-export const getArtifactPathSync = (
+export const resolveArtifactPathsSync = (
   solFile: string,
-  currentDirectory: string,
-  config: Config,
+  projectDir: string,
+  { out = 'artifacts' }: FoundryToml,
   logger: Logger,
-) => {
-  const artifactsDirectory = join(currentDirectory, config.project, config.out)
+): string[] => {
+  const artifactsDirectory = join(projectDir, out)
   const files = globSync([`${artifactsDirectory}/**/${solFile}/*.json`])
 
   if (files.length === 0) {
-    logger.error(`No files found for ${solFile} in ${currentDirectory}`)
+    logger.error(`No files found for ${solFile} in ${projectDir}`)
     throw new Error('No files found')
   }
 

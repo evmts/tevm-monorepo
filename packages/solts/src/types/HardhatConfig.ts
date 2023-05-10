@@ -4,4 +4,3 @@ export type HardhatConfig = {
    */
   project: string
 }
-
