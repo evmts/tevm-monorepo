@@ -1,7 +1,7 @@
 {
   "name": "@evmts/solts",
   "version": "0.0.3",
-  "private": false,
+  "private": true,
   "description": "A generic library for converting between solidity and typescript types used internally in evmts",
   "keywords": [
     "evmts",
@@ -47,8 +47,5 @@
     "viem": "^0.3.6",
     "vitest": "^0.30.1",
     "zod": "^3.21.4"
-  },
-  "publishConfig": {
-    "access": "public"
   }
 }
