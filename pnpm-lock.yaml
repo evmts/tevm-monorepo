@@ -412,6 +412,9 @@ importers:
 
   packages/ts-plugin:
     dependencies:
+      '@evmts/solts':
+        specifier: workspace:^
+        version: link:../solts
       glob:
         specifier: ^10.2.2
         version: 10.2.2

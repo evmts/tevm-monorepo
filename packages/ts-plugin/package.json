@@ -37,6 +37,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@evmts/solts": "workspace:^",
     "glob": "^10.2.2",
     "zod": "^3.21.4"
   },
