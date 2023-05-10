@@ -1,7 +1,7 @@
 import { foundryPlugin } from '@evmts/solts'
+import { writeFile } from 'fs/promises'
 import { glob } from 'glob'
 import path from 'path'
-import {writeFile} from 'fs/promises'
 
 const files = glob.sync('src/**/*.sol', {
   cwd: process.cwd(),
@@ -20,8 +20,10 @@ files.forEach((file) => {
       out: 'artifacts',
       project: '.',
     },
-    console
+    console,
   )
 
-  plugin.resolveDts(file).then((dts) => writeFile(path.join(fileDir, `${fileName}.d.ts`), dts))
+  plugin
+    .resolveDts(file)
+    .then((dts) => writeFile(path.join(fileDir, `${fileName}.d.ts`), dts))
 })

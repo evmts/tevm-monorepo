@@ -1,7 +1,7 @@
 import { Logger } from '../types'
 import { FoundryToml } from '../types/FoundryToml'
 import { glob, globSync } from 'glob'
-import { join, basename } from 'path'
+import { basename, join } from 'path'
 
 /**
  * Gets artifacts path
