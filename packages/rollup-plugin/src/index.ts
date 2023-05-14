@@ -29,4 +29,3 @@ export const hardhat = (options: HardhatConfig): Plugin => {
     },
   }
 }
-
