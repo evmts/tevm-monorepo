@@ -1,7 +1,7 @@
 import { defineConfig } from 'tsup'
 
 export default defineConfig({
-  name: '@evmts/plugin-internal',
+  name: '@evmts/modules',
   entry: ['src/index.ts'],
   outDir: 'dist',
   format: ['esm'],

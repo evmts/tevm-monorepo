@@ -7,7 +7,7 @@ import {
   getArtifacts,
   getContractName,
   getFoundryConfig,
-} from '@evmts/plugin-internal'
+} from '@evmts/modules'
 // @ts-ignore - TODO figure out why these types don't work
 import fs from 'fs-extra/esm'
 import type { Plugin } from 'rollup'

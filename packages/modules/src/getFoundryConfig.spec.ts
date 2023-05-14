@@ -1,7 +1,7 @@
+import { getFoundryConfig } from './getFoundryConfig'
 import { execaCommandSync } from 'execa'
 import path from 'pathe'
-import { it, expect, describe, beforeEach, vi, Mock } from 'vitest'
-import { getFoundryConfig } from './getFoundryConfig'
+import { Mock, beforeEach, describe, expect, it, vi } from 'vitest'
 
 vi.mock('execa', () => ({
   execaCommandSync: vi.fn(),
@@ -23,7 +23,7 @@ describe('getFoundryConfig', () => {
   })
 
   it('returns default config when execaCommandSync throws error', async () => {
-    (execaCommandSync as any).mockImplementation(() => {
+    ;(execaCommandSync as any).mockImplementation(() => {
       throw new Error('Command error')
     })
 
@@ -36,14 +36,11 @@ describe('getFoundryConfig', () => {
     expect(execaCommandSync).toHaveBeenCalledWith(
       `${defaultOptions.forgeExecutable} config --json --root ${defaultOptions.projectRoot}`,
     )
-    expect(path.join).toHaveBeenCalledWith(
-      defaultOptions.projectRoot,
-      'out',
-    )
+    expect(path.join).toHaveBeenCalledWith(defaultOptions.projectRoot, 'out')
   })
 
   it('returns parsed config when execaCommandSync executes successfully', async () => {
-    (execaCommandSync as Mock).mockImplementation(() => ({
+    ;(execaCommandSync as Mock).mockImplementation(() => ({
       stdout: JSON.stringify({ src: 'src2', out: 'out2' }),
     }))
 
@@ -56,10 +53,6 @@ describe('getFoundryConfig', () => {
     expect(execaCommandSync).toHaveBeenCalledWith(
       `${defaultOptions.forgeExecutable} config --json --root ${defaultOptions.projectRoot}`,
     )
-    expect(path.join).toHaveBeenCalledWith(
-      defaultOptions.projectRoot,
-      'out2',
-    )
+    expect(path.join).toHaveBeenCalledWith(defaultOptions.projectRoot, 'out2')
   })
 })
-

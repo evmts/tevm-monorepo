@@ -1,4 +1,4 @@
-# @evmts/plugin-internal
+# @evmts/modules
 
 ## 0.0.1
 
