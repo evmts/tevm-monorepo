@@ -5,7 +5,7 @@ import {
   createModule,
   forgeOptionsValidator,
   getArtifacts,
-  getContractName,
+  getFileName,
   getFoundryConfig,
 } from '@evmts/modules'
 // @ts-ignore - TODO figure out why these types don't work
@@ -66,9 +66,9 @@ export const foundry = (options: FoundryOptions = {}): Plugin => {
       if (!id.endsWith('.sol')) {
         return
       }
-      const contract = artifacts[getContractName(id)]
+      const contract = artifacts[getFileName(id)]
       if (!contract) {
-        console.log(artifacts, getContractName(id))
+        console.log(artifacts, getFileName(id))
         throw new Error(`contract ${id} not found`)
       }
       return createModule(contract)

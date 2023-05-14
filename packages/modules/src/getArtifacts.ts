@@ -1,6 +1,6 @@
 import { forgeArtifactsValidator } from '.'
 import { getArtifactPaths } from './getArtifactsPath'
-import { getContractName } from './getContractName'
+import { getFileName } from './getFileName'
 import {
   FoundryOptions,
   forgeOptionsValidator,
@@ -18,10 +18,10 @@ async function getContract(
   const json = await readJSON(artifactPath)
   const artifact = forgeArtifactsValidator.parse(json)
   return {
-    name: getContractName(artifactPath),
+    name: getFileName(artifactPath),
     artifactPath,
     ...artifact,
-    address: deployments[getContractName(artifactPath)],
+    address: deployments[getFileName(artifactPath)],
   }
 }
 

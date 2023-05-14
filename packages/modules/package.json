@@ -23,15 +23,15 @@
     "dist"
   ],
   "scripts": {
-    "test": "vitest",
-    "test:run": "vitest run",
-    "test:ui": "vitest --ui",
     "build": "tsup",
     "format": "rome format . --write",
     "format:check": "rome format .",
     "lint": "rome check . --apply-unsafe",
     "lint:check": "rome check . --verbose",
     "package:up": "pnpm up --latest",
+    "test": "vitest",
+    "test:run": "vitest run",
+    "test:ui": "vitest --ui",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
