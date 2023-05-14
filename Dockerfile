@@ -32,10 +32,11 @@ RUN apk add coreutils
 
 WORKDIR /tmp
 COPY tsconfig.json .gitmodules pnpm-workspace.yaml pnpm-lock.yaml .nvmrc package.json ./src/
-COPY packages src/packages/
+COPY plugins src/plugins/
 COPY playground src/playground/
 COPY playground-legacy src/playground-legacy/
 COPY docs src/docs/
+COPY core src/core/
 COPY e2e src/e2e/
 RUN mkdir manifests && \
   cd src && \
@@ -154,30 +155,6 @@ COPY docs/nginx.conf /etc/nginx/conf.d/default.conf
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
 
-
-# ░█████╗░░█████╗░███╗░░██╗████████╗██████╗░░█████╗░░█████╗░████████╗░██████╗
-# ██╔══██╗██╔══██╗████╗░██║╚══██╔══╝██╔══██╗██╔══██╗██╔══██╗╚══██╔══╝██╔════╝
-# ██║░░╚═╝██║░░██║██╔██╗██║░░░██║░░░██████╔╝███████║██║░░╚═╝░░░██║░░░╚█████╗░
-# ██║░░██╗██║░░██║██║╚████║░░░██║░░░██╔══██╗██╔══██║██║░░██╗░░░██║░░░░╚═══██╗
-# ╚█████╔╝╚█████╔╝██║░╚███║░░░██║░░░██║░░██║██║░░██║╚█████╔╝░░░██║░░░██████╔╝
-# ░╚════╝░░╚════╝░╚═╝░░╚══╝░░░╚═╝░░░╚═╝░░╚═╝╚═╝░░╚═╝░╚════╝░░░░╚═╝░░░╚═════╝░
-
-# Use the latest foundry image
-# TODO pin this to a specific version
-FROM ghcr.io/foundry-rs/foundry as contracts-deployer
-
-WORKDIR /monorepo
-COPY . .
-
-# install without using git
-RUN forge install && \
-  forge build && \
-  forge test && \
-  rm -rf cache
-
-ENTRYPOINT ["forge", "script", "packages/contracts/script/Deploy.s.sol:Deploy"]
-CMD [ "--rpc-url", "http://anvil:8545" ]
-
 # ███████╗██████╗░███████╗
 # ██╔════╝╚════██╗██╔════╝
 # █████╗░░░░███╔═╝█████╗░░
@@ -192,8 +169,9 @@ WORKDIR /monorepo
 # preparation for `yarn install`.
 COPY --from=manifests --chown=node:node /tmp/manifests  ./
 
-RUN rm -rf packages && \
+RUN rm -rf plugins && \
   rm -rf docs && \
+  rm -rf core && \
   rm -rf playground
 
 # install e2e deps
