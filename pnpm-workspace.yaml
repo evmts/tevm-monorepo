@@ -1,6 +1,7 @@
 packages:
-  - "packages/*"
+  - "core"
+  - "docs"
+  - "e2e"
   - "playground"
   - "playground-legacy"
-  - "e2e"
-  - "docs"
+  - "plugins/*"

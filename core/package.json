@@ -1,0 +1,63 @@
+{
+  "name": "@evmts/core",
+  "version": "0.0.3",
+  "private": false,
+  "description": "A typesafe library for writing forge scripts in typescript",
+  "keywords": [
+    "solidity",
+    "forge",
+    "foundry",
+    "sol",
+    "typescript",
+    "web3",
+    "blockchain"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/evmts/evmts-monorepo.git",
+    "directory": "packages/core"
+  },
+  "license": "MIT",
+  "type": "module",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "src/index.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "//test": "vitest",
+    "//test:run": "vitest run",
+    "//test:ui": "vitest --ui",
+    "build": "tsup",
+    "envSchema": "ts-node src/scripts/envSchema.ts",
+    "format": "rome format . --write",
+    "format:check": "rome format .",
+    "lint": "rome check . --apply-unsafe",
+    "lint:check": "rome check . --verbose",
+    "package:up": "pnpm up --latest",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@babel/helper-plugin-utils": "^7.21.5",
+    "@ethereumjs/block": "^4.2.2",
+    "@ethereumjs/common": "^3.1.2",
+    "@ethereumjs/tx": "^4.1.2",
+    "@ethereumjs/util": "^8.0.6",
+    "@ethereumjs/vm": "^6.4.2",
+    "@ethersproject/abi": "^5.7.0",
+    "@types/babel-core": "^6.25.7",
+    "rome": "^12.1.0",
+    "viem": "^0.3.24"
+  },
+  "devDependencies": {
+    "@vitest/ui": "^0.31.0",
+    "tsup": "^6.7.0",
+    "typescript": "^5.0.4",
+    "vitest": "^0.31.0",
+    "zod": "^3.21.4"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
