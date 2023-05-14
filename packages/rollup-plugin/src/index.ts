@@ -1,4 +1,4 @@
-import { FoundryConfig, HardhatConfig, foundryPlugin } from '@evmts/solts'
+import { FoundryConfig, HardhatConfig, foundryPlugin } from '@evmts/modules'
 import type { Plugin } from 'rollup'
 
 export const foundry = (options: FoundryConfig = {}): Plugin => {

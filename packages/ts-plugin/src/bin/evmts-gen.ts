@@ -1,4 +1,4 @@
-import { foundryPlugin } from '@evmts/solts'
+import { foundryPlugin } from '@evmts/modules'
 import { writeFile } from 'fs/promises'
 import { glob } from 'glob'
 import path from 'path'

@@ -1,6 +1,17 @@
-# @evmts/modules
+<p align="center">
+  <a href="https://evmts.dev/">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://user-images.githubusercontent.com/35039927/218812217-92f0f784-cb85-43b9-9ca6-e2b9effd9eb2.png">
+      <img alt="wagmi logo" src="https://user-images.githubusercontent.com/35039927/218812217-92f0f784-cb85-43b9-9ca6-e2b9effd9eb2.png" width="auto" height="300">
+    </picture>
+  </a>
+</p>
 
-Internal plugin code. Currently used only to build plugin but in future will be used to build plugin-webpack
+<p align="center">
+  @evmts/modules
+<p>
+
+@evmts/modules is the internal library for converting solidity files to typescript
 
 ## License 📄
 

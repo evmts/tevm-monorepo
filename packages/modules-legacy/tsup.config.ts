@@ -1,10 +1,10 @@
 import { defineConfig } from 'tsup'
 
 export default defineConfig({
-  name: '@evmts/core',
+  name: '@evmts/modules-legacy',
   entry: ['src/index.ts'],
   outDir: 'dist',
-  format: ['esm', 'cjs'],
+  format: ['esm'],
   splitting: false,
   sourcemap: true,
   clean: true,
