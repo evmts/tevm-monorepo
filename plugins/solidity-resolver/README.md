@@ -8,10 +8,23 @@
 </p>
 
 <p align="center">
-  @evmts/modules
+  @evmts/solidity-resolver
 <p>
 
-@evmts/modules is the internal library for converting solidity files to typescript
+`@evmts/solidity-resolver` is the internal library for converting solidity files to typescript. It is used to create all the other plugins
+
+## Example
+
+This example resolves Foo.sol with foundry and then writes an esm module
+
+```typescript
+import { hardhatModules } from "@evmts/solidity-resolver";
+import fs from "fs";
+
+const resolver = hardhatModules(options, console);
+const esmModule = resolver.resolveEsmModuleSync("../../Foo.sol");
+fs.writeFileSync("../../Foo.js", esmModule);
+```
 
 ## License 📄
 

@@ -1,4 +1,4 @@
-import { FoundryPlugin } from '../types'
+import { FoundryModuleResolver } from '../types'
 import { Logger } from '../types'
 import { FoundryToml } from '../types/FoundryToml'
 import { readFileSync } from 'fs'
@@ -42,9 +42,9 @@ export const resolveArtifactPaths = async (
   return files
 }
 
-export const foundryPlugin: FoundryPlugin = (config, logger) => {
+export const foundryModules: FoundryModuleResolver = (config, logger) => {
   return {
-    name: foundryPlugin.name,
+    name: foundryModules.name,
     config,
     resolveArtifactPaths: async (module) => {
       return new Set(

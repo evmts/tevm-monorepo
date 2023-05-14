@@ -1,7 +1,7 @@
 import { defineConfig } from 'tsup'
 
 export default defineConfig({
-  name: '@evmts/modules-legacy',
+  name: '@evmts/solidity-resolver-legacy',
   entry: ['src/index.ts'],
   outDir: 'dist',
   format: ['esm'],

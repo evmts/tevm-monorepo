@@ -39,7 +39,7 @@
   "dependencies": {
     "@babel/helper-plugin-utils": "^7.20.2",
     "@babel/parser": "^7.21.4",
-    "@evmts/modules-legacy": "workspace:^",
+    "@evmts/solidity-resolver-legacy": "workspace:^",
     "@evmts/rollup-plugin": "workspace:^",
     "@evmts/unplugin": "workspace:^",
     "@types/babel-core": "^6.25.7",

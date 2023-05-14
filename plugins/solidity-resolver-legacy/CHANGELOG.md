@@ -1,4 +1,4 @@
-# @evmts/modules-legacy
+# @evmts/solidity-resolver-legacy
 
 ## 0.0.1
 

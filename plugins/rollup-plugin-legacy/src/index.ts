@@ -7,7 +7,7 @@ import {
   getArtifacts,
   getFileName,
   getFoundryConfig,
-} from '@evmts/modules-legacy'
+} from '@evmts/solidity-resolver-legacy'
 // @ts-ignore - TODO figure out why these types don't work
 import fs from 'fs-extra/esm'
 import type { Plugin } from 'rollup'

@@ -1,6 +1,6 @@
 import { Logger } from './Logger'
 
-export type Plugin<TConfig> = (
+export type ModuleResolver<TConfig> = (
   config: TConfig,
   logger: Logger,
 ) => {

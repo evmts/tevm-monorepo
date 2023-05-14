@@ -1,5 +1,5 @@
 {
-  "name": "@evmts/modules-legacy",
+  "name": "@evmts/solidity-resolver-legacy",
   "version": "0.0.1",
   "private": false,
   "description": "The internal code EVMts plugins use to resolve .sol imports",

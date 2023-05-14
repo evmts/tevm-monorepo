@@ -1,5 +1,5 @@
 {
-  "name": "@evmts/modules",
+  "name": "@evmts/solidity-resolver",
   "version": "0.0.3",
   "private": true,
   "description": "A generic library for converting between solidity and typescript types used internally in evmts",

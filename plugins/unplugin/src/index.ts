@@ -1,4 +1,8 @@
-import { FoundryConfig, HardhatConfig, foundryPlugin } from '@evmts/modules'
+import {
+  FoundryConfig,
+  HardhatConfig,
+  foundryPlugin,
+} from '@evmts/solidity-resolver'
 import { createUnplugin } from 'unplugin'
 
 const foundryUnplugin = createUnplugin((options: FoundryConfig = {}) => {

@@ -6,7 +6,7 @@ Build plugins for evmts
 
 Esbuild plugin for evmts build with @evmts/unplugin
 
-## modules
+## solidity-resolver
 
 Generates modules from solidity file paths.
 Used internally to build all the plugins
@@ -17,11 +17,11 @@ A rollup/vite plugin for evmts built with @evmts/unplugin
 
 ## ts-plugin
 
-A typescript language server plugin built with @evmts/modules
+A typescript language server plugin built with @evmts/solidity-resolver
 
 ## unplugin
 
-An internal plugin implementation built with @evmts/modules
+An internal plugin implementation built with @evmts/solidity-resolver
 
 ## webpack-plugin
 

@@ -1,7 +1,7 @@
 import { createDecorator } from '../factories'
 import { isSolidity } from '../utils'
 import { getArtifactPathSync } from '../utils/getArtifactPathSync'
-import { foundryPlugin } from '@evmts/modules'
+import { foundryPlugin } from '@evmts/solidity-resolver'
 import { existsSync, readFileSync } from 'fs'
 
 /**
