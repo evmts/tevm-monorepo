@@ -51,10 +51,10 @@ EVMts enables direct evm execution clientside with forge cheat codes and direct 
 
 #### NEXT.js / Webpack examples
 
-- [examples/forge-webpack] An example of a forge/webpack app using evmts
-- [examples/hardhat-webpack] An example of a hardhat/webpack app using evmts
 - [examples/forge-next] An example of a forge/next app using evmts
 - [examples/hardhat-next] An example of a hardhat/next app using evmts
+- [examples/forge-webpack] An example of a forge/webpack app using evmts
+- [examples/hardhat-webpack] An example of a hardhat/webpack app using evmts
 
 #### Vite / Rollup examples
 
@@ -67,8 +67,6 @@ EVMts enables direct evm execution clientside with forge cheat codes and direct 
 
 - [examples/forge-esbuild] An example of a forge/esbuild cli tool built with evmts
 - [examples/hardhat-esbuild] An example of a hardhat/esbuild cli tool built with evmts
-
-#### ESBuild examples
 
 ## Tests ✅
 

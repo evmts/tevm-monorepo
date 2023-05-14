@@ -156,7 +156,927 @@ importers:
         specifier: ^0.3.13
         version: 0.3.13(typescript@5.0.4)(zod@3.21.4)
 
+  examples/forge-esbuild:
+    dependencies:
+      '@babel/core':
+        specifier: ^7.21.4
+        version: 7.21.8
+      '@evmts/core':
+        specifier: workspace:^0.0.3
+        version: link:../../core
+      '@openzeppelin/contracts':
+        specifier: ^4.8.3
+        version: 4.8.3
+      '@tanstack/query-core':
+        specifier: ^4.29.1
+        version: 4.29.1
+      '@tanstack/react-query':
+        specifier: ^4.29.3
+        version: 4.29.3(react-dom@18.2.0)(react@18.2.0)
+      '@types/testing-library__jest-dom':
+        specifier: ^5.14.5
+        version: 5.14.5
+      '@vanilla-extract/css':
+        specifier: ^1.11.0
+        version: 1.11.0
+      buffer:
+        specifier: ^6.0.3
+        version: 6.0.3
+      connectkit:
+        specifier: ^1.2.2
+        version: 1.2.2(ethers@5.7.2)(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0)(wagmi@0.12.12)
+      process:
+        specifier: ^0.11.10
+        version: 0.11.10
+      react:
+        specifier: ^18.2.0
+        version: 18.2.0
+      react-dom:
+        specifier: ^18.2.0
+        version: 18.2.0(react@18.2.0)
+      react-is:
+        specifier: ^18.2.0
+        version: 18.2.0
+      util:
+        specifier: ^0.12.5
+        version: 0.12.5
+      wagmi:
+        specifier: ~0.12.12
+        version: 0.12.12(ethers@5.7.2)(react-dom@18.2.0)(react@18.2.0)(typescript@5.0.4)(zod@3.21.4)
+      zod:
+        specifier: ^3.21.4
+        version: 3.21.4
+    devDependencies:
+      '@babel/plugin-syntax-flow':
+        specifier: ^7.21.4
+        version: 7.21.4(@babel/core@7.21.8)
+      '@babel/plugin-transform-react-jsx':
+        specifier: ^7.21.0
+        version: 7.21.0(@babel/core@7.21.8)
+      '@evmts/ts-plugin':
+        specifier: workspace:^0.0.0
+        version: link:../../plugins/ts-plugin
+      '@evmts/vite-plugin':
+        specifier: workspace:^0.0.1
+        version: link:../../plugins/vite-plugin
+      '@testing-library/jest-dom':
+        specifier: ^5.16.5
+        version: 5.16.5
+      '@testing-library/react':
+        specifier: ^14.0.0
+        version: 14.0.0(react-dom@18.2.0)(react@18.2.0)
+      '@types/node':
+        specifier: ^18.15.12
+        version: 18.16.3
+      '@types/react':
+        specifier: ^18.0.37
+        version: 18.0.37
+      '@types/react-dom':
+        specifier: ^18.0.11
+        version: 18.0.11
+      '@types/react-helmet':
+        specifier: ^6.1.6
+        version: 6.1.6
+      '@vanilla-extract/vite-plugin':
+        specifier: ^3.8.0
+        version: 3.8.0(ts-node@10.9.1)(vite@4.3.4)
+      '@vitejs/plugin-react':
+        specifier: ^4.0.0
+        version: 4.0.0(vite@4.3.4)
+      jest-dom:
+        specifier: link:@types/@testing-library/jest-dom
+        version: link:@types/@testing-library/jest-dom
+      jsdom:
+        specifier: ^21.1.1
+        version: 21.1.1
+      matchers:
+        specifier: link:@types/@testing-library/jest-dom/matchers
+        version: link:@types/@testing-library/jest-dom/matchers
+      react-helmet:
+        specifier: ^6.1.0
+        version: 6.1.0(react@18.2.0)
+      rome:
+        specifier: ^12.0.0
+        version: 12.1.0
+      serve:
+        specifier: ^14.2.0
+        version: 14.2.0
+      typescript:
+        specifier: ^5.0.4
+        version: 5.0.4
+      vite:
+        specifier: ^4.3.0
+        version: 4.3.4(@types/node@18.16.3)
+      vitest:
+        specifier: ^0.30.1
+        version: 0.30.1(jsdom@21.1.1)
+
+  examples/forge-next:
+    dependencies:
+      '@babel/core':
+        specifier: ^7.21.4
+        version: 7.21.8
+      '@evmts/core':
+        specifier: workspace:^0.0.3
+        version: link:../../core
+      '@openzeppelin/contracts':
+        specifier: ^4.8.3
+        version: 4.8.3
+      '@tanstack/query-core':
+        specifier: ^4.29.1
+        version: 4.29.1
+      '@tanstack/react-query':
+        specifier: ^4.29.3
+        version: 4.29.3(react-dom@18.2.0)(react@18.2.0)
+      '@types/testing-library__jest-dom':
+        specifier: ^5.14.5
+        version: 5.14.5
+      '@vanilla-extract/css':
+        specifier: ^1.11.0
+        version: 1.11.0
+      buffer:
+        specifier: ^6.0.3
+        version: 6.0.3
+      connectkit:
+        specifier: ^1.2.2
+        version: 1.2.2(ethers@5.7.2)(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0)(wagmi@0.12.12)
+      process:
+        specifier: ^0.11.10
+        version: 0.11.10
+      react:
+        specifier: ^18.2.0
+        version: 18.2.0
+      react-dom:
+        specifier: ^18.2.0
+        version: 18.2.0(react@18.2.0)
+      react-is:
+        specifier: ^18.2.0
+        version: 18.2.0
+      util:
+        specifier: ^0.12.5
+        version: 0.12.5
+      wagmi:
+        specifier: ~0.12.12
+        version: 0.12.12(ethers@5.7.2)(react-dom@18.2.0)(react@18.2.0)(typescript@5.0.4)(zod@3.21.4)
+      zod:
+        specifier: ^3.21.4
+        version: 3.21.4
+    devDependencies:
+      '@babel/plugin-syntax-flow':
+        specifier: ^7.21.4
+        version: 7.21.4(@babel/core@7.21.8)
+      '@babel/plugin-transform-react-jsx':
+        specifier: ^7.21.0
+        version: 7.21.0(@babel/core@7.21.8)
+      '@evmts/ts-plugin':
+        specifier: workspace:^0.0.0
+        version: link:../../plugins/ts-plugin
+      '@evmts/vite-plugin':
+        specifier: workspace:^0.0.1
+        version: link:../../plugins/vite-plugin
+      '@testing-library/jest-dom':
+        specifier: ^5.16.5
+        version: 5.16.5
+      '@testing-library/react':
+        specifier: ^14.0.0
+        version: 14.0.0(react-dom@18.2.0)(react@18.2.0)
+      '@types/node':
+        specifier: ^18.15.12
+        version: 18.16.3
+      '@types/react':
+        specifier: ^18.0.37
+        version: 18.0.37
+      '@types/react-dom':
+        specifier: ^18.0.11
+        version: 18.0.11
+      '@types/react-helmet':
+        specifier: ^6.1.6
+        version: 6.1.6
+      '@vanilla-extract/vite-plugin':
+        specifier: ^3.8.0
+        version: 3.8.0(ts-node@10.9.1)(vite@4.3.4)
+      '@vitejs/plugin-react':
+        specifier: ^4.0.0
+        version: 4.0.0(vite@4.3.4)
+      jest-dom:
+        specifier: link:@types/@testing-library/jest-dom
+        version: link:@types/@testing-library/jest-dom
+      jsdom:
+        specifier: ^21.1.1
+        version: 21.1.1
+      matchers:
+        specifier: link:@types/@testing-library/jest-dom/matchers
+        version: link:@types/@testing-library/jest-dom/matchers
+      react-helmet:
+        specifier: ^6.1.0
+        version: 6.1.0(react@18.2.0)
+      rome:
+        specifier: ^12.0.0
+        version: 12.1.0
+      serve:
+        specifier: ^14.2.0
+        version: 14.2.0
+      typescript:
+        specifier: ^5.0.4
+        version: 5.0.4
+      vite:
+        specifier: ^4.3.0
+        version: 4.3.4(@types/node@18.16.3)
+      vitest:
+        specifier: ^0.30.1
+        version: 0.30.1(jsdom@21.1.1)
+
+  examples/forge-rollup:
+    dependencies:
+      '@babel/core':
+        specifier: ^7.21.4
+        version: 7.21.8
+      '@evmts/core':
+        specifier: workspace:^0.0.3
+        version: link:../../core
+      '@openzeppelin/contracts':
+        specifier: ^4.8.3
+        version: 4.8.3
+      '@tanstack/query-core':
+        specifier: ^4.29.1
+        version: 4.29.1
+      '@tanstack/react-query':
+        specifier: ^4.29.3
+        version: 4.29.3(react-dom@18.2.0)(react@18.2.0)
+      '@types/testing-library__jest-dom':
+        specifier: ^5.14.5
+        version: 5.14.5
+      '@vanilla-extract/css':
+        specifier: ^1.11.0
+        version: 1.11.0
+      buffer:
+        specifier: ^6.0.3
+        version: 6.0.3
+      connectkit:
+        specifier: ^1.2.2
+        version: 1.2.2(ethers@5.7.2)(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0)(wagmi@0.12.12)
+      process:
+        specifier: ^0.11.10
+        version: 0.11.10
+      react:
+        specifier: ^18.2.0
+        version: 18.2.0
+      react-dom:
+        specifier: ^18.2.0
+        version: 18.2.0(react@18.2.0)
+      react-is:
+        specifier: ^18.2.0
+        version: 18.2.0
+      util:
+        specifier: ^0.12.5
+        version: 0.12.5
+      wagmi:
+        specifier: ~0.12.12
+        version: 0.12.12(ethers@5.7.2)(react-dom@18.2.0)(react@18.2.0)(typescript@5.0.4)(zod@3.21.4)
+      zod:
+        specifier: ^3.21.4
+        version: 3.21.4
+    devDependencies:
+      '@babel/plugin-syntax-flow':
+        specifier: ^7.21.4
+        version: 7.21.4(@babel/core@7.21.8)
+      '@babel/plugin-transform-react-jsx':
+        specifier: ^7.21.0
+        version: 7.21.0(@babel/core@7.21.8)
+      '@evmts/ts-plugin':
+        specifier: workspace:^0.0.0
+        version: link:../../plugins/ts-plugin
+      '@evmts/vite-plugin':
+        specifier: workspace:^0.0.1
+        version: link:../../plugins/vite-plugin
+      '@testing-library/jest-dom':
+        specifier: ^5.16.5
+        version: 5.16.5
+      '@testing-library/react':
+        specifier: ^14.0.0
+        version: 14.0.0(react-dom@18.2.0)(react@18.2.0)
+      '@types/node':
+        specifier: ^18.15.12
+        version: 18.16.3
+      '@types/react':
+        specifier: ^18.0.37
+        version: 18.0.37
+      '@types/react-dom':
+        specifier: ^18.0.11
+        version: 18.0.11
+      '@types/react-helmet':
+        specifier: ^6.1.6
+        version: 6.1.6
+      '@vanilla-extract/vite-plugin':
+        specifier: ^3.8.0
+        version: 3.8.0(ts-node@10.9.1)(vite@4.3.4)
+      '@vitejs/plugin-react':
+        specifier: ^4.0.0
+        version: 4.0.0(vite@4.3.4)
+      jest-dom:
+        specifier: link:@types/@testing-library/jest-dom
+        version: link:@types/@testing-library/jest-dom
+      jsdom:
+        specifier: ^21.1.1
+        version: 21.1.1
+      matchers:
+        specifier: link:@types/@testing-library/jest-dom/matchers
+        version: link:@types/@testing-library/jest-dom/matchers
+      react-helmet:
+        specifier: ^6.1.0
+        version: 6.1.0(react@18.2.0)
+      rome:
+        specifier: ^12.0.0
+        version: 12.1.0
+      serve:
+        specifier: ^14.2.0
+        version: 14.2.0
+      typescript:
+        specifier: ^5.0.4
+        version: 5.0.4
+      vite:
+        specifier: ^4.3.0
+        version: 4.3.4(@types/node@18.16.3)
+      vitest:
+        specifier: ^0.30.1
+        version: 0.30.1(jsdom@21.1.1)
+
   examples/forge-vite:
+    dependencies:
+      '@babel/core':
+        specifier: ^7.21.4
+        version: 7.21.8
+      '@evmts/core':
+        specifier: workspace:^0.0.3
+        version: link:../../core
+      '@openzeppelin/contracts':
+        specifier: ^4.8.3
+        version: 4.8.3
+      '@tanstack/query-core':
+        specifier: ^4.29.1
+        version: 4.29.1
+      '@tanstack/react-query':
+        specifier: ^4.29.3
+        version: 4.29.3(react-dom@18.2.0)(react@18.2.0)
+      '@types/testing-library__jest-dom':
+        specifier: ^5.14.5
+        version: 5.14.5
+      '@vanilla-extract/css':
+        specifier: ^1.11.0
+        version: 1.11.0
+      buffer:
+        specifier: ^6.0.3
+        version: 6.0.3
+      connectkit:
+        specifier: ^1.2.2
+        version: 1.2.2(ethers@5.7.2)(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0)(wagmi@0.12.12)
+      process:
+        specifier: ^0.11.10
+        version: 0.11.10
+      react:
+        specifier: ^18.2.0
+        version: 18.2.0
+      react-dom:
+        specifier: ^18.2.0
+        version: 18.2.0(react@18.2.0)
+      react-is:
+        specifier: ^18.2.0
+        version: 18.2.0
+      util:
+        specifier: ^0.12.5
+        version: 0.12.5
+      wagmi:
+        specifier: ~0.12.12
+        version: 0.12.12(ethers@5.7.2)(react-dom@18.2.0)(react@18.2.0)(typescript@5.0.4)(zod@3.21.4)
+      zod:
+        specifier: ^3.21.4
+        version: 3.21.4
+    devDependencies:
+      '@babel/plugin-syntax-flow':
+        specifier: ^7.21.4
+        version: 7.21.4(@babel/core@7.21.8)
+      '@babel/plugin-transform-react-jsx':
+        specifier: ^7.21.0
+        version: 7.21.0(@babel/core@7.21.8)
+      '@evmts/ts-plugin':
+        specifier: workspace:^0.0.0
+        version: link:../../plugins/ts-plugin
+      '@evmts/vite-plugin':
+        specifier: workspace:^0.0.1
+        version: link:../../plugins/vite-plugin
+      '@testing-library/jest-dom':
+        specifier: ^5.16.5
+        version: 5.16.5
+      '@testing-library/react':
+        specifier: ^14.0.0
+        version: 14.0.0(react-dom@18.2.0)(react@18.2.0)
+      '@types/node':
+        specifier: ^18.15.12
+        version: 18.16.3
+      '@types/react':
+        specifier: ^18.0.37
+        version: 18.0.37
+      '@types/react-dom':
+        specifier: ^18.0.11
+        version: 18.0.11
+      '@types/react-helmet':
+        specifier: ^6.1.6
+        version: 6.1.6
+      '@vanilla-extract/vite-plugin':
+        specifier: ^3.8.0
+        version: 3.8.0(ts-node@10.9.1)(vite@4.3.4)
+      '@vitejs/plugin-react':
+        specifier: ^4.0.0
+        version: 4.0.0(vite@4.3.4)
+      jest-dom:
+        specifier: link:@types/@testing-library/jest-dom
+        version: link:@types/@testing-library/jest-dom
+      jsdom:
+        specifier: ^21.1.1
+        version: 21.1.1
+      matchers:
+        specifier: link:@types/@testing-library/jest-dom/matchers
+        version: link:@types/@testing-library/jest-dom/matchers
+      react-helmet:
+        specifier: ^6.1.0
+        version: 6.1.0(react@18.2.0)
+      rome:
+        specifier: ^12.0.0
+        version: 12.1.0
+      serve:
+        specifier: ^14.2.0
+        version: 14.2.0
+      typescript:
+        specifier: ^5.0.4
+        version: 5.0.4
+      vite:
+        specifier: ^4.3.0
+        version: 4.3.4(@types/node@18.16.3)
+      vitest:
+        specifier: ^0.30.1
+        version: 0.30.1(jsdom@21.1.1)
+
+  examples/forge-webpack:
+    dependencies:
+      '@babel/core':
+        specifier: ^7.21.4
+        version: 7.21.8
+      '@evmts/core':
+        specifier: workspace:^0.0.3
+        version: link:../../core
+      '@openzeppelin/contracts':
+        specifier: ^4.8.3
+        version: 4.8.3
+      '@tanstack/query-core':
+        specifier: ^4.29.1
+        version: 4.29.1
+      '@tanstack/react-query':
+        specifier: ^4.29.3
+        version: 4.29.3(react-dom@18.2.0)(react@18.2.0)
+      '@types/testing-library__jest-dom':
+        specifier: ^5.14.5
+        version: 5.14.5
+      '@vanilla-extract/css':
+        specifier: ^1.11.0
+        version: 1.11.0
+      buffer:
+        specifier: ^6.0.3
+        version: 6.0.3
+      connectkit:
+        specifier: ^1.2.2
+        version: 1.2.2(ethers@5.7.2)(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0)(wagmi@0.12.12)
+      process:
+        specifier: ^0.11.10
+        version: 0.11.10
+      react:
+        specifier: ^18.2.0
+        version: 18.2.0
+      react-dom:
+        specifier: ^18.2.0
+        version: 18.2.0(react@18.2.0)
+      react-is:
+        specifier: ^18.2.0
+        version: 18.2.0
+      util:
+        specifier: ^0.12.5
+        version: 0.12.5
+      wagmi:
+        specifier: ~0.12.12
+        version: 0.12.12(ethers@5.7.2)(react-dom@18.2.0)(react@18.2.0)(typescript@5.0.4)(zod@3.21.4)
+      zod:
+        specifier: ^3.21.4
+        version: 3.21.4
+    devDependencies:
+      '@babel/plugin-syntax-flow':
+        specifier: ^7.21.4
+        version: 7.21.4(@babel/core@7.21.8)
+      '@babel/plugin-transform-react-jsx':
+        specifier: ^7.21.0
+        version: 7.21.0(@babel/core@7.21.8)
+      '@evmts/ts-plugin':
+        specifier: workspace:^0.0.0
+        version: link:../../plugins/ts-plugin
+      '@evmts/vite-plugin':
+        specifier: workspace:^0.0.1
+        version: link:../../plugins/vite-plugin
+      '@testing-library/jest-dom':
+        specifier: ^5.16.5
+        version: 5.16.5
+      '@testing-library/react':
+        specifier: ^14.0.0
+        version: 14.0.0(react-dom@18.2.0)(react@18.2.0)
+      '@types/node':
+        specifier: ^18.15.12
+        version: 18.16.3
+      '@types/react':
+        specifier: ^18.0.37
+        version: 18.0.37
+      '@types/react-dom':
+        specifier: ^18.0.11
+        version: 18.0.11
+      '@types/react-helmet':
+        specifier: ^6.1.6
+        version: 6.1.6
+      '@vanilla-extract/vite-plugin':
+        specifier: ^3.8.0
+        version: 3.8.0(ts-node@10.9.1)(vite@4.3.4)
+      '@vitejs/plugin-react':
+        specifier: ^4.0.0
+        version: 4.0.0(vite@4.3.4)
+      jest-dom:
+        specifier: link:@types/@testing-library/jest-dom
+        version: link:@types/@testing-library/jest-dom
+      jsdom:
+        specifier: ^21.1.1
+        version: 21.1.1
+      matchers:
+        specifier: link:@types/@testing-library/jest-dom/matchers
+        version: link:@types/@testing-library/jest-dom/matchers
+      react-helmet:
+        specifier: ^6.1.0
+        version: 6.1.0(react@18.2.0)
+      rome:
+        specifier: ^12.0.0
+        version: 12.1.0
+      serve:
+        specifier: ^14.2.0
+        version: 14.2.0
+      typescript:
+        specifier: ^5.0.4
+        version: 5.0.4
+      vite:
+        specifier: ^4.3.0
+        version: 4.3.4(@types/node@18.16.3)
+      vitest:
+        specifier: ^0.30.1
+        version: 0.30.1(jsdom@21.1.1)
+
+  examples/hardhat-esbuild:
+    dependencies:
+      '@babel/core':
+        specifier: ^7.21.4
+        version: 7.21.8
+      '@evmts/core':
+        specifier: workspace:^0.0.3
+        version: link:../../core
+      '@openzeppelin/contracts':
+        specifier: ^4.8.3
+        version: 4.8.3
+      '@tanstack/query-core':
+        specifier: ^4.29.1
+        version: 4.29.1
+      '@tanstack/react-query':
+        specifier: ^4.29.3
+        version: 4.29.3(react-dom@18.2.0)(react@18.2.0)
+      '@types/testing-library__jest-dom':
+        specifier: ^5.14.5
+        version: 5.14.5
+      '@vanilla-extract/css':
+        specifier: ^1.11.0
+        version: 1.11.0
+      buffer:
+        specifier: ^6.0.3
+        version: 6.0.3
+      connectkit:
+        specifier: ^1.2.2
+        version: 1.2.2(ethers@5.7.2)(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0)(wagmi@0.12.12)
+      process:
+        specifier: ^0.11.10
+        version: 0.11.10
+      react:
+        specifier: ^18.2.0
+        version: 18.2.0
+      react-dom:
+        specifier: ^18.2.0
+        version: 18.2.0(react@18.2.0)
+      react-is:
+        specifier: ^18.2.0
+        version: 18.2.0
+      util:
+        specifier: ^0.12.5
+        version: 0.12.5
+      wagmi:
+        specifier: ~0.12.12
+        version: 0.12.12(ethers@5.7.2)(react-dom@18.2.0)(react@18.2.0)(typescript@5.0.4)(zod@3.21.4)
+      zod:
+        specifier: ^3.21.4
+        version: 3.21.4
+    devDependencies:
+      '@babel/plugin-syntax-flow':
+        specifier: ^7.21.4
+        version: 7.21.4(@babel/core@7.21.8)
+      '@babel/plugin-transform-react-jsx':
+        specifier: ^7.21.0
+        version: 7.21.0(@babel/core@7.21.8)
+      '@evmts/ts-plugin':
+        specifier: workspace:^0.0.0
+        version: link:../../plugins/ts-plugin
+      '@evmts/vite-plugin':
+        specifier: workspace:^0.0.1
+        version: link:../../plugins/vite-plugin
+      '@testing-library/jest-dom':
+        specifier: ^5.16.5
+        version: 5.16.5
+      '@testing-library/react':
+        specifier: ^14.0.0
+        version: 14.0.0(react-dom@18.2.0)(react@18.2.0)
+      '@types/node':
+        specifier: ^18.15.12
+        version: 18.16.3
+      '@types/react':
+        specifier: ^18.0.37
+        version: 18.0.37
+      '@types/react-dom':
+        specifier: ^18.0.11
+        version: 18.0.11
+      '@types/react-helmet':
+        specifier: ^6.1.6
+        version: 6.1.6
+      '@vanilla-extract/vite-plugin':
+        specifier: ^3.8.0
+        version: 3.8.0(ts-node@10.9.1)(vite@4.3.4)
+      '@vitejs/plugin-react':
+        specifier: ^4.0.0
+        version: 4.0.0(vite@4.3.4)
+      jest-dom:
+        specifier: link:@types/@testing-library/jest-dom
+        version: link:@types/@testing-library/jest-dom
+      jsdom:
+        specifier: ^21.1.1
+        version: 21.1.1
+      matchers:
+        specifier: link:@types/@testing-library/jest-dom/matchers
+        version: link:@types/@testing-library/jest-dom/matchers
+      react-helmet:
+        specifier: ^6.1.0
+        version: 6.1.0(react@18.2.0)
+      rome:
+        specifier: ^12.0.0
+        version: 12.1.0
+      serve:
+        specifier: ^14.2.0
+        version: 14.2.0
+      typescript:
+        specifier: ^5.0.4
+        version: 5.0.4
+      vite:
+        specifier: ^4.3.0
+        version: 4.3.4(@types/node@18.16.3)
+      vitest:
+        specifier: ^0.30.1
+        version: 0.30.1(jsdom@21.1.1)
+
+  examples/hardhat-next:
+    dependencies:
+      '@babel/core':
+        specifier: ^7.21.4
+        version: 7.21.8
+      '@evmts/core':
+        specifier: workspace:^0.0.3
+        version: link:../../core
+      '@openzeppelin/contracts':
+        specifier: ^4.8.3
+        version: 4.8.3
+      '@tanstack/query-core':
+        specifier: ^4.29.1
+        version: 4.29.1
+      '@tanstack/react-query':
+        specifier: ^4.29.3
+        version: 4.29.3(react-dom@18.2.0)(react@18.2.0)
+      '@types/testing-library__jest-dom':
+        specifier: ^5.14.5
+        version: 5.14.5
+      '@vanilla-extract/css':
+        specifier: ^1.11.0
+        version: 1.11.0
+      buffer:
+        specifier: ^6.0.3
+        version: 6.0.3
+      connectkit:
+        specifier: ^1.2.2
+        version: 1.2.2(ethers@5.7.2)(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0)(wagmi@0.12.12)
+      process:
+        specifier: ^0.11.10
+        version: 0.11.10
+      react:
+        specifier: ^18.2.0
+        version: 18.2.0
+      react-dom:
+        specifier: ^18.2.0
+        version: 18.2.0(react@18.2.0)
+      react-is:
+        specifier: ^18.2.0
+        version: 18.2.0
+      util:
+        specifier: ^0.12.5
+        version: 0.12.5
+      wagmi:
+        specifier: ~0.12.12
+        version: 0.12.12(ethers@5.7.2)(react-dom@18.2.0)(react@18.2.0)(typescript@5.0.4)(zod@3.21.4)
+      zod:
+        specifier: ^3.21.4
+        version: 3.21.4
+    devDependencies:
+      '@babel/plugin-syntax-flow':
+        specifier: ^7.21.4
+        version: 7.21.4(@babel/core@7.21.8)
+      '@babel/plugin-transform-react-jsx':
+        specifier: ^7.21.0
+        version: 7.21.0(@babel/core@7.21.8)
+      '@evmts/ts-plugin':
+        specifier: workspace:^0.0.0
+        version: link:../../plugins/ts-plugin
+      '@evmts/vite-plugin':
+        specifier: workspace:^0.0.1
+        version: link:../../plugins/vite-plugin
+      '@testing-library/jest-dom':
+        specifier: ^5.16.5
+        version: 5.16.5
+      '@testing-library/react':
+        specifier: ^14.0.0
+        version: 14.0.0(react-dom@18.2.0)(react@18.2.0)
+      '@types/node':
+        specifier: ^18.15.12
+        version: 18.16.3
+      '@types/react':
+        specifier: ^18.0.37
+        version: 18.0.37
+      '@types/react-dom':
+        specifier: ^18.0.11
+        version: 18.0.11
+      '@types/react-helmet':
+        specifier: ^6.1.6
+        version: 6.1.6
+      '@vanilla-extract/vite-plugin':
+        specifier: ^3.8.0
+        version: 3.8.0(ts-node@10.9.1)(vite@4.3.4)
+      '@vitejs/plugin-react':
+        specifier: ^4.0.0
+        version: 4.0.0(vite@4.3.4)
+      jest-dom:
+        specifier: link:@types/@testing-library/jest-dom
+        version: link:@types/@testing-library/jest-dom
+      jsdom:
+        specifier: ^21.1.1
+        version: 21.1.1
+      matchers:
+        specifier: link:@types/@testing-library/jest-dom/matchers
+        version: link:@types/@testing-library/jest-dom/matchers
+      react-helmet:
+        specifier: ^6.1.0
+        version: 6.1.0(react@18.2.0)
+      rome:
+        specifier: ^12.0.0
+        version: 12.1.0
+      serve:
+        specifier: ^14.2.0
+        version: 14.2.0
+      typescript:
+        specifier: ^5.0.4
+        version: 5.0.4
+      vite:
+        specifier: ^4.3.0
+        version: 4.3.4(@types/node@18.16.3)
+      vitest:
+        specifier: ^0.30.1
+        version: 0.30.1(jsdom@21.1.1)
+
+  examples/hardhat-rollup:
+    dependencies:
+      '@babel/core':
+        specifier: ^7.21.4
+        version: 7.21.8
+      '@evmts/core':
+        specifier: workspace:^0.0.3
+        version: link:../../core
+      '@openzeppelin/contracts':
+        specifier: ^4.8.3
+        version: 4.8.3
+      '@tanstack/query-core':
+        specifier: ^4.29.1
+        version: 4.29.1
+      '@tanstack/react-query':
+        specifier: ^4.29.3
+        version: 4.29.3(react-dom@18.2.0)(react@18.2.0)
+      '@types/testing-library__jest-dom':
+        specifier: ^5.14.5
+        version: 5.14.5
+      '@vanilla-extract/css':
+        specifier: ^1.11.0
+        version: 1.11.0
+      buffer:
+        specifier: ^6.0.3
+        version: 6.0.3
+      connectkit:
+        specifier: ^1.2.2
+        version: 1.2.2(ethers@5.7.2)(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0)(wagmi@0.12.12)
+      process:
+        specifier: ^0.11.10
+        version: 0.11.10
+      react:
+        specifier: ^18.2.0
+        version: 18.2.0
+      react-dom:
+        specifier: ^18.2.0
+        version: 18.2.0(react@18.2.0)
+      react-is:
+        specifier: ^18.2.0
+        version: 18.2.0
+      util:
+        specifier: ^0.12.5
+        version: 0.12.5
+      wagmi:
+        specifier: ~0.12.12
+        version: 0.12.12(ethers@5.7.2)(react-dom@18.2.0)(react@18.2.0)(typescript@5.0.4)(zod@3.21.4)
+      zod:
+        specifier: ^3.21.4
+        version: 3.21.4
+    devDependencies:
+      '@babel/plugin-syntax-flow':
+        specifier: ^7.21.4
+        version: 7.21.4(@babel/core@7.21.8)
+      '@babel/plugin-transform-react-jsx':
+        specifier: ^7.21.0
+        version: 7.21.0(@babel/core@7.21.8)
+      '@evmts/ts-plugin':
+        specifier: workspace:^0.0.0
+        version: link:../../plugins/ts-plugin
+      '@evmts/vite-plugin':
+        specifier: workspace:^0.0.1
+        version: link:../../plugins/vite-plugin
+      '@testing-library/jest-dom':
+        specifier: ^5.16.5
+        version: 5.16.5
+      '@testing-library/react':
+        specifier: ^14.0.0
+        version: 14.0.0(react-dom@18.2.0)(react@18.2.0)
+      '@types/node':
+        specifier: ^18.15.12
+        version: 18.16.3
+      '@types/react':
+        specifier: ^18.0.37
+        version: 18.0.37
+      '@types/react-dom':
+        specifier: ^18.0.11
+        version: 18.0.11
+      '@types/react-helmet':
+        specifier: ^6.1.6
+        version: 6.1.6
+      '@vanilla-extract/vite-plugin':
+        specifier: ^3.8.0
+        version: 3.8.0(ts-node@10.9.1)(vite@4.3.4)
+      '@vitejs/plugin-react':
+        specifier: ^4.0.0
+        version: 4.0.0(vite@4.3.4)
+      jest-dom:
+        specifier: link:@types/@testing-library/jest-dom
+        version: link:@types/@testing-library/jest-dom
+      jsdom:
+        specifier: ^21.1.1
+        version: 21.1.1
+      matchers:
+        specifier: link:@types/@testing-library/jest-dom/matchers
+        version: link:@types/@testing-library/jest-dom/matchers
+      react-helmet:
+        specifier: ^6.1.0
+        version: 6.1.0(react@18.2.0)
+      rome:
+        specifier: ^12.0.0
+        version: 12.1.0
+      serve:
+        specifier: ^14.2.0
+        version: 14.2.0
+      typescript:
+        specifier: ^5.0.4
+        version: 5.0.4
+      vite:
+        specifier: ^4.3.0
+        version: 4.3.4(@types/node@18.16.3)
+      vitest:
+        specifier: ^0.30.1
+        version: 0.30.1(jsdom@21.1.1)
+
+  examples/hardhat-webpack:
     dependencies:
       '@babel/core':
         specifier: ^7.21.4
