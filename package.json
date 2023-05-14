@@ -11,8 +11,6 @@
   "scripts": {
     "all": "pnpm build && pnpm lint && pnpm typecheck && pnpm sort-package-json && pnpm test",
     "build": "nx run-many --target=build",
-    "changeset:release": "pnpm build && changeset publish",
-    "changeset:version": "changeset version && pnpm install --lockfile-only",
     "e2e": "nx e2e e2e",
     "preinstall": "npx only-allow pnpm",
     "lint": "nx run-many --targets=lint,format",
@@ -30,7 +28,6 @@
   "devDependencies": {
     "@babel/core": "^7.21.8",
     "@babel/preset-typescript": "^7.21.5",
-    "@changesets/cli": "^2.26.1",
     "@nrwl/devkit": "16.0.2",
     "@nrwl/nx-cloud": "16.0.5",
     "@types/node": "^18.16.3",
