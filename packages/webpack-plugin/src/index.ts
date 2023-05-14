@@ -8,3 +8,4 @@ export const { webpack: foundryPlugin } = createUnplugin((options: any) => {
     load: rollupPlugin.load as any,
   }
 })
+

@@ -1,4 +1,3 @@
-// @ts-ignore - TODO figure out why these types don't work
 import { FoundryConfig, HardhatConfig, foundryPlugin } from '@evmts/solts'
 import type { Plugin } from 'rollup'
 
@@ -17,13 +16,12 @@ export const foundry = (options: FoundryConfig = {}): Plugin => {
 }
 
 export const hardhat = (options: HardhatConfig): Plugin => {
-  console.log('options', options)
+  const hardhatPlugin = 'TODO' as any
+  const plugin = hardhatPlugin(options, console)
   return {
     name: '@evmts/rollup-plugin',
     version: '0.0.0',
     load(id) {
-      const hardhatPlugin = 'TODO' as any
-      const plugin = hardhatPlugin(options, console)
       if (!id.endsWith('.sol')) {
         return
       }
@@ -31,3 +29,4 @@ export const hardhat = (options: HardhatConfig): Plugin => {
     },
   }
 }
+
