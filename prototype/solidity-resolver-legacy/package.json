@@ -27,7 +27,7 @@
     "format": "rome format . --write",
     "format:check": "rome format .",
     "lint": "rome check . --apply-unsafe",
-    "lint:check": "rome check . --verbose",
+    "//lint:check": "rome check . --verbose",
     "package:up": "pnpm up --latest",
     "test": "vitest",
     "test:run": "vitest run",
@@ -41,12 +41,12 @@
     "pathe": "^1.1.0"
   },
   "devDependencies": {
-    "@vitest/ui": "^0.30.1",
-    "rome": "^12.0.0",
+    "@vitest/ui": "^0.31.0",
+    "rome": "^12.1.0",
     "tsup": "^6.7.0",
     "typescript": "^5.0.4",
-    "vite": "^4.3.4",
-    "vitest": "^0.30.1",
+    "vite": "^4.3.5",
+    "vitest": "^0.31.0",
     "zod": "^3.21.4"
   },
   "publishConfig": {
