@@ -1,6 +1,6 @@
 import { Logger } from './Logger'
 
-export type ModuleResolver<TConfig> = (
+export type SolidityResolver<TConfig> = (
   config: TConfig,
   logger: Logger,
 ) => {
