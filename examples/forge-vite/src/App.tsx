@@ -1,15 +1,9 @@
 import { useState } from 'react'
 
 import { Pure } from './pure/Pure'
+import { ExecuteScript } from './script/executeScript'
 
-const w = window as any
-w.process = {
-  env: {
-    DEBUG: 'ethjs',
-  },
-}
-
-const options = [Pure]
+const options = [Pure, ExecuteScript]
 
 export const App = () => {
   const [selected, setSelected] = useState(Pure.name)
@@ -17,7 +11,11 @@ export const App = () => {
     <div>
       <div>
         {options.map((Option) => (
-          <button key={Option.name} onClick={() => setSelected(Option.name)}>
+          <button
+            type='button'
+            key={Option.name}
+            onClick={() => setSelected(Option.name)}
+          >
             {Option.name}
           </button>
         ))}

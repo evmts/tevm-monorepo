@@ -22,23 +22,23 @@ export const ExecuteScript = () => {
       <div>
         <div>Contract address</div>
         <input
-          type="text"
+          type='text'
           value={contractAddress}
           onChange={(e) => setContractAddress(e.target.value)}
         />{' '}
         <div>Recipient Address</div>
         <input
-          type="text"
+          type='text'
           value={recipient}
           onChange={(e) => setRecipient(e.target.value)}
         />{' '}
         <input
-          type="number"
+          type='number'
           value={amount}
           onChange={(e) => setAmount(Number(e.target.value))}
         />{' '}
         Result:
-        <div id="data">{data?.data as string}</div>
+        <div id='data'>{data?.data as string}</div>
         TxHash:
         {error ? <div>{JSON.stringify(error)}</div> : null}
         {isLoading && <div>Loading...</div>}

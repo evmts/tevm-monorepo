@@ -2,6 +2,5 @@ packages:
   - "core"
   - "docs"
   - "e2e"
-  - "playground"
-  - "playground-legacy"
+  - "examples/*"
   - "plugins/*"

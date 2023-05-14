@@ -1,4 +1,4 @@
-import { foundry } from '@evmts/rollup-plugin'
+import { foundry } from '@evmts/vite-plugin'
 import react from '@vitejs/plugin-react'
 import { join } from 'path'
 import { defineConfig } from 'vitest/config'
@@ -18,7 +18,7 @@ export default defineConfig({
   plugins: [
     react(),
     foundry({
-      forgeExecutable: 'forge',
+      out: 'artifacts',
       project: join(__dirname, '..'),
     }),
   ],

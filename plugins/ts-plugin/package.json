@@ -26,7 +26,7 @@
   "scripts": {
     "build": "rm -rf ./dist && tsc --project tsconfig.build.json",
     "clean": "rm -rf dist",
-    "dev": "TSS_DEBUG_BRK=9559 code ../../playground",
+    "dev": "TSS_DEBUG_BRK=9559 code ../../examples/forge-foundry",
     "format": "rome format . --write",
     "format:check": "rome format .",
     "lint": "rome check . --apply-unsafe",

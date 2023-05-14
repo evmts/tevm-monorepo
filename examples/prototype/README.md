@@ -1,6 +1,6 @@
-# @evmts/playground (experimental)
+# @evmts/forge-vite (experimental)
 
-A vite based playground app built with @evmts/rollup-plugin @evmts/ts-plugin and @evmts/core.
+A vite based playground app built with @evmts/vite-plugin @evmts/ts-plugin and @evmts/core.
 
 ## Getting started
 

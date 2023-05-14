@@ -1,5 +1,5 @@
 {
-  "defaultProject": "@evmts/playground",
+  "defaultProject": "@evmts/forge-vite",
   "npmScope": "evmts",
   "implicitDependencies": {
     "package.json": "*",
