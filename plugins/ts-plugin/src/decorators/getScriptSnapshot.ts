@@ -2,7 +2,7 @@ import { createDecorator } from '../factories'
 import { isSolidity } from '../utils'
 import { getArtifactPathSync } from '../utils/getArtifactPathSync'
 import { foundryPlugin } from '@evmts/solidity-resolver'
-import { existsSync, readFileSync } from 'fs'
+import { existsSync } from 'fs'
 
 /**
  * Decorate `LangaugeServerHost.getScriptSnapshot` to return generated `.d.ts` file for `.sol` files
