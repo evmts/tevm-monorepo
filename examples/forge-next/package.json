@@ -38,8 +38,8 @@
   "devDependencies": {
     "@babel/plugin-syntax-flow": "^7.21.4",
     "@babel/plugin-transform-react-jsx": "^7.21.0",
-    "@evmts/vite-plugin": "workspace:^0.0.1",
     "@evmts/ts-plugin": "workspace:^0.0.0",
+    "@evmts/vite-plugin": "workspace:^0.0.1",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
     "@types/node": "^18.15.12",

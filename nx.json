@@ -48,7 +48,9 @@
           "typecheck",
           "e2e",
           "format:check",
-          "lint:check"
+          "lint:check",
+          "lint",
+          "format"
         ],
         "accessToken": "MWI0MzBiNGItMzE0Ni00MGU3LWIxZGQtY2Q2ZDlmMDIzOTMwfHJlYWQ="
       }
