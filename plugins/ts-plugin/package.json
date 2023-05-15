@@ -34,6 +34,7 @@
     "package:up": "pnpm up --latest",
     "pretest": "forge build",
     "test": "vitest",
+    "test:run": "vitest --run",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
