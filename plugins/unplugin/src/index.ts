@@ -19,7 +19,7 @@ const foundryUnplugin = createUnplugin((options: FoundryConfig = {}) => {
   }
 })
 
-const hardhatUnplugin = createUnplugin((options: HardhatConfig) => {
+const hardhatUnplugin = createUnplugin((options?: HardhatConfig) => {
   const hardhatPlugin = 'TODO' as any
   const plugin = hardhatPlugin(options, console)
   return {
