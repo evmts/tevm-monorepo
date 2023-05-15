@@ -34,8 +34,11 @@ const hardhatUnplugin = createUnplugin((options: HardhatConfig) => {
   }
 })
 
-export const viteFoundry = foundryUnplugin.vite
-export const viteHardhat = hardhatUnplugin.vite
+// Hacks to make types portable
+// we should manually type these at some point
+
+export const viteFoundry = foundryUnplugin.vite as typeof rollupFoundry
+export const viteHardhat = hardhatUnplugin.vite as typeof rollupHardhat
 
 export const rollupFoundry = foundryUnplugin.rollup
 export const rollupHardhat = hardhatUnplugin.rollup
@@ -43,8 +46,8 @@ export const rollupHardhat = hardhatUnplugin.rollup
 export const esbuildFoundry = foundryUnplugin.esbuild
 export const esbuildHardhat = hardhatUnplugin.esbuild
 
-export const webpackFoundry = foundryUnplugin.webpack
-export const webpackHardhat = hardhatUnplugin.webpack
+export const webpackFoundry = foundryUnplugin.webpack as typeof rspackPluginFoundry
+export const webpackHardhat = hardhatUnplugin.webpack as typeof rspackPluginHardhat
 
 export const rspackPluginFoundry = foundryUnplugin.rspack
 export const rspackPluginHardhat = hardhatUnplugin.rspack
