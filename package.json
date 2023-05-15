@@ -9,7 +9,7 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "all": "pnpm build && pnpm lint && pnpm typecheck && pnpm sort-package-json && pnpm test",
+    "all": "nx run-many --targets=lint,format,build,typecheck,test:check && pnpm sort-package-json",
     "build": "nx run-many --target=build",
     "e2e": "nx e2e e2e",
     "preinstall": "npx only-allow pnpm",
@@ -22,7 +22,7 @@
     "serve:docker": "docker-compose up",
     "sort-package-json": "sort-package-json package.json 'packages/*/package.json' '*/package.json' 'packages/*/example/package.json'",
     "sort-package-json:check": "sort-package-json package.json 'packages/*/package.json' '*/package.json' 'packages/*/example/package.json' && git diff --exit-code",
-    "test": "NODE_ENV=production nx run-many --target=test",
+    "test": "nx run-many --target=test:run",
     "typecheck": "nx run-many --target=typecheck"
   },
   "devDependencies": {

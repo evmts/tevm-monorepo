@@ -10,6 +10,9 @@
     "test": {
       "dependsOn": ["^build", "pretest"]
     },
+    "test:run": {
+      "dependsOn": ["^build", "pretest"]
+    },
     "test:watch": {
       "dependsOn": ["^build"]
     },
@@ -39,6 +42,9 @@
         "cacheableOperations": [
           "build",
           "test:coverage",
+          "test:run",
+          "test",
+          "format:check",
           "typecheck",
           "e2e",
           "format:check",
