@@ -34,14 +34,8 @@ const hardhatUnplugin = createUnplugin((options: HardhatConfig) => {
   }
 })
 
-/**
- * Inferred type of vite plugin is not portable error workaround
- * vite plugins are a superset of rollup plugins so this type works
- */
-type VitePlugin = typeof rollupFoundry
-
-export const viteFoundry = foundryUnplugin.vite as VitePlugin
-export const viteHardhat = hardhatUnplugin.vite as VitePlugin
+export const viteFoundry = foundryUnplugin.vite
+export const viteHardhat = hardhatUnplugin.vite
 
 export const rollupFoundry = foundryUnplugin.rollup
 export const rollupHardhat = hardhatUnplugin.rollup
@@ -54,3 +48,4 @@ export const webpackHardhat = hardhatUnplugin.webpack
 
 export const rspackPluginFoundry = foundryUnplugin.rspack
 export const rspackPluginHardhat = hardhatUnplugin.rspack
+
