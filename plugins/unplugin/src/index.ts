@@ -46,9 +46,10 @@ export const rollupHardhat = hardhatUnplugin.rollup
 export const esbuildFoundry = foundryUnplugin.esbuild
 export const esbuildHardhat = hardhatUnplugin.esbuild
 
-export const webpackFoundry = foundryUnplugin.webpack as typeof rspackPluginFoundry
-export const webpackHardhat = hardhatUnplugin.webpack as typeof rspackPluginHardhat
+export const webpackFoundry =
+  foundryUnplugin.webpack as typeof rspackPluginFoundry
+export const webpackHardhat =
+  hardhatUnplugin.webpack as typeof rspackPluginHardhat
 
 export const rspackPluginFoundry = foundryUnplugin.rspack
 export const rspackPluginHardhat = hardhatUnplugin.rspack
-
