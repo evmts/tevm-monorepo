@@ -19,6 +19,11 @@
 
 /build
 
+# foundry
+
+cache
+artifacts
+
 # misc
 
 .DS_Store

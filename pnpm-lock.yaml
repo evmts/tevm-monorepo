@@ -158,6 +158,9 @@ importers:
 
   examples/forge-next:
     dependencies:
+      '@evmts/webpack-plugin':
+        specifier: workspace:^
+        version: link:../../plugins/webpack-plugin
       '@rainbow-me/rainbowkit':
         specifier: ^1.0.0
         version: 1.0.0(@types/react@18.2.6)(react-dom@18.2.0)(react@18.2.0)(viem@0.3.31)(wagmi@1.0.5)
