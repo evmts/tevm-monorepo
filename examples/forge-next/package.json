@@ -9,6 +9,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@evmts/webpack-plugin": "workspace:^",
     "@rainbow-me/rainbowkit": "^1.0.0",
     "next": "^13.4.3",
     "react": "^18.2.0",
