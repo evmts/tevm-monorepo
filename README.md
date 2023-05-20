@@ -51,11 +51,11 @@ EVMts enables direct evm execution clientside with forge cheat codes and direct 
 
 #### Example apps
 
-- [examples/next] An example of a forge/next app using evmts
-- [examples/webpack] An example of a forge/webpack app using evmts
-- [examples/vite] An example of a forge/vite app using evmts
-- [examples/rollup] An example of a forge/rollup library built with evmts
-- [examples/esbuild] An example of a forge/esbuild cli tool built with evmts
+- [examples/next](./examples/forge-next/) An example of a forge/next app using evmts
+- [examples/webpack](./examples/webpack) An example of a forge/webpack app using evmts
+- [examples/vite](./examples/vite) An example of a forge/vite app using evmts
+- [examples/rollup](./examples/rollup) An example of a forge/rollup library built with evmts
+- [examples/esbuild](./examples/esbuild) An example of a forge/esbuild cli tool built with evmts
 
 ## Tests ✅
 
