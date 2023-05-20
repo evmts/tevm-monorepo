@@ -14,8 +14,8 @@
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
-    "@playwright/test": "^1.33.0",
-    "rome": "^12.0.0",
-    "viem": "^0.3.13"
+    "@playwright/test": "^1.34.0",
+    "rome": "^12.1.2",
+    "viem": "^0.3.31"
   }
 }

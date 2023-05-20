@@ -15,7 +15,7 @@
     "preview": "vitepress preview ."
   },
   "devDependencies": {
-    "rome": "^12.0.0",
-    "vitepress": "1.0.0-alpha.73"
+    "rome": "^12.1.2",
+    "vitepress": "1.0.0-alpha.76"
   }
 }
