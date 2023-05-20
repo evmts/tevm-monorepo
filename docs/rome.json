@@ -4,7 +4,11 @@
   },
   "files": {
     "ignore": [
-      "coverage", "node_modules", "dist", "artifacts", ".vitepress/cache",
+      "coverage",
+      "node_modules",
+      "dist",
+      "artifacts",
+      ".vitepress/cache",
       ".vitepress/dist"
     ]
   },
