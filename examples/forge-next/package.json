@@ -6,7 +6,8 @@
     "build": "next build",
     "dev": "next dev",
     "lint": "next lint",
-    "start": "next start"
+    "start": "next start",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@evmts/webpack-plugin": "workspace:^",
@@ -18,6 +19,7 @@
     "wagmi": "^1.0.5"
   },
   "devDependencies": {
+    "@evmts/ts-plugin": "workspace:^",
     "@types/node": "^20.2.1",
     "@types/react": "^18.2.6",
     "@types/react-dom": "^18.2.4",
