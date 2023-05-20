@@ -35,8 +35,8 @@ EVMts enables direct evm execution clientside with forge cheat codes and direct 
 
 ## NPM Packages 📦
 
-- [core/](/core) core evmts library 
-- [plugins/*](/plugins) build plugins for evmts
+- [core/](/core) core evmts library
+- [plugins/\*](/plugins) build plugins for evmts
   - [@evmts/esbuild-plugin](/plugins/esbuild-plugin)
   - [@evmts/rollup-plugin](/plugins/rollup-plugin)
   - [@evmts/ts-plugin](/plugins/ts-plugin)
@@ -49,29 +49,17 @@ EVMts enables direct evm execution clientside with forge cheat codes and direct 
 - [@evmts/e2e](/e2e) E2E tests that run against the examples
 - [examples/](/examples) Example apps of evmts
 
-#### NEXT.js / Webpack examples
+#### Example apps
 
-- [examples/forge-next] An example of a forge/next app using evmts
-- [examples/hardhat-next] An example of a hardhat/next app using evmts
-- [examples/forge-webpack] An example of a forge/webpack app using evmts
-- [examples/hardhat-webpack] An example of a hardhat/webpack app using evmts
-
-#### Vite / Rollup examples
-
-- [examples/forge-vite] An example of a forge/vite app using evmts
-- [examples/hardhat-vite] An example of a hardhat/vite app using evmts
-- [examples/forge-rollup] An example of a forge/rollup library built with evmts
-- [examples/hardhat-rollup] An example of a hardhat/rollup library built with evmts
-
-#### Esbuild examples
-
-- [examples/forge-esbuild] An example of a forge/esbuild cli tool built with evmts
-- [examples/hardhat-esbuild] An example of a hardhat/esbuild cli tool built with evmts
+- [examples/next] An example of a forge/next app using evmts
+- [examples/webpack] An example of a forge/webpack app using evmts
+- [examples/vite] An example of a forge/vite app using evmts
+- [examples/rollup] An example of a forge/rollup library built with evmts
+- [examples/esbuild] An example of a forge/esbuild cli tool built with evmts
 
 ## Tests ✅
 
 [e2e/](/e2e) Playwright e2e tests that run against the [example apps](./example)
-
 
 ## Getting started 🏗️
 

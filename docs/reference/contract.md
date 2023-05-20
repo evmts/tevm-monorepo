@@ -78,7 +78,7 @@ module.exports = {
 
 ### ContractOptions
 
-Optionally pass in contractOptions to override defaults such as the address. Address will default to the deployment address configured via the [Forge plugin](../plugin-reference/forge.md) or [Hardhat plugin](../plugin-reference/hardhat-plugin.md)
+Optionally pass in contractOptions to override defaults such as the address. Address will default to the deployment address configured via the [Forge plugin](../plugin-reference/forge.md)
 
 - **Type:**
 

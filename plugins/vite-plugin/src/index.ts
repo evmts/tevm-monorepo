@@ -1,1 +1,1 @@
-export { viteFoundry as foundry, viteHardhat as hardhat } from '@evmts/unplugin'
+export { viteFoundry as vitePluginEvmts } from '@evmts/unplugin'

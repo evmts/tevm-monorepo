@@ -1,4 +1,1 @@
-export {
-  rollupFoundry as foundry,
-  rollupHardhat as hardhat,
-} from '@evmts/unplugin'
+export { rollupFoundry as rollupPluginEvmts } from '@evmts/unplugin'

@@ -1,4 +1,1 @@
-export {
-  webpackFoundry as FoundryPlugin,
-  webpackHardhat as HardhatPlugin,
-} from '@evmts/unplugin'
+export { WebpackFoundry as WebpackPluginEvmts } from '@evmts/unplugin'

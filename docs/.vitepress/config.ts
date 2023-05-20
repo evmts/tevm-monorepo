@@ -67,10 +67,7 @@ export default defineConfig({
             text: 'Rollup Plugin',
             link: '/plugin-reference/rollup',
             collapsed: true,
-            items: [
-              { text: 'Forge', link: '/plugin-reference/forge' },
-              { text: 'Hardhat', link: '/plugin-reference/hardhat' },
-            ],
+            items: [{ text: 'Forge', link: '/plugin-reference/forge' }],
           },
           { text: 'Webpack', link: '/plugin-reference/webpack' },
         ],
@@ -80,7 +77,6 @@ export default defineConfig({
         collapsed: true,
         items: [
           { text: 'Configuring configuring forge', link: '/guide/forge' },
-          { text: 'Configuring hardhat', link: '/guide/hardhat' },
           { text: 'Writing solidity scripts', link: '/guide/scripting' },
           { text: 'Testing scripts', link: '/guide/testing' },
         ],

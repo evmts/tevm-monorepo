@@ -16,6 +16,3 @@ export default defineConfig({
 ```
 
 See [rollup-plugin-foundry reference](../plugin-reference/rollup-plugin-foundry.md) for configuration details.
-
-See [hardhat-plugin](../plugin-reference/hardhat-plugin.md) for hardhat instructions.
-

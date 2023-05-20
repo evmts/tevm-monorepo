@@ -26,7 +26,6 @@ const configValidator = z.object({
 
 /**
  * Plugin options passed into ts-plugin
- * Currently only support for hardhat
  * @see {@link createConfig}
  */
 export type Config = z.infer<typeof configValidator>

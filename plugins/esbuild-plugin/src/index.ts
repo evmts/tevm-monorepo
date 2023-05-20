@@ -1,4 +1,1 @@
-export {
-  esbuildFoundry as foundry,
-  esbuildHardhat as hardhat,
-} from '@evmts/unplugin'
+export { esbuildFoundry as esbuildPluginEvmts } from '@evmts/unplugin'

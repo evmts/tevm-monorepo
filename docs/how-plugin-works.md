@@ -51,6 +51,6 @@ The typescript can then go ahead and use the artifacts however it pleases includ
 
 ## Plugin configuration
 
-Under the hood evmts is using a lightly modified version of the [wagmi cli](https://wagmi.sh/cli/getting-started). It works with many projects with no additional configuration but can be custom configured via the [foundry plugin](https://wagmi.sh/cli/plugins/foundry) and the [hardhat plugin](https://wagmi.sh/cli/plugins/hardhat).
+Under the hood evmts is using a lightly modified version of the [wagmi cli](https://wagmi.sh/cli/getting-started). It works with many projects with no additional configuration but can be custom configured via the [foundry plugin](https://wagmi.sh/cli/plugins/foundry)
 
 These configurations tell evmts how to compile contracts using the build tool of choice. If no configuration is provided it

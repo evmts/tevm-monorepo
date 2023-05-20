@@ -4,7 +4,6 @@ A typescript plugin for adding typescript support and autocomplete to your `.sol
 
 ![image](https://user-images.githubusercontent.com/35039927/235395618-21bfd0c2-d5db-43f1-8264-2d425616fb59.png)
 
-
 #### Docs
 
 For full documentumentation see [evmts docs](../../docs/introduction/get-started.md)
@@ -18,7 +17,7 @@ npm i @evmts/rollup-plugin @evmts/ts-plugin
 ### Configuration
 
 - Add @evmts/ts-plugin to your `plugins` array in `compilerOptions`
-- if `foundry.toml` or `hardhat` config is not in the same directory as the ts-config pass in a relative path to the the project root as `project` config option
+- if `foundry.toml` config is not in the same directory as the ts-config pass in a relative path to the the project root as `project` config option
 
 ```json
 {
