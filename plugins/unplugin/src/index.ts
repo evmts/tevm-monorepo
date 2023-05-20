@@ -24,7 +24,9 @@ export const rollupFoundry = foundryUnplugin.rollup
 
 export const esbuildFoundry = foundryUnplugin.esbuild
 
-export const WebpackFoundry =
+export const webpackFoundry =
   foundryUnplugin.webpack as typeof rspackPluginFoundry
+
+console.log({ webpackFoundry, foundryUnplugin })
 
 export const rspackPluginFoundry = foundryUnplugin.rspack
