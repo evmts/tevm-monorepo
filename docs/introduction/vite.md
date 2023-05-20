@@ -15,4 +15,4 @@ export default defineConfig({
 })
 ```
 
-See [rollup-plugin-foundry reference](../plugin-reference/rollup-plugin-foundry.md) for configuration details.
+See [rollup-plugin-foundry reference](../plugin-reference/rollup.md) for configuration details.

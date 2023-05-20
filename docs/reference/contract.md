@@ -55,21 +55,17 @@ export const publicClient = createPublicClient({
 ```
 
 ```ts [vite.config.ts]
-const { rollupPlugin, foundry } = require("@evmts/plugins");
+const { rollupPluginEvmts, foundry } = require("@evmts/plugins");
 
 module.exports = {
   plugins: [
-    rollupPlugin({
-      plugins: [
-        foundry({
+    rollupPluginEvmts({
           deployments: {
             HelloWorld: {
               10: "0x112234455c3a32fd11230c42e7bccd4a84e02010",
             },
-          },
-        }),
-      ],
-    }),
+          }
+    })
   ],
 };
 ```
@@ -78,7 +74,7 @@ module.exports = {
 
 ### ContractOptions
 
-Optionally pass in contractOptions to override defaults such as the address. Address will default to the deployment address configured via the [Forge plugin](../plugin-reference/forge.md)
+TODO
 
 - **Type:**
 
