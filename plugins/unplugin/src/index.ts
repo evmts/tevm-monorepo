@@ -27,6 +27,4 @@ export const esbuildFoundry = foundryUnplugin.esbuild
 export const webpackFoundry =
   foundryUnplugin.webpack as typeof rspackPluginFoundry
 
-console.log({ webpackFoundry, foundryUnplugin })
-
 export const rspackPluginFoundry = foundryUnplugin.rspack

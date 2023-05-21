@@ -13,7 +13,6 @@ describe(getFileName.name, () => {
       'bar/Foo/sol/Foo.sol',
     ]
     testCases.forEach((testCase) => {
-      console.log(testCase)
       expect(getFileName(testCase)).toBe('Foo.sol')
     })
   })
