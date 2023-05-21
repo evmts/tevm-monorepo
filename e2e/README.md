@@ -1,6 +1,6 @@
 # @evmts/e2e :white_check_mark:
 
-Playwright e2e tests that run against [@evmts/forge-vite](../examples/forge-vite/) app
+Playwright e2e tests that run against [@evmts/vite](../examples/vite/) app
 
 ## Usage
 
