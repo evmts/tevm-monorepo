@@ -25,7 +25,7 @@
   ],
   "scripts": {
     "build": "rm -rf ./dist && tsc --project tsconfig.build.json",
-    "clean": "rm -rf dist",
+    "clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
     "dev": "TSS_DEBUG_BRK=9559 code ../../examples/forge-foundry",
     "format": "rome format . --write",
     "format:check": "rome format .",

@@ -11,6 +11,7 @@
   "scripts": {
     "all": "nx run-many --targets=lint,format,build,typecheck,test:run && pnpm sort-package-json",
     "build": "nx run-many --target=build",
+    "clean": "nx run-many --target=clean && rm -rf node_modules",
     "e2e": "nx e2e e2e",
     "preinstall": "npx only-allow pnpm",
     "lint": "nx run-many --targets=lint,format",

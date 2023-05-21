@@ -25,6 +25,7 @@
   ],
   "scripts": {
     "//test": "vitest",
+    "clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
     "//test:run": "vitest run",
     "//test:ui": "vitest --ui",
     "build": "tsup",

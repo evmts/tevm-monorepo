@@ -29,6 +29,7 @@
     "//test": "vitest",
     "//test:run": "vitest run",
     "//test:ui": "vitest --ui",
+    "clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
     "build": "tsup",
     "envSchema": "ts-node src/scripts/envSchema.ts",
     "format": "rome format . --write",
