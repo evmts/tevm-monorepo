@@ -6,7 +6,7 @@ import { globby } from 'globby'
  * @see wagmis implementation as reference https://github.com/wagmi-dev/wagmi/blob/main/packages/cli/src/plugins/foundry.ts
  */
 export const getArtifactPaths = async (artifactsDirectory: string) => {
-  const include = ['*.json']
+	const include = ['*.json']
 
-  return globby(include.map((x) => `${artifactsDirectory}/**/${x}`))
+	return globby(include.map((x) => `${artifactsDirectory}/**/${x}`))
 }

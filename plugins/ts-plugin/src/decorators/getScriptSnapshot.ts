@@ -11,23 +11,23 @@ import { existsSync } from 'fs'
  * TODO replace with modules for code reuse
  */
 export const getScriptSnapshotDecorator = createDecorator(
-  ({ languageServiceHost }, ts, logger, config) => {
-    return {
-      getScriptSnapshot: (filePath) => {
-        if (!isSolidity(filePath) || !existsSync(filePath)) {
-          return languageServiceHost.getScriptSnapshot(filePath)
-        }
+	({ languageServiceHost }, ts, logger, config) => {
+		return {
+			getScriptSnapshot: (filePath) => {
+				if (!isSolidity(filePath) || !existsSync(filePath)) {
+					return languageServiceHost.getScriptSnapshot(filePath)
+				}
 
-        const plugin = foundryPlugin(
-          {
-            out: config.out,
-            project: config.project,
-          },
-          logger as any,
-        )
+				const plugin = foundryPlugin(
+					{
+						out: config.out,
+						project: config.project,
+					},
+					logger as any,
+				)
 
-        return ts.ScriptSnapshot.fromString(plugin.resolveDtsSync(filePath))
-      },
-    }
-  },
+				return ts.ScriptSnapshot.fromString(plugin.resolveDtsSync(filePath))
+			},
+		}
+	},
 )

@@ -1,10 +1,10 @@
 import { Transport } from 'viem'
 
 type ForkUrlOptions = {
-  url: string
+	url: string
 }
 
 export const forkUrl = (options: ForkUrlOptions): Transport => {
-  console.log(options)
-  return {} as any
+	console.log(options)
+	return {} as any
 }

@@ -5,9 +5,9 @@ import type typescript from 'typescript/lib/tsserverlibrary'
  * @see {@link createLogger}
  */
 export type Logger = {
-  info: (msg: string) => void
-  warn: (msg: string) => void
-  error: (msg: string) => void
+	info: (msg: string) => void
+	warn: (msg: string) => void
+	error: (msg: string) => void
 }
 
 /**
@@ -18,19 +18,19 @@ export type Logger = {
  * logger.info('hello world')
  */
 export const createLogger = (
-  pluginCreateInfo: typescript.server.PluginCreateInfo,
+	pluginCreateInfo: typescript.server.PluginCreateInfo,
 ): Logger => {
-  const info = (msg: string) =>
-    pluginCreateInfo.project.projectService.logger.info(
-      `[evmts-ts-plugin] ${msg}`,
-    )
-  const warn = (msg: string) =>
-    pluginCreateInfo.project.projectService.logger.info(
-      `[evmts-ts-plugin] warning: ${msg}`,
-    )
-  const error = (msg: string) =>
-    pluginCreateInfo.project.projectService.logger.info(
-      `[evmts-ts-plugin] error: ${msg}`,
-    )
-  return { info, warn, error }
+	const info = (msg: string) =>
+		pluginCreateInfo.project.projectService.logger.info(
+			`[evmts-ts-plugin] ${msg}`,
+		)
+	const warn = (msg: string) =>
+		pluginCreateInfo.project.projectService.logger.info(
+			`[evmts-ts-plugin] warning: ${msg}`,
+		)
+	const error = (msg: string) =>
+		pluginCreateInfo.project.projectService.logger.info(
+			`[evmts-ts-plugin] error: ${msg}`,
+		)
+	return { info, warn, error }
 }

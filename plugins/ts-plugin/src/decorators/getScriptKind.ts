@@ -6,15 +6,15 @@ import { isSolidity } from '../utils'
  * This lets the ts-server expect `.sol` files to resolve to `.d.ts` files in `resolveModuleNameLiterals`
  */
 export const getScriptKindDecorator = createDecorator((createInfo, ts) => {
-  return {
-    getScriptKind: (fileName) => {
-      if (isSolidity(fileName)) {
-        return ts.ScriptKind.TS
-      }
-      if (!createInfo.languageServiceHost.getScriptKind) {
-        return ts.ScriptKind.Unknown
-      }
-      return createInfo.languageServiceHost.getScriptKind(fileName)
-    },
-  }
+	return {
+		getScriptKind: (fileName) => {
+			if (isSolidity(fileName)) {
+				return ts.ScriptKind.TS
+			}
+			if (!createInfo.languageServiceHost.getScriptKind) {
+				return ts.ScriptKind.Unknown
+			}
+			return createInfo.languageServiceHost.getScriptKind(fileName)
+		},
+	}
 })

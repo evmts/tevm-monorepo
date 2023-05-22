@@ -7,20 +7,20 @@ import { defineConfig } from 'vitest/config'
  * @see https://vitejs.dev/config/
  */
 export default defineConfig({
-  build: {
-    outDir: 'dist',
-    minify: false,
-  },
-  resolve: {},
-  test: {
-    environment: 'jsdom',
-  },
-  plugins: [
-    react(),
-    vanillaExtractPlugin(),
-    evmtsPlugin({
-      forgeExecutable: 'forge',
-      projectRoot: __dirname,
-    }),
-  ],
+	build: {
+		outDir: 'dist',
+		minify: false,
+	},
+	resolve: {},
+	test: {
+		environment: 'jsdom',
+	},
+	plugins: [
+		react(),
+		vanillaExtractPlugin(),
+		evmtsPlugin({
+			forgeExecutable: 'forge',
+			projectRoot: __dirname,
+		}),
+	],
 })

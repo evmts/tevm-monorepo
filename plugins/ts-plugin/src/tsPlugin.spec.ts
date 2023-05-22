@@ -6,49 +6,49 @@ import { Mock, describe, expect, it, vi } from 'vitest'
 type TestAny = any
 
 const config: Config = {
-  out: 'out',
-  name: '@evmts/ts-plugin',
-  project: '.',
+	out: 'out',
+	name: '@evmts/ts-plugin',
+	project: '.',
 }
 
 const createInfo: typescript.server.PluginCreateInfo = {
-  config,
-  languageServiceHost: {
-    getCurrentDirectory: vi.fn(),
-    resolveModuleNameLiterals: vi.fn(),
-    getScriptSnapshot: vi.fn(),
-    getScriptKind: vi.fn(),
-    getResolvedModuleWithFailedLookupLocationsFromCache: vi.fn(),
-  },
-  project: {
-    getCompilerOptions: () => ({ baseUrl: 'foo' }),
-    projectService: {
-      logger: {
-        info: vi.fn(),
-      },
-    },
-  },
+	config,
+	languageServiceHost: {
+		getCurrentDirectory: vi.fn(),
+		resolveModuleNameLiterals: vi.fn(),
+		getScriptSnapshot: vi.fn(),
+		getScriptKind: vi.fn(),
+		getResolvedModuleWithFailedLookupLocationsFromCache: vi.fn(),
+	},
+	project: {
+		getCompilerOptions: () => ({ baseUrl: 'foo' }),
+		projectService: {
+			logger: {
+				info: vi.fn(),
+			},
+		},
+	},
 } as TestAny
 ;(createInfo.languageServiceHost.getScriptKind as Mock).mockImplementation(
-  (fileName: string) => {
-    if (fileName.endsWith('.ts')) {
-      return typescript.ScriptKind.TS
-    }
-    return typescript.ScriptKind.Unknown
-  },
+	(fileName: string) => {
+		if (fileName.endsWith('.ts')) {
+			return typescript.ScriptKind.TS
+		}
+		return typescript.ScriptKind.Unknown
+	},
 )
 
 describe(tsPlugin.name, () => {
-  it('should return a create decorator', () => {
-    const decorator = tsPlugin({ typescript })
-    expect(Object.keys(decorator)).toMatchInlineSnapshot(`
+	it('should return a create decorator', () => {
+		const decorator = tsPlugin({ typescript })
+		expect(Object.keys(decorator)).toMatchInlineSnapshot(`
       [
         "create",
         "getExternalFiles",
       ]
     `)
-    const host = decorator.create(createInfo)
-    expect(host).toMatchInlineSnapshot(`
+		const host = decorator.create(createInfo)
+		expect(host).toMatchInlineSnapshot(`
       {
         "applyCodeActionCommand": [Function],
         "cleanupSemanticCache": [Function],
@@ -120,12 +120,12 @@ describe(tsPlugin.name, () => {
         "updateIsDefinitionOfReferencedSymbols": [Function],
       }
     `)
-  })
+	})
 
-  it('should handle a .sol file', () => {
-    const decorator = tsPlugin({ typescript })
-    decorator.create(createInfo)
-    // TODO call resolveModuleNameLiterals
-    // TODO call getScriptSnapshot
-  })
+	it('should handle a .sol file', () => {
+		const decorator = tsPlugin({ typescript })
+		decorator.create(createInfo)
+		// TODO call resolveModuleNameLiterals
+		// TODO call getScriptSnapshot
+	})
 })
