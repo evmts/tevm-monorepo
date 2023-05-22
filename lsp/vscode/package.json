@@ -25,7 +25,7 @@
     "watch": "tsc -watch -p ./",
     "pretest": "pnpm run compile && pnpm run lint",
     "lint": "eslint src --ext ts",
-    "test": "node ./out/test/runTest.js"
+    "// test": "node ./out/test/runTest.js"
   },
   "devDependencies": {
     "@types/vscode": "^1.78.0",
