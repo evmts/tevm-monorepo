@@ -7,15 +7,15 @@ import { App } from './App'
 const root = document.getElementById('root')
 
 if (!root) {
-  throw new Error('No root element found')
+	throw new Error('No root element found')
 }
 
 const queryClient = new QueryClient()
 
 ReactDOM.createRoot(root).render(
-  <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <App />
-    </QueryClientProvider>
-  </React.StrictMode>,
+	<React.StrictMode>
+		<QueryClientProvider client={queryClient}>
+			<App />
+		</QueryClientProvider>
+	</React.StrictMode>,
 )
