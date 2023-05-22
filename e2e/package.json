@@ -4,8 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "e2e": "playwright test",
     "clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
+    "e2e": "playwright test",
     "format": "rome format . --write",
     "format:check": "rome format .",
     "preinstall": "npx only-allow pnpm",
