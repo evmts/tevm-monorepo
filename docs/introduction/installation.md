@@ -1,48 +1,59 @@
 ## Installation
 
-To use EVMts install EVMts and it's plugins
+To use EVMts install EVMts and it's dependencies
 
-### Install `@evmts/core`
+### Install @evmts/core and it's peer dependencies
 
-npm
 ::: code-group
 
 ```bash [npm]
-npm install @evmts/core
+npm install @evmts/core @evmts/evm viem
 ```
 
 ```bash [pnpm]
-pnpm install @evmts/core
+pnpm install @evmts/core @evmts/evm viem
 ```
 
 ```bash [yarn]
-yarn add @evmts/core
+yarn add @evmts/core @evmts/evm viem
 ```
 
 :::
 
-### Install EVMts build plugins
+### Install Dev dependencies
 
-EVMts plugins give you a tight typescript integration with your solidity contracts
+Install dev dependencies depending on your bundler.   Supported bundlers include [esbuild](https://esbuild.github.io/), [Webpack](https://webpack.js.org/), [rspack](https://www.rspack.dev/guide/introduction.html), [Vite](https://vitejs.dev/), and [Rollup](https://github.com/rollup/rollup).
 
-- Solidity file imports directly in typescript files
-- Autoimports, autocompletion, and typesafety in your editor
-- Can be used with other libraries including [viem](../guide/viem-usage.md) and [ethers.js](../guide/ethers-usage.md)
+Most modern setups are supported.   For more specific instructions based on your setup reference the docs for [your specific build setup](../guide/build-guides)
 
-::: tip
-Unable to use a build plugin? See the guide [using EVMts without plugins](../guide/using-evmts-without-plugins.md).
-:::
-
-Install [@evmts/rollup-plugin](../plugin-reference/rollup.md) and [@evmts/ts-plugin](../plugin-reference/rollup.md)
+- **Webpack**
 
 ::: code-group
 
 ```bash [npm]
-npm i @evmts/rollup-plugin @evmts/ts-plugin
+npm i @evmts/webpack @evmts/ts
 ```
 
 ```bash [pnpm]
-pnpm i @evmts/rollup-plugin @evmts/ts-plugin
+pnpm i @evmts/webpack @evmts/ts
+```
+
+```bash [yarn]
+yarn add @evmts/webpack @evmts/ts
+```
+
+:::
+
+- **Vite**
+
+::: code-group
+
+```bash [npm]
+npm i @evmts/plugin-vite @evmts/ts-plugin
+```
+
+```bash [pnpm]
+pnpm i @evmts/vite @evmts/ts-plugin
 ```
 
 ```bash [yarn]
@@ -50,3 +61,6 @@ yarn add @evmts/rollup-plugin @evmts/ts-plugin
 ```
 
 :::
+
+If not using a bundler see [using EVMts without a bundler](../guide/using-evmts-without-plugins.md).
+
