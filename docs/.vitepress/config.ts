@@ -1,8 +1,8 @@
-import { defineConfig } from 'vitepress'
-import { sidebar } from './sidebar'
-import { socialLinks } from './socialLinks'
 import { footer } from './footer'
 import { nav } from './nav'
+import { sidebar } from './sidebar'
+import { socialLinks } from './socialLinks'
+import { defineConfig } from 'vitepress'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
