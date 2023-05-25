@@ -6,9 +6,10 @@ Welcome to the EVMts docs!
 
 EVMts brings the EVM to the browser.
 
-- **Execute solidity scripts** directly from your typescript code
-- **Solidity imports in JavaScript** ABIs melt away with the ability to import contracts directly
+- **Execute solidity scripts** as a [DSL](https://en.wikipedia.org/wiki/Domain-specific_language) in your TypeScript applications
+- **Import Solidity directly** ABIs melt away with the ability to import contracts directly
 - **Simple yet powerful** api including [forge cheat codes](https://book.getfoundry.sh/forge/cheatcodes)
+- **Optimistic execution** of the EVM within the browser with [rEVM](https://github.com/bluealloy/revm)
 
 ::: tip
 Just want to try it out? Skip to the [live demo](https://stackblitz.com/edit/github-dluehe-d7t42l)
@@ -18,7 +19,7 @@ Just want to try it out? Skip to the [live demo](https://stackblitz.com/edit/git
 
 ### 1. First write a script in solidity
 
-Scripts in EVMts work exactly like the [scripts in forge](https://book.getfoundry.sh/tutorials/solidity-scripting)
+Scripts in EVMts work exactly like [forge scripts](https://book.getfoundry.sh/tutorials/solidity-scripting)
 
 ```solidity [Example.s.sol]
 pragma solidity ^0.8.17;
@@ -69,3 +70,4 @@ Just looking to try out EVMts? Try editing this sandbox or continue on for insta
 [TODO](https://github.com/evmts/evmts-monorepo/issues/10)
 
 <iframe frameborder="0" width="100%" height="500" src="https://stackblitz.com/edit/github-dluehe-d7t42l"></iframe>
+
