@@ -1,6 +1,6 @@
-import './index.css'
 // import SvgImage from './components/SvgImage.vue'
 import defaultTheme from 'vitepress/theme'
+import './index.css'
 
 export default {
 	...defaultTheme,
