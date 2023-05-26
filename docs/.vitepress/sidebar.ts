@@ -1,12 +1,12 @@
 import type { DefaultTheme } from 'vitepress'
 
 export const sidebar: DefaultTheme.Sidebar = [
+	{ text: 'Home', link: '/' },
 	{
 		text: 'Introduction',
 		link: '/introduction/intro',
 		items: [
-			{ text: 'Home', link: '/' },
-			{ text: 'Why EVMts', link: '/introduction/intro' },
+			{ text: 'Why EVMts', link: '/introduction/why' },
 			{ text: 'Create EVMts app', link: '/introduction/create-evmts-app' },
 			{ text: 'Installation', link: '/introduction/installation' },
 			{
