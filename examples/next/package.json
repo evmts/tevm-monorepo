@@ -6,7 +6,7 @@
     "build": "next build",
     "clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
     "dev": "next dev",
-    "lint": "nx build @evmts/ts-plugin && nx build @evmts/webpack-plugin && next lint",
+    "lint": "nx build ts-plugin && nx build webpack-plugin && next lint",
     "start": "next start",
     "typecheck": "tsc --noEmit"
   },
