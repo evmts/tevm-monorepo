@@ -17,7 +17,7 @@
     "lint": "nx run-many --targets=lint,format",
     "lint:check": "nx run-many --target=lint:check,format:check",
     "package:up": "pnpm up --latest && pnpm recursive run package:up",
-    "release": "pnpm publish -r --access=public",
+    "release": "pnpm build && pnpm publish -r --access=public",
     "release:dry": "pnpm publish -r --access=public --dry-run",
     "serve": "nx run-many --target=serve",
     "serve:docker": "docker-compose up",
