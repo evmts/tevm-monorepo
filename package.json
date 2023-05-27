@@ -26,6 +26,9 @@
     "test": "nx run-many --target=test:run",
     "typecheck": "nx run-many --target=typecheck"
   },
+  "dependencies": {
+    "@changesets/cli": "^2.26.1"
+  },
   "devDependencies": {
     "@babel/core": "^7.21.8",
     "@babel/preset-typescript": "^7.21.5",
@@ -59,8 +62,5 @@
   "engines": {
     "node": ">=18",
     "pnpm": ">=8"
-  },
-  "dependencies": {
-    "@changesets/cli": "^2.26.1"
   }
 }
