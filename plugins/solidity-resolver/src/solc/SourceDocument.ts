@@ -30,11 +30,12 @@ function isImportLocal(importPath: string) {
 *
 * @param {string} importPath import statement in *.sol contract
 */
-function resolveImportPath(absolutePath: string, importPath: string): string {
+function resolveImportPath(absolutePath: string, importPath: string, remappings: Record<string, string> = {}) {
   // Foundry remappings
-  const remapping = 'TODO' as any // project.findImportRemapping(importPath);
-  if (remapping !== undefined && remapping != null) {
-    return formatPath(remapping.resolveImport(importPath));
+  for (const [key, value] of Object.entries(remappings)) {
+    if (importPath.startsWith(key)) {
+      return formatPath(path.resolve(importPath.replace(key, value)));
+    }
   }
   // Local import "./LocalContract.sol"
   if (isImportLocal(importPath)) {
