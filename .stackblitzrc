@@ -1,3 +1,0 @@
-{
-  "startCommand": "pnpm nx run vite:dev"
-}
