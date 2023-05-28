@@ -1,8 +1,8 @@
-import { FoundryConfig, foundryPlugin } from '@evmts/solidity-resolver'
+import { FoundryConfig, foundryModules } from '@evmts/solidity-resolver'
 import { createUnplugin } from 'unplugin'
 
 const foundryUnplugin = createUnplugin((options: FoundryConfig = {}) => {
-	const plugin = foundryPlugin(options, console)
+	const plugin = foundryModules(options, console)
 	return {
 		name: '@evmts/rollup-plugin',
 		version: '0.0.0',

@@ -1,1 +1,1 @@
-export { foundryModules as foundryPlugin } from './foundryPlugin'
+export { foundryModules } from './foundryModules'
