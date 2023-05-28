@@ -2,7 +2,8 @@
   "compilerOptions": {
     "target": "ESNext",
     "lib": ["esnext"],
-    "module": "commonjs",
+    "module": "esnext",
+    "moduleResolution": "Node",
     "isolatedModules": true,
     "incremental": true,
     "allowUnreachableCode": false,
