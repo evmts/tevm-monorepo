@@ -4,6 +4,7 @@ import { FoundryToml } from '../types/FoundryToml'
 import { mkdirSync, readFileSync, writeFileSync } from 'fs'
 import { readFile } from 'fs/promises'
 import { basename, resolve as resolvePath } from 'path'
+// TODO wrap this in a typesafe version
 // @ts-ignore
 import solc from 'solc'
 
