@@ -12,7 +12,9 @@ EVMts brings the EVM to the browser.
 - **Optimistic execution** of the EVM within the browser with [rEVM](https://github.com/bluealloy/revm)
 
 ::: tip
-Just want to try it out? Skip to the [live demo](https://stackblitz.com/edit/github-dluehe-d7t42l)
+Just want to try it out?
+
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz_small.svg)](https://stackblitz.com/github/evmts/evmts-monorepo?configPath=examples/vite
 :::
 
 ## EVMts is simple
@@ -69,5 +71,5 @@ Just looking to try out EVMts? Try editing this sandbox or continue on for insta
 
 [TODO](https://github.com/evmts/evmts-monorepo/issues/10)
 
-<iframe frameborder="0" width="100%" height="500" src="https://stackblitz.com/edit/github-dluehe-d7t42l"></iframe>
+<iframe frameborder="0" width="100%" height="500" src="https://stackblitz.com/github/evmts/evmts-monorepo?configPath=examples/vite"></iframe>
 
