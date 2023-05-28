@@ -1,4 +1,7 @@
 import * as path from 'path';
+// import { createRequire } from 'node:module';
+// const require = createRequire(import.meta.url);
+// console.log(require.resolve('@openzeppelin/contracts/token/ERC20/ERC20.sol'))
 
 
 function formatPath(contractPath: string) {
@@ -37,7 +40,7 @@ export class SourceDocument {
   }
 
   constructor(absoulePath: string, code: string) {
-    this.absolutePath = this.formatDocumentPath(absoulePath);
+    this.absolutePath = formatPath(absoulePath);
     this.code = code;
     this.unformattedCode = code;
     this.imports = new Array<string>();
@@ -49,20 +52,18 @@ export class SourceDocument {
  * @param {string} importPath import statement in *.sol contract
  */
   public resolveImportPath(importPath: string): string {
-    if (this.isImportLocal(importPath)) {
-      return this.formatDocumentPath(path.resolve(path.dirname(this.absolutePath), importPath));
-    } else /*if (this.project !== undefined && this.project !== null)*/ {
-      const remapping = 'TODO' as any // this.project.findImportRemapping(importPath);
-      if (remapping !== undefined && remapping != null) {
-        return this.formatDocumentPath(remapping.resolveImport(importPath));
-      } else {
-        const depPack = 'TODO' as any // this.project.findDependencyPackage(importPath);
-        if (depPack !== undefined) {
-          return this.formatDocumentPath(depPack.resolveImport(importPath));
-        }
-      }
+    // Foundry remappings
+    const remapping = 'TODO' as any // this.project.findImportRemapping(importPath);
+    if (remapping !== undefined && remapping != null) {
+      return formatPath(remapping.resolveImport(importPath));
     }
-    return importPath;
+    // Local import "./LocalContract.sol"
+    if (this.isImportLocal(importPath)) {
+      return formatPath(path.resolve(path.dirname(this.absolutePath), importPath));
+    } /*else if (this.project !== undefined && this.project !== null) {*/
+    // try resolving with node resolution
+    const nodeResolution = require.resolve(importPath)
+    return nodeResolution ?? importPath;
   }
 
   public getAllImportFromPackages() {
@@ -77,10 +78,6 @@ export class SourceDocument {
 
   public isImportLocal(importPath: string) {
     return SourceDocument.isImportLocal(importPath);
-  }
-
-  public formatDocumentPath(contractPath: string) {
-    return formatPath(contractPath);
   }
 
   public replaceDependencyPath(importPath: string, depImportAbsolutePath: string) {
@@ -105,7 +102,7 @@ export class SourceDocument {
       }
 
       if (this.isImportLocal(importPath)) {
-        const importFullPath = this.formatDocumentPath(path.resolve(path.dirname(this.absolutePath), importPath));
+        const importFullPath = formatPath(path.resolve(path.dirname(this.absolutePath), importPath));
         this.imports.push(importFullPath);
       } else {
         this.imports.push(importPath);
