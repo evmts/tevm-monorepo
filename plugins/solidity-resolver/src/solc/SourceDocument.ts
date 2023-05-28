@@ -1,7 +1,6 @@
 import * as path from 'path';
-// import { createRequire } from 'node:module';
-// const require = createRequire(import.meta.url);
-// console.log(require.resolve('@openzeppelin/contracts/token/ERC20/ERC20.sol'))
+import { createRequire } from 'node:module';
+const isomorphicRequire = createRequire(import.meta.url);
 
 
 function formatPath(contractPath: string) {
@@ -62,8 +61,12 @@ export class SourceDocument {
       return formatPath(path.resolve(path.dirname(this.absolutePath), importPath));
     } /*else if (this.project !== undefined && this.project !== null) {*/
     // try resolving with node resolution
-    const nodeResolution = require.resolve(importPath)
-    return nodeResolution ?? importPath;
+    try {
+      return isomorphicRequire.resolve(importPath)
+    } catch (e) {
+      console.error(`Could not resolve import ${importPath} from ${this.absolutePath}`, e)
+      return importPath
+    }
   }
 
   public getAllImportFromPackages() {
