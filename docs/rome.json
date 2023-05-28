@@ -1,7 +1,7 @@
 {
 	"organizeImports": {
-    "enabled": true,
-    "ignore": [".vitepress/theme/index.ts"]
+		"enabled": true,
+		"ignore": [".vitepress/theme/index.ts"]
 	},
 	"files": {
 		"ignore": [
