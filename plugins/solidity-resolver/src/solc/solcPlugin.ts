@@ -13,6 +13,7 @@ function compileContract(
 	filePath: string,
 	contractName: string,
 ): solc.CompiledContract | undefined {
+	console.log(`Compiling ${filePath} ${contractName}...`)
 	const source: string = readFileSync(filePath, 'utf8')
 
 	const input: solc.InputDescription = {
