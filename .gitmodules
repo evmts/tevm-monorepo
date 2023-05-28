@@ -1,6 +1,3 @@
 [submodule "lib/forge-std"]
 	path = lib/forge-std
 	url = https://github.com/foundry-rs/forge-std
-[submodule "lib/vscode-solidity"]
-	path = lib/vscode-solidity
-	url = https://github.com/juanfranblanco/vscode-solidity.git
