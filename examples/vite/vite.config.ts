@@ -1,4 +1,4 @@
-import { foundry } from '@evmts/vite-plugin'
+import { vitePluginEvmts } from '@evmts/vite-plugin'
 import react from '@vitejs/plugin-react'
 import { join } from 'path'
 import { defineConfig } from 'vitest/config'
@@ -17,7 +17,7 @@ export default defineConfig({
 	},
 	plugins: [
 		react(),
-		foundry({
+		vitePluginEvmts({
 			out: 'artifacts',
 			project: join(__dirname, '..'),
 		}),

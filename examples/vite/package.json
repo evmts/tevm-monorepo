@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "//build": "vite build",
+    "build": "vite build",
     "//test": "vitest",
     "clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
     "dev": "vite --open",
