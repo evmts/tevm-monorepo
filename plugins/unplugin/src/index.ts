@@ -1,8 +1,15 @@
-import { FoundryConfig, foundryModules, solcModules } from '@evmts/solidity-resolver'
+import {
+	FoundryConfig,
+	foundryModules,
+	solcModules,
+} from '@evmts/solidity-resolver'
 import { createUnplugin } from 'unplugin'
 import { z } from 'zod'
 
-const compilerOptionValidator = z.enum(['solc', 'foundry']).default('solc').describe('compiler to use.  Defaults to solc')
+const compilerOptionValidator = z
+	.enum(['solc', 'foundry'])
+	.default('solc')
+	.describe('compiler to use.  Defaults to solc')
 
 export type CompilerOption = z.infer<typeof compilerOptionValidator>
 type UnpluginOptions = FoundryConfig & { compiler?: CompilerOption }
@@ -15,7 +22,9 @@ const pluginFactories = {
 const foundryUnplugin = createUnplugin((options: UnpluginOptions = {}) => {
 	const parsedCompiler = compilerOptionValidator.safeParse(options.compiler)
 	if (!parsedCompiler.success) {
-		throw new Error(`Invalid compiler option: ${parsedCompiler.error}.  Valid options are 'solc' and 'foundry'`)
+		throw new Error(
+			`Invalid compiler option: ${parsedCompiler.error}.  Valid options are 'solc' and 'foundry'`,
+		)
 	}
 	const pluginFoundry = pluginFactories[parsedCompiler.data](options, console)
 	return {
@@ -43,4 +52,3 @@ export const webpackFoundry =
 	foundryUnplugin.webpack as typeof rspackPluginFoundry
 
 export const rspackPluginFoundry = foundryUnplugin.rspack
-
