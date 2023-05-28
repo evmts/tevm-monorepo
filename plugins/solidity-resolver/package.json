@@ -40,7 +40,8 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "glob": "^10.2.5"
+    "glob": "^10.2.5",
+    "solc": "^0.8.20"
   },
   "devDependencies": {
     "@vitest/ui": "^0.31.1",
