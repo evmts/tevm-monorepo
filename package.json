@@ -59,7 +59,7 @@
     "typescript": "^5.0.4",
     "wait-on": "^7.0.1"
   },
-  "packageManager": "pnpm@7.18.2",
+  "packageManager": "pnpm@8.5.1",
   "engines": {
     "node": ">=18",
     "pnpm": ">=8"
