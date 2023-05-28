@@ -1,6 +1,7 @@
 import { FoundryResolver } from '../types'
 import { Logger } from '../types'
 import { FoundryToml } from '../types/FoundryToml'
+import { ModuleInfo, moduleFactory } from './moduleFactory'
 import { mkdirSync, readFileSync, writeFileSync } from 'fs'
 import { readFile } from 'fs/promises'
 import { basename, resolve as resolvePath } from 'path'
@@ -9,20 +10,33 @@ import { basename, resolve as resolvePath } from 'path'
 import solc from 'solc'
 
 // Compile the Solidity contract and return its ABI and bytecode
-function compileContract(
+function compileContractSync(
 	filePath: string,
 	contractName: string,
 ): solc.CompiledContract | undefined {
 	console.log(`Compiling ${filePath} ${contractName}...`)
 	const source: string = readFileSync(filePath, 'utf8')
 
+	const entryModule = moduleFactory(filePath, source)
+
+	const getAllModulesRecursively = (m = entryModule, modules: Record<string, ModuleInfo> = {}) => {
+		modules[m.id] = m
+		for (const dep of m.resolutions) {
+			getAllModulesRecursively(dep, modules)
+		}
+		return modules
+	}
+	const allModules = getAllModulesRecursively()
+
+	const sources = Object.fromEntries(
+		Object.entries(allModules).map(([id, module]) => {
+			return [id, { content: module.code }]
+		}),
+	)
+
 	const input: solc.InputDescription = {
 		language: 'Solidity',
-		sources: {
-			[contractName]: {
-				content: source,
-			},
-		},
+		sources,
 		settings: {
 			outputSelection: {
 				'*': {
@@ -52,7 +66,7 @@ const resolveArtifactPathsSync = (
 ): string[] => {
 	// Compile the contract
 	const contractName = basename(solFile, '.sol')
-	const contract = compileContract(solFile, contractName)
+	const contract = compileContractSync(solFile, contractName)
 
 	if (!contract) {
 		logger.error(`Compilation failed for ${solFile}`)
