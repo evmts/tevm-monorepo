@@ -4,8 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "vite build",
     "//test": "vitest",
+    "build": "vite build",
     "clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
     "dev": "vite --open",
     "format": "rome format . --write",
