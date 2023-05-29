@@ -46,26 +46,6 @@ export const foundryModules: FoundryResolver = (config, logger) => {
 	return {
 		name: foundryModules.name,
 		config,
-		resolveArtifactPaths: async (module) => {
-			return new Set(
-				await resolveArtifactPaths(
-					module,
-					config.project ?? '.',
-					{ out: config.out },
-					logger,
-				),
-			)
-		},
-		resolveArtifactPathsSync: (module) => {
-			return new Set(
-				resolveArtifactPathsSync(
-					module,
-					config.project ?? '.',
-					{ out: config.out },
-					logger,
-				),
-			)
-		},
 		resolveDts: async (module) => {
 			const artifactPaths = await resolveArtifactPaths(
 				module,

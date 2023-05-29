@@ -34,7 +34,7 @@ const foundryUnplugin = createUnplugin((options: UnpluginOptions = {}) => {
 			if (!id.endsWith('.sol')) {
 				return
 			}
-			return pluginFoundry.resolveEsmModule(id)
+			return pluginFoundry.resolveEsmModule(id, process.cwd())
 		},
 	}
 })

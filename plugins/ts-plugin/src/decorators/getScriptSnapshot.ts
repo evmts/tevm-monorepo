@@ -26,7 +26,9 @@ export const getScriptSnapshotDecorator = createDecorator(
 					logger as any,
 				)
 
-				return ts.ScriptSnapshot.fromString(plugin.resolveDtsSync(filePath))
+				return ts.ScriptSnapshot.fromString(
+					plugin.resolveDtsSync(filePath, process.cwd()),
+				)
 			},
 		}
 	},

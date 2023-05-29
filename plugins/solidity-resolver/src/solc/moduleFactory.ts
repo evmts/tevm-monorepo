@@ -1,6 +1,6 @@
 import { readFileSync } from 'fs'
-import { createRequire } from 'node:module'
 import * as path from 'path'
+import * as resolve from 'resolve'
 
 /**
  * Copied from rollup (kinda)
@@ -13,8 +13,6 @@ export interface ModuleInfo {
 	importedIds: string[] // the module ids statically imported by this module
 	resolutions: ModuleInfo[] // how statically imported ids were resolved, for use with this.load
 }
-
-const isomorphicRequire = createRequire(import.meta.url)
 
 const formatPath = (contractPath: string) => {
 	return contractPath.replace(/\\/g, '/')
@@ -46,7 +44,7 @@ function resolveImportPath(
 	} /*else if (project !== undefined && project !== null) {*/
 	// try resolving with node resolution
 	try {
-		return isomorphicRequire.resolve(importPath)
+		return resolve.sync(importPath, { basedir: path.dirname(absolutePath) })
 	} catch (e) {
 		console.error(
 			`Could not resolve import ${importPath} from ${absolutePath}`,
@@ -54,21 +52,6 @@ function resolveImportPath(
 		)
 		return importPath
 	}
-}
-
-function replaceDependencyPath(
-	code: string,
-	importPath: string,
-	depImportAbsolutePath: string,
-) {
-	const importRegEx = /(^\s?import\s+[^'"]*['"])(.*)(['"]\s*)/gm
-	return code.replace(importRegEx, (match, p1, p2, p3) => {
-		if (p2 === importPath) {
-			return p1 + depImportAbsolutePath + p3
-		} else {
-			return match
-		}
-	})
 }
 
 function resolveImports(absolutePath: string, code: string): string[] {
@@ -100,24 +83,34 @@ export const moduleFactory = (
 	absolutePath: string,
 	rawCode: string,
 ): ModuleInfo => {
-	const importedIds = resolveImports(absolutePath, rawCode).map((code) =>
-		resolveImportPath(absolutePath, code),
+	const importedIds = resolveImports(absolutePath, rawCode).map((paths) =>
+		resolveImportPath(absolutePath, paths),
 	)
 	const resolutions = importedIds.map((importedId) => {
 		const depImportAbsolutePath = resolveImportPath(absolutePath, importedId)
 		const depRawCode = readFileSync(depImportAbsolutePath, 'utf8')
 		return moduleFactory(depImportAbsolutePath, depRawCode)
 	})
-	const code = importedIds.reduce((code, importPath) => {
-		const depImportAbsolutePath = resolveImportPath(absolutePath, importPath)
-		return replaceDependencyPath(code, importPath, depImportAbsolutePath)
+	const importRegEx = /(^\s?import\s+[^'"]*['"])(.*)(['"]\s*)/gm
+	const code = importedIds.reduce((code, importedId) => {
+		const depImportAbsolutePath = resolveImportPath(absolutePath, importedId)
+		return code.replace(importRegEx, (match, p1, p2, p3) => {
+			const resolvedPath = resolveImportPath(absolutePath, p2)
+			if (resolvedPath === importedId) {
+				return `${p1}${depImportAbsolutePath}${p3}`
+			} else {
+				return match
+			}
+		})
 	}, rawCode)
 
-	return {
+	const out = {
 		id: absolutePath,
 		rawCode,
 		code,
 		importedIds,
 		resolutions,
 	}
+
+	return out
 }

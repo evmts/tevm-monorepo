@@ -3,8 +3,10 @@ import { writeFile } from 'fs/promises'
 import { glob } from 'glob'
 import path from 'path'
 
+const cwd = process.cwd()
+
 const files = glob.sync('src/**/*.sol', {
-	cwd: process.cwd(),
+	cwd,
 })
 
 if (files.length === 0) {
@@ -24,6 +26,6 @@ files.forEach((file) => {
 	)
 
 	plugin
-		.resolveDts(file)
+		.resolveDts(file, cwd)
 		.then((dts) => writeFile(path.join(fileDir, `${fileName}.d.ts`), dts))
 })
