@@ -1,31 +1,55 @@
 import { FoundryResolver } from '../types'
 import { Logger } from '../types'
-import { FoundryToml } from '../types/FoundryToml'
-import { mkdirSync, readFileSync, writeFileSync } from 'fs'
-import { readFile } from 'fs/promises'
-import { basename, resolve as resolvePath } from 'path'
+// TODO get remappings
+// import { FoundryToml } from '../types/FoundryToml'
+import { ModuleInfo, moduleFactory } from './moduleFactory'
+import { readFileSync } from 'fs'
+import { basename } from 'path'
+import * as resolve from 'resolve'
 // TODO wrap this in a typesafe version
 // @ts-ignore
 import solc from 'solc'
 
 // Compile the Solidity contract and return its ABI and bytecode
-function compileContract(
+function compileContractSync(
 	filePath: string,
+	basedir: string,
 	contractName: string,
 ): solc.CompiledContract | undefined {
-	const source: string = readFileSync(filePath, 'utf8')
+	const source: string = readFileSync(
+		resolve.sync(filePath, {
+			basedir,
+		}),
+		'utf8',
+	)
+
+	const entryModule = moduleFactory(filePath, source)
+
+	const getAllModulesRecursively = (
+		m = entryModule,
+		modules: Record<string, ModuleInfo> = {},
+	) => {
+		modules[m.id] = m
+		for (const dep of m.resolutions) {
+			getAllModulesRecursively(dep, modules)
+		}
+		return modules
+	}
+	const allModules = getAllModulesRecursively()
+
+	const sources = Object.fromEntries(
+		Object.entries(allModules).map(([id, module]) => {
+			return [id, { content: module.code }]
+		}),
+	)
 
 	const input: solc.InputDescription = {
 		language: 'Solidity',
-		sources: {
-			[contractName]: {
-				content: source,
-			},
-		},
+		sources,
 		settings: {
 			outputSelection: {
 				'*': {
-					[contractName]: ['abi', 'evm.bytecode'],
+					'*': ['*'],
 				},
 			},
 		},
@@ -35,266 +59,157 @@ function compileContract(
 		solc.compile(JSON.stringify(input)),
 	)
 
-	if (output.errors) {
+	const warnings = output.errors.filter(
+		({ type }: { type: 'Warning' | 'Error' }) => type === 'Warning',
+	)
+	const isErrors = output.errors.length > warnings.length
+
+	if (isErrors) {
 		console.error('Compilation errors:', output.errors)
-		return
+		throw new Error('Compilation failed')
+	}
+	if (warnings.length) {
+		console.warn('Compilation warnings:', output.errors)
 	}
 
-	return output.contracts[contractName][contractName]
+	return output.contracts[entryModule.id][contractName]
 }
 
-const resolveArtifactPathsSync = (
+// Remove writeFileSync and readFileSync, instead, keep artifacts in memory
+const resolveArtifactsSync = (
 	solFile: string,
-	projectDir: string,
-	{ out = 'artifacts' }: FoundryToml,
+	basedir: string,
 	logger: Logger,
-): string[] => {
+): { contractName: string; abi: any; bytecode: string } | undefined => {
 	// Compile the contract
-	const contractName = basename(solFile, '.sol')
-	const contract = compileContract(solFile, contractName)
+	if (!solFile.endsWith('.sol')) {
+		throw new Error('Not a solidity file')
+	}
+	const contractName = solFile.endsWith('.s.sol')
+		? basename(solFile, '.s.sol')
+		: basename(solFile, '.sol')
+	const contract = compileContractSync(solFile, basedir, contractName)
 
 	if (!contract) {
 		logger.error(`Compilation failed for ${solFile}`)
 		throw new Error('Compilation failed')
 	}
 
-	// Write the artifacts to files
-	const artifactsDirectory = resolvePath(projectDir, out)
-	mkdirSync(artifactsDirectory, { recursive: true })
-	writeFileSync(
-		resolvePath(artifactsDirectory, `${contractName}.abi.json`),
-		JSON.stringify(contract.abi),
-	)
-	writeFileSync(
-		resolvePath(artifactsDirectory, `${contractName}.bytecode.txt`),
-		contract.evm.bytecode.object,
-	)
+	// Keep artifacts in memory
+	const abi = JSON.stringify(contract.abi)
+	const bytecode = contract.evm.bytecode.object
 
-	return [
-		resolvePath(artifactsDirectory, `${contractName}.abi.json`),
-		resolvePath(artifactsDirectory, `${contractName}.bytecode.txt`),
-	]
+	return { contractName, abi, bytecode }
 }
 
-const resolveArtifactPaths = async (
+const resolveArtifacts = async (
 	solFile: string,
-	projectDir: string,
-	{ out = 'artifacts' }: FoundryToml,
+	basedir: string,
 	logger: Logger,
-): Promise<string[]> => {
-	return resolveArtifactPathsSync(solFile, projectDir, { out }, logger)
+): Promise<
+	{ contractName: string; abi: any; bytecode: string } | undefined
+> => {
+	return resolveArtifactsSync(solFile, basedir, logger)
 }
 
-// The rest of your foundryModules object remains mostly the same.
+// Refactor all methods in the solcModules object to use the revised resolveArtifactsSync function.
 export const solcModules: FoundryResolver = (config, logger) => {
 	return {
 		name: solcModules.name,
 		config,
-		resolveArtifactPaths: async (module) => {
-			return new Set(
-				await resolveArtifactPaths(
-					module,
-					config.project ?? '.',
-					{ out: config.out },
-					logger,
-				),
-			)
+		resolveDts: async (module, basedir) => {
+			const artifacts = await resolveArtifacts(module, basedir, logger)
+			if (artifacts) {
+				const { contractName, abi } = artifacts
+				return [
+					`const _${contractName} = ${abi} as const`,
+					`export declare const ${contractName}: typeof _${contractName}`,
+				].join('\n')
+			}
+			return ''
 		},
-		resolveArtifactPathsSync: (module) => {
-			return new Set(
-				resolveArtifactPathsSync(
-					module,
-					config.project ?? '.',
-					{ out: config.out },
-					logger,
-				),
-			)
+		resolveDtsSync: (module, basedir) => {
+			const artifacts = resolveArtifactsSync(module, basedir, logger)
+			if (artifacts) {
+				const { contractName, abi } = artifacts
+				return [
+					`const _${contractName} = ${abi} as const`,
+					`export declare const ${contractName}: typeof _${contractName}`,
+				].join('\n')
+			}
+			return ''
 		},
-		resolveDts: async (module) => {
-			const artifactPaths = await resolveArtifactPaths(
-				module,
-				config.project ?? '.',
-				{ out: config.out },
-				logger,
-			)
-			const exports = await Promise.all(
-				artifactPaths.map(async (artifactPath) => {
-					const contractName = artifactPath
-						.split('/')
-						.at(-1)
-						?.replace('.json', '')
-					const contractJson = await readFile(artifactPath, 'utf-8')
-					return [
-						`const _${contractName} = ${contractJson} as const`,
-						`export declare const ${contractName}: typeof _${contractName}`,
-					]
-				}),
-			)
-			return exports.flat().join('\n')
-		},
-		resolveDtsSync: (module) => {
-			return resolveArtifactPathsSync(
-				module,
-				config.project ?? '.',
-				{ out: config.out },
-				logger,
-			)
-				.flatMap((artifactPath) => {
-					const contractName = artifactPath
-						.split('/')
-						.at(-1)
-						?.replace('.json', '')
-					const contractJson = readFileSync(artifactPath, 'utf-8')
-					return [
-						`const _${contractName} = ${contractJson} as const`,
-						`export declare const ${contractName}: typeof _${contractName}`,
-					]
+
+		resolveJsonSync: (module, basedir) => {
+			const artifacts = resolveArtifactsSync(module, basedir, logger)
+			if (artifacts) {
+				const { contractName, abi, bytecode } = artifacts
+				return JSON.stringify({
+					[contractName]: { abi: abi, bytecode: bytecode },
 				})
-				.join('\n')
+			}
+			return ''
 		},
-		resolveJson: async (module) => {
-			const artifactPaths = await resolveArtifactPaths(
-				module,
-				config.project ?? '.',
-				{ out: config.out },
-				logger,
-			)
-			const entries = await Promise.all(
-				artifactPaths.map(async (artifactPath) => {
-					const contractName = artifactPath
-						.split('/')
-						.at(-1)
-						?.replace('.json', '')
-					const contractJson = await readFile(artifactPath, 'utf-8')
-					return [contractName, contractJson]
-				}),
-			)
-			return Object.fromEntries(entries)
-		},
-		resolveJsonSync: (module) => {
-			return Object.entries(
-				resolveArtifactPathsSync(
-					module,
-					config.project ?? '.',
-					{ out: config.out },
-					logger,
-				).map((artifactPath) => {
-					const contractName = artifactPath
-						.split('/')
-						.at(-1)
-						?.replace('.json', '')
-					const contractJson = readFileSync(artifactPath, 'utf-8')
-					return [contractName, contractJson]
-				}),
-			).join('\n')
-		},
-		resolveTsModule: async (module) => {
-			const artifactPaths = await resolveArtifactPaths(
-				module,
-				config.project ?? '.',
-				{ out: config.out },
-				logger,
-			)
-			const exports = await Promise.all(
-				artifactPaths.map(async (artifactPath) => {
-					const contractName = artifactPath
-						.split('/')
-						.at(-1)
-						?.replace('.json', '')
-					const contractJson = await readFile(artifactPath, 'utf-8')
-					return `export const ${contractName} = ${contractJson} as const`
-				}),
-			)
-			return exports.join('\n')
-		},
-		resolveTsModuleSync: (module) => {
-			return resolveArtifactPathsSync(
-				module,
-				config.project ?? '.',
-				{ out: config.out },
-				logger,
-			)
-				.map((artifactPath) => {
-					const contractName = artifactPath
-						.split('/')
-						.at(-1)
-						?.replace('.json', '')
-					const contractJson = readFileSync(artifactPath, 'utf-8')
-					return `export const ${contractName} = ${contractJson} as const`
+		resolveJson: async (module, basedir) => {
+			const artifacts = resolveArtifactsSync(module, basedir, logger)
+			if (artifacts) {
+				const { contractName, abi, bytecode } = artifacts
+				return JSON.stringify({
+					[contractName]: { abi: abi, bytecode: bytecode },
 				})
-				.join('\n')
+			}
+			return ''
 		},
-		resolveCjsModule: async (module) => {
-			const artifactPaths = await resolveArtifactPaths(
-				module,
-				config.project ?? '.',
-				{ out: config.out },
-				logger,
-			)
-			const exports = await Promise.all(
-				artifactPaths.map(async (artifactPath) => {
-					const contractName = artifactPath
-						.split('/')
-						.at(-1)
-						?.replace('.json', '')
-					const contractJson = await readFile(artifactPath, 'utf-8')
-					return `module.exports.${contractName} = ${contractJson}`
-				}),
-			)
-			return exports.join('\n')
+
+		resolveTsModuleSync: (module, basedir) => {
+			const artifacts = resolveArtifactsSync(module, basedir, logger)
+			if (artifacts) {
+				const { contractName, abi } = artifacts
+				return `export const ${contractName} = ${abi} as const`
+			}
+			return ''
 		},
-		resolveCjsModuleSync: (module) => {
-			return resolveArtifactPathsSync(
-				module,
-				config.project ?? '.',
-				{ out: config.out },
-				logger,
-			)
-				.map((artifactPath) => {
-					const contractName = artifactPath
-						.split('/')
-						.at(-1)
-						?.replace('.json', '')
-					const contractJson = readFileSync(artifactPath, 'utf-8')
-					return `module.exports.${contractName} = ${contractJson}`
-				})
-				.join('\n')
+
+		resolveTsModule: async (module, basedir) => {
+			const artifacts = resolveArtifactsSync(module, basedir, logger)
+			if (artifacts) {
+				const { contractName, abi } = artifacts
+				return `export const ${contractName} = ${abi} as const`
+			}
+			return ''
 		},
-		resolveEsmModule: async (module) => {
-			const artifactPaths = await resolveArtifactPaths(
-				module,
-				config.project ?? '.',
-				{ out: config.out },
-				logger,
-			)
-			const exports = await Promise.all(
-				artifactPaths.map(async (artifactPath) => {
-					const contractName = artifactPath
-						.split('/')
-						.at(-1)
-						?.replace('.json', '')
-					const contractJson = await readFile(artifactPath, 'utf-8')
-					return `export const _${contractName} = ${contractJson}`
-				}),
-			)
-			return exports.join('\n')
+		resolveCjsModuleSync: (module, basedir) => {
+			const artifacts = resolveArtifactsSync(module, basedir, logger)
+			if (artifacts) {
+				const { contractName, abi } = artifacts
+				return `module.exports.${contractName} = ${abi}`
+			}
+			return ''
 		},
-		resolveEsmModuleSync: (module) => {
-			return resolveArtifactPathsSync(
-				module,
-				config.project ?? '.',
-				{ out: config.out },
-				logger,
-			)
-				.map((artifactPath) => {
-					const contractName = artifactPath
-						.split('/')
-						.at(-1)
-						?.replace('.json', '')
-					const contractJson = readFileSync(artifactPath, 'utf-8')
-					return `export const _${contractName} = ${contractJson}`
-				})
-				.join('\n')
+		resolveCjsModule: async (module, basedir) => {
+			const artifacts = resolveArtifactsSync(module, basedir, logger)
+			if (artifacts) {
+				const { contractName, abi } = artifacts
+				return `module.exports.${contractName} = ${abi}`
+			}
+			return ''
+		},
+
+		resolveEsmModuleSync: (module, basedir) => {
+			const artifacts = resolveArtifactsSync(module, basedir, logger)
+			if (artifacts) {
+				const { contractName, abi } = artifacts
+				return `export const ${contractName} = ${abi}`
+			}
+			return ''
+		},
+		resolveEsmModule: async (module, basedir) => {
+			const artifacts = resolveArtifactsSync(module, basedir, logger)
+			if (artifacts) {
+				const { contractName, abi } = artifacts
+				return `export const ${contractName} = ${abi}`
+			}
+			return ''
 		},
 	}
 }

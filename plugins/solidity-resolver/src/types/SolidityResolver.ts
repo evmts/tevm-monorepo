@@ -17,49 +17,41 @@ export type SolidityResolver<TConfig> = (
 	/**
 	 * Resolves json representation of the solidity module
 	 */
-	resolveJson: (module: string) => Promise<string>
+	resolveJson: (module: string, basedir: string) => Promise<string>
 	/**
 	 * Resolves json representation of the solidity module
 	 */
-	resolveJsonSync: (module: string) => string
+	resolveJsonSync: (module: string, basedir: string) => string
 	/**
 	 * Resolves .d.ts representation of the solidity module
 	 */
-	resolveDts: (module: string) => Promise<string>
+	resolveDts: (module: string, basedir: string) => Promise<string>
 	/**
 	 * Resolves .d.ts representation of the solidity module
 	 */
-	resolveDtsSync: (module: string) => string
+	resolveDtsSync: (module: string, basedir: string) => string
 	/**
 	 * Resolves typescript representation of the solidity module
 	 */
-	resolveTsModule: (module: string) => Promise<string>
+	resolveTsModule: (module: string, basedir: string) => Promise<string>
 	/**
 	 * Resolves typescript representation of the solidity module
 	 */
-	resolveTsModuleSync: (module: string) => string
+	resolveTsModuleSync: (module: string, basedir: string) => string
 	/**
 	 * Resolves cjs representation of the solidity module
 	 */
-	resolveCjsModule: (module: string) => Promise<string>
+	resolveCjsModule: (module: string, basedir: string) => Promise<string>
 	/**
 	 * Resolves cjs representation of the solidity module
 	 */
-	resolveCjsModuleSync: (module: string) => string
+	resolveCjsModuleSync: (module: string, basedir: string) => string
 	/**
 	 * Resolves the esm representation of the solidity module
 	 */
-	resolveEsmModule: (module: string) => Promise<string>
+	resolveEsmModule: (module: string, basedir: string) => Promise<string>
 	/**
 	 * Resolves the esm representation of the solidity module
 	 */
-	resolveEsmModuleSync: (module: string) => string
-	/**
-	 * Resolves the paths of the artifacts files for a given solidity module
-	 */
-	resolveArtifactPaths: (module: string) => Promise<Set<string>>
-	/**
-	 * Resolves the paths of the artifacts files for a given solidity module
-	 */
-	resolveArtifactPathsSync: (module: string) => Set<string>
+	resolveEsmModuleSync: (module: string, basedir: string) => string
 }

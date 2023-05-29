@@ -1,9 +1,8 @@
 import { useState } from 'react'
 
 import { Pure } from './pure/Pure'
-import { ExecuteScript } from './script/executeScript'
 
-const options = [Pure, ExecuteScript]
+const options = [Pure]
 
 export const App = () => {
 	const [selected, setSelected] = useState(Pure.name)

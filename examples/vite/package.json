@@ -4,8 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "//build": "vite build",
     "//test": "vitest",
+    "build": "vite build",
     "clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
     "dev": "vite --open",
     "format": "rome format . --write",
@@ -28,6 +28,7 @@
     "@vanilla-extract/css": "^1.11.0",
     "buffer": "^6.0.3",
     "connectkit": "^1.3.0",
+    "forge-std": "^1.1.2",
     "process": "^0.11.10",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

@@ -1,7 +1,7 @@
 import { createDecorator } from '../factories'
 import { isSolidity } from '../utils'
 import { getArtifactPathSync } from '../utils/getArtifactPathSync'
-import { foundryPlugin } from '@evmts/solidity-resolver'
+import { foundryModules } from '@evmts/solidity-resolver'
 import { existsSync } from 'fs'
 
 /**
@@ -18,7 +18,7 @@ export const getScriptSnapshotDecorator = createDecorator(
 					return languageServiceHost.getScriptSnapshot(filePath)
 				}
 
-				const plugin = foundryPlugin(
+				const plugin = foundryModules(
 					{
 						out: config.out,
 						project: config.project,
@@ -26,7 +26,9 @@ export const getScriptSnapshotDecorator = createDecorator(
 					logger as any,
 				)
 
-				return ts.ScriptSnapshot.fromString(plugin.resolveDtsSync(filePath))
+				return ts.ScriptSnapshot.fromString(
+					plugin.resolveDtsSync(filePath, process.cwd()),
+				)
 			},
 		}
 	},

@@ -238,6 +238,9 @@ importers:
       connectkit:
         specifier: ^1.3.0
         version: 1.3.0(ethers@5.7.2)(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0)(wagmi@1.0.5)
+      forge-std:
+        specifier: ^1.1.2
+        version: 1.1.2
       process:
         specifier: ^0.11.10
         version: 0.11.10
@@ -478,10 +481,16 @@ importers:
       glob:
         specifier: ^10.2.5
         version: 10.2.5
+      resolve:
+        specifier: ^1.22.2
+        version: 1.22.2
       solc:
         specifier: ^0.8.20
         version: 0.8.20
     devDependencies:
+      '@types/resolve':
+        specifier: ^1.20.2
+        version: 1.20.2
       '@vitest/ui':
         specifier: ^0.31.1
         version: 0.31.1(vitest@0.31.1)
@@ -524,7 +533,7 @@ importers:
         version: 5.0.4
       vitest:
         specifier: ^0.31.1
-        version: 0.31.1(jsdom@22.0.0)
+        version: 0.31.1(@vitest/ui@0.31.1)
 
   plugins/unplugin:
     dependencies:
@@ -5391,6 +5400,10 @@ packages:
       safe-buffer: 5.1.2
     dev: false
 
+  /@types/resolve@1.20.2:
+    resolution: {integrity: sha512-60BCwRFOZCQhDncwQdxxeOEEkbc5dIMccYLwbxsS4TUNeVECQ/pBJ0j09mrHOl/JJvpRPGwO9SvE4nR2Nb/a4Q==}
+    dev: true
+
   /@types/scheduler@0.16.3:
     resolution: {integrity: sha512-5cJ8CB4yAx7BH1oMvdU0Jh9lrEXyPkar6F9G/ERswkCuvP4KQZfZkSjcMbAICCpQTN4OuZn8tz0HiKv9TGZgrQ==}
 
@@ -10084,6 +10097,10 @@ packages:
     dependencies:
       cross-spawn: 7.0.3
       signal-exit: 4.0.2
+    dev: false
+
+  /forge-std@1.1.2:
+    resolution: {integrity: sha512-Wfb0iAS9PcfjMKtGpWQw9mXzJxrWD62kJCUqqLcyuI0+VRtJ3j20XembjF3kS20qELYdXft1vD/SPFVWVKMFOw==}
     dev: false
 
   /form-data-encoder@2.1.4:
