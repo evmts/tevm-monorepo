@@ -23,10 +23,9 @@ function contract(
 import { evmts } from "./evmts";
 import { ERC20 } from "./ERC20.sol";
 
-const viemContract = evmts.contract(ERC20);
-
-viemContract.read
-  .balanceOf(["0xa5cc3c03994DB5b0d9A5eEdD10CabaB0813678AC"])
+evmts.read(
+  ERC20.balanceOf("0xa5cc3c03994DB5b0d9A5eEdD10CabaB0813678AC")
+)
   .then((balance) => {
     console.log(balance);
   });
@@ -37,6 +36,34 @@ pragma solidity ^0.8.17;
 
 contract ERC20 {
     ...
+}
+
+function balanceOf (...args: ABITypeMagic<abi>) {
+  return {
+    args,
+    addressMap: {
+      10: '0x4200000000000000000000000000000000000042'
+    },
+    abi: [{
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      }
+    ],
+    "name": "balanceOf",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+    }]
+  }
 }
 ```
 
