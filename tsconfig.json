@@ -1,5 +1,10 @@
 {
   "compilerOptions": {
+    "plugins": [
+      {
+        "name": "@evmts/ts-plugin"
+      }
+    ],
     "target": "ESNext",
     "lib": ["esnext"],
     "module": "esnext",

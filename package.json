@@ -28,7 +28,8 @@
     "version": "changeset version && pnpm install --lockfile-only"
   },
   "dependencies": {
-    "@changesets/cli": "^2.26.1"
+    "@changesets/cli": "^2.26.1",
+    "@evmts/ts-plugin": "workspace:^"
   },
   "devDependencies": {
     "@babel/core": "^7.21.8",
