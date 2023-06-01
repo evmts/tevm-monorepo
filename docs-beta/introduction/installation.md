@@ -24,7 +24,7 @@ yarn add @evmts/core @evmts/evm viem
 
 Install dev dependencies depending on your bundler.   Supported bundlers include [esbuild](https://esbuild.github.io/), [Webpack](https://webpack.js.org/), [rspack](https://www.rspack.dev/guide/introduction.html), [Vite](https://vitejs.dev/), and [Rollup](https://github.com/rollup/rollup).
 
-Most modern setups are supported.   For more specific instructions based on your setup reference the docs for [your specific build setup](../guide/build-guides)
+Most modern setups are supported.   For more specific instructions based on your setup reference the docs for [your specific build setup](./configuration.md)
 
 - **Webpack**
 
@@ -61,6 +61,4 @@ yarn add @evmts/rollup-plugin @evmts/ts-plugin
 ```
 
 :::
-
-If not using a bundler see [using EVMts without a bundler](../guide/using-evmts-without-plugins.md).
 

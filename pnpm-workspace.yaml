@@ -1,6 +1,7 @@
 packages:
   - "core"
   - "docs"
+  - "docs-beta"
   - "e2e"
   - "examples/*"
   - "plugins/*"

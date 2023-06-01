@@ -11,7 +11,7 @@
 
 ## 1. Create a script
 
-The power of EVMts comes in it's ability to write simple [Scripts](../reference/script.md). Scripts execute clientside and have access to [cheat codes](../guide/cheat-codes.md).
+The power of EVMts comes in it's ability to write simple Scripts. Scripts execute clientside and have access to cheat codes
 
 Let's create a simple hello-world contract `src/HelloWorld.s.sol`.
 
@@ -43,7 +43,7 @@ export const evmts = createPublicClient({
 
 ## 3. Create a new script instance
 
-To create a new contract instance simply [import your contract](./plugin-configuration.md) and pass it into [client.script](../reference/public-client).
+To create a new contract instance simply [import your contract](./configuration.md) and pass it into client.script.
 
 ```typescript helloWorld.ts
 import { evmts } from "./evmts";

@@ -1,7 +1,7 @@
 {
-  "buildCommand": "pnpm nx build docs",
+  "buildCommand": "pnpm nx build docs-beta",
   "devCommand": "pnpm dev --port $PORT",
   "framework": "vitepress",
   "installCommand": "pnpm install",
-  "outputDirectory": "docs/.vitepress/dist"
+  "outputDirectory": "docs-beta/.vitepress/dist"
 }
