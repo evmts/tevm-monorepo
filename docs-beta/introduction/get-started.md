@@ -29,20 +29,20 @@ Just want to try it out?
 ```solidity [MyERC20.sol]
 pragma solidity ^0.8.17;
 
-import {Script} from "forge-std/Script.sol";
-import {ERC20} from "@openzeppelin/contracts"
+import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
 contract ExampleContract is ERC20 {
     constructor() ERC20("ERC20 Example", "Example 1") {
         _mint(msg.sender, 100_000_000_000 * 10**18 );
     }
 }
-
 ```
 
 ### 2. Deploy your contract
 
-Deploy your contract with [foundry](https://github.com/foundry-rs/foundry) and commit the deploy artifacts.
+Deploy your contract with [forge](https://github.com/foundry-rs/foundry) and commit the deploy artifacts.
+
+EVMts will use the deploy artifacts to configure default contract addresses for your contracts
 
 ### 3. Import your contract directly in TypeScript files and use it
 
@@ -58,9 +58,11 @@ import { useAccount, useContractRead } from 'wagmi'
 
 export function App() {
 	const { address } = useAccount()
-	const { data: tokenBalance } = useContractRead(
+
+	const { data: tokenBalance } = useContractRead({
 		...MyERC20.balanceOf(address),
-	)
+  })
+
 	return (
 		<div>Balance: {tokenBalance.toString()}</div>
 	)
