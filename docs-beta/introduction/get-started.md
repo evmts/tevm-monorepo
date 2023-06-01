@@ -54,13 +54,12 @@ Just import your script and use it in your React components with [wagmi](https:/
 
 ```ts [example.ts]
 import { MyERC20 } from './MyERC20.sol'
-import { useContractRead } from '@evmts/react'
-import { useAccount } from 'wagmi'
+import { useAccount, useContractRead } from 'wagmi'
 
 export function App() {
 	const { address } = useAccount()
 	const { data: tokenBalance } = useContractRead(
-		MyERC20.balanceOf(address),
+		...MyERC20.balanceOf(address),
 	)
 	return (
 		<div>Balance: {tokenBalance.toString()}</div>
