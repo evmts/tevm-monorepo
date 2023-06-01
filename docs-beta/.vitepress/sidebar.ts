@@ -26,26 +26,22 @@ export const sidebar: DefaultTheme.Sidebar = [
 			{
 				text: 'NEXT.js',
 				collapsed: true,
-				items: [
-				],
+				items: [],
 			},
 			{
 				text: 'Vite/Vitest',
 				collapsed: true,
-				items: [
-				],
+				items: [],
 			},
 			{
 				text: 'ESBuild',
 				collapsed: true,
-				items: [
-				],
+				items: [],
 			},
 			{
 				text: 'Webpack',
 				collapsed: true,
-				items: [
-				],
+				items: [],
 			},
 		],
 	},

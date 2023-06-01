@@ -41,4 +41,4 @@ function executeScript(
 
 TODO stackblitz
 
-- **See also:** [Scripting](/guide/scripting)
+- **See also:** Scripting
