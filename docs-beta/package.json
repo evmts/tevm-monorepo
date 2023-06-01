@@ -1,0 +1,21 @@
+{
+  "name": "@evmts/docs-beta",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "vitepress build .",
+    "dev": "vitepress dev .",
+    "format": "rome format . --write",
+    "format:check": "rome format .",
+    "preinstall": "npx only-allow pnpm",
+    "lint": "rome check . --apply-unsafe",
+    "lint:check": "rome check . --verbose",
+    "package:up": "pnpm up --latest",
+    "preview": "vitepress preview ."
+  },
+  "devDependencies": {
+    "rome": "^12.1.2",
+    "vitepress": "1.0.0-alpha.76"
+  }
+}
