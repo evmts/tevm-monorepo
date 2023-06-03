@@ -14,7 +14,9 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive && \
 # install foundry - https://getfoundry.sh/
 RUN curl --location https://foundry.paradigm.xyz | bash && \
   foundryup && \
-  foundryup --version
+  forge --version && \
+  cast --version && \
+  anvil --version
 
 SHELL ["/bin/bash", "-c"]
 
