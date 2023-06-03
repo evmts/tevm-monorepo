@@ -1,3 +1,4 @@
+# See https://containers.dev/
 ARG VARIANT="bullseye"
 FROM mcr.microsoft.com/vscode/devcontainers/javascript-node:18-${VARIANT}
 
