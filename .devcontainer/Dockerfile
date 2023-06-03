@@ -1,28 +1,20 @@
 ARG VARIANT="bullseye"
-FROM mcr.microsoft.com/vscode/devcontainers/javascript-node:0-${VARIANT}
+FROM mcr.microsoft.com/vscode/devcontainers/javascript-node:18-${VARIANT}
 
 # https://code.visualstudio.com/remote/advancedcontainers/reduce-docker-warnings
 ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn
+ENV PATH="$PATH:/root/.foundry/bin"
 
 # Install additional OS packages
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive && \
   apt-get --yes upgrade && \
-  apt-get --yes install curl sudo bash coreutils git
-  # && \
-  #
-  # install foundry - https://getfoundry.sh/
-  # curl -L https://foundry.paradigm.xyz | bash && \
-  # #
-  # # Run it
-  # foundryup && \
-  # foundryup --version
+  apt-get --yes install --no-install-recommends \
+  curl sudo bash coreutils
 
-# [Choice] Node.js version: none, lts/*, 16, 14, 12, 10
-ARG NODE_VERSION="lts/*"
-RUN if [ "${NODE_VERSION}" != "none" ]; then umask 0002 \
-  && sh -c ". /usr/local/share/nvm/nvm.sh && nvm install ${NODE_VERSION}" 2>&1; fi
-
-RUN sh -c ". /usr/local/share/nvm/nvm.sh && nvm alias default ${NODE_VERSION}"
+# install foundry - https://getfoundry.sh/
+RUN curl --location https://foundry.paradigm.xyz | bash && \
+  foundryup && \
+  foundryup --version
 
 SHELL ["/bin/bash", "-c"]
 
@@ -31,5 +23,4 @@ RUN npm install --global pnpm@latest && \
   SHELL=bash pnpm setup && \
   source /root/.bashrc && \
   pnpm config set store-dir /root/.local/share/pnpm/store && \
-  pnpm add --global bun nx
-
+  pnpm add --global nx

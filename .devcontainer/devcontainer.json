@@ -3,22 +3,21 @@
   "build": {
     "dockerfile": "./Dockerfile",
     "args": {
-      "VARIANT": "bullseye",
-      "NODE_VERSION": "lts/*"
+      "VARIANT": "bullseye"
     }
   },
   "features": {
     "ghcr.io/devcontainers/features/git": {},
+    "ghcr.io/devcontainers/features/rust": {},
     "ghcr.io/devcontainers/features/github-cli": {},
-    "ghcr.io/devcontainers/features/docker-in-docker": {},
-    "ghcr.io/devcontainers/features/rust": {}
+    "ghcr.io/devcontainers/features/docker-in-docker": {}
   },
   "runArgs": [
     "--cap-add=SYS_PTRACE",
     "--security-opt",
     "seccomp=unconfined"
   ],
-  "postAttachCommand": "pnpm all",
+  "remoteUser": "root",
   "containerEnv": {
     "GOERLI_RPC_URL": "",
     "OPTIMISM_GOERLI_RPC_URL": "",
