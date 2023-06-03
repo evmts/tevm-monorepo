@@ -21,7 +21,7 @@ RUN curl --location https://foundry.paradigm.xyz | bash && \
 SHELL ["/bin/bash", "-c"]
 
 # Install dependencies
-RUN npm install --global pnpm@latest && \
+RUN npm install --global pnpm@8.6.0 && \
   SHELL=bash pnpm setup && \
   source /root/.bashrc && \
   pnpm config set store-dir /root/.local/share/pnpm/store && \
