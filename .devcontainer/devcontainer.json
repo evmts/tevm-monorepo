@@ -69,6 +69,7 @@
         "solidity.packageDefaultDependenciesContractsDirectory": "src",
         "solidity.packageDefaultDependenciesDirectory": "lib",
         "solidity.compileUsingRemoteVersion": "v0.8.17",
+        "typescript.tsserver.log": "verbose",
         "search.exclude": {
           "lib": true
         },
