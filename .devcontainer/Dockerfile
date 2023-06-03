@@ -29,4 +29,5 @@ RUN npm install --global pnpm@8.6.0 && \
   SHELL=bash pnpm setup && \
   source /root/.bashrc && \
   pnpm config set store-dir /root/.local/share/pnpm/store && \
-  pnpm add --global nx
+  pnpm add --global nx && \
+  npx gitmoji --init
