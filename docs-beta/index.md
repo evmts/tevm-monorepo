@@ -3,24 +3,23 @@
 layout: home
 
 hero:
-  name: "EVMts beta"
+  name: "EVMts Imports Beta"
   text: "Solidity+TypeScript"
-  tagline: Tight integration between Solidity and TypeScript
+  tagline: Import contracts directly in your TypeScript
   actions:
     - theme: brand
       text: Get Started
       link: /introduction/get-started
     - theme: alt
-      text: API reference
-      link: reference/api
+      text: Try live demo
+      link: https://github.com/evmts/evmts-monorepo/issues/10
 
 features:
-  - title: Import .sol files in TypeScript
+  - title: .sol imports
     details: Import solidity files directly into TS.   No more juggling abis
-  - title: Find contract implementations fast
-    details: Utilize go-to-definition in your editor to jump directly from your typescript code to the contract implementation
-  - title: Get started fast with familiar tools
-    details: EVMts enhances wagmi and plugs into foundry
+  - title: Go to definition
+    details: Instantly jump directly from your typescript code to the contract implementation
+  - title: Get started fast 
+    details: EVMts Imports Beta works with your favorite tools including wagmi
 ---
-
 
