@@ -5,7 +5,7 @@ export const sidebar: DefaultTheme.Sidebar = [
 	{
 		text: 'Introduction',
 		items: [
-			{ text: 'Why EVMts', link: '/introduction/why-evmts' },
+			{ text: 'Why EVMts', link: '/introduction/why' },
 			{ text: 'Get started', link: '/introduction/get-started' },
 			{ text: 'Installation', link: '/introduction/installation' },
 			{
