@@ -18,17 +18,23 @@ export const getScriptSnapshotDecorator = createDecorator(
 					return languageServiceHost.getScriptSnapshot(filePath)
 				}
 
-				const plugin = solcModules(
-					{
-						out: config.out,
-						project: config.project,
-					},
-					logger as any,
-				)
-
-				return ts.ScriptSnapshot.fromString(
-					plugin.resolveDtsSync(filePath, process.cwd()),
-				)
+				try {
+					const plugin = solcModules(
+						{
+							out: config.out,
+							project: config.project,
+						},
+						logger as any,
+					)
+					const snapshot = plugin.resolveDtsSync(filePath, process.cwd())
+					return ts.ScriptSnapshot.fromString(snapshot)
+				} catch (e) {
+					logger.error(
+						`@evmts/ts-plugin: getScriptSnapshotDecorator was unable to resolve dts for ${filePath}`,
+					)
+					logger.error(e as any)
+					return ts.ScriptSnapshot.fromString('export {}')
+				}
 			},
 		}
 	},
