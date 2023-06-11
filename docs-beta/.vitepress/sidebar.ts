@@ -8,7 +8,7 @@ export const sidebar: DefaultTheme.Sidebar = [
 			{ text: 'Why EVMts', link: '/getting-started/why' },
 			{ text: 'Introduction', link: '/getting-started/introduction' },
 			{ text: 'Quick Start', link: '/getting-started/quick-start' },
-		]
+		],
 	},
 	{
 		text: 'Tutorial',
@@ -48,7 +48,7 @@ export const sidebar: DefaultTheme.Sidebar = [
 				text: 'Web3js usage',
 				link: '/web3js/overview',
 			},
-		]
+		],
 	},
 	{
 		text: 'Bundler Configuration',
