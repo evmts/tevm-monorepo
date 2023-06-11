@@ -3,9 +3,6 @@
   "version": "0.0.0",
   "private": false,
   "description": "Manages config for evmts",
-  "bin": {
-    "init": "dist/cli/init.js"
-  },
   "keywords": [
     "solidity",
     "forge",
@@ -25,6 +22,9 @@
   "main": "dist/index.cjs",
   "module": "dist/index.js",
   "types": "src/index.ts",
+  "bin": {
+    "init": "dist/cli/init.js"
+  },
   "files": [
     "dist"
   ],
@@ -42,8 +42,7 @@
     "package:up": "pnpm up --latest",
     "typecheck": "tsc --noEmit"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "@vitest/ui": "^0.31.1",
     "rome": "^12.1.2",
