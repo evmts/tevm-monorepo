@@ -9,13 +9,16 @@ hero:
   actions:
     - theme: brand
       text: Quick start
-      link: /getting-started/quick-start
+      link: /getting-started/quick-start.md
     - theme: alt
       text: Introduction
-      link: /getting-started/introduction
+      link: /getting-started/introduction.md
     - theme: alt
       text: Tutorial
       link: /tutorial/overview.md
+    - theme: alt
+      text: Reference
+      link: /reference/overview.md
     - theme: alt
       text: Try Live Demo
       link: https://github.com/evmts/evmts-monorepo/issues/10
