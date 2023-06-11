@@ -1,75 +1,45 @@
-# Introduction
+# Get Started
 
-Welcome to the EVMts Imports Beta docs!
+## Installation
 
-## Overview
+#### Typescript configuration
 
-EVMts Imports beta makes solidity a first-class citizen in TypeScript
+Install the [typescript plugin](../configuration/typescript.md)
 
-- **Import Solidity directly** ABIs melt away with the ability to import contracts directly
-- **Jump** directly from typescript files to contract implementation with go-to-definition
-- Default **contract addresses** per chain configured based on forge build artifacts
+::: code-group
 
-::: tip
-Just want to try it out?
+```bash [npm]
+npm i @evmts/ts-plugin
+```
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz_small.svg)](https://stackblitz.com/github/evmts/evmts-monorepo?configPath=examples/vite)
+```bash [pnpm]
+pnpm i @evmts/ts-plugin
+```
+
+```bash [yarn]
+yarn add @evmts/ts-plugin
+```
 :::
 
-## EVMts is simple
+Add TypeScript plugin to [tsconfig](https://www.typescriptlang.org/tsconfig)
 
-### 1. First write a smart contract
-
-
-```solidity [MyERC20.sol]
-pragma solidity ^0.8.17;
-
-import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-
-contract MyERC20 is ERC20 {
-    constructor() ERC20("ERC20 Example", "Example 1") {
-        _mint(msg.sender, 420 * 10**18 );
-    }
+```json
+{ 
+  compilerOptions: {
+    plugins: ["@evmts/ts-plugin"]
+  }
 }
 ```
 
-### 2. Deploy your contract
+#### Bundler integration
 
-Deploy your contract with [forge](https://github.com/foundry-rs/foundry) and commit the deploy artifacts.
+EVMts requires a bundler configured to handle `.sol` files
 
-EVMts will use the deploy artifacts to configure default contract addresses for your contracts
+Install your integration of preference.  This hello-world tutorial will use esbuild.
 
-### 3. Import your contract directly in TypeScript files and use it
-
-- no code gen step
-- no abis
-- no boilerplate
-
-Just import your script and use it in your React components with [wagmi](https://wagmi.sh)
-
-```ts [example.ts]
-import { MyERC20 } from './MyERC20.sol'
-import { useAccount, useContractRead } from 'wagmi'
-
-export function App() {
-  const { address } = useAccount()
-
-  const { data: tokenBalance } = useContractRead({
-    ...MyERC20.balanceOf(address),
-  })
-
-  return (
-    <div>Balance: {tokenBalance.toString()}</div>
-  )
-}
-
-```
-
-## Try EVMts now
-
-Just looking to try out EVMts? Try editing this sandbox or continue on for installation instructions
-
-[TODO](https://github.com/evmts/evmts-monorepo/issues/10)
-
-<iframe frameborder="0" width="100%" height="500" src="https://stackblitz.com/github/evmts/evmts-monorepo?configPath=examples/vite"></iframe>
+- [esbuild](../guides/esbuild.md)
+- [vite](../guides/vite.md)
+- [next](../guides/next.md)
+- [webpack](../guides/webpack.md)
+- [rollup](../guides/rollup.md)
 

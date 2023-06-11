@@ -11,7 +11,7 @@ hero:
       text: Get Started
       link: /introduction/get-started
     - theme: alt
-      text: Try live demo
+      text: Try Live Demo
       link: https://github.com/evmts/evmts-monorepo/issues/10
 
 features:
@@ -20,6 +20,6 @@ features:
   - title: Go to definition
     details: Instantly jump directly from your typescript code to the contract implementation
   - title: Get started fast 
-    details: EVMts Imports Beta works with your favorite tools including wagmi
+    details: Quickly integrate EVMts into Wagmi, Ethers, Web3.js or Viem
 ---
 
