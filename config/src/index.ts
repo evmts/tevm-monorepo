@@ -1,8 +1,8 @@
 // TODO import this from evmts core
-type Address = '0x${string}'
+type Address = `0x${string}`
 
 type DeploymentConfig = {
-	contractName: string
+	name: string
 	networkId: number
 	address: Address
 }
