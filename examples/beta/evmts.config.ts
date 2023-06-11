@@ -1,5 +1,21 @@
-import { defineConfig, readDeployments } from '@evmts/config'
+import { defineConfig } from '@evmts/config'
 
+/**
+ * @see https://evmts.dev/reference/config.html
+ */
 export default defineConfig(() => ({
-	deployments: readDeployments('deployments'),
+	/**
+	 * Deployments allow evmts to configure default addresses for different networks
+	 */
+	deployments: [
+		{
+			networkId: 1,
+			name: '',
+			address: '0xFBA3912Ca04dd458c843e2EE08967fC04f3579c2',
+		},
+	],
+	/**
+	 * Keep this in sync with package.json and foundry.toml
+	 */
+	solcVersion: '0.8.20',
 }))
