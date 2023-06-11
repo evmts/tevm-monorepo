@@ -1,6 +1,13 @@
-# Introduction
+# Tutorial
 
 Welcome to the EVMts Imports Beta docs!
+
+::: info You will learn
+
+1. What are EVMts imports
+2. How direct solidity imports look in a basic example
+
+:::
 
 ## Overview
 
@@ -33,13 +40,13 @@ contract MyERC20 is ERC20 {
 }
 ```
 
-### 2. Deploy your contract
+#### 2. Deploy your contract
 
 Deploy your contract with [forge](https://github.com/foundry-rs/foundry) and commit the deploy artifacts.
 
 EVMts will use the deploy artifacts to configure default contract addresses for your contracts
 
-### 3. Import your contract directly in TypeScript files and use it
+#### 3. Import your contract directly in TypeScript files and use it
 
 - no code gen step
 - no abis
