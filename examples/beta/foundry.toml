@@ -1,8 +1,9 @@
 [profile.default]
-solc = "0.8.17"
-src = 'src'
+# Keep this version in sync with package.json and evmts.config.ts
+solc = "0.8.20"
+src = 'src/contracts'
+test = 'test'
 out = 'artifacts'
 
-fs_permissions = [{ access = "read", path = "./deployments"}, { access = "read", path = "./out"}, { access = "read", path = "./contexts.json"}]
-
 allow_paths = ["../node_modules"]
+
