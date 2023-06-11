@@ -3,17 +3,17 @@ import type { DefaultTheme } from 'vitepress'
 export const sidebar: DefaultTheme.Sidebar = [
 	{ text: 'Home', link: '/' },
 	{
-		text: 'Introduction',
+		text: 'Tutorial',
 		items: [
 			{ text: 'Why EVMts', link: '/introduction/why' },
 			{ text: 'Get started', link: '/introduction/get-started' },
 			{ text: 'Installation', link: '/introduction/installation' },
 			{
-				text: 'configuration',
+				text: 'Configuration',
 				link: '/introduction/configuration',
 			},
 			{
-				text: 'hello-world',
+				text: 'Hello World',
 				link: '/introduction/hello-world',
 			},
 		],
@@ -26,7 +26,7 @@ export const sidebar: DefaultTheme.Sidebar = [
 		],
 	},
 	{
-		text: 'Configuration',
+		text: 'Bundler Configuration',
 		collapsed: true,
 		items: [
 			{
@@ -57,7 +57,6 @@ export const sidebar: DefaultTheme.Sidebar = [
 	},
 	{
 		text: 'Reference',
-		collapsed: true,
 		items: [
 			{
 				text: 'CLI',
