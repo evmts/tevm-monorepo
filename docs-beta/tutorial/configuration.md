@@ -1,4 +1,4 @@
-# Get Started
+# Tutorial
 
 ## Configuration
 

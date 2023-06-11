@@ -5,16 +5,16 @@ export const sidebar: DefaultTheme.Sidebar = [
 	{
 		text: 'Tutorial',
 		items: [
-			{ text: 'Why EVMts', link: '/introduction/why' },
-			{ text: 'Get started', link: '/introduction/get-started' },
-			{ text: 'Installation', link: '/introduction/installation' },
+			{ text: 'Why EVMts', link: '/tutorial/why' },
+			{ text: 'Introduction', link: '/tutorial/introduction' },
+			{ text: 'Installation', link: '/tutorial/installation' },
 			{
 				text: 'Configuration',
-				link: '/introduction/configuration',
+				link: '/tutorial/configuration',
 			},
 			{
 				text: 'Hello World',
-				link: '/introduction/hello-world',
+				link: '/tutorial/hello-world',
 			},
 		],
 	},

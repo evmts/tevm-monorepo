@@ -2,10 +2,9 @@
 
 ::: info You will learn
 
-1. How to create a simple EVMts script
-2. How to setup your EVMts client
-3. How to import your script to create a `Script` instance
-4. How to execute your script
+1. How to deploy a contract to anvil
+2. How to set up a bundler to bundle your contract code
+3. How to use your contract with [viem](https://viem.sh)
 
 :::
 

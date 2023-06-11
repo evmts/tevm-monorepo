@@ -9,7 +9,7 @@ hero:
   actions:
     - theme: brand
       text: Get Started
-      link: /introduction/get-started
+      link: /tutorial/introduction
     - theme: alt
       text: Try Live Demo
       link: https://github.com/evmts/evmts-monorepo/issues/10
@@ -20,6 +20,6 @@ features:
   - title: Go to definition
     details: Instantly jump directly from your typescript code to the contract implementation
   - title: Get started fast 
-    details: Quickly integrate EVMts into Wagmi, Ethers, Web3.js or Viem
+    details: Integrat
 ---
 
