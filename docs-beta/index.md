@@ -28,7 +28,7 @@ features:
     details: Import solidity files directly into TS.   No more juggling abis
   - title: Go to definition
     details: Instantly jump directly from your typescript code to the contract implementation
-  - title: Get started fast 
-    details: Integrat
+  - title: Modular design
+    details: Integrates with all the tools you are already using including Wagmi
 ---
 
