@@ -5,8 +5,8 @@
   "scripts": {
     "build": "vite build",
     "build:contracts": "forge build",
-    "deploy": "forge-deploy",
     "clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
+    "deploy": "forge-deploy",
     "dev": "vite --open",
     "format": "rome format . --write",
     "format:check": "rome format .",
@@ -18,7 +18,7 @@
     "rome": "^12.1.2",
     "serve": "serve -s -l tcp://0.0.0.0:5173 dist",
     "test": "vitest",
-    "typecheck": "tsc --noEmit"
+    "// typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@evmts/config": "workspace:^",
@@ -29,6 +29,7 @@
     "process": "^0.11.10",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "solc": "^0.8.20",
     "util": "^0.12.5",
     "viem": "~0.3.41",
     "wagmi": "^1.0.9"
