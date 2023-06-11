@@ -1,0 +1,8 @@
+[profile.default]
+solc = "0.8.17"
+src = 'src'
+out = 'artifacts'
+
+fs_permissions = [{ access = "read", path = "./deployments"}, { access = "read", path = "./out"}, { access = "read", path = "./contexts.json"}]
+
+allow_paths = ["../node_modules"]

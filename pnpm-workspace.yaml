@@ -1,5 +1,6 @@
 packages:
   - "core"
+  - "config"
   - "docs"
   - "docs-beta"
   - "e2e"

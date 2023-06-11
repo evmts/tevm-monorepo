@@ -23,10 +23,8 @@ export function App() {
 
 	return (
 		<>
-			<h1>wagmi + RainbowKit + Vite</h1>
-
+			<h1>EVMts example</h1>
 			<ConnectButton />
-
 			{isConnected && (
 				<>
 					<hr />
