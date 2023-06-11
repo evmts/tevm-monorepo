@@ -8,8 +8,14 @@ hero:
   tagline: Import contracts directly in your TypeScript
   actions:
     - theme: brand
-      text: Get Started
-      link: /tutorial/introduction
+      text: Quick start
+      link: /getting-started/quick-start
+    - theme: alt
+      text: Introduction
+      link: /getting-started/introduction
+    - theme: alt
+      text: Tutorial
+      link: /tutorial/overview.md
     - theme: alt
       text: Try Live Demo
       link: https://github.com/evmts/evmts-monorepo/issues/10
