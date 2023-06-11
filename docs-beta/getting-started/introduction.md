@@ -1,4 +1,4 @@
-# Tutorial
+# Introduction
 
 Welcome to the EVMts Imports Beta docs!
 
@@ -73,6 +73,11 @@ export function App() {
 ```
 
 ## Try EVMts now
+
+- **Learn** about EVMts by setting up a project from scratch with the [tutorial](../tutorial/overview.md)
+- **Follow guides** to setup EVMts [for your project](../guides/overview.md)
+- **Ask questions** about EVMts in the [discussions](https://github.com/evmts/evmts-monorepo/discussions)
+- **Reference** our [reference docs](../reference/overview.md) for more detailed information
 
 Just looking to try out EVMts? Try editing this sandbox or continue on for installation instructions
 

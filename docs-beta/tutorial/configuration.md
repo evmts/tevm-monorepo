@@ -4,9 +4,9 @@
 
 - **evmts.config.ts**
 
-The typescript and build plugins [installed in previous step](./installation.md) are configured via the `evmts.config.ts` file.
+The typescript and build plugins are configured via a evmts.config.ts file.
 
-In this tutorial we will use the `@evmts/cli` tool to generate a config but you can also [create the configuration manually](../reference/config.md).
+We could use the `@evmts/cli` tool to generate a config but in this tutorial we will do it from scratch.
 
 - **Install EVMts cli**
 
@@ -15,15 +15,15 @@ Install `@evmts/cli` package as a dev dependency
 ::: code-group
 
 ```bash [npm]
-npm i @evmts/cli -D
+npm install @evmts/cli --save-dev
 ```
 
 ```bash [pnpm]
-pnpm i @evmts/cli -D
+pnpm install @evmts/cli --save-dev
 ```
 
 ```bash [yarn]
-yarn i @evmts/cli -D
+yarn add @evmts/cli -D
 ```
 
 - **Configure EVMts**
