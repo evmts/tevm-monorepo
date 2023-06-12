@@ -95,7 +95,7 @@ const resolveArtifactsSync = (
 	return Object.fromEntries(
 		Object.entries(contracts).map(([contractName, contract]) => {
 			// Keep artifacts in memory
-			const abi = JSON.stringify((contract as any).abi)
+			const abi = (contract as any).abi
 			const bytecode = (contract as any).evm.bytecode.object
 
 			return [contractName, { contractName, abi, bytecode }]
