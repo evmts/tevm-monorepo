@@ -22,6 +22,8 @@
   },
   "dependencies": {
     "@evmts/config": "workspace:^",
+    "@evmts/contract": "workspace:^",
+    "@evmts/contracts": "^0.0.1",
     "@evmts/core": "workspace:^0.0.3",
     "@rainbow-me/rainbowkit": "^1.0.1",
     "buffer": "^6.0.3",
