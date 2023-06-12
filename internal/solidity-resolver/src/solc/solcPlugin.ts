@@ -169,7 +169,10 @@ export const solcModules: FoundryResolver = (
 		resolveTsModuleSync: (module, basedir) => {
 			const artifacts = resolveArtifactsSync(module, basedir, logger)
 			if (artifacts) {
-				const evmtsImports = `import { EVMtsContract, evmtsContractFactory } from '@evmts/contract'`
+				const evmtsImports = [
+					`import type { EVMtsContract } from '@evmts/contract'`,
+					`import { EVMtsContract, evmtsContractFactory } from '@evmts/contract'`,
+				].join('\n')
 				const evmtsBody = Object.entries(artifacts)
 					.flatMap(([contractName, { abi }]) => {
 						const config = JSON.stringify({
@@ -189,7 +192,10 @@ export const solcModules: FoundryResolver = (
 		resolveTsModule: async (module, basedir) => {
 			const artifacts = await resolveArtifacts(module, basedir, logger)
 			if (artifacts) {
-				const evmtsImports = `import { EVMtsContract, evmtsContractFactory } from '@evmts/contract'`
+				const evmtsImports = [
+					`import type { EVMtsContract } from '@evmts/contract'`,
+					`import { EVMtsContract, evmtsContractFactory } from '@evmts/contract'`,
+				].join('\n')
 				const evmtsBody = Object.entries(artifacts)
 					.flatMap(([contractName, { abi }]) => {
 						const config = JSON.stringify({
@@ -209,7 +215,7 @@ export const solcModules: FoundryResolver = (
 		resolveCjsModuleSync: (module, basedir) => {
 			const artifacts = resolveArtifactsSync(module, basedir, logger)
 			if (artifacts) {
-				const evmtsImports = `const { EVMtsContract, evmtsContractFactory } = require('@evmts/contract')`
+				const evmtsImports = `const { evmtsContractFactory } = require('@evmts/contract')`
 				const evmtsBody = Object.entries(artifacts)
 					.flatMap(([contractName, { abi }]) => {
 						const config = JSON.stringify({
@@ -229,7 +235,7 @@ export const solcModules: FoundryResolver = (
 		resolveCjsModule: async (module, basedir) => {
 			const artifacts = await resolveArtifacts(module, basedir, logger)
 			if (artifacts) {
-				const evmtsImports = `const { EVMtsContract, evmtsContractFactory } = require('@evmts/contract')`
+				const evmtsImports = `const { evmtsContractFactory } = require('@evmts/contract')`
 				const evmtsBody = Object.entries(artifacts)
 					.flatMap(([contractName, { abi }]) => {
 						const config = JSON.stringify({
@@ -250,7 +256,7 @@ export const solcModules: FoundryResolver = (
 		resolveEsmModuleSync: (module, basedir) => {
 			const artifacts = resolveArtifactsSync(module, basedir, logger)
 			if (artifacts) {
-				const evmtsImports = `import { EVMtsContract, evmtsContractFactory } from '@evmts/contract'`
+				const evmtsImports = `import { evmtsContractFactory } from '@evmts/contract'`
 				const evmtsBody = Object.entries(artifacts)
 					.flatMap(([contractName, { abi }]) => {
 						const config = JSON.stringify({
@@ -270,7 +276,7 @@ export const solcModules: FoundryResolver = (
 		resolveEsmModule: async (module, basedir) => {
 			const artifacts = await resolveArtifacts(module, basedir, logger)
 			if (artifacts) {
-				const evmtsImports = `import { EVMtsContract, evmtsContractFactory } from '@evmts/contract'`
+				const evmtsImports = `import { evmtsContractFactory } from '@evmts/contract'`
 				const evmtsBody = Object.entries(artifacts)
 					.flatMap(([contractName, { abi }]) => {
 						const config = JSON.stringify({
