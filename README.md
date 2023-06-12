@@ -27,7 +27,7 @@
 
 _🏗️🚧 EVMts is a work in progress_
 
-EVMts core enables direct evm execution clientside with forge cheat codes 
+EVMts core enables direct evm execution clientside with forge cheat codes
 
 EVMts imports enable a streamlined dev experience with direct solidity imports and integration with Wagmi
 
@@ -42,17 +42,17 @@ EVMts imports enable a streamlined dev experience with direct solidity imports a
 
 ## Bundlers
 
-Bundlers such as Rollup, Webpack, or Vite are used By JavaScript tools to control the import graph of JavaScript projects.   This is how `EVMts contract imports` are able to work seemlessly.
+Bundlers such as Rollup, Webpack, or Vite are used By JavaScript tools to control the import graph of JavaScript projects. This is how `EVMts contract imports` are able to work seemlessly.
 
-Bundlers are provided for all major tools.   If yours is not supported consider opening an issue.
+Bundlers are provided for all major tools. If yours is not supported consider opening an issue.
 
 All bundlers are in the [bundlers/\*](/bundlers) folder
 
-- [@evmts/esbuild-plugin](/bundlers/esbuild-plugin) 
-- [@evmts/rollup-plugin](/bundlers/rollup-plugin)
+- [@evmts/](/bundlers/)
+- [@evmts/rollup](/bundlers/rollup)
 - [@evmts/rspack](/bundlers/rspack)
-- [@evmts/vite-plugin](/bundlers/vite-plugin)
-- [@evmts/webpack-plugin](/bundlers/webpack-plugin)
+- [@evmts/vite](/bundlers/vite)
+- [@evmts/webpack](/bundlers/webpack)
 
 ## Language server tools
 
@@ -60,13 +60,13 @@ The language service protocol is how tools such as VSCode and Neovim are able to
 
 Also included are tools for typechecking code and code generation for those using EVMts without a bundler
 
-- [@evmts/ts-plugin](./lsp/ts-plugin/) - Typescript Server Plugin for decorating the TypeScript language server with additional functionality
-- [@evmts/vscode](./lsp/ts-plugin/) - A work-in-progress vscode plugin for EVMts
+- [@evmts/ts](./lsp/ts/) - Typescript Server Plugin for decorating the TypeScript language server with additional functionality
+- [@evmts/vscode](./lsp/ts/) - A work-in-progress vscode plugin for EVMts
 
 ## Apps 📦
 
-- [@evmts/docs](/docs) Future documentation site.   Contains lots of unimplemented features such as a clientside VM
-- [examples/*](/examples) Current [documentation site](https://evmts.dev) for EVMts Imports Beta
+- [@evmts/docs](/docs) Future documentation site. Contains lots of unimplemented features such as a clientside VM
+- [examples/\*](/examples) Current [documentation site](https://evmts.dev) for EVMts Imports Beta
 
 #### Example apps
 
@@ -92,7 +92,7 @@ See [docs/contributing](/docs/contributing.md) for documentation on how to contr
 
 **Note: Scripting is currently unimplemented**
 
-EVMts has future plans to enable solidity scripting and optimistic execution.   As of now only EVMts contract imports are supported
+EVMts has future plans to enable solidity scripting and optimistic execution. As of now only EVMts contract imports are supported
 
 See [EVMts Beta project board](https://github.com/orgs/evmts/projects/1) for updates.
 
@@ -171,7 +171,7 @@ Interested in the OP stack? Check out op stack blog here: https://optimism.mirro
 Enjoy this tool? Check out these other awesome tools that make this library possible
 
 - [Foundry](https://github.com/foundry-rs/foundry/tree/master/forge)
-- [viem](https://viem.sh) 
+- [viem](https://viem.sh)
 - [abitype](https://abitype.dev/)
 - [wagmi](https://wagmi.sh/react/comparison)
 

@@ -2,9 +2,9 @@
 
 ## Why a ts plugin
 
-`@evmts/rollup-plugin` direct solidity file imports for bundlers like [Rollup](./rollup.md) [Vite](./vite.md) and [Webpack (coming soon)](./webpack.md). But by default typescript is unable to infer the types of these solidity files.
+`@evmts/rollup` direct solidity file imports for bundlers like [Rollup](./rollup.md) [Vite](./vite.md) and [Webpack (coming soon)](./webpack.md). But by default typescript is unable to infer the types of these solidity files.
 
-EVMts offers `ts-plugin` to bring the full developer experience of typescript to your solidity files including
+EVMts offers `@evmts/ts-plugin` to bring the full developer experience of typescript to your solidity files including
 
 - Automatically find and _auto-import_ `.sol` contract files
 - _Typesafety_ and _autocomplete_ in your editor

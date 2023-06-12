@@ -1,6 +1,6 @@
 # @evmts/prototype (experimental)
 
-A vite based playground app built with @evmts/vite-plugin @evmts/ts-plugin and @evmts/core.   This prototype was the original proof-of-concept of EVMts.   It has following features
+A vite based playground app built with @evmts/vite @evmts/ts and @evmts/core. This prototype was the original proof-of-concept of EVMts. It has following features
 
 - An in browser EVM instance using ethereum-js
 - A rollup plugin for importing solidity files directly into typescript

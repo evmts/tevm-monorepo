@@ -22,22 +22,22 @@ pnpm install @evmts/webpack --save-dev
 yarn add @evmts/webpack -D
 ```
 
-::: 
+:::
 
 ## 2. Add to webpack config
 
-The webpack plugin config takes no options.  For custom configuration add a [evmts.config.ts](../reference/config.md)
+The webpack plugin config takes no options. For custom configuration add a [evmts.config.ts](../reference/config.md)
 
 - **Example**
 
 ```ts [example.ts]
-import { webpackPluginEvmts } from '@evmts/webpack-plugin'
+import { webpackPluginEvmts } from "@evmts/webpack";
 
 /** @type {import('next').NextConfig} */
 export default {
   ...restOfConfig,
-  plugins: [webpackPluginEvmts()]
-}
+  plugins: [webpackPluginEvmts()],
+};
 ```
 
 ## 3. Configure editor support
@@ -48,10 +48,8 @@ For editor support use either the [ts-plugin](../guides/typescript) or [vscode e
 
 `pluginWebpackEvmts` allows you to import solidity files directly in your NEXT.js
 
-
 - **Examples**
 
 TODO link to next example
 
 - **See also:** [typescript docs](../guides/typescript.md)
-

@@ -1,4 +1,4 @@
-import { vitePluginEvmts } from '@evmts/vite-plugin'
+import { vitePluginEvmts } from '@evmts/vite'
 import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
 

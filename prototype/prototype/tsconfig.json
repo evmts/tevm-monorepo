@@ -2,7 +2,7 @@
   "compilerOptions": {
     "plugins": [
       {
-        "name": "@evmts/ts-plugin",
+        "name": "@evmts/ts",
       }
     ],
     "allowJs": false,

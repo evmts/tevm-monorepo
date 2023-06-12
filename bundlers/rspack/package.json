@@ -1,10 +1,10 @@
 {
-  "name": "@evmts/rspack-plugin",
+  "name": "@evmts/rspack",
   "version": "0.0.1",
   "private": false,
   "description": "An (experimental) rspack plugin for evmts",
   "keywords": [
-    "babel",
+    "rspack",
     "plugin",
     "solidity",
     "sol",

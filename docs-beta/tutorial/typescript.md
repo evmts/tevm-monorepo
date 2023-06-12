@@ -1,6 +1,6 @@
 # Tutorial
 
-To learn all the pieces of EVMts we will configure a new project from scratch.  We only assume basic TypeScript knowledge and knowledge of what a Smart Contract is
+To learn all the pieces of EVMts we will configure a new project from scratch. We only assume basic TypeScript knowledge and knowledge of what a Smart Contract is
 
 ::: info You will learn
 
@@ -17,19 +17,19 @@ Looking to get started fast? Try forking one of our example projects or using ou
 #### Create a new project
 
 1. Install [nodejs](https://nodejs.org/)
-2. Create a new project folder 
+2. Create a new project folder
 
 ```bash
 mkdir evmts-tut && cd evmts-tut && npm init
 ```
 
-3. Initialize a new npm project.  
+3. Initialize a new npm project.
 
 ```bash
 npm init --yes
 ```
 
-The `--yes` flag will skip the prompts.  Omit it if you prefer.
+The `--yes` flag will skip the prompts. Omit it if you prefer.
 
 4. Make your project a TypeScript project
 
@@ -43,7 +43,7 @@ At this point your project should look like `[TODO link to github]`
 
 #### Install Foundry
 
-We will use the [Foundry](https://book.getfoundry.sh/getting-started/installation) toolchain to deploy our contracts.  To install use `foundryup`
+We will use the [Foundry](https://book.getfoundry.sh/getting-started/installation) toolchain to deploy our contracts. To install use `foundryup`
 
 1. Install foundryup
 
@@ -64,24 +64,25 @@ Install the [typescript plugin](../configuration/typescript.md)
 ::: code-group
 
 ```bash [npm]
-npm i @evmts/ts-plugin
+npm i @evmts/ts
 ```
 
 ```bash [pnpm]
-pnpm i @evmts/ts-plugin
+pnpm i @evmts/ts
 ```
 
 ```bash [yarn]
-yarn add @evmts/ts-plugin
+yarn add @evmts/ts
 ```
+
 :::
 
 Add TypeScript plugin to [tsconfig](https://www.typescriptlang.org/tsconfig)
 
 ```json
-{ 
-  compilerOptions: {
-    plugins: ["@evmts/ts-plugin"]
+{
+  "compilerOptions": {
+    "plugins": ["@evmts/ts"]
   }
 }
 ```
@@ -90,11 +91,10 @@ Add TypeScript plugin to [tsconfig](https://www.typescriptlang.org/tsconfig)
 
 EVMts requires a bundler configured to handle `.sol` files
 
-Install your integration of preference.  This hello-world tutorial will use esbuild.
+Install your integration of preference. This hello-world tutorial will use esbuild.
 
 - [esbuild](../guides/esbuild.md)
 - [vite](../guides/vite.md)
 - [next](../guides/next.md)
 - [webpack](../guides/webpack.md)
 - [rollup](../guides/rollup.md)
-

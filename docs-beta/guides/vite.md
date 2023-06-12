@@ -24,23 +24,22 @@ pnpm install @evmts/vite --save-dev
 yarn add @evmts/cli -D
 ```
 
-::: 
+:::
 
 ## 2. Add to vite.config.ts
 
-Add to vite.config.ts.  The vite config takes no options.  For custom configuration add a [evmts.config.ts](../reference/config.md)
+Add to vite.config.ts. The vite config takes no options. For custom configuration add a [evmts.config.ts](../reference/config.md)
 
 ```typescript vite.config.ts
-import { vitePluginEvmts } from '@evmts/vite-plugin'
-import { defineConfig } from 'vite'
+import { vitePluginEvmts } from "@evmts/vite";
+import { defineConfig } from "vite";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-	plugins: [vitePluginEvmts()],
-})
+  plugins: [vitePluginEvmts()],
+});
 ```
 
 ## 3. Configure editor support
 
 For editor support use either the [ts-plugin](../tutorial/typescript) or [vscode extension](../guides/vscode)
-

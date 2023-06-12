@@ -1,5 +1,5 @@
 {
-  "name": "@evmts/rollup-plugin-legacy",
+  "name": "@evmts/rollup-legacy",
   "version": "0.0.1",
   "private": false,
   "description": "A rollup plugin for evmts",

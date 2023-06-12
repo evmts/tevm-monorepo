@@ -1,4 +1,4 @@
-const { webpackPluginEvmts } = require('@evmts/webpack-plugin');
+const { webpackPluginEvmts } = require('@evmts/webpack');
 /** @type {import('next').NextConfig} */
 module.exports = {
   reactStrictMode: true,

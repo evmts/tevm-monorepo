@@ -26,14 +26,14 @@ Internal bundler for EVMts
 
 Used in the LSP
 
-- [@evmts/ts-plugin](../../lsp/ts-plugin/)
+- [@evmts/ts](../../lsp/ts/)
 
 And all bundlers
 
-- [@evmts/esbuild-plugin](../esbuild-plugin/)
-- [@evmts/rollup-plugin](../rollup-plugin/)
-- [@evmts/vite-plugin](../vite-plugin/)
-- [@evmts/webpack-plugin](../webpack-plugin/)
+- [@evmts/](..//)
+- [@evmts/rollup](../rollup/)
+- [@evmts/vite](../vite/)
+- [@evmts/webpack](../webpack/)
 
 ## Visit [Docs](https://evmts.dev/) for docs, guides, API and more!
 

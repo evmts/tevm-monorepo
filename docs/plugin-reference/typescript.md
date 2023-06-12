@@ -9,12 +9,12 @@ For full documentumentation see [evmts docs](../../docs/introduction/get-started
 #### Installation
 
 ```bash [npm]
-npm i @evmts/rollup-plugin @evmts/ts-plugin
+npm i @evmts/rollup @evmts/ts
 ```
 
 ### Configuration
 
-- Add @evmts/ts-plugin to your `plugins` array in `compilerOptions`
+- Add @evmts/ts to your `plugins` array in `compilerOptions`
 - if `foundry.toml` config is not in the same directory as the ts-config pass in a relative path to the the project root as `project` config option
 
 ```json
@@ -22,7 +22,7 @@ npm i @evmts/rollup-plugin @evmts/ts-plugin
   "compilerOptions": {
     "plugins": [
       {
-        "name": "@evmts/ts-plugin",
+        "name": "@evmts/ts",
         "project": "./contracts"
       }
     ]

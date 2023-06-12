@@ -26,7 +26,7 @@ const foundryUnplugin = createUnplugin((options: UnpluginOptions = {}) => {
 	}
 	const pluginFoundry = pluginFactories[parsedCompiler.data](options, console)
 	return {
-		name: '@evmts/rollup-plugin',
+		name: '@evmts/rollup',
 		version: '0.0.0',
 		load(id) {
 			if (!id.endsWith('.sol')) {

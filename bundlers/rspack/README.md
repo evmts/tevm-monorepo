@@ -1,11 +1,11 @@
-# @evmts/rspack-plugin
+# @evmts/rspack
 
 A rspack plugin for importing solidity files.
 
 ## Installation
 
 ```bash
-pnpm i @evmts/rspack-plugin
+pnpm i @evmts/rspack
 ```
 
 ## Usage
@@ -17,7 +17,6 @@ TODO
 ## Usage in @evmts/core
 
 ## Usage in other libraries
-
 
 ## Autocompletion and Typesafety
 

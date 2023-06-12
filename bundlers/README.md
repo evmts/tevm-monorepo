@@ -16,13 +16,12 @@ A rollup plugin
 
 ## rspack
 
-An rspack plugin 
+An rspack plugin
 
-## vite-plugin
+## vite
 
-An vite plugin implementation 
+An vite plugin implementation
 
-## webpack-plugin
+## webpack
 
-A webpack plugin 
-
+A webpack plugin

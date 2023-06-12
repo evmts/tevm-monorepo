@@ -1,0 +1,53 @@
+{
+  "name": "@evmts/ts",
+  "version": "0.0.0",
+  "private": false,
+  "description": "A typescript plugin for evmts",
+  "keywords": [
+    "typescript",
+    "plugin",
+    "solidity",
+    "sol",
+    "evmts"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/evmts/evmts-monorepo.git",
+    "directory": "lsp/ts"
+  },
+  "license": "MIT",
+  "main": "dist/index.js",
+  "bin": {
+    "evmts-gen": "./dist/bin/evmts-gen.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "rm -rf ./dist && tsc --project tsconfig.build.json",
+    "clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
+    "dev": "TSS_DEBUG_BRK=9559 code ../../examples/forge-foundry",
+    "format": "rome format . --write",
+    "format:check": "rome format .",
+    "lint": "rome check . --apply-unsafe",
+    "lint:check": "rome check . --verbose",
+    "package:up": "pnpm up --latest",
+    "pretest": "forge build",
+    "test": "vitest",
+    "test:run": "vitest --run",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@evmts/bundler": "workspace:^",
+    "glob": "^10.2.5",
+    "zod": "^3.21.4"
+  },
+  "devDependencies": {
+    "rome": "^12.1.2",
+    "typescript": "^5.0.4",
+    "vitest": "^0.31.1"
+  },
+  "peerDependencies": {
+    "typescript": ">=5.0.0"
+  }
+}

@@ -37,8 +37,8 @@
     "wagmi": "^1.0.9"
   },
   "devDependencies": {
-    "@evmts/ts-plugin": "workspace:^",
-    "@evmts/vite-plugin": "workspace:^",
+    "@evmts/ts": "workspace:^",
+    "@evmts/vite": "workspace:^",
     "@openzeppelin/contracts": "^4.9.0",
     "@testing-library/react": "^14.0.0",
     "@types/react": "^18.2.7",

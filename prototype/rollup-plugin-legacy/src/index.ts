@@ -53,7 +53,7 @@ export const foundry = (options: FoundryOptions = {}): Plugin => {
 	let artifacts: Artifacts
 
 	return {
-		name: '@evmts/rollup-plugin',
+		name: '@evmts/rollup',
 		version: '0.0.0',
 		buildStart: async () => {
 			await buildContracts(foundryOptions)
