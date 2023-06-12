@@ -1,4 +1,4 @@
-# @evmts/solidity-resolver-legacy
+# @evmts/bundler-legacy
 
 ## 0.0.1
 

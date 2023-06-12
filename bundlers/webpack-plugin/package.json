@@ -1,9 +1,10 @@
 {
-  "name": "@evmts/bundler-legacy",
+  "name": "@evmts/webpack-plugin",
   "version": "0.0.1",
   "private": false,
-  "description": "The internal code EVMts plugins use to resolve .sol imports",
+  "description": "A webpack plugin for evmts",
   "keywords": [
+    "babel",
     "plugin",
     "solidity",
     "sol",
@@ -12,11 +13,11 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/evmts/evmts-monorepo.git",
-    "directory": "plugins/modules-legacy"
+    "directory": "packages/plugin"
   },
   "license": "MIT",
   "type": "module",
-  "main": "dist/index.js",
+  "main": "dist/index.cjs",
   "module": "dist/index.js",
   "types": "src/index.ts",
   "files": [
@@ -24,10 +25,12 @@
   ],
   "scripts": {
     "build": "tsup",
+    "clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
+    "envSchema": "ts-node src/scripts/envSchema.ts",
     "format": "rome format . --write",
     "format:check": "rome format .",
     "lint": "rome check . --apply-unsafe",
-    "//lint:check": "rome check . --verbose",
+    "lint:check": "rome check . --verbose",
     "package:up": "pnpm up --latest",
     "test": "vitest",
     "test:run": "vitest run",
@@ -35,19 +38,18 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "execa": "^7.1.1",
-    "fs-extra": "^11.1.1",
-    "globby": "^13.1.4",
-    "pathe": "^1.1.0"
+    "@evmts/bundler": "workspace:^"
   },
   "devDependencies": {
-    "@vitest/ui": "^0.31.0",
-    "rome": "^12.1.0",
+    "@vitest/ui": "^0.31.1",
+    "rome": "^12.1.2",
     "tsup": "^6.7.0",
     "typescript": "^5.0.4",
-    "vite": "^4.3.5",
-    "vitest": "^0.31.0",
-    "zod": "^3.21.4"
+    "vite": "^4.3.8",
+    "vitest": "^0.31.1"
+  },
+  "peerDependencies": {
+    "webpack": ">5.0.0"
   },
   "publishConfig": {
     "access": "public"

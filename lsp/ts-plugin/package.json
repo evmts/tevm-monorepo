@@ -38,7 +38,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@evmts/solidity-resolver": "workspace:^",
+    "@evmts/bundler": "workspace:^",
     "glob": "^10.2.5",
     "zod": "^3.21.4"
   },

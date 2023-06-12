@@ -10,6 +10,8 @@ import { Interface, defaultAbiCoder as AbiCoder } from '@ethersproject/abi'
 import { generatePrivateKey } from 'viem/accounts'
 import { optimism } from 'viem/chains'
 
+export * from './contract'
+
 type TODOInfer = any
 
 export const run = async (

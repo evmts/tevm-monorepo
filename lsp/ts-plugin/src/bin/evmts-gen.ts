@@ -1,4 +1,4 @@
-import { foundryModules } from '@evmts/solidity-resolver'
+import { foundryModules } from '@evmts/bundler'
 import { writeFile } from 'fs/promises'
 import { glob } from 'glob'
 import path from 'path'

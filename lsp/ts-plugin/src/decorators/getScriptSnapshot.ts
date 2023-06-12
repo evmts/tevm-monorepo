@@ -1,7 +1,7 @@
 import { createDecorator } from '../factories'
 import { isSolidity } from '../utils'
 import { getArtifactPathSync } from '../utils/getArtifactPathSync'
-import { solcModules } from '@evmts/solidity-resolver'
+import { solcModules } from '@evmts/bundler'
 import { existsSync } from 'fs'
 
 /**
