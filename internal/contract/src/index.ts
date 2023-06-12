@@ -26,7 +26,7 @@ export const evmtsContractFactory = <
 	abi,
 	name,
 	address,
-}): EVMtsContract<TName, TAddress, TAbi> => {
+}: Pick<EVMtsContract<TName, TAddress, TAbi>, 'name' | 'abi' | 'address'>): EVMtsContract<TName, TAddress, TAbi> => {
 	const methods = abi.filter((field: any) => {
 		return field.type === 'function'
 	})
