@@ -5,7 +5,7 @@ New to EVMts?
 
 - [Read the introduction](../getting-started/introduction.md)
 - [Try out our beginners tutorial](../tutorial/overview.md)
-- [![Play with a live demo StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz_small.svg)](https://stackblitz.com/github/evmts/evmts-monorepo?configPath=examples/vite)
+- [Try the live online demo](https://stackblitz.com/github/evmts/evmts-monorepo?configPath=examples/vite)
 :::
 
 ## Starting a new project with EVMts
