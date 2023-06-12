@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
+    "// typecheck": "tsc --noEmit",
     "build": "vite build",
     "build:contracts": "forge build",
     "clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
@@ -17,8 +18,7 @@
     "preview": "vite preview",
     "rome": "^12.1.2",
     "serve": "serve -s -l tcp://0.0.0.0:5173 dist",
-    "test": "vitest",
-    "// typecheck": "tsc --noEmit"
+    "test": "vitest"
   },
   "dependencies": {
     "@evmts/config": "workspace:^",
