@@ -2,31 +2,27 @@
 
 Build plugins for evmts
 
-## esbuild-plugin
+## bundler
 
-Esbuild plugin for evmts build with @evmts/bundler
+Internal solidity bundler used to build all the other plugins and the [language server tools](../lsp/)
 
-## solidity-resolver
+## esbuild
 
-Generates modules from solidity file paths.
-Used internally to build all the plugins
+Esbuild plugin
 
-## rollup-plugin
+## rollup
 
-A rollup plugin for evmts built with @evmts/bundler
+A rollup plugin
 
-## ts-plugin
+## rspack
 
-A typescript language server plugin built with @evmts/bundler
-
-## unplugin
-
-An internal plugin implementation built with @evmts/bundler
+An rspack plugin 
 
 ## vite-plugin
 
-An vite plugin implementation built with @evmts/bundler
+An vite plugin implementation 
 
 ## webpack-plugin
 
-A webpack plugin built with @evmts/bundler
+A webpack plugin 
+
