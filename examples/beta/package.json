@@ -21,8 +21,8 @@
     "test": "vitest"
   },
   "dependencies": {
-    "@evmts/config": "workspace:^",
     "@evmts/bundler": "workspace:^",
+    "@evmts/config": "workspace:^",
     "@evmts/contracts": "^0.0.1",
     "@evmts/core": "workspace:^0.0.3",
     "@rainbow-me/rainbowkit": "^1.0.1",
