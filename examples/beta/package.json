@@ -39,7 +39,7 @@
   "devDependencies": {
     "@evmts/ts-plugin": "workspace:^",
     "@evmts/vite-plugin": "workspace:^",
-    "@openzeppelin/contracts": "^4.9.0",
+    "@openzeppelin/contracts": "^4.9.1",
     "@testing-library/react": "^14.0.0",
     "@types/react": "^18.2.7",
     "@types/react-dom": "^18.2.4",

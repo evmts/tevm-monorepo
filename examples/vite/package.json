@@ -22,7 +22,7 @@
     "@babel/core": "^7.22.1",
     "@evmts/bundler": "workspace:^",
     "@evmts/core": "workspace:^0.0.3",
-    "@openzeppelin/contracts": "^4.9.0",
+    "@openzeppelin/contracts": "^4.9.1",
     "@tanstack/query-core": "^4.29.11",
     "@tanstack/react-query": "^4.29.12",
     "@types/testing-library__jest-dom": "^5.14.6",
