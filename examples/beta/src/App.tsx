@@ -1,6 +1,7 @@
 import { ConnectButton } from '@rainbow-me/rainbowkit'
 import { useAccount } from 'wagmi'
 
+import { Counter } from './Counter'
 import { Account } from './components/Account'
 import { Balance } from './components/Balance'
 import { BlockNumber } from './components/BlockNumber'
@@ -34,6 +35,10 @@ export function App() {
 					<hr />
 					<h2>Account</h2>
 					<Account />
+					<br />
+					<hr />
+					<h2>Counter</h2>
+					<Counter />
 					<br />
 					<hr />
 					<h2>Balance</h2>

@@ -1,5 +1,11 @@
 import { Counter as CounterContract } from './contracts/Counter.sol'
+import { useContractRead } from 'wagmi'
 
 export const Counter = () => {
-	return <div>Counter</div>
+	const { data, error, isLoading, isSuccess } = useContractRead({
+		...CounterContract.count(),
+		// enabled: Boolean(address),
+	})
+	console.log({ data, error, isLoading, isSuccess })
+	return <div>{data as any}</div>
 }
