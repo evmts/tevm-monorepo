@@ -5,6 +5,7 @@ packages:
   - "docs-beta"
   - "e2e"
   - "examples/*"
+  - "internal/*"
   - "plugins/*"
   - "prototype/*"
   - "lsp/*"
