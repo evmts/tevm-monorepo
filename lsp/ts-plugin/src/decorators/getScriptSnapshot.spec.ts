@@ -64,9 +64,9 @@ describe(getScriptSnapshotDecorator.name, () => {
 		const result = decorator.getScriptSnapshot(fileName)
 		expect((result as any).text).toMatchInlineSnapshot(`
 			"import { EVMtsContract, evmtsContractFactory } from '@evmts/contract'
-			const _HelloWorld = {\\"name\\":\\"HelloWorld\\",\\"abi\\":\\"[{\\\\\\"inputs\\\\\\":[],\\\\\\"name\\\\\\":\\\\\\"greet\\\\\\",\\\\\\"outputs\\\\\\":[{\\\\\\"internalType\\\\\\":\\\\\\"string\\\\\\",\\\\\\"name\\\\\\":\\\\\\"\\\\\\",\\\\\\"type\\\\\\":\\\\\\"string\\\\\\"}],\\\\\\"stateMutability\\\\\\":\\\\\\"pure\\\\\\",\\\\\\"type\\\\\\":\\\\\\"function\\\\\\"}]\\"} as const
+			const _HelloWorld = {\\"name\\":\\"HelloWorld\\",\\"abi\\":[{\\"inputs\\":[],\\"name\\":\\"greet\\",\\"outputs\\":[{\\"internalType\\":\\"string\\",\\"name\\":\\"\\",\\"type\\":\\"string\\"}],\\"stateMutability\\":\\"pure\\",\\"type\\":\\"function\\"}]} as const
 			export const HelloWorld = evmtsContractFactory(_HelloWorld)
-			const _HelloWorld2 = {\\"name\\":\\"HelloWorld2\\",\\"abi\\":\\"[{\\\\\\"inputs\\\\\\":[],\\\\\\"name\\\\\\":\\\\\\"greet2\\\\\\",\\\\\\"outputs\\\\\\":[{\\\\\\"internalType\\\\\\":\\\\\\"string\\\\\\",\\\\\\"name\\\\\\":\\\\\\"\\\\\\",\\\\\\"type\\\\\\":\\\\\\"string\\\\\\"}],\\\\\\"stateMutability\\\\\\":\\\\\\"pure\\\\\\",\\\\\\"type\\\\\\":\\\\\\"function\\\\\\"}]\\"} as const
+			const _HelloWorld2 = {\\"name\\":\\"HelloWorld2\\",\\"abi\\":[{\\"inputs\\":[],\\"name\\":\\"greet2\\",\\"outputs\\":[{\\"internalType\\":\\"string\\",\\"name\\":\\"\\",\\"type\\":\\"string\\"}],\\"stateMutability\\":\\"pure\\",\\"type\\":\\"function\\"}]} as const
 			export const HelloWorld2 = evmtsContractFactory(_HelloWorld2)"
 		`)
 	})
