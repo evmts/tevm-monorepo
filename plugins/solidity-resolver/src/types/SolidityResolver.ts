@@ -15,14 +15,6 @@ export type SolidityResolver<TConfig> = (
 	include?: string[]
 	exclude?: string[]
 	/**
-	 * Resolves json representation of the solidity module
-	 */
-	resolveJson: (module: string, basedir: string) => Promise<string>
-	/**
-	 * Resolves json representation of the solidity module
-	 */
-	resolveJsonSync: (module: string, basedir: string) => string
-	/**
 	 * Resolves .d.ts representation of the solidity module
 	 */
 	resolveDts: (module: string, basedir: string) => Promise<string>

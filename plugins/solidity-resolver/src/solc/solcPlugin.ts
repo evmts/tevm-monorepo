@@ -4,7 +4,6 @@ import { Logger } from '../types'
 // import { FoundryToml } from '../types/FoundryToml'
 import { ModuleInfo, moduleFactory } from './moduleFactory'
 import { readFileSync } from 'fs'
-import { basename } from 'path'
 import * as resolve from 'resolve'
 // TODO wrap this in a typesafe version
 // @ts-ignore
@@ -14,7 +13,6 @@ import solc from 'solc'
 function compileContractSync(
 	filePath: string,
 	basedir: string,
-	contractName: string,
 ): solc.CompiledContract | undefined {
 	const source: string = readFileSync(
 		resolve.sync(filePath, {
@@ -59,20 +57,20 @@ function compileContractSync(
 		solc.compile(JSON.stringify(input)),
 	)
 
-	const warnings = output.errors.filter(
+	const warnings = output?.errors?.filter(
 		({ type }: { type: 'Warning' | 'Error' }) => type === 'Warning',
 	)
-	const isErrors = output.errors.length > warnings.length
+	const isErrors = output?.errors?.length > warnings?.length
 
 	if (isErrors) {
-		console.error('Compilation errors:', output.errors)
+		console.error('Compilation errors:', output?.errors)
 		throw new Error('Compilation failed')
 	}
-	if (warnings.length) {
-		console.warn('Compilation warnings:', output.errors)
+	if (warnings?.length) {
+		console.warn('Compilation warnings:', output?.errors)
 	}
 
-	return output.contracts[entryModule.id][contractName]
+	return output.contracts[entryModule.id]
 }
 
 // Remove writeFileSync and readFileSync, instead, keep artifacts in memory
@@ -80,26 +78,29 @@ const resolveArtifactsSync = (
 	solFile: string,
 	basedir: string,
 	logger: Logger,
-): { contractName: string; abi: any; bytecode: string } | undefined => {
+):
+	| Record<string, { contractName: string; abi: any; bytecode: string }>
+	| undefined => {
 	// Compile the contract
 	if (!solFile.endsWith('.sol')) {
 		throw new Error('Not a solidity file')
 	}
-	const contractName = solFile.endsWith('.s.sol')
-		? basename(solFile, '.s.sol')
-		: basename(solFile, '.sol')
-	const contract = compileContractSync(solFile, basedir, contractName)
+	const contracts = compileContractSync(solFile, basedir)
 
-	if (!contract) {
+	if (!contracts) {
 		logger.error(`Compilation failed for ${solFile}`)
 		throw new Error('Compilation failed')
 	}
 
-	// Keep artifacts in memory
-	const abi = JSON.stringify(contract.abi)
-	const bytecode = contract.evm.bytecode.object
+	return Object.fromEntries(
+		Object.entries(contracts).map(([contractName, contract]) => {
+			// Keep artifacts in memory
+			const abi = JSON.stringify((contract as any).abi)
+			const bytecode = (contract as any).evm.bytecode.object
 
-	return { contractName, abi, bytecode }
+			return [contractName, { contractName, abi, bytecode }]
+		}),
+	)
 }
 
 const resolveArtifacts = async (
@@ -107,90 +108,141 @@ const resolveArtifacts = async (
 	basedir: string,
 	logger: Logger,
 ): Promise<
-	{ contractName: string; abi: any; bytecode: string } | undefined
+	| Record<string, { contractName: string; abi: any; bytecode: string }>
+	| undefined
 > => {
 	return resolveArtifactsSync(solFile, basedir, logger)
 }
 
+// type Address = `0x${string}`
+// type AddressMap = Record<string, Address>
+
 // Refactor all methods in the solcModules object to use the revised resolveArtifactsSync function.
-export const solcModules: FoundryResolver = (config, logger) => {
+// TODO add address resolution
+export const solcModules: FoundryResolver = (
+	config,
+	logger /*, addresses: AddressMap*/,
+) => {
 	return {
 		name: solcModules.name,
 		config,
 		resolveDts: async (module, basedir) => {
 			const artifacts = await resolveArtifacts(module, basedir, logger)
 			if (artifacts) {
-				const { contractName, abi } = artifacts
-				return [
-					`const _${contractName} = ${abi} as const`,
-					`export declare const ${contractName}: typeof _${contractName}`,
-				].join('\n')
+				const evmtsImports = `import { EVMtsContract, evmtsContractFactory } from '@evmts/contract'`
+				const evmtsBody = Object.entries(artifacts)
+					.flatMap(([contractName, { abi }]) => {
+						const config = JSON.stringify({
+							name: contractName,
+							abi,
+						})
+						return [
+							`const _${contractName} = ${config} as const`,
+							`export const ${contractName} = evmtsContractFactory(_${contractName})`,
+						]
+					})
+					.join('\n')
+				return [evmtsImports, evmtsBody].join('\n')
 			}
 			return ''
 		},
 		resolveDtsSync: (module, basedir) => {
 			const artifacts = resolveArtifactsSync(module, basedir, logger)
 			if (artifacts) {
-				const { contractName, abi } = artifacts
-				return [
-					`const _${contractName} = ${abi} as const`,
-					`export declare const ${contractName}: typeof _${contractName}`,
-				].join('\n')
+				const evmtsImports = `import { EVMtsContract, evmtsContractFactory } from '@evmts/contract'`
+				const evmtsBody = Object.entries(artifacts)
+					.flatMap(([contractName, { abi }]) => {
+						const config = JSON.stringify({
+							name: contractName,
+							abi,
+						})
+						return [
+							`const _${contractName} = ${config} as const`,
+							`export const ${contractName} = evmtsContractFactory(_${contractName})`,
+						]
+					})
+					.join('\n')
+				return [evmtsImports, evmtsBody].join('\n')
 			}
 			return ''
 		},
-
-		resolveJsonSync: (module, basedir) => {
-			const artifacts = resolveArtifactsSync(module, basedir, logger)
-			if (artifacts) {
-				const { contractName, abi, bytecode } = artifacts
-				return JSON.stringify({
-					[contractName]: { abi: abi, bytecode: bytecode },
-				})
-			}
-			return ''
-		},
-		resolveJson: async (module, basedir) => {
-			const artifacts = resolveArtifactsSync(module, basedir, logger)
-			if (artifacts) {
-				const { contractName, abi, bytecode } = artifacts
-				return JSON.stringify({
-					[contractName]: { abi: abi, bytecode: bytecode },
-				})
-			}
-			return ''
-		},
-
 		resolveTsModuleSync: (module, basedir) => {
 			const artifacts = resolveArtifactsSync(module, basedir, logger)
 			if (artifacts) {
-				const { contractName, abi } = artifacts
-				return `export const ${contractName} = ${abi} as const`
+				const evmtsImports = `import { EVMtsContract, evmtsContractFactory } from '@evmts/contract'`
+				const evmtsBody = Object.entries(artifacts)
+					.flatMap(([contractName, { abi }]) => {
+						const config = JSON.stringify({
+							name: contractName,
+							abi,
+						})
+						return [
+							`const _${contractName} = ${config} as const`,
+							`export const ${contractName} = evmtsContractFactory(_${contractName})`,
+						]
+					})
+					.join('\n')
+				return [evmtsImports, evmtsBody].join('\n')
 			}
 			return ''
 		},
-
 		resolveTsModule: async (module, basedir) => {
-			const artifacts = resolveArtifactsSync(module, basedir, logger)
+			const artifacts = await resolveArtifacts(module, basedir, logger)
 			if (artifacts) {
-				const { contractName, abi } = artifacts
-				return `export const ${contractName} = ${abi} as const`
+				const evmtsImports = `import { EVMtsContract, evmtsContractFactory } from '@evmts/contract'`
+				const evmtsBody = Object.entries(artifacts)
+					.flatMap(([contractName, { abi }]) => {
+						const config = JSON.stringify({
+							name: contractName,
+							abi,
+						})
+						return [
+							`const _${contractName} = ${config} as const`,
+							`export const ${contractName} = evmtsContractFactory(_${contractName})`,
+						]
+					})
+					.join('\n')
+				return [evmtsImports, evmtsBody].join('\n')
 			}
 			return ''
 		},
 		resolveCjsModuleSync: (module, basedir) => {
 			const artifacts = resolveArtifactsSync(module, basedir, logger)
 			if (artifacts) {
-				const { contractName, abi } = artifacts
-				return `module.exports.${contractName} = ${abi}`
+				const evmtsImports = `const { EVMtsContract, evmtsContractFactory } = require('@evmts/contract')`
+				const evmtsBody = Object.entries(artifacts)
+					.flatMap(([contractName, { abi }]) => {
+						const config = JSON.stringify({
+							name: contractName,
+							abi,
+						})
+						return [
+							`const _${contractName} = ${config}`,
+							`module.exports.${contractName} = evmtsContractFactory(_${contractName})`,
+						]
+					})
+					.join('\n')
+				return [evmtsImports, evmtsBody].join('\n')
 			}
 			return ''
 		},
 		resolveCjsModule: async (module, basedir) => {
-			const artifacts = resolveArtifactsSync(module, basedir, logger)
+			const artifacts = await resolveArtifacts(module, basedir, logger)
 			if (artifacts) {
-				const { contractName, abi } = artifacts
-				return `module.exports.${contractName} = ${abi}`
+				const evmtsImports = `const { EVMtsContract, evmtsContractFactory } = require('@evmts/contract')`
+				const evmtsBody = Object.entries(artifacts)
+					.flatMap(([contractName, { abi }]) => {
+						const config = JSON.stringify({
+							name: contractName,
+							abi,
+						})
+						return [
+							`const _${contractName} = ${config}`,
+							`module.exports.${contractName} = evmtsContractFactory(_${contractName})`,
+						]
+					})
+					.join('\n')
+				return [evmtsImports, evmtsBody].join('\n')
 			}
 			return ''
 		},
@@ -198,16 +250,40 @@ export const solcModules: FoundryResolver = (config, logger) => {
 		resolveEsmModuleSync: (module, basedir) => {
 			const artifacts = resolveArtifactsSync(module, basedir, logger)
 			if (artifacts) {
-				const { contractName, abi } = artifacts
-				return `export const ${contractName} = ${abi}`
+				const evmtsImports = `import { EVMtsContract, evmtsContractFactory } from '@evmts/contract'`
+				const evmtsBody = Object.entries(artifacts)
+					.flatMap(([contractName, { abi }]) => {
+						const config = JSON.stringify({
+							name: contractName,
+							abi,
+						})
+						return [
+							`const _${contractName} = ${config}`,
+							`export const ${contractName} = evmtsContractFactory(_${contractName})`,
+						]
+					})
+					.join('\n')
+				return [evmtsImports, evmtsBody].join('\n')
 			}
 			return ''
 		},
 		resolveEsmModule: async (module, basedir) => {
-			const artifacts = resolveArtifactsSync(module, basedir, logger)
+			const artifacts = await resolveArtifacts(module, basedir, logger)
 			if (artifacts) {
-				const { contractName, abi } = artifacts
-				return `export const ${contractName} = ${abi}`
+				const evmtsImports = `import { EVMtsContract, evmtsContractFactory } from '@evmts/contract'`
+				const evmtsBody = Object.entries(artifacts)
+					.flatMap(([contractName, { abi }]) => {
+						const config = JSON.stringify({
+							name: contractName,
+							abi,
+						})
+						return [
+							`const _${contractName} = ${config}`,
+							`export const ${contractName} = evmtsContractFactory(_${contractName})`,
+						]
+					})
+					.join('\n')
+				return [evmtsImports, evmtsBody].join('\n')
 			}
 			return ''
 		},
