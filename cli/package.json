@@ -1,8 +1,8 @@
 {
-  "name": "@evmts/config",
+  "name": "@evmts/cli",
   "version": "0.0.0",
   "private": false,
-  "description": "Manages config for evmts",
+  "description": "Cli for code generation and other EVMts functionality",
   "keywords": [
     "solidity",
     "forge",
@@ -15,13 +15,16 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/evmts/evmts-monorepo.git",
-    "directory": "config"
+    "directory": "cli"
   },
   "license": "MIT",
   "type": "module",
   "main": "dist/index.cjs",
   "module": "dist/index.js",
   "types": "src/index.ts",
+  "bin": {
+    "evmts": "dist/index.js"
+  },
   "files": [
     "dist"
   ],
