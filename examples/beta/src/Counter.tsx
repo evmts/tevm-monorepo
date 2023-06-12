@@ -3,7 +3,7 @@ import { useContractRead } from 'wagmi'
 
 export const Counter = () => {
 	const { data, error, isLoading, isSuccess } = useContractRead({
-		...CounterContract.count(),
+		...CounterContract.read.count(),
 		// enabled: Boolean(address),
 	})
 	console.log({ data, error, isLoading, isSuccess })
