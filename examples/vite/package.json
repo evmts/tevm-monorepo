@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "@babel/core": "^7.22.1",
-    "@evmts/contract": "workspace:^",
+    "@evmts/bundler": "workspace:^",
     "@evmts/core": "workspace:^0.0.3",
     "@openzeppelin/contracts": "^4.9.0",
     "@tanstack/query-core": "^4.29.11",
