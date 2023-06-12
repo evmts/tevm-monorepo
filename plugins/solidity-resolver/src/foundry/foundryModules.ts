@@ -6,6 +6,8 @@ import { readFile } from 'fs/promises'
 import { glob, globSync } from 'glob'
 import { basename, join } from 'path'
 
+// TODO make this match solc
+
 const resolveArtifactPathsSync = (
 	solFile: string,
 	projectDir: string,
@@ -61,9 +63,10 @@ export const foundryModules: FoundryResolver = (config, logger) => {
 						?.replace('.json', '')
 					const contractJson = await readFile(artifactPath, 'utf-8')
 					return [
-						`const _${contractName} = ${contractJson} as const`,
-						`export declare const ${contractName}: typeof _${contractName}`,
-					]
+						`import { EVMtsContract } from '@evmts/contract'`,
+						`const _${contractName} = ${contractJson}.abi as const`,
+						`export declare const ${contractName}: EVMtsContract<typeof _${contractName}>`,
+					].join('\n')
 				}),
 			)
 			return exports.flat().join('\n')
@@ -82,47 +85,12 @@ export const foundryModules: FoundryResolver = (config, logger) => {
 						?.replace('.json', '')
 					const contractJson = readFileSync(artifactPath, 'utf-8')
 					return [
-						`const _${contractName} = ${contractJson} as const`,
-						`export declare const ${contractName}: typeof _${contractName}`,
-					]
+						`import { EVMtsContract } from '@evmts/contract'`,
+						`const _${contractName} = ${contractJson}.abi as const`,
+						`export declare const ${contractName}: EVMtsContract<typeof _${contractName}>`,
+					].join('\n')
 				})
 				.join('\n')
-		},
-		resolveJson: async (module) => {
-			const artifactPaths = await resolveArtifactPaths(
-				module,
-				config.project ?? '.',
-				{ out: config.out },
-				logger,
-			)
-			const entries = await Promise.all(
-				artifactPaths.map(async (artifactPath) => {
-					const contractName = artifactPath
-						.split('/')
-						.at(-1)
-						?.replace('.json', '')
-					const contractJson = await readFile(artifactPath, 'utf-8')
-					return [contractName, contractJson]
-				}),
-			)
-			return Object.fromEntries(entries)
-		},
-		resolveJsonSync: (module) => {
-			return Object.entries(
-				resolveArtifactPathsSync(
-					module,
-					config.project ?? '.',
-					{ out: config.out },
-					logger,
-				).map((artifactPath) => {
-					const contractName = artifactPath
-						.split('/')
-						.at(-1)
-						?.replace('.json', '')
-					const contractJson = readFileSync(artifactPath, 'utf-8')
-					return [contractName, contractJson]
-				}),
-			).join('\n')
 		},
 		resolveTsModule: async (module) => {
 			const artifactPaths = await resolveArtifactPaths(
