@@ -26,6 +26,8 @@ pnpm install @evmts/cli --save-dev
 yarn add @evmts/cli -D
 ```
 
+::: 
+
 - **Configure EVMts**
 
 Run `init` command to generate a configuration file
