@@ -1,5 +1,5 @@
 {
-  "name": "@evmts/vite",
+  "name": "@evmts/example-vite",
   "version": "0.0.2",
   "private": true,
   "type": "module",
