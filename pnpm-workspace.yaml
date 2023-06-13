@@ -1,4 +1,5 @@
 packages:
+  - "cli"
   - "core"
   - "config"
   - "docs"
