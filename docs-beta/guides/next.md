@@ -45,7 +45,7 @@ module.exports = {
 
 ## 3. Configure editor support
 
-For editor support use either the [TypeScript plugin](../guides/typescript) or [vscode extension](../guides/vscode)
+For editor support use either the [TypeScript plugin](../tutorial/typescript.md) or [vscode extension](../guides/vscode.md)
 
 - **Details**
 
@@ -55,4 +55,4 @@ For editor support use either the [TypeScript plugin](../guides/typescript) or [
 
 TODO link to next example
 
-- **See also:** [typescript docs](../guides/typescript.md)
+- **See also:** [typescript docs](../tutorial/typescript.md)
