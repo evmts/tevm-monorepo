@@ -1,5 +1,5 @@
 {
-  "name": "evmts",
+  "name": "@evmts/vscode",
   "displayName": "vscode",
   "description": "EVMts language support for vscode",
   "version": "0.0.1",
