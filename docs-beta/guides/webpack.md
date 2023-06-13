@@ -42,7 +42,7 @@ export default {
 
 ## 3. Configure editor support
 
-For editor support use either the [ts-plugin](../guides/typescript) or [vscode extension](../guides/vscode)
+For editor support use either the [ts-plugin](../tutorial/typescript.md) or [vscode extension](../guides/vscode.md)
 
 - **Details**
 
@@ -53,5 +53,4 @@ For editor support use either the [ts-plugin](../guides/typescript) or [vscode e
 
 TODO link to next example
 
-- **See also:** [typescript docs](../guides/typescript.md)
-
+- **See also:** [typescript docs](../tutorial/typescript.md)
