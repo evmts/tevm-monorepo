@@ -244,6 +244,34 @@ importers:
         specifier: ^3.21.4
         version: 3.21.4
 
+  bundlers/rspack:
+    dependencies:
+      '@evmts/bundler':
+        specifier: workspace:^
+        version: link:../bundler
+      webpack:
+        specifier: '>5.0.0'
+        version: 5.1.0
+    devDependencies:
+      '@vitest/ui':
+        specifier: ^0.31.1
+        version: 0.31.1(vitest@0.31.3)
+      rome:
+        specifier: ^12.1.2
+        version: 12.1.3
+      tsup:
+        specifier: ^6.7.0
+        version: 6.7.0(ts-node@10.9.1)(typescript@5.0.4)
+      typescript:
+        specifier: ^5.0.4
+        version: 5.0.4
+      vite:
+        specifier: ^4.3.8
+        version: 4.3.9(@types/node@20.2.1)
+      vitest:
+        specifier: ^0.31.1
+        version: 0.31.3(@vitest/ui@0.31.1)
+
   bundlers/vite-plugin:
     dependencies:
       '@evmts/bundler':
@@ -1332,7 +1360,7 @@ packages:
       '@babel/compat-data': 7.21.7
       '@babel/core': 7.21.8
       '@babel/helper-validator-option': 7.21.0
-      browserslist: 4.21.5
+      browserslist: 4.21.7
       lru-cache: 5.1.1
       semver: 6.3.0
 
@@ -6413,7 +6441,7 @@ packages:
   /@vitest/spy@0.31.1:
     resolution: {integrity: sha512-1cTpt2m9mdo3hRLDyCG2hDQvRrePTDgEJBFQQNz1ydHHZy03EiA6EpFxY+7ODaY7vMRCie+WlFZBZ0/dQWyssQ==}
     dependencies:
-      tinyspy: 2.1.0
+      tinyspy: 2.1.1
     dev: true
 
   /@vitest/spy@0.31.3:
@@ -8495,16 +8523,6 @@ packages:
 
   /browser-stdout@1.3.1:
     resolution: {integrity: sha512-qhAVI1+Av2X7qelOfAIYwXONood6XlZE/fXaBSmW/T5SzLAmCgzi+eiWE7fUvbHaeNBQH13UftjpXxsfLkMpgw==}
-
-  /browserslist@4.21.5:
-    resolution: {integrity: sha512-tUkiguQGW7S3IhB7N+c2MV/HZPSCPAAiYBZXLsBhFB/PCy6ZKKsZrmBayHV9fdGV/ARIfJ14NkxKzRDjvp7L6w==}
-    engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
-    hasBin: true
-    dependencies:
-      caniuse-lite: 1.0.30001492
-      electron-to-chromium: 1.4.416
-      node-releases: 2.0.12
-      update-browserslist-db: 1.0.11(browserslist@4.21.5)
 
   /browserslist@4.21.7:
     resolution: {integrity: sha512-BauCXrQ7I2ftSqd2mvKHGo85XR0u7Ru3C/Hxsy/0TkfCtjrmAbPdzLGasmoiBxplpDXlPvdjX9u7srIMfgasNA==}
@@ -15239,11 +15257,6 @@ packages:
     engines: {node: '>=14.0.0'}
     dev: true
 
-  /tinyspy@2.1.0:
-    resolution: {integrity: sha512-7eORpyqImoOvkQJCSkL0d0mB4NHHIFAy4b1u8PHdDa7SjGS2njzl6/lyGoZLm+eyYEtlUmFGE0rFj66SWxZgQQ==}
-    engines: {node: '>=14.0.0'}
-    dev: true
-
   /tinyspy@2.1.1:
     resolution: {integrity: sha512-XPJL2uSzcOyBMky6OFrusqWlzfFrXtE0hPuMgW8A2HmaqrPo4ZQHRN/V0QXN3FSjKxpsbRrFc5LI7KOwBsT1/w==}
     engines: {node: '>=14.0.0'}
@@ -15447,7 +15460,7 @@ packages:
       execa: 5.1.1
       globby: 11.1.0
       joycon: 3.1.1
-      postcss-load-config: 3.1.4(postcss@8.4.23)(ts-node@10.9.1)
+      postcss-load-config: 3.1.4(postcss@8.4.24)(ts-node@10.9.1)
       resolve-from: 5.0.0
       rollup: 3.23.0
       source-map: 0.8.0-beta.0
@@ -15660,16 +15673,6 @@ packages:
     resolution: {integrity: sha512-KK8xQ1mkzZeg9inewmFVDNkg3l5LUhoq9kN6iWYB/CC9YMG8HA+c1Q8HwDe6dEX7kErrEVNVBO3fWsVq5iDgtw==}
     engines: {node: '>=8'}
     dev: true
-
-  /update-browserslist-db@1.0.11(browserslist@4.21.5):
-    resolution: {integrity: sha512-dCwEFf0/oT85M1fHBg4F0jtLwJrutGoHSQXCh7u4o2t1drG+c0a9Flnqww6XUKSfQMPpJBRjU8d4RXB09qtvaA==}
-    hasBin: true
-    peerDependencies:
-      browserslist: '>= 4.21.0'
-    dependencies:
-      browserslist: 4.21.5
-      escalade: 3.1.1
-      picocolors: 1.0.0
 
   /update-browserslist-db@1.0.11(browserslist@4.21.7):
     resolution: {integrity: sha512-dCwEFf0/oT85M1fHBg4F0jtLwJrutGoHSQXCh7u4o2t1drG+c0a9Flnqww6XUKSfQMPpJBRjU8d4RXB09qtvaA==}

@@ -1,0 +1,57 @@
+{
+  "name": "@evmts/rspack-plugin",
+  "version": "0.0.1",
+  "private": false,
+  "description": "An (experimental) rspack plugin for evmts",
+  "keywords": [
+    "babel",
+    "plugin",
+    "solidity",
+    "sol",
+    "evmts"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/evmts/evmts-monorepo.git",
+    "directory": "bundlers/rspack"
+  },
+  "license": "MIT",
+  "type": "module",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "src/index.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
+    "envSchema": "ts-node src/scripts/envSchema.ts",
+    "format": "rome format . --write",
+    "format:check": "rome format .",
+    "lint": "rome check . --apply-unsafe",
+    "lint:check": "rome check . --verbose",
+    "package:up": "pnpm up --latest",
+    "test": "vitest",
+    "test:run": "vitest run",
+    "test:ui": "vitest --ui",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@evmts/bundler": "workspace:^"
+  },
+  "devDependencies": {
+    "@vitest/ui": "^0.31.1",
+    "rome": "^12.1.2",
+    "tsup": "^6.7.0",
+    "typescript": "^5.0.4",
+    "vite": "^4.3.8",
+    "vitest": "^0.31.1"
+  },
+  "peerDependencies": {
+    "webpack": ">5.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
