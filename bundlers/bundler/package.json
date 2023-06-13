@@ -1,7 +1,7 @@
 {
   "name": "@evmts/bundler",
   "version": "0.0.0",
-  "private": true,
+  "private": false,
   "description": "Internal bundler for EVMts",
   "keywords": [
     "solidity",
