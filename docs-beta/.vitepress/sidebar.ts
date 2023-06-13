@@ -26,8 +26,8 @@ export const sidebar: DefaultTheme.Sidebar = [
 	},
 	{
 		text: 'Wagmi Usage',
-		link: '/wagmi/overview',
 		items: [
+			{ text: 'overview', link: '/wagmi/overview' },
 			{ text: 'useContractRead', link: '/wagmi/use-contract-read' },
 			{ text: 'useContractWrite', link: '/wagmi/use-contract-write' },
 		],
@@ -52,7 +52,6 @@ export const sidebar: DefaultTheme.Sidebar = [
 	},
 	{
 		text: 'Bundler Configuration',
-		collapsed: true,
 		items: [
 			{
 				text: 'ESBuild',
@@ -77,6 +76,19 @@ export const sidebar: DefaultTheme.Sidebar = [
 			{
 				text: 'Webpack',
 				link: '/guides/Webpack',
+			},
+		],
+	},
+	{
+		text: 'TypeScript Configuration',
+		items: [
+			{
+				text: 'TypeScript',
+				link: '/guides/typescript',
+			},
+			{
+				text: 'VSCode',
+				link: '/guides/vscode',
 			},
 		],
 	},
