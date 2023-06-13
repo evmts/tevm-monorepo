@@ -27,27 +27,46 @@
 
 _🏗️🚧 EVMts is a work in progress_
 
-EVMts enables direct evm execution clientside with forge cheat codes and direct solidity file imports.
+EVMts core enables direct evm execution clientside with forge cheat codes 
+
+EVMts imports enable a streamlined dev experience with direct solidity imports and integration with Wagmi
 
 ## Visit [Docs](https://evmts.dev/) for docs, guides, API and more! 📄
 
 ## See [EVMts Beta project board](https://github.com/orgs/evmts/projects/1) for progress on the upcoming beta release! 💥
 
-## NPM Packages 📦
+## Runtime libraries 📦
 
-- [core/](/core) core evmts library
-- [plugins/\*](/plugins) build plugins for evmts
-  - [@evmts/esbuild-plugin](/plugins/esbuild-plugin)
-  - [@evmts/rollup-plugin](/plugins/rollup-plugin)
-  - [@evmts/ts-plugin](/plugins/ts-plugin)
-  - [@evmts/vite-plugin](/plugins/vite-plugin)
-  - [@evmts/webpack-plugin](/plugins/webpack-plugin)
+- [core/](/core) - core evmts library
+- [config/](/config) - Tooling for configuring an `evmts.config.ts` file
+
+## Bundlers
+
+Bundlers such as Rollup, Webpack, or Vite are used By JavaScript tools to control the import graph of JavaScript projects.   This is how `EVMts contract imports` are able to work seemlessly.
+
+Bundlers are provided for all major tools.   If yours is not supported consider opening an issue.
+
+All bundlers are in the [bundlers/\*](/bundlers) folder
+
+- [@evmts/esbuild-plugin](/bundlers/esbuild-plugin) 
+- [@evmts/rollup-plugin](/bundlers/rollup-plugin)
+- [@evmts/rspack](/bundlers/rspack)
+- [@evmts/vite-plugin](/bundlers/vite-plugin)
+- [@evmts/webpack-plugin](/bundlers/webpack-plugin)
+
+## Language server tools
+
+The language service protocol is how tools such as VSCode and Neovim are able to provide features such as autocomplete, information on hover, autoimports, and more. EVMts language service tools brings this functionality to TypeScript for contracts.
+
+Also included are tools for typechecking code and code generation for those using EVMts without a bundler
+
+- [@evmts/ts-plugin](./lsp/ts-plugin/) - Typescript Server Plugin for decorating the TypeScript language server with additional functionality
+- [@evmts/vscode](./lsp/ts-plugin/) - A work-in-progress vscode plugin for EVMts
 
 ## Apps 📦
 
-- [@evmts/docs](/docs) [Documentation site](https://evmts.dev)
-- [@evmts/e2e](/e2e) E2E tests that run against the examples
-- [examples/](/examples) Example apps of evmts
+- [@evmts/docs](/docs) Future documentation site.   Contains lots of unimplemented features such as a clientside VM
+- [examples/*](/examples) Current [documentation site](https://evmts.dev) for EVMts Imports Beta
 
 #### Example apps
 
@@ -70,6 +89,12 @@ See [docs/monorepo](/docs/monorepo.md) for documentation on how to execute the m
 See [docs/contributing](/docs/contributing.md) for documentation on how to contribute to evmts. No contribution is too small
 
 ## Basic usage ✨
+
+**Note: Scripting is currently unimplemented**
+
+EVMts has future plans to enable solidity scripting and optimistic execution.   As of now only EVMts contract imports are supported
+
+See [EVMts Beta project board](https://github.com/orgs/evmts/projects/1) for updates.
 
 ### 1. First write a script in solidity
 
@@ -143,7 +168,19 @@ Interested in the OP stack? Check out op stack blog here: https://optimism.mirro
 
 ## Check out these tools 🔧
 
-Enjoy this tool? Check out these other awesome tools [Foundry](https://github.com/foundry-rs/foundry/tree/master/forge), [viem](https://viem.sh), [abitype](https://abitype.dev/), [ethereumjs-monorepo](https://github.com/ethereumjs/ethereumjs-monorepo), [wagmi](https://wagmi.sh/react/comparison), [Verifiable rpc](https://github.com/liamzebedee/eth-verifiable-rpc), [Optimism (I work here)](https://github.com/ethereum-optimism/optimism), [helios](https://github.com/a16z/helios)
+Enjoy this tool? Check out these other awesome tools that make this library possible
+
+- [Foundry](https://github.com/foundry-rs/foundry/tree/master/forge)
+- [viem](https://viem.sh) 
+- [abitype](https://abitype.dev/)
+- [wagmi](https://wagmi.sh/react/comparison)
+
+And these other awesome tools that helped with development process and planning
+
+- [ethereumjs-monorepo](https://github.com/ethereumjs/ethereumjs-monorepo)
+- [Verifiable rpc](https://github.com/liamzebedee/eth-verifiable-rpc)
+- [Optimism (Dislcaimer I work here)](https://github.com/ethereum-optimism/optimism)
+- [helios](https://github.com/a16z/helios)
 
 ## License 📄
 
