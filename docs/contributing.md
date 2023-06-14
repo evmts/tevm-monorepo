@@ -14,7 +14,7 @@ If you want to contribute, but aren't sure where to start, you can create a new 
 
 // TODO make a walkthrough video
 
-// TODO make a committment to open source
+// TODO make a commitment to open source
 
 - Before jumping into a PR be sure to search [existing PRs](https://github.com/evmts/evmts-monorepo/pulls) or [issues](https://github.com/evmts/evmts-monorepo/issues) for an open or closed item that relates to your submission.
 
@@ -28,6 +28,6 @@ npx gitmoji --init
 
 ## Gettings started
 
-See [docs/evmts](https://github.com/evmts/evmts-monorepo-monorepo/tree/main/docs/evmts) for installation and and more detailed usage documentation.
+See [docs/evmts](https://github.com/evmts/evmts-monorepo-monorepo/tree/main/docs/evmts) for installation and more detailed usage documentation.
 
 See [docs/monorepo](https://github.com/evmts/evmts-monorepo-monorepo/tree/main/docs/monorepo) for documentation on how to execute the monorepo with nx

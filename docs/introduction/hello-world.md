@@ -11,7 +11,7 @@
 
 ## 1. Create a script
 
-The power of EVMts comes in it's ability to write simple [Scripts](../reference/script.md). Scripts execute clientside and have access to [cheat codes](../guide/cheat-codes.md).
+The power of EVMts comes in its ability to write simple [Scripts](../reference/script.md). Scripts execute clientside and have access to [cheat codes](../guide/cheat-codes.md).
 
 Let's create a simple hello-world contract `src/HelloWorld.s.sol`.
 
@@ -28,7 +28,7 @@ contract HelloWorld {
 
 ## 2. Create an EVMts client
 
-The EVMts client is build on top of [viem](https://viem.sh/docs/clients/intro.html) clients and add the ability to execute scripts and simulate contracts clientside.
+The EVMts client is built on top of [viem](https://viem.sh/docs/clients/intro.html) clients and adds the ability to execute scripts and simulate contracts clientside.
 
 ```typescript evmts.ts
 import { forkUrl, createPublicClient, optimism } from "@evmts/core";

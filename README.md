@@ -82,7 +82,7 @@ Also included are tools for typechecking code and code generation for those usin
 
 ## Getting started 🏗️
 
-See [docs/evmts](/docs/introduction/get-started.md) for installation and and more detailed usage documentation.
+See [docs/evmts](/docs/introduction/get-started.md) for installation and more detailed usage documentation.
 
 See [docs/monorepo](/docs/monorepo.md) for documentation on how to execute the monorepo with nx
 
@@ -179,7 +179,7 @@ And these other awesome tools that helped with development process and planning
 
 - [ethereumjs-monorepo](https://github.com/ethereumjs/ethereumjs-monorepo)
 - [Verifiable rpc](https://github.com/liamzebedee/eth-verifiable-rpc)
-- [Optimism (Dislcaimer I work here)](https://github.com/ethereum-optimism/optimism)
+- [Optimism (Disclaimer I work here)](https://github.com/ethereum-optimism/optimism)
 - [helios](https://github.com/a16z/helios)
 
 ## License 📄

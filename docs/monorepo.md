@@ -77,7 +77,7 @@ Run only tests that have changed vs origin/main
 pnpm nx affected --target=test
 ```
 
-So all tooling is fast we treat typechecking as a seperate lint step. No other pipeline including the production build runs the typechecker.
+So all tooling is fast we treat typechecking as a separate lint step. No other pipeline including the production build runs the typechecker.
 
 ```bash
 pnpm nx run-many --target=typecheck`

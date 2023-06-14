@@ -43,7 +43,7 @@ const { MyScript } = {
 
 The typescript can then go ahead and use the artifacts however it pleases including in third party libraries like [Viem](https://todoviem) or [ethers](https://todoethers)
 
-@evmts/core as a standard has an API where you pass around the entire contract address so the developer never needs to think about the abi or bytecode and both melt away as a implementation detail of the library.
+@evmts/core as a standard has an API where you pass around the entire contract address so the developer never needs to think about the abi or bytecode and both melt away as an implementation detail of the library.
 
 ## Details
 

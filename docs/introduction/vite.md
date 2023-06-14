@@ -1,6 +1,6 @@
 ### Add @evmts/rollup-plugin to your vite/rollup config
 
-Currently EVMts only supports vite and rollup. Watch release updates for NEXTjs suport or check out [using evmts without a plugin](../guide/using-evmts-without-plugins.md)
+Currently EVMts only supports vite and rollup. Watch release updates for NEXTjs support or check out [using evmts without a plugin](../guide/using-evmts-without-plugins.md)
 
 Add rollup plugin to vite config or rollup config
 

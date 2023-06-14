@@ -11,7 +11,7 @@ Prior tools have taken huge steps in optimizing both the user and developer expe
 
 The user experience improvements come from the powerful core runtime library `@evmts/core`. It enables execution of the EVM clientside which opens doors to many improvements in UX such as faster gas estimation, ability to simulate execution and show the user the event, or use forge cheat codes and a local VM to get data that would otherwise be slow or difficult to get from a remote RPC.
 
-The developer experience improvements come from a new buildtime library `@evmts/plugins`. It's new buildtime plugins allow developers to use Solidity directly in their TypeScript code with full typesafety and no generation step.
+The developer experience improvements come from a new buildtime library `@evmts/plugins`. Its new buildtime plugins allow developers to use Solidity directly in their TypeScript code with full typesafety and no generation step.
 
 EVMts does not replace these libraries. Much of EVMts is built on top of [Viem](https://viem.sh/). EVMts works best alongside these libraries has plans to make the integrations tighter with all popular libraries over time.
 

@@ -58,7 +58,7 @@ const amount = BigInt(420);
 
 evmts
   .script(Example)
-  .run(tokenAddress, receipeint, amount)
+  .run(tokenAddress, recipient, amount)
   .broadcast()
   .then(({ txHash }) => {
     console.log(txHash);
