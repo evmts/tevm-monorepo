@@ -1,26 +1,48 @@
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
+import { DiagnosticModel, InitializationOptions } from '@volar/language-server';
 import * as vscode from 'vscode';
+import * as lsp from 'vscode-languageclient/node';
+import { activateAutoInsertion } from '@volar/vscode';
 
-// This method is called when your extension is activated
-// Your extension is activated the very first time the command is executed
-export function activate(context: vscode.ExtensionContext) {
+let client: lsp.BaseLanguageClient;
 
-	// Use the console to output diagnostic information (console.log) and errors (console.error)
-	// This line of code will only be executed once when your extension is activated
-	console.log('Congratulations, your extension "evmts" is now active!');
+export async function activate(context: vscode.ExtensionContext) {
 
-	// The command has been defined in the package.json file
-	// Now provide the implementation of the command with registerCommand
-	// The commandId parameter must match the command field in package.json
-	let disposable = vscode.commands.registerCommand('evmts.helloWorld', () => {
-		// The code you place here will be executed every time your command is executed
-		// Display a message box to the user
-		vscode.window.showInformationMessage('Hello World from vscode!');
-	});
+	const serverModule = vscode.Uri.joinPath(context.extensionUri, 'dist', 'server.js');
+	const runOptions = { execArgv: <string[]>[] };
+	const debugOptions = { execArgv: ['--nolazy', '--inspect=' + 6009] };
+	const serverOptions: lsp.ServerOptions = {
+		run: {
+			module: serverModule.fsPath,
+			transport: lsp.TransportKind.ipc,
+			options: runOptions
+		},
+		debug: {
+			module: serverModule.fsPath,
+			transport: lsp.TransportKind.ipc,
+			options: debugOptions
+		},
+	};
+	const initializationOptions: InitializationOptions = {
+		// no need tsdk because language server do not have typescript features
+		// typescript: { tsdk: require('path').join(vscode.env.appRoot, 'extensions/node_modules/typescript/lib') },
+		diagnosticModel: DiagnosticModel.Pull,
+	};
+	const clientOptions: lsp.LanguageClientOptions = {
+		documentSelector: [{ language: 'html1' }],
+		initializationOptions,
+	};
+	client = new lsp.LanguageClient(
+		'html1-language-server',
+		'HTML1 Language Server',
+		serverOptions,
+		clientOptions,
+	);
+	await client.start();
 
-	context.subscriptions.push(disposable);
+	// support for auto close tag
+	activateAutoInsertion([client], document => document.languageId === 'html1');
 }
 
-// This method is called when your extension is deactivated
-export function deactivate() {}
+export function deactivate(): Thenable<any> | undefined {
+	return client?.stop();
+}

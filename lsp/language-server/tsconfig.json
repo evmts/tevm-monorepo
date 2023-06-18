@@ -1,0 +1,25 @@
+{
+	"target": "ES2022",
+		"lib": [
+			"ESNext"
+		],
+		"module": "commonjs",
+		"moduleResolution": "node",
+		"sourceMap": true,
+		"composite": true,
+		"declaration": true,
+		"strict": true,
+		"alwaysStrict": false,
+		"resolveJsonModule": true,
+		"skipLibCheck": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"baseUrl": "./",
+			"compilerOptions": {
+		"outDir": "out",
+		"rootDir": "src"
+	},
+	"include": [
+		"src"
+	]
+}
