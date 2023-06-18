@@ -1,3 +1,5 @@
+import { bundleRequire } from 'bundle-require'
+
 // TODO import this from evmts core
 type Address = `0x${string}`
 
@@ -36,6 +38,14 @@ export type Config = {
 	deployments?: DeploymentConfig[]
 }
 
+export const defaultConfig: Required<Config> = {
+	src: 'src',
+	out: 'artifacts',
+	solcVersion: '0.8.13',
+	libs: [],
+	deployments: [],
+}
+
 /**
  * Reads the deployment folder of foundry-deploy or hardhat-deploy
  */
@@ -57,11 +67,26 @@ export const defineConfig: DefineConfig = (configFactory) => ({
 	configFn: () => {
 		const userConfig = configFactory()
 		return {
-			src: userConfig.src ?? 'src',
-			out: userConfig.out ?? 'artifacts',
-			solcVersion: userConfig.solcVersion ?? '0.8.13',
+			src: userConfig.src ?? defaultConfig.src,
+			out: userConfig.out ?? defaultConfig.out,
+			solcVersion: userConfig.solcVersion ?? defaultConfig.solcVersion,
 			libs: userConfig.libs ?? [],
-			deployments: userConfig.deployments ?? [],
+			deployments: userConfig.deployments ?? defaultConfig.deployments,
 		}
 	},
 })
+
+type LoadConfig = (configFilePath: string) => Promise<ResolvedConfig>
+
+export const loadConfig: LoadConfig = async (configFilePath) => {
+	const configModule = await bundleRequire({ filepath: configFilePath })
+	const config = configModule.mod.default?.default ?? configModule.mod.default
+	if (!config) {
+		return defaultConfig
+	}
+	if (typeof config !== 'function') {
+		return config
+	}
+	return config()
+}
+

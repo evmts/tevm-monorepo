@@ -39,7 +39,9 @@
     "package:up": "pnpm up --latest",
     "typecheck": "tsc --noEmit"
   },
-  "dependencies": {},
+  "dependencies": {
+    "bundle-require": "^4.0.1"
+  },
   "devDependencies": {
     "@vitest/ui": "^0.31.1",
     "rome": "^12.1.2",
