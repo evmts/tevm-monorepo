@@ -1,15 +1,11 @@
 # Tutorial
 
-To learn all the pieces of EVMts we will configure a new project from scratch.  We only assume basic TypeScript knowledge and knowledge of what a Smart Contract is
-
 ::: info On this page you will learn
 
 1. How to set up a basic TypeScript project with foundry from scratch
 2. What a bundler is
 
 :::
-
-Looking to get started fast? Try forking one of our example projects or using our live example.
 
 ## Initial setup and installation
 
