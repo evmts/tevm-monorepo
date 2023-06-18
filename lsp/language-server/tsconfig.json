@@ -1,4 +1,5 @@
 {
+			"compilerOptions": {
 	"target": "ES2022",
 		"lib": [
 			"ESNext"
@@ -15,7 +16,6 @@
 		"noUnusedLocals": true,
 		"noUnusedParameters": true,
 		"baseUrl": "./",
-			"compilerOptions": {
 		"outDir": "out",
 		"rootDir": "src"
 	},
