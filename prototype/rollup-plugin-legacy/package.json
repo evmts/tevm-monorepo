@@ -28,7 +28,6 @@
     "//test:run": "vitest run",
     "//test:ui": "vitest --ui",
     "build": "tsup",
-    "envSchema": "ts-node src/scripts/envSchema.ts",
     "format": "rome format . --write",
     "format:check": "rome format .",
     "lint": "rome check . --apply-unsafe",
