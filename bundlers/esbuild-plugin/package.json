@@ -38,7 +38,7 @@
   },
   "dependencies": {
     "@babel/helper-plugin-utils": "^7.21.5",
-    "@babel/parser": "^7.21.8",
+    "@babel/parser": "^7.22.5",
     "@evmts/rollup-plugin": "workspace:^",
     "@evmts/bundler-legacy": "workspace:^",
     "@evmts/bundler": "workspace:^",
