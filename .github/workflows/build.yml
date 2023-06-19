@@ -9,8 +9,8 @@ on:
 name: Build
 
 jobs:
-  typecheck:
-    name: Typecheck
+  build:
+    name: Build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
