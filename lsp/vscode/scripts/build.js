@@ -1,7 +1,7 @@
 require('esbuild').build({
 	entryPoints: {
 		client: './src/extension.js',
-		server: './node_modules/@html1/language-server/bin/html1-language-server.js',
+		server: './node_modules/@evmts/language-server/bin/evmts-language-server.js',
 	},
 	bundle: true,
 	metafile: process.argv.includes('--metafile'),
@@ -14,7 +14,6 @@ require('esbuild').build({
 	tsconfig: './tsconfig.json',
 	define: { 'process.env.NODE_ENV': '"production"' },
 	minify: process.argv.includes('--minify'),
-	watch: process.argv.includes('--watch'),
 	plugins: [
 		{
 			name: 'umd2esm',
