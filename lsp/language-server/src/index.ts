@@ -1,32 +1,44 @@
-import { language, Html1File } from './language';
-import createEmmetService from 'volar-service-emmet';
-import createHtmlService from 'volar-service-html';
-import createCssService from 'volar-service-css';
-import { createConnection, startLanguageServer, LanguageServerPlugin, Diagnostic, Service } from '@volar/language-server/node';
+import { Html1File, language } from './language'
+import {
+	Diagnostic,
+	LanguageServerPlugin,
+	Service,
+	createConnection,
+	startLanguageServer,
+} from '@volar/language-server/node'
+import createCssService from 'volar-service-css'
+import createEmmetService from 'volar-service-emmet'
+import createHtmlService from 'volar-service-html'
 
 const plugin: LanguageServerPlugin = (): ReturnType<LanguageServerPlugin> => ({
-	extraFileExtensions: [{ extension: 'html1', isMixedContent: true, scriptKind: 7 }],
+	extraFileExtensions: [
+		{ extension: 'html1', isMixedContent: true, scriptKind: 7 },
+	],
 	resolveConfig(config) {
-
 		// languages
-		config.languages ??= {};
-		config.languages.html1 ??= language;
+		config.languages ??= {}
+		config.languages.html1 ??= language
 
 		// services
-		config.services ??= {};
-		config.services.html ??= createHtmlService();
-		config.services.css ??= createCssService();
-		config.services.emmet ??= createEmmetService();
+		config.services ??= {}
+		config.services.html ??= createHtmlService()
+		config.services.css ??= createCssService()
+		config.services.emmet ??= createEmmetService()
 		config.services.html1 ??= (context): ReturnType<Service> => ({
 			provideDiagnostics(document) {
+				if (!context) {
+					throw new Error('No context foundnew')
+				}
 
-				const [file] = context!.documents.getVirtualFileByUri(document.uri);
-				if (!(file instanceof Html1File)) return;
+				const [file] = context.documents.getVirtualFileByUri(document.uri)
+				if (!(file instanceof Html1File)) return
 
-				const styleNodes = file.htmlDocument.roots.filter(root => root.tag === 'style');
-				if (styleNodes.length <= 1) return;
+				const styleNodes = file.htmlDocument.roots.filter(
+					(root) => root.tag === 'style',
+				)
+				if (styleNodes.length <= 1) return
 
-				const errors: Diagnostic[] = [];
+				const errors: Diagnostic[] = []
 				for (let i = 1; i < styleNodes.length; i++) {
 					errors.push({
 						severity: 2,
@@ -36,14 +48,14 @@ const plugin: LanguageServerPlugin = (): ReturnType<LanguageServerPlugin> => ({
 						},
 						source: 'html1',
 						message: 'Only one style tag is allowed.',
-					});
+					})
 				}
-				return errors;
+				return errors
 			},
-		});
+		})
 
-		return config;
+		return config
 	},
-});
+})
 
-startLanguageServer(createConnection(), plugin);
+startLanguageServer(createConnection(), plugin)
