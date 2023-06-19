@@ -1,44 +1,50 @@
 {
-  "name": "@evmts/vscode",
-  "displayName": "vscode",
-  "description": "EVMts language support for vscode",
-  "version": "0.0.1",
-  "private": true,
-  "engines": {
-    "vscode": "^1.78.0"
-  },
-  "categories": [
-    "Other"
-  ],
-  "activationEvents": [],
-  "main": "./out/extension.js",
-  "contributes": {
-    "commands": [
-      {
-        "command": "evmts.helloWorld",
-        "title": "Hello World"
-      }
-    ]
-  },
-  "scripts": {
-    "vscode:prepublish": "pnpm run compile",
-    "compile": "tsc -p ./",
-    "watch": "tsc -watch -p ./",
-    "pretest": "pnpm run compile && pnpm run lint",
-    "lint": "eslint src --ext ts",
-    "// test": "node ./out/test/runTest.js"
-  },
-  "devDependencies": {
-    "@types/vscode": "^1.78.0",
-    "@types/glob": "^8.1.0",
-    "@types/mocha": "^10.0.1",
-    "@types/node": "16.x",
-    "@typescript-eslint/eslint-plugin": "^5.59.1",
-    "@typescript-eslint/parser": "^5.59.1",
-    "eslint": "^8.42.0",
-    "glob": "^8.1.0",
-    "mocha": "^10.2.0",
-    "typescript": "^5.0.4",
-    "@vscode/test-electron": "^2.3.0"
-  }
+	"private": true,
+	"name": "vscode-html1",
+	"version": "0.0.1",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/volarjs/starter.git",
+		"directory": "packages/vscode"
+	},
+	"categories": [
+		"Programming Languages"
+	],
+	"displayName": "HTML1 Language Features",
+	"description": "HTML1 Language Features",
+	"author": "volarjs",
+	"publisher": "volarjs",
+	"engines": {
+		"vscode": "^1.67.0"
+	},
+	"activationEvents": [
+		"onLanguage:html1"
+	],
+	"main": "./dist/client.js",
+	"contributes": {
+		"languages": [
+			{
+				"id": "html1",
+				"extensions": [
+					".html1"
+				]
+			}
+		]
+	},
+	"scripts": {
+		"prebuild": "cd ../.. && npm run build",
+		"build": "node scripts/build -- --minify",
+		"watch": "npm run build -- --watch",
+		"pack": "npm run build && vsce package --pre-release",
+		"release": "npm run build && vsce publish --pre-release"
+	},
+	"devDependencies": {
+		"@html1/language-server": "workspace:*",
+		"@types/vscode": "1.79.1",
+		"@volar/language-server": "1.7.7",
+		"@volar/vscode": "1.7.7",
+		"esbuild": "0.18.4",
+		"vsce": "^2.15.0",
+		"vscode-languageclient": "^8.1.0"
+	}
 }
