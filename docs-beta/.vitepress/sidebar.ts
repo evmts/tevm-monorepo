@@ -13,7 +13,8 @@ export const sidebar: DefaultTheme.Sidebar = [
 	{
 		text: 'Tutorial',
 		items: [
-			{ text: 'Installation', link: '/tutorial/installation' },
+			{ text: 'Overview', link: '/tutorial/overview' },
+			{ text: 'Setup', link: '/tutorial/setup' },
 			{
 				text: 'Configuration',
 				link: '/tutorial/configuration',
