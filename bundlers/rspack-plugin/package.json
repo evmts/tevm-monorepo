@@ -4,7 +4,7 @@
   "private": false,
   "description": "An (experimental) rspack plugin for evmts",
   "keywords": [
-    "babel",
+    "rspack",
     "plugin",
     "solidity",
     "sol",

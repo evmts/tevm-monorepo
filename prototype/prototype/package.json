@@ -17,7 +17,6 @@
     "serve": "serve -s -l tcp://0.0.0.0:5173 dist"
   },
   "dependencies": {
-    "@babel/core": "^7.20.12",
     "@evmts/core": "workspace:^0.0.3",
     "@tanstack/query-core": "^4.24.6",
     "@tanstack/react-query": "^4.24.6",
@@ -34,8 +33,6 @@
     "zod": "^3.20.6"
   },
   "devDependencies": {
-    "@babel/plugin-syntax-flow": "^7.18.6",
-    "@babel/plugin-transform-react-jsx": "^7.20.13",
     "@evmts/rollup-plugin-legacy": "workspace:^0.0.1",
     "@evmts/ts-plugin": "workspace:^0.0.0",
     "@testing-library/jest-dom": "^5.16.5",
