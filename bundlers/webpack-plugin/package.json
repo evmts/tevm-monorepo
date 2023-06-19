@@ -4,7 +4,7 @@
   "private": false,
   "description": "A webpack plugin for evmts",
   "keywords": [
-    "babel",
+    "webpack",
     "plugin",
     "solidity",
     "sol",

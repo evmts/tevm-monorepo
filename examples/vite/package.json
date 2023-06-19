@@ -19,7 +19,6 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@babel/core": "^7.22.1",
     "@evmts/bundler": "workspace:^",
     "@evmts/core": "workspace:^0.0.3",
     "@openzeppelin/contracts": "^4.9.0",
@@ -39,8 +38,6 @@
     "zod": "^3.21.4"
   },
   "devDependencies": {
-    "@babel/plugin-syntax-flow": "^7.21.4",
-    "@babel/plugin-transform-react-jsx": "^7.22.3",
     "@evmts/ts-plugin": "workspace:^0.0.0",
     "@evmts/vite-plugin": "workspace:^0.0.1",
     "@testing-library/jest-dom": "^5.16.5",
