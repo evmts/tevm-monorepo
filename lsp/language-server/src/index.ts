@@ -1,4 +1,4 @@
-import { Html1File, language } from './language'
+import { SolidityFile, language } from './language'
 import {
 	Diagnostic,
 	LanguageServerPlugin,
@@ -12,26 +12,26 @@ import createHtmlService from 'volar-service-html'
 
 const plugin: LanguageServerPlugin = (): ReturnType<LanguageServerPlugin> => ({
 	extraFileExtensions: [
-		{ extension: 'html1', isMixedContent: true, scriptKind: 7 },
+		{ extension: 'sol', isMixedContent: true, scriptKind: 7 },
 	],
 	resolveConfig(config) {
 		// languages
 		config.languages ??= {}
-		config.languages.html1 ??= language
+		config.languages.sol ??= language
 
 		// services
 		config.services ??= {}
 		config.services.html ??= createHtmlService()
 		config.services.css ??= createCssService()
 		config.services.emmet ??= createEmmetService()
-		config.services.html1 ??= (context): ReturnType<Service> => ({
+		config.services.sol ??= (context): ReturnType<Service> => ({
 			provideDiagnostics(document) {
 				if (!context) {
 					throw new Error('No context foundnew')
 				}
 
 				const [file] = context.documents.getVirtualFileByUri(document.uri)
-				if (!(file instanceof Html1File)) return
+				if (!(file instanceof SolidityFile)) return
 
 				const styleNodes = file.htmlDocument.roots.filter(
 					(root) => root.tag === 'style',
@@ -46,7 +46,7 @@ const plugin: LanguageServerPlugin = (): ReturnType<LanguageServerPlugin> => ({
 							start: file.document.positionAt(styleNodes[i].start),
 							end: file.document.positionAt(styleNodes[i].end),
 						},
-						source: 'html1',
+						source: 'sol',
 						message: 'Only one style tag is allowed.',
 					})
 				}

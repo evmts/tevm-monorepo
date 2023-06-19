@@ -8,20 +8,20 @@ import {
 import type * as ts from 'typescript/lib/tsserverlibrary'
 import * as html from 'vscode-html-languageservice'
 
-export const language: Language<Html1File> = {
+export const language: Language<SolidityFile> = {
 	createVirtualFile(fileName, snapshot) {
-		if (fileName.endsWith('.html1')) {
-			return new Html1File(fileName, snapshot)
+		if (fileName.endsWith('.sol')) {
+			return new SolidityFile(fileName, snapshot)
 		}
 	},
-	updateVirtualFile(html1File, snapshot) {
-		html1File.update(snapshot)
+	updateVirtualFile(solidityFile, snapshot) {
+		solidityFile.update(snapshot)
 	},
 }
 
 const htmlLs = html.getLanguageService()
 
-export class Html1File implements VirtualFile {
+export class SolidityFile implements VirtualFile {
 	kind = FileKind.TextFile
 	capabilities = FileCapabilities.full
 	codegenStacks = []
