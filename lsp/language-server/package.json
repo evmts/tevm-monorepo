@@ -14,7 +14,7 @@
     "evmts-language-server": "./bin/evmts-language-server.js"
   },
   "dependencies": {
-    "@volar/language-core": "1.7.7",
+    "@volar/language-core": "1.7.8",
     "@volar/language-server": "1.7.7",
     "@volar/language-service": "1.7.7",
     "volar-service-css": "0.0.8",
