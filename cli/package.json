@@ -41,7 +41,9 @@
     "package:up": "pnpm up --latest",
     "typecheck": "tsc --noEmit"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@types/node": "^20.3.1"
+  },
   "devDependencies": {
     "@vitest/ui": "^0.31.1",
     "rome": "^12.1.3",

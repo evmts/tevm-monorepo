@@ -89,4 +89,3 @@ export const loadConfig: LoadConfig = async (configFilePath) => {
 	}
 	return config()
 }
-

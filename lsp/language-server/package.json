@@ -21,5 +21,8 @@
     "volar-service-emmet": "0.0.8",
     "volar-service-html": "0.0.8",
     "vscode-html-languageservice": "5.0.6"
+  },
+  "devDependencies": {
+    "typescript": "^5.1.3"
   }
 }

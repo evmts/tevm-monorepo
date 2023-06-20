@@ -39,6 +39,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@types/node": "^20.3.1",
     "bundle-require": "^4.0.1"
   },
   "devDependencies": {
