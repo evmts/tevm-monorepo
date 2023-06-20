@@ -34,15 +34,10 @@
     "@changesets/changelog-github": "^0.4.8",
     "@nrwl/devkit": "16.2.1",
     "@nrwl/nx-cloud": "16.0.5",
-    "@types/node": "^20.2.1",
-    "concurrently": "^8.0.1",
     "dotenv": "^16.0.3",
     "gitmoji-cli": "^8.2.3",
     "nx": "16.2.1",
-    "rome": "^12.1.3",
-    "sort-package-json": "^2.4.1",
-    "typescript": "^5.0.4",
-    "wait-on": "^7.0.1"
+    "sort-package-json": "^2.4.1"
   },
   "packageManager": "pnpm@8.6.0",
   "engines": {
