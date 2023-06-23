@@ -32,11 +32,11 @@
   },
   "devDependencies": {
     "@changesets/changelog-github": "^0.4.8",
-    "@nrwl/devkit": "16.2.1",
+    "@nrwl/devkit": "16.3.2",
     "@nrwl/nx-cloud": "16.0.5",
-    "dotenv": "^16.0.3",
-    "gitmoji-cli": "^8.2.3",
-    "nx": "16.2.1",
+    "dotenv": "^16.3.1",
+    "gitmoji-cli": "^8.4.0",
+    "nx": "16.3.2",
     "sort-package-json": "^2.4.1"
   },
   "packageManager": "pnpm@8.6.0",
