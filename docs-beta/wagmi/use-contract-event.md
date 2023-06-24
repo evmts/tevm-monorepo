@@ -1,10 +1,10 @@
-# useContractWrite()
+# useContractEvent()
 
-[Wagmi hook](https://wagmi.sh/react/hooks/useContractWrite) for calling a read method on the contract.
+[Wagmi hook](https://wagmi.sh/react/hooks/useContractEvent) for calling a read method on the contract.
 
 To use this hook import it directly from wagmi. This guide will show how to integrate it with EVMts.
 
-For more documentation specific to useContractWrite see [wagmi documentation](https://wagmi.sh/react/hooks/useContractWrite)
+For more documentation specific to useContractEvent see [wagmi documentation](https://wagmi.sh/react/hooks/useContractEvent)
 
 - **Example**
 

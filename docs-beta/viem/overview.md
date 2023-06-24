@@ -1,4 +1,4 @@
 # Viem
 
-🚧 Coming soon
+🚧 Documentation coming soon
 
