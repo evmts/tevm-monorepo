@@ -1,11 +1,17 @@
 import { bundleRequire } from 'bundle-require'
+import * as path from 'path'
 
 // TODO import this from evmts core
 type Address = `0x${string}`
 
 type DeploymentConfig = {
 	name: string
-	networkId: number
+	// TODO address is experimental because current api has no way of knowing the network id
+	// networkId: number
+	/**
+	 * @experimental
+	 * Globally configure address for a contract
+	 **/
 	address: Address
 }
 
@@ -31,7 +37,7 @@ export type Config = {
 	 * The output directory for the compiled contracts
 	 * @defaults "artifacts" or configured out directory of foundry.toml
 	 */
-	out?: 'artifacts'
+	out?: string
 	/**
 	 * Globally configures addresses for specific contracts
 	 */
@@ -79,10 +85,15 @@ export const defineConfig: DefineConfig = (configFactory) => ({
 type LoadConfig = (configFilePath: string) => Promise<ResolvedConfig>
 
 export const loadConfig: LoadConfig = async (configFilePath) => {
-	const configModule = await bundleRequire({ filepath: configFilePath })
+	const configModule = await bundleRequire({
+		filepath: path.join(configFilePath, 'evmts.config.ts'),
+	})
 	const config = configModule.mod.default?.default ?? configModule.mod.default
 	if (!config) {
 		return defaultConfig
+	}
+	if (config.configFn) {
+		return config.configFn()
 	}
 	if (typeof config !== 'function') {
 		return config

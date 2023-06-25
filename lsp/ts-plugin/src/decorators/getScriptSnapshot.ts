@@ -1,6 +1,5 @@
 import { createDecorator } from '../factories'
 import { isSolidity } from '../utils'
-import { getArtifactPathSync } from '../utils/getArtifactPathSync'
 import { solcModules } from '@evmts/bundler'
 import { existsSync } from 'fs'
 
@@ -22,7 +21,6 @@ export const getScriptSnapshotDecorator = createDecorator(
 					const plugin = solcModules(
 						{
 							out: config.out,
-							project: config.project,
 						},
 						logger as any,
 					)

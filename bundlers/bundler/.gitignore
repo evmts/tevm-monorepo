@@ -3,6 +3,7 @@
 cache
 forge-artifacts
 broadcast
+types
 
 # compiled output
 dist

@@ -20,7 +20,6 @@ files.forEach((file) => {
 	const plugin = foundryModules(
 		{
 			out: 'artifacts',
-			project: '.',
 		},
 		console,
 	)

@@ -1,5 +1,3 @@
 export * from './Logger'
 export * from './SolidityResolver'
 export * from './FoundryToml'
-export * from './FoundryConfig'
-export * from './FoundryResolver'
