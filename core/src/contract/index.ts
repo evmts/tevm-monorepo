@@ -1,6 +1,14 @@
-// TODO better type from abi type
-type Abi = Array<any>
-type Address = `0x${string}`
+import type {
+	Abi,
+	AbiEvent,
+	AbiFunction,
+	AbiParametersToPrimitiveTypes,
+	Address,
+	ExtractAbiEvent,
+	ExtractAbiEventNames,
+	ExtractAbiFunction,
+	ExtractAbiFunctionNames,
+} from 'abitype'
 
 export type EVMtsContract<
 	TName extends string,
@@ -9,13 +17,60 @@ export type EVMtsContract<
 > = {
 	abi: TAbi
 	name: TName
-	address: TAddress | undefined
-	methods: Array<any>
-	events: Array<any>
-	// TODO abi type magic
-	read: any
-	// TODO abi type magic
-	write: any
+	address: TAddress
+	// TODO Do ABI magic on events too
+	events: {
+		[TEventName in ExtractAbiEventNames<TAbi>]: <
+			TArgs extends AbiParametersToPrimitiveTypes<
+				ExtractAbiEvent<TAbi, TEventName>['inputs']
+			> &
+				AbiEvent[] = AbiParametersToPrimitiveTypes<
+				ExtractAbiEvent<TAbi, TEventName>['inputs']
+			> &
+				AbiEvent[],
+		>(
+			...args: TArgs
+		) => {
+			address: TAddress
+			abi: [ExtractAbiEvent<TAbi, TEventName>]
+			args: TArgs
+		}
+	}
+	read: {
+		[TFunctionName in ExtractAbiFunctionNames<TAbi, 'pure' | 'view'>]: <
+			TArgs extends AbiParametersToPrimitiveTypes<
+				ExtractAbiFunction<TAbi, TFunctionName>['inputs']
+			> &
+				any[] = AbiParametersToPrimitiveTypes<
+				ExtractAbiFunction<TAbi, TFunctionName>['inputs']
+			> &
+				any[],
+		>(
+			...args: TArgs
+		) => {
+			address: TAddress
+			abi: [ExtractAbiFunction<TAbi, TFunctionName>]
+			args: TArgs
+		}
+	}
+	write: {
+		[TFunctionName in
+			ExtractAbiFunctionNames<TAbi, 'payable' | 'nonpayable'>]: <
+			TArgs extends AbiParametersToPrimitiveTypes<
+				ExtractAbiFunction<TAbi, TFunctionName>['inputs']
+			> &
+				any[] = AbiParametersToPrimitiveTypes<
+				ExtractAbiFunction<TAbi, TFunctionName>['inputs']
+			> &
+				any[],
+		>(
+			...args: TArgs
+		) => {
+			address: TAddress
+			abi: [ExtractAbiFunction<TAbi, TFunctionName>]
+			args: TArgs
+		}
+	}
 }
 
 export const evmtsContractFactory = <
@@ -44,12 +99,12 @@ export const evmtsContractFactory = <
 			const creator = (...args: any[]) => {
 				return {
 					abi: [method],
-					functionName: method.name,
+					functionName: (method as AbiFunction).name,
 					args,
 					address,
 				}
 			}
-			return [method.name, creator]
+			return [(method as AbiFunction).name, creator]
 		}),
 	)
 	// TODO filter for read
@@ -60,21 +115,20 @@ export const evmtsContractFactory = <
 			const creator = (...args: any[]) => {
 				return {
 					abi: [method],
-					functionName: method.name,
+					functionName: (method as AbiFunction).name,
 					args,
 					address,
 				}
 			}
-			return [method.name, creator]
+			return [(method as AbiFunction).name, creator]
 		}),
 	)
 	return {
 		name,
 		abi,
 		address,
-		methods,
-		events,
-		read,
-		write,
+		events: events as any,
+		read: read as any,
+		write: write as any,
 	}
 }
