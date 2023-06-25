@@ -1,4 +1,4 @@
-lockfileVersion: '6.0'
+lockfileVersion: '6.1'
 
 settings:
   autoInstallPeers: true
@@ -153,7 +153,7 @@ importers:
         version: link:../bundler
       vite:
         specifier: '>4.0.0'
-        version: 4.3.9
+        version: 4.3.9(@types/node@20.3.1)
     devDependencies:
       '@vitest/ui':
         specifier: ^0.32.2
@@ -371,7 +371,7 @@ importers:
         version: 1.0.7(typescript@5.1.3)(zod@3.21.4)
       wagmi:
         specifier: ^1.2.0
-        version: 1.2.0(react-dom@18.2.0)(react@18.2.0)(typescript@5.1.3)(viem@1.0.7)
+        version: 1.2.0(react-dom@18.2.0)(react@18.2.0)(typescript@5.1.3)(viem@0.3.41)(zod@3.21.4)
     devDependencies:
       '@evmts/ts-plugin':
         specifier: workspace:^
@@ -479,8 +479,8 @@ importers:
         specifier: 1.7.7
         version: 1.7.7
       '@volar/vscode':
-        specifier: 1.7.7
-        version: 1.7.7
+        specifier: 1.7.8
+        version: 1.7.8
       esbuild:
         specifier: 0.18.4
         version: 0.18.4
@@ -641,7 +641,7 @@ importers:
         version: 5.1.3
       vite:
         specifier: ^4.3.9
-        version: 4.3.9
+        version: 4.3.9(@types/node@20.3.1)
       vitest:
         specifier: ^0.32.2
         version: 0.32.2(@vitest/ui@0.32.2)
@@ -678,7 +678,7 @@ importers:
         version: 5.1.3
       vite:
         specifier: ^4.3.9
-        version: 4.3.9
+        version: 4.3.9(@types/node@20.3.1)
       vitest:
         specifier: ^0.32.2
         version: 0.32.2(@vitest/ui@0.32.2)
@@ -2991,7 +2991,7 @@ packages:
       react-dom: 18.2.0(react@18.2.0)
       react-remove-scroll: 2.5.4(@types/react@18.2.13)(react@18.2.0)
       viem: 1.0.7(typescript@5.1.3)(zod@3.21.4)
-      wagmi: 1.2.0(react-dom@18.2.0)(react@18.2.0)(typescript@5.1.3)(viem@1.0.7)
+      wagmi: 1.2.0(react-dom@18.2.0)(react@18.2.0)(typescript@5.1.3)(viem@0.3.41)(zod@3.21.4)
     transitivePeerDependencies:
       - '@types/react'
     dev: false
@@ -3720,7 +3720,7 @@ packages:
       vite: ^4.0.0
       vue: ^3.2.25
     dependencies:
-      vite: 4.3.9
+      vite: 4.3.9(@types/node@20.3.1)
       vue: 3.3.4
     dev: true
 
@@ -3787,7 +3787,6 @@ packages:
     resolution: {integrity: sha512-TPklg4c2e/f1xB/MGZEiQc3AWG+dH64ZfBlYjFB8nNaWJt4Z4k+IHBhmaP52APG+5PHFerwiWI9oF002RrRTPA==}
     dependencies:
       '@volar/source-map': 1.7.8
-    dev: false
 
   /@volar/language-server@1.7.7:
     resolution: {integrity: sha512-xjCOQnZT+EYA11XNVev4kxVrRC5/ZuLPRLvMIzcRloJLMy+ermx5ZA8eVJParFhw1ExN6DeC3w9zeINsamiyrw==}
@@ -3803,6 +3802,21 @@ packages:
       vscode-languageserver-textdocument: 1.0.8
       vscode-uri: 3.0.7
 
+  /@volar/language-server@1.7.8:
+    resolution: {integrity: sha512-n2nMKvoxrETSfFmQFhK4uuyorNRYDONoJ1ZLSvy8m8IszHWH4KvPVtpN7WiQImeYuURbxFEO4egtlEFEHn823w==}
+    dependencies:
+      '@volar/language-core': 1.7.8
+      '@volar/language-service': 1.7.8
+      '@volar/typescript': 1.7.8
+      '@vscode/l10n': 0.0.11
+      request-light: 0.7.0
+      typesafe-path: 0.2.2
+      vscode-languageserver: 8.1.0
+      vscode-languageserver-protocol: 3.17.3
+      vscode-languageserver-textdocument: 1.0.8
+      vscode-uri: 3.0.7
+    dev: true
+
   /@volar/language-service@1.7.7:
     resolution: {integrity: sha512-e3lyJMchVn7Y0rttjdNb99BGX5plAxiAT8Zx38PMajKdM08femwQZ2KquEQF4PtU5rwxKJImayKEUyF3+DeeMQ==}
     dependencies:
@@ -3811,6 +3825,16 @@ packages:
       vscode-languageserver-protocol: 3.17.3
       vscode-languageserver-textdocument: 1.0.8
       vscode-uri: 3.0.7
+
+  /@volar/language-service@1.7.8:
+    resolution: {integrity: sha512-4ph81wHT0OvJUTic8hLkIRVCoKnvuAN3AoTR7WBeb4yFuo5KXVKZE6AA7D7cMiIVP92WBx531eZlk00aUW4jrQ==}
+    dependencies:
+      '@volar/language-core': 1.7.8
+      '@volar/source-map': 1.7.8
+      vscode-languageserver-protocol: 3.17.3
+      vscode-languageserver-textdocument: 1.0.8
+      vscode-uri: 3.0.7
+    dev: true
 
   /@volar/source-map@1.7.7:
     resolution: {integrity: sha512-BAM1DdCmqQJkD+oAU1n5WbtMcmzkt7M0dSlFr/qraX938PMltKTzCAfLX37B+ByQaHXKemzXocMSHZqMNla2LA==}
@@ -3821,17 +3845,22 @@ packages:
     resolution: {integrity: sha512-g2dtC2kOghvfzMDWeODIo4HO1Ml4hxzPTZyAFDz+YhRF9HjZYJSCaWaVuPZ+z0kY+T2daOHYA10GdrWQ5q0teA==}
     dependencies:
       muggle-string: 0.3.1
-    dev: false
 
   /@volar/typescript@1.7.7:
     resolution: {integrity: sha512-7cdFJru6nQrAao2WYxwDGeyMIOjDwUsJ/Y3ArDvZ4kLFPJY7RGisBNDdZBko1nomBzhbMAAW8JQZBbtawXSc3A==}
     dependencies:
       '@volar/language-core': 1.7.7
 
-  /@volar/vscode@1.7.7:
-    resolution: {integrity: sha512-/q+RZrDFvow22pUczPa0aQMDRXOTcJZESCtacxKIouIYpt8ZXoDa014iOyDabzN+kcQSAy5oLFYdwW1YviKuPA==}
+  /@volar/typescript@1.7.8:
+    resolution: {integrity: sha512-NDcI5ZQcdr8kgxzMQrhSSWIM8Tl0MbMFrkvJPTjfm2rdAQZPFT8zv3LrEW9Fqh0e9z2YbCry7jr4a/GShBqeDA==}
     dependencies:
-      '@volar/language-server': 1.7.7
+      '@volar/language-core': 1.7.8
+    dev: true
+
+  /@volar/vscode@1.7.8:
+    resolution: {integrity: sha512-b+7mGluL4/8qFCFzbs4emeb07MJsNei9VlQUB0iaazg2EsIgr0vUuxBio6elAwggE/HaNHxqVLmEbsnJshPWNw==}
+    dependencies:
+      '@volar/language-server': 1.7.8
       typesafe-path: 0.2.2
       vscode-nls: 5.2.0
     dev: true
@@ -4122,42 +4151,6 @@ packages:
       - zod
     dev: false
 
-  /@wagmi/connectors@2.2.0(@wagmi/chains@1.1.0)(react@18.2.0)(typescript@5.1.3)(viem@1.0.7):
-    resolution: {integrity: sha512-pI1ed2V8dC8Gro0YbXrJedFj5U9HHD/zUe9MMUaV3ews2LY6qziSXZp9Dw6TKyiSJ5ANbRlZcl40AmSPozkZmw==}
-    peerDependencies:
-      '@wagmi/chains': '>=1.0.0'
-      typescript: '>=5.0.4'
-      viem: '>=0.3.35'
-    peerDependenciesMeta:
-      '@wagmi/chains':
-        optional: true
-      typescript:
-        optional: true
-    dependencies:
-      '@coinbase/wallet-sdk': 3.6.6
-      '@ledgerhq/connect-kit-loader': 1.0.2
-      '@safe-global/safe-apps-provider': 0.15.2
-      '@safe-global/safe-apps-sdk': 7.11.0
-      '@wagmi/chains': 1.1.0(typescript@5.1.3)
-      '@walletconnect/ethereum-provider': 2.8.0(@walletconnect/modal@2.5.2)
-      '@walletconnect/legacy-provider': 2.0.0
-      '@walletconnect/modal': 2.5.2(react@18.2.0)
-      abitype: 0.8.7(typescript@5.1.3)(zod@3.21.4)
-      eventemitter3: 4.0.7
-      typescript: 5.1.3
-      viem: 1.0.7(typescript@5.1.3)(zod@3.21.4)
-    transitivePeerDependencies:
-      - '@react-native-async-storage/async-storage'
-      - bufferutil
-      - debug
-      - encoding
-      - lokijs
-      - react
-      - supports-color
-      - utf-8-validate
-      - zod
-    dev: false
-
   /@wagmi/core@0.9.5(@types/node@20.3.1)(ethers@5.7.2)(react@18.2.0)(typescript@5.1.3):
     resolution: {integrity: sha512-Ff4ejQbeexH5pfcYbwYusvxcYUY1+AuKCqHyYLliOQChLvymK7QGth7Hh7lKEf1Js/g4ktHHI07EfLKHEiDYWw==}
     peerDependencies:
@@ -4205,35 +4198,6 @@ packages:
       eventemitter3: 4.0.7
       typescript: 5.1.3
       viem: 0.3.41(typescript@5.1.3)(zod@3.21.4)
-      zustand: 4.3.8(react@18.2.0)
-    transitivePeerDependencies:
-      - '@react-native-async-storage/async-storage'
-      - bufferutil
-      - debug
-      - encoding
-      - immer
-      - lokijs
-      - react
-      - supports-color
-      - utf-8-validate
-      - zod
-    dev: false
-
-  /@wagmi/core@1.2.0(react@18.2.0)(typescript@5.1.3)(viem@1.0.7):
-    resolution: {integrity: sha512-7onf13u0atdXOnoitB+pivnIUPJman7Y8GITKkxwmcwJ3lpE1U/grYE7xHcKN7av7KEu0DozvKPhN7nJ/7OErw==}
-    peerDependencies:
-      typescript: '>=5.0.4'
-      viem: '>=0.3.35'
-    peerDependenciesMeta:
-      typescript:
-        optional: true
-    dependencies:
-      '@wagmi/chains': 1.1.0(typescript@5.1.3)
-      '@wagmi/connectors': 2.2.0(@wagmi/chains@1.1.0)(react@18.2.0)(typescript@5.1.3)(viem@1.0.7)
-      abitype: 0.8.7(typescript@5.1.3)(zod@3.21.4)
-      eventemitter3: 4.0.7
-      typescript: 5.1.3
-      viem: 1.0.7(typescript@5.1.3)(zod@3.21.4)
       zustand: 4.3.8(react@18.2.0)
     transitivePeerDependencies:
       - '@react-native-async-storage/async-storage'
@@ -11996,37 +11960,6 @@ packages:
       - terser
     dev: true
 
-  /vite@4.3.9:
-    resolution: {integrity: sha512-qsTNZjO9NoJNW7KnOrgYwczm0WctJ8m/yqYAMAK9Lxt4SoySUfS5S8ia9K7JHpa3KEeMfyF8LoJ3c5NeBJy6pg==}
-    engines: {node: ^14.18.0 || >=16.0.0}
-    hasBin: true
-    peerDependencies:
-      '@types/node': '>= 14'
-      less: '*'
-      sass: '*'
-      stylus: '*'
-      sugarss: '*'
-      terser: ^5.4.0
-    peerDependenciesMeta:
-      '@types/node':
-        optional: true
-      less:
-        optional: true
-      sass:
-        optional: true
-      stylus:
-        optional: true
-      sugarss:
-        optional: true
-      terser:
-        optional: true
-    dependencies:
-      esbuild: 0.17.19
-      postcss: 8.4.24
-      rollup: 3.23.0
-    optionalDependencies:
-      fsevents: 2.3.2
-
   /vite@4.3.9(@types/node@20.3.1):
     resolution: {integrity: sha512-qsTNZjO9NoJNW7KnOrgYwczm0WctJ8m/yqYAMAK9Lxt4SoySUfS5S8ia9K7JHpa3KEeMfyF8LoJ3c5NeBJy6pg==}
     engines: {node: ^14.18.0 || >=16.0.0}
@@ -12055,10 +11988,9 @@ packages:
       '@types/node': 20.3.1
       esbuild: 0.17.19
       postcss: 8.4.24
-      rollup: 3.25.1
+      rollup: 3.23.0
     optionalDependencies:
       fsevents: 2.3.2
-    dev: true
 
   /vitepress@1.0.0-beta.3(@algolia/client-search@4.17.2)(search-insights@2.6.0):
     resolution: {integrity: sha512-GR5Pvr/o343NN1M4Na1shhDYZRrQbjmLq7WE0lla0H8iDPAsHE8agTHLWfu3FWx+3q2KA29sv16+0O9RQKGjlA==}
@@ -12075,7 +12007,7 @@ packages:
       mark.js: 8.11.1
       minisearch: 6.1.0
       shiki: 0.14.2
-      vite: 4.3.9
+      vite: 4.3.9(@types/node@20.3.1)
       vue: 3.3.4
     transitivePeerDependencies:
       - '@algolia/client-search'
@@ -12466,39 +12398,6 @@ packages:
       typescript: 5.1.3
       use-sync-external-store: 1.2.0(react@18.2.0)
       viem: 0.3.41(typescript@5.1.3)(zod@3.21.4)
-    transitivePeerDependencies:
-      - '@react-native-async-storage/async-storage'
-      - bufferutil
-      - debug
-      - encoding
-      - immer
-      - lokijs
-      - react-dom
-      - react-native
-      - supports-color
-      - utf-8-validate
-      - zod
-    dev: false
-
-  /wagmi@1.2.0(react-dom@18.2.0)(react@18.2.0)(typescript@5.1.3)(viem@1.0.7):
-    resolution: {integrity: sha512-VSSBEVDMZAWIcWTlewC1XypHsWa1FdkdYXWdgu5pqTCqnW6JKWGsR5TbQY3poCIQoC7B2okisElZT2oVSYbA5Q==}
-    peerDependencies:
-      react: '>=17.0.0'
-      typescript: '>=5.0.4'
-      viem: '>=0.3.35'
-    peerDependenciesMeta:
-      typescript:
-        optional: true
-    dependencies:
-      '@tanstack/query-sync-storage-persister': 4.29.11
-      '@tanstack/react-query': 4.29.14(react-dom@18.2.0)(react@18.2.0)
-      '@tanstack/react-query-persist-client': 4.29.12(@tanstack/react-query@4.29.14)
-      '@wagmi/core': 1.2.0(react@18.2.0)(typescript@5.1.3)(viem@1.0.7)
-      abitype: 0.8.7(typescript@5.1.3)(zod@3.21.4)
-      react: 18.2.0
-      typescript: 5.1.3
-      use-sync-external-store: 1.2.0(react@18.2.0)
-      viem: 1.0.7(typescript@5.1.3)(zod@3.21.4)
     transitivePeerDependencies:
       - '@react-native-async-storage/async-storage'
       - bufferutil
