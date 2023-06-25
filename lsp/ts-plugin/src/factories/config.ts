@@ -1,7 +1,7 @@
 import type typescript from 'typescript/lib/tsserverlibrary'
 import { z } from 'zod'
 
-const configValidator = z.object({
+export const configValidator = z.object({
 	/**
 	 * The name of the plugin
 	 */
@@ -37,6 +37,5 @@ export type Config = z.infer<typeof configValidator>
 export const createConfig = (
 	createOptions: typescript.server.PluginCreateInfo,
 ): Config => {
-	const config = configValidator.parse(createOptions.config)
-	return config
+	return createOptions.config
 }

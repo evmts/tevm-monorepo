@@ -129,19 +129,19 @@ export const solcModules: SolidityResolver = (
 		resolveDts: async (module, basedir) => {
 			const artifacts = await resolveArtifacts(module, basedir, logger)
 			if (artifacts) {
-				const evmtsImports = `import { EVMtsContract, evmtsContractFactory } from '@evmts/core'`
+				const evmtsImports = `import type { EVMtsContract } from '@evmts/core'`
 				const evmtsBody = Object.entries(artifacts)
 					.flatMap(([contractName, { abi }]) => {
-						const contract = JSON.stringify({
+						const contract = {
 							name: contractName,
 							abi,
 							address: config.deployments?.find(
 								(contractConfig) => contractConfig.name === contractName,
-							),
-						})
+							)?.address,
+						}
 						return [
-							`const _${contractName} = ${contract} as const`,
-							`export const ${contractName} = evmtsContractFactory(_${contractName})`,
+							`const _abi = ${JSON.stringify(contract.abi)} as const`,
+							`export const ${contractName}: EVMtsContract<${contract.name}, "${contract.address}", typeof _abi>`,
 						]
 					})
 					.join('\n')
@@ -152,19 +152,19 @@ export const solcModules: SolidityResolver = (
 		resolveDtsSync: (module, basedir) => {
 			const artifacts = resolveArtifactsSync(module, basedir, logger)
 			if (artifacts) {
-				const evmtsImports = `import { EVMtsContract, evmtsContractFactory } from '@evmts/core'`
+				const evmtsImports = `import type { EVMtsContract } from '@evmts/core'`
 				const evmtsBody = Object.entries(artifacts)
 					.flatMap(([contractName, { abi }]) => {
-						const contract = JSON.stringify({
+						const contract = {
 							name: contractName,
 							abi,
 							address: config.deployments?.find(
 								(contractConfig) => contractConfig.name === contractName,
-							),
-						})
+							)?.address,
+						}
 						return [
-							`const _${contractName} = ${contract} as const`,
-							`export const ${contractName} = evmtsContractFactory(_${contractName})`,
+							`const _abi = ${JSON.stringify(contract.abi)} as const`,
+							`export const ${contractName}: EVMtsContract<${contract.name}, "${contract.address}", typeof _abi>`,
 						]
 					})
 					.join('\n')
@@ -176,8 +176,7 @@ export const solcModules: SolidityResolver = (
 			const artifacts = resolveArtifactsSync(module, basedir, logger)
 			if (artifacts) {
 				const evmtsImports = [
-					`import type { EVMtsContract } from '@evmts/core'`,
-					`import { EVMtsContract, evmtsContractFactory } from '@evmts/core'`,
+					`import { evmtsContractFactory } from '@evmts/core'`,
 				].join('\n')
 				const evmtsBody = Object.entries(artifacts)
 					.flatMap(([contractName, { abi }]) => {
@@ -202,8 +201,7 @@ export const solcModules: SolidityResolver = (
 			const artifacts = await resolveArtifacts(module, basedir, logger)
 			if (artifacts) {
 				const evmtsImports = [
-					`import type { EVMtsContract } from '@evmts/core'`,
-					`import { EVMtsContract, evmtsContractFactory } from '@evmts/core'`,
+					`import { evmtsContractFactory } from '@evmts/core'`,
 				].join('\n')
 				const evmtsBody = Object.entries(artifacts)
 					.flatMap(([contractName, { abi }]) => {

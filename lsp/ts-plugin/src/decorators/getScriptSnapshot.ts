@@ -20,7 +20,7 @@ export const getScriptSnapshotDecorator = createDecorator(
 				try {
 					const plugin = solcModules(
 						{
-							out: config.out,
+							...config,
 						},
 						logger as any,
 					)
