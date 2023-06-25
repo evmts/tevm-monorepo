@@ -16,5 +16,5 @@ export const ReadContract = () => {
 		isSuccess,
 		params: WagmiMintExample.read.balanceOf(address),
 	})
-	return <div>{data.toString()}</div>
+	return <div>{data?.toString()}</div>
 }
