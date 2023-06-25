@@ -497,8 +497,8 @@ importers:
         specifier: workspace:^0.0.3
         version: link:../../core
       '@tanstack/query-core':
-        specifier: ^4.29.14
-        version: 4.29.14
+        specifier: ^4.29.15
+        version: 4.29.15
       '@tanstack/react-query':
         specifier: ^4.29.14
         version: 4.29.14(react-dom@18.2.0)(react@18.2.0)
@@ -3279,6 +3279,10 @@ packages:
 
   /@tanstack/query-core@4.29.14:
     resolution: {integrity: sha512-ElEAahtLWA7Y7c2Haw10KdEf2tx+XZl/Z8dmyWxZehxWK3TPL5qtXtb7kUEhvt/8u2cSP62fLxgh2qqzMMGnDQ==}
+    dev: false
+
+  /@tanstack/query-core@4.29.15:
+    resolution: {integrity: sha512-Recc1d5rjHesKhzlH3Aw66v+vQxtB9OHEXP/vxgEcEJ0DwEpfe3EQ4id20vuBJHY2XRjfgWGmUs6ZgK6PSsTXA==}
     dev: false
 
   /@tanstack/query-persist-client-core@4.29.11:
@@ -10508,13 +10512,6 @@ packages:
     hasBin: true
     dependencies:
       glob: 7.2.3
-
-  /rollup@3.23.0:
-    resolution: {integrity: sha512-h31UlwEi7FHihLe1zbk+3Q7z1k/84rb9BSwmBSr/XjOCEaBJ2YyedQDuM0t/kfOS0IxM+vk1/zI9XxYj9V+NJQ==}
-    engines: {node: '>=14.18.0', npm: '>=8.0.0'}
-    hasBin: true
-    optionalDependencies:
-      fsevents: 2.3.2
 
   /rollup@3.25.1:
     resolution: {integrity: sha512-tywOR+rwIt5m2ZAWSe5AIJcTat8vGlnPFAv15ycCrw33t6iFsXZ6mzHVFh2psSjxQPmI+xgzMZZizUAukBI4aQ==}
