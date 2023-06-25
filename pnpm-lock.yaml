@@ -302,7 +302,7 @@ importers:
         version: 12.1.3
       vitepress:
         specifier: 1.0.0-beta.3
-        version: 1.0.0-beta.3(@algolia/client-search@4.17.2)(search-insights@2.6.0)
+        version: 1.0.0-beta.3(@algolia/client-search@4.18.0)(search-insights@2.6.0)
 
   docs-beta:
     devDependencies:
@@ -317,7 +317,7 @@ importers:
         version: 12.1.3
       vitepress:
         specifier: 1.0.0-beta.3
-        version: 1.0.0-beta.3(@algolia/client-search@4.17.2)(search-insights@2.6.0)
+        version: 1.0.0-beta.3(@algolia/client-search@4.18.0)(search-insights@2.6.0)
 
   e2e:
     devDependencies:
@@ -425,20 +425,20 @@ importers:
         specifier: 1.7.8
         version: 1.7.8
       '@volar/language-server':
-        specifier: 1.7.7
-        version: 1.7.7
+        specifier: 1.7.8
+        version: 1.7.8
       '@volar/language-service':
-        specifier: 1.7.7
-        version: 1.7.7
+        specifier: 1.7.8
+        version: 1.7.8
       volar-service-css:
         specifier: 0.0.8
-        version: 0.0.8(@volar/language-service@1.7.7)
+        version: 0.0.8(@volar/language-service@1.7.8)
       volar-service-emmet:
         specifier: 0.0.8
-        version: 0.0.8(@volar/language-service@1.7.7)
+        version: 0.0.8(@volar/language-service@1.7.8)
       volar-service-html:
         specifier: 0.0.8
-        version: 0.0.8(@volar/language-service@1.7.7)
+        version: 0.0.8(@volar/language-service@1.7.8)
       vscode-html-languageservice:
         specifier: 5.0.6
         version: 5.0.6
@@ -479,11 +479,11 @@ importers:
         specifier: 1.79.1
         version: 1.79.1
       '@volar/language-server':
-        specifier: 1.7.7
-        version: 1.7.7
+        specifier: 1.7.8
+        version: 1.7.8
       '@volar/vscode':
-        specifier: 1.7.7
-        version: 1.7.7
+        specifier: 1.7.8
+        version: 1.7.8
       esbuild:
         specifier: 0.18.8
         version: 0.18.8
@@ -516,7 +516,7 @@ importers:
         version: 6.0.3
       connectkit:
         specifier: ^1.4.0
-        version: 1.4.0(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0)(viem@0.3.41)(wagmi@1.2.0)
+        version: 1.4.0(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0)(viem@0.3.50)(wagmi@1.2.0)
       process:
         specifier: ^0.11.10
         version: 0.11.10
@@ -534,7 +534,7 @@ importers:
         version: 0.12.5
       wagmi:
         specifier: ~1.2.0
-        version: 1.2.0(react-dom@18.2.0)(react@18.2.0)(typescript@5.1.3)(viem@0.3.41)(zod@3.21.4)
+        version: 1.2.0(react-dom@18.2.0)(react@18.2.0)(typescript@5.1.3)(viem@0.3.50)(zod@3.21.4)
       zod:
         specifier: ^3.21.4
         version: 3.21.4
@@ -698,47 +698,47 @@ packages:
   /@adraffy/ens-normalize@1.9.0:
     resolution: {integrity: sha512-iowxq3U30sghZotgl4s/oJRci6WPBfNO5YYgk2cIOMCHr3LeGPcsZjCEr+33Q4N+oV3OABDAtA+pyvWjbvBifQ==}
 
-  /@algolia/autocomplete-core@1.9.3(@algolia/client-search@4.17.2)(algoliasearch@4.17.1)(search-insights@2.6.0):
+  /@algolia/autocomplete-core@1.9.3(@algolia/client-search@4.18.0)(algoliasearch@4.17.1)(search-insights@2.6.0):
     resolution: {integrity: sha512-009HdfugtGCdC4JdXUbVJClA0q0zh24yyePn+KUGk3rP7j8FEe/m5Yo/z65gn6nP/cM39PxpzqKrL7A6fP6PPw==}
     dependencies:
-      '@algolia/autocomplete-plugin-algolia-insights': 1.9.3(@algolia/client-search@4.17.2)(algoliasearch@4.17.1)(search-insights@2.6.0)
-      '@algolia/autocomplete-shared': 1.9.3(@algolia/client-search@4.17.2)(algoliasearch@4.17.1)
+      '@algolia/autocomplete-plugin-algolia-insights': 1.9.3(@algolia/client-search@4.18.0)(algoliasearch@4.17.1)(search-insights@2.6.0)
+      '@algolia/autocomplete-shared': 1.9.3(@algolia/client-search@4.18.0)(algoliasearch@4.17.1)
     transitivePeerDependencies:
       - '@algolia/client-search'
       - algoliasearch
       - search-insights
     dev: true
 
-  /@algolia/autocomplete-plugin-algolia-insights@1.9.3(@algolia/client-search@4.17.2)(algoliasearch@4.17.1)(search-insights@2.6.0):
+  /@algolia/autocomplete-plugin-algolia-insights@1.9.3(@algolia/client-search@4.18.0)(algoliasearch@4.17.1)(search-insights@2.6.0):
     resolution: {integrity: sha512-a/yTUkcO/Vyy+JffmAnTWbr4/90cLzw+CC3bRbhnULr/EM0fGNvM13oQQ14f2moLMcVDyAx/leczLlAOovhSZg==}
     peerDependencies:
       search-insights: '>= 1 < 3'
     dependencies:
-      '@algolia/autocomplete-shared': 1.9.3(@algolia/client-search@4.17.2)(algoliasearch@4.17.1)
+      '@algolia/autocomplete-shared': 1.9.3(@algolia/client-search@4.18.0)(algoliasearch@4.17.1)
       search-insights: 2.6.0
     transitivePeerDependencies:
       - '@algolia/client-search'
       - algoliasearch
     dev: true
 
-  /@algolia/autocomplete-preset-algolia@1.9.3(@algolia/client-search@4.17.2)(algoliasearch@4.17.1):
+  /@algolia/autocomplete-preset-algolia@1.9.3(@algolia/client-search@4.18.0)(algoliasearch@4.17.1):
     resolution: {integrity: sha512-d4qlt6YmrLMYy95n5TB52wtNDr6EgAIPH81dvvvW8UmuWRgxEtY0NJiPwl/h95JtG2vmRM804M0DSwMCNZlzRA==}
     peerDependencies:
       '@algolia/client-search': '>= 4.9.1 < 6'
       algoliasearch: '>= 4.9.1 < 6'
     dependencies:
-      '@algolia/autocomplete-shared': 1.9.3(@algolia/client-search@4.17.2)(algoliasearch@4.17.1)
-      '@algolia/client-search': 4.17.2
+      '@algolia/autocomplete-shared': 1.9.3(@algolia/client-search@4.18.0)(algoliasearch@4.17.1)
+      '@algolia/client-search': 4.18.0
       algoliasearch: 4.17.1
     dev: true
 
-  /@algolia/autocomplete-shared@1.9.3(@algolia/client-search@4.17.2)(algoliasearch@4.17.1):
+  /@algolia/autocomplete-shared@1.9.3(@algolia/client-search@4.18.0)(algoliasearch@4.17.1):
     resolution: {integrity: sha512-Wnm9E4Ye6Rl6sTTqjoymD+l8DjSTHsHboVRYrKgEt8Q7UHm9nYbqhN/i0fhUYA3OAEH7WA8x3jfpnmJm3rKvaQ==}
     peerDependencies:
       '@algolia/client-search': '>= 4.9.1 < 6'
       algoliasearch: '>= 4.9.1 < 6'
     dependencies:
-      '@algolia/client-search': 4.17.2
+      '@algolia/client-search': 4.18.0
       algoliasearch: 4.17.1
     dev: true
 
@@ -752,8 +752,8 @@ packages:
     resolution: {integrity: sha512-fvi1WT8aSiGAKrcTw8Qg3RYgcwW8GZMHcqEm4AyDBEy72JZlFBSY80cTQ75MslINjCHXLDT+9EN8AGI9WVY7uA==}
     dev: true
 
-  /@algolia/cache-common@4.17.2:
-    resolution: {integrity: sha512-fojbhYIS8ovfYs6hwZpy1O4mBfVRxNgAaZRqsdVQd54hU4MxYDYFCxagYX28lOBz7btcDHld6BMoWXvjzkx6iQ==}
+  /@algolia/cache-common@4.18.0:
+    resolution: {integrity: sha512-BmxsicMR4doGbeEXQu8yqiGmiyvpNvejYJtQ7rvzttEAMxOPoWEHrWyzBQw4x7LrBY9pMrgv4ZlUaF8PGzewHg==}
     dev: true
 
   /@algolia/cache-in-memory@4.17.1:
@@ -786,11 +786,11 @@ packages:
       '@algolia/transporter': 4.17.1
     dev: true
 
-  /@algolia/client-common@4.17.2:
-    resolution: {integrity: sha512-gKBUnjxi0ukJYIJxVREYGt1Dmj1B3RBYbfGWi0dIPp1BC1VvQm+BOuNwsIwmq/x3MPO+sGuK978eKiP3tZDvag==}
+  /@algolia/client-common@4.18.0:
+    resolution: {integrity: sha512-7N+soJFP4wn8tjTr3MSUT/U+4xVXbz4jmeRfWfVAzdAbxLAQbHa0o/POSdTvQ8/02DjCLelloZ1bb4ZFVKg7Wg==}
     dependencies:
-      '@algolia/requester-common': 4.17.2
-      '@algolia/transporter': 4.17.2
+      '@algolia/requester-common': 4.18.0
+      '@algolia/transporter': 4.18.0
     dev: true
 
   /@algolia/client-personalization@4.17.1:
@@ -809,20 +809,20 @@ packages:
       '@algolia/transporter': 4.17.1
     dev: true
 
-  /@algolia/client-search@4.17.2:
-    resolution: {integrity: sha512-FUjIs+gRe0upJC++uVs4sdxMw15JxfkT86Gr/kqVwi9kcqaZhXntSbW/Fw959bIYXczjmeVQsilYvBWW4YvSZA==}
+  /@algolia/client-search@4.18.0:
+    resolution: {integrity: sha512-F9xzQXTjm6UuZtnsLIew6KSraXQ0AzS/Ee+OD+mQbtcA/K1sg89tqb8TkwjtiYZ0oij13u3EapB3gPZwm+1Y6g==}
     dependencies:
-      '@algolia/client-common': 4.17.2
-      '@algolia/requester-common': 4.17.2
-      '@algolia/transporter': 4.17.2
+      '@algolia/client-common': 4.18.0
+      '@algolia/requester-common': 4.18.0
+      '@algolia/transporter': 4.18.0
     dev: true
 
   /@algolia/logger-common@4.17.1:
     resolution: {integrity: sha512-Us28Ot+fLEmX9M96sa65VZ8EyEEzhYPxfhV9aQyKDjfXbUdJlJxKt6wZpoEg9RAPSdO8IjK9nmuW2P8au3rRsg==}
     dev: true
 
-  /@algolia/logger-common@4.17.2:
-    resolution: {integrity: sha512-EfXuweUE+1HiSMsQidaDWA5Lv4NnStYIlh7PO5pLkI+sdhbMX0e5AO5nUAMIFM1VkEANes70RA8fzhP6OqCqQQ==}
+  /@algolia/logger-common@4.18.0:
+    resolution: {integrity: sha512-46etYgSlkoKepkMSyaoriSn2JDgcrpc/nkOgou/lm0y17GuMl9oYZxwKKTSviLKI5Irk9nSKGwnBTQYwXOYdRg==}
     dev: true
 
   /@algolia/logger-console@4.17.1:
@@ -841,8 +841,8 @@ packages:
     resolution: {integrity: sha512-HggXdjvVFQR0I5l7hM5WdHgQ1tqcRWeyXZz8apQ7zPWZhirmY2E9D6LVhDh/UnWQNEm7nBtM+eMFONJ3bZccIQ==}
     dev: true
 
-  /@algolia/requester-common@4.17.2:
-    resolution: {integrity: sha512-Rfim23ztAhYpE9qm+KCfCRo+YLJCjiiTG+IpDdzUjMpYPhUtirQT0A35YEd/gKn86YNyydxS9w8iRSjwKh+L0A==}
+  /@algolia/requester-common@4.18.0:
+    resolution: {integrity: sha512-xlT8R1qYNRBCi1IYLsx7uhftzdfsLPDGudeQs+xvYB4sQ3ya7+ppolB/8m/a4F2gCkEO6oxpp5AGemM7kD27jA==}
     dev: true
 
   /@algolia/requester-node-http@4.17.1:
@@ -859,12 +859,12 @@ packages:
       '@algolia/requester-common': 4.17.1
     dev: true
 
-  /@algolia/transporter@4.17.2:
-    resolution: {integrity: sha512-m8pXlz5OnNzjD1rcw+duCN4jG4yEzkJBsvKYMoN22Oq6rQwy1AY5muZ+IQUs4dL+A364CYkRMLRWhvXpCZ1x+g==}
+  /@algolia/transporter@4.18.0:
+    resolution: {integrity: sha512-xbw3YRUGtXQNG1geYFEDDuFLZt4Z8YNKbamHPkzr3rWc6qp4/BqEeXcI2u/P/oMq2yxtXgMxrCxOPA8lyIe5jw==}
     dependencies:
-      '@algolia/cache-common': 4.17.2
-      '@algolia/logger-common': 4.17.2
-      '@algolia/requester-common': 4.17.2
+      '@algolia/cache-common': 4.18.0
+      '@algolia/logger-common': 4.18.0
+      '@algolia/requester-common': 4.18.0
     dev: true
 
   /@ampproject/remapping@2.2.1:
@@ -1373,10 +1373,10 @@ packages:
     resolution: {integrity: sha512-2Pu9HDg/uP/IT10rbQ+4OrTQuxIWdKVUEdcw9/w7kZJv9NeHS6skJx1xuRiFyoGKwAzcHXnLp7csE99sj+O1YA==}
     dev: true
 
-  /@docsearch/js@3.5.1(@algolia/client-search@4.17.2)(search-insights@2.6.0):
+  /@docsearch/js@3.5.1(@algolia/client-search@4.18.0)(search-insights@2.6.0):
     resolution: {integrity: sha512-EXi8de5njxgP6TV3N9ytnGRLG9zmBNTEZjR4VzwPcpPLbZxxTLG2gaFyJyKiFVQxHW/DPlMrDJA3qoRRGEkgZw==}
     dependencies:
-      '@docsearch/react': 3.5.1(@algolia/client-search@4.17.2)(search-insights@2.6.0)
+      '@docsearch/react': 3.5.1(@algolia/client-search@4.18.0)(search-insights@2.6.0)
       preact: 10.15.1
     transitivePeerDependencies:
       - '@algolia/client-search'
@@ -1386,7 +1386,7 @@ packages:
       - search-insights
     dev: true
 
-  /@docsearch/react@3.5.1(@algolia/client-search@4.17.2)(search-insights@2.6.0):
+  /@docsearch/react@3.5.1(@algolia/client-search@4.18.0)(search-insights@2.6.0):
     resolution: {integrity: sha512-t5mEODdLzZq4PTFAm/dvqcvZFdPDMdfPE5rJS5SC8OUq9mPzxEy6b+9THIqNM9P0ocCb4UC5jqBrxKclnuIbzQ==}
     peerDependencies:
       '@types/react': '>= 16.8.0 < 19.0.0'
@@ -1400,8 +1400,8 @@ packages:
       react-dom:
         optional: true
     dependencies:
-      '@algolia/autocomplete-core': 1.9.3(@algolia/client-search@4.17.2)(algoliasearch@4.17.1)(search-insights@2.6.0)
-      '@algolia/autocomplete-preset-algolia': 1.9.3(@algolia/client-search@4.17.2)(algoliasearch@4.17.1)
+      '@algolia/autocomplete-core': 1.9.3(@algolia/client-search@4.18.0)(algoliasearch@4.17.1)(search-insights@2.6.0)
+      '@algolia/autocomplete-preset-algolia': 1.9.3(@algolia/client-search@4.18.0)(algoliasearch@4.17.1)
       '@docsearch/css': 3.5.1
       algoliasearch: 4.17.1
     transitivePeerDependencies:
@@ -2655,7 +2655,7 @@ packages:
     dependencies:
       '@types/debug': 4.1.8
       debug: 4.3.4(supports-color@5.5.0)
-      semver: 7.5.2
+      semver: 7.5.3
       superstruct: 1.0.3
     transitivePeerDependencies:
       - supports-color
@@ -2773,7 +2773,7 @@ packages:
     resolution: {integrity: sha512-8KG5RD0GVP4ydEzRn/I4BNDuxDtqVbOdm8675T49OIG/NGhaK0pjPX7ZcDlvKYbA+ulvVK3ztfcF4uBdOxuJbQ==}
     dependencies:
       '@gar/promisify': 1.1.3
-      semver: 7.5.2
+      semver: 7.5.3
     dev: false
 
   /@npmcli/move-file@1.1.2:
@@ -3785,23 +3785,17 @@ packages:
       pretty-format: 27.5.1
     dev: true
 
-  /@volar/language-core@1.7.7:
-    resolution: {integrity: sha512-sNCyZ7rr09hBIDjThkdrCipakPLbXH9RF7Tlx+heH+bUwwsHluuCW7XxHP79ZfNs45wY+drGgPG3o/9czv0gVQ==}
-    dependencies:
-      '@volar/source-map': 1.7.7
-
   /@volar/language-core@1.7.8:
     resolution: {integrity: sha512-TPklg4c2e/f1xB/MGZEiQc3AWG+dH64ZfBlYjFB8nNaWJt4Z4k+IHBhmaP52APG+5PHFerwiWI9oF002RrRTPA==}
     dependencies:
       '@volar/source-map': 1.7.8
-    dev: false
 
-  /@volar/language-server@1.7.7:
-    resolution: {integrity: sha512-xjCOQnZT+EYA11XNVev4kxVrRC5/ZuLPRLvMIzcRloJLMy+ermx5ZA8eVJParFhw1ExN6DeC3w9zeINsamiyrw==}
+  /@volar/language-server@1.7.8:
+    resolution: {integrity: sha512-n2nMKvoxrETSfFmQFhK4uuyorNRYDONoJ1ZLSvy8m8IszHWH4KvPVtpN7WiQImeYuURbxFEO4egtlEFEHn823w==}
     dependencies:
-      '@volar/language-core': 1.7.7
-      '@volar/language-service': 1.7.7
-      '@volar/typescript': 1.7.7
+      '@volar/language-core': 1.7.8
+      '@volar/language-service': 1.7.8
+      '@volar/typescript': 1.7.8
       '@vscode/l10n': 0.0.11
       request-light: 0.7.0
       typesafe-path: 0.2.2
@@ -3810,41 +3804,35 @@ packages:
       vscode-languageserver-textdocument: 1.0.8
       vscode-uri: 3.0.7
 
-  /@volar/language-service@1.7.7:
-    resolution: {integrity: sha512-e3lyJMchVn7Y0rttjdNb99BGX5plAxiAT8Zx38PMajKdM08femwQZ2KquEQF4PtU5rwxKJImayKEUyF3+DeeMQ==}
+  /@volar/language-service@1.7.8:
+    resolution: {integrity: sha512-4ph81wHT0OvJUTic8hLkIRVCoKnvuAN3AoTR7WBeb4yFuo5KXVKZE6AA7D7cMiIVP92WBx531eZlk00aUW4jrQ==}
     dependencies:
-      '@volar/language-core': 1.7.7
-      '@volar/source-map': 1.7.7
+      '@volar/language-core': 1.7.8
+      '@volar/source-map': 1.7.8
       vscode-languageserver-protocol: 3.17.3
       vscode-languageserver-textdocument: 1.0.8
       vscode-uri: 3.0.7
-
-  /@volar/source-map@1.7.7:
-    resolution: {integrity: sha512-BAM1DdCmqQJkD+oAU1n5WbtMcmzkt7M0dSlFr/qraX938PMltKTzCAfLX37B+ByQaHXKemzXocMSHZqMNla2LA==}
-    dependencies:
-      muggle-string: 0.3.1
 
   /@volar/source-map@1.7.8:
     resolution: {integrity: sha512-g2dtC2kOghvfzMDWeODIo4HO1Ml4hxzPTZyAFDz+YhRF9HjZYJSCaWaVuPZ+z0kY+T2daOHYA10GdrWQ5q0teA==}
     dependencies:
       muggle-string: 0.3.1
-    dev: false
 
-  /@volar/typescript@1.7.7:
-    resolution: {integrity: sha512-7cdFJru6nQrAao2WYxwDGeyMIOjDwUsJ/Y3ArDvZ4kLFPJY7RGisBNDdZBko1nomBzhbMAAW8JQZBbtawXSc3A==}
+  /@volar/typescript@1.7.8:
+    resolution: {integrity: sha512-NDcI5ZQcdr8kgxzMQrhSSWIM8Tl0MbMFrkvJPTjfm2rdAQZPFT8zv3LrEW9Fqh0e9z2YbCry7jr4a/GShBqeDA==}
     dependencies:
-      '@volar/language-core': 1.7.7
+      '@volar/language-core': 1.7.8
 
-  /@volar/vscode@1.7.7:
-    resolution: {integrity: sha512-/q+RZrDFvow22pUczPa0aQMDRXOTcJZESCtacxKIouIYpt8ZXoDa014iOyDabzN+kcQSAy5oLFYdwW1YviKuPA==}
+  /@volar/vscode@1.7.8:
+    resolution: {integrity: sha512-b+7mGluL4/8qFCFzbs4emeb07MJsNei9VlQUB0iaazg2EsIgr0vUuxBio6elAwggE/HaNHxqVLmEbsnJshPWNw==}
     dependencies:
-      '@volar/language-server': 1.7.7
+      '@volar/language-server': 1.7.8
       typesafe-path: 0.2.2
       vscode-nls: 5.2.0
     dev: true
 
-  /@vscode/emmet-helper@2.8.9:
-    resolution: {integrity: sha512-ygpVStaePHt9aI9zk4NNJWI/NsRaeDSW1vQsZVmtpVRVCOdwYlsc3BfB/eppUu1OucT0x3OHDAzKcxnitjcSXQ==}
+  /@vscode/emmet-helper@2.9.2:
+    resolution: {integrity: sha512-MaGuyW+fa13q3aYsluKqclmh62Hgp0BpKIqS66fCxfOaBcVQ1OnMQxRRgQUYnCkxFISAQlkJ0qWWPyXjro1Qrg==}
     dependencies:
       emmet: 2.4.4
       jsonc-parser: 2.3.1
@@ -4033,10 +4021,10 @@ packages:
       typescript: 5.1.3
     dev: false
 
-  /@wagmi/chains@0.3.1(typescript@5.1.3):
-    resolution: {integrity: sha512-NN5qziBLFeXnx0+3ywdiKKXUSW4H73Wc1jRrygl9GKXVPawU0GBMudwXUfV7VOu6E9vmG7Arj0pVsEwq63b2Ew==}
+  /@wagmi/chains@1.0.0(typescript@5.1.3):
+    resolution: {integrity: sha512-eNbqRWyHbivcMNq5tbXJks4NaOzVLHnNQauHPeE/EDT9AlpqzcrMc+v2T1/2Iw8zN4zgqB86NCsxeJHJs7+xng==}
     peerDependencies:
-      typescript: '>=4.9.4'
+      typescript: '>=5.0.4'
     peerDependenciesMeta:
       typescript:
         optional: true
@@ -4093,7 +4081,7 @@ packages:
       - zod
     dev: false
 
-  /@wagmi/connectors@2.2.0(@wagmi/chains@1.1.0)(react@18.2.0)(typescript@5.1.3)(viem@0.3.41)(zod@3.21.4):
+  /@wagmi/connectors@2.2.0(@wagmi/chains@1.1.0)(react@18.2.0)(typescript@5.1.3)(viem@0.3.50)(zod@3.21.4):
     resolution: {integrity: sha512-pI1ed2V8dC8Gro0YbXrJedFj5U9HHD/zUe9MMUaV3ews2LY6qziSXZp9Dw6TKyiSJ5ANbRlZcl40AmSPozkZmw==}
     peerDependencies:
       '@wagmi/chains': '>=1.0.0'
@@ -4116,7 +4104,7 @@ packages:
       abitype: 0.8.7(typescript@5.1.3)(zod@3.21.4)
       eventemitter3: 4.0.7
       typescript: 5.1.3
-      viem: 0.3.41(typescript@5.1.3)(zod@3.21.4)
+      viem: 0.3.50(typescript@5.1.3)(zod@3.21.4)
     transitivePeerDependencies:
       - '@react-native-async-storage/async-storage'
       - bufferutil
@@ -4197,7 +4185,7 @@ packages:
       - zod
     dev: false
 
-  /@wagmi/core@1.2.0(react@18.2.0)(typescript@5.1.3)(viem@0.3.41)(zod@3.21.4):
+  /@wagmi/core@1.2.0(react@18.2.0)(typescript@5.1.3)(viem@0.3.50)(zod@3.21.4):
     resolution: {integrity: sha512-7onf13u0atdXOnoitB+pivnIUPJman7Y8GITKkxwmcwJ3lpE1U/grYE7xHcKN7av7KEu0DozvKPhN7nJ/7OErw==}
     peerDependencies:
       typescript: '>=5.0.4'
@@ -4207,11 +4195,11 @@ packages:
         optional: true
     dependencies:
       '@wagmi/chains': 1.1.0(typescript@5.1.3)
-      '@wagmi/connectors': 2.2.0(@wagmi/chains@1.1.0)(react@18.2.0)(typescript@5.1.3)(viem@0.3.41)(zod@3.21.4)
+      '@wagmi/connectors': 2.2.0(@wagmi/chains@1.1.0)(react@18.2.0)(typescript@5.1.3)(viem@0.3.50)(zod@3.21.4)
       abitype: 0.8.7(typescript@5.1.3)(zod@3.21.4)
       eventemitter3: 4.0.7
       typescript: 5.1.3
-      viem: 0.3.41(typescript@5.1.3)(zod@3.21.4)
+      viem: 0.3.50(typescript@5.1.3)(zod@3.21.4)
       zustand: 4.3.8(react@18.2.0)
     transitivePeerDependencies:
       - '@react-native-async-storage/async-storage'
@@ -5123,19 +5111,6 @@ packages:
 
   /abitype@0.8.11(typescript@5.1.3)(zod@3.21.4):
     resolution: {integrity: sha512-bM4v2dKvX08sZ9IU38IN5BKmN+ZkOSd2oI4a9f0ejHYZQYV6cDr7j+d95ga0z2XHG36Y4jzoG5Z7qDqxp7fi/A==}
-    peerDependencies:
-      typescript: '>=5.0.4'
-      zod: ^3 >=3.19.1
-    peerDependenciesMeta:
-      zod:
-        optional: true
-    dependencies:
-      typescript: 5.1.3
-      zod: 3.21.4
-    dev: false
-
-  /abitype@0.8.2(typescript@5.1.3)(zod@3.21.4):
-    resolution: {integrity: sha512-B1ViNMGpfx/qjVQi0RTc2HEFHuR9uoCoTEkwELT5Y7pBPtBbctYijz9BK6+Kd0hQ3S70FhYTO2dWWk0QNUEXMA==}
     peerDependencies:
       typescript: '>=5.0.4'
       zod: ^3 >=3.19.1
@@ -6204,7 +6179,7 @@ packages:
       xdg-basedir: 5.1.0
     dev: true
 
-  /connectkit@1.4.0(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0)(viem@0.3.41)(wagmi@1.2.0):
+  /connectkit@1.4.0(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0)(viem@0.3.50)(wagmi@1.2.0):
     resolution: {integrity: sha512-gRfcb/7BDX4uKc3qghjVlV5rd3jfkivqSsUG5vywZYy4nSHE4q4NeHsgJTTC8WnNTWxfOz02oP8J2dCaeCHLNw==}
     engines: {node: '>=12.4'}
     peerDependencies:
@@ -6223,8 +6198,8 @@ packages:
       react-use-measure: 2.1.1(react-dom@18.2.0)(react@18.2.0)
       resize-observer-polyfill: 1.5.1
       styled-components: 5.3.9(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0)
-      viem: 0.3.41(typescript@5.1.3)(zod@3.21.4)
-      wagmi: 1.2.0(react-dom@18.2.0)(react@18.2.0)(typescript@5.1.3)(viem@0.3.41)(zod@3.21.4)
+      viem: 0.3.50(typescript@5.1.3)(zod@3.21.4)
+      wagmi: 1.2.0(react-dom@18.2.0)(react@18.2.0)(typescript@5.1.3)(viem@0.3.50)(zod@3.21.4)
     transitivePeerDependencies:
       - react-is
     dev: false
@@ -7660,7 +7635,7 @@ packages:
       fs.realpath: 1.0.0
       inflight: 1.0.6
       inherits: 2.0.4
-      minimatch: 3.1.2
+      minimatch: 3.0.5
       once: 1.4.0
       path-is-absolute: 1.0.1
     dev: true
@@ -9315,7 +9290,7 @@ packages:
     resolution: {integrity: sha512-iwXuFrMAcFVi/ZoZiqq8BzAdsLw9kxDfTC0HMyjXfSL/6CSDAGD5UmR7azrAgWV1zKYq7dUUMj4owusBWKLsiQ==}
     engines: {node: '>=10'}
     dependencies:
-      semver: 7.5.2
+      semver: 7.5.3
     dev: true
 
   /node-addon-api@2.0.2:
@@ -9381,7 +9356,7 @@ packages:
     dependencies:
       hosted-git-info: 4.1.0
       is-core-module: 2.12.1
-      semver: 7.5.2
+      semver: 7.5.3
       validate-npm-package-license: 3.0.4
     dev: true
 
@@ -9391,7 +9366,7 @@ packages:
     dependencies:
       hosted-git-info: 5.2.1
       is-core-module: 2.12.1
-      semver: 7.5.2
+      semver: 7.5.3
       validate-npm-package-license: 3.0.4
     dev: true
 
@@ -10601,6 +10576,13 @@ packages:
     optionalDependencies:
       fsevents: 2.3.2
 
+  /rollup@3.25.2:
+    resolution: {integrity: sha512-VLnkxZMDr3jpxgtmS8pQZ0UvhslmF4ADq/9w4erkctbgjCqLW9oa89fJuXEs4ZmgyoF7Dm8rMDKSS5b5u2hHUg==}
+    engines: {node: '>=14.18.0', npm: '>=8.0.0'}
+    hasBin: true
+    optionalDependencies:
+      fsevents: 2.3.2
+
   /rome@12.1.3:
     resolution: {integrity: sha512-e+ff72hxDpe/t5/Us7YRBVw3PBET7SeczTQNn6tvrWdrCaAw3qOukQQ+tDCkyFtS4yGsnhjrJbm43ctNbz27Yg==}
     engines: {node: '>=14.*'}
@@ -10753,6 +10735,14 @@ packages:
 
   /semver@7.5.2:
     resolution: {integrity: sha512-SoftuTROv/cRjCze/scjGyiDtcUyxw1rgYQSZY7XTmtR5hX+dm76iDbTH8TkLPHCQmlbQVSSbNZCPM2hb0knnQ==}
+    engines: {node: '>=10'}
+    hasBin: true
+    dependencies:
+      lru-cache: 6.0.0
+    dev: true
+
+  /semver@7.5.3:
+    resolution: {integrity: sha512-QBlUtyVk/5EeHbi7X0fw6liDZc7BBmEaSYn01fMU1OUYbf6GPsbTtd8WmnqbI20SeycoHSeiybkE/q1Q+qlThQ==}
     engines: {node: '>=10'}
     hasBin: true
     dependencies:
@@ -11949,16 +11939,16 @@ packages:
     engines: {node: '>= 0.8'}
     dev: true
 
-  /viem@0.3.41(typescript@5.1.3)(zod@3.21.4):
-    resolution: {integrity: sha512-QC9nSyqrhVv4CRVS58CgVS3rilikG8EAVPlkP+R6u8FDx6kLVe0Bz6bYrxzrcmR/lASko6Pz6N7xA7jngGkqvw==}
+  /viem@0.3.50(typescript@5.1.3)(zod@3.21.4):
+    resolution: {integrity: sha512-s+LxCYZTR9F/qPk1/n1YDVAX9vSeVz7GraqBZWGrDuenCJxo9ArCoIceJ6ksI0WwSeNzcZ0VVbD/kWRzTxkipw==}
     dependencies:
       '@adraffy/ens-normalize': 1.9.0
       '@noble/curves': 1.0.0
       '@noble/hashes': 1.3.0
       '@scure/bip32': 1.3.0
       '@scure/bip39': 1.2.0
-      '@wagmi/chains': 0.3.1(typescript@5.1.3)
-      abitype: 0.8.2(typescript@5.1.3)(zod@3.21.4)
+      '@wagmi/chains': 1.0.0(typescript@5.1.3)
+      abitype: 0.8.7(typescript@5.1.3)(zod@3.21.4)
       isomorphic-ws: 5.0.0(ws@8.12.0)
       ws: 8.12.0
     transitivePeerDependencies:
@@ -12037,16 +12027,16 @@ packages:
       '@types/node': 20.3.1
       esbuild: 0.17.19
       postcss: 8.4.24
-      rollup: 3.25.1
+      rollup: 3.25.2
     optionalDependencies:
       fsevents: 2.3.2
 
-  /vitepress@1.0.0-beta.3(@algolia/client-search@4.17.2)(search-insights@2.6.0):
+  /vitepress@1.0.0-beta.3(@algolia/client-search@4.18.0)(search-insights@2.6.0):
     resolution: {integrity: sha512-GR5Pvr/o343NN1M4Na1shhDYZRrQbjmLq7WE0lla0H8iDPAsHE8agTHLWfu3FWx+3q2KA29sv16+0O9RQKGjlA==}
     hasBin: true
     dependencies:
       '@docsearch/css': 3.5.1
-      '@docsearch/js': 3.5.1(@algolia/client-search@4.17.2)(search-insights@2.6.0)
+      '@docsearch/js': 3.5.1(@algolia/client-search@4.18.0)(search-insights@2.6.0)
       '@vitejs/plugin-vue': 4.2.3(vite@4.3.9)(vue@3.3.4)
       '@vue/devtools-api': 6.5.0
       '@vueuse/core': 10.1.2(vue@3.3.4)
@@ -12225,7 +12215,7 @@ packages:
       acorn-walk: 8.2.0
     dev: true
 
-  /volar-service-css@0.0.8(@volar/language-service@1.7.7):
+  /volar-service-css@0.0.8(@volar/language-service@1.7.8):
     resolution: {integrity: sha512-+zMVS7cgCZpZhW1RG00XL3V2umb/DlMMK7CHiAMvqtLLb4nKTv7XHc36vtGXPQKVUyzyG4ZO/olxM4EItsGGnA==}
     peerDependencies:
       '@volar/language-service': '*'
@@ -12233,12 +12223,12 @@ packages:
       '@volar/language-service':
         optional: true
     dependencies:
-      '@volar/language-service': 1.7.7
+      '@volar/language-service': 1.7.8
       vscode-css-languageservice: 6.2.6
       vscode-uri: 3.0.7
     dev: false
 
-  /volar-service-emmet@0.0.8(@volar/language-service@1.7.7):
+  /volar-service-emmet@0.0.8(@volar/language-service@1.7.8):
     resolution: {integrity: sha512-F3BS6euSSD+q6AyZJmQzFDFtJVmhMTxfEY3VLE0fMsRFcOUmcEEgQfYixEXWEAgK21AUNaq9cCSWTkHjj9ysqw==}
     peerDependencies:
       '@volar/language-service': '*'
@@ -12246,12 +12236,12 @@ packages:
       '@volar/language-service':
         optional: true
     dependencies:
-      '@volar/language-service': 1.7.7
-      '@vscode/emmet-helper': 2.8.9
-      volar-service-html: 0.0.8(@volar/language-service@1.7.7)
+      '@volar/language-service': 1.7.8
+      '@vscode/emmet-helper': 2.9.2
+      volar-service-html: 0.0.8(@volar/language-service@1.7.8)
     dev: false
 
-  /volar-service-html@0.0.8(@volar/language-service@1.7.7):
+  /volar-service-html@0.0.8(@volar/language-service@1.7.8):
     resolution: {integrity: sha512-pP1bmN9iJjjK8oDZ1F/c75/lwUqcw9BzcUYa6WE0eYTc30X6BPpj/6Rzed6Sw7dBMmAmsodoaHOamgNU/RJY/w==}
     peerDependencies:
       '@volar/language-service': '*'
@@ -12259,7 +12249,7 @@ packages:
       '@volar/language-service':
         optional: true
     dependencies:
-      '@volar/language-service': 1.7.7
+      '@volar/language-service': 1.7.8
       vscode-html-languageservice: 5.0.6
       vscode-uri: 3.0.7
     dev: false
@@ -12319,7 +12309,7 @@ packages:
     engines: {vscode: ^1.67.0}
     dependencies:
       minimatch: 5.1.6
-      semver: 7.5.2
+      semver: 7.5.3
       vscode-languageserver-protocol: 3.17.3
     dev: true
 
@@ -12428,7 +12418,7 @@ packages:
       - zod
     dev: false
 
-  /wagmi@1.2.0(react-dom@18.2.0)(react@18.2.0)(typescript@5.1.3)(viem@0.3.41)(zod@3.21.4):
+  /wagmi@1.2.0(react-dom@18.2.0)(react@18.2.0)(typescript@5.1.3)(viem@0.3.50)(zod@3.21.4):
     resolution: {integrity: sha512-VSSBEVDMZAWIcWTlewC1XypHsWa1FdkdYXWdgu5pqTCqnW6JKWGsR5TbQY3poCIQoC7B2okisElZT2oVSYbA5Q==}
     peerDependencies:
       react: '>=17.0.0'
@@ -12441,12 +12431,12 @@ packages:
       '@tanstack/query-sync-storage-persister': 4.29.11
       '@tanstack/react-query': 4.29.14(react-dom@18.2.0)(react@18.2.0)
       '@tanstack/react-query-persist-client': 4.29.12(@tanstack/react-query@4.29.14)
-      '@wagmi/core': 1.2.0(react@18.2.0)(typescript@5.1.3)(viem@0.3.41)(zod@3.21.4)
+      '@wagmi/core': 1.2.0(react@18.2.0)(typescript@5.1.3)(viem@0.3.50)(zod@3.21.4)
       abitype: 0.8.7(typescript@5.1.3)(zod@3.21.4)
       react: 18.2.0
       typescript: 5.1.3
       use-sync-external-store: 1.2.0(react@18.2.0)
-      viem: 0.3.41(typescript@5.1.3)(zod@3.21.4)
+      viem: 0.3.50(typescript@5.1.3)(zod@3.21.4)
     transitivePeerDependencies:
       - '@react-native-async-storage/async-storage'
       - bufferutil
