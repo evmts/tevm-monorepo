@@ -45,6 +45,7 @@
     "@ethereumjs/util": "^8.1.0",
     "@ethereumjs/vm": "^6.5.0",
     "@ethersproject/abi": "^5.7.0",
+    "abitype": "^0.8.11",
     "rome": "^12.1.3",
     "viem": "^1.0.7"
   },

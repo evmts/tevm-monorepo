@@ -4,16 +4,13 @@ import { useAccount, useContractRead } from 'wagmi'
 export const ReadContract = () => {
 	const { address, isConnected } = useAccount()
 
-	const { data, error, isLoading, isSuccess } = useContractRead({
-		...WagmiMintExample.read.balanceOf(address),
+	const { data } = useContractRead({
+		...WagmiMintExample.read.balanceOf(address!),
 		enabled: isConnected,
 	})
-	console.log({
-		data,
-		error,
-		isLoading,
-		isSuccess,
-		params: WagmiMintExample.read.balanceOf(address),
-	})
-	return <div>{data?.toString()}</div>
+	return (
+		<div>
+			<div>balance: {data?.toString()}</div>
+		</div>
+	)
 }
