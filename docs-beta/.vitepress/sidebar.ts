@@ -28,28 +28,28 @@ export const sidebar: DefaultTheme.Sidebar = [
 	{
 		text: 'Wagmi Usage',
 		items: [
-			// { text: 'Overview', link: '/wagmi/overview' },
+			{ text: 'Overview', link: '/wagmi/overview' },
 			{ text: 'useContractRead', link: '/wagmi/use-contract-read' },
 			{ text: 'useContractWrite', link: '/wagmi/use-contract-write' },
+			{ text: 'useContractEvent', link: '/wagmi/use-contract-event' },
 		],
 	},
 	{
-		text: 'Other Usage',
-		collapsed: true,
+		text: 'Viem Usage',
 		items: [
-			{
-				text: 'Viem usage',
-				link: '/viem/overview',
-			},
-			{
-				text: 'Ethers V6 Usage',
-				link: '/ethers/overview',
-			},
-			{
-				text: 'Web3js usage',
-				link: '/web3js/overview',
-			},
+			{ text: 'Overview', link: '/viem/overview' },
+			// 			{ text: 'call', link: '/viem/call' },
+			// 			{ text: 'sendTransaction', link: '/viem/send-transaction' },
+			// 			{ text: 'createEventFilter', link: '/viem/create-event-filter' },
 		],
+	},
+	{
+		text: 'Ethers.js Usage',
+		items: [{ text: 'Overview', link: '/ethers/overview' }],
+	},
+	{
+		text: 'web3.js Usage',
+		items: [{ text: 'Overview', link: '/web3js/overview' }],
 	},
 	{
 		text: 'Bundler Configuration',
