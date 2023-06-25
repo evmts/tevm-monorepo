@@ -46,7 +46,7 @@ export const evmtsContractFactory = <
 					abi: [method],
 					functionName: method.name,
 					args,
-					contractAddress: address,
+					address,
 				}
 			}
 			return [method.name, creator]
@@ -62,7 +62,7 @@ export const evmtsContractFactory = <
 					abi: [method],
 					functionName: method.name,
 					args,
-					contractAddress: address,
+					address,
 				}
 			}
 			return [method.name, creator]

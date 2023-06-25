@@ -1,25 +1,20 @@
-import { FoundryResolver } from '../types'
+import { SolidityResolver } from '../types'
 import { Logger } from '../types'
-import { FoundryToml } from '../types/FoundryToml'
 import { readFileSync } from 'fs'
 import { readFile } from 'fs/promises'
 import { glob, globSync } from 'glob'
-import { basename, join } from 'path'
-
-// TODO make this match solc
+import { basename } from 'path'
 
 const resolveArtifactPathsSync = (
 	solFile: string,
-	projectDir: string,
-	{ out = 'artifacts' }: FoundryToml,
-	logger: Logger,
+	out = 'artifacts',
+	logger: Logger = console,
 ): string[] => {
 	const fileName = basename(solFile)
-	const artifactsDirectory = join(projectDir, out)
-	const files = globSync([`${artifactsDirectory}/**/${fileName}/*.json`])
+	const files = globSync([`${out}/**/${fileName}/*.json`])
 
 	if (files.length === 0) {
-		logger.error(`No files found for ${solFile} in ${projectDir}`)
+		logger.error(`No files found for ${solFile} in ${out}`)
 		throw new Error('No files found')
 	}
 
@@ -28,31 +23,28 @@ const resolveArtifactPathsSync = (
 
 export const resolveArtifactPaths = async (
 	solFile: string,
-	projectDir: string,
-	{ out = 'artifacts' }: FoundryToml,
-	logger: Logger,
+	out = 'artifacts',
+	logger: Logger = console,
 ): Promise<string[]> => {
 	const fileName = basename(solFile)
-	const artifactsDirectory = join(projectDir, out)
-	const files = await glob([`${artifactsDirectory}/**/${fileName}/*.json`])
+	const files = await glob([`${out}/**/${fileName}/*.json`])
 
 	if (files.length === 0) {
-		logger.error(`No files found for ${solFile} in ${projectDir}`)
+		logger.error(`No files found for ${solFile} in ${out}`)
 		throw new Error('No files found')
 	}
 
 	return files
 }
 
-export const foundryModules: FoundryResolver = (config, logger) => {
+export const foundryModules: SolidityResolver = (config, logger) => {
 	return {
 		name: foundryModules.name,
 		config,
 		resolveDts: async (module) => {
 			const artifactPaths = await resolveArtifactPaths(
 				module,
-				config.project ?? '.',
-				{ out: config.out },
+				config.out,
 				logger,
 			)
 			const exports = await Promise.all(
@@ -72,12 +64,7 @@ export const foundryModules: FoundryResolver = (config, logger) => {
 			return exports.flat().join('\n')
 		},
 		resolveDtsSync: (module) => {
-			return resolveArtifactPathsSync(
-				module,
-				config.project ?? '.',
-				{ out: config.out },
-				logger,
-			)
+			return resolveArtifactPathsSync(module, config.out, logger)
 				.flatMap((artifactPath) => {
 					const contractName = artifactPath
 						.split('/')
@@ -95,8 +82,7 @@ export const foundryModules: FoundryResolver = (config, logger) => {
 		resolveTsModule: async (module) => {
 			const artifactPaths = await resolveArtifactPaths(
 				module,
-				config.project ?? '.',
-				{ out: config.out },
+				config.out,
 				logger,
 			)
 			const exports = await Promise.all(
@@ -112,12 +98,7 @@ export const foundryModules: FoundryResolver = (config, logger) => {
 			return exports.join('\n')
 		},
 		resolveTsModuleSync: (module) => {
-			return resolveArtifactPathsSync(
-				module,
-				config.project ?? '.',
-				{ out: config.out },
-				logger,
-			)
+			return resolveArtifactPathsSync(module, config.out, logger)
 				.map((artifactPath) => {
 					const contractName = artifactPath
 						.split('/')
@@ -131,8 +112,7 @@ export const foundryModules: FoundryResolver = (config, logger) => {
 		resolveCjsModule: async (module) => {
 			const artifactPaths = await resolveArtifactPaths(
 				module,
-				config.project ?? '.',
-				{ out: config.out },
+				config.out,
 				logger,
 			)
 			const exports = await Promise.all(
@@ -148,12 +128,7 @@ export const foundryModules: FoundryResolver = (config, logger) => {
 			return exports.join('\n')
 		},
 		resolveCjsModuleSync: (module) => {
-			return resolveArtifactPathsSync(
-				module,
-				config.project ?? '.',
-				{ out: config.out },
-				logger,
-			)
+			return resolveArtifactPathsSync(module, config.out, logger)
 				.map((artifactPath) => {
 					const contractName = artifactPath
 						.split('/')
@@ -167,8 +142,7 @@ export const foundryModules: FoundryResolver = (config, logger) => {
 		resolveEsmModule: async (module) => {
 			const artifactPaths = await resolveArtifactPaths(
 				module,
-				config.project ?? '.',
-				{ out: config.out },
+				config.out,
 				logger,
 			)
 			const exports = await Promise.all(
@@ -184,12 +158,7 @@ export const foundryModules: FoundryResolver = (config, logger) => {
 			return exports.join('\n')
 		},
 		resolveEsmModuleSync: (module) => {
-			return resolveArtifactPathsSync(
-				module,
-				config.project ?? '.',
-				{ out: config.out },
-				logger,
-			)
+			return resolveArtifactPathsSync(module, config.out, logger)
 				.map((artifactPath) => {
 					const contractName = artifactPath
 						.split('/')

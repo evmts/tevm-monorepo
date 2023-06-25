@@ -1,4 +1,4 @@
-import { FoundryResolver } from '../types'
+import { SolidityResolver } from '../types'
 import { Logger } from '../types'
 // TODO get remappings
 // import { FoundryToml } from '../types/FoundryToml'
@@ -119,7 +119,7 @@ const resolveArtifacts = async (
 
 // Refactor all methods in the solcModules object to use the revised resolveArtifactsSync function.
 // TODO add address resolution
-export const solcModules: FoundryResolver = (
+export const solcModules: SolidityResolver = (
 	config,
 	logger /*, addresses: AddressMap*/,
 ) => {
@@ -132,12 +132,15 @@ export const solcModules: FoundryResolver = (
 				const evmtsImports = `import { EVMtsContract, evmtsContractFactory } from '@evmts/core'`
 				const evmtsBody = Object.entries(artifacts)
 					.flatMap(([contractName, { abi }]) => {
-						const config = JSON.stringify({
+						const contract = JSON.stringify({
 							name: contractName,
 							abi,
+							address: config.deployments?.find(
+								(contractConfig) => contractConfig.name === contractName,
+							),
 						})
 						return [
-							`const _${contractName} = ${config} as const`,
+							`const _${contractName} = ${contract} as const`,
 							`export const ${contractName} = evmtsContractFactory(_${contractName})`,
 						]
 					})
@@ -152,12 +155,15 @@ export const solcModules: FoundryResolver = (
 				const evmtsImports = `import { EVMtsContract, evmtsContractFactory } from '@evmts/core'`
 				const evmtsBody = Object.entries(artifacts)
 					.flatMap(([contractName, { abi }]) => {
-						const config = JSON.stringify({
+						const contract = JSON.stringify({
 							name: contractName,
 							abi,
+							address: config.deployments?.find(
+								(contractConfig) => contractConfig.name === contractName,
+							),
 						})
 						return [
-							`const _${contractName} = ${config} as const`,
+							`const _${contractName} = ${contract} as const`,
 							`export const ${contractName} = evmtsContractFactory(_${contractName})`,
 						]
 					})
@@ -175,12 +181,15 @@ export const solcModules: FoundryResolver = (
 				].join('\n')
 				const evmtsBody = Object.entries(artifacts)
 					.flatMap(([contractName, { abi }]) => {
-						const config = JSON.stringify({
+						const contract = JSON.stringify({
 							name: contractName,
 							abi,
+							address: config.deployments?.find(
+								(contractConfig) => contractConfig.name === contractName,
+							),
 						})
 						return [
-							`const _${contractName} = ${config} as const`,
+							`const _${contractName} = ${contract} as const`,
 							`export const ${contractName} = evmtsContractFactory(_${contractName})`,
 						]
 					})
@@ -198,12 +207,15 @@ export const solcModules: FoundryResolver = (
 				].join('\n')
 				const evmtsBody = Object.entries(artifacts)
 					.flatMap(([contractName, { abi }]) => {
-						const config = JSON.stringify({
+						const contract = JSON.stringify({
 							name: contractName,
 							abi,
+							address: config.deployments?.find(
+								(contractConfig) => contractConfig.name === contractName,
+							),
 						})
 						return [
-							`const _${contractName} = ${config} as const`,
+							`const _${contractName} = ${contract} as const`,
 							`export const ${contractName} = evmtsContractFactory(_${contractName})`,
 						]
 					})
@@ -218,12 +230,15 @@ export const solcModules: FoundryResolver = (
 				const evmtsImports = `const { evmtsContractFactory } = require('@evmts/core')`
 				const evmtsBody = Object.entries(artifacts)
 					.flatMap(([contractName, { abi }]) => {
-						const config = JSON.stringify({
+						const contract = JSON.stringify({
 							name: contractName,
 							abi,
+							address: config.deployments?.find(
+								(contractConfig) => contractConfig.name === contractName,
+							),
 						})
 						return [
-							`const _${contractName} = ${config}`,
+							`const _${contractName} = ${contract}`,
 							`module.exports.${contractName} = evmtsContractFactory(_${contractName})`,
 						]
 					})
@@ -238,12 +253,15 @@ export const solcModules: FoundryResolver = (
 				const evmtsImports = `const { evmtsContractFactory } = require('@evmts/core')`
 				const evmtsBody = Object.entries(artifacts)
 					.flatMap(([contractName, { abi }]) => {
-						const config = JSON.stringify({
+						const contract = JSON.stringify({
 							name: contractName,
 							abi,
+							address: config.deployments?.find(
+								(contractConfig) => contractConfig.name === contractName,
+							),
 						})
 						return [
-							`const _${contractName} = ${config}`,
+							`const _${contractName} = ${contract}`,
 							`module.exports.${contractName} = evmtsContractFactory(_${contractName})`,
 						]
 					})
@@ -259,12 +277,15 @@ export const solcModules: FoundryResolver = (
 				const evmtsImports = `import { evmtsContractFactory } from '@evmts/core'`
 				const evmtsBody = Object.entries(artifacts)
 					.flatMap(([contractName, { abi }]) => {
-						const config = JSON.stringify({
+						const contract = JSON.stringify({
 							name: contractName,
 							abi,
+							address: config.deployments?.find(
+								(contractConfig) => contractConfig.name === contractName,
+							),
 						})
 						return [
-							`const _${contractName} = ${config}`,
+							`const _${contractName} = ${contract}`,
 							`export const ${contractName} = evmtsContractFactory(_${contractName})`,
 						]
 					})
@@ -279,12 +300,15 @@ export const solcModules: FoundryResolver = (
 				const evmtsImports = `import { evmtsContractFactory } from '@evmts/core'`
 				const evmtsBody = Object.entries(artifacts)
 					.flatMap(([contractName, { abi }]) => {
-						const config = JSON.stringify({
+						const contract = JSON.stringify({
 							name: contractName,
 							abi,
+							address: config.deployments?.find(
+								(contractConfig) => contractConfig.name === contractName,
+							)?.address,
 						})
 						return [
-							`const _${contractName} = ${config}`,
+							`const _${contractName} = ${contract}`,
 							`export const ${contractName} = evmtsContractFactory(_${contractName})`,
 						]
 					})

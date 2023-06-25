@@ -1,5 +1,5 @@
 {
-  "defaultProject": "@evmts/vite",
+  "defaultProject": "example-beta",
   "npmScope": "evmts",
   "implicitDependencies": {
     "package.json": "*",

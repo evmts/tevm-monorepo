@@ -1,7 +1,8 @@
 import { Logger } from './Logger'
+import { Config } from '@evmts/config'
 
-export type SolidityResolver<TConfig> = (
-	config: TConfig,
+export type SolidityResolver = (
+	config: Config,
 	logger: Logger,
 ) => {
 	/**
@@ -11,7 +12,7 @@ export type SolidityResolver<TConfig> = (
 	/**
 	 * The configuration of the plugin.
 	 */
-	config: TConfig
+	config: Config
 	include?: string[]
 	exclude?: string[]
 	/**

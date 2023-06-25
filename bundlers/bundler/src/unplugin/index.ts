@@ -1,6 +1,6 @@
 import { foundryModules } from '../foundry'
 import { solcModules } from '../solc'
-import { FoundryConfig } from '../types'
+import { Config, loadConfig } from '@evmts/config'
 import { createUnplugin } from 'unplugin'
 import { z } from 'zod'
 
@@ -10,29 +10,38 @@ const compilerOptionValidator = z
 	.describe('compiler to use.  Defaults to solc')
 
 export type CompilerOption = z.infer<typeof compilerOptionValidator>
-type UnpluginOptions = FoundryConfig & { compiler?: CompilerOption }
 
 const pluginFactories = {
 	solc: solcModules,
 	foundry: foundryModules,
 }
 
-const foundryUnplugin = createUnplugin((options: UnpluginOptions = {}) => {
-	const parsedCompiler = compilerOptionValidator.safeParse(options.compiler)
-	if (!parsedCompiler.success) {
+const foundryUnplugin = createUnplugin(() => {
+	let config: Config
+
+	// for current release we will hardcode this to solc
+	const parsedCompilerOption = compilerOptionValidator.safeParse('solc')
+	if (!parsedCompilerOption.success) {
 		throw new Error(
-			`Invalid compiler option: ${parsedCompiler.error}.  Valid options are 'solc' and 'foundry'`,
+			`Invalid compiler option: ${parsedCompilerOption.error}.  Valid options are 'solc' and 'foundry'`,
 		)
 	}
-	const pluginFoundry = pluginFactories[parsedCompiler.data](options, console)
+	const compilerOption = parsedCompilerOption.data
+	const compiler = pluginFactories[compilerOption]
+	let moduleResolver: ReturnType<typeof compiler>
+
 	return {
 		name: '@evmts/rollup-plugin',
 		version: '0.0.0',
+		buildStart: async () => {
+			config = await loadConfig('.')
+			moduleResolver = compiler(config, console)
+		},
 		load(id) {
 			if (!id.endsWith('.sol')) {
 				return
 			}
-			return pluginFoundry.resolveEsmModule(id, process.cwd())
+			return moduleResolver.resolveEsmModule(id, process.cwd())
 		},
 	}
 })
@@ -40,7 +49,7 @@ const foundryUnplugin = createUnplugin((options: UnpluginOptions = {}) => {
 // Hacks to make types portable
 // we should manually type these at some point
 
-export const viteFoundry = foundryUnplugin.vite as typeof rollupFoundry
+export const viteFoundry = foundryUnplugin.vite
 
 export const rollupFoundry = foundryUnplugin.rollup
 
