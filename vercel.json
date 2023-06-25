@@ -1,5 +1,5 @@
 {
-  "buildCommand": "pnpm nx build docs-beta",
+  "buildCommand": "pnpm nx build docs-alpha",
   "devCommand": "pnpm dev --port $PORT",
   "framework": "vitepress",
   "installCommand": "pnpm install",
