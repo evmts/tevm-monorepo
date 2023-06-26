@@ -304,7 +304,7 @@ importers:
         specifier: 1.0.0-beta.3
         version: 1.0.0-beta.3(@algolia/client-search@4.18.0)(search-insights@2.6.0)
 
-  docs-beta:
+  docs-alpha:
     devDependencies:
       '@vue/runtime-dom':
         specifier: ^3.3.4
@@ -3425,7 +3425,7 @@ packages:
   /@types/babel__template@7.4.1:
     resolution: {integrity: sha512-azBFKemX6kMg5Io+/rdGT0dkGreboUVR0Cdm3fz9QJWpaQGJRQXl7C+6hOTCZcMll7KFyEQpgbYI2lHdsS4U7g==}
     dependencies:
-      '@babel/parser': 7.22.4
+      '@babel/parser': 7.22.5
       '@babel/types': 7.22.5
     dev: true
 
@@ -3851,7 +3851,7 @@ packages:
   /@vue/compiler-core@3.3.4:
     resolution: {integrity: sha512-cquyDNvZ6jTbf/+x+AgM2Arrp6G4Dzbb0R64jiG804HRMfRiFXWI6kqUVqZ6ZR0bQhIoQjB4+2bhNtVwndW15g==}
     dependencies:
-      '@babel/parser': 7.22.4
+      '@babel/parser': 7.22.5
       '@vue/shared': 3.3.4
       estree-walker: 2.0.2
       source-map-js: 1.0.2

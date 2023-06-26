@@ -3,7 +3,7 @@ packages:
   - "core"
   - "config"
   - "docs"
-  - "docs-beta"
+  - "docs-alpha"
   - "e2e"
   - "examples/*"
   - "bundlers/*"

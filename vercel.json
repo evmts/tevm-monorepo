@@ -3,5 +3,5 @@
   "devCommand": "pnpm dev --port $PORT",
   "framework": "vitepress",
   "installCommand": "pnpm install",
-  "outputDirectory": "docs-beta/.vitepress/dist"
+  "outputDirectory": "docs-alpha/.vitepress/dist"
 }
