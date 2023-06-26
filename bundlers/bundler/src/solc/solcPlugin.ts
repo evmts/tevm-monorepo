@@ -161,8 +161,6 @@ export const solcModules: SolidityResolver = (
 							`const _abi${contractName} = ${JSON.stringify(
 								contract.abi,
 							)} as const`,
-							// we use inspect instead of JSON.stringify to preserve the chainId number keys
-							// JSON.stringify would convert them to strings
 							`const _chainAddressMap${contractName} = ${JSON.stringify(
 								contract.addresses ?? {},
 							)} as const`,
