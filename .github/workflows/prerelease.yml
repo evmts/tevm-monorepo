@@ -19,6 +19,7 @@ jobs:
       contents: write
       pull-requests: write
       id-token: write
+      actions: 'write'
     steps:
       - uses: actions/checkout@v3
         name: Checkout Repo
@@ -27,7 +28,7 @@ jobs:
 
       - name: "Setup"
         uses: ./.github/actions/setup
-        
+
       - name: Build
         run: pnpm build
         env:
@@ -37,7 +38,7 @@ jobs:
         run: npm config set '//registry.npmjs.org/:_authToken' "${NPM_TOKEN}"
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-          
+
       - name: Check for pre.json file existence
         id: check_files
         uses: andstor/file-existence-action@v2.0.0
@@ -51,7 +52,7 @@ jobs:
         run: npx changeset pre enter next
 
       - name: Create next version PR or publish 🚀
-        uses: changesets/action@v1 
+        uses: changesets/action@v1
         with:
           version: pnpm release:version
           publish: pnpm release:publish
