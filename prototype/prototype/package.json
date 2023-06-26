@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "@evmts/core-prototype": "workspace:^0.0.3",
-    "@tanstack/query-core": "^4.29.15",
+    "@tanstack/query-core": "^4.29.17",
     "@tanstack/react-query": "^4.29.14",
     "@types/testing-library__jest-dom": "^5.14.6",
     "@vanilla-extract/css": "^1.11.1",
