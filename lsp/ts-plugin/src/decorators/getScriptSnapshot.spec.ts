@@ -67,15 +67,13 @@ describe(getScriptSnapshotDecorator.name, () => {
 			const _abi = [{\\"inputs\\":[],\\"name\\":\\"greet\\",\\"outputs\\":[{\\"internalType\\":\\"string\\",\\"name\\":\\"\\",\\"type\\":\\"string\\"}],\\"stateMutability\\":\\"pure\\",\\"type\\":\\"function\\"}] as const
 			/**
 			 * HelloWorld EVMtsContract
-			 * @etherscan 1 https://etherscan.io/address/undefined
 			 */
-			export const HelloWorld: EVMtsContract<HelloWorld, \\"undefined\\", typeof _abi>
+			export const HelloWorld: EVMtsContract<HelloWorld, {}, typeof _abi>
 			const _abi = [{\\"inputs\\":[],\\"name\\":\\"greet2\\",\\"outputs\\":[{\\"internalType\\":\\"string\\",\\"name\\":\\"\\",\\"type\\":\\"string\\"}],\\"stateMutability\\":\\"pure\\",\\"type\\":\\"function\\"}] as const
 			/**
 			 * HelloWorld2 EVMtsContract
-			 * @etherscan 1 https://etherscan.io/address/undefined
 			 */
-			export const HelloWorld2: EVMtsContract<HelloWorld2, \\"undefined\\", typeof _abi>"
+			export const HelloWorld2: EVMtsContract<HelloWorld2, {}, typeof _abi>"
 		`)
 	})
 })

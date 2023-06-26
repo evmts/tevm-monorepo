@@ -10,9 +10,9 @@ type DeploymentConfig = {
 	// networkId: number
 	/**
 	 * @experimental
-	 * Globally configure address for a contract
+	 * Globally configure addresses for a contract by network
 	 **/
-	address: Address
+	addresses: Record<number, Address>
 }
 
 export type Config = {
