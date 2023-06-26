@@ -20,7 +20,7 @@ export const ReadContract = () => {
   const { address, isConnected } = useAccount();
 
   const { data } = useContractRead({
-    ...ERC20.read.balanceOf(address!),
+    ...ERC20.read({chainId: 1}).balanceOf(address!),
     enabled: isConnected,
   });
   return (
@@ -63,18 +63,6 @@ export default defineConfig(() => ({
 ```
 
 :::
-
-### ContractOptions
-
-TODO
-
-- **Type:**
-
-```ts
-type ContractOptions = {
-  address?: Address;
-};
-```
 
 - **Live example**
 

@@ -1,5 +1,7 @@
 # NEXT.js configuration
 
+🏗️🚧 note: Early development and testing of EVMts is mostly done via vite. Next/webpack should work though as they still share an implemenation but be aware there could be hiccups until it reaches beta.
+
 NEXT.js configuration can be done by adding the webpack plugin to `next.config.js`
 
 ::: info You will learn
