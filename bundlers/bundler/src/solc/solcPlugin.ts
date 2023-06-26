@@ -158,10 +158,14 @@ export const solcModules: SolidityResolver = (
 						}
 						const etherscanLinks = getEtherscanLinks(contract.addresses ?? {})
 						return [
-							`const _abi${contractName} = ${JSON.stringify(contract.abi)} as const`,
+							`const _abi${contractName} = ${JSON.stringify(
+								contract.abi,
+							)} as const`,
 							// we use inspect instead of JSON.stringify to preserve the chainId number keys
 							// JSON.stringify would convert them to strings
-							`const _chainAddressMap${contractName} = ${JSON.stringify(contract.addresses ?? {})} as const`,
+							`const _chainAddressMap${contractName} = ${JSON.stringify(
+								contract.addresses ?? {},
+							)} as const`,
 							'/**',
 							` * ${contractName} EVMtsContract`,
 							...etherscanLinks.map(
@@ -169,9 +173,7 @@ export const solcModules: SolidityResolver = (
 									` * @etherscan ${chainId} ${etherscanLink}`,
 							),
 							' */',
-							`export const ${contractName}: EVMtsContract<${
-								contract.name
-							}, typeof _chainAddressMap${contractName}, typeof _abi${contractName}>`,
+							`export const ${contractName}: EVMtsContract<${contract.name}, typeof _chainAddressMap${contractName}, typeof _abi${contractName}>`,
 						].filter(Boolean)
 					})
 					.join('\n')
@@ -195,8 +197,12 @@ export const solcModules: SolidityResolver = (
 						}
 						const etherscanLinks = getEtherscanLinks(contract.addresses ?? {})
 						return [
-							`const _abi${contractName} = ${JSON.stringify(contract.abi)} as const`,
-							`const _chainAddressMap${contractName} = ${JSON.stringify(contract.addresses ?? {})} as const`,
+							`const _abi${contractName} = ${JSON.stringify(
+								contract.abi,
+							)} as const`,
+							`const _chainAddressMap${contractName} = ${JSON.stringify(
+								contract.addresses ?? {},
+							)} as const`,
 							'/**',
 							` * ${contractName} EVMtsContract`,
 							...etherscanLinks.map(
@@ -204,9 +210,7 @@ export const solcModules: SolidityResolver = (
 									` * @etherscan ${chainId} ${etherscanLink}`,
 							),
 							' */',
-							`export const ${contractName}: EVMtsContract<${
-								contract.name
-							}, typeof _chainAddressMap${contractName}, typeof _abi${contractName}>`,
+							`export const ${contractName}: EVMtsContract<${contract.name}, typeof _chainAddressMap${contractName}, typeof _abi${contractName}>`,
 						].filter(Boolean)
 					})
 					.join('\n')

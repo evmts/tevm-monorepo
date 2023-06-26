@@ -10,7 +10,7 @@ export default defineConfig(() => ({
 	deployments: [
 		{
 			name: 'WagmiMintExample',
-			addresses: { 1: '0xFBA3912Ca04dd458c843e2EE08967fC04f3579c2' } ,
+			addresses: { 1: '0xFBA3912Ca04dd458c843e2EE08967fC04f3579c2' },
 		},
 	],
 	/**

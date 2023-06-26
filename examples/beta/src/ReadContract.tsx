@@ -1,4 +1,4 @@
-import { WagmiMintExample, } from './contracts/WagmiMintExample.sol'
+import { WagmiMintExample } from './contracts/WagmiMintExample.sol'
 import { Address, useAccount, useContractRead } from 'wagmi'
 
 export const ReadContract = () => {

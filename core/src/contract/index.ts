@@ -4,9 +4,9 @@ import type {
 	AbiFunction,
 	AbiParametersToPrimitiveTypes,
 	Address,
+	ExtractAbiEventNames,
 	ExtractAbiFunction,
 	ExtractAbiFunctionNames,
-	ExtractAbiEventNames
 } from 'abitype'
 import { ValueOf } from 'viem/dist/types/types/utils'
 
@@ -19,7 +19,9 @@ export type EVMtsContract<
 	name: TName
 	addresses: Record<number, TAddresses>
 	events: Record<ExtractAbiEventNames<TAbi>, AbiEvent>
-	read: <TChainId extends keyof TAddresses >(options?: {chainId?: TChainId}) => {
+	read: <TChainId extends keyof TAddresses>(options?: {
+		chainId?: TChainId
+	}) => {
 		[TFunctionName in ExtractAbiFunctionNames<TAbi, 'pure' | 'view'>]: <
 			TArgs extends AbiParametersToPrimitiveTypes<
 				ExtractAbiFunction<TAbi, TFunctionName>['inputs']
@@ -36,7 +38,9 @@ export type EVMtsContract<
 			args: TArgs
 		}
 	}
-	write: <TChainId extends keyof TAddresses >(options?: {chainId?: TChainId}) =>{
+	write: <TChainId extends keyof TAddresses>(options?: {
+		chainId?: TChainId
+	}) => {
 		[TFunctionName in
 			ExtractAbiFunctionNames<TAbi, 'payable' | 'nonpayable'>]: <
 			TArgs extends AbiParametersToPrimitiveTypes<
@@ -83,40 +87,60 @@ export const evmtsContractFactory = <
 	// we extend keyof TAddresses instead of number to make the types strict and safe
 	// this will force user to often cast the chain id which may be annoying
 	// with feedback we may want to change this
-	const write = <TChainId extends keyof TAddresses & number>({chainId}: {chainId?: TChainId} = {}) => Object.fromEntries(
-		methods.map((method) => {
-			// TODO ABI Type
-			const creator = (...args: any[]) => {
-				return {
-					abi: [method],
-					functionName: (method as AbiFunction).name,
-					args,
-					// TODO we are currently defaulting to the first address in the case of no chain id
-					// There has to be a better way like providing an explicit default property in the address config
-					address: addresses[chainId as number] ?? Object.values(addresses)[0] as unknown as TChainId extends unknown ? ValueOf<TAddresses> : TAddresses[TChainId] ?? undefined,
+	const write = <TChainId extends keyof TAddresses & number>({
+		chainId,
+	}: { chainId?: TChainId } = {}) =>
+		Object.fromEntries(
+			methods.map((method) => {
+				// TODO ABI Type
+				const creator = (...args: any[]) => {
+					return {
+						abi: [method],
+						functionName: (method as AbiFunction).name,
+						args,
+						// TODO we are currently defaulting to the first address in the case of no chain id
+						// There has to be a better way like providing an explicit default property in the address config
+						address:
+							addresses[chainId as number] ??
+							(Object.values(
+								addresses,
+							)[0] as unknown as TChainId extends unknown
+								? ValueOf<TAddresses>
+								: TAddresses[TChainId]) ??
+							undefined,
+					}
 				}
-			}
-			return [(method as AbiFunction).name, creator]
-		}),
-	)
+				return [(method as AbiFunction).name, creator]
+			}),
+		)
 	// TODO filter for read
 	// TODO ABI type magic
-	const read = <TChainId extends keyof TAddresses & number>({chainId}: {chainId?: TChainId} = {}) => Object.fromEntries(
-		methods.map((method) => {
-			// TODO ABI Type
-			const creator = (...args: any[]) => {
-				return {
-					abi: [method],
-					functionName: (method as AbiFunction).name,
-					args,
-					// TODO we are currently defaulting to the first address in the case of no chain id
-					// There has to be a better way like providing an explicit default property in the address config
-					address: addresses[chainId as number] ?? Object.values(addresses)[0] as unknown as TChainId extends unknown ? ValueOf<TAddresses> : TAddresses[TChainId] ?? undefined,
+	const read = <TChainId extends keyof TAddresses & number>({
+		chainId,
+	}: { chainId?: TChainId } = {}) =>
+		Object.fromEntries(
+			methods.map((method) => {
+				// TODO ABI Type
+				const creator = (...args: any[]) => {
+					return {
+						abi: [method],
+						functionName: (method as AbiFunction).name,
+						args,
+						// TODO we are currently defaulting to the first address in the case of no chain id
+						// There has to be a better way like providing an explicit default property in the address config
+						address:
+							addresses[chainId as number] ??
+							(Object.values(
+								addresses,
+							)[0] as unknown as TChainId extends unknown
+								? ValueOf<TAddresses>
+								: TAddresses[TChainId]) ??
+							undefined,
+					}
 				}
-			}
-			return [(method as AbiFunction).name, creator]
-		}),
-	)
+				return [(method as AbiFunction).name, creator]
+			}),
+		)
 	return {
 		name,
 		abi,
