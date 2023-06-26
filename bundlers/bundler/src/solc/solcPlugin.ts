@@ -151,11 +151,12 @@ export const solcModules: SolidityResolver = (
 						const contract = {
 							name: contractName,
 							abi,
-							address: config.deployments?.find(
-								(contractConfig) => contractConfig.name === contractName,
-							)?.address,
+							addresses:
+								config.deployments?.find(
+									(contractConfig) => contractConfig.name === contractName,
+								)?.addresses ?? {},
 						}
-						const etherscanLinks = getEtherscanLinks({ 1: contract.address })
+						const etherscanLinks = getEtherscanLinks(contract.addresses ?? {})
 						return [
 							`const _abi = ${JSON.stringify(contract.abi)} as const`,
 							'/**',
@@ -166,7 +167,9 @@ export const solcModules: SolidityResolver = (
 							),
 							undefined,
 							' */',
-							`export const ${contractName}: EVMtsContract<${contract.name}, "${contract.address}", typeof _abi>`,
+							`export const ${contractName}: EVMtsContract<${
+								contract.name
+							}, ${JSON.stringify(contract.addresses ?? {})}, typeof _abi>`,
 						].filter(Boolean)
 					})
 					.join('\n')
@@ -183,11 +186,12 @@ export const solcModules: SolidityResolver = (
 						const contract = {
 							name: contractName,
 							abi,
-							address: config.deployments?.find(
-								(contractConfig) => contractConfig.name === contractName,
-							)?.address,
+							addresses:
+								config.deployments?.find(
+									(contractConfig) => contractConfig.name === contractName,
+								)?.addresses ?? {},
 						}
-						const etherscanLinks = getEtherscanLinks({ 1: contract.address })
+						const etherscanLinks = getEtherscanLinks(contract.addresses ?? {})
 						return [
 							`const _abi = ${JSON.stringify(contract.abi)} as const`,
 							'/**',
@@ -198,7 +202,9 @@ export const solcModules: SolidityResolver = (
 							),
 							undefined,
 							' */',
-							`export const ${contractName}: EVMtsContract<${contract.name}, "${contract.address}", typeof _abi>`,
+							`export const ${contractName}: EVMtsContract<${
+								contract.name
+							}, ${JSON.stringify(contract.addresses ?? {})}, typeof _abi>`,
 						].filter(Boolean)
 					})
 					.join('\n')
@@ -217,9 +223,10 @@ export const solcModules: SolidityResolver = (
 						const contract = JSON.stringify({
 							name: contractName,
 							abi,
-							address: config.deployments?.find(
-								(contractConfig) => contractConfig.name === contractName,
-							),
+							addresses:
+								config.deployments?.find(
+									(contractConfig) => contractConfig.name === contractName,
+								)?.addresses ?? {},
 						})
 						return [
 							`const _${contractName} = ${contract} as const`,
@@ -242,9 +249,10 @@ export const solcModules: SolidityResolver = (
 						const contract = JSON.stringify({
 							name: contractName,
 							abi,
-							address: config.deployments?.find(
-								(contractConfig) => contractConfig.name === contractName,
-							),
+							addresses:
+								config.deployments?.find(
+									(contractConfig) => contractConfig.name === contractName,
+								)?.addresses ?? {},
 						})
 						return [
 							`const _${contractName} = ${contract} as const`,
@@ -265,9 +273,10 @@ export const solcModules: SolidityResolver = (
 						const contract = JSON.stringify({
 							name: contractName,
 							abi,
-							address: config.deployments?.find(
-								(contractConfig) => contractConfig.name === contractName,
-							),
+							addresses:
+								config.deployments?.find(
+									(contractConfig) => contractConfig.name === contractName,
+								)?.addresses ?? {},
 						})
 						return [
 							`const _${contractName} = ${contract}`,
@@ -288,9 +297,10 @@ export const solcModules: SolidityResolver = (
 						const contract = JSON.stringify({
 							name: contractName,
 							abi,
-							address: config.deployments?.find(
-								(contractConfig) => contractConfig.name === contractName,
-							),
+							addresses:
+								config.deployments?.find(
+									(contractConfig) => contractConfig.name === contractName,
+								)?.addresses ?? {},
 						})
 						return [
 							`const _${contractName} = ${contract}`,
@@ -312,9 +322,10 @@ export const solcModules: SolidityResolver = (
 						const contract = JSON.stringify({
 							name: contractName,
 							abi,
-							address: config.deployments?.find(
-								(contractConfig) => contractConfig.name === contractName,
-							),
+							addresses:
+								config.deployments?.find(
+									(contractConfig) => contractConfig.name === contractName,
+								)?.addresses ?? {},
 						})
 						return [
 							`const _${contractName} = ${contract}`,
@@ -335,9 +346,10 @@ export const solcModules: SolidityResolver = (
 						const contract = JSON.stringify({
 							name: contractName,
 							abi,
-							address: config.deployments?.find(
-								(contractConfig) => contractConfig.name === contractName,
-							)?.address,
+							addresses:
+								config.deployments?.find(
+									(contractConfig) => contractConfig.name === contractName,
+								)?.addresses ?? {},
 						})
 						return [
 							`const _${contractName} = ${contract}`,
