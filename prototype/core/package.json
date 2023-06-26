@@ -1,5 +1,5 @@
 {
-  "name": "@evmts/core",
+  "name": "@evmts/core-prototype",
   "version": "0.0.3",
   "private": false,
   "description": "A typesafe library for writing forge scripts in typescript",
@@ -15,7 +15,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/evmts/evmts-monorepo.git",
-    "directory": "core"
+    "directory": "prototype/core"
   },
   "license": "MIT",
   "type": "module",
@@ -39,6 +39,12 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@ethereumjs/block": "^4.3.0",
+    "@ethereumjs/common": "^3.2.0",
+    "@ethereumjs/tx": "^4.2.0",
+    "@ethereumjs/util": "^8.1.0",
+    "@ethereumjs/vm": "^6.5.0",
+    "@ethersproject/abi": "^5.7.0",
     "abitype": "^0.8.11",
     "rome": "^12.1.3",
     "viem": "^1.0.7"
@@ -48,14 +54,9 @@
     "tsup": "^7.0.0",
     "typescript": "^5.1.3",
     "vitest": "^0.32.2",
-    "wagmi": "^1.3.0",
     "zod": "^3.21.4"
   },
   "publishConfig": {
     "access": "public"
-  },
-  "optionalPeerDependencies": {
-    "wagmi": ">1.0.0",
-    "viem": ">1.0.0"
   }
 }

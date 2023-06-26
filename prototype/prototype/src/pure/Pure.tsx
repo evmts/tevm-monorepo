@@ -1,4 +1,4 @@
-import { run } from '@evmts/core'
+import { run } from '@evmts/core-prototype'
 import { useQuery } from '@tanstack/react-query'
 import { useState } from 'react'
 
