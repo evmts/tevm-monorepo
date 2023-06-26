@@ -24,7 +24,7 @@
     "@evmts/bundler": "workspace:^",
     "@evmts/config": "workspace:^",
     "@evmts/contracts": "^0.0.1",
-    "@evmts/core": "workspace:^0.0.3",
+    "@evmts/core": "workspace:^0.0.4-next.0",
     "@rainbow-me/rainbowkit": "^1.0.2",
     "buffer": "^6.0.3",
     "forge-std": "^1.1.2",
