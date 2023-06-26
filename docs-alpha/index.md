@@ -3,7 +3,7 @@
 layout: home
 
 hero:
-  name: "EVMts Imports Beta"
+  name: "EVMts Alpha"
   text: "Solidity+TypeScript"
   tagline: TypeScript language tooling for contracts
   actions:

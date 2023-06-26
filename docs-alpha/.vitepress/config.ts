@@ -6,7 +6,7 @@ import { defineConfig } from 'vitepress'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-	title: 'EVMts docs',
+	title: 'EVMts alpha docs',
 	description: 'Execute solidity scripts in the browser',
 	// https://vitepress.dev/reference/default-theme-config
 	themeConfig: {
