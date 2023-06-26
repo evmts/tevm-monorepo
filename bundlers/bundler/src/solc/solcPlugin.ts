@@ -114,6 +114,22 @@ const resolveArtifacts = async (
 	return resolveArtifactsSync(solFile, basedir, logger)
 }
 
+const getEtherscanLinks = (
+	addresses: Record<number, `0x${string}` | undefined>,
+) => {
+	const etherscanBaseUris: Record<number, string> = {
+		1: 'https://etherscan.io',
+	}
+	return Object.entries(addresses).map(([networkId, address]) => {
+		return [
+			networkId,
+			etherscanBaseUris[networkId as unknown as number] &&
+				`${
+					etherscanBaseUris[networkId as unknown as number]
+				}/address/${address}`,
+		]
+	})
+}
 // type Address = `0x${string}`
 // type AddressMap = Record<string, Address>
 
@@ -139,10 +155,19 @@ export const solcModules: SolidityResolver = (
 								(contractConfig) => contractConfig.name === contractName,
 							)?.address,
 						}
+						const etherscanLinks = getEtherscanLinks({ 1: contract.address })
 						return [
 							`const _abi = ${JSON.stringify(contract.abi)} as const`,
+							'/**',
+							` * ${contractName} EVMtsContract`,
+							...etherscanLinks.map(
+								([chainId, etherscanLink]) =>
+									` * @etherscan ${chainId} ${etherscanLink}`,
+							),
+							undefined,
+							' */',
 							`export const ${contractName}: EVMtsContract<${contract.name}, "${contract.address}", typeof _abi>`,
-						]
+						].filter(Boolean)
 					})
 					.join('\n')
 				return [evmtsImports, evmtsBody].join('\n')
@@ -162,10 +187,19 @@ export const solcModules: SolidityResolver = (
 								(contractConfig) => contractConfig.name === contractName,
 							)?.address,
 						}
+						const etherscanLinks = getEtherscanLinks({ 1: contract.address })
 						return [
 							`const _abi = ${JSON.stringify(contract.abi)} as const`,
+							'/**',
+							` * ${contractName} EVMtsContract`,
+							...etherscanLinks.map(
+								([chainId, etherscanLink]) =>
+									` * @etherscan ${chainId} ${etherscanLink}`,
+							),
+							undefined,
+							' */',
 							`export const ${contractName}: EVMtsContract<${contract.name}, "${contract.address}", typeof _abi>`,
-						]
+						].filter(Boolean)
 					})
 					.join('\n')
 				return [evmtsImports, evmtsBody].join('\n')
