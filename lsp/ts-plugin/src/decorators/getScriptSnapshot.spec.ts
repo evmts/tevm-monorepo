@@ -64,16 +64,18 @@ describe(getScriptSnapshotDecorator.name, () => {
 		const result = decorator.getScriptSnapshot(fileName)
 		expect((result as any).text).toMatchInlineSnapshot(`
 			"import type { EVMtsContract } from '@evmts/core'
-			const _abi = [{\\"inputs\\":[],\\"name\\":\\"greet\\",\\"outputs\\":[{\\"internalType\\":\\"string\\",\\"name\\":\\"\\",\\"type\\":\\"string\\"}],\\"stateMutability\\":\\"pure\\",\\"type\\":\\"function\\"}] as const
+			const _abiHelloWorld = [{\\"inputs\\":[],\\"name\\":\\"greet\\",\\"outputs\\":[{\\"internalType\\":\\"string\\",\\"name\\":\\"\\",\\"type\\":\\"string\\"}],\\"stateMutability\\":\\"pure\\",\\"type\\":\\"function\\"}] as const
+			const _chainAddressMapHelloWorld = {} as const
 			/**
 			 * HelloWorld EVMtsContract
 			 */
-			export const HelloWorld: EVMtsContract<HelloWorld, {}, typeof _abi>
-			const _abi = [{\\"inputs\\":[],\\"name\\":\\"greet2\\",\\"outputs\\":[{\\"internalType\\":\\"string\\",\\"name\\":\\"\\",\\"type\\":\\"string\\"}],\\"stateMutability\\":\\"pure\\",\\"type\\":\\"function\\"}] as const
+			export const HelloWorld: EVMtsContract<HelloWorld, typeof _chainAddressMapHelloWorld, typeof _abiHelloWorld>
+			const _abiHelloWorld2 = [{\\"inputs\\":[],\\"name\\":\\"greet2\\",\\"outputs\\":[{\\"internalType\\":\\"string\\",\\"name\\":\\"\\",\\"type\\":\\"string\\"}],\\"stateMutability\\":\\"pure\\",\\"type\\":\\"function\\"}] as const
+			const _chainAddressMapHelloWorld2 = {} as const
 			/**
 			 * HelloWorld2 EVMtsContract
 			 */
-			export const HelloWorld2: EVMtsContract<HelloWorld2, {}, typeof _abi>"
+			export const HelloWorld2: EVMtsContract<HelloWorld2, typeof _chainAddressMapHelloWorld2, typeof _abiHelloWorld2>"
 		`)
 	})
 })

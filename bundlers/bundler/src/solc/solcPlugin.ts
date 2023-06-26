@@ -154,22 +154,24 @@ export const solcModules: SolidityResolver = (
 							addresses:
 								config.deployments?.find(
 									(contractConfig) => contractConfig.name === contractName,
-								)?.addresses ?? {},
+								) ?? {},
 						}
 						const etherscanLinks = getEtherscanLinks(contract.addresses ?? {})
 						return [
-							`const _abi = ${JSON.stringify(contract.abi)} as const`,
+							`const _abi${contractName} = ${JSON.stringify(
+								contract.abi,
+							)} as const`,
+							`const _chainAddressMap${contractName} = ${JSON.stringify(
+								contract.addresses ?? {},
+							)} as const`,
 							'/**',
 							` * ${contractName} EVMtsContract`,
 							...etherscanLinks.map(
 								([chainId, etherscanLink]) =>
 									` * @etherscan ${chainId} ${etherscanLink}`,
 							),
-							undefined,
 							' */',
-							`export const ${contractName}: EVMtsContract<${
-								contract.name
-							}, ${JSON.stringify(contract.addresses ?? {})}, typeof _abi>`,
+							`export const ${contractName}: EVMtsContract<${contract.name}, typeof _chainAddressMap${contractName}, typeof _abi${contractName}>`,
 						].filter(Boolean)
 					})
 					.join('\n')
@@ -193,18 +195,20 @@ export const solcModules: SolidityResolver = (
 						}
 						const etherscanLinks = getEtherscanLinks(contract.addresses ?? {})
 						return [
-							`const _abi = ${JSON.stringify(contract.abi)} as const`,
+							`const _abi${contractName} = ${JSON.stringify(
+								contract.abi,
+							)} as const`,
+							`const _chainAddressMap${contractName} = ${JSON.stringify(
+								contract.addresses ?? {},
+							)} as const`,
 							'/**',
 							` * ${contractName} EVMtsContract`,
 							...etherscanLinks.map(
 								([chainId, etherscanLink]) =>
 									` * @etherscan ${chainId} ${etherscanLink}`,
 							),
-							undefined,
 							' */',
-							`export const ${contractName}: EVMtsContract<${
-								contract.name
-							}, ${JSON.stringify(contract.addresses ?? {})}, typeof _abi>`,
+							`export const ${contractName}: EVMtsContract<${contract.name}, typeof _chainAddressMap${contractName}, typeof _abi${contractName}>`,
 						].filter(Boolean)
 					})
 					.join('\n')

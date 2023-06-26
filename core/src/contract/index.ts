@@ -4,39 +4,24 @@ import type {
 	AbiFunction,
 	AbiParametersToPrimitiveTypes,
 	Address,
-	ExtractAbiEvent,
 	ExtractAbiEventNames,
 	ExtractAbiFunction,
 	ExtractAbiFunctionNames,
 } from 'abitype'
+import { ValueOf } from 'viem/dist/types/types/utils'
 
 export type EVMtsContract<
 	TName extends string,
-	TAddress extends Address | undefined,
+	TAddresses extends Record<number, Address>,
 	TAbi extends Abi,
 > = {
 	abi: TAbi
 	name: TName
-	address: TAddress
-	// TODO Do ABI magic on events too
-	events: {
-		[TEventName in ExtractAbiEventNames<TAbi>]: <
-			TArgs extends AbiParametersToPrimitiveTypes<
-				ExtractAbiEvent<TAbi, TEventName>['inputs']
-			> &
-				AbiEvent[] = AbiParametersToPrimitiveTypes<
-				ExtractAbiEvent<TAbi, TEventName>['inputs']
-			> &
-				AbiEvent[],
-		>(
-			...args: TArgs
-		) => {
-			address: TAddress
-			abi: [ExtractAbiEvent<TAbi, TEventName>]
-			args: TArgs
-		}
-	}
-	read: {
+	addresses: Record<number, TAddresses>
+	events: Record<ExtractAbiEventNames<TAbi>, AbiEvent>
+	read: <TChainId extends keyof TAddresses>(options?: {
+		chainId?: TChainId
+	}) => {
 		[TFunctionName in ExtractAbiFunctionNames<TAbi, 'pure' | 'view'>]: <
 			TArgs extends AbiParametersToPrimitiveTypes<
 				ExtractAbiFunction<TAbi, TFunctionName>['inputs']
@@ -48,12 +33,14 @@ export type EVMtsContract<
 		>(
 			...args: TArgs
 		) => {
-			address: TAddress
+			address: ValueOf<TAddresses>
 			abi: [ExtractAbiFunction<TAbi, TFunctionName>]
 			args: TArgs
 		}
 	}
-	write: {
+	write: <TChainId extends keyof TAddresses>(options?: {
+		chainId?: TChainId
+	}) => {
 		[TFunctionName in
 			ExtractAbiFunctionNames<TAbi, 'payable' | 'nonpayable'>]: <
 			TArgs extends AbiParametersToPrimitiveTypes<
@@ -66,7 +53,7 @@ export type EVMtsContract<
 		>(
 			...args: TArgs
 		) => {
-			address: TAddress
+			address: ValueOf<TAddresses>
 			abi: [ExtractAbiFunction<TAbi, TFunctionName>]
 			args: TArgs
 		}
@@ -75,16 +62,16 @@ export type EVMtsContract<
 
 export const evmtsContractFactory = <
 	TName extends string,
-	TAddress extends Address | undefined,
+	TAddresses extends Record<number, Address>,
 	TAbi extends Abi,
 >({
 	abi,
 	name,
-	address,
+	addresses,
 }: Pick<
-	EVMtsContract<TName, TAddress, TAbi>,
-	'name' | 'abi' | 'address'
->): EVMtsContract<TName, TAddress, TAbi> => {
+	EVMtsContract<TName, TAddresses, TAbi>,
+	'name' | 'abi' | 'addresses'
+>): EVMtsContract<TName, TAddresses, TAbi> => {
 	const methods = abi.filter((field) => {
 		return field.type === 'function'
 	})
@@ -97,42 +84,67 @@ export const evmtsContractFactory = <
 				return [(eventAbi as AbiEvent).name, eventAbi]
 			}),
 	)
+	// we extend keyof TAddresses instead of number to make the types strict and safe
+	// this will force user to often cast the chain id which may be annoying
+	// with feedback we may want to change this
+	const write = <TChainId extends keyof TAddresses & number>({
+		chainId,
+	}: { chainId?: TChainId } = {}) =>
+		Object.fromEntries(
+			methods.map((method) => {
+				// TODO ABI Type
+				const creator = (...args: any[]) => {
+					return {
+						abi: [method],
+						functionName: (method as AbiFunction).name,
+						args,
+						// TODO we are currently defaulting to the first address in the case of no chain id
+						// There has to be a better way like providing an explicit default property in the address config
+						address:
+							addresses[chainId as number] ??
+							(Object.values(
+								addresses,
+							)[0] as unknown as TChainId extends unknown
+								? ValueOf<TAddresses>
+								: TAddresses[TChainId]) ??
+							undefined,
+					}
+				}
+				return [(method as AbiFunction).name, creator]
+			}),
+		)
 	// TODO filter for read
 	// TODO ABI type magic
-	const write = Object.fromEntries(
-		methods.map((method) => {
-			// TODO ABI Type
-			const creator = (...args: any[]) => {
-				return {
-					abi: [method],
-					functionName: (method as AbiFunction).name,
-					args,
-					address,
+	const read = <TChainId extends keyof TAddresses & number>({
+		chainId,
+	}: { chainId?: TChainId } = {}) =>
+		Object.fromEntries(
+			methods.map((method) => {
+				// TODO ABI Type
+				const creator = (...args: any[]) => {
+					return {
+						abi: [method],
+						functionName: (method as AbiFunction).name,
+						args,
+						// TODO we are currently defaulting to the first address in the case of no chain id
+						// There has to be a better way like providing an explicit default property in the address config
+						address:
+							addresses[chainId as number] ??
+							(Object.values(
+								addresses,
+							)[0] as unknown as TChainId extends unknown
+								? ValueOf<TAddresses>
+								: TAddresses[TChainId]) ??
+							undefined,
+					}
 				}
-			}
-			return [(method as AbiFunction).name, creator]
-		}),
-	)
-	// TODO filter for read
-	// TODO ABI type magic
-	const read = Object.fromEntries(
-		methods.map((method) => {
-			// TODO ABI Type
-			const creator = (...args: any[]) => {
-				return {
-					abi: [method],
-					functionName: (method as AbiFunction).name,
-					args,
-					address,
-				}
-			}
-			return [(method as AbiFunction).name, creator]
-		}),
-	)
+				return [(method as AbiFunction).name, creator]
+			}),
+		)
 	return {
 		name,
 		abi,
-		address,
+		addresses,
 		events: events as any,
 		read: read as any,
 		write: write as any,
