@@ -6,7 +6,6 @@ EVMts composes with following wagmi apis.
 
 - [useContractRead](./use-contract-read.md)
 - [useContractWrite](./use-contract-write.md)
-- [useContractEvent](./use-contract-event.md)
 
 ## Why use EVMts with wagmi
 
