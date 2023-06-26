@@ -31,7 +31,6 @@ export const sidebar: DefaultTheme.Sidebar = [
 			{ text: 'Overview', link: '/wagmi/overview' },
 			{ text: 'useContractRead', link: '/wagmi/use-contract-read' },
 			{ text: 'useContractWrite', link: '/wagmi/use-contract-write' },
-			{ text: 'useContractEvent', link: '/wagmi/use-contract-event' },
 		],
 	},
 	{
