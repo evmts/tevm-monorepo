@@ -1,11 +1,11 @@
-import { WagmiMintExample } from './contracts/WagmiMintExample.sol'
+import { WagmiMintExample, } from './contracts/WagmiMintExample.sol'
 import { Address, useAccount, useContractRead } from 'wagmi'
 
 export const ReadContract = () => {
 	const { address, isConnected } = useAccount()
 
 	const { data } = useContractRead({
-		...WagmiMintExample.read.balanceOf(address as Address),
+		...WagmiMintExample.read().balanceOf(address as Address),
 		enabled: isConnected,
 	})
 	return (
