@@ -1,6 +1,6 @@
 {
   "name": "@evmts/bundler-legacy",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": false,
   "description": "The internal code EVMts plugins use to resolve .sol imports",
   "keywords": [

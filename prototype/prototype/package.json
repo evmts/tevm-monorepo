@@ -1,6 +1,6 @@
 {
   "name": "@evmts/prototype",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "private": true,
   "type": "module",
   "scripts": {
@@ -33,8 +33,8 @@
     "zod": "^3.21.4"
   },
   "devDependencies": {
-    "@evmts/rollup-plugin-legacy": "workspace:^0.0.1",
-    "@evmts/ts-plugin": "workspace:^0.0.0",
+    "@evmts/rollup-plugin-legacy": "workspace:^0.0.2",
+    "@evmts/ts-plugin": "workspace:^0.0.1",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
     "@types/node": "^20.3.1",
