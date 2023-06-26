@@ -25,9 +25,7 @@
 
 # evmts-monorepo
 
-_🏗️🚧 EVMts is a work in progress_
-
-EVMts core enables direct evm execution clientside with forge cheat codes 
+EVMts core enables direct evm execution clientside with forge cheat codes (not implemented yet)
 
 EVMts imports enable a streamlined dev experience with direct solidity imports and integration with Wagmi
 
@@ -156,11 +154,11 @@ If you believe you have found a security vulnerability we encourage you to respo
 
 ## Contributing 💻
 
-Please see our [contributing.md](/docs/contributing.md).
+Contributions are encouraged, but please open an issue before doing anything major
 
 ## 🚧 WARNING: UNDER CONSTRUCTION 🚧
 
-**This project is work in progress and subject to frequent changes**
+**This project is in alpha and subject to frequent changes**
 
 Looking to get started building a production-ready dapp? Check out [viem](https://viem.sh) <br />
 
