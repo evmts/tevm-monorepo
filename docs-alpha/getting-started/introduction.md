@@ -2,6 +2,8 @@
 
 Welcome to the EVMts Imports Beta docs!
 
+🏗️🚧 Note: this is an early alpha release that is following documentation-driven-development. Not all features will be implemented. Unimplemented features will include a note mentioning so however 🏗️🚧 
+
 ::: info You will learn
 
 1. What are EVMts imports
