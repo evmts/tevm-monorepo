@@ -85,12 +85,18 @@ export const evmtsContractFactory = <
 	EVMtsContract<TName, TAddress, TAbi>,
 	'name' | 'abi' | 'address'
 >): EVMtsContract<TName, TAddress, TAbi> => {
-	const methods = abi.filter((field: any) => {
+	const methods = abi.filter((field) => {
 		return field.type === 'function'
 	})
-	const events = abi.filter((field: any) => {
-		return field.type === 'event'
-	})
+	const events = Object.fromEntries(
+		abi
+			.filter((field) => {
+				return field.type === 'event'
+			})
+			.map((eventAbi) => {
+				return [(eventAbi as AbiEvent).name, eventAbi]
+			}),
+	)
 	// TODO filter for read
 	// TODO ABI type magic
 	const write = Object.fromEntries(
