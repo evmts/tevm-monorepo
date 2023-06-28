@@ -398,8 +398,8 @@ importers:
   lsp/language-server:
     dependencies:
       '@volar/language-core':
-        specifier: 1.7.8
-        version: 1.7.8
+        specifier: 1.7.10
+        version: 1.7.10
       '@volar/language-server':
         specifier: 1.7.8
         version: 1.7.8
@@ -3760,6 +3760,12 @@ packages:
       pretty-format: 27.5.1
     dev: true
 
+  /@volar/language-core@1.7.10:
+    resolution: {integrity: sha512-18Gmth5M0UI3hDDqhZngjMnb6WCslcfglkOdepRIhGxRYe7xR7DRRzciisYDMZsvOQxDYme+uaohg0dKUxLV2Q==}
+    dependencies:
+      '@volar/source-map': 1.7.10
+    dev: false
+
   /@volar/language-core@1.7.8:
     resolution: {integrity: sha512-TPklg4c2e/f1xB/MGZEiQc3AWG+dH64ZfBlYjFB8nNaWJt4Z4k+IHBhmaP52APG+5PHFerwiWI9oF002RrRTPA==}
     dependencies:
@@ -3787,6 +3793,12 @@ packages:
       vscode-languageserver-protocol: 3.17.3
       vscode-languageserver-textdocument: 1.0.8
       vscode-uri: 3.0.7
+
+  /@volar/source-map@1.7.10:
+    resolution: {integrity: sha512-FBpLEOKJpRxeh2nYbw1mTI5sZOPXYU8LlsCz6xuBY3yNtAizDTTIZtBHe1V8BaMpoSMgRysZe4gVxMEi3rDGVA==}
+    dependencies:
+      muggle-string: 0.3.1
+    dev: false
 
   /@volar/source-map@1.7.8:
     resolution: {integrity: sha512-g2dtC2kOghvfzMDWeODIo4HO1Ml4hxzPTZyAFDz+YhRF9HjZYJSCaWaVuPZ+z0kY+T2daOHYA10GdrWQ5q0teA==}
