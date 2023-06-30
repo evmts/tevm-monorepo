@@ -22,7 +22,7 @@ export type EVMtsContract<
 	read: <TChainId extends keyof TAddresses>(options?: {
 		chainId?: TChainId
 	}) => {
-		[TFunctionName in ExtractAbiFunctionNames<TAbi, 'pure' | 'view'>]: <
+		[TFunctionName in ExtractAbiFunctionNames<TAbi, 'pure' | 'view'>]: (<
 			TArgs extends AbiParametersToPrimitiveTypes<
 				ExtractAbiFunction<TAbi, TFunctionName>['inputs']
 			> &
@@ -36,13 +36,17 @@ export type EVMtsContract<
 			address: ValueOf<TAddresses>
 			abi: [ExtractAbiFunction<TAbi, TFunctionName>]
 			args: TArgs
+		}) & {
+			address: ValueOf<TAddresses>
+			abi: 		[ExtractAbiFunction<TAbi, TFunctionName>]
 		}
 	}
 	write: <TChainId extends keyof TAddresses>(options?: {
 		chainId?: TChainId
 	}) => {
 		[TFunctionName in
-			ExtractAbiFunctionNames<TAbi, 'payable' | 'nonpayable'>]: <
+			ExtractAbiFunctionNames<TAbi, 'payable' | 'nonpayable'>]:
+			(<
 			TArgs extends AbiParametersToPrimitiveTypes<
 				ExtractAbiFunction<TAbi, TFunctionName>['inputs']
 			> &
@@ -56,6 +60,9 @@ export type EVMtsContract<
 			address: ValueOf<TAddresses>
 			abi: [ExtractAbiFunction<TAbi, TFunctionName>]
 			args: TArgs
+		}) & {
+			address: ValueOf<TAddresses>
+			abi: 		[ExtractAbiFunction<TAbi, TFunctionName>]
 		}
 	}
 }
@@ -92,7 +99,6 @@ export const evmtsContractFactory = <
 	}: { chainId?: TChainId } = {}) =>
 		Object.fromEntries(
 			methods.map((method) => {
-				// TODO ABI Type
 				const creator = (...args: any[]) => {
 					return {
 						abi: [method],
@@ -110,6 +116,8 @@ export const evmtsContractFactory = <
 							undefined,
 					}
 				}
+				creator.address = addresses[chainId as number] ?? undefined
+				creator.abi = [method]
 				return [(method as AbiFunction).name, creator]
 			}),
 		)
