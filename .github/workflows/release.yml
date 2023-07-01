@@ -12,10 +12,6 @@ jobs:
     name: Release
     if: github.repository == 'evmts/evmts-monorepo'
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      pull-requests: write
-      id-token: write
     steps:
       - uses: actions/checkout@v3
         name: Checkout Repo
@@ -24,7 +20,7 @@ jobs:
 
       - name: "Setup"
         uses: ./.github/actions/setup
-        
+
       - name: Build
         run: pnpm build
         env:
