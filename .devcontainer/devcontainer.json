@@ -46,7 +46,8 @@
         "JuanBlanco.solidity",
         // there is no angular in this repo!
         // but this is useful for running nx commands in vscode
-        "nrwl.angular-console"
+        "nrwl.angular-console",
+        "antfu.vite"
       ],
       "settings": {
         "npm.packageManager": "pnpm",
