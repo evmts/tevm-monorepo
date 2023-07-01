@@ -319,7 +319,7 @@ importers:
         specifier: ^0.0.1
         version: 0.0.1(@types/node@20.3.1)(ethers@5.7.2)(react-dom@18.2.0)(react@18.2.0)(typescript@5.1.3)
       '@evmts/core':
-        specifier: workspace:^0.1.0
+        specifier: workspace:^0.1.1
         version: link:../../core
       '@rainbow-me/rainbowkit':
         specifier: ^1.0.2
@@ -565,7 +565,7 @@ importers:
         specifier: workspace:^0.0.2
         version: link:../rollup-plugin-legacy
       '@evmts/ts-plugin':
-        specifier: workspace:^0.0.1
+        specifier: workspace:^0.0.2
         version: link:../../lsp/ts-plugin
       '@testing-library/jest-dom':
         specifier: ^5.16.5

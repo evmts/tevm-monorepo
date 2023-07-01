@@ -1,5 +1,11 @@
 # @evmts/core
 
+## 0.1.1
+
+### Patch Changes
+
+- Fixed bug with missing args type for writes
+
 ## 0.1.0
 
 ### Minor Changes

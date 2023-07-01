@@ -1,5 +1,12 @@
 # @evmts/ts-plugin
 
+## 0.0.2
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @evmts/bundler@0.0.2
+
 ## 0.0.1
 
 ### Patch Changes
