@@ -1,30 +1,28 @@
 name: Version 🔖
 
 on:
+  workflow_dispatch:
   push:
     branches:
-      - v1
+      - main
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 jobs:
   release:
-    name: Release
+    name: Version 🔖
     if: github.repository == 'evmts/evmts-monorepo'
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      pull-requests: write
-      id-token: write
     steps:
       - uses: actions/checkout@v3
         name: Checkout Repo
         with:
+          fetch-depth: 0
           submodules: recursive
 
       - name: "Setup"
         uses: ./.github/actions/setup
-        
+
       - name: Build
         run: pnpm build
         env:

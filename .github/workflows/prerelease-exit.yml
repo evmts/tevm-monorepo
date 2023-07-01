@@ -13,10 +13,6 @@ jobs:
   exit_prerelease:
     name: Changesets Exit Prerelease
     runs-on: ubuntu-latest
-    # Allow GITHUB_TOKEN to have write permissions
-    permissions:
-      contents: write
-
     steps:
       - uses: actions/checkout@v3
         name: Checkout Repo
@@ -25,7 +21,7 @@ jobs:
 
       - name: "Setup"
         uses: ./.github/actions/setup
-        
+
       - name: Remove pre.json
         run: npx rimraf .changeset/pre.json
 
