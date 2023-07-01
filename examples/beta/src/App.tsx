@@ -1,7 +1,7 @@
 import { ConnectButton } from '@rainbow-me/rainbowkit'
 import { useAccount } from 'wagmi'
 
-import { ReadContract } from './ReadContract'
+import { WagmiExample } from './WagmiExample'
 import { Account } from './components/Account'
 import { Balance } from './components/Balance'
 import { BlockNumber } from './components/BlockNumber'
@@ -26,7 +26,7 @@ export function App() {
 					<br />
 					<hr />
 					<h2>EVMts readContract()</h2>
-					<ReadContract />
+					<WagmiExample />
 					<br />
 					<hr />
 					<h2>Balance</h2>
