@@ -96,6 +96,7 @@ export type EVMtsContract<
 			address: ValueOf<TAddresses>
 			abi: [ExtractAbiFunction<TAbi, TFunctionName>]
 			humanReadableAbi: FormatAbi<[ExtractAbiFunction<TAbi, TFunctionName>]>
+			args: TArgs
 		}) & {
 			address: ValueOf<TAddresses>
 			abi: [ExtractAbiFunction<TAbi, TFunctionName>]
