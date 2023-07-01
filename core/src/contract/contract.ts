@@ -38,15 +38,14 @@ export type EVMtsContract<
 			args: TArgs
 		}) & {
 			address: ValueOf<TAddresses>
-			abi: 		[ExtractAbiFunction<TAbi, TFunctionName>]
+			abi: [ExtractAbiFunction<TAbi, TFunctionName>]
 		}
 	}
 	write: <TChainId extends keyof TAddresses>(options?: {
 		chainId?: TChainId
 	}) => {
 		[TFunctionName in
-			ExtractAbiFunctionNames<TAbi, 'payable' | 'nonpayable'>]:
-			(<
+			ExtractAbiFunctionNames<TAbi, 'payable' | 'nonpayable'>]: (<
 			TArgs extends AbiParametersToPrimitiveTypes<
 				ExtractAbiFunction<TAbi, TFunctionName>['inputs']
 			> &
@@ -62,7 +61,7 @@ export type EVMtsContract<
 			args: TArgs
 		}) & {
 			address: ValueOf<TAddresses>
-			abi: 		[ExtractAbiFunction<TAbi, TFunctionName>]
+			abi: [ExtractAbiFunction<TAbi, TFunctionName>]
 		}
 	}
 }
