@@ -1,6 +1,6 @@
 {
   "name": "@evmts/rollup-plugin-legacy",
-  "version": "0.0.2-next.0",
+  "version": "0.0.2",
   "private": false,
   "description": "A rollup plugin for evmts",
   "keywords": [
@@ -36,7 +36,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@evmts/bundler-legacy": "workspace:^0.0.2-next.0",
+    "@evmts/bundler-legacy": "workspace:^0.0.2",
     "@rollup/pluginutils": "^5.0.2",
     "@types/fs-extra": "^11.0.1",
     "execa": "^7.1.1",
