@@ -5,9 +5,12 @@ import type {
 	AbiParametersToPrimitiveTypes,
 	Address,
 	ExtractAbiEventNames,
+	ExtractAbiEvent,
 	ExtractAbiFunction,
 	ExtractAbiFunctionNames,
 } from 'abitype'
+import { CreateEventFilterParameters } from 'viem'
+import { MaybeExtractEventArgsFromAbi } from 'viem/dist/types/types/contract'
 import { ValueOf } from 'viem/dist/types/types/utils'
 
 export type EVMtsContract<
@@ -18,52 +21,77 @@ export type EVMtsContract<
 	abi: TAbi
 	name: TName
 	addresses: Record<number, TAddresses>
-	events: Record<ExtractAbiEventNames<TAbi>, AbiEvent>
+	events: <TChainId extends keyof TAddresses>(options?: {
+		chainId?: TChainId
+	}) => {
+			[TEventName in ExtractAbiEventNames<TAbi>]: (<
+				TStrict extends boolean = false,
+			>(
+				params: Pick<CreateEventFilterParameters<
+					ExtractAbiEvent<TAbi, TEventName>,
+					TStrict,
+					TAbi,
+					TEventName,
+					MaybeExtractEventArgsFromAbi<TAbi, TEventName>
+				>, 'fromBlock' | 'toBlock' | 'args' | 'strict'>
+			) => CreateEventFilterParameters<
+				ExtractAbiEvent<TAbi, TEventName>,
+				TStrict,
+				TAbi,
+				TEventName,
+				MaybeExtractEventArgsFromAbi<TAbi, TEventName>
+			> & { eventName: TEventName }) & {
+				address: ValueOf<TAddresses>
+				eventName: TEventName
+				abi: [ExtractAbiEvent<TAbi, TEventName>]
+			}
+		}
 	read: <TChainId extends keyof TAddresses>(options?: {
 		chainId?: TChainId
 	}) => {
-		[TFunctionName in ExtractAbiFunctionNames<TAbi, 'pure' | 'view'>]: (<
-			TArgs extends AbiParametersToPrimitiveTypes<
-				ExtractAbiFunction<TAbi, TFunctionName>['inputs']
-			> &
+			[TFunctionName in ExtractAbiFunctionNames<TAbi, 'pure' | 'view'>]: (<
+				TArgs extends AbiParametersToPrimitiveTypes<
+					ExtractAbiFunction<TAbi, TFunctionName>['inputs']
+				> &
 				any[] = AbiParametersToPrimitiveTypes<
-				ExtractAbiFunction<TAbi, TFunctionName>['inputs']
-			> &
+					ExtractAbiFunction<TAbi, TFunctionName>['inputs']
+				> &
 				any[],
-		>(
-			...args: TArgs
-		) => {
-			address: ValueOf<TAddresses>
-			abi: [ExtractAbiFunction<TAbi, TFunctionName>]
-			args: TArgs
-		}) & {
-			address: ValueOf<TAddresses>
-			abi: [ExtractAbiFunction<TAbi, TFunctionName>]
+			>(
+				...args: TArgs
+			) => {
+				address: ValueOf<TAddresses>
+				abi: [ExtractAbiFunction<TAbi, TFunctionName>]
+				args: TArgs
+			}) & {
+				address: ValueOf<TAddresses>
+				abi: [ExtractAbiFunction<TAbi, TFunctionName>]
+			}
 		}
-	}
 	write: <TChainId extends keyof TAddresses>(options?: {
 		chainId?: TChainId
 	}) => {
-		[TFunctionName in
-			ExtractAbiFunctionNames<TAbi, 'payable' | 'nonpayable'>]: (<
-			TArgs extends AbiParametersToPrimitiveTypes<
-				ExtractAbiFunction<TAbi, TFunctionName>['inputs']
-			> &
+			[TFunctionName in
+			ExtractAbiFunctionNames<TAbi, 'payable' | 'nonpayable'>]:
+			(<
+				TArgs extends AbiParametersToPrimitiveTypes<
+					ExtractAbiFunction<TAbi, TFunctionName>['inputs']
+				> &
 				any[] = AbiParametersToPrimitiveTypes<
-				ExtractAbiFunction<TAbi, TFunctionName>['inputs']
-			> &
+					ExtractAbiFunction<TAbi, TFunctionName>['inputs']
+				> &
 				any[],
-		>(
-			...args: TArgs
-		) => {
-			address: ValueOf<TAddresses>
-			abi: [ExtractAbiFunction<TAbi, TFunctionName>]
-			args: TArgs
-		}) & {
-			address: ValueOf<TAddresses>
-			abi: [ExtractAbiFunction<TAbi, TFunctionName>]
+			>(
+				...args: TArgs
+			) => {
+				address: ValueOf<TAddresses>
+				abi: [ExtractAbiFunction<TAbi, TFunctionName>]
+				args: TArgs
+			}) & {
+				address: ValueOf<TAddresses>
+				abi: [ExtractAbiFunction<TAbi, TFunctionName>]
+			}
 		}
-	}
 }
 
 export const evmtsContractFactory = <
@@ -81,13 +109,24 @@ export const evmtsContractFactory = <
 	const methods = abi.filter((field) => {
 		return field.type === 'function'
 	})
-	const events = Object.fromEntries(
+	const events = <TChainId extends keyof TAddresses>({ chainId }: { chainId?: TChainId } = {}) => Object.fromEntries(
 		abi
 			.filter((field) => {
 				return field.type === 'event'
 			})
 			.map((eventAbi) => {
-				return [(eventAbi as AbiEvent).name, eventAbi]
+				const creator = (params: any) => {
+					return {
+						eventName: (eventAbi as AbiEvent).name,
+						abi: [eventAbi],
+						address: chainId ? addresses[chainId as number] : Object.values(addresses)[0],
+						...params,
+					}
+				}
+				creator.address = chainId ? addresses[chainId as number] : Object.values(addresses)[0]
+				creator.abi = [eventAbi]
+				creator.eventName = (eventAbi as AbiEvent).name
+				return [(eventAbi as AbiEvent).name, creator]
 			}),
 	)
 	// we extend keyof TAddresses instead of number to make the types strict and safe
@@ -153,7 +192,7 @@ export const evmtsContractFactory = <
 		abi,
 		addresses,
 		events: events as any,
-		read: read as any,
 		write: write as any,
+		read: read as any,
 	}
 }
