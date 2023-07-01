@@ -68,7 +68,10 @@ export const WagmiExample = () => {
 			<div>
 				<div>balance: {data?.toString()}</div>
 			</div>
-			<button onClick={() => writeMint(mintWrite(BigInt(getRandomInt())))}>
+			<button
+				type='button'
+				onClick={() => writeMint(mintWrite(BigInt(getRandomInt())))}
+			>
 				Mint
 			</button>
 		</div>
