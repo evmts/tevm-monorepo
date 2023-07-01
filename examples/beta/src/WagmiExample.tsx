@@ -1,6 +1,14 @@
 import { WagmiMintExample } from './contracts/WagmiMintExample.sol'
-import { Address, useAccount, useBlockNumber, useContractRead, useContractWrite, useContractEvent, useWaitForTransaction } from 'wagmi'
 import { getRandomInt } from './utils/getRandomInt'
+import {
+	Address,
+	useAccount,
+	useBlockNumber,
+	useContractEvent,
+	useContractRead,
+	useContractWrite,
+	useWaitForTransaction,
+} from 'wagmi'
 
 export const WagmiExample = () => {
 	const { address, isConnected } = useAccount()
@@ -13,17 +21,17 @@ export const WagmiExample = () => {
 	 * - Call fn with args and fromBlock etc. and it returns an object with args
 	 */
 	const transferEvents = WagmiMintExample.events().Transfer({
-		fromBlock: blockNumber && (blockNumber - BigInt(1_000)),
+		fromBlock: blockNumber && blockNumber - BigInt(1_000),
 		args: {
 			to: address,
-		}
+		},
 	})
 
 	useContractEvent({
 		...transferEvents,
 		listener: (event) => {
 			console.log('new event', event)
-		}
+		},
 	})
 
 	const balanceOfRead = WagmiMintExample.read().balanceOf(address as Address)
@@ -44,7 +52,7 @@ export const WagmiExample = () => {
 	const mintWrite = WagmiMintExample.write().mint
 
 	const { writeAsync: writeMint, data: mintData } = useContractWrite({
-		...mintWrite
+		...mintWrite,
 	})
 
 	useWaitForTransaction({
@@ -52,7 +60,7 @@ export const WagmiExample = () => {
 		onSuccess: (receipt) => {
 			console.log('minted', receipt)
 			refetch()
-		}
+		},
 	})
 
 	return (
@@ -60,7 +68,9 @@ export const WagmiExample = () => {
 			<div>
 				<div>balance: {data?.toString()}</div>
 			</div>
-			<button onClick={() => writeMint(mintWrite(BigInt(getRandomInt())))}>Mint</button>
+			<button onClick={() => writeMint(mintWrite(BigInt(getRandomInt())))}>
+				Mint
+			</button>
 		</div>
 	)
 }
