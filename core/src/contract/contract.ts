@@ -24,7 +24,7 @@ export type EVMtsContract<
 	abi: TAbi
 	humanReadableAbi: THumanReadableAbi
 	name: TName
-	addresses: Record<number, TAddresses>
+	addresses: TAddresses
 	events: <TChainId extends keyof TAddresses>(options?: {
 		chainId?: TChainId
 	}) => {
@@ -47,7 +47,7 @@ export type EVMtsContract<
 			TAbi,
 			TEventName,
 			MaybeExtractEventArgsFromAbi<TAbi, TEventName>
-		> & { eventName: TEventName }) & {
+		> & { eventName: TEventName; abi: [ExtractAbiEvent<TAbi, TEventName>] }) & {
 			address: ValueOf<TAddresses>
 			eventName: TEventName
 			abi: [ExtractAbiEvent<TAbi, TEventName>]
@@ -72,10 +72,12 @@ export type EVMtsContract<
 			abi: [ExtractAbiFunction<TAbi, TFunctionName>]
 			humanReadableAbi: FormatAbi<[ExtractAbiFunction<TAbi, TFunctionName>]>
 			args: TArgs
+			functionName: TFunctionName
 		}) & {
 			address: ValueOf<TAddresses>
 			abi: [ExtractAbiFunction<TAbi, TFunctionName>]
 			humanReadableAbi: FormatAbi<[ExtractAbiFunction<TAbi, TFunctionName>]>
+			functionName: TFunctionName
 		}
 	}
 	write: <TChainId extends keyof TAddresses>(options?: {
@@ -97,10 +99,12 @@ export type EVMtsContract<
 			abi: [ExtractAbiFunction<TAbi, TFunctionName>]
 			humanReadableAbi: FormatAbi<[ExtractAbiFunction<TAbi, TFunctionName>]>
 			args: TArgs
+			functionName: TFunctionName
 		}) & {
 			address: ValueOf<TAddresses>
 			abi: [ExtractAbiFunction<TAbi, TFunctionName>]
 			humanReadableAbi: FormatAbi<[ExtractAbiFunction<TAbi, TFunctionName>]>
+			functionName: TFunctionName
 		}
 	}
 }
