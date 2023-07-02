@@ -38,7 +38,7 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
     "@types/node": "^20.3.1",
-    "@types/react": "^18.2.13",
+    "@types/react": "^18.2.14",
     "@types/react-dom": "^18.2.6",
     "@types/react-helmet": "^6.1.6",
     "@vanilla-extract/vite-plugin": "^3.8.2",
