@@ -373,6 +373,9 @@ importers:
       '@vitejs/plugin-react':
         specifier: ^4.0.1
         version: 4.0.1(vite@4.3.9)
+      abitype:
+        specifier: ^0.8.11
+        version: 0.8.11(typescript@5.1.3)(zod@3.21.4)
       forge-deploy:
         specifier: ^0.2.0
         version: 0.2.0
@@ -5208,7 +5211,6 @@ packages:
     dependencies:
       typescript: 5.1.3
       zod: 3.21.4
-    dev: false
 
   /abitype@0.8.7(typescript@5.1.3)(zod@3.21.4):
     resolution: {integrity: sha512-wQ7hV8Yg/yKmGyFpqrNZufCxbszDe5es4AZGYPBitocfSqXtjrTG9JMWFcc4N30ukl2ve48aBTwt7NJxVQdU3w==}

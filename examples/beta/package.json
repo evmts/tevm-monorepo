@@ -44,6 +44,7 @@
     "@types/react": "^18.2.14",
     "@types/react-dom": "^18.2.6",
     "@vitejs/plugin-react": "^4.0.1",
+    "abitype": "^0.8.11",
     "forge-deploy": "^0.2.0",
     "react-helmet": "^6.1.0",
     "rome": "^12.1.3",
