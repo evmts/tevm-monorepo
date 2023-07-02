@@ -34,7 +34,7 @@
   },
   "devDependencies": {
     "@evmts/rollup-plugin-legacy": "workspace:^0.0.2",
-    "@evmts/ts-plugin": "workspace:^0.0.2",
+    "@evmts/ts-plugin": "workspace:^0.0.3",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
     "@types/node": "^20.3.1",

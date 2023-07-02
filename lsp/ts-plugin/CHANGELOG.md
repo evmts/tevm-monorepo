@@ -1,5 +1,14 @@
 # @evmts/ts-plugin
 
+## 0.0.3
+
+### Patch Changes
+
+- [#220](https://github.com/evmts/evmts-monorepo/pull/220) [`b680670`](https://github.com/evmts/evmts-monorepo/commit/b680670341fd6ddc86dabf333adbaf7b19a46fdc) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed issue with detecting relative imports starting with ../
+
+- Updated dependencies []:
+  - @evmts/bundler@0.0.3
+
 ## 0.0.2
 
 ### Patch Changes
