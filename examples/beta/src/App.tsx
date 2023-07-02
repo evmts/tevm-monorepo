@@ -1,14 +1,23 @@
 import { ConnectButton } from '@rainbow-me/rainbowkit'
 import { useAccount } from 'wagmi'
 
-import { WagmiExample } from './WagmiExample'
-import { Account } from './components/Account'
-import { Balance } from './components/Balance'
-import { BlockNumber } from './components/BlockNumber'
-import { NetworkSwitcher } from './components/NetworkSwitcher'
+import { WagmiEvents } from './wagmi/WagmiEvents'
+import { WagmiReads } from './wagmi/WagmiReads'
+import { WagmiWrites } from './wagmi/WagmiWrites'
+import { useState } from 'react'
 
 export function App() {
+	const [selectedComponent, selectComponent] =
+		useState<keyof typeof components>('unselected')
+
 	const { isConnected } = useAccount()
+
+	const components = {
+		unselected: <>Select which component to render</>,
+		reads: <WagmiReads />,
+		writes: <WagmiWrites />,
+		events: <WagmiEvents />,
+	} as const
 
 	return (
 		<>
@@ -17,24 +26,22 @@ export function App() {
 			{isConnected && (
 				<>
 					<hr />
-					<h2>Network</h2>
-					<NetworkSwitcher />
-					<br />
-					<hr />
-					<h2>Account</h2>
-					<Account />
-					<br />
-					<hr />
-					<h2>EVMts readContract()</h2>
-					<WagmiExample />
-					<br />
-					<hr />
-					<h2>Balance</h2>
-					<Balance />
-					<br />
-					<hr />
-					<h2>Block Number</h2>
-					<BlockNumber />
+					<div style={{ display: 'flex' }}>
+						{Object.keys(components).map((component) => {
+							return (
+								<button
+									type='button'
+									onClick={() =>
+										selectComponent(component as keyof typeof components)
+									}
+								>
+									{component}
+								</button>
+							)
+						})}
+					</div>
+					<h2>{selectedComponent}</h2>
+					{components[selectedComponent]}
 				</>
 			)}
 		</>

@@ -105,11 +105,11 @@ describe('evmtsContractFactory', () => {
 			const readInfo = contract.read().exampleRead('data', BigInt(420))
 			expect(readInfo.address).toMatchInlineSnapshot('"0x12345678"')
 			expect(readInfo.args).toMatchInlineSnapshot(`
-        [
-          "data",
-          420n,
-        ]
-      `)
+				[
+				  "data",
+				  420n,
+				]
+			`)
 			expect(readInfo.abi).toMatchInlineSnapshot(`
         [
           {
@@ -154,11 +154,11 @@ describe('evmtsContractFactory', () => {
 			const writeInfo = contract.write().exampleWrite('data', BigInt(420))
 			expect(writeInfo.address).toMatchInlineSnapshot('"0x12345678"')
 			expect(writeInfo.args).toMatchInlineSnapshot(`
-        [
-          "data",
-          420n,
-        ]
-      `)
+				[
+				  "data",
+				  420n,
+				]
+			`)
 			expect(writeInfo.abi).toMatchInlineSnapshot(`
         [
           {
