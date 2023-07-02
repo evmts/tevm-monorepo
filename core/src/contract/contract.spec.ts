@@ -25,6 +25,13 @@ describe('evmtsContractFactory', () => {
 			stateMutability: 'pure',
 		},
 		{
+			type: 'function',
+			name: 'exampleReadNoArgs',
+			inputs: [],
+			outputs: [{ type: 'string', name: '' }],
+			stateMutability: 'pure',
+		},
+		{
 			type: 'event',
 			name: 'exampleEvent',
 			inputs: [{ type: 'string', name: 'data', indexed: false }],
@@ -133,6 +140,12 @@ describe('evmtsContractFactory', () => {
           "function exampleRead(string str, uint256 num) pure returns (string)",
         ]
       `)
+		})
+
+		it('should return information for read function with no args', () => {
+			const readInfo = contract.read().exampleReadNoArgs()
+			expect(readInfo.address).toMatchInlineSnapshot('"0x12345678"')
+			expect(readInfo.args).toMatchInlineSnapshot('undefined')
 		})
 	})
 

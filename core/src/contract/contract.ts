@@ -71,7 +71,7 @@ export type EVMtsContract<
 			address: ValueOf<TAddresses>
 			abi: [ExtractAbiFunction<TAbi, TFunctionName>]
 			humanReadableAbi: FormatAbi<[ExtractAbiFunction<TAbi, TFunctionName>]>
-			args: TArgs
+			args: TArgs['length'] extends 0 ? undefined : TArgs
 			functionName: TFunctionName
 		}) & {
 			address: ValueOf<TAddresses>
@@ -98,7 +98,7 @@ export type EVMtsContract<
 			address: ValueOf<TAddresses>
 			abi: [ExtractAbiFunction<TAbi, TFunctionName>]
 			humanReadableAbi: FormatAbi<[ExtractAbiFunction<TAbi, TFunctionName>]>
-			args: TArgs
+			args: TArgs['length'] extends 0 ? undefined : TArgs
 			functionName: TFunctionName
 		}) & {
 			address: ValueOf<TAddresses>
@@ -166,7 +166,7 @@ export const evmtsContractFactory = <
 						abi: [method],
 						humanReadableAbi: formatAbi([method]),
 						functionName: (method as AbiFunction).name,
-						args,
+						args: args.length > 0 ? args : undefined,
 						// TODO we are currently defaulting to the first address in the case of no chain id
 						// There has to be a better way like providing an explicit default property in the address config
 						address:
@@ -198,7 +198,7 @@ export const evmtsContractFactory = <
 						abi: [method],
 						humanReadableAbi: formatAbi([method]),
 						functionName: (method as AbiFunction).name,
-						args,
+						args: args.length > 0 ? args : undefined,
 						// TODO we are currently defaulting to the first address in the case of no chain id
 						// There has to be a better way like providing an explicit default property in the address config
 						address:
