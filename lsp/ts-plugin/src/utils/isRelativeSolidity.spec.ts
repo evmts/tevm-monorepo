@@ -10,6 +10,13 @@ describe(isRelativeSolidity.name, () => {
 			'./foo/bar.sol',
 			'./foo/bar/baz.sol',
 			'./.sol/bar/baz.sol',
+			'../foo.sol',
+			'../foo.t.sol',
+			'../foo.s.sol',
+			'../foo/bar.sol',
+			'../foo/bar/baz.sol',
+			'../.sol/bar/baz.sol',
+			'../../../../../.sol/bar/baz.sol',
 		]
 		files.forEach((file) => {
 			expect(isRelativeSolidity(file)).toBe(true)
@@ -23,6 +30,10 @@ describe(isRelativeSolidity.name, () => {
 			'./bar.sol.ts',
 			'./sol',
 			'./.sol',
+			'../foo/bar.ts',
+			'../bar.sol.ts',
+			'../sol',
+			'../../../.sol',
 		]
 		files.forEach((file) => {
 			expect(isRelativeSolidity(file)).toBe(false)
@@ -36,6 +47,7 @@ describe(isRelativeSolidity.name, () => {
 			'foo/bar/baz.sol',
 			'bar/baz.sol',
 			'./bar.sol.ts',
+			'../bar.sol.ts',
 		]
 		files.forEach((file) => {
 			expect(isRelativeSolidity(file)).toBe(false)
