@@ -1,5 +1,13 @@
 # @evmts/core
 
+## 0.1.2
+
+### Patch Changes
+
+- [#221](https://github.com/evmts/evmts-monorepo/pull/221) [`ab40941`](https://github.com/evmts/evmts-monorepo/commit/ab40941221c4edacce16659ef88bdfdb90c325bb) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug with wagmi not liking empty arrays for functions that take no args
+
+- [#219](https://github.com/evmts/evmts-monorepo/pull/219) [`058d904`](https://github.com/evmts/evmts-monorepo/commit/058d90474598ea790d4de9fd8501381a77edbcb6) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed missing types in EVMtsContract
+
 ## 0.1.1
 
 ### Patch Changes
