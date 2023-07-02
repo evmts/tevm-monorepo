@@ -1,43 +1,61 @@
 {
   "defaultProject": "example-beta",
   "npmScope": "evmts",
-  "implicitDependencies": {
-    "package.json": "*",
-    "tsconfig.json": "*",
-    "nx.json": "*"
-  },
   "targetDefaults": {
     "test": {
-      "dependsOn": ["^build", "pretest"]
+      "dependsOn": [
+        "^build",
+        "pretest"
+      ]
     },
     "test:run": {
-      "dependsOn": ["^build", "pretest"]
+      "dependsOn": [
+        "^build",
+        "pretest"
+      ]
     },
     "test:watch": {
-      "dependsOn": ["^build"]
+      "dependsOn": [
+        "^build"
+      ]
     },
     "test:coverage": {
-      "dependsOn": ["^build"],
-      "outputs": ["{projectRoot}/coverage"]
+      "dependsOn": [
+        "^build"
+      ],
+      "outputs": [
+        "{projectRoot}/coverage"
+      ]
     },
     "typecheck": {
-      "dependsOn": ["^build"]
+      "dependsOn": [
+        "^build"
+      ]
     },
     "serve": {
-      "dependsOn": ["build"]
+      "dependsOn": [
+        "build"
+      ]
     },
     "build": {
-      "dependsOn": ["^build"],
-      "outputs": ["{projectRoot}/dist", "{projectRoot}/.vitepress"]
+      "dependsOn": [
+        "^build"
+      ],
+      "outputs": [
+        "{projectRoot}/dist",
+        "{projectRoot}/.vitepress"
+      ]
     },
     "dev": {
-      "dependsOn": ["^build"]
+      "dependsOn": [
+        "^build"
+      ]
     },
     "start:devnet": {}
   },
   "tasksRunnerOptions": {
     "default": {
-      "runner": "@nrwl/nx-cloud",
+      "runner": "nx-cloud",
       "options": {
         "cacheableOperations": [
           "build",
@@ -58,5 +76,19 @@
   },
   "affected": {
     "defaultBase": "main"
+  },
+  "$schema": "./node_modules/nx/schemas/nx-schema.json",
+  "namedInputs": {
+    "default": [
+      "{projectRoot}/**/*",
+      "sharedGlobals"
+    ],
+    "sharedGlobals": [
+      "{workspaceRoot}/tsconfig.json",
+      "{workspaceRoot}/nx.json"
+    ],
+    "production": [
+      "default"
+    ]
   }
 }
