@@ -41,14 +41,14 @@
   "dependencies": {
     "abitype": "^0.8.11",
     "rome": "^12.1.3",
-    "viem": "^1.0.7"
+    "viem": "^1.2.7"
   },
   "devDependencies": {
     "@vitest/ui": "^0.32.2",
-    "tsup": "^7.0.0",
-    "typescript": "^5.1.3",
+    "tsup": "^7.1.0",
+    "typescript": "^5.1.6",
     "vitest": "^0.32.2",
-    "wagmi": "^1.3.0",
+    "wagmi": "^1.3.3",
     "zod": "^3.21.4"
   },
   "publishConfig": {
