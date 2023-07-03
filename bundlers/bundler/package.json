@@ -46,7 +46,7 @@
     "@evmts/config": "workspace:^",
     "@evmts/core": "workspace:^",
     "@types/resolve": "^1.20.2",
-    "glob": "^10.3.0",
+    "glob": "^10.3.1",
     "resolve": "^1.22.2",
     "solc": "^0.8.20",
     "unplugin": "^1.3.1"
