@@ -425,6 +425,9 @@ importers:
       rome:
         specifier: ^12.1.3
         version: 12.1.3
+      tsup:
+        specifier: ^7.0.0
+        version: 7.0.0(typescript@5.1.3)
       typescript:
         specifier: ^5.1.3
         version: 5.1.3

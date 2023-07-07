@@ -1,7 +1,7 @@
 require('esbuild').build({
 	entryPoints: {
 		client: './src/extension.js',
-		server: './node_modules/@evmts/language-server/bin/evmts-language-server.js',
+		server: './node_modules/@evmts/language-server/dist/nodeServer.js',
 	},
 	bundle: true,
 	metafile: process.argv.includes('--metafile'),
