@@ -1,7 +1,5 @@
-import { Service } from "@volar/language-service";
+import { Service } from '@volar/language-service'
 
 export const createSolidityService = (): Service => (/*context, modules*/) => {
-  return {
-
-  }
+	return {}
 }
