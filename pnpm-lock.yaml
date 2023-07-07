@@ -410,8 +410,8 @@ importers:
         specifier: 1.7.8
         version: 1.7.8
       volar-service-css:
-        specifier: 0.0.8
-        version: 0.0.8(@volar/language-service@1.7.8)
+        specifier: 0.0.9
+        version: 0.0.9(@volar/language-service@1.7.8)
       volar-service-emmet:
         specifier: 0.0.8
         version: 0.0.8(@volar/language-service@1.7.8)
@@ -12249,8 +12249,8 @@ packages:
       acorn-walk: 8.2.0
     dev: true
 
-  /volar-service-css@0.0.8(@volar/language-service@1.7.8):
-    resolution: {integrity: sha512-+zMVS7cgCZpZhW1RG00XL3V2umb/DlMMK7CHiAMvqtLLb4nKTv7XHc36vtGXPQKVUyzyG4ZO/olxM4EItsGGnA==}
+  /volar-service-css@0.0.9(@volar/language-service@1.7.8):
+    resolution: {integrity: sha512-56/PD+8xdpXFFRqMMU8kJ4Ym4wBvKmYhCU+MITzQQMHykhmDukxDe/vyWfo4twVBOuIIZ7gZCuVnMUVmKR2R1A==}
     peerDependencies:
       '@volar/language-service': '*'
     peerDependenciesMeta:
