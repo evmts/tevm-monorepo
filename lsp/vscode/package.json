@@ -2,6 +2,9 @@
   "private": true,
   "name": "@evmts/vscode",
   "version": "0.0.1",
+  "type": "module",
+  "main": "dist/extension.cjs",
+  "module": "dist/extension.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/volarjs/starter.git",
@@ -18,11 +21,20 @@
     "vscode": "^1.67.0"
   },
   "activationEvents": [
-    "onLanguage:sol"
+    "onLanguage:sol",
+    "onLanguage:ts"
   ],
-  "main": "./dist/client.js",
   "contributes": {
     "languages": [
+      {
+        "id": "ts",
+        "extensions": [
+          ".jsx",
+          ".js",
+          ".ts",
+          ".tsx"
+        ]
+      },
       {
         "id": "sol",
         "extensions": [
@@ -32,9 +44,8 @@
     ]
   },
   "scripts": {
-    "prebuild": "cd ../.. && npm run build",
-    "build": "node scripts/build -- --minify",
-    "watch": "npm run build -- --watch",
+    "build": "tsup",
+    "watch": "tsup --watch",
     "pack": "npm run build && vsce package --pre-release",
     "release": "npm run build && vsce publish --pre-release"
   },
@@ -43,6 +54,7 @@
     "@volar/language-server": "1.7.8",
     "@volar/vscode": "1.8.0",
     "esbuild": "0.18.8",
+    "tsup": "^7.0.0",
     "vsce": "^2.15.0",
     "vscode-languageclient": "^8.1.0"
   },
