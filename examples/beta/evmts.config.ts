@@ -1,3 +1,4 @@
+import packageJson from './package.json'
 import { defineConfig } from '@evmts/config'
 
 /**
@@ -16,5 +17,5 @@ export default defineConfig(() => ({
 	/**
 	 * Keep this in sync with package.json and foundry.toml
 	 */
-	solcVersion: '0.8.20',
+	solcVersion: packageJson.devDependencies.solc,
 }))
