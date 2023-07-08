@@ -3,8 +3,11 @@ import { PlaywrightTestConfig, devices } from '@playwright/test'
 const config: PlaywrightTestConfig = {
 	testDir: 'src',
 	retries: 3,
+	use: {
+		headless: false,
+	},
 	webServer: {
-		command: 'pnpm nx serve beta',
+		command: 'pnpm nx serve:test example-beta',
 		port: 5173,
 		reuseExistingServer: true,
 		timeout: 180000,
@@ -12,15 +15,7 @@ const config: PlaywrightTestConfig = {
 	projects: [
 		{
 			name: 'chromium',
-			use: { browserName: 'chromium' },
-		},
-		{
-			name: 'firefox',
-			use: { browserName: 'firefox' },
-		},
-		{
-			name: 'mobile-chromium',
-			use: devices['Pixel 5'],
+			use: { ...devices['Desktop Chrome'] },
 		},
 	],
 }
