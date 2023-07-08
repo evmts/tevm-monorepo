@@ -1,5 +1,15 @@
 # @evmts/core
 
+## 0.1.0
+
+### Minor Changes
+
+- [#249](https://github.com/evmts/evmts-monorepo/pull/249) [`fda2523`](https://github.com/evmts/evmts-monorepo/commit/fda25237cea8a4e94fc6dc043174810ae441fb8e) Thanks [@roninjin10](https://github.com/roninjin10)! - Added etherscan links for most major EVM networks
+
+### Patch Changes
+
+- [#247](https://github.com/evmts/evmts-monorepo/pull/247) [`f7ba6e5`](https://github.com/evmts/evmts-monorepo/commit/f7ba6e5546263d7a94baf50ca1010a2b505580e0) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed incorrect peer dependency configuation for solc
+
 ## 0.0.3
 
 ### Patch Changes
