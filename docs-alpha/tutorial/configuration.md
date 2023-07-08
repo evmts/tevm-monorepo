@@ -2,6 +2,8 @@
 
 ## Configuration
 
+**Note this is not implemented yet. Try forking an example app**
+
 - **evmts.config.ts**
 
 The typescript and build plugins are configured via a evmts.config.ts file.
@@ -26,7 +28,7 @@ pnpm install @evmts/cli --save-dev
 yarn add @evmts/cli -D
 ```
 
-::: 
+:::
 
 - **Configure EVMts**
 

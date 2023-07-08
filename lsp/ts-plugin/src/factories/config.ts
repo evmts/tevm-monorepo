@@ -32,6 +32,7 @@ export type Config = z.infer<typeof configValidator>
 
 /**
  * Creates a validated config object from the createInfo passed into the plugin
+ * Currently validation not implemented
  * @param createOptions
  */
 export const createConfig = (

@@ -38,6 +38,8 @@ EVMts imports enable a streamlined dev experience with direct solidity imports a
 - [core/](/core) - core evmts library
 - [config/](/config) - Tooling for configuring an `evmts.config.ts` file
 
+**Note: evmts.config.ts is a WIP.  Currently configuration is done through ts-config plugin**
+
 ## Bundlers
 
 Bundlers such as Rollup, Webpack, or Vite are used By JavaScript tools to control the import graph of JavaScript projects.   This is how `EVMts contract imports` are able to work seemlessly.

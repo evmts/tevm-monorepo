@@ -24,6 +24,8 @@
 
 Tools for configuring `evmts.config.ts` file.
 
+**Note: evmts.config.ts is a WIP.  Currently configuration is done through ts-config plugin**
+
 ## Visit [Docs](https://evmts.dev/) for docs, guides, API and more!
 
 ## See [EVMts Beta project board](https://github.com/orgs/evmts/projects/1) for progress on the upcoming beta release

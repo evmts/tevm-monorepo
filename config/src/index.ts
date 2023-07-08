@@ -1,4 +1,5 @@
 import { bundleRequire } from 'bundle-require'
+import { readFileSync } from 'fs'
 import * as path from 'path'
 
 // TODO import this from evmts core
@@ -84,7 +85,7 @@ export const defineConfig: DefineConfig = (configFactory) => ({
 
 type LoadConfig = (configFilePath: string) => Promise<ResolvedConfig>
 
-export const loadConfig: LoadConfig = async (configFilePath) => {
+export const loadConfigTs: LoadConfig = async (configFilePath) => {
 	const configModule = await bundleRequire({
 		filepath: path.join(configFilePath, 'evmts.config.ts'),
 	})
@@ -99,4 +100,31 @@ export const loadConfig: LoadConfig = async (configFilePath) => {
 		return config
 	}
 	return config()
+}
+
+export const loadConfig: LoadConfig = async (configFilePath) => {
+	/**
+	 * evmts.config.ts currently doesn't work for ts-plugin because it is not syncronous
+	 * for now load config will load from tsconfig instead until fixed
+	 */
+	const tsConfigPath = path.join(configFilePath, 'tsconfig.json')
+	const configStr = readFileSync(tsConfigPath, 'utf8')
+	let configJson: {
+		compilerOptions: {
+			plugins?: Array<{ name: '@evmts/ts-plugin' } & Config>
+		}
+	}
+	try {
+		configJson = JSON.parse(configStr)
+	} catch (e) {
+		console.error(e)
+		throw new Error(`tsconfig.json at ${tsConfigPath} is not valid json`)
+	}
+	const config = configJson.compilerOptions.plugins?.find(
+		(plugin) => plugin.name === '@evmts/ts-plugin',
+	)
+	if (!config) {
+		return defaultConfig
+	}
+	return defineConfig(() => config).configFn()
 }
