@@ -51,9 +51,6 @@ importers:
       resolve:
         specifier: ^1.22.2
         version: 1.22.2
-      solc:
-        specifier: '>0.8.10'
-        version: 0.8.20
       unplugin:
         specifier: ^1.3.1
         version: 1.3.1
@@ -64,6 +61,9 @@ importers:
       rome:
         specifier: ^12.1.3
         version: 12.1.3
+      solc:
+        specifier: 0.8.19
+        version: 0.8.19
       tsup:
         specifier: ^7.0.0
         version: 7.0.0(typescript@5.1.3)
@@ -330,9 +330,9 @@ importers:
       buffer:
         specifier: ^6.0.3
         version: 6.0.3
-      forge-std:
-        specifier: ^1.1.2
-        version: 1.1.2
+      ds-test:
+        specifier: github:dapphub/ds-test
+        version: github.com/dapphub/ds-test/e282159d5170298eb2455a6c05280ab5a73a4ef0
       process:
         specifier: ^0.11.10
         version: 0.11.10
@@ -379,6 +379,9 @@ importers:
       forge-deploy:
         specifier: ^0.2.0
         version: 0.2.0
+      forge-std:
+        specifier: github:foundry-rs/forge-std
+        version: github.com/foundry-rs/forge-std/adec12de5e4575a23df075ee4917cb058c2c617d
       react-helmet:
         specifier: ^6.1.0
         version: 6.1.0(react@18.2.0)
@@ -389,8 +392,8 @@ importers:
         specifier: ^14.2.0
         version: 14.2.0
       solc:
-        specifier: 0.8.20
-        version: 0.8.20
+        specifier: 0.8.19
+        version: 0.8.19
       typescript:
         specifier: ^5.1.3
         version: 5.1.3
@@ -8339,6 +8342,7 @@ packages:
 
   /command-exists@1.2.9:
     resolution: {integrity: sha512-LTQ/SGc+s0Xc0Fu5WaKnR0YiygZkm9eKFvyS+fRsU7/ZWFF8ykFM6Pc9aCVf1+xasOOZpO3BAVgVrKvsqKHV7w==}
+    dev: true
 
   /commander@10.0.1:
     resolution: {integrity: sha512-y4Mg2tXshplEbSGzx7amzPwKKOCGuoSRP/CjEdwwk0FOGlUbq6lKuoyDZTNZkmxHdJtp54hdfY/JUrdL7Xfdug==}
@@ -8361,6 +8365,7 @@ packages:
   /commander@8.3.0:
     resolution: {integrity: sha512-OkTL9umf+He2DZkUq8f8J9of7yL6RJKI24dVITBmNfZBmri9zYZQrKkuXiKhyfPSu8tUhnVBB1iKXevvnlR4Ww==}
     engines: {node: '>= 12'}
+    dev: true
 
   /common-path-prefix@3.0.0:
     resolution: {integrity: sha512-QE33hToZseCH3jS0qN96O/bSh3kaw/h+Tq7ngyY9eWDUnTlTNUyqfqvCXioLe5Na5jFsL78ra/wuBU4iuEgd4w==}
@@ -10202,10 +10207,6 @@ packages:
     transitivePeerDependencies:
       - debug
     dev: true
-
-  /forge-std@1.1.2:
-    resolution: {integrity: sha512-Wfb0iAS9PcfjMKtGpWQw9mXzJxrWD62kJCUqqLcyuI0+VRtJ3j20XembjF3kS20qELYdXft1vD/SPFVWVKMFOw==}
-    dev: false
 
   /form-data-encoder@2.1.4:
     resolution: {integrity: sha512-yDYSgNMraqvnxiEXO4hi88+YZxaHC6QKzb5N84iRCTDeRO7ZALpir/lVmf/uXUhnwUr2O4HU8s/n6x+yNjQkHw==}
@@ -12369,6 +12370,7 @@ packages:
   /memorystream@0.3.1:
     resolution: {integrity: sha512-S3UwM3yj5mtUSEfP41UZmt/0SCoVYUcU1rkXv+BQ5Ig8ndL4sPoJNBUJERafdPb5jjHJGuMgytgKvKIf58XNBw==}
     engines: {node: '>= 0.10.0'}
+    dev: true
 
   /meow@11.0.0:
     resolution: {integrity: sha512-Cl0yeeIrko6d94KpUo1M+0X1sB14ikoaqlIGuTH1fW4I+E3+YljL54/hb/BWmVfrV9tTV9zU04+xjw08Fh2WkA==}
@@ -14898,8 +14900,8 @@ packages:
       smart-buffer: 4.2.0
     dev: true
 
-  /solc@0.8.20:
-    resolution: {integrity: sha512-fPRnGspIEqmhu63RFO3pc79sLA7ZmzO0Uy0L5l6hEt2wAsq0o7UV6pXkAp3Mfv9IBhg7Px/oTu3a+y4gs3BWrQ==}
+  /solc@0.8.19:
+    resolution: {integrity: sha512-yqurS3wzC4LdEvmMobODXqprV4MYJcVtinuxgrp61ac8K2zz40vXA0eSAskSHPgv8dQo7Nux39i3QBsHx4pqyA==}
     engines: {node: '>=10.0.0'}
     hasBin: true
     dependencies:
@@ -14912,6 +14914,7 @@ packages:
       tmp: 0.0.33
     transitivePeerDependencies:
       - debug
+    dev: true
 
   /sonic-boom@2.8.0:
     resolution: {integrity: sha512-kuonw1YOYYNOve5iHdSahXPOK49GqwA+LZhI6Wz/l0rP57iKyXXIHaRagOBHAPmGwJC6od2Z9zgvZ5loSgMlVg==}
@@ -17014,7 +17017,7 @@ packages:
       '@webassemblyjs/wasm-parser': 1.11.6
       acorn: 8.10.0
       acorn-import-assertions: 1.9.0(acorn@8.10.0)
-      browserslist: 4.21.7
+      browserslist: 4.21.9
       chrome-trace-event: 1.0.3
       enhanced-resolve: 5.15.0
       es-module-lexer: 1.3.0
@@ -17490,3 +17493,15 @@ packages:
     dependencies:
       react: 18.2.0
       use-sync-external-store: 1.2.0(react@18.2.0)
+
+  github.com/dapphub/ds-test/e282159d5170298eb2455a6c05280ab5a73a4ef0:
+    resolution: {tarball: https://codeload.github.com/dapphub/ds-test/tar.gz/e282159d5170298eb2455a6c05280ab5a73a4ef0}
+    name: ds-test
+    version: 1.0.0
+    dev: false
+
+  github.com/foundry-rs/forge-std/adec12de5e4575a23df075ee4917cb058c2c617d:
+    resolution: {tarball: https://codeload.github.com/foundry-rs/forge-std/tar.gz/adec12de5e4575a23df075ee4917cb058c2c617d}
+    name: forge-std
+    version: 1.5.6
+    dev: true

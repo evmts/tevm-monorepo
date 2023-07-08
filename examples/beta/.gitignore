@@ -15,6 +15,9 @@
 dist
 dist-ssr
 
+# foundry
+artifacts
+
 # production
 
 /build

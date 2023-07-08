@@ -1,9 +1,10 @@
 [profile.default]
 # Keep this version in sync with package.json and evmts.config.ts
-solc = "0.8.20"
-src = 'src/contracts'
-test = 'test'
-out = 'artifacts'
+solc = "0.8.19"
+src = "src/contracts"
+test = "test"
+out = "artifacts"
+lib = ["node_modules", "../../node_modules"]
 
-allow_paths = ["../node_modules"]
+allow_paths = ["../../node_modules"]
 
