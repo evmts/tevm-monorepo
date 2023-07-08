@@ -6,7 +6,7 @@ on:
   pull_request:
   merge_group:
 
-name: Lint
+name: Sort Package Json
 
 jobs:
   check:
@@ -21,12 +21,7 @@ jobs:
       - name: "Setup"
         uses: ./.github/actions/setup
 
-      - name: Run Linters
-        run: pnpm nx affected --targets=lint:check
-        env:
-          NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
-
-      - name: Run Formatters
-        run: pnpm nx affected --targets=format:check
+      - name: Run Package.json formatter - Run `pnpm sort-package-json` to fix
+        run: pnpm sort-package-json:check
         env:
           NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
