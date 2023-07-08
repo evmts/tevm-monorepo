@@ -1,5 +1,6 @@
 import { SolidityResolver } from '../types'
 import { Logger } from '../types'
+import { getEtherscanLinks } from '../utils'
 // TODO get remappings
 // import { FoundryToml } from '../types/FoundryToml'
 import { ModuleInfo, moduleFactory } from './moduleFactory'
@@ -114,22 +115,6 @@ const resolveArtifacts = async (
 	return resolveArtifactsSync(solFile, basedir, logger)
 }
 
-const getEtherscanLinks = (
-	addresses: Record<number, `0x${string}` | undefined>,
-) => {
-	const etherscanBaseUris: Record<number, string> = {
-		1: 'https://etherscan.io',
-	}
-	return Object.entries(addresses).map(([networkId, address]) => {
-		return [
-			networkId,
-			etherscanBaseUris[networkId as unknown as number] &&
-				`${
-					etherscanBaseUris[networkId as unknown as number]
-				}/address/${address}`,
-		]
-	})
-}
 // type Address = `0x${string}`
 // type AddressMap = Record<string, Address>
 
@@ -168,7 +153,7 @@ export const solcModules: SolidityResolver = (
 							` * ${contractName} EVMtsContract`,
 							...etherscanLinks.map(
 								([chainId, etherscanLink]) =>
-									` * @etherscan ${chainId} ${etherscanLink}`,
+									` * @etherscan-${chainId} ${etherscanLink}`,
 							),
 							' */',
 							`export const ${contractName}: EVMtsContract<${contract.name}, typeof _chainAddressMap${contractName}, typeof _abi${contractName}>`,
