@@ -33,7 +33,7 @@
     "react-dom": "^18.2.0",
     "solc": "^0.8.20",
     "util": "^0.12.5",
-    "viem": "~1.0.7",
+    "viem": "~1.2.10",
     "wagmi": "^1.2.0"
   },
   "devDependencies": {
