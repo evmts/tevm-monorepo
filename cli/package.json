@@ -1,6 +1,6 @@
 {
   "name": "@evmts/cli",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": false,
   "description": "Cli for code generation and other EVMts functionality",
   "keywords": [
