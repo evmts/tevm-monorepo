@@ -10,9 +10,11 @@ New to EVMts?
 
 ## Starting a new project with EVMts
 
+**Note this is not implemented yet. Try forking an example app**
+
 🏗️🚧 CLI not yet available but [coming soon](https://github.com/evmts/evmts-monorepo/issues/82). Skip to Adding EVMts to an existing project section.
 
-To start a new project with EVMts you can scaffold a new project using wagmi cli or use one of our existing [example projects](https://github.com/evmts/evmts-monorepo/tree/main/examples). These instructions will use Wagmi cli. 
+To start a new project with EVMts you can scaffold a new project using wagmi cli or use one of our existing [example projects](https://github.com/evmts/evmts-monorepo/tree/main/examples). These instructions will use Wagmi cli.
 
 1. Install wagmi cli
 
@@ -29,7 +31,7 @@ npx create-wagmi --template vite-react-rainbowkit my-project
 3. Next cd to your new project and initialize a new EVMts config
 
 ```bash
-cd my-project 
+cd my-project
 npm install --save-dev @evmts/cli
 npx evmts config --init
 ```
@@ -43,6 +45,8 @@ Looking to contribute to EVMts?   Consider [TODO link to issue] making an [EVMts
 :::
 
 ## Adding EVMts to an existing project
+
+**Note this is not implemented yet. Try forking an example app**
 
 To add a EVMts to an existing tool you must configure 3 things
 
