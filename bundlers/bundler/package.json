@@ -1,6 +1,6 @@
 {
   "name": "@evmts/bundler",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "private": false,
   "description": "Internal bundler for EVMts",
   "keywords": [
@@ -61,7 +61,6 @@
   },
   "peerDependencies": {
     "solc": ">0.8.10"
-
   },
   "publishConfig": {
     "access": "public"
