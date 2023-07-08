@@ -1,5 +1,5 @@
 {
-  "defaultProject": "example-beta",
+  "defaultProject": "example-vite",
   "npmScope": "evmts",
   "targetDefaults": {
     "test": {
