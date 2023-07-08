@@ -22,8 +22,10 @@
   "bin": {
     "evmts-gen": "./dist/bin/evmts-gen.js"
   },
+  "types": "src/index.ts",
   "files": [
-    "dist"
+    "dist",
+    "src"
   ],
   "scripts": {
     "build": "tsup",

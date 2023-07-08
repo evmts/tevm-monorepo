@@ -26,7 +26,8 @@
     "init": "dist/cli/init.js"
   },
   "files": [
-    "dist"
+    "dist",
+    "types"
   ],
   "scripts": {
     "test": "vitest",
