@@ -21,7 +21,8 @@
   "module": "dist/index.js",
   "types": "src/index.ts",
   "files": [
-    "dist"
+    "dist",
+    "src"
   ],
   "scripts": {
     "build": "tsup",
