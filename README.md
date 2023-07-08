@@ -29,6 +29,8 @@ EVMts core enables direct evm execution clientside with forge cheat codes (not i
 
 EVMts imports enable a streamlined dev experience with direct solidity imports and integration with Wagmi
 
+## Get Started Quick with the [NEXT.js starter project](https://github.com/evmts/evmts-next-example)
+
 ## Visit [Docs](https://evmts.dev/) for docs, guides, API and more! 📄
 
 ## See [EVMts Beta project board](https://github.com/orgs/evmts/projects/1) for progress on the upcoming beta release! 💥
