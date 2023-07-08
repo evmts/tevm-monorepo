@@ -7,7 +7,7 @@ const config: PlaywrightTestConfig = {
 		headless: false,
 	},
 	webServer: {
-		command: 'pnpm nx serve:test example-beta',
+		command: 'pnpm nx serve:test example-vite',
 		port: 5173,
 		reuseExistingServer: true,
 		timeout: 180000,

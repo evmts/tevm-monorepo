@@ -46,7 +46,7 @@ Bundlers are provided for all major tools.   If yours is not supported consider 
 
 All bundlers are in the [bundlers/\*](/bundlers) folder
 
-- [@evmts/esbuild-plugin](/bundlers/esbuild-plugin) 
+- [@evmts/esbuild-plugin](/bundlers/esbuild-plugin)
 - [@evmts/rollup-plugin](/bundlers/rollup-plugin)
 - [@evmts/rspack](/bundlers/rspack)
 - [@evmts/vite-plugin](/bundlers/vite-plugin)
@@ -69,10 +69,11 @@ Also included are tools for typechecking code and code generation for those usin
 #### Example apps
 
 - [examples/next](./examples/next/) An example of a forge/next app using evmts
-- [examples/webpack](./examples/webpack) An example of a forge/webpack app using evmts
 - [examples/vite](./examples/vite) An example of a forge/vite app using evmts
+- [examples/webpack](./examples/webpack) An example of a forge/webpack app using evmts
 - [examples/rollup](./examples/rollup) An example of a forge/rollup library built with evmts
 - [examples/esbuild](./examples/esbuild) An example of a forge/esbuild cli tool built with evmts
+- [examples/rspack](./examples/rspack) An example of a simple rspack app
 
 ## Tests ✅
 
@@ -169,7 +170,7 @@ Interested in the OP stack? Check out op stack blog here: https://optimism.mirro
 Enjoy this tool? Check out these other awesome tools that make this library possible
 
 - [Foundry](https://github.com/foundry-rs/foundry/tree/master/forge)
-- [viem](https://viem.sh) 
+- [viem](https://viem.sh)
 - [abitype](https://abitype.dev/)
 - [wagmi](https://wagmi.sh/react/comparison)
 
