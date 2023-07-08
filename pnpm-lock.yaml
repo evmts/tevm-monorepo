@@ -401,8 +401,8 @@ importers:
   lsp/language-server:
     dependencies:
       '@volar/language-core':
-        specifier: 1.7.8
-        version: 1.7.8
+        specifier: 1.8.0
+        version: 1.8.0
       '@volar/language-server':
         specifier: 1.7.8
         version: 1.7.8
@@ -3791,7 +3791,6 @@ packages:
     resolution: {integrity: sha512-ZHTvZPM3pEbOOuaq+ybNz5TQlHUqPQPK0G1+SonvApGq0e3qgGijjhtL5T7hsCtUEmxfix8FrAuCH14tMBOhTg==}
     dependencies:
       '@volar/source-map': 1.8.0
-    dev: true
 
   /@volar/language-server@1.7.8:
     resolution: {integrity: sha512-n2nMKvoxrETSfFmQFhK4uuyorNRYDONoJ1ZLSvy8m8IszHWH4KvPVtpN7WiQImeYuURbxFEO4egtlEFEHn823w==}
@@ -3850,7 +3849,6 @@ packages:
     resolution: {integrity: sha512-d35aV0yFkIrkynRSKgrN5hgbMv6ekkFvcJsJGmOZ8UEjqLStto9zq7RSvpp6/PZ7/pa4Gn1f6K1qDt0bq0oUew==}
     dependencies:
       muggle-string: 0.3.1
-    dev: true
 
   /@volar/typescript@1.7.8:
     resolution: {integrity: sha512-NDcI5ZQcdr8kgxzMQrhSSWIM8Tl0MbMFrkvJPTjfm2rdAQZPFT8zv3LrEW9Fqh0e9z2YbCry7jr4a/GShBqeDA==}
