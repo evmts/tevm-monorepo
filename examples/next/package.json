@@ -1,6 +1,6 @@
 {
   "name": "evmts-next-example",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@evmts/core": "^0.2.0",
+    "@evmts/core": "^0.3.0",
     "@rainbow-me/rainbowkit": "^1.0.5",
     "next": "^13.4.9",
     "react": "^18.2.0",
@@ -19,8 +19,8 @@
   },
   "devDependencies": {
     "@evmts/config": "^0.1.0",
-    "@evmts/ts-plugin": "^0.2.0",
-    "@evmts/webpack-plugin": "^0.2.0",
+    "@evmts/ts-plugin": "^0.3.0",
+    "@evmts/webpack-plugin": "^0.3.0",
     "@openzeppelin/contracts": "^4.9.2",
     "@types/node": "^20.4.1",
     "@types/react": "^18.2.14",
