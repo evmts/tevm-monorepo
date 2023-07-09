@@ -16,6 +16,20 @@ describe('evmtsContractFactory', () => {
 		},
 		{
 			type: 'function',
+			name: 'overloadedWrite',
+			inputs: [{ type: 'string', name: 'str' }],
+			outputs: [{ type: 'string', name: '' }],
+			stateMutability: 'payable',
+		},
+		{
+			type: 'function',
+			name: 'overloadedWrite',
+			inputs: [],
+			outputs: [{ type: 'string', name: '' }],
+			stateMutability: 'payable',
+		},
+		{
+			type: 'function',
 			name: 'exampleRead',
 			inputs: [
 				{ type: 'string', name: 'str' },
@@ -27,6 +41,20 @@ describe('evmtsContractFactory', () => {
 		{
 			type: 'function',
 			name: 'exampleReadNoArgs',
+			inputs: [],
+			outputs: [{ type: 'string', name: '' }],
+			stateMutability: 'pure',
+		},
+		{
+			type: 'function',
+			name: 'overloadedRead',
+			inputs: [{ type: 'string', name: 'str' }],
+			outputs: [{ type: 'string', name: '' }],
+			stateMutability: 'pure',
+		},
+		{
+			type: 'function',
+			name: 'overloadedRead',
 			inputs: [],
 			outputs: [{ type: 'string', name: '' }],
 			stateMutability: 'pure',
@@ -147,6 +175,95 @@ describe('evmtsContractFactory', () => {
 			expect(readInfo.address).toMatchInlineSnapshot('"0x12345678"')
 			expect(readInfo.args).toMatchInlineSnapshot('undefined')
 		})
+
+		it('should work for overloaded function', () => {
+			const readInfo1Arg = contract.read().overloadedRead('data')
+			expect(readInfo1Arg.address).toMatchInlineSnapshot('"0x12345678"')
+			expect(readInfo1Arg.args).toMatchInlineSnapshot(`
+				[
+				  "data",
+				]
+			`)
+			expect(readInfo1Arg.abi).toMatchInlineSnapshot(`
+				[
+				  {
+				    "inputs": [
+				      {
+				        "name": "str",
+				        "type": "string",
+				      },
+				    ],
+				    "name": "overloadedRead",
+				    "outputs": [
+				      {
+				        "name": "",
+				        "type": "string",
+				      },
+				    ],
+				    "stateMutability": "pure",
+				    "type": "function",
+				  },
+				  {
+				    "inputs": [],
+				    "name": "overloadedRead",
+				    "outputs": [
+				      {
+				        "name": "",
+				        "type": "string",
+				      },
+				    ],
+				    "stateMutability": "pure",
+				    "type": "function",
+				  },
+				]
+			`)
+			expect(readInfo1Arg.humanReadableAbi).toMatchInlineSnapshot(`
+				[
+				  "function overloadedRead() pure returns (string)",
+				]
+			`)
+			const readInfo0Arg = contract.read().overloadedRead()
+			expect(readInfo0Arg.address).toMatchInlineSnapshot('"0x12345678"')
+			expect(readInfo0Arg.args).toMatchInlineSnapshot('undefined')
+			expect(readInfo0Arg.abi).toMatchInlineSnapshot(`
+				[
+				  {
+				    "inputs": [
+				      {
+				        "name": "str",
+				        "type": "string",
+				      },
+				    ],
+				    "name": "overloadedRead",
+				    "outputs": [
+				      {
+				        "name": "",
+				        "type": "string",
+				      },
+				    ],
+				    "stateMutability": "pure",
+				    "type": "function",
+				  },
+				  {
+				    "inputs": [],
+				    "name": "overloadedRead",
+				    "outputs": [
+				      {
+				        "name": "",
+				        "type": "string",
+				      },
+				    ],
+				    "stateMutability": "pure",
+				    "type": "function",
+				  },
+				]
+			`)
+			expect(readInfo0Arg.humanReadableAbi).toMatchInlineSnapshot(`
+				[
+				  "function overloadedRead() pure returns (string)",
+				]
+			`)
+		})
 	})
 
 	describe('write', () => {
@@ -189,6 +306,94 @@ describe('evmtsContractFactory', () => {
           "function exampleWrite(string str, uint256 num) payable returns (string)",
         ]
       `)
+		})
+		it('should work for overloaded function', () => {
+			const writeInfo1Arg = contract.write().overloadedWrite('data')
+			expect(writeInfo1Arg.address).toMatchInlineSnapshot('"0x12345678"')
+			expect(writeInfo1Arg.args).toMatchInlineSnapshot(`
+				[
+				  "data",
+				]
+			`)
+			expect(writeInfo1Arg.abi).toMatchInlineSnapshot(`
+				[
+				  {
+				    "inputs": [
+				      {
+				        "name": "str",
+				        "type": "string",
+				      },
+				    ],
+				    "name": "overloadedWrite",
+				    "outputs": [
+				      {
+				        "name": "",
+				        "type": "string",
+				      },
+				    ],
+				    "stateMutability": "payable",
+				    "type": "function",
+				  },
+				  {
+				    "inputs": [],
+				    "name": "overloadedWrite",
+				    "outputs": [
+				      {
+				        "name": "",
+				        "type": "string",
+				      },
+				    ],
+				    "stateMutability": "payable",
+				    "type": "function",
+				  },
+				]
+			`)
+			expect(writeInfo1Arg.humanReadableAbi).toMatchInlineSnapshot(`
+				[
+				  "function overloadedWrite() payable returns (string)",
+				]
+			`)
+			const writeInfo0Arg = contract.write().overloadedWrite()
+			expect(writeInfo0Arg.address).toMatchInlineSnapshot('"0x12345678"')
+			expect(writeInfo0Arg.args).toMatchInlineSnapshot('undefined')
+			expect(writeInfo0Arg.abi).toMatchInlineSnapshot(`
+				[
+				  {
+				    "inputs": [
+				      {
+				        "name": "str",
+				        "type": "string",
+				      },
+				    ],
+				    "name": "overloadedWrite",
+				    "outputs": [
+				      {
+				        "name": "",
+				        "type": "string",
+				      },
+				    ],
+				    "stateMutability": "payable",
+				    "type": "function",
+				  },
+				  {
+				    "inputs": [],
+				    "name": "overloadedWrite",
+				    "outputs": [
+				      {
+				        "name": "",
+				        "type": "string",
+				      },
+				    ],
+				    "stateMutability": "payable",
+				    "type": "function",
+				  },
+				]
+			`)
+			expect(writeInfo0Arg.humanReadableAbi).toMatchInlineSnapshot(`
+				[
+				  "function overloadedWrite() payable returns (string)",
+				]
+			`)
 		})
 	})
 })

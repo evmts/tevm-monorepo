@@ -162,8 +162,13 @@ export const evmtsContractFactory = <
 		Object.fromEntries(
 			methods.map((method) => {
 				const creator = (...args: any[]) => {
+					// need to handle case where there is an overload
+					// TODO make this more efficient
+					const methodAbi = methods.filter(
+						(m) => (m as AbiFunction).name === (method as AbiFunction)?.name,
+					)
 					return {
-						abi: [method],
+						abi: methodAbi,
 						humanReadableAbi: formatAbi([method]),
 						functionName: (method as AbiFunction).name,
 						args: args.length > 0 ? args : undefined,
@@ -194,8 +199,13 @@ export const evmtsContractFactory = <
 			methods.map((method) => {
 				// TODO ABI Type
 				const creator = (...args: any[]) => {
+					// need to handle case where there is an overload
+					// TODO make this more efficient
+					const methodAbi = methods.filter(
+						(m) => (m as AbiFunction).name === (method as AbiFunction)?.name,
+					)
 					return {
-						abi: [method],
+						abi: methodAbi,
 						humanReadableAbi: formatAbi([method]),
 						functionName: (method as AbiFunction).name,
 						args: args.length > 0 ? args : undefined,
