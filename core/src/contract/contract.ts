@@ -23,6 +23,7 @@ export type EVMtsContract<
 > = {
 	abi: TAbi
 	humanReadableAbi: THumanReadableAbi
+	bytecode: string
 	name: TName
 	addresses: TAddresses
 	events: <TChainId extends keyof TAddresses>(options?: {
@@ -117,9 +118,10 @@ export const evmtsContractFactory = <
 	abi,
 	name,
 	addresses,
+	bytecode,
 }: Pick<
 	EVMtsContract<TName, TAddresses, TAbi>,
-	'name' | 'abi' | 'addresses'
+	'name' | 'abi' | 'addresses' | 'bytecode'
 >): EVMtsContract<TName, TAddresses, TAbi> => {
 	const methods = abi.filter((field) => {
 		return field.type === 'function'
@@ -232,6 +234,7 @@ export const evmtsContractFactory = <
 		abi,
 		humanReadableAbi: formatAbi(abi),
 		addresses,
+		bytecode,
 		events: events as any,
 		write: write as any,
 		read: read as any,
