@@ -18,7 +18,7 @@
     "lint:check": "nx run-many --target=lint:check,format:check",
     "package:up": "pnpm up --latest && pnpm recursive --workspace-concurrency=1 run package:up",
     "release:check": "changeset status --verbose --since=origin/main",
-    "release:publish": "pnpm install && pnpm build && changeset publish",
+    "release:publish": "pnpm install && pnpm build --skip-nx-cache && changeset publish",
     "release:version": "changeset version && pnpm install --lockfile-only",
     "sort-package-json": "sort-package-json package.json 'plugins/*/package.json' 'examples/*/package.json' '*/package.json' 'packages/*/example/package.json'",
     "sort-package-json:check": "sort-package-json package.json 'packages/*/package.json' '*/package.json' 'packages/*/example/package.json' && git diff --exit-code",
