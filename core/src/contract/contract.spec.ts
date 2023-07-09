@@ -71,10 +71,13 @@ describe('evmtsContractFactory', () => {
 		Address
 	>
 
+	const bytecode = '0x12345678'
+
 	const contract = evmtsContractFactory({
 		abi: dummyAbi,
 		name: 'DummyContract',
 		addresses: dummyAddresses,
+		bytecode,
 	})
 
 	it('should have correct name', () => {
@@ -91,6 +94,10 @@ describe('evmtsContractFactory', () => {
 
 	it('should contain the addresses', () => {
 		expect(contract.addresses).toEqual(dummyAddresses)
+	})
+
+	it('should contain the bytecode', () => {
+		expect(contract.bytecode).toEqual(bytecode)
 	})
 
 	describe('events', () => {
