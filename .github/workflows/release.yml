@@ -23,11 +23,6 @@ jobs:
       - name: "Setup"
         uses: ./.github/actions/setup
 
-      - name: Build
-        run: pnpm build
-        env:
-          NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
-
       - name: Check for pre.json file existence
         id: check_files
         uses: andstor/file-existence-action@v2.0.0
