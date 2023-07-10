@@ -1,15 +1,11 @@
 import { getScriptKindDecorator } from '.'
-import { Config } from '../factories'
+import type { Config } from '@evmts/config'
 import typescript from 'typescript/lib/tsserverlibrary'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 type TestAny = any
 
-const config: Config = {
-	out: 'out',
-	name: '@evmts/ts-plugin',
-	project: '.',
-}
+const config: Config = {}
 
 describe(getScriptKindDecorator.name, () => {
 	let createInfo: TestAny

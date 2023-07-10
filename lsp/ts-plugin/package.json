@@ -43,10 +43,12 @@
   },
   "dependencies": {
     "@evmts/bundler": "workspace:^",
+    "esbuild": "0.18.8",
     "glob": "^10.3.1",
     "zod": "^3.21.4"
   },
   "devDependencies": {
+    "@evmts/config": "workspace:^",
     "rome": "^12.1.3",
     "tsup": "^7.1.0",
     "typescript": "^5.1.6",

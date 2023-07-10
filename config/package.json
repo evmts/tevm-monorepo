@@ -27,9 +27,6 @@
     "src"
   ],
   "scripts": {
-    "//test": "vitest",
-    "//test:run": "vitest run",
-    "//test:ui": "vitest --ui",
     "build": "tsup",
     "clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
     "format": "rome format . --write",
@@ -37,6 +34,9 @@
     "lint": "rome check . --apply-unsafe",
     "lint:check": "rome check . --verbose",
     "package:up": "pnpm up --latest",
+    "test": "vitest",
+    "test:run": "vitest run",
+    "test:ui": "vitest --ui",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

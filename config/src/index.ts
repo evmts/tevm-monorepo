@@ -1,4 +1,4 @@
-import { bundleRequire } from 'bundle-require'
+import { execSync } from 'child_process'
 import { readFileSync } from 'fs'
 import * as path from 'path'
 
@@ -18,39 +18,37 @@ type DeploymentConfig = {
 
 export type Config = {
 	/**
-	 * The source directory of the project containing `.sol` files
-	 * @defaults "src" or configured src directory of foundry.toml
-	 */
-	src?: string
-	/**
-	 * Configure locations to resolve libraries in `.sol` files
-	 * in addition to node_modules.  Currently does not read foundry.toml
-	 * @defaults []
-	 */
-	libs?: string[]
-	/**
 	 * Solc version to use  (e.g. "0.8.13")
 	 * @defaults "0.8.13"
 	 * @see https://www.npmjs.com/package/solc
 	 */
 	solcVersion?: string
 	/**
-	 * The output directory for the compiled contracts
-	 * @defaults "artifacts" or configured out directory of foundry.toml
-	 */
-	out?: string
-	/**
 	 * Globally configures addresses for specific contracts
 	 */
 	deployments?: DeploymentConfig[]
+	/**
+	 * If set to true it will resolve forge remappings and libs
+	 * Set to "path/to/forge/executable" to use a custom forge executable
+	 */
+	forge?: boolean | string
+	/**
+	 * Sets directories to search for solidity imports in
+	 * Read autoamtically for forge projects if forge: true
+	 */
+	libs?: string[]
 }
 
-export const defaultConfig: Required<Config> = {
-	src: 'src',
-	out: 'artifacts',
-	solcVersion: '0.8.13',
-	libs: [],
+export type ResolvedConfig = Required<Config> & {
+	remappings: Record<string, string>
+}
+
+export const defaultConfig: ResolvedConfig = {
+	solcVersion: '0.8.20',
 	deployments: [],
+	forge: false,
+	remappings: {},
+	libs: [],
 }
 
 /**
@@ -64,28 +62,81 @@ export const readDeployments = (
 	return []
 }
 
-export type ResolvedConfig = Required<Config>
-
 export type DefineConfig = (configFactory: () => Config) => {
-	configFn: () => ResolvedConfig
+	configFn: (configFilePath: string) => ResolvedConfig
 }
 
 export const defineConfig: DefineConfig = (configFactory) => ({
-	configFn: () => {
+	configFn: (configFilePath: string) => {
 		const userConfig = configFactory()
+		const getFoundryDefaults = (): Partial<ResolvedConfig> => {
+			if (!userConfig.forge) {
+				return {}
+			}
+
+			const forgeCommand =
+				typeof userConfig.forge === 'string' ? userConfig.forge : 'forge'
+			let stdout
+			try {
+				stdout = execSync(`${forgeCommand} config --json`).toString()
+			} catch (error) {
+				throw new Error(
+					`Failed to run forge using ${forgeCommand} command. Make sure forge is installed and accessible and forge config --json works`,
+				)
+			}
+			let forgeConfig
+			try {
+				forgeConfig = JSON.parse(stdout)
+			} catch (error) {
+				throw new Error(
+					'Failed to parse the output of forge config command. The command output is not a valid JSON.',
+				)
+			}
+
+			// Process remappings
+			const remappings: Record<string, string> = {}
+			if (forgeConfig.remappings) {
+				for (const remap of forgeConfig.remappings) {
+					const parts = remap.split('=')
+					if (parts.length !== 2) {
+						throw new Error(
+							`Invalid format for remapping: ${remap}. It should be in the format key=value.`,
+						)
+					}
+					const [key, value] = parts
+					remappings[key.trim()] = path.join(configFilePath, value.trim())
+				}
+			}
+
+			return {
+				solcVersion: forgeConfig.profile.default.solc_version,
+				libs: forgeConfig.profile.default.libs,
+				remappings: remappings,
+			}
+		}
+
+		const foundryDefaults = getFoundryDefaults()
+
 		return {
-			src: userConfig.src ?? defaultConfig.src,
-			out: userConfig.out ?? defaultConfig.out,
-			solcVersion: userConfig.solcVersion ?? defaultConfig.solcVersion,
-			libs: userConfig.libs ?? [],
-			deployments: userConfig.deployments ?? defaultConfig.deployments,
+			solcVersion:
+				userConfig.solcVersion ??
+				foundryDefaults.solcVersion ??
+				defaultConfig.solcVersion,
+			deployments:
+				userConfig.deployments ??
+				foundryDefaults.deployments ??
+				defaultConfig.deployments,
+			forge: userConfig.forge ?? defaultConfig.forge,
+			remappings: foundryDefaults.remappings ?? defaultConfig.remappings,
+			libs: userConfig.libs ?? foundryDefaults.libs ?? defaultConfig.libs,
 		}
 	},
 })
 
-type LoadConfig = (configFilePath: string) => Promise<ResolvedConfig>
+type LoadConfig = (configFilePath: string) => ResolvedConfig
 
-export const loadConfigTs: LoadConfig = async (configFilePath) => {
+export const loadConfigTs = async (configFilePath: string) => {
+	const { bundleRequire } = await import('bundle-require')
 	const configModule = await bundleRequire({
 		filepath: path.join(configFilePath, 'evmts.config.ts'),
 	})
@@ -94,7 +145,7 @@ export const loadConfigTs: LoadConfig = async (configFilePath) => {
 		return defaultConfig
 	}
 	if (config.configFn) {
-		return config.configFn()
+		return config.configFn(configFilePath)
 	}
 	if (typeof config !== 'function') {
 		return config
@@ -102,13 +153,20 @@ export const loadConfigTs: LoadConfig = async (configFilePath) => {
 	return config()
 }
 
-export const loadConfig: LoadConfig = async (configFilePath) => {
+export const loadConfig: LoadConfig = (configFilePath) => {
 	/**
 	 * evmts.config.ts currently doesn't work for ts-plugin because it is not syncronous
 	 * for now load config will load from tsconfig instead until fixed
 	 */
 	const tsConfigPath = path.join(configFilePath, 'tsconfig.json')
-	const configStr = readFileSync(tsConfigPath, 'utf8')
+	let configStr
+	try {
+		configStr = readFileSync(tsConfigPath, 'utf8')
+	} catch (error) {
+		throw new Error(
+			`Failed to read the file at ${tsConfigPath}. Make sure the file exists and is accessible.`,
+		)
+	}
 	let configJson: {
 		compilerOptions: {
 			plugins?: Array<{ name: '@evmts/ts-plugin' } & Config>
@@ -120,11 +178,15 @@ export const loadConfig: LoadConfig = async (configFilePath) => {
 		console.error(e)
 		throw new Error(`tsconfig.json at ${tsConfigPath} is not valid json`)
 	}
+
 	const config = configJson.compilerOptions.plugins?.find(
 		(plugin) => plugin.name === '@evmts/ts-plugin',
 	)
 	if (!config) {
+		console.warn(
+			'No EVMts plugin found in tsconfig.json. Using the default config',
+		)
 		return defaultConfig
 	}
-	return defineConfig(() => config).configFn()
+	return defineConfig(() => config).configFn(configFilePath)
 }

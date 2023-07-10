@@ -1,1 +1,0 @@
-export { foundryModules } from './foundryModules'

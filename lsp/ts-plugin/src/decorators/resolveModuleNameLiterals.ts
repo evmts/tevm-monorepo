@@ -6,7 +6,7 @@ import { solidityModuleResolver } from '../utils'
  * This tells the ts-server to resolve `.sol` files to `.d.ts` files with `getScriptSnapshot`
  */
 export const resolveModuleNameLiteralsDecorator = createDecorator(
-	(createInfo, ts, logger, config) => {
+	(createInfo, ts, logger) => {
 		return {
 			resolveModuleNameLiterals: (moduleNames, containingFile, ...rest) => {
 				const resolvedModules =
@@ -26,7 +26,6 @@ export const resolveModuleNameLiteralsDecorator = createDecorator(
 							ts,
 							createInfo,
 							containingFile,
-							config,
 						)
 						if (resolvedModule) {
 							return { resolvedModule }

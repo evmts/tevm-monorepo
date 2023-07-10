@@ -1,16 +1,13 @@
 import { getScriptSnapshotDecorator } from '.'
-import { Config, Logger } from '../factories'
+import { Logger } from '../factories'
+import { Config } from '@evmts/config'
 import path from 'path'
 import typescript from 'typescript/lib/tsserverlibrary'
 import { Mock, beforeEach, describe, expect, it, vi } from 'vitest'
 
 const forgeProject = path.join(__dirname, '../..')
 
-const config: Config = {
-	name: '@evmts/ts-plugin',
-	project: '.',
-	out: 'artifacts',
-}
+const config: Config = {}
 
 describe(getScriptSnapshotDecorator.name, () => {
 	let logger: Logger

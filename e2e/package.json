@@ -14,7 +14,9 @@
     "package:up": "pnpm up --latest",
     "typecheck": "tsc --noEmit"
   },
-  "dependencies": {},
+  "dependencies": {
+    "typescript": "^5.1.6"
+  },
   "devDependencies": {
     "@playwright/test": "^1.35.1",
     "@synthetixio/synpress": "^3.7.1",
