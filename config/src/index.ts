@@ -109,8 +109,8 @@ export const defineConfig: DefineConfig = (configFactory) => ({
 			}
 
 			return {
-				solcVersion: forgeConfig.profile.default.solc_version,
-				libs: forgeConfig.profile.default.libs,
+				solcVersion: forgeConfig.solc_version,
+				libs: forgeConfig.libs,
 				remappings: remappings,
 			}
 		}
