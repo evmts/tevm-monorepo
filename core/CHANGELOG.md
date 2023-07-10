@@ -1,5 +1,11 @@
 # @evmts/core
 
+## 0.3.1
+
+### Patch Changes
+
+- [#269](https://github.com/evmts/evmts-monorepo/pull/269) [`1f6919c`](https://github.com/evmts/evmts-monorepo/commit/1f6919cfc54648499129d3642ddbb64568b1e798) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed types. Changed bytecode to `0x${string}` and made chainId type accept a number
+
 ## 0.3.0
 
 ### Minor Changes

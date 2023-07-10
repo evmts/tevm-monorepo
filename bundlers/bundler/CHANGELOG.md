@@ -1,5 +1,17 @@
 # @evmts/core
 
+## 0.4.0
+
+### Minor Changes
+
+- [#268](https://github.com/evmts/evmts-monorepo/pull/268) [`a37844f`](https://github.com/evmts/evmts-monorepo/commit/a37844faa425d1eaca112b9a09640b7ec7e288de) Thanks [@roninjin10](https://github.com/roninjin10)! - Added support for detecting foundry.toml and remappings as tsconfig option. Set forge: true in plugin tsconfig options or forge: '/path/to/binary/forge' for a custom forge binary
+
+### Patch Changes
+
+- Updated dependencies [[`1f6919c`](https://github.com/evmts/evmts-monorepo/commit/1f6919cfc54648499129d3642ddbb64568b1e798), [`a37844f`](https://github.com/evmts/evmts-monorepo/commit/a37844faa425d1eaca112b9a09640b7ec7e288de)]:
+  - @evmts/core@0.3.1
+  - @evmts/config@0.2.0
+
 ## 0.3.0
 
 ### Minor Changes
