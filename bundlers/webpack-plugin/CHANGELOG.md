@@ -1,5 +1,12 @@
 # @evmts/plugin
 
+## 0.4.2
+
+### Patch Changes
+
+- Updated dependencies [[`fd6b482`](https://github.com/evmts/evmts-monorepo/commit/fd6b4825417fa81d601e9a3c5078131bc1f816c0)]:
+  - @evmts/bundler@0.4.2
+
 ## 0.4.1
 
 ### Patch Changes
