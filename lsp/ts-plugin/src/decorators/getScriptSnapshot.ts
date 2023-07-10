@@ -1,6 +1,7 @@
 import { createDecorator } from '../factories'
 import { isSolidity } from '../utils'
 import { solcModules } from '@evmts/bundler'
+import { defineConfig } from '@evmts/config'
 import { existsSync } from 'fs'
 
 /**
@@ -10,18 +11,16 @@ import { existsSync } from 'fs'
  * TODO replace with modules for code reuse
  */
 export const getScriptSnapshotDecorator = createDecorator(
-	({ languageServiceHost }, ts, logger, config) => {
+	({ languageServiceHost, project }, ts, logger, config) => {
 		return {
 			getScriptSnapshot: (filePath) => {
 				if (!isSolidity(filePath) || !existsSync(filePath)) {
 					return languageServiceHost.getScriptSnapshot(filePath)
 				}
-
 				try {
+					const c = defineConfig(() => config)
 					const plugin = solcModules(
-						{
-							...config,
-						},
+						c.configFn(project.getCurrentDirectory()),
 						logger as any,
 					)
 					const snapshot = plugin.resolveDtsSync(filePath, process.cwd())

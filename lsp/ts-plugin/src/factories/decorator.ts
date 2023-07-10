@@ -1,5 +1,5 @@
-import { Config } from './config'
 import type { Logger } from './logger'
+import { Config } from '@evmts/config'
 import type typescript from 'typescript/lib/tsserverlibrary'
 
 /**

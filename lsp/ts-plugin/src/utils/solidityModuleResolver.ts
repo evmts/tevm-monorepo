@@ -1,4 +1,3 @@
-import { Config } from '../factories'
 import { isRelativeSolidity } from './isRelativeSolidity'
 import { isSolidity } from './isSolidity'
 import { existsSync } from 'fs'
@@ -13,7 +12,6 @@ export const solidityModuleResolver = (
 	ts: typeof typescript,
 	createInfo: typescript.server.PluginCreateInfo,
 	containingFile: string,
-	config: Config,
 ): typescript.ResolvedModuleFull | undefined => {
 	if (isRelativeSolidity(moduleName)) {
 		return {

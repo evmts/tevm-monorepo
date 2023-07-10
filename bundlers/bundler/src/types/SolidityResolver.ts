@@ -1,8 +1,8 @@
 import { Logger } from './Logger'
-import { Config } from '@evmts/config'
+import { ResolvedConfig } from '@evmts/config'
 
 export type SolidityResolver = (
-	config: Config,
+	config: ResolvedConfig,
 	logger: Logger,
 ) => {
 	/**
@@ -12,7 +12,7 @@ export type SolidityResolver = (
 	/**
 	 * The configuration of the plugin.
 	 */
-	config: Config
+	config: ResolvedConfig
 	include?: string[]
 	exclude?: string[]
 	/**

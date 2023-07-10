@@ -1,15 +1,11 @@
 import tsPlugin from '.'
-import { Config } from './factories'
+import { Config } from '@evmts/config'
 import typescript from 'typescript/lib/tsserverlibrary'
 import { Mock, describe, expect, it, vi } from 'vitest'
 
 type TestAny = any
 
-const config: Config = {
-	out: 'out',
-	name: '@evmts/ts-plugin',
-	project: '.',
-}
+const config: Config = {}
 
 const createInfo: typescript.server.PluginCreateInfo = {
 	config,

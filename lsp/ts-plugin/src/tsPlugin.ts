@@ -3,7 +3,7 @@ import {
 	getScriptSnapshotDecorator,
 	resolveModuleNameLiteralsDecorator,
 } from './decorators'
-import { createConfig, createLogger, decorate } from './factories'
+import { createLogger, decorate } from './factories'
 import { isSolidity } from './utils'
 import type typescript from 'typescript/lib/tsserverlibrary'
 
@@ -28,7 +28,7 @@ export const tsPlugin: typescript.server.PluginModuleFactory = (modules) => {
 					createInfo,
 					modules.typescript,
 					createLogger(createInfo),
-					createConfig(createInfo),
+					createInfo.config,
 				),
 			)
 		},

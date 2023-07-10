@@ -1,9 +1,8 @@
 import { SolidityResolver } from '../types'
 import { Logger } from '../types'
 import { getEtherscanLinks } from '../utils'
-// TODO get remappings
-// import { FoundryToml } from '../types/FoundryToml'
 import { ModuleInfo, moduleFactory } from './moduleFactory'
+import { ResolvedConfig } from '@evmts/config'
 import { readFileSync } from 'fs'
 import * as resolve from 'resolve'
 // TODO wrap this in a typesafe version
@@ -14,6 +13,7 @@ import solc from 'solc'
 function compileContractSync(
 	filePath: string,
 	basedir: string,
+	config: ResolvedConfig,
 ): solc.CompiledContract | undefined {
 	const source: string = readFileSync(
 		resolve.sync(filePath, {
@@ -22,7 +22,12 @@ function compileContractSync(
 		'utf8',
 	)
 
-	const entryModule = moduleFactory(filePath, source)
+	const entryModule = moduleFactory(
+		filePath,
+		source,
+		config.remappings,
+		config.libs,
+	)
 
 	const getAllModulesRecursively = (
 		m = entryModule,
@@ -79,6 +84,7 @@ const resolveArtifactsSync = (
 	solFile: string,
 	basedir: string,
 	logger: Logger,
+	config: ResolvedConfig,
 ):
 	| Record<string, { contractName: string; abi: any; bytecode: string }>
 	| undefined => {
@@ -86,7 +92,7 @@ const resolveArtifactsSync = (
 	if (!solFile.endsWith('.sol')) {
 		throw new Error('Not a solidity file')
 	}
-	const contracts = compileContractSync(solFile, basedir)
+	const contracts = compileContractSync(solFile, basedir, config)
 
 	if (!contracts) {
 		logger.error(`Compilation failed for ${solFile}`)
@@ -108,11 +114,12 @@ const resolveArtifacts = async (
 	solFile: string,
 	basedir: string,
 	logger: Logger,
+	config: ResolvedConfig,
 ): Promise<
 	| Record<string, { contractName: string; abi: any; bytecode: string }>
 	| undefined
 > => {
-	return resolveArtifactsSync(solFile, basedir, logger)
+	return resolveArtifactsSync(solFile, basedir, logger, config)
 }
 
 // type Address = `0x${string}`
@@ -128,7 +135,7 @@ export const solcModules: SolidityResolver = (
 		name: solcModules.name,
 		config,
 		resolveDts: async (module, basedir) => {
-			const artifacts = await resolveArtifacts(module, basedir, logger)
+			const artifacts = await resolveArtifacts(module, basedir, logger, config)
 			if (artifacts) {
 				const evmtsImports = `import type { EVMtsContract } from '@evmts/core'`
 				const evmtsBody = Object.entries(artifacts)
@@ -165,7 +172,7 @@ export const solcModules: SolidityResolver = (
 			return ''
 		},
 		resolveDtsSync: (module, basedir) => {
-			const artifacts = resolveArtifactsSync(module, basedir, logger)
+			const artifacts = resolveArtifactsSync(module, basedir, logger, config)
 			if (artifacts) {
 				const evmtsImports = `import type { EVMtsContract } from '@evmts/core'`
 				const evmtsBody = Object.entries(artifacts)
@@ -202,7 +209,7 @@ export const solcModules: SolidityResolver = (
 			return ''
 		},
 		resolveTsModuleSync: (module, basedir) => {
-			const artifacts = resolveArtifactsSync(module, basedir, logger)
+			const artifacts = resolveArtifactsSync(module, basedir, logger, config)
 			if (artifacts) {
 				const evmtsImports = [
 					`import { evmtsContractFactory } from '@evmts/core'`,
@@ -229,7 +236,7 @@ export const solcModules: SolidityResolver = (
 			return ''
 		},
 		resolveTsModule: async (module, basedir) => {
-			const artifacts = await resolveArtifacts(module, basedir, logger)
+			const artifacts = await resolveArtifacts(module, basedir, logger, config)
 			if (artifacts) {
 				const evmtsImports = [
 					`import { evmtsContractFactory } from '@evmts/core'`,
@@ -256,7 +263,7 @@ export const solcModules: SolidityResolver = (
 			return ''
 		},
 		resolveCjsModuleSync: (module, basedir) => {
-			const artifacts = resolveArtifactsSync(module, basedir, logger)
+			const artifacts = resolveArtifactsSync(module, basedir, logger, config)
 			if (artifacts) {
 				const evmtsImports = `const { evmtsContractFactory } = require('@evmts/core')`
 				const evmtsBody = Object.entries(artifacts)
@@ -281,7 +288,7 @@ export const solcModules: SolidityResolver = (
 			return ''
 		},
 		resolveCjsModule: async (module, basedir) => {
-			const artifacts = await resolveArtifacts(module, basedir, logger)
+			const artifacts = await resolveArtifacts(module, basedir, logger, config)
 			if (artifacts) {
 				const evmtsImports = `const { evmtsContractFactory } = require('@evmts/core')`
 				const evmtsBody = Object.entries(artifacts)
@@ -307,7 +314,7 @@ export const solcModules: SolidityResolver = (
 		},
 
 		resolveEsmModuleSync: (module, basedir) => {
-			const artifacts = resolveArtifactsSync(module, basedir, logger)
+			const artifacts = resolveArtifactsSync(module, basedir, logger, config)
 			if (artifacts) {
 				const evmtsImports = `import { evmtsContractFactory } from '@evmts/core'`
 				const evmtsBody = Object.entries(artifacts)
@@ -332,7 +339,7 @@ export const solcModules: SolidityResolver = (
 			return ''
 		},
 		resolveEsmModule: async (module, basedir) => {
-			const artifacts = await resolveArtifacts(module, basedir, logger)
+			const artifacts = await resolveArtifacts(module, basedir, logger, config)
 			if (artifacts) {
 				const evmtsImports = `import { evmtsContractFactory } from '@evmts/core'`
 				const evmtsBody = Object.entries(artifacts)

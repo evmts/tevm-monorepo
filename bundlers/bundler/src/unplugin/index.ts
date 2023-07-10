@@ -1,6 +1,5 @@
-import { foundryModules } from '../foundry'
 import { solcModules } from '../solc'
-import { Config, loadConfig } from '@evmts/config'
+import { ResolvedConfig, loadConfig } from '@evmts/config'
 import { createUnplugin } from 'unplugin'
 import { z } from 'zod'
 
@@ -13,11 +12,10 @@ export type CompilerOption = z.infer<typeof compilerOptionValidator>
 
 const pluginFactories = {
 	solc: solcModules,
-	foundry: foundryModules,
 }
 
 const foundryUnplugin = createUnplugin(() => {
-	let config: Config
+	let config: ResolvedConfig
 
 	// for current release we will hardcode this to solc
 	const parsedCompilerOption = compilerOptionValidator.safeParse('solc')
@@ -27,6 +25,12 @@ const foundryUnplugin = createUnplugin(() => {
 		)
 	}
 	const compilerOption = parsedCompilerOption.data
+
+	if (compilerOption === 'foundry') {
+		throw new Error(
+			'We have abandoned the foundry option despite supporting it in the past. Please use solc instead',
+		)
+	}
 	const compiler = pluginFactories[compilerOption]
 	let moduleResolver: ReturnType<typeof compiler>
 
@@ -34,7 +38,7 @@ const foundryUnplugin = createUnplugin(() => {
 		name: '@evmts/rollup-plugin',
 		version: '0.0.0',
 		buildStart: async () => {
-			config = await loadConfig('.')
+			config = loadConfig('.')
 			moduleResolver = compiler(config, console)
 		},
 		load(id) {
