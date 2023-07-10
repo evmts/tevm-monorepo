@@ -1,5 +1,11 @@
 # @evmts/core
 
+## 0.2.1
+
+### Patch Changes
+
+- [#276](https://github.com/evmts/evmts-monorepo/pull/276) [`2a89e13`](https://github.com/evmts/evmts-monorepo/commit/2a89e136d8dfcd997ae5ff227a96de4702dfbe19) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug with parsing foundry.toml
+
 ## 0.2.0
 
 ### Minor Changes

@@ -1,5 +1,12 @@
 # @evmts/core
 
+## 0.4.1
+
+### Patch Changes
+
+- Updated dependencies [[`2a89e13`](https://github.com/evmts/evmts-monorepo/commit/2a89e136d8dfcd997ae5ff227a96de4702dfbe19)]:
+  - @evmts/config@0.2.1
+
 ## 0.4.0
 
 ### Minor Changes
