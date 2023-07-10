@@ -23,11 +23,11 @@ export type EVMtsContract<
 > = {
 	abi: TAbi
 	humanReadableAbi: THumanReadableAbi
-	bytecode: string
+	bytecode: `0x${string}`
 	name: TName
 	addresses: TAddresses
 	events: <TChainId extends keyof TAddresses>(options?: {
-		chainId?: TChainId
+		chainId?: TChainId | number | undefined
 	}) => {
 		[TEventName in ExtractAbiEventNames<TAbi>]: (<
 			TStrict extends boolean = false,
@@ -56,7 +56,7 @@ export type EVMtsContract<
 		}
 	}
 	read: <TChainId extends keyof TAddresses>(options?: {
-		chainId?: TChainId
+		chainId?: TChainId | number | undefined
 	}) => {
 		[TFunctionName in ExtractAbiFunctionNames<TAbi, 'pure' | 'view'>]: (<
 			TArgs extends AbiParametersToPrimitiveTypes<
@@ -82,7 +82,7 @@ export type EVMtsContract<
 		}
 	}
 	write: <TChainId extends keyof TAddresses>(options?: {
-		chainId?: TChainId
+		chainId?: TChainId | number | undefined
 	}) => {
 		[TFunctionName in
 			ExtractAbiFunctionNames<TAbi, 'payable' | 'nonpayable'>]: (<
@@ -128,7 +128,7 @@ export const evmtsContractFactory = <
 	})
 	const events = <TChainId extends keyof TAddresses>({
 		chainId,
-	}: { chainId?: TChainId } = {}) =>
+	}: { chainId?: TChainId | number | undefined } = {}) =>
 		Object.fromEntries(
 			abi
 				.filter((field) => {
@@ -160,7 +160,7 @@ export const evmtsContractFactory = <
 	// with feedback we may want to change this
 	const write = <TChainId extends keyof TAddresses & number>({
 		chainId,
-	}: { chainId?: TChainId } = {}) =>
+	}: { chainId?: TChainId | number | undefined } = {}) =>
 		Object.fromEntries(
 			methods.map((method) => {
 				const creator = (...args: any[]) => {
@@ -196,7 +196,7 @@ export const evmtsContractFactory = <
 	// TODO ABI type magic
 	const read = <TChainId extends keyof TAddresses & number>({
 		chainId,
-	}: { chainId?: TChainId } = {}) =>
+	}: { chainId?: TChainId | number | undefined } = {}) =>
 		Object.fromEntries(
 			methods.map((method) => {
 				// TODO ABI Type
