@@ -3,6 +3,7 @@
     "plugins": [
       {
         "name": "@evmts/ts-plugin",
+        "forge": true,
         "deployments": [
           {
             "name": "WagmiMintExample",
