@@ -43,7 +43,8 @@
       ],
       "outputs": [
         "{projectRoot}/dist",
-        "{projectRoot}/.vitepress"
+        "{projectRoot}/.vitepress",
+        "{projectRoot}/types"
       ]
     },
     "dev": {
