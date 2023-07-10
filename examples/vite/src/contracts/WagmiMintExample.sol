@@ -4,6 +4,8 @@ pragma solidity 0.8.19;
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/utils/Base64.sol";
+// this import is unused just testing that foundry style remappings of this git submodule work with forge: true
+import "solmate/utils/LibString.sol";
 
 contract WagmiMintExample is ERC721 {
     uint256 public totalSupply;
