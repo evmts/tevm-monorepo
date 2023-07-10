@@ -1,5 +1,11 @@
 # @evmts/core
 
+## 0.4.2
+
+### Patch Changes
+
+- [#279](https://github.com/evmts/evmts-monorepo/pull/279) [`fd6b482`](https://github.com/evmts/evmts-monorepo/commit/fd6b4825417fa81d601e9a3c5078131bc1f816c0) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed source file does not exist warning in @evmts/bundler
+
 ## 0.4.1
 
 ### Patch Changes

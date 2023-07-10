@@ -1,6 +1,6 @@
 {
   "name": "@evmts/vite-plugin",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "private": false,
   "description": "A vite plugin for evmts",
   "keywords": [
