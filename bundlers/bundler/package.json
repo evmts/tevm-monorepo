@@ -22,9 +22,6 @@
   "main": "dist/index.cjs",
   "module": "dist/index.js",
   "types": "types/index.d.ts",
-  "bin": {
-    "init": "dist/cli/init.js"
-  },
   "files": [
     "dist",
     "types"
