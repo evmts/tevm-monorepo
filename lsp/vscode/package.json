@@ -54,7 +54,7 @@
     "@volar/language-server": "1.7.8",
     "@volar/vscode": "1.8.0",
     "esbuild": "0.18.8",
-    "tsup": "^7.0.0",
+    "tsup": "^7.1.0",
     "vsce": "^2.15.0",
     "vscode-languageclient": "^8.1.0"
   },
