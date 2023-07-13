@@ -13,7 +13,7 @@ import solc from 'solc'
 function compileContractSync(
 	filePath: string,
 	basedir: string,
-	config: ResolvedConfig,
+	config: ResolvedConfig['compiler'],
 ): solc.CompiledContract | undefined {
 	const source: string = readFileSync(
 		resolve.sync(filePath, {
@@ -92,7 +92,7 @@ const resolveArtifactsSync = (
 	if (!solFile.endsWith('.sol')) {
 		throw new Error('Not a solidity file')
 	}
-	const contracts = compileContractSync(solFile, basedir, config)
+	const contracts = compileContractSync(solFile, basedir, config.compiler)
 
 	if (!contracts) {
 		logger.error(`Compilation failed for ${solFile}`)
@@ -144,7 +144,7 @@ export const solcModules: SolidityResolver = (
 							name: contractName,
 							abi,
 							addresses:
-								config.deployments?.find(
+								config.localContracts.contracts?.find(
 									(contractConfig) => contractConfig.name === contractName,
 								) ?? {},
 						}
@@ -181,7 +181,7 @@ export const solcModules: SolidityResolver = (
 							name: contractName,
 							abi,
 							addresses:
-								config.deployments?.find(
+								config.localContracts.contracts?.find(
 									(contractConfig) => contractConfig.name === contractName,
 								)?.addresses ?? {},
 						}
@@ -221,7 +221,7 @@ export const solcModules: SolidityResolver = (
 							abi,
 							bytecode,
 							addresses:
-								config.deployments?.find(
+								config.localContracts.contracts?.find(
 									(contractConfig) => contractConfig.name === contractName,
 								)?.addresses ?? {},
 						})
@@ -248,7 +248,7 @@ export const solcModules: SolidityResolver = (
 							abi,
 							bytecode,
 							addresses:
-								config.deployments?.find(
+								config.localContracts.contracts?.find(
 									(contractConfig) => contractConfig.name === contractName,
 								)?.addresses ?? {},
 						})
@@ -273,7 +273,7 @@ export const solcModules: SolidityResolver = (
 							abi,
 							bytecode,
 							addresses:
-								config.deployments?.find(
+								config.localContracts.contracts?.find(
 									(contractConfig) => contractConfig.name === contractName,
 								)?.addresses ?? {},
 						})
@@ -298,7 +298,7 @@ export const solcModules: SolidityResolver = (
 							abi,
 							bytecode,
 							addresses:
-								config.deployments?.find(
+								config.localContracts.contracts?.find(
 									(contractConfig) => contractConfig.name === contractName,
 								)?.addresses ?? {},
 						})
@@ -324,7 +324,7 @@ export const solcModules: SolidityResolver = (
 							abi,
 							bytecode,
 							addresses:
-								config.deployments?.find(
+								config.localContracts.contracts?.find(
 									(contractConfig) => contractConfig.name === contractName,
 								)?.addresses ?? {},
 						})
@@ -349,7 +349,7 @@ export const solcModules: SolidityResolver = (
 							abi,
 							bytecode,
 							addresses:
-								config.deployments?.find(
+								config.localContracts.contracts?.find(
 									(contractConfig) => contractConfig.name === contractName,
 								)?.addresses ?? {},
 						})

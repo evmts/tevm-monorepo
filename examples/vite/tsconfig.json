@@ -3,8 +3,11 @@
     "plugins": [
       {
         "name": "@evmts/ts-plugin",
-        "forge": true,
-        "deployments": [
+        "compiler": {
+          "foundryProject": true
+        },
+        "localContracts": {
+          "contracts":[
           {
             "name": "WagmiMintExample",
             "addresses": {
@@ -23,6 +26,7 @@
             }
           }
         ]
+        }
       }
     ],
     "allowJs": false,
