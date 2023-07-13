@@ -94,9 +94,10 @@ describe(loadConfig.name, () => {
 			  },
 			  "externalContracts": {
 			    "apiKeys": {
-			      "etherscan": "",
+			      "etherscan": {},
 			    },
 			    "contracts": [],
+			    "out": "externalContracts",
 			  },
 			  "localContracts": {
 			    "contracts": [],
@@ -150,9 +151,10 @@ describe(loadConfig.name, () => {
 			  },
 			  "externalContracts": {
 			    "apiKeys": {
-			      "etherscan": "",
+			      "etherscan": {},
 			    },
 			    "contracts": [],
+			    "out": "externalContracts",
 			  },
 			  "localContracts": {
 			    "contracts": [],
@@ -198,9 +200,10 @@ describe(loadConfig.name, () => {
 			  },
 			  "externalContracts": {
 			    "apiKeys": {
-			      "etherscan": "",
+			      "etherscan": {},
 			    },
 			    "contracts": [],
+			    "out": "externalContracts",
 			  },
 			  "localContracts": {
 			    "contracts": [
@@ -233,9 +236,10 @@ describe(loadConfig.name, () => {
 			  },
 			  "externalContracts": {
 			    "apiKeys": {
-			      "etherscan": "",
+			      "etherscan": {},
 			    },
 			    "contracts": [],
+			    "out": "externalContracts",
 			  },
 			  "localContracts": {
 			    "contracts": [

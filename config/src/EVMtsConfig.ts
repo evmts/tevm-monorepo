@@ -75,17 +75,18 @@ type EtherscanConfig = {
 	 * Mapping of network ids to deployed addresses.
 	 * Networks must be supported by the plugin
 	 */
-	addresses: Record<SupportedEtherscanChainIds, Address>
+	addresses: Partial<Record<SupportedEtherscanChainIds, Address>>
 }
 
 export const externalConfigValidator = z
 	.object({
 		apiKeys: z
 			.object({
-				etherscan: z.string().optional(),
+				etherscan: z.record(z.string().optional()),
 			})
 			.optional(),
 		contracts: z.array(etherscanConfigValidator),
+		out: z.string(),
 	})
 	.describe('Configure external contracts to be imported into project')
 /**
@@ -95,11 +96,16 @@ type ExternalConfig = {
 	/**
 	 * Api keys for external services
 	 */
-	apiKeys?: Record<'etherscan', string>
+	apiKeys?: Record<'etherscan', Record<number, string>>
 	/**
 	 * Array of external contracts to import
 	 */
 	contracts: EtherscanConfig[]
+	/**
+	 * Path to output directory
+	 * @defaults "externalContracts"
+	 */
+	out?: string
 }
 
 export const compilerConfigValidator = z
@@ -172,8 +178,9 @@ export const defaultConfig: ResolvedConfig = {
 		contracts: [],
 	},
 	externalContracts: {
+		out: 'externalContracts',
 		apiKeys: {
-			etherscan: '',
+			etherscan: {},
 		},
 		contracts: [],
 	},
