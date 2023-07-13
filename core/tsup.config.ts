@@ -2,7 +2,7 @@ import { defineConfig } from 'tsup'
 
 export default defineConfig({
 	name: '@evmts/core',
-	entry: ['src/index.ts'],
+	entry: ['src/index.ts', 'src/bin/etherscan.ts'],
 	outDir: 'dist',
 	format: ['esm', 'cjs'],
 	splitting: false,
