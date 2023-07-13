@@ -11,6 +11,7 @@
     "deploy-contracts": "source .env && forge script script/Deploy.s.sol:Deploy --broadcast --verify -vvvv",
     "deploy-contracts:anvil": "pnpm deploy-contracts --fork-url http://localhost:8545",
     "dev": "source .env & anvil --fork-url https://eth-mainnet.g.alchemy.com/v2/$VITE_ALCHEMY_API_KEY & vite",
+    "evmts:install": "source .env && evmts install",
     "format": "rome format . --write",
     "format:check": "rome format .",
     "preinstall": "npx only-allow pnpm",

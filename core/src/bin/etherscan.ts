@@ -1,5 +1,5 @@
-import { ResolvedConfig } from '@evmts/config'
 // #!/usr/bin/env node
+import { ResolvedConfig } from '@evmts/config'
 import { etherscan } from '@wagmi/cli/plugins'
 import { writeFileSync } from 'fs'
 import * as path from 'path'
@@ -7,6 +7,13 @@ import * as path from 'path'
 export const handleEtherscan = async ({
 	externalContracts,
 }: ResolvedConfig) => {
+	if (!externalContracts.contracts.length) {
+		throw new Error('No contracts found in externalContracts.contracts in evmts config')
+	}
+	if (!Object.keys(externalContracts.apiKeys).length) {
+		throw new Error('No api keys found in externalContracts.apiKeys in evmts config')
+	}
+
 	const outPath = path.join(process.cwd(), externalContracts.out)
 
 	const contractsGroupedByChain: Record<
@@ -27,13 +34,13 @@ export const handleEtherscan = async ({
 
 	let result:
 		| [
-				{
-					plugins?: string
-					preprends?: string
-					imports?: string
-					content?: string
-				},
-		  ]
+			{
+				plugins?: string
+				preprends?: string
+				imports?: string
+				content?: string
+			},
+		]
 		| [] = []
 
 	for (const [chainId, contracts] of Object.entries(contractsGroupedByChain)) {
@@ -49,10 +56,13 @@ export const handleEtherscan = async ({
 			chainId: Number.parseInt(chainId) as 1,
 		}
 		const instance = etherscan(params)
-		if (!instance.run || !instance.validate) {
+		console.log(instance)
+		if (!instance.run) {
 			throw new Error('etherscan instance has no run or validate method')
 		}
-		await instance.validate()
+
+		await instance.validate?.()
+
 		result = [
 			await instance.run({
 				contracts: [],
@@ -82,4 +92,6 @@ export const handleEtherscan = async ({
 	].join('\n')
 
 	writeFileSync(outPath, code)
+
+	console.log(`Installed ${externalContracts.contracts.length} contracts to ${outPath}`)
 }

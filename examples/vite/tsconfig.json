@@ -6,6 +6,33 @@
         "compiler": {
           "foundryProject": true
         },
+        "externalContracts": {
+          "apiKeys": {
+            "etherscan": {
+              "1": "$ETHERSCAN_API_KEY_1",
+              "10": "$ETHERSCAN_API_KEY_10"
+            }
+          },
+          "contracts": [
+            {
+              "type": "etherscan",
+              "name": "UniswapV3Factory",
+              "addresses": {
+                "1": "0x1F98431c8aD98523631AE4a59f267346ea31F984",
+                "10": "0x1F98431c8aD98523631AE4a59f267346ea31F984"
+              }
+            },
+            {
+              "type": "etherscan",
+              "name": "Multicall2",
+              "addresses": {
+                "1": "0x5BA1e12693Dc8F9c48aAD8770482f4739bEeD696",
+                "10": "0x5BA1e12693Dc8F9c48aAD8770482f4739bEeD696"
+              }
+            }
+          ],
+          "out": "src/externalContracts.ts"
+        },
         "localContracts": {
           "contracts":[
           {

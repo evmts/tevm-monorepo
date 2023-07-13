@@ -61,6 +61,20 @@ export const defineConfig: DefineConfig = (configFactory) => ({
 
 		const foundryDefaults = getFoundryDefaults()
 
+		const etherscanKeysEntries = Object.entries(externalContracts?.apiKeys?.etherscan ?? [])
+		const etherscanKeys = etherscanKeysEntries.length > 0 ? Object.fromEntries(etherscanKeysEntries.map(([network, apiKey]) => {
+			console.log({ network, apiKey })
+			if (!apiKey.startsWith('$')) {
+				throw new Error(`Invalid etherscan api key for network ${network} in EVMts config in tsconfig.json. 
+It should be an environment variable starting with $ e.g. $ETHERSCAN_API_KEY`)
+			}
+			console.log(process.env)
+			const k = apiKey.replace(/^\$/, '')
+			return [network, process.env[k]]
+		})) : undefined
+		const apiKeys = { etherscan: etherscanKeys }
+
+
 		return {
 			compiler: {
 				solcVersion:
@@ -80,12 +94,8 @@ export const defineConfig: DefineConfig = (configFactory) => ({
 			},
 			externalContracts: {
 				out: externalContracts?.out ?? defaultConfig.externalContracts.out,
-				apiKeys: externalContracts?.apiKeys
-					? {
-							...defaultConfig.externalContracts.apiKeys,
-							...externalContracts.apiKeys,
-					  }
-					: defaultConfig.externalContracts.apiKeys,
+				apiKeys:
+					externalContracts?.apiKeys ? { ...defaultConfig.externalContracts.apiKeys, ...apiKeys } : defaultConfig.externalContracts.apiKeys,
 				contracts:
 					externalContracts?.contracts ??
 					defaultConfig.externalContracts.contracts,
