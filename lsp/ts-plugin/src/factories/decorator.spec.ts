@@ -1,11 +1,11 @@
 import { Decorator, PartialDecorator, createDecorator, decorate } from '.'
-import { Config } from '@evmts/config'
+import { EVMtsConfig } from '@evmts/config'
 import typescript from 'typescript/lib/tsserverlibrary'
 import { describe, expect, it, vi } from 'vitest'
 
 type TestAny = any
 
-const config: Config = {}
+const config: EVMtsConfig = {}
 
 const createProxy = <T extends object>(instance: T, proxy: Partial<T>): T => {
 	return new Proxy(instance, {

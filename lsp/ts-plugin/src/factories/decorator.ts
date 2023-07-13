@@ -1,5 +1,5 @@
 import type { Logger } from './logger'
-import { Config } from '@evmts/config'
+import { EVMtsConfig } from '@evmts/config'
 import type typescript from 'typescript/lib/tsserverlibrary'
 
 /**
@@ -11,7 +11,7 @@ export type Decorator = (
 	createInfo: typescript.server.PluginCreateInfo,
 	ts: typeof typescript,
 	logger: Logger,
-	config: Config,
+	config: EVMtsConfig,
 ) => typescript.LanguageServiceHost
 
 /**
@@ -31,7 +31,7 @@ export type PartialDecorator = (
 	createInfo: typescript.server.PluginCreateInfo,
 	ts: typeof typescript,
 	logger: Logger,
-	config: Config,
+	config: EVMtsConfig,
 ) => Partial<typescript.LanguageServiceHost>
 
 /**

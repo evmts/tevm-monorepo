@@ -1,9 +1,9 @@
 import { resolveModuleNameLiteralsDecorator } from '.'
-import { Config } from '@evmts/config'
+import { EVMtsConfig } from '@evmts/config'
 import typescript from 'typescript/lib/tsserverlibrary'
 import { describe, expect, it, vi } from 'vitest'
 
-const config: Config = {}
+const config: EVMtsConfig = {}
 
 describe(resolveModuleNameLiteralsDecorator.name, () => {
 	it('should decorate resolveModuleNameLiterals', () => {

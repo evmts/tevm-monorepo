@@ -1,26 +1,27 @@
-import { Config, defaultConfig, loadConfig } from '.'
+import { EVMtsConfig, defaultConfig, loadConfig } from '.'
 import * as cp from 'child_process'
 import * as fs from 'fs'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
-const mockTsConfig = (config: Config = {}) => {
+const mockTsConfig = () => {
 	return JSON.stringify(
 		{
 			compilerOptions: {
 				plugins: [
 					{
 						name: '@evmts/ts-plugin',
-						deployments: [
-							{
-								name: 'WagmiMintExample',
-								addresses: {
-									'1': '0xFBA3912Ca04dd458c843e2EE08967fC04f3579c2',
-									'5': '0x1df10ec981ac5871240be4a94f250dd238b77901',
-									'10': '0x1df10ec981ac5871240be4a94f250dd238b77901',
+						localContracts: {
+							contracts: [
+								{
+									name: 'WagmiMintExample',
+									addresses: {
+										'1': '0xFBA3912Ca04dd458c843e2EE08967fC04f3579c2',
+										'5': '0x1df10ec981ac5871240be4a94f250dd238b77901',
+										'10': '0x1df10ec981ac5871240be4a94f250dd238b77901',
+									},
 								},
-							},
-						],
-						...config,
+							],
+						},
 					},
 				],
 			},
@@ -84,52 +85,80 @@ describe(loadConfig.name, () => {
 		vi.spyOn(fs, 'readFileSync').mockReturnValue(validConfig)
 		const config = loadConfig('nonexistentpath')
 		expect(config).toMatchInlineSnapshot(`
-      {
-        "deployments": [],
-        "forge": false,
-        "libs": [],
-        "remappings": {},
-        "solcVersion": "0.9.0",
-      }
-    `)
+			{
+			  "compiler": {
+			    "foundryProject": false,
+			    "libs": [],
+			    "remappings": {},
+			    "solcVersion": "0.8.20",
+			  },
+			  "externalContracts": {
+			    "apiKeys": {
+			      "etherscan": "",
+			    },
+			    "contracts": [],
+			  },
+			  "localContracts": {
+			    "contracts": [],
+			  },
+			}
+		`)
 	})
 
 	it('should return the correct config when most options are passed in', () => {
-		const customConfig: Config = {
-			solcVersion: '0.9.0',
-			libs: ['lib1', 'lib2'],
-			forge: false,
+		const customConfig: EVMtsConfig = {
+			compiler: {
+				solcVersion: '0.9.0',
+				libs: ['lib1', 'lib2'],
+				foundryProject: false,
+			},
+			localContracts: {
+				contracts: [
+					{
+						name: 'WagmiMintExample',
+						addresses: {
+							'1': '0xFBA3912Ca04dd458c843e2EE08967fC04f3579c2',
+							'5': '0x1df10ec981ac5871240be4a94f250dd238b77901',
+							'10': '0x1df10ec981ac5871240be4a94f250dd238b77901',
+						},
+					},
+				],
+			},
 		}
 		vi.spyOn(cp, 'execSync').mockReturnValue(
 			Buffer.from(
 				JSON.stringify({ remappings: { '@foundry': 'node_modules/@foundry' } }),
 			),
 		)
-		vi.spyOn(fs, 'readFileSync').mockReturnValue(mockTsConfig(customConfig))
+		const tsConfig = {
+			compilerOptions: {
+				plugins: [customConfig],
+			},
+		}
+
+		vi.spyOn(fs, 'readFileSync').mockReturnValue(JSON.stringify(tsConfig))
 		vi.spyOn(fs, 'existsSync').mockReturnValue(true)
 
 		const config = loadConfig('path/to/config')
 		expect(config).toMatchInlineSnapshot(`
-      {
-        "deployments": [
-          {
-            "addresses": {
-              "1": "0xFBA3912Ca04dd458c843e2EE08967fC04f3579c2",
-              "10": "0x1df10ec981ac5871240be4a94f250dd238b77901",
-              "5": "0x1df10ec981ac5871240be4a94f250dd238b77901",
-            },
-            "name": "WagmiMintExample",
-          },
-        ],
-        "forge": false,
-        "libs": [
-          "lib1",
-          "lib2",
-        ],
-        "remappings": {},
-        "solcVersion": "0.9.0",
-      }
-    `)
+			{
+			  "compiler": {
+			    "foundryProject": false,
+			    "libs": [],
+			    "remappings": {},
+			    "solcVersion": "0.8.20",
+			  },
+			  "externalContracts": {
+			    "apiKeys": {
+			      "etherscan": "",
+			    },
+			    "contracts": [],
+			  },
+			  "localContracts": {
+			    "contracts": [],
+			  },
+			}
+		`)
 	})
 
 	it('should return the default config when no options are passed in', () => {
@@ -160,23 +189,33 @@ describe(loadConfig.name, () => {
 
 		const config = loadConfig('path/to/config')
 		expect(config).toMatchInlineSnapshot(`
-      {
-        "deployments": [
-          {
-            "addresses": {
-              "1": "0xFBA3912Ca04dd458c843e2EE08967fC04f3579c2",
-              "10": "0x1df10ec981ac5871240be4a94f250dd238b77901",
-              "5": "0x1df10ec981ac5871240be4a94f250dd238b77901",
-            },
-            "name": "WagmiMintExample",
-          },
-        ],
-        "forge": false,
-        "libs": [],
-        "remappings": {},
-        "solcVersion": "0.8.20",
-      }
-    `)
+			{
+			  "compiler": {
+			    "foundryProject": false,
+			    "libs": [],
+			    "remappings": {},
+			    "solcVersion": "0.8.20",
+			  },
+			  "externalContracts": {
+			    "apiKeys": {
+			      "etherscan": "",
+			    },
+			    "contracts": [],
+			  },
+			  "localContracts": {
+			    "contracts": [
+			      {
+			        "addresses": {
+			          "1": "0xFBA3912Ca04dd458c843e2EE08967fC04f3579c2",
+			          "10": "0x1df10ec981ac5871240be4a94f250dd238b77901",
+			          "5": "0x1df10ec981ac5871240be4a94f250dd238b77901",
+			        },
+			        "name": "WagmiMintExample",
+			      },
+			    ],
+			  },
+			}
+		`)
 	})
 
 	it('should return correct config when forge is set to path/to/forge', () => {
@@ -185,22 +224,32 @@ describe(loadConfig.name, () => {
 
 		const config = loadConfig('path/to/config')
 		expect(config).toMatchInlineSnapshot(`
-      {
-        "deployments": [
-          {
-            "addresses": {
-              "1": "0xFBA3912Ca04dd458c843e2EE08967fC04f3579c2",
-              "10": "0x1df10ec981ac5871240be4a94f250dd238b77901",
-              "5": "0x1df10ec981ac5871240be4a94f250dd238b77901",
-            },
-            "name": "WagmiMintExample",
-          },
-        ],
-        "forge": false,
-        "libs": [],
-        "remappings": {},
-        "solcVersion": "0.8.20",
-      }
-    `)
+			{
+			  "compiler": {
+			    "foundryProject": false,
+			    "libs": [],
+			    "remappings": {},
+			    "solcVersion": "0.8.20",
+			  },
+			  "externalContracts": {
+			    "apiKeys": {
+			      "etherscan": "",
+			    },
+			    "contracts": [],
+			  },
+			  "localContracts": {
+			    "contracts": [
+			      {
+			        "addresses": {
+			          "1": "0xFBA3912Ca04dd458c843e2EE08967fC04f3579c2",
+			          "10": "0x1df10ec981ac5871240be4a94f250dd238b77901",
+			          "5": "0x1df10ec981ac5871240be4a94f250dd238b77901",
+			        },
+			        "name": "WagmiMintExample",
+			      },
+			    ],
+			  },
+			}
+		`)
 	})
 })
