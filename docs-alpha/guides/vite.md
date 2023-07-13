@@ -21,7 +21,7 @@ pnpm install @evmts/vite --save-dev
 ```
 
 ```bash [yarn]
-yarn add @evmts/cli -D
+yarn add @evmts/vite -D
 ```
 
 ::: 
