@@ -4,6 +4,7 @@ import {
 	resolveModuleNameLiteralsDecorator,
 } from './decorators'
 import { createLogger, decorate } from './factories'
+import { evmTsConfigFactory } from './factories/EVMtsConfigFactory'
 import { isSolidity } from './utils'
 import type typescript from 'typescript/lib/tsserverlibrary'
 
@@ -28,7 +29,7 @@ export const tsPlugin: typescript.server.PluginModuleFactory = (modules) => {
 					createInfo,
 					modules.typescript,
 					createLogger(createInfo),
-					createInfo.config,
+					evmTsConfigFactory(createInfo),
 				),
 			)
 		},

@@ -17,6 +17,7 @@ const createInfo: typescript.server.PluginCreateInfo = {
 		getResolvedModuleWithFailedLookupLocationsFromCache: vi.fn(),
 	},
 	project: {
+		getCurrentDirectory: () => '/currentDirectory',
 		getCompilerOptions: () => ({ baseUrl: 'foo' }),
 		projectService: {
 			logger: {
