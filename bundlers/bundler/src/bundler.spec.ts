@@ -1,6 +1,6 @@
-import { Bundler } from '../types'
 import { bundler } from './bundler'
-import { resolveArtifacts, resolveArtifactsSync } from './resolveArtifacts'
+import { resolveArtifacts, resolveArtifactsSync } from './solc'
+import { Bundler } from './types'
 import { Mock, afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 describe(bundler.name, () => {
@@ -16,7 +16,7 @@ describe(bundler.name, () => {
 		}
 
 		resolver = bundler(config as any, logger)
-		vi.mock('./resolveArtifacts', () => {
+		vi.mock('./solc', () => {
 			return {
 				resolveArtifacts: vi.fn(),
 				resolveArtifactsSync: vi.fn(),

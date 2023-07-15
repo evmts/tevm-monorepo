@@ -1,1 +1,1 @@
-export { webpackFoundry as webpackPluginEvmts } from '@evmts/bundler'
+export { webpackPluginEvmts } from '@evmts/bundler'

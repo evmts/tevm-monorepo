@@ -1,12 +1,12 @@
+import { bundler } from './bundler'
 import {
-	esbuildFoundry,
-	rollupFoundry,
-	rspackPluginFoundry,
+	esbuildPluginEvmts,
+	rollupPluginEvmts,
+	rspackPluginEvmts,
 	unpluginFn,
-	viteFoundry,
-	webpackFoundry,
-} from '.'
-import { bundler } from '../solc'
+	vitePluginEvmts,
+	webpackPluginEvmts,
+} from './unplugin'
 import { defaultConfig, loadConfig } from '@evmts/config'
 import { Mock, afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
@@ -14,9 +14,8 @@ vi.mock('@evmts/config', async () => ({
 	...((await vi.importActual('@evmts/config')) as {}),
 	loadConfig: vi.fn(),
 }))
-vi.mock('../solc', () => ({
+vi.mock('./bundler', () => ({
 	bundler: vi.fn(),
-	default: vi.fn(),
 }))
 const mockBundler = bundler as Mock
 const mockLoadConfig = loadConfig as Mock
@@ -70,8 +69,8 @@ describe('EVMts Rollup Plugin', () => {
 		mockLoadConfig.mockReturnValue(defaultConfig)
 	})
 
-	it('viteFoundry output matches snapshot', () => {
-		expect(viteFoundry()).toMatchInlineSnapshot(`
+	it('vitePluginEvmts output matches snapshot', () => {
+		expect(vitePluginEvmts()).toMatchInlineSnapshot(`
       {
         "buildStart": [Function],
         "load": [Function],
@@ -81,8 +80,8 @@ describe('EVMts Rollup Plugin', () => {
     `)
 	})
 
-	it('rollupFoundry output matches snapshot', () => {
-		expect(rollupFoundry()).toMatchInlineSnapshot(`
+	it('rollupPluginEvmts output matches snapshot', () => {
+		expect(rollupPluginEvmts()).toMatchInlineSnapshot(`
       {
         "buildStart": [Function],
         "load": [Function],
@@ -92,8 +91,8 @@ describe('EVMts Rollup Plugin', () => {
     `)
 	})
 
-	it('esbuildFoundry output matches snapshot', () => {
-		expect(esbuildFoundry()).toMatchInlineSnapshot(`
+	it('esbuildPluginEvmts output matches snapshot', () => {
+		expect(esbuildPluginEvmts()).toMatchInlineSnapshot(`
       {
         "name": "@evmts/rollup-plugin",
         "setup": [Function],
@@ -102,7 +101,7 @@ describe('EVMts Rollup Plugin', () => {
 	})
 
 	it('webpackFoundry output matches snapshot', () => {
-		expect(webpackFoundry()).toMatchInlineSnapshot(`
+		expect(webpackPluginEvmts()).toMatchInlineSnapshot(`
       {
         "apply": [Function],
       }
@@ -110,7 +109,7 @@ describe('EVMts Rollup Plugin', () => {
 	})
 
 	it('rspackPluginFoundry output matches snapshot', () => {
-		expect(rspackPluginFoundry()).toMatchInlineSnapshot(`
+		expect(rspackPluginEvmts()).toMatchInlineSnapshot(`
       {
         "apply": [Function],
       }

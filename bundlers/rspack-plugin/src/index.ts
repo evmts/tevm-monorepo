@@ -1,1 +1,1 @@
-export { rspackPluginFoundry as rspackPluginEvmts } from '@evmts/bundler'
+export { rspackPluginEvmts } from '@evmts/bundler'
