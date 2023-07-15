@@ -1,6 +1,6 @@
 export const getEtherscanLinks = (
 	addresses: Record<number, `0x${string}` | undefined>,
-) => {
+): [chainId: number, link: string][] => {
 	const etherscanBaseUris: Record<number, string> = {
 		1: 'https://etherscan.io',
 		5: 'https://goerli.etherscan.io',
@@ -23,13 +23,14 @@ export const getEtherscanLinks = (
 		534353: 'https://blockscout.scroll.io',
 	}
 
-	return Object.entries(addresses).map(([networkId, address]) => {
-		return [
-			networkId,
-			etherscanBaseUris[networkId as unknown as number] &&
+	return Object.entries(addresses)
+		.map(([networkId, address]) => {
+			const link =
+				etherscanBaseUris[networkId as unknown as number] &&
 				`${
 					etherscanBaseUris[networkId as unknown as number]
-				}/address/${address}`,
-		]
-	})
+				}/address/${address}`
+			return link && [networkId, link]
+		})
+		.filter(Boolean) as [number, string][]
 }
