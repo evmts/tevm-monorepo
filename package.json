@@ -1,5 +1,5 @@
 {
-  "name": "evmts-monorepo",
+  "name": "@evmts/root",
   "version": "0.0.0",
   "private": true,
   "repository": {

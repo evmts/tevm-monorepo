@@ -1,6 +1,5 @@
 {
   "defaultProject": "example-vite",
-  "npmScope": "evmts",
   "targetDefaults": {
     "test": {
       "dependsOn": [
