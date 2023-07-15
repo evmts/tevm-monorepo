@@ -29,11 +29,18 @@ function compileContractSync(
 		config.libs,
 	)
 
+	/**
+	 * Known bug!!! This can hit a stack error
+	 * We should make this iterative instead of recursive
+	 */
 	const getAllModulesRecursively = (
 		m = entryModule,
 		modules: Record<string, ModuleInfo> = {},
 	) => {
 		modules[m.id] = m
+		/**
+		 * This could get cached
+		 */
 		for (const dep of m.resolutions) {
 			getAllModulesRecursively(dep, modules)
 		}
@@ -79,7 +86,6 @@ function compileContractSync(
 	return output.contracts[entryModule.id]
 }
 
-// Remove writeFileSync and readFileSync, instead, keep artifacts in memory
 const resolveArtifactsSync = (
 	solFile: string,
 	basedir: string,
@@ -88,7 +94,6 @@ const resolveArtifactsSync = (
 ):
 	| Record<string, { contractName: string; abi: any; bytecode: string }>
 	| undefined => {
-	// Compile the contract
 	if (!solFile.endsWith('.sol')) {
 		throw new Error('Not a solidity file')
 	}
@@ -101,10 +106,8 @@ const resolveArtifactsSync = (
 
 	return Object.fromEntries(
 		Object.entries(contracts).map(([contractName, contract]) => {
-			// Keep artifacts in memory
 			const abi = (contract as any).abi
 			const bytecode = (contract as any).evm.bytecode.object
-
 			return [contractName, { contractName, abi, bytecode }]
 		}),
 	)
@@ -122,15 +125,7 @@ const resolveArtifacts = async (
 	return resolveArtifactsSync(solFile, basedir, logger, config)
 }
 
-// type Address = `0x${string}`
-// type AddressMap = Record<string, Address>
-
-// Refactor all methods in the solcModules object to use the revised resolveArtifactsSync function.
-// TODO add address resolution
-export const solcModules: SolidityResolver = (
-	config,
-	logger /*, addresses: AddressMap*/,
-) => {
+export const solcModules: SolidityResolver = (config, logger) => {
 	return {
 		name: solcModules.name,
 		config,
