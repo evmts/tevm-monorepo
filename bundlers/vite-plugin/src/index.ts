@@ -1,1 +1,1 @@
-export { viteFoundry as vitePluginEvmts } from '@evmts/bundler'
+export { vitePluginEvmts } from '@evmts/bundler'

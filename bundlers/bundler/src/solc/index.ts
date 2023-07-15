@@ -1,1 +1,2 @@
-export * from './bundler'
+export { resolveArtifacts } from './resolveArtifacts'
+export { resolveArtifactsSync } from './resolveArtifactsSync'

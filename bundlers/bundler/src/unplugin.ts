@@ -1,4 +1,4 @@
-import { bundler } from '../solc'
+import { bundler } from './bundler'
 import { ResolvedConfig, loadConfig } from '@evmts/config'
 import { createUnplugin } from 'unplugin'
 import { z } from 'zod'
@@ -59,10 +59,10 @@ const evmtsUnplugin = createUnplugin(unpluginFn)
 // Hacks to make types portable
 // we should manually type these at some point
 
-export const viteFoundry = evmtsUnplugin.vite as typeof evmtsUnplugin.rollup
-export const rollupFoundry = evmtsUnplugin.rollup
-export const esbuildFoundry = evmtsUnplugin.esbuild
-export const webpackFoundry =
+export const vitePluginEvmts = evmtsUnplugin.vite as typeof evmtsUnplugin.rollup
+export const rollupPluginEvmts = evmtsUnplugin.rollup
+export const esbuildPluginEvmts = evmtsUnplugin.esbuild
+export const webpackPluginEvmts =
 	evmtsUnplugin.webpack as typeof evmtsUnplugin.rspack
 
-export const rspackPluginFoundry = evmtsUnplugin.rspack
+export const rspackPluginEvmts = evmtsUnplugin.rspack

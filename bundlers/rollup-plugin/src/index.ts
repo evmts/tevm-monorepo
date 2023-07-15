@@ -1,1 +1,1 @@
-export { rollupFoundry as rollupPluginEvmts } from '@evmts/bundler'
+export { rollupPluginEvmts } from '@evmts/bundler'

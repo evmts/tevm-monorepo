@@ -1,1 +1,1 @@
-export { esbuildFoundry as esbuildPluginEvmts } from '@evmts/bundler'
+export { esbuildPluginEvmts } from '@evmts/bundler'

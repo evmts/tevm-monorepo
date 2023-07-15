@@ -1,6 +1,6 @@
 import { Logger } from '../types'
 import { compileContractSync } from './compileContracts'
-import { resolveArtifacts } from './resolveArtifacts'
+import { resolveArtifactsSync } from './resolveArtifactsSync'
 import { ResolvedConfig, defaultConfig } from '@evmts/config'
 import { Mock, afterEach, describe, expect, it, vi } from 'vitest'
 
@@ -29,10 +29,24 @@ const expectedArtifacts = {
 
 const mockCompileContractSync = compileContractSync as Mock
 
-describe('resolveArtifacts', () => {
-	it('should return the contract artifacts', async () => {
+describe('resolveArtifactsSync', () => {
+	it('should throw an error if the file is not a solidity file', () => {
+		expect(() =>
+			resolveArtifactsSync('test.txt', basedir, logger, config),
+		).toThrow('Not a solidity file')
+	})
+
+	it('should throw an error if the compilation failed', () => {
+		mockCompileContractSync.mockReturnValue(null)
+		expect(() =>
+			resolveArtifactsSync(solFile, basedir, logger, config),
+		).toThrow('Compilation failed')
+		expect(logger.error).toBeCalledWith(`Compilation failed for ${solFile}`)
+	})
+
+	it('should return the contract artifacts', () => {
 		mockCompileContractSync.mockReturnValue(contracts)
-		expect(await resolveArtifacts(solFile, basedir, logger, config)).toEqual(
+		expect(resolveArtifactsSync(solFile, basedir, logger, config)).toEqual(
 			expectedArtifacts,
 		)
 	})

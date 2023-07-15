@@ -1,6 +1,6 @@
-import type { Bundler } from '../types'
-import { getEtherscanLinks } from '../utils'
-import { resolveArtifacts, resolveArtifactsSync } from './resolveArtifacts'
+import { resolveArtifacts, resolveArtifactsSync } from './solc'
+import type { Bundler } from './types'
+import { getEtherscanLinks } from './utils'
 
 export const bundler: Bundler = (config, logger) => {
 	return {
