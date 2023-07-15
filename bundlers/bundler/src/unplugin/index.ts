@@ -53,7 +53,7 @@ const foundryUnplugin = createUnplugin(() => {
 // Hacks to make types portable
 // we should manually type these at some point
 
-export const viteFoundry = foundryUnplugin.vite
+export const viteFoundry = foundryUnplugin.vite as typeof foundryUnplugin.rollup
 
 export const rollupFoundry = foundryUnplugin.rollup
 
