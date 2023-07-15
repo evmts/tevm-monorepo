@@ -1,1 +1,1 @@
-export * from './solcPlugin'
+export * from './bundler'
