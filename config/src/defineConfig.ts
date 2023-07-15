@@ -79,8 +79,12 @@ export const defineConfig: DefineConfig = (configFactory) => ({
 			},
 			externalContracts: {
 				out: externalContracts?.out ?? defaultConfig.externalContracts.out,
-				apiKeys:
-					externalContracts?.apiKeys ? { ...defaultConfig.externalContracts.apiKeys, ...externalContracts.apiKeys } : defaultConfig.externalContracts.apiKeys,
+				apiKeys: externalContracts?.apiKeys
+					? {
+							...defaultConfig.externalContracts.apiKeys,
+							...externalContracts.apiKeys,
+					  }
+					: defaultConfig.externalContracts.apiKeys,
 				contracts:
 					externalContracts?.contracts ??
 					defaultConfig.externalContracts.contracts,

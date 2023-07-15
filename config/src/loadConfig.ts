@@ -42,6 +42,7 @@ export const loadConfig: LoadConfig = (configFilePath, logger = console) => {
 	let configJson: {
 		compilerOptions: {
 			plugins?: Array<{ name: '@evmts/ts-plugin' } & EVMtsConfig>
+			baseUrl?: string
 		}
 	}
 	try {
@@ -51,14 +52,41 @@ export const loadConfig: LoadConfig = (configFilePath, logger = console) => {
 		throw new Error(`tsconfig.json at ${tsConfigPath} is not valid json`)
 	}
 
-	const config = configJson?.compilerOptions?.plugins?.find(
-		(plugin) => plugin.name === '@evmts/ts-plugin',
-	)
+	let config: EVMtsConfig | undefined =
+		configJson?.compilerOptions?.plugins?.find(
+			(plugin) => plugin.name === '@evmts/ts-plugin',
+		)
+	if (config && configJson.compilerOptions.baseUrl) {
+		config = {
+			...config,
+			compiler: {
+				...config.compiler,
+				libs: [
+					...(config.compiler?.libs ?? []),
+					path.join(configFilePath, configJson.compilerOptions.baseUrl),
+				],
+			},
+		}
+	}
+
 	if (!config) {
 		logger.warn(
 			'No EVMts plugin found in tsconfig.json. Using the default config',
 		)
+		if (configJson.compilerOptions.baseUrl) {
+			return {
+				...defaultConfig,
+				compiler: {
+					...defaultConfig.compiler,
+					libs: [
+						...defaultConfig.compiler.libs,
+						path.join(configFilePath, configJson.compilerOptions.baseUrl),
+					],
+				},
+			}
+		}
 		return defaultConfig
 	}
-	return defineConfig(() => config).configFn(configFilePath)
+
+	return defineConfig(() => config ?? {}).configFn(configFilePath)
 }
