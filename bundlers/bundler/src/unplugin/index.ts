@@ -14,7 +14,7 @@ const pluginFactories = {
 	solc: solcModules,
 }
 
-const foundryUnplugin = createUnplugin(() => {
+const foundryUnplugin = createUnplugin<never, boolean>(() => {
 	let config: ResolvedConfig
 
 	// for current release we will hardcode this to solc
@@ -54,12 +54,9 @@ const foundryUnplugin = createUnplugin(() => {
 // we should manually type these at some point
 
 export const viteFoundry = foundryUnplugin.vite as typeof foundryUnplugin.rollup
-
 export const rollupFoundry = foundryUnplugin.rollup
-
 export const esbuildFoundry = foundryUnplugin.esbuild
-
 export const webpackFoundry =
-	foundryUnplugin.webpack as typeof rspackPluginFoundry
+	foundryUnplugin.webpack as typeof foundryUnplugin.rspack
 
 export const rspackPluginFoundry = foundryUnplugin.rspack

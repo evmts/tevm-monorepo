@@ -1,6 +1,5 @@
 import { isRelativeSolidity } from './isRelativeSolidity'
 import { isSolidity } from './isSolidity'
-import { existsSync } from 'fs'
 import path from 'path'
 import type typescript from 'typescript/lib/tsserverlibrary'
 
