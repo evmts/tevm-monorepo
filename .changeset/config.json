@@ -3,7 +3,7 @@
   "changelog": ["@changesets/changelog-github", { "repo": "evmts/evmts-monorepo" }],
   "commit": false,
   "fixed": [],
-  "linked": [],
+  "linked": [["@evmts/*"]],
   "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
