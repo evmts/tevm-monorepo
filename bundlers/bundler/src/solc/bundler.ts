@@ -2,9 +2,9 @@ import type { Bundler } from '../types'
 import { getEtherscanLinks } from '../utils'
 import { resolveArtifacts, resolveArtifactsSync } from './resolveArtifacts'
 
-export const solcModules: Bundler = (config, logger) => {
+export const bundler: Bundler = (config, logger) => {
 	return {
-		name: solcModules.name,
+		name: bundler.name,
 		config,
 		resolveDts: async (module, basedir) => {
 			const artifacts = await resolveArtifacts(module, basedir, logger, config)

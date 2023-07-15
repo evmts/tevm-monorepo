@@ -1,6 +1,6 @@
 import { createDecorator } from '../factories'
 import { isSolidity } from '../utils'
-import { solcModules } from '@evmts/bundler'
+import { bundler } from '@evmts/bundler'
 import { defineConfig } from '@evmts/config'
 import { existsSync } from 'fs'
 
@@ -19,7 +19,7 @@ export const getScriptSnapshotDecorator = createDecorator(
 				}
 				try {
 					const c = defineConfig(() => config)
-					const plugin = solcModules(
+					const plugin = bundler(
 						c.configFn(project.getCurrentDirectory()),
 						logger as any,
 					)

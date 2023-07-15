@@ -1,4 +1,4 @@
-import { solcModules } from '../solc'
+import { bundler } from '../solc'
 import { ResolvedConfig, loadConfig } from '@evmts/config'
 import { createUnplugin } from 'unplugin'
 import { z } from 'zod'
@@ -10,28 +10,32 @@ const compilerOptionValidator = z
 
 export type CompilerOption = z.infer<typeof compilerOptionValidator>
 
-const pluginFactories = {
-	solc: solcModules,
+const bundlers = {
+	solc: bundler,
 }
 
-const foundryUnplugin = createUnplugin<never, boolean>(() => {
+export const unpluginFn = (
+	options: { compiler?: z.infer<typeof compilerOptionValidator> } = {},
+) => {
 	let config: ResolvedConfig
 
 	// for current release we will hardcode this to solc
-	const parsedCompilerOption = compilerOptionValidator.safeParse('solc')
+	const parsedCompilerOption = compilerOptionValidator.safeParse(
+		options.compiler,
+	)
 	if (!parsedCompilerOption.success) {
 		throw new Error(
-			`Invalid compiler option: ${parsedCompilerOption.error}.  Valid options are 'solc' and 'foundry'`,
+			`Invalid compiler option: ${options.compiler}.  Valid options are 'solc' and 'foundry'`,
 		)
 	}
 	const compilerOption = parsedCompilerOption.data
 
 	if (compilerOption === 'foundry') {
 		throw new Error(
-			'We have abandoned the foundry option despite supporting it in the past. Please use solc instead',
+			'We have abandoned the foundry option despite supporting it in the past. Please use solc instead. Foundry will be added back as a compiler at a later time.',
 		)
 	}
-	const compiler = pluginFactories[compilerOption]
+	const compiler = bundlers[compilerOption]
 	let moduleResolver: ReturnType<typeof compiler>
 
 	return {
@@ -41,22 +45,24 @@ const foundryUnplugin = createUnplugin<never, boolean>(() => {
 			config = loadConfig('.')
 			moduleResolver = compiler(config, console)
 		},
-		load(id) {
+		load(id: string) {
 			if (!id.endsWith('.sol')) {
 				return
 			}
 			return moduleResolver.resolveEsmModule(id, process.cwd())
 		},
-	}
-})
+	} as const
+}
+
+const evmtsUnplugin = createUnplugin(unpluginFn)
 
 // Hacks to make types portable
 // we should manually type these at some point
 
-export const viteFoundry = foundryUnplugin.vite as typeof foundryUnplugin.rollup
-export const rollupFoundry = foundryUnplugin.rollup
-export const esbuildFoundry = foundryUnplugin.esbuild
+export const viteFoundry = evmtsUnplugin.vite as typeof evmtsUnplugin.rollup
+export const rollupFoundry = evmtsUnplugin.rollup
+export const esbuildFoundry = evmtsUnplugin.esbuild
 export const webpackFoundry =
-	foundryUnplugin.webpack as typeof foundryUnplugin.rspack
+	evmtsUnplugin.webpack as typeof evmtsUnplugin.rspack
 
-export const rspackPluginFoundry = foundryUnplugin.rspack
+export const rspackPluginFoundry = evmtsUnplugin.rspack

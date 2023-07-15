@@ -1,4 +1,4 @@
-import type { ModuleInfo} from '../types'
+import type { ModuleInfo } from '../types'
 import { resolveImportPath } from './resolveImportPath'
 import { resolveImports } from './resolveImports'
 import { readFileSync } from 'fs'
