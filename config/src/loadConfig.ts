@@ -7,23 +7,6 @@ type LoadConfig = (
 	configFilePath: string,
 	logger?: Pick<typeof console, 'error' | 'warn'>,
 ) => ResolvedConfig
-export const loadConfigTs = async (configFilePath: string) => {
-	const { bundleRequire } = await import('bundle-require')
-	const configModule = await bundleRequire({
-		filepath: path.join(configFilePath, 'evmts.config.ts'),
-	})
-	const config = configModule.mod.default?.default ?? configModule.mod.default
-	if (!config) {
-		return defaultConfig
-	}
-	if (config.configFn) {
-		return config.configFn(configFilePath)
-	}
-	if (typeof config !== 'function') {
-		return config
-	}
-	return config()
-}
 
 export const loadConfig: LoadConfig = (configFilePath, logger = console) => {
 	/**
