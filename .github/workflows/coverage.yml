@@ -1,0 +1,47 @@
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  merge_group:
+
+name: Coverage
+
+jobs:
+  check:
+    name: Coverage
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          submodules: recursive
+
+      - name: "Setup"
+        uses: ./.github/actions/setup
+
+      - name: Run tests
+        run: pnpm nx affected --target=test:coverage
+        env:
+          NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
+
+      - name: 'Report @evmts/core Coverage'
+        if: always() # Also generate the report if tests are failing
+        uses:  davelosert/vitest-coverage-report-action@v2
+        with:
+          working-directory: "./core"
+      - name: 'Report @evmts/bundler Coverage'
+        if: always() # Also generate the report if tests are failing
+        uses:  davelosert/vitest-coverage-report-action@v2
+        with:
+          working-directory: "./bundlers/bundler"
+      - name: 'Report @evmts/ts-plugin Coverage'
+        if: always() # Also generate the report if tests are failing
+        uses:  davelosert/vitest-coverage-report-action@v2
+        with:
+          working-directory: "./lsp/ts-plugin"
+      - name: 'Report @evmts/config Coverage'
+        if: always() # Also generate the report if tests are failing
+        uses:  davelosert/vitest-coverage-report-action@v2
+        with:
+          working-directory: "./config"
