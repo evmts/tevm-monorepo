@@ -71,8 +71,13 @@ export const defineConfig: DefineConfig = (configFactory) => ({
 					foundryDefaults.remappings ?? defaultConfig.compiler.remappings,
 				foundryProject:
 					compiler?.foundryProject ?? defaultConfig.compiler.foundryProject,
-				libs:
-					[compiler?.libs, foundryDefaults.libs, defaultConfig.compiler.libs].filter(Boolean).flat(),
+				libs: [
+					compiler?.libs,
+					foundryDefaults.libs,
+					defaultConfig.compiler.libs,
+				]
+					.filter(Boolean)
+					.flat(),
 			},
 			localContracts: {
 				contracts:
