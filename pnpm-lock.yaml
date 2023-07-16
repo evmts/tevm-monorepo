@@ -211,6 +211,9 @@ importers:
         specifier: ^1.2.14
         version: 1.2.14(typescript@5.1.6)(zod@3.21.4)
     devDependencies:
+      '@vitest/coverage-v8':
+        specifier: ^0.33.0
+        version: 0.33.0(vitest@0.33.0)
       '@vitest/ui':
         specifier: ^0.32.2
         version: 0.32.2(vitest@0.33.0)
