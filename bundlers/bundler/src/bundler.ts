@@ -9,7 +9,7 @@ export const bundler: Bundler = (config, logger) => {
 		resolveDts: async (module, basedir) => {
 			const artifacts = await resolveArtifacts(module, basedir, logger, config)
 			if (artifacts) {
-				const evmtsImports = `import type { EVMtsContract } from '@evmts/core'`
+				const evmtsImports = `import type { EvmtsContract } from '@evmts/core'`
 				const evmtsBody = Object.entries(artifacts)
 					.flatMap(([contractName, { abi }]) => {
 						const contract = {
@@ -22,22 +22,21 @@ export const bundler: Bundler = (config, logger) => {
 						}
 						const etherscanLinks = getEtherscanLinks(contract.addresses ?? {})
 						return [
-							`const _abi${contractName} = ${JSON.stringify(
+							`type _Abi${contractName} = ${JSON.stringify(
 								contract.abi,
-							)} as const`,
-							`const _chainAddressMap${contractName} = ${JSON.stringify(
+							)} as const;`,
+							`type _ChainAddressMap${contractName} = ${JSON.stringify(
 								contract.addresses ?? {},
-							)} as const`,
+							)} as const;`,
+							`type _Name${contractName} = ${JSON.stringify(contractName)};`,
 							'/**',
-							` * ${contractName} EVMtsContract`,
+							` * ${contractName} EvmtsContract`,
 							...etherscanLinks.map(
 								([chainId, etherscanLink]) =>
 									` * @etherscan-${chainId} ${etherscanLink}`,
 							),
 							' */',
-							`export const ${contractName}: EVMtsContract<${JSON.stringify(
-								contract.name,
-							)}, typeof _chainAddressMap${contractName}, typeof _abi${contractName}>`,
+							`export const ${contractName}: EvmtsContract<_Name${contractName}, _ChainAddressMap${contractName}, _Abi${contractName}>;`,
 						].filter(Boolean)
 					})
 					.join('\n')
@@ -48,7 +47,7 @@ export const bundler: Bundler = (config, logger) => {
 		resolveDtsSync: (module, basedir) => {
 			const artifacts = resolveArtifactsSync(module, basedir, logger, config)
 			if (artifacts) {
-				const evmtsImports = `import type { EVMtsContract } from '@evmts/core'`
+				const evmtsImports = `import type { EvmtsContract } from '@evmts/core'`
 				const evmtsBody = Object.entries(artifacts)
 					.flatMap(([contractName, { abi }]) => {
 						const contract = {
@@ -61,22 +60,23 @@ export const bundler: Bundler = (config, logger) => {
 						}
 						const etherscanLinks = getEtherscanLinks(contract.addresses ?? {})
 						return [
-							`const _abi${contractName} = ${JSON.stringify(
+							`export type _Abi${contractName} = ${JSON.stringify(
 								contract.abi,
-							)} as const`,
-							`const _chainAddressMap${contractName} = ${JSON.stringify(
+							)} as const;`,
+							`export type _ChainAddressMap${contractName} = ${JSON.stringify(
 								contract.addresses ?? {},
-							)} as const`,
+							)} as const;`,
+							`export type _Name${contractName} = ${JSON.stringify(
+								contractName,
+							)};`,
 							'/**',
-							` * ${contractName} EVMtsContract`,
+							` * ${contractName} EvmtsContract`,
 							...etherscanLinks.map(
 								([chainId, etherscanLink]) =>
-									` * @etherscan ${chainId} ${etherscanLink}`,
+									` * @etherscan-${chainId} ${etherscanLink}`,
 							),
 							' */',
-							`export const ${contractName}: EVMtsContract<${JSON.stringify(
-								contract.name,
-							)}, typeof _chainAddressMap${contractName}, typeof _abi${contractName}>`,
+							`export const ${contractName}: EvmtsContract<_Name${contractName}, _ChainAddressMap${contractName}, _Abi${contractName}>;`,
 						].filter(Boolean)
 					})
 					.join('\n')

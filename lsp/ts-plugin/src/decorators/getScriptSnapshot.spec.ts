@@ -60,19 +60,21 @@ describe(getScriptSnapshotDecorator.name, () => {
 		const fileName = path.join(__dirname, '../test/fixtures/HelloWorld.sol')
 		const result = decorator.getScriptSnapshot(fileName)
 		expect((result as any).text).toMatchInlineSnapshot(`
-			"import type { EVMtsContract } from '@evmts/core'
-			const _abiHelloWorld = [{\\"inputs\\":[],\\"name\\":\\"greet\\",\\"outputs\\":[{\\"internalType\\":\\"string\\",\\"name\\":\\"\\",\\"type\\":\\"string\\"}],\\"stateMutability\\":\\"pure\\",\\"type\\":\\"function\\"}] as const
-			const _chainAddressMapHelloWorld = {} as const
+			"import type { EvmtsContract } from '@evmts/core'
+			export type _AbiHelloWorld = [{\\"inputs\\":[],\\"name\\":\\"greet\\",\\"outputs\\":[{\\"internalType\\":\\"string\\",\\"name\\":\\"\\",\\"type\\":\\"string\\"}],\\"stateMutability\\":\\"pure\\",\\"type\\":\\"function\\"}] as const;
+			export type _ChainAddressMapHelloWorld = {} as const;
+			export type _NameHelloWorld = \\"HelloWorld\\";
 			/**
-			 * HelloWorld EVMtsContract
+			 * HelloWorld EvmtsContract
 			 */
-			export const HelloWorld: EVMtsContract<\\"HelloWorld\\", typeof _chainAddressMapHelloWorld, typeof _abiHelloWorld>
-			const _abiHelloWorld2 = [{\\"inputs\\":[],\\"name\\":\\"greet2\\",\\"outputs\\":[{\\"internalType\\":\\"string\\",\\"name\\":\\"\\",\\"type\\":\\"string\\"}],\\"stateMutability\\":\\"pure\\",\\"type\\":\\"function\\"}] as const
-			const _chainAddressMapHelloWorld2 = {} as const
+			export const HelloWorld: EvmtsContract<_NameHelloWorld, _ChainAddressMapHelloWorld, _AbiHelloWorld>;
+			export type _AbiHelloWorld2 = [{\\"inputs\\":[],\\"name\\":\\"greet2\\",\\"outputs\\":[{\\"internalType\\":\\"string\\",\\"name\\":\\"\\",\\"type\\":\\"string\\"}],\\"stateMutability\\":\\"pure\\",\\"type\\":\\"function\\"}] as const;
+			export type _ChainAddressMapHelloWorld2 = {} as const;
+			export type _NameHelloWorld2 = \\"HelloWorld2\\";
 			/**
-			 * HelloWorld2 EVMtsContract
+			 * HelloWorld2 EvmtsContract
 			 */
-			export const HelloWorld2: EVMtsContract<\\"HelloWorld2\\", typeof _chainAddressMapHelloWorld2, typeof _abiHelloWorld2>"
+			export const HelloWorld2: EvmtsContract<_NameHelloWorld2, _ChainAddressMapHelloWorld2, _AbiHelloWorld2>;"
 		`)
 	})
 })
