@@ -1,5 +1,11 @@
 # @evmts/core
 
+## 0.5.6
+
+### Patch Changes
+
+- [#346](https://github.com/evmts/evmts-monorepo/pull/346) [`6d9365d`](https://github.com/evmts/evmts-monorepo/commit/6d9365db3ab197ea4ad53f777d755ee3ad562b21) Thanks [@roninjin10](https://github.com/roninjin10)! - Change naming to Evmts from EVMts
+
 ## 0.5.4
 
 ### Patch Changes
