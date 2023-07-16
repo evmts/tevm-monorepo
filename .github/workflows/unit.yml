@@ -24,3 +24,4 @@ jobs:
         run: pnpm nx affected --target=test
         env:
           NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
+          RPC_URL_MAINNET: ${{ secrets.RPC_URL_MAINNET }}

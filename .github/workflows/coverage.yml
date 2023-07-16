@@ -24,6 +24,7 @@ jobs:
         run: pnpm nx run-many --target=test:coverage
         env:
           NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
+          RPC_URL_MAINNET: ${{ secrets.RPC_URL_MAINNET }}
 
       - name: 'Report @evmts/core Coverage'
         if: always() # Also generate the report if tests are failing
