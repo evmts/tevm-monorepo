@@ -66,13 +66,13 @@ describe(getScriptSnapshotDecorator.name, () => {
 			/**
 			 * HelloWorld EVMtsContract
 			 */
-			export const HelloWorld: EVMtsContract<HelloWorld, typeof _chainAddressMapHelloWorld, typeof _abiHelloWorld>
+			export const HelloWorld: EVMtsContract<\\"HelloWorld\\", typeof _chainAddressMapHelloWorld, typeof _abiHelloWorld>
 			const _abiHelloWorld2 = [{\\"inputs\\":[],\\"name\\":\\"greet2\\",\\"outputs\\":[{\\"internalType\\":\\"string\\",\\"name\\":\\"\\",\\"type\\":\\"string\\"}],\\"stateMutability\\":\\"pure\\",\\"type\\":\\"function\\"}] as const
 			const _chainAddressMapHelloWorld2 = {} as const
 			/**
 			 * HelloWorld2 EVMtsContract
 			 */
-			export const HelloWorld2: EVMtsContract<HelloWorld2, typeof _chainAddressMapHelloWorld2, typeof _abiHelloWorld2>"
+			export const HelloWorld2: EVMtsContract<\\"HelloWorld2\\", typeof _chainAddressMapHelloWorld2, typeof _abiHelloWorld2>"
 		`)
 	})
 })

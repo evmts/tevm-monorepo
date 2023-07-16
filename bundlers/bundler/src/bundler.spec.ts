@@ -49,7 +49,7 @@ describe(bundler.name, () => {
 				/**
 				 * TestContract EVMtsContract
 				 */
-				export const TestContract: EVMtsContract<TestContract, typeof _chainAddressMapTestContract, typeof _abiTestContract>"
+				export const TestContract: EVMtsContract<\\"TestContract\\", typeof _chainAddressMapTestContract, typeof _abiTestContract>"
 			`)
 		})
 	})
@@ -75,7 +75,7 @@ describe(bundler.name, () => {
 				/**
 				 * TestContract EVMtsContract
 				 */
-				export const TestContract: EVMtsContract<TestContract, typeof _chainAddressMapTestContract, typeof _abiTestContract>"
+				export const TestContract: EVMtsContract<\\"TestContract\\", typeof _chainAddressMapTestContract, typeof _abiTestContract>"
 			`)
 		})
 	})
