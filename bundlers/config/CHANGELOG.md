@@ -1,5 +1,11 @@
 # @evmts/core
 
+## 0.5.4
+
+### Patch Changes
+
+- [#338](https://github.com/evmts/evmts-monorepo/pull/338) [`0116537`](https://github.com/evmts/evmts-monorepo/commit/0116537d3423c8decfd0adaf490d37d33f8a540f) Thanks [@roninjin10](https://github.com/roninjin10)! - Upgraded all dependnecies
+
 ## 0.5.0
 
 ### Minor Changes
