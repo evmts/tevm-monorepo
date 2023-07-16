@@ -1,6 +1,25 @@
 import { resolveArtifacts, resolveArtifactsSync } from './solc'
 import type { Bundler } from './types'
 import { getEtherscanLinks } from './utils'
+import { createRequire } from 'node:module';
+import { readFileSync } from 'fs';
+
+/**
+ * Returns a string of the module source code
+ */
+const requireModuleAsString = (modulePath = '@evmts/core', moduleType: 'cjs' | 'mjs' = 'mjs') => {
+	const require = createRequire(import.meta?.url ?? __dirname);
+	let entrypoint = require.resolve(modulePath);
+	if (entrypoint.endsWith('.js')) {
+		entrypoint = entrypoint.slice(0, -3)
+	}
+	if (entrypoint.endsWith('.cjs')) {
+		entrypoint = entrypoint.slice(0, -4)
+	}
+	entrypoint = `${entrypoint}.${moduleType === 'mjs' ? 'js' : 'cjs'}`;
+	return readFileSync(entrypoint, 'utf8')
+}
+
 
 export const bundler: Bundler = (config, logger) => {
 	return {
@@ -21,6 +40,7 @@ export const bundler: Bundler = (config, logger) => {
 								) ?? {},
 						}
 						const etherscanLinks = getEtherscanLinks(contract.addresses ?? {})
+						// TODO inject abitype
 						return [
 							`type _Abi${contractName} = ${JSON.stringify(
 								contract.abi,
@@ -59,6 +79,7 @@ export const bundler: Bundler = (config, logger) => {
 								)?.addresses ?? {},
 						}
 						const etherscanLinks = getEtherscanLinks(contract.addresses ?? {})
+						// TODO inject abitype
 						return [
 							`export type _Abi${contractName} = ${JSON.stringify(
 								contract.abi,
@@ -141,7 +162,7 @@ export const bundler: Bundler = (config, logger) => {
 		resolveCjsModuleSync: (module, basedir) => {
 			const artifacts = resolveArtifactsSync(module, basedir, logger, config)
 			if (artifacts) {
-				const evmtsImports = `const { evmtsContractFactory } = require('@evmts/core')`
+				const evmtsCore = requireModuleAsString('@evmts/core', 'cjs')
 				const evmtsBody = Object.entries(artifacts)
 					.flatMap(([contractName, { abi, bytecode }]) => {
 						const contract = JSON.stringify({
@@ -159,14 +180,14 @@ export const bundler: Bundler = (config, logger) => {
 						]
 					})
 					.join('\n')
-				return [evmtsImports, evmtsBody].join('\n')
+				return [evmtsCore, evmtsBody].join('\n')
 			}
 			return ''
 		},
 		resolveCjsModule: async (module, basedir) => {
 			const artifacts = await resolveArtifacts(module, basedir, logger, config)
 			if (artifacts) {
-				const evmtsImports = `const { evmtsContractFactory } = require('@evmts/core')`
+				const evmtsCore = requireModuleAsString('@evmts/core', 'cjs')
 				const evmtsBody = Object.entries(artifacts)
 					.flatMap(([contractName, { abi, bytecode }]) => {
 						const contract = JSON.stringify({
@@ -184,7 +205,7 @@ export const bundler: Bundler = (config, logger) => {
 						]
 					})
 					.join('\n')
-				return [evmtsImports, evmtsBody].join('\n')
+				return [evmtsCore, evmtsBody].join('\n')
 			}
 			return ''
 		},
@@ -192,7 +213,7 @@ export const bundler: Bundler = (config, logger) => {
 		resolveEsmModuleSync: (module, basedir) => {
 			const artifacts = resolveArtifactsSync(module, basedir, logger, config)
 			if (artifacts) {
-				const evmtsImports = `import { evmtsContractFactory } from '@evmts/core'`
+				const evmtsCore = requireModuleAsString('@evmts/core', 'mjs')
 				const evmtsBody = Object.entries(artifacts)
 					.flatMap(([contractName, { abi, bytecode }]) => {
 						const contract = JSON.stringify({
@@ -210,14 +231,14 @@ export const bundler: Bundler = (config, logger) => {
 						]
 					})
 					.join('\n')
-				return [evmtsImports, evmtsBody].join('\n')
+				return [evmtsCore, evmtsBody].join('\n')
 			}
 			return ''
 		},
 		resolveEsmModule: async (module, basedir) => {
 			const artifacts = await resolveArtifacts(module, basedir, logger, config)
 			if (artifacts) {
-				const evmtsImports = `import { evmtsContractFactory } from '@evmts/core'`
+				const evmtsCore = requireModuleAsString('@evmts/core', 'mjs')
 				const evmtsBody = Object.entries(artifacts)
 					.flatMap(([contractName, { abi, bytecode }]) => {
 						const contract = JSON.stringify({
@@ -235,7 +256,7 @@ export const bundler: Bundler = (config, logger) => {
 						]
 					})
 					.join('\n')
-				return [evmtsImports, evmtsBody].join('\n')
+				return [evmtsCore, evmtsBody].join('\n')
 			}
 			return ''
 		},
