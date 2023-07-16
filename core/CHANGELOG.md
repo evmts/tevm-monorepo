@@ -1,5 +1,11 @@
 # @evmts/core
 
+## 0.5.1
+
+### Patch Changes
+
+- [#328](https://github.com/evmts/evmts-monorepo/pull/328) [`cec44b5`](https://github.com/evmts/evmts-monorepo/commit/cec44b5042bc76c21a9b695383714642c2b44da6) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed issue with abitype subdep
+
 ## 0.5.0
 
 ### Patch Changes
