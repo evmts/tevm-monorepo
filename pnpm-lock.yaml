@@ -386,10 +386,10 @@ importers:
         specifier: ^0.5.4
         version: link:../../bundlers/config
       '@evmts/ts-plugin':
-        specifier: ^0.5.4
+        specifier: ^0.5.5
         version: link:../../lsp/ts-plugin
       '@evmts/webpack-plugin':
-        specifier: ^0.5.4
+        specifier: ^0.5.5
         version: link:../../bundlers/webpack-plugin
       '@openzeppelin/contracts':
         specifier: ^4.9.2
