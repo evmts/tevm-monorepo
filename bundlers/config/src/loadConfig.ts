@@ -39,6 +39,14 @@ export const loadConfig: LoadConfig = (configFilePath, logger = console) => {
 		configJson?.compilerOptions?.plugins?.find(
 			(plugin) => plugin.name === '@evmts/ts-plugin',
 		)
+
+	if (!config) {
+		logger.warn(
+			'No EVMts plugin found in tsconfig.json. Using the default config',
+		)
+		config = defaultConfig
+	}
+
 	if (config && configJson.compilerOptions.baseUrl) {
 		config = {
 			...config,
@@ -50,25 +58,6 @@ export const loadConfig: LoadConfig = (configFilePath, logger = console) => {
 				],
 			},
 		}
-	}
-
-	if (!config) {
-		logger.warn(
-			'No EVMts plugin found in tsconfig.json. Using the default config',
-		)
-		if (configJson.compilerOptions.baseUrl) {
-			return {
-				...defaultConfig,
-				compiler: {
-					...defaultConfig.compiler,
-					libs: [
-						...defaultConfig.compiler.libs,
-						path.join(configFilePath, configJson.compilerOptions.baseUrl),
-					],
-				},
-			}
-		}
-		return defaultConfig
 	}
 
 	return defineConfig(() => config ?? {}).configFn(configFilePath)
