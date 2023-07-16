@@ -26,7 +26,7 @@ evmts enables direct evm execution clientside with forge cheat codes and direct 
 
 ## Visit [Docs](https://evmts.dev/) for docs, guides, API and more!
 
-## See [EVMts Beta project board](https://github.com/orgs/evmts/projects/1) for progress on the upcoming beta release
+## See [Evmts Beta project board](https://github.com/orgs/evmts/projects/1) for progress on the upcoming beta release
 
 ## License 📄
 

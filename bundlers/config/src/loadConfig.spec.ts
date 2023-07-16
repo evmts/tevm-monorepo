@@ -302,7 +302,7 @@ describe(loadConfig.name, () => {
 		expect(config.compiler.libs).toEqual(['lib1', 'path/to/config/basepath'])
 	})
 
-	it('should use default config when EVMts plugin is not found', () => {
+	it('should use default config when Evmts plugin is not found', () => {
 		vi.spyOn(fs, 'readFileSync').mockReturnValue(
 			JSON.stringify({
 				compilerOptions: {},
@@ -314,7 +314,7 @@ describe(loadConfig.name, () => {
 		expect(config).toEqual(defaultConfig)
 	})
 
-	it('should add baseUrl to the libs in default config when EVMts plugin is not found and baseUrl is defined', () => {
+	it('should add baseUrl to the libs in default config when Evmts plugin is not found and baseUrl is defined', () => {
 		vi.spyOn(fs, 'readFileSync').mockReturnValue(
 			JSON.stringify({
 				compilerOptions: {
@@ -331,7 +331,7 @@ describe(loadConfig.name, () => {
 		])
 	})
 
-	it('should log a warning when EVMts plugin is not found', () => {
+	it('should log a warning when Evmts plugin is not found', () => {
 		const mockLogger = {
 			error: vi.fn(),
 			warn: vi.fn(),
@@ -346,7 +346,7 @@ describe(loadConfig.name, () => {
 		loadConfig('path/to/config', mockLogger)
 
 		expect(mockLogger.warn).toHaveBeenCalledWith(
-			'No EVMts plugin found in tsconfig.json. Using the default config',
+			'No Evmts plugin found in tsconfig.json. Using the default config',
 		)
 	})
 })

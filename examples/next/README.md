@@ -1,6 +1,6 @@
-This is a [EVMts](https://evmts.dev) [wagmi](https://wagmi.sh) + [RainbowKit](https://rainbowkit.com) + [Next.js](https://nextjs.org) 
+This is a [Evmts](https://evmts.dev) [wagmi](https://wagmi.sh) + [RainbowKit](https://rainbowkit.com) + [Next.js](https://nextjs.org)
 
-EVMts allows you to import Solidity directly into your NEXT.js typescript files with great editor support and minimal boilerplate.  Features include
+Evmts allows you to import Solidity directly into your NEXT.js typescript files with great editor support and minimal boilerplate.  Features include
 
 - Etherscan links on hover
 - Human readable ABIs
@@ -28,7 +28,7 @@ App
 
 # Docs
 
-EVMts docs exist at [evmts.dev](https://evmts.dev). Until EVMts is in Beta many of the documented behavior may not be implemented yet.
+Evmts docs exist at [evmts.dev](https://evmts.dev). Until Evmts is in Beta many of the documented behavior may not be implemented yet.
 
 # Getting Started
 
@@ -38,11 +38,11 @@ Once the webpage has loaded, changes made to files inside the `src/` directory (
 
 # Configuration
 
-EVMts requires two pieces of configuration to get started.
+Evmts requires two pieces of configuration to get started.
 
-1. TypeScript configuration 
+1. TypeScript configuration
 
-`@evmts/ts-plugin` is configured in the [tsconfig.json](./tsconfig.json). EVMts uses this configuration to configure the addresses, solc version etc.
+`@evmts/ts-plugin` is configured in the [tsconfig.json](./tsconfig.json). Evmts uses this configuration to configure the addresses, solc version etc.
 
 2. Bundler configuration
 
@@ -77,7 +77,7 @@ Other editors are not tested/documented yet (I personally use neovim though succ
 
 Typechecking is disabled in the next.config.ts. Your editor will typecheck successfully.
 
-TypeChecking will be available soon in one of the next few releases of EVMts alpha
+TypeChecking will be available soon in one of the next few releases of Evmts alpha
 
-As a workaround .ts files can be generated to enable typechecking with `tsc`. To run the code gen tool run `evmts-gen` cli tool Codegen is undocumented and may lose support on future versions of EVMts so it is recomended to wait for the official typechecking tool
+As a workaround .ts files can be generated to enable typechecking with `tsc`. To run the code gen tool run `evmts-gen` cli tool Codegen is undocumented and may lose support on future versions of Evmts so it is recomended to wait for the official typechecking tool
 

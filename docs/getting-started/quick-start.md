@@ -1,14 +1,14 @@
 # Quick Start
 
 ::: tip
-New to EVMts?
+New to Evmts?
 
 - [Read the introduction](../getting-started/introduction.md)
 - [Try out our beginners tutorial](../tutorial/overview.md)
 - [Try the live online demo](https://stackblitz.com/github/evmts/evmts-monorepo?configPath=examples/vite)
 :::
 
-## Starting a new project with EVMts
+## Starting a new project with Evmts
 
 Fork one of the example projects
 
@@ -17,9 +17,9 @@ Fork one of the example projects
 - [Wagmi and Vite](https://github.com/evmts/evmts-monorepo/tree/main/examples/vite) - Good for clientside React applications
 - [COMING SOON] Ethers.js+tsup NPM library example
 
-## Adding EVMts to an existing project
+## Adding Evmts to an existing project
 
-To add a EVMts to an existing tool you must configure 2 things
+To add a Evmts to an existing tool you must configure 2 things
 
 1. Your Typescript language server
 
@@ -29,7 +29,7 @@ The language server will give you support in your editor for things like autoimp
 
 **important** - If your application or library generates .d.ts files or runs `tsc --emit` you will need to see our [typescript docs](../tutorial/typescript) for additional instruction.
 
-Install EVMts core
+Install Evmts core
 ```bash
 npm install @evmts/core
 ```
@@ -71,5 +71,5 @@ Find [your specific bundlers guide](../guides/overview.md) for instructions on h
 
 - **See also**
 
-[EVMts tutorial](../tutorial/overview.md)
+[Evmts tutorial](../tutorial/overview.md)
 

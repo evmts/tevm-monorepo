@@ -25,15 +25,15 @@
 
 # evmts-monorepo
 
-EVMts core enables direct evm execution clientside with forge cheat codes (not implemented yet)
+Evmts core enables direct evm execution clientside with forge cheat codes (not implemented yet)
 
-EVMts imports enable a streamlined dev experience with direct solidity imports and integration with Wagmi
+Evmts imports enable a streamlined dev experience with direct solidity imports and integration with Wagmi
 
 ## Get Started Quick with the [NEXT.js starter project](https://github.com/evmts/evmts-next-example)
 
 ## Visit [Docs](https://evmts.dev/) for docs, guides, API and more! 📄
 
-## See [EVMts Beta project board](https://github.com/orgs/evmts/projects/1) for progress on the upcoming beta release! 💥
+## See [Evmts Beta project board](https://github.com/orgs/evmts/projects/1) for progress on the upcoming beta release! 💥
 
 ## Runtime libraries 📦
 
@@ -44,7 +44,7 @@ EVMts imports enable a streamlined dev experience with direct solidity imports a
 
 ## Bundlers
 
-Bundlers such as Rollup, Webpack, or Vite are used By JavaScript tools to control the import graph of JavaScript projects.   This is how `EVMts contract imports` are able to work seemlessly.
+Bundlers such as Rollup, Webpack, or Vite are used By JavaScript tools to control the import graph of JavaScript projects.   This is how `Evmts contract imports` are able to work seemlessly.
 
 Bundlers are provided for all major tools.   If yours is not supported consider opening an issue.
 
@@ -58,17 +58,17 @@ All bundlers are in the [bundlers/\*](/bundlers) folder
 
 ## Language server tools
 
-The language service protocol is how tools such as VSCode and Neovim are able to provide features such as autocomplete, information on hover, autoimports, and more. EVMts language service tools brings this functionality to TypeScript for contracts.
+The language service protocol is how tools such as VSCode and Neovim are able to provide features such as autocomplete, information on hover, autoimports, and more. Evmts language service tools brings this functionality to TypeScript for contracts.
 
-Also included are tools for typechecking code and code generation for those using EVMts without a bundler
+Also included are tools for typechecking code and code generation for those using Evmts without a bundler
 
 - [@evmts/ts-plugin](./lsp/ts-plugin/) - Typescript Server Plugin for decorating the TypeScript language server with additional functionality
-- [@evmts/vscode](./lsp/ts-plugin/) - A work-in-progress vscode plugin for EVMts
+- [@evmts/vscode](./lsp/ts-plugin/) - A work-in-progress vscode plugin for Evmts
 
 ## Apps 📦
 
 - [@evmts/docs](/docs) Future documentation site.   Contains lots of unimplemented features such as a clientside VM
-- [examples/*](/examples) Current [documentation site](https://evmts.dev) for EVMts Imports Beta
+- [examples/*](/examples) Current [documentation site](https://evmts.dev) for Evmts Imports Beta
 
 #### Example apps
 
@@ -95,13 +95,13 @@ See [docs/contributing](/docs/contributing.md) for documentation on how to contr
 
 **Note: Scripting is currently unimplemented**
 
-EVMts has future plans to enable solidity scripting and optimistic execution.   As of now only EVMts contract imports are supported
+Evmts has future plans to enable solidity scripting and optimistic execution.   As of now only Evmts contract imports are supported
 
-See [EVMts Beta project board](https://github.com/orgs/evmts/projects/1) for updates.
+See [Evmts Beta project board](https://github.com/orgs/evmts/projects/1) for updates.
 
 ### 1. First write a script in solidity
 
-Scripts in EVMts work exactly like the [scripts in forge](https://book.getfoundry.sh/tutorials/solidity-scripting)
+Scripts in Evmts work exactly like the [scripts in forge](https://book.getfoundry.sh/tutorials/solidity-scripting)
 
 ```solidity [Example.s.sol]
 pragma solidity ^0.8.17;
@@ -145,9 +145,9 @@ evmts // [!code focus]
   });
 ```
 
-## Try EVMts now
+## Try Evmts now
 
-You don't need to install anything just to play with EVMts! Try [editing this sandbox](https://github.com/evmts/evmts-monorepo/issues/10) or check out the [getting started docs](https://evmts.dev/introduction/installation.html)
+You don't need to install anything just to play with Evmts! Try [editing this sandbox](https://github.com/evmts/evmts-monorepo/issues/10) or check out the [getting started docs](https://evmts.dev/introduction/installation.html)
 
 ## Author ✍️
 

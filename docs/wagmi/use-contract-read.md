@@ -2,7 +2,7 @@
 
 [Wagmi hook](https://wagmi.sh/react/hooks/useContractRead) for calling a read method on the contract.
 
-To use this hook import it directly from wagmi. This guide will show how to integrate it with EVMts.
+To use this hook import it directly from wagmi. This guide will show how to integrate it with Evmts.
 
 For more documentation specific to useContractRead see [wagmi documentation](https://wagmi.sh/react/hooks/useContractRead)
 

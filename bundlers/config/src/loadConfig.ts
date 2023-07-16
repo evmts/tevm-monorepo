@@ -42,7 +42,7 @@ export const loadConfig: LoadConfig = (configFilePath, logger = console) => {
 
 	if (!config) {
 		logger.warn(
-			'No EVMts plugin found in tsconfig.json. Using the default config',
+			'No Evmts plugin found in tsconfig.json. Using the default config',
 		)
 		config = defaultConfig
 	}

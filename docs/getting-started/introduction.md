@@ -1,19 +1,19 @@
 # Introduction
 
-Welcome to the EVMts Imports Beta docs!
+Welcome to the Evmts Imports Beta docs!
 
-🏗️🚧 Note: this is an early alpha release that is following documentation-driven-development. Not all features will be implemented. Unimplemented features will include a note mentioning so however 🏗️🚧 
+🏗️🚧 Note: this is an early alpha release that is following documentation-driven-development. Not all features will be implemented. Unimplemented features will include a note mentioning so however 🏗️🚧
 
 ::: info You will learn
 
-1. What are EVMts imports
+1. What are Evmts imports
 2. How direct solidity imports look in a basic example
 
 :::
 
 ## Overview
 
-EVMts Imports beta makes solidity a first-class citizen in TypeScript
+Evmts Imports beta makes solidity a first-class citizen in TypeScript
 
 - **Import Solidity directly** ABIs melt away with the ability to import contracts directly
 - **Jump** directly from typescript files to contract implementation with go-to-definition
@@ -25,7 +25,7 @@ Just want to try it out?
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz_small.svg)](https://stackblitz.com/github/evmts/evmts-monorepo?configPath=examples/vite)
 :::
 
-## EVMts is simple
+## Evmts is simple
 
 ### 1. First write a smart contract
 
@@ -46,7 +46,7 @@ contract MyERC20 is ERC20 {
 
 Deploy your contract with [forge](https://github.com/foundry-rs/foundry) and commit the deploy artifacts.
 
-EVMts will use the deploy artifacts to configure default contract addresses for your contracts
+Evmts will use the deploy artifacts to configure default contract addresses for your contracts
 
 #### 3. Import your contract directly in TypeScript files and use it
 
@@ -74,14 +74,14 @@ export function App() {
 
 ```
 
-## Try EVMts now
+## Try Evmts now
 
-- **Learn** about EVMts by setting up a project from scratch with the [tutorial](../tutorial/overview.md)
-- **Follow guides** to setup EVMts [for your project](../guides/overview.md)
-- **Ask questions** about EVMts in the [discussions](https://github.com/evmts/evmts-monorepo/discussions)
+- **Learn** about Evmts by setting up a project from scratch with the [tutorial](../tutorial/overview.md)
+- **Follow guides** to setup Evmts [for your project](../guides/overview.md)
+- **Ask questions** about Evmts in the [discussions](https://github.com/evmts/evmts-monorepo/discussions)
 - **Reference** our [reference docs](../reference/overview.md) for more detailed information
 
-Just looking to try out EVMts? Try editing this sandbox or continue on for installation instructions
+Just looking to try out Evmts? Try editing this sandbox or continue on for installation instructions
 
 [TODO](https://github.com/evmts/evmts-monorepo/issues/10)
 

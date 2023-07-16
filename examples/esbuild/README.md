@@ -8,7 +8,7 @@
 </p>
 
 <p align="center">
-  EVMts esbuild viem Boilerplate
+  Evmts esbuild viem Boilerplate
 <p>
 
 To use this plugin with Visual Studio Code, you should set your workspace's version of TypeScript, which will load plugins from your tsconfig.json file.
@@ -17,9 +17,9 @@ For instructions, see: [Using the workspace version of TypeScript](https://code.
 
 ## ✨ What is this?
 
-This is a [EVMts](https://evmts.dev) + [viem](https://viem.sh) ! [esbuild](https://esbuild.github.io/api/) boilerplate to get started using EVMts quickly
+This is a [Evmts](https://evmts.dev) + [viem](https://viem.sh) ! [esbuild](https://esbuild.github.io/api/) boilerplate to get started using Evmts quickly
 
-EVMts allows you to import Solidity directly into your NEXT.js typescript files with great editor support and minimal boilerplate.  Features include
+Evmts allows you to import Solidity directly into your NEXT.js typescript files with great editor support and minimal boilerplate.  Features include
 
 - Etherscan links on hover
 - Human readable ABIs
@@ -27,7 +27,7 @@ EVMts allows you to import Solidity directly into your NEXT.js typescript files 
 - No ABIs referenced again just import the contract directly
 - No Addresses needed to be copy pasted just configure them in the [tsconfig](./tsconfig.json)
 
-## 🌟 EVMts features
+## 🌟 Evmts features
 
 - Direct contract imports with etherscan links on hover
 
@@ -47,7 +47,7 @@ EVMts allows you to import Solidity directly into your NEXT.js typescript files 
 
 # 📜 Docs
 
-EVMts docs exist at [evmts.dev](https://evmts.dev). As EVMts is currently still in Alpha and following [documentation driven development](https://gist.github.com/zsup/9434452) much of the documented behavior may not be implemented yet.
+Evmts docs exist at [evmts.dev](https://evmts.dev). As Evmts is currently still in Alpha and following [documentation driven development](https://gist.github.com/zsup/9434452) much of the documented behavior may not be implemented yet.
 
 # 🤝 Getting Started
 
@@ -57,11 +57,11 @@ Run `npm run dev` in your terminal. If you are not using node18 you may have to 
 
 This boilerplate comes preconfigured but we will document what needed to be configured in case you are following along to add to your own NEXT.js app
 
-EVMts requires two pieces of configuration to get started.
+Evmts requires two pieces of configuration to get started.
 
-1. TypeScript configuration 
+1. TypeScript configuration
 
-`@evmts/ts-plugin` is configured in the [tsconfig.json](./tsconfig.json). EVMts uses this configuration to configure the addresses, solc version etc.  The TypeScript plugin provides TypeScript editor support for your Solidity imports.
+`@evmts/ts-plugin` is configured in the [tsconfig.json](./tsconfig.json). Evmts uses this configuration to configure the addresses, solc version etc.  The TypeScript plugin provides TypeScript editor support for your Solidity imports.
 
 2. Bundler configuration
 
@@ -96,14 +96,14 @@ Other editors are not tested/documented yet. I personally use neovim successfull
 
 Typechecking is disabled in the next.config.ts. Your editor will typecheck and provide diagnostics correctly but the NEXT.js build is not configured yet.
 
-Full TypeChecking will be available soon in one of the next few releases of EVMts alpha after it migrates the langauge server to [volar](https://volarjs.github.io/)
+Full TypeChecking will be available soon in one of the next few releases of Evmts alpha after it migrates the langauge server to [volar](https://volarjs.github.io/)
 
-## ⭐ Github 
+## ⭐ Github
 
-If you like EVMts give it a ⭐ at the [EVMts monorepo](https://github.com/evmts/evmts-monorepo)
+If you like Evmts give it a ⭐ at the [Evmts monorepo](https://github.com/evmts/evmts-monorepo)
 
 ## 🔗 See also
 
-- Check out [Next example](https://github.com/orgs/evmts/repositories) for an example of EVMts wagmi and Next
-- Check out [Vite example](https://github.com/evmts/evmts-monorepo/tree/main/examples/vite) for an example of EVMts wagmi and Vite
+- Check out [Next example](https://github.com/orgs/evmts/repositories) for an example of Evmts wagmi and Next
+- Check out [Vite example](https://github.com/evmts/evmts-monorepo/tree/main/examples/vite) for an example of Evmts wagmi and Vite
 

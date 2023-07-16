@@ -21,10 +21,10 @@ export const localContractsConfigValidator = z
 		),
 	})
 	.describe(
-		'Config of local EVMts imports of solidity contracts local to the project',
+		'Config of local Evmts imports of solidity contracts local to the project',
 	)
 /**
- * Configuration of local EVMts imports of solidity contracts local to the project
+ * Configuration of local Evmts imports of solidity contracts local to the project
  * This is in contrast to external contracts which are pulled in from external sources
  * like etherscan
  */
@@ -138,7 +138,7 @@ export type CompilerConfig = {
 }
 
 /**
- * Configuration for EVMts
+ * Configuration for Evmts
  */
 export type EVMtsConfig = {
 	/**

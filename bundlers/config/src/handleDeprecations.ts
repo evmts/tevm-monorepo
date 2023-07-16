@@ -28,7 +28,7 @@ export const handleDeprecations = (
 	if (config.deployments) {
 		logger.warn(`deployments in EVMtsConfig is deprecated and
 			has been renamed to 'localContracts.contracts'. It will be
-removed in the EVMts beta release.
+removed in the Evmts beta release.
 Please rename the property in your tsconfig.json.`)
 		const { deployments, ...rest } = config as typeof config & {
 			deployments: any
@@ -46,7 +46,7 @@ Please rename the property in your tsconfig.json.`)
 		const { forge, ...rest } = config as typeof config & { forge: any }
 		logger.warn(`forge in EVMtsConfig is deprecated and
 			has been renamed to 'compiler.foundryProject'. It will be
-removed in the EVMts beta release.
+removed in the Evmts beta release.
 Please rename the property in your tsconfig.json.`)
 		newConfig = {
 			...rest,
@@ -60,7 +60,7 @@ Please rename the property in your tsconfig.json.`)
 		const { libs, ...rest } = config as typeof config & { libs: any }
 		logger.warn(`libs in EVMtsConfig is deprecated
 			and has been renamed to 'compiler.libs'. It will be
-removed in the EVMts beta release.
+removed in the Evmts beta release.
 Please rename the property in your tsconfig.json.`)
 		newConfig = {
 			...rest,
