@@ -74,10 +74,22 @@ describe(loadConfig.name, () => {
 				plugins: [
 					{
 						name: '@evmts/ts-plugin',
-						solcVersion: '0.9.0',
-						deployments: [],
-						remappings: {},
-						libs: [],
+						compiler: {
+							solcVersion: '0.9.0',
+							libs: ['path/to/libs'],
+						},
+						localContracts: {
+							contracts: [
+								{
+									name: 'WagmiMintExample',
+									addresses: {
+										'1': '0xFBA3912Ca04dd458c843e2EE08967fC04f3579c2',
+										'5': '0x1df10ec981ac5871240be4a94f250dd238b77901',
+										'10': '0x1df10ec981ac5871240be4a94f250dd238b77901',
+									},
+								}
+							]
+						},
 					},
 				],
 			},
@@ -88,9 +100,11 @@ describe(loadConfig.name, () => {
 			{
 			  "compiler": {
 			    "foundryProject": false,
-			    "libs": [],
+			    "libs": [
+			      "path/to/libs",
+			    ],
 			    "remappings": {},
-			    "solcVersion": "0.8.20",
+			    "solcVersion": "0.9.0",
 			  },
 			  "externalContracts": {
 			    "apiKeys": {
@@ -100,7 +114,16 @@ describe(loadConfig.name, () => {
 			    "out": "externalContracts",
 			  },
 			  "localContracts": {
-			    "contracts": [],
+			    "contracts": [
+			      {
+			        "addresses": {
+			          "1": "0xFBA3912Ca04dd458c843e2EE08967fC04f3579c2",
+			          "10": "0x1df10ec981ac5871240be4a94f250dd238b77901",
+			          "5": "0x1df10ec981ac5871240be4a94f250dd238b77901",
+			        },
+			        "name": "WagmiMintExample",
+			      },
+			    ],
 			  },
 			}
 		`)

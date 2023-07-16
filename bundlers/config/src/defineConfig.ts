@@ -1,6 +1,7 @@
 import { EVMtsConfig, ResolvedConfig, defaultConfig } from './EVMtsConfig'
 import { execSync } from 'child_process'
 import * as path from 'path'
+import { handleDeprecations } from './handleDeprecations'
 
 export type DefineConfig = (configFactory: () => EVMtsConfig) => {
 	configFn: (configFilePath: string) => ResolvedConfig
@@ -9,7 +10,7 @@ export type DefineConfig = (configFactory: () => EVMtsConfig) => {
 export const defineConfig: DefineConfig = (configFactory) => ({
 	configFn: (configFilePath: string) => {
 		const { compiler, localContracts, externalContracts } =
-			configFactory() ?? {}
+			handleDeprecations(configFactory()) ?? {}
 		const getFoundryDefaults = () => {
 			if (!compiler?.foundryProject) {
 				return {}
@@ -81,9 +82,9 @@ export const defineConfig: DefineConfig = (configFactory) => ({
 				out: externalContracts?.out ?? defaultConfig.externalContracts.out,
 				apiKeys: externalContracts?.apiKeys
 					? {
-							...defaultConfig.externalContracts.apiKeys,
-							...externalContracts.apiKeys,
-					  }
+						...defaultConfig.externalContracts.apiKeys,
+						...externalContracts.apiKeys,
+					}
 					: defaultConfig.externalContracts.apiKeys,
 				contracts:
 					externalContracts?.contracts ??
