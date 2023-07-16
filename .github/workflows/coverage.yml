@@ -50,3 +50,9 @@ jobs:
         with:
           name: "@evmts/config"
           working-directory: "./bundlers/config"
+      - name: 'Report @evmts/esbuild Coverage'
+        if: always() # Also generate the report if tests are failing
+        uses:  davelosert/vitest-coverage-report-action@v2
+        with:
+          name: "@evmts/esbuild"
+          working-directory: "./examples/esbuild"
