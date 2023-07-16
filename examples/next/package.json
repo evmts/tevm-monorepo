@@ -1,5 +1,5 @@
 {
-  "name": "evmts-next-example",
+  "name": "@evmts/example-next",
   "version": "0.0.2",
   "private": true,
   "scripts": {
