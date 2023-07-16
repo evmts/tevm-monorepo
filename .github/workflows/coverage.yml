@@ -29,19 +29,23 @@ jobs:
         if: always() # Also generate the report if tests are failing
         uses:  davelosert/vitest-coverage-report-action@v2
         with:
+          name: "@evmts/core"
           working-directory: "./core"
       - name: 'Report @evmts/bundler Coverage'
         if: always() # Also generate the report if tests are failing
         uses:  davelosert/vitest-coverage-report-action@v2
         with:
+          name: "@evmts/bundler"
           working-directory: "./bundlers/bundler"
       - name: 'Report @evmts/ts-plugin Coverage'
         if: always() # Also generate the report if tests are failing
         uses:  davelosert/vitest-coverage-report-action@v2
         with:
+          name: "@evmts/ts-plugin"
           working-directory: "./lsp/ts-plugin"
       - name: 'Report @evmts/config Coverage'
         if: always() # Also generate the report if tests are failing
         uses:  davelosert/vitest-coverage-report-action@v2
         with:
+          name: "@evmts/config"
           working-directory: "./config"
