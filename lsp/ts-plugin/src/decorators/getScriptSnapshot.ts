@@ -18,11 +18,7 @@ export const getScriptSnapshotDecorator = createDecorator(
 					return languageServiceHost.getScriptSnapshot(filePath)
 				}
 				try {
-					const c = defineConfig(() => config)
-					const plugin = bundler(
-						c.configFn(project.getCurrentDirectory()),
-						logger as any,
-					)
+					const plugin = bundler(config, logger as any)
 					const snapshot = plugin.resolveDtsSync(filePath, process.cwd())
 					return ts.ScriptSnapshot.fromString(snapshot)
 				} catch (e) {

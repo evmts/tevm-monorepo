@@ -1,5 +1,6 @@
 import tsPlugin from '.'
 import { EVMtsConfig } from '@evmts/config'
+import path from 'path'
 import typescript from 'typescript/lib/tsserverlibrary'
 import { Mock, describe, expect, it, vi } from 'vitest'
 
@@ -17,7 +18,7 @@ const createInfo: typescript.server.PluginCreateInfo = {
 		getResolvedModuleWithFailedLookupLocationsFromCache: vi.fn(),
 	},
 	project: {
-		getCurrentDirectory: () => '/currentDirectory',
+		getCurrentDirectory: () => path.join(__dirname, '..'),
 		getCompilerOptions: () => ({ baseUrl: 'foo' }),
 		projectService: {
 			logger: {

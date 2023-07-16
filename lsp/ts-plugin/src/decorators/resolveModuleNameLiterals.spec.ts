@@ -1,10 +1,10 @@
 import { resolveModuleNameLiteralsDecorator } from '.'
 import { solidityModuleResolver } from '../utils'
-import { EVMtsConfig } from '@evmts/config'
+import { defaultConfig, defineConfig } from '@evmts/config'
 import typescript from 'typescript/lib/tsserverlibrary'
 import { MockedFunction, describe, expect, it, vi } from 'vitest'
 
-const config: EVMtsConfig = {}
+const config = defineConfig(() => defaultConfig).configFn('.')
 
 const mockSolidityModuleResolver = solidityModuleResolver as MockedFunction<
 	typeof solidityModuleResolver
