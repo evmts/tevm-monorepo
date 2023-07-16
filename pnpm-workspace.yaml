@@ -1,8 +1,6 @@
 packages:
-  - "cli"
   - "core"
   - "docs"
-  - "docs-alpha"
   - "e2e"
   - "examples/*"
   - "bundlers/*"
