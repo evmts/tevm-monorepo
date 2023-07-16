@@ -1,11 +1,11 @@
 # NEXT.js configuration
 
-🏗️🚧 note: Early development and testing of EVMts is mostly done via vite. Next/webpack should work though as they still share an implemenation but be aware there could be hiccups until it reaches beta.
+🏗️🚧 note: Early development and testing of Evmts is mostly done via vite. Next/webpack should work though as they still share an implemenation but be aware there could be hiccups until it reaches beta.
 
 NEXT.js configuration can be done by adding the webpack plugin to `next.config.js`
 
 ::: info You will learn
-How to configure NEXT.js to bundle solidity files with EVMts
+How to configure NEXT.js to bundle solidity files with Evmts
 :::
 
 ## 1. Install webpack plugin
@@ -24,7 +24,7 @@ pnpm install @evmts/webpack --save-dev
 yarn add @evmts/webpack -D
 ```
 
-::: 
+:::
 
 ## 2. Add to next.config.js
 

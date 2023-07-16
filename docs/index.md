@@ -3,12 +3,12 @@
 layout: home
 
 hero:
-  name: "EVMts Alpha"
+  name: "Evmts Alpha"
   text: "Solidity+TypeScript"
   tagline: No more juggling abis and contract addresses
   actions:
     - theme: alt
-      text: Why EVMts
+      text: Why Evmts
       link: /getting-started/why.md
     - theme: alt
       text: Introduction
@@ -29,7 +29,7 @@ hero:
 features:
   # Basically saying we support bundling .sol
   - title: .sol imports
-    details: No more juggling ABIs and addresses. EVMts bundler takes care of figuring out the ABIs and addresses for your contracts
+    details: No more juggling ABIs and addresses. Evmts bundler takes care of figuring out the ABIs and addresses for your contracts
   # Basically saying we support TypeScript Language Server Protocol
   - title: First class editor support
     details: Autoimport, autocomplete, go-to-definition, and links to etherscan, and are now only a hover away in most popular editors including VSCode!

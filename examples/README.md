@@ -1,10 +1,10 @@
 # examples/
 
-Example apps for EVMts
+Example apps for Evmts
 
 ## examples/next/
 
-[NEXT.js](https://nextjs.org/) example app 
+[NEXT.js](https://nextjs.org/) example app
 
 ## examples/vite/
 

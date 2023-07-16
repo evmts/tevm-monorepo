@@ -36,7 +36,7 @@ export async function activate(context: vscode.ExtensionContext) {
 	}
 	client = new lsp.LanguageClient(
 		'evmts-language-server',
-		'EVMts Language Server',
+		'Evmts Language Server',
 		serverOptions,
 		clientOptions,
 	)

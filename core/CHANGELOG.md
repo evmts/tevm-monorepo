@@ -42,7 +42,7 @@
 
 ### Minor Changes
 
-- [#259](https://github.com/evmts/evmts-monorepo/pull/259) [`7ad7463`](https://github.com/evmts/evmts-monorepo/commit/7ad746347d3e127f001abdc28fff2a10c1ffed65) Thanks [@roninjin10](https://github.com/roninjin10)! - Added bytecode to EVMts contracts
+- [#259](https://github.com/evmts/evmts-monorepo/pull/259) [`7ad7463`](https://github.com/evmts/evmts-monorepo/commit/7ad746347d3e127f001abdc28fff2a10c1ffed65) Thanks [@roninjin10](https://github.com/roninjin10)! - Added bytecode to Evmts contracts
 
 ### Patch Changes
 
@@ -52,7 +52,7 @@
 
 ### Minor Changes
 
-- [#252](https://github.com/evmts/evmts-monorepo/pull/252) [`4b361ea`](https://github.com/evmts/evmts-monorepo/commit/4b361ea43fb34541bee4f75c8bea9d93543b1813) Thanks [@roninjin10](https://github.com/roninjin10)! - Changed EVMts configuration to be purely from tsconfig
+- [#252](https://github.com/evmts/evmts-monorepo/pull/252) [`4b361ea`](https://github.com/evmts/evmts-monorepo/commit/4b361ea43fb34541bee4f75c8bea9d93543b1813) Thanks [@roninjin10](https://github.com/roninjin10)! - Changed Evmts configuration to be purely from tsconfig
 
 ### Patch Changes
 
@@ -64,7 +64,7 @@
 
 - [#221](https://github.com/evmts/evmts-monorepo/pull/221) [`ab40941`](https://github.com/evmts/evmts-monorepo/commit/ab40941221c4edacce16659ef88bdfdb90c325bb) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug with wagmi not liking empty arrays for functions that take no args
 
-- [#219](https://github.com/evmts/evmts-monorepo/pull/219) [`058d904`](https://github.com/evmts/evmts-monorepo/commit/058d90474598ea790d4de9fd8501381a77edbcb6) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed missing types in EVMtsContract
+- [#219](https://github.com/evmts/evmts-monorepo/pull/219) [`058d904`](https://github.com/evmts/evmts-monorepo/commit/058d90474598ea790d4de9fd8501381a77edbcb6) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed missing types in EvmtsContract
 
 ## 0.1.1
 
@@ -76,9 +76,9 @@
 
 ### Minor Changes
 
-- [#213](https://github.com/evmts/evmts-monorepo/pull/213) [`e21f2f4`](https://github.com/evmts/evmts-monorepo/commit/e21f2f4fbdafc7d6d859f513afa319b9812826f0) Thanks [@roninjin10](https://github.com/roninjin10)! - Added humanReadableAbi property to EVMts contracts
+- [#213](https://github.com/evmts/evmts-monorepo/pull/213) [`e21f2f4`](https://github.com/evmts/evmts-monorepo/commit/e21f2f4fbdafc7d6d859f513afa319b9812826f0) Thanks [@roninjin10](https://github.com/roninjin10)! - Added humanReadableAbi property to Evmts contracts
 
-- [#212](https://github.com/evmts/evmts-monorepo/pull/212) [`88ec554`](https://github.com/evmts/evmts-monorepo/commit/88ec554a592d29aaba0a0d69ec61fd75118e817c) Thanks [@roninjin10](https://github.com/roninjin10)! - Added event support to EVMts contracts
+- [#212](https://github.com/evmts/evmts-monorepo/pull/212) [`88ec554`](https://github.com/evmts/evmts-monorepo/commit/88ec554a592d29aaba0a0d69ec61fd75118e817c) Thanks [@roninjin10](https://github.com/roninjin10)! - Added event support to Evmts contracts
 
 - [#211](https://github.com/evmts/evmts-monorepo/pull/211) [`877c137`](https://github.com/evmts/evmts-monorepo/commit/877c137dfbe8a143099ddb0656236c35bceb2f87) Thanks [@roninjin10](https://github.com/roninjin10)! - Added lazy evmts usage to use evmts without args
 

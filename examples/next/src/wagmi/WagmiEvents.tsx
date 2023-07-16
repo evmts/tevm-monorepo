@@ -7,7 +7,7 @@ export const WagmiEvents = () => {
 
 	const { data: blockNumber } = useBlockNumber()
 
-	// TODO add types to EVMtsContract type
+	// TODO add types to EvmtsContract type
 	const [events, concatEvents] = useReducer((events: any[], newEvents: any[]) => [...events, ...newEvents], [] as any[])
 
 	/**

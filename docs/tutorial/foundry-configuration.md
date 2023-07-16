@@ -1,6 +1,6 @@
 # Tutorial
 
-To learn all the pieces of EVMts we will configure a new project from scratch.  We only assume basic TypeScript knowledge and knowledge of what a Smart Contract is
+To learn all the pieces of Evmts we will configure a new project from scratch.  We only assume basic TypeScript knowledge and knowledge of what a Smart Contract is
 
 ::: info On this page you will learn
 
@@ -16,13 +16,13 @@ Looking to get started fast? Try forking one of our example projects or using ou
 #### Create a new project
 
 1. Install [nodejs](https://nodejs.org/)
-2. Create a new project folder 
+2. Create a new project folder
 
 ```bash
 mkdir evmts-tut && cd evmts-tut && npm init
 ```
 
-3. Initialize a new npm project.  
+3. Initialize a new npm project.
 
 ```bash
 npm init --yes
@@ -75,5 +75,5 @@ solc_version = "0.8.13"
 - `src` tells Foundry which folder contains the contract code.   We will put our contracts in `src/contracts`
 - `out` tells foundry where to put the artifacts.   We will put them in a folder called `artifacts`
 - `lib` tells foundry where to load library code from.   Putting 'node_modules` in there lets us load contracts from node_modules
-- Finally `solc_version` is telling Foundry to use the same solc version as EVMts.   
+- Finally `solc_version` is telling Foundry to use the same solc version as Evmts.
 

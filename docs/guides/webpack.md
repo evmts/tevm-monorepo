@@ -3,7 +3,7 @@
 Webpack configuration can be done by adding the webpack plugin to webpack config
 
 ::: info You will learn
-How to configure NEXT.js to bundle solidity files with EVMts
+How to configure NEXT.js to bundle solidity files with Evmts
 :::
 
 ## 1. Install webpack plugin
@@ -22,7 +22,7 @@ pnpm install @evmts/webpack --save-dev
 yarn add @evmts/webpack -D
 ```
 
-::: 
+:::
 
 ## 2. Add to webpack config
 
