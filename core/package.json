@@ -58,9 +58,5 @@
   },
   "publishConfig": {
     "access": "public"
-  },
-  "optionalPeerDependencies": {
-    "wagmi": ">1.0.0",
-    "viem": ">1.0.0"
   }
 }
