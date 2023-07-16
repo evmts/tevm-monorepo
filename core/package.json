@@ -1,6 +1,6 @@
 {
   "name": "@evmts/core",
-  "version": "0.5.4",
+  "version": "0.5.6",
   "private": false,
   "description": "A typesafe library for writing forge scripts in typescript",
   "keywords": [

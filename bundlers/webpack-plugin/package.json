@@ -1,6 +1,6 @@
 {
   "name": "@evmts/webpack-plugin",
-  "version": "0.5.5",
+  "version": "0.5.6",
   "private": false,
   "description": "A webpack plugin for evmts",
   "keywords": [

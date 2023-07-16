@@ -1,5 +1,16 @@
 # @evmts/ts-plugin
 
+## 0.5.6
+
+### Patch Changes
+
+- [#345](https://github.com/evmts/evmts-monorepo/pull/345) [`31186f7`](https://github.com/evmts/evmts-monorepo/commit/31186f749ce5cd3c6e0ca4d4885975aa74512c45) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed typo breaking TS language server
+
+- [#346](https://github.com/evmts/evmts-monorepo/pull/346) [`6d9365d`](https://github.com/evmts/evmts-monorepo/commit/6d9365db3ab197ea4ad53f777d755ee3ad562b21) Thanks [@roninjin10](https://github.com/roninjin10)! - Change naming to Evmts from EVMts
+
+- Updated dependencies [[`31186f7`](https://github.com/evmts/evmts-monorepo/commit/31186f749ce5cd3c6e0ca4d4885975aa74512c45), [`6d9365d`](https://github.com/evmts/evmts-monorepo/commit/6d9365db3ab197ea4ad53f777d755ee3ad562b21)]:
+  - @evmts/bundler@0.5.6
+
 ## 0.5.5
 
 ### Patch Changes

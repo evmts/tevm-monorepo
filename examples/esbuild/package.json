@@ -11,7 +11,7 @@
     "test:ui": "vitest --ui"
   },
   "dependencies": {
-    "@evmts/core": "^0.5.4",
+    "@evmts/core": "^0.5.6",
     "viem": "^1.2.12"
   },
   "devDependencies": {
