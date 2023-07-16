@@ -1,5 +1,20 @@
 # @evmts/plugin
 
+## 0.5.0
+
+### Minor Changes
+
+- [#283](https://github.com/evmts/evmts-monorepo/pull/283) [`05a8efe`](https://github.com/evmts/evmts-monorepo/commit/05a8efede4acad157e3820bdba24d92f598699e5) Thanks [@roninjin10](https://github.com/roninjin10)! - Updated config schema to support etherscan
+  - Solc version is now listed under `compiler.solcVersion` instead of `solc`
+  - Foundry projects are now listed under `compiler.foundryProject` instead of `forge`
+  - Local contracts are now specified under `localContracts.contracts` instead of `deployments`
+  - New external option (unimplemented) `externalContracts` which is used to specifify contracts imported from etherscan in the next release
+
+### Patch Changes
+
+- Updated dependencies [[`841d6a8`](https://github.com/evmts/evmts-monorepo/commit/841d6a89f4995e4f666902d27cb7dbfc3efd77e5), [`83bf23b`](https://github.com/evmts/evmts-monorepo/commit/83bf23b0cb2eb5860f9dfb63a773541e48c62abc), [`05a8efe`](https://github.com/evmts/evmts-monorepo/commit/05a8efede4acad157e3820bdba24d92f598699e5)]:
+  - @evmts/bundler@0.5.0
+
 ## 0.4.2
 
 ### Patch Changes
