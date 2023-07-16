@@ -9,7 +9,7 @@ import type typescript from 'typescript/lib/tsserverlibrary'
 export const solidityModuleResolver = (
 	moduleName: string,
 	ts: typeof typescript,
-	createInfo: typescript.server.PluginCreateInfo,
+	_: typescript.server.PluginCreateInfo,
 	containingFile: string,
 ): typescript.ResolvedModuleFull | undefined => {
 	if (isRelativeSolidity(moduleName)) {
@@ -18,15 +18,12 @@ export const solidityModuleResolver = (
 			isExternalLibraryImport: false,
 			resolvedFileName: path.resolve(path.dirname(containingFile), moduleName),
 		}
-	} else if (
-		isSolidity(moduleName) &&
-		createInfo.languageServiceHost
-			.getResolvedModuleWithFailedLookupLocationsFromCache
-	) {
+	} else if (isSolidity(moduleName)) {
 		return {
 			extension: ts.Extension.Dts,
 			isExternalLibraryImport: false,
 			resolvedFileName: moduleName,
 		}
 	}
+	return undefined
 }
