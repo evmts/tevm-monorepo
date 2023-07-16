@@ -1,6 +1,6 @@
 {
   "name": "@evmts/ts-plugin",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "private": false,
   "description": "A typescript plugin for evmts",
   "keywords": [

@@ -1,5 +1,11 @@
 # @evmts/core
 
+## 0.5.2
+
+### Patch Changes
+
+- [#333](https://github.com/evmts/evmts-monorepo/pull/333) [`cdbe2b1`](https://github.com/evmts/evmts-monorepo/commit/cdbe2b14d3a9b40ea37898829bc982b5e76e3c4c) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug with including wagmi and viem as peer dependencies
+
 ## 0.5.1
 
 ### Patch Changes
