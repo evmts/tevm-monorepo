@@ -64,7 +64,7 @@ describe('unpluginFn', () => {
 		)
 	})
 })
-describe('EVMts Rollup Plugin', () => {
+describe('Evmts Rollup Plugin', () => {
 	beforeEach(() => {
 		mockLoadConfig.mockReturnValue(defaultConfig)
 	})

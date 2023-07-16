@@ -43,13 +43,14 @@ describe(bundler.name, () => {
 			mockResolveArtifacts.mockResolvedValueOnce(artifacts)
 			const result = await resolver.resolveDts('module', 'basedir')
 			expect(result).toMatchInlineSnapshot(`
-				"import type { EVMtsContract } from '@evmts/core'
-				const _abiTestContract = [] as const
-				const _chainAddressMapTestContract = {\\"name\\":\\"TestContract\\",\\"addresses\\":{}} as const
+				"import type { EvmtsContract } from '@evmts/core'
+				type _AbiTestContract = [] as const;
+				type _ChainAddressMapTestContract = {\\"name\\":\\"TestContract\\",\\"addresses\\":{}} as const;
+				type _NameTestContract = \\"TestContract\\";
 				/**
-				 * TestContract EVMtsContract
+				 * TestContract EvmtsContract
 				 */
-				export const TestContract: EVMtsContract<\\"TestContract\\", typeof _chainAddressMapTestContract, typeof _abiTestContract>"
+				export const TestContract: EvmtsContract<_NameTestContract, _ChainAddressMapTestContract, _AbiTestContract>;"
 			`)
 		})
 	})
@@ -69,13 +70,14 @@ describe(bundler.name, () => {
 			mockResolveArtifactsSync.mockReturnValueOnce(artifacts)
 			const result = resolver.resolveDtsSync('module', 'basedir')
 			expect(result).toMatchInlineSnapshot(`
-				"import type { EVMtsContract } from '@evmts/core'
-				const _abiTestContract = [] as const
-				const _chainAddressMapTestContract = {} as const
+				"import type { EvmtsContract } from '@evmts/core'
+				export type _AbiTestContract = [] as const;
+				export type _ChainAddressMapTestContract = {} as const;
+				export type _NameTestContract = \\"TestContract\\";
 				/**
-				 * TestContract EVMtsContract
+				 * TestContract EvmtsContract
 				 */
-				export const TestContract: EVMtsContract<\\"TestContract\\", typeof _chainAddressMapTestContract, typeof _abiTestContract>"
+				export const TestContract: EvmtsContract<_NameTestContract, _ChainAddressMapTestContract, _AbiTestContract>;"
 			`)
 		})
 	})
