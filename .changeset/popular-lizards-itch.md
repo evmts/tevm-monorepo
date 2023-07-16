@@ -9,7 +9,7 @@
 "@evmts/webpack-plugin": minor
 ---
 
-Breaking! Updated config schema to support etherscan
+Updated config schema to support etherscan
 - Solc version is now listed under `compiler.solcVersion` instead of `solc`
 - Foundry projects are now listed under `compiler.foundryProject` instead of `forge`
 - Local contracts are now specified under `localContracts.contracts` instead of `deployments`
