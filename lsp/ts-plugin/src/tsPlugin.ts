@@ -4,8 +4,8 @@ import {
 	resolveModuleNameLiteralsDecorator,
 } from './decorators'
 import { createLogger, decorate } from './factories'
-import { evmTsConfigFactory } from './factories/EVMtsConfigFactory'
 import { isSolidity } from './utils'
+import { loadConfig } from '@evmts/config'
 import type typescript from 'typescript/lib/tsserverlibrary'
 
 /**
@@ -20,6 +20,7 @@ import type typescript from 'typescript/lib/tsserverlibrary'
 export const tsPlugin: typescript.server.PluginModuleFactory = (modules) => {
 	return {
 		create: (createInfo) => {
+			const logger = createLogger(createInfo)
 			return modules.typescript.createLanguageService(
 				decorate(
 					getScriptKindDecorator,
@@ -28,8 +29,8 @@ export const tsPlugin: typescript.server.PluginModuleFactory = (modules) => {
 				)(
 					createInfo,
 					modules.typescript,
-					createLogger(createInfo),
-					evmTsConfigFactory(createInfo),
+					logger,
+					loadConfig(createInfo.project.getCurrentDirectory(), logger),
 				),
 			)
 		},
