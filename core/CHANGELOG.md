@@ -1,5 +1,11 @@
 # @evmts/core
 
+## 0.5.3
+
+### Patch Changes
+
+- [#335](https://github.com/evmts/evmts-monorepo/pull/335) [`2dc1950`](https://github.com/evmts/evmts-monorepo/commit/2dc19507c9d957948dcff8f65a359fc25b0ceb10) Thanks [@roninjin10](https://github.com/roninjin10)! - Downgrade abitype to 8.x
+
 ## 0.5.2
 
 ### Patch Changes
