@@ -21,13 +21,15 @@
   "type": "module",
   "main": "dist/index.cjs",
   "module": "dist/index.js",
-  "types": "src/index.ts",
+  "types": "types/index.d.ts",
   "files": [
     "dist",
-    "src"
+    "src",
+    "types"
   ],
   "scripts": {
-    "build": "tsup",
+    "build": "tsup && pnpm build:types",
+    "build:types": "tsc --emitDeclarationOnly",
     "clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
     "format": "rome format . --write",
     "format:check": "rome format .",
