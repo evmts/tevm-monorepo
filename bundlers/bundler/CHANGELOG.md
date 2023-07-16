@@ -1,5 +1,25 @@
 # @evmts/core
 
+## 0.5.0
+
+### Minor Changes
+
+- [#283](https://github.com/evmts/evmts-monorepo/pull/283) [`05a8efe`](https://github.com/evmts/evmts-monorepo/commit/05a8efede4acad157e3820bdba24d92f598699e5) Thanks [@roninjin10](https://github.com/roninjin10)! - Updated config schema to support etherscan
+  - Solc version is now listed under `compiler.solcVersion` instead of `solc`
+  - Foundry projects are now listed under `compiler.foundryProject` instead of `forge`
+  - Local contracts are now specified under `localContracts.contracts` instead of `deployments`
+  - New external option (unimplemented) `externalContracts` which is used to specifify contracts imported from etherscan in the next release
+
+### Patch Changes
+
+- [#298](https://github.com/evmts/evmts-monorepo/pull/298) [`841d6a8`](https://github.com/evmts/evmts-monorepo/commit/841d6a89f4995e4f666902d27cb7dbfc3efd77e5) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug with etherscan links showing as undefined if they didn't exist
+
+- [#301](https://github.com/evmts/evmts-monorepo/pull/301) [`83bf23b`](https://github.com/evmts/evmts-monorepo/commit/83bf23b0cb2eb5860f9dfb63a773541e48c62abc) Thanks [@roninjin10](https://github.com/roninjin10)! - Upgraded all dependencies
+
+- Updated dependencies [[`700b3d0`](https://github.com/evmts/evmts-monorepo/commit/700b3d0907df243b29e96b1b3246b8c75cfb9900), [`720bfdb`](https://github.com/evmts/evmts-monorepo/commit/720bfdba790699e388c5ec1c68630b9f0f077158), [`05a8efe`](https://github.com/evmts/evmts-monorepo/commit/05a8efede4acad157e3820bdba24d92f598699e5), [`85c340d`](https://github.com/evmts/evmts-monorepo/commit/85c340dc4a63afdbc6bd92fb4b2cf3fe0ffdc6e7), [`0bd5b45`](https://github.com/evmts/evmts-monorepo/commit/0bd5b4511e292380a7ac87a898d22dbd32df9e35), [`720bfdb`](https://github.com/evmts/evmts-monorepo/commit/720bfdba790699e388c5ec1c68630b9f0f077158), [`2ab7c02`](https://github.com/evmts/evmts-monorepo/commit/2ab7c022520fe3c03f337d51dc0f7875830492f1)]:
+  - @evmts/config@0.5.0
+  - @evmts/core@0.5.0
+
 ## 0.4.2
 
 ### Patch Changes

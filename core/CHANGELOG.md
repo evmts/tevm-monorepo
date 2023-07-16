@@ -1,5 +1,13 @@
 # @evmts/core
 
+## 0.5.0
+
+### Patch Changes
+
+- [#308](https://github.com/evmts/evmts-monorepo/pull/308) [`0bd5b45`](https://github.com/evmts/evmts-monorepo/commit/0bd5b4511e292380a7ac87a898d22dbd32df9e35) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug with `args` key being undefined rather than not existing in Object.keys
+
+- [#307](https://github.com/evmts/evmts-monorepo/pull/307) [`2ab7c02`](https://github.com/evmts/evmts-monorepo/commit/2ab7c022520fe3c03f337d51dc0f7875830492f1) Thanks [@roninjin10](https://github.com/roninjin10)! - Upgraded all subdependencies
+
 ## 0.3.1
 
 ### Patch Changes
