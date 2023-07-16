@@ -12,9 +12,9 @@ export const addressValidator = z
 export type Address = `0x${string}`
 
 export const localContractsConfigValidator = z
-	.object({
+	.strictObject({
 		addresses: z.array(
-			z.object({
+			z.strictObject({
 				name: z.string().describe('Unique name of contract'),
 				address: addressValidator.describe('Address of contract'),
 			}),
@@ -54,7 +54,7 @@ export type SupportedEtherscanChainIds = z.infer<
 	typeof supportedEtherscanChainIdsValidator
 >
 
-export const etherscanConfigValidator = z.object({
+export const etherscanConfigValidator = z.strictObject({
 	type: z.literal('etherscan'),
 	name: z.string(),
 	addresses: z.record(addressValidator),
@@ -62,7 +62,7 @@ export const etherscanConfigValidator = z.object({
 /**
  * Configure external contracts to be imported through etherscan api
  */
-type EtherscanConfig = {
+export type EtherscanConfig = {
 	/**
 	 * Name of block explorer
 	 */
@@ -79,9 +79,9 @@ type EtherscanConfig = {
 }
 
 export const externalConfigValidator = z
-	.object({
+	.strictObject({
 		apiKeys: z
-			.object({
+			.strictObject({
 				etherscan: z.record(z.string().optional()),
 			})
 			.optional(),
@@ -109,7 +109,7 @@ type ExternalConfig = {
 }
 
 export const compilerConfigValidator = z
-	.object({
+	.strictObject({
 		solcVersion: z.string().optional(),
 		foundryProject: z.union([z.boolean(), z.string()]).optional(),
 		libs: z.array(z.string()).optional(),
@@ -118,7 +118,7 @@ export const compilerConfigValidator = z
 /**
  * Configuration of the solidity compiler
  */
-type CompilerConfig = {
+export type CompilerConfig = {
 	/**
 	 * Solc version to use  (e.g. "0.8.13")
 	 * @defaults "0.8.13"

@@ -4,74 +4,86 @@
 // deployments?: Record<string, DeploymentConfig>
 // forge?: ForgeConfig
 
-import { EVMtsConfig } from "./EVMtsConfig"
+import {
+	CompilerConfig,
+	EVMtsConfig,
+	LocalContractsConfig,
+} from './EVMtsConfig'
 
-let didWarn = false
+export interface DeprecatedConfig extends EVMtsConfig {
+	deployments?: LocalContractsConfig['contracts']
+	forge?: CompilerConfig['foundryProject']
+	libs?: CompilerConfig['libs']
+	solcVersion?: CompilerConfig['solcVersion']
+}
 
-// libs?: string[]
-export const handleDeprecations = (config?: EVMtsConfig, logger: { warn: (message: string) => void } = console) => {
-  if (didWarn) {
-    logger = { warn: () => { } }
-  }
-  if (!config) {
-    return config
-  }
-  let newConfig = config
-  if ((config as any).deployments) {
-    logger.warn(`deployments in EVMtsConfig is deprecated and
+export const handleDeprecations = (
+	config?: DeprecatedConfig,
+	logger: { warn: (message: string) => void } = console,
+) => {
+	if (!config) {
+		return config
+	}
+	let newConfig = config
+	if (config.deployments) {
+		logger.warn(`deployments in EVMtsConfig is deprecated and
 			has been renamed to 'localContracts.contracts'. It will be
 removed in the EVMts beta release.
 Please rename the property in your tsconfig.json.`)
-    newConfig = {
-      ...config,
-      localContracts: {
-        ...config.compiler,
+		const { deployments, ...rest } = config as typeof config & {
+			deployments: any
+		}
+		newConfig = {
+			...rest,
+			localContracts: {
+				...rest.localContracts,
 
-        contracts: config?.localContracts?.contracts ?? (config as any)?.deployments,
-      },
-    }
-  }
-  if ((config as any).forge) {
-    logger.warn(`forge in EVMtsConfig is deprecated and
+				contracts: rest?.localContracts?.contracts ?? deployments,
+			},
+		}
+	}
+	if (config.forge) {
+		const { forge, ...rest } = config as typeof config & { forge: any }
+		logger.warn(`forge in EVMtsConfig is deprecated and
 			has been renamed to 'compiler.foundryProject'. It will be
 removed in the EVMts beta release.
 Please rename the property in your tsconfig.json.`)
-    newConfig = {
-      ...config,
-      compiler: {
-        ...config.compiler,
-        foundryProject: config?.compiler?.foundryProject ?? (config as any)?.forge,
-      },
-    }
-  }
-  if ((config as any).libs) {
-    logger.warn(`libs in EVMtsConfig is deprecated
+		newConfig = {
+			...rest,
+			compiler: {
+				...rest.compiler,
+				foundryProject: rest?.compiler?.foundryProject ?? forge,
+			},
+		}
+	}
+	if (config.libs) {
+		const { libs, ...rest } = config as typeof config & { libs: any }
+		logger.warn(`libs in EVMtsConfig is deprecated
 			and has been renamed to 'compiler.libs'. It will be
 removed in the EVMts beta release.
 Please rename the property in your tsconfig.json.`)
-    newConfig = {
-      ...config,
-      compiler: {
-        ...config.compiler,
-        libs: [
-          ...(config?.compiler?.libs ?? []),
-          ...(config as any)?.libs
-        ],
-      },
-    }
-  }
-  if ((config as any).solcVersion) {
-    logger.warn(`solcVersion in EVMtsConfig is deprecated and
+		newConfig = {
+			...rest,
+			compiler: {
+				...rest.compiler,
+				libs: [...(rest?.compiler?.libs ?? []), ...libs],
+			},
+		}
+	}
+	if (config.solcVersion) {
+		const { solcVersion, ...rest } = config as typeof config & {
+			solcVersion: any
+		}
+		logger.warn(`solcVersion in EVMtsConfig is deprecated and
 			has been renamed to 'compiler.solcVersion'
 Please rename the property in your tsconfig.json`)
-    newConfig = {
-      ...config,
-      compiler: {
-        ...config.compiler,
-        solcVersion: config?.compiler?.solcVersion ?? (config as any)?.solcVersion,
-      },
-    }
-  }
-  return newConfig
+		newConfig = {
+			...rest,
+			compiler: {
+				...rest.compiler,
+				solcVersion: rest?.compiler?.solcVersion ?? solcVersion,
+			},
+		}
+	}
+	return newConfig
 }
-

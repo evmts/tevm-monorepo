@@ -87,8 +87,8 @@ describe(loadConfig.name, () => {
 										'5': '0x1df10ec981ac5871240be4a94f250dd238b77901',
 										'10': '0x1df10ec981ac5871240be4a94f250dd238b77901',
 									},
-								}
-							]
+								},
+							],
 						},
 					},
 				],
