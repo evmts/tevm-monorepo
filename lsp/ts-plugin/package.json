@@ -44,8 +44,8 @@
   },
   "dependencies": {
     "@evmts/bundler": "workspace:^",
-    "esbuild": "0.18.8",
-    "glob": "^10.3.1",
+    "esbuild": "0.18.13",
+    "glob": "^10.3.3",
     "zod": "^3.21.4"
   },
   "devDependencies": {
