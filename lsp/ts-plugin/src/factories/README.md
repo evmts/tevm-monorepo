@@ -6,7 +6,7 @@
 
 Factories used for generating ts language server decorators
 
-#### [config](./config.ts)
+#### [config](./bundlers/config.ts)
 
 Parses and validates the user provided config with zod
 
