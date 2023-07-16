@@ -35,7 +35,9 @@ export const bundler: Bundler = (config, logger) => {
 									` * @etherscan-${chainId} ${etherscanLink}`,
 							),
 							' */',
-							`export const ${contractName}: EVMtsContract<${contract.name}, typeof _chainAddressMap${contractName}, typeof _abi${contractName}>`,
+							`export const ${contractName}: EVMtsContract<${JSON.stringify(
+								contract.name,
+							)}, typeof _chainAddressMap${contractName}, typeof _abi${contractName}>`,
 						].filter(Boolean)
 					})
 					.join('\n')
@@ -72,7 +74,9 @@ export const bundler: Bundler = (config, logger) => {
 									` * @etherscan ${chainId} ${etherscanLink}`,
 							),
 							' */',
-							`export const ${contractName}: EVMtsContract<${contract.name}, typeof _chainAddressMap${contractName}, typeof _abi${contractName}>`,
+							`export const ${contractName}: EVMtsContract<${JSON.stringify(
+								contract.name,
+							)}, typeof _chainAddressMap${contractName}, typeof _abi${contractName}>`,
 						].filter(Boolean)
 					})
 					.join('\n')
