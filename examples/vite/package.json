@@ -27,7 +27,7 @@
     "@evmts/bundler": "workspace:^",
     "@evmts/config": "workspace:^",
     "@evmts/contracts": "^0.0.1",
-    "@evmts/core": "workspace:^0.5.1",
+    "@evmts/core": "workspace:^0.5.2",
     "@rainbow-me/rainbowkit": "^1.0.4",
     "buffer": "^6.0.3",
     "ds-test": "github:dapphub/ds-test",
