@@ -4,7 +4,7 @@ solc = "0.8.19"
 src = "src/contracts"
 test = "test"
 out = "artifacts"
-lib = ["node_modules", "../../node_modules"]
+lib = ["node_modules", "../../node_modules", "lib"]
 
 allow_paths = ["../../node_modules"]
 
