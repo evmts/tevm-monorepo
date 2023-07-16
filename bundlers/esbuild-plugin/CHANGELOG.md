@@ -1,5 +1,14 @@
 # @evmts/plugin
 
+## 0.5.4
+
+### Patch Changes
+
+- [#341](https://github.com/evmts/evmts-monorepo/pull/341) [`3ecff02`](https://github.com/evmts/evmts-monorepo/commit/3ecff02196b3dd18170d72aae9a023f0170bb821) Thanks [@roninjin10](https://github.com/roninjin10)! - Upgraded all dependencies
+
+- Updated dependencies [[`c9dec08`](https://github.com/evmts/evmts-monorepo/commit/c9dec084df5c5a9999a8f917405a15b11a004c02)]:
+  - @evmts/bundler@0.5.4
+
 ## 0.5.3
 
 ### Patch Changes

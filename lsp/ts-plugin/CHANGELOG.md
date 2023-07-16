@@ -1,5 +1,14 @@
 # @evmts/ts-plugin
 
+## 0.5.4
+
+### Patch Changes
+
+- [#340](https://github.com/evmts/evmts-monorepo/pull/340) [`9f2c254`](https://github.com/evmts/evmts-monorepo/commit/9f2c2548beaf45baf3f2c91c80751ef9cc71a81f) Thanks [@roninjin10](https://github.com/roninjin10)! - Upgraded all dependencies
+
+- Updated dependencies [[`c9dec08`](https://github.com/evmts/evmts-monorepo/commit/c9dec084df5c5a9999a8f917405a15b11a004c02)]:
+  - @evmts/bundler@0.5.4
+
 ## 0.5.3
 
 ### Patch Changes

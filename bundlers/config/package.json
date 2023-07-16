@@ -1,6 +1,6 @@
 {
   "name": "@evmts/config",
-  "version": "0.5.0",
+  "version": "0.5.4",
   "private": false,
   "description": "Manages config for evmts",
   "keywords": [

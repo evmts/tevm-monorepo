@@ -1,5 +1,15 @@
 # @evmts/core
 
+## 0.5.4
+
+### Patch Changes
+
+- [#339](https://github.com/evmts/evmts-monorepo/pull/339) [`c9dec08`](https://github.com/evmts/evmts-monorepo/commit/c9dec084df5c5a9999a8f917405a15b11a004c02) Thanks [@roninjin10](https://github.com/roninjin10)! - Upgraded all dependencies
+
+- Updated dependencies [[`0116537`](https://github.com/evmts/evmts-monorepo/commit/0116537d3423c8decfd0adaf490d37d33f8a540f), [`2b8b5ed`](https://github.com/evmts/evmts-monorepo/commit/2b8b5ed9852c32e15a7466f00f4ca9c0458cfeef)]:
+  - @evmts/config@0.5.4
+  - @evmts/core@0.5.4
+
 ## 0.5.3
 
 ### Patch Changes
