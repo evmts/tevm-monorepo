@@ -1,7 +1,6 @@
 packages:
   - "cli"
   - "core"
-  - "config"
   - "docs"
   - "docs-alpha"
   - "e2e"

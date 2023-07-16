@@ -48,4 +48,4 @@ jobs:
         uses:  davelosert/vitest-coverage-report-action@v2
         with:
           name: "@evmts/config"
-          working-directory: "./config"
+          working-directory: "./bundlers/config"

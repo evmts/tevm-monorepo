@@ -38,7 +38,7 @@ importers:
     dependencies:
       '@evmts/config':
         specifier: workspace:^
-        version: link:../../config
+        version: link:../config
       '@evmts/core':
         specifier: workspace:^
         version: link:../../core
@@ -76,6 +76,40 @@ importers:
       vitest:
         specifier: ^0.33.0
         version: 0.33.0(@vitest/ui@0.33.0)
+      zod:
+        specifier: ^3.21.4
+        version: 3.21.4
+
+  bundlers/config:
+    dependencies:
+      '@types/node':
+        specifier: ^20.3.1
+        version: 20.4.1
+      bundle-require:
+        specifier: ^4.0.1
+        version: 4.0.1(esbuild@0.18.8)
+      viem:
+        specifier: ^1.2.14
+        version: 1.2.14(typescript@5.1.6)(zod@3.21.4)
+    devDependencies:
+      '@vitest/coverage-v8':
+        specifier: ^0.33.0
+        version: 0.33.0(vitest@0.33.0)
+      '@vitest/ui':
+        specifier: ^0.32.2
+        version: 0.32.2(vitest@0.33.0)
+      rome:
+        specifier: ^12.1.3
+        version: 12.1.3
+      tsup:
+        specifier: ^7.1.0
+        version: 7.1.0(typescript@5.1.6)
+      typescript:
+        specifier: ^5.1.6
+        version: 5.1.6
+      vitest:
+        specifier: ^0.33.0
+        version: 0.33.0(@vitest/ui@0.32.2)
       zod:
         specifier: ^3.21.4
         version: 3.21.4
@@ -156,7 +190,7 @@ importers:
         version: link:../bundler
       vite:
         specifier: '>4.0.0'
-        version: 4.3.9(@types/node@20.4.2)
+        version: 4.3.9
     devDependencies:
       '@vitest/ui':
         specifier: ^0.32.2
@@ -198,40 +232,6 @@ importers:
       vitest:
         specifier: ^0.33.0
         version: 0.33.0(@vitest/ui@0.32.2)
-
-  config:
-    dependencies:
-      '@types/node':
-        specifier: ^20.3.1
-        version: 20.3.1
-      bundle-require:
-        specifier: ^4.0.1
-        version: 4.0.1(esbuild@0.18.8)
-      viem:
-        specifier: ^1.2.14
-        version: 1.2.14(typescript@5.1.6)(zod@3.21.4)
-    devDependencies:
-      '@vitest/coverage-v8':
-        specifier: ^0.33.0
-        version: 0.33.0(vitest@0.33.0)
-      '@vitest/ui':
-        specifier: ^0.32.2
-        version: 0.32.2(vitest@0.33.0)
-      rome:
-        specifier: ^12.1.3
-        version: 12.1.3
-      tsup:
-        specifier: ^7.1.0
-        version: 7.1.0(typescript@5.1.6)
-      typescript:
-        specifier: ^5.1.6
-        version: 5.1.6
-      vitest:
-        specifier: ^0.33.0
-        version: 0.33.0(@vitest/ui@0.32.2)
-      zod:
-        specifier: ^3.21.4
-        version: 3.21.4
 
   core:
     dependencies:
@@ -327,7 +327,7 @@ importers:
     devDependencies:
       '@evmts/config':
         specifier: ^0.2.0
-        version: link:../../config
+        version: link:../../bundlers/config
       '@evmts/ts-plugin':
         specifier: ^0.4.0
         version: link:../../lsp/ts-plugin
@@ -366,7 +366,7 @@ importers:
         version: link:../../bundlers/bundler
       '@evmts/config':
         specifier: workspace:^
-        version: link:../../config
+        version: link:../../bundlers/config
       '@evmts/contracts':
         specifier: ^0.0.1
         version: 0.0.1(@types/node@20.4.2)(ethers@5.7.2)(react-dom@18.2.0)(react@18.2.0)(typescript@5.1.6)
@@ -504,7 +504,7 @@ importers:
     devDependencies:
       '@evmts/config':
         specifier: workspace:^
-        version: link:../../config
+        version: link:../../bundlers/config
       '@vitest/coverage-v8':
         specifier: ^0.33.0
         version: 0.33.0(vitest@0.33.0)
@@ -3992,7 +3992,7 @@ packages:
     engines: {node: '>=16'}
     hasBin: true
     dependencies:
-      '@types/node': 20.4.1
+      '@types/node': 20.4.2
       playwright-core: 1.35.1
     optionalDependencies:
       fsevents: 2.3.2
@@ -4789,13 +4789,8 @@ packages:
     resolution: {integrity: sha512-N+0kuo9KgrUQ1Sn/ifDXsvg0TTleP7rIy4zOBGECxAljqvqfqpTfzx0Q1NUedOixRMBfe2Whhb056a42cWs26Q==}
     dev: true
 
-  /@types/node@20.3.1:
-    resolution: {integrity: sha512-EhcH/wvidPy1WeML3TtYFGR83UzjxeWRen9V402T8aUGYsCHOmfoisV3ZSg03gAFIbLq8TnWOJ0f4cALtnSEUg==}
-    dev: false
-
   /@types/node@20.4.1:
     resolution: {integrity: sha512-JIzsAvJeA/5iY6Y/OxZbv1lUcc8dNSE77lb2gnBH+/PJ3lFR1Ccvgwl5JWnHAkNHcRsT0TbpVOsiMKZ1F/yyJg==}
-    dev: true
 
   /@types/node@20.4.2:
     resolution: {integrity: sha512-Dd0BYtWgnWJKwO1jkmTrzofjK2QXXcai0dmtzvIBhcA+RsG5h8R3xlyta0kGOZRNfL9GuRtb1knmPEhQrePCEw==}
@@ -5094,7 +5089,7 @@ packages:
       vite: ^4.0.0
       vue: ^3.2.25
     dependencies:
-      vite: 4.3.9(@types/node@20.4.2)
+      vite: 4.3.9
       vue: 3.3.4
     dev: true
 
@@ -15847,7 +15842,7 @@ packages:
     hasBin: true
     dependencies:
       '@jridgewell/source-map': 0.3.3
-      acorn: 8.8.2
+      acorn: 8.10.0
       commander: 2.20.3
       source-map-support: 0.5.21
     dev: false
@@ -16728,6 +16723,37 @@ packages:
       - terser
     dev: true
 
+  /vite@4.3.9:
+    resolution: {integrity: sha512-qsTNZjO9NoJNW7KnOrgYwczm0WctJ8m/yqYAMAK9Lxt4SoySUfS5S8ia9K7JHpa3KEeMfyF8LoJ3c5NeBJy6pg==}
+    engines: {node: ^14.18.0 || >=16.0.0}
+    hasBin: true
+    peerDependencies:
+      '@types/node': '>= 14'
+      less: '*'
+      sass: '*'
+      stylus: '*'
+      sugarss: '*'
+      terser: ^5.4.0
+    peerDependenciesMeta:
+      '@types/node':
+        optional: true
+      less:
+        optional: true
+      sass:
+        optional: true
+      stylus:
+        optional: true
+      sugarss:
+        optional: true
+      terser:
+        optional: true
+    dependencies:
+      esbuild: 0.17.19
+      postcss: 8.4.24
+      rollup: 3.25.2
+    optionalDependencies:
+      fsevents: 2.3.2
+
   /vite@4.3.9(@types/node@20.4.2):
     resolution: {integrity: sha512-qsTNZjO9NoJNW7KnOrgYwczm0WctJ8m/yqYAMAK9Lxt4SoySUfS5S8ia9K7JHpa3KEeMfyF8LoJ3c5NeBJy6pg==}
     engines: {node: ^14.18.0 || >=16.0.0}
@@ -16756,9 +16782,10 @@ packages:
       '@types/node': 20.4.2
       esbuild: 0.17.19
       postcss: 8.4.24
-      rollup: 3.25.2
+      rollup: 3.26.2
     optionalDependencies:
       fsevents: 2.3.2
+    dev: true
 
   /vite@4.4.4(@types/node@20.4.2):
     resolution: {integrity: sha512-4mvsTxjkveWrKDJI70QmelfVqTm+ihFAb6+xf4sjEU2TmUCTlVX87tmg/QooPEMQb/lM9qGHT99ebqPziEd3wg==}
@@ -16811,7 +16838,7 @@ packages:
       mark.js: 8.11.1
       minisearch: 6.1.0
       shiki: 0.14.3
-      vite: 4.3.9(@types/node@20.4.2)
+      vite: 4.3.9
       vue: 3.3.4
     transitivePeerDependencies:
       - '@algolia/client-search'
