@@ -9,7 +9,7 @@
     "start": "next start"
   },
   "dependencies": {
-    "@evmts/core": "^0.5.2",
+    "@evmts/core": "^0.5.3",
     "@rainbow-me/rainbowkit": "^1.0.5",
     "next": "^13.4.9",
     "react": "^18.2.0",
@@ -19,8 +19,8 @@
   },
   "devDependencies": {
     "@evmts/config": "^0.5.0",
-    "@evmts/ts-plugin": "^0.5.2",
-    "@evmts/webpack-plugin": "^0.5.2",
+    "@evmts/ts-plugin": "^0.5.3",
+    "@evmts/webpack-plugin": "^0.5.3",
     "@openzeppelin/contracts": "^4.9.2",
     "@types/node": "^20.4.1",
     "@types/react": "^18.2.14",
