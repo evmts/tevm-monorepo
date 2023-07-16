@@ -21,7 +21,7 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Run tests
-        run: pnpm nx affected --target=test:coverage
+        run: pnpm nx run-many --target=test:coverage
         env:
           NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
 
