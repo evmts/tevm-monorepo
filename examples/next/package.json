@@ -19,8 +19,8 @@
   },
   "devDependencies": {
     "@evmts/config": "^0.5.4",
-    "@evmts/ts-plugin": "^0.5.4",
-    "@evmts/webpack-plugin": "^0.5.4",
+    "@evmts/ts-plugin": "^0.5.5",
+    "@evmts/webpack-plugin": "^0.5.5",
     "@openzeppelin/contracts": "^4.9.2",
     "@types/node": "^20.4.1",
     "@types/react": "^18.2.14",

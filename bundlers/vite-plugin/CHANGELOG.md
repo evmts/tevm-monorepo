@@ -1,5 +1,12 @@
 # @evmts/plugin
 
+## 0.5.5
+
+### Patch Changes
+
+- Updated dependencies [[`bec7e33`](https://github.com/evmts/evmts-monorepo/commit/bec7e3303e8b241213804c42f6673a38dc7a954c)]:
+  - @evmts/bundler@0.5.5
+
 ## 0.5.4
 
 ### Patch Changes

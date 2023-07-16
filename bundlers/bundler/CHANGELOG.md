@@ -1,5 +1,11 @@
 # @evmts/core
 
+## 0.5.5
+
+### Patch Changes
+
+- [#343](https://github.com/evmts/evmts-monorepo/pull/343) [`bec7e33`](https://github.com/evmts/evmts-monorepo/commit/bec7e3303e8b241213804c42f6673a38dc7a954c) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug with generated .d.ts file name param
+
 ## 0.5.4
 
 ### Patch Changes
