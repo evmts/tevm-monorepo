@@ -2,10 +2,11 @@ import { createPublicClient, http } from 'viem'
 import { mainnet } from 'viem/chains'
 
 import { ExampleContract } from './ExampleContract.sol'
+import { rpcUrls } from './constants'
 
 export const publicClient = createPublicClient({
   chain: mainnet,
-  transport: http(mainnet.rpcUrls.public.http[0]),
+  transport: http(rpcUrls[mainnet.id]),
 })
 
 
