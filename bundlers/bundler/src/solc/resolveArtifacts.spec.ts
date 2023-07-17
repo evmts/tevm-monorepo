@@ -1,8 +1,8 @@
-import { Logger } from '../types'
+import { Logger, ModuleInfo } from '../types'
 import { compileContractSync } from './compileContracts'
 import { resolveArtifacts } from './resolveArtifacts'
 import { ResolvedConfig, defaultConfig } from '@evmts/config'
-import { Mock, afterEach, describe, expect, it, vi } from 'vitest'
+import { MockedFunction, afterEach, describe, expect, it, vi } from 'vitest'
 
 vi.mock('./compileContracts', () => ({
 	compileContractSync: vi.fn(),
@@ -23,18 +23,30 @@ const contracts = {
 		evm: { bytecode: { object: '0x123' } },
 	},
 }
-const expectedArtifacts = {
-	Test: { contractName: 'Test', abi: [], bytecode: '0x123' },
-}
-
-const mockCompileContractSync = compileContractSync as Mock
+const mockCompileContractSync = compileContractSync as MockedFunction<
+	typeof compileContractSync
+>
 
 describe('resolveArtifacts', () => {
 	it('should return the contract artifacts', async () => {
-		mockCompileContractSync.mockReturnValue(contracts)
-		expect(await resolveArtifacts(solFile, basedir, logger, config)).toEqual(
-			expectedArtifacts,
-		)
+		mockCompileContractSync.mockReturnValue({
+			artifacts: contracts,
+			modules: {} as Record<string, ModuleInfo>,
+		})
+		expect(
+			await resolveArtifacts(solFile, basedir, logger, config),
+		).toMatchInlineSnapshot(`
+			{
+			  "artifacts": {
+			    "Test": {
+			      "abi": [],
+			      "bytecode": "0x123",
+			      "contractName": "Test",
+			    },
+			  },
+			  "modules": {},
+			}
+		`)
 	})
 })
 

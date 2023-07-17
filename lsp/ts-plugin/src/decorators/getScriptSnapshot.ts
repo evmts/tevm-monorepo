@@ -20,7 +20,7 @@ export const getScriptSnapshotDecorator = createDecorator(
 				try {
 					const plugin = bundler(config, logger as any)
 					const snapshot = plugin.resolveDtsSync(filePath, process.cwd())
-					return ts.ScriptSnapshot.fromString(snapshot)
+					return ts.ScriptSnapshot.fromString(snapshot.code)
 				} catch (e) {
 					logger.error(
 						`@evmts/ts-plugin: getScriptSnapshotDecorator was unable to resolve dts for ${filePath}`,

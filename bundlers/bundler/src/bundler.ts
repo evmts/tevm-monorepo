@@ -7,7 +7,12 @@ export const bundler: Bundler = (config, logger) => {
 		name: bundler.name,
 		config,
 		resolveDts: async (module, basedir) => {
-			const artifacts = await resolveArtifacts(module, basedir, logger, config)
+			const { artifacts, modules } = await resolveArtifacts(
+				module,
+				basedir,
+				logger,
+				config,
+			)
 			if (artifacts) {
 				const evmtsImports = `import type { EvmtsContract } from '@evmts/core'`
 				const evmtsBody = Object.entries(artifacts)
@@ -40,12 +45,17 @@ export const bundler: Bundler = (config, logger) => {
 						].filter(Boolean)
 					})
 					.join('\n')
-				return [evmtsImports, evmtsBody].join('\n')
+				return { code: [evmtsImports, evmtsBody].join('\n'), modules }
 			}
-			return ''
+			return { code: '', modules }
 		},
 		resolveDtsSync: (module, basedir) => {
-			const artifacts = resolveArtifactsSync(module, basedir, logger, config)
+			const { artifacts, modules } = resolveArtifactsSync(
+				module,
+				basedir,
+				logger,
+				config,
+			)
 			if (artifacts) {
 				const evmtsImports = `import type { EvmtsContract } from '@evmts/core'`
 				const evmtsBody = Object.entries(artifacts)
@@ -80,12 +90,17 @@ export const bundler: Bundler = (config, logger) => {
 						].filter(Boolean)
 					})
 					.join('\n')
-				return [evmtsImports, evmtsBody].join('\n')
+				return { modules, code: [evmtsImports, evmtsBody].join('\n') }
 			}
-			return ''
+			return { modules, code: '' }
 		},
 		resolveTsModuleSync: (module, basedir) => {
-			const artifacts = resolveArtifactsSync(module, basedir, logger, config)
+			const { artifacts, modules } = resolveArtifactsSync(
+				module,
+				basedir,
+				logger,
+				config,
+			)
 			if (artifacts) {
 				const evmtsImports = [
 					`import { evmtsContractFactory } from '@evmts/core'`,
@@ -107,12 +122,17 @@ export const bundler: Bundler = (config, logger) => {
 						]
 					})
 					.join('\n')
-				return [evmtsImports, evmtsBody].join('\n')
+				return { modules, code: [evmtsImports, evmtsBody].join('\n') }
 			}
-			return ''
+			return { modules, code: '' }
 		},
 		resolveTsModule: async (module, basedir) => {
-			const artifacts = await resolveArtifacts(module, basedir, logger, config)
+			const { artifacts, modules } = await resolveArtifacts(
+				module,
+				basedir,
+				logger,
+				config,
+			)
 			if (artifacts) {
 				const evmtsImports = [
 					`import { evmtsContractFactory } from '@evmts/core'`,
@@ -134,12 +154,17 @@ export const bundler: Bundler = (config, logger) => {
 						]
 					})
 					.join('\n')
-				return [evmtsImports, evmtsBody].join('\n')
+				return { modules, code: [evmtsImports, evmtsBody].join('\n') }
 			}
-			return ''
+			return { modules, code: '' }
 		},
 		resolveCjsModuleSync: (module, basedir) => {
-			const artifacts = resolveArtifactsSync(module, basedir, logger, config)
+			const { modules, artifacts } = resolveArtifactsSync(
+				module,
+				basedir,
+				logger,
+				config,
+			)
 			if (artifacts) {
 				const evmtsImports = `const { evmtsContractFactory } = require('@evmts/core')`
 				const evmtsBody = Object.entries(artifacts)
@@ -159,12 +184,17 @@ export const bundler: Bundler = (config, logger) => {
 						]
 					})
 					.join('\n')
-				return [evmtsImports, evmtsBody].join('\n')
+				return { modules, code: [evmtsImports, evmtsBody].join('\n') }
 			}
-			return ''
+			return { modules, code: '' }
 		},
 		resolveCjsModule: async (module, basedir) => {
-			const artifacts = await resolveArtifacts(module, basedir, logger, config)
+			const { modules, artifacts } = await resolveArtifacts(
+				module,
+				basedir,
+				logger,
+				config,
+			)
 			if (artifacts) {
 				const evmtsImports = `const { evmtsContractFactory } = require('@evmts/core')`
 				const evmtsBody = Object.entries(artifacts)
@@ -184,13 +214,18 @@ export const bundler: Bundler = (config, logger) => {
 						]
 					})
 					.join('\n')
-				return [evmtsImports, evmtsBody].join('\n')
+				return { modules, code: [evmtsImports, evmtsBody].join('\n') }
 			}
-			return ''
+			return { modules, code: '' }
 		},
 
 		resolveEsmModuleSync: (module, basedir) => {
-			const artifacts = resolveArtifactsSync(module, basedir, logger, config)
+			const { artifacts, modules } = resolveArtifactsSync(
+				module,
+				basedir,
+				logger,
+				config,
+			)
 			if (artifacts) {
 				const evmtsImports = `import { evmtsContractFactory } from '@evmts/core'`
 				const evmtsBody = Object.entries(artifacts)
@@ -210,12 +245,17 @@ export const bundler: Bundler = (config, logger) => {
 						]
 					})
 					.join('\n')
-				return [evmtsImports, evmtsBody].join('\n')
+				return { modules, code: [evmtsImports, evmtsBody].join('\n') }
 			}
-			return ''
+			return { modules, code: '' }
 		},
 		resolveEsmModule: async (module, basedir) => {
-			const artifacts = await resolveArtifacts(module, basedir, logger, config)
+			const { modules, artifacts } = await resolveArtifacts(
+				module,
+				basedir,
+				logger,
+				config,
+			)
 			if (artifacts) {
 				const evmtsImports = `import { evmtsContractFactory } from '@evmts/core'`
 				const evmtsBody = Object.entries(artifacts)
@@ -235,9 +275,9 @@ export const bundler: Bundler = (config, logger) => {
 						]
 					})
 					.join('\n')
-				return [evmtsImports, evmtsBody].join('\n')
+				return { modules, code: [evmtsImports, evmtsBody].join('\n') }
 			}
-			return ''
+			return { modules, code: '' }
 		},
 	}
 }
