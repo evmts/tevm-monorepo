@@ -70,13 +70,13 @@ export const bundler: Bundler = (config, logger) => {
 						}
 						const etherscanLinks = getEtherscanLinks(contract.addresses ?? {})
 						return [
-							`export type _Abi${contractName} = ${JSON.stringify(
+							`type _Abi${contractName} = ${JSON.stringify(
 								contract.abi,
 							)} as const;`,
-							`export type _ChainAddressMap${contractName} = ${JSON.stringify(
+							`type _ChainAddressMap${contractName} = ${JSON.stringify(
 								contract.addresses ?? {},
 							)} as const;`,
-							`export type _Name${contractName} = ${JSON.stringify(
+							`type _Name${contractName} = ${JSON.stringify(
 								contractName,
 							)};`,
 							'/**',
