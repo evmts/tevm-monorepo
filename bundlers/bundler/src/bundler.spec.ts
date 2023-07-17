@@ -133,9 +133,9 @@ describe(bundler.name, () => {
 			expect(result).toMatchInlineSnapshot(`
 				{
 				  "code": "import type { EvmtsContract } from '@evmts/core'
-				export type _AbiTestContract = [] as const;
-				export type _ChainAddressMapTestContract = {} as const;
-				export type _NameTestContract = \\"TestContract\\";
+				type _AbiTestContract = [] as const;
+				type _ChainAddressMapTestContract = {} as const;
+				type _NameTestContract = \\"TestContract\\";
 				/**
 				 * TestContract EvmtsContract
 				 */
