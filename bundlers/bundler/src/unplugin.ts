@@ -1,6 +1,6 @@
 import { bundler } from './bundler'
 import { ResolvedConfig, loadConfig } from '@evmts/config'
-import { createUnplugin } from 'unplugin'
+import { createUnplugin, type UnpluginContext, type UnpluginBuildContext } from 'unplugin'
 import { z } from 'zod'
 
 const compilerOptionValidator = z
@@ -14,9 +14,18 @@ const bundlers = {
 	solc: bundler,
 }
 
-export const unpluginFn = (
+// make a function with this signature
+export function unpluginFn(
+	this: UnpluginBuildContext & UnpluginContext,
 	options: { compiler?: z.infer<typeof compilerOptionValidator> } = {},
-) => {
+
+) {
+	const logger = {
+		...console,
+		warn: this.warn,
+		error: this.error,
+	}
+
 	let config: ResolvedConfig
 
 	// for current release we will hardcode this to solc
@@ -35,17 +44,21 @@ export const unpluginFn = (
 			'We have abandoned the foundry option despite supporting it in the past. Please use solc instead. Foundry will be added back as a compiler at a later time.',
 		)
 	}
-	const compiler = bundlers[compilerOption]
-	let moduleResolver: ReturnType<typeof compiler>
+	const bundler = bundlers[compilerOption]
+	let moduleResolver: ReturnType<typeof bundler>
 
 	return {
 		name: '@evmts/rollup-plugin',
 		version: '0.0.0',
 		buildStart: async () => {
 			config = loadConfig('.')
-			moduleResolver = compiler(config, console)
+			moduleResolver = bundler(config, logger)
 		},
+
 		load(id: string) {
+			if (id.startsWith('@evmts/core/runtime')) {
+
+			}
 			if (!id.endsWith('.sol')) {
 				return
 			}
