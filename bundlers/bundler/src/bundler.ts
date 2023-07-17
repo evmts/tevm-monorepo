@@ -1,8 +1,13 @@
 import { resolveArtifacts, resolveArtifactsSync } from './solc'
 import type { Bundler } from './types'
 import { getEtherscanLinks } from './utils'
+import { checkSolcVersion } from './utils/checkSolcVersion'
+// TODO wrap this in a typesafe version
+// @ts-ignore
+import solc from 'solc'
 
 export const bundler: Bundler = (config, logger) => {
+	checkSolcVersion(config, logger, solc.version)
 	return {
 		name: bundler.name,
 		config,
@@ -76,9 +81,7 @@ export const bundler: Bundler = (config, logger) => {
 							`type _ChainAddressMap${contractName} = ${JSON.stringify(
 								contract.addresses ?? {},
 							)} as const;`,
-							`type _Name${contractName} = ${JSON.stringify(
-								contractName,
-							)};`,
+							`type _Name${contractName} = ${JSON.stringify(contractName)};`,
 							'/**',
 							` * ${contractName} EvmtsContract`,
 							...etherscanLinks.map(
