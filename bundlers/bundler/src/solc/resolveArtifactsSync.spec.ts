@@ -1,12 +1,32 @@
-import { Logger } from '../types'
+import { Logger, ModuleInfo } from '../types'
 import { compileContractSync } from './compileContracts'
 import { resolveArtifactsSync } from './resolveArtifactsSync'
 import { ResolvedConfig, defaultConfig } from '@evmts/config'
-import { Mock, afterEach, describe, expect, it, vi } from 'vitest'
+import { MockedFunction, afterEach, describe, expect, it, vi } from 'vitest'
 
 vi.mock('./compileContracts', () => ({
 	compileContractSync: vi.fn(),
 }))
+
+const mockModules: Record<string, ModuleInfo> = {
+	module1: {
+		id: 'id',
+		rawCode: `import { TestContract } from 'module2'
+contract TestContract {}`,
+		code: `import { TestContract } from 'module2'
+contract TestContract {}`,
+		importedIds: ['module2'],
+		resolutions: [
+			{
+				id: 'id',
+				rawCode: 'contract TestContract2 {}',
+				code: 'contract TestContract2 {}',
+				importedIds: ['module2'],
+				resolutions: [],
+			},
+		],
+	},
+}
 
 const solFile = 'test.sol'
 const basedir = 'basedir'
@@ -23,32 +43,69 @@ const contracts = {
 		evm: { bytecode: { object: '0x123' } },
 	},
 }
-const expectedArtifacts = {
-	Test: { contractName: 'Test', abi: [], bytecode: '0x123' },
-}
 
-const mockCompileContractSync = compileContractSync as Mock
+const mockCompileContractSync = compileContractSync as MockedFunction<
+	typeof compileContractSync
+>
 
 describe('resolveArtifactsSync', () => {
 	it('should throw an error if the file is not a solidity file', () => {
 		expect(() =>
 			resolveArtifactsSync('test.txt', basedir, logger, config),
-		).toThrow('Not a solidity file')
+		).toThrowErrorMatchingInlineSnapshot('"Not a solidity file"')
 	})
 
 	it('should throw an error if the compilation failed', () => {
-		mockCompileContractSync.mockReturnValue(null)
+		// throw a compilation error
+		mockCompileContractSync.mockImplementation(() => {
+			throw new Error('Oops')
+		})
 		expect(() =>
 			resolveArtifactsSync(solFile, basedir, logger, config),
-		).toThrow('Compilation failed')
-		expect(logger.error).toBeCalledWith(`Compilation failed for ${solFile}`)
+		).toThrowErrorMatchingInlineSnapshot('"Oops"')
 	})
 
 	it('should return the contract artifacts', () => {
-		mockCompileContractSync.mockReturnValue(contracts)
-		expect(resolveArtifactsSync(solFile, basedir, logger, config)).toEqual(
-			expectedArtifacts,
-		)
+		mockCompileContractSync.mockReturnValue({
+			artifacts: contracts,
+			modules: mockModules,
+		})
+		expect(
+			resolveArtifactsSync(solFile, basedir, logger, config),
+		).toMatchInlineSnapshot(`
+			{
+			  "artifacts": {
+			    "Test": {
+			      "abi": [],
+			      "bytecode": "0x123",
+			      "contractName": "Test",
+			    },
+			  },
+			  "modules": {
+			    "module1": {
+			      "code": "import { TestContract } from 'module2'
+			contract TestContract {}",
+			      "id": "id",
+			      "importedIds": [
+			        "module2",
+			      ],
+			      "rawCode": "import { TestContract } from 'module2'
+			contract TestContract {}",
+			      "resolutions": [
+			        {
+			          "code": "contract TestContract2 {}",
+			          "id": "id",
+			          "importedIds": [
+			            "module2",
+			          ],
+			          "rawCode": "contract TestContract2 {}",
+			          "resolutions": [],
+			        },
+			      ],
+			    },
+			  },
+			}
+		`)
 	})
 })
 

@@ -18,7 +18,9 @@ const generate = (cwd = process.cwd(), include = ['src/**/*.sol']) => {
 		const plugin = bundler(config, console)
 		plugin
 			.resolveTsModule(file, cwd)
-			.then((dts) => writeFile(path.join(fileDir, `${fileName}.d.ts`), dts))
+			.then((dts) =>
+				writeFile(path.join(fileDir, `${fileName}.d.ts`), dts.code),
+			)
 	})
 }
 generate()

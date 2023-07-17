@@ -12,7 +12,10 @@ export const compileContractSync = (
 	filePath: string,
 	basedir: string,
 	config: ResolvedConfig['compiler'],
-): solc.CompiledContract | undefined => {
+): {
+	artifacts: solc.CompiledContract | undefined
+	modules: Record<'string', ModuleInfo>
+} => {
 	const source: string = readFileSync(
 		resolve.sync(filePath, {
 			basedir,
@@ -81,5 +84,5 @@ export const compileContractSync = (
 		console.warn('Compilation warnings:', output?.errors)
 	}
 
-	return output.contracts[entryModule.id]
+	return { artifacts: output.contracts[entryModule.id], modules: allModules }
 }

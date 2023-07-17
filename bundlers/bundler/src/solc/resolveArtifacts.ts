@@ -1,4 +1,4 @@
-import { Logger } from '../types'
+import { Logger, ModuleInfo } from '../types'
 import { resolveArtifactsSync } from './resolveArtifactsSync'
 import { ResolvedConfig } from '@evmts/config'
 
@@ -10,9 +10,12 @@ export const resolveArtifacts = async (
 	basedir: string,
 	logger: Logger,
 	config: ResolvedConfig,
-): Promise<
-	| Record<string, { contractName: string; abi: any; bytecode: string }>
-	| undefined
-> => {
+): Promise<{
+	artifacts: Record<
+		string,
+		{ contractName: string; abi: any; bytecode: string }
+	>
+	modules: Record<'string', ModuleInfo>
+}> => {
 	return resolveArtifactsSync(solFile, basedir, logger, config)
 }

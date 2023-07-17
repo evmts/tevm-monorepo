@@ -70,7 +70,48 @@ describe('compileContractSync', () => {
 	it('should compile a contract correctly', () => {
 		const compiledContract = compileContractSync(filePath, basedir, config)
 
-		expect(compiledContract).toEqual(mockCompiledContract)
+		expect(compiledContract).toMatchInlineSnapshot(`
+			{
+			  "artifacts": {
+			    "Test": {
+			      "abi": [],
+			      "evm": {
+			        "bytecode": {
+			          "object": "0x123",
+			        },
+			      },
+			    },
+			  },
+			  "modules": {
+			    "test/path": {
+			      "code": "import test/path/resolutionFile.sol
+			contract Test {}",
+			      "id": "test/path",
+			      "importedIds": [
+			        "./importedId",
+			      ],
+			      "rawCode": "import ./resolutionFile.sol
+			contract Test {}",
+			      "resolutions": [
+			        {
+			          "code": "contract Resolution {}",
+			          "id": "test/path/resolutionFile.sol",
+			          "importedIds": [],
+			          "rawCode": "contract Resolution {}",
+			          "resolutions": [],
+			        },
+			      ],
+			    },
+			    "test/path/resolutionFile.sol": {
+			      "code": "contract Resolution {}",
+			      "id": "test/path/resolutionFile.sol",
+			      "importedIds": [],
+			      "rawCode": "contract Resolution {}",
+			      "resolutions": [],
+			    },
+			  },
+			}
+		`)
 		expect(readFileSync).toBeCalledWith(filePath, 'utf8')
 		expect(resolve.sync).toBeCalledWith(filePath, { basedir })
 		expect(moduleFactory).toBeCalledWith(
