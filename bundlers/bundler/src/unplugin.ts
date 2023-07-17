@@ -18,7 +18,6 @@ const bundlers = {
 export function unpluginFn(
 	this: UnpluginBuildContext & UnpluginContext,
 	options: { compiler?: z.infer<typeof compilerOptionValidator> } = {},
-
 ) {
 	const logger = {
 		...console,
@@ -47,14 +46,15 @@ export function unpluginFn(
 	const bundler = bundlers[compilerOption]
 	let moduleResolver: ReturnType<typeof bundler>
 
+
 	return {
 		name: '@evmts/rollup-plugin',
 		version: '0.0.0',
 		buildStart: async () => {
 			config = loadConfig('.')
 			moduleResolver = bundler(config, logger)
+			this.addWatchFile('./tsconfig.json');
 		},
-
 		load(id: string) {
 			if (id.startsWith('@evmts/core/runtime')) {
 
