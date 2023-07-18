@@ -1,7 +1,15 @@
 import { type EvmtsConfig, defaultConfig, loadConfig } from '.'
 import * as cp from 'child_process'
 import * as fs from 'fs'
-import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { createRequire } from 'module'
+import {
+	type MockedFunction,
+	beforeEach,
+	describe,
+	expect,
+	it,
+	vi,
+} from 'vitest'
 
 const mockTsConfig = () => {
 	return JSON.stringify(
@@ -32,6 +40,9 @@ const mockTsConfig = () => {
 	)
 }
 
+vi.mock('module', () => ({
+	createRequire: vi.fn(),
+}))
 vi.mock('fs', () => ({
 	readFileSync: vi.fn(),
 	existsSync: vi.fn(),
@@ -44,6 +55,12 @@ vi.mock('child_process', () => ({
 describe(loadConfig.name, () => {
 	beforeEach(() => {
 		vi.resetAllMocks()
+		const mockCreateRequire = createRequire as MockedFunction<
+			typeof createRequire
+		>
+		const mockRequire = vi.fn()
+		mockCreateRequire.mockReturnValue(mockRequire as any)
+		mockRequire.mockReturnValue({ version: '0.8.42' })
 		vi.stubGlobal('process', {
 			...process,
 			env: { ...process.env, ETHERSCAN_KEY: 'MY_ETHERSCAN_KEY' },
@@ -262,7 +279,7 @@ describe(loadConfig.name, () => {
 			    "foundryProject": false,
 			    "libs": [],
 			    "remappings": {},
-			    "solcVersion": "0.8.20",
+			    "solcVersion": "0.8.42",
 			  },
 			  "externalContracts": {
 			    "apiKeys": {
@@ -298,7 +315,7 @@ describe(loadConfig.name, () => {
 			    "foundryProject": false,
 			    "libs": [],
 			    "remappings": {},
-			    "solcVersion": "0.8.20",
+			    "solcVersion": "0.8.42",
 			  },
 			  "externalContracts": {
 			    "apiKeys": {
@@ -427,7 +444,7 @@ describe(loadConfig.name, () => {
 			    "foundryProject": false,
 			    "libs": [],
 			    "remappings": {},
-			    "solcVersion": "0.8.20",
+			    "solcVersion": "0.8.42",
 			  },
 			  "externalContracts": {
 			    "apiKeys": {

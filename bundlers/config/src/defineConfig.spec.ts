@@ -68,6 +68,36 @@ describe(defineConfig.name, () => {
 		})
 	})
 
+	it('should default forge command to forge', () => {
+		const forgeCommandOutput = JSON.stringify({
+			solc_version: '0.8.4',
+			remappings: [],
+			libs: ['lib1', 'lib2'],
+		})
+		mockExecSync.mockReturnValueOnce(Buffer.from(forgeCommandOutput))
+
+		const configFactory = () =>
+			({
+				compiler: {
+					foundryProject: true,
+				},
+			}) as EvmtsConfig
+		const config = defineConfig(configFactory)
+		const resolvedConfig = config.configFn('./')
+
+		expect(mockExecSync).toHaveBeenCalledWith('forge config --json')
+		expect(resolvedConfig).toEqual({
+			compiler: {
+				solcVersion: '0.8.4',
+				remappings: defaultConfig.compiler.remappings,
+				foundryProject: true,
+				libs: ['lib1', 'lib2'],
+			},
+			localContracts: defaultConfig.localContracts,
+			externalContracts: defaultConfig.externalContracts,
+		})
+	})
+
 	it('should throw error when forge command fails', () => {
 		mockExecSync.mockImplementationOnce(() => {
 			throw new Error()
