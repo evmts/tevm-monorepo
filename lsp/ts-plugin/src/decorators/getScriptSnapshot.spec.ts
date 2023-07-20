@@ -60,21 +60,21 @@ describe(getScriptSnapshotDecorator.name, () => {
 		const fileName = path.join(__dirname, '../test/fixtures/HelloWorld.sol')
 		const result = decorator.getScriptSnapshot(fileName)
 		expect((result as any).text).toMatchInlineSnapshot(`
-			"import type { EvmtsContract } from '@evmts/core'
-			type _AbiHelloWorld = [{\\"inputs\\":[],\\"name\\":\\"greet\\",\\"outputs\\":[{\\"internalType\\":\\"string\\",\\"name\\":\\"\\",\\"type\\":\\"string\\"}],\\"stateMutability\\":\\"pure\\",\\"type\\":\\"function\\"}] as const;
-			type _ChainAddressMapHelloWorld = {} as const;
-			type _NameHelloWorld = \\"HelloWorld\\";
+			"import { EvmtsContract } from '@evmts/core'
+			const _abiHelloWorld = [{\\"inputs\\":[],\\"name\\":\\"greet\\",\\"outputs\\":[{\\"internalType\\":\\"string\\",\\"name\\":\\"\\",\\"type\\":\\"string\\"}],\\"stateMutability\\":\\"pure\\",\\"type\\":\\"function\\"}] as const;
+			const _chainAddressMapHelloWorld = {} as const;
+			const _nameHelloWorld = \\"HelloWorld\\" as const;
 			/**
 			 * HelloWorld EvmtsContract
 			 */
-			export const HelloWorld: EvmtsContract<_NameHelloWorld, _ChainAddressMapHelloWorld, _AbiHelloWorld>;
-			type _AbiHelloWorld2 = [{\\"inputs\\":[],\\"name\\":\\"greet2\\",\\"outputs\\":[{\\"internalType\\":\\"string\\",\\"name\\":\\"\\",\\"type\\":\\"string\\"}],\\"stateMutability\\":\\"pure\\",\\"type\\":\\"function\\"}] as const;
-			type _ChainAddressMapHelloWorld2 = {} as const;
-			type _NameHelloWorld2 = \\"HelloWorld2\\";
+			export const HelloWorld: EvmtsContract<typeof _nameHelloWorld, typeof _chainAddressMapHelloWorld, typeof _abiHelloWorld>;
+			const _abiHelloWorld2 = [{\\"inputs\\":[],\\"name\\":\\"greet2\\",\\"outputs\\":[{\\"internalType\\":\\"string\\",\\"name\\":\\"\\",\\"type\\":\\"string\\"}],\\"stateMutability\\":\\"pure\\",\\"type\\":\\"function\\"}] as const;
+			const _chainAddressMapHelloWorld2 = {} as const;
+			const _nameHelloWorld2 = \\"HelloWorld2\\" as const;
 			/**
 			 * HelloWorld2 EvmtsContract
 			 */
-			export const HelloWorld2: EvmtsContract<_NameHelloWorld2, _ChainAddressMapHelloWorld2, _AbiHelloWorld2>;"
+			export const HelloWorld2: EvmtsContract<typeof _nameHelloWorld2, typeof _chainAddressMapHelloWorld2, typeof _abiHelloWorld2>;"
 		`)
 	})
 })

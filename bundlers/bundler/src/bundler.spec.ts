@@ -1,7 +1,232 @@
 import { bundler } from './bundler'
 import { resolveArtifacts, resolveArtifactsSync } from './solc'
 import { Bundler, ModuleInfo } from './types'
+import { writeFileSync } from 'fs'
+import * as ts from 'typescript'
 import { Mock, afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+
+const erc20Abi = [
+	{
+		constant: true,
+		inputs: [],
+		name: 'name',
+		outputs: [
+			{
+				name: '',
+				type: 'string',
+			},
+		],
+		payable: false,
+		stateMutability: 'view',
+		type: 'function',
+	},
+	{
+		constant: false,
+		inputs: [
+			{
+				name: '_spender',
+				type: 'address',
+			},
+			{
+				name: '_value',
+				type: 'uint256',
+			},
+		],
+		name: 'approve',
+		outputs: [
+			{
+				name: '',
+				type: 'bool',
+			},
+		],
+		payable: false,
+		stateMutability: 'nonpayable',
+		type: 'function',
+	},
+	{
+		constant: true,
+		inputs: [],
+		name: 'totalSupply',
+		outputs: [
+			{
+				name: '',
+				type: 'uint256',
+			},
+		],
+		payable: false,
+		stateMutability: 'view',
+		type: 'function',
+	},
+	{
+		constant: false,
+		inputs: [
+			{
+				name: '_from',
+				type: 'address',
+			},
+			{
+				name: '_to',
+				type: 'address',
+			},
+			{
+				name: '_value',
+				type: 'uint256',
+			},
+		],
+		name: 'transferFrom',
+		outputs: [
+			{
+				name: '',
+				type: 'bool',
+			},
+		],
+		payable: false,
+		stateMutability: 'nonpayable',
+		type: 'function',
+	},
+	{
+		constant: true,
+		inputs: [],
+		name: 'decimals',
+		outputs: [
+			{
+				name: '',
+				type: 'uint8',
+			},
+		],
+		payable: false,
+		stateMutability: 'view',
+		type: 'function',
+	},
+	{
+		constant: true,
+		inputs: [
+			{
+				name: '_owner',
+				type: 'address',
+			},
+		],
+		name: 'balanceOf',
+		outputs: [
+			{
+				name: 'balance',
+				type: 'uint256',
+			},
+		],
+		payable: false,
+		stateMutability: 'view',
+		type: 'function',
+	},
+	{
+		constant: true,
+		inputs: [],
+		name: 'symbol',
+		outputs: [
+			{
+				name: '',
+				type: 'string',
+			},
+		],
+		payable: false,
+		stateMutability: 'view',
+		type: 'function',
+	},
+	{
+		constant: false,
+		inputs: [
+			{
+				name: '_to',
+				type: 'address',
+			},
+			{
+				name: '_value',
+				type: 'uint256',
+			},
+		],
+		name: 'transfer',
+		outputs: [
+			{
+				name: '',
+				type: 'bool',
+			},
+		],
+		payable: false,
+		stateMutability: 'nonpayable',
+		type: 'function',
+	},
+	{
+		constant: true,
+		inputs: [
+			{
+				name: '_owner',
+				type: 'address',
+			},
+			{
+				name: '_spender',
+				type: 'address',
+			},
+		],
+		name: 'allowance',
+		outputs: [
+			{
+				name: '',
+				type: 'uint256',
+			},
+		],
+		payable: false,
+		stateMutability: 'view',
+		type: 'function',
+	},
+	{
+		payable: true,
+		stateMutability: 'payable',
+		type: 'fallback',
+	},
+	{
+		anonymous: false,
+		inputs: [
+			{
+				indexed: true,
+				name: 'owner',
+				type: 'address',
+			},
+			{
+				indexed: true,
+				name: 'spender',
+				type: 'address',
+			},
+			{
+				indexed: false,
+				name: 'value',
+				type: 'uint256',
+			},
+		],
+		name: 'Approval',
+		type: 'event',
+	},
+	{
+		anonymous: false,
+		inputs: [
+			{
+				indexed: true,
+				name: 'from',
+				type: 'address',
+			},
+			{
+				indexed: true,
+				name: 'to',
+				type: 'address',
+			},
+			{
+				indexed: false,
+				name: 'value',
+				type: 'uint256',
+			},
+		],
+		name: 'Transfer',
+		type: 'event',
+	},
+] as const
 
 const mockModules: Record<string, ModuleInfo> = {
 	module1: {
@@ -28,11 +253,16 @@ describe(bundler.name, () => {
 	let logger
 	let config
 
+	const mockAddresses = {
+		10: '0x123',
+	}
 	beforeEach(() => {
 		logger = { ...console, error: vi.fn() }
 		config = {
 			compiler: 'compiler config',
-			localContracts: { contracts: [{ name: 'TestContract', addresses: {} }] },
+			localContracts: {
+				contracts: [{ name: 'TestContract', addresses: mockAddresses }],
+			},
 		}
 
 		resolver = bundler(config as any, logger)
@@ -72,14 +302,15 @@ describe(bundler.name, () => {
 			const result = await resolver.resolveDts('module', 'basedir')
 			expect(result).toMatchInlineSnapshot(`
 				{
-				  "code": "import type { EvmtsContract } from '@evmts/core'
-				type _AbiTestContract = [] as const;
-				type _ChainAddressMapTestContract = {\\"name\\":\\"TestContract\\",\\"addresses\\":{}} as const;
-				type _NameTestContract = \\"TestContract\\";
+				  "code": "import { EvmtsContract } from '@evmts/core'
+				const _abiTestContract = [] as const;
+				const _chainAddressMapTestContract = {\\"10\\":\\"0x123\\"} as const;
+				const nameTestContract = \\"TestContract\\" as const;
 				/**
 				 * TestContract EvmtsContract
+				 * @etherscan-10 https://optimistic.etherscan.io/address/0x123
 				 */
-				export const TestContract: EvmtsContract<_NameTestContract, _ChainAddressMapTestContract, _AbiTestContract>;",
+				export const TestContract: EvmtsContract<typeof _nameTestContract, typeof _chainAddressMapTestContract, typeof _abiTestContract>;",
 				  "modules": {
 				    "module1": {
 				      "code": "import { TestContract } from 'module2'
@@ -110,6 +341,98 @@ describe(bundler.name, () => {
 
 	const mockResolveArtifactsSync = resolveArtifactsSync as Mock
 	describe('resolveDtsSync', () => {
+		// can't get this test to work yet but it works pretty nicely
+		// generating a file and inspecting the types manually
+		it.skip('should generate valid typscript that can be used to properly typecheck', () => {
+			const artifacts = {
+				TestContract: {
+					contractName: 'TestContract',
+					abi: erc20Abi,
+					bytecode: '0x420',
+				},
+			}
+			mockResolveArtifactsSync.mockReturnValueOnce({
+				artifacts,
+				modules: mockModules,
+			})
+			const result = resolver.resolveDtsSync('module', 'basedir')
+			const source = `
+import { TestContract } from './TestContract.js'
+import { Address, useAccount, useContractRead } from 'wagmi'
+
+export const WagmiReads = () => {
+	const { address, isConnected } = useAccount()
+
+	const { data: balance } = useContractRead({
+		/**
+		 * Spreading in a method will spread abi, address and args
+		 * Hover over balanceOf and click go-to-definition should take you to the method definition in solidity if compiling from solidity
+		 */
+		...TestContract.read().balanceOf(address as Address),
+		enabled: isConnected,
+	})
+	const { data: totalSupply } = useContractRead({
+		...TestContract.read().totalSupply(),
+		enabled: isConnected,
+	})
+	const { data: symbol } = useContractRead({
+		...TestContract.read().symbol(),
+		enabled: isConnected,
+	})
+	const testBalance: bigint | undefined = balance
+	const testSymbol: string | undefined = symbol
+	const testTotalSupply: bigint | undefined = totalSupply
+	return ({
+		testBalance,
+		symbol,
+		totalSupply,
+	})
+}
+
+			`
+
+			writeFileSync('./source.ts', source)
+			writeFileSync('./TestContract.d.ts', result.code)
+
+			const program = ts.createProgram({
+				rootNames: [],
+				options: {},
+				host: ts.createCompilerHost({}),
+				oldProgram: ts.createProgram({
+					rootNames: [],
+					options: {},
+					host: ts.createCompilerHost({}),
+				}),
+			})
+
+			// this is the file that the ts-plugin resolves to
+			const resolveDtsFile = ts.createSourceFile(
+				'TestContract.d.ts',
+				result.code,
+				ts.ScriptTarget.Latest,
+				true,
+			)
+
+			const sourceFile = ts.createSourceFile(
+				'source.ts',
+				source,
+				ts.ScriptTarget.Latest,
+				true,
+			)
+
+			program.getRootFileNames = () => [
+				resolveDtsFile.fileName,
+				sourceFile.fileName,
+			]
+			program.getSourceFile = (fileName) =>
+				[resolveDtsFile, sourceFile].find((f) => f.fileName.includes(fileName))
+
+			const diagnostics = ts.getPreEmitDiagnostics(program)
+			const diagnostic = diagnostics.find(
+				(d) => d.category === ts.DiagnosticCategory.Error,
+			)
+			expect(diagnostic).toMatchInlineSnapshot()
+		})
 		it('should return an empty string if no artifacts are found', () => {
 			mockResolveArtifactsSync.mockReturnValueOnce({})
 			const result = resolver.resolveDtsSync('module', 'basedir')
@@ -132,14 +455,15 @@ describe(bundler.name, () => {
 			const result = resolver.resolveDtsSync('module', 'basedir')
 			expect(result).toMatchInlineSnapshot(`
 				{
-				  "code": "import type { EvmtsContract } from '@evmts/core'
-				type _AbiTestContract = [] as const;
-				type _ChainAddressMapTestContract = {} as const;
-				type _NameTestContract = \\"TestContract\\";
+				  "code": "import { EvmtsContract } from '@evmts/core'
+				const _abiTestContract = [] as const;
+				const _chainAddressMapTestContract = {\\"10\\":\\"0x123\\"} as const;
+				const _nameTestContract = \\"TestContract\\" as const;
 				/**
 				 * TestContract EvmtsContract
+				 * @etherscan-10 https://optimistic.etherscan.io/address/0x123
 				 */
-				export const TestContract: EvmtsContract<_NameTestContract, _ChainAddressMapTestContract, _AbiTestContract>;",
+				export const TestContract: EvmtsContract<typeof _nameTestContract, typeof _chainAddressMapTestContract, typeof _abiTestContract>;",
 				  "modules": {
 				    "module1": {
 				      "code": "import { TestContract } from 'module2'
@@ -192,7 +516,7 @@ describe(bundler.name, () => {
 			expect(result).toMatchInlineSnapshot(`
 				{
 				  "code": "import { evmtsContractFactory } from '@evmts/core'
-				const _TestContract = {\\"name\\":\\"TestContract\\",\\"abi\\":[],\\"bytecode\\":\\"\\",\\"addresses\\":{}} as const
+				const _TestContract = {\\"name\\":\\"TestContract\\",\\"abi\\":[],\\"bytecode\\":\\"\\",\\"addresses\\":{\\"10\\":\\"0x123\\"}} as const
 				export const TestContract = evmtsContractFactory(_TestContract)",
 				  "modules": {
 				    "module1": {
@@ -246,7 +570,7 @@ describe(bundler.name, () => {
 			expect(result).toMatchInlineSnapshot(`
 				{
 				  "code": "import { evmtsContractFactory } from '@evmts/core'
-				const _TestContract = {\\"name\\":\\"TestContract\\",\\"abi\\":[],\\"bytecode\\":\\"\\",\\"addresses\\":{}} as const
+				const _TestContract = {\\"name\\":\\"TestContract\\",\\"abi\\":[],\\"bytecode\\":\\"\\",\\"addresses\\":{\\"10\\":\\"0x123\\"}} as const
 				export const TestContract = evmtsContractFactory(_TestContract)",
 				  "modules": {
 				    "module1": {
@@ -300,7 +624,7 @@ describe(bundler.name, () => {
 			expect(result).toMatchInlineSnapshot(`
 				{
 				  "code": "const { evmtsContractFactory } = require('@evmts/core')
-				const _TestContract = {\\"name\\":\\"TestContract\\",\\"abi\\":[],\\"bytecode\\":\\"\\",\\"addresses\\":{}}
+				const _TestContract = {\\"name\\":\\"TestContract\\",\\"abi\\":[],\\"bytecode\\":\\"\\",\\"addresses\\":{\\"10\\":\\"0x123\\"}}
 				module.exports.TestContract = evmtsContractFactory(_TestContract)",
 				  "modules": {
 				    "module1": {
@@ -354,7 +678,7 @@ describe(bundler.name, () => {
 			expect(result).toMatchInlineSnapshot(`
 				{
 				  "code": "const { evmtsContractFactory } = require('@evmts/core')
-				const _TestContract = {\\"name\\":\\"TestContract\\",\\"abi\\":[],\\"bytecode\\":\\"\\",\\"addresses\\":{}}
+				const _TestContract = {\\"name\\":\\"TestContract\\",\\"abi\\":[],\\"bytecode\\":\\"\\",\\"addresses\\":{\\"10\\":\\"0x123\\"}}
 				module.exports.TestContract = evmtsContractFactory(_TestContract)",
 				  "modules": {
 				    "module1": {
@@ -408,7 +732,7 @@ describe(bundler.name, () => {
 			expect(result).toMatchInlineSnapshot(`
 				{
 				  "code": "import { evmtsContractFactory } from '@evmts/core'
-				const _TestContract = {\\"name\\":\\"TestContract\\",\\"abi\\":[],\\"bytecode\\":\\"\\",\\"addresses\\":{}}
+				const _TestContract = {\\"name\\":\\"TestContract\\",\\"abi\\":[],\\"bytecode\\":\\"\\",\\"addresses\\":{\\"10\\":\\"0x123\\"}}
 				export const TestContract = evmtsContractFactory(_TestContract)",
 				  "modules": {
 				    "module1": {
@@ -462,7 +786,7 @@ describe(bundler.name, () => {
 			expect(result).toMatchInlineSnapshot(`
 				{
 				  "code": "import { evmtsContractFactory } from '@evmts/core'
-				const _TestContract = {\\"name\\":\\"TestContract\\",\\"abi\\":[],\\"bytecode\\":\\"\\",\\"addresses\\":{}}
+				const _TestContract = {\\"name\\":\\"TestContract\\",\\"abi\\":[],\\"bytecode\\":\\"\\",\\"addresses\\":{\\"10\\":\\"0x123\\"}}
 				export const TestContract = evmtsContractFactory(_TestContract)",
 				  "modules": {
 				    "module1": {
