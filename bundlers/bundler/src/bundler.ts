@@ -11,6 +11,10 @@ export const bundler: Bundler = (config, logger) => {
 	return {
 		name: bundler.name,
 		config,
+		/**
+		 * @warning detected this is broke and since it's unused it's not fixed yet
+		 * Open an issue if you need this
+		 */
 		resolveDts: async (module, basedir) => {
 			const { artifacts, modules } = await resolveArtifacts(
 				module,
@@ -19,7 +23,7 @@ export const bundler: Bundler = (config, logger) => {
 				config,
 			)
 			if (artifacts) {
-				const evmtsImports = `import type { EvmtsContract } from '@evmts/core'`
+				const evmtsImports = `import { EvmtsContract } from '@evmts/core'`
 				const evmtsBody = Object.entries(artifacts)
 					.flatMap(([contractName, { abi }]) => {
 						const contract = {
@@ -28,17 +32,20 @@ export const bundler: Bundler = (config, logger) => {
 							addresses:
 								config.localContracts.contracts?.find(
 									(contractConfig) => contractConfig.name === contractName,
-								) ?? {},
+								)?.addresses ?? {},
 						}
+						console.log(config.localContracts.contracts)
 						const etherscanLinks = getEtherscanLinks(contract.addresses ?? {})
 						return [
-							`type _Abi${contractName} = ${JSON.stringify(
+							`const _abi${contractName} = ${JSON.stringify(
 								contract.abi,
 							)} as const;`,
-							`type _ChainAddressMap${contractName} = ${JSON.stringify(
+							`const _chainAddressMap${contractName} = ${JSON.stringify(
 								contract.addresses ?? {},
 							)} as const;`,
-							`type _Name${contractName} = ${JSON.stringify(contractName)};`,
+							`const name${contractName} = ${JSON.stringify(
+								contractName,
+							)} as const;`,
 							'/**',
 							` * ${contractName} EvmtsContract`,
 							...etherscanLinks.map(
@@ -46,7 +53,7 @@ export const bundler: Bundler = (config, logger) => {
 									` * @etherscan-${chainId} ${etherscanLink}`,
 							),
 							' */',
-							`export const ${contractName}: EvmtsContract<_Name${contractName}, _ChainAddressMap${contractName}, _Abi${contractName}>;`,
+							`export const ${contractName}: EvmtsContract<typeof _name${contractName}, typeof _chainAddressMap${contractName}, typeof _abi${contractName}>;`,
 						].filter(Boolean)
 					})
 					.join('\n')
@@ -54,6 +61,11 @@ export const bundler: Bundler = (config, logger) => {
 			}
 			return { code: '', modules }
 		},
+		// TODO this isn't very good typescripting
+		// a const in an ambient context should not be an object
+		// this is not causing issues but is a bit of a hack
+		// and when we generate.d.ts files it will cause red underlines
+		// in folks editors
 		resolveDtsSync: (module, basedir) => {
 			const { artifacts, modules } = resolveArtifactsSync(
 				module,
@@ -62,7 +74,7 @@ export const bundler: Bundler = (config, logger) => {
 				config,
 			)
 			if (artifacts) {
-				const evmtsImports = `import type { EvmtsContract } from '@evmts/core'`
+				const evmtsImports = `import { EvmtsContract } from '@evmts/core'`
 				const evmtsBody = Object.entries(artifacts)
 					.flatMap(([contractName, { abi }]) => {
 						const contract = {
@@ -75,13 +87,15 @@ export const bundler: Bundler = (config, logger) => {
 						}
 						const etherscanLinks = getEtherscanLinks(contract.addresses ?? {})
 						return [
-							`type _Abi${contractName} = ${JSON.stringify(
+							`const _abi${contractName} = ${JSON.stringify(
 								contract.abi,
 							)} as const;`,
-							`type _ChainAddressMap${contractName} = ${JSON.stringify(
+							`const _chainAddressMap${contractName} = ${JSON.stringify(
 								contract.addresses ?? {},
 							)} as const;`,
-							`type _Name${contractName} = ${JSON.stringify(contractName)};`,
+							`const _name${contractName} = ${JSON.stringify(
+								contractName,
+							)} as const;`,
 							'/**',
 							` * ${contractName} EvmtsContract`,
 							...etherscanLinks.map(
@@ -89,7 +103,7 @@ export const bundler: Bundler = (config, logger) => {
 									` * @etherscan-${chainId} ${etherscanLink}`,
 							),
 							' */',
-							`export const ${contractName}: EvmtsContract<_Name${contractName}, _ChainAddressMap${contractName}, _Abi${contractName}>;`,
+							`export const ${contractName}: EvmtsContract<typeof _name${contractName}, typeof _chainAddressMap${contractName}, typeof _abi${contractName}>;`,
 						].filter(Boolean)
 					})
 					.join('\n')
