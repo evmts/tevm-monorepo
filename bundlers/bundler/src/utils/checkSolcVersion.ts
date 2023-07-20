@@ -11,9 +11,10 @@ export const checkSolcVersion = (
 ) => {
 	if (config.compiler.solcVersion !== version) {
 		logger.warn(
-			`The solc version in the config (${config.compiler.solcVersion}) does not match the solc version installed (${solc.version}).
-			This may cause unexpected behavior.
-			Consider updating the version in package.json to "solc": "${solc.version}"`,
+			`The solc version in the config (${config.compiler.solcVersion}) does not match the solc version installed (${version}).
+This may cause unexpected behavior.
+Consider updating the version in package.json to "solc": "${config.compiler.solcVersion}"
+or if this is the correct version updating the version in the evmts plugin config.`,
 		)
 	}
 }
