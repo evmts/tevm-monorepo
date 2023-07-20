@@ -1,5 +1,15 @@
 # @evmts/core
 
+## 0.5.7
+
+### Patch Changes
+
+- [#361](https://github.com/evmts/evmts-monorepo/pull/361) [`4fc4872`](https://github.com/evmts/evmts-monorepo/commit/4fc48722380d4390ef527ccbb27a63f73503c750) Thanks [@roninjin10](https://github.com/roninjin10)! - Added warning when solc version does not match config
+
+- [#353](https://github.com/evmts/evmts-monorepo/pull/353) [`97cb0c1`](https://github.com/evmts/evmts-monorepo/commit/97cb0c1381f3a0b3ffa92dfcb09c397cff3190dd) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug with exporting private variables in .d.ts
+
+- [#351](https://github.com/evmts/evmts-monorepo/pull/351) [`ca58f7a`](https://github.com/evmts/evmts-monorepo/commit/ca58f7a66b01a68d93585d664a77a43f67ce5bbc) Thanks [@roninjin10](https://github.com/roninjin10)! - Added support for reload when any contract in the import graph changes
+
 ## 0.5.6
 
 ### Patch Changes
