@@ -4,18 +4,32 @@
       {
         "name": "@evmts/ts-plugin",
         "compiler": {
-        "solcVersion": "0.8.19"
+          "solcVersion": "0.8.19"
         },
         "localContracts": {
-        "contracts": [
-          {
-            "name": "WagmiMintExample",
-            "addresses": {
-              "1": "0xFBA3912Ca04dd458c843e2EE08967fC04f3579c2",
-              "420": "0x1df10ec981ac5871240be4a94f250dd238b77901"
+          "contracts": [
+            {
+              "name": "MyContract",
+              "addresses": {
+                "1": "0xFBA3912Ca04dd458c843e2EE08967fC04f3579c2",
+                "420": "0x1df10ec981ac5871240be4a94f250dd238b77901"
+              }
             }
-          }
-        ]
+          ]
+        },
+        "externalContracts": {
+          "apiKeys": {
+            "etherscan": "$EVMTS_ETHERSCAN_KEY"
+          },
+          "contracts": [
+            {
+              "name": "UniswapV3Factory",
+              "addresses": {
+                "1": "0x1F98431c8aD98523631AE4a59f267346ea31F984",
+                "10": "0x1F98431c8aD98523631AE4a59f267346ea31F984"
+              }
+            }
+          ]
         }
       }
     ],
