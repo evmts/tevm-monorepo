@@ -1,5 +1,14 @@
 # @evmts/ts-plugin
 
+## 0.5.7
+
+### Patch Changes
+
+- [#351](https://github.com/evmts/evmts-monorepo/pull/351) [`ca58f7a`](https://github.com/evmts/evmts-monorepo/commit/ca58f7a66b01a68d93585d664a77a43f67ce5bbc) Thanks [@roninjin10](https://github.com/roninjin10)! - Added support for reload when any contract in the import graph changes
+
+- Updated dependencies [[`4fc4872`](https://github.com/evmts/evmts-monorepo/commit/4fc48722380d4390ef527ccbb27a63f73503c750), [`97cb0c1`](https://github.com/evmts/evmts-monorepo/commit/97cb0c1381f3a0b3ffa92dfcb09c397cff3190dd), [`ca58f7a`](https://github.com/evmts/evmts-monorepo/commit/ca58f7a66b01a68d93585d664a77a43f67ce5bbc)]:
+  - @evmts/bundler@0.5.7
+
 ## 0.5.6
 
 ### Patch Changes
