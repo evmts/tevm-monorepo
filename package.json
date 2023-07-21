@@ -7,6 +7,9 @@
     "url": "https://github.com/evmts/evmts-monorepo.git"
   },
   "license": "MIT",
+  "contributors": [
+    "Will Cory <willcory10@gmail.com>"
+  ],
   "type": "module",
   "scripts": {
     "all": "nx run-many --targets=lint,format,build,typecheck,test:run && pnpm sort-package-json",

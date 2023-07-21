@@ -2,6 +2,9 @@
   "name": "@evmts/ts-plugin",
   "version": "0.5.7",
   "private": false,
+  "contributors": [
+    "Will Cory <willcory10@gmail.com>"
+  ],
   "description": "A typescript plugin for evmts",
   "keywords": [
     "typescript",

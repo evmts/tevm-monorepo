@@ -1,6 +1,9 @@
 {
   "name": "@evmts/config",
   "version": "0.5.6",
+  "contributors": [
+    "Will Cory <willcory10@gmail.com>"
+  ],
   "private": false,
   "description": "Manages config for evmts",
   "keywords": [

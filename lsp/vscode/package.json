@@ -2,6 +2,9 @@
   "private": true,
   "name": "@evmts/vscode",
   "version": "0.0.1",
+  "contributors": [
+    "Will Cory <willcory10@gmail.com>"
+  ],
   "type": "module",
   "main": "dist/extension.cjs",
   "module": "dist/extension.js",

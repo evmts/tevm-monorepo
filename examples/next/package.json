@@ -2,6 +2,9 @@
   "name": "@evmts/example-next",
   "version": "0.0.2",
   "private": true,
+  "contributors": [
+    "Will Cory <willcory10@gmail.com>"
+  ],
   "scripts": {
     "build": "next build",
     "dev": "next dev",
