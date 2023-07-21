@@ -1,6 +1,9 @@
 {
   "name": "@evmts/rollup-plugin",
   "version": "0.5.7",
+  "contributors": [
+    "Will Cory <willcory10@gmail.com>"
+  ],
   "private": false,
   "description": "A generic plugin that can be used in esbuild, webpack, vite, and rollup",
   "keywords": [

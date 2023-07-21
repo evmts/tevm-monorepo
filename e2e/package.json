@@ -2,6 +2,9 @@
   "name": "@evmts/e2e",
   "version": "0.0.2",
   "private": true,
+  "contributors": [
+    "Will Cory <willcory10@gmail.com>"
+  ],
   "type": "module",
   "scripts": {
     "clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",

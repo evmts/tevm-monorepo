@@ -2,6 +2,9 @@
   "name": "@evmts/example-esbuild",
   "version": "0.0.1",
   "private": true,
+  "contributors": [
+    "Will Cory <willcory10@gmail.com>"
+  ],
   "scripts": {
     "build": "NODE_ENV=production tsx ./build.ts",
     "dev": "pnpm build && node ./dist/index.js",

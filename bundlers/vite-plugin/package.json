@@ -2,6 +2,9 @@
   "name": "@evmts/vite-plugin",
   "version": "0.5.7",
   "private": false,
+  "contributors": [
+    "Will Cory <willcory10@gmail.com>"
+  ],
   "description": "A vite plugin for evmts",
   "keywords": [
     "vite",

@@ -3,6 +3,9 @@
   "version": "0.0.1",
   "license": "MIT",
   "type": "module",
+  "contributors": [
+    "Will Cory <willcory10@gmail.com>"
+  ],
   "main": "dist/index.cjs",
   "module": "dist/index.js",
   "scripts": {

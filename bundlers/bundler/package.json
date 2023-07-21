@@ -18,6 +18,9 @@
     "directory": "bundlers/bundler"
   },
   "license": "MIT",
+  "contributors": [
+    "Will Cory <willcory10@gmail.com>"
+  ],
   "type": "module",
   "main": "dist/index.cjs",
   "module": "dist/index.js",
