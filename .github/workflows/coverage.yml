@@ -37,7 +37,7 @@ jobs:
         uses:  davelosert/vitest-coverage-report-action@v2
         with:
           name: "@evmts/ethers"
-          working-directory: "./runtime/core"
+          working-directory: "./runtime/ethers"
       - name: 'Report @evmts/bundler Coverage'
         if: always() # Also generate the report if tests are failing
         uses:  davelosert/vitest-coverage-report-action@v2
