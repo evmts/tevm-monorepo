@@ -11,11 +11,9 @@ export const resolveImports = (
 	let foundImport = importRegEx.exec(code)
 	while (foundImport != null) {
 		const importPath = foundImport[1]
-
 		if (!importPath) {
 			throw new Error('expected import path to exist')
 		}
-
 		if (isImportLocal(importPath)) {
 			const importFullPath = formatPath(
 				path.resolve(path.dirname(absolutePath), importPath),
@@ -24,7 +22,6 @@ export const resolveImports = (
 		} else {
 			imports.push(importPath)
 		}
-
 		foundImport = importRegEx.exec(code)
 	}
 	return imports

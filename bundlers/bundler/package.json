@@ -30,7 +30,7 @@
     "types"
   ],
   "scripts": {
-    "test": "vitest",
+    "test": "vitest --coverage",
     "test:coverage": "vitest run --coverage",
     "test:run": "vitest run",
     "test:ui": "vitest --ui",

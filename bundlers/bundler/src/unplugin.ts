@@ -56,7 +56,12 @@ export const unpluginFn: UnpluginFactory<{ compiler?: CompilerOption }, false> =
 					id,
 					process.cwd(),
 				)
+				console.log({ modules })
 				Object.values(modules).forEach((module) => {
+					console.log(module, module.id)
+					if (module.id.includes('node_modules')) {
+						return
+					}
 					this.addWatchFile(module.id)
 				})
 				return code
@@ -64,11 +69,7 @@ export const unpluginFn: UnpluginFactory<{ compiler?: CompilerOption }, false> =
 		} as const
 	}
 
-const evmtsUnplugin = createUnplugin(
-	(config: { compiler?: CompilerOption } = {}) => {
-		return unpluginFn(config, {} as any)
-	},
-)
+const evmtsUnplugin = createUnplugin(unpluginFn)
 
 // Hacks to make types portable
 // we should manually type these at some point
