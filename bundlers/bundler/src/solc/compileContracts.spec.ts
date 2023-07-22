@@ -17,6 +17,15 @@ vi.mock('solc', () => {
 	return { default: defaultExport, ...defaultExport }
 })
 vi.mock('./moduleFactory', () => ({ moduleFactory: vi.fn() }))
+const ConsoleMock = {
+	log: vi.fn(),
+	error: vi.fn(),
+	warn: vi.fn(),
+	info: vi.fn(),
+	debug: vi.fn(),
+}
+
+vi.stubGlobal('console', ConsoleMock)
 
 describe('compileContractSync', () => {
 	const filePath = 'test/path'
@@ -125,6 +134,34 @@ describe('compileContractSync', () => {
 			  "{\\"language\\":\\"Solidity\\",\\"sources\\":{\\"test/path\\":{\\"content\\":\\"import test/path/resolutionFile.sol\\\\ncontract Test {}\\"},\\"test/path/resolutionFile.sol\\":{\\"content\\":\\"contract Resolution {}\\"}},\\"settings\\":{\\"outputSelection\\":{\\"*\\":{\\"*\\":[\\"*\\"]}}}}",
 			]
 		`)
+	})
+
+	it('should throw error if compilation fails', () => {
+		mockSolcCompile.mockReturnValue(
+			JSON.stringify({
+				contracts: { [filePath]: null },
+				errors: [{ type: 'Error', message: 'Compilation Error' }],
+			}),
+		)
+		expect(() =>
+			compileContractSync(filePath, basedir, config),
+		).toThrowErrorMatchingInlineSnapshot('"Compilation failed"')
+		expect(console.error).toHaveBeenCalledWith('Compilation errors:', [
+			{ type: 'Error', message: 'Compilation Error' },
+		])
+	})
+
+	it('should log warnings if there are any', () => {
+		mockSolcCompile.mockReturnValue(
+			JSON.stringify({
+				contracts: { [filePath]: mockCompiledContract },
+				errors: [{ type: 'Warning', message: 'Compilation Warning' }],
+			}),
+		)
+		compileContractSync(filePath, basedir, config)
+		expect((console.warn as Mock).mock.lastCall[0]).toMatchInlineSnapshot(
+			'"Compilation warnings:"',
+		)
 	})
 
 	afterEach(() => {

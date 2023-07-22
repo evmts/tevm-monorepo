@@ -107,6 +107,39 @@ describe('resolveArtifactsSync', () => {
 			}
 		`)
 	})
+
+	it('should correctly transform the contract artifacts', () => {
+		mockCompileContractSync.mockReturnValue({
+			artifacts: {
+				Test: {
+					abi: ['testAbi'],
+					evm: { bytecode: { object: 'testBytecode' } },
+				},
+			},
+			modules: mockModules,
+		})
+
+		const { artifacts } = resolveArtifactsSync(solFile, basedir, logger, config)
+
+		expect(artifacts).toEqual({
+			Test: {
+				contractName: 'Test',
+				abi: ['testAbi'],
+				bytecode: 'testBytecode',
+			},
+		})
+	})
+
+	it('should throw an error if artifacts is undefined', () => {
+		mockCompileContractSync.mockReturnValue({
+			artifacts: undefined,
+			modules: mockModules,
+		})
+
+		expect(() =>
+			resolveArtifactsSync(solFile, basedir, logger, config),
+		).toThrowErrorMatchingInlineSnapshot('"Compilation failed"')
+	})
 })
 
 afterEach(() => {

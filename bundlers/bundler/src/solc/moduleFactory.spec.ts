@@ -15,8 +15,10 @@ describe('moduleFactory', () => {
 	} as const
 
 	const testModuleCode = `import "key1/somefile"
-                            import "./localfile"
-                            import "othermodule"`
+import "./localfile"
+import "./anotherLocalFile"
+import "othermodule"
+import "otherOthermodule"`
 
 	const absolutePath = '/project/src/testModule.sol'
 
@@ -39,26 +41,60 @@ describe('moduleFactory', () => {
 
 	it('should correctly resolve import paths', () => {
 		expect(testModule.importedIds).toMatchInlineSnapshot(`
-      [
-        "/path/to/key1somefile",
-      ]
-    `)
+			[
+			  "/path/to/key1somefile",
+			  "/project/src/localfile",
+			  "/project/src/anotherLocalFile",
+			  "othermodule",
+			  "otherOthermodule",
+			]
+		`)
 	})
 
 	it('should correctly replace import statements in code', () => {
 		expect(testModule.code).toMatchInlineSnapshot(`
-      "import \\"/path/to/key1somefile\\"
-                                  import \\"./localfile\\"
-                                  import \\"othermodule\\""
-    `)
+			"import \\"/path/to/key1somefile\\"
+			import \\"/project/src/localfile\\"
+			import \\"/project/src/anotherLocalFile\\"
+			import \\"othermodule\\"
+			import \\"otherOthermodule\\""
+		`)
 	})
 
 	it('should correctly resolve module dependencies', () => {
 		expect(testModule.resolutions.map((r) => r.id)).toMatchInlineSnapshot(`
-      [
-        "/path/to/key1somefile",
-      ]
-    `)
+			[
+			  "/path/to/key1somefile",
+			  "/project/src/localfile",
+			  "/project/src/anotherLocalFile",
+			  "othermodule",
+			  "otherOthermodule",
+			]
+		`)
+	})
+
+	it('should not replace import statements if resolveImportPath returns the original import', () => {
+		// This import path does not start with a remapping key, is not local, and cannot be resolved by Node
+		const testModuleCodeUnresolvedImport = `import "unresolved/import"`
+		const unresolvedImportMockContent = 'contract UnresolvedImport {}'
+
+		mockReadFileSync
+			.mockReturnValueOnce(unresolvedImportMockContent)
+			.mockReturnValueOnce(key1MockContent)
+			.mockReturnValueOnce(othermoduleMockContent)
+
+		const testModuleUnresolvedImport = moduleFactory(
+			absolutePath,
+			testModuleCodeUnresolvedImport,
+			remappings,
+			['../node_modules'],
+		)
+
+		// Update the expected snapshot to reflect the change.
+		// The snapshot string might need to be adjusted based on the actual output of your function.
+		expect(testModuleUnresolvedImport.code).toMatchInlineSnapshot(`
+    "import \\"unresolved/import\\""
+  `)
 	})
 
 	afterEach(() => {

@@ -305,7 +305,7 @@ describe(bundler.name, () => {
 				  "code": "import { EvmtsContract } from '@evmts/core'
 				const _abiTestContract = [] as const;
 				const _chainAddressMapTestContract = {\\"10\\":\\"0x123\\"} as const;
-				const nameTestContract = \\"TestContract\\" as const;
+				const _nameTestContract = \\"TestContract\\" as const;
 				/**
 				 * TestContract EvmtsContract
 				 * @etherscan-10 https://optimistic.etherscan.io/address/0x123

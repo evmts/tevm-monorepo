@@ -1,0 +1,22 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`generateEvmtsBody > should generate correct body for cjs module 1`] = `
+"const _MyContract = {\\"name\\":\\"MyContract\\",\\"abi\\":{},\\"bytecode\\":\\"0x60016001\\",\\"addresses\\":{\\"test\\":\\"0x123\\"}}
+module.exports.MyContract = ContractFactory(_MyContract)
+const _AnotherContract = {\\"name\\":\\"AnotherContract\\",\\"abi\\":{},\\"bytecode\\":\\"0x60016002\\",\\"addresses\\":{}}
+module.exports.AnotherContract = ContractFactory(_AnotherContract)"
+`;
+
+exports[`generateEvmtsBody > should generate correct body for mjs module 1`] = `
+"const _MyContract = {\\"name\\":\\"MyContract\\",\\"abi\\":{},\\"bytecode\\":\\"0x60016001\\",\\"addresses\\":{\\"test\\":\\"0x123\\"}}
+export const MyContract = ContractFactory(_MyContract)
+const _AnotherContract = {\\"name\\":\\"AnotherContract\\",\\"abi\\":{},\\"bytecode\\":\\"0x60016002\\",\\"addresses\\":{}}
+export const AnotherContract = ContractFactory(_AnotherContract)"
+`;
+
+exports[`generateEvmtsBody > should generate correct body for ts module 1`] = `
+"const _MyContract = {\\"name\\":\\"MyContract\\",\\"abi\\":{},\\"bytecode\\":\\"0x60016001\\",\\"addresses\\":{\\"test\\":\\"0x123\\"}} as const
+export const MyContract = ContractFactory(_MyContract)
+const _AnotherContract = {\\"name\\":\\"AnotherContract\\",\\"abi\\":{},\\"bytecode\\":\\"0x60016002\\",\\"addresses\\":{}} as const
+export const AnotherContract = ContractFactory(_AnotherContract)"
+`;

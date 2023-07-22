@@ -45,4 +45,27 @@ import { Other } from "other-module"
 
 		expect(imports).toMatchInlineSnapshot('[]')
 	})
+
+	it('should throw an error if import path does not exist', () => {
+		const code = 'import { Something } from ""'
+		expect(() =>
+			resolveImports('/project/src', code),
+		).toThrowErrorMatchingInlineSnapshot('"expected import path to exist"')
+	})
+
+	it('should correctly resolve import nothing statements', () => {
+		const code = 'import "./something"'
+		const imports = resolveImports('/project/src', code)
+		expect(imports).toMatchInlineSnapshot(`
+          [
+            "/project/something",
+          ]
+        `)
+	})
+
+	it('should ignore lines that resemble import statements', () => {
+		const code = 'console.log("import { Something } from \\"./something\\"")'
+		const imports = resolveImports('/project/src', code)
+		expect(imports).toMatchInlineSnapshot('[]')
+	})
 })

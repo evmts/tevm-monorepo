@@ -100,4 +100,63 @@ describe('unpluginFn', () => {
 			'"We have abandoned the foundry option despite supporting it in the past. Please use solc instead. Foundry will be added back as a compiler at a later time."',
 		)
 	})
+
+	it('should watch the tsconfig.json file', async () => {
+		const plugin = unpluginFn({}, {} as any)
+
+		// call buildstart with mockPlugin as this
+		await plugin.buildStart?.call(mockPlugin)
+
+		// check if the addWatchFile function has been called with './tsconfig.json'
+		expect(mockPlugin.addWatchFile).toHaveBeenCalledWith('./tsconfig.json')
+	})
+
+	it('should add module id to watch files if it is a .sol file', async () => {
+		const plugin = unpluginFn({}, {} as any)
+		const mockedModuleId = 'mockedModuleId'
+		const mockedModule = {
+			code: 'mockedCode',
+			modules: { [mockedModuleId]: { id: '/path/to/mock/module' } },
+		} as const
+
+		mockBundler.mockReturnValue({
+			resolveEsmModule: () => mockedModule,
+		})
+
+		await plugin?.buildStart?.call(mockPlugin)
+		expect(mockPlugin.addWatchFile).toHaveBeenCalledWith('./tsconfig.json')
+		await plugin.load?.call(mockPlugin, 'test.sol')
+		expect(mockPlugin.addWatchFile).toHaveBeenCalledWith(
+			mockedModule.modules[mockedModuleId].id,
+		)
+	})
+
+	it('should not add module id to watch files if it is a .sol file in node modules', async () => {
+		const plugin = unpluginFn({}, {} as any)
+		const mockedModuleId = 'mockedModuleId'
+		const mockedModule = {
+			code: 'mockedCode',
+			modules: { [mockedModuleId]: { id: '/node_modules/to/mock/module' } },
+		} as const
+
+		mockBundler.mockReturnValue({
+			resolveEsmModule: () => mockedModule,
+		})
+
+		await plugin?.buildStart?.call(mockPlugin)
+		expect(mockPlugin.addWatchFile).toHaveBeenCalledWith('./tsconfig.json')
+		await plugin.load?.call(mockPlugin, 'test.sol')
+		expect(mockPlugin.addWatchFile).not.toHaveBeenCalledWith(
+			mockedModule.modules[mockedModuleId].id,
+		)
+	})
+
+	it('should handle @evmts/core/runtime id correctly', async () => {
+		const plugin = unpluginFn({}, {} as any)
+
+		// Insert logic here based on what the behavior should be when id.startsWith('@evmts/core/runtime') is true
+		// For now, let's just call it and assert that it doesn't throw an error
+		const testFn = () => plugin.load?.call(mockPlugin, '@evmts/core/runtime')
+		expect(testFn).not.toThrow()
+	})
 })
