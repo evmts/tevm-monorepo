@@ -1,5 +1,6 @@
 import { evmtsContractFactory } from '../evmtsContractFactory'
 import { dummyAbi } from '../test/fixtures'
+import { eventsFactory } from './eventFactory'
 import type { Address } from 'abitype'
 import { describe, expect, it } from 'vitest'
 
@@ -16,7 +17,17 @@ const contract = evmtsContractFactory({
 	addresses: dummyAddresses,
 	bytecode,
 })
-describe('events', () => {
+
+const dummyAbiNoEvent = dummyAbi.filter((abi) => abi.type !== 'event')
+
+const contractNoEvent = evmtsContractFactory({
+	abi: dummyAbiNoEvent,
+	name: 'DummyContract',
+	addresses: dummyAddresses,
+	bytecode,
+})
+
+describe(eventsFactory.name, () => {
 	it('should generate event filter parameters', () => {
 		const eventFilterParams = contract.events().exampleEvent({
 			fromBlock: 'latest',
@@ -46,5 +57,30 @@ describe('events', () => {
           },
         ]
       `)
+	})
+
+	it('should generate event filter parameters when chainId is not provided', () => {
+		const event = contract.events().exampleEvent({ strict: false })
+
+		expect(event.address).toEqual(Object.values(dummyAddresses)[0])
+	})
+
+	it('should generate event filter parameters when chainId is provided', () => {
+		const event = contract
+			.events({ chainId: 1 })
+			.exampleEvent({ strict: false })
+
+		expect(event.address).toEqual(dummyAddresses[1])
+	})
+
+	it('should return an empty object when the provided abi includes no events', () => {
+		const eventCreator = contractNoEvent.events({ chainId: 1 })
+		expect(Object.keys(eventCreator)).toHaveLength(0)
+	})
+
+	it('should return an empty object when abi is an empty array', () => {
+		const events = eventsFactory({ abi: [], addresses: dummyAddresses })
+		const eventCreator = events({ chainId: 1 })
+		expect(Object.keys(eventCreator)).toHaveLength(0)
 	})
 })
