@@ -1,5 +1,6 @@
 import { evmtsContractFactory } from '../evmtsContractFactory'
 import { dummyAbi } from '../test/fixtures'
+import { writeFactory } from './writeFactory'
 import type { Address } from 'abitype'
 import { describe, expect, it } from 'vitest'
 
@@ -145,5 +146,35 @@ describe('write', () => {
 				  "function overloadedWrite() payable returns (string)",
 				]
 			`)
+	})
+
+	it('should return an empty object when methods list is empty', () => {
+		const write = writeFactory({ methods: [], addresses: dummyAddresses })
+		expect(write()).toEqual({})
+	})
+
+	it('should default to the first address when chainId is not provided', () => {
+		const writeFunc = contract.write().exampleWrite('data', BigInt(420))
+
+		expect(writeFunc.address).toEqual(Object.values(dummyAddresses)[0])
+	})
+
+	it('should return undefined for address when addresses object is undefined', () => {
+		const c = evmtsContractFactory({
+			abi: dummyAbi,
+			name: 'DummyContract',
+			// empty address
+			addresses: {},
+			bytecode,
+		})
+		const writeFunc = c.write().exampleWrite('data', BigInt(420))
+		expect(writeFunc.address).toBeUndefined()
+	})
+
+	it('should default to the first address when chainId does not exist in addresses', () => {
+		const writeFunc = contract
+			.write({ chainId: 999 })
+			.exampleWrite('data', BigInt(420))
+		expect(writeFunc.address).toEqual(Object.values(dummyAddresses)[0])
 	})
 })
