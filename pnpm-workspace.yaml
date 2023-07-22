@@ -1,7 +1,7 @@
 packages:
-  - "core"
+  - "bundlers/*"
   - "docs"
   - "e2e"
   - "examples/*"
-  - "bundlers/*"
   - "lsp/*"
+  - "runtime/*"
