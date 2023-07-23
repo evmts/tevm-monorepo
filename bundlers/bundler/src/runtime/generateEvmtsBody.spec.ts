@@ -13,8 +13,6 @@ describe('generateEvmtsBody', () => {
 		},
 	}
 
-	const contractFactory = 'ContractFactory'
-
 	const config = {
 		localContracts: {
 			contracts: [
@@ -31,7 +29,6 @@ describe('generateEvmtsBody', () => {
 	it('should generate correct body for cjs module', () => {
 		const result = generateEvmtsBody(
 			artifacts,
-			contractFactory,
 			config as any,
 			'cjs',
 		)
@@ -41,7 +38,6 @@ describe('generateEvmtsBody', () => {
 	it('should generate correct body for mjs module', () => {
 		const result = generateEvmtsBody(
 			artifacts,
-			contractFactory,
 			config as any,
 			'mjs',
 		)
@@ -51,7 +47,6 @@ describe('generateEvmtsBody', () => {
 	it('should generate correct body for ts module', () => {
 		const result = generateEvmtsBody(
 			artifacts,
-			contractFactory,
 			config as any,
 			'ts',
 		)

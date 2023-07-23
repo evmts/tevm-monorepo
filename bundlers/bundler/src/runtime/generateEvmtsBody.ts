@@ -1,4 +1,5 @@
 import { ResolvedConfig } from '@evmts/config'
+import { generateDtsBody } from './generateEvmtsBodyDts'
 
 type Artifacts = Record<
 	string,
@@ -8,14 +9,16 @@ type Artifacts = Record<
 	}
 >
 
-type ModuleType = 'cjs' | 'mjs' | 'ts'
+type ModuleType = 'cjs' | 'mjs' | 'ts' | 'dts'
 
 export const generateEvmtsBody = (
 	artifacts: Artifacts,
-	contractFactory: string,
 	config: ResolvedConfig,
 	moduleType: ModuleType,
-) => {
+): string => {
+	if (moduleType === 'dts') {
+		return generateDtsBody(artifacts, config)
+	}
 	return Object.entries(artifacts)
 		.flatMap(([contractName, { abi, bytecode }]) => {
 			const contract = JSON.stringify({
@@ -31,20 +34,20 @@ export const generateEvmtsBody = (
 			if (moduleType === 'cjs') {
 				return [
 					`const _${contractName} = ${contract}`,
-					`module.exports.${contractName} = ${contractFactory}(_${contractName})`,
+					`module.exports.${contractName} = evmtsContractFactory(_${contractName})`,
 				]
 			}
 
 			if (moduleType === 'ts') {
 				return [
 					`const _${contractName} = ${contract} as const`,
-					`export const ${contractName} = ${contractFactory}(_${contractName})`,
+					`export const ${contractName} = evmtsContractFactory(_${contractName})`,
 				]
 			}
 
 			return [
 				`const _${contractName} = ${contract}`,
-				`export const ${contractName} = ${contractFactory}(_${contractName})`,
+				`export const ${contractName} = evmtsContractFactory(_${contractName})`,
 			]
 		})
 		.join('\n')
