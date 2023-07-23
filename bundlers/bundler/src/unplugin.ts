@@ -58,9 +58,7 @@ export const unpluginFn: UnpluginFactory<
 				id,
 				process.cwd(),
 			)
-			console.log({ modules })
 			Object.values(modules).forEach((module) => {
-				console.log(module, module.id)
 				if (module.id.includes('node_modules')) {
 					return
 				}
