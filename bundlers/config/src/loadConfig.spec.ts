@@ -1,4 +1,4 @@
-import { EVMtsConfig, defaultConfig, loadConfig } from '.'
+import { EvmtsConfig, defaultConfig, loadConfig } from '.'
 import * as cp from 'child_process'
 import * as fs from 'fs'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
@@ -44,6 +44,10 @@ vi.mock('child_process', () => ({
 describe(loadConfig.name, () => {
 	beforeEach(() => {
 		vi.resetAllMocks()
+		vi.stubGlobal('process', {
+			...process,
+			env: { ...process.env, ETHERSCAN_KEY: 'MY_ETHERSCAN_KEY' },
+		})
 	})
 
 	it('should throw an error if tsconfig.json does not exist', () => {
@@ -130,7 +134,8 @@ describe(loadConfig.name, () => {
 	})
 
 	it('should return the correct config when most options are passed in', () => {
-		const customConfig: EVMtsConfig = {
+		const customConfig: EvmtsConfig = {
+			name: '@evmts/ts-plugin',
 			compiler: {
 				solcVersion: '0.9.0',
 				libs: ['lib1', 'lib2'],
@@ -145,6 +150,22 @@ describe(loadConfig.name, () => {
 							'5': '0x1df10ec981ac5871240be4a94f250dd238b77901',
 							'10': '0x1df10ec981ac5871240be4a94f250dd238b77901',
 						},
+					},
+				],
+			},
+			externalContracts: {
+				apiKeys: {
+					etherscan: {
+						1: '$ETHERSCAN_KEY',
+					},
+				},
+				contracts: [
+					{
+						type: 'etherscan',
+						addresses: {
+							1: '0x1234',
+						},
+						name: 'MyExternalContract',
 					},
 				],
 			},
@@ -168,19 +189,41 @@ describe(loadConfig.name, () => {
 			{
 			  "compiler": {
 			    "foundryProject": false,
-			    "libs": [],
+			    "libs": [
+			      "lib1",
+			      "lib2",
+			    ],
 			    "remappings": {},
-			    "solcVersion": "0.8.20",
+			    "solcVersion": "0.9.0",
 			  },
 			  "externalContracts": {
 			    "apiKeys": {
-			      "etherscan": {},
+			      "etherscan": {
+			        "1": "$ETHERSCAN_KEY",
+			      },
 			    },
-			    "contracts": [],
+			    "contracts": [
+			      {
+			        "addresses": {
+			          "1": "0x1234",
+			        },
+			        "name": "MyExternalContract",
+			        "type": "etherscan",
+			      },
+			    ],
 			    "out": "externalContracts",
 			  },
 			  "localContracts": {
-			    "contracts": [],
+			    "contracts": [
+			      {
+			        "addresses": {
+			          "1": "0xFBA3912Ca04dd458c843e2EE08967fC04f3579c2",
+			          "10": "0x1df10ec981ac5871240be4a94f250dd238b77901",
+			          "5": "0x1df10ec981ac5871240be4a94f250dd238b77901",
+			        },
+			        "name": "WagmiMintExample",
+			      },
+			    ],
 			  },
 			}
 		`)
@@ -348,5 +391,65 @@ describe(loadConfig.name, () => {
 		expect(mockLogger.warn).toHaveBeenCalledWith(
 			'No Evmts plugin found in tsconfig.json. Using the default config',
 		)
+	})
+
+	it('shoudl expand env', () => {
+		const customConfig: EvmtsConfig = {
+			name: '@evmts/ts-plugin',
+			externalContracts: {
+				apiKeys: {
+					etherscan: {
+						1: '$ETHERSCAN_KEY',
+					},
+				},
+				contracts: [
+					{
+						type: 'etherscan',
+						name: 'MyContract',
+						addresses: {
+							1: '0x1234',
+						},
+					},
+				],
+			},
+		}
+		const tsConfig = {
+			compilerOptions: {
+				plugins: [customConfig],
+			},
+		}
+		vi.spyOn(fs, 'readFileSync').mockReturnValue(JSON.stringify(tsConfig))
+		vi.spyOn(fs, 'existsSync').mockReturnValue(true)
+		const config = loadConfig('path/to/config')
+		expect(config).toMatchInlineSnapshot(`
+			{
+			  "compiler": {
+			    "foundryProject": false,
+			    "libs": [],
+			    "remappings": {},
+			    "solcVersion": "0.8.20",
+			  },
+			  "externalContracts": {
+			    "apiKeys": {
+			      "etherscan": {
+			        "1": "$ETHERSCAN_KEY",
+			      },
+			    },
+			    "contracts": [
+			      {
+			        "addresses": {
+			          "1": "0x1234",
+			        },
+			        "name": "MyContract",
+			        "type": "etherscan",
+			      },
+			    ],
+			    "out": "externalContracts",
+			  },
+			  "localContracts": {
+			    "contracts": [],
+			  },
+			}
+		`)
 	})
 })

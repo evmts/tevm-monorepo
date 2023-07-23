@@ -4,13 +4,9 @@
 // deployments?: Record<string, DeploymentConfig>
 // forge?: ForgeConfig
 
-import {
-	CompilerConfig,
-	EVMtsConfig,
-	LocalContractsConfig,
-} from './EVMtsConfig'
+import { CompilerConfig, EvmtsConfig, LocalContractsConfig } from './Config'
 
-export interface DeprecatedConfig extends EVMtsConfig {
+export interface DeprecatedConfig extends EvmtsConfig {
 	deployments?: LocalContractsConfig['contracts']
 	forge?: CompilerConfig['foundryProject']
 	libs?: CompilerConfig['libs']
@@ -26,7 +22,7 @@ export const handleDeprecations = (
 	}
 	let newConfig = config
 	if (config.deployments) {
-		logger.warn(`deployments in EVMtsConfig is deprecated and
+		logger.warn(`deployments in EvmtsConfig is deprecated and
 			has been renamed to 'localContracts.contracts'. It will be
 removed in the Evmts beta release.
 Please rename the property in your tsconfig.json.`)
@@ -44,7 +40,7 @@ Please rename the property in your tsconfig.json.`)
 	}
 	if (config.forge) {
 		const { forge, ...rest } = config as typeof config & { forge: any }
-		logger.warn(`forge in EVMtsConfig is deprecated and
+		logger.warn(`forge in EvmtsConfig is deprecated and
 			has been renamed to 'compiler.foundryProject'. It will be
 removed in the Evmts beta release.
 Please rename the property in your tsconfig.json.`)
@@ -58,7 +54,7 @@ Please rename the property in your tsconfig.json.`)
 	}
 	if (config.libs) {
 		const { libs, ...rest } = config as typeof config & { libs: any }
-		logger.warn(`libs in EVMtsConfig is deprecated
+		logger.warn(`libs in EvmtsConfig is deprecated
 			and has been renamed to 'compiler.libs'. It will be
 removed in the Evmts beta release.
 Please rename the property in your tsconfig.json.`)
@@ -74,7 +70,7 @@ Please rename the property in your tsconfig.json.`)
 		const { solcVersion, ...rest } = config as typeof config & {
 			solcVersion: any
 		}
-		logger.warn(`solcVersion in EVMtsConfig is deprecated and
+		logger.warn(`solcVersion in EvEvmConfig is deprecated and
 			has been renamed to 'compiler.solcVersion'
 Please rename the property in your tsconfig.json`)
 		newConfig = {

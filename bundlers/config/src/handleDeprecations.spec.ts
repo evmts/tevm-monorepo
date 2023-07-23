@@ -1,4 +1,4 @@
-import { EVMtsConfig } from './EVMtsConfig'
+import { EvmtsConfig } from './Config'
 import { DeprecatedConfig, handleDeprecations } from './handleDeprecations'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
@@ -19,7 +19,7 @@ describe(handleDeprecations.name, () => {
 	})
 
 	it('should return the same config if no deprecated properties are used', () => {
-		const originalConfig: EVMtsConfig = {
+		const originalConfig: EvmtsConfig = {
 			compiler: {
 				solcVersion: '0.8.20',
 				libs: [],

@@ -1,4 +1,4 @@
-import { EVMtsConfig, ResolvedConfig, defaultConfig } from './EVMtsConfig'
+import { EvmtsConfig, ResolvedConfig, defaultConfig } from './Config'
 import { defineConfig } from './defineConfig'
 import { readFileSync } from 'fs'
 import * as path from 'path'
@@ -24,7 +24,7 @@ export const loadConfig: LoadConfig = (configFilePath, logger = console) => {
 	}
 	let configJson: {
 		compilerOptions: {
-			plugins?: Array<{ name: '@evmts/ts-plugin' } & EVMtsConfig>
+			plugins?: Array<{ name: '@evmts/ts-plugin' } & EvmtsConfig>
 			baseUrl?: string
 		}
 	}
@@ -35,7 +35,7 @@ export const loadConfig: LoadConfig = (configFilePath, logger = console) => {
 		throw new Error(`tsconfig.json at ${tsConfigPath} is not valid json`)
 	}
 
-	let config: EVMtsConfig | undefined =
+	let config: EvmtsConfig | undefined =
 		configJson?.compilerOptions?.plugins?.find(
 			(plugin) => plugin.name === '@evmts/ts-plugin',
 		)
