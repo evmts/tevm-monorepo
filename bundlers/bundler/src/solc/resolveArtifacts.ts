@@ -1,6 +1,6 @@
-import { Logger, ModuleInfo } from '../types'
+import type { Logger, ModuleInfo } from '../types'
 import { resolveArtifactsSync } from './resolveArtifactsSync'
-import { ResolvedConfig } from '@evmts/config'
+import type { ResolvedConfig } from '@evmts/config'
 
 /**
  * Currently unimplemented just uses resolveArtifactsSync

@@ -1,8 +1,15 @@
-import { Artifacts } from '../solc/resolveArtifactsSync'
+import type { Artifacts } from '../solc/resolveArtifactsSync'
 import { generateEvmtsBody } from './generateEvmtsBody'
 import { generateRuntimeSync } from './generateRuntimeSync'
 import { defaultConfig } from '@evmts/config'
-import { MockedFunction, beforeEach, describe, expect, it, vi } from 'vitest'
+import {
+	type MockedFunction,
+	beforeEach,
+	describe,
+	expect,
+	it,
+	vi,
+} from 'vitest'
 
 vi.mock('./generateEvmtsBody', () => ({ generateEvmtsBody: vi.fn() }))
 const mockGenerateEvmtsBody = generateEvmtsBody as MockedFunction<

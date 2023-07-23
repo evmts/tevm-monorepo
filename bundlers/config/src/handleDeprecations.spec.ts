@@ -1,5 +1,5 @@
-import { EvmtsConfig } from './Config'
-import { DeprecatedConfig, handleDeprecations } from './handleDeprecations'
+import type { EvmtsConfig } from './Config'
+import { type DeprecatedConfig, handleDeprecations } from './handleDeprecations'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 describe(handleDeprecations.name, () => {

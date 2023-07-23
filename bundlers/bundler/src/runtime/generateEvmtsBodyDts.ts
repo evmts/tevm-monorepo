@@ -1,5 +1,5 @@
 import { getEtherscanLinks } from '../utils'
-import { ResolvedConfig } from '@evmts/config'
+import type { ResolvedConfig } from '@evmts/config'
 
 type Artifacts = Record<
 	string,

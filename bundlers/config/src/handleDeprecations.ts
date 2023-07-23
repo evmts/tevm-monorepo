@@ -4,7 +4,11 @@
 // deployments?: Record<string, DeploymentConfig>
 // forge?: ForgeConfig
 
-import { CompilerConfig, EvmtsConfig, LocalContractsConfig } from './Config'
+import type {
+	CompilerConfig,
+	EvmtsConfig,
+	LocalContractsConfig,
+} from './Config'
 
 export interface DeprecatedConfig extends EvmtsConfig {
 	deployments?: LocalContractsConfig['contracts']

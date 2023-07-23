@@ -1,4 +1,4 @@
-import { EvmtsConfig, ResolvedConfig, defaultConfig } from './Config'
+import { type EvmtsConfig, type ResolvedConfig, defaultConfig } from './Config'
 import { handleDeprecations } from './handleDeprecations'
 import { execSync } from 'child_process'
 import * as path from 'path'

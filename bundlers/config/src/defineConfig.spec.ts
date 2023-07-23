@@ -1,7 +1,7 @@
 import { defineConfig } from '.'
-import { EvmtsConfig, defaultConfig } from './Config'
+import { type EvmtsConfig, defaultConfig } from './Config'
 import { execSync } from 'child_process'
-import { MockedFunction, describe, expect, it, vi } from 'vitest'
+import { type MockedFunction, describe, expect, it, vi } from 'vitest'
 
 vi.mock('child_process', () => ({
 	execSync: vi.fn(),

@@ -1,6 +1,6 @@
-import { Events } from './event/Event'
-import { Read } from './read/Read'
-import { Write } from './write/Write'
+import type { Events } from './event/Event'
+import type { Read } from './read/Read'
+import type { Write } from './write/Write'
 import type { Abi, Address, FormatAbi } from 'abitype'
 
 export type EvmtsContract<
