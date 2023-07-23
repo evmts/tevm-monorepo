@@ -1,12 +1,8 @@
-import { expandEnv } from './expandEnv'
+import { expandedString } from './zodUtils'
 import { isAddress } from 'viem'
 import { z } from 'zod'
 
-const _expandEnv = (str: string) => expandEnv(str, process.env)
-
-export const addressValidator = z
-	.string()
-	.transform(_expandEnv)
+export const addressValidator = expandedString()
 	.transform((a) => a as Address)
 	.refine(isAddress, { message: 'Invalid ethereum address' })
 	.describe('Valid ethereum address')
@@ -19,10 +15,7 @@ export const localContractsConfigValidator = z
 	.strictObject({
 		addresses: z.array(
 			z.strictObject({
-				name: z
-					.string()
-					.transform(_expandEnv)
-					.describe('Unique name of contract'),
+				name: expandedString().describe('Unique name of contract'),
 				address: addressValidator.describe('Address of contract'),
 			}),
 		),
@@ -64,7 +57,7 @@ export type SupportedEtherscanChainIds = z.infer<
 
 export const etherscanConfigValidator = z.strictObject({
 	type: z.literal('etherscan'),
-	name: z.string().transform(_expandEnv),
+	name: expandedString(),
 	addresses: z.record(addressValidator),
 })
 /**
@@ -88,31 +81,11 @@ export type EtherscanConfig = {
 
 export const etherscanApiKeyValidator = z
 	.strictObject({
-		'1': z
-			.string()
-			.transform(_expandEnv)
-			.optional()
-			.describe('Api key for mainnet'),
-		'10': z
-			.string()
-			.transform(_expandEnv)
-			.optional()
-			.describe('Api key for Optimism'),
-		'56': z
-			.string()
-			.transform(_expandEnv)
-			.optional()
-			.describe('Api key for BSC'),
-		'137': z
-			.string()
-			.transform(_expandEnv)
-			.optional()
-			.describe('Api key for Polygon'),
-		'42161': z
-			.string()
-			.transform(_expandEnv)
-			.optional()
-			.describe('Api key for Arbitrum'),
+		'1': expandedString().optional().describe('Api key for mainnet'),
+		'10': expandedString().optional().describe('Api key for Optimism'),
+		'56': expandedString().optional().describe('Api key for BSC'),
+		'137': expandedString().optional().describe('Api key for Polygon'),
+		'42161': expandedString().optional().describe('Api key for Arbitrum'),
 	})
 	.partial()
 	.describe('Api keys for etherscan by network')
@@ -133,7 +106,7 @@ export const externalConfigValidator = z
 	.strictObject({
 		apiKeys: externalApiKeyValidator.optional(),
 		contracts: z.array(etherscanConfigValidator),
-		out: z.string().transform(_expandEnv),
+		out: expandedString(),
 	})
 	.describe('Configure external contracts to be imported into project')
 /**
@@ -157,11 +130,9 @@ type ExternalConfig = {
 
 export const compilerConfigValidator = z
 	.strictObject({
-		solcVersion: z.string().transform(_expandEnv).optional(),
-		foundryProject: z
-			.union([z.boolean(), z.string().transform(_expandEnv)])
-			.optional(),
-		libs: z.array(z.string().transform(_expandEnv)).optional(),
+		solcVersion: expandedString().optional(),
+		foundryProject: z.union([z.boolean(), expandedString()]).optional(),
+		libs: z.array(expandedString()).optional(),
 	})
 	.describe('Configuration of the solidity compiler')
 /**
@@ -189,7 +160,7 @@ export type CompilerConfig = {
 /**
  * Configuration for Evmts
  */
-export type EVMtsConfig = {
+export type EvmtsConfig = {
 	name?: '@evmts/ts-plugin'
 	/**
 	 * Configuration of the solidity compiler

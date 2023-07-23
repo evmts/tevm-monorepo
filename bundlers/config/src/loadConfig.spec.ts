@@ -1,4 +1,4 @@
-import { EVMtsConfig, defaultConfig, loadConfig } from '.'
+import { EvmtsConfig, defaultConfig, loadConfig } from '.'
 import * as cp from 'child_process'
 import * as fs from 'fs'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
@@ -134,7 +134,7 @@ describe(loadConfig.name, () => {
 	})
 
 	it('should return the correct config when most options are passed in', () => {
-		const customConfig: EVMtsConfig = {
+		const customConfig: EvmtsConfig = {
 			name: '@evmts/ts-plugin',
 			compiler: {
 				solcVersion: '0.9.0',
@@ -394,7 +394,7 @@ describe(loadConfig.name, () => {
 	})
 
 	it('shoudl expand env', () => {
-		const customConfig: EVMtsConfig = {
+		const customConfig: EvmtsConfig = {
 			name: '@evmts/ts-plugin',
 			externalContracts: {
 				apiKeys: {

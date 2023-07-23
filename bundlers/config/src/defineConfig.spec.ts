@@ -1,5 +1,5 @@
 import { defineConfig } from '.'
-import { EVMtsConfig, defaultConfig } from './EVMtsConfig'
+import { EvmtsConfig, defaultConfig } from './Config'
 import { execSync } from 'child_process'
 import { MockedFunction, describe, expect, it, vi } from 'vitest'
 
@@ -23,7 +23,7 @@ describe(defineConfig.name, () => {
 				compiler: {
 					solcVersion: '0.8.4',
 				},
-			}) as EVMtsConfig
+			}) as EvmtsConfig
 		const config = defineConfig(configFactory)
 		const resolvedConfig = config.configFn('./')
 		expect(resolvedConfig).toEqual({
@@ -51,7 +51,7 @@ describe(defineConfig.name, () => {
 				compiler: {
 					foundryProject: 'forge',
 				},
-			}) as EVMtsConfig
+			}) as EvmtsConfig
 		const config = defineConfig(configFactory)
 		const resolvedConfig = config.configFn('./')
 
@@ -78,7 +78,7 @@ describe(defineConfig.name, () => {
 				compiler: {
 					foundryProject: 'forge',
 				},
-			}) as EVMtsConfig
+			}) as EvmtsConfig
 		const config = defineConfig(configFactory)
 
 		expect(() => config.configFn('./')).toThrow(
@@ -94,7 +94,7 @@ describe(defineConfig.name, () => {
 				compiler: {
 					foundryProject: 'forge',
 				},
-			}) as EVMtsConfig
+			}) as EvmtsConfig
 		const config = defineConfig(configFactory)
 
 		expect(() => config.configFn('./')).toThrow(
@@ -113,7 +113,7 @@ describe(defineConfig.name, () => {
 				compiler: {
 					foundryProject: 'forge',
 				},
-			}) as EVMtsConfig
+			}) as EvmtsConfig
 		const config = defineConfig(configFactory)
 
 		expect(() => config.configFn('./')).toThrow(
@@ -132,7 +132,7 @@ describe(defineConfig.name, () => {
 				compiler: {
 					foundryProject: 'forge',
 				},
-			}) as EVMtsConfig
+			}) as EvmtsConfig
 		const config = defineConfig(configFactory)
 		const resolvedConfig = config.configFn('/config')
 

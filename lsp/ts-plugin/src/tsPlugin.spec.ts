@@ -1,12 +1,12 @@
 import tsPlugin from '.'
-import { EVMtsConfig } from '@evmts/config'
+import { EvmtsConfig } from '@evmts/config'
 import path from 'path'
 import typescript from 'typescript/lib/tsserverlibrary'
 import { Mock, describe, expect, it, vi } from 'vitest'
 
 type TestAny = any
 
-const config: EVMtsConfig = {}
+const config: EvmtsConfig = {}
 
 const createInfo: typescript.server.PluginCreateInfo = {
 	config,

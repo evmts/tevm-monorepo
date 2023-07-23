@@ -1,9 +1,9 @@
-import { EVMtsConfig, ResolvedConfig, defaultConfig } from './EVMtsConfig'
+import { EvmtsConfig, ResolvedConfig, defaultConfig } from './Config'
 import { handleDeprecations } from './handleDeprecations'
 import { execSync } from 'child_process'
 import * as path from 'path'
 
-export type DefineConfig = (configFactory: () => EVMtsConfig) => {
+export type DefineConfig = (configFactory: () => EvmtsConfig) => {
 	configFn: (configFilePath: string) => ResolvedConfig
 }
 
