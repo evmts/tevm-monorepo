@@ -15,59 +15,61 @@ const bundlers = {
 }
 
 // make a function with this signature
-export const unpluginFn: UnpluginFactory<{ compiler?: CompilerOption }, false> =
-	(options = {}) => {
-		let config: ResolvedConfig
+export const unpluginFn: UnpluginFactory<
+	{ compiler?: CompilerOption } | undefined,
+	false
+> = (options = {}) => {
+	let config: ResolvedConfig
 
-		// for current release we will hardcode this to solc
-		const parsedCompilerOption = compilerOptionValidator.safeParse(
-			options.compiler,
+	// for current release we will hardcode this to solc
+	const parsedCompilerOption = compilerOptionValidator.safeParse(
+		options.compiler,
+	)
+	if (!parsedCompilerOption.success) {
+		throw new Error(
+			`Invalid compiler option: ${options.compiler}.  Valid options are 'solc' and 'foundry'`,
 		)
-		if (!parsedCompilerOption.success) {
-			throw new Error(
-				`Invalid compiler option: ${options.compiler}.  Valid options are 'solc' and 'foundry'`,
-			)
-		}
-		const compilerOption = parsedCompilerOption.data
+	}
+	const compilerOption = parsedCompilerOption.data
 
-		if (compilerOption === 'foundry') {
-			throw new Error(
-				'We have abandoned the foundry option despite supporting it in the past. Please use solc instead. Foundry will be added back as a compiler at a later time.',
-			)
-		}
-		const bundler = bundlers[compilerOption]
-		let moduleResolver: ReturnType<typeof bundler>
+	if (compilerOption === 'foundry') {
+		throw new Error(
+			'We have abandoned the foundry option despite supporting it in the past. Please use solc instead. Foundry will be added back as a compiler at a later time.',
+		)
+	}
+	const bundler = bundlers[compilerOption]
+	let moduleResolver: ReturnType<typeof bundler>
 
-		return {
-			name: '@evmts/rollup-plugin',
-			version: '0.0.0',
-			async buildStart() {
-				config = loadConfig('.')
-				moduleResolver = bundler(config, console)
-				this.addWatchFile('./tsconfig.json')
-			},
-			async load(id: string) {
-				if (id.startsWith('@evmts/core/runtime')) {
-				}
-				if (!id.endsWith('.sol')) {
+	return {
+		name: '@evmts/rollup-plugin',
+		version: '0.0.0',
+		async buildStart() {
+			config = loadConfig('.')
+			moduleResolver = bundler(config, console)
+			this.addWatchFile('./tsconfig.json')
+		},
+		async load(id: string) {
+			if (id.startsWith('@evmts/core/runtime')) {
+			}
+			if (!id.endsWith('.sol')) {
+				return
+			}
+			const { code, modules } = await moduleResolver.resolveEsmModule(
+				id,
+				process.cwd(),
+			)
+			console.log({ modules })
+			Object.values(modules).forEach((module) => {
+				console.log(module, module.id)
+				if (module.id.includes('node_modules')) {
 					return
 				}
-				const { code, modules } = await moduleResolver.resolveEsmModule(
-					id,
-					process.cwd(),
-				)
-				console.log({ modules })
-				Object.values(modules).forEach((module) => {
-					console.log(module, module.id)
-					if (module.id.includes('node_modules')) {
-						return
-					}
-					this.addWatchFile(module.id)
-				})
-				return code
-			},
-		} as const
-	}
+				this.addWatchFile(module.id)
+			})
+			return code
+		},
+	} as const
+}
 
 const evmtsUnplugin = createUnplugin(unpluginFn)
 
