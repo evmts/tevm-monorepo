@@ -48,12 +48,7 @@ export const bundler: Bundler = (config, logger) => {
 				logger,
 				config,
 			)
-			const code = generateRuntimeSync(
-				artifacts,
-				config,
-				'ts',
-				logger,
-			)
+			const code = generateRuntimeSync(artifacts, config, 'ts', logger)
 			return { code, modules }
 		},
 		resolveTsModule: async (modulePath, basedir) => {
@@ -63,12 +58,7 @@ export const bundler: Bundler = (config, logger) => {
 				logger,
 				config,
 			)
-			const code = await generateRuntime(
-				artifacts,
-				config,
-				'ts',
-				logger,
-			)
+			const code = await generateRuntime(artifacts, config, 'ts', logger)
 			return { code, modules }
 		},
 		resolveCjsModuleSync: (modulePath, basedir) => {
@@ -78,12 +68,7 @@ export const bundler: Bundler = (config, logger) => {
 				logger,
 				config,
 			)
-			const code = generateRuntimeSync(
-				artifacts,
-				config,
-				'cjs',
-				logger,
-			)
+			const code = generateRuntimeSync(artifacts, config, 'cjs', logger)
 			return { code, modules }
 		},
 		resolveCjsModule: async (modulePath, basedir) => {
@@ -93,12 +78,7 @@ export const bundler: Bundler = (config, logger) => {
 				logger,
 				config,
 			)
-			const code = await generateRuntime(
-				artifacts,
-				config,
-				'cjs',
-				logger,
-			)
+			const code = await generateRuntime(artifacts, config, 'cjs', logger)
 			return { code, modules }
 		},
 		resolveEsmModuleSync: (modulePath, basedir) => {
@@ -108,12 +88,7 @@ export const bundler: Bundler = (config, logger) => {
 				logger,
 				config,
 			)
-			const code = generateRuntimeSync(
-				artifacts,
-				config,
-				'mjs',
-				logger,
-			)
+			const code = generateRuntimeSync(artifacts, config, 'mjs', logger)
 			return { code, modules }
 		},
 		resolveEsmModule: async (modulePath, basedir) => {
@@ -123,12 +98,7 @@ export const bundler: Bundler = (config, logger) => {
 				logger,
 				config,
 			)
-			const code = await generateRuntime(
-				artifacts,
-				config,
-				'mjs',
-				logger,
-			)
+			const code = await generateRuntime(artifacts, config, 'mjs', logger)
 			return { code, modules }
 		},
 	}

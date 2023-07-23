@@ -1,5 +1,5 @@
-import { ResolvedConfig } from '@evmts/config'
 import { generateDtsBody } from './generateEvmtsBodyDts'
+import { ResolvedConfig } from '@evmts/config'
 
 type Artifacts = Record<
 	string,

@@ -27,11 +27,7 @@ describe('generateEvmtsBody', () => {
 	}
 
 	it('should generate correct body for cjs module', () => {
-		const result = generateEvmtsBody(
-			artifacts,
-			config as any,
-			'cjs',
-		)
+		const result = generateEvmtsBody(artifacts, config as any, 'cjs')
 		expect(result).toMatchInlineSnapshot(`
 			"const _MyContract = {\\"name\\":\\"MyContract\\",\\"abi\\":{},\\"bytecode\\":\\"0x60016001\\",\\"addresses\\":{\\"test\\":\\"0x123\\"}}
 			module.exports.MyContract = evmtsContractFactory(_MyContract)
@@ -41,11 +37,7 @@ describe('generateEvmtsBody', () => {
 	})
 
 	it('should generate correct body for mjs module', () => {
-		const result = generateEvmtsBody(
-			artifacts,
-			config as any,
-			'mjs',
-		)
+		const result = generateEvmtsBody(artifacts, config as any, 'mjs')
 		expect(result).toMatchInlineSnapshot(`
 			"const _MyContract = {\\"name\\":\\"MyContract\\",\\"abi\\":{},\\"bytecode\\":\\"0x60016001\\",\\"addresses\\":{\\"test\\":\\"0x123\\"}}
 			export const MyContract = evmtsContractFactory(_MyContract)
@@ -55,11 +47,7 @@ describe('generateEvmtsBody', () => {
 	})
 
 	it('should generate correct body for ts module', () => {
-		const result = generateEvmtsBody(
-			artifacts,
-			config as any,
-			'ts',
-		)
+		const result = generateEvmtsBody(artifacts, config as any, 'ts')
 		expect(result).toMatchInlineSnapshot(`
 			"const _MyContract = {\\"name\\":\\"MyContract\\",\\"abi\\":{},\\"bytecode\\":\\"0x60016001\\",\\"addresses\\":{\\"test\\":\\"0x123\\"}} as const
 			export const MyContract = evmtsContractFactory(_MyContract)
@@ -69,12 +57,7 @@ describe('generateEvmtsBody', () => {
 	})
 
 	it('should generate correct body for dts module', () => {
-
-		const result = generateEvmtsBody(
-			artifacts,
-			config as any,
-			'dts',
-		)
+		const result = generateEvmtsBody(artifacts, config as any, 'dts')
 		expect(result).toMatchInlineSnapshot(`
 			"const _abiMyContract = {} as const;
 			const _chainAddressMapMyContract = {\\"test\\":\\"0x123\\"} as const;
@@ -103,11 +86,7 @@ describe('generateEvmtsBody', () => {
 				],
 			},
 		}
-		const result = generateEvmtsBody(
-			artifacts,
-			configNoAddress as any,
-			'cjs',
-		)
+		const result = generateEvmtsBody(artifacts, configNoAddress as any, 'cjs')
 		expect(result).toMatchInlineSnapshot(`
 			"const _MyContract = {\\"name\\":\\"MyContract\\",\\"abi\\":{},\\"bytecode\\":\\"0x60016001\\",\\"addresses\\":{}}
 			module.exports.MyContract = evmtsContractFactory(_MyContract)

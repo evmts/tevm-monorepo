@@ -236,7 +236,6 @@ describe('generateDtsBody', () => {
     `)
 	})
 
-
 	it('should generate correct body when config.localContracts.contracts is an empty array', () => {
 		const configEmptyContracts = {
 			localContracts: {

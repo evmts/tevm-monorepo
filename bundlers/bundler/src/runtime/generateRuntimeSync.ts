@@ -7,7 +7,7 @@ export const generateRuntimeSync = (
 	artifacts: Artifacts,
 	config: ResolvedConfig,
 	moduleType: 'cjs' | 'mjs' | 'ts' | 'dts',
-	logger: Logger
+	logger: Logger,
 ): string => {
 	if (!artifacts || Object.keys(artifacts).length === 0) {
 		logger.warn('No artifacts found, skipping runtime generation')
@@ -23,10 +23,6 @@ export const generateRuntimeSync = (
 	} else {
 		throw new Error(`Unknown module type: ${moduleType}`)
 	}
-	const evmtsBody = generateEvmtsBody(
-		artifacts,
-		config,
-		moduleType,
-	)
+	const evmtsBody = generateEvmtsBody(artifacts, config, moduleType)
 	return [evmtsImports, evmtsBody].join('\n')
 }
