@@ -6,7 +6,8 @@
     "Will Cory <willcory10@gmail.com>"
   ],
   "scripts": {
-    "build": "NODE_ENV=production tsx ./build.ts",
+    "build": "pnpm build:dist",
+    "build:dist": "NODE_ENV=production tsx ./build.ts",
     "dev": "pnpm build && node ./dist/index.js",
     "test": "vitest",
     "test:coverage": "vitest run --coverage",

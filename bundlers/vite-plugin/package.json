@@ -22,23 +22,25 @@
   "type": "module",
   "main": "dist/index.cjs",
   "module": "dist/index.js",
-  "types": "src/index.ts",
+  "types": "types/index.d.ts",
   "files": [
     "dist",
+    "types",
     "src"
   ],
   "scripts": {
     "//test": "vitest",
     "//test:run": "vitest run",
     "//test:ui": "vitest --ui",
-    "build": "tsup",
+    "build": "nx run-many --targets=build:dist,build:types --projects=@evmts/vite-plugin ",
+    "build:dist": "tsup",
+    "build:types": "tsc --emitDeclarationOnly",
     "clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
     "format": "rome format . --write",
     "format:check": "rome format .",
     "lint": "rome check . --apply-unsafe",
     "lint:check": "rome check . --verbose",
-    "package:up": "pnpm up --latest",
-    "typecheck": "tsc --noEmit"
+    "package:up": "pnpm up --latest"
   },
   "dependencies": {
     "@evmts/bundler": "workspace:^"

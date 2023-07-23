@@ -8,7 +8,7 @@
     "moduleResolution": "node",
     "noEmitOnError": true,
     "noFallthroughCasesInSwitch": true,
-    "outDir": "dist",
+    "outDir": "types",
     "resolveJsonModule": true,
     "rootDir": "src",
     "skipLibCheck": true,

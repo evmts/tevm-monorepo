@@ -6,7 +6,8 @@
     "Will Cory <willcory10@gmail.com>"
   ],
   "scripts": {
-    "build": "next build",
+    "build": "pnpm build:dist",
+    "build:dist": "next build",
     "dev": "next dev",
     "lint": "next lint",
     "start": "next start"

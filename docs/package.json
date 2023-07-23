@@ -7,7 +7,8 @@
   ],
   "type": "module",
   "scripts": {
-    "build": "vitepress build .",
+    "build": "pnpm build:dist",
+    "build:dist": "vitepress build .",
     "dev": "vitepress dev .",
     "format": "rome format . --write",
     "format:check": "rome format .",

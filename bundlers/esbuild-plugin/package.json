@@ -22,13 +22,16 @@
   "type": "module",
   "main": "dist/index.cjs",
   "module": "dist/index.js",
-  "types": "src/index.ts",
+  "types": "src/index.d.ts",
   "files": [
     "dist",
+    "types",
     "src"
   ],
   "scripts": {
-    "build": "tsup",
+    "build": "nx run-many --targets=build:dist,build:types --projects=@evmts/@evmts/esbuild-plugin ",
+    "build:dist": "tsup",
+    "build:types": "tsc --emitDeclarationOnly",
     "clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
     "format": "rome format . --write",
     "format:check": "rome format .",
@@ -37,8 +40,7 @@
     "package:up": "pnpm up --latest",
     "test": "vitest",
     "test:run": "vitest run",
-    "test:ui": "vitest --ui",
-    "typecheck": "tsc --noEmit"
+    "test:ui": "vitest --ui"
   },
   "dependencies": {
     "@evmts/bundler": "workspace:^"

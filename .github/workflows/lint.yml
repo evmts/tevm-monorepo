@@ -9,7 +9,7 @@ on:
 name: Lint
 
 jobs:
-  check:
+  lint:
     name: Lint
     runs-on: ubuntu-latest
     steps:
@@ -26,3 +26,36 @@ jobs:
         env:
           NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
 
+  format:
+    name: Formatters
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          submodules: recursive
+
+      - name: "Setup"
+        uses: ./.github/actions/setup
+
+      - name: Run Formatters
+        run: pnpm nx affected --targets=format:check
+        env:
+          NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
+
+  sort-package-json:
+    name: Sort package json
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          submodules: recursive
+
+      - name: "Setup"
+        uses: ./.github/actions/setup
+
+      - name: Run Package.json formatter - Run `pnpm sort-package-json` to fix
+        run: pnpm sort-package-json:check
+        env:
+          NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}

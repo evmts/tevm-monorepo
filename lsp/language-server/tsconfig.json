@@ -14,7 +14,7 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "baseUrl": "./",
-    "outDir": "dist",
+    "outDir": "types",
     "rootDir": "src"
   },
   "include": ["src"]
