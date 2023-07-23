@@ -13,9 +13,9 @@ export const bundler: Bundler = (config, logger) => {
 	return {
 		name: bundler.name,
 		config,
-		resolveDts: async (module, basedir) => {
+		resolveDts: async (modulePath, basedir) => {
 			const { artifacts, modules } = await resolveArtifacts(
-				module,
+				modulePath,
 				basedir,
 				logger,
 				config,
@@ -27,9 +27,9 @@ export const bundler: Bundler = (config, logger) => {
 			}
 			return { code: '', modules }
 		},
-		resolveDtsSync: (module, basedir) => {
+		resolveDtsSync: (modulePath, basedir) => {
 			const { artifacts, modules } = resolveArtifactsSync(
-				module,
+				modulePath,
 				basedir,
 				logger,
 				config,
@@ -41,65 +41,65 @@ export const bundler: Bundler = (config, logger) => {
 			}
 			return { modules, code: '' }
 		},
-		resolveTsModuleSync: (module, basedir) => {
-			return generateRuntimeSync(
-				module,
+		resolveTsModuleSync: (modulePath, basedir) => {
+			const { artifacts, modules } = resolveArtifactsSync(
+				modulePath,
 				basedir,
-				'evmtsContractFactory',
-				config,
 				logger,
-				'ts',
+				config,
 			)
+			const code = generateRuntimeSync(artifacts, config, 'ts', logger)
+			return { code, modules }
 		},
-		resolveTsModule: async (module, basedir) => {
-			return generateRuntime(
-				module,
+		resolveTsModule: async (modulePath, basedir) => {
+			const { artifacts, modules } = await resolveArtifacts(
+				modulePath,
 				basedir,
-				'evmtsContractFactory',
-				config,
 				logger,
-				'ts',
+				config,
 			)
+			const code = await generateRuntime(artifacts, config, 'ts', logger)
+			return { code, modules }
 		},
-		resolveCjsModuleSync: (module, basedir) => {
-			return generateRuntimeSync(
-				module,
+		resolveCjsModuleSync: (modulePath, basedir) => {
+			const { artifacts, modules } = resolveArtifactsSync(
+				modulePath,
 				basedir,
-				'evmtsContractFactory',
-				config,
 				logger,
-				'cjs',
+				config,
 			)
+			const code = generateRuntimeSync(artifacts, config, 'cjs', logger)
+			return { code, modules }
 		},
-		resolveCjsModule: async (module, basedir) => {
-			return generateRuntime(
-				module,
+		resolveCjsModule: async (modulePath, basedir) => {
+			const { artifacts, modules } = await resolveArtifacts(
+				modulePath,
 				basedir,
-				'evmtsContractFactory',
-				config,
 				logger,
-				'cjs',
+				config,
 			)
+			const code = await generateRuntime(artifacts, config, 'cjs', logger)
+			return { code, modules }
 		},
-		resolveEsmModuleSync: (module, basedir) => {
-			return generateRuntimeSync(
-				module,
+		resolveEsmModuleSync: (modulePath, basedir) => {
+			const { artifacts, modules } = resolveArtifactsSync(
+				modulePath,
 				basedir,
-				'evmtsContractFactory',
-				config,
 				logger,
-				'mjs',
+				config,
 			)
+			const code = generateRuntimeSync(artifacts, config, 'mjs', logger)
+			return { code, modules }
 		},
-		resolveEsmModule: async (module, basedir) => {
-			return generateRuntime(
-				module,
+		resolveEsmModule: async (modulePath, basedir) => {
+			const { artifacts, modules } = await resolveArtifacts(
+				modulePath,
 				basedir,
-				'evmtsContractFactory',
-				config,
 				logger,
-				'mjs',
+				config,
 			)
+			const code = await generateRuntime(artifacts, config, 'mjs', logger)
+			return { code, modules }
 		},
 	}
 }

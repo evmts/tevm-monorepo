@@ -6,9 +6,11 @@ export const readFactory =
 		addresses,
 		methods,
 	}: { addresses: Record<number, Address>; methods: Abi }) =>
-		({ chainId }: { chainId?: number | undefined } = {}) =>
-			Object.fromEntries(
-				methods.filter(({ type }) => type === 'function').map((method) => {
+	({ chainId }: { chainId?: number | undefined } = {}) =>
+		Object.fromEntries(
+			methods
+				.filter(({ type }) => type === 'function')
+				.map((method) => {
 					const creator = (...args: any[]) => {
 						// need to handle case where there is an overload
 						// TODO make this more efficient
@@ -34,4 +36,4 @@ export const readFactory =
 					creator.humanReadableAbi = formatAbi([method])
 					return [(method as AbiFunction).name, creator]
 				}),
-			)
+		)

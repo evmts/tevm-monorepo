@@ -2,16 +2,18 @@ import { Logger, ModuleInfo } from '../types'
 import { compileContractSync } from './compileContracts'
 import { ResolvedConfig } from '@evmts/config'
 
+export type Artifacts = Record<
+	string,
+	{ contractName: string; abi: any; bytecode: string }
+>
+
 export const resolveArtifactsSync = (
 	solFile: string,
 	basedir: string,
 	logger: Logger,
 	config: ResolvedConfig,
 ): {
-	artifacts: Record<
-		string,
-		{ contractName: string; abi: any; bytecode: string }
-	>
+	artifacts: Artifacts
 	modules: Record<'string', ModuleInfo>
 } => {
 	if (!solFile.endsWith('.sol')) {
