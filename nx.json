@@ -1,24 +1,43 @@
 {
-  "defaultProject": "example-vite",
+  "defaultProject": "@evmts/example-vite",
   "targetDefaults": {
+    "lint": {
+      "inputs": ["default"]
+    },
+    "format": {
+      "inputs": ["default"]
+    },
     "test": {
+      "inputs": [
+        "default"
+      ],
       "dependsOn": [
         "^build",
         "pretest"
       ]
     },
     "test:run": {
+      "inputs": [
+        "default"
+      ],
       "dependsOn": [
+        "defualt",
         "^build",
         "pretest"
       ]
     },
     "test:watch": {
+      "inputs": [
+        "default"
+      ],
       "dependsOn": [
         "^build"
       ]
     },
     "test:coverage": {
+      "inputs": [
+        "default"
+      ],
       "dependsOn": [
         "^build"
       ],
@@ -27,6 +46,10 @@
       ]
     },
     "typecheck": {
+      "inputs": [
+        "{projectRoot}/**/*",
+        "sharedGlobals"
+      ],
       "dependsOn": [
         "^build"
       ]
@@ -37,21 +60,21 @@
       ]
     },
     "build": {
+      "inputs": [
+        "production"
+      ],
       "dependsOn": [
         "^build"
       ],
       "outputs": [
-        "{projectRoot}/dist",
-        "{projectRoot}/.vitepress",
-        "{projectRoot}/types"
+        "buildArtifacts"
       ]
     },
     "dev": {
       "dependsOn": [
         "^build"
       ]
-    },
-    "start:devnet": {}
+    }
   },
   "tasksRunnerOptions": {
     "default": {
@@ -61,14 +84,11 @@
           "build",
           "test:coverage",
           "test:run",
-          "test",
           "format:check",
           "typecheck",
           "e2e",
           "format:check",
-          "lint:check",
-          "lint",
-          "format"
+          "lint:check"
         ],
         "accessToken": "MWI0MzBiNGItMzE0Ni00MGU3LWIxZGQtY2Q2ZDlmMDIzOTMwfHJlYWQ="
       }
@@ -87,8 +107,13 @@
       "{workspaceRoot}/tsconfig.json",
       "{workspaceRoot}/nx.json"
     ],
-    "production": [
-      "default"
-    ]
+    "productionSrc": [
+      "{projectRoot}/src/**/*",
+      "!{projectRoot}/src/**/*.spec.ts"
+    ],
+    "productionContracts": ["{projectRoot}/contracts/**/*"],
+    "production": ["productionSrc", "productionContracts"],
+    "buildArtifacts": ["{projectRoot}/dist", "{projectRoot}/types", "{projectRoot}/artifacts", "{projectRoot}/deployments"],
+    "testing": ["configsWorkspace", "default"]
   }
 }
