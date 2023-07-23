@@ -35,6 +35,10 @@ And all bundlers
 - [@evmts/vite-plugin](../vite-plugin/)
 - [@evmts/webpack-plugin](../webpack-plugin/)
 
+## API
+
+#### bundler
+
 ## Visit [Docs](https://evmts.dev/) for docs, guides, API and more!
 
 ## See [Evmts Beta project board](https://github.com/orgs/evmts/projects/1) for progress on the upcoming beta release
