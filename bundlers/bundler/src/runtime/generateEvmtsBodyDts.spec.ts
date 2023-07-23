@@ -235,4 +235,39 @@ describe('generateDtsBody', () => {
         export const MissingContract: EvmtsContract<typeof _nameMissingContract, typeof _chainAddressMapMissingContract, typeof _abiMissingContract>;"
     `)
 	})
+
+
+	it('should generate correct body when config.localContracts.contracts is an empty array', () => {
+		const configEmptyContracts = {
+			localContracts: {
+				contracts: [],
+			},
+		}
+
+		expect(
+			generateDtsBody(artifacts, configEmptyContracts as any),
+		).toMatchInlineSnapshot(`
+    "const _abiMyContract = {} as const;
+    const _chainAddressMapMyContract = {} as const;
+    const _nameMyContract = \\"MyContract\\" as const;
+    /**
+     * MyContract EvmtsContract
+     */
+    export const MyContract: EvmtsContract<typeof _nameMyContract, typeof _chainAddressMapMyContract, typeof _abiMyContract>;
+    const _abiAnotherContract = {} as const;
+    const _chainAddressMapAnotherContract = {} as const;
+    const _nameAnotherContract = \\"AnotherContract\\" as const;
+    /**
+     * AnotherContract EvmtsContract
+     */
+    export const AnotherContract: EvmtsContract<typeof _nameAnotherContract, typeof _chainAddressMapAnotherContract, typeof _abiAnotherContract>;
+    const _abiMissingContract = {} as const;
+    const _chainAddressMapMissingContract = {} as const;
+    const _nameMissingContract = \\"MissingContract\\" as const;
+    /**
+     * MissingContract EvmtsContract
+     */
+    export const MissingContract: EvmtsContract<typeof _nameMissingContract, typeof _chainAddressMapMissingContract, typeof _abiMissingContract>;"
+  `)
+	})
 })

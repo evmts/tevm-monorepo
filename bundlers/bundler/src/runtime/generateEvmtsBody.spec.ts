@@ -32,7 +32,12 @@ describe('generateEvmtsBody', () => {
 			config as any,
 			'cjs',
 		)
-		expect(result).toMatchSnapshot()
+		expect(result).toMatchInlineSnapshot(`
+			"const _MyContract = {\\"name\\":\\"MyContract\\",\\"abi\\":{},\\"bytecode\\":\\"0x60016001\\",\\"addresses\\":{\\"test\\":\\"0x123\\"}}
+			module.exports.MyContract = evmtsContractFactory(_MyContract)
+			const _AnotherContract = {\\"name\\":\\"AnotherContract\\",\\"abi\\":{},\\"bytecode\\":\\"0x60016002\\",\\"addresses\\":{}}
+			module.exports.AnotherContract = evmtsContractFactory(_AnotherContract)"
+		`)
 	})
 
 	it('should generate correct body for mjs module', () => {
@@ -41,7 +46,12 @@ describe('generateEvmtsBody', () => {
 			config as any,
 			'mjs',
 		)
-		expect(result).toMatchSnapshot()
+		expect(result).toMatchInlineSnapshot(`
+			"const _MyContract = {\\"name\\":\\"MyContract\\",\\"abi\\":{},\\"bytecode\\":\\"0x60016001\\",\\"addresses\\":{\\"test\\":\\"0x123\\"}}
+			export const MyContract = evmtsContractFactory(_MyContract)
+			const _AnotherContract = {\\"name\\":\\"AnotherContract\\",\\"abi\\":{},\\"bytecode\\":\\"0x60016002\\",\\"addresses\\":{}}
+			export const AnotherContract = evmtsContractFactory(_AnotherContract)"
+		`)
 	})
 
 	it('should generate correct body for ts module', () => {
@@ -50,6 +60,59 @@ describe('generateEvmtsBody', () => {
 			config as any,
 			'ts',
 		)
-		expect(result).toMatchSnapshot()
+		expect(result).toMatchInlineSnapshot(`
+			"const _MyContract = {\\"name\\":\\"MyContract\\",\\"abi\\":{},\\"bytecode\\":\\"0x60016001\\",\\"addresses\\":{\\"test\\":\\"0x123\\"}} as const
+			export const MyContract = evmtsContractFactory(_MyContract)
+			const _AnotherContract = {\\"name\\":\\"AnotherContract\\",\\"abi\\":{},\\"bytecode\\":\\"0x60016002\\",\\"addresses\\":{}} as const
+			export const AnotherContract = evmtsContractFactory(_AnotherContract)"
+		`)
+	})
+
+	it('should generate correct body for dts module', () => {
+
+		const result = generateEvmtsBody(
+			artifacts,
+			config as any,
+			'dts',
+		)
+		expect(result).toMatchInlineSnapshot(`
+			"const _abiMyContract = {} as const;
+			const _chainAddressMapMyContract = {\\"test\\":\\"0x123\\"} as const;
+			const _nameMyContract = \\"MyContract\\" as const;
+			/**
+			 * MyContract EvmtsContract
+			 */
+			export const MyContract: EvmtsContract<typeof _nameMyContract, typeof _chainAddressMapMyContract, typeof _abiMyContract>;
+			const _abiAnotherContract = {} as const;
+			const _chainAddressMapAnotherContract = {} as const;
+			const _nameAnotherContract = \\"AnotherContract\\" as const;
+			/**
+			 * AnotherContract EvmtsContract
+			 */
+			export const AnotherContract: EvmtsContract<typeof _nameAnotherContract, typeof _chainAddressMapAnotherContract, typeof _abiAnotherContract>;"
+		`)
+	})
+
+	it('should handle contract not having addresses in config', () => {
+		const configNoAddress = {
+			localContracts: {
+				contracts: [
+					{
+						name: 'NoAddressContract',
+					},
+				],
+			},
+		}
+		const result = generateEvmtsBody(
+			artifacts,
+			configNoAddress as any,
+			'cjs',
+		)
+		expect(result).toMatchInlineSnapshot(`
+			"const _MyContract = {\\"name\\":\\"MyContract\\",\\"abi\\":{},\\"bytecode\\":\\"0x60016001\\",\\"addresses\\":{}}
+			module.exports.MyContract = evmtsContractFactory(_MyContract)
+			const _AnotherContract = {\\"name\\":\\"AnotherContract\\",\\"abi\\":{},\\"bytecode\\":\\"0x60016002\\",\\"addresses\\":{}}
+			module.exports.AnotherContract = evmtsContractFactory(_AnotherContract)"
+		`)
 	})
 })
