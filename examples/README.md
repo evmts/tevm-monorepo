@@ -2,13 +2,14 @@
 
 Example apps for Evmts
 
-## examples/next/
+## [examples/esbuild/](/examples/esbuild/)
 
-[NEXT.js](https://nextjs.org/) example app
+[esbuild](https://esbuild.dev/) based example app using viem
 
-## examples/vite/
+## [examples/next/](/examples/next)
 
-[Vite](https://vitejs.dev/) based example app
+[NEXT.js](https://nextjs.org/) example app using wagmi
 
-- **See also** [E2E tests for example apps](../e2e/)
+## [examples/vite/](/examples/vite)
 
+[Vite](https://vitejs.dev/) based example app using wagmi and React

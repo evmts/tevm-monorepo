@@ -1,6 +1,8 @@
 # @evmts/e2e :white_check_mark:
 
-Playwright e2e tests that run against [example apps](../examples) 
+Playwright e2e tests that run against [example apps](../examples) and an anvil fork of Mainnet, Optimism, Arbitrum and Polygon
+
+Currently a WIP but unit test coverage is near 100%
 
 ## Usage
 
