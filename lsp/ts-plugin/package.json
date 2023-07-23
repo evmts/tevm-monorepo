@@ -43,7 +43,7 @@
     "lint:check": "rome check . --verbose",
     "package:up": "pnpm up --latest",
     "pretest": "forge build",
-    "test": "vitest",
+    "test": "vitest --coverage",
     "test:coverage": "vitest run --coverage",
     "test:run": "vitest --run"
   },
