@@ -4,7 +4,8 @@ import { z } from 'zod'
 export const addressValidator = z
 	.string()
 	.transform((a) => a as Address)
-	.refine(isAddress)
+	.refine(isAddress, { message: 'Invalid ethereum address' }
+	)
 	.describe('Valid ethereum address')
 /**
  * Valid ethereum address
@@ -40,12 +41,13 @@ export type LocalContractsConfig<
 
 export const supportedEtherscanChainIdsValidator = z
 	.union([
-		z.literal(1),
-		z.literal(10),
-		z.literal(56),
-		z.literal(137),
-		z.literal(42161),
+		z.literal('1'),
+		z.literal('10'),
+		z.literal('56'),
+		z.literal('137'),
+		z.literal('42161'),
 	])
+	.transform((a) => Number.isInteger(a) ? a : Number.parseInt(a as string))
 	.describe('ChainIds of networks supported by etherscan')
 /**
  * ChainIds of networks supported by etherscan
@@ -78,13 +80,33 @@ export type EtherscanConfig = {
 	addresses: Partial<Record<SupportedEtherscanChainIds, Address>>
 }
 
+export const etherscanApiKeyValidator = z.strictObject({
+	'1': z.string().optional()
+		.describe('Api key for mainnet'),
+	'10': z.string().optional()
+		.describe('Api key for Optimism'),
+	'56': z.string().optional()
+		.describe('Api key for BSC'),
+	'137': z.string().optional()
+		.describe('Api key for Polygon'),
+	'42161': z.string().optional()
+		.describe('Api key for Arbitrum'),
+}).partial().describe('Api keys for etherscan by network')
+/**
+ * Api key for etherscan
+ */
+export type EtherscanApiKey = z.infer<typeof etherscanApiKeyValidator>
+export const externalApiKeyValidator = z
+	.strictObject({
+		etherscan: etherscanApiKeyValidator.optional(),
+	}).describe('Api keys for external services')
+/**
+ * Api keys for external services
+ */
+export type ExternalApiKey = z.infer<typeof externalApiKeyValidator>
 export const externalConfigValidator = z
 	.strictObject({
-		apiKeys: z
-			.strictObject({
-				etherscan: z.record(z.string().optional()),
-			})
-			.optional(),
+		apiKeys: externalApiKeyValidator.optional(),
 		contracts: z.array(etherscanConfigValidator),
 		out: z.string(),
 	})
@@ -96,7 +118,7 @@ type ExternalConfig = {
 	/**
 	 * Api keys for external services
 	 */
-	apiKeys?: Record<'etherscan', Record<number, string>>
+	apiKeys?: Record<'etherscan', EtherscanApiKey>
 	/**
 	 * Array of external contracts to import
 	 */
