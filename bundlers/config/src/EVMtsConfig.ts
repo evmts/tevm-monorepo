@@ -106,11 +106,7 @@ export const externalApiKeyValidator = z
 export type ExternalApiKey = z.infer<typeof externalApiKeyValidator>
 export const externalConfigValidator = z
 	.strictObject({
-		apiKeys: z
-			.strictObject({
-				etherscan: z.record(z.string().optional()),
-			})
-			.optional(),
+		apiKeys: externalApiKeyValidator.optional(),
 		contracts: z.array(etherscanConfigValidator),
 		out: z.string(),
 	})
