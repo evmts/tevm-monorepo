@@ -1,11 +1,14 @@
+import { expandEnv } from './expandEnv'
 import { isAddress } from 'viem'
 import { z } from 'zod'
 
+const _expandEnv = (str: string) => expandEnv(str, process.env)
+
 export const addressValidator = z
 	.string()
+	.transform(_expandEnv)
 	.transform((a) => a as Address)
-	.refine(isAddress, { message: 'Invalid ethereum address' }
-	)
+	.refine(isAddress, { message: 'Invalid ethereum address' })
 	.describe('Valid ethereum address')
 /**
  * Valid ethereum address
@@ -16,7 +19,10 @@ export const localContractsConfigValidator = z
 	.strictObject({
 		addresses: z.array(
 			z.strictObject({
-				name: z.string().describe('Unique name of contract'),
+				name: z
+					.string()
+					.transform(_expandEnv)
+					.describe('Unique name of contract'),
 				address: addressValidator.describe('Address of contract'),
 			}),
 		),
@@ -47,7 +53,7 @@ export const supportedEtherscanChainIdsValidator = z
 		z.literal('137'),
 		z.literal('42161'),
 	])
-	.transform((a) => Number.isInteger(a) ? a : Number.parseInt(a as string))
+	.transform((a) => (Number.isInteger(a) ? a : Number.parseInt(a as string)))
 	.describe('ChainIds of networks supported by etherscan')
 /**
  * ChainIds of networks supported by etherscan
@@ -58,7 +64,7 @@ export type SupportedEtherscanChainIds = z.infer<
 
 export const etherscanConfigValidator = z.strictObject({
 	type: z.literal('etherscan'),
-	name: z.string(),
+	name: z.string().transform(_expandEnv),
 	addresses: z.record(addressValidator),
 })
 /**
@@ -80,18 +86,36 @@ export type EtherscanConfig = {
 	addresses: Partial<Record<SupportedEtherscanChainIds, Address>>
 }
 
-export const etherscanApiKeyValidator = z.strictObject({
-	'1': z.string().optional()
-		.describe('Api key for mainnet'),
-	'10': z.string().optional()
-		.describe('Api key for Optimism'),
-	'56': z.string().optional()
-		.describe('Api key for BSC'),
-	'137': z.string().optional()
-		.describe('Api key for Polygon'),
-	'42161': z.string().optional()
-		.describe('Api key for Arbitrum'),
-}).partial().describe('Api keys for etherscan by network')
+export const etherscanApiKeyValidator = z
+	.strictObject({
+		'1': z
+			.string()
+			.transform(_expandEnv)
+			.optional()
+			.describe('Api key for mainnet'),
+		'10': z
+			.string()
+			.transform(_expandEnv)
+			.optional()
+			.describe('Api key for Optimism'),
+		'56': z
+			.string()
+			.transform(_expandEnv)
+			.optional()
+			.describe('Api key for BSC'),
+		'137': z
+			.string()
+			.transform(_expandEnv)
+			.optional()
+			.describe('Api key for Polygon'),
+		'42161': z
+			.string()
+			.transform(_expandEnv)
+			.optional()
+			.describe('Api key for Arbitrum'),
+	})
+	.partial()
+	.describe('Api keys for etherscan by network')
 /**
  * Api key for etherscan
  */
@@ -99,7 +123,8 @@ export type EtherscanApiKey = z.infer<typeof etherscanApiKeyValidator>
 export const externalApiKeyValidator = z
 	.strictObject({
 		etherscan: etherscanApiKeyValidator.optional(),
-	}).describe('Api keys for external services')
+	})
+	.describe('Api keys for external services')
 /**
  * Api keys for external services
  */
@@ -108,7 +133,7 @@ export const externalConfigValidator = z
 	.strictObject({
 		apiKeys: externalApiKeyValidator.optional(),
 		contracts: z.array(etherscanConfigValidator),
-		out: z.string(),
+		out: z.string().transform(_expandEnv),
 	})
 	.describe('Configure external contracts to be imported into project')
 /**
@@ -132,9 +157,11 @@ type ExternalConfig = {
 
 export const compilerConfigValidator = z
 	.strictObject({
-		solcVersion: z.string().optional(),
-		foundryProject: z.union([z.boolean(), z.string()]).optional(),
-		libs: z.array(z.string()).optional(),
+		solcVersion: z.string().transform(_expandEnv).optional(),
+		foundryProject: z
+			.union([z.boolean(), z.string().transform(_expandEnv)])
+			.optional(),
+		libs: z.array(z.string().transform(_expandEnv)).optional(),
 	})
 	.describe('Configuration of the solidity compiler')
 /**
@@ -163,6 +190,7 @@ export type CompilerConfig = {
  * Configuration for Evmts
  */
 export type EVMtsConfig = {
+	name?: '@evmts/ts-plugin'
 	/**
 	 * Configuration of the solidity compiler
 	 */
