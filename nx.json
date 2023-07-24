@@ -80,6 +80,7 @@
       ],
       "outputs": [
         "{projectRoot}/dist",
+        "{projectRoot}/.vitepress/dist",
         "{projectRoot}/types"
       ]
     },
