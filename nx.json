@@ -10,7 +10,7 @@
     "test": {
       "inputs": [
         "default",
-        "outptsDist"
+        "outputsDist"
       ],
       "dependsOn": [
         "^build:dist",
@@ -20,7 +20,7 @@
     "test:run": {
       "inputs": [
         "default",
-        "outptsDist"
+        "outputsDist"
       ],
       "dependsOn": [
         "^build:dist",
@@ -30,7 +30,7 @@
     "test:watch": {
       "inputs": [
         "default",
-        "outptsDist"
+        "outputsDist"
       ],
       "dependsOn": [
         "^build:dist"
@@ -39,7 +39,7 @@
     "test:coverage": {
       "inputs": [
         "default",
-        "outptsDist"
+        "outputsDist"
       ],
       "dependsOn": [
         "^build:dist"
@@ -86,7 +86,7 @@
     "build:dist": {
       "inputs": [
         "production",
-        "outptsDist"
+        "outputsDist"
       ],
       "dependsOn": [
         "^build:dist"
@@ -144,7 +144,7 @@
     ],
     "productionContracts": ["{projectRoot}/contracts/**/*"],
     "production": ["buildConfigs", "sharedGlobals", "productionSrc", "productionContracts"],
-    "outptsDist": [{ "dependentTasksOutputFiles": "**/*", "transitive": true }],
+    "outputsDist": [{ "dependentTasksOutputFiles": "**/*", "transitive": true }],
     "outputsDts": [{ "dependentTasksOutputFiles": "**/*", "transitive": true }],
     "testing": ["configsWorkspace", "default"]
   }
