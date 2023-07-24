@@ -215,10 +215,6 @@ const contract = evmtsContractFactory({
 const provider = new JsonRpcProvider('https://goerli.optimism.io', 5)
 
 test(createEthersContract.name, () => {
-	if (createEthersContract.name) {
-		expect(createEthersContract.name).toBe(createEthersContract.name)
-		return
-	}
 	const c = createEthersContract(contract, { chainId: 420, runner: provider })
 	expect(c).toBeInstanceOf(Contract)
 	expect(c).toMatchInlineSnapshot()
