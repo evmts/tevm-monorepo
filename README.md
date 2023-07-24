@@ -11,8 +11,8 @@
   Evmts never juggle ABIs and contract addresses again (alpha 🏗️🚧)
 <p>
 
-[![CI](https://github.com/evmts/evmts-monorepo/actions/workflows/e2e.yml/badge.svg)](https://github.com/evmts/evmts-monorepo/actions/workflows/e2e.yml)
-[![CI](https://github.com/evmts/evmts-monorepo/actions/workflows/unit.yml/badge.svg)](https://github.com/evmts/evmts-monorepo/actions/workflows/unit.yml)
+[![CI](https://github.com/evmts/evmts-monorepo/actions/workflows/build.yml/badge.svg)](https://github.com/evmts/evmts-monorepo/actions/workflows/build.yml)
+[![CI](https://github.com/evmts/evmts-monorepo/actions/workflows/test.yml/badge.svg)](https://github.com/evmts/evmts-monorepo/actions/workflows/test.yml)
 <a href="https://www.npmjs.com/package/@evmts/core">
 <img src="https://img.shields.io/npm/v/@evmts/core?style=flat" alt="Version">
 </a>
