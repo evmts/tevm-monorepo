@@ -5,9 +5,10 @@ import type {
 	ExtractAbiEventNames,
 	FormatAbi,
 } from 'abitype'
-import { CreateEventFilterParameters } from 'viem'
-import { MaybeExtractEventArgsFromAbi } from 'viem/dist/types/types/contract'
-import { ValueOf } from 'viem/dist/types/types/utils'
+import type { CreateEventFilterParameters } from 'viem'
+import type { MaybeExtractEventArgsFromAbi } from 'viem/dist/types/types/contract'
+
+export type ValueOf<T> = T[keyof T]
 
 export type Events<
 	TName extends string,

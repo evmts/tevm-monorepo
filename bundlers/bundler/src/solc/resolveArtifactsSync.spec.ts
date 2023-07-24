@@ -1,8 +1,15 @@
-import { Logger, ModuleInfo } from '../types'
+import type { Logger, ModuleInfo } from '../types'
 import { compileContractSync } from './compileContracts'
 import { resolveArtifactsSync } from './resolveArtifactsSync'
-import { ResolvedConfig, defaultConfig } from '@evmts/config'
-import { MockedFunction, afterEach, describe, expect, it, vi } from 'vitest'
+import { type ResolvedConfig, defaultConfig } from '@evmts/config'
+import {
+	type MockedFunction,
+	afterEach,
+	describe,
+	expect,
+	it,
+	vi,
+} from 'vitest'
 
 vi.mock('./compileContracts', () => ({
 	compileContractSync: vi.fn(),

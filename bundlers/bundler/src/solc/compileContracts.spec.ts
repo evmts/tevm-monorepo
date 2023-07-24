@@ -1,13 +1,21 @@
 import type { ModuleInfo } from '../types'
 import { compileContractSync } from './compileContracts'
 import { moduleFactory } from './moduleFactory'
-import { ResolvedConfig } from '@evmts/config'
+import type { ResolvedConfig } from '@evmts/config'
 import { readFileSync } from 'fs'
 import * as resolve from 'resolve'
 // TODO wrap this in a typesafe version
 // @ts-ignore
 import solc from 'solc'
-import { Mock, afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+import {
+	type Mock,
+	afterEach,
+	beforeEach,
+	describe,
+	expect,
+	it,
+	vi,
+} from 'vitest'
 
 // Mock the necessary functions and modules
 vi.mock('fs', () => ({ readFileSync: vi.fn() }))

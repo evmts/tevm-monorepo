@@ -1,7 +1,7 @@
-import { Artifacts } from '../solc/resolveArtifactsSync'
-import { Logger } from '../types'
+import type { Artifacts } from '../solc/resolveArtifactsSync'
+import type { Logger } from '../types'
 import { generateEvmtsBody } from './generateEvmtsBody'
-import { ResolvedConfig } from '@evmts/config'
+import type { ResolvedConfig } from '@evmts/config'
 
 // TODO make this actually async
 export const generateRuntime = async (

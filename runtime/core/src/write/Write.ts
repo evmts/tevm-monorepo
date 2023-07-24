@@ -6,7 +6,7 @@ import type {
 	ExtractAbiFunctionNames,
 	FormatAbi,
 } from 'abitype'
-import { ValueOf } from 'viem/dist/types/types/utils'
+export type ValueOf<T> = T[keyof T]
 
 export type Write<
 	TName extends string,

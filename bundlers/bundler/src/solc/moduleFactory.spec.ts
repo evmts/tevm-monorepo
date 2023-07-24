@@ -1,7 +1,15 @@
 import type { ModuleInfo } from '../types'
 import { moduleFactory } from './moduleFactory'
 import { readFileSync } from 'fs'
-import { Mock, afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+import {
+	type Mock,
+	afterEach,
+	beforeEach,
+	describe,
+	expect,
+	it,
+	vi,
+} from 'vitest'
 
 vi.mock('fs', () => ({
 	readFileSync: vi.fn(),

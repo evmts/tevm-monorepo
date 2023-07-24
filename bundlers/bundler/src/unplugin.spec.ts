@@ -1,8 +1,8 @@
 import { bundler } from './bundler'
 import { unpluginFn } from './unplugin'
 import { loadConfig } from '@evmts/config'
-import { UnpluginBuildContext, UnpluginContext } from 'unplugin'
-import { Mock, beforeEach, describe, expect, it, vi } from 'vitest'
+import type { UnpluginBuildContext, UnpluginContext } from 'unplugin'
+import { type Mock, beforeEach, describe, expect, it, vi } from 'vitest'
 
 vi.mock('@evmts/config', async () => ({
 	...((await vi.importActual('@evmts/config')) as {}),

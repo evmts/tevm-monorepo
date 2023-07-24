@@ -1,4 +1,4 @@
-import { EvmtsConfig, ResolvedConfig, defaultConfig } from './Config'
+import { type EvmtsConfig, type ResolvedConfig, defaultConfig } from './Config'
 import { defineConfig } from './defineConfig'
 import { readFileSync } from 'fs'
 import * as path from 'path'

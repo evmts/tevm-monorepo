@@ -1,6 +1,6 @@
 import { bundler } from './bundler'
-import { ResolvedConfig, loadConfig } from '@evmts/config'
-import { UnpluginFactory, createUnplugin } from 'unplugin'
+import { type ResolvedConfig, loadConfig } from '@evmts/config'
+import { type UnpluginFactory, createUnplugin } from 'unplugin'
 import { z } from 'zod'
 
 const compilerOptionValidator = z

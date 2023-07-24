@@ -1,6 +1,6 @@
 import type { ModuleInfo } from '../types'
 import { moduleFactory } from './moduleFactory'
-import { ResolvedConfig } from '@evmts/config'
+import type { ResolvedConfig } from '@evmts/config'
 import { readFileSync } from 'fs'
 import * as resolve from 'resolve'
 // TODO wrap this in a typesafe version

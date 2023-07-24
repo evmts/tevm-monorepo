@@ -1,5 +1,5 @@
-import { Logger } from '../types'
-import { ResolvedConfig } from '@evmts/config'
+import type { Logger } from '../types'
+import type { ResolvedConfig } from '@evmts/config'
 // TODO wrap this in a typesafe version
 // @ts-ignore
 import solc from 'solc'

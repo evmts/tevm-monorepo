@@ -1,4 +1,4 @@
-import { EvmtsConfig, defaultConfig, loadConfig } from '.'
+import { type EvmtsConfig, defaultConfig, loadConfig } from '.'
 import * as cp from 'child_process'
 import * as fs from 'fs'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
