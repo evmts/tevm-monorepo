@@ -6,10 +6,11 @@ export default defineConfig({
 		include: ['src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
 		coverage: {
 			reporter: ['text', 'json-summary', 'json'],
-			lines: 95,
-			statements: 95,
+			lines: 99.78,
+			statements: 99.78,
 			functions: 100,
-			branches: 80,
+			branches: 88.05,
+			thresholdAutoUpdate: true,
 		},
 	},
 })

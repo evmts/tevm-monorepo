@@ -8,10 +8,11 @@ export default defineConfig({
 		setupFiles: ['./setupVitest.ts'],
 		coverage: {
 			reporter: ['text', 'json-summary', 'json'],
-			lines: 80,
+			lines: 100,
 			branches: 50,
-			functions: 80,
-			statements: 80,
+			functions: 100,
+			statements: 100,
+			thresholdAutoUpdate: true
 		},
 	}
 })
