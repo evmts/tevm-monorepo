@@ -16,7 +16,6 @@ export const cli = async (logger: Pick<typeof console, 'error' | 'warn' | 'log' 
     .action(async () => {
       logger.log('Generating contracts...')
       const evmtsConfig = loadConfig(process.cwd(), console)
-      logger.log('Loaded config', JSON.stringify(evmtsConfig, null, 2))
       await generate(evmtsConfig, logger)
     })
 
