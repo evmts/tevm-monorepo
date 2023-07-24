@@ -3,9 +3,6 @@
     "plugins": [
       {
         "name": "@evmts/ts-plugin",
-        "compiler": {
-          "solcVersion": "0.8.19"
-        },
         "localContracts": {
           "contracts": [
             {

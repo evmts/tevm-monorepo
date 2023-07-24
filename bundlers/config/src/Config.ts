@@ -1,3 +1,4 @@
+import { getDefaultSolcVersion } from './getDefaultSolcVersion'
 import { expandedString } from './zodUtils'
 import { isAddress } from 'viem'
 import { z } from 'zod'
@@ -188,9 +189,12 @@ export type ResolvedConfig = {
 	localContracts: Required<LocalContractsConfig>
 	externalContracts: Required<ExternalConfig>
 }
+
 export const defaultConfig: ResolvedConfig = {
 	compiler: {
-		solcVersion: '0.8.20',
+		get solcVersion() {
+			return getDefaultSolcVersion()
+		},
 		foundryProject: false,
 		remappings: {},
 		libs: [],
