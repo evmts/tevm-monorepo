@@ -1,5 +1,5 @@
 // #!/usr/bin/env node
-import { EtherscanConfig, externalConfigValidator } from '@evmts/config'
+import { type EtherscanConfig, externalConfigValidator } from '@evmts/config'
 import { etherscan } from '@wagmi/cli/plugins'
 import type { ContractConfig } from '@wagmi/cli'
 import { z } from 'zod'
@@ -32,9 +32,8 @@ export const handleEtherscanOptionsValidator = z.object({
 export type HandleEtherscanOptions = z.infer<typeof handleEtherscanOptionsValidator>
 
 export const handleEtherscan = async ({
-  logger,
   externalContracts,
-}: HandleEtherscanOptions & { logger: Pick<typeof console, 'log' | 'error' | 'warn'> }) => {
+}: HandleEtherscanOptions, logger: Pick<typeof console, 'log' | 'error' | 'warn'>) => {
   const contractsGroupedByChain: Record<
     number,
     typeof externalContracts.contracts
@@ -63,7 +62,13 @@ export const handleEtherscan = async ({
         `No etherscan api key for chainId ${chainId} in etherscan plugin at externalContracts.apiKeys.etherscan.${chainId}. Please configure an apiKey`,
       )
     }
-
+    if (apiKey.startsWith('$')) {
+      throw new Error(
+        `Etherscan api key for chainId ${chainId} in etherscan plugin at externalContracts.apiKeys.etherscan.${chainId} is not configured. Please configure an apiKey
+Detected that it starts with $. Did you forget to include this env variable in your path?`,
+      )
+    }
+    console.log({ apiKey })
     logger.log(`fetching contracts from etherscan on chain ${chainId}...`)
     const resolvedContracts = await etherscan({
       apiKey,

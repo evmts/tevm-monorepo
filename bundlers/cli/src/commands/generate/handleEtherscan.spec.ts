@@ -1,10 +1,10 @@
 // import { handleEtherscan } from './handleEtherscan'
-import { EVMtsConfig } from '@evmts/config'
+import type { EvmtsConfig } from '@evmts/config'
 // import { etherscan } from '@wagmi/cli/plugins'
 import * as fs from 'fs'
-import { MockedFunction, beforeEach, expect, test, vi } from 'vitest'
+import { type MockedFunction, beforeEach, expect, test, vi } from 'vitest'
 
-const externalContracts: EVMtsConfig['externalContracts'] = {
+const externalContracts: EvmtsConfig['externalContracts'] = {
   out: 'out',
   contracts: [{ type: 'etherscan', name: 'MyExternalContract', addresses: { 1: '0x123', 10: '0x456' } }],
   apiKeys: { etherscan: {} },

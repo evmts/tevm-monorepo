@@ -4,8 +4,10 @@ import { cac } from 'cac'
 import * as packageJson from '../package.json'
 import { generate } from './commands'
 import { loadConfig } from '@evmts/config'
+import * as dotenv from 'dotenv'
 
 export const cli = async (logger: Pick<typeof console, 'error' | 'warn' | 'log' | 'info'>) => {
+  dotenv.config()
   const cli = cac('evmts')
 
   cli

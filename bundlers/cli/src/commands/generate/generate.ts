@@ -1,13 +1,13 @@
 import { handleEtherscan } from './handleEtherscan'
-import { writeFileSync } from 'fs'
+import { writeFileSync, mkdirSync } from 'fs'
 import * as path from 'path'
 import { generateRuntimeSync } from '@evmts/bundler'
-import { ResolvedConfig } from '@evmts/config'
+import type { ResolvedConfig } from '@evmts/config'
 
 export const generate = async (config: ResolvedConfig, logger: Pick<typeof console, 'log' | 'info' | 'error' | 'warn'>) => {
   const outPath = path.join(process.cwd(), config.externalContracts.out)
   // TODO types are  struggle atm
-  const contracts = await handleEtherscan(config as any)
+  const contracts = await handleEtherscan(config as any, logger)
   Object.values(contracts).forEach(contract => {
 
     const dts = generateRuntimeSync({
@@ -26,6 +26,7 @@ export const generate = async (config: ResolvedConfig, logger: Pick<typeof conso
         contractName: contract.name,
       }
     }, config, 'mjs', logger)
+    mkdirSync(outPath, { recursive: true })
     writeFileSync(path.join(outPath, `${contract.name}.d.ts`), dts)
     writeFileSync(path.join(outPath, `${contract.name}.mjs`), mjs)
   })

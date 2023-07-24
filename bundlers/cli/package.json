@@ -54,6 +54,7 @@
     "@evmts/core": "workspace:^",
     "@types/resolve": "^1.20.2",
     "cac": "^6.7.14",
+    "dotenv": "^16.3.1",
     "glob": "^10.3.3",
     "resolve": "^1.22.2"
   },

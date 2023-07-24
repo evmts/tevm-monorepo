@@ -2,6 +2,7 @@ import { type EvmtsConfig, type ResolvedConfig, defaultConfig } from './Config'
 import { handleDeprecations } from './handleDeprecations'
 import { execSync } from 'child_process'
 import * as path from 'path'
+import { expandedString } from './zodUtils'
 
 export type DefineConfig = (configFactory: () => EvmtsConfig) => {
 	configFn: (configFilePath: string) => ResolvedConfig
@@ -87,9 +88,29 @@ export const defineConfig: DefineConfig = (configFactory) => ({
 				out: externalContracts?.out ?? defaultConfig.externalContracts.out,
 				apiKeys: externalContracts?.apiKeys
 					? {
-							...defaultConfig.externalContracts.apiKeys,
-							...externalContracts.apiKeys,
-					  }
+						...defaultConfig.externalContracts.apiKeys,
+						...externalContracts.apiKeys,
+						etherscan: {
+							...defaultConfig.externalContracts.apiKeys.etherscan,
+							...externalContracts.apiKeys.etherscan,
+							"1": expandedString().parse(
+								externalContracts.apiKeys.etherscan["1"],
+
+							),
+							"10": expandedString().parse(
+								externalContracts.apiKeys.etherscan["10"],
+							),
+							"56": expandedString().parse(
+								externalContracts.apiKeys.etherscan["10"],
+							),
+							"137": expandedString().parse(
+								externalContracts.apiKeys.etherscan["10"],
+							),
+							"42161": expandedString().parse(
+								externalContracts.apiKeys.etherscan["10"],
+							),
+						}
+					}
 					: defaultConfig.externalContracts.apiKeys,
 				contracts:
 					externalContracts?.contracts ??
