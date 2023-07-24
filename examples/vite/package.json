@@ -6,10 +6,10 @@
     "Will Cory <willcory10@gmail.com>"
   ],
   "scripts": {
-    "// typecheck": "tsc --noEmit",
     "anvil": "source .env && anvil --fork-url https://eth-mainnet.g.alchemy.com/v2/$VITE_ALCHEMY_API_KEY",
-    "build": "vite build",
+    "build": "pnpm build:contracts && pnpm build:dist",
     "build:contracts": "forge build",
+    "build:dist": "vite build",
     "clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
     "deploy-contracts": "source .env && forge script script/Deploy.s.sol:Deploy --broadcast --verify -vvvv",
     "deploy-contracts:anvil": "pnpm deploy-contracts --fork-url http://localhost:8545",

@@ -1,45 +1,48 @@
 {
   "defaultProject": "@evmts/example-vite",
   "targetDefaults": {
-    "lint": {
+    "lint:check": {
       "inputs": ["default"]
     },
-    "format": {
+    "format:check": {
       "inputs": ["default"]
     },
     "test": {
       "inputs": [
-        "default"
+        "default",
+        "outptsDist"
       ],
       "dependsOn": [
-        "^build",
+        "^build:dist",
         "pretest"
       ]
     },
     "test:run": {
       "inputs": [
-        "default"
+        "default",
+        "outptsDist"
       ],
       "dependsOn": [
-        "defualt",
-        "^build",
+        "^build:dist",
         "pretest"
       ]
     },
     "test:watch": {
       "inputs": [
-        "default"
+        "default",
+        "outptsDist"
       ],
       "dependsOn": [
-        "^build"
+        "^build:dist"
       ]
     },
     "test:coverage": {
       "inputs": [
-        "default"
+        "default",
+        "outptsDist"
       ],
       "dependsOn": [
-        "^build"
+        "^build:dist"
       ],
       "outputs": [
         "{projectRoot}/coverage"
@@ -47,27 +50,49 @@
     },
     "typecheck": {
       "inputs": [
-        "{projectRoot}/**/*",
-        "sharedGlobals"
+        "production",
+        "outputsDts"
       ],
       "dependsOn": [
-        "^build"
+        "^build:types"
       ]
     },
-    "serve": {
+    "build:types": {
+      "inputs": [
+        "production",
+        "outputsDts"
+      ],
       "dependsOn": [
-        "build"
+        "^build:types"
+      ],
+      "outputs": [
+        "{projectRoot}/types"
       ]
     },
     "build": {
       "inputs": [
-        "production"
+        "production",
+        "outputsDist"
       ],
       "dependsOn": [
-        "^build"
+        "^build:dist",
+        "^build:types"
       ],
       "outputs": [
-        "buildArtifacts"
+        "{projectRoot}/dist",
+        "{projectRoot}/types"
+      ]
+    },
+    "build:dist": {
+      "inputs": [
+        "production",
+        "outptsDist"
+      ],
+      "dependsOn": [
+        "^build:dist"
+      ],
+      "outputs": [
+        "{projectRoot}/dist"
       ]
     },
     "dev": {
@@ -82,15 +107,17 @@
       "options": {
         "cacheableOperations": [
           "build",
+          "build:dist",
+          "build:types",
           "test:coverage",
           "test:run",
           "format:check",
           "typecheck",
           "e2e",
           "format:check",
-          "lint:check"
-        ],
-        "accessToken": "MWI0MzBiNGItMzE0Ni00MGU3LWIxZGQtY2Q2ZDlmMDIzOTMwfHJlYWQ="
+          "lint:check",
+          "format:check"
+        ]
       }
     }
   },
@@ -99,6 +126,10 @@
   },
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
   "namedInputs": {
+    "buildConfigs": [
+      "{projectRoot}/tsconfig.*?.json",
+      "{projectRoot}/tsup.config.ts"
+    ],
     "default": [
       "{projectRoot}/**/*",
       "sharedGlobals"
@@ -112,8 +143,9 @@
       "!{projectRoot}/src/**/*.spec.ts"
     ],
     "productionContracts": ["{projectRoot}/contracts/**/*"],
-    "production": ["productionSrc", "productionContracts"],
-    "buildArtifacts": ["{projectRoot}/dist", "{projectRoot}/types", "{projectRoot}/artifacts", "{projectRoot}/deployments"],
+    "production": ["buildConfigs", "sharedGlobals", "productionSrc", "productionContracts"],
+    "outptsDist": [{ "dependentTasksOutputFiles": "**/*", "transitive": true }],
+    "outputsDts": [{ "dependentTasksOutputFiles": "**/*", "transitive": true }],
     "testing": ["configsWorkspace", "default"]
   }
 }

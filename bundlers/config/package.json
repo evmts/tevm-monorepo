@@ -24,13 +24,16 @@
   "type": "module",
   "main": "dist/index.cjs",
   "module": "dist/index.js",
-  "types": "src/index.ts",
+  "types": "types/index.d.ts",
   "files": [
     "dist",
+    "types",
     "src"
   ],
   "scripts": {
-    "build": "tsup",
+    "build": "nx run-many --targets=build:dist,build:types --projects=@evmts/config ",
+    "build:dist": "tsup",
+    "build:types": "tsc --emitDeclarationOnly",
     "clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
     "format": "rome format . --write",
     "format:check": "rome format .",
@@ -40,8 +43,7 @@
     "test": "vitest --coverage",
     "test:coverage": "vitest run --coverage",
     "test:run": "vitest run",
-    "test:ui": "vitest --ui",
-    "typecheck": "tsc --noEmit"
+    "test:ui": "vitest --ui"
   },
   "dependencies": {
     "@types/node": "^20.4.2",

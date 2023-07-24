@@ -8,6 +8,7 @@
   "type": "module",
   "main": "dist/extension.cjs",
   "module": "dist/extension.js",
+  "types": "types/index.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/volarjs/starter.git",
@@ -47,7 +48,9 @@
     ]
   },
   "scripts": {
-    "build": "tsup",
+    "build": "nx run-many --targets=build:dist,build:types --projects=@evmts/vscode ",
+    "build:dist": "tsup",
+    "build:types": "tsc --emitDeclarationOnly",
     "watch": "tsup --watch",
     "pack": "npm run build && vsce package --pre-release",
     "release": "npm run build && vsce publish --pre-release"
@@ -58,6 +61,7 @@
     "@volar/vscode": "1.8.0",
     "esbuild": "0.18.8",
     "tsup": "^7.1.0",
+    "typescript": "^5.1.6",
     "vsce": "^2.15.0",
     "vscode-languageclient": "^8.1.0"
   },

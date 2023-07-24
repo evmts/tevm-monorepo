@@ -18,10 +18,6 @@ Runs prettier and eslint
 
 Runs npm publish in dry mode. On workflow releases it will actually publish
 
-### typecheck.yml
-
-Runs the typechecker. Since build is done (faster) with babel typechecker must be run as a seperate lint step.
-
 ### unit.yml
 
 Runs run unit tests for all packages

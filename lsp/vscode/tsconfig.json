@@ -1,11 +1,13 @@
 {
 	"extends": "../../tsconfig.json",
 	"compilerOptions": {
-		"outDir": "out",
+		"outDir": "types",
 		"rootDir": "src",
+		"skipLibCheck": true,
+		"declaration": true
 	},
 	"include": [
-		"src",
+		"src"
 	],
 	"references": [
 		{

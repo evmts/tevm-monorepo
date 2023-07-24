@@ -3,7 +3,7 @@
   "compilerOptions": {
     "rootDir": "src",
     "composite": true,
-    "outDir": "dist",
+    "outDir": "types",
     "skipLibCheck": true
   },
   "include": ["src", "src/**/*.json"]

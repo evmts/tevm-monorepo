@@ -25,13 +25,16 @@
   "bin": {
     "evmts-gen": "./dist/bin/evmts-gen.js"
   },
-  "types": "src/index.ts",
+  "types": "types/index.d.ts",
   "files": [
     "dist",
+    "types",
     "src"
   ],
   "scripts": {
-    "build": "tsup",
+    "build": "nx run-many --targets=build:dist,build:types --projects=@evmts/ts-plugin ",
+    "build:dist": "tsup",
+    "build:types": "tsc --emitDeclarationOnly",
     "clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
     "dev": "TSS_DEBUG_BRK=9559 code ../../examples/forge-foundry",
     "format": "rome format . --write",
@@ -42,8 +45,7 @@
     "pretest": "forge build",
     "test": "vitest",
     "test:coverage": "vitest run --coverage",
-    "test:run": "vitest --run",
-    "typecheck": "tsc --noEmit"
+    "test:run": "vitest --run"
   },
   "dependencies": {
     "@evmts/bundler": "workspace:^",

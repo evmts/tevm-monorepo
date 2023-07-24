@@ -8,6 +8,10 @@ forge-artifacts
 broadcast
 
 # compiled output
+*/dist
+*/*/dist
+*/types
+*/*/types
 packages/*/dist
 apps/*/dist
 tmp

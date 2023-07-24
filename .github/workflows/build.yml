@@ -9,8 +9,8 @@ on:
 name: Build
 
 jobs:
-  build:
-    name: Build
+  build-types:
+    name: Build types
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -22,7 +22,23 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Run build
-        run: pnpm nx affected --target=build
+        run: pnpm nx affected --target=build:types
+        env:
+          NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
+  build-dist:
+    name: Build dist
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          submodules: recursive
+
+      - name: "Setup"
+        uses: ./.github/actions/setup
+
+      - name: Run build dist
+        run: pnpm nx affected --target=build:dist
         env:
           NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
 

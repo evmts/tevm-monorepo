@@ -8,8 +8,11 @@
   ],
   "main": "dist/index.cjs",
   "module": "dist/index.js",
+  "types": "types/index.d.js",
   "scripts": {
-    "build": "tsup",
+    "build": "nx run-many --targets=build:dist,build:types --projects=@evmts/language-server ",
+    "build:dist": "tsup",
+    "build:types": "tsc --emitDeclarationOnly",
     "clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
     "format": "rome format . --write",
     "format:check": "rome format .",
@@ -17,12 +20,12 @@
     "lint:check": "rome check .",
     "package:up": "pnpm up --latest",
     "//test": "vitest",
-    "//test:run": "vitest --run",
-    "typecheck": "tsc --noEmit"
+    "//test:run": "vitest --run"
   },
   "files": [
-    "dist/**/*.js",
-    "dist/**/*.d.ts"
+    "dist",
+    "types",
+    "src"
   ],
   "bin": {
     "evmts-language-server": "./dist/nodeServer.js"

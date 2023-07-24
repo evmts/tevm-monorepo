@@ -27,22 +27,23 @@
   "types": "types/index.d.ts",
   "files": [
     "dist",
-    "types"
+    "types",
+    "src"
   ],
   "scripts": {
     "test": "vitest --coverage",
     "test:coverage": "vitest run --coverage",
     "test:run": "vitest run",
     "test:ui": "vitest --ui",
-    "build": "tsup && pnpm build:types",
+    "build": "nx run-many --targets=build:dist,build:types --projects=@evmts/bundler ",
+    "build:dist": "tsup",
     "build:types": "tsc --emitDeclarationOnly",
     "clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
     "format": "rome format . --write",
     "format:check": "rome format .",
     "lint": "rome check . --apply-unsafe",
     "lint:check": "rome check . --verbose",
-    "package:up": "pnpm up --latest",
-    "typecheck": "tsc --noEmit"
+    "package:up": "pnpm up --latest"
   },
   "dependencies": {
     "@evmts/config": "workspace:^",
