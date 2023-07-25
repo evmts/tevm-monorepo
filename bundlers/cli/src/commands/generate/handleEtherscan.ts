@@ -123,7 +123,8 @@ Detected that it starts with $. Did you forget to include this env variable in y
 		logger.log(`fetching abis from etherscan on chain ${chainId}...`)
 		const resolvedContracts = await etherscan({
 			apiKey,
-			contracts,
+			// TODO better types
+			contracts: contracts as any,
 			chainId: Number.parseInt(chainId) as 1,
 		}).contracts()
 		for (const resolvedContract of resolvedContracts) {
@@ -177,10 +178,14 @@ Detected that it starts with $. Did you forget to include this env variable in y
 			if (!contractConfig) {
 				throw new Error('Contract config not found')
 			}
+			if (!contractConfig.name) {
+				throw new Error('Contract config name not found')
+			}
 			// TODO handle corner case of the abis on different networks not matching
 			result[contractConfig.name] = {
 				...contractConfig,
 				...result[contractConfig.name],
+				name: contractConfig.name,
 				source: sources[contractConfig.name],
 				abi: resolvedContract.abi,
 				addresses: {

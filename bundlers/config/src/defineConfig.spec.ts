@@ -176,7 +176,7 @@ describe(defineConfig.name, () => {
 			externalContracts: {
 				apiKeys: {
 					etherscan: {
-						1: 'provided-key'
+						1: 'provided-key',
 					},
 				},
 			},

@@ -1,9 +1,9 @@
 import { bundler } from './bundler'
 import { unpluginFn } from './unplugin'
 import { loadConfig } from '@evmts/config'
+import { existsSync } from 'fs'
 import type { UnpluginBuildContext, UnpluginContext } from 'unplugin'
 import { type Mock, beforeEach, describe, expect, it, vi } from 'vitest'
-import { existsSync } from 'fs'
 
 vi.mock('@evmts/config', async () => ({
 	...((await vi.importActual('@evmts/config')) as {}),
@@ -168,7 +168,6 @@ describe('unpluginFn', () => {
 		const testFn = () => plugin.load?.call(mockPlugin, '@evmts/core/runtime')
 		expect(testFn).not.toThrow()
 	})
-
 
 	it('should return undefined if .sol file has corresponding .ts file', async () => {
 		const plugin = unpluginFn({}, {} as any)

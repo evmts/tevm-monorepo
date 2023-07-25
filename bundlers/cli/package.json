@@ -45,8 +45,7 @@
     "format:check": "rome format .",
     "lint": "rome check . --apply-unsafe",
     "lint:check": "rome check . --verbose",
-    "package:up": "pnpm up --latest",
-    "typecheck": "tsc --noEmit"
+    "package:up": "pnpm up --latest"
   },
   "dependencies": {
     "@evmts/bundler": "workspace:^",

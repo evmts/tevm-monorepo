@@ -256,7 +256,12 @@ describe(handleDeprecations.name, () => {
 			},
 		}
 		const newConfig = handleDeprecations(originalConfig)
-		expect(newConfig?.compiler?.libs).toStrictEqual(['lib3', 'lib4', 'lib1', 'lib2'])
+		expect(newConfig?.compiler?.libs).toStrictEqual([
+			'lib3',
+			'lib4',
+			'lib1',
+			'lib2',
+		])
 		expect(consoleWarnStub.warn).toBeCalledTimes(1)
 	})
 
