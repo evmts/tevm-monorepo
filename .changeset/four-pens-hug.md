@@ -2,4 +2,4 @@
 "@evmts/bundler": minor
 ---
 
-Added runtime tools for creating modules from artifacts which were previously private to public api
+Generalize and export module creators that create .d.ts .ts .cjs and .mjs modules from abis. These were previously private.
