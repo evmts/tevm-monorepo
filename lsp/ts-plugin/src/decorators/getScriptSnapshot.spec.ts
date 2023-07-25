@@ -57,7 +57,7 @@ describe(getScriptSnapshotDecorator.name, () => {
 			logger,
 			config,
 		)
-		const fileName = path.join(__dirname, '../test/fixtures/HelloWorld.sol')
+		const fileName = path.join(__dirname, '../test/fixtures/HelloWorld2.sol')
 		const result = decorator.getScriptSnapshot(fileName)
 		expect((result as any).text).toMatchInlineSnapshot(`
 			"import { EvmtsContract } from '@evmts/core'

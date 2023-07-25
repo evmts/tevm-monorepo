@@ -6,6 +6,25 @@
         "compiler": {
           "foundryProject": true
         },
+        "externalContracts": {
+          "out": "./src/contracts/external/",
+          "apiKeys": {
+            "etherscan": {
+              "1": "$ETHERSCAN_API_KEY_1",
+              "10": "$ETHERSCAN_API_KEY_10"
+            }
+          },
+          "contracts": [
+            {
+              "type": "etherscan",
+              "name": "DAI",
+              "addresses": {
+                "1": "0x6B175474E89094C44Da98b954EedeAC495271d0F",
+                "10": "0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1"
+              }
+            }
+          ]
+        },
         "localContracts": {
           "contracts": [
             {

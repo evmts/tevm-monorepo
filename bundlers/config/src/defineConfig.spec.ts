@@ -175,16 +175,25 @@ describe(defineConfig.name, () => {
 		const configFactory = () => ({
 			externalContracts: {
 				apiKeys: {
-					etherscan: 'provided-key',
+					etherscan: {
+						1: 'provided-key',
+					},
 				},
 			},
 		})
 		const config = defineConfig(configFactory as any)
 		const resolvedConfig = config.configFn('./')
 
-		expect(resolvedConfig.externalContracts.apiKeys).toEqual({
-			...defaultConfig.externalContracts.apiKeys,
-			etherscan: 'provided-key',
-		})
+		expect(resolvedConfig.externalContracts.apiKeys).toMatchInlineSnapshot(`
+			{
+			  "etherscan": {
+			    "1": "provided-key",
+			    "10": undefined,
+			    "137": undefined,
+			    "42161": undefined,
+			    "56": undefined,
+			  },
+			}
+		`)
 	})
 })

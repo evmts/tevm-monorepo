@@ -1,6 +1,7 @@
 import { bundler } from './bundler'
 import { unpluginFn } from './unplugin'
 import { loadConfig } from '@evmts/config'
+import { existsSync } from 'fs'
 import type { UnpluginBuildContext, UnpluginContext } from 'unplugin'
 import { type Mock, beforeEach, describe, expect, it, vi } from 'vitest'
 
@@ -11,6 +12,14 @@ vi.mock('@evmts/config', async () => ({
 vi.mock('./bundler', () => ({
 	bundler: vi.fn(),
 }))
+
+vi.mock('fs', async () => ({
+	...((await vi.importActual('fs')) as {}),
+	existsSync: vi.fn(),
+}))
+
+const mockExistsSync = existsSync as Mock
+
 const mockBundler = bundler as Mock
 const mockLoadConfig = loadConfig as Mock
 mockBundler.mockReturnValue({
@@ -158,5 +167,25 @@ describe('unpluginFn', () => {
 		// For now, let's just call it and assert that it doesn't throw an error
 		const testFn = () => plugin.load?.call(mockPlugin, '@evmts/core/runtime')
 		expect(testFn).not.toThrow()
+	})
+
+	it('should return undefined if .sol file has corresponding .ts file', async () => {
+		const plugin = unpluginFn({}, {} as any)
+		mockExistsSync.mockReturnValueOnce(true)
+
+		const result = await plugin.load?.call(mockPlugin, 'test.sol')
+
+		expect(result).toBeUndefined()
+		expect(mockExistsSync).toHaveBeenCalledWith('test.sol.ts')
+	})
+
+	it('should return undefined if .sol file has corresponding .d.ts file', async () => {
+		const plugin = unpluginFn({}, {} as any)
+		mockExistsSync.mockReturnValueOnce(false).mockReturnValueOnce(true)
+
+		const result = await plugin.load?.call(mockPlugin, 'test.sol')
+
+		expect(result).toBeUndefined()
+		expect(mockExistsSync).toHaveBeenCalledWith('test.sol.d.ts')
 	})
 })

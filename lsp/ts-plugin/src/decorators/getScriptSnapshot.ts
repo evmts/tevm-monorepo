@@ -14,7 +14,12 @@ export const getScriptSnapshotDecorator = createDecorator(
 	({ languageServiceHost, project }, ts, logger, config) => {
 		return {
 			getScriptSnapshot: (filePath) => {
-				if (!isSolidity(filePath) || !existsSync(filePath)) {
+				if (
+					!isSolidity(filePath) ||
+					!existsSync(filePath) ||
+					existsSync(`${filePath}.d.ts`) ||
+					existsSync(`${filePath}.ts`)
+				) {
 					return languageServiceHost.getScriptSnapshot(filePath)
 				}
 				try {

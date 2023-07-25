@@ -1,9 +1,3 @@
-// Temporary for alpha breaking change nice to have
-// these properties changed
-// solcVersion?: string
-// deployments?: Record<string, DeploymentConfig>
-// forge?: ForgeConfig
-
 import type {
 	CompilerConfig,
 	EvmtsConfig,
@@ -37,7 +31,6 @@ Please rename the property in your tsconfig.json.`)
 			...rest,
 			localContracts: {
 				...rest.localContracts,
-
 				contracts: rest?.localContracts?.contracts ?? deployments,
 			},
 		}
