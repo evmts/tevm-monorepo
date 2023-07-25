@@ -1,5 +1,19 @@
 # @evmts/core
 
+## 0.6.0
+
+### Minor Changes
+
+- [#359](https://github.com/evmts/evmts-monorepo/pull/359) [`e24901a`](https://github.com/evmts/evmts-monorepo/commit/e24901a7b503354af6174bac81a868a8598f143b) Thanks [@roninjin10](https://github.com/roninjin10)! - Added autodetection of solc version. solcVersion is no longer required
+
+- [#377](https://github.com/evmts/evmts-monorepo/pull/377) [`3a2dfae`](https://github.com/evmts/evmts-monorepo/commit/3a2dfae3a38ca7052b57b57e5c95a952a7f0be71) Thanks [@roninjin10](https://github.com/roninjin10)! - Added ability to use env variables in EvmtsConfig
+
+### Patch Changes
+
+- [#373](https://github.com/evmts/evmts-monorepo/pull/373) [`6de12df`](https://github.com/evmts/evmts-monorepo/commit/6de12df39cf9da0635c246c685036e83a8e97255) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug with etherscan section of the EvmtsConfig requiring all networks
+
+- [#379](https://github.com/evmts/evmts-monorepo/pull/379) [`0ff53e7`](https://github.com/evmts/evmts-monorepo/commit/0ff53e71ff792ed4df1fa180f5a72dd5d65f4142) Thanks [@roninjin10](https://github.com/roninjin10)! - Updated build pipeline to generate .d.ts files
+
 ## 0.5.6
 
 ### Patch Changes

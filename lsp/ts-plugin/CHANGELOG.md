@@ -1,5 +1,16 @@
 # @evmts/ts-plugin
 
+## 0.6.0
+
+### Patch Changes
+
+- [#387](https://github.com/evmts/evmts-monorepo/pull/387) [`20f941e`](https://github.com/evmts/evmts-monorepo/commit/20f941e0d79ce0f0280469992c190eb3049d5286) Thanks [@roninjin10](https://github.com/roninjin10)! - Increased test coverage of ts-plugin to >98%
+
+- [#379](https://github.com/evmts/evmts-monorepo/pull/379) [`0ff53e7`](https://github.com/evmts/evmts-monorepo/commit/0ff53e71ff792ed4df1fa180f5a72dd5d65f4142) Thanks [@roninjin10](https://github.com/roninjin10)! - Updated build pipeline to generate .d.ts files
+
+- Updated dependencies [[`97d7aec`](https://github.com/evmts/evmts-monorepo/commit/97d7aec9844b370129b9c46ab8c19fe9d13880ec), [`0a87d1a`](https://github.com/evmts/evmts-monorepo/commit/0a87d1a290e6cdd6902d6c1c84ea56d8bc227c45), [`0ff53e7`](https://github.com/evmts/evmts-monorepo/commit/0ff53e71ff792ed4df1fa180f5a72dd5d65f4142), [`58862a6`](https://github.com/evmts/evmts-monorepo/commit/58862a6ebe6ec1e04961dbc2da6e846a02ef0692)]:
+  - @evmts/bundler@0.6.0
+
 ## 0.5.7
 
 ### Patch Changes
