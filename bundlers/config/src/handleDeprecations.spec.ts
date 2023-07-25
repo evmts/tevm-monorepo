@@ -133,4 +133,144 @@ describe(handleDeprecations.name, () => {
       }
     `)
 	})
+
+	it('should handle all deprecated properties together correctly', () => {
+		const originalConfig: DeprecatedConfig = {
+			deployments: [
+				{
+					name: 'test',
+					addresses: {
+						1: '0x123',
+					},
+				},
+			],
+			forge: true,
+			libs: ['lib1', 'lib2'],
+			solcVersion: '0.8.9',
+		}
+		const newConfig = handleDeprecations(originalConfig)
+		expect(newConfig).toMatchInlineSnapshot(`
+			{
+			  "compiler": {
+			    "solcVersion": "0.8.9",
+			  },
+			  "deployments": [
+			    {
+			      "addresses": {
+			        "1": "0x123",
+			      },
+			      "name": "test",
+			    },
+			  ],
+			  "forge": true,
+			  "libs": [
+			    "lib1",
+			    "lib2",
+			  ],
+			}
+		`)
+		expect(consoleWarnStub.warn).toBeCalledTimes(4)
+	})
+
+	it('should handle some deprecated properties together correctly', () => {
+		const originalConfig: DeprecatedConfig = {
+			deployments: [
+				{
+					name: 'test',
+					addresses: {
+						1: '0x123',
+					},
+				},
+			],
+			libs: ['lib1', 'lib2'],
+		}
+		const newConfig = handleDeprecations(originalConfig)
+		expect(newConfig).toMatchInlineSnapshot(`
+			{
+			  "compiler": {
+			    "libs": [
+			      "lib1",
+			      "lib2",
+			    ],
+			  },
+			  "deployments": [
+			    {
+			      "addresses": {
+			        "1": "0x123",
+			      },
+			      "name": "test",
+			    },
+			  ],
+			}
+		`)
+		expect(consoleWarnStub.warn).toBeCalledTimes(2)
+	})
+
+	it('should handle deployments and localContracts.contracts together correctly', () => {
+		const originalConfig: DeprecatedConfig = {
+			deployments: [
+				{
+					name: 'test',
+					addresses: {
+						1: '0x123',
+					},
+				},
+			],
+			localContracts: {
+				contracts: [
+					{
+						name: 'newTest',
+						addresses: {
+							1: '0x456',
+						},
+					},
+				],
+			},
+		}
+		const newConfig = handleDeprecations(originalConfig)
+		expect(newConfig?.localContracts?.contracts).toStrictEqual(
+			originalConfig.localContracts?.contracts,
+		)
+		expect(consoleWarnStub.warn).toBeCalledTimes(1)
+	})
+
+	it('should handle forge and compiler.foundryProject together correctly', () => {
+		const originalConfig: DeprecatedConfig = {
+			forge: true,
+			compiler: {
+				foundryProject: false,
+			},
+		}
+		const newConfig = handleDeprecations(originalConfig)
+		expect(newConfig?.compiler?.foundryProject).toStrictEqual(
+			originalConfig.compiler?.foundryProject,
+		)
+		expect(consoleWarnStub.warn).toBeCalledTimes(1)
+	})
+
+	it('should handle libs and compiler.libs together correctly', () => {
+		const originalConfig: DeprecatedConfig = {
+			libs: ['lib1', 'lib2'],
+			compiler: {
+				libs: ['lib3', 'lib4'],
+			},
+		}
+		const newConfig = handleDeprecations(originalConfig)
+		expect(newConfig?.compiler?.libs).toStrictEqual(['lib3', 'lib4', 'lib1', 'lib2'])
+		expect(consoleWarnStub.warn).toBeCalledTimes(1)
+	})
+
+	it('should handle solcVersion and compiler.solcVersion together correctly', () => {
+		const originalConfig: DeprecatedConfig = {
+			solcVersion: '0.8.9',
+			compiler: {
+				solcVersion: '0.8.10',
+			},
+		}
+		const newConfig = handleDeprecations(originalConfig)
+		expect(newConfig?.compiler?.solcVersion).toStrictEqual(
+			originalConfig.compiler?.solcVersion,
+		)
+		expect(consoleWarnStub.warn).toBeCalledTimes(1)
+	})
 })
