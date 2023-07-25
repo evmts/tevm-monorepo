@@ -158,13 +158,12 @@ export type CompilerConfig = {
 	libs?: string[]
 }
 
-export const evmtsConfigValidator = z
-	.strictObject({
-		name: z.literal('@evmts/ts-plugin').optional(),
-		compiler: compilerConfigValidator.optional(),
-		localContracts: localContractsConfigValidator.optional(),
-		externalContracts: externalConfigValidator.optional(),
-	})
+export const evmtsConfigValidator = z.strictObject({
+	name: z.literal('@evmts/ts-plugin').optional(),
+	compiler: compilerConfigValidator.optional(),
+	localContracts: localContractsConfigValidator.optional(),
+	externalContracts: externalConfigValidator.optional(),
+})
 
 /**
  * Configuration for Evmts

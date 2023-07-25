@@ -1,5 +1,6 @@
 import { bundler } from './bundler'
 import { type ResolvedConfig, loadConfig } from '@evmts/config'
+import { existsSync } from 'fs'
 import { type UnpluginFactory, createUnplugin } from 'unplugin'
 import { z } from 'zod'
 
@@ -52,6 +53,12 @@ export const unpluginFn: UnpluginFactory<
 			if (id.startsWith('@evmts/core/runtime')) {
 			}
 			if (!id.endsWith('.sol')) {
+				return
+			}
+			if (existsSync(`${id}.ts`)) {
+				return
+			}
+			if (existsSync(`${id}.d.ts`)) {
 				return
 			}
 			const { code, modules } = await moduleResolver.resolveEsmModule(
