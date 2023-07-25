@@ -216,7 +216,11 @@ describe(loadConfig.name, () => {
 			  "externalContracts": {
 			    "apiKeys": {
 			      "etherscan": {
-			        "1": "$ETHERSCAN_KEY",
+			        "1": "MY_ETHERSCAN_KEY",
+			        "10": undefined,
+			        "137": undefined,
+			        "42161": undefined,
+			        "56": undefined,
 			      },
 			    },
 			    "contracts": [
@@ -449,7 +453,11 @@ describe(loadConfig.name, () => {
 			  "externalContracts": {
 			    "apiKeys": {
 			      "etherscan": {
-			        "1": "$ETHERSCAN_KEY",
+			        "1": "MY_ETHERSCAN_KEY",
+			        "10": undefined,
+			        "137": undefined,
+			        "42161": undefined,
+			        "56": undefined,
 			      },
 			    },
 			    "contracts": [
