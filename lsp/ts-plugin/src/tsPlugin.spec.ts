@@ -127,4 +127,15 @@ describe(tsPlugin.name, () => {
 		// TODO call resolveModuleNameLiterals
 		// TODO call getScriptSnapshot
 	})
+
+	it('getExternalFiles should work', () => {
+		// return project.getFileNames().filter(isSolidity)
+		const mockProject = {
+			getFileNames: () => ['foo.ts', 'bar.sol'],
+		}
+		const decorator = tsPlugin({ typescript })
+		expect(decorator.getExternalFiles?.(mockProject as any)).toEqual([
+			'bar.sol',
+		])
+	})
 })

@@ -50,6 +50,32 @@ describe(getScriptSnapshotDecorator.name, () => {
 		expect(languageServiceHost.getScriptSnapshot).toHaveBeenCalledWith(fileName)
 	})
 
+	it('should return the .ts file if it exists', () => {
+		const decorator = getScriptSnapshotDecorator(
+			{ languageServiceHost, project } as any,
+			typescript,
+			logger,
+			config,
+		)
+		const fileName = path.join(__dirname, '../test/fixtures/HelloWorld3.sol')
+		decorator.getScriptSnapshot(fileName)
+		expect(languageServiceHost.getScriptSnapshot).toHaveBeenCalledWith(
+			path.join(__dirname, '../test/fixtures/HelloWorld3.sol'),
+		)
+	})
+	it('should return the .d.ts file if it exists', () => {
+		const decorator = getScriptSnapshotDecorator(
+			{ languageServiceHost, project } as any,
+			typescript,
+			logger,
+			config,
+		)
+		const fileName = path.join(__dirname, '../test/fixtures/HelloWorld.sol')
+		decorator.getScriptSnapshot(fileName)
+		expect(languageServiceHost.getScriptSnapshot).toHaveBeenCalledWith(
+			path.join(__dirname, '../test/fixtures/HelloWorld.sol'),
+		)
+	})
 	it('should return a generated .d.ts file for solidity files', () => {
 		const decorator = getScriptSnapshotDecorator(
 			{ languageServiceHost, project } as any,
@@ -75,6 +101,21 @@ describe(getScriptSnapshotDecorator.name, () => {
 			 * HelloWorld2 EvmtsContract
 			 */
 			export const HelloWorld2: EvmtsContract<typeof _nameHelloWorld2, typeof _chainAddressMapHelloWorld2, typeof _abiHelloWorld2>;"
+		`)
+	})
+	it('should handle resolveDts throwing', () => {
+		const decorator = getScriptSnapshotDecorator(
+			{ languageServiceHost, project } as any,
+			typescript,
+			logger,
+			config,
+		)
+		const fileName = path.join(__dirname, '../test/fixtures/BadCompile.sol')
+		const result = decorator.getScriptSnapshot(fileName)
+		expect(result).toMatchInlineSnapshot(`
+			StringScriptSnapshot {
+			  "text": "export {}",
+			}
 		`)
 	})
 })
