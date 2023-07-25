@@ -1,6 +1,6 @@
 {
   "name": "@evmts/language-server",
-  "version": "0.0.1",
+  "version": "0.6.0",
   "license": "MIT",
   "type": "module",
   "contributors": [

@@ -1,5 +1,17 @@
 # @evmts/core
 
+## 0.6.0
+
+### Patch Changes
+
+- [#367](https://github.com/evmts/evmts-monorepo/pull/367) [`6da3fe7`](https://github.com/evmts/evmts-monorepo/commit/6da3fe7fdec9bc2e4d35fc0558b79c65a105a516) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug with read not filtering out events from it's returned object
+
+- [#379](https://github.com/evmts/evmts-monorepo/pull/379) [`0ff53e7`](https://github.com/evmts/evmts-monorepo/commit/0ff53e71ff792ed4df1fa180f5a72dd5d65f4142) Thanks [@roninjin10](https://github.com/roninjin10)! - Updated build pipeline to generate .d.ts files
+
+- [#384](https://github.com/evmts/evmts-monorepo/pull/384) [`6dd223b`](https://github.com/evmts/evmts-monorepo/commit/6dd223b0b625bd7dcbea7537f053b32457761955) Thanks [@roninjin10](https://github.com/roninjin10)! - Upgrade deps to latest versions
+
+- [#367](https://github.com/evmts/evmts-monorepo/pull/367) [`6da3fe7`](https://github.com/evmts/evmts-monorepo/commit/6da3fe7fdec9bc2e4d35fc0558b79c65a105a516) Thanks [@roninjin10](https://github.com/roninjin10)! - Added 100% test coverage to @evmts/core
+
 ## 0.5.6
 
 ### Patch Changes

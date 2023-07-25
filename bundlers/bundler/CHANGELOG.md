@@ -1,5 +1,23 @@
 # @evmts/core
 
+## 0.6.0
+
+### Minor Changes
+
+- [#372](https://github.com/evmts/evmts-monorepo/pull/372) [`0a87d1a`](https://github.com/evmts/evmts-monorepo/commit/0a87d1a290e6cdd6902d6c1c84ea56d8bc227c45) Thanks [@roninjin10](https://github.com/roninjin10)! - Generalize and export module creators that create .d.ts .ts .cjs and .mjs modules from abis. These were previously private.
+
+### Patch Changes
+
+- [#378](https://github.com/evmts/evmts-monorepo/pull/378) [`97d7aec`](https://github.com/evmts/evmts-monorepo/commit/97d7aec9844b370129b9c46ab8c19fe9d13880ec) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed type bug of config being falsely marked as required
+
+- [#379](https://github.com/evmts/evmts-monorepo/pull/379) [`0ff53e7`](https://github.com/evmts/evmts-monorepo/commit/0ff53e71ff792ed4df1fa180f5a72dd5d65f4142) Thanks [@roninjin10](https://github.com/roninjin10)! - Updated build pipeline to generate .d.ts files
+
+- [#370](https://github.com/evmts/evmts-monorepo/pull/370) [`58862a6`](https://github.com/evmts/evmts-monorepo/commit/58862a6ebe6ec1e04961dbc2da6e846a02ef0692) Thanks [@roninjin10](https://github.com/roninjin10)! - Added 100% test coverage to bundler
+
+- Updated dependencies [[`6da3fe7`](https://github.com/evmts/evmts-monorepo/commit/6da3fe7fdec9bc2e4d35fc0558b79c65a105a516), [`6de12df`](https://github.com/evmts/evmts-monorepo/commit/6de12df39cf9da0635c246c685036e83a8e97255), [`0ff53e7`](https://github.com/evmts/evmts-monorepo/commit/0ff53e71ff792ed4df1fa180f5a72dd5d65f4142), [`e24901a`](https://github.com/evmts/evmts-monorepo/commit/e24901a7b503354af6174bac81a868a8598f143b), [`3a2dfae`](https://github.com/evmts/evmts-monorepo/commit/3a2dfae3a38ca7052b57b57e5c95a952a7f0be71), [`6dd223b`](https://github.com/evmts/evmts-monorepo/commit/6dd223b0b625bd7dcbea7537f053b32457761955), [`6da3fe7`](https://github.com/evmts/evmts-monorepo/commit/6da3fe7fdec9bc2e4d35fc0558b79c65a105a516)]:
+  - @evmts/core@0.6.0
+  - @evmts/config@0.6.0
+
 ## 0.5.7
 
 ### Patch Changes
