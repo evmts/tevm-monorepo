@@ -1,7 +1,6 @@
 import { createDecorator } from '../factories'
 import { isSolidity } from '../utils'
 import { bundler } from '@evmts/bundler'
-import { defineConfig } from '@evmts/config'
 import { existsSync } from 'fs'
 
 /**
@@ -11,7 +10,7 @@ import { existsSync } from 'fs'
  * TODO replace with modules for code reuse
  */
 export const getScriptSnapshotDecorator = createDecorator(
-	({ languageServiceHost, project }, ts, logger, config) => {
+	({ languageServiceHost }, ts, logger, config) => {
 		return {
 			getScriptSnapshot: (filePath) => {
 				if (
