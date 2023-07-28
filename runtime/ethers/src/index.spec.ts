@@ -2,8 +2,7 @@ import { createEthersContract } from '.'
 import { evmtsContractFactory } from '@evmts/core'
 import { Contract, JsonRpcProvider /*Wallet*/ } from 'ethers'
 import { expect, test } from 'vitest'
-
-// const anvilPrivateKey = '0x2a871d0798f97d79848a013d4936a73bf4cc922c825d33c1cf7073dff6d409c6'
+import { I } from 'vitest/dist/types-198fd1d9'
 
 const abi = [
 	{
@@ -206,26 +205,22 @@ const abi = [
 		type: 'event',
 	},
 ] as const
-const contract = evmtsContractFactory({
+
+const evmtsContract = evmtsContractFactory({
 	abi,
 	name: 'test',
 	addresses: { 420: '0x32307adfFE088e383AFAa721b06436aDaBA47DBE' },
 	bytecode: '0x0',
 })
-const provider = new JsonRpcProvider('https://goerli.optimism.io', 5)
 
-test(createEthersContract.name, () => {
-	const c = createEthersContract(contract, { chainId: 420, runner: provider })
+const provider = new JsonRpcProvider('https://goerli.optimism.io', 420)
+
+test(createEthersContract.name, async () => {
+	const c = createEthersContract(evmtsContract, { chainId: 420, runner: provider })
 	expect(c).toBeInstanceOf(Contract)
-	expect(Reflect.ownKeys(c)).toMatchInlineSnapshot(`
-		[
-		  "target",
-		  "interface",
-		  "runner",
-		  "filters",
-		  "fallback",
-		  Symbol(_ethersInternal_contract),
-		]
-	`)
-	expect(c).toMatchInlineSnapshot()
+	expect(await c.name()).toMatchInlineSnapshot('"OptimismUselessToken-1"')
+	expect(await c.symbol()).toMatchInlineSnapshot('"OUT-1"')
+	expect(await c.decimals()).toMatchInlineSnapshot('18n')
+	expect(await c.totalSupply()).toMatchInlineSnapshot('70000000000000000000000n')
+	expect(await c.balanceOf('0x32307adfFE088e383AFAa721b06436aDaBA47DBE')).toMatchInlineSnapshot('0n')
 })
