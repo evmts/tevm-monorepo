@@ -217,5 +217,15 @@ const provider = new JsonRpcProvider('https://goerli.optimism.io', 5)
 test(createEthersContract.name, () => {
 	const c = createEthersContract(contract, { chainId: 420, runner: provider })
 	expect(c).toBeInstanceOf(Contract)
+	expect(Reflect.ownKeys(c)).toMatchInlineSnapshot(`
+		[
+		  "target",
+		  "interface",
+		  "runner",
+		  "filters",
+		  "fallback",
+		  Symbol(_ethersInternal_contract),
+		]
+	`)
 	expect(c).toMatchInlineSnapshot()
 })
