@@ -1,4 +1,4 @@
-import { esbuildPluginEvmts } from '@evmts/bundler'
+import { esbuildPluginEvmts } from '.'
 import { describe, expect, it, vi } from 'vitest'
 
 describe(esbuildPluginEvmts.name, () => {

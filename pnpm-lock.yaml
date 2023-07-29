@@ -211,6 +211,9 @@ importers:
       '@evmts/tsconfig':
         specifier: workspace:^
         version: link:../../configs/tsconfig
+      '@vitest/coverage-v8':
+        specifier: ^0.33.0
+        version: 0.33.0(vitest@0.33.0)
       '@vitest/ui':
         specifier: ^0.33.0
         version: 0.33.0(vitest@0.33.0)
@@ -12676,7 +12679,7 @@ packages:
       fs.realpath: 1.0.0
       inflight: 1.0.6
       inherits: 2.0.4
-      minimatch: 3.0.5
+      minimatch: 3.1.2
       once: 1.4.0
       path-is-absolute: 1.0.1
     dev: true
@@ -13981,7 +13984,7 @@ packages:
     dependencies:
       '@babel/core': 7.22.5
       '@istanbuljs/schema': 0.1.3
-      istanbul-lib-coverage: 3.0.0
+      istanbul-lib-coverage: 3.2.0
       semver: 6.3.1
     transitivePeerDependencies:
       - supports-color
@@ -15560,7 +15563,7 @@ packages:
       foreground-child: 2.0.0
       get-package-type: 0.1.0
       glob: 7.2.3
-      istanbul-lib-coverage: 3.0.0
+      istanbul-lib-coverage: 3.2.0
       istanbul-lib-hook: 3.0.0
       istanbul-lib-instrument: 4.0.3
       istanbul-lib-processinfo: 2.0.3
