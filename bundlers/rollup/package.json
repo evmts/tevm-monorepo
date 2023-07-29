@@ -29,9 +29,9 @@
     "src"
   ],
   "scripts": {
-    "//test": "vitest",
-    "//test:run": "vitest run",
-    "//test:ui": "vitest --ui",
+    "test": "vitest",
+    "test:run": "vitest run",
+    "test:ui": "vitest --ui",
     "build": "nx run-many --targets=build:dist,build:types --projects=@evmts/rollup-plugin ",
     "build:dist": "tsup",
     "build:types": "tsc --emitDeclarationOnly",
