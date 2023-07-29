@@ -249,6 +249,24 @@ describe(createEthersContract.name, () => {
 		).toMatchInlineSnapshot('0n')
 	})
 
+	test('should work with custom address with chainId supplied even though the chainId is unnecessary', async () => {
+		const c = createEthersContract(evmtsContract, {
+			address: evmtsContract.addresses[420],
+			chainId: 420,
+			runner: provider,
+		})
+		expect(c).toBeInstanceOf(Contract)
+		expect(await c.name()).toMatchInlineSnapshot('"OptimismUselessToken-1"')
+		expect(await c.symbol()).toMatchInlineSnapshot('"OUT-1"')
+		expect(await c.decimals()).toMatchInlineSnapshot('18n')
+		expect(await c.totalSupply()).toMatchInlineSnapshot(
+			'70000000000000000000000n',
+		)
+		expect(
+			await c.balanceOf('0x32307adfFE088e383AFAa721b06436aDaBA47DBE'),
+		).toMatchInlineSnapshot('0n')
+	})
+
 	test('should throw an error if no chainId or address provided', () => {
 		expect(() =>
 			// @ts-expect-error
@@ -262,5 +280,41 @@ describe(createEthersContract.name, () => {
 				chainId: undefined,
 			}),
 		).toThrowErrorMatchingInlineSnapshot('"No chainId or address provided"')
+	})
+
+	test('should throw an error if not a valid ethereum address', () => {
+		const invalidContract = {
+			abi,
+			name: 'test',
+			addresses: { 420: '0xnot an ethereum address' },
+			bytecode: '0x0',
+		} as const
+		expect(() =>
+			createEthersContract(invalidContract, { runner: provider, chainId: 420 }),
+		).toThrowErrorMatchingInlineSnapshot(
+			'"\\"0xnot an ethereum address\\" is not a valid ethereum address"',
+		)
+		expect(() =>
+			createEthersContract(invalidContract, {
+				runner: provider,
+				address: invalidContract.addresses[420],
+			}),
+		).toThrowErrorMatchingInlineSnapshot(
+			'"\\"0xnot an ethereum address\\" is not a valid ethereum address"',
+		)
+	})
+	test('should throw an error if no address is supplied and no default exists for that chainId', () => {
+		const invalidContract = {
+			abi,
+			name: 'test',
+			addresses: { 420: '0xnot an ethereum address' },
+			bytecode: '0x0',
+		} as const
+		expect(() =>
+			// @ts-expect-error
+			createEthersContract(invalidContract, { runner: provider, chainId: 1 }),
+		).toThrowErrorMatchingInlineSnapshot(
+			'"No address prop supplied and no default address exists for chainId 1"',
+		)
 	})
 })
