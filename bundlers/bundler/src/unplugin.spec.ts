@@ -1,3 +1,4 @@
+import * as packageJson from '../package.json'
 import { bundler } from './bundler'
 import { unpluginFn } from './unplugin'
 import { loadConfig } from '@evmts/config'
@@ -59,7 +60,7 @@ describe('unpluginFn', () => {
 	it('should create the plugin correctly', async () => {
 		const plugin = unpluginFn({}, {} as any)
 		expect(plugin.name).toEqual('@evmts/rollup-plugin')
-		expect((plugin as any).version).toEqual('0.0.0')
+		expect((plugin as any).version).toEqual(packageJson.version)
 
 		// call buildstart with mockPlugin as this
 		await plugin.buildStart?.call(mockPlugin)

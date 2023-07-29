@@ -1,9 +1,9 @@
+import * as packageJson from '../package.json'
 import { bundler } from './bundler'
 import { type ResolvedConfig, loadConfig } from '@evmts/config'
 import { existsSync } from 'fs'
 import { type UnpluginFactory, createUnplugin } from 'unplugin'
 import { z } from 'zod'
-import * as packageJson from '../package.json'
 
 const compilerOptionValidator = z
 	.enum(['solc', 'foundry'])
