@@ -39,6 +39,7 @@
     "lint:check": "rome check . --verbose",
     "package:up": "pnpm up --latest",
     "test": "vitest",
+    "test:coverage": "vitest run --coverage",
     "test:run": "vitest run",
     "test:ui": "vitest --ui"
   },

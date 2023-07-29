@@ -4,7 +4,8 @@
     "rootDir": "src",
     "composite": true,
     "outDir": "types",
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "resolveJsonModule": true
   },
   "include": [
     "src",
