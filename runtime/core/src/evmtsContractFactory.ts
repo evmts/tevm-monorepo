@@ -19,7 +19,7 @@ export const evmtsContractFactory = <
 	EvmtsContract<TName, TAddresses, TAbi>,
 	'name' | 'abi' | 'addresses' | 'bytecode'
 >): EvmtsContract<TName, TAddresses, TAbi> => {
-	Object.values(addresses).forEach(address => {
+	Object.values(addresses).forEach((address) => {
 		if (!isAddress(address)) {
 			throw new Error(`"${address} is not a valid ethereum address`)
 		}

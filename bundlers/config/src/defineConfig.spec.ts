@@ -172,15 +172,18 @@ describe(defineConfig.name, () => {
 	})
 
 	it('should merge provided apiKeys with default apiKeys', () => {
-		const configFactory = () => ({
-			externalContracts: {
-				apiKeys: {
-					etherscan: {
-						1: 'provided-key',
+		const configFactory = () =>
+			({
+				externalContracts: {
+					out: 'path/to/out',
+					contracts: [],
+					apiKeys: {
+						etherscan: {
+							1: 'provided-key',
+						},
 					},
 				},
-			},
-		})
+			}) satisfies EvmtsConfig
 		const config = defineConfig(configFactory as any)
 		const resolvedConfig = config.configFn('./')
 
@@ -195,5 +198,47 @@ describe(defineConfig.name, () => {
 			  },
 			}
 		`)
+	})
+
+	it('should throw an error if apiKeys is invalid', () => {
+		const configFactory = () => ({
+			externalContracts: {
+				out: 'path/to/out',
+				contracts: [],
+				apiKeys: {
+					// Missing the 'etherscan' key
+					someOtherKey: {
+						1: 'provided-key',
+					},
+				},
+			},
+		})
+		const config = defineConfig(configFactory as any)
+
+		expect(() => config.configFn('./')).toThrowErrorMatchingInlineSnapshot(
+			'"Invalid config file ./: {\\"_errors\\":[],\\"externalContracts\\":{\\"_errors\\":[],\\"apiKeys\\":{\\"_errors\\":[\\"Unrecognized key(s) in object: \'someOtherKey\'\\"]}}}"',
+		)
+	})
+
+	it('should throw an error when invalid apiKeys are provided', () => {
+		const invalidApiKey = false
+
+		const configFactory = () => ({
+			externalContracts: {
+				apiKeys: {
+					etherscan: {
+						'1': invalidApiKey,
+						'10': invalidApiKey,
+						'56': invalidApiKey,
+						'137': invalidApiKey,
+						'42161': invalidApiKey,
+					},
+				},
+			},
+		})
+		const config = defineConfig(configFactory as any)
+		expect(() => config.configFn('./')).toThrowErrorMatchingInlineSnapshot(
+			'"Invalid config file ./: {\\"_errors\\":[],\\"externalContracts\\":{\\"_errors\\":[],\\"apiKeys\\":{\\"_errors\\":[],\\"etherscan\\":{\\"1\\":{\\"_errors\\":[\\"Expected string, received boolean\\"]},\\"10\\":{\\"_errors\\":[\\"Expected string, received boolean\\"]},\\"56\\":{\\"_errors\\":[\\"Expected string, received boolean\\"]},\\"137\\":{\\"_errors\\":[\\"Expected string, received boolean\\"]},\\"42161\\":{\\"_errors\\":[\\"Expected string, received boolean\\"]},\\"_errors\\":[]}},\\"contracts\\":{\\"_errors\\":[\\"Required\\"]},\\"out\\":{\\"_errors\\":[\\"Required\\"]}}}"',
+		)
 	})
 })

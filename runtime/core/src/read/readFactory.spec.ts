@@ -4,12 +4,11 @@ import { readFactory } from './readFactory'
 import type { Address } from 'abitype'
 import { describe, expect, it } from 'vitest'
 
-const dummyAddresses = { 1: '0x12345678' } as const satisfies Record<
-	number,
-	Address
->
+const dummyAddresses = {
+	1: '0x8F0EBDaA1cF7106bE861753B0f9F5c0250fE0819',
+} as const satisfies Record<number, Address>
 
-const bytecode = '0x12345678'
+const bytecode = '0x8F0EBDaA1cF7106bE861753B0f9F5c0250fE0819'
 
 const contract = evmtsContractFactory({
 	abi: dummyAbi,
@@ -21,7 +20,9 @@ const contract = evmtsContractFactory({
 describe(readFactory.name, () => {
 	it('should return information for read function', () => {
 		const readInfo = contract.read().exampleRead('data', BigInt(420))
-		expect(readInfo.address).toMatchInlineSnapshot('"0x12345678"')
+		expect(readInfo.address).toMatchInlineSnapshot(
+			'"0x8F0EBDaA1cF7106bE861753B0f9F5c0250fE0819"',
+		)
 		expect(readInfo.args).toMatchInlineSnapshot(`
 				[
 				  "data",
@@ -62,13 +63,17 @@ describe(readFactory.name, () => {
 
 	it('should return information for read function with no args', () => {
 		const readInfo = contract.read().exampleReadNoArgs()
-		expect(readInfo.address).toMatchInlineSnapshot('"0x12345678"')
+		expect(readInfo.address).toMatchInlineSnapshot(
+			'"0x8F0EBDaA1cF7106bE861753B0f9F5c0250fE0819"',
+		)
 		expect(Object.keys(readInfo).includes('args')).toBe(false)
 	})
 
 	it('should work for overloaded function', () => {
 		const readInfo1Arg = contract.read().overloadedRead('data')
-		expect(readInfo1Arg.address).toMatchInlineSnapshot('"0x12345678"')
+		expect(readInfo1Arg.address).toMatchInlineSnapshot(
+			'"0x8F0EBDaA1cF7106bE861753B0f9F5c0250fE0819"',
+		)
 		expect(readInfo1Arg.args).toMatchInlineSnapshot(`
 				[
 				  "data",
@@ -113,7 +118,9 @@ describe(readFactory.name, () => {
 				]
 			`)
 		const readInfo0Arg = contract.read().overloadedRead()
-		expect(readInfo0Arg.address).toMatchInlineSnapshot('"0x12345678"')
+		expect(readInfo0Arg.address).toMatchInlineSnapshot(
+			'"0x8F0EBDaA1cF7106bE861753B0f9F5c0250fE0819"',
+		)
 		expect(Object.keys(readInfo0Arg).includes('args')).toBe(false)
 		expect(readInfo0Arg.abi).toMatchInlineSnapshot(`
 				[

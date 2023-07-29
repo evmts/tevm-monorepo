@@ -1,11 +1,21 @@
 import { Decorator, PartialDecorator, createDecorator, decorate } from '.'
-import { defaultConfig, defineConfig } from '@evmts/config'
+import { EvmtsConfig, defaultConfig, defineConfig } from '@evmts/config'
 import typescript from 'typescript/lib/tsserverlibrary'
 import { describe, expect, it, vi } from 'vitest'
 
 type TestAny = any
 
-const config = defineConfig(() => defaultConfig).configFn('.')
+const { remappings, ...compilerOptions } = defaultConfig.compiler
+
+const mockConfig: EvmtsConfig = {
+	...defaultConfig,
+	compiler: {
+		...compilerOptions,
+		solcVersion: '0.8.0',
+	},
+}
+
+const config = defineConfig(() => mockConfig).configFn('.')
 
 const createProxy = <T extends object>(instance: T, proxy: Partial<T>): T => {
 	return new Proxy(instance, {
@@ -89,5 +99,51 @@ describe(decorate.name, () => {
 		expect((decoratedHost as TestAny)['decorator1']).toBe('decorated')
 		expect((decoratedHost as TestAny)['decorator2']).toBe('decorated')
 		expect((decoratedHost as TestAny)['decorator3']).toBe('decorated')
+	})
+
+	it('should return the original languageServiceHost when no decorators are provided', () => {
+		const host = { isHost: true }
+		const createInfo = { isCreateInfo: true, languageServiceHost: host }
+		const logger = {
+			log: vi.fn(),
+			info: vi.fn(),
+			warn: vi.fn(),
+			error: vi.fn(),
+		}
+		const decoratedHost = decorate()(
+			createInfo as TestAny,
+			typescript,
+			logger,
+			config,
+		)
+		expect(decoratedHost).toBe(host)
+	})
+
+	it('should preserve the non-languageServiceHost properties of createInfo', () => {
+		const decorator: Decorator = (createInfo) => {
+			expect((createInfo as TestAny).isCreateInfo).toBe(true)
+			return { ...createInfo.languageServiceHost, createInfo }
+		}
+
+		const host = { isHost: true }
+		const createInfo = { isCreateInfo: true, languageServiceHost: host }
+		const logger = {
+			log: vi.fn(),
+			info: vi.fn(),
+			warn: vi.fn(),
+			error: vi.fn(),
+		}
+
+		const decoratedCreateInfo = decorate(decorator, decorator)(
+			createInfo as TestAny,
+			typescript,
+			logger,
+			config,
+		)
+
+		// Check that the non-languageServiceHost property 'isCreateInfo' has been preserved
+		expect((decoratedCreateInfo as TestAny).createInfo['isCreateInfo']).toBe(
+			true,
+		)
 	})
 })
