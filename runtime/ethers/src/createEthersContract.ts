@@ -27,7 +27,10 @@ export const createEthersContract = <
 	TAbi extends Abi,
 	THumanReadableAbi = FormatAbi<TAbi>,
 >(
-	contract: EvmtsContract<TName, TAddresses, TAbi, THumanReadableAbi>,
+	contract: Pick<
+		EvmtsContract<TName, TAddresses, TAbi, THumanReadableAbi>,
+		'abi' | 'addresses'
+	>,
 	options: CreateEthersContractOptions<number | (keyof TAddresses & number)>,
 ): TypesafeEthersContract<TAbi> => {
 	const getAddress = () => {
