@@ -3,6 +3,7 @@ import { type ResolvedConfig, loadConfig } from '@evmts/config'
 import { existsSync } from 'fs'
 import { type UnpluginFactory, createUnplugin } from 'unplugin'
 import { z } from 'zod'
+import * as packageJson from '../package.json'
 
 const compilerOptionValidator = z
 	.enum(['solc', 'foundry'])
@@ -43,7 +44,7 @@ export const unpluginFn: UnpluginFactory<
 
 	return {
 		name: '@evmts/rollup-plugin',
-		version: '0.0.0',
+		version: packageJson.version,
 		async buildStart() {
 			config = loadConfig(process.cwd())
 			moduleResolver = bundler(config, console)
