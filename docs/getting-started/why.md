@@ -1,6 +1,10 @@
-# Why Evmts imports?
+# Why EVMts imports?
 
 Why did we even waste time building a bundler for solidity? What problems is this even solving?
+
+## Bundlers are important
+ 
+We use bundlers all the time in our JavaScript code. We bundle in JSON files, Graphql files, CSS/SASS files, but there is yet to be a way to bundle contracts. EVMts exists for the same reason these other bundlers exist. A streamlined dev experience where one doesn't have to manually wire up contract build artifacts to their app. 
 
 ## No more copy-paste configuration
 
@@ -34,19 +38,14 @@ When you hover over a contract it will display what chains/contracts are globall
 
 Evmts converts all ABIs into human readable form using abitype. No more trying to visually parse an ABI.
 
-## No build step
+## No build step interrupting flow state
 
-For those building full stack applications you will get editor support and typesafety in your typescript code without needing to remember to seperately build the contracts first for a TRPC like experience.
+For those building full stack applications you will get editor support and typesafety in your typescript code without needing to remember to seperately build the contracts first for a TRPC like experience. When your solidity code changes your TypeScript langauge server will update right away without a manual build step.
 
 ## Modular design
 
 Evmts is originally built to provide the optimal dev experience for the [@evmts/core](../future-plans.md) library that will include forge scripting and optimistic VM execution in the browser. It is modularly built however to be a industry standard build tool that interops with all other tooling including [ethers](todo.link), [wagmi](https://wagmi.sh), [web3.js](todo.link) and more.
-
 If you are writing TypeScript code that interops with a blockchain you likely will benifit from utilizing Evmts imports in your workflow
-
-## Future clientside vm
-
-There are future plans for a clientside vm with optimistic execution, forge scripts, and easy to spin up state channels. This library while modular is intended to enable the ultimate dev for that library. Expected alpha release for EVMtsVM is Q4 2023.
 
 ## Just try it
 
