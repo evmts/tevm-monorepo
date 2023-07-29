@@ -1,8 +1,7 @@
-import { createEthersContract } from '.'
+import { createEthersContract } from './createEthersContract'
 import { evmtsContractFactory } from '@evmts/core'
-import { Contract, JsonRpcProvider /*Wallet*/ } from 'ethers'
-import { expect, test } from 'vitest'
-import { I } from 'vitest/dist/types-198fd1d9'
+import { Contract, JsonRpcProvider } from 'ethers'
+import { describe, expect, test } from 'vitest'
 
 const abi = [
 	{
@@ -215,12 +214,53 @@ const evmtsContract = evmtsContractFactory({
 
 const provider = new JsonRpcProvider('https://goerli.optimism.io', 420)
 
-test(createEthersContract.name, async () => {
-	const c = createEthersContract(evmtsContract, { chainId: 420, runner: provider })
-	expect(c).toBeInstanceOf(Contract)
-	expect(await c.name()).toMatchInlineSnapshot('"OptimismUselessToken-1"')
-	expect(await c.symbol()).toMatchInlineSnapshot('"OUT-1"')
-	expect(await c.decimals()).toMatchInlineSnapshot('18n')
-	expect(await c.totalSupply()).toMatchInlineSnapshot('70000000000000000000000n')
-	expect(await c.balanceOf('0x32307adfFE088e383AFAa721b06436aDaBA47DBE')).toMatchInlineSnapshot('0n')
+describe(createEthersContract.name, () => {
+	test('should work with chainId and evmts contract addresses', async () => {
+		const c = createEthersContract(evmtsContract, {
+			chainId: 420,
+			runner: provider,
+		})
+		expect(c).toBeInstanceOf(Contract)
+		expect(await c.name()).toMatchInlineSnapshot('"OptimismUselessToken-1"')
+		expect(await c.symbol()).toMatchInlineSnapshot('"OUT-1"')
+		expect(await c.decimals()).toMatchInlineSnapshot('18n')
+		expect(await c.totalSupply()).toMatchInlineSnapshot(
+			'70000000000000000000000n',
+		)
+		expect(
+			await c.balanceOf('0x32307adfFE088e383AFAa721b06436aDaBA47DBE'),
+		).toMatchInlineSnapshot('0n')
+	})
+
+	test('should work with custom address', async () => {
+		const c = createEthersContract(evmtsContract, {
+			address: evmtsContract.addresses[420],
+			runner: provider,
+		})
+		expect(c).toBeInstanceOf(Contract)
+		expect(await c.name()).toMatchInlineSnapshot('"OptimismUselessToken-1"')
+		expect(await c.symbol()).toMatchInlineSnapshot('"OUT-1"')
+		expect(await c.decimals()).toMatchInlineSnapshot('18n')
+		expect(await c.totalSupply()).toMatchInlineSnapshot(
+			'70000000000000000000000n',
+		)
+		expect(
+			await c.balanceOf('0x32307adfFE088e383AFAa721b06436aDaBA47DBE'),
+		).toMatchInlineSnapshot('0n')
+	})
+
+	test('should throw an error if no chainId or address provided', () => {
+		expect(() =>
+			// @ts-expect-error
+			createEthersContract(evmtsContract, { runner: provider }),
+		).toThrowErrorMatchingInlineSnapshot('"No chainId or address provided"')
+		expect(() =>
+			createEthersContract(evmtsContract, {
+				runner: provider,
+				address: undefined,
+				// @ts-expect-error
+				chainId: undefined,
+			}),
+		).toThrowErrorMatchingInlineSnapshot('"No chainId or address provided"')
+	})
 })

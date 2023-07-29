@@ -10,7 +10,6 @@ export default defineConfig({
 			statements: 0,
 			functions: 0,
 			branches: 0,
-			all: true,
 			thresholdAutoUpdate: true,
 		},
 	},
