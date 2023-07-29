@@ -1,6 +1,5 @@
 packages:
   - "bundlers/*"
-  - "bundlers/webpack"
   - "cli"
   - "config"
   - "core"
