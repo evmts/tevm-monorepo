@@ -2,8 +2,6 @@
 
 Welcome to the Evmts Imports Beta docs!
 
-🏗️🚧 Note: this is an early alpha release that is following documentation-driven-development. Not all features will be implemented. Unimplemented features will include a note mentioning so however 🏗️🚧
-
 ::: info You will learn
 
 1. What are Evmts imports
@@ -72,6 +70,22 @@ export function App() {
   )
 }
 
+```
+ 
+#### 4. Install third party contracts
+
+The flow shown so far works best for contracts one is developing. But oftentimes we want to use third party contracts. For this functionality best practice is to use EVMts external contracts to handle this. 
+
+External contracts can be installed using the EVMts cli. The following command installs the DAI contract into your project
+
+```
+npx evmts install --chain=1 0x6B175474E89094C44Da98b954EedeAC495271d0F
+```
+
+After installing the first time the CLI may prompt you to do some 1 time setup and then the contract can be imported directly into your solidity code.
+
+```
+import {DAI} from 'contracts/DAI'
 ```
 
 ## Try Evmts now
