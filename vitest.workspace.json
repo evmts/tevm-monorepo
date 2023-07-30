@@ -1,0 +1,5 @@
+[
+  "runtime/*/vitest.config.ts",
+  "lsp/*/vitest.config.ts",
+  "runtime/*/vitest.config.ts"
+]
