@@ -45,7 +45,7 @@ export const unpluginFn: UnpluginFactory<
 		name: '@evmts/rollup-plugin',
 		version: '0.0.0',
 		async buildStart() {
-			config = loadConfig('.')
+			config = loadConfig(process.cwd())
 			moduleResolver = bundler(config, console)
 			this.addWatchFile('./tsconfig.json')
 		},

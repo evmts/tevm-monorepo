@@ -37,6 +37,12 @@ class MockUnpluginContext implements UnpluginContext, UnpluginBuildContext {
 
 let mockPlugin: MockUnpluginContext
 
+const mockCwd = 'mock/process/dot/cwd'
+vi.stubGlobal('process', {
+	...process,
+	cwd: () => mockCwd
+})
+
 describe('unpluginFn', () => {
 	const mockConfig = { config: 'mockedConfig' }
 
@@ -58,7 +64,7 @@ describe('unpluginFn', () => {
 		// call buildstart with mockPlugin as this
 		await plugin.buildStart?.call(mockPlugin)
 
-		expect(loadConfig).toHaveBeenCalledWith('.')
+		expect(loadConfig).toHaveBeenCalledWith(mockCwd)
 		expect((bundler as Mock).mock.lastCall).toMatchInlineSnapshot(`
 			[
 			  {
