@@ -1,7 +1,7 @@
 import type { ResolvedConfig } from '@evmts/config'
 
 type BundlerResult = {
-	code: string,
+	code: string
 	modules: Record<'string', ModuleInfo>
 }
 

@@ -40,7 +40,7 @@ let mockPlugin: MockUnpluginContext
 const mockCwd = 'mock/process/dot/cwd'
 vi.stubGlobal('process', {
 	...process,
-	cwd: () => mockCwd
+	cwd: () => mockCwd,
 })
 
 describe('unpluginFn', () => {

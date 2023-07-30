@@ -1,30 +1,35 @@
 import type { TypesafeEthersContract } from './TypesafeEthersContract'
 import type { EvmtsContract } from '@evmts/core'
 import type { Abi, Address } from 'abitype'
-import { Contract, type ContractRunner, Interface, type InterfaceAbi } from 'ethers'
+import {
+	Contract,
+	type ContractRunner,
+	Interface,
+	type InterfaceAbi,
+} from 'ethers'
 
 export type CreateEthersContractOptions<TChainIds extends number> =
 	| {
-		/**
-		 * Provide a chainId if EVMts config has addresses for contracts configured for that chain.
-		 * Otherwise provide the `address` prop to specify the address
-		 */
-		chainId: TChainIds
-		/**
-		 * Ethers.js provider or signer
-		 */
-		runner: ContractRunner
-	}
+			/**
+			 * Provide a chainId if EVMts config has addresses for contracts configured for that chain.
+			 * Otherwise provide the `address` prop to specify the address
+			 */
+			chainId: TChainIds
+			/**
+			 * Ethers.js provider or signer
+			 */
+			runner: ContractRunner
+	  }
 	| {
-		/**
-		 * Address of the contract. If EVMts config has addresses configured already simply provide the chainId
-		 */
-		address: Address
-		/**
-		 * Ethers.js provider or signer
-		 */
-		runner: ContractRunner
-	}
+			/**
+			 * Address of the contract. If EVMts config has addresses configured already simply provide the chainId
+			 */
+			address: Address
+			/**
+			 * Ethers.js provider or signer
+			 */
+			runner: ContractRunner
+	  }
 
 /**
  * Create an ethers contract from an evmts contract

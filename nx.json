@@ -1,152 +1,105 @@
 {
-  "defaultProject": "@evmts/example-vite",
-  "targetDefaults": {
-    "lint:check": {
-      "inputs": ["default"]
-    },
-    "format:check": {
-      "inputs": ["default"]
-    },
-    "test": {
-      "inputs": [
-        "default",
-        "outputsDist"
-      ],
-      "dependsOn": [
-        "^build:dist",
-        "pretest"
-      ]
-    },
-    "test:run": {
-      "inputs": [
-        "default",
-        "outputsDist"
-      ],
-      "dependsOn": [
-        "^build:dist",
-        "pretest"
-      ]
-    },
-    "test:watch": {
-      "inputs": [
-        "default",
-        "outputsDist"
-      ],
-      "dependsOn": [
-        "^build:dist"
-      ]
-    },
-    "test:coverage": {
-      "inputs": [
-        "default",
-        "outputsDist"
-      ],
-      "dependsOn": [
-        "^build:dist"
-      ],
-      "outputs": [
-        "{projectRoot}/coverage"
-      ]
-    },
-    "typecheck": {
-      "inputs": [
-        "production",
-        "outputsDts"
-      ],
-      "dependsOn": [
-        "^build:types"
-      ]
-    },
-    "build:types": {
-      "inputs": [
-        "production",
-        "outputsDts"
-      ],
-      "dependsOn": [
-        "^build:types"
-      ],
-      "outputs": [
-        "{projectRoot}/types"
-      ]
-    },
-    "build": {
-      "inputs": [
-        "production",
-        "outputsDist"
-      ],
-      "dependsOn": [
-        "^build:dist",
-        "^build:types"
-      ],
-      "outputs": [
-        "{projectRoot}/dist",
-        "{projectRoot}/.vitepress/dist",
-        "{projectRoot}/types"
-      ]
-    },
-    "build:dist": {
-      "inputs": [
-        "production",
-        "outputsDist"
-      ],
-      "dependsOn": [
-        "^build:dist"
-      ],
-      "outputs": [
-        "{projectRoot}/dist"
-      ]
-    },
-    "dev": {
-      "dependsOn": [
-        "^build"
-      ]
-    }
-  },
-  "tasksRunnerOptions": {
-    "default": {
-      "runner": "nx-cloud",
-      "options": {
-        "cacheableOperations": [
-          "build",
-          "build:dist",
-          "build:types",
-          "test:coverage",
-          "test:run",
-          "format:check",
-          "typecheck",
-          "e2e",
-          "format:check",
-          "lint:check",
-          "format:check"
-        ]
-      }
-    }
-  },
-  "affected": {
-    "defaultBase": "main"
-  },
-  "$schema": "./node_modules/nx/schemas/nx-schema.json",
-  "namedInputs": {
-    "buildConfigs": [
-      "{projectRoot}/tsconfig.*?.json",
-      "{projectRoot}/tsup.config.ts"
-    ],
-    "default": [
-      "{projectRoot}/**/*",
-      "sharedGlobals"
-    ],
-    "sharedGlobals": [
-      "{workspaceRoot}/nx.json",
-      "{workspaceRoot}/configs/**/*"
-    ],
-    "productionSrc": [
-      "{projectRoot}/src/**/*",
-      "!{projectRoot}/src/**/*.spec.ts"
-    ],
-    "productionContracts": ["{projectRoot}/contracts/**/*"],
-    "production": ["buildConfigs", "sharedGlobals", "productionSrc", "productionContracts"],
-    "outputsDist": [{ "dependentTasksOutputFiles": "**/*", "transitive": true }],
-    "outputsDts": [{ "dependentTasksOutputFiles": "**/*", "transitive": true }],
-    "testing": ["configsWorkspace", "default"]
-  }
+	"defaultProject": "@evmts/example-vite",
+	"targetDefaults": {
+		"lint:check": {
+			"inputs": ["default"]
+		},
+		"format:check": {
+			"inputs": ["default"]
+		},
+		"test": {
+			"inputs": ["default", "outputsDist"],
+			"dependsOn": ["^build:dist", "pretest"]
+		},
+		"test:run": {
+			"inputs": ["default", "outputsDist"],
+			"dependsOn": ["^build:dist", "pretest"]
+		},
+		"test:watch": {
+			"inputs": ["default", "outputsDist"],
+			"dependsOn": ["^build:dist"]
+		},
+		"test:coverage": {
+			"inputs": ["default", "outputsDist"],
+			"dependsOn": ["^build:dist"],
+			"outputs": ["{projectRoot}/coverage"]
+		},
+		"typecheck": {
+			"inputs": ["production", "outputsDts"],
+			"dependsOn": ["^build:types"]
+		},
+		"build:types": {
+			"inputs": ["production", "outputsDts"],
+			"dependsOn": ["^build:types"],
+			"outputs": ["{projectRoot}/types"]
+		},
+		"build": {
+			"inputs": ["production", "outputsDist"],
+			"dependsOn": ["^build:dist", "^build:types"],
+			"outputs": [
+				"{projectRoot}/dist",
+				"{projectRoot}/.vitepress/dist",
+				"{projectRoot}/types"
+			]
+		},
+		"build:dist": {
+			"inputs": ["production", "outputsDist"],
+			"dependsOn": ["^build:dist"],
+			"outputs": ["{projectRoot}/dist"]
+		},
+		"dev": {
+			"dependsOn": ["^build"]
+		}
+	},
+	"tasksRunnerOptions": {
+		"default": {
+			"runner": "nx-cloud",
+			"options": {
+				"cacheableOperations": [
+					"build",
+					"build:dist",
+					"build:types",
+					"test:coverage",
+					"test:run",
+					"format:check",
+					"typecheck",
+					"e2e",
+					"format:check",
+					"lint:check",
+					"format:check"
+				]
+			}
+		}
+	},
+	"affected": {
+		"defaultBase": "main"
+	},
+	"$schema": "./node_modules/nx/schemas/nx-schema.json",
+	"namedInputs": {
+		"buildConfigs": [
+			"{projectRoot}/tsconfig.*?.json",
+			"{projectRoot}/tsup.config.ts"
+		],
+		"default": ["{projectRoot}/**/*", "sharedGlobals"],
+		"sharedGlobals": [
+			"{workspaceRoot}/nx.json",
+			"{workspaceRoot}/configs/**/*"
+		],
+		"productionSrc": [
+			"{projectRoot}/src/**/*",
+			"!{projectRoot}/src/**/*.spec.ts"
+		],
+		"productionContracts": ["{projectRoot}/contracts/**/*"],
+		"production": [
+			"buildConfigs",
+			"sharedGlobals",
+			"productionSrc",
+			"productionContracts"
+		],
+		"outputsDist": [
+			{ "dependentTasksOutputFiles": "**/*", "transitive": true }
+		],
+		"outputsDts": [{ "dependentTasksOutputFiles": "**/*", "transitive": true }],
+		"testing": ["configsWorkspace", "default"]
+	}
 }
