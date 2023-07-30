@@ -1,10 +1,13 @@
 {
-  "extends": "tsconfig/base.json",
+  "extends": "@evmts/tsconfig/base.json",
   "compilerOptions": {
     "rootDir": "src",
     "composite": true,
     "outDir": "types",
     "skipLibCheck": true
   },
-  "include": ["src", "src/**/*.json"]
+  "include": [
+    "src",
+    "src/**/*.json"
+  ]
 }
