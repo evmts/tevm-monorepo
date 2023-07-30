@@ -1,7 +1,9 @@
 packages:
   - "bundlers/*"
+  - "configs/*"
   - "docs"
   - "e2e"
   - "examples/*"
   - "lsp/*"
   - "runtime/*"
+

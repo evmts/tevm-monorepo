@@ -1,5 +1,5 @@
 {
-  "extends": "../../tsconfig.json",
+  "extends": "@evmts/tsconfig/base.json",
   "compilerOptions": {
     "composite": true,
     "outDir": "types",
@@ -7,5 +7,9 @@
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true
   },
-  "include": ["src", "src/**/*.json", "package.json"]
+  "include": [
+    "src",
+    "src/**/*.json",
+    "package.json"
+  ]
 }

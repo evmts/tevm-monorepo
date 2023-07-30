@@ -48,6 +48,7 @@
   "dependencies": {
     "@evmts/config": "workspace:^",
     "@evmts/core": "workspace:^",
+    "@evmts/tsconfig": "workspace:^",
     "@types/resolve": "^1.20.2",
     "glob": "^10.3.3",
     "resolve": "^1.22.2",

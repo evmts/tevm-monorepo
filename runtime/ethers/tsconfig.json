@@ -1,5 +1,5 @@
 {
-  "extends": "../../tsconfig.json",
+  "extends": "@evmts/tsconfig/base.json",
   "compilerOptions": {
     "rootDir": "src",
     "composite": true,
