@@ -136,8 +136,8 @@
       "sharedGlobals"
     ],
     "sharedGlobals": [
-      "{workspaceRoot}/tsconfig.json",
-      "{workspaceRoot}/nx.json"
+      "{workspaceRoot}/nx.json",
+      "{workspaceRoot}/configs/**/*"
     ],
     "productionSrc": [
       "{projectRoot}/src/**/*",

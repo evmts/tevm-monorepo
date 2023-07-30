@@ -59,6 +59,7 @@
     "resolve": "^1.22.2"
   },
   "devDependencies": {
+    "@evmts/tsconfig": "workspace:^",
     "@types/isomorphic-fetch": "^0.0.36",
     "@types/node": "^20.4.4",
     "@vitest/coverage-v8": "^0.33.0",
