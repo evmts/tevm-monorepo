@@ -22,7 +22,7 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Run Linters
-        run: pnpm nx affected --targets=lint:check
+        run: pnpm lint:check
         env:
           NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
 
@@ -39,7 +39,7 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Run Formatters
-        run: pnpm nx affected --targets=format:check
+        run: pnpm format:check
         env:
           NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
 

@@ -8,7 +8,10 @@ export const WagmiEvents = () => {
 	const { data: blockNumber } = useBlockNumber()
 
 	// TODO add types to EvmtsContract type
-	const [events, concatEvents] = useReducer((events: any[], newEvents: any[]) => [...events, ...newEvents], [] as any[])
+	const [events, concatEvents] = useReducer(
+		(events: any[], newEvents: any[]) => [...events, ...newEvents],
+		[] as any[],
+	)
 
 	/**
 	 * ABI of events can be found at events.Foo

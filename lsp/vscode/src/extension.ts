@@ -1,4 +1,7 @@
-import { DiagnosticModel, type InitializationOptions } from '@volar/language-server'
+import {
+	DiagnosticModel,
+	type InitializationOptions,
+} from '@volar/language-server'
 import { activateAutoInsertion } from '@volar/vscode'
 import * as vscode from 'vscode'
 import * as lsp from 'vscode-languageclient/node'
