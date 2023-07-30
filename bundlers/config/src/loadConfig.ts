@@ -18,6 +18,7 @@ export const loadConfig: LoadConfig = (configFilePath, logger = console) => {
 	try {
 		configStr = readFileSync(tsConfigPath, 'utf8')
 	} catch (error) {
+		logger.error(error)
 		throw new Error(
 			`Failed to read the file at ${tsConfigPath}. Make sure the file exists and is accessible.`,
 		)
