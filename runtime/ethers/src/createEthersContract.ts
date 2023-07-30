@@ -6,30 +6,31 @@ import {
 	type ContractRunner,
 	Interface,
 	type InterfaceAbi,
+	isAddress,
 } from 'ethers'
 
 export type CreateEthersContractOptions<TChainIds extends number> =
 	| {
-			/**
-			 * Provide a chainId if EVMts config has addresses for contracts configured for that chain.
-			 * Otherwise provide the `address` prop to specify the address
-			 */
-			chainId: TChainIds
-			/**
-			 * Ethers.js provider or signer
-			 */
-			runner: ContractRunner
-	  }
+		/**
+		 * Provide a chainId if EVMts config has addresses for contracts configured for that chain.
+		 * Otherwise provide the `address` prop to specify the address
+		 */
+		chainId: TChainIds
+		/**
+		 * Ethers.js provider or signer
+		 */
+		runner: ContractRunner
+	}
 	| {
-			/**
-			 * Address of the contract. If EVMts config has addresses configured already simply provide the chainId
-			 */
-			address: Address
-			/**
-			 * Ethers.js provider or signer
-			 */
-			runner: ContractRunner
-	  }
+		/**
+		 * Address of the contract. If EVMts config has addresses configured already simply provide the chainId
+		 */
+		address: Address
+		/**
+		 * Ethers.js provider or signer
+		 */
+		runner: ContractRunner
+	}
 
 /**
  * Create an ethers contract from an evmts contract
@@ -53,13 +54,23 @@ export const createEthersContract = <
 		if ('address' in options && options.address) {
 			return options.address
 		} else if ('chainId' in options && options.chainId) {
-			return contract.addresses[options.chainId as keyof TAddresses]
+			const a = contract.addresses[options.chainId]
+			if (!a) {
+				throw new Error(
+					`No address prop supplied and no default address exists for chainId ${options.chainId}`,
+				)
+			}
+			return a
 		} else {
 			throw new Error('No chainId or address provided')
 		}
 	}
+	const address = getAddress()
+	if (!isAddress(address)) {
+		throw new Error(`"${address}" is not a valid ethereum address`)
+	}
 	return new Contract(
-		getAddress(),
+		address,
 		new Interface(contract.abi as InterfaceAbi),
 		options.runner,
 	) as TypesafeEthersContract<TAbi>
