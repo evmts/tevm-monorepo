@@ -14,10 +14,13 @@ export type Address = `0x${string}`
 
 export const localContractsConfigValidator = z
 	.strictObject({
-		addresses: z.array(
+		contracts: z.array(
 			z.strictObject({
 				name: expandedString().describe('Unique name of contract'),
-				address: addressValidator.describe('Address of contract'),
+				addresses: z.record(
+					z.union([z.string(), z.number()]),
+					addressValidator.describe('Address of contract'),
+				),
 			}),
 		),
 	})
@@ -57,7 +60,8 @@ export type SupportedEtherscanChainIds = z.infer<
 >
 
 export const etherscanConfigValidator = z.strictObject({
-	type: z.literal('etherscan'),
+	// optional for now only because its' the only option
+	type: z.literal('etherscan').optional(),
 	name: expandedString(),
 	addresses: z.record(addressValidator),
 })
@@ -68,7 +72,7 @@ export type EtherscanConfig = {
 	/**
 	 * Name of block explorer
 	 */
-	type: 'etherscan'
+	type?: 'etherscan' | undefined
 	/**
 	 * Unique name of contract
 	 */
@@ -117,7 +121,9 @@ type ExternalConfig = {
 	/**
 	 * Api keys for external services
 	 */
-	apiKeys?: Record<'etherscan', EtherscanApiKey>
+	apiKeys?:
+		| Partial<Record<'etherscan', EtherscanApiKey | undefined>>
+		| undefined
 	/**
 	 * Array of external contracts to import
 	 */
@@ -126,7 +132,7 @@ type ExternalConfig = {
 	 * Path to output directory
 	 * @defaults "externalContracts"
 	 */
-	out?: string
+	out?: string | undefined
 }
 
 export const compilerConfigValidator = z
@@ -145,17 +151,17 @@ export type CompilerConfig = {
 	 * @defaults "0.8.13"
 	 * @see https://www.npmjs.com/package/solc
 	 */
-	solcVersion?: string
+	solcVersion?: string | undefined
 	/**
 	 * If set to true it will resolve forge remappings and libs
 	 * Set to "path/to/forge/executable" to use a custom forge executable
 	 */
-	foundryProject?: boolean | string
+	foundryProject?: boolean | string | undefined
 	/**
 	 * Sets directories to search for solidity imports in
 	 * Read autoamtically for forge projects if forge: true
 	 */
-	libs?: string[]
+	libs?: string[] | undefined
 }
 
 export const evmtsConfigValidator = z.strictObject({
@@ -169,32 +175,62 @@ export const evmtsConfigValidator = z.strictObject({
  * Configuration for Evmts
  */
 export type EvmtsConfig = {
-	name?: '@evmts/ts-plugin'
+	name?: '@evmts/ts-plugin' | undefined
 	/**
 	 * Configuration of the solidity compiler
 	 */
-	compiler?: CompilerConfig
+	compiler?: CompilerConfig | undefined
 	/**
 	 * Globally configures addresses for contracts whose code is locally available
 	 * in the project. If the contract is not being developed or deployed locally in the same
 	 * repo it is recomended to use the external config rather than copy any solidity code in
 	 * locally to the project
 	 */
-	localContracts?: LocalContractsConfig
+	localContracts?: LocalContractsConfig | undefined
 	/**
 	 * Globally configures addresses and abis for contracts pulled from external
 	 * sources such as etherscan. If the contract is being developed locally it is
 	 * recomended to use the local config instead
 	 */
-	externalContracts?: ExternalConfig
+	externalContracts?: ExternalConfig | undefined
 }
 
 export type ResolvedConfig = {
-	compiler: Required<CompilerConfig> & {
+	compiler: {
 		remappings: Record<string, string>
+		/**
+		 * Solc version to use  (e.g. "0.8.13")
+		 * @defaults "0.8.13"
+		 * @see https://www.npmjs.com/package/solc
+		 */
+		solcVersion: string
+		/**
+		 * If set to true it will resolve forge remappings and libs
+		 * Set to "path/to/forge/executable" to use a custom forge executable
+		 */
+		foundryProject: boolean | string
+		/**
+		 * Sets directories to search for solidity imports in
+		 * Read autoamtically for forge projects if forge: true
+		 */
+		libs: string[]
 	}
 	localContracts: Required<LocalContractsConfig>
-	externalContracts: Required<ExternalConfig>
+	externalContracts: {
+		/**
+		 * Api keys for external services
+		 */
+		apiKeys: Partial<Record<'etherscan', EtherscanApiKey | undefined>>
+		/**
+		 * Array of external contracts to import
+		 */
+		contracts: EtherscanConfig[]
+		/**
+		 * Path to output directory
+		 * @defaults "externalContracts"
+		 */
+		out: string
+	}
 }
 
 export const defaultConfig: ResolvedConfig = {

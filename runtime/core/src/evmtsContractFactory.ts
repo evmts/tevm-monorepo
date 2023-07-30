@@ -4,6 +4,7 @@ import { readFactory } from './read/readFactory'
 import { writeFactory } from './write/writeFactory'
 import type { Abi, Address } from 'abitype'
 import { formatAbi } from 'abitype'
+import { isAddress } from 'viem'
 
 export const evmtsContractFactory = <
 	TName extends string,
@@ -18,6 +19,11 @@ export const evmtsContractFactory = <
 	EvmtsContract<TName, TAddresses, TAbi>,
 	'name' | 'abi' | 'addresses' | 'bytecode'
 >): EvmtsContract<TName, TAddresses, TAbi> => {
+	Object.values(addresses).forEach((address) => {
+		if (!isAddress(address)) {
+			throw new Error(`"${address} is not a valid ethereum address`)
+		}
+	})
 	const methods = abi.filter((field) => {
 		return field.type === 'function'
 	})

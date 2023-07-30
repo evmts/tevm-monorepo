@@ -171,6 +171,7 @@ describe(loadConfig.name, () => {
 				],
 			},
 			externalContracts: {
+				out: 'path/to/out',
 				apiKeys: {
 					etherscan: {
 						1: '$ETHERSCAN_KEY',
@@ -180,7 +181,7 @@ describe(loadConfig.name, () => {
 					{
 						type: 'etherscan',
 						addresses: {
-							1: '0x1234',
+							1: '0x4df10ec981ac5871240be4a94f250dd238b77904',
 						},
 						name: 'MyExternalContract',
 					},
@@ -226,13 +227,13 @@ describe(loadConfig.name, () => {
 			    "contracts": [
 			      {
 			        "addresses": {
-			          "1": "0x1234",
+			          "1": "0x4df10ec981ac5871240be4a94f250dd238b77904",
 			        },
 			        "name": "MyExternalContract",
 			        "type": "etherscan",
 			      },
 			    ],
-			    "out": "externalContracts",
+			    "out": "path/to/out",
 			  },
 			  "localContracts": {
 			    "contracts": [
@@ -390,7 +391,7 @@ describe(loadConfig.name, () => {
 		const config = loadConfig('path/to/config')
 
 		expect(config.compiler.libs).toEqual([
-			...defaultConfig.compiler.libs,
+			...(defaultConfig.compiler.libs ?? []),
 			'path/to/config/basepath',
 		])
 	})
@@ -418,6 +419,7 @@ describe(loadConfig.name, () => {
 		const customConfig: EvmtsConfig = {
 			name: '@evmts/ts-plugin',
 			externalContracts: {
+				out: 'path/to/out',
 				apiKeys: {
 					etherscan: {
 						1: '$ETHERSCAN_KEY',
@@ -428,7 +430,7 @@ describe(loadConfig.name, () => {
 						type: 'etherscan',
 						name: 'MyContract',
 						addresses: {
-							1: '0x1234',
+							1: '0x8F0EBDaA1cF7106bE861753B0f9F5c0250fE0819',
 						},
 					},
 				],
@@ -463,13 +465,13 @@ describe(loadConfig.name, () => {
 			    "contracts": [
 			      {
 			        "addresses": {
-			          "1": "0x1234",
+			          "1": "0x8F0EBDaA1cF7106bE861753B0f9F5c0250fE0819",
 			        },
 			        "name": "MyContract",
 			        "type": "etherscan",
 			      },
 			    ],
-			    "out": "externalContracts",
+			    "out": "path/to/out",
 			  },
 			  "localContracts": {
 			    "contracts": [],

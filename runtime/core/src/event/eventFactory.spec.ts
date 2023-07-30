@@ -4,12 +4,11 @@ import { eventsFactory } from './eventFactory'
 import type { Address } from 'abitype'
 import { describe, expect, it } from 'vitest'
 
-const dummyAddresses = { 1: '0x12345678' } as const satisfies Record<
-	number,
-	Address
->
+const dummyAddresses = {
+	1: '0x8F0EBDaA1cF7106bE861753B0f9F5c0250fE0819',
+} as const satisfies Record<number, Address>
 
-const bytecode = '0x12345678'
+const bytecode = '0x8F0EBDaA1cF7106bE861753B0f9F5c0250fE0819'
 
 const contract = evmtsContractFactory({
 	abi: dummyAbi,
@@ -37,7 +36,9 @@ describe(eventsFactory.name, () => {
 		})
 		expect(eventFilterParams.eventName).toMatchInlineSnapshot('"exampleEvent"')
 		expect(eventFilterParams.event).toMatchInlineSnapshot('undefined')
-		expect(eventFilterParams.address).toMatchInlineSnapshot('"0x12345678"')
+		expect(eventFilterParams.address).toMatchInlineSnapshot(
+			'"0x8F0EBDaA1cF7106bE861753B0f9F5c0250fE0819"',
+		)
 		expect(eventFilterParams.args).toMatchInlineSnapshot('{}')
 		expect(eventFilterParams.toBlock).toMatchInlineSnapshot('"latest"')
 		expect(eventFilterParams.fromBlock).toMatchInlineSnapshot('"latest"')

@@ -15,11 +15,15 @@
           ]
         },
         "externalContracts": {
+          "out": "src/contracts.ts",
           "apiKeys": {
-            "etherscan": "$EVMTS_ETHERSCAN_KEY"
+            "etherscan": {
+              "1": "$EVMTS_ETHERSCAN_KEY"
+            }
           },
           "contracts": [
             {
+              "type": "etherscan",
               "name": "UniswapV3Factory",
               "addresses": {
                 "1": "0x1F98431c8aD98523631AE4a59f267346ea31F984",

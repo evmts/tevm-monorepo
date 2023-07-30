@@ -1,4 +1,4 @@
-import { type EvmtsConfig, type ResolvedConfig, defaultConfig } from './Config'
+import { type EvmtsConfig, type ResolvedConfig } from './Config'
 import { defineConfig } from './defineConfig'
 import { readFileSync } from 'fs'
 import * as path from 'path'
@@ -45,7 +45,7 @@ export const loadConfig: LoadConfig = (configFilePath, logger = console) => {
 		logger.warn(
 			'No Evmts plugin found in tsconfig.json. Using the default config',
 		)
-		config = defaultConfig
+		config = {}
 	}
 
 	if (config && configJson.compilerOptions.baseUrl) {

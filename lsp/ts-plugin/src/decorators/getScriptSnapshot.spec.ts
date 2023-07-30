@@ -1,13 +1,21 @@
 import { getScriptSnapshotDecorator } from '.'
 import { Logger } from '../factories'
-import { defaultConfig, defineConfig } from '@evmts/config'
+import { EvmtsConfig, defaultConfig, defineConfig } from '@evmts/config'
 import path from 'path'
 import typescript from 'typescript/lib/tsserverlibrary'
 import { Mock, beforeEach, describe, expect, it, vi } from 'vitest'
 
 const forgeProject = path.join(__dirname, '../..')
 
-const config = defineConfig(() => defaultConfig).configFn('.')
+const { remappings, ...compilerOptions } = defaultConfig.compiler
+const mockConfig: EvmtsConfig = {
+	...defaultConfig,
+	compiler: {
+		...compilerOptions,
+		solcVersion: '0.8.0',
+	},
+}
+const config = defineConfig(() => mockConfig).configFn('.')
 
 describe(getScriptSnapshotDecorator.name, () => {
 	let logger: Logger

@@ -1,11 +1,20 @@
 import { getScriptKindDecorator } from '.'
-import { defaultConfig, defineConfig } from '@evmts/config'
+import { EvmtsConfig, defaultConfig, defineConfig } from '@evmts/config'
 import typescript from 'typescript/lib/tsserverlibrary'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 type TestAny = any
 
-const config = defineConfig(() => defaultConfig).configFn('.')
+const { remappings, ...compilerOptions } = defaultConfig.compiler
+
+const mockConfig: EvmtsConfig = {
+	...defaultConfig,
+	compiler: {
+		...compilerOptions,
+		solcVersion: '0.8.0',
+	},
+}
+const config = defineConfig(() => mockConfig).configFn('.')
 
 describe(getScriptKindDecorator.name, () => {
 	let createInfo: TestAny

@@ -1,4 +1,9 @@
-import { type EvmtsConfig, type ResolvedConfig, defaultConfig } from './Config'
+import {
+	type EvmtsConfig,
+	type ResolvedConfig,
+	defaultConfig,
+	evmtsConfigValidator,
+} from './Config'
 import { handleDeprecations } from './handleDeprecations'
 import { expandedString } from './zodUtils'
 import { execSync } from 'child_process'
@@ -10,8 +15,17 @@ export type DefineConfig = (configFactory: () => EvmtsConfig) => {
 
 export const defineConfig: DefineConfig = (configFactory) => ({
 	configFn: (configFilePath: string) => {
-		const { compiler, localContracts, externalContracts } =
-			handleDeprecations(configFactory()) ?? {}
+		const parsedConfig = evmtsConfigValidator.safeParse(
+			handleDeprecations(configFactory()) ?? {},
+		)
+		if (!parsedConfig.success) {
+			throw new Error(
+				`Invalid config file ${configFilePath}: ${JSON.stringify(
+					parsedConfig.error.format(),
+				)}`,
+			)
+		}
+		const { compiler, localContracts, externalContracts } = parsedConfig.data
 		const getFoundryDefaults = () => {
 			if (!compiler?.foundryProject) {
 				return {}
@@ -62,6 +76,32 @@ export const defineConfig: DefineConfig = (configFactory) => ({
 
 		const foundryDefaults = getFoundryDefaults()
 
+		const apiKeys = externalContracts?.apiKeys
+			? {
+					...defaultConfig.externalContracts.apiKeys,
+					...externalContracts.apiKeys,
+					etherscan: {
+						...defaultConfig.externalContracts.apiKeys?.etherscan,
+						...externalContracts.apiKeys.etherscan,
+						'1': expandedString()
+							.optional()
+							.parse(externalContracts.apiKeys.etherscan?.['1']),
+						'10': expandedString()
+							.optional()
+							.parse(externalContracts.apiKeys.etherscan?.['10']),
+						'56': expandedString()
+							.optional()
+							.parse(externalContracts.apiKeys.etherscan?.['10']),
+						'137': expandedString()
+							.optional()
+							.parse(externalContracts.apiKeys.etherscan?.['10']),
+						'42161': expandedString()
+							.optional()
+							.parse(externalContracts.apiKeys.etherscan?.['10']),
+					},
+			  }
+			: defaultConfig.externalContracts.apiKeys
+
 		return {
 			compiler: {
 				solcVersion:
@@ -86,31 +126,7 @@ export const defineConfig: DefineConfig = (configFactory) => ({
 			},
 			externalContracts: {
 				out: externalContracts?.out ?? defaultConfig.externalContracts.out,
-				apiKeys: externalContracts?.apiKeys
-					? {
-							...defaultConfig.externalContracts.apiKeys,
-							...externalContracts.apiKeys,
-							etherscan: {
-								...defaultConfig.externalContracts.apiKeys.etherscan,
-								...externalContracts.apiKeys.etherscan,
-								'1': expandedString().parse(
-									externalContracts.apiKeys.etherscan['1'],
-								),
-								'10': expandedString().parse(
-									externalContracts.apiKeys.etherscan['10'],
-								),
-								'56': expandedString().parse(
-									externalContracts.apiKeys.etherscan['10'],
-								),
-								'137': expandedString().parse(
-									externalContracts.apiKeys.etherscan['10'],
-								),
-								'42161': expandedString().parse(
-									externalContracts.apiKeys.etherscan['10'],
-								),
-							},
-					  }
-					: defaultConfig.externalContracts.apiKeys,
+				apiKeys,
 				contracts:
 					externalContracts?.contracts ??
 					defaultConfig.externalContracts.contracts,
