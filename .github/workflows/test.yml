@@ -44,6 +44,12 @@ jobs:
         with:
           name: "@evmts/bundler"
           working-directory: "./bundlers/bundler"
+      - name: 'Report @evmts/esbuild-plugin Coverage'
+        if: always() # Also generate the report if tests are failing
+        uses:  davelosert/vitest-coverage-report-action@v2
+        with:
+          name: "@evmts/esbuild-plugin"
+          working-directory: "./bundlers/esbuild-plugin"
       - name: 'Report @evmts/ts-plugin Coverage'
         if: always() # Also generate the report if tests are failing
         uses:  davelosert/vitest-coverage-report-action@v2
