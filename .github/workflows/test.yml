@@ -31,13 +31,13 @@ jobs:
         uses:  davelosert/vitest-coverage-report-action@v2
         with:
           name: "@evmts/core"
-          working-directory: "./runtime/core"
+          working-directory: "./core"
       - name: 'Report @evmts/ethers Coverage'
         if: always() # Also generate the report if tests are failing
         uses:  davelosert/vitest-coverage-report-action@v2
         with:
           name: "@evmts/ethers"
-          working-directory: "./runtime/ethers"
+          working-directory: "./ethers"
       - name: 'Report @evmts/bundler Coverage'
         if: always() # Also generate the report if tests are failing
         uses:  davelosert/vitest-coverage-report-action@v2
@@ -49,19 +49,19 @@ jobs:
         uses:  davelosert/vitest-coverage-report-action@v2
         with:
           name: "@evmts/esbuild-plugin"
-          working-directory: "./bundlers/esbuild-plugin"
+          working-directory: "./bundlers/esbuild"
       - name: 'Report @evmts/ts-plugin Coverage'
         if: always() # Also generate the report if tests are failing
         uses:  davelosert/vitest-coverage-report-action@v2
         with:
           name: "@evmts/ts-plugin"
-          working-directory: "./lsp/ts-plugin"
+          working-directory: "./ts-plugin"
       - name: 'Report @evmts/config Coverage'
         if: always() # Also generate the report if tests are failing
         uses:  davelosert/vitest-coverage-report-action@v2
         with:
           name: "@evmts/config"
-          working-directory: "./bundlers/config"
+          working-directory: "./config"
       - name: 'Report @evmts/esbuild Coverage'
         if: always() # Also generate the report if tests are failing
         uses:  davelosert/vitest-coverage-report-action@v2

@@ -1,5 +1,12 @@
 [
-	"runtime/*/vitest.config.ts",
-	"lsp/*/vitest.config.ts",
-	"runtime/*/vitest.config.ts"
+	"bundlers/bundler",
+	"bundlers/esbuild",
+	"bundlers/rollup",
+	"bundlers/rspack",
+	"bundlers/vite",
+	"bundlers/webpack",
+	"cli",
+	"ethers",
+	"examples/esbuild",
+	"ts-plugin"
 ]

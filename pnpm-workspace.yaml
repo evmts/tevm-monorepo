@@ -1,9 +1,15 @@
 packages:
   - "bundlers/*"
-  - "configs/*"
+  - "bundlers/webpack"
+  - "cli"
+  - "config"
+  - "core"
   - "docs"
   - "e2e"
+  - "ethers"
   - "examples/*"
-  - "lsp/*"
-  - "runtime/*"
+  - "language-server"
+  - "ts-plugin"
+  - "tsconfig"
+  - "vscode"
 
