@@ -30,24 +30,33 @@ export const compileContractSync = (
 		config.libs,
 	)
 
-	/**
-	 * Known bug!!! This can hit a stack error
-	 * We should make this iterative instead of recursive
-	 */
 	const getAllModulesRecursively = (
-		m = entryModule,
-		modules: Record<string, ModuleInfo> = {},
-	) => {
-		modules[m.id] = m
-		/**
-		 * This could get cached
-		 */
-		for (const dep of m.resolutions) {
-			getAllModulesRecursively(dep, modules)
+		entryModule: ModuleInfo,
+	): Record<string, ModuleInfo> => {
+		const modules: Record<string, ModuleInfo> = {}
+		const stack = [entryModule]
+
+		while (stack.length !== 0) {
+			const m = stack.pop()
+			// this is only a sanity check to make typescript happy and should never be hit
+			if (m === undefined)
+				throw new Error(
+					'Module should never be undefined. This is a bug in the module bundler as this error should never be hit',
+				)
+
+			// Continue the loop if this module has already been visited.
+			if (modules.hasOwnProperty(m.id)) continue
+
+			modules[m.id] = m
+
+			for (const dep of m.resolutions) {
+				stack.push(dep)
+			}
 		}
+
 		return modules
 	}
-	const allModules = getAllModulesRecursively()
+	const allModules = getAllModulesRecursively(entryModule)
 
 	const sources = Object.fromEntries(
 		Object.entries(allModules).map(([id, module]) => {
