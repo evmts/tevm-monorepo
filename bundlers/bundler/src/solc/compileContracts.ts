@@ -37,15 +37,13 @@ export const compileContractSync = (
 		const stack = [entryModule]
 
 		while (stack.length !== 0) {
-			const m = stack.pop()
-			// this is only a sanity check to make typescript happy and should never be hit
-			if (m === undefined)
-				throw new Error(
-					'Module should never be undefined. This is a bug in the module bundler as this error should never be hit',
-				)
+			// This is always existing because we check the length and we don't want to be misisng code coverage with a needless null check
+			const m = stack.pop() as ModuleInfo
 
 			// Continue the loop if this module has already been visited.
-			if (modules.hasOwnProperty(m.id)) continue
+			if (m.id in modules) {
+				continue
+			}
 
 			modules[m.id] = m
 
