@@ -172,6 +172,119 @@ describe('compileContractSync', () => {
 		)
 	})
 
+	it('should not log any warnings when there are no warnings', () => {
+		mockSolcCompile.mockReturnValue(
+			JSON.stringify({
+				contracts: { [filePath]: mockCompiledContract },
+				errors: [],
+			}),
+		)
+		compileContractSync(filePath, basedir, config)
+		expect(console.warn).not.toHaveBeenCalled()
+	})
+
+	it('should work when contracts share resolutions', () => {
+		const mockModuleC: ModuleInfo = {
+			id: 'test/path/moduleC.sol',
+			code: 'contract C {}',
+			importedIds: [],
+			resolutions: [],
+			rawCode: 'contract C {}',
+		}
+
+		const mockModuleA: ModuleInfo = {
+			id: 'test/path/moduleA.sol',
+			code: 'import "test/path/moduleC.sol"\ncontract A {}',
+			importedIds: ['test/path/moduleC.sol'],
+			resolutions: [mockModuleC],
+			rawCode: 'import "./moduleC.sol"\ncontract A {}',
+		}
+
+		const mockModuleB: ModuleInfo = {
+			id: 'test/path/moduleB.sol',
+			code: 'import "test/path/moduleC.sol"\ncontract B {}',
+			importedIds: ['test/path/moduleC.sol'],
+			resolutions: [mockModuleC],
+			rawCode: 'import "./moduleC.sol"\ncontract B {}',
+		}
+
+		mockModuleA.resolutions.push(mockModuleB)
+		mockModuleFactory.mockReturnValue(mockModuleA)
+		expect(
+			compileContractSync(filePath, basedir, config),
+		).toMatchInlineSnapshot(`
+			{
+			  "artifacts": undefined,
+			  "modules": {
+			    "test/path/moduleA.sol": {
+			      "code": "import \\"test/path/moduleC.sol\\"
+			contract A {}",
+			      "id": "test/path/moduleA.sol",
+			      "importedIds": [
+			        "test/path/moduleC.sol",
+			      ],
+			      "rawCode": "import \\"./moduleC.sol\\"
+			contract A {}",
+			      "resolutions": [
+			        {
+			          "code": "contract C {}",
+			          "id": "test/path/moduleC.sol",
+			          "importedIds": [],
+			          "rawCode": "contract C {}",
+			          "resolutions": [],
+			        },
+			        {
+			          "code": "import \\"test/path/moduleC.sol\\"
+			contract B {}",
+			          "id": "test/path/moduleB.sol",
+			          "importedIds": [
+			            "test/path/moduleC.sol",
+			          ],
+			          "rawCode": "import \\"./moduleC.sol\\"
+			contract B {}",
+			          "resolutions": [
+			            {
+			              "code": "contract C {}",
+			              "id": "test/path/moduleC.sol",
+			              "importedIds": [],
+			              "rawCode": "contract C {}",
+			              "resolutions": [],
+			            },
+			          ],
+			        },
+			      ],
+			    },
+			    "test/path/moduleB.sol": {
+			      "code": "import \\"test/path/moduleC.sol\\"
+			contract B {}",
+			      "id": "test/path/moduleB.sol",
+			      "importedIds": [
+			        "test/path/moduleC.sol",
+			      ],
+			      "rawCode": "import \\"./moduleC.sol\\"
+			contract B {}",
+			      "resolutions": [
+			        {
+			          "code": "contract C {}",
+			          "id": "test/path/moduleC.sol",
+			          "importedIds": [],
+			          "rawCode": "contract C {}",
+			          "resolutions": [],
+			        },
+			      ],
+			    },
+			    "test/path/moduleC.sol": {
+			      "code": "contract C {}",
+			      "id": "test/path/moduleC.sol",
+			      "importedIds": [],
+			      "rawCode": "contract C {}",
+			      "resolutions": [],
+			    },
+			  },
+			}
+		`)
+	})
+
 	afterEach(() => {
 		vi.clearAllMocks()
 	})

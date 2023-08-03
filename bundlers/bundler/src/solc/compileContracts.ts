@@ -30,24 +30,31 @@ export const compileContractSync = (
 		config.libs,
 	)
 
-	/**
-	 * Known bug!!! This can hit a stack error
-	 * We should make this iterative instead of recursive
-	 */
 	const getAllModulesRecursively = (
-		m = entryModule,
-		modules: Record<string, ModuleInfo> = {},
-	) => {
-		modules[m.id] = m
-		/**
-		 * This could get cached
-		 */
-		for (const dep of m.resolutions) {
-			getAllModulesRecursively(dep, modules)
+		entryModule: ModuleInfo,
+	): Record<string, ModuleInfo> => {
+		const modules: Record<string, ModuleInfo> = {}
+		const stack = [entryModule]
+
+		while (stack.length !== 0) {
+			// This is always existing because we check the length and we don't want to be misisng code coverage with a needless null check
+			const m = stack.pop() as ModuleInfo
+
+			// Continue the loop if this module has already been visited.
+			if (m.id in modules) {
+				continue
+			}
+
+			modules[m.id] = m
+
+			for (const dep of m.resolutions) {
+				stack.push(dep)
+			}
 		}
+
 		return modules
 	}
-	const allModules = getAllModulesRecursively()
+	const allModules = getAllModulesRecursively(entryModule)
 
 	const sources = Object.fromEntries(
 		Object.entries(allModules).map(([id, module]) => {
