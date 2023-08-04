@@ -5,7 +5,15 @@ import { loadConfig } from '@evmts/config'
 import { existsSync } from 'fs'
 import { createRequire } from 'module'
 import type { UnpluginBuildContext, UnpluginContext } from 'unplugin'
-import { type Mock, beforeEach, describe, expect, it, vi, type MockedFunction } from 'vitest'
+import {
+	type Mock,
+	type MockedFunction,
+	beforeEach,
+	describe,
+	expect,
+	it,
+	vi,
+} from 'vitest'
 
 vi.mock('module', async () => ({
 	...((await vi.importActual('module')) as {}),
@@ -202,16 +210,24 @@ describe('unpluginFn', () => {
 		expect(mockExistsSync).toHaveBeenCalledWith('test.sol.d.ts')
 	})
 	describe('unpluginFn.resolveId', () => {
-
 		it('should resolve to local @evmts/core when id starts with @evmts/core', async () => {
 			const plugin = unpluginFn({}, {} as any)
-			const mockCreateRequre = createRequire as MockedFunction<typeof createRequire>
+			const mockCreateRequre = createRequire as MockedFunction<
+				typeof createRequire
+			>
 			const mockRequireResolve = vi.fn()
-			mockRequireResolve.mockReturnValue("/path/to/node_modules/@evmts/core")
+			mockRequireResolve.mockReturnValue('/path/to/node_modules/@evmts/core')
 			mockCreateRequre.mockReturnValue({ resolve: mockRequireResolve } as any)
-			const result = await plugin.resolveId?.call(mockPlugin, '@evmts/core', '/different/workspace', {} as any)
+			const result = await plugin.resolveId?.call(
+				mockPlugin,
+				'@evmts/core',
+				'/different/workspace',
+				{} as any,
+			)
 
-			expect(result).toMatchInlineSnapshot('"/path/to/node_modules/@evmts/core"')
+			expect(result).toMatchInlineSnapshot(
+				'"/path/to/node_modules/@evmts/core"',
+			)
 			expect(mockCreateRequre.mock.lastCall).toMatchInlineSnapshot(`
 				[
 				  "mock/process/dot/cwd/",
@@ -227,7 +243,12 @@ describe('unpluginFn', () => {
 		it('should return null when id does not start with @evmts/core', async () => {
 			const plugin = unpluginFn({}, {} as any)
 
-			const result = await plugin.resolveId?.call(mockPlugin, 'some/other/id', '/some/workspace', {} as any)
+			const result = await plugin.resolveId?.call(
+				mockPlugin,
+				'some/other/id',
+				'/some/workspace',
+				{} as any,
+			)
 
 			expect(result).toBeNull()
 		})
@@ -235,12 +256,21 @@ describe('unpluginFn', () => {
 		it('should return null when id starts with @evmts/core but importer is in node_modules or the same workspace', async () => {
 			const plugin = unpluginFn({}, {} as any)
 
-			const resultInNodeModules = await plugin.resolveId?.call(mockPlugin, '@evmts/core', '/some/workspace/node_modules', {} as any)
+			const resultInNodeModules = await plugin.resolveId?.call(
+				mockPlugin,
+				'@evmts/core',
+				'/some/workspace/node_modules',
+				{} as any,
+			)
 			expect(resultInNodeModules).toBeNull()
 
-			const resultInSameWorkspace = await plugin.resolveId?.call(mockPlugin, '@evmts/core', mockCwd, {} as any)
+			const resultInSameWorkspace = await plugin.resolveId?.call(
+				mockPlugin,
+				'@evmts/core',
+				mockCwd,
+				{} as any,
+			)
 			expect(resultInSameWorkspace).toBeNull()
 		})
 	})
-
 })

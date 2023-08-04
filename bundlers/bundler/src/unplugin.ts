@@ -60,7 +60,7 @@ export const unpluginFn: UnpluginFactory<
 				!importer?.includes('node_modules')
 			) {
 				console.log({ id, importer, options })
-				return createRequire(process.cwd() + '/').resolve('@evmts/core')
+				return createRequire(`${process.cwd()}/`).resolve('@evmts/core')
 			}
 			return null
 		},
