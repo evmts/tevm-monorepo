@@ -2,6 +2,7 @@ import * as packageJson from '../package.json'
 import { bundler } from './bundler'
 import { type ResolvedConfig, loadConfig } from '@evmts/config'
 import { existsSync } from 'fs'
+import { createRequire } from 'module'
 import { type UnpluginFactory, createUnplugin } from 'unplugin'
 import { z } from 'zod'
 
@@ -50,9 +51,20 @@ export const unpluginFn: UnpluginFactory<
 			moduleResolver = bundler(config, console)
 			this.addWatchFile('./tsconfig.json')
 		},
-		async load(id: string) {
-			if (id.startsWith('@evmts/core/runtime')) {
+		async resolveId(id, importer, options) {
+			// to handle the case where the import is coming from a node_module or a different workspace
+			// we need to always point @evmts/core to the local version
+			if (
+				id.startsWith('@evmts/core') &&
+				!importer?.startsWith(process.cwd()) &&
+				!importer?.includes('node_modules')
+			) {
+				console.log({ id, importer, options })
+				return createRequire(`${process.cwd()}/`).resolve('@evmts/core')
 			}
+			return null
+		},
+		async load(id: string) {
 			if (!id.endsWith('.sol')) {
 				return
 			}
