@@ -51,12 +51,16 @@ export const unpluginFn: UnpluginFactory<
 			moduleResolver = bundler(config, console)
 			this.addWatchFile('./tsconfig.json')
 		},
-		async resolveId(id) {
+		async resolveId(id, importer, options) {
 			// to handle the case where the import is coming from a node_module or a different workspace
 			// we need to always point @evmts/core to the local version
-			if (id.startsWith('@evmts/core')) {
-				return createRequire(process.cwd() + '/')
-					.resolve('@evmts/core')
+			if (
+				id.startsWith('@evmts/core') &&
+				!importer?.startsWith(process.cwd()) &&
+				!importer?.includes('node_modules')
+			) {
+				console.log({ id, importer, options })
+				return createRequire(process.cwd() + '/').resolve('@evmts/core')
 			}
 			return null
 		},
