@@ -221,11 +221,17 @@ describe(createEthersContract.name, () => {
 			runner: provider,
 		})
 		expect(c).toBeInstanceOf(Contract)
-		expect(await c.name()).toMatchInlineSnapshot('"OptimismUselessToken-1"')
-		expect(await c.symbol()).toMatchInlineSnapshot('"OUT-1"')
-		expect(await c.decimals()).toMatchInlineSnapshot('18n')
-		expect(await c.totalSupply()).toMatchInlineSnapshot(
-			'70000000000000000000000n',
+		expect(await c.name({ blockTag: 12865720 })).toMatchInlineSnapshot(
+			'"OptimismUselessToken-1"',
+		)
+		expect(await c.symbol({ blockTag: 12865720 })).toMatchInlineSnapshot(
+			'"OUT-1"',
+		)
+		expect(await c.decimals({ blockTag: 12865720 })).toMatchInlineSnapshot(
+			'18n',
+		)
+		expect(await c.totalSupply({ blockTag: 12865720 })).toMatchInlineSnapshot(
+			'71000000000000000000000n',
 		)
 		expect(
 			await c.balanceOf('0x32307adfFE088e383AFAa721b06436aDaBA47DBE'),
@@ -238,11 +244,17 @@ describe(createEthersContract.name, () => {
 			runner: provider,
 		})
 		expect(c).toBeInstanceOf(Contract)
-		expect(await c.name()).toMatchInlineSnapshot('"OptimismUselessToken-1"')
-		expect(await c.symbol()).toMatchInlineSnapshot('"OUT-1"')
-		expect(await c.decimals()).toMatchInlineSnapshot('18n')
-		expect(await c.totalSupply()).toMatchInlineSnapshot(
-			'70000000000000000000000n',
+		expect(await c.name({ blockTag: 12865720 })).toMatchInlineSnapshot(
+			'"OptimismUselessToken-1"',
+		)
+		expect(await c.symbol({ blockTag: 12865720 })).toMatchInlineSnapshot(
+			'"OUT-1"',
+		)
+		expect(await c.decimals({ blockTag: 12865720 })).toMatchInlineSnapshot(
+			'18n',
+		)
+		expect(await c.totalSupply({ blockTag: 12865720 })).toMatchInlineSnapshot(
+			'71000000000000000000000n',
 		)
 		expect(
 			await c.balanceOf('0x32307adfFE088e383AFAa721b06436aDaBA47DBE'),
@@ -256,11 +268,17 @@ describe(createEthersContract.name, () => {
 			runner: provider,
 		})
 		expect(c).toBeInstanceOf(Contract)
-		expect(await c.name()).toMatchInlineSnapshot('"OptimismUselessToken-1"')
-		expect(await c.symbol()).toMatchInlineSnapshot('"OUT-1"')
-		expect(await c.decimals()).toMatchInlineSnapshot('18n')
-		expect(await c.totalSupply()).toMatchInlineSnapshot(
-			'70000000000000000000000n',
+		expect(await c.name({ blockTag: 12865720 })).toMatchInlineSnapshot(
+			'"OptimismUselessToken-1"',
+		)
+		expect(await c.symbol({ blockTag: 12865720 })).toMatchInlineSnapshot(
+			'"OUT-1"',
+		)
+		expect(await c.decimals({ blockTag: 12865720 })).toMatchInlineSnapshot(
+			'18n',
+		)
+		expect(await c.totalSupply({ blockTag: 12865720 })).toMatchInlineSnapshot(
+			'71000000000000000000000n',
 		)
 		expect(
 			await c.balanceOf('0x32307adfFE088e383AFAa721b06436aDaBA47DBE'),
