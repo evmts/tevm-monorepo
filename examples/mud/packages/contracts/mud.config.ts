@@ -1,10 +1,10 @@
-import { mudConfig } from "@latticexyz/world/register";
+import { mudConfig } from '@latticexyz/world/register'
 
 export default mudConfig({
-  tables: {
-    Counter: {
-      keySchema: {},
-      schema: "uint32",
-    },
-  },
-});
+	tables: {
+		Counter: {
+			keySchema: {},
+			schema: 'uint32',
+		},
+	},
+})
