@@ -1,4 +1,5 @@
 import type { ModuleInfo } from '../types'
+import { invariant } from '../utils/invariant'
 import { moduleFactory } from './moduleFactory'
 import type { ResolvedConfig } from '@evmts/config'
 import { readFileSync } from 'fs'
@@ -37,8 +38,9 @@ export const compileContractSync = (
 		const stack = [entryModule]
 
 		while (stack.length !== 0) {
-			// This is always existing because we check the length and we don't want to be misisng code coverage with a needless null check
-			const m = stack.pop() as ModuleInfo
+			const m = stack.pop()
+			// This is always existing because we check the length but need to make TS happy
+			invariant(m, 'Module should exist')
 
 			// Continue the loop if this module has already been visited.
 			if (m.id in modules) {
