@@ -586,6 +586,16 @@ importers:
         version: 5.1.6
 
   examples/svelte-ethers:
+    dependencies:
+      '@evmts/core':
+        specifier: workspace:^
+        version: link:../../core
+      '@evmts/ethers':
+        specifier: workspace:^
+        version: link:../../ethers
+      ethers:
+        specifier: ^6.6.5
+        version: 6.6.5
     devDependencies:
       '@evmts/ts-plugin':
         specifier: workspace:^
@@ -593,12 +603,18 @@ importers:
       '@evmts/vite-plugin':
         specifier: workspace:^
         version: link:../../bundlers/vite
+      '@openzeppelin/contracts':
+        specifier: ^4.9.2
+        version: 4.9.2
       '@sveltejs/adapter-auto':
         specifier: ^2.0.0
         version: 2.1.0(@sveltejs/kit@1.22.4)
       '@sveltejs/kit':
         specifier: ^1.20.4
         version: 1.22.4(svelte@4.1.2)(vite@4.4.7)
+      solc:
+        specifier: 0.8.20
+        version: 0.8.20
       svelte:
         specifier: ^4.0.5
         version: 4.1.2
@@ -831,7 +847,6 @@ packages:
 
   /@adraffy/ens-normalize@1.9.2:
     resolution: {integrity: sha512-0h+FrQDqe2Wn+IIGFkTCd4aAwTJ+7834Ek1COohCyV26AXhwQ7WQaz+4F/nLOeVl/3BtWHOHLPsq46V8YB46Eg==}
-    dev: true
 
   /@algolia/autocomplete-core@1.9.3(@algolia/client-search@4.19.1)(algoliasearch@4.18.0)(search-insights@2.7.0):
     resolution: {integrity: sha512-009HdfugtGCdC4JdXUbVJClA0q0zh24yyePn+KUGk3rP7j8FEe/m5Yo/z65gn6nP/cM39PxpzqKrL7A6fP6PPw==}
@@ -4490,7 +4505,6 @@ packages:
 
   /@noble/hashes@1.1.2:
     resolution: {integrity: sha512-KYRCASVTv6aeUi1tsF8/vpyR7zpfs3FUzy2Jqm+MU+LmUKhQ0y2FpfwqkCcxSg2ua4GALJd8k2R76WxwZGbQpA==}
-    dev: true
 
   /@noble/hashes@1.2.0:
     resolution: {integrity: sha512-FZfhjEDbT5GRswV3C6uvLPHMiVD6lQBmpoX5+eSiPaMTXte/IKqI5dykDxzZB/WBeK/CDuQRBWarPdi3FNY2zQ==}
@@ -4505,7 +4519,6 @@ packages:
 
   /@noble/secp256k1@1.7.1:
     resolution: {integrity: sha512-hOUk6AyBFmqVrv7k5WAw/LpszxVbj9gGN4JRkIX52fdFAj1UA61KXmZDvqVEm+pOyec3+fIeZB02LYa/pWOArw==}
-    dev: true
 
   /@nodelib/fs.scandir@2.1.5:
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
@@ -4852,7 +4865,7 @@ packages:
       nx: 16.5.5
       semver: 7.5.3
       tmp: 0.2.1
-      tslib: 2.6.0
+      tslib: 2.6.1
     dev: true
 
   /@nx/nx-darwin-arm64@16.5.5:
@@ -6011,7 +6024,6 @@ packages:
 
   /@types/node@18.15.13:
     resolution: {integrity: sha512-N+0kuo9KgrUQ1Sn/ifDXsvg0TTleP7rIy4zOBGECxAljqvqfqpTfzx0Q1NUedOixRMBfe2Whhb056a42cWs26Q==}
-    dev: true
 
   /@types/node@20.4.1:
     resolution: {integrity: sha512-JIzsAvJeA/5iY6Y/OxZbv1lUcc8dNSE77lb2gnBH+/PJ3lFR1Ccvgwl5JWnHAkNHcRsT0TbpVOsiMKZ1F/yyJg==}
@@ -8410,7 +8422,6 @@ packages:
 
   /aes-js@4.0.0-beta.5:
     resolution: {integrity: sha512-G965FqalsNyrPqgEGON7nIx1e/OVENSgiEIzyC63haUMuvNnwIgIjMs52hlTCKhkBny7A2ORNlfY9Zu+jmGk1Q==}
-    dev: true
 
   /agent-base@6.0.2:
     resolution: {integrity: sha512-RZNwNclF7+MS/8bDg70amg32dyeZGZxiDuQmZxKLAlQjr3jGyLx+4Kkk58UO7D2QdgFIQCovuSuZESne6RG6XQ==}
@@ -12213,7 +12224,6 @@ packages:
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
-    dev: true
 
   /etherscan-api@10.3.0(debug@4.3.4):
     resolution: {integrity: sha512-XH+E7J2c6Wq750stvFuIIMdiLv5v65nTRftQojXuQXNfEsQaZOOgeY11WHdrGh6yh90ekDJQldgf033tIS1rCw==}
@@ -19664,7 +19674,6 @@ packages:
 
   /tslib@2.4.0:
     resolution: {integrity: sha512-d6xOpEDfsi2CZVlPQzGeux8XMwLT9hssAsaPYExaQMuYskwb+x1x7J371tWlbBdWHroy99KnVB6qIkUbs5X3UQ==}
-    dev: true
 
   /tslib@2.6.0:
     resolution: {integrity: sha512-7At1WUettjcSRHXCyYtTselblcHl9PJFFVKiCAy/bY97+BPZXSQ2wbq0P9s8tK2G7dFQfNnlJnPAiArVBVBsfA==}
@@ -21499,7 +21508,6 @@ packages:
         optional: true
       utf-8-validate:
         optional: true
-    dev: true
 
   /xdg-basedir@5.1.0:
     resolution: {integrity: sha512-GCPAHLvrIH13+c0SuacwvRYj2SxJXQ4kaVTT5xgL3kPrz56XxkF21IGhjSE1+W0aw7gpBWRGXLCPnPby6lSpmQ==}
