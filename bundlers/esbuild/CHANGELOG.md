@@ -1,5 +1,18 @@
 # @evmts/plugin
 
+## 0.7.0
+
+### Patch Changes
+
+- [#401](https://github.com/evmts/evmts-monorepo/pull/401) [`c4403cc`](https://github.com/evmts/evmts-monorepo/commit/c4403cc00687bf16672ea668b6f5a3470eb597c1) Thanks [@roninjin10](https://github.com/roninjin10)! - Added unit test to @evmts/esbuild-plugin
+
+  @evmts/esbuild-plugin is simply reexporting [unplugin](https://github.com/unjs/unplugin) so the unit test coverage is minimal. It does provide useful documentation for the shape of the esbuild plugin however and a record of if it has changed
+
+  Further testing planned via e2e playwright tests of the esbuild viem example in upcoming release
+
+- Updated dependencies [[`8dbc952`](https://github.com/evmts/evmts-monorepo/commit/8dbc952d2dc2ca97e89bad55b162056d4f6b31a6), [`644e8fd`](https://github.com/evmts/evmts-monorepo/commit/644e8fda95d2824c9145f8d6278cbdb6272b0609), [`d7e6158`](https://github.com/evmts/evmts-monorepo/commit/d7e61583dc1529569de92868ffe49d75c045dc1f), [`4f532eb`](https://github.com/evmts/evmts-monorepo/commit/4f532ebab51004603b1a41f956729fec4a3dbd2d), [`fc28f54`](https://github.com/evmts/evmts-monorepo/commit/fc28f545635a23a76e4acce0ff48d0902eed484c)]:
+  - @evmts/bundler@0.7.0
+
 ## 0.6.0
 
 ### Patch Changes

@@ -1,5 +1,51 @@
 # @evmts/core
 
+## 0.7.0
+
+### Minor Changes
+
+- [#419](https://github.com/evmts/evmts-monorepo/pull/419) [`644e8fd`](https://github.com/evmts/evmts-monorepo/commit/644e8fda95d2824c9145f8d6278cbdb6272b0609) Thanks [@roninjin10](https://github.com/roninjin10)! - Added support for monorepo imports and node_module imports
+
+  Previously, these use cases would fail because @evmts/core was not in scope. EVMts injects a module that uses the `@evmts/core` package to create the contract objects at runtime. These packages are installed to the users node_modules and thus were not in scope for sub dependencies and other workspaces. @evmts/core now handles this via always importing @evmts/core from the users main workspace. This feature enables 2 use cases.
+
+  ## Use case 1 - Importing from Node Modules
+
+  A solid way to use EVMts is to install a package that has contracts in it and import the contract from node module
+
+  ```
+  import { ERC20 } from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+  import { viemPublicClient, Address } from './publicClient'
+
+  const balanceOf = (address: Address) => viemPublicClient.readContract(ERC20.balanceOf(
+  ```
+
+  ## Use case 2 - Importing from PNPM monorepos
+
+  Devs commonly use monorepo tools such as npm workspaces, yarn workspaces, or pnpm workspaces. Previously these tools failed to work correctly but are now supported.
+
+### Patch Changes
+
+- [#411](https://github.com/evmts/evmts-monorepo/pull/411) [`8dbc952`](https://github.com/evmts/evmts-monorepo/commit/8dbc952d2dc2ca97e89bad55b162056d4f6b31a6) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed a bug with stack too deep error.
+
+  Error happens when recursive contract imports (e.g. contract a imports contract b which imports contract c etc.) go over the total amount of stack frames allowed by JS. When this happens the process would fail with a "stack too deep error".
+
+- [#408](https://github.com/evmts/evmts-monorepo/pull/408) [`d7e6158`](https://github.com/evmts/evmts-monorepo/commit/d7e61583dc1529569de92868ffe49d75c045dc1f) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug with using '.' instead of process.cwd()
+
+  This bug was unlikely to affect users and mostly a stylistic problem
+
+- [#402](https://github.com/evmts/evmts-monorepo/pull/402) [`4f532eb`](https://github.com/evmts/evmts-monorepo/commit/4f532ebab51004603b1a41f956729fec4a3dbd2d) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed version of plugin defaulting to 0.0.0 instead of the package.json version
+
+  Previously the version of all evmts-plugins were hardcoded to 0.0.0. Now they will correctly show the correct version.
+
+- [#416](https://github.com/evmts/evmts-monorepo/pull/416) [`fc28f54`](https://github.com/evmts/evmts-monorepo/commit/fc28f545635a23a76e4acce0ff48d0902eed484c) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed another stack too deep bug from a recursive function in bundler
+
+  - A previous fix fixed a stack too deep error but another one was discovered.
+  - Fixed via refactoring a recursive internal function to iterative.
+  - This bug affected projects importing solidity that imports other solidity deep enough to make the stack too deep
+
+- Updated dependencies [[`8f11961`](https://github.com/evmts/evmts-monorepo/commit/8f11961f6b3ebc5882a1e5403d3726df7ddee0d4), [`fa7555a`](https://github.com/evmts/evmts-monorepo/commit/fa7555a8b0bac268f5297544422c516dae4c5511), [`c71cd30`](https://github.com/evmts/evmts-monorepo/commit/c71cd30818b311c95852a720c170ef18915b750f)]:
+  - @evmts/config@0.7.0
+
 ## 0.6.0
 
 ### Minor Changes
