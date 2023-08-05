@@ -1,5 +1,14 @@
 # @evmts/core
 
+## 0.7.1
+
+### Patch Changes
+
+- Updated dependencies [[`eb6ec5d`](https://github.com/evmts/evmts-monorepo/commit/eb6ec5dff13c51baa09f0019fb8b1b94a41108cb)]:
+  - @evmts/tsconfig@0.7.1
+  - @evmts/config@0.7.0
+  - @evmts/core@0.6.0
+
 ## 0.7.0
 
 ### Minor Changes
