@@ -1,5 +1,14 @@
 # @evmts/cli
 
+## 0.7.1
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @evmts/bundler@0.7.1
+  - @evmts/config@0.7.0
+  - @evmts/core@0.6.0
+
 ## 0.7.0
 
 ### Patch Changes

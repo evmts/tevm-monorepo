@@ -555,10 +555,10 @@ importers:
         specifier: ^0.7.0
         version: link:../../config
       '@evmts/ts-plugin':
-        specifier: ^0.7.0
+        specifier: ^0.7.1
         version: link:../../ts-plugin
       '@evmts/webpack-plugin':
-        specifier: ^0.7.0
+        specifier: ^0.7.1
         version: link:../../bundlers/webpack
       '@openzeppelin/contracts':
         specifier: ^4.9.2
