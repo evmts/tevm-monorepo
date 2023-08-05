@@ -3,13 +3,11 @@ import { generateRuntime } from './runtime/generateRuntime'
 import { generateRuntimeSync } from './runtime/generateRuntimeSync'
 import { resolveArtifacts, resolveArtifactsSync } from './solc'
 import type { Bundler } from './types'
-import { checkSolcVersion } from './utils/checkSolcVersion'
 // TODO wrap this in a typesafe version
 // @ts-ignore
 import solc from 'solc'
 
 export const bundler: Bundler = (config, logger) => {
-	checkSolcVersion(config, logger, solc.version)
 	return {
 		name: bundler.name,
 		config,
