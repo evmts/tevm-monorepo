@@ -1,0 +1,32 @@
+{
+	"name": "svelte-ethers",
+	"version": "0.0.1",
+	"private": true,
+	"scripts": {
+		"dev": "vite dev",
+		"build": "vite build",
+		"preview": "vite preview",
+		"check": "echo 'cli typechecking will not be available until EVMts beta. Stay tuned to updates in the evmts/evmts-monorepo repo. Your editor should be able to provide typechecking in the meantime'",
+		"check:watch": "echo 'typechecking will not be available until EVMts beta. Stay tuned to updates in the evmts/evmts-monorepo repo. Your editor should be able to provide typechecking in the meantime'",
+		"test": "vitest"
+	},
+	"devDependencies": {
+		"@evmts/ts-plugin": "workspace:^",
+		"@evmts/vite-plugin": "workspace:^",
+		"@openzeppelin/contracts": "^4.9.2",
+		"@sveltejs/adapter-auto": "^2.0.0",
+		"@sveltejs/kit": "^1.20.4",
+		"solc": "0.8.20",
+		"svelte": "^4.0.5",
+		"svelte-check": "^3.4.3",
+		"typescript": "^5.0.0",
+		"vite": "^4.4.2",
+		"vitest": "^0.33.0"
+	},
+	"type": "module",
+	"dependencies": {
+		"@evmts/core": "workspace:^",
+		"@evmts/ethers": "workspace:^",
+		"ethers": "^6.6.5"
+	}
+}

@@ -17,7 +17,8 @@
 			"**/.vitepress/dist",
 			".vscode",
 			".changeset",
-			".devcontainer"
+			".devcontainer",
+			"examples/svelte-ethers/.svelte-kit"
 		]
 	},
 	"formatter": {
