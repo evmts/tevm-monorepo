@@ -1,0 +1,7 @@
+{
+  "solidity.monoRepoSupport": true,
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.tsserver.pluginPaths": [
+    "packages/client/node_modules/@evmts/ts-plugin"
+  ],
+}
