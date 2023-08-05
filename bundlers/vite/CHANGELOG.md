@@ -1,5 +1,83 @@
 # @evmts/plugin
 
+## 0.7.0
+
+### Minor Changes
+
+- [#417](https://github.com/evmts/evmts-monorepo/pull/417) [`11e30fa`](https://github.com/evmts/evmts-monorepo/commit/11e30fadd6af8af9b6ff5cc05e970e117a0883d9) Thanks [@roninjin10](https://github.com/roninjin10)! - Added example app of usage of vite plugin in MUD framework
+
+  ## What is mud
+
+  MUD is a framework for ambitious Ethereum applications. It compresses the complexity of building EVM apps with a tightly integrated software stack.
+  MUD and EVMts have similar goals. EVMts is approaching it from an unopionionated modular point of view whereas MUD is more of a batteries included opionated framework more similar to Ruby on Rails or NEXT.js. They don't compete with each other in their full form they very much complement each other.
+  MUD's template only has a single contract import but this can be improved upon in future as that one contract is an entrypoint to system contracts. Also EVMts provides a more streamlined way to interact with third party contracts not built with MUD storage
+
+  This mud template is also the first usage of EVMts in a monorepo. Usage in PNPM monorepo which is the strictist type of monorepo validates that EVMts works in all monorepos. This example project and it's upcoming e2e test will provide a tool to debug monorepos and test coverage for this use case
+
+- [#426](https://github.com/evmts/evmts-monorepo/pull/426) [`0191aee`](https://github.com/evmts/evmts-monorepo/commit/0191aeee553bb1973998ff3a730eceb0af1869f9) Thanks [@roninjin10](https://github.com/roninjin10)! - Added svelte-ethers EVMts example app
+
+  This example app is the first using Svelte for direct contract imports. The import happens in the svelte page
+
+  ```ts
+  <script>
+    import { onMount } from 'svelte';
+    import { writable } from 'svelte/store';
+    import { EthersMintExample } from '../contracts/EthersMintExample.sol';
+    import {createEthersContract} from '@evmts/ethers'
+    import { Contract, JsonRpcProvider } from 'ethers'
+
+    // Create stores for all reactive variables
+    let totalSupply = writable('');
+    let ownerOf = writable('');
+    let balanceOf = writable('');
+
+    const tokenId = BigInt('114511829')
+
+    const provider = new JsonRpcProvider('https://goerli.optimism.io', 420)
+    const ethersContract = createEthersContract(EthersMintExample, {
+  		chainId: 420,
+  		runner: provider,
+  	})
+
+    onMount(async () => {
+      totalSupply.set(await ethersContract.totalSupply());
+      ownerOf.set(await ethersContract.ownerOf(tokenId));
+      if ($ownerOf?.toString()) {
+        balanceOf.set(await ethersContract.balanceOf($ownerOf?.toString()));
+      }
+    });
+  </script>
+
+  <h1>Welcome to SvelteKit</h1>
+  <p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+  <div>
+    <div>
+      <h3>totalSupply():</h3>
+      <div>{$totalSupply?.toString()}</div>
+      <br />
+      <h3>ownerOf(): </h3>
+      <div>{$ownerOf?.toString()}</div>
+      <br />
+      <h3>balanceOf($address):</h3>
+      <div>{$balanceOf?.toString()}</div>
+    </div>
+  </div>
+  ```
+
+  Here you can see we import a contract directly from EthersMintExample.sol and use it with ethers.js
+
+  - The svelte example is powered by `@evmts/vite-plugin` and `@evmts/ts-plugin`
+  - This svelte example is using js with jsdoc which is now newly enabled
+  - This is the first example app using the `@evmts/ethers` package which brings typesafe ethers.js contracts to the table
+    - _Note_ CLI typechecker will not be enabled until Beta release for now typesafety is purely in the editor
+
+  App is extremely minimal as I have almost 0 experience using svelte. Contributions are welecome
+
+### Patch Changes
+
+- Updated dependencies [[`8dbc952`](https://github.com/evmts/evmts-monorepo/commit/8dbc952d2dc2ca97e89bad55b162056d4f6b31a6), [`644e8fd`](https://github.com/evmts/evmts-monorepo/commit/644e8fda95d2824c9145f8d6278cbdb6272b0609), [`d7e6158`](https://github.com/evmts/evmts-monorepo/commit/d7e61583dc1529569de92868ffe49d75c045dc1f), [`4f532eb`](https://github.com/evmts/evmts-monorepo/commit/4f532ebab51004603b1a41f956729fec4a3dbd2d), [`fc28f54`](https://github.com/evmts/evmts-monorepo/commit/fc28f545635a23a76e4acce0ff48d0902eed484c)]:
+  - @evmts/bundler@0.7.0
+
 ## 0.6.0
 
 ### Patch Changes

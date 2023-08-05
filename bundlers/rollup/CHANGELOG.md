@@ -1,5 +1,12 @@
 # @evmts/plugin
 
+## 0.7.0
+
+### Patch Changes
+
+- Updated dependencies [[`8dbc952`](https://github.com/evmts/evmts-monorepo/commit/8dbc952d2dc2ca97e89bad55b162056d4f6b31a6), [`644e8fd`](https://github.com/evmts/evmts-monorepo/commit/644e8fda95d2824c9145f8d6278cbdb6272b0609), [`d7e6158`](https://github.com/evmts/evmts-monorepo/commit/d7e61583dc1529569de92868ffe49d75c045dc1f), [`4f532eb`](https://github.com/evmts/evmts-monorepo/commit/4f532ebab51004603b1a41f956729fec4a3dbd2d), [`fc28f54`](https://github.com/evmts/evmts-monorepo/commit/fc28f545635a23a76e4acce0ff48d0902eed484c)]:
+  - @evmts/bundler@0.7.0
+
 ## 0.6.0
 
 ### Patch Changes
