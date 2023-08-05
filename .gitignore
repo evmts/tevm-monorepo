@@ -6,6 +6,7 @@
 cache
 forge-artifacts
 broadcast
+**/output
 
 # compiled output
 */dist
