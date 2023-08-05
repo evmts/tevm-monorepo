@@ -268,6 +268,70 @@ describe(loadConfig.name, () => {
 		expect(config).toStrictEqual(defaultConfig)
 	})
 
+	it('should work for a jsconfig.json', () => {
+		vi.spyOn(fs, 'existsSync').mockImplementation((path) => {
+			if (typeof path !== 'string') {
+				throw new Error('expected string!')
+			}
+			if (path.endsWith('tsconfig.json')) {
+				return false
+			}
+			if (path.endsWith('jsconfig.json')) {
+				return true
+			}
+			throw new Error(`unexpected path ${path}`)
+		})
+		vi.spyOn(fs, 'readFileSync').mockReturnValue(
+			JSON.stringify({
+				compilerOptions: {
+					plugins: [
+						{
+							name: '@evmts/ts-plugin',
+						},
+					],
+				},
+			}),
+		)
+		const mockFsReadFileSync = fs.readFileSync as MockedFunction<
+			typeof fs.readFileSync
+		>
+		expect(mockFsReadFileSync.mock.lastCall).toMatchInlineSnapshot('undefined')
+		const config = loadConfig('path/to/config')
+		expect(config).toStrictEqual(defaultConfig)
+	})
+
+	it('should work for a tsconfig.json', () => {
+		vi.spyOn(fs, 'existsSync').mockImplementation((path) => {
+			if (typeof path !== 'string') {
+				throw new Error('expected string!')
+			}
+			if (path.endsWith('tsconfig.json')) {
+				return true
+			}
+			if (path.endsWith('jsconfig.json')) {
+				return false
+			}
+			throw new Error(`unexpected path ${path}`)
+		})
+		vi.spyOn(fs, 'readFileSync').mockReturnValue(
+			JSON.stringify({
+				compilerOptions: {
+					plugins: [
+						{
+							name: '@evmts/ts-plugin',
+						},
+					],
+				},
+			}),
+		)
+		const mockFsReadFileSync = fs.readFileSync as MockedFunction<
+			typeof fs.readFileSync
+		>
+		expect(mockFsReadFileSync.mock.lastCall).toMatchInlineSnapshot('undefined')
+		const config = loadConfig('path/to/config')
+		expect(config).toStrictEqual(defaultConfig)
+	})
+
 	it('should return correct config and load foundry remappings when forge is set to true', () => {
 		vi.spyOn(fs, 'readFileSync').mockReturnValue(mockTsConfig())
 		vi.spyOn(fs, 'existsSync').mockReturnValue(true)
