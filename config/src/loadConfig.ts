@@ -1,6 +1,6 @@
 import { type EvmtsConfig, type ResolvedConfig } from './Config'
 import { defineConfig } from './defineConfig'
-import { readFileSync } from 'fs'
+import { existsSync, readFileSync } from 'fs'
 import * as path from 'path'
 
 type LoadConfig = (
@@ -14,9 +14,12 @@ export const loadConfig: LoadConfig = (configFilePath, logger = console) => {
 	 * for now load config will load from tsconfig instead until fixed
 	 */
 	const tsConfigPath = path.join(configFilePath, 'tsconfig.json')
+	const jsConfigPath = path.join(configFilePath, 'jsconfig.json')
 	let configStr
 	try {
-		configStr = readFileSync(tsConfigPath, 'utf8')
+		configStr = existsSync(jsConfigPath)
+			? readFileSync(jsConfigPath, 'utf8')
+			: readFileSync(tsConfigPath, 'utf8')
 	} catch (error) {
 		logger.error(error)
 		throw new Error(
