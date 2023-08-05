@@ -1,1 +1,1 @@
-export { webpackPluginEvmts } from '@evmts/bundler'
+export { webpackPluginEvmts, type Config } from '@evmts/bundler'

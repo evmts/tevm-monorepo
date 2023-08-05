@@ -13,7 +13,7 @@ export const loadConfig: LoadConfig = (configFilePath, logger = console) => {
 	 * evmts.config.ts currently doesn't work for ts-plugin because it is not syncronous
 	 * for now load config will load from tsconfig instead until fixed
 	 */
-	const tsConfigPath = path.join(configFilePath, 'tsconfig.json')
+	const tsConfigPath = configFilePath.endsWith('.json') ? configFilePath : path.join(configFilePath, 'tsconfig.json')
 	let configStr
 	try {
 		configStr = readFileSync(tsConfigPath, 'utf8')

@@ -1,1 +1,1 @@
-export { rspackPluginEvmts } from '@evmts/bundler'
+export { rspackPluginEvmts, type Config } from '@evmts/bundler'

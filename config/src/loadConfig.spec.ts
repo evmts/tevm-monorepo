@@ -150,6 +150,75 @@ describe(loadConfig.name, () => {
 		`)
 	})
 
+	it('should return the correct config when the tsconfig.json option is path to a file other than tsconfig.json rather than a directory', () => {
+		vi.spyOn(fs, 'readFileSync').mockReturnValue(mockTsConfig())
+		const validConfig = JSON.stringify({
+			compilerOptions: {
+				plugins: [
+					{
+						name: '@evmts/ts-plugin',
+						compiler: {
+							solcVersion: '0.9.0',
+							libs: ['path/to/libs'],
+						},
+						localContracts: {
+							contracts: [
+								{
+									name: 'WagmiMintExample',
+									addresses: {
+										'1': '0xFBA3912Ca04dd458c843e2EE08967fC04f3579c2',
+										'5': '0x1df10ec981ac5871240be4a94f250dd238b77901',
+										'10': '0x1df10ec981ac5871240be4a94f250dd238b77901',
+									},
+								},
+							],
+						},
+					},
+				],
+			},
+		})
+		vi.spyOn(fs, 'readFileSync').mockReturnValue(validConfig)
+		const config = loadConfig('path/to/jsconfig.json')
+		const mockFs = fs.readFileSync as MockedFunction<typeof fs.readFileSync>
+		expect(mockFs.mock.lastCall).toMatchInlineSnapshot(`
+			[
+			  "path/to/jsconfig.json",
+			  "utf8",
+			]
+		`)
+		expect(config).toMatchInlineSnapshot(`
+			{
+			  "compiler": {
+			    "foundryProject": false,
+			    "libs": [
+			      "path/to/libs",
+			    ],
+			    "remappings": {},
+			    "solcVersion": "0.9.0",
+			  },
+			  "externalContracts": {
+			    "apiKeys": {
+			      "etherscan": {},
+			    },
+			    "contracts": [],
+			    "out": "externalContracts",
+			  },
+			  "localContracts": {
+			    "contracts": [
+			      {
+			        "addresses": {
+			          "1": "0xFBA3912Ca04dd458c843e2EE08967fC04f3579c2",
+			          "10": "0x1df10ec981ac5871240be4a94f250dd238b77901",
+			          "5": "0x1df10ec981ac5871240be4a94f250dd238b77901",
+			        },
+			        "name": "WagmiMintExample",
+			      },
+			    ],
+			  },
+			}
+		`)
+	})
+
 	it('should return the correct config when most options are passed in', () => {
 		const customConfig: EvmtsConfig = {
 			name: '@evmts/ts-plugin',

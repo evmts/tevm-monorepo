@@ -4,6 +4,7 @@ import { unpluginFn } from './unplugin'
 import { loadConfig } from '@evmts/config'
 import { existsSync } from 'fs'
 import { createRequire } from 'module'
+import { join } from 'path'
 import type { UnpluginBuildContext, UnpluginContext } from 'unplugin'
 import {
 	type Mock,
@@ -272,5 +273,17 @@ describe('unpluginFn', () => {
 			)
 			expect(resultInSameWorkspace).toBeNull()
 		})
+	})
+
+	it('should throw an error for invalid tsconfig option', () => {
+		const errorFn = () => unpluginFn({ tsconfig: 42 as any }, {} as any)
+		expect(errorFn).toThrowErrorMatchingInlineSnapshot(
+		'"Invalid tsconfig option: 42.  Valid options are a relative path to a tsconfig.json file"')
+	})
+
+	it('should use default tsconfig.json path when tsconfig option is not set', async () => {
+		const plugin = unpluginFn({}, {} as any)
+		await plugin.buildStart?.call(mockPlugin)
+		expect(loadConfig).toHaveBeenCalledWith(join(mockCwd, './tsconfig.json'))
 	})
 })

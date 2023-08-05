@@ -1,1 +1,1 @@
-export { esbuildPluginEvmts } from '@evmts/bundler'
+export { esbuildPluginEvmts, type Config } from '@evmts/bundler'

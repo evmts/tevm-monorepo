@@ -5,13 +5,25 @@ import { existsSync } from 'fs'
 import { createRequire } from 'module'
 import { type UnpluginFactory, createUnplugin } from 'unplugin'
 import { z } from 'zod'
+import { join } from 'path'
 
 const compilerOptionValidator = z
 	.enum(['solc', 'foundry'])
+	.optional()
 	.default('solc')
 	.describe('compiler to use.  Defaults to solc')
+const tsConfigOptionValidator = z
+	.string()
+	.optional()
+	.default('./tsconfig.json')
+	.describe('Relative path to tsconfig.json.  Defaults to ./tsconfig.json')
 
-export type CompilerOption = z.infer<typeof compilerOptionValidator>
+const configValidator = z.strictObject({
+	compiler: compilerOptionValidator,
+	tsconfig: tsConfigOptionValidator,
+}).optional().default({})
+
+export type Config = Partial<z.infer<typeof configValidator>>
 
 const bundlers = {
 	solc: bundler,
@@ -19,11 +31,9 @@ const bundlers = {
 
 // make a function with this signature
 export const unpluginFn: UnpluginFactory<
-	{ compiler?: CompilerOption } | undefined,
+	Config | undefined,
 	false
 > = (options = {}) => {
-	let config: ResolvedConfig
-
 	// for current release we will hardcode this to solc
 	const parsedCompilerOption = compilerOptionValidator.safeParse(
 		options.compiler,
@@ -35,6 +45,16 @@ export const unpluginFn: UnpluginFactory<
 	}
 	const compilerOption = parsedCompilerOption.data
 
+	const parsedTsConfigOption = tsConfigOptionValidator.safeParse(
+		options.tsconfig,
+	)
+	if (!parsedTsConfigOption.success) {
+		throw new Error(
+			`Invalid tsconfig option: ${options.tsconfig}.  Valid options are a relative path to a tsconfig.json file`,
+		)
+	}
+	const tsconfigOption = parsedTsConfigOption.data
+
 	if (compilerOption === 'foundry') {
 		throw new Error(
 			'We have abandoned the foundry option despite supporting it in the past. Please use solc instead. Foundry will be added back as a compiler at a later time.',
@@ -43,12 +63,13 @@ export const unpluginFn: UnpluginFactory<
 	const bundler = bundlers[compilerOption]
 	let moduleResolver: ReturnType<typeof bundler>
 
+	let evmtsConfig: ResolvedConfig
 	return {
 		name: '@evmts/rollup-plugin',
 		version: packageJson.version,
 		async buildStart() {
-			config = loadConfig(process.cwd())
-			moduleResolver = bundler(config, console)
+			evmtsConfig = loadConfig(join(process.cwd(), tsconfigOption))
+			moduleResolver = bundler(evmtsConfig, console)
 			this.addWatchFile('./tsconfig.json')
 		},
 		async resolveId(id, importer, options) {

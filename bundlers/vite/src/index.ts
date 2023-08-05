@@ -1,1 +1,1 @@
-export { vitePluginEvmts } from '@evmts/bundler'
+export { vitePluginEvmts, type Config } from '@evmts/bundler'
