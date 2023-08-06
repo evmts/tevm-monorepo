@@ -1,5 +1,13 @@
 # @evmts/cli
 
+## 0.7.2
+
+### Patch Changes
+
+- [#429](https://github.com/evmts/evmts-monorepo/pull/429) [`d4f7c4b`](https://github.com/evmts/evmts-monorepo/commit/d4f7c4bba7a0ff7415aedd4263adb13c5471cf7c) Thanks [@roninjin10](https://github.com/roninjin10)! - Updated all deps to latest
+
+- [#430](https://github.com/evmts/evmts-monorepo/pull/430) [`90cfc53`](https://github.com/evmts/evmts-monorepo/commit/90cfc53ea6b35127d42a09a3a96ca2e3d1d7fb81) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug with @evmts/cli where build:dist command was never added. This caused the package publishing to never find the cli package and thus never actually build it's javascript outputs
+
 ## 0.7.1
 
 ### Patch Changes
