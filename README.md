@@ -40,62 +40,26 @@ Support for all your favorite tools
 - Support for all major bundlers and frameworks including [Next.js](./docs/guides/next.md), [Esbuild](./docs/guides/esbuild.md), [Vite](./docs/guides/vite.md) and more!
 - Install contracts to use in your typescript code directly from etherscan
 
-## Get Started Quick with the [NEXT.js starter project](https://github.com/evmts/evmts-next-example)
+## Try it out
+
+Try out our [online example on stackblitz](https://stackblitz.com/~/github.com/evmts/evmts-vite-wagmi-example)
+
+## Get Started Quick 
+
+EVMts provides many starter projects and reference code to help get you started
+
+- Our most popular project is the [NEXT.js and Wagmi starter project](https://github.com/evmts/evmts-next-example)
+- Our official starter project for react projects is the [Vite and wagmi starter project](https://github.com/evmts/evmts-vite-wagmi-example)
+- We don't only support react. Try out the [Svelte ethers starter project](https://github.com/evmts/evmts-svelte-ethers-example-) 
+- Building a backend application or npm library? Check out the [esbuild and viem starter project](https://github.com/evmts/evmts-esbuild-viem-example)
 
 ## Visit [Docs](https://evmts.dev/) for docs, guides, API and more! 📄
 
+Note the docs are not guaranteed to be up to date until we reach beta status. This project follows documentation driven development so many documented features may be unimplemented.
+
 ## See [Evmts Beta project board](https://github.com/orgs/evmts/projects/1) for progress on the upcoming beta release! 💥
 
-## Runtime libraries 📦
-
-- [@evmts/core](/runtime/core) - Contains core runtime code for Evmts contracts
-- [@evmts/ethers](/runtime/ethers) - Wrapper 
-
-## Bundlers
-
-Bundlers such as Rollup, Webpack, or Vite control the import graph of JavaScript projects. This is how graphql, CSS modules, and many other filetypes work seemlessly in the JavaScript ecosystem and this is how `Evmts contract imports` are also able to work seemlessly.
-
-**With Evmts you don't need to configure ABIs and contract addresses in your application code. Just import the contract and use it**
-
-Bundlers are provided for all major tools.   If yours is not supported consider opening an issue.
-
-All bundlers are in the [bundlers/\*](/bundlers) folder
-
-- [config/](/config) - Tooling for configuring an `evmts.config.ts` file
-- [@evmts/esbuild-plugin](/bundlers/esbuild-plugin)
-- [@evmts/rollup-plugin](/bundlers/rollup-plugin)
-- [@evmts/rspack](/bundlers/rspack)
-- [@evmts/vite-plugin](/bundlers/vite-plugin)
-- [@evmts/webpack-plugin](/bundlers/webpack-plugin)
-
-## Language server tools
-
-The language service protocol is how tools such as VSCode and Neovim are able to provide features such as autocomplete, information on hover, autoimports, and more. Evmts language service tools brings this functionality to TypeScript for contracts.
-
-Also included are tools for typechecking code and code generation for those using Evmts without a bundler
-
-- [@evmts/ts-plugin](./lsp/ts-plugin/) - Typescript Server Plugin for decorating the TypeScript language server with additional functionality
-- [@evmts/vscode](./lsp/ts-plugin/) - A work-in-progress vscode plugin for Evmts
-
-The LSP has an ongoing migration to [volar](https://volarjs.github.io/) which will provide even more features.
-
-## Apps 📦
-
-- [@evmts/docs](/docs) - The official Evmts docs site
-- [examples/*](/examples) - Example apps for Evmts
-
-#### Example apps
-
-All example apps are also available as forkable repos of their own within the Evmts github organization
-
-- [examples/next](./examples/next/) - An example of a forge/next app using Evmts and Wagmi
-- [examples/vite](./examples/vite) - An example of a forge/vite app using Evmts and Wagmi
-- [examples/esbuild](./examples/esbuild) - A minimalistic example of a forge/esbuild node app using Evmts and Viem
-- [examples/rollup](./examples/rollup) - An example of a forge/rollup library built with Evmts and ethers.js
-
-## Tests ✅
-
-[e2e/](/e2e) Playwright e2e tests that run against the [example apps](./example)
+The beta release includes not only the build tools but also a local VM that can execute contract interactions blazingly fast.
 
 ## Basic usage ✨
 
@@ -121,7 +85,7 @@ import { ExampleContract } from '../contracts/ExampleContract.sol'
 
 const [account] = await walletClient.getAddresses();
 const hash = await walletClient.deployContract({
-  ...WagmiMintExample,
+  ...ExampleContract,
   account,
 });
 console.log(hash)
@@ -206,6 +170,57 @@ export const ownerOf = (tokenId = BigInt(1)) => {
 
 ```
 
+## Runtime libraries 📦
+
+- [@evmts/core](/runtime/core) - Contains core runtime code for Evmts contracts with first class [Wagmi](https://wagmi.sh/) and [Viem](https://viem.sh) support
+- [@evmts/ethers](/runtime/ethers) - Wrapper around ethers providing typesafe contracts directly with your EVMts contracts
+
+## Bundlers
+
+Bundlers such as Rollup, Webpack, or Vite control the import graph of JavaScript projects. This is how graphql, CSS modules, and many other filetypes work seemlessly in the JavaScript ecosystem and this is how `Evmts contract imports` are also able to work seemlessly.
+
+**With Evmts you don't need to configure ABIs and contract addresses in your application code. Just import the contract and use it**
+
+Bundlers are provided for all major tools.   If yours is not supported consider opening an issue.
+
+All bundlers are in the [bundlers/\*](/bundlers) folder
+
+- [config/](/config) - Tooling for configuring an `evmts.config.ts` file
+- [@evmts/esbuild-plugin](/bundlers/esbuild-plugin)
+- [@evmts/rollup-plugin](/bundlers/rollup-plugin)
+- [@evmts/rspack](/bundlers/rspack)
+- [@evmts/vite-plugin](/bundlers/vite-plugin)
+- [@evmts/webpack-plugin](/bundlers/webpack-plugin)
+
+## Language server tools
+
+The language service protocol is how tools such as VSCode and Neovim are able to provide features such as autocomplete, information on hover, autoimports, and more. Evmts language service tools brings this functionality to TypeScript for contracts.
+
+Also included are tools for typechecking code and code generation for those using Evmts without a bundler
+
+- [@evmts/ts-plugin](./lsp/ts-plugin/) - Typescript Server Plugin for decorating the TypeScript language server with additional functionality
+- [@evmts/vscode](./lsp/ts-plugin/) - A work-in-progress vscode plugin for Evmts
+
+The LSP has an ongoing migration to [volar](https://volarjs.github.io/) which will provide even more features.
+
+## Apps 📦
+
+- [@evmts/docs](/docs) - The official Evmts docs site
+- [examples/*](/examples) - Example apps for Evmts
+
+#### Example apps
+
+All example apps are also available as forkable repos of their own within the Evmts github organization
+
+- [examples/next](./examples/next/) - An example of a forge/next app using Evmts and Wagmi
+- [examples/vite](./examples/vite) - An example of a forge/vite app using Evmts and Wagmi
+- [examples/esbuild](./examples/esbuild) - A minimalistic example of a forge/esbuild node app using Evmts and Viem
+- [examples/rollup](./examples/rollup) - An example of a forge/rollup library built with Evmts and ethers.js
+
+## Tests ✅
+
+[e2e/](/e2e) Playwright e2e tests that run against the [example apps](./example)
+
 ## Try Evmts now
 
 Fork one of our example projects to give it a try!
@@ -220,11 +235,13 @@ If you believe you have found a security vulnerability we encourage you to respo
 
 ## Contributing 💻
 
-Contributions are encouraged, but please open an issue before doing anything major
+Contributions are encouraged, but please open an issue before doing any major changes to make sure your change will be accepted.
 
 ## 🚧 WARNING: UNDER CONSTRUCTION 🚧
 
 **This project is in alpha and subject to frequent changes**
+
+Reach out if you want to use EVMts in a serious project and I will help make sure your project is updated when any breaking changes happen
 
 ## Check out these tools 🔧
 
@@ -232,7 +249,7 @@ Enjoy this tool? Check out these other awesome tools that make this library poss
 
 - [abitype](https://abitype.dev/)
 - [viem](https://viem.sh)
-- [wagmi](https://wagmi.sh/react/comparison)
+- [wagmi](https://wagmi.sh/)
 - [ethers.js](https://github.com/ethers-io/ethers.js)
 - [solc](https://github.com/ethereum/solc-js/blob/master/index.ts)
 - [unplugin](https://github.com/unjs/unplugin)
@@ -246,6 +263,8 @@ And these other awesome tools that helped with development process and future fe
 - [Verifiable rpc](https://github.com/liamzebedee/eth-verifiable-rpc)
 - [Optimism](https://github.com/ethereum-optimism/optimism)
 - [helios](https://github.com/a16z/helios)
+
+Extra shoutout to Wagmi ABIType and Viem. Much of the code in this repo uses their amazing work both as a building block and as reference. Open source is undefeated.
 
 ## Future plans
 

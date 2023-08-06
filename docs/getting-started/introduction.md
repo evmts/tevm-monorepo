@@ -1,6 +1,6 @@
 # Introduction
 
-Welcome to the Evmts Imports Beta docs!
+Welcome to the EVMts Alpha docs!
 
 ::: info You will learn
 
@@ -11,16 +11,18 @@ Welcome to the Evmts Imports Beta docs!
 
 ## Overview
 
-Evmts Imports beta makes solidity a first-class citizen in TypeScript
+EVMts makes solidity a first-class citizen in TypeScript via allowing you to import your solidity files directly into your typescript code
 
 - **Import Solidity directly** ABIs melt away with the ability to import contracts directly
 - **Jump** directly from typescript files to contract implementation with go-to-definition
 - Default **contract addresses** per chain configured based on forge build artifacts
 
+It also provides a powerful CLI for installing external contracts via a block explorer API
+
 ::: tip
 Just want to try it out?
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz_small.svg)](https://stackblitz.com/github/evmts/evmts-monorepo?configPath=examples/vite)
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz_small.svg)](https://stackblitz.com/~/github.com/evmts/evmts-vite-wagmi-example)
 :::
 
 ## Evmts is simple
@@ -97,7 +99,7 @@ import {DAI} from 'contracts/DAI'
 
 Just looking to try out Evmts? Try editing this sandbox or continue on for installation instructions
 
-[TODO](https://github.com/evmts/evmts-monorepo/issues/10)
+[Link to sandbox example](https://stackblitz.com/~/github.com/evmts/evmts-vite-wagmi-example)
 
-<iframe frameborder="0" width="100%" height="500" src="https://stackblitz.com/github/evmts/evmts-monorepo?configPath=examples/vite"></iframe>
+<iframe frameborder="0" width="100%" height="500" src="https://stackblitz.com/~/github.com/evmts/evmts-vite-wagmi-example"></iframe>
 
