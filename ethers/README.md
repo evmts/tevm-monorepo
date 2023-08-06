@@ -22,7 +22,7 @@
 
 # @evmts/ethers
 
-A collection of ethers.js utilities for Evmts
+A ethers.js utilities for Evmts
 
 ## High level overview
 
