@@ -172,8 +172,12 @@ export const ownerOf = (tokenId = BigInt(1)) => {
 
 ## Runtime libraries 📦
 
-- [@evmts/core](/runtime/core) - Contains core runtime code for Evmts contracts with first class [Wagmi](https://wagmi.sh/) and [Viem](https://viem.sh) support
-- [@evmts/ethers](/runtime/ethers) - Wrapper around ethers providing typesafe contracts directly with your EVMts contracts
+- [@evmts/core](/core) - Contains core runtime code for Evmts contracts with first class [Wagmi](https://wagmi.sh/) and [Viem](https://viem.sh) support
+- [@evmts/ethers](/ethers) - Wrapper around ethers providing typesafe contracts directly with your EVMts contracts
+
+## CLI tools 
+
+- [@evmts/cli](/cli) - A cli tool for installing contracts from block explorers
 
 ## Bundlers
 
