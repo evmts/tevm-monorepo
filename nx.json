@@ -35,7 +35,7 @@
 		},
 		"build": {
 			"inputs": ["production", "outputsDist"],
-			"dependsOn": ["^build:dist", "^build:types"],
+			"dependsOn": ["^build:dist", "^build:types", "prebuild"],
 			"outputs": [
 				"{projectRoot}/dist",
 				"{projectRoot}/.vitepress/dist",
@@ -48,7 +48,7 @@
 			"outputs": ["{projectRoot}/dist"]
 		},
 		"dev": {
-			"dependsOn": ["^build"]
+			"dependsOn": ["^build", "predev"]
 		}
 	},
 	"tasksRunnerOptions": {
