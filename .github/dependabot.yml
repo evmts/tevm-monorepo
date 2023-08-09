@@ -1,9 +1,12 @@
 version: 2
 updates:
-  - package-ecosystem: 'npm'
-    directory: '/'
+  - package-ecosystem: npm
+    directory: "/"
     schedule:
-      interval: 'daily'
+      interval: daily
+      time: "16:30"
+      timezone: "America/New_York"
+    versioning-strategy: auto
 
   - package-ecosystem: 'github-actions'
     directory: '/'
