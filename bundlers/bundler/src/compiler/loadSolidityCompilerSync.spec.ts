@@ -12,7 +12,7 @@ describe('getSolidityCompilerSync', () => {
 	})
 
 	it('should have the version function', () => {
-		assert.equal(typeof getSolidityCompilerSync().version, 'function')
+		assert.equal(getSolidityCompilerSync().version().startsWith('0.8.13'), true)
 	})
 
 	it('the version function should return the version', () => {
