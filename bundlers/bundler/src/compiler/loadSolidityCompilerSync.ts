@@ -1,6 +1,6 @@
+import type { SolidityCompiler } from './types'
 // @ts-expect-error
 import { default as solc } from 'https://esm.sh/solc@0.8.13?bundle'
-import type { SolidityCompiler } from './types'
 
 /**
  * To run:

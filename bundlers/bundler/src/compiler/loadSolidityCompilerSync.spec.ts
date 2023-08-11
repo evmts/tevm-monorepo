@@ -1,6 +1,6 @@
+import { getSolidityCompilerSync } from './loadSolidityCompilerSync'
 import * as assert from 'node:assert'
 import { describe, it } from 'node:test'
-import { getSolidityCompilerSync } from './loadSolidityCompilerSync'
 
 describe('getSolidityCompilerSync', () => {
 	it('should return the solidity compiler', () => {
