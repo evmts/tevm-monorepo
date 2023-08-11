@@ -2,6 +2,7 @@
   "extends": "@evmts/tsconfig/base.json",
   "compilerOptions": {
     "composite": true,
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "outDir": "types",
     "skipLibCheck": true,
     "resolveJsonModule": true
