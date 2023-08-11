@@ -1,10 +1,9 @@
 {
   "npm.packageManager": "pnpm",
   "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
   // This makes sure the ts-plugin is loaded without needing the vscode plugin
-  "typescript.tsserver.pluginPaths": [
-    "examples/vite"
-  ],
+  "typescript.tsserver.pluginPaths": ["examples/vite"],
   "editor.formatOnSaveMode": "file",
   "editor.tabCompletion": "on",
   "editor.tabSize": 2,
@@ -27,6 +26,7 @@
     "lib": true
   },
   "files.associations": {
-    ".gas-snapshot": "julia"
+    ".gas-snapshot": "julia",
+    "base.json": "jsonc"
   }
 }

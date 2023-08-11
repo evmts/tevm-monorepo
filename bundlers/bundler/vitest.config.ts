@@ -12,5 +12,6 @@ export default defineConfig({
 			statements: 100,
 			thresholdAutoUpdate: true,
 		},
+		exclude: ['./src/compiler/loadSolidityCompiler*.ts'],
 	},
 })

@@ -1,7 +1,8 @@
 {
+	"$schema": "https://json.schemastore.org/tsconfig",
 	"compilerOptions": {
 		"target": "ESNext",
-		"lib": ["esnext"],
+		"lib": ["esnext", "dom", "dom.iterable"],
 		"module": "esnext",
 		"moduleResolution": "Node",
 		"isolatedModules": true,
