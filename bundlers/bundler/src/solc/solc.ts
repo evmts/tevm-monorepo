@@ -116,10 +116,15 @@ export type SolcOptimizer = {
 	details: SolcOptimizerDetails
 }
 
+export const fileLevelOption = '' as const
+
 export type SolcOutputSelection = {
 	[fileName: string]: {
-		[contractName: string]: Array<
+		[fileLevelOption]?: Array<'ast'>
+	} & {
+		[contractName: Exclude<string, typeof fileLevelOption>]: Array<
 			| 'abi'
+			// TODO this option is only for fileLevelOptions, but it's not clear how to type that
 			| 'ast'
 			| 'devdoc'
 			| 'evm.assembly'
