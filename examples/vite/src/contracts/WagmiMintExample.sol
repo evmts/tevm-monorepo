@@ -5,6 +5,10 @@ import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/utils/Base64.sol";
 
+/// @author Wagmi
+/// @author EVMts
+/// @title  WagmiMintExample
+/// @notice An example token original from the wagmi template
 contract WagmiMintExample is ERC721 {
     uint256 public totalSupply;
 
@@ -12,6 +16,7 @@ contract WagmiMintExample is ERC721 {
 
     constructor() ERC721("wagmi", "WAGMI") {}
 
+    /// @notice Allows an address to mint
     function mint() external {
         uint256 tokenId = nextTokenId;
         while (_exists(tokenId)) {
@@ -26,6 +31,8 @@ contract WagmiMintExample is ERC721 {
         }
     }
 
+    /// @notice Returns the token URI for a given token by ID
+    /// @param tokenId Token ID to mint.
     function mint(uint256 tokenId) external {
         require(!_exists(tokenId), "Token ID is taken");
         _safeMint(msg.sender, tokenId);
@@ -34,6 +41,9 @@ contract WagmiMintExample is ERC721 {
         }
     }
 
+    /// @notice Returns the token URI for a given token by ID
+    /// @param tokenId Token ID to query.
+    /// @return uri_ Token URI for the given token by ID.
     function tokenURI(
         uint256 tokenId
     ) public pure override returns (string memory) {

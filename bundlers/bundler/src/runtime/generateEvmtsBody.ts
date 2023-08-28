@@ -1,12 +1,6 @@
-import { generateDtsBody } from './generateEvmtsBodyDts'
 import type { ResolvedConfig } from '@evmts/config'
-
-type Artifacts = Record<
-	string,
-	{
-		abi: any
-	}
->
+import type { Artifacts } from '../solc/resolveArtifactsSync'
+import { generateDtsBody } from './generateEvmtsBodyDts'
 
 type ModuleType = 'cjs' | 'mjs' | 'ts' | 'dts'
 
@@ -19,7 +13,7 @@ export const generateEvmtsBody = (
 		return generateDtsBody(artifacts, config)
 	}
 	return Object.entries(artifacts)
-		.flatMap(([contractName, { abi }]) => {
+		.flatMap(([contractName, { abi, userdoc }]) => {
 			const contract = JSON.stringify({
 				name: contractName,
 				abi,
@@ -29,9 +23,20 @@ export const generateEvmtsBody = (
 					)?.addresses ?? {},
 			})
 
+			const natspec = Object.entries(userdoc.methods ?? {}).map(
+				([method, { notice }]) => ` * @property ${method} ${notice}`,
+			)
+			if (userdoc.notice) {
+				natspec.unshift(` * ${userdoc.notice}`)
+			}
+			if (natspec.length) {
+				natspec.unshift('/**')
+				natspec.push(' */')
+			}
 			if (moduleType === 'cjs') {
 				return [
 					`const _${contractName} = ${contract}`,
+					...natspec,
 					`module.exports.${contractName} = evmtsContractFactory(_${contractName})`,
 				]
 			}
@@ -39,12 +44,14 @@ export const generateEvmtsBody = (
 			if (moduleType === 'ts') {
 				return [
 					`const _${contractName} = ${contract} as const`,
+					...natspec,
 					`export const ${contractName} = evmtsContractFactory(_${contractName})`,
 				]
 			}
 
 			return [
 				`const _${contractName} = ${contract}`,
+				...natspec,
 				`export const ${contractName} = evmtsContractFactory(_${contractName})`,
 			]
 		})

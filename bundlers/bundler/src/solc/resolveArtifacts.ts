@@ -1,7 +1,9 @@
+import type { ResolvedConfig } from '@evmts/config'
 import type { Logger, ModuleInfo } from '../types'
 import { resolveArtifactsSync } from './resolveArtifactsSync'
-import type { ResolvedConfig } from '@evmts/config'
+import type { SolcContractOutput } from './solc'
 
+type Artifacts = Record<string, Pick<SolcContractOutput, 'abi' | 'userdoc'>>
 /**
  * Currently unimplemented just uses resolveArtifactsSync
  */
@@ -11,7 +13,7 @@ export const resolveArtifacts = async (
 	logger: Logger,
 	config: ResolvedConfig,
 ): Promise<{
-	artifacts: Record<string, { contractName: string; abi: any }>
+	artifacts: Artifacts
 	modules: Record<'string', ModuleInfo>
 }> => {
 	return resolveArtifactsSync(solFile, basedir, logger, config)

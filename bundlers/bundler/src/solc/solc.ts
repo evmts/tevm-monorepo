@@ -408,7 +408,12 @@ export type SolcContractOutput = {
 	metadata: string
 
 	// User documentation (natspec)
-	userdoc: any
+	userdoc: {
+		methods?: Record<string, { notice: string }>
+		kind: 'user'
+		notice?: string
+		version: number
+	}
 
 	// Developer documentation (natspec)
 	devdoc: any
@@ -527,5 +532,16 @@ export type SolcEwasmOutput = {
  * Typesafe wrapper around solc.compile
  */
 export const solcCompile = (input: SolcInputDescription): SolcOutput => {
-	return JSON.parse(solc.compile(JSON.stringify(input)))
+	const out: SolcOutput = JSON.parse(solc.compile(JSON.stringify(input)))
+	if (out.errors) {
+		console.error(out.errors)
+		throw new Error('Compilation failed')
+	}
+	console.log(
+		out.contracts[
+			'/Users/willcory/evmts-monorepo/examples/vite/src/contracts/WagmiMintExample.sol'
+			// rome-ignore lint/complexity/useLiteralKeys: <explanation>
+		]?.['WagmiMintExample']?.userdoc,
+	)
+	return out
 }
