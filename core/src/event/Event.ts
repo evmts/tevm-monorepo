@@ -5,7 +5,7 @@ import type {
 	ExtractAbiEventNames,
 	FormatAbi,
 } from 'abitype'
-import type { CreateEventFilterParameters } from 'viem'
+import type { BlockNumber, BlockTag, CreateEventFilterParameters } from 'viem'
 import type { MaybeExtractEventArgsFromAbi } from 'viem/dist/types/types/contract'
 
 export type ValueOf<T> = T[keyof T]
@@ -19,12 +19,16 @@ export type Events<
 }) => {
 	[TEventName in ExtractAbiEventNames<TAbi>]: (<
 		TStrict extends boolean = false,
+		TFromBlock extends BlockNumber | BlockTag | undefined = undefined,
+		TToBlock extends BlockNumber | BlockTag | undefined = undefined,
 	>(
 		params: Pick<
 			CreateEventFilterParameters<
 				ExtractAbiEvent<TAbi, TEventName>,
-				TStrict,
 				TAbi,
+				TStrict,
+				TFromBlock,
+				TToBlock,
 				TEventName,
 				MaybeExtractEventArgsFromAbi<TAbi, TEventName>
 			>,
@@ -32,8 +36,10 @@ export type Events<
 		>,
 	) => CreateEventFilterParameters<
 		ExtractAbiEvent<TAbi, TEventName>,
-		TStrict,
 		TAbi,
+		TStrict,
+		TFromBlock,
+		TToBlock,
 		TEventName,
 		MaybeExtractEventArgsFromAbi<TAbi, TEventName>
 	> & {
