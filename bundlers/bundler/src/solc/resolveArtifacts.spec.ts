@@ -47,7 +47,6 @@ describe('resolveArtifacts', () => {
 			  "artifacts": {
 			    "Test": {
 			      "abi": [],
-			      "bytecode": "0x123",
 			      "contractName": "Test",
 			    },
 			  },

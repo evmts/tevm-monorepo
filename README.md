@@ -44,13 +44,13 @@ Support for all your favorite tools
 
 Try out our [online example on stackblitz](https://stackblitz.com/~/github.com/evmts/evmts-vite-wagmi-example)
 
-## Get Started Quick 
+## Get Started Quick
 
 EVMts provides many starter projects and reference code to help get you started
 
 - Our most popular project is the [NEXT.js and Wagmi starter project](https://github.com/evmts/evmts-next-example)
 - Our official starter project for react projects is the [Vite and wagmi starter project](https://github.com/evmts/evmts-vite-wagmi-example)
-- We don't only support react. Try out the [Svelte ethers starter project](https://github.com/evmts/evmts-svelte-ethers-example-) 
+- We don't only support react. Try out the [Svelte ethers starter project](https://github.com/evmts/evmts-svelte-ethers-example-)
 - Building a backend application or npm library? Check out the [esbuild and viem starter project](https://github.com/evmts/evmts-esbuild-viem-example)
 
 ## Visit [Docs](https://evmts.dev/) for docs, guides, API and more! 📄
@@ -77,21 +77,9 @@ contract ExampleContract is ERC20 {
 }
 ```
 
-### 2. Deploy your contract with Foundry, Hardhat, or even EVMts+Viem
+### 2. Deploy your contract with Foundry or Hardhat
 
-```typescript [deploy.ts]
-import {walletClient} from './viemWalletClient'
-import { ExampleContract } from '../contracts/ExampleContract.sol'
-
-const [account] = await walletClient.getAddresses();
-const hash = await walletClient.deployContract({
-  ...ExampleContract,
-  account,
-});
-console.log(hash)
-```
-
-### 3. Optional: Configure your contract address in your Evmts config 
+### 3. Optional: Configure your contract address in your Evmts config
 
 Configuring contract addresses for contracts you are developing in the Evmts config makes it so they automatically will have the correct address on whatever network you are using at the time without needing to import or specify them inline.
 
@@ -110,7 +98,7 @@ Configuring contract addresses for contracts you are developing in the Evmts con
 
 ```
 
-### 4. Optional: Install any external contracts 
+### 4. Optional: Install any external contracts
 
 Using a third-party contract? Simply add it to your Evmts config and run `evmts generate` to install the contracts into your project. No more copy-pasting abis.
 
@@ -175,7 +163,7 @@ export const ownerOf = (tokenId = BigInt(1)) => {
 - [@evmts/core](/core) - Contains core runtime code for Evmts contracts with first class [Wagmi](https://wagmi.sh/) and [Viem](https://viem.sh) support
 - [@evmts/ethers](/ethers) - Wrapper around ethers providing typesafe contracts directly with your EVMts contracts
 
-## CLI tools 
+## CLI tools
 
 - [@evmts/cli](/cli) - A cli tool for installing contracts from block explorers
 
@@ -274,7 +262,7 @@ Extra shoutout to Wagmi ABIType and Viem. Much of the code in this repo uses the
 
 This library has ambitious future plans to add features such as
 - Ability to use forge scripts in your clientside or serverside JavaScript code
-- A clientside VM 
+- A clientside VM
 - Instant gas estimation calculated clientside
 - Optimistic execution
 - Trustless RPC layer

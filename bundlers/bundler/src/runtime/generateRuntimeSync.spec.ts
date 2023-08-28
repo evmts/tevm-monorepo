@@ -22,7 +22,6 @@ describe('generateRuntimeSync', () => {
 	const artifacts: Artifacts = {
 		MyContract: {
 			abi: [{ type: 'constructor', inputs: [] }],
-			bytecode: '0x60016001',
 			contractName: 'MyContract',
 		},
 	}

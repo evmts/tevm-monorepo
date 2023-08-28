@@ -30,8 +30,6 @@ export const generate = async (
 			{
 				[contract.name]: {
 					abi: contract.abi,
-					// TODO handle pulling down the bytecode
-					bytecode: '0x0',
 					contractName: contract.name,
 				},
 			},
@@ -43,8 +41,6 @@ export const generate = async (
 			{
 				[contract.name]: {
 					abi: contract.abi,
-					// TODO handle pulling down the bytecode
-					bytecode: '0x0',
 					contractName: contract.name,
 				},
 			},

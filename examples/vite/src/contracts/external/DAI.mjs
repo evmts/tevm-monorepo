@@ -262,7 +262,6 @@ const _DAI = {
 			type: 'function',
 		},
 	],
-	bytecode: '0x0',
 	addresses: {
 		1: '0x6B175474E89094C44Da98b954EedeAC495271d0F',
 		10: '0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1',

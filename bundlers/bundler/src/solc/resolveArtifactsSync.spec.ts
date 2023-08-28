@@ -47,7 +47,7 @@ const config: ResolvedConfig = defaultConfig
 const contracts = {
 	Test: {
 		abi: [],
-		evm: { bytecode: { object: '0x123' } },
+		evm: {},
 	},
 }
 
@@ -84,7 +84,6 @@ describe('resolveArtifactsSync', () => {
 			  "artifacts": {
 			    "Test": {
 			      "abi": [],
-			      "bytecode": "0x123",
 			      "contractName": "Test",
 			    },
 			  },
@@ -132,7 +131,6 @@ describe('resolveArtifactsSync', () => {
 			Test: {
 				contractName: 'Test',
 				abi: ['testAbi'],
-				bytecode: 'testBytecode',
 			},
 		})
 	})

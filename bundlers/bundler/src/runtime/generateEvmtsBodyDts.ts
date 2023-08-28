@@ -5,7 +5,6 @@ type Artifacts = Record<
 	string,
 	{
 		abi: any
-		bytecode: string
 	}
 >
 

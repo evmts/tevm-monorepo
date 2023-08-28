@@ -11,10 +11,7 @@ export const resolveArtifacts = async (
 	logger: Logger,
 	config: ResolvedConfig,
 ): Promise<{
-	artifacts: Record<
-		string,
-		{ contractName: string; abi: any; bytecode: string }
-	>
+	artifacts: Record<string, { contractName: string; abi: any }>
 	modules: Record<'string', ModuleInfo>
 }> => {
 	return resolveArtifactsSync(solFile, basedir, logger, config)
