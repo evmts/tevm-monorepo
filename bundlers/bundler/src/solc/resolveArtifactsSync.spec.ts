@@ -76,7 +76,7 @@ describe('resolveArtifactsSync', () => {
 		mockCompileContractSync.mockReturnValue({
 			artifacts: contracts,
 			modules: mockModules,
-		})
+		} as any)
 		expect(
 			resolveArtifactsSync(solFile, basedir, logger, config),
 		).toMatchInlineSnapshot(`
@@ -119,10 +119,10 @@ describe('resolveArtifactsSync', () => {
 		mockCompileContractSync.mockReturnValue({
 			artifacts: {
 				Test: {
-					abi: ['testAbi'],
-					evm: { bytecode: { object: 'testBytecode' } },
+					abi: ['testAbi'] as any,
+					evm: { bytecode: { object: 'testBytecode' } } as any,
 				},
-			},
+			} as any,
 			modules: mockModules,
 		})
 

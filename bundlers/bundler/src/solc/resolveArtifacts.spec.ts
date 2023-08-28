@@ -39,7 +39,7 @@ describe('resolveArtifacts', () => {
 		mockCompileContractSync.mockReturnValue({
 			artifacts: contracts,
 			modules: {} as Record<string, ModuleInfo>,
-		})
+		} as any)
 		expect(
 			await resolveArtifacts(solFile, basedir, logger, config),
 		).toMatchInlineSnapshot(`
