@@ -1,8 +1,12 @@
 import type { Logger, ModuleInfo } from '../types'
 import { compileContractSync } from './compileContracts'
+import type { SolcContractOutput } from './solc'
 import type { ResolvedConfig } from '@evmts/config'
 
-export type Artifacts = Record<string, { contractName: string; abi: any }>
+export type Artifacts = Record<
+	string,
+	Pick<SolcContractOutput, 'abi' | 'userdoc'>
+>
 
 export const resolveArtifactsSync = (
 	solFile: string,
@@ -30,8 +34,10 @@ export const resolveArtifactsSync = (
 	return {
 		artifacts: Object.fromEntries(
 			Object.entries(artifacts).map(([contractName, contract]) => {
-				const abi = (contract as any).abi
-				return [contractName, { contractName, abi }]
+				return [
+					contractName,
+					{ contractName, abi: contract.abi, userdoc: contract.userdoc },
+				]
 			}),
 		),
 		modules,

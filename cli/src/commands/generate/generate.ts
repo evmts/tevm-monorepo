@@ -30,7 +30,10 @@ export const generate = async (
 			{
 				[contract.name]: {
 					abi: contract.abi,
-					contractName: contract.name,
+					userdoc: {
+						kind: 'user',
+						version: 1,
+					},
 				},
 			},
 			modifiedConfig,
@@ -41,7 +44,10 @@ export const generate = async (
 			{
 				[contract.name]: {
 					abi: contract.abi,
-					contractName: contract.name,
+					userdoc: {
+						kind: 'user',
+						version: 1,
+					},
 				},
 			},
 			modifiedConfig,

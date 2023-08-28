@@ -85,6 +85,7 @@ describe('resolveArtifactsSync', () => {
 			    "Test": {
 			      "abi": [],
 			      "contractName": "Test",
+			      "userdoc": undefined,
 			    },
 			  },
 			  "modules": {
