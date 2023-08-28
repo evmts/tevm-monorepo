@@ -21,8 +21,17 @@ const mockLogger = { ...console, warn: vi.fn() }
 describe('generateRuntimeSync', () => {
 	const artifacts: Artifacts = {
 		MyContract: {
-			abi: [{ type: 'constructor', inputs: [] }],
-			contractName: 'MyContract',
+			abi: [{ type: 'constructor', inputs: [], stateMutability: 'payable' }],
+			userdoc: {
+				kind: 'user',
+				version: 1,
+				notice: 'MyContract',
+				methods: {
+					'balanceOf(address)': {
+						notice: 'Returns the amount of tokens owned by account',
+					},
+				},
+			},
 		},
 	}
 	const config = defaultConfig

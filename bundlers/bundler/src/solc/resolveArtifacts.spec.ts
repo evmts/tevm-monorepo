@@ -48,6 +48,7 @@ describe('resolveArtifacts', () => {
 			    "Test": {
 			      "abi": [],
 			      "contractName": "Test",
+			      "userdoc": undefined,
 			    },
 			  },
 			  "modules": {},

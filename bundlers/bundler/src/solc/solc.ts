@@ -533,15 +533,5 @@ export type SolcEwasmOutput = {
  */
 export const solcCompile = (input: SolcInputDescription): SolcOutput => {
 	const out: SolcOutput = JSON.parse(solc.compile(JSON.stringify(input)))
-	if (out.errors) {
-		console.error(out.errors)
-		throw new Error('Compilation failed')
-	}
-	console.log(
-		out.contracts[
-			'/Users/willcory/evmts-monorepo/examples/vite/src/contracts/WagmiMintExample.sol'
-			// rome-ignore lint/complexity/useLiteralKeys: <explanation>
-		]?.['WagmiMintExample']?.userdoc,
-	)
 	return out
 }

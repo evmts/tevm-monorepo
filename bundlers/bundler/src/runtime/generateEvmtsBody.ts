@@ -1,6 +1,6 @@
-import type { ResolvedConfig } from '@evmts/config'
 import type { Artifacts } from '../solc/resolveArtifactsSync'
 import { generateDtsBody } from './generateEvmtsBodyDts'
+import type { ResolvedConfig } from '@evmts/config'
 
 type ModuleType = 'cjs' | 'mjs' | 'ts' | 'dts'
 
@@ -13,7 +13,7 @@ export const generateEvmtsBody = (
 		return generateDtsBody(artifacts, config)
 	}
 	return Object.entries(artifacts)
-		.flatMap(([contractName, { abi, userdoc }]) => {
+		.flatMap(([contractName, { abi, userdoc = {} }]) => {
 			const contract = JSON.stringify({
 				name: contractName,
 				abi,

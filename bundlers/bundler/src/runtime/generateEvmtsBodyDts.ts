@@ -1,13 +1,13 @@
-import type { ResolvedConfig } from '@evmts/config'
 import type { Artifacts } from '../solc/resolveArtifactsSync'
 import { getEtherscanLinks } from '../utils'
+import type { ResolvedConfig } from '@evmts/config'
 
 export const generateDtsBody = (
 	artifacts: Artifacts,
 	config: ResolvedConfig,
 ) => {
 	return Object.entries(artifacts)
-		.flatMap(([contractName, { abi, userdoc }]) => {
+		.flatMap(([contractName, { abi, userdoc = {} }]) => {
 			const contract = {
 				name: contractName,
 				abi,

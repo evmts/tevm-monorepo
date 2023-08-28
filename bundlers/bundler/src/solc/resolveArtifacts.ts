@@ -1,7 +1,7 @@
-import type { ResolvedConfig } from '@evmts/config'
 import type { Logger, ModuleInfo } from '../types'
 import { resolveArtifactsSync } from './resolveArtifactsSync'
 import type { SolcContractOutput } from './solc'
+import type { ResolvedConfig } from '@evmts/config'
 
 type Artifacts = Record<string, Pick<SolcContractOutput, 'abi' | 'userdoc'>>
 /**
