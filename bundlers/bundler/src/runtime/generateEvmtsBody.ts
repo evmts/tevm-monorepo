@@ -5,7 +5,6 @@ type Artifacts = Record<
 	string,
 	{
 		abi: any
-		bytecode: string
 	}
 >
 
@@ -20,11 +19,10 @@ export const generateEvmtsBody = (
 		return generateDtsBody(artifacts, config)
 	}
 	return Object.entries(artifacts)
-		.flatMap(([contractName, { abi, bytecode }]) => {
+		.flatMap(([contractName, { abi }]) => {
 			const contract = JSON.stringify({
 				name: contractName,
 				abi,
-				bytecode,
 				addresses:
 					config.localContracts.contracts?.find(
 						(contractConfig) => contractConfig.name === contractName,

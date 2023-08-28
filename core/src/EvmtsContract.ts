@@ -11,7 +11,6 @@ export type EvmtsContract<
 > = {
 	abi: TAbi
 	humanReadableAbi: THumanReadableAbi
-	bytecode: `0x${string}`
 	name: TName
 	addresses: TAddresses
 	events: Events<TName, TAddresses, TAbi>

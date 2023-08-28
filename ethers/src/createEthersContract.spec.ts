@@ -209,7 +209,6 @@ const evmtsContract = evmtsContractFactory({
 	abi,
 	name: 'test',
 	addresses: { 420: '0x32307adfFE088e383AFAa721b06436aDaBA47DBE' },
-	bytecode: '0x0',
 })
 
 const provider = new JsonRpcProvider('https://goerli.optimism.io', 420)
@@ -305,7 +304,6 @@ describe(createEthersContract.name, () => {
 			abi,
 			name: 'test',
 			addresses: { 420: '0xnot an ethereum address' },
-			bytecode: '0x0',
 		} as const
 		expect(() =>
 			createEthersContract(invalidContract, { runner: provider, chainId: 420 }),
@@ -326,7 +324,6 @@ describe(createEthersContract.name, () => {
 			abi,
 			name: 'test',
 			addresses: { 420: '0xnot an ethereum address' },
-			bytecode: '0x0',
 		} as const
 		expect(() =>
 			// @ts-expect-error

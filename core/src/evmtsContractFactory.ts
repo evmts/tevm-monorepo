@@ -14,10 +14,9 @@ export const evmtsContractFactory = <
 	abi,
 	name,
 	addresses,
-	bytecode,
 }: Pick<
 	EvmtsContract<TName, TAddresses, TAbi>,
-	'name' | 'abi' | 'addresses' | 'bytecode'
+	'name' | 'abi' | 'addresses'
 >): EvmtsContract<TName, TAddresses, TAbi> => {
 	Object.values(addresses).forEach((address) => {
 		if (!isAddress(address)) {
@@ -32,7 +31,6 @@ export const evmtsContractFactory = <
 		abi,
 		humanReadableAbi: formatAbi(abi),
 		addresses,
-		bytecode,
 		// TODO make this more internally typesafe
 		events: eventsFactory({ abi, addresses }) as any,
 		// TODO make this more internally typesafe

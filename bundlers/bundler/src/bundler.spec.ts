@@ -301,7 +301,7 @@ describe(bundler.name, () => {
 
 		it('should generate proper dts if artifacts are found', async () => {
 			const artifacts = {
-				TestContract: { contractName: 'TestContract', abi: [], bytecode: '' },
+				TestContract: { contractName: 'TestContract', abi: [] },
 			}
 			mockResolveArtifacts.mockResolvedValueOnce({
 				artifacts,
@@ -356,7 +356,6 @@ describe(bundler.name, () => {
 				TestContract: {
 					contractName: 'TestContract',
 					abi: erc20Abi,
-					bytecode: '0x420',
 				},
 			}
 			mockResolveArtifactsSync.mockReturnValueOnce({
@@ -454,7 +453,7 @@ export const WagmiReads = () => {
 
 		it('should generate proper dts if artifacts are found', () => {
 			const artifacts = {
-				TestContract: { contractName: 'TestContract', abi: [], bytecode: '' },
+				TestContract: { contractName: 'TestContract', abi: [] },
 			}
 			mockResolveArtifactsSync.mockReturnValueOnce({
 				artifacts,
@@ -514,7 +513,7 @@ export const WagmiReads = () => {
 
 		it('should generate proper dts if artifacts are found', () => {
 			const artifacts = {
-				TestContract: { contractName: 'TestContract', abi: [], bytecode: '' },
+				TestContract: { contractName: 'TestContract', abi: [] },
 			}
 			;(resolveArtifactsSync as Mock).mockReturnValueOnce({
 				artifacts,
@@ -524,7 +523,7 @@ export const WagmiReads = () => {
 			expect(result).toMatchInlineSnapshot(`
 				{
 				  "code": "import { evmtsContractFactory } from '@evmts/core'
-				const _TestContract = {\\"name\\":\\"TestContract\\",\\"abi\\":[],\\"bytecode\\":\\"\\",\\"addresses\\":{\\"10\\":\\"0x123\\"}} as const
+				const _TestContract = {\\"name\\":\\"TestContract\\",\\"abi\\":[],\\"addresses\\":{\\"10\\":\\"0x123\\"}} as const
 				export const TestContract = evmtsContractFactory(_TestContract)",
 				  "modules": {
 				    "module1": {
@@ -568,7 +567,7 @@ export const WagmiReads = () => {
 
 		it('should generate proper dts if artifacts are found', async () => {
 			const artifacts = {
-				TestContract: { contractName: 'TestContract', abi: [], bytecode: '' },
+				TestContract: { contractName: 'TestContract', abi: [] },
 			}
 			mockResolveArtifacts.mockResolvedValueOnce({
 				artifacts,
@@ -578,7 +577,7 @@ export const WagmiReads = () => {
 			expect(result).toMatchInlineSnapshot(`
 				{
 				  "code": "import { evmtsContractFactory } from '@evmts/core'
-				const _TestContract = {\\"name\\":\\"TestContract\\",\\"abi\\":[],\\"bytecode\\":\\"\\",\\"addresses\\":{\\"10\\":\\"0x123\\"}} as const
+				const _TestContract = {\\"name\\":\\"TestContract\\",\\"abi\\":[],\\"addresses\\":{\\"10\\":\\"0x123\\"}} as const
 				export const TestContract = evmtsContractFactory(_TestContract)",
 				  "modules": {
 				    "module1": {
@@ -622,7 +621,7 @@ export const WagmiReads = () => {
 
 		it('should generate proper CommonJS module if artifacts are found', () => {
 			const artifacts = {
-				TestContract: { contractName: 'TestContract', abi: [], bytecode: '' },
+				TestContract: { contractName: 'TestContract', abi: [] },
 			}
 			mockResolveArtifactsSync.mockReturnValueOnce({
 				artifacts,
@@ -632,7 +631,7 @@ export const WagmiReads = () => {
 			expect(result).toMatchInlineSnapshot(`
 				{
 				  "code": "const { evmtsContractFactory } = require('@evmts/core')
-				const _TestContract = {\\"name\\":\\"TestContract\\",\\"abi\\":[],\\"bytecode\\":\\"\\",\\"addresses\\":{\\"10\\":\\"0x123\\"}}
+				const _TestContract = {\\"name\\":\\"TestContract\\",\\"abi\\":[],\\"addresses\\":{\\"10\\":\\"0x123\\"}}
 				module.exports.TestContract = evmtsContractFactory(_TestContract)",
 				  "modules": {
 				    "module1": {
@@ -676,7 +675,7 @@ export const WagmiReads = () => {
 
 		it('should generate proper CommonJS module if artifacts are found', async () => {
 			const artifacts = {
-				TestContract: { contractName: 'TestContract', abi: [], bytecode: '' },
+				TestContract: { contractName: 'TestContract', abi: [] },
 			}
 			mockResolveArtifacts.mockResolvedValueOnce({
 				artifacts,
@@ -686,7 +685,7 @@ export const WagmiReads = () => {
 			expect(result).toMatchInlineSnapshot(`
 				{
 				  "code": "const { evmtsContractFactory } = require('@evmts/core')
-				const _TestContract = {\\"name\\":\\"TestContract\\",\\"abi\\":[],\\"bytecode\\":\\"\\",\\"addresses\\":{\\"10\\":\\"0x123\\"}}
+				const _TestContract = {\\"name\\":\\"TestContract\\",\\"abi\\":[],\\"addresses\\":{\\"10\\":\\"0x123\\"}}
 				module.exports.TestContract = evmtsContractFactory(_TestContract)",
 				  "modules": {
 				    "module1": {
@@ -730,7 +729,7 @@ export const WagmiReads = () => {
 
 		it('should generate proper ESM module if artifacts are found', () => {
 			const artifacts = {
-				TestContract: { contractName: 'TestContract', abi: [], bytecode: '' },
+				TestContract: { contractName: 'TestContract', abi: [] },
 			}
 			mockResolveArtifactsSync.mockReturnValueOnce({
 				artifacts,
@@ -740,7 +739,7 @@ export const WagmiReads = () => {
 			expect(result).toMatchInlineSnapshot(`
 				{
 				  "code": "import { evmtsContractFactory } from '@evmts/core'
-				const _TestContract = {\\"name\\":\\"TestContract\\",\\"abi\\":[],\\"bytecode\\":\\"\\",\\"addresses\\":{\\"10\\":\\"0x123\\"}}
+				const _TestContract = {\\"name\\":\\"TestContract\\",\\"abi\\":[],\\"addresses\\":{\\"10\\":\\"0x123\\"}}
 				export const TestContract = evmtsContractFactory(_TestContract)",
 				  "modules": {
 				    "module1": {
@@ -784,7 +783,7 @@ export const WagmiReads = () => {
 
 		it('should generate proper ESM module if artifacts are found', async () => {
 			const artifacts = {
-				TestContract: { contractName: 'TestContract', abi: [], bytecode: '' },
+				TestContract: { contractName: 'TestContract', abi: [] },
 			}
 			mockResolveArtifacts.mockResolvedValueOnce({
 				artifacts,
@@ -794,7 +793,7 @@ export const WagmiReads = () => {
 			expect(result).toMatchInlineSnapshot(`
 				{
 				  "code": "import { evmtsContractFactory } from '@evmts/core'
-				const _TestContract = {\\"name\\":\\"TestContract\\",\\"abi\\":[],\\"bytecode\\":\\"\\",\\"addresses\\":{\\"10\\":\\"0x123\\"}}
+				const _TestContract = {\\"name\\":\\"TestContract\\",\\"abi\\":[],\\"addresses\\":{\\"10\\":\\"0x123\\"}}
 				export const TestContract = evmtsContractFactory(_TestContract)",
 				  "modules": {
 				    "module1": {

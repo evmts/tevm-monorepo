@@ -76,7 +76,6 @@ export default {
   contractPath,
   address,
   abi,
-  bytecode,
 };
 ```
 

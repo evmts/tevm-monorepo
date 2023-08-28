@@ -1,6 +1,3 @@
-import { readFileSync } from 'fs'
-import type { ResolvedConfig } from '@evmts/config'
-import * as resolve from 'resolve'
 import type { ModuleInfo } from '../types'
 import { invariant } from '../utils/invariant'
 import { moduleFactory } from './moduleFactory'
@@ -10,8 +7,11 @@ import {
 	fileLevelOption,
 	solcCompile,
 } from './solc'
+import type { ResolvedConfig } from '@evmts/config'
+import { readFileSync } from 'fs'
+import * as resolve from 'resolve'
 
-// Compile the Solidity contract and return its ABI and bytecode
+// Compile the Solidity contract and return its ABI
 export const compileContractSync = (
 	filePath: string,
 	basedir: string,
