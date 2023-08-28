@@ -1,12 +1,10 @@
 import type { ModuleInfo } from '../types'
 import { invariant } from '../utils/invariant'
 import { moduleFactory } from './moduleFactory'
+import { type SolcInputDescription, type SolcOutput, solcCompile } from './solc'
 import type { ResolvedConfig } from '@evmts/config'
 import { readFileSync } from 'fs'
 import * as resolve from 'resolve'
-// TODO wrap this in a typesafe version
-// @ts-ignore
-import solc from 'solc'
 
 // Compile the Solidity contract and return its ABI and bytecode
 export const compileContractSync = (
@@ -14,7 +12,7 @@ export const compileContractSync = (
 	basedir: string,
 	config: ResolvedConfig['compiler'],
 ): {
-	artifacts: solc.CompiledContract | undefined
+	artifacts: SolcOutput['contracts'][string] | undefined
 	modules: Record<'string', ModuleInfo>
 } => {
 	const source: string = readFileSync(
@@ -60,11 +58,11 @@ export const compileContractSync = (
 
 	const sources = Object.fromEntries(
 		Object.entries(allModules).map(([id, module]) => {
-			return [id, { content: module.code }]
+			return [id, { content: module.code as string }]
 		}),
 	)
 
-	const input: solc.InputDescription = {
+	const input: SolcInputDescription = {
 		language: 'Solidity',
 		sources,
 		settings: {
@@ -76,14 +74,10 @@ export const compileContractSync = (
 		},
 	}
 
-	const output: solc.OutputDescription = JSON.parse(
-		solc.compile(JSON.stringify(input)),
-	)
+	const output = solcCompile(input)
 
-	const warnings = output?.errors?.filter(
-		({ type }: { type: 'Warning' | 'Error' }) => type === 'Warning',
-	)
-	const isErrors = output?.errors?.length > warnings?.length
+	const warnings = output?.errors?.filter(({ type }) => type === 'Warning')
+	const isErrors = (output?.errors?.length ?? 0) > (warnings?.length ?? 0)
 
 	if (isErrors) {
 		console.error('Compilation errors:', output?.errors)
