@@ -5,6 +5,13 @@ type BundlerResult = {
 	modules: Record<'string', ModuleInfo>
 }
 
+type AsyncBundlerResult = (module: string, basedir: string,
+	includeAst: boolean,
+) => Promise<BundlerResult>
+type SyncBundlerResult = (module: string, basedir: string,
+	includeAst: boolean,
+) => BundlerResult
+
 export type Bundler = (
 	config: ResolvedConfig,
 	logger: Logger,
@@ -22,35 +29,35 @@ export type Bundler = (
 	/**
 	 * Resolves .d.ts representation of the solidity module
 	 */
-	resolveDts: (module: string, basedir: string) => Promise<BundlerResult>
+	resolveDts: AsyncBundlerResult
 	/**
 	 * Resolves .d.ts representation of the solidity module
 	 */
-	resolveDtsSync: (module: string, basedir: string) => BundlerResult
+	resolveDtsSync: SyncBundlerResult
 	/**
 	 * Resolves typescript representation of the solidity module
 	 */
-	resolveTsModule: (module: string, basedir: string) => Promise<BundlerResult>
+	resolveTsModule: AsyncBundlerResult
 	/**
 	 * Resolves typescript representation of the solidity module
 	 */
-	resolveTsModuleSync: (module: string, basedir: string) => BundlerResult
+	resolveTsModuleSync: SyncBundlerResult
 	/**
 	 * Resolves cjs representation of the solidity module
 	 */
-	resolveCjsModule: (module: string, basedir: string) => Promise<BundlerResult>
+	resolveCjsModule: AsyncBundlerResult
 	/**
 	 * Resolves cjs representation of the solidity module
 	 */
-	resolveCjsModuleSync: (module: string, basedir: string) => BundlerResult
+	resolveCjsModuleSync: SyncBundlerResult
 	/**
 	 * Resolves the esm representation of the solidity module
 	 */
-	resolveEsmModule: (module: string, basedir: string) => Promise<BundlerResult>
+	resolveEsmModule: AsyncBundlerResult
 	/**
 	 * Resolves the esm representation of the solidity module
 	 */
-	resolveEsmModuleSync: (module: string, basedir: string) => BundlerResult
+	resolveEsmModuleSync: SyncBundlerResult
 }
 
 export type Logger = {

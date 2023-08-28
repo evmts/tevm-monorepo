@@ -1,6 +1,3 @@
-import type { Logger, ModuleInfo } from '../types'
-import { compileContractSync } from './compileContracts'
-import { resolveArtifacts } from './resolveArtifacts'
 import { type ResolvedConfig, defaultConfig } from '@evmts/config'
 import {
 	type MockedFunction,
@@ -10,6 +7,9 @@ import {
 	it,
 	vi,
 } from 'vitest'
+import type { Logger, ModuleInfo } from '../types'
+import { compileContractSync } from './compileContracts'
+import { resolveArtifacts } from './resolveArtifacts'
 
 vi.mock('./compileContracts', () => ({
 	compileContractSync: vi.fn(),
@@ -41,7 +41,7 @@ describe('resolveArtifacts', () => {
 			modules: {} as Record<string, ModuleInfo>,
 		} as any)
 		expect(
-			await resolveArtifacts(solFile, basedir, logger, config),
+			await resolveArtifacts(solFile, basedir, logger, config, false),
 		).toMatchInlineSnapshot(`
 			{
 			  "artifacts": {

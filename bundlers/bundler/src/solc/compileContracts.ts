@@ -1,16 +1,22 @@
+import { readFileSync } from 'fs'
+import type { ResolvedConfig } from '@evmts/config'
+import * as resolve from 'resolve'
+import { findAll } from 'solidity-ast/utils'
 import type { ModuleInfo } from '../types'
 import { invariant } from '../utils/invariant'
 import { moduleFactory } from './moduleFactory'
-import { type SolcInputDescription, type SolcOutput, solcCompile } from './solc'
-import type { ResolvedConfig } from '@evmts/config'
-import { readFileSync } from 'fs'
-import * as resolve from 'resolve'
+import {
+	type SolcInputDescription,
+	type SolcOutput,
+	solcCompile,
+} from './solc'
 
 // Compile the Solidity contract and return its ABI
 export const compileContractSync = (
 	filePath: string,
 	basedir: string,
 	config: ResolvedConfig['compiler'],
+	includeAst: boolean,
 ): {
 	artifacts: SolcOutput['contracts'][string] | undefined
 	modules: Record<'string', ModuleInfo>
@@ -69,6 +75,7 @@ export const compileContractSync = (
 			outputSelection: {
 				'*': {
 					'*': ['abi', 'userdoc'],
+					...(includeAst ? { "": ["ast"] } : {}),
 				},
 			},
 		},
@@ -85,6 +92,17 @@ export const compileContractSync = (
 	}
 	if (warnings?.length) {
 		console.warn('Compilation warnings:', output?.errors)
+	}
+
+	const ast =
+		output?.sources?.[
+			'/Users/willcory/evmts-monorepo/examples/vite/src/contracts/WagmiMintExample.sol'
+		]?.ast
+
+	if (ast) {
+		for (const functionDef of findAll('FunctionDefinition', ast)) {
+			console.log('findAll functionDef', functionDef)
+		}
 	}
 
 	return { artifacts: output.contracts[entryModule.id], modules: allModules }

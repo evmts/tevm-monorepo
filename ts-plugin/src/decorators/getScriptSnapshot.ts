@@ -1,7 +1,7 @@
+import { existsSync } from 'fs'
+import { bundler } from '@evmts/bundler'
 import { createDecorator } from '../factories'
 import { isSolidity } from '../utils'
-import { bundler } from '@evmts/bundler'
-import { existsSync } from 'fs'
 
 /**
  * Decorate `LangaugeServerHost.getScriptSnapshot` to return generated `.d.ts` file for `.sol` files
@@ -23,7 +23,7 @@ export const getScriptSnapshotDecorator = createDecorator(
 				}
 				try {
 					const plugin = bundler(config, logger as any)
-					const snapshot = plugin.resolveDtsSync(filePath, process.cwd())
+					const snapshot = plugin.resolveDtsSync(filePath, process.cwd(), false)
 					return ts.ScriptSnapshot.fromString(snapshot.code)
 				} catch (e) {
 					logger.error(

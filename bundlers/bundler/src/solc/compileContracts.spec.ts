@@ -85,7 +85,7 @@ describe('compileContractSync', () => {
 	})
 
 	it('should compile a contract correctly', () => {
-		const compiledContract = compileContractSync(filePath, basedir, config)
+		const compiledContract = compileContractSync(filePath, basedir, config, false)
 
 		expect(compiledContract).toMatchInlineSnapshot(`
 			{
@@ -152,7 +152,7 @@ describe('compileContractSync', () => {
 			}),
 		)
 		expect(() =>
-			compileContractSync(filePath, basedir, config),
+			compileContractSync(filePath, basedir, config, false),
 		).toThrowErrorMatchingInlineSnapshot('"Compilation failed"')
 		expect(console.error).toHaveBeenCalledWith('Compilation errors:', [
 			{ type: 'Error', message: 'Compilation Error' },
@@ -166,7 +166,7 @@ describe('compileContractSync', () => {
 				errors: [{ type: 'Warning', message: 'Compilation Warning' }],
 			}),
 		)
-		compileContractSync(filePath, basedir, config)
+		compileContractSync(filePath, basedir, config, false)
 		expect((console.warn as Mock).mock.lastCall[0]).toMatchInlineSnapshot(
 			'"Compilation warnings:"',
 		)
@@ -179,7 +179,7 @@ describe('compileContractSync', () => {
 				errors: [],
 			}),
 		)
-		compileContractSync(filePath, basedir, config)
+		compileContractSync(filePath, basedir, config, false)
 		expect(console.warn).not.toHaveBeenCalled()
 	})
 
@@ -211,7 +211,7 @@ describe('compileContractSync', () => {
 		mockModuleA.resolutions.push(mockModuleB)
 		mockModuleFactory.mockReturnValue(mockModuleA)
 		expect(
-			compileContractSync(filePath, basedir, config),
+			compileContractSync(filePath, basedir, config, false),
 		).toMatchInlineSnapshot(`
 			{
 			  "artifacts": undefined,

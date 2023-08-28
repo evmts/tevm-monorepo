@@ -1,6 +1,3 @@
-import type { Logger, ModuleInfo } from '../types'
-import { compileContractSync } from './compileContracts'
-import { resolveArtifactsSync } from './resolveArtifactsSync'
 import { type ResolvedConfig, defaultConfig } from '@evmts/config'
 import {
 	type MockedFunction,
@@ -10,6 +7,9 @@ import {
 	it,
 	vi,
 } from 'vitest'
+import type { Logger, ModuleInfo } from '../types'
+import { compileContractSync } from './compileContracts'
+import { resolveArtifactsSync } from './resolveArtifactsSync'
 
 vi.mock('./compileContracts', () => ({
 	compileContractSync: vi.fn(),
@@ -58,7 +58,7 @@ const mockCompileContractSync = compileContractSync as MockedFunction<
 describe('resolveArtifactsSync', () => {
 	it('should throw an error if the file is not a solidity file', () => {
 		expect(() =>
-			resolveArtifactsSync('test.txt', basedir, logger, config),
+			resolveArtifactsSync('test.txt', basedir, logger, config, false),
 		).toThrowErrorMatchingInlineSnapshot('"Not a solidity file"')
 	})
 
@@ -68,7 +68,7 @@ describe('resolveArtifactsSync', () => {
 			throw new Error('Oops')
 		})
 		expect(() =>
-			resolveArtifactsSync(solFile, basedir, logger, config),
+			resolveArtifactsSync(solFile, basedir, logger, config, false),
 		).toThrowErrorMatchingInlineSnapshot('"Oops"')
 	})
 
@@ -78,7 +78,7 @@ describe('resolveArtifactsSync', () => {
 			modules: mockModules,
 		} as any)
 		expect(
-			resolveArtifactsSync(solFile, basedir, logger, config),
+			resolveArtifactsSync(solFile, basedir, logger, config, false),
 		).toMatchInlineSnapshot(`
 			{
 			  "artifacts": {
@@ -126,7 +126,13 @@ describe('resolveArtifactsSync', () => {
 			modules: mockModules,
 		})
 
-		const { artifacts } = resolveArtifactsSync(solFile, basedir, logger, config)
+		const { artifacts } = resolveArtifactsSync(
+			solFile,
+			basedir,
+			logger,
+			config,
+			false,
+		)
 
 		expect(artifacts).toEqual({
 			Test: {
@@ -143,7 +149,7 @@ describe('resolveArtifactsSync', () => {
 		})
 
 		expect(() =>
-			resolveArtifactsSync(solFile, basedir, logger, config),
+			resolveArtifactsSync(solFile, basedir, logger, config, false),
 		).toThrowErrorMatchingInlineSnapshot('"Compilation failed"')
 	})
 })

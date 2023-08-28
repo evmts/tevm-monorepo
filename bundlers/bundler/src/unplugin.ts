@@ -1,10 +1,10 @@
-import * as packageJson from '../package.json'
-import { bundler } from './bundler'
-import { type ResolvedConfig, loadConfig } from '@evmts/config'
 import { existsSync } from 'fs'
 import { createRequire } from 'module'
+import { type ResolvedConfig, loadConfig } from '@evmts/config'
 import { type UnpluginFactory, createUnplugin } from 'unplugin'
 import { z } from 'zod'
+import * as packageJson from '../package.json'
+import { bundler } from './bundler'
 
 const compilerOptionValidator = z
 	.enum(['solc', 'foundry'])
@@ -77,6 +77,7 @@ export const unpluginFn: UnpluginFactory<
 			const { code, modules } = await moduleResolver.resolveEsmModule(
 				id,
 				process.cwd(),
+				false,
 			)
 			Object.values(modules).forEach((module) => {
 				if (module.id.includes('node_modules')) {

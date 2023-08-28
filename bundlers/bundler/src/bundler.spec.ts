@@ -1,6 +1,3 @@
-import { bundler } from './bundler'
-import { resolveArtifacts, resolveArtifactsSync } from './solc'
-import type { Bundler, ModuleInfo } from './types'
 import { writeFileSync } from 'fs'
 import * as ts from 'typescript'
 import {
@@ -12,6 +9,9 @@ import {
 	it,
 	vi,
 } from 'vitest'
+import { bundler } from './bundler'
+import { resolveArtifacts, resolveArtifactsSync } from './solc'
+import type { Bundler, ModuleInfo } from './types'
 
 const erc20Abi = [
 	{
@@ -290,7 +290,7 @@ describe(bundler.name, () => {
 	describe('resolveDts', () => {
 		it('should return an empty string if no artifacts are found', async () => {
 			mockResolveArtifacts.mockResolvedValueOnce({})
-			const result = await resolver.resolveDts('module', 'basedir')
+			const result = await resolver.resolveDts('module', 'basedir', false)
 			expect(result).toMatchInlineSnapshot(`
 				{
 				  "code": "",
@@ -307,7 +307,7 @@ describe(bundler.name, () => {
 				artifacts,
 				modules: mockModules,
 			})
-			const result = await resolver.resolveDts('module', 'basedir')
+			const result = await resolver.resolveDts('module', 'basedir', false)
 			expect(result).toMatchInlineSnapshot(`
 				{
 				  "code": "import { EvmtsContract } from '@evmts/core'
@@ -362,7 +362,7 @@ describe(bundler.name, () => {
 				artifacts,
 				modules: mockModules,
 			})
-			const result = resolver.resolveDtsSync('module', 'basedir')
+			const result = resolver.resolveDtsSync('module', 'basedir', false)
 			const source = `
 import { TestContract } from './TestContract.js'
 import { Address, useAccount, useContractRead } from 'wagmi'
@@ -442,7 +442,7 @@ export const WagmiReads = () => {
 		})
 		it('should return an empty string if no artifacts are found', () => {
 			mockResolveArtifactsSync.mockReturnValueOnce({})
-			const result = resolver.resolveDtsSync('module', 'basedir')
+			const result = resolver.resolveDtsSync('module', 'basedir', false)
 			expect(result).toMatchInlineSnapshot(`
 				{
 				  "code": "",
@@ -459,7 +459,7 @@ export const WagmiReads = () => {
 				artifacts,
 				modules: mockModules,
 			})
-			const result = resolver.resolveDtsSync('module', 'basedir')
+			const result = resolver.resolveDtsSync('module', 'basedir', false)
 			expect(result).toMatchInlineSnapshot(`
 				{
 				  "code": "import { EvmtsContract } from '@evmts/core'
@@ -502,7 +502,7 @@ export const WagmiReads = () => {
 	describe('resolveTsModuleSync', () => {
 		it('should return an empty string if no artifacts are found', () => {
 			mockResolveArtifactsSync.mockReturnValueOnce({})
-			const result = resolver.resolveTsModuleSync('module', 'basedir')
+			const result = resolver.resolveTsModuleSync('module', 'basedir', false)
 			expect(result).toMatchInlineSnapshot(`
 				{
 				  "code": "",
@@ -519,7 +519,7 @@ export const WagmiReads = () => {
 				artifacts,
 				modules: mockModules,
 			})
-			const result = resolver.resolveTsModuleSync('module', 'basedir')
+			const result = resolver.resolveTsModuleSync('module', 'basedir', false)
 			expect(result).toMatchInlineSnapshot(`
 				{
 				  "code": "import { evmtsContractFactory } from '@evmts/core'
@@ -556,7 +556,7 @@ export const WagmiReads = () => {
 	describe('resolveTsModule', () => {
 		it('should return an empty string if no artifacts are found', async () => {
 			mockResolveArtifacts.mockResolvedValueOnce({})
-			const result = await resolver.resolveTsModule('module', 'basedir')
+			const result = await resolver.resolveTsModule('module', 'basedir', false)
 			expect(result).toMatchInlineSnapshot(`
 				{
 				  "code": "",
@@ -573,7 +573,7 @@ export const WagmiReads = () => {
 				artifacts,
 				modules: mockModules,
 			})
-			const result = await resolver.resolveTsModule('module', 'basedir')
+			const result = await resolver.resolveTsModule('module', 'basedir', false)
 			expect(result).toMatchInlineSnapshot(`
 				{
 				  "code": "import { evmtsContractFactory } from '@evmts/core'
@@ -610,7 +610,7 @@ export const WagmiReads = () => {
 	describe('resolveCjsModuleSync', () => {
 		it('should return an empty string if no artifacts are found', () => {
 			mockResolveArtifactsSync.mockReturnValueOnce({})
-			const result = resolver.resolveCjsModuleSync('module', 'basedir')
+			const result = resolver.resolveCjsModuleSync('module', 'basedir', false)
 			expect(result).toMatchInlineSnapshot(`
 				{
 				  "code": "",
@@ -627,7 +627,7 @@ export const WagmiReads = () => {
 				artifacts,
 				modules: mockModules,
 			})
-			const result = resolver.resolveCjsModuleSync('module', 'basedir')
+			const result = resolver.resolveCjsModuleSync('module', 'basedir', false)
 			expect(result).toMatchInlineSnapshot(`
 				{
 				  "code": "const { evmtsContractFactory } = require('@evmts/core')
@@ -664,7 +664,7 @@ export const WagmiReads = () => {
 	describe('resolveCjsModule', () => {
 		it('should return an empty string if no artifacts are found', async () => {
 			mockResolveArtifacts.mockResolvedValueOnce({})
-			const result = await resolver.resolveCjsModule('module', 'basedir')
+			const result = await resolver.resolveCjsModule('module', 'basedir', false)
 			expect(result).toMatchInlineSnapshot(`
 				{
 				  "code": "",
@@ -681,7 +681,7 @@ export const WagmiReads = () => {
 				artifacts,
 				modules: mockModules,
 			})
-			const result = await resolver.resolveCjsModule('module', 'basedir')
+			const result = await resolver.resolveCjsModule('module', 'basedir', false)
 			expect(result).toMatchInlineSnapshot(`
 				{
 				  "code": "const { evmtsContractFactory } = require('@evmts/core')
@@ -718,7 +718,7 @@ export const WagmiReads = () => {
 	describe('resolveEsmModuleSync', () => {
 		it('should return an empty string if no artifacts are found', () => {
 			mockResolveArtifactsSync.mockReturnValueOnce({})
-			const result = resolver.resolveEsmModuleSync('module', 'basedir')
+			const result = resolver.resolveEsmModuleSync('module', 'basedir', false)
 			expect(result).toMatchInlineSnapshot(`
 				{
 				  "code": "",
@@ -735,7 +735,7 @@ export const WagmiReads = () => {
 				artifacts,
 				modules: mockModules,
 			})
-			const result = resolver.resolveEsmModuleSync('module', 'basedir')
+			const result = resolver.resolveEsmModuleSync('module', 'basedir', false)
 			expect(result).toMatchInlineSnapshot(`
 				{
 				  "code": "import { evmtsContractFactory } from '@evmts/core'
@@ -772,7 +772,7 @@ export const WagmiReads = () => {
 	describe('resolveEsmModule', () => {
 		it('should return an empty string if no artifacts are found', async () => {
 			mockResolveArtifacts.mockResolvedValueOnce({})
-			const result = await resolver.resolveEsmModule('module', 'basedir')
+			const result = await resolver.resolveEsmModule('module', 'basedir', false)
 			expect(result).toMatchInlineSnapshot(`
 				{
 				  "code": "",
@@ -789,7 +789,7 @@ export const WagmiReads = () => {
 				artifacts,
 				modules: mockModules,
 			})
-			const result = await resolver.resolveEsmModule('module', 'basedir')
+			const result = await resolver.resolveEsmModule('module', 'basedir', false)
 			expect(result).toMatchInlineSnapshot(`
 				{
 				  "code": "import { evmtsContractFactory } from '@evmts/core'
