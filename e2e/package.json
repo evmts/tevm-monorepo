@@ -9,6 +9,7 @@
   "scripts": {
     "clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
     "e2e": "playwright test",
+    "e2e:ci": "xvfb-run playwright test --headed",
     "format": "rome format . --write",
     "format:check": "rome format .",
     "preinstall": "npx only-allow pnpm",

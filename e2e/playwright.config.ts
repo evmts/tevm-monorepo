@@ -14,7 +14,7 @@ const config: PlaywrightTestConfig = {
 		}
 	},
 	webServer: {
-		command: 'pnpm nx dev @evmts/example-vite',
+		command: `VITE_RPC_URL_1=${process.env.VITE_RPC_URL_1} pnpm nx dev @evmts/example-vite`,
 		port: 5173,
 		reuseExistingServer: true,
 		timeout: 180000,
