@@ -22,7 +22,7 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Run Playwright
-        run: npx playwright install && pnpm nx affected --target=e2e
+        run: pnpm i && npx playwright install && pnpm nx affected --target=e2e
         env:
           NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
           VITE_RPC_URL_1: ${{ secrets.RPC_URL_MAINNET }}
