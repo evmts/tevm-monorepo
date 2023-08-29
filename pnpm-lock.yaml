@@ -447,6 +447,9 @@ importers:
 
   e2e:
     dependencies:
+      '@types/node':
+        specifier: ^20.5.7
+        version: 20.5.7
       typescript:
         specifier: ^5.2.2
         version: 5.2.2

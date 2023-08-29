@@ -44,8 +44,8 @@ export const testWithSynpress = base.extend<{
 		// setup metamask
 		await initialSetup(chromium, {
 			secretWordsOrPrivateKey:
-				'test test test test test test test test test test test junk',
-			network: 'sepolia',
+				process.env.PRIVATE_KEY,
+			network: 'mainnet',
 			password: 'Tester@1234',
 			enableAdvancedSettings: true,
 		})
