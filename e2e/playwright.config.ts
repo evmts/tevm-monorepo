@@ -9,6 +9,9 @@ const config: PlaywrightTestConfig = {
 	retries: 3,
 	use: {
 		headless: false,
+	  launchOptions: {
+	  	slowMo: parseInt(process.env.PLAYWRIGHT_SLOW_MO || '0'),
+		}
 	},
 	webServer: {
 		command: 'pnpm nx dev @evmts/example-vite',
