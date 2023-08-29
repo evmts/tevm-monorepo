@@ -21,7 +21,7 @@ jobs:
       - name: "Setup"
         uses: ./.github/actions/setup
 
-      - name: Run Formatters
+      - name: Run Playwright
         run: npx playwright install && pnpm nx affected --target=e2e
         env:
           NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
