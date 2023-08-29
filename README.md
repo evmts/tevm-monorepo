@@ -13,6 +13,7 @@
 
 [![CI](https://github.com/evmts/evmts-monorepo/actions/workflows/build.yml/badge.svg)](https://github.com/evmts/evmts-monorepo/actions/workflows/build.yml)
 [![CI](https://github.com/evmts/evmts-monorepo/actions/workflows/test.yml/badge.svg)](https://github.com/evmts/evmts-monorepo/actions/workflows/test.yml)
+[![CI](https://github.com/evmts/evmts-monorepo/actions/workflows/e2e.yml/badge.svg)](https://github.com/evmts/evmts-monorepo/actions/workflows/e2e.yml)
 <a href="https://www.npmjs.com/package/@evmts/core">
 <img src="https://img.shields.io/npm/v/@evmts/core?style=flat" alt="Version">
 </a>
