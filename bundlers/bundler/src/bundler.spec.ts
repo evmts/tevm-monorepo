@@ -1,3 +1,6 @@
+import { bundler } from './bundler'
+import { resolveArtifacts, resolveArtifactsSync } from './solc'
+import type { Bundler, ModuleInfo } from './types'
 import { writeFileSync } from 'fs'
 import * as ts from 'typescript'
 import {
@@ -9,9 +12,6 @@ import {
 	it,
 	vi,
 } from 'vitest'
-import { bundler } from './bundler'
-import { resolveArtifacts, resolveArtifactsSync } from './solc'
-import type { Bundler, ModuleInfo } from './types'
 
 const erc20Abi = [
 	{

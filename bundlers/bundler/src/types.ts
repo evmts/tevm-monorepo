@@ -5,10 +5,14 @@ type BundlerResult = {
 	modules: Record<'string', ModuleInfo>
 }
 
-type AsyncBundlerResult = (module: string, basedir: string,
+type AsyncBundlerResult = (
+	module: string,
+	basedir: string,
 	includeAst: boolean,
 ) => Promise<BundlerResult>
-type SyncBundlerResult = (module: string, basedir: string,
+type SyncBundlerResult = (
+	module: string,
+	basedir: string,
 	includeAst: boolean,
 ) => BundlerResult
 

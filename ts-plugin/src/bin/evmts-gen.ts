@@ -1,8 +1,8 @@
-import path from 'path'
 import { bundler } from '@evmts/bundler'
 import { loadConfig } from '@evmts/config'
 import { writeFile } from 'fs/promises'
 import { glob } from 'glob'
+import path from 'path'
 
 const generate = (cwd = process.cwd(), include = ['src/**/*.sol']) => {
 	const files = glob.sync(include, {

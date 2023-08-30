@@ -13,7 +13,7 @@ export const resolveArtifactsSync = (
 	basedir: string,
 	logger: Logger,
 	config: ResolvedConfig,
-	includeAst: boolean
+	includeAst: boolean,
 ): {
 	artifacts: Artifacts
 	modules: Record<'string', ModuleInfo>

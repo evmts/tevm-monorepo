@@ -1,7 +1,7 @@
-import { existsSync } from 'fs'
-import { bundler } from '@evmts/bundler'
 import { createDecorator } from '../factories'
 import { isSolidity } from '../utils'
+import { bundler } from '@evmts/bundler'
+import { existsSync } from 'fs'
 
 /**
  * Decorate `LangaugeServerHost.getScriptSnapshot` to return generated `.d.ts` file for `.sol` files

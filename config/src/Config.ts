@@ -122,8 +122,8 @@ type ExternalConfig = {
 	 * Api keys for external services
 	 */
 	apiKeys?:
-	| Partial<Record<'etherscan', EtherscanApiKey | undefined>>
-	| undefined
+		| Partial<Record<'etherscan', EtherscanApiKey | undefined>>
+		| undefined
 	/**
 	 * Array of external contracts to import
 	 */

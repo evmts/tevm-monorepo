@@ -17,7 +17,7 @@ export const bundler: Bundler = (config, logger) => {
 				basedir,
 				logger,
 				config,
-				includeAst
+				includeAst,
 			)
 			if (artifacts) {
 				const evmtsImports = `import { EvmtsContract } from '@evmts/core'`
@@ -47,7 +47,7 @@ export const bundler: Bundler = (config, logger) => {
 				basedir,
 				logger,
 				config,
-				includeAst
+				includeAst,
 			)
 			const code = generateRuntimeSync(artifacts, config, 'ts', logger)
 			return { code, modules }
@@ -58,7 +58,7 @@ export const bundler: Bundler = (config, logger) => {
 				basedir,
 				logger,
 				config,
-				includeAst
+				includeAst,
 			)
 			const code = await generateRuntime(artifacts, config, 'ts', logger)
 			return { code, modules }
@@ -69,7 +69,7 @@ export const bundler: Bundler = (config, logger) => {
 				basedir,
 				logger,
 				config,
-				includeAst
+				includeAst,
 			)
 			const code = generateRuntimeSync(artifacts, config, 'cjs', logger)
 			return { code, modules }
@@ -80,7 +80,7 @@ export const bundler: Bundler = (config, logger) => {
 				basedir,
 				logger,
 				config,
-				includeAst
+				includeAst,
 			)
 			const code = await generateRuntime(artifacts, config, 'cjs', logger)
 			return { code, modules }
@@ -91,7 +91,7 @@ export const bundler: Bundler = (config, logger) => {
 				basedir,
 				logger,
 				config,
-				includeAst
+				includeAst,
 			)
 			const code = generateRuntimeSync(artifacts, config, 'mjs', logger)
 			return { code, modules }
@@ -102,7 +102,7 @@ export const bundler: Bundler = (config, logger) => {
 				basedir,
 				logger,
 				config,
-				includeAst
+				includeAst,
 			)
 			const code = await generateRuntime(artifacts, config, 'mjs', logger)
 			return { code, modules }

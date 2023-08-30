@@ -1,21 +1,22 @@
-import { readFileSync } from 'fs'
-import type { ResolvedConfig } from '@evmts/config'
-import * as resolve from 'resolve'
-import { findAll } from 'solidity-ast/utils'
 import type { ModuleInfo } from '../types'
 import { invariant } from '../utils/invariant'
 import { moduleFactory } from './moduleFactory'
 import { type SolcInputDescription, type SolcOutput, solcCompile } from './solc'
+import type { ResolvedConfig } from '@evmts/config'
+import { readFileSync } from 'fs'
+import * as resolve from 'resolve'
+import type { Node } from 'solidity-ast/node'
 
 // Compile the Solidity contract and return its ABI
-export const compileContractSync = (
+export const compileContractSync = <TIncludeAsts = boolean>(
 	filePath: string,
 	basedir: string,
 	config: ResolvedConfig['compiler'],
-	includeAst: boolean,
+	includeAst: TIncludeAsts,
 ): {
 	artifacts: SolcOutput['contracts'][string] | undefined
 	modules: Record<'string', ModuleInfo>
+	asts: TIncludeAsts extends true ? Record<string, Node> : undefined
 } => {
 	const entryModule = moduleFactory(
 		filePath,
@@ -77,16 +78,21 @@ export const compileContractSync = (
 		console.warn('Compilation warnings:', output?.errors)
 	}
 
-	const ast =
-		output?.sources?.[
-			'/Users/willcory/evmts-monorepo/examples/vite/src/contracts/WagmiMintExample.sol'
-		]?.ast
-
-	if (ast) {
-		for (const functionDef of findAll('FunctionDefinition', ast)) {
-			console.log('findAll functionDef', functionDef)
+	if (includeAst) {
+		const asts = Object.fromEntries(
+			Object.entries(output.sources).map(([id, source]) => {
+				return [id, source.ast]
+			}),
+		)
+		return {
+			artifacts: output.contracts[entryModule.id],
+			modules,
+			asts: asts as any,
 		}
 	}
-
-	return { artifacts: output.contracts[entryModule.id], modules }
+	return {
+		artifacts: output.contracts[entryModule.id],
+		modules,
+		asts: undefined as any,
+	}
 }
