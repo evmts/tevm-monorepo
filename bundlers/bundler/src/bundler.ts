@@ -11,12 +11,13 @@ export const bundler: Bundler = (config, logger) => {
 	return {
 		name: bundler.name,
 		config,
-		resolveDts: async (modulePath, basedir) => {
+		resolveDts: async (modulePath, basedir, includeAst) => {
 			const { artifacts, modules } = await resolveArtifacts(
 				modulePath,
 				basedir,
 				logger,
 				config,
+				includeAst,
 			)
 			if (artifacts) {
 				const evmtsImports = `import { EvmtsContract } from '@evmts/core'`
@@ -25,12 +26,13 @@ export const bundler: Bundler = (config, logger) => {
 			}
 			return { code: '', modules }
 		},
-		resolveDtsSync: (modulePath, basedir) => {
+		resolveDtsSync: (modulePath, basedir, includeAst) => {
 			const { artifacts, modules } = resolveArtifactsSync(
 				modulePath,
 				basedir,
 				logger,
 				config,
+				includeAst,
 			)
 			if (artifacts) {
 				const evmtsImports = `import { EvmtsContract } from '@evmts/core'`
@@ -39,62 +41,68 @@ export const bundler: Bundler = (config, logger) => {
 			}
 			return { modules, code: '' }
 		},
-		resolveTsModuleSync: (modulePath, basedir) => {
+		resolveTsModuleSync: (modulePath, basedir, includeAst) => {
 			const { artifacts, modules } = resolveArtifactsSync(
 				modulePath,
 				basedir,
 				logger,
 				config,
+				includeAst,
 			)
 			const code = generateRuntimeSync(artifacts, config, 'ts', logger)
 			return { code, modules }
 		},
-		resolveTsModule: async (modulePath, basedir) => {
+		resolveTsModule: async (modulePath, basedir, includeAst) => {
 			const { artifacts, modules } = await resolveArtifacts(
 				modulePath,
 				basedir,
 				logger,
 				config,
+				includeAst,
 			)
 			const code = await generateRuntime(artifacts, config, 'ts', logger)
 			return { code, modules }
 		},
-		resolveCjsModuleSync: (modulePath, basedir) => {
+		resolveCjsModuleSync: (modulePath, basedir, includeAst) => {
 			const { artifacts, modules } = resolveArtifactsSync(
 				modulePath,
 				basedir,
 				logger,
 				config,
+				includeAst,
 			)
 			const code = generateRuntimeSync(artifacts, config, 'cjs', logger)
 			return { code, modules }
 		},
-		resolveCjsModule: async (modulePath, basedir) => {
+		resolveCjsModule: async (modulePath, basedir, includeAst) => {
 			const { artifacts, modules } = await resolveArtifacts(
 				modulePath,
 				basedir,
 				logger,
 				config,
+				includeAst,
 			)
 			const code = await generateRuntime(artifacts, config, 'cjs', logger)
 			return { code, modules }
 		},
-		resolveEsmModuleSync: (modulePath, basedir) => {
+		resolveEsmModuleSync: (modulePath, basedir, includeAst) => {
 			const { artifacts, modules } = resolveArtifactsSync(
 				modulePath,
 				basedir,
 				logger,
 				config,
+				includeAst,
 			)
 			const code = generateRuntimeSync(artifacts, config, 'mjs', logger)
 			return { code, modules }
 		},
-		resolveEsmModule: async (modulePath, basedir) => {
+		resolveEsmModule: async (modulePath, basedir, includeAst) => {
 			const { artifacts, modules } = await resolveArtifacts(
 				modulePath,
 				basedir,
 				logger,
 				config,
+				includeAst,
 			)
 			const code = await generateRuntime(artifacts, config, 'mjs', logger)
 			return { code, modules }

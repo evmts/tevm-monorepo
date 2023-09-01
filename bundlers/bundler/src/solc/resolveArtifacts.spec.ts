@@ -41,7 +41,7 @@ describe('resolveArtifacts', () => {
 			modules: {} as Record<string, ModuleInfo>,
 		} as any)
 		expect(
-			await resolveArtifacts(solFile, basedir, logger, config),
+			await resolveArtifacts(solFile, basedir, logger, config, false),
 		).toMatchInlineSnapshot(`
 			{
 			  "artifacts": {

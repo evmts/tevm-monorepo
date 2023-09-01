@@ -23,7 +23,7 @@ export const getScriptSnapshotDecorator = createDecorator(
 				}
 				try {
 					const plugin = bundler(config, logger as any)
-					const snapshot = plugin.resolveDtsSync(filePath, process.cwd())
+					const snapshot = plugin.resolveDtsSync(filePath, process.cwd(), false)
 					return ts.ScriptSnapshot.fromString(snapshot.code)
 				} catch (e) {
 					logger.error(

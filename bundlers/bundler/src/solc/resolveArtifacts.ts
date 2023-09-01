@@ -12,9 +12,10 @@ export const resolveArtifacts = async (
 	basedir: string,
 	logger: Logger,
 	config: ResolvedConfig,
+	includeAst: boolean,
 ): Promise<{
 	artifacts: Artifacts
 	modules: Record<'string', ModuleInfo>
 }> => {
-	return resolveArtifactsSync(solFile, basedir, logger, config)
+	return resolveArtifactsSync(solFile, basedir, logger, config, includeAst)
 }

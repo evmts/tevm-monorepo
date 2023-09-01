@@ -79,13 +79,21 @@ describe('compileContractSync', () => {
 		mockSolcCompile.mockReturnValue(
 			JSON.stringify({
 				contracts: { [filePath]: mockCompiledContract },
+				sources: {
+					[filePath]: { ast: 'ast' },
+				},
 				errors: [],
 			}),
 		)
 	})
 
-	it('should compile a contract correctly', () => {
-		const compiledContract = compileContractSync(filePath, basedir, config)
+	it('should compile a contract correctly with ast', () => {
+		const compiledContract = compileContractSync(
+			filePath,
+			basedir,
+			config,
+			true,
+		)
 
 		expect(compiledContract).toMatchInlineSnapshot(`
 			{
@@ -99,6 +107,75 @@ describe('compileContractSync', () => {
 			      },
 			    },
 			  },
+			  "asts": {
+			    "test/path": "ast",
+			  },
+			  "modules": {
+			    "test/path": {
+			      "code": "import test/path/resolutionFile.sol
+			contract Test {}",
+			      "id": "test/path",
+			      "importedIds": [
+			        "./importedId",
+			      ],
+			      "rawCode": "import ./resolutionFile.sol
+			contract Test {}",
+			      "resolutions": [
+			        {
+			          "code": "contract Resolution {}",
+			          "id": "test/path/resolutionFile.sol",
+			          "importedIds": [],
+			          "rawCode": "contract Resolution {}",
+			          "resolutions": [],
+			        },
+			      ],
+			    },
+			    "test/path/resolutionFile.sol": {
+			      "code": "contract Resolution {}",
+			      "id": "test/path/resolutionFile.sol",
+			      "importedIds": [],
+			      "rawCode": "contract Resolution {}",
+			      "resolutions": [],
+			    },
+			  },
+			}
+		`)
+		expect(readFileSync).toBeCalledWith(filePath, 'utf8')
+		expect(resolve.sync).toBeCalledWith(filePath, { basedir })
+		expect(moduleFactory).toBeCalledWith(
+			filePath,
+			mockSource,
+			config.remappings,
+			config.libs,
+		)
+		expect((solc.compile as Mock).mock.lastCall).toMatchInlineSnapshot(`
+			[
+			  "{\\"language\\":\\"Solidity\\",\\"sources\\":{\\"test/path\\":{\\"content\\":\\"import test/path/resolutionFile.sol\\\\ncontract Test {}\\"},\\"test/path/resolutionFile.sol\\":{\\"content\\":\\"contract Resolution {}\\"}},\\"settings\\":{\\"outputSelection\\":{\\"*\\":{\\"*\\":[\\"abi\\",\\"userdoc\\"],\\"\\":[\\"ast\\"]}}}}",
+			]
+		`)
+	})
+
+	it('should compile a contract correctly', () => {
+		const compiledContract = compileContractSync(
+			filePath,
+			basedir,
+			config,
+			false,
+		)
+
+		expect(compiledContract).toMatchInlineSnapshot(`
+			{
+			  "artifacts": {
+			    "Test": {
+			      "abi": [],
+			      "evm": {
+			        "bytecode": {
+			          "object": "0x123",
+			        },
+			      },
+			    },
+			  },
+			  "asts": undefined,
 			  "modules": {
 			    "test/path": {
 			      "code": "import test/path/resolutionFile.sol
@@ -152,7 +229,7 @@ describe('compileContractSync', () => {
 			}),
 		)
 		expect(() =>
-			compileContractSync(filePath, basedir, config),
+			compileContractSync(filePath, basedir, config, false),
 		).toThrowErrorMatchingInlineSnapshot('"Compilation failed"')
 		expect(console.error).toHaveBeenCalledWith('Compilation errors:', [
 			{ type: 'Error', message: 'Compilation Error' },
@@ -166,7 +243,7 @@ describe('compileContractSync', () => {
 				errors: [{ type: 'Warning', message: 'Compilation Warning' }],
 			}),
 		)
-		compileContractSync(filePath, basedir, config)
+		compileContractSync(filePath, basedir, config, false)
 		expect((console.warn as Mock).mock.lastCall[0]).toMatchInlineSnapshot(
 			'"Compilation warnings:"',
 		)
@@ -179,7 +256,7 @@ describe('compileContractSync', () => {
 				errors: [],
 			}),
 		)
-		compileContractSync(filePath, basedir, config)
+		compileContractSync(filePath, basedir, config, false)
 		expect(console.warn).not.toHaveBeenCalled()
 	})
 
@@ -211,10 +288,11 @@ describe('compileContractSync', () => {
 		mockModuleA.resolutions.push(mockModuleB)
 		mockModuleFactory.mockReturnValue(mockModuleA)
 		expect(
-			compileContractSync(filePath, basedir, config),
+			compileContractSync(filePath, basedir, config, false),
 		).toMatchInlineSnapshot(`
 			{
 			  "artifacts": undefined,
+			  "asts": undefined,
 			  "modules": {
 			    "test/path/moduleA.sol": {
 			      "code": "import \\"test/path/moduleC.sol\\"

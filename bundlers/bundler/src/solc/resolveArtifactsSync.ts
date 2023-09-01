@@ -13,6 +13,7 @@ export const resolveArtifactsSync = (
 	basedir: string,
 	logger: Logger,
 	config: ResolvedConfig,
+	includeAst: boolean,
 ): {
 	artifacts: Artifacts
 	modules: Record<'string', ModuleInfo>
@@ -24,6 +25,7 @@ export const resolveArtifactsSync = (
 		solFile,
 		basedir,
 		config.compiler,
+		includeAst,
 	)
 
 	if (!artifacts) {

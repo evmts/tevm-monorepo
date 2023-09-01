@@ -77,6 +77,7 @@ export const unpluginFn: UnpluginFactory<
 			const { code, modules } = await moduleResolver.resolveEsmModule(
 				id,
 				process.cwd(),
+				false,
 			)
 			Object.values(modules).forEach((module) => {
 				if (module.id.includes('node_modules')) {
