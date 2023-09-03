@@ -4,7 +4,7 @@ import { state } from './shared'
 
 export type Hook = (program: _Program) => void
 
-export type _Program = ts.Program & { __vue: ProgramContext }
+export type _Program = ts.Program & { __evmts: ProgramContext }
 
 interface ProgramContext {
 	projectVersion: number
@@ -37,13 +37,13 @@ export function createProgram(options: ts.CreateProgramOptions) {
 
 	if (state.hook) {
 		program = state.hook.program
-		program.__vue.options = options
+		program.__evmts.options = options
 	} else if (!program) {
 		const ctx: ProgramContext = {
 			projectVersion: 0,
 			options,
 			get evmtsOptions() {
-				return vueTsLs
+				return compilerOptions
 			},
 		}
 		const compilerOptions = getEvmtsCompilerOptions()
@@ -61,7 +61,6 @@ export function createProgram(options: ts.CreateProgramOptions) {
 		}
 
 		const languageHost = {
-			...ctx.options.host,
 			workspacePath: ctx.options.host
 				.getCurrentDirectory()
 				.replace(windowsPathReg, '/'),
@@ -97,8 +96,8 @@ export function createProgram(options: ts.CreateProgramOptions) {
 			vueTsLs.__internal__.context,
 			vueTsLs,
 			ts.sys,
-		) as ts.Program & { __vue: ProgramContext }
-		program.__vue = ctx
+		) as ts.Program & { __evmts: ProgramContext }
+		program.__evmts = ctx
 
 		function getEvmtsCompilerOptions() {
 			const tsConfig = ctx.options.options.configFilePath
@@ -112,6 +111,9 @@ export function createProgram(options: ts.CreateProgramOptions) {
 			return getScript(fileName)?.scriptSnapshot
 		}
 		function getScript(fileName: string) {
+			if (!ctx.options.host) {
+				throw toThrow('No host on context')
+			}
 			const script = scripts.get(fileName)
 			if (script?.projectVersion === ctx.projectVersion) {
 				return script
@@ -137,7 +139,7 @@ export function createProgram(options: ts.CreateProgramOptions) {
 			}
 		}
 	} else {
-		const ctx: ProgramContext = program.__vue
+		const ctx: ProgramContext = program.__evmts
 		ctx.options = options
 		ctx.projectVersion++
 	}
