@@ -711,7 +711,7 @@ importers:
         version: 0.2.0
       forge-std:
         specifier: github:foundry-rs/forge-std
-        version: github.com/foundry-rs/forge-std/c4aaed668ae0900dbae646ef1bb43cad2e95097c
+        version: github.com/foundry-rs/forge-std/1d9650e951204a0ddce9ff89c32f1997984cef4d
       react-helmet:
         specifier: ^6.1.0
         version: 6.1.0(react@18.2.0)
@@ -804,6 +804,25 @@ importers:
       vitest:
         specifier: ^0.34.3
         version: 0.34.3(@vitest/ui@0.34.3)
+
+  tsc:
+    dependencies:
+      '@evmts/config':
+        specifier: workspace:^
+        version: link:../config
+      '@evmts/ts-plugin':
+        specifier: workspace:^
+        version: link:../ts-plugin
+      semver:
+        specifier: ^7.3.8
+        version: 7.5.4
+    devDependencies:
+      tsup:
+        specifier: ^7.2.0
+        version: 7.2.0(typescript@5.2.2)
+      typescript:
+        specifier: ^5.2.2
+        version: 5.2.2
 
   tsconfig: {}
 
@@ -3858,11 +3877,12 @@ packages:
     dependencies:
       '@jridgewell/set-array': 1.1.2
       '@jridgewell/sourcemap-codec': 1.4.15
-      '@jridgewell/trace-mapping': 0.3.18
+      '@jridgewell/trace-mapping': 0.3.19
 
   /@jridgewell/resolve-uri@3.1.0:
     resolution: {integrity: sha512-F2msla3tad+Mfht5cJq7LSXcdudKTWCVYUgw6pLFOOHSTtZlj6SWNYAp+AhuqLmWdBO2X5hPrLcu8cVP8fy28w==}
     engines: {node: '>=6.0.0'}
+    dev: true
 
   /@jridgewell/resolve-uri@3.1.1:
     resolution: {integrity: sha512-dSYZh7HhCDtCKm4QakX0xFpsRDqjjtZf/kjI/v3T3Nwt5r8/qz/M19F9ySyOqU94SXBmeG9ttTul+YnR4LOxFA==}
@@ -3880,6 +3900,7 @@ packages:
 
   /@jridgewell/sourcemap-codec@1.4.14:
     resolution: {integrity: sha512-XPSJHWmi394fuUuzDnGz1wiKqWfo1yXecHQMRf2l6hztTO+nPru658AyDngaBe7isIxEkRsPR3FZh+s7iVa4Uw==}
+    dev: true
 
   /@jridgewell/sourcemap-codec@1.4.15:
     resolution: {integrity: sha512-eF2rxCRulEKXHTRiDrDy6erMYWqNw4LPdQ8UQA4huuxaQsVeRPFl2oM8oDGxMFhJUWZf9McpLtJasDDZb/Bpeg==}
@@ -3889,6 +3910,7 @@ packages:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.0
       '@jridgewell/sourcemap-codec': 1.4.14
+    dev: true
 
   /@jridgewell/trace-mapping@0.3.19:
     resolution: {integrity: sha512-kf37QtfW+Hwx/buWGMPcR60iF9ziHa6r/CZJIHbmcm4+0qrXiVdxegAH0F6yddEVQ7zdkjcGCgCzUu+BcbhQxw==}
@@ -13234,7 +13256,7 @@ packages:
       fs.realpath: 1.0.0
       inflight: 1.0.6
       inherits: 2.0.4
-      minimatch: 3.0.5
+      minimatch: 3.1.2
       once: 1.4.0
       path-is-absolute: 1.0.1
     dev: true
@@ -19234,8 +19256,8 @@ packages:
       picocolors: 1.0.0
       sade: 1.8.1
       svelte: 4.1.2
-      svelte-preprocess: 5.0.4(svelte@4.1.2)(typescript@5.1.6)
-      typescript: 5.1.6
+      svelte-preprocess: 5.0.4(svelte@4.1.2)(typescript@5.2.2)
+      typescript: 5.2.2
     transitivePeerDependencies:
       - '@babel/core'
       - coffeescript
@@ -19257,7 +19279,7 @@ packages:
       svelte: 4.1.2
     dev: true
 
-  /svelte-preprocess@5.0.4(svelte@4.1.2)(typescript@5.1.6):
+  /svelte-preprocess@5.0.4(svelte@4.1.2)(typescript@5.2.2):
     resolution: {integrity: sha512-ABia2QegosxOGsVlsSBJvoWeXy1wUKSfF7SWJdTjLAbx/Y3SrVevvvbFNQqrSJw89+lNSsM58SipmZJ5SRi5iw==}
     engines: {node: '>= 14.10.0'}
     requiresBuild: true
@@ -19301,7 +19323,7 @@ packages:
       sorcery: 0.11.0
       strip-indent: 3.0.0
       svelte: 4.1.2
-      typescript: 5.1.6
+      typescript: 5.2.2
     dev: true
 
   /svelte@4.1.2:
@@ -22024,8 +22046,8 @@ packages:
     version: 0.1.0
     dev: true
 
-  github.com/foundry-rs/forge-std/c4aaed668ae0900dbae646ef1bb43cad2e95097c:
-    resolution: {tarball: https://codeload.github.com/foundry-rs/forge-std/tar.gz/c4aaed668ae0900dbae646ef1bb43cad2e95097c}
+  github.com/foundry-rs/forge-std/1d9650e951204a0ddce9ff89c32f1997984cef4d:
+    resolution: {tarball: https://codeload.github.com/foundry-rs/forge-std/tar.gz/1d9650e951204a0ddce9ff89c32f1997984cef4d}
     name: forge-std
     version: 1.6.0
     dev: true

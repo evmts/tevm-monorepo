@@ -6,6 +6,7 @@ packages:
   - "docs"
   - "e2e"
   - "ethers"
+  - "tsc"
   - "examples/*"
   - "ts-plugin"
   - "tsconfig"
