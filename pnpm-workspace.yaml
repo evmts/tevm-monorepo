@@ -7,8 +7,6 @@ packages:
   - "e2e"
   - "ethers"
   - "examples/*"
-  - "language-server"
   - "ts-plugin"
   - "tsconfig"
-  - "vscode"
 
