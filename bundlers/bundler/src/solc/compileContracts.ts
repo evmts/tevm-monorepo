@@ -1,11 +1,11 @@
-import { readFileSync } from 'fs'
-import type { ResolvedConfig } from '@evmts/config'
-import * as resolve from 'resolve'
-import type { Node } from 'solidity-ast/node'
 import type { ModuleInfo } from '../types'
 import { invariant } from '../utils/invariant'
 import { moduleFactory } from './moduleFactory'
 import { type SolcInputDescription, type SolcOutput, solcCompile } from './solc'
+import type { ResolvedConfig } from '@evmts/config'
+import { readFileSync } from 'fs'
+import * as resolve from 'resolve'
+import type { Node } from 'solidity-ast/node'
 
 // Compile the Solidity contract and return its ABI
 export const compileContractSync = <TIncludeAsts = boolean>(
@@ -86,7 +86,6 @@ export const compileContractSync = <TIncludeAsts = boolean>(
 				return [id, source.ast]
 			}),
 		)
-		console.log('is there an ast?', { includeAst, isAst: Boolean(asts) })
 		return {
 			artifacts: output.contracts[entryModule.id],
 			modules,

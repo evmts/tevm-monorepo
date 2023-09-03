@@ -1,17 +1,13 @@
+import type { SolcInputDescription, SolcOutput } from './solc/solc'
 import type { ResolvedConfig } from '@evmts/config'
 import type { Node } from 'solidity-ast/node'
-import type { SolcInputDescription, SolcOutput } from './solc/solc'
 
 type BundlerResult = {
 	code: string
 	modules: Record<'string', ModuleInfo>
-}
-type BundlerResultWithAst = {
-	code: string
-	modules: Record<'string', ModuleInfo>
-	asts: Record<string, Node> | undefined
 	solcInput: SolcInputDescription
 	solcOutput: SolcOutput
+	asts?: Record<string, Node> | undefined
 }
 
 type AsyncBundlerResult = (
@@ -19,16 +15,7 @@ type AsyncBundlerResult = (
 	basedir: string,
 	includeAst: boolean,
 ) => Promise<BundlerResult>
-type AsyncBundlerResultWithAst = (
-	module: string,
-	basedir: string,
-	includeAst: boolean,
-) => Promise<BundlerResultWithAst>
-type SyncBundlerResultWithAst = (
-	module: string,
-	basedir: string,
-	includeAst: boolean,
-) => BundlerResultWithAst
+
 type SyncBundlerResult = (
 	module: string,
 	basedir: string,
@@ -52,11 +39,11 @@ export type Bundler = (
 	/**
 	 * Resolves .d.ts representation of the solidity module
 	 */
-	resolveDts: AsyncBundlerResultWithAst
+	resolveDts: AsyncBundlerResult
 	/**
 	 * Resolves .d.ts representation of the solidity module
 	 */
-	resolveDtsSync: SyncBundlerResultWithAst
+	resolveDtsSync: SyncBundlerResult
 	/**
 	 * Resolves typescript representation of the solidity module
 	 */

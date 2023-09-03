@@ -3,6 +3,18 @@ import { invariant } from '../utils/invariant'
 import { resolveImportPath } from './resolveImportPath'
 import { resolveImports } from './resolveImports'
 import { readFileSync } from 'fs'
+
+/**
+ * Creates a module from the given module information.
+ * This includes resolving all imports and creating a dependency graph.
+ *
+ * Currently it modifies the source code in place which causes the ast to not match the source code.
+ * This complexity leaks to the typescript lsp which has to account for this
+ * Ideally we refactor this to not need to modify source code in place
+ * Doing this hurts our ability to control the import graph and make it use node resolution though
+ * See foundry that is alergic to using npm
+ * Doing it this way for now is easier but for sure a leaky abstraction
+ */
 export const moduleFactory = (
 	absolutePath: string,
 	rawCode: string,

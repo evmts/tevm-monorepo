@@ -1,5 +1,3 @@
-import type { ResolvedConfig } from '@evmts/config'
-import type { Node } from 'solidity-ast/node'
 import type { Logger, ModuleInfo } from '../types'
 import { compileContractSync } from './compileContracts'
 import type {
@@ -7,6 +5,8 @@ import type {
 	SolcInputDescription,
 	SolcOutput,
 } from './solc'
+import type { ResolvedConfig } from '@evmts/config'
+import type { Node } from 'solidity-ast/node'
 
 export type Artifacts = Record<
 	string,
