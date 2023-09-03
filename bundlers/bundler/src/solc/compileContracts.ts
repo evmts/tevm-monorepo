@@ -1,11 +1,11 @@
+import { readFileSync } from 'fs'
+import type { ResolvedConfig } from '@evmts/config'
+import * as resolve from 'resolve'
+import type { Node } from 'solidity-ast/node'
 import type { ModuleInfo } from '../types'
 import { invariant } from '../utils/invariant'
 import { moduleFactory } from './moduleFactory'
 import { type SolcInputDescription, type SolcOutput, solcCompile } from './solc'
-import type { ResolvedConfig } from '@evmts/config'
-import { readFileSync } from 'fs'
-import * as resolve from 'resolve'
-import type { Node } from 'solidity-ast/node'
 
 // Compile the Solidity contract and return its ABI
 export const compileContractSync = <TIncludeAsts = boolean>(
@@ -17,6 +17,8 @@ export const compileContractSync = <TIncludeAsts = boolean>(
 	artifacts: SolcOutput['contracts'][string] | undefined
 	modules: Record<'string', ModuleInfo>
 	asts: TIncludeAsts extends true ? Record<string, Node> : undefined
+	solcInput: SolcInputDescription
+	solcOutput: SolcOutput
 } => {
 	const entryModule = moduleFactory(
 		filePath,
@@ -52,6 +54,7 @@ export const compileContractSync = <TIncludeAsts = boolean>(
 		}),
 	)
 
+	const emptyString = ''
 	const input: SolcInputDescription = {
 		language: 'Solidity',
 		sources,
@@ -59,7 +62,7 @@ export const compileContractSync = <TIncludeAsts = boolean>(
 			outputSelection: {
 				'*': {
 					'*': ['abi', 'userdoc'],
-					...(includeAst ? { '': ['ast'] } : {}),
+					...(includeAst ? { [emptyString]: ['ast'] } : {}),
 				},
 			},
 		},
@@ -88,11 +91,15 @@ export const compileContractSync = <TIncludeAsts = boolean>(
 			artifacts: output.contracts[entryModule.id],
 			modules,
 			asts: asts as any,
+			solcInput: input,
+			solcOutput: output,
 		}
 	}
 	return {
 		artifacts: output.contracts[entryModule.id],
 		modules,
 		asts: undefined as any,
+		solcInput: input,
+		solcOutput: output,
 	}
 }
