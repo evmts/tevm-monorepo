@@ -80,13 +80,13 @@ export const compileContractSync = <TIncludeAsts = boolean>(
 	if (warnings?.length) {
 		console.warn('Compilation warnings:', output?.errors)
 	}
-
 	if (includeAst) {
 		const asts = Object.fromEntries(
 			Object.entries(output.sources).map(([id, source]) => {
 				return [id, source.ast]
 			}),
 		)
+		console.log('is there an ast?', { includeAst, isAst: Boolean(asts) })
 		return {
 			artifacts: output.contracts[entryModule.id],
 			modules,

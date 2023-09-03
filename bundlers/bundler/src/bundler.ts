@@ -30,6 +30,8 @@ export const bundler: Bundler = (config, logger) => {
 		resolveDtsSync: (modulePath, basedir, includeAst) => {
 			const { artifacts, modules, asts, solcInput, solcOutput } =
 				resolveArtifactsSync(modulePath, basedir, logger, config, includeAst)
+
+			console.log('ast looking in bunlder', asts)
 			if (artifacts) {
 				const evmtsImports = `import { EvmtsContract } from '@evmts/core'`
 				const evmtsBody = generateDtsBody(artifacts, config)
