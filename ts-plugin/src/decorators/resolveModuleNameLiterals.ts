@@ -1,11 +1,11 @@
-import { createDecorator } from '../factories'
+import { createHostDecorator } from '../factories'
 import { solidityModuleResolver } from '../utils'
 
 /**
  * Decorate `LangaugeServerHost.resolveModuleNameLiterals` to return config object to resolve `.sol` files
  * This tells the ts-server to resolve `.sol` files to `.d.ts` files with `getScriptSnapshot`
  */
-export const resolveModuleNameLiteralsDecorator = createDecorator(
+export const resolveModuleNameLiteralsDecorator = createHostDecorator(
 	(createInfo, ts, logger) => {
 		return {
 			resolveModuleNameLiterals: (moduleNames, containingFile, ...rest) => {

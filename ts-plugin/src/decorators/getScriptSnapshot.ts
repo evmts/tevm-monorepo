@@ -1,4 +1,4 @@
-import { createDecorator } from '../factories'
+import { createHostDecorator } from '../factories'
 import { isSolidity } from '../utils'
 import { bundler } from '@evmts/bundler'
 import { existsSync } from 'fs'
@@ -9,7 +9,7 @@ import { existsSync } from 'fs'
  * @see https://github.com/wagmi-dev/wagmi/blob/main/packages/cli/src/plugins/foundry.ts
  * TODO replace with modules for code reuse
  */
-export const getScriptSnapshotDecorator = createDecorator(
+export const getScriptSnapshotDecorator = createHostDecorator(
 	({ languageServiceHost }, ts, logger, config) => {
 		return {
 			getScriptSnapshot: (filePath) => {
