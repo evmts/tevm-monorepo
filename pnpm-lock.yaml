@@ -711,7 +711,7 @@ importers:
         version: 0.2.0
       forge-std:
         specifier: github:foundry-rs/forge-std
-        version: github.com/foundry-rs/forge-std/c4aaed668ae0900dbae646ef1bb43cad2e95097c
+        version: github.com/foundry-rs/forge-std/1d9650e951204a0ddce9ff89c32f1997984cef4d
       react-helmet:
         specifier: ^6.1.0
         version: 6.1.0(react@18.2.0)
@@ -782,6 +782,9 @@ importers:
       solc:
         specifier: '*'
         version: 0.8.20
+      solidity-ast:
+        specifier: ^0.4.52
+        version: 0.4.52
       zod:
         specifier: ^3.22.2
         version: 3.22.2
@@ -22024,8 +22027,8 @@ packages:
     version: 0.1.0
     dev: true
 
-  github.com/foundry-rs/forge-std/c4aaed668ae0900dbae646ef1bb43cad2e95097c:
-    resolution: {tarball: https://codeload.github.com/foundry-rs/forge-std/tar.gz/c4aaed668ae0900dbae646ef1bb43cad2e95097c}
+  github.com/foundry-rs/forge-std/1d9650e951204a0ddce9ff89c32f1997984cef4d:
+    resolution: {tarball: https://codeload.github.com/foundry-rs/forge-std/tar.gz/1d9650e951204a0ddce9ff89c32f1997984cef4d}
     name: forge-std
     version: 1.6.0
     dev: true

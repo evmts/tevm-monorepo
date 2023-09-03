@@ -1,4 +1,7 @@
+import { bundler } from '@evmts/bundler'
 import { loadConfig } from '@evmts/config'
+import type { Node } from 'solidity-ast/node'
+import { findAll, srcDecoder } from 'solidity-ast/utils'
 import typescript from 'typescript/lib/tsserverlibrary'
 import {
 	getScriptKindDecorator,
@@ -21,21 +24,23 @@ export const tsPlugin: typescript.server.PluginModuleFactory = (modules) => {
 	return {
 		create: (createInfo) => {
 			const logger = createLogger(createInfo)
+			const config = loadConfig(
+				createInfo.project.getCurrentDirectory(),
+				logger,
+			)
 			const service = modules.typescript.createLanguageService(
 				decorate(
 					getScriptKindDecorator,
 					resolveModuleNameLiteralsDecorator,
 					getScriptSnapshotDecorator,
-				)(
-					createInfo,
-					modules.typescript,
-					logger,
-					loadConfig(createInfo.project.getCurrentDirectory(), logger),
-				),
+				)(createInfo, modules.typescript, logger, config),
 			)
 			// TODO move me to a decorator
+			// TODO this is hack
 			service.getDefinitionAtPosition = (fileName, position) => {
-				function isEvmtsMethodCall(node: typescript.Node): boolean {
+				function getEvmtsContractFilePath(
+					node: typescript.Node,
+				): string | undefined {
 					// If we find a CallExpression, e.g., `read().balanceOf`, check it
 					if (typescript.isCallExpression(node)) {
 						const expression = node.expression
@@ -56,19 +61,15 @@ export const tsPlugin: typescript.server.PluginModuleFactory = (modules) => {
 											fileName,
 											evmts.getStart(),
 										)
-									const isEvmtsContract = contractDefinition?.some(
-										(definition) => {
-											definition.fileName.endsWith('.sol')
-										},
-									)
-									if (isEvmtsContract) {
-										return true
-									}
+									const definition = contractDefinition?.find((definition) => {
+										definition.fileName.endsWith('.sol')
+									})
+									return definition?.fileName
 								}
 							}
 						}
 					}
-					return false
+					return undefined
 				}
 
 				function findNode(
@@ -101,8 +102,58 @@ export const tsPlugin: typescript.server.PluginModuleFactory = (modules) => {
 						.getProgram()
 						?.getTypeChecker()
 						.getTypeAtLocation(node)
+				const evmtsContractPath = node && getEvmtsContractFilePath(node)
+				if (!evmtsContractPath) {
+					return definition
+				}
+				const plugin = bundler(config, logger as any)
+				const includedAst = true
+				const { asts, solcInput, solcOutput } = plugin.resolveDtsSync(
+					evmtsContractPath,
+					process.cwd(),
+					includedAst,
+				)
+				if (!asts) {
+					logger.error(
+						`@evmts/ts-plugin: getDefinitionAtPositionDecorator was unable to resolve asts for ${evmtsContractPath}`,
+					)
+					return definition
+				}
+				const decodeSrc = srcDecoder(solcInput, solcOutput)
 
-				return definition
+				let defNode
+				for (const functionDef of findAll(
+					'FunctionDefinition',
+					asts[evmtsContractPath],
+				)) {
+					if (functionDef.name === node?.getText()) {
+						defNode = functionDef
+					}
+				}
+				for (const functionDef of findAll(
+					'EventDefinition',
+					asts[evmtsContractPath],
+				)) {
+					if (functionDef.name === node?.getText()) {
+						defNode = functionDef
+					}
+				}
+				if (!defNode) {
+					logger.error(
+						`@evmts/ts-plugin: getDefinitionAtPositionDecorator was unable to resolve asts for ${evmtsContractPath}`,
+					)
+					return definition
+				}
+				const contractName =
+					evmtsContractPath.split('/').pop()?.split('.')[0] ?? 'EvmtsContract'
+				return [
+					convertSolcAstToTsDefinitionInfo(
+						defNode,
+						evmtsContractPath,
+						contractName,
+					),
+					...(definition ?? []),
+				]
 			}
 
 			return service
@@ -110,5 +161,36 @@ export const tsPlugin: typescript.server.PluginModuleFactory = (modules) => {
 		getExternalFiles: (project) => {
 			return project.getFileNames().filter(isSolidity)
 		},
+	}
+}
+
+function convertSolcAstToTsDefinitionInfo(
+	astNode: Node,
+	fileName: string,
+	containerName: string,
+): typescript.DefinitionInfo {
+	// Parse the 'src' field into start position, length, and source index
+	const [start, length] = astNode.src.split(':').map(Number)
+
+	// Determine the 'kind' and 'name' based on the AST node type and its properties
+	let kind = typescript.ScriptElementKind.unknown
+	let name = ''
+	if (astNode.nodeType === 'VariableDeclaration') {
+		kind = typescript.ScriptElementKind.variableElement
+		name = astNode.name
+	} else if (astNode.nodeType === 'FunctionDefinition') {
+		kind = typescript.ScriptElementKind.functionElement
+		name = astNode.name
+	}
+	// ... add more cases for other node types
+
+	// Create and return the TypeScript DefinitionInfo object
+	return {
+		fileName,
+		textSpan: typescript.createTextSpan(start, length),
+		kind,
+		name,
+		containerKind: typescript.ScriptElementKind.classElement,
+		containerName,
 	}
 }

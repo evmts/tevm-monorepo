@@ -51,6 +51,7 @@
 		"@evmts/bundler": "workspace:^",
 		"esbuild": "0.19.2",
 		"glob": "^10.3.3",
+		"solidity-ast": "^0.4.52",
 		"zod": "^3.22.2"
 	},
 	"devDependencies": {
