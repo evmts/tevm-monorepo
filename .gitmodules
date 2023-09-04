@@ -7,3 +7,6 @@
 [submodule "revm"]
 	path = revm
 	url = https://github.com/evmts/revm.git
+[submodule "scaffold-evmts"]
+	path = scaffold-evmts
+	url = https://github.com/evmts/scaffold-eth-2.git
