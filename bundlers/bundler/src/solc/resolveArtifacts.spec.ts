@@ -51,7 +51,10 @@ describe('resolveArtifacts', () => {
 			      "userdoc": undefined,
 			    },
 			  },
+			  "asts": undefined,
 			  "modules": {},
+			  "solcInput": undefined,
+			  "solcOutput": undefined,
 			}
 		`)
 	})

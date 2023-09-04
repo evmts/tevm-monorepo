@@ -293,8 +293,11 @@ describe(bundler.name, () => {
 			const result = await resolver.resolveDts('module', 'basedir', false)
 			expect(result).toMatchInlineSnapshot(`
 				{
+				  "asts": undefined,
 				  "code": "",
 				  "modules": undefined,
+				  "solcInput": undefined,
+				  "solcOutput": undefined,
 				}
 			`)
 		})
@@ -310,6 +313,7 @@ describe(bundler.name, () => {
 			const result = await resolver.resolveDts('module', 'basedir', false)
 			expect(result).toMatchInlineSnapshot(`
 				{
+				  "asts": undefined,
 				  "code": "import { EvmtsContract } from '@evmts/core'
 				const _abiTestContract = [] as const;
 				const _chainAddressMapTestContract = {\\"10\\":\\"0x123\\"} as const;
@@ -342,6 +346,8 @@ describe(bundler.name, () => {
 				      ],
 				    },
 				  },
+				  "solcInput": undefined,
+				  "solcOutput": undefined,
 				}
 			`)
 		})
@@ -445,8 +451,11 @@ export const WagmiReads = () => {
 			const result = resolver.resolveDtsSync('module', 'basedir', false)
 			expect(result).toMatchInlineSnapshot(`
 				{
+				  "asts": undefined,
 				  "code": "",
 				  "modules": undefined,
+				  "solcInput": undefined,
+				  "solcOutput": undefined,
 				}
 			`)
 		})
@@ -462,6 +471,7 @@ export const WagmiReads = () => {
 			const result = resolver.resolveDtsSync('module', 'basedir', false)
 			expect(result).toMatchInlineSnapshot(`
 				{
+				  "asts": undefined,
 				  "code": "import { EvmtsContract } from '@evmts/core'
 				const _abiTestContract = [] as const;
 				const _chainAddressMapTestContract = {\\"10\\":\\"0x123\\"} as const;
@@ -494,6 +504,8 @@ export const WagmiReads = () => {
 				      ],
 				    },
 				  },
+				  "solcInput": undefined,
+				  "solcOutput": undefined,
 				}
 			`)
 		})
@@ -505,8 +517,11 @@ export const WagmiReads = () => {
 			const result = resolver.resolveTsModuleSync('module', 'basedir', false)
 			expect(result).toMatchInlineSnapshot(`
 				{
+				  "asts": undefined,
 				  "code": "",
 				  "modules": undefined,
+				  "solcInput": undefined,
+				  "solcOutput": undefined,
 				}
 			`)
 		})
@@ -522,6 +537,7 @@ export const WagmiReads = () => {
 			const result = resolver.resolveTsModuleSync('module', 'basedir', false)
 			expect(result).toMatchInlineSnapshot(`
 				{
+				  "asts": undefined,
 				  "code": "import { evmtsContractFactory } from '@evmts/core'
 				const _TestContract = {\\"name\\":\\"TestContract\\",\\"abi\\":[],\\"addresses\\":{\\"10\\":\\"0x123\\"}} as const
 				export const TestContract = evmtsContractFactory(_TestContract)",
@@ -548,6 +564,8 @@ export const WagmiReads = () => {
 				      ],
 				    },
 				  },
+				  "solcInput": undefined,
+				  "solcOutput": undefined,
 				}
 			`)
 		})
@@ -559,8 +577,11 @@ export const WagmiReads = () => {
 			const result = await resolver.resolveTsModule('module', 'basedir', false)
 			expect(result).toMatchInlineSnapshot(`
 				{
+				  "asts": undefined,
 				  "code": "",
 				  "modules": undefined,
+				  "solcInput": undefined,
+				  "solcOutput": undefined,
 				}
 			`)
 		})
@@ -576,6 +597,7 @@ export const WagmiReads = () => {
 			const result = await resolver.resolveTsModule('module', 'basedir', false)
 			expect(result).toMatchInlineSnapshot(`
 				{
+				  "asts": undefined,
 				  "code": "import { evmtsContractFactory } from '@evmts/core'
 				const _TestContract = {\\"name\\":\\"TestContract\\",\\"abi\\":[],\\"addresses\\":{\\"10\\":\\"0x123\\"}} as const
 				export const TestContract = evmtsContractFactory(_TestContract)",
@@ -602,6 +624,8 @@ export const WagmiReads = () => {
 				      ],
 				    },
 				  },
+				  "solcInput": undefined,
+				  "solcOutput": undefined,
 				}
 			`)
 		})
@@ -613,8 +637,11 @@ export const WagmiReads = () => {
 			const result = resolver.resolveCjsModuleSync('module', 'basedir', false)
 			expect(result).toMatchInlineSnapshot(`
 				{
+				  "asts": undefined,
 				  "code": "",
 				  "modules": undefined,
+				  "solcInput": undefined,
+				  "solcOutput": undefined,
 				}
 			`)
 		})
@@ -630,6 +657,7 @@ export const WagmiReads = () => {
 			const result = resolver.resolveCjsModuleSync('module', 'basedir', false)
 			expect(result).toMatchInlineSnapshot(`
 				{
+				  "asts": undefined,
 				  "code": "const { evmtsContractFactory } = require('@evmts/core')
 				const _TestContract = {\\"name\\":\\"TestContract\\",\\"abi\\":[],\\"addresses\\":{\\"10\\":\\"0x123\\"}}
 				module.exports.TestContract = evmtsContractFactory(_TestContract)",
@@ -656,6 +684,8 @@ export const WagmiReads = () => {
 				      ],
 				    },
 				  },
+				  "solcInput": undefined,
+				  "solcOutput": undefined,
 				}
 			`)
 		})
@@ -667,8 +697,11 @@ export const WagmiReads = () => {
 			const result = await resolver.resolveCjsModule('module', 'basedir', false)
 			expect(result).toMatchInlineSnapshot(`
 				{
+				  "asts": undefined,
 				  "code": "",
 				  "modules": undefined,
+				  "solcInput": undefined,
+				  "solcOutput": undefined,
 				}
 			`)
 		})
@@ -684,6 +717,7 @@ export const WagmiReads = () => {
 			const result = await resolver.resolveCjsModule('module', 'basedir', false)
 			expect(result).toMatchInlineSnapshot(`
 				{
+				  "asts": undefined,
 				  "code": "const { evmtsContractFactory } = require('@evmts/core')
 				const _TestContract = {\\"name\\":\\"TestContract\\",\\"abi\\":[],\\"addresses\\":{\\"10\\":\\"0x123\\"}}
 				module.exports.TestContract = evmtsContractFactory(_TestContract)",
@@ -710,6 +744,8 @@ export const WagmiReads = () => {
 				      ],
 				    },
 				  },
+				  "solcInput": undefined,
+				  "solcOutput": undefined,
 				}
 			`)
 		})
@@ -721,8 +757,11 @@ export const WagmiReads = () => {
 			const result = resolver.resolveEsmModuleSync('module', 'basedir', false)
 			expect(result).toMatchInlineSnapshot(`
 				{
+				  "asts": undefined,
 				  "code": "",
 				  "modules": undefined,
+				  "solcInput": undefined,
+				  "solcOutput": undefined,
 				}
 			`)
 		})
@@ -738,6 +777,7 @@ export const WagmiReads = () => {
 			const result = resolver.resolveEsmModuleSync('module', 'basedir', false)
 			expect(result).toMatchInlineSnapshot(`
 				{
+				  "asts": undefined,
 				  "code": "import { evmtsContractFactory } from '@evmts/core'
 				const _TestContract = {\\"name\\":\\"TestContract\\",\\"abi\\":[],\\"addresses\\":{\\"10\\":\\"0x123\\"}}
 				export const TestContract = evmtsContractFactory(_TestContract)",
@@ -764,6 +804,8 @@ export const WagmiReads = () => {
 				      ],
 				    },
 				  },
+				  "solcInput": undefined,
+				  "solcOutput": undefined,
 				}
 			`)
 		})
@@ -775,8 +817,11 @@ export const WagmiReads = () => {
 			const result = await resolver.resolveEsmModule('module', 'basedir', false)
 			expect(result).toMatchInlineSnapshot(`
 				{
+				  "asts": undefined,
 				  "code": "",
 				  "modules": undefined,
+				  "solcInput": undefined,
+				  "solcOutput": undefined,
 				}
 			`)
 		})
@@ -792,6 +837,7 @@ export const WagmiReads = () => {
 			const result = await resolver.resolveEsmModule('module', 'basedir', false)
 			expect(result).toMatchInlineSnapshot(`
 				{
+				  "asts": undefined,
 				  "code": "import { evmtsContractFactory } from '@evmts/core'
 				const _TestContract = {\\"name\\":\\"TestContract\\",\\"abi\\":[],\\"addresses\\":{\\"10\\":\\"0x123\\"}}
 				export const TestContract = evmtsContractFactory(_TestContract)",
@@ -818,6 +864,8 @@ export const WagmiReads = () => {
 				      ],
 				    },
 				  },
+				  "solcInput": undefined,
+				  "solcOutput": undefined,
 				}
 			`)
 		})

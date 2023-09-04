@@ -138,6 +138,51 @@ describe('compileContractSync', () => {
 			      "resolutions": [],
 			    },
 			  },
+			  "solcInput": {
+			    "language": "Solidity",
+			    "settings": {
+			      "outputSelection": {
+			        "*": {
+			          "": [
+			            "ast",
+			          ],
+			          "*": [
+			            "abi",
+			            "userdoc",
+			          ],
+			        },
+			      },
+			    },
+			    "sources": {
+			      "test/path": {
+			        "content": "import test/path/resolutionFile.sol
+			contract Test {}",
+			      },
+			      "test/path/resolutionFile.sol": {
+			        "content": "contract Resolution {}",
+			      },
+			    },
+			  },
+			  "solcOutput": {
+			    "contracts": {
+			      "test/path": {
+			        "Test": {
+			          "abi": [],
+			          "evm": {
+			            "bytecode": {
+			              "object": "0x123",
+			            },
+			          },
+			        },
+			      },
+			    },
+			    "errors": [],
+			    "sources": {
+			      "test/path": {
+			        "ast": "ast",
+			      },
+			    },
+			  },
 			}
 		`)
 		expect(readFileSync).toBeCalledWith(filePath, 'utf8')
@@ -202,6 +247,48 @@ describe('compileContractSync', () => {
 			      "importedIds": [],
 			      "rawCode": "contract Resolution {}",
 			      "resolutions": [],
+			    },
+			  },
+			  "solcInput": {
+			    "language": "Solidity",
+			    "settings": {
+			      "outputSelection": {
+			        "*": {
+			          "*": [
+			            "abi",
+			            "userdoc",
+			          ],
+			        },
+			      },
+			    },
+			    "sources": {
+			      "test/path": {
+			        "content": "import test/path/resolutionFile.sol
+			contract Test {}",
+			      },
+			      "test/path/resolutionFile.sol": {
+			        "content": "contract Resolution {}",
+			      },
+			    },
+			  },
+			  "solcOutput": {
+			    "contracts": {
+			      "test/path": {
+			        "Test": {
+			          "abi": [],
+			          "evm": {
+			            "bytecode": {
+			              "object": "0x123",
+			            },
+			          },
+			        },
+			      },
+			    },
+			    "errors": [],
+			    "sources": {
+			      "test/path": {
+			        "ast": "ast",
+			      },
 			    },
 			  },
 			}
@@ -357,6 +444,52 @@ describe('compileContractSync', () => {
 			      "importedIds": [],
 			      "rawCode": "contract C {}",
 			      "resolutions": [],
+			    },
+			  },
+			  "solcInput": {
+			    "language": "Solidity",
+			    "settings": {
+			      "outputSelection": {
+			        "*": {
+			          "*": [
+			            "abi",
+			            "userdoc",
+			          ],
+			        },
+			      },
+			    },
+			    "sources": {
+			      "test/path/moduleA.sol": {
+			        "content": "import \\"test/path/moduleC.sol\\"
+			contract A {}",
+			      },
+			      "test/path/moduleB.sol": {
+			        "content": "import \\"test/path/moduleC.sol\\"
+			contract B {}",
+			      },
+			      "test/path/moduleC.sol": {
+			        "content": "contract C {}",
+			      },
+			    },
+			  },
+			  "solcOutput": {
+			    "contracts": {
+			      "test/path": {
+			        "Test": {
+			          "abi": [],
+			          "evm": {
+			            "bytecode": {
+			              "object": "0x123",
+			            },
+			          },
+			        },
+			      },
+			    },
+			    "errors": [],
+			    "sources": {
+			      "test/path": {
+			        "ast": "ast",
+			      },
 			    },
 			  },
 			}
