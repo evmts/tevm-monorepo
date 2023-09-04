@@ -1,5 +1,13 @@
 # svelte-ethers
 
+## 0.1.1
+
+### Patch Changes
+
+- Updated dependencies [[`eedb7e0`](https://github.com/evmts/evmts-monorepo/commit/eedb7e0e8f853acf59c3f86c1d7317bad8ee7e2b), [`b020298`](https://github.com/evmts/evmts-monorepo/commit/b020298f1acbfad396b0c1c9a1618e00bc750a43)]:
+  - @evmts/ethers@0.8.0
+  - @evmts/core@0.8.0
+
 ## 0.1.0
 
 ### Minor Changes

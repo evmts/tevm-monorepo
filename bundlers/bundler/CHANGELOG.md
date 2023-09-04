@@ -1,5 +1,55 @@
 # @evmts/core
 
+## 0.8.0
+
+### Minor Changes
+
+- [#439](https://github.com/evmts/evmts-monorepo/pull/439) [`91e43e9`](https://github.com/evmts/evmts-monorepo/commit/91e43e952a440f037d52146511ed2508d289874e) Thanks [@roninjin10](https://github.com/roninjin10)! - Added support for natspec comments showing up in EVMts contracts LSP and bundled code. Now when you hover over an EVMts contract any natspec comments will be available as jsdoc comments.
+
+  This support is limited based on what [solc](https://docs.soliditylang.org/en/v0.8.17/using-the-compiler.html) supports. In future more robust natspec parsing is expected to be added via [soldity-ast](Add function to parse NatSpec)
+  ![image](https://github.com/evmts/evmts-monorepo/assets/35039927/da3b2c70-f16d-4f47-9de8-c05b4442193f)
+
+- [#438](https://github.com/evmts/evmts-monorepo/pull/438) [`eedb7e0`](https://github.com/evmts/evmts-monorepo/commit/eedb7e0e8f853acf59c3f86c1d7317bad8ee7e2b) Thanks [@roninjin10](https://github.com/roninjin10)! - Improve peformance by 98% (5x) testing against 101 simple NFT contract imports
+
+  Major change: remove bytecode from EVMts. Needing the bytecode is a niche use case and removing it improves peformance of the compiler significantly. In future bytecode will be brought back as an optional prop
+
+  This improves peformance by 98% (50x) testing against 101 simple NFT contract imports
+
+  Because EVMts is still considered in alpha this will not cause a major semver bump
+
+- [#440](https://github.com/evmts/evmts-monorepo/pull/440) [`8cceec7`](https://github.com/evmts/evmts-monorepo/commit/8cceec7409a5fc0e72168a10821a64203ba374ab) Thanks [@roninjin10](https://github.com/roninjin10)! - Added support for resolving an AST.
+  Passing in an optional flag to the bundler will return an ast along with comments and abi. By default it's turned off. This AST will be usable in future prs to implement advanced langauge features like goToDefinition
+
+  To work with the AST we add [solidity-ast](https://github.com/OpenZeppelin/solidity-ast) from open-zeppelin.
+
+- [#444](https://github.com/evmts/evmts-monorepo/pull/444) [`793798e`](https://github.com/evmts/evmts-monorepo/commit/793798ec3782e4081840bcd77242104c9546e70c) Thanks [@roninjin10](https://github.com/roninjin10)! - Added solcInput and solcOutput to return objects for bundler.
+
+  Now in addition to the compiled code and the modules solcInput and solcOutput are also added along with the recently added asts property
+
+  ![image](https://github.com/evmts/evmts-monorepo/assets/35039927/57277b41-195c-4c54-ab70-a4e1ef3fceaa)
+
+  This will be used internally to implement go-to-definition LSP support to [@evmts/ts-plugin](https://github.com/evmts/evmts-monorepo/tree/main/ts-plugin)
+
+### Patch Changes
+
+- [#436](https://github.com/evmts/evmts-monorepo/pull/436) [`e1903df`](https://github.com/evmts/evmts-monorepo/commit/e1903df625c54b2447ce2bc2318f4c74f9a02bb5) Thanks [@roninjin10](https://github.com/roninjin10)! - Internal change: Made usage of solc typesafe
+
+  This change adds new solc types to the [solc](https://github.com/ethereum/solc-bin) peer dependency used by EVMts. This is used by @evmts/bundler to
+
+  - includes type for SolcInputSources and outputsources
+
+  ![image](https://github.com/evmts/evmts-monorepo/assets/35039927/1ee13b76-98ab-4f62-9266-6e4a972de223)
+
+  These types were adapted from [solc documentation](https://docs.soliditylang.org/en/v0.8.17/using-the-compiler.html#compiler-input-and-output-json-description)
+
+  Shout out @o-az who kicked off this improvement in #435
+
+- [#442](https://github.com/evmts/evmts-monorepo/pull/442) [`b020298`](https://github.com/evmts/evmts-monorepo/commit/b020298f1acbfad396b0c1c9a1618e00bc750a43) Thanks [@roninjin10](https://github.com/roninjin10)! - ⬆️ Upgraded all npm packages to latest
+  Every package in EVMts is consistently updated to it's latest version using `pnpm up --latest`
+- Updated dependencies [[`eedb7e0`](https://github.com/evmts/evmts-monorepo/commit/eedb7e0e8f853acf59c3f86c1d7317bad8ee7e2b), [`b020298`](https://github.com/evmts/evmts-monorepo/commit/b020298f1acbfad396b0c1c9a1618e00bc750a43)]:
+  - @evmts/core@0.8.0
+  - @evmts/config@0.8.0
+
 ## 0.7.1
 
 ### Patch Changes
