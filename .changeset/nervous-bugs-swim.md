@@ -4,7 +4,6 @@
 "@evmts/webpack-plugin": patch
 "@evmts/rollup-plugin": patch
 "@evmts/rspack-plugin": patch
-"@evmts/language-server": patch
 "@evmts/ts-plugin": patch
 "@evmts/config": patch
 "@evmts/ethers": patch
