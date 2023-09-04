@@ -32,7 +32,7 @@
     "@evmts/cli": "workspace:^",
     "@evmts/config": "workspace:^",
     "@evmts/contracts": "^0.0.1",
-    "@evmts/core": "workspace:^0.6.0",
+    "@evmts/core": "workspace:^0.8.0",
     "@rainbow-me/rainbowkit": "^1.0.9",
     "buffer": "^6.0.3",
     "ds-test": "github:dapphub/ds-test",

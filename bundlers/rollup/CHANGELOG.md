@@ -1,5 +1,24 @@
 # @evmts/plugin
 
+## 0.8.0
+
+### Minor Changes
+
+- [#438](https://github.com/evmts/evmts-monorepo/pull/438) [`eedb7e0`](https://github.com/evmts/evmts-monorepo/commit/eedb7e0e8f853acf59c3f86c1d7317bad8ee7e2b) Thanks [@roninjin10](https://github.com/roninjin10)! - Improve peformance by 98% (5x) testing against 101 simple NFT contract imports
+
+  Major change: remove bytecode from EVMts. Needing the bytecode is a niche use case and removing it improves peformance of the compiler significantly. In future bytecode will be brought back as an optional prop
+
+  This improves peformance by 98% (50x) testing against 101 simple NFT contract imports
+
+  Because EVMts is still considered in alpha this will not cause a major semver bump
+
+### Patch Changes
+
+- [#442](https://github.com/evmts/evmts-monorepo/pull/442) [`b020298`](https://github.com/evmts/evmts-monorepo/commit/b020298f1acbfad396b0c1c9a1618e00bc750a43) Thanks [@roninjin10](https://github.com/roninjin10)! - ⬆️ Upgraded all npm packages to latest
+  Every package in EVMts is consistently updated to it's latest version using `pnpm up --latest`
+- Updated dependencies [[`91e43e9`](https://github.com/evmts/evmts-monorepo/commit/91e43e952a440f037d52146511ed2508d289874e), [`eedb7e0`](https://github.com/evmts/evmts-monorepo/commit/eedb7e0e8f853acf59c3f86c1d7317bad8ee7e2b), [`e1903df`](https://github.com/evmts/evmts-monorepo/commit/e1903df625c54b2447ce2bc2318f4c74f9a02bb5), [`b020298`](https://github.com/evmts/evmts-monorepo/commit/b020298f1acbfad396b0c1c9a1618e00bc750a43), [`8cceec7`](https://github.com/evmts/evmts-monorepo/commit/8cceec7409a5fc0e72168a10821a64203ba374ab), [`793798e`](https://github.com/evmts/evmts-monorepo/commit/793798ec3782e4081840bcd77242104c9546e70c)]:
+  - @evmts/bundler@0.8.0
+
 ## 0.7.1
 
 ### Patch Changes

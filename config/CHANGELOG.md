@@ -1,5 +1,12 @@
 # @evmts/core
 
+## 0.8.0
+
+### Patch Changes
+
+- [#442](https://github.com/evmts/evmts-monorepo/pull/442) [`b020298`](https://github.com/evmts/evmts-monorepo/commit/b020298f1acbfad396b0c1c9a1618e00bc750a43) Thanks [@roninjin10](https://github.com/roninjin10)! - ⬆️ Upgraded all npm packages to latest
+  Every package in EVMts is consistently updated to it's latest version using `pnpm up --latest`
+
 ## 0.7.0
 
 ### Minor Changes
