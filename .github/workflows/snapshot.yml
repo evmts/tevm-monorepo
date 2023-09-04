@@ -14,18 +14,11 @@ jobs:
     name: Changests Snapshot
     if: github.repository == 'evmts/evmts-monorepo'
     runs-on: ubuntu-latest
-    # Permissions necessary for Changesets to push a new branch and open PRs
-    # (for automated Version Packages PRs), and request the JWT for provenance.
-    # More info: https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/about-security-hardening-with-openid-connect#adding-permissions-settings
-    permissions:
-      contents: write
-      pull-requests: write
-      id-token: write
-      actions: 'write'
     steps:
       - uses: actions/checkout@v3
         name: Checkout Repo
         with:
+          fetch-depth: 0
           submodules: recursive
 
       - name: "Setup"
