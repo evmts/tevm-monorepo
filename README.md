@@ -240,23 +240,21 @@ Reach out if you want to use EVMts in a serious project and I will help make sur
 Enjoy this tool? Check out these other awesome tools that make this library possible
 
 - [abitype](https://abitype.dev/)
-- [viem](https://viem.sh)
-- [wagmi](https://wagmi.sh/)
 - [ethers.js](https://github.com/ethers-io/ethers.js)
 - [solc](https://github.com/ethereum/solc-js/blob/master/index.ts)
+- [@openzeppelin/solidity-ast](https://github.com/OpenZeppelin/solidity-ast)
 - [unplugin](https://github.com/unjs/unplugin)
-- [volar](https://volarjs.github.io/)
+- [viem](https://viem.sh)
+- [wagmi](https://wagmi.sh/)
 
 And these other awesome tools that helped with development process and future features
 
-- [Foundry](https://github.com/foundry-rs/foundry/tree/master/forge)
-- [revm](https://github.com/bluealloy/revm)
 - [ethereumjs-monorepo](https://github.com/ethereumjs/ethereumjs-monorepo)
-- [Verifiable rpc](https://github.com/liamzebedee/eth-verifiable-rpc)
-- [Optimism](https://github.com/ethereum-optimism/optimism)
+- [Foundry](https://github.com/foundry-rs/foundry/tree/master/forge)
 - [helios](https://github.com/a16z/helios)
-
-Extra shoutout to Wagmi ABIType and Viem. Much of the code in this repo uses their amazing work both as a building block and as reference. Open source is undefeated.
+- [Optimism](https://github.com/ethereum-optimism/optimism)
+- [revm](https://github.com/bluealloy/revm)
+- [Verifiable rpc](https://github.com/liamzebedee/eth-verifiable-rpc)
 
 ## Future plans
 
