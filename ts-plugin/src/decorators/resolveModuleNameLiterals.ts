@@ -1,5 +1,6 @@
 import { createHostDecorator } from '../factories'
 import { solidityModuleResolver } from '../utils'
+import { invariant } from '../utils/invariant'
 
 /**
  * Decorate `LangaugeServerHost.resolveModuleNameLiterals` to return config object to resolve `.sol` files
@@ -17,9 +18,10 @@ export const resolveModuleNameLiteralsDecorator = createHostDecorator(
 					)
 
 				return moduleNames.map(({ text: moduleName }, index) => {
-					if (!resolvedModules) {
-						throw new Error('Expected "resolvedModules" to be defined.')
-					}
+					invariant(
+						resolvedModules,
+						'Expected "resolvedModules" to be defined.',
+					)
 					try {
 						const resolvedModule = solidityModuleResolver(
 							moduleName,

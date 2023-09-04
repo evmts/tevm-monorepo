@@ -69,6 +69,8 @@
     "useDefineForClassFields": true
   },
   "include": [
-    "./src"
+    "./src",
+    "../../ts-plugin/src/utils/findNode.spec.ts",
+    "../../ts-plugin/src/utils/findNode.ts"
   ]
 }
