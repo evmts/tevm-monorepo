@@ -11,4 +11,5 @@
 "@evmts/cli": patch
 ---
 
-Upgraded all npm packages to latest
+⬆️ Upgraded all npm packages to latest
+Every package in EVMts is consistently updated to it's latest version using `pnpm up --latest`
