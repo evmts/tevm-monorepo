@@ -7,7 +7,7 @@ import type typescript from 'typescript/lib/tsserverlibrary'
  * @internal
  * @see {@link LanguageServiceHost}
  */
-export type Decorator = (
+export type HostDecorator = (
 	createInfo: typescript.server.PluginCreateInfo,
 	ts: typeof typescript,
 	logger: Logger,
@@ -16,7 +16,7 @@ export type Decorator = (
 
 /**
  * Type of function passed into createDecorator
- * @see {@link createDecorator}
+ * @see {@link createHostDecorator}
  * @example
  * const decoratorFn: PartialDecorator = (createInfo, ts, logger) => ({
  * getScriptKind: (fileName) => {
@@ -27,7 +27,7 @@ export type Decorator = (
  *   },
  * })
  */
-export type PartialDecorator = (
+export type PartialHostDecorator = (
 	createInfo: typescript.server.PluginCreateInfo,
 	ts: typeof typescript,
 	logger: Logger,
@@ -37,7 +37,7 @@ export type PartialDecorator = (
 /**
  * Creates a decorator from a DecoratorFn
  * A decoratorFn is a function that returns a partial LanguageServiceHost
- * @see {@link PartialDecorator}
+ * @see {@link PartialHostDecorator}
  * @example
  * const DecoratorFn: PartialDecorator = (createInfo, ts, logger) => ({
  *  getScriptKind: (fileName) => {
@@ -49,7 +49,9 @@ export type PartialDecorator = (
  * },
  * })
  */
-export const createDecorator = (decorator: PartialDecorator): Decorator => {
+export const createHostDecorator = (
+	decorator: PartialHostDecorator,
+): HostDecorator => {
 	return (createInfo, ...rest) => {
 		const proxy = decorator(createInfo, ...rest)
 		return new Proxy(createInfo.languageServiceHost, {
@@ -75,7 +77,7 @@ export const createDecorator = (decorator: PartialDecorator): Decorator => {
  *   decorator4,
  * )
  */
-export const decorate = (...decorators: Decorator[]): Decorator => {
+export const decorateHost = (...decorators: HostDecorator[]): HostDecorator => {
 	return (createInfo, ...rest) => {
 		if (decorators.length === 0) {
 			return createInfo.languageServiceHost
@@ -94,6 +96,6 @@ export const decorate = (...decorators: Decorator[]): Decorator => {
 			},
 		})
 
-		return decorate(...restDecorators)(decoratedCreateInfo, ...rest)
+		return decorateHost(...restDecorators)(decoratedCreateInfo, ...rest)
 	}
 }

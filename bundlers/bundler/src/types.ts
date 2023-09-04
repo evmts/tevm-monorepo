@@ -1,8 +1,13 @@
+import type { SolcInputDescription, SolcOutput } from './solc/solc'
 import type { ResolvedConfig } from '@evmts/config'
+import type { Node } from 'solidity-ast/node'
 
 type BundlerResult = {
 	code: string
 	modules: Record<'string', ModuleInfo>
+	solcInput: SolcInputDescription
+	solcOutput: SolcOutput
+	asts?: Record<string, Node> | undefined
 }
 
 type AsyncBundlerResult = (
@@ -10,6 +15,7 @@ type AsyncBundlerResult = (
 	basedir: string,
 	includeAst: boolean,
 ) => Promise<BundlerResult>
+
 type SyncBundlerResult = (
 	module: string,
 	basedir: string,

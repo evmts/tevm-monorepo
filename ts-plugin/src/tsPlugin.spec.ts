@@ -17,6 +17,8 @@ const createInfo: typescript.server.PluginCreateInfo = {
 		getScriptKind: vi.fn(),
 		getResolvedModuleWithFailedLookupLocationsFromCache: vi.fn(),
 	},
+	getDefinitionAtPosition: vi.fn(),
+	getDefinitionAndBoundSpan: vi.fn(),
 	project: {
 		getCurrentDirectory: () => path.join(__dirname, '..'),
 		getCompilerOptions: () => ({ baseUrl: 'foo' }),

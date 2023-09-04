@@ -17,6 +17,8 @@ export const compileContractSync = <TIncludeAsts = boolean>(
 	artifacts: SolcOutput['contracts'][string] | undefined
 	modules: Record<'string', ModuleInfo>
 	asts: TIncludeAsts extends true ? Record<string, Node> : undefined
+	solcInput: SolcInputDescription
+	solcOutput: SolcOutput
 } => {
 	const entryModule = moduleFactory(
 		filePath,
@@ -52,6 +54,7 @@ export const compileContractSync = <TIncludeAsts = boolean>(
 		}),
 	)
 
+	const emptyString = ''
 	const input: SolcInputDescription = {
 		language: 'Solidity',
 		sources,
@@ -59,7 +62,7 @@ export const compileContractSync = <TIncludeAsts = boolean>(
 			outputSelection: {
 				'*': {
 					'*': ['abi', 'userdoc'],
-					...(includeAst ? { '': ['ast'] } : {}),
+					...(includeAst ? { [emptyString]: ['ast'] } : {}),
 				},
 			},
 		},
@@ -77,7 +80,6 @@ export const compileContractSync = <TIncludeAsts = boolean>(
 	if (warnings?.length) {
 		console.warn('Compilation warnings:', output?.errors)
 	}
-
 	if (includeAst) {
 		const asts = Object.fromEntries(
 			Object.entries(output.sources).map(([id, source]) => {
@@ -88,11 +90,15 @@ export const compileContractSync = <TIncludeAsts = boolean>(
 			artifacts: output.contracts[entryModule.id],
 			modules,
 			asts: asts as any,
+			solcInput: input,
+			solcOutput: output,
 		}
 	}
 	return {
 		artifacts: output.contracts[entryModule.id],
 		modules,
 		asts: undefined as any,
+		solcInput: input,
+		solcOutput: output,
 	}
 }

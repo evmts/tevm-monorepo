@@ -88,6 +88,7 @@ describe('resolveArtifactsSync', () => {
 			      "userdoc": undefined,
 			    },
 			  },
+			  "asts": undefined,
 			  "modules": {
 			    "module1": {
 			      "code": "import { TestContract } from 'module2'
@@ -111,6 +112,8 @@ describe('resolveArtifactsSync', () => {
 			      ],
 			    },
 			  },
+			  "solcInput": undefined,
+			  "solcOutput": undefined,
 			}
 		`)
 	})
