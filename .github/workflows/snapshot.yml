@@ -1,13 +1,17 @@
-name: Prerelease 🚀
+name: Snapshot 🚀
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - main
+
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 jobs:
   prerelease:
-    name: Changests Prerelease
+    name: Changests Snapshot
     if: github.repository == 'evmts/evmts-monorepo'
     runs-on: ubuntu-latest
     # Permissions necessary for Changesets to push a new branch and open PRs
@@ -37,23 +41,11 @@ jobs:
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - name: Check for pre.json file existence
-        id: check_files
-        uses: andstor/file-existence-action@v2.0.0
-        with:
-          files: ".changeset/pre.json"
 
-      - name: Enter next prerelease mode
-        # If .changeset/pre.json does not exist and we did not recently exit
-        # prerelease mode, enter prerelease mode with tag next
-        if: steps.check_files.outputs.files_exists == 'false' && !contains(github.event.head_commit.message, 'Exit prerelease')
-        run: npx changeset pre enter next
-
-      - name: Create next version PR or publish 🚀
-        uses: changesets/action@v1
+      - name: Publish snapshots
+        uses: seek-oss/changesets-snapshot@v0
         with:
-          version: pnpm release:version
-          publish: pnpm release:publish
+          pre-publish: pnpm nx run-many --targets=build,build:dist --skip-nx-cache
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
