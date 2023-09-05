@@ -15,6 +15,7 @@
 			"e2e",
 			"**/.vitepress/cache",
 			"**/.vitepress/dist",
+			"scaffold-evmts",
 			".vscode",
 			".changeset",
 			".devcontainer",

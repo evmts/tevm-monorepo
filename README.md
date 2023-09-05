@@ -52,6 +52,7 @@ EVMts provides many starter projects and reference code to help get you started
 - Our official starter project for react projects is the [Vite and wagmi starter project](https://github.com/evmts/evmts-vite-wagmi-example)
 - We don't only support react. Try out the [Svelte ethers starter project](https://github.com/evmts/evmts-svelte-ethers-example-)
 - Building a backend application or npm library? Check out the [esbuild and viem starter project](https://github.com/evmts/evmts-esbuild-viem-example)
+- WIP [scaffold eth 2 starter project](https://github.com/evmts/evmts-monorepo)
 
 ## Visit [Docs](https://evmts.dev/) for docs, guides, API and more! 📄
 
