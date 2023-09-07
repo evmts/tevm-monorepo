@@ -48,6 +48,7 @@
   "dependencies": {
     "@types/node": "^20.5.7",
     "bundle-require": "^4.0.1",
+    "jsonc-parser": "^3.2.0",
     "viem": "^1.8.1"
   },
   "devDependencies": {
