@@ -79,7 +79,7 @@ describe(loadConfig.name, () => {
 	})
 
 	it('should throw an error when the tsconfig.json is not valid json', () => {
-		vi.spyOn(fs, 'readFileSync').mockReturnValue('invalid json')
+		vi.spyOn(fs, 'readFileSync').mockReturnValue('{{}')
 
 		expect(() =>
 			loadConfig('nonexistentpath'),
@@ -536,6 +536,38 @@ describe(loadConfig.name, () => {
 			      },
 			    ],
 			    "out": "path/to/out",
+			  },
+			  "localContracts": {
+			    "contracts": [],
+			  },
+			}
+		`)
+	})
+
+	it('should work when jsonc (json with comments) is passed in', () => {
+		const tsConfig = `{
+			"compilerOptions": {
+				// evmts config is the best tool
+				"plugins": [{name: "@evmts/ts-plugin"}],
+			},
+		}`
+		vi.spyOn(fs, 'readFileSync').mockReturnValue(tsConfig)
+		vi.spyOn(fs, 'existsSync').mockReturnValue(true)
+		const config = loadConfig('path/to/config')
+		expect(config).toMatchInlineSnapshot(`
+			{
+			  "compiler": {
+			    "foundryProject": false,
+			    "libs": [],
+			    "remappings": {},
+			    "solcVersion": "0.8.42",
+			  },
+			  "externalContracts": {
+			    "apiKeys": {
+			      "etherscan": {},
+			    },
+			    "contracts": [],
+			    "out": "externalContracts",
 			  },
 			  "localContracts": {
 			    "contracts": [],

@@ -1,6 +1,7 @@
 import { type EvmtsConfig, type ResolvedConfig } from './Config'
 import { defineConfig } from './defineConfig'
 import { existsSync, readFileSync } from 'fs'
+import { parse } from 'jsonc-parser'
 import * as path from 'path'
 
 type LoadConfig = (
@@ -33,7 +34,10 @@ export const loadConfig: LoadConfig = (configFilePath, logger = console) => {
 		}
 	}
 	try {
-		configJson = JSON.parse(configStr)
+		configJson = parse(configStr)
+		if (!configJson.compilerOptions) {
+			throw new Error('No compilerOptions found failed to parse tsconfig.json')
+		}
 	} catch (e) {
 		logger.error(e)
 		throw new Error(`tsconfig.json at ${tsConfigPath} is not valid json`)
