@@ -1,5 +1,16 @@
 # @evmts/cli
 
+## 0.8.1
+
+### Patch Changes
+
+- [#453](https://github.com/evmts/evmts-monorepo/pull/453) [`c23302a`](https://github.com/evmts/evmts-monorepo/commit/c23302a9623a968917df19de8dfa2c56b4612712) Thanks [@roninjin10](https://github.com/roninjin10)! - Started publishing every commit to main so all EVMts changes can be used early. To use the latest main branch release install with `@main` tag. e.g. `npm install @evmts/ts-plugin@main`
+
+- Updated dependencies [[`c23302a`](https://github.com/evmts/evmts-monorepo/commit/c23302a9623a968917df19de8dfa2c56b4612712), [`ae772ac`](https://github.com/evmts/evmts-monorepo/commit/ae772ac62ad16d19c48b82dfd005458bf27200fe)]:
+  - @evmts/bundler@0.8.1
+  - @evmts/config@0.8.1
+  - @evmts/core@0.8.1
+
 ## 0.8.0
 
 ### Minor Changes

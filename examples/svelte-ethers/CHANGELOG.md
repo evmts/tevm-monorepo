@@ -1,5 +1,15 @@
 # svelte-ethers
 
+## 0.1.2
+
+### Patch Changes
+
+- [#453](https://github.com/evmts/evmts-monorepo/pull/453) [`c23302a`](https://github.com/evmts/evmts-monorepo/commit/c23302a9623a968917df19de8dfa2c56b4612712) Thanks [@roninjin10](https://github.com/roninjin10)! - Started publishing every commit to main so all EVMts changes can be used early. To use the latest main branch release install with `@main` tag. e.g. `npm install @evmts/ts-plugin@main`
+
+- Updated dependencies [[`c23302a`](https://github.com/evmts/evmts-monorepo/commit/c23302a9623a968917df19de8dfa2c56b4612712)]:
+  - @evmts/core@0.8.1
+  - @evmts/ethers@0.8.1
+
 ## 0.1.1
 
 ### Patch Changes
