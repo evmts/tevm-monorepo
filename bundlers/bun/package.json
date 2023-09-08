@@ -1,6 +1,6 @@
 {
   "name": "@evmts/bun-plugin",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "private": false,
   "description": "A bun plugin for evmts",
   "contributors": [
@@ -45,7 +45,7 @@
   },
   "dependencies": {
     "@evmts/bundler": "workspace:^",
-    "@evmts/config": "^0.8.1"
+    "@evmts/config": "^0.9.0"
   },
   "devDependencies": {
     "@evmts/core": "workspace:^",

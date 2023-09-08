@@ -1,5 +1,11 @@
 # @evmts/core
 
+## 0.9.0
+
+### Patch Changes
+
+- [#460](https://github.com/evmts/evmts-monorepo/pull/460) [`1f80589`](https://github.com/evmts/evmts-monorepo/commit/1f8058969e2b0290f5032166928f76cfc74e9d74) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug with solc not being correctly listed as a peer dependency
+
 ## 0.8.1
 
 ### Patch Changes
