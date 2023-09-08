@@ -70,6 +70,10 @@ export const sidebar: DefaultTheme.Sidebar = [
 				link: '/guides/rspack',
 			},
 			{
+				text: 'Bun',
+				link: '/configuration/bun',
+			},
+			{
 				text: 'Vite',
 				link: '/guides/Vite',
 			},
