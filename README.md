@@ -37,7 +37,7 @@ Support for all your favorite tools
 - Wagmi/Viem support is batteries included with no extra dependencies
 - Superpowers Ethers.js typesafety and ergonomics with [@evmts/ethers](./docs/ethers/overview.md) library
 - Support for Web3.js comming soon
-- Support for all major bundlers and frameworks including [Next.js](./docs/guides/next.md), [Esbuild](./docs/guides/esbuild.md), [Vite](./docs/guides/vite.md) and more!
+- Support for all major bundlers and frameworks including [Next.js](./docs/guides/next.md), [Esbuild](./docs/guides/esbuild.md), [Vite](./docs/guides/vite.md), [bun](./bundlers/bun/README.md) and more!
 - Install contracts to use in your typescript code directly from etherscan
 
 ## Try it out
@@ -179,6 +179,7 @@ Bundlers are provided for all major tools.   If yours is not supported consider 
 All bundlers are in the [bundlers/\*](/bundlers) folder
 
 - [config/](/config) - Tooling for configuring an `evmts.config.ts` file
+- [@evmts/bun](/bundlers/bun)
 - [@evmts/esbuild-plugin](/bundlers/esbuild-plugin)
 - [@evmts/rollup-plugin](/bundlers/rollup-plugin)
 - [@evmts/rspack](/bundlers/rspack)
@@ -207,6 +208,7 @@ All example apps are also available as forkable repos of their own within the Ev
 
 - [examples/next](./examples/next/) - An example of a forge/next app using Evmts and Wagmi
 - [examples/vite](./examples/vite) - An example of a forge/vite app using Evmts and Wagmi
+- [examples/bun](./examples/bun) - An example of using EVMts with bun
 - [examples/esbuild](./examples/esbuild) - A minimalistic example of a forge/esbuild node app using Evmts and Viem
 - [examples/rollup](./examples/rollup) - An example of a forge/rollup library built with Evmts and ethers.js
 
