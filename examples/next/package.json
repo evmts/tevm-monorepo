@@ -22,9 +22,9 @@
     "wagmi": "~1.3.8"
   },
   "devDependencies": {
-    "@evmts/config": "^0.8.1",
-    "@evmts/ts-plugin": "^0.8.1",
-    "@evmts/webpack-plugin": "^0.8.1",
+    "@evmts/config": "^0.9.0",
+    "@evmts/ts-plugin": "^0.9.0",
+    "@evmts/webpack-plugin": "^0.9.0",
     "@openzeppelin/contracts": "^4.9.2",
     "@types/node": "^20.4.1",
     "@types/react": "^18.2.14",
