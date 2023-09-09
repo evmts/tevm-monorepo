@@ -10,7 +10,7 @@ import { existsSync } from 'fs'
  * TODO replace with modules for code reuse
  */
 export const getScriptSnapshotDecorator = createHostDecorator(
-	({ languageServiceHost }, ts, logger, config) => {
+	({ languageServiceHost }, ts, logger, config, fao) => {
 		return {
 			getScriptSnapshot: (filePath) => {
 				if (
@@ -22,7 +22,7 @@ export const getScriptSnapshotDecorator = createHostDecorator(
 					return languageServiceHost.getScriptSnapshot(filePath)
 				}
 				try {
-					const plugin = bundler(config, logger as any)
+					const plugin = bundler(config, logger as any, fao)
 					const snapshot = plugin.resolveDtsSync(filePath, process.cwd(), false)
 					return ts.ScriptSnapshot.fromString(snapshot.code)
 				} catch (e) {

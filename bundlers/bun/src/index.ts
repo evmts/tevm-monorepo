@@ -1,7 +1,7 @@
+import { bunFileAccesObject } from './bunFileAccessObject'
 import { bundler } from '@evmts/bundler'
 import { loadConfig } from '@evmts/config'
 import type { BunPlugin } from 'bun'
-import { exists, readFile } from 'fs/promises'
 
 type EvmtsBunPluginOptions = {}
 
@@ -9,7 +9,7 @@ type EvmtsBunPlugin = (options?: EvmtsBunPluginOptions) => BunPlugin
 
 export const evmtsBunPlugin: EvmtsBunPlugin = () => {
 	const config = loadConfig(process.cwd())
-	const moduleResolver = bundler(config, console)
+	const moduleResolver = bundler(config, console, bunFileAccesObject)
 	return {
 		name: '@evmts/esbuild-plugin',
 		setup(build) {
@@ -42,19 +42,21 @@ export const evmtsBunPlugin: EvmtsBunPlugin = () => {
 			build.onLoad({ filter: /\.sol$/ }, async ({ path }) => {
 				const filePaths = { dts: `${path}.d.ts`, ts: `${path}.ts` }
 				const [dtsExists, tsExists] = await Promise.all(
-					Object.values(filePaths).map((filePath) => exists(filePath)),
+					Object.values(filePaths).map((filePath) =>
+						bunFileAccesObject.exists(filePath),
+					),
 				)
 				if (dtsExists) {
 					const filePath = `${path}.d.ts`
 					return {
-						contents: await readFile(filePath, 'utf8'),
+						contents: await bunFileAccesObject.readFile(filePath, 'utf8'),
 						watchFiles: [filePath],
 					}
 				}
 				if (tsExists) {
 					const filePath = `${path}.ts`
 					return {
-						contents: await readFile(filePath, 'utf8'),
+						contents: await bunFileAccesObject.readFile(filePath, 'utf8'),
 						watchFiles: [filePath],
 					}
 				}

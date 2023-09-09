@@ -1,8 +1,7 @@
-import type { ModuleInfo } from '../types'
+import type { FileAccessObject, ModuleInfo } from '../types'
 import { compileContractSync } from './compileContracts'
 import { moduleFactory } from './moduleFactory'
 import type { ResolvedConfig } from '@evmts/config'
-import { readFileSync } from 'fs'
 import * as resolve from 'resolve'
 // TODO wrap this in a typesafe version
 // @ts-ignore
@@ -18,7 +17,6 @@ import {
 } from 'vitest'
 
 // Mock the necessary functions and modules
-vi.mock('fs', () => ({ readFileSync: vi.fn() }))
 vi.mock('resolve', () => ({ sync: vi.fn() }))
 vi.mock('solc', () => {
 	const defaultExport = { compile: vi.fn() }
@@ -34,6 +32,12 @@ const ConsoleMock = {
 }
 
 vi.stubGlobal('console', ConsoleMock)
+
+const fao: FileAccessObject = {
+	readFileSync: vi.fn() as any,
+	existsSync: vi.fn() as any,
+	readFile: vi.fn() as any,
+}
 
 describe('compileContractSync', () => {
 	const filePath = 'test/path'
@@ -68,7 +72,7 @@ describe('compileContractSync', () => {
 		Test: { abi: [], evm: { bytecode: { object: '0x123' } } },
 	}
 
-	const mockReadFileSync = readFileSync as Mock
+	const mockReadFileSync = fao.readFileSync as Mock
 	const mockResolveSync = resolve.sync as Mock
 	const mockModuleFactory = moduleFactory as Mock
 	const mockSolcCompile = solc.compile as Mock
@@ -93,6 +97,7 @@ describe('compileContractSync', () => {
 			basedir,
 			config,
 			true,
+			fao,
 		)
 
 		expect(compiledContract).toMatchInlineSnapshot(`
@@ -185,13 +190,14 @@ describe('compileContractSync', () => {
 			  },
 			}
 		`)
-		expect(readFileSync).toBeCalledWith(filePath, 'utf8')
+		expect(fao.readFileSync).toBeCalledWith(filePath, 'utf8')
 		expect(resolve.sync).toBeCalledWith(filePath, { basedir })
 		expect(moduleFactory).toBeCalledWith(
 			filePath,
 			mockSource,
 			config.remappings,
 			config.libs,
+			fao,
 		)
 		expect((solc.compile as Mock).mock.lastCall).toMatchInlineSnapshot(`
 			[
@@ -206,6 +212,7 @@ describe('compileContractSync', () => {
 			basedir,
 			config,
 			false,
+			fao,
 		)
 
 		expect(compiledContract).toMatchInlineSnapshot(`
@@ -293,13 +300,14 @@ describe('compileContractSync', () => {
 			  },
 			}
 		`)
-		expect(readFileSync).toBeCalledWith(filePath, 'utf8')
+		expect(fao.readFileSync).toBeCalledWith(filePath, 'utf8')
 		expect(resolve.sync).toBeCalledWith(filePath, { basedir })
 		expect(moduleFactory).toBeCalledWith(
 			filePath,
 			mockSource,
 			config.remappings,
 			config.libs,
+			fao,
 		)
 		expect((solc.compile as Mock).mock.lastCall).toMatchInlineSnapshot(`
 			[
@@ -316,7 +324,7 @@ describe('compileContractSync', () => {
 			}),
 		)
 		expect(() =>
-			compileContractSync(filePath, basedir, config, false),
+			compileContractSync(filePath, basedir, config, false, fao),
 		).toThrowErrorMatchingInlineSnapshot('"Compilation failed"')
 		expect(console.error).toHaveBeenCalledWith('Compilation errors:', [
 			{ type: 'Error', message: 'Compilation Error' },
@@ -330,7 +338,7 @@ describe('compileContractSync', () => {
 				errors: [{ type: 'Warning', message: 'Compilation Warning' }],
 			}),
 		)
-		compileContractSync(filePath, basedir, config, false)
+		compileContractSync(filePath, basedir, config, false, fao)
 		expect((console.warn as Mock).mock.lastCall[0]).toMatchInlineSnapshot(
 			'"Compilation warnings:"',
 		)
@@ -343,7 +351,7 @@ describe('compileContractSync', () => {
 				errors: [],
 			}),
 		)
-		compileContractSync(filePath, basedir, config, false)
+		compileContractSync(filePath, basedir, config, false, fao)
 		expect(console.warn).not.toHaveBeenCalled()
 	})
 
@@ -375,7 +383,7 @@ describe('compileContractSync', () => {
 		mockModuleA.resolutions.push(mockModuleB)
 		mockModuleFactory.mockReturnValue(mockModuleA)
 		expect(
-			compileContractSync(filePath, basedir, config, false),
+			compileContractSync(filePath, basedir, config, false, fao),
 		).toMatchInlineSnapshot(`
 			{
 			  "artifacts": undefined,

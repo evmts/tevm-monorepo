@@ -1,4 +1,4 @@
-import type { Logger, ModuleInfo } from '../types'
+import type { FileAccessObject, Logger, ModuleInfo } from '../types'
 import { compileContractSync } from './compileContracts'
 import { resolveArtifacts } from './resolveArtifacts'
 import { type ResolvedConfig, defaultConfig } from '@evmts/config'
@@ -14,6 +14,12 @@ import {
 vi.mock('./compileContracts', () => ({
 	compileContractSync: vi.fn(),
 }))
+
+const fao: FileAccessObject = {
+	existsSync: vi.fn() as any,
+	readFile: vi.fn() as any,
+	readFileSync: vi.fn() as any,
+}
 
 const solFile = 'test.sol'
 const basedir = 'basedir'
@@ -41,7 +47,7 @@ describe('resolveArtifacts', () => {
 			modules: {} as Record<string, ModuleInfo>,
 		} as any)
 		expect(
-			await resolveArtifacts(solFile, basedir, logger, config, false),
+			await resolveArtifacts(solFile, basedir, logger, config, false, fao),
 		).toMatchInlineSnapshot(`
 			{
 			  "artifacts": {

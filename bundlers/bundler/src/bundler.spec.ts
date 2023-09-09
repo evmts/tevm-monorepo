@@ -1,7 +1,7 @@
 import { bundler } from './bundler'
 import { resolveArtifacts, resolveArtifactsSync } from './solc'
 import type { SolcInputDescription, SolcOutput } from './solc/solc'
-import type { Bundler, ModuleInfo } from './types'
+import type { Bundler, FileAccessObject, ModuleInfo } from './types'
 import { writeFileSync } from 'fs'
 import type { Node } from 'solidity-ast/node'
 import * as ts from 'typescript'
@@ -14,6 +14,12 @@ import {
 	it,
 	vi,
 } from 'vitest'
+
+const fao: FileAccessObject = {
+	existsSync: vi.fn() as any,
+	readFile: vi.fn() as any,
+	readFileSync: vi.fn() as any,
+}
 
 const erc20Abi = [
 	{
@@ -275,7 +281,7 @@ describe(bundler.name, () => {
 			},
 		}
 
-		resolver = bundler(config as any, logger)
+		resolver = bundler(config as any, logger, fao)
 		vi.mock('./solc', () => {
 			return {
 				resolveArtifacts: vi.fn(),

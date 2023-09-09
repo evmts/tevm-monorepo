@@ -1,7 +1,9 @@
 import * as packageJson from '../package.json'
 import { bundler } from './bundler'
+import type { FileAccessObject } from './types'
 import { type ResolvedConfig, loadConfig } from '@evmts/config'
-import { existsSync } from 'fs'
+import { existsSync, readFileSync } from 'fs'
+import { readFile } from 'fs/promises'
 import { createRequire } from 'module'
 import { type UnpluginFactory, createUnplugin } from 'unplugin'
 import { z } from 'zod'
@@ -43,12 +45,18 @@ export const unpluginFn: UnpluginFactory<
 	const bundler = bundlers[compilerOption]
 	let moduleResolver: ReturnType<typeof bundler>
 
+	const fao: FileAccessObject = {
+		existsSync,
+		readFile,
+		readFileSync,
+	}
+
 	return {
 		name: '@evmts/rollup-plugin',
 		version: packageJson.version,
 		async buildStart() {
 			config = loadConfig(process.cwd())
-			moduleResolver = bundler(config, console)
+			moduleResolver = bundler(config, console, fao)
 			this.addWatchFile('./tsconfig.json')
 		},
 		async resolveId(id, importer, options) {

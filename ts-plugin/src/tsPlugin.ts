@@ -5,6 +5,7 @@ import {
 } from './decorators'
 import { getDefinitionServiceDecorator } from './decorators/getDefinitionAtPosition'
 import { createLogger, decorateHost } from './factories'
+import { createFileAccessObject } from './factories/fileAccessObject'
 import { isSolidity } from './utils'
 import { loadConfig } from '@evmts/config'
 import typescript from 'typescript/lib/tsserverlibrary'
@@ -26,17 +27,19 @@ export const tsPlugin: typescript.server.PluginModuleFactory = (modules) => {
 				createInfo.project.getCurrentDirectory(),
 				logger,
 			)
+			const fao = createFileAccessObject(createInfo.languageServiceHost)
 			const service = getDefinitionServiceDecorator(
 				modules.typescript.createLanguageService(
 					decorateHost(
 						getScriptKindDecorator,
 						resolveModuleNameLiteralsDecorator,
 						getScriptSnapshotDecorator,
-					)(createInfo, modules.typescript, logger, config),
+					)(createInfo, modules.typescript, logger, config, fao),
 				),
 				config,
 				logger,
 				modules.typescript,
+				fao,
 			)
 
 			return service

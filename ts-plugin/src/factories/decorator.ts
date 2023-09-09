@@ -1,4 +1,5 @@
 import type { Logger } from './logger'
+import { FileAccessObject } from '@evmts/bundler'
 import { ResolvedConfig } from '@evmts/config'
 import type typescript from 'typescript/lib/tsserverlibrary'
 
@@ -12,6 +13,7 @@ export type HostDecorator = (
 	ts: typeof typescript,
 	logger: Logger,
 	config: ResolvedConfig,
+	fao: FileAccessObject,
 ) => typescript.LanguageServiceHost
 
 /**
@@ -32,6 +34,7 @@ export type PartialHostDecorator = (
 	ts: typeof typescript,
 	logger: Logger,
 	config: ResolvedConfig,
+	fao: FileAccessObject,
 ) => Partial<typescript.LanguageServiceHost>
 
 /**

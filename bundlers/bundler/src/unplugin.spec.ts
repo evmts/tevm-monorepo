@@ -107,6 +107,11 @@ describe('unpluginFn', () => {
 			    "trace": [Function],
 			    "warn": [Function],
 			  },
+			  {
+			    "existsSync": [MockFunction spy],
+			    "readFile": [Function],
+			    "readFileSync": [Function],
+			  },
 			]
 		`)
 
