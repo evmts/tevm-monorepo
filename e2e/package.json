@@ -19,6 +19,8 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@evmts/example-next": "workspace:^",
+    "@evmts/example-vite": "workspace:^",
     "@types/node": "^20.6.0",
     "typescript": "^5.2.2"
   },
