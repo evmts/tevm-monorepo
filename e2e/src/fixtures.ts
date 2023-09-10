@@ -8,6 +8,7 @@ import {
 } from '@playwright/test'
 import metamask from '@synthetixio/synpress/commands/metamask.js'
 import helpers from '@synthetixio/synpress/helpers.js'
+import {Chain, mainnet} from 'viem/chains'
 
 const { initialSetup } = metamask
 const { prepareMetamask } = helpers
@@ -45,7 +46,13 @@ export const testWithSynpress = base.extend<{
 		await initialSetup(chromium, {
 			secretWordsOrPrivateKey:
 				process.env.PRIVATE_KEY,
-			network: 'mainnet',
+			network: {
+				...mainnet,
+				rpcUrls: {
+					public: {http: [process.env.ANVIL_RPC_URL_1]},
+					default: {http: [process.env.ANVIL_RPC_URL_1]}
+				}
+			} satisfies Chain,
 			password: 'Tester@1234',
 			enableAdvancedSettings: true,
 		})

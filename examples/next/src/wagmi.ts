@@ -12,11 +12,11 @@ const { chains, publicClient, webSocketPublicClient } = configureChains(
 			rpc: (chain) => {
 				const urls = {
 					1: {
-						http: process.env.VITE_RPC_URL_1 ?? mainnet.rpcUrls.public.http[0],
+						http: process.env.NEXT_RPC_URL_1 ?? mainnet.rpcUrls.public.http[0],
 					},
 					420: {
 						http:
-							process.env.VITE_RPC_URL_420 ??
+							process.env.NEXT_RPC_URL_420 ??
 							optimismGoerli.rpcUrls.public.http[0],
 					},
 				}
