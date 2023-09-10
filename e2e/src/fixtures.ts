@@ -21,7 +21,7 @@ export const testWithSynpress = base.extend<{
 		global.expect = expect
 		// download metamask
 		const metamaskPath = await prepareMetamask(
-			process.env.METAMASK_VERSION || '10.25.0',
+			process.env.PLAYWRIGHT_METAMASK_VERSION || '10.25.0',
 		)
 		// prepare browser args
 		const browserArgs = [
@@ -32,7 +32,9 @@ export const testWithSynpress = base.extend<{
 		if (process.env.CI) {
 			browserArgs.push('--disable-gpu')
 		}
-		if (process.env.HEADLESS_MODE) {
+		if (Boolean(process.env.PLAYWRIGHT_HEADLESS_MODE) && !['0', ''].includes(
+			process.env.PLAYWRIGHT_HEADLESS_MODE
+		)) {
 			browserArgs.push('--headless=new')
 		}
 		// launch browser
@@ -50,19 +52,19 @@ export const testWithSynpress = base.extend<{
 export { expect }
 
 export const network = {
-	name: 'forked-mainnet',
-	chainId: mainnet.id,
+	name: 'playwright-e2e-network',
+	chainId: process.env.PLAYWRIGHT_CHAIN_ID ?? mainnet.id,
 	symbol: mainnet.nativeCurrency.symbol,
-	rpcUrl: 'http://localhost:8546',
+	rpcUrl: process.env.PLAYWRIGHT_RPC_URL ?? 'http://localhost:8546',
 	rpcUrls: {
-		public: { http: ['http://localhost:8546'] },
-		default: { http: ['http://localhost:8546'] }
+		public: { http: [process.env.PLAYWRIGHT_RPC_URL ?? 'http://localhost:8546'] },
+		default: { http: [process.env.PLAYWRIGHT_RPC_URL ?? 'http://localhost:8546'] }
 	}
 } satisfies Chain
 export const config = {
 	network,
 	secretWordsOrPrivateKey:
-		'test test test test test test test test test test test junk',
+		process.env.PLAYWRIGHT_PRIVATE_KEY ?? 'test test test test test test test test test test test junk',
 	password: 'Tester@1234',
 	enableAdvancedSettings: true,
 }

@@ -1,0 +1,60 @@
+version: '3.8'
+
+services:
+  anvil:
+    image: monorepo:latest
+    build:
+      context: .
+      target: monorepo
+    command:
+      [
+        "anvil",
+        "--port",
+        "8546",
+        "--fork-url",
+        "${ANVIL_FORK_URL_1}"
+      ]
+    environment:
+      - ANVIL_IP_ADDR=0.0.0.0
+      - ANVIL_FORK_URL_1=${ANVIL_FORK_URL_1}
+    ports:
+      - 8546:8546
+    healthcheck:
+      test: cast block-number --rpc-url http://0.0.0.0:8546
+
+  example-vite:
+    image: example-vite:latest
+    build:
+      context: .
+      target: example-vite
+      args:
+        VITE_RPC_URL_1: "http://anvil:8546"
+        VITE_RPC_URL_420: "https://goerli.optimism.io"
+    environment:
+      - PORT=5173
+      - HOST="0.0.0.0"
+    ports:
+      - 5173:80
+    healthcheck:
+      test: wget localhost:80 -q -O - > /dev/null 2>&1
+
+  e2e:
+    image: e2e:latest
+    build:
+      context: e2e
+    environment:
+      - PLAYWRIGHT_BASE_URL=http://example-vite:5173
+      - PLAYWRIGHT_SLOW_MO=0
+      - PLAYWRIGHT_METAMASK_VERSION=10.25.0
+      - CI=true
+      - PLAYWRIGHT_HEADLESS_MODE=0
+      - PLAYWRIGHT_PRIVATE_KEY="test test test test test test test test test test test junk"
+      - PLAYWRIGHT_CHAIN_ID=1
+      - PLAYWRIGHT_RPC_URL=http://anvil:8546
+    depends_on:
+      anvil:
+        condition: service_healthy
+      example-vite:
+        condition: service_healthy
+    volumes:
+      - ./e2e/test_results:/e2e/test_results

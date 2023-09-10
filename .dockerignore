@@ -1,0 +1,11 @@
+node_modules
+**/node_modules
+lib/**/dist
+apps/**/dist
+packages/**/dist
+.env
+.vscode
+forge-artifacts
+cache
+**/.env
+target
