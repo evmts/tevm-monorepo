@@ -2,7 +2,9 @@
 	"name": "@evmts/example-next",
 	"version": "0.0.2",
 	"private": true,
-	"contributors": ["Will Cory <willcory10@gmail.com>"],
+	"contributors": [
+		"Will Cory <willcory10@gmail.com>"
+	],
 	"scripts": {
 		"build": "pnpm build:dist",
 		"build:dist": "next build",
