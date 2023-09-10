@@ -14,7 +14,7 @@ const config: PlaywrightTestConfig = {
 		}
 	},
 	webServer: {
-		command: `ANVIL_RPC_URL_1=${process.env.ANVIL_RPC_URL_1} pnpm nx dev ${process.env.EXAMPLE_PROJECT && "@evmts/example-vite"}`,
+		command: `ANVIL_RPC_URL_1=${process.env.ANVIL_RPC_URL_1} echo "starting dev server ${process.env.EXAMPLE_PROJECT}" && pnpm nx dev ${process.env.EXAMPLE_PROJECT ?? "@evmts/example-vite"}`,
 		port: process.env.SERVER_PORT ? Number.parseInt(process.env.SERVER_PORT) : 5173,
 		reuseExistingServer: true,
 		timeout: 180000,
