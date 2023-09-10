@@ -1,6 +1,6 @@
 import { bunFileAccesObject } from './bunFileAccessObject'
 import { bundler } from '@evmts/bundler'
-import { loadConfig } from '@evmts/config'
+import { loadConfig, loadConfigAsync } from '@evmts/config'
 import type { BunPlugin } from 'bun'
 
 type EvmtsBunPluginOptions = {}
@@ -8,11 +8,11 @@ type EvmtsBunPluginOptions = {}
 type EvmtsBunPlugin = (options?: EvmtsBunPluginOptions) => BunPlugin
 
 export const evmtsBunPlugin: EvmtsBunPlugin = () => {
-	const config = loadConfig(process.cwd())
-	const moduleResolver = bundler(config, console, bunFileAccesObject)
 	return {
 		name: '@evmts/esbuild-plugin',
-		setup(build) {
+		async setup(build) {
+			const config = await loadConfigAsync(process.cwd())
+			const moduleResolver = bundler(config, console, bunFileAccesObject)
 			/**
 			 * @evmts/core is used to construct the evmts modules for solidity files
 			 * sometimes the solidity file might exist in the node_modules folder
