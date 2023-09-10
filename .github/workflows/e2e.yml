@@ -10,7 +10,7 @@ name: E2E
 
 jobs:
   e2e-vite:
-    name: Playwright E2E
+    name: Playwright E2E @evmts/example-vite
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -25,12 +25,13 @@ jobs:
         run: pnpm i && npx playwright install && pnpm nx affected --target=e2e:ci
         env:
           NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
-          VITE_RPC_URL_1: ${{ secrets.RPC_URL_MAINNET }}
+          ANVIL_RPC_URL_1: ${{ secrets.RPC_URL_MAINNET }}
           PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
           EXAMPLE_PROJECT: "@evmts/example-vite"
+          SERVER_PORT: 5173
 
   e2e-next:
-    name: Playwright E2E
+    name: Playwright E2E @evmts/example-next
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -45,6 +46,7 @@ jobs:
         run: pnpm i && npx playwright install && pnpm nx affected --target=e2e:ci
         env:
           NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
-          VITE_RPC_URL_1: ${{ secrets.RPC_URL_MAINNET }}
+          ANVIL_RPC_URL_1: ${{ secrets.RPC_URL_MAINNET }}
           PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
           EXAMPLE_PROJECT: "@evmts/example-next"
+          SERVER_PORT: 3000
