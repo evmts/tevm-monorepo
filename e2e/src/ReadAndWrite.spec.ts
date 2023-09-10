@@ -1,4 +1,4 @@
-import { testWithSynpress } from '../fixtures'
+import { testWithSynpress } from './fixtures'
 // @ts-ignore
 import metamask from "@synthetixio/synpress/commands/metamask.js";
 
@@ -16,7 +16,5 @@ testWithSynpress('should be able to read and write', async ({ page }) => {
 	// test a write
 	await page.getByText('writes').click()
 	await page.getByText('Mint').click()
-	// TODO confirm the tx on a testnet
-	// const txData = await metamask.confirmMetamaskTransaction()
-	// TODO check for events
+	const txData = await metamask.confirmTransactionAndWaitForMining()
 })

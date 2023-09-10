@@ -9,12 +9,12 @@ const config: PlaywrightTestConfig = {
 	retries: 3,
 	use: {
 		headless: false,
-	  launchOptions: {
-	  	slowMo: parseInt(process.env.PLAYWRIGHT_SLOW_MO || '0'),
+		launchOptions: {
+			slowMo: parseInt(process.env.PLAYWRIGHT_SLOW_MO || '0'),
 		}
 	},
 	webServer: {
-		command: `VITE_RPC_URL_1=${process.env.VITE_RPC_URL_1} pnpm nx dev @evmts/example-vite`,
+		command: `VITE_RPC_URL_1=${process.env.VITE_RPC_URL_1} pnpm nx dev ${process.env.EXAMPLE_PROJECT && "@evmts/example-vite"}`,
 		port: 5173,
 		reuseExistingServer: true,
 		timeout: 180000,
