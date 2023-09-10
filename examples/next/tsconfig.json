@@ -6,7 +6,7 @@
         "localContracts": {
           "contracts": [
             {
-              "name": "MyContract",
+              "name": "WagmiMintExample",
               "addresses": {
                 "1": "0xFBA3912Ca04dd458c843e2EE08967fC04f3579c2",
                 "420": "0x1df10ec981ac5871240be4a94f250dd238b77901"
@@ -35,7 +35,11 @@
       }
     ],
     "target": "es6",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -49,6 +53,12 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

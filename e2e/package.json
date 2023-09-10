@@ -9,7 +9,7 @@
   "scripts": {
     "clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
     "e2e": "playwright test",
-    "e2e:ci": "xvfb-run playwright test --headed",
+    "e2e:ci": "pnpm playwright test --headed",
     "format": "rome format . --write",
     "format:check": "rome format .",
     "preinstall": "npx only-allow pnpm",
@@ -19,14 +19,12 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@evmts/example-next": "workspace:^",
-    "@evmts/example-vite": "workspace:^",
     "typescript": "^5.2.2"
   },
   "devDependencies": {
     "@playwright/test": "^1.37.1",
-    "@synthetixio/synpress": "3.7.2-beta.5",
+    "@synthetixio/synpress": "3.7.2-beta.7",
     "rome": "^12.1.3",
-    "viem": "^1.8.1"
+    "viem": "^1.10.8"
   }
 }

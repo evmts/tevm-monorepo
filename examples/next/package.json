@@ -8,7 +8,7 @@
 	"scripts": {
 		"build": "pnpm build:dist",
 		"build:dist": "next build",
-		"dev": "NEXT_RPC_URL_1=http://localhost:8545 anvil --fork-url $ANVIL_RPC_URL_1 & next dev",
+		"dev": "NEXT_RPC_URL_1=http://localhost:8545 anvil --port 8546 --fork-url $ANVIL_RPC_URL_1 & next dev",
 		"lint": "next lint",
 		"start": "next start"
 	},

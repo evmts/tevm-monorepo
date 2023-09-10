@@ -1,9 +1,11 @@
-import { testWithSynpress } from './fixtures'
+import { testWithSynpress, network } from './fixtures'
 // @ts-ignore
 import metamask from "@synthetixio/synpress/commands/metamask.js";
 
 testWithSynpress('should be able to read and write', async ({ page }) => {
-	await page.goto('http://localhost:5173')
+	const pageUrl =`http://localhost:${process.env.SERVER_PORT ?? '5173'}`
+	console.log(`going to ${pageUrl}`)
+	await page.goto(pageUrl)
 	await page.getByTestId('rk-connect-button').click()
 	await page.getByText('MetaMask').click()
 	await metamask.acceptAccess();

@@ -2,18 +2,16 @@
 	"name": "@evmts/example-vite",
 	"version": "0.0.1",
 	"private": true,
-	"contributors": [
-		"Will Cory <willcory10@gmail.com>"
-	],
+	"contributors": ["Will Cory <willcory10@gmail.com>"],
 	"scripts": {
-		"anvil": "source .env && anvil --fork-url https://eth-mainnet.g.alchemy.com/v2/$VITE_ALCHEMY_API_KEY",
 		"build": "pnpm build:contracts && pnpm build:dist",
 		"build:contracts": "forge build",
 		"build:dist": "vite build",
 		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
 		"deploy-contracts": "source .env && forge script script/Deploy.s.sol:Deploy --broadcast --verify -vvvv",
 		"deploy-contracts:anvil": "pnpm deploy-contracts --fork-url http://localhost:8545",
-		"dev": "anvil --fork-url $ANVIL_RPC_URL_1 & vite",
+		"dev": "anvil --port 8546 --fork-block-number 14457512 --fork-url $ANVIL_RPC_URL_1 & vite",
+		"test-server": "vite",
 		"format": "rome format . --write",
 		"format:check": "rome format .",
 		"generate": "evmts generate",
@@ -24,7 +22,6 @@
 		"preview": "vite preview",
 		"rome": "^12.1.2",
 		"serve": "serve -s -l tcp://0.0.0.0:5173 dist",
-		"serve:test": "source .env & anvil --fork-url https://eth-mainnet.g.alchemy.com/v2/$VITE_ALCHEMY_API_KEY & vite",
 		"test": "vitest"
 	},
 	"dependencies": {

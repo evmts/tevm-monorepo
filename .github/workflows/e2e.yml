@@ -12,6 +12,8 @@ jobs:
   e2e-vite:
     name: Playwright E2E @evmts/example-vite
     runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.37.1-jammy
     steps:
       - uses: actions/checkout@v3
         with:
@@ -21,32 +23,44 @@ jobs:
       - name: "Setup"
         uses: ./.github/actions/setup
 
-      - name: Run Playwright
-        run: pnpm i && npx playwright install && pnpm nx affected --target=e2e:ci
+      - name: Run anvil
+        run: anvil --port=8546 --fork-url ${{ secrets.RPC_URL_MAINNET }} --fork-block-number 14457512 &
         env:
+          ANVIL_FORK_URL: ${{ secrets.ANVIL_FORK_URL }}
           NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
           ANVIL_RPC_URL_1: ${{ secrets.RPC_URL_MAINNET }}
-          PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
           EXAMPLE_PROJECT: "@evmts/example-vite"
           SERVER_PORT: 5173
+          VITE_RPC_URL_1: "http://localhost:8546"
+          PRIVATE_KEY: "test test test test test test test test test test test junk"
 
-  e2e-next:
-    name: Playwright E2E @evmts/example-next
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-          submodules: recursive
-
-      - name: "Setup"
-        uses: ./.github/actions/setup
-
-      - name: Run Playwright
-        run: pnpm i && npx playwright install && pnpm nx affected --target=e2e:ci
+      - name: Run @evmts/vite-example tests
+        run: xvfb-run --server-args='-screen 0 1024x768x24' pnpm nx e2e:ci @evmts/e2e
         env:
           NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
           ANVIL_RPC_URL_1: ${{ secrets.RPC_URL_MAINNET }}
-          PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
-          EXAMPLE_PROJECT: "@evmts/example-next"
-          SERVER_PORT: 3000
+          EXAMPLE_PROJECT: "@evmts/example-vite"
+          SERVER_PORT: 5173
+          VITE_RPC_URL_1: "http://localhost:8546"
+          PRIVATE_KEY: "test test test test test test test test test test test junk"
+
+      - name: 'Upload test-results artifacts'
+        uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: test-results
+          path: e2e/test-results/**/*
+          retention-days: 15
+
+      - name: 'Upload playwright-report'
+        uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: test-results
+          path: e2e/playwright-report/**/*
+          retention-days: 15
+
+      - name: Shutdown Anvil
+        run: pkill -2 anvil
+
+

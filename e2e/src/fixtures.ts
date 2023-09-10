@@ -8,7 +8,7 @@ import {
 } from '@playwright/test'
 import metamask from '@synthetixio/synpress/commands/metamask.js'
 import helpers from '@synthetixio/synpress/helpers.js'
-import {Chain, mainnet} from 'viem/chains'
+import { Chain, mainnet } from 'viem/chains'
 
 const { initialSetup } = metamask
 const { prepareMetamask } = helpers
@@ -16,7 +16,7 @@ const { prepareMetamask } = helpers
 export const testWithSynpress = base.extend<{
 	context: BrowserContext
 }>({
-	context: async ({}, use) => {
+	context: async ({ }, use) => {
 		// required for synpress
 		global.expect = expect
 		// download metamask
@@ -43,21 +43,26 @@ export const testWithSynpress = base.extend<{
 		// wait for metamask
 		await context.pages()[0].waitForTimeout(3000)
 		// setup metamask
-		await initialSetup(chromium, {
-			secretWordsOrPrivateKey:
-				process.env.PRIVATE_KEY,
-			network: {
-				...mainnet,
-				rpcUrls: {
-					public: {http: [process.env.ANVIL_RPC_URL_1]},
-					default: {http: [process.env.ANVIL_RPC_URL_1]}
-				}
-			} satisfies Chain,
-			password: 'Tester@1234',
-			enableAdvancedSettings: true,
-		})
+		await initialSetup(chromium, config)
 		await use(context)
-		await context.close()
 	},
 })
 export { expect }
+
+export const network = {
+	name: 'forked-mainnet',
+	chainId: mainnet.id,
+	symbol: mainnet.nativeCurrency.symbol,
+	rpcUrl: 'http://localhost:8546',
+	rpcUrls: {
+		public: { http: ['http://localhost:8546'] },
+		default: { http: ['http://localhost:8546'] }
+	}
+} satisfies Chain
+export const config = {
+	network,
+	secretWordsOrPrivateKey:
+		'test test test test test test test test test test test junk',
+	password: 'Tester@1234',
+	enableAdvancedSettings: true,
+}

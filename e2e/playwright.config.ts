@@ -5,23 +5,33 @@ import path from 'path';
 dotenv.config();
 
 const config: PlaywrightTestConfig = {
-	testDir: 'src',
-	retries: 3,
+	testDir: './src',
+	retries: 1,
+	reporter: [
+		['line'],
+		['junit', { outputFile: 'test-results/results.xml' }],
+		['json', { outputFile: 'test-results/results.json' }],
+		['html'],
+	],
 	use: {
+		trace: 'retain-on-failure',
+		screenshot: 'only-on-failure',
+    video: 'retain-on-failure',
 		headless: false,
 		launchOptions: {
 			slowMo: parseInt(process.env.PLAYWRIGHT_SLOW_MO || '0'),
 		}
 	},
 	webServer: {
-		command: `ANVIL_RPC_URL_1=${process.env.ANVIL_RPC_URL_1} echo "starting dev server ${process.env.EXAMPLE_PROJECT}" && pnpm nx dev ${process.env.EXAMPLE_PROJECT ?? "@evmts/example-vite"}`,
-		port: process.env.SERVER_PORT ? Number.parseInt(process.env.SERVER_PORT) : 5173,
-		reuseExistingServer: true,
-		timeout: 180000,
+		command: `pnpm nx test-server ${process.env.EXAMPLE_PROJECT ?? "@evmts/example-vite"}`,
+		url: `http://localhost:${process.env.SERVER_PORT ?? '5173'}`,
+		reuseExistingServer: false,
 		env: {
-			VITE_RPC_URL_1: process.env.VITE_RPC_URL_1 ?? 'http://localhost:8545',
-			VITE_RPC_URL_420: process.env.VITE_RPC_URL_420 ?? 'http://localhost:9545',
-			PRIVATE_KEY: process.env.PRIVATE_KEY ?? '0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80',
+			VITE_RPC_URL_1: 'http://localhost:8546',
+			VITE_RPC_URL_10: 'http://localhost:9545',
+			VITE_RPC_URL_420: 'http://localhost:9546',
+			PRIVATE_KEY: 'test test test test test test test test test test test junk',
+			SERVER_PORT: process.env.SERVER_PORT ?? '5173',
 		}
 	},
 	projects: [

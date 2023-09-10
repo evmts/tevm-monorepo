@@ -7,6 +7,14 @@
 		"format:check": {
 			"inputs": ["default"]
 		},
+		"e2e": {
+			"inputs": ["default", "outputsDist"],
+			"dependsOn": ["^build:dist", "pretest"]
+		},
+		"e2e:ci": {
+			"inputs": ["default", "outputsDist"],
+			"dependsOn": ["^build:dist", "pretest"]
+		},
 		"test": {
 			"inputs": ["default", "outputsDist"],
 			"dependsOn": ["^build:dist", "pretest"]
@@ -49,6 +57,9 @@
 		},
 		"dev": {
 			"dependsOn": ["^build", "predev"]
+		},
+		"test-server": {
+			"dependsOn": ["^build"]
 		}
 	},
 	"tasksRunnerOptions": {
@@ -64,6 +75,7 @@
 					"format:check",
 					"typecheck",
 					"e2e",
+					"e2e:ci",
 					"format:check",
 					"lint:check",
 					"format:check"
