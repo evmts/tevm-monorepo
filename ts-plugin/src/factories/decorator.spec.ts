@@ -4,6 +4,7 @@ import {
 	createHostDecorator,
 	decorateHost,
 } from '.'
+import { FileAccessObject } from '@evmts/bundler'
 import { EvmtsConfig, defaultConfig, defineConfig } from '@evmts/config'
 import typescript from 'typescript/lib/tsserverlibrary'
 import { describe, expect, it, vi } from 'vitest'
@@ -21,6 +22,12 @@ const mockConfig: EvmtsConfig = {
 }
 
 const config = defineConfig(() => mockConfig).configFn('.')
+
+const fao: FileAccessObject = {
+	existsSync: vi.fn(),
+	readFile: vi.fn(),
+	readFileSync: vi.fn(),
+}
 
 const createProxy = <T extends object>(instance: T, proxy: Partial<T>): T => {
 	return new Proxy(instance, {
@@ -57,7 +64,7 @@ describe(createHostDecorator.name, () => {
 			warn: vi.fn(),
 		} as any
 
-		const host = decorator(createInfo, typescript, logger, config)
+		const host = decorator(createInfo, typescript, logger, config, fao)
 
 		expect(host.getScriptKind?.('foo.json')).toBe(typescript.ScriptKind.JSON)
 		expect(host.getScriptKind?.('foo.ts')).toBe(typescript.ScriptKind.TS)
@@ -98,6 +105,7 @@ describe(decorateHost.name, () => {
 			typescript,
 			logger,
 			config,
+			fao,
 		)
 
 		expect((decoratedHost as TestAny).isHost).toBe(true)
@@ -120,6 +128,7 @@ describe(decorateHost.name, () => {
 			typescript,
 			logger,
 			config,
+			fao,
 		)
 		expect(decoratedHost).toBe(host)
 	})
@@ -144,6 +153,7 @@ describe(decorateHost.name, () => {
 			typescript,
 			logger,
 			config,
+			fao,
 		)
 
 		// Check that the non-languageServiceHost property 'isCreateInfo' has been preserved

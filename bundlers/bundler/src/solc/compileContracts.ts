@@ -1,9 +1,8 @@
-import type { ModuleInfo } from '../types'
+import type { FileAccessObject, ModuleInfo } from '../types'
 import { invariant } from '../utils/invariant'
 import { moduleFactory } from './moduleFactory'
 import { type SolcInputDescription, type SolcOutput, solcCompile } from './solc'
 import type { ResolvedConfig } from '@evmts/config'
-import { readFileSync } from 'fs'
 import * as resolve from 'resolve'
 import type { Node } from 'solidity-ast/node'
 
@@ -13,6 +12,7 @@ export const compileContractSync = <TIncludeAsts = boolean>(
 	basedir: string,
 	config: ResolvedConfig['compiler'],
 	includeAst: TIncludeAsts,
+	fao: FileAccessObject,
 ): {
 	artifacts: SolcOutput['contracts'][string] | undefined
 	modules: Record<'string', ModuleInfo>
@@ -22,7 +22,7 @@ export const compileContractSync = <TIncludeAsts = boolean>(
 } => {
 	const entryModule = moduleFactory(
 		filePath,
-		readFileSync(
+		fao.readFileSync(
 			resolve.sync(filePath, {
 				basedir,
 			}),
@@ -30,6 +30,7 @@ export const compileContractSync = <TIncludeAsts = boolean>(
 		),
 		config.remappings,
 		config.libs,
+		fao,
 	)
 
 	const modules: Record<string, ModuleInfo> = {}

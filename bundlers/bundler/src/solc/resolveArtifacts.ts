@@ -1,4 +1,4 @@
-import type { Logger, ModuleInfo } from '../types'
+import type { FileAccessObject, Logger, ModuleInfo } from '../types'
 import { resolveArtifactsSync } from './resolveArtifactsSync'
 import type {
 	SolcContractOutput,
@@ -18,6 +18,7 @@ export const resolveArtifacts = async (
 	logger: Logger,
 	config: ResolvedConfig,
 	includeAst: boolean,
+	fao: FileAccessObject,
 ): Promise<{
 	artifacts: Artifacts
 	modules: Record<'string', ModuleInfo>
@@ -25,5 +26,5 @@ export const resolveArtifacts = async (
 	solcInput: SolcInputDescription
 	solcOutput: SolcOutput
 }> => {
-	return resolveArtifactsSync(solFile, basedir, logger, config, includeAst)
+	return resolveArtifactsSync(solFile, basedir, logger, config, includeAst, fao)
 }

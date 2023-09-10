@@ -1,8 +1,7 @@
-import type { ModuleInfo } from '../types'
+import type { FileAccessObject, ModuleInfo } from '../types'
 import { invariant } from '../utils/invariant'
 import { resolveImportPath } from './resolveImportPath'
 import { resolveImports } from './resolveImports'
-import { readFileSync } from 'fs'
 
 /**
  * Creates a module from the given module information.
@@ -20,6 +19,7 @@ export const moduleFactory = (
 	rawCode: string,
 	remappings: Record<string, string>,
 	libs: string[],
+	fao: FileAccessObject,
 ): ModuleInfo => {
 	const stack = [{ absolutePath, rawCode }]
 	const modules = new Map<string, ModuleInfo>()
@@ -73,7 +73,7 @@ export const moduleFactory = (
 				remappings,
 				libs,
 			)
-			const depRawCode = readFileSync(depImportAbsolutePath, 'utf8')
+			const depRawCode = fao.readFileSync(depImportAbsolutePath, 'utf8')
 
 			stack.push({ absolutePath: depImportAbsolutePath, rawCode: depRawCode })
 		})

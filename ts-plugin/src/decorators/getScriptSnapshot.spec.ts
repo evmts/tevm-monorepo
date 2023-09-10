@@ -1,6 +1,9 @@
 import { getScriptSnapshotDecorator } from '.'
 import { Logger } from '../factories'
+import { FileAccessObject } from '@evmts/bundler'
 import { EvmtsConfig, defaultConfig, defineConfig } from '@evmts/config'
+import { existsSync, readFileSync } from 'fs'
+import { readFile } from 'fs/promises'
 import path from 'path'
 import typescript from 'typescript/lib/tsserverlibrary'
 import { Mock, beforeEach, describe, expect, it, vi } from 'vitest'
@@ -16,6 +19,12 @@ const mockConfig: EvmtsConfig = {
 	},
 }
 const config = defineConfig(() => mockConfig).configFn('.')
+
+const fao: FileAccessObject = {
+	readFile,
+	readFileSync,
+	existsSync,
+}
 
 describe(getScriptSnapshotDecorator.name, () => {
 	let logger: Logger
@@ -51,6 +60,7 @@ describe(getScriptSnapshotDecorator.name, () => {
 			typescript,
 			logger,
 			config,
+			fao,
 		)
 		const fileName = 'foo.ts'
 		const result = decorator.getScriptSnapshot(fileName)
@@ -64,6 +74,7 @@ describe(getScriptSnapshotDecorator.name, () => {
 			typescript,
 			logger,
 			config,
+			fao,
 		)
 		const fileName = path.join(__dirname, '../test/fixtures/HelloWorld3.sol')
 		decorator.getScriptSnapshot(fileName)
@@ -77,6 +88,7 @@ describe(getScriptSnapshotDecorator.name, () => {
 			typescript,
 			logger,
 			config,
+			fao,
 		)
 		const fileName = path.join(__dirname, '../test/fixtures/HelloWorld.sol')
 		decorator.getScriptSnapshot(fileName)
@@ -90,6 +102,7 @@ describe(getScriptSnapshotDecorator.name, () => {
 			typescript,
 			logger,
 			config,
+			fao,
 		)
 		const fileName = path.join(__dirname, '../test/fixtures/HelloWorld2.sol')
 		const result = decorator.getScriptSnapshot(fileName)
@@ -117,6 +130,7 @@ describe(getScriptSnapshotDecorator.name, () => {
 			typescript,
 			logger,
 			config,
+			fao,
 		)
 		const fileName = path.join(__dirname, '../test/fixtures/BadCompile.sol')
 		const result = decorator.getScriptSnapshot(fileName)

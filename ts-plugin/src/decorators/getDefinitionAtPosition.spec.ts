@@ -1,4 +1,5 @@
 import { getDefinitionServiceDecorator } from './getDefinitionAtPosition'
+import { FileAccessObject } from '@evmts/bundler'
 import typescript from 'typescript/lib/tsserverlibrary'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
@@ -22,6 +23,12 @@ vi.mock('../utils', async () => {
 		),
 	}
 })
+
+const fao: FileAccessObject = {
+	existsSync: vi.fn() as any,
+	readFileSync: vi.fn() as any,
+	readFile: vi.fn() as any,
+}
 
 const mockLogger = {
 	error: vi.fn(),
@@ -96,6 +103,7 @@ describe('getDefinitionServiceDecorator', () => {
 			{} as any,
 			mockLogger as any,
 			typescript,
+			fao,
 		)
 
 		const definitions = decoratedService.getDefinitionAtPosition(
@@ -121,6 +129,7 @@ describe('getDefinitionServiceDecorator', () => {
 			{} as any,
 			mockLogger as any,
 			typescript,
+			fao,
 		)
 
 		const result = decoratedService.getDefinitionAndBoundSpan('someFile.ts', 42)
@@ -156,6 +165,7 @@ describe('getDefinitionServiceDecorator', () => {
 			{} as any,
 			mockLogger as any,
 			typescript,
+			fao,
 		)
 
 		const definitions = decoratedService.getDefinitionAtPosition(
@@ -200,6 +210,7 @@ describe('getDefinitionServiceDecorator', () => {
 			{} as any,
 			mockLogger as any,
 			typescript,
+			fao,
 		)
 
 		const definitions = decoratedService.getDefinitionAtPosition(
@@ -235,6 +246,7 @@ describe('getDefinitionServiceDecorator', () => {
 			{} as any,
 			mockLogger as any,
 			typescript,
+			fao,
 		)
 
 		const definitions = decoratedService.getDefinitionAtPosition(
@@ -278,6 +290,7 @@ describe('getDefinitionServiceDecorator', () => {
 			{} as any,
 			mockLogger as any,
 			typescript,
+			fao,
 		)
 
 		const definitions = decoratedService.getDefinitionAtPosition(

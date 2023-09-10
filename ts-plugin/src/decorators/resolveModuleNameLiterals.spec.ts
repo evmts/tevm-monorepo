@@ -1,5 +1,6 @@
 import { resolveModuleNameLiteralsDecorator } from '.'
 import { solidityModuleResolver } from '../utils'
+import { FileAccessObject } from '@evmts/bundler'
 import { EvmtsConfig, defaultConfig, defineConfig } from '@evmts/config'
 import typescript from 'typescript/lib/tsserverlibrary'
 import { MockedFunction, describe, expect, it, vi } from 'vitest'
@@ -13,6 +14,12 @@ const mockConfig: EvmtsConfig = {
 	},
 }
 const config = defineConfig(() => mockConfig).configFn('.')
+
+const fao: FileAccessObject = {
+	existsSync: vi.fn(),
+	readFileSync: vi.fn(),
+	readFile: vi.fn(),
+}
 
 const mockSolidityModuleResolver = solidityModuleResolver as MockedFunction<
 	typeof solidityModuleResolver
@@ -51,6 +58,7 @@ describe(resolveModuleNameLiteralsDecorator.name, () => {
 			typescript,
 			logger,
 			config,
+			fao,
 		)
 
 		expect(host).toMatchInlineSnapshot(`
@@ -101,6 +109,7 @@ describe(resolveModuleNameLiteralsDecorator.name, () => {
 			typescript,
 			logger,
 			config,
+			fao,
 		)
 
 		const moduleNames = [{ text: 'moduleName' }]
@@ -153,6 +162,7 @@ describe(resolveModuleNameLiteralsDecorator.name, () => {
 			typescript,
 			logger,
 			config,
+			fao,
 		)
 
 		const moduleNames = [{ text: 'moduleName' }]

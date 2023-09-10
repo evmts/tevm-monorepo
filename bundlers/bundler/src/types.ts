@@ -2,7 +2,7 @@ import type { SolcInputDescription, SolcOutput } from './solc/solc'
 import type { ResolvedConfig } from '@evmts/config'
 import type { Node } from 'solidity-ast/node'
 
-type BundlerResult = {
+export type BundlerResult = {
 	code: string
 	modules: Record<'string', ModuleInfo>
 	solcInput: SolcInputDescription
@@ -10,13 +10,19 @@ type BundlerResult = {
 	asts?: Record<string, Node> | undefined
 }
 
-type AsyncBundlerResult = (
+export type FileAccessObject = {
+	readFile: (path: string, encoding: BufferEncoding) => Promise<string>
+	readFileSync: (path: string, encoding: BufferEncoding) => string
+	existsSync: (path: string) => boolean
+}
+
+export type AsyncBundlerResult = (
 	module: string,
 	basedir: string,
 	includeAst: boolean,
 ) => Promise<BundlerResult>
 
-type SyncBundlerResult = (
+export type SyncBundlerResult = (
 	module: string,
 	basedir: string,
 	includeAst: boolean,
@@ -25,6 +31,7 @@ type SyncBundlerResult = (
 export type Bundler = (
 	config: ResolvedConfig,
 	logger: Logger,
+	fao: FileAccessObject,
 ) => {
 	/**
 	 * The name of the plugin.

@@ -7,13 +7,20 @@ import type { Bundler } from './types'
 // @ts-ignore
 import solc from 'solc'
 
-export const bundler: Bundler = (config, logger) => {
+export const bundler: Bundler = (config, logger, fao) => {
 	return {
 		name: bundler.name,
 		config,
 		resolveDts: async (modulePath, basedir, includeAst) => {
 			const { solcInput, solcOutput, artifacts, modules, asts } =
-				await resolveArtifacts(modulePath, basedir, logger, config, includeAst)
+				await resolveArtifacts(
+					modulePath,
+					basedir,
+					logger,
+					config,
+					includeAst,
+					fao,
+				)
 			if (artifacts) {
 				const evmtsImports = `import { EvmtsContract } from '@evmts/core'`
 				const evmtsBody = generateDtsBody(artifacts, config)
@@ -29,7 +36,14 @@ export const bundler: Bundler = (config, logger) => {
 		},
 		resolveDtsSync: (modulePath, basedir, includeAst) => {
 			const { artifacts, modules, asts, solcInput, solcOutput } =
-				resolveArtifactsSync(modulePath, basedir, logger, config, includeAst)
+				resolveArtifactsSync(
+					modulePath,
+					basedir,
+					logger,
+					config,
+					includeAst,
+					fao,
+				)
 
 			if (artifacts) {
 				const evmtsImports = `import { EvmtsContract } from '@evmts/core'`
@@ -46,37 +60,79 @@ export const bundler: Bundler = (config, logger) => {
 		},
 		resolveTsModuleSync: (modulePath, basedir, includeAst) => {
 			const { solcInput, solcOutput, asts, artifacts, modules } =
-				resolveArtifactsSync(modulePath, basedir, logger, config, includeAst)
+				resolveArtifactsSync(
+					modulePath,
+					basedir,
+					logger,
+					config,
+					includeAst,
+					fao,
+				)
 			const code = generateRuntimeSync(artifacts, config, 'ts', logger)
 			return { code, modules, solcInput, solcOutput, asts }
 		},
 		resolveTsModule: async (modulePath, basedir, includeAst) => {
 			const { solcInput, solcOutput, asts, artifacts, modules } =
-				await resolveArtifacts(modulePath, basedir, logger, config, includeAst)
+				await resolveArtifacts(
+					modulePath,
+					basedir,
+					logger,
+					config,
+					includeAst,
+					fao,
+				)
 			const code = await generateRuntime(artifacts, config, 'ts', logger)
 			return { code, modules, solcInput, solcOutput, asts }
 		},
 		resolveCjsModuleSync: (modulePath, basedir, includeAst) => {
 			const { solcInput, solcOutput, asts, artifacts, modules } =
-				resolveArtifactsSync(modulePath, basedir, logger, config, includeAst)
+				resolveArtifactsSync(
+					modulePath,
+					basedir,
+					logger,
+					config,
+					includeAst,
+					fao,
+				)
 			const code = generateRuntimeSync(artifacts, config, 'cjs', logger)
 			return { code, modules, solcInput, solcOutput, asts }
 		},
 		resolveCjsModule: async (modulePath, basedir, includeAst) => {
 			const { solcInput, solcOutput, asts, artifacts, modules } =
-				await resolveArtifacts(modulePath, basedir, logger, config, includeAst)
+				await resolveArtifacts(
+					modulePath,
+					basedir,
+					logger,
+					config,
+					includeAst,
+					fao,
+				)
 			const code = await generateRuntime(artifacts, config, 'cjs', logger)
 			return { code, modules, solcInput, solcOutput, asts }
 		},
 		resolveEsmModuleSync: (modulePath, basedir, includeAst) => {
 			const { solcInput, solcOutput, asts, artifacts, modules } =
-				resolveArtifactsSync(modulePath, basedir, logger, config, includeAst)
+				resolveArtifactsSync(
+					modulePath,
+					basedir,
+					logger,
+					config,
+					includeAst,
+					fao,
+				)
 			const code = generateRuntimeSync(artifacts, config, 'mjs', logger)
 			return { code, modules, solcInput, solcOutput, asts }
 		},
 		resolveEsmModule: async (modulePath, basedir, includeAst) => {
 			const { solcInput, solcOutput, asts, artifacts, modules } =
-				await resolveArtifacts(modulePath, basedir, logger, config, includeAst)
+				await resolveArtifacts(
+					modulePath,
+					basedir,
+					logger,
+					config,
+					includeAst,
+					fao,
+				)
 			const code = await generateRuntime(artifacts, config, 'mjs', logger)
 			return { code, modules, solcInput, solcOutput, asts }
 		},

@@ -1,7 +1,8 @@
 import { evmtsBunPlugin } from '.'
+import { file } from './bunFile'
 import { bundler } from '@evmts/bundler'
 import { loadConfig } from '@evmts/config'
-import { exists } from 'fs/promises'
+import { exists, readFile } from 'fs/promises'
 import { type Mock, beforeEach, describe, expect, it, vi } from 'vitest'
 
 vi.mock('@evmts/config', async () => ({
@@ -18,6 +19,12 @@ vi.mock('fs/promises', async () => ({
 	exists: vi.fn(),
 	readFile: vi.fn().mockReturnValue('export const ExampleContract = {abi: {}}'),
 }))
+
+vi.mock('./bunFile', () => ({
+	file: vi.fn(),
+}))
+
+const mockFile = file as Mock
 
 const mockExists = exists as Mock
 
@@ -37,6 +44,10 @@ const contractPath = '../../../examples/bun/ExampleContract.sol'
 
 describe('evmtsBunPlugin', () => {
 	beforeEach(() => {
+		mockFile.mockImplementation((filePath: string) => ({
+			exists: () => exists(filePath),
+			text: () => readFile(filePath, 'utf8'),
+		}))
 		mockLoadConfig.mockReturnValue({})
 		mockBundler.mockReturnValue({
 			resolveEsmModule: vi.fn().mockReturnValue({

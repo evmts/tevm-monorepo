@@ -1,4 +1,4 @@
-import type { Logger, ModuleInfo } from '../types'
+import type { FileAccessObject, Logger, ModuleInfo } from '../types'
 import { compileContractSync } from './compileContracts'
 import { resolveArtifactsSync } from './resolveArtifactsSync'
 import { type ResolvedConfig, defaultConfig } from '@evmts/config'
@@ -14,6 +14,12 @@ import {
 vi.mock('./compileContracts', () => ({
 	compileContractSync: vi.fn(),
 }))
+
+const fao: FileAccessObject = {
+	existsSync: vi.fn() as any,
+	readFileSync: vi.fn() as any,
+	readFile: vi.fn() as any,
+}
 
 const mockModules: Record<string, ModuleInfo> = {
 	module1: {
@@ -58,7 +64,7 @@ const mockCompileContractSync = compileContractSync as MockedFunction<
 describe('resolveArtifactsSync', () => {
 	it('should throw an error if the file is not a solidity file', () => {
 		expect(() =>
-			resolveArtifactsSync('test.txt', basedir, logger, config, false),
+			resolveArtifactsSync('test.txt', basedir, logger, config, false, fao),
 		).toThrowErrorMatchingInlineSnapshot('"Not a solidity file"')
 	})
 
@@ -68,7 +74,7 @@ describe('resolveArtifactsSync', () => {
 			throw new Error('Oops')
 		})
 		expect(() =>
-			resolveArtifactsSync(solFile, basedir, logger, config, false),
+			resolveArtifactsSync(solFile, basedir, logger, config, false, fao),
 		).toThrowErrorMatchingInlineSnapshot('"Oops"')
 	})
 
@@ -78,7 +84,7 @@ describe('resolveArtifactsSync', () => {
 			modules: mockModules,
 		} as any)
 		expect(
-			resolveArtifactsSync(solFile, basedir, logger, config, false),
+			resolveArtifactsSync(solFile, basedir, logger, config, false, fao),
 		).toMatchInlineSnapshot(`
 			{
 			  "artifacts": {
@@ -135,6 +141,7 @@ describe('resolveArtifactsSync', () => {
 			logger,
 			config,
 			false,
+			fao,
 		)
 
 		expect(artifacts).toEqual({
@@ -152,7 +159,7 @@ describe('resolveArtifactsSync', () => {
 		})
 
 		expect(() =>
-			resolveArtifactsSync(solFile, basedir, logger, config, false),
+			resolveArtifactsSync(solFile, basedir, logger, config, false, fao),
 		).toThrowErrorMatchingInlineSnapshot('"Compilation failed"')
 	})
 })
