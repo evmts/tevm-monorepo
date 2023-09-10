@@ -1,5 +1,5 @@
-import packageJson from './package.json'
 import { defineConfig } from 'tsup'
+import packageJson from './package.json'
 
 export default defineConfig({
 	name: packageJson.name,
@@ -9,5 +9,5 @@ export default defineConfig({
 	splitting: false,
 	sourcemap: true,
 	clean: true,
-	bundle: false,
+	skipNodeModulesBundle: true,
 })

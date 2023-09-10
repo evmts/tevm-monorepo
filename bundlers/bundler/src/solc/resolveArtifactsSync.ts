@@ -1,5 +1,5 @@
 import type { FileAccessObject, Logger, ModuleInfo } from '../types'
-import { compileContractSync } from './compileContracts'
+import { compileContractSync } from './compileContractsSync'
 import type {
 	SolcContractOutput,
 	SolcInputDescription,

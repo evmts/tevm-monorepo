@@ -1,5 +1,5 @@
 import type { FileAccessObject, Logger, ModuleInfo } from '../types'
-import { resolveArtifactsSync } from './resolveArtifactsSync'
+import { compileContract } from './compileContracts'
 import type {
 	SolcContractOutput,
 	SolcInputDescription,
@@ -26,5 +26,29 @@ export const resolveArtifacts = async (
 	solcInput: SolcInputDescription
 	solcOutput: SolcOutput
 }> => {
-	return resolveArtifactsSync(solFile, basedir, logger, config, includeAst, fao)
+	if (!solFile.endsWith('.sol')) {
+		throw new Error('Not a solidity file')
+	}
+	const { artifacts, modules, asts, solcInput, solcOutput } =
+		await compileContract(solFile, basedir, config.compiler, includeAst, fao)
+
+	if (!artifacts) {
+		logger.error(`Compilation failed for ${solFile}`)
+		throw new Error('Compilation failed')
+	}
+
+	return {
+		artifacts: Object.fromEntries(
+			Object.entries(artifacts).map(([contractName, contract]) => {
+				return [
+					contractName,
+					{ contractName, abi: contract.abi, userdoc: contract.userdoc },
+				]
+			}),
+		),
+		modules,
+		asts,
+		solcInput,
+		solcOutput,
+	}
 }

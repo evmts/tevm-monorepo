@@ -1,41 +1,33 @@
-import type { ResolvedConfig } from '@evmts/config'
-import resolve from 'resolve'
-import type { Node } from 'solidity-ast/node'
 import type { FileAccessObject, ModuleInfo } from '../types'
 import { invariant } from '../utils/invariant'
-import { moduleFactory } from './moduleFactory'
+import { moduleFactorySync } from './moduleFactorySync'
 import { type SolcInputDescription, type SolcOutput, solcCompile } from './solc'
+import type { ResolvedConfig } from '@evmts/config'
+import * as resolve from 'resolve'
+import type { Node } from 'solidity-ast/node'
 
 // Compile the Solidity contract and return its ABI
-export const compileContract = async <TIncludeAsts = boolean>(
+export const compileContractSync = <TIncludeAsts = boolean>(
 	filePath: string,
 	basedir: string,
 	config: ResolvedConfig['compiler'],
 	includeAst: TIncludeAsts,
 	fao: FileAccessObject,
-): Promise<{
+): {
 	artifacts: SolcOutput['contracts'][string] | undefined
 	modules: Record<'string', ModuleInfo>
 	asts: TIncludeAsts extends true ? Record<string, Node> : undefined
 	solcInput: SolcInputDescription
 	solcOutput: SolcOutput
-}> => {
-	const entryModule = await moduleFactory(
+} => {
+	const entryModule = moduleFactorySync(
 		filePath,
-		await fao.readFile(
-			await new Promise<string>((promiseResolve, promiseReject) =>
-				resolve(filePath, {
-					basedir,
-					readFile: (file) => fao.readFile(file, 'utf8'),
-					isFile: fao.existsSync
-				}, (err, res) => {
-					if (err) {
-						promiseReject(err)
-					} else {
-						promiseResolve(res as string)
-					}
-
-				})),
+		fao.readFileSync(
+			resolve.sync(filePath, {
+				basedir,
+				readFileSync: (file) => fao.readFileSync(file, 'utf8'),
+				isFile: fao.existsSync
+			}),
 			'utf8',
 		),
 		config.remappings,

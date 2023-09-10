@@ -1,5 +1,5 @@
 import type { FileAccessObject, Logger, ModuleInfo } from '../types'
-import { compileContractSync } from './compileContracts'
+import { compileContract } from './compileContracts'
 import { resolveArtifacts } from './resolveArtifacts'
 import { type ResolvedConfig, defaultConfig } from '@evmts/config'
 import {
@@ -12,7 +12,7 @@ import {
 } from 'vitest'
 
 vi.mock('./compileContracts', () => ({
-	compileContractSync: vi.fn(),
+	compileContract: vi.fn(),
 }))
 
 const fao: FileAccessObject = {
@@ -36,13 +36,13 @@ const contracts = {
 		evm: { bytecode: { object: '0x123' } },
 	},
 }
-const mockCompileContractSync = compileContractSync as MockedFunction<
-	typeof compileContractSync
+const mockCompileContract = compileContract as MockedFunction<
+	typeof compileContract
 >
 
 describe('resolveArtifacts', () => {
 	it('should return the contract artifacts', async () => {
-		mockCompileContractSync.mockReturnValue({
+		mockCompileContract.mockReturnValue({
 			artifacts: contracts,
 			modules: {} as Record<string, ModuleInfo>,
 		} as any)

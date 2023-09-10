@@ -1,5 +1,5 @@
 import type { FileAccessObject, ModuleInfo } from '../types'
-import { compileContract } from './compileContracts'
+import { compileContractSync } from './compileContractsSync'
 import { moduleFactory } from './moduleFactory'
 import type { ResolvedConfig } from '@evmts/config'
 import * as resolve from 'resolve'
@@ -39,7 +39,7 @@ const fao: FileAccessObject = {
 	readFile: vi.fn() as any,
 }
 
-describe('compileContract', () => {
+describe('compileContractSync', () => {
 	const filePath = 'test/path'
 	const basedir = 'base/dir'
 	const config: ResolvedConfig['compiler'] = {
@@ -72,18 +72,13 @@ describe('compileContract', () => {
 		Test: { abi: [], evm: { bytecode: { object: '0x123' } } },
 	}
 
-	const mockReadFile = fao.readFile as Mock
-	const mockResolve = vi.fn()
+	const mockReadFileSync = fao.readFileSync as Mock
+	const mockResolveSync = resolve.sync as Mock
 	const mockModuleFactory = moduleFactory as Mock
 	const mockSolcCompile = solc.compile as Mock
 	beforeEach(() => {
-		mockReadFile.mockResolvedValue(mockSource)
-		mockResolve.mockReturnValue(filePath)
-		mockResolve.mockImplementation((id, opts, cb) => {
-			expect(opts).toBeTruthy()
-			expect(id).toBeTruthy()
-			cb(undefined, filePath)
-		})
+		mockReadFileSync.mockReturnValue(mockSource)
+		mockResolveSync.mockReturnValue(filePath)
 		mockModuleFactory.mockReturnValue(mockModule)
 		mockSolcCompile.mockReturnValue(
 			JSON.stringify({
@@ -97,7 +92,7 @@ describe('compileContract', () => {
 	})
 
 	it('should compile a contract correctly with ast', () => {
-		const compiledContract = compileContract(
+		const compiledContract = compileContractSync(
 			filePath,
 			basedir,
 			config,
@@ -195,7 +190,7 @@ describe('compileContract', () => {
 			  },
 			}
 		`)
-		expect(fao.readFile).toBeCalledWith(filePath, 'utf8')
+		expect(fao.readFileSync).toBeCalledWith(filePath, 'utf8')
 		expect(resolve.sync).toBeCalledWith(filePath, { basedir })
 		expect(moduleFactory).toBeCalledWith(
 			filePath,
@@ -212,7 +207,7 @@ describe('compileContract', () => {
 	})
 
 	it('should compile a contract correctly', () => {
-		const compiledContract = compileContract(
+		const compiledContract = compileContractSync(
 			filePath,
 			basedir,
 			config,
@@ -305,7 +300,7 @@ describe('compileContract', () => {
 			  },
 			}
 		`)
-		expect(fao.readFile).toBeCalledWith(filePath, 'utf8')
+		expect(fao.readFileSync).toBeCalledWith(filePath, 'utf8')
 		expect(resolve.sync).toBeCalledWith(filePath, { basedir })
 		expect(moduleFactory).toBeCalledWith(
 			filePath,
@@ -329,7 +324,7 @@ describe('compileContract', () => {
 			}),
 		)
 		expect(() =>
-			compileContract(filePath, basedir, config, false, fao),
+			compileContractSync(filePath, basedir, config, false, fao),
 		).toThrowErrorMatchingInlineSnapshot('"Compilation failed"')
 		expect(console.error).toHaveBeenCalledWith('Compilation errors:', [
 			{ type: 'Error', message: 'Compilation Error' },
@@ -343,7 +338,7 @@ describe('compileContract', () => {
 				errors: [{ type: 'Warning', message: 'Compilation Warning' }],
 			}),
 		)
-		compileContract(filePath, basedir, config, false, fao)
+		compileContractSync(filePath, basedir, config, false, fao)
 		expect((console.warn as Mock).mock.lastCall[0]).toMatchInlineSnapshot(
 			'"Compilation warnings:"',
 		)
@@ -356,7 +351,7 @@ describe('compileContract', () => {
 				errors: [],
 			}),
 		)
-		compileContract(filePath, basedir, config, false, fao)
+		compileContractSync(filePath, basedir, config, false, fao)
 		expect(console.warn).not.toHaveBeenCalled()
 	})
 
@@ -388,7 +383,7 @@ describe('compileContract', () => {
 		mockModuleA.resolutions.push(mockModuleB)
 		mockModuleFactory.mockReturnValue(mockModuleA)
 		expect(
-			compileContract(filePath, basedir, config, false, fao),
+			compileContractSync(filePath, basedir, config, false, fao),
 		).toMatchInlineSnapshot(`
 			{
 			  "artifacts": undefined,
