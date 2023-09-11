@@ -1,4 +1,5 @@
 import { getScriptKindDecorator } from '.'
+import { FileAccessObject } from '@evmts/bundler'
 import { EvmtsConfig, defaultConfig, defineConfig } from '@evmts/config'
 import typescript from 'typescript/lib/tsserverlibrary'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
@@ -15,6 +16,12 @@ const mockConfig: EvmtsConfig = {
 	},
 }
 const config = defineConfig(() => mockConfig).configFn('.')
+
+const fao: FileAccessObject = {
+	readFile: vi.fn(),
+	readFileSync: vi.fn(),
+	existsSync: vi.fn(),
+}
 
 describe(getScriptKindDecorator.name, () => {
 	let createInfo: TestAny
@@ -36,7 +43,7 @@ describe(getScriptKindDecorator.name, () => {
 
 	it('should decorate getScriptKind', () => {
 		expect(
-			getScriptKindDecorator(createInfo, typescript, logger, config)
+			getScriptKindDecorator(createInfo, typescript, logger, config, fao)
 				.getScriptKind,
 		).toBeInstanceOf(Function)
 	})
@@ -54,6 +61,7 @@ describe(getScriptKindDecorator.name, () => {
 			typescript,
 			logger,
 			config,
+			fao,
 		)
 		expect(decorated.getScriptKind?.('foo')).toBe(typescript.ScriptKind.Unknown)
 	})
@@ -64,6 +72,7 @@ describe(getScriptKindDecorator.name, () => {
 			typescript,
 			logger,
 			config,
+			fao,
 		)
 		expect(decorated.getScriptKind?.('foo.sol')).toBe(typescript.ScriptKind.TS)
 		expect(decorated.getScriptKind?.('./foo.sol')).toBe(
@@ -77,6 +86,7 @@ describe(getScriptKindDecorator.name, () => {
 			typescript,
 			logger,
 			config,
+			fao,
 		)
 		const expected = typescript.ScriptKind.JS
 		createInfo.languageServiceHost.getScriptKind.mockReturnValue(expected)

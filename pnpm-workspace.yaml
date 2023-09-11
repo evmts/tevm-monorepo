@@ -8,8 +8,6 @@ packages:
   - "ethers"
   - "examples/*"
   - "experimental/*"
-  - "language-server"
   - "ts-plugin"
   - "tsconfig"
-  - "vscode"
 

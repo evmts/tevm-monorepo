@@ -30,9 +30,10 @@ export const generate = async (
 			{
 				[contract.name]: {
 					abi: contract.abi,
-					// TODO handle pulling down the bytecode
-					bytecode: '0x0',
-					contractName: contract.name,
+					userdoc: {
+						kind: 'user',
+						version: 1,
+					},
 				},
 			},
 			modifiedConfig,
@@ -43,9 +44,10 @@ export const generate = async (
 			{
 				[contract.name]: {
 					abi: contract.abi,
-					// TODO handle pulling down the bytecode
-					bytecode: '0x0',
-					contractName: contract.name,
+					userdoc: {
+						kind: 'user',
+						version: 1,
+					},
 				},
 			},
 			modifiedConfig,

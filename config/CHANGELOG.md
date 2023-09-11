@@ -1,5 +1,26 @@
 # @evmts/core
 
+## 0.9.0
+
+### Patch Changes
+
+- [#460](https://github.com/evmts/evmts-monorepo/pull/460) [`1f80589`](https://github.com/evmts/evmts-monorepo/commit/1f8058969e2b0290f5032166928f76cfc74e9d74) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug with solc not being correctly listed as a peer dependency
+
+## 0.8.1
+
+### Patch Changes
+
+- [#453](https://github.com/evmts/evmts-monorepo/pull/453) [`c23302a`](https://github.com/evmts/evmts-monorepo/commit/c23302a9623a968917df19de8dfa2c56b4612712) Thanks [@roninjin10](https://github.com/roninjin10)! - Started publishing every commit to main so all EVMts changes can be used early. To use the latest main branch release install with `@main` tag. e.g. `npm install @evmts/ts-plugin@main`
+
+- [#459](https://github.com/evmts/evmts-monorepo/pull/459) [`ae772ac`](https://github.com/evmts/evmts-monorepo/commit/ae772ac62ad16d19c48b82dfd005458bf27200fe) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug with evmts failing to load JSONc (JSON with comments). Previously if a tsconfig had comments in it or trailign commas json parsing would failing. Now EVMts will load these jsons correctly via using node-jsonc-parser instead of JSON.parse
+
+## 0.8.0
+
+### Patch Changes
+
+- [#442](https://github.com/evmts/evmts-monorepo/pull/442) [`b020298`](https://github.com/evmts/evmts-monorepo/commit/b020298f1acbfad396b0c1c9a1618e00bc750a43) Thanks [@roninjin10](https://github.com/roninjin10)! - ⬆️ Upgraded all npm packages to latest
+  Every package in EVMts is consistently updated to it's latest version using `pnpm up --latest`
+
 ## 0.7.0
 
 ### Minor Changes

@@ -37,21 +37,22 @@ Support for all your favorite tools
 - Wagmi/Viem support is batteries included with no extra dependencies
 - Superpowers Ethers.js typesafety and ergonomics with [@evmts/ethers](./docs/ethers/overview.md) library
 - Support for Web3.js comming soon
-- Support for all major bundlers and frameworks including [Next.js](./docs/guides/next.md), [Esbuild](./docs/guides/esbuild.md), [Vite](./docs/guides/vite.md) and more!
+- Support for all major bundlers and frameworks including [Next.js](./docs/guides/next.md), [Esbuild](./docs/guides/esbuild.md), [Vite](./docs/guides/vite.md), [bun](./bundlers/bun/README.md) and more!
 - Install contracts to use in your typescript code directly from etherscan
 
 ## Try it out
 
 Try out our [online example on stackblitz](https://stackblitz.com/~/github.com/evmts/evmts-vite-wagmi-example)
 
-## Get Started Quick 
+## Get Started Quick
 
 EVMts provides many starter projects and reference code to help get you started
 
 - Our most popular project is the [NEXT.js and Wagmi starter project](https://github.com/evmts/evmts-next-example)
 - Our official starter project for react projects is the [Vite and wagmi starter project](https://github.com/evmts/evmts-vite-wagmi-example)
-- We don't only support react. Try out the [Svelte ethers starter project](https://github.com/evmts/evmts-svelte-ethers-example-) 
+- We don't only support react. Try out the [Svelte ethers starter project](https://github.com/evmts/evmts-svelte-ethers-example-)
 - Building a backend application or npm library? Check out the [esbuild and viem starter project](https://github.com/evmts/evmts-esbuild-viem-example)
+- WIP [scaffold eth 2 starter project](https://github.com/evmts/evmts-monorepo)
 
 ## Visit [Docs](https://evmts.dev/) for docs, guides, API and more! 📄
 
@@ -77,21 +78,9 @@ contract ExampleContract is ERC20 {
 }
 ```
 
-### 2. Deploy your contract with Foundry, Hardhat, or even EVMts+Viem
+### 2. Deploy your contract with Foundry or Hardhat
 
-```typescript [deploy.ts]
-import {walletClient} from './viemWalletClient'
-import { ExampleContract } from '../contracts/ExampleContract.sol'
-
-const [account] = await walletClient.getAddresses();
-const hash = await walletClient.deployContract({
-  ...ExampleContract,
-  account,
-});
-console.log(hash)
-```
-
-### 3. Optional: Configure your contract address in your Evmts config 
+### 3. Optional: Configure your contract address in your Evmts config
 
 Configuring contract addresses for contracts you are developing in the Evmts config makes it so they automatically will have the correct address on whatever network you are using at the time without needing to import or specify them inline.
 
@@ -110,7 +99,7 @@ Configuring contract addresses for contracts you are developing in the Evmts con
 
 ```
 
-### 4. Optional: Install any external contracts 
+### 4. Optional: Install any external contracts
 
 Using a third-party contract? Simply add it to your Evmts config and run `evmts generate` to install the contracts into your project. No more copy-pasting abis.
 
@@ -175,7 +164,7 @@ export const ownerOf = (tokenId = BigInt(1)) => {
 - [@evmts/core](/core) - Contains core runtime code for Evmts contracts with first class [Wagmi](https://wagmi.sh/) and [Viem](https://viem.sh) support
 - [@evmts/ethers](/ethers) - Wrapper around ethers providing typesafe contracts directly with your EVMts contracts
 
-## CLI tools 
+## CLI tools
 
 - [@evmts/cli](/cli) - A cli tool for installing contracts from block explorers
 
@@ -190,6 +179,7 @@ Bundlers are provided for all major tools.   If yours is not supported consider 
 All bundlers are in the [bundlers/\*](/bundlers) folder
 
 - [config/](/config) - Tooling for configuring an `evmts.config.ts` file
+- [@evmts/bun](/bundlers/bun)
 - [@evmts/esbuild-plugin](/bundlers/esbuild-plugin)
 - [@evmts/rollup-plugin](/bundlers/rollup-plugin)
 - [@evmts/rspack](/bundlers/rspack)
@@ -218,6 +208,7 @@ All example apps are also available as forkable repos of their own within the Ev
 
 - [examples/next](./examples/next/) - An example of a forge/next app using Evmts and Wagmi
 - [examples/vite](./examples/vite) - An example of a forge/vite app using Evmts and Wagmi
+- [examples/bun](./examples/bun) - An example of using EVMts with bun
 - [examples/esbuild](./examples/esbuild) - A minimalistic example of a forge/esbuild node app using Evmts and Viem
 - [examples/rollup](./examples/rollup) - An example of a forge/rollup library built with Evmts and ethers.js
 
@@ -252,29 +243,27 @@ Reach out if you want to use EVMts in a serious project and I will help make sur
 Enjoy this tool? Check out these other awesome tools that make this library possible
 
 - [abitype](https://abitype.dev/)
-- [viem](https://viem.sh)
-- [wagmi](https://wagmi.sh/)
 - [ethers.js](https://github.com/ethers-io/ethers.js)
 - [solc](https://github.com/ethereum/solc-js/blob/master/index.ts)
+- [@openzeppelin/solidity-ast](https://github.com/OpenZeppelin/solidity-ast)
 - [unplugin](https://github.com/unjs/unplugin)
-- [volar](https://volarjs.github.io/)
+- [viem](https://viem.sh)
+- [wagmi](https://wagmi.sh/)
 
 And these other awesome tools that helped with development process and future features
 
-- [Foundry](https://github.com/foundry-rs/foundry/tree/master/forge)
-- [revm](https://github.com/bluealloy/revm)
 - [ethereumjs-monorepo](https://github.com/ethereumjs/ethereumjs-monorepo)
-- [Verifiable rpc](https://github.com/liamzebedee/eth-verifiable-rpc)
-- [Optimism](https://github.com/ethereum-optimism/optimism)
+- [Foundry](https://github.com/foundry-rs/foundry/tree/master/forge)
 - [helios](https://github.com/a16z/helios)
-
-Extra shoutout to Wagmi ABIType and Viem. Much of the code in this repo uses their amazing work both as a building block and as reference. Open source is undefeated.
+- [Optimism](https://github.com/ethereum-optimism/optimism)
+- [revm](https://github.com/bluealloy/revm)
+- [Verifiable rpc](https://github.com/liamzebedee/eth-verifiable-rpc)
 
 ## Future plans
 
 This library has ambitious future plans to add features such as
 - Ability to use forge scripts in your clientside or serverside JavaScript code
-- A clientside VM 
+- A clientside VM
 - Instant gas estimation calculated clientside
 - Optimistic execution
 - Trustless RPC layer

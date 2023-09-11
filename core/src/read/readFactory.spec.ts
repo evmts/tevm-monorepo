@@ -8,13 +8,10 @@ const dummyAddresses = {
 	1: '0x8F0EBDaA1cF7106bE861753B0f9F5c0250fE0819',
 } as const satisfies Record<number, Address>
 
-const bytecode = '0x8F0EBDaA1cF7106bE861753B0f9F5c0250fE0819'
-
 const contract = evmtsContractFactory({
 	abi: dummyAbi,
 	name: 'DummyContract',
 	addresses: dummyAddresses,
-	bytecode,
 })
 
 describe(readFactory.name, () => {
@@ -200,7 +197,6 @@ describe(readFactory.name, () => {
 			abi: dummyAbi,
 			name: 'DummyContract',
 			addresses: {},
-			bytecode,
 		})
 		const readFunc = c.read().exampleRead('data', BigInt(420))
 		expect(readFunc.address).toBeUndefined()

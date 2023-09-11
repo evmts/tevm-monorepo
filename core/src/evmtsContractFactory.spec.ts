@@ -7,14 +7,11 @@ const dummyAddresses = {
 	1: '0x8F0EBDaA1cF7106bE861753B0f9F5c0250fE0819',
 } as const satisfies Record<number, Address>
 
-const bytecode = '0x8F0EBDaA1cF7106bE861753B0f9F5c0250fE0819'
-
 describe(evmtsContractFactory.name, () => {
 	const contract = evmtsContractFactory({
 		abi: dummyAbi,
 		name: 'DummyContract',
 		addresses: dummyAddresses,
-		bytecode,
 	})
 
 	it('should have correct name', () => {
@@ -31,10 +28,6 @@ describe(evmtsContractFactory.name, () => {
 
 	it('should contain the addresses', () => {
 		expect(contract.addresses).toEqual(dummyAddresses)
-	})
-
-	it('should contain the bytecode', () => {
-		expect(contract.bytecode).toEqual(bytecode)
 	})
 
 	it('should contain read', () => {
@@ -61,7 +54,6 @@ describe(evmtsContractFactory.name, () => {
 					number,
 					Address
 				>,
-				bytecode,
 			})
 		}).toThrowErrorMatchingInlineSnapshot(
 			'"\\"0xnot a valid addy is not a valid ethereum address"',

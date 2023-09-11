@@ -2,7 +2,7 @@ import { get } from 'node:https'
 
 /**
  * @see https://nodejs.org/api/esm.html#https-loader
- * 
+ *
  * @param {string} url
  * @param {any} _context
  * @param {(arg0: any) => any} nextLoad

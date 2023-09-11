@@ -1,4 +1,10 @@
-import { Decorator, PartialDecorator, createDecorator, decorate } from '.'
+import {
+	HostDecorator,
+	PartialHostDecorator,
+	createHostDecorator,
+	decorateHost,
+} from '.'
+import { FileAccessObject } from '@evmts/bundler'
 import { EvmtsConfig, defaultConfig, defineConfig } from '@evmts/config'
 import typescript from 'typescript/lib/tsserverlibrary'
 import { describe, expect, it, vi } from 'vitest'
@@ -17,6 +23,12 @@ const mockConfig: EvmtsConfig = {
 
 const config = defineConfig(() => mockConfig).configFn('.')
 
+const fao: FileAccessObject = {
+	existsSync: vi.fn(),
+	readFile: vi.fn(),
+	readFileSync: vi.fn(),
+}
+
 const createProxy = <T extends object>(instance: T, proxy: Partial<T>): T => {
 	return new Proxy(instance, {
 		get(target, key) {
@@ -31,9 +43,9 @@ const createProxy = <T extends object>(instance: T, proxy: Partial<T>): T => {
 	})
 }
 
-describe(createDecorator.name, () => {
+describe(createHostDecorator.name, () => {
 	it('should define a decorator by passing a functiont hat returns a partial tsserver object', () => {
-		const decoratorFn: PartialDecorator = (createInfo, ts, logger) => ({
+		const decoratorFn: PartialHostDecorator = (createInfo, ts, logger) => ({
 			getScriptKind: (fileName) => {
 				if (fileName.endsWith('.json')) {
 					return ts.ScriptKind.JSON
@@ -43,7 +55,7 @@ describe(createDecorator.name, () => {
 			},
 		})
 
-		const decorator = createDecorator(decoratorFn)
+		const decorator = createHostDecorator(decoratorFn)
 		const createInfo = { languageServiceHost: {} } as any
 		const logger = {
 			error: vi.fn(),
@@ -52,32 +64,32 @@ describe(createDecorator.name, () => {
 			warn: vi.fn(),
 		} as any
 
-		const host = decorator(createInfo, typescript, logger, config)
+		const host = decorator(createInfo, typescript, logger, config, fao)
 
 		expect(host.getScriptKind?.('foo.json')).toBe(typescript.ScriptKind.JSON)
 		expect(host.getScriptKind?.('foo.ts')).toBe(typescript.ScriptKind.TS)
 	})
 })
 
-describe(decorate.name, () => {
+describe(decorateHost.name, () => {
 	it('composes decorators into a single decorator', () => {
-		const decorator1: Decorator = (createInfo) => {
+		const decorator1: HostDecorator = (createInfo) => {
 			return createProxy(createInfo.languageServiceHost, {
 				decorator1: 'decorated',
 			} as TestAny)
 		}
-		const decorator2: Decorator = (createInfo) => {
+		const decorator2: HostDecorator = (createInfo) => {
 			return createProxy(createInfo.languageServiceHost, {
 				decorator2: 'decorated',
 			} as TestAny)
 		}
-		const decorator3: Decorator = (createInfo) => {
+		const decorator3: HostDecorator = (createInfo) => {
 			return createProxy(createInfo.languageServiceHost, {
 				decorator3: 'decorated',
 			} as TestAny)
 		}
 
-		const composedDecorator = decorate(decorator1, decorator2, decorator3)
+		const composedDecorator = decorateHost(decorator1, decorator2, decorator3)
 
 		const host = { isHost: true }
 		const createInfo = { isCreateInfo: true, languageServiceHost: host }
@@ -93,6 +105,7 @@ describe(decorate.name, () => {
 			typescript,
 			logger,
 			config,
+			fao,
 		)
 
 		expect((decoratedHost as TestAny).isHost).toBe(true)
@@ -110,17 +123,18 @@ describe(decorate.name, () => {
 			warn: vi.fn(),
 			error: vi.fn(),
 		}
-		const decoratedHost = decorate()(
+		const decoratedHost = decorateHost()(
 			createInfo as TestAny,
 			typescript,
 			logger,
 			config,
+			fao,
 		)
 		expect(decoratedHost).toBe(host)
 	})
 
 	it('should preserve the non-languageServiceHost properties of createInfo', () => {
-		const decorator: Decorator = (createInfo) => {
+		const decorator: HostDecorator = (createInfo) => {
 			expect((createInfo as TestAny).isCreateInfo).toBe(true)
 			return { ...createInfo.languageServiceHost, createInfo }
 		}
@@ -134,11 +148,12 @@ describe(decorate.name, () => {
 			error: vi.fn(),
 		}
 
-		const decoratedCreateInfo = decorate(decorator, decorator)(
+		const decoratedCreateInfo = decorateHost(decorator, decorator)(
 			createInfo as TestAny,
 			typescript,
 			logger,
 			config,
+			fao,
 		)
 
 		// Check that the non-languageServiceHost property 'isCreateInfo' has been preserved

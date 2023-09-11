@@ -1,5 +1,38 @@
 # @evmts/ts-plugin
 
+## 0.9.0
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @evmts/bundler@0.9.0
+
+## 0.8.1
+
+### Patch Changes
+
+- [#453](https://github.com/evmts/evmts-monorepo/pull/453) [`c23302a`](https://github.com/evmts/evmts-monorepo/commit/c23302a9623a968917df19de8dfa2c56b4612712) Thanks [@roninjin10](https://github.com/roninjin10)! - Started publishing every commit to main so all EVMts changes can be used early. To use the latest main branch release install with `@main` tag. e.g. `npm install @evmts/ts-plugin@main`
+
+- Updated dependencies [[`c23302a`](https://github.com/evmts/evmts-monorepo/commit/c23302a9623a968917df19de8dfa2c56b4612712)]:
+  - @evmts/bundler@0.8.1
+
+## 0.8.0
+
+### Minor Changes
+
+- [#444](https://github.com/evmts/evmts-monorepo/pull/444) [`793798e`](https://github.com/evmts/evmts-monorepo/commit/793798ec3782e4081840bcd77242104c9546e70c) Thanks [@roninjin10](https://github.com/roninjin10)! - Added support for go-to-definition.
+
+  ![Untitled_ Sep 3, 2023 6_52 AM](https://github.com/evmts/evmts-monorepo/assets/35039927/ac46caf3-32cc-4ec5-8b3b-5e1df3f7819a)
+
+  After right clicking on a symbol and selecting go-to-definition with the language server protocol the editor will show the exact file and line of code a solidity method or event is defined on. This includes both the implementation and the interface.
+
+### Patch Changes
+
+- [#442](https://github.com/evmts/evmts-monorepo/pull/442) [`b020298`](https://github.com/evmts/evmts-monorepo/commit/b020298f1acbfad396b0c1c9a1618e00bc750a43) Thanks [@roninjin10](https://github.com/roninjin10)! - ⬆️ Upgraded all npm packages to latest
+  Every package in EVMts is consistently updated to it's latest version using `pnpm up --latest`
+- Updated dependencies [[`91e43e9`](https://github.com/evmts/evmts-monorepo/commit/91e43e952a440f037d52146511ed2508d289874e), [`eedb7e0`](https://github.com/evmts/evmts-monorepo/commit/eedb7e0e8f853acf59c3f86c1d7317bad8ee7e2b), [`e1903df`](https://github.com/evmts/evmts-monorepo/commit/e1903df625c54b2447ce2bc2318f4c74f9a02bb5), [`b020298`](https://github.com/evmts/evmts-monorepo/commit/b020298f1acbfad396b0c1c9a1618e00bc750a43), [`8cceec7`](https://github.com/evmts/evmts-monorepo/commit/8cceec7409a5fc0e72168a10821a64203ba374ab), [`793798e`](https://github.com/evmts/evmts-monorepo/commit/793798ec3782e4081840bcd77242104c9546e70c)]:
+  - @evmts/bundler@0.8.0
+
 ## 0.7.1
 
 ### Patch Changes

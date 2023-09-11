@@ -1,11 +1,12 @@
-import { createDecorator } from '../factories'
+import { createHostDecorator } from '../factories'
 import { solidityModuleResolver } from '../utils'
+import { invariant } from '../utils/invariant'
 
 /**
  * Decorate `LangaugeServerHost.resolveModuleNameLiterals` to return config object to resolve `.sol` files
  * This tells the ts-server to resolve `.sol` files to `.d.ts` files with `getScriptSnapshot`
  */
-export const resolveModuleNameLiteralsDecorator = createDecorator(
+export const resolveModuleNameLiteralsDecorator = createHostDecorator(
 	(createInfo, ts, logger) => {
 		return {
 			resolveModuleNameLiterals: (moduleNames, containingFile, ...rest) => {
@@ -17,9 +18,10 @@ export const resolveModuleNameLiteralsDecorator = createDecorator(
 					)
 
 				return moduleNames.map(({ text: moduleName }, index) => {
-					if (!resolvedModules) {
-						throw new Error('Expected "resolvedModules" to be defined.')
-					}
+					invariant(
+						resolvedModules,
+						'Expected "resolvedModules" to be defined.',
+					)
 					try {
 						const resolvedModule = solidityModuleResolver(
 							moduleName,

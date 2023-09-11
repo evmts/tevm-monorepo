@@ -1,0 +1,44 @@
+name: Snapshot 🚀
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
+jobs:
+  prerelease:
+    name: Changests Snapshot
+    if: github.repository == 'evmts/evmts-monorepo'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        name: Checkout Repo
+        with:
+          fetch-depth: 0
+          submodules: recursive
+
+      - name: "Setup"
+        uses: ./.github/actions/setup
+
+      - name: Build
+        run: pnpm build
+        env:
+          NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
+
+      - name: Set deployment token
+        run: npm config set '//registry.npmjs.org/:_authToken' "${NPM_TOKEN}"
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+
+      - name: Publish snapshots
+        uses: seek-oss/changesets-snapshot@v0
+        with:
+          pre-publish: pnpm nx run-many --targets=build,build:dist --skip-nx-cache
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
