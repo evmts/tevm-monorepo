@@ -42,13 +42,17 @@ Support for all your favorite tools
 
 ## Try it out
 
-Try out our [online example on stackblitz](https://stackblitz.com/~/github.com/evmts/evmts-vite-wagmi-example)
+Try out our [online frontend example on stackblitz](https://stackblitz.com/~/github.com/evmts/evmts-vite-wagmi-example)
+
+Try cloning our [minimal bun example on github](https://github.com/evmts/bun-starterkit)
 
 ## Get Started Quick
 
 EVMts provides many starter projects and reference code to help get you started
 
 - Our most popular project is the [NEXT.js and Wagmi starter project](https://github.com/evmts/evmts-next-example)
+- [minimal bun+viem example](https://github.com/evmts/bun-starterkit)
+- [minimal bun+ethers example](https://github.com/evmts/bun-starterkit/tree/ethers)
 - Our official starter project for react projects is the [Vite and wagmi starter project](https://github.com/evmts/evmts-vite-wagmi-example)
 - We don't only support react. Try out the [Svelte ethers starter project](https://github.com/evmts/evmts-svelte-ethers-example-)
 - Building a backend application or npm library? Check out the [esbuild and viem starter project](https://github.com/evmts/evmts-esbuild-viem-example)
