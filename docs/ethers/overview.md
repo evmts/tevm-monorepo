@@ -37,7 +37,7 @@ Check out the Ethers.js example project for an example of using ethers.js with E
 
 ## Getting started
 
-To get started using Ethers with EVMts first [follow the general EVMts setup](../guides/getting-started) and then add the `@evmts/ethers` package
+To get started using Ethers with EVMts first [follow the general EVMts setup](../getting-started/quick-start.md) and then add the `@evmts/ethers` package
 
 ```bash
 npm install -D @evmts/ethers
