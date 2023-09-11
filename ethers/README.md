@@ -24,6 +24,10 @@
 
 A ethers.js utilities for Evmts
 
+### Try cloning our [minimal bun example on github](https://github.com/evmts/bun-starterkit)
+
+Don't worry if you aren't familiar with bun. It works with NODE/npm pnpm and yarn too
+
 ## High level overview
 
 Previously the best way to get typesafe [contracts](https://docs.ethers.org/v6/api/contract/) with ethers was [typechain](https://github.com/dethcrypto/TypeChain) typechain improved the dev experience of using contracts via creating typesafe contracts via codegen. EVMts builds on this idea by providing the same benifit purely at runtime without any build or codegen steps.
