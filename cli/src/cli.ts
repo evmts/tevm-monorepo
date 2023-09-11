@@ -3,6 +3,7 @@ import { cac } from 'cac'
 
 import * as packageJson from '../package.json'
 import { generate } from './commands'
+import { install } from './commands/install'
 import { loadConfig } from '@evmts/config'
 import * as dotenv from 'dotenv'
 
@@ -22,6 +23,14 @@ export const cli = async (
 			logger.log('Generating contracts...')
 			const evmtsConfig = loadConfig(process.cwd(), console)
 			await generate(evmtsConfig, logger)
+		})
+
+	cli
+		.command('install', 'install external contracts from etherscan')
+		.example((name) => `${name} generate`)
+		.action(async () => {
+			const evmtsConfig = loadConfig(process.cwd(), console)
+			await install(evmtsConfig, logger)
 		})
 
 	cli.help()
