@@ -7,6 +7,7 @@ packages:
   - "e2e"
   - "ethers"
   - "examples/*"
+  - "experimental/*"
   - "ts-plugin"
   - "tsconfig"
 
