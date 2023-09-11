@@ -1,10 +1,16 @@
-import type { Logger, ModuleInfo } from '../types'
+import type { FileAccessObject, Logger, ModuleInfo } from '../types'
 import { compileContractSync } from './compileContracts'
+import type {
+	SolcContractOutput,
+	SolcInputDescription,
+	SolcOutput,
+} from './solc'
 import type { ResolvedConfig } from '@evmts/config'
+import type { Node } from 'solidity-ast/node'
 
 export type Artifacts = Record<
 	string,
-	{ contractName: string; abi: any; bytecode: string }
+	Pick<SolcContractOutput, 'abi' | 'userdoc'>
 >
 
 export const resolveArtifactsSync = (
@@ -12,18 +18,20 @@ export const resolveArtifactsSync = (
 	basedir: string,
 	logger: Logger,
 	config: ResolvedConfig,
+	includeAst: boolean,
+	fao: FileAccessObject,
 ): {
 	artifacts: Artifacts
 	modules: Record<'string', ModuleInfo>
+	asts: Record<string, Node> | undefined
+	solcInput: SolcInputDescription
+	solcOutput: SolcOutput
 } => {
 	if (!solFile.endsWith('.sol')) {
 		throw new Error('Not a solidity file')
 	}
-	const { artifacts, modules } = compileContractSync(
-		solFile,
-		basedir,
-		config.compiler,
-	)
+	const { artifacts, modules, asts, solcInput, solcOutput } =
+		compileContractSync(solFile, basedir, config.compiler, includeAst, fao)
 
 	if (!artifacts) {
 		logger.error(`Compilation failed for ${solFile}`)
@@ -33,11 +41,15 @@ export const resolveArtifactsSync = (
 	return {
 		artifacts: Object.fromEntries(
 			Object.entries(artifacts).map(([contractName, contract]) => {
-				const abi = (contract as any).abi
-				const bytecode = (contract as any).evm.bytecode.object
-				return [contractName, { contractName, abi, bytecode }]
+				return [
+					contractName,
+					{ contractName, abi: contract.abi, userdoc: contract.userdoc },
+				]
 			}),
 		),
 		modules,
+		asts,
+		solcInput,
+		solcOutput,
 	}
 }

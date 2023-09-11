@@ -38,7 +38,7 @@ importers:
         version: 2.5.0
       vitest:
         specifier: ^0.33.0
-        version: 0.33.0(@vitest/ui@0.33.0)
+        version: 0.33.0
 
   bundlers/bundler:
     dependencies:
@@ -413,7 +413,7 @@ importers:
         version: 12.1.3
       viem:
         specifier: ^1.2.10
-        version: 1.2.10(typescript@5.1.6)(zod@3.21.4)
+        version: 1.2.10(typescript@5.1.6)
 
   ethers:
     devDependencies:
@@ -632,10 +632,10 @@ importers:
         version: 5.1.6
       vite:
         specifier: ^4.4.2
-        version: 4.4.7(@types/node@20.4.9)
+        version: 4.4.7
       vitest:
         specifier: ^0.33.0
-        version: 0.33.0(@vitest/ui@0.33.0)
+        version: 0.33.0
 
   examples/vite:
     dependencies:
@@ -677,7 +677,7 @@ importers:
         version: 0.12.5
       viem:
         specifier: ~1.2.10
-        version: 1.2.10(typescript@5.1.6)(zod@3.21.4)
+        version: 1.2.10(typescript@5.1.6)
       wagmi:
         specifier: ^1.2.0
         version: 1.3.0(react-dom@18.2.0)(react@18.2.0)(typescript@5.1.6)(viem@1.2.10)
@@ -705,13 +705,13 @@ importers:
         version: 4.0.1(vite@4.3.9)
       abitype:
         specifier: ^0.8.11
-        version: 0.8.11(typescript@5.1.6)(zod@3.21.4)
+        version: 0.8.11(typescript@5.1.6)
       forge-deploy:
         specifier: ^0.2.0
         version: 0.2.0
       forge-std:
         specifier: github:foundry-rs/forge-std
-        version: github.com/foundry-rs/forge-std/c0c6a4206531a3f785538240412ea2467ef58ebf
+        version: github.com/foundry-rs/forge-std/705263c95892a906d7af65f0f73ce8a4a0c80b80
       react-helmet:
         specifier: ^6.1.0
         version: 6.1.0(react@18.2.0)
@@ -732,7 +732,68 @@ importers:
         version: 4.3.9(@types/node@20.4.9)
       vitest:
         specifier: ^0.33.0
+        version: 0.33.0
+
+  experimental/solc:
+    dependencies:
+      '@evmts/config':
+        specifier: workspace:*
+        version: link:../../config
+      '@evmts/core':
+        specifier: workspace:*
+        version: link:../../core
+      '@evmts/tsconfig':
+        specifier: workspace:*
+        version: link:../../tsconfig
+      '@types/resolve':
+        specifier: ^1.20.2
+        version: 1.20.2
+      glob:
+        specifier: ^10.3.3
+        version: 10.3.3
+      resolve:
+        specifier: ^1.22.2
+        version: 1.22.4
+      unplugin:
+        specifier: ^1.4.0
+        version: 1.4.0
+    devDependencies:
+      '@types/node':
+        specifier: ^20.4.9
+        version: 20.4.9
+      '@vitest/coverage-v8':
+        specifier: ^0.33.0
+        version: 0.33.0(vitest@0.33.0)
+      '@vitest/ui':
+        specifier: ^0.33.0
+        version: 0.33.0(vitest@0.33.0)
+      abitype:
+        specifier: ^0.9.3
+        version: 0.9.6(typescript@5.1.6)(zod@3.21.4)
+      rome:
+        specifier: ^12.1.3
+        version: 12.1.3
+      solc:
+        specifier: 0.8.20
+        version: 0.8.20
+      tsup:
+        specifier: ^7.1.0
+        version: 7.2.0(typescript@5.1.6)
+      tsx:
+        specifier: ^3.12.7
+        version: 3.12.7
+      typescript:
+        specifier: ^5.1.6
+        version: 5.1.6
+      vitest:
+        specifier: ^0.33.0
         version: 0.33.0(@vitest/ui@0.33.0)
+      wagmi:
+        specifier: ^1.3.9
+        version: 1.3.9(react@18.2.0)(typescript@5.1.6)(viem@1.5.3)(zod@3.21.4)
+      zod:
+        specifier: ^3.21.4
+        version: 3.21.4
 
   language-server:
     dependencies:
@@ -803,7 +864,7 @@ importers:
         version: 5.1.6
       vitest:
         specifier: ^0.33.0
-        version: 0.33.0(@vitest/ui@0.33.0)
+        version: 0.33.0
 
   tsconfig: {}
 
@@ -1423,6 +1484,7 @@ packages:
   /@babel/plugin-proposal-unicode-property-regex@7.18.6(@babel/core@7.22.9):
     resolution: {integrity: sha512-2BShG/d5yoZyXZfVePH91urL5wTG6ASZU9M4o03lKK8u8UW1y08OMttBSOADTcJrnPMpvDXRG3G8fyLh4ovs8w==}
     engines: {node: '>=4'}
+    deprecated: This proposal has been merged to the ECMAScript standard and thus this plugin is no longer maintained. Please use @babel/plugin-transform-unicode-property-regex instead.
     peerDependencies:
       '@babel/core': ^7.0.0-0
     dependencies:
@@ -5294,7 +5356,7 @@ packages:
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
       react-remove-scroll: 2.5.4(@types/react@18.2.14)(react@18.2.0)
-      viem: 1.2.10(typescript@5.1.6)(zod@3.21.4)
+      viem: 1.2.10(typescript@5.1.6)
       wagmi: 1.3.0(react-dom@18.2.0)(react@18.2.0)(typescript@5.1.6)(viem@1.2.10)
     transitivePeerDependencies:
       - '@types/react'
@@ -5424,7 +5486,7 @@ packages:
     resolution: {integrity: sha512-gYw0ki/EAuV1oSyMxpqandHjnthZjYYy+YWpTAzf8BqfXM3ItcZLpjxfg+3+mXW8HIO+3jw6T9iiqEXsqHaMMw==}
     dependencies:
       '@safe-global/safe-gateway-typescript-sdk': 3.7.3
-      viem: 1.2.10(typescript@5.1.6)(zod@3.21.4)
+      viem: 1.5.3(typescript@5.1.6)(zod@3.21.4)
     transitivePeerDependencies:
       - bufferutil
       - encoding
@@ -5737,7 +5799,7 @@ packages:
       sirv: 2.0.3
       svelte: 4.1.2
       undici: 5.22.1
-      vite: 4.4.7(@types/node@20.4.9)
+      vite: 4.4.7
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -5753,7 +5815,7 @@ packages:
       '@sveltejs/vite-plugin-svelte': 2.4.3(svelte@4.1.2)(vite@4.4.7)
       debug: 4.3.4(supports-color@8.1.1)
       svelte: 4.1.2
-      vite: 4.4.7(@types/node@20.4.9)
+      vite: 4.4.7
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -5769,10 +5831,10 @@ packages:
       debug: 4.3.4(supports-color@8.1.1)
       deepmerge: 4.3.1
       kleur: 4.1.5
-      magic-string: 0.30.1
+      magic-string: 0.30.2
       svelte: 4.1.2
       svelte-hmr: 0.15.3(svelte@4.1.2)
-      vite: 4.4.7(@types/node@20.4.9)
+      vite: 4.4.7
       vitefu: 0.2.4(vite@4.4.7)
     transitivePeerDependencies:
       - supports-color
@@ -6418,7 +6480,6 @@ packages:
     resolution: {integrity: sha512-lwhs8hktwxSjf9UaZ9tG5M03PGogvFaH8gUgLNbN9HKIg0dvv6q+gkSuJ8HN4/VbyxkuLzCjlN7GquQ0gUJfIg==}
     dependencies:
       '@types/node': 20.4.9
-    dev: true
 
   /@types/yargs-parser@21.0.0:
     resolution: {integrity: sha512-iO9ZQHkZxHn4mSakYV0vFHAVDyEOIJQrV2uZ06HxEPcx+mt8swXoZHIbaaJ2crJYFfErySgktuTZ3BeLz+XmFA==}
@@ -6656,7 +6717,7 @@ packages:
       vite: ^4.0.0
       vue: ^3.2.25
     dependencies:
-      vite: 4.4.7(@types/node@20.4.9)
+      vite: 4.4.7
       vue: 3.3.4
     dev: true
 
@@ -6737,7 +6798,7 @@ packages:
   /@vitest/snapshot@0.33.0:
     resolution: {integrity: sha512-tJjrl//qAHbyHajpFvr8Wsk8DIOODEebTu7pgBrP07iOepR5jYkLFiqLq2Ltxv+r0uptUb4izv1J8XBOwKkVYA==}
     dependencies:
-      magic-string: 0.30.1
+      magic-string: 0.30.2
       pathe: 1.1.1
       pretty-format: 29.6.2
     dev: true
@@ -6938,7 +6999,7 @@ packages:
       '@vue/reactivity-transform': 3.3.4
       '@vue/shared': 3.3.4
       estree-walker: 2.0.2
-      magic-string: 0.30.1
+      magic-string: 0.30.2
       postcss: 8.4.27
       source-map-js: 1.0.2
     dev: true
@@ -6961,7 +7022,7 @@ packages:
       '@vue/compiler-core': 3.3.4
       '@vue/shared': 3.3.4
       estree-walker: 2.0.2
-      magic-string: 0.30.1
+      magic-string: 0.30.2
     dev: true
 
   /@vue/reactivity@3.3.4:
@@ -7244,7 +7305,7 @@ packages:
       abitype: 0.8.7(typescript@5.1.6)(zod@3.21.4)
       eventemitter3: 4.0.7
       typescript: 5.1.6
-      viem: 1.2.10(typescript@5.1.6)(zod@3.21.4)
+      viem: 1.2.10(typescript@5.1.6)
     transitivePeerDependencies:
       - '@react-native-async-storage/async-storage'
       - bufferutil
@@ -7411,7 +7472,7 @@ packages:
       abitype: 0.8.7(typescript@5.1.6)(zod@3.21.4)
       eventemitter3: 4.0.7
       typescript: 5.1.6
-      viem: 1.2.10(typescript@5.1.6)(zod@3.21.4)
+      viem: 1.2.10(typescript@5.1.6)
       zustand: 4.3.9(react@18.2.0)
     transitivePeerDependencies:
       - '@react-native-async-storage/async-storage'
@@ -8583,7 +8644,7 @@ packages:
       typescript: 5.1.6
     dev: false
 
-  /abitype@0.8.11(typescript@5.1.6)(zod@3.21.4):
+  /abitype@0.8.11(typescript@5.1.6):
     resolution: {integrity: sha512-bM4v2dKvX08sZ9IU38IN5BKmN+ZkOSd2oI4a9f0ejHYZQYV6cDr7j+d95ga0z2XHG36Y4jzoG5Z7qDqxp7fi/A==}
     peerDependencies:
       typescript: '>=5.0.4'
@@ -8593,7 +8654,6 @@ packages:
         optional: true
     dependencies:
       typescript: 5.1.6
-      zod: 3.21.4
 
   /abitype@0.8.7(typescript@5.1.6)(zod@3.21.4):
     resolution: {integrity: sha512-wQ7hV8Yg/yKmGyFpqrNZufCxbszDe5es4AZGYPBitocfSqXtjrTG9JMWFcc4N30ukl2ve48aBTwt7NJxVQdU3w==}
@@ -12110,7 +12170,7 @@ packages:
     resolution: {integrity: sha512-gozW2blMLJCeFpBwugLTGyvVjNoeo1knonXAcatC6bjPBZitotxdWf7Gimr25N4c0AAOo4eOUfaG82IJPDpqCA==}
     dependencies:
       debug: 3.2.7(supports-color@8.1.1)
-      is-core-module: 2.12.1
+      is-core-module: 2.13.0
       resolve: 1.22.4
     transitivePeerDependencies:
       - supports-color
@@ -12130,7 +12190,7 @@ packages:
       eslint-plugin-import: 2.27.5(@typescript-eslint/parser@5.46.1)(eslint-import-resolver-typescript@3.5.5)(eslint@8.44.0)
       get-tsconfig: 4.6.2
       globby: 13.2.2
-      is-core-module: 2.12.1
+      is-core-module: 2.13.0
       is-glob: 4.0.3
       synckit: 0.8.5
     transitivePeerDependencies:
@@ -12190,7 +12250,7 @@ packages:
       eslint-import-resolver-node: 0.3.7
       eslint-module-utils: 2.8.0(@typescript-eslint/parser@5.46.1)(eslint-import-resolver-node@0.3.7)(eslint-import-resolver-typescript@3.5.5)(eslint@8.44.0)
       has: 1.0.3
-      is-core-module: 2.12.1
+      is-core-module: 2.13.0
       is-glob: 4.0.3
       minimatch: 3.1.2
       object.values: 1.1.6
@@ -14539,6 +14599,7 @@ packages:
     resolution: {integrity: sha512-Q4ZuBAe2FUsKtyQJoQHlvP8OvBERxO3jEmy1I7hcRXcJBGGHFh/aJBswbXuS9sgrDH2QUO8ilkwNPHvHMd8clg==}
     dependencies:
       has: 1.0.3
+    dev: false
 
   /is-core-module@2.13.0:
     resolution: {integrity: sha512-Z7dk6Qo8pOCp3l4tsX2C5ZVas4V+UxwQodwZhLopL91TX8UyyHEXafPcyoeeWuLrwzHcr3igO78wNLwHJHsMCQ==}
@@ -14960,7 +15021,7 @@ packages:
     dependencies:
       '@babel/core': 7.22.5
       '@istanbuljs/schema': 0.1.3
-      istanbul-lib-coverage: 3.0.0
+      istanbul-lib-coverage: 3.2.0
       semver: 6.3.1
     transitivePeerDependencies:
       - supports-color
@@ -16472,7 +16533,7 @@ packages:
     engines: {node: '>=10'}
     dependencies:
       hosted-git-info: 4.1.0
-      is-core-module: 2.12.1
+      is-core-module: 2.13.0
       semver: 7.5.4
       validate-npm-package-license: 3.0.4
     dev: true
@@ -16482,7 +16543,7 @@ packages:
     engines: {node: ^12.13.0 || ^14.15.0 || >=16.0.0}
     dependencies:
       hosted-git-info: 5.2.1
-      is-core-module: 2.12.1
+      is-core-module: 2.13.0
       semver: 7.5.4
       validate-npm-package-license: 3.0.4
     dev: true
@@ -16627,7 +16688,7 @@ packages:
       foreground-child: 2.0.0
       get-package-type: 0.1.0
       glob: 7.2.3
-      istanbul-lib-coverage: 3.0.0
+      istanbul-lib-coverage: 3.2.0
       istanbul-lib-hook: 3.0.0
       istanbul-lib-instrument: 4.0.3
       istanbul-lib-processinfo: 2.0.3
@@ -20812,7 +20873,7 @@ packages:
       - zod
     dev: true
 
-  /viem@1.2.10(typescript@5.1.6)(zod@3.21.4):
+  /viem@1.2.10(typescript@5.1.6):
     resolution: {integrity: sha512-1WWhgb+WoQyPIt4zuSTaWsbXJ2q+rslohtg0g+kbo4Z9IGfXNLsp/wAjUhgUgArScCL6oALhjnnZ1O91I+gFrA==}
     peerDependencies:
       typescript: '>=5.0.4'
@@ -20826,7 +20887,7 @@ packages:
       '@scure/bip32': 1.3.0
       '@scure/bip39': 1.2.0
       '@wagmi/chains': 1.2.0(typescript@5.1.6)
-      abitype: 0.8.11(typescript@5.1.6)(zod@3.21.4)
+      abitype: 0.8.11(typescript@5.1.6)
       isomorphic-ws: 5.0.0(ws@8.12.0)
       typescript: 5.1.6
       ws: 8.12.0
@@ -20849,7 +20910,7 @@ packages:
       '@scure/bip32': 1.3.0
       '@scure/bip39': 1.2.0
       '@wagmi/chains': 1.2.0(typescript@5.1.6)
-      abitype: 0.8.11(typescript@5.1.6)(zod@3.21.4)
+      abitype: 0.8.11(typescript@5.1.6)
       isomorphic-ws: 5.0.0(ws@8.12.0)
       typescript: 5.1.6
       ws: 8.12.0
@@ -20873,7 +20934,7 @@ packages:
       '@scure/bip32': 1.3.0
       '@scure/bip39': 1.2.0
       '@wagmi/chains': 1.2.0(typescript@5.1.6)
-      abitype: 0.8.11(typescript@5.1.6)(zod@3.21.4)
+      abitype: 0.8.11(typescript@5.1.6)
       isomorphic-ws: 5.0.0(ws@8.12.0)
       typescript: 5.1.6
       ws: 8.12.0
@@ -20953,7 +21014,6 @@ packages:
       - bufferutil
       - utf-8-validate
       - zod
-    dev: true
 
   /vite-node@0.33.0(@types/node@20.4.9):
     resolution: {integrity: sha512-19FpHYbwWWxDr73ruNahC+vtEdza52kA90Qb3La98yZ0xULqV8A5JLNPUff0f5zID4984tW7l3DH2przTJUZSw==}
@@ -21031,6 +21091,41 @@ packages:
     optionalDependencies:
       fsevents: 2.3.2
 
+  /vite@4.4.7:
+    resolution: {integrity: sha512-6pYf9QJ1mHylfVh39HpuSfMPojPSKVxZvnclX1K1FyZ1PXDOcLBibdq5t1qxJSnL63ca8Wf4zts6mD8u8oc9Fw==}
+    engines: {node: ^14.18.0 || >=16.0.0}
+    hasBin: true
+    peerDependencies:
+      '@types/node': '>= 14'
+      less: '*'
+      lightningcss: ^1.21.0
+      sass: '*'
+      stylus: '*'
+      sugarss: '*'
+      terser: ^5.4.0
+    peerDependenciesMeta:
+      '@types/node':
+        optional: true
+      less:
+        optional: true
+      lightningcss:
+        optional: true
+      sass:
+        optional: true
+      stylus:
+        optional: true
+      sugarss:
+        optional: true
+      terser:
+        optional: true
+    dependencies:
+      esbuild: 0.18.17
+      postcss: 8.4.27
+      rollup: 3.26.3
+    optionalDependencies:
+      fsevents: 2.3.2
+    dev: true
+
   /vite@4.4.7(@types/node@20.4.9):
     resolution: {integrity: sha512-6pYf9QJ1mHylfVh39HpuSfMPojPSKVxZvnclX1K1FyZ1PXDOcLBibdq5t1qxJSnL63ca8Wf4zts6mD8u8oc9Fw==}
     engines: {node: ^14.18.0 || >=16.0.0}
@@ -21060,9 +21155,9 @@ packages:
         optional: true
     dependencies:
       '@types/node': 20.4.9
-      esbuild: 0.18.17
+      esbuild: 0.18.13
       postcss: 8.4.27
-      rollup: 3.26.3
+      rollup: 3.27.2
     optionalDependencies:
       fsevents: 2.3.2
     dev: true
@@ -21111,7 +21206,7 @@ packages:
       vite:
         optional: true
     dependencies:
-      vite: 4.4.7(@types/node@20.4.9)
+      vite: 4.4.7
     dev: true
 
   /vitepress@1.0.0-beta.3(@algolia/client-search@4.19.1)(search-insights@2.7.0):
@@ -21129,7 +21224,7 @@ packages:
       mark.js: 8.11.1
       minisearch: 6.1.0
       shiki: 0.14.3
-      vite: 4.4.7(@types/node@20.4.9)
+      vite: 4.4.7
       vue: 3.3.4
     transitivePeerDependencies:
       - '@algolia/client-search'
@@ -21156,6 +21251,71 @@ packages:
       - sugarss
       - terser
       - universal-cookie
+    dev: true
+
+  /vitest@0.33.0:
+    resolution: {integrity: sha512-1CxaugJ50xskkQ0e969R/hW47za4YXDUfWJDxip1hwbnhUjYolpfUn2AMOulqG/Dtd9WYAtkHmM/m3yKVrEejQ==}
+    engines: {node: '>=v14.18.0'}
+    hasBin: true
+    peerDependencies:
+      '@edge-runtime/vm': '*'
+      '@vitest/browser': '*'
+      '@vitest/ui': '*'
+      happy-dom: '*'
+      jsdom: '*'
+      playwright: '*'
+      safaridriver: '*'
+      webdriverio: '*'
+    peerDependenciesMeta:
+      '@edge-runtime/vm':
+        optional: true
+      '@vitest/browser':
+        optional: true
+      '@vitest/ui':
+        optional: true
+      happy-dom:
+        optional: true
+      jsdom:
+        optional: true
+      playwright:
+        optional: true
+      safaridriver:
+        optional: true
+      webdriverio:
+        optional: true
+    dependencies:
+      '@types/chai': 4.3.5
+      '@types/chai-subset': 1.3.3
+      '@types/node': 20.4.9
+      '@vitest/expect': 0.33.0
+      '@vitest/runner': 0.33.0
+      '@vitest/snapshot': 0.33.0
+      '@vitest/spy': 0.33.0
+      '@vitest/utils': 0.33.0
+      acorn: 8.10.0
+      acorn-walk: 8.2.0
+      cac: 6.7.14
+      chai: 4.3.7
+      debug: 4.3.4(supports-color@8.1.1)
+      local-pkg: 0.4.3
+      magic-string: 0.30.1
+      pathe: 1.1.1
+      picocolors: 1.0.0
+      std-env: 3.3.3
+      strip-literal: 1.0.1
+      tinybench: 2.5.0
+      tinypool: 0.6.0
+      vite: 4.4.7(@types/node@20.4.9)
+      vite-node: 0.33.0(@types/node@20.4.9)
+      why-is-node-running: 2.2.2
+    transitivePeerDependencies:
+      - less
+      - lightningcss
+      - sass
+      - stylus
+      - sugarss
+      - supports-color
+      - terser
     dev: true
 
   /vitest@0.33.0(@vitest/ui@0.33.0):
@@ -21204,14 +21364,14 @@ packages:
       chai: 4.3.7
       debug: 4.3.4(supports-color@8.1.1)
       local-pkg: 0.4.3
-      magic-string: 0.30.1
+      magic-string: 0.30.2
       pathe: 1.1.1
       picocolors: 1.0.0
       std-env: 3.3.3
-      strip-literal: 1.0.1
+      strip-literal: 1.3.0
       tinybench: 2.5.0
       tinypool: 0.6.0
-      vite: 4.4.7(@types/node@20.4.9)
+      vite: 4.4.8(@types/node@20.4.9)
       vite-node: 0.33.0(@types/node@20.4.9)
       why-is-node-running: 2.2.2
     transitivePeerDependencies:
@@ -21513,7 +21673,7 @@ packages:
       react: 18.2.0
       typescript: 5.1.6
       use-sync-external-store: 1.2.0(react@18.2.0)
-      viem: 1.2.10(typescript@5.1.6)(zod@3.21.4)
+      viem: 1.2.10(typescript@5.1.6)
     transitivePeerDependencies:
       - '@react-native-async-storage/async-storage'
       - bufferutil
@@ -22298,8 +22458,8 @@ packages:
     version: 0.1.0
     dev: true
 
-  github.com/foundry-rs/forge-std/c0c6a4206531a3f785538240412ea2467ef58ebf:
-    resolution: {tarball: https://codeload.github.com/foundry-rs/forge-std/tar.gz/c0c6a4206531a3f785538240412ea2467ef58ebf}
+  github.com/foundry-rs/forge-std/705263c95892a906d7af65f0f73ce8a4a0c80b80:
+    resolution: {tarball: https://codeload.github.com/foundry-rs/forge-std/tar.gz/705263c95892a906d7af65f0f73ce8a4a0c80b80}
     name: forge-std
     version: 1.6.0
     dev: true

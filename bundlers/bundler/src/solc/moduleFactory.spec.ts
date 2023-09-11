@@ -1,6 +1,5 @@
-import type { ModuleInfo } from '../types'
+import type { FileAccessObject, ModuleInfo } from '../types'
 import { moduleFactory } from './moduleFactory'
-import { readFileSync } from 'fs'
 import {
 	type Mock,
 	afterEach,
@@ -11,10 +10,16 @@ import {
 	vi,
 } from 'vitest'
 
+const fao: FileAccessObject = {
+	existsSync: vi.fn(),
+	readFile: vi.fn(),
+	readFileSync: vi.fn(),
+}
+
 vi.mock('fs', () => ({
 	readFileSync: vi.fn(),
 }))
-const mockReadFileSync = readFileSync as Mock
+const mockReadFileSync = fao.readFileSync as Mock
 
 describe('moduleFactory', () => {
 	const remappings = {
@@ -42,9 +47,13 @@ import "otherOthermodule"`
 			.mockReturnValueOnce(key1MockContent)
 			.mockReturnValueOnce(othermoduleMockContent)
 
-		testModule = moduleFactory(absolutePath, testModuleCode, remappings, [
-			'../node_modules',
-		])
+		testModule = moduleFactory(
+			absolutePath,
+			testModuleCode,
+			remappings,
+			['../node_modules'],
+			fao,
+		)
 	})
 
 	it('should correctly resolve import paths', () => {
@@ -96,6 +105,7 @@ import "otherOthermodule"`
 			testModuleCodeUnresolvedImport,
 			remappings,
 			['../node_modules'],
+			fao,
 		)
 
 		// Update the expected snapshot to reflect the change.

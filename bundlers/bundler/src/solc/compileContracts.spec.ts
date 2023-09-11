@@ -1,8 +1,7 @@
-import type { ModuleInfo } from '../types'
+import type { FileAccessObject, ModuleInfo } from '../types'
 import { compileContractSync } from './compileContracts'
 import { moduleFactory } from './moduleFactory'
 import type { ResolvedConfig } from '@evmts/config'
-import { readFileSync } from 'fs'
 import * as resolve from 'resolve'
 // TODO wrap this in a typesafe version
 // @ts-ignore
@@ -18,7 +17,6 @@ import {
 } from 'vitest'
 
 // Mock the necessary functions and modules
-vi.mock('fs', () => ({ readFileSync: vi.fn() }))
 vi.mock('resolve', () => ({ sync: vi.fn() }))
 vi.mock('solc', () => {
 	const defaultExport = { compile: vi.fn() }
@@ -34,6 +32,12 @@ const ConsoleMock = {
 }
 
 vi.stubGlobal('console', ConsoleMock)
+
+const fao: FileAccessObject = {
+	readFileSync: vi.fn() as any,
+	existsSync: vi.fn() as any,
+	readFile: vi.fn() as any,
+}
 
 describe('compileContractSync', () => {
 	const filePath = 'test/path'
@@ -68,7 +72,7 @@ describe('compileContractSync', () => {
 		Test: { abi: [], evm: { bytecode: { object: '0x123' } } },
 	}
 
-	const mockReadFileSync = readFileSync as Mock
+	const mockReadFileSync = fao.readFileSync as Mock
 	const mockResolveSync = resolve.sync as Mock
 	const mockModuleFactory = moduleFactory as Mock
 	const mockSolcCompile = solc.compile as Mock
@@ -79,13 +83,22 @@ describe('compileContractSync', () => {
 		mockSolcCompile.mockReturnValue(
 			JSON.stringify({
 				contracts: { [filePath]: mockCompiledContract },
+				sources: {
+					[filePath]: { ast: 'ast' },
+				},
 				errors: [],
 			}),
 		)
 	})
 
-	it('should compile a contract correctly', () => {
-		const compiledContract = compileContractSync(filePath, basedir, config)
+	it('should compile a contract correctly with ast', () => {
+		const compiledContract = compileContractSync(
+			filePath,
+			basedir,
+			config,
+			true,
+			fao,
+		)
 
 		expect(compiledContract).toMatchInlineSnapshot(`
 			{
@@ -98,6 +111,9 @@ describe('compileContractSync', () => {
 			        },
 			      },
 			    },
+			  },
+			  "asts": {
+			    "test/path": "ast",
 			  },
 			  "modules": {
 			    "test/path": {
@@ -127,19 +143,175 @@ describe('compileContractSync', () => {
 			      "resolutions": [],
 			    },
 			  },
+			  "solcInput": {
+			    "language": "Solidity",
+			    "settings": {
+			      "outputSelection": {
+			        "*": {
+			          "": [
+			            "ast",
+			          ],
+			          "*": [
+			            "abi",
+			            "userdoc",
+			          ],
+			        },
+			      },
+			    },
+			    "sources": {
+			      "test/path": {
+			        "content": "import test/path/resolutionFile.sol
+			contract Test {}",
+			      },
+			      "test/path/resolutionFile.sol": {
+			        "content": "contract Resolution {}",
+			      },
+			    },
+			  },
+			  "solcOutput": {
+			    "contracts": {
+			      "test/path": {
+			        "Test": {
+			          "abi": [],
+			          "evm": {
+			            "bytecode": {
+			              "object": "0x123",
+			            },
+			          },
+			        },
+			      },
+			    },
+			    "errors": [],
+			    "sources": {
+			      "test/path": {
+			        "ast": "ast",
+			      },
+			    },
+			  },
 			}
 		`)
-		expect(readFileSync).toBeCalledWith(filePath, 'utf8')
+		expect(fao.readFileSync).toBeCalledWith(filePath, 'utf8')
 		expect(resolve.sync).toBeCalledWith(filePath, { basedir })
 		expect(moduleFactory).toBeCalledWith(
 			filePath,
 			mockSource,
 			config.remappings,
 			config.libs,
+			fao,
 		)
 		expect((solc.compile as Mock).mock.lastCall).toMatchInlineSnapshot(`
 			[
-			  "{\\"language\\":\\"Solidity\\",\\"sources\\":{\\"test/path\\":{\\"content\\":\\"import test/path/resolutionFile.sol\\\\ncontract Test {}\\"},\\"test/path/resolutionFile.sol\\":{\\"content\\":\\"contract Resolution {}\\"}},\\"settings\\":{\\"outputSelection\\":{\\"*\\":{\\"*\\":[\\"*\\"]}}}}",
+			  "{\\"language\\":\\"Solidity\\",\\"sources\\":{\\"test/path\\":{\\"content\\":\\"import test/path/resolutionFile.sol\\\\ncontract Test {}\\"},\\"test/path/resolutionFile.sol\\":{\\"content\\":\\"contract Resolution {}\\"}},\\"settings\\":{\\"outputSelection\\":{\\"*\\":{\\"*\\":[\\"abi\\",\\"userdoc\\"],\\"\\":[\\"ast\\"]}}}}",
+			]
+		`)
+	})
+
+	it('should compile a contract correctly', () => {
+		const compiledContract = compileContractSync(
+			filePath,
+			basedir,
+			config,
+			false,
+			fao,
+		)
+
+		expect(compiledContract).toMatchInlineSnapshot(`
+			{
+			  "artifacts": {
+			    "Test": {
+			      "abi": [],
+			      "evm": {
+			        "bytecode": {
+			          "object": "0x123",
+			        },
+			      },
+			    },
+			  },
+			  "asts": undefined,
+			  "modules": {
+			    "test/path": {
+			      "code": "import test/path/resolutionFile.sol
+			contract Test {}",
+			      "id": "test/path",
+			      "importedIds": [
+			        "./importedId",
+			      ],
+			      "rawCode": "import ./resolutionFile.sol
+			contract Test {}",
+			      "resolutions": [
+			        {
+			          "code": "contract Resolution {}",
+			          "id": "test/path/resolutionFile.sol",
+			          "importedIds": [],
+			          "rawCode": "contract Resolution {}",
+			          "resolutions": [],
+			        },
+			      ],
+			    },
+			    "test/path/resolutionFile.sol": {
+			      "code": "contract Resolution {}",
+			      "id": "test/path/resolutionFile.sol",
+			      "importedIds": [],
+			      "rawCode": "contract Resolution {}",
+			      "resolutions": [],
+			    },
+			  },
+			  "solcInput": {
+			    "language": "Solidity",
+			    "settings": {
+			      "outputSelection": {
+			        "*": {
+			          "*": [
+			            "abi",
+			            "userdoc",
+			          ],
+			        },
+			      },
+			    },
+			    "sources": {
+			      "test/path": {
+			        "content": "import test/path/resolutionFile.sol
+			contract Test {}",
+			      },
+			      "test/path/resolutionFile.sol": {
+			        "content": "contract Resolution {}",
+			      },
+			    },
+			  },
+			  "solcOutput": {
+			    "contracts": {
+			      "test/path": {
+			        "Test": {
+			          "abi": [],
+			          "evm": {
+			            "bytecode": {
+			              "object": "0x123",
+			            },
+			          },
+			        },
+			      },
+			    },
+			    "errors": [],
+			    "sources": {
+			      "test/path": {
+			        "ast": "ast",
+			      },
+			    },
+			  },
+			}
+		`)
+		expect(fao.readFileSync).toBeCalledWith(filePath, 'utf8')
+		expect(resolve.sync).toBeCalledWith(filePath, { basedir })
+		expect(moduleFactory).toBeCalledWith(
+			filePath,
+			mockSource,
+			config.remappings,
+			config.libs,
+			fao,
+		)
+		expect((solc.compile as Mock).mock.lastCall).toMatchInlineSnapshot(`
+			[
+			  "{\\"language\\":\\"Solidity\\",\\"sources\\":{\\"test/path\\":{\\"content\\":\\"import test/path/resolutionFile.sol\\\\ncontract Test {}\\"},\\"test/path/resolutionFile.sol\\":{\\"content\\":\\"contract Resolution {}\\"}},\\"settings\\":{\\"outputSelection\\":{\\"*\\":{\\"*\\":[\\"abi\\",\\"userdoc\\"]}}}}",
 			]
 		`)
 	})
@@ -152,7 +324,7 @@ describe('compileContractSync', () => {
 			}),
 		)
 		expect(() =>
-			compileContractSync(filePath, basedir, config),
+			compileContractSync(filePath, basedir, config, false, fao),
 		).toThrowErrorMatchingInlineSnapshot('"Compilation failed"')
 		expect(console.error).toHaveBeenCalledWith('Compilation errors:', [
 			{ type: 'Error', message: 'Compilation Error' },
@@ -166,7 +338,7 @@ describe('compileContractSync', () => {
 				errors: [{ type: 'Warning', message: 'Compilation Warning' }],
 			}),
 		)
-		compileContractSync(filePath, basedir, config)
+		compileContractSync(filePath, basedir, config, false, fao)
 		expect((console.warn as Mock).mock.lastCall[0]).toMatchInlineSnapshot(
 			'"Compilation warnings:"',
 		)
@@ -179,7 +351,7 @@ describe('compileContractSync', () => {
 				errors: [],
 			}),
 		)
-		compileContractSync(filePath, basedir, config)
+		compileContractSync(filePath, basedir, config, false, fao)
 		expect(console.warn).not.toHaveBeenCalled()
 	})
 
@@ -211,10 +383,11 @@ describe('compileContractSync', () => {
 		mockModuleA.resolutions.push(mockModuleB)
 		mockModuleFactory.mockReturnValue(mockModuleA)
 		expect(
-			compileContractSync(filePath, basedir, config),
+			compileContractSync(filePath, basedir, config, false, fao),
 		).toMatchInlineSnapshot(`
 			{
 			  "artifacts": undefined,
+			  "asts": undefined,
 			  "modules": {
 			    "test/path/moduleA.sol": {
 			      "code": "import \\"test/path/moduleC.sol\\"
@@ -279,6 +452,52 @@ describe('compileContractSync', () => {
 			      "importedIds": [],
 			      "rawCode": "contract C {}",
 			      "resolutions": [],
+			    },
+			  },
+			  "solcInput": {
+			    "language": "Solidity",
+			    "settings": {
+			      "outputSelection": {
+			        "*": {
+			          "*": [
+			            "abi",
+			            "userdoc",
+			          ],
+			        },
+			      },
+			    },
+			    "sources": {
+			      "test/path/moduleA.sol": {
+			        "content": "import \\"test/path/moduleC.sol\\"
+			contract A {}",
+			      },
+			      "test/path/moduleB.sol": {
+			        "content": "import \\"test/path/moduleC.sol\\"
+			contract B {}",
+			      },
+			      "test/path/moduleC.sol": {
+			        "content": "contract C {}",
+			      },
+			    },
+			  },
+			  "solcOutput": {
+			    "contracts": {
+			      "test/path": {
+			        "Test": {
+			          "abi": [],
+			          "evm": {
+			            "bytecode": {
+			              "object": "0x123",
+			            },
+			          },
+			        },
+			      },
+			    },
+			    "errors": [],
+			    "sources": {
+			      "test/path": {
+			        "ast": "ast",
+			      },
 			    },
 			  },
 			}

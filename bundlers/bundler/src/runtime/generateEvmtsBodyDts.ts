@@ -1,20 +1,13 @@
+import type { Artifacts } from '../solc/resolveArtifactsSync'
 import { getEtherscanLinks } from '../utils'
 import type { ResolvedConfig } from '@evmts/config'
-
-type Artifacts = Record<
-	string,
-	{
-		abi: any
-		bytecode: string
-	}
->
 
 export const generateDtsBody = (
 	artifacts: Artifacts,
 	config: ResolvedConfig,
 ) => {
 	return Object.entries(artifacts)
-		.flatMap(([contractName, { abi }]) => {
+		.flatMap(([contractName, { abi, userdoc = {} }]) => {
 			const contract = {
 				name: contractName,
 				abi,
@@ -24,6 +17,12 @@ export const generateDtsBody = (
 					)?.addresses ?? {},
 			}
 			const etherscanLinks = getEtherscanLinks(contract.addresses ?? {})
+			const natspec = Object.entries(userdoc.methods ?? {}).map(
+				([method, { notice }]) => ` * @property ${method} ${notice}`,
+			)
+			if (userdoc.notice) {
+				natspec.unshift(` * @notice ${userdoc.notice}`)
+			}
 			return [
 				`const _abi${contractName} = ${JSON.stringify(contract.abi)} as const;`,
 				`const _chainAddressMap${contractName} = ${JSON.stringify(
@@ -34,6 +33,7 @@ export const generateDtsBody = (
 				)} as const;`,
 				'/**',
 				` * ${contractName} EvmtsContract`,
+				...natspec,
 				...etherscanLinks.map(
 					([chainId, etherscanLink]) =>
 						` * @etherscan-${chainId} ${etherscanLink}`,

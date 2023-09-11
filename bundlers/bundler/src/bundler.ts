@@ -7,97 +7,134 @@ import type { Bundler } from './types'
 // @ts-ignore
 import solc from 'solc'
 
-export const bundler: Bundler = (config, logger) => {
+export const bundler: Bundler = (config, logger, fao) => {
 	return {
 		name: bundler.name,
 		config,
-		resolveDts: async (modulePath, basedir) => {
-			const { artifacts, modules } = await resolveArtifacts(
-				modulePath,
-				basedir,
-				logger,
-				config,
-			)
+		resolveDts: async (modulePath, basedir, includeAst) => {
+			const { solcInput, solcOutput, artifacts, modules, asts } =
+				await resolveArtifacts(
+					modulePath,
+					basedir,
+					logger,
+					config,
+					includeAst,
+					fao,
+				)
 			if (artifacts) {
 				const evmtsImports = `import { EvmtsContract } from '@evmts/core'`
 				const evmtsBody = generateDtsBody(artifacts, config)
-				return { code: [evmtsImports, evmtsBody].join('\n'), modules }
+				return {
+					solcInput,
+					solcOutput,
+					asts,
+					code: [evmtsImports, evmtsBody].join('\n'),
+					modules,
+				}
 			}
-			return { code: '', modules }
+			return { solcInput, solcOutput, code: '', modules, asts }
 		},
-		resolveDtsSync: (modulePath, basedir) => {
-			const { artifacts, modules } = resolveArtifactsSync(
-				modulePath,
-				basedir,
-				logger,
-				config,
-			)
+		resolveDtsSync: (modulePath, basedir, includeAst) => {
+			const { artifacts, modules, asts, solcInput, solcOutput } =
+				resolveArtifactsSync(
+					modulePath,
+					basedir,
+					logger,
+					config,
+					includeAst,
+					fao,
+				)
+
 			if (artifacts) {
 				const evmtsImports = `import { EvmtsContract } from '@evmts/core'`
 				const evmtsBody = generateDtsBody(artifacts, config)
-				return { modules, code: [evmtsImports, evmtsBody].join('\n') }
+				return {
+					solcInput,
+					solcOutput,
+					asts,
+					modules,
+					code: [evmtsImports, evmtsBody].join('\n'),
+				}
 			}
-			return { modules, code: '' }
+			return { modules, code: '', asts, solcInput, solcOutput }
 		},
-		resolveTsModuleSync: (modulePath, basedir) => {
-			const { artifacts, modules } = resolveArtifactsSync(
-				modulePath,
-				basedir,
-				logger,
-				config,
-			)
+		resolveTsModuleSync: (modulePath, basedir, includeAst) => {
+			const { solcInput, solcOutput, asts, artifacts, modules } =
+				resolveArtifactsSync(
+					modulePath,
+					basedir,
+					logger,
+					config,
+					includeAst,
+					fao,
+				)
 			const code = generateRuntimeSync(artifacts, config, 'ts', logger)
-			return { code, modules }
+			return { code, modules, solcInput, solcOutput, asts }
 		},
-		resolveTsModule: async (modulePath, basedir) => {
-			const { artifacts, modules } = await resolveArtifacts(
-				modulePath,
-				basedir,
-				logger,
-				config,
-			)
+		resolveTsModule: async (modulePath, basedir, includeAst) => {
+			const { solcInput, solcOutput, asts, artifacts, modules } =
+				await resolveArtifacts(
+					modulePath,
+					basedir,
+					logger,
+					config,
+					includeAst,
+					fao,
+				)
 			const code = await generateRuntime(artifacts, config, 'ts', logger)
-			return { code, modules }
+			return { code, modules, solcInput, solcOutput, asts }
 		},
-		resolveCjsModuleSync: (modulePath, basedir) => {
-			const { artifacts, modules } = resolveArtifactsSync(
-				modulePath,
-				basedir,
-				logger,
-				config,
-			)
+		resolveCjsModuleSync: (modulePath, basedir, includeAst) => {
+			const { solcInput, solcOutput, asts, artifacts, modules } =
+				resolveArtifactsSync(
+					modulePath,
+					basedir,
+					logger,
+					config,
+					includeAst,
+					fao,
+				)
 			const code = generateRuntimeSync(artifacts, config, 'cjs', logger)
-			return { code, modules }
+			return { code, modules, solcInput, solcOutput, asts }
 		},
-		resolveCjsModule: async (modulePath, basedir) => {
-			const { artifacts, modules } = await resolveArtifacts(
-				modulePath,
-				basedir,
-				logger,
-				config,
-			)
+		resolveCjsModule: async (modulePath, basedir, includeAst) => {
+			const { solcInput, solcOutput, asts, artifacts, modules } =
+				await resolveArtifacts(
+					modulePath,
+					basedir,
+					logger,
+					config,
+					includeAst,
+					fao,
+				)
 			const code = await generateRuntime(artifacts, config, 'cjs', logger)
-			return { code, modules }
+			return { code, modules, solcInput, solcOutput, asts }
 		},
-		resolveEsmModuleSync: (modulePath, basedir) => {
-			const { artifacts, modules } = resolveArtifactsSync(
-				modulePath,
-				basedir,
-				logger,
-				config,
-			)
+		resolveEsmModuleSync: (modulePath, basedir, includeAst) => {
+			const { solcInput, solcOutput, asts, artifacts, modules } =
+				resolveArtifactsSync(
+					modulePath,
+					basedir,
+					logger,
+					config,
+					includeAst,
+					fao,
+				)
 			const code = generateRuntimeSync(artifacts, config, 'mjs', logger)
-			return { code, modules }
+			return { code, modules, solcInput, solcOutput, asts }
 		},
-		resolveEsmModule: async (modulePath, basedir) => {
-			const { artifacts, modules } = await resolveArtifacts(
-				modulePath,
-				basedir,
-				logger,
-				config,
-			)
+		resolveEsmModule: async (modulePath, basedir, includeAst) => {
+			const { solcInput, solcOutput, asts, artifacts, modules } =
+				await resolveArtifacts(
+					modulePath,
+					basedir,
+					logger,
+					config,
+					includeAst,
+					fao,
+				)
 			const code = await generateRuntime(artifacts, config, 'mjs', logger)
-			return { code, modules }
+			return { code, modules, solcInput, solcOutput, asts }
 		},
 	}
 }

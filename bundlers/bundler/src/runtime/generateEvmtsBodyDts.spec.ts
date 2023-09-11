@@ -4,18 +4,45 @@ import { describe, expect, it } from 'vitest'
 describe('generateDtsBody', () => {
 	const artifacts = {
 		MyContract: {
-			abi: {},
-			bytecode: '0x60016001',
+			abi: [{ type: 'constructor', inputs: [], stateMutability: 'payable' }],
+			userdoc: {
+				kind: 'user',
+				version: 1,
+				notice: 'MyContract',
+				methods: {
+					'balanceOf(address)': {
+						notice: 'Returns the amount of tokens owned by account',
+					},
+				},
+			},
 		},
 		AnotherContract: {
-			abi: {},
-			bytecode: '0x60016002',
+			abi: [],
+			userdoc: {
+				kind: 'user',
+				version: 1,
+				notice: 'MyContract',
+				methods: {
+					'balanceOf(address)': {
+						notice: 'Returns the amount of tokens owned by account',
+					},
+				},
+			},
 		},
 		MissingContract: {
-			abi: {},
-			bytecode: '0x60016003',
+			abi: [],
+			userdoc: {
+				kind: 'user',
+				version: 1,
+				notice: 'MyContract',
+				methods: {
+					'balanceOf(address)': {
+						notice: 'Returns the amount of tokens owned by account',
+					},
+				},
+			},
 		},
-	}
+	} as const
 
 	const config = {
 		localContracts: {
@@ -45,31 +72,37 @@ describe('generateDtsBody', () => {
 
 	it('should generate correct body with etherscan links', () => {
 		expect(generateDtsBody(artifacts, config as any)).toMatchInlineSnapshot(`
-      "const _abiMyContract = {} as const;
-      const _chainAddressMapMyContract = {\\"1\\":\\"0x123\\",\\"5\\":\\"0x456\\"} as const;
-      const _nameMyContract = \\"MyContract\\" as const;
-      /**
-       * MyContract EvmtsContract
-       * @etherscan-1 https://etherscan.io/address/0x123
-       * @etherscan-5 https://goerli.etherscan.io/address/0x456
-       */
-      export const MyContract: EvmtsContract<typeof _nameMyContract, typeof _chainAddressMapMyContract, typeof _abiMyContract>;
-      const _abiAnotherContract = {} as const;
-      const _chainAddressMapAnotherContract = {\\"10\\":\\"0x789\\"} as const;
-      const _nameAnotherContract = \\"AnotherContract\\" as const;
-      /**
-       * AnotherContract EvmtsContract
-       * @etherscan-10 https://optimistic.etherscan.io/address/0x789
-       */
-      export const AnotherContract: EvmtsContract<typeof _nameAnotherContract, typeof _chainAddressMapAnotherContract, typeof _abiAnotherContract>;
-      const _abiMissingContract = {} as const;
-      const _chainAddressMapMissingContract = {} as const;
-      const _nameMissingContract = \\"MissingContract\\" as const;
-      /**
-       * MissingContract EvmtsContract
-       */
-      export const MissingContract: EvmtsContract<typeof _nameMissingContract, typeof _chainAddressMapMissingContract, typeof _abiMissingContract>;"
-    `)
+			"const _abiMyContract = [{\\"type\\":\\"constructor\\",\\"inputs\\":[],\\"stateMutability\\":\\"payable\\"}] as const;
+			const _chainAddressMapMyContract = {\\"1\\":\\"0x123\\",\\"5\\":\\"0x456\\"} as const;
+			const _nameMyContract = \\"MyContract\\" as const;
+			/**
+			 * MyContract EvmtsContract
+			 * @notice MyContract
+			 * @property balanceOf(address) Returns the amount of tokens owned by account
+			 * @etherscan-1 https://etherscan.io/address/0x123
+			 * @etherscan-5 https://goerli.etherscan.io/address/0x456
+			 */
+			export const MyContract: EvmtsContract<typeof _nameMyContract, typeof _chainAddressMapMyContract, typeof _abiMyContract>;
+			const _abiAnotherContract = [] as const;
+			const _chainAddressMapAnotherContract = {\\"10\\":\\"0x789\\"} as const;
+			const _nameAnotherContract = \\"AnotherContract\\" as const;
+			/**
+			 * AnotherContract EvmtsContract
+			 * @notice MyContract
+			 * @property balanceOf(address) Returns the amount of tokens owned by account
+			 * @etherscan-10 https://optimistic.etherscan.io/address/0x789
+			 */
+			export const AnotherContract: EvmtsContract<typeof _nameAnotherContract, typeof _chainAddressMapAnotherContract, typeof _abiAnotherContract>;
+			const _abiMissingContract = [] as const;
+			const _chainAddressMapMissingContract = {} as const;
+			const _nameMissingContract = \\"MissingContract\\" as const;
+			/**
+			 * MissingContract EvmtsContract
+			 * @notice MyContract
+			 * @property balanceOf(address) Returns the amount of tokens owned by account
+			 */
+			export const MissingContract: EvmtsContract<typeof _nameMissingContract, typeof _chainAddressMapMissingContract, typeof _abiMissingContract>;"
+		`)
 	})
 
 	it('should generate correct body when config.localContracts.contracts is undefined', () => {
@@ -80,28 +113,34 @@ describe('generateDtsBody', () => {
 		expect(
 			generateDtsBody(artifacts, configNoContracts as any),
 		).toMatchInlineSnapshot(`
-      "const _abiMyContract = {} as const;
-      const _chainAddressMapMyContract = {} as const;
-      const _nameMyContract = \\"MyContract\\" as const;
-      /**
-       * MyContract EvmtsContract
-       */
-      export const MyContract: EvmtsContract<typeof _nameMyContract, typeof _chainAddressMapMyContract, typeof _abiMyContract>;
-      const _abiAnotherContract = {} as const;
-      const _chainAddressMapAnotherContract = {} as const;
-      const _nameAnotherContract = \\"AnotherContract\\" as const;
-      /**
-       * AnotherContract EvmtsContract
-       */
-      export const AnotherContract: EvmtsContract<typeof _nameAnotherContract, typeof _chainAddressMapAnotherContract, typeof _abiAnotherContract>;
-      const _abiMissingContract = {} as const;
-      const _chainAddressMapMissingContract = {} as const;
-      const _nameMissingContract = \\"MissingContract\\" as const;
-      /**
-       * MissingContract EvmtsContract
-       */
-      export const MissingContract: EvmtsContract<typeof _nameMissingContract, typeof _chainAddressMapMissingContract, typeof _abiMissingContract>;"
-    `)
+			"const _abiMyContract = [{\\"type\\":\\"constructor\\",\\"inputs\\":[],\\"stateMutability\\":\\"payable\\"}] as const;
+			const _chainAddressMapMyContract = {} as const;
+			const _nameMyContract = \\"MyContract\\" as const;
+			/**
+			 * MyContract EvmtsContract
+			 * @notice MyContract
+			 * @property balanceOf(address) Returns the amount of tokens owned by account
+			 */
+			export const MyContract: EvmtsContract<typeof _nameMyContract, typeof _chainAddressMapMyContract, typeof _abiMyContract>;
+			const _abiAnotherContract = [] as const;
+			const _chainAddressMapAnotherContract = {} as const;
+			const _nameAnotherContract = \\"AnotherContract\\" as const;
+			/**
+			 * AnotherContract EvmtsContract
+			 * @notice MyContract
+			 * @property balanceOf(address) Returns the amount of tokens owned by account
+			 */
+			export const AnotherContract: EvmtsContract<typeof _nameAnotherContract, typeof _chainAddressMapAnotherContract, typeof _abiAnotherContract>;
+			const _abiMissingContract = [] as const;
+			const _chainAddressMapMissingContract = {} as const;
+			const _nameMissingContract = \\"MissingContract\\" as const;
+			/**
+			 * MissingContract EvmtsContract
+			 * @notice MyContract
+			 * @property balanceOf(address) Returns the amount of tokens owned by account
+			 */
+			export const MissingContract: EvmtsContract<typeof _nameMissingContract, typeof _chainAddressMapMissingContract, typeof _abiMissingContract>;"
+		`)
 	})
 
 	it('should generate correct body when contract addresses are undefined', () => {
@@ -121,28 +160,34 @@ describe('generateDtsBody', () => {
 		expect(
 			generateDtsBody(artifacts, configNoAddresses as any),
 		).toMatchInlineSnapshot(`
-      "const _abiMyContract = {} as const;
-      const _chainAddressMapMyContract = {} as const;
-      const _nameMyContract = \\"MyContract\\" as const;
-      /**
-       * MyContract EvmtsContract
-       */
-      export const MyContract: EvmtsContract<typeof _nameMyContract, typeof _chainAddressMapMyContract, typeof _abiMyContract>;
-      const _abiAnotherContract = {} as const;
-      const _chainAddressMapAnotherContract = {} as const;
-      const _nameAnotherContract = \\"AnotherContract\\" as const;
-      /**
-       * AnotherContract EvmtsContract
-       */
-      export const AnotherContract: EvmtsContract<typeof _nameAnotherContract, typeof _chainAddressMapAnotherContract, typeof _abiAnotherContract>;
-      const _abiMissingContract = {} as const;
-      const _chainAddressMapMissingContract = {} as const;
-      const _nameMissingContract = \\"MissingContract\\" as const;
-      /**
-       * MissingContract EvmtsContract
-       */
-      export const MissingContract: EvmtsContract<typeof _nameMissingContract, typeof _chainAddressMapMissingContract, typeof _abiMissingContract>;"
-    `)
+			"const _abiMyContract = [{\\"type\\":\\"constructor\\",\\"inputs\\":[],\\"stateMutability\\":\\"payable\\"}] as const;
+			const _chainAddressMapMyContract = {} as const;
+			const _nameMyContract = \\"MyContract\\" as const;
+			/**
+			 * MyContract EvmtsContract
+			 * @notice MyContract
+			 * @property balanceOf(address) Returns the amount of tokens owned by account
+			 */
+			export const MyContract: EvmtsContract<typeof _nameMyContract, typeof _chainAddressMapMyContract, typeof _abiMyContract>;
+			const _abiAnotherContract = [] as const;
+			const _chainAddressMapAnotherContract = {} as const;
+			const _nameAnotherContract = \\"AnotherContract\\" as const;
+			/**
+			 * AnotherContract EvmtsContract
+			 * @notice MyContract
+			 * @property balanceOf(address) Returns the amount of tokens owned by account
+			 */
+			export const AnotherContract: EvmtsContract<typeof _nameAnotherContract, typeof _chainAddressMapAnotherContract, typeof _abiAnotherContract>;
+			const _abiMissingContract = [] as const;
+			const _chainAddressMapMissingContract = {} as const;
+			const _nameMissingContract = \\"MissingContract\\" as const;
+			/**
+			 * MissingContract EvmtsContract
+			 * @notice MyContract
+			 * @property balanceOf(address) Returns the amount of tokens owned by account
+			 */
+			export const MissingContract: EvmtsContract<typeof _nameMissingContract, typeof _chainAddressMapMissingContract, typeof _abiMissingContract>;"
+		`)
 	})
 
 	it('should generate correct body when artifact has no corresponding contract configuration', () => {
@@ -169,30 +214,36 @@ describe('generateDtsBody', () => {
 		expect(
 			generateDtsBody(artifacts, configMissingContractConfig as any),
 		).toMatchInlineSnapshot(`
-        "const _abiMyContract = {} as const;
-        const _chainAddressMapMyContract = {\\"1\\":\\"0x123\\",\\"5\\":\\"0x456\\"} as const;
-        const _nameMyContract = \\"MyContract\\" as const;
-        /**
-         * MyContract EvmtsContract
-         * @etherscan-1 https://etherscan.io/address/0x123
-         * @etherscan-5 https://goerli.etherscan.io/address/0x456
-         */
-        export const MyContract: EvmtsContract<typeof _nameMyContract, typeof _chainAddressMapMyContract, typeof _abiMyContract>;
-        const _abiAnotherContract = {} as const;
-        const _chainAddressMapAnotherContract = {} as const;
-        const _nameAnotherContract = \\"AnotherContract\\" as const;
-        /**
-         * AnotherContract EvmtsContract
-         */
-        export const AnotherContract: EvmtsContract<typeof _nameAnotherContract, typeof _chainAddressMapAnotherContract, typeof _abiAnotherContract>;
-        const _abiMissingContract = {} as const;
-        const _chainAddressMapMissingContract = {} as const;
-        const _nameMissingContract = \\"MissingContract\\" as const;
-        /**
-         * MissingContract EvmtsContract
-         */
-        export const MissingContract: EvmtsContract<typeof _nameMissingContract, typeof _chainAddressMapMissingContract, typeof _abiMissingContract>;"
-    `)
+			"const _abiMyContract = [{\\"type\\":\\"constructor\\",\\"inputs\\":[],\\"stateMutability\\":\\"payable\\"}] as const;
+			const _chainAddressMapMyContract = {\\"1\\":\\"0x123\\",\\"5\\":\\"0x456\\"} as const;
+			const _nameMyContract = \\"MyContract\\" as const;
+			/**
+			 * MyContract EvmtsContract
+			 * @notice MyContract
+			 * @property balanceOf(address) Returns the amount of tokens owned by account
+			 * @etherscan-1 https://etherscan.io/address/0x123
+			 * @etherscan-5 https://goerli.etherscan.io/address/0x456
+			 */
+			export const MyContract: EvmtsContract<typeof _nameMyContract, typeof _chainAddressMapMyContract, typeof _abiMyContract>;
+			const _abiAnotherContract = [] as const;
+			const _chainAddressMapAnotherContract = {} as const;
+			const _nameAnotherContract = \\"AnotherContract\\" as const;
+			/**
+			 * AnotherContract EvmtsContract
+			 * @notice MyContract
+			 * @property balanceOf(address) Returns the amount of tokens owned by account
+			 */
+			export const AnotherContract: EvmtsContract<typeof _nameAnotherContract, typeof _chainAddressMapAnotherContract, typeof _abiAnotherContract>;
+			const _abiMissingContract = [] as const;
+			const _chainAddressMapMissingContract = {} as const;
+			const _nameMissingContract = \\"MissingContract\\" as const;
+			/**
+			 * MissingContract EvmtsContract
+			 * @notice MyContract
+			 * @property balanceOf(address) Returns the amount of tokens owned by account
+			 */
+			export const MissingContract: EvmtsContract<typeof _nameMissingContract, typeof _chainAddressMapMissingContract, typeof _abiMissingContract>;"
+		`)
 	})
 
 	it('should generate correct body when contract configuration has no addresses', () => {
@@ -212,28 +263,34 @@ describe('generateDtsBody', () => {
 		expect(
 			generateDtsBody(artifacts, configMissingAddresses as any),
 		).toMatchInlineSnapshot(`
-        "const _abiMyContract = {} as const;
-        const _chainAddressMapMyContract = {} as const;
-        const _nameMyContract = \\"MyContract\\" as const;
-        /**
-         * MyContract EvmtsContract
-         */
-        export const MyContract: EvmtsContract<typeof _nameMyContract, typeof _chainAddressMapMyContract, typeof _abiMyContract>;
-        const _abiAnotherContract = {} as const;
-        const _chainAddressMapAnotherContract = {} as const;
-        const _nameAnotherContract = \\"AnotherContract\\" as const;
-        /**
-         * AnotherContract EvmtsContract
-         */
-        export const AnotherContract: EvmtsContract<typeof _nameAnotherContract, typeof _chainAddressMapAnotherContract, typeof _abiAnotherContract>;
-        const _abiMissingContract = {} as const;
-        const _chainAddressMapMissingContract = {} as const;
-        const _nameMissingContract = \\"MissingContract\\" as const;
-        /**
-         * MissingContract EvmtsContract
-         */
-        export const MissingContract: EvmtsContract<typeof _nameMissingContract, typeof _chainAddressMapMissingContract, typeof _abiMissingContract>;"
-    `)
+			"const _abiMyContract = [{\\"type\\":\\"constructor\\",\\"inputs\\":[],\\"stateMutability\\":\\"payable\\"}] as const;
+			const _chainAddressMapMyContract = {} as const;
+			const _nameMyContract = \\"MyContract\\" as const;
+			/**
+			 * MyContract EvmtsContract
+			 * @notice MyContract
+			 * @property balanceOf(address) Returns the amount of tokens owned by account
+			 */
+			export const MyContract: EvmtsContract<typeof _nameMyContract, typeof _chainAddressMapMyContract, typeof _abiMyContract>;
+			const _abiAnotherContract = [] as const;
+			const _chainAddressMapAnotherContract = {} as const;
+			const _nameAnotherContract = \\"AnotherContract\\" as const;
+			/**
+			 * AnotherContract EvmtsContract
+			 * @notice MyContract
+			 * @property balanceOf(address) Returns the amount of tokens owned by account
+			 */
+			export const AnotherContract: EvmtsContract<typeof _nameAnotherContract, typeof _chainAddressMapAnotherContract, typeof _abiAnotherContract>;
+			const _abiMissingContract = [] as const;
+			const _chainAddressMapMissingContract = {} as const;
+			const _nameMissingContract = \\"MissingContract\\" as const;
+			/**
+			 * MissingContract EvmtsContract
+			 * @notice MyContract
+			 * @property balanceOf(address) Returns the amount of tokens owned by account
+			 */
+			export const MissingContract: EvmtsContract<typeof _nameMissingContract, typeof _chainAddressMapMissingContract, typeof _abiMissingContract>;"
+		`)
 	})
 
 	it('should generate correct body when config.localContracts.contracts is an empty array', () => {
@@ -246,27 +303,33 @@ describe('generateDtsBody', () => {
 		expect(
 			generateDtsBody(artifacts, configEmptyContracts as any),
 		).toMatchInlineSnapshot(`
-    "const _abiMyContract = {} as const;
-    const _chainAddressMapMyContract = {} as const;
-    const _nameMyContract = \\"MyContract\\" as const;
-    /**
-     * MyContract EvmtsContract
-     */
-    export const MyContract: EvmtsContract<typeof _nameMyContract, typeof _chainAddressMapMyContract, typeof _abiMyContract>;
-    const _abiAnotherContract = {} as const;
-    const _chainAddressMapAnotherContract = {} as const;
-    const _nameAnotherContract = \\"AnotherContract\\" as const;
-    /**
-     * AnotherContract EvmtsContract
-     */
-    export const AnotherContract: EvmtsContract<typeof _nameAnotherContract, typeof _chainAddressMapAnotherContract, typeof _abiAnotherContract>;
-    const _abiMissingContract = {} as const;
-    const _chainAddressMapMissingContract = {} as const;
-    const _nameMissingContract = \\"MissingContract\\" as const;
-    /**
-     * MissingContract EvmtsContract
-     */
-    export const MissingContract: EvmtsContract<typeof _nameMissingContract, typeof _chainAddressMapMissingContract, typeof _abiMissingContract>;"
-  `)
+			"const _abiMyContract = [{\\"type\\":\\"constructor\\",\\"inputs\\":[],\\"stateMutability\\":\\"payable\\"}] as const;
+			const _chainAddressMapMyContract = {} as const;
+			const _nameMyContract = \\"MyContract\\" as const;
+			/**
+			 * MyContract EvmtsContract
+			 * @notice MyContract
+			 * @property balanceOf(address) Returns the amount of tokens owned by account
+			 */
+			export const MyContract: EvmtsContract<typeof _nameMyContract, typeof _chainAddressMapMyContract, typeof _abiMyContract>;
+			const _abiAnotherContract = [] as const;
+			const _chainAddressMapAnotherContract = {} as const;
+			const _nameAnotherContract = \\"AnotherContract\\" as const;
+			/**
+			 * AnotherContract EvmtsContract
+			 * @notice MyContract
+			 * @property balanceOf(address) Returns the amount of tokens owned by account
+			 */
+			export const AnotherContract: EvmtsContract<typeof _nameAnotherContract, typeof _chainAddressMapAnotherContract, typeof _abiAnotherContract>;
+			const _abiMissingContract = [] as const;
+			const _chainAddressMapMissingContract = {} as const;
+			const _nameMissingContract = \\"MissingContract\\" as const;
+			/**
+			 * MissingContract EvmtsContract
+			 * @notice MyContract
+			 * @property balanceOf(address) Returns the amount of tokens owned by account
+			 */
+			export const MissingContract: EvmtsContract<typeof _nameMissingContract, typeof _chainAddressMapMissingContract, typeof _abiMissingContract>;"
+		`)
 	})
 })

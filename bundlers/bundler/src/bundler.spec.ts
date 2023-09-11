@@ -1,7 +1,9 @@
 import { bundler } from './bundler'
 import { resolveArtifacts, resolveArtifactsSync } from './solc'
-import type { Bundler, ModuleInfo } from './types'
+import type { SolcInputDescription, SolcOutput } from './solc/solc'
+import type { Bundler, FileAccessObject, ModuleInfo } from './types'
 import { writeFileSync } from 'fs'
+import type { Node } from 'solidity-ast/node'
 import * as ts from 'typescript'
 import {
 	type Mock,
@@ -12,6 +14,12 @@ import {
 	it,
 	vi,
 } from 'vitest'
+
+const fao: FileAccessObject = {
+	existsSync: vi.fn() as any,
+	readFile: vi.fn() as any,
+	readFileSync: vi.fn() as any,
+}
 
 const erc20Abi = [
 	{
@@ -273,7 +281,7 @@ describe(bundler.name, () => {
 			},
 		}
 
-		resolver = bundler(config as any, logger)
+		resolver = bundler(config as any, logger, fao)
 		vi.mock('./solc', () => {
 			return {
 				resolveArtifacts: vi.fn(),
@@ -290,26 +298,63 @@ describe(bundler.name, () => {
 	describe('resolveDts', () => {
 		it('should return an empty string if no artifacts are found', async () => {
 			mockResolveArtifacts.mockResolvedValueOnce({})
-			const result = await resolver.resolveDts('module', 'basedir')
+			const result = await resolver.resolveDts('module', 'basedir', false)
 			expect(result).toMatchInlineSnapshot(`
 				{
+				  "asts": undefined,
 				  "code": "",
 				  "modules": undefined,
+				  "solcInput": undefined,
+				  "solcOutput": undefined,
 				}
 			`)
 		})
 
 		it('should generate proper dts if artifacts are found', async () => {
 			const artifacts = {
-				TestContract: { contractName: 'TestContract', abi: [], bytecode: '' },
+				TestContract: { contractName: 'TestContract', abi: [] },
 			}
 			mockResolveArtifacts.mockResolvedValueOnce({
 				artifacts,
 				modules: mockModules,
+				asts: {
+					'TestContract.sol': {
+						absolutePath: '/absolute/path',
+						evmVersion: 'homestead',
+					},
+					solcInput: {
+						language: 'Solidity',
+						settings: { outputSelection: { sources: {} } },
+						sources: {},
+					} satisfies SolcInputDescription,
+					solcOutput: {
+						contracts: {},
+						sources: {},
+					} satisfies SolcOutput,
+				} as any as Record<string, Node>,
 			})
-			const result = await resolver.resolveDts('module', 'basedir')
+			const result = await resolver.resolveDts('module', 'basedir', false)
 			expect(result).toMatchInlineSnapshot(`
 				{
+				  "asts": {
+				    "TestContract.sol": {
+				      "absolutePath": "/absolute/path",
+				      "evmVersion": "homestead",
+				    },
+				    "solcInput": {
+				      "language": "Solidity",
+				      "settings": {
+				        "outputSelection": {
+				          "sources": {},
+				        },
+				      },
+				      "sources": {},
+				    },
+				    "solcOutput": {
+				      "contracts": {},
+				      "sources": {},
+				    },
+				  },
 				  "code": "import { EvmtsContract } from '@evmts/core'
 				const _abiTestContract = [] as const;
 				const _chainAddressMapTestContract = {\\"10\\":\\"0x123\\"} as const;
@@ -342,6 +387,8 @@ describe(bundler.name, () => {
 				      ],
 				    },
 				  },
+				  "solcInput": undefined,
+				  "solcOutput": undefined,
 				}
 			`)
 		})
@@ -356,14 +403,28 @@ describe(bundler.name, () => {
 				TestContract: {
 					contractName: 'TestContract',
 					abi: erc20Abi,
-					bytecode: '0x420',
 				},
 			}
 			mockResolveArtifactsSync.mockReturnValueOnce({
 				artifacts,
 				modules: mockModules,
+				asts: {
+					'TestContract.sol': {
+						absolutePath: '/absolute/path',
+						evmVersion: 'homestead',
+					},
+				},
+				solcInput: {
+					language: 'Solidity',
+					settings: { outputSelection: { sources: {} } },
+					sources: {},
+				} satisfies SolcInputDescription,
+				solcOutput: {
+					contracts: {},
+					sources: {},
+				} satisfies SolcOutput,
 			})
-			const result = resolver.resolveDtsSync('module', 'basedir')
+			const result = resolver.resolveDtsSync('module', 'basedir', false)
 			const source = `
 import { TestContract } from './TestContract.js'
 import { Address, useAccount, useContractRead } from 'wagmi'
@@ -443,26 +504,50 @@ export const WagmiReads = () => {
 		})
 		it('should return an empty string if no artifacts are found', () => {
 			mockResolveArtifactsSync.mockReturnValueOnce({})
-			const result = resolver.resolveDtsSync('module', 'basedir')
+			const result = resolver.resolveDtsSync('module', 'basedir', false)
 			expect(result).toMatchInlineSnapshot(`
 				{
+				  "asts": undefined,
 				  "code": "",
 				  "modules": undefined,
+				  "solcInput": undefined,
+				  "solcOutput": undefined,
 				}
 			`)
 		})
 
 		it('should generate proper dts if artifacts are found', () => {
 			const artifacts = {
-				TestContract: { contractName: 'TestContract', abi: [], bytecode: '' },
+				TestContract: { contractName: 'TestContract', abi: [] },
 			}
 			mockResolveArtifactsSync.mockReturnValueOnce({
 				artifacts,
 				modules: mockModules,
+				asts: {
+					'TestContract.sol': {
+						absolutePath: '/absolute/path',
+						evmVersion: 'homestead',
+					},
+				},
+				solcInput: {
+					language: 'Solidity',
+					settings: { outputSelection: { sources: {} } },
+					sources: {},
+				} satisfies SolcInputDescription,
+				solcOutput: {
+					contracts: {},
+					sources: {},
+				} satisfies SolcOutput,
 			})
-			const result = resolver.resolveDtsSync('module', 'basedir')
+			const result = resolver.resolveDtsSync('module', 'basedir', false)
 			expect(result).toMatchInlineSnapshot(`
 				{
+				  "asts": {
+				    "TestContract.sol": {
+				      "absolutePath": "/absolute/path",
+				      "evmVersion": "homestead",
+				    },
+				  },
 				  "code": "import { EvmtsContract } from '@evmts/core'
 				const _abiTestContract = [] as const;
 				const _chainAddressMapTestContract = {\\"10\\":\\"0x123\\"} as const;
@@ -495,6 +580,19 @@ export const WagmiReads = () => {
 				      ],
 				    },
 				  },
+				  "solcInput": {
+				    "language": "Solidity",
+				    "settings": {
+				      "outputSelection": {
+				        "sources": {},
+				      },
+				    },
+				    "sources": {},
+				  },
+				  "solcOutput": {
+				    "contracts": {},
+				    "sources": {},
+				  },
 				}
 			`)
 		})
@@ -503,28 +601,52 @@ export const WagmiReads = () => {
 	describe('resolveTsModuleSync', () => {
 		it('should return an empty string if no artifacts are found', () => {
 			mockResolveArtifactsSync.mockReturnValueOnce({})
-			const result = resolver.resolveTsModuleSync('module', 'basedir')
+			const result = resolver.resolveTsModuleSync('module', 'basedir', false)
 			expect(result).toMatchInlineSnapshot(`
 				{
+				  "asts": undefined,
 				  "code": "",
 				  "modules": undefined,
+				  "solcInput": undefined,
+				  "solcOutput": undefined,
 				}
 			`)
 		})
 
 		it('should generate proper dts if artifacts are found', () => {
 			const artifacts = {
-				TestContract: { contractName: 'TestContract', abi: [], bytecode: '' },
+				TestContract: { contractName: 'TestContract', abi: [] },
 			}
 			;(resolveArtifactsSync as Mock).mockReturnValueOnce({
 				artifacts,
 				modules: mockModules,
+				asts: {
+					'TestContract.sol': {
+						absolutePath: '/absolute/path',
+						evmVersion: 'homestead',
+					},
+				},
+				solcInput: {
+					language: 'Solidity',
+					settings: { outputSelection: { sources: {} } },
+					sources: {},
+				} satisfies SolcInputDescription,
+				solcOutput: {
+					contracts: {},
+					sources: {},
+				} satisfies SolcOutput,
 			})
-			const result = resolver.resolveTsModuleSync('module', 'basedir')
+			const result = resolver.resolveTsModuleSync('module', 'basedir', false)
 			expect(result).toMatchInlineSnapshot(`
 				{
+				  "asts": {
+				    "TestContract.sol": {
+				      "absolutePath": "/absolute/path",
+				      "evmVersion": "homestead",
+				    },
+				  },
 				  "code": "import { evmtsContractFactory } from '@evmts/core'
-				const _TestContract = {\\"name\\":\\"TestContract\\",\\"abi\\":[],\\"bytecode\\":\\"\\",\\"addresses\\":{\\"10\\":\\"0x123\\"}} as const
+				const _TestContract = {\\"name\\":\\"TestContract\\",\\"abi\\":[],\\"addresses\\":{\\"10\\":\\"0x123\\"}} as const
 				export const TestContract = evmtsContractFactory(_TestContract)",
 				  "modules": {
 				    "module1": {
@@ -548,6 +670,19 @@ export const WagmiReads = () => {
 				        },
 				      ],
 				    },
+				  },
+				  "solcInput": {
+				    "language": "Solidity",
+				    "settings": {
+				      "outputSelection": {
+				        "sources": {},
+				      },
+				    },
+				    "sources": {},
+				  },
+				  "solcOutput": {
+				    "contracts": {},
+				    "sources": {},
 				  },
 				}
 			`)
@@ -557,28 +692,52 @@ export const WagmiReads = () => {
 	describe('resolveTsModule', () => {
 		it('should return an empty string if no artifacts are found', async () => {
 			mockResolveArtifacts.mockResolvedValueOnce({})
-			const result = await resolver.resolveTsModule('module', 'basedir')
+			const result = await resolver.resolveTsModule('module', 'basedir', false)
 			expect(result).toMatchInlineSnapshot(`
 				{
+				  "asts": undefined,
 				  "code": "",
 				  "modules": undefined,
+				  "solcInput": undefined,
+				  "solcOutput": undefined,
 				}
 			`)
 		})
 
 		it('should generate proper dts if artifacts are found', async () => {
 			const artifacts = {
-				TestContract: { contractName: 'TestContract', abi: [], bytecode: '' },
+				TestContract: { contractName: 'TestContract', abi: [] },
 			}
 			mockResolveArtifacts.mockResolvedValueOnce({
 				artifacts,
 				modules: mockModules,
+				asts: {
+					'TestContract.sol': {
+						absolutePath: '/absolute/path',
+						evmVersion: 'homestead',
+					},
+				},
+				solcInput: {
+					language: 'Solidity',
+					settings: { outputSelection: { sources: {} } },
+					sources: {},
+				} satisfies SolcInputDescription,
+				solcOutput: {
+					contracts: {},
+					sources: {},
+				} satisfies SolcOutput,
 			})
-			const result = await resolver.resolveTsModule('module', 'basedir')
+			const result = await resolver.resolveTsModule('module', 'basedir', false)
 			expect(result).toMatchInlineSnapshot(`
 				{
+				  "asts": {
+				    "TestContract.sol": {
+				      "absolutePath": "/absolute/path",
+				      "evmVersion": "homestead",
+				    },
+				  },
 				  "code": "import { evmtsContractFactory } from '@evmts/core'
-				const _TestContract = {\\"name\\":\\"TestContract\\",\\"abi\\":[],\\"bytecode\\":\\"\\",\\"addresses\\":{\\"10\\":\\"0x123\\"}} as const
+				const _TestContract = {\\"name\\":\\"TestContract\\",\\"abi\\":[],\\"addresses\\":{\\"10\\":\\"0x123\\"}} as const
 				export const TestContract = evmtsContractFactory(_TestContract)",
 				  "modules": {
 				    "module1": {
@@ -602,6 +761,19 @@ export const WagmiReads = () => {
 				        },
 				      ],
 				    },
+				  },
+				  "solcInput": {
+				    "language": "Solidity",
+				    "settings": {
+				      "outputSelection": {
+				        "sources": {},
+				      },
+				    },
+				    "sources": {},
+				  },
+				  "solcOutput": {
+				    "contracts": {},
+				    "sources": {},
 				  },
 				}
 			`)
@@ -611,28 +783,52 @@ export const WagmiReads = () => {
 	describe('resolveCjsModuleSync', () => {
 		it('should return an empty string if no artifacts are found', () => {
 			mockResolveArtifactsSync.mockReturnValueOnce({})
-			const result = resolver.resolveCjsModuleSync('module', 'basedir')
+			const result = resolver.resolveCjsModuleSync('module', 'basedir', false)
 			expect(result).toMatchInlineSnapshot(`
 				{
+				  "asts": undefined,
 				  "code": "",
 				  "modules": undefined,
+				  "solcInput": undefined,
+				  "solcOutput": undefined,
 				}
 			`)
 		})
 
 		it('should generate proper CommonJS module if artifacts are found', () => {
 			const artifacts = {
-				TestContract: { contractName: 'TestContract', abi: [], bytecode: '' },
+				TestContract: { contractName: 'TestContract', abi: [] },
 			}
 			mockResolveArtifactsSync.mockReturnValueOnce({
 				artifacts,
 				modules: mockModules,
+				asts: {
+					'TestContract.sol': {
+						absolutePath: '/absolute/path',
+						evmVersion: 'homestead',
+					},
+				},
+				solcInput: {
+					language: 'Solidity',
+					settings: { outputSelection: { sources: {} } },
+					sources: {},
+				} satisfies SolcInputDescription,
+				solcOutput: {
+					contracts: {},
+					sources: {},
+				} satisfies SolcOutput,
 			})
-			const result = resolver.resolveCjsModuleSync('module', 'basedir')
+			const result = resolver.resolveCjsModuleSync('module', 'basedir', false)
 			expect(result).toMatchInlineSnapshot(`
 				{
+				  "asts": {
+				    "TestContract.sol": {
+				      "absolutePath": "/absolute/path",
+				      "evmVersion": "homestead",
+				    },
+				  },
 				  "code": "const { evmtsContractFactory } = require('@evmts/core')
-				const _TestContract = {\\"name\\":\\"TestContract\\",\\"abi\\":[],\\"bytecode\\":\\"\\",\\"addresses\\":{\\"10\\":\\"0x123\\"}}
+				const _TestContract = {\\"name\\":\\"TestContract\\",\\"abi\\":[],\\"addresses\\":{\\"10\\":\\"0x123\\"}}
 				module.exports.TestContract = evmtsContractFactory(_TestContract)",
 				  "modules": {
 				    "module1": {
@@ -656,6 +852,19 @@ export const WagmiReads = () => {
 				        },
 				      ],
 				    },
+				  },
+				  "solcInput": {
+				    "language": "Solidity",
+				    "settings": {
+				      "outputSelection": {
+				        "sources": {},
+				      },
+				    },
+				    "sources": {},
+				  },
+				  "solcOutput": {
+				    "contracts": {},
+				    "sources": {},
 				  },
 				}
 			`)
@@ -665,28 +874,52 @@ export const WagmiReads = () => {
 	describe('resolveCjsModule', () => {
 		it('should return an empty string if no artifacts are found', async () => {
 			mockResolveArtifacts.mockResolvedValueOnce({})
-			const result = await resolver.resolveCjsModule('module', 'basedir')
+			const result = await resolver.resolveCjsModule('module', 'basedir', false)
 			expect(result).toMatchInlineSnapshot(`
 				{
+				  "asts": undefined,
 				  "code": "",
 				  "modules": undefined,
+				  "solcInput": undefined,
+				  "solcOutput": undefined,
 				}
 			`)
 		})
 
 		it('should generate proper CommonJS module if artifacts are found', async () => {
 			const artifacts = {
-				TestContract: { contractName: 'TestContract', abi: [], bytecode: '' },
+				TestContract: { contractName: 'TestContract', abi: [] },
 			}
 			mockResolveArtifacts.mockResolvedValueOnce({
 				artifacts,
 				modules: mockModules,
+				asts: {
+					'TestContract.sol': {
+						absolutePath: '/absolute/path',
+						evmVersion: 'homestead',
+					},
+				},
+				solcInput: {
+					language: 'Solidity',
+					settings: { outputSelection: { sources: {} } },
+					sources: {},
+				} satisfies SolcInputDescription,
+				solcOutput: {
+					contracts: {},
+					sources: {},
+				} satisfies SolcOutput,
 			})
-			const result = await resolver.resolveCjsModule('module', 'basedir')
+			const result = await resolver.resolveCjsModule('module', 'basedir', false)
 			expect(result).toMatchInlineSnapshot(`
 				{
+				  "asts": {
+				    "TestContract.sol": {
+				      "absolutePath": "/absolute/path",
+				      "evmVersion": "homestead",
+				    },
+				  },
 				  "code": "const { evmtsContractFactory } = require('@evmts/core')
-				const _TestContract = {\\"name\\":\\"TestContract\\",\\"abi\\":[],\\"bytecode\\":\\"\\",\\"addresses\\":{\\"10\\":\\"0x123\\"}}
+				const _TestContract = {\\"name\\":\\"TestContract\\",\\"abi\\":[],\\"addresses\\":{\\"10\\":\\"0x123\\"}}
 				module.exports.TestContract = evmtsContractFactory(_TestContract)",
 				  "modules": {
 				    "module1": {
@@ -711,6 +944,19 @@ export const WagmiReads = () => {
 				      ],
 				    },
 				  },
+				  "solcInput": {
+				    "language": "Solidity",
+				    "settings": {
+				      "outputSelection": {
+				        "sources": {},
+				      },
+				    },
+				    "sources": {},
+				  },
+				  "solcOutput": {
+				    "contracts": {},
+				    "sources": {},
+				  },
 				}
 			`)
 		})
@@ -719,28 +965,52 @@ export const WagmiReads = () => {
 	describe('resolveEsmModuleSync', () => {
 		it('should return an empty string if no artifacts are found', () => {
 			mockResolveArtifactsSync.mockReturnValueOnce({})
-			const result = resolver.resolveEsmModuleSync('module', 'basedir')
+			const result = resolver.resolveEsmModuleSync('module', 'basedir', false)
 			expect(result).toMatchInlineSnapshot(`
 				{
+				  "asts": undefined,
 				  "code": "",
 				  "modules": undefined,
+				  "solcInput": undefined,
+				  "solcOutput": undefined,
 				}
 			`)
 		})
 
 		it('should generate proper ESM module if artifacts are found', () => {
 			const artifacts = {
-				TestContract: { contractName: 'TestContract', abi: [], bytecode: '' },
+				TestContract: { contractName: 'TestContract', abi: [] },
 			}
 			mockResolveArtifactsSync.mockReturnValueOnce({
 				artifacts,
 				modules: mockModules,
+				asts: {
+					'TestContract.sol': {
+						absolutePath: '/absolute/path',
+						evmVersion: 'homestead',
+					},
+				},
+				solcInput: {
+					language: 'Solidity',
+					settings: { outputSelection: { sources: {} } },
+					sources: {},
+				} satisfies SolcInputDescription,
+				solcOutput: {
+					contracts: {},
+					sources: {},
+				} satisfies SolcOutput,
 			})
-			const result = resolver.resolveEsmModuleSync('module', 'basedir')
+			const result = resolver.resolveEsmModuleSync('module', 'basedir', false)
 			expect(result).toMatchInlineSnapshot(`
 				{
+				  "asts": {
+				    "TestContract.sol": {
+				      "absolutePath": "/absolute/path",
+				      "evmVersion": "homestead",
+				    },
+				  },
 				  "code": "import { evmtsContractFactory } from '@evmts/core'
-				const _TestContract = {\\"name\\":\\"TestContract\\",\\"abi\\":[],\\"bytecode\\":\\"\\",\\"addresses\\":{\\"10\\":\\"0x123\\"}}
+				const _TestContract = {\\"name\\":\\"TestContract\\",\\"abi\\":[],\\"addresses\\":{\\"10\\":\\"0x123\\"}}
 				export const TestContract = evmtsContractFactory(_TestContract)",
 				  "modules": {
 				    "module1": {
@@ -765,6 +1035,19 @@ export const WagmiReads = () => {
 				      ],
 				    },
 				  },
+				  "solcInput": {
+				    "language": "Solidity",
+				    "settings": {
+				      "outputSelection": {
+				        "sources": {},
+				      },
+				    },
+				    "sources": {},
+				  },
+				  "solcOutput": {
+				    "contracts": {},
+				    "sources": {},
+				  },
 				}
 			`)
 		})
@@ -773,28 +1056,52 @@ export const WagmiReads = () => {
 	describe('resolveEsmModule', () => {
 		it('should return an empty string if no artifacts are found', async () => {
 			mockResolveArtifacts.mockResolvedValueOnce({})
-			const result = await resolver.resolveEsmModule('module', 'basedir')
+			const result = await resolver.resolveEsmModule('module', 'basedir', false)
 			expect(result).toMatchInlineSnapshot(`
 				{
+				  "asts": undefined,
 				  "code": "",
 				  "modules": undefined,
+				  "solcInput": undefined,
+				  "solcOutput": undefined,
 				}
 			`)
 		})
 
 		it('should generate proper ESM module if artifacts are found', async () => {
 			const artifacts = {
-				TestContract: { contractName: 'TestContract', abi: [], bytecode: '' },
+				TestContract: { contractName: 'TestContract', abi: [] },
 			}
 			mockResolveArtifacts.mockResolvedValueOnce({
 				artifacts,
 				modules: mockModules,
+				asts: {
+					'TestContract.sol': {
+						absolutePath: '/absolute/path',
+						evmVersion: 'homestead',
+					},
+				},
+				solcInput: {
+					language: 'Solidity',
+					settings: { outputSelection: { sources: {} } },
+					sources: {},
+				} satisfies SolcInputDescription,
+				solcOutput: {
+					contracts: {},
+					sources: {},
+				} satisfies SolcOutput,
 			})
-			const result = await resolver.resolveEsmModule('module', 'basedir')
+			const result = await resolver.resolveEsmModule('module', 'basedir', false)
 			expect(result).toMatchInlineSnapshot(`
 				{
+				  "asts": {
+				    "TestContract.sol": {
+				      "absolutePath": "/absolute/path",
+				      "evmVersion": "homestead",
+				    },
+				  },
 				  "code": "import { evmtsContractFactory } from '@evmts/core'
-				const _TestContract = {\\"name\\":\\"TestContract\\",\\"abi\\":[],\\"bytecode\\":\\"\\",\\"addresses\\":{\\"10\\":\\"0x123\\"}}
+				const _TestContract = {\\"name\\":\\"TestContract\\",\\"abi\\":[],\\"addresses\\":{\\"10\\":\\"0x123\\"}}
 				export const TestContract = evmtsContractFactory(_TestContract)",
 				  "modules": {
 				    "module1": {
@@ -818,6 +1125,19 @@ export const WagmiReads = () => {
 				        },
 				      ],
 				    },
+				  },
+				  "solcInput": {
+				    "language": "Solidity",
+				    "settings": {
+				      "outputSelection": {
+				        "sources": {},
+				      },
+				    },
+				    "sources": {},
+				  },
+				  "solcOutput": {
+				    "contracts": {},
+				    "sources": {},
 				  },
 				}
 			`)

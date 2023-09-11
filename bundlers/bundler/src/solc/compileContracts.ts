@@ -1,89 +1,78 @@
-import type { ModuleInfo } from '../types'
+import type { FileAccessObject, ModuleInfo } from '../types'
 import { invariant } from '../utils/invariant'
 import { moduleFactory } from './moduleFactory'
+import { type SolcInputDescription, type SolcOutput, solcCompile } from './solc'
 import type { ResolvedConfig } from '@evmts/config'
-import { readFileSync } from 'fs'
 import * as resolve from 'resolve'
-// TODO wrap this in a typesafe version
-// @ts-ignore
-import solc from 'solc'
+import type { Node } from 'solidity-ast/node'
 
-// Compile the Solidity contract and return its ABI and bytecode
-export const compileContractSync = (
+// Compile the Solidity contract and return its ABI
+export const compileContractSync = <TIncludeAsts = boolean>(
 	filePath: string,
 	basedir: string,
 	config: ResolvedConfig['compiler'],
+	includeAst: TIncludeAsts,
+	fao: FileAccessObject,
 ): {
-	artifacts: solc.CompiledContract | undefined
+	artifacts: SolcOutput['contracts'][string] | undefined
 	modules: Record<'string', ModuleInfo>
+	asts: TIncludeAsts extends true ? Record<string, Node> : undefined
+	solcInput: SolcInputDescription
+	solcOutput: SolcOutput
 } => {
-	const source: string = readFileSync(
-		resolve.sync(filePath, {
-			basedir,
-		}),
-		'utf8',
-	)
-
 	const entryModule = moduleFactory(
 		filePath,
-		source,
+		fao.readFileSync(
+			resolve.sync(filePath, {
+				basedir,
+			}),
+			'utf8',
+		),
 		config.remappings,
 		config.libs,
+		fao,
 	)
 
-	const getAllModulesRecursively = (
-		entryModule: ModuleInfo,
-	): Record<string, ModuleInfo> => {
-		const modules: Record<string, ModuleInfo> = {}
-		const stack = [entryModule]
+	const modules: Record<string, ModuleInfo> = {}
 
-		while (stack.length !== 0) {
-			const m = stack.pop()
-			// This is always existing because we check the length but need to make TS happy
-			invariant(m, 'Module should exist')
-
-			// Continue the loop if this module has already been visited.
-			if (m.id in modules) {
-				continue
-			}
-
-			modules[m.id] = m
-
-			for (const dep of m.resolutions) {
-				stack.push(dep)
-			}
+	// Get modules by recursively resolving dependencies
+	const stack = [entryModule]
+	while (stack.length !== 0) {
+		const m = stack.pop()
+		invariant(m, 'Module should exist')
+		if (m.id in modules) {
+			continue
 		}
-
-		return modules
+		modules[m.id] = m
+		for (const dep of m.resolutions) {
+			stack.push(dep)
+		}
 	}
-	const allModules = getAllModulesRecursively(entryModule)
 
 	const sources = Object.fromEntries(
-		Object.entries(allModules).map(([id, module]) => {
-			return [id, { content: module.code }]
+		Object.entries(modules).map(([id, module]) => {
+			return [id, { content: module.code as string }]
 		}),
 	)
 
-	const input: solc.InputDescription = {
+	const emptyString = ''
+	const input: SolcInputDescription = {
 		language: 'Solidity',
 		sources,
 		settings: {
 			outputSelection: {
 				'*': {
-					'*': ['*'],
+					'*': ['abi', 'userdoc'],
+					...(includeAst ? { [emptyString]: ['ast'] } : {}),
 				},
 			},
 		},
 	}
 
-	const output: solc.OutputDescription = JSON.parse(
-		solc.compile(JSON.stringify(input)),
-	)
+	const output = solcCompile(input)
 
-	const warnings = output?.errors?.filter(
-		({ type }: { type: 'Warning' | 'Error' }) => type === 'Warning',
-	)
-	const isErrors = output?.errors?.length > warnings?.length
+	const warnings = output?.errors?.filter(({ type }) => type === 'Warning')
+	const isErrors = (output?.errors?.length ?? 0) > (warnings?.length ?? 0)
 
 	if (isErrors) {
 		console.error('Compilation errors:', output?.errors)
@@ -92,6 +81,25 @@ export const compileContractSync = (
 	if (warnings?.length) {
 		console.warn('Compilation warnings:', output?.errors)
 	}
-
-	return { artifacts: output.contracts[entryModule.id], modules: allModules }
+	if (includeAst) {
+		const asts = Object.fromEntries(
+			Object.entries(output.sources).map(([id, source]) => {
+				return [id, source.ast]
+			}),
+		)
+		return {
+			artifacts: output.contracts[entryModule.id],
+			modules,
+			asts: asts as any,
+			solcInput: input,
+			solcOutput: output,
+		}
+	}
+	return {
+		artifacts: output.contracts[entryModule.id],
+		modules,
+		asts: undefined as any,
+		solcInput: input,
+		solcOutput: output,
+	}
 }
