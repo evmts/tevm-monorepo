@@ -4,7 +4,7 @@
 		"target": "ESNext",
 		"lib": ["esnext"],
 		"module": "esnext",
-		"moduleResolution": "Node",
+		"moduleResolution": "bundler",
 		"isolatedModules": true,
 		"incremental": true,
 		"allowUnreachableCode": false,
