@@ -41,8 +41,8 @@ jobs:
         with:
           title: "chore: Version packages 🔖"
           commit: "chore: Version packages 🔖"
-          publish: bun release:publish
-          version: bun release:version
+          publish: pnpm release:publish
+          version: pnpm release:version
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}

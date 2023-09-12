@@ -21,7 +21,7 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Run tests
-        run: bun nx run-many --target=test:coverage
+        run: pnpm nx run-many --target=test:coverage
         env:
           NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
           RPC_URL_MAINNET: ${{ secrets.RPC_URL_MAINNET }}
@@ -32,6 +32,12 @@ jobs:
         with:
           name: "@evmts/core"
           working-directory: "./core"
+      - name: 'Report @evmts/viem Coverage'
+        if: always() # Also generate the report if tests are failing
+        uses:  davelosert/vitest-coverage-report-action@v2
+        with:
+          name: "@evmts/viem"
+          working-directory: "./viem"
       - name: 'Report @evmts/ethers Coverage'
         if: always() # Also generate the report if tests are failing
         uses:  davelosert/vitest-coverage-report-action@v2
@@ -91,6 +97,6 @@ jobs:
         run: npx playwright install --with-deps
 
       - name: Run tests
-        run: echo "WIP" # bun nx e2e e2e
+        run: echo "WIP" # pnpm nx e2e e2e
         env:
           NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}

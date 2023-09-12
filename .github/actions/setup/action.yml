@@ -2,13 +2,15 @@ name: Setup
 runs:
   using: composite
   steps:
+    - uses: pnpm/action-setup@v2
+      with:
+        version: 8.6.0
+
     - uses: actions/setup-node@v3
       with:
         node-version-file: ".nvmrc"
         registry-url: https://registry.npmjs.org
-
-    - name: Set up Bun
-      uses: oven-sh/setup-bun@v1
+        cache: pnpm
 
     - name: Install Foundry
       uses: foundry-rs/foundry-toolchain@v1
@@ -22,7 +24,7 @@ runs:
       run: forge build
 
     - name: Install node modules
-      run: bun install --frozen-lockfile
+      run: pnpm install --frozen-lockfile
       shell: bash
 
     - name: Derive appropriate SHAs for base and head for `nx affected` commands

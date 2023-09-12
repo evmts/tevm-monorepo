@@ -26,8 +26,9 @@ RUN forge build
 SHELL ["/bin/bash", "-c"]
 
 # Install dependencies
-RUN npm install --global bun && \
-  SHELL=bash bun setup && \
+RUN npm install --global pnpm@8.6.0 && \
+  SHELL=bash pnpm setup && \
   source /root/.bashrc && \
-  npm i -g nx
+  pnpm config set store-dir /root/.local/share/pnpm/store && \
+  pnpm add --global nx
 

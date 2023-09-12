@@ -25,7 +25,7 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Build
-        run: bun run build
+        run: pnpm build
         env:
           NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
 
@@ -38,7 +38,7 @@ jobs:
       - name: Publish snapshots
         uses: seek-oss/changesets-snapshot@v0
         with:
-          pre-publish: bun nx run-many --targets=build,build:dist --skip-nx-cache
+          pre-publish: pnpm nx run-many --targets=build,build:dist --skip-nx-cache
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
