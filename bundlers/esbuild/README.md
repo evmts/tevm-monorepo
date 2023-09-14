@@ -5,7 +5,19 @@ A webpack plugin for importing solidity files.
 ## Installation
 
 ```bash
+npm i @evmts/webpack-plugin
+```
+
+```bash
 pnpm i @evmts/webpack-plugin
+```
+
+```bash
+bun i @evmts/webpack-plugin
+```
+
+```bash
+yarn i @evmts/webpack-plugin
 ```
 
 ## Usage

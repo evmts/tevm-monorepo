@@ -1,62 +1,49 @@
 {
-  "name": "@evmts/vite-plugin",
-  "version": "0.9.0",
-  "private": false,
-  "contributors": [
-    "Will Cory <willcory10@gmail.com>"
-  ],
-  "description": "A vite plugin for evmts",
-  "keywords": [
-    "vite",
-    "plugin",
-    "solidity",
-    "sol",
-    "evmts"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/evmts/evmts-monorepo.git",
-    "directory": "plugins/vite-plugin"
-  },
-  "license": "MIT",
-  "type": "module",
-  "main": "dist/index.cjs",
-  "module": "dist/index.js",
-  "types": "types/index.d.ts",
-  "files": [
-    "dist",
-    "types",
-    "src"
-  ],
-  "scripts": {
-    "//test": "vitest",
-    "//test:run": "vitest run",
-    "//test:ui": "vitest --ui",
-    "build": "nx run-many --targets=build:dist,build:types --projects=@evmts/vite-plugin ",
-    "build:dist": "tsup",
-    "build:types": "tsc --emitDeclarationOnly",
-    "clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
-    "format": "rome format . --write",
-    "format:check": "rome format .",
-    "lint": "rome check . --apply-unsafe",
-    "lint:check": "rome check . --verbose",
-    "package:up": "pnpm up --latest"
-  },
-  "dependencies": {
-    "@evmts/bundler": "workspace:^"
-  },
-  "devDependencies": {
-    "@evmts/tsconfig": "workspace:^",
-    "@vitest/ui": "^0.34.3",
-    "rome": "^12.1.3",
-    "tsup": "^7.2.0",
-    "typescript": "^5.2.2",
-    "vitest": "^0.34.3"
-  },
-  "peerDependencies": {
-    "vite": ">4.0.0"
-  },
-  "publishConfig": {
-    "access": "public"
-  }
+	"name": "@evmts/vite-plugin",
+	"version": "0.9.0",
+	"private": false,
+	"contributors": ["Will Cory <willcory10@gmail.com>"],
+	"description": "A vite plugin for evmts",
+	"keywords": ["vite", "plugin", "solidity", "sol", "evmts"],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/evmts/evmts-monorepo.git",
+		"directory": "plugins/vite-plugin"
+	},
+	"license": "MIT",
+	"type": "module",
+	"main": "dist/index.cjs",
+	"module": "dist/index.js",
+	"types": "types/index.d.ts",
+	"files": ["dist", "types", "src"],
+	"scripts": {
+		"//test": "vitest",
+		"//test:run": "vitest run",
+		"//test:ui": "vitest --ui",
+		"build": "nx run-many --targets=build:dist,build:types --projects=@evmts/vite-plugin ",
+		"build:dist": "tsup",
+		"build:types": "tsc --emitDeclarationOnly",
+		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
+		"format": "rome format . --write",
+		"format:check": "rome format .",
+		"lint": "rome check . --apply-unsafe",
+		"lint:check": "rome check . --verbose"
+	},
+	"dependencies": {
+		"@evmts/bundler": "workspace:^"
+	},
+	"devDependencies": {
+		"@evmts/tsconfig": "workspace:^",
+		"@vitest/ui": "^0.34.3",
+		"rome": "^12.1.3",
+		"tsup": "^7.2.0",
+		"typescript": "^5.2.2",
+		"vitest": "^0.34.3"
+	},
+	"peerDependencies": {
+		"vite": ">4.0.0"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
 }

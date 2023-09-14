@@ -14,6 +14,10 @@ How to configure NEXT.js to bundle solidity files with Evmts
 npm install @evmts/webpack --save-dev
 ```
 
+```bash [bun]
+bun install @evmts/webpack --save-dev
+```
+
 ```bash [pnpm]
 pnpm install @evmts/webpack --save-dev
 ```

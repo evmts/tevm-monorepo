@@ -41,7 +41,6 @@
 		"format:check": "rome format .",
 		"lint": "rome check . --apply-unsafe",
 		"lint:check": "rome check . --verbose",
-		"package:up": "pnpm up --latest",
 		"pretest": "forge build",
 		"test": "vitest --coverage",
 		"test:coverage": "vitest run --coverage",
