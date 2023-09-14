@@ -50,7 +50,7 @@
         "antfu.vite"
       ],
       "settings": {
-        "npm.packageManager": "pnpm",
+        "npm.packageManager": "npm",
         "typescript.tsdk": "node_modules/typescript/lib",
         "editor.formatOnSaveMode": "file",
         "editor.tabCompletion": "on",

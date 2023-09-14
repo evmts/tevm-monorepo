@@ -22,7 +22,7 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Run Linters
-        run: pnpm lint:check
+        run: bun lint:check
         env:
           NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
 
@@ -39,7 +39,7 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Run Formatters
-        run: pnpm format:check
+        run: bun format:check
         env:
           NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
 
@@ -55,7 +55,7 @@ jobs:
       - name: "Setup"
         uses: ./.github/actions/setup
 
-      - name: Run Package.json formatter - Run `pnpm sort-package-json` to fix
-        run: pnpm sort-package-json:check
+      - name: Run Package.json formatter - Run `bun sort-package-json` to fix
+        run: bun sort-package-json:check
         env:
           NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}

@@ -63,7 +63,7 @@
   Shout out @o-az who kicked off this improvement in #435
 
 - [#442](https://github.com/evmts/evmts-monorepo/pull/442) [`b020298`](https://github.com/evmts/evmts-monorepo/commit/b020298f1acbfad396b0c1c9a1618e00bc750a43) Thanks [@roninjin10](https://github.com/roninjin10)! - ⬆️ Upgraded all npm packages to latest
-  Every package in EVMts is consistently updated to it's latest version using `pnpm up --latest`
+  Every package in EVMts is consistently updated to it's latest version
 - Updated dependencies [[`eedb7e0`](https://github.com/evmts/evmts-monorepo/commit/eedb7e0e8f853acf59c3f86c1d7317bad8ee7e2b), [`b020298`](https://github.com/evmts/evmts-monorepo/commit/b020298f1acbfad396b0c1c9a1618e00bc750a43)]:
   - @evmts/core@0.8.0
   - @evmts/config@0.8.0

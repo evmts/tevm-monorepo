@@ -71,6 +71,10 @@ npm i @evmts/ts-plugin
 pnpm i @evmts/ts-plugin
 ```
 
+```bash [bun]
+bun install @evmts/ts-plugin
+```
+
 ```bash [yarn]
 yarn add @evmts/ts-plugin
 ```

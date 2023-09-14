@@ -16,6 +16,10 @@ How to configure vite to bundle your solidity files in vite and vitest
 npm install @evmts/vite --save-dev
 ```
 
+```bash [bun]
+bun install @evmts/vite --save-dev
+```
+
 ```bash [pnpm]
 pnpm install @evmts/vite --save-dev
 ```
@@ -24,7 +28,7 @@ pnpm install @evmts/vite --save-dev
 yarn add @evmts/vite -D
 ```
 
-::: 
+:::
 
 ## 2. Add to vite.config.ts
 
