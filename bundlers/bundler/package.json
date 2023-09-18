@@ -31,10 +31,6 @@
     "src"
   ],
   "scripts": {
-    "test": "vitest --coverage",
-    "test:coverage": "vitest run --coverage",
-    "test:run": "vitest run",
-    "test:ui": "vitest --ui",
     "build": "nx run-many --targets=build:dist,build:types --projects=@evmts/bundler ",
     "build:dist": "tsup",
     "build:types": "tsc --emitDeclarationOnly",
@@ -43,7 +39,11 @@
     "format:check": "rome format .",
     "lint": "rome check . --apply-unsafe",
     "lint:check": "rome check . --verbose",
-    "package:up": "pnpm up --latest"
+    "package:up": "pnpm up --latest",
+    "test": "vitest --coverage",
+    "test:coverage": "vitest run --coverage",
+    "test:run": "vitest run",
+    "test:ui": "vitest --ui"
   },
   "dependencies": {
     "@evmts/config": "workspace:^",
