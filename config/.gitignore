@@ -5,6 +5,7 @@ forge-artifacts
 broadcast
 
 # compiled output
+types
 dist
 packages/*/dist
 tmp
