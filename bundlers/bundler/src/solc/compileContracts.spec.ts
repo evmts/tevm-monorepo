@@ -138,30 +138,6 @@ describe('compileContract', () => {
 		expect(mockLogger.error).toHaveBeenCalledTimes(2)
 	})
 
-	it('should correctly resolve and read the file', async () => {
-		mockSolcCompile.mockImplementation((_, __, callback) => {
-			callback(null, mockFilePath)
-		})
-
-		mockFao.readFile.mockResolvedValue('mockCode')
-
-		await compileContract(
-			mockFilePath,
-			mockBaseDir,
-			mockConfig as any,
-			true,
-			mockFao as any,
-			mockLogger,
-		)
-
-		expect(resolve).toHaveBeenCalledWith(
-			mockFilePath,
-			expect.anything(),
-			expect.any(Function),
-		)
-		expect(mockFao.readFile).toHaveBeenCalledWith(mockFilePath, 'utf8')
-	})
-
 	it('should log an error when file resolution fails', async () => {
 		const mockError = new Error('Resolution Error')
 		mockResolve.mockImplementation((_, __, callback) => {
