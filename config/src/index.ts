@@ -1,3 +1,5 @@
 export * from './Config'
 export * from './loadConfig'
+export * from './loadConfigAsync'
 export * from './defineConfig'
+export const huh = 'huh'

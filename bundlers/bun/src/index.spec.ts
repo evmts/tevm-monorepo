@@ -1,13 +1,13 @@
 import { evmtsBunPlugin } from '.'
 import { file } from './bunFile'
 import { bundler } from '@evmts/bundler'
-import { loadConfig } from '@evmts/config'
+import { loadConfigAsync } from '@evmts/config'
 import { exists, readFile } from 'fs/promises'
 import { type Mock, beforeEach, describe, expect, it, vi } from 'vitest'
 
 vi.mock('@evmts/config', async () => ({
 	...((await vi.importActual('@evmts/config')) as {}),
-	loadConfig: vi.fn(),
+	loadConfigAsync: vi.fn(),
 }))
 
 vi.mock('@evmts/bundler', () => ({
@@ -29,7 +29,7 @@ const mockFile = file as Mock
 const mockExists = exists as Mock
 
 const mockBundler = bundler as Mock
-const mockLoadConfig = loadConfig as Mock
+const mockLoadConfig = loadConfigAsync as Mock
 mockBundler.mockReturnValue({
 	resolveEsmModule: vi.fn(),
 })
@@ -80,7 +80,7 @@ describe('evmtsBunPlugin', () => {
 			onResolve: vi.fn(),
 			config: {} as any,
 		}
-		plugin.setup(mockBuild)
+		await plugin.setup(mockBuild)
 
 		const [onLoadFilter, onLoadFn] = mockBuild.onLoad.mock.lastCall ?? []
 
@@ -121,7 +121,7 @@ describe('evmtsBunPlugin', () => {
 			onResolve: vi.fn(),
 			config: {} as any,
 		}
-		plugin.setup(mockBuild)
+		await plugin.setup(mockBuild)
 
 		const [onLoadFilter, onLoadFn] = mockBuild.onLoad.mock.lastCall ?? []
 
@@ -150,7 +150,7 @@ describe('evmtsBunPlugin', () => {
 			onLoad: vi.fn(),
 			config: {} as any,
 		}
-		plugin.setup(mockBuild)
+		await plugin.setup(mockBuild)
 
 		const [_, onResolveFn] = mockBuild.onResolve.mock.calls[0]
 		const resolved = onResolveFn({
@@ -168,7 +168,7 @@ describe('evmtsBunPlugin', () => {
 			onLoad: vi.fn(),
 			config: {} as any,
 		}
-		plugin.setup(mockBuild)
+		await plugin.setup(mockBuild)
 
 		const [_, onResolveFn] = mockBuild.onResolve.mock.calls[0]
 
@@ -192,7 +192,7 @@ describe('evmtsBunPlugin', () => {
 			onResolve: vi.fn(),
 			config: {} as any,
 		}
-		plugin.setup(mockBuild)
+		await plugin.setup(mockBuild)
 
 		const [_, onLoadFn] = mockBuild.onLoad.mock.lastCall ?? []
 
@@ -214,7 +214,7 @@ describe('evmtsBunPlugin', () => {
 			onResolve: vi.fn(),
 			config: {} as any,
 		}
-		plugin.setup(mockBuild)
+		await plugin.setup(mockBuild)
 
 		const [_, onLoadFn] = mockBuild.onLoad.mock.lastCall ?? []
 
@@ -237,7 +237,7 @@ describe('evmtsBunPlugin', () => {
 			onResolve: vi.fn(),
 			config: {} as any,
 		}
-		plugin.setup(mockBuild)
+		await plugin.setup(mockBuild)
 
 		const [_, onLoadFn] = mockBuild.onLoad.mock.lastCall ?? []
 

@@ -24,7 +24,7 @@
   "type": "module",
   "main": "dist/index.cjs",
   "module": "dist/index.js",
-  "types": "types/index.d.ts",
+  "types": "types/src/index.d.ts",
   "files": [
     "dist",
     "types",

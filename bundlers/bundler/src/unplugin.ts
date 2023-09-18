@@ -1,7 +1,7 @@
 import * as packageJson from '../package.json'
 import { bundler } from './bundler'
 import type { FileAccessObject } from './types'
-import { type ResolvedConfig, loadConfig } from '@evmts/config'
+import { type ResolvedConfig, loadConfigAsync } from '@evmts/config'
 import { existsSync, readFileSync } from 'fs'
 import { readFile } from 'fs/promises'
 import { createRequire } from 'module'
@@ -55,7 +55,7 @@ export const unpluginFn: UnpluginFactory<
 		name: '@evmts/rollup-plugin',
 		version: packageJson.version,
 		async buildStart() {
-			config = loadConfig(process.cwd())
+			config = await loadConfigAsync(process.cwd())
 			moduleResolver = bundler(config, console, fao)
 			this.addWatchFile('./tsconfig.json')
 		},
