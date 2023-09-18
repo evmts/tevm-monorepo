@@ -1,6 +1,5 @@
 import type { FileAccessObject, ModuleInfo } from '../types'
 import { compileContractSync } from './compileContractsSync'
-import { moduleFactory } from './moduleFactory'
 import type { ResolvedConfig } from '@evmts/config'
 import * as resolve from 'resolve'
 // TODO wrap this in a typesafe version
@@ -14,7 +13,9 @@ import {
 	expect,
 	it,
 	vi,
+	type MockedFunction,
 } from 'vitest'
+import { moduleFactorySync } from './moduleFactorySync'
 
 // Mock the necessary functions and modules
 vi.mock('resolve', () => ({ sync: vi.fn() }))
@@ -22,7 +23,7 @@ vi.mock('solc', () => {
 	const defaultExport = { compile: vi.fn() }
 	return { default: defaultExport, ...defaultExport }
 })
-vi.mock('./moduleFactory', () => ({ moduleFactory: vi.fn() }))
+vi.mock('./moduleFactorySync', () => ({ moduleFactorySync: vi.fn() }))
 const ConsoleMock = {
 	log: vi.fn(),
 	error: vi.fn(),
@@ -74,7 +75,7 @@ describe('compileContractSync', () => {
 
 	const mockReadFileSync = fao.readFileSync as Mock
 	const mockResolveSync = resolve.sync as Mock
-	const mockModuleFactory = moduleFactory as Mock
+	const mockModuleFactory = moduleFactorySync as Mock
 	const mockSolcCompile = solc.compile as Mock
 	beforeEach(() => {
 		mockReadFileSync.mockReturnValue(mockSource)
@@ -191,8 +192,17 @@ describe('compileContractSync', () => {
 			}
 		`)
 		expect(fao.readFileSync).toBeCalledWith(filePath, 'utf8')
-		expect(resolve.sync).toBeCalledWith(filePath, { basedir })
-		expect(moduleFactory).toBeCalledWith(
+		expect((resolve.sync as MockedFunction<any>).mock.lastCall).toMatchInlineSnapshot(`
+			[
+			  "test/path",
+			  {
+			    "basedir": "base/dir",
+			    "isFile": [MockFunction spy],
+			    "readFileSync": [Function],
+			  },
+			]
+		`)
+		expect(moduleFactorySync).toBeCalledWith(
 			filePath,
 			mockSource,
 			config.remappings,
@@ -301,8 +311,17 @@ describe('compileContractSync', () => {
 			}
 		`)
 		expect(fao.readFileSync).toBeCalledWith(filePath, 'utf8')
-		expect(resolve.sync).toBeCalledWith(filePath, { basedir })
-		expect(moduleFactory).toBeCalledWith(
+		expect((resolve.sync as MockedFunction<any>).mock.lastCall).toMatchInlineSnapshot(`
+			[
+			  "test/path",
+			  {
+			    "basedir": "base/dir",
+			    "isFile": [MockFunction spy],
+			    "readFileSync": [Function],
+			  },
+			]
+		`)
+		expect(moduleFactorySync).toBeCalledWith(
 			filePath,
 			mockSource,
 			config.remappings,

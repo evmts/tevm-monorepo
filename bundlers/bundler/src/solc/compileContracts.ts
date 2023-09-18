@@ -1,7 +1,7 @@
 import type { ResolvedConfig } from '@evmts/config'
 import resolve from 'resolve'
 import type { Node } from 'solidity-ast/node'
-import type { FileAccessObject, ModuleInfo } from '../types'
+import type { FileAccessObject, Logger, ModuleInfo } from '../types'
 import { invariant } from '../utils/invariant'
 import { moduleFactory } from './moduleFactory'
 import { type SolcInputDescription, type SolcOutput, solcCompile } from './solc'
@@ -13,6 +13,7 @@ export const compileContract = async <TIncludeAsts = boolean>(
 	config: ResolvedConfig['compiler'],
 	includeAst: TIncludeAsts,
 	fao: FileAccessObject,
+	logger: Logger
 ): Promise<{
 	artifacts: SolcOutput['contracts'][string] | undefined
 	modules: Record<'string', ModuleInfo>
@@ -26,18 +27,38 @@ export const compileContract = async <TIncludeAsts = boolean>(
 			await new Promise<string>((promiseResolve, promiseReject) =>
 				resolve(filePath, {
 					basedir,
-					readFile: (file) => fao.readFile(file, 'utf8'),
-					isFile: fao.existsSync
+					readFile: (file, cb) => {
+						fao.readFile(file, 'utf8')
+							.then(file => {
+								cb(null, file)
+							}).catch(e => {
+								cb(e)
+							})
+					},
+					isFile: (file, cb) => {
+						try {
+							cb(null, fao.existsSync(file))
+						} catch (e) {
+							cb(e as Error)
+							logger.error(e as any)
+							logger.error(`Error checking if isFile ${file}`)
+							throw e
+						}
+					}
+
 				}, (err, res) => {
 					if (err) {
+						logger.error(err as any)
+						logger.error(`there was an error resolving ${filePath}`)
 						promiseReject(err)
 					} else {
 						promiseResolve(res as string)
 					}
-
 				})),
 			'utf8',
-		),
+		).then((code) => {
+			return code
+		}),
 		config.remappings,
 		config.libs,
 		fao,
@@ -85,11 +106,13 @@ export const compileContract = async <TIncludeAsts = boolean>(
 	const isErrors = (output?.errors?.length ?? 0) > (warnings?.length ?? 0)
 
 	if (isErrors) {
-		console.error('Compilation errors:', output?.errors)
+		logger.error('Compilation errors:')
+		logger.error(output?.errors as any)
 		throw new Error('Compilation failed')
 	}
 	if (warnings?.length) {
-		console.warn('Compilation warnings:', output?.errors)
+		logger.warn(warnings as any)
+		logger.warn('Compilation warnings:')
 	}
 	if (includeAst) {
 		const asts = Object.fromEntries(
