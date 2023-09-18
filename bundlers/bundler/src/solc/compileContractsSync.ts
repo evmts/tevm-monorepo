@@ -1,33 +1,35 @@
-import type { FileAccessObject, Logger, ModuleInfo } from '../types'
+import type { FileAccessObject, ModuleInfo } from '../types'
 import { invariant } from '../utils/invariant'
-import { resolvePromise } from '../utils/resolvePromise'
-import { moduleFactory } from './moduleFactory'
+import { moduleFactorySync } from './moduleFactorySync'
 import { type SolcInputDescription, type SolcOutput, solcCompile } from './solc'
 import type { ResolvedConfig } from '@evmts/config'
+import * as resolve from 'resolve'
 import type { Node } from 'solidity-ast/node'
 
 // Compile the Solidity contract and return its ABI
-export const compileContract = async <TIncludeAsts = boolean>(
+export const compileContractSync = <TIncludeAsts = boolean>(
 	filePath: string,
 	basedir: string,
 	config: ResolvedConfig['compiler'],
 	includeAst: TIncludeAsts,
 	fao: FileAccessObject,
-	logger: Logger,
-): Promise<{
+): {
 	artifacts: SolcOutput['contracts'][string] | undefined
 	modules: Record<'string', ModuleInfo>
 	asts: TIncludeAsts extends true ? Record<string, Node> : undefined
 	solcInput: SolcInputDescription
 	solcOutput: SolcOutput
-}> => {
-	const entryModule = await moduleFactory(
+} => {
+	const entryModule = moduleFactorySync(
 		filePath,
-		await fao
-			.readFile(await resolvePromise(filePath, basedir, fao, logger), 'utf8')
-			.then((code) => {
-				return code
+		fao.readFileSync(
+			resolve.sync(filePath, {
+				basedir,
+				readFileSync: (file) => fao.readFileSync(file, 'utf8'),
+				isFile: fao.existsSync,
 			}),
+			'utf8',
+		),
 		config.remappings,
 		config.libs,
 		fao,
@@ -35,6 +37,7 @@ export const compileContract = async <TIncludeAsts = boolean>(
 
 	const modules: Record<string, ModuleInfo> = {}
 
+	// Get modules by recursively resolving dependencies
 	const stack = [entryModule]
 	while (stack.length !== 0) {
 		const m = stack.pop()
@@ -74,13 +77,11 @@ export const compileContract = async <TIncludeAsts = boolean>(
 	const isErrors = (output?.errors?.length ?? 0) > (warnings?.length ?? 0)
 
 	if (isErrors) {
-		logger.error('Compilation errors:')
-		logger.error(output?.errors as any)
+		console.error('Compilation errors:', output?.errors)
 		throw new Error('Compilation failed')
 	}
 	if (warnings?.length) {
-		logger.warn(warnings as any)
-		logger.warn('Compilation warnings:')
+		console.warn('Compilation warnings:', output?.errors)
 	}
 	if (includeAst) {
 		const asts = Object.fromEntries(

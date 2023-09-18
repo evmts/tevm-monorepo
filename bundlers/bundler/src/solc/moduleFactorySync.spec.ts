@@ -1,5 +1,5 @@
 import type { FileAccessObject, ModuleInfo } from '../types'
-import { moduleFactory } from './moduleFactory'
+import { moduleFactorySync } from './moduleFactorySync'
 import {
 	type Mock,
 	afterEach,
@@ -21,7 +21,7 @@ vi.mock('fs', () => ({
 }))
 const mockReadFileSync = fao.readFileSync as Mock
 
-describe('moduleFactory', () => {
+describe(moduleFactorySync.name, () => {
 	const remappings = {
 		'key1/': '/path/to/key1',
 		'key2/': '/path/to/key2',
@@ -41,13 +41,13 @@ import "otherOthermodule"`
 
 	let testModule: ModuleInfo
 
-	beforeEach(async () => {
+	beforeEach(() => {
 		mockReadFileSync
 			.mockReturnValueOnce(localfileMockContent)
 			.mockReturnValueOnce(key1MockContent)
 			.mockReturnValueOnce(othermoduleMockContent)
 
-		testModule = await moduleFactory(
+		testModule = moduleFactorySync(
 			absolutePath,
 			testModuleCode,
 			remappings,
@@ -90,7 +90,7 @@ import "otherOthermodule"`
 		`)
 	})
 
-	it('should not replace import statements if resolveImportPath returns the original import', async () => {
+	it('should not replace import statements if resolveImportPath returns the original import', () => {
 		// This import path does not start with a remapping key, is not local, and cannot be resolved by Node
 		const testModuleCodeUnresolvedImport = `import "unresolved/import"`
 		const unresolvedImportMockContent = 'contract UnresolvedImport {}'
@@ -100,7 +100,7 @@ import "otherOthermodule"`
 			.mockReturnValueOnce(key1MockContent)
 			.mockReturnValueOnce(othermoduleMockContent)
 
-		const testModuleUnresolvedImport = await moduleFactory(
+		const testModuleUnresolvedImport = moduleFactorySync(
 			absolutePath,
 			testModuleCodeUnresolvedImport,
 			remappings,

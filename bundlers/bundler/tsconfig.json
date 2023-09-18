@@ -4,6 +4,7 @@
     "composite": true,
     "outDir": "types",
     "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true
   },
   "include": ["src", "src/**/*.json", "package.json"]

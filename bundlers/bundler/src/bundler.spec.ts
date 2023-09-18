@@ -1,10 +1,8 @@
 import { bundler } from './bundler'
 import { resolveArtifacts, resolveArtifactsSync } from './solc'
 import type { SolcInputDescription, SolcOutput } from './solc/solc'
-import type { Bundler, FileAccessObject, ModuleInfo } from './types'
-import { writeFileSync } from 'fs'
+import type { Bundler, FileAccessObject, Logger, ModuleInfo } from './types'
 import type { Node } from 'solidity-ast/node'
-import * as ts from 'typescript'
 import {
 	type Mock,
 	afterEach,
@@ -20,229 +18,6 @@ const fao: FileAccessObject = {
 	readFile: vi.fn() as any,
 	readFileSync: vi.fn() as any,
 }
-
-const erc20Abi = [
-	{
-		constant: true,
-		inputs: [],
-		name: 'name',
-		outputs: [
-			{
-				name: '',
-				type: 'string',
-			},
-		],
-		payable: false,
-		stateMutability: 'view',
-		type: 'function',
-	},
-	{
-		constant: false,
-		inputs: [
-			{
-				name: '_spender',
-				type: 'address',
-			},
-			{
-				name: '_value',
-				type: 'uint256',
-			},
-		],
-		name: 'approve',
-		outputs: [
-			{
-				name: '',
-				type: 'bool',
-			},
-		],
-		payable: false,
-		stateMutability: 'nonpayable',
-		type: 'function',
-	},
-	{
-		constant: true,
-		inputs: [],
-		name: 'totalSupply',
-		outputs: [
-			{
-				name: '',
-				type: 'uint256',
-			},
-		],
-		payable: false,
-		stateMutability: 'view',
-		type: 'function',
-	},
-	{
-		constant: false,
-		inputs: [
-			{
-				name: '_from',
-				type: 'address',
-			},
-			{
-				name: '_to',
-				type: 'address',
-			},
-			{
-				name: '_value',
-				type: 'uint256',
-			},
-		],
-		name: 'transferFrom',
-		outputs: [
-			{
-				name: '',
-				type: 'bool',
-			},
-		],
-		payable: false,
-		stateMutability: 'nonpayable',
-		type: 'function',
-	},
-	{
-		constant: true,
-		inputs: [],
-		name: 'decimals',
-		outputs: [
-			{
-				name: '',
-				type: 'uint8',
-			},
-		],
-		payable: false,
-		stateMutability: 'view',
-		type: 'function',
-	},
-	{
-		constant: true,
-		inputs: [
-			{
-				name: '_owner',
-				type: 'address',
-			},
-		],
-		name: 'balanceOf',
-		outputs: [
-			{
-				name: 'balance',
-				type: 'uint256',
-			},
-		],
-		payable: false,
-		stateMutability: 'view',
-		type: 'function',
-	},
-	{
-		constant: true,
-		inputs: [],
-		name: 'symbol',
-		outputs: [
-			{
-				name: '',
-				type: 'string',
-			},
-		],
-		payable: false,
-		stateMutability: 'view',
-		type: 'function',
-	},
-	{
-		constant: false,
-		inputs: [
-			{
-				name: '_to',
-				type: 'address',
-			},
-			{
-				name: '_value',
-				type: 'uint256',
-			},
-		],
-		name: 'transfer',
-		outputs: [
-			{
-				name: '',
-				type: 'bool',
-			},
-		],
-		payable: false,
-		stateMutability: 'nonpayable',
-		type: 'function',
-	},
-	{
-		constant: true,
-		inputs: [
-			{
-				name: '_owner',
-				type: 'address',
-			},
-			{
-				name: '_spender',
-				type: 'address',
-			},
-		],
-		name: 'allowance',
-		outputs: [
-			{
-				name: '',
-				type: 'uint256',
-			},
-		],
-		payable: false,
-		stateMutability: 'view',
-		type: 'function',
-	},
-	{
-		payable: true,
-		stateMutability: 'payable',
-		type: 'fallback',
-	},
-	{
-		anonymous: false,
-		inputs: [
-			{
-				indexed: true,
-				name: 'owner',
-				type: 'address',
-			},
-			{
-				indexed: true,
-				name: 'spender',
-				type: 'address',
-			},
-			{
-				indexed: false,
-				name: 'value',
-				type: 'uint256',
-			},
-		],
-		name: 'Approval',
-		type: 'event',
-	},
-	{
-		anonymous: false,
-		inputs: [
-			{
-				indexed: true,
-				name: 'from',
-				type: 'address',
-			},
-			{
-				indexed: true,
-				name: 'to',
-				type: 'address',
-			},
-			{
-				indexed: false,
-				name: 'value',
-				type: 'uint256',
-			},
-		],
-		name: 'Transfer',
-		type: 'event',
-	},
-] as const
 
 const mockModules: Record<string, ModuleInfo> = {
 	module1: {
@@ -266,7 +41,7 @@ contract TestContract {}`,
 
 describe(bundler.name, () => {
 	let resolver: ReturnType<Bundler>
-	let logger
+	let logger: Logger
 	let config
 
 	const mockAddresses = {
@@ -292,6 +67,165 @@ describe(bundler.name, () => {
 
 	afterEach(() => {
 		vi.clearAllMocks()
+	})
+
+	describe('error cases', () => {
+		describe('resolveDts', () => {
+			it('should throw an error if there is an issue in resolveArtifacts', async () => {
+				mockResolveArtifacts.mockRejectedValueOnce(new Error('Test error'))
+				await expect(
+					resolver.resolveDts('module', 'basedir', false),
+				).rejects.toThrow('Test error')
+				expect((logger.error as Mock).mock.calls).toMatchInlineSnapshot(`
+				[
+				  [
+				    [Error: Test error],
+				  ],
+				  [
+				    "there was an error in evmts plugin generating .dts",
+				  ],
+				]
+			`)
+			})
+		})
+
+		describe('resolveDtsSync', () => {
+			it('should throw an error if there is an issue in resolveArtifactsSync', () => {
+				mockResolveArtifactsSync.mockImplementation(() => {
+					throw new Error('Test error sync')
+				})
+				expect(() =>
+					resolver.resolveDtsSync('module', 'basedir', false),
+				).toThrow('Test error sync')
+				expect((logger.error as Mock).mock.calls).toMatchInlineSnapshot(`
+					[
+					  [
+					    [Error: Test error sync],
+					  ],
+					  [
+					    "there was an error in evmts plugin resolving .dts",
+					  ],
+					]
+				`)
+			})
+		})
+
+		describe('resolveTsModuleSync', () => {
+			it('should throw an error if there is an issue in resolveArtifactsSync', () => {
+				mockResolveArtifactsSync.mockImplementation(() => {
+					throw new Error('Test error sync')
+				})
+				expect(() =>
+					resolver.resolveTsModuleSync('module', 'basedir', false),
+				).toThrow('Test error sync')
+				expect((logger.error as Mock).mock.calls).toMatchInlineSnapshot(`
+					[
+					  [
+					    [Error: Test error sync],
+					  ],
+					  [
+					    "there was an error in evmts plugin resolving .ts",
+					  ],
+					]
+				`)
+			})
+		})
+
+		describe('resolveTsModule', () => {
+			it('should throw an error if there is an issue in resolveArtifacts', async () => {
+				mockResolveArtifacts.mockRejectedValueOnce(new Error('Test error'))
+				await expect(
+					resolver.resolveTsModule('module', 'basedir', false),
+				).rejects.toThrow('Test error')
+				expect((logger.error as Mock).mock.calls).toMatchInlineSnapshot(`
+					[
+					  [
+					    [Error: Test error],
+					  ],
+					  [
+					    "there was an error in evmts plugin resolving .ts",
+					  ],
+					]
+				`)
+			})
+		})
+
+		describe('resolveCjsModuleSync', () => {
+			it('should throw an error if there is an issue in resolveArtifactsSync', () => {
+				mockResolveArtifactsSync.mockImplementation(() => {
+					throw new Error('Test error sync')
+				})
+				expect(() =>
+					resolver.resolveCjsModuleSync('module', 'basedir', false),
+				).toThrow('Test error sync')
+				expect((logger.error as Mock).mock.calls).toMatchInlineSnapshot(`
+					[
+					  [
+					    [Error: Test error sync],
+					  ],
+					  [
+					    "there was an error in evmts plugin resolving .cjs",
+					  ],
+					]
+				`)
+			})
+		})
+
+		describe('resolveCjsModule', () => {
+			it('should throw an error if there is an issue in resolveArtifacts', async () => {
+				mockResolveArtifacts.mockRejectedValueOnce(new Error('Test error'))
+				await expect(
+					resolver.resolveCjsModule('module', 'basedir', false),
+				).rejects.toThrow('Test error')
+				expect((logger.error as Mock).mock.calls).toMatchInlineSnapshot(`
+					[
+					  [
+					    [Error: Test error],
+					  ],
+					  [
+					    "there was an error in evmts plugin resolving .cjs",
+					  ],
+					]
+				`)
+			})
+		})
+
+		describe('resolveEsmModuleSync', () => {
+			it('should throw an error if there is an issue in resolveArtifactsSync', () => {
+				mockResolveArtifactsSync.mockImplementation(() => {
+					throw new Error('Test error sync')
+				})
+				expect(() =>
+					resolver.resolveEsmModuleSync('module', 'basedir', false),
+				).toThrow('Test error sync')
+				expect((logger.error as Mock).mock.calls).toMatchInlineSnapshot(`
+					[
+					  [
+					    "there was an error in evmts plugin resolving .mjs",
+					  ],
+					]
+				`)
+			})
+		})
+
+		describe('resolveEsmModule', () => {
+			it('should throw an error if there is an issue in resolveArtifacts', async () => {
+				mockResolveArtifacts.mockRejectedValueOnce(new Error('Test error'))
+				await expect(
+					resolver.resolveEsmModule('module', 'basedir', false),
+				).rejects.toThrow('Test error')
+				expect((logger.error as Mock).mock.calls).toMatchInlineSnapshot(`
+					[
+					  [
+					    [Error: Test error],
+					  ],
+					  [
+					    "there was an error in evmts plugin resolving .mjs",
+					  ],
+					]
+				`)
+			})
+		})
 	})
 
 	const mockResolveArtifacts = resolveArtifacts as Mock
@@ -396,112 +330,6 @@ describe(bundler.name, () => {
 
 	const mockResolveArtifactsSync = resolveArtifactsSync as Mock
 	describe('resolveDtsSync', () => {
-		// can't get this test to work yet but it works pretty nicely
-		// generating a file and inspecting the types manually
-		it.skip('should generate valid typscript that can be used to properly typecheck', () => {
-			const artifacts = {
-				TestContract: {
-					contractName: 'TestContract',
-					abi: erc20Abi,
-				},
-			}
-			mockResolveArtifactsSync.mockReturnValueOnce({
-				artifacts,
-				modules: mockModules,
-				asts: {
-					'TestContract.sol': {
-						absolutePath: '/absolute/path',
-						evmVersion: 'homestead',
-					},
-				},
-				solcInput: {
-					language: 'Solidity',
-					settings: { outputSelection: { sources: {} } },
-					sources: {},
-				} satisfies SolcInputDescription,
-				solcOutput: {
-					contracts: {},
-					sources: {},
-				} satisfies SolcOutput,
-			})
-			const result = resolver.resolveDtsSync('module', 'basedir', false)
-			const source = `
-import { TestContract } from './TestContract.js'
-import { Address, useAccount, useContractRead } from 'wagmi'
-
-export const WagmiReads = () => {
-	const { address, isConnected } = useAccount()
-
-	const { data: balance } = useContractRead({
-		/**
-		 * Spreading in a method will spread abi, address and args
-		 * Hover over balanceOf and click go-to-definition should take you to the method definition in solidity if compiling from solidity
-		 */
-		...TestContract.read().balanceOf(address as Address),
-		enabled: isConnected,
-	})
-	const { data: totalSupply } = useContractRead({
-		...TestContract.read().totalSupply(),
-		enabled: isConnected,
-	})
-	const { data: symbol } = useContractRead({
-		...TestContract.read().symbol(),
-		enabled: isConnected,
-	})
-	const testBalance: bigint | undefined = balance
-	const testSymbol: string | undefined = symbol
-	const testTotalSupply: bigint | undefined = totalSupply
-	return ({
-		testBalance,
-		symbol,
-		totalSupply,
-	})
-}
-
-			`
-
-			writeFileSync('./source.ts', source)
-			writeFileSync('./TestContract.d.ts', result.code)
-
-			const program = ts.createProgram({
-				rootNames: [],
-				options: {},
-				host: ts.createCompilerHost({}),
-				oldProgram: ts.createProgram({
-					rootNames: [],
-					options: {},
-					host: ts.createCompilerHost({}),
-				}),
-			})
-
-			// this is the file that the ts-plugin resolves to
-			const resolveDtsFile = ts.createSourceFile(
-				'TestContract.d.ts',
-				result.code,
-				ts.ScriptTarget.Latest,
-				true,
-			)
-
-			const sourceFile = ts.createSourceFile(
-				'source.ts',
-				source,
-				ts.ScriptTarget.Latest,
-				true,
-			)
-
-			program.getRootFileNames = () => [
-				resolveDtsFile.fileName,
-				sourceFile.fileName,
-			]
-			program.getSourceFile = (fileName) =>
-				[resolveDtsFile, sourceFile].find((f) => f.fileName.includes(fileName))
-
-			const diagnostics = ts.getPreEmitDiagnostics(program)
-			const diagnostic = diagnostics.find(
-				(d) => d.category === ts.DiagnosticCategory.Error,
-			)
-			expect(diagnostic).toMatchInlineSnapshot()
-		})
 		it('should return an empty string if no artifacts are found', () => {
 			mockResolveArtifactsSync.mockReturnValueOnce({})
 			const result = resolver.resolveDtsSync('module', 'basedir', false)

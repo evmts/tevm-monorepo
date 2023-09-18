@@ -14,13 +14,13 @@ import { resolveImports } from './resolveImports'
  * See foundry that is alergic to using npm
  * Doing it this way for now is easier but for sure a leaky abstraction
  */
-export const moduleFactory = async (
+export const moduleFactorySync = (
 	absolutePath: string,
 	rawCode: string,
 	remappings: Record<string, string>,
 	libs: string[],
 	fao: FileAccessObject,
-): Promise<ModuleInfo> => {
+): ModuleInfo => {
 	const stack = [{ absolutePath, rawCode }]
 	const modules = new Map<string, ModuleInfo>()
 
@@ -66,17 +66,17 @@ export const moduleFactory = async (
 			resolutions: [],
 		})
 
-		for (const importedId of importedIds) {
+		importedIds.forEach((importedId) => {
 			const depImportAbsolutePath = resolveImportPath(
 				absolutePath,
 				importedId,
 				remappings,
 				libs,
 			)
-			const depRawCode = await fao.readFile(depImportAbsolutePath, 'utf8')
+			const depRawCode = fao.readFileSync(depImportAbsolutePath, 'utf8')
 
 			stack.push({ absolutePath: depImportAbsolutePath, rawCode: depRawCode })
-		}
+		})
 	}
 
 	for (const [_, m] of modules.entries()) {

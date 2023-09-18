@@ -1,5 +1,5 @@
 import type { FileAccessObject, Logger, ModuleInfo } from '../types'
-import { compileContractSync } from './compileContracts'
+import { compileContractSync } from './compileContractsSync'
 import { resolveArtifactsSync } from './resolveArtifactsSync'
 import { type ResolvedConfig, defaultConfig } from '@evmts/config'
 import {
@@ -11,7 +11,7 @@ import {
 	vi,
 } from 'vitest'
 
-vi.mock('./compileContracts', () => ({
+vi.mock('./compileContractsSync', () => ({
 	compileContractSync: vi.fn(),
 }))
 
