@@ -11,8 +11,8 @@
 /coverage
 
 # vite
+types
 
-dist
 dist-ssr
 
 # foundry

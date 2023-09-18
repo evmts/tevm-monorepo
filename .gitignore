@@ -9,12 +9,6 @@ broadcast
 **/output
 
 # compiled output
-*/dist
-*/*/dist
-*/types
-*/*/types
-packages/*/dist
-apps/*/dist
 tmp
 /out-tsc
 **/tsconfig.tsbuildinfo
