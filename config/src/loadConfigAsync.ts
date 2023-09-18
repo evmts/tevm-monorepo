@@ -1,15 +1,21 @@
 import { type EvmtsConfig, type ResolvedConfig } from './Config'
 import { defineConfig } from './defineConfig'
-import { existsSync, readFileSync } from 'fs'
+import { fileExists as defaultFileExists } from './fileExists'
+import { readFile } from 'fs/promises'
 import { parse } from 'jsonc-parser'
 import * as path from 'path'
 
-type LoadConfig = (
+export type LoadConfigAsync = (
 	configFilePath: string,
 	logger?: Pick<typeof console, 'error' | 'warn'>,
-) => ResolvedConfig
+	fileExists?: typeof defaultFileExists,
+) => Promise<ResolvedConfig>
 
-export const loadConfig: LoadConfig = (configFilePath, logger = console) => {
+export const loadConfigAsync: LoadConfigAsync = async (
+	configFilePath,
+	logger = console,
+	fileExists = defaultFileExists,
+) => {
 	/**
 	 * evmts.config.ts currently doesn't work for ts-plugin because it is not syncronous
 	 * for now load config will load from tsconfig instead until fixed
@@ -18,9 +24,9 @@ export const loadConfig: LoadConfig = (configFilePath, logger = console) => {
 	const jsConfigPath = path.join(configFilePath, 'jsconfig.json')
 	let configStr
 	try {
-		configStr = existsSync(jsConfigPath)
-			? readFileSync(jsConfigPath, 'utf8')
-			: readFileSync(tsConfigPath, 'utf8')
+		configStr = (await fileExists(jsConfigPath))
+			? await readFile(jsConfigPath, 'utf8')
+			: await readFile(tsConfigPath, 'utf8')
 	} catch (error) {
 		logger.error(error)
 		throw new Error(

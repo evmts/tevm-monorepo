@@ -1,7 +1,7 @@
 import * as packageJson from '../package.json'
 import { bundler } from './bundler'
 import { unpluginFn } from './unplugin'
-import { loadConfig } from '@evmts/config'
+import { loadConfigAsync } from '@evmts/config'
 import { existsSync } from 'fs'
 import { createRequire } from 'module'
 import type { UnpluginBuildContext, UnpluginContext } from 'unplugin'
@@ -22,7 +22,7 @@ vi.mock('module', async () => ({
 
 vi.mock('@evmts/config', async () => ({
 	...((await vi.importActual('@evmts/config')) as {}),
-	loadConfig: vi.fn(),
+	loadConfigAsync: vi.fn(),
 }))
 vi.mock('./bundler', () => ({
 	bundler: vi.fn(),
@@ -36,7 +36,7 @@ vi.mock('fs', async () => ({
 const mockExistsSync = existsSync as Mock
 
 const mockBundler = bundler as Mock
-const mockLoadConfig = loadConfig as Mock
+const mockLoadConfig = loadConfigAsync as Mock
 mockBundler.mockReturnValue({
 	resolveEsmModule: vi.fn(),
 })
@@ -79,7 +79,7 @@ describe('unpluginFn', () => {
 		// call buildstart with mockPlugin as this
 		await plugin.buildStart?.call(mockPlugin)
 
-		expect(loadConfig).toHaveBeenCalledWith(mockCwd)
+		expect(loadConfigAsync).toHaveBeenCalledWith(mockCwd)
 		expect((bundler as Mock).mock.lastCall).toMatchInlineSnapshot(`
 			[
 			  {
