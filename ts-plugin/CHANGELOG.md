@@ -1,5 +1,20 @@
 # @evmts/ts-plugin
 
+## 0.10.0
+
+### Patch Changes
+
+- [#466](https://github.com/evmts/evmts-monorepo/pull/466) [`1c4cbd2`](https://github.com/evmts/evmts-monorepo/commit/1c4cbd2b87abd1c2174fb0d2e7a684367e074440) Thanks [@roninjin10](https://github.com/roninjin10)! - Updated @evmts/ts-plugin to use LSP to get files
+
+  Previously EVMts relied on `fs.readFileSync` to implement the LSP. By replacing this with using `typescriptLanguageServer.readFile` we are able to rely on the LSP to get the file instead of the file system
+
+  In future versions of EVMts when we add a vscode plugin this will make the LSP smart enough to update before the user even clicks `save`
+
+- [#418](https://github.com/evmts/evmts-monorepo/pull/418) [`fbf8f49`](https://github.com/evmts/evmts-monorepo/commit/fbf8f4907d942b0a1aecdb781dcaf748d806a9aa) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug with LSP potentially not resolving EVMts correctly in nested node module
+
+- Updated dependencies [[`dbc2da6`](https://github.com/evmts/evmts-monorepo/commit/dbc2da6092eae3a7ec2d2519ea8c04505aa911f6), [`1c4cbd2`](https://github.com/evmts/evmts-monorepo/commit/1c4cbd2b87abd1c2174fb0d2e7a684367e074440), [`e99fcd0`](https://github.com/evmts/evmts-monorepo/commit/e99fcd09e530a58fddb0d3fa19be0f5439e74f30), [`cb83c0c`](https://github.com/evmts/evmts-monorepo/commit/cb83c0c81fae63decd7bbdb79b9c3cce2c7e0b8e)]:
+  - @evmts/bundler@0.10.0
+
 ## 0.9.0
 
 ### Patch Changes

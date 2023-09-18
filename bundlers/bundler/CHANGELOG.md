@@ -1,5 +1,36 @@
 # @evmts/core
 
+## 0.10.0
+
+### Patch Changes
+
+- [#469](https://github.com/evmts/evmts-monorepo/pull/469) [`dbc2da6`](https://github.com/evmts/evmts-monorepo/commit/dbc2da6092eae3a7ec2d2519ea8c04505aa911f6) Thanks [@roninjin10](https://github.com/roninjin10)! - Made @evmts/config loading async
+
+- [#466](https://github.com/evmts/evmts-monorepo/pull/466) [`1c4cbd2`](https://github.com/evmts/evmts-monorepo/commit/1c4cbd2b87abd1c2174fb0d2e7a684367e074440) Thanks [@roninjin10](https://github.com/roninjin10)! - Updated @evmts/bundler to take a fileAccessObject as a parameter
+
+  ### Context
+
+  @evmts/bundler is the internal bundler for all other bundlers and the language server. We changed it to take fileAccessObject as a parameter instead of using `fs` and `fs/promises`
+
+  ### Impact
+
+  By taking in a file-access-object instead of using `fs` we can implement important features.
+
+  - the ability to use virtual files in the typescript lsp before the user saves the file.
+  - the ability to use more peformant bun file read methods
+
+- [#468](https://github.com/evmts/evmts-monorepo/pull/468) [`e99fcd0`](https://github.com/evmts/evmts-monorepo/commit/e99fcd09e530a58fddb0d3fa19be0f5439e74f30) Thanks [@roninjin10](https://github.com/roninjin10)! - Improved peformance of bundler via enabling async mode
+
+  Previously all bundlers including the Bun bundler ran with syncronous IO such as readFileSync. With the introduction of async mode the bundler now is more non blocking when it is bundling now. Solc is still syncronous but all IO is now async.
+
+  @evmts/bundler now takes a File-Access-Object as a param. This FileAccessObject is the same shape as `node:fs` module. Bun uses this generic interace to use native Bun file access.
+
+- [#475](https://github.com/evmts/evmts-monorepo/pull/475) [`cb83c0c`](https://github.com/evmts/evmts-monorepo/commit/cb83c0c81fae63decd7bbdb79b9c3cce2c7e0b8e) Thanks [@roninjin10](https://github.com/roninjin10)! - Added snapshot test of vite bundler build outputs
+
+- Updated dependencies [[`dbc2da6`](https://github.com/evmts/evmts-monorepo/commit/dbc2da6092eae3a7ec2d2519ea8c04505aa911f6), [`cb83c0c`](https://github.com/evmts/evmts-monorepo/commit/cb83c0c81fae63decd7bbdb79b9c3cce2c7e0b8e)]:
+  - @evmts/config@0.10.0
+  - @evmts/core@0.10.0
+
 ## 0.9.0
 
 ### Patch Changes
