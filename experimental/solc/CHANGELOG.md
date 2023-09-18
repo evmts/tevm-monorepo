@@ -1,5 +1,13 @@
 # @evmts/core
 
+## 0.10.0
+
+### Patch Changes
+
+- Updated dependencies [[`dbc2da6`](https://github.com/evmts/evmts-monorepo/commit/dbc2da6092eae3a7ec2d2519ea8c04505aa911f6), [`cb83c0c`](https://github.com/evmts/evmts-monorepo/commit/cb83c0c81fae63decd7bbdb79b9c3cce2c7e0b8e)]:
+  - @evmts/config@0.10.0
+  - @evmts/core@0.10.0
+
 ## 0.7.1
 
 ### Patch Changes

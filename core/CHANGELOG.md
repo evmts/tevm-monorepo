@@ -1,5 +1,11 @@
 # @evmts/core
 
+## 0.10.0
+
+### Patch Changes
+
+- [#475](https://github.com/evmts/evmts-monorepo/pull/475) [`cb83c0c`](https://github.com/evmts/evmts-monorepo/commit/cb83c0c81fae63decd7bbdb79b9c3cce2c7e0b8e) Thanks [@roninjin10](https://github.com/roninjin10)! - Added snapshot test of vite bundler build outputs
+
 ## 0.8.1
 
 ### Patch Changes

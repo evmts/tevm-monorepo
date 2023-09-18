@@ -1,5 +1,18 @@
 # @evmts/cli
 
+## 0.10.0
+
+### Minor Changes
+
+- [#398](https://github.com/evmts/evmts-monorepo/pull/398) [`bd4f456`](https://github.com/evmts/evmts-monorepo/commit/bd4f4563e1c6f3203df5d8042a30082f7f739f68) Thanks [@roninjin10](https://github.com/roninjin10)! - Added install command to install contracts from etherscan
+
+### Patch Changes
+
+- Updated dependencies [[`dbc2da6`](https://github.com/evmts/evmts-monorepo/commit/dbc2da6092eae3a7ec2d2519ea8c04505aa911f6), [`1c4cbd2`](https://github.com/evmts/evmts-monorepo/commit/1c4cbd2b87abd1c2174fb0d2e7a684367e074440), [`e99fcd0`](https://github.com/evmts/evmts-monorepo/commit/e99fcd09e530a58fddb0d3fa19be0f5439e74f30), [`cb83c0c`](https://github.com/evmts/evmts-monorepo/commit/cb83c0c81fae63decd7bbdb79b9c3cce2c7e0b8e)]:
+  - @evmts/bundler@0.10.0
+  - @evmts/config@0.10.0
+  - @evmts/core@0.10.0
+
 ## 0.9.0
 
 ### Patch Changes
