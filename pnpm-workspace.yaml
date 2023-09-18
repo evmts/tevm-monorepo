@@ -10,4 +10,5 @@ packages:
   - "experimental/*"
   - "ts-plugin"
   - "tsconfig"
+  - "viem"
 

@@ -103,7 +103,7 @@ const evmtsUnplugin = createUnplugin(unpluginFn)
 // Hacks to make types portable
 // we should manually type these at some point
 
-export const vitePluginEvmts = evmtsUnplugin.vite as typeof evmtsUnplugin.rollup
+export const vitePluginEvmts = evmtsUnplugin.vite as any as typeof evmtsUnplugin.rollup
 export const rollupPluginEvmts = evmtsUnplugin.rollup
 export const esbuildPluginEvmts = evmtsUnplugin.esbuild
 export const webpackPluginEvmts =
