@@ -1,10 +1,10 @@
-import type { ResolvedConfig } from '@evmts/config'
-import resolve from 'resolve'
-import type { Node } from 'solidity-ast/node'
 import type { FileAccessObject, Logger, ModuleInfo } from '../types'
 import { invariant } from '../utils/invariant'
+import { resolvePromise } from '../utils/resolvePromise'
 import { moduleFactory } from './moduleFactory'
 import { type SolcInputDescription, type SolcOutput, solcCompile } from './solc'
+import type { ResolvedConfig } from '@evmts/config'
+import type { Node } from 'solidity-ast/node'
 
 // Compile the Solidity contract and return its ABI
 export const compileContract = async <TIncludeAsts = boolean>(
@@ -13,7 +13,7 @@ export const compileContract = async <TIncludeAsts = boolean>(
 	config: ResolvedConfig['compiler'],
 	includeAst: TIncludeAsts,
 	fao: FileAccessObject,
-	logger: Logger
+	logger: Logger,
 ): Promise<{
 	artifacts: SolcOutput['contracts'][string] | undefined
 	modules: Record<'string', ModuleInfo>
@@ -23,42 +23,11 @@ export const compileContract = async <TIncludeAsts = boolean>(
 }> => {
 	const entryModule = await moduleFactory(
 		filePath,
-		await fao.readFile(
-			await new Promise<string>((promiseResolve, promiseReject) =>
-				resolve(filePath, {
-					basedir,
-					readFile: (file, cb) => {
-						fao.readFile(file, 'utf8')
-							.then(file => {
-								cb(null, file)
-							}).catch(e => {
-								cb(e)
-							})
-					},
-					isFile: (file, cb) => {
-						try {
-							cb(null, fao.existsSync(file))
-						} catch (e) {
-							cb(e as Error)
-							logger.error(e as any)
-							logger.error(`Error checking if isFile ${file}`)
-							throw e
-						}
-					}
-
-				}, (err, res) => {
-					if (err) {
-						logger.error(err as any)
-						logger.error(`there was an error resolving ${filePath}`)
-						promiseReject(err)
-					} else {
-						promiseResolve(res as string)
-					}
-				})),
-			'utf8',
-		).then((code) => {
-			return code
-		}),
+		await fao
+			.readFile(await resolvePromise(filePath, basedir, fao, logger), 'utf8')
+			.then((code) => {
+				return code
+			}),
 		config.remappings,
 		config.libs,
 		fao,
@@ -66,7 +35,6 @@ export const compileContract = async <TIncludeAsts = boolean>(
 
 	const modules: Record<string, ModuleInfo> = {}
 
-	// Get modules by recursively resolving dependencies
 	const stack = [entryModule]
 	while (stack.length !== 0) {
 		const m = stack.pop()

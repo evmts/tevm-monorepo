@@ -1,5 +1,6 @@
 import type { FileAccessObject, ModuleInfo } from '../types'
 import { compileContractSync } from './compileContractsSync'
+import { moduleFactorySync } from './moduleFactorySync'
 import type { ResolvedConfig } from '@evmts/config'
 import * as resolve from 'resolve'
 // TODO wrap this in a typesafe version
@@ -7,15 +8,14 @@ import * as resolve from 'resolve'
 import solc from 'solc'
 import {
 	type Mock,
+	type MockedFunction,
 	afterEach,
 	beforeEach,
 	describe,
 	expect,
 	it,
 	vi,
-	type MockedFunction,
 } from 'vitest'
-import { moduleFactorySync } from './moduleFactorySync'
 
 // Mock the necessary functions and modules
 vi.mock('resolve', () => ({ sync: vi.fn() }))
@@ -192,7 +192,9 @@ describe('compileContractSync', () => {
 			}
 		`)
 		expect(fao.readFileSync).toBeCalledWith(filePath, 'utf8')
-		expect((resolve.sync as MockedFunction<any>).mock.lastCall).toMatchInlineSnapshot(`
+		expect(
+			(resolve.sync as MockedFunction<any>).mock.lastCall,
+		).toMatchInlineSnapshot(`
 			[
 			  "test/path",
 			  {
@@ -311,7 +313,9 @@ describe('compileContractSync', () => {
 			}
 		`)
 		expect(fao.readFileSync).toBeCalledWith(filePath, 'utf8')
-		expect((resolve.sync as MockedFunction<any>).mock.lastCall).toMatchInlineSnapshot(`
+		expect(
+			(resolve.sync as MockedFunction<any>).mock.lastCall,
+		).toMatchInlineSnapshot(`
 			[
 			  "test/path",
 			  {

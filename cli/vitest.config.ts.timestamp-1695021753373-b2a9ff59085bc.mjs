@@ -1,0 +1,17 @@
+// cli/vitest.config.ts
+import { defineConfig } from 'file:///Users/willcory/evmts-monorepo/node_modules/.pnpm/vitest@0.34.4_@vitest+ui@0.34.4/node_modules/vitest/dist/config.js'
+const vitest_config_default = defineConfig({
+	test: {
+		include: ['src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
+		coverage: {
+			reporter: ['text', 'json-summary', 'json'],
+			lines: 50,
+			functions: 50,
+			branches: 50,
+			statements: 50,
+			thresholdAutoUpdate: true,
+		},
+	},
+})
+export { vitest_config_default as default }
+//# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAic291cmNlcyI6IFsiY2xpL3ZpdGVzdC5jb25maWcudHMiXSwKICAic291cmNlc0NvbnRlbnQiOiBbImNvbnN0IF9fdml0ZV9pbmplY3RlZF9vcmlnaW5hbF9kaXJuYW1lID0gXCIvVXNlcnMvd2lsbGNvcnkvZXZtdHMtbW9ub3JlcG8vY2xpXCI7Y29uc3QgX192aXRlX2luamVjdGVkX29yaWdpbmFsX2ZpbGVuYW1lID0gXCIvVXNlcnMvd2lsbGNvcnkvZXZtdHMtbW9ub3JlcG8vY2xpL3ZpdGVzdC5jb25maWcudHNcIjtjb25zdCBfX3ZpdGVfaW5qZWN0ZWRfb3JpZ2luYWxfaW1wb3J0X21ldGFfdXJsID0gXCJmaWxlOi8vL1VzZXJzL3dpbGxjb3J5L2V2bXRzLW1vbm9yZXBvL2NsaS92aXRlc3QuY29uZmlnLnRzXCI7aW1wb3J0IHsgZGVmaW5lQ29uZmlnIH0gZnJvbSAndml0ZXN0L2NvbmZpZydcblxuLy8gaHR0cHM6Ly92aXRlc3QuZGV2L2NvbmZpZy8gLSBmb3IgZG9jc1xuZXhwb3J0IGRlZmF1bHQgZGVmaW5lQ29uZmlnKHtcblx0dGVzdDoge1xuXHRcdGluY2x1ZGU6IFsnc3JjLyoqLyoue3Rlc3Qsc3BlY30ue2pzLG1qcyxjanMsdHMsbXRzLGN0cyxqc3gsdHN4fSddLFxuXHRcdGNvdmVyYWdlOiB7XG5cdFx0XHRyZXBvcnRlcjogWyd0ZXh0JywgJ2pzb24tc3VtbWFyeScsICdqc29uJ10sXG5cdFx0XHRsaW5lczogNTAsXG5cdFx0XHRmdW5jdGlvbnM6IDUwLFxuXHRcdFx0YnJhbmNoZXM6IDUwLFxuXHRcdFx0c3RhdGVtZW50czogNTAsXG5cdFx0XHR0aHJlc2hvbGRBdXRvVXBkYXRlOiB0cnVlLFxuXHRcdH0sXG5cdH0sXG59KVxuIl0sCiAgIm1hcHBpbmdzIjogIjtBQUE0UixTQUFTLG9CQUFvQjtBQUd6VCxJQUFPLHdCQUFRLGFBQWE7QUFBQSxFQUMzQixNQUFNO0FBQUEsSUFDTCxTQUFTLENBQUMsc0RBQXNEO0FBQUEsSUFDaEUsVUFBVTtBQUFBLE1BQ1QsVUFBVSxDQUFDLFFBQVEsZ0JBQWdCLE1BQU07QUFBQSxNQUN6QyxPQUFPO0FBQUEsTUFDUCxXQUFXO0FBQUEsTUFDWCxVQUFVO0FBQUEsTUFDVixZQUFZO0FBQUEsTUFDWixxQkFBcUI7QUFBQSxJQUN0QjtBQUFBLEVBQ0Q7QUFDRCxDQUFDOyIsCiAgIm5hbWVzIjogW10KfQo=

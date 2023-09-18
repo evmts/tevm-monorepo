@@ -30,7 +30,14 @@ export const resolveArtifacts = async (
 		throw new Error('Not a solidity file')
 	}
 	const { artifacts, modules, asts, solcInput, solcOutput } =
-		await compileContract(solFile, basedir, config.compiler, includeAst, fao, logger)
+		await compileContract(
+			solFile,
+			basedir,
+			config.compiler,
+			includeAst,
+			fao,
+			logger,
+		)
 
 	if (!artifacts) {
 		logger.error(`Compilation failed for ${solFile}`)

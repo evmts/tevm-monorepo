@@ -26,7 +26,7 @@ export const compileContractSync = <TIncludeAsts = boolean>(
 			resolve.sync(filePath, {
 				basedir,
 				readFileSync: (file) => fao.readFileSync(file, 'utf8'),
-				isFile: fao.existsSync
+				isFile: fao.existsSync,
 			}),
 			'utf8',
 		),

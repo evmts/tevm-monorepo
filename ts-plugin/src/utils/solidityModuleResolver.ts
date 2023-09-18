@@ -30,10 +30,10 @@ export const solidityModuleResolver = (
 
 	// to handle the case where the import is coming from a node_module or a different workspace
 	// we need to always point @evmts/core to the local version
-	if (moduleName.startsWith('@evmts/core') &&
+	if (
+		moduleName.startsWith('@evmts/core') &&
 		!moduleName.startsWith(process.cwd()) &&
 		!containingFile.includes('node_modules')
-
 	) {
 		return {
 			extension: ts.Extension.Dts,

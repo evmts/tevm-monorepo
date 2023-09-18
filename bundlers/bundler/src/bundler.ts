@@ -12,37 +12,33 @@ export const bundler: Bundler = (config, logger, fao) => {
 		name: bundler.name,
 		config,
 		resolveDts: async (modulePath, basedir, includeAst) => {
-			const { solcInput, solcOutput, artifacts, modules, asts } =
-				await resolveArtifacts(
-					modulePath,
-					basedir,
-					logger,
-					config,
-					includeAst,
-					fao,
-				).catch((e) => {
-					logger.error('there was an error in evmts plugin resolving .dts')
-					throw e
-				})
-			if (artifacts) {
-				const evmtsImports = `import { EvmtsContract } from '@evmts/core'`
-				let evmtsBody: string
-				try {
-					evmtsBody = generateDtsBody(artifacts, config)
-				} catch (e) {
-					logger.error(e as any)
-					logger.error('there was an error in evmts plugin generating .dts')
-					throw e
+			try {
+				const { solcInput, solcOutput, artifacts, modules, asts } =
+					await resolveArtifacts(
+						modulePath,
+						basedir,
+						logger,
+						config,
+						includeAst,
+						fao,
+					)
+				if (artifacts) {
+					const evmtsImports = `import { EvmtsContract } from '@evmts/core'`
+					const evmtsBody = generateDtsBody(artifacts, config)
+					return {
+						solcInput,
+						solcOutput,
+						asts,
+						code: [evmtsImports, evmtsBody].join('\n'),
+						modules,
+					}
 				}
-				return {
-					solcInput,
-					solcOutput,
-					asts,
-					code: [evmtsImports, evmtsBody].join('\n'),
-					modules,
-				}
+				return { solcInput, solcOutput, code: '', modules, asts }
+			} catch (e) {
+				logger.error(e as any)
+				logger.error('there was an error in evmts plugin generating .dts')
+				throw e
 			}
-			return { solcInput, solcOutput, code: '', modules, asts }
 		},
 		resolveDtsSync: (modulePath, basedir, includeAst) => {
 			try {
