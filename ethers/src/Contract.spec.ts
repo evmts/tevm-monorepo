@@ -1,6 +1,5 @@
-import { createEthersContract } from './createEthersContract'
-import { evmtsContractFactory } from '@evmts/core'
-import { Contract, JsonRpcProvider } from 'ethers'
+import { Contract } from './Contract'
+import { JsonRpcProvider, ethers } from 'ethers'
 import { assertType, describe, expect, expectTypeOf, test } from 'vitest'
 
 const abi = [
@@ -205,20 +204,15 @@ const abi = [
 	},
 ] as const
 
-const evmtsContract = evmtsContractFactory({
-	abi,
-	name: 'test',
-	addresses: { 420: '0x32307adfFE088e383AFAa721b06436aDaBA47DBE' },
-})
-
 const provider = new JsonRpcProvider('https://goerli.optimism.io', 420)
+const addresses = { 420: '0x32307adfFE088e383AFAa721b06436aDaBA47DBE' } as const
 
-describe(createEthersContract.name, () => {
+describe('ethers.Contract', () => {
 	test('Should be typesafe with return types', async () => {
-		const c = createEthersContract(evmtsContract, {
-			chainId: 420,
-			runner: provider,
-		})
+		const c = new Contract(addresses[420], abi, provider)
+
+		assertType<ethers.Contract>(c)
+
 		expectTypeOf(await c.name()).toBeString()
 		expectTypeOf(await c.symbol()).toBeString()
 		expectTypeOf(await c.decimals()).toBeNumber()
@@ -226,34 +220,38 @@ describe(createEthersContract.name, () => {
 	})
 
 	test('Should be typesafe with arguments', async () => {
-		const c = createEthersContract(evmtsContract, {
-			chainId: 420,
-			runner: provider,
-		})
-		assertType<Parameters<typeof c.totalSupply>>([])
-		assertType<
-			Parameters<typeof c.totalSupply>
-		>([{ blockTag: 234324, chainId: 25 }])
-		assertType<Parameters<typeof c.balanceOf>>([evmtsContract.addresses[420]])
-		assertType<
-			Parameters<typeof c.balanceOf>
-		>([evmtsContract.addresses[420], { blockTag: 234324, chainId: 25 }])
-		assertType<Parameters<typeof c.mint>>(['0x2342', 234234n])
-		assertType<
-			Parameters<typeof c.mint>
-		>(['0x234234', 234234n, { blockTag: 234324, chainId: 25 }])
+		const c = new Contract(addresses[420], abi, provider)
 
+		assertType<Parameters<typeof c.totalSupply>>([])
+		assertType<Parameters<typeof c.totalSupply>>([
+			{ blockTag: 234324, chainId: 25 },
+		])
+		assertType<Parameters<typeof c.balanceOf>>([addresses[420]])
+		assertType<Parameters<typeof c.balanceOf>>([
+			addresses[420],
+			{ blockTag: 234324, chainId: 25 },
+		])
+		assertType<Parameters<typeof c.mint>>(['0x2342', 234234n])
+		assertType<Parameters<typeof c.mint>>([
+			'0x234234',
+			234234n,
+			{
+				blockTag: 234324,
+				chainId: 25,
+				gasLimit: BigInt(420),
+				value: BigInt(420),
+			},
+		])
+
+		// Types should throw
 		// @ts-expect-error
 		assertType<Parameters<typeof c.totalSupply>>(['0x234234'])
 		// @ts-expect-error
-		assertType<Parameters<typeof c.mint>>(['random string'])
+		assertType<Parameters<typeof c.mint>>(['should be an address', BigInt(420)])
 	})
 
-	test('should work with chainId and evmts contract addresses', async () => {
-		const c = createEthersContract(evmtsContract, {
-			chainId: 420,
-			runner: provider,
-		})
+	test('should work', async () => {
+		const c = new Contract(addresses[420], abi, provider)
 		expect(c).toBeInstanceOf(Contract)
 		expect(await c.name({ blockTag: 12865720 })).toMatchInlineSnapshot(
 			'"OptimismUselessToken-1"',
@@ -273,10 +271,7 @@ describe(createEthersContract.name, () => {
 	})
 
 	test('should work with custom address', async () => {
-		const c = createEthersContract(evmtsContract, {
-			address: evmtsContract.addresses[420],
-			runner: provider,
-		})
+		const c = new Contract(addresses[420], abi, provider)
 		expect(c).toBeInstanceOf(Contract)
 		expect(await c.name({ blockTag: 12865720 })).toMatchInlineSnapshot(
 			'"OptimismUselessToken-1"',
@@ -296,11 +291,7 @@ describe(createEthersContract.name, () => {
 	})
 
 	test('should work with custom address with chainId supplied even though the chainId is unnecessary', async () => {
-		const c = createEthersContract(evmtsContract, {
-			address: evmtsContract.addresses[420],
-			chainId: 420,
-			runner: provider,
-		})
+		const c = new Contract(addresses[420], abi, provider)
 		expect(c).toBeInstanceOf(Contract)
 		expect(await c.name({ blockTag: 12865720 })).toMatchInlineSnapshot(
 			'"OptimismUselessToken-1"',
@@ -317,54 +308,5 @@ describe(createEthersContract.name, () => {
 		expect(
 			await c.balanceOf('0x32307adfFE088e383AFAa721b06436aDaBA47DBE'),
 		).toMatchInlineSnapshot('0n')
-	})
-
-	test('should throw an error if no chainId or address provided', () => {
-		expect(() =>
-			// @ts-expect-error
-			createEthersContract(evmtsContract, { runner: provider }),
-		).toThrowErrorMatchingInlineSnapshot('"No chainId or address provided"')
-		expect(() =>
-			createEthersContract(evmtsContract, {
-				runner: provider,
-				address: undefined,
-				// @ts-expect-error
-				chainId: undefined,
-			}),
-		).toThrowErrorMatchingInlineSnapshot('"No chainId or address provided"')
-	})
-
-	test('should throw an error if not a valid ethereum address', () => {
-		const invalidContract = {
-			abi,
-			name: 'test',
-			addresses: { 420: '0xnot an ethereum address' },
-		} as const
-		expect(() =>
-			createEthersContract(invalidContract, { runner: provider, chainId: 420 }),
-		).toThrowErrorMatchingInlineSnapshot(
-			'"\\"0xnot an ethereum address\\" is not a valid ethereum address"',
-		)
-		expect(() =>
-			createEthersContract(invalidContract, {
-				runner: provider,
-				address: invalidContract.addresses[420],
-			}),
-		).toThrowErrorMatchingInlineSnapshot(
-			'"\\"0xnot an ethereum address\\" is not a valid ethereum address"',
-		)
-	})
-	test('should throw an error if no address is supplied and no default exists for that chainId', () => {
-		const invalidContract = {
-			abi,
-			name: 'test',
-			addresses: { 420: '0xnot an ethereum address' },
-		} as const
-		expect(() =>
-			// @ts-expect-error
-			createEthersContract(invalidContract, { runner: provider, chainId: 1 }),
-		).toThrowErrorMatchingInlineSnapshot(
-			'"No address prop supplied and no default address exists for chainId 1"',
-		)
 	})
 })

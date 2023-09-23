@@ -1,6 +1,7 @@
 import { ConnectButton } from '@rainbow-me/rainbowkit'
 import { useAccount } from 'wagmi'
 
+import { EthersExample } from './EthersExample'
 import { WagmiEvents } from './wagmi/WagmiEvents'
 import { WagmiReads } from './wagmi/WagmiReads'
 import { WagmiWrites } from './wagmi/WagmiWrites'
@@ -17,6 +18,7 @@ export function App() {
 		reads: <WagmiReads />,
 		writes: <WagmiWrites />,
 		events: <WagmiEvents />,
+		ethers: <EthersExample />,
 	} as const
 
 	return (
