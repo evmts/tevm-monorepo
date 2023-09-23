@@ -36,6 +36,4 @@ export type BaseContractMethod<
 	staticCallResult: (...args: ContractMethodArgs<TArguments>) => Promise<Result>
 
 	readonly fragment: FunctionFragment
-} & ((
-	...args: ContractMethodArgs<TArguments>
-) => Promise<TReturnType | TExtendedReturnType>)
+}
