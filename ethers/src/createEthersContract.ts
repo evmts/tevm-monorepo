@@ -1,13 +1,8 @@
+import { Contract } from './Contract'
 import type { TypesafeEthersContract } from './TypesafeEthersContract'
 import type { EvmtsContract } from '@evmts/core'
 import type { Abi, Address } from 'abitype'
-import {
-	Contract,
-	type ContractRunner,
-	Interface,
-	type InterfaceAbi,
-	isAddress,
-} from 'ethers'
+import { type ContractRunner, isAddress } from 'ethers'
 
 export type CreateEthersContractOptions<TChainIds extends number> =
 	| {
@@ -69,9 +64,5 @@ export const createEthersContract = <
 	if (!isAddress(address)) {
 		throw new Error(`"${address}" is not a valid ethereum address`)
 	}
-	return new Contract(
-		address,
-		new Interface(contract.abi as InterfaceAbi),
-		options.runner,
-	) as TypesafeEthersContract<TAbi>
+	return new Contract(address, contract.abi, options.runner)
 }
