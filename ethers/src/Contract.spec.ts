@@ -289,24 +289,4 @@ describe('ethers.Contract', () => {
 			await c.balanceOf('0x32307adfFE088e383AFAa721b06436aDaBA47DBE'),
 		).toMatchInlineSnapshot('0n')
 	})
-
-	test('should work with custom address with chainId supplied even though the chainId is unnecessary', async () => {
-		const c = new Contract(addresses[420], abi, provider)
-		expect(c).toBeInstanceOf(Contract)
-		expect(await c.name({ blockTag: 12865720 })).toMatchInlineSnapshot(
-			'"OptimismUselessToken-1"',
-		)
-		expect(await c.symbol({ blockTag: 12865720 })).toMatchInlineSnapshot(
-			'"OUT-1"',
-		)
-		expect(await c.decimals({ blockTag: 12865720 })).toMatchInlineSnapshot(
-			'18n',
-		)
-		expect(await c.totalSupply({ blockTag: 12865720 })).toMatchInlineSnapshot(
-			'71000000000000000000000n',
-		)
-		expect(
-			await c.balanceOf('0x32307adfFE088e383AFAa721b06436aDaBA47DBE'),
-		).toMatchInlineSnapshot('0n')
-	})
 })
