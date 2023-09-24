@@ -1,5 +1,11 @@
 # @evmts/ethers
 
+## 0.11.1
+
+### Patch Changes
+
+- [#481](https://github.com/evmts/evmts-monorepo/pull/481) [`93b222f`](https://github.com/evmts/evmts-monorepo/commit/93b222f909e0a5e90826a20391a504bd677a7d35) Thanks [@roninjin10](https://github.com/roninjin10)! - Updated evmts ethers method to use the new typesafe contract with typesafe events and some bug fixes
+
 ## 0.11.0
 
 ### Minor Changes
