@@ -1,4 +1,5 @@
 import { getDefaultWallets } from '@rainbow-me/rainbowkit'
+import { type QueryClient } from '@tanstack/react-query'
 import { configureChains, createConfig } from 'wagmi'
 import { mainnet, optimismGoerli } from 'wagmi/chains'
 import { jsonRpcProvider } from 'wagmi/providers/jsonRpc'
@@ -26,11 +27,13 @@ const { connectors } = getDefaultWallets({
 	projectId: walletConnectProjectId,
 })
 
-export const config = createConfig({
-	autoConnect: true,
-	connectors,
-	publicClient,
-	webSocketPublicClient,
-})
+export const config = (queryClient: QueryClient) =>
+	createConfig({
+		autoConnect: true,
+		connectors,
+		publicClient,
+		webSocketPublicClient,
+		queryClient,
+	})
 
 export { chains }

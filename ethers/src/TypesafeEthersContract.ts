@@ -5,15 +5,32 @@ import type {
 	ExtractAbiFunction,
 	ExtractAbiFunctionNames,
 } from 'abitype'
-// TODO import in more code splittable way once first version of this is done
-// doing this just to move faster for now with that sweet sweet intellisense
+import type { ContractTransactionResponse } from 'ethers'
 import type { BaseContract } from 'ethers'
 
 export type TypesafeEthersContract<TAbi extends Abi> = BaseContract & {
+	// readonly methods
+	[TFunctionName in
+		ExtractAbiFunctionNames<TAbi, 'pure' | 'view'>]: BaseContractMethod<
+		AbiParametersToPrimitiveTypes<
+			ExtractAbiFunction<TAbi, TFunctionName>['inputs']
+		> &
+			any[],
+		// this is not a super robust way of doing this but should work for an initial release
+		// this likely will have rough edges in non happy cases like the abi not being readable as const
+		AbiParametersToPrimitiveTypes<
+			ExtractAbiFunction<TAbi, TFunctionName>['outputs']
+		>[0],
+		AbiParametersToPrimitiveTypes<
+			ExtractAbiFunction<TAbi, TFunctionName>['outputs']
+		>[0]
+	>
+} & {
+	// write methods
 	[TFunctionName in
 		ExtractAbiFunctionNames<
 			TAbi,
-			'pure' | 'view' | 'nonpayable' | 'payable'
+			'nonpayable' | 'payable'
 		>]: BaseContractMethod<
 		AbiParametersToPrimitiveTypes<
 			ExtractAbiFunction<TAbi, TFunctionName>['inputs']
@@ -23,6 +40,7 @@ export type TypesafeEthersContract<TAbi extends Abi> = BaseContract & {
 		// this likely will have rough edges in non happy cases like the abi not being readable as const
 		AbiParametersToPrimitiveTypes<
 			ExtractAbiFunction<TAbi, TFunctionName>['outputs']
-		>[0]
+		>[0],
+		ContractTransactionResponse
 	>
 }
