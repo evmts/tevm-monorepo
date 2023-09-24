@@ -1,5 +1,17 @@
 # @evmts/ethers
 
+## 0.11.0
+
+### Minor Changes
+
+- [#479](https://github.com/evmts/evmts-monorepo/pull/479) [`2ac0b12`](https://github.com/evmts/evmts-monorepo/commit/2ac0b12b34ede63aac3dc1d7b698b61dfd42a5ee) Thanks [@roninjin10](https://github.com/roninjin10)! - Add typesafe event inputs. The input type will have autocomplete but still is widened to accept the ethers type. The return type is extremely difficult to override to being generic
+
+- [#477](https://github.com/evmts/evmts-monorepo/pull/477) [`77ebd92`](https://github.com/evmts/evmts-monorepo/commit/77ebd92c8ca6c6d1c368b680624e740cfc0bd8df) Thanks [@roninjin10](https://github.com/roninjin10)! - Added Contract extends ethers.Contract class that 100% matches the real ethers.Contract. This class actually doesn't use EVMts at all and is meant to be upstreamed to ethers.js
+
+### Patch Changes
+
+- [#477](https://github.com/evmts/evmts-monorepo/pull/477) [`77ebd92`](https://github.com/evmts/evmts-monorepo/commit/77ebd92c8ca6c6d1c368b680624e740cfc0bd8df) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug with both read and write functions returning a ContractTransactionResponse | ReturnType object
+
 ## 0.8.1
 
 ### Patch Changes
