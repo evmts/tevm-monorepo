@@ -1,6 +1,6 @@
 {
   "name": "@evmts/ethers",
-  "version": "0.8.1",
+  "version": "0.11.0",
   "private": false,
   "description": "A collection of ethers.js utilities for working with Evmts",
   "keywords": [
