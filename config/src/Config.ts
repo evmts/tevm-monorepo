@@ -10,17 +10,17 @@ export type CompilerConfig = {
 	 * @defaults "0.8.13"
 	 * @see https://www.npmjs.com/package/solc
 	 */
-	solcVersion?: string | undefined
+	solcVersion?: string
 	/**
 	 * If set to true it will resolve forge remappings and libs
 	 * Set to "path/to/forge/executable" to use a custom forge executable
 	 */
-	foundryProject?: boolean | string | undefined
+	foundryProject?: boolean | string
 	/**
 	 * Sets directories to search for solidity imports in
 	 * Read autoamtically for forge projects if forge: true
 	 */
-	libs?: string[] | undefined
+	libs?: string[]
 	/**
 	 * Remap the location of contracts
 	 */

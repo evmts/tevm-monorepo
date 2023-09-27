@@ -1,26 +1,20 @@
 import type { Artifacts } from '../solc/resolveArtifactsSync'
 import { generateDtsBody } from './generateEvmtsBodyDts'
-import type { ResolvedConfig } from '@evmts/config'
 
 type ModuleType = 'cjs' | 'mjs' | 'ts' | 'dts'
 
 export const generateEvmtsBody = (
 	artifacts: Artifacts,
-	config: ResolvedConfig,
 	moduleType: ModuleType,
 ): string => {
 	if (moduleType === 'dts') {
-		return generateDtsBody(artifacts, config)
+		return generateDtsBody(artifacts)
 	}
 	return Object.entries(artifacts)
 		.flatMap(([contractName, { abi, userdoc = {} }]) => {
 			const contract = JSON.stringify({
 				name: contractName,
 				abi,
-				addresses:
-					config.localContracts.contracts?.find(
-						(contractConfig) => contractConfig.name === contractName,
-					)?.addresses ?? {},
 			})
 
 			const natspec = Object.entries(userdoc.methods ?? {}).map(

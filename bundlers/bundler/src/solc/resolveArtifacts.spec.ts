@@ -1,7 +1,7 @@
 import type { FileAccessObject, Logger, ModuleInfo } from '../types'
 import { compileContract } from './compileContracts'
 import { resolveArtifacts } from './resolveArtifacts'
-import { type ResolvedConfig, defaultConfig } from '@evmts/config'
+import { type ResolvedCompilerConfig, defaultConfig } from '@evmts/config'
 import {
 	type MockedFunction,
 	afterEach,
@@ -29,7 +29,7 @@ const logger: Logger = {
 	warn: vi.fn(),
 	log: vi.fn(),
 }
-const config: ResolvedConfig = defaultConfig
+const config: ResolvedCompilerConfig = defaultConfig
 const contracts = {
 	Test: {
 		abi: [],

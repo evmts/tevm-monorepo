@@ -2,7 +2,7 @@ import type { FileAccessObject, ModuleInfo } from '../types'
 import { invariant } from '../utils/invariant'
 import { moduleFactorySync } from './moduleFactorySync'
 import { type SolcInputDescription, type SolcOutput, solcCompile } from './solc'
-import type { ResolvedConfig } from '@evmts/config'
+import type { ResolvedCompilerConfig } from '@evmts/config'
 import * as resolve from 'resolve'
 import type { Node } from 'solidity-ast/node'
 
@@ -10,7 +10,7 @@ import type { Node } from 'solidity-ast/node'
 export const compileContractSync = <TIncludeAsts = boolean>(
 	filePath: string,
 	basedir: string,
-	config: ResolvedConfig['compiler'],
+	config: ResolvedCompilerConfig,
 	includeAst: TIncludeAsts,
 	fao: FileAccessObject,
 ): {

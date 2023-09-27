@@ -5,7 +5,7 @@ import type {
 	SolcInputDescription,
 	SolcOutput,
 } from './solc'
-import type { ResolvedConfig } from '@evmts/config'
+import type { ResolvedCompilerConfig } from '@evmts/config'
 import type { Node } from 'solidity-ast/node'
 
 export type Artifacts = Record<
@@ -17,7 +17,7 @@ export const resolveArtifactsSync = (
 	solFile: string,
 	basedir: string,
 	logger: Logger,
-	config: ResolvedConfig,
+	config: ResolvedCompilerConfig,
 	includeAst: boolean,
 	fao: FileAccessObject,
 ): {
@@ -31,7 +31,7 @@ export const resolveArtifactsSync = (
 		throw new Error('Not a solidity file')
 	}
 	const { artifacts, modules, asts, solcInput, solcOutput } =
-		compileContractSync(solFile, basedir, config.compiler, includeAst, fao)
+		compileContractSync(solFile, basedir, config, includeAst, fao)
 
 	if (!artifacts) {
 		logger.error(`Compilation failed for ${solFile}`)

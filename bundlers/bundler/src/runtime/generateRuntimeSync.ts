@@ -1,11 +1,9 @@
 import type { Artifacts } from '../solc/resolveArtifactsSync'
 import type { Logger } from '../types'
 import { generateEvmtsBody } from './generateEvmtsBody'
-import type { ResolvedConfig } from '@evmts/config'
 
 export const generateRuntimeSync = (
 	artifacts: Artifacts,
-	config: ResolvedConfig,
 	moduleType: 'cjs' | 'mjs' | 'ts' | 'dts',
 	logger: Logger,
 ): string => {
@@ -23,6 +21,6 @@ export const generateRuntimeSync = (
 	} else {
 		throw new Error(`Unknown module type: ${moduleType}`)
 	}
-	const evmtsBody = generateEvmtsBody(artifacts, config, moduleType)
+	const evmtsBody = generateEvmtsBody(artifacts, moduleType)
 	return [evmtsImports, evmtsBody].join('\n')
 }

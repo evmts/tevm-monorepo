@@ -1,7 +1,6 @@
 import type { Artifacts } from '../solc/resolveArtifactsSync'
 import { generateEvmtsBody } from './generateEvmtsBody'
 import { generateRuntimeSync } from './generateRuntimeSync'
-import { defaultConfig } from '@evmts/config'
 import {
 	type MockedFunction,
 	beforeEach,
@@ -34,27 +33,25 @@ describe('generateRuntimeSync', () => {
 			},
 		},
 	}
-	const config = defaultConfig
-
 	beforeEach(() => {
 		vi.clearAllMocks()
 	})
 
 	it('should throw an error for unknown module types', () => {
 		expect(() =>
-			generateRuntimeSync(artifacts, config, 'invalidType' as any, mockLogger),
+			generateRuntimeSync(artifacts, 'invalidType' as any, mockLogger),
 		).toThrowErrorMatchingInlineSnapshot('"Unknown module type: invalidType"')
 	})
 
 	it('should handle no artifacts found case', () => {
-		expect(generateRuntimeSync({}, config, 'cjs', mockLogger)).toEqual('')
+		expect(generateRuntimeSync({}, 'cjs', mockLogger)).toEqual('')
 		expect(mockLogger.warn).toHaveBeenCalledWith(
 			'No artifacts found, skipping runtime generation',
 		)
 	})
 
 	it('should handle artifacts being null', () => {
-		expect(generateRuntimeSync(null as any, config, 'cjs', mockLogger)).toEqual(
+		expect(generateRuntimeSync(null as any, 'cjs', mockLogger)).toEqual(
 			'',
 		)
 		expect(mockLogger.warn).toHaveBeenCalledWith(
@@ -64,7 +61,7 @@ describe('generateRuntimeSync', () => {
 
 	it('should handle commonjs module type', () => {
 		mockGenerateEvmtsBody.mockReturnValue('mockedBody')
-		const result = generateRuntimeSync(artifacts, config, 'cjs', mockLogger)
+		const result = generateRuntimeSync(artifacts, 'cjs', mockLogger)
 		expect(result).toMatchInlineSnapshot(`
       "const { evmtsContractFactory } = require('@evmts/core')
       mockedBody"
@@ -73,7 +70,7 @@ describe('generateRuntimeSync', () => {
 
 	it('should handle dts module type', () => {
 		mockGenerateEvmtsBody.mockReturnValue('mockedBody')
-		const result = generateRuntimeSync(artifacts, config, 'dts', mockLogger)
+		const result = generateRuntimeSync(artifacts, 'dts', mockLogger)
 		expect(result).toMatchInlineSnapshot(`
       "import { EvmtsContract } from '@evmts/core'
       mockedBody"
@@ -82,7 +79,7 @@ describe('generateRuntimeSync', () => {
 
 	it('should handle ts module type', () => {
 		mockGenerateEvmtsBody.mockReturnValue('mockedBody')
-		const result = generateRuntimeSync(artifacts, config, 'ts', mockLogger)
+		const result = generateRuntimeSync(artifacts, 'ts', mockLogger)
 		expect(result).toMatchInlineSnapshot(`
       "import { evmtsContractFactory } from '@evmts/core'
       mockedBody"
@@ -91,7 +88,7 @@ describe('generateRuntimeSync', () => {
 
 	it('should handle mjs module type', () => {
 		mockGenerateEvmtsBody.mockReturnValue('mockedBody')
-		const result = generateRuntimeSync(artifacts, config, 'mjs', mockLogger)
+		const result = generateRuntimeSync(artifacts, 'mjs', mockLogger)
 		expect(result).toMatchInlineSnapshot(`
       "import { evmtsContractFactory } from '@evmts/core'
       mockedBody"

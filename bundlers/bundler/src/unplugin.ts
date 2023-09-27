@@ -1,7 +1,7 @@
 import * as packageJson from '../package.json'
 import { bundler } from './bundler'
 import type { FileAccessObject } from './types'
-import { type ResolvedConfig, loadConfigAsync } from '@evmts/config'
+import { type ResolvedCompilerConfig, loadConfigAsync } from '@evmts/config'
 import { existsSync, readFileSync } from 'fs'
 import { readFile } from 'fs/promises'
 import { createRequire } from 'module'
@@ -24,7 +24,7 @@ export const unpluginFn: UnpluginFactory<
 	{ compiler?: CompilerOption } | undefined,
 	false
 > = (options = {}) => {
-	let config: ResolvedConfig
+	let config: ResolvedCompilerConfig
 
 	// for current release we will hardcode this to solc
 	const parsedCompilerOption = compilerOptionValidator.safeParse(

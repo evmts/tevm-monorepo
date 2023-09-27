@@ -1,5 +1,5 @@
 import type { SolcInputDescription, SolcOutput } from './solc/solc'
-import type { ResolvedConfig } from '@evmts/config'
+import type { ResolvedCompilerConfig } from '@evmts/config'
 import type { Node } from 'solidity-ast/node'
 
 export type BundlerResult = {
@@ -29,7 +29,7 @@ export type SyncBundlerResult = (
 ) => BundlerResult
 
 export type Bundler = (
-	config: ResolvedConfig,
+	config: ResolvedCompilerConfig,
 	logger: Logger,
 	fao: FileAccessObject,
 ) => {
@@ -40,7 +40,7 @@ export type Bundler = (
 	/**
 	 * The configuration of the plugin.
 	 */
-	config: ResolvedConfig
+	config: ResolvedCompilerConfig
 	include?: string[]
 	exclude?: string[]
 	/**
@@ -96,7 +96,7 @@ export interface ModuleInfo {
 }
 
 export type SolidityResolver = (
-	config: ResolvedConfig,
+	config: ResolvedCompilerConfig,
 	logger: Logger,
 ) => {
 	/**
@@ -106,7 +106,7 @@ export type SolidityResolver = (
 	/**
 	 * The configuration of the plugin.
 	 */
-	config: ResolvedConfig
+	config: ResolvedCompilerConfig
 	include?: string[]
 	exclude?: string[]
 	/**

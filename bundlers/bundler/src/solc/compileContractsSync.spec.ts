@@ -1,7 +1,7 @@
 import type { FileAccessObject, ModuleInfo } from '../types'
 import { compileContractSync } from './compileContractsSync'
 import { moduleFactorySync } from './moduleFactorySync'
-import type { ResolvedConfig } from '@evmts/config'
+import type { ResolvedCompilerConfig } from '@evmts/config'
 import * as resolve from 'resolve'
 // TODO wrap this in a typesafe version
 // @ts-ignore
@@ -43,7 +43,7 @@ const fao: FileAccessObject = {
 describe('compileContractSync', () => {
 	const filePath = 'test/path'
 	const basedir = 'base/dir'
-	const config: ResolvedConfig['compiler'] = {
+	const config: ResolvedCompilerConfig = {
 		foundryProject: 'forge',
 		solcVersion: '4.2.0',
 		remappings: { 'key1/': '/path/to/key1', 'key2/': '/path/to/key2' },

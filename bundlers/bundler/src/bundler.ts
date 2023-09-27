@@ -24,7 +24,7 @@ export const bundler: Bundler = (config, logger, fao) => {
 					)
 				if (artifacts) {
 					const evmtsImports = `import { EvmtsContract } from '@evmts/core'`
-					const evmtsBody = generateDtsBody(artifacts, config)
+					const evmtsBody = generateDtsBody(artifacts)
 					return {
 						solcInput,
 						solcOutput,
@@ -53,7 +53,7 @@ export const bundler: Bundler = (config, logger, fao) => {
 					)
 				if (artifacts) {
 					const evmtsImports = `import { EvmtsContract } from '@evmts/core'`
-					const evmtsBody = generateDtsBody(artifacts, config)
+					const evmtsBody = generateDtsBody(artifacts)
 					return {
 						solcInput,
 						solcOutput,
@@ -80,7 +80,7 @@ export const bundler: Bundler = (config, logger, fao) => {
 						includeAst,
 						fao,
 					)
-				const code = generateRuntimeSync(artifacts, config, 'ts', logger)
+				const code = generateRuntimeSync(artifacts, 'ts', logger)
 				return { code, modules, solcInput, solcOutput, asts }
 			} catch (e) {
 				logger.error(e as any)
@@ -99,7 +99,7 @@ export const bundler: Bundler = (config, logger, fao) => {
 						includeAst,
 						fao,
 					)
-				const code = await generateRuntime(artifacts, config, 'ts', logger)
+				const code = await generateRuntime(artifacts, 'ts', logger)
 				return { code, modules, solcInput, solcOutput, asts }
 			} catch (e) {
 				logger.error(e as any)
@@ -118,7 +118,7 @@ export const bundler: Bundler = (config, logger, fao) => {
 						includeAst,
 						fao,
 					)
-				const code = generateRuntimeSync(artifacts, config, 'cjs', logger)
+				const code = generateRuntimeSync(artifacts, 'cjs', logger)
 				return { code, modules, solcInput, solcOutput, asts }
 			} catch (e) {
 				logger.error(e as any)
@@ -137,7 +137,7 @@ export const bundler: Bundler = (config, logger, fao) => {
 						includeAst,
 						fao,
 					)
-				const code = await generateRuntime(artifacts, config, 'cjs', logger)
+				const code = await generateRuntime(artifacts, 'cjs', logger)
 				return { code, modules, solcInput, solcOutput, asts }
 			} catch (e) {
 				logger.error(e as any)
@@ -156,7 +156,7 @@ export const bundler: Bundler = (config, logger, fao) => {
 						includeAst,
 						fao,
 					)
-				const code = generateRuntimeSync(artifacts, config, 'mjs', logger)
+				const code = generateRuntimeSync(artifacts, 'mjs', logger)
 				return { code, modules, solcInput, solcOutput, asts }
 			} catch (e) {
 				logger.error('there was an error in evmts plugin resolving .mjs')
@@ -174,7 +174,7 @@ export const bundler: Bundler = (config, logger, fao) => {
 						includeAst,
 						fao,
 					)
-				const code = await generateRuntime(artifacts, config, 'mjs', logger)
+				const code = await generateRuntime(artifacts, 'mjs', logger)
 				return { code, modules, solcInput, solcOutput, asts }
 			} catch (e) {
 				logger.error(e as any)
