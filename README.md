@@ -8,7 +8,7 @@
 </p>
 
 <p align="center">
-  Evmts never juggle ABIs and contract addresses again (alpha 🏗️🚧)
+  The next gen dapp building toolchain (alpha 🏗️🚧)
 <p>
 
 [![CI](https://github.com/evmts/evmts-monorepo/actions/workflows/build.yml/badge.svg)](https://github.com/evmts/evmts-monorepo/actions/workflows/build.yml)
