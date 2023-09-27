@@ -1,5 +1,5 @@
 import { defineConfig } from '.'
-import { type EvmtsConfig, defaultConfig } from './Config'
+import { defaultConfig, type CompilerConfig } from './Config'
 import { execSync } from 'child_process'
 import { type MockedFunction, describe, expect, it, vi } from 'vitest'
 
@@ -20,21 +20,15 @@ describe(defineConfig.name, () => {
 	it('should return a valid config when partial config is provided', () => {
 		const configFactory = () =>
 			({
-				compiler: {
-					solcVersion: '0.8.4',
-				},
-			}) as EvmtsConfig
+				solcVersion: '0.8.4',
+			}) as CompilerConfig
 		const config = defineConfig(configFactory)
 		const resolvedConfig = config.configFn('./')
 		expect(resolvedConfig).toEqual({
-			compiler: {
-				solcVersion: '0.8.4',
-				remappings: defaultConfig.compiler.remappings,
-				foundryProject: defaultConfig.compiler.foundryProject,
-				libs: defaultConfig.compiler.libs,
-			},
-			localContracts: defaultConfig.localContracts,
-			externalContracts: defaultConfig.externalContracts,
+			solcVersion: '0.8.4',
+			remappings: defaultConfig.remappings,
+			foundryProject: defaultConfig.foundryProject,
+			libs: defaultConfig.libs,
 		})
 	})
 
@@ -48,23 +42,17 @@ describe(defineConfig.name, () => {
 
 		const configFactory = () =>
 			({
-				compiler: {
-					foundryProject: 'forge',
-				},
-			}) as EvmtsConfig
+				foundryProject: 'forge',
+			}) as CompilerConfig
 		const config = defineConfig(configFactory)
 		const resolvedConfig = config.configFn('./')
 
 		expect(mockExecSync).toHaveBeenCalledWith('forge config --json')
 		expect(resolvedConfig).toEqual({
-			compiler: {
-				solcVersion: '0.8.4',
-				remappings: defaultConfig.compiler.remappings,
-				foundryProject: 'forge',
-				libs: ['lib1', 'lib2'],
-			},
-			localContracts: defaultConfig.localContracts,
-			externalContracts: defaultConfig.externalContracts,
+			solcVersion: '0.8.4',
+			remappings: defaultConfig.remappings,
+			foundryProject: 'forge',
+			libs: ['lib1', 'lib2'],
 		})
 	})
 
@@ -76,26 +64,29 @@ describe(defineConfig.name, () => {
 		})
 		mockExecSync.mockReturnValueOnce(Buffer.from(forgeCommandOutput))
 
-		const configFactory = () =>
-			({
-				compiler: {
-					foundryProject: true,
-				},
-			}) as EvmtsConfig
+		const configFactory = () => ({
+			foundryProject: true,
+		})
 		const config = defineConfig(configFactory)
 		const resolvedConfig = config.configFn('./')
 
 		expect(mockExecSync).toHaveBeenCalledWith('forge config --json')
 		expect(resolvedConfig).toEqual({
-			compiler: {
-				solcVersion: '0.8.4',
-				remappings: defaultConfig.compiler.remappings,
-				foundryProject: true,
-				libs: ['lib1', 'lib2'],
-			},
-			localContracts: defaultConfig.localContracts,
-			externalContracts: defaultConfig.externalContracts,
+			solcVersion: '0.8.4',
+			remappings: defaultConfig.remappings,
+			foundryProject: true,
+			libs: ['lib1', 'lib2'],
 		})
+	})
+
+	it('should throw if invalid config', () => {
+		const configFactory = () =>
+			({
+				solcVersion: '0.8.4',
+				notACorrectKey: true,
+			}) as CompilerConfig
+		const config = defineConfig(configFactory)
+		expect(() => config.configFn('./')).toThrowErrorMatchingInlineSnapshot('"Invalid config file ./: {\\"_errors\\":[\\"Unrecognized key(s) in object: \'notACorrectKey\'\\"]}"')
 	})
 
 	it('should throw error when forge command fails', () => {
@@ -104,11 +95,9 @@ describe(defineConfig.name, () => {
 		})
 
 		const configFactory = () =>
-			({
-				compiler: {
-					foundryProject: 'forge',
-				},
-			}) as EvmtsConfig
+		({
+			foundryProject: 'forge',
+		})
 		const config = defineConfig(configFactory)
 
 		expect(() => config.configFn('./')).toThrow(
@@ -120,11 +109,9 @@ describe(defineConfig.name, () => {
 		mockExecSync.mockReturnValueOnce(Buffer.from('invalid JSON'))
 
 		const configFactory = () =>
-			({
-				compiler: {
-					foundryProject: 'forge',
-				},
-			}) as EvmtsConfig
+		({
+			foundryProject: 'forge',
+		})
 		const config = defineConfig(configFactory)
 
 		expect(() => config.configFn('./')).toThrow(
@@ -139,11 +126,9 @@ describe(defineConfig.name, () => {
 		mockExecSync.mockReturnValueOnce(Buffer.from(forgeCommandOutput))
 
 		const configFactory = () =>
-			({
-				compiler: {
-					foundryProject: 'forge',
-				},
-			}) as EvmtsConfig
+		({
+			foundryProject: 'forge',
+		})
 		const config = defineConfig(configFactory)
 
 		expect(() => config.configFn('./')).toThrow(
@@ -158,87 +143,14 @@ describe(defineConfig.name, () => {
 		mockExecSync.mockReturnValueOnce(Buffer.from(forgeCommandOutput))
 
 		const configFactory = () =>
-			({
-				compiler: {
-					foundryProject: 'forge',
-				},
-			}) as EvmtsConfig
+		({
+			foundryProject: 'forge',
+		})
 		const config = defineConfig(configFactory)
 		const resolvedConfig = config.configFn('/config')
 
-		expect(resolvedConfig.compiler.remappings).toEqual({
+		expect(resolvedConfig.remappings).toEqual({
 			key: '/config/value',
 		})
-	})
-
-	it('should merge provided apiKeys with default apiKeys', () => {
-		const configFactory = () =>
-			({
-				externalContracts: {
-					out: 'path/to/out',
-					contracts: [],
-					apiKeys: {
-						etherscan: {
-							1: 'provided-key',
-						},
-					},
-				},
-			}) satisfies EvmtsConfig
-		const config = defineConfig(configFactory as any)
-		const resolvedConfig = config.configFn('./')
-
-		expect(resolvedConfig.externalContracts.apiKeys).toMatchInlineSnapshot(`
-			{
-			  "etherscan": {
-			    "1": "provided-key",
-			    "10": undefined,
-			    "137": undefined,
-			    "42161": undefined,
-			    "56": undefined,
-			  },
-			}
-		`)
-	})
-
-	it('should throw an error if apiKeys is invalid', () => {
-		const configFactory = () => ({
-			externalContracts: {
-				out: 'path/to/out',
-				contracts: [],
-				apiKeys: {
-					// Missing the 'etherscan' key
-					someOtherKey: {
-						1: 'provided-key',
-					},
-				},
-			},
-		})
-		const config = defineConfig(configFactory as any)
-
-		expect(() => config.configFn('./')).toThrowErrorMatchingInlineSnapshot(
-			'"Invalid config file ./: {\\"_errors\\":[],\\"externalContracts\\":{\\"_errors\\":[],\\"apiKeys\\":{\\"_errors\\":[\\"Unrecognized key(s) in object: \'someOtherKey\'\\"]}}}"',
-		)
-	})
-
-	it('should throw an error when invalid apiKeys are provided', () => {
-		const invalidApiKey = false
-
-		const configFactory = () => ({
-			externalContracts: {
-				apiKeys: {
-					etherscan: {
-						'1': invalidApiKey,
-						'10': invalidApiKey,
-						'56': invalidApiKey,
-						'137': invalidApiKey,
-						'42161': invalidApiKey,
-					},
-				},
-			},
-		})
-		const config = defineConfig(configFactory as any)
-		expect(() => config.configFn('./')).toThrowErrorMatchingInlineSnapshot(
-			'"Invalid config file ./: {\\"_errors\\":[],\\"externalContracts\\":{\\"_errors\\":[],\\"apiKeys\\":{\\"_errors\\":[],\\"etherscan\\":{\\"1\\":{\\"_errors\\":[\\"Expected string, received boolean\\"]},\\"10\\":{\\"_errors\\":[\\"Expected string, received boolean\\"]},\\"56\\":{\\"_errors\\":[\\"Expected string, received boolean\\"]},\\"137\\":{\\"_errors\\":[\\"Expected string, received boolean\\"]},\\"42161\\":{\\"_errors\\":[\\"Expected string, received boolean\\"]},\\"_errors\\":[]}},\\"contracts\\":{\\"_errors\\":[\\"Required\\"]},\\"out\\":{\\"_errors\\":[\\"Required\\"]}}}"',
-		)
 	})
 })

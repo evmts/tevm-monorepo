@@ -16,22 +16,8 @@ const validConfig = JSON.stringify({
 		plugins: [
 			{
 				name: '@evmts/ts-plugin',
-				compiler: {
-					solcVersion: '0.9.0',
-					libs: ['path/to/libs'],
-				},
-				localContracts: {
-					contracts: [
-						{
-							name: 'WagmiMintExample',
-							addresses: {
-								'1': '0xFBA3912Ca04dd458c843e2EE08967fC04f3579c2',
-								'5': '0x1df10ec981ac5871240be4a94f250dd238b77901',
-								'10': '0x1df10ec981ac5871240be4a94f250dd238b77901',
-							},
-						},
-					],
-				},
+				solcVersion: '0.9.0',
+				libs: ['path/to/libs'],
 			},
 		],
 	},
@@ -63,36 +49,15 @@ describe(loadConfigAsync.name, () => {
 		const config = await loadConfigAsync(mockConfigFilePath)
 
 		expect(config).toMatchInlineSnapshot(`
-      {
-        "compiler": {
-          "foundryProject": false,
-          "libs": [
-            "path/to/libs",
-          ],
-          "remappings": {},
-          "solcVersion": "0.9.0",
-        },
-        "externalContracts": {
-          "apiKeys": {
-            "etherscan": {},
-          },
-          "contracts": [],
-          "out": "externalContracts",
-        },
-        "localContracts": {
-          "contracts": [
-            {
-              "addresses": {
-                "1": "0xFBA3912Ca04dd458c843e2EE08967fC04f3579c2",
-                "10": "0x1df10ec981ac5871240be4a94f250dd238b77901",
-                "5": "0x1df10ec981ac5871240be4a94f250dd238b77901",
-              },
-              "name": "WagmiMintExample",
-            },
-          ],
-        },
-      }
-    `)
+			{
+			  "foundryProject": false,
+			  "libs": [
+			    "path/to/libs",
+			  ],
+			  "remappings": {},
+			  "solcVersion": "0.9.0",
+			}
+		`)
 	})
 
 	it('should throw an error if no config file exists', async () => {
@@ -179,25 +144,13 @@ describe(loadConfigAsync.name, () => {
 		)
 
 		expect(config).toMatchInlineSnapshot(`
-      {
-        "compiler": {
-          "foundryProject": false,
-          "libs": [],
-          "remappings": {},
-          "solcVersion": [Function],
-        },
-        "externalContracts": {
-          "apiKeys": {
-            "etherscan": {},
-          },
-          "contracts": [],
-          "out": "externalContracts",
-        },
-        "localContracts": {
-          "contracts": [],
-        },
-      }
-    `)
+			{
+			  "foundryProject": false,
+			  "libs": [],
+			  "remappings": {},
+			  "solcVersion": [Function],
+			}
+		`)
 	})
 
 	it('should append baseUrl to the libs when compilerOptions.baseUrl is set', async () => {
@@ -210,10 +163,8 @@ describe(loadConfigAsync.name, () => {
 				plugins: [
 					{
 						name: '@evmts/ts-plugin',
-						compiler: {
-							solcVersion: '0.9.0',
-							libs: ['path/to/libs'],
-						},
+						solcVersion: '0.9.0',
+						libs: ['path/to/libs'],
 					},
 				],
 				baseUrl: 'base/url',
@@ -228,8 +179,8 @@ describe(loadConfigAsync.name, () => {
 		const config = await loadConfigAsync(mockConfigFilePath)
 
 		// Assert that the baseUrl has been appended to the libs
-		expect(config.compiler.libs).toContain('path/to/libs')
-		expect(config.compiler.libs).toContain(
+		expect(config.libs).toContain('path/to/libs')
+		expect(config.libs).toContain(
 			path.join(mockConfigFilePath, 'base/url'),
 		)
 	})
@@ -253,35 +204,14 @@ describe(loadConfigAsync.name, () => {
 
 		// Assert that the config matches expected
 		expect(config).toMatchInlineSnapshot(`
-      {
-        "compiler": {
-          "foundryProject": false,
-          "libs": [
-            "path/to/libs",
-          ],
-          "remappings": {},
-          "solcVersion": "0.9.0",
-        },
-        "externalContracts": {
-          "apiKeys": {
-            "etherscan": {},
-          },
-          "contracts": [],
-          "out": "externalContracts",
-        },
-        "localContracts": {
-          "contracts": [
-            {
-              "addresses": {
-                "1": "0xFBA3912Ca04dd458c843e2EE08967fC04f3579c2",
-                "10": "0x1df10ec981ac5871240be4a94f250dd238b77901",
-                "5": "0x1df10ec981ac5871240be4a94f250dd238b77901",
-              },
-              "name": "WagmiMintExample",
-            },
-          ],
-        },
-      }
-    `)
+			{
+			  "foundryProject": false,
+			  "libs": [
+			    "path/to/libs",
+			  ],
+			  "remappings": {},
+			  "solcVersion": "0.9.0",
+			}
+		`)
 	})
 })

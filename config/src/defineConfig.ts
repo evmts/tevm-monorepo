@@ -1,22 +1,17 @@
 import {
-	type EvmtsConfig,
-	type ResolvedConfig,
-	defaultConfig,
-	evmtsConfigValidator,
+	defaultConfig, type CompilerConfig, CompilerConfigValidator, type ResolvedCompilerConfig,
 } from './Config'
-import { handleDeprecations } from './handleDeprecations'
-import { expandedString } from './zodUtils'
 import { execSync } from 'child_process'
 import * as path from 'path'
 
-export type DefineConfig = (configFactory: () => EvmtsConfig) => {
-	configFn: (configFilePath: string) => ResolvedConfig
+export type DefineConfig = (configFactory: () => CompilerConfig) => {
+	configFn: (configFilePath: string) => ResolvedCompilerConfig
 }
 
 export const defineConfig: DefineConfig = (configFactory) => ({
-	configFn: (configFilePath: string) => {
-		const parsedConfig = evmtsConfigValidator.safeParse(
-			handleDeprecations(configFactory()) ?? {},
+	configFn: (configFilePath) => {
+		const parsedConfig = CompilerConfigValidator.safeParse(
+			configFactory() ?? {},
 		)
 		if (!parsedConfig.success) {
 			throw new Error(
@@ -25,22 +20,25 @@ export const defineConfig: DefineConfig = (configFactory) => ({
 				)}`,
 			)
 		}
-		const { compiler, localContracts, externalContracts } = parsedConfig.data
+		const { libs, solcVersion, foundryProject } = parsedConfig.data
 		const getFoundryDefaults = () => {
-			if (!compiler?.foundryProject) {
+			if (!foundryProject) {
 				return {}
 			}
 
 			const forgeCommand =
-				typeof compiler.foundryProject === 'string'
-					? compiler.foundryProject
+				typeof foundryProject === 'string'
+					? foundryProject
 					: 'forge'
 			let stdout
 			try {
 				stdout = execSync(`${forgeCommand} config --json`).toString()
 			} catch (error) {
 				throw new Error(
-					`Failed to run forge using ${forgeCommand} command. Make sure forge is installed and accessible and forge config --json works`,
+					`Failed to run forge using ${forgeCommand} command. Make sure forge is installed and accessible and forge config --json works.
+note: forge is used to fetch remappings only if forgeConfig is set. If you would prefer to not use forge you can set remappings
+or lib directly in your EVMts compiler config
+					`,
 				)
 			}
 			let forgeConfig
@@ -76,61 +74,23 @@ export const defineConfig: DefineConfig = (configFactory) => ({
 
 		const foundryDefaults = getFoundryDefaults()
 
-		const apiKeys = externalContracts?.apiKeys
-			? {
-					...defaultConfig.externalContracts.apiKeys,
-					...externalContracts.apiKeys,
-					etherscan: {
-						...defaultConfig.externalContracts.apiKeys?.etherscan,
-						...externalContracts.apiKeys.etherscan,
-						'1': expandedString()
-							.optional()
-							.parse(externalContracts.apiKeys.etherscan?.['1']),
-						'10': expandedString()
-							.optional()
-							.parse(externalContracts.apiKeys.etherscan?.['10']),
-						'56': expandedString()
-							.optional()
-							.parse(externalContracts.apiKeys.etherscan?.['10']),
-						'137': expandedString()
-							.optional()
-							.parse(externalContracts.apiKeys.etherscan?.['10']),
-						'42161': expandedString()
-							.optional()
-							.parse(externalContracts.apiKeys.etherscan?.['10']),
-					},
-			  }
-			: defaultConfig.externalContracts.apiKeys
 
 		return {
-			compiler: {
-				solcVersion:
-					compiler?.solcVersion ??
-					foundryDefaults.solcVersion ??
-					defaultConfig.compiler.solcVersion,
-				remappings:
-					foundryDefaults.remappings ?? defaultConfig.compiler.remappings,
-				foundryProject:
-					compiler?.foundryProject ?? defaultConfig.compiler.foundryProject,
-				libs: [
-					compiler?.libs,
-					foundryDefaults.libs,
-					defaultConfig.compiler.libs,
-				]
-					.filter(Boolean)
-					.flat(),
-			},
-			localContracts: {
-				contracts:
-					localContracts?.contracts ?? defaultConfig.localContracts.contracts,
-			},
-			externalContracts: {
-				out: externalContracts?.out ?? defaultConfig.externalContracts.out,
-				apiKeys,
-				contracts:
-					externalContracts?.contracts ??
-					defaultConfig.externalContracts.contracts,
-			},
+			solcVersion:
+				solcVersion ??
+				foundryDefaults.solcVersion ??
+				defaultConfig.solcVersion,
+			remappings:
+				foundryDefaults.remappings ?? defaultConfig.remappings,
+			foundryProject:
+				foundryProject ?? defaultConfig.foundryProject,
+			libs: [
+				libs,
+				foundryDefaults.libs,
+				defaultConfig.libs,
+			]
+				.filter(Boolean)
+				.flat(),
 		}
 	},
 })
