@@ -2,12 +2,12 @@ import { defineConfig } from './defineConfig'
 import { existsSync, readFileSync } from 'fs'
 import { parse } from 'jsonc-parser'
 import * as path from 'path'
-import type { CompilerConfig } from '.'
+import type { CompilerConfig, ResolvedCompilerConfig } from '.'
 
 type LoadConfig = (
 	configFilePath: string,
 	logger?: Pick<typeof console, 'error' | 'warn'>,
-) => CompilerConfig
+) => ResolvedCompilerConfig
 
 export const loadConfig: LoadConfig = (configFilePath, logger = console) => {
 	/**
