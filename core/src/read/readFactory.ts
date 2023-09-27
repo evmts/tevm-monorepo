@@ -1,12 +1,10 @@
-import type { Abi, AbiFunction, Address } from 'abitype'
+import type { Abi, AbiFunction } from 'abitype'
 import { formatAbi } from 'abitype'
 
 export const readFactory =
 	({
-		addresses,
 		methods,
-	}: { addresses: Record<number, Address>; methods: Abi }) =>
-	({ chainId }: { chainId?: number | undefined } = {}) =>
+	}: { methods: Abi }) =>
 		Object.fromEntries(
 			methods
 				.filter(({ type }) => type === 'function')
@@ -22,16 +20,9 @@ export const readFactory =
 							abi: methodAbi,
 							humanReadableAbi: formatAbi([method]),
 							functionName: (method as AbiFunction).name,
-							// TODO we are currently defaulting to the first address in the case of no chain id
-							// There has to be a better way like providing an explicit default property in the address config
-							address:
-								addresses[chainId as number] ??
-								Object.values(addresses)[0] ??
-								undefined,
 							...maybeArgs,
 						}
 					}
-					creator.address = addresses[chainId as number] ?? undefined
 					creator.abi = [method]
 					creator.humanReadableAbi = formatAbi([method])
 					return [(method as AbiFunction).name, creator]
