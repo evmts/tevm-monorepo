@@ -1,8 +1,6 @@
 import type { Artifacts } from '../solc/resolveArtifactsSync'
 
-export const generateDtsBody = (
-	artifacts: Artifacts,
-) => {
+export const generateDtsBody = (artifacts: Artifacts) => {
 	return Object.entries(artifacts)
 		.flatMap(([contractName, { abi, userdoc = {} }]) => {
 			const contract = {
@@ -24,7 +22,7 @@ export const generateDtsBody = (
 				` * ${contractName} EvmtsContract`,
 				...natspec,
 				' */',
-				`export const ${contractName}: EvmtsContract<typeof _name${contractName}, typeof _chainAddressMap${contractName}, typeof _abi${contractName}>;`,
+				`export const ${contractName}: EvmtsContract<typeof _name${contractName}, typeof _abi${contractName}>;`,
 			].filter(Boolean)
 		})
 		.join('\n')

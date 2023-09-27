@@ -10,7 +10,7 @@ export const WagmiReads = () => {
 		 * Spreading in a method will spread abi, address and args
 		 * Hover over balanceOf and click go-to-definition should take you to the method definition in solidity if compiling from solidity
 		 */
-		...WagmiMintExample.read().balanceOf(address as Address),
+		...WagmiMintExample.read.balanceOf(address as Address),
 		address: addresses[420],
 		enabled: isConnected,
 	})

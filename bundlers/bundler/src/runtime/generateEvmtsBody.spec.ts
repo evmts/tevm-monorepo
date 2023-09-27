@@ -95,7 +95,7 @@ describe('generateEvmtsBody', () => {
 			 * @notice MyContract
 			 * @property balanceOf(address) Returns the amount of tokens owned by account
 			 */
-			export const MyContract: EvmtsContract<typeof _nameMyContract, typeof _chainAddressMapMyContract, typeof _abiMyContract>;
+			export const MyContract: EvmtsContract<typeof _nameMyContract, typeof _abiMyContract>;
 			const _abiAnotherContract = [] as const;
 			const _nameAnotherContract = \\"AnotherContract\\" as const;
 			/**
@@ -103,7 +103,7 @@ describe('generateEvmtsBody', () => {
 			 * @notice MyContract
 			 * @property balanceOf(address) Returns the amount of tokens owned by account
 			 */
-			export const AnotherContract: EvmtsContract<typeof _nameAnotherContract, typeof _chainAddressMapAnotherContract, typeof _abiAnotherContract>;"
+			export const AnotherContract: EvmtsContract<typeof _nameAnotherContract, typeof _abiAnotherContract>;"
 		`)
 	})
 })

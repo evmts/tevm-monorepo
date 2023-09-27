@@ -53,7 +53,7 @@ describe('generateDtsBody', () => {
 			 * @notice MyContract
 			 * @property balanceOf(address) Returns the amount of tokens owned by account
 			 */
-			export const MyContract: EvmtsContract<typeof _nameMyContract, typeof _chainAddressMapMyContract, typeof _abiMyContract>;
+			export const MyContract: EvmtsContract<typeof _nameMyContract, typeof _abiMyContract>;
 			const _abiAnotherContract = [] as const;
 			const _nameAnotherContract = \\"AnotherContract\\" as const;
 			/**
@@ -61,7 +61,7 @@ describe('generateDtsBody', () => {
 			 * @notice MyContract
 			 * @property balanceOf(address) Returns the amount of tokens owned by account
 			 */
-			export const AnotherContract: EvmtsContract<typeof _nameAnotherContract, typeof _chainAddressMapAnotherContract, typeof _abiAnotherContract>;
+			export const AnotherContract: EvmtsContract<typeof _nameAnotherContract, typeof _abiAnotherContract>;
 			const _abiMissingContract = [] as const;
 			const _nameMissingContract = \\"MissingContract\\" as const;
 			/**
@@ -69,7 +69,7 @@ describe('generateDtsBody', () => {
 			 * @notice MyContract
 			 * @property balanceOf(address) Returns the amount of tokens owned by account
 			 */
-			export const MissingContract: EvmtsContract<typeof _nameMissingContract, typeof _chainAddressMapMissingContract, typeof _abiMissingContract>;"
+			export const MissingContract: EvmtsContract<typeof _nameMissingContract, typeof _abiMissingContract>;"
 		`)
 	})
 })

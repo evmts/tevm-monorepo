@@ -111,13 +111,13 @@ describe(getScriptSnapshotDecorator.name, () => {
 			/**
 			 * HelloWorld EvmtsContract
 			 */
-			export const HelloWorld: EvmtsContract<typeof _nameHelloWorld, typeof _chainAddressMapHelloWorld, typeof _abiHelloWorld>;
+			export const HelloWorld: EvmtsContract<typeof _nameHelloWorld, typeof _abiHelloWorld>;
 			const _abiHelloWorld2 = [{\\"inputs\\":[],\\"name\\":\\"greet2\\",\\"outputs\\":[{\\"internalType\\":\\"string\\",\\"name\\":\\"\\",\\"type\\":\\"string\\"}],\\"stateMutability\\":\\"pure\\",\\"type\\":\\"function\\"}] as const;
 			const _nameHelloWorld2 = \\"HelloWorld2\\" as const;
 			/**
 			 * HelloWorld2 EvmtsContract
 			 */
-			export const HelloWorld2: EvmtsContract<typeof _nameHelloWorld2, typeof _chainAddressMapHelloWorld2, typeof _abiHelloWorld2>;"
+			export const HelloWorld2: EvmtsContract<typeof _nameHelloWorld2, typeof _abiHelloWorld2>;"
 		`)
 	})
 	it('should handle resolveDts throwing', () => {
