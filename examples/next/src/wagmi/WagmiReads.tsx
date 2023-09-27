@@ -1,5 +1,6 @@
-import { WagmiMintExample } from '../contracts/WagmiMintExample.sol'
 import { Address, useAccount, useContractRead } from 'wagmi'
+import { addresses } from '../addresses'
+import { WagmiMintExample } from '../contracts/WagmiMintExample.sol'
 
 export const WagmiReads = () => {
 	const { address, isConnected } = useAccount()
@@ -10,22 +11,27 @@ export const WagmiReads = () => {
 		 * Hover over balanceOf and click go-to-definition should take you to the method definition in solidity if compiling from solidity
 		 */
 		...WagmiMintExample.read().balanceOf(address as Address),
+		address: addresses[420],
 		enabled: isConnected,
 	})
 	const { data: totalSupply } = useContractRead({
-		...WagmiMintExample.read().totalSupply(),
+		...WagmiMintExample.read.totalSupply(),
+		address: addresses[420],
 		enabled: isConnected,
 	})
 	const { data: tokenUri } = useContractRead({
-		...WagmiMintExample.read().tokenURI(BigInt(1)),
+		...WagmiMintExample.read.tokenURI(BigInt(1)),
+		address: addresses[420],
 		enabled: isConnected,
 	})
 	const { data: symbol } = useContractRead({
-		...WagmiMintExample.read().symbol(),
+		...WagmiMintExample.read.symbol(),
+		address: addresses[420],
 		enabled: isConnected,
 	})
 	const { data: ownerOf } = useContractRead({
-		...WagmiMintExample.read().ownerOf(BigInt(1)),
+		...WagmiMintExample.read.ownerOf(BigInt(1)),
+		address: addresses[420],
 		enabled: isConnected,
 	})
 	return (
