@@ -1,17 +1,18 @@
 import { evmtsContractFactory } from '../evmtsContractFactory'
 import { dummyAbi } from '../test/fixtures'
 import { eventsFactory } from './eventFactory'
+import { formatAbi } from 'abitype'
 import { describe, expect, it } from 'vitest'
 
 const contract = evmtsContractFactory({
-	abi: dummyAbi,
+	humanReadableAbi: formatAbi(dummyAbi),
 	name: 'DummyContract',
 })
 
 const dummyAbiNoEvent = dummyAbi.filter((abi) => abi.type !== 'event')
 
 const contractNoEvent = evmtsContractFactory({
-	abi: dummyAbiNoEvent,
+	humanReadableAbi: formatAbi(dummyAbiNoEvent),
 	name: 'DummyContract',
 })
 

@@ -1,10 +1,11 @@
 import { evmtsContractFactory } from './evmtsContractFactory'
 import { dummyAbi } from './test/fixtures'
+import { formatAbi } from 'abitype'
 import { describe, expect, it } from 'vitest'
 
 describe(evmtsContractFactory.name, () => {
 	const contract = evmtsContractFactory({
-		abi: dummyAbi,
+		humanReadableAbi: formatAbi(dummyAbi),
 		name: 'DummyContract',
 	})
 

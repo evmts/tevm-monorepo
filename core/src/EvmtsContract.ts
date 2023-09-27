@@ -1,17 +1,16 @@
 import type { Events } from './event/Event'
 import type { Read } from './read/Read'
 import type { Write } from './write/Write'
-import type { Abi, FormatAbi } from 'abitype'
+import type { ParseAbi } from 'abitype'
 
 export type EvmtsContract<
 	TName extends string,
-	TAbi extends Abi,
-	THumanReadableAbi = FormatAbi<TAbi>,
+	THumanReadableAbi extends ReadonlyArray<string>,
 > = {
-	abi: TAbi
+	abi: ParseAbi<THumanReadableAbi>
 	humanReadableAbi: THumanReadableAbi
 	name: TName
-	events: Events<TName, TAbi>
-	read: Read<TName, TAbi>
-	write: Write<TName, TAbi>
+	events: Events<TName, THumanReadableAbi>
+	read: Read<TName, THumanReadableAbi>
+	write: Write<TName, THumanReadableAbi>
 }

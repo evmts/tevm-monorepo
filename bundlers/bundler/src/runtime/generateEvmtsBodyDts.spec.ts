@@ -46,7 +46,7 @@ describe('generateDtsBody', () => {
 
 	it('should generate correct body with etherscan links', () => {
 		expect(generateDtsBody(artifacts)).toMatchInlineSnapshot(`
-			"const _abiMyContract = [{\\"type\\":\\"constructor\\",\\"inputs\\":[],\\"stateMutability\\":\\"payable\\"}] as const;
+			"const _abiMyContract = [\\"constructor() payable\\"] as const;
 			const _nameMyContract = \\"MyContract\\" as const;
 			/**
 			 * MyContract EvmtsContract

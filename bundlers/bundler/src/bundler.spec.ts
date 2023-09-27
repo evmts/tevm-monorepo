@@ -470,7 +470,7 @@ describe(bundler.name, () => {
 				    },
 				  },
 				  "code": "import { evmtsContractFactory } from '@evmts/core'
-				const _TestContract = {\\"name\\":\\"TestContract\\",\\"abi\\":[]} as const
+				const _TestContract = {\\"name\\":\\"TestContract\\",\\"humanReadableAbi\\":[]} as const
 				export const TestContract = evmtsContractFactory(_TestContract)",
 				  "modules": {
 				    "module1": {
@@ -561,7 +561,7 @@ describe(bundler.name, () => {
 				    },
 				  },
 				  "code": "import { evmtsContractFactory } from '@evmts/core'
-				const _TestContract = {\\"name\\":\\"TestContract\\",\\"abi\\":[]} as const
+				const _TestContract = {\\"name\\":\\"TestContract\\",\\"humanReadableAbi\\":[]} as const
 				export const TestContract = evmtsContractFactory(_TestContract)",
 				  "modules": {
 				    "module1": {
@@ -652,7 +652,7 @@ describe(bundler.name, () => {
 				    },
 				  },
 				  "code": "const { evmtsContractFactory } = require('@evmts/core')
-				const _TestContract = {\\"name\\":\\"TestContract\\",\\"abi\\":[]}
+				const _TestContract = {\\"name\\":\\"TestContract\\",\\"humanReadableAbi\\":[]}
 				module.exports.TestContract = evmtsContractFactory(_TestContract)",
 				  "modules": {
 				    "module1": {
@@ -743,7 +743,7 @@ describe(bundler.name, () => {
 				    },
 				  },
 				  "code": "const { evmtsContractFactory } = require('@evmts/core')
-				const _TestContract = {\\"name\\":\\"TestContract\\",\\"abi\\":[]}
+				const _TestContract = {\\"name\\":\\"TestContract\\",\\"humanReadableAbi\\":[]}
 				module.exports.TestContract = evmtsContractFactory(_TestContract)",
 				  "modules": {
 				    "module1": {
@@ -834,7 +834,7 @@ describe(bundler.name, () => {
 				    },
 				  },
 				  "code": "import { evmtsContractFactory } from '@evmts/core'
-				const _TestContract = {\\"name\\":\\"TestContract\\",\\"abi\\":[]}
+				const _TestContract = {\\"name\\":\\"TestContract\\",\\"humanReadableAbi\\":[]}
 				export const TestContract = evmtsContractFactory(_TestContract)",
 				  "modules": {
 				    "module1": {
@@ -925,7 +925,7 @@ describe(bundler.name, () => {
 				    },
 				  },
 				  "code": "import { evmtsContractFactory } from '@evmts/core'
-				const _TestContract = {\\"name\\":\\"TestContract\\",\\"abi\\":[]}
+				const _TestContract = {\\"name\\":\\"TestContract\\",\\"humanReadableAbi\\":[]}
 				export const TestContract = evmtsContractFactory(_TestContract)",
 				  "modules": {
 				    "module1": {
