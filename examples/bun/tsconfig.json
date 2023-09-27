@@ -2,18 +2,7 @@
   "compilerOptions": {
     "plugins": [
       {
-        "name": "@evmts/ts-plugin",
-        "localContracts": {
-          "contracts": [
-            {
-              "name": "ExampleContract",
-              "addresses": {
-                "1": "0xFBA3912Ca04dd458c843e2EE08967fC04f3579c2",
-                "420": "0x1df10ec981ac5871240be4a94f250dd238b77901"
-              }
-            }
-          ]
-        }
+        "name": "@evmts/ts-plugin"
       }
     ],
     "target": "es6",
