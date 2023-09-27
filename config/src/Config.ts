@@ -1,5 +1,5 @@
-import { getDefaultSolcVersion } from './getDefaultSolcVersion'
 import { z } from 'zod'
+import { getDefaultSolcVersion } from './getDefaultSolcVersion'
 
 /**
  * Configuration of the solidity compiler
@@ -34,6 +34,7 @@ export const CompilerConfigValidator = z.strictObject({
 	solcVersion: z.string().optional(),
 	foundryProject: z.union([z.boolean(), z.string()]).optional(),
 	libs: z.array(z.string()).optional(),
+	remappings: z.record(z.string()).optional(),
 }).describe('Configuration for EVMts')
 
 export const defaultConfig = {

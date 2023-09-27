@@ -1,17 +1,15 @@
-import { resolveModuleNameLiteralsDecorator } from '.'
-import { solidityModuleResolver } from '../utils'
 import { FileAccessObject } from '@evmts/bundler'
-import { EvmtsConfig, defaultConfig, defineConfig } from '@evmts/config'
+import { CompilerConfig, defaultConfig, defineConfig } from '@evmts/config'
 import typescript from 'typescript/lib/tsserverlibrary'
 import { MockedFunction, describe, expect, it, vi } from 'vitest'
+import { resolveModuleNameLiteralsDecorator } from '.'
+import { solidityModuleResolver } from '../utils'
 
-const { remappings, ...compilerOptions } = defaultConfig.compiler
-const mockConfig: EvmtsConfig = {
+const { remappings, ...compilerOptions } = defaultConfig
+const mockConfig: CompilerConfig = {
 	...defaultConfig,
-	compiler: {
 		...compilerOptions,
 		solcVersion: '0.8.0',
-	},
 }
 const config = defineConfig(() => mockConfig).configFn('.')
 

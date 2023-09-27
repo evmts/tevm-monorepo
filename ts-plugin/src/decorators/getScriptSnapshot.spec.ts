@@ -1,22 +1,20 @@
-import { getScriptSnapshotDecorator } from '.'
-import { Logger } from '../factories'
-import { FileAccessObject } from '@evmts/bundler'
-import { EvmtsConfig, defaultConfig, defineConfig } from '@evmts/config'
 import { existsSync, readFileSync } from 'fs'
-import { readFile } from 'fs/promises'
 import path from 'path'
+import { FileAccessObject } from '@evmts/bundler'
+import { CompilerConfig, defaultConfig, defineConfig } from '@evmts/config'
+import { readFile } from 'fs/promises'
 import typescript from 'typescript/lib/tsserverlibrary'
 import { Mock, beforeEach, describe, expect, it, vi } from 'vitest'
+import { getScriptSnapshotDecorator } from '.'
+import { Logger } from '../factories'
 
 const forgeProject = path.join(__dirname, '../..')
 
-const { remappings, ...compilerOptions } = defaultConfig.compiler
-const mockConfig: EvmtsConfig = {
+const { remappings, ...compilerOptions } = defaultConfig
+const mockConfig: CompilerConfig = {
 	...defaultConfig,
-	compiler: {
 		...compilerOptions,
 		solcVersion: '0.8.0',
-	},
 }
 const config = defineConfig(() => mockConfig).configFn('.')
 
@@ -109,14 +107,12 @@ describe(getScriptSnapshotDecorator.name, () => {
 		expect((result as any).text).toMatchInlineSnapshot(`
 			"import { EvmtsContract } from '@evmts/core'
 			const _abiHelloWorld = [{\\"inputs\\":[],\\"name\\":\\"greet\\",\\"outputs\\":[{\\"internalType\\":\\"string\\",\\"name\\":\\"\\",\\"type\\":\\"string\\"}],\\"stateMutability\\":\\"pure\\",\\"type\\":\\"function\\"}] as const;
-			const _chainAddressMapHelloWorld = {} as const;
 			const _nameHelloWorld = \\"HelloWorld\\" as const;
 			/**
 			 * HelloWorld EvmtsContract
 			 */
 			export const HelloWorld: EvmtsContract<typeof _nameHelloWorld, typeof _chainAddressMapHelloWorld, typeof _abiHelloWorld>;
 			const _abiHelloWorld2 = [{\\"inputs\\":[],\\"name\\":\\"greet2\\",\\"outputs\\":[{\\"internalType\\":\\"string\\",\\"name\\":\\"\\",\\"type\\":\\"string\\"}],\\"stateMutability\\":\\"pure\\",\\"type\\":\\"function\\"}] as const;
-			const _chainAddressMapHelloWorld2 = {} as const;
 			const _nameHelloWorld2 = \\"HelloWorld2\\" as const;
 			/**
 			 * HelloWorld2 EvmtsContract
