@@ -2,8 +2,9 @@
   import { onMount } from 'svelte';
   import { writable } from 'svelte/store';
   import { EthersMintExample } from '../contracts/EthersMintExample.sol';
-  import {createEthersContract} from '@evmts/ethers'
-  import { Contract, JsonRpcProvider } from 'ethers'
+  import {Contract} from '@evmts/ethers'
+  import { JsonRpcProvider } from 'ethers'
+  import { addresses } from '../addresses';
 
   // Create stores for all reactive variables
   let totalSupply = writable('');
@@ -13,10 +14,11 @@
   const tokenId = BigInt('114511829')
 
   const provider = new JsonRpcProvider('https://goerli.optimism.io', 420)
-  const ethersContract = createEthersContract(EthersMintExample, {
-		chainId: 420,
-		runner: provider,
-	})
+  const ethersContract = new Contract(
+    addresses[420],
+    EthersMintExample.abi, 
+		provider
+	)
 
   onMount(async () => {
     totalSupply.set(await ethersContract.totalSupply());
