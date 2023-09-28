@@ -38,5 +38,6 @@ export type Write<
 				args: TArgs
 				abi: [ExtractAbiFunction<TAbi, TFunctionName>]
 				humanReadableAbi: FormatAbi<[ExtractAbiFunction<TAbi, TFunctionName>]>
+				functionName: TFunctionName
 		  }
 }
