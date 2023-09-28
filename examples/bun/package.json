@@ -10,7 +10,7 @@
     "test": "bun test"
   },
   "dependencies": {
-    "@evmts/core": "^0.10.0",
+    "@evmts/core": "^0.11.2",
     "bun-types": "^0.8.1",
     "viem": "^1.2.12"
   },

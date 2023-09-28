@@ -1,5 +1,12 @@
 # @evmts/bun-plugin
 
+## 0.11.2
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @evmts/bundler@0.11.2
+
 ## 0.10.0
 
 ### Patch Changes
