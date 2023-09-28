@@ -1,20 +1,20 @@
-import { existsSync, readFileSync } from 'fs'
-import path from 'path'
-import { FileAccessObject } from '@evmts/bundler'
-import { CompilerConfig, defaultConfig, defineConfig } from '@evmts/config'
-import { readFile } from 'fs/promises'
-import typescript from 'typescript/lib/tsserverlibrary'
-import { Mock, beforeEach, describe, expect, it, vi } from 'vitest'
 import { getScriptSnapshotDecorator } from '.'
 import { Logger } from '../factories'
+import { FileAccessObject } from '@evmts/bundler'
+import { CompilerConfig, defaultConfig, defineConfig } from '@evmts/config'
+import { existsSync, readFileSync } from 'fs'
+import { readFile } from 'fs/promises'
+import path from 'path'
+import typescript from 'typescript/lib/tsserverlibrary'
+import { Mock, beforeEach, describe, expect, it, vi } from 'vitest'
 
 const forgeProject = path.join(__dirname, '../..')
 
 const { remappings, ...compilerOptions } = defaultConfig
 const mockConfig: CompilerConfig = {
 	...defaultConfig,
-		...compilerOptions,
-		solcVersion: '0.8.0',
+	...compilerOptions,
+	solcVersion: '0.8.0',
 }
 const config = defineConfig(() => mockConfig).configFn('.')
 

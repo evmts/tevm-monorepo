@@ -141,7 +141,6 @@ describe(readFactory.name, () => {
 			`)
 	})
 
-
 	it('should return an empty object when the provided methods includes no functions', () => {
 		const dummyAbiNoFunction = dummyAbi.filter((abi) => abi.type !== 'function')
 		const read = readFactory({
@@ -154,5 +153,4 @@ describe(readFactory.name, () => {
 		const read = readFactory({ methods: [] })
 		expect(Object.keys(read)).toHaveLength(0)
 	})
-
 })

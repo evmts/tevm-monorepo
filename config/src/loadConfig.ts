@@ -1,8 +1,8 @@
+import type { CompilerConfig, ResolvedCompilerConfig } from '.'
 import { defineConfig } from './defineConfig'
 import { existsSync, readFileSync } from 'fs'
 import { parse } from 'jsonc-parser'
 import * as path from 'path'
-import type { CompilerConfig, ResolvedCompilerConfig } from '.'
 
 type LoadConfig = (
 	configFilePath: string,

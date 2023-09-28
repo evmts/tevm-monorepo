@@ -1,3 +1,6 @@
+import { addresses } from '../addresses'
+import { WagmiMintExample } from '../contracts/WagmiMintExample.sol'
+import { getRandomInt } from '../utils/getRandomInt'
 import {
 	Address,
 	useAccount,
@@ -5,9 +8,6 @@ import {
 	useContractWrite,
 	useWaitForTransaction,
 } from 'wagmi'
-import { WagmiMintExample } from '../contracts/WagmiMintExample.sol'
-import { getRandomInt } from '../utils/getRandomInt'
-import { addresses } from '../addresses'
 
 export const WagmiWrites = () => {
 	const { address, isConnected } = useAccount()

@@ -1,5 +1,5 @@
 import { defineConfig } from '.'
-import { defaultConfig, type CompilerConfig } from './Config'
+import { type CompilerConfig, defaultConfig } from './Config'
 import { execSync } from 'child_process'
 import { type MockedFunction, describe, expect, it, vi } from 'vitest'
 
@@ -86,7 +86,9 @@ describe(defineConfig.name, () => {
 				notACorrectKey: true,
 			}) as CompilerConfig
 		const config = defineConfig(configFactory)
-		expect(() => config.configFn('./')).toThrowErrorMatchingInlineSnapshot('"Invalid config file ./: {\\"_errors\\":[\\"Unrecognized key(s) in object: \'notACorrectKey\'\\"]}"')
+		expect(() => config.configFn('./')).toThrowErrorMatchingInlineSnapshot(
+			'"Invalid config file ./: {\\"_errors\\":[\\"Unrecognized key(s) in object: \'notACorrectKey\'\\"]}"',
+		)
 	})
 
 	it('should throw error when forge command fails', () => {
@@ -94,8 +96,7 @@ describe(defineConfig.name, () => {
 			throw new Error()
 		})
 
-		const configFactory = () =>
-		({
+		const configFactory = () => ({
 			foundryProject: 'forge',
 		})
 		const config = defineConfig(configFactory)
@@ -108,8 +109,7 @@ describe(defineConfig.name, () => {
 	it('should throw error when forge command output is not valid JSON', () => {
 		mockExecSync.mockReturnValueOnce(Buffer.from('invalid JSON'))
 
-		const configFactory = () =>
-		({
+		const configFactory = () => ({
 			foundryProject: 'forge',
 		})
 		const config = defineConfig(configFactory)
@@ -125,8 +125,7 @@ describe(defineConfig.name, () => {
 		})
 		mockExecSync.mockReturnValueOnce(Buffer.from(forgeCommandOutput))
 
-		const configFactory = () =>
-		({
+		const configFactory = () => ({
 			foundryProject: 'forge',
 		})
 		const config = defineConfig(configFactory)
@@ -142,8 +141,7 @@ describe(defineConfig.name, () => {
 		})
 		mockExecSync.mockReturnValueOnce(Buffer.from(forgeCommandOutput))
 
-		const configFactory = () =>
-		({
+		const configFactory = () => ({
 			foundryProject: 'forge',
 		})
 		const config = defineConfig(configFactory)

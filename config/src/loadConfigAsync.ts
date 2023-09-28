@@ -1,9 +1,9 @@
+import type { CompilerConfig, ResolvedCompilerConfig } from '.'
 import { defineConfig } from './defineConfig'
 import { fileExists as defaultFileExists } from './fileExists'
 import { readFile } from 'fs/promises'
 import { parse } from 'jsonc-parser'
 import * as path from 'path'
-import type { CompilerConfig, ResolvedCompilerConfig } from '.'
 
 export type LoadConfigAsync = (
 	configFilePath: string,

@@ -1,7 +1,7 @@
-import { useReducer } from 'react'
-import { useAccount, useBlockNumber, useContractEvent } from 'wagmi'
 import { addresses } from '../addresses'
 import { WagmiMintExample } from '../contracts/WagmiMintExample.sol'
+import { useReducer } from 'react'
+import { useAccount, useBlockNumber, useContractEvent } from 'wagmi'
 
 export const WagmiEvents = () => {
 	const { address } = useAccount()

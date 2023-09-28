@@ -3,8 +3,8 @@ import { createPublicClient, http } from 'viem'
 import { optimismGoerli } from 'viem/chains'
 
 const addresses = {
-	"1": "0xFBA3912Ca04dd458c843e2EE08967fC04f3579c2",
-	"420": "0x1df10ec981ac5871240be4a94f250dd238b77901"
+	'1': '0xFBA3912Ca04dd458c843e2EE08967fC04f3579c2',
+	'420': '0x1df10ec981ac5871240be4a94f250dd238b77901',
 }
 
 export const publicClient = createPublicClient({
@@ -18,8 +18,7 @@ export const readContract = (owner = defaultOwner) =>
 	publicClient.readContract({
 		address: addresses[420],
 		...ExampleContract.read({ chainId: optimismGoerli.id }).balanceOf(owner),
-	}
-	)
+	})
 
 if (import.meta.main) {
 	readContract().then(console.log)

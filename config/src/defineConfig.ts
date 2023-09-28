@@ -1,5 +1,8 @@
 import {
-	defaultConfig, type CompilerConfig, CompilerConfigValidator, type ResolvedCompilerConfig,
+	type CompilerConfig,
+	CompilerConfigValidator,
+	type ResolvedCompilerConfig,
+	defaultConfig,
 } from './Config'
 import { execSync } from 'child_process'
 import * as path from 'path'
@@ -27,9 +30,7 @@ export const defineConfig: DefineConfig = (configFactory) => ({
 			}
 
 			const forgeCommand =
-				typeof foundryProject === 'string'
-					? foundryProject
-					: 'forge'
+				typeof foundryProject === 'string' ? foundryProject : 'forge'
 			let stdout
 			try {
 				stdout = execSync(`${forgeCommand} config --json`).toString()
@@ -74,21 +75,12 @@ or lib directly in your EVMts compiler config
 
 		const foundryDefaults = getFoundryDefaults()
 
-
 		return {
 			solcVersion:
-				solcVersion ??
-				foundryDefaults.solcVersion ??
-				defaultConfig.solcVersion,
-			remappings:
-				foundryDefaults.remappings ?? defaultConfig.remappings,
-			foundryProject:
-				foundryProject ?? defaultConfig.foundryProject,
-			libs: [
-				libs,
-				foundryDefaults.libs,
-				defaultConfig.libs,
-			]
+				solcVersion ?? foundryDefaults.solcVersion ?? defaultConfig.solcVersion,
+			remappings: foundryDefaults.remappings ?? defaultConfig.remappings,
+			foundryProject: foundryProject ?? defaultConfig.foundryProject,
+			libs: [libs, foundryDefaults.libs, defaultConfig.libs]
 				.filter(Boolean)
 				.flat(),
 		}

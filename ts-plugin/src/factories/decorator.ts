@@ -1,7 +1,7 @@
+import type { Logger } from './logger'
 import { FileAccessObject } from '@evmts/bundler'
 import { ResolvedCompilerConfig } from '@evmts/config'
 import type typescript from 'typescript/lib/tsserverlibrary'
-import type { Logger } from './logger'
 
 /**
  * Internal type representing a leangauge service host decorator.

@@ -5,16 +5,13 @@ import { writeFactory } from './write/writeFactory'
 import type { Abi } from 'abitype'
 import { formatAbi } from 'abitype'
 
-export const evmtsContractFactory = <
-	TName extends string,
-	TAbi extends Abi,
->({
+export const evmtsContractFactory = <TName extends string, TAbi extends Abi>({
 	abi,
 	name,
-}: Pick<
-	EvmtsContract<TName, TAbi>,
-	'name' | 'abi'
->): EvmtsContract<TName, TAbi> => {
+}: Pick<EvmtsContract<TName, TAbi>, 'name' | 'abi'>): EvmtsContract<
+	TName,
+	TAbi
+> => {
 	const methods = abi.filter((field) => {
 		return field.type === 'function'
 	})

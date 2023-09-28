@@ -1,8 +1,8 @@
+import { getScriptKindDecorator } from '.'
 import { FileAccessObject } from '@evmts/bundler'
 import { CompilerConfig, defaultConfig, defineConfig } from '@evmts/config'
 import typescript from 'typescript/lib/tsserverlibrary'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { getScriptKindDecorator } from '.'
 
 type TestAny = any
 
@@ -10,8 +10,8 @@ const { remappings, ...compilerOptions } = defaultConfig
 
 const mockConfig: CompilerConfig = {
 	...defaultConfig,
-		...compilerOptions,
-		solcVersion: '0.8.0',
+	...compilerOptions,
+	solcVersion: '0.8.0',
 }
 const config = defineConfig(() => mockConfig).configFn('.')
 

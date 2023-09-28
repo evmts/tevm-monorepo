@@ -51,9 +51,7 @@ describe('generateRuntimeSync', () => {
 	})
 
 	it('should handle artifacts being null', () => {
-		expect(generateRuntimeSync(null as any, 'cjs', mockLogger)).toEqual(
-			'',
-		)
+		expect(generateRuntimeSync(null as any, 'cjs', mockLogger)).toEqual('')
 		expect(mockLogger.warn).toHaveBeenCalledWith(
 			'No artifacts found, skipping runtime generation',
 		)

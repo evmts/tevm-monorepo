@@ -1,13 +1,13 @@
-import { FileAccessObject } from '@evmts/bundler'
-import { CompilerConfig, defaultConfig, defineConfig } from '@evmts/config'
-import typescript from 'typescript/lib/tsserverlibrary'
-import { describe, expect, it, vi } from 'vitest'
 import {
 	HostDecorator,
 	PartialHostDecorator,
 	createHostDecorator,
 	decorateHost,
 } from '.'
+import { FileAccessObject } from '@evmts/bundler'
+import { CompilerConfig, defaultConfig, defineConfig } from '@evmts/config'
+import typescript from 'typescript/lib/tsserverlibrary'
+import { describe, expect, it, vi } from 'vitest'
 
 type TestAny = any
 

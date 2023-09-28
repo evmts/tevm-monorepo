@@ -180,9 +180,7 @@ describe(loadConfigAsync.name, () => {
 
 		// Assert that the baseUrl has been appended to the libs
 		expect(config.libs).toContain('path/to/libs')
-		expect(config.libs).toContain(
-			path.join(mockConfigFilePath, 'base/url'),
-		)
+		expect(config.libs).toContain(path.join(mockConfigFilePath, 'base/url'))
 	})
 
 	it('should attempt to load from tsconfig.json when jsconfig.json does not exist', async () => {

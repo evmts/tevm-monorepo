@@ -1,4 +1,4 @@
-import { http, createPublicClient } from 'viem'
+import { createPublicClient, http } from 'viem'
 import { mainnet } from 'viem/chains'
 
 import { ExampleContract } from './ExampleContract.sol'
@@ -12,7 +12,7 @@ export const publicClient = createPublicClient({
 
 export const ownerOf = (tokenId = BigInt(1)) => {
 	return publicClient.readContract({
-	  ...ExampleContract.read.ownerOf(tokenId),
-	  address: addresses[420]
+		...ExampleContract.read.ownerOf(tokenId),
+		address: addresses[420],
 	})
 }
