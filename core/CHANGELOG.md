@@ -1,5 +1,11 @@
 # @evmts/core
 
+## 0.11.2
+
+### Patch Changes
+
+- [#483](https://github.com/evmts/evmts-monorepo/pull/483) [`f3b2b21`](https://github.com/evmts/evmts-monorepo/commit/f3b2b2184aad4dbefd1c840bae72dcf9aff4a1fc) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug with write() typescript type falsely not returning functionName. This would previously cause issues where typescript would falsely think functionName was not provided even though it was there at runtime.
+
 ## 0.10.0
 
 ### Patch Changes

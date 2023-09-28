@@ -1,5 +1,13 @@
 # @evmts/cli
 
+## 0.11.2
+
+### Patch Changes
+
+- Updated dependencies [[`f3b2b21`](https://github.com/evmts/evmts-monorepo/commit/f3b2b2184aad4dbefd1c840bae72dcf9aff4a1fc)]:
+  - @evmts/core@0.11.2
+  - @evmts/bundler@0.11.2
+
 ## 0.10.0
 
 ### Minor Changes
