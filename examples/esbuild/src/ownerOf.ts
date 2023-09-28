@@ -13,6 +13,6 @@ export const publicClient = createPublicClient({
 export const ownerOf = (tokenId = BigInt(1)) => {
 	return publicClient.readContract({
 		...ExampleContract.read.ownerOf(tokenId),
-		address: addresses[420],
+		address: addresses[1],
 	})
 }
