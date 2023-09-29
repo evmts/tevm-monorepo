@@ -16,7 +16,8 @@
   },
   "dependencies": {
     "@evmts/core": "^0.11.2",
-    "viem": "^1.2.12"
+    "viem": "^1.2.12",
+    "zod": "^3.22.2"
   },
   "devDependencies": {
     "@evmts/esbuild-plugin": "workspace:^",

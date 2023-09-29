@@ -29,7 +29,6 @@
   },
   "dependencies": {
     "@evmts/bundler": "workspace:^",
-    "@evmts/cli": "workspace:^",
     "@evmts/config": "workspace:^",
     "@evmts/contracts": "^0.0.1",
     "@evmts/core": "workspace:^0.11.2",
