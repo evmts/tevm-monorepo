@@ -34,13 +34,13 @@ describe('generateEvmtsBody', () => {
 	it('should generate correct body for cjs module', () => {
 		const result = generateEvmtsBody(artifacts, 'cjs')
 		expect(result).toMatchInlineSnapshot(`
-			"const _MyContract = {\\"name\\":\\"MyContract\\",\\"abi\\":[]}
+			"const _MyContract = {\\"name\\":\\"MyContract\\",\\"humanReadableAbi\\":[]}
 			/**
 			 * MyContract
 			 * @property balanceOf(address) Returns the amount of tokens owned by account
 			 */
 			module.exports.MyContract = evmtsContractFactory(_MyContract)
-			const _AnotherContract = {\\"name\\":\\"AnotherContract\\",\\"abi\\":[]}
+			const _AnotherContract = {\\"name\\":\\"AnotherContract\\",\\"humanReadableAbi\\":[]}
 			/**
 			 * MyContract
 			 * @property balanceOf(address) Returns the amount of tokens owned by account
@@ -52,13 +52,13 @@ describe('generateEvmtsBody', () => {
 	it('should generate correct body for mjs module', () => {
 		const result = generateEvmtsBody(artifacts, 'mjs')
 		expect(result).toMatchInlineSnapshot(`
-			"const _MyContract = {\\"name\\":\\"MyContract\\",\\"abi\\":[]}
+			"const _MyContract = {\\"name\\":\\"MyContract\\",\\"humanReadableAbi\\":[]}
 			/**
 			 * MyContract
 			 * @property balanceOf(address) Returns the amount of tokens owned by account
 			 */
 			export const MyContract = evmtsContractFactory(_MyContract)
-			const _AnotherContract = {\\"name\\":\\"AnotherContract\\",\\"abi\\":[]}
+			const _AnotherContract = {\\"name\\":\\"AnotherContract\\",\\"humanReadableAbi\\":[]}
 			/**
 			 * MyContract
 			 * @property balanceOf(address) Returns the amount of tokens owned by account
@@ -70,13 +70,13 @@ describe('generateEvmtsBody', () => {
 	it('should generate correct body for ts module', () => {
 		const result = generateEvmtsBody(artifacts, 'ts')
 		expect(result).toMatchInlineSnapshot(`
-			"const _MyContract = {\\"name\\":\\"MyContract\\",\\"abi\\":[]} as const
+			"const _MyContract = {\\"name\\":\\"MyContract\\",\\"humanReadableAbi\\":[]} as const
 			/**
 			 * MyContract
 			 * @property balanceOf(address) Returns the amount of tokens owned by account
 			 */
 			export const MyContract = evmtsContractFactory(_MyContract)
-			const _AnotherContract = {\\"name\\":\\"AnotherContract\\",\\"abi\\":[]} as const
+			const _AnotherContract = {\\"name\\":\\"AnotherContract\\",\\"humanReadableAbi\\":[]} as const
 			/**
 			 * MyContract
 			 * @property balanceOf(address) Returns the amount of tokens owned by account

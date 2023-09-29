@@ -106,13 +106,13 @@ describe(getScriptSnapshotDecorator.name, () => {
 		const result = decorator.getScriptSnapshot(fileName)
 		expect((result as any).text).toMatchInlineSnapshot(`
 			"import { EvmtsContract } from '@evmts/core'
-			const _abiHelloWorld = [{\\"inputs\\":[],\\"name\\":\\"greet\\",\\"outputs\\":[{\\"internalType\\":\\"string\\",\\"name\\":\\"\\",\\"type\\":\\"string\\"}],\\"stateMutability\\":\\"pure\\",\\"type\\":\\"function\\"}] as const;
+			const _abiHelloWorld = [\\"function greet() pure returns (string)\\"] as const;
 			const _nameHelloWorld = \\"HelloWorld\\" as const;
 			/**
 			 * HelloWorld EvmtsContract
 			 */
 			export const HelloWorld: EvmtsContract<typeof _nameHelloWorld, typeof _abiHelloWorld>;
-			const _abiHelloWorld2 = [{\\"inputs\\":[],\\"name\\":\\"greet2\\",\\"outputs\\":[{\\"internalType\\":\\"string\\",\\"name\\":\\"\\",\\"type\\":\\"string\\"}],\\"stateMutability\\":\\"pure\\",\\"type\\":\\"function\\"}] as const;
+			const _abiHelloWorld2 = [\\"function greet2() pure returns (string)\\"] as const;
 			const _nameHelloWorld2 = \\"HelloWorld2\\" as const;
 			/**
 			 * HelloWorld2 EvmtsContract

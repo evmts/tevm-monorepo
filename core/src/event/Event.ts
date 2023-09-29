@@ -1,47 +1,52 @@
 import type {
-	Abi,
 	ExtractAbiEvent,
 	ExtractAbiEventNames,
 	FormatAbi,
+	ParseAbi,
 } from 'abitype'
 import type { BlockNumber, BlockTag, CreateEventFilterParameters } from 'viem'
 import type { MaybeExtractEventArgsFromAbi } from 'viem/dist/types/types/contract'
 
 export type ValueOf<T> = T[keyof T]
 
-export type Events<TName extends string, TAbi extends Abi> = {
-	[TEventName in ExtractAbiEventNames<TAbi>]: (<
+export type Events<
+	TName extends string,
+	THumanReadableAbi extends readonly string[],
+> = {
+	[TEventName in ExtractAbiEventNames<ParseAbi<THumanReadableAbi>>]: (<
 		TStrict extends boolean = false,
 		TFromBlock extends BlockNumber | BlockTag | undefined = undefined,
 		TToBlock extends BlockNumber | BlockTag | undefined = undefined,
 	>(
 		params: Pick<
 			CreateEventFilterParameters<
-				ExtractAbiEvent<TAbi, TEventName>,
-				TAbi,
+				ExtractAbiEvent<ParseAbi<THumanReadableAbi>, TEventName>,
+				ParseAbi<THumanReadableAbi>,
 				TStrict,
 				TFromBlock,
 				TToBlock,
 				TEventName,
-				MaybeExtractEventArgsFromAbi<TAbi, TEventName>
+				MaybeExtractEventArgsFromAbi<ParseAbi<THumanReadableAbi>, TEventName>
 			>,
 			'fromBlock' | 'toBlock' | 'args' | 'strict'
 		>,
 	) => CreateEventFilterParameters<
-		ExtractAbiEvent<TAbi, TEventName>,
-		TAbi,
+		ExtractAbiEvent<ParseAbi<THumanReadableAbi>, TEventName>,
+		ParseAbi<THumanReadableAbi>,
 		TStrict,
 		TFromBlock,
 		TToBlock,
 		TEventName,
-		MaybeExtractEventArgsFromAbi<TAbi, TEventName>
+		MaybeExtractEventArgsFromAbi<ParseAbi<THumanReadableAbi>, TEventName>
 	> & {
 		evmtsContractName: TName
 		eventName: TEventName
-		abi: [ExtractAbiEvent<TAbi, TEventName>]
+		abi: [ExtractAbiEvent<ParseAbi<THumanReadableAbi>, TEventName>]
 	}) & {
 		eventName: TEventName
-		abi: [ExtractAbiEvent<TAbi, TEventName>]
-		humanReadableAbi: FormatAbi<[ExtractAbiEvent<TAbi, TEventName>]>
+		humanReadableAbi: FormatAbi<
+			[ExtractAbiEvent<ParseAbi<THumanReadableAbi>, TEventName>]
+		>
+		abi: [ExtractAbiEvent<ParseAbi<THumanReadableAbi>, TEventName>]
 	}
 }

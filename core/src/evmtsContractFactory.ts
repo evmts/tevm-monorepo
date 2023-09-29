@@ -2,23 +2,26 @@ import type { EvmtsContract } from './EvmtsContract'
 import { eventsFactory } from './event/eventFactory'
 import { readFactory } from './read/readFactory'
 import { writeFactory } from './write/writeFactory'
-import type { Abi } from 'abitype'
-import { formatAbi } from 'abitype'
+import { parseAbi } from 'abitype'
 
-export const evmtsContractFactory = <TName extends string, TAbi extends Abi>({
-	abi,
+export const evmtsContractFactory = <
+	TName extends string,
+	THumanReadableAbi extends readonly string[],
+>({
+	humanReadableAbi,
 	name,
-}: Pick<EvmtsContract<TName, TAbi>, 'name' | 'abi'>): EvmtsContract<
-	TName,
-	TAbi
-> => {
+}: Pick<
+	EvmtsContract<TName, THumanReadableAbi>,
+	'name' | 'humanReadableAbi'
+>): EvmtsContract<TName, THumanReadableAbi> => {
+	const abi = parseAbi(humanReadableAbi as any)
 	const methods = abi.filter((field) => {
 		return field.type === 'function'
 	})
 	return {
 		name,
-		abi,
-		humanReadableAbi: formatAbi(abi),
+		abi: abi as any,
+		humanReadableAbi,
 		// TODO make this more internally typesafe
 		events: eventsFactory({ abi }) as any,
 		// TODO make this more internally typesafe

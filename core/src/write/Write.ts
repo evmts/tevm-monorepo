@@ -1,34 +1,45 @@
 import type {
-	Abi,
 	AbiParametersToPrimitiveTypes,
 	ExtractAbiFunction,
 	ExtractAbiFunctionNames,
 	FormatAbi,
+	ParseAbi,
 } from 'abitype'
 export type ValueOf<T> = T[keyof T]
 
-export type Write<TName extends string, TAbi extends Abi> = {
-	[TFunctionName in ExtractAbiFunctionNames<TAbi, 'payable' | 'nonpayable'>]: <
-		TArgs extends AbiParametersToPrimitiveTypes<
-			ExtractAbiFunction<TAbi, TFunctionName>['inputs']
-		> &
+export type Write<
+	TName extends string,
+	THumanReadableAbi extends readonly string[],
+> = {
+		[TFunctionName in
+		ExtractAbiFunctionNames<
+			ParseAbi<THumanReadableAbi>,
+			'payable' | 'nonpayable'
+		>]: <
+			TArgs extends AbiParametersToPrimitiveTypes<
+				ExtractAbiFunction<ParseAbi<THumanReadableAbi>, TFunctionName>['inputs']
+			> &
 			any[] = AbiParametersToPrimitiveTypes<
-			ExtractAbiFunction<TAbi, TFunctionName>['inputs']
-		> &
+				ExtractAbiFunction<ParseAbi<THumanReadableAbi>, TFunctionName>['inputs']
+			> &
 			any[],
-	>(
-		...args: TArgs
-	) => TArgs['length'] extends 0
-		? {
-				abi: [ExtractAbiFunction<TAbi, TFunctionName>]
-				humanReadableAbi: FormatAbi<[ExtractAbiFunction<TAbi, TFunctionName>]>
+		>(
+			...args: TArgs
+		) => TArgs['length'] extends 0
+			? {
 				functionName: TFunctionName
-		  }
-		: {
+				humanReadableAbi: FormatAbi<
+					[ExtractAbiFunction<ParseAbi<THumanReadableAbi>, TFunctionName>]
+				>
+				abi: [ExtractAbiFunction<ParseAbi<THumanReadableAbi>, TFunctionName>]
+			}
+			: {
 				evmtsContractName: TName
-				args: TArgs
-				abi: [ExtractAbiFunction<TAbi, TFunctionName>]
-				humanReadableAbi: FormatAbi<[ExtractAbiFunction<TAbi, TFunctionName>]>
 				functionName: TFunctionName
-		  }
-}
+				args: TArgs
+				humanReadableAbi: FormatAbi<
+					[ExtractAbiFunction<ParseAbi<THumanReadableAbi>, TFunctionName>]
+				>
+				abi: [ExtractAbiFunction<ParseAbi<THumanReadableAbi>, TFunctionName>]
+			}
+	}

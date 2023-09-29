@@ -1,10 +1,11 @@
 import { evmtsContractFactory } from '../evmtsContractFactory'
 import { dummyAbi } from '../test/fixtures'
 import { readFactory } from './readFactory'
+import { formatAbi } from 'abitype'
 import { describe, expect, it } from 'vitest'
 
 const contract = evmtsContractFactory({
-	abi: dummyAbi,
+	humanReadableAbi: formatAbi(dummyAbi),
 	name: 'DummyContract',
 })
 
@@ -18,30 +19,29 @@ describe(readFactory.name, () => {
 				]
 			`)
 		expect(readInfo.abi).toMatchInlineSnapshot(`
-        [
-          {
-            "inputs": [
-              {
-                "name": "str",
-                "type": "string",
-              },
-              {
-                "name": "num",
-                "type": "uint256",
-              },
-            ],
-            "name": "exampleRead",
-            "outputs": [
-              {
-                "name": "",
-                "type": "string",
-              },
-            ],
-            "stateMutability": "pure",
-            "type": "function",
-          },
-        ]
-      `)
+			[
+			  {
+			    "inputs": [
+			      {
+			        "name": "str",
+			        "type": "string",
+			      },
+			      {
+			        "name": "num",
+			        "type": "uint256",
+			      },
+			    ],
+			    "name": "exampleRead",
+			    "outputs": [
+			      {
+			        "type": "string",
+			      },
+			    ],
+			    "stateMutability": "pure",
+			    "type": "function",
+			  },
+			]
+		`)
 		expect(readInfo.humanReadableAbi).toMatchInlineSnapshot(`
         [
           "function exampleRead(string str, uint256 num) pure returns (string)",
@@ -62,38 +62,36 @@ describe(readFactory.name, () => {
 				]
 			`)
 		expect(readInfo1Arg.abi).toMatchInlineSnapshot(`
-				[
-				  {
-				    "inputs": [
-				      {
-				        "name": "str",
-				        "type": "string",
-				      },
-				    ],
-				    "name": "overloadedRead",
-				    "outputs": [
-				      {
-				        "name": "",
-				        "type": "string",
-				      },
-				    ],
-				    "stateMutability": "pure",
-				    "type": "function",
-				  },
-				  {
-				    "inputs": [],
-				    "name": "overloadedRead",
-				    "outputs": [
-				      {
-				        "name": "",
-				        "type": "string",
-				      },
-				    ],
-				    "stateMutability": "pure",
-				    "type": "function",
-				  },
-				]
-			`)
+			[
+			  {
+			    "inputs": [
+			      {
+			        "name": "str",
+			        "type": "string",
+			      },
+			    ],
+			    "name": "overloadedRead",
+			    "outputs": [
+			      {
+			        "type": "string",
+			      },
+			    ],
+			    "stateMutability": "pure",
+			    "type": "function",
+			  },
+			  {
+			    "inputs": [],
+			    "name": "overloadedRead",
+			    "outputs": [
+			      {
+			        "type": "string",
+			      },
+			    ],
+			    "stateMutability": "pure",
+			    "type": "function",
+			  },
+			]
+		`)
 		expect(readInfo1Arg.humanReadableAbi).toMatchInlineSnapshot(`
 				[
 				  "function overloadedRead() pure returns (string)",
@@ -102,38 +100,36 @@ describe(readFactory.name, () => {
 		const readInfo0Arg = contract.read.overloadedRead()
 		expect(Object.keys(readInfo0Arg).includes('args')).toBe(false)
 		expect(readInfo0Arg.abi).toMatchInlineSnapshot(`
-				[
-				  {
-				    "inputs": [
-				      {
-				        "name": "str",
-				        "type": "string",
-				      },
-				    ],
-				    "name": "overloadedRead",
-				    "outputs": [
-				      {
-				        "name": "",
-				        "type": "string",
-				      },
-				    ],
-				    "stateMutability": "pure",
-				    "type": "function",
-				  },
-				  {
-				    "inputs": [],
-				    "name": "overloadedRead",
-				    "outputs": [
-				      {
-				        "name": "",
-				        "type": "string",
-				      },
-				    ],
-				    "stateMutability": "pure",
-				    "type": "function",
-				  },
-				]
-			`)
+			[
+			  {
+			    "inputs": [
+			      {
+			        "name": "str",
+			        "type": "string",
+			      },
+			    ],
+			    "name": "overloadedRead",
+			    "outputs": [
+			      {
+			        "type": "string",
+			      },
+			    ],
+			    "stateMutability": "pure",
+			    "type": "function",
+			  },
+			  {
+			    "inputs": [],
+			    "name": "overloadedRead",
+			    "outputs": [
+			      {
+			        "type": "string",
+			      },
+			    ],
+			    "stateMutability": "pure",
+			    "type": "function",
+			  },
+			]
+		`)
 		expect(readInfo0Arg.humanReadableAbi).toMatchInlineSnapshot(`
 				[
 				  "function overloadedRead() pure returns (string)",

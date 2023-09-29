@@ -1,5 +1,6 @@
 import type { Artifacts } from '../solc/resolveArtifactsSync'
 import { generateDtsBody } from './generateEvmtsBodyDts'
+import { formatAbi } from 'abitype'
 
 type ModuleType = 'cjs' | 'mjs' | 'ts' | 'dts'
 
@@ -14,7 +15,7 @@ export const generateEvmtsBody = (
 		.flatMap(([contractName, { abi, userdoc = {} }]) => {
 			const contract = JSON.stringify({
 				name: contractName,
-				abi,
+				humanReadableAbi: formatAbi(abi),
 			})
 
 			const natspec = Object.entries(userdoc.methods ?? {}).map(

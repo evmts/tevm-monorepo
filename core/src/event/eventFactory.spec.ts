@@ -1,17 +1,18 @@
 import { evmtsContractFactory } from '../evmtsContractFactory'
 import { dummyAbi } from '../test/fixtures'
 import { eventsFactory } from './eventFactory'
+import { formatAbi } from 'abitype'
 import { describe, expect, it } from 'vitest'
 
 const contract = evmtsContractFactory({
-	abi: dummyAbi,
+	humanReadableAbi: formatAbi(dummyAbi),
 	name: 'DummyContract',
 })
 
 const dummyAbiNoEvent = dummyAbi.filter((abi) => abi.type !== 'event')
 
 const contractNoEvent = evmtsContractFactory({
-	abi: dummyAbiNoEvent,
+	humanReadableAbi: formatAbi(dummyAbiNoEvent),
 	name: 'DummyContract',
 })
 
@@ -30,20 +31,19 @@ describe(eventsFactory.name, () => {
 		expect(eventFilterParams.fromBlock).toMatchInlineSnapshot('"latest"')
 		expect(eventFilterParams.strict).toMatchInlineSnapshot('false')
 		expect(eventFilterParams.abi).toMatchInlineSnapshot(`
-        [
-          {
-            "inputs": [
-              {
-                "indexed": false,
-                "name": "data",
-                "type": "string",
-              },
-            ],
-            "name": "exampleEvent",
-            "type": "event",
-          },
-        ]
-      `)
+			[
+			  {
+			    "inputs": [
+			      {
+			        "name": "data",
+			        "type": "string",
+			      },
+			    ],
+			    "name": "exampleEvent",
+			    "type": "event",
+			  },
+			]
+		`)
 	})
 
 	it('should return an empty object when the provided abi includes no events', () => {

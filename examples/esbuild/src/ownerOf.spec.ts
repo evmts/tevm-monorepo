@@ -6,5 +6,7 @@ describe(ownerOf.name, () => {
 		await expect(ownerOf()).resolves.toMatchInlineSnapshot(
 			'"0x1a1E021A302C237453D3D45c7B82B19cEEB7E2e6"',
 		)
+		await expect(ownerOf(BigInt(420))).resolves.toMatchInlineSnapshot(
+		'"0xa5cc3c03994DB5b0d9A5eEdD10CabaB0813678AC"')
 	})
 })

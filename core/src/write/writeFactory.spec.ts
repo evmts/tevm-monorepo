@@ -1,10 +1,11 @@
 import { evmtsContractFactory } from '../evmtsContractFactory'
 import { dummyAbi } from '../test/fixtures'
 import { writeFactory } from './writeFactory'
+import { formatAbi } from 'abitype'
 import { describe, expect, it } from 'vitest'
 
 const contract = evmtsContractFactory({
-	abi: dummyAbi,
+	humanReadableAbi: formatAbi(dummyAbi),
 	name: 'DummyContract',
 })
 
@@ -18,30 +19,29 @@ describe('write', () => {
 				]
 			`)
 		expect(writeInfo.abi).toMatchInlineSnapshot(`
-        [
-          {
-            "inputs": [
-              {
-                "name": "str",
-                "type": "string",
-              },
-              {
-                "name": "num",
-                "type": "uint256",
-              },
-            ],
-            "name": "exampleWrite",
-            "outputs": [
-              {
-                "name": "",
-                "type": "string",
-              },
-            ],
-            "stateMutability": "payable",
-            "type": "function",
-          },
-        ]
-      `)
+			[
+			  {
+			    "inputs": [
+			      {
+			        "name": "str",
+			        "type": "string",
+			      },
+			      {
+			        "name": "num",
+			        "type": "uint256",
+			      },
+			    ],
+			    "name": "exampleWrite",
+			    "outputs": [
+			      {
+			        "type": "string",
+			      },
+			    ],
+			    "stateMutability": "payable",
+			    "type": "function",
+			  },
+			]
+		`)
 		expect(writeInfo.humanReadableAbi).toMatchInlineSnapshot(`
         [
           "function exampleWrite(string str, uint256 num) payable returns (string)",
@@ -56,38 +56,36 @@ describe('write', () => {
 				]
 			`)
 		expect(writeInfo1Arg.abi).toMatchInlineSnapshot(`
-				[
-				  {
-				    "inputs": [
-				      {
-				        "name": "str",
-				        "type": "string",
-				      },
-				    ],
-				    "name": "overloadedWrite",
-				    "outputs": [
-				      {
-				        "name": "",
-				        "type": "string",
-				      },
-				    ],
-				    "stateMutability": "payable",
-				    "type": "function",
-				  },
-				  {
-				    "inputs": [],
-				    "name": "overloadedWrite",
-				    "outputs": [
-				      {
-				        "name": "",
-				        "type": "string",
-				      },
-				    ],
-				    "stateMutability": "payable",
-				    "type": "function",
-				  },
-				]
-			`)
+			[
+			  {
+			    "inputs": [
+			      {
+			        "name": "str",
+			        "type": "string",
+			      },
+			    ],
+			    "name": "overloadedWrite",
+			    "outputs": [
+			      {
+			        "type": "string",
+			      },
+			    ],
+			    "stateMutability": "payable",
+			    "type": "function",
+			  },
+			  {
+			    "inputs": [],
+			    "name": "overloadedWrite",
+			    "outputs": [
+			      {
+			        "type": "string",
+			      },
+			    ],
+			    "stateMutability": "payable",
+			    "type": "function",
+			  },
+			]
+		`)
 		expect(writeInfo1Arg.humanReadableAbi).toMatchInlineSnapshot(`
 				[
 				  "function overloadedWrite() payable returns (string)",
@@ -96,38 +94,36 @@ describe('write', () => {
 		const writeInfo0Arg = contract.write.overloadedWrite()
 		expect(Object.keys(writeInfo0Arg).includes('args')).toBe(false)
 		expect(writeInfo0Arg.abi).toMatchInlineSnapshot(`
-				[
-				  {
-				    "inputs": [
-				      {
-				        "name": "str",
-				        "type": "string",
-				      },
-				    ],
-				    "name": "overloadedWrite",
-				    "outputs": [
-				      {
-				        "name": "",
-				        "type": "string",
-				      },
-				    ],
-				    "stateMutability": "payable",
-				    "type": "function",
-				  },
-				  {
-				    "inputs": [],
-				    "name": "overloadedWrite",
-				    "outputs": [
-				      {
-				        "name": "",
-				        "type": "string",
-				      },
-				    ],
-				    "stateMutability": "payable",
-				    "type": "function",
-				  },
-				]
-			`)
+			[
+			  {
+			    "inputs": [
+			      {
+			        "name": "str",
+			        "type": "string",
+			      },
+			    ],
+			    "name": "overloadedWrite",
+			    "outputs": [
+			      {
+			        "type": "string",
+			      },
+			    ],
+			    "stateMutability": "payable",
+			    "type": "function",
+			  },
+			  {
+			    "inputs": [],
+			    "name": "overloadedWrite",
+			    "outputs": [
+			      {
+			        "type": "string",
+			      },
+			    ],
+			    "stateMutability": "payable",
+			    "type": "function",
+			  },
+			]
+		`)
 		expect(writeInfo0Arg.humanReadableAbi).toMatchInlineSnapshot(`
 				[
 				  "function overloadedWrite() payable returns (string)",

@@ -1,11 +1,12 @@
 import type { Artifacts } from '../solc/resolveArtifactsSync'
+import { formatAbi } from 'abitype'
 
 export const generateDtsBody = (artifacts: Artifacts) => {
 	return Object.entries(artifacts)
 		.flatMap(([contractName, { abi, userdoc = {} }]) => {
 			const contract = {
 				name: contractName,
-				abi,
+				humanReadableAbi: formatAbi(abi),
 			}
 			const natspec = Object.entries(userdoc.methods ?? {}).map(
 				([method, { notice }]) => ` * @property ${method} ${notice}`,
@@ -14,7 +15,9 @@ export const generateDtsBody = (artifacts: Artifacts) => {
 				natspec.unshift(` * @notice ${userdoc.notice}`)
 			}
 			return [
-				`const _abi${contractName} = ${JSON.stringify(contract.abi)} as const;`,
+				`const _abi${contractName} = ${JSON.stringify(
+					contract.humanReadableAbi,
+				)} as const;`,
 				`const _name${contractName} = ${JSON.stringify(
 					contractName,
 				)} as const;`,
