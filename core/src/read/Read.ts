@@ -1,20 +1,13 @@
 import type {
 	Abi,
 	AbiParametersToPrimitiveTypes,
-	Address,
 	ExtractAbiFunction,
 	ExtractAbiFunctionNames,
 	FormatAbi,
 } from 'abitype'
 export type ValueOf<T> = T[keyof T]
 
-export type Read<
-	TName extends string,
-	TAddresses extends Record<number, Address>,
-	TAbi extends Abi,
-> = <TChainId extends keyof TAddresses>(options?: {
-	chainId?: TChainId | number | undefined
-}) => {
+export type Read<TName extends string, TAbi extends Abi> = {
 	[TFunctionName in ExtractAbiFunctionNames<TAbi, 'pure' | 'view'>]: <
 		TArgs extends AbiParametersToPrimitiveTypes<
 			ExtractAbiFunction<TAbi, TFunctionName>['inputs']
@@ -28,14 +21,12 @@ export type Read<
 	) => TArgs['length'] extends 0
 		? {
 				evmtsContractName: TName
-				address: ValueOf<TAddresses>
 				abi: [ExtractAbiFunction<TAbi, TFunctionName>]
 				humanReadableAbi: FormatAbi<[ExtractAbiFunction<TAbi, TFunctionName>]>
 				functionName: TFunctionName
 		  }
 		: {
 				evmtsContractName: TName
-				address: ValueOf<TAddresses>
 				abi: [ExtractAbiFunction<TAbi, TFunctionName>]
 				humanReadableAbi: FormatAbi<[ExtractAbiFunction<TAbi, TFunctionName>]>
 				functionName: TFunctionName

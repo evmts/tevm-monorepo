@@ -3,14 +3,14 @@ import { invariant } from '../utils/invariant'
 import { resolvePromise } from '../utils/resolvePromise'
 import { moduleFactory } from './moduleFactory'
 import { type SolcInputDescription, type SolcOutput, solcCompile } from './solc'
-import type { ResolvedConfig } from '@evmts/config'
+import type { ResolvedCompilerConfig } from '@evmts/config'
 import type { Node } from 'solidity-ast/node'
 
 // Compile the Solidity contract and return its ABI
 export const compileContract = async <TIncludeAsts = boolean>(
 	filePath: string,
 	basedir: string,
-	config: ResolvedConfig['compiler'],
+	config: ResolvedCompilerConfig,
 	includeAst: TIncludeAsts,
 	fao: FileAccessObject,
 	logger: Logger,

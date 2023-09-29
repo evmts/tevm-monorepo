@@ -1,4 +1,4 @@
-import { type EvmtsConfig, type ResolvedConfig } from './Config'
+import type { CompilerConfig, ResolvedCompilerConfig } from '.'
 import { defineConfig } from './defineConfig'
 import { existsSync, readFileSync } from 'fs'
 import { parse } from 'jsonc-parser'
@@ -7,7 +7,7 @@ import * as path from 'path'
 type LoadConfig = (
 	configFilePath: string,
 	logger?: Pick<typeof console, 'error' | 'warn'>,
-) => ResolvedConfig
+) => ResolvedCompilerConfig
 
 export const loadConfig: LoadConfig = (configFilePath, logger = console) => {
 	/**
@@ -29,7 +29,7 @@ export const loadConfig: LoadConfig = (configFilePath, logger = console) => {
 	}
 	let configJson: {
 		compilerOptions: {
-			plugins?: Array<{ name: '@evmts/ts-plugin' } & EvmtsConfig>
+			plugins?: Array<{ name: '@evmts/ts-plugin' } & CompilerConfig>
 			baseUrl?: string
 		}
 	}
@@ -43,7 +43,7 @@ export const loadConfig: LoadConfig = (configFilePath, logger = console) => {
 		throw new Error(`tsconfig.json at ${tsConfigPath} is not valid json`)
 	}
 
-	let config: EvmtsConfig | undefined =
+	let config: CompilerConfig | undefined =
 		configJson?.compilerOptions?.plugins?.find(
 			(plugin) => plugin.name === '@evmts/ts-plugin',
 		)
@@ -58,13 +58,10 @@ export const loadConfig: LoadConfig = (configFilePath, logger = console) => {
 	if (config && configJson.compilerOptions.baseUrl) {
 		config = {
 			...config,
-			compiler: {
-				...config.compiler,
-				libs: [
-					...(config.compiler?.libs ?? []),
-					path.join(configFilePath, configJson.compilerOptions.baseUrl),
-				],
-			},
+			libs: [
+				...(config.libs ?? []),
+				path.join(configFilePath, configJson.compilerOptions.baseUrl),
+			],
 		}
 	}
 

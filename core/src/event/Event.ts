@@ -1,6 +1,5 @@
 import type {
 	Abi,
-	Address,
 	ExtractAbiEvent,
 	ExtractAbiEventNames,
 	FormatAbi,
@@ -10,13 +9,7 @@ import type { MaybeExtractEventArgsFromAbi } from 'viem/dist/types/types/contrac
 
 export type ValueOf<T> = T[keyof T]
 
-export type Events<
-	TName extends string,
-	TAddresses extends Record<number, Address>,
-	TAbi extends Abi,
-> = <TChainId extends keyof TAddresses>(options?: {
-	chainId?: TChainId | number | undefined
-}) => {
+export type Events<TName extends string, TAbi extends Abi> = {
 	[TEventName in ExtractAbiEventNames<TAbi>]: (<
 		TStrict extends boolean = false,
 		TFromBlock extends BlockNumber | BlockTag | undefined = undefined,
@@ -47,7 +40,6 @@ export type Events<
 		eventName: TEventName
 		abi: [ExtractAbiEvent<TAbi, TEventName>]
 	}) & {
-		address: ValueOf<TAddresses>
 		eventName: TEventName
 		abi: [ExtractAbiEvent<TAbi, TEventName>]
 		humanReadableAbi: FormatAbi<[ExtractAbiEvent<TAbi, TEventName>]>

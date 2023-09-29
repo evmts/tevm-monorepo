@@ -5,7 +5,7 @@ import {
 	findContractDefinitionFileNameFromEvmtsNode,
 } from '../utils'
 import { FileAccessObject, bundler } from '@evmts/bundler'
-import { ResolvedConfig } from '@evmts/config'
+import { ResolvedCompilerConfig } from '@evmts/config'
 import { Node } from 'solidity-ast/node'
 import { findAll } from 'solidity-ast/utils'
 import typescript from 'typescript/lib/tsserverlibrary'
@@ -19,7 +19,7 @@ import typescript from 'typescript/lib/tsserverlibrary'
  */
 export const getDefinitionServiceDecorator = (
 	service: typescript.LanguageService,
-	config: ResolvedConfig,
+	config: ResolvedCompilerConfig,
 	logger: Logger,
 	ts: typeof typescript,
 	fao: FileAccessObject,

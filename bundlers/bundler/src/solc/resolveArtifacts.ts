@@ -5,7 +5,7 @@ import type {
 	SolcInputDescription,
 	SolcOutput,
 } from './solc'
-import type { ResolvedConfig } from '@evmts/config'
+import type { ResolvedCompilerConfig } from '@evmts/config'
 import type { Node } from 'solidity-ast/node'
 
 type Artifacts = Record<string, Pick<SolcContractOutput, 'abi' | 'userdoc'>>
@@ -16,7 +16,7 @@ export const resolveArtifacts = async (
 	solFile: string,
 	basedir: string,
 	logger: Logger,
-	config: ResolvedConfig,
+	config: ResolvedCompilerConfig,
 	includeAst: boolean,
 	fao: FileAccessObject,
 ): Promise<{
@@ -30,14 +30,7 @@ export const resolveArtifacts = async (
 		throw new Error('Not a solidity file')
 	}
 	const { artifacts, modules, asts, solcInput, solcOutput } =
-		await compileContract(
-			solFile,
-			basedir,
-			config.compiler,
-			includeAst,
-			fao,
-			logger,
-		)
+		await compileContract(solFile, basedir, config, includeAst, fao, logger)
 
 	if (!artifacts) {
 		logger.error(`Compilation failed for ${solFile}`)

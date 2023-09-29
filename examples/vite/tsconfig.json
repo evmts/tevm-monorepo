@@ -3,49 +3,7 @@
     "plugins": [
       {
         "name": "@evmts/ts-plugin",
-        "compiler": {
-          "foundryProject": true
-        },
-        "externalContracts": {
-          "out": "./src/contracts/external/",
-          "apiKeys": {
-            "etherscan": {
-              "1": "$ETHERSCAN_API_KEY_1",
-              "10": "$ETHERSCAN_API_KEY_10"
-            }
-          },
-          "contracts": [
-            {
-              "type": "etherscan",
-              "name": "DAI",
-              "addresses": {
-                "1": "0x6B175474E89094C44Da98b954EedeAC495271d0F",
-                "10": "0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1"
-              }
-            }
-          ]
-        },
-        "localContracts": {
-          "contracts": [
-            {
-              "name": "WagmiMintExample",
-              "addresses": {
-                "1": "0xFBA3912Ca04dd458c843e2EE08967fC04f3579c2",
-                "5": "0x1df10ec981ac5871240be4a94f250dd238b77901",
-                "10": "0x1df10ec981ac5871240be4a94f250dd238b77901",
-                "56": "0x1df10ec981ac5871240be4a94f250dd238b77901",
-                "137": "0x1df10ec981ac5871240be4a94f250dd238b77901",
-                "250": "0x1df10ec981ac5871240be4a94f250dd238b77901",
-                "288": "0x1df10ec981ac5871240be4a94f250dd238b77901",
-                "324": "0x1df10ec981ac5871240be4a94f250dd238b77901",
-                "420": "0x1df10ec981ac5871240be4a94f250dd238b77901",
-                "42161": "0x1df10ec981ac5871240be4a94f250dd238b77901",
-                "80001": "0x1df10ec981ac5871240be4a94f250dd238b77901",
-                "421613": "0x1df10ec981ac5871240be4a94f250dd238b77901"
-              }
-            }
-          ]
-        }
+        "foundryProject": true
       }
     ],
     "allowJs": false,

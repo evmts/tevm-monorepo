@@ -2,27 +2,16 @@ import type { EvmtsContract } from './EvmtsContract'
 import { eventsFactory } from './event/eventFactory'
 import { readFactory } from './read/readFactory'
 import { writeFactory } from './write/writeFactory'
-import type { Abi, Address } from 'abitype'
+import type { Abi } from 'abitype'
 import { formatAbi } from 'abitype'
-import { isAddress } from 'viem'
 
-export const evmtsContractFactory = <
-	TName extends string,
-	TAddresses extends Record<number, Address>,
-	TAbi extends Abi,
->({
+export const evmtsContractFactory = <TName extends string, TAbi extends Abi>({
 	abi,
 	name,
-	addresses,
-}: Pick<
-	EvmtsContract<TName, TAddresses, TAbi>,
-	'name' | 'abi' | 'addresses'
->): EvmtsContract<TName, TAddresses, TAbi> => {
-	Object.values(addresses).forEach((address) => {
-		if (!isAddress(address)) {
-			throw new Error(`"${address} is not a valid ethereum address`)
-		}
-	})
+}: Pick<EvmtsContract<TName, TAbi>, 'name' | 'abi'>): EvmtsContract<
+	TName,
+	TAbi
+> => {
 	const methods = abi.filter((field) => {
 		return field.type === 'function'
 	})
@@ -30,12 +19,11 @@ export const evmtsContractFactory = <
 		name,
 		abi,
 		humanReadableAbi: formatAbi(abi),
-		addresses,
 		// TODO make this more internally typesafe
-		events: eventsFactory({ abi, addresses }) as any,
+		events: eventsFactory({ abi }) as any,
 		// TODO make this more internally typesafe
-		write: writeFactory({ addresses, methods }) as any,
+		write: writeFactory({ methods }) as any,
 		// TODO make this more internally typesafe
-		read: readFactory({ addresses, methods }) as any,
+		read: readFactory({ methods }) as any,
 	}
 }

@@ -291,13 +291,11 @@ describe(bundler.name, () => {
 				  },
 				  "code": "import { EvmtsContract } from '@evmts/core'
 				const _abiTestContract = [] as const;
-				const _chainAddressMapTestContract = {\\"10\\":\\"0x123\\"} as const;
 				const _nameTestContract = \\"TestContract\\" as const;
 				/**
 				 * TestContract EvmtsContract
-				 * @etherscan-10 https://optimistic.etherscan.io/address/0x123
 				 */
-				export const TestContract: EvmtsContract<typeof _nameTestContract, typeof _chainAddressMapTestContract, typeof _abiTestContract>;",
+				export const TestContract: EvmtsContract<typeof _nameTestContract, typeof _abiTestContract>;",
 				  "modules": {
 				    "module1": {
 				      "code": "import { TestContract } from 'module2'
@@ -378,13 +376,11 @@ describe(bundler.name, () => {
 				  },
 				  "code": "import { EvmtsContract } from '@evmts/core'
 				const _abiTestContract = [] as const;
-				const _chainAddressMapTestContract = {\\"10\\":\\"0x123\\"} as const;
 				const _nameTestContract = \\"TestContract\\" as const;
 				/**
 				 * TestContract EvmtsContract
-				 * @etherscan-10 https://optimistic.etherscan.io/address/0x123
 				 */
-				export const TestContract: EvmtsContract<typeof _nameTestContract, typeof _chainAddressMapTestContract, typeof _abiTestContract>;",
+				export const TestContract: EvmtsContract<typeof _nameTestContract, typeof _abiTestContract>;",
 				  "modules": {
 				    "module1": {
 				      "code": "import { TestContract } from 'module2'
@@ -474,7 +470,7 @@ describe(bundler.name, () => {
 				    },
 				  },
 				  "code": "import { evmtsContractFactory } from '@evmts/core'
-				const _TestContract = {\\"name\\":\\"TestContract\\",\\"abi\\":[],\\"addresses\\":{\\"10\\":\\"0x123\\"}} as const
+				const _TestContract = {\\"name\\":\\"TestContract\\",\\"abi\\":[]} as const
 				export const TestContract = evmtsContractFactory(_TestContract)",
 				  "modules": {
 				    "module1": {
@@ -565,7 +561,7 @@ describe(bundler.name, () => {
 				    },
 				  },
 				  "code": "import { evmtsContractFactory } from '@evmts/core'
-				const _TestContract = {\\"name\\":\\"TestContract\\",\\"abi\\":[],\\"addresses\\":{\\"10\\":\\"0x123\\"}} as const
+				const _TestContract = {\\"name\\":\\"TestContract\\",\\"abi\\":[]} as const
 				export const TestContract = evmtsContractFactory(_TestContract)",
 				  "modules": {
 				    "module1": {
@@ -656,7 +652,7 @@ describe(bundler.name, () => {
 				    },
 				  },
 				  "code": "const { evmtsContractFactory } = require('@evmts/core')
-				const _TestContract = {\\"name\\":\\"TestContract\\",\\"abi\\":[],\\"addresses\\":{\\"10\\":\\"0x123\\"}}
+				const _TestContract = {\\"name\\":\\"TestContract\\",\\"abi\\":[]}
 				module.exports.TestContract = evmtsContractFactory(_TestContract)",
 				  "modules": {
 				    "module1": {
@@ -747,7 +743,7 @@ describe(bundler.name, () => {
 				    },
 				  },
 				  "code": "const { evmtsContractFactory } = require('@evmts/core')
-				const _TestContract = {\\"name\\":\\"TestContract\\",\\"abi\\":[],\\"addresses\\":{\\"10\\":\\"0x123\\"}}
+				const _TestContract = {\\"name\\":\\"TestContract\\",\\"abi\\":[]}
 				module.exports.TestContract = evmtsContractFactory(_TestContract)",
 				  "modules": {
 				    "module1": {
@@ -838,7 +834,7 @@ describe(bundler.name, () => {
 				    },
 				  },
 				  "code": "import { evmtsContractFactory } from '@evmts/core'
-				const _TestContract = {\\"name\\":\\"TestContract\\",\\"abi\\":[],\\"addresses\\":{\\"10\\":\\"0x123\\"}}
+				const _TestContract = {\\"name\\":\\"TestContract\\",\\"abi\\":[]}
 				export const TestContract = evmtsContractFactory(_TestContract)",
 				  "modules": {
 				    "module1": {
@@ -929,7 +925,7 @@ describe(bundler.name, () => {
 				    },
 				  },
 				  "code": "import { evmtsContractFactory } from '@evmts/core'
-				const _TestContract = {\\"name\\":\\"TestContract\\",\\"abi\\":[],\\"addresses\\":{\\"10\\":\\"0x123\\"}}
+				const _TestContract = {\\"name\\":\\"TestContract\\",\\"abi\\":[]}
 				export const TestContract = evmtsContractFactory(_TestContract)",
 				  "modules": {
 				    "module1": {

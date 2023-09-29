@@ -8,9 +8,6 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 vi.mock('@evmts/bundler', async () => ({
 	bundler: vi.fn(),
 }))
-vi.mock('@evmts/config', async () => ({
-	ResolvedConfig: vi.fn(),
-}))
 vi.mock('../utils', async () => {
 	return {
 		...vi.importActual('../utils'),
@@ -80,9 +77,6 @@ describe('getDefinitionServiceDecorator', () => {
 	beforeEach(() => {
 		vi.mock('@evmts/bundler', async () => ({
 			bundler: vi.fn(),
-		}))
-		vi.mock('@evmts/config', async () => ({
-			ResolvedConfig: vi.fn(),
 		}))
 		vi.mock('../utils', async () => {
 			return {

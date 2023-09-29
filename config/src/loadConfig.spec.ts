@@ -1,4 +1,4 @@
-import { type EvmtsConfig, defaultConfig, loadConfig } from '.'
+import { type CompilerConfig, defaultConfig, loadConfig } from '.'
 import * as cp from 'child_process'
 import * as fs from 'fs'
 import { createRequire } from 'module'
@@ -18,18 +18,6 @@ const mockTsConfig = () => {
 				plugins: [
 					{
 						name: '@evmts/ts-plugin',
-						localContracts: {
-							contracts: [
-								{
-									name: 'WagmiMintExample',
-									addresses: {
-										'1': '0xFBA3912Ca04dd458c843e2EE08967fC04f3579c2',
-										'5': '0x1df10ec981ac5871240be4a94f250dd238b77901',
-										'10': '0x1df10ec981ac5871240be4a94f250dd238b77901',
-									},
-								},
-							],
-						},
 					},
 				],
 			},
@@ -95,22 +83,8 @@ describe(loadConfig.name, () => {
 				plugins: [
 					{
 						name: '@evmts/ts-plugin',
-						compiler: {
-							solcVersion: '0.9.0',
-							libs: ['path/to/libs'],
-						},
-						localContracts: {
-							contracts: [
-								{
-									name: 'WagmiMintExample',
-									addresses: {
-										'1': '0xFBA3912Ca04dd458c843e2EE08967fC04f3579c2',
-										'5': '0x1df10ec981ac5871240be4a94f250dd238b77901',
-										'10': '0x1df10ec981ac5871240be4a94f250dd238b77901',
-									},
-								},
-							],
-						},
+						solcVersion: '0.9.0',
+						libs: ['path/to/libs'],
 					},
 				],
 			},
@@ -119,74 +93,22 @@ describe(loadConfig.name, () => {
 		const config = loadConfig('nonexistentpath')
 		expect(config).toMatchInlineSnapshot(`
 			{
-			  "compiler": {
-			    "foundryProject": false,
-			    "libs": [
-			      "path/to/libs",
-			    ],
-			    "remappings": {},
-			    "solcVersion": "0.9.0",
-			  },
-			  "externalContracts": {
-			    "apiKeys": {
-			      "etherscan": {},
-			    },
-			    "contracts": [],
-			    "out": "externalContracts",
-			  },
-			  "localContracts": {
-			    "contracts": [
-			      {
-			        "addresses": {
-			          "1": "0xFBA3912Ca04dd458c843e2EE08967fC04f3579c2",
-			          "10": "0x1df10ec981ac5871240be4a94f250dd238b77901",
-			          "5": "0x1df10ec981ac5871240be4a94f250dd238b77901",
-			        },
-			        "name": "WagmiMintExample",
-			      },
-			    ],
-			  },
+			  "foundryProject": false,
+			  "libs": [
+			    "path/to/libs",
+			  ],
+			  "remappings": {},
+			  "solcVersion": "0.9.0",
 			}
 		`)
 	})
 
 	it('should return the correct config when most options are passed in', () => {
-		const customConfig: EvmtsConfig = {
-			name: '@evmts/ts-plugin',
-			compiler: {
-				solcVersion: '0.9.0',
-				libs: ['lib1', 'lib2'],
-				foundryProject: false,
-			},
-			localContracts: {
-				contracts: [
-					{
-						name: 'WagmiMintExample',
-						addresses: {
-							'1': '0xFBA3912Ca04dd458c843e2EE08967fC04f3579c2',
-							'5': '0x1df10ec981ac5871240be4a94f250dd238b77901',
-							'10': '0x1df10ec981ac5871240be4a94f250dd238b77901',
-						},
-					},
-				],
-			},
-			externalContracts: {
-				out: 'path/to/out',
-				apiKeys: {
-					etherscan: {
-						1: '$ETHERSCAN_KEY',
-					},
-				},
-				contracts: [
-					{
-						type: 'etherscan',
-						addresses: {
-							1: '0x4df10ec981ac5871240be4a94f250dd238b77904',
-						},
-						name: 'MyExternalContract',
-					},
-				],
-			},
+		const customConfig: CompilerConfig = {
+			...{ name: '@evmts/ts-plugin' },
+			solcVersion: '0.9.0',
+			libs: ['lib1', 'lib2'],
+			foundryProject: false,
 		}
 		vi.spyOn(cp, 'execSync').mockReturnValue(
 			Buffer.from(
@@ -205,48 +127,13 @@ describe(loadConfig.name, () => {
 		const config = loadConfig('path/to/config')
 		expect(config).toMatchInlineSnapshot(`
 			{
-			  "compiler": {
-			    "foundryProject": false,
-			    "libs": [
-			      "lib1",
-			      "lib2",
-			    ],
-			    "remappings": {},
-			    "solcVersion": "0.9.0",
-			  },
-			  "externalContracts": {
-			    "apiKeys": {
-			      "etherscan": {
-			        "1": "MY_ETHERSCAN_KEY",
-			        "10": undefined,
-			        "137": undefined,
-			        "42161": undefined,
-			        "56": undefined,
-			      },
-			    },
-			    "contracts": [
-			      {
-			        "addresses": {
-			          "1": "0x4df10ec981ac5871240be4a94f250dd238b77904",
-			        },
-			        "name": "MyExternalContract",
-			        "type": "etherscan",
-			      },
-			    ],
-			    "out": "path/to/out",
-			  },
-			  "localContracts": {
-			    "contracts": [
-			      {
-			        "addresses": {
-			          "1": "0xFBA3912Ca04dd458c843e2EE08967fC04f3579c2",
-			          "10": "0x1df10ec981ac5871240be4a94f250dd238b77901",
-			          "5": "0x1df10ec981ac5871240be4a94f250dd238b77901",
-			        },
-			        "name": "WagmiMintExample",
-			      },
-			    ],
-			  },
+			  "foundryProject": false,
+			  "libs": [
+			    "lib1",
+			    "lib2",
+			  ],
+			  "remappings": {},
+			  "solcVersion": "0.9.0",
 			}
 		`)
 	})
@@ -344,31 +231,10 @@ describe(loadConfig.name, () => {
 		const config = loadConfig('path/to/config')
 		expect(config).toMatchInlineSnapshot(`
 			{
-			  "compiler": {
-			    "foundryProject": false,
-			    "libs": [],
-			    "remappings": {},
-			    "solcVersion": "0.8.42",
-			  },
-			  "externalContracts": {
-			    "apiKeys": {
-			      "etherscan": {},
-			    },
-			    "contracts": [],
-			    "out": "externalContracts",
-			  },
-			  "localContracts": {
-			    "contracts": [
-			      {
-			        "addresses": {
-			          "1": "0xFBA3912Ca04dd458c843e2EE08967fC04f3579c2",
-			          "10": "0x1df10ec981ac5871240be4a94f250dd238b77901",
-			          "5": "0x1df10ec981ac5871240be4a94f250dd238b77901",
-			        },
-			        "name": "WagmiMintExample",
-			      },
-			    ],
-			  },
+			  "foundryProject": false,
+			  "libs": [],
+			  "remappings": {},
+			  "solcVersion": "0.8.42",
 			}
 		`)
 	})
@@ -380,31 +246,10 @@ describe(loadConfig.name, () => {
 		const config = loadConfig('path/to/config')
 		expect(config).toMatchInlineSnapshot(`
 			{
-			  "compiler": {
-			    "foundryProject": false,
-			    "libs": [],
-			    "remappings": {},
-			    "solcVersion": "0.8.42",
-			  },
-			  "externalContracts": {
-			    "apiKeys": {
-			      "etherscan": {},
-			    },
-			    "contracts": [],
-			    "out": "externalContracts",
-			  },
-			  "localContracts": {
-			    "contracts": [
-			      {
-			        "addresses": {
-			          "1": "0xFBA3912Ca04dd458c843e2EE08967fC04f3579c2",
-			          "10": "0x1df10ec981ac5871240be4a94f250dd238b77901",
-			          "5": "0x1df10ec981ac5871240be4a94f250dd238b77901",
-			        },
-			        "name": "WagmiMintExample",
-			      },
-			    ],
-			  },
+			  "foundryProject": false,
+			  "libs": [],
+			  "remappings": {},
+			  "solcVersion": "0.8.42",
 			}
 		`)
 	})
@@ -416,9 +261,7 @@ describe(loadConfig.name, () => {
 					plugins: [
 						{
 							name: '@evmts/ts-plugin',
-							compiler: {
-								libs: ['lib1'],
-							},
+							libs: ['lib1'],
 						},
 					],
 					baseUrl: 'basepath',
@@ -428,7 +271,7 @@ describe(loadConfig.name, () => {
 
 		const config = loadConfig('path/to/config')
 
-		expect(config.compiler.libs).toEqual(['lib1', 'path/to/config/basepath'])
+		expect(config.libs).toEqual(['lib1', 'path/to/config/basepath'])
 	})
 
 	it('should use default config when Evmts plugin is not found', () => {
@@ -454,8 +297,8 @@ describe(loadConfig.name, () => {
 
 		const config = loadConfig('path/to/config')
 
-		expect(config.compiler.libs).toEqual([
-			...(defaultConfig.compiler.libs ?? []),
+		expect(config.libs).toEqual([
+			...(defaultConfig.libs ?? []),
 			'path/to/config/basepath',
 		])
 	})
@@ -479,71 +322,6 @@ describe(loadConfig.name, () => {
 		)
 	})
 
-	it('shoudl expand env', () => {
-		const customConfig: EvmtsConfig = {
-			name: '@evmts/ts-plugin',
-			externalContracts: {
-				out: 'path/to/out',
-				apiKeys: {
-					etherscan: {
-						1: '$ETHERSCAN_KEY',
-					},
-				},
-				contracts: [
-					{
-						type: 'etherscan',
-						name: 'MyContract',
-						addresses: {
-							1: '0x8F0EBDaA1cF7106bE861753B0f9F5c0250fE0819',
-						},
-					},
-				],
-			},
-		}
-		const tsConfig = {
-			compilerOptions: {
-				plugins: [customConfig],
-			},
-		}
-		vi.spyOn(fs, 'readFileSync').mockReturnValue(JSON.stringify(tsConfig))
-		vi.spyOn(fs, 'existsSync').mockReturnValue(true)
-		const config = loadConfig('path/to/config')
-		expect(config).toMatchInlineSnapshot(`
-			{
-			  "compiler": {
-			    "foundryProject": false,
-			    "libs": [],
-			    "remappings": {},
-			    "solcVersion": "0.8.42",
-			  },
-			  "externalContracts": {
-			    "apiKeys": {
-			      "etherscan": {
-			        "1": "MY_ETHERSCAN_KEY",
-			        "10": undefined,
-			        "137": undefined,
-			        "42161": undefined,
-			        "56": undefined,
-			      },
-			    },
-			    "contracts": [
-			      {
-			        "addresses": {
-			          "1": "0x8F0EBDaA1cF7106bE861753B0f9F5c0250fE0819",
-			        },
-			        "name": "MyContract",
-			        "type": "etherscan",
-			      },
-			    ],
-			    "out": "path/to/out",
-			  },
-			  "localContracts": {
-			    "contracts": [],
-			  },
-			}
-		`)
-	})
-
 	it('should work when jsonc (json with comments) is passed in', () => {
 		const tsConfig = `{
 			"compilerOptions": {
@@ -556,22 +334,10 @@ describe(loadConfig.name, () => {
 		const config = loadConfig('path/to/config')
 		expect(config).toMatchInlineSnapshot(`
 			{
-			  "compiler": {
-			    "foundryProject": false,
-			    "libs": [],
-			    "remappings": {},
-			    "solcVersion": "0.8.42",
-			  },
-			  "externalContracts": {
-			    "apiKeys": {
-			      "etherscan": {},
-			    },
-			    "contracts": [],
-			    "out": "externalContracts",
-			  },
-			  "localContracts": {
-			    "contracts": [],
-			  },
+			  "foundryProject": false,
+			  "libs": [],
+			  "remappings": {},
+			  "solcVersion": "0.8.42",
 			}
 		`)
 	})

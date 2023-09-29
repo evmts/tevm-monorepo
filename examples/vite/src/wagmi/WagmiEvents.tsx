@@ -1,3 +1,4 @@
+import { addresses } from '../addresses'
 import { WagmiMintExample } from '../contracts/WagmiMintExample.sol'
 import { useState } from 'react'
 import { useAccount, useBlockNumber, useContractEvent } from 'wagmi'
@@ -15,7 +16,7 @@ export const WagmiEvents = () => {
 	 * - Don't call fn and it is an object without args
 	 * - Call fn with args and fromBlock etc. and it returns an object with args
 	 */
-	const transferEvents = WagmiMintExample.events().Transfer({
+	const transferEvents = WagmiMintExample.events.Transfer({
 		fromBlock: blockNumber && blockNumber - BigInt(1_000),
 		args: {
 			to: address,
@@ -24,6 +25,7 @@ export const WagmiEvents = () => {
 
 	useContractEvent({
 		...transferEvents,
+		address: addresses[420],
 		listener: (event) => {
 			setEvents([...events, event])
 		},

@@ -5,20 +5,18 @@ import {
 	decorateHost,
 } from '.'
 import { FileAccessObject } from '@evmts/bundler'
-import { EvmtsConfig, defaultConfig, defineConfig } from '@evmts/config'
+import { CompilerConfig, defaultConfig, defineConfig } from '@evmts/config'
 import typescript from 'typescript/lib/tsserverlibrary'
 import { describe, expect, it, vi } from 'vitest'
 
 type TestAny = any
 
-const { remappings, ...compilerOptions } = defaultConfig.compiler
+const { remappings, ...compilerOptions } = defaultConfig
 
-const mockConfig: EvmtsConfig = {
+const mockConfig: CompilerConfig = {
 	...defaultConfig,
-	compiler: {
-		...compilerOptions,
-		solcVersion: '0.8.0',
-	},
+	...compilerOptions,
+	solcVersion: '0.8.0',
 }
 
 const config = defineConfig(() => mockConfig).configFn('.')
