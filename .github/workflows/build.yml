@@ -22,7 +22,7 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Run build
-        run: pnpm nx affected --target=build:types
+        run: bun nx affected --target=build:types
         env:
           NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
   build-dist:
@@ -38,7 +38,7 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Run build dist
-        run: pnpm nx affected --target=build:dist
+        run: bun nx affected --target=build:dist
         env:
           NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
 
