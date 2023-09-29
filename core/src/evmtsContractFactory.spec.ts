@@ -1,6 +1,6 @@
 import { evmtsContractFactory } from './evmtsContractFactory'
 import { dummyAbi } from './test/fixtures'
-import { formatAbi } from 'abitype'
+import { formatAbi, parseAbi } from 'abitype'
 import { describe, expect, it } from 'vitest'
 
 describe(evmtsContractFactory.name, () => {
@@ -14,7 +14,7 @@ describe(evmtsContractFactory.name, () => {
 	})
 
 	it('should contain the ABI', () => {
-		expect(contract.abi).toEqual(dummyAbi)
+		expect(contract.abi).toEqual(parseAbi(formatAbi(dummyAbi)))
 	})
 
 	it('should generate human readable ABI', () => {

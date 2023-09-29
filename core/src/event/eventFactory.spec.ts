@@ -31,20 +31,19 @@ describe(eventsFactory.name, () => {
 		expect(eventFilterParams.fromBlock).toMatchInlineSnapshot('"latest"')
 		expect(eventFilterParams.strict).toMatchInlineSnapshot('false')
 		expect(eventFilterParams.abi).toMatchInlineSnapshot(`
-        [
-          {
-            "inputs": [
-              {
-                "indexed": false,
-                "name": "data",
-                "type": "string",
-              },
-            ],
-            "name": "exampleEvent",
-            "type": "event",
-          },
-        ]
-      `)
+			[
+			  {
+			    "inputs": [
+			      {
+			        "name": "data",
+			        "type": "string",
+			      },
+			    ],
+			    "name": "exampleEvent",
+			    "type": "event",
+			  },
+			]
+		`)
 	})
 
 	it('should return an empty object when the provided abi includes no events', () => {
