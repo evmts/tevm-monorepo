@@ -10,7 +10,8 @@ vi.mock('@evmts/config', async () => ({
 	loadConfigAsync: vi.fn(),
 }))
 
-vi.mock('@evmts/bundler', () => ({
+vi.mock('@evmts/bundler', async () => ({
+	...((await vi.importActual('@evmts/bundler')) as {}),
 	bundler: vi.fn(),
 }))
 

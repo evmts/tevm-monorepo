@@ -112,6 +112,11 @@ describe('unpluginFn', () => {
 			    "readFile": [Function],
 			    "readFileSync": [Function],
 			  },
+			  {
+			    "isCached": [Function],
+			    "read": [Function],
+			    "write": [Function],
+			  },
 			]
 		`)
 

@@ -1,4 +1,4 @@
-import { FileAccessObject, bundler } from '@evmts/bundler'
+import { FileAccessObject, bundler, createCache } from '@evmts/bundler'
 import { loadConfig } from '@evmts/config'
 import { existsSync, readFileSync } from 'fs'
 import { readFile, writeFile } from 'fs/promises'
@@ -18,11 +18,12 @@ const generate = (cwd = process.cwd(), include = ['src/**/*.sol']) => {
 	if (files.length === 0) {
 		throw new Error('No files found')
 	}
+	const solcCache = createCache(console)
 	files.forEach(async (file) => {
 		const fileName = file.split('/').at(-1) as string
 		const fileDir = file.split('/').slice(0, -1).join('/')
 		const config = loadConfig(cwd)
-		const plugin = bundler(config, console, fao)
+		const plugin = bundler(config, console, fao, solcCache)
 		plugin
 			.resolveTsModule(file, cwd, false)
 			.then((dts) =>

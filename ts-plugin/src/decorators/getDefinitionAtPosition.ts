@@ -4,7 +4,7 @@ import {
 	convertSolcAstToTsDefinitionInfo,
 	findContractDefinitionFileNameFromEvmtsNode,
 } from '../utils'
-import { FileAccessObject, bundler } from '@evmts/bundler'
+import { Cache, FileAccessObject, bundler } from '@evmts/bundler'
 import { ResolvedCompilerConfig } from '@evmts/config'
 import { Node } from 'solidity-ast/node'
 import { findAll } from 'solidity-ast/utils'
@@ -23,6 +23,7 @@ export const getDefinitionServiceDecorator = (
 	logger: Logger,
 	ts: typeof typescript,
 	fao: FileAccessObject,
+	solcCache?: Cache,
 ): typescript.LanguageService => {
 	const getDefinitionAtPosition: typeof service.getDefinitionAtPosition = (
 		fileName,
@@ -37,7 +38,7 @@ export const getDefinitionServiceDecorator = (
 		if (!evmtsContractPath) {
 			return definition
 		}
-		const plugin = bundler(config, logger as any, fao)
+		const plugin = bundler(config, logger as any, fao, solcCache)
 		const includedAst = true
 		const { asts, solcInput } = plugin.resolveDtsSync(
 			evmtsContractPath,

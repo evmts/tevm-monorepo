@@ -32,11 +32,11 @@ export const resolveModuleNameLiteralsDecorator = createHostDecorator(
 						if (resolvedModule) {
 							return { resolvedModule }
 						}
+						return resolvedModules[index]
 					} catch (e) {
 						logger.error(e as string)
 						return resolvedModules[index]
 					}
-					return resolvedModules[index]
 				})
 			},
 		}
