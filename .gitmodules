@@ -1,9 +1,6 @@
-[submodule "lib/forge-std"]
-	path = lib/forge-std
-	url = https://github.com/foundry-rs/forge-std
 [submodule "examples/vite/lib/solmate"]
 	path = examples/vite/lib/solmate
 	url = https://github.com/transmissions11/solmate
-[submodule "revm"]
+[submodule "lib/revm"]
 	path = lib/revm
-	url = https://github.com/evmts/revm.git
+	url = https://github.com/evmts/revm

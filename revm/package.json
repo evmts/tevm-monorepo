@@ -31,6 +31,10 @@
 		"Cargo.lock"
 	],
 	"scripts": {
+		"//test": "vitest --coverage",
+		"//test:coverage": "vitest run --coverage",
+		"//test:run": "vitest run",
+		"//test:ui": "vitest --ui",
 		"build": "bun run build:esm && bun run build:cjs",
 		"build:cjs": "wasm-pack build --target nodejs --out-dir ./dist/cjs --no-pack .",
 		"build:dist": "echo 'building wasm with wasm-pack' && pnpm build",
@@ -40,11 +44,7 @@
 		"format:check": "rome format .",
 		"lint": "rome check . --apply-unsafe",
 		"lint:check": "rome check . --verbose",
-		"package:up": "pnpm up --latest",
-		"test": "vitest --coverage",
-		"test:coverage": "vitest run --coverage",
-		"test:run": "vitest run",
-		"test:ui": "vitest --ui"
+		"package:up": "pnpm up --latest"
 	},
 	"devDependencies": {
 		"@evmts/tsconfig": "workspace:^",

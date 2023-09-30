@@ -83,7 +83,8 @@
 		"default": ["{projectRoot}/**/*", "sharedGlobals"],
 		"sharedGlobals": [
 			"{workspaceRoot}/nx.json",
-			"{workspaceRoot}/configs/**/*"
+			"{workspaceRoot}/configs/**/*",
+			"{workspaceRoot}/lib/**/*"
 		],
 		"productionSrc": [
 			"{projectRoot}/src/**/*",
