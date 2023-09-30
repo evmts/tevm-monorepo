@@ -2,9 +2,7 @@
 	"name": "@evmts/example-vite",
 	"version": "0.0.1",
 	"private": true,
-	"contributors": [
-		"Will Cory <willcory10@gmail.com>"
-	],
+	"contributors": ["Will Cory <willcory10@gmail.com>"],
 	"scripts": {
 		"anvil": "source .env && anvil --fork-url https://eth-mainnet.g.alchemy.com/v2/$VITE_ALCHEMY_API_KEY",
 		"build": "bun build:contracts && bun build:dist",
@@ -28,9 +26,6 @@
 		"test": "vitest"
 	},
 	"dependencies": {
-		"@evmts/bundler": "workspace:^",
-		"@evmts/config": "workspace:^",
-		"@evmts/contracts": "^0.0.1",
 		"@evmts/core": "workspace:^0.11.2",
 		"@evmts/ethers": "workspace:^",
 		"@rainbow-me/rainbowkit": "^1.0.9",

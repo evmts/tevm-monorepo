@@ -1,3 +1,2 @@
-import { tsPlugin } from './tsPlugin'
-
-export = tsPlugin
+export { tsPlugin } from './tsPlugin'
+export * from '@evmts/config'

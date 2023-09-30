@@ -1,9 +1,9 @@
-import { evmtsBunPlugin } from '.'
-import { file } from './bunFile'
 import { bundler } from '@evmts/bundler'
 import { loadConfigAsync } from '@evmts/config'
 import { exists, readFile } from 'fs/promises'
 import { type Mock, beforeEach, describe, expect, it, vi } from 'vitest'
+import { file } from './bunFile'
+import { evmtsBunPlugin } from './evmtsBunPlugin'
 
 vi.mock('@evmts/config', async () => ({
 	...((await vi.importActual('@evmts/config')) as {}),

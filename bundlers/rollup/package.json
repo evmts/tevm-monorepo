@@ -43,7 +43,8 @@
     "package:up": "pnpm up --latest"
   },
   "dependencies": {
-    "@evmts/bundler": "workspace:^"
+    "@evmts/bundler": "workspace:^",
+    "@evmts/config": "workspace:^"
   },
   "devDependencies": {
     "@evmts/tsconfig": "workspace:^",
