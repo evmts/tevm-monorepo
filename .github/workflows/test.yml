@@ -74,23 +74,4 @@ jobs:
         with:
           name: "@evmts/esbuild"
           working-directory: "./examples/esbuild"
-  e2e:
-    name: E2E
-    timeout-minutes: 60
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-          submodules: recursive
 
-      - name: "Setup"
-        uses: ./.github/actions/setup
-
-      - name: Install Playwright Browsers
-        run: npx playwright install --with-deps
-
-      - name: Run tests
-        run: echo "WIP" # bun nx e2e e2e
-        env:
-          NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
