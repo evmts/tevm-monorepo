@@ -7,7 +7,7 @@ import type { Bundler } from './types'
 // @ts-ignore
 import solc from 'solc'
 
-export const bundler: Bundler = (config, logger, fao) => {
+export const bundler: Bundler = (config, logger, fao, cache) => {
 	return {
 		name: bundler.name,
 		config,
@@ -21,6 +21,7 @@ export const bundler: Bundler = (config, logger, fao) => {
 						config,
 						includeAst,
 						fao,
+						cache,
 					)
 				if (artifacts) {
 					const evmtsImports = `import { EvmtsContract } from '@evmts/core'`
@@ -50,6 +51,7 @@ export const bundler: Bundler = (config, logger, fao) => {
 						config,
 						includeAst,
 						fao,
+						cache,
 					)
 				if (artifacts) {
 					const evmtsImports = `import { EvmtsContract } from '@evmts/core'`
@@ -79,6 +81,7 @@ export const bundler: Bundler = (config, logger, fao) => {
 						config,
 						includeAst,
 						fao,
+						cache,
 					)
 				const code = generateRuntimeSync(artifacts, 'ts', logger)
 				return { code, modules, solcInput, solcOutput, asts }
@@ -98,6 +101,7 @@ export const bundler: Bundler = (config, logger, fao) => {
 						config,
 						includeAst,
 						fao,
+						cache,
 					)
 				const code = await generateRuntime(artifacts, 'ts', logger)
 				return { code, modules, solcInput, solcOutput, asts }
@@ -117,6 +121,7 @@ export const bundler: Bundler = (config, logger, fao) => {
 						config,
 						includeAst,
 						fao,
+						cache,
 					)
 				const code = generateRuntimeSync(artifacts, 'cjs', logger)
 				return { code, modules, solcInput, solcOutput, asts }
@@ -136,6 +141,7 @@ export const bundler: Bundler = (config, logger, fao) => {
 						config,
 						includeAst,
 						fao,
+						cache,
 					)
 				const code = await generateRuntime(artifacts, 'cjs', logger)
 				return { code, modules, solcInput, solcOutput, asts }
@@ -155,6 +161,7 @@ export const bundler: Bundler = (config, logger, fao) => {
 						config,
 						includeAst,
 						fao,
+						cache,
 					)
 				const code = generateRuntimeSync(artifacts, 'mjs', logger)
 				return { code, modules, solcInput, solcOutput, asts }
@@ -173,6 +180,7 @@ export const bundler: Bundler = (config, logger, fao) => {
 						config,
 						includeAst,
 						fao,
+						cache,
 					)
 				const code = await generateRuntime(artifacts, 'mjs', logger)
 				return { code, modules, solcInput, solcOutput, asts }

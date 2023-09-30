@@ -99,6 +99,7 @@ describe('compileContractSync', () => {
 			config,
 			true,
 			fao,
+			console,
 		)
 
 		expect(compiledContract).toMatchInlineSnapshot(`
@@ -210,6 +211,7 @@ describe('compileContractSync', () => {
 			config.remappings,
 			config.libs,
 			fao,
+			console,
 		)
 		expect((solc.compile as Mock).mock.lastCall).toMatchInlineSnapshot(`
 			[
@@ -225,6 +227,7 @@ describe('compileContractSync', () => {
 			config,
 			false,
 			fao,
+			console,
 		)
 
 		expect(compiledContract).toMatchInlineSnapshot(`
@@ -331,6 +334,7 @@ describe('compileContractSync', () => {
 			config.remappings,
 			config.libs,
 			fao,
+			console,
 		)
 		expect((solc.compile as Mock).mock.lastCall).toMatchInlineSnapshot(`
 			[
@@ -347,7 +351,7 @@ describe('compileContractSync', () => {
 			}),
 		)
 		expect(() =>
-			compileContractSync(filePath, basedir, config, false, fao),
+			compileContractSync(filePath, basedir, config, false, fao, console),
 		).toThrowErrorMatchingInlineSnapshot('"Compilation failed"')
 		expect(console.error).toHaveBeenCalledWith('Compilation errors:', [
 			{ type: 'Error', message: 'Compilation Error' },
@@ -361,7 +365,7 @@ describe('compileContractSync', () => {
 				errors: [{ type: 'Warning', message: 'Compilation Warning' }],
 			}),
 		)
-		compileContractSync(filePath, basedir, config, false, fao)
+		compileContractSync(filePath, basedir, config, false, fao, console)
 		expect((console.warn as Mock).mock.lastCall[0]).toMatchInlineSnapshot(
 			'"Compilation warnings:"',
 		)
@@ -374,7 +378,7 @@ describe('compileContractSync', () => {
 				errors: [],
 			}),
 		)
-		compileContractSync(filePath, basedir, config, false, fao)
+		compileContractSync(filePath, basedir, config, false, fao, console)
 		expect(console.warn).not.toHaveBeenCalled()
 	})
 
@@ -406,7 +410,7 @@ describe('compileContractSync', () => {
 		mockModuleA.resolutions.push(mockModuleB)
 		mockModuleFactory.mockReturnValue(mockModuleA)
 		expect(
-			compileContractSync(filePath, basedir, config, false, fao),
+			compileContractSync(filePath, basedir, config, false, fao, console),
 		).toMatchInlineSnapshot(`
 			{
 			  "artifacts": undefined,

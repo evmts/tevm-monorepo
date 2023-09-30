@@ -32,6 +32,7 @@ export type Bundler = (
 	config: ResolvedCompilerConfig,
 	logger: Logger,
 	fao: FileAccessObject,
+	cache?: Cache<boolean>,
 ) => {
 	/**
 	 * The name of the plugin.
@@ -141,4 +142,16 @@ export type SolidityResolver = (
 	 * Resolves the esm representation of the solidity module
 	 */
 	resolveEsmModuleSync: (module: string, basedir: string) => BundlerResult
+}
+
+export type CompiledContracts<TIncludeAsts extends boolean = boolean> = {
+	artifacts: SolcOutput['contracts'][string] | undefined
+	modules: Record<'string', ModuleInfo>
+	asts: TIncludeAsts extends true ? Record<string, Node> : undefined
+	solcInput: SolcInputDescription
+	solcOutput: SolcOutput
+}
+
+export type Cache<TIncludeAsts extends boolean = boolean> = {
+	[filePath: string]: CompiledContracts<TIncludeAsts>
 }

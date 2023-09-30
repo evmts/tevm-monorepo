@@ -1,4 +1,4 @@
-import type { FileAccessObject, Logger, ModuleInfo } from '../types'
+import type { Cache, FileAccessObject, Logger, ModuleInfo } from '../types'
 import { compileContract } from './compileContracts'
 import type {
 	SolcContractOutput,
@@ -12,13 +12,14 @@ type Artifacts = Record<string, Pick<SolcContractOutput, 'abi' | 'userdoc'>>
 /**
  * Currently unimplemented just uses resolveArtifactsSync
  */
-export const resolveArtifacts = async (
+export const resolveArtifacts = async <TIncludeAsts extends boolean = boolean>(
 	solFile: string,
 	basedir: string,
 	logger: Logger,
 	config: ResolvedCompilerConfig,
 	includeAst: boolean,
 	fao: FileAccessObject,
+	cache?: Cache<TIncludeAsts>,
 ): Promise<{
 	artifacts: Artifacts
 	modules: Record<'string', ModuleInfo>
@@ -30,7 +31,15 @@ export const resolveArtifacts = async (
 		throw new Error('Not a solidity file')
 	}
 	const { artifacts, modules, asts, solcInput, solcOutput } =
-		await compileContract(solFile, basedir, config, includeAst, fao, logger)
+		await compileContract(
+			solFile,
+			basedir,
+			config,
+			includeAst,
+			fao,
+			logger,
+			cache,
+		)
 
 	if (!artifacts) {
 		logger.error(`Compilation failed for ${solFile}`)

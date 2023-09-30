@@ -1,26 +1,27 @@
-import type { FileAccessObject, Logger, ModuleInfo } from '../types'
+import { readCache } from '../cache'
+import type {
+	Cache,
+	CompiledContracts,
+	FileAccessObject,
+	Logger,
+	ModuleInfo,
+} from '../types'
 import { invariant } from '../utils/invariant'
 import { resolvePromise } from '../utils/resolvePromise'
 import { moduleFactory } from './moduleFactory'
-import { type SolcInputDescription, type SolcOutput, solcCompile } from './solc'
+import { type SolcInputDescription, solcCompile } from './solc'
 import type { ResolvedCompilerConfig } from '@evmts/config'
-import type { Node } from 'solidity-ast/node'
 
 // Compile the Solidity contract and return its ABI
-export const compileContract = async <TIncludeAsts = boolean>(
+export const compileContract = async <TIncludeAsts extends boolean = boolean>(
 	filePath: string,
 	basedir: string,
 	config: ResolvedCompilerConfig,
 	includeAst: TIncludeAsts,
 	fao: FileAccessObject,
 	logger: Logger,
-): Promise<{
-	artifacts: SolcOutput['contracts'][string] | undefined
-	modules: Record<'string', ModuleInfo>
-	asts: TIncludeAsts extends true ? Record<string, Node> : undefined
-	solcInput: SolcInputDescription
-	solcOutput: SolcOutput
-}> => {
+	cache?: Cache<TIncludeAsts>,
+): Promise<CompiledContracts<TIncludeAsts>> => {
 	const entryModule = await moduleFactory(
 		filePath,
 		await fao
@@ -68,7 +69,8 @@ export const compileContract = async <TIncludeAsts = boolean>(
 		},
 	}
 
-	const output = solcCompile(input)
+	const cachedOutput = cache && readCache(cache, entryModule.id, sources)
+	const output = cachedOutput ?? solcCompile(input)
 
 	const warnings = output?.errors?.filter(({ type }) => type === 'Warning')
 	const isErrors = (output?.errors?.length ?? 0) > (warnings?.length ?? 0)
@@ -96,11 +98,17 @@ export const compileContract = async <TIncludeAsts = boolean>(
 			solcOutput: output,
 		}
 	}
-	return {
+	const out = {
 		artifacts: output.contracts[entryModule.id],
 		modules,
 		asts: undefined as any,
 		solcInput: input,
 		solcOutput: output,
 	}
+
+	if (cache) {
+		cache[entryModule.id] = out
+	}
+
+	return out
 }

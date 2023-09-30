@@ -1,4 +1,5 @@
-import type { FileAccessObject, ModuleInfo } from '../types'
+import { readCache } from '../cache'
+import type { Cache, FileAccessObject, Logger, ModuleInfo } from '../types'
 import { invariant } from '../utils/invariant'
 import { moduleFactorySync } from './moduleFactorySync'
 import { type SolcInputDescription, type SolcOutput, solcCompile } from './solc'
@@ -7,12 +8,14 @@ import * as resolve from 'resolve'
 import type { Node } from 'solidity-ast/node'
 
 // Compile the Solidity contract and return its ABI
-export const compileContractSync = <TIncludeAsts = boolean>(
+export const compileContractSync = <TIncludeAsts extends boolean = boolean>(
 	filePath: string,
 	basedir: string,
 	config: ResolvedCompilerConfig,
 	includeAst: TIncludeAsts,
 	fao: FileAccessObject,
+	logger: Logger,
+	cache?: Cache<TIncludeAsts>,
 ): {
 	artifacts: SolcOutput['contracts'][string] | undefined
 	modules: Record<'string', ModuleInfo>
@@ -71,17 +74,18 @@ export const compileContractSync = <TIncludeAsts = boolean>(
 		},
 	}
 
-	const output = solcCompile(input)
+	const cachedOutput = cache && readCache(cache, entryModule.id, sources)
+	const output = cachedOutput ?? solcCompile(input)
 
 	const warnings = output?.errors?.filter(({ type }) => type === 'Warning')
 	const isErrors = (output?.errors?.length ?? 0) > (warnings?.length ?? 0)
 
 	if (isErrors) {
-		console.error('Compilation errors:', output?.errors)
+		logger.error('Compilation errors:', output?.errors as any)
 		throw new Error('Compilation failed')
 	}
 	if (warnings?.length) {
-		console.warn('Compilation warnings:', output?.errors)
+		logger.warn('Compilation warnings:', output?.errors as any)
 	}
 	if (includeAst) {
 		const asts = Object.fromEntries(
@@ -97,11 +101,18 @@ export const compileContractSync = <TIncludeAsts = boolean>(
 			solcOutput: output,
 		}
 	}
-	return {
+
+	const out = {
 		artifacts: output.contracts[entryModule.id],
 		modules,
 		asts: undefined as any,
 		solcInput: input,
 		solcOutput: output,
 	}
+
+	if (cache) {
+		cache[entryModule.id] = out
+	}
+
+	return out
 }

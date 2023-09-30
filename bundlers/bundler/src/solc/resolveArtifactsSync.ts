@@ -1,4 +1,4 @@
-import type { FileAccessObject, Logger, ModuleInfo } from '../types'
+import type { Cache, FileAccessObject, Logger, ModuleInfo } from '../types'
 import { compileContractSync } from './compileContractsSync'
 import type {
 	SolcContractOutput,
@@ -13,13 +13,14 @@ export type Artifacts = Record<
 	Pick<SolcContractOutput, 'abi' | 'userdoc'>
 >
 
-export const resolveArtifactsSync = (
+export const resolveArtifactsSync = <TIncludeAsts extends boolean = boolean>(
 	solFile: string,
 	basedir: string,
 	logger: Logger,
 	config: ResolvedCompilerConfig,
 	includeAst: boolean,
 	fao: FileAccessObject,
+	cache?: Cache<TIncludeAsts>,
 ): {
 	artifacts: Artifacts
 	modules: Record<'string', ModuleInfo>
@@ -31,7 +32,15 @@ export const resolveArtifactsSync = (
 		throw new Error('Not a solidity file')
 	}
 	const { artifacts, modules, asts, solcInput, solcOutput } =
-		compileContractSync(solFile, basedir, config, includeAst, fao)
+		compileContractSync(
+			solFile,
+			basedir,
+			config,
+			includeAst,
+			fao,
+			logger,
+			cache,
+		)
 
 	if (!artifacts) {
 		logger.error(`Compilation failed for ${solFile}`)

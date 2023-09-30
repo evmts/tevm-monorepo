@@ -133,7 +133,7 @@ describe('resolveArtifactsSync', () => {
 				},
 			} as any,
 			modules: mockModules,
-		})
+		} as any)
 
 		const { artifacts } = resolveArtifactsSync(
 			solFile,
@@ -156,7 +156,7 @@ describe('resolveArtifactsSync', () => {
 		mockCompileContractSync.mockReturnValue({
 			artifacts: undefined,
 			modules: mockModules,
-		})
+		} as any)
 
 		expect(() =>
 			resolveArtifactsSync(solFile, basedir, logger, config, false, fao),
