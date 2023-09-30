@@ -5,8 +5,5 @@
 	path = examples/vite/lib/solmate
 	url = https://github.com/transmissions11/solmate
 [submodule "revm"]
-	path = revm
+	path = lib/revm
 	url = https://github.com/evmts/revm.git
-[submodule "scaffold-evmts"]
-	path = scaffold-evmts
-	url = https://github.com/evmts/scaffold-eth-2.git
