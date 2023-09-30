@@ -1,0 +1,47 @@
+name: Ethereum Tests
+
+concurrency:
+  cancel-in-progress: true
+  group: ${{github.workflow}}-${{github.ref}}
+
+on:
+  push:
+    branches: [main, "release/**"]
+  pull_request:
+    branches: [main, "release/**"]
+
+
+jobs:
+  tests-stable:
+    name: Ethereum Tests (Stable)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      matrix:
+        profile: [ethtests, release]
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v3
+
+      - name: Checkout ethereum/tests
+        uses: actions/checkout@v3
+        with:
+          repository: ethereum/tests
+          path: ethtests
+          submodules: recursive
+
+      - name: Install toolchain
+        uses: dtolnay/rust-toolchain@stable
+
+      - uses: Swatinem/rust-cache@v2
+        with:
+          cache-on-failure: true
+
+      - name: Run Ethereum tests
+        run: |
+          cargo run --profile ${{ matrix.profile }} -p revme -- statetest \
+            ethtests/GeneralStateTests/ \
+            ethtests/LegacyTests/Constantinople/GeneralStateTests/ \
+            ethtests/EIPTests/StateTests/stEIP1153-transientStorage/ \
+            ethtests/EIPTests/StateTests/stEIP4844-blobtransactions/ \
+            ethtests/EIPTests/StateTests/stEIP5656-MCOPY/
