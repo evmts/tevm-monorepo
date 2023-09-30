@@ -39,7 +39,7 @@
 	"devDependencies": {
 		"@changesets/changelog-github": "^0.4.8",
 		"@nrwl/devkit": "16.7.4",
-		"bun": "^0.8.1",
+		"bun": "^1.0.1",
 		"dotenv": "^16.3.1",
 		"gitmoji-cli": "^8.4.0",
 		"nx": "16.7.4",
