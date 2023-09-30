@@ -8,7 +8,7 @@ packages:
   - "ethers"
   - "examples/*"
   - "experimental/*"
-  - "revmts"
+  - "revm"
   - "ts-plugin"
   - "tsconfig"
   - "viem"
