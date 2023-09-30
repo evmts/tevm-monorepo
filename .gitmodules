@@ -1,6 +1,3 @@
 [submodule "examples/vite/lib/solmate"]
 	path = examples/vite/lib/solmate
 	url = https://github.com/transmissions11/solmate
-[submodule "revm"]
-	path = lib/revm
-	url = https://github.com/evmts/revm.git
