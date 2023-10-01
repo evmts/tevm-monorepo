@@ -1,3 +1,4 @@
+import type { Cache } from './createCache'
 import type { SolcInputDescription, SolcOutput } from './solc/solc'
 import type { ResolvedCompilerConfig } from '@evmts/config'
 import type { Node } from 'solidity-ast/node'
@@ -32,7 +33,7 @@ export type Bundler = (
 	config: ResolvedCompilerConfig,
 	logger: Logger,
 	fao: FileAccessObject,
-	cache?: Cache<boolean>,
+	cache?: Cache,
 ) => {
 	/**
 	 * The name of the plugin.
@@ -150,8 +151,4 @@ export type CompiledContracts<TIncludeAsts extends boolean = boolean> = {
 	asts: TIncludeAsts extends true ? Record<string, Node> : undefined
 	solcInput: SolcInputDescription
 	solcOutput: SolcOutput
-}
-
-export type Cache<TIncludeAsts extends boolean = boolean> = {
-	[filePath: string]: CompiledContracts<TIncludeAsts>
 }

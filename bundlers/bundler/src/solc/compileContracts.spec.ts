@@ -1,4 +1,5 @@
 import type { ModuleInfo } from '..'
+import { createCache } from '../createCache'
 import { compileContract } from './compileContracts'
 import { solcCompile } from './solc'
 import resolve from 'resolve'
@@ -357,8 +358,8 @@ describe('compileContract', () => {
 			`)
 	})
 
-	it('should save to cache on successful compilation', async () => {
-		const mockCache: any = {}
+	it('should read from cache if cache exists', async () => {
+		const mockCache = createCache(mockLogger)
 
 		await compileContract(
 			mockFilePath,
@@ -370,8 +371,45 @@ describe('compileContract', () => {
 			mockCache,
 		)
 
-		expect(mockCache).toHaveProperty(mockFilePath)
-		expect(mockCache[mockFilePath].solcOutput).toEqual({
+		expect(mockCache.read(mockFilePath)).toEqual({
+			contracts: {
+				[mockFilePath]: { mockContract: {} },
+			},
+			sources: {
+				[mockFilePath]: { ast: { mockAst: {} } },
+			},
+			errors: [],
+		})
+
+		mockCache.isCached = () => true
+
+		await compileContract(
+			mockFilePath,
+			mockBaseDir,
+			mockConfig as any,
+			false,
+			mockFao as any,
+			mockLogger,
+			mockCache,
+		)
+
+		expect(mockSolcCompile).toHaveBeenCalledOnce()
+	})
+
+	it('should save to cache on successful compilation', async () => {
+		const mockCache = createCache(mockLogger)
+
+		await compileContract(
+			mockFilePath,
+			mockBaseDir,
+			mockConfig as any,
+			false,
+			mockFao as any,
+			mockLogger,
+			mockCache,
+		)
+
+		expect(mockCache.read(mockFilePath)).toEqual({
 			contracts: {
 				[mockFilePath]: { mockContract: {} },
 			},

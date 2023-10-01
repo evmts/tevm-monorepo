@@ -1,6 +1,5 @@
-import { readCache } from '../cache'
+import type { Cache } from '../createCache'
 import type {
-	Cache,
 	CompiledContracts,
 	FileAccessObject,
 	Logger,
@@ -20,7 +19,7 @@ export const compileContract = async <TIncludeAsts extends boolean = boolean>(
 	includeAst: TIncludeAsts,
 	fao: FileAccessObject,
 	logger: Logger,
-	cache?: Cache<TIncludeAsts>,
+	cache?: Cache,
 ): Promise<CompiledContracts<TIncludeAsts>> => {
 	const entryModule = await moduleFactory(
 		filePath,
@@ -69,8 +68,11 @@ export const compileContract = async <TIncludeAsts extends boolean = boolean>(
 		},
 	}
 
-	const cachedOutput = cache && readCache(cache, entryModule.id, sources)
-	const output = cachedOutput ?? solcCompile(input)
+	const output = cache?.isCached(entryModule.id, sources)
+		? cache.read(entryModule.id)
+		: solcCompile(input)
+
+	cache?.write(entryModule.id, output)
 
 	const warnings = output?.errors?.filter(({ type }) => type === 'Warning')
 	const isErrors = (output?.errors?.length ?? 0) > (warnings?.length ?? 0)
@@ -85,33 +87,25 @@ export const compileContract = async <TIncludeAsts extends boolean = boolean>(
 		logger.warn('Compilation warnings:')
 	}
 
-	let out: CompiledContracts
 	if (includeAst) {
 		const asts = Object.fromEntries(
 			Object.entries(output.sources).map(([id, source]) => {
 				return [id, source.ast]
 			}),
 		)
-		out = {
+		return {
 			artifacts: output.contracts[entryModule.id],
 			modules,
 			asts: asts as any,
 			solcInput: input,
 			solcOutput: output,
 		}
-	} else {
-		out = {
-			artifacts: output.contracts[entryModule.id],
-			modules,
-			asts: undefined as any,
-			solcInput: input,
-			solcOutput: output,
-		}
 	}
-
-	if (cache) {
-		cache[entryModule.id] = out
+	return {
+		artifacts: output.contracts[entryModule.id],
+		modules,
+		asts: undefined as any,
+		solcInput: input,
+		solcOutput: output,
 	}
-
-	return out
 }

@@ -1,4 +1,5 @@
-import type { Cache, FileAccessObject, Logger, ModuleInfo } from '../types'
+import type { Cache } from '../createCache'
+import type { FileAccessObject, Logger, ModuleInfo } from '../types'
 import { compileContractSync } from './compileContractsSync'
 import type {
 	SolcContractOutput,
@@ -13,14 +14,14 @@ export type Artifacts = Record<
 	Pick<SolcContractOutput, 'abi' | 'userdoc'>
 >
 
-export const resolveArtifactsSync = <TIncludeAsts extends boolean = boolean>(
+export const resolveArtifactsSync = (
 	solFile: string,
 	basedir: string,
 	logger: Logger,
 	config: ResolvedCompilerConfig,
 	includeAst: boolean,
 	fao: FileAccessObject,
-	cache?: Cache<TIncludeAsts>,
+	cache?: Cache,
 ): {
 	artifacts: Artifacts
 	modules: Record<'string', ModuleInfo>
