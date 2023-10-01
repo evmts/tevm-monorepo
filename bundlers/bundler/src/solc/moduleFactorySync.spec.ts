@@ -35,7 +35,7 @@ import "otherOthermodule"`
 
 	const absolutePath = '/project/src/testModule.sol'
 
-	const localfileMockContent = 'contract LocalFile {}'
+	const localfileMockContent = 'import "othermodule"\ncontract LocalFile {}'
 	const key1MockContent = 'contract Key1 {}'
 	const othermoduleMockContent = 'contract OtherModule {}'
 

@@ -1,26 +1,26 @@
-import type { FileAccessObject, Logger, ModuleInfo } from '../types'
+import type { Cache } from '../createCache'
+import type {
+	CompiledContracts,
+	FileAccessObject,
+	Logger,
+	ModuleInfo,
+} from '../types'
 import { invariant } from '../utils/invariant'
 import { resolvePromise } from '../utils/resolvePromise'
 import { moduleFactory } from './moduleFactory'
-import { type SolcInputDescription, type SolcOutput, solcCompile } from './solc'
+import { type SolcInputDescription, solcCompile } from './solc'
 import type { ResolvedCompilerConfig } from '@evmts/config'
-import type { Node } from 'solidity-ast/node'
 
 // Compile the Solidity contract and return its ABI
-export const compileContract = async <TIncludeAsts = boolean>(
+export const compileContract = async <TIncludeAsts extends boolean = boolean>(
 	filePath: string,
 	basedir: string,
 	config: ResolvedCompilerConfig,
 	includeAst: TIncludeAsts,
 	fao: FileAccessObject,
 	logger: Logger,
-): Promise<{
-	artifacts: SolcOutput['contracts'][string] | undefined
-	modules: Record<'string', ModuleInfo>
-	asts: TIncludeAsts extends true ? Record<string, Node> : undefined
-	solcInput: SolcInputDescription
-	solcOutput: SolcOutput
-}> => {
+	cache?: Cache,
+): Promise<CompiledContracts<TIncludeAsts>> => {
 	const entryModule = await moduleFactory(
 		filePath,
 		await fao
@@ -68,7 +68,11 @@ export const compileContract = async <TIncludeAsts = boolean>(
 		},
 	}
 
-	const output = solcCompile(input)
+	const output = cache?.isCached(entryModule.id, sources)
+		? cache.read(entryModule.id)
+		: solcCompile(input)
+
+	cache?.write(entryModule.id, output)
 
 	const warnings = output?.errors?.filter(({ type }) => type === 'Warning')
 	const isErrors = (output?.errors?.length ?? 0) > (warnings?.length ?? 0)
@@ -82,6 +86,7 @@ export const compileContract = async <TIncludeAsts = boolean>(
 		logger.warn(warnings as any)
 		logger.warn('Compilation warnings:')
 	}
+
 	if (includeAst) {
 		const asts = Object.fromEntries(
 			Object.entries(output.sources).map(([id, source]) => {

@@ -1,25 +1,26 @@
-import type { FileAccessObject, ModuleInfo } from '../types'
+import type { Cache } from '../createCache'
+import type {
+	CompiledContracts,
+	FileAccessObject,
+	Logger,
+	ModuleInfo,
+} from '../types'
 import { invariant } from '../utils/invariant'
 import { moduleFactorySync } from './moduleFactorySync'
-import { type SolcInputDescription, type SolcOutput, solcCompile } from './solc'
+import { type SolcInputDescription, solcCompile } from './solc'
 import type { ResolvedCompilerConfig } from '@evmts/config'
 import * as resolve from 'resolve'
-import type { Node } from 'solidity-ast/node'
 
 // Compile the Solidity contract and return its ABI
-export const compileContractSync = <TIncludeAsts = boolean>(
+export const compileContractSync = <TIncludeAsts extends boolean = boolean>(
 	filePath: string,
 	basedir: string,
 	config: ResolvedCompilerConfig,
 	includeAst: TIncludeAsts,
 	fao: FileAccessObject,
-): {
-	artifacts: SolcOutput['contracts'][string] | undefined
-	modules: Record<'string', ModuleInfo>
-	asts: TIncludeAsts extends true ? Record<string, Node> : undefined
-	solcInput: SolcInputDescription
-	solcOutput: SolcOutput
-} => {
+	logger: Logger,
+	cache?: Cache,
+): CompiledContracts => {
 	const entryModule = moduleFactorySync(
 		filePath,
 		fao.readFileSync(
@@ -71,18 +72,23 @@ export const compileContractSync = <TIncludeAsts = boolean>(
 		},
 	}
 
-	const output = solcCompile(input)
+	const output = cache?.isCached(entryModule.id, sources)
+		? cache.read(entryModule.id)
+		: solcCompile(input)
+
+	cache?.write(entryModule.id, output)
 
 	const warnings = output?.errors?.filter(({ type }) => type === 'Warning')
 	const isErrors = (output?.errors?.length ?? 0) > (warnings?.length ?? 0)
 
 	if (isErrors) {
-		console.error('Compilation errors:', output?.errors)
+		logger.error('Compilation errors:', output?.errors as any)
 		throw new Error('Compilation failed')
 	}
 	if (warnings?.length) {
-		console.warn('Compilation warnings:', output?.errors)
+		logger.warn('Compilation warnings:', output?.errors as any)
 	}
+
 	if (includeAst) {
 		const asts = Object.fromEntries(
 			Object.entries(output.sources).map(([id, source]) => {

@@ -1,3 +1,4 @@
+import type { Cache } from './createCache'
 import type { SolcInputDescription, SolcOutput } from './solc/solc'
 import type { ResolvedCompilerConfig } from '@evmts/config'
 import type { Node } from 'solidity-ast/node'
@@ -32,6 +33,7 @@ export type Bundler = (
 	config: ResolvedCompilerConfig,
 	logger: Logger,
 	fao: FileAccessObject,
+	cache?: Cache,
 ) => {
 	/**
 	 * The name of the plugin.
@@ -141,4 +143,12 @@ export type SolidityResolver = (
 	 * Resolves the esm representation of the solidity module
 	 */
 	resolveEsmModuleSync: (module: string, basedir: string) => BundlerResult
+}
+
+export type CompiledContracts<TIncludeAsts extends boolean = boolean> = {
+	artifacts: SolcOutput['contracts'][string] | undefined
+	modules: Record<'string', ModuleInfo>
+	asts: TIncludeAsts extends true ? Record<string, Node> : undefined
+	solcInput: SolcInputDescription
+	solcOutput: SolcOutput
 }

@@ -1,3 +1,4 @@
+import { createCache } from '../createCache'
 import type { FileAccessObject, ModuleInfo } from '../types'
 import { compileContractSync } from './compileContractsSync'
 import { moduleFactorySync } from './moduleFactorySync'
@@ -87,7 +88,6 @@ describe('compileContractSync', () => {
 				sources: {
 					[filePath]: { ast: 'ast' },
 				},
-				errors: [],
 			}),
 		)
 	})
@@ -99,6 +99,7 @@ describe('compileContractSync', () => {
 			config,
 			true,
 			fao,
+			console,
 		)
 
 		expect(compiledContract).toMatchInlineSnapshot(`
@@ -182,7 +183,6 @@ describe('compileContractSync', () => {
 			        },
 			      },
 			    },
-			    "errors": [],
 			    "sources": {
 			      "test/path": {
 			        "ast": "ast",
@@ -218,6 +218,40 @@ describe('compileContractSync', () => {
 		`)
 	})
 
+	it('should read from cache if already cached', () => {
+		const cache = createCache(console)
+		compileContractSync(filePath, basedir, config, true, fao, console, cache)
+		cache.isCached = () => true
+		compileContractSync(filePath, basedir, config, true, fao, console, cache)
+		expect(mockSolcCompile).toHaveBeenCalledOnce()
+	})
+
+	it('should cache compiled contracts', () => {
+		const cache = createCache(console)
+		compileContractSync(filePath, basedir, config, true, fao, console, cache)
+		expect(cache.read(filePath)).toMatchInlineSnapshot(`
+			{
+			  "contracts": {
+			    "test/path": {
+			      "Test": {
+			        "abi": [],
+			        "evm": {
+			          "bytecode": {
+			            "object": "0x123",
+			          },
+			        },
+			      },
+			    },
+			  },
+			  "sources": {
+			    "test/path": {
+			      "ast": "ast",
+			    },
+			  },
+			}
+		`)
+	})
+
 	it('should compile a contract correctly', () => {
 		const compiledContract = compileContractSync(
 			filePath,
@@ -225,6 +259,7 @@ describe('compileContractSync', () => {
 			config,
 			false,
 			fao,
+			console,
 		)
 
 		expect(compiledContract).toMatchInlineSnapshot(`
@@ -303,7 +338,6 @@ describe('compileContractSync', () => {
 			        },
 			      },
 			    },
-			    "errors": [],
 			    "sources": {
 			      "test/path": {
 			        "ast": "ast",
@@ -339,6 +373,37 @@ describe('compileContractSync', () => {
 		`)
 	})
 
+	it('should not throw an error if only warnings', () => {
+		mockSolcCompile.mockReturnValue(
+			JSON.stringify({
+				contracts: { [filePath]: null },
+				errors: [{ type: 'Warning', message: 'Compilation Warning' }],
+			}),
+		)
+		const mockLogger = {
+			warn: vi.fn(),
+		}
+		compileContractSync(
+			filePath,
+			basedir,
+			config,
+			false,
+			fao,
+			mockLogger as any,
+		)
+		expect(mockLogger.warn.mock.lastCall).toMatchInlineSnapshot(`
+			[
+			  "Compilation warnings:",
+			  [
+			    {
+			      "message": "Compilation Warning",
+			      "type": "Warning",
+			    },
+			  ],
+			]
+		`)
+	})
+
 	it('should throw error if compilation fails', () => {
 		mockSolcCompile.mockReturnValue(
 			JSON.stringify({
@@ -347,10 +412,29 @@ describe('compileContractSync', () => {
 			}),
 		)
 		expect(() =>
-			compileContractSync(filePath, basedir, config, false, fao),
+			compileContractSync(filePath, basedir, config, false, fao, console),
 		).toThrowErrorMatchingInlineSnapshot('"Compilation failed"')
 		expect(console.error).toHaveBeenCalledWith('Compilation errors:', [
 			{ type: 'Error', message: 'Compilation Error' },
+		])
+	})
+
+	it('should throw error if compilation fails and show the warnings', () => {
+		mockSolcCompile.mockReturnValue(
+			JSON.stringify({
+				contracts: { [filePath]: null },
+				errors: [
+					{ type: 'Error', message: 'Compilation Error' },
+					{ type: 'Warning', message: 'Compilation Warning' },
+				],
+			}),
+		)
+		expect(() =>
+			compileContractSync(filePath, basedir, config, false, fao, console),
+		).toThrowErrorMatchingInlineSnapshot('"Compilation failed"')
+		expect(console.error).toHaveBeenCalledWith('Compilation errors:', [
+			{ type: 'Error', message: 'Compilation Error' },
+			{ type: 'Warning', message: 'Compilation Warning' },
 		])
 	})
 
@@ -361,7 +445,7 @@ describe('compileContractSync', () => {
 				errors: [{ type: 'Warning', message: 'Compilation Warning' }],
 			}),
 		)
-		compileContractSync(filePath, basedir, config, false, fao)
+		compileContractSync(filePath, basedir, config, false, fao, console)
 		expect((console.warn as Mock).mock.lastCall[0]).toMatchInlineSnapshot(
 			'"Compilation warnings:"',
 		)
@@ -374,7 +458,7 @@ describe('compileContractSync', () => {
 				errors: [],
 			}),
 		)
-		compileContractSync(filePath, basedir, config, false, fao)
+		compileContractSync(filePath, basedir, config, false, fao, console)
 		expect(console.warn).not.toHaveBeenCalled()
 	})
 
@@ -406,7 +490,7 @@ describe('compileContractSync', () => {
 		mockModuleA.resolutions.push(mockModuleB)
 		mockModuleFactory.mockReturnValue(mockModuleA)
 		expect(
-			compileContractSync(filePath, basedir, config, false, fao),
+			compileContractSync(filePath, basedir, config, false, fao, console),
 		).toMatchInlineSnapshot(`
 			{
 			  "artifacts": undefined,
@@ -516,7 +600,6 @@ describe('compileContractSync', () => {
 			        },
 			      },
 			    },
-			    "errors": [],
 			    "sources": {
 			      "test/path": {
 			        "ast": "ast",

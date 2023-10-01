@@ -1,3 +1,4 @@
+import type { Cache } from '../createCache'
 import type { FileAccessObject, Logger, ModuleInfo } from '../types'
 import { compileContract } from './compileContracts'
 import type {
@@ -19,6 +20,7 @@ export const resolveArtifacts = async (
 	config: ResolvedCompilerConfig,
 	includeAst: boolean,
 	fao: FileAccessObject,
+	cache?: Cache,
 ): Promise<{
 	artifacts: Artifacts
 	modules: Record<'string', ModuleInfo>
@@ -30,7 +32,15 @@ export const resolveArtifacts = async (
 		throw new Error('Not a solidity file')
 	}
 	const { artifacts, modules, asts, solcInput, solcOutput } =
-		await compileContract(solFile, basedir, config, includeAst, fao, logger)
+		await compileContract(
+			solFile,
+			basedir,
+			config,
+			includeAst,
+			fao,
+			logger,
+			cache,
+		)
 
 	if (!artifacts) {
 		logger.error(`Compilation failed for ${solFile}`)
