@@ -221,15 +221,7 @@ describe('compileContractSync', () => {
 
 	it('should cache compiled contracts', () => {
 		const cache = {}
-		compileContractSync(
-			filePath,
-			basedir,
-			config,
-			true,
-			fao,
-			console,
-			cache
-		)
+		compileContractSync(filePath, basedir, config, true, fao, console, cache)
 		expect(cache).toMatchInlineSnapshot(`
 			{
 			  "test/path": {

@@ -1,5 +1,11 @@
 import { readCache } from '../cache'
-import type { Cache, CompiledContracts, FileAccessObject, Logger, ModuleInfo } from '../types'
+import type {
+	Cache,
+	CompiledContracts,
+	FileAccessObject,
+	Logger,
+	ModuleInfo,
+} from '../types'
 import { invariant } from '../utils/invariant'
 import { moduleFactorySync } from './moduleFactorySync'
 import { type SolcInputDescription, solcCompile } from './solc'

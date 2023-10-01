@@ -68,8 +68,7 @@ describe('resolveArtifacts', () => {
 	it('should throw an error if the solidity file does not end in .sol', () => {
 		expect(() =>
 			resolveArtifacts('test', basedir, logger, config, false, fao),
-		).rejects.toThrowErrorMatchingInlineSnapshot(
-			'"Not a solidity file"')
+		).rejects.toThrowErrorMatchingInlineSnapshot('"Not a solidity file"')
 	})
 
 	it('should throw an error if no artifacts are returned by the compiler', () => {
@@ -79,8 +78,7 @@ describe('resolveArtifacts', () => {
 		} as any)
 		expect(() =>
 			resolveArtifacts(solFile, basedir, logger, config, false, fao),
-		).rejects.toThrowErrorMatchingInlineSnapshot(
-			'"Compilation failed"')
+		).rejects.toThrowErrorMatchingInlineSnapshot('"Compilation failed"')
 	})
 })
 

@@ -265,7 +265,6 @@ describe('compileContract', () => {
 		expect(mockLogger.warn).not.toHaveBeenCalled()
 	})
 
-
 	it('should work when contracts share resolutions', async () => {
 		const mockModuleC: ModuleInfo = {
 			id: 'test/path/moduleC.sol',
@@ -300,7 +299,8 @@ describe('compileContract', () => {
 				true,
 				mockFao as any,
 				mockLogger,
-			)).toMatchInlineSnapshot(`
+			),
+		).toMatchInlineSnapshot(`
 				{
 				  "artifacts": undefined,
 				  "asts": {
@@ -358,7 +358,7 @@ describe('compileContract', () => {
 	})
 
 	it('should save to cache on successful compilation', async () => {
-		const mockCache: any = {};
+		const mockCache: any = {}
 
 		await compileContract(
 			mockFilePath,
@@ -368,9 +368,9 @@ describe('compileContract', () => {
 			mockFao as any,
 			mockLogger,
 			mockCache,
-		);
+		)
 
-		expect(mockCache).toHaveProperty(mockFilePath);
+		expect(mockCache).toHaveProperty(mockFilePath)
 		expect(mockCache[mockFilePath].solcOutput).toEqual({
 			contracts: {
 				[mockFilePath]: { mockContract: {} },
@@ -379,8 +379,8 @@ describe('compileContract', () => {
 				[mockFilePath]: { ast: { mockAst: {} } },
 			},
 			errors: [],
-		});
-	});
+		})
+	})
 
 	it('should skip processing already processed modules and process module resolutions', async () => {
 		const mockModuleA: ModuleInfo = {
