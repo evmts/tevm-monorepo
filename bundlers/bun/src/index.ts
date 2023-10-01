@@ -1,5 +1,5 @@
 import { bunFileAccesObject } from './bunFileAccessObject'
-import { bundler } from '@evmts/bundler'
+import { bundler, createCache } from '@evmts/bundler'
 import { loadConfigAsync } from '@evmts/config'
 import type { BunPlugin } from 'bun'
 
@@ -16,7 +16,13 @@ export const evmtsBunPlugin: EvmtsBunPlugin = () => {
 				console,
 				bunFileAccesObject.exists,
 			)
-			const moduleResolver = bundler(config, console, bunFileAccesObject)
+			const solcCache = createCache(console)
+			const moduleResolver = bundler(
+				config,
+				console,
+				bunFileAccesObject,
+				solcCache,
+			)
 			/**
 			 * @evmts/core is used to construct the evmts modules for solidity files
 			 * sometimes the solidity file might exist in the node_modules folder

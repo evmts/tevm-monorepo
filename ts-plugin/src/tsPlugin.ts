@@ -7,6 +7,7 @@ import { getDefinitionServiceDecorator } from './decorators/getDefinitionAtPosit
 import { createLogger, decorateHost } from './factories'
 import { createFileAccessObject } from './factories/fileAccessObject'
 import { isSolidity } from './utils'
+import { createCache } from '@evmts/bundler'
 import { loadConfig } from '@evmts/config'
 import typescript from 'typescript/lib/tsserverlibrary'
 
@@ -23,6 +24,8 @@ export const tsPlugin: typescript.server.PluginModuleFactory = (modules) => {
 	return {
 		create: (createInfo) => {
 			const logger = createLogger(createInfo)
+			const snapshotSolcCache = createCache(logger)
+			const definitionSolcCache = createCache(logger)
 			const config = loadConfig(
 				createInfo.project.getCurrentDirectory(),
 				logger,
@@ -33,13 +36,14 @@ export const tsPlugin: typescript.server.PluginModuleFactory = (modules) => {
 					decorateHost(
 						getScriptKindDecorator,
 						resolveModuleNameLiteralsDecorator,
-						getScriptSnapshotDecorator,
+						getScriptSnapshotDecorator(snapshotSolcCache),
 					)(createInfo, modules.typescript, logger, config, fao),
 				),
 				config,
 				logger,
 				modules.typescript,
 				fao,
+				definitionSolcCache,
 			)
 
 			return service

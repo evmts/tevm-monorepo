@@ -8,6 +8,7 @@ export type Logger = {
 	info: (msg: string) => void
 	warn: (msg: string) => void
 	error: (msg: string) => void
+	log: (msg: string) => void
 }
 
 /**
@@ -32,5 +33,9 @@ export const createLogger = (
 		pluginCreateInfo.project.projectService.logger.info(
 			`[evmts-ts-plugin] error: ${msg}`,
 		)
-	return { info, warn, error }
+	const log = (msg: string) =>
+		pluginCreateInfo.project.projectService.logger.info(
+			`[evmts-ts-plugin] log: ${msg}`,
+		)
+	return { info, warn, error, log }
 }

@@ -25,6 +25,7 @@ describe(createLogger.name, () => {
 			{
 			  "error": [Function],
 			  "info": [Function],
+			  "log": [Function],
 			  "warn": [Function],
 			}
 		`)

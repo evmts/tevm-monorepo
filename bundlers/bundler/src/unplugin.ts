@@ -1,3 +1,4 @@
+import { createCache } from '.'
 import * as packageJson from '../package.json'
 import { bundler } from './bundler'
 import type { FileAccessObject } from './types'
@@ -51,12 +52,14 @@ export const unpluginFn: UnpluginFactory<
 		readFileSync,
 	}
 
+	const solcCache = createCache(console)
+
 	return {
 		name: '@evmts/rollup-plugin',
 		version: packageJson.version,
 		async buildStart() {
 			config = await loadConfigAsync(process.cwd())
-			moduleResolver = bundler(config, console, fao)
+			moduleResolver = bundler(config, console, fao, solcCache)
 			this.addWatchFile('./tsconfig.json')
 		},
 		async resolveId(id, importer, options) {

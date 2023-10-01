@@ -38,6 +38,7 @@ describe(getScriptSnapshotDecorator.name, () => {
 			info: vi.fn(),
 			error: vi.fn(),
 			warn: vi.fn(),
+			log: vi.fn(),
 		}
 		project = {
 			getCurrentDirectory: vi.fn(),
@@ -53,7 +54,7 @@ describe(getScriptSnapshotDecorator.name, () => {
     export type Foo = string
     `
 		languageServiceHost.getScriptSnapshot.mockReturnValue(expectedReturn)
-		const decorator = getScriptSnapshotDecorator(
+		const decorator = getScriptSnapshotDecorator()(
 			{ languageServiceHost, project } as any,
 			typescript,
 			logger,
@@ -67,7 +68,7 @@ describe(getScriptSnapshotDecorator.name, () => {
 	})
 
 	it('should return the .ts file if it exists', () => {
-		const decorator = getScriptSnapshotDecorator(
+		const decorator = getScriptSnapshotDecorator()(
 			{ languageServiceHost, project } as any,
 			typescript,
 			logger,
@@ -81,7 +82,7 @@ describe(getScriptSnapshotDecorator.name, () => {
 		)
 	})
 	it('should return the .d.ts file if it exists', () => {
-		const decorator = getScriptSnapshotDecorator(
+		const decorator = getScriptSnapshotDecorator()(
 			{ languageServiceHost, project } as any,
 			typescript,
 			logger,
@@ -95,7 +96,7 @@ describe(getScriptSnapshotDecorator.name, () => {
 		)
 	})
 	it('should return a generated .d.ts file for solidity files', () => {
-		const decorator = getScriptSnapshotDecorator(
+		const decorator = getScriptSnapshotDecorator()(
 			{ languageServiceHost, project } as any,
 			typescript,
 			logger,
@@ -121,7 +122,7 @@ describe(getScriptSnapshotDecorator.name, () => {
 		`)
 	})
 	it('should handle resolveDts throwing', () => {
-		const decorator = getScriptSnapshotDecorator(
+		const decorator = getScriptSnapshotDecorator()(
 			{ languageServiceHost, project } as any,
 			typescript,
 			logger,
