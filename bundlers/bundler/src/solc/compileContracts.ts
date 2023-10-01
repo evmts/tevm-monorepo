@@ -84,26 +84,29 @@ export const compileContract = async <TIncludeAsts extends boolean = boolean>(
 		logger.warn(warnings as any)
 		logger.warn('Compilation warnings:')
 	}
+
+	let out: CompiledContracts
 	if (includeAst) {
 		const asts = Object.fromEntries(
 			Object.entries(output.sources).map(([id, source]) => {
 				return [id, source.ast]
 			}),
 		)
-		return {
+		out = {
 			artifacts: output.contracts[entryModule.id],
 			modules,
 			asts: asts as any,
 			solcInput: input,
 			solcOutput: output,
 		}
-	}
-	const out = {
-		artifacts: output.contracts[entryModule.id],
-		modules,
-		asts: undefined as any,
-		solcInput: input,
-		solcOutput: output,
+	} else {
+		out = {
+			artifacts: output.contracts[entryModule.id],
+			modules,
+			asts: undefined as any,
+			solcInput: input,
+			solcOutput: output,
+		}
 	}
 
 	if (cache) {

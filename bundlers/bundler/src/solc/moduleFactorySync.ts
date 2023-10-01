@@ -1,4 +1,4 @@
-import type { FileAccessObject, ModuleInfo } from '../types'
+import type { FileAccessObject, Logger, ModuleInfo } from '../types'
 import { invariant } from '../utils/invariant'
 import { resolveImportPath } from './resolveImportPath'
 import { resolveImports } from './resolveImports'

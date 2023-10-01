@@ -211,12 +211,116 @@ describe('compileContractSync', () => {
 			config.remappings,
 			config.libs,
 			fao,
-			console,
 		)
 		expect((solc.compile as Mock).mock.lastCall).toMatchInlineSnapshot(`
 			[
 			  "{\\"language\\":\\"Solidity\\",\\"sources\\":{\\"test/path\\":{\\"content\\":\\"import test/path/resolutionFile.sol\\\\ncontract Test {}\\"},\\"test/path/resolutionFile.sol\\":{\\"content\\":\\"contract Resolution {}\\"}},\\"settings\\":{\\"outputSelection\\":{\\"*\\":{\\"*\\":[\\"abi\\",\\"userdoc\\"],\\"\\":[\\"ast\\"]}}}}",
 			]
+		`)
+	})
+
+	it('should cache compiled contracts', () => {
+		const cache = {}
+		compileContractSync(
+			filePath,
+			basedir,
+			config,
+			true,
+			fao,
+			console,
+			cache
+		)
+		expect(cache).toMatchInlineSnapshot(`
+			{
+			  "test/path": {
+			    "artifacts": {
+			      "Test": {
+			        "abi": [],
+			        "evm": {
+			          "bytecode": {
+			            "object": "0x123",
+			          },
+			        },
+			      },
+			    },
+			    "asts": {
+			      "test/path": "ast",
+			    },
+			    "modules": {
+			      "test/path": {
+			        "code": "import test/path/resolutionFile.sol
+			contract Test {}",
+			        "id": "test/path",
+			        "importedIds": [
+			          "./importedId",
+			        ],
+			        "rawCode": "import ./resolutionFile.sol
+			contract Test {}",
+			        "resolutions": [
+			          {
+			            "code": "contract Resolution {}",
+			            "id": "test/path/resolutionFile.sol",
+			            "importedIds": [],
+			            "rawCode": "contract Resolution {}",
+			            "resolutions": [],
+			          },
+			        ],
+			      },
+			      "test/path/resolutionFile.sol": {
+			        "code": "contract Resolution {}",
+			        "id": "test/path/resolutionFile.sol",
+			        "importedIds": [],
+			        "rawCode": "contract Resolution {}",
+			        "resolutions": [],
+			      },
+			    },
+			    "solcInput": {
+			      "language": "Solidity",
+			      "settings": {
+			        "outputSelection": {
+			          "*": {
+			            "": [
+			              "ast",
+			            ],
+			            "*": [
+			              "abi",
+			              "userdoc",
+			            ],
+			          },
+			        },
+			      },
+			      "sources": {
+			        "test/path": {
+			          "content": "import test/path/resolutionFile.sol
+			contract Test {}",
+			        },
+			        "test/path/resolutionFile.sol": {
+			          "content": "contract Resolution {}",
+			        },
+			      },
+			    },
+			    "solcOutput": {
+			      "contracts": {
+			        "test/path": {
+			          "Test": {
+			            "abi": [],
+			            "evm": {
+			              "bytecode": {
+			                "object": "0x123",
+			              },
+			            },
+			          },
+			        },
+			      },
+			      "errors": [],
+			      "sources": {
+			        "test/path": {
+			          "ast": "ast",
+			        },
+			      },
+			    },
+			  },
+			}
 		`)
 	})
 
@@ -334,7 +438,6 @@ describe('compileContractSync', () => {
 			config.remappings,
 			config.libs,
 			fao,
-			console,
 		)
 		expect((solc.compile as Mock).mock.lastCall).toMatchInlineSnapshot(`
 			[

@@ -162,6 +162,12 @@ describe('resolveArtifactsSync', () => {
 			resolveArtifactsSync(solFile, basedir, logger, config, false, fao),
 		).toThrowErrorMatchingInlineSnapshot('"Compilation failed"')
 	})
+
+	it('should throw an error if file doesnt end in .sol', () => {
+		expect(() =>
+			resolveArtifactsSync('test.txt', basedir, logger, config, false, fao),
+		).toThrowErrorMatchingInlineSnapshot('"Not a solidity file"')
+	})
 })
 
 afterEach(() => {

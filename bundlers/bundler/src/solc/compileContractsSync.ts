@@ -1,11 +1,10 @@
 import { readCache } from '../cache'
-import type { Cache, FileAccessObject, Logger, ModuleInfo } from '../types'
+import type { Cache, CompiledContracts, FileAccessObject, Logger, ModuleInfo } from '../types'
 import { invariant } from '../utils/invariant'
 import { moduleFactorySync } from './moduleFactorySync'
-import { type SolcInputDescription, type SolcOutput, solcCompile } from './solc'
+import { type SolcInputDescription, solcCompile } from './solc'
 import type { ResolvedCompilerConfig } from '@evmts/config'
 import * as resolve from 'resolve'
-import type { Node } from 'solidity-ast/node'
 
 // Compile the Solidity contract and return its ABI
 export const compileContractSync = <TIncludeAsts extends boolean = boolean>(
@@ -16,13 +15,7 @@ export const compileContractSync = <TIncludeAsts extends boolean = boolean>(
 	fao: FileAccessObject,
 	logger: Logger,
 	cache?: Cache<TIncludeAsts>,
-): {
-	artifacts: SolcOutput['contracts'][string] | undefined
-	modules: Record<'string', ModuleInfo>
-	asts: TIncludeAsts extends true ? Record<string, Node> : undefined
-	solcInput: SolcInputDescription
-	solcOutput: SolcOutput
-} => {
+): CompiledContracts => {
 	const entryModule = moduleFactorySync(
 		filePath,
 		fao.readFileSync(
@@ -87,27 +80,29 @@ export const compileContractSync = <TIncludeAsts extends boolean = boolean>(
 	if (warnings?.length) {
 		logger.warn('Compilation warnings:', output?.errors as any)
 	}
+
+	let out: CompiledContracts
 	if (includeAst) {
 		const asts = Object.fromEntries(
 			Object.entries(output.sources).map(([id, source]) => {
 				return [id, source.ast]
 			}),
 		)
-		return {
+		out = {
 			artifacts: output.contracts[entryModule.id],
 			modules,
 			asts: asts as any,
 			solcInput: input,
 			solcOutput: output,
 		}
-	}
-
-	const out = {
-		artifacts: output.contracts[entryModule.id],
-		modules,
-		asts: undefined as any,
-		solcInput: input,
-		solcOutput: output,
+	} else {
+		out = {
+			artifacts: output.contracts[entryModule.id],
+			modules,
+			asts: undefined as any,
+			solcInput: input,
+			solcOutput: output,
+		}
 	}
 
 	if (cache) {
