@@ -13,40 +13,40 @@ export type Events<
 	TName extends string,
 	THumanReadableAbi extends readonly string[],
 > = {
-		[TEventName in ExtractAbiEventNames<ParseAbi<THumanReadableAbi>>]: (<
-			TStrict extends boolean = false,
-			TFromBlock extends BlockNumber | BlockTag | undefined = undefined,
-			TToBlock extends BlockNumber | BlockTag | undefined = undefined,
-		>(
-			params: Pick<
-				CreateEventFilterParameters<
-					ExtractAbiEvent<ParseAbi<THumanReadableAbi>, TEventName>,
-					ParseAbi<THumanReadableAbi>,
-					TStrict,
-					TFromBlock,
-					TToBlock,
-					TEventName,
-					MaybeExtractEventArgsFromAbi<ParseAbi<THumanReadableAbi>, TEventName>
-				>,
-				'fromBlock' | 'toBlock' | 'args' | 'strict'
+	[TEventName in ExtractAbiEventNames<ParseAbi<THumanReadableAbi>>]: (<
+		TStrict extends boolean = false,
+		TFromBlock extends BlockNumber | BlockTag | undefined = undefined,
+		TToBlock extends BlockNumber | BlockTag | undefined = undefined,
+	>(
+		params: Pick<
+			CreateEventFilterParameters<
+				ExtractAbiEvent<ParseAbi<THumanReadableAbi>, TEventName>,
+				ParseAbi<THumanReadableAbi>,
+				TStrict,
+				TFromBlock,
+				TToBlock,
+				TEventName,
+				MaybeExtractEventArgsFromAbi<ParseAbi<THumanReadableAbi>, TEventName>
 			>,
-		) => CreateEventFilterParameters<
-			ExtractAbiEvent<ParseAbi<THumanReadableAbi>, TEventName>,
-			ParseAbi<THumanReadableAbi>,
-			TStrict,
-			TFromBlock,
-			TToBlock,
-			TEventName,
-			MaybeExtractEventArgsFromAbi<ParseAbi<THumanReadableAbi>, TEventName>
-		> & {
-			evmtsContractName: TName
-			eventName: TEventName
-			abi: [ExtractAbiEvent<ParseAbi<THumanReadableAbi>, TEventName>]
-		}) & {
-			eventName: TEventName
-			humanReadableAbi: FormatAbi<
-				[ExtractAbiEvent<ParseAbi<THumanReadableAbi>, TEventName>]
-			>
-			abi: [ExtractAbiEvent<ParseAbi<THumanReadableAbi>, TEventName>]
-		}
+			'fromBlock' | 'toBlock' | 'args' | 'strict'
+		>,
+	) => CreateEventFilterParameters<
+		ExtractAbiEvent<ParseAbi<THumanReadableAbi>, TEventName>,
+		ParseAbi<THumanReadableAbi>,
+		TStrict,
+		TFromBlock,
+		TToBlock,
+		TEventName,
+		MaybeExtractEventArgsFromAbi<ParseAbi<THumanReadableAbi>, TEventName>
+	> & {
+		evmtsContractName: TName
+		eventName: TEventName
+		abi: [ExtractAbiEvent<ParseAbi<THumanReadableAbi>, TEventName>]
+	}) & {
+		eventName: TEventName
+		humanReadableAbi: FormatAbi<
+			[ExtractAbiEvent<ParseAbi<THumanReadableAbi>, TEventName>]
+		>
+		abi: [ExtractAbiEvent<ParseAbi<THumanReadableAbi>, TEventName>]
 	}
+}
