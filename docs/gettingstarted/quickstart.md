@@ -52,4 +52,6 @@ It is recomended to use EVMts with it's special contract bundler and LSP. To set
 - [rollup](./rollup.md) - The second most popular bundler behind webpack. Very mature plugin ecosystem. Great choice for simple NPM libraries.
 - [rspack](./rspack.md) - A rewrite of webpack in rust. Not feature complete as of yet but production ready
 
-Adding support for new bundlers is quick. If your app is not supported by EVMts consider [opening an issue]()
+::: tip
+Adding support for new bundlers is quick. If your app is not supported by EVMts consider [opening an issue](https://github.com/evmts/evmts-monorepo/issues)
+:::
