@@ -15,6 +15,9 @@ export const generateRuntimeSync = (
     lines.push(`const _${contractName} = {`)
     abi.forEach((abiItem) => {
       if (abiItem.type === 'constructor') {
+        abiItem.stateMutability === 'nonpayable'
+        abiItem.stateMutability === 'payable'
+        abiItem.inputs
       } else if (abiItem.type === 'error') {
         abiItem.inputs
         abiItem.name

@@ -285,6 +285,12 @@ describe('ethers.Contract', () => {
 		expect(await c.totalSupply({ blockTag: 12865720 })).toMatchInlineSnapshot(
 			'71000000000000000000000n',
 		)
+		c.balanceOf.populateTransaction
+		c.balanceOf.staticCallResult
+		c.balanceOf.estimateGas
+		c.balanceOf.send
+		c.waitForDeployment
+		c.getDeployedCode
 		expect(
 			await c.balanceOf('0x32307adfFE088e383AFAa721b06436aDaBA47DBE'),
 		).toMatchInlineSnapshot('0n')
