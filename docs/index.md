@@ -8,11 +8,11 @@ hero:
   tagline: Harness the full power of the EVM in TypeScript
   actions:
     - theme: alt
-      text: Getting started
-      link: /gettingstarted/introduction.md
+      text: Reference
+      link: /todo.md
     - theme: brand
       text: Quick start
-      link: /gettingstarted/quickstart.md
+      link: /learn/gettingstarted/quickstart.md
     - theme: alt
       text: Try live demo
       link: https://github.com/evmts/evmts-monorepo#:~:text=online%20frontend%20example%20on%20stackblitz
