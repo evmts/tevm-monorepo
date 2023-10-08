@@ -17,4 +17,4 @@ export const guidesSidebar = {
     { text: '🚧 Debugging', link: '/learn/guides/debugging' },
     { text: '🚧 Testing', link: '/learn/guides/testing' },
   ],
-}
+} as const
