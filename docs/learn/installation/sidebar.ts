@@ -13,4 +13,4 @@ export const installationSidebar = {
     { text: '🚧 Bundler setup', link: '/learn/installation/bundler' },
     { text: '🚧 Developer tool', link: '/learn/installation/developertool' },
   ],
-}
+} as const

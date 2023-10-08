@@ -1,10 +1,11 @@
 import type { DefaultTheme } from 'vitepress'
-import { learnSidebar } from '../learn/sidebar'
-import { apiReferenceSidebar } from '../reference/sidebar'
+import { learnSidebar } from './learn/sidebar'
+import { apiReferenceSidebar } from './reference/sidebar'
+import { homeSidebar } from './home/sidebar'
 
 
 
 export const sidebar: DefaultTheme.Sidebar = {
-	'/learn/': learnSidebar,
-	'/api/': apiReferenceSidebar,
+	'/learn/': [homeSidebar, learnSidebar],
+	'/api/': [homeSidebar, apiReferenceSidebar],
 }
