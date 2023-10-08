@@ -2,24 +2,29 @@ export const buildReferenceSidebar = {
   text: '🚧 Build reference',
   collapsed: true,
   items: [
-    { text: '🚧 Config reference', link: '/reference/section/name' },
+    { text: '🚧 Overview', link: '/buildreference/overview.md' },
+    { text: '🚧 Config reference', link: '/buildreference/config.md' },
     {
       text: '🚧 TypeScript Plugin',
-      link: '/reference/section/name',
+      link: '/buildreference/typescript.md',
     },
     {
       text: '🚧 Bundlers',
       items: [
-        { text: '🚧 Webpack', link: '/reference/section/name' },
-        { text: '🚧 Vite', link: '/reference/section/name' },
-        { text: '🚧 Rollup', link: '/reference/section/name' },
-        { text: '🚧 ESBuild', link: '/reference/section/name' },
-        { text: '🚧 Babel', link: '/reference/section/name' },
+        { text: '🚧 Vite', link: '/buildreference/bundlers/vite.md' },
+        { text: '🚧 Webpack', link: '/buildreference/bundlers/webpack.md' },
+        {
+          text: '🚧 Bun reference',
+          link: '/buildreference/bundlers/bun.md',
+        },
+        { text: '🚧 ESBuild', link: '/buildreference/bundlers/esbuild.md' },
+        { text: '🚧 Rollup', link: '/buildreference/bundlers/rollup.md' },
         {
           text: '🚧 Other build systems',
-          link: '/reference/section/name',
+          link: '/buildreference/other',
         },
       ],
     },
+    { text: '🚧 Babel', link: '/buildreference/babel.md' },
   ],
 } as const
