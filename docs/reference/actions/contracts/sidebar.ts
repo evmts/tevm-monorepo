@@ -4,19 +4,19 @@ export const contractsSidebar = {
   items: [
     {
       text: '🚧 Contract writes',
-      link: '/reference/actions/state/snapshot'
+      link: '/reference/actions/contract/writes'
     },
     {
       text: '🚧 Contract reads',
-      link: '/reference/actions/state/snapshot'
+      link: '/reference/actions/contract/reads'
     },
     {
       text: '🚧 Events',
-      link: '/reference/actions/state/createfork'
+      link: '/reference/actions/contract/events'
     },
     {
       text: '🚧 Storage',
-      link: '/reference/actions/state/selectfork'
+      link: '/reference/actions/contract/storage'
     },
   ]
 } as const

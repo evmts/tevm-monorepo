@@ -6,6 +6,15 @@ export const apiReferenceSidebar: DefaultTheme.Sidebar = [
   {
     text: '🚧 API Reference',
     items: [
+      actionsReferenceSidebar,
+      jsonRpcActionsReferenceSidebar,
+      advancedReferenceSidebar,
+      buildReferenceSidebar,
+      cliReferenceSidebar,
+      creatorsReferenceSidebar,
+      handlersReferenceSidebar,
+      localForksReferenceSidebar,
+      usageWithOtherLibrariesReferenceSidebar,
     ],
   },
 ]

@@ -2,10 +2,10 @@ export const otherUsagesSidebar = {
   text: '🚧 Usage with other Ethereum libraries',
   collapsed: true,
   items: [
-    { text: '🚧 Ethers', link: '/reference/section/name' },
-    { text: '🚧 Viem', link: '/reference/section/name' },
-    { text: '🚧 Hardhat', link: '/reference/section/name' },
-    { text: '🚧 Foundry', link: '/reference/section/name' },
-    { text: '🚧 MUD', link: '/reference/section/name' },
+    { text: '🚧 Ethers', link: '/reference/otherusages/ethers' },
+    { text: '🚧 Viem', link: '/reference/otherusages/viem' },
+    { text: '🚧 Hardhat', link: '/reference/otherusages/hardhat' },
+    { text: '🚧 Foundry', link: '/reference/otherusages/foundry' },
+    { text: '🚧 MUD', link: '/reference/otherusages/MUD' },
   ],
 } as const
