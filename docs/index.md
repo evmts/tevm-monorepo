@@ -3,39 +3,31 @@
 layout: home
 
 hero:
-  name: "Evmts Alpha"
-  text: "Solidity+TypeScript"
-  tagline: No more juggling abis and contract addresses
+  name: "EVMts (beta)"
+  text: The next generation Ethereum library
+  tagline: Build apps with the full power of the EVM in your TypeScript
   actions:
     - theme: alt
-      text: Why Evmts
-      link: /getting-started/why.md
-    - theme: alt
-      text: Introduction
-      link: /getting-started/introduction.md
+      text: Getting started
+      link: /gettingstarted/introduction.md
     - theme: brand
       text: Quick start
-      link: /getting-started/quick-start.md
-    - theme: alt
-      text: Tutorial
-      link: /tutorial/overview.md
+      link: /guides/quickstart.md
     - theme: alt
       text: Reference
       link: /reference/overview.md
     - theme: alt
       text: Try live demo
-      link: https://github.com/evmts/evmts-monorepo/issues/10
+      link: https://github.com/evmts/evmts-monorepo#:~:text=online%20frontend%20example%20on%20stackblitz
 
 features:
-  # Basically saying we support bundling .sol
-  - title: .sol imports
-    details: No more juggling ABIs and addresses. Evmts bundler takes care of figuring out the ABIs and addresses for your contracts
-  # Basically saying we support TypeScript Language Server Protocol
-  - title: First class editor support
-    details: Autoimport, autocomplete, go-to-definition, and links to etherscan, and are now only a hover away in most popular editors including VSCode!
-  # Basically saying we support wagmi
-  # later say something like `modular design` because it supports all tooling
-  - title: First-class Wagmi support
-    details: Built with Wagmi support in mind. Integrates tightly with useContractRead, useContractWrite, and useContractEvent
+  - title: Use the EVM in your TypeScript
+    details: Full access to the EVM in your TypeScript code including local execution, forge-style scripting, and contract tracing powered by REVM
+  - title: Lightweight, peformant, and code splittable client API
+    details: Powered by viem EVMts client API is extremely lightweight typesafe and performant
+  - title: Superpowered developer experience for ethereum contracts
+    details: Import and debug contracts directly into your TypeScript code
+  - title: Custom LSP built for Ethereum developers
+    details: Natspec comments on hover, go-to-solidity-definition, and other superpowers built into your Editor
 ---
 

@@ -49,14 +49,14 @@ import {
 
 ## Custom chains
 
-A custom chain can be created via the defineChain method
+A custom chain can be created via the `createChain` method
 
 ```typescript
 import {
-  defineChain
+  createChain
 } from 'evmts/chains'
 
-const myCustomChain = defineChain({
+const myCustomChain = createChain({
   id: 9876543210,
   name: 'MyCustomChain',
   gasToken: {
@@ -75,7 +75,7 @@ const myCustomChain = defineChain({
   contracts: {
     multicall3: {
       address: '0xcA11bde05977b3631167028862bE2a173976CA11'},
-      blockCreated: 0,
+      blockCreated: 0
     }
   },
 })
