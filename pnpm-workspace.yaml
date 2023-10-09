@@ -9,6 +9,7 @@ packages:
   - "examples/*"
   - "experimental/*"
   - "revm"
+  - "schemas"
   - "ts-plugin"
   - "tsconfig"
   - "viem"
