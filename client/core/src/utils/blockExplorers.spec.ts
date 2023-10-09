@@ -1,6 +1,5 @@
-import { InvalidAddressError } from '../schemas/SAddress'
-import { InvalidHexStringError } from '../schemas/SHexString'
 import { StandardBlockExplorer } from './blockExplorers'
+import { InvalidAddressError, InvalidHexStringError } from '@evmts/schemas'
 import { optimism } from 'viem/chains'
 import { describe, expect, expectTypeOf, it } from 'vitest'
 

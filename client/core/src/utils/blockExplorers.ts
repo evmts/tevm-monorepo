@@ -1,8 +1,9 @@
-import { InvalidAddressError, parseAddressSafe } from '../schemas/SAddress'
 import {
+	InvalidAddressError,
 	InvalidHexStringError,
+	parseAddressSafe,
 	parseHexStringSafe,
-} from '../schemas/SHexString'
+} from '@evmts/schemas'
 import { Effect, pipe } from 'effect'
 import type { Address, Hex } from 'viem'
 

@@ -5,7 +5,6 @@ export default defineConfig({
 	entry: [
 		'src/index.ts',
 		'src/actions/index.ts',
-		'src/schemas/index.ts',
 		'src/types/index.ts',
 		'src/utils/index.ts',
 	],

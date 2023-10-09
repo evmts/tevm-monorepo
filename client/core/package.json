@@ -35,12 +35,6 @@
 			"default": "./dist/requests/index.cjs",
 			"types": "./types/requests/index.d.ts"
 		},
-		"./schemas": {
-			"import": "./dist/schemas/index.js",
-			"require": "./dist/schemas/index.cjs",
-			"default": "./dist/schemas/index.cjs",
-			"types": "./types/schemas/index.d.ts"
-		},
 		"./utils": {
 			"import": "./dist/utils/index.js",
 			"require": "./dist/utils/index.cjs",
@@ -73,6 +67,7 @@
 	},
 	"dependencies": {
 		"@effect/schema": "^0.42.0",
+		"@evmts/schemas": "workspace:^",
 		"effect": "2.0.0-next.47"
 	},
 	"devDependencies": {
