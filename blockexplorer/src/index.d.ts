@@ -1,1 +1,5 @@
-export { type BlockExplorerOptions, StandardBlockExplorer, SafeStandardBlockExplorer } from './blockExplorer.js'
+export {
+	type BlockExplorerOptions,
+	StandardBlockExplorer,
+	SafeStandardBlockExplorer,
+} from './blockExplorer.js'
