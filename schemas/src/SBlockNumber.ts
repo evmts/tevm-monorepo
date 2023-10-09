@@ -1,7 +1,7 @@
 import type { ParseErrors } from '@effect/schema/ParseResult'
 import { int, nonNegative, number, parseEither } from '@effect/schema/Schema'
 import { formatErrors } from '@effect/schema/TreeFormatter'
-import { type Effect } from 'effect'
+import { Effect } from 'effect'
 import { mapError, runSync } from 'effect/Effect'
 import { isRight } from 'effect/Either'
 import type { NonEmptyReadonlyArray } from 'effect/ReadonlyArray'
@@ -29,6 +29,7 @@ export const isBlockNumber = (
 ): blockNumber is BlockNumber => {
 	return isRight(parseEither(SBlockNumber)(blockNumber))
 }
+
 
 /**
  * Error thrown when a {@link BlockNumber} is invalid

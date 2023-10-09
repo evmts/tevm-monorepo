@@ -20,6 +20,28 @@
 
 Effect Schemas for EVMts
 
+## Schemas
+
+#### [SAddress](./src/SAddress.md) 
+
+Type representing a valid Ethereum address 
+
+#### [SAddressBook](./src/SAddressBook.md) 
+
+JSON serializable mapping of contract ids to their blockCreated and address.
+
+#### [SBlockNumber](./src/SBlockNumber.md) 
+
+Type representing a valid Ethereum BlockNumber
+
+#### [SHexString](./src/SHexString.md)
+
+Type reresenting a valid HexString
+
+#### [SUrl](./src/SUrl.md) 
+
+Type representing a valid URL
+
 ## License 📄
 
 <a href="./LICENSE"><img src="https://user-images.githubusercontent.com/35039927/231030761-66f5ce58-a4e9-4695-b1fe-255b1bceac92.png" width="200" /></a>

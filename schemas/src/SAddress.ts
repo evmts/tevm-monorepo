@@ -15,6 +15,11 @@ import type { NonEmptyReadonlyArray } from 'effect/ReadonlyArray'
 export type { Address }
 
 /**
+ * Returns a boolean indicating whether the provided string is a valid Address
+ */
+export { isAddress }
+
+/**
  * Effect/schema for {@link Address} type
  * @example
  * const validAddress = '0x1234567890abcdef1234567890abcdef12345678' as const

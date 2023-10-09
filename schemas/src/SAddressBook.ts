@@ -6,6 +6,7 @@ import { formatErrors } from '@effect/schema/TreeFormatter'
 import type { Address } from 'abitype'
 import { Effect } from 'effect'
 import { mapError, runSync } from 'effect/Effect'
+import { isRight } from 'effect/Either'
 import type { NonEmptyReadonlyArray } from 'effect/ReadonlyArray'
 
 /**
@@ -31,6 +32,15 @@ export type AddressBook<TContractNames extends string> = {
 		blockCreated: number
 		address: Address
 	}
+}
+
+/**
+ * Returns a boolean indicating whether the provided string is a valid Url
+ */
+export const isAddressBook = <TContractNames extends string>(
+	addressBook: unknown,
+): addressBook is AddressBook<TContractNames> => {
+	return isRight(parseEither(SAddressBook)(addressBook))
 }
 
 /**
