@@ -1,0 +1,21 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`parseAddressBook > should throw if block created is < 0 1`] = `
+"InvalidAddressBookError: Address book is invalid
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parseAddressBook > should throw if block is not an integer 1`] = `
+"InvalidAddressBookError: Address book is invalid
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parseAddressBook > should throw if extra properties are included 1`] = `
+"InvalidAddressBookError: Address book is invalid
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parseAddressBook > should throw if invalid address 1`] = `
+"InvalidAddressBookError: Address book is invalid
+https://evmts.dev/reference/errors"
+`;

@@ -1,0 +1,36 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`parseBlockNumber > should throw if invalid address 1`] = `
+"InvalidBlockNumberError: Value 52 is not a valid BlockNumber. BlockNumbers must be an integer >= 0
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parseBlockNumber > should throw if invalid address 2`] = `
+"InvalidBlockNumberError: Value 0x is not a valid BlockNumber. BlockNumbers must be an integer >= 0
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parseBlockNumber > should throw if invalid address 3`] = `
+"InvalidBlockNumberError: Value 0 is not a valid BlockNumber. BlockNumbers must be an integer >= 0
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parseBlockNumber > should throw if invalid address 4`] = `
+"InvalidBlockNumberError: Value  is not a valid BlockNumber. BlockNumbers must be an integer >= 0
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parseBlockNumber > should throw if invalid address 5`] = `
+"InvalidBlockNumberError: Value true is not a valid BlockNumber. BlockNumbers must be an integer >= 0
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parseBlockNumber > should throw if invalid address 6`] = `
+"InvalidBlockNumberError: Value [object Object] is not a valid BlockNumber. BlockNumbers must be an integer >= 0
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parseBlockNumber > should throw if invalid address 7`] = `
+"InvalidBlockNumberError: Value not an address is not a valid BlockNumber. BlockNumbers must be an integer >= 0
+https://evmts.dev/reference/errors"
+`;
