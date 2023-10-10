@@ -1,0 +1,31 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`parseSolidityFile > should return a Effect<never, InvalidSolidityFileError, string> when parsing an invalid solidity file 1`] = `
+"InvalidSolidityFileError: Provided value sol/.sol is not a valid Address
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parseSolidityFile > should return a Effect<never, InvalidSolidityFileError, string> when parsing an invalid solidity file 2`] = `
+"InvalidSolidityFileError: Provided value foo/bar.ts is not a valid Address
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parseSolidityFile > should return a Effect<never, InvalidSolidityFileError, string> when parsing an invalid solidity file 3`] = `
+"InvalidSolidityFileError: Provided value bar.sol.ts is not a valid Address
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parseSolidityFile > should return a Effect<never, InvalidSolidityFileError, string> when parsing an invalid solidity file 4`] = `
+"InvalidSolidityFileError: Provided value sol is not a valid Address
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parseSolidityFile > should return a Effect<never, InvalidSolidityFileError, string> when parsing an invalid solidity file 5`] = `
+"InvalidSolidityFileError: Provided value .sol/.sol is not a valid Address
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parseSolidityFile > should return a Effect<never, InvalidSolidityFileError, string> when parsing an invalid solidity file 6`] = `
+"InvalidSolidityFileError: Provided value .sol is not a valid Address
+https://evmts.dev/reference/errors"
+`;
