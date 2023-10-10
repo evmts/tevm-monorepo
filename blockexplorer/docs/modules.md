@@ -1,4 +1,4 @@
-[@evmts/blockexplorer](./README.md) / Exports
+[@evmts/blockexplorer](README.md) / Exports
 
 # @evmts/blockexplorer
 
@@ -12,28 +12,3 @@
 ### Interfaces
 
 - [BlockExplorerOptions](interfaces/BlockExplorerOptions.md)
-
-### Type Aliases
-
-- [Address](modules.md#address)
-- [Hex](modules.md#hex)
-
-## Type Aliases
-
-### Address
-
-Ƭ **Address**<\>: \`0x${string}\`
-
-#### Defined in
-
-blockExplorer.js:14
-
-___
-
-### Hex
-
-Ƭ **Hex**<\>: \`0x${string}\`
-
-#### Defined in
-
-blockExplorer.js:13

@@ -18,7 +18,7 @@
 
 #### Defined in
 
-blockExplorer.js:21
+[blockExplorer.js:21](https://github.com/evmts/evmts-monorepo/blob/d236a511/blockexplorer/src/blockExplorer.js#L21)
 
 ___
 
@@ -28,7 +28,7 @@ ___
 
 #### Defined in
 
-blockExplorer.js:19
+[blockExplorer.js:19](https://github.com/evmts/evmts-monorepo/blob/d236a511/blockexplorer/src/blockExplorer.js#L19)
 
 ___
 
@@ -38,4 +38,4 @@ ___
 
 #### Defined in
 
-blockExplorer.js:20
+[blockExplorer.js:20](https://github.com/evmts/evmts-monorepo/blob/d236a511/blockexplorer/src/blockExplorer.js#L20)
