@@ -1,6 +1,6 @@
 # BlockExplorer
 
-class utlities representing a blockchain explorer
+Utlities representing a blockchain explorer
 
 ## SafeStandardBlockExplorer
 

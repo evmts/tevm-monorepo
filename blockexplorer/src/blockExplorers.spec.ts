@@ -1,4 +1,4 @@
-import { StandardBlockExplorer } from './blockExplorers'
+import { StandardBlockExplorer } from './blockExplorer'
 import {
 	InvalidAddressError,
 	InvalidHexStringError,
@@ -7,16 +7,16 @@ import {
 import { optimism } from 'viem/chains'
 import { describe, expect, expectTypeOf, it } from 'vitest'
 
-const optimismExplorer = new StandardBlockExplorer(
-	optimism.name,
-	optimism.blockExplorers.default.url,
-	optimism.id,
-)
-const invalidUrlExplorer = new StandardBlockExplorer(
-	optimism.name,
-	'invalid url',
-	optimism.id,
-)
+const optimismExplorer = new StandardBlockExplorer({
+	name: optimism.name,
+	url: optimism.blockExplorers.default.url,
+	chainId: optimism.id,
+})
+const invalidUrlExplorer = new StandardBlockExplorer({
+	name: optimism.name,
+	url: 'invalid url',
+	chainId: optimism.id,
+})
 
 describe('blockExplorers', () => {
 	it('should have a chainId property', () => {
