@@ -18,11 +18,11 @@
 
 # @evmts/blockexplorer
 
-A library for interacting with a block explorer
+A library for interacting with a block explorer. Docs are located in [./docs](./docs/modules.md)
 
-## Visit [Docs](https://evmts.dev/) for docs, guides, API and more!
+## API
 
-## See [Evmts Beta project board](https://github.com/orgs/evmts/projects/1) for progress on the upcoming beta release
+- [blockExplorer](./src/blockExplorer.js) - Utilities for interacting with a block explorer
 
 ## License 📄
 

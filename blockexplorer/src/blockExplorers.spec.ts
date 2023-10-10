@@ -1,4 +1,4 @@
-import { StandardBlockExplorer } from './blockExplorer'
+import { StandardBlockExplorer } from './blockExplorer.js'
 import {
 	InvalidAddressError,
 	InvalidHexStringError,

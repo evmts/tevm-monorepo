@@ -1,1 +1,1 @@
-export * from './blockExplorer'
+export * from './blockExplorer.js'
