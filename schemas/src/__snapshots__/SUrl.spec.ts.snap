@@ -1,0 +1,46 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`parseUrl > should throw if invalid url 1`] = `
+"InvalidUrlError: Provided value not a url is not a valid URL
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parseUrl > should throw if invalid url 2`] = `
+"InvalidUrlError: Provided value 0xzz20a88a199120aD52Dd9742C7430847d3cB2CD4 is not a valid URL
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parseUrl > should throw if invalid url 3`] = `
+"InvalidUrlError: Provided value 0x is not a valid URL
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parseUrl > should throw if invalid url 4`] = `
+"InvalidUrlError: Provided value 0 is not a valid URL
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parseUrl > should throw if invalid url 5`] = `
+"InvalidUrlError: Provided value  is not a valid URL
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parseUrl > should throw if invalid url 6`] = `
+"InvalidUrlError: Provided value true is not a valid URL
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parseUrl > should throw if invalid url 7`] = `
+"InvalidUrlError: Provided value not an address is not a valid URL
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parseUrl > should throw if invalid url 8`] = `
+"InvalidUrlError: Provided value 52 is not a valid URL
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parseUrl > should throw if invalid url 9`] = `
+"InvalidUrlError: Provided value 52 is not a valid URL
+https://evmts.dev/reference/errors"
+`;

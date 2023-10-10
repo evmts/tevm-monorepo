@@ -74,4 +74,11 @@ jobs:
         with:
           name: "@evmts/esbuild"
           working-directory: "./examples/esbuild"
+      - name: 'Report @evmts/schemas Coverage'
+        if: always() # Also generate the report if tests are failing
+        uses:  davelosert/vitest-coverage-report-action@v2
+        with:
+          name: "@evmts/schemas"
+          working-directory: "./schemas"
+
 

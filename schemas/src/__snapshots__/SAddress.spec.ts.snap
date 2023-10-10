@@ -1,0 +1,46 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`parseAddress > should throw if invalid address 1`] = `
+"InvalidAddressError: Provided value 0x52 is not a valid Address
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parseAddress > should throw if invalid address 2`] = `
+"InvalidAddressError: Provided value 0xzz20a88a199120aD52Dd9742C7430847d3cB2CD4 is not a valid Address
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parseAddress > should throw if invalid address 3`] = `
+"InvalidAddressError: Provided value 0x is not a valid Address
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parseAddress > should throw if invalid address 4`] = `
+"InvalidAddressError: Provided value 0 is not a valid Address
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parseAddress > should throw if invalid address 5`] = `
+"InvalidAddressError: Provided value  is not a valid Address
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parseAddress > should throw if invalid address 6`] = `
+"InvalidAddressError: Provided value true is not a valid Address
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parseAddress > should throw if invalid address 7`] = `
+"InvalidAddressError: Provided value not an address is not a valid Address
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parseAddress > should throw if invalid address 8`] = `
+"InvalidAddressError: Provided value 52 is not a valid Address
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parseAddress > should throw if invalid address 9`] = `
+"InvalidAddressError: Provided value 52 is not a valid Address
+https://evmts.dev/reference/errors"
+`;

@@ -1,0 +1,36 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`parseHexString > should throw if invalid HexString 1`] = `
+"InvalidHexStringError: Provided value 52 is not a valid HexString
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parseHexString > should throw if invalid HexString 2`] = `
+"InvalidHexStringError: Provided value 0 is not a valid HexString
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parseHexString > should throw if invalid HexString 3`] = `
+"InvalidHexStringError: Provided value x0 is not a valid HexString
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parseHexString > should throw if invalid HexString 4`] = `
+"InvalidHexStringError: Provided value  is not a valid HexString
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parseHexString > should throw if invalid HexString 5`] = `
+"InvalidHexStringError: Provided value true is not a valid HexString
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parseHexString > should throw if invalid HexString 6`] = `
+"InvalidHexStringError: Provided value [object Object] is not a valid HexString
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parseHexString > should throw if invalid HexString 7`] = `
+"InvalidHexStringError: Provided value not a hex is not a valid HexString
+https://evmts.dev/reference/errors"
+`;

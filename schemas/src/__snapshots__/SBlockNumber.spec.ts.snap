@@ -1,0 +1,46 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`parseBlockNumber > should throw if invalid block number 1`] = `
+"InvalidBlockNumberError: Value 0.5 is not a valid BlockNumber. BlockNumbers must be an integer >= 0
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parseBlockNumber > should throw if invalid block number 2`] = `
+"InvalidBlockNumberError: Value -1 is not a valid BlockNumber. BlockNumbers must be an integer >= 0
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parseBlockNumber > should throw if invalid block number 3`] = `
+"InvalidBlockNumberError: Value 52 is not a valid BlockNumber. BlockNumbers must be an integer >= 0
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parseBlockNumber > should throw if invalid block number 4`] = `
+"InvalidBlockNumberError: Value 0x is not a valid BlockNumber. BlockNumbers must be an integer >= 0
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parseBlockNumber > should throw if invalid block number 5`] = `
+"InvalidBlockNumberError: Value 0 is not a valid BlockNumber. BlockNumbers must be an integer >= 0
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parseBlockNumber > should throw if invalid block number 6`] = `
+"InvalidBlockNumberError: Value  is not a valid BlockNumber. BlockNumbers must be an integer >= 0
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parseBlockNumber > should throw if invalid block number 7`] = `
+"InvalidBlockNumberError: Value true is not a valid BlockNumber. BlockNumbers must be an integer >= 0
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parseBlockNumber > should throw if invalid block number 8`] = `
+"InvalidBlockNumberError: Value [object Object] is not a valid BlockNumber. BlockNumbers must be an integer >= 0
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parseBlockNumber > should throw if invalid block number 9`] = `
+"InvalidBlockNumberError: Value not an block number is not a valid BlockNumber. BlockNumbers must be an integer >= 0
+https://evmts.dev/reference/errors"
+`;
