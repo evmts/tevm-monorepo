@@ -1,39 +1,40 @@
-[@evmts/schemas](../README.md) / [Exports](../modules.md) / InvalidUrlError
+[@evmts/schemas](../README.md) / [Exports](../modules.md) / InvalidUINTError
 
-# Class: InvalidUrlError
+# Class: InvalidUINTError
 
-Error thrown when an invalid Url is provided.
+Error thrown when a UINT256 is invalid.
+A uintbigint is invalid if it is not a non-negative integer or overflows
 
 ## Hierarchy
 
 - `TypeError`
 
-  ↳ **`InvalidUrlError`**
+  ↳ **`InvalidUINTError`**
 
 ## Table of contents
 
 ### Constructors
 
-- [constructor](InvalidUrlError.md#constructor)
+- [constructor](InvalidUINTError.md#constructor)
 
 ### Properties
 
-- [cause](InvalidUrlError.md#cause)
-- [message](InvalidUrlError.md#message)
-- [name](InvalidUrlError.md#name)
-- [stack](InvalidUrlError.md#stack)
-- [prepareStackTrace](InvalidUrlError.md#preparestacktrace)
-- [stackTraceLimit](InvalidUrlError.md#stacktracelimit)
+- [cause](InvalidUINTError.md#cause)
+- [message](InvalidUINTError.md#message)
+- [name](InvalidUINTError.md#name)
+- [stack](InvalidUINTError.md#stack)
+- [prepareStackTrace](InvalidUINTError.md#preparestacktrace)
+- [stackTraceLimit](InvalidUINTError.md#stacktracelimit)
 
 ### Methods
 
-- [captureStackTrace](InvalidUrlError.md#capturestacktrace)
+- [captureStackTrace](InvalidUINTError.md#capturestacktrace)
 
 ## Constructors
 
 ### constructor
 
-• **new InvalidUrlError**(`options?`)
+• **new InvalidUINTError**(`options`)
 
 #### Parameters
 
@@ -43,7 +44,8 @@ Error thrown when an invalid Url is provided.
 | `options.cause` | `undefined` \| readonly [`ParseErrors`, `ParseErrors`] | The cause of the error. |
 | `options.docs` | `undefined` \| `string` | The documentation URL. |
 | `options.message` | `undefined` \| `string` | The error message. |
-| `options.url` | `unknown` | The invalid URL value. |
+| `options.size` | [`UINTSize`](../modules.md#uintsize) | The size of the uint. |
+| `options.uint` | `bigint` | The invalid uint256 bigint. |
 
 #### Overrides
 
@@ -51,7 +53,7 @@ TypeError.constructor
 
 #### Defined in
 
-[schemas/src/SUrl.js:69](https://github.com/evmts/evmts-monorepo/blob/fb5c4520/schemas/src/SUrl.js#L69)
+[schemas/src/SUINT.js:306](https://github.com/evmts/evmts-monorepo/blob/fb5c4520/schemas/src/SUINT.js#L306)
 
 ## Properties
 
@@ -65,7 +67,7 @@ TypeError.cause
 
 #### Defined in
 
-[schemas/src/SUrl.js:76](https://github.com/evmts/evmts-monorepo/blob/fb5c4520/schemas/src/SUrl.js#L76)
+[schemas/src/SUINT.js:316](https://github.com/evmts/evmts-monorepo/blob/fb5c4520/schemas/src/SUINT.js#L316)
 
 ___
 
