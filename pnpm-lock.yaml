@@ -863,6 +863,52 @@ importers:
         specifier: ^3.22.2
         version: 3.22.2
 
+  requests:
+    dependencies:
+      '@effect/schema':
+        specifier: ^0.42.0
+        version: 0.42.0(effect@2.0.0-next.47)(fast-check@3.13.1)
+      '@evmts/schemas':
+        specifier: workspace:^
+        version: link:../schemas
+      effect:
+        specifier: 2.0.0-next.47
+        version: 2.0.0-next.47
+    devDependencies:
+      '@evmts/tsconfig':
+        specifier: workspace:^
+        version: link:../tsconfig
+      '@vitest/coverage-v8':
+        specifier: ^0.34.6
+        version: 0.34.6(vitest@0.34.6)
+      '@vitest/ui':
+        specifier: ^0.34.6
+        version: 0.34.6(vitest@0.34.6)
+      abitype:
+        specifier: ^0.9.8
+        version: 0.9.8(typescript@5.2.2)(zod@3.22.2)
+      rome:
+        specifier: ^12.1.3
+        version: 12.1.3
+      tsup:
+        specifier: ^7.2.0
+        version: 7.2.0(typescript@5.2.2)
+      typescript:
+        specifier: ^5.2.2
+        version: 5.2.2
+      viem:
+        specifier: ^1.14.0
+        version: 1.14.0(typescript@5.2.2)(zod@3.22.2)
+      vitest:
+        specifier: ^0.34.6
+        version: 0.34.6(@vitest/ui@0.34.6)
+      wagmi:
+        specifier: ^1.4.2
+        version: 1.4.2(react@18.2.0)(typescript@5.2.2)(viem@1.14.0)(zod@3.22.2)
+      zod:
+        specifier: ^3.22.2
+        version: 3.22.2
+
   revm:
     devDependencies:
       '@evmts/tsconfig':
@@ -10934,6 +10980,13 @@ packages:
     engines: {node: '>=12'}
     dev: true
 
+  /define-properties@1.2.0:
+    resolution: {integrity: sha512-xvqAVKGfT1+UAvPwKTVw/njhdQ8ZhXK4lI0bCIuCMrp2up9nPnaDftrLtmpTazqd1o+UY4zgzU+avtMbDP+ldA==}
+    engines: {node: '>= 0.4'}
+    dependencies:
+      has-property-descriptors: 1.0.0
+      object-keys: 1.1.1
+
   /define-properties@1.2.1:
     resolution: {integrity: sha512-8QmQKqEASLd5nx0U1B1okLElbUuuttJ/AnYmRXbbbGDWh6uS208EjD4Xqq/I9wK7u0v6O08XhTWnt5XtEbR6Dg==}
     engines: {node: '>= 0.4'}
@@ -12921,7 +12974,7 @@ packages:
     engines: {node: '>= 0.4'}
     dependencies:
       call-bind: 1.0.2
-      define-properties: 1.2.1
+      define-properties: 1.2.0
       es-abstract: 1.22.2
       functions-have-names: 1.2.3
 
