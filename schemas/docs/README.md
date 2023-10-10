@@ -1,3 +1,5 @@
+@evmts/schemas / [Exports](modules.md)
+
 <p align="center">
   <a href="https://evmts.dev/">
     <picture>
@@ -18,27 +20,27 @@
 
 # @evmts/schemas
 
-Effect Schemas for EVMts. Docs are located in [./docs](./docs/modules.md)
+Effect Schemas for EVMts
 
 ## Schemas
 
-#### [SAddress](./src/SAddress.js) 
+#### [SAddress](./src/SAddress.md) 
 
 Type representing a valid Ethereum address 
 
-#### [SAddressBook](./src/SAddressBook.js) 
+#### [SAddressBook](./src/SAddressBook.md) 
 
 JSON serializable mapping of contract ids to their blockCreated and address.
 
-#### [SBlockNumber](./src/SBlockNumber.js) 
+#### [SBlockNumber](./src/SBlockNumber.md) 
 
 Type representing a valid Ethereum BlockNumber
 
-#### [SHexString](./src/SHexString.js)
+#### [SHexString](./src/SHexString.md)
 
 Type reresenting a valid HexString
 
-#### [SUrl](./src/SUrl.js) 
+#### [SUrl](./src/SUrl.md) 
 
 Type representing a valid URL
 

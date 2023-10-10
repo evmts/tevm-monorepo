@@ -1,4 +1,4 @@
-import { type HexString, isHexString, parseHexStringString } from './SHexString'
+import { type HexString, isHexString, parseHexString } from './SHexString.js'
 import { assertType, describe, expect, it } from 'vitest'
 
 describe(isHexString.name, () => {
@@ -19,34 +19,26 @@ describe(isHexString.name, () => {
 	})
 })
 
-describe(parseHexStringString.name, () => {
+describe(parseHexString.name, () => {
 	it('should return the validated HexString', () => {
 		const expected = '0x5523423' satisfies HexString
-		const res = parseHexStringString(expected) satisfies HexString
+		const res = parseHexString(expected) satisfies HexString
 		expect(res).toBe(expected)
 		assertType<typeof expected>(res)
-		expect(parseHexStringString('0x')).toBe('0x')
-		expect(parseHexStringString('0x0')).toBe('0x0')
-		expect(parseHexStringString('0xabcde')).toBe('0xabcde')
+		expect(parseHexString('0x')).toBe('0x')
+		expect(parseHexString('0x0')).toBe('0x0')
+		expect(parseHexString('0xabcde')).toBe('0xabcde')
 	})
 
 	it('should throw if invalid HexString', () => {
+		expect(() => parseHexString(52n as any)).toThrowErrorMatchingSnapshot()
+		expect(() => parseHexString('0' as any)).toThrowErrorMatchingSnapshot()
+		expect(() => parseHexString('x0' as any)).toThrowErrorMatchingSnapshot()
+		expect(() => parseHexString('' as any)).toThrowErrorMatchingSnapshot()
+		expect(() => parseHexString(true as any)).toThrowErrorMatchingSnapshot()
+		expect(() => parseHexString({} as any)).toThrowErrorMatchingSnapshot()
 		expect(() =>
-			parseHexStringString(52n as any),
-		).toThrowErrorMatchingSnapshot()
-		expect(() =>
-			parseHexStringString('0' as any),
-		).toThrowErrorMatchingSnapshot()
-		expect(() =>
-			parseHexStringString('x0' as any),
-		).toThrowErrorMatchingSnapshot()
-		expect(() => parseHexStringString('' as any)).toThrowErrorMatchingSnapshot()
-		expect(() =>
-			parseHexStringString(true as any),
-		).toThrowErrorMatchingSnapshot()
-		expect(() => parseHexStringString({} as any)).toThrowErrorMatchingSnapshot()
-		expect(() =>
-			parseHexStringString('not a hex' as any),
+			parseHexString('not a hex' as any),
 		).toThrowErrorMatchingSnapshot()
 	})
 })

@@ -5,6 +5,8 @@
 		"lib": ["esnext"],
 		"module": "esnext",
 		"moduleResolution": "bundler",
+		"allowJs": true,
+		"checkJs": true,
 		"isolatedModules": true,
 		"incremental": true,
 		"allowUnreachableCode": false,

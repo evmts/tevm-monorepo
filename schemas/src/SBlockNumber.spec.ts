@@ -2,7 +2,7 @@ import {
 	type BlockNumber,
 	isBlockNumber,
 	parseBlockNumber,
-} from './SBlockNumber'
+} from './SBlockNumber.js'
 import { assertType, describe, expect, it } from 'vitest'
 
 describe(isBlockNumber.name, () => {

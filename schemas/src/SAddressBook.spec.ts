@@ -2,10 +2,27 @@ import {
 	type AddressBook,
 	isAddressBook,
 	parseAddressBook,
-} from './SAddressBook'
+} from './SAddressBook.js'
 import { assertType, describe, expect, it } from 'vitest'
 
 describe(isAddressBook.name, () => {
+	it('types should work', () => {
+		const addressBook: unknown = {
+			contract1: {
+				address: '0x4320a88a199120aD52Dd9742C7430847d3cB2CD4',
+				blockCreated: 0,
+			},
+		}
+		const passesValidation = isAddressBook(addressBook)
+		expect(passesValidation).toBe(true)
+		if (passesValidation) {
+			assertType<AddressBook>(addressBook)
+			assertType<typeof addressBook>({} as AddressBook)
+		} else {
+			assertType<unknown>(addressBook)
+		}
+	})
+
 	it('should return true for valid address book', () => {
 		const addressBook: unknown = {
 			contract1: {
@@ -16,7 +33,8 @@ describe(isAddressBook.name, () => {
 		const passesValidation = isAddressBook(addressBook)
 		expect(passesValidation).toBe(true)
 		if (passesValidation) {
-			assertType<AddressBook<string>>(addressBook)
+			assertType<AddressBook>(addressBook)
+			assertType<typeof addressBook>({} as AddressBook)
 		} else {
 			assertType<unknown>(addressBook)
 		}
@@ -76,8 +94,8 @@ describe(parseAddressBook.name, () => {
 				address: '0x4227a88a199120aD52Dd9742C7430847d3cB2CD4',
 				blockCreated: 500,
 			},
-		} as const satisfies AddressBook<string>
-		const addressBook = parseAddressBook(expected) satisfies AddressBook<string>
+		} as const satisfies AddressBook
+		const addressBook = parseAddressBook(expected) satisfies AddressBook
 		expect(addressBook).toEqual(expected)
 		assertType<typeof expected>(addressBook)
 	})
@@ -96,8 +114,8 @@ describe(parseAddressBook.name, () => {
 				address: '0x4320a88a199120aD52Dd9742C7430847d3cB2CD4',
 				blockCreated: 0,
 			},
-		} as const satisfies AddressBook<string>
-		const addressBook = parseAddressBook(expected) satisfies AddressBook<string>
+		} as const satisfies AddressBook
+		const addressBook = parseAddressBook(expected) satisfies AddressBook
 		expect(addressBook).toEqual(expected)
 		assertType<typeof expected>(addressBook)
 	})

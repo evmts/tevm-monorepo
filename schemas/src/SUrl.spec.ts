@@ -1,4 +1,4 @@
-import { type Url, parseUrl } from './SUrl'
+import { type Url, parseUrl } from './SUrl.js'
 import { assertType, describe, expect, it } from 'vitest'
 
 describe(parseUrl.name, () => {
