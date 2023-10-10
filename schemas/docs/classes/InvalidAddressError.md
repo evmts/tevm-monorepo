@@ -57,7 +57,7 @@ TypeError.constructor
 
 #### Defined in
 
-[schemas/src/SAddress.js:48](https://github.com/evmts/evmts-monorepo/blob/baee3b8d/schemas/src/SAddress.js#L48)
+[schemas/src/SAddress.js:48](https://github.com/evmts/evmts-monorepo/blob/fb5c4520/schemas/src/SAddress.js#L48)
 
 ## Properties
 
@@ -71,7 +71,7 @@ TypeError.cause
 
 #### Defined in
 
-[schemas/src/SAddress.js:55](https://github.com/evmts/evmts-monorepo/blob/baee3b8d/schemas/src/SAddress.js#L55)
+[schemas/src/SAddress.js:55](https://github.com/evmts/evmts-monorepo/blob/fb5c4520/schemas/src/SAddress.js#L55)
 
 ___
 

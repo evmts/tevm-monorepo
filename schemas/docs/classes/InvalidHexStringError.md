@@ -51,7 +51,7 @@ TypeError.constructor
 
 #### Defined in
 
-[schemas/src/SHexString.js:58](https://github.com/evmts/evmts-monorepo/blob/baee3b8d/schemas/src/SHexString.js#L58)
+[schemas/src/SHexString.js:58](https://github.com/evmts/evmts-monorepo/blob/fb5c4520/schemas/src/SHexString.js#L58)
 
 ## Properties
 
@@ -65,7 +65,7 @@ TypeError.cause
 
 #### Defined in
 
-[schemas/src/SHexString.js:65](https://github.com/evmts/evmts-monorepo/blob/baee3b8d/schemas/src/SHexString.js#L65)
+[schemas/src/SHexString.js:65](https://github.com/evmts/evmts-monorepo/blob/fb5c4520/schemas/src/SHexString.js#L65)
 
 ___
 

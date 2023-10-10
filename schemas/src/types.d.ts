@@ -1,4 +1,4 @@
-import { Address } from './SAddress.js'
+import type { Address } from './SAddress.js'
 
 export type BlockNumber = number
 

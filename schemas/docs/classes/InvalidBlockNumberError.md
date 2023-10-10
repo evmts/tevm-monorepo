@@ -52,7 +52,7 @@ TypeError.constructor
 
 #### Defined in
 
-[schemas/src/SBlockNumber.js:62](https://github.com/evmts/evmts-monorepo/blob/baee3b8d/schemas/src/SBlockNumber.js#L62)
+[schemas/src/SBlockNumber.js:62](https://github.com/evmts/evmts-monorepo/blob/fb5c4520/schemas/src/SBlockNumber.js#L62)
 
 ## Properties
 
@@ -66,7 +66,7 @@ TypeError.cause
 
 #### Defined in
 
-[schemas/src/SBlockNumber.js:69](https://github.com/evmts/evmts-monorepo/blob/baee3b8d/schemas/src/SBlockNumber.js#L69)
+[schemas/src/SBlockNumber.js:69](https://github.com/evmts/evmts-monorepo/blob/fb5c4520/schemas/src/SBlockNumber.js#L69)
 
 ___
 

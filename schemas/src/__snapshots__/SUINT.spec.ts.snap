@@ -1,0 +1,343 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`parse{"type":"UINT8","max":255,"exceedsMax":256} > should return a valid UINT8 > "255" 1`] = `255n`;
+
+exports[`parse{"type":"UINT8","max":255,"exceedsMax":256} > should throw if value is not a bigint for UINT8 1`] = `
+"InvalidUINTError: Value uint8 is too big to be a UINT8
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parse{"type":"UINT8","max":255,"exceedsMax":256} > should throw if value is not a bigint for UINT8 2`] = `
+"InvalidUINTError: Value uint8 is too big to be a UINT8
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parse{"type":"UINT8","max":255,"exceedsMax":256} > should throw if value is not a bigint for UINT8 3`] = `
+"InvalidUINTError: Value uint8 is too big to be a UINT8
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parse{"type":"UINT8","max":255,"exceedsMax":256} > should throw if value is not a bigint for UINT8 4`] = `
+"InvalidUINTError: Value uint8 is too big to be a UINT8
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parse{"type":"UINT8","max":255,"exceedsMax":256} > should throw if value is not a bigint for UINT8 5`] = `
+"InvalidUINTError: Value uint8 is too big to be a UINT8
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parse{"type":"UINT8","max":255,"exceedsMax":256} > should throw if value is not a bigint for UINT8 6`] = `
+"InvalidUINTError: Value uint8 is too big to be a UINT8
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parse{"type":"UINT8","max":255,"exceedsMax":256} > should throw if value is not a bigint for UINT8 7`] = `
+"InvalidUINTError: Value uint8 is too big to be a UINT8
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parse{"type":"UINT8","max":255,"exceedsMax":256} > should throw if value is not a bigint for UINT8 8`] = `
+"InvalidUINTError: Value uint8 is too big to be a UINT8
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parse{"type":"UINT8","max":255,"exceedsMax":256} > should throw if value is not a bigint for UINT8 9`] = `
+"InvalidUINTError: Value uint8 is too big to be a UINT8
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parse{"type":"UINT8","max":255,"exceedsMax":256} > should throw if value is out of UINT8 range 1`] = `
+"InvalidUINTError: Value uint8 is too big to be a UINT8
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parse{"type":"UINT8","max":255,"exceedsMax":256} > should throw if value is out of UINT8 range 2`] = `
+"InvalidUINTError: Recieved -1 is too small to be a 8. Must be >= 0.
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parse{"type":"UINT16","max":65535,"exceedsMax":65536} > should return a valid UINT16 > "65535" 1`] = `65535n`;
+
+exports[`parse{"type":"UINT16","max":65535,"exceedsMax":65536} > should throw if value is not a bigint for UINT16 1`] = `
+"InvalidUINTError: Value uint16 is too big to be a UINT16
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parse{"type":"UINT16","max":65535,"exceedsMax":65536} > should throw if value is not a bigint for UINT16 2`] = `
+"InvalidUINTError: Value uint16 is too big to be a UINT16
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parse{"type":"UINT16","max":65535,"exceedsMax":65536} > should throw if value is not a bigint for UINT16 3`] = `
+"InvalidUINTError: Value uint16 is too big to be a UINT16
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parse{"type":"UINT16","max":65535,"exceedsMax":65536} > should throw if value is not a bigint for UINT16 4`] = `
+"InvalidUINTError: Value uint16 is too big to be a UINT16
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parse{"type":"UINT16","max":65535,"exceedsMax":65536} > should throw if value is not a bigint for UINT16 5`] = `
+"InvalidUINTError: Value uint16 is too big to be a UINT16
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parse{"type":"UINT16","max":65535,"exceedsMax":65536} > should throw if value is not a bigint for UINT16 6`] = `
+"InvalidUINTError: Value uint16 is too big to be a UINT16
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parse{"type":"UINT16","max":65535,"exceedsMax":65536} > should throw if value is not a bigint for UINT16 7`] = `
+"InvalidUINTError: Value uint16 is too big to be a UINT16
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parse{"type":"UINT16","max":65535,"exceedsMax":65536} > should throw if value is not a bigint for UINT16 8`] = `
+"InvalidUINTError: Value uint16 is too big to be a UINT16
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parse{"type":"UINT16","max":65535,"exceedsMax":65536} > should throw if value is not a bigint for UINT16 9`] = `
+"InvalidUINTError: Value uint16 is too big to be a UINT16
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parse{"type":"UINT16","max":65535,"exceedsMax":65536} > should throw if value is out of UINT16 range 1`] = `
+"InvalidUINTError: Value uint16 is too big to be a UINT16
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parse{"type":"UINT16","max":65535,"exceedsMax":65536} > should throw if value is out of UINT16 range 2`] = `
+"InvalidUINTError: Recieved -1 is too small to be a 16. Must be >= 0.
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parse{"type":"UINT32","max":"4294967295","exceedsMax":"4294967296"} > should return a valid UINT32 > "4294967295" 1`] = `4294967295n`;
+
+exports[`parse{"type":"UINT32","max":"4294967295","exceedsMax":"4294967296"} > should throw if value is not a bigint for UINT32 1`] = `
+"InvalidUINTError: Value uint32 is too big to be a UINT32
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parse{"type":"UINT32","max":"4294967295","exceedsMax":"4294967296"} > should throw if value is not a bigint for UINT32 2`] = `
+"InvalidUINTError: Value uint32 is too big to be a UINT32
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parse{"type":"UINT32","max":"4294967295","exceedsMax":"4294967296"} > should throw if value is not a bigint for UINT32 3`] = `
+"InvalidUINTError: Value uint32 is too big to be a UINT32
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parse{"type":"UINT32","max":"4294967295","exceedsMax":"4294967296"} > should throw if value is not a bigint for UINT32 4`] = `
+"InvalidUINTError: Value uint32 is too big to be a UINT32
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parse{"type":"UINT32","max":"4294967295","exceedsMax":"4294967296"} > should throw if value is not a bigint for UINT32 5`] = `
+"InvalidUINTError: Value uint32 is too big to be a UINT32
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parse{"type":"UINT32","max":"4294967295","exceedsMax":"4294967296"} > should throw if value is not a bigint for UINT32 6`] = `
+"InvalidUINTError: Value uint32 is too big to be a UINT32
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parse{"type":"UINT32","max":"4294967295","exceedsMax":"4294967296"} > should throw if value is not a bigint for UINT32 7`] = `
+"InvalidUINTError: Value uint32 is too big to be a UINT32
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parse{"type":"UINT32","max":"4294967295","exceedsMax":"4294967296"} > should throw if value is not a bigint for UINT32 8`] = `
+"InvalidUINTError: Value uint32 is too big to be a UINT32
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parse{"type":"UINT32","max":"4294967295","exceedsMax":"4294967296"} > should throw if value is not a bigint for UINT32 9`] = `
+"InvalidUINTError: Value uint32 is too big to be a UINT32
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parse{"type":"UINT32","max":"4294967295","exceedsMax":"4294967296"} > should throw if value is out of UINT32 range 1`] = `
+"InvalidUINTError: Value uint32 is too big to be a UINT32
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parse{"type":"UINT32","max":"4294967295","exceedsMax":"4294967296"} > should throw if value is out of UINT32 range 2`] = `
+"InvalidUINTError: Recieved -1 is too small to be a 32. Must be >= 0.
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parse{"type":"UINT64","max":"18446744073709551615","exceedsMax":"18446744073709551616"} > should return a valid UINT64 > "18446744073709551615" 1`] = `18446744073709551615n`;
+
+exports[`parse{"type":"UINT64","max":"18446744073709551615","exceedsMax":"18446744073709551616"} > should throw if value is not a bigint for UINT64 1`] = `
+"InvalidUINTError: Value uint64 is too big to be a UINT64
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parse{"type":"UINT64","max":"18446744073709551615","exceedsMax":"18446744073709551616"} > should throw if value is not a bigint for UINT64 2`] = `
+"InvalidUINTError: Value uint64 is too big to be a UINT64
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parse{"type":"UINT64","max":"18446744073709551615","exceedsMax":"18446744073709551616"} > should throw if value is not a bigint for UINT64 3`] = `
+"InvalidUINTError: Value uint64 is too big to be a UINT64
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parse{"type":"UINT64","max":"18446744073709551615","exceedsMax":"18446744073709551616"} > should throw if value is not a bigint for UINT64 4`] = `
+"InvalidUINTError: Value uint64 is too big to be a UINT64
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parse{"type":"UINT64","max":"18446744073709551615","exceedsMax":"18446744073709551616"} > should throw if value is not a bigint for UINT64 5`] = `
+"InvalidUINTError: Value uint64 is too big to be a UINT64
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parse{"type":"UINT64","max":"18446744073709551615","exceedsMax":"18446744073709551616"} > should throw if value is not a bigint for UINT64 6`] = `
+"InvalidUINTError: Value uint64 is too big to be a UINT64
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parse{"type":"UINT64","max":"18446744073709551615","exceedsMax":"18446744073709551616"} > should throw if value is not a bigint for UINT64 7`] = `
+"InvalidUINTError: Value uint64 is too big to be a UINT64
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parse{"type":"UINT64","max":"18446744073709551615","exceedsMax":"18446744073709551616"} > should throw if value is not a bigint for UINT64 8`] = `
+"InvalidUINTError: Value uint64 is too big to be a UINT64
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parse{"type":"UINT64","max":"18446744073709551615","exceedsMax":"18446744073709551616"} > should throw if value is not a bigint for UINT64 9`] = `
+"InvalidUINTError: Value uint64 is too big to be a UINT64
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parse{"type":"UINT64","max":"18446744073709551615","exceedsMax":"18446744073709551616"} > should throw if value is out of UINT64 range 1`] = `
+"InvalidUINTError: Value uint64 is too big to be a UINT64
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parse{"type":"UINT64","max":"18446744073709551615","exceedsMax":"18446744073709551616"} > should throw if value is out of UINT64 range 2`] = `
+"InvalidUINTError: Recieved -1 is too small to be a 64. Must be >= 0.
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parse{"type":"UINT128","max":"340282366920938463463374607431768211455","exceedsMax":"340282366920938463463374607431768211456"} > should return a valid UINT128 > "340282366920938463463374607431768211455" 1`] = `340282366920938463463374607431768211455n`;
+
+exports[`parse{"type":"UINT128","max":"340282366920938463463374607431768211455","exceedsMax":"340282366920938463463374607431768211456"} > should throw if value is not a bigint for UINT128 1`] = `
+"InvalidUINTError: Value uint128 is too big to be a UINT128
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parse{"type":"UINT128","max":"340282366920938463463374607431768211455","exceedsMax":"340282366920938463463374607431768211456"} > should throw if value is not a bigint for UINT128 2`] = `
+"InvalidUINTError: Value uint128 is too big to be a UINT128
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parse{"type":"UINT128","max":"340282366920938463463374607431768211455","exceedsMax":"340282366920938463463374607431768211456"} > should throw if value is not a bigint for UINT128 3`] = `
+"InvalidUINTError: Value uint128 is too big to be a UINT128
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parse{"type":"UINT128","max":"340282366920938463463374607431768211455","exceedsMax":"340282366920938463463374607431768211456"} > should throw if value is not a bigint for UINT128 4`] = `
+"InvalidUINTError: Value uint128 is too big to be a UINT128
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parse{"type":"UINT128","max":"340282366920938463463374607431768211455","exceedsMax":"340282366920938463463374607431768211456"} > should throw if value is not a bigint for UINT128 5`] = `
+"InvalidUINTError: Value uint128 is too big to be a UINT128
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parse{"type":"UINT128","max":"340282366920938463463374607431768211455","exceedsMax":"340282366920938463463374607431768211456"} > should throw if value is not a bigint for UINT128 6`] = `
+"InvalidUINTError: Value uint128 is too big to be a UINT128
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parse{"type":"UINT128","max":"340282366920938463463374607431768211455","exceedsMax":"340282366920938463463374607431768211456"} > should throw if value is not a bigint for UINT128 7`] = `
+"InvalidUINTError: Value uint128 is too big to be a UINT128
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parse{"type":"UINT128","max":"340282366920938463463374607431768211455","exceedsMax":"340282366920938463463374607431768211456"} > should throw if value is not a bigint for UINT128 8`] = `
+"InvalidUINTError: Value uint128 is too big to be a UINT128
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parse{"type":"UINT128","max":"340282366920938463463374607431768211455","exceedsMax":"340282366920938463463374607431768211456"} > should throw if value is not a bigint for UINT128 9`] = `
+"InvalidUINTError: Value uint128 is too big to be a UINT128
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parse{"type":"UINT128","max":"340282366920938463463374607431768211455","exceedsMax":"340282366920938463463374607431768211456"} > should throw if value is out of UINT128 range 1`] = `
+"InvalidUINTError: Value uint128 is too big to be a UINT128
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parse{"type":"UINT128","max":"340282366920938463463374607431768211455","exceedsMax":"340282366920938463463374607431768211456"} > should throw if value is out of UINT128 range 2`] = `
+"InvalidUINTError: Recieved -1 is too small to be a 128. Must be >= 0.
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parse{"type":"UINT256","max":"115792089237316195423570985008687907853269984665640564039457584007913129639935","exceedsMax":"115792089237316195423570985008687907853269984665640564039457584007913129639936"} > should return a valid UINT256 > "115792089237316195423570985008687907853269984665640564039457584007913129639935" 1`] = `115792089237316195423570985008687907853269984665640564039457584007913129639935n`;
+
+exports[`parse{"type":"UINT256","max":"115792089237316195423570985008687907853269984665640564039457584007913129639935","exceedsMax":"115792089237316195423570985008687907853269984665640564039457584007913129639936"} > should throw if value is not a bigint for UINT256 1`] = `
+"InvalidUINTError: Value uint256 is too big to be a UINT256
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parse{"type":"UINT256","max":"115792089237316195423570985008687907853269984665640564039457584007913129639935","exceedsMax":"115792089237316195423570985008687907853269984665640564039457584007913129639936"} > should throw if value is not a bigint for UINT256 2`] = `
+"InvalidUINTError: Value uint256 is too big to be a UINT256
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parse{"type":"UINT256","max":"115792089237316195423570985008687907853269984665640564039457584007913129639935","exceedsMax":"115792089237316195423570985008687907853269984665640564039457584007913129639936"} > should throw if value is not a bigint for UINT256 3`] = `
+"InvalidUINTError: Value uint256 is too big to be a UINT256
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parse{"type":"UINT256","max":"115792089237316195423570985008687907853269984665640564039457584007913129639935","exceedsMax":"115792089237316195423570985008687907853269984665640564039457584007913129639936"} > should throw if value is not a bigint for UINT256 4`] = `
+"InvalidUINTError: Value uint256 is too big to be a UINT256
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parse{"type":"UINT256","max":"115792089237316195423570985008687907853269984665640564039457584007913129639935","exceedsMax":"115792089237316195423570985008687907853269984665640564039457584007913129639936"} > should throw if value is not a bigint for UINT256 5`] = `
+"InvalidUINTError: Value uint256 is too big to be a UINT256
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parse{"type":"UINT256","max":"115792089237316195423570985008687907853269984665640564039457584007913129639935","exceedsMax":"115792089237316195423570985008687907853269984665640564039457584007913129639936"} > should throw if value is not a bigint for UINT256 6`] = `
+"InvalidUINTError: Value uint256 is too big to be a UINT256
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parse{"type":"UINT256","max":"115792089237316195423570985008687907853269984665640564039457584007913129639935","exceedsMax":"115792089237316195423570985008687907853269984665640564039457584007913129639936"} > should throw if value is not a bigint for UINT256 7`] = `
+"InvalidUINTError: Value uint256 is too big to be a UINT256
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parse{"type":"UINT256","max":"115792089237316195423570985008687907853269984665640564039457584007913129639935","exceedsMax":"115792089237316195423570985008687907853269984665640564039457584007913129639936"} > should throw if value is not a bigint for UINT256 8`] = `
+"InvalidUINTError: Value uint256 is too big to be a UINT256
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parse{"type":"UINT256","max":"115792089237316195423570985008687907853269984665640564039457584007913129639935","exceedsMax":"115792089237316195423570985008687907853269984665640564039457584007913129639936"} > should throw if value is not a bigint for UINT256 9`] = `
+"InvalidUINTError: Value uint256 is too big to be a UINT256
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parse{"type":"UINT256","max":"115792089237316195423570985008687907853269984665640564039457584007913129639935","exceedsMax":"115792089237316195423570985008687907853269984665640564039457584007913129639936"} > should throw if value is out of UINT256 range 1`] = `
+"InvalidUINTError: Value uint256 is too big to be a UINT256
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parse{"type":"UINT256","max":"115792089237316195423570985008687907853269984665640564039457584007913129639935","exceedsMax":"115792089237316195423570985008687907853269984665640564039457584007913129639936"} > should throw if value is out of UINT256 range 2`] = `
+"InvalidUINTError: Recieved -1 is too small to be a 256. Must be >= 0.
+https://evmts.dev/reference/errors"
+`;

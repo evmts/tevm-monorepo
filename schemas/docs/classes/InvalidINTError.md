@@ -1,39 +1,40 @@
-[@evmts/schemas](../README.md) / [Exports](../modules.md) / InvalidUrlError
+[@evmts/schemas](../README.md) / [Exports](../modules.md) / InvalidINTError
 
-# Class: InvalidUrlError
+# Class: InvalidINTError
 
-Error thrown when an invalid Url is provided.
+Error thrown when an INT is invalid.
+An int bigint is invalid if it's not within the bounds of its size.
 
 ## Hierarchy
 
 - `TypeError`
 
-  ↳ **`InvalidUrlError`**
+  ↳ **`InvalidINTError`**
 
 ## Table of contents
 
 ### Constructors
 
-- [constructor](InvalidUrlError.md#constructor)
+- [constructor](InvalidINTError.md#constructor)
 
 ### Properties
 
-- [cause](InvalidUrlError.md#cause)
-- [message](InvalidUrlError.md#message)
-- [name](InvalidUrlError.md#name)
-- [stack](InvalidUrlError.md#stack)
-- [prepareStackTrace](InvalidUrlError.md#preparestacktrace)
-- [stackTraceLimit](InvalidUrlError.md#stacktracelimit)
+- [cause](InvalidINTError.md#cause)
+- [message](InvalidINTError.md#message)
+- [name](InvalidINTError.md#name)
+- [stack](InvalidINTError.md#stack)
+- [prepareStackTrace](InvalidINTError.md#preparestacktrace)
+- [stackTraceLimit](InvalidINTError.md#stacktracelimit)
 
 ### Methods
 
-- [captureStackTrace](InvalidUrlError.md#capturestacktrace)
+- [captureStackTrace](InvalidINTError.md#capturestacktrace)
 
 ## Constructors
 
 ### constructor
 
-• **new InvalidUrlError**(`options?`)
+• **new InvalidINTError**(`options`)
 
 #### Parameters
 
@@ -42,8 +43,9 @@ Error thrown when an invalid Url is provided.
 | `options` | `Object` | The options for the error. |
 | `options.cause` | `undefined` \| readonly [`ParseErrors`, `ParseErrors`] | The cause of the error. |
 | `options.docs` | `undefined` \| `string` | The documentation URL. |
+| `options.int` | `bigint` | The invalid int bigint. |
 | `options.message` | `undefined` \| `string` | The error message. |
-| `options.url` | `unknown` | The invalid URL value. |
+| `options.size` | [`INTSize`](../modules.md#intsize) | The size of the int. |
 
 #### Overrides
 
@@ -51,7 +53,7 @@ TypeError.constructor
 
 #### Defined in
 
-[schemas/src/SUrl.js:69](https://github.com/evmts/evmts-monorepo/blob/fb5c4520/schemas/src/SUrl.js#L69)
+[schemas/src/SINT.js:325](https://github.com/evmts/evmts-monorepo/blob/fb5c4520/schemas/src/SINT.js#L325)
 
 ## Properties
 
@@ -65,7 +67,7 @@ TypeError.cause
 
 #### Defined in
 
-[schemas/src/SUrl.js:76](https://github.com/evmts/evmts-monorepo/blob/fb5c4520/schemas/src/SUrl.js#L76)
+[schemas/src/SINT.js:345](https://github.com/evmts/evmts-monorepo/blob/fb5c4520/schemas/src/SINT.js#L345)
 
 ___
 

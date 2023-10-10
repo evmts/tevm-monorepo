@@ -17,7 +17,7 @@
 
 #### Defined in
 
-[schemas/src/SAddressBook.js:19](https://github.com/evmts/evmts-monorepo/blob/baee3b8d/schemas/src/SAddressBook.js#L19)
+[schemas/src/SAddressBook.js:19](https://github.com/evmts/evmts-monorepo/blob/fb5c4520/schemas/src/SAddressBook.js#L19)
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 #### Defined in
 
-[schemas/src/SAddressBook.js:18](https://github.com/evmts/evmts-monorepo/blob/baee3b8d/schemas/src/SAddressBook.js#L18)
+[schemas/src/SAddressBook.js:18](https://github.com/evmts/evmts-monorepo/blob/fb5c4520/schemas/src/SAddressBook.js#L18)
