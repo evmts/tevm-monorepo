@@ -9,6 +9,8 @@
 		"checkJs": true,
 		"isolatedModules": true,
 		"incremental": true,
+	  "allowJs": true,
+		"checkJs": true,
 		"allowUnreachableCode": false,
 		"skipLibCheck": false,
 		"allowUnusedLabels": false,

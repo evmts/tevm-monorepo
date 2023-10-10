@@ -1,5 +1,6 @@
 packages:
   - "bundlers/*"
+  - "blockexplorer"
   - "cli"
   - "config"
   - "core"
