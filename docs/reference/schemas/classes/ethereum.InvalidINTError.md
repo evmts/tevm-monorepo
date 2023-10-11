@@ -1,41 +1,42 @@
-[@evmts/schemas](/schema/README.md) / [Modules](/schema/modules.md) / [common](/schema/modules/common.md) / InvalidUrlError
+[@evmts/schemas](/reference/schema/README.md) / [Modules](/reference/schema/modules.md) / [ethereum](/reference/schema/modules/ethereum.md) / InvalidINTError
 
-# Class: InvalidUrlError
+# Class: InvalidINTError
 
-[common](/schema/modules/common.md).InvalidUrlError
+[ethereum](/reference/schema/modules/ethereum.md).InvalidINTError
 
-Error thrown when an invalid Url is provided.
+Error thrown when an INT is invalid.
+An int bigint is invalid if it's not within the bounds of its size.
 
 ## Hierarchy
 
 - `TypeError`
 
-  ↳ **`InvalidUrlError`**
+  ↳ **`InvalidINTError`**
 
 ## Table of contents
 
 ### Constructors
 
-- [constructor](/schema/classes/common.InvalidUrlError.md#constructor)
+- [constructor](/reference/schema/classes/ethereum.InvalidINTError.md#constructor)
 
 ### Properties
 
-- [cause](/schema/classes/common.InvalidUrlError.md#cause)
-- [message](/schema/classes/common.InvalidUrlError.md#message)
-- [name](/schema/classes/common.InvalidUrlError.md#name)
-- [stack](/schema/classes/common.InvalidUrlError.md#stack)
-- [prepareStackTrace](/schema/classes/common.InvalidUrlError.md#preparestacktrace)
-- [stackTraceLimit](/schema/classes/common.InvalidUrlError.md#stacktracelimit)
+- [cause](/reference/schema/classes/ethereum.InvalidINTError.md#cause)
+- [message](/reference/schema/classes/ethereum.InvalidINTError.md#message)
+- [name](/reference/schema/classes/ethereum.InvalidINTError.md#name)
+- [stack](/reference/schema/classes/ethereum.InvalidINTError.md#stack)
+- [prepareStackTrace](/reference/schema/classes/ethereum.InvalidINTError.md#preparestacktrace)
+- [stackTraceLimit](/reference/schema/classes/ethereum.InvalidINTError.md#stacktracelimit)
 
 ### Methods
 
-- [captureStackTrace](/schema/classes/common.InvalidUrlError.md#capturestacktrace)
+- [captureStackTrace](/reference/schema/classes/ethereum.InvalidINTError.md#capturestacktrace)
 
 ## Constructors
 
 ### constructor
 
-• **new InvalidUrlError**(`options?`)
+• **new InvalidINTError**(`options`)
 
 #### Parameters
 
@@ -44,8 +45,9 @@ Error thrown when an invalid Url is provided.
 | `options` | `Object` | The options for the error. |
 | `options.cause` | `undefined` \| readonly [`ParseErrors`, `ParseErrors`] | The cause of the error. |
 | `options.docs` | `undefined` \| `string` | The documentation URL. |
+| `options.int` | `bigint` | The invalid int bigint. |
 | `options.message` | `undefined` \| `string` | The error message. |
-| `options.url` | `unknown` | The invalid URL value. |
+| `options.size` | [`INTSize`](/reference/schema/modules/ethereum.md#intsize) | The size of the int. |
 
 #### Overrides
 
@@ -53,7 +55,7 @@ TypeError.constructor
 
 #### Defined in
 
-[schemas/src/common/SUrl.js:69](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/common/SUrl.js#L69)
+[schemas/src/ethereum/SINT/Errors.js:28](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/Errors.js#L28)
 
 ## Properties
 
@@ -67,7 +69,7 @@ TypeError.cause
 
 #### Defined in
 
-[schemas/src/common/SUrl.js:76](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/common/SUrl.js#L76)
+[schemas/src/ethereum/SINT/Errors.js:48](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/Errors.js#L48)
 
 ___
 

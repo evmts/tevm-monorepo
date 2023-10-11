@@ -1,4 +1,4 @@
-[@evmts/schemas](/schema/README.md) / [Modules](/schema/modules.md) / common
+[@evmts/schemas](/reference/schema/README.md) / [Modules](/reference/schema/modules.md) / common
 
 # Module: common
 
@@ -6,33 +6,33 @@
 
 ### Classes
 
-- [InvalidBlockNumberError](/schema/classes/common.InvalidBlockNumberError.md)
-- [InvalidHexStringError](/schema/classes/common.InvalidHexStringError.md)
-- [InvalidUrlError](/schema/classes/common.InvalidUrlError.md)
+- [InvalidBlockNumberError](/reference/schema/classes/common.InvalidBlockNumberError.md)
+- [InvalidHexStringError](/reference/schema/classes/common.InvalidHexStringError.md)
+- [InvalidUrlError](/reference/schema/classes/common.InvalidUrlError.md)
 
 ### Type Aliases
 
-- [BlockNumber](/schema/modules/common.md#blocknumber)
-- [HexString](/schema/modules/common.md#hexstring)
-- [Url](/schema/modules/common.md#url)
+- [BlockNumber](/reference/schema/modules/common.md#blocknumber)
+- [HexString](/reference/schema/modules/common.md#hexstring)
+- [Url](/reference/schema/modules/common.md#url)
 
 ### Variables
 
-- [SBlockNumber](/schema/modules/common.md#sblocknumber)
-- [SHexString](/schema/modules/common.md#shexstring)
-- [SUrl](/schema/modules/common.md#surl)
+- [SBlockNumber](/reference/schema/modules/common.md#sblocknumber)
+- [SHexString](/reference/schema/modules/common.md#shexstring)
+- [SUrl](/reference/schema/modules/common.md#surl)
 
 ### Functions
 
-- [isBlockNumber](/schema/modules/common.md#isblocknumber)
-- [isHexString](/schema/modules/common.md#ishexstring)
-- [isUrl](/schema/modules/common.md#isurl)
-- [parseBlockNumber](/schema/modules/common.md#parseblocknumber)
-- [parseBlockNumberSafe](/schema/modules/common.md#parseblocknumbersafe)
-- [parseHexString](/schema/modules/common.md#parsehexstring)
-- [parseHexStringSafe](/schema/modules/common.md#parsehexstringsafe)
-- [parseUrl](/schema/modules/common.md#parseurl)
-- [parseUrlSafe](/schema/modules/common.md#parseurlsafe)
+- [isBlockNumber](/reference/schema/modules/common.md#isblocknumber)
+- [isHexString](/reference/schema/modules/common.md#ishexstring)
+- [isUrl](/reference/schema/modules/common.md#isurl)
+- [parseBlockNumber](/reference/schema/modules/common.md#parseblocknumber)
+- [parseBlockNumberSafe](/reference/schema/modules/common.md#parseblocknumbersafe)
+- [parseHexString](/reference/schema/modules/common.md#parsehexstring)
+- [parseHexStringSafe](/reference/schema/modules/common.md#parsehexstringsafe)
+- [parseUrl](/reference/schema/modules/common.md#parseurl)
+- [parseUrlSafe](/reference/schema/modules/common.md#parseurlsafe)
 
 ## Type Aliases
 
@@ -244,7 +244,7 @@ ___
 
 ### parseBlockNumberSafe
 
-▸ **parseBlockNumberSafe**<`TBlockNumber`\>(`blockNumber`): `Effect`<`never`, [`InvalidBlockNumberError`](/schema/classes/common.InvalidBlockNumberError.md), `TBlockNumber`\>
+▸ **parseBlockNumberSafe**<`TBlockNumber`\>(`blockNumber`): `Effect`<`never`, [`InvalidBlockNumberError`](/reference/schema/classes/common.InvalidBlockNumberError.md), `TBlockNumber`\>
 
 Safely parses a BlockNumber into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -262,7 +262,7 @@ Safely parses a BlockNumber into an [Effect](https://www.effect.website/docs/ess
 
 #### Returns
 
-`Effect`<`never`, [`InvalidBlockNumberError`](/schema/classes/common.InvalidBlockNumberError.md), `TBlockNumber`\>
+`Effect`<`never`, [`InvalidBlockNumberError`](/reference/schema/classes/common.InvalidBlockNumberError.md), `TBlockNumber`\>
 
 **`Example`**
 
@@ -314,7 +314,7 @@ ___
 
 ### parseHexStringSafe
 
-▸ **parseHexStringSafe**<`THexString`\>(`value`): `Effect`<`never`, [`InvalidHexStringError`](/schema/classes/common.InvalidHexStringError.md), `THexString`\>
+▸ **parseHexStringSafe**<`THexString`\>(`value`): `Effect`<`never`, [`InvalidHexStringError`](/reference/schema/classes/common.InvalidHexStringError.md), `THexString`\>
 
 Safely parses a HexString into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -332,7 +332,7 @@ Safely parses a HexString into an [Effect](https://www.effect.website/docs/essen
 
 #### Returns
 
-`Effect`<`never`, [`InvalidHexStringError`](/schema/classes/common.InvalidHexStringError.md), `THexString`\>
+`Effect`<`never`, [`InvalidHexStringError`](/reference/schema/classes/common.InvalidHexStringError.md), `THexString`\>
 
 **`Example`**
 
@@ -384,7 +384,7 @@ ___
 
 ### parseUrlSafe
 
-▸ **parseUrlSafe**<`TUrl`\>(`url`): `Effect`<`never`, [`InvalidUrlError`](/schema/classes/common.InvalidUrlError.md), `TUrl`\>
+▸ **parseUrlSafe**<`TUrl`\>(`url`): `Effect`<`never`, [`InvalidUrlError`](/reference/schema/classes/common.InvalidUrlError.md), `TUrl`\>
 
 Safely parses a Url into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -402,7 +402,7 @@ Safely parses a Url into an [Effect](https://www.effect.website/docs/essentials/
 
 #### Returns
 
-`Effect`<`never`, [`InvalidUrlError`](/schema/classes/common.InvalidUrlError.md), `TUrl`\>
+`Effect`<`never`, [`InvalidUrlError`](/reference/schema/classes/common.InvalidUrlError.md), `TUrl`\>
 
 **`Example`**
 

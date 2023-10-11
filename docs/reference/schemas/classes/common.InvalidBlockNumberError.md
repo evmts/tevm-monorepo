@@ -1,53 +1,52 @@
-[@evmts/schemas](/schema/README.md) / [Modules](/schema/modules.md) / [ethereum](/schema/modules/ethereum.md) / InvalidBytesError
+[@evmts/schemas](/reference/schema/README.md) / [Modules](/reference/schema/modules.md) / [common](/reference/schema/modules/common.md) / InvalidBlockNumberError
 
-# Class: InvalidBytesError
+# Class: InvalidBlockNumberError
 
-[ethereum](/schema/modules/ethereum.md).InvalidBytesError
+[common](/reference/schema/modules/common.md).InvalidBlockNumberError
 
-Error thrown when a FixedByte is invalid.
-A FixedByte string is invalid if it's not within the bounds of its size.
+Error thrown when a BlockNumber is invalid.
+A block number is invalid if it is not a non-negative integer.
 
 ## Hierarchy
 
 - `TypeError`
 
-  ↳ **`InvalidBytesError`**
+  ↳ **`InvalidBlockNumberError`**
 
 ## Table of contents
 
 ### Constructors
 
-- [constructor](/schema/classes/ethereum.InvalidBytesError.md#constructor)
+- [constructor](/reference/schema/classes/common.InvalidBlockNumberError.md#constructor)
 
 ### Properties
 
-- [cause](/schema/classes/ethereum.InvalidBytesError.md#cause)
-- [message](/schema/classes/ethereum.InvalidBytesError.md#message)
-- [name](/schema/classes/ethereum.InvalidBytesError.md#name)
-- [stack](/schema/classes/ethereum.InvalidBytesError.md#stack)
-- [prepareStackTrace](/schema/classes/ethereum.InvalidBytesError.md#preparestacktrace)
-- [stackTraceLimit](/schema/classes/ethereum.InvalidBytesError.md#stacktracelimit)
+- [cause](/reference/schema/classes/common.InvalidBlockNumberError.md#cause)
+- [message](/reference/schema/classes/common.InvalidBlockNumberError.md#message)
+- [name](/reference/schema/classes/common.InvalidBlockNumberError.md#name)
+- [stack](/reference/schema/classes/common.InvalidBlockNumberError.md#stack)
+- [prepareStackTrace](/reference/schema/classes/common.InvalidBlockNumberError.md#preparestacktrace)
+- [stackTraceLimit](/reference/schema/classes/common.InvalidBlockNumberError.md#stacktracelimit)
 
 ### Methods
 
-- [captureStackTrace](/schema/classes/ethereum.InvalidBytesError.md#capturestacktrace)
+- [captureStackTrace](/reference/schema/classes/common.InvalidBlockNumberError.md#capturestacktrace)
 
 ## Constructors
 
 ### constructor
 
-• **new InvalidBytesError**(`options`)
+• **new InvalidBlockNumberError**(`options?`)
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `options` | `Object` | The options for the error. |
-| `options.bytes` | `string` | The invalid bytes string. |
+| `options.blockNumber` | `unknown` | The invalid block number. |
 | `options.cause` | `undefined` \| readonly [`ParseErrors`, `ParseErrors`] | The cause of the error. |
 | `options.docs` | `undefined` \| `string` | The documentation URL. |
 | `options.message` | `undefined` \| `string` | The error message. |
-| `options.size` | [`BytesCapacity`](/schema/modules/ethereum.md#bytescapacity) | The size of the bytes. |
 
 #### Overrides
 
@@ -55,7 +54,7 @@ TypeError.constructor
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/Errors.js:28](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/Errors.js#L28)
+[schemas/src/common/SBlockNumber.js:62](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/common/SBlockNumber.js#L62)
 
 ## Properties
 
@@ -69,7 +68,7 @@ TypeError.cause
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/Errors.js:40](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/Errors.js#L40)
+[schemas/src/common/SBlockNumber.js:69](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/common/SBlockNumber.js#L69)
 
 ___
 

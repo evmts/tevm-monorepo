@@ -1,50 +1,53 @@
-[@evmts/schemas](/schema/README.md) / [Modules](/schema/modules.md) / [evmts](/schema/modules/evmts.md) / InvalidAddressBookError
+[@evmts/schemas](/reference/schema/README.md) / [Modules](/reference/schema/modules.md) / [ethereum](/reference/schema/modules/ethereum.md) / InvalidUINTError
 
-# Class: InvalidAddressBookError
+# Class: InvalidUINTError
 
-[evmts](/schema/modules/evmts.md).InvalidAddressBookError
+[ethereum](/reference/schema/modules/ethereum.md).InvalidUINTError
 
-Error thrown when an AddressBook is invalid.
+Error thrown when a UINT256 is invalid.
+A uintbigint is invalid if it is not a non-negative integer or overflows
 
 ## Hierarchy
 
 - `TypeError`
 
-  ↳ **`InvalidAddressBookError`**
+  ↳ **`InvalidUINTError`**
 
 ## Table of contents
 
 ### Constructors
 
-- [constructor](/schema/classes/evmts.InvalidAddressBookError.md#constructor)
+- [constructor](/reference/schema/classes/ethereum.InvalidUINTError.md#constructor)
 
 ### Properties
 
-- [cause](/schema/classes/evmts.InvalidAddressBookError.md#cause)
-- [message](/schema/classes/evmts.InvalidAddressBookError.md#message)
-- [name](/schema/classes/evmts.InvalidAddressBookError.md#name)
-- [stack](/schema/classes/evmts.InvalidAddressBookError.md#stack)
-- [prepareStackTrace](/schema/classes/evmts.InvalidAddressBookError.md#preparestacktrace)
-- [stackTraceLimit](/schema/classes/evmts.InvalidAddressBookError.md#stacktracelimit)
+- [cause](/reference/schema/classes/ethereum.InvalidUINTError.md#cause)
+- [message](/reference/schema/classes/ethereum.InvalidUINTError.md#message)
+- [name](/reference/schema/classes/ethereum.InvalidUINTError.md#name)
+- [stack](/reference/schema/classes/ethereum.InvalidUINTError.md#stack)
+- [prepareStackTrace](/reference/schema/classes/ethereum.InvalidUINTError.md#preparestacktrace)
+- [stackTraceLimit](/reference/schema/classes/ethereum.InvalidUINTError.md#stacktracelimit)
 
 ### Methods
 
-- [captureStackTrace](/schema/classes/evmts.InvalidAddressBookError.md#capturestacktrace)
+- [captureStackTrace](/reference/schema/classes/ethereum.InvalidUINTError.md#capturestacktrace)
 
 ## Constructors
 
 ### constructor
 
-• **new InvalidAddressBookError**(`options?`)
+• **new InvalidUINTError**(`options`)
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `options?` | `Object` | The options for the error. |
+| `options` | `Object` | The options for the error. |
 | `options.cause` | `undefined` \| readonly [`ParseErrors`, `ParseErrors`] | The cause of the error. |
 | `options.docs` | `undefined` \| `string` | The documentation URL. |
 | `options.message` | `undefined` \| `string` | The error message. |
+| `options.size` | [`UINTSize`](/reference/schema/modules/ethereum.md#uintsize) | The size of the uint. |
+| `options.uint` | `bigint` | The invalid uint256 bigint. |
 
 #### Overrides
 
@@ -52,7 +55,7 @@ TypeError.constructor
 
 #### Defined in
 
-[schemas/src/evmts/SAddressBook.js:64](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/evmts/SAddressBook.js#L64)
+[schemas/src/ethereum/SUINT/Errors.js:28](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SUINT/Errors.js#L28)
 
 ## Properties
 
@@ -66,7 +69,7 @@ TypeError.cause
 
 #### Defined in
 
-[schemas/src/evmts/SAddressBook.js:70](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/evmts/SAddressBook.js#L70)
+[schemas/src/ethereum/SUINT/Errors.js:38](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SUINT/Errors.js#L38)
 
 ___
 

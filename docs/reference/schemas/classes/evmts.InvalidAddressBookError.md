@@ -1,55 +1,47 @@
-[@evmts/schemas](/schema/README.md) / [Modules](/schema/modules.md) / [ethereum](/schema/modules/ethereum.md) / InvalidAddressError
+[@evmts/schemas](/reference/schema/README.md) / [Modules](/reference/schema/modules.md) / [evmts](/reference/schema/modules/evmts.md) / InvalidAddressBookError
 
-# Class: InvalidAddressError
+# Class: InvalidAddressBookError
 
-[ethereum](/schema/modules/ethereum.md).InvalidAddressError
+[evmts](/reference/schema/modules/evmts.md).InvalidAddressBookError
 
-Error thrown when an Address is invalid.
-
-**`Example`**
-
-```ts
-throw new InvalidAddressError({ address: '0x1234' });
-```
-[Solidity docs](https://docs.soliditylang.org/en/latest/types.html#address)
+Error thrown when an AddressBook is invalid.
 
 ## Hierarchy
 
 - `TypeError`
 
-  ↳ **`InvalidAddressError`**
+  ↳ **`InvalidAddressBookError`**
 
 ## Table of contents
 
 ### Constructors
 
-- [constructor](/schema/classes/ethereum.InvalidAddressError.md#constructor)
+- [constructor](/reference/schema/classes/evmts.InvalidAddressBookError.md#constructor)
 
 ### Properties
 
-- [cause](/schema/classes/ethereum.InvalidAddressError.md#cause)
-- [message](/schema/classes/ethereum.InvalidAddressError.md#message)
-- [name](/schema/classes/ethereum.InvalidAddressError.md#name)
-- [stack](/schema/classes/ethereum.InvalidAddressError.md#stack)
-- [prepareStackTrace](/schema/classes/ethereum.InvalidAddressError.md#preparestacktrace)
-- [stackTraceLimit](/schema/classes/ethereum.InvalidAddressError.md#stacktracelimit)
+- [cause](/reference/schema/classes/evmts.InvalidAddressBookError.md#cause)
+- [message](/reference/schema/classes/evmts.InvalidAddressBookError.md#message)
+- [name](/reference/schema/classes/evmts.InvalidAddressBookError.md#name)
+- [stack](/reference/schema/classes/evmts.InvalidAddressBookError.md#stack)
+- [prepareStackTrace](/reference/schema/classes/evmts.InvalidAddressBookError.md#preparestacktrace)
+- [stackTraceLimit](/reference/schema/classes/evmts.InvalidAddressBookError.md#stacktracelimit)
 
 ### Methods
 
-- [captureStackTrace](/schema/classes/ethereum.InvalidAddressError.md#capturestacktrace)
+- [captureStackTrace](/reference/schema/classes/evmts.InvalidAddressBookError.md#capturestacktrace)
 
 ## Constructors
 
 ### constructor
 
-• **new InvalidAddressError**(`options`)
+• **new InvalidAddressBookError**(`options?`)
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `options` | `Object` | The options for the error. |
-| `options.address` | `unknown` | The invalid address. |
+| `options?` | `Object` | The options for the error. |
 | `options.cause` | `undefined` \| readonly [`ParseErrors`, `ParseErrors`] | The cause of the error. |
 | `options.docs` | `undefined` \| `string` | The documentation URL. |
 | `options.message` | `undefined` \| `string` | The error message. |
@@ -60,7 +52,7 @@ TypeError.constructor
 
 #### Defined in
 
-[schemas/src/ethereum/SAddress/Errors.js:25](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SAddress/Errors.js#L25)
+[schemas/src/evmts/SAddressBook.js:64](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/evmts/SAddressBook.js#L64)
 
 ## Properties
 
@@ -74,7 +66,7 @@ TypeError.cause
 
 #### Defined in
 
-[schemas/src/ethereum/SAddress/Errors.js:32](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SAddress/Errors.js#L32)
+[schemas/src/evmts/SAddressBook.js:70](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/evmts/SAddressBook.js#L70)
 
 ___
 

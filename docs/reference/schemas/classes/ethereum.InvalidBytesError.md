@@ -1,53 +1,53 @@
-[@evmts/schemas](/schema/README.md) / [Modules](/schema/modules.md) / [ethereum](/schema/modules/ethereum.md) / InvalidUINTError
+[@evmts/schemas](/reference/schema/README.md) / [Modules](/reference/schema/modules.md) / [ethereum](/reference/schema/modules/ethereum.md) / InvalidBytesError
 
-# Class: InvalidUINTError
+# Class: InvalidBytesError
 
-[ethereum](/schema/modules/ethereum.md).InvalidUINTError
+[ethereum](/reference/schema/modules/ethereum.md).InvalidBytesError
 
-Error thrown when a UINT256 is invalid.
-A uintbigint is invalid if it is not a non-negative integer or overflows
+Error thrown when a FixedByte is invalid.
+A FixedByte string is invalid if it's not within the bounds of its size.
 
 ## Hierarchy
 
 - `TypeError`
 
-  ↳ **`InvalidUINTError`**
+  ↳ **`InvalidBytesError`**
 
 ## Table of contents
 
 ### Constructors
 
-- [constructor](/schema/classes/ethereum.InvalidUINTError.md#constructor)
+- [constructor](/reference/schema/classes/ethereum.InvalidBytesError.md#constructor)
 
 ### Properties
 
-- [cause](/schema/classes/ethereum.InvalidUINTError.md#cause)
-- [message](/schema/classes/ethereum.InvalidUINTError.md#message)
-- [name](/schema/classes/ethereum.InvalidUINTError.md#name)
-- [stack](/schema/classes/ethereum.InvalidUINTError.md#stack)
-- [prepareStackTrace](/schema/classes/ethereum.InvalidUINTError.md#preparestacktrace)
-- [stackTraceLimit](/schema/classes/ethereum.InvalidUINTError.md#stacktracelimit)
+- [cause](/reference/schema/classes/ethereum.InvalidBytesError.md#cause)
+- [message](/reference/schema/classes/ethereum.InvalidBytesError.md#message)
+- [name](/reference/schema/classes/ethereum.InvalidBytesError.md#name)
+- [stack](/reference/schema/classes/ethereum.InvalidBytesError.md#stack)
+- [prepareStackTrace](/reference/schema/classes/ethereum.InvalidBytesError.md#preparestacktrace)
+- [stackTraceLimit](/reference/schema/classes/ethereum.InvalidBytesError.md#stacktracelimit)
 
 ### Methods
 
-- [captureStackTrace](/schema/classes/ethereum.InvalidUINTError.md#capturestacktrace)
+- [captureStackTrace](/reference/schema/classes/ethereum.InvalidBytesError.md#capturestacktrace)
 
 ## Constructors
 
 ### constructor
 
-• **new InvalidUINTError**(`options`)
+• **new InvalidBytesError**(`options`)
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `options` | `Object` | The options for the error. |
+| `options.bytes` | `string` | The invalid bytes string. |
 | `options.cause` | `undefined` \| readonly [`ParseErrors`, `ParseErrors`] | The cause of the error. |
 | `options.docs` | `undefined` \| `string` | The documentation URL. |
 | `options.message` | `undefined` \| `string` | The error message. |
-| `options.size` | [`UINTSize`](/schema/modules/ethereum.md#uintsize) | The size of the uint. |
-| `options.uint` | `bigint` | The invalid uint256 bigint. |
+| `options.size` | [`BytesCapacity`](/reference/schema/modules/ethereum.md#bytescapacity) | The size of the bytes. |
 
 #### Overrides
 
@@ -55,7 +55,7 @@ TypeError.constructor
 
 #### Defined in
 
-[schemas/src/ethereum/SUINT/Errors.js:28](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SUINT/Errors.js#L28)
+[schemas/src/ethereum/SBytesFixed/Errors.js:28](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/Errors.js#L28)
 
 ## Properties
 
@@ -69,7 +69,7 @@ TypeError.cause
 
 #### Defined in
 
-[schemas/src/ethereum/SUINT/Errors.js:38](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SUINT/Errors.js#L38)
+[schemas/src/ethereum/SBytesFixed/Errors.js:40](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/Errors.js#L40)
 
 ___
 

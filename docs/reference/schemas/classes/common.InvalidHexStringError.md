@@ -1,52 +1,51 @@
-[@evmts/schemas](/schema/README.md) / [Modules](/schema/modules.md) / [common](/schema/modules/common.md) / InvalidBlockNumberError
+[@evmts/schemas](/reference/schema/README.md) / [Modules](/reference/schema/modules.md) / [common](/reference/schema/modules/common.md) / InvalidHexStringError
 
-# Class: InvalidBlockNumberError
+# Class: InvalidHexStringError
 
-[common](/schema/modules/common.md).InvalidBlockNumberError
+[common](/reference/schema/modules/common.md).InvalidHexStringError
 
-Error thrown when a BlockNumber is invalid.
-A block number is invalid if it is not a non-negative integer.
+Error thrown when an invalid HexString is provided.
 
 ## Hierarchy
 
 - `TypeError`
 
-  ↳ **`InvalidBlockNumberError`**
+  ↳ **`InvalidHexStringError`**
 
 ## Table of contents
 
 ### Constructors
 
-- [constructor](/schema/classes/common.InvalidBlockNumberError.md#constructor)
+- [constructor](/reference/schema/classes/common.InvalidHexStringError.md#constructor)
 
 ### Properties
 
-- [cause](/schema/classes/common.InvalidBlockNumberError.md#cause)
-- [message](/schema/classes/common.InvalidBlockNumberError.md#message)
-- [name](/schema/classes/common.InvalidBlockNumberError.md#name)
-- [stack](/schema/classes/common.InvalidBlockNumberError.md#stack)
-- [prepareStackTrace](/schema/classes/common.InvalidBlockNumberError.md#preparestacktrace)
-- [stackTraceLimit](/schema/classes/common.InvalidBlockNumberError.md#stacktracelimit)
+- [cause](/reference/schema/classes/common.InvalidHexStringError.md#cause)
+- [message](/reference/schema/classes/common.InvalidHexStringError.md#message)
+- [name](/reference/schema/classes/common.InvalidHexStringError.md#name)
+- [stack](/reference/schema/classes/common.InvalidHexStringError.md#stack)
+- [prepareStackTrace](/reference/schema/classes/common.InvalidHexStringError.md#preparestacktrace)
+- [stackTraceLimit](/reference/schema/classes/common.InvalidHexStringError.md#stacktracelimit)
 
 ### Methods
 
-- [captureStackTrace](/schema/classes/common.InvalidBlockNumberError.md#capturestacktrace)
+- [captureStackTrace](/reference/schema/classes/common.InvalidHexStringError.md#capturestacktrace)
 
 ## Constructors
 
 ### constructor
 
-• **new InvalidBlockNumberError**(`options?`)
+• **new InvalidHexStringError**(`options?`)
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `options` | `Object` | The options for the error. |
-| `options.blockNumber` | `unknown` | The invalid block number. |
 | `options.cause` | `undefined` \| readonly [`ParseErrors`, `ParseErrors`] | The cause of the error. |
 | `options.docs` | `undefined` \| `string` | The documentation URL. |
 | `options.message` | `undefined` \| `string` | The error message. |
+| `options.value` | `unknown` | The invalid hex value. |
 
 #### Overrides
 
@@ -54,7 +53,7 @@ TypeError.constructor
 
 #### Defined in
 
-[schemas/src/common/SBlockNumber.js:62](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/common/SBlockNumber.js#L62)
+[schemas/src/common/SHexString.js:58](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/common/SHexString.js#L58)
 
 ## Properties
 
@@ -68,7 +67,7 @@ TypeError.cause
 
 #### Defined in
 
-[schemas/src/common/SBlockNumber.js:69](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/common/SBlockNumber.js#L69)
+[schemas/src/common/SHexString.js:65](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/common/SHexString.js#L65)
 
 ___
 

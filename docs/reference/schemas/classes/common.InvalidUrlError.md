@@ -1,41 +1,41 @@
-[@evmts/schemas](/schema/README.md) / [Modules](/schema/modules.md) / [common](/schema/modules/common.md) / InvalidHexStringError
+[@evmts/schemas](/reference/schema/README.md) / [Modules](/reference/schema/modules.md) / [common](/reference/schema/modules/common.md) / InvalidUrlError
 
-# Class: InvalidHexStringError
+# Class: InvalidUrlError
 
-[common](/schema/modules/common.md).InvalidHexStringError
+[common](/reference/schema/modules/common.md).InvalidUrlError
 
-Error thrown when an invalid HexString is provided.
+Error thrown when an invalid Url is provided.
 
 ## Hierarchy
 
 - `TypeError`
 
-  ↳ **`InvalidHexStringError`**
+  ↳ **`InvalidUrlError`**
 
 ## Table of contents
 
 ### Constructors
 
-- [constructor](/schema/classes/common.InvalidHexStringError.md#constructor)
+- [constructor](/reference/schema/classes/common.InvalidUrlError.md#constructor)
 
 ### Properties
 
-- [cause](/schema/classes/common.InvalidHexStringError.md#cause)
-- [message](/schema/classes/common.InvalidHexStringError.md#message)
-- [name](/schema/classes/common.InvalidHexStringError.md#name)
-- [stack](/schema/classes/common.InvalidHexStringError.md#stack)
-- [prepareStackTrace](/schema/classes/common.InvalidHexStringError.md#preparestacktrace)
-- [stackTraceLimit](/schema/classes/common.InvalidHexStringError.md#stacktracelimit)
+- [cause](/reference/schema/classes/common.InvalidUrlError.md#cause)
+- [message](/reference/schema/classes/common.InvalidUrlError.md#message)
+- [name](/reference/schema/classes/common.InvalidUrlError.md#name)
+- [stack](/reference/schema/classes/common.InvalidUrlError.md#stack)
+- [prepareStackTrace](/reference/schema/classes/common.InvalidUrlError.md#preparestacktrace)
+- [stackTraceLimit](/reference/schema/classes/common.InvalidUrlError.md#stacktracelimit)
 
 ### Methods
 
-- [captureStackTrace](/schema/classes/common.InvalidHexStringError.md#capturestacktrace)
+- [captureStackTrace](/reference/schema/classes/common.InvalidUrlError.md#capturestacktrace)
 
 ## Constructors
 
 ### constructor
 
-• **new InvalidHexStringError**(`options?`)
+• **new InvalidUrlError**(`options?`)
 
 #### Parameters
 
@@ -45,7 +45,7 @@ Error thrown when an invalid HexString is provided.
 | `options.cause` | `undefined` \| readonly [`ParseErrors`, `ParseErrors`] | The cause of the error. |
 | `options.docs` | `undefined` \| `string` | The documentation URL. |
 | `options.message` | `undefined` \| `string` | The error message. |
-| `options.value` | `unknown` | The invalid hex value. |
+| `options.url` | `unknown` | The invalid URL value. |
 
 #### Overrides
 
@@ -53,7 +53,7 @@ TypeError.constructor
 
 #### Defined in
 
-[schemas/src/common/SHexString.js:58](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/common/SHexString.js#L58)
+[schemas/src/common/SUrl.js:69](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/common/SUrl.js#L69)
 
 ## Properties
 
@@ -67,7 +67,7 @@ TypeError.cause
 
 #### Defined in
 
-[schemas/src/common/SHexString.js:65](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/common/SHexString.js#L65)
+[schemas/src/common/SUrl.js:76](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/common/SUrl.js#L76)
 
 ___
 
