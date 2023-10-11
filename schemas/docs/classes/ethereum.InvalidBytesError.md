@@ -1,51 +1,53 @@
-[@evmts/schemas](../README.md) / [Exports](../modules.md) / InvalidINTError
+[@evmts/schemas](../README.md) / [Modules](../modules.md) / [ethereum](../modules/ethereum.md) / InvalidBytesError
 
-# Class: InvalidINTError
+# Class: InvalidBytesError
 
-Error thrown when an INT is invalid.
-An int bigint is invalid if it's not within the bounds of its size.
+[ethereum](../modules/ethereum.md).InvalidBytesError
+
+Error thrown when a FixedByte is invalid.
+A FixedByte string is invalid if it's not within the bounds of its size.
 
 ## Hierarchy
 
 - `TypeError`
 
-  ↳ **`InvalidINTError`**
+  ↳ **`InvalidBytesError`**
 
 ## Table of contents
 
 ### Constructors
 
-- [constructor](InvalidINTError.md#constructor)
+- [constructor](ethereum.InvalidBytesError.md#constructor)
 
 ### Properties
 
-- [cause](InvalidINTError.md#cause)
-- [message](InvalidINTError.md#message)
-- [name](InvalidINTError.md#name)
-- [stack](InvalidINTError.md#stack)
-- [prepareStackTrace](InvalidINTError.md#preparestacktrace)
-- [stackTraceLimit](InvalidINTError.md#stacktracelimit)
+- [cause](ethereum.InvalidBytesError.md#cause)
+- [message](ethereum.InvalidBytesError.md#message)
+- [name](ethereum.InvalidBytesError.md#name)
+- [stack](ethereum.InvalidBytesError.md#stack)
+- [prepareStackTrace](ethereum.InvalidBytesError.md#preparestacktrace)
+- [stackTraceLimit](ethereum.InvalidBytesError.md#stacktracelimit)
 
 ### Methods
 
-- [captureStackTrace](InvalidINTError.md#capturestacktrace)
+- [captureStackTrace](ethereum.InvalidBytesError.md#capturestacktrace)
 
 ## Constructors
 
 ### constructor
 
-• **new InvalidINTError**(`options`)
+• **new InvalidBytesError**(`options`)
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `options` | `Object` | The options for the error. |
+| `options.bytes` | `string` | The invalid bytes string. |
 | `options.cause` | `undefined` \| readonly [`ParseErrors`, `ParseErrors`] | The cause of the error. |
 | `options.docs` | `undefined` \| `string` | The documentation URL. |
-| `options.int` | `bigint` | The invalid int bigint. |
 | `options.message` | `undefined` \| `string` | The error message. |
-| `options.size` | [`INTSize`](../modules.md#intsize) | The size of the int. |
+| `options.size` | [`BytesCapacity`](../modules/ethereum.md#bytescapacity) | The size of the bytes. |
 
 #### Overrides
 
@@ -53,7 +55,7 @@ TypeError.constructor
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/Errors.js:28](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/Errors.js#L28)
+[schemas/src/ethereum/SBytesFixed/Errors.js:28](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/Errors.js#L28)
 
 ## Properties
 
@@ -67,7 +69,7 @@ TypeError.cause
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/Errors.js:48](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/Errors.js#L48)
+[schemas/src/ethereum/SBytesFixed/Errors.js:40](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/Errors.js#L40)
 
 ___
 

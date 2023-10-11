@@ -1,56 +1,53 @@
-[@evmts/schemas](../README.md) / [Exports](../modules.md) / InvalidAddressError
+[@evmts/schemas](../README.md) / [Modules](../modules.md) / [ethereum](../modules/ethereum.md) / InvalidINTError
 
-# Class: InvalidAddressError
+# Class: InvalidINTError
 
-Error thrown when an Address is invalid.
+[ethereum](../modules/ethereum.md).InvalidINTError
 
-**`Example`**
-
-```ts
-throw new InvalidAddressError({ address: '0x1234' });
-```
-[Solidity docs](https://docs.soliditylang.org/en/latest/types.html#address)
+Error thrown when an INT is invalid.
+An int bigint is invalid if it's not within the bounds of its size.
 
 ## Hierarchy
 
 - `TypeError`
 
-  ↳ **`InvalidAddressError`**
+  ↳ **`InvalidINTError`**
 
 ## Table of contents
 
 ### Constructors
 
-- [constructor](InvalidAddressError.md#constructor)
+- [constructor](ethereum.InvalidINTError.md#constructor)
 
 ### Properties
 
-- [cause](InvalidAddressError.md#cause)
-- [message](InvalidAddressError.md#message)
-- [name](InvalidAddressError.md#name)
-- [stack](InvalidAddressError.md#stack)
-- [prepareStackTrace](InvalidAddressError.md#preparestacktrace)
-- [stackTraceLimit](InvalidAddressError.md#stacktracelimit)
+- [cause](ethereum.InvalidINTError.md#cause)
+- [message](ethereum.InvalidINTError.md#message)
+- [name](ethereum.InvalidINTError.md#name)
+- [stack](ethereum.InvalidINTError.md#stack)
+- [prepareStackTrace](ethereum.InvalidINTError.md#preparestacktrace)
+- [stackTraceLimit](ethereum.InvalidINTError.md#stacktracelimit)
 
 ### Methods
 
-- [captureStackTrace](InvalidAddressError.md#capturestacktrace)
+- [captureStackTrace](ethereum.InvalidINTError.md#capturestacktrace)
 
 ## Constructors
 
 ### constructor
 
-• **new InvalidAddressError**(`options`)
+• **new InvalidINTError**(`options`)
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `options` | `Object` | The options for the error. |
-| `options.address` | `unknown` | The invalid address. |
 | `options.cause` | `undefined` \| readonly [`ParseErrors`, `ParseErrors`] | The cause of the error. |
 | `options.docs` | `undefined` \| `string` | The documentation URL. |
+| `options.int` | `bigint` | The invalid int bigint. |
 | `options.message` | `undefined` \| `string` | The error message. |
+| `options.size` | [`INTSize`](../modules/ethereum.md#intsize) | The size of the int. |
 
 #### Overrides
 
@@ -58,7 +55,7 @@ TypeError.constructor
 
 #### Defined in
 
-[schemas/src/ethereum/SAddress/Errors.js:25](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SAddress/Errors.js#L25)
+[schemas/src/ethereum/SINT/Errors.js:28](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/Errors.js#L28)
 
 ## Properties
 
@@ -72,7 +69,7 @@ TypeError.cause
 
 #### Defined in
 
-[schemas/src/ethereum/SAddress/Errors.js:32](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SAddress/Errors.js#L32)
+[schemas/src/ethereum/SINT/Errors.js:48](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/Errors.js#L48)
 
 ___
 

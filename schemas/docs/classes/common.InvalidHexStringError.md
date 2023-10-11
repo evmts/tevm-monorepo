@@ -1,40 +1,41 @@
-[@evmts/schemas](../README.md) / [Exports](../modules.md) / InvalidUINTError
+[@evmts/schemas](../README.md) / [Modules](../modules.md) / [common](../modules/common.md) / InvalidHexStringError
 
-# Class: InvalidUINTError
+# Class: InvalidHexStringError
 
-Error thrown when a UINT256 is invalid.
-A uintbigint is invalid if it is not a non-negative integer or overflows
+[common](../modules/common.md).InvalidHexStringError
+
+Error thrown when an invalid HexString is provided.
 
 ## Hierarchy
 
 - `TypeError`
 
-  ↳ **`InvalidUINTError`**
+  ↳ **`InvalidHexStringError`**
 
 ## Table of contents
 
 ### Constructors
 
-- [constructor](InvalidUINTError.md#constructor)
+- [constructor](common.InvalidHexStringError.md#constructor)
 
 ### Properties
 
-- [cause](InvalidUINTError.md#cause)
-- [message](InvalidUINTError.md#message)
-- [name](InvalidUINTError.md#name)
-- [stack](InvalidUINTError.md#stack)
-- [prepareStackTrace](InvalidUINTError.md#preparestacktrace)
-- [stackTraceLimit](InvalidUINTError.md#stacktracelimit)
+- [cause](common.InvalidHexStringError.md#cause)
+- [message](common.InvalidHexStringError.md#message)
+- [name](common.InvalidHexStringError.md#name)
+- [stack](common.InvalidHexStringError.md#stack)
+- [prepareStackTrace](common.InvalidHexStringError.md#preparestacktrace)
+- [stackTraceLimit](common.InvalidHexStringError.md#stacktracelimit)
 
 ### Methods
 
-- [captureStackTrace](InvalidUINTError.md#capturestacktrace)
+- [captureStackTrace](common.InvalidHexStringError.md#capturestacktrace)
 
 ## Constructors
 
 ### constructor
 
-• **new InvalidUINTError**(`options`)
+• **new InvalidHexStringError**(`options?`)
 
 #### Parameters
 
@@ -44,8 +45,7 @@ A uintbigint is invalid if it is not a non-negative integer or overflows
 | `options.cause` | `undefined` \| readonly [`ParseErrors`, `ParseErrors`] | The cause of the error. |
 | `options.docs` | `undefined` \| `string` | The documentation URL. |
 | `options.message` | `undefined` \| `string` | The error message. |
-| `options.size` | [`UINTSize`](../modules.md#uintsize) | The size of the uint. |
-| `options.uint` | `bigint` | The invalid uint256 bigint. |
+| `options.value` | `unknown` | The invalid hex value. |
 
 #### Overrides
 
@@ -53,7 +53,7 @@ TypeError.constructor
 
 #### Defined in
 
-[schemas/src/ethereum/SUINT/Errors.js:28](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SUINT/Errors.js#L28)
+schemas/src/common/SHexString.js:58
 
 ## Properties
 
@@ -67,7 +67,7 @@ TypeError.cause
 
 #### Defined in
 
-[schemas/src/ethereum/SUINT/Errors.js:38](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SUINT/Errors.js#L38)
+schemas/src/common/SHexString.js:65
 
 ___
 

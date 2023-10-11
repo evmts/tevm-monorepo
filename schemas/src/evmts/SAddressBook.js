@@ -5,8 +5,8 @@
  * Contract keys can be anything including the contract address but by convention they are usually a human readable name for the contract.
  */
 
-import { SBlockNumber } from './SBlockNumber.js'
-import { SAddress } from './ethereum/index.js'
+import { SBlockNumber } from '../common/index.js'
+import { SAddress } from '../ethereum/index.js'
 import { parseEither, record, string, struct } from '@effect/schema/Schema'
 import { formatErrors } from '@effect/schema/TreeFormatter'
 import { Effect } from 'effect'
@@ -16,19 +16,19 @@ import { isRight } from 'effect/Either'
 /**
  * @typedef {Object} AddressBookEntry
  * @property {number} blockCreated
- * @property {import('./ethereum/index.js').Address} address
+ * @property {import('../ethereum/index.js').Address} address
  */
 
 /**
  * Type representing a valid AddressBook.
  * An address book is a JSON serializable mapping of contract ids to their blockCreated and address.
  * Contract keys can be anything including the contract address but by convention they are usually a human readable name for the contract.
- * @typedef {import("./types.d.ts")} AddressBook
+ * @typedef {import("../types.d.ts")} AddressBook
  */
 
 /**
  * Type guard that returns true if an address book is a valid address
- * @typedef {import("./types.d.ts").IsAddressBook} IsAddressBook
+ * @typedef {import("../types.d.ts").IsAddressBook} IsAddressBook
  */
 
 /**

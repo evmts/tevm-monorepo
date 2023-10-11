@@ -1,6 +1,8 @@
-[@evmts/schemas](../README.md) / [Exports](../modules.md) / InvalidAddressBookError
+[@evmts/schemas](../README.md) / [Modules](../modules.md) / [evmts](../modules/evmts.md) / InvalidAddressBookError
 
 # Class: InvalidAddressBookError
+
+[evmts](../modules/evmts.md).InvalidAddressBookError
 
 Error thrown when an AddressBook is invalid.
 
@@ -14,20 +16,20 @@ Error thrown when an AddressBook is invalid.
 
 ### Constructors
 
-- [constructor](InvalidAddressBookError.md#constructor)
+- [constructor](evmts.InvalidAddressBookError.md#constructor)
 
 ### Properties
 
-- [cause](InvalidAddressBookError.md#cause)
-- [message](InvalidAddressBookError.md#message)
-- [name](InvalidAddressBookError.md#name)
-- [stack](InvalidAddressBookError.md#stack)
-- [prepareStackTrace](InvalidAddressBookError.md#preparestacktrace)
-- [stackTraceLimit](InvalidAddressBookError.md#stacktracelimit)
+- [cause](evmts.InvalidAddressBookError.md#cause)
+- [message](evmts.InvalidAddressBookError.md#message)
+- [name](evmts.InvalidAddressBookError.md#name)
+- [stack](evmts.InvalidAddressBookError.md#stack)
+- [prepareStackTrace](evmts.InvalidAddressBookError.md#preparestacktrace)
+- [stackTraceLimit](evmts.InvalidAddressBookError.md#stacktracelimit)
 
 ### Methods
 
-- [captureStackTrace](InvalidAddressBookError.md#capturestacktrace)
+- [captureStackTrace](evmts.InvalidAddressBookError.md#capturestacktrace)
 
 ## Constructors
 
@@ -50,7 +52,7 @@ TypeError.constructor
 
 #### Defined in
 
-[schemas/src/SAddressBook.js:64](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/SAddressBook.js#L64)
+schemas/src/evmts/SAddressBook.js:64
 
 ## Properties
 
@@ -64,7 +66,7 @@ TypeError.cause
 
 #### Defined in
 
-[schemas/src/SAddressBook.js:70](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/SAddressBook.js#L70)
+schemas/src/evmts/SAddressBook.js:70
 
 ___
 

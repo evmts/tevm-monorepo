@@ -1,50 +1,53 @@
-[@evmts/schemas](../README.md) / [Exports](../modules.md) / InvalidBlockNumberError
+[@evmts/schemas](../README.md) / [Modules](../modules.md) / [ethereum](../modules/ethereum.md) / InvalidUINTError
 
-# Class: InvalidBlockNumberError
+# Class: InvalidUINTError
 
-Error thrown when a BlockNumber is invalid.
-A block number is invalid if it is not a non-negative integer.
+[ethereum](../modules/ethereum.md).InvalidUINTError
+
+Error thrown when a UINT256 is invalid.
+A uintbigint is invalid if it is not a non-negative integer or overflows
 
 ## Hierarchy
 
 - `TypeError`
 
-  ↳ **`InvalidBlockNumberError`**
+  ↳ **`InvalidUINTError`**
 
 ## Table of contents
 
 ### Constructors
 
-- [constructor](InvalidBlockNumberError.md#constructor)
+- [constructor](ethereum.InvalidUINTError.md#constructor)
 
 ### Properties
 
-- [cause](InvalidBlockNumberError.md#cause)
-- [message](InvalidBlockNumberError.md#message)
-- [name](InvalidBlockNumberError.md#name)
-- [stack](InvalidBlockNumberError.md#stack)
-- [prepareStackTrace](InvalidBlockNumberError.md#preparestacktrace)
-- [stackTraceLimit](InvalidBlockNumberError.md#stacktracelimit)
+- [cause](ethereum.InvalidUINTError.md#cause)
+- [message](ethereum.InvalidUINTError.md#message)
+- [name](ethereum.InvalidUINTError.md#name)
+- [stack](ethereum.InvalidUINTError.md#stack)
+- [prepareStackTrace](ethereum.InvalidUINTError.md#preparestacktrace)
+- [stackTraceLimit](ethereum.InvalidUINTError.md#stacktracelimit)
 
 ### Methods
 
-- [captureStackTrace](InvalidBlockNumberError.md#capturestacktrace)
+- [captureStackTrace](ethereum.InvalidUINTError.md#capturestacktrace)
 
 ## Constructors
 
 ### constructor
 
-• **new InvalidBlockNumberError**(`options?`)
+• **new InvalidUINTError**(`options`)
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `options` | `Object` | The options for the error. |
-| `options.blockNumber` | `unknown` | The invalid block number. |
 | `options.cause` | `undefined` \| readonly [`ParseErrors`, `ParseErrors`] | The cause of the error. |
 | `options.docs` | `undefined` \| `string` | The documentation URL. |
 | `options.message` | `undefined` \| `string` | The error message. |
+| `options.size` | [`UINTSize`](../modules/ethereum.md#uintsize) | The size of the uint. |
+| `options.uint` | `bigint` | The invalid uint256 bigint. |
 
 #### Overrides
 
@@ -52,7 +55,7 @@ TypeError.constructor
 
 #### Defined in
 
-[schemas/src/SBlockNumber.js:62](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/SBlockNumber.js#L62)
+[schemas/src/ethereum/SUINT/Errors.js:28](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SUINT/Errors.js#L28)
 
 ## Properties
 
@@ -66,7 +69,7 @@ TypeError.cause
 
 #### Defined in
 
-[schemas/src/SBlockNumber.js:69](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/SBlockNumber.js#L69)
+[schemas/src/ethereum/SUINT/Errors.js:38](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SUINT/Errors.js#L38)
 
 ___
 

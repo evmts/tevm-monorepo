@@ -5,7 +5,7 @@
  * {@link https://docs.soliditylang.org/en/latest/types.html#fixed-size-byte-arrays Solidity docs}
  */
 
-import { isHexString } from '../../SHexString.js'
+import { isHexString } from '../../common/SHexString.js'
 import { filter, string } from '@effect/schema/Schema'
 
 /**

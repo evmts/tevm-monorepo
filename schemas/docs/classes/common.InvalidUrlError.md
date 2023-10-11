@@ -1,51 +1,51 @@
-[@evmts/schemas](../README.md) / [Exports](../modules.md) / InvalidBytesError
+[@evmts/schemas](../README.md) / [Modules](../modules.md) / [common](../modules/common.md) / InvalidUrlError
 
-# Class: InvalidBytesError
+# Class: InvalidUrlError
 
-Error thrown when a FixedByte is invalid.
-A FixedByte string is invalid if it's not within the bounds of its size.
+[common](../modules/common.md).InvalidUrlError
+
+Error thrown when an invalid Url is provided.
 
 ## Hierarchy
 
 - `TypeError`
 
-  ↳ **`InvalidBytesError`**
+  ↳ **`InvalidUrlError`**
 
 ## Table of contents
 
 ### Constructors
 
-- [constructor](InvalidBytesError.md#constructor)
+- [constructor](common.InvalidUrlError.md#constructor)
 
 ### Properties
 
-- [cause](InvalidBytesError.md#cause)
-- [message](InvalidBytesError.md#message)
-- [name](InvalidBytesError.md#name)
-- [stack](InvalidBytesError.md#stack)
-- [prepareStackTrace](InvalidBytesError.md#preparestacktrace)
-- [stackTraceLimit](InvalidBytesError.md#stacktracelimit)
+- [cause](common.InvalidUrlError.md#cause)
+- [message](common.InvalidUrlError.md#message)
+- [name](common.InvalidUrlError.md#name)
+- [stack](common.InvalidUrlError.md#stack)
+- [prepareStackTrace](common.InvalidUrlError.md#preparestacktrace)
+- [stackTraceLimit](common.InvalidUrlError.md#stacktracelimit)
 
 ### Methods
 
-- [captureStackTrace](InvalidBytesError.md#capturestacktrace)
+- [captureStackTrace](common.InvalidUrlError.md#capturestacktrace)
 
 ## Constructors
 
 ### constructor
 
-• **new InvalidBytesError**(`options`)
+• **new InvalidUrlError**(`options?`)
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `options` | `Object` | The options for the error. |
-| `options.bytes` | `string` | The invalid bytes string. |
 | `options.cause` | `undefined` \| readonly [`ParseErrors`, `ParseErrors`] | The cause of the error. |
 | `options.docs` | `undefined` \| `string` | The documentation URL. |
 | `options.message` | `undefined` \| `string` | The error message. |
-| `options.size` | [`BytesCapacity`](../modules.md#bytescapacity) | The size of the bytes. |
+| `options.url` | `unknown` | The invalid URL value. |
 
 #### Overrides
 
@@ -53,7 +53,7 @@ TypeError.constructor
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/Errors.js:28](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/Errors.js#L28)
+schemas/src/common/SUrl.js:69
 
 ## Properties
 
@@ -67,7 +67,7 @@ TypeError.cause
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/Errors.js:40](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/Errors.js#L40)
+schemas/src/common/SUrl.js:76
 
 ___
 

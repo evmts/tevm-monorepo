@@ -1,49 +1,58 @@
-[@evmts/schemas](../README.md) / [Exports](../modules.md) / InvalidHexStringError
+[@evmts/schemas](../README.md) / [Modules](../modules.md) / [ethereum](../modules/ethereum.md) / InvalidAddressError
 
-# Class: InvalidHexStringError
+# Class: InvalidAddressError
 
-Error thrown when an invalid HexString is provided.
+[ethereum](../modules/ethereum.md).InvalidAddressError
+
+Error thrown when an Address is invalid.
+
+**`Example`**
+
+```ts
+throw new InvalidAddressError({ address: '0x1234' });
+```
+[Solidity docs](https://docs.soliditylang.org/en/latest/types.html#address)
 
 ## Hierarchy
 
 - `TypeError`
 
-  ↳ **`InvalidHexStringError`**
+  ↳ **`InvalidAddressError`**
 
 ## Table of contents
 
 ### Constructors
 
-- [constructor](InvalidHexStringError.md#constructor)
+- [constructor](ethereum.InvalidAddressError.md#constructor)
 
 ### Properties
 
-- [cause](InvalidHexStringError.md#cause)
-- [message](InvalidHexStringError.md#message)
-- [name](InvalidHexStringError.md#name)
-- [stack](InvalidHexStringError.md#stack)
-- [prepareStackTrace](InvalidHexStringError.md#preparestacktrace)
-- [stackTraceLimit](InvalidHexStringError.md#stacktracelimit)
+- [cause](ethereum.InvalidAddressError.md#cause)
+- [message](ethereum.InvalidAddressError.md#message)
+- [name](ethereum.InvalidAddressError.md#name)
+- [stack](ethereum.InvalidAddressError.md#stack)
+- [prepareStackTrace](ethereum.InvalidAddressError.md#preparestacktrace)
+- [stackTraceLimit](ethereum.InvalidAddressError.md#stacktracelimit)
 
 ### Methods
 
-- [captureStackTrace](InvalidHexStringError.md#capturestacktrace)
+- [captureStackTrace](ethereum.InvalidAddressError.md#capturestacktrace)
 
 ## Constructors
 
 ### constructor
 
-• **new InvalidHexStringError**(`options?`)
+• **new InvalidAddressError**(`options`)
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `options` | `Object` | The options for the error. |
+| `options.address` | `unknown` | The invalid address. |
 | `options.cause` | `undefined` \| readonly [`ParseErrors`, `ParseErrors`] | The cause of the error. |
 | `options.docs` | `undefined` \| `string` | The documentation URL. |
 | `options.message` | `undefined` \| `string` | The error message. |
-| `options.value` | `unknown` | The invalid hex value. |
 
 #### Overrides
 
@@ -51,7 +60,7 @@ TypeError.constructor
 
 #### Defined in
 
-[schemas/src/SHexString.js:58](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/SHexString.js#L58)
+[schemas/src/ethereum/SAddress/Errors.js:25](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SAddress/Errors.js#L25)
 
 ## Properties
 
@@ -65,7 +74,7 @@ TypeError.cause
 
 #### Defined in
 
-[schemas/src/SHexString.js:65](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/SHexString.js#L65)
+[schemas/src/ethereum/SAddress/Errors.js:32](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SAddress/Errors.js#L32)
 
 ___
 

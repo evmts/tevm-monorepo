@@ -1,49 +1,52 @@
-[@evmts/schemas](../README.md) / [Exports](../modules.md) / InvalidUrlError
+[@evmts/schemas](../README.md) / [Modules](../modules.md) / [common](../modules/common.md) / InvalidBlockNumberError
 
-# Class: InvalidUrlError
+# Class: InvalidBlockNumberError
 
-Error thrown when an invalid Url is provided.
+[common](../modules/common.md).InvalidBlockNumberError
+
+Error thrown when a BlockNumber is invalid.
+A block number is invalid if it is not a non-negative integer.
 
 ## Hierarchy
 
 - `TypeError`
 
-  ↳ **`InvalidUrlError`**
+  ↳ **`InvalidBlockNumberError`**
 
 ## Table of contents
 
 ### Constructors
 
-- [constructor](InvalidUrlError.md#constructor)
+- [constructor](common.InvalidBlockNumberError.md#constructor)
 
 ### Properties
 
-- [cause](InvalidUrlError.md#cause)
-- [message](InvalidUrlError.md#message)
-- [name](InvalidUrlError.md#name)
-- [stack](InvalidUrlError.md#stack)
-- [prepareStackTrace](InvalidUrlError.md#preparestacktrace)
-- [stackTraceLimit](InvalidUrlError.md#stacktracelimit)
+- [cause](common.InvalidBlockNumberError.md#cause)
+- [message](common.InvalidBlockNumberError.md#message)
+- [name](common.InvalidBlockNumberError.md#name)
+- [stack](common.InvalidBlockNumberError.md#stack)
+- [prepareStackTrace](common.InvalidBlockNumberError.md#preparestacktrace)
+- [stackTraceLimit](common.InvalidBlockNumberError.md#stacktracelimit)
 
 ### Methods
 
-- [captureStackTrace](InvalidUrlError.md#capturestacktrace)
+- [captureStackTrace](common.InvalidBlockNumberError.md#capturestacktrace)
 
 ## Constructors
 
 ### constructor
 
-• **new InvalidUrlError**(`options?`)
+• **new InvalidBlockNumberError**(`options?`)
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `options` | `Object` | The options for the error. |
+| `options.blockNumber` | `unknown` | The invalid block number. |
 | `options.cause` | `undefined` \| readonly [`ParseErrors`, `ParseErrors`] | The cause of the error. |
 | `options.docs` | `undefined` \| `string` | The documentation URL. |
 | `options.message` | `undefined` \| `string` | The error message. |
-| `options.url` | `unknown` | The invalid URL value. |
 
 #### Overrides
 
@@ -51,7 +54,7 @@ TypeError.constructor
 
 #### Defined in
 
-[schemas/src/SUrl.js:69](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/SUrl.js#L69)
+schemas/src/common/SBlockNumber.js:62
 
 ## Properties
 
@@ -65,7 +68,7 @@ TypeError.cause
 
 #### Defined in
 
-[schemas/src/SUrl.js:76](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/SUrl.js#L76)
+schemas/src/common/SBlockNumber.js:69
 
 ___
 
