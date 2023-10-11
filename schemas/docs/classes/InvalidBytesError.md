@@ -1,49 +1,51 @@
-[@evmts/schemas](../README.md) / [Exports](../modules.md) / InvalidUrlError
+[@evmts/schemas](../README.md) / [Exports](../modules.md) / InvalidBytesError
 
-# Class: InvalidUrlError
+# Class: InvalidBytesError
 
-Error thrown when an invalid Url is provided.
+Error thrown when a FixedByte is invalid.
+A FixedByte string is invalid if it's not within the bounds of its size.
 
 ## Hierarchy
 
 - `TypeError`
 
-  ↳ **`InvalidUrlError`**
+  ↳ **`InvalidBytesError`**
 
 ## Table of contents
 
 ### Constructors
 
-- [constructor](InvalidUrlError.md#constructor)
+- [constructor](InvalidBytesError.md#constructor)
 
 ### Properties
 
-- [cause](InvalidUrlError.md#cause)
-- [message](InvalidUrlError.md#message)
-- [name](InvalidUrlError.md#name)
-- [stack](InvalidUrlError.md#stack)
-- [prepareStackTrace](InvalidUrlError.md#preparestacktrace)
-- [stackTraceLimit](InvalidUrlError.md#stacktracelimit)
+- [cause](InvalidBytesError.md#cause)
+- [message](InvalidBytesError.md#message)
+- [name](InvalidBytesError.md#name)
+- [stack](InvalidBytesError.md#stack)
+- [prepareStackTrace](InvalidBytesError.md#preparestacktrace)
+- [stackTraceLimit](InvalidBytesError.md#stacktracelimit)
 
 ### Methods
 
-- [captureStackTrace](InvalidUrlError.md#capturestacktrace)
+- [captureStackTrace](InvalidBytesError.md#capturestacktrace)
 
 ## Constructors
 
 ### constructor
 
-• **new InvalidUrlError**(`options?`)
+• **new InvalidBytesError**(`options`)
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `options` | `Object` | The options for the error. |
+| `options.bytes` | `string` | The invalid bytes string. |
 | `options.cause` | `undefined` \| readonly [`ParseErrors`, `ParseErrors`] | The cause of the error. |
 | `options.docs` | `undefined` \| `string` | The documentation URL. |
 | `options.message` | `undefined` \| `string` | The error message. |
-| `options.url` | `unknown` | The invalid URL value. |
+| `options.size` | [`BytesCapacity`](../modules.md#bytescapacity) | The size of the bytes. |
 
 #### Overrides
 
@@ -51,7 +53,7 @@ TypeError.constructor
 
 #### Defined in
 
-[schemas/src/SUrl.js:69](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/SUrl.js#L69)
+[schemas/src/ethereum/SBytesFixed/Errors.js:28](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/Errors.js#L28)
 
 ## Properties
 
@@ -65,7 +67,7 @@ TypeError.cause
 
 #### Defined in
 
-[schemas/src/SUrl.js:76](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/SUrl.js#L76)
+[schemas/src/ethereum/SBytesFixed/Errors.js:40](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/Errors.js#L40)
 
 ___
 

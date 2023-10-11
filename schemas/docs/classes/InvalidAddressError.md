@@ -1,49 +1,56 @@
-[@evmts/schemas](../README.md) / [Exports](../modules.md) / InvalidUrlError
+[@evmts/schemas](../README.md) / [Exports](../modules.md) / InvalidAddressError
 
-# Class: InvalidUrlError
+# Class: InvalidAddressError
 
-Error thrown when an invalid Url is provided.
+Error thrown when an Address is invalid.
+
+**`Example`**
+
+```ts
+throw new InvalidAddressError({ address: '0x1234' });
+```
+[Solidity docs](https://docs.soliditylang.org/en/latest/types.html#address)
 
 ## Hierarchy
 
 - `TypeError`
 
-  ↳ **`InvalidUrlError`**
+  ↳ **`InvalidAddressError`**
 
 ## Table of contents
 
 ### Constructors
 
-- [constructor](InvalidUrlError.md#constructor)
+- [constructor](InvalidAddressError.md#constructor)
 
 ### Properties
 
-- [cause](InvalidUrlError.md#cause)
-- [message](InvalidUrlError.md#message)
-- [name](InvalidUrlError.md#name)
-- [stack](InvalidUrlError.md#stack)
-- [prepareStackTrace](InvalidUrlError.md#preparestacktrace)
-- [stackTraceLimit](InvalidUrlError.md#stacktracelimit)
+- [cause](InvalidAddressError.md#cause)
+- [message](InvalidAddressError.md#message)
+- [name](InvalidAddressError.md#name)
+- [stack](InvalidAddressError.md#stack)
+- [prepareStackTrace](InvalidAddressError.md#preparestacktrace)
+- [stackTraceLimit](InvalidAddressError.md#stacktracelimit)
 
 ### Methods
 
-- [captureStackTrace](InvalidUrlError.md#capturestacktrace)
+- [captureStackTrace](InvalidAddressError.md#capturestacktrace)
 
 ## Constructors
 
 ### constructor
 
-• **new InvalidUrlError**(`options?`)
+• **new InvalidAddressError**(`options`)
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `options` | `Object` | The options for the error. |
+| `options.address` | `unknown` | The invalid address. |
 | `options.cause` | `undefined` \| readonly [`ParseErrors`, `ParseErrors`] | The cause of the error. |
 | `options.docs` | `undefined` \| `string` | The documentation URL. |
 | `options.message` | `undefined` \| `string` | The error message. |
-| `options.url` | `unknown` | The invalid URL value. |
 
 #### Overrides
 
@@ -51,7 +58,7 @@ TypeError.constructor
 
 #### Defined in
 
-[schemas/src/SUrl.js:69](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/SUrl.js#L69)
+[schemas/src/ethereum/SAddress/Errors.js:25](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SAddress/Errors.js#L25)
 
 ## Properties
 
@@ -65,7 +72,7 @@ TypeError.cause
 
 #### Defined in
 
-[schemas/src/SUrl.js:76](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/SUrl.js#L76)
+[schemas/src/ethereum/SAddress/Errors.js:32](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SAddress/Errors.js#L32)
 
 ___
 
