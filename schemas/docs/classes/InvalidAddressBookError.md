@@ -50,7 +50,7 @@ TypeError.constructor
 
 #### Defined in
 
-[schemas/src/SAddressBook.js:64](https://github.com/evmts/evmts-monorepo/blob/fb5c4520/schemas/src/SAddressBook.js#L64)
+[schemas/src/SAddressBook.js:64](https://github.com/evmts/evmts-monorepo/blob/de760a53/schemas/src/SAddressBook.js#L64)
 
 ## Properties
 
@@ -64,7 +64,7 @@ TypeError.cause
 
 #### Defined in
 
-[schemas/src/SAddressBook.js:70](https://github.com/evmts/evmts-monorepo/blob/fb5c4520/schemas/src/SAddressBook.js#L70)
+[schemas/src/SAddressBook.js:70](https://github.com/evmts/evmts-monorepo/blob/de760a53/schemas/src/SAddressBook.js#L70)
 
 ___
 
