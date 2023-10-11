@@ -1,0 +1,6 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "out": "../docs/reference/schemas",
+  "entryPoints": ["./src/types.d.ts", "./src/ethereum/index.js", "./src/common/index.js", "./src/evmts/index.js"],
+  "gitRevision": "main"
+}

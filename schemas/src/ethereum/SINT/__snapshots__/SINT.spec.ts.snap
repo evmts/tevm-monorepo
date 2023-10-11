@@ -1,0 +1,103 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`parse{"type":"INT8","max":127,"min":-128,"exceedsMax":128,"belowMin":-129} > should return a valid INT8 > "127" 1`] = `127n`;
+
+exports[`parse{"type":"INT8","max":127,"min":-128,"exceedsMax":128,"belowMin":-129} > should throw if value is not a bigint for INT8 1`] = `
+"InvalidINTError: Received 52 is too large to be an INT8. Must be < 2^7.
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parse{"type":"INT8","max":127,"min":-128,"exceedsMax":128,"belowMin":-129} > should throw if value is out of negative INT8 range 1`] = `
+"InvalidINTError: Received -129 is too small to be an INT8. Must be >= -2^7.
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parse{"type":"INT8","max":127,"min":-128,"exceedsMax":128,"belowMin":-129} > should throw if value is out of positive INT8 range 1`] = `
+"InvalidINTError: Received 128 is too large to be an INT8. Must be < 2^7.
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parse{"type":"INT16","max":32767,"min":-32768,"exceedsMax":32768,"belowMin":-32769} > should return a valid INT16 > "32767" 1`] = `32767n`;
+
+exports[`parse{"type":"INT16","max":32767,"min":-32768,"exceedsMax":32768,"belowMin":-32769} > should throw if value is not a bigint for INT16 1`] = `
+"InvalidINTError: Received 52 is too large to be an INT16. Must be < 2^15.
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parse{"type":"INT16","max":32767,"min":-32768,"exceedsMax":32768,"belowMin":-32769} > should throw if value is out of negative INT16 range 1`] = `
+"InvalidINTError: Received -32769 is too small to be an INT16. Must be >= -2^15.
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parse{"type":"INT16","max":32767,"min":-32768,"exceedsMax":32768,"belowMin":-32769} > should throw if value is out of positive INT16 range 1`] = `
+"InvalidINTError: Received 32768 is too large to be an INT16. Must be < 2^15.
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parse{"type":"INT32","max":"2147483647","min":"-2147483648","exceedsMax":"2147483648","belowMin":"-2147483649"} > should return a valid INT32 > "2147483647" 1`] = `2147483647n`;
+
+exports[`parse{"type":"INT32","max":"2147483647","min":"-2147483648","exceedsMax":"2147483648","belowMin":"-2147483649"} > should throw if value is not a bigint for INT32 1`] = `
+"InvalidINTError: Received 52 is too large to be an INT32. Must be < 2^31.
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parse{"type":"INT32","max":"2147483647","min":"-2147483648","exceedsMax":"2147483648","belowMin":"-2147483649"} > should throw if value is out of negative INT32 range 1`] = `
+"InvalidINTError: Received -2147483649 is too small to be an INT32. Must be >= -2^31.
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parse{"type":"INT32","max":"2147483647","min":"-2147483648","exceedsMax":"2147483648","belowMin":"-2147483649"} > should throw if value is out of positive INT32 range 1`] = `
+"InvalidINTError: Received 2147483648 is too large to be an INT32. Must be < 2^31.
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parse{"type":"INT64","max":"9223372036854775807","min":"-9223372036854775808","exceedsMax":"9223372036854775808","belowMin":"-9223372036854775809"} > should return a valid INT64 > "9223372036854775807" 1`] = `9223372036854775807n`;
+
+exports[`parse{"type":"INT64","max":"9223372036854775807","min":"-9223372036854775808","exceedsMax":"9223372036854775808","belowMin":"-9223372036854775809"} > should throw if value is not a bigint for INT64 1`] = `
+"InvalidINTError: Received 52 is too large to be an INT64. Must be < 2^63.
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parse{"type":"INT64","max":"9223372036854775807","min":"-9223372036854775808","exceedsMax":"9223372036854775808","belowMin":"-9223372036854775809"} > should throw if value is out of negative INT64 range 1`] = `
+"InvalidINTError: Received -9223372036854775809 is too small to be an INT64. Must be >= -2^63.
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parse{"type":"INT64","max":"9223372036854775807","min":"-9223372036854775808","exceedsMax":"9223372036854775808","belowMin":"-9223372036854775809"} > should throw if value is out of positive INT64 range 1`] = `
+"InvalidINTError: Received 9223372036854775808 is too large to be an INT64. Must be < 2^63.
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parse{"type":"INT128","max":"170141183460469231731687303715884105727","min":"-170141183460469231731687303715884105728","exceedsMax":"170141183460469231731687303715884105728","belowMin":"-170141183460469231731687303715884105729"} > should return a valid INT128 > "170141183460469231731687303715884105727" 1`] = `170141183460469231731687303715884105727n`;
+
+exports[`parse{"type":"INT128","max":"170141183460469231731687303715884105727","min":"-170141183460469231731687303715884105728","exceedsMax":"170141183460469231731687303715884105728","belowMin":"-170141183460469231731687303715884105729"} > should throw if value is not a bigint for INT128 1`] = `
+"InvalidINTError: Received 52 is too large to be an INT128. Must be < 2^127.
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parse{"type":"INT128","max":"170141183460469231731687303715884105727","min":"-170141183460469231731687303715884105728","exceedsMax":"170141183460469231731687303715884105728","belowMin":"-170141183460469231731687303715884105729"} > should throw if value is out of negative INT128 range 1`] = `
+"InvalidINTError: Received -170141183460469231731687303715884105729 is too small to be an INT128. Must be >= -2^127.
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parse{"type":"INT128","max":"170141183460469231731687303715884105727","min":"-170141183460469231731687303715884105728","exceedsMax":"170141183460469231731687303715884105728","belowMin":"-170141183460469231731687303715884105729"} > should throw if value is out of positive INT128 range 1`] = `
+"InvalidINTError: Received 170141183460469231731687303715884105728 is too large to be an INT128. Must be < 2^127.
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parse{"type":"INT256","max":"57896044618658097711785492504343953926634992332820282019728792003956564819967","min":"-57896044618658097711785492504343953926634992332820282019728792003956564819967","exceedsMax":"57896044618658097711785492504343953926634992332820282019728792003956564819968","belowMin":"-57896044618658097711785492504343953926634992332820282019728792003956564819968"} > should return a valid INT256 > "57896044618658097711785492504343953926634992332820282019728792003956564819967" 1`] = `57896044618658097711785492504343953926634992332820282019728792003956564819967n`;
+
+exports[`parse{"type":"INT256","max":"57896044618658097711785492504343953926634992332820282019728792003956564819967","min":"-57896044618658097711785492504343953926634992332820282019728792003956564819967","exceedsMax":"57896044618658097711785492504343953926634992332820282019728792003956564819968","belowMin":"-57896044618658097711785492504343953926634992332820282019728792003956564819968"} > should throw if value is not a bigint for INT256 1`] = `
+"InvalidINTError: Received 52 is too large to be an INT256. Must be < 2^255.
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parse{"type":"INT256","max":"57896044618658097711785492504343953926634992332820282019728792003956564819967","min":"-57896044618658097711785492504343953926634992332820282019728792003956564819967","exceedsMax":"57896044618658097711785492504343953926634992332820282019728792003956564819968","belowMin":"-57896044618658097711785492504343953926634992332820282019728792003956564819968"} > should throw if value is out of negative INT256 range 1`] = `
+"InvalidINTError: Received -57896044618658097711785492504343953926634992332820282019728792003956564819968 is too large to be an INT256. Must be < 2^255.
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parse{"type":"INT256","max":"57896044618658097711785492504343953926634992332820282019728792003956564819967","min":"-57896044618658097711785492504343953926634992332820282019728792003956564819967","exceedsMax":"57896044618658097711785492504343953926634992332820282019728792003956564819968","belowMin":"-57896044618658097711785492504343953926634992332820282019728792003956564819968"} > should throw if value is out of positive INT256 range 1`] = `
+"InvalidINTError: Received 57896044618658097711785492504343953926634992332820282019728792003956564819968 is too large to be an INT256. Must be < 2^255.
+https://evmts.dev/reference/errors"
+`;

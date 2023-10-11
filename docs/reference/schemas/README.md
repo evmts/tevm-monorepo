@@ -1,3 +1,5 @@
+@evmts/schemas / [Modules](/reference/schema/modules.md)
+
 <p align="center">
   <a href="https://evmts.dev/">
     <picture>
