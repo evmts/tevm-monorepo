@@ -58,7 +58,7 @@ TypeError.constructor
 
 #### Defined in
 
-[schemas/src/ethereum/SAddress/Errors.js:25](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SAddress/Errors.js#L25)
+[schemas/src/ethereum/SAddress/Errors.js:25](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SAddress/Errors.js#L25)
 
 ## Properties
 
@@ -72,7 +72,7 @@ TypeError.cause
 
 #### Defined in
 
-[schemas/src/ethereum/SAddress/Errors.js:32](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SAddress/Errors.js#L32)
+[schemas/src/ethereum/SAddress/Errors.js:32](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SAddress/Errors.js#L32)
 
 ___
 

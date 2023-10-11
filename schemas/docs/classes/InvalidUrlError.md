@@ -51,7 +51,7 @@ TypeError.constructor
 
 #### Defined in
 
-[schemas/src/SUrl.js:69](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/SUrl.js#L69)
+[schemas/src/SUrl.js:69](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/SUrl.js#L69)
 
 ## Properties
 
@@ -65,7 +65,7 @@ TypeError.cause
 
 #### Defined in
 
-[schemas/src/SUrl.js:76](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/SUrl.js#L76)
+[schemas/src/SUrl.js:76](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/SUrl.js#L76)
 
 ___
 

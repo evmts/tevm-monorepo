@@ -18,4 +18,4 @@ The message to display.
 
 #### Defined in
 
-[schemas/src/ethereum/SAddress/SAddress.js:17](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SAddress/SAddress.js#L17)
+[schemas/src/ethereum/SAddress/SAddress.js:17](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SAddress/SAddress.js#L17)

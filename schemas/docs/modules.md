@@ -311,7 +311,7 @@ Type representing a valid Ethereum address
 
 #### Defined in
 
-[schemas/src/ethereum/SAddress/SAddress.js:11](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SAddress/SAddress.js#L11)
+[schemas/src/ethereum/SAddress/SAddress.js:11](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SAddress/SAddress.js#L11)
 
 ___
 
@@ -321,7 +321,7 @@ ___
 
 #### Defined in
 
-[schemas/src/SAddressBook.js:26](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/SAddressBook.js#L26)
+[schemas/src/SAddressBook.js:26](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/SAddressBook.js#L26)
 
 ___
 
@@ -331,7 +331,7 @@ ___
 
 #### Defined in
 
-[schemas/src/SBlockNumber.js:16](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/SBlockNumber.js#L16)
+[schemas/src/SBlockNumber.js:16](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/SBlockNumber.js#L16)
 
 ___
 
@@ -343,7 +343,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:27](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L27)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:27](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L27)
 
 ___
 
@@ -355,7 +355,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:81](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L81)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:81](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L81)
 
 ___
 
@@ -367,7 +367,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:87](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L87)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:87](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L87)
 
 ___
 
@@ -379,7 +379,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:93](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L93)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:93](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L93)
 
 ___
 
@@ -391,7 +391,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:99](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L99)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:99](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L99)
 
 ___
 
@@ -403,7 +403,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:105](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L105)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:105](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L105)
 
 ___
 
@@ -415,7 +415,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:111](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L111)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:111](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L111)
 
 ___
 
@@ -427,7 +427,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:117](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L117)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:117](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L117)
 
 ___
 
@@ -439,7 +439,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:123](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L123)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:123](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L123)
 
 ___
 
@@ -451,7 +451,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:129](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L129)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:129](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L129)
 
 ___
 
@@ -463,7 +463,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:135](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L135)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:135](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L135)
 
 ___
 
@@ -475,7 +475,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:33](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L33)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:33](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L33)
 
 ___
 
@@ -487,7 +487,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:141](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L141)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:141](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L141)
 
 ___
 
@@ -499,7 +499,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:147](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L147)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:147](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L147)
 
 ___
 
@@ -511,7 +511,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:153](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L153)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:153](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L153)
 
 ___
 
@@ -523,7 +523,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:159](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L159)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:159](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L159)
 
 ___
 
@@ -535,7 +535,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:165](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L165)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:165](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L165)
 
 ___
 
@@ -547,7 +547,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:171](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L171)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:171](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L171)
 
 ___
 
@@ -559,7 +559,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:177](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L177)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:177](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L177)
 
 ___
 
@@ -571,7 +571,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:183](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L183)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:183](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L183)
 
 ___
 
@@ -583,7 +583,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:189](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L189)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:189](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L189)
 
 ___
 
@@ -595,7 +595,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:195](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L195)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:195](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L195)
 
 ___
 
@@ -607,7 +607,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:39](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L39)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:39](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L39)
 
 ___
 
@@ -619,7 +619,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:201](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L201)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:201](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L201)
 
 ___
 
@@ -631,7 +631,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:207](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L207)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:207](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L207)
 
 ___
 
@@ -643,7 +643,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:213](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L213)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:213](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L213)
 
 ___
 
@@ -655,7 +655,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:45](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L45)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:45](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L45)
 
 ___
 
@@ -667,7 +667,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:51](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L51)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:51](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L51)
 
 ___
 
@@ -679,7 +679,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:57](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L57)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:57](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L57)
 
 ___
 
@@ -691,7 +691,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:63](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L63)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:63](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L63)
 
 ___
 
@@ -703,7 +703,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:69](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L69)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:69](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L69)
 
 ___
 
@@ -715,7 +715,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:75](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L75)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:75](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L75)
 
 ___
 
@@ -725,7 +725,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/Errors.js:11](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/Errors.js#L11)
+[schemas/src/ethereum/SBytesFixed/Errors.js:11](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/Errors.js#L11)
 
 ___
 
@@ -735,7 +735,7 @@ ___
 
 #### Defined in
 
-[schemas/src/SHexString.js:14](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/SHexString.js#L14)
+[schemas/src/SHexString.js:14](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/SHexString.js#L14)
 
 ___
 
@@ -745,7 +745,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/SINT.js:50](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SINT/SINT.js#L50)
+[schemas/src/ethereum/SINT/SINT.js:50](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/SINT.js#L50)
 
 ___
 
@@ -755,7 +755,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/SINT.js:35](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SINT/SINT.js#L35)
+[schemas/src/ethereum/SINT/SINT.js:35](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/SINT.js#L35)
 
 ___
 
@@ -765,7 +765,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/SINT.js:55](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SINT/SINT.js#L55)
+[schemas/src/ethereum/SINT/SINT.js:55](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/SINT.js#L55)
 
 ___
 
@@ -775,7 +775,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/SINT.js:40](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SINT/SINT.js#L40)
+[schemas/src/ethereum/SINT/SINT.js:40](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/SINT.js#L40)
 
 ___
 
@@ -785,7 +785,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/SINT.js:45](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SINT/SINT.js#L45)
+[schemas/src/ethereum/SINT/SINT.js:45](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/SINT.js#L45)
 
 ___
 
@@ -795,7 +795,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/SINT.js:30](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SINT/SINT.js#L30)
+[schemas/src/ethereum/SINT/SINT.js:30](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/SINT.js#L30)
 
 ___
 
@@ -805,7 +805,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/Errors.js:10](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SINT/Errors.js#L10)
+[schemas/src/ethereum/SINT/Errors.js:10](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/Errors.js#L10)
 
 ___
 
@@ -815,7 +815,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/Errors.js:11](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SINT/Errors.js#L11)
+[schemas/src/ethereum/SINT/Errors.js:11](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/Errors.js#L11)
 
 ___
 
@@ -845,7 +845,7 @@ addressBook is AddressBook<TContractNames\>
 
 #### Defined in
 
-[schemas/src/types.d.ts:27](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/types.d.ts#L27)
+[schemas/src/types.d.ts:27](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/types.d.ts#L27)
 
 ___
 
@@ -859,9 +859,9 @@ Effect/schema for Address type.
 
 #### Defined in
 
-[schemas/src/ethereum/SAddress/SAddress.js:31](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SAddress/SAddress.js#L31)
+[schemas/src/ethereum/SAddress/SAddress.js:31](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SAddress/SAddress.js#L31)
 
-[schemas/src/ethereum/SAddress/SAddress.js:27](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SAddress/SAddress.js#L27)
+[schemas/src/ethereum/SAddress/SAddress.js:27](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SAddress/SAddress.js#L27)
 
 ___
 
@@ -874,7 +874,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SAddress/SAddress.js:21](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SAddress/SAddress.js#L21)
+[schemas/src/ethereum/SAddress/SAddress.js:21](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SAddress/SAddress.js#L21)
 
 ___
 
@@ -884,7 +884,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SUINT/SUINT.js:68](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SUINT/SUINT.js#L68)
+[schemas/src/ethereum/SUINT/SUINT.js:68](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SUINT/SUINT.js#L68)
 
 ___
 
@@ -894,7 +894,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SUINT/SUINT.js:35](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SUINT/SUINT.js#L35)
+[schemas/src/ethereum/SUINT/SUINT.js:35](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SUINT/SUINT.js#L35)
 
 ___
 
@@ -904,7 +904,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SUINT/SUINT.js:79](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SUINT/SUINT.js#L79)
+[schemas/src/ethereum/SUINT/SUINT.js:79](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SUINT/SUINT.js#L79)
 
 ___
 
@@ -914,7 +914,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SUINT/SUINT.js:46](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SUINT/SUINT.js#L46)
+[schemas/src/ethereum/SUINT/SUINT.js:46](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SUINT/SUINT.js#L46)
 
 ___
 
@@ -924,7 +924,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SUINT/SUINT.js:57](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SUINT/SUINT.js#L57)
+[schemas/src/ethereum/SUINT/SUINT.js:57](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SUINT/SUINT.js#L57)
 
 ___
 
@@ -934,7 +934,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SUINT/SUINT.js:24](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SUINT/SUINT.js#L24)
+[schemas/src/ethereum/SUINT/SUINT.js:24](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SUINT/SUINT.js#L24)
 
 ___
 
@@ -944,7 +944,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SUINT/Errors.js:10](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SUINT/Errors.js#L10)
+[schemas/src/ethereum/SUINT/Errors.js:10](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SUINT/Errors.js#L10)
 
 ___
 
@@ -954,7 +954,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SUINT/Errors.js:11](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SUINT/Errors.js#L11)
+[schemas/src/ethereum/SUINT/Errors.js:11](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SUINT/Errors.js#L11)
 
 ___
 
@@ -964,7 +964,7 @@ ___
 
 #### Defined in
 
-[schemas/src/SUrl.js:14](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/SUrl.js#L14)
+[schemas/src/SUrl.js:14](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/SUrl.js#L14)
 
 ## Variables
 
@@ -977,7 +977,7 @@ The maximum value a [INT128](modules.md#int128) can be.
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/constants.js:51](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SINT/constants.js#L51)
+[schemas/src/ethereum/SINT/constants.js:51](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/constants.js#L51)
 
 ___
 
@@ -990,7 +990,7 @@ The minimum value a [INT128](modules.md#int128) can be.
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/constants.js:56](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SINT/constants.js#L56)
+[schemas/src/ethereum/SINT/constants.js:56](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/constants.js#L56)
 
 ___
 
@@ -1003,7 +1003,7 @@ The maximum value a [INT16](modules.md#int16) can be.
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/constants.js:21](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SINT/constants.js#L21)
+[schemas/src/ethereum/SINT/constants.js:21](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/constants.js#L21)
 
 ___
 
@@ -1016,7 +1016,7 @@ The minimum value a [INT16](modules.md#int16) can be.
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/constants.js:26](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SINT/constants.js#L26)
+[schemas/src/ethereum/SINT/constants.js:26](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/constants.js#L26)
 
 ___
 
@@ -1029,7 +1029,7 @@ The maximum value a [INT256](modules.md#int256) can be.
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/constants.js:61](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SINT/constants.js#L61)
+[schemas/src/ethereum/SINT/constants.js:61](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/constants.js#L61)
 
 ___
 
@@ -1042,7 +1042,7 @@ The minimum value a [INT256](modules.md#int256) can be.
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/constants.js:68](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SINT/constants.js#L68)
+[schemas/src/ethereum/SINT/constants.js:68](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/constants.js#L68)
 
 ___
 
@@ -1055,7 +1055,7 @@ The maximum value a [INT32](modules.md#int32) can be.
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/constants.js:31](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SINT/constants.js#L31)
+[schemas/src/ethereum/SINT/constants.js:31](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/constants.js#L31)
 
 ___
 
@@ -1068,7 +1068,7 @@ The minimum value a [INT32](modules.md#int32) can be.
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/constants.js:36](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SINT/constants.js#L36)
+[schemas/src/ethereum/SINT/constants.js:36](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/constants.js#L36)
 
 ___
 
@@ -1081,7 +1081,7 @@ The maximum value a [INT64](modules.md#int64) can be.
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/constants.js:41](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SINT/constants.js#L41)
+[schemas/src/ethereum/SINT/constants.js:41](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/constants.js#L41)
 
 ___
 
@@ -1094,7 +1094,7 @@ The minimum value a [INT64](modules.md#int64) can be.
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/constants.js:46](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SINT/constants.js#L46)
+[schemas/src/ethereum/SINT/constants.js:46](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/constants.js#L46)
 
 ___
 
@@ -1107,7 +1107,7 @@ The maximum value a [INT8](modules.md#int8) can be.
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/constants.js:11](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SINT/constants.js#L11)
+[schemas/src/ethereum/SINT/constants.js:11](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/constants.js#L11)
 
 ___
 
@@ -1120,7 +1120,7 @@ The minimum value a [INT8](modules.md#int8) can be.
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/constants.js:16](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SINT/constants.js#L16)
+[schemas/src/ethereum/SINT/constants.js:16](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/constants.js#L16)
 
 ___
 
@@ -1130,9 +1130,9 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SAddress/SAddress.js:31](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SAddress/SAddress.js#L31)
+[schemas/src/ethereum/SAddress/SAddress.js:31](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SAddress/SAddress.js#L31)
 
-[schemas/src/ethereum/SAddress/SAddress.js:27](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SAddress/SAddress.js#L27)
+[schemas/src/ethereum/SAddress/SAddress.js:27](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SAddress/SAddress.js#L27)
 
 ___
 
@@ -1144,7 +1144,7 @@ ___
 
 #### Defined in
 
-[schemas/src/SAddressBook.js:46](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/SAddressBook.js#L46)
+[schemas/src/SAddressBook.js:46](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/SAddressBook.js#L46)
 
 ___
 
@@ -1163,7 +1163,7 @@ export const SBlockNumber: Schema<number, BlockNumber>;
 
 #### Defined in
 
-[schemas/src/SBlockNumber.js:33](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/SBlockNumber.js#L33)
+[schemas/src/SBlockNumber.js:33](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/SBlockNumber.js#L33)
 
 ___
 
@@ -1175,7 +1175,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:222](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L222)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:222](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L222)
 
 ___
 
@@ -1187,7 +1187,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:348](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L348)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:348](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L348)
 
 ___
 
@@ -1199,7 +1199,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:362](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L362)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:362](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L362)
 
 ___
 
@@ -1211,7 +1211,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:376](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L376)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:376](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L376)
 
 ___
 
@@ -1223,7 +1223,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:390](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L390)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:390](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L390)
 
 ___
 
@@ -1235,7 +1235,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:404](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L404)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:404](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L404)
 
 ___
 
@@ -1247,7 +1247,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:418](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L418)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:418](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L418)
 
 ___
 
@@ -1259,7 +1259,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:432](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L432)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:432](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L432)
 
 ___
 
@@ -1271,7 +1271,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:446](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L446)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:446](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L446)
 
 ___
 
@@ -1283,7 +1283,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:460](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L460)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:460](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L460)
 
 ___
 
@@ -1295,7 +1295,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:474](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L474)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:474](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L474)
 
 ___
 
@@ -1307,7 +1307,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:236](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L236)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:236](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L236)
 
 ___
 
@@ -1319,7 +1319,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:488](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L488)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:488](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L488)
 
 ___
 
@@ -1331,7 +1331,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:502](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L502)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:502](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L502)
 
 ___
 
@@ -1343,7 +1343,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:516](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L516)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:516](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L516)
 
 ___
 
@@ -1355,7 +1355,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:530](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L530)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:530](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L530)
 
 ___
 
@@ -1367,7 +1367,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:544](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L544)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:544](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L544)
 
 ___
 
@@ -1379,7 +1379,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:558](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L558)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:558](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L558)
 
 ___
 
@@ -1391,7 +1391,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:572](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L572)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:572](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L572)
 
 ___
 
@@ -1403,7 +1403,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:586](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L586)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:586](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L586)
 
 ___
 
@@ -1415,7 +1415,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:600](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L600)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:600](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L600)
 
 ___
 
@@ -1427,7 +1427,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:614](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L614)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:614](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L614)
 
 ___
 
@@ -1439,7 +1439,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:250](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L250)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:250](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L250)
 
 ___
 
@@ -1451,7 +1451,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:628](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L628)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:628](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L628)
 
 ___
 
@@ -1463,7 +1463,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:642](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L642)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:642](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L642)
 
 ___
 
@@ -1475,7 +1475,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:656](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L656)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:656](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L656)
 
 ___
 
@@ -1487,7 +1487,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:264](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L264)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:264](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L264)
 
 ___
 
@@ -1499,7 +1499,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:278](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L278)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:278](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L278)
 
 ___
 
@@ -1511,7 +1511,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:292](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L292)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:292](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L292)
 
 ___
 
@@ -1523,7 +1523,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:306](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L306)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:306](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L306)
 
 ___
 
@@ -1535,7 +1535,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:320](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L320)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:320](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L320)
 
 ___
 
@@ -1547,7 +1547,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:334](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L334)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:334](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L334)
 
 ___
 
@@ -1566,7 +1566,7 @@ export const SHexString: Schema<string, HexString>;
 
 #### Defined in
 
-[schemas/src/SHexString.js:31](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/SHexString.js#L31)
+[schemas/src/SHexString.js:31](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/SHexString.js#L31)
 
 ___
 
@@ -1586,7 +1586,7 @@ export const SINT128: Schema<bigint, INT128>;
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/SINT.js:128](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SINT/SINT.js#L128)
+[schemas/src/ethereum/SINT/SINT.js:128](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/SINT.js#L128)
 
 ___
 
@@ -1606,7 +1606,7 @@ export const SINT16: Schema<bigint, INT16>;
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/SINT.js:83](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SINT/SINT.js#L83)
+[schemas/src/ethereum/SINT/SINT.js:83](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/SINT.js#L83)
 
 ___
 
@@ -1626,7 +1626,7 @@ export const SINT256: Schema<bigint, INT256>;
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/SINT.js:143](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SINT/SINT.js#L143)
+[schemas/src/ethereum/SINT/SINT.js:143](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/SINT.js#L143)
 
 ___
 
@@ -1646,7 +1646,7 @@ export const SINT32: Schema<bigint, INT32>;
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/SINT.js:98](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SINT/SINT.js#L98)
+[schemas/src/ethereum/SINT/SINT.js:98](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/SINT.js#L98)
 
 ___
 
@@ -1666,7 +1666,7 @@ export const SINT64: Schema<bigint, INT64>;
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/SINT.js:113](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SINT/SINT.js#L113)
+[schemas/src/ethereum/SINT/SINT.js:113](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/SINT.js#L113)
 
 ___
 
@@ -1686,7 +1686,7 @@ export const SINT8: Schema<bigint, INT8>;
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/SINT.js:68](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SINT/SINT.js#L68)
+[schemas/src/ethereum/SINT/SINT.js:68](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/SINT.js#L68)
 
 ___
 
@@ -1706,7 +1706,7 @@ export const SUINT128: Schema<bigint, UINT128>;
 
 #### Defined in
 
-[schemas/src/ethereum/SUINT/SUINT.js:154](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SUINT/SUINT.js#L154)
+[schemas/src/ethereum/SUINT/SUINT.js:154](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SUINT/SUINT.js#L154)
 
 ___
 
@@ -1726,7 +1726,7 @@ export const SUINT16: Schema<bigint, UINT16>;
 
 #### Defined in
 
-[schemas/src/ethereum/SUINT/SUINT.js:112](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SUINT/SUINT.js#L112)
+[schemas/src/ethereum/SUINT/SUINT.js:112](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SUINT/SUINT.js#L112)
 
 ___
 
@@ -1746,7 +1746,7 @@ export const SUINT256: Schema<bigint, UINT256>;
 
 #### Defined in
 
-[schemas/src/ethereum/SUINT/SUINT.js:168](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SUINT/SUINT.js#L168)
+[schemas/src/ethereum/SUINT/SUINT.js:168](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SUINT/SUINT.js#L168)
 
 ___
 
@@ -1766,7 +1766,7 @@ export const SUINT32: Schema<bigint, UINT32>;
 
 #### Defined in
 
-[schemas/src/ethereum/SUINT/SUINT.js:126](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SUINT/SUINT.js#L126)
+[schemas/src/ethereum/SUINT/SUINT.js:126](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SUINT/SUINT.js#L126)
 
 ___
 
@@ -1786,7 +1786,7 @@ export const SUINT64: Schema<bigint, UINT64>;
 
 #### Defined in
 
-[schemas/src/ethereum/SUINT/SUINT.js:140](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SUINT/SUINT.js#L140)
+[schemas/src/ethereum/SUINT/SUINT.js:140](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SUINT/SUINT.js#L140)
 
 ___
 
@@ -1806,7 +1806,7 @@ export const SUINT8: Schema<bigint, UINT8>;
 
 #### Defined in
 
-[schemas/src/ethereum/SUINT/SUINT.js:98](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SUINT/SUINT.js#L98)
+[schemas/src/ethereum/SUINT/SUINT.js:98](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SUINT/SUINT.js#L98)
 
 ___
 
@@ -1825,7 +1825,7 @@ export const SUrl: Schema<string, Url>;
 
 #### Defined in
 
-[schemas/src/SUrl.js:51](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/SUrl.js#L51)
+[schemas/src/SUrl.js:51](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/SUrl.js#L51)
 
 ___
 
@@ -1838,7 +1838,7 @@ The maximum value a [UINT128](modules.md#uint128) can be.
 
 #### Defined in
 
-[schemas/src/ethereum/SUINT/constants.js:31](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SUINT/constants.js#L31)
+[schemas/src/ethereum/SUINT/constants.js:31](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SUINT/constants.js#L31)
 
 ___
 
@@ -1851,7 +1851,7 @@ The maximum value a [UINT16](modules.md#uint16) can be.
 
 #### Defined in
 
-[schemas/src/ethereum/SUINT/constants.js:16](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SUINT/constants.js#L16)
+[schemas/src/ethereum/SUINT/constants.js:16](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SUINT/constants.js#L16)
 
 ___
 
@@ -1864,7 +1864,7 @@ The maximum value a [UINT256](modules.md#uint256) can be.
 
 #### Defined in
 
-[schemas/src/ethereum/SUINT/constants.js:36](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SUINT/constants.js#L36)
+[schemas/src/ethereum/SUINT/constants.js:36](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SUINT/constants.js#L36)
 
 ___
 
@@ -1877,7 +1877,7 @@ The maximum value a [UINT32](modules.md#uint32) can be.
 
 #### Defined in
 
-[schemas/src/ethereum/SUINT/constants.js:21](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SUINT/constants.js#L21)
+[schemas/src/ethereum/SUINT/constants.js:21](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SUINT/constants.js#L21)
 
 ___
 
@@ -1890,7 +1890,7 @@ The maximum value a [UINT64](modules.md#uint64) can be.
 
 #### Defined in
 
-[schemas/src/ethereum/SUINT/constants.js:26](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SUINT/constants.js#L26)
+[schemas/src/ethereum/SUINT/constants.js:26](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SUINT/constants.js#L26)
 
 ___
 
@@ -1903,7 +1903,7 @@ The maximum value a [UINT8](modules.md#uint8) can be.
 
 #### Defined in
 
-[schemas/src/ethereum/SUINT/constants.js:11](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SUINT/constants.js#L11)
+[schemas/src/ethereum/SUINT/constants.js:11](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SUINT/constants.js#L11)
 
 ## Functions
 
@@ -1935,7 +1935,7 @@ isAddress('0x1234567890123456789012345678901234567890'); // true
 
 #### Defined in
 
-[schemas/src/ethereum/SAddress/isAddress.js:23](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SAddress/isAddress.js#L23)
+[schemas/src/ethereum/SAddress/isAddress.js:23](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SAddress/isAddress.js#L23)
 
 ___
 
@@ -1963,7 +1963,7 @@ addressBook is AddressBook<TContractNames\>
 
 #### Defined in
 
-[schemas/src/types.d.ts:27](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/types.d.ts#L27)
+[schemas/src/types.d.ts:27](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/types.d.ts#L27)
 
 ___
 
@@ -1993,7 +1993,7 @@ isBlockNumber('not a blockNumber'); // false
 
 #### Defined in
 
-[schemas/src/SBlockNumber.js:46](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/SBlockNumber.js#L46)
+[schemas/src/SBlockNumber.js:46](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/SBlockNumber.js#L46)
 
 ___
 
@@ -2023,7 +2023,7 @@ isBytes1("0xfff"); // false
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:56](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L56)
+[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:56](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L56)
 
 ___
 
@@ -2053,7 +2053,7 @@ isBytes10("0xfff"); // false
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:191](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L191)
+[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:191](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L191)
 
 ___
 
@@ -2083,7 +2083,7 @@ isBytes11("0xfff"); // false
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:206](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L206)
+[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:206](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L206)
 
 ___
 
@@ -2113,7 +2113,7 @@ isBytes12("0xfff"); // false
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:221](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L221)
+[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:221](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L221)
 
 ___
 
@@ -2143,7 +2143,7 @@ isBytes13("0xfff"); // false
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:236](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L236)
+[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:236](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L236)
 
 ___
 
@@ -2173,7 +2173,7 @@ isBytes14("0xfff"); // false
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:251](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L251)
+[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:251](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L251)
 
 ___
 
@@ -2203,7 +2203,7 @@ isBytes15("0xfff"); // false
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:266](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L266)
+[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:266](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L266)
 
 ___
 
@@ -2233,7 +2233,7 @@ isBytes16("0xfff"); // false
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:281](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L281)
+[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:281](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L281)
 
 ___
 
@@ -2263,7 +2263,7 @@ isBytes17("0xfff"); // false
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:296](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L296)
+[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:296](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L296)
 
 ___
 
@@ -2293,7 +2293,7 @@ isBytes18("0xfff"); // false
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:311](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L311)
+[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:311](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L311)
 
 ___
 
@@ -2323,7 +2323,7 @@ isBytes19("0xfff"); // false
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:326](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L326)
+[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:326](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L326)
 
 ___
 
@@ -2353,7 +2353,7 @@ isBytes2("0xfff"); // false
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:71](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L71)
+[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:71](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L71)
 
 ___
 
@@ -2383,7 +2383,7 @@ isBytes20("0xfff"); // false
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:341](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L341)
+[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:341](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L341)
 
 ___
 
@@ -2413,7 +2413,7 @@ isBytes21("0xfff"); // false
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:356](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L356)
+[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:356](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L356)
 
 ___
 
@@ -2443,7 +2443,7 @@ isBytes22("0xfff"); // false
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:371](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L371)
+[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:371](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L371)
 
 ___
 
@@ -2473,7 +2473,7 @@ isBytes23("0xfff"); // false
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:386](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L386)
+[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:386](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L386)
 
 ___
 
@@ -2503,7 +2503,7 @@ isBytes24("0xfff"); // false
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:401](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L401)
+[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:401](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L401)
 
 ___
 
@@ -2533,7 +2533,7 @@ isBytes25("0xfff"); // false
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:416](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L416)
+[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:416](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L416)
 
 ___
 
@@ -2563,7 +2563,7 @@ isBytes26("0xfff"); // false
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:431](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L431)
+[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:431](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L431)
 
 ___
 
@@ -2593,7 +2593,7 @@ isBytes27("0xfff"); // false
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:446](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L446)
+[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:446](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L446)
 
 ___
 
@@ -2623,7 +2623,7 @@ isBytesBytes2fff"); // false
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:461](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L461)
+[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:461](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L461)
 
 ___
 
@@ -2653,7 +2653,7 @@ isBytes29("0xfff"); // false
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:476](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L476)
+[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:476](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L476)
 
 ___
 
@@ -2683,7 +2683,7 @@ isBytes3("0xfff"); // false
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:86](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L86)
+[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:86](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L86)
 
 ___
 
@@ -2713,7 +2713,7 @@ isBytes30("0xfff"); // false
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:491](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L491)
+[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:491](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L491)
 
 ___
 
@@ -2743,7 +2743,7 @@ isBytes31("0xfff"); // false
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:506](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L506)
+[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:506](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L506)
 
 ___
 
@@ -2773,7 +2773,7 @@ isBytes22("0xfff"); // false
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:521](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L521)
+[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:521](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L521)
 
 ___
 
@@ -2803,7 +2803,7 @@ isBytes4("0xfff"); // false
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:101](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L101)
+[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:101](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L101)
 
 ___
 
@@ -2833,7 +2833,7 @@ isBytes5("0xfff"); // false
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:116](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L116)
+[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:116](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L116)
 
 ___
 
@@ -2863,7 +2863,7 @@ isBytes6("0xfff"); // false
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:131](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L131)
+[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:131](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L131)
 
 ___
 
@@ -2893,7 +2893,7 @@ isBytes7("0xfff"); // false
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:146](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L146)
+[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:146](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L146)
 
 ___
 
@@ -2923,7 +2923,7 @@ isBytes8("0xfff"); // false
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:161](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L161)
+[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:161](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L161)
 
 ___
 
@@ -2953,7 +2953,7 @@ isBytes9("0xfff"); // false
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:176](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L176)
+[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:176](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L176)
 
 ___
 
@@ -3009,7 +3009,7 @@ isINT128(BigInt("-170141183460469231731687303715884105729"));  // false
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/isINT.js:92](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SINT/isINT.js#L92)
+[schemas/src/ethereum/SINT/isINT.js:92](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/isINT.js#L92)
 
 ___
 
@@ -3041,7 +3041,7 @@ isINT16(BigInt(-32769));  // false
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/isINT.js:41](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SINT/isINT.js#L41)
+[schemas/src/ethereum/SINT/isINT.js:41](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/isINT.js#L41)
 
 ___
 
@@ -3073,7 +3073,7 @@ isINT256(BigInt("-11579208923731619542357098500868790785326998466564056403945758
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/isINT.js:109](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SINT/isINT.js#L109)
+[schemas/src/ethereum/SINT/isINT.js:109](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/isINT.js#L109)
 
 ___
 
@@ -3105,7 +3105,7 @@ isINT32(BigInt(-2147483649));  // false
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/isINT.js:58](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SINT/isINT.js#L58)
+[schemas/src/ethereum/SINT/isINT.js:58](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/isINT.js#L58)
 
 ___
 
@@ -3137,7 +3137,7 @@ isINT64(BigInt("-9223372036854775809"));  // false
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/isINT.js:75](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SINT/isINT.js#L75)
+[schemas/src/ethereum/SINT/isINT.js:75](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/isINT.js#L75)
 
 ___
 
@@ -3169,7 +3169,7 @@ isINT8(BigInt(-129));  // false
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/isINT.js:24](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SINT/isINT.js#L24)
+[schemas/src/ethereum/SINT/isINT.js:24](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/isINT.js#L24)
 
 ___
 
@@ -3199,7 +3199,7 @@ isUINT128(BigInt("340282366920938463463374607431768211456"));  // false
 
 #### Defined in
 
-[schemas/src/ethereum/SUINT/isUINT.js:85](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SUINT/isUINT.js#L85)
+[schemas/src/ethereum/SUINT/isUINT.js:85](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SUINT/isUINT.js#L85)
 
 ___
 
@@ -3229,7 +3229,7 @@ isUINT16(BigInt(65536));  // false
 
 #### Defined in
 
-[schemas/src/ethereum/SUINT/isUINT.js:43](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SUINT/isUINT.js#L43)
+[schemas/src/ethereum/SUINT/isUINT.js:43](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SUINT/isUINT.js#L43)
 
 ___
 
@@ -3259,7 +3259,7 @@ isUINT256(BigInt("23158417847463239084714197001737581570653996933128112807891516
 
 #### Defined in
 
-[schemas/src/ethereum/SUINT/isUINT.js:99](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SUINT/isUINT.js#L99)
+[schemas/src/ethereum/SUINT/isUINT.js:99](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SUINT/isUINT.js#L99)
 
 ___
 
@@ -3289,7 +3289,7 @@ isUINT32(BigInt(4294967296));  // false
 
 #### Defined in
 
-[schemas/src/ethereum/SUINT/isUINT.js:57](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SUINT/isUINT.js#L57)
+[schemas/src/ethereum/SUINT/isUINT.js:57](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SUINT/isUINT.js#L57)
 
 ___
 
@@ -3319,7 +3319,7 @@ isUINT64(BigInt("18446744073709551616"));  // false
 
 #### Defined in
 
-[schemas/src/ethereum/SUINT/isUINT.js:71](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SUINT/isUINT.js#L71)
+[schemas/src/ethereum/SUINT/isUINT.js:71](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SUINT/isUINT.js#L71)
 
 ___
 
@@ -3349,7 +3349,7 @@ isUINT8(BigInt(256));  // false
 
 #### Defined in
 
-[schemas/src/ethereum/SUINT/isUINT.js:29](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SUINT/isUINT.js#L29)
+[schemas/src/ethereum/SUINT/isUINT.js:29](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SUINT/isUINT.js#L29)
 
 ___
 
@@ -3379,7 +3379,7 @@ isUrl('not a url'); // false
 
 #### Defined in
 
-[schemas/src/SUrl.js:33](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/SUrl.js#L33)
+[schemas/src/SUrl.js:33](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/SUrl.js#L33)
 
 ___
 
@@ -3413,7 +3413,7 @@ Parses an Address returning the address or throwing an InvalidAddressError if in
 
 #### Defined in
 
-[schemas/src/ethereum/SAddress/parseAddress.js:17](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SAddress/parseAddress.js#L17)
+[schemas/src/ethereum/SAddress/parseAddress.js:17](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SAddress/parseAddress.js#L17)
 
 ___
 
@@ -3453,7 +3453,7 @@ const parsedAddressBook = parseAddressBook({
 
 #### Defined in
 
-[schemas/src/SAddressBook.js:121](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/SAddressBook.js#L121)
+[schemas/src/SAddressBook.js:121](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/SAddressBook.js#L121)
 
 ___
 
@@ -3493,7 +3493,7 @@ const parsedAddressBookEffect = parseAddressBookSafe({
 
 #### Defined in
 
-[schemas/src/SAddressBook.js:90](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/SAddressBook.js#L90)
+[schemas/src/SAddressBook.js:90](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/SAddressBook.js#L90)
 
 ___
 
@@ -3523,7 +3523,7 @@ Parses an Address safely into an effect.
 
 #### Defined in
 
-[schemas/src/ethereum/SAddress/parseAddressSafe.js:19](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SAddress/parseAddressSafe.js#L19)
+[schemas/src/ethereum/SAddress/parseAddressSafe.js:19](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SAddress/parseAddressSafe.js#L19)
 
 ___
 
@@ -3558,7 +3558,7 @@ const parsedBlockNumber = parseBlockNumber('0x1234567890abcdef1234567890abcdef12
 
 #### Defined in
 
-[schemas/src/SBlockNumber.js:109](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/SBlockNumber.js#L109)
+[schemas/src/SBlockNumber.js:109](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/SBlockNumber.js#L109)
 
 ___
 
@@ -3593,7 +3593,7 @@ const parsedBlockNumberEffect = parseBlockNumberSafe('0x1234567890abcdef12345678
 
 #### Defined in
 
-[schemas/src/SBlockNumber.js:84](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/SBlockNumber.js#L84)
+[schemas/src/SBlockNumber.js:84](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/SBlockNumber.js#L84)
 
 ___
 
@@ -3628,7 +3628,7 @@ const parsedBytes1 = parseBytes1('0xff');
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseINT.js:54](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/parseINT.js#L54)
+[schemas/src/ethereum/SBytesFixed/parseINT.js:54](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseINT.js#L54)
 
 ___
 
@@ -3662,7 +3662,7 @@ const parsedBytes = parseBytes10('0xffaabbccddeeffaabbccdd');
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseINT.js:187](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/parseINT.js#L187)
+[schemas/src/ethereum/SBytesFixed/parseINT.js:187](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseINT.js#L187)
 
 ___
 
@@ -3690,7 +3690,7 @@ Safely parses a Bytes10 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:268](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L268)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:268](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L268)
 
 ___
 
@@ -3725,7 +3725,7 @@ const parsedBytes11 = parseBytes11('0xffaabbccddeeffaabbccddaa');
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseINT.js:202](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/parseINT.js#L202)
+[schemas/src/ethereum/SBytesFixed/parseINT.js:202](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseINT.js#L202)
 
 ___
 
@@ -3753,7 +3753,7 @@ Safely parses a Bytes11 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:292](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L292)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:292](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L292)
 
 ___
 
@@ -3788,7 +3788,7 @@ const parsedBytes12 = parseBytes12('0xffaabbccddeeffaabbccddaaee');
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseINT.js:217](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/parseINT.js#L217)
+[schemas/src/ethereum/SBytesFixed/parseINT.js:217](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseINT.js#L217)
 
 ___
 
@@ -3816,7 +3816,7 @@ Safely parses a Bytes12 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:316](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L316)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:316](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L316)
 
 ___
 
@@ -3851,7 +3851,7 @@ const parsedBytes13 = parseBytes13('0xffaabbccddeeffaabbccddaaeeff');
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseINT.js:232](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/parseINT.js#L232)
+[schemas/src/ethereum/SBytesFixed/parseINT.js:232](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseINT.js#L232)
 
 ___
 
@@ -3879,7 +3879,7 @@ Safely parses a Bytes13 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:340](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L340)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:340](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L340)
 
 ___
 
@@ -3914,7 +3914,7 @@ const parsedBytes14 = parseBytes14('0xffaabbccddeeffaabbccddaaeeffaa');
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseINT.js:247](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/parseINT.js#L247)
+[schemas/src/ethereum/SBytesFixed/parseINT.js:247](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseINT.js#L247)
 
 ___
 
@@ -3942,7 +3942,7 @@ Safely parses a Bytes14 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:364](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L364)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:364](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L364)
 
 ___
 
@@ -3977,7 +3977,7 @@ const parsedBytes15 = parseBytes15('0xffaabbccddeeffaabbccddaaeeffaaee');
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseINT.js:262](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/parseINT.js#L262)
+[schemas/src/ethereum/SBytesFixed/parseINT.js:262](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseINT.js#L262)
 
 ___
 
@@ -4005,7 +4005,7 @@ Safely parses a Bytes15 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:388](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L388)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:388](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L388)
 
 ___
 
@@ -4040,7 +4040,7 @@ const parsedBytes16 = parseBytes16('0xffaabbccddeeffaabbccddaaeeffaaeeff');
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseINT.js:277](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/parseINT.js#L277)
+[schemas/src/ethereum/SBytesFixed/parseINT.js:277](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseINT.js#L277)
 
 ___
 
@@ -4068,7 +4068,7 @@ Safely parses a Bytes16 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:412](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L412)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:412](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L412)
 
 ___
 
@@ -4103,7 +4103,7 @@ const parsedBytes17 = parseBytes17('0xffaabbccddeeffaabbccddaaeeffaaeeffaa');
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseINT.js:292](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/parseINT.js#L292)
+[schemas/src/ethereum/SBytesFixed/parseINT.js:292](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseINT.js#L292)
 
 ___
 
@@ -4131,7 +4131,7 @@ Safely parses a Bytes17 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:436](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L436)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:436](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L436)
 
 ___
 
@@ -4166,7 +4166,7 @@ const parsedBytes18 = parseBytes18('0xffaabbccddeeffaabbccddaaeeffaaeeffbb');
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseINT.js:307](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/parseINT.js#L307)
+[schemas/src/ethereum/SBytesFixed/parseINT.js:307](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseINT.js#L307)
 
 ___
 
@@ -4194,7 +4194,7 @@ Safely parses a Bytes18 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:460](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L460)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:460](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L460)
 
 ___
 
@@ -4229,7 +4229,7 @@ const parsedBytes19 = parseBytes19('0xffaabbccddeeffaabbccddaaeeffaaeeffbbcc');
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseINT.js:322](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/parseINT.js#L322)
+[schemas/src/ethereum/SBytesFixed/parseINT.js:322](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseINT.js#L322)
 
 ___
 
@@ -4257,7 +4257,7 @@ Safely parses a Bytes19 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:484](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L484)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:484](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L484)
 
 ___
 
@@ -4285,7 +4285,7 @@ Safely parses a Bytes1 into an [Effect](https://www.effect.website/docs/essentia
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:52](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L52)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:52](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L52)
 
 ___
 
@@ -4320,7 +4320,7 @@ const parsedBytes2 = parseBytes2('0xffaa');
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseINT.js:69](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/parseINT.js#L69)
+[schemas/src/ethereum/SBytesFixed/parseINT.js:69](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseINT.js#L69)
 
 ___
 
@@ -4355,7 +4355,7 @@ const parsedBytes20 = parseBytes20('0xffaabbccddeeffaabbccddaaeeffaaeeffbbccdd')
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseINT.js:337](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/parseINT.js#L337)
+[schemas/src/ethereum/SBytesFixed/parseINT.js:337](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseINT.js#L337)
 
 ___
 
@@ -4383,7 +4383,7 @@ Safely parses a Bytes20 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:508](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L508)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:508](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L508)
 
 ___
 
@@ -4418,7 +4418,7 @@ const parsedBytes21 = parseBytes21('0xffaabbccddeeffaabbccddaaeeffaaeeffbbccddaa
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseINT.js:352](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/parseINT.js#L352)
+[schemas/src/ethereum/SBytesFixed/parseINT.js:352](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseINT.js#L352)
 
 ___
 
@@ -4446,7 +4446,7 @@ Safely parses a Bytes21 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:532](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L532)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:532](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L532)
 
 ___
 
@@ -4481,7 +4481,7 @@ const parsedBytes22 = parseBytes22('0xffaabbccddeeffaabbccddaaeeffaaeeffbbccddbb
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseINT.js:367](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/parseINT.js#L367)
+[schemas/src/ethereum/SBytesFixed/parseINT.js:367](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseINT.js#L367)
 
 ___
 
@@ -4509,7 +4509,7 @@ Safely parses a Bytes22 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:556](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L556)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:556](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L556)
 
 ___
 
@@ -4544,7 +4544,7 @@ const parsedBytes23 = parseBytes23('0xffaabbccddeeffaabbccddaaeeffaaeeffbbccddcc
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseINT.js:382](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/parseINT.js#L382)
+[schemas/src/ethereum/SBytesFixed/parseINT.js:382](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseINT.js#L382)
 
 ___
 
@@ -4572,7 +4572,7 @@ Safely parses a Bytes23 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:580](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L580)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:580](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L580)
 
 ___
 
@@ -4607,7 +4607,7 @@ const parsedBytes24 = parseBytes24('0xffaabbccddeeffaabbccddaaeeffaaeeffbbccddcc
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseINT.js:397](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/parseINT.js#L397)
+[schemas/src/ethereum/SBytesFixed/parseINT.js:397](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseINT.js#L397)
 
 ___
 
@@ -4635,7 +4635,7 @@ Safely parses a Bytes24 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:604](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L604)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:604](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L604)
 
 ___
 
@@ -4670,7 +4670,7 @@ const parsedBytes25 = parseBytes25('0xffaabbccddeeffaabbccddaaeeffaaeeffbbccddcc
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseINT.js:412](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/parseINT.js#L412)
+[schemas/src/ethereum/SBytesFixed/parseINT.js:412](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseINT.js#L412)
 
 ___
 
@@ -4698,7 +4698,7 @@ Safely parses a Bytes25 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:628](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L628)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:628](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L628)
 
 ___
 
@@ -4733,7 +4733,7 @@ const parsedBytes26 = parseBytes26('0xffaabbccddeeffaabbccddaaeeffaaeeffbbccddcc
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseINT.js:427](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/parseINT.js#L427)
+[schemas/src/ethereum/SBytesFixed/parseINT.js:427](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseINT.js#L427)
 
 ___
 
@@ -4761,7 +4761,7 @@ Safely parses a Bytes26 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:652](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L652)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:652](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L652)
 
 ___
 
@@ -4796,7 +4796,7 @@ const parsedBytes27 = parseBytes27('0xffaabbccddeeffaabbccddaaeeffaaeeffbbccddcc
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseINT.js:442](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/parseINT.js#L442)
+[schemas/src/ethereum/SBytesFixed/parseINT.js:442](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseINT.js#L442)
 
 ___
 
@@ -4824,7 +4824,7 @@ Safely parses a Bytes27 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:676](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L676)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:676](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L676)
 
 ___
 
@@ -4859,7 +4859,7 @@ const parsedBytes28 = parseBytes28('0xffaabbccddeeffaabbccddaaeeffaaeeffbbccddcc
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseINT.js:456](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/parseINT.js#L456)
+[schemas/src/ethereum/SBytesFixed/parseINT.js:456](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseINT.js#L456)
 
 ___
 
@@ -4887,7 +4887,7 @@ Safely parses a Bytes28 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:700](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L700)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:700](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L700)
 
 ___
 
@@ -4922,7 +4922,7 @@ const parsedBytes29 = parseBytes29('0xffaabbccddeeffaabbccddaaeeffaaeeffbbccddcc
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseINT.js:471](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/parseINT.js#L471)
+[schemas/src/ethereum/SBytesFixed/parseINT.js:471](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseINT.js#L471)
 
 ___
 
@@ -4950,7 +4950,7 @@ Safely parses a Bytes29 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:724](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L724)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:724](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L724)
 
 ___
 
@@ -4978,7 +4978,7 @@ Safely parses a Bytes2 into an [Effect](https://www.effect.website/docs/essentia
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:76](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L76)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:76](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L76)
 
 ___
 
@@ -5013,7 +5013,7 @@ const parsedBytes3 = parseBytes3('0xffaabb');
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseINT.js:84](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/parseINT.js#L84)
+[schemas/src/ethereum/SBytesFixed/parseINT.js:84](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseINT.js#L84)
 
 ___
 
@@ -5048,7 +5048,7 @@ const parsedBytes30 = parseBytes30('0xffaabbccddeeffaabbccddaaeeffaaeeffbbccddcc
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseINT.js:486](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/parseINT.js#L486)
+[schemas/src/ethereum/SBytesFixed/parseINT.js:486](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseINT.js#L486)
 
 ___
 
@@ -5076,7 +5076,7 @@ Safely parses a Bytes30 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:748](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L748)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:748](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L748)
 
 ___
 
@@ -5111,7 +5111,7 @@ const parsedBytes31 = parseBytes31('0xffaabbccddeeffaabbccddaaeeffaaeeffbbccddcc
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseINT.js:501](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/parseINT.js#L501)
+[schemas/src/ethereum/SBytesFixed/parseINT.js:501](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseINT.js#L501)
 
 ___
 
@@ -5139,7 +5139,7 @@ Safely parses a Bytes31 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:772](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L772)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:772](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L772)
 
 ___
 
@@ -5174,7 +5174,7 @@ const parsedBytes32 = parseBytes32('0xffaabbccddeeffaabbccddaaeeffaaeeffbbccddcc
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseINT.js:516](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/parseINT.js#L516)
+[schemas/src/ethereum/SBytesFixed/parseINT.js:516](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseINT.js#L516)
 
 ___
 
@@ -5202,7 +5202,7 @@ Safely parses a Bytes32 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:796](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L796)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:796](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L796)
 
 ___
 
@@ -5230,7 +5230,7 @@ Safely parses a Bytes3 into an [Effect](https://www.effect.website/docs/essentia
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:100](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L100)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:100](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L100)
 
 ___
 
@@ -5265,7 +5265,7 @@ const parsedBytes4 = parseBytes4('0xffaabbcc');
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseINT.js:99](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/parseINT.js#L99)
+[schemas/src/ethereum/SBytesFixed/parseINT.js:99](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseINT.js#L99)
 
 ___
 
@@ -5293,7 +5293,7 @@ Safely parses a Bytes4 into an [Effect](https://www.effect.website/docs/essentia
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:124](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L124)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:124](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L124)
 
 ___
 
@@ -5328,7 +5328,7 @@ const parsedBytes5 = parseBytes5('0xffaabbccdd');
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseINT.js:114](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/parseINT.js#L114)
+[schemas/src/ethereum/SBytesFixed/parseINT.js:114](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseINT.js#L114)
 
 ___
 
@@ -5356,7 +5356,7 @@ Safely parses a Bytes5 into an [Effect](https://www.effect.website/docs/essentia
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:148](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L148)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:148](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L148)
 
 ___
 
@@ -5391,7 +5391,7 @@ const parsedBytes6 = parseBytes6('0xffaabbccddeeff');
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseINT.js:128](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/parseINT.js#L128)
+[schemas/src/ethereum/SBytesFixed/parseINT.js:128](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseINT.js#L128)
 
 ___
 
@@ -5419,7 +5419,7 @@ Safely parses a Bytes6 into an [Effect](https://www.effect.website/docs/essentia
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:172](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L172)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:172](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L172)
 
 ___
 
@@ -5454,7 +5454,7 @@ const parsedBytes7 = parseBytes7('0xffaabbccddeeffaa');
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseINT.js:143](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/parseINT.js#L143)
+[schemas/src/ethereum/SBytesFixed/parseINT.js:143](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseINT.js#L143)
 
 ___
 
@@ -5482,7 +5482,7 @@ Safely parses a Bytes7 into an [Effect](https://www.effect.website/docs/essentia
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:196](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L196)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:196](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L196)
 
 ___
 
@@ -5517,7 +5517,7 @@ const parsedBytes8 = parseBytes8('0xffaabbccddeeffaabb');
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseINT.js:158](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/parseINT.js#L158)
+[schemas/src/ethereum/SBytesFixed/parseINT.js:158](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseINT.js#L158)
 
 ___
 
@@ -5545,7 +5545,7 @@ Safely parses a Bytes8 into an [Effect](https://www.effect.website/docs/essentia
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:220](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L220)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:220](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L220)
 
 ___
 
@@ -5580,7 +5580,7 @@ const parsedBytes9 = parseBytes9('0xffaabbccddeeffaabbcc');
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseINT.js:173](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/parseINT.js#L173)
+[schemas/src/ethereum/SBytesFixed/parseINT.js:173](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseINT.js#L173)
 
 ___
 
@@ -5608,7 +5608,7 @@ Safely parses a Bytes9 into an [Effect](https://www.effect.website/docs/essentia
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:244](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L244)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:244](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L244)
 
 ___
 
@@ -5643,7 +5643,7 @@ const parsedHexString = parseHexString('0x1234567890abcdef1234567890abcdef123456
 
 #### Defined in
 
-[schemas/src/SHexString.js:104](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/SHexString.js#L104)
+[schemas/src/SHexString.js:104](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/SHexString.js#L104)
 
 ___
 
@@ -5678,7 +5678,7 @@ const parsedHexStringEffect = parseHexStringSafe('0x1234567890abcdef1234567890ab
 
 #### Defined in
 
-[schemas/src/SHexString.js:80](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/SHexString.js#L80)
+[schemas/src/SHexString.js:80](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/SHexString.js#L80)
 
 ___
 
@@ -5706,7 +5706,7 @@ Safely parses an INT128 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/parseINTSafe.js:115](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SINT/parseINTSafe.js#L115)
+[schemas/src/ethereum/SINT/parseINTSafe.js:115](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/parseINTSafe.js#L115)
 
 ___
 
@@ -5734,7 +5734,7 @@ Safely parses an INT16 into an [Effect](https://www.effect.website/docs/essentia
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/parseINTSafe.js:43](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SINT/parseINTSafe.js#L43)
+[schemas/src/ethereum/SINT/parseINTSafe.js:43](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/parseINTSafe.js#L43)
 
 ___
 
@@ -5762,7 +5762,7 @@ Safely parses an INT256 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/parseINTSafe.js:139](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SINT/parseINTSafe.js#L139)
+[schemas/src/ethereum/SINT/parseINTSafe.js:139](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/parseINTSafe.js#L139)
 
 ___
 
@@ -5790,7 +5790,7 @@ Safely parses an INT32 into an [Effect](https://www.effect.website/docs/essentia
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/parseINTSafe.js:67](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SINT/parseINTSafe.js#L67)
+[schemas/src/ethereum/SINT/parseINTSafe.js:67](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/parseINTSafe.js#L67)
 
 ___
 
@@ -5818,7 +5818,7 @@ Safely parses an INT64 into an [Effect](https://www.effect.website/docs/essentia
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/parseINTSafe.js:91](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SINT/parseINTSafe.js#L91)
+[schemas/src/ethereum/SINT/parseINTSafe.js:91](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/parseINTSafe.js#L91)
 
 ___
 
@@ -5846,7 +5846,7 @@ Safely parses an INT8 into an [Effect](https://www.effect.website/docs/essential
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/parseINTSafe.js:19](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SINT/parseINTSafe.js#L19)
+[schemas/src/ethereum/SINT/parseINTSafe.js:19](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/parseINTSafe.js#L19)
 
 ___
 
@@ -5881,7 +5881,7 @@ const parsedINT128 = parseInt128(BigInt("-17014118346046923173168730371588410572
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/parseINT.js:88](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SINT/parseINT.js#L88)
+[schemas/src/ethereum/SINT/parseINT.js:88](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/parseINT.js#L88)
 
 ___
 
@@ -5916,7 +5916,7 @@ const parsedINT16 = parseInt16(BigInt(-32768));
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/parseINT.js:43](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SINT/parseINT.js#L43)
+[schemas/src/ethereum/SINT/parseINT.js:43](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/parseINT.js#L43)
 
 ___
 
@@ -5951,7 +5951,7 @@ const parsedINT256 = parseInt256(420n);
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/parseINT.js:103](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SINT/parseINT.js#L103)
+[schemas/src/ethereum/SINT/parseINT.js:103](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/parseINT.js#L103)
 
 ___
 
@@ -5986,7 +5986,7 @@ const parsedINT32 = parseInt32(BigInt(-2147483648));
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/parseINT.js:58](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SINT/parseINT.js#L58)
+[schemas/src/ethereum/SINT/parseINT.js:58](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/parseINT.js#L58)
 
 ___
 
@@ -6021,7 +6021,7 @@ const parsedINT64 = parseInt64(BigInt("-9223372036854775808"));
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/parseINT.js:73](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SINT/parseINT.js#L73)
+[schemas/src/ethereum/SINT/parseINT.js:73](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/parseINT.js#L73)
 
 ___
 
@@ -6056,7 +6056,7 @@ const parsedINT8 = parseInt8(BigInt(-128));
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/parseINT.js:28](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SINT/parseINT.js#L28)
+[schemas/src/ethereum/SINT/parseINT.js:28](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/parseINT.js#L28)
 
 ___
 
@@ -6091,7 +6091,7 @@ const parsedUINT128 = parseUINT128(BigInt("1701411834604692317316873037158841057
 
 #### Defined in
 
-[schemas/src/ethereum/SUINT/parseUINT.js:84](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SUINT/parseUINT.js#L84)
+[schemas/src/ethereum/SUINT/parseUINT.js:84](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SUINT/parseUINT.js#L84)
 
 ___
 
@@ -6119,7 +6119,7 @@ Safely parses a UINT128 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Defined in
 
-[schemas/src/ethereum/SUINT/parseUINTSafe.js:120](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SUINT/parseUINTSafe.js#L120)
+[schemas/src/ethereum/SUINT/parseUINTSafe.js:120](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SUINT/parseUINTSafe.js#L120)
 
 ___
 
@@ -6154,7 +6154,7 @@ const parsedUINT16 = parseUINT16(BigInt(32767));
 
 #### Defined in
 
-[schemas/src/ethereum/SUINT/parseUINT.js:42](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SUINT/parseUINT.js#L42)
+[schemas/src/ethereum/SUINT/parseUINT.js:42](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SUINT/parseUINT.js#L42)
 
 ___
 
@@ -6182,7 +6182,7 @@ Safely parses a UINT16 into an [Effect](https://www.effect.website/docs/essentia
 
 #### Defined in
 
-[schemas/src/ethereum/SUINT/parseUINTSafe.js:49](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SUINT/parseUINTSafe.js#L49)
+[schemas/src/ethereum/SUINT/parseUINTSafe.js:49](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SUINT/parseUINTSafe.js#L49)
 
 ___
 
@@ -6217,7 +6217,7 @@ const parsedUINT256 = parseUINT256('0x1234567890abcdef1234567890abcdef12345678')
 
 #### Defined in
 
-[schemas/src/ethereum/SUINT/parseUINT.js:98](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SUINT/parseUINT.js#L98)
+[schemas/src/ethereum/SUINT/parseUINT.js:98](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SUINT/parseUINT.js#L98)
 
 ___
 
@@ -6252,7 +6252,7 @@ const parsedUINT256Effect = parseUINT256Safe('0x1234567890abcdef1234567890abcdef
 
 #### Defined in
 
-[schemas/src/ethereum/SUINT/parseUINTSafe.js:148](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SUINT/parseUINTSafe.js#L148)
+[schemas/src/ethereum/SUINT/parseUINTSafe.js:148](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SUINT/parseUINTSafe.js#L148)
 
 ___
 
@@ -6287,7 +6287,7 @@ const parsedUINT32 = parseUINT32(BigInt(2147483647));
 
 #### Defined in
 
-[schemas/src/ethereum/SUINT/parseUINT.js:56](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SUINT/parseUINT.js#L56)
+[schemas/src/ethereum/SUINT/parseUINT.js:56](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SUINT/parseUINT.js#L56)
 
 ___
 
@@ -6315,7 +6315,7 @@ Safely parses a UINT32 into an [Effect](https://www.effect.website/docs/essentia
 
 #### Defined in
 
-[schemas/src/ethereum/SUINT/parseUINTSafe.js:72](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SUINT/parseUINTSafe.js#L72)
+[schemas/src/ethereum/SUINT/parseUINTSafe.js:72](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SUINT/parseUINTSafe.js#L72)
 
 ___
 
@@ -6350,7 +6350,7 @@ const parsedUINT64 = parseUINT64(BigInt("9223372036854775807"));
 
 #### Defined in
 
-[schemas/src/ethereum/SUINT/parseUINT.js:70](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SUINT/parseUINT.js#L70)
+[schemas/src/ethereum/SUINT/parseUINT.js:70](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SUINT/parseUINT.js#L70)
 
 ___
 
@@ -6378,7 +6378,7 @@ Safely parses a UINT64 into an [Effect](https://www.effect.website/docs/essentia
 
 #### Defined in
 
-[schemas/src/ethereum/SUINT/parseUINTSafe.js:97](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SUINT/parseUINTSafe.js#L97)
+[schemas/src/ethereum/SUINT/parseUINTSafe.js:97](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SUINT/parseUINTSafe.js#L97)
 
 ___
 
@@ -6413,7 +6413,7 @@ const parsedUINT8 = parseUINT8(BigInt(127));
 
 #### Defined in
 
-[schemas/src/ethereum/SUINT/parseUINT.js:28](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SUINT/parseUINT.js#L28)
+[schemas/src/ethereum/SUINT/parseUINT.js:28](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SUINT/parseUINT.js#L28)
 
 ___
 
@@ -6441,7 +6441,7 @@ Safely parses a UINT8 into an [Effect](https://www.effect.website/docs/essential
 
 #### Defined in
 
-[schemas/src/ethereum/SUINT/parseUINTSafe.js:26](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/ethereum/SUINT/parseUINTSafe.js#L26)
+[schemas/src/ethereum/SUINT/parseUINTSafe.js:26](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SUINT/parseUINTSafe.js#L26)
 
 ___
 
@@ -6476,7 +6476,7 @@ const parsedUrl = parseUrl('https://evmts.dev');
 
 #### Defined in
 
-[schemas/src/SUrl.js:113](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/SUrl.js#L113)
+[schemas/src/SUrl.js:113](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/SUrl.js#L113)
 
 ___
 
@@ -6511,4 +6511,4 @@ const parsedUrlEffect = parseUrlSafe('https://evmts.dev');
 
 #### Defined in
 
-[schemas/src/SUrl.js:91](https://github.com/evmts/evmts-monorepo/blob/2bc5b05f/schemas/src/SUrl.js#L91)
+[schemas/src/SUrl.js:91](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/SUrl.js#L91)
