@@ -1,41 +1,42 @@
-[@evmts/schemas](../README.md) / [Modules](../modules.md) / [common](../modules/common.md) / InvalidHexStringError
+[@evmts/schemas](/schema/README.md) / [Modules](/schema/modules.md) / [ethereum](/schema/modules/ethereum.md) / InvalidUINTError
 
-# Class: InvalidHexStringError
+# Class: InvalidUINTError
 
-[common](../modules/common.md).InvalidHexStringError
+[ethereum](/schema/modules/ethereum.md).InvalidUINTError
 
-Error thrown when an invalid HexString is provided.
+Error thrown when a UINT256 is invalid.
+A uintbigint is invalid if it is not a non-negative integer or overflows
 
 ## Hierarchy
 
 - `TypeError`
 
-  ↳ **`InvalidHexStringError`**
+  ↳ **`InvalidUINTError`**
 
 ## Table of contents
 
 ### Constructors
 
-- [constructor](common.InvalidHexStringError.md#constructor)
+- [constructor](/schema/classes/ethereum.InvalidUINTError.md#constructor)
 
 ### Properties
 
-- [cause](common.InvalidHexStringError.md#cause)
-- [message](common.InvalidHexStringError.md#message)
-- [name](common.InvalidHexStringError.md#name)
-- [stack](common.InvalidHexStringError.md#stack)
-- [prepareStackTrace](common.InvalidHexStringError.md#preparestacktrace)
-- [stackTraceLimit](common.InvalidHexStringError.md#stacktracelimit)
+- [cause](/schema/classes/ethereum.InvalidUINTError.md#cause)
+- [message](/schema/classes/ethereum.InvalidUINTError.md#message)
+- [name](/schema/classes/ethereum.InvalidUINTError.md#name)
+- [stack](/schema/classes/ethereum.InvalidUINTError.md#stack)
+- [prepareStackTrace](/schema/classes/ethereum.InvalidUINTError.md#preparestacktrace)
+- [stackTraceLimit](/schema/classes/ethereum.InvalidUINTError.md#stacktracelimit)
 
 ### Methods
 
-- [captureStackTrace](common.InvalidHexStringError.md#capturestacktrace)
+- [captureStackTrace](/schema/classes/ethereum.InvalidUINTError.md#capturestacktrace)
 
 ## Constructors
 
 ### constructor
 
-• **new InvalidHexStringError**(`options?`)
+• **new InvalidUINTError**(`options`)
 
 #### Parameters
 
@@ -45,7 +46,8 @@ Error thrown when an invalid HexString is provided.
 | `options.cause` | `undefined` \| readonly [`ParseErrors`, `ParseErrors`] | The cause of the error. |
 | `options.docs` | `undefined` \| `string` | The documentation URL. |
 | `options.message` | `undefined` \| `string` | The error message. |
-| `options.value` | `unknown` | The invalid hex value. |
+| `options.size` | [`UINTSize`](/schema/modules/ethereum.md#uintsize) | The size of the uint. |
+| `options.uint` | `bigint` | The invalid uint256 bigint. |
 
 #### Overrides
 
@@ -53,7 +55,7 @@ TypeError.constructor
 
 #### Defined in
 
-schemas/src/common/SHexString.js:58
+[schemas/src/ethereum/SUINT/Errors.js:28](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SUINT/Errors.js#L28)
 
 ## Properties
 
@@ -67,7 +69,7 @@ TypeError.cause
 
 #### Defined in
 
-schemas/src/common/SHexString.js:65
+[schemas/src/ethereum/SUINT/Errors.js:38](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SUINT/Errors.js#L38)
 
 ___
 

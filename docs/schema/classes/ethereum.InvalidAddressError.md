@@ -1,49 +1,55 @@
-[@evmts/schemas](../README.md) / [Modules](../modules.md) / [common](../modules/common.md) / InvalidBlockNumberError
+[@evmts/schemas](/schema/README.md) / [Modules](/schema/modules.md) / [ethereum](/schema/modules/ethereum.md) / InvalidAddressError
 
-# Class: InvalidBlockNumberError
+# Class: InvalidAddressError
 
-[common](../modules/common.md).InvalidBlockNumberError
+[ethereum](/schema/modules/ethereum.md).InvalidAddressError
 
-Error thrown when a BlockNumber is invalid.
-A block number is invalid if it is not a non-negative integer.
+Error thrown when an Address is invalid.
+
+**`Example`**
+
+```ts
+throw new InvalidAddressError({ address: '0x1234' });
+```
+[Solidity docs](https://docs.soliditylang.org/en/latest/types.html#address)
 
 ## Hierarchy
 
 - `TypeError`
 
-  ↳ **`InvalidBlockNumberError`**
+  ↳ **`InvalidAddressError`**
 
 ## Table of contents
 
 ### Constructors
 
-- [constructor](common.InvalidBlockNumberError.md#constructor)
+- [constructor](/schema/classes/ethereum.InvalidAddressError.md#constructor)
 
 ### Properties
 
-- [cause](common.InvalidBlockNumberError.md#cause)
-- [message](common.InvalidBlockNumberError.md#message)
-- [name](common.InvalidBlockNumberError.md#name)
-- [stack](common.InvalidBlockNumberError.md#stack)
-- [prepareStackTrace](common.InvalidBlockNumberError.md#preparestacktrace)
-- [stackTraceLimit](common.InvalidBlockNumberError.md#stacktracelimit)
+- [cause](/schema/classes/ethereum.InvalidAddressError.md#cause)
+- [message](/schema/classes/ethereum.InvalidAddressError.md#message)
+- [name](/schema/classes/ethereum.InvalidAddressError.md#name)
+- [stack](/schema/classes/ethereum.InvalidAddressError.md#stack)
+- [prepareStackTrace](/schema/classes/ethereum.InvalidAddressError.md#preparestacktrace)
+- [stackTraceLimit](/schema/classes/ethereum.InvalidAddressError.md#stacktracelimit)
 
 ### Methods
 
-- [captureStackTrace](common.InvalidBlockNumberError.md#capturestacktrace)
+- [captureStackTrace](/schema/classes/ethereum.InvalidAddressError.md#capturestacktrace)
 
 ## Constructors
 
 ### constructor
 
-• **new InvalidBlockNumberError**(`options?`)
+• **new InvalidAddressError**(`options`)
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `options` | `Object` | The options for the error. |
-| `options.blockNumber` | `unknown` | The invalid block number. |
+| `options.address` | `unknown` | The invalid address. |
 | `options.cause` | `undefined` \| readonly [`ParseErrors`, `ParseErrors`] | The cause of the error. |
 | `options.docs` | `undefined` \| `string` | The documentation URL. |
 | `options.message` | `undefined` \| `string` | The error message. |
@@ -54,7 +60,7 @@ TypeError.constructor
 
 #### Defined in
 
-schemas/src/common/SBlockNumber.js:62
+[schemas/src/ethereum/SAddress/Errors.js:25](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SAddress/Errors.js#L25)
 
 ## Properties
 
@@ -68,7 +74,7 @@ TypeError.cause
 
 #### Defined in
 
-schemas/src/common/SBlockNumber.js:69
+[schemas/src/ethereum/SAddress/Errors.js:32](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SAddress/Errors.js#L32)
 
 ___
 

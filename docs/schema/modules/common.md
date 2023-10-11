@@ -1,4 +1,4 @@
-[@evmts/schemas](../README.md) / [Modules](../modules.md) / common
+[@evmts/schemas](/schema/README.md) / [Modules](/schema/modules.md) / common
 
 # Module: common
 
@@ -6,33 +6,33 @@
 
 ### Classes
 
-- [InvalidBlockNumberError](../classes/common.InvalidBlockNumberError.md)
-- [InvalidHexStringError](../classes/common.InvalidHexStringError.md)
-- [InvalidUrlError](../classes/common.InvalidUrlError.md)
+- [InvalidBlockNumberError](/schema/classes/common.InvalidBlockNumberError.md)
+- [InvalidHexStringError](/schema/classes/common.InvalidHexStringError.md)
+- [InvalidUrlError](/schema/classes/common.InvalidUrlError.md)
 
 ### Type Aliases
 
-- [BlockNumber](common.md#blocknumber)
-- [HexString](common.md#hexstring)
-- [Url](common.md#url)
+- [BlockNumber](/schema/modules/common.md#blocknumber)
+- [HexString](/schema/modules/common.md#hexstring)
+- [Url](/schema/modules/common.md#url)
 
 ### Variables
 
-- [SBlockNumber](common.md#sblocknumber)
-- [SHexString](common.md#shexstring)
-- [SUrl](common.md#surl)
+- [SBlockNumber](/schema/modules/common.md#sblocknumber)
+- [SHexString](/schema/modules/common.md#shexstring)
+- [SUrl](/schema/modules/common.md#surl)
 
 ### Functions
 
-- [isBlockNumber](common.md#isblocknumber)
-- [isHexString](common.md#ishexstring)
-- [isUrl](common.md#isurl)
-- [parseBlockNumber](common.md#parseblocknumber)
-- [parseBlockNumberSafe](common.md#parseblocknumbersafe)
-- [parseHexString](common.md#parsehexstring)
-- [parseHexStringSafe](common.md#parsehexstringsafe)
-- [parseUrl](common.md#parseurl)
-- [parseUrlSafe](common.md#parseurlsafe)
+- [isBlockNumber](/schema/modules/common.md#isblocknumber)
+- [isHexString](/schema/modules/common.md#ishexstring)
+- [isUrl](/schema/modules/common.md#isurl)
+- [parseBlockNumber](/schema/modules/common.md#parseblocknumber)
+- [parseBlockNumberSafe](/schema/modules/common.md#parseblocknumbersafe)
+- [parseHexString](/schema/modules/common.md#parsehexstring)
+- [parseHexStringSafe](/schema/modules/common.md#parsehexstringsafe)
+- [parseUrl](/schema/modules/common.md#parseurl)
+- [parseUrlSafe](/schema/modules/common.md#parseurlsafe)
 
 ## Type Aliases
 
@@ -42,7 +42,7 @@
 
 #### Defined in
 
-schemas/src/common/SBlockNumber.js:16
+[schemas/src/common/SBlockNumber.js:16](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/common/SBlockNumber.js#L16)
 
 ___
 
@@ -52,7 +52,7 @@ ___
 
 #### Defined in
 
-schemas/src/common/SHexString.js:14
+[schemas/src/common/SHexString.js:14](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/common/SHexString.js#L14)
 
 ___
 
@@ -62,7 +62,7 @@ ___
 
 #### Defined in
 
-schemas/src/common/SUrl.js:14
+[schemas/src/common/SUrl.js:14](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/common/SUrl.js#L14)
 
 ## Variables
 
@@ -81,7 +81,7 @@ export const SBlockNumber: Schema<number, BlockNumber>;
 
 #### Defined in
 
-schemas/src/common/SBlockNumber.js:33
+[schemas/src/common/SBlockNumber.js:33](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/common/SBlockNumber.js#L33)
 
 ___
 
@@ -100,7 +100,7 @@ export const SHexString: Schema<string, HexString>;
 
 #### Defined in
 
-schemas/src/common/SHexString.js:31
+[schemas/src/common/SHexString.js:31](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/common/SHexString.js#L31)
 
 ___
 
@@ -119,7 +119,7 @@ export const SUrl: Schema<string, Url>;
 
 #### Defined in
 
-schemas/src/common/SUrl.js:51
+[schemas/src/common/SUrl.js:51](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/common/SUrl.js#L51)
 
 ## Functions
 
@@ -149,7 +149,7 @@ isBlockNumber('not a blockNumber'); // false
 
 #### Defined in
 
-schemas/src/common/SBlockNumber.js:46
+[schemas/src/common/SBlockNumber.js:46](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/common/SBlockNumber.js#L46)
 
 ___
 
@@ -203,7 +203,7 @@ isUrl('not a url'); // false
 
 #### Defined in
 
-schemas/src/common/SUrl.js:33
+[schemas/src/common/SUrl.js:33](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/common/SUrl.js#L33)
 
 ___
 
@@ -238,13 +238,13 @@ const parsedBlockNumber = parseBlockNumber('0x1234567890abcdef1234567890abcdef12
 
 #### Defined in
 
-schemas/src/common/SBlockNumber.js:109
+[schemas/src/common/SBlockNumber.js:109](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/common/SBlockNumber.js#L109)
 
 ___
 
 ### parseBlockNumberSafe
 
-▸ **parseBlockNumberSafe**<`TBlockNumber`\>(`blockNumber`): `Effect`<`never`, [`InvalidBlockNumberError`](../classes/common.InvalidBlockNumberError.md), `TBlockNumber`\>
+▸ **parseBlockNumberSafe**<`TBlockNumber`\>(`blockNumber`): `Effect`<`never`, [`InvalidBlockNumberError`](/schema/classes/common.InvalidBlockNumberError.md), `TBlockNumber`\>
 
 Safely parses a BlockNumber into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -262,7 +262,7 @@ Safely parses a BlockNumber into an [Effect](https://www.effect.website/docs/ess
 
 #### Returns
 
-`Effect`<`never`, [`InvalidBlockNumberError`](../classes/common.InvalidBlockNumberError.md), `TBlockNumber`\>
+`Effect`<`never`, [`InvalidBlockNumberError`](/schema/classes/common.InvalidBlockNumberError.md), `TBlockNumber`\>
 
 **`Example`**
 
@@ -273,7 +273,7 @@ const parsedBlockNumberEffect = parseBlockNumberSafe('0x1234567890abcdef12345678
 
 #### Defined in
 
-schemas/src/common/SBlockNumber.js:84
+[schemas/src/common/SBlockNumber.js:84](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/common/SBlockNumber.js#L84)
 
 ___
 
@@ -308,13 +308,13 @@ const parsedHexString = parseHexString('0x1234567890abcdef1234567890abcdef123456
 
 #### Defined in
 
-schemas/src/common/SHexString.js:104
+[schemas/src/common/SHexString.js:104](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/common/SHexString.js#L104)
 
 ___
 
 ### parseHexStringSafe
 
-▸ **parseHexStringSafe**<`THexString`\>(`value`): `Effect`<`never`, [`InvalidHexStringError`](../classes/common.InvalidHexStringError.md), `THexString`\>
+▸ **parseHexStringSafe**<`THexString`\>(`value`): `Effect`<`never`, [`InvalidHexStringError`](/schema/classes/common.InvalidHexStringError.md), `THexString`\>
 
 Safely parses a HexString into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -332,7 +332,7 @@ Safely parses a HexString into an [Effect](https://www.effect.website/docs/essen
 
 #### Returns
 
-`Effect`<`never`, [`InvalidHexStringError`](../classes/common.InvalidHexStringError.md), `THexString`\>
+`Effect`<`never`, [`InvalidHexStringError`](/schema/classes/common.InvalidHexStringError.md), `THexString`\>
 
 **`Example`**
 
@@ -343,7 +343,7 @@ const parsedHexStringEffect = parseHexStringSafe('0x1234567890abcdef1234567890ab
 
 #### Defined in
 
-schemas/src/common/SHexString.js:80
+[schemas/src/common/SHexString.js:80](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/common/SHexString.js#L80)
 
 ___
 
@@ -378,13 +378,13 @@ const parsedUrl = parseUrl('https://evmts.dev');
 
 #### Defined in
 
-schemas/src/common/SUrl.js:113
+[schemas/src/common/SUrl.js:113](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/common/SUrl.js#L113)
 
 ___
 
 ### parseUrlSafe
 
-▸ **parseUrlSafe**<`TUrl`\>(`url`): `Effect`<`never`, [`InvalidUrlError`](../classes/common.InvalidUrlError.md), `TUrl`\>
+▸ **parseUrlSafe**<`TUrl`\>(`url`): `Effect`<`never`, [`InvalidUrlError`](/schema/classes/common.InvalidUrlError.md), `TUrl`\>
 
 Safely parses a Url into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -402,7 +402,7 @@ Safely parses a Url into an [Effect](https://www.effect.website/docs/essentials/
 
 #### Returns
 
-`Effect`<`never`, [`InvalidUrlError`](../classes/common.InvalidUrlError.md), `TUrl`\>
+`Effect`<`never`, [`InvalidUrlError`](/schema/classes/common.InvalidUrlError.md), `TUrl`\>
 
 **`Example`**
 
@@ -413,4 +413,4 @@ const parsedUrlEffect = parseUrlSafe('https://evmts.dev');
 
 #### Defined in
 
-schemas/src/common/SUrl.js:91
+[schemas/src/common/SUrl.js:91](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/common/SUrl.js#L91)

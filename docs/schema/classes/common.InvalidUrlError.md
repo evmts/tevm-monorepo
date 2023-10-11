@@ -1,50 +1,51 @@
-[@evmts/schemas](../README.md) / [Modules](../modules.md) / [evmts](../modules/evmts.md) / InvalidAddressBookError
+[@evmts/schemas](/schema/README.md) / [Modules](/schema/modules.md) / [common](/schema/modules/common.md) / InvalidUrlError
 
-# Class: InvalidAddressBookError
+# Class: InvalidUrlError
 
-[evmts](../modules/evmts.md).InvalidAddressBookError
+[common](/schema/modules/common.md).InvalidUrlError
 
-Error thrown when an AddressBook is invalid.
+Error thrown when an invalid Url is provided.
 
 ## Hierarchy
 
 - `TypeError`
 
-  ↳ **`InvalidAddressBookError`**
+  ↳ **`InvalidUrlError`**
 
 ## Table of contents
 
 ### Constructors
 
-- [constructor](evmts.InvalidAddressBookError.md#constructor)
+- [constructor](/schema/classes/common.InvalidUrlError.md#constructor)
 
 ### Properties
 
-- [cause](evmts.InvalidAddressBookError.md#cause)
-- [message](evmts.InvalidAddressBookError.md#message)
-- [name](evmts.InvalidAddressBookError.md#name)
-- [stack](evmts.InvalidAddressBookError.md#stack)
-- [prepareStackTrace](evmts.InvalidAddressBookError.md#preparestacktrace)
-- [stackTraceLimit](evmts.InvalidAddressBookError.md#stacktracelimit)
+- [cause](/schema/classes/common.InvalidUrlError.md#cause)
+- [message](/schema/classes/common.InvalidUrlError.md#message)
+- [name](/schema/classes/common.InvalidUrlError.md#name)
+- [stack](/schema/classes/common.InvalidUrlError.md#stack)
+- [prepareStackTrace](/schema/classes/common.InvalidUrlError.md#preparestacktrace)
+- [stackTraceLimit](/schema/classes/common.InvalidUrlError.md#stacktracelimit)
 
 ### Methods
 
-- [captureStackTrace](evmts.InvalidAddressBookError.md#capturestacktrace)
+- [captureStackTrace](/schema/classes/common.InvalidUrlError.md#capturestacktrace)
 
 ## Constructors
 
 ### constructor
 
-• **new InvalidAddressBookError**(`options?`)
+• **new InvalidUrlError**(`options?`)
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `options?` | `Object` | The options for the error. |
+| `options` | `Object` | The options for the error. |
 | `options.cause` | `undefined` \| readonly [`ParseErrors`, `ParseErrors`] | The cause of the error. |
 | `options.docs` | `undefined` \| `string` | The documentation URL. |
 | `options.message` | `undefined` \| `string` | The error message. |
+| `options.url` | `unknown` | The invalid URL value. |
 
 #### Overrides
 
@@ -52,7 +53,7 @@ TypeError.constructor
 
 #### Defined in
 
-schemas/src/evmts/SAddressBook.js:64
+[schemas/src/common/SUrl.js:69](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/common/SUrl.js#L69)
 
 ## Properties
 
@@ -66,7 +67,7 @@ TypeError.cause
 
 #### Defined in
 
-schemas/src/evmts/SAddressBook.js:70
+[schemas/src/common/SUrl.js:76](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/common/SUrl.js#L76)
 
 ___
 

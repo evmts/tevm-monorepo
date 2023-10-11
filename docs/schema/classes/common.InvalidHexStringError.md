@@ -1,41 +1,41 @@
-[@evmts/schemas](../README.md) / [Modules](../modules.md) / [common](../modules/common.md) / InvalidUrlError
+[@evmts/schemas](/schema/README.md) / [Modules](/schema/modules.md) / [common](/schema/modules/common.md) / InvalidHexStringError
 
-# Class: InvalidUrlError
+# Class: InvalidHexStringError
 
-[common](../modules/common.md).InvalidUrlError
+[common](/schema/modules/common.md).InvalidHexStringError
 
-Error thrown when an invalid Url is provided.
+Error thrown when an invalid HexString is provided.
 
 ## Hierarchy
 
 - `TypeError`
 
-  ↳ **`InvalidUrlError`**
+  ↳ **`InvalidHexStringError`**
 
 ## Table of contents
 
 ### Constructors
 
-- [constructor](common.InvalidUrlError.md#constructor)
+- [constructor](/schema/classes/common.InvalidHexStringError.md#constructor)
 
 ### Properties
 
-- [cause](common.InvalidUrlError.md#cause)
-- [message](common.InvalidUrlError.md#message)
-- [name](common.InvalidUrlError.md#name)
-- [stack](common.InvalidUrlError.md#stack)
-- [prepareStackTrace](common.InvalidUrlError.md#preparestacktrace)
-- [stackTraceLimit](common.InvalidUrlError.md#stacktracelimit)
+- [cause](/schema/classes/common.InvalidHexStringError.md#cause)
+- [message](/schema/classes/common.InvalidHexStringError.md#message)
+- [name](/schema/classes/common.InvalidHexStringError.md#name)
+- [stack](/schema/classes/common.InvalidHexStringError.md#stack)
+- [prepareStackTrace](/schema/classes/common.InvalidHexStringError.md#preparestacktrace)
+- [stackTraceLimit](/schema/classes/common.InvalidHexStringError.md#stacktracelimit)
 
 ### Methods
 
-- [captureStackTrace](common.InvalidUrlError.md#capturestacktrace)
+- [captureStackTrace](/schema/classes/common.InvalidHexStringError.md#capturestacktrace)
 
 ## Constructors
 
 ### constructor
 
-• **new InvalidUrlError**(`options?`)
+• **new InvalidHexStringError**(`options?`)
 
 #### Parameters
 
@@ -45,7 +45,7 @@ Error thrown when an invalid Url is provided.
 | `options.cause` | `undefined` \| readonly [`ParseErrors`, `ParseErrors`] | The cause of the error. |
 | `options.docs` | `undefined` \| `string` | The documentation URL. |
 | `options.message` | `undefined` \| `string` | The error message. |
-| `options.url` | `unknown` | The invalid URL value. |
+| `options.value` | `unknown` | The invalid hex value. |
 
 #### Overrides
 
@@ -53,7 +53,7 @@ TypeError.constructor
 
 #### Defined in
 
-schemas/src/common/SUrl.js:69
+[schemas/src/common/SHexString.js:58](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/common/SHexString.js#L58)
 
 ## Properties
 
@@ -67,7 +67,7 @@ TypeError.cause
 
 #### Defined in
 
-schemas/src/common/SUrl.js:76
+[schemas/src/common/SHexString.js:65](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/common/SHexString.js#L65)
 
 ___
 

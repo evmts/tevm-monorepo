@@ -1,4 +1,4 @@
-[@evmts/schemas](../README.md) / [Modules](../modules.md) / evmts
+[@evmts/schemas](/schema/README.md) / [Modules](/schema/modules.md) / evmts
 
 # Module: evmts
 
@@ -6,26 +6,26 @@
 
 ### Classes
 
-- [InvalidAddressBookError](../classes/evmts.InvalidAddressBookError.md)
+- [InvalidAddressBookError](/schema/classes/evmts.InvalidAddressBookError.md)
 
 ### Interfaces
 
-- [AddressBookEntry](../interfaces/evmts.AddressBookEntry.md)
+- [AddressBookEntry](/schema/interfaces/evmts.AddressBookEntry.md)
 
 ### Type Aliases
 
-- [AddressBook](evmts.md#addressbook)
-- [IsAddressBook](evmts.md#isaddressbook)
+- [AddressBook](/schema/modules/evmts.md#addressbook)
+- [IsAddressBook](/schema/modules/evmts.md#isaddressbook)
 
 ### Variables
 
-- [SAddressBook](evmts.md#saddressbook)
+- [SAddressBook](/schema/modules/evmts.md#saddressbook)
 
 ### Functions
 
-- [isAddressBook](evmts.md#isaddressbook-1)
-- [parseAddressBook](evmts.md#parseaddressbook)
-- [parseAddressBookSafe](evmts.md#parseaddressbooksafe)
+- [isAddressBook](/schema/modules/evmts.md#isaddressbook-1)
+- [parseAddressBook](/schema/modules/evmts.md#parseaddressbook)
+- [parseAddressBookSafe](/schema/modules/evmts.md#parseaddressbooksafe)
 
 ## Type Aliases
 
@@ -35,7 +35,7 @@
 
 #### Defined in
 
-schemas/src/evmts/SAddressBook.js:26
+[schemas/src/evmts/SAddressBook.js:26](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/evmts/SAddressBook.js#L26)
 
 ___
 
@@ -77,7 +77,7 @@ addressBook is AddressBook<TContractNames\>
 
 #### Defined in
 
-schemas/src/evmts/SAddressBook.js:46
+[schemas/src/evmts/SAddressBook.js:46](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/evmts/SAddressBook.js#L46)
 
 ## Functions
 
@@ -145,13 +145,13 @@ const parsedAddressBook = parseAddressBook({
 
 #### Defined in
 
-schemas/src/evmts/SAddressBook.js:121
+[schemas/src/evmts/SAddressBook.js:121](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/evmts/SAddressBook.js#L121)
 
 ___
 
 ### parseAddressBookSafe
 
-▸ **parseAddressBookSafe**<`TAddressBook`\>(`addressBook`): `Effect`<`never`, [`InvalidAddressBookError`](../classes/evmts.InvalidAddressBookError.md), `TAddressBook`\>
+▸ **parseAddressBookSafe**<`TAddressBook`\>(`addressBook`): `Effect`<`never`, [`InvalidAddressBookError`](/schema/classes/evmts.InvalidAddressBookError.md), `TAddressBook`\>
 
 Safely parses an address book into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -169,7 +169,7 @@ Safely parses an address book into an [Effect](https://www.effect.website/docs/e
 
 #### Returns
 
-`Effect`<`never`, [`InvalidAddressBookError`](../classes/evmts.InvalidAddressBookError.md), `TAddressBook`\>
+`Effect`<`never`, [`InvalidAddressBookError`](/schema/classes/evmts.InvalidAddressBookError.md), `TAddressBook`\>
 
 **`Example`**
 
@@ -185,4 +185,4 @@ const parsedAddressBookEffect = parseAddressBookSafe({
 
 #### Defined in
 
-schemas/src/evmts/SAddressBook.js:90
+[schemas/src/evmts/SAddressBook.js:90](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/evmts/SAddressBook.js#L90)
