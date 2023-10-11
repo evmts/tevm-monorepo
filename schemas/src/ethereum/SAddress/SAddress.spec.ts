@@ -1,4 +1,5 @@
-import { type Address, parseAddress } from './SAddress.js'
+import type { Address } from './SAddress.js'
+import { parseAddress } from './parseAddress.js'
 import { assertType, describe, expect, it } from 'vitest'
 
 describe(parseAddress.name, () => {

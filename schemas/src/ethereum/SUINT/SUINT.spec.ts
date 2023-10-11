@@ -11,7 +11,7 @@ import {
 	parseUINT64,
 	parseUINT128,
 	parseUINT256,
-} from './SUINT.js'
+} from './index.js'
 import { assertType, describe, expect, it } from 'vitest'
 
 const testCases = [

@@ -11,7 +11,7 @@ import {
 	parseInt64,
 	parseInt128,
 	parseInt256,
-} from './SINT.js'
+} from './index.js'
 import { assertType, describe, expect, it } from 'vitest'
 
 const testCases = [
