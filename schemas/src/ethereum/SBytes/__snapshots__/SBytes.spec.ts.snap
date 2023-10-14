@@ -1,0 +1,36 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`parseBytes > should throw if invalid HexString 1`] = `
+"InvalidBytesError: Provided value 52 is not a valid Bytes
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parseBytes > should throw if invalid HexString 2`] = `
+"InvalidBytesError: Provided value 0 is not a valid Bytes
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parseBytes > should throw if invalid HexString 3`] = `
+"InvalidBytesError: Provided value x0 is not a valid Bytes
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parseBytes > should throw if invalid HexString 4`] = `
+"InvalidBytesError: Provided value  is not a valid Bytes
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parseBytes > should throw if invalid HexString 5`] = `
+"InvalidBytesError: Provided value true is not a valid Bytes
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parseBytes > should throw if invalid HexString 6`] = `
+"InvalidBytesError: Provided value [object Object] is not a valid Bytes
+https://evmts.dev/reference/errors"
+`;
+
+exports[`parseBytes > should throw if invalid HexString 7`] = `
+"InvalidBytesError: Provided value not a hex is not a valid Bytes
+https://evmts.dev/reference/errors"
+`;

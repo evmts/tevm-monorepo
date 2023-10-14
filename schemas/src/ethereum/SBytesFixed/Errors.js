@@ -16,7 +16,7 @@ import { formatErrors } from '@effect/schema/TreeFormatter'
  * Error thrown when a FixedByte is invalid.
  * A FixedByte string is invalid if it's not within the bounds of its size.
  */
-export class InvalidBytesError extends TypeError {
+export class InvalidBytesFixedError extends TypeError {
 	/**
 	 * @param {Object} options - The options for the error.
 	 * @param {string} options.bytes - The invalid bytes string.
@@ -36,7 +36,7 @@ export class InvalidBytesError extends TypeError {
 			const expectedLength = 2 + size * 2 // "0x" prefix + two characters for each byte
 			message = `Received ${bytes} is not of correct length for Bytes${size}. Expected length: ${expectedLength}.`
 		}
-		super(`${InvalidBytesError.name}: ${message}\n${docs}`)
+		super(`${InvalidBytesFixedError.name}: ${message}\n${docs}`)
 		this.cause = cause && formatErrors(cause)
 	}
 }

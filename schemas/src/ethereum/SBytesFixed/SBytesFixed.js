@@ -5,8 +5,8 @@
  * {@link https://docs.soliditylang.org/en/latest/types.html#fixed-size-byte-arrays Solidity docs}
  */
 
-import { isHexString } from '../../common/SHexString.js'
 import { filter, string } from '@effect/schema/Schema'
+import { isHex } from 'viem'
 
 /**
  * returns true if the given hex string is a valid bytes of fixed length
@@ -220,7 +220,7 @@ const isRightLength = (hexString, length) => {
  * {@link https://docs.soliditylang.org/en/latest/types.html#fixed-size-byte-arrays Solidity docs}
  */
 export const SBytes1 = string.pipe(
-	filter(isHexString, {
+	filter(isHex, {
 		message: (address) => `Invalid hex string: ${address}`,
 	}),
 	filter((value) => isRightLength(value, 1), {
@@ -234,7 +234,7 @@ export const SBytes1 = string.pipe(
  * {@link https://docs.soliditylang.org/en/latest/types.html#fixed-size-byte-arrays Solidity docs}
  */
 export const SBytes2 = string.pipe(
-	filter(isHexString, {
+	filter(isHex, {
 		message: (address) => `Invalid hex string: ${address}`,
 	}),
 	filter((value) => isRightLength(value, 2), {
@@ -248,7 +248,7 @@ export const SBytes2 = string.pipe(
  * {@link https://docs.soliditylang.org/en/latest/types.html#fixed-size-byte-arrays Solidity docs}
  */
 export const SBytes3 = string.pipe(
-	filter(isHexString, {
+	filter(isHex, {
 		message: (address) => `Invalid hex string: ${address}`,
 	}),
 	filter((value) => isRightLength(value, 3), {
@@ -262,7 +262,7 @@ export const SBytes3 = string.pipe(
  * {@link https://docs.soliditylang.org/en/latest/types.html#fixed-size-byte-arrays Solidity docs}
  */
 export const SBytes4 = string.pipe(
-	filter(isHexString, {
+	filter(isHex, {
 		message: (address) => `Invalid hex string: ${address}`,
 	}),
 	filter((value) => isRightLength(value, 4), {
@@ -276,7 +276,7 @@ export const SBytes4 = string.pipe(
  * {@link https://docs.soliditylang.org/en/latest/types.html#fixed-size-byte-arrays Solidity docs}
  */
 export const SBytes5 = string.pipe(
-	filter(isHexString, {
+	filter(isHex, {
 		message: (address) => `Invalid hex string: ${address}`,
 	}),
 	filter((value) => isRightLength(value, 5), {
@@ -290,7 +290,7 @@ export const SBytes5 = string.pipe(
  * {@link https://docs.soliditylang.org/en/latest/types.html#fixed-size-byte-arrays Solidity docs}
  */
 export const SBytes6 = string.pipe(
-	filter(isHexString, {
+	filter(isHex, {
 		message: (address) => `Invalid hex string: ${address}`,
 	}),
 	filter((value) => isRightLength(value, 6), {
@@ -304,7 +304,7 @@ export const SBytes6 = string.pipe(
  * {@link https://docs.soliditylang.org/en/latest/types.html#fixed-size-byte-arrays Solidity docs}
  */
 export const SBytes7 = string.pipe(
-	filter(isHexString, {
+	filter(isHex, {
 		message: (address) => `Invalid hex string: ${address}`,
 	}),
 	filter((value) => isRightLength(value, 7), {
@@ -318,7 +318,7 @@ export const SBytes7 = string.pipe(
  * {@link https://docs.soliditylang.org/en/latest/types.html#fixed-size-byte-arrays Solidity docs}
  */
 export const SBytes8 = string.pipe(
-	filter(isHexString, {
+	filter(isHex, {
 		message: (address) => `Invalid hex string: ${address}`,
 	}),
 	filter((value) => isRightLength(value, 8), {
@@ -332,7 +332,7 @@ export const SBytes8 = string.pipe(
  * {@link https://docs.soliditylang.org/en/latest/types.html#fixed-size-byte-arrays Solidity docs}
  */
 export const SBytes9 = string.pipe(
-	filter(isHexString, {
+	filter(isHex, {
 		message: (address) => `Invalid hex string: ${address}`,
 	}),
 	filter((value) => isRightLength(value, 9), {
@@ -346,7 +346,7 @@ export const SBytes9 = string.pipe(
  * {@link https://docs.soliditylang.org/en/latest/types.html#fixed-size-byte-arrays Solidity docs}
  */
 export const SBytes10 = string.pipe(
-	filter(isHexString, {
+	filter(isHex, {
 		message: (address) => `Invalid hex string: ${address}`,
 	}),
 	filter((value) => isRightLength(value, 10), {
@@ -360,7 +360,7 @@ export const SBytes10 = string.pipe(
  * {@link https://docs.soliditylang.org/en/latest/types.html#fixed-size-byte-arrays Solidity docs}
  */
 export const SBytes11 = string.pipe(
-	filter(isHexString, {
+	filter(isHex, {
 		message: (address) => `Invalid hex string: ${address}`,
 	}),
 	filter((value) => isRightLength(value, 11), {
@@ -374,7 +374,7 @@ export const SBytes11 = string.pipe(
  * {@link https://docs.soliditylang.org/en/latest/types.html#fixed-size-byte-arrays Solidity docs}
  */
 export const SBytes12 = string.pipe(
-	filter(isHexString, {
+	filter(isHex, {
 		message: (address) => `Invalid hex string: ${address}`,
 	}),
 	filter((value) => isRightLength(value, 12), {
@@ -388,7 +388,7 @@ export const SBytes12 = string.pipe(
  * {@link https://docs.soliditylang.org/en/latest/types.html#fixed-size-byte-arrays Solidity docs}
  */
 export const SBytes13 = string.pipe(
-	filter(isHexString, {
+	filter(isHex, {
 		message: (address) => `Invalid hex string: ${address}`,
 	}),
 	filter((value) => isRightLength(value, 13), {
@@ -402,7 +402,7 @@ export const SBytes13 = string.pipe(
  * {@link https://docs.soliditylang.org/en/latest/types.html#fixed-size-byte-arrays Solidity docs}
  */
 export const SBytes14 = string.pipe(
-	filter(isHexString, {
+	filter(isHex, {
 		message: (address) => `Invalid hex string: ${address}`,
 	}),
 	filter((value) => isRightLength(value, 14), {
@@ -416,7 +416,7 @@ export const SBytes14 = string.pipe(
  * {@link https://docs.soliditylang.org/en/latest/types.html#fixed-size-byte-arrays Solidity docs}
  */
 export const SBytes15 = string.pipe(
-	filter(isHexString, {
+	filter(isHex, {
 		message: (address) => `Invalid hex string: ${address}`,
 	}),
 	filter((value) => isRightLength(value, 15), {
@@ -430,7 +430,7 @@ export const SBytes15 = string.pipe(
  * {@link https://docs.soliditylang.org/en/latest/types.html#fixed-size-byte-arrays Solidity docs}
  */
 export const SBytes16 = string.pipe(
-	filter(isHexString, {
+	filter(isHex, {
 		message: (address) => `Invalid hex string: ${address}`,
 	}),
 	filter((value) => isRightLength(value, 16), {
@@ -444,7 +444,7 @@ export const SBytes16 = string.pipe(
  * {@link https://docs.soliditylang.org/en/latest/types.html#fixed-size-byte-arrays Solidity docs}
  */
 export const SBytes17 = string.pipe(
-	filter(isHexString, {
+	filter(isHex, {
 		message: (address) => `Invalid hex string: ${address}`,
 	}),
 	filter((value) => isRightLength(value, 17), {
@@ -458,7 +458,7 @@ export const SBytes17 = string.pipe(
  * {@link https://docs.soliditylang.org/en/latest/types.html#fixed-size-byte-arrays Solidity docs}
  */
 export const SBytes18 = string.pipe(
-	filter(isHexString, {
+	filter(isHex, {
 		message: (address) => `Invalid hex string: ${address}`,
 	}),
 	filter((value) => isRightLength(value, 18), {
@@ -472,7 +472,7 @@ export const SBytes18 = string.pipe(
  * {@link https://docs.soliditylang.org/en/latest/types.html#fixed-size-byte-arrays Solidity docs}
  */
 export const SBytes19 = string.pipe(
-	filter(isHexString, {
+	filter(isHex, {
 		message: (address) => `Invalid hex string: ${address}`,
 	}),
 	filter((value) => isRightLength(value, 19), {
@@ -486,7 +486,7 @@ export const SBytes19 = string.pipe(
  * {@link https://docs.soliditylang.org/en/latest/types.html#fixed-size-byte-arrays Solidity docs}
  */
 export const SBytes20 = string.pipe(
-	filter(isHexString, {
+	filter(isHex, {
 		message: (address) => `Invalid hex string: ${address}`,
 	}),
 	filter((value) => isRightLength(value, 20), {
@@ -500,7 +500,7 @@ export const SBytes20 = string.pipe(
  * {@link https://docs.soliditylang.org/en/latest/types.html#fixed-size-byte-arrays Solidity docs}
  */
 export const SBytes21 = string.pipe(
-	filter(isHexString, {
+	filter(isHex, {
 		message: (address) => `Invalid hex string: ${address}`,
 	}),
 	filter((value) => isRightLength(value, 21), {
@@ -514,7 +514,7 @@ export const SBytes21 = string.pipe(
  * {@link https://docs.soliditylang.org/en/latest/types.html#fixed-size-byte-arrays Solidity docs}
  */
 export const SBytes22 = string.pipe(
-	filter(isHexString, {
+	filter(isHex, {
 		message: (address) => `Invalid hex string: ${address}`,
 	}),
 	filter((value) => isRightLength(value, 22), {
@@ -528,7 +528,7 @@ export const SBytes22 = string.pipe(
  * {@link https://docs.soliditylang.org/en/latest/types.html#fixed-size-byte-arrays Solidity docs}
  */
 export const SBytes23 = string.pipe(
-	filter(isHexString, {
+	filter(isHex, {
 		message: (address) => `Invalid hex string: ${address}`,
 	}),
 	filter((value) => isRightLength(value, 23), {
@@ -542,7 +542,7 @@ export const SBytes23 = string.pipe(
  * {@link https://docs.soliditylang.org/en/latest/types.html#fixed-size-byte-arrays Solidity docs}
  */
 export const SBytes24 = string.pipe(
-	filter(isHexString, {
+	filter(isHex, {
 		message: (address) => `Invalid hex string: ${address}`,
 	}),
 	filter((value) => isRightLength(value, 24), {
@@ -556,7 +556,7 @@ export const SBytes24 = string.pipe(
  * {@link https://docs.soliditylang.org/en/latest/types.html#fixed-size-byte-arrays Solidity docs}
  */
 export const SBytes25 = string.pipe(
-	filter(isHexString, {
+	filter(isHex, {
 		message: (address) => `Invalid hex string: ${address}`,
 	}),
 	filter((value) => isRightLength(value, 25), {
@@ -570,7 +570,7 @@ export const SBytes25 = string.pipe(
  * {@link https://docs.soliditylang.org/en/latest/types.html#fixed-size-byte-arrays Solidity docs}
  */
 export const SBytes26 = string.pipe(
-	filter(isHexString, {
+	filter(isHex, {
 		message: (address) => `Invalid hex string: ${address}`,
 	}),
 	filter((value) => isRightLength(value, 26), {
@@ -584,7 +584,7 @@ export const SBytes26 = string.pipe(
  * {@link https://docs.soliditylang.org/en/latest/types.html#fixed-size-byte-arrays Solidity docs}
  */
 export const SBytes27 = string.pipe(
-	filter(isHexString, {
+	filter(isHex, {
 		message: (address) => `Invalid hex string: ${address}`,
 	}),
 	filter((value) => isRightLength(value, 27), {
@@ -598,7 +598,7 @@ export const SBytes27 = string.pipe(
  * {@link https://docs.soliditylang.org/en/latest/types.html#fixed-size-byte-arrays Solidity docs}
  */
 export const SBytes28 = string.pipe(
-	filter(isHexString, {
+	filter(isHex, {
 		message: (address) => `Invalid hex string: ${address}`,
 	}),
 	filter((value) => isRightLength(value, 28), {
@@ -612,7 +612,7 @@ export const SBytes28 = string.pipe(
  * {@link https://docs.soliditylang.org/en/latest/types.html#fixed-size-byte-arrays Solidity docs}
  */
 export const SBytes29 = string.pipe(
-	filter(isHexString, {
+	filter(isHex, {
 		message: (address) => `Invalid hex string: ${address}`,
 	}),
 	filter((value) => isRightLength(value, 29), {
@@ -626,7 +626,7 @@ export const SBytes29 = string.pipe(
  * {@link https://docs.soliditylang.org/en/latest/types.html#fixed-size-byte-arrays Solidity docs}
  */
 export const SBytes30 = string.pipe(
-	filter(isHexString, {
+	filter(isHex, {
 		message: (address) => `Invalid hex string: ${address}`,
 	}),
 	filter((value) => isRightLength(value, 30), {
@@ -640,7 +640,7 @@ export const SBytes30 = string.pipe(
  * {@link https://docs.soliditylang.org/en/latest/types.html#fixed-size-byte-arrays Solidity docs}
  */
 export const SBytes31 = string.pipe(
-	filter(isHexString, {
+	filter(isHex, {
 		message: (address) => `Invalid hex string: ${address}`,
 	}),
 	filter((value) => isRightLength(value, 31), {
@@ -654,7 +654,7 @@ export const SBytes31 = string.pipe(
  * {@link https://docs.soliditylang.org/en/latest/types.html#fixed-size-byte-arrays Solidity docs}
  */
 export const SBytes32 = string.pipe(
-	filter(isHexString, {
+	filter(isHex, {
 		message: (address) => `Invalid hex string: ${address}`,
 	}),
 	filter((value) => isRightLength(value, 32), {
