@@ -1,4 +1,4 @@
-[@evmts/blockexplorer](../README.md) / [Exports](../modules.md) / SafeStandardBlockExplorer
+[@evmts/blockexplorer](/reference/blockexplorer/README.md) / [Exports](/reference/blockexplorer/modules.md) / SafeStandardBlockExplorer
 
 # Class: SafeStandardBlockExplorer
 
@@ -22,20 +22,20 @@ const txUrlEffect = etherscan.getTxUrl('0x1234')
 
 ### Constructors
 
-- [constructor](SafeStandardBlockExplorer.md#constructor)
+- [constructor](/reference/blockexplorer/classes/SafeStandardBlockExplorer.md#constructor)
 
 ### Properties
 
-- [chainId](SafeStandardBlockExplorer.md#chainid)
-- [name](SafeStandardBlockExplorer.md#name)
-- [url](SafeStandardBlockExplorer.md#url)
-- [ERRORS](SafeStandardBlockExplorer.md#errors)
+- [chainId](/reference/blockexplorer/classes/SafeStandardBlockExplorer.md#chainid)
+- [name](/reference/blockexplorer/classes/SafeStandardBlockExplorer.md#name)
+- [url](/reference/blockexplorer/classes/SafeStandardBlockExplorer.md#url)
+- [ERRORS](/reference/blockexplorer/classes/SafeStandardBlockExplorer.md#errors)
 
 ### Methods
 
-- [getAddressUrl](SafeStandardBlockExplorer.md#getaddressurl)
-- [getBlockUrl](SafeStandardBlockExplorer.md#getblockurl)
-- [getTxUrl](SafeStandardBlockExplorer.md#gettxurl)
+- [getAddressUrl](/reference/blockexplorer/classes/SafeStandardBlockExplorer.md#getaddressurl)
+- [getBlockUrl](/reference/blockexplorer/classes/SafeStandardBlockExplorer.md#getblockurl)
+- [getTxUrl](/reference/blockexplorer/classes/SafeStandardBlockExplorer.md#gettxurl)
 
 ## Constructors
 
@@ -47,11 +47,11 @@ const txUrlEffect = etherscan.getTxUrl('0x1234')
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `options` | [`BlockExplorerOptions`](../interfaces/BlockExplorerOptions.md) | The options for the BlockExplorer. |
+| `options` | [`BlockExplorerOptions`](/reference/blockexplorer/interfaces/BlockExplorerOptions.md) | The options for the BlockExplorer. |
 
 #### Defined in
 
-[blockExplorer.js:60](https://github.com/evmts/evmts-monorepo/blob/d236a511/blockexplorer/src/blockExplorer.js#L60)
+[blockExplorer.js:60](https://github.com/evmts/evmts-monorepo/blob/bb1c5384/blockexplorer/src/blockExplorer.js#L60)
 
 ## Properties
 
@@ -61,7 +61,7 @@ const txUrlEffect = etherscan.getTxUrl('0x1234')
 
 #### Defined in
 
-[blockExplorer.js:63](https://github.com/evmts/evmts-monorepo/blob/d236a511/blockexplorer/src/blockExplorer.js#L63)
+[blockExplorer.js:63](https://github.com/evmts/evmts-monorepo/blob/bb1c5384/blockexplorer/src/blockExplorer.js#L63)
 
 ___
 
@@ -71,7 +71,7 @@ ___
 
 #### Defined in
 
-[blockExplorer.js:61](https://github.com/evmts/evmts-monorepo/blob/d236a511/blockexplorer/src/blockExplorer.js#L61)
+[blockExplorer.js:61](https://github.com/evmts/evmts-monorepo/blob/bb1c5384/blockexplorer/src/blockExplorer.js#L61)
 
 ___
 
@@ -81,7 +81,7 @@ ___
 
 #### Defined in
 
-[blockExplorer.js:62](https://github.com/evmts/evmts-monorepo/blob/d236a511/blockexplorer/src/blockExplorer.js#L62)
+[blockExplorer.js:62](https://github.com/evmts/evmts-monorepo/blob/bb1c5384/blockexplorer/src/blockExplorer.js#L62)
 
 ___
 
@@ -95,7 +95,7 @@ Can be used to handle errors in a typesafe way
 
 #### Defined in
 
-[blockExplorer.js:50](https://github.com/evmts/evmts-monorepo/blob/d236a511/blockexplorer/src/blockExplorer.js#L50)
+[blockExplorer.js:50](https://github.com/evmts/evmts-monorepo/blob/bb1c5384/blockexplorer/src/blockExplorer.js#L50)
 
 ## Methods
 
@@ -130,13 +130,13 @@ const addressUrl = etherscan.getAddressUrl('0x1234')
 
 #### Defined in
 
-[blockExplorer.js:129](https://github.com/evmts/evmts-monorepo/blob/d236a511/blockexplorer/src/blockExplorer.js#L129)
+[blockExplorer.js:129](https://github.com/evmts/evmts-monorepo/blob/bb1c5384/blockexplorer/src/blockExplorer.js#L129)
 
 ___
 
 ### getBlockUrl
 
-▸ **getBlockUrl**(`blockHash`): `Effect`<`never`, `InvalidHexStringError` \| `InvalidUrlError`, `string`\>
+▸ **getBlockUrl**(`blockHash`): `Effect`<`never`, `InvalidBytesError` \| `InvalidUrlError`, `string`\>
 
 Safely retrieves the block URL for a given block hash.
 
@@ -148,7 +148,7 @@ Safely retrieves the block URL for a given block hash.
 
 #### Returns
 
-`Effect`<`never`, `InvalidHexStringError` \| `InvalidUrlError`, `string`\>
+`Effect`<`never`, `InvalidBytesError` \| `InvalidUrlError`, `string`\>
 
 An effect that resolves to the block URL.
 
@@ -165,13 +165,13 @@ const blockUrl = etherscan.getBlockUrl('0x1234')
 
 #### Defined in
 
-[blockExplorer.js:104](https://github.com/evmts/evmts-monorepo/blob/d236a511/blockexplorer/src/blockExplorer.js#L104)
+[blockExplorer.js:104](https://github.com/evmts/evmts-monorepo/blob/bb1c5384/blockexplorer/src/blockExplorer.js#L104)
 
 ___
 
 ### getTxUrl
 
-▸ **getTxUrl**(`txId`): `Effect`<`never`, `InvalidHexStringError` \| `InvalidUrlError`, `string`\>
+▸ **getTxUrl**(`txId`): `Effect`<`never`, `InvalidBytesError` \| `InvalidUrlError`, `string`\>
 
 Safely retrieves the transaction URL for a given transaction ID.
 
@@ -183,7 +183,7 @@ Safely retrieves the transaction URL for a given transaction ID.
 
 #### Returns
 
-`Effect`<`never`, `InvalidHexStringError` \| `InvalidUrlError`, `string`\>
+`Effect`<`never`, `InvalidBytesError` \| `InvalidUrlError`, `string`\>
 
 An effect that resolves to the transaction URL.
 
@@ -200,4 +200,4 @@ const etherscan = new StandardBlockExplorer(
 
 #### Defined in
 
-[blockExplorer.js:80](https://github.com/evmts/evmts-monorepo/blob/d236a511/blockexplorer/src/blockExplorer.js#L80)
+[blockExplorer.js:80](https://github.com/evmts/evmts-monorepo/blob/bb1c5384/blockexplorer/src/blockExplorer.js#L80)

@@ -1,4 +1,4 @@
-[@evmts/blockexplorer](../README.md) / [Exports](../modules.md) / StandardBlockExplorer
+[@evmts/blockexplorer](/reference/blockexplorer/README.md) / [Exports](/reference/blockexplorer/modules.md) / StandardBlockExplorer
 
 # Class: StandardBlockExplorer
 
@@ -21,21 +21,21 @@ const txUrl = etherscan.getTxUrl('0x1234')
 
 ### Constructors
 
-- [constructor](StandardBlockExplorer.md#constructor)
+- [constructor](/reference/blockexplorer/classes/StandardBlockExplorer.md#constructor)
 
 ### Properties
 
-- [chainId](StandardBlockExplorer.md#chainid)
-- [name](StandardBlockExplorer.md#name)
-- [safeBlockExplorer](StandardBlockExplorer.md#safeblockexplorer)
-- [url](StandardBlockExplorer.md#url)
-- [ERRORS](StandardBlockExplorer.md#errors)
+- [chainId](/reference/blockexplorer/classes/StandardBlockExplorer.md#chainid)
+- [name](/reference/blockexplorer/classes/StandardBlockExplorer.md#name)
+- [safeBlockExplorer](/reference/blockexplorer/classes/StandardBlockExplorer.md#safeblockexplorer)
+- [url](/reference/blockexplorer/classes/StandardBlockExplorer.md#url)
+- [ERRORS](/reference/blockexplorer/classes/StandardBlockExplorer.md#errors)
 
 ### Methods
 
-- [getAddressUrl](StandardBlockExplorer.md#getaddressurl)
-- [getBlockUrl](StandardBlockExplorer.md#getblockurl)
-- [getTxUrl](StandardBlockExplorer.md#gettxurl)
+- [getAddressUrl](/reference/blockexplorer/classes/StandardBlockExplorer.md#getaddressurl)
+- [getBlockUrl](/reference/blockexplorer/classes/StandardBlockExplorer.md#getblockurl)
+- [getTxUrl](/reference/blockexplorer/classes/StandardBlockExplorer.md#gettxurl)
 
 ## Constructors
 
@@ -47,11 +47,11 @@ const txUrl = etherscan.getTxUrl('0x1234')
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `options` | [`BlockExplorerOptions`](../interfaces/BlockExplorerOptions.md) | The options for the BlockExplorer. |
+| `options` | [`BlockExplorerOptions`](/reference/blockexplorer/interfaces/BlockExplorerOptions.md) | The options for the BlockExplorer. |
 
 #### Defined in
 
-[blockExplorer.js:190](https://github.com/evmts/evmts-monorepo/blob/d236a511/blockexplorer/src/blockExplorer.js#L190)
+[blockExplorer.js:190](https://github.com/evmts/evmts-monorepo/blob/bb1c5384/blockexplorer/src/blockExplorer.js#L190)
 
 ## Properties
 
@@ -61,7 +61,7 @@ const txUrl = etherscan.getTxUrl('0x1234')
 
 #### Defined in
 
-[blockExplorer.js:193](https://github.com/evmts/evmts-monorepo/blob/d236a511/blockexplorer/src/blockExplorer.js#L193)
+[blockExplorer.js:193](https://github.com/evmts/evmts-monorepo/blob/bb1c5384/blockexplorer/src/blockExplorer.js#L193)
 
 ___
 
@@ -71,17 +71,17 @@ ___
 
 #### Defined in
 
-[blockExplorer.js:191](https://github.com/evmts/evmts-monorepo/blob/d236a511/blockexplorer/src/blockExplorer.js#L191)
+[blockExplorer.js:191](https://github.com/evmts/evmts-monorepo/blob/bb1c5384/blockexplorer/src/blockExplorer.js#L191)
 
 ___
 
 ### safeBlockExplorer
 
-• **safeBlockExplorer**: [`SafeStandardBlockExplorer`](SafeStandardBlockExplorer.md)
+• **safeBlockExplorer**: [`SafeStandardBlockExplorer`](/reference/blockexplorer/classes/SafeStandardBlockExplorer.md)
 
 #### Defined in
 
-[blockExplorer.js:194](https://github.com/evmts/evmts-monorepo/blob/d236a511/blockexplorer/src/blockExplorer.js#L194)
+[blockExplorer.js:194](https://github.com/evmts/evmts-monorepo/blob/bb1c5384/blockexplorer/src/blockExplorer.js#L194)
 
 ___
 
@@ -91,7 +91,7 @@ ___
 
 #### Defined in
 
-[blockExplorer.js:192](https://github.com/evmts/evmts-monorepo/blob/d236a511/blockexplorer/src/blockExplorer.js#L192)
+[blockExplorer.js:192](https://github.com/evmts/evmts-monorepo/blob/bb1c5384/blockexplorer/src/blockExplorer.js#L192)
 
 ___
 
@@ -110,18 +110,18 @@ let url: string
 try {
   url = etherscan.getTxUrl('0x1234')
 } catch(e) {
-  if (txUrl instanceof etherscan.ERRORS.InvalidHexStringError) {
-    console.log('InvalidHexStringError')
+  if (txUrl instanceof etherscan.ERRORS.InvalidBytesError) {
+    console.log('InvalidBytesError')
   }
 }
 
- console.log('InvalidHexStringError')
+ console.log('InvalidBytesError')
  }
  ```
 
 #### Defined in
 
-[blockExplorer.js:180](https://github.com/evmts/evmts-monorepo/blob/d236a511/blockexplorer/src/blockExplorer.js#L180)
+[blockExplorer.js:180](https://github.com/evmts/evmts-monorepo/blob/bb1c5384/blockexplorer/src/blockExplorer.js#L180)
 
 ## Methods
 
@@ -156,7 +156,7 @@ const etherscan = new StandardBlockExplorer(
 
 #### Defined in
 
-[blockExplorer.js:247](https://github.com/evmts/evmts-monorepo/blob/d236a511/blockexplorer/src/blockExplorer.js#L247)
+[blockExplorer.js:247](https://github.com/evmts/evmts-monorepo/blob/bb1c5384/blockexplorer/src/blockExplorer.js#L247)
 
 ___
 
@@ -191,7 +191,7 @@ const blockUrl = etherscan.getBlockUrl('0x1234')
 
 #### Defined in
 
-[blockExplorer.js:229](https://github.com/evmts/evmts-monorepo/blob/d236a511/blockexplorer/src/blockExplorer.js#L229)
+[blockExplorer.js:229](https://github.com/evmts/evmts-monorepo/blob/bb1c5384/blockexplorer/src/blockExplorer.js#L229)
 
 ___
 
@@ -226,4 +226,4 @@ const txUrl = etherscan.getTxUrl('0x1234')
 
 #### Defined in
 
-[blockExplorer.js:211](https://github.com/evmts/evmts-monorepo/blob/d236a511/blockexplorer/src/blockExplorer.js#L211)
+[blockExplorer.js:211](https://github.com/evmts/evmts-monorepo/blob/bb1c5384/blockexplorer/src/blockExplorer.js#L211)

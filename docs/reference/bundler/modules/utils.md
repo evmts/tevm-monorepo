@@ -1,4 +1,4 @@
-[@evmts/bundler](/reference/schema/README.md) / [Modules](/reference/schema/modules.md) / utils
+[@evmts/bundler](/reference/bundler/README.md) / [Modules](/reference/bundler/modules.md) / utils
 
 # Module: utils
 
@@ -6,12 +6,12 @@
 
 ### Functions
 
-- [formatPath](/reference/schema/modules/utils.md#formatpath)
-- [invariant](/reference/schema/modules/utils.md#invariant)
-- [isImportLocal](/reference/schema/modules/utils.md#isimportlocal)
-- [isRelativeSolidity](/reference/schema/modules/utils.md#isrelativesolidity)
-- [isSolidity](/reference/schema/modules/utils.md#issolidity)
-- [resolveEffect](/reference/schema/modules/utils.md#resolveeffect)
+- [formatPath](/reference/bundler/modules/utils.md#formatpath)
+- [invariant](/reference/bundler/modules/utils.md#invariant)
+- [isImportLocal](/reference/bundler/modules/utils.md#isimportlocal)
+- [isRelativeSolidity](/reference/bundler/modules/utils.md#isrelativesolidity)
+- [isSolidity](/reference/bundler/modules/utils.md#issolidity)
+- [resolveEffect](/reference/bundler/modules/utils.md#resolveeffect)
 
 ## Functions
 

@@ -1,8 +1,8 @@
-[@evmts/schemas](/reference/schema/README.md) / [Modules](/reference/schema/modules.md) / [evmts](/reference/schema/modules/evmts.md) / InvalidAddressBookError
+[@evmts/schemas](/reference/schemas/README.md) / [Modules](/reference/schemas/modules.md) / [evmts](/reference/schemas/modules/evmts.md) / InvalidAddressBookError
 
 # Class: InvalidAddressBookError
 
-[evmts](/reference/schema/modules/evmts.md).InvalidAddressBookError
+[evmts](/reference/schemas/modules/evmts.md).InvalidAddressBookError
 
 Error thrown when an AddressBook is invalid.
 
@@ -16,20 +16,20 @@ Error thrown when an AddressBook is invalid.
 
 ### Constructors
 
-- [constructor](/reference/schema/classes/evmts.InvalidAddressBookError.md#constructor)
+- [constructor](/reference/schemas/classes/evmts.InvalidAddressBookError.md#constructor)
 
 ### Properties
 
-- [cause](/reference/schema/classes/evmts.InvalidAddressBookError.md#cause)
-- [message](/reference/schema/classes/evmts.InvalidAddressBookError.md#message)
-- [name](/reference/schema/classes/evmts.InvalidAddressBookError.md#name)
-- [stack](/reference/schema/classes/evmts.InvalidAddressBookError.md#stack)
-- [prepareStackTrace](/reference/schema/classes/evmts.InvalidAddressBookError.md#preparestacktrace)
-- [stackTraceLimit](/reference/schema/classes/evmts.InvalidAddressBookError.md#stacktracelimit)
+- [cause](/reference/schemas/classes/evmts.InvalidAddressBookError.md#cause)
+- [message](/reference/schemas/classes/evmts.InvalidAddressBookError.md#message)
+- [name](/reference/schemas/classes/evmts.InvalidAddressBookError.md#name)
+- [stack](/reference/schemas/classes/evmts.InvalidAddressBookError.md#stack)
+- [prepareStackTrace](/reference/schemas/classes/evmts.InvalidAddressBookError.md#preparestacktrace)
+- [stackTraceLimit](/reference/schemas/classes/evmts.InvalidAddressBookError.md#stacktracelimit)
 
 ### Methods
 
-- [captureStackTrace](/reference/schema/classes/evmts.InvalidAddressBookError.md#capturestacktrace)
+- [captureStackTrace](/reference/schemas/classes/evmts.InvalidAddressBookError.md#capturestacktrace)
 
 ## Constructors
 

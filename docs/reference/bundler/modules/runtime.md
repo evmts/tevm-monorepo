@@ -1,4 +1,4 @@
-[@evmts/bundler](/reference/schema/README.md) / [Modules](/reference/schema/modules.md) / runtime
+[@evmts/bundler](/reference/bundler/README.md) / [Modules](/reference/bundler/modules.md) / runtime
 
 # Module: runtime
 
@@ -6,10 +6,10 @@
 
 ### Functions
 
-- [generateDtsBody](/reference/schema/modules/runtime.md#generatedtsbody)
-- [generateEvmtsBody](/reference/schema/modules/runtime.md#generateevmtsbody)
-- [generateRuntime](/reference/schema/modules/runtime.md#generateruntime)
-- [generateRuntimeSync](/reference/schema/modules/runtime.md#generateruntimesync)
+- [generateDtsBody](/reference/bundler/modules/runtime.md#generatedtsbody)
+- [generateEvmtsBody](/reference/bundler/modules/runtime.md#generateevmtsbody)
+- [generateRuntime](/reference/bundler/modules/runtime.md#generateruntime)
+- [generateRuntimeSync](/reference/bundler/modules/runtime.md#generateruntimesync)
 
 ## Functions
 

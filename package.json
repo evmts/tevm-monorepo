@@ -19,6 +19,7 @@
 		"clean": "nx run-many --target=clean && rm -rf node_modules",
 		"e2e": "nx e2e e2e",
 		"format:check": "rome format .",
+		"generate:docs": "nx run-many --target=generate:docs && nx build @evmts/docs",
 		"preinstall": "npx only-allow pnpm",
 		"lint": "rome check . --apply-unsafe && rome format . --write",
 		"lint:check": "rome check .",

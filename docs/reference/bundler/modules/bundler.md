@@ -1,4 +1,4 @@
-[@evmts/bundler](/reference/schema/README.md) / [Modules](/reference/schema/modules.md) / bundler
+[@evmts/bundler](/reference/bundler/README.md) / [Modules](/reference/bundler/modules.md) / bundler
 
 # Module: bundler
 
@@ -6,7 +6,7 @@
 
 ### Functions
 
-- [bundler](/reference/schema/modules/bundler.md#bundler)
+- [bundler](/reference/bundler/modules/bundler.md#bundler)
 
 ## Functions
 
@@ -21,7 +21,7 @@
 | `config` | `Required`<`CompilerConfig`\> |
 | `logger` | `Logger` |
 | `fao` | `FileAccessObject` |
-| `cache?` | [`Cache`](/reference/schema/modules/createCache.md#cache) |
+| `cache?` | [`Cache`](/reference/bundler/modules/createCache.md#cache) |
 
 #### Returns
 

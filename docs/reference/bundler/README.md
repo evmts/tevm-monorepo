@@ -1,4 +1,4 @@
-@evmts/bundler / [Modules](/reference/schema/modules.md)
+@evmts/bundler / [Modules](/reference/bundler/modules.md)
 
 <p align="center">
   <a href="https://evmts.dev/">
@@ -11,7 +11,7 @@
 
 <p align="center">
   Execute solidity scripts in browser
-<p>
+</p>
 
 [![CI](https://github.com/evmts/evmts-monorepo/actions/workflows/e2e.yml/badge.svg)](https://github.com/evmts/evmts-monorepo/actions/workflows/e2e.yml)
 [![CI](https://github.com/evmts/evmts-monorepo/actions/workflows/unit.yml/badge.svg)](https://github.com/evmts/evmts-monorepo/actions/workflows/unit.yml)
@@ -20,7 +20,7 @@
 </a>
 <a href="https://bundlephobia.com/package/@evmts/core@latest" target="\_parent">
 <img alt="" src="https://badgen.net/bundlephobia/minzip/@evmts/core" />
-</a><a href="#badge">
+</a>
 
 # @evmts/bundler
 
@@ -28,14 +28,16 @@ Internal bundler for Evmts
 
 Used in the LSP
 
-- [@evmts/ts-plugin](../../lsp/ts-plugin/)
+- @evmts/ts-plugin
 
 And all bundlers
 
-- [@evmts/esbuild-plugin](../esbuild-plugin/)
-- [@evmts/rollup-plugin](../rollup-plugin/)
-- [@evmts/vite-plugin](../vite-plugin/)
-- [@evmts/webpack-plugin](../webpack-plugin/)
+- @evmts/bun-plugin
+- @evmts/esbuild-plugin
+- @evmts/rollup-plugin
+- @evmts/rspack-plugin
+- @evmts/vite-plugin
+- @evmts/webpack-plugin
 
 ## API
 

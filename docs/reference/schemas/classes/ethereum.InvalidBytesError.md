@@ -1,8 +1,8 @@
-[@evmts/schemas](/reference/schema/README.md) / [Modules](/reference/schema/modules.md) / [ethereum](/reference/schema/modules/ethereum.md) / InvalidBytesError
+[@evmts/schemas](/reference/schemas/README.md) / [Modules](/reference/schemas/modules.md) / [ethereum](/reference/schemas/modules/ethereum.md) / InvalidBytesError
 
 # Class: InvalidBytesError
 
-[ethereum](/reference/schema/modules/ethereum.md).InvalidBytesError
+[ethereum](/reference/schemas/modules/ethereum.md).InvalidBytesError
 
 Error thrown when an invalid Bytes is provided.
 
@@ -16,20 +16,20 @@ Error thrown when an invalid Bytes is provided.
 
 ### Constructors
 
-- [constructor](/reference/schema/classes/ethereum.InvalidBytesError.md#constructor)
+- [constructor](/reference/schemas/classes/ethereum.InvalidBytesError.md#constructor)
 
 ### Properties
 
-- [cause](/reference/schema/classes/ethereum.InvalidBytesError.md#cause)
-- [message](/reference/schema/classes/ethereum.InvalidBytesError.md#message)
-- [name](/reference/schema/classes/ethereum.InvalidBytesError.md#name)
-- [stack](/reference/schema/classes/ethereum.InvalidBytesError.md#stack)
-- [prepareStackTrace](/reference/schema/classes/ethereum.InvalidBytesError.md#preparestacktrace)
-- [stackTraceLimit](/reference/schema/classes/ethereum.InvalidBytesError.md#stacktracelimit)
+- [cause](/reference/schemas/classes/ethereum.InvalidBytesError.md#cause)
+- [message](/reference/schemas/classes/ethereum.InvalidBytesError.md#message)
+- [name](/reference/schemas/classes/ethereum.InvalidBytesError.md#name)
+- [stack](/reference/schemas/classes/ethereum.InvalidBytesError.md#stack)
+- [prepareStackTrace](/reference/schemas/classes/ethereum.InvalidBytesError.md#preparestacktrace)
+- [stackTraceLimit](/reference/schemas/classes/ethereum.InvalidBytesError.md#stacktracelimit)
 
 ### Methods
 
-- [captureStackTrace](/reference/schema/classes/ethereum.InvalidBytesError.md#capturestacktrace)
+- [captureStackTrace](/reference/schemas/classes/ethereum.InvalidBytesError.md#capturestacktrace)
 
 ## Constructors
 

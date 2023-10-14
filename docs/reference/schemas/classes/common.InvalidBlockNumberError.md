@@ -1,8 +1,8 @@
-[@evmts/schemas](/reference/schema/README.md) / [Modules](/reference/schema/modules.md) / [common](/reference/schema/modules/common.md) / InvalidBlockNumberError
+[@evmts/schemas](/reference/schemas/README.md) / [Modules](/reference/schemas/modules.md) / [common](/reference/schemas/modules/common.md) / InvalidBlockNumberError
 
 # Class: InvalidBlockNumberError
 
-[common](/reference/schema/modules/common.md).InvalidBlockNumberError
+[common](/reference/schemas/modules/common.md).InvalidBlockNumberError
 
 Error thrown when a BlockNumber is invalid.
 A block number is invalid if it is not a non-negative integer.
@@ -17,20 +17,20 @@ A block number is invalid if it is not a non-negative integer.
 
 ### Constructors
 
-- [constructor](/reference/schema/classes/common.InvalidBlockNumberError.md#constructor)
+- [constructor](/reference/schemas/classes/common.InvalidBlockNumberError.md#constructor)
 
 ### Properties
 
-- [cause](/reference/schema/classes/common.InvalidBlockNumberError.md#cause)
-- [message](/reference/schema/classes/common.InvalidBlockNumberError.md#message)
-- [name](/reference/schema/classes/common.InvalidBlockNumberError.md#name)
-- [stack](/reference/schema/classes/common.InvalidBlockNumberError.md#stack)
-- [prepareStackTrace](/reference/schema/classes/common.InvalidBlockNumberError.md#preparestacktrace)
-- [stackTraceLimit](/reference/schema/classes/common.InvalidBlockNumberError.md#stacktracelimit)
+- [cause](/reference/schemas/classes/common.InvalidBlockNumberError.md#cause)
+- [message](/reference/schemas/classes/common.InvalidBlockNumberError.md#message)
+- [name](/reference/schemas/classes/common.InvalidBlockNumberError.md#name)
+- [stack](/reference/schemas/classes/common.InvalidBlockNumberError.md#stack)
+- [prepareStackTrace](/reference/schemas/classes/common.InvalidBlockNumberError.md#preparestacktrace)
+- [stackTraceLimit](/reference/schemas/classes/common.InvalidBlockNumberError.md#stacktracelimit)
 
 ### Methods
 
-- [captureStackTrace](/reference/schema/classes/common.InvalidBlockNumberError.md#capturestacktrace)
+- [captureStackTrace](/reference/schemas/classes/common.InvalidBlockNumberError.md#capturestacktrace)
 
 ## Constructors
 

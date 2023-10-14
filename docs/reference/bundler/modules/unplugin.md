@@ -1,4 +1,4 @@
-[@evmts/bundler](/reference/schema/README.md) / [Modules](/reference/schema/modules.md) / unplugin
+[@evmts/bundler](/reference/bundler/README.md) / [Modules](/reference/bundler/modules.md) / unplugin
 
 # Module: unplugin
 
@@ -6,16 +6,16 @@
 
 ### Type Aliases
 
-- [CompilerOption](/reference/schema/modules/unplugin.md#compileroption)
+- [CompilerOption](/reference/bundler/modules/unplugin.md#compileroption)
 
 ### Functions
 
-- [esbuildPluginEvmts](/reference/schema/modules/unplugin.md#esbuildpluginevmts)
-- [rollupPluginEvmts](/reference/schema/modules/unplugin.md#rolluppluginevmts)
-- [rspackPluginEvmts](/reference/schema/modules/unplugin.md#rspackpluginevmts)
-- [unpluginFn](/reference/schema/modules/unplugin.md#unpluginfn)
-- [vitePluginEvmts](/reference/schema/modules/unplugin.md#vitepluginevmts)
-- [webpackPluginEvmts](/reference/schema/modules/unplugin.md#webpackpluginevmts)
+- [esbuildPluginEvmts](/reference/bundler/modules/unplugin.md#esbuildpluginevmts)
+- [rollupPluginEvmts](/reference/bundler/modules/unplugin.md#rolluppluginevmts)
+- [rspackPluginEvmts](/reference/bundler/modules/unplugin.md#rspackpluginevmts)
+- [unpluginFn](/reference/bundler/modules/unplugin.md#unpluginfn)
+- [vitePluginEvmts](/reference/bundler/modules/unplugin.md#vitepluginevmts)
+- [webpackPluginEvmts](/reference/bundler/modules/unplugin.md#webpackpluginevmts)
 
 ## Type Aliases
 
