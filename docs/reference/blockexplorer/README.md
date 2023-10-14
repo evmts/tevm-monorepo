@@ -16,11 +16,11 @@
 </a>
 <a href="https://bundlephobia.com/package/@evmts/blockexplorer@latest" target="\_parent">
 <img alt="" src="https://badgen.net/bundlephobia/minzip/@evmts/blockexplorer" />
-</a><a href="#badge">
+</a>
 
 # @evmts/blockexplorer
 
-A library for interacting with a block explorer. Docs are located in [./docs](./docs/modules.md)
+A library for interacting with a block explorer
 
 ## API
 
