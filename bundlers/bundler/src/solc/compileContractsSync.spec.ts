@@ -3,8 +3,7 @@ import type { FileAccessObject, ModuleInfo } from '../types'
 import { compileContractSync } from './compileContractsSync'
 import { moduleFactorySync } from './moduleFactorySync'
 import type { ResolvedCompilerConfig } from '@evmts/config'
-import * as resolve from 'resolve'
-// TODO wrap this in a typesafe version
+import resolve from 'resolve'
 // @ts-ignore
 import solc from 'solc'
 import {
@@ -19,7 +18,7 @@ import {
 } from 'vitest'
 
 // Mock the necessary functions and modules
-vi.mock('resolve', () => ({ sync: vi.fn() }))
+vi.mock('resolve', () => ({ default: { sync: vi.fn() } }))
 vi.mock('solc', () => {
 	const defaultExport = { compile: vi.fn() }
 	return { default: defaultExport, ...defaultExport }
