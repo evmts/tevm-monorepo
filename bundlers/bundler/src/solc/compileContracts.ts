@@ -6,10 +6,11 @@ import type {
 	ModuleInfo,
 } from '../types'
 import { invariant } from '../utils/invariant'
-import { resolvePromise } from '../utils/resolvePromise'
+import { resolveEffect } from '../utils/resolvePromise'
 import { moduleFactory } from './moduleFactory'
 import { type SolcInputDescription, solcCompile } from './solc'
 import type { ResolvedCompilerConfig } from '@evmts/config'
+import { Effect } from 'effect'
 
 // Compile the Solidity contract and return its ABI
 export const compileContract = async <TIncludeAsts extends boolean = boolean>(
@@ -24,7 +25,10 @@ export const compileContract = async <TIncludeAsts extends boolean = boolean>(
 	const entryModule = await moduleFactory(
 		filePath,
 		await fao
-			.readFile(await resolvePromise(filePath, basedir, fao, logger), 'utf8')
+			.readFile(
+				await Effect.runPromise(resolveEffect(filePath, basedir, fao, logger)),
+				'utf8',
+			)
 			.then((code) => {
 				return code
 			}),

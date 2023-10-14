@@ -1,6 +1,8 @@
 import { StandardBlockExplorer } from './blockExplorer.js'
 import {
-	InvalidAddressError, InvalidBytesError, InvalidUrlError
+	InvalidAddressError,
+	InvalidBytesError,
+	InvalidUrlError,
 } from '@evmts/schemas'
 import { optimism } from 'viem/chains'
 import { describe, expect, expectTypeOf, it } from 'vitest'
