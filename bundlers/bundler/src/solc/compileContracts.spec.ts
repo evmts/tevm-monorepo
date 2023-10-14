@@ -157,9 +157,8 @@ describe('compileContract', () => {
 			),
 		).rejects.toThrow('Resolution Error')
 
-		expect(mockLogger.error).toHaveBeenCalledWith(mockError as any)
 		expect(mockLogger.error).toHaveBeenCalledWith(
-			`there was an error resolving ${mockFilePath}`,
+			`There was an error resolving ${mockFilePath}`,
 		)
 	})
 

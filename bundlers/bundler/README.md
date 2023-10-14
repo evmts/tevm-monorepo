@@ -18,7 +18,7 @@
 </a>
 <a href="https://bundlephobia.com/package/@evmts/core@latest" target="\_parent">
 <img alt="" src="https://badgen.net/bundlephobia/minzip/@evmts/core" />
-</a><a href="#badge">
+</a>
 
 # @evmts/bundler
 
