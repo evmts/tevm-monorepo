@@ -3,8 +3,7 @@ import type { FileAccessObject, ModuleInfo } from '../types'
 import { compileContractSync } from './compileContractsSync'
 import { moduleFactorySync } from './moduleFactorySync'
 import type { ResolvedCompilerConfig } from '@evmts/config'
-import * as resolve from 'resolve'
-// TODO wrap this in a typesafe version
+import resolve from 'resolve'
 // @ts-ignore
 import solc from 'solc'
 import {
