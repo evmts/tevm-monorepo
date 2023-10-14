@@ -9,9 +9,7 @@
 		"./src/solc/index.ts",
 		"./src/utils/index.ts"
 	],
-  "publicPath": "/reference/bundler/",
-	"plugin": [
-		"typedoc-plugin-markdown"
-	],
+	"publicPath": "/reference/bundler/",
+	"plugin": ["typedoc-plugin-markdown"],
 	"gitRevision": "main"
 }

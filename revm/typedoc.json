@@ -1,0 +1,9 @@
+{
+	"$schema": "https://typedoc.org/schema.json",
+	"out": "../docs/reference/revm",
+	"entryPoints": ["./dist/esm/revmts.d.ts"],
+	"publicPath": "/reference/revm/",
+	"plugin": ["typedoc-plugin-markdown"],
+	"gitRevision": "main",
+	"tsconfig": "tsconfig.typedoc.json"
+}
