@@ -1,5 +1,5 @@
-import { evmtsBunPlugin } from '.'
-import { file } from './bunFile'
+import { file } from './bunFile.js'
+import { evmtsBunPlugin } from './index.js'
 import { bundler } from '@evmts/bundler'
 import { loadConfigAsync } from '@evmts/config'
 import { exists, readFile } from 'fs/promises'
