@@ -42,7 +42,7 @@ import { runSync } from 'effect/Effect'
 
 /**
  * Parses a Bytes1 and returns the value if no errors.
- * @template TBytes1 extends import("./SBytesFixed.js").Bytes1
+ * @template {import("./SBytesFixed.js").Bytes1} TBytes1
  * @param {TBytes1} bytes1
  * @returns {TBytes1}
  * @example
@@ -57,7 +57,7 @@ export const parseBytes1 = (bytes1) => {
 
 /**
  * Parses a Bytes2 and returns the value if no errors.
- * @template TBytes2 extends import("./SBytesFixed.js").Bytes2
+ * @template {import("./SBytesFixed.js").Bytes2} TBytes2
  * @param {TBytes2} bytes2
  * @returns {TBytes2}
  * @example
@@ -72,7 +72,7 @@ export const parseBytes2 = (bytes2) => {
 
 /**
  * Parses a Bytes3 and returns the value if no errors.
- * @template TBytes3 extends import("./SBytesFixed.js").Bytes3
+ * @template {import("./SBytesFixed.js").Bytes3} TBytes3
  * @param {TBytes3} bytes3
  * @returns {TBytes3}
  * @example
@@ -87,7 +87,7 @@ export const parseBytes3 = (bytes3) => {
 
 /**
  * Parses a Bytes4 and returns the value if no errors.
- * @template TBytes4 extends import("./SBytesFixed.js").Bytes4
+ * @template {import("./SBytesFixed.js").Bytes4} TBytes4
  * @param {TBytes4} bytes4
  * @returns {TBytes4}
  * @example
@@ -102,7 +102,7 @@ export const parseBytes4 = (bytes4) => {
 
 /**
  * Parses a Bytes5 and returns the value if no errors.
- * @template TBytes5 extends import("./SBytesFixed.js").Bytes5
+ * @template {import("./SBytesFixed.js").Bytes5} TBytes5
  * @param {TBytes5} bytes5
  * @returns {TBytes5}
  * @example
@@ -116,7 +116,7 @@ export const parseBytes5 = (bytes5) => {
 }
 /**
  * Parses a Bytes6 and returns the value if no errors.
- * @template TBytes6 extends import("./SBytesFixed.js").Bytes6
+ * @template {import("./SBytesFixed.js").Bytes6} TBytes6
  * @param {TBytes6} bytes6
  * @returns {TBytes6}
  * @example
@@ -131,7 +131,7 @@ export const parseBytes6 = (bytes6) => {
 
 /**
  * Parses a Bytes7 and returns the value if no errors.
- * @template TBytes7 extends import("./SBytesFixed.js").Bytes7
+ * @template {import("./SBytesFixed.js").Bytes7} TBytes7
  * @param {TBytes7} bytes7
  * @returns {TBytes7}
  * @example
@@ -146,7 +146,7 @@ export const parseBytes7 = (bytes7) => {
 
 /**
  * Parses a Bytes8 and returns the value if no errors.
- * @template TBytes8 extends import("./SBytesFixed.js").Bytes8
+ * @template {import("./SBytesFixed.js").Bytes8} TBytes8
  * @param {TBytes8} bytes8
  * @returns {TBytes8}
  * @example
@@ -161,7 +161,7 @@ export const parseBytes8 = (bytes8) => {
 
 /**
  * Parses a Bytes9 and returns the value if no errors.
- * @template TBytes9 extends import("./SBytesFixed.js").Bytes9
+ * @template {import("./SBytesFixed.js").Bytes9} TBytes9
  * @param {TBytes9} bytes9
  * @returns {TBytes9}
  * @example
@@ -176,7 +176,7 @@ export const parseBytes9 = (bytes9) => {
 
 /**
  * Parses a Bytes10 and returns the value if no errors.
- * @template TBytes10 extends import("./SBytesFixed.js").Bytes10
+ * @template {import("./SBytesFixed.js").Bytes10} TBytes10
  * @param {TBytes10} bytes10
  * @returns {TBytes10}
  * @example
@@ -190,7 +190,7 @@ export const parseBytes10 = (bytes10) => {
 
 /**
  * Parses a Bytes11 and returns the value if no errors.
- * @template TBytes11 extends import("./SBytesFixed.js").Bytes11
+ * @template {import("./SBytesFixed.js").Bytes11} TBytes11
  * @param {TBytes11} bytes11
  * @returns {TBytes11}
  * @example
@@ -205,7 +205,7 @@ export const parseBytes11 = (bytes11) => {
 
 /**
  * Parses a Bytes12 and returns the value if no errors.
- * @template TBytes12 extends import("./SBytesFixed.js").Bytes12
+ * @template {import("./SBytesFixed.js").Bytes12} TBytes12
  * @param {TBytes12} bytes12
  * @returns {TBytes12}
  * @example
@@ -220,7 +220,7 @@ export const parseBytes12 = (bytes12) => {
 
 /**
  * Parses a Bytes13 and returns the value if no errors.
- * @template TBytes13 extends import("./SBytesFixed.js").Bytes13
+ * @template {import("./SBytesFixed.js").Bytes13} TBytes13
  * @param {TBytes13} bytes13
  * @returns {TBytes13}
  * @example
@@ -235,7 +235,7 @@ export const parseBytes13 = (bytes13) => {
 
 /**
  * Parses a Bytes14 and returns the value if no errors.
- * @template TBytes14 extends import("./SBytesFixed.js").Bytes14
+ * @template {import("./SBytesFixed.js").Bytes14} TBytes14
  * @param {TBytes14} bytes14
  * @returns {TBytes14}
  * @example
@@ -250,7 +250,7 @@ export const parseBytes14 = (bytes14) => {
 
 /**
  * Parses a Bytes15 and returns the value if no errors.
- * @template TBytes15 extends import("./SBytesFixed.js").Bytes15
+ * @template {import("./SBytesFixed.js").Bytes15} TBytes15
  * @param {TBytes15} bytes15
  * @returns {TBytes15}
  * @example
@@ -265,7 +265,7 @@ export const parseBytes15 = (bytes15) => {
 
 /**
  * Parses a Bytes16 and returns the value if no errors.
- * @template TBytes16 extends import("./SBytesFixed.js").Bytes16
+ * @template {import("./SBytesFixed.js").Bytes16} TBytes16
  * @param {TBytes16} bytes16
  * @returns {TBytes16}
  * @example
@@ -280,7 +280,7 @@ export const parseBytes16 = (bytes16) => {
 
 /**
  * Parses a Bytes17 and returns the value if no errors.
- * @template TBytes17 extends import("./SBytesFixed.js").Bytes17
+ * @template {import("./SBytesFixed.js").Bytes17} TBytes17
  * @param {TBytes17} bytes17
  * @returns {TBytes17}
  * @example
@@ -295,7 +295,7 @@ export const parseBytes17 = (bytes17) => {
 
 /**
  * Parses a Bytes18 and returns the value if no errors.
- * @template TBytes18 extends import("./SBytesFixed.js").Bytes18
+ * @template {import("./SBytesFixed.js").Bytes18} TBytes18
  * @param {TBytes18} bytes18
  * @returns {TBytes18}
  * @example
@@ -310,7 +310,7 @@ export const parseBytes18 = (bytes18) => {
 
 /**
  * Parses a Bytes19 and returns the value if no errors.
- * @template TBytes19 extends import("./SBytesFixed.js").Bytes19
+ * @template {import("./SBytesFixed.js").Bytes19} TBytes19
  * @param {TBytes19} bytes19
  * @returns {TBytes19}
  * @example
@@ -325,7 +325,7 @@ export const parseBytes19 = (bytes19) => {
 
 /**
  * Parses a Bytes20 and returns the value if no errors.
- * @template TBytes20 extends import("./SBytesFixed.js").Bytes20
+ * @template {import("./SBytesFixed.js").Bytes20} TBytes20
  * @param {TBytes20} bytes20
  * @returns {TBytes20}
  * @example
@@ -340,7 +340,7 @@ export const parseBytes20 = (bytes20) => {
 
 /**
  * Parses a Bytes21 and returns the value if no errors.
- * @template TBytes21 extends import("./SBytesFixed.js").Bytes21
+ * @template {import("./SBytesFixed.js").Bytes21} TBytes21
  * @param {TBytes21} bytes21
  * @returns {TBytes21}
  * @example
@@ -355,7 +355,7 @@ export const parseBytes21 = (bytes21) => {
 
 /**
  * Parses a Bytes22 and returns the value if no errors.
- * @template TBytes22 extends import("./SBytesFixed.js").Bytes22
+ * @template {import("./SBytesFixed.js").Bytes22} TBytes22
  * @param {TBytes22} bytes22
  * @returns {TBytes22}
  * @example
@@ -370,7 +370,7 @@ export const parseBytes22 = (bytes22) => {
 
 /**
  * Parses a Bytes23 and returns the value if no errors.
- * @template TBytes23 extends import("./SBytesFixed.js").Bytes23
+ * @template {import("./SBytesFixed.js").Bytes23} TBytes23
  * @param {TBytes23} bytes23
  * @returns {TBytes23}
  * @example
@@ -385,7 +385,7 @@ export const parseBytes23 = (bytes23) => {
 
 /**
  * Parses a Bytes24 and returns the value if no errors.
- * @template TBytes24 extends import("./SBytesFixed.js").Bytes24
+ * @template {import("./SBytesFixed.js").Bytes24} TBytes24
  * @param {TBytes24} bytes24
  * @returns {TBytes24}
  * @example
@@ -400,7 +400,7 @@ export const parseBytes24 = (bytes24) => {
 
 /**
  * Parses a Bytes25 and returns the value if no errors.
- * @template TBytes25 extends import("./SBytesFixed.js").Bytes25
+ * @template {import("./SBytesFixed.js").Bytes25} TBytes25
  * @param {TBytes25} bytes25
  * @returns {TBytes25}
  * @example
@@ -415,7 +415,7 @@ export const parseBytes25 = (bytes25) => {
 
 /**
  * Parses a Bytes26 and returns the value if no errors.
- * @template TBytes26 extends import("./SBytesFixed.js").Bytes26
+ * @template {import("./SBytesFixed.js").Bytes26} TBytes26
  * @param {TBytes26} bytes26
  * @returns {TBytes26}
  * @example
@@ -430,7 +430,7 @@ export const parseBytes26 = (bytes26) => {
 
 /**
  * Parses a Bytes27 and returns the value if no errors.
- * @template TBytes27 extends import("./SBytesFixed.js").Bytes27
+ * @template {import("./SBytesFixed.js").Bytes27} TBytes27
  * @param {TBytes27} bytes27
  * @returns {TBytes27}
  * @example
@@ -444,7 +444,7 @@ export const parseBytes27 = (bytes27) => {
 }
 /**
  * Parses a Bytes28 and returns the value if no errors.
- * @template TBytes28 extends import("./SBytesFixed.js").Bytes28
+ * @template {import("./SBytesFixed.js").Bytes28} TBytes28
  * @param {TBytes28} bytes28
  * @returns {TBytes28}
  * @example
@@ -459,7 +459,7 @@ export const parseBytes28 = (bytes28) => {
 
 /**
  * Parses a Bytes29 and returns the value if no errors.
- * @template TBytes29 extends import("./SBytesFixed.js").Bytes29
+ * @template {import("./SBytesFixed.js").Bytes29} TBytes29
  * @param {TBytes29} bytes29
  * @returns {TBytes29}
  * @example
@@ -474,7 +474,7 @@ export const parseBytes29 = (bytes29) => {
 
 /**
  * Parses a Bytes30 and returns the value if no errors.
- * @template TBytes30 extends import("./SBytesFixed.js").Bytes30
+ * @template {import("./SBytesFixed.js").Bytes30} TBytes30
  * @param {TBytes30} bytes30
  * @returns {TBytes30}
  * @example
@@ -489,7 +489,7 @@ export const parseBytes30 = (bytes30) => {
 
 /**
  * Parses a Bytes31 and returns the value if no errors.
- * @template TBytes31 extends import("./SBytesFixed.js").Bytes31
+ * @template {import("./SBytesFixed.js").Bytes31} TBytes31
  * @param {TBytes31} bytes31
  * @returns {TBytes31}
  * @example
@@ -504,7 +504,7 @@ export const parseBytes31 = (bytes31) => {
 
 /**
  * Parses a Bytes32 and returns the value if no errors.
- * @template TBytes32 extends import("./SBytesFixed.js").Bytes32
+ * @template {import("./SBytesFixed.js").Bytes32} TBytes32
  * @param {TBytes32} bytes32
  * @returns {TBytes32}
  * @example

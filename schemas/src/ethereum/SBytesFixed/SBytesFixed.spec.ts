@@ -360,7 +360,7 @@ const byteTestCases = [
 			'0xffbbccddeeff00112233445566778899aabbccddeeff00112233445566778899aa',
 		toSmall: '0xbbccddeeff00112233445566778899aabbccddeeff00112233445566778899',
 	},
-]
+] as const
 
 describe.each(byteTestCases)('%j', (testCase) => {
 	it(`should return true for valid ${testCase.type} values`, () => {
@@ -391,6 +391,7 @@ describe.each(byteTestCases)('parse%j', (testCase) => {
 
 	it(`should throw if value is not a valid string for ${testCase.type}`, () => {
 		expect(() =>
+			// @ts-expect-error
 			testCase.parse(testCase.invalidHex),
 		).toThrowErrorMatchingSnapshot()
 		expect(() =>
@@ -401,7 +402,7 @@ describe.each(byteTestCases)('parse%j', (testCase) => {
 			testCase.parse('invalid' as any),
 		).toThrowErrorMatchingSnapshot()
 		expect(() =>
-			testCase.parse(BigInt(testCase.value)),
+			testCase.parse(BigInt(testCase.value) as any),
 		).toThrowErrorMatchingSnapshot()
 	})
 })

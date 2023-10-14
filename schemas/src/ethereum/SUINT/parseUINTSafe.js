@@ -19,7 +19,7 @@ import { mapError } from 'effect/Effect'
 
 /**
  * Safely parses a UINT8 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
- * @template TUINT8 extends bigint
+ * @template {import("./SUINT.js").UINT8} TUINT8
  * @param {TUINT8} uint8
  * @returns {Effect.Effect<never, InvalidUINTError, TUINT8>}
  */
@@ -42,7 +42,7 @@ export const parseUINT8Safe = (uint8) => {
 }
 /**
  * Safely parses a UINT16 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
- * @template TUINT16 extends bigint
+ * @template {import("./SUINT.js").UINT16} TUINT16
  * @param {TUINT16} uint16
  * @returns {Effect.Effect<never, InvalidUINTError, TUINT16>}
  */
@@ -65,7 +65,7 @@ export const parseUINT16Safe = (uint16) => {
 }
 /**
  * Safely parses a UINT32 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
- * @template TUINT32 extends bigint
+ * @template {import("./SUINT.js").UINT32} TUINT32
  * @param {TUINT32} uint32
  * @returns {Effect.Effect<never, InvalidUINTError, TUINT32>}
  */
@@ -90,7 +90,7 @@ export const parseUINT32Safe = (uint32) => {
 // For UINT64
 /**
  * Safely parses a UINT64 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
- * @template TUINT64 extends bigint
+ * @template {import("./SUINT.js").UINT64} TUINT64
  * @param {TUINT64} uint64
  * @returns {Effect.Effect<never, InvalidUINTError, TUINT64>}
  */
@@ -113,7 +113,7 @@ export const parseUINT64Safe = (uint64) => {
 }
 /**
  * Safely parses a UINT128 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
- * @template TUINT128 extends bigint
+ * @template {import("./SUINT.js").UINT128} TUINT128
  * @param {TUINT128} uint128
  * @returns {Effect.Effect<never, InvalidUINTError, TUINT128>}
  */
@@ -136,7 +136,7 @@ export const parseUINT128Safe = (uint128) => {
 }
 /**
  * Safely parses a UINT256 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
- * @template TUINT256 extends bigint
+ * @template {import("./SUINT.js").UINT256} TUINT256
  * @param {TUINT256} uint256
  * @returns {Effect.Effect<never, InvalidUINTError, TUINT256>}
  * @example

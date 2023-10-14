@@ -12,7 +12,7 @@ import { mapError } from 'effect/Effect'
 
 /**
  * Parses an Address safely into an effect.
- * @template TAddress extends Address
+ * @template {import("./SAddress.js").Address} TAddress
  * @param {TAddress} address - The address to parse.
  * @returns {Effect.Effect<never, InvalidAddressError, TAddress>} - An effect that resolves to the parsed address.
  */

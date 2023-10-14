@@ -3181,9 +3181,9 @@ Parses an Address returning the address or throwing an InvalidAddressError if in
 
 #### Type parameters
 
-| Name | Description |
+| Name | Type |
 | :------ | :------ |
-| `TAddress` | extends Address |
+| `TAddress` | extends \`0x${string}\` |
 
 #### Parameters
 
@@ -3215,9 +3215,9 @@ Parses an Address safely into an effect.
 
 #### Type parameters
 
-| Name | Description |
+| Name | Type |
 | :------ | :------ |
-| `TAddress` | extends Address |
+| `TAddress` | extends \`0x${string}\` |
 
 #### Parameters
 
@@ -3280,9 +3280,9 @@ Parses a Bytes1 and returns the value if no errors.
 
 #### Type parameters
 
-| Name | Description |
+| Name | Type |
 | :------ | :------ |
-| `TBytes1` | extends import("./SBytesFixed.js").Bytes1 |
+| `TBytes1` | extends \`0x${string}\` |
 
 #### Parameters
 
@@ -3315,9 +3315,9 @@ Parses a Bytes10 and returns the value if no errors.
 
 #### Type parameters
 
-| Name | Description |
+| Name | Type |
 | :------ | :------ |
-| `TBytes10` | extends import("./SBytesFixed.js").Bytes10 |
+| `TBytes10` | extends \`0x${string}\` |
 
 #### Parameters
 
@@ -3377,9 +3377,9 @@ Parses a Bytes11 and returns the value if no errors.
 
 #### Type parameters
 
-| Name | Description |
+| Name | Type |
 | :------ | :------ |
-| `TBytes11` | extends import("./SBytesFixed.js").Bytes11 |
+| `TBytes11` | extends \`0x${string}\` |
 
 #### Parameters
 
@@ -3440,9 +3440,9 @@ Parses a Bytes12 and returns the value if no errors.
 
 #### Type parameters
 
-| Name | Description |
+| Name | Type |
 | :------ | :------ |
-| `TBytes12` | extends import("./SBytesFixed.js").Bytes12 |
+| `TBytes12` | extends \`0x${string}\` |
 
 #### Parameters
 
@@ -3503,9 +3503,9 @@ Parses a Bytes13 and returns the value if no errors.
 
 #### Type parameters
 
-| Name | Description |
+| Name | Type |
 | :------ | :------ |
-| `TBytes13` | extends import("./SBytesFixed.js").Bytes13 |
+| `TBytes13` | extends \`0x${string}\` |
 
 #### Parameters
 
@@ -3566,9 +3566,9 @@ Parses a Bytes14 and returns the value if no errors.
 
 #### Type parameters
 
-| Name | Description |
+| Name | Type |
 | :------ | :------ |
-| `TBytes14` | extends import("./SBytesFixed.js").Bytes14 |
+| `TBytes14` | extends \`0x${string}\` |
 
 #### Parameters
 
@@ -3629,9 +3629,9 @@ Parses a Bytes15 and returns the value if no errors.
 
 #### Type parameters
 
-| Name | Description |
+| Name | Type |
 | :------ | :------ |
-| `TBytes15` | extends import("./SBytesFixed.js").Bytes15 |
+| `TBytes15` | extends \`0x${string}\` |
 
 #### Parameters
 
@@ -3692,9 +3692,9 @@ Parses a Bytes16 and returns the value if no errors.
 
 #### Type parameters
 
-| Name | Description |
+| Name | Type |
 | :------ | :------ |
-| `TBytes16` | extends import("./SBytesFixed.js").Bytes16 |
+| `TBytes16` | extends \`0x${string}\` |
 
 #### Parameters
 
@@ -3755,9 +3755,9 @@ Parses a Bytes17 and returns the value if no errors.
 
 #### Type parameters
 
-| Name | Description |
+| Name | Type |
 | :------ | :------ |
-| `TBytes17` | extends import("./SBytesFixed.js").Bytes17 |
+| `TBytes17` | extends \`0x${string}\` |
 
 #### Parameters
 
@@ -3818,9 +3818,9 @@ Parses a Bytes18 and returns the value if no errors.
 
 #### Type parameters
 
-| Name | Description |
+| Name | Type |
 | :------ | :------ |
-| `TBytes18` | extends import("./SBytesFixed.js").Bytes18 |
+| `TBytes18` | extends \`0x${string}\` |
 
 #### Parameters
 
@@ -3881,9 +3881,9 @@ Parses a Bytes19 and returns the value if no errors.
 
 #### Type parameters
 
-| Name | Description |
+| Name | Type |
 | :------ | :------ |
-| `TBytes19` | extends import("./SBytesFixed.js").Bytes19 |
+| `TBytes19` | extends \`0x${string}\` |
 
 #### Parameters
 
@@ -3972,9 +3972,9 @@ Parses a Bytes2 and returns the value if no errors.
 
 #### Type parameters
 
-| Name | Description |
+| Name | Type |
 | :------ | :------ |
-| `TBytes2` | extends import("./SBytesFixed.js").Bytes2 |
+| `TBytes2` | extends \`0x${string}\` |
 
 #### Parameters
 
@@ -4007,9 +4007,9 @@ Parses a Bytes20 and returns the value if no errors.
 
 #### Type parameters
 
-| Name | Description |
+| Name | Type |
 | :------ | :------ |
-| `TBytes20` | extends import("./SBytesFixed.js").Bytes20 |
+| `TBytes20` | extends \`0x${string}\` |
 
 #### Parameters
 
@@ -4070,9 +4070,9 @@ Parses a Bytes21 and returns the value if no errors.
 
 #### Type parameters
 
-| Name | Description |
+| Name | Type |
 | :------ | :------ |
-| `TBytes21` | extends import("./SBytesFixed.js").Bytes21 |
+| `TBytes21` | extends \`0x${string}\` |
 
 #### Parameters
 
@@ -4133,9 +4133,9 @@ Parses a Bytes22 and returns the value if no errors.
 
 #### Type parameters
 
-| Name | Description |
+| Name | Type |
 | :------ | :------ |
-| `TBytes22` | extends import("./SBytesFixed.js").Bytes22 |
+| `TBytes22` | extends \`0x${string}\` |
 
 #### Parameters
 
@@ -4196,9 +4196,9 @@ Parses a Bytes23 and returns the value if no errors.
 
 #### Type parameters
 
-| Name | Description |
+| Name | Type |
 | :------ | :------ |
-| `TBytes23` | extends import("./SBytesFixed.js").Bytes23 |
+| `TBytes23` | extends \`0x${string}\` |
 
 #### Parameters
 
@@ -4259,9 +4259,9 @@ Parses a Bytes24 and returns the value if no errors.
 
 #### Type parameters
 
-| Name | Description |
+| Name | Type |
 | :------ | :------ |
-| `TBytes24` | extends import("./SBytesFixed.js").Bytes24 |
+| `TBytes24` | extends \`0x${string}\` |
 
 #### Parameters
 
@@ -4322,9 +4322,9 @@ Parses a Bytes25 and returns the value if no errors.
 
 #### Type parameters
 
-| Name | Description |
+| Name | Type |
 | :------ | :------ |
-| `TBytes25` | extends import("./SBytesFixed.js").Bytes25 |
+| `TBytes25` | extends \`0x${string}\` |
 
 #### Parameters
 
@@ -4385,9 +4385,9 @@ Parses a Bytes26 and returns the value if no errors.
 
 #### Type parameters
 
-| Name | Description |
+| Name | Type |
 | :------ | :------ |
-| `TBytes26` | extends import("./SBytesFixed.js").Bytes26 |
+| `TBytes26` | extends \`0x${string}\` |
 
 #### Parameters
 
@@ -4448,9 +4448,9 @@ Parses a Bytes27 and returns the value if no errors.
 
 #### Type parameters
 
-| Name | Description |
+| Name | Type |
 | :------ | :------ |
-| `TBytes27` | extends import("./SBytesFixed.js").Bytes27 |
+| `TBytes27` | extends \`0x${string}\` |
 
 #### Parameters
 
@@ -4511,9 +4511,9 @@ Parses a Bytes28 and returns the value if no errors.
 
 #### Type parameters
 
-| Name | Description |
+| Name | Type |
 | :------ | :------ |
-| `TBytes28` | extends import("./SBytesFixed.js").Bytes28 |
+| `TBytes28` | extends \`0x${string}\` |
 
 #### Parameters
 
@@ -4574,9 +4574,9 @@ Parses a Bytes29 and returns the value if no errors.
 
 #### Type parameters
 
-| Name | Description |
+| Name | Type |
 | :------ | :------ |
-| `TBytes29` | extends import("./SBytesFixed.js").Bytes29 |
+| `TBytes29` | extends \`0x${string}\` |
 
 #### Parameters
 
@@ -4665,9 +4665,9 @@ Parses a Bytes3 and returns the value if no errors.
 
 #### Type parameters
 
-| Name | Description |
+| Name | Type |
 | :------ | :------ |
-| `TBytes3` | extends import("./SBytesFixed.js").Bytes3 |
+| `TBytes3` | extends \`0x${string}\` |
 
 #### Parameters
 
@@ -4700,9 +4700,9 @@ Parses a Bytes30 and returns the value if no errors.
 
 #### Type parameters
 
-| Name | Description |
+| Name | Type |
 | :------ | :------ |
-| `TBytes30` | extends import("./SBytesFixed.js").Bytes30 |
+| `TBytes30` | extends \`0x${string}\` |
 
 #### Parameters
 
@@ -4763,9 +4763,9 @@ Parses a Bytes31 and returns the value if no errors.
 
 #### Type parameters
 
-| Name | Description |
+| Name | Type |
 | :------ | :------ |
-| `TBytes31` | extends import("./SBytesFixed.js").Bytes31 |
+| `TBytes31` | extends \`0x${string}\` |
 
 #### Parameters
 
@@ -4826,9 +4826,9 @@ Parses a Bytes32 and returns the value if no errors.
 
 #### Type parameters
 
-| Name | Description |
+| Name | Type |
 | :------ | :------ |
-| `TBytes32` | extends import("./SBytesFixed.js").Bytes32 |
+| `TBytes32` | extends \`0x${string}\` |
 
 #### Parameters
 
@@ -4917,9 +4917,9 @@ Parses a Bytes4 and returns the value if no errors.
 
 #### Type parameters
 
-| Name | Description |
+| Name | Type |
 | :------ | :------ |
-| `TBytes4` | extends import("./SBytesFixed.js").Bytes4 |
+| `TBytes4` | extends \`0x${string}\` |
 
 #### Parameters
 
@@ -4980,9 +4980,9 @@ Parses a Bytes5 and returns the value if no errors.
 
 #### Type parameters
 
-| Name | Description |
+| Name | Type |
 | :------ | :------ |
-| `TBytes5` | extends import("./SBytesFixed.js").Bytes5 |
+| `TBytes5` | extends \`0x${string}\` |
 
 #### Parameters
 
@@ -5043,9 +5043,9 @@ Parses a Bytes6 and returns the value if no errors.
 
 #### Type parameters
 
-| Name | Description |
+| Name | Type |
 | :------ | :------ |
-| `TBytes6` | extends import("./SBytesFixed.js").Bytes6 |
+| `TBytes6` | extends \`0x${string}\` |
 
 #### Parameters
 
@@ -5106,9 +5106,9 @@ Parses a Bytes7 and returns the value if no errors.
 
 #### Type parameters
 
-| Name | Description |
+| Name | Type |
 | :------ | :------ |
-| `TBytes7` | extends import("./SBytesFixed.js").Bytes7 |
+| `TBytes7` | extends \`0x${string}\` |
 
 #### Parameters
 
@@ -5169,9 +5169,9 @@ Parses a Bytes8 and returns the value if no errors.
 
 #### Type parameters
 
-| Name | Description |
+| Name | Type |
 | :------ | :------ |
-| `TBytes8` | extends import("./SBytesFixed.js").Bytes8 |
+| `TBytes8` | extends \`0x${string}\` |
 
 #### Parameters
 
@@ -5232,9 +5232,9 @@ Parses a Bytes9 and returns the value if no errors.
 
 #### Type parameters
 
-| Name | Description |
+| Name | Type |
 | :------ | :------ |
-| `TBytes9` | extends import("./SBytesFixed.js").Bytes9 |
+| `TBytes9` | extends \`0x${string}\` |
 
 #### Parameters
 
@@ -5498,9 +5498,9 @@ Parses an INT128 and returns the value if no errors.
 
 #### Type parameters
 
-| Name | Description |
+| Name | Type |
 | :------ | :------ |
-| `TINT128` | extends INT128 |
+| `TINT128` | extends `bigint` |
 
 #### Parameters
 
@@ -5533,9 +5533,9 @@ Parses an INT16 and returns the value if no errors.
 
 #### Type parameters
 
-| Name | Description |
+| Name | Type |
 | :------ | :------ |
-| `TINT16` | extends INT16 |
+| `TINT16` | extends `bigint` |
 
 #### Parameters
 
@@ -5568,9 +5568,9 @@ Parses an INT256 and returns the value if no errors.
 
 #### Type parameters
 
-| Name | Description |
+| Name | Type |
 | :------ | :------ |
-| `TINT256` | extends INT256 |
+| `TINT256` | extends `bigint` |
 
 #### Parameters
 
@@ -5603,9 +5603,9 @@ Parses an INT32 and returns the value if no errors.
 
 #### Type parameters
 
-| Name | Description |
+| Name | Type |
 | :------ | :------ |
-| `TINT32` | extends INT32 |
+| `TINT32` | extends `bigint` |
 
 #### Parameters
 
@@ -5638,9 +5638,9 @@ Parses an INT64 and returns the value if no errors.
 
 #### Type parameters
 
-| Name | Description |
+| Name | Type |
 | :------ | :------ |
-| `TINT64` | extends INT64 |
+| `TINT64` | extends `bigint` |
 
 #### Parameters
 
@@ -5673,9 +5673,9 @@ Parses an INT8 and returns the value if no errors.
 
 #### Type parameters
 
-| Name | Description |
-| :------ | :------ |
-| `TINT8` | extends INT8 |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `TINT8` | extends `bigint` | extends INT8 |
 
 #### Parameters
 
@@ -5708,9 +5708,9 @@ Parses a UINT128 and returns the value if no errors.
 
 #### Type parameters
 
-| Name | Description |
+| Name | Type |
 | :------ | :------ |
-| `TUINT128` | extends UINT128 |
+| `TUINT128` | extends `bigint` |
 
 #### Parameters
 
@@ -5743,9 +5743,9 @@ Safely parses a UINT128 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Type parameters
 
-| Name | Description |
+| Name | Type |
 | :------ | :------ |
-| `TUINT128` | extends bigint |
+| `TUINT128` | extends `bigint` |
 
 #### Parameters
 
@@ -5771,9 +5771,9 @@ Parses a UINT16 and returns the value if no errors.
 
 #### Type parameters
 
-| Name | Description |
+| Name | Type |
 | :------ | :------ |
-| `TUINT16` | extends UINT16 |
+| `TUINT16` | extends `bigint` |
 
 #### Parameters
 
@@ -5806,9 +5806,9 @@ Safely parses a UINT16 into an [Effect](https://www.effect.website/docs/essentia
 
 #### Type parameters
 
-| Name | Description |
+| Name | Type |
 | :------ | :------ |
-| `TUINT16` | extends bigint |
+| `TUINT16` | extends `bigint` |
 
 #### Parameters
 
@@ -5834,9 +5834,9 @@ Parses a UINT256 and returns the value if no errors.
 
 #### Type parameters
 
-| Name | Description |
+| Name | Type |
 | :------ | :------ |
-| `TUINT256` | extends UINT256 |
+| `TUINT256` | extends `bigint` |
 
 #### Parameters
 
@@ -5869,9 +5869,9 @@ Safely parses a UINT256 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Type parameters
 
-| Name | Description |
+| Name | Type |
 | :------ | :------ |
-| `TUINT256` | extends bigint |
+| `TUINT256` | extends `bigint` |
 
 #### Parameters
 
@@ -5904,9 +5904,9 @@ Parses a UINT32 and returns the value if no errors.
 
 #### Type parameters
 
-| Name | Description |
+| Name | Type |
 | :------ | :------ |
-| `TUINT32` | extends UINT32 |
+| `TUINT32` | extends `bigint` |
 
 #### Parameters
 
@@ -5939,9 +5939,9 @@ Safely parses a UINT32 into an [Effect](https://www.effect.website/docs/essentia
 
 #### Type parameters
 
-| Name | Description |
+| Name | Type |
 | :------ | :------ |
-| `TUINT32` | extends bigint |
+| `TUINT32` | extends `bigint` |
 
 #### Parameters
 
@@ -5967,9 +5967,9 @@ Parses a UINT64 and returns the value if no errors.
 
 #### Type parameters
 
-| Name | Description |
+| Name | Type |
 | :------ | :------ |
-| `TUINT64` | extends UINT64 |
+| `TUINT64` | extends `bigint` |
 
 #### Parameters
 
@@ -6002,9 +6002,9 @@ Safely parses a UINT64 into an [Effect](https://www.effect.website/docs/essentia
 
 #### Type parameters
 
-| Name | Description |
+| Name | Type |
 | :------ | :------ |
-| `TUINT64` | extends bigint |
+| `TUINT64` | extends `bigint` |
 
 #### Parameters
 
@@ -6030,9 +6030,9 @@ Parses a UINT8 and returns the value if no errors.
 
 #### Type parameters
 
-| Name | Description |
+| Name | Type |
 | :------ | :------ |
-| `TUINT8` | extends UINT8 |
+| `TUINT8` | extends `bigint` |
 
 #### Parameters
 
@@ -6065,9 +6065,9 @@ Safely parses a UINT8 into an [Effect](https://www.effect.website/docs/essential
 
 #### Type parameters
 
-| Name | Description |
+| Name | Type |
 | :------ | :------ |
-| `TUINT8` | extends bigint |
+| `TUINT8` | extends `bigint` |
 
 #### Parameters
 

@@ -156,9 +156,9 @@ Parses a BlockNumber and returns the value if no errors.
 
 #### Type parameters
 
-| Name | Description |
+| Name | Type |
 | :------ | :------ |
-| `TBlockNumber` | extends BlockNumber |
+| `TBlockNumber` | extends `number` |
 
 #### Parameters
 
@@ -191,9 +191,9 @@ Safely parses a BlockNumber into an [Effect](https://www.effect.website/docs/ess
 
 #### Type parameters
 
-| Name | Description |
+| Name | Type |
 | :------ | :------ |
-| `TBlockNumber` | extends BlockNumber |
+| `TBlockNumber` | extends `number` |
 
 #### Parameters
 
@@ -226,9 +226,9 @@ Parses a Url and returns the value if no errors.
 
 #### Type parameters
 
-| Name | Description |
+| Name | Type |
 | :------ | :------ |
-| `TUrl` | extends Url |
+| `TUrl` | extends `string` |
 
 #### Parameters
 
@@ -261,9 +261,9 @@ Safely parses a Url into an [Effect](https://www.effect.website/docs/essentials/
 
 #### Type parameters
 
-| Name | Description |
+| Name | Type |
 | :------ | :------ |
-| `TUrl` | extends Url |
+| `TUrl` | extends `string` |
 
 #### Parameters
 
