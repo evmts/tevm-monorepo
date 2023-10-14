@@ -12,7 +12,7 @@
 	],
 	"type": "module",
 	"scripts": {
-		"all": "nx run-many --targets=build:dist,build:types,typecheck,test:coverage && bun lint && bun sort-package-json",
+		"all": "nx run-many --targets=build:dist,build:types,typecheck,test:coverage && bun lint && bun sort-package-json && pnpm run generate:docs",
 		"build": "nx run-many --targets=build:dist,build:types",
 		"build:dist": "nx run-many --target=build:dist",
 		"build:types": "nx run-many --targets=build:types,typecheck",

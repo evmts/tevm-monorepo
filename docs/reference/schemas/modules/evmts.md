@@ -98,7 +98,7 @@ Parses an address book and returns the value if no errors.
 
 | Name | Type |
 | :------ | :------ |
-| `TAddressBook` | extends [`types`](/reference/schema/modules/types.md) |
+| `TAddressBook` | extends [`types`](/reference/schemas/modules/types.md) |
 
 #### Parameters
 
@@ -138,7 +138,7 @@ Safely parses an address book into an [Effect](https://www.effect.website/docs/e
 
 | Name | Type |
 | :------ | :------ |
-| `TAddressBook` | extends [`types`](/reference/schema/modules/types.md) |
+| `TAddressBook` | extends [`types`](/reference/schemas/modules/types.md) |
 
 #### Parameters
 

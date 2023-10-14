@@ -51,7 +51,7 @@ const txUrlEffect = etherscan.getTxUrl('0x1234')
 
 #### Defined in
 
-[blockExplorer.js:60](https://github.com/evmts/evmts-monorepo/blob/bb1c5384/blockexplorer/src/blockExplorer.js#L60)
+[blockExplorer.js:60](https://github.com/evmts/evmts-monorepo/blob/d00ace50/blockexplorer/src/blockExplorer.js#L60)
 
 ## Properties
 
@@ -61,7 +61,7 @@ const txUrlEffect = etherscan.getTxUrl('0x1234')
 
 #### Defined in
 
-[blockExplorer.js:63](https://github.com/evmts/evmts-monorepo/blob/bb1c5384/blockexplorer/src/blockExplorer.js#L63)
+[blockExplorer.js:63](https://github.com/evmts/evmts-monorepo/blob/d00ace50/blockexplorer/src/blockExplorer.js#L63)
 
 ___
 
@@ -71,7 +71,7 @@ ___
 
 #### Defined in
 
-[blockExplorer.js:61](https://github.com/evmts/evmts-monorepo/blob/bb1c5384/blockexplorer/src/blockExplorer.js#L61)
+[blockExplorer.js:61](https://github.com/evmts/evmts-monorepo/blob/d00ace50/blockexplorer/src/blockExplorer.js#L61)
 
 ___
 
@@ -81,7 +81,7 @@ ___
 
 #### Defined in
 
-[blockExplorer.js:62](https://github.com/evmts/evmts-monorepo/blob/bb1c5384/blockexplorer/src/blockExplorer.js#L62)
+[blockExplorer.js:62](https://github.com/evmts/evmts-monorepo/blob/d00ace50/blockexplorer/src/blockExplorer.js#L62)
 
 ___
 
@@ -95,7 +95,7 @@ Can be used to handle errors in a typesafe way
 
 #### Defined in
 
-[blockExplorer.js:50](https://github.com/evmts/evmts-monorepo/blob/bb1c5384/blockexplorer/src/blockExplorer.js#L50)
+[blockExplorer.js:50](https://github.com/evmts/evmts-monorepo/blob/d00ace50/blockexplorer/src/blockExplorer.js#L50)
 
 ## Methods
 
@@ -130,7 +130,7 @@ const addressUrl = etherscan.getAddressUrl('0x1234')
 
 #### Defined in
 
-[blockExplorer.js:129](https://github.com/evmts/evmts-monorepo/blob/bb1c5384/blockexplorer/src/blockExplorer.js#L129)
+[blockExplorer.js:129](https://github.com/evmts/evmts-monorepo/blob/d00ace50/blockexplorer/src/blockExplorer.js#L129)
 
 ___
 
@@ -165,7 +165,7 @@ const blockUrl = etherscan.getBlockUrl('0x1234')
 
 #### Defined in
 
-[blockExplorer.js:104](https://github.com/evmts/evmts-monorepo/blob/bb1c5384/blockexplorer/src/blockExplorer.js#L104)
+[blockExplorer.js:104](https://github.com/evmts/evmts-monorepo/blob/d00ace50/blockexplorer/src/blockExplorer.js#L104)
 
 ___
 
@@ -200,4 +200,4 @@ const etherscan = new StandardBlockExplorer(
 
 #### Defined in
 
-[blockExplorer.js:80](https://github.com/evmts/evmts-monorepo/blob/bb1c5384/blockexplorer/src/blockExplorer.js#L80)
+[blockExplorer.js:80](https://github.com/evmts/evmts-monorepo/blob/d00ace50/blockexplorer/src/blockExplorer.js#L80)
