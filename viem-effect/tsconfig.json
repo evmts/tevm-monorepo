@@ -1,0 +1,15 @@
+{
+  "extends": "@evmts/tsconfig/base.json",
+  "compilerOptions": {
+    "rootDir": "src",
+    "composite": true,
+    "outDir": "types",
+    "skipLibCheck": true,
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext"
+  },
+  "include": [
+    "src",
+    "src/**/*.json"
+  ]
+}

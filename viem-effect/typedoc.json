@@ -1,0 +1,8 @@
+{
+	"$schema": "https://typedoc.org/schema.json",
+	"out": "../docs/reference/viem-effect",
+	"entryPoints": ["./src/index.js"],
+	"publicPath": "/reference/viem-effect/",
+	"plugin": ["typedoc-plugin-markdown"],
+	"gitRevision": "main"
+}

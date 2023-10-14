@@ -16,5 +16,5 @@ packages:
   - "state"
   - "ts-plugin"
   - "tsconfig"
-  - "viem"
+  - "viem-effect"
 
