@@ -2,7 +2,9 @@ import { Effect } from 'effect'
 
 import { parseUnits as viemParseUnits, type ParseUnitsErrorType } from 'viem'
 
-export function parseUnits(value: string, decimals: number) {
+export function parseUnits<
+	TArgs extends Parameters<typeof viemParseUnits>
+>(...[value, decimals]: TArgs) {
 	try {
 		return Effect.succeed(viemParseUnits(value, decimals))
 	} catch (e) {

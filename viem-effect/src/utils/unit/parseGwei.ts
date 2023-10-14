@@ -1,10 +1,13 @@
-import { gweiUnits } from '../../constants/unit.js'
-import type { ErrorType } from '../../errors/utils.js'
+import { Effect } from 'effect'
 
-import { type ParseUnitsErrorType, parseUnits } from './parseUnits.js'
+import { parseGwei as viemParseGwei, type ParseGweiErrorType } from 'viem'
 
-export type ParseGweiErrorType = ParseUnitsErrorType | ErrorType
-
-export function parseGwei(ether: string, unit: 'wei' = 'wei') {
-	return parseUnits(ether, gweiUnits[unit])
+export function parseGwei<
+	TArgs extends Parameters<typeof viemParseGwei>
+>(...[ether, unit]: TArgs) {
+	try {
+		return Effect.succeed(viemParseGwei(ether, unit))
+	} catch (e) {
+		return Effect.fail(e as ParseGweiErrorType)
+	}
 }
