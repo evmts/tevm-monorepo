@@ -1,0 +1,80 @@
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+  pull_request:
+  merge_group:
+
+name: CI Checks
+
+jobs:
+  test:
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          submodules: recursive
+
+      - name: "Setup"
+        uses: ./.github/actions/setup
+
+      - name: Initialize the Nx Cloud distributed CI run
+        run: npx nx-cloud start-ci-run
+
+      - name: Run commands in parallel
+        run: |
+          pids=()
+          # list of commands to be run on main has env flag NX_CLOUD_DISTRIBUTED_EXECUTION set to false
+          NX_CLOUD_DISTRIBUTED_EXECUTION=false npx nx-cloud record -- npx nx format:check & pids+=($!)
+
+          # list of commands to be run on agents
+          npx nx affected -t lint:check --parallel=3 & 
+          pids+=($!)
+
+          npx nx affected -t format:check --parallel=3 & 
+          pids+=($!)
+
+          npx nx affected -t test:coverage --parallel=3 & 
+          pids+=($!)
+
+          npx nx affected -t build:dist --parallel=3 & 
+          pids+=($!)
+
+          npx nx affected -t build:types --parallel=3 & 
+          pids+=($!)
+
+          # run all commands in parallel and bail if one of them fails
+          for pid in ${pids[*]}; do
+            if ! wait $pid; then
+              exit 1
+            fi
+          done
+
+          exit 0
+
+      - name: Stop all running agents for this CI run
+        # It's important that we always run this step, otherwise in the case of any failures in preceding non-Nx steps, the agents will keep running and waste billable minutes
+        if: ${{ always() }}
+        run: npx nx-cloud stop-all-agents
+
+  agents:
+    name: Agent ${{ matrix.agent }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        agent: [1, 2, 3]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          submodules: recursive
+
+      - name: "Setup"
+        uses: ./.github/actions/setup
+
+      - name: Start Nx Agent ${{ matrix.agent }}
+        run: npx nx-cloud start-agent
+        env:
+          NX_AGENT_NAME: ${{ matrix.agent }}
