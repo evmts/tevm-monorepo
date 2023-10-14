@@ -1,0 +1,13 @@
+{
+	"$schema": "https://typedoc.org/schema.json",
+	"out": "../../docs/reference/bundler",
+	"entryPoints": [
+		"./src/bundler.ts",
+		"./src/createCache.ts",
+		"./src/unplugin.ts",
+		"./src/runtime/index.ts",
+		"./src/solc/index.ts",
+		"./src/utils/index.ts"
+	],
+	"gitRevision": "main"
+}
