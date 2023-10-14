@@ -23,9 +23,6 @@
 		"Will Cory <willcory10@gmail.com>"
 	],
 	"type": "module",
-	"main": "dist/index.cjs",
-	"module": "dist/index.js",
-	"types": "types/index.d.ts",
 	"exports": {
 		".": {
 			"import": "./dist/index.js",
@@ -34,6 +31,9 @@
 			"default": "./dist/index.js"
 		}
 	},
+	"main": "dist/index.cjs",
+	"module": "dist/index.js",
+	"types": "types/index.d.ts",
 	"files": [
 		"dist",
 		"src",
@@ -56,6 +56,9 @@
 		"test:run": "vitest run",
 		"test:ui": "vitest --ui"
 	},
+	"dependencies": {
+		"zustand": "^4.4.3"
+	},
 	"devDependencies": {
 		"@evmts/tsconfig": "workspace:^",
 		"@vitest/coverage-v8": "^0.34.6",
@@ -76,8 +79,5 @@
 	},
 	"publishConfig": {
 		"access": "public"
-	},
-	"dependencies": {
-		"zustand": "^4.4.3"
 	}
 }
