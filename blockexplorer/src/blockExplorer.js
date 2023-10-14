@@ -1,10 +1,10 @@
 import {
 	InvalidAddressError,
 	InvalidBlockNumberError,
-	InvalidHexStringError,
+	InvalidBytesError,
 	InvalidUrlError,
 	parseAddressSafe,
-	parseHexStringSafe,
+	parseBytesSafe,
 	parseUrlSafe,
 } from '@evmts/schemas'
 import { Effect } from 'effect'
@@ -43,13 +43,13 @@ export class SafeStandardBlockExplorer {
 	 * Can be used to handle errors in a typesafe way
 	 * @type {Object}
 	 * @property {InvalidUrlError} InvalidUrlError
-	 * @property {InvalidHexStringError} InvalidHexStringError
+	 * @property {InvalidBytesError} InvalidBytesError
 	 * @property {InvalidAddressError} InvalidAddressError
 	 * @property {InvalidBlockNumberError} InvalidBlockNumberError
 	 */
 	static ERRORS = {
 		InvalidUrlError,
-		InvalidHexStringError,
+		InvalidBytesError,
 		InvalidAddressError,
 		InvalidBlockNumberError,
 	}
@@ -66,7 +66,7 @@ export class SafeStandardBlockExplorer {
 	/**
 	 * Safely retrieves the transaction URL for a given transaction ID.
 	 * @param {Hex} txId - The transaction ID in hexadecimal format.
-	 * @returns {Effect.Effect<never, InvalidHexStringError | InvalidUrlError, string>} An effect that resolves to the transaction URL.
+	 * @returns {Effect.Effect<never, InvalidBytesError | InvalidUrlError, string>} An effect that resolves to the transaction URL.
 	 * @example
 	 * ```ts
 	 * const etherscan = new StandardBlockExplorer(
@@ -79,7 +79,7 @@ export class SafeStandardBlockExplorer {
 	 */
 	getTxUrl(txId) {
 		return Effect.Do.pipe(
-			Effect.bind('parsedTxId', () => parseHexStringSafe(txId)),
+			Effect.bind('parsedTxId', () => parseBytesSafe(txId)),
 			Effect.bind('parsedUrl', () => parseUrlSafe(this.url)),
 			Effect.map(
 				({ parsedUrl, parsedTxId }) => `${parsedUrl}/tx/${parsedTxId}`,
@@ -90,7 +90,7 @@ export class SafeStandardBlockExplorer {
 	/**
 	 * Safely retrieves the block URL for a given block hash.
 	 * @param {Hex} blockHash - The block hash in hexadecimal format.
-	 * @returns {Effect.Effect<never, InvalidHexStringError | InvalidUrlError, string>} An effect that resolves to the block URL.
+	 * @returns {Effect.Effect<never, InvalidBytesError | InvalidUrlError, string>} An effect that resolves to the block URL.
 	 * @example
 	 * ```ts
 	 * const etherscan = new StandardBlockExplorer(
@@ -103,7 +103,7 @@ export class SafeStandardBlockExplorer {
 	 */
 	getBlockUrl(blockHash) {
 		return Effect.Do.pipe(
-			Effect.bind('parsedBlockHash', () => parseHexStringSafe(blockHash)),
+			Effect.bind('parsedBlockHash', () => parseBytesSafe(blockHash)),
 			Effect.bind('parsedUrl', () => parseUrlSafe(this.url)),
 			Effect.map(
 				({ parsedUrl, parsedBlockHash }) =>
@@ -159,7 +159,7 @@ export class StandardBlockExplorer {
 	 * Can be used to handle errors in a typesafe way
 	 * @type {Object}
 	 * @property {InvalidUrlError} InvalidUrlError
-	 * @property {InvalidHexStringError} InvalidHexStringError
+	 * @property {InvalidBytesError} InvalidBytesError
 	 * @property {InvalidAddressError} InvalidAddressError
 	 * @property {InvalidBlockNumberError} InvalidBlockNumberError
 	 * @example
@@ -168,18 +168,18 @@ export class StandardBlockExplorer {
 	 * try {
 	 *   url = etherscan.getTxUrl('0x1234')
 	 * } catch(e) {
-	 *   if (txUrl instanceof etherscan.ERRORS.InvalidHexStringError) {
-	 *     console.log('InvalidHexStringError')
+	 *   if (txUrl instanceof etherscan.ERRORS.InvalidBytesError) {
+	 *     console.log('InvalidBytesError')
 	 *   }
 	 * }
 	 *
-	 *  console.log('InvalidHexStringError')
+	 *  console.log('InvalidBytesError')
 	 *  }
 	 *  ```
 	 */
 	static ERRORS = {
 		InvalidUrlError,
-		InvalidHexStringError,
+		InvalidBytesError,
 		InvalidAddressError,
 		InvalidBlockNumberError,
 	}

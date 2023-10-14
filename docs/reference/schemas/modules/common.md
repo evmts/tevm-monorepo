@@ -7,30 +7,24 @@
 ### Classes
 
 - [InvalidBlockNumberError](/reference/schema/classes/common.InvalidBlockNumberError.md)
-- [InvalidHexStringError](/reference/schema/classes/common.InvalidHexStringError.md)
 - [InvalidUrlError](/reference/schema/classes/common.InvalidUrlError.md)
 
 ### Type Aliases
 
 - [BlockNumber](/reference/schema/modules/common.md#blocknumber)
-- [HexString](/reference/schema/modules/common.md#hexstring)
 - [Url](/reference/schema/modules/common.md#url)
 
 ### Variables
 
 - [SBlockNumber](/reference/schema/modules/common.md#sblocknumber)
-- [SHexString](/reference/schema/modules/common.md#shexstring)
 - [SUrl](/reference/schema/modules/common.md#surl)
 
 ### Functions
 
 - [isBlockNumber](/reference/schema/modules/common.md#isblocknumber)
-- [isHexString](/reference/schema/modules/common.md#ishexstring)
 - [isUrl](/reference/schema/modules/common.md#isurl)
 - [parseBlockNumber](/reference/schema/modules/common.md#parseblocknumber)
 - [parseBlockNumberSafe](/reference/schema/modules/common.md#parseblocknumbersafe)
-- [parseHexString](/reference/schema/modules/common.md#parsehexstring)
-- [parseHexStringSafe](/reference/schema/modules/common.md#parsehexstringsafe)
 - [parseUrl](/reference/schema/modules/common.md#parseurl)
 - [parseUrlSafe](/reference/schema/modules/common.md#parseurlsafe)
 
@@ -43,16 +37,6 @@
 #### Defined in
 
 [schemas/src/common/SBlockNumber.js:16](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/common/SBlockNumber.js#L16)
-
-___
-
-### HexString
-
-Ƭ **HexString**<\>: `string`
-
-#### Defined in
-
-[schemas/src/common/SHexString.js:14](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/common/SHexString.js#L14)
 
 ___
 
@@ -82,25 +66,6 @@ export const SBlockNumber: Schema<number, BlockNumber>;
 #### Defined in
 
 [schemas/src/common/SBlockNumber.js:33](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/common/SBlockNumber.js#L33)
-
-___
-
-### SHexString
-
-• `Const` **SHexString**: `Schema`<`string`, `string`\>
-
-[Effect schema](https://github.com/Effect-TS/schema) for the HexString type.
-
-**`Example`**
-
-```javascript
-import { Schema } from '@effect/schema/Schema';
-export const SHexString: Schema<string, HexString>;
-```
-
-#### Defined in
-
-[schemas/src/common/SHexString.js:31](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/common/SHexString.js#L31)
 
 ___
 
@@ -150,30 +115,6 @@ isBlockNumber('not a blockNumber'); // false
 #### Defined in
 
 [schemas/src/common/SBlockNumber.js:46](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/common/SBlockNumber.js#L46)
-
-___
-
-### isHexString
-
-▸ **isHexString**(`value`, `«destructured»?`): value is \`0x${string}\`
-
-Type guard that returns true if a string is a valid hex string.
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `value` | `unknown` |
-| `«destructured»` | `Object` |
-| › `strict?` | `boolean` |
-
-#### Returns
-
-value is \`0x${string}\`
-
-#### Defined in
-
-node_modules/.pnpm/viem@1.14.0_typescript@5.2.2_zod@3.22.2/node_modules/viem/_types/utils/data/isHex.d.ts:4
 
 ___
 
@@ -274,76 +215,6 @@ const parsedBlockNumberEffect = parseBlockNumberSafe('0x1234567890abcdef12345678
 #### Defined in
 
 [schemas/src/common/SBlockNumber.js:84](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/common/SBlockNumber.js#L84)
-
-___
-
-### parseHexString
-
-▸ **parseHexString**<`THexString`\>(`hex`): `THexString`
-
-Parses a HexString and returns the value if no errors.
-
-#### Type parameters
-
-| Name | Description |
-| :------ | :------ |
-| `THexString` | extends HexString |
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `hex` | `THexString` |
-
-#### Returns
-
-`THexString`
-
-**`Example`**
-
-```javascript
-import { parseHexString } from '@evmts/schemas';
-const parsedHexString = parseHexString('0x1234567890abcdef1234567890abcdef12345678');
-```
-
-#### Defined in
-
-[schemas/src/common/SHexString.js:104](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/common/SHexString.js#L104)
-
-___
-
-### parseHexStringSafe
-
-▸ **parseHexStringSafe**<`THexString`\>(`value`): `Effect`<`never`, [`InvalidHexStringError`](/reference/schema/classes/common.InvalidHexStringError.md), `THexString`\>
-
-Safely parses a HexString into an [Effect](https://www.effect.website/docs/essentials/effect-type).
-
-#### Type parameters
-
-| Name | Description |
-| :------ | :------ |
-| `THexString` | extends HexString |
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `value` | `THexString` |
-
-#### Returns
-
-`Effect`<`never`, [`InvalidHexStringError`](/reference/schema/classes/common.InvalidHexStringError.md), `THexString`\>
-
-**`Example`**
-
-```javascript
-import { parseHexStringSafe } from '@evmts/schemas';
-const parsedHexStringEffect = parseHexStringSafe('0x1234567890abcdef1234567890abcdef12345678');
-```
-
-#### Defined in
-
-[schemas/src/common/SHexString.js:80](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/common/SHexString.js#L80)
 
 ___
 
