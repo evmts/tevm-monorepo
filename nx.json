@@ -42,6 +42,16 @@
 				"{projectRoot}/types"
 			]
 		},
+		"build:esm": {
+			"inputs": ["production", "outputsDist"],
+			"dependsOn": ["^build:dist"],
+			"outputs": ["{projectRoot}/dist"]
+		},
+		"build:cjs": {
+			"inputs": ["production", "outputsDist"],
+			"dependsOn": ["^build:dist"],
+			"outputs": ["{projectRoot}/dist"]
+		},
 		"build:dist": {
 			"inputs": ["production", "outputsDist"],
 			"dependsOn": ["^build:dist"],
