@@ -18,7 +18,7 @@
 
 # @evmts/schemas
 
-Effect Schemas for EVMts. Docs are located in [./docs](./docs)
+Effect Schemas for EVMts.
 
 ## License 📄
 

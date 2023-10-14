@@ -1,4 +1,4 @@
-[@evmts/schemas](/reference/schema/README.md) / [Modules](/reference/schema/modules.md) / common
+[@evmts/schemas](/reference/schemas/README.md) / [Modules](/reference/schemas/modules.md) / common
 
 # Module: common
 
@@ -6,27 +6,27 @@
 
 ### Classes
 
-- [InvalidBlockNumberError](/reference/schema/classes/common.InvalidBlockNumberError.md)
-- [InvalidUrlError](/reference/schema/classes/common.InvalidUrlError.md)
+- [InvalidBlockNumberError](/reference/schemas/classes/common.InvalidBlockNumberError.md)
+- [InvalidUrlError](/reference/schemas/classes/common.InvalidUrlError.md)
 
 ### Type Aliases
 
-- [BlockNumber](/reference/schema/modules/common.md#blocknumber)
-- [Url](/reference/schema/modules/common.md#url)
+- [BlockNumber](/reference/schemas/modules/common.md#blocknumber)
+- [Url](/reference/schemas/modules/common.md#url)
 
 ### Variables
 
-- [SBlockNumber](/reference/schema/modules/common.md#sblocknumber)
-- [SUrl](/reference/schema/modules/common.md#surl)
+- [SBlockNumber](/reference/schemas/modules/common.md#sblocknumber)
+- [SUrl](/reference/schemas/modules/common.md#surl)
 
 ### Functions
 
-- [isBlockNumber](/reference/schema/modules/common.md#isblocknumber)
-- [isUrl](/reference/schema/modules/common.md#isurl)
-- [parseBlockNumber](/reference/schema/modules/common.md#parseblocknumber)
-- [parseBlockNumberSafe](/reference/schema/modules/common.md#parseblocknumbersafe)
-- [parseUrl](/reference/schema/modules/common.md#parseurl)
-- [parseUrlSafe](/reference/schema/modules/common.md#parseurlsafe)
+- [isBlockNumber](/reference/schemas/modules/common.md#isblocknumber)
+- [isUrl](/reference/schemas/modules/common.md#isurl)
+- [parseBlockNumber](/reference/schemas/modules/common.md#parseblocknumber)
+- [parseBlockNumberSafe](/reference/schemas/modules/common.md#parseblocknumbersafe)
+- [parseUrl](/reference/schemas/modules/common.md#parseurl)
+- [parseUrlSafe](/reference/schemas/modules/common.md#parseurlsafe)
 
 ## Type Aliases
 
@@ -185,7 +185,7 @@ ___
 
 ### parseBlockNumberSafe
 
-▸ **parseBlockNumberSafe**<`TBlockNumber`\>(`blockNumber`): `Effect`<`never`, [`InvalidBlockNumberError`](/reference/schema/classes/common.InvalidBlockNumberError.md), `TBlockNumber`\>
+▸ **parseBlockNumberSafe**<`TBlockNumber`\>(`blockNumber`): `Effect`<`never`, [`InvalidBlockNumberError`](/reference/schemas/classes/common.InvalidBlockNumberError.md), `TBlockNumber`\>
 
 Safely parses a BlockNumber into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -203,7 +203,7 @@ Safely parses a BlockNumber into an [Effect](https://www.effect.website/docs/ess
 
 #### Returns
 
-`Effect`<`never`, [`InvalidBlockNumberError`](/reference/schema/classes/common.InvalidBlockNumberError.md), `TBlockNumber`\>
+`Effect`<`never`, [`InvalidBlockNumberError`](/reference/schemas/classes/common.InvalidBlockNumberError.md), `TBlockNumber`\>
 
 **`Example`**
 
@@ -255,7 +255,7 @@ ___
 
 ### parseUrlSafe
 
-▸ **parseUrlSafe**<`TUrl`\>(`url`): `Effect`<`never`, [`InvalidUrlError`](/reference/schema/classes/common.InvalidUrlError.md), `TUrl`\>
+▸ **parseUrlSafe**<`TUrl`\>(`url`): `Effect`<`never`, [`InvalidUrlError`](/reference/schemas/classes/common.InvalidUrlError.md), `TUrl`\>
 
 Safely parses a Url into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -273,7 +273,7 @@ Safely parses a Url into an [Effect](https://www.effect.website/docs/essentials/
 
 #### Returns
 
-`Effect`<`never`, [`InvalidUrlError`](/reference/schema/classes/common.InvalidUrlError.md), `TUrl`\>
+`Effect`<`never`, [`InvalidUrlError`](/reference/schemas/classes/common.InvalidUrlError.md), `TUrl`\>
 
 **`Example`**
 

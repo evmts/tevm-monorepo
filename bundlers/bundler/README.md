@@ -9,7 +9,7 @@
 
 <p align="center">
   Execute solidity scripts in browser
-<p>
+</p>
 
 [![CI](https://github.com/evmts/evmts-monorepo/actions/workflows/e2e.yml/badge.svg)](https://github.com/evmts/evmts-monorepo/actions/workflows/e2e.yml)
 [![CI](https://github.com/evmts/evmts-monorepo/actions/workflows/unit.yml/badge.svg)](https://github.com/evmts/evmts-monorepo/actions/workflows/unit.yml)
@@ -26,14 +26,16 @@ Internal bundler for Evmts
 
 Used in the LSP
 
-- [@evmts/ts-plugin](../../lsp/ts-plugin/)
+- @evmts/ts-plugin
 
 And all bundlers
 
-- [@evmts/esbuild-plugin](../esbuild-plugin/)
-- [@evmts/rollup-plugin](../rollup-plugin/)
-- [@evmts/vite-plugin](../vite-plugin/)
-- [@evmts/webpack-plugin](../webpack-plugin/)
+- @evmts/bun-plugin
+- @evmts/esbuild-plugin
+- @evmts/rollup-plugin
+- @evmts/rspack-plugin
+- @evmts/vite-plugin
+- @evmts/webpack-plugin
 
 ## API
 

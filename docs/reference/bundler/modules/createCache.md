@@ -1,4 +1,4 @@
-[@evmts/bundler](/reference/schema/README.md) / [Modules](/reference/schema/modules.md) / createCache
+[@evmts/bundler](/reference/bundler/README.md) / [Modules](/reference/bundler/modules.md) / createCache
 
 # Module: createCache
 
@@ -6,11 +6,11 @@
 
 ### Type Aliases
 
-- [Cache](/reference/schema/modules/createCache.md#cache)
+- [Cache](/reference/bundler/modules/createCache.md#cache)
 
 ### Functions
 
-- [createCache](/reference/schema/modules/createCache.md#createcache)
+- [createCache](/reference/bundler/modules/createCache.md#createcache)
 
 ## Type Aliases
 
@@ -34,7 +34,7 @@
 
 ### createCache
 
-▸ **createCache**(`logger`): [`Cache`](/reference/schema/modules/createCache.md#cache)
+▸ **createCache**(`logger`): [`Cache`](/reference/bundler/modules/createCache.md#cache)
 
 #### Parameters
 
@@ -44,7 +44,7 @@
 
 #### Returns
 
-[`Cache`](/reference/schema/modules/createCache.md#cache)
+[`Cache`](/reference/bundler/modules/createCache.md#cache)
 
 #### Defined in
 

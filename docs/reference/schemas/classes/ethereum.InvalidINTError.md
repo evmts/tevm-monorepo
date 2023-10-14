@@ -1,8 +1,8 @@
-[@evmts/schemas](/reference/schema/README.md) / [Modules](/reference/schema/modules.md) / [ethereum](/reference/schema/modules/ethereum.md) / InvalidINTError
+[@evmts/schemas](/reference/schemas/README.md) / [Modules](/reference/schemas/modules.md) / [ethereum](/reference/schemas/modules/ethereum.md) / InvalidINTError
 
 # Class: InvalidINTError
 
-[ethereum](/reference/schema/modules/ethereum.md).InvalidINTError
+[ethereum](/reference/schemas/modules/ethereum.md).InvalidINTError
 
 Error thrown when an INT is invalid.
 An int bigint is invalid if it's not within the bounds of its size.
@@ -17,20 +17,20 @@ An int bigint is invalid if it's not within the bounds of its size.
 
 ### Constructors
 
-- [constructor](/reference/schema/classes/ethereum.InvalidINTError.md#constructor)
+- [constructor](/reference/schemas/classes/ethereum.InvalidINTError.md#constructor)
 
 ### Properties
 
-- [cause](/reference/schema/classes/ethereum.InvalidINTError.md#cause)
-- [message](/reference/schema/classes/ethereum.InvalidINTError.md#message)
-- [name](/reference/schema/classes/ethereum.InvalidINTError.md#name)
-- [stack](/reference/schema/classes/ethereum.InvalidINTError.md#stack)
-- [prepareStackTrace](/reference/schema/classes/ethereum.InvalidINTError.md#preparestacktrace)
-- [stackTraceLimit](/reference/schema/classes/ethereum.InvalidINTError.md#stacktracelimit)
+- [cause](/reference/schemas/classes/ethereum.InvalidINTError.md#cause)
+- [message](/reference/schemas/classes/ethereum.InvalidINTError.md#message)
+- [name](/reference/schemas/classes/ethereum.InvalidINTError.md#name)
+- [stack](/reference/schemas/classes/ethereum.InvalidINTError.md#stack)
+- [prepareStackTrace](/reference/schemas/classes/ethereum.InvalidINTError.md#preparestacktrace)
+- [stackTraceLimit](/reference/schemas/classes/ethereum.InvalidINTError.md#stacktracelimit)
 
 ### Methods
 
-- [captureStackTrace](/reference/schema/classes/ethereum.InvalidINTError.md#capturestacktrace)
+- [captureStackTrace](/reference/schemas/classes/ethereum.InvalidINTError.md#capturestacktrace)
 
 ## Constructors
 
@@ -47,7 +47,7 @@ An int bigint is invalid if it's not within the bounds of its size.
 | `options.docs` | `undefined` \| `string` | The documentation URL. |
 | `options.int` | `bigint` | The invalid int bigint. |
 | `options.message` | `undefined` \| `string` | The error message. |
-| `options.size` | [`INTSize`](/reference/schema/modules/ethereum.md#intsize) | The size of the int. |
+| `options.size` | [`INTSize`](/reference/schemas/modules/ethereum.md#intsize) | The size of the int. |
 
 #### Overrides
 

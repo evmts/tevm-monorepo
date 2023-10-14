@@ -1,8 +1,8 @@
-[@evmts/schemas](/reference/schema/README.md) / [Modules](/reference/schema/modules.md) / [common](/reference/schema/modules/common.md) / InvalidUrlError
+[@evmts/schemas](/reference/schemas/README.md) / [Modules](/reference/schemas/modules.md) / [common](/reference/schemas/modules/common.md) / InvalidUrlError
 
 # Class: InvalidUrlError
 
-[common](/reference/schema/modules/common.md).InvalidUrlError
+[common](/reference/schemas/modules/common.md).InvalidUrlError
 
 Error thrown when an invalid Url is provided.
 
@@ -16,20 +16,20 @@ Error thrown when an invalid Url is provided.
 
 ### Constructors
 
-- [constructor](/reference/schema/classes/common.InvalidUrlError.md#constructor)
+- [constructor](/reference/schemas/classes/common.InvalidUrlError.md#constructor)
 
 ### Properties
 
-- [cause](/reference/schema/classes/common.InvalidUrlError.md#cause)
-- [message](/reference/schema/classes/common.InvalidUrlError.md#message)
-- [name](/reference/schema/classes/common.InvalidUrlError.md#name)
-- [stack](/reference/schema/classes/common.InvalidUrlError.md#stack)
-- [prepareStackTrace](/reference/schema/classes/common.InvalidUrlError.md#preparestacktrace)
-- [stackTraceLimit](/reference/schema/classes/common.InvalidUrlError.md#stacktracelimit)
+- [cause](/reference/schemas/classes/common.InvalidUrlError.md#cause)
+- [message](/reference/schemas/classes/common.InvalidUrlError.md#message)
+- [name](/reference/schemas/classes/common.InvalidUrlError.md#name)
+- [stack](/reference/schemas/classes/common.InvalidUrlError.md#stack)
+- [prepareStackTrace](/reference/schemas/classes/common.InvalidUrlError.md#preparestacktrace)
+- [stackTraceLimit](/reference/schemas/classes/common.InvalidUrlError.md#stacktracelimit)
 
 ### Methods
 
-- [captureStackTrace](/reference/schema/classes/common.InvalidUrlError.md#capturestacktrace)
+- [captureStackTrace](/reference/schemas/classes/common.InvalidUrlError.md#capturestacktrace)
 
 ## Constructors
 

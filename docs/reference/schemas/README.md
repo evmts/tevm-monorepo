@@ -1,4 +1,4 @@
-@evmts/schemas / [Modules](/reference/schema/modules.md)
+@evmts/schemas / [Modules](/reference/schemas/modules.md)
 
 <p align="center">
   <a href="https://evmts.dev/">
@@ -20,7 +20,7 @@
 
 # @evmts/schemas
 
-Effect Schemas for EVMts. Docs are located in [./docs](./docs)
+Effect Schemas for EVMts.
 
 ## License 📄
 

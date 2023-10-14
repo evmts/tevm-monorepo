@@ -1,8 +1,8 @@
-[@evmts/schemas](/reference/schema/README.md) / [Modules](/reference/schema/modules.md) / [ethereum](/reference/schema/modules/ethereum.md) / InvalidAddressError
+[@evmts/schemas](/reference/schemas/README.md) / [Modules](/reference/schemas/modules.md) / [ethereum](/reference/schemas/modules/ethereum.md) / InvalidAddressError
 
 # Class: InvalidAddressError
 
-[ethereum](/reference/schema/modules/ethereum.md).InvalidAddressError
+[ethereum](/reference/schemas/modules/ethereum.md).InvalidAddressError
 
 Error thrown when an Address is invalid.
 
@@ -23,20 +23,20 @@ throw new InvalidAddressError({ address: '0x1234' });
 
 ### Constructors
 
-- [constructor](/reference/schema/classes/ethereum.InvalidAddressError.md#constructor)
+- [constructor](/reference/schemas/classes/ethereum.InvalidAddressError.md#constructor)
 
 ### Properties
 
-- [cause](/reference/schema/classes/ethereum.InvalidAddressError.md#cause)
-- [message](/reference/schema/classes/ethereum.InvalidAddressError.md#message)
-- [name](/reference/schema/classes/ethereum.InvalidAddressError.md#name)
-- [stack](/reference/schema/classes/ethereum.InvalidAddressError.md#stack)
-- [prepareStackTrace](/reference/schema/classes/ethereum.InvalidAddressError.md#preparestacktrace)
-- [stackTraceLimit](/reference/schema/classes/ethereum.InvalidAddressError.md#stacktracelimit)
+- [cause](/reference/schemas/classes/ethereum.InvalidAddressError.md#cause)
+- [message](/reference/schemas/classes/ethereum.InvalidAddressError.md#message)
+- [name](/reference/schemas/classes/ethereum.InvalidAddressError.md#name)
+- [stack](/reference/schemas/classes/ethereum.InvalidAddressError.md#stack)
+- [prepareStackTrace](/reference/schemas/classes/ethereum.InvalidAddressError.md#preparestacktrace)
+- [stackTraceLimit](/reference/schemas/classes/ethereum.InvalidAddressError.md#stacktracelimit)
 
 ### Methods
 
-- [captureStackTrace](/reference/schema/classes/ethereum.InvalidAddressError.md#capturestacktrace)
+- [captureStackTrace](/reference/schemas/classes/ethereum.InvalidAddressError.md#capturestacktrace)
 
 ## Constructors
 

@@ -1,8 +1,8 @@
-[@evmts/schemas](/reference/schema/README.md) / [Modules](/reference/schema/modules.md) / [ethereum](/reference/schema/modules/ethereum.md) / InvalidBytesFixedError
+[@evmts/schemas](/reference/schemas/README.md) / [Modules](/reference/schemas/modules.md) / [ethereum](/reference/schemas/modules/ethereum.md) / InvalidBytesFixedError
 
 # Class: InvalidBytesFixedError
 
-[ethereum](/reference/schema/modules/ethereum.md).InvalidBytesFixedError
+[ethereum](/reference/schemas/modules/ethereum.md).InvalidBytesFixedError
 
 Error thrown when a FixedByte is invalid.
 A FixedByte string is invalid if it's not within the bounds of its size.
@@ -17,20 +17,20 @@ A FixedByte string is invalid if it's not within the bounds of its size.
 
 ### Constructors
 
-- [constructor](/reference/schema/classes/ethereum.InvalidBytesFixedError.md#constructor)
+- [constructor](/reference/schemas/classes/ethereum.InvalidBytesFixedError.md#constructor)
 
 ### Properties
 
-- [cause](/reference/schema/classes/ethereum.InvalidBytesFixedError.md#cause)
-- [message](/reference/schema/classes/ethereum.InvalidBytesFixedError.md#message)
-- [name](/reference/schema/classes/ethereum.InvalidBytesFixedError.md#name)
-- [stack](/reference/schema/classes/ethereum.InvalidBytesFixedError.md#stack)
-- [prepareStackTrace](/reference/schema/classes/ethereum.InvalidBytesFixedError.md#preparestacktrace)
-- [stackTraceLimit](/reference/schema/classes/ethereum.InvalidBytesFixedError.md#stacktracelimit)
+- [cause](/reference/schemas/classes/ethereum.InvalidBytesFixedError.md#cause)
+- [message](/reference/schemas/classes/ethereum.InvalidBytesFixedError.md#message)
+- [name](/reference/schemas/classes/ethereum.InvalidBytesFixedError.md#name)
+- [stack](/reference/schemas/classes/ethereum.InvalidBytesFixedError.md#stack)
+- [prepareStackTrace](/reference/schemas/classes/ethereum.InvalidBytesFixedError.md#preparestacktrace)
+- [stackTraceLimit](/reference/schemas/classes/ethereum.InvalidBytesFixedError.md#stacktracelimit)
 
 ### Methods
 
-- [captureStackTrace](/reference/schema/classes/ethereum.InvalidBytesFixedError.md#capturestacktrace)
+- [captureStackTrace](/reference/schemas/classes/ethereum.InvalidBytesFixedError.md#capturestacktrace)
 
 ## Constructors
 
@@ -47,7 +47,7 @@ A FixedByte string is invalid if it's not within the bounds of its size.
 | `options.cause` | `undefined` \| readonly [`ParseErrors`, `ParseErrors`] | The cause of the error. |
 | `options.docs` | `undefined` \| `string` | The documentation URL. |
 | `options.message` | `undefined` \| `string` | The error message. |
-| `options.size` | [`BytesCapacity`](/reference/schema/modules/ethereum.md#bytescapacity) | The size of the bytes. |
+| `options.size` | [`BytesCapacity`](/reference/schemas/modules/ethereum.md#bytescapacity) | The size of the bytes. |
 
 #### Overrides
 

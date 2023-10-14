@@ -1,4 +1,4 @@
-[@evmts/bundler](/reference/schema/README.md) / [Modules](/reference/schema/modules.md) / solc
+[@evmts/bundler](/reference/bundler/README.md) / [Modules](/reference/bundler/modules.md) / solc
 
 # Module: solc
 
@@ -6,8 +6,8 @@
 
 ### Functions
 
-- [resolveArtifacts](/reference/schema/modules/solc.md#resolveartifacts)
-- [resolveArtifactsSync](/reference/schema/modules/solc.md#resolveartifactssync)
+- [resolveArtifacts](/reference/bundler/modules/solc.md#resolveartifacts)
+- [resolveArtifactsSync](/reference/bundler/modules/solc.md#resolveartifactssync)
 
 ## Functions
 
@@ -27,7 +27,7 @@ Currently unimplemented just uses resolveArtifactsSync
 | `config` | `Required`<`CompilerConfig`\> |
 | `includeAst` | `boolean` |
 | `fao` | `FileAccessObject` |
-| `cache?` | [`Cache`](/reference/schema/modules/createCache.md#cache) |
+| `cache?` | [`Cache`](/reference/bundler/modules/createCache.md#cache) |
 
 #### Returns
 
@@ -53,7 +53,7 @@ ___
 | `config` | `Required`<`CompilerConfig`\> |
 | `includeAst` | `boolean` |
 | `fao` | `FileAccessObject` |
-| `cache?` | [`Cache`](/reference/schema/modules/createCache.md#cache) |
+| `cache?` | [`Cache`](/reference/bundler/modules/createCache.md#cache) |
 
 #### Returns
 
