@@ -1,13 +1,24 @@
-import { bunFileAccesObject } from './bunFileAccessObject'
+import { bunFileAccesObject } from './bunFileAccessObject.js'
 import { bundler, createCache } from '@evmts/bundler'
 import { loadConfigAsync } from '@evmts/config'
-import type { BunPlugin } from 'bun'
 
-type EvmtsBunPluginOptions = {}
-
-type EvmtsBunPlugin = (options?: EvmtsBunPluginOptions) => BunPlugin
-
-export const evmtsBunPlugin: EvmtsBunPlugin = () => {
+/**
+ * @evmts/bun-plugin is a bun plugin that allows you to import solidity files into your typescript files
+ * and have them compiled to typescript on the fly.
+ * @returns {import("bun").BunPlugin}
+ * @example
+ * ```ts plugin.ts
+ * import { evmtsBunPlugin } from '@evmts/esbuild-plugin'
+ * import { plugin } from 'bun'
+ *
+ * plugin(evmtsBunPlugin())
+ * ```
+ *
+ * ```ts bunfig.toml
+ * preload = ["./plugins.ts"]
+ * ```
+ */
+export const evmtsBunPlugin = () => {
 	return {
 		name: '@evmts/esbuild-plugin',
 		async setup(build) {
