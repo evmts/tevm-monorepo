@@ -1,12 +1,8 @@
 {
 	"$schema": "https://typedoc.org/schema.json",
 	"out": "../docs/reference/blockexplorer",
-	"entryPoints": [
-		"./src/index.js"
-	],
-  "publicPath": "/reference/blockexplorer/",
-	"plugin": [
-		"typedoc-plugin-markdown"
-	],
+	"entryPoints": ["./src/index.js"],
+	"publicPath": "/reference/blockexplorer/",
+	"plugin": ["typedoc-plugin-markdown"],
 	"gitRevision": "main"
 }
