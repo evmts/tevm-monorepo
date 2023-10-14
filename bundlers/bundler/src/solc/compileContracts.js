@@ -6,7 +6,7 @@ import { Effect } from 'effect'
 
 /**
  * Compile the Solidity contract and return its ABI.
- * 
+ *
  * @template TIncludeAsts
  * @param {string} filePath
  * @param {string} basedir
@@ -51,10 +51,10 @@ export const compileContract = async (
 		fao,
 	)
 
-	/** 
- * @type {Object.<string, import('../types').ModuleInfo>}
- */
-	const modules = {};
+	/**
+	 * @type {Object.<string, import('../types').ModuleInfo>}
+	 */
+	const modules = {}
 
 	const stack = [entryModule]
 	while (stack.length !== 0) {
@@ -71,11 +71,14 @@ export const compileContract = async (
 
 	const sources = Object.fromEntries(
 		Object.entries(modules).map(([id, module]) => {
-			return [id, {
-				content:
-					/** @type {string} */
-					(module.code)
-			}];
+			return [
+				id,
+				{
+					content:
+						/** @type {string} */
+						(module.code),
+				},
+			]
 		}),
 	)
 
@@ -107,11 +110,11 @@ export const compileContract = async (
 
 	if (isErrors) {
 		logger.error('Compilation errors:')
-		logger.error(/** @type {any} */(output?.errors))
+		logger.error(/** @type {any} */ (output?.errors))
 		throw new Error('Compilation failed')
 	}
 	if (warnings?.length) {
-		logger.warn(/** @type {any} */(warnings))
+		logger.warn(/** @type {any} */ (warnings))
 		logger.warn('Compilation warnings:')
 	}
 
@@ -123,16 +126,16 @@ export const compileContract = async (
 		)
 		return {
 			artifacts: output.contracts[entryModule.id],
-			modules:/** @type {any} */(modules),
-			asts: /** @type {any} */(asts),
+			modules: /** @type {any} */ (modules),
+			asts: /** @type {any} */ (asts),
 			solcInput: input,
 			solcOutput: output,
 		}
 	}
 	return {
 		artifacts: output.contracts[entryModule.id],
-		modules: /** @type {any} */(modules),
-		asts: /** @type {any} */(undefined),
+		modules: /** @type {any} */ (modules),
+		asts: /** @type {any} */ (undefined),
 		solcInput: input,
 		solcOutput: output,
 	}

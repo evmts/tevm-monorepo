@@ -1,11 +1,11 @@
-import { invariant } from '../utils/invariant';
-import { moduleFactorySync } from './moduleFactorySync';
-import * as solc from './solc';
-import resolve from 'resolve';
+import { invariant } from '../utils/invariant'
+import { moduleFactorySync } from './moduleFactorySync'
+import * as solc from './solc'
+import resolve from 'resolve'
 
 /**
  * Compile the Solidity contract and return its ABI.
- * 
+ *
  * @template TIncludeAsts
  * @param {string} filePath
  * @param {string} basedir
@@ -15,7 +15,7 @@ import resolve from 'resolve';
  * @param {import('../types').Logger} logger
  * @param {import('../createCache').Cache} [cache]
  * @returns {import('../types').CompiledContracts}
- * @example 
+ * @example
  * const { artifacts, modules } = compileContractSync(
  *  './contracts/MyContract.sol',
  *  __dirname,
@@ -33,36 +33,36 @@ export function compileContractSync(
 	includeAst,
 	fao,
 	logger,
-	cache
+	cache,
 ) {
 	const entryModule = moduleFactorySync(
 		filePath,
 		fao.readFileSync(
 			resolve.sync(filePath, {
 				basedir,
-				readFileSync: file => fao.readFileSync(file, 'utf8'),
-				isFile: fao.existsSync
+				readFileSync: (file) => fao.readFileSync(file, 'utf8'),
+				isFile: fao.existsSync,
 			}),
-			'utf8'
+			'utf8',
 		),
 		config.remappings,
 		config.libs,
-		fao
-	);
+		fao,
+	)
 
 	/** @type {Record<string, import('../types').ModuleInfo>} */
-	const modules = {};
+	const modules = {}
 
-	const stack = [entryModule];
+	const stack = [entryModule]
 	while (stack.length !== 0) {
-		const m = stack.pop();
-		invariant(m, 'Module should exist');
+		const m = stack.pop()
+		invariant(m, 'Module should exist')
 		if (m.id in modules) {
-			continue;
+			continue
 		}
-		modules[m.id] = m;
+		modules[m.id] = m
 		for (const dep of m.resolutions) {
-			stack.push(dep);
+			stack.push(dep)
 		}
 	}
 
@@ -70,64 +70,62 @@ export function compileContractSync(
 		Object.entries(modules).map(([id, module]) => {
 			const code =
 				/** @type {string} */
-				(module.code);
-			return [id, { content: code }];
-		})
-	);
+				(module.code)
+			return [id, { content: code }]
+		}),
+	)
 
 	/**
 	 * @type {import('./solc').SolcInputDescription}
 	 */
 	const solcInput = {
-		language: ('Solidity'),
+		language: 'Solidity',
 		sources,
 		settings: {
 			outputSelection: {
 				'*': {
 					'*': ['abi', 'userdoc'],
-					...(includeAst ? { '': ['ast'] } : {})
-				}
-			}
-		}
+					...(includeAst ? { '': ['ast'] } : {}),
+				},
+			},
+		},
 	}
 	const solcOutput = cache?.isCached(entryModule.id, sources)
 		? cache.read(entryModule.id)
-		: solc.solcCompile(
-			solcInput
-		);
+		: solc.solcCompile(solcInput)
 
-	cache?.write(entryModule.id, solcOutput);
+	cache?.write(entryModule.id, solcOutput)
 
-	const warnings = solcOutput?.errors?.filter(({ type }) => type === 'Warning');
-	const isErrors = (solcOutput?.errors?.length ?? 0) > (warnings?.length ?? 0);
+	const warnings = solcOutput?.errors?.filter(({ type }) => type === 'Warning')
+	const isErrors = (solcOutput?.errors?.length ?? 0) > (warnings?.length ?? 0)
 
 	if (isErrors) {
-		logger.error('Compilation errors:', /** @type {any}*/(solcOutput?.errors));
-		throw new Error('Compilation failed');
+		logger.error('Compilation errors:', /** @type {any}*/ (solcOutput?.errors))
+		throw new Error('Compilation failed')
 	}
 	if (warnings?.length) {
-		logger.warn('Compilation warnings:', /** @type {any}*/(solcOutput?.errors));
+		logger.warn('Compilation warnings:', /** @type {any}*/ (solcOutput?.errors))
 	}
 
 	if (includeAst) {
 		const asts = Object.fromEntries(
 			Object.entries(solcOutput.sources).map(([id, source]) => {
-				return [id, source.ast];
-			})
-		);
+				return [id, source.ast]
+			}),
+		)
 		return {
 			artifacts: solcOutput.contracts[entryModule.id],
 			modules,
 			asts,
 			solcInput,
-			solcOutput: solcOutput
-		};
+			solcOutput: solcOutput,
+		}
 	}
 	return {
 		artifacts: solcOutput.contracts[entryModule.id],
 		modules,
 		asts: undefined,
 		solcInput: solcInput,
-		solcOutput: solcOutput
-	};
+		solcOutput: solcOutput,
+	}
 }

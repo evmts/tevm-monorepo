@@ -18,7 +18,7 @@ import {
 } from 'vitest'
 
 // Mock the necessary functions and modules
-vi.mock('resolve', () => ({ sync: vi.fn() }))
+vi.mock('resolve', () => ({ default: { sync: vi.fn() } }))
 vi.mock('solc', () => {
 	const defaultExport = { compile: vi.fn() }
 	return { default: defaultExport, ...defaultExport }
