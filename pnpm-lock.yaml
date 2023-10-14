@@ -189,6 +189,12 @@ importers:
       tsup:
         specifier: ^7.2.0
         version: 7.2.0(typescript@5.2.2)
+      typedoc:
+        specifier: ^0.25.2
+        version: 0.25.2(typescript@5.2.2)
+      typedoc-plugin-markdown:
+        specifier: ^3.16.0
+        version: 3.16.0(typedoc@0.25.2)
       typescript:
         specifier: ^5.2.2
         version: 5.2.2
