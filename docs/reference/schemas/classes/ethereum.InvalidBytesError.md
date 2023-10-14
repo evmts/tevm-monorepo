@@ -4,8 +4,7 @@
 
 [ethereum](/reference/schema/modules/ethereum.md).InvalidBytesError
 
-Error thrown when a FixedByte is invalid.
-A FixedByte string is invalid if it's not within the bounds of its size.
+Error thrown when an invalid Bytes is provided.
 
 ## Hierarchy
 
@@ -36,18 +35,17 @@ A FixedByte string is invalid if it's not within the bounds of its size.
 
 ### constructor
 
-• **new InvalidBytesError**(`options`)
+• **new InvalidBytesError**(`options?`)
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `options` | `Object` | The options for the error. |
-| `options.bytes` | `string` | The invalid bytes string. |
 | `options.cause` | `undefined` \| readonly [`ParseErrors`, `ParseErrors`] | The cause of the error. |
 | `options.docs` | `undefined` \| `string` | The documentation URL. |
 | `options.message` | `undefined` \| `string` | The error message. |
-| `options.size` | [`BytesCapacity`](/reference/schema/modules/ethereum.md#bytescapacity) | The size of the bytes. |
+| `options.value` | `unknown` | The invalid hex value. |
 
 #### Overrides
 
@@ -55,7 +53,7 @@ TypeError.constructor
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/Errors.js:28](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/Errors.js#L28)
+[schemas/src/ethereum/SBytes/Errors.js:19](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytes/Errors.js#L19)
 
 ## Properties
 
@@ -69,7 +67,7 @@ TypeError.cause
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/Errors.js:40](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/Errors.js#L40)
+[schemas/src/ethereum/SBytes/Errors.js:26](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytes/Errors.js#L26)
 
 ___
 

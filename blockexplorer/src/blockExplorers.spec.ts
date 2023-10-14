@@ -1,8 +1,6 @@
 import { StandardBlockExplorer } from './blockExplorer.js'
 import {
-	InvalidAddressError,
-	InvalidHexStringError,
-	InvalidUrlError,
+	InvalidAddressError, InvalidBytesError, InvalidUrlError
 } from '@evmts/schemas'
 import { optimism } from 'viem/chains'
 import { describe, expect, expectTypeOf, it } from 'vitest'
@@ -45,7 +43,7 @@ describe('blockExplorers', () => {
 		it('should throw an error if the txId is not a hex string', () => {
 			const txHash = 'not a hex string'
 			expect(() => optimismExplorer.getTxUrl(txHash as any)).toThrow(
-				new InvalidHexStringError({ value: txHash as any }),
+				new InvalidBytesError({ value: txHash as any }),
 			)
 		})
 		it('should throw an error if the url is not a valid url', () => {
@@ -69,7 +67,7 @@ describe('blockExplorers', () => {
 		it('should throw an error if the blockId is not a hex string', () => {
 			const blockHash = 'not a hex string'
 			expect(() => optimismExplorer.getBlockUrl(blockHash as any)).toThrow(
-				new InvalidHexStringError({ value: blockHash as any }),
+				new InvalidBytesError({ value: blockHash as any }),
 			)
 		})
 		it('should throw an error if the url is not a valid url', () => {

@@ -1,51 +1,53 @@
-[@evmts/schemas](/reference/schema/README.md) / [Modules](/reference/schema/modules.md) / [common](/reference/schema/modules/common.md) / InvalidHexStringError
+[@evmts/schemas](/reference/schema/README.md) / [Modules](/reference/schema/modules.md) / [ethereum](/reference/schema/modules/ethereum.md) / InvalidBytesFixedError
 
-# Class: InvalidHexStringError
+# Class: InvalidBytesFixedError
 
-[common](/reference/schema/modules/common.md).InvalidHexStringError
+[ethereum](/reference/schema/modules/ethereum.md).InvalidBytesFixedError
 
-Error thrown when an invalid HexString is provided.
+Error thrown when a FixedByte is invalid.
+A FixedByte string is invalid if it's not within the bounds of its size.
 
 ## Hierarchy
 
 - `TypeError`
 
-  ↳ **`InvalidHexStringError`**
+  ↳ **`InvalidBytesFixedError`**
 
 ## Table of contents
 
 ### Constructors
 
-- [constructor](/reference/schema/classes/common.InvalidHexStringError.md#constructor)
+- [constructor](/reference/schema/classes/ethereum.InvalidBytesFixedError.md#constructor)
 
 ### Properties
 
-- [cause](/reference/schema/classes/common.InvalidHexStringError.md#cause)
-- [message](/reference/schema/classes/common.InvalidHexStringError.md#message)
-- [name](/reference/schema/classes/common.InvalidHexStringError.md#name)
-- [stack](/reference/schema/classes/common.InvalidHexStringError.md#stack)
-- [prepareStackTrace](/reference/schema/classes/common.InvalidHexStringError.md#preparestacktrace)
-- [stackTraceLimit](/reference/schema/classes/common.InvalidHexStringError.md#stacktracelimit)
+- [cause](/reference/schema/classes/ethereum.InvalidBytesFixedError.md#cause)
+- [message](/reference/schema/classes/ethereum.InvalidBytesFixedError.md#message)
+- [name](/reference/schema/classes/ethereum.InvalidBytesFixedError.md#name)
+- [stack](/reference/schema/classes/ethereum.InvalidBytesFixedError.md#stack)
+- [prepareStackTrace](/reference/schema/classes/ethereum.InvalidBytesFixedError.md#preparestacktrace)
+- [stackTraceLimit](/reference/schema/classes/ethereum.InvalidBytesFixedError.md#stacktracelimit)
 
 ### Methods
 
-- [captureStackTrace](/reference/schema/classes/common.InvalidHexStringError.md#capturestacktrace)
+- [captureStackTrace](/reference/schema/classes/ethereum.InvalidBytesFixedError.md#capturestacktrace)
 
 ## Constructors
 
 ### constructor
 
-• **new InvalidHexStringError**(`options?`)
+• **new InvalidBytesFixedError**(`options`)
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `options` | `Object` | The options for the error. |
+| `options.bytes` | `string` | The invalid bytes string. |
 | `options.cause` | `undefined` \| readonly [`ParseErrors`, `ParseErrors`] | The cause of the error. |
 | `options.docs` | `undefined` \| `string` | The documentation URL. |
 | `options.message` | `undefined` \| `string` | The error message. |
-| `options.value` | `unknown` | The invalid hex value. |
+| `options.size` | [`BytesCapacity`](/reference/schema/modules/ethereum.md#bytescapacity) | The size of the bytes. |
 
 #### Overrides
 
@@ -53,7 +55,7 @@ TypeError.constructor
 
 #### Defined in
 
-[schemas/src/common/SHexString.js:58](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/common/SHexString.js#L58)
+[schemas/src/ethereum/SBytesFixed/Errors.js:28](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/Errors.js#L28)
 
 ## Properties
 
@@ -67,7 +69,7 @@ TypeError.cause
 
 #### Defined in
 
-[schemas/src/common/SHexString.js:65](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/common/SHexString.js#L65)
+[schemas/src/ethereum/SBytesFixed/Errors.js:40](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/Errors.js#L40)
 
 ___
 

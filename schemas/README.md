@@ -14,7 +14,7 @@
 </a>
 <a href="https://bundlephobia.com/package/@evmts/schemas@latest" target="\_parent">
 <img alt="" src="https://badgen.net/bundlephobia/minzip/@evmts/schemas" />
-</a><a href="#badge">
+</a>
 
 # @evmts/schemas
 

@@ -8,6 +8,7 @@
 
 - [InvalidAddressError](/reference/schema/classes/ethereum.InvalidAddressError.md)
 - [InvalidBytesError](/reference/schema/classes/ethereum.InvalidBytesError.md)
+- [InvalidBytesFixedError](/reference/schema/classes/ethereum.InvalidBytesFixedError.md)
 - [InvalidINTError](/reference/schema/classes/ethereum.InvalidINTError.md)
 - [InvalidUINTError](/reference/schema/classes/ethereum.InvalidUINTError.md)
 
@@ -18,6 +19,7 @@
 ### Type Aliases
 
 - [Address](/reference/schema/modules/ethereum.md#address)
+- [Bytes](/reference/schema/modules/ethereum.md#bytes)
 - [Bytes1](/reference/schema/modules/ethereum.md#bytes1)
 - [Bytes10](/reference/schema/modules/ethereum.md#bytes10)
 - [Bytes11](/reference/schema/modules/ethereum.md#bytes11)
@@ -85,6 +87,7 @@
 - [INT8\_MAX](/reference/schema/modules/ethereum.md#int8_max)
 - [INT8\_MIN](/reference/schema/modules/ethereum.md#int8_min)
 - [SAddress](/reference/schema/modules/ethereum.md#saddress-1)
+- [SBytes](/reference/schema/modules/ethereum.md#sbytes)
 - [SBytes1](/reference/schema/modules/ethereum.md#sbytes1)
 - [SBytes10](/reference/schema/modules/ethereum.md#sbytes10)
 - [SBytes11](/reference/schema/modules/ethereum.md#sbytes11)
@@ -139,6 +142,7 @@
 ### Functions
 
 - [isAddress](/reference/schema/modules/ethereum.md#isaddress)
+- [isBytes](/reference/schema/modules/ethereum.md#isbytes)
 - [isBytes1](/reference/schema/modules/ethereum.md#isbytes1)
 - [isBytes10](/reference/schema/modules/ethereum.md#isbytes10)
 - [isBytes11](/reference/schema/modules/ethereum.md#isbytes11)
@@ -185,6 +189,7 @@
 - [isUINT8](/reference/schema/modules/ethereum.md#isuint8)
 - [parseAddress](/reference/schema/modules/ethereum.md#parseaddress)
 - [parseAddressSafe](/reference/schema/modules/ethereum.md#parseaddresssafe)
+- [parseBytes](/reference/schema/modules/ethereum.md#parsebytes)
 - [parseBytes1](/reference/schema/modules/ethereum.md#parsebytes1)
 - [parseBytes10](/reference/schema/modules/ethereum.md#parsebytes10)
 - [parseBytes10Safe](/reference/schema/modules/ethereum.md#parsebytes10safe)
@@ -249,6 +254,7 @@
 - [parseBytes8Safe](/reference/schema/modules/ethereum.md#parsebytes8safe)
 - [parseBytes9](/reference/schema/modules/ethereum.md#parsebytes9)
 - [parseBytes9Safe](/reference/schema/modules/ethereum.md#parsebytes9safe)
+- [parseBytesSafe](/reference/schema/modules/ethereum.md#parsebytessafe)
 - [parseINT128Safe](/reference/schema/modules/ethereum.md#parseint128safe)
 - [parseINT16Safe](/reference/schema/modules/ethereum.md#parseint16safe)
 - [parseINT256Safe](/reference/schema/modules/ethereum.md#parseint256safe)
@@ -286,6 +292,16 @@ Type representing a valid Ethereum address
 #### Defined in
 
 [schemas/src/ethereum/SAddress/SAddress.js:11](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SAddress/SAddress.js#L11)
+
+___
+
+### Bytes
+
+Ƭ **Bytes**<\>: \`0x${string}\`
+
+#### Defined in
+
+[schemas/src/ethereum/SBytes/SBytes.js:11](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytes/SBytes.js#L11)
 
 ___
 
@@ -1040,6 +1056,25 @@ ___
 
 ___
 
+### SBytes
+
+• `Const` **SBytes**: `Schema`<`string`, \`0x${string}\`\>
+
+[Effect schema](https://github.com/Effect-TS/schema) for the Bytes type.
+
+**`Example`**
+
+```javascript
+import { Schema } from '@effect/schema/Schema';
+export const SBytes: Schema<string, Bytes>;
+```
+
+#### Defined in
+
+[schemas/src/ethereum/SBytes/SBytes.js:28](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytes/SBytes.js#L28)
+
+___
+
 ### SBytes1
 
 • `Const` **SBytes1**: `Schema`<`string`, \`0x${string}\`\>
@@ -1771,6 +1806,38 @@ isAddress('0x1234567890123456789012345678901234567890'); // true
 #### Defined in
 
 [schemas/src/ethereum/SAddress/isAddress.js:23](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SAddress/isAddress.js#L23)
+
+___
+
+### isBytes
+
+▸ **isBytes**(`value`): `boolean`
+
+Type guard that returns true if a string is a valid hex string.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `value` | `string` | The string to check. |
+
+#### Returns
+
+`boolean`
+
+- True if the string is a valid hex string.
+
+**`Example`**
+
+```javascript
+import { isBytes } from '@evmts/schemas';
+const hex = '0x1234567890abcdef1234567890abcdef12345678';
+const isHex = isBytes(hex);
+```
+
+#### Defined in
+
+[schemas/src/ethereum/SBytes/isBytes.js:22](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytes/isBytes.js#L22)
 
 ___
 
@@ -3170,6 +3237,41 @@ Parses an Address safely into an effect.
 
 ___
 
+### parseBytes
+
+▸ **parseBytes**<`TBytes`\>(`hex`): `TBytes`
+
+Parses a Bytes and returns the value if no errors.
+
+#### Type parameters
+
+| Name | Type |
+| :------ | :------ |
+| `TBytes` | extends \`0x${string}\` |
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `hex` | `TBytes` |
+
+#### Returns
+
+`TBytes`
+
+**`Example`**
+
+```javascript
+import { parseBytes } from '@evmts/schemas';
+const parsedBytes = parseBytes('0x1234567890abcdef1234567890abcdef12345678');
+```
+
+#### Defined in
+
+[schemas/src/ethereum/SBytes/parseBytes.js:20](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytes/parseBytes.js#L20)
+
+___
+
 ### parseBytes1
 
 ▸ **parseBytes1**<`TBytes1`\>(`bytes1`): `TBytes1`
@@ -3201,7 +3303,7 @@ const parsedBytes1 = parseBytes1('0xff');
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseINT.js:54](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseINT.js#L54)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:54](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L54)
 
 ___
 
@@ -3235,13 +3337,13 @@ const parsedBytes = parseBytes10('0xffaabbccddeeffaabbccdd');
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseINT.js:187](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseINT.js#L187)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:187](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L187)
 
 ___
 
 ### parseBytes10Safe
 
-▸ **parseBytes10Safe**<`TBytes10`\>(`bytes10`): `Effect`<`never`, [`InvalidBytesError`](/reference/schema/classes/ethereum.InvalidBytesError.md), `TBytes10`\>
+▸ **parseBytes10Safe**<`TBytes10`\>(`bytes10`): `Effect`<`never`, [`InvalidBytesFixedError`](/reference/schema/classes/ethereum.InvalidBytesFixedError.md), `TBytes10`\>
 
 Safely parses a Bytes10 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -3259,7 +3361,7 @@ Safely parses a Bytes10 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Returns
 
-`Effect`<`never`, [`InvalidBytesError`](/reference/schema/classes/ethereum.InvalidBytesError.md), `TBytes10`\>
+`Effect`<`never`, [`InvalidBytesFixedError`](/reference/schema/classes/ethereum.InvalidBytesFixedError.md), `TBytes10`\>
 
 #### Defined in
 
@@ -3298,13 +3400,13 @@ const parsedBytes11 = parseBytes11('0xffaabbccddeeffaabbccddaa');
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseINT.js:202](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseINT.js#L202)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:202](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L202)
 
 ___
 
 ### parseBytes11Safe
 
-▸ **parseBytes11Safe**<`TBytes11`\>(`bytes11`): `Effect`<`never`, [`InvalidBytesError`](/reference/schema/classes/ethereum.InvalidBytesError.md), `TBytes11`\>
+▸ **parseBytes11Safe**<`TBytes11`\>(`bytes11`): `Effect`<`never`, [`InvalidBytesFixedError`](/reference/schema/classes/ethereum.InvalidBytesFixedError.md), `TBytes11`\>
 
 Safely parses a Bytes11 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -3322,7 +3424,7 @@ Safely parses a Bytes11 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Returns
 
-`Effect`<`never`, [`InvalidBytesError`](/reference/schema/classes/ethereum.InvalidBytesError.md), `TBytes11`\>
+`Effect`<`never`, [`InvalidBytesFixedError`](/reference/schema/classes/ethereum.InvalidBytesFixedError.md), `TBytes11`\>
 
 #### Defined in
 
@@ -3361,13 +3463,13 @@ const parsedBytes12 = parseBytes12('0xffaabbccddeeffaabbccddaaee');
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseINT.js:217](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseINT.js#L217)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:217](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L217)
 
 ___
 
 ### parseBytes12Safe
 
-▸ **parseBytes12Safe**<`TBytes12`\>(`bytes12`): `Effect`<`never`, [`InvalidBytesError`](/reference/schema/classes/ethereum.InvalidBytesError.md), `TBytes12`\>
+▸ **parseBytes12Safe**<`TBytes12`\>(`bytes12`): `Effect`<`never`, [`InvalidBytesFixedError`](/reference/schema/classes/ethereum.InvalidBytesFixedError.md), `TBytes12`\>
 
 Safely parses a Bytes12 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -3385,7 +3487,7 @@ Safely parses a Bytes12 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Returns
 
-`Effect`<`never`, [`InvalidBytesError`](/reference/schema/classes/ethereum.InvalidBytesError.md), `TBytes12`\>
+`Effect`<`never`, [`InvalidBytesFixedError`](/reference/schema/classes/ethereum.InvalidBytesFixedError.md), `TBytes12`\>
 
 #### Defined in
 
@@ -3424,13 +3526,13 @@ const parsedBytes13 = parseBytes13('0xffaabbccddeeffaabbccddaaeeff');
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseINT.js:232](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseINT.js#L232)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:232](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L232)
 
 ___
 
 ### parseBytes13Safe
 
-▸ **parseBytes13Safe**<`TBytes13`\>(`bytes13`): `Effect`<`never`, [`InvalidBytesError`](/reference/schema/classes/ethereum.InvalidBytesError.md), `TBytes13`\>
+▸ **parseBytes13Safe**<`TBytes13`\>(`bytes13`): `Effect`<`never`, [`InvalidBytesFixedError`](/reference/schema/classes/ethereum.InvalidBytesFixedError.md), `TBytes13`\>
 
 Safely parses a Bytes13 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -3448,7 +3550,7 @@ Safely parses a Bytes13 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Returns
 
-`Effect`<`never`, [`InvalidBytesError`](/reference/schema/classes/ethereum.InvalidBytesError.md), `TBytes13`\>
+`Effect`<`never`, [`InvalidBytesFixedError`](/reference/schema/classes/ethereum.InvalidBytesFixedError.md), `TBytes13`\>
 
 #### Defined in
 
@@ -3487,13 +3589,13 @@ const parsedBytes14 = parseBytes14('0xffaabbccddeeffaabbccddaaeeffaa');
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseINT.js:247](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseINT.js#L247)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:247](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L247)
 
 ___
 
 ### parseBytes14Safe
 
-▸ **parseBytes14Safe**<`TBytes14`\>(`bytes14`): `Effect`<`never`, [`InvalidBytesError`](/reference/schema/classes/ethereum.InvalidBytesError.md), `TBytes14`\>
+▸ **parseBytes14Safe**<`TBytes14`\>(`bytes14`): `Effect`<`never`, [`InvalidBytesFixedError`](/reference/schema/classes/ethereum.InvalidBytesFixedError.md), `TBytes14`\>
 
 Safely parses a Bytes14 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -3511,7 +3613,7 @@ Safely parses a Bytes14 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Returns
 
-`Effect`<`never`, [`InvalidBytesError`](/reference/schema/classes/ethereum.InvalidBytesError.md), `TBytes14`\>
+`Effect`<`never`, [`InvalidBytesFixedError`](/reference/schema/classes/ethereum.InvalidBytesFixedError.md), `TBytes14`\>
 
 #### Defined in
 
@@ -3550,13 +3652,13 @@ const parsedBytes15 = parseBytes15('0xffaabbccddeeffaabbccddaaeeffaaee');
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseINT.js:262](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseINT.js#L262)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:262](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L262)
 
 ___
 
 ### parseBytes15Safe
 
-▸ **parseBytes15Safe**<`TBytes15`\>(`bytes15`): `Effect`<`never`, [`InvalidBytesError`](/reference/schema/classes/ethereum.InvalidBytesError.md), `TBytes15`\>
+▸ **parseBytes15Safe**<`TBytes15`\>(`bytes15`): `Effect`<`never`, [`InvalidBytesFixedError`](/reference/schema/classes/ethereum.InvalidBytesFixedError.md), `TBytes15`\>
 
 Safely parses a Bytes15 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -3574,7 +3676,7 @@ Safely parses a Bytes15 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Returns
 
-`Effect`<`never`, [`InvalidBytesError`](/reference/schema/classes/ethereum.InvalidBytesError.md), `TBytes15`\>
+`Effect`<`never`, [`InvalidBytesFixedError`](/reference/schema/classes/ethereum.InvalidBytesFixedError.md), `TBytes15`\>
 
 #### Defined in
 
@@ -3613,13 +3715,13 @@ const parsedBytes16 = parseBytes16('0xffaabbccddeeffaabbccddaaeeffaaeeff');
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseINT.js:277](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseINT.js#L277)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:277](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L277)
 
 ___
 
 ### parseBytes16Safe
 
-▸ **parseBytes16Safe**<`TBytes16`\>(`bytes16`): `Effect`<`never`, [`InvalidBytesError`](/reference/schema/classes/ethereum.InvalidBytesError.md), `TBytes16`\>
+▸ **parseBytes16Safe**<`TBytes16`\>(`bytes16`): `Effect`<`never`, [`InvalidBytesFixedError`](/reference/schema/classes/ethereum.InvalidBytesFixedError.md), `TBytes16`\>
 
 Safely parses a Bytes16 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -3637,7 +3739,7 @@ Safely parses a Bytes16 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Returns
 
-`Effect`<`never`, [`InvalidBytesError`](/reference/schema/classes/ethereum.InvalidBytesError.md), `TBytes16`\>
+`Effect`<`never`, [`InvalidBytesFixedError`](/reference/schema/classes/ethereum.InvalidBytesFixedError.md), `TBytes16`\>
 
 #### Defined in
 
@@ -3676,13 +3778,13 @@ const parsedBytes17 = parseBytes17('0xffaabbccddeeffaabbccddaaeeffaaeeffaa');
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseINT.js:292](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseINT.js#L292)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:292](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L292)
 
 ___
 
 ### parseBytes17Safe
 
-▸ **parseBytes17Safe**<`TBytes17`\>(`bytes17`): `Effect`<`never`, [`InvalidBytesError`](/reference/schema/classes/ethereum.InvalidBytesError.md), `TBytes17`\>
+▸ **parseBytes17Safe**<`TBytes17`\>(`bytes17`): `Effect`<`never`, [`InvalidBytesFixedError`](/reference/schema/classes/ethereum.InvalidBytesFixedError.md), `TBytes17`\>
 
 Safely parses a Bytes17 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -3700,7 +3802,7 @@ Safely parses a Bytes17 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Returns
 
-`Effect`<`never`, [`InvalidBytesError`](/reference/schema/classes/ethereum.InvalidBytesError.md), `TBytes17`\>
+`Effect`<`never`, [`InvalidBytesFixedError`](/reference/schema/classes/ethereum.InvalidBytesFixedError.md), `TBytes17`\>
 
 #### Defined in
 
@@ -3739,13 +3841,13 @@ const parsedBytes18 = parseBytes18('0xffaabbccddeeffaabbccddaaeeffaaeeffbb');
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseINT.js:307](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseINT.js#L307)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:307](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L307)
 
 ___
 
 ### parseBytes18Safe
 
-▸ **parseBytes18Safe**<`TBytes18`\>(`bytes18`): `Effect`<`never`, [`InvalidBytesError`](/reference/schema/classes/ethereum.InvalidBytesError.md), `TBytes18`\>
+▸ **parseBytes18Safe**<`TBytes18`\>(`bytes18`): `Effect`<`never`, [`InvalidBytesFixedError`](/reference/schema/classes/ethereum.InvalidBytesFixedError.md), `TBytes18`\>
 
 Safely parses a Bytes18 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -3763,7 +3865,7 @@ Safely parses a Bytes18 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Returns
 
-`Effect`<`never`, [`InvalidBytesError`](/reference/schema/classes/ethereum.InvalidBytesError.md), `TBytes18`\>
+`Effect`<`never`, [`InvalidBytesFixedError`](/reference/schema/classes/ethereum.InvalidBytesFixedError.md), `TBytes18`\>
 
 #### Defined in
 
@@ -3802,13 +3904,13 @@ const parsedBytes19 = parseBytes19('0xffaabbccddeeffaabbccddaaeeffaaeeffbbcc');
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseINT.js:322](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseINT.js#L322)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:322](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L322)
 
 ___
 
 ### parseBytes19Safe
 
-▸ **parseBytes19Safe**<`TBytes19`\>(`bytes19`): `Effect`<`never`, [`InvalidBytesError`](/reference/schema/classes/ethereum.InvalidBytesError.md), `TBytes19`\>
+▸ **parseBytes19Safe**<`TBytes19`\>(`bytes19`): `Effect`<`never`, [`InvalidBytesFixedError`](/reference/schema/classes/ethereum.InvalidBytesFixedError.md), `TBytes19`\>
 
 Safely parses a Bytes19 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -3826,7 +3928,7 @@ Safely parses a Bytes19 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Returns
 
-`Effect`<`never`, [`InvalidBytesError`](/reference/schema/classes/ethereum.InvalidBytesError.md), `TBytes19`\>
+`Effect`<`never`, [`InvalidBytesFixedError`](/reference/schema/classes/ethereum.InvalidBytesFixedError.md), `TBytes19`\>
 
 #### Defined in
 
@@ -3836,7 +3938,7 @@ ___
 
 ### parseBytes1Safe
 
-▸ **parseBytes1Safe**<`TBytes1`\>(`bytes1`): `Effect`<`never`, [`InvalidBytesError`](/reference/schema/classes/ethereum.InvalidBytesError.md), `TBytes1`\>
+▸ **parseBytes1Safe**<`TBytes1`\>(`bytes1`): `Effect`<`never`, [`InvalidBytesFixedError`](/reference/schema/classes/ethereum.InvalidBytesFixedError.md), `TBytes1`\>
 
 Safely parses a Bytes1 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -3854,7 +3956,7 @@ Safely parses a Bytes1 into an [Effect](https://www.effect.website/docs/essentia
 
 #### Returns
 
-`Effect`<`never`, [`InvalidBytesError`](/reference/schema/classes/ethereum.InvalidBytesError.md), `TBytes1`\>
+`Effect`<`never`, [`InvalidBytesFixedError`](/reference/schema/classes/ethereum.InvalidBytesFixedError.md), `TBytes1`\>
 
 #### Defined in
 
@@ -3893,7 +3995,7 @@ const parsedBytes2 = parseBytes2('0xffaa');
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseINT.js:69](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseINT.js#L69)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:69](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L69)
 
 ___
 
@@ -3928,13 +4030,13 @@ const parsedBytes20 = parseBytes20('0xffaabbccddeeffaabbccddaaeeffaaeeffbbccdd')
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseINT.js:337](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseINT.js#L337)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:337](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L337)
 
 ___
 
 ### parseBytes20Safe
 
-▸ **parseBytes20Safe**<`TBytes20`\>(`bytes20`): `Effect`<`never`, [`InvalidBytesError`](/reference/schema/classes/ethereum.InvalidBytesError.md), `TBytes20`\>
+▸ **parseBytes20Safe**<`TBytes20`\>(`bytes20`): `Effect`<`never`, [`InvalidBytesFixedError`](/reference/schema/classes/ethereum.InvalidBytesFixedError.md), `TBytes20`\>
 
 Safely parses a Bytes20 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -3952,7 +4054,7 @@ Safely parses a Bytes20 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Returns
 
-`Effect`<`never`, [`InvalidBytesError`](/reference/schema/classes/ethereum.InvalidBytesError.md), `TBytes20`\>
+`Effect`<`never`, [`InvalidBytesFixedError`](/reference/schema/classes/ethereum.InvalidBytesFixedError.md), `TBytes20`\>
 
 #### Defined in
 
@@ -3991,13 +4093,13 @@ const parsedBytes21 = parseBytes21('0xffaabbccddeeffaabbccddaaeeffaaeeffbbccddaa
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseINT.js:352](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseINT.js#L352)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:352](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L352)
 
 ___
 
 ### parseBytes21Safe
 
-▸ **parseBytes21Safe**<`TBytes21`\>(`bytes21`): `Effect`<`never`, [`InvalidBytesError`](/reference/schema/classes/ethereum.InvalidBytesError.md), `TBytes21`\>
+▸ **parseBytes21Safe**<`TBytes21`\>(`bytes21`): `Effect`<`never`, [`InvalidBytesFixedError`](/reference/schema/classes/ethereum.InvalidBytesFixedError.md), `TBytes21`\>
 
 Safely parses a Bytes21 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -4015,7 +4117,7 @@ Safely parses a Bytes21 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Returns
 
-`Effect`<`never`, [`InvalidBytesError`](/reference/schema/classes/ethereum.InvalidBytesError.md), `TBytes21`\>
+`Effect`<`never`, [`InvalidBytesFixedError`](/reference/schema/classes/ethereum.InvalidBytesFixedError.md), `TBytes21`\>
 
 #### Defined in
 
@@ -4054,13 +4156,13 @@ const parsedBytes22 = parseBytes22('0xffaabbccddeeffaabbccddaaeeffaaeeffbbccddbb
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseINT.js:367](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseINT.js#L367)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:367](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L367)
 
 ___
 
 ### parseBytes22Safe
 
-▸ **parseBytes22Safe**<`TBytes22`\>(`bytes22`): `Effect`<`never`, [`InvalidBytesError`](/reference/schema/classes/ethereum.InvalidBytesError.md), `TBytes22`\>
+▸ **parseBytes22Safe**<`TBytes22`\>(`bytes22`): `Effect`<`never`, [`InvalidBytesFixedError`](/reference/schema/classes/ethereum.InvalidBytesFixedError.md), `TBytes22`\>
 
 Safely parses a Bytes22 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -4078,7 +4180,7 @@ Safely parses a Bytes22 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Returns
 
-`Effect`<`never`, [`InvalidBytesError`](/reference/schema/classes/ethereum.InvalidBytesError.md), `TBytes22`\>
+`Effect`<`never`, [`InvalidBytesFixedError`](/reference/schema/classes/ethereum.InvalidBytesFixedError.md), `TBytes22`\>
 
 #### Defined in
 
@@ -4117,13 +4219,13 @@ const parsedBytes23 = parseBytes23('0xffaabbccddeeffaabbccddaaeeffaaeeffbbccddcc
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseINT.js:382](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseINT.js#L382)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:382](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L382)
 
 ___
 
 ### parseBytes23Safe
 
-▸ **parseBytes23Safe**<`TBytes23`\>(`bytes23`): `Effect`<`never`, [`InvalidBytesError`](/reference/schema/classes/ethereum.InvalidBytesError.md), `TBytes23`\>
+▸ **parseBytes23Safe**<`TBytes23`\>(`bytes23`): `Effect`<`never`, [`InvalidBytesFixedError`](/reference/schema/classes/ethereum.InvalidBytesFixedError.md), `TBytes23`\>
 
 Safely parses a Bytes23 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -4141,7 +4243,7 @@ Safely parses a Bytes23 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Returns
 
-`Effect`<`never`, [`InvalidBytesError`](/reference/schema/classes/ethereum.InvalidBytesError.md), `TBytes23`\>
+`Effect`<`never`, [`InvalidBytesFixedError`](/reference/schema/classes/ethereum.InvalidBytesFixedError.md), `TBytes23`\>
 
 #### Defined in
 
@@ -4180,13 +4282,13 @@ const parsedBytes24 = parseBytes24('0xffaabbccddeeffaabbccddaaeeffaaeeffbbccddcc
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseINT.js:397](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseINT.js#L397)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:397](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L397)
 
 ___
 
 ### parseBytes24Safe
 
-▸ **parseBytes24Safe**<`TBytes24`\>(`bytes24`): `Effect`<`never`, [`InvalidBytesError`](/reference/schema/classes/ethereum.InvalidBytesError.md), `TBytes24`\>
+▸ **parseBytes24Safe**<`TBytes24`\>(`bytes24`): `Effect`<`never`, [`InvalidBytesFixedError`](/reference/schema/classes/ethereum.InvalidBytesFixedError.md), `TBytes24`\>
 
 Safely parses a Bytes24 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -4204,7 +4306,7 @@ Safely parses a Bytes24 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Returns
 
-`Effect`<`never`, [`InvalidBytesError`](/reference/schema/classes/ethereum.InvalidBytesError.md), `TBytes24`\>
+`Effect`<`never`, [`InvalidBytesFixedError`](/reference/schema/classes/ethereum.InvalidBytesFixedError.md), `TBytes24`\>
 
 #### Defined in
 
@@ -4243,13 +4345,13 @@ const parsedBytes25 = parseBytes25('0xffaabbccddeeffaabbccddaaeeffaaeeffbbccddcc
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseINT.js:412](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseINT.js#L412)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:412](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L412)
 
 ___
 
 ### parseBytes25Safe
 
-▸ **parseBytes25Safe**<`TBytes25`\>(`bytes25`): `Effect`<`never`, [`InvalidBytesError`](/reference/schema/classes/ethereum.InvalidBytesError.md), `TBytes25`\>
+▸ **parseBytes25Safe**<`TBytes25`\>(`bytes25`): `Effect`<`never`, [`InvalidBytesFixedError`](/reference/schema/classes/ethereum.InvalidBytesFixedError.md), `TBytes25`\>
 
 Safely parses a Bytes25 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -4267,7 +4369,7 @@ Safely parses a Bytes25 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Returns
 
-`Effect`<`never`, [`InvalidBytesError`](/reference/schema/classes/ethereum.InvalidBytesError.md), `TBytes25`\>
+`Effect`<`never`, [`InvalidBytesFixedError`](/reference/schema/classes/ethereum.InvalidBytesFixedError.md), `TBytes25`\>
 
 #### Defined in
 
@@ -4306,13 +4408,13 @@ const parsedBytes26 = parseBytes26('0xffaabbccddeeffaabbccddaaeeffaaeeffbbccddcc
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseINT.js:427](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseINT.js#L427)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:427](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L427)
 
 ___
 
 ### parseBytes26Safe
 
-▸ **parseBytes26Safe**<`TBytes26`\>(`bytes26`): `Effect`<`never`, [`InvalidBytesError`](/reference/schema/classes/ethereum.InvalidBytesError.md), `TBytes26`\>
+▸ **parseBytes26Safe**<`TBytes26`\>(`bytes26`): `Effect`<`never`, [`InvalidBytesFixedError`](/reference/schema/classes/ethereum.InvalidBytesFixedError.md), `TBytes26`\>
 
 Safely parses a Bytes26 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -4330,7 +4432,7 @@ Safely parses a Bytes26 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Returns
 
-`Effect`<`never`, [`InvalidBytesError`](/reference/schema/classes/ethereum.InvalidBytesError.md), `TBytes26`\>
+`Effect`<`never`, [`InvalidBytesFixedError`](/reference/schema/classes/ethereum.InvalidBytesFixedError.md), `TBytes26`\>
 
 #### Defined in
 
@@ -4369,13 +4471,13 @@ const parsedBytes27 = parseBytes27('0xffaabbccddeeffaabbccddaaeeffaaeeffbbccddcc
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseINT.js:442](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseINT.js#L442)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:442](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L442)
 
 ___
 
 ### parseBytes27Safe
 
-▸ **parseBytes27Safe**<`TBytes27`\>(`bytes27`): `Effect`<`never`, [`InvalidBytesError`](/reference/schema/classes/ethereum.InvalidBytesError.md), `TBytes27`\>
+▸ **parseBytes27Safe**<`TBytes27`\>(`bytes27`): `Effect`<`never`, [`InvalidBytesFixedError`](/reference/schema/classes/ethereum.InvalidBytesFixedError.md), `TBytes27`\>
 
 Safely parses a Bytes27 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -4393,7 +4495,7 @@ Safely parses a Bytes27 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Returns
 
-`Effect`<`never`, [`InvalidBytesError`](/reference/schema/classes/ethereum.InvalidBytesError.md), `TBytes27`\>
+`Effect`<`never`, [`InvalidBytesFixedError`](/reference/schema/classes/ethereum.InvalidBytesFixedError.md), `TBytes27`\>
 
 #### Defined in
 
@@ -4432,13 +4534,13 @@ const parsedBytes28 = parseBytes28('0xffaabbccddeeffaabbccddaaeeffaaeeffbbccddcc
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseINT.js:456](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseINT.js#L456)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:456](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L456)
 
 ___
 
 ### parseBytes28Safe
 
-▸ **parseBytes28Safe**<`TBytes28`\>(`bytes28`): `Effect`<`never`, [`InvalidBytesError`](/reference/schema/classes/ethereum.InvalidBytesError.md), `TBytes28`\>
+▸ **parseBytes28Safe**<`TBytes28`\>(`bytes28`): `Effect`<`never`, [`InvalidBytesFixedError`](/reference/schema/classes/ethereum.InvalidBytesFixedError.md), `TBytes28`\>
 
 Safely parses a Bytes28 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -4456,7 +4558,7 @@ Safely parses a Bytes28 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Returns
 
-`Effect`<`never`, [`InvalidBytesError`](/reference/schema/classes/ethereum.InvalidBytesError.md), `TBytes28`\>
+`Effect`<`never`, [`InvalidBytesFixedError`](/reference/schema/classes/ethereum.InvalidBytesFixedError.md), `TBytes28`\>
 
 #### Defined in
 
@@ -4495,13 +4597,13 @@ const parsedBytes29 = parseBytes29('0xffaabbccddeeffaabbccddaaeeffaaeeffbbccddcc
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseINT.js:471](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseINT.js#L471)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:471](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L471)
 
 ___
 
 ### parseBytes29Safe
 
-▸ **parseBytes29Safe**<`TBytes29`\>(`bytes29`): `Effect`<`never`, [`InvalidBytesError`](/reference/schema/classes/ethereum.InvalidBytesError.md), `TBytes29`\>
+▸ **parseBytes29Safe**<`TBytes29`\>(`bytes29`): `Effect`<`never`, [`InvalidBytesFixedError`](/reference/schema/classes/ethereum.InvalidBytesFixedError.md), `TBytes29`\>
 
 Safely parses a Bytes29 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -4519,7 +4621,7 @@ Safely parses a Bytes29 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Returns
 
-`Effect`<`never`, [`InvalidBytesError`](/reference/schema/classes/ethereum.InvalidBytesError.md), `TBytes29`\>
+`Effect`<`never`, [`InvalidBytesFixedError`](/reference/schema/classes/ethereum.InvalidBytesFixedError.md), `TBytes29`\>
 
 #### Defined in
 
@@ -4529,7 +4631,7 @@ ___
 
 ### parseBytes2Safe
 
-▸ **parseBytes2Safe**<`TBytes2`\>(`bytes2`): `Effect`<`never`, [`InvalidBytesError`](/reference/schema/classes/ethereum.InvalidBytesError.md), `TBytes2`\>
+▸ **parseBytes2Safe**<`TBytes2`\>(`bytes2`): `Effect`<`never`, [`InvalidBytesFixedError`](/reference/schema/classes/ethereum.InvalidBytesFixedError.md), `TBytes2`\>
 
 Safely parses a Bytes2 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -4547,7 +4649,7 @@ Safely parses a Bytes2 into an [Effect](https://www.effect.website/docs/essentia
 
 #### Returns
 
-`Effect`<`never`, [`InvalidBytesError`](/reference/schema/classes/ethereum.InvalidBytesError.md), `TBytes2`\>
+`Effect`<`never`, [`InvalidBytesFixedError`](/reference/schema/classes/ethereum.InvalidBytesFixedError.md), `TBytes2`\>
 
 #### Defined in
 
@@ -4586,7 +4688,7 @@ const parsedBytes3 = parseBytes3('0xffaabb');
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseINT.js:84](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseINT.js#L84)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:84](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L84)
 
 ___
 
@@ -4621,13 +4723,13 @@ const parsedBytes30 = parseBytes30('0xffaabbccddeeffaabbccddaaeeffaaeeffbbccddcc
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseINT.js:486](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseINT.js#L486)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:486](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L486)
 
 ___
 
 ### parseBytes30Safe
 
-▸ **parseBytes30Safe**<`TBytes30`\>(`bytes30`): `Effect`<`never`, [`InvalidBytesError`](/reference/schema/classes/ethereum.InvalidBytesError.md), `TBytes30`\>
+▸ **parseBytes30Safe**<`TBytes30`\>(`bytes30`): `Effect`<`never`, [`InvalidBytesFixedError`](/reference/schema/classes/ethereum.InvalidBytesFixedError.md), `TBytes30`\>
 
 Safely parses a Bytes30 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -4645,7 +4747,7 @@ Safely parses a Bytes30 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Returns
 
-`Effect`<`never`, [`InvalidBytesError`](/reference/schema/classes/ethereum.InvalidBytesError.md), `TBytes30`\>
+`Effect`<`never`, [`InvalidBytesFixedError`](/reference/schema/classes/ethereum.InvalidBytesFixedError.md), `TBytes30`\>
 
 #### Defined in
 
@@ -4684,13 +4786,13 @@ const parsedBytes31 = parseBytes31('0xffaabbccddeeffaabbccddaaeeffaaeeffbbccddcc
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseINT.js:501](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseINT.js#L501)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:501](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L501)
 
 ___
 
 ### parseBytes31Safe
 
-▸ **parseBytes31Safe**<`TBytes31`\>(`bytes31`): `Effect`<`never`, [`InvalidBytesError`](/reference/schema/classes/ethereum.InvalidBytesError.md), `TBytes31`\>
+▸ **parseBytes31Safe**<`TBytes31`\>(`bytes31`): `Effect`<`never`, [`InvalidBytesFixedError`](/reference/schema/classes/ethereum.InvalidBytesFixedError.md), `TBytes31`\>
 
 Safely parses a Bytes31 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -4708,7 +4810,7 @@ Safely parses a Bytes31 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Returns
 
-`Effect`<`never`, [`InvalidBytesError`](/reference/schema/classes/ethereum.InvalidBytesError.md), `TBytes31`\>
+`Effect`<`never`, [`InvalidBytesFixedError`](/reference/schema/classes/ethereum.InvalidBytesFixedError.md), `TBytes31`\>
 
 #### Defined in
 
@@ -4747,13 +4849,13 @@ const parsedBytes32 = parseBytes32('0xffaabbccddeeffaabbccddaaeeffaaeeffbbccddcc
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseINT.js:516](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseINT.js#L516)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:516](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L516)
 
 ___
 
 ### parseBytes32Safe
 
-▸ **parseBytes32Safe**<`TBytes32`\>(`bytes32`): `Effect`<`never`, [`InvalidBytesError`](/reference/schema/classes/ethereum.InvalidBytesError.md), `TBytes32`\>
+▸ **parseBytes32Safe**<`TBytes32`\>(`bytes32`): `Effect`<`never`, [`InvalidBytesFixedError`](/reference/schema/classes/ethereum.InvalidBytesFixedError.md), `TBytes32`\>
 
 Safely parses a Bytes32 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -4771,7 +4873,7 @@ Safely parses a Bytes32 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Returns
 
-`Effect`<`never`, [`InvalidBytesError`](/reference/schema/classes/ethereum.InvalidBytesError.md), `TBytes32`\>
+`Effect`<`never`, [`InvalidBytesFixedError`](/reference/schema/classes/ethereum.InvalidBytesFixedError.md), `TBytes32`\>
 
 #### Defined in
 
@@ -4781,7 +4883,7 @@ ___
 
 ### parseBytes3Safe
 
-▸ **parseBytes3Safe**<`TBytes3`\>(`bytes3`): `Effect`<`never`, [`InvalidBytesError`](/reference/schema/classes/ethereum.InvalidBytesError.md), `TBytes3`\>
+▸ **parseBytes3Safe**<`TBytes3`\>(`bytes3`): `Effect`<`never`, [`InvalidBytesFixedError`](/reference/schema/classes/ethereum.InvalidBytesFixedError.md), `TBytes3`\>
 
 Safely parses a Bytes3 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -4799,7 +4901,7 @@ Safely parses a Bytes3 into an [Effect](https://www.effect.website/docs/essentia
 
 #### Returns
 
-`Effect`<`never`, [`InvalidBytesError`](/reference/schema/classes/ethereum.InvalidBytesError.md), `TBytes3`\>
+`Effect`<`never`, [`InvalidBytesFixedError`](/reference/schema/classes/ethereum.InvalidBytesFixedError.md), `TBytes3`\>
 
 #### Defined in
 
@@ -4838,13 +4940,13 @@ const parsedBytes4 = parseBytes4('0xffaabbcc');
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseINT.js:99](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseINT.js#L99)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:99](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L99)
 
 ___
 
 ### parseBytes4Safe
 
-▸ **parseBytes4Safe**<`TBytes4`\>(`bytes4`): `Effect`<`never`, [`InvalidBytesError`](/reference/schema/classes/ethereum.InvalidBytesError.md), `TBytes4`\>
+▸ **parseBytes4Safe**<`TBytes4`\>(`bytes4`): `Effect`<`never`, [`InvalidBytesFixedError`](/reference/schema/classes/ethereum.InvalidBytesFixedError.md), `TBytes4`\>
 
 Safely parses a Bytes4 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -4862,7 +4964,7 @@ Safely parses a Bytes4 into an [Effect](https://www.effect.website/docs/essentia
 
 #### Returns
 
-`Effect`<`never`, [`InvalidBytesError`](/reference/schema/classes/ethereum.InvalidBytesError.md), `TBytes4`\>
+`Effect`<`never`, [`InvalidBytesFixedError`](/reference/schema/classes/ethereum.InvalidBytesFixedError.md), `TBytes4`\>
 
 #### Defined in
 
@@ -4901,13 +5003,13 @@ const parsedBytes5 = parseBytes5('0xffaabbccdd');
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseINT.js:114](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseINT.js#L114)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:114](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L114)
 
 ___
 
 ### parseBytes5Safe
 
-▸ **parseBytes5Safe**<`TBytes5`\>(`bytes5`): `Effect`<`never`, [`InvalidBytesError`](/reference/schema/classes/ethereum.InvalidBytesError.md), `TBytes5`\>
+▸ **parseBytes5Safe**<`TBytes5`\>(`bytes5`): `Effect`<`never`, [`InvalidBytesFixedError`](/reference/schema/classes/ethereum.InvalidBytesFixedError.md), `TBytes5`\>
 
 Safely parses a Bytes5 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -4925,7 +5027,7 @@ Safely parses a Bytes5 into an [Effect](https://www.effect.website/docs/essentia
 
 #### Returns
 
-`Effect`<`never`, [`InvalidBytesError`](/reference/schema/classes/ethereum.InvalidBytesError.md), `TBytes5`\>
+`Effect`<`never`, [`InvalidBytesFixedError`](/reference/schema/classes/ethereum.InvalidBytesFixedError.md), `TBytes5`\>
 
 #### Defined in
 
@@ -4964,13 +5066,13 @@ const parsedBytes6 = parseBytes6('0xffaabbccddeeff');
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseINT.js:128](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseINT.js#L128)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:128](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L128)
 
 ___
 
 ### parseBytes6Safe
 
-▸ **parseBytes6Safe**<`TBytes6`\>(`bytes6`): `Effect`<`never`, [`InvalidBytesError`](/reference/schema/classes/ethereum.InvalidBytesError.md), `TBytes6`\>
+▸ **parseBytes6Safe**<`TBytes6`\>(`bytes6`): `Effect`<`never`, [`InvalidBytesFixedError`](/reference/schema/classes/ethereum.InvalidBytesFixedError.md), `TBytes6`\>
 
 Safely parses a Bytes6 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -4988,7 +5090,7 @@ Safely parses a Bytes6 into an [Effect](https://www.effect.website/docs/essentia
 
 #### Returns
 
-`Effect`<`never`, [`InvalidBytesError`](/reference/schema/classes/ethereum.InvalidBytesError.md), `TBytes6`\>
+`Effect`<`never`, [`InvalidBytesFixedError`](/reference/schema/classes/ethereum.InvalidBytesFixedError.md), `TBytes6`\>
 
 #### Defined in
 
@@ -5027,13 +5129,13 @@ const parsedBytes7 = parseBytes7('0xffaabbccddeeffaa');
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseINT.js:143](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseINT.js#L143)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:143](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L143)
 
 ___
 
 ### parseBytes7Safe
 
-▸ **parseBytes7Safe**<`TBytes7`\>(`bytes7`): `Effect`<`never`, [`InvalidBytesError`](/reference/schema/classes/ethereum.InvalidBytesError.md), `TBytes7`\>
+▸ **parseBytes7Safe**<`TBytes7`\>(`bytes7`): `Effect`<`never`, [`InvalidBytesFixedError`](/reference/schema/classes/ethereum.InvalidBytesFixedError.md), `TBytes7`\>
 
 Safely parses a Bytes7 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -5051,7 +5153,7 @@ Safely parses a Bytes7 into an [Effect](https://www.effect.website/docs/essentia
 
 #### Returns
 
-`Effect`<`never`, [`InvalidBytesError`](/reference/schema/classes/ethereum.InvalidBytesError.md), `TBytes7`\>
+`Effect`<`never`, [`InvalidBytesFixedError`](/reference/schema/classes/ethereum.InvalidBytesFixedError.md), `TBytes7`\>
 
 #### Defined in
 
@@ -5090,13 +5192,13 @@ const parsedBytes8 = parseBytes8('0xffaabbccddeeffaabb');
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseINT.js:158](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseINT.js#L158)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:158](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L158)
 
 ___
 
 ### parseBytes8Safe
 
-▸ **parseBytes8Safe**<`TBytes8`\>(`bytes8`): `Effect`<`never`, [`InvalidBytesError`](/reference/schema/classes/ethereum.InvalidBytesError.md), `TBytes8`\>
+▸ **parseBytes8Safe**<`TBytes8`\>(`bytes8`): `Effect`<`never`, [`InvalidBytesFixedError`](/reference/schema/classes/ethereum.InvalidBytesFixedError.md), `TBytes8`\>
 
 Safely parses a Bytes8 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -5114,7 +5216,7 @@ Safely parses a Bytes8 into an [Effect](https://www.effect.website/docs/essentia
 
 #### Returns
 
-`Effect`<`never`, [`InvalidBytesError`](/reference/schema/classes/ethereum.InvalidBytesError.md), `TBytes8`\>
+`Effect`<`never`, [`InvalidBytesFixedError`](/reference/schema/classes/ethereum.InvalidBytesFixedError.md), `TBytes8`\>
 
 #### Defined in
 
@@ -5153,13 +5255,13 @@ const parsedBytes9 = parseBytes9('0xffaabbccddeeffaabbcc');
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseINT.js:173](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseINT.js#L173)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:173](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L173)
 
 ___
 
 ### parseBytes9Safe
 
-▸ **parseBytes9Safe**<`TBytes9`\>(`bytes9`): `Effect`<`never`, [`InvalidBytesError`](/reference/schema/classes/ethereum.InvalidBytesError.md), `TBytes9`\>
+▸ **parseBytes9Safe**<`TBytes9`\>(`bytes9`): `Effect`<`never`, [`InvalidBytesFixedError`](/reference/schema/classes/ethereum.InvalidBytesFixedError.md), `TBytes9`\>
 
 Safely parses a Bytes9 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -5177,11 +5279,46 @@ Safely parses a Bytes9 into an [Effect](https://www.effect.website/docs/essentia
 
 #### Returns
 
-`Effect`<`never`, [`InvalidBytesError`](/reference/schema/classes/ethereum.InvalidBytesError.md), `TBytes9`\>
+`Effect`<`never`, [`InvalidBytesFixedError`](/reference/schema/classes/ethereum.InvalidBytesFixedError.md), `TBytes9`\>
 
 #### Defined in
 
 [schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:244](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L244)
+
+___
+
+### parseBytesSafe
+
+▸ **parseBytesSafe**<`TBytes`\>(`value`): `Effect`<`never`, [`InvalidBytesError`](/reference/schema/classes/ethereum.InvalidBytesError.md), `TBytes`\>
+
+Safely parses a Bytes into an [Effect](https://www.effect.website/docs/essentials/effect-type).
+
+#### Type parameters
+
+| Name | Type |
+| :------ | :------ |
+| `TBytes` | extends \`0x${string}\` |
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `value` | `TBytes` |
+
+#### Returns
+
+`Effect`<`never`, [`InvalidBytesError`](/reference/schema/classes/ethereum.InvalidBytesError.md), `TBytes`\>
+
+**`Example`**
+
+```javascript
+import { parseBytesSafe } from '@evmts/schemas';
+const parsedBytesEffect = parseBytesSafe('0x1234567890abcdef1234567890abcdef12345678');
+```
+
+#### Defined in
+
+[schemas/src/ethereum/SBytes/parseBytesSafe.js:23](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytes/parseBytesSafe.js#L23)
 
 ___
 
