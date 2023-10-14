@@ -13,6 +13,7 @@ packages:
   - "schemas"
   - "revm"
   - "schemas"
+  - "state"
   - "ts-plugin"
   - "tsconfig"
   - "viem"
