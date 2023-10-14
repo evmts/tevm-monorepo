@@ -25,7 +25,10 @@ export const compileContract = async <TIncludeAsts extends boolean = boolean>(
 	const entryModule = await moduleFactory(
 		filePath,
 		await fao
-			.readFile(await Effect.runPromise(resolveEffect(filePath, basedir, fao, logger)), 'utf8')
+			.readFile(
+				await Effect.runPromise(resolveEffect(filePath, basedir, fao, logger)),
+				'utf8',
+			)
 			.then((code) => {
 				return code
 			}),

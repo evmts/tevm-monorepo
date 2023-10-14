@@ -1,8 +1,8 @@
 import type { FileAccessObject, Logger } from '..'
 import { resolveEffect } from './resolvePromise'
+import { Effect } from 'effect'
 import fs from 'fs'
 import { type Mock, beforeEach, describe, expect, it, vi } from 'vitest'
-import { Effect } from 'effect'
 
 const fao: FileAccessObject = {
 	existsSync: (filePath: string) => fs.existsSync(filePath),
@@ -31,12 +31,9 @@ describe('resolvePromise', () => {
 	})
 
 	it('should resolve a file path in the base directory', async () => {
-		const resolvedPath = await Effect.runPromise(resolveEffect(
-			'./resolvePromise.spec.ts',
-			__dirname,
-			fao,
-			logger,
-		))
+		const resolvedPath = await Effect.runPromise(
+			resolveEffect('./resolvePromise.spec.ts', __dirname, fao, logger),
+		)
 		expect(
 			resolvedPath.endsWith(
 				'evmts-monorepo/bundlers/bundler/src/utils/resolvePromise.spec.ts',
@@ -47,7 +44,9 @@ describe('resolvePromise', () => {
 	it('should handle readFile throwing', async () => {
 		fao.readFile = () => Promise.reject('readFile error')
 		await expect(
-			Effect.runPromise(resolveEffect('./resolvePromise.spec.tst', './src/utils', fao, logger)),
+			Effect.runPromise(
+				resolveEffect('./resolvePromise.spec.tst', './src/utils', fao, logger),
+			),
 		).rejects.toThrowErrorMatchingInlineSnapshot('"readFile error"')
 		expect((logger.error as Mock).mock.calls).toMatchInlineSnapshot(`
 			[
@@ -112,7 +111,9 @@ describe('resolvePromise', () => {
 	it('should throw an error for non-existent file', async () => {
 		fao.existsSync = () => false
 		await expect(
-			Effect.runPromise(resolveEffect('./resolvePromise.spec.tst', './src/utils', fao, logger)),
+			Effect.runPromise(
+				resolveEffect('./resolvePromise.spec.tst', './src/utils', fao, logger),
+			),
 		).rejects.toThrowErrorMatchingInlineSnapshot(
 			"\"Cannot find module './resolvePromise.spec.tst' from './src/utils'\"",
 		)
@@ -133,7 +134,9 @@ describe('resolvePromise', () => {
 			throw new Error('existsSync error')
 		}
 		expect(
-			Effect.runPromise(resolveEffect('./resolvePromise.spec.ts', './src/utils', fao, logger)),
+			Effect.runPromise(
+				resolveEffect('./resolvePromise.spec.ts', './src/utils', fao, logger),
+			),
 		).rejects.toThrowErrorMatchingInlineSnapshot('"existsSync error"')
 		expect(
 			(logger.error as Mock).mock.calls[0].slice(0, 2),
