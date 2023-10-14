@@ -72,7 +72,7 @@ export class InvalidBlockNumberError extends TypeError {
 
 /**
  * Safely parses a BlockNumber into an [Effect](https://www.effect.website/docs/essentials/effect-type).
- * @template TBlockNumber extends BlockNumber
+ * @template {BlockNumber} TBlockNumber
  * @param {TBlockNumber} blockNumber
  * @returns {Effect.Effect<never, InvalidBlockNumberError, TBlockNumber>}
  * @example
@@ -97,7 +97,7 @@ export const parseBlockNumberSafe = (blockNumber) => {
 
 /**
  * Parses a BlockNumber and returns the value if no errors.
- * @template TBlockNumber extends BlockNumber
+ * @template {BlockNumber} TBlockNumber
  * @param {TBlockNumber} blockNumber
  * @returns {TBlockNumber}
  * @example

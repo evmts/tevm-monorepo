@@ -73,7 +73,7 @@ export class InvalidAddressBookError extends TypeError {
 
 /**
  * Safely parses an address book into an [Effect](https://www.effect.website/docs/essentials/effect-type).
- * @template TAddressBook extends AddressBook<string>
+ * @template {import("./SAddressBook.js").AddressBook} TAddressBook
  * @param {TAddressBook} addressBook
  * @returns {Effect.Effect<never, InvalidAddressBookError, TAddressBook>}
  * @example
@@ -104,7 +104,7 @@ export const parseAddressBookSafe = (addressBook) => {
 
 /**
  * Parses an address book and returns the value if no errors.
- * @template TAddressBook extends AddressBook<string>
+ * @template {import("./SAddressBook.js").AddressBook} TAddressBook
  * @param {TAddressBook} addressBook
  * @returns {TAddressBook}
  * @example

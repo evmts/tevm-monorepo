@@ -96,9 +96,9 @@ Parses an address book and returns the value if no errors.
 
 #### Type parameters
 
-| Name | Description |
+| Name | Type |
 | :------ | :------ |
-| `TAddressBook` | extends AddressBook<string> |
+| `TAddressBook` | extends [`types`](/reference/schema/modules/types.md) |
 
 #### Parameters
 
@@ -136,9 +136,9 @@ Safely parses an address book into an [Effect](https://www.effect.website/docs/e
 
 #### Type parameters
 
-| Name | Description |
+| Name | Type |
 | :------ | :------ |
-| `TAddressBook` | extends AddressBook<string> |
+| `TAddressBook` | extends [`types`](/reference/schema/modules/types.md) |
 
 #### Parameters
 

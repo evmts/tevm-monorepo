@@ -16,7 +16,7 @@ import { runSync } from 'effect/Effect'
 
 /**
  * Parses a UINT8 and returns the value if no errors.
- * @template TUINT8 extends UINT8
+ * @template {import("./SUINT.js").UINT8} TUINT8
  * @param {TUINT8} uint8
  * @returns {TUINT8}
  * @example
@@ -30,7 +30,7 @@ export const parseUINT8 = (uint8) => {
 }
 /**
  * Parses a UINT16 and returns the value if no errors.
- * @template TUINT16 extends UINT16
+ * @template {import("./SUINT.js").UINT16} TUINT16
  * @param {TUINT16} uint16
  * @returns {TUINT16}
  * @example
@@ -44,7 +44,7 @@ export const parseUINT16 = (uint16) => {
 }
 /**
  * Parses a UINT32 and returns the value if no errors.
- * @template TUINT32 extends UINT32
+ * @template {import("./SUINT.js").UINT32} TUINT32
  * @param {TUINT32} uint32
  * @returns {TUINT32}
  * @example
@@ -58,7 +58,7 @@ export const parseUINT32 = (uint32) => {
 }
 /**
  * Parses a UINT64 and returns the value if no errors.
- * @template TUINT64 extends UINT64
+ * @template {import("./SUINT.js").UINT64} TUINT64
  * @param {TUINT64} uint64
  * @returns {TUINT64}
  * @example
@@ -72,7 +72,7 @@ export const parseUINT64 = (uint64) => {
 }
 /**
  * Parses a UINT128 and returns the value if no errors.
- * @template TUINT128 extends UINT128
+ * @template {import("./SUINT.js").UINT128} TUINT128
  * @param {TUINT128} uint128
  * @returns {TUINT128}
  * @example
@@ -86,7 +86,7 @@ export const parseUINT128 = (uint128) => {
 }
 /**
  * Parses a UINT256 and returns the value if no errors.
- * @template TUINT256 extends UINT256
+ * @template {import("./SUINT.js").UINT256} TUINT256
  * @param {TUINT256} uint256
  * @returns {TUINT256}
  * @example

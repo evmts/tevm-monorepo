@@ -79,7 +79,7 @@ export class InvalidUrlError extends TypeError {
 
 /**
  * Safely parses a Url into an [Effect](https://www.effect.website/docs/essentials/effect-type).
- * @template TUrl extends Url
+ * @template {Url} TUrl
  * @param {TUrl} url
  * @returns {Effect.Effect<never, InvalidUrlError, TUrl>}
  * @example
@@ -101,7 +101,7 @@ export const parseUrlSafe = (url) => {
 
 /**
  * Parses a Url and returns the value if no errors.
- * @template TUrl extends Url
+ * @template {Url} TUrl
  * @param {TUrl} url
  * @returns {TUrl}
  * @example

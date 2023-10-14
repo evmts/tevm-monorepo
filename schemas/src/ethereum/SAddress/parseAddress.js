@@ -9,7 +9,7 @@ import { runSync } from 'effect/Effect'
 
 /**
  * Parses an Address returning the address or throwing an InvalidAddressError if invalid.
- * @template TAddress extends Address
+ * @template {import("./SAddress.js").Address} TAddress
  * @param {TAddress} address - The address to parse.
  * @returns {TAddress} - The parsed address.
  * @throws {InvalidAddressError} - If the address is invalid.

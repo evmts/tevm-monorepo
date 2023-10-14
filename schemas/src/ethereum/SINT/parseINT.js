@@ -16,7 +16,7 @@ import { runSync } from 'effect/Effect'
 
 /**
  * Parses an INT8 and returns the value if no errors.
- * @template TINT8 extends INT8
+ * @template {import("./SINT.js").INT8} TINT8 extends INT8
  * @param {TINT8} int8
  * @returns {TINT8}
  * @example
@@ -31,7 +31,7 @@ export const parseInt8 = (int8) => {
 
 /**
  * Parses an INT16 and returns the value if no errors.
- * @template TINT16 extends INT16
+ * @template {import("./SINT.js").INT16} TINT16
  * @param {TINT16} int16
  * @returns {TINT16}
  * @example
@@ -46,7 +46,7 @@ export const parseInt16 = (int16) => {
 
 /**
  * Parses an INT32 and returns the value if no errors.
- * @template TINT32 extends INT32
+ * @template {import("./SINT.js").INT32} TINT32
  * @param {TINT32} int32
  * @returns {TINT32}
  * @example
@@ -61,7 +61,7 @@ export const parseInt32 = (int32) => {
 
 /**
  * Parses an INT64 and returns the value if no errors.
- * @template TINT64 extends INT64
+ * @template {import("./SINT.js").INT64} TINT64
  * @param {TINT64} int64
  * @returns {TINT64}
  * @example
@@ -76,7 +76,7 @@ export const parseInt64 = (int64) => {
 
 /**
  * Parses an INT128 and returns the value if no errors.
- * @template TINT128 extends INT128
+ * @template {import("./SINT.js").INT128} TINT128
  * @param {TINT128} int128
  * @returns {TINT128}
  * @example
@@ -91,7 +91,7 @@ export const parseInt128 = (int128) => {
 
 /**
  * Parses an INT256 and returns the value if no errors.
- * @template TINT256 extends INT256
+ * @template {import("./SINT.js").INT256} TINT256
  * @param {TINT256} int256
  * @returns {TINT256}
  * @example
