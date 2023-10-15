@@ -1,4 +1,4 @@
-import type { Artifacts } from '../solc/resolveArtifactsSync'
+import type { Artifacts } from '../solc/resolveArtifactsSync.js'
 import { formatAbi } from 'abitype'
 
 export const generateDtsBody = (artifacts: Artifacts) => {

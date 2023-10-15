@@ -1,6 +1,6 @@
-import type { Artifacts } from '../solc/resolveArtifactsSync'
-import type { Logger } from '../types'
-import { generateEvmtsBody } from './generateEvmtsBody'
+import type { Artifacts } from '../solc/resolveArtifactsSync.js'
+import type { Logger } from '../types.js'
+import { generateEvmtsBody } from './generateEvmtsBody.js'
 
 // TODO make this actually async
 export const generateRuntime = async (

@@ -1,4 +1,4 @@
-import { resolveImports } from './resolveImports'
+import { resolveImports } from './resolveImports.js'
 import { describe, expect, it } from 'vitest'
 
 describe('resolveImports', () => {

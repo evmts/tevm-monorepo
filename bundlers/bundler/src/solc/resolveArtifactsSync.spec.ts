@@ -1,6 +1,6 @@
-import type { FileAccessObject, Logger, ModuleInfo } from '../types'
-import { compileContractSync } from './compileContractsSync'
-import { resolveArtifactsSync } from './resolveArtifactsSync'
+import type { FileAccessObject, Logger, ModuleInfo } from '../types.js'
+import { compileContractSync } from './compileContractsSync.js'
+import { resolveArtifactsSync } from './resolveArtifactsSync.js'
 import { type ResolvedCompilerConfig, defaultConfig } from '@evmts/config'
 import {
 	type MockedFunction,

@@ -1,5 +1,5 @@
-import type { Logger } from '.'
-import { type Cache, createCache } from './createCache'
+import type { Logger } from './types.js'
+import { type Cache, createCache } from './createCache.js'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 describe(createCache.name, () => {

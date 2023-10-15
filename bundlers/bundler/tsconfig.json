@@ -5,7 +5,9 @@
     "outDir": "types",
     "skipLibCheck": true,
     "allowSyntheticDefaultImports": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "moduleResolution": "NodeNext",
+    "module": "NodeNext"
   },
   "include": ["src", "src/**/*.json", "package.json"]
 }

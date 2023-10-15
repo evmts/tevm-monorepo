@@ -1,7 +1,7 @@
-import type { ModuleInfo } from '..'
-import { createCache } from '../createCache'
-import { compileContract } from './compileContracts'
-import { solcCompile } from './solc'
+import type { ModuleInfo } from '../types.js'
+import { createCache } from '../createCache.js'
+import { compileContract } from './compileContracts.js'
+import { solcCompile } from './solc.js'
 import resolve from 'resolve'
 import { type Mock, beforeEach, describe, expect, it, vi } from 'vitest'
 

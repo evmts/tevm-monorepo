@@ -1,4 +1,4 @@
-import { formatPath } from './formatPath'
+import { formatPath } from './formatPath.js'
 import { describe, expect, it } from 'vitest'
 
 describe(formatPath.name, () => {

@@ -1,6 +1,6 @@
-import type { Artifacts } from '../solc/resolveArtifactsSync'
-import { generateEvmtsBody } from './generateEvmtsBody'
-import { generateRuntimeSync } from './generateRuntimeSync'
+import type { Artifacts } from '../solc/resolveArtifactsSync.js'
+import { generateEvmtsBody } from './generateEvmtsBody.js'
+import { generateRuntimeSync } from './generateRuntimeSync.js'
 import {
 	type MockedFunction,
 	beforeEach,

@@ -1,6 +1,6 @@
-import type { FileAccessObject, Logger, ModuleInfo } from '../types'
-import { compileContract } from './compileContracts'
-import { resolveArtifacts } from './resolveArtifacts'
+import type { FileAccessObject, Logger, ModuleInfo } from '../types.js'
+import { compileContract } from './compileContracts.js'
+import { resolveArtifacts } from './resolveArtifacts.js'
 import { type ResolvedCompilerConfig, defaultConfig } from '@evmts/config'
 import {
 	type MockedFunction,

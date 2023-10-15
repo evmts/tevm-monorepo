@@ -1,5 +1,5 @@
-import type { FileAccessObject, ModuleInfo } from '../types'
-import { moduleFactory } from './moduleFactory'
+import type { FileAccessObject, ModuleInfo } from '../types.js'
+import { moduleFactory } from './moduleFactory.js'
 import {
 	type Mock,
 	afterEach,

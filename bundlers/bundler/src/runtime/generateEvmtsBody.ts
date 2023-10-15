@@ -1,5 +1,5 @@
-import type { Artifacts } from '../solc/resolveArtifactsSync'
-import { generateDtsBody } from './generateEvmtsBodyDts'
+import type { Artifacts } from '../solc/resolveArtifactsSync.js'
+import { generateDtsBody } from './generateEvmtsBodyDts.js'
 import { formatAbi } from 'abitype'
 
 type ModuleType = 'cjs' | 'mjs' | 'ts' | 'dts'

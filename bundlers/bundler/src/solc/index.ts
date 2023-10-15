@@ -1,2 +1,2 @@
-export { resolveArtifacts } from './resolveArtifacts'
-export { resolveArtifactsSync } from './resolveArtifactsSync'
+export { resolveArtifacts } from './resolveArtifacts.js'
+export { resolveArtifactsSync } from './resolveArtifactsSync.js'

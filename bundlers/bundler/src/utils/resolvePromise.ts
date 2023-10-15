@@ -1,4 +1,4 @@
-import { type FileAccessObject, type Logger } from '../types'
+import { type FileAccessObject, type Logger } from '../types.js'
 import { Effect } from 'effect'
 import resolve from 'resolve'
 

@@ -1,5 +1,5 @@
-import type { SolcInputDescription, SolcOutput } from './solc/solc'
-import type { Logger } from './types'
+import type { SolcInputDescription, SolcOutput } from './solc/solc.js'
+import type { Logger } from './types.js'
 
 type CacheObject = {
 	[filePath: string]: SolcOutput

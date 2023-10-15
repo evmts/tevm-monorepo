@@ -1,7 +1,7 @@
-import { invariant } from '../utils/invariant'
-import { resolveEffect } from '../utils/resolvePromise'
-import { moduleFactory } from './moduleFactory'
-import { solcCompile } from './solc'
+import { invariant } from '../utils/invariant.js'
+import { resolveEffect } from '../utils/resolvePromise.js'
+import { moduleFactory } from './moduleFactory.js'
+import { solcCompile } from './solc.js'
 import { Effect } from 'effect'
 
 /**
@@ -12,10 +12,10 @@ import { Effect } from 'effect'
  * @param {string} basedir
  * @param {import('@evmts/config').ResolvedCompilerConfig} config
  * @param {TIncludeAsts} includeAst
- * @param {import('../types').FileAccessObject} fao
- * @param {import('../types').Logger} logger
- * @param {import('../createCache').Cache} [cache]
- * @returns {Promise<import('../types').CompiledContracts<TIncludeAsts>>}
+ * @param {import('../types.js').FileAccessObject} fao
+ * @param {import('../types.js').Logger} logger
+ * @param {import('../createCache.js').Cache} [cache]
+ * @returns {Promise<import('../types.js').CompiledContracts<TIncludeAsts>>}
  * @example
  * const { artifacts, modules } = await compileContract(
  *   './contracts/MyContract.sol',
@@ -52,7 +52,7 @@ export const compileContract = async (
 	)
 
 	/**
-	 * @type {Object.<string, import('../types').ModuleInfo>}
+	 * @type {Object.<string, import('../types.js').ModuleInfo>}
 	 */
 	const modules = {}
 
@@ -84,7 +84,7 @@ export const compileContract = async (
 
 	const emptyString = ''
 	/**
-	 * @type {import('./solc').SolcInputDescription}
+	 * @type {import('./solc.js').SolcInputDescription}
 	 */
 	const input = {
 		language: 'Solidity',
@@ -110,11 +110,11 @@ export const compileContract = async (
 
 	if (isErrors) {
 		logger.error('Compilation errors:')
-		logger.error(/** @type {any} */ (output?.errors))
+		logger.error(/** @type {any} */(output?.errors))
 		throw new Error('Compilation failed')
 	}
 	if (warnings?.length) {
-		logger.warn(/** @type {any} */ (warnings))
+		logger.warn(/** @type {any} */(warnings))
 		logger.warn('Compilation warnings:')
 	}
 

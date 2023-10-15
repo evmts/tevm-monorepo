@@ -1,4 +1,4 @@
-import { isRelativeSolidity } from '.'
+import { isRelativeSolidity } from './isRelativeSolidity.js'
 import { describe, expect, it } from 'vitest'
 
 describe(isRelativeSolidity.name, () => {

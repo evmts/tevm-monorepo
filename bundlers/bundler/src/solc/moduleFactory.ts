@@ -1,7 +1,7 @@
-import type { FileAccessObject, ModuleInfo } from '../types'
-import { invariant } from '../utils/invariant'
-import { resolveImportPath } from './resolveImportPath'
-import { resolveImports } from './resolveImports'
+import type { FileAccessObject, ModuleInfo } from '../types.js'
+import { invariant } from '../utils/invariant.js'
+import { resolveImportPath } from './resolveImportPath.js'
+import { resolveImports } from './resolveImports.js'
 
 /**
  * Creates a module from the given module information.
