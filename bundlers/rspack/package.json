@@ -26,9 +26,9 @@
 		"generate:docs": "bun run typedoc",
 		"lint": "rome check . --apply-unsafe",
 		"lint:check": "rome check . --verbose",
-		"test": "bun run vitest",
-		"test:run": "bun run vitest run",
-		"test:ui": "bun run vitest --ui"
+		"test": "vitest",
+		"test:run": "vitest run",
+		"test:ui": "vitest --ui"
 	},
 	"dependencies": {
 		"@evmts/bundler": "workspace:^"

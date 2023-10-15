@@ -19,9 +19,7 @@
 		"directory": "state"
 	},
 	"license": "MIT",
-	"contributors": [
-		"Will Cory <willcory10@gmail.com>"
-	],
+	"contributors": ["Will Cory <willcory10@gmail.com>"],
 	"type": "module",
 	"exports": {
 		".": {
@@ -34,11 +32,7 @@
 	"main": "dist/index.cjs",
 	"module": "dist/index.js",
 	"types": "types/index.d.ts",
-	"files": [
-		"dist",
-		"src",
-		"types"
-	],
+	"files": ["dist", "src", "types"],
 	"scripts": {
 		"all": "bun run lint && bun run format && bun run build && bun run test && bun run generate:docs",
 		"build": "nx run-many --targets=build:dist,build:types --projects=@evmts/state ",
@@ -50,10 +44,10 @@
 		"generate:docs": "bun run typedoc --plugin typedoc-plugin-markdown --publicPath /reference/state/",
 		"lint": "rome check . --apply-unsafe",
 		"lint:check": "rome check . --verbose",
-		"test": "bun run vitest --coverage",
-		"test:coverage": "bun run vitest run --coverage",
-		"test:run": "bun run vitest run",
-		"test:ui": "bun run vitest --ui"
+		"test": "vitest --coverage",
+		"test:coverage": "vitest run --coverage",
+		"test:run": "vitest run",
+		"test:ui": "vitest --ui"
 	},
 	"dependencies": {
 		"zustand": "^4.4.3"

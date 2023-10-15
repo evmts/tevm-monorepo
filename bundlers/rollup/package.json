@@ -17,9 +17,9 @@
 	"types": "types/index.d.ts",
 	"files": ["dist", "types", "src"],
 	"scripts": {
-		"//test": "bun run vitest",
-		"//test:run": "bun run vitest run",
-		"//test:ui": "bun run vitest --ui",
+		"//test": "vitest",
+		"//test:run": "vitest run",
+		"//test:ui": "vitest --ui",
 		"generate:docs": "bun run typedoc",
 		"build": "nx run-many --targets=build:dist,build:types --projects=@evmts/rollup-plugin ",
 		"build:dist": "bun run tsup",

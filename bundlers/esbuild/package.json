@@ -26,10 +26,10 @@
 		"generate:docs": "bun run typedoc",
 		"lint": "rome check . --apply-unsafe",
 		"lint:check": "rome check . --verbose",
-		"test": "bun run vitest --coverage",
-		"test:run": "bun run vitest run",
-		"test:coverage": "bun run vitest run --coverage",
-		"test:ui": "bun run vitest --ui"
+		"test": "vitest --coverage",
+		"test:run": "vitest run",
+		"test:coverage": "vitest run --coverage",
+		"test:ui": "vitest --ui"
 	},
 	"dependencies": {
 		"@evmts/bundler": "workspace:^"

@@ -18,23 +18,16 @@
 		"directory": "revm"
 	},
 	"license": "MIT",
-	"contributors": [
-		"Will Cory <willcory10@gmail.com>"
-	],
+	"contributors": ["Will Cory <willcory10@gmail.com>"],
 	"type": "module",
 	"main": "dist/cjs/revm.js",
 	"module": "dist/esm/revm.js",
-	"files": [
-		"dist",
-		"src",
-		"cargo.toml",
-		"Cargo.lock"
-	],
+	"files": ["dist", "src", "cargo.toml", "Cargo.lock"],
 	"scripts": {
-		"//test": "bun run vitest --coverage",
-		"//test:coverage": "bun run vitest run --coverage",
-		"//test:run": "bun run vitest run",
-		"//test:ui": "bun run vitest --ui",
+		"//test": "vitest --coverage",
+		"//test:coverage": "vitest run --coverage",
+		"//test:run": "vitest run",
+		"//test:ui": "vitest --ui",
 		"build": "bun run build:esm && bun run build:cjs",
 		"build:cjs": "bun run wasm-pack build --target nodejs --out-dir ./dist/cjs --no-pack .",
 		"build:dist": "echo 'building wasm with wasm-pack' && bun run build",

@@ -3,22 +3,14 @@
 	"version": "0.11.2",
 	"private": false,
 	"description": "A typescript plugin for evmts",
-	"keywords": [
-		"typescript",
-		"plugin",
-		"solidity",
-		"sol",
-		"evmts"
-	],
+	"keywords": ["typescript", "plugin", "solidity", "sol", "evmts"],
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/evmts/evmts-monorepo.git",
 		"directory": "lsp/ts-plugin"
 	},
 	"license": "MIT",
-	"contributors": [
-		"Will Cory <willcory10@gmail.com>"
-	],
+	"contributors": ["Will Cory <willcory10@gmail.com>"],
 	"type": "module",
 	"main": "dist/index.cjs",
 	"module": "dist/index.js",
@@ -26,11 +18,7 @@
 	"bin": {
 		"evmts-gen": "./dist/bin/evmts-gen.js"
 	},
-	"files": [
-		"dist",
-		"types",
-		"src"
-	],
+	"files": ["dist", "types", "src"],
 	"scripts": {
 		"build": "nx run-many --targets=build:dist,build:types --projects=@evmts/ts-plugin ",
 		"build:dist": "bun run tsup",
@@ -43,9 +31,9 @@
 		"lint": "rome check . --apply-unsafe",
 		"lint:check": "rome check . --verbose",
 		"pretest": "forge build",
-		"test": "bun run vitest --coverage",
-		"test:coverage": "bun run vitest run --coverage",
-		"test:run": "bun run vitest --run"
+		"test": "vitest --coverage",
+		"test:coverage": "vitest run --coverage",
+		"test:run": "vitest --run"
 	},
 	"dependencies": {
 		"@evmts/bundler": "workspace:^",
