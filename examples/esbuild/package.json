@@ -20,6 +20,7 @@
   },
   "devDependencies": {
     "@evmts/esbuild-plugin": "workspace:^",
+    "@evmts/bun-plugin": "workspace:^",
     "@evmts/ts-plugin": "workspace:^",
     "@evmts/vite-plugin": "workspace:^",
     "@nomicfoundation/hardhat-foundry": "^1.0.2",
