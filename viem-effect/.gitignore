@@ -5,7 +5,8 @@ forge-artifacts
 broadcast
 
 # compiled output
-types
+types/
+!src-viem/types
 dist
 packages/*/dist
 tmp

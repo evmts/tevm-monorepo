@@ -10,48 +10,76 @@ import * as path from 'path';
 import { parse, transformFromAstSync } from '@babel/core';
 import traverse from '@babel/traverse';
 import template from '@babel/template';
-const UTILS_DIR = path.join(__dirname, './src-viem/utils');
+const SRC_DIR = path.join(__dirname, './src-viem');
 const OUTPUT_BASE_DIR = path.join(__dirname, './src');
 
-const mainFiles = glob.sync(path.join(UTILS_DIR, '**/*(!(.test|.bench)).ts'), {
-  ignore: [path.join(UTILS_DIR, 'unit/**'), path.join(UTILS_DIR, 'errors/**')] // Added the errors directory to ignore list
+const mainFiles = glob.sync(path.join(SRC_DIR, '**/*.ts'), {
+  ignore: ['**/*.test.ts', '**/*.bench.ts'],
 });
 
-const testFiles = glob.sync(path.join(UTILS_DIR, '**/*.test.ts'), {
-  ignore: [path.join(UTILS_DIR, 'errors/**')]  // Added the errors directory to ignore list
+const testFiles = glob.sync(path.join(SRC_DIR, '**/*.test.ts'), {
 });
 
 const asyncFunctions = ['placeholderAsyncFunction'];
 
 let skippedFiles: string[] = [];
+let processedFiles: string[] = [];
+let processedTestFiles: string[] = [];
+
+const moduleNames = [
+  'viem/abi',
+  'viem/accounts',
+  'viem/actions',
+  'viem/chains',
+  'viem/contract',
+  'viem/ens',
+  'viem/public',
+  'viem/test',
+  'viem/utils',
+  'viem/wallet',
+  'viem/window',
+  'viem',
+]
+const viemModules = await Promise.all(moduleNames.map(moduleName => import(moduleName)));
 
 async function processFiles() {
-  const viemModule = await import('viem/utils');
-
   for (const file of mainFiles) {
     const baseName = path.basename(file, '.ts');
-    const relativePath = path.relative(UTILS_DIR, path.dirname(file));
+    const relativePath = path.relative(SRC_DIR, path.dirname(file));
     const outputPath = path.join(OUTPUT_BASE_DIR, relativePath);
-
     // Make the directory if it doesn't exist
     if (!fs.existsSync(outputPath)) {
       fs.mkdirSync(outputPath, { recursive: true });
     }
 
-    if (viemModule[baseName] === undefined) {
+    // write the file as is first
+    // fs.copyFileSync(file, path.join(outputPath, `${baseName}.ts`));
+
+    const viemModule = viemModules.find(viemModule => viemModule[baseName])?.[baseName];
+
+    if (!viemModule) {
       skippedFiles.push(baseName);
       continue;
     }
 
     const newFileName = path.join(outputPath, `${baseName}Effect.js`);
 
-    const content = generateContent(baseName, outputPath);
+    const originalContent = fs.readFileSync(file, 'utf-8');
+
+    const content = await generateContent(baseName, outputPath, originalContent);
+    if (!content) {
+      console.warn('Skipping', baseName, 'because it could not be generated')
+      skippedFiles.push(baseName);
+      continue;
+    }
     fs.writeFileSync(newFileName, content);
+    console.log('Generated', newFileName)
+    processedFiles.push(baseName);
   }
 
   for (const file of testFiles) {
     const baseName = path.basename(file, '.test.ts');
-    const relativePath = path.relative(UTILS_DIR, path.dirname(file));
+    const relativePath = path.relative(SRC_DIR, path.dirname(file));
     const outputPath = path.join(OUTPUT_BASE_DIR, relativePath);
 
     // Make the directory if it doesn't exist
@@ -63,28 +91,42 @@ async function processFiles() {
       continue;
     }
 
+    if (TODO_NOT_IMPLEMENTED) {
+      continue;
+    }
+
     const newTestFileName = path.join(outputPath, `${baseName}Effect.test.ts`);
 
     let testContent = fs.readFileSync(file, 'utf-8');
     testContent = transformTestFile(testContent, baseName);
     fs.writeFileSync(newTestFileName, testContent);
+    console.log('Generated', newTestFileName)
+    processedTestFiles.push(newTestFileName);
   }
 }
-function generateContent(baseName: string, fileDir: string): string {
+async function generateContent(baseName: string, fileDir: string, originalContent: string): Promise<string> {
   const capitalizedErrorType = capitalizeFirstLetter(baseName) + 'ErrorType';
-  const relativePath = getRelativePathToWrapViemSync(fileDir);
-  const wrapFunction = asyncFunctions.includes(baseName) ? 'wrapViemAsync' : 'wrapViemSync';
+  const relativePath = getRelativePathToWrapInEffect(fileDir);
+  const index = viemModules.findIndex(viemModule => viemModule[baseName]);
+  const viemModule = moduleNames[index]
+  if (!viemModule) {
+    return '';
+  }
+  const viemError = `import("${viemModule}").${capitalizedErrorType}`;
+  const isViemError = originalContent.includes(capitalizedErrorType);
 
   return `
-import { ${baseName} } from 'viem/utils';
-import { ${wrapFunction} } from '${relativePath}';
+import { ${baseName} } from "${viemModule}";
+import { wrapInEffect } from '${relativePath}';
 
 /**
- * @type {import('${relativePath}').WrapedViemFunction<typeof ${baseName}, import("viem/utils").${capitalizedErrorType}>}
+ * @type {import("${relativePath}").WrappedInEffect<typeof ${baseName}, ${isViemError ? viemError : 'Error'}>}
  */
-export const Effect = ${wrapFunction}(${baseName});
+export const ${baseName}Effect = wrapInEffect(${baseName});
     `.trim();
 }
+
+const TODO_NOT_IMPLEMENTED = true
 
 function transformTestFile(content: string, baseName: string): string {
   const filename = `${baseName}.ts`;
@@ -120,9 +162,10 @@ function transformTestFile(content: string, baseName: string): string {
 
   return transformFromAstSync(ast!, undefined, { filename })!.code!;
 }
-function getRelativePathToWrapViemSync(fileDir: string): string {
-  const depth = fileDir.replace(UTILS_DIR, '').split(path.sep).filter(part => part).length;
-  return '../'.repeat(depth) + 'wrapViemSync.js';
+function getRelativePathToWrapInEffect(fileDir: string): string {
+  // this is not working I'm just hardcoding -5 rather than debugging
+  const depth = fileDir.replace(SRC_DIR, '').split(path.sep).filter(part => part).length - 5;
+  return depth > 0 ? '../'.repeat(depth) + 'wrapInEffect.js' : './';
 }
 
 function capitalizeFirstLetter(string: string): string {
@@ -131,6 +174,9 @@ function capitalizeFirstLetter(string: string): string {
 
 processFiles().then(() => {
   console.log('Files processed successfully!');
+  console.log(`Skipped files: ${skippedFiles.length}`);
+  console.log(`Total files processed: ${processedFiles.length}`);
+  console.log(`Total test files processed: ${processedTestFiles.length}`);
 }).catch((error) => {
   console.error('An error occurred:', error);
 });

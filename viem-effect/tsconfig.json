@@ -1,15 +1,13 @@
 {
-  "extends": "@evmts/tsconfig/base.json",
+  // This configuration is used for local development and type checking.
+  "extends": "./tsconfig.base.json",
+  "include": ["src", "test/src"],
+  "exclude": [],
   "compilerOptions": {
-    "rootDir": "src",
-    "composite": true,
-    "outDir": "types",
-    "skipLibCheck": true,
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext"
-  },
-  "include": [
-    "src",
-    "src/**/*.json"
-  ]
+    "baseUrl": ".",
+    "paths": {
+      "~viem/*": ["./src/*"],
+      "~test/*": ["./test/*"]
+    }
+  }
 }

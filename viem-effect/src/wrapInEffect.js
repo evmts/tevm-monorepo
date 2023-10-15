@@ -1,11 +1,9 @@
 import { Effect } from "effect"
 
-
-// TODO replace jsdoc with an actual async function once used!!!
 /**
  * Wraps viem into an {@link https://www.effect.website/docs/essentials/effect-type Effect} version
  * The effect version will include the type of the expected errors viem would throw
- * @type {import("./wrapViemAsync.d.js").WrapViemAsync}
+ * @type {import("./wrapInEffect.js").WrapInEffect}
  * @example
  * ```ts
  * import {parseUnits} from 'viem/utils'
@@ -13,10 +11,20 @@ import { Effect } from "effect"
  * const parseUnitsEffect = wrapViemAsync(parseUnits)
  * ````
  */
-export const wrapViemAsync = (viemFunction) => {
+export const wrapInEffect = (viemFunction) => {
   return (...args) => {
-    const out = /** @type any */(Effect.promise(() => viemFunction(...args)))
-    return out
+    try {
+      const res = viemFunction(...args)
+      // check if a promise
+      if (res && typeof res.then === 'function') {
+        return Effect.promise(res)
+      } else {
+        return Effect.succeed(res)
+      }
+    } catch (e) {
+      const err = /** @type any */(Effect.fail(e))
+      return err
+    }
   }
 }
 
