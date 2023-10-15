@@ -22,8 +22,9 @@ export const wrapInEffect = (viemFunction) => {
 				return Effect.succeed(res)
 			}
 		} catch (e) {
-			const err = /** @type any */ (Effect.fail(e))
-			return err
+			return Effect.fail(
+/** @type any */(e)
+			)
 		}
 	}
 }
