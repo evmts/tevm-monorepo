@@ -83,7 +83,7 @@ export const compileContract = async (
 
 	const emptyString = ''
 	/**
-	 * @type {import('./solc.js').SolcInputDescription}
+	 * @type {import('./solcTypes.js').SolcInputDescription}
 	 */
 	const input = {
 		language: 'Solidity',
@@ -98,6 +98,9 @@ export const compileContract = async (
 		},
 	}
 
+	/**
+	 * @type {import('./solcTypes.js').SolcOutput}
+	 */
 	const output = cache?.isCached(entryModule.id, sources)
 		? cache.read(entryModule.id)
 		: solcCompile(input)

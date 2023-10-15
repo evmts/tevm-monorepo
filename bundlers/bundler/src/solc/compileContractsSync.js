@@ -76,7 +76,7 @@ export function compileContractSync(
 	)
 
 	/**
-	 * @type {import('./solc.js').SolcInputDescription}
+	 * @type {import('./solcTypes.js').SolcInputDescription}
 	 */
 	const solcInput = {
 		language: 'Solidity',
@@ -90,6 +90,9 @@ export function compileContractSync(
 			},
 		},
 	}
+	/**
+	 * @type {import('./solcTypes.js').SolcOutput}
+	 */
 	const solcOutput = cache?.isCached(entryModule.id, sources)
 		? cache.read(entryModule.id)
 		: solc.solcCompile(solcInput)
@@ -100,11 +103,11 @@ export function compileContractSync(
 	const isErrors = (solcOutput?.errors?.length ?? 0) > (warnings?.length ?? 0)
 
 	if (isErrors) {
-		logger.error('Compilation errors:', /** @type {any}*/ (solcOutput?.errors))
+		logger.error('Compilation errors:', /** @type {any}*/(solcOutput?.errors))
 		throw new Error('Compilation failed')
 	}
 	if (warnings?.length) {
-		logger.warn('Compilation warnings:', /** @type {any}*/ (solcOutput?.errors))
+		logger.warn('Compilation warnings:', /** @type {any}*/(solcOutput?.errors))
 	}
 
 	if (includeAst) {

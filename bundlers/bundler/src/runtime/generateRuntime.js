@@ -1,13 +1,17 @@
-import type { Artifacts } from '../solc/resolveArtifactsSync.js'
-import type { Logger } from '../types.js'
 import { generateEvmtsBody } from './generateEvmtsBody.js'
 
-// TODO make this actually async
+/**
+ * Generates the runtime code for the given artifacts.
+ * @param {import("../solc/resolveArtifactsSync.js").Artifacts} artifacts
+ * @param {'cjs' | 'mjs' | 'ts'} moduleType
+ * @param {import("../types.js").Logger} logger
+ * @returns {Promise<string>}
+ */
 export const generateRuntime = async (
-	artifacts: Artifacts,
-	moduleType: 'cjs' | 'mjs' | 'ts',
-	logger: Logger,
-): Promise<string> => {
+	artifacts,
+	moduleType,
+	logger,
+) => {
 	if (artifacts) {
 		const evmtsImports =
 			moduleType !== 'cjs'

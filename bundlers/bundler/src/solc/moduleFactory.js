@@ -1,4 +1,3 @@
-import type { FileAccessObject, ModuleInfo } from '../types.js'
 import { invariant } from '../utils/invariant.js'
 import { resolveImportPath } from './resolveImportPath.js'
 import { resolveImports } from './resolveImports.js'
@@ -13,16 +12,24 @@ import { resolveImports } from './resolveImports.js'
  * Doing this hurts our ability to control the import graph and make it use node resolution though
  * See foundry that is alergic to using npm
  * Doing it this way for now is easier but for sure a leaky abstraction
+ * @param {string} absolutePath
+ * @param {string} rawCode
+ * @param {Record<string, string>} remappings
+ * @param {ReadonlyArray<string>} libs
+ * @param {import("../types.js").FileAccessObject} fao
+ * @returns {Promise<import("../types.js").ModuleInfo>}
  */
 export const moduleFactory = async (
-	absolutePath: string,
-	rawCode: string,
-	remappings: Record<string, string>,
-	libs: string[],
-	fao: FileAccessObject,
-): Promise<ModuleInfo> => {
+	absolutePath,
+	rawCode,
+	remappings,
+	libs,
+	fao,
+) => {
 	const stack = [{ absolutePath, rawCode }]
-	const modules = new Map<string, ModuleInfo>()
+	const modules =
+		/** @type{Map<string, import("../types.js").ModuleInfo>} */
+		(new Map())
 
 	while (stack.length) {
 		const nextItem = stack.pop()
@@ -37,6 +44,7 @@ export const moduleFactory = async (
 
 		const importRegEx = /(^\s?import\s+[^'"]*['"])(.*)(['"]\s*)/gm
 		const code = importedIds.reduce((code, importedId) => {
+			console.log({ importedId })
 			const depImportAbsolutePath = resolveImportPath(
 				absolutePath,
 				importedId,
@@ -89,5 +97,9 @@ export const moduleFactory = async (
 		})
 	}
 
-	return modules.get(absolutePath) as ModuleInfo
+	const out = modules.get(absolutePath)
+	if (!out) {
+		throw new Error('No module found')
+	}
+	return out
 }

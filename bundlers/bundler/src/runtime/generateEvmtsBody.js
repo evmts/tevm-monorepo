@@ -1,13 +1,19 @@
-import type { Artifacts } from '../solc/resolveArtifactsSync.js'
 import { generateDtsBody } from './generateEvmtsBodyDts.js'
 import { formatAbi } from 'abitype'
 
-type ModuleType = 'cjs' | 'mjs' | 'ts' | 'dts'
+/**
+ * @typedef {'cjs' | 'mjs' | 'ts' | 'dts'} ModuleType
+ */
 
+/**
+ * @param {import("../solc/resolveArtifactsSync.js").Artifacts} artifacts
+ * @param {ModuleType} moduleType
+ * @returns {string}
+ */
 export const generateEvmtsBody = (
-	artifacts: Artifacts,
-	moduleType: ModuleType,
-): string => {
+	artifacts,
+	moduleType,
+) => {
 	if (moduleType === 'dts') {
 		return generateDtsBody(artifacts)
 	}
