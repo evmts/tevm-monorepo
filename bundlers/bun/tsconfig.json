@@ -5,7 +5,9 @@
     "composite": true,
     "outDir": "types",
     "skipLibCheck": true,
-    "types": ["bun-types"]
+    "types": ["bun-types"],
+    "moduleResolution": "NodeNext",
+    "module": "NodeNext"
   },
   "include": [
     "src",

@@ -1,5 +1,5 @@
-import { file } from './bunFile'
-import { bunFileAccesObject } from './bunFileAccessObject'
+import { file } from './bunFile.js'
+import { bunFileAccesObject } from './bunFileAccessObject.js'
 import * as fsPromises from 'fs/promises'
 import { join } from 'path'
 import { type Mock, beforeEach, describe, expect, it } from 'vitest'
@@ -8,22 +8,22 @@ import { vi } from 'vitest'
 const licensePath = join(__dirname, '../LICENSE')
 
 vi.mock('./bunFile', () => ({
-	file: vi.fn(),
+  file: vi.fn(),
 }))
 
 const mockFile = file as Mock
 
 describe('bunFileAccessObject', () => {
-	beforeEach(() => {
-		mockFile.mockImplementation((filePath: string) => ({
-			exists: () => true,
-			text: () => fsPromises.readFile(filePath, 'utf8'),
-		}))
-	})
-	describe(bunFileAccesObject.readFileSync.name, () => {
-		it('reads a file', () => {
-			const result = bunFileAccesObject.readFileSync(licensePath, 'utf8')
-			expect(result).toMatchInlineSnapshot(`
+  beforeEach(() => {
+    mockFile.mockImplementation((filePath: string) => ({
+      exists: () => true,
+      text: () => fsPromises.readFile(filePath, 'utf8'),
+    }))
+  })
+  describe(bunFileAccesObject.readFileSync.name, () => {
+    it('reads a file', () => {
+      const result = bunFileAccesObject.readFileSync(licensePath, 'utf8')
+      expect(result).toMatchInlineSnapshot(`
         "(The MIT License)
 
         Copyright 2020-2022
@@ -48,20 +48,20 @@ describe('bunFileAccessObject', () => {
         SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
         "
       `)
-		})
-	})
+    })
+  })
 
-	describe(bunFileAccesObject.exists.name, () => {
-		it('returns true if a file exists', async () => {
-			const result = await bunFileAccesObject.exists(licensePath)
-			expect(result).toBe(true)
-		})
-	})
+  describe(bunFileAccesObject.exists.name, () => {
+    it('returns true if a file exists', async () => {
+      const result = await bunFileAccesObject.exists(licensePath)
+      expect(result).toBe(true)
+    })
+  })
 
-	describe(bunFileAccesObject.readFile.name, () => {
-		it('reads a file', async () => {
-			const result = await bunFileAccesObject.readFile(licensePath, 'utf8')
-			expect(result).toMatchInlineSnapshot(`
+  describe(bunFileAccesObject.readFile.name, () => {
+    it('reads a file', async () => {
+      const result = await bunFileAccesObject.readFile(licensePath, 'utf8')
+      expect(result).toMatchInlineSnapshot(`
         "(The MIT License)
 
         Copyright 2020-2022
@@ -86,13 +86,13 @@ describe('bunFileAccessObject', () => {
         SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
         "
       `)
-		})
-	})
+    })
+  })
 
-	describe(bunFileAccesObject.existsSync.name, () => {
-		it('returns true if a file exists', () => {
-			const result = bunFileAccesObject.existsSync(licensePath)
-			expect(result).toBe(true)
-		})
-	})
+  describe(bunFileAccesObject.existsSync.name, () => {
+    it('returns true if a file exists', () => {
+      const result = bunFileAccesObject.existsSync(licensePath)
+      expect(result).toBe(true)
+    })
+  })
 })
