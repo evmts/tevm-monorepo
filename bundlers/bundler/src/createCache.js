@@ -1,4 +1,7 @@
 /**
+ * @typedef {import('./createCache.js').Cache} Cache
+
+/**
  * @type {import('./createCache.js').CreateCache}
  */
 export const createCache = (logger) => {

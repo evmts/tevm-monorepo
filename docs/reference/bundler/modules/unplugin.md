@@ -21,11 +21,11 @@
 
 ### CompilerOption
 
-Ƭ **CompilerOption**: `z.infer`<typeof `compilerOptionValidator`\>
+Ƭ **CompilerOption**<\>: `infer`
 
 #### Defined in
 
-[bundlers/bundler/src/unplugin.ts:17](https://github.com/evmts/evmts-monorepo/blob/main/bundlers/bundler/src/unplugin.ts#L17)
+[bundlers/bundler/src/unplugin.js:17](https://github.com/evmts/evmts-monorepo/blob/main/bundlers/bundler/src/unplugin.js#L17)
 
 ## Functions
 
