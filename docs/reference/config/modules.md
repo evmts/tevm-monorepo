@@ -15,7 +15,6 @@
 
 - [CompilerConfigValidator](/reference/config/modules.md#compilerconfigvalidator)
 - [defaultConfig](/reference/config/modules.md#defaultconfig)
-- [huh](/reference/config/modules.md#huh)
 
 ### Functions
 
@@ -136,16 +135,6 @@ ___
 #### Defined in
 
 [config/src/Config.ts:42](https://github.com/evmts/evmts-monorepo/blob/main/config/src/Config.ts#L42)
-
-___
-
-### huh
-
-• `Const` **huh**: ``"huh"``
-
-#### Defined in
-
-[config/src/index.ts:5](https://github.com/evmts/evmts-monorepo/blob/main/config/src/index.ts#L5)
 
 ## Functions
 
