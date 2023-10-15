@@ -7,11 +7,8 @@ import * as path from 'path'
  * @param {string} code
  * @returns {ReadonlyArray<string>}
  */
-export const resolveImports = (
-	absolutePath,
-	code,
-) => {
-	const imports = /** @type Array<string> */([])
+export const resolveImports = (absolutePath, code) => {
+	const imports = /** @type Array<string> */ ([])
 	const importRegEx = /^\s?import\s+[^'"]*['"](.*)['"]\s*/gm
 	let foundImport = importRegEx.exec(code)
 	while (foundImport != null) {

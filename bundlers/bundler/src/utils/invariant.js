@@ -1,4 +1,3 @@
-
 /**
  * Asserts an invariant in a typesafe way
  * @param {boolean} condition - The condition to assert

@@ -20,10 +20,7 @@ export const createCache = (logger) => {
 			}
 			return out
 		},
-		isCached: (
-			entryModuleId,
-			sources,
-		) => {
+		isCached: (entryModuleId, sources) => {
 			const previousCachedItem = cache[entryModuleId]
 			if (!previousCachedItem) {
 				return false
@@ -48,6 +45,6 @@ export const createCache = (logger) => {
 				}
 			}
 			return true
-		}
+		},
 	}
 }

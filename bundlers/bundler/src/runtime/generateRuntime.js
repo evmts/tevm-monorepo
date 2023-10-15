@@ -7,11 +7,7 @@ import { generateEvmtsBody } from './generateEvmtsBody.js'
  * @param {import("../types.js").Logger} logger
  * @returns {Promise<string>}
  */
-export const generateRuntime = async (
-	artifacts,
-	moduleType,
-	logger,
-) => {
+export const generateRuntime = async (artifacts, moduleType, logger) => {
 	if (artifacts) {
 		const evmtsImports =
 			moduleType !== 'cjs'

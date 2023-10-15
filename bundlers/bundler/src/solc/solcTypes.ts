@@ -26,7 +26,7 @@ export type SolcInputSource = {
 	// formatted as the json ast requested with the ``ast`` output selection.
 	ast?: SolcAst
 } & (
-		| {
+	| {
 			// Required (unless "content" is used, see below): URL(s) to the source file.
 			// URL(s) should be imported in this order and the result checked against the
 			// keccak256 hash (if available). If the hash doesn't match or none of the
@@ -43,11 +43,11 @@ export type SolcInputSource = {
 			//  // `--allow-paths <path>`.
 			//]
 			urls: string[]
-		}
-		| {
+	  }
+	| {
 			content: string
-		}
-	)
+	  }
+)
 
 export type SolcRemapping = Array<`${string}=${string}`>
 
@@ -246,13 +246,13 @@ export type SolcSettings = {
 	// Affects type checking and code generation. Can be homestead,
 	// tangerineWhistle, spuriousDragon, byzantium, constantinople, petersburg, istanbul, berlin, london or paris
 	evmVersion?:
-	| 'byzantium'
-	| 'constantinople'
-	| 'petersburg'
-	| 'istanbul'
-	| 'berlin'
-	| 'london'
-	| 'paris'
+		| 'byzantium'
+		| 'constantinople'
+		| 'petersburg'
+		| 'istanbul'
+		| 'berlin'
+		| 'london'
+		| 'paris'
 	// Optional: Change compilation pipeline to go through the Yul intermediate representation.
 	// This is false by default.
 	viaIR?: boolean

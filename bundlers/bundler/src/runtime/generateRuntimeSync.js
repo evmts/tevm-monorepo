@@ -6,11 +6,7 @@ import { generateEvmtsBody } from './generateEvmtsBody.js'
  * @param {import("../types.js").Logger} logger
  * @returns {string}
  */
-export const generateRuntimeSync = (
-	artifacts,
-	moduleType,
-	logger,
-) => {
+export const generateRuntimeSync = (artifacts, moduleType, logger) => {
 	if (!artifacts || Object.keys(artifacts).length === 0) {
 		logger.warn('No artifacts found, skipping runtime generation')
 		return ''

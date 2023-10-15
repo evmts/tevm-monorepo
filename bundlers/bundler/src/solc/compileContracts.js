@@ -1,4 +1,4 @@
-import { resolveEffect, invariant } from '../utils/index.js'
+import { invariant, resolveEffect } from '../utils/index.js'
 import { moduleFactory } from './moduleFactory.js'
 import { solcCompile } from './solc.js'
 import { Effect } from 'effect'
@@ -112,11 +112,11 @@ export const compileContract = async (
 
 	if (isErrors) {
 		logger.error('Compilation errors:')
-		logger.error(/** @type {any} */(output?.errors))
+		logger.error(/** @type {any} */ (output?.errors))
 		throw new Error('Compilation failed')
 	}
 	if (warnings?.length) {
-		logger.warn(/** @type {any} */(warnings))
+		logger.warn(/** @type {any} */ (warnings))
 		logger.warn('Compilation warnings:')
 	}
 

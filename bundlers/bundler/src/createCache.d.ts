@@ -16,4 +16,4 @@ export type Cache = {
 
 export type CreateCache = (logger: Logger) => Cache
 
-export const createCache: CreateCache 
+export const createCache: CreateCache

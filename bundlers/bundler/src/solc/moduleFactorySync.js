@@ -27,7 +27,9 @@ export const moduleFactorySync = (
 	fao,
 ) => {
 	const stack = [{ absolutePath, rawCode }]
-	const modules = /** @type {Map<string, import("../types.js").ModuleInfo>} */(new Map())
+	const modules = /** @type {Map<string, import("../types.js").ModuleInfo>} */ (
+		new Map()
+	)
 
 	while (stack.length) {
 		const nextItem = stack.pop()
@@ -94,5 +96,7 @@ export const moduleFactorySync = (
 		})
 	}
 
-	return /** @type import("../types.js").ModuleInfo */ (modules.get(absolutePath))
+	return /** @type import("../types.js").ModuleInfo */ (
+		modules.get(absolutePath)
+	)
 }

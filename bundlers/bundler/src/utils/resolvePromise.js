@@ -1,7 +1,6 @@
 import { Effect } from 'effect'
 import resolve from 'resolve'
 
-
 /**
  * import resolve from 'resolve wrapped in an effect
  * @param {string} filePath
@@ -10,12 +9,7 @@ import resolve from 'resolve'
  * @param {import("../types.js").Logger} logger
  * @returns {Effect.Effect<never, Error, string>}
  */
-export const resolveEffect = (
-	filePath,
-	basedir,
-	fao,
-	logger,
-) => {
+export const resolveEffect = (filePath, basedir, fao, logger) => {
 	return Effect.async((resume) => {
 		resolve(
 			filePath,
@@ -37,21 +31,21 @@ export const resolveEffect = (
 					try {
 						cb(null, fao.existsSync(file))
 					} catch (e) {
-						cb(/** @type Error */(e))
-						logger.error(/** @type any */(e))
+						cb(/** @type Error */ (e))
+						logger.error(/** @type any */ (e))
 						logger.error(`Error checking if isFile ${file}`)
-						resume(Effect.fail(/** @type Error */(e))) // resume with a failure effect when error occurs
+						resume(Effect.fail(/** @type Error */ (e))) // resume with a failure effect when error occurs
 						return
 					}
 				},
 			},
 			(err, res) => {
 				if (err) {
-					logger.error(/** @type any */(err))
+					logger.error(/** @type any */ (err))
 					logger.error(`There was an error resolving ${filePath}`)
 					resume(Effect.fail(err)) // resume with a failure effect when error occurs
 				} else {
-					resume(Effect.succeed(/** @type string */(res))) // resume with a success effect when the operation succeeds
+					resume(Effect.succeed(/** @type string */ (res))) // resume with a success effect when the operation succeeds
 				}
 			},
 		)

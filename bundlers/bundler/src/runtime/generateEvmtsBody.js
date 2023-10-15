@@ -10,10 +10,7 @@ import { formatAbi } from 'abitype'
  * @param {ModuleType} moduleType
  * @returns {string}
  */
-export const generateEvmtsBody = (
-	artifacts,
-	moduleType,
-) => {
+export const generateEvmtsBody = (artifacts, moduleType) => {
 	if (moduleType === 'dts') {
 		return generateDtsBody(artifacts)
 	}
