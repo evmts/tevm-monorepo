@@ -7,6 +7,7 @@ broadcast
 # compiled output
 types/
 !src-viem/types
+!src/types
 dist
 packages/*/dist
 tmp

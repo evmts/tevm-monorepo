@@ -51,10 +51,10 @@
 		"lint": "rome check . --apply-unsafe",
 		"lint:check": "rome check . --verbose",
 		"package:up": "pnpm up --latest",
-		"test": "vitest --coverage",
-		"test:coverage": "vitest run --coverage",
-		"test:run": "vitest run",
-		"test:ui": "vitest --ui",
+		"//test": "vitest --coverage",
+		"//test:coverage": "vitest run --coverage",
+		"//test:run": "vitest run",
+		"//test:ui": "vitest --ui",
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {

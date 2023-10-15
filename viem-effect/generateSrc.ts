@@ -72,11 +72,19 @@ async function processFiles() {
       skippedFiles.push(baseName);
       continue;
     }
+    const indexFilePath = path.join(outputPath, 'index.js');
+    // make index file if it doesn't exist
+    if (!fs.existsSync(indexFilePath)) {
+      fs.writeFileSync(indexFilePath, '');
+    }
+    const indexFileContent = fs.readFileSync(indexFilePath, 'utf-8') + `\nexport * from './${baseName}Effect.js';`;
+    fs.writeFileSync(indexFilePath, indexFileContent);
     fs.writeFileSync(newFileName, content);
     console.log('Generated', newFileName)
     processedFiles.push(baseName);
   }
 
+  /*
   for (const file of testFiles) {
     const baseName = path.basename(file, '.test.ts');
     const relativePath = path.relative(SRC_DIR, path.dirname(file));
@@ -91,10 +99,6 @@ async function processFiles() {
       continue;
     }
 
-    if (TODO_NOT_IMPLEMENTED) {
-      continue;
-    }
-
     const newTestFileName = path.join(outputPath, `${baseName}Effect.test.ts`);
 
     let testContent = fs.readFileSync(file, 'utf-8');
@@ -103,6 +107,7 @@ async function processFiles() {
     console.log('Generated', newTestFileName)
     processedTestFiles.push(newTestFileName);
   }
+  */
 }
 async function generateContent(baseName: string, fileDir: string, originalContent: string): Promise<string> {
   const capitalizedErrorType = capitalizeFirstLetter(baseName) + 'ErrorType';
@@ -125,9 +130,7 @@ import { wrapInEffect } from '${relativePath}';
 export const ${baseName}Effect = wrapInEffect(${baseName});
     `.trim();
 }
-
-const TODO_NOT_IMPLEMENTED = true
-
+/*
 function transformTestFile(content: string, baseName: string): string {
   const filename = `${baseName}.ts`;
   const ast = parse(content, {
@@ -162,6 +165,8 @@ function transformTestFile(content: string, baseName: string): string {
 
   return transformFromAstSync(ast!, undefined, { filename })!.code!;
 }
+*/
+
 function getRelativePathToWrapInEffect(fileDir: string): string {
   // this is not working I'm just hardcoding -5 rather than debugging
   const depth = fileDir.replace(SRC_DIR, '').split(path.sep).filter(part => part).length - 5;
