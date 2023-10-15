@@ -7,7 +7,9 @@
 		"url": "https://github.com/evmts/evmts-monorepo.git"
 	},
 	"license": "MIT",
-	"contributors": ["Will Cory <willcory10@gmail.com>"],
+	"contributors": [
+		"Will Cory <willcory10@gmail.com>"
+	],
 	"type": "module",
 	"workspaces": [
 		"bundlers/*",

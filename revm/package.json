@@ -18,11 +18,18 @@
 		"directory": "revm"
 	},
 	"license": "MIT",
-	"contributors": ["Will Cory <willcory10@gmail.com>"],
+	"contributors": [
+		"Will Cory <willcory10@gmail.com>"
+	],
 	"type": "module",
 	"main": "dist/cjs/revm.js",
 	"module": "dist/esm/revm.js",
-	"files": ["dist", "src", "cargo.toml", "Cargo.lock"],
+	"files": [
+		"dist",
+		"src",
+		"cargo.toml",
+		"Cargo.lock"
+	],
 	"scripts": {
 		"//test": "vitest --coverage",
 		"//test:coverage": "vitest run --coverage",
