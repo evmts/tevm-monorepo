@@ -16,6 +16,7 @@
 		"experimental/*",
 		"tsconfig",
 		"config",
+		"blockexplorer",
 		"core",
 		"docs",
 		"e2e",
