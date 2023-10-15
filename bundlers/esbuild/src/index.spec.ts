@@ -1,4 +1,4 @@
-import { esbuildPluginEvmts } from '.'
+import { esbuildPluginEvmts } from './index.js'
 import { describe, expect, it, vi } from 'vitest'
 
 describe(esbuildPluginEvmts.name, () => {
