@@ -1,7 +1,7 @@
-import { createCache } from '../createCache'
-import type { FileAccessObject, ModuleInfo } from '../types'
-import { compileContractSync } from './compileContractsSync'
-import { moduleFactorySync } from './moduleFactorySync'
+import { createCache } from '../createCache.js'
+import type { FileAccessObject, ModuleInfo } from '../types.js'
+import { compileContractSync } from './compileContractsSync.js'
+import { moduleFactorySync } from './moduleFactorySync.js'
 import type { ResolvedCompilerConfig } from '@evmts/config'
 import resolve from 'resolve'
 // @ts-ignore

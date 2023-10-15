@@ -116,7 +116,7 @@ export type SolcOptimizer = {
 	details: SolcOptimizerDetails
 }
 
-export const fileLevelOption = '' as const
+const fileLevelOption = '' as const
 
 export type SolcOutputSelection = {
 	[fileName: string]: {
@@ -526,12 +526,4 @@ export type SolcEwasmOutput = {
 	wast: string
 	// Binary format (hex string)
 	wasm: string
-}
-
-/**
- * Typesafe wrapper around solc.compile
- */
-export const solcCompile = (input: SolcInputDescription): SolcOutput => {
-	const out: SolcOutput = JSON.parse(solc.compile(JSON.stringify(input)))
-	return out
 }

@@ -19,19 +19,23 @@
 
 ▸ **formatPath**(`contractPath`): `string`
 
+Formats a path to be used in the contract loader
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `contractPath` | `string` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `contractPath` | `string` | The path to the contract |
 
 #### Returns
 
 `string`
 
+- The formatted path
+
 #### Defined in
 
-[bundlers/bundler/src/utils/formatPath.ts:1](https://github.com/evmts/evmts-monorepo/blob/main/bundlers/bundler/src/utils/formatPath.ts#L1)
+[bundlers/bundler/src/utils/formatPath.js:6](https://github.com/evmts/evmts-monorepo/blob/main/bundlers/bundler/src/utils/formatPath.js#L6)
 
 ___
 
@@ -52,13 +56,15 @@ asserts condition
 
 #### Defined in
 
-[bundlers/bundler/src/utils/invariant.ts:1](https://github.com/evmts/evmts-monorepo/blob/main/bundlers/bundler/src/utils/invariant.ts#L1)
+[bundlers/bundler/src/utils/invariant.d.ts:1](https://github.com/evmts/evmts-monorepo/blob/main/bundlers/bundler/src/utils/invariant.d.ts#L1)
 
 ___
 
 ### isImportLocal
 
 ▸ **isImportLocal**(`importPath`): `boolean`
+
+Check if import path is local
 
 #### Parameters
 
@@ -72,7 +78,7 @@ ___
 
 #### Defined in
 
-[bundlers/bundler/src/utils/isImportLocal.ts:1](https://github.com/evmts/evmts-monorepo/blob/main/bundlers/bundler/src/utils/isImportLocal.ts#L1)
+[bundlers/bundler/src/utils/isImportLocal.js:6](https://github.com/evmts/evmts-monorepo/blob/main/bundlers/bundler/src/utils/isImportLocal.js#L6)
 
 ___
 
@@ -84,17 +90,19 @@ Util to determine if a file path is a solidity file referenced via a relative im
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `fileName` | `string` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `fileName` | `string` | The file path to check |
 
 #### Returns
 
 `boolean`
 
+True if the file path is a solidity file referenced via a relative import
+
 #### Defined in
 
-[bundlers/bundler/src/utils/isRelativeSolidity.ts:6](https://github.com/evmts/evmts-monorepo/blob/main/bundlers/bundler/src/utils/isRelativeSolidity.ts#L6)
+[bundlers/bundler/src/utils/isRelativeSolidity.js:8](https://github.com/evmts/evmts-monorepo/blob/main/bundlers/bundler/src/utils/isRelativeSolidity.js#L8)
 
 ___
 
@@ -106,23 +114,27 @@ Util to determine if a file path is a solidity file
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `fileName` | `string` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `fileName` | `string` | The file name to check |
 
 #### Returns
 
 `boolean`
 
+- Whether or not the file is a solidity file
+
 #### Defined in
 
-[bundlers/bundler/src/utils/isSolidity.ts:4](https://github.com/evmts/evmts-monorepo/blob/main/bundlers/bundler/src/utils/isSolidity.ts#L4)
+[bundlers/bundler/src/utils/isSolidity.js:6](https://github.com/evmts/evmts-monorepo/blob/main/bundlers/bundler/src/utils/isSolidity.js#L6)
 
 ___
 
 ### resolveEffect
 
 ▸ **resolveEffect**(`filePath`, `basedir`, `fao`, `logger`): `Effect`<`never`, `Error`, `string`\>
+
+import resolve from 'resolve wrapped in an effect
 
 #### Parameters
 
@@ -139,4 +151,4 @@ ___
 
 #### Defined in
 
-[bundlers/bundler/src/utils/resolvePromise.ts:5](https://github.com/evmts/evmts-monorepo/blob/main/bundlers/bundler/src/utils/resolvePromise.ts#L5)
+[bundlers/bundler/src/utils/resolvePromise.js:12](https://github.com/evmts/evmts-monorepo/blob/main/bundlers/bundler/src/utils/resolvePromise.js#L12)

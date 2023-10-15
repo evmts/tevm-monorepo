@@ -1,18 +1,22 @@
-import { formatPath } from '../utils/formatPath'
-import { isImportLocal } from '../utils/isImportLocal'
+import { formatPath } from '../utils/formatPath.js'
+import { isImportLocal } from '../utils/isImportLocal.js'
 import * as path from 'path'
-import * as resolve from 'resolve'
+import resolve from 'resolve'
 
 /**
  * Resolve import statement to absolute file path
  *
  * @param {string} importPath import statement in *.sol contract
+ * @param {string} absolutePath absolute path to the contract
+ * @param {Record<string, string>} remappings remappings from the config
+ * @param {ReadonlyArray<string>} libs libs from the config
+ * @returns {string} absolute path to the imported file
  */
 export const resolveImportPath = (
-	absolutePath: string,
-	importPath: string,
-	remappings: Record<string, string>,
-	libs: string[],
+	absolutePath,
+	importPath,
+	remappings,
+	libs,
 ) => {
 	// Foundry remappings
 	for (const [key, value] of Object.entries(remappings)) {

@@ -1,7 +1,6 @@
-import type { FileAccessObject, ModuleInfo } from '../types'
-import { invariant } from '../utils/invariant'
-import { resolveImportPath } from './resolveImportPath'
-import { resolveImports } from './resolveImports'
+import { invariant } from '../utils/invariant.js'
+import { resolveImportPath } from './resolveImportPath.js'
+import { resolveImports } from './resolveImports.js'
 
 /**
  * Creates a module from the given module information.
@@ -13,16 +12,24 @@ import { resolveImports } from './resolveImports'
  * Doing this hurts our ability to control the import graph and make it use node resolution though
  * See foundry that is alergic to using npm
  * Doing it this way for now is easier but for sure a leaky abstraction
+ * @param {string} absolutePath
+ * @param {string} rawCode
+ * @param {Record<string, string>} remappings
+ * @param {ReadonlyArray<string>} libs
+ * @param {import("../types.js").FileAccessObject} fao
+ * @returns {import("../types.js").ModuleInfo}
  */
 export const moduleFactorySync = (
-	absolutePath: string,
-	rawCode: string,
-	remappings: Record<string, string>,
-	libs: string[],
-	fao: FileAccessObject,
-): ModuleInfo => {
+	absolutePath,
+	rawCode,
+	remappings,
+	libs,
+	fao,
+) => {
 	const stack = [{ absolutePath, rawCode }]
-	const modules = new Map<string, ModuleInfo>()
+	const modules = /** @type {Map<string, import("../types.js").ModuleInfo>} */ (
+		new Map()
+	)
 
 	while (stack.length) {
 		const nextItem = stack.pop()
@@ -89,5 +96,7 @@ export const moduleFactorySync = (
 		})
 	}
 
-	return modules.get(absolutePath) as ModuleInfo
+	return /** @type import("../types.js").ModuleInfo */ (
+		modules.get(absolutePath)
+	)
 }

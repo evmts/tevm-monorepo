@@ -1,12 +1,14 @@
-import { formatPath } from '../utils/formatPath'
-import { isImportLocal } from '../utils/isImportLocal'
+import { formatPath } from '../utils/formatPath.js'
+import { isImportLocal } from '../utils/isImportLocal.js'
 import * as path from 'path'
 
-export const resolveImports = (
-	absolutePath: string,
-	code: string,
-): string[] => {
-	const imports: string[] = []
+/**
+ * @param {string} absolutePath
+ * @param {string} code
+ * @returns {ReadonlyArray<string>}
+ */
+export const resolveImports = (absolutePath, code) => {
+	const imports = /** @type Array<string> */ ([])
 	const importRegEx = /^\s?import\s+[^'"]*['"](.*)['"]\s*/gm
 	let foundImport = importRegEx.exec(code)
 	while (foundImport != null) {

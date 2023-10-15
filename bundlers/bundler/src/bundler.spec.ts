@@ -1,8 +1,8 @@
-import { bundler } from './bundler'
-import { resolveArtifacts, resolveArtifactsSync } from './solc'
-import type { SolcInputDescription, SolcOutput } from './solc/solc'
-import type { Bundler, FileAccessObject, Logger, ModuleInfo } from './types'
-import type { Node } from 'solidity-ast/node'
+import { bundler } from './bundler.js'
+import { resolveArtifacts, resolveArtifactsSync } from './solc/index.js'
+import type { SolcInputDescription, SolcOutput } from './solc/solcTypes.js'
+import type { Bundler, FileAccessObject, Logger, ModuleInfo } from './types.js'
+import type { Node } from 'solidity-ast/node.js'
 import {
 	type Mock,
 	afterEach,
@@ -202,6 +202,9 @@ describe(bundler.name, () => {
 					[
 					  [
 					    "there was an error in evmts plugin resolving .mjs",
+					  ],
+					  [
+					    [Error: Test error sync],
 					  ],
 					]
 				`)

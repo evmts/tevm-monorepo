@@ -1,7 +1,10 @@
-import type { Artifacts } from '../solc/resolveArtifactsSync'
 import { formatAbi } from 'abitype'
 
-export const generateDtsBody = (artifacts: Artifacts) => {
+/**
+ * @param {import("../solc/resolveArtifactsSync.js").Artifacts} artifacts
+ * @returns {string}
+ */
+export const generateDtsBody = (artifacts) => {
 	return Object.entries(artifacts)
 		.flatMap(([contractName, { abi, userdoc = {} }]) => {
 			const contract = {

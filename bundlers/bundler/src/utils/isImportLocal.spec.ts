@@ -1,4 +1,4 @@
-import { isImportLocal } from './isImportLocal'
+import { isImportLocal } from './isImportLocal.js'
 import { describe, expect, it } from 'vitest'
 
 describe(isImportLocal.name, () => {

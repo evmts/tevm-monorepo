@@ -1,5 +1,5 @@
-import type { FileAccessObject, Logger } from '..'
-import { resolveEffect } from './resolvePromise'
+import type { FileAccessObject, Logger } from '../types.js'
+import { resolveEffect } from './resolvePromise.js'
 import { Effect } from 'effect'
 import fs from 'fs'
 import { type Mock, beforeEach, describe, expect, it, vi } from 'vitest'

@@ -1,12 +1,11 @@
-import { createCache } from '.'
-import * as packageJson from '../package.json'
-import { bundler } from './bundler'
-import type { FileAccessObject } from './types'
-import { type ResolvedCompilerConfig, loadConfigAsync } from '@evmts/config'
+import packageJson from '../package.json'
+import { bundler } from './bundler.js'
+import { createCache } from './createCache.js'
+import { loadConfigAsync } from '@evmts/config'
 import { existsSync, readFileSync } from 'fs'
 import { readFile } from 'fs/promises'
 import { createRequire } from 'module'
-import { type UnpluginFactory, createUnplugin } from 'unplugin'
+import { createUnplugin } from 'unplugin'
 import { z } from 'zod'
 
 const compilerOptionValidator = z
@@ -14,18 +13,20 @@ const compilerOptionValidator = z
 	.default('solc')
 	.describe('compiler to use.  Defaults to solc')
 
-export type CompilerOption = z.infer<typeof compilerOptionValidator>
+/**
+ * @typedef {import("zod").infer<typeof compilerOptionValidator>} CompilerOption
+ */
 
 const bundlers = {
 	solc: bundler,
 }
 
-// make a function with this signature
-export const unpluginFn: UnpluginFactory<
-	{ compiler?: CompilerOption } | undefined,
-	false
-> = (options = {}) => {
-	let config: ResolvedCompilerConfig
+/**
+ * @type {import("unplugin").UnpluginFactory<{compiler?: CompilerOption } | undefined, false>}
+ */
+export const unpluginFn = (options = {}) => {
+	// @type {import("@evmts/config").ResolvedCompilerConfig}
+	let config
 
 	// for current release we will hardcode this to solc
 	const parsedCompilerOption = compilerOptionValidator.safeParse(
@@ -44,9 +45,15 @@ export const unpluginFn: UnpluginFactory<
 		)
 	}
 	const bundler = bundlers[compilerOption]
-	let moduleResolver: ReturnType<typeof bundler>
+	/**
+	 * @type {ReturnType<typeof bundler>}
+	 */
+	let moduleResolver
 
-	const fao: FileAccessObject = {
+	/**
+	 * @type {import("./types.js").FileAccessObject}
+	 */
+	const fao = {
 		existsSync,
 		readFile,
 		readFileSync,
@@ -56,7 +63,6 @@ export const unpluginFn: UnpluginFactory<
 
 	return {
 		name: '@evmts/rollup-plugin',
-		version: packageJson.version,
 		async buildStart() {
 			config = await loadConfigAsync(process.cwd())
 			moduleResolver = bundler(config, console, fao, solcCache)
@@ -75,7 +81,7 @@ export const unpluginFn: UnpluginFactory<
 			}
 			return null
 		},
-		async load(id: string) {
+		async load(id) {
 			if (!id.endsWith('.sol')) {
 				return
 			}
@@ -98,7 +104,8 @@ export const unpluginFn: UnpluginFactory<
 			})
 			return code
 		},
-	} as const
+		...{ version: packageJson.version },
+	}
 }
 
 const evmtsUnplugin = createUnplugin(unpluginFn)
@@ -106,11 +113,13 @@ const evmtsUnplugin = createUnplugin(unpluginFn)
 // Hacks to make types portable
 // we should manually type these at some point
 
-export const vitePluginEvmts =
-	evmtsUnplugin.vite as any as typeof evmtsUnplugin.rollup
+export const vitePluginEvmts = /** @type {typeof evmtsUnplugin.rollup} */ (
+	/** @type {any} */ (evmtsUnplugin.vite)
+)
 export const rollupPluginEvmts = evmtsUnplugin.rollup
 export const esbuildPluginEvmts = evmtsUnplugin.esbuild
-export const webpackPluginEvmts =
-	evmtsUnplugin.webpack as typeof evmtsUnplugin.rspack
+export const webpackPluginEvmts = /** @type {typeof evmtsUnplugin.rspack} */ (
+	evmtsUnplugin.webpack
+)
 
 export const rspackPluginEvmts = evmtsUnplugin.rspack

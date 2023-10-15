@@ -1,6 +1,6 @@
-import { invariant } from '../utils/invariant'
-import { moduleFactorySync } from './moduleFactorySync'
-import * as solc from './solc'
+import { invariant } from '../utils/invariant.js'
+import { moduleFactorySync } from './moduleFactorySync.js'
+import * as solc from './solc.js'
 import resolve from 'resolve'
 
 /**
@@ -11,10 +11,10 @@ import resolve from 'resolve'
  * @param {string} basedir
  * @param {import('@evmts/config').ResolvedCompilerConfig} config
  * @param {TIncludeAsts} includeAst
- * @param {import('../types').FileAccessObject} fao
- * @param {import('../types').Logger} logger
- * @param {import('../createCache').Cache} [cache]
- * @returns {import('../types').CompiledContracts}
+ * @param {import('../types.js').FileAccessObject} fao
+ * @param {import('../types.js').Logger} logger
+ * @param {import('../createCache.js').Cache} [cache]
+ * @returns {import('../types.js').CompiledContracts}
  * @example
  * const { artifacts, modules } = compileContractSync(
  *  './contracts/MyContract.sol',
@@ -50,7 +50,7 @@ export function compileContractSync(
 		fao,
 	)
 
-	/** @type {Record<string, import('../types').ModuleInfo>} */
+	/** @type {Record<string, import('../types.js').ModuleInfo>} */
 	const modules = {}
 
 	const stack = [entryModule]
@@ -76,7 +76,7 @@ export function compileContractSync(
 	)
 
 	/**
-	 * @type {import('./solc').SolcInputDescription}
+	 * @type {import('./solcTypes.js').SolcInputDescription}
 	 */
 	const solcInput = {
 		language: 'Solidity',
@@ -90,6 +90,9 @@ export function compileContractSync(
 			},
 		},
 	}
+	/**
+	 * @type {import('./solcTypes.js').SolcOutput}
+	 */
 	const solcOutput = cache?.isCached(entryModule.id, sources)
 		? cache.read(entryModule.id)
 		: solc.solcCompile(solcInput)

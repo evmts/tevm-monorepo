@@ -35,7 +35,7 @@ Currently unimplemented just uses resolveArtifactsSync
 
 #### Defined in
 
-[bundlers/bundler/src/solc/resolveArtifacts.ts:16](https://github.com/evmts/evmts-monorepo/blob/main/bundlers/bundler/src/solc/resolveArtifacts.ts#L16)
+[bundlers/bundler/src/solc/resolveArtifacts.d.ts:16](https://github.com/evmts/evmts-monorepo/blob/main/bundlers/bundler/src/solc/resolveArtifacts.d.ts#L16)
 
 ___
 
@@ -69,4 +69,4 @@ ___
 
 #### Defined in
 
-[bundlers/bundler/src/solc/resolveArtifactsSync.ts:17](https://github.com/evmts/evmts-monorepo/blob/main/bundlers/bundler/src/solc/resolveArtifactsSync.ts#L17)
+[bundlers/bundler/src/solc/resolveArtifactsSync.d.ts:17](https://github.com/evmts/evmts-monorepo/blob/main/bundlers/bundler/src/solc/resolveArtifactsSync.d.ts#L17)

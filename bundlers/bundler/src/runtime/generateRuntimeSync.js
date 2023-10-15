@@ -1,17 +1,20 @@
-import type { Artifacts } from '../solc/resolveArtifactsSync'
-import type { Logger } from '../types'
-import { generateEvmtsBody } from './generateEvmtsBody'
+import { generateEvmtsBody } from './generateEvmtsBody.js'
 
-export const generateRuntimeSync = (
-	artifacts: Artifacts,
-	moduleType: 'cjs' | 'mjs' | 'ts' | 'dts',
-	logger: Logger,
-): string => {
+/**
+ * @param {import("../solc/resolveArtifactsSync.js").Artifacts} artifacts
+ * @param {'cjs' | 'mjs' | 'ts' | 'dts'} moduleType
+ * @param {import("../types.js").Logger} logger
+ * @returns {string}
+ */
+export const generateRuntimeSync = (artifacts, moduleType, logger) => {
 	if (!artifacts || Object.keys(artifacts).length === 0) {
 		logger.warn('No artifacts found, skipping runtime generation')
 		return ''
 	}
-	let evmtsImports: string
+	/**
+	 * @type {string}
+	 */
+	let evmtsImports
 	if (moduleType === 'cjs') {
 		evmtsImports = `const { evmtsContractFactory } = require('@evmts/core')`
 	} else if (moduleType === 'dts') {

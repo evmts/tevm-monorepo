@@ -1,4 +1,4 @@
-import { resolveImportPath } from './resolveImportPath'
+import { resolveImportPath } from './resolveImportPath.js'
 import { describe, expect, it } from 'vitest'
 
 describe('resolveImportPath', () => {

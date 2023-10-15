@@ -1,7 +1,7 @@
-import type { Cache } from './createCache'
-import type { SolcInputDescription, SolcOutput } from './solc/solc'
+import type { Cache } from './createCache.js'
+import type { SolcInputDescription, SolcOutput } from './solc/solcTypes.js'
 import type { ResolvedCompilerConfig } from '@evmts/config'
-import type { Node } from 'solidity-ast/node'
+import type { Node } from 'solidity-ast/node.js'
 
 export type BundlerResult = {
 	code: string

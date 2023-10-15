@@ -2,12 +2,12 @@
 	"$schema": "https://typedoc.org/schema.json",
 	"out": "../../docs/reference/bundler",
 	"entryPoints": [
-		"./src/bundler.ts",
-		"./src/createCache.ts",
-		"./src/unplugin.ts",
-		"./src/runtime/index.ts",
-		"./src/solc/index.ts",
-		"./src/utils/index.ts"
+		"./src/bundler.js",
+		"./src/createCache.js",
+		"./src/unplugin.js",
+		"./src/runtime/index.js",
+		"./src/solc/index.js",
+		"./src/utils/index.js"
 	],
 	"publicPath": "/reference/bundler/",
 	"plugin": ["typedoc-plugin-markdown"],
