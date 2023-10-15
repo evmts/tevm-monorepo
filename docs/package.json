@@ -2,7 +2,9 @@
 	"name": "@evmts/docs",
 	"version": "0.0.1",
 	"private": true,
-	"contributors": ["Will Cory <willcory10@gmail.com>"],
+	"contributors": [
+		"Will Cory <willcory10@gmail.com>"
+	],
 	"type": "module",
 	"scripts": {
 		"build": "bun build:dist",
@@ -19,6 +21,6 @@
 		"@vue/runtime-dom": "^3.3.4",
 		"@vue/server-renderer": "^3.3.4",
 		"rome": "^12.1.3",
-		"vitepress": "1.0.0-rc.20"
+		"vitepress": "1.0.0-rc.22"
 	}
 }

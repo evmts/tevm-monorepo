@@ -46,7 +46,7 @@
 
 #### Defined in
 
-node_modules/.pnpm/unplugin@1.5.0/node_modules/unplugin/dist/index.d.mts:83
+node_modules/unplugin/dist/index.d.mts:83
 
 ___
 
@@ -67,7 +67,7 @@ ___
 
 #### Defined in
 
-node_modules/.pnpm/unplugin@1.5.0/node_modules/unplugin/dist/index.d.mts:83
+node_modules/unplugin/dist/index.d.mts:83
 
 ___
 
@@ -88,7 +88,7 @@ ___
 
 #### Defined in
 
-node_modules/.pnpm/unplugin@1.5.0/node_modules/unplugin/dist/index.d.mts:83
+node_modules/unplugin/dist/index.d.mts:83
 
 ___
 
@@ -109,7 +109,7 @@ ___
 
 #### Defined in
 
-node_modules/.pnpm/unplugin@1.5.0/node_modules/unplugin/dist/index.d.mts:82
+node_modules/unplugin/dist/index.d.mts:82
 
 ___
 
@@ -130,7 +130,7 @@ ___
 
 #### Defined in
 
-node_modules/.pnpm/unplugin@1.5.0/node_modules/unplugin/dist/index.d.mts:83
+node_modules/unplugin/dist/index.d.mts:83
 
 ___
 
@@ -151,4 +151,4 @@ ___
 
 #### Defined in
 
-node_modules/.pnpm/unplugin@1.5.0/node_modules/unplugin/dist/index.d.mts:83
+node_modules/unplugin/dist/index.d.mts:83

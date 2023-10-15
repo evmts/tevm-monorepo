@@ -113,7 +113,6 @@
 		"format:check": "rome format .",
 		"generate:docs": "typedoc",
 		"generate:src": "bun run generateSrc.ts",
-		"package:up": "pnpm up --latest",
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {

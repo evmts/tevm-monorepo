@@ -81,7 +81,7 @@ TypeError.message
 
 #### Defined in
 
-node_modules/.pnpm/typescript@5.2.2/node_modules/typescript/lib/lib.es5.d.ts:1068
+node_modules/typescript/lib/lib.es5.d.ts:1068
 
 ___
 
@@ -95,7 +95,7 @@ TypeError.name
 
 #### Defined in
 
-node_modules/.pnpm/typescript@5.2.2/node_modules/typescript/lib/lib.es5.d.ts:1067
+node_modules/typescript/lib/lib.es5.d.ts:1067
 
 ___
 
@@ -109,7 +109,7 @@ TypeError.stack
 
 #### Defined in
 
-node_modules/.pnpm/typescript@5.2.2/node_modules/typescript/lib/lib.es5.d.ts:1069
+node_modules/typescript/lib/lib.es5.d.ts:1069
 
 ___
 
@@ -144,7 +144,7 @@ TypeError.prepareStackTrace
 
 #### Defined in
 
-node_modules/.pnpm/@types+node@20.7.2/node_modules/@types/node/globals.d.ts:11
+node_modules/@types/node/globals.d.ts:11
 
 ___
 
@@ -158,7 +158,7 @@ TypeError.stackTraceLimit
 
 #### Defined in
 
-node_modules/.pnpm/@types+node@20.7.2/node_modules/@types/node/globals.d.ts:13
+node_modules/@types/node/globals.d.ts:13
 
 ## Methods
 
@@ -185,4 +185,4 @@ TypeError.captureStackTrace
 
 #### Defined in
 
-node_modules/.pnpm/@types+node@20.7.2/node_modules/@types/node/globals.d.ts:4
+node_modules/@types/node/globals.d.ts:4

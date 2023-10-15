@@ -80,7 +80,7 @@ describe('evmtsBunPlugin', () => {
 			onLoad: vi.fn(),
 			onResolve: vi.fn(),
 			config: {} as any,
-		}
+		} as any
 		await plugin.setup(mockBuild)
 
 		const [onLoadFilter, onLoadFn] = mockBuild.onLoad.mock.lastCall ?? []
@@ -121,7 +121,7 @@ describe('evmtsBunPlugin', () => {
 			onLoad: vi.fn(),
 			onResolve: vi.fn(),
 			config: {} as any,
-		}
+		} as any
 		await plugin.setup(mockBuild)
 
 		const [onLoadFilter, onLoadFn] = mockBuild.onLoad.mock.lastCall ?? []
@@ -150,7 +150,7 @@ describe('evmtsBunPlugin', () => {
 			onResolve: vi.fn(),
 			onLoad: vi.fn(),
 			config: {} as any,
-		}
+		} as any
 		await plugin.setup(mockBuild)
 
 		const [_, onResolveFn] = mockBuild.onResolve.mock.calls[0]
@@ -168,7 +168,7 @@ describe('evmtsBunPlugin', () => {
 			onResolve: vi.fn(),
 			onLoad: vi.fn(),
 			config: {} as any,
-		}
+		} as any
 		await plugin.setup(mockBuild)
 
 		const [_, onResolveFn] = mockBuild.onResolve.mock.calls[0]
@@ -192,7 +192,7 @@ describe('evmtsBunPlugin', () => {
 			onLoad: vi.fn(),
 			onResolve: vi.fn(),
 			config: {} as any,
-		}
+		} as any
 		await plugin.setup(mockBuild)
 
 		const [_, onLoadFn] = mockBuild.onLoad.mock.lastCall ?? []
@@ -214,7 +214,7 @@ describe('evmtsBunPlugin', () => {
 			onLoad: vi.fn(),
 			onResolve: vi.fn(),
 			config: {} as any,
-		}
+		} as any
 		await plugin.setup(mockBuild)
 
 		const [_, onLoadFn] = mockBuild.onLoad.mock.lastCall ?? []
@@ -237,7 +237,7 @@ describe('evmtsBunPlugin', () => {
 			onLoad: vi.fn(),
 			onResolve: vi.fn(),
 			config: {} as any,
-		}
+		} as any
 		await plugin.setup(mockBuild)
 
 		const [_, onLoadFn] = mockBuild.onLoad.mock.lastCall ?? []

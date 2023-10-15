@@ -42,7 +42,6 @@
 		"generate:docs": "typedoc",
 		"lint": "rome check . --apply-unsafe",
 		"lint:check": "rome check . --verbose",
-		"package:up": "pnpm up --latest",
 		"pretest": "forge build",
 		"test": "vitest --coverage",
 		"test:coverage": "vitest run --coverage",

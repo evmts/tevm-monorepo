@@ -37,15 +37,14 @@
 		"//test:ui": "vitest --ui",
 		"build": "bun run build:esm && bun run build:cjs",
 		"build:cjs": "wasm-pack build --target nodejs --out-dir ./dist/cjs --no-pack .",
-		"build:dist": "echo 'building wasm with wasm-pack' && pnpm build",
+		"build:dist": "echo 'building wasm with wasm-pack' && bun run build",
 		"build:esm": "wasm-pack build --out-dir ./dist/esm --no-pack .",
 		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
 		"format": "rome format . --write",
 		"format:check": "rome format .",
-		"generate:docs": "pnpm nx build:esm && typedoc",
+		"generate:docs": "bun nx build:esm && typedoc",
 		"lint": "rome check . --apply-unsafe",
-		"lint:check": "rome check . --verbose",
-		"package:up": "pnpm up --latest"
+		"lint:check": "rome check . --verbose"
 	},
 	"devDependencies": {
 		"@evmts/tsconfig": "workspace:^",
