@@ -1,5 +1,5 @@
-import { file } from './bunFile'
-import { bunFileAccesObject } from './bunFileAccessObject'
+import { file } from './bunFile.js'
+import { bunFileAccesObject } from './bunFileAccessObject.js'
 import * as fsPromises from 'fs/promises'
 import { join } from 'path'
 import { type Mock, beforeEach, describe, expect, it } from 'vitest'
