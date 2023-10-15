@@ -6,7 +6,7 @@ const isDev = process.env.NODE_ENV === '"development"'
 
 if (isDev) {
 	context({
-		entryPoints: ['src/index.ts'],
+		entryPoints: ['src/index.js'],
 		outdir: 'dist',
 		minify: false,
 		sourcemap: true,
@@ -22,7 +22,7 @@ if (isDev) {
 		.then((ctx) => {
 			return ctx.watch()
 		})
-		.catch((e: any) => {
+		.catch((e) => {
 			console.error(e)
 			process.exit(1)
 		})
@@ -36,7 +36,7 @@ if (isDev) {
 	})
 } else {
 	build({
-		entryPoints: ['src/index.ts'],
+		entryPoints: ['src/index.js'],
 		outdir: 'dist',
 		minify: true,
 		sourcemap: false,
@@ -48,7 +48,7 @@ if (isDev) {
 		},
 		plugins: [esbuildPluginEvmts()],
 		// logLevel: "silent",
-	}).catch((e: any) => {
+	}).catch((e) => {
 		console.error(e)
 		process.exit(1)
 	})

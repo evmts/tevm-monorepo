@@ -26,7 +26,6 @@
 		"generate:docs": "typedoc",
 		"lint": "rome check . --apply-unsafe",
 		"lint:check": "rome check . --verbose",
-		"package:up": "pnpm up --latest",
 		"test": "vitest --coverage",
 		"test:run": "vitest run",
 		"test:coverage": "vitest run --coverage",

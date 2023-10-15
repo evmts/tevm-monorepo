@@ -26,7 +26,6 @@
 		"format:check": "rome format .",
 		"lint": "rome check . --apply-unsafe",
 		"lint:check": "rome check . --verbose",
-		"package:up": "pnpm up --latest",
 		"test": "vitest",
 		"test:run": "vitest run",
 		"test:ui": "vitest --ui"
