@@ -47,7 +47,7 @@
 		"format": "rome format . --write",
 		"format:check": "rome format .",
 		"generate:docs": "typedoc",
-		"generate:src": "babel src-viem --out-dir src",
+		"generate:src": "bun run generateSrc.ts",
 		"lint": "rome check . --apply-unsafe",
 		"lint:check": "rome check . --verbose",
 		"package:up": "pnpm up --latest",
