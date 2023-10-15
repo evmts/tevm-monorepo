@@ -4,6 +4,8 @@
     "rootDir": "src",
     "composite": true,
     "outDir": "types",
+    "moduleResolution": "NodeNext",
+    "module": "NodeNext",
     "skipLibCheck": true
   },
   "include": [
