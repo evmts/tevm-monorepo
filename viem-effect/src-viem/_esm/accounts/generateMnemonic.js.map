@@ -1,0 +1,1 @@
+{"version":3,"file":"generateMnemonic.js","sourceRoot":"","sources":["../../accounts/generateMnemonic.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,gBAAgB,IAAI,iBAAiB,EAAE,MAAM,cAAc,CAAA;AAEpE;;;;;;GAMG;AACH,MAAM,UAAU,gBAAgB,CAAC,QAAkB;IACjD,OAAO,iBAAiB,CAAC,QAAQ,CAAC,CAAA;AACpC,CAAC"}

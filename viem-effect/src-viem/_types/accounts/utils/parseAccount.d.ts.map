@@ -1,0 +1,1 @@
+{"version":3,"file":"parseAccount.d.ts","sourceRoot":"","sources":["../../../accounts/utils/parseAccount.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,OAAO,EAAE,MAAM,SAAS,CAAA;AAEtC,OAAO,KAAK,EAAE,OAAO,EAAE,MAAM,aAAa,CAAA;AAE1C,wBAAgB,YAAY,CAAC,OAAO,EAAE,OAAO,GAAG,OAAO,GAAG,OAAO,CAGhE"}

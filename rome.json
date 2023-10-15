@@ -19,7 +19,8 @@
 			".vscode",
 			".changeset",
 			".devcontainer",
-			"examples/svelte-ethers/.svelte-kit"
+			"examples/svelte-ethers/.svelte-kit",
+			"viem-effect"
 		]
 	},
 	"formatter": {

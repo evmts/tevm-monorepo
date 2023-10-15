@@ -1,0 +1,1 @@
+{"version":3,"file":"getChainId.js","sourceRoot":"","sources":["../../../actions/public/getChainId.ts"],"names":[],"mappings":";;;AAIA,gEAA6D;AAyBtD,KAAK,UAAU,UAAU,CAG9B,MAA2C;IAC3C,MAAM,UAAU,GAAG,MAAM,MAAM,CAAC,OAAO,CAAC;QACtC,MAAM,EAAE,aAAa;KACtB,CAAC,CAAA;IACF,OAAO,IAAA,wBAAW,EAAC,UAAU,CAAC,CAAA;AAChC,CAAC;AARD,gCAQC"}

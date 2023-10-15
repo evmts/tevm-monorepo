@@ -1,0 +1,1 @@
+{"version":3,"file":"parseAccount.js","sourceRoot":"","sources":["../../../accounts/utils/parseAccount.ts"],"names":[],"mappings":";;;AAIA,SAAgB,YAAY,CAAC,OAA0B;IACrD,IAAI,OAAO,OAAO,KAAK,QAAQ;QAAE,OAAO,EAAE,OAAO,EAAE,OAAO,EAAE,IAAI,EAAE,UAAU,EAAE,CAAA;IAC9E,OAAO,OAAO,CAAA;AAChB,CAAC;AAHD,oCAGC"}
