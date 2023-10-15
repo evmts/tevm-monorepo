@@ -2,9 +2,7 @@
 	"name": "@evmts/docs",
 	"version": "0.0.1",
 	"private": true,
-	"contributors": [
-		"Will Cory <willcory10@gmail.com>"
-	],
+	"contributors": ["Will Cory <willcory10@gmail.com>"],
 	"type": "module",
 	"scripts": {
 		"build": "bun build:dist",
@@ -12,7 +10,6 @@
 		"dev": "vitepress dev .",
 		"format": "rome format . --write",
 		"format:check": "rome format .",
-		"preinstall": "npx only-allow pnpm",
 		"lint": "rome check . --apply-unsafe",
 		"lint:check": "rome check . --verbose",
 		"package:up": "pnpm up --latest",

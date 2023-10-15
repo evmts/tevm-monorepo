@@ -20,7 +20,6 @@
 		"e2e": "nx e2e e2e",
 		"format:check": "rome format .",
 		"generate:docs": "nx run-many --target=generate:docs && nx build @evmts/docs",
-		"preinstall": "npx only-allow pnpm",
 		"lint": "rome check . --apply-unsafe && rome format . --write",
 		"lint:check": "rome check .",
 		"lint:packages": "nx run-many --targets=lint,format",
@@ -34,6 +33,22 @@
 		"test:coverage": "nx run-many --target=test:coverage",
 		"test:run": "nx run-many --target=test:run"
 	},
+	"workspaces": [
+		"bundlers/*",
+		"experimental/*",
+		"tsconfig",
+		"config",
+		"core",
+		"docs",
+		"e2e",
+		"schemas",
+		"state",
+		"revm",
+		"viem-effect",
+		"ethers",
+		"examples/*",
+		"ts-plugin"
+	],
 	"dependencies": {
 		"@changesets/cli": "^2.26.2"
 	},
