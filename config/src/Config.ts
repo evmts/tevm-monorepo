@@ -1,4 +1,4 @@
-import { getDefaultSolcVersion } from './getDefaultSolcVersion'
+import { getDefaultSolcVersion } from './getDefaultSolcVersion.js'
 import { z } from 'zod'
 
 /**

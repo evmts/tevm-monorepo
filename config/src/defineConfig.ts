@@ -3,7 +3,7 @@ import {
 	CompilerConfigValidator,
 	type ResolvedCompilerConfig,
 	defaultConfig,
-} from './Config'
+} from './Config.js'
 import { execSync } from 'child_process'
 import * as path from 'path'
 

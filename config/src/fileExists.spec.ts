@@ -1,4 +1,4 @@
-import { fileExists } from './fileExists'
+import { fileExists } from './fileExists.js'
 import { constants } from 'fs'
 import { access } from 'fs/promises'
 import { type Mock, afterEach, describe, expect, it, vi } from 'vitest'
