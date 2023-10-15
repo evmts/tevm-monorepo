@@ -1,6 +1,6 @@
 {
 	"$schema": "https://typedoc.org/schema.json",
-	"out": "../docs/reference/webpack-plugin",
+	"out": "../../docs/reference/webpack-plugin",
 	"entryPoints": ["./src/index.ts"],
 	"publicPath": "/reference/webpack-plugin/",
 	"plugin": ["typedoc-plugin-markdown"],

@@ -1,6 +1,6 @@
 {
 	"$schema": "https://typedoc.org/schema.json",
-	"out": "../docs/reference/bun-plugin",
+	"out": "../../docs/reference/bun-plugin",
 	"entryPoints": ["./src/index.js"],
 	"publicPath": "/reference/bun-plugin/",
 	"plugin": ["typedoc-plugin-markdown"],
