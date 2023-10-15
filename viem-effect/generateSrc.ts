@@ -142,15 +142,14 @@ async function generateContent(
 	if (!viemModule) {
 		return ''
 	}
-	const viemErrorIndex = viemModules.findIndex((viemModule) => viemModule[capitalizedErrorType])
-	const viemErrorModule = moduleNames[viemErrorIndex]
-	const viemError = `import("${viemErrorModule}").${capitalizedErrorType}`
+	const hasError = originalContent.includes(capitalizedErrorType)
+	const viemError = `import("${viemModule}").${capitalizedErrorType}`
 	return `
 import { ${baseName} } from "${viemModule}";
 import { wrapInEffect } from '${relativePath}';
 
 /**
- * @type {import("${relativePath}").WrappedInEffect<typeof ${baseName}, ${viemErrorModule ? viemError : 'Error'
+ * @type {import("${relativePath}").WrappedInEffect<typeof ${baseName}, ${hasError ? viemError : 'never'
 		}>}
  */
 export const ${baseName}Effect = wrapInEffect(${baseName});
