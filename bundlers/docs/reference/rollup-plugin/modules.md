@@ -12,7 +12,7 @@
 
 ### rollupPluginEvmts
 
-▸ **rollupPluginEvmts**(`options?`): `any`
+▸ **rollupPluginEvmts**(`options?`): `Plugin`<`any`\>
 
 #### Parameters
 
@@ -23,7 +23,7 @@
 
 #### Returns
 
-`any`
+`Plugin`<`any`\>
 
 #### Defined in
 

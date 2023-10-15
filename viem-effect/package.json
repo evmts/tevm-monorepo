@@ -107,14 +107,13 @@
 		"//test:run": "vitest run",
 		"//test:ui": "vitest --ui",
 		"build": "nx run-many --targets=build:dist --projects=@evmts/viem-effect ",
-		"build:dist": "tsup",
+		"build:dist": "bun run tsup",
 		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
 		"format": "rome format . --write",
 		"format:check": "rome format .",
-		"generate:docs": "typedoc",
+		"generate:docs": "bun run typedoc",
 		"generate:src": "bun run generateSrc.ts",
-		"package:up": "pnpm up --latest",
-		"typecheck": "tsc --noEmit"
+		"typecheck": "bun run tsc --noEmit"
 	},
 	"dependencies": {
 		"@adraffy/ens-normalize": "1.9.4",

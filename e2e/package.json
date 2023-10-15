@@ -11,11 +11,9 @@
     "e2e": "source .env & playwright test",
     "format": "rome format . --write",
     "format:check": "rome format .",
-    "preinstall": "npx only-allow pnpm",
     "lint": "rome check . --apply-unsafe",
     "lint:check": "rome check . --verbose",
-    "package:up": "pnpm up --latest",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "bun run tsc --noEmit"
   },
   "dependencies": {
     "typescript": "^5.2.2"

@@ -1,71 +1,64 @@
 {
-  "name": "@evmts/experimental-solc",
-  "version": "0.11.2",
-  "private": false,
-  "description": "Experimental wrapper around solc",
-  "keywords": [
-    "solidity",
-    "forge",
-    "foundry",
-    "sol",
-    "typescript",
-    "web3",
-    "blockchain"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/evmts/evmts-monorepo.git",
-    "directory": "experimental/solc"
-  },
-  "license": "MIT",
-  "contributors": [
-    "Will Cory <willcory10@gmail.com>"
-  ],
-  "type": "module",
-  "main": "dist/index.cjs",
-  "module": "dist/index.js",
-  "types": "types/src/index.d.ts",
-  "files": [
-    "dist",
-    "types",
-    "src"
-  ],
-  "scripts": {
-    "test": "NODE_OPTIONS='--experimental-loader=./scripts/http-loader.mjs --experimental-network-imports --no-warnings --loader=tsx' node --test ./src/compiler/loadSolidityCompiler.spec.ts ./src/compiler/loadSolidityCompilerSync.spec.ts",
-    "build": "nx run-many --targets=build:dist,build:types --projects=@evmts/experimental-solc ",
-    "build:dist": "tsup",
-    "//build:types": "tsc --emitDeclarationOnly",
-    "clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
-    "format": "rome format . --write",
-    "format:check": "rome format .",
-    "lint": "rome check . --apply-unsafe",
-    "lint:check": "rome check . --verbose",
-    "package:up": "pnpm up --latest"
-  },
-  "dependencies": {
-    "@evmts/config": "workspace:*",
-    "@evmts/core": "workspace:*",
-    "@evmts/tsconfig": "workspace:*",
-    "@types/resolve": "^1.20.3",
-    "glob": "^10.3.10",
-    "resolve": "^1.22.6",
-    "unplugin": "^1.5.0"
-  },
-  "devDependencies": {
-    "@types/node": "^20.7.2",
-    "abitype": "^0.9.8",
-    "rome": "^12.1.3",
-    "solc": "0.8.21",
-    "tsup": "^7.2.0",
-    "tsx": "^3.13.0",
-    "typescript": "^5.2.2",
-    "wagmi": "^1.4.2",
-    "zod": "^3.22.2"
-  },
-  "peerDependencies": {
-    "solc": ">0.8.10"
-  },
-  "publishConfig": {
-    "access": "public"
-  }
+	"name": "@evmts/experimental-solc",
+	"version": "0.11.2",
+	"private": false,
+	"description": "Experimental wrapper around solc",
+	"keywords": [
+		"solidity",
+		"forge",
+		"foundry",
+		"sol",
+		"typescript",
+		"web3",
+		"blockchain"
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/evmts/evmts-monorepo.git",
+		"directory": "experimental/solc"
+	},
+	"license": "MIT",
+	"contributors": ["Will Cory <willcory10@gmail.com>"],
+	"type": "module",
+	"main": "dist/index.cjs",
+	"module": "dist/index.js",
+	"types": "types/src/index.d.ts",
+	"files": ["dist", "types", "src"],
+	"scripts": {
+		"test": "NODE_OPTIONS='--experimental-loader=./scripts/http-loader.mjs --experimental-network-imports --no-warnings --loader=tsx' node --test ./src/compiler/loadSolidityCompiler.spec.ts ./src/compiler/loadSolidityCompilerSync.spec.ts",
+		"build": "nx run-many --targets=build:dist,build:types --projects=@evmts/experimental-solc ",
+		"build:dist": "bun run tsup",
+		"//build:types": "bun run tsc --emitDeclarationOnly",
+		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
+		"format": "rome format . --write",
+		"format:check": "rome format .",
+		"lint": "rome check . --apply-unsafe",
+		"lint:check": "rome check . --verbose"
+	},
+	"dependencies": {
+		"@evmts/config": "workspace:*",
+		"@evmts/core": "workspace:*",
+		"@evmts/tsconfig": "workspace:*",
+		"@types/resolve": "^1.20.3",
+		"glob": "^10.3.10",
+		"resolve": "^1.22.6",
+		"unplugin": "^1.5.0"
+	},
+	"devDependencies": {
+		"@types/node": "^20.7.2",
+		"abitype": "^0.9.8",
+		"rome": "^12.1.3",
+		"solc": "0.8.21",
+		"tsup": "^7.2.0",
+		"tsx": "^3.13.0",
+		"typescript": "^5.2.2",
+		"wagmi": "^1.4.2",
+		"zod": "^3.22.2"
+	},
+	"peerDependencies": {
+		"solc": ">0.8.10"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
 }

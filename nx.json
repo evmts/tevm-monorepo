@@ -93,6 +93,7 @@
 		"default": ["{projectRoot}/**/*", "sharedGlobals"],
 		"sharedGlobals": [
 			"{workspaceRoot}/nx.json",
+			"{workspaceRoot}/bun.lockb",
 			"{workspaceRoot}/configs/**/*",
 			"{workspaceRoot}/lib/**/*"
 		],

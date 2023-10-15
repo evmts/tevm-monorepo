@@ -11,8 +11,25 @@
 		"Will Cory <willcory10@gmail.com>"
 	],
 	"type": "module",
+	"workspaces": [
+		"bundlers/*",
+		"experimental/*",
+		"tsconfig",
+		"config",
+		"blockexplorer",
+		"core",
+		"docs",
+		"e2e",
+		"schemas",
+		"state",
+		"revm",
+		"viem-effect",
+		"ethers",
+		"examples/*",
+		"ts-plugin"
+	],
 	"scripts": {
-		"all": "nx run-many --targets=build:dist,build:types,typecheck,test:coverage && bun lint && bun sort-package-json && pnpm run generate:docs",
+		"all": "nx run-many --targets=build:dist,build:types,typecheck,test:coverage && bun lint && bun sort-package-json && bun run generate:docs",
 		"build": "nx run-many --targets=build:dist,build:types",
 		"build:dist": "nx run-many --target=build:dist",
 		"build:types": "nx run-many --targets=build:types,typecheck",
@@ -20,14 +37,12 @@
 		"e2e": "nx e2e e2e",
 		"format:check": "rome format .",
 		"generate:docs": "nx run-many --target=generate:docs && nx build @evmts/docs",
-		"preinstall": "npx only-allow pnpm",
 		"lint": "rome check . --apply-unsafe && rome format . --write",
 		"lint:check": "rome check .",
 		"lint:packages": "nx run-many --targets=lint,format",
-		"package:up": "pnpm up --latest && pnpm recursive --workspace-concurrency=1 run package:up",
 		"release:check": "changeset status --verbose --since=origin/main",
-		"release:publish": "pnpm install && bun run build --skip-nx-cache && changeset publish",
-		"release:version": "changeset version && pnpm install --lockfile-only",
+		"release:publish": "bun install && bun run build --skip-nx-cache && changeset publish",
+		"release:version": "changeset version && bun install --lockfile-only",
 		"sort-package-json": "sort-package-json package.json 'plugins/*/package.json' 'examples/*/package.json' '*/package.json' 'packages/*/example/package.json'",
 		"sort-package-json:check": "sort-package-json package.json 'packages/*/package.json' '*/package.json' 'packages/*/example/package.json' && git diff --exit-code",
 		"test": "vitest",
@@ -49,9 +64,7 @@
 		"sort-package-json": "^2.5.1",
 		"vitest": "^0.34.3"
 	},
-	"packageManager": "pnpm@8.6.0",
 	"engines": {
-		"node": ">=18",
-		"pnpm": ">=8"
+		"node": ">=18"
 	}
 }

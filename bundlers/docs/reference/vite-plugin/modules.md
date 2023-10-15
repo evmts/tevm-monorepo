@@ -12,7 +12,7 @@
 
 ### vitePluginEvmts
 
-▸ **vitePluginEvmts**(`options?`): `any`
+▸ **vitePluginEvmts**(`options?`): `Plugin`<`any`\>
 
 #### Parameters
 
@@ -23,7 +23,7 @@
 
 #### Returns
 
-`any`
+`Plugin`<`any`\>
 
 #### Defined in
 
