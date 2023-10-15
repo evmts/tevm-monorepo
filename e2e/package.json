@@ -13,7 +13,7 @@
     "format:check": "rome format .",
     "lint": "rome check . --apply-unsafe",
     "lint:check": "rome check . --verbose",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "bun run tsc --noEmit"
   },
   "dependencies": {
     "typescript": "^5.2.2"

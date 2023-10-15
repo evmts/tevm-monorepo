@@ -8,13 +8,12 @@
 	"type": "module",
 	"scripts": {
 		"build": "bun build:dist",
-		"build:dist": "vitepress build .",
-		"dev": "vitepress dev .",
+		"build:dist": "bun run vitepress build .",
+		"dev": "bun run vitepress dev .",
 		"format": "rome format . --write",
 		"format:check": "rome format .",
 		"lint": "rome check . --apply-unsafe",
 		"lint:check": "rome check . --verbose",
-		"package:up": " up --latest",
 		"preview": "vitepress preview ."
 	},
 	"devDependencies": {
