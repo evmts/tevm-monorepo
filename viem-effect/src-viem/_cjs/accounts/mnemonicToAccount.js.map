@@ -1,0 +1,1 @@
+{"version":3,"file":"mnemonicToAccount.js","sourceRoot":"","sources":["../../accounts/mnemonicToAccount.ts"],"names":[],"mappings":";;;AAAA,wCAAoC;AACpC,wCAAiD;AAEjD,2DAAoD;AAQpD,SAAgB,iBAAiB,CAC/B,QAAgB,EAChB,OAAkB,EAAE;IAEpB,MAAM,IAAI,GAAG,IAAA,0BAAkB,EAAC,QAAQ,CAAC,CAAA;IACzC,OAAO,IAAA,kCAAc,EAAC,aAAK,CAAC,cAAc,CAAC,IAAI,CAAC,EAAE,IAAI,CAAC,CAAA;AACzD,CAAC;AAND,8CAMC"}

@@ -1,0 +1,1 @@
+{"version":3,"file":"transport.js","sourceRoot":"","sources":["../../errors/transport.ts"],"names":[],"mappings":";;;AAAA,uCAAqC;AAErC,MAAa,gBAAiB,SAAQ,mBAAS;IAC7C;QACE,KAAK,CACH,wFAAwF,EACxF;YACE,QAAQ,EAAE,qBAAqB;SAChC,CACF,CAAA;IACH,CAAC;CACF;AATD,4CASC"}

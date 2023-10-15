@@ -1,0 +1,1 @@
+{"version":3,"file":"switchChain.js","sourceRoot":"","sources":["../../../actions/wallet/switchChain.ts"],"names":[],"mappings":";;;AAIA,4DAA2D;AA2BpD,KAAK,UAAU,WAAW,CAG/B,MAA2C,EAAE,EAAE,EAAE,EAAyB;IAC1E,MAAM,MAAM,CAAC,OAAO,CAAC;QACnB,MAAM,EAAE,4BAA4B;QACpC,MAAM,EAAE;YACN;gBACE,OAAO,EAAE,IAAA,sBAAW,EAAC,EAAE,CAAC;aACzB;SACF;KACF,CAAC,CAAA;AACJ,CAAC;AAZD,kCAYC"}
