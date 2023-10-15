@@ -24,11 +24,71 @@
 	"type": "module",
 	"exports": {
 		".": {
-			"default": "./dist/index.js",
-			"import": "./dist/index.js",
-			"require": "./dist/index.cjs",
-			"types": "./src/index.d.ts"
-		}
+			"types": "./types/index.d.ts",
+			"import": "./src/index.js",
+			"default": "./dist/index.cjs"
+		},
+		"./abi": {
+			"types": "./types/abi.d.ts",
+			"import": "./src/abi.js",
+			"default": "./dist/abi.cjs"
+		},
+		"./accounts": {
+			"types": "./types/accounts.d.ts",
+			"import": "./src/accounts.js",
+			"default": "./dist/accounts.cjs"
+		},
+		"./actions": {
+			"types": "./types/actions.d.ts",
+			"import": "./src/actions.js",
+			"default": "./dist/actions.cjs"
+		},
+		"./chains": {
+			"types": "./types/chains.d.ts",
+			"import": "./src/chains.js",
+			"default": "./dist/chains.cjs"
+		},
+		"./chains/utils": {
+			"types": "./types/chains/utils.d.ts",
+			"import": "./src/chains/utils.js",
+			"default": "./dist/chains/utils.cjs"
+		},
+		"./contract": {
+			"types": "./types/contract.d.ts",
+			"import": "./src/contract.js",
+			"default": "./dist/contract.cjs"
+		},
+		"./ens": {
+			"types": "./types/ens.d.ts",
+			"import": "./src/ens.js",
+			"default": "./dist/ens.cjs"
+		},
+		"./public": {
+			"types": "./types/public.d.ts",
+			"import": "./src/public.js",
+			"default": "./dist/public.cjs"
+		},
+		"./test": {
+			"types": "./types/test.d.ts",
+			"import": "./src/test.js",
+			"default": "./dist/test.cjs"
+		},
+		"./utils": {
+			"types": "./types/utils.d.ts",
+			"import": "./src/utils.js",
+			"default": "./dist/utils.cjs"
+		},
+		"./wallet": {
+			"types": "./types/wallet.d.ts",
+			"import": "./src/wallet.js",
+			"default": "./dist/wallet.cjs"
+		},
+		"./window": {
+			"types": "./types/window.d.ts",
+			"import": "./src/window.js",
+			"default": "./dist/window.cjs"
+		},
+		"./package.json": "./package.json"
 	},
 	"main": "dist/index.cjs",
 	"module": "dist/index.js",
@@ -40,6 +100,12 @@
 		"!src/**/*.spec.js"
 	],
 	"scripts": {
+		"//lint": "rome check . --apply-unsafe",
+		"//lint:check": "rome check . --verbose",
+		"//test": "vitest --coverage",
+		"//test:coverage": "vitest run --coverage",
+		"//test:run": "vitest run",
+		"//test:ui": "vitest --ui",
 		"build": "nx run-many --targets=build:dist --projects=@evmts/viem-effect ",
 		"build:dist": "tsup",
 		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
@@ -47,13 +113,7 @@
 		"format:check": "rome format .",
 		"generate:docs": "typedoc",
 		"generate:src": "bun run generateSrc.ts",
-		"//lint": "rome check . --apply-unsafe",
-		"//lint:check": "rome check . --verbose",
 		"package:up": "pnpm up --latest",
-		"//test": "vitest --coverage",
-		"//test:coverage": "vitest run --coverage",
-		"//test:run": "vitest run",
-		"//test:ui": "vitest --ui",
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
