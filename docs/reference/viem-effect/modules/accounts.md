@@ -24,7 +24,7 @@
 
 ### generateMnemonicEffect
 
-▸ **generateMnemonicEffect**<`TParams`\>(`...args`): `Effect`<`never`, `Error`, `string`\>
+▸ **generateMnemonicEffect**<`TParams`\>(`...args`): `Effect`<`never`, `GenerateMnemonicErrorType`, `string`\>
 
 #### Type parameters
 
@@ -40,7 +40,7 @@
 
 #### Returns
 
-`Effect`<`never`, `Error`, `string`\>
+`Effect`<`never`, `GenerateMnemonicErrorType`, `string`\>
 
 #### Defined in
 
@@ -50,7 +50,7 @@ ___
 
 ### generatePrivateKeyEffect
 
-▸ **generatePrivateKeyEffect**<`TParams`\>(`...args`): `Effect`<`never`, `Error`, \`0x${string}\`\>
+▸ **generatePrivateKeyEffect**<`TParams`\>(`...args`): `Effect`<`never`, `GeneratePrivateKeyErrorType`, \`0x${string}\`\>
 
 #### Type parameters
 
@@ -66,7 +66,7 @@ ___
 
 #### Returns
 
-`Effect`<`never`, `Error`, \`0x${string}\`\>
+`Effect`<`never`, `GeneratePrivateKeyErrorType`, \`0x${string}\`\>
 
 #### Defined in
 
@@ -76,7 +76,7 @@ ___
 
 ### hdKeyToAccountEffect
 
-▸ **hdKeyToAccountEffect**<`TParams`\>(`...args`): `Effect`<`never`, `Error`, `HDAccount`\>
+▸ **hdKeyToAccountEffect**<`TParams`\>(`...args`): `Effect`<`never`, `never`, `HDAccount`\>
 
 #### Type parameters
 
@@ -92,7 +92,7 @@ ___
 
 #### Returns
 
-`Effect`<`never`, `Error`, `HDAccount`\>
+`Effect`<`never`, `never`, `HDAccount`\>
 
 #### Defined in
 
@@ -102,7 +102,7 @@ ___
 
 ### mnemonicToAccountEffect
 
-▸ **mnemonicToAccountEffect**<`TParams`\>(`...args`): `Effect`<`never`, `Error`, `HDAccount`\>
+▸ **mnemonicToAccountEffect**<`TParams`\>(`...args`): `Effect`<`never`, `MnemonicToAccountErrorType`, `HDAccount`\>
 
 #### Type parameters
 
@@ -118,7 +118,7 @@ ___
 
 #### Returns
 
-`Effect`<`never`, `Error`, `HDAccount`\>
+`Effect`<`never`, `MnemonicToAccountErrorType`, `HDAccount`\>
 
 #### Defined in
 
@@ -128,7 +128,7 @@ ___
 
 ### parseAccountEffect
 
-▸ **parseAccountEffect**<`TParams`\>(`...args`): `Effect`<`never`, `Error`, `Account`\>
+▸ **parseAccountEffect**<`TParams`\>(`...args`): `Effect`<`never`, `ParseAccountErrorType`, `Account`\>
 
 #### Type parameters
 
@@ -144,7 +144,7 @@ ___
 
 #### Returns
 
-`Effect`<`never`, `Error`, `Account`\>
+`Effect`<`never`, `ParseAccountErrorType`, `Account`\>
 
 #### Defined in
 
@@ -154,7 +154,7 @@ ___
 
 ### privateKeyToAccountEffect
 
-▸ **privateKeyToAccountEffect**<`TParams`\>(`...args`): `Effect`<`never`, `Error`, `PrivateKeyAccount`\>
+▸ **privateKeyToAccountEffect**<`TParams`\>(`...args`): `Effect`<`never`, `PrivateKeyToAccountErrorType`, `PrivateKeyAccount`\>
 
 #### Type parameters
 
@@ -170,7 +170,7 @@ ___
 
 #### Returns
 
-`Effect`<`never`, `Error`, `PrivateKeyAccount`\>
+`Effect`<`never`, `PrivateKeyToAccountErrorType`, `PrivateKeyAccount`\>
 
 #### Defined in
 
@@ -180,7 +180,7 @@ ___
 
 ### privateKeyToAddressEffect
 
-▸ **privateKeyToAddressEffect**<`TParams`\>(`...args`): `Effect`<`never`, `Error`, \`0x${string}\`\>
+▸ **privateKeyToAddressEffect**<`TParams`\>(`...args`): `Effect`<`never`, `PrivateKeyToAddressErrorType`, \`0x${string}\`\>
 
 #### Type parameters
 
@@ -196,7 +196,7 @@ ___
 
 #### Returns
 
-`Effect`<`never`, `Error`, \`0x${string}\`\>
+`Effect`<`never`, `PrivateKeyToAddressErrorType`, \`0x${string}\`\>
 
 #### Defined in
 
@@ -206,7 +206,7 @@ ___
 
 ### publicKeyToAddressEffect
 
-▸ **publicKeyToAddressEffect**<`TParams`\>(`...args`): `Effect`<`never`, `Error`, \`0x${string}\`\>
+▸ **publicKeyToAddressEffect**<`TParams`\>(`...args`): `Effect`<`never`, `PublicKeyToAddressErrorType`, \`0x${string}\`\>
 
 #### Type parameters
 
@@ -222,7 +222,7 @@ ___
 
 #### Returns
 
-`Effect`<`never`, `Error`, \`0x${string}\`\>
+`Effect`<`never`, `PublicKeyToAddressErrorType`, \`0x${string}\`\>
 
 #### Defined in
 
@@ -232,7 +232,7 @@ ___
 
 ### signEffect
 
-▸ **signEffect**<`TParams`\>(`...args`): `Effect`<`never`, `Error`, `Signature`\>
+▸ **signEffect**<`TParams`\>(`...args`): `Effect`<`never`, `SignErrorType`, `Signature`\>
 
 #### Type parameters
 
@@ -248,7 +248,7 @@ ___
 
 #### Returns
 
-`Effect`<`never`, `Error`, `Signature`\>
+`Effect`<`never`, `SignErrorType`, `Signature`\>
 
 #### Defined in
 
@@ -258,7 +258,7 @@ ___
 
 ### signMessageEffect
 
-▸ **signMessageEffect**<`TParams`\>(`...args`): `Effect`<`never`, `Error`, \`0x${string}\`\>
+▸ **signMessageEffect**<`TParams`\>(`...args`): `Effect`<`never`, `SignMessageErrorType`, \`0x${string}\`\>
 
 #### Type parameters
 
@@ -274,7 +274,7 @@ ___
 
 #### Returns
 
-`Effect`<`never`, `Error`, \`0x${string}\`\>
+`Effect`<`never`, `SignMessageErrorType`, \`0x${string}\`\>
 
 #### Defined in
 
@@ -284,7 +284,7 @@ ___
 
 ### signTransactionEffect
 
-▸ **signTransactionEffect**<`TParams`\>(`...args`): `Effect`<`never`, `Error`, `SignTransactionReturnType`<`TransactionSerializable`\>\>
+▸ **signTransactionEffect**<`TParams`\>(`...args`): `Effect`<`never`, `SignTransactionErrorType`, `SignTransactionReturnType`<`TransactionSerializable`\>\>
 
 #### Type parameters
 
@@ -300,7 +300,7 @@ ___
 
 #### Returns
 
-`Effect`<`never`, `Error`, `SignTransactionReturnType`<`TransactionSerializable`\>\>
+`Effect`<`never`, `SignTransactionErrorType`, `SignTransactionReturnType`<`TransactionSerializable`\>\>
 
 #### Defined in
 
@@ -310,7 +310,7 @@ ___
 
 ### signTypedDataEffect
 
-▸ **signTypedDataEffect**<`TParams`\>(`...args`): `Effect`<`never`, `Error`, \`0x${string}\`\>
+▸ **signTypedDataEffect**<`TParams`\>(`...args`): `Effect`<`never`, `SignTypedDataErrorType`, \`0x${string}\`\>
 
 #### Type parameters
 
@@ -326,7 +326,7 @@ ___
 
 #### Returns
 
-`Effect`<`never`, `Error`, \`0x${string}\`\>
+`Effect`<`never`, `SignTypedDataErrorType`, \`0x${string}\`\>
 
 #### Defined in
 
@@ -336,7 +336,7 @@ ___
 
 ### toAccountEffect
 
-▸ **toAccountEffect**<`TParams`\>(`...args`): `Effect`<`never`, `Error`, `GetAccountReturnType`<`AccountSource`\>\>
+▸ **toAccountEffect**<`TParams`\>(`...args`): `Effect`<`never`, `ToAccountErrorType`, `GetAccountReturnType`<`AccountSource`\>\>
 
 #### Type parameters
 
@@ -352,7 +352,7 @@ ___
 
 #### Returns
 
-`Effect`<`never`, `Error`, `GetAccountReturnType`<`AccountSource`\>\>
+`Effect`<`never`, `ToAccountErrorType`, `GetAccountReturnType`<`AccountSource`\>\>
 
 #### Defined in
 

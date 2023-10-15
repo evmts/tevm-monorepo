@@ -75,7 +75,7 @@
 
 ### assertRequestEffect
 
-▸ **assertRequestEffect**<`TParams`\>(`...args`): `Effect`<`never`, `Error`, `void`\>
+▸ **assertRequestEffect**<`TParams`\>(`...args`): `Effect`<`never`, `AssertRequestErrorType`, `void`\>
 
 #### Type parameters
 
@@ -91,7 +91,7 @@
 
 #### Returns
 
-`Effect`<`never`, `Error`, `void`\>
+`Effect`<`never`, `AssertRequestErrorType`, `void`\>
 
 #### Defined in
 
@@ -101,7 +101,7 @@ ___
 
 ### buildRequestEffect
 
-▸ **buildRequestEffect**<`TParams`\>(`...args`): `Effect`<`never`, `Error`, (`args`: `any`) => `Promise`<`any`\>\>
+▸ **buildRequestEffect**<`TParams`\>(`...args`): `Effect`<`never`, `never`, (`args`: `any`) => `Promise`<`any`\>\>
 
 #### Type parameters
 
@@ -117,7 +117,7 @@ ___
 
 #### Returns
 
-`Effect`<`never`, `Error`, (`args`: `any`) => `Promise`<`any`\>\>
+`Effect`<`never`, `never`, (`args`: `any`) => `Promise`<`any`\>\>
 
 #### Defined in
 
@@ -127,7 +127,7 @@ ___
 
 ### concatEffect
 
-▸ **concatEffect**<`TParams`\>(`...args`): `Effect`<`never`, `Error`, \`0x${string}\` \| `Uint8Array`\>
+▸ **concatEffect**<`TParams`\>(`...args`): `Effect`<`never`, `ConcatErrorType`, \`0x${string}\` \| `Uint8Array`\>
 
 #### Type parameters
 
@@ -143,7 +143,7 @@ ___
 
 #### Returns
 
-`Effect`<`never`, `Error`, \`0x${string}\` \| `Uint8Array`\>
+`Effect`<`never`, `ConcatErrorType`, \`0x${string}\` \| `Uint8Array`\>
 
 #### Defined in
 
@@ -153,7 +153,7 @@ ___
 
 ### decodeAbiParametersEffect
 
-▸ **decodeAbiParametersEffect**<`TParams`\>(`...args`): `Effect`<`never`, `Error`, `unknown`[] \| readonly `unknown`[]\>
+▸ **decodeAbiParametersEffect**<`TParams`\>(`...args`): `Effect`<`never`, `DecodeAbiParametersErrorType`, `unknown`[] \| readonly `unknown`[]\>
 
 #### Type parameters
 
@@ -169,7 +169,7 @@ ___
 
 #### Returns
 
-`Effect`<`never`, `Error`, `unknown`[] \| readonly `unknown`[]\>
+`Effect`<`never`, `DecodeAbiParametersErrorType`, `unknown`[] \| readonly `unknown`[]\>
 
 #### Defined in
 
@@ -179,7 +179,7 @@ ___
 
 ### decodeDeployDataEffect
 
-▸ **decodeDeployDataEffect**<`TParams`\>(`...args`): `Effect`<`never`, `Error`, `DecodeDeployDataReturnType`<`Abi` \| readonly `unknown`[]\>\>
+▸ **decodeDeployDataEffect**<`TParams`\>(`...args`): `Effect`<`never`, `DecodeDeployDataErrorType`, `DecodeDeployDataReturnType`<`Abi` \| readonly `unknown`[]\>\>
 
 #### Type parameters
 
@@ -195,7 +195,7 @@ ___
 
 #### Returns
 
-`Effect`<`never`, `Error`, `DecodeDeployDataReturnType`<`Abi` \| readonly `unknown`[]\>\>
+`Effect`<`never`, `DecodeDeployDataErrorType`, `DecodeDeployDataReturnType`<`Abi` \| readonly `unknown`[]\>\>
 
 #### Defined in
 
@@ -205,7 +205,7 @@ ___
 
 ### decodeErrorResultEffect
 
-▸ **decodeErrorResultEffect**<`TParams`\>(`...args`): `Effect`<`never`, `Error`, { `abiItem`: `AbiConstructor` \| `AbiError` \| `AbiEvent` \| `AbiFallback` \| `AbiFunction` \| `AbiReceive` ; `args`: `undefined` \| readonly `unknown`[] ; `errorName`: `string`  }\>
+▸ **decodeErrorResultEffect**<`TParams`\>(`...args`): `Effect`<`never`, `DecodeErrorResultErrorType`, { `abiItem`: `AbiConstructor` \| `AbiError` \| `AbiEvent` \| `AbiFallback` \| `AbiFunction` \| `AbiReceive` ; `args`: `undefined` \| readonly `unknown`[] ; `errorName`: `string`  }\>
 
 #### Type parameters
 
@@ -221,7 +221,7 @@ ___
 
 #### Returns
 
-`Effect`<`never`, `Error`, { `abiItem`: `AbiConstructor` \| `AbiError` \| `AbiEvent` \| `AbiFallback` \| `AbiFunction` \| `AbiReceive` ; `args`: `undefined` \| readonly `unknown`[] ; `errorName`: `string`  }\>
+`Effect`<`never`, `DecodeErrorResultErrorType`, { `abiItem`: `AbiConstructor` \| `AbiError` \| `AbiEvent` \| `AbiFallback` \| `AbiFunction` \| `AbiReceive` ; `args`: `undefined` \| readonly `unknown`[] ; `errorName`: `string`  }\>
 
 #### Defined in
 
@@ -231,7 +231,7 @@ ___
 
 ### decodeEventLogEffect
 
-▸ **decodeEventLogEffect**<`TParams`\>(`...args`): `Effect`<`never`, `Error`, { `args`: {} \| {} ; `eventName`: `string`  } \| { `args`: {} \| {} ; `eventName`: `string`  }\>
+▸ **decodeEventLogEffect**<`TParams`\>(`...args`): `Effect`<`never`, `DecodeEventLogErrorType`, { `args`: {} \| {} ; `eventName`: `string`  } \| { `args`: {} \| {} ; `eventName`: `string`  }\>
 
 #### Type parameters
 
@@ -247,7 +247,7 @@ ___
 
 #### Returns
 
-`Effect`<`never`, `Error`, { `args`: {} \| {} ; `eventName`: `string`  } \| { `args`: {} \| {} ; `eventName`: `string`  }\>
+`Effect`<`never`, `DecodeEventLogErrorType`, { `args`: {} \| {} ; `eventName`: `string`  } \| { `args`: {} \| {} ; `eventName`: `string`  }\>
 
 #### Defined in
 
@@ -257,7 +257,7 @@ ___
 
 ### decodeFunctionDataEffect
 
-▸ **decodeFunctionDataEffect**<`TParams`\>(`...args`): `Effect`<`never`, `Error`, { `args`: `undefined` \| readonly `unknown`[] ; `functionName`: `string`  }\>
+▸ **decodeFunctionDataEffect**<`TParams`\>(`...args`): `Effect`<`never`, `DecodeFunctionDataErrorType`, { `args`: `undefined` \| readonly `unknown`[] ; `functionName`: `string`  }\>
 
 #### Type parameters
 
@@ -273,7 +273,7 @@ ___
 
 #### Returns
 
-`Effect`<`never`, `Error`, { `args`: `undefined` \| readonly `unknown`[] ; `functionName`: `string`  }\>
+`Effect`<`never`, `DecodeFunctionDataErrorType`, { `args`: `undefined` \| readonly `unknown`[] ; `functionName`: `string`  }\>
 
 #### Defined in
 
@@ -283,7 +283,7 @@ ___
 
 ### decodeFunctionResultEffect
 
-▸ **decodeFunctionResultEffect**<`TParams`\>(`...args`): `Effect`<`never`, `Error`, `unknown`\>
+▸ **decodeFunctionResultEffect**<`TParams`\>(`...args`): `Effect`<`never`, `DecodeFunctionResultErrorType`, `unknown`\>
 
 #### Type parameters
 
@@ -299,7 +299,7 @@ ___
 
 #### Returns
 
-`Effect`<`never`, `Error`, `unknown`\>
+`Effect`<`never`, `DecodeFunctionResultErrorType`, `unknown`\>
 
 #### Defined in
 
@@ -309,7 +309,7 @@ ___
 
 ### encodeAbiParametersEffect
 
-▸ **encodeAbiParametersEffect**<`TParams`\>(`...args`): `Effect`<`never`, `Error`, \`0x${string}\`\>
+▸ **encodeAbiParametersEffect**<`TParams`\>(`...args`): `Effect`<`never`, `EncodeAbiParametersErrorType`, \`0x${string}\`\>
 
 #### Type parameters
 
@@ -325,7 +325,7 @@ ___
 
 #### Returns
 
-`Effect`<`never`, `Error`, \`0x${string}\`\>
+`Effect`<`never`, `EncodeAbiParametersErrorType`, \`0x${string}\`\>
 
 #### Defined in
 
@@ -335,7 +335,7 @@ ___
 
 ### encodeDeployDataEffect
 
-▸ **encodeDeployDataEffect**<`TParams`\>(`...args`): `Effect`<`never`, `Error`, \`0x${string}\`\>
+▸ **encodeDeployDataEffect**<`TParams`\>(`...args`): `Effect`<`never`, `EncodeDeployDataErrorType`, \`0x${string}\`\>
 
 #### Type parameters
 
@@ -351,7 +351,7 @@ ___
 
 #### Returns
 
-`Effect`<`never`, `Error`, \`0x${string}\`\>
+`Effect`<`never`, `EncodeDeployDataErrorType`, \`0x${string}\`\>
 
 #### Defined in
 
@@ -361,7 +361,7 @@ ___
 
 ### encodeErrorResultEffect
 
-▸ **encodeErrorResultEffect**<`TParams`\>(`...args`): `Effect`<`never`, `Error`, \`0x${string}\`\>
+▸ **encodeErrorResultEffect**<`TParams`\>(`...args`): `Effect`<`never`, `EncodeErrorResultErrorType`, \`0x${string}\`\>
 
 #### Type parameters
 
@@ -377,7 +377,7 @@ ___
 
 #### Returns
 
-`Effect`<`never`, `Error`, \`0x${string}\`\>
+`Effect`<`never`, `EncodeErrorResultErrorType`, \`0x${string}\`\>
 
 #### Defined in
 
@@ -387,7 +387,9 @@ ___
 
 ### encodeEventTopicsEffect
 
-▸ **encodeEventTopicsEffect**<`TParams`\>(`...args`): `Effect`<`never`, `Error`, \`0x${string}\`[]\>
+▸ **encodeEventTopicsEffect**<`TParams`\>(`...args`): `Effect`<`never`, `EncodeErrorResultErrorType`, \`0x${string}\`[]\>
+
+I manually updated this
 
 #### Type parameters
 
@@ -403,7 +405,7 @@ ___
 
 #### Returns
 
-`Effect`<`never`, `Error`, \`0x${string}\`[]\>
+`Effect`<`never`, `EncodeErrorResultErrorType`, \`0x${string}\`[]\>
 
 #### Defined in
 
@@ -413,7 +415,7 @@ ___
 
 ### encodeFunctionDataEffect
 
-▸ **encodeFunctionDataEffect**<`TParams`\>(`...args`): `Effect`<`never`, `Error`, \`0x${string}\`\>
+▸ **encodeFunctionDataEffect**<`TParams`\>(`...args`): `Effect`<`never`, `EncodeFunctionDataErrorType`, \`0x${string}\`\>
 
 #### Type parameters
 
@@ -429,7 +431,7 @@ ___
 
 #### Returns
 
-`Effect`<`never`, `Error`, \`0x${string}\`\>
+`Effect`<`never`, `EncodeFunctionDataErrorType`, \`0x${string}\`\>
 
 #### Defined in
 
@@ -439,7 +441,7 @@ ___
 
 ### encodeFunctionResultEffect
 
-▸ **encodeFunctionResultEffect**<`TParams`\>(`...args`): `Effect`<`never`, `Error`, \`0x${string}\`\>
+▸ **encodeFunctionResultEffect**<`TParams`\>(`...args`): `Effect`<`never`, `EncodeFunctionResultErrorType`, \`0x${string}\`\>
 
 #### Type parameters
 
@@ -455,7 +457,7 @@ ___
 
 #### Returns
 
-`Effect`<`never`, `Error`, \`0x${string}\`\>
+`Effect`<`never`, `EncodeFunctionResultErrorType`, \`0x${string}\`\>
 
 #### Defined in
 
@@ -465,7 +467,7 @@ ___
 
 ### encodePackedEffect
 
-▸ **encodePackedEffect**<`TParams`\>(`...args`): `Effect`<`never`, `Error`, \`0x${string}\`\>
+▸ **encodePackedEffect**<`TParams`\>(`...args`): `Effect`<`never`, `EncodePackedErrorType`, \`0x${string}\`\>
 
 #### Type parameters
 
@@ -481,7 +483,7 @@ ___
 
 #### Returns
 
-`Effect`<`never`, `Error`, \`0x${string}\`\>
+`Effect`<`never`, `EncodePackedErrorType`, \`0x${string}\`\>
 
 #### Defined in
 
@@ -491,7 +493,7 @@ ___
 
 ### extractEffect
 
-▸ **extractEffect**<`TParams`\>(`...args`): `Effect`<`never`, `Error`, `Record`<`string`, `unknown`\>\>
+▸ **extractEffect**<`TParams`\>(`...args`): `Effect`<`never`, `ExtractErrorType`, `Record`<`string`, `unknown`\>\>
 
 #### Type parameters
 
@@ -507,7 +509,7 @@ ___
 
 #### Returns
 
-`Effect`<`never`, `Error`, `Record`<`string`, `unknown`\>\>
+`Effect`<`never`, `ExtractErrorType`, `Record`<`string`, `unknown`\>\>
 
 #### Defined in
 
@@ -517,7 +519,7 @@ ___
 
 ### formatAbiItemEffect
 
-▸ **formatAbiItemEffect**<`TParams`\>(`...args`): `Effect`<`never`, `Error`, `string`\>
+▸ **formatAbiItemEffect**<`TParams`\>(`...args`): `Effect`<`never`, `FormatAbiItemErrorType`, `string`\>
 
 #### Type parameters
 
@@ -533,7 +535,7 @@ ___
 
 #### Returns
 
-`Effect`<`never`, `Error`, `string`\>
+`Effect`<`never`, `FormatAbiItemErrorType`, `string`\>
 
 #### Defined in
 
@@ -543,7 +545,7 @@ ___
 
 ### formatAbiItemWithArgsEffect
 
-▸ **formatAbiItemWithArgsEffect**<`TParams`\>(`...args`): `Effect`<`never`, `Error`, `undefined` \| `string`\>
+▸ **formatAbiItemWithArgsEffect**<`TParams`\>(`...args`): `Effect`<`never`, `FormatAbiItemWithArgsErrorType`, `undefined` \| `string`\>
 
 #### Type parameters
 
@@ -559,7 +561,7 @@ ___
 
 #### Returns
 
-`Effect`<`never`, `Error`, `undefined` \| `string`\>
+`Effect`<`never`, `FormatAbiItemWithArgsErrorType`, `undefined` \| `string`\>
 
 #### Defined in
 
@@ -569,7 +571,7 @@ ___
 
 ### formatEtherEffect
 
-▸ **formatEtherEffect**<`TParams`\>(`...args`): `Effect`<`never`, `Error`, `string`\>
+▸ **formatEtherEffect**<`TParams`\>(`...args`): `Effect`<`never`, `FormatUnitsErrorType`, `string`\>
 
 #### Type parameters
 
@@ -585,7 +587,7 @@ ___
 
 #### Returns
 
-`Effect`<`never`, `Error`, `string`\>
+`Effect`<`never`, `FormatUnitsErrorType`, `string`\>
 
 #### Defined in
 
@@ -595,7 +597,7 @@ ___
 
 ### formatGweiEffect
 
-▸ **formatGweiEffect**<`TParams`\>(`...args`): `Effect`<`never`, `Error`, `string`\>
+▸ **formatGweiEffect**<`TParams`\>(`...args`): `Effect`<`never`, `FormatUnitsErrorType`, `string`\>
 
 #### Type parameters
 
@@ -611,7 +613,7 @@ ___
 
 #### Returns
 
-`Effect`<`never`, `Error`, `string`\>
+`Effect`<`never`, `FormatUnitsErrorType`, `string`\>
 
 #### Defined in
 
@@ -621,7 +623,7 @@ ___
 
 ### formatUnitsEffect
 
-▸ **formatUnitsEffect**<`TParams`\>(`...args`): `Effect`<`never`, `Error`, `string`\>
+▸ **formatUnitsEffect**<`TParams`\>(`...args`): `Effect`<`never`, `FormatUnitsErrorType`, `string`\>
 
 #### Type parameters
 
@@ -637,7 +639,7 @@ ___
 
 #### Returns
 
-`Effect`<`never`, `Error`, `string`\>
+`Effect`<`never`, `FormatUnitsErrorType`, `string`\>
 
 #### Defined in
 
@@ -647,7 +649,7 @@ ___
 
 ### fromBytesEffect
 
-▸ **fromBytesEffect**<`TParams`\>(`...args`): `Effect`<`never`, `Error`, `string` \| `number` \| `bigint` \| `boolean`\>
+▸ **fromBytesEffect**<`TParams`\>(`...args`): `Effect`<`never`, `FromBytesErrorType`, `string` \| `number` \| `bigint` \| `boolean`\>
 
 #### Type parameters
 
@@ -663,7 +665,7 @@ ___
 
 #### Returns
 
-`Effect`<`never`, `Error`, `string` \| `number` \| `bigint` \| `boolean`\>
+`Effect`<`never`, `FromBytesErrorType`, `string` \| `number` \| `bigint` \| `boolean`\>
 
 #### Defined in
 
@@ -673,7 +675,7 @@ ___
 
 ### fromHexEffect
 
-▸ **fromHexEffect**<`TParams`\>(`...args`): `Effect`<`never`, `Error`, `string` \| `number` \| `bigint` \| `boolean` \| `Uint8Array`\>
+▸ **fromHexEffect**<`TParams`\>(`...args`): `Effect`<`never`, `FromHexErrorType`, `string` \| `number` \| `bigint` \| `boolean` \| `Uint8Array`\>
 
 #### Type parameters
 
@@ -689,7 +691,7 @@ ___
 
 #### Returns
 
-`Effect`<`never`, `Error`, `string` \| `number` \| `bigint` \| `boolean` \| `Uint8Array`\>
+`Effect`<`never`, `FromHexErrorType`, `string` \| `number` \| `bigint` \| `boolean` \| `Uint8Array`\>
 
 #### Defined in
 
@@ -699,7 +701,7 @@ ___
 
 ### fromRlpEffect
 
-▸ **fromRlpEffect**<`TParams`\>(`...args`): `Effect`<`never`, `Error`, `FromRlpReturnType`<`To`\>\>
+▸ **fromRlpEffect**<`TParams`\>(`...args`): `Effect`<`never`, `FromRlpErrorType`, `FromRlpReturnType`<`To`\>\>
 
 #### Type parameters
 
@@ -715,7 +717,7 @@ ___
 
 #### Returns
 
-`Effect`<`never`, `Error`, `FromRlpReturnType`<`To`\>\>
+`Effect`<`never`, `FromRlpErrorType`, `FromRlpReturnType`<`To`\>\>
 
 #### Defined in
 
@@ -725,7 +727,7 @@ ___
 
 ### getAbiItemEffect
 
-▸ **getAbiItemEffect**<`TParams`\>(`...args`): `Effect`<`never`, `Error`, `never`\>
+▸ **getAbiItemEffect**<`TParams`\>(`...args`): `Effect`<`never`, `GetAbiItemErrorType`, `never`\>
 
 #### Type parameters
 
@@ -741,7 +743,7 @@ ___
 
 #### Returns
 
-`Effect`<`never`, `Error`, `never`\>
+`Effect`<`never`, `GetAbiItemErrorType`, `never`\>
 
 #### Defined in
 
@@ -752,6 +754,8 @@ ___
 ### getAddressEffect
 
 ▸ **getAddressEffect**<`TParams`\>(`...args`): `Effect`<`never`, `Error`, \`0x${string}\`\>
+
+// I manually updated this
 
 #### Type parameters
 
@@ -777,7 +781,7 @@ ___
 
 ### getContractAddressEffect
 
-▸ **getContractAddressEffect**<`TParams`\>(`...args`): `Effect`<`never`, `Error`, \`0x${string}\`\>
+▸ **getContractAddressEffect**<`TParams`\>(`...args`): `Effect`<`never`, `never`, \`0x${string}\`\>
 
 #### Type parameters
 
@@ -793,7 +797,7 @@ ___
 
 #### Returns
 
-`Effect`<`never`, `Error`, \`0x${string}\`\>
+`Effect`<`never`, `never`, \`0x${string}\`\>
 
 #### Defined in
 
@@ -803,7 +807,7 @@ ___
 
 ### getEventSelectorEffect
 
-▸ **getEventSelectorEffect**<`TParams`\>(`...args`): `Effect`<`never`, `Error`, \`0x${string}\`\>
+▸ **getEventSelectorEffect**<`TParams`\>(`...args`): `Effect`<`never`, `GetEventSelectorErrorType`, \`0x${string}\`\>
 
 #### Type parameters
 
@@ -819,7 +823,7 @@ ___
 
 #### Returns
 
-`Effect`<`never`, `Error`, \`0x${string}\`\>
+`Effect`<`never`, `GetEventSelectorErrorType`, \`0x${string}\`\>
 
 #### Defined in
 
@@ -829,7 +833,7 @@ ___
 
 ### getEventSignatureEffect
 
-▸ **getEventSignatureEffect**<`TParams`\>(`...args`): `Effect`<`never`, `Error`, `string`\>
+▸ **getEventSignatureEffect**<`TParams`\>(`...args`): `Effect`<`never`, `GetEventSignatureErrorType`, `string`\>
 
 #### Type parameters
 
@@ -845,7 +849,7 @@ ___
 
 #### Returns
 
-`Effect`<`never`, `Error`, `string`\>
+`Effect`<`never`, `GetEventSignatureErrorType`, `string`\>
 
 #### Defined in
 
@@ -855,7 +859,7 @@ ___
 
 ### getFunctionSelectorEffect
 
-▸ **getFunctionSelectorEffect**<`TParams`\>(`...args`): `Effect`<`never`, `Error`, \`0x${string}\`\>
+▸ **getFunctionSelectorEffect**<`TParams`\>(`...args`): `Effect`<`never`, `GetFunctionSelectorErrorType`, \`0x${string}\`\>
 
 #### Type parameters
 
@@ -871,7 +875,7 @@ ___
 
 #### Returns
 
-`Effect`<`never`, `Error`, \`0x${string}\`\>
+`Effect`<`never`, `GetFunctionSelectorErrorType`, \`0x${string}\`\>
 
 #### Defined in
 
@@ -881,7 +885,7 @@ ___
 
 ### getFunctionSignatureEffect
 
-▸ **getFunctionSignatureEffect**<`TParams`\>(`...args`): `Effect`<`never`, `Error`, `string`\>
+▸ **getFunctionSignatureEffect**<`TParams`\>(`...args`): `Effect`<`never`, `GetFunctionSignatureErrorType`, `string`\>
 
 #### Type parameters
 
@@ -897,7 +901,7 @@ ___
 
 #### Returns
 
-`Effect`<`never`, `Error`, `string`\>
+`Effect`<`never`, `GetFunctionSignatureErrorType`, `string`\>
 
 #### Defined in
 
@@ -907,7 +911,7 @@ ___
 
 ### getSerializedTransactionTypeEffect
 
-▸ **getSerializedTransactionTypeEffect**<`TParams`\>(`...args`): `Effect`<`never`, `Error`, `any`\>
+▸ **getSerializedTransactionTypeEffect**<`TParams`\>(`...args`): `Effect`<`never`, `GetSerializedTransactionTypeErrorType`, `any`\>
 
 #### Type parameters
 
@@ -923,7 +927,7 @@ ___
 
 #### Returns
 
-`Effect`<`never`, `Error`, `any`\>
+`Effect`<`never`, `GetSerializedTransactionTypeErrorType`, `any`\>
 
 #### Defined in
 
@@ -933,7 +937,7 @@ ___
 
 ### getTransactionTypeEffect
 
-▸ **getTransactionTypeEffect**<`TParams`\>(`...args`): `Effect`<`never`, `Error`, `string`\>
+▸ **getTransactionTypeEffect**<`TParams`\>(`...args`): `Effect`<`never`, `never`, `string`\>
 
 #### Type parameters
 
@@ -949,7 +953,7 @@ ___
 
 #### Returns
 
-`Effect`<`never`, `Error`, `string`\>
+`Effect`<`never`, `never`, `string`\>
 
 #### Defined in
 
@@ -959,7 +963,7 @@ ___
 
 ### hashMessageEffect
 
-▸ **hashMessageEffect**<`TParams`\>(`...args`): `Effect`<`never`, `Error`, `HashMessage`<`To`\>\>
+▸ **hashMessageEffect**<`TParams`\>(`...args`): `Effect`<`never`, `HashMessageErrorType`, `HashMessage`<`To`\>\>
 
 #### Type parameters
 
@@ -975,7 +979,7 @@ ___
 
 #### Returns
 
-`Effect`<`never`, `Error`, `HashMessage`<`To`\>\>
+`Effect`<`never`, `HashMessageErrorType`, `HashMessage`<`To`\>\>
 
 #### Defined in
 
@@ -985,7 +989,9 @@ ___
 
 ### hashTypedDataEffect
 
-▸ **hashTypedDataEffect**<`TParams`\>(`...args`): `Effect`<`never`, `Error`, \`0x${string}\`\>
+▸ **hashTypedDataEffect**<`TParams`\>(`...args`): `Effect`<`never`, `HashMessageErrorType`, \`0x${string}\`\>
+
+// I manually updated this
 
 #### Type parameters
 
@@ -1001,7 +1007,7 @@ ___
 
 #### Returns
 
-`Effect`<`never`, `Error`, \`0x${string}\`\>
+`Effect`<`never`, `HashMessageErrorType`, \`0x${string}\`\>
 
 #### Defined in
 
@@ -1011,7 +1017,7 @@ ___
 
 ### hexToSignatureEffect
 
-▸ **hexToSignatureEffect**<`TParams`\>(`...args`): `Effect`<`never`, `Error`, `Signature`\>
+▸ **hexToSignatureEffect**<`TParams`\>(`...args`): `Effect`<`never`, `HexToSignatureErrorType`, `Signature`\>
 
 #### Type parameters
 
@@ -1027,7 +1033,7 @@ ___
 
 #### Returns
 
-`Effect`<`never`, `Error`, `Signature`\>
+`Effect`<`never`, `HexToSignatureErrorType`, `Signature`\>
 
 #### Defined in
 
@@ -1037,7 +1043,7 @@ ___
 
 ### isAddressEffect
 
-▸ **isAddressEffect**<`TParams`\>(`...args`): `Effect`<`never`, `Error`, `boolean`\>
+▸ **isAddressEffect**<`TParams`\>(`...args`): `Effect`<`never`, `IsAddressErrorType`, `boolean`\>
 
 #### Type parameters
 
@@ -1053,7 +1059,7 @@ ___
 
 #### Returns
 
-`Effect`<`never`, `Error`, `boolean`\>
+`Effect`<`never`, `IsAddressErrorType`, `boolean`\>
 
 #### Defined in
 
@@ -1063,7 +1069,7 @@ ___
 
 ### isAddressEqualEffect
 
-▸ **isAddressEqualEffect**<`TParams`\>(`...args`): `Effect`<`never`, `Error`, `boolean`\>
+▸ **isAddressEqualEffect**<`TParams`\>(`...args`): `Effect`<`never`, `IsAddressEqualErrorType`, `boolean`\>
 
 #### Type parameters
 
@@ -1079,7 +1085,7 @@ ___
 
 #### Returns
 
-`Effect`<`never`, `Error`, `boolean`\>
+`Effect`<`never`, `IsAddressEqualErrorType`, `boolean`\>
 
 #### Defined in
 
@@ -1089,7 +1095,7 @@ ___
 
 ### isBytesEffect
 
-▸ **isBytesEffect**<`TParams`\>(`...args`): `Effect`<`never`, `Error`, `boolean`\>
+▸ **isBytesEffect**<`TParams`\>(`...args`): `Effect`<`never`, `IsBytesErrorType`, `boolean`\>
 
 #### Type parameters
 
@@ -1105,7 +1111,7 @@ ___
 
 #### Returns
 
-`Effect`<`never`, `Error`, `boolean`\>
+`Effect`<`never`, `IsBytesErrorType`, `boolean`\>
 
 #### Defined in
 
@@ -1115,7 +1121,7 @@ ___
 
 ### isHashEffect
 
-▸ **isHashEffect**<`TParams`\>(`...args`): `Effect`<`never`, `Error`, `boolean`\>
+▸ **isHashEffect**<`TParams`\>(`...args`): `Effect`<`never`, `IsHashErrorType`, `boolean`\>
 
 #### Type parameters
 
@@ -1131,7 +1137,7 @@ ___
 
 #### Returns
 
-`Effect`<`never`, `Error`, `boolean`\>
+`Effect`<`never`, `IsHashErrorType`, `boolean`\>
 
 #### Defined in
 
@@ -1141,7 +1147,7 @@ ___
 
 ### isHexEffect
 
-▸ **isHexEffect**<`TParams`\>(`...args`): `Effect`<`never`, `Error`, `boolean`\>
+▸ **isHexEffect**<`TParams`\>(`...args`): `Effect`<`never`, `IsHexErrorType`, `boolean`\>
 
 #### Type parameters
 
@@ -1157,7 +1163,7 @@ ___
 
 #### Returns
 
-`Effect`<`never`, `Error`, `boolean`\>
+`Effect`<`never`, `IsHexErrorType`, `boolean`\>
 
 #### Defined in
 
@@ -1167,7 +1173,7 @@ ___
 
 ### keccak256Effect
 
-▸ **keccak256Effect**<`TParams`\>(`...args`): `Effect`<`never`, `Error`, `Keccak256Hash`<`To`\>\>
+▸ **keccak256Effect**<`TParams`\>(`...args`): `Effect`<`never`, `Keccak256ErrorType`, `Keccak256Hash`<`To`\>\>
 
 #### Type parameters
 
@@ -1183,7 +1189,7 @@ ___
 
 #### Returns
 
-`Effect`<`never`, `Error`, `Keccak256Hash`<`To`\>\>
+`Effect`<`never`, `Keccak256ErrorType`, `Keccak256Hash`<`To`\>\>
 
 #### Defined in
 
@@ -1193,7 +1199,7 @@ ___
 
 ### padEffect
 
-▸ **padEffect**<`TParams`\>(`...args`): `Effect`<`never`, `Error`, \`0x${string}\` \| `Uint8Array`\>
+▸ **padEffect**<`TParams`\>(`...args`): `Effect`<`never`, `PadErrorType`, \`0x${string}\` \| `Uint8Array`\>
 
 #### Type parameters
 
@@ -1209,7 +1215,7 @@ ___
 
 #### Returns
 
-`Effect`<`never`, `Error`, \`0x${string}\` \| `Uint8Array`\>
+`Effect`<`never`, `PadErrorType`, \`0x${string}\` \| `Uint8Array`\>
 
 #### Defined in
 
@@ -1219,7 +1225,7 @@ ___
 
 ### parseEtherEffect
 
-▸ **parseEtherEffect**<`TParams`\>(`...args`): `Effect`<`never`, `Error`, `bigint`\>
+▸ **parseEtherEffect**<`TParams`\>(`...args`): `Effect`<`never`, `ParseEtherErrorType`, `bigint`\>
 
 #### Type parameters
 
@@ -1235,7 +1241,7 @@ ___
 
 #### Returns
 
-`Effect`<`never`, `Error`, `bigint`\>
+`Effect`<`never`, `ParseEtherErrorType`, `bigint`\>
 
 #### Defined in
 
@@ -1245,7 +1251,7 @@ ___
 
 ### parseGweiEffect
 
-▸ **parseGweiEffect**<`TParams`\>(`...args`): `Effect`<`never`, `Error`, `bigint`\>
+▸ **parseGweiEffect**<`TParams`\>(`...args`): `Effect`<`never`, `ParseGweiErrorType`, `bigint`\>
 
 #### Type parameters
 
@@ -1261,7 +1267,7 @@ ___
 
 #### Returns
 
-`Effect`<`never`, `Error`, `bigint`\>
+`Effect`<`never`, `ParseGweiErrorType`, `bigint`\>
 
 #### Defined in
 
@@ -1271,7 +1277,7 @@ ___
 
 ### parseTransactionEffect
 
-▸ **parseTransactionEffect**<`TParams`\>(`...args`): `Effect`<`never`, `Error`, `any`\>
+▸ **parseTransactionEffect**<`TParams`\>(`...args`): `Effect`<`never`, `ParseTransactionErrorType`, `any`\>
 
 #### Type parameters
 
@@ -1287,7 +1293,7 @@ ___
 
 #### Returns
 
-`Effect`<`never`, `Error`, `any`\>
+`Effect`<`never`, `ParseTransactionErrorType`, `any`\>
 
 #### Defined in
 
@@ -1297,7 +1303,7 @@ ___
 
 ### parseUnitsEffect
 
-▸ **parseUnitsEffect**<`TParams`\>(`...args`): `Effect`<`never`, `Error`, `bigint`\>
+▸ **parseUnitsEffect**<`TParams`\>(`...args`): `Effect`<`never`, `ParseUnitsErrorType`, `bigint`\>
 
 #### Type parameters
 
@@ -1313,7 +1319,7 @@ ___
 
 #### Returns
 
-`Effect`<`never`, `Error`, `bigint`\>
+`Effect`<`never`, `ParseUnitsErrorType`, `bigint`\>
 
 #### Defined in
 
@@ -1323,7 +1329,7 @@ ___
 
 ### recoverAddressEffect
 
-▸ **recoverAddressEffect**<`TParams`\>(`...args`): `Effect`<`never`, `Error`, \`0x${string}\`\>
+▸ **recoverAddressEffect**<`TParams`\>(`...args`): `Effect`<`never`, `RecoverAddressErrorType`, \`0x${string}\`\>
 
 #### Type parameters
 
@@ -1339,7 +1345,7 @@ ___
 
 #### Returns
 
-`Effect`<`never`, `Error`, \`0x${string}\`\>
+`Effect`<`never`, `RecoverAddressErrorType`, \`0x${string}\`\>
 
 #### Defined in
 
@@ -1349,7 +1355,7 @@ ___
 
 ### recoverMessageAddressEffect
 
-▸ **recoverMessageAddressEffect**<`TParams`\>(`...args`): `Effect`<`never`, `Error`, \`0x${string}\`\>
+▸ **recoverMessageAddressEffect**<`TParams`\>(`...args`): `Effect`<`never`, `RecoverMessageAddressErrorType`, \`0x${string}\`\>
 
 #### Type parameters
 
@@ -1365,7 +1371,7 @@ ___
 
 #### Returns
 
-`Effect`<`never`, `Error`, \`0x${string}\`\>
+`Effect`<`never`, `RecoverMessageAddressErrorType`, \`0x${string}\`\>
 
 #### Defined in
 
@@ -1375,7 +1381,7 @@ ___
 
 ### recoverPublicKeyEffect
 
-▸ **recoverPublicKeyEffect**<`TParams`\>(`...args`): `Effect`<`never`, `Error`, \`0x${string}\`\>
+▸ **recoverPublicKeyEffect**<`TParams`\>(`...args`): `Effect`<`never`, `RecoverPublicKeyErrorType`, \`0x${string}\`\>
 
 #### Type parameters
 
@@ -1391,7 +1397,7 @@ ___
 
 #### Returns
 
-`Effect`<`never`, `Error`, \`0x${string}\`\>
+`Effect`<`never`, `RecoverPublicKeyErrorType`, \`0x${string}\`\>
 
 #### Defined in
 
@@ -1401,7 +1407,7 @@ ___
 
 ### recoverTypedDataAddressEffect
 
-▸ **recoverTypedDataAddressEffect**<`TParams`\>(`...args`): `Effect`<`never`, `Error`, \`0x${string}\`\>
+▸ **recoverTypedDataAddressEffect**<`TParams`\>(`...args`): `Effect`<`never`, `RecoverTypedDataAddressErrorType`, \`0x${string}\`\>
 
 #### Type parameters
 
@@ -1417,7 +1423,7 @@ ___
 
 #### Returns
 
-`Effect`<`never`, `Error`, \`0x${string}\`\>
+`Effect`<`never`, `RecoverTypedDataAddressErrorType`, \`0x${string}\`\>
 
 #### Defined in
 
@@ -1427,7 +1433,7 @@ ___
 
 ### serializeAccessListEffect
 
-▸ **serializeAccessListEffect**<`TParams`\>(`...args`): `Effect`<`never`, `Error`, `RecursiveArray`<\`0x${string}\`\>\>
+▸ **serializeAccessListEffect**<`TParams`\>(`...args`): `Effect`<`never`, `SerializeAccessListErrorType`, `RecursiveArray`<\`0x${string}\`\>\>
 
 #### Type parameters
 
@@ -1443,7 +1449,7 @@ ___
 
 #### Returns
 
-`Effect`<`never`, `Error`, `RecursiveArray`<\`0x${string}\`\>\>
+`Effect`<`never`, `SerializeAccessListErrorType`, `RecursiveArray`<\`0x${string}\`\>\>
 
 #### Defined in
 
@@ -1453,7 +1459,7 @@ ___
 
 ### serializeTransactionEffect
 
-▸ **serializeTransactionEffect**<`TParams`\>(`...args`): `Effect`<`never`, `Error`, \`0x${string}\` \| \`0x02${string}\` \| \`0x01${string}\`\>
+▸ **serializeTransactionEffect**<`TParams`\>(`...args`): `Effect`<`never`, `SerializeTransactionErrorType`, \`0x${string}\` \| \`0x02${string}\` \| \`0x01${string}\`\>
 
 #### Type parameters
 
@@ -1469,7 +1475,7 @@ ___
 
 #### Returns
 
-`Effect`<`never`, `Error`, \`0x${string}\` \| \`0x02${string}\` \| \`0x01${string}\`\>
+`Effect`<`never`, `SerializeTransactionErrorType`, \`0x${string}\` \| \`0x02${string}\` \| \`0x01${string}\`\>
 
 #### Defined in
 
@@ -1479,7 +1485,7 @@ ___
 
 ### signatureToHexEffect
 
-▸ **signatureToHexEffect**<`TParams`\>(`...args`): `Effect`<`never`, `Error`, \`0x${string}\`\>
+▸ **signatureToHexEffect**<`TParams`\>(`...args`): `Effect`<`never`, `SignatureToHexErrorType`, \`0x${string}\`\>
 
 #### Type parameters
 
@@ -1495,7 +1501,7 @@ ___
 
 #### Returns
 
-`Effect`<`never`, `Error`, \`0x${string}\`\>
+`Effect`<`never`, `SignatureToHexErrorType`, \`0x${string}\`\>
 
 #### Defined in
 
@@ -1505,7 +1511,7 @@ ___
 
 ### sizeEffect
 
-▸ **sizeEffect**<`TParams`\>(`...args`): `Effect`<`never`, `Error`, `number`\>
+▸ **sizeEffect**<`TParams`\>(`...args`): `Effect`<`never`, `SizeErrorType`, `number`\>
 
 #### Type parameters
 
@@ -1521,7 +1527,7 @@ ___
 
 #### Returns
 
-`Effect`<`never`, `Error`, `number`\>
+`Effect`<`never`, `SizeErrorType`, `number`\>
 
 #### Defined in
 
@@ -1531,7 +1537,7 @@ ___
 
 ### sliceEffect
 
-▸ **sliceEffect**<`TParams`\>(`...args`): `Effect`<`never`, `Error`, \`0x${string}\` \| `Uint8Array`\>
+▸ **sliceEffect**<`TParams`\>(`...args`): `Effect`<`never`, `SliceErrorType`, \`0x${string}\` \| `Uint8Array`\>
 
 #### Type parameters
 
@@ -1547,7 +1553,7 @@ ___
 
 #### Returns
 
-`Effect`<`never`, `Error`, \`0x${string}\` \| `Uint8Array`\>
+`Effect`<`never`, `SliceErrorType`, \`0x${string}\` \| `Uint8Array`\>
 
 #### Defined in
 
@@ -1557,7 +1563,7 @@ ___
 
 ### stringifyEffect
 
-▸ **stringifyEffect**<`TParams`\>(`...args`): `Effect`<`never`, `Error`, `string`\>
+▸ **stringifyEffect**<`TParams`\>(`...args`): `Effect`<`never`, `StringifyErrorType`, `string`\>
 
 #### Type parameters
 
@@ -1573,7 +1579,7 @@ ___
 
 #### Returns
 
-`Effect`<`never`, `Error`, `string`\>
+`Effect`<`never`, `StringifyErrorType`, `string`\>
 
 #### Defined in
 
@@ -1583,7 +1589,7 @@ ___
 
 ### toBytesEffect
 
-▸ **toBytesEffect**<`TParams`\>(`...args`): `Effect`<`never`, `Error`, `Uint8Array`\>
+▸ **toBytesEffect**<`TParams`\>(`...args`): `Effect`<`never`, `ToBytesErrorType`, `Uint8Array`\>
 
 #### Type parameters
 
@@ -1599,7 +1605,7 @@ ___
 
 #### Returns
 
-`Effect`<`never`, `Error`, `Uint8Array`\>
+`Effect`<`never`, `ToBytesErrorType`, `Uint8Array`\>
 
 #### Defined in
 
@@ -1609,7 +1615,7 @@ ___
 
 ### toHexEffect
 
-▸ **toHexEffect**<`TParams`\>(`...args`): `Effect`<`never`, `Error`, \`0x${string}\`\>
+▸ **toHexEffect**<`TParams`\>(`...args`): `Effect`<`never`, `ToHexErrorType`, \`0x${string}\`\>
 
 #### Type parameters
 
@@ -1625,7 +1631,7 @@ ___
 
 #### Returns
 
-`Effect`<`never`, `Error`, \`0x${string}\`\>
+`Effect`<`never`, `ToHexErrorType`, \`0x${string}\`\>
 
 #### Defined in
 
@@ -1635,7 +1641,7 @@ ___
 
 ### toRlpEffect
 
-▸ **toRlpEffect**<`TParams`\>(`...args`): `Effect`<`never`, `Error`, `ToRlpReturnType`<`To`\>\>
+▸ **toRlpEffect**<`TParams`\>(`...args`): `Effect`<`never`, `ToRlpErrorType`, `ToRlpReturnType`<`To`\>\>
 
 #### Type parameters
 
@@ -1651,7 +1657,7 @@ ___
 
 #### Returns
 
-`Effect`<`never`, `Error`, `ToRlpReturnType`<`To`\>\>
+`Effect`<`never`, `ToRlpErrorType`, `ToRlpReturnType`<`To`\>\>
 
 #### Defined in
 
@@ -1661,7 +1667,7 @@ ___
 
 ### trimEffect
 
-▸ **trimEffect**<`TParams`\>(`...args`): `Effect`<`never`, `Error`, \`0x${string}\` \| `Uint8Array`\>
+▸ **trimEffect**<`TParams`\>(`...args`): `Effect`<`never`, `TrimErrorType`, \`0x${string}\` \| `Uint8Array`\>
 
 #### Type parameters
 
@@ -1677,7 +1683,7 @@ ___
 
 #### Returns
 
-`Effect`<`never`, `Error`, \`0x${string}\` \| `Uint8Array`\>
+`Effect`<`never`, `TrimErrorType`, \`0x${string}\` \| `Uint8Array`\>
 
 #### Defined in
 
@@ -1687,7 +1693,7 @@ ___
 
 ### verifyMessageEffect
 
-▸ **verifyMessageEffect**<`TParams`\>(`...args`): `Effect`<`never`, `Error`, `boolean`\>
+▸ **verifyMessageEffect**<`TParams`\>(`...args`): `Effect`<`never`, `VerifyMessageErrorType`, `boolean`\>
 
 #### Type parameters
 
@@ -1703,7 +1709,7 @@ ___
 
 #### Returns
 
-`Effect`<`never`, `Error`, `boolean`\>
+`Effect`<`never`, `VerifyMessageErrorType`, `boolean`\>
 
 #### Defined in
 
@@ -1713,7 +1719,7 @@ ___
 
 ### verifyTypedDataEffect
 
-▸ **verifyTypedDataEffect**<`TParams`\>(`...args`): `Effect`<`never`, `Error`, `boolean`\>
+▸ **verifyTypedDataEffect**<`TParams`\>(`...args`): `Effect`<`never`, `VerifyTypedDataErrorType`, `boolean`\>
 
 #### Type parameters
 
@@ -1729,7 +1735,7 @@ ___
 
 #### Returns
 
-`Effect`<`never`, `Error`, `boolean`\>
+`Effect`<`never`, `VerifyTypedDataErrorType`, `boolean`\>
 
 #### Defined in
 
