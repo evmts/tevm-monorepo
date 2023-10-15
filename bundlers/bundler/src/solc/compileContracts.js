@@ -110,11 +110,11 @@ export const compileContract = async (
 
 	if (isErrors) {
 		logger.error('Compilation errors:')
-		logger.error(/** @type {any} */(output?.errors))
+		logger.error(/** @type {any} */ (output?.errors))
 		throw new Error('Compilation failed')
 	}
 	if (warnings?.length) {
-		logger.warn(/** @type {any} */(warnings))
+		logger.warn(/** @type {any} */ (warnings))
 		logger.warn('Compilation warnings:')
 	}
 

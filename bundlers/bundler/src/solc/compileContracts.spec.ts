@@ -1,5 +1,5 @@
-import type { ModuleInfo } from '../types.js'
 import { createCache } from '../createCache.js'
+import type { ModuleInfo } from '../types.js'
 import { compileContract } from './compileContracts.js'
 import { solcCompile } from './solc.js'
 import resolve from 'resolve'
