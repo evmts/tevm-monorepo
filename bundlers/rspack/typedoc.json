@@ -1,6 +1,6 @@
 {
 	"$schema": "https://typedoc.org/schema.json",
-	"out": "../docs/reference/rspack-plugin",
+	"out": "../../docs/reference/rspack-plugin",
 	"entryPoints": ["./src/index.ts"],
 	"publicPath": "/reference/rspack-plugin/",
 	"plugin": ["typedoc-plugin-markdown"],
