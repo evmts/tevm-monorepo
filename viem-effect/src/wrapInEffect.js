@@ -1,4 +1,4 @@
-import { Effect } from "effect"
+import { Effect } from 'effect'
 
 /**
  * Wraps viem into an {@link https://www.effect.website/docs/essentials/effect-type Effect} version
@@ -12,19 +12,18 @@ import { Effect } from "effect"
  * ````
  */
 export const wrapInEffect = (viemFunction) => {
-  return (...args) => {
-    try {
-      const res = viemFunction(...args)
-      // check if a promise
-      if (res && typeof res.then === 'function') {
-        return Effect.promise(res)
-      } else {
-        return Effect.succeed(res)
-      }
-    } catch (e) {
-      const err = /** @type any */(Effect.fail(e))
-      return err
-    }
-  }
+	return (...args) => {
+		try {
+			const res = viemFunction(...args)
+			// check if a promise
+			if (res && typeof res.then === 'function') {
+				return Effect.promise(res)
+			} else {
+				return Effect.succeed(res)
+			}
+		} catch (e) {
+			const err = /** @type any */ (Effect.fail(e))
+			return err
+		}
+	}
 }
-

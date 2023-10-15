@@ -1,19 +1,24 @@
-import { Effect } from "effect"
-import type { AnyAsyncFunction, AnyFunction } from "./types.js"
+import type { AnyAsyncFunction, AnyFunction } from './types.js'
+import { Effect } from 'effect'
 
 export type WrapInEffect = <
-  TViemFunction extends AnyFunction,
-  TErrorType extends Error,
+	TViemFunction extends AnyFunction,
+	TErrorType extends Error,
 >(
-  viemFunction: TViemFunction
+	viemFunction: TViemFunction,
 ) => WrappedInEffect<TViemFunction, TErrorType>
 
-export type WrappedInEffect<TViemFunction extends AnyFunction, TErrorType extends Error> = <TParams extends Parameters<TViemFunction>>(
-  ...args: TParams
+export type WrappedInEffect<
+	TViemFunction extends AnyFunction,
+	TErrorType extends Error,
+> = <TParams extends Parameters<TViemFunction>>(
+	...args: TParams
 ) => Effect.Effect<
-  never,
-  TErrorType,
-  TViemFunction extends AnyAsyncFunction ? Awaited<ReturnType<TViemFunction>> : ReturnType<TViemFunction>
+	never,
+	TErrorType,
+	TViemFunction extends AnyAsyncFunction
+		? Awaited<ReturnType<TViemFunction>>
+		: ReturnType<TViemFunction>
 >
 
 export const wrapInEffect: WrapInEffect

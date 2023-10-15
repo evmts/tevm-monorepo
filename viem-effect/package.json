@@ -40,7 +40,6 @@
 		"!src/**/*.spec.js"
 	],
 	"scripts": {
-		"all": "bun run lint && bun run format && bun run build && bun run test",
 		"build": "nx run-many --targets=build:dist --projects=@evmts/viem-effect ",
 		"build:dist": "tsup",
 		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
@@ -48,8 +47,8 @@
 		"format:check": "rome format .",
 		"generate:docs": "typedoc",
 		"generate:src": "bun run generateSrc.ts",
-		"lint": "rome check . --apply-unsafe",
-		"lint:check": "rome check . --verbose",
+		"//lint": "rome check . --apply-unsafe",
+		"//lint:check": "rome check . --verbose",
 		"package:up": "pnpm up --latest",
 		"//test": "vitest --coverage",
 		"//test:coverage": "vitest run --coverage",

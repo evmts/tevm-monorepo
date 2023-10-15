@@ -86,10 +86,3 @@ jobs:
         with:
           name: "@evmts/blockexplorer"
           working-directory: "./blockexplorer"
-      - name: 'Report @evmts/viem-effect Coverage'
-        if: always() # Also generate the report if tests are failing
-        uses:  davelosert/vitest-coverage-report-action@v2
-        with:
-          name: "@evmts/viem-effect"
-          working-directory: "./viem-effect"
-

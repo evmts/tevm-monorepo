@@ -2,6 +2,6 @@ import { isHex } from "viem/utils";
 import { wrapInEffect } from '../../wrapInEffect.js';
 
 /**
- * @type {import("../../wrapInEffect.js").WrappedInEffect<typeof isHex, import("viem/utils").IsHexErrorType>}
+ * @type {import("../../wrapInEffect.js").WrappedInEffect<typeof isHex, Error>}
  */
 export const isHexEffect = wrapInEffect(isHex);

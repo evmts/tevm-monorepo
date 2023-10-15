@@ -15,13 +15,16 @@
     "noImplicitOverride": true, // Not enabled by default in `strict` mode.
     "noUnusedLocals": true, // Not enabled by default in `strict` mode.
     "noUnusedParameters": true, // Not enabled by default in `strict` mode.
+
+    // this isn't in the viem config I added this for evmts
+    "checkJs": true,
+    // this isn't in the viem config I added this for evmts
+    "allowJs": true,
+
     // TODO: The following options are also not enabled by default in `strict` mode and would be nice to have but would require some adjustments to the codebase.
     // "exactOptionalPropertyTypes": true,
     // "noUncheckedIndexedAccess": true,
 
-    // JavaScript support
-    "allowJs": false,
-    "checkJs": false,
 
     // Interop constraints
     "esModuleInterop": false,
