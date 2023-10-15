@@ -27,4 +27,4 @@
 
 #### Defined in
 
-bundler/types/src/unplugin.d.ts:11
+bundler/types/src/unplugin.d.ts:10
