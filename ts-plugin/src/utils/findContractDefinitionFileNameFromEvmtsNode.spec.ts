@@ -1,6 +1,6 @@
-import { findContractDefinitionFileNameFromEvmtsNode } from './findContractDefinitionFileNameFromEvmtsNode'
-import { findNode } from './findNode'
-import * as ts from 'typescript/lib/tsserverlibrary'
+import { findContractDefinitionFileNameFromEvmtsNode } from './findContractDefinitionFileNameFromEvmtsNode.js'
+import { findNode } from './findNode.js'
+import ts from 'typescript/lib/tsserverlibrary.js'
 import { MockedFunction, describe, expect, it, vi } from 'vitest'
 
 const mockContractFile = '/path/to/ContractDefinitionFile.sol'
@@ -115,22 +115,22 @@ const eventCall = MyContract.events().someEvent(5, 'foo')
 			true,
 			ts.ScriptKind.TS,
 		)
-		;['test0', 'test1', 'test2', 'test3', 'test4', 'test5', 'test6'].forEach(
-			(testcase) => {
-				const node = findNode(sourceFile, fileText.indexOf(testcase))
-				if (!node) {
-					throw new Error('node is not valid')
-				}
-				const contractDefinitionFileName =
-					findContractDefinitionFileNameFromEvmtsNode(
-						node,
-						mockLanguageService,
-						'test.ts',
-						ts,
-					)
-				expect(contractDefinitionFileName).toBeNull()
-			},
-		)
+			;['test0', 'test1', 'test2', 'test3', 'test4', 'test5', 'test6'].forEach(
+				(testcase) => {
+					const node = findNode(sourceFile, fileText.indexOf(testcase))
+					if (!node) {
+						throw new Error('node is not valid')
+					}
+					const contractDefinitionFileName =
+						findContractDefinitionFileNameFromEvmtsNode(
+							node,
+							mockLanguageService,
+							'test.ts',
+							ts,
+						)
+					expect(contractDefinitionFileName).toBeNull()
+				},
+			)
 	})
 
 	it('should handle no definition existing', () => {

@@ -1,5 +1,5 @@
-import { Node } from 'solidity-ast/node'
-import * as ts from 'typescript/lib/tsserverlibrary'
+import { Node } from 'solidity-ast/node.js'
+import ts from 'typescript/lib/tsserverlibrary.js'
 import { describe, expect, it, vi } from 'vitest'
 
 // Mock readFileSync to return a specific length of content
@@ -11,8 +11,8 @@ vi.mock('fs', async () => {
 })
 
 // Now, import your function under test
-import { convertSolcAstToTsDefinitionInfo } from '../utils/convertSolcAstToTsDefinitionInfo'
-import { SolcInput } from 'solidity-ast/solc'
+import { convertSolcAstToTsDefinitionInfo } from '../utils/convertSolcAstToTsDefinitionInfo.js'
+import { SolcInput } from 'solidity-ast/solc.js'
 import { ScriptElementKind } from 'typescript'
 
 describe('convertSolcAstToTsDefinitionInfo', () => {

@@ -1,11 +1,11 @@
-import { getScriptSnapshotDecorator } from '.'
-import { Logger } from '../factories'
+import { getScriptSnapshotDecorator } from './getScriptSnapshot.js'
+import { Logger } from '../factories/logger.js'
 import { FileAccessObject } from '@evmts/bundler'
 import { CompilerConfig, defaultConfig, defineConfig } from '@evmts/config'
 import { existsSync, readFileSync } from 'fs'
 import { readFile } from 'fs/promises'
 import path from 'path'
-import typescript from 'typescript/lib/tsserverlibrary'
+import typescript from 'typescript/lib/tsserverlibrary.js'
 import { Mock, beforeEach, describe, expect, it, vi } from 'vitest'
 
 const forgeProject = path.join(__dirname, '../..')

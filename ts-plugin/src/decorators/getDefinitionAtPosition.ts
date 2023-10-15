@@ -1,14 +1,14 @@
-import { Logger } from '../factories'
-import { findNode } from '../utils'
+import { Logger } from '../factories/logger.js'
+import { findNode } from '../utils/index.js'
 import {
 	convertSolcAstToTsDefinitionInfo,
 	findContractDefinitionFileNameFromEvmtsNode,
-} from '../utils'
+} from '../utils/index.js'
 import { Cache, FileAccessObject, bundler } from '@evmts/bundler'
 import { ResolvedCompilerConfig } from '@evmts/config'
-import { Node } from 'solidity-ast/node'
-import { findAll } from 'solidity-ast/utils'
-import typescript from 'typescript/lib/tsserverlibrary'
+import { Node } from 'solidity-ast/node.js'
+import { findAll } from 'solidity-ast/utils.js'
+import typescript from 'typescript/lib/tsserverlibrary.js'
 
 // TODO make me to a normal decorator
 // is a woneoff decorator becuase this decorates the language service not the Host

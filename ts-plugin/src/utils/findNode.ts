@@ -1,4 +1,4 @@
-import typescript from 'typescript/lib/tsserverlibrary'
+import typescript from 'typescript/lib/tsserverlibrary.js'
 
 /**
  * Find the typescript node at the given position in the AST

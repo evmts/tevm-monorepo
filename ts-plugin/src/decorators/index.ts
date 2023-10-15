@@ -1,3 +1,3 @@
-export * from './getScriptKind'
-export * from './getScriptSnapshot'
-export * from './resolveModuleNameLiterals'
+export * from './getScriptKind.js'
+export * from './getScriptSnapshot.js'
+export * from './resolveModuleNameLiterals.js'

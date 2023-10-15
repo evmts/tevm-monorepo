@@ -1,4 +1,4 @@
-import { isSolidity } from '.'
+import { isSolidity } from './isSolidity.js'
 import { describe, expect, it } from 'vitest'
 
 describe(isSolidity.name, () => {

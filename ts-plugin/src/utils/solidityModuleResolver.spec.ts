@@ -1,7 +1,7 @@
-import { solidityModuleResolver } from './solidityModuleResolver'
+import { solidityModuleResolver } from './solidityModuleResolver.js'
 import path from 'path'
-import typescript from 'typescript/lib/tsserverlibrary'
-import { describe, expect, it, vi } from 'vitest'
+import typescript from 'typescript/lib/tsserverlibrary.js'
+import { describe, expect, it } from 'vitest'
 
 describe('solidityModuleResolver', () => {
 	it('should resolve relative solidity modules', () => {

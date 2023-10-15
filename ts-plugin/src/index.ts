@@ -1,3 +1,3 @@
-import { tsPlugin } from './tsPlugin'
+import { tsPlugin } from './tsPlugin.js'
 
-export = tsPlugin
+export default tsPlugin

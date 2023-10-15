@@ -1,7 +1,7 @@
-import tsPlugin from '.'
+import tsPlugin from './index.js'
 import { CompilerConfig } from '@evmts/config'
 import path from 'path'
-import typescript from 'typescript/lib/tsserverlibrary'
+import typescript from 'typescript/lib/tsserverlibrary.js'
 import { Mock, describe, expect, it, vi } from 'vitest'
 
 type TestAny = any
@@ -29,14 +29,14 @@ const createInfo: typescript.server.PluginCreateInfo = {
 		},
 	},
 } as TestAny
-;(createInfo.languageServiceHost.getScriptKind as Mock).mockImplementation(
-	(fileName: string) => {
-		if (fileName.endsWith('.ts')) {
-			return typescript.ScriptKind.TS
-		}
-		return typescript.ScriptKind.Unknown
-	},
-)
+	; (createInfo.languageServiceHost.getScriptKind as Mock).mockImplementation(
+		(fileName: string) => {
+			if (fileName.endsWith('.ts')) {
+				return typescript.ScriptKind.TS
+			}
+			return typescript.ScriptKind.Unknown
+		},
+	)
 
 describe(tsPlugin.name, () => {
 	it('should return a create decorator', () => {

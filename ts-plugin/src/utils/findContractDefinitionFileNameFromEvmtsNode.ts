@@ -1,4 +1,4 @@
-import typescript from 'typescript/lib/tsserverlibrary'
+import typescript from 'typescript/lib/tsserverlibrary.js'
 
 export function findContractDefinitionFileNameFromEvmtsNode(
 	node: typescript.Node,

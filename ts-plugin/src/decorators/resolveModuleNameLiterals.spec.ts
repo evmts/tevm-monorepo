@@ -1,8 +1,8 @@
-import { resolveModuleNameLiteralsDecorator } from '.'
-import { solidityModuleResolver } from '../utils'
+import { resolveModuleNameLiteralsDecorator } from './resolveModuleNameLiterals.js'
+import { solidityModuleResolver } from '../utils/index.js'
 import { FileAccessObject } from '@evmts/bundler'
 import { CompilerConfig, defaultConfig, defineConfig } from '@evmts/config'
-import typescript from 'typescript/lib/tsserverlibrary'
+import typescript from 'typescript/lib/tsserverlibrary.js'
 import { MockedFunction, describe, expect, it, vi } from 'vitest'
 
 const { remappings, ...compilerOptions } = defaultConfig

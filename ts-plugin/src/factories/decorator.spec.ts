@@ -3,10 +3,10 @@ import {
 	PartialHostDecorator,
 	createHostDecorator,
 	decorateHost,
-} from '.'
+} from './index.js'
 import { FileAccessObject } from '@evmts/bundler'
 import { CompilerConfig, defaultConfig, defineConfig } from '@evmts/config'
-import typescript from 'typescript/lib/tsserverlibrary'
+import typescript from 'typescript/lib/tsserverlibrary.js'
 import { describe, expect, it, vi } from 'vitest'
 
 type TestAny = any
@@ -44,7 +44,7 @@ const createProxy = <T extends object>(instance: T, proxy: Partial<T>): T => {
 describe(createHostDecorator.name, () => {
 	it('should define a decorator by passing a functiont hat returns a partial tsserver object', () => {
 		const decoratorFn: PartialHostDecorator = (createInfo, ts, logger) => ({
-			getScriptKind: (fileName) => {
+			getScriptKind: (fileName: string) => {
 				if (fileName.endsWith('.json')) {
 					return ts.ScriptKind.JSON
 				} else {

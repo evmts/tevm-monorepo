@@ -1,6 +1,6 @@
-import { getDefinitionServiceDecorator } from './getDefinitionAtPosition'
+import { getDefinitionServiceDecorator } from './getDefinitionAtPosition.js'
 import { FileAccessObject } from '@evmts/bundler'
-import typescript from 'typescript/lib/tsserverlibrary'
+import typescript from 'typescript/lib/tsserverlibrary.js'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 // TODO these tests are awful this should be tested e2e against real fixtures
