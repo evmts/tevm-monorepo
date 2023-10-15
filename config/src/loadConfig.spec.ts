@@ -1,4 +1,4 @@
-import { type CompilerConfig, defaultConfig, loadConfig } from '.'
+import { type CompilerConfig, defaultConfig, loadConfig } from './index.js'
 import * as cp from 'child_process'
 import * as fs from 'fs'
 import { createRequire } from 'module'

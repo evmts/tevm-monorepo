@@ -3,7 +3,9 @@
   "compilerOptions": {
     "composite": true,
     "outDir": "types",
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "moduleResolution": "NodeNext",
+    "module": "NodeNext"
   },
   "include": [
     "src",

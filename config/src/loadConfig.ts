@@ -1,5 +1,5 @@
-import type { CompilerConfig, ResolvedCompilerConfig } from '.'
-import { defineConfig } from './defineConfig'
+import type { CompilerConfig, ResolvedCompilerConfig } from './Config.js'
+import { defineConfig } from './defineConfig.js'
 import { existsSync, readFileSync } from 'fs'
 import { parse } from 'jsonc-parser'
 import * as path from 'path'

@@ -1,5 +1,5 @@
-import { fileExists } from './fileExists'
-import { loadConfigAsync } from './loadConfigAsync'
+import { fileExists } from './fileExists.js'
+import { loadConfigAsync } from './loadConfigAsync.js'
 import { readFile } from 'fs/promises'
 import path from 'path'
 import {
