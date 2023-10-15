@@ -10,6 +10,7 @@ import * as fs from 'fs'
 // All .bench.ts files are ignored
 import * as glob from 'glob'
 import * as path from 'path'
+import * as babelTypes from '@babel/types'
 const SRC_DIR = path.join(__dirname, './src-viem')
 const OUTPUT_BASE_DIR = path.join(__dirname, './src')
 
@@ -155,8 +156,8 @@ import { wrapInEffect } from '${relativePath}';
 export const ${baseName}Effect = wrapInEffect(${baseName});
     `.trim()
 }
-/*
-function transformTestFile(content: string, baseName: string): string {
+
+function transformUses(content: string, baseName: string): string {
 	const filename = `${baseName}.ts`;
 	const ast = parse(content, {
 		filename,
@@ -165,22 +166,25 @@ function transformTestFile(content: string, baseName: string): string {
 	});
 
 	traverse(ast!, {
+		Program(path) {
+
+		},
 		Identifier(path) {
+			// skip if baseName is not in path
 			if (path.node.name === baseName) {
 				path.node.name = `${baseName}Effect`;
 			}
 		},
 		CallExpression(path) {
-			if (path.node.callee.name === `${baseName}Effect`) {
-				const wrappedCall = template.expression.ast`Effect.runSync(${baseName}Effect())`;
-				path.replaceWith(wrappedCall);
+			if ((path.node.callee as babelTypes.V8IntrinsicIdentifier).name === `${baseName}Effect`) {
+
 			}
 		},
 		ImportDeclaration(path) {
 			// This handles import specifiers to update the imported module
 			for (const specifier of path.node.specifiers) {
 				if (specifier.type === 'ImportSpecifier' || specifier.type === 'ImportDefaultSpecifier') {
-					if (specifier.local.name === baseName) {
+					if (specifier.local.name.endsWith(baseName)) {
 						path.node.source.value = path.node.source.value.replace(baseName, `${baseName}Effect`);
 					}
 				}
@@ -190,7 +194,7 @@ function transformTestFile(content: string, baseName: string): string {
 
 	return transformFromAstSync(ast!, undefined, { filename })!.code!;
 }
-*/
+
 
 function getRelativePathToWrapInEffect(fileDir: string): string {
 	// this is not working I'm just hardcoding -5 rather than debugging
