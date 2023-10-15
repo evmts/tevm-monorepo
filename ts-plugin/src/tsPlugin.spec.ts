@@ -29,14 +29,14 @@ const createInfo: typescript.server.PluginCreateInfo = {
 		},
 	},
 } as TestAny
-	; (createInfo.languageServiceHost.getScriptKind as Mock).mockImplementation(
-		(fileName: string) => {
-			if (fileName.endsWith('.ts')) {
-				return typescript.ScriptKind.TS
-			}
-			return typescript.ScriptKind.Unknown
-		},
-	)
+;(createInfo.languageServiceHost.getScriptKind as Mock).mockImplementation(
+	(fileName: string) => {
+		if (fileName.endsWith('.ts')) {
+			return typescript.ScriptKind.TS
+		}
+		return typescript.ScriptKind.Unknown
+	},
+)
 
 describe(tsPlugin.name, () => {
 	it('should return a create decorator', () => {
