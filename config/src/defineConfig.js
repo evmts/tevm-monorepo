@@ -1,17 +1,11 @@
-import {
-	type CompilerConfig,
-	CompilerConfigValidator,
-	type ResolvedCompilerConfig,
-	defaultConfig,
-} from './Config.js'
+import { CompilerConfigValidator, defaultConfig } from './Config.js'
 import { execSync } from 'child_process'
 import * as path from 'path'
 
-export type DefineConfig = (configFactory: () => CompilerConfig) => {
-	configFn: (configFilePath: string) => ResolvedCompilerConfig
-}
-
-export const defineConfig: DefineConfig = (configFactory) => ({
+/**
+ * @type {import("./types.js").DefineConfig}
+ */
+export const defineConfig = (configFactory) => ({
 	configFn: (configFilePath) => {
 		const parsedConfig = CompilerConfigValidator.safeParse(
 			configFactory() ?? {},
@@ -51,8 +45,10 @@ or lib directly in your EVMts compiler config
 				)
 			}
 
-			// Process remappings
-			const remappings: Record<string, string> = {}
+			/**
+			 * @type {Record<string, string>}
+			 */
+			const remappings = {}
 			if (forgeConfig.remappings) {
 				for (const remap of forgeConfig.remappings) {
 					const parts = remap.split('=')

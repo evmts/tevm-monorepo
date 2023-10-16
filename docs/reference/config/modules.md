@@ -7,20 +7,17 @@
 ### Type Aliases
 
 - [CompilerConfig](/reference/config/modules.md#compilerconfig)
-- [DefineConfig](/reference/config/modules.md#defineconfig)
-- [LoadConfigAsync](/reference/config/modules.md#loadconfigasync)
 - [ResolvedCompilerConfig](/reference/config/modules.md#resolvedcompilerconfig)
 
 ### Variables
 
-- [CompilerConfigValidator](/reference/config/modules.md#compilerconfigvalidator)
 - [defaultConfig](/reference/config/modules.md#defaultconfig)
 
 ### Functions
 
-- [defineConfig](/reference/config/modules.md#defineconfig-1)
+- [defineConfig](/reference/config/modules.md#defineconfig)
 - [loadConfig](/reference/config/modules.md#loadconfig)
-- [loadConfigAsync](/reference/config/modules.md#loadconfigasync-1)
+- [loadConfigAsync](/reference/config/modules.md#loadconfigasync)
 
 ## Type Aliases
 
@@ -41,61 +38,7 @@ Configuration of the solidity compiler
 
 #### Defined in
 
-[config/src/Config.ts:7](https://github.com/evmts/evmts-monorepo/blob/main/config/src/Config.ts#L7)
-
-___
-
-### DefineConfig
-
-Ƭ **DefineConfig**: (`configFactory`: () => [`CompilerConfig`](/reference/config/modules.md#compilerconfig)) => { `configFn`: (`configFilePath`: `string`) => [`ResolvedCompilerConfig`](/reference/config/modules.md#resolvedcompilerconfig)  }
-
-#### Type declaration
-
-▸ (`configFactory`): `Object`
-
-##### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `configFactory` | () => [`CompilerConfig`](/reference/config/modules.md#compilerconfig) |
-
-##### Returns
-
-`Object`
-
-| Name | Type |
-| :------ | :------ |
-| `configFn` | (`configFilePath`: `string`) => [`ResolvedCompilerConfig`](/reference/config/modules.md#resolvedcompilerconfig) |
-
-#### Defined in
-
-[config/src/defineConfig.ts:10](https://github.com/evmts/evmts-monorepo/blob/main/config/src/defineConfig.ts#L10)
-
-___
-
-### LoadConfigAsync
-
-Ƭ **LoadConfigAsync**: (`configFilePath`: `string`, `logger?`: `Pick`<typeof `console`, ``"error"`` \| ``"warn"``\>, `fileExists?`: typeof `defaultFileExists`) => `Promise`<[`ResolvedCompilerConfig`](/reference/config/modules.md#resolvedcompilerconfig)\>
-
-#### Type declaration
-
-▸ (`configFilePath`, `logger?`, `fileExists?`): `Promise`<[`ResolvedCompilerConfig`](/reference/config/modules.md#resolvedcompilerconfig)\>
-
-##### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `configFilePath` | `string` |
-| `logger?` | `Pick`<typeof `console`, ``"error"`` \| ``"warn"``\> |
-| `fileExists?` | typeof `defaultFileExists` |
-
-##### Returns
-
-`Promise`<[`ResolvedCompilerConfig`](/reference/config/modules.md#resolvedcompilerconfig)\>
-
-#### Defined in
-
-[config/src/loadConfigAsync.ts:8](https://github.com/evmts/evmts-monorepo/blob/main/config/src/loadConfigAsync.ts#L8)
+[types.ts:6](https://github.com/evmts/evmts-monorepo/blob/main/config/src/types.ts#L6)
 
 ___
 
@@ -105,19 +48,9 @@ ___
 
 #### Defined in
 
-[config/src/Config.ts:30](https://github.com/evmts/evmts-monorepo/blob/main/config/src/Config.ts#L30)
+[types.ts:29](https://github.com/evmts/evmts-monorepo/blob/main/config/src/types.ts#L29)
 
 ## Variables
-
-### CompilerConfigValidator
-
-• `Const` **CompilerConfigValidator**: `ZodObject`<{ `foundryProject`: `ZodOptional`<`ZodUnion`<[`ZodBoolean`, `ZodString`]\>\> ; `libs`: `ZodOptional`<`ZodArray`<`ZodString`, ``"many"``\>\> ; `name`: `ZodOptional`<`ZodLiteral`<``"@evmts/ts-plugin"``\>\> ; `remappings`: `ZodOptional`<`ZodRecord`<`ZodString`, `ZodString`\>\> ; `solcVersion`: `ZodOptional`<`ZodString`\>  }, ``"strict"``, `ZodTypeAny`, { `foundryProject?`: `string` \| `boolean` ; `libs?`: `string`[] ; `name?`: ``"@evmts/ts-plugin"`` ; `remappings?`: `Record`<`string`, `string`\> ; `solcVersion?`: `string`  }, { `foundryProject?`: `string` \| `boolean` ; `libs?`: `string`[] ; `name?`: ``"@evmts/ts-plugin"`` ; `remappings?`: `Record`<`string`, `string`\> ; `solcVersion?`: `string`  }\>
-
-#### Defined in
-
-[config/src/Config.ts:32](https://github.com/evmts/evmts-monorepo/blob/main/config/src/Config.ts#L32)
-
-___
 
 ### defaultConfig
 
@@ -130,11 +63,11 @@ ___
 | `foundryProject` | `boolean` |
 | `libs` | `never`[] |
 | `remappings` | {} |
-| `get solcVersion()` | `any` |
+| `get solcVersion()` | `string` |
 
 #### Defined in
 
-[config/src/Config.ts:42](https://github.com/evmts/evmts-monorepo/blob/main/config/src/Config.ts#L42)
+[Config.js:14](https://github.com/evmts/evmts-monorepo/blob/main/config/src/Config.js#L14)
 
 ## Functions
 
@@ -158,7 +91,7 @@ ___
 
 #### Defined in
 
-[config/src/defineConfig.ts:10](https://github.com/evmts/evmts-monorepo/blob/main/config/src/defineConfig.ts#L10)
+[types.ts:31](https://github.com/evmts/evmts-monorepo/blob/main/config/src/types.ts#L31)
 
 ___
 
@@ -179,7 +112,7 @@ ___
 
 #### Defined in
 
-[config/src/loadConfig.ts:7](https://github.com/evmts/evmts-monorepo/blob/main/config/src/loadConfig.ts#L7)
+[types.ts:35](https://github.com/evmts/evmts-monorepo/blob/main/config/src/types.ts#L35)
 
 ___
 
@@ -201,4 +134,4 @@ ___
 
 #### Defined in
 
-[config/src/loadConfigAsync.ts:8](https://github.com/evmts/evmts-monorepo/blob/main/config/src/loadConfigAsync.ts#L8)
+[types.ts:40](https://github.com/evmts/evmts-monorepo/blob/main/config/src/types.ts#L40)

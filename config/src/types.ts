@@ -1,5 +1,4 @@
-import { getDefaultSolcVersion } from './getDefaultSolcVersion.js'
-import { z } from 'zod'
+import { fileExists as defaultFileExists } from './fileExists.js'
 
 /**
  * Configuration of the solidity compiler
@@ -29,21 +28,17 @@ export type CompilerConfig = {
 
 export type ResolvedCompilerConfig = Required<CompilerConfig>
 
-export const CompilerConfigValidator = z
-	.strictObject({
-		name: z.literal('@evmts/ts-plugin').optional(),
-		solcVersion: z.string().optional(),
-		foundryProject: z.union([z.boolean(), z.string()]).optional(),
-		libs: z.array(z.string()).optional(),
-		remappings: z.record(z.string()).optional(),
-	})
-	.describe('Configuration for EVMts')
-
-export const defaultConfig = {
-	get solcVersion() {
-		return getDefaultSolcVersion()
-	},
-	foundryProject: false,
-	remappings: {},
-	libs: [],
+export type DefineConfig = (configFactory: () => CompilerConfig) => {
+	configFn: (configFilePath: string) => ResolvedCompilerConfig
 }
+
+export type LoadConfig = (
+	configFilePath: string,
+	logger?: Pick<typeof console, 'error' | 'warn'>,
+) => ResolvedCompilerConfig
+
+export type LoadConfigAsync = (
+	configFilePath: string,
+	logger?: Pick<typeof console, 'error' | 'warn'>,
+	fileExists?: typeof defaultFileExists,
+) => Promise<ResolvedCompilerConfig>

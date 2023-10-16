@@ -1,5 +1,4 @@
-import { type CompilerConfig, defaultConfig } from './Config.js'
-import { defineConfig } from './defineConfig.js'
+import { type CompilerConfig, defaultConfig, defineConfig } from './index.js'
 import { execSync } from 'child_process'
 import { type MockedFunction, describe, expect, it, vi } from 'vitest'
 

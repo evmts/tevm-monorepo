@@ -1,5 +1,11 @@
 import { createRequire } from 'module'
 
+/**
+ * Gets the solc version of node_modules
+ * @returns {string} version
+ * @example
+ * getDefaultSolcVersion() // "0.8.16"
+ */
 export const getDefaultSolcVersion = () => {
 	const moduleRequire = createRequire(import.meta.url ?? __dirname)
 	const solc = moduleRequire('solc')
