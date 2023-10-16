@@ -1,10 +1,11 @@
+import packageJson from './package.json'
 import { defineConfig } from 'tsup'
 
 export default defineConfig({
-	name: '@evmts/rollup-plugin',
-	entry: ['src/index.ts'],
+	name: packageJson.name,
+	entry: ['src/index.js'],
 	outDir: 'dist',
-	format: ['esm', 'cjs'],
+	format: ['cjs'],
 	splitting: false,
 	sourcemap: true,
 	clean: true,
