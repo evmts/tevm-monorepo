@@ -2,9 +2,9 @@ import type { TypesafeEthersContract } from './TypesafeEthersContract.js'
 import type { Abi } from 'abitype'
 import {
 	type Addressable,
-	Contract as EthersContract,
+	type Contract as EthersContract,
 	type ContractRunner,
-	Interface as EthersInterface,
+	type Interface as EthersInterface,
 	type InterfaceAbi,
 	type TransactionResponse,
 } from 'ethers'
@@ -16,7 +16,7 @@ type TypesafeEthersInterfaceConstructor = {
 	> & { fragments: TAbi }
 }
 
-export const Interface = EthersInterface as TypesafeEthersInterfaceConstructor
+export const Interface: TypesafeEthersInterfaceConstructor
 
 type TypesafeEthersContractConstructor = {
 	new <TAbi extends Abi>(
@@ -27,4 +27,4 @@ type TypesafeEthersContractConstructor = {
 	): TypesafeEthersContract<TAbi> & EthersContract
 }
 
-export const Contract = EthersContract as TypesafeEthersContractConstructor
+export const Contract: TypesafeEthersContractConstructor
