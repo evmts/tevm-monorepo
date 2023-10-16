@@ -1,7 +1,4 @@
-import {
-	CompilerConfigValidator,
-	defaultConfig,
-} from './Config.js'
+import { CompilerConfigValidator, defaultConfig } from './Config.js'
 import { execSync } from 'child_process'
 import * as path from 'path'
 

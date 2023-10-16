@@ -46,10 +46,9 @@ export const loadConfigAsync = async (
 	/**
 	 * @type {import("./types.js").CompilerConfig | undefined}
 	 */
-	let config =
-		configJson?.compilerOptions?.plugins?.find(
-			(plugin) => plugin.name === '@evmts/ts-plugin',
-		)
+	let config = configJson?.compilerOptions?.plugins?.find(
+		(plugin) => plugin.name === '@evmts/ts-plugin',
+	)
 
 	if (!config) {
 		logger.warn(
