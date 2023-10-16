@@ -1,4 +1,4 @@
-import type { TypesafeEthersContract } from '.'
+import type { TypesafeEthersContract } from './TypesafeEthersContract.js'
 import type { Abi } from 'abitype'
 import {
 	type Addressable,

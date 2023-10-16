@@ -1,4 +1,4 @@
-import { Contract } from './Contract'
+import { Contract } from './Contract.js'
 import { JsonRpcProvider, ethers } from 'ethers'
 import { assertType, describe, expect, expectTypeOf, test } from 'vitest'
 

@@ -5,9 +5,11 @@
     "outDir": "types",
     "skipLibCheck": true,
     "allowSyntheticDefaultImports": true,
-    "resolveJsonModule": true,
-    "moduleResolution": "NodeNext",
-    "module": "NodeNext"
+    "resolveJsonModule": true
   },
-  "include": ["src", "src/**/*.json", "package.json"]
+  "include": [
+    "src",
+    "src/**/*.json",
+    "package.json"
+  ]
 }

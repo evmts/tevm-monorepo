@@ -1,4 +1,4 @@
-import type { BaseContractMethod } from './BaseContractMethod'
+import type { BaseContractMethod } from './BaseContractMethod.js'
 import type {
 	Abi,
 	AbiParametersToPrimitiveTypes,
