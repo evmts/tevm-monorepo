@@ -1,4 +1,4 @@
-import type { ContractMethodArgs } from './ContractMethodArgs'
+import type { ContractMethodArgs } from './ContractMethodArgs.js'
 import type {
 	BaseContract,
 	ContractTransaction,

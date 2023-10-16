@@ -2,15 +2,15 @@
 	"$schema": "https://json.schemastore.org/tsconfig",
 	"compilerOptions": {
 		"target": "ESNext",
-		"lib": ["esnext"],
-		"module": "esnext",
-		"moduleResolution": "bundler",
+		"lib": [
+			"esnext"
+		],
+		"module": "NodeNext",
+		"moduleResolution": "NodeNext",
 		"allowJs": true,
 		"checkJs": true,
 		"isolatedModules": true,
 		"incremental": true,
-		"allowJs": true,
-		"checkJs": true,
 		"allowUnreachableCode": false,
 		"skipLibCheck": false,
 		"allowUnusedLabels": false,
