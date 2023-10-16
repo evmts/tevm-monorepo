@@ -1,7 +1,7 @@
 import { readFileSync } from 'fs'
-import { Node } from 'solidity-ast/node'
-import { SolcInput } from 'solidity-ast/solc'
-import typescript from 'typescript/lib/tsserverlibrary'
+import { Node } from 'solidity-ast/node.js'
+import { SolcInput } from 'solidity-ast/solc.js'
+import typescript from 'typescript/lib/tsserverlibrary.js'
 
 /**
  * Adapter from solc to typescript

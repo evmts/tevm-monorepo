@@ -1,4 +1,4 @@
-import { createFileAccessObject } from './fileAccessObject'
+import { createFileAccessObject } from './fileAccessObject.js'
 import { LanguageServiceHost } from 'typescript'
 import { describe, expect, it, vi } from 'vitest'
 

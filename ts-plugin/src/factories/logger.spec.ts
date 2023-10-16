@@ -1,4 +1,4 @@
-import { createLogger } from '.'
+import { createLogger } from './logger.js'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 type TestAny = any

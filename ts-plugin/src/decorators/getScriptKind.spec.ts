@@ -1,7 +1,7 @@
-import { getScriptKindDecorator } from '.'
+import { getScriptKindDecorator } from './getScriptKind.js'
 import { FileAccessObject } from '@evmts/bundler'
 import { CompilerConfig, defaultConfig, defineConfig } from '@evmts/config'
-import typescript from 'typescript/lib/tsserverlibrary'
+import typescript from 'typescript/lib/tsserverlibrary.js'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 type TestAny = any

@@ -1,5 +1,5 @@
-import { findNode } from './findNode'
-import * as ts from 'typescript/lib/tsserverlibrary'
+import { findNode } from './findNode.js'
+import * as ts from 'typescript/lib/tsserverlibrary.js'
 import { describe, expect, it } from 'vitest'
 
 describe('findNode', () => {

@@ -1,5 +1,5 @@
 import { FileAccessObject } from '@evmts/bundler'
-import typescript from 'typescript/lib/tsserverlibrary'
+import typescript from 'typescript/lib/tsserverlibrary.js'
 
 export const createFileAccessObject = (
 	lsHost: typescript.LanguageServiceHost,

@@ -1,6 +1,6 @@
-import { createHostDecorator } from '../factories'
-import { solidityModuleResolver } from '../utils'
-import { invariant } from '../utils/invariant'
+import { createHostDecorator } from '../factories/index.js'
+import { solidityModuleResolver } from '../utils/index.js'
+import { invariant } from '../utils/invariant.js'
 
 /**
  * Decorate `LangaugeServerHost.resolveModuleNameLiterals` to return config object to resolve `.sol` files

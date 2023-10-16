@@ -1,2 +1,2 @@
-export * from './logger'
-export * from './decorator'
+export * from './logger.js'
+export * from './decorator.js'

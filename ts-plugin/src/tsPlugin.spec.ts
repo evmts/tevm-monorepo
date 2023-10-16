@@ -1,7 +1,7 @@
-import tsPlugin from '.'
+import tsPlugin from './index.js'
 import { CompilerConfig } from '@evmts/config'
 import path from 'path'
-import typescript from 'typescript/lib/tsserverlibrary'
+import typescript from 'typescript/lib/tsserverlibrary.js'
 import { Mock, describe, expect, it, vi } from 'vitest'
 
 type TestAny = any

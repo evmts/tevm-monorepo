@@ -1,4 +1,4 @@
-import { invariant } from './invariant'
+import { invariant } from './invariant.js'
 import { describe, expect, expectTypeOf, it } from 'vitest'
 
 describe(invariant.name, () => {

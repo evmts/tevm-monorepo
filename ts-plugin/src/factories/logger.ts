@@ -1,4 +1,4 @@
-import type typescript from 'typescript/lib/tsserverlibrary'
+import type typescript from 'typescript/lib/tsserverlibrary.js'
 
 /**
  * The logger used internally within the package

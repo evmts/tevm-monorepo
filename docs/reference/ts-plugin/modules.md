@@ -6,13 +6,13 @@
 
 ### Functions
 
-- [export&#x3D;](/reference/ts-plugin/modules.md#export&#x3D;)
+- [default](/reference/ts-plugin/modules.md#default)
 
 ## Functions
 
-### export&#x3D;
+### default
 
-▸ **export=**(`mod`): `PluginModule`
+▸ **default**(`mod`): `PluginModule`
 
 [Typescript plugin factory](https://github.com/microsoft/TypeScript/wiki/Writing-a-Language-Service-Plugin)
 

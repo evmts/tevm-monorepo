@@ -1,4 +1,4 @@
-import { isSolidity } from './isSolidity'
+import { isSolidity } from './isSolidity.js'
 
 const isRelative = (fileName: string) =>
 	fileName.startsWith('./') || fileName.startsWith('../')
