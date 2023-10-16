@@ -18,10 +18,10 @@ jobs:
           submodules: recursive
 
       - name: "Setup"
-        uses: ./.github/actions/setup-pnpm
+        uses: ./.github/actions/setup
 
       - name: Run tests
-        run: pnpm nx run-many --target=test:coverage
+        run: bun nx run-many --target=test:coverage
         env:
           NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
           RPC_URL_MAINNET: ${{ secrets.RPC_URL_MAINNET }}
