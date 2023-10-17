@@ -4,6 +4,7 @@ import { parse } from 'jsonc-parser'
 import * as path from 'path'
 
 /**
+ * Asyncronously loads an EVMts config from the given path
  * @type {import("./types.js").LoadConfig}
  */
 export const loadConfig = (configFilePath, logger = console) => {

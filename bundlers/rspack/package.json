@@ -15,6 +15,15 @@
 	"main": "dist/index.cjs",
 	"module": "src/index.js",
 	"types": "types/index.d.ts",
+	"exports": {
+    "./package.json": "./package.json",
+    ".": {
+			"import": "./src/index.js",
+			"require": "./dist/index.cjs",
+			"default": "./dist/index.cjs",
+			"types": "./types/index.d.ts"
+		}
+	},
 	"files": ["dist", "types", "src"],
 	"scripts": {
 		"build": "nx run-many --targets=build:dist,build:types --projects=@evmts/rspack-plugin ",

@@ -23,6 +23,15 @@
 	"main": "dist/index.cjs",
 	"module": "dist/index.js",
 	"types": "types/index.d.ts",
+	"exports": {
+    "./package.json": "./package.json",
+    ".": {
+			"import": "./dist/index.js",
+			"require": "./dist/index.cjs",
+			"types": "./types/index.d.ts",
+			"default": "./dist/index.cjs"
+		}
+	},
 	"bin": {
 		"evmts-gen": "./dist/bin/evmts-gen.js"
 	},

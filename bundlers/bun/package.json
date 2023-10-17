@@ -15,13 +15,16 @@
 	"main": "dist/index.cjs",
 	"module": "src/index.js",
 	"types": "types/index.d.ts",
-	"files": ["dist", "src", "types"],
-	"export": {
-		"import": "./src/index.js",
-		"require": "./dist/index.cjs",
-		"types": "./types/index.d.ts",
-		"default": "./dist/index.js"
+	"exports": {
+		".": {
+			"import": "./src/index.js",
+			"require": "./dist/index.cjs",
+			"types": "./types/index.d.ts",
+			"default": "./dist/index.cjs"
+		},
+		"./package.json": "./package.json"
 	},
+	"files": ["dist", "src", "types"],
 	"scripts": {
 		"build": "nx run-many --targets=build:dist,build:types --projects=@evmts/bun-plugin ",
 		"build:dist": "bun run tsup",

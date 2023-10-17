@@ -23,11 +23,12 @@
 	],
 	"type": "module",
 	"exports": {
-		".": {
-			"default": "./src/index.js",
+    "./package.json": "./package.json",
+    ".": {
 			"import": "./src/index.js",
 			"require": "./dist/index.cjs",
-			"types": "./src/index.d.ts"
+			"types": "./types/index.d.ts",
+			"default": "./dist/index.cjs"
 		}
 	},
 	"main": "dist/index.cjs",
