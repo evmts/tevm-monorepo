@@ -22,17 +22,17 @@
 		"Will Cory <willcory10@gmail.com>"
 	],
 	"type": "module",
-	"main": "dist/cjs/revm.js",
-	"module": "dist/esm/revm.js",
 	"exports": {
-    "./package.json": "./package.json",
-    ".": {
+		"./package.json": "./package.json",
+		".": {
 			"import": "./dist/esm/revm.js",
 			"require": "./dist/cjs/revm.js",
 			"types": "./dist/esm/revm.d.ts",
 			"default": "./dist/esm/revm.js"
 		}
 	},
+	"main": "dist/cjs/revm.js",
+	"module": "dist/esm/revm.js",
 	"files": [
 		"dist",
 		"src",

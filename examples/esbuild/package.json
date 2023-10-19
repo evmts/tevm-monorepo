@@ -2,10 +2,10 @@
   "name": "@evmts/example-esbuild",
   "version": "0.0.1",
   "private": true,
-  "type": "module",
   "contributors": [
     "Will Cory <willcory10@gmail.com>"
   ],
+  "type": "module",
   "scripts": {
     "build": "bun run build:dist",
     "build:dist": "NODE_ENV=production bun ./build.js",
