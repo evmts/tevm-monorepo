@@ -25,7 +25,7 @@
 
 #### Defined in
 
-[bundlers/bundler/src/unplugin.js:17](https://github.com/evmts/evmts-monorepo/blob/main/bundlers/bundler/src/unplugin.js#L17)
+[bundlers/bundler/src/unplugin.js:16](https://github.com/evmts/evmts-monorepo/blob/main/bundlers/bundler/src/unplugin.js#L16)
 
 ## Functions
 
@@ -38,7 +38,7 @@
 | Name | Type |
 | :------ | :------ |
 | `options?` | `Object` |
-| `options.compiler?` | ``"foundry"`` \| ``"solc"`` |
+| `options.compiler?` | ``"solc"`` \| ``"foundry"`` |
 
 #### Returns
 
@@ -59,7 +59,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `options?` | `Object` |
-| `options.compiler?` | ``"foundry"`` \| ``"solc"`` |
+| `options.compiler?` | ``"solc"`` \| ``"foundry"`` |
 
 #### Returns
 
@@ -80,7 +80,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `options?` | `Object` |
-| `options.compiler?` | ``"foundry"`` \| ``"solc"`` |
+| `options.compiler?` | ``"solc"`` \| ``"foundry"`` |
 
 #### Returns
 
@@ -100,7 +100,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `options` | `undefined` \| { `compiler?`: ``"foundry"`` \| ``"solc"``  } |
+| `options` | `undefined` \| { `compiler?`: ``"solc"`` \| ``"foundry"``  } |
 | `meta` | `UnpluginContextMeta` |
 
 #### Returns
@@ -122,7 +122,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `options?` | `Object` |
-| `options.compiler?` | ``"foundry"`` \| ``"solc"`` |
+| `options.compiler?` | ``"solc"`` \| ``"foundry"`` |
 
 #### Returns
 
@@ -143,7 +143,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `options?` | `Object` |
-| `options.compiler?` | ``"foundry"`` \| ``"solc"`` |
+| `options.compiler?` | ``"solc"`` \| ``"foundry"`` |
 
 #### Returns
 

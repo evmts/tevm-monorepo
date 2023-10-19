@@ -1,1 +1,1 @@
-export { file } from 'bun'
+export const file = require('bun').file

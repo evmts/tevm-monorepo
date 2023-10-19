@@ -1,4 +1,3 @@
-import packageJson from '../package.json'
 import { bundler } from './bundler.js'
 import { createCache } from './createCache.js'
 import { loadConfigAsync } from '@evmts/config'
@@ -104,7 +103,7 @@ export const unpluginFn = (options = {}) => {
 			})
 			return code
 		},
-		...{ version: packageJson.version },
+		...{ version: '0.11.2' },
 	}
 }
 
