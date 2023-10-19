@@ -28,7 +28,8 @@
 			"require": "./dist/index.cjs",
 			"types": "./src/index.d.ts",
 			"default": "./src/index.js"
-		}
+		},
+		"./package.json": "./package.json"
 	},
 	"main": "dist/index.cjs",
 	"module": "src/index.js",

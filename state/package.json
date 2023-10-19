@@ -24,11 +24,12 @@
 	],
 	"type": "module",
 	"exports": {
+		"./package.json": "./package.json",
 		".": {
 			"import": "./dist/index.js",
 			"require": "./dist/index.cjs",
 			"types": "./types/index.d.ts",
-			"default": "./dist/index.js"
+			"default": "./dist/index.cjs"
 		}
 	},
 	"main": "dist/index.cjs",

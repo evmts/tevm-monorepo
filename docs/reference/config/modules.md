@@ -99,6 +99,8 @@ ___
 
 ▸ **loadConfig**(`configFilePath`, `logger?`): `Required`<[`CompilerConfig`](/reference/config/modules.md#compilerconfig)\>
 
+Asyncronously loads an EVMts config from the given path
+
 #### Parameters
 
 | Name | Type |

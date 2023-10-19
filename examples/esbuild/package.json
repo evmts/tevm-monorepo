@@ -5,6 +5,7 @@
   "contributors": [
     "Will Cory <willcory10@gmail.com>"
   ],
+  "type": "module",
   "scripts": {
     "build": "bun run build:dist",
     "build:dist": "NODE_ENV=production bun ./build.js",
