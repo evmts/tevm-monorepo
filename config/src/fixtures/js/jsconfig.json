@@ -4,13 +4,12 @@
     "composite": true,
     "outDir": "types",
     "skipLibCheck": true,
-    "resolveJsonModule": true
+    "plugins": [{
+      "name": "@evmts/ts-plugin"
+    }]
   },
   "include": [
     "src",
     "src/**/*.json"
-  ],
-  "exclude": [
-    "src/fixtures/invalidJson"
   ]
 }

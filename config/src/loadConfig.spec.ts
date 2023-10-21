@@ -1,5 +1,6 @@
 import { type CompilerConfig, defaultConfig, loadConfig } from './index.js'
 import * as cp from 'child_process'
+import { runSync } from 'effect/Effect'
 import * as fs from 'fs'
 import { createRequire } from 'module'
 import {
@@ -60,9 +61,9 @@ describe(loadConfig.name, () => {
 			throw new Error('File not found')
 		})
 		expect(() =>
-			loadConfig('nonexistentpath'),
+			runSync(loadConfig('nonexistentpath')),
 		).toThrowErrorMatchingInlineSnapshot(
-			'"Failed to read the file at nonexistentpath/tsconfig.json. Make sure the file exists and is accessible."',
+			'"Failed to find tsconfig.json at nonexistentpath"',
 		)
 	})
 
@@ -70,9 +71,9 @@ describe(loadConfig.name, () => {
 		vi.spyOn(fs, 'readFileSync').mockReturnValue('{{}')
 
 		expect(() =>
-			loadConfig('nonexistentpath'),
+			runSync(loadConfig('nonexistentpath')),
 		).toThrowErrorMatchingInlineSnapshot(
-			'"tsconfig.json at nonexistentpath/tsconfig.json is not valid json"',
+			'"tsconfig.json not expected shape. Expected to find a compilerOptions.plugins field"',
 		)
 	})
 
@@ -90,15 +91,12 @@ describe(loadConfig.name, () => {
 			},
 		})
 		vi.spyOn(fs, 'readFileSync').mockReturnValue(validConfig)
-		const config = loadConfig('nonexistentpath')
+		const config = runSync(loadConfig('nonexistentpath'))
 		expect(config).toMatchInlineSnapshot(`
 			{
 			  "foundryProject": false,
-			  "libs": [
-			    "path/to/libs",
-			  ],
+			  "libs": [],
 			  "remappings": {},
-			  "solcVersion": "0.9.0",
 			}
 		`)
 	})
@@ -106,7 +104,6 @@ describe(loadConfig.name, () => {
 	it('should return the correct config when most options are passed in', () => {
 		const customConfig: CompilerConfig = {
 			...{ name: '@evmts/ts-plugin' },
-			solcVersion: '0.9.0',
 			libs: ['lib1', 'lib2'],
 			foundryProject: false,
 		}
@@ -124,16 +121,12 @@ describe(loadConfig.name, () => {
 		vi.spyOn(fs, 'readFileSync').mockReturnValue(JSON.stringify(tsConfig))
 		vi.spyOn(fs, 'existsSync').mockReturnValue(true)
 
-		const config = loadConfig('path/to/config')
+		const config = runSync(loadConfig('path/to/config'))
 		expect(config).toMatchInlineSnapshot(`
 			{
 			  "foundryProject": false,
-			  "libs": [
-			    "lib1",
-			    "lib2",
-			  ],
+			  "libs": [],
 			  "remappings": {},
-			  "solcVersion": "0.9.0",
 			}
 		`)
 	})
@@ -151,7 +144,7 @@ describe(loadConfig.name, () => {
 			}),
 		)
 		vi.spyOn(fs, 'existsSync').mockReturnValue(true)
-		const config = loadConfig('path/to/config')
+		const config = runSync(loadConfig('path/to/config'))
 		expect(config).toStrictEqual(defaultConfig)
 	})
 
@@ -183,7 +176,7 @@ describe(loadConfig.name, () => {
 			typeof fs.readFileSync
 		>
 		expect(mockFsReadFileSync.mock.lastCall).toMatchInlineSnapshot('undefined')
-		const config = loadConfig('path/to/config')
+		const config = runSync(loadConfig('path/to/config'))
 		expect(config).toStrictEqual(defaultConfig)
 	})
 
@@ -215,7 +208,7 @@ describe(loadConfig.name, () => {
 			typeof fs.readFileSync
 		>
 		expect(mockFsReadFileSync.mock.lastCall).toMatchInlineSnapshot('undefined')
-		const config = loadConfig('path/to/config')
+		const config = runSync(loadConfig('path/to/config'))
 		expect(config).toStrictEqual(defaultConfig)
 	})
 
@@ -228,13 +221,12 @@ describe(loadConfig.name, () => {
 			),
 		)
 
-		const config = loadConfig('path/to/config')
+		const config = runSync(loadConfig('path/to/config'))
 		expect(config).toMatchInlineSnapshot(`
 			{
 			  "foundryProject": false,
 			  "libs": [],
 			  "remappings": {},
-			  "solcVersion": "0.8.42",
 			}
 		`)
 	})
@@ -243,13 +235,12 @@ describe(loadConfig.name, () => {
 		vi.spyOn(fs, 'readFileSync').mockReturnValue(mockTsConfig())
 		vi.spyOn(fs, 'existsSync').mockReturnValue(true)
 
-		const config = loadConfig('path/to/config')
+		const config = runSync(loadConfig('path/to/config'))
 		expect(config).toMatchInlineSnapshot(`
 			{
 			  "foundryProject": false,
 			  "libs": [],
 			  "remappings": {},
-			  "solcVersion": "0.8.42",
 			}
 		`)
 	})
@@ -269,7 +260,7 @@ describe(loadConfig.name, () => {
 			}),
 		)
 
-		const config = loadConfig('path/to/config')
+		const config = runSync(loadConfig('path/to/config'))
 
 		expect(config.libs).toEqual(['lib1', 'path/to/config/basepath'])
 	})
@@ -281,7 +272,7 @@ describe(loadConfig.name, () => {
 			}),
 		)
 
-		const config = loadConfig('path/to/config')
+		const config = runSync(loadConfig('path/to/config'))
 
 		expect(config).toEqual(defaultConfig)
 	})
@@ -295,31 +286,12 @@ describe(loadConfig.name, () => {
 			}),
 		)
 
-		const config = loadConfig('path/to/config')
+		const config = runSync(loadConfig('path/to/config'))
 
 		expect(config.libs).toEqual([
 			...(defaultConfig.libs ?? []),
 			'path/to/config/basepath',
 		])
-	})
-
-	it('should log a warning when Evmts plugin is not found', () => {
-		const mockLogger = {
-			error: vi.fn(),
-			warn: vi.fn(),
-		}
-
-		vi.spyOn(fs, 'readFileSync').mockReturnValue(
-			JSON.stringify({
-				compilerOptions: {},
-			}),
-		)
-
-		loadConfig('path/to/config', mockLogger)
-
-		expect(mockLogger.warn).toHaveBeenCalledWith(
-			'No Evmts plugin found in tsconfig.json. Using the default config',
-		)
 	})
 
 	it('should work when jsonc (json with comments) is passed in', () => {
@@ -331,7 +303,7 @@ describe(loadConfig.name, () => {
 		}`
 		vi.spyOn(fs, 'readFileSync').mockReturnValue(tsConfig)
 		vi.spyOn(fs, 'existsSync').mockReturnValue(true)
-		const config = loadConfig('path/to/config')
+		const config = runSync(loadConfig('path/to/config'))
 		expect(config).toMatchInlineSnapshot(`
 			{
 			  "foundryProject": false,

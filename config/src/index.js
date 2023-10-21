@@ -3,7 +3,7 @@
  * @typedef {import('./types.js').ResolvedCompilerConfig} ResolvedCompilerConfig
  */
 
-export { defaultConfig } from './Config.js'
-export { loadConfig } from './loadConfig.js'
-export { loadConfigAsync } from './loadConfigAsync.js'
+export { defaultConfig } from './utils/withDefaults.js'
 export { defineConfig } from './defineConfig.js'
+export { loadConfig } from './loadConfig.js'
+export { mergeConfigs } from './mergeConfigs.js'

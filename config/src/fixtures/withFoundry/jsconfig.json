@@ -4,13 +4,14 @@
     "composite": true,
     "outDir": "types",
     "skipLibCheck": true,
-    "resolveJsonModule": true
+    "plugins": [{
+      "name": "@evmts/ts-plugin",
+      // should load the remappings
+      "foundryProject": true
+    }]
   },
   "include": [
     "src",
     "src/**/*.json"
-  ],
-  "exclude": [
-    "src/fixtures/invalidJson"
   ]
 }

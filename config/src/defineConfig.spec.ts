@@ -1,5 +1,6 @@
 import { type CompilerConfig, defaultConfig, defineConfig } from './index.js'
 import { execSync } from 'child_process'
+import { runSync } from 'effect/Effect'
 import { type MockedFunction, describe, expect, it, vi } from 'vitest'
 
 vi.mock('child_process', () => ({
@@ -13,7 +14,7 @@ describe(defineConfig.name, () => {
 		const configFactory = () => undefined
 		const config = defineConfig(configFactory as any)
 		const resolvedConfig = config.configFn('./')
-		expect(resolvedConfig).toEqual(defaultConfig)
+		expect(runSync(resolvedConfig)).toEqual(defaultConfig)
 	})
 
 	it('should return a valid config when partial config is provided', () => {
@@ -23,7 +24,7 @@ describe(defineConfig.name, () => {
 			}) as CompilerConfig
 		const config = defineConfig(configFactory)
 		const resolvedConfig = config.configFn('./')
-		expect(resolvedConfig).toEqual({
+		expect(runSync(resolvedConfig)).toEqual({
 			solcVersion: '0.8.4',
 			remappings: defaultConfig.remappings,
 			foundryProject: defaultConfig.foundryProject,
@@ -47,7 +48,7 @@ describe(defineConfig.name, () => {
 		const resolvedConfig = config.configFn('./')
 
 		expect(mockExecSync).toHaveBeenCalledWith('forge config --json')
-		expect(resolvedConfig).toEqual({
+		expect(runSync(resolvedConfig)).toEqual({
 			solcVersion: '0.8.4',
 			remappings: defaultConfig.remappings,
 			foundryProject: 'forge',
@@ -70,7 +71,7 @@ describe(defineConfig.name, () => {
 		const resolvedConfig = config.configFn('./')
 
 		expect(mockExecSync).toHaveBeenCalledWith('forge config --json')
-		expect(resolvedConfig).toEqual({
+		expect(runSync(resolvedConfig)).toEqual({
 			solcVersion: '0.8.4',
 			remappings: defaultConfig.remappings,
 			foundryProject: true,
@@ -146,7 +147,7 @@ describe(defineConfig.name, () => {
 		const config = defineConfig(configFactory)
 		const resolvedConfig = config.configFn('/config')
 
-		expect(resolvedConfig.remappings).toEqual({
+		expect(runSync(resolvedConfig).remappings).toEqual({
 			key: '/config/value',
 		})
 	})
