@@ -17,7 +17,7 @@
 
 - [defineConfig](/reference/config/modules.md#defineconfig)
 - [loadConfig](/reference/config/modules.md#loadconfig)
-- [loadConfigAsync](/reference/config/modules.md#loadconfigasync)
+- [mergeConfigs](/reference/config/modules.md#mergeconfigs)
 
 ## Type Aliases
 
@@ -32,29 +32,38 @@ Configuration of the solidity compiler
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `foundryProject?` | `boolean` \| `string` | If set to true it will resolve forge remappings and libs Set to "path/to/forge/executable" to use a custom forge executable |
-| `libs?` | `string`[] | Sets directories to search for solidity imports in Read autoamtically for forge projects if forge: true |
-| `remappings?` | `Record`<`string`, `string`\> | Remap the location of contracts |
-| `solcVersion?` | `string` | Solc version to use (e.g. "0.8.13") **`Defaults`** "0.8.13" **`See`** https://www.npmjs.com/package/solc |
+| `libs?` | readonly `string`[] | Sets directories to search for solidity imports in Read autoamtically for forge projects if forge: true |
+| `remappings?` | `ReadonlyRecord`<`string`\> | Remap the location of contracts |
 
 #### Defined in
 
-[types.ts:6](https://github.com/evmts/evmts-monorepo/blob/main/config/src/types.ts#L6)
+[types.ts:10](https://github.com/evmts/evmts-monorepo/blob/main/config/src/types.ts#L10)
 
 ___
 
 ### ResolvedCompilerConfig
 
-Ƭ **ResolvedCompilerConfig**: `Required`<[`CompilerConfig`](/reference/config/modules.md#compilerconfig)\>
+Ƭ **ResolvedCompilerConfig**: `Object`
+
+#### Type declaration
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `foundryProject` | `boolean` \| `string` | If set to true it will resolve forge remappings and libs Set to "path/to/forge/executable" to use a custom forge executable |
+| `libs` | readonly `string`[] | Sets directories to search for solidity imports in Read autoamtically for forge projects if forge: true |
+| `remappings` | `ReadonlyRecord`<`string`\> | Remap the location of contracts |
 
 #### Defined in
 
-[types.ts:29](https://github.com/evmts/evmts-monorepo/blob/main/config/src/types.ts#L29)
+[types.ts:32](https://github.com/evmts/evmts-monorepo/blob/main/config/src/types.ts#L32)
 
 ## Variables
 
 ### defaultConfig
 
 • `Const` **defaultConfig**: `Object`
+
+The default CompilerConfig
 
 #### Type declaration
 
@@ -63,11 +72,10 @@ ___
 | `foundryProject` | `boolean` |
 | `libs` | `never`[] |
 | `remappings` | {} |
-| `get solcVersion()` | `string` |
 
 #### Defined in
 
-[Config.js:14](https://github.com/evmts/evmts-monorepo/blob/main/config/src/Config.js#L14)
+[utils/withDefaults.js:6](https://github.com/evmts/evmts-monorepo/blob/main/config/src/utils/withDefaults.js#L6)
 
 ## Functions
 
@@ -75,11 +83,13 @@ ___
 
 ▸ **defineConfig**(`configFactory`): `Object`
 
+Used in evmts.config.ts to create a config
+
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `configFactory` | () => [`CompilerConfig`](/reference/config/modules.md#compilerconfig) |
+| `configFactory` | `ConfigFactory` |
 
 #### Returns
 
@@ -87,17 +97,29 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `configFn` | (`configFilePath`: `string`) => `Required`<[`CompilerConfig`](/reference/config/modules.md#compilerconfig)\> |
+| `configFn` | (`configFilePath`: `string`) => `Effect`<`never`, `LoadFoundryConfigError` \| `ValidateUserConfigError`, [`ResolvedCompilerConfig`](/reference/config/modules.md#resolvedcompilerconfig)\> |
+
+**`Example`**
+
+```ts
+import { defineConfig } from '@evmts/ts-plugin'
+
+export default defineConfig(() => ({
+	lib: ['lib'],
+	remappings: {
+	  'foo': 'foo/bar'
+	}
+})
 
 #### Defined in
 
-[types.ts:31](https://github.com/evmts/evmts-monorepo/blob/main/config/src/types.ts#L31)
+[types.ts:49](https://github.com/evmts/evmts-monorepo/blob/main/config/src/types.ts#L49)
 
 ___
 
 ### loadConfig
 
-▸ **loadConfig**(`configFilePath`, `logger?`): `Required`<[`CompilerConfig`](/reference/config/modules.md#compilerconfig)\>
+▸ **loadConfig**(`configFilePath`): `Effect`<`never`, `LoadConfigError`, [`ResolvedCompilerConfig`](/reference/config/modules.md#resolvedcompilerconfig)\>
 
 Asyncronously loads an EVMts config from the given path
 
@@ -106,34 +128,42 @@ Asyncronously loads an EVMts config from the given path
 | Name | Type |
 | :------ | :------ |
 | `configFilePath` | `string` |
-| `logger?` | `Pick`<`Console`, ``"error"`` \| ``"warn"``\> |
 
 #### Returns
 
-`Required`<[`CompilerConfig`](/reference/config/modules.md#compilerconfig)\>
+`Effect`<`never`, `LoadConfigError`, [`ResolvedCompilerConfig`](/reference/config/modules.md#resolvedcompilerconfig)\>
 
 #### Defined in
 
-[types.ts:35](https://github.com/evmts/evmts-monorepo/blob/main/config/src/types.ts#L35)
+[loadConfig.js:17](https://github.com/evmts/evmts-monorepo/blob/main/config/src/loadConfig.js#L17)
 
 ___
 
-### loadConfigAsync
+### mergeConfigs
 
-▸ **loadConfigAsync**(`configFilePath`, `logger?`, `fileExists?`): `Promise`<`Required`<[`CompilerConfig`](/reference/config/modules.md#compilerconfig)\>\>
+▸ **mergeConfigs**(`configs`): `Effect`<`never`, `never`, [`CompilerConfig`](/reference/config/modules.md#compilerconfig)\>
+
+Merges multiple configs into a single config
+The last config in the list takes precedence on any given property
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `configFilePath` | `string` |
-| `logger?` | `Pick`<`Console`, ``"error"`` \| ``"warn"``\> |
-| `fileExists?` | (`path`: `string`) => `Promise`<`boolean`\> |
+| `configs` | [`CompilerConfig`](/reference/config/modules.md#compilerconfig)[] |
 
 #### Returns
 
-`Promise`<`Required`<[`CompilerConfig`](/reference/config/modules.md#compilerconfig)\>\>
+`Effect`<`never`, `never`, [`CompilerConfig`](/reference/config/modules.md#compilerconfig)\>
+
+**`Example`**
+
+```ts
+const userConfig = { remappings: { key1: 'value1' }, libs: ['lib1'] };
+const foundryConfig = { remappings: { key2: 'value2' }, libs: ['lib2', 'lib1'], foundryProject: 'forge' };
+const mergedConfig = mergeConfigs([userConfig, foundryConfig]);
+```
 
 #### Defined in
 
-[types.ts:40](https://github.com/evmts/evmts-monorepo/blob/main/config/src/types.ts#L40)
+[mergeConfigs.js:13](https://github.com/evmts/evmts-monorepo/blob/main/config/src/mergeConfigs.js#L13)

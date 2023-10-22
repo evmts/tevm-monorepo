@@ -24,7 +24,7 @@ Currently unimplemented just uses resolveArtifactsSync
 | `solFile` | `string` |
 | `basedir` | `string` |
 | `logger` | `Logger` |
-| `config` | `Required`<`CompilerConfig`\> |
+| `config` | `ResolvedCompilerConfig` |
 | `includeAst` | `boolean` |
 | `fao` | `FileAccessObject` |
 | `cache?` | [`Cache`](/reference/bundler/modules/createCache.md#cache) |
@@ -50,7 +50,7 @@ ___
 | `solFile` | `string` |
 | `basedir` | `string` |
 | `logger` | `Logger` |
-| `config` | `Required`<`CompilerConfig`\> |
+| `config` | `ResolvedCompilerConfig` |
 | `includeAst` | `boolean` |
 | `fao` | `FileAccessObject` |
 | `cache?` | [`Cache`](/reference/bundler/modules/createCache.md#cache) |
