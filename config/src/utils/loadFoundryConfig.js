@@ -4,8 +4,12 @@ import * as path from 'path'
 
 /**
  * Error thrown if foundry is not found in path while foundryProject is set in config
+ * @internal
  */
 export class FoundryNotFoundError extends Error {
+	/**
+	 * @type {'FoundryNotFoundError'}
+	 */
 	_tag = 'FoundryNotFoundError'
 	/**
 	 * @param {string} forgeCommand
@@ -24,8 +28,12 @@ or lib directly in your EVMts compiler config and then EVMts will run without fo
 
 /**
  * Error thrown if parsing the foundry config with `forge config` fails
+ * @internal
  */
 export class FoundryConfigError extends Error {
+	/**
+	 * @type {'FoundryConfigError'}
+	 */
 	_tag = 'FoundryConfigError'
 	/**
 	 * @param {string} forgeCommand
@@ -42,8 +50,12 @@ export class FoundryConfigError extends Error {
 
 /**
  * Error thrown if foundry remappings cannot be parsed while foundryProject is set
+ * @internal
  */
 export class InvalidRemappingsError extends Error {
+	/**
+	 * @type {'InvalidRemappingsError'}
+	 */
 	_tag = 'InvalidRemappingsError'
 	/**
 	 * @param {string} remappings
@@ -57,6 +69,7 @@ export class InvalidRemappingsError extends Error {
 
 /**
  * @typedef {FoundryNotFoundError | FoundryConfigError | InvalidRemappingsError} LoadFoundryConfigError
+ * @internal
  */
 
 /**
@@ -92,6 +105,7 @@ export const loadFoundryConfig = (foundryProject, configFilePath) => {
 
 	/**
 	 * @type {Record<string, string>}
+	 * @internal
 	 */
 	const remappings = {}
 	if (forgeConfig.remappings) {

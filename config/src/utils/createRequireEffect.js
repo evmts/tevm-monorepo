@@ -4,11 +4,15 @@ import { map } from 'effect/Effect'
 import { createRequire } from 'module'
 
 export class CreateRequireError extends Error {
+	/**
+	 * @type {'CreateRequireError'}
+	 */
 	_tag = 'CreateRequireError'
 	/**
 	 * @param {string} url
 	 * @param {object} [cause]
 	 * @param {unknown} [cause.cause]
+	 * @internal
 	 */
 	constructor(url, options = {}) {
 		super(`Failed to create require for ${url}`, options)
@@ -21,6 +25,7 @@ export class RequireError extends Error {
 	 * @param {string} url
 	 * @param {object} [cause]
 	 * @param {unknown} [cause.cause]
+	 * @internal
 	 */
 	constructor(url, options = {}) {
 		super(`Failed to require ${url}`, options)
@@ -40,6 +45,7 @@ export class RequireError extends Error {
  * const solcEffect = requireEffect('solc')
  * ```
  * @see https://nodejs.org/api/modules.html#modules_module_createrequire_filename
+ * @internal
  */
 export const createRequireEffect = (url) => {
 	return Effect.try({

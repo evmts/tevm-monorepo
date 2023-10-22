@@ -50,6 +50,10 @@ export type ResolvedCompilerConfig = {
 	remappings: ReadonlyRecord<string>
 }
 
+export type DefineConfigErrorType =
+	| ValidateUserConfigError
+	| LoadFoundryConfigError
+
 /**
  * Creates an EVMts config
  * Takes a user provided configFactory
@@ -63,9 +67,5 @@ export type ResolvedCompilerConfig = {
 export type DefineConfig = (configFactory: ConfigFactory) => {
 	configFn: (
 		configFilePath: string,
-	) => Effect<
-		never,
-		ValidateUserConfigError | LoadFoundryConfigError,
-		ResolvedCompilerConfig
-	>
+	) => Effect<never, DefineConfigErrorType, ResolvedCompilerConfig>
 }

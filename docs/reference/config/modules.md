@@ -86,7 +86,7 @@ The default CompilerConfig
 
 ▸ **defineConfig**(`configFactory`): `Object`
 
-Used in evmts.config.ts to create a config
+Typesafe way to create an EVMts CompilerConfig
 
 #### Parameters
 
@@ -100,7 +100,7 @@ Used in evmts.config.ts to create a config
 
 | Name | Type |
 | :------ | :------ |
-| `configFn` | (`configFilePath`: `string`) => `Effect`<`never`, `ValidateUserConfigError` \| `LoadFoundryConfigError`, [`ResolvedCompilerConfig`](/reference/config/modules.md#resolvedcompilerconfig)\> |
+| `configFn` | (`configFilePath`: `string`) => `Effect`<`never`, `DefineConfigErrorType`, [`ResolvedCompilerConfig`](/reference/config/modules.md#resolvedcompilerconfig)\> |
 
 **`Example`**
 
@@ -116,7 +116,7 @@ export default defineConfig(() => ({
 
 #### Defined in
 
-[types.ts:63](https://github.com/evmts/evmts-monorepo/blob/main/config/src/types.ts#L63)
+[types.ts:67](https://github.com/evmts/evmts-monorepo/blob/main/config/src/types.ts#L67)
 
 ___
 
@@ -124,7 +124,7 @@ ___
 
 ▸ **loadConfig**(`configFilePath`): `Effect`<`never`, `LoadConfigError`, [`ResolvedCompilerConfig`](/reference/config/modules.md#resolvedcompilerconfig)\>
 
-Asyncronously loads an EVMts config from the given path
+Loads an EVMts config from the given path
 
 #### Parameters
 
@@ -139,9 +139,14 @@ Asyncronously loads an EVMts config from the given path
 **`Example`**
 
 ```ts
-const config = await loadConfig('./tsconfig.json');
+import {tap} from 'effect/Effect'
+import {loadConfig} from '@evmts/config'
+
+runPromise(loadConfig('./tsconfig.json')).pipe(
+  tap(config => console.log(config))
+)
 ```
 
 #### Defined in
 
-[loadConfig.js:21](https://github.com/evmts/evmts-monorepo/blob/main/config/src/loadConfig.js#L21)
+[loadConfig.js:49](https://github.com/evmts/evmts-monorepo/blob/main/config/src/loadConfig.js#L49)

@@ -11,6 +11,7 @@ import { access } from 'fs/promises'
  * import { fileExists } from '@eth-optimism/config'
  * await fileExists('./someFile.txt')
  * ```
+ * @internal
  */
 export const fileExists = (path) => {
 	return promise(() =>

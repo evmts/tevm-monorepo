@@ -14,8 +14,11 @@ export const defaultConfig = {
  * @param {import("../types.js").CompilerConfig} config
  * @returns {import("effect/Effect").Effect<never, never, import("../types.js").ResolvedCompilerConfig>}
  * @example
+ * ```ts
  * const userConfig = { remappings: { key1: 'value1' }, libs: ['lib1'] };
  * const resolvedConfig = withDefaults(userConfig);
+ * ````
+ * @internal
  */
 export const withDefaults = (config) =>
 	succeed({

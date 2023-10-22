@@ -83,11 +83,7 @@ describe(defineConfig.name, () => {
 				notACorrectKey: true,
 			}) as CompilerConfig
 		const config = defineConfig(configFactory)
-		expect(() =>
-			runSync(config.configFn('./')),
-		).toThrowErrorMatchingInlineSnapshot(
-			'"Invalid EVMts CompilerConfig detected"',
-		)
+		expect(() => runSync(config.configFn('./'))).toThrowErrorMatchingSnapshot()
 	})
 
 	it('should throw error when forge command fails', () => {
@@ -111,11 +107,7 @@ describe(defineConfig.name, () => {
 		})
 		const config = defineConfig(configFactory)
 
-		expect(() =>
-			runSync(config.configFn('./')),
-		).toThrowErrorMatchingInlineSnapshot(
-			'"Unable to resolve foundry config using forge config --json"',
-		)
+		expect(() => runSync(config.configFn('./'))).toThrowErrorMatchingSnapshot()
 	})
 
 	it('should throw error when forge remappings format is incorrect', () => {
@@ -129,11 +121,7 @@ describe(defineConfig.name, () => {
 		})
 		const config = defineConfig(configFactory)
 
-		expect(() =>
-			runSync(config.configFn('./')),
-		).toThrowErrorMatchingInlineSnapshot(
-			'"Invalid remappings: invalid=remapping=format"',
-		)
+		expect(() => runSync(config.configFn('./'))).toThrowErrorMatchingSnapshot()
 	})
 
 	it('should resolve remappings to absolute paths', () => {

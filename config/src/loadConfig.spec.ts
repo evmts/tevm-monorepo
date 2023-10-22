@@ -31,20 +31,18 @@ describe(loadConfig.name, () => {
 	it('should throw an error if tsconfig.json does not exist', () => {
 		expect(() =>
 			runSync(loadConfig('nonexistentpath')),
-		).toThrowErrorMatchingInlineSnapshot(
-			'"Failed to find nonexistentpath/tsconfig.json"',
-		)
+		).toThrowErrorMatchingSnapshot()
 	})
 
 	it('should throw an error when the tsconfig.json is not valid', () => {
 		expect(() =>
 			runSync(loadConfig(join(__dirname, 'fixtures/invalid'))),
-		).toThrowErrorMatchingInlineSnapshot('"Invalid tsconfig.json detected"')
+		).toThrowErrorMatchingSnapshot()
 	})
 
 	it('should throw an error when the tsconfig.json is not valid json', () => {
 		expect(() =>
 			runSync(loadConfig(join(__dirname, 'fixtures/invalidJson'))),
-		).toThrowErrorMatchingInlineSnapshot('"Failed to parse tsconfig.json"')
+		).toThrowErrorMatchingSnapshot()
 	})
 })

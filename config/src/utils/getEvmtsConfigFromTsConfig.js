@@ -1,17 +1,25 @@
 import { validateUserConfig } from './validateUserConfig.js'
 import { fail, map } from 'effect/Effect'
 
+/**
+ * Error type for {@link getEvmtsConfigFromTsConfig}
+ * @internal
+ */
 export class NoPluginFoundError extends Error {
+	/**
+	 * @type {'NoPluginFoundError'}
+	 */
 	_tag = 'NoPluginFoundError'
 }
 
 /**
- * @typedef {NoPluginFoundError} GetEvmtsConfigFromTsConfigError
+ * @typedef {NoPluginFoundError | import("./validateUserConfig.js").ValidateUserConfigError } GetEvmtsConfigFromTsConfigError
  */
 
 /**
  * @param {import("./loadTsConfig.js").TsConfig} tsConfig
- * @returns {import("effect/Effect").Effect<never, NoPluginFoundError, import("../types.js").CompilerConfig>}
+ * @returns {import("effect/Effect").Effect<never, GetEvmtsConfigFromTsConfigError, import("../types.js").CompilerConfig>}
+ * @internal
  */
 export const getEvmtsConfigFromTsConfig = (tsConfig) => {
 	if (!tsConfig.compilerOptions?.plugins?.length) {

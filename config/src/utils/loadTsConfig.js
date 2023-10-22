@@ -14,9 +14,13 @@ import * as path from 'path'
 /**
  * Expected shape of tsconfig.json or jsconfig.json
  * @typedef {{ compilerOptions?: { plugins: ReadonlyArray<{ name: string }>, baseUrl?: string } }} TsConfig
+ * @internal
  */
 
 export class FailedToReadConfigError extends Error {
+	/**
+	 * @type {'FailedToReadConfigError'}
+	 */
 	_tag = 'FailedToReadConfigError'
 	/**
 	 * @param {string} configFilePath
@@ -30,8 +34,12 @@ export class FailedToReadConfigError extends Error {
 
 /**
  * TypeError thrown when the user provided config factory is incorrectly typed
+ * @internal
  */
 export class InvalidTsConfigError extends TypeError {
+	/**
+	 * @type {'InvalidConfigError'}
+	 */
 	_tag = 'InvalidConfigError'
 	/**
 	 * @param {object} [options]
@@ -44,6 +52,7 @@ export class InvalidTsConfigError extends TypeError {
 
 /**
  * schema for tsconfig shape
+ * @internal
  */
 const STsConfig = struct({
 	compilerOptions: struct({
@@ -58,12 +67,14 @@ const STsConfig = struct({
 
 /**
  * @typedef {import("./parseJson.js").ParseJsonError | FailedToReadConfigError | InvalidTsConfigError} LoadTsConfigError
+ * @internal
  */
 
 /**
  * Asyncronously loads an EVMts config from the given path
  * @param {string} configFilePath
  * @returns {import("effect/Effect").Effect<never, LoadTsConfigError, TsConfig>} the contents of the tsconfig.json file
+ * @internal
  */
 export const loadTsConfig = (configFilePath) => {
 	const tsConfigPath = path.join(configFilePath, 'tsconfig.json')

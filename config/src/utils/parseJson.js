@@ -1,7 +1,14 @@
 import { try as tryEffect } from 'effect/Effect'
 import { parse } from 'jsonc-parser'
 
+/**
+ * Error thrown when the tsconfig.json file is not valid json
+ * @internal
+ */
 export class ParseJsonError extends Error {
+	/**
+	 * @type {'ParseJsonError'}
+	 */
 	_tag = 'ParseJsonError'
 	/**
 	 * @param {object} [options]
@@ -21,6 +28,7 @@ export class ParseJsonError extends Error {
  * ```ts
  * const jsonEffect = parseJson('{ "compilerOptions": { "plugins": [{ "name": "@evmts/ts-plugin" }] } }')
  * ````
+ * @internal
  */
 export const parseJson = (jsonStr) => {
 	return tryEffect({

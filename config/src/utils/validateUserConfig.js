@@ -16,8 +16,12 @@ import { flatMap } from 'effect/Effect'
 
 /**
  * Error thrown when the user provided config factory throws
+ * @internal
  */
 export class ConfigFnThrowError extends Error {
+	/**
+	 * @type {'ConfigFnThrowError'}
+	 */
 	_tag = 'ConfigFnThrowError'
 	/**
 	 * @param {object} options
@@ -35,8 +39,12 @@ export class ConfigFnThrowError extends Error {
 }
 /**
  * TypeError thrown when the user provided config factory is incorrectly typed
+ * @internal
  */
 export class InvalidConfigError extends TypeError {
+	/**
+	 * @type {'InvalidConfigError'}
+	 */
 	_tag = 'InvalidConfigError'
 	/**
 	 * @param {object} [options]
@@ -49,10 +57,12 @@ export class InvalidConfigError extends TypeError {
 
 /**
  * @typedef {ConfigFnThrowError | InvalidConfigError} ValidateUserConfigError
+ * @internal
  */
 
 /**
  * schema for the user provided config factory
+ * @internal
  */
 const SCompilerConfig = struct({
 	name: optional(union(literal('@evmts/ts-plugin'), SUndefined)),
@@ -67,6 +77,7 @@ const SCompilerConfig = struct({
  * @returns {import('effect/Effect').Effect<never, ValidateUserConfigError, import("../types.js").CompilerConfig>}
  * @throws {ConfigFnThrowError} when the user provided config factory throws
  * @throws {InvalidConfigError} when the user provided config factory is incorrectly typed
+ * @internal
  */
 export const validateUserConfig = (untrustedConfigFactory) => {
 	return pipe(

@@ -1,11 +1,34 @@
 import { loadFoundryConfig } from './utils/loadFoundryConfig.js'
 import { mergeConfigs } from './utils/mergeConfigs.js'
+import { tapLogAllErrors } from './utils/tapLogAllErrors.js'
 import { validateUserConfig } from './utils/validateUserConfig.js'
 import { withDefaults } from './utils/withDefaults.js'
-import { all, flatMap } from 'effect/Effect'
+import { all, catchAll, fail, flatMap, logDebug, tap } from 'effect/Effect'
 
 /**
- * Used in evmts.config.ts to create a config
+ * Error class for {@link defineConfig}
+ */
+export class DefineConfigError extends Error {
+	/**
+	 * @type {import("./types.js").DefineConfigErrorType['_tag']}
+	 **/
+	_tag
+	/**
+	 * @param {string} configFilePath
+	 * @param {import("./types.js").DefineConfigErrorType} underlyingError
+	 **/
+	constructor(configFilePath, underlyingError) {
+		super(
+			`${underlyingError._tag}: Unable to resolve EVMts CompilerConfig at ${configFilePath}
+${underlyingError.message}`,
+			{ cause: underlyingError.cause },
+		)
+		this._tag = underlyingError._tag
+	}
+}
+
+/**
+ * Typesafe way to create an EVMts CompilerConfig
  * @type {import("./types.js").DefineConfig}
  * @example
  * ```ts
@@ -24,9 +47,13 @@ export const defineConfig = (configFactory) => ({
 		const foundryConfig = flatMap(config, ({ foundryProject }) =>
 			loadFoundryConfig(foundryProject, configFilePath),
 		)
-		return all([config, foundryConfig]).pipe(
+		return logDebug(`defineConfig: ${JSON.stringify({ configFilePath })}`).pipe(
+			flatMap(() => all([config, foundryConfig])),
 			flatMap(mergeConfigs),
 			flatMap(withDefaults),
+			tap((config) => logDebug(`defineConfig: ${JSON.stringify({ config })}`)),
+			tapLogAllErrors(),
+			catchAll((e) => fail(new DefineConfigError(configFilePath, e))),
 		)
 	},
 })

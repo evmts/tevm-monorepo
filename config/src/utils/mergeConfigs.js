@@ -13,6 +13,7 @@ import { succeed } from 'effect/Effect'
  * const foundryConfig = { remappings: { key2: 'value2' }, libs: ['lib2', 'lib1'], foundryProject: 'forge' };
  * const mergedConfig = runSync(mergeConfigs([userConfig, foundryConfig]));
  * ````
+ * @internal
  */
 export const mergeConfigs = (configs) =>
 	succeed({
