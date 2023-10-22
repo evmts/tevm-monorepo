@@ -25,7 +25,7 @@ describe(parseJson.name, () => {
 	})
 	it(`it should throw a ${ParseJsonError.name} if the json is invalid`, () => {
 		const json = `{
-"foo": "bar",
+"foo"::'} "bar",
 `
 		expect(() => runSync(parseJson(json))).toThrowError(new ParseJsonError())
 	})

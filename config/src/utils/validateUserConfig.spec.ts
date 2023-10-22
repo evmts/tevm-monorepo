@@ -38,6 +38,7 @@ describe(validateUserConfig.name, () => {
 			{},
 		]
 		validConfigs.forEach((config) => {
+			console.log(config)
 			expect(runSync(validateUserConfig(() => config))).toEqual(config)
 		})
 	})
@@ -62,13 +63,30 @@ describe(validateUserConfig.name, () => {
 		})
 	})
 
-	it(`should throw an ${ConfigFnThrowError.name} if confirg factory throws`, () => {
+	it(`should throw an ${ConfigFnThrowError.name} if config factory throws`, () => {
+		const errStr = 'ooops'
 		expect(() =>
 			runSync(
 				validateUserConfig(() => {
-					throw new Error('foo')
+					throw errStr
 				}),
 			),
-		).toThrowError(new ConfigFnThrowError())
+		).toThrowError(new ConfigFnThrowError({ cause: errStr }))
+		const err = new Error(errStr)
+		expect(() =>
+			runSync(
+				validateUserConfig(() => {
+					throw err
+				}),
+			),
+		).toThrowError(new ConfigFnThrowError({ cause: err }))
+		const wierdError = {}
+		expect(() =>
+			runSync(
+				validateUserConfig(() => {
+					throw wierdError
+				}),
+			),
+		).toThrowError(new ConfigFnThrowError({ cause: '' }))
 	})
 })

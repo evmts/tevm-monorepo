@@ -24,7 +24,18 @@ export class ParseJsonError extends Error {
  */
 export const parseJson = (jsonStr) => {
 	return tryEffect({
-		try: () => parse(jsonStr),
+		try: () => {
+			const errors = /** @type {import("jsonc-parser").ParseError[]}*/ ([])
+			const res = parse(jsonStr, errors, {
+				disallowComments: false,
+				allowTrailingComma: true,
+				allowEmptyContent: false,
+			})
+			if (errors.length > 0) {
+				throw new AggregateError(errors)
+			}
+			return res
+		},
 		catch: (cause) => new ParseJsonError({ cause }),
 	})
 }

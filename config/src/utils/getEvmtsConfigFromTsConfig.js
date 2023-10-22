@@ -29,11 +29,7 @@ export const getEvmtsConfigFromTsConfig = (tsConfig) => {
 			)
 		)
 	if (!plugin) {
-		return fail(
-			new NoPluginFoundError(
-				'No plugin with name @evmts/ts-plugin found in tsconfig.compilerOptions.plugins',
-			),
-		)
+		return fail(new NoPluginFoundError())
 	}
 	const configEffect = validateUserConfig(() => plugin)
 	if (tsConfig.compilerOptions.baseUrl) {

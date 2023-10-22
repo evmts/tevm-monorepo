@@ -1,0 +1,7 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`defineConfig > should throw error when forge command fails 1`] = `
+"Failed to resolve forge config using \\"forge config --json\\" command. Make sure forge is installed and accessible and forge config --json works.
+note: forge is used to fetch remappings only if forgeConfig is set. If you would prefer to not use forge you can set remappings
+or lib directly in your EVMts compiler config and then EVMts will run without forge"
+`;

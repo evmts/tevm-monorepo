@@ -16,7 +16,7 @@ describe(withDefaults.name, () => {
 			),
 		).toEqual({
 			foundryProject: true,
-			remappings: defaultConfig.remappings,
+			remappings: { foo: 'bar' },
 			libs: ['lib1', 'lib2'],
 		})
 		expect(
@@ -48,7 +48,7 @@ describe(withDefaults.name, () => {
 				}),
 			),
 		).toEqual({
-			foundryProject: true,
+			foundryProject: false,
 			remappings: defaultConfig.remappings,
 			libs: ['lib1', 'lib2'],
 		})

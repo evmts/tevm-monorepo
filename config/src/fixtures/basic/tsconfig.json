@@ -5,7 +5,8 @@
     "outDir": "types",
     "skipLibCheck": true,
     "plugins": [{
-      "name": "@evmts/ts-plugin"
+      "name": "@evmts/ts-plugin",
+      "libs": ["mylib"]
     }]
   },
   "include": [

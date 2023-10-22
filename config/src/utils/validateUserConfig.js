@@ -7,6 +7,7 @@ import {
 	record,
 	string,
 	struct,
+	undefined as SUndefined,
 	union,
 } from '@effect/schema/Schema'
 import { Effect, pipe } from 'effect'
@@ -18,6 +19,19 @@ import { flatMap } from 'effect/Effect'
  */
 export class ConfigFnThrowError extends Error {
 	_tag = 'ConfigFnThrowError'
+	/**
+	 * @param {object} options
+	 * @param {unknown} options.cause
+	 */
+	constructor(options) {
+		const message =
+			typeof options.cause === 'string'
+				? options.cause
+				: options.cause instanceof Error
+				? options.cause.message
+				: ''
+		super(`Provided config factory threw an error: ${message}`, options)
+	}
 }
 /**
  * TypeError thrown when the user provided config factory is incorrectly typed
@@ -41,10 +55,10 @@ export class InvalidConfigError extends TypeError {
  * schema for the user provided config factory
  */
 const SCompilerConfig = struct({
-	name: optional(literal('@evmts/ts-plugin')),
-	foundryProject: optional(union(boolean, string)),
-	libs: optional(array(string)),
-	remappings: optional(record(string, string)),
+	name: optional(union(literal('@evmts/ts-plugin'), SUndefined)),
+	foundryProject: optional(union(boolean, string, SUndefined)),
+	libs: optional(union(array(string), SUndefined)),
+	remappings: optional(union(record(string, string), SUndefined)),
 })
 
 /**
@@ -59,7 +73,7 @@ export const validateUserConfig = (untrustedConfigFactory) => {
 		Effect.try({
 			try: untrustedConfigFactory,
 			catch: (cause) =>
-				new ConfigFnThrowError('Provided config factory threw an error', {
+				new ConfigFnThrowError({
 					cause,
 				}),
 		}),

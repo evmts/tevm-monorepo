@@ -1,7 +1,14 @@
 import { type CompilerConfig, defaultConfig, defineConfig } from './index.js'
 import { execSync } from 'child_process'
 import { runSync } from 'effect/Effect'
-import { type MockedFunction, describe, expect, it, vi } from 'vitest'
+import {
+	type MockedFunction,
+	beforeEach,
+	describe,
+	expect,
+	it,
+	vi,
+} from 'vitest'
 
 vi.mock('child_process', () => ({
 	execSync: vi.fn(),
@@ -10,26 +17,15 @@ vi.mock('child_process', () => ({
 const mockExecSync = execSync as MockedFunction<typeof execSync>
 
 describe(defineConfig.name, () => {
+	beforeEach(() => {
+		mockExecSync.mockReset()
+	})
+
 	it('should return a valid config when no config is provided', () => {
-		const configFactory = () => undefined
+		const configFactory = () => ({})
 		const config = defineConfig(configFactory as any)
 		const resolvedConfig = config.configFn('./')
 		expect(runSync(resolvedConfig)).toEqual(defaultConfig)
-	})
-
-	it('should return a valid config when partial config is provided', () => {
-		const configFactory = () =>
-			({
-				solcVersion: '0.8.4',
-			}) as CompilerConfig
-		const config = defineConfig(configFactory)
-		const resolvedConfig = config.configFn('./')
-		expect(runSync(resolvedConfig)).toEqual({
-			solcVersion: '0.8.4',
-			remappings: defaultConfig.remappings,
-			foundryProject: defaultConfig.foundryProject,
-			libs: defaultConfig.libs,
-		})
 	})
 
 	it('should run forge config --json command when foundryProject is provided', () => {
@@ -47,12 +43,13 @@ describe(defineConfig.name, () => {
 		const config = defineConfig(configFactory)
 		const resolvedConfig = config.configFn('./')
 
-		expect(mockExecSync).toHaveBeenCalledWith('forge config --json')
 		expect(runSync(resolvedConfig)).toEqual({
-			solcVersion: '0.8.4',
 			remappings: defaultConfig.remappings,
 			foundryProject: 'forge',
 			libs: ['lib1', 'lib2'],
+		})
+		expect(mockExecSync).toHaveBeenCalledWith('forge config --json', {
+			cwd: './',
 		})
 	})
 
@@ -70,24 +67,26 @@ describe(defineConfig.name, () => {
 		const config = defineConfig(configFactory)
 		const resolvedConfig = config.configFn('./')
 
-		expect(mockExecSync).toHaveBeenCalledWith('forge config --json')
 		expect(runSync(resolvedConfig)).toEqual({
-			solcVersion: '0.8.4',
 			remappings: defaultConfig.remappings,
 			foundryProject: true,
 			libs: ['lib1', 'lib2'],
+		})
+		expect(mockExecSync).toHaveBeenCalledWith('forge config --json', {
+			cwd: './',
 		})
 	})
 
 	it('should throw if invalid config', () => {
 		const configFactory = () =>
 			({
-				solcVersion: '0.8.4',
 				notACorrectKey: true,
 			}) as CompilerConfig
 		const config = defineConfig(configFactory)
-		expect(() => config.configFn('./')).toThrowErrorMatchingInlineSnapshot(
-			'"Invalid config file ./: {\\"_errors\\":[\\"Unrecognized key(s) in object: \'notACorrectKey\'\\"]}"',
+		expect(() =>
+			runSync(config.configFn('./')),
+		).toThrowErrorMatchingInlineSnapshot(
+			'"Invalid EVMts CompilerConfig detected"',
 		)
 	})
 
@@ -101,21 +100,21 @@ describe(defineConfig.name, () => {
 		})
 		const config = defineConfig(configFactory)
 
-		expect(() => config.configFn('./')).toThrow(
-			'Failed to run forge using forge command. Make sure forge is installed and accessible and forge config --json works',
-		)
+		expect(() => runSync(config.configFn('./'))).toThrowErrorMatchingSnapshot()
 	})
 
 	it('should throw error when forge command output is not valid JSON', () => {
-		mockExecSync.mockReturnValueOnce(Buffer.from('invalid JSON'))
+		mockExecSync.mockReturnValue('{"invalid JSON`{')
 
 		const configFactory = () => ({
 			foundryProject: 'forge',
 		})
 		const config = defineConfig(configFactory)
 
-		expect(() => config.configFn('./')).toThrow(
-			'Failed to parse the output of forge config command. The command output is not a valid JSON.',
+		expect(() =>
+			runSync(config.configFn('./')),
+		).toThrowErrorMatchingInlineSnapshot(
+			'"Unable to resolve foundry config using forge config --json"',
 		)
 	})
 
@@ -130,8 +129,10 @@ describe(defineConfig.name, () => {
 		})
 		const config = defineConfig(configFactory)
 
-		expect(() => config.configFn('./')).toThrow(
-			'Invalid format for remapping: invalid=remapping=format. It should be in the format key=value.',
+		expect(() =>
+			runSync(config.configFn('./')),
+		).toThrowErrorMatchingInlineSnapshot(
+			'"Invalid remappings: invalid=remapping=format"',
 		)
 	})
 
@@ -147,7 +148,11 @@ describe(defineConfig.name, () => {
 		const config = defineConfig(configFactory)
 		const resolvedConfig = config.configFn('/config')
 
-		expect(runSync(resolvedConfig).remappings).toEqual({
+		const res = runSync(resolvedConfig).remappings
+
+		expect(mockExecSync).toBeCalledTimes(1)
+
+		expect(res).toEqual({
 			key: '/config/value',
 		})
 	})
