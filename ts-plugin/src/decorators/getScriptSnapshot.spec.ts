@@ -2,6 +2,7 @@ import { Logger } from '../factories/logger.js'
 import { getScriptSnapshotDecorator } from './getScriptSnapshot.js'
 import { FileAccessObject } from '@evmts/bundler'
 import { CompilerConfig, defaultConfig, defineConfig } from '@evmts/config'
+import { runSync } from 'effect/Effect'
 import { existsSync, readFileSync } from 'fs'
 import { readFile } from 'fs/promises'
 import path from 'path'
@@ -14,9 +15,8 @@ const { remappings, ...compilerOptions } = defaultConfig
 const mockConfig: CompilerConfig = {
 	...defaultConfig,
 	...compilerOptions,
-	solcVersion: '0.8.0',
 }
-const config = defineConfig(() => mockConfig).configFn('.')
+const config = runSync(defineConfig(() => mockConfig).configFn('.'))
 
 const fao: FileAccessObject = {
 	readFile,

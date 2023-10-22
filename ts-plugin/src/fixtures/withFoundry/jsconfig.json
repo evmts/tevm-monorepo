@@ -1,0 +1,17 @@
+{
+  "extends": "@evmts/tsconfig/base.json",
+  "compilerOptions": {
+    "composite": true,
+    "outDir": "types",
+    "skipLibCheck": true,
+    "plugins": [{
+      "name": "@evmts/ts-plugin",
+      // should load the remappings
+      "foundryProject": true
+    }]
+  },
+  "include": [
+    "src",
+    "src/**/*.json"
+  ]
+}

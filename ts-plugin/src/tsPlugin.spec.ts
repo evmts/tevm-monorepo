@@ -20,7 +20,7 @@ const createInfo: typescript.server.PluginCreateInfo = {
 	getDefinitionAtPosition: vi.fn(),
 	getDefinitionAndBoundSpan: vi.fn(),
 	project: {
-		getCurrentDirectory: () => path.join(__dirname, '..'),
+		getCurrentDirectory: () => path.join(__dirname, 'fixtures', 'basic'),
 		getCompilerOptions: () => ({ baseUrl: 'foo' }),
 		projectService: {
 			logger: {

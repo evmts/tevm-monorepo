@@ -9,6 +9,7 @@ import { createLogger, decorateHost } from './factories/index.js'
 import { isSolidity } from './utils/index.js'
 import { createCache } from '@evmts/bundler'
 import { loadConfig } from '@evmts/config'
+import { runSync } from 'effect/Effect'
 import typescript from 'typescript/lib/tsserverlibrary.js'
 
 /**
@@ -26,9 +27,8 @@ export const tsPlugin: typescript.server.PluginModuleFactory = (modules) => {
 			const logger = createLogger(createInfo)
 			const snapshotSolcCache = createCache(logger)
 			const definitionSolcCache = createCache(logger)
-			const config = loadConfig(
-				createInfo.project.getCurrentDirectory(),
-				logger,
+			const config = runSync(
+				loadConfig(createInfo.project.getCurrentDirectory()),
 			)
 			const fao = createFileAccessObject(createInfo.languageServiceHost)
 			const service = getDefinitionServiceDecorator(
