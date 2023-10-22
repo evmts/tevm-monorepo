@@ -37,7 +37,7 @@ When resolved with defaults it is a [ResolvedCompilerConfig](/reference/config/m
 
 #### Defined in
 
-[types.ts:10](https://github.com/evmts/evmts-monorepo/blob/main/config/src/types.ts#L10)
+[types.ts:11](https://github.com/evmts/evmts-monorepo/blob/main/config/src/types.ts#L11)
 
 ___
 
@@ -58,7 +58,7 @@ See [CompilerConfig](/reference/config/modules.md#compilerconfig)
 
 #### Defined in
 
-[types.ts:36](https://github.com/evmts/evmts-monorepo/blob/main/config/src/types.ts#L36)
+[types.ts:37](https://github.com/evmts/evmts-monorepo/blob/main/config/src/types.ts#L37)
 
 ## Variables
 
@@ -100,7 +100,7 @@ Typesafe way to create an EVMts CompilerConfig
 
 | Name | Type |
 | :------ | :------ |
-| `configFn` | (`configFilePath`: `string`) => `Effect`<`never`, `DefineConfigErrorType`, [`ResolvedCompilerConfig`](/reference/config/modules.md#resolvedcompilerconfig)\> |
+| `configFn` | (`configFilePath`: `string`) => `Effect`<`never`, `DefineConfigError`, [`ResolvedCompilerConfig`](/reference/config/modules.md#resolvedcompilerconfig)\> |
 
 **`Example`**
 
@@ -116,7 +116,7 @@ export default defineConfig(() => ({
 
 #### Defined in
 
-[types.ts:67](https://github.com/evmts/evmts-monorepo/blob/main/config/src/types.ts#L67)
+[types.ts:68](https://github.com/evmts/evmts-monorepo/blob/main/config/src/types.ts#L68)
 
 ___
 
@@ -149,4 +149,4 @@ runPromise(loadConfig('./tsconfig.json')).pipe(
 
 #### Defined in
 
-[loadConfig.js:49](https://github.com/evmts/evmts-monorepo/blob/main/config/src/loadConfig.js#L49)
+[loadConfig.js:63](https://github.com/evmts/evmts-monorepo/blob/main/config/src/loadConfig.js#L63)

@@ -1,5 +1,5 @@
 import { validateUserConfig } from './validateUserConfig.js'
-import { fail, map } from 'effect/Effect'
+import { fail, logDebug, map, tap } from 'effect/Effect'
 
 /**
  * Error type for {@link getEvmtsConfigFromTsConfig}
@@ -47,5 +47,9 @@ export const getEvmtsConfigFromTsConfig = (tsConfig) => {
 			libs: [...new Set([baseUrl, ...(config.libs ?? [])])],
 		}))
 	}
-	return configEffect
+	return tap(configEffect, (config) => {
+		return logDebug(`getting config from tsconfig: 
+  tsconfig: ${JSON.stringify(config)}
+  result: ${JSON.stringify(config)}`)
+	})
 }

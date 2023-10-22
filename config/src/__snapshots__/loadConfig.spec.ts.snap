@@ -4,13 +4,3 @@ exports[`loadConfig > should throw an error if tsconfig.json does not exist 1`] 
 "FailedToReadConfigError: Unable load config from nonexistentpath
 Failed to find nonexistentpath/tsconfig.json"
 `;
-
-exports[`loadConfig > should throw an error when the tsconfig.json is not valid 1`] = `
-"InvalidConfigError: Unable load config from /Users/willcory/evmts-monorepo/config/src/fixtures/invalid
-Invalid tsconfig.json detected"
-`;
-
-exports[`loadConfig > should throw an error when the tsconfig.json is not valid json 1`] = `
-"ParseJsonError: Unable load config from /Users/willcory/evmts-monorepo/config/src/fixtures/invalidJson
-Failed to parse tsconfig.json"
-`;

@@ -1,4 +1,4 @@
-import { succeed } from 'effect/Effect'
+import { logDebug, succeed, tap } from 'effect/Effect'
 
 /**
  * The default CompilerConfig
@@ -28,4 +28,13 @@ export const withDefaults = (config) =>
 			...config.remappings,
 		},
 		libs: [...defaultConfig.libs, ...(config.libs ?? [])],
-	})
+	}).pipe(
+		tap((configWithDefaults) =>
+			logDebug(
+				`withDefaults: resolved config: ${JSON.stringify({
+					originalConfig: config,
+					configWithDefaults,
+				})}`,
+			),
+		),
+	)

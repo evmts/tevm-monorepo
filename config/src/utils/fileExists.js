@@ -1,4 +1,4 @@
-import { promise } from 'effect/Effect'
+import { flatMap, logDebug, promise, tap } from 'effect/Effect'
 import { constants } from 'fs'
 import { access } from 'fs/promises'
 
@@ -14,9 +14,14 @@ import { access } from 'fs/promises'
  * @internal
  */
 export const fileExists = (path) => {
-	return promise(() =>
-		access(path, constants.F_OK)
-			.then(() => true)
-			.catch(() => false),
+	return logDebug(`fileExists: Checking if file exists at path: ${path}`).pipe(
+		flatMap(() =>
+			promise(() =>
+				access(path, constants.F_OK)
+					.then(() => true)
+					.catch(() => false),
+			),
+		),
+		tap((exists) => logDebug(`fileExists: ${path}: ${exists}`)),
 	)
 }

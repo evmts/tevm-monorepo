@@ -1,5 +1,5 @@
 import { execSync } from 'child_process'
-import { fail, succeed } from 'effect/Effect'
+import { fail, logDebug, succeed, tap } from 'effect/Effect'
 import * as path from 'path'
 
 /**
@@ -81,7 +81,9 @@ export class InvalidRemappingsError extends Error {
  */
 export const loadFoundryConfig = (foundryProject, configFilePath) => {
 	if (!foundryProject) {
-		return succeed({})
+		return tap(succeed({}), () =>
+			logDebug('loadFoundryConfig: skipping because foundryProject is not set'),
+		)
 	}
 
 	const forgeCommand =
@@ -119,8 +121,17 @@ export const loadFoundryConfig = (foundryProject, configFilePath) => {
 		}
 	}
 
-	return succeed({
-		libs: forgeConfig?.libs,
-		remappings: remappings,
-	})
+	return tap(
+		succeed({
+			libs: forgeConfig?.libs,
+			remappings: remappings,
+		}),
+		(config) => {
+			return logDebug(
+				`loadFoundryConfig: foundryProject is set, loading foundry config as an EVMts CompilerConfig: ${JSON.stringify(
+					config,
+				)}`,
+			)
+		},
+	)
 }

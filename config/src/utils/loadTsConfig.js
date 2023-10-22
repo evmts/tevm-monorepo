@@ -7,7 +7,7 @@ import {
 	struct,
 } from '@effect/schema/Schema'
 import { Effect } from 'effect'
-import { catchTag, fail, flatMap } from 'effect/Effect'
+import { catchTag, fail, flatMap, logDebug, tap } from 'effect/Effect'
 import { existsSync, readFileSync } from 'fs'
 import * as path from 'path'
 
@@ -96,6 +96,11 @@ export const loadTsConfig = (configFilePath) => {
 		),
 		catchTag('ParseError', (cause) =>
 			fail(new InvalidTsConfigError({ cause })),
+		),
+		tap((tsConfig) =>
+			logDebug(
+				`loading tsconfig from ${configFilePath}: ${JSON.stringify(tsConfig)}`,
+			),
 		),
 	)
 }

@@ -1,10 +1,18 @@
 import { getEvmtsConfigFromTsConfig } from './utils/getEvmtsConfigFromTsConfig.js'
 import { loadFoundryConfig } from './utils/loadFoundryConfig.js'
 import { loadTsConfig } from './utils/loadTsConfig.js'
+import { logAllErrors } from './utils/logAllErrors.js'
 import { mergeConfigs } from './utils/mergeConfigs.js'
-import { tapLogAllErrors } from './utils/tapLogAllErrors.js'
 import { withDefaults } from './utils/withDefaults.js'
-import { all, catchAll, fail, flatMap } from 'effect/Effect'
+import {
+	all,
+	catchTags,
+	fail,
+	flatMap,
+	logDebug,
+	tap,
+	tapError,
+} from 'effect/Effect'
 
 /**
  * @typedef {import("./utils/loadTsConfig.js").LoadTsConfigError | import("./utils/getEvmtsConfigFromTsConfig.js").GetEvmtsConfigFromTsConfigError | import("./utils/loadFoundryConfig.js").LoadFoundryConfigError} LoadConfigErrorType
@@ -14,6 +22,11 @@ import { all, catchAll, fail, flatMap } from 'effect/Effect'
  * Error class for {@link defineConfig}
  */
 export class LoadConfigError extends Error {
+	/**
+	 * @type {LoadConfigError['_tag']}
+	 * @override
+	 */
+	name
 	/**
 	 * @type {LoadConfigErrorType['_tag']}
 	 **/
@@ -29,6 +42,7 @@ ${underlyingError.message}`,
 			{ cause: underlyingError.cause },
 		)
 		this._tag = underlyingError._tag
+		this.name = underlyingError._tag
 	}
 }
 
@@ -47,16 +61,53 @@ ${underlyingError.message}`,
  * ```
  */
 export const loadConfig = (configFilePath) => {
-	const userConfigEffect = loadTsConfig(configFilePath).pipe(
+	const userConfigEffect = logDebug(
+		`loadConfig: loading tsConfig at ${JSON.stringify(configFilePath)}`,
+	).pipe(
+		flatMap(() => loadTsConfig(configFilePath)),
 		flatMap(getEvmtsConfigFromTsConfig),
 	)
 	const foundryConfigEffect = flatMap(userConfigEffect, (userConfig) => {
 		return loadFoundryConfig(userConfig.foundryProject, configFilePath)
 	})
+	/**
+	 * @param {LoadConfigErrorType} error
+	 * @returns {import("effect/Effect").Effect<never, LoadConfigError, never>}
+	 */
+	const handleError = (error) => {
+		return fail(new LoadConfigError(configFilePath, error))
+	}
 	return all([userConfigEffect, foundryConfigEffect]).pipe(
+		tap(([userConfig, foundryConfig]) =>
+			logDebug(
+				`loadConfig: Config read CompilerConfigs ${JSON.stringify({
+					userConfig,
+					foundryConfig,
+				})}`,
+			),
+		),
 		flatMap(mergeConfigs),
+		tap((mergedConfigs) =>
+			logDebug(
+				`defineConfig: Config read CompilerConfigs ${JSON.stringify({
+					mergedConfigs,
+				})}`,
+			),
+		),
 		flatMap(withDefaults),
-		tapLogAllErrors(),
-		catchAll((e) => fail(new LoadConfigError(configFilePath, e))),
+		tapError(logAllErrors),
+		catchTags({
+			ConfigFnThrowError: handleError,
+			FailedToReadConfigError: handleError,
+			FoundryConfigError: handleError,
+			FoundryNotFoundError: handleError,
+			InvalidConfigError: handleError,
+			InvalidRemappingsError: handleError,
+			NoPluginFoundError: handleError,
+			ParseJsonError: handleError,
+		}),
+		tap((config) =>
+			logDebug(`loadConfig: Config loaded ${JSON.stringify({ config })}`),
+		),
 	)
 }

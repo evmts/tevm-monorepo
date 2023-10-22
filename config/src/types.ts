@@ -1,3 +1,4 @@
+import type { DefineConfigError } from './defineConfig.js'
 import type { LoadFoundryConfigError } from './utils/loadFoundryConfig.js'
 import type { ValidateUserConfigError } from './utils/validateUserConfig.js'
 import type { Effect } from 'effect/Effect'
@@ -67,5 +68,5 @@ export type DefineConfigErrorType =
 export type DefineConfig = (configFactory: ConfigFactory) => {
 	configFn: (
 		configFilePath: string,
-	) => Effect<never, DefineConfigErrorType, ResolvedCompilerConfig>
+	) => Effect<never, DefineConfigError, ResolvedCompilerConfig>
 }

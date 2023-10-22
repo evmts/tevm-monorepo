@@ -1,6 +1,7 @@
+import { DefineConfigError } from './defineConfig.js'
 import { type CompilerConfig, defaultConfig, defineConfig } from './index.js'
 import { execSync } from 'child_process'
-import { runSync } from 'effect/Effect'
+import { flip, runSync } from 'effect/Effect'
 import {
 	type MockedFunction,
 	beforeEach,
@@ -77,53 +78,6 @@ describe(defineConfig.name, () => {
 		})
 	})
 
-	it('should throw if invalid config', () => {
-		const configFactory = () =>
-			({
-				notACorrectKey: true,
-			}) as CompilerConfig
-		const config = defineConfig(configFactory)
-		expect(() => runSync(config.configFn('./'))).toThrowErrorMatchingSnapshot()
-	})
-
-	it('should throw error when forge command fails', () => {
-		mockExecSync.mockImplementationOnce(() => {
-			throw new Error()
-		})
-
-		const configFactory = () => ({
-			foundryProject: 'forge',
-		})
-		const config = defineConfig(configFactory)
-
-		expect(() => runSync(config.configFn('./'))).toThrowErrorMatchingSnapshot()
-	})
-
-	it('should throw error when forge command output is not valid JSON', () => {
-		mockExecSync.mockReturnValue('{"invalid JSON`{')
-
-		const configFactory = () => ({
-			foundryProject: 'forge',
-		})
-		const config = defineConfig(configFactory)
-
-		expect(() => runSync(config.configFn('./'))).toThrowErrorMatchingSnapshot()
-	})
-
-	it('should throw error when forge remappings format is incorrect', () => {
-		const forgeCommandOutput = JSON.stringify({
-			remappings: ['invalid=remapping=format'],
-		})
-		mockExecSync.mockReturnValueOnce(Buffer.from(forgeCommandOutput))
-
-		const configFactory = () => ({
-			foundryProject: 'forge',
-		})
-		const config = defineConfig(configFactory)
-
-		expect(() => runSync(config.configFn('./'))).toThrowErrorMatchingSnapshot()
-	})
-
 	it('should resolve remappings to absolute paths', () => {
 		const forgeCommandOutput = JSON.stringify({
 			remappings: ['key=value'],
@@ -143,5 +97,86 @@ describe(defineConfig.name, () => {
 		expect(res).toEqual({
 			key: '/config/value',
 		})
+	})
+
+	it('should throw InvalidConfigError if invalid config', () => {
+		const configFactory = () =>
+			({
+				notACorrectKey: true,
+			}) as CompilerConfig
+		const config = defineConfig(configFactory)
+		const configEffect = config.configFn('./')
+		const errorChannel = flip(configEffect)
+		const e = runSync(errorChannel)
+		expect(e).toBeInstanceOf(DefineConfigError)
+		expect(e._tag).toBe('InvalidConfigError')
+		expect(e.name).toBe('InvalidConfigError')
+		expect(e.message).toMatchInlineSnapshot(`
+			"InvalidConfigError: Unable to resolve EVMts CompilerConfig at ./
+			Invalid EVMts CompilerConfig detected"
+		`)
+	})
+
+	it('should throw FoundryNotFoundError when forge command fails', () => {
+		mockExecSync.mockImplementationOnce(() => {
+			throw new Error()
+		})
+
+		const configFactory = () => ({
+			foundryProject: 'forge',
+		})
+		const config = defineConfig(configFactory)
+		const configEffect = config.configFn('./')
+		const errorChannel = flip(configEffect)
+		const e = runSync(errorChannel)
+		expect(e).toBeInstanceOf(DefineConfigError)
+		expect(e._tag).toBe('FoundryNotFoundError')
+		expect(e.name).toBe('FoundryNotFoundError')
+		expect(e.message).toMatchInlineSnapshot(`
+			"FoundryNotFoundError: Unable to resolve EVMts CompilerConfig at ./
+			Failed to resolve forge config using \\"forge config --json\\" command. Make sure forge is installed and accessible and forge config --json works.
+			note: forge is used to fetch remappings only if forgeConfig is set. If you would prefer to not use forge you can set remappings
+			or lib directly in your EVMts compiler config and then EVMts will run without forge"
+		`)
+	})
+
+	it('should throw FoundryConfigError when forge command output is not valid JSON', () => {
+		mockExecSync.mockReturnValue('{"invalid JSON`{')
+		const configFactory = () => ({
+			foundryProject: 'forge',
+		})
+		const config = defineConfig(configFactory)
+		const configEffect = config.configFn('./')
+		const errorChannel = flip(configEffect)
+		const e = runSync(errorChannel)
+		expect(e).toBeInstanceOf(DefineConfigError)
+		expect(e._tag).toBe('FoundryConfigError')
+		expect(e.name).toBe('FoundryConfigError')
+		expect(e.message).toMatchInlineSnapshot(`
+			"FoundryConfigError: Unable to resolve EVMts CompilerConfig at ./
+			Unable to resolve foundry config using forge config --json"
+		`)
+	})
+
+	it('should throw InvalidRemappingsError when forge remappings format is incorrect', () => {
+		const forgeCommandOutput = JSON.stringify({
+			remappings: ['invalid=remapping=format'],
+		})
+		mockExecSync.mockReturnValueOnce(Buffer.from(forgeCommandOutput))
+
+		const configFactory = () => ({
+			foundryProject: 'forge',
+		})
+		const config = defineConfig(configFactory)
+		const configEffect = config.configFn('./')
+		const errorChannel = flip(configEffect)
+		const e = runSync(errorChannel)
+		expect(e).toBeInstanceOf(DefineConfigError)
+		expect(e._tag).toBe('InvalidRemappingsError')
+		expect(e.name).toBe('InvalidRemappingsError')
+		expect(e.message).toMatchInlineSnapshot(`
+			"InvalidRemappingsError: Unable to resolve EVMts CompilerConfig at ./
+			Invalid remappings: invalid=remapping=format"
+		`)
 	})
 })

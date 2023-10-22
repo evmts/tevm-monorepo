@@ -11,7 +11,7 @@ import {
 	union,
 } from '@effect/schema/Schema'
 import { Effect, pipe } from 'effect'
-import { catchTag, fail } from 'effect/Effect'
+import { catchTag, fail, logDebug, tap } from 'effect/Effect'
 import { flatMap } from 'effect/Effect'
 
 /**
@@ -95,5 +95,12 @@ export const validateUserConfig = (untrustedConfigFactory) => {
 			}),
 		),
 		catchTag('ParseError', (cause) => fail(new InvalidConfigError({ cause }))),
+		tap((validatedConfig) =>
+			logDebug(
+				`validatedConfig: Validated config successfully: ${JSON.stringify(
+					validatedConfig,
+				)}`,
+			),
+		),
 	)
 }
