@@ -29,7 +29,22 @@ export type CompilerConfig = {
  */
 export type ConfigFactory = () => CompilerConfig
 
-export type ResolvedCompilerConfig = Required<CompilerConfig>
+export type ResolvedCompilerConfig = {
+	/**
+	 * If set to true it will resolve forge remappings and libs
+	 * Set to "path/to/forge/executable" to use a custom forge executable
+	 */
+	foundryProject: boolean | string
+	/**
+	 * Sets directories to search for solidity imports in
+	 * Read autoamtically for forge projects if forge: true
+	 */
+	libs: readonly string[]
+	/**
+	 * Remap the location of contracts
+	 */
+	remappings: ReadonlyRecord<string>
+}
 
 export type DefineConfig = (configFactory: ConfigFactory) => {
 	configFn: (
