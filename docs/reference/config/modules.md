@@ -17,7 +17,6 @@
 
 - [defineConfig](/reference/config/modules.md#defineconfig)
 - [loadConfig](/reference/config/modules.md#loadconfig)
-- [mergeConfigs](/reference/config/modules.md#mergeconfigs)
 
 ## Type Aliases
 
@@ -26,6 +25,7 @@
 Ƭ **CompilerConfig**: `Object`
 
 Configuration of the solidity compiler
+When resolved with defaults it is a [ResolvedCompilerConfig](/reference/config/modules.md#resolvedcompilerconfig)
 
 #### Type declaration
 
@@ -45,6 +45,9 @@ ___
 
 Ƭ **ResolvedCompilerConfig**: `Object`
 
+A fully resolved compiler config with defaults filled in
+See [CompilerConfig](/reference/config/modules.md#compilerconfig)
+
 #### Type declaration
 
 | Name | Type | Description |
@@ -55,7 +58,7 @@ ___
 
 #### Defined in
 
-[types.ts:32](https://github.com/evmts/evmts-monorepo/blob/main/config/src/types.ts#L32)
+[types.ts:36](https://github.com/evmts/evmts-monorepo/blob/main/config/src/types.ts#L36)
 
 ## Variables
 
@@ -97,7 +100,7 @@ Used in evmts.config.ts to create a config
 
 | Name | Type |
 | :------ | :------ |
-| `configFn` | (`configFilePath`: `string`) => `Effect`<`never`, `LoadFoundryConfigError` \| `ValidateUserConfigError`, [`ResolvedCompilerConfig`](/reference/config/modules.md#resolvedcompilerconfig)\> |
+| `configFn` | (`configFilePath`: `string`) => `Effect`<`never`, `ValidateUserConfigError` \| `LoadFoundryConfigError`, [`ResolvedCompilerConfig`](/reference/config/modules.md#resolvedcompilerconfig)\> |
 
 **`Example`**
 
@@ -113,7 +116,7 @@ export default defineConfig(() => ({
 
 #### Defined in
 
-[types.ts:49](https://github.com/evmts/evmts-monorepo/blob/main/config/src/types.ts#L49)
+[types.ts:63](https://github.com/evmts/evmts-monorepo/blob/main/config/src/types.ts#L63)
 
 ___
 
@@ -133,37 +136,12 @@ Asyncronously loads an EVMts config from the given path
 
 `Effect`<`never`, `LoadConfigError`, [`ResolvedCompilerConfig`](/reference/config/modules.md#resolvedcompilerconfig)\>
 
-#### Defined in
-
-[loadConfig.js:17](https://github.com/evmts/evmts-monorepo/blob/main/config/src/loadConfig.js#L17)
-
-___
-
-### mergeConfigs
-
-▸ **mergeConfigs**(`configs`): `Effect`<`never`, `never`, [`CompilerConfig`](/reference/config/modules.md#compilerconfig)\>
-
-Merges multiple configs into a single config
-The last config in the list takes precedence on any given property
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `configs` | [`CompilerConfig`](/reference/config/modules.md#compilerconfig)[] |
-
-#### Returns
-
-`Effect`<`never`, `never`, [`CompilerConfig`](/reference/config/modules.md#compilerconfig)\>
-
 **`Example`**
 
 ```ts
-const userConfig = { remappings: { key1: 'value1' }, libs: ['lib1'] };
-const foundryConfig = { remappings: { key2: 'value2' }, libs: ['lib2', 'lib1'], foundryProject: 'forge' };
-const mergedConfig = mergeConfigs([userConfig, foundryConfig]);
+const config = await loadConfig('./tsconfig.json');
 ```
 
 #### Defined in
 
-[mergeConfigs.js:13](https://github.com/evmts/evmts-monorepo/blob/main/config/src/mergeConfigs.js#L13)
+[loadConfig.js:21](https://github.com/evmts/evmts-monorepo/blob/main/config/src/loadConfig.js#L21)

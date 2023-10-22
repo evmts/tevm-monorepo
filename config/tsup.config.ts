@@ -1,7 +1,8 @@
+import packageJson from './package.json'
 import { defineConfig } from 'tsup'
 
 export default defineConfig({
-	name: '@evmts/core',
+	name: packageJson.name,
 	entry: ['src/index.js'],
 	outDir: 'dist',
 	format: ['cjs'],

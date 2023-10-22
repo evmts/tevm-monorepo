@@ -1,5 +1,5 @@
-import { mergeConfigs } from './mergeConfigs.js'
 import { loadFoundryConfig } from './utils/loadFoundryConfig.js'
+import { mergeConfigs } from './utils/mergeConfigs.js'
 import { validateUserConfig } from './utils/validateUserConfig.js'
 import { withDefaults } from './utils/withDefaults.js'
 import { all, flatMap } from 'effect/Effect'

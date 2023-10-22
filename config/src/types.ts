@@ -1,4 +1,3 @@
-import type { fileExists as defaultFileExists } from './utils/fileExists.js'
 import type { LoadFoundryConfigError } from './utils/loadFoundryConfig.js'
 import type { ValidateUserConfigError } from './utils/validateUserConfig.js'
 import type { Effect } from 'effect/Effect'
@@ -6,6 +5,7 @@ import type { ReadonlyRecord } from 'effect/ReadonlyRecord'
 
 /**
  * Configuration of the solidity compiler
+ * When resolved with defaults it is a {@link ResolvedCompilerConfig}
  */
 export type CompilerConfig = {
 	/**
@@ -29,6 +29,10 @@ export type CompilerConfig = {
  */
 export type ConfigFactory = () => CompilerConfig
 
+/**
+ * A fully resolved compiler config with defaults filled in
+ * See {@link CompilerConfig}
+ */
 export type ResolvedCompilerConfig = {
 	/**
 	 * If set to true it will resolve forge remappings and libs
@@ -46,6 +50,16 @@ export type ResolvedCompilerConfig = {
 	remappings: ReadonlyRecord<string>
 }
 
+/**
+ * Creates an EVMts config
+ * Takes a user provided configFactory
+ * @example
+ * import { defineConfig } from 'evmts/config'
+ * export default defineConfig({
+ * 	foundryProject: true,
+ * 		libs: ['libs/contracts'],
+ *	})
+ */
 export type DefineConfig = (configFactory: ConfigFactory) => {
 	configFn: (
 		configFilePath: string,
@@ -55,9 +69,3 @@ export type DefineConfig = (configFactory: ConfigFactory) => {
 		ResolvedCompilerConfig
 	>
 }
-
-export type LoadConfigAsync = (
-	configFilePath: string,
-	logger?: Pick<typeof console, 'error' | 'warn'>,
-	fileExists?: typeof defaultFileExists,
-) => Promise<ResolvedCompilerConfig>
