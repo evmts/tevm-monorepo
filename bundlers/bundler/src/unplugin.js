@@ -1,6 +1,7 @@
 import { bundler } from './bundler.js'
 import { createCache } from './createCache.js'
-import { loadConfigAsync } from '@evmts/config'
+import { loadConfig } from '@evmts/config'
+import { runSync } from 'effect/Effect'
 import { existsSync, readFileSync } from 'fs'
 import { readFile } from 'fs/promises'
 import { createRequire } from 'module'
@@ -63,7 +64,7 @@ export const unpluginFn = (options = {}) => {
 	return {
 		name: '@evmts/rollup-plugin',
 		async buildStart() {
-			config = await loadConfigAsync(process.cwd())
+			config = runSync(loadConfig(process.cwd()))
 			moduleResolver = bundler(config, console, fao, solcCache)
 			this.addWatchFile('./tsconfig.json')
 		},
