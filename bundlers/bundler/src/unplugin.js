@@ -25,7 +25,9 @@ const bundlers = {
  * @type {import("unplugin").UnpluginFactory<{compiler?: CompilerOption } | undefined, false>}
  */
 export const unpluginFn = (options = {}) => {
-	// @type {import("@evmts/config").ResolvedCompilerConfig}
+	/**
+	 * @type {import("@evmts/config").ResolvedCompilerConfig}
+	 */
 	let config
 
 	// for current release we will hardcode this to solc
