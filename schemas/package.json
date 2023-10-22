@@ -57,8 +57,8 @@
 		"typecheck": "bun run tsc --noEmit"
 	},
 	"dependencies": {
-		"@effect/schema": "^0.42.0",
-		"effect": "2.0.0-next.47"
+		"@effect/schema": "^0.45.5",
+		"effect": "2.0.0-next.50"
 	},
 	"devDependencies": {
 		"@evmts/tsconfig": "workspace:^",
