@@ -30,39 +30,23 @@ describe(loadFoundryConfig.name, () => {
 	it('should return the remappings from foundry', async () => {
 		const { execSync } = (await vi.importActual('child_process')) as any
 		mockExecSync.mockImplementationOnce(execSync)
-		expect(
-			runSync(loadFoundryConfig('forge', foundryFixture)),
-		).toMatchInlineSnapshot(`
-			{
-			  "libs": [
-			    "lib",
-			  ],
-			  "remappings": {
-			    "@solmate-utils/": "/Users/willcory/evmts-monorepo/config/src/fixtures/withFoundry/lib/solmate/src/utils/",
-			  },
-			}
-		`)
+		let res = runSync(loadFoundryConfig('forge', foundryFixture))
+		expect(res.libs).toEqual(['lib'])
+		expect(res.remappings?.['@solmate-utils/']).toContain(
+			'lib/solmate/src/utils/',
+		)
 		expect(mockExecSync).lastCalledWith('forge config --json', {
 			cwd: foundryFixture,
 		})
 		mockExecSync.mockImplementationOnce(execSync)
-		expect(
-			runSync(
-				loadFoundryConfig(
-					true,
-					join(__dirname, '..', 'fixtures', 'withFoundry'),
-				),
-			),
-		).toMatchInlineSnapshot(`
-			{
-			  "libs": [
-			    "lib",
-			  ],
-			  "remappings": {
-			    "@solmate-utils/": "/Users/willcory/evmts-monorepo/config/src/fixtures/withFoundry/lib/solmate/src/utils/",
-			  },
-			}
-		`)
+		res = runSync(loadFoundryConfig(true, foundryFixture))
+		expect(res.libs).toEqual(['lib'])
+		expect(res.remappings?.['@solmate-utils/']).toContain(
+			'lib/solmate/src/utils/',
+		)
+		expect(mockExecSync).lastCalledWith('forge config --json', {
+			cwd: foundryFixture,
+		})
 		expect(mockExecSync).lastCalledWith('forge config --json', {
 			cwd: foundryFixture,
 		})
