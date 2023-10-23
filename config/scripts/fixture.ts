@@ -1,2 +1,2 @@
-import { runFixture } from "./runFixture"
+import { runFixture } from './runFixture'
 runFixture(process.argv[2] ?? 'basic')
