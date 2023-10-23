@@ -263,8 +263,40 @@ bun generate:docs
 
 ## Doing everything
 
-To run every lint check and build before pushing run `bun all`. Running `bun build` will make sure all sub dependencies are built with `nx`
+To run everything including linter and tests run `bun all`
 
 ```
 bun i && bun build && bun all
 ```
+
+Running bun all from context of repo will run all checks. It is recomended to run this before pushing your changes
+
+1. CD to root of repo if not there already
+
+```
+cd ..
+```
+
+2. Run install and bun all
+
+```
+bun i && bun all
+```
+
+## Bun Clean
+
+If things are wierd try running bun clean and rebuilding the repo fresh
+
+1. Cd to root of repo if not there already
+
+```
+cd ..
+```
+
+2. Run bun clean and then fresh build and upgraded bun
+
+```
+bun upgrade && bun clean && bun i && bun all
+```
+
+If it's still broken for you consider opening an issue.
