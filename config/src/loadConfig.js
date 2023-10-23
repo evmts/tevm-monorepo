@@ -1,9 +1,7 @@
-import { getEvmtsConfigFromTsConfig } from './utils/getEvmtsConfigFromTsConfig.js'
-import { loadFoundryConfig } from './utils/loadFoundryConfig.js'
-import { loadTsConfig } from './utils/loadTsConfig.js'
-import { logAllErrors } from './utils/logAllErrors.js'
-import { mergeConfigs } from './utils/mergeConfigs.js'
-import { withDefaults } from './utils/withDefaults.js'
+import { mergeConfigs, withDefaults } from './config/index.js'
+import { loadFoundryConfig } from './foundry/index.js'
+import { getEvmtsConfigFromTsConfig, loadTsConfig } from './tsconfig/index.js'
+import { logAllErrors } from '@evmts/effect'
 import {
 	all,
 	catchTags,
@@ -15,7 +13,7 @@ import {
 } from 'effect/Effect'
 
 /**
- * @typedef {import("./utils/loadTsConfig.js").LoadTsConfigError | import("./utils/getEvmtsConfigFromTsConfig.js").GetEvmtsConfigFromTsConfigError | import("./utils/loadFoundryConfig.js").LoadFoundryConfigError} LoadConfigErrorType
+ * @typedef {import("./tsconfig/index.js").LoadTsConfigError | import("./tsconfig/index.js").GetEvmtsConfigFromTsConfigError | import("./foundry/index.js").LoadFoundryConfigError} LoadConfigErrorType
  */
 
 /**

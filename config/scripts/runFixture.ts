@@ -63,7 +63,7 @@ export const runFixture = (name: string) => {
 	runSync(
 		provide(
 			loadConfig(configDir).pipe(
-				flatMap(config => {
+				flatMap((config) => {
 					if (expectedErrors.includes(validName)) {
 						return fail(config)
 					}
@@ -74,9 +74,10 @@ export const runFixture = (name: string) => {
 						return succeed(e)
 					}
 					return logError(
-						`error running ${validName} ${expectedErrors.includes(validName)
-							? `should have errored but didn't`
-							: 'error'
+						`error running ${validName} ${
+							expectedErrors.includes(validName)
+								? `should have errored but didn't`
+								: 'error'
 						}. Try running the individual fixture with "bun fixture ${validName}"`,
 					).pipe(flatMap(() => fail(e)))
 				}),

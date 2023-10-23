@@ -1,6 +1,6 @@
+import type { ValidateUserConfigError } from './config/index.js'
 import type { DefineConfigError } from './defineConfig.js'
-import type { LoadFoundryConfigError } from './utils/loadFoundryConfig.js'
-import type { ValidateUserConfigError } from './utils/validateUserConfig.js'
+import type { LoadFoundryConfigError } from './foundry/index.js'
 import type { Effect } from 'effect/Effect'
 import type { ReadonlyRecord } from 'effect/ReadonlyRecord'
 

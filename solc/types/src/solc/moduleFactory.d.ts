@@ -1,0 +1,1 @@
+export function moduleFactory(absolutePath: string, rawCode: string, remappings: Record<string, string>, libs: ReadonlyArray<string>, fao: import("../types.js").FileAccessObject): Promise<import("../types.js").ModuleInfo>;

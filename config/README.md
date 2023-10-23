@@ -30,7 +30,7 @@ Tools for configuring `evmts.config.ts` file.
 
 ## See [Evmts Beta project board](https://github.com/orgs/evmts/projects/1) for progress on the upcoming beta release
 
-## See [Contributing docs](./CONTRIBUTING.md) for detailed contributing docs
+## See [Contributing docs](https://github.com/evmts/evmts-monorepo/blob/main/config/CONTRIBUTING.md) for detailed contributing docs
 
 ## License 📄
 

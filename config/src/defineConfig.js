@@ -1,7 +1,9 @@
-import { loadFoundryConfig } from './utils/loadFoundryConfig.js'
-import { mergeConfigs } from './utils/mergeConfigs.js'
-import { validateUserConfig } from './utils/validateUserConfig.js'
-import { withDefaults } from './utils/withDefaults.js'
+import {
+	mergeConfigs,
+	validateUserConfig,
+	withDefaults,
+} from './config/index.js'
+import { loadFoundryConfig } from './foundry/index.js'
 import { all, catchTags, fail, flatMap, logDebug, tap } from 'effect/Effect'
 
 /**

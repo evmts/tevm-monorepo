@@ -78,7 +78,7 @@ The default CompilerConfig
 
 #### Defined in
 
-[utils/withDefaults.js:6](https://github.com/evmts/evmts-monorepo/blob/main/config/src/utils/withDefaults.js#L6)
+[config/withDefaults.js:6](https://github.com/evmts/evmts-monorepo/blob/main/config/src/config/withDefaults.js#L6)
 
 ## Functions
 
@@ -149,4 +149,4 @@ runPromise(loadConfig('./tsconfig.json')).pipe(
 
 #### Defined in
 
-[loadConfig.js:63](https://github.com/evmts/evmts-monorepo/blob/main/config/src/loadConfig.js#L63)
+[loadConfig.js:61](https://github.com/evmts/evmts-monorepo/blob/main/config/src/loadConfig.js#L61)
