@@ -50,6 +50,7 @@
 	},
 	"dependencies": {
 		"@evmts/config": "workspace:^",
+		"@evmts/solc": "workspace:^",
 		"@evmts/tsconfig": "workspace:^",
 		"@types/node": "^20.7.2",
 		"@types/resolve": "^1.20.3",

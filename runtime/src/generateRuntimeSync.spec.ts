@@ -1,4 +1,4 @@
-import type { Artifacts } from '../solc/resolveArtifactsSync.js'
+import type { Artifacts } from '@evmts/solc'
 import { generateEvmtsBody } from './generateEvmtsBody.js'
 import { generateRuntimeSync } from './generateRuntimeSync.js'
 import {

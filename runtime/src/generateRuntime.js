@@ -2,9 +2,9 @@ import { generateEvmtsBody } from './generateEvmtsBody.js'
 
 /**
  * Generates the runtime code for the given artifacts.
- * @param {import("../solc/resolveArtifactsSync.js").Artifacts} artifacts
+ * @param {import("@evmts/solc").Artifacts} artifacts
  * @param {'cjs' | 'mjs' | 'ts'} moduleType
- * @param {import("../types.js").Logger} logger
+ * @param {import("@evmts/solc").Logger} logger
  * @returns {Promise<string>}
  */
 export const generateRuntime = async (artifacts, moduleType, logger) => {

@@ -1,4 +1,4 @@
-import { generateDtsBody } from './generateEvmtsBodyDts.js' // replace with your actual module path
+import { generateDtsBody } from './generateEvmtsBodyDts.js'
 import { describe, expect, it } from 'vitest'
 
 describe('generateDtsBody', () => {

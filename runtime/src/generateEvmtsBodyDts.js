@@ -1,7 +1,7 @@
 import { formatAbi } from 'abitype'
 
 /**
- * @param {import("../solc/resolveArtifactsSync.js").Artifacts} artifacts
+ * @param {import("@evmts/solc").Artifacts} artifacts
  * @returns {string}
  */
 export const generateDtsBody = (artifacts) => {

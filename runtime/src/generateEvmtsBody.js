@@ -6,7 +6,7 @@ import { formatAbi } from 'abitype'
  */
 
 /**
- * @param {import("../solc/resolveArtifactsSync.js").Artifacts} artifacts
+ * @param {import("@evmts/solc").Artifacts} artifacts
  * @param {ModuleType} moduleType
  * @returns {string}
  */
