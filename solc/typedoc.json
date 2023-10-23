@@ -1,0 +1,14 @@
+{
+	"$schema": "https://typedoc.org/schema.json",
+	"out": "../../docs/reference/solc",
+	"entryPoints": [
+		"./src/resolveArtifacts.js",
+		"./src/resolveArtifactsSync.js",
+		"./src/solc.js",
+		"./src/solcTypes.js",
+		"./src/types.ts"
+	],
+	"publicPath": "/reference/solc/",
+	"plugin": ["typedoc-plugin-markdown"],
+	"gitRevision": "main"
+}

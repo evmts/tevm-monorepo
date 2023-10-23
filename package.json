@@ -21,6 +21,8 @@
 		"docs",
 		"e2e",
 		"effect",
+		"runtime",
+		"solc",
 		"schemas",
 		"state",
 		"revm",
