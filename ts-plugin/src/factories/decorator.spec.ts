@@ -6,6 +6,7 @@ import {
 } from './index.js'
 import { FileAccessObject } from '@evmts/bundler'
 import { CompilerConfig, defaultConfig, defineConfig } from '@evmts/config'
+import { runSync } from 'effect/Effect'
 import typescript from 'typescript/lib/tsserverlibrary.js'
 import { describe, expect, it, vi } from 'vitest'
 
@@ -16,10 +17,9 @@ const { remappings, ...compilerOptions } = defaultConfig
 const mockConfig: CompilerConfig = {
 	...defaultConfig,
 	...compilerOptions,
-	solcVersion: '0.8.0',
 }
 
-const config = defineConfig(() => mockConfig).configFn('.')
+const config = runSync(defineConfig(() => mockConfig).configFn('.'))
 
 const fao: FileAccessObject = {
 	existsSync: vi.fn(),

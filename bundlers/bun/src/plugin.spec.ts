@@ -1,13 +1,14 @@
 import { file } from './bunFile.js'
 import { evmtsBunPlugin } from './index.js'
 import { bundler } from '@evmts/bundler'
-import { loadConfigAsync } from '@evmts/config'
+import { loadConfig } from '@evmts/config'
+import { succeed } from 'effect/Effect'
 import { exists, readFile } from 'fs/promises'
 import { type Mock, beforeEach, describe, expect, it, vi } from 'vitest'
 
 vi.mock('@evmts/config', async () => ({
 	...((await vi.importActual('@evmts/config')) as {}),
-	loadConfigAsync: vi.fn(),
+	loadConfig: vi.fn(),
 }))
 
 vi.mock('@evmts/bundler', async () => ({
@@ -30,7 +31,7 @@ const mockFile = file as Mock
 const mockExists = exists as Mock
 
 const mockBundler = bundler as Mock
-const mockLoadConfig = loadConfigAsync as Mock
+const mockLoadConfig = loadConfig as Mock
 mockBundler.mockReturnValue({
 	resolveEsmModule: vi.fn(),
 })
@@ -49,7 +50,7 @@ describe('evmtsBunPlugin', () => {
 			exists: () => exists(filePath),
 			text: () => readFile(filePath, 'utf8'),
 		}))
-		mockLoadConfig.mockReturnValue({})
+		mockLoadConfig.mockReturnValue(succeed({}))
 		mockBundler.mockReturnValue({
 			resolveEsmModule: vi.fn().mockReturnValue({
 				code: 'mockedModule',

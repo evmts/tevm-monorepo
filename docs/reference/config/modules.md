@@ -17,7 +17,6 @@
 
 - [defineConfig](/reference/config/modules.md#defineconfig)
 - [loadConfig](/reference/config/modules.md#loadconfig)
-- [loadConfigAsync](/reference/config/modules.md#loadconfigasync)
 
 ## Type Aliases
 
@@ -26,35 +25,48 @@
 Ƭ **CompilerConfig**: `Object`
 
 Configuration of the solidity compiler
+When resolved with defaults it is a [ResolvedCompilerConfig](/reference/config/modules.md#resolvedcompilerconfig)
 
 #### Type declaration
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `foundryProject?` | `boolean` \| `string` | If set to true it will resolve forge remappings and libs Set to "path/to/forge/executable" to use a custom forge executable |
-| `libs?` | `string`[] | Sets directories to search for solidity imports in Read autoamtically for forge projects if forge: true |
-| `remappings?` | `Record`<`string`, `string`\> | Remap the location of contracts |
-| `solcVersion?` | `string` | Solc version to use (e.g. "0.8.13") **`Defaults`** "0.8.13" **`See`** https://www.npmjs.com/package/solc |
+| `libs?` | readonly `string`[] | Sets directories to search for solidity imports in Read autoamtically for forge projects if forge: true |
+| `remappings?` | `ReadonlyRecord`<`string`\> | Remap the location of contracts |
 
 #### Defined in
 
-[types.ts:6](https://github.com/evmts/evmts-monorepo/blob/main/config/src/types.ts#L6)
+[types.ts:11](https://github.com/evmts/evmts-monorepo/blob/main/config/src/types.ts#L11)
 
 ___
 
 ### ResolvedCompilerConfig
 
-Ƭ **ResolvedCompilerConfig**: `Required`<[`CompilerConfig`](/reference/config/modules.md#compilerconfig)\>
+Ƭ **ResolvedCompilerConfig**: `Object`
+
+A fully resolved compiler config with defaults filled in
+See [CompilerConfig](/reference/config/modules.md#compilerconfig)
+
+#### Type declaration
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `foundryProject` | `boolean` \| `string` | If set to true it will resolve forge remappings and libs Set to "path/to/forge/executable" to use a custom forge executable |
+| `libs` | readonly `string`[] | Sets directories to search for solidity imports in Read autoamtically for forge projects if forge: true |
+| `remappings` | `ReadonlyRecord`<`string`\> | Remap the location of contracts |
 
 #### Defined in
 
-[types.ts:29](https://github.com/evmts/evmts-monorepo/blob/main/config/src/types.ts#L29)
+[types.ts:37](https://github.com/evmts/evmts-monorepo/blob/main/config/src/types.ts#L37)
 
 ## Variables
 
 ### defaultConfig
 
 • `Const` **defaultConfig**: `Object`
+
+The default CompilerConfig
 
 #### Type declaration
 
@@ -63,11 +75,10 @@ ___
 | `foundryProject` | `boolean` |
 | `libs` | `never`[] |
 | `remappings` | {} |
-| `get solcVersion()` | `string` |
 
 #### Defined in
 
-[Config.js:14](https://github.com/evmts/evmts-monorepo/blob/main/config/src/Config.js#L14)
+[utils/withDefaults.js:6](https://github.com/evmts/evmts-monorepo/blob/main/config/src/utils/withDefaults.js#L6)
 
 ## Functions
 
@@ -75,11 +86,13 @@ ___
 
 ▸ **defineConfig**(`configFactory`): `Object`
 
+Typesafe way to create an EVMts CompilerConfig
+
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `configFactory` | () => [`CompilerConfig`](/reference/config/modules.md#compilerconfig) |
+| `configFactory` | `ConfigFactory` |
 
 #### Returns
 
@@ -87,53 +100,53 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `configFn` | (`configFilePath`: `string`) => `Required`<[`CompilerConfig`](/reference/config/modules.md#compilerconfig)\> |
+| `configFn` | (`configFilePath`: `string`) => `Effect`<`never`, `DefineConfigError`, [`ResolvedCompilerConfig`](/reference/config/modules.md#resolvedcompilerconfig)\> |
+
+**`Example`**
+
+```ts
+import { defineConfig } from '@evmts/ts-plugin'
+
+export default defineConfig(() => ({
+	lib: ['lib'],
+	remappings: {
+	  'foo': 'foo/bar'
+	}
+})
 
 #### Defined in
 
-[types.ts:31](https://github.com/evmts/evmts-monorepo/blob/main/config/src/types.ts#L31)
+[types.ts:68](https://github.com/evmts/evmts-monorepo/blob/main/config/src/types.ts#L68)
 
 ___
 
 ### loadConfig
 
-▸ **loadConfig**(`configFilePath`, `logger?`): `Required`<[`CompilerConfig`](/reference/config/modules.md#compilerconfig)\>
+▸ **loadConfig**(`configFilePath`): `Effect`<`never`, `LoadConfigError`, [`ResolvedCompilerConfig`](/reference/config/modules.md#resolvedcompilerconfig)\>
 
-Asyncronously loads an EVMts config from the given path
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `configFilePath` | `string` |
-| `logger?` | `Pick`<`Console`, ``"error"`` \| ``"warn"``\> |
-
-#### Returns
-
-`Required`<[`CompilerConfig`](/reference/config/modules.md#compilerconfig)\>
-
-#### Defined in
-
-[types.ts:35](https://github.com/evmts/evmts-monorepo/blob/main/config/src/types.ts#L35)
-
-___
-
-### loadConfigAsync
-
-▸ **loadConfigAsync**(`configFilePath`, `logger?`, `fileExists?`): `Promise`<`Required`<[`CompilerConfig`](/reference/config/modules.md#compilerconfig)\>\>
+Loads an EVMts config from the given path
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `configFilePath` | `string` |
-| `logger?` | `Pick`<`Console`, ``"error"`` \| ``"warn"``\> |
-| `fileExists?` | (`path`: `string`) => `Promise`<`boolean`\> |
 
 #### Returns
 
-`Promise`<`Required`<[`CompilerConfig`](/reference/config/modules.md#compilerconfig)\>\>
+`Effect`<`never`, `LoadConfigError`, [`ResolvedCompilerConfig`](/reference/config/modules.md#resolvedcompilerconfig)\>
+
+**`Example`**
+
+```ts
+import {tap} from 'effect/Effect'
+import {loadConfig} from '@evmts/config'
+
+runPromise(loadConfig('./tsconfig.json')).pipe(
+  tap(config => console.log(config))
+)
+```
 
 #### Defined in
 
-[types.ts:40](https://github.com/evmts/evmts-monorepo/blob/main/config/src/types.ts#L40)
+[loadConfig.js:63](https://github.com/evmts/evmts-monorepo/blob/main/config/src/loadConfig.js#L63)

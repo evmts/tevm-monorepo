@@ -42,7 +42,8 @@
 	},
 	"dependencies": {
 		"@evmts/bundler": "workspace:^",
-		"@evmts/config": "workspace:^"
+		"@evmts/config": "workspace:^",
+		"effect": "^2.0.0-next.50"
 	},
 	"devDependencies": {
 		"@evmts/core": "workspace:^",

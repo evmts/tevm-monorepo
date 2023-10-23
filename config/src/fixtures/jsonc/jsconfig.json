@@ -1,0 +1,16 @@
+{
+  "extends": "@evmts/tsconfig/base.json",
+  "compilerOptions": {
+    // comment
+    "composite": true,
+    "outDir": "types",
+    "skipLibCheck": true,
+    "plugins": [{
+      "name": "@evmts/ts-plugin"
+    }]
+  },
+  "include": [
+    "src",
+    "src/**/*.json",
+  ]
+}

@@ -3,10 +3,14 @@
   "compilerOptions": {
     "composite": true,
     "outDir": "types",
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "resolveJsonModule": true
   },
   "include": [
     "src",
     "src/**/*.json"
+  ],
+  "exclude": [
+    "src/fixtures/invalidJson"
   ]
 }

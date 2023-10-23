@@ -45,7 +45,6 @@ describe('compileContractSync', () => {
 	const basedir = 'base/dir'
 	const config: ResolvedCompilerConfig = {
 		foundryProject: 'forge',
-		solcVersion: '4.2.0',
 		remappings: { 'key1/': '/path/to/key1', 'key2/': '/path/to/key2' },
 		libs: ['lib1', 'lib2'],
 	}

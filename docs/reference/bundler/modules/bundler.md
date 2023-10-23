@@ -18,7 +18,7 @@
 
 | Name | Type |
 | :------ | :------ |
-| `config` | `Required`<`CompilerConfig`\> |
+| `config` | `ResolvedCompilerConfig` |
 | `logger` | `Logger` |
 | `fao` | `FileAccessObject` |
 | `cache?` | [`Cache`](/reference/bundler/modules/createCache.md#cache) |
@@ -29,7 +29,7 @@
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `config` | `Required`<`CompilerConfig`\> | The configuration of the plugin. |
+| `config` | `ResolvedCompilerConfig` | The configuration of the plugin. |
 | `exclude?` | `string`[] | - |
 | `include?` | `string`[] | - |
 | `name` | `string` | The name of the plugin. |

@@ -1,6 +1,7 @@
 import { bunFileAccesObject } from './bunFileAccessObject.js'
 import { bundler, createCache } from '@evmts/bundler'
-import { loadConfigAsync } from '@evmts/config'
+import { loadConfig } from '@evmts/config'
+import { runSync } from 'effect/Effect'
 
 /**
  * @evmts/bun-plugin is a bun plugin that allows you to import solidity files into your typescript files
@@ -22,11 +23,7 @@ export const evmtsBunPlugin = () => {
 	return {
 		name: '@evmts/esbuild-plugin',
 		async setup(build) {
-			const config = await loadConfigAsync(
-				process.cwd(),
-				console,
-				bunFileAccesObject.exists,
-			)
+			const config = runSync(loadConfig(process.cwd()))
 			const solcCache = createCache(console)
 			const moduleResolver = bundler(
 				config,
