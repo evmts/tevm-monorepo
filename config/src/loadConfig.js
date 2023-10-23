@@ -19,7 +19,7 @@ import {
  */
 
 /**
- * Error class for {@link defineConfig}
+ * Error class for {@link loadConfig}
  */
 export class LoadConfigError extends Error {
 	/**
@@ -89,7 +89,7 @@ export const loadConfig = (configFilePath) => {
 		flatMap(mergeConfigs),
 		tap((mergedConfigs) =>
 			logDebug(
-				`defineConfig: Config read CompilerConfigs ${JSON.stringify({
+				`loadConfig: Config read CompilerConfigs ${JSON.stringify({
 					mergedConfigs,
 				})}`,
 			),
