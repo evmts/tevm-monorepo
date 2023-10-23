@@ -133,4 +133,3 @@ export type SolidityResolver = (
 	 */
 	resolveEsmModuleSync: (module: string, basedir: string) => BundlerResult
 }
-

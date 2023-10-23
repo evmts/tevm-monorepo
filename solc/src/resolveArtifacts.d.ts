@@ -4,7 +4,12 @@ import type {
 	SolcInputDescription,
 	SolcOutput,
 } from './solc.js'
-import type { Artifacts, FileAccessObject, Logger, ModuleInfo } from './types.js'
+import type {
+	Artifacts,
+	FileAccessObject,
+	Logger,
+	ModuleInfo,
+} from './types.js'
 import type { ResolvedCompilerConfig } from '@evmts/config'
 import type { Node } from 'solidity-ast/node.js'
 

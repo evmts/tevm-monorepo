@@ -32,7 +32,7 @@
 		"ts-plugin"
 	],
 	"scripts": {
-		"all": "nx run-many --targets=build:dist,build:types,typecheck,test:coverage && bun lint && bun sort-package-json && bun run generate:docs",
+		"all": "bun i && nx run-many --targets=build:dist,build:types,typecheck,test:coverage && bun lint && bun sort-package-json && bun run generate:docs",
 		"build": "nx run-many --targets=build:dist,build:types",
 		"build:dist": "nx run-many --target=build:dist",
 		"build:types": "nx run-many --targets=build:types,typecheck",

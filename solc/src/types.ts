@@ -1,4 +1,8 @@
-import type { SolcContractOutput, SolcInputDescription, SolcOutput } from './solcTypes.js'
+import type {
+	SolcContractOutput,
+	SolcInputDescription,
+	SolcOutput,
+} from './solcTypes.js'
 import type { Node } from 'solidity-ast/node.js'
 
 export type FileAccessObject = {
@@ -33,4 +37,7 @@ export type CompiledContracts<TIncludeAsts extends boolean = boolean> = {
 	solcOutput: SolcOutput
 }
 
-export type Artifacts = Record<string, Pick<SolcContractOutput, 'abi' | 'userdoc'>>
+export type Artifacts = Record<
+	string,
+	Pick<SolcContractOutput, 'abi' | 'userdoc'>
+>

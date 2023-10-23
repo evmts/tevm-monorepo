@@ -15,6 +15,7 @@ packages:
   - "schemas"
   - "revm"
   - "schemas"
+  - "solc"
   - "state"
   - "ts-plugin"
   - "tsconfig"
