@@ -1,0 +1,16 @@
+{
+  "extends": "@evmts/tsconfig/base.json",
+  "compilerOptions": {
+    "composite": true,
+    "outDir": "types",
+    "skipLibCheck": true,
+    "resolveJsonModule": true
+  },
+  "include": [
+    "src",
+    "src/**/*.json"
+  ],
+  "exclude": [
+    "src/fixtures/invalidJson"
+  ]
+}

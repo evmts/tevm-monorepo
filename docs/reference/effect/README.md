@@ -1,3 +1,5 @@
+@evmts/effect / [Exports](/reference/effect/modules.md)
+
 <p align="center">
   <a href="https://evmts.dev/">
     <picture>
@@ -20,17 +22,15 @@
 <img alt="" src="https://badgen.net/bundlephobia/minzip/@evmts/core" />
 </a>
 
-# @evmts/config
+# @evmts/effect
 
-Tools for configuring `evmts.config.ts` file.
-
-**Note: evmts.config.ts is a WIP.  Currently configuration is done through ts-config plugin**
+Low level tools around [effect.ts](https://www.effect.website/docs/why-effect)
 
 ## Visit [Docs](https://evmts.dev/) for docs, guides, API and more!
 
 ## See [Evmts Beta project board](https://github.com/orgs/evmts/projects/1) for progress on the upcoming beta release
 
-## See [Contributing docs](https://github.com/evmts/evmts-monorepo/blob/main/config/CONTRIBUTING.md) for detailed contributing docs
+## See [Contributing docs](https://github.com/evmts/evmts-monorepo/blob/main/effect/CONTRIBUTING.md) for detailed contributing docs
 
 ## License 📄
 

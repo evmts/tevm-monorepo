@@ -1,4 +1,4 @@
-import { validateUserConfig } from './validateUserConfig.js'
+import { validateUserConfig } from '../config/index.js'
 import { fail, logDebug, map, tap } from 'effect/Effect'
 
 /**
@@ -13,7 +13,7 @@ export class NoPluginFoundError extends Error {
 }
 
 /**
- * @typedef {NoPluginFoundError | import("./validateUserConfig.js").ValidateUserConfigError } GetEvmtsConfigFromTsConfigError
+ * @typedef {NoPluginFoundError | import("../config/index.js").ValidateUserConfigError } GetEvmtsConfigFromTsConfigError
  */
 
 /**

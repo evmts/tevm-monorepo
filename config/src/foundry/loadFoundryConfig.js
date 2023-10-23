@@ -1,3 +1,4 @@
+// TODO would be nice to break this up into composable effects
 import { execSync } from 'child_process'
 import { fail, logDebug, succeed, tap } from 'effect/Effect'
 import * as path from 'path'

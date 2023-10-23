@@ -1,4 +1,3 @@
-import { parseJson } from './parseJson.js'
 import {
 	array,
 	optional,
@@ -6,6 +5,7 @@ import {
 	string,
 	struct,
 } from '@effect/schema/Schema'
+import { parseJson } from '@evmts/effect'
 import { Effect } from 'effect'
 import { catchTag, fail, flatMap, logDebug, tap } from 'effect/Effect'
 import { existsSync, readFileSync } from 'fs'
@@ -66,7 +66,7 @@ const STsConfig = struct({
 })
 
 /**
- * @typedef {import("./parseJson.js").ParseJsonError | FailedToReadConfigError | InvalidTsConfigError} LoadTsConfigError
+ * @typedef {import("@evmts/effect").ParseJsonError | FailedToReadConfigError | InvalidTsConfigError} LoadTsConfigError
  * @internal
  */
 

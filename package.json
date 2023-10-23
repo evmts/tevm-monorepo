@@ -20,6 +20,7 @@
 		"core",
 		"docs",
 		"e2e",
+		"effect",
 		"schemas",
 		"state",
 		"revm",

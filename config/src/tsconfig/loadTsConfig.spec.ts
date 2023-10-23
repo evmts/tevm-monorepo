@@ -5,7 +5,7 @@ import {
 	InvalidTsConfigError,
 	loadTsConfig,
 } from './loadTsConfig.js'
-import { ParseJsonError } from './parseJson.js'
+import { ParseJsonError } from '@evmts/effect'
 import { runSync } from 'effect/Effect'
 import { join } from 'path'
 
