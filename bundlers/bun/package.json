@@ -28,7 +28,7 @@
 	"scripts": {
 		"build": "nx run-many --targets=build:dist,build:types --projects=@evmts/bun-plugin ",
 		"build:dist": "bun run tsup",
-		"build:types": "bun run tsc --emitDeclarationOnly",
+		"build:types": "bun run tsc --emitDeclarationOnly --declaration --declarationMap",
 		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
 		"generate:docs": "bun run typedoc",
 		"format": "rome format . --write",
