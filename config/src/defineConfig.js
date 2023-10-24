@@ -47,6 +47,7 @@ ${underlyingError.message}`,
  * 	  'foo': 'foo/bar'
  * 	}
  * })
+ * ```
  */
 export const defineConfig = (configFactory) => ({
 	configFn: (configFilePath) => {

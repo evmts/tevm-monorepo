@@ -45,6 +45,7 @@ export default defineConfig(() => ({
 	  'foo': 'foo/bar'
 	}
 })
+```
 
 #### Defined in
 
