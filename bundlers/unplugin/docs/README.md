@@ -1,4 +1,4 @@
-@evmts/unplugin / [Exports](/reference/unplugin/modules.md)
+@evmts/unplugin / [Exports](modules.md)
 
 <p align="center">
   <a href="https://evmts.dev/">

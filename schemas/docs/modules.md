@@ -1,4 +1,4 @@
-[@evmts/schemas](/reference/schemas/README.md) / Modules
+[@evmts/schemas](README.md) / Modules
 
 # @evmts/schemas
 
@@ -6,7 +6,7 @@
 
 ### Modules
 
-- [common](/reference/schemas/modules/common.md)
-- [ethereum](/reference/schemas/modules/ethereum.md)
-- [evmts](/reference/schemas/modules/evmts.md)
-- [types](/reference/schemas/modules/types.md)
+- [common](modules/common.md)
+- [ethereum](modules/ethereum.md)
+- [evmts](modules/evmts.md)
+- [types](modules/types.md)

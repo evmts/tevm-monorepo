@@ -1,4 +1,4 @@
-[@evmts/effect](/reference/effect/README.md) / Exports
+[@evmts/effect](README.md) / Exports
 
 # @evmts/effect
 
@@ -6,22 +6,22 @@
 
 ### Classes
 
-- [CreateRequireError](/reference/effect/classes/CreateRequireError.md)
-- [ParseJsonError](/reference/effect/classes/ParseJsonError.md)
-- [RequireError](/reference/effect/classes/RequireError.md)
+- [CreateRequireError](classes/CreateRequireError.md)
+- [ParseJsonError](classes/ParseJsonError.md)
+- [RequireError](classes/RequireError.md)
 
 ### Functions
 
-- [createRequireEffect](/reference/effect/modules.md#createrequireeffect)
-- [fileExists](/reference/effect/modules.md#fileexists)
-- [logAllErrors](/reference/effect/modules.md#logallerrors)
-- [parseJson](/reference/effect/modules.md#parsejson)
+- [createRequireEffect](modules.md#createrequireeffect)
+- [fileExists](modules.md#fileexists)
+- [logAllErrors](modules.md#logallerrors)
+- [parseJson](modules.md#parsejson)
 
 ## Functions
 
 ### createRequireEffect
 
-▸ **createRequireEffect**(`url`): `Effect`<`never`, [`CreateRequireError`](/reference/effect/classes/CreateRequireError.md), (`id`: `string`) => `Effect`<`never`, [`RequireError`](/reference/effect/classes/RequireError.md), `any`\>\>
+▸ **createRequireEffect**(`url`): `Effect`<`never`, [`CreateRequireError`](classes/CreateRequireError.md), (`id`: `string`) => `Effect`<`never`, [`RequireError`](classes/RequireError.md), `any`\>\>
 
 An [Effect](https://www.effect.website/docs/introduction) wrapper around createRequire
 createRequire is used to use the node.js `require` function in esm modules and cjs modules
@@ -35,7 +35,7 @@ in a way that is compatible with both. It also wraps them weith Effect for bette
 
 #### Returns
 
-`Effect`<`never`, [`CreateRequireError`](/reference/effect/classes/CreateRequireError.md), (`id`: `string`) => `Effect`<`never`, [`RequireError`](/reference/effect/classes/RequireError.md), `any`\>\>
+`Effect`<`never`, [`CreateRequireError`](classes/CreateRequireError.md), (`id`: `string`) => `Effect`<`never`, [`RequireError`](classes/RequireError.md), `any`\>\>
 
 require function
 
@@ -121,7 +121,7 @@ ___
 
 ### parseJson
 
-▸ **parseJson**(`jsonStr`): `Effect`<`never`, [`ParseJsonError`](/reference/effect/classes/ParseJsonError.md), { `compilerOptions?`: { `plugins`: { `name`: `string`  }[]  }  }\>
+▸ **parseJson**(`jsonStr`): `Effect`<`never`, [`ParseJsonError`](classes/ParseJsonError.md), { `compilerOptions?`: { `plugins`: { `name`: `string`  }[]  }  }\>
 
 Parses a json string
 
@@ -133,7 +133,7 @@ Parses a json string
 
 #### Returns
 
-`Effect`<`never`, [`ParseJsonError`](/reference/effect/classes/ParseJsonError.md), { `compilerOptions?`: { `plugins`: { `name`: `string`  }[]  }  }\>
+`Effect`<`never`, [`ParseJsonError`](classes/ParseJsonError.md), { `compilerOptions?`: { `plugins`: { `name`: `string`  }[]  }  }\>
 
 **`Throws`**
 

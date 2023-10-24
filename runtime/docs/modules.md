@@ -1,4 +1,4 @@
-[@evmts/runtime](/reference/runtime/README.md) / Exports
+[@evmts/runtime](README.md) / Exports
 
 # @evmts/runtime
 
@@ -6,14 +6,14 @@
 
 ### Type Aliases
 
-- [ModuleType](/reference/runtime/modules.md#moduletype)
+- [ModuleType](modules.md#moduletype)
 
 ### Functions
 
-- [generateDtsBody](/reference/runtime/modules.md#generatedtsbody)
-- [generateEvmtsBody](/reference/runtime/modules.md#generateevmtsbody)
-- [generateRuntime](/reference/runtime/modules.md#generateruntime)
-- [generateRuntimeSync](/reference/runtime/modules.md#generateruntimesync)
+- [generateDtsBody](modules.md#generatedtsbody)
+- [generateEvmtsBody](modules.md#generateevmtsbody)
+- [generateRuntime](modules.md#generateruntime)
+- [generateRuntimeSync](modules.md#generateruntimesync)
 
 ## Type Aliases
 
@@ -56,7 +56,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `artifacts` | `Artifacts` |
-| `moduleType` | [`ModuleType`](/reference/runtime/modules.md#moduletype) |
+| `moduleType` | [`ModuleType`](modules.md#moduletype) |
 
 #### Returns
 

@@ -1,4 +1,4 @@
-[@evmts/schemas](/reference/schemas/README.md) / [Modules](/reference/schemas/modules.md) / evmts
+[@evmts/schemas](../README.md) / [Modules](../modules.md) / evmts
 
 # Module: evmts
 
@@ -6,41 +6,41 @@
 
 ### References
 
-- [IsAddressBook](/reference/schemas/modules/evmts.md#isaddressbook)
+- [IsAddressBook](evmts.md#isaddressbook)
 
 ### Classes
 
-- [InvalidAddressBookError](/reference/schemas/classes/evmts.InvalidAddressBookError.md)
+- [InvalidAddressBookError](../classes/evmts.InvalidAddressBookError.md)
 
 ### Interfaces
 
-- [AddressBookEntry](/reference/schemas/interfaces/evmts.AddressBookEntry.md)
+- [AddressBookEntry](../interfaces/evmts.AddressBookEntry.md)
 
 ### Type Aliases
 
-- [AddressBook](/reference/schemas/modules/evmts.md#addressbook)
+- [AddressBook](evmts.md#addressbook)
 
 ### Variables
 
-- [SAddressBook](/reference/schemas/modules/evmts.md#saddressbook)
+- [SAddressBook](evmts.md#saddressbook)
 
 ### Functions
 
-- [isAddressBook](/reference/schemas/modules/evmts.md#isaddressbook-1)
-- [parseAddressBook](/reference/schemas/modules/evmts.md#parseaddressbook)
-- [parseAddressBookSafe](/reference/schemas/modules/evmts.md#parseaddressbooksafe)
+- [isAddressBook](evmts.md#isaddressbook-1)
+- [parseAddressBook](evmts.md#parseaddressbook)
+- [parseAddressBookSafe](evmts.md#parseaddressbooksafe)
 
 ## References
 
 ### IsAddressBook
 
-Re-exports [IsAddressBook](/reference/schemas/modules/types.md#isaddressbook)
+Re-exports [IsAddressBook](types.md#isaddressbook)
 
 ## Type Aliases
 
 ### AddressBook
 
-Ƭ **AddressBook**<\>: [`types`](/reference/schemas/modules/types.md)
+Ƭ **AddressBook**<\>: [`types`](types.md)
 
 #### Defined in
 
@@ -50,7 +50,7 @@ Re-exports [IsAddressBook](/reference/schemas/modules/types.md#isaddressbook)
 
 ### SAddressBook
 
-• `Const` **SAddressBook**: `Schema`<[`types`](/reference/schemas/modules/types.md), [`types`](/reference/schemas/modules/types.md)\>
+• `Const` **SAddressBook**: `Schema`<[`types`](types.md), [`types`](types.md)\>
 
 [Effect schema](https://github.com/Effect-TS/schema) for the AddressBook type.
 
@@ -98,7 +98,7 @@ Parses an address book and returns the value if no errors.
 
 | Name | Type |
 | :------ | :------ |
-| `TAddressBook` | extends [`types`](/reference/schemas/modules/types.md) |
+| `TAddressBook` | extends [`types`](types.md) |
 
 #### Parameters
 
@@ -130,7 +130,7 @@ ___
 
 ### parseAddressBookSafe
 
-▸ **parseAddressBookSafe**<`TAddressBook`\>(`addressBook`): `Effect`<`never`, [`InvalidAddressBookError`](/reference/schemas/classes/evmts.InvalidAddressBookError.md), `TAddressBook`\>
+▸ **parseAddressBookSafe**<`TAddressBook`\>(`addressBook`): `Effect`<`never`, [`InvalidAddressBookError`](../classes/evmts.InvalidAddressBookError.md), `TAddressBook`\>
 
 Safely parses an address book into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -138,7 +138,7 @@ Safely parses an address book into an [Effect](https://www.effect.website/docs/e
 
 | Name | Type |
 | :------ | :------ |
-| `TAddressBook` | extends [`types`](/reference/schemas/modules/types.md) |
+| `TAddressBook` | extends [`types`](types.md) |
 
 #### Parameters
 
@@ -148,7 +148,7 @@ Safely parses an address book into an [Effect](https://www.effect.website/docs/e
 
 #### Returns
 
-`Effect`<`never`, [`InvalidAddressBookError`](/reference/schemas/classes/evmts.InvalidAddressBookError.md), `TAddressBook`\>
+`Effect`<`never`, [`InvalidAddressBookError`](../classes/evmts.InvalidAddressBookError.md), `TAddressBook`\>
 
 **`Example`**
 

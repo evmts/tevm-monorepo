@@ -1,4 +1,4 @@
-[@evmts/rollup-plugin](/reference/rollup-plugin/README.md) / Exports
+[@evmts/rollup-plugin](README.md) / Exports
 
 # @evmts/rollup-plugin
 
@@ -6,7 +6,7 @@
 
 ### Functions
 
-- [rollupPluginEvmts](/reference/rollup-plugin/modules.md#rolluppluginevmts)
+- [rollupPluginEvmts](modules.md#rolluppluginevmts)
 
 ## Functions
 

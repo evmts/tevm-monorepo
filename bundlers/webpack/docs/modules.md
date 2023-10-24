@@ -1,4 +1,4 @@
-[@evmts/webpack-plugin](/reference/webpack-plugin/README.md) / Exports
+[@evmts/webpack-plugin](README.md) / Exports
 
 # @evmts/webpack-plugin
 
@@ -6,7 +6,7 @@
 
 ### Functions
 
-- [webpackPluginEvmts](/reference/webpack-plugin/modules.md#webpackpluginevmts)
+- [webpackPluginEvmts](modules.md#webpackpluginevmts)
 
 ## Functions
 

@@ -1,4 +1,4 @@
-[@evmts/vite-plugin](/reference/vite-plugin/README.md) / Exports
+[@evmts/vite-plugin](README.md) / Exports
 
 # @evmts/vite-plugin
 
@@ -6,7 +6,7 @@
 
 ### Functions
 
-- [vitePluginEvmts](/reference/vite-plugin/modules.md#vitepluginevmts)
+- [vitePluginEvmts](modules.md#vitepluginevmts)
 
 ## Functions
 

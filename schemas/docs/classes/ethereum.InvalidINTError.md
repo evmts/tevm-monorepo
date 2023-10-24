@@ -1,8 +1,8 @@
-[@evmts/schemas](/reference/schemas/README.md) / [Modules](/reference/schemas/modules.md) / [ethereum](/reference/schemas/modules/ethereum.md) / InvalidINTError
+[@evmts/schemas](../README.md) / [Modules](../modules.md) / [ethereum](../modules/ethereum.md) / InvalidINTError
 
 # Class: InvalidINTError
 
-[ethereum](/reference/schemas/modules/ethereum.md).InvalidINTError
+[ethereum](../modules/ethereum.md).InvalidINTError
 
 Error thrown when an INT is invalid.
 An int bigint is invalid if it's not within the bounds of its size.
@@ -17,20 +17,20 @@ An int bigint is invalid if it's not within the bounds of its size.
 
 ### Constructors
 
-- [constructor](/reference/schemas/classes/ethereum.InvalidINTError.md#constructor)
+- [constructor](ethereum.InvalidINTError.md#constructor)
 
 ### Properties
 
-- [cause](/reference/schemas/classes/ethereum.InvalidINTError.md#cause)
-- [message](/reference/schemas/classes/ethereum.InvalidINTError.md#message)
-- [name](/reference/schemas/classes/ethereum.InvalidINTError.md#name)
-- [stack](/reference/schemas/classes/ethereum.InvalidINTError.md#stack)
-- [prepareStackTrace](/reference/schemas/classes/ethereum.InvalidINTError.md#preparestacktrace)
-- [stackTraceLimit](/reference/schemas/classes/ethereum.InvalidINTError.md#stacktracelimit)
+- [cause](ethereum.InvalidINTError.md#cause)
+- [message](ethereum.InvalidINTError.md#message)
+- [name](ethereum.InvalidINTError.md#name)
+- [stack](ethereum.InvalidINTError.md#stack)
+- [prepareStackTrace](ethereum.InvalidINTError.md#preparestacktrace)
+- [stackTraceLimit](ethereum.InvalidINTError.md#stacktracelimit)
 
 ### Methods
 
-- [captureStackTrace](/reference/schemas/classes/ethereum.InvalidINTError.md#capturestacktrace)
+- [captureStackTrace](ethereum.InvalidINTError.md#capturestacktrace)
 
 ## Constructors
 
@@ -47,7 +47,7 @@ An int bigint is invalid if it's not within the bounds of its size.
 | `options.docs` | `undefined` \| `string` | The documentation URL. |
 | `options.int` | `bigint` | The invalid int bigint. |
 | `options.message` | `undefined` \| `string` | The error message. |
-| `options.size` | [`INTSize`](/reference/schemas/modules/ethereum.md#intsize) | The size of the int. |
+| `options.size` | [`INTSize`](../modules/ethereum.md#intsize) | The size of the int. |
 
 #### Overrides
 

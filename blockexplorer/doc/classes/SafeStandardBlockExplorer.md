@@ -1,4 +1,4 @@
-[@evmts/blockexplorer](/reference/blockexplorer/README.md) / [Exports](/reference/blockexplorer/modules.md) / SafeStandardBlockExplorer
+[@evmts/blockexplorer](../README.md) / [Exports](../modules.md) / SafeStandardBlockExplorer
 
 # Class: SafeStandardBlockExplorer
 
@@ -22,20 +22,20 @@ const txUrlEffect = etherscan.getTxUrl('0x1234')
 
 ### Constructors
 
-- [constructor](/reference/blockexplorer/classes/SafeStandardBlockExplorer.md#constructor)
+- [constructor](SafeStandardBlockExplorer.md#constructor)
 
 ### Properties
 
-- [chainId](/reference/blockexplorer/classes/SafeStandardBlockExplorer.md#chainid)
-- [name](/reference/blockexplorer/classes/SafeStandardBlockExplorer.md#name)
-- [url](/reference/blockexplorer/classes/SafeStandardBlockExplorer.md#url)
-- [ERRORS](/reference/blockexplorer/classes/SafeStandardBlockExplorer.md#errors)
+- [chainId](SafeStandardBlockExplorer.md#chainid)
+- [name](SafeStandardBlockExplorer.md#name)
+- [url](SafeStandardBlockExplorer.md#url)
+- [ERRORS](SafeStandardBlockExplorer.md#errors)
 
 ### Methods
 
-- [getAddressUrl](/reference/blockexplorer/classes/SafeStandardBlockExplorer.md#getaddressurl)
-- [getBlockUrl](/reference/blockexplorer/classes/SafeStandardBlockExplorer.md#getblockurl)
-- [getTxUrl](/reference/blockexplorer/classes/SafeStandardBlockExplorer.md#gettxurl)
+- [getAddressUrl](SafeStandardBlockExplorer.md#getaddressurl)
+- [getBlockUrl](SafeStandardBlockExplorer.md#getblockurl)
+- [getTxUrl](SafeStandardBlockExplorer.md#gettxurl)
 
 ## Constructors
 
@@ -47,7 +47,7 @@ const txUrlEffect = etherscan.getTxUrl('0x1234')
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `options` | [`BlockExplorerOptions`](/reference/blockexplorer/interfaces/BlockExplorerOptions.md) | The options for the BlockExplorer. |
+| `options` | [`BlockExplorerOptions`](../interfaces/BlockExplorerOptions.md) | The options for the BlockExplorer. |
 
 #### Defined in
 

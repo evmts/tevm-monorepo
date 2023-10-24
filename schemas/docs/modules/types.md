@@ -1,4 +1,4 @@
-[@evmts/schemas](/reference/schemas/README.md) / [Modules](/reference/schemas/modules.md) / types
+[@evmts/schemas](../README.md) / [Modules](../modules.md) / types
 
 # Module: types
 
@@ -6,11 +6,11 @@
 
 ### Type Aliases
 
-- [AddressBook](/reference/schemas/modules/types.md#addressbook)
-- [AddressBookEntry](/reference/schemas/modules/types.md#addressbookentry)
-- [BlockNumber](/reference/schemas/modules/types.md#blocknumber)
-- [IsAddressBook](/reference/schemas/modules/types.md#isaddressbook)
-- [IsBlockNumber](/reference/schemas/modules/types.md#isblocknumber)
+- [AddressBook](types.md#addressbook)
+- [AddressBookEntry](types.md#addressbookentry)
+- [BlockNumber](types.md#blocknumber)
+- [IsAddressBook](types.md#isaddressbook)
+- [IsBlockNumber](types.md#isblocknumber)
 
 ## Type Aliases
 

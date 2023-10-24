@@ -1,8 +1,8 @@
-[@evmts/solc](/reference/solc/README.md) / [Modules](/reference/solc/modules.md) / [types](/reference/solc/modules/types.md) / ModuleInfo
+[@evmts/solc](../README.md) / [Modules](../modules.md) / [types](../modules/types.md) / ModuleInfo
 
 # Interface: ModuleInfo
 
-[types](/reference/solc/modules/types.md).ModuleInfo
+[types](../modules/types.md).ModuleInfo
 
 Copied from rollup (kinda)
 
@@ -14,11 +14,11 @@ https://rollupjs.org/plugin-development/#this-getmoduleinfo
 
 ### Properties
 
-- [code](/reference/solc/interfaces/types.ModuleInfo.md#code)
-- [id](/reference/solc/interfaces/types.ModuleInfo.md#id)
-- [importedIds](/reference/solc/interfaces/types.ModuleInfo.md#importedids)
-- [rawCode](/reference/solc/interfaces/types.ModuleInfo.md#rawcode)
-- [resolutions](/reference/solc/interfaces/types.ModuleInfo.md#resolutions)
+- [code](types.ModuleInfo.md#code)
+- [id](types.ModuleInfo.md#id)
+- [importedIds](types.ModuleInfo.md#importedids)
+- [rawCode](types.ModuleInfo.md#rawcode)
+- [resolutions](types.ModuleInfo.md#resolutions)
 
 ## Properties
 
@@ -64,7 +64,7 @@ ___
 
 ### resolutions
 
-• **resolutions**: [`ModuleInfo`](/reference/solc/interfaces/types.ModuleInfo.md)[]
+• **resolutions**: [`ModuleInfo`](types.ModuleInfo.md)[]
 
 #### Defined in
 

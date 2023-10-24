@@ -1,4 +1,4 @@
-@evmts/esbuild-plugin / [Exports](/reference/esbuild-plugin/modules.md)
+@evmts/esbuild-plugin / [Exports](modules.md)
 
 # @evmts/plugin
 

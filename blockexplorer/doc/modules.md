@@ -1,4 +1,4 @@
-[@evmts/blockexplorer](/reference/blockexplorer/README.md) / Exports
+[@evmts/blockexplorer](README.md) / Exports
 
 # @evmts/blockexplorer
 
@@ -6,17 +6,17 @@
 
 ### Classes
 
-- [SafeStandardBlockExplorer](/reference/blockexplorer/classes/SafeStandardBlockExplorer.md)
-- [StandardBlockExplorer](/reference/blockexplorer/classes/StandardBlockExplorer.md)
+- [SafeStandardBlockExplorer](classes/SafeStandardBlockExplorer.md)
+- [StandardBlockExplorer](classes/StandardBlockExplorer.md)
 
 ### Interfaces
 
-- [BlockExplorerOptions](/reference/blockexplorer/interfaces/BlockExplorerOptions.md)
+- [BlockExplorerOptions](interfaces/BlockExplorerOptions.md)
 
 ### Type Aliases
 
-- [Address](/reference/blockexplorer/modules.md#address)
-- [Hex](/reference/blockexplorer/modules.md#hex)
+- [Address](modules.md#address)
+- [Hex](modules.md#hex)
 
 ## Type Aliases
 

@@ -1,4 +1,4 @@
-[@evmts/bun-plugin](/reference/bun-plugin/README.md) / Exports
+[@evmts/bun-plugin](README.md) / Exports
 
 # @evmts/bun-plugin
 
@@ -6,7 +6,7 @@
 
 ### Functions
 
-- [evmtsBunPlugin](/reference/bun-plugin/modules.md#evmtsbunplugin)
+- [evmtsBunPlugin](modules.md#evmtsbunplugin)
 
 ## Functions
 

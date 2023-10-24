@@ -1,8 +1,8 @@
-[@evmts/schemas](/reference/schemas/README.md) / [Modules](/reference/schemas/modules.md) / [evmts](/reference/schemas/modules/evmts.md) / InvalidAddressBookError
+[@evmts/schemas](../README.md) / [Modules](../modules.md) / [evmts](../modules/evmts.md) / InvalidAddressBookError
 
 # Class: InvalidAddressBookError
 
-[evmts](/reference/schemas/modules/evmts.md).InvalidAddressBookError
+[evmts](../modules/evmts.md).InvalidAddressBookError
 
 Error thrown when an AddressBook is invalid.
 
@@ -16,20 +16,20 @@ Error thrown when an AddressBook is invalid.
 
 ### Constructors
 
-- [constructor](/reference/schemas/classes/evmts.InvalidAddressBookError.md#constructor)
+- [constructor](evmts.InvalidAddressBookError.md#constructor)
 
 ### Properties
 
-- [cause](/reference/schemas/classes/evmts.InvalidAddressBookError.md#cause)
-- [message](/reference/schemas/classes/evmts.InvalidAddressBookError.md#message)
-- [name](/reference/schemas/classes/evmts.InvalidAddressBookError.md#name)
-- [stack](/reference/schemas/classes/evmts.InvalidAddressBookError.md#stack)
-- [prepareStackTrace](/reference/schemas/classes/evmts.InvalidAddressBookError.md#preparestacktrace)
-- [stackTraceLimit](/reference/schemas/classes/evmts.InvalidAddressBookError.md#stacktracelimit)
+- [cause](evmts.InvalidAddressBookError.md#cause)
+- [message](evmts.InvalidAddressBookError.md#message)
+- [name](evmts.InvalidAddressBookError.md#name)
+- [stack](evmts.InvalidAddressBookError.md#stack)
+- [prepareStackTrace](evmts.InvalidAddressBookError.md#preparestacktrace)
+- [stackTraceLimit](evmts.InvalidAddressBookError.md#stacktracelimit)
 
 ### Methods
 
-- [captureStackTrace](/reference/schemas/classes/evmts.InvalidAddressBookError.md#capturestacktrace)
+- [captureStackTrace](evmts.InvalidAddressBookError.md#capturestacktrace)
 
 ## Constructors
 

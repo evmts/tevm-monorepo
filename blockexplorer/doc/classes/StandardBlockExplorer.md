@@ -1,4 +1,4 @@
-[@evmts/blockexplorer](/reference/blockexplorer/README.md) / [Exports](/reference/blockexplorer/modules.md) / StandardBlockExplorer
+[@evmts/blockexplorer](../README.md) / [Exports](../modules.md) / StandardBlockExplorer
 
 # Class: StandardBlockExplorer
 
@@ -21,21 +21,21 @@ const txUrl = etherscan.getTxUrl('0x1234')
 
 ### Constructors
 
-- [constructor](/reference/blockexplorer/classes/StandardBlockExplorer.md#constructor)
+- [constructor](StandardBlockExplorer.md#constructor)
 
 ### Properties
 
-- [chainId](/reference/blockexplorer/classes/StandardBlockExplorer.md#chainid)
-- [name](/reference/blockexplorer/classes/StandardBlockExplorer.md#name)
-- [safeBlockExplorer](/reference/blockexplorer/classes/StandardBlockExplorer.md#safeblockexplorer)
-- [url](/reference/blockexplorer/classes/StandardBlockExplorer.md#url)
-- [ERRORS](/reference/blockexplorer/classes/StandardBlockExplorer.md#errors)
+- [chainId](StandardBlockExplorer.md#chainid)
+- [name](StandardBlockExplorer.md#name)
+- [safeBlockExplorer](StandardBlockExplorer.md#safeblockexplorer)
+- [url](StandardBlockExplorer.md#url)
+- [ERRORS](StandardBlockExplorer.md#errors)
 
 ### Methods
 
-- [getAddressUrl](/reference/blockexplorer/classes/StandardBlockExplorer.md#getaddressurl)
-- [getBlockUrl](/reference/blockexplorer/classes/StandardBlockExplorer.md#getblockurl)
-- [getTxUrl](/reference/blockexplorer/classes/StandardBlockExplorer.md#gettxurl)
+- [getAddressUrl](StandardBlockExplorer.md#getaddressurl)
+- [getBlockUrl](StandardBlockExplorer.md#getblockurl)
+- [getTxUrl](StandardBlockExplorer.md#gettxurl)
 
 ## Constructors
 
@@ -47,7 +47,7 @@ const txUrl = etherscan.getTxUrl('0x1234')
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `options` | [`BlockExplorerOptions`](/reference/blockexplorer/interfaces/BlockExplorerOptions.md) | The options for the BlockExplorer. |
+| `options` | [`BlockExplorerOptions`](../interfaces/BlockExplorerOptions.md) | The options for the BlockExplorer. |
 
 #### Defined in
 
@@ -77,7 +77,7 @@ ___
 
 ### safeBlockExplorer
 
-• **safeBlockExplorer**: [`SafeStandardBlockExplorer`](/reference/blockexplorer/classes/SafeStandardBlockExplorer.md)
+• **safeBlockExplorer**: [`SafeStandardBlockExplorer`](SafeStandardBlockExplorer.md)
 
 #### Defined in
 

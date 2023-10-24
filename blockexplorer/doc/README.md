@@ -1,4 +1,4 @@
-@evmts/blockexplorer / [Exports](/reference/blockexplorer/modules.md)
+@evmts/blockexplorer / [Exports](modules.md)
 
 <p align="center">
   <a href="https://evmts.dev/">
