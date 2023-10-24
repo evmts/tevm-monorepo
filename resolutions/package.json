@@ -43,7 +43,7 @@
 		"all": "bun i && bun run build && bun run lint && bun run lint:check && bun run format:check && bun run format && bun run test:coverage && bun run generate:docs",
 		"build": "nx run-many --targets=build:dist,build:types --projects=@evmts/resolutions ",
 		"build:dist": "bun run tsup",
-		"build:types": "bun run tsc --emitDeclarationOnly",
+		"build:types": "bun run tsc --emitDeclarationOnly --declaration --declarationMap",
 		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
 		"format": "rome format . --write",
 		"format:check": "rome format .",
