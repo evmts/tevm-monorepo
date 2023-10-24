@@ -1,6 +1,6 @@
 {
 	"$schema": "https://typedoc.org/schema.json",
-	"out": "../../docs/reference/unplugin",
+	"out": "./docs",
 	"entryPoints": ["./src/index.js"],
 	"publicPath": "/reference/unplugin/",
 	"plugin": ["typedoc-plugin-markdown"],

@@ -1,6 +1,6 @@
 {
 	"$schema": "https://typedoc.org/schema.json",
-	"out": "../../docs/reference/bundler",
+	"out": "./docs",
 	"entryPoints": [
 		"./src/bundler.js",
 		"./src/createCache.js",

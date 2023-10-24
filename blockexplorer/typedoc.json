@@ -1,6 +1,6 @@
 {
 	"$schema": "https://typedoc.org/schema.json",
-	"out": "../docs/reference/blockexplorer",
+	"out": "./doc",
 	"entryPoints": ["./src/index.js"],
 	"publicPath": "/reference/blockexplorer/",
 	"plugin": ["typedoc-plugin-markdown"],

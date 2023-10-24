@@ -1,6 +1,6 @@
 {
 	"$schema": "https://typedoc.org/schema.json",
-	"out": "../docs/reference/core",
+	"out": "./docs",
 	"entryPoints": ["./src/index.ts"],
 	"publicPath": "/reference/core/",
 	"plugin": ["typedoc-plugin-markdown"],

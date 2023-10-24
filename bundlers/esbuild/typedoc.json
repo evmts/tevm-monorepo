@@ -1,6 +1,6 @@
 {
 	"$schema": "https://typedoc.org/schema.json",
-	"out": "../../docs/reference/esbuild-plugin",
+	"out": "./docs",
 	"entryPoints": ["./src/index.js"],
 	"publicPath": "/reference/esbuild-plugin/",
 	"plugin": ["typedoc-plugin-markdown"],

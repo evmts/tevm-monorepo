@@ -59,7 +59,7 @@
 		},
 		"generate:docs": {
 			"dependsOn": ["^build"],
-			"outputs": ["{workspaceRoot}/docs/reference"]
+			"outputs": ["{projectRoot}/docs"]
 		},
 		"dev": {
 			"dependsOn": ["^build", "predev"]

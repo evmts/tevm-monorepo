@@ -1,6 +1,6 @@
 {
 	"$schema": "https://typedoc.org/schema.json",
-	"out": "../docs/reference/schemas",
+	"out": "./docs",
 	"entryPoints": [
 		"./src/types.d.ts",
 		"./src/ethereum/index.js",
