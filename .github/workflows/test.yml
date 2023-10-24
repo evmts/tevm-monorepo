@@ -104,3 +104,9 @@ jobs:
         with:
           name: "@evmts/resolutions"
           working-directory: "./resolutions"
+      - name: 'Report @evmts/effect Coverage'
+        if: always() # Also generate the report if tests are failing
+        uses:  davelosert/vitest-coverage-report-action@v2
+        with:
+          name: "@evmts/effect"
+          working-directory: "./effect"
