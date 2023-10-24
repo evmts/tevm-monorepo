@@ -21,7 +21,8 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Run tests
-        run: bun nx run-many --target=test:coverage
+        # using node because bun nx run-many is not doing coverage correctly in ci for some reason
+        run: npx nx run-many --target=test:coverage
         env:
           NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
           RPC_URL_MAINNET: ${{ secrets.RPC_URL_MAINNET }}
