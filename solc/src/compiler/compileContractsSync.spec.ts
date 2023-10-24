@@ -1,7 +1,7 @@
-import { moduleFactorySync } from '../importResolution/moduleFactorySync.js'
 import type { FileAccessObject, ModuleInfo } from '../types.js'
 import { compileContractSync } from './compileContractsSync.js'
 import type { ResolvedCompilerConfig } from '@evmts/config'
+import { moduleFactorySync } from '@evmts/resolutions'
 import resolve from 'resolve'
 // @ts-ignore
 import solc from 'solc'
@@ -22,7 +22,7 @@ vi.mock('solc', () => {
 	const defaultExport = { compile: vi.fn() }
 	return { default: defaultExport, ...defaultExport }
 })
-vi.mock('../importResolution/moduleFactorySync', () => ({
+vi.mock('@evmts/resolutions', () => ({
 	moduleFactorySync: vi.fn(),
 }))
 const ConsoleMock = {

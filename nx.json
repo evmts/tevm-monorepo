@@ -120,9 +120,7 @@
 		"outputsDist": [
 			{ "dependentTasksOutputFiles": "**/*", "transitive": true }
 		],
-		"outputsDts": [
-			{ "dependentTasksOutputFiles": "**/types/**/*", "transitive": true }
-		],
+		"outputsDts": [{ "dependentTasksOutputFiles": "**/*", "transitive": true }],
 		"testing": ["configsWorkspace", "default"]
 	}
 }

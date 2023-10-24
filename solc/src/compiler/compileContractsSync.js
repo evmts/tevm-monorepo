@@ -1,6 +1,6 @@
-import { moduleFactorySync } from '../importResolution/moduleFactorySync.js'
 import * as solc from '../solc.js'
 import { invariant } from '../utils/invariant.js'
+import { moduleFactorySync } from '@evmts/resolutions'
 import resolve from 'resolve'
 
 /**

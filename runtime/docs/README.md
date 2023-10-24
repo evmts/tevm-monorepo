@@ -22,28 +22,11 @@
 <img alt="" src="https://badgen.net/bundlephobia/minzip/@evmts/core" />
 </a>
 
-# @evmts/bundler
+# @evmts/runtime
 
-Internal bundler for Evmts
+Internal code for generating the runtime contract code for [@evmts/bundler](../bundlers/bundler)
 
-Used in the LSP
-
-- @evmts/ts-plugin
-
-And all bundlers
-
-- @evmts/bun-plugin
-- @evmts/esbuild-plugin
-- @evmts/rollup-plugin
-- @evmts/rspack-plugin
-- @evmts/vite-plugin
-- @evmts/webpack-plugin
-
-## API
-
-#### bundler
-
-## Visit [Docs](https://evmts.dev/) for docs, guides, API and more!
+Generated API Docs at [./docs/](./docs)
 
 ## See [Evmts Beta project board](https://github.com/orgs/evmts/projects/1) for progress on the upcoming beta release
 

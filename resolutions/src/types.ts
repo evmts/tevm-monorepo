@@ -1,10 +1,3 @@
-import type {
-	SolcContractOutput,
-	SolcInputDescription,
-	SolcOutput,
-} from './solcTypes.js'
-import type { Node } from 'solidity-ast/node.js'
-
 export type FileAccessObject = {
 	readFile: (path: string, encoding: BufferEncoding) => Promise<string>
 	readFileSync: (path: string, encoding: BufferEncoding) => string
@@ -28,16 +21,3 @@ export interface ModuleInfo {
 	importedIds: string[] // the module ids statically imported by this module
 	resolutions: ModuleInfo[] // how statically imported ids were resolved, for use with this.load
 }
-
-export type CompiledContracts<TIncludeAsts extends boolean = boolean> = {
-	artifacts: SolcOutput['contracts'][string] | undefined
-	modules: Record<'string', ModuleInfo>
-	asts: TIncludeAsts extends true ? Record<string, Node> : undefined
-	solcInput: SolcInputDescription
-	solcOutput: SolcOutput
-}
-
-export type Artifacts = Record<
-	string,
-	Pick<SolcContractOutput, 'abi' | 'userdoc'>
->
