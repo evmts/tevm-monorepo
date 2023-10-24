@@ -1,6 +1,6 @@
 {
 	"$schema": "https://typedoc.org/schema.json",
-	"out": "../docs/reference/state",
+	"out": "./docs",
 	"entryPoints": ["./src/index.js"],
 	"gitRevision": "main"
 }

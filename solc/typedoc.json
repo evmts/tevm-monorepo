@@ -1,6 +1,6 @@
 {
 	"$schema": "https://typedoc.org/schema.json",
-	"out": "../../docs/reference/solc",
+	"out": "./docs",
 	"entryPoints": [
 		"./src/resolveArtifacts.js",
 		"./src/resolveArtifactsSync.js",

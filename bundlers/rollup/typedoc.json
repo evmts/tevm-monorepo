@@ -1,6 +1,6 @@
 {
 	"$schema": "https://typedoc.org/schema.json",
-	"out": "../../docs/reference/rollup-plugin",
+	"out": "./docs",
 	"entryPoints": ["./src/index.js"],
 	"publicPath": "/reference/rollup-plugin/",
 	"plugin": ["typedoc-plugin-markdown"],
