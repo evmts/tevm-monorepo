@@ -44,6 +44,33 @@ Try cloning our [minimal bun example on github](https://github.com/evmts/bun-sta
 
 Contributions are encouraged, but please open an issue before doing any major changes to make sure your change will be accepted.
 
+#### Getting started contributing
+
+1. Install bun 
+
+```bash
+npm i bun --global && bun --version
+```
+
+2. Run everything
+
+`bun all` will run everything 
+
+```
+bun all
+```
+
+This includes
+- linting package.json
+- linting source code
+- generated docs
+- building all .d.ts types for all packages
+- building all cjs for all packages 
+- running all tests
+- running all dev fixtures
+
+3. Read [CONTRIBUTING.md](./CONTRIBUTING.md) if making code changes as an introduction to EVMts
+
 ## 🚧 WARNING: UNDER CONSTRUCTION 🚧
 
 **This project is in alpha and subject to frequent changes**
