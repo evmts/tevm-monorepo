@@ -1,5 +1,3 @@
-@evmts/runtime / [Exports](modules.md)
-
 <p align="center">
   <a href="https://evmts.dev/">
     <picture>
@@ -15,20 +13,18 @@
 
 [![CI](https://github.com/evmts/evmts-monorepo/actions/workflows/e2e.yml/badge.svg)](https://github.com/evmts/evmts-monorepo/actions/workflows/e2e.yml)
 [![CI](https://github.com/evmts/evmts-monorepo/actions/workflows/unit.yml/badge.svg)](https://github.com/evmts/evmts-monorepo/actions/workflows/unit.yml)
-<a href="https://www.npmjs.com/package/@evmts/core" target="\_parent">
-<img alt="" src="https://img.shields.io/npm/dm/@evmts/core.svg" />
+<a href="https://www.npmjs.com/package/@evmts/resolutions" target="\_parent">
+<img alt="" src="https://img.shields.io/npm/dm/@evmts/resolutions.svg" />
 </a>
-<a href="https://bundlephobia.com/package/@evmts/core@latest" target="\_parent">
-<img alt="" src="https://badgen.net/bundlephobia/minzip/@evmts/core" />
+<a href="https://bundlephobia.com/package/@evmts/resolutions@latest" target="\_parent">
+<img alt="" src="https://badgen.net/bundlephobia/minzip/@evmts/resolutions" />
 </a>
 
-# @evmts/runtime
+# @evmts/resolutions
 
-Internal code for generating the runtime contract code for [@evmts/bundler](../bundlers/bundler)
+Package to resolve the import graph for solidity packages
 
-Generated API Docs at [./docs/](./docs)
-
-## See [Evmts Beta project board](https://github.com/orgs/evmts/projects/1) for progress on the upcoming beta release
+Generated docs at [./docs](./docs)
 
 ## License 📄
 

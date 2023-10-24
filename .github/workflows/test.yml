@@ -98,3 +98,9 @@ jobs:
         with:
           name: "@evmts/unplugin"
           working-directory: "./bundlers/unplugin"
+      - name: 'Report @evmts/resolutions Coverage'
+        if: always() # Also generate the report if tests are failing
+        uses:  davelosert/vitest-coverage-report-action@v2
+        with:
+          name: "@evmts/resolutions"
+          working-directory: "./resolutions"

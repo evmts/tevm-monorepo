@@ -1,6 +1,6 @@
-import { moduleFactory } from '../importResolution/moduleFactory.js'
 import { solcCompile } from '../solc.js'
 import { invariant, resolveEffect } from '../utils/index.js'
+import { moduleFactory } from '@evmts/resolutions'
 import { Effect } from 'effect'
 
 /**
