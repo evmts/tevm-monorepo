@@ -80,3 +80,27 @@ jobs:
         with:
           name: "@evmts/blockexplorer"
           working-directory: "./blockexplorer"
+      - name: 'Report @evmts/runtime Coverage'
+        if: always() # Also generate the report if tests are failing
+        uses:  davelosert/vitest-coverage-report-action@v2
+        with:
+          name: "@evmts/runtime"
+          working-directory: "./runtime"
+      - name: 'Report @evmts/solc Coverage'
+        if: always() # Also generate the report if tests are failing
+        uses:  davelosert/vitest-coverage-report-action@v2
+        with:
+          name: "@evmts/solc"
+          working-directory: "./solc"
+      - name: 'Report @evmts/unplugin Coverage'
+        if: always() # Also generate the report if tests are failing
+        uses:  davelosert/vitest-coverage-report-action@v2
+        with:
+          name: "@evmts/unplugin"
+          working-directory: "./plugins/unplugin"
+      - name: 'Report @evmts/state Coverage'
+        if: always() # Also generate the report if tests are failing
+        uses:  davelosert/vitest-coverage-report-action@v2
+        with:
+          name: "@evmts/state"
+          working-directory: "./plugins/state"
