@@ -39,7 +39,13 @@ For a list of all packages see the `workspaces` key in the root level [package.j
 
 ## Packages
 
-EVMts is heavily broken up into small packages. The main ones to start with are the following.
+EVMts is heavily broken up into small packages. To see the entire package graph use nx
+
+```bash
+bun run nx graph
+```
+
+The main ones to start with are the following.
 
 #### Build packages
 
