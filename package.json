@@ -21,6 +21,7 @@
 		"docs",
 		"e2e",
 		"effect",
+		"resolutions",
 		"runtime",
 		"solc",
 		"schemas",
