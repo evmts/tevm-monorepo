@@ -1,11 +1,9 @@
-import { bundler } from './bundler.js'
-import { createCache } from './createCache.js'
+import { bundler, createCache } from '@evmts/bundler'
 import { loadConfig } from '@evmts/config'
 import { runSync } from 'effect/Effect'
 import { existsSync, readFileSync } from 'fs'
 import { readFile } from 'fs/promises'
 import { createRequire } from 'module'
-import { createUnplugin } from 'unplugin'
 import { z } from 'zod'
 
 const compilerOptionValidator = z
@@ -24,7 +22,7 @@ const bundlers = {
 /**
  * @type {import("unplugin").UnpluginFactory<{compiler?: CompilerOption } | undefined, false>}
  */
-export const unpluginFn = (options = {}) => {
+export const evmtsUnplugin = (options = {}) => {
 	/**
 	 * @type {import("@evmts/config").ResolvedCompilerConfig}
 	 */
@@ -53,7 +51,7 @@ export const unpluginFn = (options = {}) => {
 	let moduleResolver
 
 	/**
-	 * @type {import("./types.js").FileAccessObject}
+	 * @type {import("@evmts/bundler").FileAccessObject}
 	 */
 	const fao = {
 		existsSync,
@@ -109,19 +107,3 @@ export const unpluginFn = (options = {}) => {
 		...{ version: '0.11.2' },
 	}
 }
-
-const evmtsUnplugin = createUnplugin(unpluginFn)
-
-// Hacks to make types portable
-// we should manually type these at some point
-
-export const vitePluginEvmts = /** @type {typeof evmtsUnplugin.rollup} */ (
-	/** @type {any} */ (evmtsUnplugin.vite)
-)
-export const rollupPluginEvmts = evmtsUnplugin.rollup
-export const esbuildPluginEvmts = evmtsUnplugin.esbuild
-export const webpackPluginEvmts = /** @type {typeof evmtsUnplugin.rspack} */ (
-	evmtsUnplugin.webpack
-)
-
-export const rspackPluginEvmts = evmtsUnplugin.rspack

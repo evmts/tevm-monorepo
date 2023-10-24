@@ -1,0 +1,15 @@
+{
+	"$schema": "https://typedoc.org/schema.json",
+	"out": "../../docs/reference/unplugin",
+	"entryPoints": [
+		"./src/unplugin.js",
+		"./src/createCache.js",
+		"./src/unplugin.js",
+		"./src/runtime/index.js",
+		"./src/solc/index.js",
+		"./src/utils/index.js"
+	],
+	"publicPath": "/reference/unplugin/",
+	"plugin": ["typedoc-plugin-markdown"],
+	"gitRevision": "main"
+}

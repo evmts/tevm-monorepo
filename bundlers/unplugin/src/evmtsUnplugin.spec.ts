@@ -1,6 +1,6 @@
 import packageJson from '../package.json'
-import { bundler } from './bundler.js'
-import { unpluginFn } from './unplugin.js'
+import { bundler } from '@evmts/bundler'
+import { evmtsUnplugin } from './evmtsUnplugin.js'
 import { loadConfig } from '@evmts/config'
 import { succeed } from 'effect/Effect'
 import { existsSync } from 'fs'
@@ -25,7 +25,8 @@ vi.mock('@evmts/config', async () => ({
 	...((await vi.importActual('@evmts/config')) as {}),
 	loadConfig: vi.fn(),
 }))
-vi.mock('./bundler', () => ({
+vi.mock('@evmts/bundler', async () => ({
+	...((await vi.importActual('@evmts/bundler')) as {}),
 	bundler: vi.fn(),
 }))
 
@@ -73,7 +74,7 @@ describe('unpluginFn', () => {
 	})
 
 	it('should create the plugin correctly', async () => {
-		const plugin = unpluginFn({}, {} as any)
+		const plugin = evmtsUnplugin({}, {} as any)
 		expect(plugin.name).toEqual('@evmts/rollup-plugin')
 		expect((plugin as any).version).toEqual(packageJson.version)
 
@@ -129,21 +130,21 @@ describe('unpluginFn', () => {
 	})
 
 	it('should throw an error for invalid compiler option', () => {
-		const errorFn = () => unpluginFn({ compiler: 'invalid' as any }, {} as any)
+		const errorFn = () => evmtsUnplugin({ compiler: 'invalid' as any }, {} as any)
 		expect(errorFn).toThrowErrorMatchingInlineSnapshot(
 			"\"Invalid compiler option: invalid.  Valid options are 'solc' and 'foundry'\"",
 		)
 	})
 
 	it('should throw an error if foundry compiler is set', () => {
-		const errorFn = () => unpluginFn({ compiler: 'foundry' }, {} as any)
+		const errorFn = () => evmtsUnplugin({ compiler: 'foundry' }, {} as any)
 		expect(errorFn).toThrowErrorMatchingInlineSnapshot(
 			'"We have abandoned the foundry option despite supporting it in the past. Please use solc instead. Foundry will be added back as a compiler at a later time."',
 		)
 	})
 
 	it('should watch the tsconfig.json file', async () => {
-		const plugin = unpluginFn({}, {} as any)
+		const plugin = evmtsUnplugin({}, {} as any)
 
 		// call buildstart with mockPlugin as this
 		await plugin.buildStart?.call(mockPlugin)
@@ -153,7 +154,7 @@ describe('unpluginFn', () => {
 	})
 
 	it('should add module id to watch files if it is a .sol file', async () => {
-		const plugin = unpluginFn({}, {} as any)
+		const plugin = evmtsUnplugin({}, {} as any)
 		const mockedModuleId = 'mockedModuleId'
 		const mockedModule = {
 			code: 'mockedCode',
@@ -173,7 +174,7 @@ describe('unpluginFn', () => {
 	})
 
 	it('should not add module id to watch files if it is a .sol file in node modules', async () => {
-		const plugin = unpluginFn({}, {} as any)
+		const plugin = evmtsUnplugin({}, {} as any)
 		const mockedModuleId = 'mockedModuleId'
 		const mockedModule = {
 			code: 'mockedCode',
@@ -193,7 +194,7 @@ describe('unpluginFn', () => {
 	})
 
 	it('should handle @evmts/core/runtime id correctly', async () => {
-		const plugin = unpluginFn({}, {} as any)
+		const plugin = evmtsUnplugin({}, {} as any)
 
 		// Insert logic here based on what the behavior should be when id.startsWith('@evmts/core/runtime') is true
 		// For now, let's just call it and assert that it doesn't throw an error
@@ -202,7 +203,7 @@ describe('unpluginFn', () => {
 	})
 
 	it('should return undefined if .sol file has corresponding .ts file', async () => {
-		const plugin = unpluginFn({}, {} as any)
+		const plugin = evmtsUnplugin({}, {} as any)
 		mockExistsSync.mockReturnValueOnce(true)
 
 		const result = await plugin.load?.call(mockPlugin, 'test.sol')
@@ -212,7 +213,7 @@ describe('unpluginFn', () => {
 	})
 
 	it('should return undefined if .sol file has corresponding .d.ts file', async () => {
-		const plugin = unpluginFn({}, {} as any)
+		const plugin = evmtsUnplugin({}, {} as any)
 		mockExistsSync.mockReturnValueOnce(false).mockReturnValueOnce(true)
 
 		const result = await plugin.load?.call(mockPlugin, 'test.sol')
@@ -222,7 +223,7 @@ describe('unpluginFn', () => {
 	})
 	describe('unpluginFn.resolveId', () => {
 		it('should resolve to local @evmts/core when id starts with @evmts/core', async () => {
-			const plugin = unpluginFn({}, {} as any)
+			const plugin = evmtsUnplugin({}, {} as any)
 			const mockCreateRequre = createRequire as MockedFunction<
 				typeof createRequire
 			>
@@ -252,7 +253,7 @@ describe('unpluginFn', () => {
 		})
 
 		it('should return null when id does not start with @evmts/core', async () => {
-			const plugin = unpluginFn({}, {} as any)
+			const plugin = evmtsUnplugin({}, {} as any)
 
 			const result = await plugin.resolveId?.call(
 				mockPlugin,
@@ -265,7 +266,7 @@ describe('unpluginFn', () => {
 		})
 
 		it('should return null when id starts with @evmts/core but importer is in node_modules or the same workspace', async () => {
-			const plugin = unpluginFn({}, {} as any)
+			const plugin = evmtsUnplugin({}, {} as any)
 
 			const resultInNodeModules = await plugin.resolveId?.call(
 				mockPlugin,

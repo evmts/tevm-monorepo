@@ -40,7 +40,7 @@
 		"lint:check": "rome check . --verbose"
 	},
 	"dependencies": {
-		"@evmts/bundler": "workspace:^"
+		"@evmts/unplugin": "workspace:^"
 	},
 	"devDependencies": {
 		"@evmts/tsconfig": "workspace:^",

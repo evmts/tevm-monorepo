@@ -13,10 +13,3 @@
  */
 export { bundler } from './bundler.js'
 export { createCache } from './createCache.js'
-export {
-	vitePluginEvmts,
-	rollupPluginEvmts,
-	rspackPluginEvmts,
-	esbuildPluginEvmts,
-	webpackPluginEvmts,
-} from './unplugin.js'

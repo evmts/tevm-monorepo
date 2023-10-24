@@ -1,7 +1,7 @@
 import { esbuildPluginEvmts } from './index.js'
 import { describe, expect, it, vi } from 'vitest'
 
-describe(esbuildPluginEvmts.name, () => {
+describe('esbuildPluginEvmts', () => {
 	it('should properly export the unplugin bundler from @evmts/bundler', async () => {
 		const plugin = esbuildPluginEvmts()
 
