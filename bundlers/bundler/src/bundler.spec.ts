@@ -1,7 +1,12 @@
 import { bundler } from './bundler.js'
-import { resolveArtifacts, resolveArtifactsSync } from './solc/index.js'
-import type { SolcInputDescription, SolcOutput } from './solc/solcTypes.js'
-import type { Bundler, FileAccessObject, Logger, ModuleInfo } from './types.js'
+import type { Bundler, FileAccessObject, Logger } from './types.js'
+import {
+	type ModuleInfo,
+	type SolcInputDescription,
+	type SolcOutput,
+	resolveArtifacts,
+	resolveArtifactsSync,
+} from '@evmts/solc'
 import type { Node } from 'solidity-ast/node.js'
 import {
 	type Mock,
@@ -57,7 +62,7 @@ describe(bundler.name, () => {
 		}
 
 		resolver = bundler(config as any, logger, fao)
-		vi.mock('./solc', () => {
+		vi.mock('@evmts/solc', () => {
 			return {
 				resolveArtifacts: vi.fn(),
 				resolveArtifactsSync: vi.fn(),

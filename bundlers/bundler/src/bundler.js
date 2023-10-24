@@ -1,10 +1,9 @@
-import { generateDtsBody } from './runtime/generateEvmtsBodyDts.js'
-import { generateRuntime } from './runtime/generateRuntime.js'
-import { generateRuntimeSync } from './runtime/generateRuntimeSync.js'
-import { resolveArtifacts, resolveArtifactsSync } from './solc/index.js'
-// TODO wrap this in a typesafe version
-// @ts-ignore
-import solc from 'solc'
+import {
+	generateDtsBody,
+	generateRuntime,
+	generateRuntimeSync,
+} from '@evmts/runtime'
+import { resolveArtifacts, resolveArtifactsSync } from '@evmts/solc'
 
 /**
  * @type {import('./types.js').Bundler}

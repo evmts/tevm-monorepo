@@ -57,7 +57,14 @@
 			"dependsOn": ["^build:dist"],
 			"outputs": ["{projectRoot}/dist"]
 		},
+		"generate:docs": {
+			"dependsOn": ["^build"],
+			"outputs": ["{workspaceRoot}/docs/reference"]
+		},
 		"dev": {
+			"dependsOn": ["^build", "predev"]
+		},
+		"dev:run": {
 			"dependsOn": ["^build", "predev"]
 		}
 	},
@@ -76,6 +83,8 @@
 					"e2e",
 					"format:check",
 					"lint:check",
+					"generate:docs",
+					"dev:run",
 					"format:check"
 				]
 			}

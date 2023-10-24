@@ -41,7 +41,7 @@
 		"test:ui": "vitest --ui"
 	},
 	"dependencies": {
-		"@evmts/bundler": "workspace:^"
+		"@evmts/unplugin": "workspace:^"
 	},
 	"devDependencies": {
 		"@evmts/tsconfig": "workspace:^",

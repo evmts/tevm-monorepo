@@ -1,0 +1,8 @@
+{
+	"$schema": "https://typedoc.org/schema.json",
+	"out": "../../docs/reference/runtime",
+	"entryPoints": ["./src/index.js"],
+	"publicPath": "/reference/runtime/",
+	"plugin": ["typedoc-plugin-markdown"],
+	"gitRevision": "main"
+}

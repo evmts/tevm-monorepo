@@ -1,1 +1,3 @@
-export { rollupPluginEvmts } from '@evmts/bundler'
+import { createUnplugin, evmtsUnplugin } from '@evmts/unplugin'
+
+export const { rollup: rollupPluginEvmts } = createUnplugin(evmtsUnplugin)

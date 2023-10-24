@@ -12,7 +12,7 @@
 
 ### vitePluginEvmts
 
-▸ **vitePluginEvmts**(`options?`): `Plugin`<`any`\>
+▸ **vitePluginEvmts**(`options?`): `Plugin_2`
 
 #### Parameters
 
@@ -23,8 +23,8 @@
 
 #### Returns
 
-`Plugin`<`any`\>
+`Plugin_2`
 
 #### Defined in
 
-bundler/types/src/unplugin.d.ts:7
+node_modules/unplugin/dist/index.d.mts:83

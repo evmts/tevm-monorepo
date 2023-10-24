@@ -1,1 +1,3 @@
-export { vitePluginEvmts } from '@evmts/bundler'
+import { createUnplugin, evmtsUnplugin } from '@evmts/unplugin'
+
+export const { vite: vitePluginEvmts } = createUnplugin(evmtsUnplugin)

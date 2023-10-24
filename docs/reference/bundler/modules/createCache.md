@@ -28,7 +28,7 @@
 
 #### Defined in
 
-[bundlers/bundler/src/createCache.d.ts:8](https://github.com/evmts/evmts-monorepo/blob/main/bundlers/bundler/src/createCache.d.ts#L8)
+[createCache.d.ts:8](https://github.com/evmts/evmts-monorepo/blob/main/bundlers/bundler/src/createCache.d.ts#L8)
 
 ## Functions
 
@@ -48,4 +48,4 @@
 
 #### Defined in
 
-[bundlers/bundler/src/createCache.d.ts:17](https://github.com/evmts/evmts-monorepo/blob/main/bundlers/bundler/src/createCache.d.ts#L17)
+[createCache.d.ts:17](https://github.com/evmts/evmts-monorepo/blob/main/bundlers/bundler/src/createCache.d.ts#L17)
