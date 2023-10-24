@@ -1,6 +1,6 @@
 import packageJson from '../package.json'
-import { bundler } from '@evmts/bundler'
 import { evmtsUnplugin } from './evmtsUnplugin.js'
+import { bundler } from '@evmts/bundler'
 import { loadConfig } from '@evmts/config'
 import { succeed } from 'effect/Effect'
 import { existsSync } from 'fs'
@@ -130,7 +130,8 @@ describe('unpluginFn', () => {
 	})
 
 	it('should throw an error for invalid compiler option', () => {
-		const errorFn = () => evmtsUnplugin({ compiler: 'invalid' as any }, {} as any)
+		const errorFn = () =>
+			evmtsUnplugin({ compiler: 'invalid' as any }, {} as any)
 		expect(errorFn).toThrowErrorMatchingInlineSnapshot(
 			"\"Invalid compiler option: invalid.  Valid options are 'solc' and 'foundry'\"",
 		)

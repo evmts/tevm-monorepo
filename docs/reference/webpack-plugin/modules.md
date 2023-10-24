@@ -12,7 +12,7 @@
 
 ### webpackPluginEvmts
 
-▸ **webpackPluginEvmts**(`options?`): `RspackPluginInstance`
+▸ **webpackPluginEvmts**(`options?`): `WebpackPluginInstance`
 
 #### Parameters
 
@@ -23,8 +23,8 @@
 
 #### Returns
 
-`RspackPluginInstance`
+`WebpackPluginInstance`
 
 #### Defined in
 
-bundler/types/src/unplugin.d.ts:16
+node_modules/unplugin/dist/index.d.mts:83

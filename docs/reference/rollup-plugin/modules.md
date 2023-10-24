@@ -27,4 +27,4 @@
 
 #### Defined in
 
-bundler/types/src/unplugin.d.ts:10
+node_modules/unplugin/dist/index.d.mts:83
