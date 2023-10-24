@@ -54,7 +54,7 @@
 		"lint": "rome check . --apply-unsafe",
 		"lint:check": "rome check . --verbose",
 		"test": "vitest --coverage",
-		"test:coverage": "bun i && bun run vitest run --coverage",
+		"test:coverage": "bun run vitest run --coverage",
 		"test:run": "vitest run",
 		"test:ui": "vitest --ui"
 	},
