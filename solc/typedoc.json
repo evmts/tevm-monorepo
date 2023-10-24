@@ -8,6 +8,5 @@
 		"./src/solcTypes.js",
 		"./src/types.ts"
 	],
-	"plugin": ["typedoc-plugin-markdown"],
 	"gitRevision": "main"
 }

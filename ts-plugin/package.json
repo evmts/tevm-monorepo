@@ -1,80 +1,79 @@
 {
-  "name": "@evmts/ts-plugin",
-  "version": "0.11.2",
-  "private": false,
-  "description": "A typescript plugin for evmts",
-  "keywords": [
-    "typescript",
-    "plugin",
-    "solidity",
-    "sol",
-    "evmts"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/evmts/evmts-monorepo.git",
-    "directory": "lsp/ts-plugin"
-  },
-  "license": "MIT",
-  "contributors": [
-    "Will Cory <willcory10@gmail.com>"
-  ],
-  "type": "module",
-  "exports": {
-    "./package.json": "./package.json",
-    ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs",
-      "types": "./types/index.d.ts",
-      "default": "./dist/index.cjs"
-    }
-  },
-  "main": "dist/index.cjs",
-  "module": "dist/index.js",
-  "types": "types/index.d.ts",
-  "bin": {
-    "evmts-gen": "./dist/bin/evmts-gen.js"
-  },
-  "files": [
-    "dist",
-    "types",
-    "src"
-  ],
-  "scripts": {
-    "build": "nx run-many --targets=build:dist,build:types --projects=@evmts/ts-plugin ",
-    "build:dist": "bun run tsup",
-    "build:types": "bun run tsc --emitDeclarationOnly",
-    "clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
-    "dev": "TSS_DEBUG_BRK=9559 code ../../examples/forge-foundry",
-    "format": "rome format . --write",
-    "format:check": "rome format .",
-    "generate:docs": "bun run typedoc",
-    "lint": "rome check . --apply-unsafe",
-    "lint:check": "rome check . --verbose",
-    "test": "vitest --coverage",
-    "test:coverage": "vitest run --coverage",
-    "test:run": "vitest --run"
-  },
-  "dependencies": {
-    "@evmts/bundler": "workspace:^",
-    "effect": "^2.0.0-next.50",
-    "esbuild": "0.19.4",
-    "glob": "^10.3.10",
-    "solidity-ast": "^0.4.52",
-    "zod": "^3.22.2"
-  },
-  "devDependencies": {
-    "@evmts/config": "workspace:^",
-    "@vitest/coverage-v8": "^0.34.6",
-    "rome": "^12.1.3",
-    "tsup": "^7.2.0",
-    "typedoc": "^0.25.2",
-    "typedoc-plugin-markdown": "^3.16.0",
-    "typescript": "^5.2.2",
-    "vitest": "^0.34.6"
-  },
-  "peerDependencies": {
-    "solc": "*",
-    "typescript": ">=5.0.0"
-  }
+	"name": "@evmts/ts-plugin",
+	"version": "0.11.2",
+	"private": false,
+	"description": "A typescript plugin for evmts",
+	"keywords": [
+		"typescript",
+		"plugin",
+		"solidity",
+		"sol",
+		"evmts"
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/evmts/evmts-monorepo.git",
+		"directory": "lsp/ts-plugin"
+	},
+	"license": "MIT",
+	"contributors": [
+		"Will Cory <willcory10@gmail.com>"
+	],
+	"type": "module",
+	"exports": {
+		"./package.json": "./package.json",
+		".": {
+			"import": "./dist/index.js",
+			"require": "./dist/index.cjs",
+			"types": "./types/index.d.ts",
+			"default": "./dist/index.cjs"
+		}
+	},
+	"main": "dist/index.cjs",
+	"module": "dist/index.js",
+	"types": "types/index.d.ts",
+	"bin": {
+		"evmts-gen": "./dist/bin/evmts-gen.js"
+	},
+	"files": [
+		"dist",
+		"types",
+		"src"
+	],
+	"scripts": {
+		"build": "nx run-many --targets=build:dist,build:types --projects=@evmts/ts-plugin ",
+		"build:dist": "bun run tsup",
+		"build:types": "bun run tsc --emitDeclarationOnly",
+		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
+		"dev": "TSS_DEBUG_BRK=9559 code ../../examples/forge-foundry",
+		"format": "rome format . --write",
+		"format:check": "rome format .",
+		"generate:docs": "bun run typedoc",
+		"lint": "rome check . --apply-unsafe",
+		"lint:check": "rome check . --verbose",
+		"test": "vitest --coverage",
+		"test:coverage": "vitest run --coverage",
+		"test:run": "vitest --run"
+	},
+	"dependencies": {
+		"@evmts/bundler": "workspace:^",
+		"effect": "^2.0.0-next.50",
+		"esbuild": "0.19.4",
+		"glob": "^10.3.10",
+		"solidity-ast": "^0.4.52",
+		"zod": "^3.22.2"
+	},
+	"devDependencies": {
+		"@evmts/config": "workspace:^",
+		"@vitest/coverage-v8": "^0.34.6",
+		"rome": "^12.1.3",
+		"tsup": "^7.2.0",
+		"typedoc": "^0.25.2",
+		"typescript": "^5.2.2",
+		"vitest": "^0.34.6"
+	},
+	"peerDependencies": {
+		"solc": "*",
+		"typescript": ">=5.0.0"
+	}
 }

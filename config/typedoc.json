@@ -7,6 +7,5 @@
 		"./src/types.ts",
 		"./src/loadConfig.js"
 	],
-	"plugin": ["typedoc-plugin-markdown"],
 	"gitRevision": "main"
 }

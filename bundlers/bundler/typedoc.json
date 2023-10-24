@@ -6,6 +6,5 @@
 		"./src/createCache.js",
 		"./src/solc/types.js"
 	],
-	"plugin": ["typedoc-plugin-markdown"],
 	"gitRevision": "main"
 }

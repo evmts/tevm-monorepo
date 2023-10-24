@@ -8,9 +8,5 @@
 		"./src/actions/index.js",
 		"./src/utils/index.js"
 	],
-	"publicPath": "/reference/viem-effect/",
-	"plugin": [
-		"typedoc-plugin-markdown"
-	],
 	"gitRevision": "main"
 }

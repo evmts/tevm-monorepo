@@ -7,6 +7,5 @@
 		"./src/common/index.js",
 		"./src/evmts/index.js"
 	],
-	"plugin": ["typedoc-plugin-markdown"],
 	"gitRevision": "main"
 }

@@ -75,7 +75,6 @@
 		"solc": "0.8.21",
 		"tsup": "^7.2.0",
 		"typedoc": "^0.25.2",
-		"typedoc-plugin-markdown": "^3.16.0",
 		"typescript": "^5.2.2",
 		"vitest": "^0.34.6",
 		"wagmi": "^1.4.2",
