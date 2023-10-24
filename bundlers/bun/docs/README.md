@@ -1,4 +1,4 @@
-@evmts/bun-plugin / [Exports](/reference/bun-plugin/modules.md)
+@evmts/bun-plugin / [Exports](modules.md)
 
 # @evmts/plugin-bun
 

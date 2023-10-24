@@ -1,4 +1,4 @@
-@evmts/rollup-plugin / [Exports](/reference/rollup-plugin/modules.md)
+@evmts/rollup-plugin / [Exports](modules.md)
 
 # @evmts/plugin
 

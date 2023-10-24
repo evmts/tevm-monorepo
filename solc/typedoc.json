@@ -8,7 +8,6 @@
 		"./src/solcTypes.js",
 		"./src/types.ts"
 	],
-	"publicPath": "/reference/solc/",
 	"plugin": ["typedoc-plugin-markdown"],
 	"gitRevision": "main"
 }

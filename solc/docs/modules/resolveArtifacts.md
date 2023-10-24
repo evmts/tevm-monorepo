@@ -1,4 +1,4 @@
-[@evmts/solc](/reference/solc/README.md) / [Modules](/reference/solc/modules.md) / resolveArtifacts
+[@evmts/solc](../README.md) / [Modules](../modules.md) / resolveArtifacts
 
 # Module: resolveArtifacts
 
@@ -6,7 +6,7 @@
 
 ### Functions
 
-- [resolveArtifacts](/reference/solc/modules/resolveArtifacts.md#resolveartifacts)
+- [resolveArtifacts](resolveArtifacts.md#resolveartifacts)
 
 ## Functions
 
@@ -22,10 +22,10 @@ Resolves artifacts with solc asyncronously
 | :------ | :------ |
 | `solFile` | `string` |
 | `basedir` | `string` |
-| `logger` | [`Logger`](/reference/solc/modules/types.md#logger) |
+| `logger` | [`Logger`](types.md#logger) |
 | `config` | `ResolvedCompilerConfig` |
 | `includeAst` | `boolean` |
-| `fao` | [`FileAccessObject`](/reference/solc/modules/types.md#fileaccessobject) |
+| `fao` | [`FileAccessObject`](types.md#fileaccessobject) |
 
 #### Returns
 
@@ -33,9 +33,9 @@ Resolves artifacts with solc asyncronously
 
 | Name | Type |
 | :------ | :------ |
-| `artifacts` | [`Artifacts`](/reference/solc/modules/types.md#artifacts) |
+| `artifacts` | [`Artifacts`](types.md#artifacts) |
 | `asts` | `undefined` \| `Record`<`string`, `Node`\> |
-| `modules` | `Record`<``"string"``, [`ModuleInfo`](/reference/solc/interfaces/types.ModuleInfo.md)\> |
+| `modules` | `Record`<``"string"``, [`ModuleInfo`](../interfaces/types.ModuleInfo.md)\> |
 | `solcInput` | `SolcInputDescription` |
 | `solcOutput` | `SolcOutput` |
 

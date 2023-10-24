@@ -1,4 +1,4 @@
-@evmts/webpack-plugin / [Exports](/reference/webpack-plugin/modules.md)
+@evmts/webpack-plugin / [Exports](modules.md)
 
 # @evmts/plugin
 

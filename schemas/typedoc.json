@@ -7,7 +7,6 @@
 		"./src/common/index.js",
 		"./src/evmts/index.js"
 	],
-	"publicPath": "/reference/schemas/",
 	"plugin": ["typedoc-plugin-markdown"],
 	"gitRevision": "main"
 }

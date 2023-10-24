@@ -1,4 +1,4 @@
-@evmts/core / [Exports](/reference/core/modules.md)
+@evmts/core / [Exports](modules.md)
 
 <p align="center">
   <a href="https://evmts.dev/">

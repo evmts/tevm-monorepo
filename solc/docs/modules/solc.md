@@ -1,4 +1,4 @@
-[@evmts/solc](/reference/solc/README.md) / [Modules](/reference/solc/modules.md) / solc
+[@evmts/solc](../README.md) / [Modules](../modules.md) / solc
 
 # Module: solc
 
@@ -6,11 +6,11 @@
 
 ### Variables
 
-- [fileLevelOption](/reference/solc/modules/solc.md#fileleveloption)
+- [fileLevelOption](solc.md#fileleveloption)
 
 ### Functions
 
-- [solcCompile](/reference/solc/modules/solc.md#solccompile)
+- [solcCompile](solc.md#solccompile)
 
 ## Variables
 

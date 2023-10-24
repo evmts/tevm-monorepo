@@ -1,45 +1,49 @@
-[@evmts/effect](../README.md) / [Exports](../modules.md) / RequireError
+[@evmts/config](../README.md) / [Modules](../modules.md) / [loadConfig](../modules/loadConfig.md) / LoadConfigError
 
-# Class: RequireError
+# Class: LoadConfigError
+
+[loadConfig](../modules/loadConfig.md).LoadConfigError
+
+Error class for [loadConfig](../modules/loadConfig.md#loadconfig)
 
 ## Hierarchy
 
 - `Error`
 
-  ↳ **`RequireError`**
+  ↳ **`LoadConfigError`**
 
 ## Table of contents
 
 ### Constructors
 
-- [constructor](RequireError.md#constructor)
+- [constructor](loadConfig.LoadConfigError.md#constructor)
 
 ### Properties
 
-- [\_tag](RequireError.md#_tag)
-- [cause](RequireError.md#cause)
-- [message](RequireError.md#message)
-- [name](RequireError.md#name)
-- [stack](RequireError.md#stack)
-- [prepareStackTrace](RequireError.md#preparestacktrace)
-- [stackTraceLimit](RequireError.md#stacktracelimit)
+- [\_tag](loadConfig.LoadConfigError.md#_tag)
+- [cause](loadConfig.LoadConfigError.md#cause)
+- [message](loadConfig.LoadConfigError.md#message)
+- [name](loadConfig.LoadConfigError.md#name)
+- [stack](loadConfig.LoadConfigError.md#stack)
+- [prepareStackTrace](loadConfig.LoadConfigError.md#preparestacktrace)
+- [stackTraceLimit](loadConfig.LoadConfigError.md#stacktracelimit)
 
 ### Methods
 
-- [captureStackTrace](RequireError.md#capturestacktrace)
+- [captureStackTrace](loadConfig.LoadConfigError.md#capturestacktrace)
 
 ## Constructors
 
 ### constructor
 
-• **new RequireError**(`url`, `options?`)
+• **new LoadConfigError**(`configFilePath`, `underlyingError`)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `url` | `string` |
-| `options` | `Object` |
+| `configFilePath` | `string` |
+| `underlyingError` | [`LoadConfigErrorType`](../modules/loadConfig.md#loadconfigerrortype) |
 
 #### Overrides
 
@@ -47,17 +51,17 @@ Error.constructor
 
 #### Defined in
 
-[effect/src/createRequireEffect.js:30](https://github.com/evmts/evmts-monorepo/blob/main/effect/src/createRequireEffect.js#L30)
+[config/src/loadConfig.js:36](https://github.com/evmts/evmts-monorepo/blob/main/config/src/loadConfig.js#L36)
 
 ## Properties
 
 ### \_tag
 
-• **\_tag**: `string` = `'RequireError'`
+• **\_tag**: ``"ConfigFnThrowError"`` \| ``"InvalidConfigError"`` \| ``"FoundryNotFoundError"`` \| ``"FoundryConfigError"`` \| ``"InvalidRemappingsError"`` \| ``"FailedToReadConfigError"`` \| ``"ParseJsonError"`` \| ``"NoPluginFoundError"``
 
 #### Defined in
 
-[effect/src/createRequireEffect.js:23](https://github.com/evmts/evmts-monorepo/blob/main/effect/src/createRequireEffect.js#L23)
+[config/src/loadConfig.js:31](https://github.com/evmts/evmts-monorepo/blob/main/config/src/loadConfig.js#L31)
 
 ___
 
@@ -91,15 +95,15 @@ ___
 
 ### name
 
-• **name**: `string`
+• **name**: ``"ConfigFnThrowError"`` \| ``"InvalidConfigError"`` \| ``"FoundryNotFoundError"`` \| ``"FoundryConfigError"`` \| ``"InvalidRemappingsError"`` \| ``"FailedToReadConfigError"`` \| ``"ParseJsonError"`` \| ``"NoPluginFoundError"``
 
-#### Inherited from
+#### Overrides
 
 Error.name
 
 #### Defined in
 
-node_modules/typescript/lib/lib.es5.d.ts:1067
+[config/src/loadConfig.js:27](https://github.com/evmts/evmts-monorepo/blob/main/config/src/loadConfig.js#L27)
 
 ___
 

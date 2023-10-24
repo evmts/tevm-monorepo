@@ -1,4 +1,4 @@
-@evmts/vite-plugin / [Exports](/reference/vite-plugin/modules.md)
+@evmts/vite-plugin / [Exports](modules.md)
 
 # @evmts/plugin
 

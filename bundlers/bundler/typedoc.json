@@ -4,12 +4,8 @@
 	"entryPoints": [
 		"./src/bundler.js",
 		"./src/createCache.js",
-		"./src/unplugin.js",
-		"./src/runtime/index.js",
-		"./src/solc/index.js",
-		"./src/utils/index.js"
+		"./src/solc/types.js"
 	],
-	"publicPath": "/reference/bundler/",
 	"plugin": ["typedoc-plugin-markdown"],
 	"gitRevision": "main"
 }

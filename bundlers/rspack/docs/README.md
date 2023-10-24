@@ -1,4 +1,4 @@
-@evmts/rspack-plugin / [Exports](/reference/rspack-plugin/modules.md)
+@evmts/rspack-plugin / [Exports](modules.md)
 
 # @evmts/rspack-plugin
 

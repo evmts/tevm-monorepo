@@ -1,4 +1,4 @@
-[@evmts/rspack-plugin](/reference/rspack-plugin/README.md) / Exports
+[@evmts/rspack-plugin](README.md) / Exports
 
 # @evmts/rspack-plugin
 
@@ -6,7 +6,7 @@
 
 ### Functions
 
-- [rspackPluginEvmts](/reference/rspack-plugin/modules.md#rspackpluginevmts)
+- [rspackPluginEvmts](modules.md#rspackpluginevmts)
 
 ## Functions
 

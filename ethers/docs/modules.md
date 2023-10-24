@@ -1,4 +1,4 @@
-[@evmts/ethers](/reference/ethers/README.md) / Exports
+[@evmts/ethers](README.md) / Exports
 
 # @evmts/ethers
 
@@ -6,13 +6,13 @@
 
 ### Type Aliases
 
-- [TypesafeEthersContractConstructor](/reference/ethers/modules.md#typesafeetherscontractconstructor)
-- [TypesafeEthersInterfaceConstructor](/reference/ethers/modules.md#typesafeethersinterfaceconstructor)
+- [TypesafeEthersContractConstructor](modules.md#typesafeetherscontractconstructor)
+- [TypesafeEthersInterfaceConstructor](modules.md#typesafeethersinterfaceconstructor)
 
 ### Variables
 
-- [Contract](/reference/ethers/modules.md#contract)
-- [Interface](/reference/ethers/modules.md#interface)
+- [Contract](modules.md#contract)
+- [Interface](modules.md#interface)
 
 ## Type Aliases
 
@@ -81,7 +81,7 @@ ___
 
 ### Contract
 
-• `Const` **Contract**: [`TypesafeEthersContractConstructor`](/reference/ethers/modules.md#typesafeetherscontractconstructor)
+• `Const` **Contract**: [`TypesafeEthersContractConstructor`](modules.md#typesafeetherscontractconstructor)
 
 #### Defined in
 
@@ -91,7 +91,7 @@ ___
 
 ### Interface
 
-• `Const` **Interface**: [`TypesafeEthersInterfaceConstructor`](/reference/ethers/modules.md#typesafeethersinterfaceconstructor)
+• `Const` **Interface**: [`TypesafeEthersInterfaceConstructor`](modules.md#typesafeethersinterfaceconstructor)
 
 #### Defined in
 

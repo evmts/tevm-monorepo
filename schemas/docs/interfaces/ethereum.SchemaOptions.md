@@ -1,14 +1,14 @@
-[@evmts/schemas](/reference/schemas/README.md) / [Modules](/reference/schemas/modules.md) / [ethereum](/reference/schemas/modules/ethereum.md) / SchemaOptions
+[@evmts/schemas](../README.md) / [Modules](../modules.md) / [ethereum](../modules/ethereum.md) / SchemaOptions
 
 # Interface: SchemaOptions<\>
 
-[ethereum](/reference/schemas/modules/ethereum.md).SchemaOptions
+[ethereum](../modules/ethereum.md).SchemaOptions
 
 ## Table of contents
 
 ### Properties
 
-- [message](/reference/schemas/interfaces/ethereum.SchemaOptions.md#message)
+- [message](ethereum.SchemaOptions.md#message)
 
 ## Properties
 

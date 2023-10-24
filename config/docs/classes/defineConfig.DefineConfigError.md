@@ -1,45 +1,49 @@
-[@evmts/effect](../README.md) / [Exports](../modules.md) / RequireError
+[@evmts/config](../README.md) / [Modules](../modules.md) / [defineConfig](../modules/defineConfig.md) / DefineConfigError
 
-# Class: RequireError
+# Class: DefineConfigError
+
+[defineConfig](../modules/defineConfig.md).DefineConfigError
+
+Error class for [defineConfig](../modules/defineConfig.md#defineconfig)
 
 ## Hierarchy
 
 - `Error`
 
-  ↳ **`RequireError`**
+  ↳ **`DefineConfigError`**
 
 ## Table of contents
 
 ### Constructors
 
-- [constructor](RequireError.md#constructor)
+- [constructor](defineConfig.DefineConfigError.md#constructor)
 
 ### Properties
 
-- [\_tag](RequireError.md#_tag)
-- [cause](RequireError.md#cause)
-- [message](RequireError.md#message)
-- [name](RequireError.md#name)
-- [stack](RequireError.md#stack)
-- [prepareStackTrace](RequireError.md#preparestacktrace)
-- [stackTraceLimit](RequireError.md#stacktracelimit)
+- [\_tag](defineConfig.DefineConfigError.md#_tag)
+- [cause](defineConfig.DefineConfigError.md#cause)
+- [message](defineConfig.DefineConfigError.md#message)
+- [name](defineConfig.DefineConfigError.md#name)
+- [stack](defineConfig.DefineConfigError.md#stack)
+- [prepareStackTrace](defineConfig.DefineConfigError.md#preparestacktrace)
+- [stackTraceLimit](defineConfig.DefineConfigError.md#stacktracelimit)
 
 ### Methods
 
-- [captureStackTrace](RequireError.md#capturestacktrace)
+- [captureStackTrace](defineConfig.DefineConfigError.md#capturestacktrace)
 
 ## Constructors
 
 ### constructor
 
-• **new RequireError**(`url`, `options?`)
+• **new DefineConfigError**(`configFilePath`, `underlyingError`)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `url` | `string` |
-| `options` | `Object` |
+| `configFilePath` | `string` |
+| `underlyingError` | [`DefineConfigErrorType`](../modules/types.md#defineconfigerrortype) |
 
 #### Overrides
 
@@ -47,17 +51,17 @@ Error.constructor
 
 #### Defined in
 
-[effect/src/createRequireEffect.js:30](https://github.com/evmts/evmts-monorepo/blob/main/effect/src/createRequireEffect.js#L30)
+[config/src/defineConfig.js:26](https://github.com/evmts/evmts-monorepo/blob/main/config/src/defineConfig.js#L26)
 
 ## Properties
 
 ### \_tag
 
-• **\_tag**: `string` = `'RequireError'`
+• **\_tag**: ``"ConfigFnThrowError"`` \| ``"InvalidConfigError"`` \| ``"FoundryNotFoundError"`` \| ``"FoundryConfigError"`` \| ``"InvalidRemappingsError"``
 
 #### Defined in
 
-[effect/src/createRequireEffect.js:23](https://github.com/evmts/evmts-monorepo/blob/main/effect/src/createRequireEffect.js#L23)
+[config/src/defineConfig.js:21](https://github.com/evmts/evmts-monorepo/blob/main/config/src/defineConfig.js#L21)
 
 ___
 
@@ -91,15 +95,15 @@ ___
 
 ### name
 
-• **name**: `string`
+• **name**: ``"ConfigFnThrowError"`` \| ``"InvalidConfigError"`` \| ``"FoundryNotFoundError"`` \| ``"FoundryConfigError"`` \| ``"InvalidRemappingsError"``
 
-#### Inherited from
+#### Overrides
 
 Error.name
 
 #### Defined in
 
-node_modules/typescript/lib/lib.es5.d.ts:1067
+[config/src/defineConfig.js:17](https://github.com/evmts/evmts-monorepo/blob/main/config/src/defineConfig.js#L17)
 
 ___
 

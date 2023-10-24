@@ -1,4 +1,4 @@
-[@evmts/revm](/reference/revm/README.md) / Exports
+[@evmts/revm](README.md) / Exports
 
 # @evmts/revm
 
@@ -6,4 +6,4 @@
 
 ### Classes
 
-- [EVM](/reference/revm/classes/EVM.md)
+- [EVM](classes/EVM.md)

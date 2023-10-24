@@ -1,4 +1,4 @@
-[@evmts/schemas](/reference/schemas/README.md) / [Modules](/reference/schemas/modules.md) / ethereum
+[@evmts/schemas](../README.md) / [Modules](../modules.md) / ethereum
 
 # Module: ethereum
 
@@ -6,279 +6,279 @@
 
 ### Classes
 
-- [InvalidAddressError](/reference/schemas/classes/ethereum.InvalidAddressError.md)
-- [InvalidBytesError](/reference/schemas/classes/ethereum.InvalidBytesError.md)
-- [InvalidBytesFixedError](/reference/schemas/classes/ethereum.InvalidBytesFixedError.md)
-- [InvalidINTError](/reference/schemas/classes/ethereum.InvalidINTError.md)
-- [InvalidUINTError](/reference/schemas/classes/ethereum.InvalidUINTError.md)
+- [InvalidAddressError](../classes/ethereum.InvalidAddressError.md)
+- [InvalidBytesError](../classes/ethereum.InvalidBytesError.md)
+- [InvalidBytesFixedError](../classes/ethereum.InvalidBytesFixedError.md)
+- [InvalidINTError](../classes/ethereum.InvalidINTError.md)
+- [InvalidUINTError](../classes/ethereum.InvalidUINTError.md)
 
 ### Interfaces
 
-- [SchemaOptions](/reference/schemas/interfaces/ethereum.SchemaOptions.md)
+- [SchemaOptions](../interfaces/ethereum.SchemaOptions.md)
 
 ### Type Aliases
 
-- [Address](/reference/schemas/modules/ethereum.md#address)
-- [Bytes](/reference/schemas/modules/ethereum.md#bytes)
-- [Bytes1](/reference/schemas/modules/ethereum.md#bytes1)
-- [Bytes10](/reference/schemas/modules/ethereum.md#bytes10)
-- [Bytes11](/reference/schemas/modules/ethereum.md#bytes11)
-- [Bytes12](/reference/schemas/modules/ethereum.md#bytes12)
-- [Bytes13](/reference/schemas/modules/ethereum.md#bytes13)
-- [Bytes14](/reference/schemas/modules/ethereum.md#bytes14)
-- [Bytes15](/reference/schemas/modules/ethereum.md#bytes15)
-- [Bytes16](/reference/schemas/modules/ethereum.md#bytes16)
-- [Bytes17](/reference/schemas/modules/ethereum.md#bytes17)
-- [Bytes18](/reference/schemas/modules/ethereum.md#bytes18)
-- [Bytes19](/reference/schemas/modules/ethereum.md#bytes19)
-- [Bytes2](/reference/schemas/modules/ethereum.md#bytes2)
-- [Bytes20](/reference/schemas/modules/ethereum.md#bytes20)
-- [Bytes21](/reference/schemas/modules/ethereum.md#bytes21)
-- [Bytes22](/reference/schemas/modules/ethereum.md#bytes22)
-- [Bytes23](/reference/schemas/modules/ethereum.md#bytes23)
-- [Bytes24](/reference/schemas/modules/ethereum.md#bytes24)
-- [Bytes25](/reference/schemas/modules/ethereum.md#bytes25)
-- [Bytes26](/reference/schemas/modules/ethereum.md#bytes26)
-- [Bytes27](/reference/schemas/modules/ethereum.md#bytes27)
-- [Bytes28](/reference/schemas/modules/ethereum.md#bytes28)
-- [Bytes29](/reference/schemas/modules/ethereum.md#bytes29)
-- [Bytes3](/reference/schemas/modules/ethereum.md#bytes3)
-- [Bytes30](/reference/schemas/modules/ethereum.md#bytes30)
-- [Bytes31](/reference/schemas/modules/ethereum.md#bytes31)
-- [Bytes32](/reference/schemas/modules/ethereum.md#bytes32)
-- [Bytes4](/reference/schemas/modules/ethereum.md#bytes4)
-- [Bytes5](/reference/schemas/modules/ethereum.md#bytes5)
-- [Bytes6](/reference/schemas/modules/ethereum.md#bytes6)
-- [Bytes7](/reference/schemas/modules/ethereum.md#bytes7)
-- [Bytes8](/reference/schemas/modules/ethereum.md#bytes8)
-- [Bytes9](/reference/schemas/modules/ethereum.md#bytes9)
-- [BytesCapacity](/reference/schemas/modules/ethereum.md#bytescapacity)
-- [INT128](/reference/schemas/modules/ethereum.md#int128)
-- [INT16](/reference/schemas/modules/ethereum.md#int16)
-- [INT256](/reference/schemas/modules/ethereum.md#int256)
-- [INT32](/reference/schemas/modules/ethereum.md#int32)
-- [INT64](/reference/schemas/modules/ethereum.md#int64)
-- [INT8](/reference/schemas/modules/ethereum.md#int8)
-- [INTName](/reference/schemas/modules/ethereum.md#intname)
-- [INTSize](/reference/schemas/modules/ethereum.md#intsize)
-- [SAddress](/reference/schemas/modules/ethereum.md#saddress)
-- [SAddressSchema](/reference/schemas/modules/ethereum.md#saddressschema)
-- [UINT128](/reference/schemas/modules/ethereum.md#uint128)
-- [UINT16](/reference/schemas/modules/ethereum.md#uint16)
-- [UINT256](/reference/schemas/modules/ethereum.md#uint256)
-- [UINT32](/reference/schemas/modules/ethereum.md#uint32)
-- [UINT64](/reference/schemas/modules/ethereum.md#uint64)
-- [UINT8](/reference/schemas/modules/ethereum.md#uint8)
-- [UINTName](/reference/schemas/modules/ethereum.md#uintname)
-- [UINTSize](/reference/schemas/modules/ethereum.md#uintsize)
+- [Address](ethereum.md#address)
+- [Bytes](ethereum.md#bytes)
+- [Bytes1](ethereum.md#bytes1)
+- [Bytes10](ethereum.md#bytes10)
+- [Bytes11](ethereum.md#bytes11)
+- [Bytes12](ethereum.md#bytes12)
+- [Bytes13](ethereum.md#bytes13)
+- [Bytes14](ethereum.md#bytes14)
+- [Bytes15](ethereum.md#bytes15)
+- [Bytes16](ethereum.md#bytes16)
+- [Bytes17](ethereum.md#bytes17)
+- [Bytes18](ethereum.md#bytes18)
+- [Bytes19](ethereum.md#bytes19)
+- [Bytes2](ethereum.md#bytes2)
+- [Bytes20](ethereum.md#bytes20)
+- [Bytes21](ethereum.md#bytes21)
+- [Bytes22](ethereum.md#bytes22)
+- [Bytes23](ethereum.md#bytes23)
+- [Bytes24](ethereum.md#bytes24)
+- [Bytes25](ethereum.md#bytes25)
+- [Bytes26](ethereum.md#bytes26)
+- [Bytes27](ethereum.md#bytes27)
+- [Bytes28](ethereum.md#bytes28)
+- [Bytes29](ethereum.md#bytes29)
+- [Bytes3](ethereum.md#bytes3)
+- [Bytes30](ethereum.md#bytes30)
+- [Bytes31](ethereum.md#bytes31)
+- [Bytes32](ethereum.md#bytes32)
+- [Bytes4](ethereum.md#bytes4)
+- [Bytes5](ethereum.md#bytes5)
+- [Bytes6](ethereum.md#bytes6)
+- [Bytes7](ethereum.md#bytes7)
+- [Bytes8](ethereum.md#bytes8)
+- [Bytes9](ethereum.md#bytes9)
+- [BytesCapacity](ethereum.md#bytescapacity)
+- [INT128](ethereum.md#int128)
+- [INT16](ethereum.md#int16)
+- [INT256](ethereum.md#int256)
+- [INT32](ethereum.md#int32)
+- [INT64](ethereum.md#int64)
+- [INT8](ethereum.md#int8)
+- [INTName](ethereum.md#intname)
+- [INTSize](ethereum.md#intsize)
+- [SAddress](ethereum.md#saddress)
+- [SAddressSchema](ethereum.md#saddressschema)
+- [UINT128](ethereum.md#uint128)
+- [UINT16](ethereum.md#uint16)
+- [UINT256](ethereum.md#uint256)
+- [UINT32](ethereum.md#uint32)
+- [UINT64](ethereum.md#uint64)
+- [UINT8](ethereum.md#uint8)
+- [UINTName](ethereum.md#uintname)
+- [UINTSize](ethereum.md#uintsize)
 
 ### Variables
 
-- [INT128\_MAX](/reference/schemas/modules/ethereum.md#int128_max)
-- [INT128\_MIN](/reference/schemas/modules/ethereum.md#int128_min)
-- [INT16\_MAX](/reference/schemas/modules/ethereum.md#int16_max)
-- [INT16\_MIN](/reference/schemas/modules/ethereum.md#int16_min)
-- [INT256\_MAX](/reference/schemas/modules/ethereum.md#int256_max)
-- [INT256\_MIN](/reference/schemas/modules/ethereum.md#int256_min)
-- [INT32\_MAX](/reference/schemas/modules/ethereum.md#int32_max)
-- [INT32\_MIN](/reference/schemas/modules/ethereum.md#int32_min)
-- [INT64\_MAX](/reference/schemas/modules/ethereum.md#int64_max)
-- [INT64\_MIN](/reference/schemas/modules/ethereum.md#int64_min)
-- [INT8\_MAX](/reference/schemas/modules/ethereum.md#int8_max)
-- [INT8\_MIN](/reference/schemas/modules/ethereum.md#int8_min)
-- [SAddress](/reference/schemas/modules/ethereum.md#saddress-1)
-- [SBytes](/reference/schemas/modules/ethereum.md#sbytes)
-- [SBytes1](/reference/schemas/modules/ethereum.md#sbytes1)
-- [SBytes10](/reference/schemas/modules/ethereum.md#sbytes10)
-- [SBytes11](/reference/schemas/modules/ethereum.md#sbytes11)
-- [SBytes12](/reference/schemas/modules/ethereum.md#sbytes12)
-- [SBytes13](/reference/schemas/modules/ethereum.md#sbytes13)
-- [SBytes14](/reference/schemas/modules/ethereum.md#sbytes14)
-- [SBytes15](/reference/schemas/modules/ethereum.md#sbytes15)
-- [SBytes16](/reference/schemas/modules/ethereum.md#sbytes16)
-- [SBytes17](/reference/schemas/modules/ethereum.md#sbytes17)
-- [SBytes18](/reference/schemas/modules/ethereum.md#sbytes18)
-- [SBytes19](/reference/schemas/modules/ethereum.md#sbytes19)
-- [SBytes2](/reference/schemas/modules/ethereum.md#sbytes2)
-- [SBytes20](/reference/schemas/modules/ethereum.md#sbytes20)
-- [SBytes21](/reference/schemas/modules/ethereum.md#sbytes21)
-- [SBytes22](/reference/schemas/modules/ethereum.md#sbytes22)
-- [SBytes23](/reference/schemas/modules/ethereum.md#sbytes23)
-- [SBytes24](/reference/schemas/modules/ethereum.md#sbytes24)
-- [SBytes25](/reference/schemas/modules/ethereum.md#sbytes25)
-- [SBytes26](/reference/schemas/modules/ethereum.md#sbytes26)
-- [SBytes27](/reference/schemas/modules/ethereum.md#sbytes27)
-- [SBytes28](/reference/schemas/modules/ethereum.md#sbytes28)
-- [SBytes29](/reference/schemas/modules/ethereum.md#sbytes29)
-- [SBytes3](/reference/schemas/modules/ethereum.md#sbytes3)
-- [SBytes30](/reference/schemas/modules/ethereum.md#sbytes30)
-- [SBytes31](/reference/schemas/modules/ethereum.md#sbytes31)
-- [SBytes32](/reference/schemas/modules/ethereum.md#sbytes32)
-- [SBytes4](/reference/schemas/modules/ethereum.md#sbytes4)
-- [SBytes5](/reference/schemas/modules/ethereum.md#sbytes5)
-- [SBytes6](/reference/schemas/modules/ethereum.md#sbytes6)
-- [SBytes7](/reference/schemas/modules/ethereum.md#sbytes7)
-- [SBytes8](/reference/schemas/modules/ethereum.md#sbytes8)
-- [SBytes9](/reference/schemas/modules/ethereum.md#sbytes9)
-- [SINT128](/reference/schemas/modules/ethereum.md#sint128)
-- [SINT16](/reference/schemas/modules/ethereum.md#sint16)
-- [SINT256](/reference/schemas/modules/ethereum.md#sint256)
-- [SINT32](/reference/schemas/modules/ethereum.md#sint32)
-- [SINT64](/reference/schemas/modules/ethereum.md#sint64)
-- [SINT8](/reference/schemas/modules/ethereum.md#sint8)
-- [SUINT128](/reference/schemas/modules/ethereum.md#suint128)
-- [SUINT16](/reference/schemas/modules/ethereum.md#suint16)
-- [SUINT256](/reference/schemas/modules/ethereum.md#suint256)
-- [SUINT32](/reference/schemas/modules/ethereum.md#suint32)
-- [SUINT64](/reference/schemas/modules/ethereum.md#suint64)
-- [SUINT8](/reference/schemas/modules/ethereum.md#suint8)
-- [UINT128\_MAX](/reference/schemas/modules/ethereum.md#uint128_max)
-- [UINT16\_MAX](/reference/schemas/modules/ethereum.md#uint16_max)
-- [UINT256\_MAX](/reference/schemas/modules/ethereum.md#uint256_max)
-- [UINT32\_MAX](/reference/schemas/modules/ethereum.md#uint32_max)
-- [UINT64\_MAX](/reference/schemas/modules/ethereum.md#uint64_max)
-- [UINT8\_MAX](/reference/schemas/modules/ethereum.md#uint8_max)
+- [INT128\_MAX](ethereum.md#int128_max)
+- [INT128\_MIN](ethereum.md#int128_min)
+- [INT16\_MAX](ethereum.md#int16_max)
+- [INT16\_MIN](ethereum.md#int16_min)
+- [INT256\_MAX](ethereum.md#int256_max)
+- [INT256\_MIN](ethereum.md#int256_min)
+- [INT32\_MAX](ethereum.md#int32_max)
+- [INT32\_MIN](ethereum.md#int32_min)
+- [INT64\_MAX](ethereum.md#int64_max)
+- [INT64\_MIN](ethereum.md#int64_min)
+- [INT8\_MAX](ethereum.md#int8_max)
+- [INT8\_MIN](ethereum.md#int8_min)
+- [SAddress](ethereum.md#saddress-1)
+- [SBytes](ethereum.md#sbytes)
+- [SBytes1](ethereum.md#sbytes1)
+- [SBytes10](ethereum.md#sbytes10)
+- [SBytes11](ethereum.md#sbytes11)
+- [SBytes12](ethereum.md#sbytes12)
+- [SBytes13](ethereum.md#sbytes13)
+- [SBytes14](ethereum.md#sbytes14)
+- [SBytes15](ethereum.md#sbytes15)
+- [SBytes16](ethereum.md#sbytes16)
+- [SBytes17](ethereum.md#sbytes17)
+- [SBytes18](ethereum.md#sbytes18)
+- [SBytes19](ethereum.md#sbytes19)
+- [SBytes2](ethereum.md#sbytes2)
+- [SBytes20](ethereum.md#sbytes20)
+- [SBytes21](ethereum.md#sbytes21)
+- [SBytes22](ethereum.md#sbytes22)
+- [SBytes23](ethereum.md#sbytes23)
+- [SBytes24](ethereum.md#sbytes24)
+- [SBytes25](ethereum.md#sbytes25)
+- [SBytes26](ethereum.md#sbytes26)
+- [SBytes27](ethereum.md#sbytes27)
+- [SBytes28](ethereum.md#sbytes28)
+- [SBytes29](ethereum.md#sbytes29)
+- [SBytes3](ethereum.md#sbytes3)
+- [SBytes30](ethereum.md#sbytes30)
+- [SBytes31](ethereum.md#sbytes31)
+- [SBytes32](ethereum.md#sbytes32)
+- [SBytes4](ethereum.md#sbytes4)
+- [SBytes5](ethereum.md#sbytes5)
+- [SBytes6](ethereum.md#sbytes6)
+- [SBytes7](ethereum.md#sbytes7)
+- [SBytes8](ethereum.md#sbytes8)
+- [SBytes9](ethereum.md#sbytes9)
+- [SINT128](ethereum.md#sint128)
+- [SINT16](ethereum.md#sint16)
+- [SINT256](ethereum.md#sint256)
+- [SINT32](ethereum.md#sint32)
+- [SINT64](ethereum.md#sint64)
+- [SINT8](ethereum.md#sint8)
+- [SUINT128](ethereum.md#suint128)
+- [SUINT16](ethereum.md#suint16)
+- [SUINT256](ethereum.md#suint256)
+- [SUINT32](ethereum.md#suint32)
+- [SUINT64](ethereum.md#suint64)
+- [SUINT8](ethereum.md#suint8)
+- [UINT128\_MAX](ethereum.md#uint128_max)
+- [UINT16\_MAX](ethereum.md#uint16_max)
+- [UINT256\_MAX](ethereum.md#uint256_max)
+- [UINT32\_MAX](ethereum.md#uint32_max)
+- [UINT64\_MAX](ethereum.md#uint64_max)
+- [UINT8\_MAX](ethereum.md#uint8_max)
 
 ### Functions
 
-- [isAddress](/reference/schemas/modules/ethereum.md#isaddress)
-- [isBytes](/reference/schemas/modules/ethereum.md#isbytes)
-- [isBytes1](/reference/schemas/modules/ethereum.md#isbytes1)
-- [isBytes10](/reference/schemas/modules/ethereum.md#isbytes10)
-- [isBytes11](/reference/schemas/modules/ethereum.md#isbytes11)
-- [isBytes12](/reference/schemas/modules/ethereum.md#isbytes12)
-- [isBytes13](/reference/schemas/modules/ethereum.md#isbytes13)
-- [isBytes14](/reference/schemas/modules/ethereum.md#isbytes14)
-- [isBytes15](/reference/schemas/modules/ethereum.md#isbytes15)
-- [isBytes16](/reference/schemas/modules/ethereum.md#isbytes16)
-- [isBytes17](/reference/schemas/modules/ethereum.md#isbytes17)
-- [isBytes18](/reference/schemas/modules/ethereum.md#isbytes18)
-- [isBytes19](/reference/schemas/modules/ethereum.md#isbytes19)
-- [isBytes2](/reference/schemas/modules/ethereum.md#isbytes2)
-- [isBytes20](/reference/schemas/modules/ethereum.md#isbytes20)
-- [isBytes21](/reference/schemas/modules/ethereum.md#isbytes21)
-- [isBytes22](/reference/schemas/modules/ethereum.md#isbytes22)
-- [isBytes23](/reference/schemas/modules/ethereum.md#isbytes23)
-- [isBytes24](/reference/schemas/modules/ethereum.md#isbytes24)
-- [isBytes25](/reference/schemas/modules/ethereum.md#isbytes25)
-- [isBytes26](/reference/schemas/modules/ethereum.md#isbytes26)
-- [isBytes27](/reference/schemas/modules/ethereum.md#isbytes27)
-- [isBytes28](/reference/schemas/modules/ethereum.md#isbytes28)
-- [isBytes29](/reference/schemas/modules/ethereum.md#isbytes29)
-- [isBytes3](/reference/schemas/modules/ethereum.md#isbytes3)
-- [isBytes30](/reference/schemas/modules/ethereum.md#isbytes30)
-- [isBytes31](/reference/schemas/modules/ethereum.md#isbytes31)
-- [isBytes32](/reference/schemas/modules/ethereum.md#isbytes32)
-- [isBytes4](/reference/schemas/modules/ethereum.md#isbytes4)
-- [isBytes5](/reference/schemas/modules/ethereum.md#isbytes5)
-- [isBytes6](/reference/schemas/modules/ethereum.md#isbytes6)
-- [isBytes7](/reference/schemas/modules/ethereum.md#isbytes7)
-- [isBytes8](/reference/schemas/modules/ethereum.md#isbytes8)
-- [isBytes9](/reference/schemas/modules/ethereum.md#isbytes9)
-- [isINT128](/reference/schemas/modules/ethereum.md#isint128)
-- [isINT16](/reference/schemas/modules/ethereum.md#isint16)
-- [isINT256](/reference/schemas/modules/ethereum.md#isint256)
-- [isINT32](/reference/schemas/modules/ethereum.md#isint32)
-- [isINT64](/reference/schemas/modules/ethereum.md#isint64)
-- [isINT8](/reference/schemas/modules/ethereum.md#isint8)
-- [isUINT128](/reference/schemas/modules/ethereum.md#isuint128)
-- [isUINT16](/reference/schemas/modules/ethereum.md#isuint16)
-- [isUINT256](/reference/schemas/modules/ethereum.md#isuint256)
-- [isUINT32](/reference/schemas/modules/ethereum.md#isuint32)
-- [isUINT64](/reference/schemas/modules/ethereum.md#isuint64)
-- [isUINT8](/reference/schemas/modules/ethereum.md#isuint8)
-- [parseAddress](/reference/schemas/modules/ethereum.md#parseaddress)
-- [parseAddressSafe](/reference/schemas/modules/ethereum.md#parseaddresssafe)
-- [parseBytes](/reference/schemas/modules/ethereum.md#parsebytes)
-- [parseBytes1](/reference/schemas/modules/ethereum.md#parsebytes1)
-- [parseBytes10](/reference/schemas/modules/ethereum.md#parsebytes10)
-- [parseBytes10Safe](/reference/schemas/modules/ethereum.md#parsebytes10safe)
-- [parseBytes11](/reference/schemas/modules/ethereum.md#parsebytes11)
-- [parseBytes11Safe](/reference/schemas/modules/ethereum.md#parsebytes11safe)
-- [parseBytes12](/reference/schemas/modules/ethereum.md#parsebytes12)
-- [parseBytes12Safe](/reference/schemas/modules/ethereum.md#parsebytes12safe)
-- [parseBytes13](/reference/schemas/modules/ethereum.md#parsebytes13)
-- [parseBytes13Safe](/reference/schemas/modules/ethereum.md#parsebytes13safe)
-- [parseBytes14](/reference/schemas/modules/ethereum.md#parsebytes14)
-- [parseBytes14Safe](/reference/schemas/modules/ethereum.md#parsebytes14safe)
-- [parseBytes15](/reference/schemas/modules/ethereum.md#parsebytes15)
-- [parseBytes15Safe](/reference/schemas/modules/ethereum.md#parsebytes15safe)
-- [parseBytes16](/reference/schemas/modules/ethereum.md#parsebytes16)
-- [parseBytes16Safe](/reference/schemas/modules/ethereum.md#parsebytes16safe)
-- [parseBytes17](/reference/schemas/modules/ethereum.md#parsebytes17)
-- [parseBytes17Safe](/reference/schemas/modules/ethereum.md#parsebytes17safe)
-- [parseBytes18](/reference/schemas/modules/ethereum.md#parsebytes18)
-- [parseBytes18Safe](/reference/schemas/modules/ethereum.md#parsebytes18safe)
-- [parseBytes19](/reference/schemas/modules/ethereum.md#parsebytes19)
-- [parseBytes19Safe](/reference/schemas/modules/ethereum.md#parsebytes19safe)
-- [parseBytes1Safe](/reference/schemas/modules/ethereum.md#parsebytes1safe)
-- [parseBytes2](/reference/schemas/modules/ethereum.md#parsebytes2)
-- [parseBytes20](/reference/schemas/modules/ethereum.md#parsebytes20)
-- [parseBytes20Safe](/reference/schemas/modules/ethereum.md#parsebytes20safe)
-- [parseBytes21](/reference/schemas/modules/ethereum.md#parsebytes21)
-- [parseBytes21Safe](/reference/schemas/modules/ethereum.md#parsebytes21safe)
-- [parseBytes22](/reference/schemas/modules/ethereum.md#parsebytes22)
-- [parseBytes22Safe](/reference/schemas/modules/ethereum.md#parsebytes22safe)
-- [parseBytes23](/reference/schemas/modules/ethereum.md#parsebytes23)
-- [parseBytes23Safe](/reference/schemas/modules/ethereum.md#parsebytes23safe)
-- [parseBytes24](/reference/schemas/modules/ethereum.md#parsebytes24)
-- [parseBytes24Safe](/reference/schemas/modules/ethereum.md#parsebytes24safe)
-- [parseBytes25](/reference/schemas/modules/ethereum.md#parsebytes25)
-- [parseBytes25Safe](/reference/schemas/modules/ethereum.md#parsebytes25safe)
-- [parseBytes26](/reference/schemas/modules/ethereum.md#parsebytes26)
-- [parseBytes26Safe](/reference/schemas/modules/ethereum.md#parsebytes26safe)
-- [parseBytes27](/reference/schemas/modules/ethereum.md#parsebytes27)
-- [parseBytes27Safe](/reference/schemas/modules/ethereum.md#parsebytes27safe)
-- [parseBytes28](/reference/schemas/modules/ethereum.md#parsebytes28)
-- [parseBytes28Safe](/reference/schemas/modules/ethereum.md#parsebytes28safe)
-- [parseBytes29](/reference/schemas/modules/ethereum.md#parsebytes29)
-- [parseBytes29Safe](/reference/schemas/modules/ethereum.md#parsebytes29safe)
-- [parseBytes2Safe](/reference/schemas/modules/ethereum.md#parsebytes2safe)
-- [parseBytes3](/reference/schemas/modules/ethereum.md#parsebytes3)
-- [parseBytes30](/reference/schemas/modules/ethereum.md#parsebytes30)
-- [parseBytes30Safe](/reference/schemas/modules/ethereum.md#parsebytes30safe)
-- [parseBytes31](/reference/schemas/modules/ethereum.md#parsebytes31)
-- [parseBytes31Safe](/reference/schemas/modules/ethereum.md#parsebytes31safe)
-- [parseBytes32](/reference/schemas/modules/ethereum.md#parsebytes32)
-- [parseBytes32Safe](/reference/schemas/modules/ethereum.md#parsebytes32safe)
-- [parseBytes3Safe](/reference/schemas/modules/ethereum.md#parsebytes3safe)
-- [parseBytes4](/reference/schemas/modules/ethereum.md#parsebytes4)
-- [parseBytes4Safe](/reference/schemas/modules/ethereum.md#parsebytes4safe)
-- [parseBytes5](/reference/schemas/modules/ethereum.md#parsebytes5)
-- [parseBytes5Safe](/reference/schemas/modules/ethereum.md#parsebytes5safe)
-- [parseBytes6](/reference/schemas/modules/ethereum.md#parsebytes6)
-- [parseBytes6Safe](/reference/schemas/modules/ethereum.md#parsebytes6safe)
-- [parseBytes7](/reference/schemas/modules/ethereum.md#parsebytes7)
-- [parseBytes7Safe](/reference/schemas/modules/ethereum.md#parsebytes7safe)
-- [parseBytes8](/reference/schemas/modules/ethereum.md#parsebytes8)
-- [parseBytes8Safe](/reference/schemas/modules/ethereum.md#parsebytes8safe)
-- [parseBytes9](/reference/schemas/modules/ethereum.md#parsebytes9)
-- [parseBytes9Safe](/reference/schemas/modules/ethereum.md#parsebytes9safe)
-- [parseBytesSafe](/reference/schemas/modules/ethereum.md#parsebytessafe)
-- [parseINT128Safe](/reference/schemas/modules/ethereum.md#parseint128safe)
-- [parseINT16Safe](/reference/schemas/modules/ethereum.md#parseint16safe)
-- [parseINT256Safe](/reference/schemas/modules/ethereum.md#parseint256safe)
-- [parseINT32Safe](/reference/schemas/modules/ethereum.md#parseint32safe)
-- [parseINT64Safe](/reference/schemas/modules/ethereum.md#parseint64safe)
-- [parseINT8Safe](/reference/schemas/modules/ethereum.md#parseint8safe)
-- [parseInt128](/reference/schemas/modules/ethereum.md#parseint128)
-- [parseInt16](/reference/schemas/modules/ethereum.md#parseint16)
-- [parseInt256](/reference/schemas/modules/ethereum.md#parseint256)
-- [parseInt32](/reference/schemas/modules/ethereum.md#parseint32)
-- [parseInt64](/reference/schemas/modules/ethereum.md#parseint64)
-- [parseInt8](/reference/schemas/modules/ethereum.md#parseint8)
-- [parseUINT128](/reference/schemas/modules/ethereum.md#parseuint128)
-- [parseUINT128Safe](/reference/schemas/modules/ethereum.md#parseuint128safe)
-- [parseUINT16](/reference/schemas/modules/ethereum.md#parseuint16)
-- [parseUINT16Safe](/reference/schemas/modules/ethereum.md#parseuint16safe)
-- [parseUINT256](/reference/schemas/modules/ethereum.md#parseuint256)
-- [parseUINT256Safe](/reference/schemas/modules/ethereum.md#parseuint256safe)
-- [parseUINT32](/reference/schemas/modules/ethereum.md#parseuint32)
-- [parseUINT32Safe](/reference/schemas/modules/ethereum.md#parseuint32safe)
-- [parseUINT64](/reference/schemas/modules/ethereum.md#parseuint64)
-- [parseUINT64Safe](/reference/schemas/modules/ethereum.md#parseuint64safe)
-- [parseUINT8](/reference/schemas/modules/ethereum.md#parseuint8)
-- [parseUINT8Safe](/reference/schemas/modules/ethereum.md#parseuint8safe)
+- [isAddress](ethereum.md#isaddress)
+- [isBytes](ethereum.md#isbytes)
+- [isBytes1](ethereum.md#isbytes1)
+- [isBytes10](ethereum.md#isbytes10)
+- [isBytes11](ethereum.md#isbytes11)
+- [isBytes12](ethereum.md#isbytes12)
+- [isBytes13](ethereum.md#isbytes13)
+- [isBytes14](ethereum.md#isbytes14)
+- [isBytes15](ethereum.md#isbytes15)
+- [isBytes16](ethereum.md#isbytes16)
+- [isBytes17](ethereum.md#isbytes17)
+- [isBytes18](ethereum.md#isbytes18)
+- [isBytes19](ethereum.md#isbytes19)
+- [isBytes2](ethereum.md#isbytes2)
+- [isBytes20](ethereum.md#isbytes20)
+- [isBytes21](ethereum.md#isbytes21)
+- [isBytes22](ethereum.md#isbytes22)
+- [isBytes23](ethereum.md#isbytes23)
+- [isBytes24](ethereum.md#isbytes24)
+- [isBytes25](ethereum.md#isbytes25)
+- [isBytes26](ethereum.md#isbytes26)
+- [isBytes27](ethereum.md#isbytes27)
+- [isBytes28](ethereum.md#isbytes28)
+- [isBytes29](ethereum.md#isbytes29)
+- [isBytes3](ethereum.md#isbytes3)
+- [isBytes30](ethereum.md#isbytes30)
+- [isBytes31](ethereum.md#isbytes31)
+- [isBytes32](ethereum.md#isbytes32)
+- [isBytes4](ethereum.md#isbytes4)
+- [isBytes5](ethereum.md#isbytes5)
+- [isBytes6](ethereum.md#isbytes6)
+- [isBytes7](ethereum.md#isbytes7)
+- [isBytes8](ethereum.md#isbytes8)
+- [isBytes9](ethereum.md#isbytes9)
+- [isINT128](ethereum.md#isint128)
+- [isINT16](ethereum.md#isint16)
+- [isINT256](ethereum.md#isint256)
+- [isINT32](ethereum.md#isint32)
+- [isINT64](ethereum.md#isint64)
+- [isINT8](ethereum.md#isint8)
+- [isUINT128](ethereum.md#isuint128)
+- [isUINT16](ethereum.md#isuint16)
+- [isUINT256](ethereum.md#isuint256)
+- [isUINT32](ethereum.md#isuint32)
+- [isUINT64](ethereum.md#isuint64)
+- [isUINT8](ethereum.md#isuint8)
+- [parseAddress](ethereum.md#parseaddress)
+- [parseAddressSafe](ethereum.md#parseaddresssafe)
+- [parseBytes](ethereum.md#parsebytes)
+- [parseBytes1](ethereum.md#parsebytes1)
+- [parseBytes10](ethereum.md#parsebytes10)
+- [parseBytes10Safe](ethereum.md#parsebytes10safe)
+- [parseBytes11](ethereum.md#parsebytes11)
+- [parseBytes11Safe](ethereum.md#parsebytes11safe)
+- [parseBytes12](ethereum.md#parsebytes12)
+- [parseBytes12Safe](ethereum.md#parsebytes12safe)
+- [parseBytes13](ethereum.md#parsebytes13)
+- [parseBytes13Safe](ethereum.md#parsebytes13safe)
+- [parseBytes14](ethereum.md#parsebytes14)
+- [parseBytes14Safe](ethereum.md#parsebytes14safe)
+- [parseBytes15](ethereum.md#parsebytes15)
+- [parseBytes15Safe](ethereum.md#parsebytes15safe)
+- [parseBytes16](ethereum.md#parsebytes16)
+- [parseBytes16Safe](ethereum.md#parsebytes16safe)
+- [parseBytes17](ethereum.md#parsebytes17)
+- [parseBytes17Safe](ethereum.md#parsebytes17safe)
+- [parseBytes18](ethereum.md#parsebytes18)
+- [parseBytes18Safe](ethereum.md#parsebytes18safe)
+- [parseBytes19](ethereum.md#parsebytes19)
+- [parseBytes19Safe](ethereum.md#parsebytes19safe)
+- [parseBytes1Safe](ethereum.md#parsebytes1safe)
+- [parseBytes2](ethereum.md#parsebytes2)
+- [parseBytes20](ethereum.md#parsebytes20)
+- [parseBytes20Safe](ethereum.md#parsebytes20safe)
+- [parseBytes21](ethereum.md#parsebytes21)
+- [parseBytes21Safe](ethereum.md#parsebytes21safe)
+- [parseBytes22](ethereum.md#parsebytes22)
+- [parseBytes22Safe](ethereum.md#parsebytes22safe)
+- [parseBytes23](ethereum.md#parsebytes23)
+- [parseBytes23Safe](ethereum.md#parsebytes23safe)
+- [parseBytes24](ethereum.md#parsebytes24)
+- [parseBytes24Safe](ethereum.md#parsebytes24safe)
+- [parseBytes25](ethereum.md#parsebytes25)
+- [parseBytes25Safe](ethereum.md#parsebytes25safe)
+- [parseBytes26](ethereum.md#parsebytes26)
+- [parseBytes26Safe](ethereum.md#parsebytes26safe)
+- [parseBytes27](ethereum.md#parsebytes27)
+- [parseBytes27Safe](ethereum.md#parsebytes27safe)
+- [parseBytes28](ethereum.md#parsebytes28)
+- [parseBytes28Safe](ethereum.md#parsebytes28safe)
+- [parseBytes29](ethereum.md#parsebytes29)
+- [parseBytes29Safe](ethereum.md#parsebytes29safe)
+- [parseBytes2Safe](ethereum.md#parsebytes2safe)
+- [parseBytes3](ethereum.md#parsebytes3)
+- [parseBytes30](ethereum.md#parsebytes30)
+- [parseBytes30Safe](ethereum.md#parsebytes30safe)
+- [parseBytes31](ethereum.md#parsebytes31)
+- [parseBytes31Safe](ethereum.md#parsebytes31safe)
+- [parseBytes32](ethereum.md#parsebytes32)
+- [parseBytes32Safe](ethereum.md#parsebytes32safe)
+- [parseBytes3Safe](ethereum.md#parsebytes3safe)
+- [parseBytes4](ethereum.md#parsebytes4)
+- [parseBytes4Safe](ethereum.md#parsebytes4safe)
+- [parseBytes5](ethereum.md#parsebytes5)
+- [parseBytes5Safe](ethereum.md#parsebytes5safe)
+- [parseBytes6](ethereum.md#parsebytes6)
+- [parseBytes6Safe](ethereum.md#parsebytes6safe)
+- [parseBytes7](ethereum.md#parsebytes7)
+- [parseBytes7Safe](ethereum.md#parsebytes7safe)
+- [parseBytes8](ethereum.md#parsebytes8)
+- [parseBytes8Safe](ethereum.md#parsebytes8safe)
+- [parseBytes9](ethereum.md#parsebytes9)
+- [parseBytes9Safe](ethereum.md#parsebytes9safe)
+- [parseBytesSafe](ethereum.md#parsebytessafe)
+- [parseINT128Safe](ethereum.md#parseint128safe)
+- [parseINT16Safe](ethereum.md#parseint16safe)
+- [parseINT256Safe](ethereum.md#parseint256safe)
+- [parseINT32Safe](ethereum.md#parseint32safe)
+- [parseINT64Safe](ethereum.md#parseint64safe)
+- [parseINT8Safe](ethereum.md#parseint8safe)
+- [parseInt128](ethereum.md#parseint128)
+- [parseInt16](ethereum.md#parseint16)
+- [parseInt256](ethereum.md#parseint256)
+- [parseInt32](ethereum.md#parseint32)
+- [parseInt64](ethereum.md#parseint64)
+- [parseInt8](ethereum.md#parseint8)
+- [parseUINT128](ethereum.md#parseuint128)
+- [parseUINT128Safe](ethereum.md#parseuint128safe)
+- [parseUINT16](ethereum.md#parseuint16)
+- [parseUINT16Safe](ethereum.md#parseuint16safe)
+- [parseUINT256](ethereum.md#parseuint256)
+- [parseUINT256Safe](ethereum.md#parseuint256safe)
+- [parseUINT32](ethereum.md#parseuint32)
+- [parseUINT32Safe](ethereum.md#parseuint32safe)
+- [parseUINT64](ethereum.md#parseuint64)
+- [parseUINT64Safe](ethereum.md#parseuint64safe)
+- [parseUINT8](ethereum.md#parseuint8)
+- [parseUINT8Safe](ethereum.md#parseuint8safe)
 
 ## Type Aliases
 
@@ -781,7 +781,7 @@ ___
 
 ### SAddress
 
-Ƭ **SAddress**<\>: [`SAddressSchema`](/reference/schemas/modules/ethereum.md#saddressschema)
+Ƭ **SAddress**<\>: [`SAddressSchema`](ethereum.md#saddressschema)
 
 Effect/schema for Address type.
 [effect/schema](https://github.com/Effect-TS/schema) representing a valid Ethereum address.
@@ -892,7 +892,7 @@ ___
 
 • `Const` **INT128\_MAX**: `bigint`
 
-The maximum value a [INT128](/reference/schemas/modules/ethereum.md#int128) can be.
+The maximum value a [INT128](ethereum.md#int128) can be.
 [Solidity docs](https://docs.soliditylang.org/en/latest/types.html#integers)
 
 #### Defined in
@@ -905,7 +905,7 @@ ___
 
 • `Const` **INT128\_MIN**: `bigint` = `-BigInt('0x80000000000000000000000000000000')`
 
-The minimum value a [INT128](/reference/schemas/modules/ethereum.md#int128) can be.
+The minimum value a [INT128](ethereum.md#int128) can be.
 [Solidity docs](https://docs.soliditylang.org/en/latest/types.html#integers)
 
 #### Defined in
@@ -918,7 +918,7 @@ ___
 
 • `Const` **INT16\_MAX**: `bigint`
 
-The maximum value a [INT16](/reference/schemas/modules/ethereum.md#int16) can be.
+The maximum value a [INT16](ethereum.md#int16) can be.
 [Solidity docs](https://docs.soliditylang.org/en/latest/types.html#integers)
 
 #### Defined in
@@ -931,7 +931,7 @@ ___
 
 • `Const` **INT16\_MIN**: `bigint` = `-BigInt('0x8000')`
 
-The minimum value a [INT16](/reference/schemas/modules/ethereum.md#int16) can be.
+The minimum value a [INT16](ethereum.md#int16) can be.
 [Solidity docs](https://docs.soliditylang.org/en/latest/types.html#integers)
 
 #### Defined in
@@ -944,7 +944,7 @@ ___
 
 • `Const` **INT256\_MAX**: `bigint`
 
-The maximum value a [INT256](/reference/schemas/modules/ethereum.md#int256) can be.
+The maximum value a [INT256](ethereum.md#int256) can be.
 [Solidity docs](https://docs.soliditylang.org/en/latest/types.html#integers)
 
 #### Defined in
@@ -957,7 +957,7 @@ ___
 
 • `Const` **INT256\_MIN**: `bigint` = `-BigInt( '0x7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF',)`
 
-The minimum value a [INT256](/reference/schemas/modules/ethereum.md#int256) can be.
+The minimum value a [INT256](ethereum.md#int256) can be.
 [Solidity docs](https://docs.soliditylang.org/en/latest/types.html#integers)
 
 #### Defined in
@@ -970,7 +970,7 @@ ___
 
 • `Const` **INT32\_MAX**: `bigint`
 
-The maximum value a [INT32](/reference/schemas/modules/ethereum.md#int32) can be.
+The maximum value a [INT32](ethereum.md#int32) can be.
 [Solidity docs](https://docs.soliditylang.org/en/latest/types.html#integers)
 
 #### Defined in
@@ -983,7 +983,7 @@ ___
 
 • `Const` **INT32\_MIN**: `bigint` = `-BigInt('0x80000000')`
 
-The minimum value a [INT32](/reference/schemas/modules/ethereum.md#int32) can be.
+The minimum value a [INT32](ethereum.md#int32) can be.
 [Solidity docs](https://docs.soliditylang.org/en/latest/types.html#integers)
 
 #### Defined in
@@ -996,7 +996,7 @@ ___
 
 • `Const` **INT64\_MAX**: `bigint`
 
-The maximum value a [INT64](/reference/schemas/modules/ethereum.md#int64) can be.
+The maximum value a [INT64](ethereum.md#int64) can be.
 [Solidity docs](https://docs.soliditylang.org/en/latest/types.html#integers)
 
 #### Defined in
@@ -1009,7 +1009,7 @@ ___
 
 • `Const` **INT64\_MIN**: `bigint` = `-BigInt('0x8000000000000000')`
 
-The minimum value a [INT64](/reference/schemas/modules/ethereum.md#int64) can be.
+The minimum value a [INT64](ethereum.md#int64) can be.
 [Solidity docs](https://docs.soliditylang.org/en/latest/types.html#integers)
 
 #### Defined in
@@ -1022,7 +1022,7 @@ ___
 
 • `Const` **INT8\_MAX**: `bigint`
 
-The maximum value a [INT8](/reference/schemas/modules/ethereum.md#int8) can be.
+The maximum value a [INT8](ethereum.md#int8) can be.
 [Solidity docs](https://docs.soliditylang.org/en/latest/types.html#integers)
 
 #### Defined in
@@ -1035,7 +1035,7 @@ ___
 
 • `Const` **INT8\_MIN**: `bigint` = `-BigInt('0x80')`
 
-The minimum value a [INT8](/reference/schemas/modules/ethereum.md#int8) can be.
+The minimum value a [INT8](ethereum.md#int8) can be.
 [Solidity docs](https://docs.soliditylang.org/en/latest/types.html#integers)
 
 #### Defined in
@@ -1703,7 +1703,7 @@ ___
 
 • `Const` **UINT128\_MAX**: `bigint`
 
-The maximum value a [UINT128](/reference/schemas/modules/ethereum.md#uint128) can be.
+The maximum value a [UINT128](ethereum.md#uint128) can be.
 [Solidity docs](https://docs.soliditylang.org/en/latest/types.html#integers)
 
 #### Defined in
@@ -1716,7 +1716,7 @@ ___
 
 • `Const` **UINT16\_MAX**: `bigint`
 
-The maximum value a [UINT16](/reference/schemas/modules/ethereum.md#uint16) can be.
+The maximum value a [UINT16](ethereum.md#uint16) can be.
 [Solidity docs](https://docs.soliditylang.org/en/latest/types.html#integers)
 
 #### Defined in
@@ -1729,7 +1729,7 @@ ___
 
 • `Const` **UINT256\_MAX**: `bigint`
 
-The maximum value a [UINT256](/reference/schemas/modules/ethereum.md#uint256) can be.
+The maximum value a [UINT256](ethereum.md#uint256) can be.
 [Solidity docs](https://docs.soliditylang.org/en/latest/types.html#integers)
 
 #### Defined in
@@ -1742,7 +1742,7 @@ ___
 
 • `Const` **UINT32\_MAX**: `bigint`
 
-The maximum value a [UINT32](/reference/schemas/modules/ethereum.md#uint32) can be.
+The maximum value a [UINT32](ethereum.md#uint32) can be.
 [Solidity docs](https://docs.soliditylang.org/en/latest/types.html#integers)
 
 #### Defined in
@@ -1755,7 +1755,7 @@ ___
 
 • `Const` **UINT64\_MAX**: `bigint`
 
-The maximum value a [UINT64](/reference/schemas/modules/ethereum.md#uint64) can be.
+The maximum value a [UINT64](ethereum.md#uint64) can be.
 [Solidity docs](https://docs.soliditylang.org/en/latest/types.html#integers)
 
 #### Defined in
@@ -1768,7 +1768,7 @@ ___
 
 • `Const` **UINT8\_MAX**: `bigint`
 
-The maximum value a [UINT8](/reference/schemas/modules/ethereum.md#uint8) can be.
+The maximum value a [UINT8](ethereum.md#uint8) can be.
 [Solidity docs](https://docs.soliditylang.org/en/latest/types.html#integers)
 
 #### Defined in
@@ -3209,7 +3209,7 @@ ___
 
 ### parseAddressSafe
 
-▸ **parseAddressSafe**<`TAddress`\>(`address`): `Effect`<`never`, [`InvalidAddressError`](/reference/schemas/classes/ethereum.InvalidAddressError.md), `TAddress`\>
+▸ **parseAddressSafe**<`TAddress`\>(`address`): `Effect`<`never`, [`InvalidAddressError`](../classes/ethereum.InvalidAddressError.md), `TAddress`\>
 
 Parses an Address safely into an effect.
 
@@ -3227,7 +3227,7 @@ Parses an Address safely into an effect.
 
 #### Returns
 
-`Effect`<`never`, [`InvalidAddressError`](/reference/schemas/classes/ethereum.InvalidAddressError.md), `TAddress`\>
+`Effect`<`never`, [`InvalidAddressError`](../classes/ethereum.InvalidAddressError.md), `TAddress`\>
 
 - An effect that resolves to the parsed address.
 
@@ -3343,7 +3343,7 @@ ___
 
 ### parseBytes10Safe
 
-▸ **parseBytes10Safe**<`TBytes10`\>(`bytes10`): `Effect`<`never`, [`InvalidBytesFixedError`](/reference/schemas/classes/ethereum.InvalidBytesFixedError.md), `TBytes10`\>
+▸ **parseBytes10Safe**<`TBytes10`\>(`bytes10`): `Effect`<`never`, [`InvalidBytesFixedError`](../classes/ethereum.InvalidBytesFixedError.md), `TBytes10`\>
 
 Safely parses a Bytes10 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -3361,7 +3361,7 @@ Safely parses a Bytes10 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Returns
 
-`Effect`<`never`, [`InvalidBytesFixedError`](/reference/schemas/classes/ethereum.InvalidBytesFixedError.md), `TBytes10`\>
+`Effect`<`never`, [`InvalidBytesFixedError`](../classes/ethereum.InvalidBytesFixedError.md), `TBytes10`\>
 
 #### Defined in
 
@@ -3406,7 +3406,7 @@ ___
 
 ### parseBytes11Safe
 
-▸ **parseBytes11Safe**<`TBytes11`\>(`bytes11`): `Effect`<`never`, [`InvalidBytesFixedError`](/reference/schemas/classes/ethereum.InvalidBytesFixedError.md), `TBytes11`\>
+▸ **parseBytes11Safe**<`TBytes11`\>(`bytes11`): `Effect`<`never`, [`InvalidBytesFixedError`](../classes/ethereum.InvalidBytesFixedError.md), `TBytes11`\>
 
 Safely parses a Bytes11 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -3424,7 +3424,7 @@ Safely parses a Bytes11 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Returns
 
-`Effect`<`never`, [`InvalidBytesFixedError`](/reference/schemas/classes/ethereum.InvalidBytesFixedError.md), `TBytes11`\>
+`Effect`<`never`, [`InvalidBytesFixedError`](../classes/ethereum.InvalidBytesFixedError.md), `TBytes11`\>
 
 #### Defined in
 
@@ -3469,7 +3469,7 @@ ___
 
 ### parseBytes12Safe
 
-▸ **parseBytes12Safe**<`TBytes12`\>(`bytes12`): `Effect`<`never`, [`InvalidBytesFixedError`](/reference/schemas/classes/ethereum.InvalidBytesFixedError.md), `TBytes12`\>
+▸ **parseBytes12Safe**<`TBytes12`\>(`bytes12`): `Effect`<`never`, [`InvalidBytesFixedError`](../classes/ethereum.InvalidBytesFixedError.md), `TBytes12`\>
 
 Safely parses a Bytes12 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -3487,7 +3487,7 @@ Safely parses a Bytes12 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Returns
 
-`Effect`<`never`, [`InvalidBytesFixedError`](/reference/schemas/classes/ethereum.InvalidBytesFixedError.md), `TBytes12`\>
+`Effect`<`never`, [`InvalidBytesFixedError`](../classes/ethereum.InvalidBytesFixedError.md), `TBytes12`\>
 
 #### Defined in
 
@@ -3532,7 +3532,7 @@ ___
 
 ### parseBytes13Safe
 
-▸ **parseBytes13Safe**<`TBytes13`\>(`bytes13`): `Effect`<`never`, [`InvalidBytesFixedError`](/reference/schemas/classes/ethereum.InvalidBytesFixedError.md), `TBytes13`\>
+▸ **parseBytes13Safe**<`TBytes13`\>(`bytes13`): `Effect`<`never`, [`InvalidBytesFixedError`](../classes/ethereum.InvalidBytesFixedError.md), `TBytes13`\>
 
 Safely parses a Bytes13 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -3550,7 +3550,7 @@ Safely parses a Bytes13 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Returns
 
-`Effect`<`never`, [`InvalidBytesFixedError`](/reference/schemas/classes/ethereum.InvalidBytesFixedError.md), `TBytes13`\>
+`Effect`<`never`, [`InvalidBytesFixedError`](../classes/ethereum.InvalidBytesFixedError.md), `TBytes13`\>
 
 #### Defined in
 
@@ -3595,7 +3595,7 @@ ___
 
 ### parseBytes14Safe
 
-▸ **parseBytes14Safe**<`TBytes14`\>(`bytes14`): `Effect`<`never`, [`InvalidBytesFixedError`](/reference/schemas/classes/ethereum.InvalidBytesFixedError.md), `TBytes14`\>
+▸ **parseBytes14Safe**<`TBytes14`\>(`bytes14`): `Effect`<`never`, [`InvalidBytesFixedError`](../classes/ethereum.InvalidBytesFixedError.md), `TBytes14`\>
 
 Safely parses a Bytes14 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -3613,7 +3613,7 @@ Safely parses a Bytes14 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Returns
 
-`Effect`<`never`, [`InvalidBytesFixedError`](/reference/schemas/classes/ethereum.InvalidBytesFixedError.md), `TBytes14`\>
+`Effect`<`never`, [`InvalidBytesFixedError`](../classes/ethereum.InvalidBytesFixedError.md), `TBytes14`\>
 
 #### Defined in
 
@@ -3658,7 +3658,7 @@ ___
 
 ### parseBytes15Safe
 
-▸ **parseBytes15Safe**<`TBytes15`\>(`bytes15`): `Effect`<`never`, [`InvalidBytesFixedError`](/reference/schemas/classes/ethereum.InvalidBytesFixedError.md), `TBytes15`\>
+▸ **parseBytes15Safe**<`TBytes15`\>(`bytes15`): `Effect`<`never`, [`InvalidBytesFixedError`](../classes/ethereum.InvalidBytesFixedError.md), `TBytes15`\>
 
 Safely parses a Bytes15 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -3676,7 +3676,7 @@ Safely parses a Bytes15 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Returns
 
-`Effect`<`never`, [`InvalidBytesFixedError`](/reference/schemas/classes/ethereum.InvalidBytesFixedError.md), `TBytes15`\>
+`Effect`<`never`, [`InvalidBytesFixedError`](../classes/ethereum.InvalidBytesFixedError.md), `TBytes15`\>
 
 #### Defined in
 
@@ -3721,7 +3721,7 @@ ___
 
 ### parseBytes16Safe
 
-▸ **parseBytes16Safe**<`TBytes16`\>(`bytes16`): `Effect`<`never`, [`InvalidBytesFixedError`](/reference/schemas/classes/ethereum.InvalidBytesFixedError.md), `TBytes16`\>
+▸ **parseBytes16Safe**<`TBytes16`\>(`bytes16`): `Effect`<`never`, [`InvalidBytesFixedError`](../classes/ethereum.InvalidBytesFixedError.md), `TBytes16`\>
 
 Safely parses a Bytes16 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -3739,7 +3739,7 @@ Safely parses a Bytes16 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Returns
 
-`Effect`<`never`, [`InvalidBytesFixedError`](/reference/schemas/classes/ethereum.InvalidBytesFixedError.md), `TBytes16`\>
+`Effect`<`never`, [`InvalidBytesFixedError`](../classes/ethereum.InvalidBytesFixedError.md), `TBytes16`\>
 
 #### Defined in
 
@@ -3784,7 +3784,7 @@ ___
 
 ### parseBytes17Safe
 
-▸ **parseBytes17Safe**<`TBytes17`\>(`bytes17`): `Effect`<`never`, [`InvalidBytesFixedError`](/reference/schemas/classes/ethereum.InvalidBytesFixedError.md), `TBytes17`\>
+▸ **parseBytes17Safe**<`TBytes17`\>(`bytes17`): `Effect`<`never`, [`InvalidBytesFixedError`](../classes/ethereum.InvalidBytesFixedError.md), `TBytes17`\>
 
 Safely parses a Bytes17 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -3802,7 +3802,7 @@ Safely parses a Bytes17 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Returns
 
-`Effect`<`never`, [`InvalidBytesFixedError`](/reference/schemas/classes/ethereum.InvalidBytesFixedError.md), `TBytes17`\>
+`Effect`<`never`, [`InvalidBytesFixedError`](../classes/ethereum.InvalidBytesFixedError.md), `TBytes17`\>
 
 #### Defined in
 
@@ -3847,7 +3847,7 @@ ___
 
 ### parseBytes18Safe
 
-▸ **parseBytes18Safe**<`TBytes18`\>(`bytes18`): `Effect`<`never`, [`InvalidBytesFixedError`](/reference/schemas/classes/ethereum.InvalidBytesFixedError.md), `TBytes18`\>
+▸ **parseBytes18Safe**<`TBytes18`\>(`bytes18`): `Effect`<`never`, [`InvalidBytesFixedError`](../classes/ethereum.InvalidBytesFixedError.md), `TBytes18`\>
 
 Safely parses a Bytes18 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -3865,7 +3865,7 @@ Safely parses a Bytes18 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Returns
 
-`Effect`<`never`, [`InvalidBytesFixedError`](/reference/schemas/classes/ethereum.InvalidBytesFixedError.md), `TBytes18`\>
+`Effect`<`never`, [`InvalidBytesFixedError`](../classes/ethereum.InvalidBytesFixedError.md), `TBytes18`\>
 
 #### Defined in
 
@@ -3910,7 +3910,7 @@ ___
 
 ### parseBytes19Safe
 
-▸ **parseBytes19Safe**<`TBytes19`\>(`bytes19`): `Effect`<`never`, [`InvalidBytesFixedError`](/reference/schemas/classes/ethereum.InvalidBytesFixedError.md), `TBytes19`\>
+▸ **parseBytes19Safe**<`TBytes19`\>(`bytes19`): `Effect`<`never`, [`InvalidBytesFixedError`](../classes/ethereum.InvalidBytesFixedError.md), `TBytes19`\>
 
 Safely parses a Bytes19 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -3928,7 +3928,7 @@ Safely parses a Bytes19 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Returns
 
-`Effect`<`never`, [`InvalidBytesFixedError`](/reference/schemas/classes/ethereum.InvalidBytesFixedError.md), `TBytes19`\>
+`Effect`<`never`, [`InvalidBytesFixedError`](../classes/ethereum.InvalidBytesFixedError.md), `TBytes19`\>
 
 #### Defined in
 
@@ -3938,7 +3938,7 @@ ___
 
 ### parseBytes1Safe
 
-▸ **parseBytes1Safe**<`TBytes1`\>(`bytes1`): `Effect`<`never`, [`InvalidBytesFixedError`](/reference/schemas/classes/ethereum.InvalidBytesFixedError.md), `TBytes1`\>
+▸ **parseBytes1Safe**<`TBytes1`\>(`bytes1`): `Effect`<`never`, [`InvalidBytesFixedError`](../classes/ethereum.InvalidBytesFixedError.md), `TBytes1`\>
 
 Safely parses a Bytes1 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -3956,7 +3956,7 @@ Safely parses a Bytes1 into an [Effect](https://www.effect.website/docs/essentia
 
 #### Returns
 
-`Effect`<`never`, [`InvalidBytesFixedError`](/reference/schemas/classes/ethereum.InvalidBytesFixedError.md), `TBytes1`\>
+`Effect`<`never`, [`InvalidBytesFixedError`](../classes/ethereum.InvalidBytesFixedError.md), `TBytes1`\>
 
 #### Defined in
 
@@ -4036,7 +4036,7 @@ ___
 
 ### parseBytes20Safe
 
-▸ **parseBytes20Safe**<`TBytes20`\>(`bytes20`): `Effect`<`never`, [`InvalidBytesFixedError`](/reference/schemas/classes/ethereum.InvalidBytesFixedError.md), `TBytes20`\>
+▸ **parseBytes20Safe**<`TBytes20`\>(`bytes20`): `Effect`<`never`, [`InvalidBytesFixedError`](../classes/ethereum.InvalidBytesFixedError.md), `TBytes20`\>
 
 Safely parses a Bytes20 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -4054,7 +4054,7 @@ Safely parses a Bytes20 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Returns
 
-`Effect`<`never`, [`InvalidBytesFixedError`](/reference/schemas/classes/ethereum.InvalidBytesFixedError.md), `TBytes20`\>
+`Effect`<`never`, [`InvalidBytesFixedError`](../classes/ethereum.InvalidBytesFixedError.md), `TBytes20`\>
 
 #### Defined in
 
@@ -4099,7 +4099,7 @@ ___
 
 ### parseBytes21Safe
 
-▸ **parseBytes21Safe**<`TBytes21`\>(`bytes21`): `Effect`<`never`, [`InvalidBytesFixedError`](/reference/schemas/classes/ethereum.InvalidBytesFixedError.md), `TBytes21`\>
+▸ **parseBytes21Safe**<`TBytes21`\>(`bytes21`): `Effect`<`never`, [`InvalidBytesFixedError`](../classes/ethereum.InvalidBytesFixedError.md), `TBytes21`\>
 
 Safely parses a Bytes21 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -4117,7 +4117,7 @@ Safely parses a Bytes21 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Returns
 
-`Effect`<`never`, [`InvalidBytesFixedError`](/reference/schemas/classes/ethereum.InvalidBytesFixedError.md), `TBytes21`\>
+`Effect`<`never`, [`InvalidBytesFixedError`](../classes/ethereum.InvalidBytesFixedError.md), `TBytes21`\>
 
 #### Defined in
 
@@ -4162,7 +4162,7 @@ ___
 
 ### parseBytes22Safe
 
-▸ **parseBytes22Safe**<`TBytes22`\>(`bytes22`): `Effect`<`never`, [`InvalidBytesFixedError`](/reference/schemas/classes/ethereum.InvalidBytesFixedError.md), `TBytes22`\>
+▸ **parseBytes22Safe**<`TBytes22`\>(`bytes22`): `Effect`<`never`, [`InvalidBytesFixedError`](../classes/ethereum.InvalidBytesFixedError.md), `TBytes22`\>
 
 Safely parses a Bytes22 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -4180,7 +4180,7 @@ Safely parses a Bytes22 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Returns
 
-`Effect`<`never`, [`InvalidBytesFixedError`](/reference/schemas/classes/ethereum.InvalidBytesFixedError.md), `TBytes22`\>
+`Effect`<`never`, [`InvalidBytesFixedError`](../classes/ethereum.InvalidBytesFixedError.md), `TBytes22`\>
 
 #### Defined in
 
@@ -4225,7 +4225,7 @@ ___
 
 ### parseBytes23Safe
 
-▸ **parseBytes23Safe**<`TBytes23`\>(`bytes23`): `Effect`<`never`, [`InvalidBytesFixedError`](/reference/schemas/classes/ethereum.InvalidBytesFixedError.md), `TBytes23`\>
+▸ **parseBytes23Safe**<`TBytes23`\>(`bytes23`): `Effect`<`never`, [`InvalidBytesFixedError`](../classes/ethereum.InvalidBytesFixedError.md), `TBytes23`\>
 
 Safely parses a Bytes23 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -4243,7 +4243,7 @@ Safely parses a Bytes23 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Returns
 
-`Effect`<`never`, [`InvalidBytesFixedError`](/reference/schemas/classes/ethereum.InvalidBytesFixedError.md), `TBytes23`\>
+`Effect`<`never`, [`InvalidBytesFixedError`](../classes/ethereum.InvalidBytesFixedError.md), `TBytes23`\>
 
 #### Defined in
 
@@ -4288,7 +4288,7 @@ ___
 
 ### parseBytes24Safe
 
-▸ **parseBytes24Safe**<`TBytes24`\>(`bytes24`): `Effect`<`never`, [`InvalidBytesFixedError`](/reference/schemas/classes/ethereum.InvalidBytesFixedError.md), `TBytes24`\>
+▸ **parseBytes24Safe**<`TBytes24`\>(`bytes24`): `Effect`<`never`, [`InvalidBytesFixedError`](../classes/ethereum.InvalidBytesFixedError.md), `TBytes24`\>
 
 Safely parses a Bytes24 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -4306,7 +4306,7 @@ Safely parses a Bytes24 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Returns
 
-`Effect`<`never`, [`InvalidBytesFixedError`](/reference/schemas/classes/ethereum.InvalidBytesFixedError.md), `TBytes24`\>
+`Effect`<`never`, [`InvalidBytesFixedError`](../classes/ethereum.InvalidBytesFixedError.md), `TBytes24`\>
 
 #### Defined in
 
@@ -4351,7 +4351,7 @@ ___
 
 ### parseBytes25Safe
 
-▸ **parseBytes25Safe**<`TBytes25`\>(`bytes25`): `Effect`<`never`, [`InvalidBytesFixedError`](/reference/schemas/classes/ethereum.InvalidBytesFixedError.md), `TBytes25`\>
+▸ **parseBytes25Safe**<`TBytes25`\>(`bytes25`): `Effect`<`never`, [`InvalidBytesFixedError`](../classes/ethereum.InvalidBytesFixedError.md), `TBytes25`\>
 
 Safely parses a Bytes25 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -4369,7 +4369,7 @@ Safely parses a Bytes25 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Returns
 
-`Effect`<`never`, [`InvalidBytesFixedError`](/reference/schemas/classes/ethereum.InvalidBytesFixedError.md), `TBytes25`\>
+`Effect`<`never`, [`InvalidBytesFixedError`](../classes/ethereum.InvalidBytesFixedError.md), `TBytes25`\>
 
 #### Defined in
 
@@ -4414,7 +4414,7 @@ ___
 
 ### parseBytes26Safe
 
-▸ **parseBytes26Safe**<`TBytes26`\>(`bytes26`): `Effect`<`never`, [`InvalidBytesFixedError`](/reference/schemas/classes/ethereum.InvalidBytesFixedError.md), `TBytes26`\>
+▸ **parseBytes26Safe**<`TBytes26`\>(`bytes26`): `Effect`<`never`, [`InvalidBytesFixedError`](../classes/ethereum.InvalidBytesFixedError.md), `TBytes26`\>
 
 Safely parses a Bytes26 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -4432,7 +4432,7 @@ Safely parses a Bytes26 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Returns
 
-`Effect`<`never`, [`InvalidBytesFixedError`](/reference/schemas/classes/ethereum.InvalidBytesFixedError.md), `TBytes26`\>
+`Effect`<`never`, [`InvalidBytesFixedError`](../classes/ethereum.InvalidBytesFixedError.md), `TBytes26`\>
 
 #### Defined in
 
@@ -4477,7 +4477,7 @@ ___
 
 ### parseBytes27Safe
 
-▸ **parseBytes27Safe**<`TBytes27`\>(`bytes27`): `Effect`<`never`, [`InvalidBytesFixedError`](/reference/schemas/classes/ethereum.InvalidBytesFixedError.md), `TBytes27`\>
+▸ **parseBytes27Safe**<`TBytes27`\>(`bytes27`): `Effect`<`never`, [`InvalidBytesFixedError`](../classes/ethereum.InvalidBytesFixedError.md), `TBytes27`\>
 
 Safely parses a Bytes27 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -4495,7 +4495,7 @@ Safely parses a Bytes27 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Returns
 
-`Effect`<`never`, [`InvalidBytesFixedError`](/reference/schemas/classes/ethereum.InvalidBytesFixedError.md), `TBytes27`\>
+`Effect`<`never`, [`InvalidBytesFixedError`](../classes/ethereum.InvalidBytesFixedError.md), `TBytes27`\>
 
 #### Defined in
 
@@ -4540,7 +4540,7 @@ ___
 
 ### parseBytes28Safe
 
-▸ **parseBytes28Safe**<`TBytes28`\>(`bytes28`): `Effect`<`never`, [`InvalidBytesFixedError`](/reference/schemas/classes/ethereum.InvalidBytesFixedError.md), `TBytes28`\>
+▸ **parseBytes28Safe**<`TBytes28`\>(`bytes28`): `Effect`<`never`, [`InvalidBytesFixedError`](../classes/ethereum.InvalidBytesFixedError.md), `TBytes28`\>
 
 Safely parses a Bytes28 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -4558,7 +4558,7 @@ Safely parses a Bytes28 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Returns
 
-`Effect`<`never`, [`InvalidBytesFixedError`](/reference/schemas/classes/ethereum.InvalidBytesFixedError.md), `TBytes28`\>
+`Effect`<`never`, [`InvalidBytesFixedError`](../classes/ethereum.InvalidBytesFixedError.md), `TBytes28`\>
 
 #### Defined in
 
@@ -4603,7 +4603,7 @@ ___
 
 ### parseBytes29Safe
 
-▸ **parseBytes29Safe**<`TBytes29`\>(`bytes29`): `Effect`<`never`, [`InvalidBytesFixedError`](/reference/schemas/classes/ethereum.InvalidBytesFixedError.md), `TBytes29`\>
+▸ **parseBytes29Safe**<`TBytes29`\>(`bytes29`): `Effect`<`never`, [`InvalidBytesFixedError`](../classes/ethereum.InvalidBytesFixedError.md), `TBytes29`\>
 
 Safely parses a Bytes29 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -4621,7 +4621,7 @@ Safely parses a Bytes29 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Returns
 
-`Effect`<`never`, [`InvalidBytesFixedError`](/reference/schemas/classes/ethereum.InvalidBytesFixedError.md), `TBytes29`\>
+`Effect`<`never`, [`InvalidBytesFixedError`](../classes/ethereum.InvalidBytesFixedError.md), `TBytes29`\>
 
 #### Defined in
 
@@ -4631,7 +4631,7 @@ ___
 
 ### parseBytes2Safe
 
-▸ **parseBytes2Safe**<`TBytes2`\>(`bytes2`): `Effect`<`never`, [`InvalidBytesFixedError`](/reference/schemas/classes/ethereum.InvalidBytesFixedError.md), `TBytes2`\>
+▸ **parseBytes2Safe**<`TBytes2`\>(`bytes2`): `Effect`<`never`, [`InvalidBytesFixedError`](../classes/ethereum.InvalidBytesFixedError.md), `TBytes2`\>
 
 Safely parses a Bytes2 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -4649,7 +4649,7 @@ Safely parses a Bytes2 into an [Effect](https://www.effect.website/docs/essentia
 
 #### Returns
 
-`Effect`<`never`, [`InvalidBytesFixedError`](/reference/schemas/classes/ethereum.InvalidBytesFixedError.md), `TBytes2`\>
+`Effect`<`never`, [`InvalidBytesFixedError`](../classes/ethereum.InvalidBytesFixedError.md), `TBytes2`\>
 
 #### Defined in
 
@@ -4729,7 +4729,7 @@ ___
 
 ### parseBytes30Safe
 
-▸ **parseBytes30Safe**<`TBytes30`\>(`bytes30`): `Effect`<`never`, [`InvalidBytesFixedError`](/reference/schemas/classes/ethereum.InvalidBytesFixedError.md), `TBytes30`\>
+▸ **parseBytes30Safe**<`TBytes30`\>(`bytes30`): `Effect`<`never`, [`InvalidBytesFixedError`](../classes/ethereum.InvalidBytesFixedError.md), `TBytes30`\>
 
 Safely parses a Bytes30 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -4747,7 +4747,7 @@ Safely parses a Bytes30 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Returns
 
-`Effect`<`never`, [`InvalidBytesFixedError`](/reference/schemas/classes/ethereum.InvalidBytesFixedError.md), `TBytes30`\>
+`Effect`<`never`, [`InvalidBytesFixedError`](../classes/ethereum.InvalidBytesFixedError.md), `TBytes30`\>
 
 #### Defined in
 
@@ -4792,7 +4792,7 @@ ___
 
 ### parseBytes31Safe
 
-▸ **parseBytes31Safe**<`TBytes31`\>(`bytes31`): `Effect`<`never`, [`InvalidBytesFixedError`](/reference/schemas/classes/ethereum.InvalidBytesFixedError.md), `TBytes31`\>
+▸ **parseBytes31Safe**<`TBytes31`\>(`bytes31`): `Effect`<`never`, [`InvalidBytesFixedError`](../classes/ethereum.InvalidBytesFixedError.md), `TBytes31`\>
 
 Safely parses a Bytes31 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -4810,7 +4810,7 @@ Safely parses a Bytes31 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Returns
 
-`Effect`<`never`, [`InvalidBytesFixedError`](/reference/schemas/classes/ethereum.InvalidBytesFixedError.md), `TBytes31`\>
+`Effect`<`never`, [`InvalidBytesFixedError`](../classes/ethereum.InvalidBytesFixedError.md), `TBytes31`\>
 
 #### Defined in
 
@@ -4855,7 +4855,7 @@ ___
 
 ### parseBytes32Safe
 
-▸ **parseBytes32Safe**<`TBytes32`\>(`bytes32`): `Effect`<`never`, [`InvalidBytesFixedError`](/reference/schemas/classes/ethereum.InvalidBytesFixedError.md), `TBytes32`\>
+▸ **parseBytes32Safe**<`TBytes32`\>(`bytes32`): `Effect`<`never`, [`InvalidBytesFixedError`](../classes/ethereum.InvalidBytesFixedError.md), `TBytes32`\>
 
 Safely parses a Bytes32 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -4873,7 +4873,7 @@ Safely parses a Bytes32 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Returns
 
-`Effect`<`never`, [`InvalidBytesFixedError`](/reference/schemas/classes/ethereum.InvalidBytesFixedError.md), `TBytes32`\>
+`Effect`<`never`, [`InvalidBytesFixedError`](../classes/ethereum.InvalidBytesFixedError.md), `TBytes32`\>
 
 #### Defined in
 
@@ -4883,7 +4883,7 @@ ___
 
 ### parseBytes3Safe
 
-▸ **parseBytes3Safe**<`TBytes3`\>(`bytes3`): `Effect`<`never`, [`InvalidBytesFixedError`](/reference/schemas/classes/ethereum.InvalidBytesFixedError.md), `TBytes3`\>
+▸ **parseBytes3Safe**<`TBytes3`\>(`bytes3`): `Effect`<`never`, [`InvalidBytesFixedError`](../classes/ethereum.InvalidBytesFixedError.md), `TBytes3`\>
 
 Safely parses a Bytes3 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -4901,7 +4901,7 @@ Safely parses a Bytes3 into an [Effect](https://www.effect.website/docs/essentia
 
 #### Returns
 
-`Effect`<`never`, [`InvalidBytesFixedError`](/reference/schemas/classes/ethereum.InvalidBytesFixedError.md), `TBytes3`\>
+`Effect`<`never`, [`InvalidBytesFixedError`](../classes/ethereum.InvalidBytesFixedError.md), `TBytes3`\>
 
 #### Defined in
 
@@ -4946,7 +4946,7 @@ ___
 
 ### parseBytes4Safe
 
-▸ **parseBytes4Safe**<`TBytes4`\>(`bytes4`): `Effect`<`never`, [`InvalidBytesFixedError`](/reference/schemas/classes/ethereum.InvalidBytesFixedError.md), `TBytes4`\>
+▸ **parseBytes4Safe**<`TBytes4`\>(`bytes4`): `Effect`<`never`, [`InvalidBytesFixedError`](../classes/ethereum.InvalidBytesFixedError.md), `TBytes4`\>
 
 Safely parses a Bytes4 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -4964,7 +4964,7 @@ Safely parses a Bytes4 into an [Effect](https://www.effect.website/docs/essentia
 
 #### Returns
 
-`Effect`<`never`, [`InvalidBytesFixedError`](/reference/schemas/classes/ethereum.InvalidBytesFixedError.md), `TBytes4`\>
+`Effect`<`never`, [`InvalidBytesFixedError`](../classes/ethereum.InvalidBytesFixedError.md), `TBytes4`\>
 
 #### Defined in
 
@@ -5009,7 +5009,7 @@ ___
 
 ### parseBytes5Safe
 
-▸ **parseBytes5Safe**<`TBytes5`\>(`bytes5`): `Effect`<`never`, [`InvalidBytesFixedError`](/reference/schemas/classes/ethereum.InvalidBytesFixedError.md), `TBytes5`\>
+▸ **parseBytes5Safe**<`TBytes5`\>(`bytes5`): `Effect`<`never`, [`InvalidBytesFixedError`](../classes/ethereum.InvalidBytesFixedError.md), `TBytes5`\>
 
 Safely parses a Bytes5 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -5027,7 +5027,7 @@ Safely parses a Bytes5 into an [Effect](https://www.effect.website/docs/essentia
 
 #### Returns
 
-`Effect`<`never`, [`InvalidBytesFixedError`](/reference/schemas/classes/ethereum.InvalidBytesFixedError.md), `TBytes5`\>
+`Effect`<`never`, [`InvalidBytesFixedError`](../classes/ethereum.InvalidBytesFixedError.md), `TBytes5`\>
 
 #### Defined in
 
@@ -5072,7 +5072,7 @@ ___
 
 ### parseBytes6Safe
 
-▸ **parseBytes6Safe**<`TBytes6`\>(`bytes6`): `Effect`<`never`, [`InvalidBytesFixedError`](/reference/schemas/classes/ethereum.InvalidBytesFixedError.md), `TBytes6`\>
+▸ **parseBytes6Safe**<`TBytes6`\>(`bytes6`): `Effect`<`never`, [`InvalidBytesFixedError`](../classes/ethereum.InvalidBytesFixedError.md), `TBytes6`\>
 
 Safely parses a Bytes6 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -5090,7 +5090,7 @@ Safely parses a Bytes6 into an [Effect](https://www.effect.website/docs/essentia
 
 #### Returns
 
-`Effect`<`never`, [`InvalidBytesFixedError`](/reference/schemas/classes/ethereum.InvalidBytesFixedError.md), `TBytes6`\>
+`Effect`<`never`, [`InvalidBytesFixedError`](../classes/ethereum.InvalidBytesFixedError.md), `TBytes6`\>
 
 #### Defined in
 
@@ -5135,7 +5135,7 @@ ___
 
 ### parseBytes7Safe
 
-▸ **parseBytes7Safe**<`TBytes7`\>(`bytes7`): `Effect`<`never`, [`InvalidBytesFixedError`](/reference/schemas/classes/ethereum.InvalidBytesFixedError.md), `TBytes7`\>
+▸ **parseBytes7Safe**<`TBytes7`\>(`bytes7`): `Effect`<`never`, [`InvalidBytesFixedError`](../classes/ethereum.InvalidBytesFixedError.md), `TBytes7`\>
 
 Safely parses a Bytes7 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -5153,7 +5153,7 @@ Safely parses a Bytes7 into an [Effect](https://www.effect.website/docs/essentia
 
 #### Returns
 
-`Effect`<`never`, [`InvalidBytesFixedError`](/reference/schemas/classes/ethereum.InvalidBytesFixedError.md), `TBytes7`\>
+`Effect`<`never`, [`InvalidBytesFixedError`](../classes/ethereum.InvalidBytesFixedError.md), `TBytes7`\>
 
 #### Defined in
 
@@ -5198,7 +5198,7 @@ ___
 
 ### parseBytes8Safe
 
-▸ **parseBytes8Safe**<`TBytes8`\>(`bytes8`): `Effect`<`never`, [`InvalidBytesFixedError`](/reference/schemas/classes/ethereum.InvalidBytesFixedError.md), `TBytes8`\>
+▸ **parseBytes8Safe**<`TBytes8`\>(`bytes8`): `Effect`<`never`, [`InvalidBytesFixedError`](../classes/ethereum.InvalidBytesFixedError.md), `TBytes8`\>
 
 Safely parses a Bytes8 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -5216,7 +5216,7 @@ Safely parses a Bytes8 into an [Effect](https://www.effect.website/docs/essentia
 
 #### Returns
 
-`Effect`<`never`, [`InvalidBytesFixedError`](/reference/schemas/classes/ethereum.InvalidBytesFixedError.md), `TBytes8`\>
+`Effect`<`never`, [`InvalidBytesFixedError`](../classes/ethereum.InvalidBytesFixedError.md), `TBytes8`\>
 
 #### Defined in
 
@@ -5261,7 +5261,7 @@ ___
 
 ### parseBytes9Safe
 
-▸ **parseBytes9Safe**<`TBytes9`\>(`bytes9`): `Effect`<`never`, [`InvalidBytesFixedError`](/reference/schemas/classes/ethereum.InvalidBytesFixedError.md), `TBytes9`\>
+▸ **parseBytes9Safe**<`TBytes9`\>(`bytes9`): `Effect`<`never`, [`InvalidBytesFixedError`](../classes/ethereum.InvalidBytesFixedError.md), `TBytes9`\>
 
 Safely parses a Bytes9 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -5279,7 +5279,7 @@ Safely parses a Bytes9 into an [Effect](https://www.effect.website/docs/essentia
 
 #### Returns
 
-`Effect`<`never`, [`InvalidBytesFixedError`](/reference/schemas/classes/ethereum.InvalidBytesFixedError.md), `TBytes9`\>
+`Effect`<`never`, [`InvalidBytesFixedError`](../classes/ethereum.InvalidBytesFixedError.md), `TBytes9`\>
 
 #### Defined in
 
@@ -5289,7 +5289,7 @@ ___
 
 ### parseBytesSafe
 
-▸ **parseBytesSafe**<`TBytes`\>(`value`): `Effect`<`never`, [`InvalidBytesError`](/reference/schemas/classes/ethereum.InvalidBytesError.md), `TBytes`\>
+▸ **parseBytesSafe**<`TBytes`\>(`value`): `Effect`<`never`, [`InvalidBytesError`](../classes/ethereum.InvalidBytesError.md), `TBytes`\>
 
 Safely parses a Bytes into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -5307,7 +5307,7 @@ Safely parses a Bytes into an [Effect](https://www.effect.website/docs/essential
 
 #### Returns
 
-`Effect`<`never`, [`InvalidBytesError`](/reference/schemas/classes/ethereum.InvalidBytesError.md), `TBytes`\>
+`Effect`<`never`, [`InvalidBytesError`](../classes/ethereum.InvalidBytesError.md), `TBytes`\>
 
 **`Example`**
 
@@ -5324,7 +5324,7 @@ ___
 
 ### parseINT128Safe
 
-▸ **parseINT128Safe**<`TINT128`\>(`int128`): `Effect`<`never`, [`InvalidINTError`](/reference/schemas/classes/ethereum.InvalidINTError.md), `TINT128`\>
+▸ **parseINT128Safe**<`TINT128`\>(`int128`): `Effect`<`never`, [`InvalidINTError`](../classes/ethereum.InvalidINTError.md), `TINT128`\>
 
 Safely parses an INT128 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -5342,7 +5342,7 @@ Safely parses an INT128 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Returns
 
-`Effect`<`never`, [`InvalidINTError`](/reference/schemas/classes/ethereum.InvalidINTError.md), `TINT128`\>
+`Effect`<`never`, [`InvalidINTError`](../classes/ethereum.InvalidINTError.md), `TINT128`\>
 
 #### Defined in
 
@@ -5352,7 +5352,7 @@ ___
 
 ### parseINT16Safe
 
-▸ **parseINT16Safe**<`TINT16`\>(`int16`): `Effect`<`never`, [`InvalidINTError`](/reference/schemas/classes/ethereum.InvalidINTError.md), `TINT16`\>
+▸ **parseINT16Safe**<`TINT16`\>(`int16`): `Effect`<`never`, [`InvalidINTError`](../classes/ethereum.InvalidINTError.md), `TINT16`\>
 
 Safely parses an INT16 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -5370,7 +5370,7 @@ Safely parses an INT16 into an [Effect](https://www.effect.website/docs/essentia
 
 #### Returns
 
-`Effect`<`never`, [`InvalidINTError`](/reference/schemas/classes/ethereum.InvalidINTError.md), `TINT16`\>
+`Effect`<`never`, [`InvalidINTError`](../classes/ethereum.InvalidINTError.md), `TINT16`\>
 
 #### Defined in
 
@@ -5380,7 +5380,7 @@ ___
 
 ### parseINT256Safe
 
-▸ **parseINT256Safe**<`TINT256`\>(`int256`): `Effect`<`never`, [`InvalidINTError`](/reference/schemas/classes/ethereum.InvalidINTError.md), `TINT256`\>
+▸ **parseINT256Safe**<`TINT256`\>(`int256`): `Effect`<`never`, [`InvalidINTError`](../classes/ethereum.InvalidINTError.md), `TINT256`\>
 
 Safely parses an INT256 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -5398,7 +5398,7 @@ Safely parses an INT256 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Returns
 
-`Effect`<`never`, [`InvalidINTError`](/reference/schemas/classes/ethereum.InvalidINTError.md), `TINT256`\>
+`Effect`<`never`, [`InvalidINTError`](../classes/ethereum.InvalidINTError.md), `TINT256`\>
 
 #### Defined in
 
@@ -5408,7 +5408,7 @@ ___
 
 ### parseINT32Safe
 
-▸ **parseINT32Safe**<`TINT32`\>(`int32`): `Effect`<`never`, [`InvalidINTError`](/reference/schemas/classes/ethereum.InvalidINTError.md), `TINT32`\>
+▸ **parseINT32Safe**<`TINT32`\>(`int32`): `Effect`<`never`, [`InvalidINTError`](../classes/ethereum.InvalidINTError.md), `TINT32`\>
 
 Safely parses an INT32 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -5426,7 +5426,7 @@ Safely parses an INT32 into an [Effect](https://www.effect.website/docs/essentia
 
 #### Returns
 
-`Effect`<`never`, [`InvalidINTError`](/reference/schemas/classes/ethereum.InvalidINTError.md), `TINT32`\>
+`Effect`<`never`, [`InvalidINTError`](../classes/ethereum.InvalidINTError.md), `TINT32`\>
 
 #### Defined in
 
@@ -5436,7 +5436,7 @@ ___
 
 ### parseINT64Safe
 
-▸ **parseINT64Safe**<`TINT64`\>(`int64`): `Effect`<`never`, [`InvalidINTError`](/reference/schemas/classes/ethereum.InvalidINTError.md), `TINT64`\>
+▸ **parseINT64Safe**<`TINT64`\>(`int64`): `Effect`<`never`, [`InvalidINTError`](../classes/ethereum.InvalidINTError.md), `TINT64`\>
 
 Safely parses an INT64 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -5454,7 +5454,7 @@ Safely parses an INT64 into an [Effect](https://www.effect.website/docs/essentia
 
 #### Returns
 
-`Effect`<`never`, [`InvalidINTError`](/reference/schemas/classes/ethereum.InvalidINTError.md), `TINT64`\>
+`Effect`<`never`, [`InvalidINTError`](../classes/ethereum.InvalidINTError.md), `TINT64`\>
 
 #### Defined in
 
@@ -5464,7 +5464,7 @@ ___
 
 ### parseINT8Safe
 
-▸ **parseINT8Safe**<`TINT8`\>(`int8`): `Effect`<`never`, [`InvalidINTError`](/reference/schemas/classes/ethereum.InvalidINTError.md), `TINT8`\>
+▸ **parseINT8Safe**<`TINT8`\>(`int8`): `Effect`<`never`, [`InvalidINTError`](../classes/ethereum.InvalidINTError.md), `TINT8`\>
 
 Safely parses an INT8 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -5482,7 +5482,7 @@ Safely parses an INT8 into an [Effect](https://www.effect.website/docs/essential
 
 #### Returns
 
-`Effect`<`never`, [`InvalidINTError`](/reference/schemas/classes/ethereum.InvalidINTError.md), `TINT8`\>
+`Effect`<`never`, [`InvalidINTError`](../classes/ethereum.InvalidINTError.md), `TINT8`\>
 
 #### Defined in
 
@@ -5737,7 +5737,7 @@ ___
 
 ### parseUINT128Safe
 
-▸ **parseUINT128Safe**<`TUINT128`\>(`uint128`): `Effect`<`never`, [`InvalidUINTError`](/reference/schemas/classes/ethereum.InvalidUINTError.md), `TUINT128`\>
+▸ **parseUINT128Safe**<`TUINT128`\>(`uint128`): `Effect`<`never`, [`InvalidUINTError`](../classes/ethereum.InvalidUINTError.md), `TUINT128`\>
 
 Safely parses a UINT128 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -5755,7 +5755,7 @@ Safely parses a UINT128 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Returns
 
-`Effect`<`never`, [`InvalidUINTError`](/reference/schemas/classes/ethereum.InvalidUINTError.md), `TUINT128`\>
+`Effect`<`never`, [`InvalidUINTError`](../classes/ethereum.InvalidUINTError.md), `TUINT128`\>
 
 #### Defined in
 
@@ -5800,7 +5800,7 @@ ___
 
 ### parseUINT16Safe
 
-▸ **parseUINT16Safe**<`TUINT16`\>(`uint16`): `Effect`<`never`, [`InvalidUINTError`](/reference/schemas/classes/ethereum.InvalidUINTError.md), `TUINT16`\>
+▸ **parseUINT16Safe**<`TUINT16`\>(`uint16`): `Effect`<`never`, [`InvalidUINTError`](../classes/ethereum.InvalidUINTError.md), `TUINT16`\>
 
 Safely parses a UINT16 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -5818,7 +5818,7 @@ Safely parses a UINT16 into an [Effect](https://www.effect.website/docs/essentia
 
 #### Returns
 
-`Effect`<`never`, [`InvalidUINTError`](/reference/schemas/classes/ethereum.InvalidUINTError.md), `TUINT16`\>
+`Effect`<`never`, [`InvalidUINTError`](../classes/ethereum.InvalidUINTError.md), `TUINT16`\>
 
 #### Defined in
 
@@ -5863,7 +5863,7 @@ ___
 
 ### parseUINT256Safe
 
-▸ **parseUINT256Safe**<`TUINT256`\>(`uint256`): `Effect`<`never`, [`InvalidUINTError`](/reference/schemas/classes/ethereum.InvalidUINTError.md), `TUINT256`\>
+▸ **parseUINT256Safe**<`TUINT256`\>(`uint256`): `Effect`<`never`, [`InvalidUINTError`](../classes/ethereum.InvalidUINTError.md), `TUINT256`\>
 
 Safely parses a UINT256 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -5881,7 +5881,7 @@ Safely parses a UINT256 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Returns
 
-`Effect`<`never`, [`InvalidUINTError`](/reference/schemas/classes/ethereum.InvalidUINTError.md), `TUINT256`\>
+`Effect`<`never`, [`InvalidUINTError`](../classes/ethereum.InvalidUINTError.md), `TUINT256`\>
 
 **`Example`**
 
@@ -5933,7 +5933,7 @@ ___
 
 ### parseUINT32Safe
 
-▸ **parseUINT32Safe**<`TUINT32`\>(`uint32`): `Effect`<`never`, [`InvalidUINTError`](/reference/schemas/classes/ethereum.InvalidUINTError.md), `TUINT32`\>
+▸ **parseUINT32Safe**<`TUINT32`\>(`uint32`): `Effect`<`never`, [`InvalidUINTError`](../classes/ethereum.InvalidUINTError.md), `TUINT32`\>
 
 Safely parses a UINT32 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -5951,7 +5951,7 @@ Safely parses a UINT32 into an [Effect](https://www.effect.website/docs/essentia
 
 #### Returns
 
-`Effect`<`never`, [`InvalidUINTError`](/reference/schemas/classes/ethereum.InvalidUINTError.md), `TUINT32`\>
+`Effect`<`never`, [`InvalidUINTError`](../classes/ethereum.InvalidUINTError.md), `TUINT32`\>
 
 #### Defined in
 
@@ -5996,7 +5996,7 @@ ___
 
 ### parseUINT64Safe
 
-▸ **parseUINT64Safe**<`TUINT64`\>(`uint64`): `Effect`<`never`, [`InvalidUINTError`](/reference/schemas/classes/ethereum.InvalidUINTError.md), `TUINT64`\>
+▸ **parseUINT64Safe**<`TUINT64`\>(`uint64`): `Effect`<`never`, [`InvalidUINTError`](../classes/ethereum.InvalidUINTError.md), `TUINT64`\>
 
 Safely parses a UINT64 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -6014,7 +6014,7 @@ Safely parses a UINT64 into an [Effect](https://www.effect.website/docs/essentia
 
 #### Returns
 
-`Effect`<`never`, [`InvalidUINTError`](/reference/schemas/classes/ethereum.InvalidUINTError.md), `TUINT64`\>
+`Effect`<`never`, [`InvalidUINTError`](../classes/ethereum.InvalidUINTError.md), `TUINT64`\>
 
 #### Defined in
 
@@ -6059,7 +6059,7 @@ ___
 
 ### parseUINT8Safe
 
-▸ **parseUINT8Safe**<`TUINT8`\>(`uint8`): `Effect`<`never`, [`InvalidUINTError`](/reference/schemas/classes/ethereum.InvalidUINTError.md), `TUINT8`\>
+▸ **parseUINT8Safe**<`TUINT8`\>(`uint8`): `Effect`<`never`, [`InvalidUINTError`](../classes/ethereum.InvalidUINTError.md), `TUINT8`\>
 
 Safely parses a UINT8 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -6077,7 +6077,7 @@ Safely parses a UINT8 into an [Effect](https://www.effect.website/docs/essential
 
 #### Returns
 
-`Effect`<`never`, [`InvalidUINTError`](/reference/schemas/classes/ethereum.InvalidUINTError.md), `TUINT8`\>
+`Effect`<`never`, [`InvalidUINTError`](../classes/ethereum.InvalidUINTError.md), `TUINT8`\>
 
 #### Defined in
 

@@ -1,4 +1,4 @@
-[@evmts/revm](/reference/revm/README.md) / [Exports](/reference/revm/modules.md) / EVM
+[@evmts/revm](../README.md) / [Exports](../modules.md) / EVM
 
 # Class: EVM
 
@@ -6,12 +6,12 @@
 
 ### Constructors
 
-- [constructor](/reference/revm/classes/EVM.md#constructor)
+- [constructor](EVM.md#constructor)
 
 ### Methods
 
-- [free](/reference/revm/classes/EVM.md#free)
-- [new](/reference/revm/classes/EVM.md#new)
+- [free](EVM.md#free)
+- [new](EVM.md#new)
 
 ## Constructors
 
@@ -37,11 +37,11 @@ ___
 
 ### new
 
-▸ `Static` **new**(): [`EVM`](/reference/revm/classes/EVM.md)
+▸ `Static` **new**(): [`EVM`](EVM.md)
 
 #### Returns
 
-[`EVM`](/reference/revm/classes/EVM.md)
+[`EVM`](EVM.md)
 
 #### Defined in
 

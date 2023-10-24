@@ -1,4 +1,4 @@
-[@evmts/blockexplorer](/reference/blockexplorer/README.md) / [Exports](/reference/blockexplorer/modules.md) / BlockExplorerOptions
+[@evmts/blockexplorer](../README.md) / [Exports](../modules.md) / BlockExplorerOptions
 
 # Interface: BlockExplorerOptions<\>
 
@@ -6,9 +6,9 @@
 
 ### Properties
 
-- [chainId](/reference/blockexplorer/interfaces/BlockExplorerOptions.md#chainid)
-- [name](/reference/blockexplorer/interfaces/BlockExplorerOptions.md#name)
-- [url](/reference/blockexplorer/interfaces/BlockExplorerOptions.md#url)
+- [chainId](BlockExplorerOptions.md#chainid)
+- [name](BlockExplorerOptions.md#name)
+- [url](BlockExplorerOptions.md#url)
 
 ## Properties
 

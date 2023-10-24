@@ -1,4 +1,4 @@
-@evmts/ts-plugin / [Exports](/reference/ts-plugin/modules.md)
+@evmts/ts-plugin / [Exports](modules.md)
 
 ## @evmts/ts-plugin
 

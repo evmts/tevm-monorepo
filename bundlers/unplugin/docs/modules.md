@@ -1,4 +1,4 @@
-[@evmts/unplugin](/reference/unplugin/README.md) / Exports
+[@evmts/unplugin](README.md) / Exports
 
 # @evmts/unplugin
 
@@ -6,12 +6,12 @@
 
 ### Type Aliases
 
-- [CompilerOption](/reference/unplugin/modules.md#compileroption)
+- [CompilerOption](modules.md#compileroption)
 
 ### Functions
 
-- [createUnplugin](/reference/unplugin/modules.md#createunplugin)
-- [evmtsUnplugin](/reference/unplugin/modules.md#evmtsunplugin)
+- [createUnplugin](modules.md#createunplugin)
+- [evmtsUnplugin](modules.md#evmtsunplugin)
 
 ## Type Aliases
 

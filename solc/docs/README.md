@@ -1,4 +1,4 @@
-@evmts/solc / [Modules](/reference/solc/modules.md)
+@evmts/solc / [Modules](modules.md)
 
 <p align="center">
   <a href="https://evmts.dev/">

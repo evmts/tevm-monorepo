@@ -1,4 +1,4 @@
-@evmts/ethers / [Exports](/reference/ethers/modules.md)
+@evmts/ethers / [Exports](modules.md)
 
 <p align="center">
   <a href="https://evmts.dev/">

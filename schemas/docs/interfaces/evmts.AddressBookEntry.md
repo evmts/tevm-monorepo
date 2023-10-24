@@ -1,15 +1,15 @@
-[@evmts/schemas](/reference/schemas/README.md) / [Modules](/reference/schemas/modules.md) / [evmts](/reference/schemas/modules/evmts.md) / AddressBookEntry
+[@evmts/schemas](../README.md) / [Modules](../modules.md) / [evmts](../modules/evmts.md) / AddressBookEntry
 
 # Interface: AddressBookEntry<\>
 
-[evmts](/reference/schemas/modules/evmts.md).AddressBookEntry
+[evmts](../modules/evmts.md).AddressBookEntry
 
 ## Table of contents
 
 ### Properties
 
-- [address](/reference/schemas/interfaces/evmts.AddressBookEntry.md#address)
-- [blockCreated](/reference/schemas/interfaces/evmts.AddressBookEntry.md#blockcreated)
+- [address](evmts.AddressBookEntry.md#address)
+- [blockCreated](evmts.AddressBookEntry.md#blockcreated)
 
 ## Properties
 

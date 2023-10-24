@@ -1,4 +1,4 @@
-[@evmts/effect](/reference/effect/README.md) / [Exports](/reference/effect/modules.md) / CreateRequireError
+[@evmts/effect](../README.md) / [Exports](../modules.md) / CreateRequireError
 
 # Class: CreateRequireError
 
@@ -12,21 +12,21 @@
 
 ### Constructors
 
-- [constructor](/reference/effect/classes/CreateRequireError.md#constructor)
+- [constructor](CreateRequireError.md#constructor)
 
 ### Properties
 
-- [\_tag](/reference/effect/classes/CreateRequireError.md#_tag)
-- [cause](/reference/effect/classes/CreateRequireError.md#cause)
-- [message](/reference/effect/classes/CreateRequireError.md#message)
-- [name](/reference/effect/classes/CreateRequireError.md#name)
-- [stack](/reference/effect/classes/CreateRequireError.md#stack)
-- [prepareStackTrace](/reference/effect/classes/CreateRequireError.md#preparestacktrace)
-- [stackTraceLimit](/reference/effect/classes/CreateRequireError.md#stacktracelimit)
+- [\_tag](CreateRequireError.md#_tag)
+- [cause](CreateRequireError.md#cause)
+- [message](CreateRequireError.md#message)
+- [name](CreateRequireError.md#name)
+- [stack](CreateRequireError.md#stack)
+- [prepareStackTrace](CreateRequireError.md#preparestacktrace)
+- [stackTraceLimit](CreateRequireError.md#stacktracelimit)
 
 ### Methods
 
-- [captureStackTrace](/reference/effect/classes/CreateRequireError.md#capturestacktrace)
+- [captureStackTrace](CreateRequireError.md#capturestacktrace)
 
 ## Constructors
 

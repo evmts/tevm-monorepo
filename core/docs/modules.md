@@ -1,4 +1,4 @@
-[@evmts/core](/reference/core/README.md) / Exports
+[@evmts/core](README.md) / Exports
 
 # @evmts/core
 
@@ -6,13 +6,13 @@
 
 ### Type Aliases
 
-- [EvmtsContract](/reference/core/modules.md#evmtscontract)
+- [EvmtsContract](modules.md#evmtscontract)
 
 ### Functions
 
-- [evmtsContractFactory](/reference/core/modules.md#evmtscontractfactory)
-- [formatAbi](/reference/core/modules.md#formatabi)
-- [parseAbi](/reference/core/modules.md#parseabi)
+- [evmtsContractFactory](modules.md#evmtscontractfactory)
+- [formatAbi](modules.md#formatabi)
+- [parseAbi](modules.md#parseabi)
 
 ## Type Aliases
 
@@ -46,7 +46,7 @@
 
 ### evmtsContractFactory
 
-▸ **evmtsContractFactory**<`TName`, `THumanReadableAbi`\>(`«destructured»`): [`EvmtsContract`](/reference/core/modules.md#evmtscontract)<`TName`, `THumanReadableAbi`\>
+▸ **evmtsContractFactory**<`TName`, `THumanReadableAbi`\>(`«destructured»`): [`EvmtsContract`](modules.md#evmtscontract)<`TName`, `THumanReadableAbi`\>
 
 #### Type parameters
 
@@ -59,11 +59,11 @@
 
 | Name | Type |
 | :------ | :------ |
-| `«destructured»` | `Pick`<[`EvmtsContract`](/reference/core/modules.md#evmtscontract)<`TName`, `THumanReadableAbi`\>, ``"name"`` \| ``"humanReadableAbi"``\> |
+| `«destructured»` | `Pick`<[`EvmtsContract`](modules.md#evmtscontract)<`TName`, `THumanReadableAbi`\>, ``"name"`` \| ``"humanReadableAbi"``\> |
 
 #### Returns
 
-[`EvmtsContract`](/reference/core/modules.md#evmtscontract)<`TName`, `THumanReadableAbi`\>
+[`EvmtsContract`](modules.md#evmtscontract)<`TName`, `THumanReadableAbi`\>
 
 #### Defined in
 

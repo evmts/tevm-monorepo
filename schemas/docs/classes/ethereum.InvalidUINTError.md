@@ -1,8 +1,8 @@
-[@evmts/schemas](/reference/schemas/README.md) / [Modules](/reference/schemas/modules.md) / [ethereum](/reference/schemas/modules/ethereum.md) / InvalidUINTError
+[@evmts/schemas](../README.md) / [Modules](../modules.md) / [ethereum](../modules/ethereum.md) / InvalidUINTError
 
 # Class: InvalidUINTError
 
-[ethereum](/reference/schemas/modules/ethereum.md).InvalidUINTError
+[ethereum](../modules/ethereum.md).InvalidUINTError
 
 Error thrown when a UINT256 is invalid.
 A uintbigint is invalid if it is not a non-negative integer or overflows
@@ -17,20 +17,20 @@ A uintbigint is invalid if it is not a non-negative integer or overflows
 
 ### Constructors
 
-- [constructor](/reference/schemas/classes/ethereum.InvalidUINTError.md#constructor)
+- [constructor](ethereum.InvalidUINTError.md#constructor)
 
 ### Properties
 
-- [cause](/reference/schemas/classes/ethereum.InvalidUINTError.md#cause)
-- [message](/reference/schemas/classes/ethereum.InvalidUINTError.md#message)
-- [name](/reference/schemas/classes/ethereum.InvalidUINTError.md#name)
-- [stack](/reference/schemas/classes/ethereum.InvalidUINTError.md#stack)
-- [prepareStackTrace](/reference/schemas/classes/ethereum.InvalidUINTError.md#preparestacktrace)
-- [stackTraceLimit](/reference/schemas/classes/ethereum.InvalidUINTError.md#stacktracelimit)
+- [cause](ethereum.InvalidUINTError.md#cause)
+- [message](ethereum.InvalidUINTError.md#message)
+- [name](ethereum.InvalidUINTError.md#name)
+- [stack](ethereum.InvalidUINTError.md#stack)
+- [prepareStackTrace](ethereum.InvalidUINTError.md#preparestacktrace)
+- [stackTraceLimit](ethereum.InvalidUINTError.md#stacktracelimit)
 
 ### Methods
 
-- [captureStackTrace](/reference/schemas/classes/ethereum.InvalidUINTError.md#capturestacktrace)
+- [captureStackTrace](ethereum.InvalidUINTError.md#capturestacktrace)
 
 ## Constructors
 
@@ -46,7 +46,7 @@ A uintbigint is invalid if it is not a non-negative integer or overflows
 | `options.cause` | `undefined` \| readonly [`ParseErrors`, `ParseErrors`] | The cause of the error. |
 | `options.docs` | `undefined` \| `string` | The documentation URL. |
 | `options.message` | `undefined` \| `string` | The error message. |
-| `options.size` | [`UINTSize`](/reference/schemas/modules/ethereum.md#uintsize) | The size of the uint. |
+| `options.size` | [`UINTSize`](../modules/ethereum.md#uintsize) | The size of the uint. |
 | `options.uint` | `bigint` | The invalid uint256 bigint. |
 
 #### Overrides

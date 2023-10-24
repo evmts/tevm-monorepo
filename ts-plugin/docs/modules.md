@@ -1,4 +1,4 @@
-[@evmts/ts-plugin](/reference/ts-plugin/README.md) / Exports
+[@evmts/ts-plugin](README.md) / Exports
 
 # @evmts/ts-plugin
 
@@ -6,7 +6,7 @@
 
 ### Functions
 
-- [default](/reference/ts-plugin/modules.md#default)
+- [default](modules.md#default)
 
 ## Functions
 

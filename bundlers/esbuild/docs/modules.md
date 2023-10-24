@@ -1,4 +1,4 @@
-[@evmts/esbuild-plugin](/reference/esbuild-plugin/README.md) / Exports
+[@evmts/esbuild-plugin](README.md) / Exports
 
 # @evmts/esbuild-plugin
 
@@ -6,7 +6,7 @@
 
 ### Functions
 
-- [esbuildPluginEvmts](/reference/esbuild-plugin/modules.md#esbuildpluginevmts)
+- [esbuildPluginEvmts](modules.md#esbuildpluginevmts)
 
 ## Functions
 

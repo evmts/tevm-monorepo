@@ -1,4 +1,4 @@
-[@evmts/solc](/reference/solc/README.md) / Modules
+[@evmts/solc](README.md) / Modules
 
 # @evmts/solc
 
@@ -6,7 +6,7 @@
 
 ### Modules
 
-- [resolveArtifacts](/reference/solc/modules/resolveArtifacts.md)
-- [resolveArtifactsSync](/reference/solc/modules/resolveArtifactsSync.md)
-- [solc](/reference/solc/modules/solc.md)
-- [types](/reference/solc/modules/types.md)
+- [resolveArtifacts](modules/resolveArtifacts.md)
+- [resolveArtifactsSync](modules/resolveArtifactsSync.md)
+- [solc](modules/solc.md)
+- [types](modules/types.md)

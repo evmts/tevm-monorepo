@@ -1,8 +1,8 @@
-[@evmts/schemas](/reference/schemas/README.md) / [Modules](/reference/schemas/modules.md) / [ethereum](/reference/schemas/modules/ethereum.md) / InvalidAddressError
+[@evmts/schemas](../README.md) / [Modules](../modules.md) / [ethereum](../modules/ethereum.md) / InvalidAddressError
 
 # Class: InvalidAddressError
 
-[ethereum](/reference/schemas/modules/ethereum.md).InvalidAddressError
+[ethereum](../modules/ethereum.md).InvalidAddressError
 
 Error thrown when an Address is invalid.
 
@@ -23,20 +23,20 @@ throw new InvalidAddressError({ address: '0x1234' });
 
 ### Constructors
 
-- [constructor](/reference/schemas/classes/ethereum.InvalidAddressError.md#constructor)
+- [constructor](ethereum.InvalidAddressError.md#constructor)
 
 ### Properties
 
-- [cause](/reference/schemas/classes/ethereum.InvalidAddressError.md#cause)
-- [message](/reference/schemas/classes/ethereum.InvalidAddressError.md#message)
-- [name](/reference/schemas/classes/ethereum.InvalidAddressError.md#name)
-- [stack](/reference/schemas/classes/ethereum.InvalidAddressError.md#stack)
-- [prepareStackTrace](/reference/schemas/classes/ethereum.InvalidAddressError.md#preparestacktrace)
-- [stackTraceLimit](/reference/schemas/classes/ethereum.InvalidAddressError.md#stacktracelimit)
+- [cause](ethereum.InvalidAddressError.md#cause)
+- [message](ethereum.InvalidAddressError.md#message)
+- [name](ethereum.InvalidAddressError.md#name)
+- [stack](ethereum.InvalidAddressError.md#stack)
+- [prepareStackTrace](ethereum.InvalidAddressError.md#preparestacktrace)
+- [stackTraceLimit](ethereum.InvalidAddressError.md#stacktracelimit)
 
 ### Methods
 
-- [captureStackTrace](/reference/schemas/classes/ethereum.InvalidAddressError.md#capturestacktrace)
+- [captureStackTrace](ethereum.InvalidAddressError.md#capturestacktrace)
 
 ## Constructors
 

@@ -1,4 +1,4 @@
-[@evmts/solc](/reference/solc/README.md) / [Modules](/reference/solc/modules.md) / types
+[@evmts/solc](../README.md) / [Modules](../modules.md) / types
 
 # Module: types
 
@@ -6,14 +6,14 @@
 
 ### Interfaces
 
-- [ModuleInfo](/reference/solc/interfaces/types.ModuleInfo.md)
+- [ModuleInfo](../interfaces/types.ModuleInfo.md)
 
 ### Type Aliases
 
-- [Artifacts](/reference/solc/modules/types.md#artifacts)
-- [CompiledContracts](/reference/solc/modules/types.md#compiledcontracts)
-- [FileAccessObject](/reference/solc/modules/types.md#fileaccessobject)
-- [Logger](/reference/solc/modules/types.md#logger)
+- [Artifacts](types.md#artifacts)
+- [CompiledContracts](types.md#compiledcontracts)
+- [FileAccessObject](types.md#fileaccessobject)
+- [Logger](types.md#logger)
 
 ## Type Aliases
 
@@ -43,7 +43,7 @@ ___
 | :------ | :------ |
 | `artifacts` | `SolcOutput`[``"contracts"``][`string`] \| `undefined` |
 | `asts` | `TIncludeAsts` extends ``true`` ? `Record`<`string`, `Node`\> : `undefined` |
-| `modules` | `Record`<``"string"``, [`ModuleInfo`](/reference/solc/interfaces/types.ModuleInfo.md)\> |
+| `modules` | `Record`<``"string"``, [`ModuleInfo`](../interfaces/types.ModuleInfo.md)\> |
 | `solcInput` | `SolcInputDescription` |
 | `solcOutput` | `SolcOutput` |
 

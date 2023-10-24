@@ -1,8 +1,8 @@
-[@evmts/schemas](/reference/schemas/README.md) / [Modules](/reference/schemas/modules.md) / [ethereum](/reference/schemas/modules/ethereum.md) / InvalidBytesError
+[@evmts/schemas](../README.md) / [Modules](../modules.md) / [ethereum](../modules/ethereum.md) / InvalidBytesError
 
 # Class: InvalidBytesError
 
-[ethereum](/reference/schemas/modules/ethereum.md).InvalidBytesError
+[ethereum](../modules/ethereum.md).InvalidBytesError
 
 Error thrown when an invalid Bytes is provided.
 
@@ -16,20 +16,20 @@ Error thrown when an invalid Bytes is provided.
 
 ### Constructors
 
-- [constructor](/reference/schemas/classes/ethereum.InvalidBytesError.md#constructor)
+- [constructor](ethereum.InvalidBytesError.md#constructor)
 
 ### Properties
 
-- [cause](/reference/schemas/classes/ethereum.InvalidBytesError.md#cause)
-- [message](/reference/schemas/classes/ethereum.InvalidBytesError.md#message)
-- [name](/reference/schemas/classes/ethereum.InvalidBytesError.md#name)
-- [stack](/reference/schemas/classes/ethereum.InvalidBytesError.md#stack)
-- [prepareStackTrace](/reference/schemas/classes/ethereum.InvalidBytesError.md#preparestacktrace)
-- [stackTraceLimit](/reference/schemas/classes/ethereum.InvalidBytesError.md#stacktracelimit)
+- [cause](ethereum.InvalidBytesError.md#cause)
+- [message](ethereum.InvalidBytesError.md#message)
+- [name](ethereum.InvalidBytesError.md#name)
+- [stack](ethereum.InvalidBytesError.md#stack)
+- [prepareStackTrace](ethereum.InvalidBytesError.md#preparestacktrace)
+- [stackTraceLimit](ethereum.InvalidBytesError.md#stacktracelimit)
 
 ### Methods
 
-- [captureStackTrace](/reference/schemas/classes/ethereum.InvalidBytesError.md#capturestacktrace)
+- [captureStackTrace](ethereum.InvalidBytesError.md#capturestacktrace)
 
 ## Constructors
 
