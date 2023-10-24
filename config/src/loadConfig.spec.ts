@@ -6,9 +6,15 @@ import { describe, expect, it } from 'vitest'
 
 describe(loadConfig.name, () => {
 	it('should work in basic case', () => {
-		expect(() =>
+		expect(
 			runSync(loadConfig(join(__dirname, 'fixtures/basic'))),
-		).toMatchInlineSnapshot('[Function]')
+		).toMatchInlineSnapshot(`
+			{
+			  "foundryProject": false,
+			  "libs": [],
+			  "remappings": {},
+			}
+		`)
 	})
 
 	it('should work with jsconfig', () => {
@@ -18,15 +24,27 @@ describe(loadConfig.name, () => {
 	})
 
 	it('should work with jsonc (json with comments)', () => {
-		expect(() =>
+		expect(
 			runSync(loadConfig(join(__dirname, 'fixtures/jsonc'))),
-		).toMatchInlineSnapshot('[Function]')
+		).toMatchInlineSnapshot(`
+			{
+			  "foundryProject": false,
+			  "libs": [],
+			  "remappings": {},
+			}
+		`)
 	})
 
 	it('should work with foundry', () => {
-		expect(() =>
+		expect(
 			runSync(loadConfig(join(__dirname, 'fixtures/withFoundry'))),
-		).toMatchInlineSnapshot('[Function]')
+		).toMatchInlineSnapshot(`
+			{
+			  "foundryProject": false,
+			  "libs": [],
+			  "remappings": {},
+			}
+		`)
 	})
 
 	it('should throw an error if tsconfig.json does not exist', () => {
