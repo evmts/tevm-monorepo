@@ -1,6 +1,10 @@
-import { invariant } from '../utils/invariant.js'
-import { resolveImportPath } from './resolveImportPath.js'
+import { invariant } from './utils/invariant.js'
+import { resolveImportPath } from './utils/resolveImportPath.js'
 import { resolveImports } from './resolveImports.js'
+import { safeFao } from './utils/safeFao.js'
+import { map, runSync, succeed } from 'effect/Effect'
+
+const importRegEx = /(^\s?import\s+[^'"]*['"])(.*)(['"]\s*)/gm
 
 /**
  * Creates a module from the given module information.
@@ -16,19 +20,20 @@ import { resolveImports } from './resolveImports.js'
  * @param {string} rawCode
  * @param {Record<string, string>} remappings
  * @param {ReadonlyArray<string>} libs
- * @param {import("../types.js").FileAccessObject} fao
- * @returns {Promise<import("../types.js").ModuleInfo>}
+ * @param {import("./types.js").FileAccessObject} fao
+ * @returns {import("effect/Effect").Effect<never, Error, import("./types.js").ModuleInfo>}
  */
-export const moduleFactory = async (
+export const moduleFactory = (
 	absolutePath,
 	rawCode,
 	remappings,
 	libs,
 	fao,
 ) => {
+	const { readFileSync } = safeFao(fao)
 	const stack = [{ absolutePath, rawCode }]
 	const modules =
-		/** @type{Map<string, import("../types.js").ModuleInfo>} */
+		/** @type{Map<string, import("./types.js").ModuleInfo>} */
 		(new Map())
 
 	while (stack.length) {
@@ -38,11 +43,10 @@ export const moduleFactory = async (
 
 		if (modules.has(absolutePath)) continue
 
-		const importedIds = resolveImports(absolutePath, rawCode).map((paths) =>
-			resolveImportPath(absolutePath, paths, remappings, libs),
-		)
+		const importedIds = runSync(resolveImports(absolutePath, rawCode).pipe(map((imports) => {
+			return imports.map(paths => resolveImportPath(absolutePath, paths, remappings, libs))
+		})))
 
-		const importRegEx = /(^\s?import\s+[^'"]*['"])(.*)(['"]\s*)/gm
 		const code = importedIds.reduce((code, importedId) => {
 			console.log({ importedId })
 			const depImportAbsolutePath = resolveImportPath(
@@ -81,7 +85,7 @@ export const moduleFactory = async (
 				remappings,
 				libs,
 			)
-			const depRawCode = await fao.readFile(depImportAbsolutePath, 'utf8')
+			const depRawCode = runSync(readFileSync(depImportAbsolutePath, 'utf8'))
 
 			stack.push({ absolutePath: depImportAbsolutePath, rawCode: depRawCode })
 		}
@@ -101,5 +105,5 @@ export const moduleFactory = async (
 	if (!out) {
 		throw new Error('No module found')
 	}
-	return out
+	return succeed(out)
 }

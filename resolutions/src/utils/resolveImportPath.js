@@ -1,5 +1,5 @@
-import { formatPath } from '../utils/formatPath.js'
-import { isImportLocal } from '../utils/isImportLocal.js'
+import { formatPath } from './formatPath.js'
+import { isImportLocal } from './isImportLocal.js'
 import * as path from 'path'
 import resolve from 'resolve'
 
