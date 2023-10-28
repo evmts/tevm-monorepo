@@ -1,3 +1,14 @@
+import {try as effectTry} from 'effect/Effect'
+export class InvariantError extends Error {
+	/**
+	 * @param {string} message - The message to display
+	 */
+	constructor(message) {
+		super(message)
+		this.name = 'InvariantError'
+	}
+}
+
 /**
  * Asserts an invariant in a typesafe way
  * @param {boolean} condition - The condition to assert
@@ -6,6 +17,6 @@
  */
 export function invariant(condition, message) {
 	if (!condition) {
-		throw new Error(message)
+		throw new InvariantError(message)
 	}
 }

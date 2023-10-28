@@ -37,10 +37,10 @@ export const moduleFactory = (
 	sync,
 ) => {
 	// generates are rarely used in this codebase
-	// they are used here because refactoring this iterative graph traversal 
+	// they are used here because refactoring this iterative graph traversal
 	// in a maintainable way that remains efficient is hard to do with pipe
 	// would prefer this to use pipes though but it's not worth the effort
-	return gen(function*(_) {
+	return gen(function* (_) {
 		const readFile = sync ? safeFao(fao).readFileSync : safeFao(fao).readFile
 		const stack = [{ absolutePath, rawCode }]
 		const modules =
@@ -96,7 +96,7 @@ export const moduleFactory = (
 				} catch (e) {
 					yield* _(
 						fail(
-							/** @type {import("./utils/resolveImportPath.js").CouldNotResolveImportError} */(
+							/** @type {import("./utils/resolveImportPath.js").CouldNotResolveImportError} */ (
 								e
 							),
 						),

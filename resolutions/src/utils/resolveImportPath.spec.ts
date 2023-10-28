@@ -61,10 +61,14 @@ describe('resolveImportPath', () => {
 		let error = await runPromise(
 			flip(resolveImportPath('/project/src', 'somemodule', {}, [], false)),
 		)
-		expect(error).toMatchInlineSnapshot('[CouldNotResolveImportError: Could not resolve import somemodule from /project/src. Please check your remappings and libraries.]')
+		expect(error).toMatchInlineSnapshot(
+			'[CouldNotResolveImportError: Could not resolve import somemodule from /project/src. Please check your remappings and libraries.]',
+		)
 		error = runSync(
 			flip(resolveImportPath('/project/src', 'somemodule', {}, [], true)),
 		)
-		expect(error).toMatchInlineSnapshot('[CouldNotResolveImportError: Could not resolve import somemodule from /project/src. Please check your remappings and libraries.]')
+		expect(error).toMatchInlineSnapshot(
+			'[CouldNotResolveImportError: Could not resolve import somemodule from /project/src. Please check your remappings and libraries.]',
+		)
 	})
 })

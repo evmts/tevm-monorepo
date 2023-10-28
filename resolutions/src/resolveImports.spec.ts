@@ -1,34 +1,27 @@
 import { resolveImports } from './resolveImports.js'
+import { runSync } from 'effect/Effect'
 import { describe, expect, it } from 'vitest'
 
 describe('resolveImports', () => {
 	it('should correctly resolve local imports', () => {
 		const code = `import { Something } from "./something"`
-		const imports = resolveImports('/project/src', code)
+		const imports = runSync(resolveImports('/project/src', code))
 
 		expect(imports).toMatchInlineSnapshot(`
-			{
-			  "_id": "Exit",
-			  "_tag": "Success",
-			  "value": [
-			    "/project/something",
-			  ],
-			}
+			[
+			  "/project/something",
+			]
 		`)
 	})
 
 	it('should correctly resolve non-local imports', () => {
 		const code = `import { Something } from "some-module"`
-		const imports = resolveImports('/project/src', code)
+		const imports = runSync(resolveImports('/project/src', code))
 
 		expect(imports).toMatchInlineSnapshot(`
-			{
-			  "_id": "Exit",
-			  "_tag": "Success",
-			  "value": [
-			    "some-module",
-			  ],
-			}
+			[
+			  "some-module",
+			]
 		`)
 	})
 
@@ -37,61 +30,39 @@ describe('resolveImports', () => {
 import { Something } from "./something"
 import { Other } from "other-module"
         `
-		const imports = resolveImports('/project/src', code)
+		const imports = runSync(resolveImports('/project/src', code))
 
 		expect(imports).toMatchInlineSnapshot(`
-			{
-			  "_id": "Exit",
-			  "_tag": "Success",
-			  "value": [
-			    "/project/something",
-			    "other-module",
-			  ],
-			}
+			[
+			  "/project/something",
+			  "other-module",
+			]
 		`)
 	})
 
 	it('should return an empty array if there are no imports', () => {
 		const code = 'const x = 10'
-		const imports = resolveImports('/project/src', code)
+		const imports = runSync(resolveImports('/project/src', code))
 
-		expect(imports).toMatchInlineSnapshot(`
-			{
-			  "_id": "Exit",
-			  "_tag": "Success",
-			  "value": [],
-			}
-		`)
+		expect(imports).toMatchInlineSnapshot('[]')
 	})
 
 	it('should throw an error if import path does not exist', () => {
 		const code = 'import { Something } from ""'
 		expect(() =>
-			resolveImports('/project/src', code),
-		).toThrowErrorMatchingInlineSnapshot('"expected import path to exist"')
+			runSync(resolveImports('/project/src', code)),
+		).toThrowErrorMatchingInlineSnapshot('"Import does not exist"')
 	})
 
 	it('should correctly resolve import nothing statements', () => {
 		const code = 'import "./something"'
-		const imports = resolveImports('/project/src', code)
-		expect(imports).toMatchInlineSnapshot(`
-			{
-			  "_id": "Exit",
-			  "_tag": "Success",
-			  "value": [],
-			}
-		`)
+		const imports = runSync(resolveImports('/project/src', code))
+		expect(imports).toMatchInlineSnapshot('[]')
 	})
 
 	it('should ignore lines that resemble import statements', () => {
 		const code = 'console.log("import { Something } from \\"./something\\"")'
-		const imports = resolveImports('/project/src', code)
-		expect(imports).toMatchInlineSnapshot(`
-			{
-			  "_id": "Exit",
-			  "_tag": "Success",
-			  "value": [],
-			}
-		`)
+		const imports = runSync(resolveImports('/project/src', code))
+		expect(imports).toMatchInlineSnapshot('[]')
 	})
 })

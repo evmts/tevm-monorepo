@@ -73,7 +73,7 @@ export const resolveImportPath = (
 				new CouldNotResolveImportError(
 					importPath,
 					absolutePath,
-					/** @type {Error}*/ (e),
+					/** @type {Error}*/(e),
 				),
 		})
 	} else {
@@ -86,6 +86,7 @@ export const resolveImportPath = (
 				},
 				(err, resolvedPath) => {
 					if (err) {
+						console.error(err)
 						resume(
 							fail(
 								new CouldNotResolveImportError(importPath, absolutePath, err),

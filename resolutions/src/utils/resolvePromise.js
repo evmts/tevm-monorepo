@@ -76,8 +76,6 @@ export const resolveEffect = (filePath, basedir, fao) => {
 						})
 						.catch((e) => {
 							cb(new ReadFileError(e))
-							resume(Effect.fail(new ReadFileError(e)))
-							throw e
 						})
 				},
 				isFile: (file, cb) => {
@@ -85,8 +83,6 @@ export const resolveEffect = (filePath, basedir, fao) => {
 						cb(null, fao.existsSync(file))
 					} catch (e) {
 						cb(/** @type Error */ (e))
-						resume(Effect.fail(/** @type Error */ (e))) // resume with a failure effect when error occurs
-						throw e
 					}
 				},
 			},
