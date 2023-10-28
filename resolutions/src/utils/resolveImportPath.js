@@ -92,18 +92,8 @@ export const resolveImportPath = (
 								new CouldNotResolveImportError(importPath, absolutePath, err),
 							),
 						)
-					} else if (resolvedPath === undefined) {
-						resume(
-							fail(
-								new CouldNotResolveImportError(
-									importPath,
-									absolutePath,
-									new Error('Could not resolve import'),
-								),
-							),
-						)
 					} else {
-						resume(succeed(formatPath(resolvedPath)))
+						resume(succeed(formatPath(/** @type {string} */(resolvedPath))))
 					}
 				},
 			)

@@ -1,5 +1,9 @@
 import { try as trySync, tryPromise } from 'effect/Effect'
 
+/**
+ * @typedef {ReturnType<typeof safeFao>} SafeFao
+ */
+
 export class ReadFileError extends Error {
 	/**
 	 * @type {'ReadFileError'}
@@ -40,9 +44,6 @@ export class ExistsSyncError extends Error {
  * @param {import("../types.js").FileAccessObject} fao
  */
 export const safeFao = (fao) => {
-	fao.readFile
-	fao.existsSync
-	fao.readFileSync
 	return {
 		/**
 		 * @param {string} path
@@ -54,7 +55,7 @@ export const safeFao = (fao) => {
 					return fao.readFile(path, encoding)
 				},
 				catch: (e) => {
-					return new ReadFileError(/** @type Error */ (e))
+					return new ReadFileError(/** @type Error */(e))
 				},
 			})
 		},
@@ -68,7 +69,7 @@ export const safeFao = (fao) => {
 					return fao.readFileSync(path, encoding)
 				},
 				catch: (e) => {
-					return new ReadFileError(/** @type Error */ (e))
+					return new ReadFileError(/** @type Error */(e))
 				},
 			})
 		},
@@ -81,7 +82,7 @@ export const safeFao = (fao) => {
 					return fao.existsSync(path)
 				},
 				catch: (e) => {
-					return new ExistsSyncError(/** @type Error */ (e))
+					return new ExistsSyncError(/** @type Error */(e))
 				},
 			})
 		},

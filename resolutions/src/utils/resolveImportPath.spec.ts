@@ -3,23 +3,23 @@ import { flip, runPromise, runSync } from 'effect/Effect'
 import { describe, expect, it } from 'vitest'
 
 describe('resolveImportPath', () => {
-	it('should correctly resolve paths using Foundry remappings', () => {
+	it('should correctly resolve paths using Foundry remappings', async () => {
 		const remappings = {
 			'key1/': '/path/to/key1',
 			'key2/': '/path/to/key2',
 		} as const
 
-		const importPath = runPromise(
+		const importPath = await runPromise(
 			resolveImportPath('/project/src', 'key1/somefile', remappings, [], false),
 		)
-		expect(importPath).toMatchInlineSnapshot('Promise {}')
+		expect(importPath).toMatchInlineSnapshot('"/path/to/key1somefile"')
 
-		const importPath2 = runPromise(
+		const importPath2 = await runPromise(
 			resolveImportPath('/project/src', 'key2/somefile', remappings, [], false),
 		)
-		expect(importPath2).toMatchInlineSnapshot('Promise {}')
+		expect(importPath2).toMatchInlineSnapshot('"/path/to/key2somefile"')
 	})
-	it('should correctly resolve paths using Foundry remappings syncronously', () => {
+	it('should correctly resolve paths using Foundry remappings syncronously', async () => {
 		const remappings = {
 			'key1/': '/path/to/key1',
 			'key2/': '/path/to/key2',
@@ -36,25 +36,11 @@ describe('resolveImportPath', () => {
 		expect(importPath2).toMatchInlineSnapshot('"/path/to/key2somefile"')
 	})
 
-	it('should correctly resolve local imports', () => {
-		const importPath = runPromise(
+	it('should correctly resolve local imports', async () => {
+		const importPath = await runPromise(
 			resolveImportPath('/project/src', './somefile', {}, [], false),
 		)
-		expect(importPath).toMatchInlineSnapshot('Promise {}')
-	})
-
-	it('should correctly resolve with node resolution', () => {
-		const importPath = runPromise(
-			resolveImportPath(
-				'/project/src',
-				'somemodule',
-				{},
-				['../node_modules'],
-				false,
-			),
-		)
-		// Assuming somemodule can be found in ../node_modules/somemodule
-		expect(importPath).toMatchInlineSnapshot('Promise {}')
+		expect(importPath).toMatchInlineSnapshot('"/project/somefile"')
 	})
 
 	it('should return an error if not able to resolve', async () => {

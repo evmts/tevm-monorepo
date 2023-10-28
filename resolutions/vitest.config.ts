@@ -9,7 +9,7 @@ export default defineConfig({
 			reporter: ['text', 'json-summary', 'json'],
 			lines: 99.47,
 			functions: 100,
-			branches: 96.49,
+			branches: 100,
 			statements: 99.47,
 			thresholdAutoUpdate: true,
 		},
