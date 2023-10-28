@@ -2,9 +2,13 @@ import { invariant } from './utils/invariant.js'
 import { resolveImportPath } from './utils/resolveImportPath.js'
 import { resolveImports } from './resolveImports.js'
 import { safeFao } from './utils/safeFao.js'
-import { map, runSync, succeed } from 'effect/Effect'
+import { gen, map } from 'effect/Effect'
 
 const importRegEx = /(^\s?import\s+[^'"]*['"])(.*)(['"]\s*)/gm
+
+/**
+ * @typedef {import("./resolveImports.js").ResolveImportsError | import("./utils/safeFao.js").ReadFileError} ModuleFactoryError
+ */
 
 /**
  * Creates a module from the given module information.
@@ -21,7 +25,8 @@ const importRegEx = /(^\s?import\s+[^'"]*['"])(.*)(['"]\s*)/gm
  * @param {Record<string, string>} remappings
  * @param {ReadonlyArray<string>} libs
  * @param {import("./types.js").FileAccessObject} fao
- * @returns {import("effect/Effect").Effect<never, Error, import("./types.js").ModuleInfo>}
+ * @param {boolean} sync Whether to run this synchronously or not
+ * @returns {import("effect/Effect").Effect<never, ModuleFactoryError, Map<string, import("./types.js").ModuleInfo>>}
  */
 export const moduleFactory = (
 	absolutePath,
@@ -29,81 +34,69 @@ export const moduleFactory = (
 	remappings,
 	libs,
 	fao,
+	sync
 ) => {
-	const { readFileSync } = safeFao(fao)
-	const stack = [{ absolutePath, rawCode }]
-	const modules =
-		/** @type{Map<string, import("./types.js").ModuleInfo>} */
-		(new Map())
+	return gen(function*(_) {
+		const readFile = sync ? safeFao(fao).readFileSync : safeFao(fao).readFile
+		const stack = [{ absolutePath, rawCode }]
+		const modules =
+			/** @type{Map<string, import("./types.js").ModuleInfo>} */
+			(new Map())
 
-	while (stack.length) {
-		const nextItem = stack.pop()
-		invariant(nextItem, 'Module should exist')
-		const { absolutePath, rawCode } = nextItem
+		// Do this iteratively to mzximize peformance
+		while (stack.length) {
+			const nextItem = stack.pop()
+			invariant(nextItem, 'Module should exist')
+			const { absolutePath, rawCode } = nextItem
 
-		if (modules.has(absolutePath)) continue
+			if (modules.has(absolutePath)) continue
 
-		const importedIds = runSync(resolveImports(absolutePath, rawCode).pipe(map((imports) => {
-			return imports.map(paths => resolveImportPath(absolutePath, paths, remappings, libs))
-		})))
+			const importedIds = yield* _(resolveImports(absolutePath, rawCode).pipe(map((imports) => {
+				return imports.map(paths => resolveImportPath(absolutePath, paths, remappings, libs))
+			})))
 
-		const code = importedIds.reduce((code, importedId) => {
-			console.log({ importedId })
-			const depImportAbsolutePath = resolveImportPath(
-				absolutePath,
-				importedId,
-				remappings,
-				libs,
-			)
-			return code.replace(importRegEx, (match, p1, p2, p3) => {
-				const resolvedPath = resolveImportPath(
+			const code = importedIds.reduce((code, importedId) => {
+				const depImportAbsolutePath = resolveImportPath(
 					absolutePath,
-					p2,
+					importedId,
 					remappings,
 					libs,
 				)
-				if (resolvedPath === importedId) {
-					return `${p1}${depImportAbsolutePath}${p3}`
-				} else {
-					return match
-				}
+				return code.replace(importRegEx, (match, p1, p2, p3) => {
+					const resolvedPath = resolveImportPath(
+						absolutePath,
+						p2,
+						remappings,
+						libs,
+					)
+					if (resolvedPath === importedId) {
+						return `${p1}${depImportAbsolutePath}${p3}`
+					} else {
+						return match
+					}
+				})
+			}, rawCode)
+
+			modules.set(absolutePath, {
+				id: absolutePath,
+				rawCode,
+				code,
+				importedIds,
+				resolutions: [],
 			})
-		}, rawCode)
 
-		modules.set(absolutePath, {
-			id: absolutePath,
-			rawCode,
-			code,
-			importedIds,
-			resolutions: [],
-		})
+			for (const importedId of importedIds) {
+				const depImportAbsolutePath = resolveImportPath(
+					absolutePath,
+					importedId,
+					remappings,
+					libs,
+				)
+				const depRawCode = yield* _(readFile(depImportAbsolutePath, 'utf8'))
 
-		for (const importedId of importedIds) {
-			const depImportAbsolutePath = resolveImportPath(
-				absolutePath,
-				importedId,
-				remappings,
-				libs,
-			)
-			const depRawCode = runSync(readFileSync(depImportAbsolutePath, 'utf8'))
-
-			stack.push({ absolutePath: depImportAbsolutePath, rawCode: depRawCode })
+				stack.push({ absolutePath: depImportAbsolutePath, rawCode: depRawCode })
+			}
 		}
-	}
-
-	for (const [_, m] of modules.entries()) {
-		const { importedIds } = m
-		m.resolutions = []
-		importedIds.forEach((importedId) => {
-			const resolution = modules.get(importedId)
-			invariant(resolution, `resolution for ${importedId} not found`)
-			m.resolutions.push(resolution)
-		})
-	}
-
-	const out = modules.get(absolutePath)
-	if (!out) {
-		throw new Error('No module found')
-	}
-	return succeed(out)
+		return modules
+	})
 }

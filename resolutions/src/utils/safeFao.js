@@ -54,7 +54,7 @@ export const safeFao = (fao) => {
           return fao.readFile(path, encoding)
         },
         catch: e => {
-          throw new ReadFileError(/** @type Error */(e))
+          return new ReadFileError(/** @type Error */(e))
         }
       })
     },
@@ -68,7 +68,7 @@ export const safeFao = (fao) => {
           return fao.readFileSync(path, encoding)
         },
         catch: e => {
-          throw new ReadFileError(/** @type Error */(e))
+          return (new ReadFileError(/** @type Error */(e)))
         }
       })
     },
@@ -81,7 +81,7 @@ export const safeFao = (fao) => {
           return fao.existsSync(path)
         },
         catch: e => {
-          throw new ExistsSyncError(/** @type Error */(e))
+          return (new ExistsSyncError(/** @type Error */(e)))
         }
       })
     },
