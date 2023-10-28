@@ -1,6 +1,7 @@
+import { runSync } from 'effect/Effect'
 import * as solc from '../solc.js'
 import { invariant } from '../utils/invariant.js'
-import { moduleFactorySync } from '@evmts/resolutions'
+import { moduleFactory } from '@evmts/resolutions'
 import resolve from 'resolve'
 
 /**
@@ -32,7 +33,7 @@ export function compileContractSync(
 	fao,
 	logger,
 ) {
-	const entryModule = moduleFactorySync(
+	const moduleMap = runSync(moduleFactory(
 		filePath,
 		fao.readFileSync(
 			resolve.sync(filePath, {
@@ -45,7 +46,10 @@ export function compileContractSync(
 		config.remappings,
 		config.libs,
 		fao,
-	)
+		true
+	))
+	const entryModule = moduleMap.get(filePath)
+	invariant(entryModule, 'Entry module should exist')
 
 	/** @type {Record<string, import('../types.js').ModuleInfo>} */
 	const modules = {}
@@ -96,11 +100,11 @@ export function compileContractSync(
 	const isErrors = (solcOutput?.errors?.length ?? 0) > (warnings?.length ?? 0)
 
 	if (isErrors) {
-		logger.error('Compilation errors:', /** @type {any}*/ (solcOutput?.errors))
+		logger.error('Compilation errors:', /** @type {any}*/(solcOutput?.errors))
 		throw new Error('Compilation failed')
 	}
 	if (warnings?.length) {
-		logger.warn('Compilation warnings:', /** @type {any}*/ (solcOutput?.errors))
+		logger.warn('Compilation warnings:', /** @type {any}*/(solcOutput?.errors))
 	}
 
 	if (includeAst) {

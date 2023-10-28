@@ -1,3 +1,4 @@
+import { runPromise } from 'effect/Effect'
 import { solcCompile } from '../solc.js'
 import { invariant, resolveEffect } from '../utils/index.js'
 import { moduleFactory } from '@evmts/resolutions'
@@ -32,7 +33,7 @@ export const compileContract = async (
 	fao,
 	logger,
 ) => {
-	const entryModule = await moduleFactory(
+	const moduleMap = await runPromise(moduleFactory(
 		filePath,
 		await fao
 			.readFile(
@@ -45,7 +46,10 @@ export const compileContract = async (
 		config.remappings,
 		config.libs,
 		fao,
-	)
+		false
+	))
+	const entryModule = moduleMap.get(filePath)
+	invariant(entryModule, 'Entry module should exist')
 
 	/**
 	 * @type {Object.<string, import('../types.js').ModuleInfo>}
@@ -105,11 +109,11 @@ export const compileContract = async (
 
 	if (isErrors) {
 		logger.error('Compilation errors:')
-		logger.error(/** @type {any} */ (output?.errors))
+		logger.error(/** @type {any} */(output?.errors))
 		throw new Error('Compilation failed')
 	}
 	if (warnings?.length) {
-		logger.warn(/** @type {any} */ (warnings))
+		logger.warn(/** @type {any} */(warnings))
 		logger.warn('Compilation warnings:')
 	}
 

@@ -1,6 +1,11 @@
-import { try as trySync, succeed, async as effectAsync, fail } from 'effect/Effect'
 import { formatPath } from './formatPath.js'
 import { isImportLocal } from './isImportLocal.js'
+import {
+	async as effectAsync,
+	fail,
+	succeed,
+	try as trySync,
+} from 'effect/Effect'
 import * as path from 'path'
 import resolve from 'resolve'
 
@@ -22,7 +27,7 @@ export class CouldNotResolveImportError extends Error {
 	constructor(importPath, absolutePath, cause) {
 		super(
 			`Could not resolve import ${importPath} from ${absolutePath}. Please check your remappings and libraries.`,
-			{ cause }
+			{ cause },
 		)
 	}
 }
@@ -42,7 +47,7 @@ export const resolveImportPath = (
 	importPath,
 	remappings,
 	libs,
-	sync
+	sync,
 ) => {
 	// Remappings
 	for (const [key, value] of Object.entries(remappings)) {
@@ -52,31 +57,55 @@ export const resolveImportPath = (
 	}
 	// Local import "./LocalContract.sol"
 	if (isImportLocal(importPath)) {
-		return succeed(formatPath(path.resolve(path.dirname(absolutePath), importPath)))
+		return succeed(
+			formatPath(path.resolve(path.dirname(absolutePath), importPath)),
+		)
 	}
 	// try resolving with node resolution
 	if (sync) {
 		return trySync({
-			try: () => resolve.sync(importPath, {
-				basedir: path.dirname(absolutePath),
-				paths: libs,
-			}),
-			catch: (e) => new CouldNotResolveImportError(importPath, absolutePath, /** @type {Error}*/(e)),
+			try: () =>
+				resolve.sync(importPath, {
+					basedir: path.dirname(absolutePath),
+					paths: libs,
+				}),
+			catch: (e) =>
+				new CouldNotResolveImportError(
+					importPath,
+					absolutePath,
+					/** @type {Error}*/ (e),
+				),
 		})
 	} else {
-		return effectAsync(resume => {
-			resolve(importPath, {
-				basedir: path.dirname(absolutePath),
-				paths: libs,
-			}, (err, resolvedPath) => {
-				if (err) {
-					resume(fail(new CouldNotResolveImportError(importPath, absolutePath, err)))
-				} else if (resolvedPath === undefined) {
-					resume(fail(new CouldNotResolveImportError(importPath, absolutePath, new Error('Could not resolve import'))))
-				} else {
-					resume(succeed(formatPath(resolvedPath)))
-				}
-			})
+		return effectAsync((resume) => {
+			resolve(
+				importPath,
+				{
+					basedir: path.dirname(absolutePath),
+					paths: libs,
+				},
+				(err, resolvedPath) => {
+					if (err) {
+						resume(
+							fail(
+								new CouldNotResolveImportError(importPath, absolutePath, err),
+							),
+						)
+					} else if (resolvedPath === undefined) {
+						resume(
+							fail(
+								new CouldNotResolveImportError(
+									importPath,
+									absolutePath,
+									new Error('Could not resolve import'),
+								),
+							),
+						)
+					} else {
+						resume(succeed(formatPath(resolvedPath)))
+					}
+				},
+			)
 		})
 	}
 }

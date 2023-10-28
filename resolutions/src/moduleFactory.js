@@ -36,7 +36,7 @@ export const moduleFactory = (
 	fao,
 	sync,
 ) => {
-	return gen(function*(_) {
+	return gen(function* (_) {
 		const readFile = sync ? safeFao(fao).readFileSync : safeFao(fao).readFile
 		const stack = [{ absolutePath, rawCode }]
 		const modules =
@@ -55,9 +55,11 @@ export const moduleFactory = (
 			const importedIds = yield* _(
 				resolveImports(absolutePath, rawCode).pipe(
 					flatMap((imports) => {
-						return all(imports.map((paths) =>
-							resolveImportPath(absolutePath, paths, remappings, libs, sync),
-						))
+						return all(
+							imports.map((paths) =>
+								resolveImportPath(absolutePath, paths, remappings, libs, sync),
+							),
+						)
 					}),
 				),
 			)
@@ -66,24 +68,21 @@ export const moduleFactory = (
 			let code = rawCode
 
 			for (const importedId of importedIds) {
-
-				const depImportAbsolutePath = yield* _(resolveImportPath(
-					absolutePath,
-					importedId,
-					remappings,
-					libs,
-					sync,
-				))
+				const depImportAbsolutePath = yield* _(
+					resolveImportPath(absolutePath, importedId, remappings, libs, sync),
+				)
 				try {
 					code = code.replace(importRegEx, (match, p1, p2, p3) => {
-						const resolvedPath = runSync(resolveImportPath(
-							absolutePath,
-							p2,
-							remappings,
-							libs,
-							// must always be sync here
-							true
-						))
+						const resolvedPath = runSync(
+							resolveImportPath(
+								absolutePath,
+								p2,
+								remappings,
+								libs,
+								// must always be sync here
+								true,
+							),
+						)
 						if (resolvedPath === importedId) {
 							return `${p1}${depImportAbsolutePath}${p3}`
 						} else {
@@ -91,7 +90,13 @@ export const moduleFactory = (
 						}
 					})
 				} catch (e) {
-					yield* _(fail(/** @type {import("./utils/resolveImportPath.js").CouldNotResolveImportError} */(e)))
+					yield* _(
+						fail(
+							/** @type {import("./utils/resolveImportPath.js").CouldNotResolveImportError} */ (
+								e
+							),
+						),
+					)
 				}
 			}
 
@@ -104,13 +109,9 @@ export const moduleFactory = (
 			})
 
 			for (const importedId of importedIds) {
-				const depImportAbsolutePath = yield* _(resolveImportPath(
-					absolutePath,
-					importedId,
-					remappings,
-					libs,
-					sync
-				))
+				const depImportAbsolutePath = yield* _(
+					resolveImportPath(absolutePath, importedId, remappings, libs, sync),
+				)
 				const depRawCode = yield* _(readFile(depImportAbsolutePath, 'utf8'))
 
 				stack.push({ absolutePath: depImportAbsolutePath, rawCode: depRawCode })
@@ -119,9 +120,3 @@ export const moduleFactory = (
 		return modules
 	})
 }
-
-
-
-
-
-

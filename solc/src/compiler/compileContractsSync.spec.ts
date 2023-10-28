@@ -1,7 +1,7 @@
 import type { FileAccessObject, ModuleInfo } from '../types.js'
 import { compileContractSync } from './compileContractsSync.js'
 import type { ResolvedCompilerConfig } from '@evmts/config'
-import { moduleFactorySync } from '@evmts/resolutions'
+import { moduleFactory } from '@evmts/resolutions'
 import resolve from 'resolve'
 // @ts-ignore
 import solc from 'solc'
@@ -23,7 +23,7 @@ vi.mock('solc', () => {
 	return { default: defaultExport, ...defaultExport }
 })
 vi.mock('@evmts/resolutions', () => ({
-	moduleFactorySync: vi.fn(),
+	moduleFactory: vi.fn(),
 }))
 const ConsoleMock = {
 	log: vi.fn(),
@@ -75,7 +75,7 @@ describe('compileContractSync', () => {
 
 	const mockReadFileSync = fao.readFileSync as Mock
 	const mockResolveSync = resolve.sync as Mock
-	const mockModuleFactory = moduleFactorySync as Mock
+	const mockModuleFactory = moduleFactory as Mock
 	const mockSolcCompile = solc.compile as Mock
 	beforeEach(() => {
 		mockReadFileSync.mockReturnValue(mockSource)
@@ -203,12 +203,13 @@ describe('compileContractSync', () => {
 			  },
 			]
 		`)
-		expect(moduleFactorySync).toBeCalledWith(
+		expect(moduleFactory).toBeCalledWith(
 			filePath,
 			mockSource,
 			config.remappings,
 			config.libs,
 			fao,
+			true
 		)
 		expect((solc.compile as Mock).mock.lastCall).toMatchInlineSnapshot(`
 			[
@@ -324,12 +325,13 @@ describe('compileContractSync', () => {
 			  },
 			]
 		`)
-		expect(moduleFactorySync).toBeCalledWith(
+		expect(moduleFactory).toBeCalledWith(
 			filePath,
 			mockSource,
 			config.remappings,
 			config.libs,
 			fao,
+			true
 		)
 		expect((solc.compile as Mock).mock.lastCall).toMatchInlineSnapshot(`
 			[
