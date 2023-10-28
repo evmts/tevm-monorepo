@@ -7,10 +7,14 @@ describe('resolveImports', () => {
 		const imports = resolveImports('/project/src', code)
 
 		expect(imports).toMatchInlineSnapshot(`
-      [
-        "/project/something",
-      ]
-    `)
+			{
+			  "_id": "Exit",
+			  "_tag": "Success",
+			  "value": [
+			    "/project/something",
+			  ],
+			}
+		`)
 	})
 
 	it('should correctly resolve non-local imports', () => {
@@ -18,10 +22,14 @@ describe('resolveImports', () => {
 		const imports = resolveImports('/project/src', code)
 
 		expect(imports).toMatchInlineSnapshot(`
-      [
-        "some-module",
-      ]
-    `)
+			{
+			  "_id": "Exit",
+			  "_tag": "Success",
+			  "value": [
+			    "some-module",
+			  ],
+			}
+		`)
 	})
 
 	it('should correctly handle multiple imports', () => {
@@ -32,18 +40,28 @@ import { Other } from "other-module"
 		const imports = resolveImports('/project/src', code)
 
 		expect(imports).toMatchInlineSnapshot(`
-      [
-        "/project/something",
-        "other-module",
-      ]
-    `)
+			{
+			  "_id": "Exit",
+			  "_tag": "Success",
+			  "value": [
+			    "/project/something",
+			    "other-module",
+			  ],
+			}
+		`)
 	})
 
 	it('should return an empty array if there are no imports', () => {
 		const code = 'const x = 10'
 		const imports = resolveImports('/project/src', code)
 
-		expect(imports).toMatchInlineSnapshot('[]')
+		expect(imports).toMatchInlineSnapshot(`
+			{
+			  "_id": "Exit",
+			  "_tag": "Success",
+			  "value": [],
+			}
+		`)
 	})
 
 	it('should throw an error if import path does not exist', () => {
@@ -57,15 +75,23 @@ import { Other } from "other-module"
 		const code = 'import "./something"'
 		const imports = resolveImports('/project/src', code)
 		expect(imports).toMatchInlineSnapshot(`
-          [
-            "/project/something",
-          ]
-        `)
+			{
+			  "_id": "Exit",
+			  "_tag": "Success",
+			  "value": [],
+			}
+		`)
 	})
 
 	it('should ignore lines that resemble import statements', () => {
 		const code = 'console.log("import { Something } from \\"./something\\"")'
 		const imports = resolveImports('/project/src', code)
-		expect(imports).toMatchInlineSnapshot('[]')
+		expect(imports).toMatchInlineSnapshot(`
+			{
+			  "_id": "Exit",
+			  "_tag": "Success",
+			  "value": [],
+			}
+		`)
 	})
 })

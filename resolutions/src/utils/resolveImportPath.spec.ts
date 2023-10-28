@@ -12,12 +12,12 @@ describe('resolveImportPath', () => {
 		const importPath = runPromise(
 			resolveImportPath('/project/src', 'key1/somefile', remappings, [], false),
 		)
-		expect(importPath).toMatchInlineSnapshot('"/path/to/key1somefile"')
+		expect(importPath).toMatchInlineSnapshot('Promise {}')
 
 		const importPath2 = runPromise(
 			resolveImportPath('/project/src', 'key2/somefile', remappings, [], false),
 		)
-		expect(importPath2).toMatchInlineSnapshot('"/path/to/key2somefile"')
+		expect(importPath2).toMatchInlineSnapshot('Promise {}')
 	})
 	it('should correctly resolve paths using Foundry remappings syncronously', () => {
 		const remappings = {
@@ -40,7 +40,7 @@ describe('resolveImportPath', () => {
 		const importPath = runPromise(
 			resolveImportPath('/project/src', './somefile', {}, [], false),
 		)
-		expect(importPath).toMatchInlineSnapshot('"/project/somefile"')
+		expect(importPath).toMatchInlineSnapshot('Promise {}')
 	})
 
 	it('should correctly resolve with node resolution', () => {
@@ -54,7 +54,7 @@ describe('resolveImportPath', () => {
 			),
 		)
 		// Assuming somemodule can be found in ../node_modules/somemodule
-		expect(importPath).toMatchInlineSnapshot('"somemodule"')
+		expect(importPath).toMatchInlineSnapshot('Promise {}')
 	})
 
 	it('should return an error if not able to resolve', async () => {

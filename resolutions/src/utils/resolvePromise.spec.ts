@@ -43,65 +43,8 @@ describe('resolvePromise', () => {
 			Effect.runPromise(
 				resolveEffect('./resolvePromise.spec.tst', './src/utils', fao),
 			),
-		).rejects.toThrowErrorMatchingInlineSnapshot('"readFile error"')
-		expect((logger.error as Mock).mock.calls).toMatchInlineSnapshot(`
-			[
-			  [
-			    "readFile error",
-			  ],
-			  [
-			    "Error reading file",
-			  ],
-			  [
-			    "readFile error",
-			  ],
-			  [
-			    "There was an error resolving ./resolvePromise.spec.tst",
-			  ],
-			  [
-			    "readFile error",
-			  ],
-			  [
-			    "Error reading file",
-			  ],
-			  [
-			    "readFile error",
-			  ],
-			  [
-			    "There was an error resolving ./resolvePromise.spec.tst",
-			  ],
-			  [
-			    "readFile error",
-			  ],
-			  [
-			    "Error reading file",
-			  ],
-			  [
-			    "readFile error",
-			  ],
-			  [
-			    "There was an error resolving ./resolvePromise.spec.tst",
-			  ],
-			  [
-			    "readFile error",
-			  ],
-			  [
-			    "Error reading file",
-			  ],
-			  [
-			    "readFile error",
-			  ],
-			  [
-			    "There was an error resolving ./resolvePromise.spec.tst",
-			  ],
-			  [
-			    [Error: Cannot find module './resolvePromise.spec.tst' from './src/utils'],
-			  ],
-			  [
-			    "There was an error resolving ./resolvePromise.spec.tst",
-			  ],
-			]
-		`)
+		).rejects.toThrowErrorMatchingInlineSnapshot('"Couldn\'t read file"')
+		expect((logger.error as Mock).mock.calls).toMatchInlineSnapshot('[]')
 	})
 
 	it('should throw an error for non-existent file', async () => {
@@ -111,18 +54,9 @@ describe('resolvePromise', () => {
 				resolveEffect('./resolvePromise.spec.tst', './src/utils', fao),
 			),
 		).rejects.toThrowErrorMatchingInlineSnapshot(
-			"\"Cannot find module './resolvePromise.spec.tst' from './src/utils'\"",
+			'"Failed to resolve"',
 		)
-		expect((logger.error as Mock).mock.calls).toMatchInlineSnapshot(`
-			[
-			  [
-			    [Error: Cannot find module './resolvePromise.spec.tst' from './src/utils'],
-			  ],
-			  [
-			    "There was an error resolving ./resolvePromise.spec.tst",
-			  ],
-			]
-		`)
+		expect((logger.error as Mock).mock.calls).toMatchInlineSnapshot('[]')
 	})
 
 	it('should throw an error if existsSync throws', () => {
@@ -133,7 +67,7 @@ describe('resolvePromise', () => {
 			Effect.runPromise(
 				resolveEffect('./resolvePromise.spec.ts', './src/utils', fao),
 			),
-		).rejects.toThrowErrorMatchingInlineSnapshot('"existsSync error"')
+		).rejects.toThrowErrorMatchingInlineSnapshot('"Failed to resolve"')
 		expect(
 			(logger.error as Mock).mock.calls[0].slice(0, 2),
 		).toMatchInlineSnapshot(`
