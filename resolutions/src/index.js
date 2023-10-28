@@ -5,5 +5,4 @@
  * @typedef {import('./types.js').ModuleInfo} ModuleInfo
  */
 export { moduleFactory } from './moduleFactory.js'
-export { moduleFactorySync } from './moduleFactorySync.js'
 export { resolveImports } from './resolveImports.js'

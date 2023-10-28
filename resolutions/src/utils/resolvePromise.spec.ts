@@ -32,7 +32,7 @@ describe('resolvePromise', () => {
 
 	it('should resolve a file path in the base directory', async () => {
 		const resolvedPath = await Effect.runPromise(
-			resolveEffect('./resolvePromise.spec.ts', __dirname, fao, logger),
+			resolveEffect('./resolvePromise.spec.ts', __dirname, fao),
 		)
 		expect(resolvedPath.endsWith('src/utils/resolvePromise.spec.ts')).toBe(true)
 	})
@@ -41,7 +41,7 @@ describe('resolvePromise', () => {
 		fao.readFile = () => Promise.reject('readFile error')
 		await expect(
 			Effect.runPromise(
-				resolveEffect('./resolvePromise.spec.tst', './src/utils', fao, logger),
+				resolveEffect('./resolvePromise.spec.tst', './src/utils', fao),
 			),
 		).rejects.toThrowErrorMatchingInlineSnapshot('"readFile error"')
 		expect((logger.error as Mock).mock.calls).toMatchInlineSnapshot(`
@@ -108,7 +108,7 @@ describe('resolvePromise', () => {
 		fao.existsSync = () => false
 		await expect(
 			Effect.runPromise(
-				resolveEffect('./resolvePromise.spec.tst', './src/utils', fao, logger),
+				resolveEffect('./resolvePromise.spec.tst', './src/utils', fao),
 			),
 		).rejects.toThrowErrorMatchingInlineSnapshot(
 			"\"Cannot find module './resolvePromise.spec.tst' from './src/utils'\"",
@@ -131,7 +131,7 @@ describe('resolvePromise', () => {
 		}
 		expect(
 			Effect.runPromise(
-				resolveEffect('./resolvePromise.spec.ts', './src/utils', fao, logger),
+				resolveEffect('./resolvePromise.spec.ts', './src/utils', fao),
 			),
 		).rejects.toThrowErrorMatchingInlineSnapshot('"existsSync error"')
 		expect(

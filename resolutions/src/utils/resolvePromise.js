@@ -33,7 +33,7 @@ export class IsFileError extends Error {
 	 * @param {Error} cause
 	 */
 	constructor(cause) {
-		super("Error thrown checking for file existence", { cause })
+		super('Error thrown checking for file existence', { cause })
 	}
 }
 
@@ -51,7 +51,7 @@ export class ResolveError extends Error {
 	 * @param {Error} cause
 	 */
 	constructor(cause) {
-		super("Failed to resolve", { cause })
+		super('Failed to resolve', { cause })
 	}
 }
 
@@ -84,8 +84,8 @@ export const resolveEffect = (filePath, basedir, fao) => {
 					try {
 						cb(null, fao.existsSync(file))
 					} catch (e) {
-						cb(/** @type Error */(e))
-						resume(Effect.fail(/** @type Error */(e))) // resume with a failure effect when error occurs
+						cb(/** @type Error */ (e))
+						resume(Effect.fail(/** @type Error */ (e))) // resume with a failure effect when error occurs
 						throw e
 					}
 				},
@@ -101,9 +101,11 @@ export const resolveEffect = (filePath, basedir, fao) => {
 					resume(Effect.fail(new ResolveError(err)))
 				} else {
 					if (res === undefined) {
-						resume(Effect.fail(new ResolveError(new Error('Resolved undefined'))))
+						resume(
+							Effect.fail(new ResolveError(new Error('Resolved undefined'))),
+						)
 					}
-					resume(Effect.succeed(/** @type string */(res))) // resume with a success effect when the operation succeeds
+					resume(Effect.succeed(/** @type string */ (res))) // resume with a success effect when the operation succeeds
 				}
 			},
 		)

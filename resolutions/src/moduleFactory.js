@@ -1,6 +1,6 @@
+import { resolveImports } from './resolveImports.js'
 import { invariant } from './utils/invariant.js'
 import { resolveImportPath } from './utils/resolveImportPath.js'
-import { resolveImports } from './resolveImports.js'
 import { safeFao } from './utils/safeFao.js'
 import { gen, map } from 'effect/Effect'
 
@@ -34,9 +34,9 @@ export const moduleFactory = (
 	remappings,
 	libs,
 	fao,
-	sync
+	sync,
 ) => {
-	return gen(function*(_) {
+	return gen(function* (_) {
 		const readFile = sync ? safeFao(fao).readFileSync : safeFao(fao).readFile
 		const stack = [{ absolutePath, rawCode }]
 		const modules =
@@ -51,9 +51,15 @@ export const moduleFactory = (
 
 			if (modules.has(absolutePath)) continue
 
-			const importedIds = yield* _(resolveImports(absolutePath, rawCode).pipe(map((imports) => {
-				return imports.map(paths => resolveImportPath(absolutePath, paths, remappings, libs))
-			})))
+			const importedIds = yield* _(
+				resolveImports(absolutePath, rawCode).pipe(
+					map((imports) => {
+						return imports.map((paths) =>
+							resolveImportPath(absolutePath, paths, remappings, libs),
+						)
+					}),
+				),
+			)
 
 			const code = importedIds.reduce((code, importedId) => {
 				const depImportAbsolutePath = resolveImportPath(

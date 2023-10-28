@@ -1,6 +1,6 @@
-import { runPromise, runSync } from 'effect/Effect'
-import type { FileAccessObject, ModuleInfo } from './types.js'
 import { moduleFactory } from './moduleFactory.js'
+import type { FileAccessObject, ModuleInfo } from './types.js'
+import { runPromise, runSync } from 'effect/Effect'
 import {
 	type Mock,
 	afterEach,
@@ -50,14 +50,16 @@ import "otherOthermodule"`
 			.mockReturnValueOnce(key1MockContent)
 			.mockReturnValueOnce(othermoduleMockContent)
 
-		const modules = await runPromise(moduleFactory(
-			absolutePath,
-			testModuleCode,
-			remappings,
-			['../node_modules'],
-			fao,
-			false
-		))
+		const modules = await runPromise(
+			moduleFactory(
+				absolutePath,
+				testModuleCode,
+				remappings,
+				['../node_modules'],
+				fao,
+				false,
+			),
+		)
 		testModule = modules.get(absolutePath) as ModuleInfo
 	})
 
@@ -105,14 +107,18 @@ import "otherOthermodule"`
 			.mockReturnValueOnce(key1MockContent)
 			.mockReturnValueOnce(othermoduleMockContent)
 
-		const testModuleUnresolvedImport = (await runPromise(moduleFactory(
-			absolutePath,
-			testModuleCodeUnresolvedImport,
-			remappings,
-			['../node_modules'],
-			fao,
-			false
-		))).get(absolutePath) as ModuleInfo
+		const testModuleUnresolvedImport = (
+			await runPromise(
+				moduleFactory(
+					absolutePath,
+					testModuleCodeUnresolvedImport,
+					remappings,
+					['../node_modules'],
+					fao,
+					false,
+				),
+			)
+		).get(absolutePath) as ModuleInfo
 
 		// Update the expected snapshot to reflect the change.
 		// The snapshot string might need to be adjusted based on the actual output of your function.
@@ -152,14 +158,16 @@ import "otherOthermodule"`
 			.mockReturnValueOnce(key1MockContent)
 			.mockReturnValueOnce(othermoduleMockContent)
 
-		testModule = runSync(moduleFactory(
-			absolutePath,
-			testModuleCode,
-			remappings,
-			['../node_modules'],
-			fao,
-			true
-		)).get(absolutePath) as ModuleInfo
+		testModule = runSync(
+			moduleFactory(
+				absolutePath,
+				testModuleCode,
+				remappings,
+				['../node_modules'],
+				fao,
+				true,
+			),
+		).get(absolutePath) as ModuleInfo
 	})
 
 	it('should correctly resolve import paths', () => {
@@ -206,14 +214,16 @@ import "otherOthermodule"`
 			.mockReturnValueOnce(key1MockContent)
 			.mockReturnValueOnce(othermoduleMockContent)
 
-		const testModuleUnresolvedImport = runSync(moduleFactory(
-			absolutePath,
-			testModuleCodeUnresolvedImport,
-			remappings,
-			['../node_modules'],
-			fao,
-			true
-		)).get(absolutePath) as ModuleInfo
+		const testModuleUnresolvedImport = runSync(
+			moduleFactory(
+				absolutePath,
+				testModuleCodeUnresolvedImport,
+				remappings,
+				['../node_modules'],
+				fao,
+				true,
+			),
+		).get(absolutePath) as ModuleInfo
 
 		// Update the expected snapshot to reflect the change.
 		// The snapshot string might need to be adjusted based on the actual output of your function.

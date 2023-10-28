@@ -1,6 +1,6 @@
-import { die, fail, succeed } from 'effect/Effect'
 import { formatPath } from './utils/formatPath.js'
 import { isImportLocal } from './utils/isImportLocal.js'
+import { die, fail, succeed } from 'effect/Effect'
 import * as path from 'path'
 
 class ImportDoesNotExistError extends Error {
@@ -14,7 +14,7 @@ class ImportDoesNotExistError extends Error {
 	 */
 	name = 'ImportDoesNotExistError'
 	constructor() {
-		super(`Import does not exist`)
+		super('Import does not exist')
 	}
 }
 
