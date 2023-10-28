@@ -2,12 +2,12 @@ import { resolveImports } from './resolveImports.js'
 import { invariant } from './utils/invariant.js'
 import { resolveImportPath } from './utils/resolveImportPath.js'
 import { safeFao } from './utils/safeFao.js'
-import { gen, map } from 'effect/Effect'
+import { all, fail, flatMap, gen, runSync } from 'effect/Effect'
 
 const importRegEx = /(^\s?import\s+[^'"]*['"])(.*)(['"]\s*)/gm
 
 /**
- * @typedef {import("./resolveImports.js").ResolveImportsError | import("./utils/safeFao.js").ReadFileError} ModuleFactoryError
+ * @typedef {import("./resolveImports.js").ResolveImportsError | import("./utils/safeFao.js").ReadFileError | import("./utils/resolveImportPath.js").CouldNotResolveImportError} ModuleFactoryError
  */
 
 /**
@@ -36,7 +36,7 @@ export const moduleFactory = (
 	fao,
 	sync,
 ) => {
-	return gen(function* (_) {
+	return gen(function*(_) {
 		const readFile = sync ? safeFao(fao).readFileSync : safeFao(fao).readFile
 		const stack = [{ absolutePath, rawCode }]
 		const modules =
@@ -51,37 +51,49 @@ export const moduleFactory = (
 
 			if (modules.has(absolutePath)) continue
 
+			console.log('resolving import...')
 			const importedIds = yield* _(
 				resolveImports(absolutePath, rawCode).pipe(
-					map((imports) => {
-						return imports.map((paths) =>
-							resolveImportPath(absolutePath, paths, remappings, libs),
-						)
+					flatMap((imports) => {
+						return all(imports.map((paths) =>
+							resolveImportPath(absolutePath, paths, remappings, libs, sync),
+						))
 					}),
 				),
 			)
+			console.log({ importedIds })
 
-			const code = importedIds.reduce((code, importedId) => {
-				const depImportAbsolutePath = resolveImportPath(
+			let code = rawCode
+
+			for (const importedId of importedIds) {
+
+				const depImportAbsolutePath = yield* _(resolveImportPath(
 					absolutePath,
 					importedId,
 					remappings,
 					libs,
-				)
-				return code.replace(importRegEx, (match, p1, p2, p3) => {
-					const resolvedPath = resolveImportPath(
-						absolutePath,
-						p2,
-						remappings,
-						libs,
-					)
-					if (resolvedPath === importedId) {
-						return `${p1}${depImportAbsolutePath}${p3}`
-					} else {
-						return match
-					}
-				})
-			}, rawCode)
+					sync,
+				))
+				try {
+					code = code.replace(importRegEx, (match, p1, p2, p3) => {
+						const resolvedPath = runSync(resolveImportPath(
+							absolutePath,
+							p2,
+							remappings,
+							libs,
+							// must always be sync here
+							true
+						))
+						if (resolvedPath === importedId) {
+							return `${p1}${depImportAbsolutePath}${p3}`
+						} else {
+							return match
+						}
+					})
+				} catch (e) {
+					yield* _(fail(/** @type {import("./utils/resolveImportPath.js").CouldNotResolveImportError} */(e)))
+				}
+			}
 
 			modules.set(absolutePath, {
 				id: absolutePath,
@@ -92,12 +104,13 @@ export const moduleFactory = (
 			})
 
 			for (const importedId of importedIds) {
-				const depImportAbsolutePath = resolveImportPath(
+				const depImportAbsolutePath = yield* _(resolveImportPath(
 					absolutePath,
 					importedId,
 					remappings,
 					libs,
-				)
+					sync
+				))
 				const depRawCode = yield* _(readFile(depImportAbsolutePath, 'utf8'))
 
 				stack.push({ absolutePath: depImportAbsolutePath, rawCode: depRawCode })
@@ -106,3 +119,9 @@ export const moduleFactory = (
 		return modules
 	})
 }
+
+
+
+
+
+

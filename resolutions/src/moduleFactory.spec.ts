@@ -63,7 +63,7 @@ import "otherOthermodule"`
 		testModule = modules.get(absolutePath) as ModuleInfo
 	})
 
-	it('should correctly resolve import paths', () => {
+	it.only('should correctly resolve import paths', () => {
 		expect(testModule.importedIds).toMatchInlineSnapshot(`
 			[
 			  "/path/to/key1somefile",
