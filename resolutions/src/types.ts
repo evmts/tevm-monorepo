@@ -29,3 +29,8 @@ export type ResolvedImport = {
 	absolute: string
 	updated: string
 }
+
+/**
+ * Whether to run effect syncronously or asyncronously
+ */
+export type Concurrency = 'sync' | 'async'

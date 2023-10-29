@@ -26,7 +26,7 @@ class ImportDoesNotExistError extends Error {
  * @param {string} code
  * @param {Record<string, string>} remappings
  * @param {ReadonlyArray<string>} libs
- * @param {boolean} sync
+ * @param {boolean} concurrency
  * @returns {import("effect/Effect").Effect<never, ResolveImportsError, ReadonlyArray<import("./types.js").ResolvedImport>>}
  * @example
  * ```ts

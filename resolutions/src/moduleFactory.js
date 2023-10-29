@@ -23,7 +23,7 @@ import { gen } from 'effect/Effect'
  * @param {Record<string, string>} remappings
  * @param {ReadonlyArray<string>} libs
  * @param {import("./types.js").FileAccessObject} fao
- * @param {boolean} sync Whether to run this synchronously or not
+ * @param {import("./types.js").Concurrency} concurrency Whether to run effect synchronously or not
  * @returns {import("effect/Effect").Effect<never, ModuleFactoryError, Map<string, import("./types.js").ModuleInfo>>}
  * @example
  * ```ts
@@ -43,7 +43,7 @@ import { gen } from 'effect/Effect'
  *       readFile,
  *       existsSync,
  *     },
- *     false
+ *     'sync'
  *   )
  * )
  * console.log(modules.get(pathToSolidity)) // { id: '/path/to/Contract.sol', rawCode: '...', importedIds: ['/path/to/Imported.sol'], code: '...' }
@@ -55,10 +55,10 @@ export const moduleFactory = (
 	remappings,
 	libs,
 	fao,
-	sync,
+	concurrency,
 ) => {
-	return gen(function* (_) {
-		const readFile = sync ? safeFao(fao).readFileSync : safeFao(fao).readFile
+	return gen(function*(_) {
+		const readFile = concurrency === 'sync' ? safeFao(fao).readFileSync : safeFao(fao).readFile
 		const stack = [{ absolutePath, rawCode }]
 		const modules =
 			/** @type{Map<string, import("./types.js").ModuleInfo>} */
@@ -71,7 +71,7 @@ export const moduleFactory = (
 			if (modules.has(absolutePath)) continue
 
 			const resolvedImports = yield* _(
-				resolveImports(absolutePath, rawCode, remappings, libs, sync),
+				resolveImports(absolutePath, rawCode, remappings, libs, concurrency),
 			)
 
 			modules.set(absolutePath, {
