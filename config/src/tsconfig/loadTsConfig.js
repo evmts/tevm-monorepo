@@ -6,8 +6,14 @@ import {
 	struct,
 } from '@effect/schema/Schema'
 import { parseJson } from '@evmts/effect'
-import { Effect } from 'effect'
-import { catchTag, fail, flatMap, logDebug, tap } from 'effect/Effect'
+import {
+	catchTag,
+	fail,
+	flatMap,
+	logDebug,
+	tap,
+	try as tryEffect,
+} from 'effect/Effect'
 import { existsSync, readFileSync } from 'fs'
 import * as path from 'path'
 
@@ -80,7 +86,7 @@ export const loadTsConfig = (configFilePath) => {
 	const tsConfigPath = path.join(configFilePath, 'tsconfig.json')
 	const jsConfigPath = path.join(configFilePath, 'jsconfig.json')
 
-	return Effect.try({
+	return tryEffect({
 		try: () =>
 			existsSync(jsConfigPath)
 				? readFileSync(jsConfigPath, 'utf8')

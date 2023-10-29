@@ -1,6 +1,7 @@
 import * as solc from '../solc.js'
 import { invariant } from '../utils/invariant.js'
-import { moduleFactorySync } from '@evmts/resolutions'
+import { moduleFactory } from '@evmts/resolutions'
+import { runSync } from 'effect/Effect'
 import resolve from 'resolve'
 
 /**
@@ -32,20 +33,25 @@ export function compileContractSync(
 	fao,
 	logger,
 ) {
-	const entryModule = moduleFactorySync(
-		filePath,
-		fao.readFileSync(
-			resolve.sync(filePath, {
-				basedir,
-				readFileSync: (file) => fao.readFileSync(file, 'utf8'),
-				isFile: fao.existsSync,
-			}),
-			'utf8',
+	const moduleMap = runSync(
+		moduleFactory(
+			filePath,
+			fao.readFileSync(
+				resolve.sync(filePath, {
+					basedir,
+					readFileSync: (file) => fao.readFileSync(file, 'utf8'),
+					isFile: fao.existsSync,
+				}),
+				'utf8',
+			),
+			config.remappings,
+			config.libs,
+			fao,
+			true,
 		),
-		config.remappings,
-		config.libs,
-		fao,
 	)
+	const entryModule = moduleMap.get(filePath)
+	invariant(entryModule, 'Entry module should exist')
 
 	/** @type {Record<string, import('../types.js').ModuleInfo>} */
 	const modules = {}
@@ -58,8 +64,10 @@ export function compileContractSync(
 			continue
 		}
 		modules[m.id] = m
-		for (const dep of m.resolutions) {
-			stack.push(dep)
+		for (const dep of m.importedIds) {
+			stack.push(
+				/** @type {import("../types.js").ModuleInfo} */ (moduleMap.get(dep)),
+			)
 		}
 	}
 

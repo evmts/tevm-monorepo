@@ -13,3 +13,4 @@ export declare class AppState extends BaseState<AppState> {
      */
     readonly setCount: (count: number) => void;
 }
+//# sourceMappingURL=AppState.d.ts.map

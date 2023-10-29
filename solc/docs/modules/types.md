@@ -4,16 +4,13 @@
 
 ## Table of contents
 
-### Interfaces
-
-- [ModuleInfo](../interfaces/types.ModuleInfo.md)
-
 ### Type Aliases
 
 - [Artifacts](types.md#artifacts)
 - [CompiledContracts](types.md#compiledcontracts)
 - [FileAccessObject](types.md#fileaccessobject)
 - [Logger](types.md#logger)
+- [ModuleInfo](types.md#moduleinfo)
 
 ## Type Aliases
 
@@ -23,7 +20,7 @@
 
 #### Defined in
 
-[types.ts:40](https://github.com/evmts/evmts-monorepo/blob/main/solc/src/types.ts#L40)
+[solc/src/types.ts:32](https://github.com/evmts/evmts-monorepo/blob/main/solc/src/types.ts#L32)
 
 ___
 
@@ -43,13 +40,13 @@ ___
 | :------ | :------ |
 | `artifacts` | `SolcOutput`[``"contracts"``][`string`] \| `undefined` |
 | `asts` | `TIncludeAsts` extends ``true`` ? `Record`<`string`, `Node`\> : `undefined` |
-| `modules` | `Record`<``"string"``, [`ModuleInfo`](../interfaces/types.ModuleInfo.md)\> |
+| `modules` | `Record`<``"string"``, [`ModuleInfo`](types.md#moduleinfo)\> |
 | `solcInput` | `SolcInputDescription` |
 | `solcOutput` | `SolcOutput` |
 
 #### Defined in
 
-[types.ts:32](https://github.com/evmts/evmts-monorepo/blob/main/solc/src/types.ts#L32)
+[solc/src/types.ts:24](https://github.com/evmts/evmts-monorepo/blob/main/solc/src/types.ts#L24)
 
 ___
 
@@ -67,7 +64,7 @@ ___
 
 #### Defined in
 
-[types.ts:8](https://github.com/evmts/evmts-monorepo/blob/main/solc/src/types.ts#L8)
+[solc/src/types.ts:9](https://github.com/evmts/evmts-monorepo/blob/main/solc/src/types.ts#L9)
 
 ___
 
@@ -86,4 +83,16 @@ ___
 
 #### Defined in
 
-[types.ts:14](https://github.com/evmts/evmts-monorepo/blob/main/solc/src/types.ts#L14)
+[solc/src/types.ts:15](https://github.com/evmts/evmts-monorepo/blob/main/solc/src/types.ts#L15)
+
+___
+
+### ModuleInfo
+
+Ƭ **ModuleInfo**: `ModuleInfo`
+
+./moduleFactory.js
+
+#### Defined in
+
+resolutions/types/src/index.d.ts:14

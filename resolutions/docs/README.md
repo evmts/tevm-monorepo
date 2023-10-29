@@ -1,4 +1,4 @@
-@evmts/resolutions / [Exports](modules.md)
+@evmts/resolutions / [Modules](modules.md)
 
 <p align="center">
   <a href="https://evmts.dev/">

@@ -20,7 +20,7 @@
 
 #### Defined in
 
-[solc.js:7](https://github.com/evmts/evmts-monorepo/blob/main/solc/src/solc.js#L7)
+[solc/src/solc.js:7](https://github.com/evmts/evmts-monorepo/blob/main/solc/src/solc.js#L7)
 
 ## Functions
 
@@ -42,4 +42,4 @@ Typesafe wrapper around solc.compile
 
 #### Defined in
 
-[solc.js:14](https://github.com/evmts/evmts-monorepo/blob/main/solc/src/solc.js#L14)
+[solc/src/solc.js:14](https://github.com/evmts/evmts-monorepo/blob/main/solc/src/solc.js#L14)

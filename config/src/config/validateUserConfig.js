@@ -10,8 +10,8 @@ import {
 	undefined as SUndefined,
 	union,
 } from '@effect/schema/Schema'
-import { Effect, pipe } from 'effect'
-import { catchTag, fail, logDebug, tap } from 'effect/Effect'
+import { pipe } from 'effect'
+import { catchTag, fail, logDebug, tap, try as effectTry } from 'effect/Effect'
 import { flatMap } from 'effect/Effect'
 
 /**
@@ -81,7 +81,7 @@ const SCompilerConfig = struct({
  */
 export const validateUserConfig = (untrustedConfigFactory) => {
 	return pipe(
-		Effect.try({
+		effectTry({
 			try: untrustedConfigFactory,
 			catch: (cause) =>
 				new ConfigFnThrowError({

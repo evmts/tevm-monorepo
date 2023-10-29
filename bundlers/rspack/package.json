@@ -2,19 +2,24 @@
 	"name": "@evmts/rspack-plugin",
 	"version": "0.11.2",
 	"private": false,
-	"contributors": ["Will Cory <willcory10@gmail.com>"],
 	"description": "An (experimental) rspack plugin for evmts",
-	"keywords": ["rspack", "plugin", "solidity", "sol", "evmts"],
+	"keywords": [
+		"rspack",
+		"plugin",
+		"solidity",
+		"sol",
+		"evmts"
+	],
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/evmts/evmts-monorepo.git",
 		"directory": "bundlers/rspack"
 	},
 	"license": "MIT",
+	"contributors": [
+		"Will Cory <willcory10@gmail.com>"
+	],
 	"type": "module",
-	"main": "dist/index.cjs",
-	"module": "src/index.js",
-	"types": "types/index.d.ts",
 	"exports": {
 		"./package.json": "./package.json",
 		".": {
@@ -24,7 +29,14 @@
 			"types": "./types/index.d.ts"
 		}
 	},
-	"files": ["dist", "types", "src"],
+	"main": "dist/index.cjs",
+	"module": "src/index.js",
+	"types": "types/index.d.ts",
+	"files": [
+		"dist",
+		"types",
+		"src"
+	],
 	"scripts": {
 		"build": "nx run-many --targets=build:dist,build:types --projects=@evmts/rspack-plugin ",
 		"build:dist": "bun run tsup",
@@ -45,10 +57,10 @@
 	"devDependencies": {
 		"@evmts/tsconfig": "workspace:^",
 		"@vitest/ui": "^0.34.6",
-		"typedoc": "^0.25.2",
-		"typedoc-plugin-markdown": "^3.16.0",
 		"rome": "^12.1.3",
 		"tsup": "^7.2.0",
+		"typedoc": "^0.25.2",
+		"typedoc-plugin-markdown": "^3.16.0",
 		"typescript": "^5.2.2",
 		"vitest": "^0.34.6"
 	},

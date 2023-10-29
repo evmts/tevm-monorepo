@@ -31,3 +31,4 @@ export declare abstract class BaseState<T extends {}> {
      */
     createStore: (enableDev?: boolean) => import("zustand").UseBoundStore<import("zustand").StoreApi<T>>;
 }
+//# sourceMappingURL=BaseState.d.ts.map

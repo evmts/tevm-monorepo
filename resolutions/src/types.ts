@@ -19,5 +19,13 @@ export interface ModuleInfo {
 	rawCode: string | null // the source code of the module, `null` if external or not yet available
 	code: string | null // the code after transformed to correctly resolve remappings and node_module imports
 	importedIds: string[] // the module ids statically imported by this module
-	resolutions: ModuleInfo[] // how statically imported ids were resolved, for use with this.load
+}
+
+/**
+ * The result of the resolution of an  import
+ */
+export type ResolvedImport = {
+	original: string
+	absolute: string
+	updated: string
 }
