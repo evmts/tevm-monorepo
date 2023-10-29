@@ -2,10 +2,12 @@
 	"defaultProject": "@evmts/example-vite",
 	"targetDefaults": {
 		"lint:check": {
-			"inputs": ["default"]
+			"inputs": ["default"],
+			"cache": true
 		},
 		"format:check": {
-			"inputs": ["default"]
+			"inputs": ["default"],
+			"cache": true
 		},
 		"test": {
 			"inputs": ["default", "outputsDist"],
@@ -13,7 +15,8 @@
 		},
 		"test:run": {
 			"inputs": ["default", "outputsDist"],
-			"dependsOn": ["^build:dist", "pretest"]
+			"dependsOn": ["^build:dist", "pretest"],
+			"cache": true
 		},
 		"test:watch": {
 			"inputs": ["default", "outputsDist"],
@@ -22,16 +25,19 @@
 		"test:coverage": {
 			"inputs": ["default", "outputsDist"],
 			"dependsOn": ["^build:dist"],
-			"outputs": ["{projectRoot}/coverage"]
+			"outputs": ["{projectRoot}/coverage"],
+			"cache": true
 		},
 		"typecheck": {
 			"inputs": ["production", "outputsDts"],
-			"dependsOn": ["^build:types"]
+			"dependsOn": ["^build:types"],
+			"cache": true
 		},
 		"build:types": {
 			"inputs": ["production", "outputsDts"],
 			"dependsOn": ["^build:types"],
-			"outputs": ["{projectRoot}/types"]
+			"outputs": ["{projectRoot}/types"],
+			"cache": true
 		},
 		"build": {
 			"inputs": ["production", "outputsDist"],
@@ -40,7 +46,8 @@
 				"{projectRoot}/dist",
 				"{projectRoot}/.vitepress/dist",
 				"{projectRoot}/types"
-			]
+			],
+			"cache": true
 		},
 		"build:esm": {
 			"inputs": ["production", "outputsDist"],
@@ -53,41 +60,24 @@
 			"outputs": ["{projectRoot}/dist"]
 		},
 		"build:dist": {
-			"inputs": ["production", "outputsDts"],
 			"inputs": ["production", "outputsDist"],
 			"dependsOn": ["^build:dist"],
-			"outputs": ["{projectRoot}/dist"]
+			"outputs": ["{projectRoot}/dist"],
+			"cache": true
 		},
 		"generate:docs": {
-			"outputs": ["{projectRoot}/docs"]
+			"outputs": ["{projectRoot}/docs"],
+			"cache": true
 		},
 		"dev": {
 			"dependsOn": ["^build", "predev"]
 		},
 		"dev:run": {
-			"dependsOn": ["^build", "predev"]
-		}
-	},
-	"tasksRunnerOptions": {
-		"default": {
-			"runner": "nx-cloud",
-			"options": {
-				"cacheableOperations": [
-					"build",
-					"build:dist",
-					"build:types",
-					"test:coverage",
-					"test:run",
-					"format:check",
-					"typecheck",
-					"e2e",
-					"format:check",
-					"lint:check",
-					"generate:docs",
-					"dev:run",
-					"format:check"
-				]
-			}
+			"dependsOn": ["^build", "predev"],
+			"cache": true
+		},
+		"e2e": {
+			"cache": true
 		}
 	},
 	"affected": {
@@ -118,9 +108,17 @@
 			"productionContracts"
 		],
 		"outputsDist": [
-			{ "dependentTasksOutputFiles": "**/*", "transitive": true }
+			{
+				"dependentTasksOutputFiles": "**/*",
+				"transitive": true
+			}
 		],
-		"outputsDts": [{ "dependentTasksOutputFiles": "**/*", "transitive": true }],
+		"outputsDts": [
+			{
+				"dependentTasksOutputFiles": "**/*",
+				"transitive": true
+			}
+		],
 		"testing": ["configsWorkspace", "default"]
 	}
 }
