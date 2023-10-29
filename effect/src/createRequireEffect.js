@@ -1,5 +1,5 @@
 // TODO unused move this to @evmts/createRequire package
-import { try as effectTry } from 'effect/Effect'
+import { try as tryEffect } from 'effect/Effect'
 import { map } from 'effect/Effect'
 import { createRequire } from 'module'
 
@@ -48,7 +48,7 @@ export class RequireError extends Error {
  * @internal
  */
 export const createRequireEffect = (url) => {
-	return effectTry({
+	return tryEffect({
 		try: () => createRequire(url),
 		catch: (cause) => new CreateRequireError(url, { cause }),
 	}).pipe(
@@ -59,7 +59,7 @@ export const createRequireEffect = (url) => {
 			 * @returns {import("effect/Effect").Effect<never, RequireError, ReturnType<NodeRequire>>}
 			 */
 			const requireAsEffect = (id) => {
-				return effectTry({
+				return tryEffect({
 					try: () => createdRequire(id),
 					catch: (cause) => new RequireError(id, { cause }),
 				})
