@@ -69,6 +69,7 @@
 	"devDependencies": {
 		"@evmts/core": "workspace:^",
 		"@evmts/resolutions": "workspace:^",
+		"@openzeppelin/contracts": "^4.9.3",
 		"@vitest/coverage-v8": "^0.34.6",
 		"@vitest/ui": "^0.34.6",
 		"abitype": "^0.9.8",

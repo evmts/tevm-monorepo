@@ -96,17 +96,6 @@ describe('resolveArtifactsSync', () => {
 			      ],
 			      "rawCode": "import { TestContract } from 'module2'
 			contract TestContract {}",
-			      "resolutions": [
-			        {
-			          "code": "contract TestContract2 {}",
-			          "id": "id",
-			          "importedIds": [
-			            "module2",
-			          ],
-			          "rawCode": "contract TestContract2 {}",
-			          "resolutions": [],
-			        },
-			      ],
 			    },
 			  },
 			  "solcInput": undefined,
