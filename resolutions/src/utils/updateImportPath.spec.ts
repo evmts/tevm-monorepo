@@ -8,8 +8,16 @@ describe('updateImportPaths', () => {
 import somethingElse from "./oldPath2";
     `
 		const mockResolvedImports = [
-			{ original: './oldPath1', updated: './newPath1' },
-			{ original: './oldPath2', updated: './newPath2' },
+			{
+				original: './oldPath1',
+				updated: './newPath1',
+				absolute: '/path/to/newPath1',
+			},
+			{
+				original: './oldPath2',
+				updated: './newPath2',
+				absolute: '/path/to/newPath2',
+			},
 		]
 
 		const result = runSync(updateImportPaths(mockCode, mockResolvedImports))
@@ -23,7 +31,11 @@ import somethingElse from "./oldPath2";
 import somethingElse from "./oldPath2";
     `
 		const mockResolvedImports = [
-			{ original: './oldPath1', updated: './newPath1' },
+			{
+				original: './oldPath1',
+				updated: './newPath1',
+				absolute: '/path/to/newPath1',
+			},
 		]
 
 		const result = runSync(updateImportPaths(mockCode, mockResolvedImports))
@@ -37,8 +49,16 @@ import somethingElse from "./oldPath2";
 import somethingElse from "./oldPath2";
     `
 		const mockResolvedImports = [
-			{ original: './notPresent1', updated: './newPath1' },
-			{ original: './notPresent2', updated: './newPath2' },
+			{
+				original: './notPresent1',
+				updated: './newPath1',
+				absolute: '/path/to/newPath1',
+			},
+			{
+				original: './notPresent2',
+				updated: './newPath2',
+				absolute: '/path/to/newPath2',
+			},
 		]
 
 		const result = runSync(updateImportPaths(mockCode, mockResolvedImports))
@@ -50,7 +70,11 @@ import somethingElse from "./oldPath2";
 	it('should return the original code if no imports present', () => {
 		const mockCode = `console.log("No imports here!");`
 		const mockResolvedImports = [
-			{ original: './oldPath1', updated: './newPath1' },
+			{
+				original: './oldPath1',
+				updated: './newPath1',
+				absolute: '/path/to/newPath1',
+			},
 		]
 
 		const result = runSync(updateImportPaths(mockCode, mockResolvedImports))

@@ -64,8 +64,10 @@ export function compileContractSync(
 			continue
 		}
 		modules[m.id] = m
-		for (const dep of m.resolutions) {
-			stack.push(dep)
+		for (const dep of m.importedIds) {
+			stack.push(
+				/** @type {import("../types.js").ModuleInfo} */ (moduleMap.get(dep)),
+			)
 		}
 	}
 

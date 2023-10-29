@@ -16,7 +16,6 @@ https://rollupjs.org/plugin-development/#this-getmoduleinfo
 - [id](ModuleInfo.md#id)
 - [importedIds](ModuleInfo.md#importedids)
 - [rawCode](ModuleInfo.md#rawcode)
-- [resolutions](ModuleInfo.md#resolutions)
 
 ## Properties
 
@@ -57,13 +56,3 @@ ___
 #### Defined in
 
 [types.ts:19](https://github.com/evmts/evmts-monorepo/blob/main/resolutions/src/types.ts#L19)
-
-___
-
-### resolutions
-
-• **resolutions**: [`ModuleInfo`](ModuleInfo.md)[]
-
-#### Defined in
-
-[types.ts:22](https://github.com/evmts/evmts-monorepo/blob/main/resolutions/src/types.ts#L22)

@@ -1,7 +1,5 @@
-import { formatPath } from './utils/formatPath.js'
-import { isImportLocal } from './utils/isImportLocal.js'
-import { die, fail, succeed } from 'effect/Effect'
-import * as path from 'path'
+import { resolveImportPath } from './utils/resolveImportPath.js'
+import { all, die, fail, map } from 'effect/Effect'
 
 class ImportDoesNotExistError extends Error {
 	/**
@@ -19,7 +17,8 @@ class ImportDoesNotExistError extends Error {
 }
 
 /**
- * @typedef {ImportDoesNotExistError} ResolveImportsError
+ * @typedef {ImportDoesNotExistError | import("./utils/resolveImportPath.js").CouldNotResolveImportError} ResolveImportsError
+ * @typedef {{original: string, absolute: string, updated: string}} ResolvedImport
  */
 
 const importRegEx = /^\s?import\s+[^'"]*['"](.*)['"]\s*/gm
@@ -27,31 +26,45 @@ const importRegEx = /^\s?import\s+[^'"]*['"](.*)['"]\s*/gm
 /**
  * @param {string} absolutePath
  * @param {string} code
- * @returns {import("effect/Effect").Effect<never, ResolveImportsError, ReadonlyArray<{original: string, updated: string}>>}
+ * @param {Record<string, string>} remappings
+ * @param {ReadonlyArray<string>} libs
+ * @param {boolean} sync
+ * @returns {import("effect/Effect").Effect<never, ResolveImportsError, ReadonlyArray<ResolvedImport>>}
  */
-export const resolveImports = (absolutePath, code) => {
+export const resolveImports = (
+	absolutePath,
+	code,
+	remappings,
+	libs,
+	sync = false,
+) => {
 	if (typeof absolutePath !== 'string') {
 		return die(`Type ${typeof absolutePath} is not of type string`)
 	}
 	if (typeof code !== 'string') {
 		return die(`Type ${typeof code} is not of type string`)
 	}
-	const imports = /** @type Array<{original: string, updated: string}> */ ([])
+	if (typeof sync !== 'boolean') {
+		return die(`Type ${typeof sync} is not of type boolean`)
+	}
+	const imports =
+		/** @type Array<import("effect/Effect").Effect<never, import("./utils/resolveImportPath.js").CouldNotResolveImportError, ResolvedImport>> */ ([])
 	let foundImport = importRegEx.exec(code)
 	while (foundImport != null) {
 		const importPath = foundImport[1]
 		if (!importPath) {
 			return fail(new ImportDoesNotExistError())
 		}
-		if (isImportLocal(importPath)) {
-			const importFullPath = formatPath(
-				path.resolve(path.dirname(absolutePath), importPath),
-			)
-			imports.push({ updated: importFullPath, original: importPath })
-		} else {
-			imports.push({ updated: importPath, original: importPath })
-		}
+		imports.push(
+			resolveImportPath(absolutePath, importPath, remappings, libs, sync).pipe(
+				map((absolute) => ({
+					updated: absolute,
+					absolute,
+					original: importPath,
+				})),
+			),
+		)
 		foundImport = importRegEx.exec(code)
 	}
-	return succeed(imports)
+	return all(imports)
 }

@@ -68,7 +68,11 @@ export const compileContract = async (
 			continue
 		}
 		modules[m.id] = m
-		for (const dep of m.resolutions) {
+		const resolutions = m.importedIds.map(
+			(id) =>
+				/** @type {import("../types.js").ModuleInfo}*/ (moduleMap.get(id)),
+		)
+		for (const dep of resolutions) {
 			stack.push(dep)
 		}
 	}

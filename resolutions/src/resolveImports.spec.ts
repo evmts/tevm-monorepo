@@ -4,49 +4,52 @@ import { describe, expect, it } from 'vitest'
 
 describe('resolveImports', () => {
 	it('should correctly resolve local imports', () => {
-		const code = `import { Something } from "./something"`
-		const imports = runSync(resolveImports('/project/src', code))
+		const code = `import { WagmiMintExample } from "../fixtures/basic/Contract.sol"`
+		const imports = runSync(resolveImports(__dirname, code, {}, [], true))
 
 		expect(imports).toMatchInlineSnapshot(`
 			[
 			  {
-			    "original": "./something",
-			    "updated": "/project/something",
+			    "absolute": "/Users/willcory/evmts-monorepo/fixtures/basic/Contract.sol",
+			    "original": "../fixtures/basic/Contract.sol",
+			    "updated": "/Users/willcory/evmts-monorepo/fixtures/basic/Contract.sol",
 			  },
 			]
 		`)
 	})
 
 	it('should correctly resolve non-local imports', () => {
-		const code = `import { Something } from "some-module"`
-		const imports = runSync(resolveImports('/project/src', code))
+		const code = `import { ERC20 } from "@openzeppelin/contracts/token/ERC20/ERC20.sol"`
+		const imports = runSync(resolveImports(__dirname, code, {}, [], true))
 
 		expect(imports).toMatchInlineSnapshot(`
 			[
 			  {
-			    "original": "some-module",
-			    "updated": "some-module",
+			    "absolute": "/Users/willcory/evmts-monorepo/node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol",
+			    "original": "@openzeppelin/contracts/token/ERC20/ERC20.sol",
+			    "updated": "/Users/willcory/evmts-monorepo/node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol",
 			  },
 			]
 		`)
 	})
 
 	it('should correctly handle multiple imports', () => {
-		const code = `
-import { Something } from "./something"
-import { Other } from "other-module"
+		const code = `import { WagmiMintExample } from "../fixtures/basic/Contract.sol"
+import { ERC20 } from "@openzeppelin/contracts/token/ERC20/ERC20.sol"
         `
-		const imports = runSync(resolveImports('/project/src', code))
+		const imports = runSync(resolveImports(__dirname, code, {}, [], true))
 
 		expect(imports).toMatchInlineSnapshot(`
 			[
 			  {
-			    "original": "./something",
-			    "updated": "/project/something",
+			    "absolute": "/Users/willcory/evmts-monorepo/fixtures/basic/Contract.sol",
+			    "original": "../fixtures/basic/Contract.sol",
+			    "updated": "/Users/willcory/evmts-monorepo/fixtures/basic/Contract.sol",
 			  },
 			  {
-			    "original": "other-module",
-			    "updated": "other-module",
+			    "absolute": "/Users/willcory/evmts-monorepo/node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol",
+			    "original": "@openzeppelin/contracts/token/ERC20/ERC20.sol",
+			    "updated": "/Users/willcory/evmts-monorepo/node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol",
 			  },
 			]
 		`)
@@ -54,7 +57,7 @@ import { Other } from "other-module"
 
 	it('should return an empty array if there are no imports', () => {
 		const code = 'const x = 10'
-		const imports = runSync(resolveImports('/project/src', code))
+		const imports = runSync(resolveImports(__dirname, code, {}, [], true))
 
 		expect(imports).toMatchInlineSnapshot('[]')
 	})
@@ -62,33 +65,47 @@ import { Other } from "other-module"
 	it('should throw an error if import path does not exist', () => {
 		const code = 'import { Something } from ""'
 		expect(() =>
-			runSync(resolveImports('/project/src', code)),
+			runSync(resolveImports('/project/src', code, {}, [], true)),
 		).toThrowErrorMatchingInlineSnapshot('"Import does not exist"')
 	})
 
 	it('should correctly resolve import nothing statements', () => {
 		const code = 'import "./something"'
-		const imports = runSync(resolveImports('/project/src', code))
+		const imports = runSync(resolveImports('/project/src', code, {}, [], true))
 		expect(imports).toMatchInlineSnapshot('[]')
 	})
 
 	it('should ignore lines that resemble import statements', () => {
 		const code = 'console.log("import { Something } from \\"./something\\"")'
-		const imports = runSync(resolveImports('/project/src', code))
+		const imports = runSync(resolveImports('/project/src', code, {}, [], true))
 		expect(imports).toMatchInlineSnapshot('[]')
 	})
 
 	it('should die if non string is passed in for absolute path', () => {
 		const code = 'console.log("import { Something } from \\"./something\\"")'
 		expect(() =>
-			runSync(resolveImports(52n as any, code)),
+			runSync(resolveImports(52n as any, code, {}, [], true)),
 		).toThrowErrorMatchingInlineSnapshot('"Type bigint is not of type string"')
 	})
 
 	it('should die if non string is passed in for absolute path', () => {
 		const code = 52n as any
 		expect(() =>
-			runSync(resolveImports('/project/src', code)),
+			runSync(resolveImports('/project/src', code, {}, [], true)),
 		).toThrowErrorMatchingInlineSnapshot('"Type bigint is not of type string"')
+	})
+
+	it('should die if non boolean is passed in for sync', () => {
+		expect(() =>
+			runSync(
+				resolveImports(
+					'/project/src',
+					"import {Foo} from 'bar'",
+					{},
+					[],
+					5 as any,
+				),
+			),
+		).toThrowErrorMatchingInlineSnapshot('"Type number is not of type boolean"')
 	})
 })

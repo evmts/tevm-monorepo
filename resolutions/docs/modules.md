@@ -88,25 +88,28 @@ Doing it this way for now is easier but for sure a leaky abstraction
 
 #### Defined in
 
-[moduleFactory.js:30](https://github.com/evmts/evmts-monorepo/blob/main/resolutions/src/moduleFactory.js#L30)
+[moduleFactory.js:29](https://github.com/evmts/evmts-monorepo/blob/main/resolutions/src/moduleFactory.js#L29)
 
 ___
 
 ### resolveImports
 
-▸ **resolveImports**(`absolutePath`, `code`): `Effect`<`never`, `ImportDoesNotExistError`, readonly { `original`: `string` ; `updated`: `string`  }[]\>
+▸ **resolveImports**(`absolutePath`, `code`, `remappings`, `libs`, `sync?`): `Effect`<`never`, `ResolveImportsError`, readonly `ResolvedImport`[]\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `absolutePath` | `string` |
-| `code` | `string` |
+| Name | Type | Default value |
+| :------ | :------ | :------ |
+| `absolutePath` | `string` | `undefined` |
+| `code` | `string` | `undefined` |
+| `remappings` | `Record`<`string`, `string`\> | `undefined` |
+| `libs` | readonly `string`[] | `undefined` |
+| `sync` | `boolean` | `false` |
 
 #### Returns
 
-`Effect`<`never`, `ImportDoesNotExistError`, readonly { `original`: `string` ; `updated`: `string`  }[]\>
+`Effect`<`never`, `ResolveImportsError`, readonly `ResolvedImport`[]\>
 
 #### Defined in
 
-[resolveImports.js:32](https://github.com/evmts/evmts-monorepo/blob/main/resolutions/src/resolveImports.js#L32)
+[resolveImports.js:34](https://github.com/evmts/evmts-monorepo/blob/main/resolutions/src/resolveImports.js#L34)

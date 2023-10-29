@@ -1,5 +1,4 @@
 import { solcCompile } from '../solc.js'
-import type { ModuleInfo } from '../types.js'
 import { compileContract } from './compileContracts.js'
 import resolve from 'resolve'
 import { type Mock, beforeEach, describe, expect, it, vi } from 'vitest'
@@ -265,31 +264,6 @@ describe('compileContract', () => {
 	})
 
 	it('should work when contracts share resolutions', async () => {
-		const mockModuleC: ModuleInfo = {
-			id: 'test/path/moduleC.sol',
-			code: 'contract C {}',
-			importedIds: [],
-			resolutions: [],
-			rawCode: 'contract C {}',
-		}
-
-		const mockModuleA: ModuleInfo = {
-			id: 'test/path/moduleA.sol',
-			code: 'import "test/path/moduleC.sol"\ncontract A {}',
-			importedIds: ['test/path/moduleC.sol'],
-			resolutions: [mockModuleC],
-			rawCode: 'import "./moduleC.sol"\ncontract A {}',
-		}
-
-		const mockModuleB: ModuleInfo = {
-			id: 'test/path/moduleB.sol',
-			code: 'import "test/path/moduleC.sol"\ncontract B {}',
-			importedIds: ['test/path/moduleC.sol'],
-			resolutions: [mockModuleC],
-			rawCode: 'import "./moduleC.sol"\ncontract B {}',
-		}
-
-		mockModuleA.resolutions.push(mockModuleB)
 		expect(
 			await compileContract(
 				'test/path/moduleA.sol',

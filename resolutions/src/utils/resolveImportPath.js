@@ -6,7 +6,7 @@ import {
 	succeed,
 	try as trySync,
 } from 'effect/Effect'
-import * as path from 'path'
+import { dirname, resolve as pathResolve } from 'path'
 import resolve from 'resolve'
 
 export class CouldNotResolveImportError extends Error {
@@ -52,21 +52,19 @@ export const resolveImportPath = (
 	// Remappings
 	for (const [key, value] of Object.entries(remappings)) {
 		if (importPath.startsWith(key)) {
-			return succeed(formatPath(path.resolve(importPath.replace(key, value))))
+			return succeed(formatPath(pathResolve(importPath.replace(key, value))))
 		}
 	}
 	// Local import "./LocalContract.sol"
 	if (isImportLocal(importPath)) {
-		return succeed(
-			formatPath(path.resolve(path.dirname(absolutePath), importPath)),
-		)
+		return succeed(formatPath(pathResolve(dirname(absolutePath), importPath)))
 	}
 	// try resolving with node resolution
 	if (sync) {
 		return trySync({
 			try: () =>
 				resolve.sync(importPath, {
-					basedir: path.dirname(absolutePath),
+					basedir: dirname(absolutePath),
 					paths: libs,
 				}),
 			catch: (e) =>
@@ -81,7 +79,7 @@ export const resolveImportPath = (
 			resolve(
 				importPath,
 				{
-					basedir: path.dirname(absolutePath),
+					basedir: dirname(absolutePath),
 					paths: libs,
 				},
 				(err, resolvedPath) => {

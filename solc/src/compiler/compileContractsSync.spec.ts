@@ -2,6 +2,7 @@ import type { FileAccessObject, ModuleInfo } from '../types.js'
 import { compileContractSync } from './compileContractsSync.js'
 import type { ResolvedCompilerConfig } from '@evmts/config'
 import { moduleFactory } from '@evmts/resolutions'
+import { succeed } from 'effect/Effect'
 import resolve from 'resolve'
 // @ts-ignore
 import solc from 'solc'
@@ -56,7 +57,6 @@ describe('compileContractSync', () => {
 		id: 'test/path/resolutionFile.sol',
 		code: 'contract Resolution {}',
 		importedIds: [],
-		resolutions: [],
 		rawCode: 'contract Resolution {}',
 	}
 	const mockModule: ModuleInfo = {
@@ -67,20 +67,27 @@ describe('compileContractSync', () => {
 			'test/path/resolutionFile.sol',
 		),
 		importedIds: ['./importedId'],
-		resolutions: [mockResolution],
 	}
 	const mockCompiledContract = {
 		Test: { abi: [], evm: { bytecode: { object: '0x123' } } },
 	}
 
-	const mockReadFileSync = fao.readFileSync as Mock
-	const mockResolveSync = resolve.sync as Mock
-	const mockModuleFactory = moduleFactory as Mock
+	const modules = new Map()
+	modules.set(mockModule.id, mockModule)
+	modules.set(mockResolution.id, mockResolution)
+
+	const mockReadFileSync = fao.readFileSync as MockedFunction<
+		typeof fao.readFileSync
+	>
+	const mockResolveSync = resolve.sync as MockedFunction<typeof resolve.sync>
+	const mockModuleFactory = moduleFactory as MockedFunction<
+		typeof moduleFactory
+	>
 	const mockSolcCompile = solc.compile as Mock
 	beforeEach(() => {
 		mockReadFileSync.mockReturnValue(mockSource)
 		mockResolveSync.mockReturnValue(filePath)
-		mockModuleFactory.mockReturnValue(mockModule)
+		mockModuleFactory.mockReturnValue(succeed(modules))
 		mockSolcCompile.mockReturnValue(
 			JSON.stringify({
 				contracts: { [filePath]: mockCompiledContract },
@@ -434,7 +441,6 @@ describe('compileContractSync', () => {
 			id: 'test/path/moduleC.sol',
 			code: 'contract C {}',
 			importedIds: [],
-			resolutions: [],
 			rawCode: 'contract C {}',
 		}
 
@@ -442,7 +448,6 @@ describe('compileContractSync', () => {
 			id: 'test/path/moduleA.sol',
 			code: 'import "test/path/moduleC.sol"\ncontract A {}',
 			importedIds: ['test/path/moduleC.sol'],
-			resolutions: [mockModuleC],
 			rawCode: 'import "./moduleC.sol"\ncontract A {}',
 		}
 
@@ -450,12 +455,15 @@ describe('compileContractSync', () => {
 			id: 'test/path/moduleB.sol',
 			code: 'import "test/path/moduleC.sol"\ncontract B {}',
 			importedIds: ['test/path/moduleC.sol'],
-			resolutions: [mockModuleC],
 			rawCode: 'import "./moduleC.sol"\ncontract B {}',
 		}
 
-		mockModuleA.resolutions.push(mockModuleB)
-		mockModuleFactory.mockReturnValue(mockModuleA)
+		const moduleMap = new Map<string, ModuleInfo>()
+		moduleMap.set(mockModuleA.id, mockModuleA)
+		moduleMap.set(mockModuleB.id, mockModuleB)
+		moduleMap.set(mockModuleC.id, mockModuleC)
+
+		mockModuleFactory.mockReturnValue(succeed(moduleMap))
 		expect(
 			compileContractSync(filePath, basedir, config, false, fao, console),
 		).toMatchInlineSnapshot(`

@@ -29,15 +29,6 @@ contract TestContract {}`,
 		code: `import { TestContract } from 'module2'
 contract TestContract {}`,
 		importedIds: ['module2'],
-		resolutions: [
-			{
-				id: 'id',
-				rawCode: 'contract TestContract2 {}',
-				code: 'contract TestContract2 {}',
-				importedIds: ['module2'],
-				resolutions: [],
-			},
-		],
 	},
 }
 

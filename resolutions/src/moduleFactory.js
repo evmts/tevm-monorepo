@@ -1,9 +1,8 @@
 import { resolveImports } from './resolveImports.js'
 import { invariant } from './utils/invariant.js'
-import { resolveImportPath } from './utils/resolveImportPath.js'
 import { safeFao } from './utils/safeFao.js'
 import { updateImportPaths } from './utils/updateImportPath.js'
-import { all, gen } from 'effect/Effect'
+import { gen } from 'effect/Effect'
 
 /**
  * @typedef {import("./resolveImports.js").ResolveImportsError | import("./utils/safeFao.js").ReadFileError | import("./utils/resolveImportPath.js").CouldNotResolveImportError} ModuleFactoryError
@@ -53,36 +52,23 @@ export const moduleFactory = (
 
 			if (modules.has(absolutePath)) continue
 
-			const resolvedImports = yield* _(resolveImports(absolutePath, rawCode))
-
-			const importedIds = yield* _(
-				all(
-					resolvedImports.map((importPath) =>
-						resolveImportPath(
-							absolutePath,
-							importPath.updated,
-							remappings,
-							libs,
-							sync,
-						),
-					),
-				),
+			const resolvedImports = yield* _(
+				resolveImports(absolutePath, rawCode, remappings, libs, sync),
 			)
 
 			modules.set(absolutePath, {
 				id: absolutePath,
 				rawCode,
-				importedIds,
-				resolutions: [],
+				importedIds: resolvedImports.map(({ absolute }) => absolute),
 				code: yield* _(updateImportPaths(rawCode, resolvedImports)),
 			})
 
-			for (const importedId of importedIds) {
-				const depImportAbsolutePath = yield* _(
-					resolveImportPath(absolutePath, importedId, remappings, libs, sync),
-				)
-				const depRawCode = yield* _(readFile(depImportAbsolutePath, 'utf8'))
-				stack.push({ absolutePath: depImportAbsolutePath, rawCode: depRawCode })
+			for (const resolvedImport of resolvedImports) {
+				const depRawCode = yield* _(readFile(resolvedImport.absolute, 'utf8'))
+				stack.push({
+					absolutePath: resolvedImport.absolute,
+					rawCode: depRawCode,
+				})
 			}
 		}
 		return modules
