@@ -50,10 +50,10 @@
 		"generate:docs": "bun run typedoc",
 		"lint": "rome check . --apply-unsafe",
 		"lint:check": "rome check . --verbose",
-		"test": "vitest --coverage",
-		"test:coverage": "vitest run --coverage",
-		"test:run": "vitest run",
-		"test:ui": "vitest --ui"
+		"test": "bun run vitest --coverage",
+		"test:coverage": "bun run vitest run --coverage",
+		"test:run": "bun run vitest run",
+		"test:ui": "bun run vitest --ui"
 	},
 	"dependencies": {
 		"@evmts/config": "workspace:^",
