@@ -1,0 +1,23 @@
+[package]
+authors = ["William Cory <willcory10@gmail.com>"]
+description = "@evmts/revm - Rust Ethereum Virtual Machine Web Assembly lib"
+edition = "2021"
+keywords = ["ethereum", "evm", "rust", "evmts"]
+license = "MIT"
+name = "revmts"
+repository = "https://github.com/evmts/evmts-monorepo"
+version = "0.1.0"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+bn-rs = "0.2.3"
+bytes = "1.2"
+getrandom = { version = "0.2", features = ["js"] }
+hex = "0.4"
+js-sys = "0.3"
+revm = { path = "../../lib/revm/crates/revm", version = "3.4.0", default-features = false }
+ruint = { version = "1.7.0", features = ["bn-rs"] }
+wasm-bindgen = "0.2"
+primitive-types = "0.12"
