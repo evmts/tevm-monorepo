@@ -32,15 +32,6 @@ contract TestContract {}`,
 		code: `import { TestContract } from 'module2'
 contract TestContract {}`,
 		importedIds: ['module2'],
-		resolutions: [
-			{
-				id: 'id',
-				rawCode: 'contract TestContract2 {}',
-				code: 'contract TestContract2 {}',
-				importedIds: ['module2'],
-				resolutions: [],
-			},
-		],
 	},
 }
 
@@ -314,17 +305,6 @@ describe(bundler.name, () => {
 				      ],
 				      "rawCode": "import { TestContract } from 'module2'
 				contract TestContract {}",
-				      "resolutions": [
-				        {
-				          "code": "contract TestContract2 {}",
-				          "id": "id",
-				          "importedIds": [
-				            "module2",
-				          ],
-				          "rawCode": "contract TestContract2 {}",
-				          "resolutions": [],
-				        },
-				      ],
 				    },
 				  },
 				  "solcInput": undefined,
@@ -399,17 +379,6 @@ describe(bundler.name, () => {
 				      ],
 				      "rawCode": "import { TestContract } from 'module2'
 				contract TestContract {}",
-				      "resolutions": [
-				        {
-				          "code": "contract TestContract2 {}",
-				          "id": "id",
-				          "importedIds": [
-				            "module2",
-				          ],
-				          "rawCode": "contract TestContract2 {}",
-				          "resolutions": [],
-				        },
-				      ],
 				    },
 				  },
 				  "solcInput": {
@@ -490,17 +459,6 @@ describe(bundler.name, () => {
 				      ],
 				      "rawCode": "import { TestContract } from 'module2'
 				contract TestContract {}",
-				      "resolutions": [
-				        {
-				          "code": "contract TestContract2 {}",
-				          "id": "id",
-				          "importedIds": [
-				            "module2",
-				          ],
-				          "rawCode": "contract TestContract2 {}",
-				          "resolutions": [],
-				        },
-				      ],
 				    },
 				  },
 				  "solcInput": {
@@ -581,17 +539,6 @@ describe(bundler.name, () => {
 				      ],
 				      "rawCode": "import { TestContract } from 'module2'
 				contract TestContract {}",
-				      "resolutions": [
-				        {
-				          "code": "contract TestContract2 {}",
-				          "id": "id",
-				          "importedIds": [
-				            "module2",
-				          ],
-				          "rawCode": "contract TestContract2 {}",
-				          "resolutions": [],
-				        },
-				      ],
 				    },
 				  },
 				  "solcInput": {
@@ -672,17 +619,6 @@ describe(bundler.name, () => {
 				      ],
 				      "rawCode": "import { TestContract } from 'module2'
 				contract TestContract {}",
-				      "resolutions": [
-				        {
-				          "code": "contract TestContract2 {}",
-				          "id": "id",
-				          "importedIds": [
-				            "module2",
-				          ],
-				          "rawCode": "contract TestContract2 {}",
-				          "resolutions": [],
-				        },
-				      ],
 				    },
 				  },
 				  "solcInput": {
@@ -763,17 +699,6 @@ describe(bundler.name, () => {
 				      ],
 				      "rawCode": "import { TestContract } from 'module2'
 				contract TestContract {}",
-				      "resolutions": [
-				        {
-				          "code": "contract TestContract2 {}",
-				          "id": "id",
-				          "importedIds": [
-				            "module2",
-				          ],
-				          "rawCode": "contract TestContract2 {}",
-				          "resolutions": [],
-				        },
-				      ],
 				    },
 				  },
 				  "solcInput": {
@@ -854,17 +779,6 @@ describe(bundler.name, () => {
 				      ],
 				      "rawCode": "import { TestContract } from 'module2'
 				contract TestContract {}",
-				      "resolutions": [
-				        {
-				          "code": "contract TestContract2 {}",
-				          "id": "id",
-				          "importedIds": [
-				            "module2",
-				          ],
-				          "rawCode": "contract TestContract2 {}",
-				          "resolutions": [],
-				        },
-				      ],
 				    },
 				  },
 				  "solcInput": {
@@ -945,17 +859,6 @@ describe(bundler.name, () => {
 				      ],
 				      "rawCode": "import { TestContract } from 'module2'
 				contract TestContract {}",
-				      "resolutions": [
-				        {
-				          "code": "contract TestContract2 {}",
-				          "id": "id",
-				          "importedIds": [
-				            "module2",
-				          ],
-				          "rawCode": "contract TestContract2 {}",
-				          "resolutions": [],
-				        },
-				      ],
 				    },
 				  },
 				  "solcInput": {

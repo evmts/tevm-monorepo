@@ -35,10 +35,10 @@ Resolves artifacts with solc asyncronously
 | :------ | :------ |
 | `artifacts` | [`Artifacts`](types.md#artifacts) |
 | `asts` | `undefined` \| `Record`<`string`, `Node`\> |
-| `modules` | `Record`<``"string"``, [`ModuleInfo`](../interfaces/types.ModuleInfo.md)\> |
+| `modules` | `Record`<``"string"``, `ModuleInfo`\> |
 | `solcInput` | `SolcInputDescription` |
 | `solcOutput` | `SolcOutput` |
 
 #### Defined in
 
-[resolveArtifactsSync.d.ts:16](https://github.com/evmts/evmts-monorepo/blob/main/solc/src/resolveArtifactsSync.d.ts#L16)
+[solc/src/resolveArtifactsSync.d.ts:16](https://github.com/evmts/evmts-monorepo/blob/main/solc/src/resolveArtifactsSync.d.ts#L16)

@@ -32,7 +32,7 @@
 
 #### Defined in
 
-[src/types.ts:2](https://github.com/evmts/evmts-monorepo/blob/main/viem-effect/src/types.ts#L2)
+[viem-effect/src/types.ts:2](https://github.com/evmts/evmts-monorepo/blob/main/viem-effect/src/types.ts#L2)
 
 ___
 
@@ -56,7 +56,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:1](https://github.com/evmts/evmts-monorepo/blob/main/viem-effect/src/types.ts#L1)
+[viem-effect/src/types.ts:1](https://github.com/evmts/evmts-monorepo/blob/main/viem-effect/src/types.ts#L1)
 
 ___
 
@@ -80,4 +80,4 @@ ___
 
 #### Defined in
 
-[src/types.ts:3](https://github.com/evmts/evmts-monorepo/blob/main/viem-effect/src/types.ts#L3)
+[viem-effect/src/types.ts:3](https://github.com/evmts/evmts-monorepo/blob/main/viem-effect/src/types.ts#L3)

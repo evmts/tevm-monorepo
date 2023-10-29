@@ -1,9 +1,9 @@
-import type { ModuleInfo } from '@evmts/resolutions'
 import type {
 	SolcContractOutput,
 	SolcInputDescription,
 	SolcOutput,
 } from './solcTypes.js'
+import type { ModuleInfo } from '@evmts/resolutions'
 import type { Node } from 'solidity-ast/node.js'
 
 export type FileAccessObject = {
