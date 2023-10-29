@@ -1,4 +1,3 @@
-import { solidityImportRegex } from './solidityImportRegex.js'
 import { succeed } from 'effect/Effect'
 
 /**
@@ -8,6 +7,7 @@ import { succeed } from 'effect/Effect'
  * @returns {import("effect/Effect").Effect<never, never, string>} the source code formatted with the imprt replaced
  */
 export const updateImportPaths = (code, resolvedImports) => {
+	const solidityImportRegex = /(^\s?import\s+[^'"]*['"])(.*)(['"]\s*)/gm
 	return succeed(
 		code.replaceAll(solidityImportRegex, (match, p1, p2, p3) => {
 			const resolvedImport = resolvedImports.find(

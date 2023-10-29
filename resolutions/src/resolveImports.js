@@ -20,8 +20,6 @@ class ImportDoesNotExistError extends Error {
  * @typedef {ImportDoesNotExistError | import("./utils/resolveImportPath.js").CouldNotResolveImportError} ResolveImportsError
  */
 
-const importRegEx = /^\s?import\s+[^'"]*['"](.*)['"]\s*/gm
-
 /**
  * Returns a the import resolutions for the given code
  * @param {string} absolutePath
@@ -56,6 +54,8 @@ export const resolveImports = (
 	libs,
 	sync = false,
 ) => {
+	const importRegEx = /^\s?import\s+[^'"]*['"](.*)['"]\s*/gm
+
 	if (typeof absolutePath !== 'string') {
 		return die(`Type ${typeof absolutePath} is not of type string`)
 	}
