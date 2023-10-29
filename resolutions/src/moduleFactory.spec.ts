@@ -13,7 +13,7 @@ const fao: FileAccessObject = {
 }
 
 class Fixture {
-	constructor(public readonly name: string) { }
+	constructor(public readonly name: string) {}
 	dir = () => join(__dirname, 'fixtures', this.name)
 	entrypoint = () => join(this.dir(), 'Contract.sol')
 	rawCode = () => readFileSync(this.entrypoint(), 'utf8')
@@ -61,7 +61,13 @@ describe('moduleFactory', () => {
 				),
 			)
 			expect(modules.keys()).toMatchSnapshot()
-			expect(JSON.stringify(modules.get(fixtures[testCase].entrypoint()), null, 2).replaceAll(absolutePathToNormalize, '')).toMatchSnapshot()
+			expect(
+				JSON.stringify(
+					modules.get(fixtures[testCase].entrypoint()),
+					null,
+					2,
+				).replaceAll(absolutePathToNormalize, ''),
+			).toMatchSnapshot()
 			runSyncronously = false
 			modules = await runPromise(
 				moduleFactory(
@@ -74,7 +80,13 @@ describe('moduleFactory', () => {
 				),
 			)
 			expect(modules.keys()).toMatchSnapshot()
-			expect(JSON.stringify(modules.get(fixtures[testCase].entrypoint()), null, 2).replaceAll(absolutePathToNormalize, '')).toMatchSnapshot()
+			expect(
+				JSON.stringify(
+					modules.get(fixtures[testCase].entrypoint()),
+					null,
+					2,
+				).replaceAll(absolutePathToNormalize, ''),
+			).toMatchSnapshot()
 		},
 	)
 })

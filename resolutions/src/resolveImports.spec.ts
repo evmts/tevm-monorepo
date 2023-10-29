@@ -1,9 +1,8 @@
 import { resolveImports } from './resolveImports.js'
-import { runSync } from 'effect/Effect'
-import { describe, expect, it } from 'vitest'
 import type { ResolvedImport } from './types.js'
+import { runSync } from 'effect/Effect'
 import { join } from 'path'
-
+import { describe, expect, it } from 'vitest'
 
 const repoDir = join(__dirname, '..', '..')
 const normalizeImports = (imports: ReadonlyArray<ResolvedImport>) => {
