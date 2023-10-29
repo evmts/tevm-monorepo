@@ -1,0 +1,32 @@
+'use strict'
+Object.defineProperty(exports, '__esModule', { value: true })
+exports.crossbell = void 0
+const chain_js_1 = require('../../utils/chain.js')
+exports.crossbell = (0, chain_js_1.defineChain)({
+	id: 3737,
+	network: 'crossbell',
+	name: 'Crossbell',
+	nativeCurrency: {
+		decimals: 18,
+		name: 'CSB',
+		symbol: 'CSB',
+	},
+	rpcUrls: {
+		default: {
+			http: ['https://rpc.crossbell.io'],
+		},
+		public: {
+			http: ['https://rpc.crossbell.io'],
+		},
+	},
+	blockExplorers: {
+		default: { name: 'CrossScan', url: 'https://scan.crossbell.io' },
+	},
+	contracts: {
+		multicall3: {
+			address: '0xcA11bde05977b3631167028862bE2a173976CA11',
+			blockCreated: 38246031,
+		},
+	},
+})
+//# sourceMappingURL=crossbell.js.map

@@ -12,7 +12,6 @@
 			"**/lib",
 			"**/types",
 			"**/.next",
-			"e2e",
 			"**/.vitepress/cache",
 			"**/.vitepress/dist",
 			"scaffold-evmts",
@@ -20,7 +19,7 @@
 			".changeset",
 			".devcontainer",
 			"examples/svelte-ethers/.svelte-kit",
-			"viem-effect"
+			"extensions/viem"
 		]
 	},
 	"formatter": {

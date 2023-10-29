@@ -32,82 +32,82 @@ jobs:
         uses:  davelosert/vitest-coverage-report-action@v2
         with:
           name: "@evmts/core"
-          working-directory: "./core"
+          working-directory: "./packages/core"
       - name: 'Report @evmts/ethers Coverage'
         if: always() # Also generate the report if tests are failing
         uses:  davelosert/vitest-coverage-report-action@v2
         with:
           name: "@evmts/ethers"
-          working-directory: "./ethers"
+          working-directory: "./extensions/ethers"
       - name: 'Report @evmts/bundler Coverage'
         if: always() # Also generate the report if tests are failing
         uses:  davelosert/vitest-coverage-report-action@v2
         with:
           name: "@evmts/bundler"
-          working-directory: "./bundlers/bundler"
+          working-directory: "./bundler/bundler"
       - name: 'Report @evmts/bun-plugin Coverage'
         if: always() # Also generate the report if tests are failing
         uses:  davelosert/vitest-coverage-report-action@v2
         with:
           name: "@evmts/bun-plugin"
-          working-directory: "./bundlers/bun"
+          working-directory: "./bundler/bun"
       - name: 'Report @evmts/esbuild-plugin Coverage'
         if: always() # Also generate the report if tests are failing
         uses:  davelosert/vitest-coverage-report-action@v2
         with:
           name: "@evmts/esbuild-plugin"
-          working-directory: "./bundlers/esbuild"
+          working-directory: "./bundler/esbuild"
       - name: 'Report @evmts/ts-plugin Coverage'
         if: always() # Also generate the report if tests are failing
         uses:  davelosert/vitest-coverage-report-action@v2
         with:
           name: "@evmts/ts-plugin"
-          working-directory: "./ts-plugin"
+          working-directory: "./bundler/ts-plugin"
       - name: 'Report @evmts/config Coverage'
         if: always() # Also generate the report if tests are failing
         uses:  davelosert/vitest-coverage-report-action@v2
         with:
           name: "@evmts/config"
-          working-directory: "./config"
+          working-directory: "./bundler/config"
       - name: 'Report @evmts/schemas Coverage'
         if: always() # Also generate the report if tests are failing
         uses:  davelosert/vitest-coverage-report-action@v2
         with:
           name: "@evmts/schemas"
-          working-directory: "./schemas"
+          working-directory: "./packages/schemas"
       - name: 'Report @evmts/blockexplorer Coverage'
         if: always() # Also generate the report if tests are failing
         uses:  davelosert/vitest-coverage-report-action@v2
         with:
           name: "@evmts/blockexplorer"
-          working-directory: "./blockexplorer"
+          working-directory: "./packages/blockexplorer"
       - name: 'Report @evmts/runtime Coverage'
         if: always() # Also generate the report if tests are failing
         uses:  davelosert/vitest-coverage-report-action@v2
         with:
           name: "@evmts/runtime"
-          working-directory: "./runtime"
+          working-directory: "./packages/runtime"
       - name: 'Report @evmts/solc Coverage'
         if: always() # Also generate the report if tests are failing
         uses:  davelosert/vitest-coverage-report-action@v2
         with:
           name: "@evmts/solc"
-          working-directory: "./solc"
+          working-directory: "./bundler/solc"
       - name: 'Report @evmts/unplugin Coverage'
         if: always() # Also generate the report if tests are failing
         uses:  davelosert/vitest-coverage-report-action@v2
         with:
           name: "@evmts/unplugin"
-          working-directory: "./bundlers/unplugin"
+          working-directory: "./bundler/unplugin"
       - name: 'Report @evmts/resolutions Coverage'
         if: always() # Also generate the report if tests are failing
         uses:  davelosert/vitest-coverage-report-action@v2
         with:
           name: "@evmts/resolutions"
-          working-directory: "./resolutions"
+          working-directory: "./bundler/resolutions"
       - name: 'Report @evmts/effect Coverage'
         if: always() # Also generate the report if tests are failing
         uses:  davelosert/vitest-coverage-report-action@v2
         with:
           name: "@evmts/effect"
-          working-directory: "./effect"
+          working-directory: "./packages/effect"

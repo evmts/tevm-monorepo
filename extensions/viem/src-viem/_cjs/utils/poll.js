@@ -1,0 +1,25 @@
+'use strict'
+Object.defineProperty(exports, '__esModule', { value: true })
+exports.poll = void 0
+const wait_js_1 = require('./wait.js')
+function poll(fn, { emitOnBegin, initialWaitTime, interval }) {
+	const active = true
+	const unwatch = () => active === false
+	const watch = async () => {
+		let data = undefined
+		if (emitOnBegin) data = await fn({ unpoll: unwatch })
+		const initialWait = (await initialWaitTime?.(data)) ?? interval
+		await (0, wait_js_1.wait)(initialWait)
+		const poll = async () => {
+			if (!active) return
+			await fn({ unpoll: unwatch })
+			await (0, wait_js_1.wait)(interval)
+			poll()
+		}
+		poll()
+	}
+	watch()
+	return unwatch
+}
+exports.poll = poll
+//# sourceMappingURL=poll.js.map
