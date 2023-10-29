@@ -91,7 +91,7 @@ ___
 
 Ƭ **ModuleInfo**: `ModuleInfo`
 
-./types.ts
+./moduleFactory.js
 
 #### Defined in
 

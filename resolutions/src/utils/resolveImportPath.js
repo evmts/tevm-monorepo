@@ -41,6 +41,10 @@ export class CouldNotResolveImportError extends Error {
  * @param {ReadonlyArray<string>} libs libs from the config
  * @param {boolean} sync Whether to run this synchronously or not
  * @returns {import("effect/Effect").Effect<never, CouldNotResolveImportError,string>} absolute path to the imported file
+ * @example
+ * ```ts
+ * const pathToSolidity = path.join(__dirname, '../Contract.sol')
+ * ```
  */
 export const resolveImportPath = (
 	absolutePath,

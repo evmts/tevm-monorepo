@@ -41,7 +41,20 @@ export class ExistsSyncError extends Error {
 }
 
 /**
+ * Turns a file access object into a safe file access object that returns effects
  * @param {import("../types.js").FileAccessObject} fao
+ * @example
+ * ```ts
+ * const fao = {
+ *   	readFile: readFile,
+ * 		readFileSync: readFileSync,
+ *		existsSync: existsSync,
+ * }
+ * const safeFao = safeFao(fao)
+ * safeFao.readFileSync('path/to/file', 'utf8') .pipe(
+ *   tap((fileContent) => console.log(fileContent)),
+ * )
+ * ```
  */
 export const safeFao = (fao) => {
 	return {

@@ -18,18 +18,36 @@ class ImportDoesNotExistError extends Error {
 
 /**
  * @typedef {ImportDoesNotExistError | import("./utils/resolveImportPath.js").CouldNotResolveImportError} ResolveImportsError
- * @typedef {{original: string, absolute: string, updated: string}} ResolvedImport
  */
 
 const importRegEx = /^\s?import\s+[^'"]*['"](.*)['"]\s*/gm
 
 /**
+ * Returns a the import resolutions for the given code
  * @param {string} absolutePath
  * @param {string} code
  * @param {Record<string, string>} remappings
  * @param {ReadonlyArray<string>} libs
  * @param {boolean} sync
- * @returns {import("effect/Effect").Effect<never, ResolveImportsError, ReadonlyArray<ResolvedImport>>}
+ * @returns {import("effect/Effect").Effect<never, ResolveImportsError, ReadonlyArray<import("./types.js").ResolvedImport>>}
+ * @example
+ * ```ts
+ * const pathToSolidity = path.join(__dirname, '../Contract.sol')
+ * const code = fs.readFileSync(pathToSolidity, 'utf8'),
+ * const remappings = {}
+ * const lib = []
+ *
+ * const imports = runPromise(
+ *   resolveImports(
+ *     pathToSolidity,
+ *     code,
+ *     remappings,
+ *     libs,
+ *     false
+ *   )
+ * )
+ * console.log(imports) // [{ updated: '/path/to/Contract.sol', absolute: '/path/to/Contract.sol', original: '../Contract.sol' }]
+ * ```
  */
 export const resolveImports = (
 	absolutePath,
@@ -48,7 +66,7 @@ export const resolveImports = (
 		return die(`Type ${typeof sync} is not of type boolean`)
 	}
 	const imports =
-		/** @type Array<import("effect/Effect").Effect<never, import("./utils/resolveImportPath.js").CouldNotResolveImportError, ResolvedImport>> */ ([])
+		/** @type Array<import("effect/Effect").Effect<never, import("./utils/resolveImportPath.js").CouldNotResolveImportError, import("./types.js").ResolvedImport>> */ ([])
 	let foundImport = importRegEx.exec(code)
 	while (foundImport != null) {
 		const importPath = foundImport[1]

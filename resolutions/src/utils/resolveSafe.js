@@ -8,6 +8,9 @@ import {
 } from 'effect/Effect'
 import resolve from 'resolve'
 
+/**
+ * Error thrown when resolve fails
+ */
 export class ResolveError extends Error {
 	/**
 	 * @type {'ResolveError'}
@@ -36,6 +39,12 @@ export class ResolveError extends Error {
  * @param {string} basedir
  * @param {import("./safeFao.js").SafeFao} fao
  * @returns {import("effect/Effect").Effect<never, ResolveSafeError, string>}
+ * @example
+ * ```ts
+ * const pathToSolidity = path.join(__dirname, '../Contract.sol')
+ * const formattedPath = formatPath(pathToSolidity)
+ * console.log(formattedPath) // '/path/to/Contract.sol'
+ * ```
  */
 export const resolveSafe = (filePath, basedir, fao) => {
 	return effectAsync((resume) => {

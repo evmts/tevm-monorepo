@@ -1,6 +1,8 @@
-[@evmts/resolutions](../README.md) / [Exports](../modules.md) / ModuleInfo
+[@evmts/resolutions](../README.md) / [Modules](../modules.md) / [types](../modules/types.md) / ModuleInfo
 
 # Interface: ModuleInfo
+
+[types](../modules/types.md).ModuleInfo
 
 Copied from rollup (kinda)
 
@@ -12,10 +14,10 @@ https://rollupjs.org/plugin-development/#this-getmoduleinfo
 
 ### Properties
 
-- [code](ModuleInfo.md#code)
-- [id](ModuleInfo.md#id)
-- [importedIds](ModuleInfo.md#importedids)
-- [rawCode](ModuleInfo.md#rawcode)
+- [code](types.ModuleInfo.md#code)
+- [id](types.ModuleInfo.md#id)
+- [importedIds](types.ModuleInfo.md#importedids)
+- [rawCode](types.ModuleInfo.md#rawcode)
 
 ## Properties
 

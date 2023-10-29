@@ -25,6 +25,29 @@ import { gen } from 'effect/Effect'
  * @param {import("./types.js").FileAccessObject} fao
  * @param {boolean} sync Whether to run this synchronously or not
  * @returns {import("effect/Effect").Effect<never, ModuleFactoryError, Map<string, import("./types.js").ModuleInfo>>}
+ * @example
+ * ```ts
+ * const pathToSolidity = path.join(__dirname, '../Contract.sol')
+ * const rawCode = fs.readFileSync(pathToSolidity, 'utf8'),
+ *
+ * const modules = runPromise(
+ *   moduleFactory(
+ *     pathToSolidity,
+ *     rawCode,
+ *     {
+ *       "remapping": "remapping/src"
+ *     },
+ *     ["lib/path"],
+ *     {
+ *       readFileSync,
+ *       readFile,
+ *       existsSync,
+ *     },
+ *     false
+ *   )
+ * )
+ * console.log(modules.get(pathToSolidity)) // { id: '/path/to/Contract.sol', rawCode: '...', importedIds: ['/path/to/Imported.sol'], code: '...' }
+ * ```
  */
 export const moduleFactory = (
 	absolutePath,
@@ -34,17 +57,12 @@ export const moduleFactory = (
 	fao,
 	sync,
 ) => {
-	// generates are rarely used in this codebase
-	// they are used here because refactoring this iterative graph traversal
-	// in a maintainable way that remains efficient is hard to do with pipe
-	// would prefer this to use pipes though but it's not worth the effort
 	return gen(function* (_) {
 		const readFile = sync ? safeFao(fao).readFileSync : safeFao(fao).readFile
 		const stack = [{ absolutePath, rawCode }]
 		const modules =
 			/** @type{Map<string, import("./types.js").ModuleInfo>} */
 			(new Map())
-		// Do this iteratively to mzximize peformance
 		while (stack.length) {
 			const nextItem = stack.pop()
 			invariant(nextItem, 'Module should exist')

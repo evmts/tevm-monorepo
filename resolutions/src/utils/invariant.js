@@ -1,3 +1,6 @@
+/**
+ * Error thrown if an invariant is violated
+ */
 export class InvariantError extends Error {
 	/**
 	 * @param {string} message - The message to display

@@ -20,3 +20,12 @@ export interface ModuleInfo {
 	code: string | null // the code after transformed to correctly resolve remappings and node_module imports
 	importedIds: string[] // the module ids statically imported by this module
 }
+
+/**
+ * The result of the resolution of an  import
+ */
+export type ResolvedImport = {
+	original: string
+	absolute: string
+	updated: string
+}
