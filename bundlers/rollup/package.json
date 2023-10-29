@@ -1,20 +1,25 @@
 {
 	"name": "@evmts/rollup-plugin",
 	"version": "0.11.2",
-	"contributors": ["Will Cory <willcory10@gmail.com>"],
 	"private": false,
 	"description": "A generic plugin that can be used in esbuild, webpack, vite, and rollup",
-	"keywords": ["rollup", "plugin", "solidity", "sol", "evmts"],
+	"keywords": [
+		"rollup",
+		"plugin",
+		"solidity",
+		"sol",
+		"evmts"
+	],
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/evmts/evmts-monorepo.git",
 		"directory": "plugins/rollup-plugin"
 	},
 	"license": "MIT",
+	"contributors": [
+		"Will Cory <willcory10@gmail.com>"
+	],
 	"type": "module",
-	"main": "dist/index.cjs",
-	"module": "src/index.js",
-	"types": "types/index.d.ts",
 	"exports": {
 		"./package.json": "./package.json",
 		".": {
@@ -24,18 +29,25 @@
 			"types": "./types/index.d.ts"
 		}
 	},
-	"files": ["dist", "types", "src"],
+	"main": "dist/index.cjs",
+	"module": "src/index.js",
+	"types": "types/index.d.ts",
+	"files": [
+		"dist",
+		"types",
+		"src"
+	],
 	"scripts": {
 		"//test": "vitest",
 		"//test:run": "vitest run",
 		"//test:ui": "vitest --ui",
-		"generate:docs": "bun run typedoc",
 		"build": "nx run-many --targets=build:dist,build:types --projects=@evmts/rollup-plugin ",
 		"build:dist": "bun run tsup",
 		"build:types": "bun run tsc --emitDeclarationOnly --declaration --declarationMap",
 		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
 		"format": "rome format . --write",
 		"format:check": "rome format .",
+		"generate:docs": "bun run typedoc",
 		"lint": "rome check . --apply-unsafe",
 		"lint:check": "rome check . --verbose"
 	},
@@ -44,11 +56,11 @@
 	},
 	"devDependencies": {
 		"@evmts/tsconfig": "workspace:^",
-		"typedoc": "^0.25.2",
-		"typedoc-plugin-markdown": "^3.16.0",
 		"@vitest/ui": "^0.34.6",
 		"rome": "^12.1.3",
 		"tsup": "^7.2.0",
+		"typedoc": "^0.25.2",
+		"typedoc-plugin-markdown": "^3.16.0",
 		"typescript": "^5.2.2",
 		"vitest": "^0.34.6"
 	},

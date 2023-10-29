@@ -42,7 +42,7 @@
 
 #### Defined in
 
-[viem-effect/src/wrapInEffect.d.ts:4](https://github.com/evmts/evmts-monorepo/blob/main/viem-effect/src/wrapInEffect.d.ts#L4)
+[src/wrapInEffect.d.ts:4](https://github.com/evmts/evmts-monorepo/blob/main/viem-effect/src/wrapInEffect.d.ts#L4)
 
 ___
 
@@ -79,7 +79,7 @@ ___
 
 #### Defined in
 
-[viem-effect/src/wrapInEffect.d.ts:11](https://github.com/evmts/evmts-monorepo/blob/main/viem-effect/src/wrapInEffect.d.ts#L11)
+[src/wrapInEffect.d.ts:11](https://github.com/evmts/evmts-monorepo/blob/main/viem-effect/src/wrapInEffect.d.ts#L11)
 
 ## Functions
 
@@ -106,4 +106,4 @@ ___
 
 #### Defined in
 
-[viem-effect/src/wrapInEffect.d.ts:4](https://github.com/evmts/evmts-monorepo/blob/main/viem-effect/src/wrapInEffect.d.ts#L4)
+[src/wrapInEffect.d.ts:4](https://github.com/evmts/evmts-monorepo/blob/main/viem-effect/src/wrapInEffect.d.ts#L4)

@@ -39,7 +39,7 @@ export const moduleFactory = (
 	// they are used here because refactoring this iterative graph traversal
 	// in a maintainable way that remains efficient is hard to do with pipe
 	// would prefer this to use pipes though but it's not worth the effort
-	return gen(function*(_) {
+	return gen(function* (_) {
 		const readFile = sync ? safeFao(fao).readFileSync : safeFao(fao).readFile
 		const stack = [{ absolutePath, rawCode }]
 		const modules =
@@ -58,9 +58,15 @@ export const moduleFactory = (
 			const importedIds = yield* _(
 				all(
 					resolvedImports.map((importPath) =>
-						resolveImportPath(absolutePath, importPath.updated, remappings, libs, sync),
+						resolveImportPath(
+							absolutePath,
+							importPath.updated,
+							remappings,
+							libs,
+							sync,
+						),
 					),
-				)
+				),
 			)
 
 			modules.set(absolutePath, {
@@ -68,12 +74,7 @@ export const moduleFactory = (
 				rawCode,
 				importedIds,
 				resolutions: [],
-				code: yield* _(
-					updateImportPaths(
-						rawCode,
-						resolvedImports,
-					),
-				)
+				code: yield* _(updateImportPaths(rawCode, resolvedImports)),
 			})
 
 			for (const importedId of importedIds) {

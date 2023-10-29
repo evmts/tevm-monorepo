@@ -6,7 +6,14 @@ import {
 	struct,
 } from '@effect/schema/Schema'
 import { parseJson } from '@evmts/effect'
-import { catchTag, fail, flatMap, logDebug, tap, try as tryEffect } from 'effect/Effect'
+import {
+	catchTag,
+	fail,
+	flatMap,
+	logDebug,
+	tap,
+	try as tryEffect,
+} from 'effect/Effect'
 import { existsSync, readFileSync } from 'fs'
 import * as path from 'path'
 

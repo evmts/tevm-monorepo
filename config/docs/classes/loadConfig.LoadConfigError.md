@@ -152,7 +152,7 @@ Error.prepareStackTrace
 
 #### Defined in
 
-node_modules/@types/node/globals.d.ts:11
+config/node_modules/@types/node/globals.d.ts:11
 
 ___
 
@@ -166,7 +166,7 @@ Error.stackTraceLimit
 
 #### Defined in
 
-node_modules/@types/node/globals.d.ts:13
+config/node_modules/@types/node/globals.d.ts:13
 
 ## Methods
 
@@ -193,4 +193,4 @@ Error.captureStackTrace
 
 #### Defined in
 
-node_modules/@types/node/globals.d.ts:4
+config/node_modules/@types/node/globals.d.ts:4

@@ -1,7 +1,7 @@
-import { runSync } from 'effect/Effect'
 import * as solc from '../solc.js'
 import { invariant } from '../utils/invariant.js'
 import { moduleFactory } from '@evmts/resolutions'
+import { runSync } from 'effect/Effect'
 import resolve from 'resolve'
 
 /**
@@ -33,21 +33,23 @@ export function compileContractSync(
 	fao,
 	logger,
 ) {
-	const moduleMap = runSync(moduleFactory(
-		filePath,
-		fao.readFileSync(
-			resolve.sync(filePath, {
-				basedir,
-				readFileSync: (file) => fao.readFileSync(file, 'utf8'),
-				isFile: fao.existsSync,
-			}),
-			'utf8',
+	const moduleMap = runSync(
+		moduleFactory(
+			filePath,
+			fao.readFileSync(
+				resolve.sync(filePath, {
+					basedir,
+					readFileSync: (file) => fao.readFileSync(file, 'utf8'),
+					isFile: fao.existsSync,
+				}),
+				'utf8',
+			),
+			config.remappings,
+			config.libs,
+			fao,
+			true,
 		),
-		config.remappings,
-		config.libs,
-		fao,
-		true
-	))
+	)
 	const entryModule = moduleMap.get(filePath)
 	invariant(entryModule, 'Entry module should exist')
 
@@ -100,11 +102,11 @@ export function compileContractSync(
 	const isErrors = (solcOutput?.errors?.length ?? 0) > (warnings?.length ?? 0)
 
 	if (isErrors) {
-		logger.error('Compilation errors:', /** @type {any}*/(solcOutput?.errors))
+		logger.error('Compilation errors:', /** @type {any}*/ (solcOutput?.errors))
 		throw new Error('Compilation failed')
 	}
 	if (warnings?.length) {
-		logger.warn('Compilation warnings:', /** @type {any}*/(solcOutput?.errors))
+		logger.warn('Compilation warnings:', /** @type {any}*/ (solcOutput?.errors))
 	}
 
 	if (includeAst) {

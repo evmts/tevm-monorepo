@@ -16,7 +16,6 @@
 ### Functions
 
 - [moduleFactory](modules.md#modulefactory)
-- [moduleFactorySync](modules.md#modulefactorysync)
 - [resolveImports](modules.md#resolveimports)
 
 ## Type Aliases
@@ -60,7 +59,7 @@ ___
 
 ### moduleFactory
 
-▸ **moduleFactory**(`absolutePath`, `rawCode`, `remappings`, `libs`, `fao`): `Promise`<[`ModuleInfo`](interfaces/ModuleInfo.md)\>
+▸ **moduleFactory**(`absolutePath`, `rawCode`, `remappings`, `libs`, `fao`, `sync`): `Effect`<`never`, `ModuleFactoryError`, `Map`<`string`, [`ModuleInfo`](interfaces/ModuleInfo.md)\>\>
 
 Creates a module from the given module information.
 This includes resolving all imports and creating a dependency graph.
@@ -74,61 +73,28 @@ Doing it this way for now is easier but for sure a leaky abstraction
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `absolutePath` | `string` |
-| `rawCode` | `string` |
-| `remappings` | `Record`<`string`, `string`\> |
-| `libs` | readonly `string`[] |
-| `fao` | [`FileAccessObject`](modules.md#fileaccessobject) |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `absolutePath` | `string` |  |
+| `rawCode` | `string` |  |
+| `remappings` | `Record`<`string`, `string`\> |  |
+| `libs` | readonly `string`[] |  |
+| `fao` | [`FileAccessObject`](modules.md#fileaccessobject) |  |
+| `sync` | `boolean` | Whether to run this synchronously or not |
 
 #### Returns
 
-`Promise`<[`ModuleInfo`](interfaces/ModuleInfo.md)\>
+`Effect`<`never`, `ModuleFactoryError`, `Map`<`string`, [`ModuleInfo`](interfaces/ModuleInfo.md)\>\>
 
 #### Defined in
 
-[importResolution/moduleFactory.js:22](https://github.com/evmts/evmts-monorepo/blob/main/resolutions/src/importResolution/moduleFactory.js#L22)
-
-___
-
-### moduleFactorySync
-
-▸ **moduleFactorySync**(`absolutePath`, `rawCode`, `remappings`, `libs`, `fao`): [`ModuleInfo`](interfaces/ModuleInfo.md)
-
-Creates a module from the given module information.
-This includes resolving all imports and creating a dependency graph.
-
-Currently it modifies the source code in place which causes the ast to not match the source code.
-This complexity leaks to the typescript lsp which has to account for this
-Ideally we refactor this to not need to modify source code in place
-Doing this hurts our ability to control the import graph and make it use node resolution though
-See foundry that is alergic to using npm
-Doing it this way for now is easier but for sure a leaky abstraction
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `absolutePath` | `string` |
-| `rawCode` | `string` |
-| `remappings` | `Record`<`string`, `string`\> |
-| `libs` | readonly `string`[] |
-| `fao` | [`FileAccessObject`](modules.md#fileaccessobject) |
-
-#### Returns
-
-[`ModuleInfo`](interfaces/ModuleInfo.md)
-
-#### Defined in
-
-[importResolution/moduleFactorySync.js:22](https://github.com/evmts/evmts-monorepo/blob/main/resolutions/src/importResolution/moduleFactorySync.js#L22)
+[moduleFactory.js:30](https://github.com/evmts/evmts-monorepo/blob/main/resolutions/src/moduleFactory.js#L30)
 
 ___
 
 ### resolveImports
 
-▸ **resolveImports**(`absolutePath`, `code`): readonly `string`[]
+▸ **resolveImports**(`absolutePath`, `code`): `Effect`<`never`, `ImportDoesNotExistError`, readonly { `original`: `string` ; `updated`: `string`  }[]\>
 
 #### Parameters
 
@@ -139,8 +105,8 @@ ___
 
 #### Returns
 
-readonly `string`[]
+`Effect`<`never`, `ImportDoesNotExistError`, readonly { `original`: `string` ; `updated`: `string`  }[]\>
 
 #### Defined in
 
-[importResolution/resolveImports.js:10](https://github.com/evmts/evmts-monorepo/blob/main/resolutions/src/importResolution/resolveImports.js#L10)
+[resolveImports.js:32](https://github.com/evmts/evmts-monorepo/blob/main/resolutions/src/resolveImports.js#L32)

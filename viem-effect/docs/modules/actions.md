@@ -32,4 +32,4 @@
 
 #### Defined in
 
-[viem-effect/src/wrapInEffect.d.ts:14](https://github.com/evmts/evmts-monorepo/blob/main/viem-effect/src/wrapInEffect.d.ts#L14)
+[src/wrapInEffect.d.ts:14](https://github.com/evmts/evmts-monorepo/blob/main/viem-effect/src/wrapInEffect.d.ts#L14)

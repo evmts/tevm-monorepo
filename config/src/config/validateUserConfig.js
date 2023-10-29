@@ -32,8 +32,8 @@ export class ConfigFnThrowError extends Error {
 			typeof options.cause === 'string'
 				? options.cause
 				: options.cause instanceof Error
-					? options.cause.message
-					: ''
+				? options.cause.message
+				: ''
 		super(`Provided config factory threw an error: ${message}`, options)
 	}
 }

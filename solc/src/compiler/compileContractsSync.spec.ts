@@ -209,7 +209,7 @@ describe('compileContractSync', () => {
 			config.remappings,
 			config.libs,
 			fao,
-			true
+			true,
 		)
 		expect((solc.compile as Mock).mock.lastCall).toMatchInlineSnapshot(`
 			[
@@ -331,7 +331,7 @@ describe('compileContractSync', () => {
 			config.remappings,
 			config.libs,
 			fao,
-			true
+			true,
 		)
 		expect((solc.compile as Mock).mock.lastCall).toMatchInlineSnapshot(`
 			[

@@ -1,8 +1,8 @@
-import { runPromise } from 'effect/Effect'
 import { solcCompile } from '../solc.js'
 import { invariant, resolveEffect } from '../utils/index.js'
 import { moduleFactory } from '@evmts/resolutions'
 import { Effect } from 'effect'
+import { runPromise } from 'effect/Effect'
 
 /**
  * Compile the Solidity contract and return its ABI.
@@ -33,21 +33,25 @@ export const compileContract = async (
 	fao,
 	logger,
 ) => {
-	const moduleMap = await runPromise(moduleFactory(
-		filePath,
-		await fao
-			.readFile(
-				await Effect.runPromise(resolveEffect(filePath, basedir, fao, logger)),
-				'utf8',
-			)
-			.then((code) => {
-				return code
-			}),
-		config.remappings,
-		config.libs,
-		fao,
-		false
-	))
+	const moduleMap = await runPromise(
+		moduleFactory(
+			filePath,
+			await fao
+				.readFile(
+					await Effect.runPromise(
+						resolveEffect(filePath, basedir, fao, logger),
+					),
+					'utf8',
+				)
+				.then((code) => {
+					return code
+				}),
+			config.remappings,
+			config.libs,
+			fao,
+			false,
+		),
+	)
 	const entryModule = moduleMap.get(filePath)
 	invariant(entryModule, 'Entry module should exist')
 
@@ -109,11 +113,11 @@ export const compileContract = async (
 
 	if (isErrors) {
 		logger.error('Compilation errors:')
-		logger.error(/** @type {any} */(output?.errors))
+		logger.error(/** @type {any} */ (output?.errors))
 		throw new Error('Compilation failed')
 	}
 	if (warnings?.length) {
-		logger.warn(/** @type {any} */(warnings))
+		logger.warn(/** @type {any} */ (warnings))
 		logger.warn('Compilation warnings:')
 	}
 

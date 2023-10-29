@@ -3,18 +3,23 @@
 	"version": "0.11.2",
 	"private": false,
 	"description": "A bun plugin for evmts",
-	"contributors": ["Will Cory <willcory10@gmail.com>"],
-	"keywords": ["bun", "plugin", "solidity", "sol", "evmts"],
+	"keywords": [
+		"bun",
+		"plugin",
+		"solidity",
+		"sol",
+		"evmts"
+	],
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/evmts/evmts-monorepo.git",
 		"directory": "packages/plugin"
 	},
 	"license": "MIT",
+	"contributors": [
+		"Will Cory <willcory10@gmail.com>"
+	],
 	"type": "module",
-	"main": "dist/index.cjs",
-	"module": "src/index.js",
-	"types": "types/index.d.ts",
 	"exports": {
 		".": {
 			"import": "./src/index.js",
@@ -24,15 +29,22 @@
 		},
 		"./package.json": "./package.json"
 	},
-	"files": ["dist", "src", "types"],
+	"main": "dist/index.cjs",
+	"module": "src/index.js",
+	"types": "types/index.d.ts",
+	"files": [
+		"dist",
+		"src",
+		"types"
+	],
 	"scripts": {
 		"build": "nx run-many --targets=build:dist,build:types --projects=@evmts/bun-plugin ",
 		"build:dist": "bun run tsup",
 		"build:types": "bun run tsc --emitDeclarationOnly --declaration --declarationMap",
 		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
-		"generate:docs": "bun run typedoc",
 		"format": "rome format . --write",
 		"format:check": "rome format .",
+		"generate:docs": "bun run typedoc",
 		"lint": "rome check . --apply-unsafe",
 		"lint:check": "rome check . --verbose",
 		"test": "vitest --coverage",
@@ -43,7 +55,7 @@
 	"dependencies": {
 		"@evmts/bundler": "workspace:^",
 		"@evmts/config": "workspace:^",
-		"effect": "^2.0.0-next.50"
+		"effect": "^2.0.0-next.52"
 	},
 	"devDependencies": {
 		"@evmts/core": "workspace:^",
