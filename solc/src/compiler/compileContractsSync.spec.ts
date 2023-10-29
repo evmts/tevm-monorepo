@@ -6,6 +6,8 @@ import { readFile } from 'fs/promises'
 import { join } from 'path'
 import { describe, expect, it, vi } from 'vitest'
 
+const absolutePathContext = join(__dirname, '..', '..', '..', '..')
+
 describe('compileContractSync', () => {
 	const mockLogger = {
 		error: vi.fn(),
@@ -27,14 +29,18 @@ describe('compileContractSync', () => {
 			remappings: {},
 		}
 		expect(
-			compileContractSync(
-				'./Contract.sol',
-				join(__dirname, '..', 'fixtures', 'basic'),
-				config,
-				false,
-				fao,
-				mockLogger,
-			),
+			JSON.stringify(
+				compileContractSync(
+					'./Contract.sol',
+					join(__dirname, '..', 'fixtures', 'basic'),
+					config,
+					false,
+					fao,
+					mockLogger,
+				),
+				null,
+				2,
+			).replaceAll(absolutePathContext, ''),
 		).toMatchSnapshot()
 	})
 })
