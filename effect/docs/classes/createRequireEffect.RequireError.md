@@ -1,38 +1,40 @@
-[@evmts/effect](../README.md) / [Exports](../modules.md) / CreateRequireError
+[@evmts/effect](../README.md) / [Modules](../modules.md) / [createRequireEffect](../modules/createRequireEffect.md) / RequireError
 
-# Class: CreateRequireError
+# Class: RequireError
+
+[createRequireEffect](../modules/createRequireEffect.md).RequireError
 
 ## Hierarchy
 
 - `Error`
 
-  ↳ **`CreateRequireError`**
+  ↳ **`RequireError`**
 
 ## Table of contents
 
 ### Constructors
 
-- [constructor](CreateRequireError.md#constructor)
+- [constructor](createRequireEffect.RequireError.md#constructor)
 
 ### Properties
 
-- [\_tag](CreateRequireError.md#_tag)
-- [cause](CreateRequireError.md#cause)
-- [message](CreateRequireError.md#message)
-- [name](CreateRequireError.md#name)
-- [stack](CreateRequireError.md#stack)
-- [prepareStackTrace](CreateRequireError.md#preparestacktrace)
-- [stackTraceLimit](CreateRequireError.md#stacktracelimit)
+- [\_tag](createRequireEffect.RequireError.md#_tag)
+- [cause](createRequireEffect.RequireError.md#cause)
+- [message](createRequireEffect.RequireError.md#message)
+- [name](createRequireEffect.RequireError.md#name)
+- [stack](createRequireEffect.RequireError.md#stack)
+- [prepareStackTrace](createRequireEffect.RequireError.md#preparestacktrace)
+- [stackTraceLimit](createRequireEffect.RequireError.md#stacktracelimit)
 
 ### Methods
 
-- [captureStackTrace](CreateRequireError.md#capturestacktrace)
+- [captureStackTrace](createRequireEffect.RequireError.md#capturestacktrace)
 
 ## Constructors
 
 ### constructor
 
-• **new CreateRequireError**(`url`, `options?`)
+• **new RequireError**(`url`, `options?`)
 
 #### Parameters
 
@@ -47,17 +49,17 @@ Error.constructor
 
 #### Defined in
 
-[effect/src/createRequireEffect.js:17](https://github.com/evmts/evmts-monorepo/blob/main/effect/src/createRequireEffect.js#L17)
+[effect/src/createRequireEffect.js:30](https://github.com/evmts/evmts-monorepo/blob/main/effect/src/createRequireEffect.js#L30)
 
 ## Properties
 
 ### \_tag
 
-• **\_tag**: ``"CreateRequireError"``
+• **\_tag**: `string` = `'RequireError'`
 
 #### Defined in
 
-[effect/src/createRequireEffect.js:10](https://github.com/evmts/evmts-monorepo/blob/main/effect/src/createRequireEffect.js#L10)
+[effect/src/createRequireEffect.js:23](https://github.com/evmts/evmts-monorepo/blob/main/effect/src/createRequireEffect.js#L23)
 
 ___
 

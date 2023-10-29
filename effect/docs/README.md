@@ -1,4 +1,4 @@
-@evmts/effect / [Exports](modules.md)
+@evmts/effect / [Modules](modules.md)
 
 <p align="center">
   <a href="https://evmts.dev/">

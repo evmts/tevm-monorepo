@@ -1,6 +1,8 @@
-[@evmts/effect](../README.md) / [Exports](../modules.md) / ParseJsonError
+[@evmts/effect](../README.md) / [Modules](../modules.md) / [parseJson](../modules/parseJson.md) / ParseJsonError
 
 # Class: ParseJsonError
+
+[parseJson](../modules/parseJson.md).ParseJsonError
 
 Error thrown when the tsconfig.json file is not valid json
 
@@ -14,21 +16,21 @@ Error thrown when the tsconfig.json file is not valid json
 
 ### Constructors
 
-- [constructor](ParseJsonError.md#constructor)
+- [constructor](parseJson.ParseJsonError.md#constructor)
 
 ### Properties
 
-- [\_tag](ParseJsonError.md#_tag)
-- [cause](ParseJsonError.md#cause)
-- [message](ParseJsonError.md#message)
-- [name](ParseJsonError.md#name)
-- [stack](ParseJsonError.md#stack)
-- [prepareStackTrace](ParseJsonError.md#preparestacktrace)
-- [stackTraceLimit](ParseJsonError.md#stacktracelimit)
+- [\_tag](parseJson.ParseJsonError.md#_tag)
+- [cause](parseJson.ParseJsonError.md#cause)
+- [message](parseJson.ParseJsonError.md#message)
+- [name](parseJson.ParseJsonError.md#name)
+- [stack](parseJson.ParseJsonError.md#stack)
+- [prepareStackTrace](parseJson.ParseJsonError.md#preparestacktrace)
+- [stackTraceLimit](parseJson.ParseJsonError.md#stacktracelimit)
 
 ### Methods
 
-- [captureStackTrace](ParseJsonError.md#capturestacktrace)
+- [captureStackTrace](parseJson.ParseJsonError.md#capturestacktrace)
 
 ## Constructors
 
