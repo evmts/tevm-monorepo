@@ -27,7 +27,7 @@ const importRegEx = /^\s?import\s+[^'"]*['"](.*)['"]\s*/gm
 /**
  * @param {string} absolutePath
  * @param {string} code
- * @returns {import("effect/Effect").Effect<never, ResolveImportsError, ReadonlyArray<string>>}
+ * @returns {import("effect/Effect").Effect<never, ResolveImportsError, ReadonlyArray<{original: string, updated: string}>>}
  */
 export const resolveImports = (absolutePath, code) => {
 	if (typeof absolutePath !== 'string') {
@@ -36,7 +36,7 @@ export const resolveImports = (absolutePath, code) => {
 	if (typeof code !== 'string') {
 		return die(`Type ${typeof code} is not of type string`)
 	}
-	const imports = /** @type Array<string> */ ([])
+	const imports = /** @type Array<{original: string, updated: string}> */ ([])
 	let foundImport = importRegEx.exec(code)
 	while (foundImport != null) {
 		const importPath = foundImport[1]
@@ -47,9 +47,9 @@ export const resolveImports = (absolutePath, code) => {
 			const importFullPath = formatPath(
 				path.resolve(path.dirname(absolutePath), importPath),
 			)
-			imports.push(importFullPath)
+			imports.push({ updated: importFullPath, original: importPath })
 		} else {
-			imports.push(importPath)
+			imports.push({ updated: importPath, original: importPath })
 		}
 		foundImport = importRegEx.exec(code)
 	}

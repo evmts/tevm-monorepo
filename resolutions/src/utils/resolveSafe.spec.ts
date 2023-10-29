@@ -1,10 +1,10 @@
 import type { FileAccessObject } from '../types.js'
 import { resolveSafe } from './resolveSafe.js'
+import { safeFao } from './safeFao.js'
 import { Effect } from 'effect'
+import { flip } from 'effect/Effect'
 import fs from 'fs'
 import { describe, expect, it } from 'vitest'
-import { ExistsSyncError, ReadFileError, safeFao } from './safeFao.js'
-import { flip } from 'effect/Effect'
 
 const fao: FileAccessObject = {
 	existsSync: (filePath: string) => fs.existsSync(filePath),
@@ -29,7 +29,9 @@ describe('resolveSafe', () => {
 			Effect.runPromise(
 				resolveSafe('./resolveSafe.spec.ts', './src/utils', safeFao(fao)),
 			),
-		).rejects.toThrowErrorMatchingInlineSnapshot('"Read file error: Read file error: undefined"')
+		).rejects.toThrowErrorMatchingInlineSnapshot(
+			'"Read file error: Read file error: undefined"',
+		)
 	})
 
 	it('should throw an error for non-existent file', async () => {
@@ -47,25 +49,31 @@ describe('resolveSafe', () => {
 		}
 		expect(
 			await Effect.runPromise(
-				flip(resolveSafe('./resolveSafe.spec.ts', './src/utils', safeFao(fao)))
+				flip(resolveSafe('./resolveSafe.spec.ts', './src/utils', safeFao(fao))),
 			),
-		).toMatchInlineSnapshot('[ExistsSyncError: ExistsSync error: ExistsSync error: existsSync error]')
+		).toMatchInlineSnapshot(
+			'[ExistsSyncError: ExistsSync error: ExistsSync error: existsSync error]',
+		)
 	})
 	it('should return ReadFileError if readFile throws', async () => {
-		fao.readFile = () => Promise.reject(new Error('readFile error'));
+		fao.readFile = () => Promise.reject(new Error('readFile error'))
 		const error = await Effect.runPromise(
-			flip(resolveSafe('./resolveSafe.spec.ts', './src/utils', safeFao(fao)))
+			flip(resolveSafe('./resolveSafe.spec.ts', './src/utils', safeFao(fao))),
 		)
-		expect(error).toMatchInlineSnapshot('[ExistsSyncError: ExistsSync error: ExistsSync error: existsSync error]')
+		expect(error).toMatchInlineSnapshot(
+			'[ExistsSyncError: ExistsSync error: ExistsSync error: existsSync error]',
+		)
 	})
 
 	it('should return ExistsSyncError if existsSync throws', async () => {
 		fao.existsSync = () => {
-			throw new Error('existsSync error');
+			throw new Error('existsSync error')
 		}
 		const error = await Effect.runPromise(
-			flip(resolveSafe('./resolveSafe.spec.ts', './src/utils', safeFao(fao)))
+			flip(resolveSafe('./resolveSafe.spec.ts', './src/utils', safeFao(fao))),
 		)
-		expect(error).toMatchInlineSnapshot('[ExistsSyncError: ExistsSync error: ExistsSync error: existsSync error]')
+		expect(error).toMatchInlineSnapshot(
+			'[ExistsSyncError: ExistsSync error: ExistsSync error: existsSync error]',
+		)
 	})
-});
+})

@@ -4,11 +4,7 @@ import { runPromise, runSync } from 'effect/Effect'
 import { existsSync, readFileSync } from 'fs'
 import { readFile } from 'fs/promises'
 import { join } from 'path'
-import {
-	describe,
-	expect,
-	it,
-} from 'vitest'
+import { describe, expect, it } from 'vitest'
 
 const fao: FileAccessObject = {
 	existsSync: existsSync,
@@ -17,15 +13,15 @@ const fao: FileAccessObject = {
 }
 
 class Fixture {
-	constructor(
-		public readonly name: string
-	) { }
+	constructor(public readonly name: string) {}
 	dir = () => join(__dirname, 'fixtures', this.name)
 	entrypoint = () => join(this.dir(), 'Contract.sol')
 	rawCode = () => readFileSync(this.entrypoint(), 'utf8')
 	remappings = () => {
 		if (existsSync(join(this.dir(), 'remappings.json'))) {
-			return JSON.parse(readFileSync(join(this.dir(), 'remappings.json'), 'utf8'))
+			return JSON.parse(
+				readFileSync(join(this.dir(), 'remappings.json'), 'utf8'),
+			)
 		}
 		return {}
 	}
@@ -39,33 +35,44 @@ class Fixture {
 const fixtures = {
 	basic: new Fixture('basic'),
 	withlib: new Fixture('withlib'),
-	withremappings: new Fixture('withremappings')
+	withremappings: new Fixture('withremappings'),
 }
 
 describe('moduleFactory', () => {
-	const cases: Array<Array<keyof typeof fixtures>> = [['basic'], ['withlib'], ['withremappings']]
-	it.each(cases)(`should resolve correctly for case $s`, async (testCase: keyof typeof fixtures) => {
-		let runSyncronously = true
-		let modules = runSync(moduleFactory(
-			fixtures[testCase].entrypoint(),
-			fixtures[testCase].rawCode(),
-			fixtures[testCase].remappings(),
-			fixtures[testCase].libs(),
-			fao,
-			runSyncronously,
-		))
-		expect(modules.keys()).toMatchSnapshot()
-		expect(modules.get(fixtures[testCase].entrypoint())).toMatchSnapshot()
-		runSyncronously = false
-		modules = await runPromise(moduleFactory(
-			fixtures[testCase].entrypoint(),
-			fixtures[testCase].rawCode(),
-			fixtures[testCase].remappings(),
-			fixtures[testCase].libs(),
-			fao,
-			runSyncronously,
-		))
-		expect(modules.keys()).toMatchSnapshot()
-		expect(modules.get(fixtures[testCase].entrypoint())).toMatchSnapshot()
-	})
+	const cases: Array<Array<keyof typeof fixtures>> = [
+		['basic'],
+		['withlib'],
+		['withremappings'],
+	]
+	it.each(cases)(
+		'should resolve correctly for case $s',
+		async (testCase: keyof typeof fixtures) => {
+			let runSyncronously = true
+			let modules = runSync(
+				moduleFactory(
+					fixtures[testCase].entrypoint(),
+					fixtures[testCase].rawCode(),
+					fixtures[testCase].remappings(),
+					fixtures[testCase].libs(),
+					fao,
+					runSyncronously,
+				),
+			)
+			expect(modules.keys()).toMatchSnapshot()
+			expect(modules.get(fixtures[testCase].entrypoint())).toMatchSnapshot()
+			runSyncronously = false
+			modules = await runPromise(
+				moduleFactory(
+					fixtures[testCase].entrypoint(),
+					fixtures[testCase].rawCode(),
+					fixtures[testCase].remappings(),
+					fixtures[testCase].libs(),
+					fao,
+					runSyncronously,
+				),
+			)
+			expect(modules.keys()).toMatchSnapshot()
+			expect(modules.get(fixtures[testCase].entrypoint())).toMatchSnapshot()
+		},
+	)
 })

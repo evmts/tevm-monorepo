@@ -1,4 +1,3 @@
-import {try as effectTry} from 'effect/Effect'
 export class InvariantError extends Error {
 	/**
 	 * @param {string} message - The message to display

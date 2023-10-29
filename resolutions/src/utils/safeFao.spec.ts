@@ -1,8 +1,8 @@
 import type { FileAccessObject } from '../types.js'
-import fs from 'fs'
-import { describe, expect, it } from 'vitest'
 import { ExistsSyncError, ReadFileError, safeFao } from './safeFao.js'
 import { flip, runPromise, runSync } from 'effect/Effect'
+import fs from 'fs'
+import { describe, expect, it } from 'vitest'
 
 const fao: FileAccessObject = {
 	existsSync: (filePath: string) => fs.existsSync(filePath),
@@ -23,15 +23,11 @@ describe('safeFao', () => {
 	describe('existsSync', () => {
 		it('existsSync should true if a file exists', () => {
 			const sf = safeFao(fao)
-			expect(
-				runSync(sf.existsSync(__filename))
-			).toBe(true)
+			expect(runSync(sf.existsSync(__filename))).toBe(true)
 		})
 		it('existsSync should false if a file does not exist', () => {
 			const sf = safeFao(fao)
-			expect(
-				runSync(sf.existsSync('./nonexistent'))
-			).toBe(false)
+			expect(runSync(sf.existsSync('./nonexistent'))).toBe(false)
 		})
 		it('should return a ExistsSyncError if existsSync throws', () => {
 			const expectedCause = 'existsSync error'
@@ -39,7 +35,7 @@ describe('safeFao', () => {
 				...fao,
 				existsSync: () => {
 					throw new Error(expectedCause)
-				}
+				},
 			})
 			const err = runSync(flip(sf.existsSync('./nonexistent')))
 			expect(err).toBeInstanceOf(ExistsSyncError)
@@ -62,7 +58,7 @@ describe('safeFao', () => {
 				...fao,
 				readFile: () => {
 					throw new Error(expectedCause)
-				}
+				},
 			})
 			const err = await runPromise(flip(sf.readFile('./nonexistent', 'utf8')))
 			expect(err).toBeInstanceOf(ReadFileError)
@@ -85,7 +81,7 @@ describe('safeFao', () => {
 				...fao,
 				readFileSync: () => {
 					throw new Error(expectedCause)
-				}
+				},
 			})
 			const err = runSync(flip(sf.readFileSync('./nonexistent', 'utf8')))
 			expect(err).toBeInstanceOf(ReadFileError)

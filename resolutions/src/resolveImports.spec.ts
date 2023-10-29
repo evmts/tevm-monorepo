@@ -9,7 +9,10 @@ describe('resolveImports', () => {
 
 		expect(imports).toMatchInlineSnapshot(`
 			[
-			  "/project/something",
+			  {
+			    "original": "./something",
+			    "updated": "/project/something",
+			  },
 			]
 		`)
 	})
@@ -20,7 +23,10 @@ describe('resolveImports', () => {
 
 		expect(imports).toMatchInlineSnapshot(`
 			[
-			  "some-module",
+			  {
+			    "original": "some-module",
+			    "updated": "some-module",
+			  },
 			]
 		`)
 	})
@@ -34,8 +40,14 @@ import { Other } from "other-module"
 
 		expect(imports).toMatchInlineSnapshot(`
 			[
-			  "/project/something",
-			  "other-module",
+			  {
+			    "original": "./something",
+			    "updated": "/project/something",
+			  },
+			  {
+			    "original": "other-module",
+			    "updated": "other-module",
+			  },
 			]
 		`)
 	})
@@ -64,5 +76,19 @@ import { Other } from "other-module"
 		const code = 'console.log("import { Something } from \\"./something\\"")'
 		const imports = runSync(resolveImports('/project/src', code))
 		expect(imports).toMatchInlineSnapshot('[]')
+	})
+
+	it('should die if non string is passed in for absolute path', () => {
+		const code = 'console.log("import { Something } from \\"./something\\"")'
+		expect(() =>
+			runSync(resolveImports(52n as any, code)),
+		).toThrowErrorMatchingInlineSnapshot('"Type bigint is not of type string"')
+	})
+
+	it('should die if non string is passed in for absolute path', () => {
+		const code = 52n as any
+		expect(() =>
+			runSync(resolveImports('/project/src', code)),
+		).toThrowErrorMatchingInlineSnapshot('"Type bigint is not of type string"')
 	})
 })

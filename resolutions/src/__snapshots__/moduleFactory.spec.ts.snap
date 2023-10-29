@@ -7,8 +7,8 @@ exports[`moduleFactory > should resolve correctly for case $s 2`] = `
   "code": "// SPDX-License-Identifier: MIT
 pragma solidity >0.8.16;
 
-import \\"/Users/willcory/evmts-monorepo/node_modules/@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol\\";
-import \\"/Users/willcory/evmts-monorepo/node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol\\";
+import \\"@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol\\";
+import \\"@openzeppelin/contracts/token/ERC721/ERC721.sol\\";
 // import \\"this shouldn't be imorted\\";
 
 /// @author Wagmi
@@ -232,8 +232,8 @@ exports[`moduleFactory > should resolve correctly for case $s 4`] = `
   "code": "// SPDX-License-Identifier: MIT
 pragma solidity >0.8.16;
 
-import \\"/Users/willcory/evmts-monorepo/node_modules/@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol\\";
-import \\"/Users/willcory/evmts-monorepo/node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol\\";
+import \\"@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol\\";
+import \\"@openzeppelin/contracts/token/ERC721/ERC721.sol\\";
 // import \\"this shouldn't be imorted\\";
 
 /// @author Wagmi
@@ -457,7 +457,7 @@ exports[`moduleFactory > should resolve correctly for case $s 6`] = `
   "code": "// SPDX-License-Identifier: MIT
 pragma solidity >0.8.0;
 
-import {BaseContract} from \\"/Users/willcory/evmts-monorepo/resolutions/src/fixtures/withlib/lib/mylib/BaseContract.sol\\"
+import {BaseContract} from \\"mylib/BaseContract.sol\\"
 
 // Derived contract that inherits from BaseContract
 contract DerivedContract is BaseContract {
@@ -511,7 +511,7 @@ exports[`moduleFactory > should resolve correctly for case $s 8`] = `
   "code": "// SPDX-License-Identifier: MIT
 pragma solidity >0.8.0;
 
-import {BaseContract} from \\"/Users/willcory/evmts-monorepo/resolutions/src/fixtures/withlib/lib/mylib/BaseContract.sol\\"
+import {BaseContract} from \\"mylib/BaseContract.sol\\"
 
 // Derived contract that inherits from BaseContract
 contract DerivedContract is BaseContract {
@@ -565,7 +565,7 @@ exports[`moduleFactory > should resolve correctly for case $s 10`] = `
   "code": "// SPDX-License-Identifier: MIT
 pragma solidity >0.8.0;
 
-import {BaseContract} from \\"/Users/willcory/evmts-monorepo/resolutions/src/fixtures/withremappings/lib/mylib/BaseContract.sol\\"
+import {BaseContract} from \\"mylib/BaseContract.sol\\"
 
 // Derived contract that inherits from BaseContract
 contract DerivedContract is BaseContract {
@@ -619,7 +619,7 @@ exports[`moduleFactory > should resolve correctly for case $s 12`] = `
   "code": "// SPDX-License-Identifier: MIT
 pragma solidity >0.8.0;
 
-import {BaseContract} from \\"/Users/willcory/evmts-monorepo/resolutions/src/fixtures/withremappings/lib/mylib/BaseContract.sol\\"
+import {BaseContract} from \\"mylib/BaseContract.sol\\"
 
 // Derived contract that inherits from BaseContract
 contract DerivedContract is BaseContract {

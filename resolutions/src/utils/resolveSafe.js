@@ -1,6 +1,12 @@
-import { runPromise, runSync, async as effectAsync, fail, succeed } from 'effect/Effect'
-import resolve from 'resolve'
 import { ExistsSyncError, ReadFileError } from './safeFao.js'
+import {
+	async as effectAsync,
+	fail,
+	runPromise,
+	runSync,
+	succeed,
+} from 'effect/Effect'
+import resolve from 'resolve'
 
 export class ResolveError extends Error {
 	/**
@@ -38,8 +44,7 @@ export const resolveSafe = (filePath, basedir, fao) => {
 			{
 				basedir,
 				readFile: (file, cb) => {
-					runPromise(fao
-						.readFile(file, 'utf8'))
+					runPromise(fao.readFile(file, 'utf8'))
 						.then((fileContent) => {
 							cb(null, fileContent)
 						})
@@ -51,13 +56,16 @@ export const resolveSafe = (filePath, basedir, fao) => {
 					try {
 						cb(null, runSync(fao.existsSync(file)))
 					} catch (e) {
-						cb(/** @type {Error} */(e))
+						cb(/** @type {Error} */ (e))
 					}
 				},
 			},
 			(err, res) => {
 				if (err) {
-					const typedError = /** @type {import("./safeFao.js").ReadFileError | import("./safeFao.js").ExistsSyncError} */ (err)
+					const typedError =
+						/** @type {import("./safeFao.js").ReadFileError | import("./safeFao.js").ExistsSyncError} */ (
+							err
+						)
 					if (typedError.name === 'ExistsSyncError') {
 						resume(fail(new ExistsSyncError(typedError)))
 					} else if (typedError.name === 'ReadFileError') {
@@ -66,7 +74,7 @@ export const resolveSafe = (filePath, basedir, fao) => {
 						resume(fail(new ResolveError(err)))
 					}
 				} else {
-					resume(succeed(/** @type string */(res))) // resume with a success effect when the operation succeeds
+					resume(succeed(/** @type string */ (res))) // resume with a success effect when the operation succeeds
 				}
 			},
 		)
