@@ -1,45 +1,50 @@
-[@evmts/effect](../README.md) / [Exports](../modules.md) / RequireError
+[@evmts/effect](../README.md) / [Modules](../modules.md) / [resolve](../modules/resolve.md) / CouldNotResolveImportError
 
-# Class: RequireError
+# Class: CouldNotResolveImportError
+
+[resolve](../modules/resolve.md).CouldNotResolveImportError
+
+Error thrown when 'node:resolve' throws
 
 ## Hierarchy
 
 - `Error`
 
-  ↳ **`RequireError`**
+  ↳ **`CouldNotResolveImportError`**
 
 ## Table of contents
 
 ### Constructors
 
-- [constructor](RequireError.md#constructor)
+- [constructor](resolve.CouldNotResolveImportError.md#constructor)
 
 ### Properties
 
-- [\_tag](RequireError.md#_tag)
-- [cause](RequireError.md#cause)
-- [message](RequireError.md#message)
-- [name](RequireError.md#name)
-- [stack](RequireError.md#stack)
-- [prepareStackTrace](RequireError.md#preparestacktrace)
-- [stackTraceLimit](RequireError.md#stacktracelimit)
+- [\_tag](resolve.CouldNotResolveImportError.md#_tag)
+- [cause](resolve.CouldNotResolveImportError.md#cause)
+- [message](resolve.CouldNotResolveImportError.md#message)
+- [name](resolve.CouldNotResolveImportError.md#name)
+- [stack](resolve.CouldNotResolveImportError.md#stack)
+- [prepareStackTrace](resolve.CouldNotResolveImportError.md#preparestacktrace)
+- [stackTraceLimit](resolve.CouldNotResolveImportError.md#stacktracelimit)
 
 ### Methods
 
-- [captureStackTrace](RequireError.md#capturestacktrace)
+- [captureStackTrace](resolve.CouldNotResolveImportError.md#capturestacktrace)
 
 ## Constructors
 
 ### constructor
 
-• **new RequireError**(`url`, `options?`)
+• **new CouldNotResolveImportError**(`importPath`, `absolutePath`, `cause`)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `url` | `string` |
-| `options` | `Object` |
+| `importPath` | `string` |
+| `absolutePath` | `string` |
+| `cause` | `Error` |
 
 #### Overrides
 
@@ -47,17 +52,17 @@ Error.constructor
 
 #### Defined in
 
-[effect/src/createRequireEffect.js:30](https://github.com/evmts/evmts-monorepo/blob/main/effect/src/createRequireEffect.js#L30)
+[effect/src/resolve.js:31](https://github.com/evmts/evmts-monorepo/blob/main/effect/src/resolve.js#L31)
 
 ## Properties
 
 ### \_tag
 
-• **\_tag**: `string` = `'RequireError'`
+• **\_tag**: ``"CouldNotResolveImportError"``
 
 #### Defined in
 
-[effect/src/createRequireEffect.js:23](https://github.com/evmts/evmts-monorepo/blob/main/effect/src/createRequireEffect.js#L23)
+[effect/src/resolve.js:20](https://github.com/evmts/evmts-monorepo/blob/main/effect/src/resolve.js#L20)
 
 ___
 
@@ -91,15 +96,15 @@ ___
 
 ### name
 
-• **name**: `string`
+• **name**: ``"CouldNotResolveImportError"``
 
-#### Inherited from
+#### Overrides
 
 Error.name
 
 #### Defined in
 
-node_modules/typescript/lib/lib.es5.d.ts:1067
+[effect/src/resolve.js:25](https://github.com/evmts/evmts-monorepo/blob/main/effect/src/resolve.js#L25)
 
 ___
 
