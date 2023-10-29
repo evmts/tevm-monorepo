@@ -66,4 +66,4 @@ console.log(imports) // [{ updated: '/path/to/Contract.sol', absolute: '/path/to
 
 #### Defined in
 
-[resolveImports.js:52](https://github.com/evmts/evmts-monorepo/blob/main/resolutions/src/resolveImports.js#L52)
+[resolveImports.js:50](https://github.com/evmts/evmts-monorepo/blob/main/resolutions/src/resolveImports.js#L50)

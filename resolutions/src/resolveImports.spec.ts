@@ -84,7 +84,15 @@ import { ERC20 } from "@openzeppelin/contracts/token/ERC20/ERC20.sol"
 	it('should correctly resolve import nothing statements', () => {
 		const code = 'import "./something"'
 		const imports = runSync(resolveImports('/project/src', code, {}, [], true))
-		expect(normalizeImports(imports)).toMatchInlineSnapshot('[]')
+		expect(normalizeImports(imports)).toMatchInlineSnapshot(`
+			[
+			  {
+			    "absolute": "/project/something",
+			    "original": "./something",
+			    "updated": "/project/something",
+			  },
+			]
+		`)
 	})
 
 	it('should ignore lines that resemble import statements', () => {
