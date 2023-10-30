@@ -1,8 +1,8 @@
 {
-  "name": "@evmts/viem-effect",
+  "name": "@evmts/viem",
   "version": "0.11.2",
   "private": false,
-  "description": "A typesafe library for writing forge scripts in typescript",
+  "description": "EVMts extension to viem",
   "keywords": [
     "solidity",
     "forge",
@@ -15,7 +15,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/evmts/evmts-monorepo.git",
-    "directory": "viem-effect"
+    "directory": "extensions/viem"
   },
   "license": "MIT",
   "contributors": [

@@ -1,4 +1,4 @@
-[@evmts/viem-effect](/reference/viem-effect/README.md) / [Modules](/reference/viem-effect/modules.md) / accounts
+[@evmts/viem](/reference/viem-effect/README.md) / [Modules](/reference/viem-effect/modules.md) / accounts
 
 # Module: accounts
 
