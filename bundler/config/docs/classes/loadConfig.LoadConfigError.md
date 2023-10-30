@@ -36,7 +36,7 @@ Error class for [loadConfig](../modules/loadConfig.md#loadconfig)
 
 ### constructor
 
-• **new LoadConfigError**(`configFilePath`, `underlyingError`)
+• **new LoadConfigError**(`configFilePath`, `underlyingError`): [`LoadConfigError`](loadConfig.LoadConfigError.md)
 
 #### Parameters
 
@@ -44,6 +44,10 @@ Error class for [loadConfig](../modules/loadConfig.md#loadconfig)
 | :------ | :------ |
 | `configFilePath` | `string` |
 | `underlyingError` | [`LoadConfigErrorType`](../modules/loadConfig.md#loadconfigerrortype) |
+
+#### Returns
+
+[`LoadConfigError`](loadConfig.LoadConfigError.md)
 
 #### Overrides
 
@@ -172,7 +176,7 @@ node_modules/@types/node/globals.d.ts:13
 
 ### captureStackTrace
 
-▸ `Static` **captureStackTrace**(`targetObject`, `constructorOpt?`): `void`
+▸ **captureStackTrace**(`targetObject`, `constructorOpt?`): `void`
 
 Create .stack property on a target object
 

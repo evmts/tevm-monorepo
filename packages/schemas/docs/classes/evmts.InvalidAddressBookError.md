@@ -35,7 +35,7 @@ Error thrown when an AddressBook is invalid.
 
 ### constructor
 
-• **new InvalidAddressBookError**(`options?`)
+• **new InvalidAddressBookError**(`options?`): [`InvalidAddressBookError`](evmts.InvalidAddressBookError.md)
 
 #### Parameters
 
@@ -45,6 +45,10 @@ Error thrown when an AddressBook is invalid.
 | `options.cause` | `undefined` \| readonly [`ParseErrors`, `ParseErrors`] | The cause of the error. |
 | `options.docs` | `undefined` \| `string` | The documentation URL. |
 | `options.message` | `undefined` \| `string` | The error message. |
+
+#### Returns
+
+[`InvalidAddressBookError`](evmts.InvalidAddressBookError.md)
 
 #### Overrides
 
@@ -163,7 +167,7 @@ node_modules/@types/node/globals.d.ts:13
 
 ### captureStackTrace
 
-▸ `Static` **captureStackTrace**(`targetObject`, `constructorOpt?`): `void`
+▸ **captureStackTrace**(`targetObject`, `constructorOpt?`): `void`
 
 Create .stack property on a target object
 

@@ -35,7 +35,7 @@ Error thrown when an invalid Bytes is provided.
 
 ### constructor
 
-• **new InvalidBytesError**(`options?`)
+• **new InvalidBytesError**(`options?`): [`InvalidBytesError`](ethereum.InvalidBytesError.md)
 
 #### Parameters
 
@@ -46,6 +46,10 @@ Error thrown when an invalid Bytes is provided.
 | `options.docs` | `undefined` \| `string` | The documentation URL. |
 | `options.message` | `undefined` \| `string` | The error message. |
 | `options.value` | `unknown` | The invalid hex value. |
+
+#### Returns
+
+[`InvalidBytesError`](ethereum.InvalidBytesError.md)
 
 #### Overrides
 
@@ -164,7 +168,7 @@ node_modules/@types/node/globals.d.ts:13
 
 ### captureStackTrace
 
-▸ `Static` **captureStackTrace**(`targetObject`, `constructorOpt?`): `void`
+▸ **captureStackTrace**(`targetObject`, `constructorOpt?`): `void`
 
 Create .stack property on a target object
 

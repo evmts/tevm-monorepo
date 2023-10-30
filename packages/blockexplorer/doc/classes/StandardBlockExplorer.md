@@ -41,13 +41,17 @@ const txUrl = etherscan.getTxUrl('0x1234')
 
 ### constructor
 
-• **new StandardBlockExplorer**(`options`)
+• **new StandardBlockExplorer**(`options`): [`StandardBlockExplorer`](StandardBlockExplorer.md)
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `options` | [`BlockExplorerOptions`](../interfaces/BlockExplorerOptions.md) | The options for the BlockExplorer. |
+
+#### Returns
+
+[`StandardBlockExplorer`](StandardBlockExplorer.md)
 
 #### Defined in
 

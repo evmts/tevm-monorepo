@@ -42,7 +42,7 @@ https://docs.pmnd.rs/zustand
 
 ### constructor
 
-• **new BaseState**<`T`\>(`_options?`)
+• **new BaseState**<`T`\>(`_options?`): [`BaseState`](/reference/state/classes/BaseState.md)<`T`\>
 
 #### Type parameters
 
@@ -55,6 +55,10 @@ https://docs.pmnd.rs/zustand
 | Name | Type |
 | :------ | :------ |
 | `_options` | [`BaseStateOptions`](/reference/state/interfaces/BaseStateOptions.md) |
+
+#### Returns
+
+[`BaseState`](/reference/state/classes/BaseState.md)<`T`\>
 
 #### Defined in
 

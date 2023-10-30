@@ -36,7 +36,7 @@ A uintbigint is invalid if it is not a non-negative integer or overflows
 
 ### constructor
 
-• **new InvalidUINTError**(`options`)
+• **new InvalidUINTError**(`options`): [`InvalidUINTError`](ethereum.InvalidUINTError.md)
 
 #### Parameters
 
@@ -48,6 +48,10 @@ A uintbigint is invalid if it is not a non-negative integer or overflows
 | `options.message` | `undefined` \| `string` | The error message. |
 | `options.size` | [`UINTSize`](../modules/ethereum.md#uintsize) | The size of the uint. |
 | `options.uint` | `bigint` | The invalid uint256 bigint. |
+
+#### Returns
+
+[`InvalidUINTError`](ethereum.InvalidUINTError.md)
 
 #### Overrides
 
@@ -166,7 +170,7 @@ node_modules/@types/node/globals.d.ts:13
 
 ### captureStackTrace
 
-▸ `Static` **captureStackTrace**(`targetObject`, `constructorOpt?`): `void`
+▸ **captureStackTrace**(`targetObject`, `constructorOpt?`): `void`
 
 Create .stack property on a target object
 

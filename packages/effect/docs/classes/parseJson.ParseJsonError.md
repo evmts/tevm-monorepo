@@ -36,7 +36,7 @@ Error thrown when the tsconfig.json file is not valid json
 
 ### constructor
 
-• **new ParseJsonError**(`options?`)
+• **new ParseJsonError**(`options?`): [`ParseJsonError`](parseJson.ParseJsonError.md)
 
 #### Parameters
 
@@ -44,6 +44,10 @@ Error thrown when the tsconfig.json file is not valid json
 | :------ | :------ |
 | `options?` | `Object` |
 | `options.cause` | `unknown` |
+
+#### Returns
+
+[`ParseJsonError`](parseJson.ParseJsonError.md)
 
 #### Overrides
 
@@ -172,7 +176,7 @@ node_modules/@types/node/globals.d.ts:13
 
 ### captureStackTrace
 
-▸ `Static` **captureStackTrace**(`targetObject`, `constructorOpt?`): `void`
+▸ **captureStackTrace**(`targetObject`, `constructorOpt?`): `void`
 
 Create .stack property on a target object
 

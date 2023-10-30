@@ -17,7 +17,11 @@
 
 ### constructor
 
-• **new EVM**()
+• **new EVM**(): [`EVM`](EVM.md)
+
+#### Returns
+
+[`EVM`](EVM.md)
 
 ## Methods
 
@@ -37,7 +41,7 @@ ___
 
 ### new
 
-▸ `Static` **new**(): [`EVM`](EVM.md)
+▸ **new**(): [`EVM`](EVM.md)
 
 #### Returns
 

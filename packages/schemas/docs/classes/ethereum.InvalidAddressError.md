@@ -42,7 +42,7 @@ throw new InvalidAddressError({ address: '0x1234' });
 
 ### constructor
 
-• **new InvalidAddressError**(`options`)
+• **new InvalidAddressError**(`options`): [`InvalidAddressError`](ethereum.InvalidAddressError.md)
 
 #### Parameters
 
@@ -53,6 +53,10 @@ throw new InvalidAddressError({ address: '0x1234' });
 | `options.cause` | `undefined` \| readonly [`ParseErrors`, `ParseErrors`] | The cause of the error. |
 | `options.docs` | `undefined` \| `string` | The documentation URL. |
 | `options.message` | `undefined` \| `string` | The error message. |
+
+#### Returns
+
+[`InvalidAddressError`](ethereum.InvalidAddressError.md)
 
 #### Overrides
 
@@ -171,7 +175,7 @@ node_modules/@types/node/globals.d.ts:13
 
 ### captureStackTrace
 
-▸ `Static` **captureStackTrace**(`targetObject`, `constructorOpt?`): `void`
+▸ **captureStackTrace**(`targetObject`, `constructorOpt?`): `void`
 
 Create .stack property on a target object
 

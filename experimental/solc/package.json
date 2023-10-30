@@ -45,21 +45,21 @@
 		"@evmts/config": "workspace:*",
 		"@evmts/core": "workspace:*",
 		"@evmts/tsconfig": "workspace:*",
-		"@types/resolve": "^1.20.3",
+		"@types/resolve": "^1.20.4",
 		"glob": "^10.3.10",
-		"resolve": "^1.22.6",
+		"resolve": "^1.22.8",
 		"unplugin": "^1.5.0"
 	},
 	"devDependencies": {
-		"@types/node": "^20.7.2",
-		"abitype": "^0.9.8",
+		"@types/node": "^20.8.9",
+		"abitype": "^0.10.2",
 		"rome": "^12.1.3",
-		"solc": "0.8.21",
+		"solc": "0.8.22",
 		"tsup": "^7.2.0",
-		"tsx": "^3.13.0",
+		"tsx": "^3.14.0",
 		"typescript": "^5.2.2",
-		"wagmi": "^1.4.2",
-		"zod": "^3.22.2"
+		"wagmi": "^1.4.5",
+		"zod": "^3.22.4"
 	},
 	"peerDependencies": {
 		"solc": ">0.8.10"

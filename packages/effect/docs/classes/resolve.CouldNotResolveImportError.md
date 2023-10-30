@@ -36,7 +36,7 @@ Error thrown when 'node:resolve' throws
 
 ### constructor
 
-• **new CouldNotResolveImportError**(`importPath`, `absolutePath`, `cause`)
+• **new CouldNotResolveImportError**(`importPath`, `absolutePath`, `cause`): [`CouldNotResolveImportError`](resolve.CouldNotResolveImportError.md)
 
 #### Parameters
 
@@ -45,6 +45,10 @@ Error thrown when 'node:resolve' throws
 | `importPath` | `string` |
 | `absolutePath` | `string` |
 | `cause` | `Error` |
+
+#### Returns
+
+[`CouldNotResolveImportError`](resolve.CouldNotResolveImportError.md)
 
 #### Overrides
 
@@ -173,7 +177,7 @@ node_modules/@types/node/globals.d.ts:13
 
 ### captureStackTrace
 
-▸ `Static` **captureStackTrace**(`targetObject`, `constructorOpt?`): `void`
+▸ **captureStackTrace**(`targetObject`, `constructorOpt?`): `void`
 
 Create .stack property on a target object
 

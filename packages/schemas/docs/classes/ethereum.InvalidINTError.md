@@ -36,7 +36,7 @@ An int bigint is invalid if it's not within the bounds of its size.
 
 ### constructor
 
-• **new InvalidINTError**(`options`)
+• **new InvalidINTError**(`options`): [`InvalidINTError`](ethereum.InvalidINTError.md)
 
 #### Parameters
 
@@ -48,6 +48,10 @@ An int bigint is invalid if it's not within the bounds of its size.
 | `options.int` | `bigint` | The invalid int bigint. |
 | `options.message` | `undefined` \| `string` | The error message. |
 | `options.size` | [`INTSize`](../modules/ethereum.md#intsize) | The size of the int. |
+
+#### Returns
+
+[`InvalidINTError`](ethereum.InvalidINTError.md)
 
 #### Overrides
 
@@ -166,7 +170,7 @@ node_modules/@types/node/globals.d.ts:13
 
 ### captureStackTrace
 
-▸ `Static` **captureStackTrace**(`targetObject`, `constructorOpt?`): `void`
+▸ **captureStackTrace**(`targetObject`, `constructorOpt?`): `void`
 
 Create .stack property on a target object
 

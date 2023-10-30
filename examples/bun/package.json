@@ -11,18 +11,18 @@
 	},
 	"dependencies": {
 		"@evmts/core": "^0.11.2",
-		"bun-types": "^0.8.1",
-		"viem": "^1.2.12"
+		"bun-types": "^1.0.7",
+		"viem": "^1.18.1"
 	},
 	"devDependencies": {
 		"@evmts/bun-plugin": "workspace:^",
 		"@evmts/esbuild-plugin": "workspace:^",
 		"@evmts/ts-plugin": "workspace:^",
-		"@openzeppelin/contracts": "^4.9.2",
-		"@types/live-server": "^1.2.1",
-		"@types/node": "^20.4.1",
-		"solc": "0.8.20",
-		"typescript": "^5.1.6",
-		"vitest": "^0.33.0"
+		"@openzeppelin/contracts": "^5.0.0",
+		"@types/live-server": "^1.2.2",
+		"@types/node": "^20.8.9",
+		"solc": "0.8.22",
+		"typescript": "^5.2.2",
+		"vitest": "^0.34.6"
 	}
 }

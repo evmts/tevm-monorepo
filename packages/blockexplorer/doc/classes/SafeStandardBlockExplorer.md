@@ -41,13 +41,17 @@ const txUrlEffect = etherscan.getTxUrl('0x1234')
 
 ### constructor
 
-• **new SafeStandardBlockExplorer**(`options`)
+• **new SafeStandardBlockExplorer**(`options`): [`SafeStandardBlockExplorer`](SafeStandardBlockExplorer.md)
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `options` | [`BlockExplorerOptions`](../interfaces/BlockExplorerOptions.md) | The options for the BlockExplorer. |
+
+#### Returns
+
+[`SafeStandardBlockExplorer`](SafeStandardBlockExplorer.md)
 
 #### Defined in
 

@@ -34,7 +34,7 @@
 
 ### constructor
 
-• **new RequireError**(`url`, `options?`)
+• **new RequireError**(`url`, `options?`): [`RequireError`](createRequireEffect.RequireError.md)
 
 #### Parameters
 
@@ -42,6 +42,10 @@
 | :------ | :------ |
 | `url` | `string` |
 | `options` | `Object` |
+
+#### Returns
+
+[`RequireError`](createRequireEffect.RequireError.md)
 
 #### Overrides
 
@@ -170,7 +174,7 @@ node_modules/@types/node/globals.d.ts:13
 
 ### captureStackTrace
 
-▸ `Static` **captureStackTrace**(`targetObject`, `constructorOpt?`): `void`
+▸ **captureStackTrace**(`targetObject`, `constructorOpt?`): `void`
 
 Create .stack property on a target object
 

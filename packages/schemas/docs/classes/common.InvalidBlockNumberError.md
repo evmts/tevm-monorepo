@@ -36,7 +36,7 @@ A block number is invalid if it is not a non-negative integer.
 
 ### constructor
 
-• **new InvalidBlockNumberError**(`options?`)
+• **new InvalidBlockNumberError**(`options?`): [`InvalidBlockNumberError`](common.InvalidBlockNumberError.md)
 
 #### Parameters
 
@@ -47,6 +47,10 @@ A block number is invalid if it is not a non-negative integer.
 | `options.cause` | `undefined` \| readonly [`ParseErrors`, `ParseErrors`] | The cause of the error. |
 | `options.docs` | `undefined` \| `string` | The documentation URL. |
 | `options.message` | `undefined` \| `string` | The error message. |
+
+#### Returns
+
+[`InvalidBlockNumberError`](common.InvalidBlockNumberError.md)
 
 #### Overrides
 
@@ -165,7 +169,7 @@ node_modules/@types/node/globals.d.ts:13
 
 ### captureStackTrace
 
-▸ `Static` **captureStackTrace**(`targetObject`, `constructorOpt?`): `void`
+▸ **captureStackTrace**(`targetObject`, `constructorOpt?`): `void`
 
 Create .stack property on a target object
 

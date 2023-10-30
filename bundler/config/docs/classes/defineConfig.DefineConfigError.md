@@ -36,7 +36,7 @@ Error class for [defineConfig](../modules/defineConfig.md#defineconfig)
 
 ### constructor
 
-• **new DefineConfigError**(`configFilePath`, `underlyingError`)
+• **new DefineConfigError**(`configFilePath`, `underlyingError`): [`DefineConfigError`](defineConfig.DefineConfigError.md)
 
 #### Parameters
 
@@ -44,6 +44,10 @@ Error class for [defineConfig](../modules/defineConfig.md#defineconfig)
 | :------ | :------ |
 | `configFilePath` | `string` |
 | `underlyingError` | [`DefineConfigErrorType`](../modules/types.md#defineconfigerrortype) |
+
+#### Returns
+
+[`DefineConfigError`](defineConfig.DefineConfigError.md)
 
 #### Overrides
 
@@ -172,7 +176,7 @@ node_modules/@types/node/globals.d.ts:13
 
 ### captureStackTrace
 
-▸ `Static` **captureStackTrace**(`targetObject`, `constructorOpt?`): `void`
+▸ **captureStackTrace**(`targetObject`, `constructorOpt?`): `void`
 
 Create .stack property on a target object
 

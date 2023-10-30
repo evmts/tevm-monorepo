@@ -39,7 +39,8 @@
 		"sort-package-json:check": "sort-package-json package.json '*/*/package.json' && git diff --exit-code",
 		"test": "bun test:run",
 		"test:coverage": "nx run-many --target=test:coverage --skip-nx-cache",
-		"test:run": "nx run-many --target=test:run"
+		"test:run": "nx run-many --target=test:run",
+		"up": "bun x npm-check-updates -ui -ws"
 	},
 	"dependencies": {
 		"@changesets/cli": "^2.26.2"

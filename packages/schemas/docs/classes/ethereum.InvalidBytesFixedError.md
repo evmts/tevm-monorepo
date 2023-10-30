@@ -36,7 +36,7 @@ A FixedByte string is invalid if it's not within the bounds of its size.
 
 ### constructor
 
-• **new InvalidBytesFixedError**(`options`)
+• **new InvalidBytesFixedError**(`options`): [`InvalidBytesFixedError`](ethereum.InvalidBytesFixedError.md)
 
 #### Parameters
 
@@ -48,6 +48,10 @@ A FixedByte string is invalid if it's not within the bounds of its size.
 | `options.docs` | `undefined` \| `string` | The documentation URL. |
 | `options.message` | `undefined` \| `string` | The error message. |
 | `options.size` | [`BytesCapacity`](../modules/ethereum.md#bytescapacity) | The size of the bytes. |
+
+#### Returns
+
+[`InvalidBytesFixedError`](ethereum.InvalidBytesFixedError.md)
 
 #### Overrides
 
@@ -166,7 +170,7 @@ node_modules/@types/node/globals.d.ts:13
 
 ### captureStackTrace
 
-▸ `Static` **captureStackTrace**(`targetObject`, `constructorOpt?`): `void`
+▸ **captureStackTrace**(`targetObject`, `constructorOpt?`): `void`
 
 Create .stack property on a target object
 

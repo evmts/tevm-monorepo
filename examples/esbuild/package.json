@@ -16,23 +16,23 @@
   },
   "dependencies": {
     "@evmts/core": "^0.11.2",
-    "viem": "^1.2.12",
-    "zod": "^3.22.2"
+    "viem": "^1.18.1",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@evmts/bun-plugin": "workspace:^",
     "@evmts/esbuild-plugin": "workspace:^",
     "@evmts/ts-plugin": "workspace:^",
     "@evmts/vite-plugin": "workspace:^",
-    "@nomicfoundation/hardhat-foundry": "^1.0.2",
-    "@openzeppelin/contracts": "^4.9.2",
-    "@types/live-server": "^1.2.1",
-    "@types/node": "^20.4.1",
-    "esbuild": "^0.18.11",
+    "@nomicfoundation/hardhat-foundry": "^1.1.1",
+    "@openzeppelin/contracts": "^4.9.3",
+    "@types/live-server": "^1.2.2",
+    "@types/node": "^20.8.9",
+    "esbuild": "^0.19.5",
     "isomorphic-fetch": "^3.0.0",
     "live-server": "^1.2.2",
-    "solc": "0.8.20",
-    "tsx": "^3.12.7",
-    "typescript": "^5.1.6"
+    "solc": "0.8.22",
+    "tsx": "^3.14.0",
+    "typescript": "^5.2.2"
   }
 }

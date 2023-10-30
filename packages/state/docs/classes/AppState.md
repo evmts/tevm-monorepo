@@ -31,13 +31,17 @@ Class representing the EVMts state
 
 ### constructor
 
-• **new AppState**(`_options?`)
+• **new AppState**(`_options?`): [`AppState`](/reference/state/classes/AppState.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `_options` | [`BaseStateOptions`](/reference/state/interfaces/BaseStateOptions.md) |
+
+#### Returns
+
+[`AppState`](/reference/state/classes/AppState.md)
 
 #### Inherited from
 
@@ -152,7 +156,7 @@ ___
 
 ### setCount
 
-▸ `Readonly` **setCount**(`count`): `void`
+▸ **setCount**(`count`): `void`
 
 Hello world
 

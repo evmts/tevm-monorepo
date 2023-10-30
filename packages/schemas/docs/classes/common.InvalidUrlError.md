@@ -35,7 +35,7 @@ Error thrown when an invalid Url is provided.
 
 ### constructor
 
-• **new InvalidUrlError**(`options?`)
+• **new InvalidUrlError**(`options?`): [`InvalidUrlError`](common.InvalidUrlError.md)
 
 #### Parameters
 
@@ -46,6 +46,10 @@ Error thrown when an invalid Url is provided.
 | `options.docs` | `undefined` \| `string` | The documentation URL. |
 | `options.message` | `undefined` \| `string` | The error message. |
 | `options.url` | `unknown` | The invalid URL value. |
+
+#### Returns
+
+[`InvalidUrlError`](common.InvalidUrlError.md)
 
 #### Overrides
 
@@ -164,7 +168,7 @@ node_modules/@types/node/globals.d.ts:13
 
 ### captureStackTrace
 
-▸ `Static` **captureStackTrace**(`targetObject`, `constructorOpt?`): `void`
+▸ **captureStackTrace**(`targetObject`, `constructorOpt?`): `void`
 
 Create .stack property on a target object
 
