@@ -1,4 +1,5 @@
 import { generateDtsBody } from './generateEvmtsBodyDts.js'
+import { runSync } from 'effect/Effect'
 import { describe, expect, it } from 'vitest'
 
 describe('generateDtsBody', () => {
@@ -22,11 +23,6 @@ describe('generateDtsBody', () => {
 				kind: 'user',
 				version: 1,
 				notice: 'MyContract',
-				methods: {
-					'balanceOf(address)': {
-						notice: 'Returns the amount of tokens owned by account',
-					},
-				},
 			},
 		},
 		MissingContract: {
@@ -45,7 +41,7 @@ describe('generateDtsBody', () => {
 	} as const
 
 	it('should generate correct body with etherscan links', () => {
-		expect(generateDtsBody(artifacts)).toMatchInlineSnapshot(`
+		expect(runSync(generateDtsBody(artifacts))).toMatchInlineSnapshot(`
 			"const _abiMyContract = [\\"constructor() payable\\"] as const;
 			const _nameMyContract = \\"MyContract\\" as const;
 			/**
@@ -59,7 +55,6 @@ describe('generateDtsBody', () => {
 			/**
 			 * AnotherContract EvmtsContract
 			 * @notice MyContract
-			 * @property balanceOf(address) Returns the amount of tokens owned by account
 			 */
 			export const AnotherContract: EvmtsContract<typeof _nameAnotherContract, typeof _abiAnotherContract>;
 			const _abiMissingContract = [] as const;

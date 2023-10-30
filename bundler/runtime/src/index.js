@@ -1,4 +1,4 @@
-export * from './generateRuntime.js'
-export * from './generateRuntimeSync.js'
-export * from './generateEvmtsBody.js'
-export * from './generateEvmtsBodyDts.js'
+/**
+ * @typedef {import('./types.js').ModuleType} ModuleType
+ */
+export { generateRuntime } from './generateRuntime.js'
