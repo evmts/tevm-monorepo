@@ -6,14 +6,4 @@
 
 ### Classes
 
-- [EVM](undefined)
-
-## Classes
-
-### EVM
-
-• **EVM**: Class EVM
-
-#### Defined in
-
-revmts.d.ts:5
+- [EVM](classes/EVM.md)

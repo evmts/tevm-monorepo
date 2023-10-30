@@ -6,24 +6,24 @@
 
 ### Functions
 
-- [vitePluginEvmts](undefined)
+- [vitePluginEvmts](modules.md#vitepluginevmts)
 
 ## Functions
 
 ### vitePluginEvmts
 
-▸ **vitePluginEvmts**(`options?`): Plugin\_2
+▸ **vitePluginEvmts**(`options?`): `Plugin_2`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `options?` | Object |
-| `options.compiler?` | "solc" \| "foundry" |
+| `options?` | `Object` |
+| `options.compiler?` | ``"solc"`` \| ``"foundry"`` |
 
 #### Returns
 
-Plugin\_2
+`Plugin_2`
 
 #### Defined in
 

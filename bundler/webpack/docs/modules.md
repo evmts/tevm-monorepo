@@ -6,24 +6,24 @@
 
 ### Functions
 
-- [webpackPluginEvmts](undefined)
+- [webpackPluginEvmts](modules.md#webpackpluginevmts)
 
 ## Functions
 
 ### webpackPluginEvmts
 
-▸ **webpackPluginEvmts**(`options?`): WebpackPluginInstance
+▸ **webpackPluginEvmts**(`options?`): `WebpackPluginInstance`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `options?` | Object |
-| `options.compiler?` | "solc" \| "foundry" |
+| `options?` | `Object` |
+| `options.compiler?` | ``"solc"`` \| ``"foundry"`` |
 
 #### Returns
 
-WebpackPluginInstance
+`WebpackPluginInstance`
 
 #### Defined in
 

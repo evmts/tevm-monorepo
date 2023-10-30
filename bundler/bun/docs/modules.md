@@ -6,20 +6,20 @@
 
 ### Functions
 
-- [evmtsBunPlugin](undefined)
+- [evmtsBunPlugin](modules.md#evmtsbunplugin)
 
 ## Functions
 
 ### evmtsBunPlugin
 
-▸ **evmtsBunPlugin**(): BunPlugin
+▸ **evmtsBunPlugin**(): `BunPlugin`
 
 @evmts/bun-plugin is a bun plugin that allows you to import solidity files into your typescript files
 and have them compiled to typescript on the fly.
 
 #### Returns
 
-BunPlugin
+`BunPlugin`
 
 **`Example`**
 
