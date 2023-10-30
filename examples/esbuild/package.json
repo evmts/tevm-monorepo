@@ -31,7 +31,7 @@
     "esbuild": "^0.19.5",
     "isomorphic-fetch": "^3.0.0",
     "live-server": "^1.2.2",
-    "solc": "0.8.20",
+    "solc": "0.8.22",
     "tsx": "^3.14.0",
     "typescript": "^5.2.2"
   }

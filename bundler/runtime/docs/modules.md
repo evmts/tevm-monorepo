@@ -6,20 +6,20 @@
 
 ### Type Aliases
 
-- [ModuleType](modules.md#moduletype)
+- [ModuleType](undefined)
 
 ### Functions
 
-- [generateDtsBody](modules.md#generatedtsbody)
-- [generateEvmtsBody](modules.md#generateevmtsbody)
-- [generateRuntime](modules.md#generateruntime)
-- [generateRuntimeSync](modules.md#generateruntimesync)
+- [generateDtsBody](undefined)
+- [generateEvmtsBody](undefined)
+- [generateRuntime](undefined)
+- [generateRuntimeSync](undefined)
 
 ## Type Aliases
 
 ### ModuleType
 
-Ƭ **ModuleType**<\>: ``"cjs"`` \| ``"mjs"`` \| ``"ts"`` \| ``"dts"``
+Ƭ **ModuleType**: "cjs" \| "mjs" \| "ts" \| "dts"
 
 #### Defined in
 
@@ -29,17 +29,17 @@
 
 ### generateDtsBody
 
-▸ **generateDtsBody**(`artifacts`): `string`
+▸ **generateDtsBody**(`artifacts`): string
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `artifacts` | `Artifacts` |
+| `artifacts` | Artifacts |
 
 #### Returns
 
-`string`
+string
 
 #### Defined in
 
@@ -49,18 +49,18 @@ ___
 
 ### generateEvmtsBody
 
-▸ **generateEvmtsBody**(`artifacts`, `moduleType`): `string`
+▸ **generateEvmtsBody**(`artifacts`, `moduleType`): string
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `artifacts` | `Artifacts` |
-| `moduleType` | [`ModuleType`](modules.md#moduletype) |
+| `artifacts` | Artifacts |
+| `moduleType` | ModuleType |
 
 #### Returns
 
-`string`
+string
 
 #### Defined in
 
@@ -70,7 +70,7 @@ ___
 
 ### generateRuntime
 
-▸ **generateRuntime**(`artifacts`, `moduleType`, `logger`): `Promise`<`string`\>
+▸ **generateRuntime**(`artifacts`, `moduleType`, `logger`): Promise<string\>
 
 Generates the runtime code for the given artifacts.
 
@@ -78,13 +78,13 @@ Generates the runtime code for the given artifacts.
 
 | Name | Type |
 | :------ | :------ |
-| `artifacts` | `Artifacts` |
-| `moduleType` | ``"cjs"`` \| ``"mjs"`` \| ``"ts"`` |
-| `logger` | `Logger` |
+| `artifacts` | Artifacts |
+| `moduleType` | "cjs" \| "mjs" \| "ts" |
+| `logger` | Logger |
 
 #### Returns
 
-`Promise`<`string`\>
+Promise<string\>
 
 #### Defined in
 
@@ -94,19 +94,19 @@ ___
 
 ### generateRuntimeSync
 
-▸ **generateRuntimeSync**(`artifacts`, `moduleType`, `logger`): `string`
+▸ **generateRuntimeSync**(`artifacts`, `moduleType`, `logger`): string
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `artifacts` | `Artifacts` |
-| `moduleType` | ``"cjs"`` \| ``"mjs"`` \| ``"ts"`` \| ``"dts"`` |
-| `logger` | `Logger` |
+| `artifacts` | Artifacts |
+| `moduleType` | "cjs" \| "mjs" \| "ts" \| "dts" |
+| `logger` | Logger |
 
 #### Returns
 
-`string`
+string
 
 #### Defined in
 

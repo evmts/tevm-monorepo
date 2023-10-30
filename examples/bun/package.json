@@ -21,7 +21,7 @@
 		"@openzeppelin/contracts": "^5.0.0",
 		"@types/live-server": "^1.2.2",
 		"@types/node": "^20.8.9",
-		"solc": "0.8.20",
+		"solc": "0.8.22",
 		"typescript": "^5.2.2",
 		"vitest": "^0.34.6"
 	}
