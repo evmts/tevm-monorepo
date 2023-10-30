@@ -13,7 +13,7 @@
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/evmts/evmts-monorepo.git",
-		"directory": "plugins/vite-plugin"
+		"directory": "bundler/vite"
 	},
 	"license": "MIT",
 	"contributors": [
