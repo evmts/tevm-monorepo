@@ -22,6 +22,7 @@
 	],
 	"scripts": {
 		"all": "bun i && bun lint && bun sort-package-json && nx run-many --targets=build:dist,build:types,typecheck,test:coverage,generate:docs",
+		"all:clean": "bun clean && bun i && bun lint && bun sort-package-json && nx run-many --targets=build:dist,build:types,typecheck,test:coverage,generate:docs --skip-nx-cache",
 		"build": "nx run-many --targets=build:dist,build:types",
 		"build:dist": "nx run-many --target=build:dist",
 		"build:types": "nx run-many --targets=build:types,typecheck",
