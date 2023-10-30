@@ -116,17 +116,17 @@
     "typecheck": "bun run tsc --noEmit"
   },
   "dependencies": {
-    "@adraffy/ens-normalize": "1.9.4",
-    "@effect/schema": "^0.46.2",
+    "@adraffy/ens-normalize": "1.10.0",
+    "@effect/schema": "^0.46.3",
     "@noble/curves": "1.2.0",
     "@noble/hashes": "1.3.2",
     "@scure/bip32": "1.3.2",
     "@scure/bip39": "1.2.1",
     "@types/glob": "^8.1.0",
-    "abitype": "0.9.8",
+    "abitype": "0.10.2",
     "effect": "^2.0.0-next.52",
     "isows": "1.0.3",
-    "ws": "8.13.0"
+    "ws": "8.14.2"
   },
   "devDependencies": {
     "@babel/core": "^7.23.2",
@@ -141,13 +141,13 @@
     "glob": "^10.3.10",
     "rome": "^12.1.3",
     "tsup": "^7.2.0",
-    "typedoc": "^0.25.2",
+    "typedoc": "^0.25.3",
     "typedoc-plugin-markdown": "^3.16.0",
     "typescript": "^5.2.2",
-    "viem": "^1.14.0",
+    "viem": "^1.18.1",
     "vitest": "^0.34.6",
-    "wagmi": "^1.4.2",
-    "zod": "^3.22.2"
+    "wagmi": "^1.4.5",
+    "zod": "^3.22.4"
   },
   "peerDependencies": {
     "viem": ">1.0.0"
