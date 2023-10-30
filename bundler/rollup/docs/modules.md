@@ -6,24 +6,24 @@
 
 ### Functions
 
-- [rollupPluginEvmts](modules.md#rolluppluginevmts)
+- [rollupPluginEvmts](undefined)
 
 ## Functions
 
 ### rollupPluginEvmts
 
-▸ **rollupPluginEvmts**(`options?`): `Plugin`<`any`\>
+▸ **rollupPluginEvmts**(`options?`): Plugin<any\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `options?` | `Object` |
-| `options.compiler?` | ``"solc"`` \| ``"foundry"`` |
+| `options?` | Object |
+| `options.compiler?` | "solc" \| "foundry" |
 
 #### Returns
 
-`Plugin`<`any`\>
+Plugin<any\>
 
 #### Defined in
 

@@ -6,42 +6,42 @@
 
 ### Type Aliases
 
-- [TypesafeEthersContractConstructor](modules.md#typesafeetherscontractconstructor)
-- [TypesafeEthersInterfaceConstructor](modules.md#typesafeethersinterfaceconstructor)
+- [TypesafeEthersContractConstructor](undefined)
+- [TypesafeEthersInterfaceConstructor](undefined)
 
 ### Variables
 
-- [Contract](modules.md#contract)
-- [Interface](modules.md#interface)
+- [Contract](undefined)
+- [Interface](undefined)
 
 ## Type Aliases
 
 ### TypesafeEthersContractConstructor
 
-Ƭ **TypesafeEthersContractConstructor**: <TAbi\>(`target`: `string` \| `Addressable`, `abi`: `TAbi` \| { `fragments`: `TAbi`  }, `runner?`: ``null`` \| `ContractRunner`, `_deployTx?`: ``null`` \| `TransactionResponse`) => `BaseContract` & { [TFunctionName in string]: BaseContractMethod<{ [K in string \| number \| symbol]: { [K in string \| number \| symbol]: AbiParameterToPrimitiveType<Extract<Extract<TAbi[number], Object\>, Object\>["inputs"][K], AbiParameterKind\> }[K] } & any[], { [K in string \| number \| symbol]: { [K in string \| number \| symbol]: AbiParameterToPrimitiveType<Extract<Extract<TAbi[number], Object\>, Object\>["outputs"][K], AbiParameterKind\> }[K] }[0], { [K in string \| number \| symbol]: { [K in string \| number \| symbol]: AbiParameterToPrimitiveType<Extract<Extract<TAbi[number], Object\>, Object\>["outputs"][K], AbiParameterKind\> }[K] }[0]\> } & { [TFunctionName in string]: BaseContractMethod<{ [K in string \| number \| symbol]: { [K in string \| number \| symbol]: AbiParameterToPrimitiveType<Extract<Extract<TAbi[number], Object\>, Object\>["inputs"][K], AbiParameterKind\> }[K] } & any[], { [K in string \| number \| symbol]: { [K in string \| number \| symbol]: AbiParameterToPrimitiveType<Extract<Extract<TAbi[number], Object\>, Object\>["outputs"][K], AbiParameterKind\> }[K] }[0], ContractTransactionResponse\> } & { `queryFilter`: <TContractEventName\>(`event`: `TContractEventName`, `fromBlock?`: `BlockTag`, `toBlock?`: `BlockTag`) => `Promise`<`TContractEventName` extends `ExtractAbiEventNames`<`TAbi`\> ? `ExtractAbiEvent`<`TAbi`, `TContractEventName`\> : `EventLog` \| `Log`[]\>  } & `Contract`
+Ƭ **TypesafeEthersContractConstructor**: Function
 
 #### Type declaration
 
-• **new TypesafeEthersContractConstructor**<`TAbi`\>(`target`, `abi`, `runner?`, `_deployTx?`): `BaseContract` & { [TFunctionName in string]: BaseContractMethod<{ [K in string \| number \| symbol]: { [K in string \| number \| symbol]: AbiParameterToPrimitiveType<Extract<Extract<TAbi[number], Object\>, Object\>["inputs"][K], AbiParameterKind\> }[K] } & any[], { [K in string \| number \| symbol]: { [K in string \| number \| symbol]: AbiParameterToPrimitiveType<Extract<Extract<TAbi[number], Object\>, Object\>["outputs"][K], AbiParameterKind\> }[K] }[0], { [K in string \| number \| symbol]: { [K in string \| number \| symbol]: AbiParameterToPrimitiveType<Extract<Extract<TAbi[number], Object\>, Object\>["outputs"][K], AbiParameterKind\> }[K] }[0]\> } & { [TFunctionName in string]: BaseContractMethod<{ [K in string \| number \| symbol]: { [K in string \| number \| symbol]: AbiParameterToPrimitiveType<Extract<Extract<TAbi[number], Object\>, Object\>["inputs"][K], AbiParameterKind\> }[K] } & any[], { [K in string \| number \| symbol]: { [K in string \| number \| symbol]: AbiParameterToPrimitiveType<Extract<Extract<TAbi[number], Object\>, Object\>["outputs"][K], AbiParameterKind\> }[K] }[0], ContractTransactionResponse\> } & { `queryFilter`: <TContractEventName\>(`event`: `TContractEventName`, `fromBlock?`: `BlockTag`, `toBlock?`: `BlockTag`) => `Promise`<`TContractEventName` extends `ExtractAbiEventNames`<`TAbi`\> ? `ExtractAbiEvent`<`TAbi`, `TContractEventName`\> : `EventLog` \| `Log`[]\>  } & `Contract`
+• **new TypesafeEthersContractConstructor**<`TAbi`\>(`target`, `abi`, `runner?`, `_deployTx?`): BaseContract & { [TFunctionName in string]: BaseContractMethod<{ [K in string \| number \| symbol]: { [K in string \| number \| symbol]: AbiParameterToPrimitiveType<Extract<Extract<TAbi[number], Object\>, Object\>["inputs"][K], AbiParameterKind\> }[K] } & any[], { [K in string \| number \| symbol]: { [K in string \| number \| symbol]: AbiParameterToPrimitiveType<Extract<Extract<TAbi[number], Object\>, Object\>["outputs"][K], AbiParameterKind\> }[K] }[0], { [K in string \| number \| symbol]: { [K in string \| number \| symbol]: AbiParameterToPrimitiveType<Extract<Extract<TAbi[number], Object\>, Object\>["outputs"][K], AbiParameterKind\> }[K] }[0]\> } & { [TFunctionName in string]: BaseContractMethod<{ [K in string \| number \| symbol]: { [K in string \| number \| symbol]: AbiParameterToPrimitiveType<Extract<Extract<TAbi[number], Object\>, Object\>["inputs"][K], AbiParameterKind\> }[K] } & any[], { [K in string \| number \| symbol]: { [K in string \| number \| symbol]: AbiParameterToPrimitiveType<Extract<Extract<TAbi[number], Object\>, Object\>["outputs"][K], AbiParameterKind\> }[K] }[0], ContractTransactionResponse\> } & Object & Contract
 
 ##### Type parameters
 
 | Name | Type |
 | :------ | :------ |
-| `TAbi` | extends `Abi` |
+| `TAbi` | extends Abi |
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `target` | `string` \| `Addressable` |
-| `abi` | `TAbi` \| { `fragments`: `TAbi`  } |
-| `runner?` | ``null`` \| `ContractRunner` |
-| `_deployTx?` | ``null`` \| `TransactionResponse` |
+| `target` | string \| Addressable |
+| `abi` | TAbi \| Object |
+| `runner?` | null \| ContractRunner |
+| `_deployTx?` | null \| TransactionResponse |
 
 ##### Returns
 
-`BaseContract` & { [TFunctionName in string]: BaseContractMethod<{ [K in string \| number \| symbol]: { [K in string \| number \| symbol]: AbiParameterToPrimitiveType<Extract<Extract<TAbi[number], Object\>, Object\>["inputs"][K], AbiParameterKind\> }[K] } & any[], { [K in string \| number \| symbol]: { [K in string \| number \| symbol]: AbiParameterToPrimitiveType<Extract<Extract<TAbi[number], Object\>, Object\>["outputs"][K], AbiParameterKind\> }[K] }[0], { [K in string \| number \| symbol]: { [K in string \| number \| symbol]: AbiParameterToPrimitiveType<Extract<Extract<TAbi[number], Object\>, Object\>["outputs"][K], AbiParameterKind\> }[K] }[0]\> } & { [TFunctionName in string]: BaseContractMethod<{ [K in string \| number \| symbol]: { [K in string \| number \| symbol]: AbiParameterToPrimitiveType<Extract<Extract<TAbi[number], Object\>, Object\>["inputs"][K], AbiParameterKind\> }[K] } & any[], { [K in string \| number \| symbol]: { [K in string \| number \| symbol]: AbiParameterToPrimitiveType<Extract<Extract<TAbi[number], Object\>, Object\>["outputs"][K], AbiParameterKind\> }[K] }[0], ContractTransactionResponse\> } & { `queryFilter`: <TContractEventName\>(`event`: `TContractEventName`, `fromBlock?`: `BlockTag`, `toBlock?`: `BlockTag`) => `Promise`<`TContractEventName` extends `ExtractAbiEventNames`<`TAbi`\> ? `ExtractAbiEvent`<`TAbi`, `TContractEventName`\> : `EventLog` \| `Log`[]\>  } & `Contract`
+BaseContract & { [TFunctionName in string]: BaseContractMethod<{ [K in string \| number \| symbol]: { [K in string \| number \| symbol]: AbiParameterToPrimitiveType<Extract<Extract<TAbi[number], Object\>, Object\>["inputs"][K], AbiParameterKind\> }[K] } & any[], { [K in string \| number \| symbol]: { [K in string \| number \| symbol]: AbiParameterToPrimitiveType<Extract<Extract<TAbi[number], Object\>, Object\>["outputs"][K], AbiParameterKind\> }[K] }[0], { [K in string \| number \| symbol]: { [K in string \| number \| symbol]: AbiParameterToPrimitiveType<Extract<Extract<TAbi[number], Object\>, Object\>["outputs"][K], AbiParameterKind\> }[K] }[0]\> } & { [TFunctionName in string]: BaseContractMethod<{ [K in string \| number \| symbol]: { [K in string \| number \| symbol]: AbiParameterToPrimitiveType<Extract<Extract<TAbi[number], Object\>, Object\>["inputs"][K], AbiParameterKind\> }[K] } & any[], { [K in string \| number \| symbol]: { [K in string \| number \| symbol]: AbiParameterToPrimitiveType<Extract<Extract<TAbi[number], Object\>, Object\>["outputs"][K], AbiParameterKind\> }[K] }[0], ContractTransactionResponse\> } & Object & Contract
 
 #### Defined in
 
@@ -51,27 +51,27 @@ ___
 
 ### TypesafeEthersInterfaceConstructor
 
-Ƭ **TypesafeEthersInterfaceConstructor**: <TAbi\>(`abi`: `InterfaceAbi`) => `Omit`<`Interface`, ``"fragments"``\> & { `fragments`: `TAbi`  }
+Ƭ **TypesafeEthersInterfaceConstructor**: Function
 
 #### Type declaration
 
-• **new TypesafeEthersInterfaceConstructor**<`TAbi`\>(`abi`): `Omit`<`Interface`, ``"fragments"``\> & { `fragments`: `TAbi`  }
+• **new TypesafeEthersInterfaceConstructor**<`TAbi`\>(`abi`): Omit<Interface, "fragments"\> & Object
 
 ##### Type parameters
 
 | Name | Type |
 | :------ | :------ |
-| `TAbi` | extends `Abi` |
+| `TAbi` | extends Abi |
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `abi` | `InterfaceAbi` |
+| `abi` | InterfaceAbi |
 
 ##### Returns
 
-`Omit`<`Interface`, ``"fragments"``\> & { `fragments`: `TAbi`  }
+Omit<Interface, "fragments"\> & Object
 
 #### Defined in
 
@@ -81,7 +81,7 @@ ___
 
 ### Contract
 
-• `Const` **Contract**: [`TypesafeEthersContractConstructor`](modules.md#typesafeetherscontractconstructor)
+• `Const` **Contract**: TypesafeEthersContractConstructor
 
 #### Defined in
 
@@ -91,7 +91,7 @@ ___
 
 ### Interface
 
-• `Const` **Interface**: [`TypesafeEthersInterfaceConstructor`](modules.md#typesafeethersinterfaceconstructor)
+• `Const` **Interface**: TypesafeEthersInterfaceConstructor
 
 #### Defined in
 

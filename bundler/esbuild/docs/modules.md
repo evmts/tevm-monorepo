@@ -6,24 +6,24 @@
 
 ### Functions
 
-- [esbuildPluginEvmts](modules.md#esbuildpluginevmts)
+- [esbuildPluginEvmts](undefined)
 
 ## Functions
 
 ### esbuildPluginEvmts
 
-▸ **esbuildPluginEvmts**(`options?`): `Plugin`
+▸ **esbuildPluginEvmts**(`options?`): Plugin
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `options?` | `Object` |
-| `options.compiler?` | ``"solc"`` \| ``"foundry"`` |
+| `options?` | Object |
+| `options.compiler?` | "solc" \| "foundry" |
 
 #### Returns
 
-`Plugin`
+Plugin
 
 #### Defined in
 

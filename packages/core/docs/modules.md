@@ -6,37 +6,37 @@
 
 ### Type Aliases
 
-- [EvmtsContract](modules.md#evmtscontract)
+- [EvmtsContract](undefined)
 
 ### Functions
 
-- [evmtsContractFactory](modules.md#evmtscontractfactory)
-- [formatAbi](modules.md#formatabi)
-- [parseAbi](modules.md#parseabi)
+- [evmtsContractFactory](undefined)
+- [formatAbi](undefined)
+- [parseAbi](undefined)
 
 ## Type Aliases
 
 ### EvmtsContract
 
-Ƭ **EvmtsContract**<`TName`, `THumanReadableAbi`\>: `Object`
+Ƭ **EvmtsContract**: `Object`
 
 #### Type parameters
 
 | Name | Type |
 | :------ | :------ |
-| `TName` | extends `string` |
-| `THumanReadableAbi` | extends `ReadonlyArray`<`string`\> |
+| `TName` | extends string |
+| `THumanReadableAbi` | extends ReadonlyArray<string\> |
 
 #### Type declaration
 
 | Name | Type |
 | :------ | :------ |
-| `abi` | `ParseAbi`<`THumanReadableAbi`\> |
-| `events` | `Events`<`TName`, `THumanReadableAbi`\> |
-| `humanReadableAbi` | `THumanReadableAbi` |
-| `name` | `TName` |
-| `read` | `Read`<`TName`, `THumanReadableAbi`\> |
-| `write` | `Write`<`TName`, `THumanReadableAbi`\> |
+| `abi` | ParseAbi<THumanReadableAbi\> |
+| `events` | Events<TName, THumanReadableAbi\> |
+| `humanReadableAbi` | THumanReadableAbi |
+| `name` | TName |
+| `read` | Read<TName, THumanReadableAbi\> |
+| `write` | Write<TName, THumanReadableAbi\> |
 
 #### Defined in
 
@@ -46,24 +46,24 @@
 
 ### evmtsContractFactory
 
-▸ **evmtsContractFactory**<`TName`, `THumanReadableAbi`\>(`«destructured»`): [`EvmtsContract`](modules.md#evmtscontract)<`TName`, `THumanReadableAbi`\>
+▸ **evmtsContractFactory**<`TName`, `THumanReadableAbi`\>(`«destructured»`): EvmtsContract<TName, THumanReadableAbi\>
 
 #### Type parameters
 
 | Name | Type |
 | :------ | :------ |
-| `TName` | extends `string` |
-| `THumanReadableAbi` | extends readonly `string`[] |
+| `TName` | extends string |
+| `THumanReadableAbi` | extends readonly string[] |
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `«destructured»` | `Pick`<[`EvmtsContract`](modules.md#evmtscontract)<`TName`, `THumanReadableAbi`\>, ``"name"`` \| ``"humanReadableAbi"``\> |
+| `«destructured»` | Pick<EvmtsContract<TName, THumanReadableAbi\>, "name" \| "humanReadableAbi"\> |
 
 #### Returns
 
-[`EvmtsContract`](modules.md#evmtscontract)<`TName`, `THumanReadableAbi`\>
+EvmtsContract<TName, THumanReadableAbi\>
 
 #### Defined in
 
@@ -73,7 +73,7 @@ ___
 
 ### formatAbi
 
-▸ **formatAbi**<`TAbi`\>(`abi`): `FormatAbi`<`TAbi`\>
+▸ **formatAbi**<`TAbi`\>(`abi`): FormatAbi<TAbi\>
 
 Parses JSON ABI into human-readable ABI
 
@@ -81,17 +81,17 @@ Parses JSON ABI into human-readable ABI
 
 | Name | Type |
 | :------ | :------ |
-| `TAbi` | extends `Abi` \| readonly `unknown`[] |
+| `TAbi` | extends Abi \| readonly unknown[] |
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `abi` | `TAbi` | ABI |
+| `abi` | TAbi | ABI |
 
 #### Returns
 
-`FormatAbi`<`TAbi`\>
+FormatAbi<TAbi\>
 
 Human-readable ABI
 
@@ -103,7 +103,7 @@ ___
 
 ### parseAbi
 
-▸ **parseAbi**<`TSignatures`\>(`signatures`): `ParseAbi`<`TSignatures`\>
+▸ **parseAbi**<`TSignatures`\>(`signatures`): ParseAbi<TSignatures\>
 
 Parses human-readable ABI into JSON Abi
 
@@ -111,17 +111,17 @@ Parses human-readable ABI into JSON Abi
 
 | Name | Type |
 | :------ | :------ |
-| `TSignatures` | extends readonly `string`[] |
+| `TSignatures` | extends readonly string[] |
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `signatures` | `TSignatures`[``"length"``] extends ``0`` ? [``"Error: At least one signature required"``] : `Signatures`<`TSignatures`\> extends `TSignatures` ? `TSignatures` : `Signatures`<`TSignatures`\> | Human-Readable ABI |
+| `signatures` | TSignatures["length"] extends 0 ? ["Error: At least one signature required"] : Signatures<TSignatures\> extends TSignatures ? TSignatures : Signatures<TSignatures\> | Human-Readable ABI |
 
 #### Returns
 
-`ParseAbi`<`TSignatures`\>
+ParseAbi<TSignatures\>
 
 Parsed Abi
 
