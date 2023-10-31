@@ -6,108 +6,39 @@
 
 ### Type Aliases
 
-- [ModuleType](modules.md#moduletype)
+- [ModuleType](undefined)
 
 ### Functions
 
-- [generateDtsBody](modules.md#generatedtsbody)
-- [generateEvmtsBody](modules.md#generateevmtsbody)
-- [generateRuntime](modules.md#generateruntime)
-- [generateRuntimeSync](modules.md#generateruntimesync)
+- [generateRuntime](undefined)
 
 ## Type Aliases
 
 ### ModuleType
 
-Ƭ **ModuleType**<\>: ``"cjs"`` \| ``"mjs"`` \| ``"ts"`` \| ``"dts"``
+Ƭ **ModuleType**: "cjs" \| "dts" \| "ts" \| "mjs"
 
 #### Defined in
 
-[generateEvmtsBody.js:5](https://github.com/evmts/evmts-monorepo/blob/main/bundler/runtime/src/generateEvmtsBody.js#L5)
+[types.ts:1](https://github.com/evmts/evmts-monorepo/blob/main/bundler/runtime/src/types.ts#L1)
 
 ## Functions
 
-### generateDtsBody
-
-▸ **generateDtsBody**(`artifacts`): `string`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `artifacts` | `Artifacts` |
-
-#### Returns
-
-`string`
-
-#### Defined in
-
-[generateEvmtsBodyDts.js:7](https://github.com/evmts/evmts-monorepo/blob/main/bundler/runtime/src/generateEvmtsBodyDts.js#L7)
-
-___
-
-### generateEvmtsBody
-
-▸ **generateEvmtsBody**(`artifacts`, `moduleType`): `string`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `artifacts` | `Artifacts` |
-| `moduleType` | [`ModuleType`](modules.md#moduletype) |
-
-#### Returns
-
-`string`
-
-#### Defined in
-
-[generateEvmtsBody.js:13](https://github.com/evmts/evmts-monorepo/blob/main/bundler/runtime/src/generateEvmtsBody.js#L13)
-
-___
-
 ### generateRuntime
 
-▸ **generateRuntime**(`artifacts`, `moduleType`, `logger`): `Promise`<`string`\>
-
-Generates the runtime code for the given artifacts.
+▸ **generateRuntime**(`artifacts`, `moduleType`): Effect<never, never, string\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `artifacts` | `Artifacts` |
-| `moduleType` | ``"cjs"`` \| ``"mjs"`` \| ``"ts"`` |
-| `logger` | `Logger` |
+| `artifacts` | Artifacts |
+| `moduleType` | ModuleType |
 
 #### Returns
 
-`Promise`<`string`\>
+Effect<never, never, string\>
 
 #### Defined in
 
-[generateRuntime.js:10](https://github.com/evmts/evmts-monorepo/blob/main/bundler/runtime/src/generateRuntime.js#L10)
-
-___
-
-### generateRuntimeSync
-
-▸ **generateRuntimeSync**(`artifacts`, `moduleType`, `logger`): `string`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `artifacts` | `Artifacts` |
-| `moduleType` | ``"cjs"`` \| ``"mjs"`` \| ``"ts"`` \| ``"dts"`` |
-| `logger` | `Logger` |
-
-#### Returns
-
-`string`
-
-#### Defined in
-
-[generateRuntimeSync.js:9](https://github.com/evmts/evmts-monorepo/blob/main/bundler/runtime/src/generateRuntimeSync.js#L9)
+[generateRuntime.js:16](https://github.com/evmts/evmts-monorepo/blob/main/bundler/runtime/src/generateRuntime.js#L16)

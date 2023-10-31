@@ -1,21 +1,31 @@
 import { generateEvmtsBody } from './generateEvmtsBody.js'
+import { die, map } from 'effect/Effect'
+
+const importsByModuleType = {
+	cjs: `const { evmtsContractFactory } = require('@evmts/core')`,
+	dts: `import { EvmtsContract } from '@evmts/core'`,
+	ts: `import { evmtsContractFactory } from '@evmts/core'`,
+	mjs: `import { evmtsContractFactory } from '@evmts/core'`,
+}
 
 /**
- * Generates the runtime code for the given artifacts.
  * @param {import("@evmts/solc").Artifacts} artifacts
- * @param {'cjs' | 'mjs' | 'ts'} moduleType
- * @param {import("@evmts/solc").Logger} logger
- * @returns {Promise<string>}
+ * @param {import('./types.js').ModuleType} moduleType
+ * @returns {import('effect/Effect').Effect<never, never, string>}
  */
-export const generateRuntime = async (artifacts, moduleType, logger) => {
-	if (artifacts) {
-		const evmtsImports =
-			moduleType !== 'cjs'
-				? `import { evmtsContractFactory } from '@evmts/core'`
-				: `const { evmtsContractFactory } = require('@evmts/core')`
-		const evmtsBody = generateEvmtsBody(artifacts, moduleType)
-		return [evmtsImports, evmtsBody].join('\n')
+export const generateRuntime = (artifacts, moduleType) => {
+	if (!artifacts || Object.keys(artifacts).length === 0) {
+		return die('No artifacts provided to generateRuntime')
 	}
-	logger.warn('No artifacts found, skipping runtime generation')
-	return ''
+	const imports = importsByModuleType[moduleType]
+	if (!imports) {
+		return die(
+			`Unknown module type: ${moduleType}. Valid module types include ${Object.keys(
+				importsByModuleType,
+			).join(', ')}`,
+		)
+	}
+	return generateEvmtsBody(artifacts, moduleType).pipe(
+		map((body) => [imports, body].join('\n')),
+	)
 }

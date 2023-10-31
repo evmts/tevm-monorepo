@@ -1,9 +1,6 @@
-import {
-	generateDtsBody,
-	generateRuntime,
-	generateRuntimeSync,
-} from '@evmts/runtime'
+import { generateRuntime } from '@evmts/runtime'
 import { resolveArtifacts, resolveArtifactsSync } from '@evmts/solc'
+import { runSync } from 'effect/Effect'
 
 /**
  * @type {import('./types.js').Bundler}
@@ -24,14 +21,12 @@ export const bundler = (config, logger, fao, cache) => {
 						fao,
 						cache,
 					)
-				if (artifacts) {
-					const evmtsImports = `import { EvmtsContract } from '@evmts/core'`
-					const evmtsBody = generateDtsBody(artifacts)
+				if (artifacts && Object.keys(artifacts).length > 0) {
 					return {
 						solcInput,
 						solcOutput,
 						asts,
-						code: [evmtsImports, evmtsBody].join('\n'),
+						code: runSync(generateRuntime(artifacts, 'dts')),
 						modules,
 					}
 				}
@@ -54,15 +49,13 @@ export const bundler = (config, logger, fao, cache) => {
 						fao,
 						cache,
 					)
-				if (artifacts) {
-					const evmtsImports = `import { EvmtsContract } from '@evmts/core'`
-					const evmtsBody = generateDtsBody(artifacts)
+				if (artifacts && Object.keys(artifacts).length > 0) {
 					return {
 						solcInput,
 						solcOutput,
 						asts,
 						modules,
-						code: [evmtsImports, evmtsBody].join('\n'),
+						code: runSync(generateRuntime(artifacts, 'dts')),
 					}
 				}
 				return { modules, code: '', asts, solcInput, solcOutput }
@@ -84,7 +77,10 @@ export const bundler = (config, logger, fao, cache) => {
 						fao,
 						cache,
 					)
-				const code = generateRuntimeSync(artifacts, 'ts', logger)
+				let code = ''
+				if (artifacts && Object.keys(artifacts).length > 0) {
+					code = runSync(generateRuntime(artifacts, 'ts'))
+				}
 				return { code, modules, solcInput, solcOutput, asts }
 			} catch (e) {
 				logger.error(/** @type {any} */ (e))
@@ -104,7 +100,10 @@ export const bundler = (config, logger, fao, cache) => {
 						fao,
 						cache,
 					)
-				const code = await generateRuntime(artifacts, 'ts', logger)
+				let code = ''
+				if (artifacts && Object.keys(artifacts).length > 0) {
+					code = runSync(generateRuntime(artifacts, 'ts'))
+				}
 				return { code, modules, solcInput, solcOutput, asts }
 			} catch (e) {
 				logger.error(/** @type {any} */ (e))
@@ -124,7 +123,10 @@ export const bundler = (config, logger, fao, cache) => {
 						fao,
 						cache,
 					)
-				const code = generateRuntimeSync(artifacts, 'cjs', logger)
+				let code = ''
+				if (artifacts && Object.keys(artifacts).length > 0) {
+					code = runSync(generateRuntime(artifacts, 'cjs'))
+				}
 				return { code, modules, solcInput, solcOutput, asts }
 			} catch (e) {
 				logger.error(/** @type {any} */ (e))
@@ -144,7 +146,10 @@ export const bundler = (config, logger, fao, cache) => {
 						fao,
 						cache,
 					)
-				const code = await generateRuntime(artifacts, 'cjs', logger)
+				let code = ''
+				if (artifacts && Object.keys(artifacts).length > 0) {
+					code = runSync(generateRuntime(artifacts, 'cjs'))
+				}
 				return { code, modules, solcInput, solcOutput, asts }
 			} catch (e) {
 				logger.error(/** @type {any} */ (e))
@@ -164,7 +169,10 @@ export const bundler = (config, logger, fao, cache) => {
 						fao,
 						cache,
 					)
-				const code = generateRuntimeSync(artifacts, 'mjs', logger)
+				let code = ''
+				if (artifacts && Object.keys(artifacts).length > 0) {
+					code = runSync(generateRuntime(artifacts, 'mjs'))
+				}
 				return { code, modules, solcInput, solcOutput, asts }
 			} catch (e) {
 				logger.error('there was an error in evmts plugin resolving .mjs')
@@ -184,7 +192,10 @@ export const bundler = (config, logger, fao, cache) => {
 						fao,
 						cache,
 					)
-				const code = await generateRuntime(artifacts, 'mjs', logger)
+				let code = ''
+				if (artifacts && Object.keys(artifacts).length > 0) {
+					code = runSync(generateRuntime(artifacts, 'mjs'))
+				}
 				return { code, modules, solcInput, solcOutput, asts }
 			} catch (e) {
 				logger.error(/** @type {any} */ (e))

@@ -1,4 +1,5 @@
 import { generateEvmtsBody } from './generateEvmtsBody.js'
+import { runSync } from 'effect/Effect'
 import { describe, expect, it } from 'vitest'
 
 describe('generateEvmtsBody', () => {
@@ -22,17 +23,12 @@ describe('generateEvmtsBody', () => {
 				kind: 'user',
 				version: 1,
 				notice: 'MyContract',
-				methods: {
-					'balanceOf(address)': {
-						notice: 'Returns the amount of tokens owned by account',
-					},
-				},
 			},
 		},
 	} as const
 
 	it('should generate correct body for cjs module', () => {
-		const result = generateEvmtsBody(artifacts, 'cjs')
+		const result = runSync(generateEvmtsBody(artifacts, 'cjs'))
 		expect(result).toMatchInlineSnapshot(`
 			"const _MyContract = {\\"name\\":\\"MyContract\\",\\"humanReadableAbi\\":[]}
 			/**
@@ -43,14 +39,13 @@ describe('generateEvmtsBody', () => {
 			const _AnotherContract = {\\"name\\":\\"AnotherContract\\",\\"humanReadableAbi\\":[]}
 			/**
 			 * MyContract
-			 * @property balanceOf(address) Returns the amount of tokens owned by account
 			 */
 			module.exports.AnotherContract = evmtsContractFactory(_AnotherContract)"
 		`)
 	})
 
 	it('should generate correct body for mjs module', () => {
-		const result = generateEvmtsBody(artifacts, 'mjs')
+		const result = runSync(generateEvmtsBody(artifacts, 'mjs'))
 		expect(result).toMatchInlineSnapshot(`
 			"const _MyContract = {\\"name\\":\\"MyContract\\",\\"humanReadableAbi\\":[]}
 			/**
@@ -61,14 +56,13 @@ describe('generateEvmtsBody', () => {
 			const _AnotherContract = {\\"name\\":\\"AnotherContract\\",\\"humanReadableAbi\\":[]}
 			/**
 			 * MyContract
-			 * @property balanceOf(address) Returns the amount of tokens owned by account
 			 */
 			export const AnotherContract = evmtsContractFactory(_AnotherContract)"
 		`)
 	})
 
 	it('should generate correct body for ts module', () => {
-		const result = generateEvmtsBody(artifacts, 'ts')
+		const result = runSync(generateEvmtsBody(artifacts, 'ts'))
 		expect(result).toMatchInlineSnapshot(`
 			"const _MyContract = {\\"name\\":\\"MyContract\\",\\"humanReadableAbi\\":[]} as const
 			/**
@@ -79,14 +73,13 @@ describe('generateEvmtsBody', () => {
 			const _AnotherContract = {\\"name\\":\\"AnotherContract\\",\\"humanReadableAbi\\":[]} as const
 			/**
 			 * MyContract
-			 * @property balanceOf(address) Returns the amount of tokens owned by account
 			 */
 			export const AnotherContract = evmtsContractFactory(_AnotherContract)"
 		`)
 	})
 
 	it('should generate correct body for dts module', () => {
-		const result = generateEvmtsBody(artifacts, 'dts')
+		const result = runSync(generateEvmtsBody(artifacts, 'dts'))
 		expect(result).toMatchInlineSnapshot(`
 			"const _abiMyContract = [] as const;
 			const _nameMyContract = \\"MyContract\\" as const;
@@ -101,7 +94,6 @@ describe('generateEvmtsBody', () => {
 			/**
 			 * AnotherContract EvmtsContract
 			 * @notice MyContract
-			 * @property balanceOf(address) Returns the amount of tokens owned by account
 			 */
 			export const AnotherContract: EvmtsContract<typeof _nameAnotherContract, typeof _abiAnotherContract>;"
 		`)
