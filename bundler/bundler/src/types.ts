@@ -1,6 +1,7 @@
 import type { Cache } from './createCache.js'
 import type { ResolvedCompilerConfig } from '@evmts/config'
 import type { ModuleInfo, SolcInputDescription, SolcOutput } from '@evmts/solc'
+import type { Effect } from 'effect/Effect'
 import type { Node } from 'solidity-ast/node.js'
 
 export type BundlerResult = {
@@ -17,24 +18,23 @@ export type FileAccessObject = {
 	existsSync: (path: string) => boolean
 }
 
-export type AsyncBundlerResult = (
+export type AsyncBundler = (
 	module: string,
 	basedir: string,
 	includeAst: boolean,
-) => Promise<BundlerResult>
+) => Effect<never, never, BundlerResult>
 
-export type SyncBundlerResult = (
+export type SyncBundler = (
 	module: string,
 	basedir: string,
 	includeAst: boolean,
-) => BundlerResult
+) => Effect<never, never, BundlerResult>
 
 export type Bundler = (
 	config: ResolvedCompilerConfig,
-	logger: Logger,
 	fao: FileAccessObject,
 	cache?: Cache,
-) => {
+) => Effect<never, never, {
 	/**
 	 * The name of the plugin.
 	 */
@@ -48,88 +48,33 @@ export type Bundler = (
 	/**
 	 * Resolves .d.ts representation of the solidity module
 	 */
-	resolveDts: AsyncBundlerResult
+	resolveDts: AsyncBundler
 	/**
 	 * Resolves .d.ts representation of the solidity module
 	 */
-	resolveDtsSync: SyncBundlerResult
+	resolveDtsSync: SyncBundler
 	/**
 	 * Resolves typescript representation of the solidity module
 	 */
-	resolveTsModule: AsyncBundlerResult
+	resolveTsModule: AsyncBundler
 	/**
 	 * Resolves typescript representation of the solidity module
 	 */
-	resolveTsModuleSync: SyncBundlerResult
+	resolveTsModuleSync: SyncBundler
 	/**
 	 * Resolves cjs representation of the solidity module
 	 */
-	resolveCjsModule: AsyncBundlerResult
+	resolveCjsModule: AsyncBundler
 	/**
 	 * Resolves cjs representation of the solidity module
 	 */
-	resolveCjsModuleSync: SyncBundlerResult
+	resolveCjsModuleSync: SyncBundler
 	/**
 	 * Resolves the esm representation of the solidity module
 	 */
-	resolveEsmModule: AsyncBundlerResult
+	resolveEsmModule: AsyncBundler
 	/**
 	 * Resolves the esm representation of the solidity module
 	 */
-	resolveEsmModuleSync: SyncBundlerResult
-}
-
-export type Logger = {
-	info: (...messages: string[]) => void
-	error: (...message: string[]) => void
-	warn: (...message: string[]) => void
-	log: (...message: string[]) => void
-}
-
-export type SolidityResolver = (
-	config: ResolvedCompilerConfig,
-	logger: Logger,
-) => {
-	/**
-	 * The name of the plugin.
-	 */
-	name: string
-	/**
-	 * The configuration of the plugin.
-	 */
-	config: ResolvedCompilerConfig
-	include?: string[]
-	exclude?: string[]
-	/**
-	 * Resolves .d.ts representation of the solidity module
-	 */
-	resolveDts: (module: string, basedir: string) => Promise<BundlerResult>
-	/**
-	 * Resolves .d.ts representation of the solidity module
-	 */
-	resolveDtsSync: (module: string, basedir: string) => BundlerResult
-	/**
-	 * Resolves typescript representation of the solidity module
-	 */
-	resolveTsModule: (module: string, basedir: string) => Promise<BundlerResult>
-	/**
-	 * Resolves typescript representation of the solidity module
-	 */
-	resolveTsModuleSync: (module: string, basedir: string) => BundlerResult
-	/**
-	 * Resolves cjs representation of the solidity module
-	 */
-	resolveCjsModule: (module: string, basedir: string) => Promise<BundlerResult>
-	/**
-	 * Resolves cjs representation of the solidity module
-	 */
-	resolveCjsModuleSync: (module: string, basedir: string) => BundlerResult
-	/**
-	 * Resolves the esm representation of the solidity module
-	 */
-	resolveEsmModule: (module: string, basedir: string) => Promise<BundlerResult>
-	/**
-	 * Resolves the esm representation of the solidity module
-	 */
-	resolveEsmModuleSync: (module: string, basedir: string) => BundlerResult
-}
+	resolveEsmModuleSync: SyncBundler
+}>
