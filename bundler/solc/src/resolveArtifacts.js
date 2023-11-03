@@ -2,7 +2,7 @@ import { compileContract } from './compiler/compileContracts.js'
 
 /**
  * Resolves artifacts with solc asyncronously
- * @type {import('./resolveArtifactsSync.js').ResolveArtifactsSync}
+ * @type {import('./types.js').ResolveArtifacts}
  */
 export const resolveArtifacts = async (
 	solFile,
