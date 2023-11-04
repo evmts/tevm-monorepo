@@ -52,7 +52,13 @@ Contributions are encouraged, but please open an issue before doing any major ch
 npm i bun --global && bun --version
 ```
 
-2. Run everything
+2. Update submodules
+
+```bash
+git submodule update --init --recursive
+```
+
+3. Run everything
 
 `bun all` will run everything 
 
