@@ -6,17 +6,17 @@
 
 ### Type Aliases
 
-- [ModuleType](undefined)
+- [ModuleType](modules.md#moduletype)
 
 ### Functions
 
-- [generateRuntime](undefined)
+- [generateRuntime](modules.md#generateruntime)
 
 ## Type Aliases
 
 ### ModuleType
 
-Ƭ **ModuleType**: "cjs" \| "dts" \| "ts" \| "mjs"
+Ƭ **ModuleType**: ``"cjs"`` \| ``"dts"`` \| ``"ts"`` \| ``"mjs"``
 
 #### Defined in
 
@@ -26,18 +26,18 @@
 
 ### generateRuntime
 
-▸ **generateRuntime**(`artifacts`, `moduleType`): Effect<never, never, string\>
+▸ **generateRuntime**(`artifacts`, `moduleType`): `Effect`\<`never`, `never`, `string`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `artifacts` | Artifacts |
-| `moduleType` | ModuleType |
+| `artifacts` | `Artifacts` |
+| `moduleType` | [`ModuleType`](modules.md#moduletype) |
 
 #### Returns
 
-Effect<never, never, string\>
+`Effect`\<`never`, `never`, `string`\>
 
 #### Defined in
 

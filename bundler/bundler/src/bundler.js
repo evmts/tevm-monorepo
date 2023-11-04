@@ -5,7 +5,7 @@ import { runSync } from 'effect/Effect'
 /**
  * @type {import('./types.js').Bundler}
  */
-export const bundler = (config, logger, fao, cache) => {
+export const bundler = (config, logger, fao) => {
 	return {
 		name: bundler.name,
 		config,
@@ -19,7 +19,6 @@ export const bundler = (config, logger, fao, cache) => {
 						config,
 						includeAst,
 						fao,
-						cache,
 					)
 				if (artifacts && Object.keys(artifacts).length > 0) {
 					return {
@@ -47,7 +46,6 @@ export const bundler = (config, logger, fao, cache) => {
 						config,
 						includeAst,
 						fao,
-						cache,
 					)
 				if (artifacts && Object.keys(artifacts).length > 0) {
 					return {
@@ -75,7 +73,6 @@ export const bundler = (config, logger, fao, cache) => {
 						config,
 						includeAst,
 						fao,
-						cache,
 					)
 				let code = ''
 				if (artifacts && Object.keys(artifacts).length > 0) {
@@ -98,7 +95,6 @@ export const bundler = (config, logger, fao, cache) => {
 						config,
 						includeAst,
 						fao,
-						cache,
 					)
 				let code = ''
 				if (artifacts && Object.keys(artifacts).length > 0) {
@@ -121,7 +117,6 @@ export const bundler = (config, logger, fao, cache) => {
 						config,
 						includeAst,
 						fao,
-						cache,
 					)
 				let code = ''
 				if (artifacts && Object.keys(artifacts).length > 0) {
@@ -144,7 +139,6 @@ export const bundler = (config, logger, fao, cache) => {
 						config,
 						includeAst,
 						fao,
-						cache,
 					)
 				let code = ''
 				if (artifacts && Object.keys(artifacts).length > 0) {
@@ -167,7 +161,6 @@ export const bundler = (config, logger, fao, cache) => {
 						config,
 						includeAst,
 						fao,
-						cache,
 					)
 				let code = ''
 				if (artifacts && Object.keys(artifacts).length > 0) {
@@ -190,7 +183,6 @@ export const bundler = (config, logger, fao, cache) => {
 						config,
 						includeAst,
 						fao,
-						cache,
 					)
 				let code = ''
 				if (artifacts && Object.keys(artifacts).length > 0) {
