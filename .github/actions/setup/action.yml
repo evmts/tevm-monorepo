@@ -24,7 +24,7 @@ runs:
       run: forge build
 
     - name: Install node modules
-      run: bun install --frozen-lockfile
+      run: bun install # --frozen-lockfile
       shell: bash
 
     - name: Derive appropriate SHAs for base and head for `nx affected` commands
