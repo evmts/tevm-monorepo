@@ -6,13 +6,13 @@
 
 ### Functions
 
-- [default](undefined)
+- [default](modules.md#default)
 
 ## Functions
 
 ### default
 
-▸ **default**(`mod`): PluginModule
+▸ **default**(`mod`): `PluginModule`
 
 [Typescript plugin factory](https://github.com/microsoft/TypeScript/wiki/Writing-a-Language-Service-Plugin)
 
@@ -20,12 +20,12 @@
 
 | Name | Type |
 | :------ | :------ |
-| `mod` | Object |
-| `mod.typescript` | typeof ts |
+| `mod` | `Object` |
+| `mod.typescript` | typeof `ts` |
 
 #### Returns
 
-PluginModule
+`PluginModule`
 
 **`Example`**
 

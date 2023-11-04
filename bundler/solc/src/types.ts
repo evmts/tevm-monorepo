@@ -3,8 +3,39 @@ import type {
 	SolcInputDescription,
 	SolcOutput,
 } from './solcTypes.js'
+import type { ResolvedCompilerConfig } from '@evmts/config'
 import type { ModuleInfo } from '@evmts/resolutions'
 import type { Node } from 'solidity-ast/node.js'
+
+export type ResolveArtifacts = (
+	solFile: string,
+	basedir: string,
+	logger: Logger,
+	config: ResolvedCompilerConfig,
+	includeAst: boolean,
+	fao: FileAccessObject,
+) => Promise<{
+	artifacts: Artifacts
+	modules: Record<'string', ModuleInfo>
+	asts: Record<string, Node> | undefined
+	solcInput: SolcInputDescription
+	solcOutput: SolcOutput
+}>
+
+export type ResolveArtifactsSync = (
+	solFile: string,
+	basedir: string,
+	logger: Logger,
+	config: ResolvedCompilerConfig,
+	includeAst: boolean,
+	fao: FileAccessObject,
+) => {
+	artifacts: Artifacts
+	modules: Record<'string', ModuleInfo>
+	asts: Record<string, Node> | undefined
+	solcInput: SolcInputDescription
+	solcOutput: SolcOutput
+}
 
 export type FileAccessObject = {
 	readFile: (path: string, encoding: BufferEncoding) => Promise<string>

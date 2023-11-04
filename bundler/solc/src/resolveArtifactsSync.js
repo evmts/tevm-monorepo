@@ -1,7 +1,7 @@
 import { compileContractSync } from './compiler/compileContractsSync.js'
 
 /**
- * @type {import('./resolveArtifactsSync.js').ResolveArtifactsSync}
+ * @type {import('./types.js').ResolveArtifactsSync}
  */
 export const resolveArtifactsSync = (
 	solFile,

@@ -63,7 +63,7 @@
 		"@evmts/effect": "workspace:^",
 		"@types/node": "^20.8.9",
 		"bundle-require": "^4.0.2",
-		"effect": "^2.0.0-next.52",
+		"effect": "^2.0.0-next.54",
 		"jsonc-parser": "^3.2.0",
 		"viem": "^1.18.1"
 	},
