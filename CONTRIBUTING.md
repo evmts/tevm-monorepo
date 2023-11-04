@@ -7,8 +7,13 @@
 ```bash
 npm i bun --global && bun --version
 ```
+2. Update submodules
 
-2. Run everything
+```bash
+git submodule update --init --recursive
+```
+
+3. Run everything
 
 `bun all` will run everything 
 
