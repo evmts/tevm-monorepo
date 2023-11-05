@@ -42,11 +42,6 @@
     "test:run": "nx run-many --target=test:run",
     "up": "bun x npm-check-updates -ui -ws"
   },
-  "dependencies": {
-    "@ethereumjs/blockchain": "^7.0.1",
-    "@ethereumjs/evm": "^2.1.0",
-    "ethers": "6"
-  },
   "devDependencies": {
     "@changesets/changelog-github": "^0.4.8",
     "@changesets/cli": "^2.26.2",
