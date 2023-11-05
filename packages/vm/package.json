@@ -38,9 +38,8 @@
     "dist"
   ],
   "scripts": {
-    "//test": "vitest",
-    "//test:run": "vitest run",
-    "//test:ui": "vitest --ui",
+    "test": "bun test --watch",
+    "test:run": "bun test",
     "build": "nx run-many --targets=build:dist,build:types --projects=@evmts/vm",
     "build:dist": "bun run tsup",
     "build:types": "bun run tsc --emitDeclarationOnly --declaration --declarationMap",
@@ -67,7 +66,6 @@
     "@vitest/ui": "^0.32.2",
     "tsup": "^7.0.0",
     "typescript": "^5.1.3",
-    "vitest": "^0.33.0",
     "zod": "^3.21.4"
   },
   "publishConfig": {

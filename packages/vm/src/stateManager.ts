@@ -2,7 +2,6 @@
 // It' currently copied from https://github.com/ethereumjs/ethereumjs-monorepo/blob/master/packages/statemanager/src/cache/originalStorageCache.ts
 // We want to reimplement this interface with viem 
 // We will need to heavily customize this for EVMts to read from aconfigurable EVMts store
-import { JsonRpcProvider } from 'ethers'
 import { Trie } from '@ethereumjs/trie'
 import { Account, bigIntToHex, bytesToBigInt, bytesToHex, toBytes } from '@ethereumjs/util'
 import debugDefault from 'debug'
@@ -21,7 +20,7 @@ import type { Address } from '@ethereumjs/util'
 
 type getContractStorage = (address: Address, key: Uint8Array) => Promise<Uint8Array>
 
-export class OriginalStorageCache {
+class OriginalStorageCache {
   private map: Map<string, Map<string, Uint8Array>>
   private getContractStorage: getContractStorage
   constructor(getContractStorage: getContractStorage) {
@@ -452,15 +451,3 @@ export class EthersStateManager implements EVMStateManagerInterface {
   }
 }
 
-type StateManagerOptions = {
-  rpcUrl: string
-  blockTag: bigint
-}
-
-export const createStateManager = ({ rpcUrl, blockTag }: StateManagerOptions) => {
-  const provider = new JsonRpcProvider(rpcUrl)
-  return new EthersStateManager({
-    provider,
-    blockTag: blockTag,
-  })
-}
