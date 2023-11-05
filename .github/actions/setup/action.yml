@@ -10,7 +10,7 @@ runs:
     - name: Set up Bun
       uses: oven-sh/setup-bun@v1
       with:
-        bun-version: 1.0.8
+        bun-version: 1.0.9
 
     - name: Install Foundry
       uses: foundry-rs/foundry-toolchain@v1
