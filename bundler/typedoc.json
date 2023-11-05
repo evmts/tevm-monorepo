@@ -1,0 +1,17 @@
+{
+	"$schema": "https://typedoc.org/schema.json",
+	"out": "./docs",
+	"entryPoints": [
+		"./bun",
+		"./config",
+		"./esbuild",
+		"./rollup",
+		"./rspack",
+		"./ts-plugin",
+		"./vite",
+		"./webpack"
+	],
+	"plugin": ["typedoc-plugin-markdown"],
+	"gitRevision": "main",
+	"entryPointStrategy": "packages"
+}

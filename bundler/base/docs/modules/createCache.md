@@ -1,4 +1,4 @@
-[@evmts/bundler](/reference/bundler/README.md) / [Modules](/reference/bundler/modules.md) / createCache
+[@evmts/base](../README.md) / [Modules](../modules.md) / createCache
 
 # Module: createCache
 
@@ -6,11 +6,11 @@
 
 ### Type Aliases
 
-- [Cache](/reference/bundler/modules/createCache.md#cache)
+- [Cache](createCache.md#cache)
 
 ### Functions
 
-- [createCache](/reference/bundler/modules/createCache.md#createcache)
+- [createCache](createCache.md#createcache)
 
 ## Type Aliases
 
@@ -28,13 +28,13 @@
 
 #### Defined in
 
-[createCache.d.ts:8](https://github.com/evmts/evmts-monorepo/blob/main/bundler/bundler/src/createCache.d.ts#L8)
+[createCache.d.ts:8](https://github.com/evmts/evmts-monorepo/blob/main/bundler/base/src/createCache.d.ts#L8)
 
 ## Functions
 
 ### createCache
 
-▸ **createCache**(`logger`): [`Cache`](/reference/bundler/modules/createCache.md#cache)
+▸ **createCache**(`logger`): [`Cache`](createCache.md#cache)
 
 #### Parameters
 
@@ -44,8 +44,8 @@
 
 #### Returns
 
-[`Cache`](/reference/bundler/modules/createCache.md#cache)
+[`Cache`](createCache.md#cache)
 
 #### Defined in
 
-[createCache.d.ts:17](https://github.com/evmts/evmts-monorepo/blob/main/bundler/bundler/src/createCache.d.ts#L17)
+[createCache.d.ts:17](https://github.com/evmts/evmts-monorepo/blob/main/bundler/base/src/createCache.d.ts#L17)

@@ -1,6 +1,6 @@
 import { createHostDecorator } from '../factories/index.js'
 import { isSolidity } from '../utils/index.js'
-import { Cache, bundler } from '@evmts/bundler'
+import { Cache, bundler } from '@evmts/base'
 import { existsSync } from 'fs'
 
 /**

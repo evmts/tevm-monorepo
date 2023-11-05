@@ -1,0 +1,79 @@
+{
+	"name": "@evmts/bundler",
+	"version": "0.11.2",
+	"private": false,
+	"description": "Bundler for EVMts",
+	"keywords": [
+		"solidity",
+		"forge",
+		"foundry",
+		"sol",
+		"typescript",
+		"web3",
+		"blockchain"
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/evmts/evmts-monorepo.git",
+		"directory": "bundler"
+	},
+	"license": "MIT",
+	"contributors": [
+		"Will Cory <willcory10@gmail.com>"
+	],
+	"type": "module",
+	"exports": {
+		"./package.json": "./package.json",
+		".": {
+			"import": "./index.mjs",
+			"require": "./index.cjs",
+			"types": "./index.d.ts",
+			"default": "./index.cjs"
+		}
+	},
+	"main": "index.cjs",
+	"module": "index.mjs",
+	"types": "index.d.ts",
+	"files": [
+		"dist",
+		"types",
+		"src"
+	],
+	"scripts": {
+		"all": "bun run build && bun run format && bun run lint && bun run generate:docs",
+		"build": "nx run-many --targets=build:dist,build:types --projects=@evmts/base,@evmts/bun,@evmts/config,@evmts/esbuild,@evmts/rollup,@evmts/rspack,@evmts/ts-plugin,@evmts/vite,@evmts/webpack",
+		"build:dist": "nx run-many --targets=build:dist --projects=@evmts/base,@evmts/bun,@evmts/config,@evmts/esbuild,@evmts/rollup,@evmts/rspack,@evmts/ts-plugin,@evmts/vite,@evmts/webpack",
+		"build:types": "nx run-many --targets=build:types --projects=@evmts/base,@evmts/bun,@evmts/config,@evmts/esbuild,@evmts/rollup,@evmts/rspack,@evmts/ts-plugin,@evmts/vite,@evmts/webpack",
+		"clean": "rm -rf node_modules && nx run-many --targets=clean --projects=@evmts/base,@evmts/bun,@evmts/config,@evmts/esbuild,@evmts/rollup,@evmts/rspack,@evmts/ts-plugin,@evmts/vite,@evmts/webpack",
+		"format": "nx run-many --targets=format --projects=@evmts/base,@evmts/bun,@evmts/config,@evmts/esbuild,@evmts/rollup,@evmts/rspack,@evmts/ts-plugin,@evmts/vite,@evmts/webpack",
+		"format:check": "nx run-many --targets=format:check --projects=@evmts/base,@evmts/bun,@evmts/config,@evmts/esbuild,@evmts/rollup,@evmts/rspack,@evmts/ts-plugin,@evmts/vite,@evmts/webpack",
+		"test:run": "nx run-many --targets=test:run --projects=@evmts/base,@evmts/bun,@evmts/config,@evmts/esbuild,@evmts/rollup,@evmts/rspack,@evmts/ts-plugin,@evmts/vite,@evmts/webpack",
+		"test:coverage": "nx run-many --targets=test:coverage --projects=@evmts/base,@evmts/bun,@evmts/config,@evmts/esbuild,@evmts/rollup,@evmts/rspack,@evmts/ts-plugin,@evmts/vite,@evmts/webpack",
+		"generate:docs": "bun run typedoc",
+		"lint": "rome check ./src --apply-unsafe",
+		"lint:check": "rome check ./src --verbose"
+	},
+	"dependencies": {
+		"@evmts/bun": "file:./bun",
+		"@evmts/config": "file:./config",
+		"@evmts/esbuild": "file:./esbuild",
+		"@evmts/rollup": "file:./rollup",
+		"@evmts/rspack": "file:./rspack",
+		"@evmts/ts-plugin": "file:./ts-plugin",
+		"@evmts/vite": "file:./vite",
+		"@evmts/webpack": "file:./webpack"
+	},
+	"devDependencies": {
+		"rome": "^12.1.3",
+		"tsup": "^7.2.0",
+		"typedoc": "^0.25.3",
+		"typedoc-plugin-markdown": "^3.16.0",
+		"typescript": "^5.2.2"
+	},
+	"peerDependencies": {
+		"solc": ">0.8.10"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
+}

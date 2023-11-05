@@ -1,6 +1,6 @@
 import { Logger } from '../factories/logger.js'
 import { getScriptSnapshotDecorator } from './getScriptSnapshot.js'
-import { FileAccessObject } from '@evmts/bundler'
+import { FileAccessObject } from '@evmts/base'
 import { CompilerConfig, defaultConfig, defineConfig } from '@evmts/config'
 import { runSync } from 'effect/Effect'
 import { existsSync, readFileSync } from 'fs'

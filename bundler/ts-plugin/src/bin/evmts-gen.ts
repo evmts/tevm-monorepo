@@ -1,4 +1,4 @@
-import { FileAccessObject, bundler, createCache } from '@evmts/bundler'
+import { FileAccessObject, bundler, createCache } from '@evmts/base'
 import { loadConfig } from '@evmts/config'
 import { runSync } from 'effect/Effect'
 import { existsSync, readFileSync } from 'fs'

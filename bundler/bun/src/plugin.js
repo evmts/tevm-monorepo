@@ -1,5 +1,5 @@
 import { bunFileAccesObject } from './bunFileAccessObject.js'
-import { bundler, createCache } from '@evmts/bundler'
+import { bundler, createCache } from '@evmts/base'
 import { loadConfig } from '@evmts/config'
 import { runSync } from 'effect/Effect'
 
@@ -53,7 +53,7 @@ export const evmtsBunPlugin = () => {
 			})
 
 			/**
-			 * Load solidity files with @evmts/bundler
+			 * Load solidity files with @evmts/base
 			 * If a .d.ts file or .ts file is pregenerated already (as will be case for external contracts)
 			 * go ahead and load that instead
 			 */

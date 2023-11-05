@@ -13,11 +13,11 @@
 
 - [#469](https://github.com/evmts/evmts-monorepo/pull/469) [`dbc2da6`](https://github.com/evmts/evmts-monorepo/commit/dbc2da6092eae3a7ec2d2519ea8c04505aa911f6) Thanks [@roninjin10](https://github.com/roninjin10)! - Made @evmts/config loading async
 
-- [#466](https://github.com/evmts/evmts-monorepo/pull/466) [`1c4cbd2`](https://github.com/evmts/evmts-monorepo/commit/1c4cbd2b87abd1c2174fb0d2e7a684367e074440) Thanks [@roninjin10](https://github.com/roninjin10)! - Updated @evmts/bundler to take a fileAccessObject as a parameter
+- [#466](https://github.com/evmts/evmts-monorepo/pull/466) [`1c4cbd2`](https://github.com/evmts/evmts-monorepo/commit/1c4cbd2b87abd1c2174fb0d2e7a684367e074440) Thanks [@roninjin10](https://github.com/roninjin10)! - Updated @evmts/base to take a fileAccessObject as a parameter
 
   ### Context
 
-  @evmts/bundler is the internal bundler for all other bundlers and the language server. We changed it to take fileAccessObject as a parameter instead of using `fs` and `fs/promises`
+  @evmts/base is the internal bundler for all other bundlers and the language server. We changed it to take fileAccessObject as a parameter instead of using `fs` and `fs/promises`
 
   ### Impact
 
@@ -30,7 +30,7 @@
 
   Previously all bundlers including the Bun bundler ran with syncronous IO such as readFileSync. With the introduction of async mode the bundler now is more non blocking when it is bundling now. Solc is still syncronous but all IO is now async.
 
-  @evmts/bundler now takes a File-Access-Object as a param. This FileAccessObject is the same shape as `node:fs` module. Bun uses this generic interace to use native Bun file access.
+  @evmts/base now takes a File-Access-Object as a param. This FileAccessObject is the same shape as `node:fs` module. Bun uses this generic interace to use native Bun file access.
 
 - [#475](https://github.com/evmts/evmts-monorepo/pull/475) [`cb83c0c`](https://github.com/evmts/evmts-monorepo/commit/cb83c0c81fae63decd7bbdb79b9c3cce2c7e0b8e) Thanks [@roninjin10](https://github.com/roninjin10)! - Added snapshot test of vite bundler build outputs
 
@@ -90,7 +90,7 @@
 
 - [#436](https://github.com/evmts/evmts-monorepo/pull/436) [`e1903df`](https://github.com/evmts/evmts-monorepo/commit/e1903df625c54b2447ce2bc2318f4c74f9a02bb5) Thanks [@roninjin10](https://github.com/roninjin10)! - Internal change: Made usage of solc typesafe
 
-  This change adds new solc types to the [solc](https://github.com/ethereum/solc-bin) peer dependency used by EVMts. This is used by @evmts/bundler to
+  This change adds new solc types to the [solc](https://github.com/ethereum/solc-bin) peer dependency used by EVMts. This is used by @evmts/base to
 
   - includes type for SolcInputSources and outputsources
 
@@ -262,7 +262,7 @@
 
 ### Patch Changes
 
-- [#279](https://github.com/evmts/evmts-monorepo/pull/279) [`fd6b482`](https://github.com/evmts/evmts-monorepo/commit/fd6b4825417fa81d601e9a3c5078131bc1f816c0) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed source file does not exist warning in @evmts/bundler
+- [#279](https://github.com/evmts/evmts-monorepo/pull/279) [`fd6b482`](https://github.com/evmts/evmts-monorepo/commit/fd6b4825417fa81d601e9a3c5078131bc1f816c0) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed source file does not exist warning in @evmts/base
 
 ## 0.4.1
 

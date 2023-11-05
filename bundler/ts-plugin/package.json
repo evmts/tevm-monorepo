@@ -56,7 +56,7 @@
 		"test:run": "vitest --run"
 	},
 	"dependencies": {
-		"@evmts/bundler": "workspace:^",
+		"@evmts/base": "workspace:^",
 		"effect": "^2.0.0-next.54",
 		"esbuild": "0.19.5",
 		"glob": "^10.3.10",

@@ -13,6 +13,7 @@
   "type": "module",
   "workspaces": [
     "bundler/*",
+    "bundler",
     "experimental/*",
     "configs/*",
     "apps/*",
@@ -51,8 +52,7 @@
     "gitmoji-cli": "^8.4.0",
     "nx": "17.0.2",
     "rome": "^12.1.3",
-    "sort-package-json": "^2.5.1",
-    "vitest": "^0.34.6"
+    "sort-package-json": "^2.5.1"
   },
   "engines": {
     "node": ">=18"

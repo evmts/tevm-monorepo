@@ -2,7 +2,7 @@ import { esbuildPluginEvmts } from './index.js'
 import { describe, expect, it, vi } from 'vitest'
 
 describe('esbuildPluginEvmts', () => {
-	it('should properly export the unplugin bundler from @evmts/bundler', async () => {
+	it('should properly export the unplugin bundler from @evmts/base', async () => {
 		const plugin = esbuildPluginEvmts()
 
 		expect(plugin.name).toMatchInlineSnapshot('"@evmts/rollup-plugin"')

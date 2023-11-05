@@ -5,7 +5,7 @@
 ### Patch Changes
 
 - Updated dependencies []:
-  - @evmts/bundler@0.11.2
+  - @evmts/base@0.11.2
 
 ## 0.10.0
 
@@ -21,10 +21,10 @@
 
   Previously all bundlers including the Bun bundler ran with syncronous IO such as readFileSync. With the introduction of async mode the bundler now is more non blocking when it is bundling now. Solc is still syncronous but all IO is now async.
 
-  @evmts/bundler now takes a File-Access-Object as a param. This FileAccessObject is the same shape as `node:fs` module. Bun uses this generic interace to use native Bun file access.
+  @evmts/base now takes a File-Access-Object as a param. This FileAccessObject is the same shape as `node:fs` module. Bun uses this generic interace to use native Bun file access.
 
 - Updated dependencies [[`dbc2da6`](https://github.com/evmts/evmts-monorepo/commit/dbc2da6092eae3a7ec2d2519ea8c04505aa911f6), [`1c4cbd2`](https://github.com/evmts/evmts-monorepo/commit/1c4cbd2b87abd1c2174fb0d2e7a684367e074440), [`e99fcd0`](https://github.com/evmts/evmts-monorepo/commit/e99fcd09e530a58fddb0d3fa19be0f5439e74f30), [`cb83c0c`](https://github.com/evmts/evmts-monorepo/commit/cb83c0c81fae63decd7bbdb79b9c3cce2c7e0b8e)]:
-  - @evmts/bundler@0.10.0
+  - @evmts/base@0.10.0
   - @evmts/config@0.10.0
 
 ## 0.9.0
@@ -94,4 +94,4 @@
 
 - Updated dependencies [[`1f80589`](https://github.com/evmts/evmts-monorepo/commit/1f8058969e2b0290f5032166928f76cfc74e9d74)]:
   - @evmts/config@0.9.0
-  - @evmts/bundler@0.9.0
+  - @evmts/base@0.9.0
