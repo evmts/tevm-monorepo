@@ -6,11 +6,14 @@ export type RunCallParameters = {
   to: Address,
   caller: Address,
   origin: Address,
-  gasLimit: bigint,
+  gasLimit?: bigint,
   data: Hex,
+  value?: bigint,
 }
 
-
+/**
+ * Executes a call on the vm
+ */
 export const runCall = async (
   evmts: EVMts,
   options: RunCallParameters,
@@ -19,8 +22,8 @@ export const runCall = async (
     to: new EthjsAddress(hexToBytes(options.to)),
     caller: new EthjsAddress(hexToBytes(options.caller)),
     origin: new EthjsAddress(hexToBytes(options.origin)),
-    // pass lots of gas
-    gasLimit: options.gasLimit,
+    gasLimit: options.gasLimit ?? BigInt("0xfffffffffffffff"),
     data: Buffer.from(options.data.slice(2), 'hex'),
+    value: options.value ?? 0n
   })
 }

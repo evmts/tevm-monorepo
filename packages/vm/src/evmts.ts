@@ -3,11 +3,12 @@ import { DefaultStateManager } from '@ethereumjs/statemanager'
 import { EthersStateManager } from "./stateManager.js"
 import { Chain, Common, Hardfork } from "@ethereumjs/common"
 import { JsonRpcProvider } from "ethers"
-import { executeScript, type ExecuteScriptParameters, type ExecuteScriptResult } from './actions/executeScript.js'
+import { runScript, type RunScriptParameters, type RunScriptResult } from './actions/runScript.js'
 import type { Abi } from "abitype"
 import { putAccount, type PutAccountParameters } from "./actions/putAccount.js"
 import { putContractCode, type PutContractCodeParameters } from "./actions/putContractCode.js"
 import { runCall, type RunCallParameters } from "./actions/runCall.js"
+import { runContractCall, type RunContractCallParameters, type RunContractCallResult } from "./actions/runContractCall.js"
 
 /**
  * Options fetch state that isn't available locally.
@@ -39,7 +40,7 @@ export type CreateEVMOptions = {
  * ```ts
  * import { EVMts } from "evmts"
  * import { createPublicClient, http } from "viem"
- * import { MyERC20 } from './MyERC20.sol'
+ * import { MyERC721 } from './MyERC721.sol'
  * 
  * const evmts = EVMts.create({
  * 	fork: {
@@ -49,31 +50,48 @@ export type CreateEVMOptions = {
  *
  * const address = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
  
- * await evmts.executeContract(
- *   MyERC20.execute.mint({
+ * await evmts.runContractCall(
+ *   MyERC721.write.mint({
  *     caller: address,
  *   }),
  * )
+ *
+ * const balance = await evmts.runContractCall(
+ *  MyERC721.read.balanceOf({
+ *  caller: address,
+ *  }),
+ *  )
+ *  console.log(balance) // 1n
  */
 export class EVMts {
+	/**
+	 * Makes sure evmts is invoked with EVMts.create and not with new EVMts
+	 */
+	private static isCreating = false
+
 	/**
 	 * Creates a {@link EVMts} instance
 	 */
 	static readonly create = async (options: CreateEVMOptions = {}) => {
-		let stateManager: DefaultStateManager | EthersStateManager
-		let chainId: number
-		const hardfork = Hardfork.Shanghai
-		if (options.fork?.url) {
-			const provider = new JsonRpcProvider(options.fork.url)
-			const blockTag = options.fork.blockTag ?? BigInt(await provider.getBlockNumber())
-			chainId = Number((await provider.getNetwork()).chainId)
-			stateManager = new EthersStateManager({ provider, blockTag })
-		} else {
-			chainId = 1
-			stateManager = new DefaultStateManager()
+		EVMts.isCreating = true
+		try {
+			let stateManager: DefaultStateManager | EthersStateManager
+			let chainId: number
+			const hardfork = Hardfork.Shanghai
+			if (options.fork?.url) {
+				const provider = new JsonRpcProvider(options.fork.url)
+				const blockTag = options.fork.blockTag ?? BigInt(await provider.getBlockNumber())
+				chainId = Number((await provider.getNetwork()).chainId)
+				stateManager = new EthersStateManager({ provider, blockTag })
+			} else {
+				chainId = 1
+				stateManager = new DefaultStateManager()
+			}
+			const common = new Common({ chain: chainId, hardfork })
+			return new EVMts(stateManager, common)
+		} finally {
+			EVMts.isCreating = false
 		}
-		const common = new Common({ chain: chainId, hardfork })
-		return new EVMts(stateManager, common)
 	}
 
 	/**
@@ -94,27 +112,102 @@ export class EVMts {
 				enabled: false,
 			}
 		})
-	) { }
+	) {
+		if (!EVMts.isCreating) {
+			throw new Error('EVMts must be created with EVMts.create method')
+		}
+	}
 
+	/**
+	* Runs a script or contract that is not deployed to the chain
+	* The recomended way to use a script is with an EVMts import
+	* @example
+	* ```ts
+	* // Scripts require bytecode
+	* import { MyContractOrScript } from './MyContractOrScript.sol' with {
+	*   evmts: 'bytecode'
+	* }
+	* evmts.executeScript(
+	*   MyContractOrScript.script.run()
+	* )
+	* ```
+	* Scripts can also be called directly via passing in args
+	* @example
+	* ```ts
+	* evmts.executeScript({
+	*   bytecode,
+	*   abi,
+	*   functionName: 'run',
+	* })
+	* ```
+	*/
 	public readonly executeScript = async <
 		TAbi extends Abi | readonly unknown[] = Abi,
 		TFunctionName extends string = string,
-	>(parameters: ExecuteScriptParameters<TAbi, TFunctionName>): Promise<ExecuteScriptResult<TAbi, TFunctionName>> => {
-		return executeScript(this, parameters)
+	>(parameters: RunScriptParameters<TAbi, TFunctionName>): Promise<RunScriptResult<TAbi, TFunctionName>> => {
+		return runScript(this, parameters)
 	}
 
+	/**
+	 * Puts an account with ether balance into the state
+	 * @example
+	 * ```ts
+	 * evmts.putAccount({
+	 * 	address: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
+	 * 	balance: 100n,
+	 * })
+	 */
 	public readonly putAccount = async (parameters: PutAccountParameters): Promise<void> => {
 		return putAccount(this, parameters)
 	}
 
+	/**
+	* Puts a contract into the state
+	* @example
+	* ```ts
+	* evmts.putContract({
+	*  bytecode,
+	*  contractAddress,
+	* })
+	*/
 	public readonly putContractCode = async (parameters: PutContractCodeParameters) => {
 		return putContractCode(this, parameters)
 	}
 
+	/**
+	 * Executes a call on the EVM
+	 * @example
+	 * ```ts
+	 * const result = await evmts.runCall({
+	 *   data: '0x...',
+	 *   caller: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
+	 *   gasLimit: 1000000n,
+	 *   value: 10000000000000000n,
+	 * })
+	 *
+	 */
 	public readonly runCall = async (
 		parameters: RunCallParameters,
 	) => {
 		return runCall(this, parameters)
+	}
+
+	/**
+	 * Calls contract code using an ABI and returns the decoded result
+	 * @example
+	 * ```ts
+	 * const result = await evmts.runContractCall({
+	 *  abi: MyContract.abi,
+	 *  contractAddress: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
+	 *  functionName: 'balanceOf',
+	 *  args: ['0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045'],
+	 * })
+	 */
+	public readonly runContractCall = async <
+		TAbi extends Abi | readonly unknown[] = Abi,
+		TFunctionName extends string = string,
+	>(parameters: RunContractCallParameters<TAbi, TFunctionName>): Promise<RunContractCallResult<TAbi, TFunctionName>> => {
+		return runContractCall(this, parameters)
 	}
 }
 
