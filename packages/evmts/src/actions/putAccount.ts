@@ -6,6 +6,9 @@ import {
 import type { Address } from 'abitype'
 import { hexToBytes, parseEther } from 'viem'
 
+/**
+ * EVMts action to put an account into the vm state
+ */
 export type PutAccountAction = {
 	account: Address
 	balance?: bigint
