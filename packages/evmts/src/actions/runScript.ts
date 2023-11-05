@@ -8,6 +8,9 @@ import {
 import type { Abi } from 'abitype'
 import { type Address, type EncodeFunctionDataParameters, type Hex } from 'viem'
 
+/**
+ * EVMts action to deploy and execute a script or contract
+ */
 export type RunScriptAction<
 	TAbi extends Abi | readonly unknown[] = Abi,
 	TFunctionName extends string = string,

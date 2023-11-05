@@ -15,6 +15,9 @@ import {
 
 const defaultCaller = '0x0000000000000000000000000000000000000000'
 
+/**
+ * EVMts action to execute a call on a contract
+ */
 export type RunContractCallAction<
 	TAbi extends Abi | readonly unknown[] = Abi,
 	TFunctionName extends string = string,

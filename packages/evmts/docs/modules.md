@@ -45,6 +45,8 @@ ___
 
 Ƭ **PutAccountAction**: `Object`
 
+EVMts action to put an account into the vm state
+
 #### Type declaration
 
 | Name | Type |
@@ -54,13 +56,15 @@ ___
 
 #### Defined in
 
-[actions/putAccount.ts:9](https://github.com/evmts/evmts-monorepo/blob/main/packages/evmts/src/actions/putAccount.ts#L9)
+[actions/putAccount.ts:12](https://github.com/evmts/evmts-monorepo/blob/main/packages/evmts/src/actions/putAccount.ts#L12)
 
 ___
 
 ### PutContractCodeAction
 
 Ƭ **PutContractCodeAction**: `Object`
+
+EVMts action to put contract code into the vm state
 
 #### Type declaration
 
@@ -71,13 +75,15 @@ ___
 
 #### Defined in
 
-[actions/putContractCode.ts:5](https://github.com/evmts/evmts-monorepo/blob/main/packages/evmts/src/actions/putContractCode.ts#L5)
+[actions/putContractCode.ts:8](https://github.com/evmts/evmts-monorepo/blob/main/packages/evmts/src/actions/putContractCode.ts#L8)
 
 ___
 
 ### RunCallAction
 
 Ƭ **RunCallAction**: `Object`
+
+EVMts action to execute a call on the vm
 
 #### Type declaration
 
@@ -92,13 +98,15 @@ ___
 
 #### Defined in
 
-[actions/runCall.ts:5](https://github.com/evmts/evmts-monorepo/blob/main/packages/evmts/src/actions/runCall.ts#L5)
+[actions/runCall.ts:8](https://github.com/evmts/evmts-monorepo/blob/main/packages/evmts/src/actions/runCall.ts#L8)
 
 ___
 
 ### RunContractCallAction
 
 Ƭ **RunContractCallAction**\<`TAbi`, `TFunctionName`\>: `EncodeFunctionDataParameters`\<`TAbi`, `TFunctionName`\> & \{ `caller?`: `Address` ; `contractAddress`: `Address` ; `gasLimit?`: `bigint`  }
+
+EVMts action to execute a call on a contract
 
 #### Type parameters
 
@@ -109,7 +117,7 @@ ___
 
 #### Defined in
 
-[actions/runContractCall.ts:18](https://github.com/evmts/evmts-monorepo/blob/main/packages/evmts/src/actions/runContractCall.ts#L18)
+[actions/runContractCall.ts:21](https://github.com/evmts/evmts-monorepo/blob/main/packages/evmts/src/actions/runContractCall.ts#L21)
 
 ___
 
@@ -119,7 +127,7 @@ ___
 
 #### Defined in
 
-[actions/runContractCall.ts:28](https://github.com/evmts/evmts-monorepo/blob/main/packages/evmts/src/actions/runContractCall.ts#L28)
+[actions/runContractCall.ts:31](https://github.com/evmts/evmts-monorepo/blob/main/packages/evmts/src/actions/runContractCall.ts#L31)
 
 ___
 
@@ -144,13 +152,15 @@ ___
 
 #### Defined in
 
-[actions/runContractCall.ts:30](https://github.com/evmts/evmts-monorepo/blob/main/packages/evmts/src/actions/runContractCall.ts#L30)
+[actions/runContractCall.ts:33](https://github.com/evmts/evmts-monorepo/blob/main/packages/evmts/src/actions/runContractCall.ts#L33)
 
 ___
 
 ### RunScriptAction
 
 Ƭ **RunScriptAction**\<`TAbi`, `TFunctionName`\>: `EncodeFunctionDataParameters`\<`TAbi`, `TFunctionName`\> & \{ `bytecode`: `Hex` ; `caller?`: `Address`  }
+
+EVMts action to deploy and execute a script or contract
 
 #### Type parameters
 
@@ -161,7 +171,7 @@ ___
 
 #### Defined in
 
-[actions/runScript.ts:11](https://github.com/evmts/evmts-monorepo/blob/main/packages/evmts/src/actions/runScript.ts#L11)
+[actions/runScript.ts:14](https://github.com/evmts/evmts-monorepo/blob/main/packages/evmts/src/actions/runScript.ts#L14)
 
 ___
 
@@ -171,7 +181,7 @@ ___
 
 #### Defined in
 
-[actions/runScript.ts:20](https://github.com/evmts/evmts-monorepo/blob/main/packages/evmts/src/actions/runScript.ts#L20)
+[actions/runScript.ts:23](https://github.com/evmts/evmts-monorepo/blob/main/packages/evmts/src/actions/runScript.ts#L23)
 
 ___
 
@@ -188,4 +198,4 @@ ___
 
 #### Defined in
 
-[actions/runScript.ts:22](https://github.com/evmts/evmts-monorepo/blob/main/packages/evmts/src/actions/runScript.ts#L22)
+[actions/runScript.ts:25](https://github.com/evmts/evmts-monorepo/blob/main/packages/evmts/src/actions/runScript.ts#L25)
