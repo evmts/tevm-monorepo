@@ -1,14 +1,14 @@
 import type { EVMts } from '../evmts.js'
-import { putContractCode } from './putContractCode.js'
+import { putContractCodeHandler } from './putContractCode.js'
 import {
-	type RunContractCallParameters,
+	type RunContractCallAction,
 	type RunContractCallResult,
-	runContractCall,
+	runContractCallHandler,
 } from './runContractCall.js'
 import type { Abi } from 'abitype'
 import { type Address, type EncodeFunctionDataParameters, type Hex } from 'viem'
 
-export type RunScriptParameters<
+export type RunScriptAction<
 	TAbi extends Abi | readonly unknown[] = Abi,
 	TFunctionName extends string = string,
 > = EncodeFunctionDataParameters<TAbi, TFunctionName> & {
@@ -24,7 +24,7 @@ export type RunScriptResult<
 	TFunctionName extends string = string,
 > = RunContractCallResult<TAbi, TFunctionName>
 
-export const runScript = async <
+export const runScriptHandler = async <
 	TAbi extends Abi | readonly unknown[] = Abi,
 	TFunctionName extends string = string,
 >(
@@ -35,18 +35,18 @@ export const runScript = async <
 		abi,
 		caller,
 		functionName,
-	}: RunScriptParameters<TAbi, TFunctionName>,
+	}: RunScriptAction<TAbi, TFunctionName>,
 ): Promise<RunScriptResult<TAbi, TFunctionName>> => {
 	const contractAddress = '0x00000000000000000000000000000000000000ff' as const
-	await putContractCode(evmts, {
+	await putContractCodeHandler(evmts, {
 		contractAddress: '0x00000000000000000000000000000000000000ff',
 		bytecode,
 	})
-	return runContractCall(evmts, {
+	return runContractCallHandler(evmts, {
 		functionName,
 		caller,
 		args,
 		contractAddress,
 		abi,
-	} as unknown as RunContractCallParameters<TAbi, TFunctionName>)
+	} as unknown as RunContractCallAction<TAbi, TFunctionName>)
 }
