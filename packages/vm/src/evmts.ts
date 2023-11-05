@@ -1,14 +1,25 @@
-import { EVM } from "@ethereumjs/evm"
+import { type PutAccountParameters, putAccount } from './actions/putAccount.js'
+import {
+	type PutContractCodeParameters,
+	putContractCode,
+} from './actions/putContractCode.js'
+import { type RunCallParameters, runCall } from './actions/runCall.js'
+import {
+	type RunContractCallParameters,
+	type RunContractCallResult,
+	runContractCall,
+} from './actions/runContractCall.js'
+import {
+	type RunScriptParameters,
+	type RunScriptResult,
+	runScript,
+} from './actions/runScript.js'
+import { EthersStateManager } from './stateManager/stateManager.js'
+import { Chain, Common, Hardfork } from '@ethereumjs/common'
+import { EVM } from '@ethereumjs/evm'
 import { DefaultStateManager } from '@ethereumjs/statemanager'
-import { EthersStateManager } from "./stateManager.js"
-import { Chain, Common, Hardfork } from "@ethereumjs/common"
-import { JsonRpcProvider } from "ethers"
-import { runScript, type RunScriptParameters, type RunScriptResult } from './actions/runScript.js'
-import type { Abi } from "abitype"
-import { putAccount, type PutAccountParameters } from "./actions/putAccount.js"
-import { putContractCode, type PutContractCodeParameters } from "./actions/putContractCode.js"
-import { runCall, type RunCallParameters } from "./actions/runCall.js"
-import { runContractCall, type RunContractCallParameters, type RunContractCallResult } from "./actions/runContractCall.js"
+import type { Abi } from 'abitype'
+import { JsonRpcProvider } from 'ethers'
 
 /**
  * Options fetch state that isn't available locally.
@@ -76,15 +87,15 @@ export class EVMts {
 		EVMts.isCreating = true
 		try {
 			let stateManager: DefaultStateManager | EthersStateManager
-			let chainId: number
+			// ethereumjs throws an error for most chain ids
+			const chainId: number = 1
 			const hardfork = Hardfork.Shanghai
 			if (options.fork?.url) {
 				const provider = new JsonRpcProvider(options.fork.url)
-				const blockTag = options.fork.blockTag ?? BigInt(await provider.getBlockNumber())
-				chainId = Number((await provider.getNetwork()).chainId)
+				const blockTag =
+					options.fork.blockTag ?? BigInt(await provider.getBlockNumber())
 				stateManager = new EthersStateManager({ provider, blockTag })
 			} else {
-				chainId = 1
 				stateManager = new DefaultStateManager()
 			}
 			const common = new Common({ chain: chainId, hardfork })
@@ -100,7 +111,7 @@ export class EVMts {
 	constructor(
 		stateManager: DefaultStateManager | EthersStateManager,
 		common = new Common({ chain: Chain.Mainnet, hardfork: Hardfork.Shanghai }),
-		public readonly evm = new EVM({
+		public readonly _evm = new EVM({
 			common,
 			stateManager,
 			// blockchain, // Always running the EVM statelessly so not including blockchain
@@ -110,8 +121,8 @@ export class EVMts {
 			customPrecompiles: [],
 			profiler: {
 				enabled: false,
-			}
-		})
+			},
+		}),
 	) {
 		if (!EVMts.isCreating) {
 			throw new Error('EVMts must be created with EVMts.create method')
@@ -119,32 +130,34 @@ export class EVMts {
 	}
 
 	/**
-	* Runs a script or contract that is not deployed to the chain
-	* The recomended way to use a script is with an EVMts import
-	* @example
-	* ```ts
-	* // Scripts require bytecode
-	* import { MyContractOrScript } from './MyContractOrScript.sol' with {
-	*   evmts: 'bytecode'
-	* }
-	* evmts.executeScript(
-	*   MyContractOrScript.script.run()
-	* )
-	* ```
-	* Scripts can also be called directly via passing in args
-	* @example
-	* ```ts
-	* evmts.executeScript({
-	*   bytecode,
-	*   abi,
-	*   functionName: 'run',
-	* })
-	* ```
-	*/
-	public readonly executeScript = async <
+	 * Runs a script or contract that is not deployed to the chain
+	 * The recomended way to use a script is with an EVMts import
+	 * @example
+	 * ```ts
+	 * // Scripts require bytecode
+	 * import { MyContractOrScript } from './MyContractOrScript.sol' with {
+	 *   evmts: 'bytecode'
+	 * }
+	 * evmts.runScript(
+	 *   MyContractOrScript.script.run()
+	 * )
+	 * ```
+	 * Scripts can also be called directly via passing in args
+	 * @example
+	 * ```ts
+	 * evmts.runScript({
+	 *   bytecode,
+	 *   abi,
+	 *   functionName: 'run',
+	 * })
+	 * ```
+	 */
+	public readonly runScript = async <
 		TAbi extends Abi | readonly unknown[] = Abi,
 		TFunctionName extends string = string,
-	>(parameters: RunScriptParameters<TAbi, TFunctionName>): Promise<RunScriptResult<TAbi, TFunctionName>> => {
+	>(
+		parameters: RunScriptParameters<TAbi, TFunctionName>,
+	): Promise<RunScriptResult<TAbi, TFunctionName>> => {
 		return runScript(this, parameters)
 	}
 
@@ -157,20 +170,22 @@ export class EVMts {
 	 * 	balance: 100n,
 	 * })
 	 */
-	public readonly putAccount = async (parameters: PutAccountParameters): Promise<void> => {
+	public readonly putAccount = async (parameters: PutAccountParameters) => {
 		return putAccount(this, parameters)
 	}
 
 	/**
-	* Puts a contract into the state
-	* @example
-	* ```ts
-	* evmts.putContract({
-	*  bytecode,
-	*  contractAddress,
-	* })
-	*/
-	public readonly putContractCode = async (parameters: PutContractCodeParameters) => {
+	 * Puts a contract into the state
+	 * @example
+	 * ```ts
+	 * evmts.putContract({
+	 *  bytecode,
+	 *  contractAddress,
+	 * })
+	 */
+	public readonly putContractCode = async (
+		parameters: PutContractCodeParameters,
+	) => {
 		return putContractCode(this, parameters)
 	}
 
@@ -186,9 +201,7 @@ export class EVMts {
 	 * })
 	 *
 	 */
-	public readonly runCall = async (
-		parameters: RunCallParameters,
-	) => {
+	public readonly runCall = async (parameters: RunCallParameters) => {
 		return runCall(this, parameters)
 	}
 
@@ -206,8 +219,9 @@ export class EVMts {
 	public readonly runContractCall = async <
 		TAbi extends Abi | readonly unknown[] = Abi,
 		TFunctionName extends string = string,
-	>(parameters: RunContractCallParameters<TAbi, TFunctionName>): Promise<RunContractCallResult<TAbi, TFunctionName>> => {
+	>(
+		parameters: RunContractCallParameters<TAbi, TFunctionName>,
+	): Promise<RunContractCallResult<TAbi, TFunctionName>> => {
 		return runContractCall(this, parameters)
 	}
 }
-

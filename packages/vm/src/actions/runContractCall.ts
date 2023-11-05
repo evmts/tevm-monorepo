@@ -1,16 +1,17 @@
-import {
-	encodeFunctionData,
-	type EncodeFunctionDataParameters,
-	decodeFunctionResult,
-	toHex,
-	type DecodeFunctionResultParameters,
-	type DecodeFunctionResultReturnType,
-	type Address,
-} from 'viem'
-import type { Abi } from 'abitype'
 import type { EVMts } from '../evmts.js'
 import { putAccount } from './putAccount.js'
 import { runCall } from './runCall.js'
+import type { Log } from '@ethereumjs/evm'
+import type { Abi } from 'abitype'
+import {
+	type Address,
+	type DecodeFunctionResultParameters,
+	type DecodeFunctionResultReturnType,
+	type EncodeFunctionDataParameters,
+	decodeFunctionResult,
+	encodeFunctionData,
+	toHex,
+} from 'viem'
 
 const defaultCaller = '0x0000000000000000000000000000000000000000'
 
@@ -18,9 +19,9 @@ export type RunContractCallParameters<
 	TAbi extends Abi | readonly unknown[] = Abi,
 	TFunctionName extends string = string,
 > = EncodeFunctionDataParameters<TAbi, TFunctionName> & {
-	contractAddress: Address,
-	caller?: Address,
-	gasLimit?: bigint,
+	contractAddress: Address
+	caller?: Address
+	gasLimit?: bigint
 }
 
 // TODO we want to fill this out with everything that could go wrong via effect
@@ -30,7 +31,9 @@ export type RunContractCallResult<
 	TAbi extends Abi | readonly unknown[] = Abi,
 	TFunctionName extends string = string,
 > = {
-	data: DecodeFunctionResultReturnType<TAbi, TFunctionName>,
+	data: DecodeFunctionResultReturnType<TAbi, TFunctionName>
+	gasUsed: BigInt
+	logs: Log[]
 }
 
 const defaultGasLimit = BigInt(0xfffffffffffff)
@@ -38,16 +41,22 @@ const defaultGasLimit = BigInt(0xfffffffffffff)
 export const runContractCall = async <
 	TAbi extends Abi | readonly unknown[] = Abi,
 	TFunctionName extends string = string,
->(evmts: EVMts, {
-	abi,
-	args,
-	functionName,
-	caller = defaultCaller,
-	contractAddress,
-	gasLimit = defaultGasLimit
-}: RunContractCallParameters<TAbi, TFunctionName>): Promise<RunContractCallResult<TAbi, TFunctionName>> => {
+>(
+	evmts: EVMts,
+	{
+		abi,
+		args,
+		functionName,
+		caller = defaultCaller,
+		contractAddress,
+		gasLimit = defaultGasLimit,
+	}: RunContractCallParameters<TAbi, TFunctionName>,
+): Promise<RunContractCallResult<TAbi, TFunctionName>> => {
 	if (caller === defaultCaller) {
-		await putAccount(evmts, { account: defaultCaller, balance: BigInt(0x11111111) })
+		await putAccount(evmts, {
+			account: defaultCaller,
+			balance: BigInt(0x11111111),
+		})
 	}
 
 	const result = await runCall(evmts, {
@@ -64,15 +73,20 @@ export const runContractCall = async <
 	})
 
 	if (result.execResult.exceptionError) {
-		// TODO throw way more granular human readable errors
+		// TODO Return the error instead of throwing
 		throw result.execResult.exceptionError
 	}
 
 	return {
+		gasUsed: result.execResult.executionGasUsed,
+		logs: result.execResult.logs ?? [],
 		data: decodeFunctionResult({
 			abi,
 			data: toHex(result.execResult.returnValue),
 			functionName,
-		} as unknown as DecodeFunctionResultParameters<TAbi>) as unknown as DecodeFunctionResultReturnType<TAbi, TFunctionName>,
+		} as unknown as DecodeFunctionResultParameters<TAbi>) as unknown as DecodeFunctionResultReturnType<
+			TAbi,
+			TFunctionName
+		>,
 	}
 }

@@ -1,13 +1,20 @@
-import { Address as EthjsAddress } from "@ethereumjs/util"
-import { hexToBytes, type Address, type Hex } from "viem"
-import type { EVMts } from "../evmts.js"
+import type { EVMts } from '../evmts.js'
+import { Address as EthjsAddress } from '@ethereumjs/util'
+import { type Address, type Hex, hexToBytes } from 'viem'
 
 export type PutContractCodeParameters = {
-  bytecode: Hex,
-  contractAddress: Address,
+	bytecode: Hex
+	contractAddress: Address
 }
 
-export const putContractCode = async (evmts: EVMts, options: PutContractCodeParameters) => {
-  await evmts.evm.stateManager.putContractCode(new EthjsAddress(hexToBytes(options.contractAddress)), hexToBytes(options.bytecode))
+export const putContractCode = async (
+	evmts: EVMts,
+	options: PutContractCodeParameters,
+) => {
+	const ethAddress = new EthjsAddress(hexToBytes(options.contractAddress))
+	await evmts._evm.stateManager.putContractCode(
+		ethAddress,
+		hexToBytes(options.bytecode),
+	)
+	return evmts._evm.stateManager.getContractCode(ethAddress)
 }
-
