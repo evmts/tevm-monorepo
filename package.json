@@ -56,5 +56,10 @@
   },
   "engines": {
     "node": ">=18"
+  },
+  "dependencies": {
+    "@ethereumjs/blockchain": "^7.0.1",
+    "@ethereumjs/evm": "^2.1.0",
+    "ethers": "6"
   }
 }
