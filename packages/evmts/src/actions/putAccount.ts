@@ -6,14 +6,14 @@ import {
 import type { Address } from 'abitype'
 import { hexToBytes, parseEther } from 'viem'
 
-export type PutAccountParameters = {
+export type PutAccountAction = {
 	account: Address
 	balance?: bigint
 }
 
-export const putAccount = async (
+export const putAccountHandler = async (
 	evmts: EVMts,
-	{ account, balance = parseEther('1000') }: PutAccountParameters,
+	{ account, balance = parseEther('1000') }: PutAccountAction,
 ): Promise<EthjsAccount> => {
 	const address = new EthjsAddress(hexToBytes(account))
 	await evmts._evm.stateManager.putAccount(

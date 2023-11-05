@@ -31,6 +31,7 @@ const balance = await evmts.runContractCall(
  }),
  )
  console.log(balance) // 1n
+ ```
 
 ## Table of contents
 
@@ -74,7 +75,7 @@ A local EVM instance running in JavaScript. Similar to Anvil in your browser
 
 #### Defined in
 
-[evmts.ts:111](https://github.com/evmts/evmts-monorepo/blob/main/packages/vm/src/evmts.ts#L111)
+[evmts.ts:110](https://github.com/evmts/evmts-monorepo/blob/main/packages/evmts/src/evmts.ts#L110)
 
 ## Properties
 
@@ -84,7 +85,7 @@ A local EVM instance running in JavaScript. Similar to Anvil in your browser
 
 #### Defined in
 
-[evmts.ts:114](https://github.com/evmts/evmts-monorepo/blob/main/packages/vm/src/evmts.ts#L114)
+[evmts.ts:113](https://github.com/evmts/evmts-monorepo/blob/main/packages/evmts/src/evmts.ts#L113)
 
 ___
 
@@ -96,13 +97,13 @@ Makes sure evmts is invoked with EVMts.create and not with new EVMts
 
 #### Defined in
 
-[evmts.ts:81](https://github.com/evmts/evmts-monorepo/blob/main/packages/vm/src/evmts.ts#L81)
+[evmts.ts:80](https://github.com/evmts/evmts-monorepo/blob/main/packages/evmts/src/evmts.ts#L80)
 
 ## Methods
 
 ### putAccount
 
-▸ **putAccount**(`parameters`): `Promise`\<`Account`\>
+▸ **putAccount**(`action`): `Promise`\<`Account`\>
 
 Puts an account with ether balance into the state
 
@@ -110,7 +111,7 @@ Puts an account with ether balance into the state
 
 | Name | Type |
 | :------ | :------ |
-| `parameters` | [`PutAccountParameters`](../modules.md#putaccountparameters) |
+| `action` | [`PutAccountAction`](../modules.md#putaccountaction) |
 
 #### Returns
 
@@ -123,16 +124,17 @@ evmts.putAccount({
 	address: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
 	balance: 100n,
 })
+```
 
 #### Defined in
 
-[evmts.ts:173](https://github.com/evmts/evmts-monorepo/blob/main/packages/vm/src/evmts.ts#L173)
+[evmts.ts:173](https://github.com/evmts/evmts-monorepo/blob/main/packages/evmts/src/evmts.ts#L173)
 
 ___
 
 ### putContractCode
 
-▸ **putContractCode**(`parameters`): `Promise`\<`Uint8Array`\>
+▸ **putContractCode**(`action`): `Promise`\<`Uint8Array`\>
 
 Puts a contract into the state
 
@@ -140,7 +142,7 @@ Puts a contract into the state
 
 | Name | Type |
 | :------ | :------ |
-| `parameters` | [`PutContractCodeParameters`](../modules.md#putcontractcodeparameters) |
+| `action` | [`PutContractCodeAction`](../modules.md#putcontractcodeaction) |
 
 #### Returns
 
@@ -153,16 +155,17 @@ evmts.putContract({
  bytecode,
  contractAddress,
 })
+```
 
 #### Defined in
 
-[evmts.ts:186](https://github.com/evmts/evmts-monorepo/blob/main/packages/vm/src/evmts.ts#L186)
+[evmts.ts:187](https://github.com/evmts/evmts-monorepo/blob/main/packages/evmts/src/evmts.ts#L187)
 
 ___
 
 ### runCall
 
-▸ **runCall**(`parameters`): `Promise`\<`EVMResult`\>
+▸ **runCall**(`action`): `Promise`\<`EVMResult`\>
 
 Executes a call on the EVM
 
@@ -170,7 +173,7 @@ Executes a call on the EVM
 
 | Name | Type |
 | :------ | :------ |
-| `parameters` | [`RunCallParameters`](../modules.md#runcallparameters) |
+| `action` | [`RunCallAction`](../modules.md#runcallaction) |
 
 #### Returns
 
@@ -185,16 +188,17 @@ const result = await evmts.runCall({
   gasLimit: 1000000n,
   value: 10000000000000000n,
 })
+```
 
 #### Defined in
 
-[evmts.ts:204](https://github.com/evmts/evmts-monorepo/blob/main/packages/vm/src/evmts.ts#L204)
+[evmts.ts:203](https://github.com/evmts/evmts-monorepo/blob/main/packages/evmts/src/evmts.ts#L203)
 
 ___
 
 ### runContractCall
 
-▸ **runContractCall**\<`TAbi`, `TFunctionName`\>(`parameters`): `Promise`\<[`RunContractCallResult`](../modules.md#runcontractcallresult)\<`TAbi`, `TFunctionName`\>\>
+▸ **runContractCall**\<`TAbi`, `TFunctionName`\>(`action`): `Promise`\<[`RunContractCallResult`](../modules.md#runcontractcallresult)\<`TAbi`, `TFunctionName`\>\>
 
 Calls contract code using an ABI and returns the decoded result
 
@@ -209,7 +213,7 @@ Calls contract code using an ABI and returns the decoded result
 
 | Name | Type |
 | :------ | :------ |
-| `parameters` | [`RunContractCallParameters`](../modules.md#runcontractcallparameters)\<`TAbi`, `TFunctionName`\> |
+| `action` | [`RunContractCallAction`](../modules.md#runcontractcallaction)\<`TAbi`, `TFunctionName`\> |
 
 #### Returns
 
@@ -224,16 +228,17 @@ const result = await evmts.runContractCall({
  functionName: 'balanceOf',
  args: ['0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045'],
 })
+```
 
 #### Defined in
 
-[evmts.ts:219](https://github.com/evmts/evmts-monorepo/blob/main/packages/vm/src/evmts.ts#L219)
+[evmts.ts:219](https://github.com/evmts/evmts-monorepo/blob/main/packages/evmts/src/evmts.ts#L219)
 
 ___
 
 ### runScript
 
-▸ **runScript**\<`TAbi`, `TFunctionName`\>(`parameters`): `Promise`\<[`RunScriptResult`](../modules.md#runscriptresult)\<`TAbi`, `TFunctionName`\>\>
+▸ **runScript**\<`TAbi`, `TFunctionName`\>(`action`): `Promise`\<[`RunScriptResult`](../modules.md#runscriptresult)\<`TAbi`, `TFunctionName`\>\>
 
 Runs a script or contract that is not deployed to the chain
 The recomended way to use a script is with an EVMts import
@@ -249,7 +254,7 @@ The recomended way to use a script is with an EVMts import
 
 | Name | Type |
 | :------ | :------ |
-| `parameters` | [`RunScriptParameters`](../modules.md#runscriptparameters)\<`TAbi`, `TFunctionName`\> |
+| `action` | [`RunScriptAction`](../modules.md#runscriptaction)\<`TAbi`, `TFunctionName`\> |
 
 #### Returns
 
@@ -280,7 +285,7 @@ evmts.runScript({
 
 #### Defined in
 
-[evmts.ts:155](https://github.com/evmts/evmts-monorepo/blob/main/packages/vm/src/evmts.ts#L155)
+[evmts.ts:154](https://github.com/evmts/evmts-monorepo/blob/main/packages/evmts/src/evmts.ts#L154)
 
 ___
 
@@ -302,4 +307,4 @@ Creates a [EVMts](EVMts.md) instance
 
 #### Defined in
 
-[evmts.ts:86](https://github.com/evmts/evmts-monorepo/blob/main/packages/vm/src/evmts.ts#L86)
+[evmts.ts:85](https://github.com/evmts/evmts-monorepo/blob/main/packages/evmts/src/evmts.ts#L85)

@@ -1,6 +1,6 @@
 import type { EVMts } from '../evmts.js'
-import { putAccount } from './putAccount.js'
-import { runCall } from './runCall.js'
+import { putAccountHandler } from './putAccount.js'
+import { runCallHandler } from './runCall.js'
 import type { Log } from '@ethereumjs/evm'
 import type { Abi } from 'abitype'
 import {
@@ -15,7 +15,7 @@ import {
 
 const defaultCaller = '0x0000000000000000000000000000000000000000'
 
-export type RunContractCallParameters<
+export type RunContractCallAction<
 	TAbi extends Abi | readonly unknown[] = Abi,
 	TFunctionName extends string = string,
 > = EncodeFunctionDataParameters<TAbi, TFunctionName> & {
@@ -38,7 +38,7 @@ export type RunContractCallResult<
 
 const defaultGasLimit = BigInt(0xfffffffffffff)
 
-export const runContractCall = async <
+export const runContractCallHandler = async <
 	TAbi extends Abi | readonly unknown[] = Abi,
 	TFunctionName extends string = string,
 >(
@@ -50,16 +50,16 @@ export const runContractCall = async <
 		caller = defaultCaller,
 		contractAddress,
 		gasLimit = defaultGasLimit,
-	}: RunContractCallParameters<TAbi, TFunctionName>,
+	}: RunContractCallAction<TAbi, TFunctionName>,
 ): Promise<RunContractCallResult<TAbi, TFunctionName>> => {
 	if (caller === defaultCaller) {
-		await putAccount(evmts, {
+		await putAccountHandler(evmts, {
 			account: defaultCaller,
 			balance: BigInt(0x11111111),
 		})
 	}
 
-	const result = await runCall(evmts, {
+	const result = await runCallHandler(evmts, {
 		to: contractAddress,
 		caller: caller,
 		origin: caller,

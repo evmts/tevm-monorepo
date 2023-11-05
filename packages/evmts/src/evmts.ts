@@ -1,19 +1,17 @@
-import { type PutAccountParameters, putAccount } from './actions/putAccount.js'
 import {
-	type PutContractCodeParameters,
-	putContractCode,
-} from './actions/putContractCode.js'
-import { type RunCallParameters, runCall } from './actions/runCall.js'
-import {
-	type RunContractCallParameters,
+	type PutAccountAction,
+	type PutContractCodeAction,
+	type RunCallAction,
+	type RunContractCallAction,
 	type RunContractCallResult,
-	runContractCall,
-} from './actions/runContractCall.js'
-import {
-	type RunScriptParameters,
+	type RunScriptAction,
 	type RunScriptResult,
-	runScript,
-} from './actions/runScript.js'
+	putAccountHandler,
+	putContractCodeHandler,
+	runCallHandler,
+	runContractCallHandler,
+	runScriptHandler,
+} from './actions/index.js'
 import { EthersStateManager } from './stateManager/stateManager.js'
 import { Chain, Common, Hardfork } from '@ethereumjs/common'
 import { EVM } from '@ethereumjs/evm'
@@ -73,6 +71,7 @@ export type CreateEVMOptions = {
  *  }),
  *  )
  *  console.log(balance) // 1n
+ *  ```
  */
 export class EVMts {
 	/**
@@ -156,9 +155,9 @@ export class EVMts {
 		TAbi extends Abi | readonly unknown[] = Abi,
 		TFunctionName extends string = string,
 	>(
-		parameters: RunScriptParameters<TAbi, TFunctionName>,
+		action: RunScriptAction<TAbi, TFunctionName>,
 	): Promise<RunScriptResult<TAbi, TFunctionName>> => {
-		return runScript(this, parameters)
+		return runScriptHandler(this, action)
 	}
 
 	/**
@@ -169,9 +168,10 @@ export class EVMts {
 	 * 	address: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
 	 * 	balance: 100n,
 	 * })
+	 * ```
 	 */
-	public readonly putAccount = async (parameters: PutAccountParameters) => {
-		return putAccount(this, parameters)
+	public readonly putAccount = async (action: PutAccountAction) => {
+		return putAccountHandler(this, action)
 	}
 
 	/**
@@ -182,11 +182,10 @@ export class EVMts {
 	 *  bytecode,
 	 *  contractAddress,
 	 * })
+	 * ```
 	 */
-	public readonly putContractCode = async (
-		parameters: PutContractCodeParameters,
-	) => {
-		return putContractCode(this, parameters)
+	public readonly putContractCode = async (action: PutContractCodeAction) => {
+		return putContractCodeHandler(this, action)
 	}
 
 	/**
@@ -199,10 +198,10 @@ export class EVMts {
 	 *   gasLimit: 1000000n,
 	 *   value: 10000000000000000n,
 	 * })
-	 *
+	 * ```
 	 */
-	public readonly runCall = async (parameters: RunCallParameters) => {
-		return runCall(this, parameters)
+	public readonly runCall = async (action: RunCallAction) => {
+		return runCallHandler(this, action)
 	}
 
 	/**
@@ -215,13 +214,14 @@ export class EVMts {
 	 *  functionName: 'balanceOf',
 	 *  args: ['0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045'],
 	 * })
+	 * ```
 	 */
 	public readonly runContractCall = async <
 		TAbi extends Abi | readonly unknown[] = Abi,
 		TFunctionName extends string = string,
 	>(
-		parameters: RunContractCallParameters<TAbi, TFunctionName>,
+		action: RunContractCallAction<TAbi, TFunctionName>,
 	): Promise<RunContractCallResult<TAbi, TFunctionName>> => {
-		return runContractCall(this, parameters)
+		return runContractCallHandler(this, action)
 	}
 }
