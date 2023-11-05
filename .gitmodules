@@ -7,6 +7,3 @@
 [submodule "lib/ethereumjs"]
 	path = lib/ethereumjs
 	url = https://github.com/ethereumjs/ethereumjs-monorepo.git
-[submodule "examples/vite/lib/forge-std"]
-	path = examples/vite/lib/forge-std
-	url = https://github.com/foundry-rs/forge-std
