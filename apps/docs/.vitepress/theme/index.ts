@@ -1,4 +1,9 @@
 import './index.css'
-import defaultTheme from 'vitepress/theme'
+import Layout from './Layout.vue'
 
-export default defaultTheme
+export default {
+  Layout,
+  enhanceApp({ app, router, siteData }) {
+    // ...
+  }
+}
