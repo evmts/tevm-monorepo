@@ -1,0 +1,16 @@
+{
+	"$schema": "https://typedoc.org/schema.json",
+	"out": "./docs",
+	"entryPoints": [
+		"./blockexplorer",
+		"./core",
+		"./effect",
+		"./evmts",
+		"./revm",
+		"./schemas",
+		"./state"
+	],
+	"plugin": ["typedoc-plugin-markdown"],
+	"gitRevision": "main",
+	"entryPointStrategy": "packages"
+}

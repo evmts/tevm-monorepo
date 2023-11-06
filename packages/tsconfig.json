@@ -1,0 +1,16 @@
+{
+  "extends": "@evmts/tsconfig/base.json",
+  "compilerOptions": {
+    "composite": true,
+    "outDir": "types",
+    "skipLibCheck": true,
+    "types": [
+      "bun-types"
+    ]
+  },
+  "include": [
+    "index.mjs",
+    "index.cjs",
+    "index.d.ts"
+  ]
+}
