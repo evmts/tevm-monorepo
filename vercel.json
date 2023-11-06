@@ -1,7 +1,6 @@
 {
-	"buildCommand": "bun nx build @evmts/docs",
-	"devCommand": "bun dev --port $PORT",
+	"buildCommand": "npx typedoc && npx nx build @evmts/docs",
 	"framework": "vitepress",
 	"installCommand": "bun install",
-	"outputDirectory": "docs/.vitepress/dist"
+	"outputDirectory": "apps/docs/.vitepress/dist"
 }
