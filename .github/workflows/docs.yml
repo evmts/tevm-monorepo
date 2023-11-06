@@ -22,7 +22,7 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Run Linters
-        run: bun run build && bun run generate:docs && git diff --exit-code
+        run: bun run build:types && bun run generate:docs && git diff --exit-code
         env:
           NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
 

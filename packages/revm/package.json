@@ -48,6 +48,7 @@
 		"build:cjs": "bun run wasm-pack build --target nodejs --out-dir ./dist/cjs --no-pack .",
 		"build:dist": "echo 'building wasm with wasm-pack' && bun run build",
 		"build:esm": "bun run wasm-pack build --out-dir ./dist/esm --no-pack .",
+		"build:types": "bun run build",
 		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
 		"format": "rome format . --write",
 		"format:check": "rome format .",
