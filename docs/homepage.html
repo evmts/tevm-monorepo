@@ -1,0 +1,129 @@
+<div class="flex flex-col min-h-screen bg-black">
+  <header class="w-full px-4 py-6 bg-zinc-900 text-white">
+    <div class="container mx-auto flex items-center justify-between"><a href="#"><a
+          class="text-2xl font-bold hover:text-yellow-300 transition-colors duration-200" href="#">EVM<span
+            class="hover:text-blue-300 transition-colors duration-200">ts</span></a></a>
+      <nav class="space-x-4"><a href="#"><a
+            class="text-lg hover:underline transform hover:scale-110 transition-transform duration-200" href="#">Why
+            EVMts</a></a><a href="#"><a
+            class="text-lg hover:underline transform hover:scale-110 transition-transform duration-200"
+            href="#">Introduction</a></a><a href="#"><a
+            class="text-lg hover:underline transform hover:scale-110 transition-transform duration-200"
+            href="#">Reference</a></a><a href="#"><a
+            class="text-lg hover:underline transform hover:scale-110 transition-transform duration-200"
+            href="#">Tutorial</a></a><a href="#"><a
+            class="text-lg hover:underline transform hover:scale-110 transition-transform duration-200"
+            href="#">Reference</a></a><a href="#"><a
+            class="text-lg hover:underline transform hover:scale-110 transition-transform duration-200" href="#">Quick
+            Start</a></a></nav>
+    </div>
+  </header>
+  <main class="flex-grow container mx-auto px-4 py-12 flex">
+    <div class="w-1/2 text-white">
+      <h1 class="text-5xl font-extrabold mb-8">Rapidly build next-generation <span
+          class="text-purple-300">Ethereum</span> UIs with end-to-end <span class="text-blue-300">typesafety</span> and
+        a JavaScript native <span class="text-yellow-300">EVM</span></h1>
+      <p class="text-xl mb-6">
+        Gain full access to the
+        <span class="text-yellow-300">EVM</span> within your
+        <span class="text-blue-300">TypeScript</span> code, including local execution, forge-style scripting, contract
+        tracing and a custom solidity bundler tailored for developing on <span class="text-purple-300">Ethereum</span>.
+      </p><button
+        class="inline-flex items-center justify-center text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-6 py-3 rounded-md bg-pink-300 text-white hover:bg-pink-400">
+        Quick Start
+      </button><button
+        class="inline-flex items-center justify-center text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border hover:text-accent-foreground h-10 px-6 py-3 rounded-md border-blue-300 text-blue-300 bg-black hover:bg-gray-800 ml-4">
+        Try Live Demo
+      </button>
+    </div>
+    <div class="w-1/2 bg-gradient-to-r from-pink-300 via-yellow-200 to-blue-300 p-8 rounded-lg">
+      <pre class="text-sm text-gray-800 bg-black p-4 rounded-lg overflow-auto"><code class="language-javascript">const evm = new EVM();
+evm.connect('http://localhost:8545');
+const contract = evm.contract('0x...');
+contract.call('balanceOf', '0x...');</code></pre>
+    </div>
+  </main>
+  <section class="container mx-auto px-4 py-12 grid grid-cols-3 gap-8 justify-center">
+    <div class="text-white flex items-center space-x-4"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+        stroke-linejoin="round" class=" w-10 h-10 text-yellow-300">
+        <path d="M14 4c0-1.1.9-2 2-2"></path>
+        <path d="M20 2c1.1 0 2 .9 2 2"></path>
+        <path d="M22 8c0 1.1-.9 2-2 2"></path>
+        <path d="M16 10c-1.1 0-2-.9-2-2"></path>
+        <path d="m3 7 3 3 3-3"></path>
+        <path d="M6 10V5c0-1.7 1.3-3 3-3h1"></path>
+        <rect width="8" height="8" x="2" y="14" rx="2"></rect>
+      </svg>
+      <p>Placeholder text</p>
+    </div>
+    <div class="text-white flex items-center space-x-4"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+        stroke-linejoin="round" class=" w-10 h-10 text-blue-300">
+        <path d="M14 4c0-1.1.9-2 2-2"></path>
+        <path d="M20 2c1.1 0 2 .9 2 2"></path>
+        <path d="M22 8c0 1.1-.9 2-2 2"></path>
+        <path d="M16 10c-1.1 0-2-.9-2-2"></path>
+        <path d="m3 7 3 3 3-3"></path>
+        <path d="M6 10V5c0-1.7 1.3-3 3-3h1"></path>
+        <rect width="8" height="8" x="2" y="14" rx="2"></rect>
+      </svg>
+      <p>Placeholder text</p>
+    </div>
+    <div class="text-white flex items-center space-x-4"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+        stroke-linejoin="round" class=" w-10 h-10 text-purple-300">
+        <path d="M14 4c0-1.1.9-2 2-2"></path>
+        <path d="M20 2c1.1 0 2 .9 2 2"></path>
+        <path d="M22 8c0 1.1-.9 2-2 2"></path>
+        <path d="M16 10c-1.1 0-2-.9-2-2"></path>
+        <path d="m3 7 3 3 3-3"></path>
+        <path d="M6 10V5c0-1.7 1.3-3 3-3h1"></path>
+        <rect width="8" height="8" x="2" y="14" rx="2"></rect>
+      </svg>
+      <p>Placeholder text</p>
+    </div>
+    <div class="text-white flex items-center space-x-4"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+        stroke-linejoin="round" class=" w-10 h-10 text-yellow-300">
+        <path d="M14 4c0-1.1.9-2 2-2"></path>
+        <path d="M20 2c1.1 0 2 .9 2 2"></path>
+        <path d="M22 8c0 1.1-.9 2-2 2"></path>
+        <path d="M16 10c-1.1 0-2-.9-2-2"></path>
+        <path d="m3 7 3 3 3-3"></path>
+        <path d="M6 10V5c0-1.7 1.3-3 3-3h1"></path>
+        <rect width="8" height="8" x="2" y="14" rx="2"></rect>
+      </svg>
+      <p>Placeholder text</p>
+    </div>
+    <div class="text-white flex items-center space-x-4"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+        stroke-linejoin="round" class=" w-10 h-10 text-blue-300">
+        <path d="M14 4c0-1.1.9-2 2-2"></path>
+        <path d="M20 2c1.1 0 2 .9 2 2"></path>
+        <path d="M22 8c0 1.1-.9 2-2 2"></path>
+        <path d="M16 10c-1.1 0-2-.9-2-2"></path>
+        <path d="m3 7 3 3 3-3"></path>
+        <path d="M6 10V5c0-1.7 1.3-3 3-3h1"></path>
+        <rect width="8" height="8" x="2" y="14" rx="2"></rect>
+      </svg>
+      <p>Placeholder text</p>
+    </div>
+    <div class="text-white flex items-center space-x-4"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+        stroke-linejoin="round" class=" w-10 h-10 text-purple-300">
+        <path d="M14 4c0-1.1.9-2 2-2"></path>
+        <path d="M20 2c1.1 0 2 .9 2 2"></path>
+        <path d="M22 8c0 1.1-.9 2-2 2"></path>
+        <path d="M16 10c-1.1 0-2-.9-2-2"></path>
+        <path d="m3 7 3 3 3-3"></path>
+        <path d="M6 10V5c0-1.7 1.3-3 3-3h1"></path>
+        <rect width="8" height="8" x="2" y="14" rx="2"></rect>
+      </svg>
+      <p>Placeholder text</p>
+    </div>
+  </section>
+  <footer class="w-full px-4 py-6 bg-zinc-800 text-white">
+    <div class="container mx-auto text-center"></div>
+  </footer>
+</div>
