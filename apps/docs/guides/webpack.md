@@ -26,7 +26,7 @@ yarn add @evmts/webpack -D
 
 ## 2. Add to webpack config
 
-The webpack plugin config takes no options.  For custom configuration add a [evmts.config.ts](../reference/config.md)
+The webpack plugin config takes no options.  For custom configuration add a [evmts.config.ts](../reference/modules/evmts_config.md)
 
 - **Example**
 

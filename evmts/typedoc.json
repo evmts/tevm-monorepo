@@ -1,0 +1,18 @@
+{
+	"$schema": "https://typedoc.org/schema.json",
+	"out": "./docs",
+	"entryPoints": [
+		"../packages/blockexplorer",
+		"../packages/core",
+		"../extensions/ethers",
+		"../extensions/viem",
+		"../packages/effect",
+		"../packages/vm",
+		"../packages/revm",
+		"../packages/schemas",
+		"../packages/state"
+	],
+	"plugin": ["typedoc-plugin-markdown"],
+	"gitRevision": "main",
+	"entryPointStrategy": "packages"
+}

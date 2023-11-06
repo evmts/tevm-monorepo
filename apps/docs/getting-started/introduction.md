@@ -95,7 +95,7 @@ import {DAI} from 'contracts/DAI'
 - **Learn** about Evmts by setting up a project from scratch with the [tutorial](../tutorial/overview.md)
 - **Follow guides** to setup Evmts [for your project](../guides/overview.md)
 - **Ask questions** about Evmts in the [discussions](https://github.com/evmts/evmts-monorepo/discussions)
-- **Reference** our [reference docs](../reference/overview.md) for more detailed information
+- **Reference** our [reference docs](../reference/README.md) for more detailed information
 
 Just looking to try out Evmts? Try editing this sandbox or continue on for installation instructions
 

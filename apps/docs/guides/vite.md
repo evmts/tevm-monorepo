@@ -28,7 +28,7 @@ yarn add @evmts/vite -D
 
 ## 2. Add to vite.config.ts
 
-Add to vite.config.ts.  The vite config takes no options.  For custom configuration add a [evmts.config.ts](../reference/config.md)
+Add to vite.config.ts.  The vite config takes no options.  For custom configuration add a [evmts.config.ts](../reference/modules/evmts_vite_plugin.md)
 
 ```typescript vite.config.ts
 import { vitePluginEvmts } from '@evmts/vite-plugin'

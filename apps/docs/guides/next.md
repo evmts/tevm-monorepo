@@ -28,7 +28,7 @@ yarn add @evmts/webpack -D
 
 ## 2. Add to next.config.js
 
-Add to next.config.ts.  The webpack plugin config takes no options.  For custom configuration add a [evmts.config.ts](../reference/config.md)
+Add to next.config.ts.  The webpack plugin config takes no options.  For custom configuration add a [evmts.config.ts](https://todo.todo.com)
 
 - **Example**
 

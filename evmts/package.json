@@ -1,0 +1,81 @@
+{
+	"name": "evmts",
+	"version": "0.11.2",
+	"private": true,
+	"description": "Aggregation of all the packages",
+	"keywords": [
+		"solidity",
+		"forge",
+		"foundry",
+		"sol",
+		"typescript",
+		"web3",
+		"blockchain"
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/evmts/evmts-monorepo.git",
+		"directory": "evmts"
+	},
+	"license": "MIT",
+	"contributors": [
+		"Will Cory <willcory10@gmail.com>"
+	],
+	"type": "module",
+	"exports": {
+		"./package.json": "./package.json",
+		".": {
+			"import": "./index.mjs",
+			"require": "./index.cjs",
+			"types": "./index.d.ts",
+			"default": "./index.cjs"
+		}
+	},
+	"main": "index.cjs",
+	"module": "index.mjs",
+	"types": "index.d.ts",
+	"files": [
+		"dist",
+		"types",
+		"src"
+	],
+	"scripts": {
+		"all": "bun --cwd .. run all",
+		"build": "bun --cwd .. run build",
+		"build:dist": "bun --cwd .. run build:dist",
+		"build:types": "bun --cwd .. run buildtypes",
+		"clean": "rm -rf node_modules",
+		"format": "bun --cwd .. run format",
+		"format:check": "bun --cwd .. run format:check",
+		"test": "bun run test:run",
+		"test:run": "bun --cwd .. run test:run",
+		"test:coverage": "bun --cwd .. run test:coverage",
+		"generate:docs": "bun run typedoc",
+		"lint": "bun --cwd .. run lint",
+		"lint:check": "bun --cwd .. run lint:check"
+	},
+	"dependencies": {
+		"@evmts/blockexplorer": "workspace:^",
+		"@evmts/core": "workspace:^",
+		"@evmts/effect": "workspace:^",
+		"@evmts/ethers": "workspace:^",
+		"@evmts/vm": "workspace:^",
+		"@evmts/viem": "workspace:^",
+		"@evmts/revm": "workspace:^",
+		"@evmts/schemas": "workspace:^",
+		"@evmts/state": "workspace:^"
+	},
+	"devDependencies": {
+		"rome": "^12.1.3",
+		"tsup": "^7.2.0",
+		"typedoc": "^0.25.3",
+		"typedoc-plugin-markdown": "^3.16.0",
+		"typescript": "^5.2.2"
+	},
+	"peerDependencies": {
+		"solc": ">0.8.10"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
+}

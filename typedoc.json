@@ -1,0 +1,32 @@
+{
+	"$schema": "https://typedoc.org/schema.json",
+	"out": "./apps/docs/reference",
+	"basePath": "/reference/",
+	"readme": "none",
+	"entryPoints": [
+		"./bundler/base",
+		"./bundler/bun",
+		"./bundler/config",
+		"./bundler/esbuild",
+		"./bundler/resolutions",
+		"./bundler/rollup",
+		"./bundler/rspack",
+		"./bundler/solc",
+		"./bundler/ts-plugin",
+		"./bundler/vite",
+		"./bundler/unplugin",
+		"./bundler/webpack",
+		"./extensions/ethers",
+		"./extensions/viem",
+		"./packages/blockexplorer",
+		"./packages/core",
+		"./packages/effect",
+		"./packages/vm",
+		"./packages/revm",
+		"./packages/schemas",
+		"./packages/state"
+	],
+	"plugin": ["typedoc-plugin-markdown"],
+	"gitRevision": "main",
+	"entryPointStrategy": "packages"
+}

@@ -6,7 +6,7 @@
 	],
 	"commit": false,
 	"fixed": [],
-	"linked": [["@evmts/*"]],
+	"linked": [["@evmts/*", "evmts"]],
 	"access": "public",
 	"baseBranch": "main",
 	"updateInternalDependencies": "patch",
