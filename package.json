@@ -13,8 +13,8 @@
   "type": "module",
   "workspaces": [
     ".experimental/*",
-    "bundler/bundler",
-    "bundler/packages/*",
+    "bundler",
+    "bundler/*",
     "configs/*",
     "docs",
     "extensions/*",

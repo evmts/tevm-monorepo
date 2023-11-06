@@ -1,7 +1,5 @@
 import { resolveImports } from './resolveImports.js'
-import { invariant } from './utils/invariant.js'
-import { safeFao } from './utils/safeFao.js'
-import { updateImportPaths } from './utils/updateImportPath.js'
+import { invariant, safeFao, updateImportPaths } from '@evmts/resolutions-utils'
 import { gen } from 'effect/Effect'
 
 /**
@@ -57,7 +55,7 @@ export const moduleFactory = (
 	fao,
 	sync,
 ) => {
-	return gen(function* (_) {
+	return gen(function*(_) {
 		const readFile = sync ? safeFao(fao).readFileSync : safeFao(fao).readFile
 		const stack = [{ absolutePath, rawCode }]
 		const modules =

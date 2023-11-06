@@ -75,7 +75,7 @@ export const resolveImportPath = (
 				new CouldNotResolveImportError(
 					importPath,
 					absolutePath,
-					/** @type {Error}*/ (e),
+					/** @type {Error}*/(e),
 				),
 		})
 	} else {
@@ -95,7 +95,7 @@ export const resolveImportPath = (
 							),
 						)
 					} else {
-						resume(succeed(formatPath(/** @type {string} */ (resolvedPath))))
+						resume(succeed(formatPath(/** @type {string} */(resolvedPath))))
 					}
 				},
 			)

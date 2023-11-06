@@ -1,4 +1,4 @@
-import { resolveImportPath } from './utils/resolveImportPath.js'
+import { resolveImportPath } from '@evmts/resolutions-utils'
 import { all, die, fail, map } from 'effect/Effect'
 
 class ImportDoesNotExistError extends Error {

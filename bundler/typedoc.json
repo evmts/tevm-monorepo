@@ -2,14 +2,14 @@
 	"$schema": "https://typedoc.org/schema.json",
 	"out": "./docs",
 	"entryPoints": [
-		"./bun",
 		"./config",
-		"./esbuild",
-		"./rollup",
-		"./rspack",
-		"./ts-plugin",
-		"./vite",
-		"./webpack"
+		"./plugins/bun-plugin",
+		"./plugins/esbuild-plugin",
+		"./plugins/rollup-plugin",
+		"./plugins/rspack-plugin",
+		"./lsp/ts-plugin-plugin",
+		"./plugins/vite-plugin",
+		"./plugins/webpack-plugin"
 	],
 	"plugin": ["typedoc-plugin-markdown"],
 	"gitRevision": "main",

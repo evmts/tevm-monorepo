@@ -13,7 +13,7 @@ const fao: FileAccessObject = {
 }
 
 class Fixture {
-	constructor(public readonly name: string) {}
+	constructor(public readonly name: string) { }
 	dir = () => join(__dirname, 'fixtures', this.name)
 	entrypoint = () => join(this.dir(), 'Contract.sol')
 	rawCode = () => readFileSync(this.entrypoint(), 'utf8')
