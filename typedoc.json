@@ -1,6 +1,6 @@
 {
 	"$schema": "https://typedoc.org/schema.json",
-	"out": "./apps/docs/reference",
+	"out": "./docs/reference",
 	"basePath": "/reference/",
 	"readme": "none",
 	"entryPoints": [

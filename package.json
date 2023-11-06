@@ -12,16 +12,15 @@
   ],
   "type": "module",
   "workspaces": [
-    "bundler",
-    "bundler/*",
-    "experimental/*",
+    ".experimental/*",
+    "bundler/bundler",
+    "bundler/packages/*",
     "configs/*",
-    "apps/*",
-    "evmts",
+    "docs",
     "extensions/*",
-    "packages",
     "packages/*",
-    "examples/*"
+    "examples/*",
+    "evmts"
   ],
   "scripts": {
     "all": "bun i && bun lint && bun sort-package-json && nx run-many --targets=build:dist,build:types,typecheck,test:coverage,generate:docs && bun run typedoc",
