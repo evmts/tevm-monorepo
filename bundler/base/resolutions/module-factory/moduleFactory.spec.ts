@@ -1,5 +1,5 @@
 import { moduleFactory } from './moduleFactory.js'
-import type { FileAccessObject } from './types.js'
+import type { FileAccessObject } from '@evmts/resolutions-types'
 import { runPromise, runSync } from 'effect/Effect'
 import { existsSync, readFileSync } from 'fs'
 import { readFile } from 'fs/promises'

@@ -8,9 +8,8 @@
     "resolveJsonModule": true
   },
   "include": [
-    "*.json",
-    "*.js",
-    "*.ts",
+    "src",
+    "src/**/*.json",
     "package.json"
   ]
 }

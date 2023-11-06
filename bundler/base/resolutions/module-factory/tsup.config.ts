@@ -3,7 +3,7 @@ import { defineConfig } from 'tsup'
 
 export default defineConfig({
 	name: packageJson.name,
-	entry: ['index.js'],
+	entry: ['src/index.js'],
 	outDir: 'dist',
 	format: ['cjs'],
 	splitting: false,

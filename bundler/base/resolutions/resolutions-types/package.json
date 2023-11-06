@@ -1,0 +1,21 @@
+{
+	"name": "@evmts/resolution-types",
+	"version": "0.11.2",
+	"private": false,
+	"license": "MIT",
+	"type": "module",
+	"exports": {
+		"./package.json": "./package.json",
+		".": {
+			"types": "./types.ts"
+		}
+	},
+	"types": "types/.ts",
+	"scripts": {
+		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
+		"typecheck": "tsc --noEmit"
+	},
+	"devDependencies": {
+		"typescript": "^5.2.2"
+	}
+}

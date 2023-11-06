@@ -1,5 +1,5 @@
 import { resolveImports } from './resolveImports.js'
-import type { ResolvedImport } from './types.js'
+import type { ResolvedImport } from '@evmts/resolution-types.js'
 import { runSync } from 'effect/Effect'
 import { join } from 'path'
 import { describe, expect, it } from 'vitest'
