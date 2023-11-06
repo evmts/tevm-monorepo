@@ -24,7 +24,7 @@
 
 #### Defined in
 
-[bundler/config/src/loadConfig.js:16](https://github.com/evmts/evmts-monorepo/blob/main/bundler/config/src/loadConfig.js#L16)
+[bundler/packages/config/src/loadConfig.js:16](https://github.com/evmts/evmts-monorepo/blob/main/bundler/packages/config/src/loadConfig.js#L16)
 
 ## Functions
 
@@ -57,4 +57,4 @@ runPromise(loadConfig('./tsconfig.json')).pipe(
 
 #### Defined in
 
-[bundler/config/src/loadConfig.js:61](https://github.com/evmts/evmts-monorepo/blob/main/bundler/config/src/loadConfig.js#L61)
+[bundler/packages/config/src/loadConfig.js:61](https://github.com/evmts/evmts-monorepo/blob/main/bundler/packages/config/src/loadConfig.js#L61)

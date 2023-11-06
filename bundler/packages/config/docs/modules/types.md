@@ -31,7 +31,7 @@ When resolved with defaults it is a [ResolvedCompilerConfig](types.md#resolvedco
 
 #### Defined in
 
-[bundler/config/src/types.ts:11](https://github.com/evmts/evmts-monorepo/blob/main/bundler/config/src/types.ts#L11)
+[bundler/packages/config/src/types.ts:11](https://github.com/evmts/evmts-monorepo/blob/main/bundler/packages/config/src/types.ts#L11)
 
 ___
 
@@ -49,7 +49,7 @@ ___
 
 #### Defined in
 
-[bundler/config/src/types.ts:31](https://github.com/evmts/evmts-monorepo/blob/main/bundler/config/src/types.ts#L31)
+[bundler/packages/config/src/types.ts:31](https://github.com/evmts/evmts-monorepo/blob/main/bundler/packages/config/src/types.ts#L31)
 
 ___
 
@@ -90,7 +90,7 @@ export default defineConfig({
 
 #### Defined in
 
-[bundler/config/src/types.ts:68](https://github.com/evmts/evmts-monorepo/blob/main/bundler/config/src/types.ts#L68)
+[bundler/packages/config/src/types.ts:68](https://github.com/evmts/evmts-monorepo/blob/main/bundler/packages/config/src/types.ts#L68)
 
 ___
 
@@ -100,7 +100,7 @@ ___
 
 #### Defined in
 
-[bundler/config/src/types.ts:54](https://github.com/evmts/evmts-monorepo/blob/main/bundler/config/src/types.ts#L54)
+[bundler/packages/config/src/types.ts:54](https://github.com/evmts/evmts-monorepo/blob/main/bundler/packages/config/src/types.ts#L54)
 
 ___
 
@@ -121,4 +121,4 @@ See [CompilerConfig](types.md#compilerconfig)
 
 #### Defined in
 
-[bundler/config/src/types.ts:37](https://github.com/evmts/evmts-monorepo/blob/main/bundler/config/src/types.ts#L37)
+[bundler/packages/config/src/types.ts:37](https://github.com/evmts/evmts-monorepo/blob/main/bundler/packages/config/src/types.ts#L37)

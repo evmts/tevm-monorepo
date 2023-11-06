@@ -26,4 +26,4 @@ The default CompilerConfig
 
 #### Defined in
 
-[bundler/config/src/config/withDefaults.js:6](https://github.com/evmts/evmts-monorepo/blob/main/bundler/config/src/config/withDefaults.js#L6)
+[bundler/packages/config/src/config/withDefaults.js:6](https://github.com/evmts/evmts-monorepo/blob/main/bundler/packages/config/src/config/withDefaults.js#L6)

@@ -1,9 +1,9 @@
 module.exports = {
-	...require('@evmts/bun'),
-	...require('@evmts/ebuild'),
-	...require('@evmts/rollup'),
-	...require('@evmts/rspack'),
-	...require('@evmts/ts-plugin'),
-	...require('@evmts/vite'),
-	...require('@evmts/webpack'),
+	...require('@evmts/bun-plugin'),
+	...require('@evmts/ebuild-plugin'),
+	...require('@evmts/rollup-plugin'),
+	...require('@evmts/rspack-plugin'),
+	...require('@evmts/ts-plugin-plugin'),
+	...require('@evmts/vite-plugin'),
+	...require('@evmts/webpack-plugin'),
 }

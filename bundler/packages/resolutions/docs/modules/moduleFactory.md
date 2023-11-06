@@ -20,7 +20,7 @@
 
 #### Defined in
 
-[moduleFactory.js:8](https://github.com/evmts/evmts-monorepo/blob/main/bundler/resolutions/src/moduleFactory.js#L8)
+[moduleFactory.js:8](https://github.com/evmts/evmts-monorepo/blob/main/bundler/packages/resolutions/src/moduleFactory.js#L8)
 
 ## Functions
 
@@ -80,4 +80,4 @@ console.log(modules.get(pathToSolidity)) // { id: '/path/to/Contract.sol', rawCo
 
 #### Defined in
 
-[moduleFactory.js:52](https://github.com/evmts/evmts-monorepo/blob/main/bundler/resolutions/src/moduleFactory.js#L52)
+[moduleFactory.js:52](https://github.com/evmts/evmts-monorepo/blob/main/bundler/packages/resolutions/src/moduleFactory.js#L52)

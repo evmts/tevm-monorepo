@@ -55,7 +55,7 @@ Error.constructor
 
 #### Defined in
 
-[bundler/config/src/defineConfig.js:26](https://github.com/evmts/evmts-monorepo/blob/main/bundler/config/src/defineConfig.js#L26)
+[bundler/packages/config/src/defineConfig.js:26](https://github.com/evmts/evmts-monorepo/blob/main/bundler/packages/config/src/defineConfig.js#L26)
 
 ## Properties
 
@@ -65,7 +65,7 @@ Error.constructor
 
 #### Defined in
 
-[bundler/config/src/defineConfig.js:21](https://github.com/evmts/evmts-monorepo/blob/main/bundler/config/src/defineConfig.js#L21)
+[bundler/packages/config/src/defineConfig.js:21](https://github.com/evmts/evmts-monorepo/blob/main/bundler/packages/config/src/defineConfig.js#L21)
 
 ___
 
@@ -107,7 +107,7 @@ Error.name
 
 #### Defined in
 
-[bundler/config/src/defineConfig.js:17](https://github.com/evmts/evmts-monorepo/blob/main/bundler/config/src/defineConfig.js#L17)
+[bundler/packages/config/src/defineConfig.js:17](https://github.com/evmts/evmts-monorepo/blob/main/bundler/packages/config/src/defineConfig.js#L17)
 
 ___
 

@@ -44,14 +44,14 @@
 		"generate:docs": "bun run typedoc"
 	},
 	"dependencies": {
-		"@evmts/bun": "workspace:^",
+		"@evmts/bun-plugin": "workspace:^",
 		"@evmts/config": "workspace:^",
-		"@evmts/esbuild": "workspace:^",
-		"@evmts/rollup": "workspace:^",
-		"@evmts/rspack": "workspace:^",
+		"@evmts/esbuild-plugin": "workspace:^",
+		"@evmts/rollup-plugin": "workspace:^",
+		"@evmts/rspack-plugin": "workspace:^",
 		"@evmts/ts-plugin": "workspace:^",
-		"@evmts/vite": "workspace:^",
-		"@evmts/webpack": "workspace:^"
+		"@evmts/vite-plugin": "workspace:^",
+		"@evmts/webpack-plugin": "workspace:^"
 	},
 	"devDependencies": {
 		"rome": "^12.1.3",

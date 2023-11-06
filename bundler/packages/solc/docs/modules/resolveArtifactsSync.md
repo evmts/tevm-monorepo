@@ -39,4 +39,4 @@
 
 #### Defined in
 
-[solc/src/types.ts:25](https://github.com/evmts/evmts-monorepo/blob/main/bundler/solc/src/types.ts#L25)
+[solc/src/types.ts:25](https://github.com/evmts/evmts-monorepo/blob/main/bundler/packages/solc/src/types.ts#L25)

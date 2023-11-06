@@ -49,4 +49,4 @@ export default defineConfig(() => ({
 
 #### Defined in
 
-[bundler/config/src/types.ts:68](https://github.com/evmts/evmts-monorepo/blob/main/bundler/config/src/types.ts#L68)
+[bundler/packages/config/src/types.ts:68](https://github.com/evmts/evmts-monorepo/blob/main/bundler/packages/config/src/types.ts#L68)

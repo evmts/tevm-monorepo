@@ -55,7 +55,7 @@ Error.constructor
 
 #### Defined in
 
-[bundler/config/src/loadConfig.js:36](https://github.com/evmts/evmts-monorepo/blob/main/bundler/config/src/loadConfig.js#L36)
+[bundler/packages/config/src/loadConfig.js:36](https://github.com/evmts/evmts-monorepo/blob/main/bundler/packages/config/src/loadConfig.js#L36)
 
 ## Properties
 
@@ -65,7 +65,7 @@ Error.constructor
 
 #### Defined in
 
-[bundler/config/src/loadConfig.js:31](https://github.com/evmts/evmts-monorepo/blob/main/bundler/config/src/loadConfig.js#L31)
+[bundler/packages/config/src/loadConfig.js:31](https://github.com/evmts/evmts-monorepo/blob/main/bundler/packages/config/src/loadConfig.js#L31)
 
 ___
 
@@ -107,7 +107,7 @@ Error.name
 
 #### Defined in
 
-[bundler/config/src/loadConfig.js:27](https://github.com/evmts/evmts-monorepo/blob/main/bundler/config/src/loadConfig.js#L27)
+[bundler/packages/config/src/loadConfig.js:27](https://github.com/evmts/evmts-monorepo/blob/main/bundler/packages/config/src/loadConfig.js#L27)
 
 ___
 

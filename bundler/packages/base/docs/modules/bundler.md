@@ -44,4 +44,4 @@
 
 #### Defined in
 
-[types.ts:32](https://github.com/evmts/evmts-monorepo/blob/main/bundler/base/src/types.ts#L32)
+[types.ts:32](https://github.com/evmts/evmts-monorepo/blob/main/bundler/packages/base/src/types.ts#L32)
