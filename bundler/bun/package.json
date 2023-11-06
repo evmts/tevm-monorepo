@@ -53,7 +53,7 @@
 		"test:ui": "vitest --ui"
 	},
 	"dependencies": {
-		"@evmts/bundler": "workspace:^",
+		"@evmts/base": "workspace:^",
 		"@evmts/config": "workspace:^",
 		"effect": "^2.0.0-next.54"
 	},

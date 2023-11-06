@@ -39,12 +39,12 @@ jobs:
         with:
           name: "@evmts/ethers"
           working-directory: "./extensions/ethers"
-      - name: 'Report @evmts/bundler Coverage'
+      - name: 'Report @evmts/base Coverage'
         if: always() # Also generate the report if tests are failing
         uses:  davelosert/vitest-coverage-report-action@v2
         with:
-          name: "@evmts/bundler"
-          working-directory: "./bundler/bundler"
+          name: "@evmts/base"
+          working-directory: "./bundler/base"
       - name: 'Report @evmts/bun-plugin Coverage'
         if: always() # Also generate the report if tests are failing
         uses:  davelosert/vitest-coverage-report-action@v2

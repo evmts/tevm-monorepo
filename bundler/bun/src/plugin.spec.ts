@@ -1,6 +1,6 @@
 import { file } from './bunFile.js'
 import { evmtsBunPlugin } from './index.js'
-import { bundler } from '@evmts/bundler'
+import { bundler } from '@evmts/base'
 import { loadConfig } from '@evmts/config'
 import { succeed } from 'effect/Effect'
 import { exists, readFile } from 'fs/promises'
@@ -11,8 +11,8 @@ vi.mock('@evmts/config', async () => ({
 	loadConfig: vi.fn(),
 }))
 
-vi.mock('@evmts/bundler', async () => ({
-	...((await vi.importActual('@evmts/bundler')) as {}),
+vi.mock('@evmts/base', async () => ({
+	...((await vi.importActual('@evmts/base')) as {}),
 	bundler: vi.fn(),
 }))
 
@@ -187,7 +187,7 @@ describe('evmtsBunPlugin', () => {
 		expect(resolved.path).toEqual(require.resolve('@evmts/core'))
 	})
 
-	it('should resolve solidity file using @evmts/bundler when neither .d.ts nor .ts files exist', async () => {
+	it('should resolve solidity file using @evmts/base when neither .d.ts nor .ts files exist', async () => {
 		const plugin = evmtsBunPlugin()
 		const mockBuild = {
 			onLoad: vi.fn(),

@@ -1,6 +1,6 @@
 import { solidityModuleResolver } from '../utils/index.js'
 import { resolveModuleNameLiteralsDecorator } from './resolveModuleNameLiterals.js'
-import { FileAccessObject } from '@evmts/bundler'
+import { FileAccessObject } from '@evmts/base'
 import { CompilerConfig, defaultConfig, defineConfig } from '@evmts/config'
 import { runSync } from 'effect/Effect'
 import typescript from 'typescript/lib/tsserverlibrary.js'

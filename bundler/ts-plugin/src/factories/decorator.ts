@@ -1,5 +1,5 @@
 import type { Logger } from './logger.js'
-import { FileAccessObject } from '@evmts/bundler'
+import { FileAccessObject } from '@evmts/base'
 import { ResolvedCompilerConfig } from '@evmts/config'
 import type typescript from 'typescript/lib/tsserverlibrary.js'
 

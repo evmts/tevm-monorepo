@@ -1,4 +1,4 @@
-import { bundler, createCache } from '@evmts/bundler'
+import { bundler, createCache } from '@evmts/base'
 import { loadConfig } from '@evmts/config'
 import { runSync } from 'effect/Effect'
 import { existsSync, readFileSync } from 'fs'
@@ -51,7 +51,7 @@ export const evmtsUnplugin = (options = {}) => {
 	let moduleResolver
 
 	/**
-	 * @type {import("@evmts/bundler").FileAccessObject}
+	 * @type {import("@evmts/base").FileAccessObject}
 	 */
 	const fao = {
 		existsSync,

@@ -68,7 +68,7 @@
 		"unplugin": "^1.5.0"
 	},
 	"devDependencies": {
-		"@evmts/bundler": "workspace:^",
+		"@evmts/base": "workspace:^",
 		"@evmts/core": "workspace:^",
 		"@vitest/coverage-v8": "^0.34.6",
 		"@vitest/ui": "^0.34.6",

@@ -1,6 +1,6 @@
 import packageJson from '../package.json'
 import { evmtsUnplugin } from './evmtsUnplugin.js'
-import { bundler } from '@evmts/bundler'
+import { bundler } from '@evmts/base'
 import { loadConfig } from '@evmts/config'
 import { succeed } from 'effect/Effect'
 import { existsSync } from 'fs'
@@ -25,8 +25,8 @@ vi.mock('@evmts/config', async () => ({
 	...((await vi.importActual('@evmts/config')) as {}),
 	loadConfig: vi.fn(),
 }))
-vi.mock('@evmts/bundler', async () => ({
-	...((await vi.importActual('@evmts/bundler')) as {}),
+vi.mock('@evmts/base', async () => ({
+	...((await vi.importActual('@evmts/base')) as {}),
 	bundler: vi.fn(),
 }))
 

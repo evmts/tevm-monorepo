@@ -24,7 +24,7 @@
 
 # @evmts/runtime
 
-Internal code for generating the runtime contract code for [@evmts/bundler](../bundler)
+Internal code for generating the runtime contract code for [@evmts/base](../bundler)
 
 Generated API Docs at [./docs/](./docs)
 

@@ -13,16 +13,16 @@
 
 [![CI](https://github.com/evmts/evmts-monorepo/actions/workflows/e2e.yml/badge.svg)](https://github.com/evmts/evmts-monorepo/actions/workflows/e2e.yml)
 [![CI](https://github.com/evmts/evmts-monorepo/actions/workflows/unit.yml/badge.svg)](https://github.com/evmts/evmts-monorepo/actions/workflows/unit.yml)
-<a href="https://www.npmjs.com/package/@evmts/core" target="\_parent">
-<img alt="" src="https://img.shields.io/npm/dm/@evmts/core.svg" />
+<a href="https://www.npmjs.com/package/@evmts/base" target="\_parent">
+<img alt="" src="https://img.shields.io/npm/dm/@evmts/base.svg" />
 </a>
-<a href="https://bundlephobia.com/package/@evmts/core@latest" target="\_parent">
-<img alt="" src="https://badgen.net/bundlephobia/minzip/@evmts/core" />
+<a href="https://bundlephobia.com/package/@evmts/base@latest" target="\_parent">
+<img alt="" src="https://badgen.net/bundlephobia/minzip/@evmts/base" />
 </a>
 
-# @evmts/bundler
+# @evmts/base
 
-Internal bundler for Evmts
+Internal base bundler for Evmts
 
 Used in the LSP
 
