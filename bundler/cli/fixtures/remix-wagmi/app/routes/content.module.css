@@ -1,0 +1,48 @@
+.columnContainer {
+    background-color: #2a2a2a; 
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+    color: #EEE;
+    margin: 20px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.methodName {
+    text-align: right;
+    padding-right: 10px;  
+    margin-bottom: 10px; 
+    font-size: 16px;
+    line-height: 1.4;
+}
+
+.methodValue {
+    text-align: left;
+    padding-left: 10px;  
+    word-wrap: break-word;  
+    color: #50E3C2;
+}
+
+.button {
+    background-color: #50E3C2;
+    color: #2a2a2a;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    outline: none;
+}
+
+.button:hover {
+    background-color: #3FC3A6;
+    transform: scale(1.05);
+}
+
+.button:active {
+    transform: scale(1);
+}

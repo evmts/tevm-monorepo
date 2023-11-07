@@ -1,0 +1,11 @@
+{
+	"extends": "@evmts/tsconfig/base",
+	"compilerOptions": {
+		"moduleResolution": "NodeNext",
+		"module": "NodeNext",
+		"outDir": "dist",
+		"jsx": "react",
+		"skipLibCheck": true
+	},
+	"include": ["src"]
+}

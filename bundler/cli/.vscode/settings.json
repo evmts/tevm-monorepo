@@ -1,0 +1,32 @@
+{
+  "npm.packageManager": "pnpm",
+  "typescript.tsdk": "node_modules/typescript/lib",
+  // This makes sure the ts-plugin is loaded without needing the vscode plugin
+  "typescript.tsserver.pluginPaths": [
+    "examples/vite"
+  ],
+  "editor.formatOnSaveMode": "file",
+  "editor.tabCompletion": "on",
+  "editor.tabSize": 2,
+  "editor.formatOnSave": true,
+  "editor.inlineSuggest.enabled": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true,
+    "source.organizeImports.rome": true
+  },
+  "files.eol": "\n",
+  "[typescript]": {
+    "editor.defaultFormatter": "rome.rome"
+  },
+  "editorconfig.generateAuto": false,
+  "files.trimTrailingWhitespace": true,
+  "solidity.packageDefaultDependenciesContractsDirectory": "src",
+  "solidity.packageDefaultDependenciesDirectory": "lib",
+  "solidity.compileUsingRemoteVersion": "v0.8.17",
+  "search.exclude": {
+    "lib": true
+  },
+  "files.associations": {
+    ".gas-snapshot": "julia"
+  }
+}
