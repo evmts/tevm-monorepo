@@ -76,14 +76,19 @@ export const frameworksByUseCase = {
     htmx: frameworks.htmx,
   }
 } as const satisfies Record<keyof typeof useCases, MultipleChoice>
+export const solidityFrameworks = {
+  foundry: { value: 'foundry', label: 'foundry - A popular solidity toolchain that heavily inspires EVMts apis' },
+  hardhat: { value: 'hardhat', label: 'hardhat - A popular JavaScript solidity framework with a mature feature set' },
+  evmts: { value: 'none', label: 'evmts - Just deploy and test my contracts with EVMts' },
+} as const satisfies MultipleChoice
 export const linters = {
-  biome: { value: 'biome', label: 'biome(recomended): A blazing fast rust alternative' },
-  eslintPrettier: { value: 'eslint-prettier', label: 'eslint-prettier: The most popular choice for linting and formatting with robust plugin ecosystem' },
-  none: { value: 'none', label: 'none: No linting or formatting' },
+  biome: { value: 'biome', label: 'biome(recomended) - A blazing fast rust alternative' },
+  eslintPrettier: { value: 'eslint-prettier', label: 'eslint-prettier - The most popular choice for linting and formatting with robust plugin ecosystem' },
+  none: { value: 'none', label: 'none - No linting or formatting' },
 } as const satisfies MultipleChoice
 export const testFrameworks = {
-  vitest: { value: 'vitest', label: 'vitest(recomended): A fast and simple test framework' },
-  none: { value: 'none', label: 'vitest(recomended): A fast and simple test framework' },
+  vitest: { value: 'vitest', label: 'vitest(recomended) - A fast and simple test framework' },
+  none: { value: 'none', label: 'vitest(recomended) - A fast and simple test framework' },
 } as const satisfies MultipleChoice
 export const gitChoices = {
   git: { value: 'git', label: 'yes - use git' },
@@ -143,6 +148,12 @@ export const frameworkStep = {
     choices: frameworksByUseCase.server,
   } as const satisfies MultipleChoiceStep,
 } as const satisfies Record<keyof typeof useCases, MultipleChoiceStep>
+export const solidityFrameworkStep = {
+  type: 'multiple-choice',
+  prompt: 'Which solidity framework would you like to use?',
+  stateKey: 'solidityFramework' as const,
+  choices: solidityFrameworks,
+} as const satisfies MultipleChoiceStep
 export const gitStep = {
   type: 'multiple-choice',
   prompt: 'Do you want to initialize a git repo?',

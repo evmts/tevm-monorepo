@@ -12,9 +12,13 @@ import fs from 'fs-extra'
 import { mainSymbols } from 'figures'
 import Spinner from 'ink-spinner';
 import { generateRandomName } from '../utils/generateRandomName.js'
-import { frameworks, linters, packageManagers, testFrameworks, useCases } from '../utils/MultipleChoice.js'
+import { frameworks, linters, nameStep, packageManagers, solidityFrameworks, steps, testFrameworks, useCases } from '../utils/MultipleChoice.js'
 import { getUserPkgManager, type PackageManager } from '../utils/getUserPkgManager.js'
 import { execPromise } from '../utils/execPromise.js'
+import { createStore } from 'zustand'
+import { useCounter } from '../hooks/useCounter.js'
+import { FancyCreateTitle } from '../components/FancyCreateTitle.js'
+import { Step } from '../components/Step.js'
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -54,6 +58,9 @@ export const options = z.object({
 	testFrameworks: z
 		.enum([testFrameworks.vitest.value, testFrameworks.none.value])
 		.default(testFrameworks.vitest.value),
+	solidityFramework: z
+		.enum([solidityFrameworks.foundry.value, solidityFrameworks.hardhat.value, solidityFrameworks.evmts.value])
+		.default(solidityFrameworks.hardhat.value),
 	noGit: z
 		.boolean()
 		.default(false)
@@ -68,12 +75,18 @@ type Props = {
 	options: z.infer<typeof options>
 	args: z.infer<typeof args>
 }
-
 type State = {
 	name?: string
 } & z.infer<typeof options>
+type Reducers = {}
 
-const titleText = 'Create EVMts App'
+const useStore = (initialState: State) => {
+	const [store] = useState(createStore<State & Reducers>(() => {
+		return initialState
+	}))
+	return store
+}
+
 
 const create = async (
 	state: State,
@@ -136,17 +149,11 @@ const create = async (
 	}
 }
 
-const Create: React.FC<Props> = ({ options, args }) => {
-	const [state, setState] = useState<Partial<State>>({})
+const Create: React.FC<Props> = ({ options, args: [defaultName] }) => {
+	const store = useStore({ ...options, name: defaultName })
+	const state = store.getState()
+	const setState = store.setState
 	const [packageManager, setPackageManager] = useState<PackageManager>()
-	const currentStep = steps.find((step) => !state[step.stateKey])
-	const [stepIndex, setStepIndex] = useState(
-		options.default ? 100 : currentStep ? steps.indexOf(currentStep) : 0,
-	)
-	const goToNextStep = () => {
-		const nextStep = stepIndex + 1
-		setStepIndex(nextStep)
-	}
 	const animationSpeed = 1
 	const { count: i } = useCounter(
 		titleText.length / animationSpeed,
@@ -279,20 +286,12 @@ const Create: React.FC<Props> = ({ options, args }) => {
 
 	return (
 		<>
-			<Gradient name='pastel'>
-				<BigText font="tiny" text={titleText.slice(0, i + 1)} />
-			</Gradient>
+			<FancyCreateTitle />
 			{(
 				<>
-					<Box minHeight={3} flexDirection='column'>
-						<Box flexDirection='row' gap={2}>
-							<Text bold color='black' backgroundColor='#A7DBAB'>
-								{'    Name   '}
-							</Text>
-							<Text>{nameStep.prompt}</Text>
-						</Box>
-						<Box paddingLeft={13}>{nameResult}</Box>
-					</Box>
+					<Step name="Name" prompt={nameStep.prompt}>
+						{nameResult}
+					</ Step>
 					{stepIndex >= 1 && (
 						<Box minHeight={3} flexDirection='column'>
 							<Box flexDirection='row' gap={2}>
