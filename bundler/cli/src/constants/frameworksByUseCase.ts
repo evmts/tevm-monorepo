@@ -31,7 +31,6 @@ export const frameworksByUseCase = {
     choices: {
       server: frameworks.choices.server,
       elysia: frameworks.choices.elysia,
-      htmx: frameworks.choices.htmx,
     }
   },
   ui: {
@@ -46,7 +45,14 @@ export const frameworksByUseCase = {
       astro: frameworks.choices.astro,
       svelte: frameworks.choices.svelte,
       vue: frameworks.choices.vue,
-      htmx: frameworks.choices.htmx,
     }
-  }
+  },
+  game: {
+    stateKey: frameworks.stateKey,
+    type: frameworks.type,
+    prompt: 'Pick a game template',
+    choices: {
+      mud: frameworks.choices.mud,
+    }
+  },
 } as const satisfies Record<keyof (typeof useCases)['choices'], MultipleChoiceStep>

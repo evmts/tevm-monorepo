@@ -1,6 +1,6 @@
 import type { FC } from "react"
 import React from 'react'
-import type { InputStep } from "../pages/create/constants/InputStep.js"
+import type { InputStep } from "../constants/index.js"
 import { Step, type StepProps } from "./Step.js"
 import { Text } from "ink"
 import TextInput from "ink-text-input"

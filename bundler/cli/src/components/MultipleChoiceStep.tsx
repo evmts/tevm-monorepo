@@ -1,6 +1,6 @@
 import React from "react";
 import { Step, type StepProps } from "./Step.js";
-import type { MultipleChoiceStep as MultipleChoiceStepType } from "../pages/create/constants/MultipleChoice.js";
+import type { MultipleChoiceStep as MultipleChoiceStepType } from "../constants/index.js";
 import { Text } from "ink";
 import { SelectInput } from "./SelectInput.js";
 
@@ -26,7 +26,9 @@ export const MultipleChoiceStep = <T extends MultipleChoiceStepType>({
       activeContent={
         <SelectInput
           items={Object.values(multipleChoice.choices)}
-          onSelect={onSelect as any}
+          onSelect={choice => {
+            onSelect(choice.value as string)
+          }}
         />
       }
     />

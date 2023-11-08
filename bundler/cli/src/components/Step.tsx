@@ -18,7 +18,7 @@ export type StepProps = {
   hide?: boolean
 }
 
-const DEFAULT_DESIRED_WIDTH = 12
+const DEFAULT_DESIRED_WIDTH = 16
 
 const formatName = (name: string, desiredWidth = DEFAULT_DESIRED_WIDTH) => {
   const leftWidth = Math.floor((desiredWidth - name.length) / 2)
@@ -37,7 +37,7 @@ export const Step: FC<StepProps> = ({ hide = false, isActive, activeContent, non
       </Text>
       <Text>{prompt}</Text>
     </Box>
-    <Box paddingLeft={13}>{isActive ? activeContent : nonActiveContent}</Box>
+    <Box paddingLeft={18}>{isActive ? activeContent : nonActiveContent}</Box>
   </Box>
 }
 

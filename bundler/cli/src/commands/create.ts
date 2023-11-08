@@ -1,4 +1,4 @@
-import { command } from "../pages/create/command.js"
+import { command } from "../index.js"
 
 export const isDefault = true
 export const args = command.args

@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { generateRandomName } from "../../utils/generateRandomName.js";
+import { generateRandomName } from "./utils/generateRandomName.js";
 
 export const args = z.tuple([
   z

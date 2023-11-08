@@ -4,13 +4,13 @@
 	"license": "MIT",
 	"type": "module",
 	"bin": {
-		"create-evmts-app": "dist/cli.js"
+		"create-evmts-app": "dist/create-evmts-app.js"
 	},
 	"files": [
 		"dist"
 	],
 	"scripts": {
-		"build": "tsc && chmod +x dist/cli.js",
+		"build": "tsc && chmod +x dist/create-evmts-app.js",
 		"dev": "tsx src/cli.tsx ../example",
 		"test": "vitest --coverage",
 		"test:coverage": "vitest run --coverage",

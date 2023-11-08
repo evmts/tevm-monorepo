@@ -1,4 +1,4 @@
-import Create from '../commands/create.js'
+import { App } from './App.js'
 import { afterAll, expect, test } from 'vitest'
 import chalk from 'chalk'
 import { render } from 'ink-testing-library'
@@ -12,13 +12,23 @@ afterAll(() => {
 
 test('Should work', async () => {
 	const { lastFrame, stdin } = render(
-		<Create
+		<App
 			args={["my-app"]}
 			options={{
-				default: false,
-				template: 'remix-wagmi',
 				noGit: false,
 				noInstall: false,
+				chainIds: [1, 4, 100],
+				ciChoice: 'none',
+				contractStrategy: 'local',
+				framework: 'remix',
+				linter: 'eslint-prettier',
+				packageManager: 'bun',
+				skipPrompts: true,
+				solidityFramework: 'foundry',
+				testFrameworks: 'vitest',
+				typescriptStrictness: 'strictist',
+				useCase: 'ui',
+				walletConnectProjectId: '123',
 			}} />)
 
 	// hackily waiting

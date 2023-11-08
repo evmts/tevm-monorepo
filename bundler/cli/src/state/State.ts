@@ -22,6 +22,10 @@ export type State = {
    * The current displayed value of the chainId input
    */
   chainIdInput: string
+  /*
+     * The current displayed value of the walletCOnnectId input
+     */
+  walletConnectIdInput: string
   /**
    * Currently selected step
    */

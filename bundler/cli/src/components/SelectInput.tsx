@@ -18,12 +18,6 @@ type Props<V> = {
    */
   items: Array<Item<V>>
   /**
-   * Index of initially-selected item in `items` array.
-   *
-   * @default 0
-   */
-  initialSelection?: V;
-  /**
    * Function to call when user selects an item. Item object is passed to that function as an argument.
    */
   onSelect: (item: Item<V>) => void;
@@ -33,12 +27,13 @@ type Props<V> = {
  * Create EVMts app step to select the use case
  * Uses a MultiSelect
  */
-export const SelectInput = <T extends any>({ items, onSelect, initialSelection = items[0]?.value }: Props<T>) => {
+export const SelectInput = <T extends any>({ items, onSelect }: Props<T>) => {
+  const initialIndex = items.findIndex(item => item.label === '(recommended)')
   return (
     <InkSelectInput
       itemComponent={ItemComponent}
       indicatorComponent={IndicatorComponent}
-      initialIndex={initialSelection && items.findIndex(item => item.value === initialSelection) || 0}
+      initialIndex={initialIndex > -1 ? initialIndex : 0}
       items={items}
       onSelect={onSelect}
     />
