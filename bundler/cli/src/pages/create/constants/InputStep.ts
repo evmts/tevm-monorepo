@@ -1,10 +1,26 @@
 import type { Step } from "./types.js"
 
+/**
+ * A cli step where user enters input text
+ */
 export type InputStep = Step & {
   type: 'input'
 }
+
+/**
+ * Name of the project
+ */
 export const nameStep = {
   type: 'input',
   prompt: 'What is the name of your project?',
   stateKey: 'name' as const,
+} as const satisfies InputStep
+
+/**
+ * Comma seperated list of chainIds used by the project
+ */
+export const chainIds = {
+  type: 'input',
+  prompt: 'Please enter a comma seperated list of chainIds you want to support',
+  stateKey: 'chainId' as const,
 } as const satisfies InputStep

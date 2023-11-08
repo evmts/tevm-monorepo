@@ -15,6 +15,7 @@ export type StepProps = {
   color: ValueOf<typeof colorPallet>
   icon?: ReactNode
   children?: never
+  hide?: boolean
 }
 
 const DEFAULT_DESIRED_WIDTH = 12
@@ -25,7 +26,10 @@ const formatName = (name: string, desiredWidth = DEFAULT_DESIRED_WIDTH) => {
   return ' '.repeat(leftWidth) + name + ' '.repeat(rightWidth)
 }
 
-export const Step: FC<StepProps> = ({ isActive, activeContent, nonActiveContent, name, color, icon, prompt }) => {
+export const Step: FC<StepProps> = ({ hide = false, isActive, activeContent, nonActiveContent, name, color, icon, prompt }) => {
+  if (hide) {
+    return <></>
+  }
   return <Box minHeight={3} flexDirection='column'>
     <Box flexDirection='row' gap={2}>
       <Text bold color='black' backgroundColor={color}>

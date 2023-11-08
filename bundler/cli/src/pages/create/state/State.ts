@@ -9,15 +9,15 @@ export type State = {
   /**
    * Name of the project. Both the folder and the package name
    */
-  name?: (z.infer<typeof args>)[0]
+  name: (z.infer<typeof args>)[0]
   /**
    * Path to the project
    */
-  path?: (z.infer<typeof args>)[0]
+  path: (z.infer<typeof args>)[0]
   /**
    * The current displayed value of the name input
    */
-  nameInput?: string
+  nameInput: string
   /**
    * Currently selected step
    */

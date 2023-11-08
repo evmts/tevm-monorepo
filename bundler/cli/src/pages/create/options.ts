@@ -3,32 +3,38 @@ import { frameworks, linters, packageManagers, solidityFrameworks, testFramework
 import { getUserPkgManager } from '../../utils/getUserPkgManager.js'
 
 export const options = z.object({
-  default: z
+  skipPrompts: z
     .boolean()
     .default(false)
-    .describe('Bypass CLI and use all default options'),
+    .describe('Bypass interactive CLI prompt and use only command line flag options'),
+  chainIds: z
+    .string()
+    .default('1,10')
+    .refine(ids => ids.split(',').every(Number.isInteger), { message: 'chainIds must be a comma seperated list of integers' })
+    .transform(ids => ids.split(',').map(Number.parseInt))
+    .describe('Comma separated list of chain ids to use for the project'),
   packageManager: z
-    .enum([packageManagers.pnpm.value, packageManagers.npm.value, packageManagers.bun.value, packageManagers.yarn.value])
+    .enum([packageManagers.choices.pnpm.value, packageManagers.choices.npm.value, packageManagers.choices.bun.value, packageManagers.choices.yarn.value])
     .default(getUserPkgManager())
     .describe('JS package manager to use'),
   useCase: z
-    .enum([useCases.simple.value, useCases.ui.value, useCases.server.value, useCases.scripting.value])
-    .default(useCases.ui.value)
+    .enum([useCases.choices.simple.value, useCases.choices.ui.value, useCases.choices.server.value, useCases.choices.scripting.value])
+    .default(useCases.choices.ui.value)
     .describe('Use case for app'),
   framework: z
-    .enum([frameworks.simple.value, frameworks.mud.value, frameworks.server.value, frameworks.pwa.value, frameworks.next.value, frameworks.remix.value, frameworks.astro.value, frameworks.svelte.value, frameworks.vue.value, frameworks.bun.value, frameworks.elysia.value, frameworks.htmx.value])
-    .default(frameworks.mud.value)
+    .enum([frameworks.choices.simple.value, frameworks.choices.mud.value, frameworks.choices.server.value, frameworks.choices.pwa.value, frameworks.choices.next.value, frameworks.choices.remix.value, frameworks.choices.astro.value, frameworks.choices.svelte.value, frameworks.choices.vue.value, frameworks.choices.bun.value, frameworks.choices.elysia.value, frameworks.choices.htmx.value])
+    .default(frameworks.choices.mud.value)
     .describe('Framework to use'),
   linter: z
-    .enum([linters.eslintPrettier.value, linters.biome.value, linters.none.value])
-    .default(linters.biome.value)
+    .enum([linters.choices['eslint-prettier'].value, linters.choices.biome.value, linters.choices.none.value])
+    .default(linters.choices.biome.value)
     .describe('Linter to use'),
   testFrameworks: z
-    .enum([testFrameworks.vitest.value, testFrameworks.none.value])
-    .default(testFrameworks.vitest.value),
+    .enum([testFrameworks.choices.vitest.value, testFrameworks.choices.none.value])
+    .default(testFrameworks.choices.vitest.value),
   solidityFramework: z
-    .enum([solidityFrameworks.foundry.value, solidityFrameworks.hardhat.value, solidityFrameworks.evmts.value])
-    .default(solidityFrameworks.hardhat.value),
+    .enum([solidityFrameworks.choices.foundry.value, solidityFrameworks.choices.hardhat.value, solidityFrameworks.choices.none.value])
+    .default(solidityFrameworks.choices.hardhat.value),
   noGit: z
     .boolean()
     .default(false)
