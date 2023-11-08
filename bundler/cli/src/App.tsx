@@ -1,16 +1,18 @@
-import React from 'react'
-import { z } from 'zod'
+import type { args } from './args.js'
 import { FancyCreateTitle } from './components/FancyCreateTitle.js'
 import { type options } from './options.js'
-import type { args } from './args.js'
-import { useStore } from './state/Store.js'
-import { Box } from 'ink'
 import { InteractivePrompt } from './pages/InteractivePrompt.js'
+import type { Page } from './state/State.js'
+import { useStore } from './state/Store.js'
+import { Box, Text } from 'ink'
+import React, { type ReactNode } from 'react'
+import { z } from 'zod'
 
 type Props = {
   options: z.infer<typeof options>
   args: z.infer<typeof args>
 }
+
 
 export const App: React.FC<Props> = ({ options, args: [defaultName] }) => {
   const store = useStore({
@@ -21,12 +23,19 @@ export const App: React.FC<Props> = ({ options, args: [defaultName] }) => {
     nameInput: '',
     chainIdInput: '',
     walletConnectIdInput: '',
+    currentPage: options.skipPrompts ? 'creating' : 'interactive'
   })
+
+  const pages: Record<Page, ReactNode> = {
+    interactive: <InteractivePrompt defaultName={defaultName} store={store} />,
+    complete: <Text>Complete</Text>,
+    creating: <Text>Creating</Text>
+  }
 
   return (
     <Box display="flex" flexDirection="column">
       <FancyCreateTitle />
-      <InteractivePrompt defaultName={defaultName} store={store} />
+      {pages[store.currentPage]}
     </Box>
   )
 }

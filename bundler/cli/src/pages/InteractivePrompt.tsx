@@ -308,6 +308,7 @@ export const InteractivePrompt: React.FC<Props> = ({ defaultName, store }) => {
         store.selectAndContinue({
           name: 'noInstall',
           value: value === 'none' ? true : false,
+          nextPage: true,
         })
       }}
     />)

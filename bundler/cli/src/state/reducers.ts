@@ -23,12 +23,13 @@ const setInput: Reducer<{ value: string, input: 'chainIdInput' | 'nameInput' | '
  * Selects an option and continues to the next step
  */
 const selectAndContinue = (<TName extends keyof State>(
-  payload: { name: TName, value: State[TName] }, state: State
+  payload: { name: TName, value: State[TName], nextPage?: boolean }, state: State
 ) => {
-  const newState = {
+  const newState: State = {
     ...state,
     [payload.name]: payload.value,
-    currentStep: state.currentStep + 1,
+    currentStep: payload.nextPage ? state.currentStep : state.currentStep + 1,
+    currentPage: payload.nextPage ? goToNextPage({}, state).currentPage : state.currentPage,
   }
 
   const isName = payload.name === 'name'
@@ -62,10 +63,33 @@ const selectAndContinue = (<TName extends keyof State>(
 }) satisfies Reducer<{ name: keyof State, value: State[keyof State] }>
 
 /**
+ * Gos to the next page of the prompt
+ */
+const goToNextPage: Reducer<any> = (_, state) => {
+  if (state.currentPage === 'interactive') {
+    return {
+      ...state,
+      currentPage: 'creating',
+    }
+  }
+  if (state.currentPage === 'creating') {
+    return {
+      ...state,
+      currentPage: 'complete',
+    }
+  }
+  if (state.currentPage === 'complete') {
+    throw new Error('Cannot go to next page from complete')
+  }
+  throw new Error(`Unknown page ${state.currentPage satisfies never}`)
+}
+
+/**
  * Available state transition functions
  */
 export const reducers = {
-  setInput: setInput,
+  setInput,
+  goToNextPage,
   selectAndContinue
 }
 

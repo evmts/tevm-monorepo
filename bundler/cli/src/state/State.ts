@@ -2,6 +2,8 @@ import type { z } from "zod"
 import type { args } from "../args.js"
 import type { options } from "../options.js"
 
+export type Page = 'interactive' | 'creating' | 'complete'
+
 /**
  * UI state for the app
  */
@@ -27,7 +29,11 @@ export type State = {
      */
   walletConnectIdInput: string
   /**
-   * Currently selected step
+   * Currently selected step on the interactive prompt
    */
   currentStep: number
+  /**
+   * Currently selected page
+   */
+  currentPage: Page
 } & z.infer<typeof options>
