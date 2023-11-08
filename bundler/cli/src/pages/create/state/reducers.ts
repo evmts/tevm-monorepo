@@ -15,8 +15,8 @@ export type Reducers = typeof reducers
 /**
  * Sets the name input when user types
  */
-const setNameInput: Reducer<string> = (nameInput, state) => {
-  return { ...state, nameInput }
+const setInput: Reducer<{ value: string, input: 'chainIdInput' | 'nameInput' }> = (payload, state) => {
+  return { ...state, [payload.input]: payload.value }
 }
 
 /**
@@ -37,7 +37,7 @@ const selectAndContinue = (<TName extends keyof State>(
  * Available state transition functions
  */
 export const reducers = {
-  setNameInput,
+  setInput: setInput,
   selectAndContinue
 }
 

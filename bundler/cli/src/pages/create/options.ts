@@ -1,22 +1,32 @@
 import { z } from 'zod'
-import { frameworks, linters, packageManagers, solidityFrameworks, testFrameworks, useCases } from './constants/index.js'
+import { contractStrategy, frameworks, linters, packageManagers, solidityFrameworks, testFrameworks, useCases } from './constants/index.js'
 import { getUserPkgManager } from '../../utils/getUserPkgManager.js'
+
+export const chainIdsValidator = z
+  .string()
+  .default('1,10')
+  .refine(ids => ids.split(',').every(Number.isInteger), { message: 'chainIds must be a comma seperated list of integers' })
+  .transform(ids => ids.split(',').map(Number.parseInt))
+  .describe('Comma separated list of chain ids to use for the project')
 
 export const options = z.object({
   skipPrompts: z
     .boolean()
     .default(false)
     .describe('Bypass interactive CLI prompt and use only command line flag options'),
-  chainIds: z
+  chainIds: chainIdsValidator,
+  walletConnectProjectId: z
     .string()
-    .default('1,10')
-    .refine(ids => ids.split(',').every(Number.isInteger), { message: 'chainIds must be a comma seperated list of integers' })
-    .transform(ids => ids.split(',').map(Number.parseInt))
-    .describe('Comma separated list of chain ids to use for the project'),
+    .default('898f836c53a18d0661340823973f0cb4')
+    .describe('Wallet connect project id'),
   packageManager: z
     .enum([packageManagers.choices.pnpm.value, packageManagers.choices.npm.value, packageManagers.choices.bun.value, packageManagers.choices.yarn.value])
     .default(getUserPkgManager())
     .describe('JS package manager to use'),
+  contractStrategy: z
+    .enum([contractStrategy.choices.local.value, contractStrategy.choices.external.value, contractStrategy.choices.both.value])
+    .default(contractStrategy.choices.local.value)
+    .describe('Strategy for managing contracts'),
   useCase: z
     .enum([useCases.choices.simple.value, useCases.choices.ui.value, useCases.choices.server.value, useCases.choices.scripting.value])
     .default(useCases.choices.ui.value)

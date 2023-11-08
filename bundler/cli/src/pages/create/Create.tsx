@@ -1,7 +1,7 @@
 import React from 'react'
 import { z } from 'zod'
 import { FancyCreateTitle } from '../../components/FancyCreateTitle.js'
-import type { options } from './options.js'
+import { chainIdsValidator, type options } from './options.js'
 import type { args } from './args.js'
 import { useStore } from './state/Store.js'
 import { Box } from 'ink'
@@ -11,6 +11,9 @@ import * as multipleChoiceSteps from './constants/MultipleChoice.js'
 import { frameworksByUseCase } from './constants/frameworksByUseCase.js'
 import { MultipleChoiceStep } from '../../components/MultipleChoiceStep.js'
 import { TextInputStep } from '../../components/TextInputStep.js'
+
+
+const defaultChainIds = chainIdsValidator.parse(undefined)
 
 type Props = {
   options: z.infer<typeof options>
@@ -23,7 +26,8 @@ export const Create: React.FC<Props> = ({ options, args: [defaultName] }) => {
     name: defaultName,
     currentStep: 0,
     path: '.',
-    nameInput: ''
+    nameInput: '',
+    chainIdInput: '',
   })
 
   return (
@@ -36,11 +40,15 @@ export const Create: React.FC<Props> = ({ options, args: [defaultName] }) => {
         step={inputSteps.nameStep}
         value={store.nameInput}
         placeholder={defaultName}
-        onChange={(nameInput) => {
-          store.setNameInput(nameInput)
+        onChange={(value) => {
+          store.setInput({ input: 'nameInput', value })
         }}
         onSubmit={(value) => {
-          store.selectAndContinue({ name: 'name', value: value === '' ? defaultName : value })
+          if (value === '') {
+            store.selectAndContinue({ name: 'name', value: defaultName })
+            return
+          }
+          store.selectAndContinue({ name: 'name', value })
         }}
       />
       <MultipleChoiceStep
@@ -94,15 +102,55 @@ export const Create: React.FC<Props> = ({ options, args: [defaultName] }) => {
         selectedChoice={store.solidityFramework}
         onSelect={(value) => {
           store.selectAndContinue({
-            name: 'framework',
+            name: 'solidityFramework',
+            value: value,
+          })
+        }}
+      />
+      <TextInputStep
+        name="ChainIds"
+        isActive={store.currentStep === 0}
+        color={colorPallet.purple}
+        step={inputSteps.chainIds}
+        value={store.chainIdInput}
+        placeholder={defaultChainIds.join(',')}
+        onChange={(value) => {
+          const parsedIds = chainIdsValidator.safeParse(value.endsWith(',') ? value.slice(0, value.length - 1) : value)
+          if (!parsedIds.success) {
+            return
+          }
+          store.setInput({ input: 'chainIdInput', value })
+        }}
+        onSubmit={(value) => {
+          if (value === '') {
+            store.selectAndContinue({ name: 'chainIds', value: defaultChainIds })
+            return
+          }
+          const parsedIds = chainIdsValidator.safeParse(value.endsWith(',') ? value.slice(0, value.length - 1) : value)
+          if (!parsedIds.success) {
+            return
+          }
+          store.selectAndContinue({ name: 'chainIds', value: parsedIds.data })
+        }}
+      />
+      <MultipleChoiceStep
+        name="Contracts"
+        isActive={store.currentStep === 5}
+        hide={store.currentStep < 5}
+        color={colorPallet.purple}
+        multipleChoice={multipleChoiceSteps.contractStrategy}
+        selectedChoice={store.contractStrategy}
+        onSelect={(value) => {
+          store.selectAndContinue({
+            name: 'contractStrategy',
             value: value,
           })
         }}
       />
       <MultipleChoiceStep
         name="Test"
-        isActive={store.currentStep === 5}
-        hide={store.currentStep < 5}
+        isActive={store.currentStep === 6}
+        hide={store.currentStep < 6}
         color={colorPallet.purple}
         multipleChoice={multipleChoiceSteps.testFrameworks}
         selectedChoice={store.testFrameworks}
@@ -115,8 +163,8 @@ export const Create: React.FC<Props> = ({ options, args: [defaultName] }) => {
       />
       <MultipleChoiceStep
         name="Linter"
-        isActive={store.currentStep === 6}
-        hide={store.currentStep < 6}
+        isActive={store.currentStep === 7}
+        hide={store.currentStep < 7}
         color={colorPallet.purple}
         multipleChoice={multipleChoiceSteps.linters}
         selectedChoice={store.linter}
@@ -129,8 +177,8 @@ export const Create: React.FC<Props> = ({ options, args: [defaultName] }) => {
       />
       <MultipleChoiceStep
         name="Git"
-        isActive={store.currentStep === 7}
-        hide={store.currentStep < 7}
+        isActive={store.currentStep === 8}
+        hide={store.currentStep < 8}
         color={colorPallet.purple}
         multipleChoice={multipleChoiceSteps.gitChoices}
         selectedChoice={store.noGit ? 'none' : 'git'}
@@ -143,8 +191,8 @@ export const Create: React.FC<Props> = ({ options, args: [defaultName] }) => {
       />
       <MultipleChoiceStep
         name="Install"
-        isActive={store.currentStep === 7}
-        hide={store.currentStep < 7}
+        isActive={store.currentStep === 9}
+        hide={store.currentStep < 9}
         color={colorPallet.purple}
         multipleChoice={multipleChoiceSteps.installChoices}
         selectedChoice={store.noInstall ? 'none' : 'install'}

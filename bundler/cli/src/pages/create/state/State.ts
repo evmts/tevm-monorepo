@@ -19,6 +19,10 @@ export type State = {
    */
   nameInput: string
   /**
+   * The current displayed value of the chainId input
+   */
+  chainIdInput: string
+  /**
    * Currently selected step
    */
   currentStep: number

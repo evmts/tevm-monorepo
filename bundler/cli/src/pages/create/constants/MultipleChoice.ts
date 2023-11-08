@@ -66,6 +66,26 @@ export const solidityFrameworks = {
     none: { value: 'none', label: 'none - Just deploy and test my contracts with EVMts' },
   }
 } as const satisfies MultipleChoiceStep
+export const typescriptStrictness = {
+  type: 'multiple-choice',
+  prompt: 'How strict do you want your TypeScript?',
+  stateKey: 'solidityFramework',
+  choices: {
+    strictist: { value: 'strictist', label: 'strictist(recomended) - Safest option' },
+    strict: { value: 'strict', label: 'strict - Moderately strict TypeScript' },
+    loose: { value: 'loose', label: 'loose - Very forgiving TypeScript useful for prototyping' },
+  }
+} as const satisfies MultipleChoiceStep
+export const contractStrategy = {
+  type: 'multiple-choice',
+  prompt: 'What type of contracts are you using?',
+  stateKey: 'contractStrategy',
+  choices: {
+    local: { value: 'local', label: 'local: I\'m writing contracts in this project or monorepo or installing them with npm' },
+    external: { value: 'external', label: 'external: I\'m using verified contracts that are on a blockexplorer' },
+    both: { value: 'both', label: 'both: I\'m using both local and external contracts' },
+  }
+} as const satisfies MultipleChoiceStep
 export const linters = {
   type: 'multiple-choice',
   prompt: 'Do you wish to use a linter?',
@@ -101,6 +121,15 @@ export const installChoices = {
   choices: {
     install: { value: 'install', label: 'yes - install dependencies' },
     none: { value: 'none', label: 'no - skip install' },
+  }
+} as const satisfies MultipleChoiceStep
+export const ciChoices = {
+  type: 'multiple-choice',
+  prompt: 'Do you want to use github actions?',
+  stateKey: 'ciChoice',
+  choices: {
+    githubActions: { value: 'install', label: 'yes - Use github actions' },
+    none: { value: 'none', label: 'no - Do not use github actions' },
   }
 } as const satisfies MultipleChoiceStep
 
