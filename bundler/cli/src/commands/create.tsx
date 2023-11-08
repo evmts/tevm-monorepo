@@ -9,73 +9,51 @@ import { z } from 'zod'
 import { join, dirname } from 'path'
 import { fileURLToPath } from 'url';
 import fs from 'fs-extra'
-import { exec } from 'child_process'
-import { promisify } from 'util'
 import { mainSymbols } from 'figures'
 import Spinner from 'ink-spinner';
-
-const execPromise = promisify(exec)
-
-type PackageManager = "npm" | "pnpm" | "yarn" | "bun";
+import { generateRandomName } from '../utils/generateRandomName.js'
+import { frameworks, linters, packageManagers, testFrameworks, useCases } from '../utils/MultipleChoice.js'
+import { getUserPkgManager, type PackageManager } from '../utils/getUserPkgManager.js'
+import { execPromise } from '../utils/execPromise.js'
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-export const fixturesDir = join(__dirname, '..', '..', 'fixtures')
+const fixturesDir = join(__dirname, '..', '..', 'fixtures')
 
-// Originally from https://github.com/t3-oss/create-t3-app/blob/main/cli/src/utils/getUserPkgManager.ts
-const getUserPkgManager: () => PackageManager = () => {
-	// This environment variable is set by npm and yarn but pnpm seems less consistent
-	const userAgent = process.env['npm_config_user_agent'];
-
-	if (userAgent) {
-		if (userAgent.startsWith("yarn")) {
-			return "yarn";
-		} else if (userAgent.startsWith("pnpm")) {
-			return "pnpm";
-		} else if (userAgent.startsWith("bun")) {
-			return "bun";
-		} else {
-			return "npm";
-		}
-	} else {
-		// If no user agent is set, assume npm
-		return "npm";
-	}
-};
-
-function useCounter(n: number) {
-	const [count, setCount] = useState(0)
-	useEffect(() => {
-		const intervalId = setInterval(() => {
-			setCount((currentCount) => currentCount + 1)
-		}, 50)
-		return () => clearInterval(intervalId)
-	}, [count, n])
-	return { count, isRunning: count < n }
-}
-
+export const isDefault = true
 export const args = z.tuple([
 	z
 		.string()
 		.optional()
-		.default('my-evmts-app')
+		.default(generateRandomName())
 		.describe(
 			'The name of the application, as well as the name of the directory to create',
 		),
 ])
-
-export const isDefault = true
-
-const templates = [
-	'bun-ethers',
-	'bun-viem',
-	'next-wagmi',
-	'remix-wagmi',
-	'mud',
-	'mud-react',
-] as const
-
 export const options = z.object({
+	default: z
+		.boolean()
+		.default(false)
+		.describe('Bypass CLI and use all default options'),
+	packageManager: z
+		.enum([packageManagers.pnpm.value, packageManagers.npm.value, packageManagers.bun.value, packageManagers.yarn.value])
+		.default(getUserPkgManager())
+		.describe('JS package manager to use'),
+	useCase: z
+		.enum([useCases.simple.value, useCases.ui.value, useCases.server.value, useCases.scripting.value])
+		.default(useCases.ui.value)
+		.describe('Use case for app'),
+	framework: z
+		.enum([frameworks.simple.value, frameworks.mud.value, frameworks.server.value, frameworks.pwa.value, frameworks.next.value, frameworks.remix.value, frameworks.astro.value, frameworks.svelte.value, frameworks.vue.value, frameworks.bun.value, frameworks.elysia.value, frameworks.htmx.value])
+		.default(frameworks.mud.value)
+		.describe('Framework to use'),
+	linter: z
+		.enum([linters.eslintPrettier.value, linters.biome.value, linters.none.value])
+		.default(linters.biome.value)
+		.describe('Linter to use'),
+	testFrameworks: z
+		.enum([testFrameworks.vitest.value, testFrameworks.none.value])
+		.default(testFrameworks.vitest.value),
 	noGit: z
 		.boolean()
 		.default(false)
@@ -84,48 +62,12 @@ export const options = z.object({
 		.boolean()
 		.default(false)
 		.describe("Skips running the package manager's install command"),
-	default: z
-		.boolean()
-		.default(false)
-		.describe('Bypass CLI and use all default options'),
-	template: z
-		.enum(templates)
-		.default('remix-wagmi')
-		.describe('template to use'),
 })
 
 type Props = {
 	options: z.infer<typeof options>
 	args: z.infer<typeof args>
 }
-
-const nameStep = {
-	prompt: 'What is the name of your project?',
-	stateKey: 'name' as const,
-} as const
-const templateStep = {
-	prompt: 'Which template do you wish to use',
-	stateKey: 'template' as const,
-	choices: templates.map((template) => ({ label: template, value: template })),
-} as const
-const gitStep = {
-	prompt: 'Do you want to initialize a git repo?',
-	stateKey: 'noGit' as const,
-	choices: [
-		{ label: 'yes', value: true },
-		{ label: 'no', value: false },
-	],
-}
-const installStep = {
-	prompt: 'Do you want to install dependencies?',
-	stateKey: 'noInstall' as const,
-	choices: [
-		{ label: 'yes', value: true },
-		{ label: 'no', value: false },
-	],
-}
-
-const steps = [nameStep, templateStep, gitStep, installStep] as const
 
 type State = {
 	name?: string
@@ -135,7 +77,6 @@ const titleText = 'Create EVMts App'
 
 const create = async (
 	state: State,
-	setPackageManager: (pm: PackageManager) => void,
 	onSuccessfulScaffold: () => void,
 	installingPackagesStarted: () => void,
 	onSuccessfulInstall: () => void,
@@ -143,9 +84,7 @@ const create = async (
 ) => {
 	try {
 		const appPath = process.cwd() + '/' + state.name
-		const packageManger = state.template.includes('bun') ? 'bun' : getUserPkgManager()
-		setPackageManager(packageManger)
-		const fixturePath = join(fixturesDir, state.template)
+		const fixturePath = join(fixturesDir, state.framework)
 		if (await fs.exists(appPath)) {
 			throw new Error(`Directory ${appPath} already exists`)
 		}
@@ -157,8 +96,40 @@ const create = async (
 		}
 		if (!state.noInstall) {
 			installingPackagesStarted()
-			await execPromise(`${packageManger} install`, { cwd: appPath })
+			await execPromise(`${state.packageManager} install`, { cwd: appPath })
 			onSuccessfulInstall()
+		}
+		if (state.linter !== 'biome') {
+			// add biome to dev deps
+			// add linter scripts
+			// add biome config
+			// run linter
+		}
+		if (state.linter !== 'eslint-prettier') {
+			// add eslint-prettier to dev deps
+			// add linter scripts
+			// add eslint-prettier config
+			// run linter
+		}
+		if (state.testFrameworks === 'vitest') {
+			// read package.json
+			const pkgPath = join(appPath, 'package.json')
+			const pkg = await fs.readJSON(pkgPath)
+			// add vitest to devDependencies
+			pkg.devDependencies = {
+				...pkg.devDependencies,
+				"@vitest/coverage-v8": "^0.34.6",
+				"@vitest/ui": "^0.34.6",
+				"vitest": "^0.34.6"
+			}
+			// add vitest scripts to scripts
+			pkg.scripts = {
+				...pkg.scripts,
+				"test": "vitest --coverage",
+				"test:coverage": "vitest run --coverage",
+				"test:run": "vitest run",
+				"test:ui": "vitest --ui"
+			}
 		}
 	} catch (e) {
 		onError(e)
@@ -166,9 +137,6 @@ const create = async (
 }
 
 const Create: React.FC<Props> = ({ options, args }) => {
-	useEffect(() => {
-		// console.clear()
-	}, [])
 	const [state, setState] = useState<Partial<State>>({})
 	const [packageManager, setPackageManager] = useState<PackageManager>()
 	const currentStep = steps.find((step) => !state[step.stateKey])
@@ -180,7 +148,7 @@ const Create: React.FC<Props> = ({ options, args }) => {
 		setStepIndex(nextStep)
 	}
 	const animationSpeed = 1
-	const { count: i, isRunning } = useCounter(
+	const { count: i } = useCounter(
 		titleText.length / animationSpeed,
 	)
 
@@ -314,7 +282,7 @@ const Create: React.FC<Props> = ({ options, args }) => {
 			<Gradient name='pastel'>
 				<BigText font="tiny" text={titleText.slice(0, i + 1)} />
 			</Gradient>
-			{!isRunning && (
+			{(
 				<>
 					<Box minHeight={3} flexDirection='column'>
 						<Box flexDirection='row' gap={2}>
