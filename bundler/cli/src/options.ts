@@ -1,10 +1,11 @@
 import { z } from 'zod'
 import { ciChoices, contractStrategy, frameworks, linters, packageManagers, solidityFrameworks, testFrameworks, typescriptStrictness, useCases } from './constants/index.js'
 import { getUserPkgManager } from './utils/getUserPkgManager.js'
+import { defaultChainIds, defaultWalletConnect } from './constants/defaults.js'
 
 export const chainIdsValidator = z
   .string()
-  .default('1,10')
+  .default(defaultChainIds)
   .refine(ids => ids === '' || ids.split(',').every((id) => {
     try {
       Number.parseInt(id)
@@ -24,7 +25,7 @@ export const options = z.object({
   chainIds: chainIdsValidator,
   walletConnectProjectId: z
     .string()
-    .default('898f836c53a18d0661340823973f0cb4')
+    .default(defaultWalletConnect)
     .describe('Wallet connect project id'),
   packageManager: z
     .enum([packageManagers.choices.pnpm.value, packageManagers.choices.npm.value, packageManagers.choices.bun.value, packageManagers.choices.yarn.value])

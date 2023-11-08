@@ -128,7 +128,7 @@ export const ciChoices = {
   prompt: 'Do you want to use github actions?',
   stateKey: 'ciChoice',
   choices: {
-    githubActions: { value: 'install', label: 'yes - Use github actions' },
+    githubActions: { value: 'githubActions', label: 'yes - Use github actions' },
     none: { value: 'none', label: 'no - Do not use github actions' },
   }
 } as const satisfies MultipleChoiceStep

@@ -7,9 +7,8 @@ import * as multipleChoiceSteps from '../constants/MultipleChoice.js'
 import { frameworksByUseCase } from '../constants/frameworksByUseCase.js'
 import { MultipleChoiceStep } from '../components/MultipleChoiceStep.js'
 import { TextInputStep } from '../components/TextInputStep.js'
-
-const defaultChainIds = '1,10'
-const defaultWalletConnect = '898f836c53a18d0661340823973f0cb4'
+import { defaultChainIds, defaultWalletConnect } from '../constants/defaults.js'
+import { useInput } from 'ink'
 
 type Props = {
   defaultName: string
@@ -17,6 +16,12 @@ type Props = {
 }
 
 export const InteractivePrompt: React.FC<Props> = ({ defaultName, store }) => {
+  useInput((_, { leftArrow }) => {
+    if (leftArrow) {
+      store.goToPreviousStep({})
+    }
+  })
+
   const steps: Array<ReactNode> = []
 
   steps.push(
@@ -62,7 +67,7 @@ export const InteractivePrompt: React.FC<Props> = ({ defaultName, store }) => {
       isActive={store.currentStep === steps.length}
       hide={store.currentStep < steps.length}
       color={colorPallet.purple}
-      multipleChoice={frameworksByUseCase[store.useCase] as typeof multipleChoiceSteps.frameworks}
+      multipleChoice={frameworksByUseCase[store.useCase] as unknown as typeof multipleChoiceSteps.frameworks}
       selectedChoice={store.framework}
       onSelect={(value) => {
         store.selectAndContinue({
@@ -140,33 +145,6 @@ export const InteractivePrompt: React.FC<Props> = ({ defaultName, store }) => {
       }}
     />)
 
-  if (isUi) {
-    steps.push(
-      <TextInputStep
-        name="WalletConnect"
-        isActive={store.currentStep === steps.length}
-        hide={store.currentStep < steps.length}
-        color={colorPallet.purple}
-        step={inputSteps.walletConnectProjectId}
-        value={store.chainIdInput}
-        placeholder={defaultWalletConnect}
-        onChange={(value) => {
-          store.setInput({ input: 'walletConnectIdInput', value })
-        }}
-        onSubmit={(value) => {
-          if (value === '') {
-            store.selectAndContinue({ name: 'chainIds', value: defaultChainIds })
-            return
-          }
-          const parsedIds = chainIdsValidator.safeParse(value.endsWith(',') ? value.slice(0, value.length - 1) : value)
-          if (!parsedIds.success) {
-            return
-          }
-          store.selectAndContinue({ name: 'chainIds', value: parsedIds.data })
-        }}
-      />)
-  }
-
   if (!isMud) {
     steps.push(
       <MultipleChoiceStep
@@ -203,25 +181,25 @@ export const InteractivePrompt: React.FC<Props> = ({ defaultName, store }) => {
       />)
   }
 
-  if (!isMud) {
+  if (isUi && !isMud) {
     steps.push(
       <TextInputStep
         name="WalletConnect"
         isActive={store.currentStep === steps.length}
         hide={store.currentStep < steps.length}
         color={colorPallet.purple}
-        step={inputSteps.nameStep}
-        value={store.nameInput}
-        placeholder={defaultName}
+        step={inputSteps.walletConnectProjectId}
+        value={store.walletConnectIdInput}
+        placeholder={defaultWalletConnect}
         onChange={(value) => {
           store.setInput({ input: 'walletConnectIdInput', value })
         }}
         onSubmit={(value) => {
           if (value === '') {
-            store.selectAndContinue({ name: 'name', value: defaultName })
+            store.selectAndContinue({ name: 'walletConnectProjectId', value: defaultName })
             return
           }
-          store.selectAndContinue({ name: 'name', value })
+          store.selectAndContinue({ name: 'walletConnectProjectId', value })
         }}
       />)
   }
@@ -268,12 +246,12 @@ export const InteractivePrompt: React.FC<Props> = ({ defaultName, store }) => {
       isActive={store.currentStep === steps.length}
       hide={store.currentStep < steps.length}
       color={colorPallet.purple}
-      multipleChoice={multipleChoiceSteps.gitChoices}
-      selectedChoice={store.noGit ? 'none' : 'git'}
+      multipleChoice={multipleChoiceSteps.ciChoices}
+      selectedChoice={store.ciChoice}
       onSelect={(value) => {
         store.selectAndContinue({
-          name: 'noGit',
-          value: value === 'none' ? true : false,
+          name: 'ciChoice',
+          value: value,
         })
       }}
     />

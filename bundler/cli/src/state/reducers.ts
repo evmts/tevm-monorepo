@@ -62,6 +62,16 @@ const selectAndContinue = (<TName extends keyof State>(
   }
 }) satisfies Reducer<{ name: keyof State, value: State[keyof State] }>
 
+const goToPreviousStep: Reducer<any> = (_, state) => {
+  if (state.currentStep === 0) {
+    return state
+  }
+  return {
+    ...state,
+    currentStep: state.currentStep - 1,
+  }
+}
+
 /**
  * Gos to the next page of the prompt
  */
@@ -90,6 +100,7 @@ const goToNextPage: Reducer<any> = (_, state) => {
 export const reducers = {
   setInput,
   goToNextPage,
-  selectAndContinue
+  selectAndContinue,
+  goToPreviousStep,
 }
 

@@ -26,7 +26,7 @@ export const TextInputStep: FC<Props> = ({
       {...stepProps}
       prompt={step.prompt}
       nonActiveContent={
-        <Text>{value}</Text>
+        <Text>{value === '' ? placeholder : value}</Text>
       }
       activeContent={
         <TextInput

@@ -7,12 +7,18 @@ import { useStore } from './state/Store.js'
 import { Box, Text } from 'ink'
 import React, { type ReactNode } from 'react'
 import { z } from 'zod'
+import {
+  QueryClient,
+  QueryClientProvider,
+} from '@tanstack/react-query'
+import { Creating } from './pages/Creating.js'
 
 type Props = {
   options: z.infer<typeof options>
   args: z.infer<typeof args>
 }
 
+const queryClient = new QueryClient()
 
 export const App: React.FC<Props> = ({ options, args: [defaultName] }) => {
   const store = useStore({
@@ -29,14 +35,16 @@ export const App: React.FC<Props> = ({ options, args: [defaultName] }) => {
   const pages: Record<Page, ReactNode> = {
     interactive: <InteractivePrompt defaultName={defaultName} store={store} />,
     complete: <Text>Complete</Text>,
-    creating: <Text>Creating</Text>
+    creating: <Creating store={store} />
   }
 
   return (
-    <Box display="flex" flexDirection="column">
-      <FancyCreateTitle />
-      {pages[store.currentPage]}
-    </Box>
+    <QueryClientProvider client={queryClient}>
+      <Box display="flex" flexDirection="column">
+        <FancyCreateTitle key={store.currentPage} loading={store.currentPage === 'creating'} />
+        {pages[store.currentPage]}
+      </Box>
+    </QueryClientProvider>
   )
 }
 

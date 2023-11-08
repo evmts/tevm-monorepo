@@ -37,7 +37,12 @@ export const Step: FC<StepProps> = ({ hide = false, isActive, activeContent, non
       </Text>
       <Text>{prompt}</Text>
     </Box>
-    <Box paddingLeft={18}>{isActive ? activeContent : nonActiveContent}</Box>
+    <Box flexDirection='row' gap={2}>
+      <Text bold color='black' backgroundColor={color}>
+        {formatName('', DEFAULT_DESIRED_WIDTH)}
+      </Text>
+      <Box >{isActive ? activeContent : nonActiveContent}</Box>
+    </Box>
   </Box>
 }
 
