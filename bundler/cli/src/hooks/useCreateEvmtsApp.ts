@@ -65,11 +65,13 @@ export const useCreateEvmtsApp = (
     }
     mutations.push(goToNextPageMutation)
 
-    const length = mutations.length
+    // don't count the go to next step mutation
+    const length = mutations.length - 1
     const isFailure = mutations.some(mutation => mutation.isError)
     const errors = mutations.map(mutation => typeof mutation.error === 'string' ? mutation.error : mutation.error?.message).filter(Boolean)
     const isComplete = mutations.every(mutation => mutation.isSuccess)
-    const settled = mutations.filter(mutation => mutation.isError || mutation.isSuccess).length
+    // don't count the go to next step mutation
+    const settled = Math.min(length, mutations.filter(mutation => mutation.isError || mutation.isSuccess).length)
     const currentMutation = mutations[settled]
 
     let output: { stdout: string, stderr: string } | {} = {}
