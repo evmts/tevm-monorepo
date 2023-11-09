@@ -17,16 +17,9 @@ test('Should work', async () => {
 			options={{
 				noGit: false,
 				noInstall: false,
-				chainIds: [1, 4, 100],
-				ciChoice: 'none',
-				contractStrategy: 'local',
 				framework: 'remix',
-				linter: 'eslint-prettier',
 				packageManager: 'bun',
 				skipPrompts: true,
-				solidityFramework: 'foundry',
-				testFrameworks: 'vitest',
-				typescriptStrictness: 'strictist',
 				useCase: 'ui',
 				walletConnectProjectId: '123',
 			}} />)

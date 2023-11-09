@@ -1,7 +1,8 @@
 import { useState, useEffect, useReducer } from 'react';
 import { spawn } from 'child_process';
+import { wait } from '../utils/wait.js';
 
-export const useExec = (command: string, cwd: string, args = [] as string[], onSuccess: () => void) => {
+export const useExec = (command: string, cwd: string, args = [] as string[], onSuccess: () => void, withWait = 0) => {
   const [isStarted, mutate] = useReducer(() => true, false);
   const [output, setOutput] = useState('');
   const [error, setError] = useState('');
@@ -20,7 +21,9 @@ export const useExec = (command: string, cwd: string, args = [] as string[], onS
     child.stderr.on('data', (data) => {
       setError((prev) => prev + data.toString());
     });
-    child.on('close', (code) => {
+    child.on('close', async (code) => {
+      // slowing down how fast this resolves improves ux and makes it more clear what is happening
+      await wait(withWait);
       setExitCode(code ?? 0);
       if (code === 0) {
         onSuccess();
@@ -35,7 +38,7 @@ export const useExec = (command: string, cwd: string, args = [] as string[], onS
     error,
     exitCode,
     mutate,
-    isRunning: isStarted,
+    isPending: isStarted && exitCode === undefined,
     isSuccess: exitCode === 0,
     isError: exitCode !== undefined && exitCode !== 0
   };

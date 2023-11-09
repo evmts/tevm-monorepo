@@ -30,20 +30,17 @@ export const Step: FC<StepProps> = ({ hide = false, isActive, activeContent, non
   if (hide) {
     return <></>
   }
-  return <Box minHeight={3} flexDirection='column'>
-    <Box flexDirection='row' gap={2}>
-      <Text bold color='black' backgroundColor={color}>
-        {formatName(name, icon ? DEFAULT_DESIRED_WIDTH - 1 : DEFAULT_DESIRED_WIDTH)}
-      </Text>
-      <Text>{prompt}</Text>
+  return (
+    <Box minHeight={3} flexDirection='column'>
+      <Box flexDirection='row' gap={2}>
+        <Text bold color='black' backgroundColor={color}>
+          {formatName(name, icon ? DEFAULT_DESIRED_WIDTH - 1 : DEFAULT_DESIRED_WIDTH)}
+        </Text>
+        <Text>{prompt}</Text>
+      </Box>
+      <Box paddingLeft={18}>{isActive ? activeContent : nonActiveContent}</Box>
     </Box>
-    <Box flexDirection='row' gap={2}>
-      <Text bold color='black' backgroundColor={color}>
-        {formatName('', DEFAULT_DESIRED_WIDTH)}
-      </Text>
-      <Box >{isActive ? activeContent : nonActiveContent}</Box>
-    </Box>
-  </Box>
+  )
 }
 
 export type AsyncStepState = 'loading' | 'error' | 'success'

@@ -6,6 +6,7 @@ import { useCreateDir } from './useCreateDir.js'
 import { useCopy } from './useCopy.js'
 import { useExec } from './useExec.js'
 import { fileURLToPath } from "url";
+import { wait } from '../utils/wait.js'
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -18,10 +19,10 @@ export const useCreateEvmtsApp = (
   const appPath = join(process.cwd(), basename(state.name))
   const fixturePath = join(fixturesDir, state.framework + '/')
 
-  const createFixturesMutation = useCreateDir(appPath, () => {
+  const createFixturesMutation = useCreateDir(appPath, async () => {
     copyTemplateMutation.mutate()
-  })
-  const copyTemplateMutation = useCopy(fixturePath, appPath, () => {
+  }, 1000)
+  const copyTemplateMutation = useCopy(fixturePath, appPath, async () => {
     if (!state.noGit) {
       gitInitMutation.mutate()
     } else if (!state.noInstall) {
@@ -29,21 +30,21 @@ export const useCreateEvmtsApp = (
     } else {
       goToNextPageMutation.mutate()
     }
-  })
-  const gitInitMutation = useExec('git', appPath, ['init'], () => {
-    console.log('git init done')
+  }, 1000)
+  const gitInitMutation = useExec('git', appPath, ['init'], async () => {
     if (!state.noInstall) {
       installDependenciesMutation.mutate()
     } else {
       goToNextPageMutation.mutate()
     }
-  })
-  const installDependenciesMutation = useExec(state.packageManager, appPath, ['install'], () => {
-    console.log('install dependencies done')
+  }, 1000)
+  const installDependenciesMutation = useExec(state.packageManager, appPath, ['install'], async () => {
     state.goToNextPage({})
   })
   const goToNextPageMutation = useMutation({
     mutationFn: async () => {
+      // wait before going to next page
+      await wait(1000)
       state.goToNextPage({})
     }
   })
@@ -95,13 +96,13 @@ export const useCreateEvmtsApp = (
       gitInit: {
         isSuccess: gitInitMutation.isSuccess,
         data: gitInitMutation.data,
-        loading: gitInitMutation.isRunning && !gitInitMutation.isError && !gitInitMutation.isSuccess,
+        loading: gitInitMutation.isPending && !gitInitMutation.isError && !gitInitMutation.isSuccess,
         error: gitInitMutation.error,
       },
       installDependencies: {
         isSuccess: installDependenciesMutation.isSuccess,
         data: installDependenciesMutation.data,
-        loading: installDependenciesMutation.isRunning && !installDependenciesMutation.isError && !installDependenciesMutation.isSuccess,
+        loading: installDependenciesMutation.isPending && !installDependenciesMutation.isError && !installDependenciesMutation.isSuccess,
         error: installDependenciesMutation.error,
       },
       goToNextPage: {

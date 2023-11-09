@@ -20,10 +20,6 @@ export type State = {
    * The current displayed value of the name input
    */
   nameInput: string
-  /**
-   * The current displayed value of the chainId input
-   */
-  chainIdInput: string
   /*
      * The current displayed value of the walletCOnnectId input
      */

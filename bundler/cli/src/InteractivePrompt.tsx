@@ -1,19 +1,21 @@
 import React, { type ReactNode } from 'react'
-import { chainIdsValidator } from '../options.js'
-import { type Store } from '../state/Store.js'
-import * as inputSteps from '../constants/InputStep.js'
-import { colorPallet } from '../styles/colors.js'
-import * as multipleChoiceSteps from '../constants/MultipleChoice.js'
-import { frameworksByUseCase } from '../constants/frameworksByUseCase.js'
-import { MultipleChoiceStep } from '../components/MultipleChoiceStep.js'
-import { TextInputStep } from '../components/TextInputStep.js'
-import { defaultChainIds, defaultWalletConnect } from '../constants/defaults.js'
+import { type Store } from './state/Store.js'
+import * as inputSteps from './constants/InputStep.js'
+import { colorPallet } from './styles/colors.js'
+import * as multipleChoiceSteps from './constants/MultipleChoice.js'
+import { frameworksByUseCase } from './constants/frameworksByUseCase.js'
+import { MultipleChoiceStep } from './components/MultipleChoiceStep.js'
+import { TextInputStep } from './components/TextInputStep.js'
+import { defaultWalletConnect } from './constants/defaults.js'
 import { useInput } from 'ink'
 
 type Props = {
   defaultName: string
   store: Store
 }
+
+// All colors but remove black
+const colorsArray = Object.values(colorPallet).filter((color) => color !== '#000000')
 
 export const InteractivePrompt: React.FC<Props> = ({ defaultName, store }) => {
   useInput((_, { leftArrow }) => {
@@ -28,7 +30,7 @@ export const InteractivePrompt: React.FC<Props> = ({ defaultName, store }) => {
     <TextInputStep
       name="Name"
       isActive={store.currentStep === steps.length}
-      color={colorPallet.purple}
+      color={colorsArray[steps.length % colorsArray.length] as '#000000'}
       step={inputSteps.nameStep}
       value={store.nameInput}
       placeholder={defaultName}
@@ -50,7 +52,7 @@ export const InteractivePrompt: React.FC<Props> = ({ defaultName, store }) => {
       name="Use case"
       isActive={store.currentStep === steps.length}
       hide={store.currentStep < steps.length}
-      color={colorPallet.purple}
+      color={colorsArray[steps.length % colorsArray.length] as '#000000'}
       multipleChoice={multipleChoiceSteps.useCases}
       selectedChoice={store.useCase}
       onSelect={(value) => {
@@ -66,7 +68,7 @@ export const InteractivePrompt: React.FC<Props> = ({ defaultName, store }) => {
       name="Template"
       isActive={store.currentStep === steps.length}
       hide={store.currentStep < steps.length}
-      color={colorPallet.purple}
+      color={colorsArray[steps.length % colorsArray.length] as '#000000'}
       multipleChoice={frameworksByUseCase[store.useCase] as unknown as typeof multipleChoiceSteps.frameworks}
       selectedChoice={store.framework}
       onSelect={(value) => {
@@ -86,7 +88,7 @@ export const InteractivePrompt: React.FC<Props> = ({ defaultName, store }) => {
         name="Manager"
         isActive={store.currentStep === steps.length}
         hide={store.currentStep < steps.length}
-        color={colorPallet.purple}
+        color={colorsArray[steps.length % colorsArray.length] as '#000000'}
         multipleChoice={multipleChoiceSteps.packageManagers}
         selectedChoice={store.packageManager}
         onSelect={(value) => {
@@ -98,70 +100,41 @@ export const InteractivePrompt: React.FC<Props> = ({ defaultName, store }) => {
       />)
   }
 
-  if (!isMud) {
-    steps.push(
-      <MultipleChoiceStep
-        name="Solidity"
-        isActive={store.currentStep === steps.length}
-        hide={store.currentStep < steps.length}
-        color={colorPallet.purple}
-        multipleChoice={multipleChoiceSteps.solidityFrameworks}
-        selectedChoice={store.solidityFramework}
-        onSelect={(value) => {
-          store.selectAndContinue({
-            name: 'solidityFramework',
-            value: value,
-          })
-        }}
-      />)
-  }
+  //  if (!isMud) {
+  //    steps.push(
+  //      <MultipleChoiceStep
+  //        name="Solidity"
+  //        isActive={store.currentStep === steps.length}
+  //        hide={store.currentStep < steps.length}
+  //     color={colorsArray[steps.length % colorsArray.length] as '#000000'}
+  //        multipleChoice={multipleChoiceSteps.solidityFrameworks}
+  //        selectedChoice={store.solidityFramework}
+  //        onSelect={(value) => {
+  //          store.selectAndContinue({
+  //            name: 'solidityFramework',
+  //            value: value,
+  //          })
+  //        }}
+  //      />)
+  //  }
 
-  steps.push(
-    <TextInputStep
-      name="ChainIds"
-      isActive={store.currentStep === steps.length}
-      hide={store.currentStep < steps.length}
-      color={colorPallet.purple}
-      step={inputSteps.chainIds}
-      value={store.chainIdInput}
-      placeholder={defaultChainIds}
-      onChange={(value) => {
-        const { success } = chainIdsValidator.safeParse(value.endsWith(',') ? value.slice(0, value.length - 1) : value)
-        if (!success) {
-          return
-        }
-        store.setInput({ input: 'chainIdInput', value })
-      }}
-      onSubmit={(value) => {
-        if (value === '') {
-          store.selectAndContinue({ name: 'chainIds', value: defaultChainIds })
-          return
-        }
-        const parsedIds = chainIdsValidator.safeParse(value.endsWith(',') ? value.slice(0, value.length - 1) : value)
-        if (!parsedIds.success) {
-          return
-        }
-        store.selectAndContinue({ name: 'chainIds', value: parsedIds.data })
-      }}
-    />)
-
-  if (!isMud) {
-    steps.push(
-      <MultipleChoiceStep
-        name="Contracts"
-        isActive={store.currentStep === steps.length}
-        hide={store.currentStep < steps.length}
-        color={colorPallet.purple}
-        multipleChoice={multipleChoiceSteps.contractStrategy}
-        selectedChoice={store.contractStrategy}
-        onSelect={(value) => {
-          store.selectAndContinue({
-            name: 'contractStrategy',
-            value: value,
-          })
-        }}
-      />)
-  }
+  //  if (!isMud) {
+  //    steps.push(
+  //      <MultipleChoiceStep
+  //        name="Contracts"
+  //        isActive={store.currentStep === steps.length}
+  //        hide={store.currentStep < steps.length}
+  //    color={colorsArray[steps.length % colorsArray.length] as '#000000'}
+  //        multipleChoice={multipleChoiceSteps.contractStrategy}
+  //        selectedChoice={store.contractStrategy}
+  //        onSelect={(value) => {
+  //          store.selectAndContinue({
+  //            name: 'contractStrategy',
+  //            value: value,
+  //          })
+  //        }}
+  //      />)
+  //  }
 
   if (!isMud) {
     steps.push(
@@ -169,7 +142,7 @@ export const InteractivePrompt: React.FC<Props> = ({ defaultName, store }) => {
         name="TypeScript"
         isActive={store.currentStep === steps.length}
         hide={store.currentStep < steps.length}
-        color={colorPallet.purple}
+        color={colorsArray[steps.length % colorsArray.length] as '#000000'}
         multipleChoice={multipleChoiceSteps.gitChoices}
         selectedChoice={store.noGit ? 'none' : 'git'}
         onSelect={(value) => {
@@ -187,7 +160,7 @@ export const InteractivePrompt: React.FC<Props> = ({ defaultName, store }) => {
         name="WalletConnect"
         isActive={store.currentStep === steps.length}
         hide={store.currentStep < steps.length}
-        color={colorPallet.purple}
+        color={colorsArray[steps.length % colorsArray.length] as '#000000'}
         step={inputSteps.walletConnectProjectId}
         value={store.walletConnectIdInput}
         placeholder={defaultWalletConnect}
@@ -204,58 +177,55 @@ export const InteractivePrompt: React.FC<Props> = ({ defaultName, store }) => {
       />)
   }
 
-  if (!isMud && !isBun) {
-    steps.push(
-      <MultipleChoiceStep
-        name="Test"
-        isActive={store.currentStep === steps.length}
-        hide={store.currentStep < steps.length}
-        color={colorPallet.purple}
-        multipleChoice={multipleChoiceSteps.testFrameworks}
-        selectedChoice={store.testFrameworks}
-        onSelect={(value) => {
-          store.selectAndContinue({
-            name: 'testFrameworks',
-            value: value,
-          })
-        }}
-      />)
-  }
+  //  if (!isMud && !isBun) {
+  //    steps.push(
+  //      <MultipleChoiceStep
+  //        name="Test"
+  //        isActive={store.currentStep === steps.length}
+  //        hide={store.currentStep < steps.length}
+  //        multipleChoice={multipleChoiceSteps.testFrameworks}
+  //        selectedChoice={store.testFrameworks}
+  //        onSelect={(value) => {
+  //          store.selectAndContinue({
+  //            name: 'testFrameworks',
+  //            value: value,
+  //          })
+  //        }}
+  //      />)
+  //  }
 
-  if (!isMud) {
-    steps.push(
-      <MultipleChoiceStep
-        name="Linter"
-        isActive={store.currentStep === steps.length}
-        hide={store.currentStep < steps.length}
-        color={colorPallet.purple}
-        multipleChoice={multipleChoiceSteps.linters}
-        selectedChoice={store.linter}
-        onSelect={(value) => {
-          store.selectAndContinue({
-            name: 'linter',
-            value: value as string,
-          })
-        }}
-      />)
-  }
+  //  if (!isMud) {
+  //    steps.push(
+  //      <MultipleChoiceStep
+  //        name="Linter"
+  //        isActive={store.currentStep === steps.length}
+  //        hide={store.currentStep < steps.length}
+  //        multipleChoice={multipleChoiceSteps.linters}
+  //        selectedChoice={store.linter}
+  //        onSelect={(value) => {
+  //          store.selectAndContinue({
+  //            name: 'linter',
+  //            value: value as string,
+  //          })
+  //        }}
+  //      />)
+  //  }
 
-  steps.push(
-    <MultipleChoiceStep
-      name="Ci"
-      isActive={store.currentStep === steps.length}
-      hide={store.currentStep < steps.length}
-      color={colorPallet.purple}
-      multipleChoice={multipleChoiceSteps.ciChoices}
-      selectedChoice={store.ciChoice}
-      onSelect={(value) => {
-        store.selectAndContinue({
-          name: 'ciChoice',
-          value: value,
-        })
-      }}
-    />
-  )
+  //  steps.push(
+  //    <MultipleChoiceStep
+  //      name="Ci"
+  //      isActive={store.currentStep === steps.length}
+  //      hide={store.currentStep < steps.length}
+  //      multipleChoice={multipleChoiceSteps.ciChoices}
+  //      selectedChoice={store.ciChoice}
+  //      onSelect={(value) => {
+  //        store.selectAndContinue({
+  //          name: 'ciChoice',
+  //          value: value,
+  //        })
+  //      }}
+  //    />
+  //  )
 
 
   steps.push(
@@ -263,7 +233,7 @@ export const InteractivePrompt: React.FC<Props> = ({ defaultName, store }) => {
       name="Git"
       isActive={store.currentStep === steps.length}
       hide={store.currentStep < steps.length}
-      color={colorPallet.purple}
+      color={colorsArray[steps.length % colorsArray.length] as '#000000'}
       multipleChoice={multipleChoiceSteps.gitChoices}
       selectedChoice={store.noGit ? 'none' : 'git'}
       onSelect={(value) => {
@@ -279,7 +249,7 @@ export const InteractivePrompt: React.FC<Props> = ({ defaultName, store }) => {
       name="Install"
       isActive={store.currentStep === steps.length}
       hide={store.currentStep < steps.length}
-      color={colorPallet.purple}
+      color={colorsArray[steps.length % colorsArray.length] as '#000000'}
       multipleChoice={multipleChoiceSteps.installChoices}
       selectedChoice={store.noInstall ? 'none' : 'install'}
       onSelect={(value) => {

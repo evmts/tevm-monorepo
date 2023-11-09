@@ -11,7 +11,7 @@
 	],
 	"scripts": {
 		"build": "tsc && chmod +x dist/create-evmts-app.js",
-		"dev": "tsx src/create-evmts-app.tsx example && rm -rf example || rm -rf example",
+		"dev": "tsx src/create-evmts-app.tsx",
 		"test": "vitest --coverage",
 		"test:coverage": "vitest run --coverage",
 		"test:run": "vitest run",

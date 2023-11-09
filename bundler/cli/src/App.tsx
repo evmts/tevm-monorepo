@@ -1,7 +1,7 @@
 import type { args } from './args.js'
 import { FancyCreateTitle } from './components/FancyCreateTitle.js'
 import { type options } from './options.js'
-import { InteractivePrompt } from './pages/InteractivePrompt.js'
+import { InteractivePrompt } from './InteractivePrompt.js'
 import type { Page } from './state/State.js'
 import { useStore } from './state/Store.js'
 import { Box, Text } from 'ink'
@@ -11,7 +11,7 @@ import {
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query'
-import { Creating } from './pages/Creating.js'
+import { Creating } from './Creating.js'
 
 type Props = {
   options: z.infer<typeof options>
@@ -27,7 +27,6 @@ export const App: React.FC<Props> = ({ options, args: [defaultName] }) => {
     currentStep: 0,
     path: '.',
     nameInput: '',
-    chainIdInput: '',
     walletConnectIdInput: '',
     currentPage: options.skipPrompts ? 'creating' : 'interactive'
   })

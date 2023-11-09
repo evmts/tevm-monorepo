@@ -28,7 +28,7 @@ type Props<V> = {
  * Uses a MultiSelect
  */
 export const SelectInput = <T extends any>({ items, onSelect }: Props<T>) => {
-  const initialIndex = items.findIndex(item => item.label === '(recommended)')
+  const initialIndex = items.findIndex(item => item.label.includes('(recommended)'))
   return (
     <InkSelectInput
       itemComponent={ItemComponent}
