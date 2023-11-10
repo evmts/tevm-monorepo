@@ -891,7 +891,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `TParams` | extends [fn: string \| AbiFunction] |
+| `TParams` | extends [fn\_: string \| AbiFunction] |
 
 #### Parameters
 
