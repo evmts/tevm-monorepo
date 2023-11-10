@@ -19,7 +19,8 @@
     "apps/*",
     "extensions/*",
     "packages/*",
-    "examples/*"
+    "examples/*",
+    "vm"
   ],
   "scripts": {
     "all": "bun i && bun lint && bun sort-package-json && nx run-many --targets=build:dist,build:types,typecheck,test:coverage,generate:docs",
