@@ -6,6 +6,7 @@ broadcast
 
 # compiled output
 dist
+types
 packages/*/dist
 tmp
 /out-tsc
