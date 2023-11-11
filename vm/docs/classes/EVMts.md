@@ -65,7 +65,7 @@ A local EVM instance running in JavaScript. Similar to Anvil in your browser
 
 | Name | Type |
 | :------ | :------ |
-| `stateManager` | `DefaultStateManager` \| `EthersStateManager` |
+| `stateManager` | `DefaultStateManager` \| `ViemStateManager` |
 | `common` | `Common` |
 | `_evm` | `EVM` |
 
@@ -75,7 +75,7 @@ A local EVM instance running in JavaScript. Similar to Anvil in your browser
 
 #### Defined in
 
-[evmts.ts:110](https://github.com/evmts/evmts-monorepo/blob/main/vm/src/evmts.ts#L110)
+[evmts.ts:112](https://github.com/evmts/evmts-monorepo/blob/main/vm/src/evmts.ts#L112)
 
 ## Properties
 
@@ -85,7 +85,7 @@ A local EVM instance running in JavaScript. Similar to Anvil in your browser
 
 #### Defined in
 
-[evmts.ts:113](https://github.com/evmts/evmts-monorepo/blob/main/vm/src/evmts.ts#L113)
+[evmts.ts:115](https://github.com/evmts/evmts-monorepo/blob/main/vm/src/evmts.ts#L115)
 
 ___
 
@@ -128,7 +128,7 @@ evmts.putAccount({
 
 #### Defined in
 
-[evmts.ts:173](https://github.com/evmts/evmts-monorepo/blob/main/vm/src/evmts.ts#L173)
+[evmts.ts:175](https://github.com/evmts/evmts-monorepo/blob/main/vm/src/evmts.ts#L175)
 
 ___
 
@@ -159,7 +159,7 @@ evmts.putContract({
 
 #### Defined in
 
-[evmts.ts:187](https://github.com/evmts/evmts-monorepo/blob/main/vm/src/evmts.ts#L187)
+[evmts.ts:189](https://github.com/evmts/evmts-monorepo/blob/main/vm/src/evmts.ts#L189)
 
 ___
 
@@ -192,7 +192,7 @@ const result = await evmts.runCall({
 
 #### Defined in
 
-[evmts.ts:203](https://github.com/evmts/evmts-monorepo/blob/main/vm/src/evmts.ts#L203)
+[evmts.ts:205](https://github.com/evmts/evmts-monorepo/blob/main/vm/src/evmts.ts#L205)
 
 ___
 
@@ -232,7 +232,7 @@ const result = await evmts.runContractCall({
 
 #### Defined in
 
-[evmts.ts:219](https://github.com/evmts/evmts-monorepo/blob/main/vm/src/evmts.ts#L219)
+[evmts.ts:221](https://github.com/evmts/evmts-monorepo/blob/main/vm/src/evmts.ts#L221)
 
 ___
 
@@ -285,7 +285,7 @@ evmts.runScript({
 
 #### Defined in
 
-[evmts.ts:154](https://github.com/evmts/evmts-monorepo/blob/main/vm/src/evmts.ts#L154)
+[evmts.ts:156](https://github.com/evmts/evmts-monorepo/blob/main/vm/src/evmts.ts#L156)
 
 ___
 

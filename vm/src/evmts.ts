@@ -12,12 +12,12 @@ import {
 	runContractCallHandler,
 	runScriptHandler,
 } from './actions/index.js'
-import { EthersStateManager } from './stateManager/stateManager.js'
+import { ViemStateManager } from './stateManager/ViemStateManager.js'
 import { Chain, Common, Hardfork } from '@ethereumjs/common'
 import { EVM } from '@ethereumjs/evm'
 import { DefaultStateManager } from '@ethereumjs/statemanager'
 import type { Abi } from 'abitype'
-import { JsonRpcProvider } from 'ethers'
+import { createPublicClient, http } from 'viem'
 
 /**
  * Options fetch state that isn't available locally.
@@ -85,15 +85,17 @@ export class EVMts {
 	static readonly create = async (options: CreateEVMOptions = {}) => {
 		EVMts.isCreating = true
 		try {
-			let stateManager: DefaultStateManager | EthersStateManager
+			let stateManager: DefaultStateManager | ViemStateManager
 			// ethereumjs throws an error for most chain ids
 			const chainId: number = 1
 			const hardfork = Hardfork.Shanghai
 			if (options.fork?.url) {
-				const provider = new JsonRpcProvider(options.fork.url)
+				const client = createPublicClient({
+					transport: http(options.fork.url),
+				})
 				const blockTag =
-					options.fork.blockTag ?? BigInt(await provider.getBlockNumber())
-				stateManager = new EthersStateManager({ provider, blockTag })
+					options.fork.blockTag ?? (await client.getBlockNumber())
+				stateManager = new ViemStateManager({ client, blockTag })
 			} else {
 				stateManager = new DefaultStateManager()
 			}
@@ -108,7 +110,7 @@ export class EVMts {
 	 * A local EVM instance running in JavaScript. Similar to Anvil in your browser
 	 */
 	constructor(
-		stateManager: DefaultStateManager | EthersStateManager,
+		stateManager: DefaultStateManager | ViemStateManager,
 		common = new Common({ chain: Chain.Mainnet, hardfork: Hardfork.Shanghai }),
 		public readonly _evm = new EVM({
 			common,
