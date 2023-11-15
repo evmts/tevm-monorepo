@@ -56,7 +56,3 @@ jobs:
           publish: bun run release:publish
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-  docker:
-    uses: ./.github/workflows/docker.yml
-    needs: prerelease
