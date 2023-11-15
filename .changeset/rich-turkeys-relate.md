@@ -1,5 +1,5 @@
 ---
-"@evmts/viem-effect": patch
+"@evmts/viem": patch
 ---
 
 Added viem effect library which wraps viem with effect
