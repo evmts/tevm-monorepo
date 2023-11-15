@@ -10,5 +10,5 @@
 	"access": "public",
 	"baseBranch": "main",
 	"updateInternalDependencies": "patch",
-	"ignore": ["@evmts/example*", "@evmts/docs*", "@evmts/e2e", "svelte-ethers"]
+	"ignore": ["@evmts/example*", "@evmts/docs*", "svelte-ethers"]
 }
