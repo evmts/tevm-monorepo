@@ -34,7 +34,9 @@
   "module": "dist/index.js",
   "types": "types/index.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "types",
+    "src"
   ],
   "scripts": {
     "all": "bun i && bun run build && bun lint && bun format && bun test:run && bun generate:docs",
