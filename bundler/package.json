@@ -54,14 +54,14 @@
 		"lint:check": "rome check ./src --verbose"
 	},
 	"dependencies": {
-		"@evmts/bun": "file:./bun",
-		"@evmts/config": "file:./config",
-		"@evmts/esbuild": "file:./esbuild",
-		"@evmts/rollup": "file:./rollup",
-		"@evmts/rspack": "file:./rspack",
-		"@evmts/ts-plugin": "file:./ts-plugin",
-		"@evmts/vite": "file:./vite",
-		"@evmts/webpack": "file:./webpack"
+		"@evmts/bun-plugin": "workspace:^",
+		"@evmts/config": "workspace:^",
+		"@evmts/esbuild-plugin": "workspace:^",
+		"@evmts/rollup-plugin": "workspace:^",
+		"@evmts/rspack-plugin": "workspace:^",
+		"@evmts/ts-plugin": "workspace:^",
+		"@evmts/vite-plugin": "workspace:^",
+		"@evmts/webpack-plugin": "workspace:^"
 	},
 	"devDependencies": {
 		"rome": "^12.1.3",
