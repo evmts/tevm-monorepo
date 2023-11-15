@@ -1,6 +1,6 @@
 {
   "name": "@evmts/tsconfig",
-  "version": "0.8.1",
+  "version": "1.0.0-next.0",
   "private": false,
   "files": [
     "base.json"

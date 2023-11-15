@@ -1,5 +1,11 @@
 # @evmts/tsconfig
 
+## 1.0.0-next.0
+
+### Patch Changes
+
+- [#573](https://github.com/evmts/evmts-monorepo/pull/573) [`a8248fb5`](https://github.com/evmts/evmts-monorepo/commit/a8248fb5008594a2c5d0797780d7d033a455c442) Thanks [@roninjin10](https://github.com/roninjin10)! - Updated shared tsconfig to default to NodeNext
+
 ## 0.8.1
 
 ### Patch Changes

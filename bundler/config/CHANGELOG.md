@@ -1,5 +1,32 @@
 # @evmts/core
 
+## 1.0.0-next.0
+
+### Major Changes
+
+- [#485](https://github.com/evmts/evmts-monorepo/pull/485) [`570c4ed6`](https://github.com/evmts/evmts-monorepo/commit/570c4ed60d494f36f0839113507f3725e13dc933) Thanks [@roninjin10](https://github.com/roninjin10)! - Removed global Address config and external contracts from EVMts to simplify the API
+
+- [#594](https://github.com/evmts/evmts-monorepo/pull/594) [`7065f458`](https://github.com/evmts/evmts-monorepo/commit/7065f4585a2173548abda55cdeaf3fbf1679f033) Thanks [@roninjin10](https://github.com/roninjin10)! - Updated evmts/config to be effect.ts based. Effect.ts allows for more robust error handling of config loading. Config package is used mostly internally by EVMts which will all be using Effect internally so the config package no longer resolves configs as values but as Effects completely
+
+- [#594](https://github.com/evmts/evmts-monorepo/pull/594) [`7065f458`](https://github.com/evmts/evmts-monorepo/commit/7065f4585a2173548abda55cdeaf3fbf1679f033) Thanks [@roninjin10](https://github.com/roninjin10)! - Removed async methods from evmts/config for effect based replacements. In future if we need the extra peformance we will add support for runPromise
+
+### Patch Changes
+
+- [#589](https://github.com/evmts/evmts-monorepo/pull/589) [`32c7f253`](https://github.com/evmts/evmts-monorepo/commit/32c7f2537555380dd8c48883729add6ea658d52e) Thanks [@roninjin10](https://github.com/roninjin10)! - Converted @evmts/config to js with jsdoc and explicit exports
+
+- [#595](https://github.com/evmts/evmts-monorepo/pull/595) [`64a404ce`](https://github.com/evmts/evmts-monorepo/commit/64a404ce56305c126847be15cf42ab14bfb38764) Thanks [@roninjin10](https://github.com/roninjin10)! - Detailed contributing docs for @evmts/config added to /config/CONTRIBUTING.md
+
+- [#548](https://github.com/evmts/evmts-monorepo/pull/548) [`c12528a3`](https://github.com/evmts/evmts-monorepo/commit/c12528a3b1c16ecb7a6b4e3487070feebd9a8c3e) Thanks [@roninjin10](https://github.com/roninjin10)! - Updated all packages to automatically generate up to date reference docs
+
+- [#611](https://github.com/evmts/evmts-monorepo/pull/611) [`747728d9`](https://github.com/evmts/evmts-monorepo/commit/747728d9e909906812472404a5f4155730127bd0) Thanks [@roninjin10](https://github.com/roninjin10)! - Added --declaration-map to typescript build. This generates source maps so LSPs can point to the original javascript code rather than the generated .d.ts files
+
+- [#563](https://github.com/evmts/evmts-monorepo/pull/563) [`21ea35e3`](https://github.com/evmts/evmts-monorepo/commit/21ea35e3989ecf5d5eb2946eab96234d170fa9e5) Thanks [@roninjin10](https://github.com/roninjin10)! - Migrated @evmts/config to NodeNext. This will improve overall compatibility with tooling
+
+- [#492](https://github.com/evmts/evmts-monorepo/pull/492) [`2349d58c`](https://github.com/evmts/evmts-monorepo/commit/2349d58ca90bc78a98db6284b65d6dd329ac140d) Thanks [@roninjin10](https://github.com/roninjin10)! - Upgraded all NPM dependencies to latest
+
+- Updated dependencies [[`747728d9`](https://github.com/evmts/evmts-monorepo/commit/747728d9e909906812472404a5f4155730127bd0)]:
+  - @evmts/effect@1.0.0-next.0
+
 ## 0.10.0
 
 ### Patch Changes

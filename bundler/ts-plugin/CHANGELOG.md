@@ -1,5 +1,26 @@
 # @evmts/ts-plugin
 
+## 1.0.0-next.0
+
+### Major Changes
+
+- [#485](https://github.com/evmts/evmts-monorepo/pull/485) [`570c4ed6`](https://github.com/evmts/evmts-monorepo/commit/570c4ed60d494f36f0839113507f3725e13dc933) Thanks [@roninjin10](https://github.com/roninjin10)! - Removed global Address config and external contracts from EVMts to simplify the API
+
+### Patch Changes
+
+- [#548](https://github.com/evmts/evmts-monorepo/pull/548) [`c12528a3`](https://github.com/evmts/evmts-monorepo/commit/c12528a3b1c16ecb7a6b4e3487070feebd9a8c3e) Thanks [@roninjin10](https://github.com/roninjin10)! - Updated all packages to automatically generate up to date reference docs
+
+- [#572](https://github.com/evmts/evmts-monorepo/pull/572) [`eee7e7f5`](https://github.com/evmts/evmts-monorepo/commit/eee7e7f58934c5cd7d70e3dfc704408a4dfbfda8) Thanks [@roninjin10](https://github.com/roninjin10)! - Updated @evmts/ts-plugin to NodeNext. This will improve compatibility
+
+- [#611](https://github.com/evmts/evmts-monorepo/pull/611) [`747728d9`](https://github.com/evmts/evmts-monorepo/commit/747728d9e909906812472404a5f4155730127bd0) Thanks [@roninjin10](https://github.com/roninjin10)! - Added --declaration-map to typescript build. This generates source maps so LSPs can point to the original javascript code rather than the generated .d.ts files
+
+- [#492](https://github.com/evmts/evmts-monorepo/pull/492) [`2349d58c`](https://github.com/evmts/evmts-monorepo/commit/2349d58ca90bc78a98db6284b65d6dd329ac140d) Thanks [@roninjin10](https://github.com/roninjin10)! - Upgraded all NPM dependencies to latest
+
+- [#499](https://github.com/evmts/evmts-monorepo/pull/499) [`bc4b5a4f`](https://github.com/evmts/evmts-monorepo/commit/bc4b5a4f92ff5e1bbf3dd6acd8b5a69b84ac603d) Thanks [@roninjin10](https://github.com/roninjin10)! - Added in memory caching to all EVMts bundlers and LSP
+
+- Updated dependencies []:
+  - @evmts/base@1.0.0-next.0
+
 ## 0.11.2
 
 ### Patch Changes

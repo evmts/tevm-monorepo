@@ -1,5 +1,22 @@
 # @evmts/plugin
 
+## 1.0.0-next.0
+
+### Patch Changes
+
+- [#568](https://github.com/evmts/evmts-monorepo/pull/568) [`6d6d4344`](https://github.com/evmts/evmts-monorepo/commit/6d6d43441278c1a23ea708eec18beb1060525a56) Thanks [@roninjin10](https://github.com/roninjin10)! - Migrated @evmts/rollup-plugin to NodeNext. This will improve compatibility
+
+- [#548](https://github.com/evmts/evmts-monorepo/pull/548) [`c12528a3`](https://github.com/evmts/evmts-monorepo/commit/c12528a3b1c16ecb7a6b4e3487070feebd9a8c3e) Thanks [@roninjin10](https://github.com/roninjin10)! - Updated all packages to automatically generate up to date reference docs
+
+- [#611](https://github.com/evmts/evmts-monorepo/pull/611) [`747728d9`](https://github.com/evmts/evmts-monorepo/commit/747728d9e909906812472404a5f4155730127bd0) Thanks [@roninjin10](https://github.com/roninjin10)! - Added --declaration-map to typescript build. This generates source maps so LSPs can point to the original javascript code rather than the generated .d.ts files
+
+- [#492](https://github.com/evmts/evmts-monorepo/pull/492) [`2349d58c`](https://github.com/evmts/evmts-monorepo/commit/2349d58ca90bc78a98db6284b65d6dd329ac140d) Thanks [@roninjin10](https://github.com/roninjin10)! - Upgraded all NPM dependencies to latest
+
+- [#499](https://github.com/evmts/evmts-monorepo/pull/499) [`bc4b5a4f`](https://github.com/evmts/evmts-monorepo/commit/bc4b5a4f92ff5e1bbf3dd6acd8b5a69b84ac603d) Thanks [@roninjin10](https://github.com/roninjin10)! - Added in memory caching to all EVMts bundlers and LSP
+
+- Updated dependencies [[`747728d9`](https://github.com/evmts/evmts-monorepo/commit/747728d9e909906812472404a5f4155730127bd0)]:
+  - @evmts/unplugin@1.0.0-next.0
+
 ## 0.11.2
 
 ### Patch Changes
