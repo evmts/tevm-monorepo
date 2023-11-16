@@ -3,9 +3,10 @@ import { succeed } from 'effect/Effect'
 
 /**
  * @param {import("@evmts/solc").Artifacts} artifacts
+ * @param {boolean} includeBytecode
  * @returns {import('effect/Effect').Effect<never, never, string>}
  */
-export const generateDtsBody = (artifacts) => {
+export const generateDtsBody = (artifacts, includeBytecode) => {
 	return succeed(
 		Object.entries(artifacts)
 			.flatMap(([contractName, { abi, userdoc = {} }]) => {
@@ -30,7 +31,9 @@ export const generateDtsBody = (artifacts) => {
 					` * ${contractName} EvmtsContract`,
 					...natspec,
 					' */',
-					`export const ${contractName}: EvmtsContract<typeof _name${contractName}, typeof _abi${contractName}>;`,
+					`export const ${contractName}: EvmtsContract<typeof _name${contractName}, typeof _abi${contractName}, ${
+						includeBytecode ? '`0x${string}`' : 'undefined'
+					}>;`,
 				].filter(Boolean)
 			})
 			.join('\n'),

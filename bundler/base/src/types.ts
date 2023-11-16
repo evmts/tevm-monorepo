@@ -21,12 +21,14 @@ export type AsyncBundlerResult = (
 	module: string,
 	basedir: string,
 	includeAst: boolean,
+	includeBytecode: boolean,
 ) => Promise<BundlerResult>
 
 export type SyncBundlerResult = (
 	module: string,
 	basedir: string,
 	includeAst: boolean,
+	includeBytecode: boolean,
 ) => BundlerResult
 
 export type Bundler = (

@@ -79,8 +79,15 @@ export const evmtsBunPlugin = () => {
 					}
 				}
 
+				const resolveBytecode = path.endsWith('.s.sol')
+
 				const { code: contents, modules } =
-					await moduleResolver.resolveEsmModule(path, process.cwd(), false)
+					await moduleResolver.resolveEsmModule(
+						path,
+						process.cwd(),
+						false,
+						resolveBytecode,
+					)
 
 				const watchFiles = Object.values(modules)
 					.filter(({ id }) => !id.includes('node_modules'))

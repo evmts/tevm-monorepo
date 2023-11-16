@@ -11,9 +11,10 @@ const importsByModuleType = {
 /**
  * @param {import("@evmts/solc").Artifacts} artifacts
  * @param {import('./types.js').ModuleType} moduleType
+ * @param {boolean} includeBytecode
  * @returns {import('effect/Effect').Effect<never, never, string>}
  */
-export const generateRuntime = (artifacts, moduleType) => {
+export const generateRuntime = (artifacts, moduleType, includeBytecode) => {
 	if (!artifacts || Object.keys(artifacts).length === 0) {
 		return die('No artifacts provided to generateRuntime')
 	}
@@ -25,7 +26,7 @@ export const generateRuntime = (artifacts, moduleType) => {
 			).join(', ')}`,
 		)
 	}
-	return generateEvmtsBody(artifacts, moduleType).pipe(
+	return generateEvmtsBody(artifacts, moduleType, includeBytecode).pipe(
 		map((body) => [imports, body].join('\n')),
 	)
 }

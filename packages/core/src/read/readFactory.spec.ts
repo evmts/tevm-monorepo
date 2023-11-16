@@ -7,6 +7,7 @@ import { describe, expect, it } from 'vitest'
 const contract = evmtsContractFactory({
 	humanReadableAbi: formatAbi(dummyAbi),
 	name: 'DummyContract',
+	bytecode: undefined,
 })
 
 describe(readFactory.name, () => {

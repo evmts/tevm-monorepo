@@ -47,13 +47,26 @@ describe('resolveArtifacts', () => {
 			modules: {} as Record<string, ModuleInfo>,
 		} as any)
 		expect(
-			await resolveArtifacts(solFile, basedir, logger, config, false, fao),
+			await resolveArtifacts(
+				solFile,
+				basedir,
+				logger,
+				config,
+				false,
+				false,
+				fao,
+			),
 		).toMatchInlineSnapshot(`
 			{
 			  "artifacts": {
 			    "Test": {
 			      "abi": [],
 			      "contractName": "Test",
+			      "evm": {
+			        "bytecode": {
+			          "object": "0x123",
+			        },
+			      },
 			      "userdoc": undefined,
 			    },
 			  },
@@ -67,7 +80,7 @@ describe('resolveArtifacts', () => {
 
 	it('should throw an error if the solidity file does not end in .sol', () => {
 		expect(() =>
-			resolveArtifacts('test', basedir, logger, config, false, fao),
+			resolveArtifacts('test', basedir, logger, config, false, false, fao),
 		).rejects.toThrowErrorMatchingInlineSnapshot('"Not a solidity file"')
 	})
 
@@ -77,7 +90,7 @@ describe('resolveArtifacts', () => {
 			modules: {} as Record<string, ModuleInfo>,
 		} as any)
 		expect(() =>
-			resolveArtifacts(solFile, basedir, logger, config, false, fao),
+			resolveArtifacts(solFile, basedir, logger, config, false, false, fao),
 		).rejects.toThrowErrorMatchingInlineSnapshot('"Compilation failed"')
 	})
 })

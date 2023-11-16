@@ -26,7 +26,7 @@ const generate = (cwd = process.cwd(), include = ['src/**/*.sol']) => {
 		const config = runSync(loadConfig(cwd))
 		const plugin = bundler(config, console, fao, solcCache)
 		plugin
-			.resolveTsModule(file, cwd, false)
+			.resolveTsModule(file, cwd, false, false)
 			.then((dts) =>
 				writeFile(path.join(fileDir, `${fileName}.d.ts`), dts.code),
 			)

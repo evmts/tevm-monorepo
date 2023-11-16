@@ -12,7 +12,7 @@
 
 ### resolveArtifactsSync
 
-▸ **resolveArtifactsSync**(`solFile`, `basedir`, `logger`, `config`, `includeAst`, `fao`): `Object`
+▸ **resolveArtifactsSync**(`solFile`, `basedir`, `logger`, `config`, `includeAst`, `includeBytecode`, `fao`): `Object`
 
 #### Parameters
 
@@ -23,6 +23,7 @@
 | `logger` | [`Logger`](types.md#logger) |
 | `config` | `ResolvedCompilerConfig` |
 | `includeAst` | `boolean` |
+| `includeBytecode` | `boolean` |
 | `fao` | [`FileAccessObject`](types.md#fileaccessobject) |
 
 #### Returns
@@ -39,4 +40,4 @@
 
 #### Defined in
 
-[solc/src/types.ts:25](https://github.com/evmts/evmts-monorepo/blob/main/bundler/solc/src/types.ts#L25)
+[solc/src/types.ts:26](https://github.com/evmts/evmts-monorepo/blob/main/bundler/solc/src/types.ts#L26)

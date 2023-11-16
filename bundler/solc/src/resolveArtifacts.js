@@ -10,13 +10,22 @@ export const resolveArtifacts = async (
 	logger,
 	config,
 	includeAst,
+	includeBytecode,
 	fao,
 ) => {
 	if (!solFile.endsWith('.sol')) {
 		throw new Error('Not a solidity file')
 	}
 	const { artifacts, modules, asts, solcInput, solcOutput } =
-		await compileContract(solFile, basedir, config, includeAst, fao, logger)
+		await compileContract(
+			solFile,
+			basedir,
+			config,
+			includeAst,
+			includeBytecode,
+			fao,
+			logger,
+		)
 
 	if (!artifacts) {
 		logger.error(`Compilation failed for ${solFile}`)
@@ -28,7 +37,12 @@ export const resolveArtifacts = async (
 			Object.entries(artifacts).map(([contractName, contract]) => {
 				return [
 					contractName,
-					{ contractName, abi: contract.abi, userdoc: contract.userdoc },
+					{
+						contractName,
+						abi: contract.abi,
+						userdoc: contract.userdoc,
+						evm: contract.evm,
+					},
 				]
 			}),
 		),

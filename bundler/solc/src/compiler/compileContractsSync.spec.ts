@@ -35,6 +35,7 @@ describe('compileContractSync', () => {
 					join(__dirname, '..', 'fixtures', 'basic'),
 					config,
 					false,
+					false,
 					fao,
 					mockLogger,
 				),

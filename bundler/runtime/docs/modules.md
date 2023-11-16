@@ -26,7 +26,7 @@
 
 ### generateRuntime
 
-▸ **generateRuntime**(`artifacts`, `moduleType`): `Effect`\<`never`, `never`, `string`\>
+▸ **generateRuntime**(`artifacts`, `moduleType`, `includeBytecode`): `Effect`\<`never`, `never`, `string`\>
 
 #### Parameters
 
@@ -34,6 +34,7 @@
 | :------ | :------ |
 | `artifacts` | `Artifacts` |
 | `moduleType` | [`ModuleType`](modules.md#moduletype) |
+| `includeBytecode` | `boolean` |
 
 #### Returns
 
@@ -41,4 +42,4 @@
 
 #### Defined in
 
-[generateRuntime.js:16](https://github.com/evmts/evmts-monorepo/blob/main/bundler/runtime/src/generateRuntime.js#L16)
+[generateRuntime.js:17](https://github.com/evmts/evmts-monorepo/blob/main/bundler/runtime/src/generateRuntime.js#L17)

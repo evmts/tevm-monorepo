@@ -112,13 +112,13 @@ describe(getScriptSnapshotDecorator.name, () => {
 			/**
 			 * HelloWorld EvmtsContract
 			 */
-			export const HelloWorld: EvmtsContract<typeof _nameHelloWorld, typeof _abiHelloWorld>;
+			export const HelloWorld: EvmtsContract<typeof _nameHelloWorld, typeof _abiHelloWorld, undefined>;
 			const _abiHelloWorld2 = [\\"function greet2() pure returns (string)\\"] as const;
 			const _nameHelloWorld2 = \\"HelloWorld2\\" as const;
 			/**
 			 * HelloWorld2 EvmtsContract
 			 */
-			export const HelloWorld2: EvmtsContract<typeof _nameHelloWorld2, typeof _abiHelloWorld2>;"
+			export const HelloWorld2: EvmtsContract<typeof _nameHelloWorld2, typeof _abiHelloWorld2, undefined>;"
 		`)
 	})
 	it('should handle resolveDts throwing', () => {
