@@ -54,7 +54,7 @@ describe('EVMts should create a local vm in JavaScript', () => {
 			expect(res.logs).toEqual([])
 		})
 
-		it.only('should work for add contract', async () => {
+		it('should work for add contract', async () => {
 			const evmts = await EVMts.create()
 			const res = await evmts.runScript({
 				bytecode: addbytecode,
