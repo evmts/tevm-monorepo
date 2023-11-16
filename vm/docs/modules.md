@@ -33,6 +33,7 @@ Options for creating an EVMts instance
 
 | Name | Type |
 | :------ | :------ |
+| `customPrecompiles?` | `CustomPrecompile`[] |
 | `fork?` | `ForkOptions` |
 
 #### Defined in
@@ -92,7 +93,7 @@ EVMts action to execute a call on the vm
 | `caller` | `Address` |
 | `data` | `Hex` |
 | `gasLimit?` | `bigint` |
-| `origin` | `Address` |
+| `origin?` | `Address` |
 | `to` | `Address` |
 | `value?` | `bigint` |
 

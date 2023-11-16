@@ -57,17 +57,18 @@ const balance = await evmts.runContractCall(
 
 ### constructor
 
-• **new EVMts**(`stateManager`, `common?`, `_evm?`): [`EVMts`](EVMts.md)
+• **new EVMts**(`stateManager`, `common?`, `customPrecompiles?`, `_evm?`): [`EVMts`](EVMts.md)
 
 A local EVM instance running in JavaScript. Similar to Anvil in your browser
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `stateManager` | `DefaultStateManager` \| `ViemStateManager` |
-| `common` | `Common` |
-| `_evm` | `EVM` |
+| Name | Type | Default value |
+| :------ | :------ | :------ |
+| `stateManager` | `DefaultStateManager` \| `ViemStateManager` | `undefined` |
+| `common` | `Common` | `undefined` |
+| `customPrecompiles` | `CustomPrecompile`[] | `[]` |
+| `_evm` | `EVM` | `undefined` |
 
 #### Returns
 
@@ -75,7 +76,7 @@ A local EVM instance running in JavaScript. Similar to Anvil in your browser
 
 #### Defined in
 
-[evmts.ts:112](https://github.com/evmts/evmts-monorepo/blob/main/vm/src/evmts.ts#L112)
+[evmts.ts:133](https://github.com/evmts/evmts-monorepo/blob/main/vm/src/evmts.ts#L133)
 
 ## Properties
 
@@ -85,7 +86,7 @@ A local EVM instance running in JavaScript. Similar to Anvil in your browser
 
 #### Defined in
 
-[evmts.ts:115](https://github.com/evmts/evmts-monorepo/blob/main/vm/src/evmts.ts#L115)
+[evmts.ts:137](https://github.com/evmts/evmts-monorepo/blob/main/vm/src/evmts.ts#L137)
 
 ___
 
@@ -97,7 +98,7 @@ Makes sure evmts is invoked with EVMts.create and not with new EVMts
 
 #### Defined in
 
-[evmts.ts:80](https://github.com/evmts/evmts-monorepo/blob/main/vm/src/evmts.ts#L80)
+[evmts.ts:101](https://github.com/evmts/evmts-monorepo/blob/main/vm/src/evmts.ts#L101)
 
 ## Methods
 
@@ -128,7 +129,7 @@ evmts.putAccount({
 
 #### Defined in
 
-[evmts.ts:175](https://github.com/evmts/evmts-monorepo/blob/main/vm/src/evmts.ts#L175)
+[evmts.ts:198](https://github.com/evmts/evmts-monorepo/blob/main/vm/src/evmts.ts#L198)
 
 ___
 
@@ -159,7 +160,7 @@ evmts.putContract({
 
 #### Defined in
 
-[evmts.ts:189](https://github.com/evmts/evmts-monorepo/blob/main/vm/src/evmts.ts#L189)
+[evmts.ts:212](https://github.com/evmts/evmts-monorepo/blob/main/vm/src/evmts.ts#L212)
 
 ___
 
@@ -192,7 +193,7 @@ const result = await evmts.runCall({
 
 #### Defined in
 
-[evmts.ts:205](https://github.com/evmts/evmts-monorepo/blob/main/vm/src/evmts.ts#L205)
+[evmts.ts:228](https://github.com/evmts/evmts-monorepo/blob/main/vm/src/evmts.ts#L228)
 
 ___
 
@@ -232,7 +233,7 @@ const result = await evmts.runContractCall({
 
 #### Defined in
 
-[evmts.ts:221](https://github.com/evmts/evmts-monorepo/blob/main/vm/src/evmts.ts#L221)
+[evmts.ts:244](https://github.com/evmts/evmts-monorepo/blob/main/vm/src/evmts.ts#L244)
 
 ___
 
@@ -285,7 +286,7 @@ evmts.runScript({
 
 #### Defined in
 
-[evmts.ts:156](https://github.com/evmts/evmts-monorepo/blob/main/vm/src/evmts.ts#L156)
+[evmts.ts:179](https://github.com/evmts/evmts-monorepo/blob/main/vm/src/evmts.ts#L179)
 
 ___
 
@@ -307,4 +308,4 @@ Creates a [EVMts](EVMts.md) instance
 
 #### Defined in
 
-[evmts.ts:85](https://github.com/evmts/evmts-monorepo/blob/main/vm/src/evmts.ts#L85)
+[evmts.ts:106](https://github.com/evmts/evmts-monorepo/blob/main/vm/src/evmts.ts#L106)

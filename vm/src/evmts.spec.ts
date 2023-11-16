@@ -1,4 +1,4 @@
-import { EVMts } from './evmts.js'
+import { type CustomPrecompile, EVMts } from './evmts.js'
 import { DaiContract } from './test/DaiContract.sol.js'
 import { Address } from '@ethereumjs/util'
 import { hexToBytes } from 'viem'
@@ -99,5 +99,40 @@ describe('EVMts should create a local vm in JavaScript', () => {
 			})
 			expect(code).toHaveLength(4782)
 		})
+	})
+
+	it('should be able to add custom precompiles', async () => {
+		const address = '0xff420000000000000000000000000000000000ff'
+		const sender = '0x1f420000000000000000000000000000000000ff'
+		const expectedReturn = hexToBytes('0x420')
+		const expectedGas = BigInt(69)
+
+		const precompile: CustomPrecompile = {
+			// TODO modify the api to take a hex address instead of ethjs address
+			address: new Address(hexToBytes(address)),
+			// Note ethereumjs fails if you don't include the args here because it checks code.length for some reason
+			// code.length returns the number of arguments in the case of a function
+			// see https://github.com/ethereumjs/ethereumjs-monorepo/pull/3158/files
+			function: (_) => {
+				return {
+					executionGasUsed: expectedGas,
+					returnValue: expectedReturn,
+				}
+			},
+		}
+
+		const evmts = await EVMts.create({ customPrecompiles: [precompile] })
+		expect(evmts._evm.getPrecompile(new Address(hexToBytes(address)))).toEqual(
+			precompile.function,
+		)
+		const result = await evmts.runCall({
+			to: address,
+			gasLimit: BigInt(30000),
+			data: '0x0',
+			caller: sender,
+		})
+		expect(result.execResult.exceptionError).toBe(undefined)
+		expect(result.execResult.returnValue).toEqual(expectedReturn)
+		expect(result.execResult.executionGasUsed).toEqual(expectedGas)
 	})
 })
