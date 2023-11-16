@@ -6,13 +6,13 @@
 
 ### Functions
 
-- [default](evmts_ts_plugin.md#default)
+- [export=](evmts_ts_plugin.md#export=)
 
 ## Functions
 
-### default
+### export&#x3D;
 
-▸ **default**(`mod`): `PluginModule`
+▸ **export=**(`mod`): `PluginModule`
 
 [Typescript plugin factory](https://github.com/microsoft/TypeScript/wiki/Writing-a-Language-Service-Plugin)
 
