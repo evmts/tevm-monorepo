@@ -41,7 +41,28 @@ type ForkOptions = {
  */
 export type CreateEVMOptions = {
 	fork?: ForkOptions
+	customPrecompiles?: CustomPrecompile[]
 }
+
+/**
+ * Infers the the first argument of a class
+ */
+type ConstructorArgument<T> = T extends new (
+	...args: infer P
+) => any
+	? P[0]
+	: never
+
+/**
+ * TODO This should be publically exported from ethereumjs but isn't
+ * Typing this by hand is tedious so we are using some typescript inference to get it
+ * do a pr to export this from ethereumjs and then replace this with an import
+ * TODO this should be modified to take a hex address rather than an ethjs address to be consistent with rest of EVMts
+ */
+export type CustomPrecompile = Exclude<
+	Exclude<ConstructorArgument<typeof EVM>, undefined>['customPrecompiles'],
+	undefined
+>[number]
 
 /**
  * A local EVM instance running in JavaScript. Similar to Anvil in your browser
@@ -100,7 +121,7 @@ export class EVMts {
 				stateManager = new DefaultStateManager()
 			}
 			const common = new Common({ chain: chainId, hardfork })
-			return new EVMts(stateManager, common)
+			return new EVMts(stateManager, common, options.customPrecompiles)
 		} finally {
 			EVMts.isCreating = false
 		}
@@ -112,6 +133,7 @@ export class EVMts {
 	constructor(
 		stateManager: DefaultStateManager | ViemStateManager,
 		common = new Common({ chain: Chain.Mainnet, hardfork: Hardfork.Shanghai }),
+		customPrecompiles: CustomPrecompile[] = [],
 		public readonly _evm = new EVM({
 			common,
 			stateManager,
@@ -119,7 +141,8 @@ export class EVMts {
 			allowUnlimitedContractSize: false,
 			allowUnlimitedInitCodeSize: false,
 			customOpcodes: [],
-			customPrecompiles: [],
+			// TODO uncomment the mapping once we make the api correct
+			customPrecompiles, // : customPrecompiles.map(p => ({ ...p, address: new EthjsAddress(hexToBytes(p.address)) })),
 			profiler: {
 				enabled: false,
 			},
