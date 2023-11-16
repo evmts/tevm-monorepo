@@ -22,7 +22,7 @@ export const runCallHandler = async (evmts: EVMts, action: RunCallAction) => {
 		to: new EthjsAddress(hexToBytes(action.to)),
 		caller: new EthjsAddress(hexToBytes(action.caller)),
 		gasLimit: action.gasLimit ?? maxInt256,
-		data: Buffer.from(action.data.slice(2), 'hex'),
+		data: hexToBytes(action.data),
 		value: action.value ?? 0n,
 		...(action.origin && {
 			origin: new EthjsAddress(hexToBytes(action.origin)),
