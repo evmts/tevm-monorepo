@@ -48,7 +48,7 @@
 
 #### Defined in
 
-node_modules/unplugin/dist/index.d.mts:120
+node_modules/.pnpm/unplugin@1.5.1/node_modules/unplugin/dist/index.d.mts:120
 
 ___
 
@@ -69,4 +69,4 @@ ___
 
 #### Defined in
 
-node_modules/unplugin/dist/index.d.mts:82
+node_modules/.pnpm/unplugin@1.5.1/node_modules/unplugin/dist/index.d.mts:82

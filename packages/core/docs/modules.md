@@ -100,7 +100,7 @@ Human-readable ABI
 
 #### Defined in
 
-node_modules/abitype/dist/types/human-readable/formatAbi.d.ts:18
+node_modules/.pnpm/abitype@0.10.2_typescript@5.2.2_zod@3.22.4/node_modules/abitype/dist/types/human-readable/formatAbi.d.ts:18
 
 ___
 
@@ -140,4 +140,4 @@ const abi = parseAbi([
 
 #### Defined in
 
-node_modules/abitype/dist/types/human-readable/parseAbi.d.ts:37
+node_modules/.pnpm/abitype@0.10.2_typescript@5.2.2_zod@3.22.4/node_modules/abitype/dist/types/human-readable/parseAbi.d.ts:37

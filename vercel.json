@@ -2,6 +2,6 @@
 	"buildCommand": "bun nx build @evmts/docs",
 	"devCommand": "bun dev --port $PORT",
 	"framework": "vitepress",
-	"installCommand": "bun install",
+	"installCommand": "pnpm install",
 	"outputDirectory": "docs/.vitepress/dist"
 }

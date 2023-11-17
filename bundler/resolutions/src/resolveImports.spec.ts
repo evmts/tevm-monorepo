@@ -37,9 +37,9 @@ describe('resolveImports', () => {
 		expect(normalizeImports(imports)).toMatchInlineSnapshot(`
 			[
 			  {
-			    "absolute": "/node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol",
+			    "absolute": "/bundler/resolutions/node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol",
 			    "original": "@openzeppelin/contracts/token/ERC20/ERC20.sol",
-			    "updated": "/node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol",
+			    "updated": "/bundler/resolutions/node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol",
 			  },
 			]
 		`)
@@ -59,9 +59,9 @@ import { ERC20 } from "@openzeppelin/contracts/token/ERC20/ERC20.sol"
 			    "updated": "/bundler/fixtures/basic/Contract.sol",
 			  },
 			  {
-			    "absolute": "/node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol",
+			    "absolute": "/bundler/resolutions/node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol",
 			    "original": "@openzeppelin/contracts/token/ERC20/ERC20.sol",
-			    "updated": "/node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol",
+			    "updated": "/bundler/resolutions/node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol",
 			  },
 			]
 		`)

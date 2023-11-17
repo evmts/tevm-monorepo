@@ -2,7 +2,7 @@
 
 ## Quick start
 
-1. Install bun 
+1. Install bun
 
 ```bash
 npm i bun --global && bun --version
@@ -15,7 +15,7 @@ git submodule update --init --recursive
 
 3. Run everything
 
-`bun all` will run everything 
+`bun all` will run everything
 
 ```
 bun all
@@ -26,7 +26,7 @@ This includes
 - linting source code
 - generated docs
 - building all .d.ts types for all packages
-- building all cjs for all packages 
+- building all cjs for all packages
 - running all tests
 - running all dev fixtures
 
@@ -100,14 +100,14 @@ bun build:types
 bun run test
 ```
 
-`@evmts/config` has >99% test coverage. Run the tests with `bun run test` 
+`@evmts/config` has >99% test coverage. Run the tests with `bun run test`
 
 Note `bun test` will run bun instead of [vitest](https://vitest.dev) resulting in errors
 
 
 ## Fixtures
 
-Fixtures in [src/fixtures](./src/fixtures/) exist both for the vitest tests and also can be loaded in watch mode. 
+Fixtures in [src/fixtures](./src/fixtures/) exist both for the vitest tests and also can be loaded in watch mode.
 
 Best way to debug a bug or implement a new feature is to first add a new fixture to use in test or dev server
 
@@ -134,7 +134,7 @@ Valid names include any of the folder names in [src/fixtures](./fixtures). The d
 2. update your fixture
 3. Load your fixture `bun fixture myNewFixture`
 
-Now you can implement your feature or use your fixture to write a test. 
+Now you can implement your feature or use your fixture to write a test.
 
 ## Running linter
 
@@ -273,13 +273,13 @@ Since documentation is generated from jsdoc it is recomended to add jsdoc docume
  * )
  */
 export const loadConfig = (configFilePath) => {
-  ... 
+  ...
 }
 ```
 
 ## Generated docs
 
-Docs are generated via the [typedoc.json](./typedoc.json) 
+Docs are generated via the [typedoc.json](./typedoc.json)
 
 ```
 bun generate:docs
@@ -290,7 +290,7 @@ bun generate:docs
 To run everything including linter and tests run `bun all`
 
 ```
-bun i && bun build && bun all
+pnpm i  && bun build && bun all
 ```
 
 Running bun all from context of repo will run all checks. It is recomended to run this before pushing your changes
@@ -304,7 +304,7 @@ cd ..
 2. Run install and bun all
 
 ```
-bun i && bun all
+pnpm i  && bun all
 ```
 
 ## Bun Clean
@@ -320,7 +320,7 @@ cd ..
 2. Run bun clean and then fresh build and upgraded bun
 
 ```
-bun upgrade && bun clean && bun i && bun all
+bun upgrade && bun clean && pnpm i  && bun all
 ```
 
 If it's still broken for you consider opening an issue.
