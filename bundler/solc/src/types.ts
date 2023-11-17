@@ -13,6 +13,7 @@ export type ResolveArtifacts = (
 	logger: Logger,
 	config: ResolvedCompilerConfig,
 	includeAst: boolean,
+	includeBytecode: boolean,
 	fao: FileAccessObject,
 ) => Promise<{
 	artifacts: Artifacts
@@ -28,6 +29,7 @@ export type ResolveArtifactsSync = (
 	logger: Logger,
 	config: ResolvedCompilerConfig,
 	includeAst: boolean,
+	includeBytecode: boolean,
 	fao: FileAccessObject,
 ) => {
 	artifacts: Artifacts
@@ -62,5 +64,5 @@ export type CompiledContracts<TIncludeAsts extends boolean = boolean> = {
 
 export type Artifacts = Record<
 	string,
-	Pick<SolcContractOutput, 'abi' | 'userdoc'>
+	Pick<SolcContractOutput, 'abi' | 'userdoc' | 'evm'>
 >

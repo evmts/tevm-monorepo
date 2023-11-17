@@ -7,6 +7,7 @@ import { describe, expect, it } from 'vitest'
 const contract = evmtsContractFactory({
 	humanReadableAbi: formatAbi(dummyAbi),
 	name: 'DummyContract',
+	bytecode: undefined,
 })
 
 const dummyAbiNoEvent = dummyAbi.filter((abi) => abi.type !== 'event')
@@ -14,6 +15,7 @@ const dummyAbiNoEvent = dummyAbi.filter((abi) => abi.type !== 'event')
 const contractNoEvent = evmtsContractFactory({
 	humanReadableAbi: formatAbi(dummyAbiNoEvent),
 	name: 'DummyContract',
+	bytecode: undefined,
 })
 
 describe(eventsFactory.name, () => {

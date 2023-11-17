@@ -70,7 +70,7 @@ describe(bundler.name, () => {
 			it('should throw an error if there is an issue in resolveArtifacts', async () => {
 				mockResolveArtifacts.mockRejectedValueOnce(new Error('Test error'))
 				await expect(
-					resolver.resolveDts('module', 'basedir', false),
+					resolver.resolveDts('module', 'basedir', false, false),
 				).rejects.toThrow('Test error')
 				expect((logger.error as Mock).mock.calls).toMatchInlineSnapshot(`
 				[
@@ -91,7 +91,7 @@ describe(bundler.name, () => {
 					throw new Error('Test error sync')
 				})
 				expect(() =>
-					resolver.resolveDtsSync('module', 'basedir', false),
+					resolver.resolveDtsSync('module', 'basedir', false, false),
 				).toThrow('Test error sync')
 				expect((logger.error as Mock).mock.calls).toMatchInlineSnapshot(`
 					[
@@ -112,7 +112,7 @@ describe(bundler.name, () => {
 					throw new Error('Test error sync')
 				})
 				expect(() =>
-					resolver.resolveTsModuleSync('module', 'basedir', false),
+					resolver.resolveTsModuleSync('module', 'basedir', false, false),
 				).toThrow('Test error sync')
 				expect((logger.error as Mock).mock.calls).toMatchInlineSnapshot(`
 					[
@@ -131,7 +131,7 @@ describe(bundler.name, () => {
 			it('should throw an error if there is an issue in resolveArtifacts', async () => {
 				mockResolveArtifacts.mockRejectedValueOnce(new Error('Test error'))
 				await expect(
-					resolver.resolveTsModule('module', 'basedir', false),
+					resolver.resolveTsModule('module', 'basedir', false, false),
 				).rejects.toThrow('Test error')
 				expect((logger.error as Mock).mock.calls).toMatchInlineSnapshot(`
 					[
@@ -152,7 +152,7 @@ describe(bundler.name, () => {
 					throw new Error('Test error sync')
 				})
 				expect(() =>
-					resolver.resolveCjsModuleSync('module', 'basedir', false),
+					resolver.resolveCjsModuleSync('module', 'basedir', false, false),
 				).toThrow('Test error sync')
 				expect((logger.error as Mock).mock.calls).toMatchInlineSnapshot(`
 					[
@@ -171,7 +171,7 @@ describe(bundler.name, () => {
 			it('should throw an error if there is an issue in resolveArtifacts', async () => {
 				mockResolveArtifacts.mockRejectedValueOnce(new Error('Test error'))
 				await expect(
-					resolver.resolveCjsModule('module', 'basedir', false),
+					resolver.resolveCjsModule('module', 'basedir', false, false),
 				).rejects.toThrow('Test error')
 				expect((logger.error as Mock).mock.calls).toMatchInlineSnapshot(`
 					[
@@ -192,7 +192,7 @@ describe(bundler.name, () => {
 					throw new Error('Test error sync')
 				})
 				expect(() =>
-					resolver.resolveEsmModuleSync('module', 'basedir', false),
+					resolver.resolveEsmModuleSync('module', 'basedir', false, false),
 				).toThrow('Test error sync')
 				expect((logger.error as Mock).mock.calls).toMatchInlineSnapshot(`
 					[
@@ -211,7 +211,7 @@ describe(bundler.name, () => {
 			it('should throw an error if there is an issue in resolveArtifacts', async () => {
 				mockResolveArtifacts.mockRejectedValueOnce(new Error('Test error'))
 				await expect(
-					resolver.resolveEsmModule('module', 'basedir', false),
+					resolver.resolveEsmModule('module', 'basedir', false, false),
 				).rejects.toThrow('Test error')
 				expect((logger.error as Mock).mock.calls).toMatchInlineSnapshot(`
 					[
@@ -231,7 +231,12 @@ describe(bundler.name, () => {
 	describe('resolveDts', () => {
 		it('should return an empty string if no artifacts are found', async () => {
 			mockResolveArtifacts.mockResolvedValueOnce({})
-			const result = await resolver.resolveDts('module', 'basedir', false)
+			const result = await resolver.resolveDts(
+				'module',
+				'basedir',
+				false,
+				false,
+			)
 			expect(result).toMatchInlineSnapshot(`
 				{
 				  "asts": undefined,
@@ -266,7 +271,12 @@ describe(bundler.name, () => {
 					} satisfies SolcOutput,
 				} as any as Record<string, Node>,
 			})
-			const result = await resolver.resolveDts('module', 'basedir', false)
+			const result = await resolver.resolveDts(
+				'module',
+				'basedir',
+				false,
+				false,
+			)
 			expect(result).toMatchInlineSnapshot(`
 				{
 				  "asts": {
@@ -294,7 +304,7 @@ describe(bundler.name, () => {
 				/**
 				 * TestContract EvmtsContract
 				 */
-				export const TestContract: EvmtsContract<typeof _nameTestContract, typeof _abiTestContract>;",
+				export const TestContract: EvmtsContract<typeof _nameTestContract, typeof _abiTestContract, undefined>;",
 				  "modules": {
 				    "module1": {
 				      "code": "import { TestContract } from 'module2'
@@ -318,7 +328,7 @@ describe(bundler.name, () => {
 	describe('resolveDtsSync', () => {
 		it('should return an empty string if no artifacts are found', () => {
 			mockResolveArtifactsSync.mockReturnValueOnce({})
-			const result = resolver.resolveDtsSync('module', 'basedir', false)
+			const result = resolver.resolveDtsSync('module', 'basedir', false, false)
 			expect(result).toMatchInlineSnapshot(`
 				{
 				  "asts": undefined,
@@ -353,7 +363,7 @@ describe(bundler.name, () => {
 					sources: {},
 				} satisfies SolcOutput,
 			})
-			const result = resolver.resolveDtsSync('module', 'basedir', false)
+			const result = resolver.resolveDtsSync('module', 'basedir', false, false)
 			expect(result).toMatchInlineSnapshot(`
 				{
 				  "asts": {
@@ -368,7 +378,7 @@ describe(bundler.name, () => {
 				/**
 				 * TestContract EvmtsContract
 				 */
-				export const TestContract: EvmtsContract<typeof _nameTestContract, typeof _abiTestContract>;",
+				export const TestContract: EvmtsContract<typeof _nameTestContract, typeof _abiTestContract, undefined>;",
 				  "modules": {
 				    "module1": {
 				      "code": "import { TestContract } from 'module2'
@@ -402,7 +412,12 @@ describe(bundler.name, () => {
 	describe('resolveTsModuleSync', () => {
 		it('should return an empty string if no artifacts are found', () => {
 			mockResolveArtifactsSync.mockReturnValueOnce({})
-			const result = resolver.resolveTsModuleSync('module', 'basedir', false)
+			const result = resolver.resolveTsModuleSync(
+				'module',
+				'basedir',
+				false,
+				false,
+			)
 			expect(result).toMatchInlineSnapshot(`
 				{
 				  "asts": undefined,
@@ -437,7 +452,12 @@ describe(bundler.name, () => {
 					sources: {},
 				} satisfies SolcOutput,
 			})
-			const result = resolver.resolveTsModuleSync('module', 'basedir', false)
+			const result = resolver.resolveTsModuleSync(
+				'module',
+				'basedir',
+				false,
+				false,
+			)
 			expect(result).toMatchInlineSnapshot(`
 				{
 				  "asts": {
@@ -482,7 +502,12 @@ describe(bundler.name, () => {
 	describe('resolveTsModule', () => {
 		it('should return an empty string if no artifacts are found', async () => {
 			mockResolveArtifacts.mockResolvedValueOnce({})
-			const result = await resolver.resolveTsModule('module', 'basedir', false)
+			const result = await resolver.resolveTsModule(
+				'module',
+				'basedir',
+				false,
+				false,
+			)
 			expect(result).toMatchInlineSnapshot(`
 				{
 				  "asts": undefined,
@@ -517,7 +542,12 @@ describe(bundler.name, () => {
 					sources: {},
 				} satisfies SolcOutput,
 			})
-			const result = await resolver.resolveTsModule('module', 'basedir', false)
+			const result = await resolver.resolveTsModule(
+				'module',
+				'basedir',
+				false,
+				false,
+			)
 			expect(result).toMatchInlineSnapshot(`
 				{
 				  "asts": {
@@ -562,7 +592,12 @@ describe(bundler.name, () => {
 	describe('resolveCjsModuleSync', () => {
 		it('should return an empty string if no artifacts are found', () => {
 			mockResolveArtifactsSync.mockReturnValueOnce({})
-			const result = resolver.resolveCjsModuleSync('module', 'basedir', false)
+			const result = resolver.resolveCjsModuleSync(
+				'module',
+				'basedir',
+				false,
+				false,
+			)
 			expect(result).toMatchInlineSnapshot(`
 				{
 				  "asts": undefined,
@@ -597,7 +632,12 @@ describe(bundler.name, () => {
 					sources: {},
 				} satisfies SolcOutput,
 			})
-			const result = resolver.resolveCjsModuleSync('module', 'basedir', false)
+			const result = resolver.resolveCjsModuleSync(
+				'module',
+				'basedir',
+				false,
+				false,
+			)
 			expect(result).toMatchInlineSnapshot(`
 				{
 				  "asts": {
@@ -642,7 +682,12 @@ describe(bundler.name, () => {
 	describe('resolveCjsModule', () => {
 		it('should return an empty string if no artifacts are found', async () => {
 			mockResolveArtifacts.mockResolvedValueOnce({})
-			const result = await resolver.resolveCjsModule('module', 'basedir', false)
+			const result = await resolver.resolveCjsModule(
+				'module',
+				'basedir',
+				false,
+				false,
+			)
 			expect(result).toMatchInlineSnapshot(`
 				{
 				  "asts": undefined,
@@ -677,7 +722,12 @@ describe(bundler.name, () => {
 					sources: {},
 				} satisfies SolcOutput,
 			})
-			const result = await resolver.resolveCjsModule('module', 'basedir', false)
+			const result = await resolver.resolveCjsModule(
+				'module',
+				'basedir',
+				false,
+				false,
+			)
 			expect(result).toMatchInlineSnapshot(`
 				{
 				  "asts": {
@@ -722,7 +772,12 @@ describe(bundler.name, () => {
 	describe('resolveEsmModuleSync', () => {
 		it('should return an empty string if no artifacts are found', () => {
 			mockResolveArtifactsSync.mockReturnValueOnce({})
-			const result = resolver.resolveEsmModuleSync('module', 'basedir', false)
+			const result = resolver.resolveEsmModuleSync(
+				'module',
+				'basedir',
+				false,
+				false,
+			)
 			expect(result).toMatchInlineSnapshot(`
 				{
 				  "asts": undefined,
@@ -757,7 +812,12 @@ describe(bundler.name, () => {
 					sources: {},
 				} satisfies SolcOutput,
 			})
-			const result = resolver.resolveEsmModuleSync('module', 'basedir', false)
+			const result = resolver.resolveEsmModuleSync(
+				'module',
+				'basedir',
+				false,
+				false,
+			)
 			expect(result).toMatchInlineSnapshot(`
 				{
 				  "asts": {
@@ -802,7 +862,12 @@ describe(bundler.name, () => {
 	describe('resolveEsmModule', () => {
 		it('should return an empty string if no artifacts are found', async () => {
 			mockResolveArtifacts.mockResolvedValueOnce({})
-			const result = await resolver.resolveEsmModule('module', 'basedir', false)
+			const result = await resolver.resolveEsmModule(
+				'module',
+				'basedir',
+				false,
+				false,
+			)
 			expect(result).toMatchInlineSnapshot(`
 				{
 				  "asts": undefined,
@@ -837,7 +902,12 @@ describe(bundler.name, () => {
 					sources: {},
 				} satisfies SolcOutput,
 			})
-			const result = await resolver.resolveEsmModule('module', 'basedir', false)
+			const result = await resolver.resolveEsmModule(
+				'module',
+				'basedir',
+				false,
+				false,
+			)
 			expect(result).toMatchInlineSnapshot(`
 				{
 				  "asts": {

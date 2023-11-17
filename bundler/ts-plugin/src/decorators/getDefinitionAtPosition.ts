@@ -44,6 +44,7 @@ export const getDefinitionServiceDecorator = (
 			evmtsContractPath,
 			process.cwd(),
 			includedAst,
+			false,
 		)
 		if (!asts) {
 			logger.error(

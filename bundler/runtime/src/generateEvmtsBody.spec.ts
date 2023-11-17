@@ -6,6 +6,9 @@ describe('generateEvmtsBody', () => {
 	const artifacts = {
 		MyContract: {
 			abi: [],
+			evm: {
+				bytecode: '0x0',
+			} as any,
 			userdoc: {
 				kind: 'user',
 				version: 1,
@@ -19,6 +22,9 @@ describe('generateEvmtsBody', () => {
 		},
 		AnotherContract: {
 			abi: [],
+			evm: {
+				bytecode: '0x0',
+			} as any,
 			userdoc: {
 				kind: 'user',
 				version: 1,
@@ -28,7 +34,7 @@ describe('generateEvmtsBody', () => {
 	} as const
 
 	it('should generate correct body for cjs module', () => {
-		const result = runSync(generateEvmtsBody(artifacts, 'cjs'))
+		const result = runSync(generateEvmtsBody(artifacts, 'cjs', false))
 		expect(result).toMatchInlineSnapshot(`
 			"const _MyContract = {\\"name\\":\\"MyContract\\",\\"humanReadableAbi\\":[]}
 			/**
@@ -45,7 +51,7 @@ describe('generateEvmtsBody', () => {
 	})
 
 	it('should generate correct body for mjs module', () => {
-		const result = runSync(generateEvmtsBody(artifacts, 'mjs'))
+		const result = runSync(generateEvmtsBody(artifacts, 'mjs', false))
 		expect(result).toMatchInlineSnapshot(`
 			"const _MyContract = {\\"name\\":\\"MyContract\\",\\"humanReadableAbi\\":[]}
 			/**
@@ -62,7 +68,7 @@ describe('generateEvmtsBody', () => {
 	})
 
 	it('should generate correct body for ts module', () => {
-		const result = runSync(generateEvmtsBody(artifacts, 'ts'))
+		const result = runSync(generateEvmtsBody(artifacts, 'ts', false))
 		expect(result).toMatchInlineSnapshot(`
 			"const _MyContract = {\\"name\\":\\"MyContract\\",\\"humanReadableAbi\\":[]} as const
 			/**
@@ -79,7 +85,7 @@ describe('generateEvmtsBody', () => {
 	})
 
 	it('should generate correct body for dts module', () => {
-		const result = runSync(generateEvmtsBody(artifacts, 'dts'))
+		const result = runSync(generateEvmtsBody(artifacts, 'dts', false))
 		expect(result).toMatchInlineSnapshot(`
 			"const _abiMyContract = [] as const;
 			const _nameMyContract = \\"MyContract\\" as const;
@@ -88,14 +94,14 @@ describe('generateEvmtsBody', () => {
 			 * @notice MyContract
 			 * @property balanceOf(address) Returns the amount of tokens owned by account
 			 */
-			export const MyContract: EvmtsContract<typeof _nameMyContract, typeof _abiMyContract>;
+			export const MyContract: EvmtsContract<typeof _nameMyContract, typeof _abiMyContract, undefined>;
 			const _abiAnotherContract = [] as const;
 			const _nameAnotherContract = \\"AnotherContract\\" as const;
 			/**
 			 * AnotherContract EvmtsContract
 			 * @notice MyContract
 			 */
-			export const AnotherContract: EvmtsContract<typeof _nameAnotherContract, typeof _abiAnotherContract>;"
+			export const AnotherContract: EvmtsContract<typeof _nameAnotherContract, typeof _abiAnotherContract, undefined>;"
 		`)
 	})
 })

@@ -5,18 +5,20 @@ import { succeed } from 'effect/Effect'
 /**
  * @param {import("@evmts/solc").Artifacts} artifacts
  * @param {import('./types.js').ModuleType} moduleType
+ * @param {boolean} includeBytecode
  * @returns {import('effect/Effect').Effect<never, never, string>}
  */
-export const generateEvmtsBody = (artifacts, moduleType) => {
+export const generateEvmtsBody = (artifacts, moduleType, includeBytecode) => {
 	if (moduleType === 'dts') {
-		return generateDtsBody(artifacts)
+		return generateDtsBody(artifacts, includeBytecode)
 	}
 	return succeed(
 		Object.entries(artifacts)
-			.flatMap(([contractName, { abi, userdoc = {} }]) => {
+			.flatMap(([contractName, { abi, userdoc = {}, evm }]) => {
 				const contract = JSON.stringify({
 					name: contractName,
 					humanReadableAbi: formatAbi(abi),
+					bytecode: evm?.bytecode.object,
 				})
 				const natspec = Object.entries(userdoc.methods ?? {}).map(
 					([method, { notice }]) => ` * @property ${method} ${notice}`,

@@ -23,7 +23,13 @@ export const getScriptSnapshotDecorator = (solcCache?: Cache) =>
 				}
 				try {
 					const plugin = bundler(config, logger as any, fao, solcCache)
-					const snapshot = plugin.resolveDtsSync(filePath, process.cwd(), false)
+					const resolveBytecode = filePath.endsWith('.s.sol')
+					const snapshot = plugin.resolveDtsSync(
+						filePath,
+						process.cwd(),
+						false,
+						resolveBytecode,
+					)
 					return ts.ScriptSnapshot.fromString(snapshot.code)
 				} catch (e) {
 					logger.error(

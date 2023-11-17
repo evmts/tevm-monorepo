@@ -12,7 +12,7 @@
 
 ### resolveArtifacts
 
-▸ **resolveArtifacts**(`solFile`, `basedir`, `logger`, `config`, `includeAst`, `fao`): `Promise`\<\{ `artifacts`: [`Artifacts`](types.md#artifacts) ; `asts`: `undefined` \| `Record`\<`string`, `Node`\> ; `modules`: `Record`\<``"string"``, `ModuleInfo`\> ; `solcInput`: `SolcInputDescription` ; `solcOutput`: `SolcOutput`  }\>
+▸ **resolveArtifacts**(`solFile`, `basedir`, `logger`, `config`, `includeAst`, `includeBytecode`, `fao`): `Promise`\<\{ `artifacts`: [`Artifacts`](types.md#artifacts) ; `asts`: `undefined` \| `Record`\<`string`, `Node`\> ; `modules`: `Record`\<``"string"``, `ModuleInfo`\> ; `solcInput`: `SolcInputDescription` ; `solcOutput`: `SolcOutput`  }\>
 
 Resolves artifacts with solc asyncronously
 
@@ -25,6 +25,7 @@ Resolves artifacts with solc asyncronously
 | `logger` | [`Logger`](types.md#logger) |
 | `config` | `ResolvedCompilerConfig` |
 | `includeAst` | `boolean` |
+| `includeBytecode` | `boolean` |
 | `fao` | [`FileAccessObject`](types.md#fileaccessobject) |
 
 #### Returns

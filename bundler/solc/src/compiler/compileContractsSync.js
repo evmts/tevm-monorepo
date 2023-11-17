@@ -8,10 +8,12 @@ import resolve from 'resolve'
  * Compile the Solidity contract and return its ABI.
  *
  * @template TIncludeAsts
+ * @template TIncludeBytecode
  * @param {string} filePath
  * @param {string} basedir
  * @param {import('@evmts/config').ResolvedCompilerConfig} config
  * @param {TIncludeAsts} includeAst
+ * @param {TIncludeBytecode} includeBytecode
  * @param {import('../types.js').FileAccessObject} fao
  * @param {import('../types.js').Logger} logger
  * @returns {import('../types.js').CompiledContracts}
@@ -30,6 +32,7 @@ export function compileContractSync(
 	basedir,
 	config,
 	includeAst,
+	includeBytecode,
 	fao,
 	logger,
 ) {
@@ -81,6 +84,10 @@ export function compileContractSync(
 	)
 
 	/**
+	 * @type {['evm.bytecode']}
+	 */
+	const evmBytecode = ['evm.bytecode']
+	/**
 	 * @type {import('../solcTypes.js').SolcInputDescription}
 	 */
 	const solcInput = {
@@ -89,8 +96,8 @@ export function compileContractSync(
 		settings: {
 			outputSelection: {
 				'*': {
-					'*': ['abi', 'userdoc'],
-					...(includeAst ? { '': ['ast'] } : {}),
+					'*': ['abi', 'userdoc', ...(includeBytecode ? evmBytecode : [])],
+					...(includeAst ? { ['']: ['ast'] } : {}),
 				},
 			},
 		},

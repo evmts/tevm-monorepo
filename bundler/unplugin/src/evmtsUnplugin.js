@@ -91,10 +91,14 @@ export const evmtsUnplugin = (options = {}) => {
 			if (existsSync(`${id}.d.ts`)) {
 				return
 			}
+
+			const resolveBytecode = id.endsWith('.s.sol')
+
 			const { code, modules } = await moduleResolver.resolveEsmModule(
 				id,
 				process.cwd(),
 				false,
+				resolveBytecode,
 			)
 			Object.values(modules).forEach((module) => {
 				if (module.id.includes('node_modules')) {

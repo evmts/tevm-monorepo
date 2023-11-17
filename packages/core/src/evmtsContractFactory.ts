@@ -3,22 +3,26 @@ import { eventsFactory } from './event/eventFactory'
 import { readFactory } from './read/readFactory'
 import { writeFactory } from './write/writeFactory'
 import { parseAbi } from 'abitype'
+import type { Hex } from 'viem'
 
 export const evmtsContractFactory = <
 	TName extends string,
 	THumanReadableAbi extends readonly string[],
+	TBytecode extends Hex | undefined,
 >({
 	humanReadableAbi,
 	name,
+	bytecode,
 }: Pick<
-	EvmtsContract<TName, THumanReadableAbi>,
-	'name' | 'humanReadableAbi'
->): EvmtsContract<TName, THumanReadableAbi> => {
+	EvmtsContract<TName, THumanReadableAbi, TBytecode>,
+	'name' | 'humanReadableAbi' | 'bytecode'
+>): EvmtsContract<TName, THumanReadableAbi, TBytecode> => {
 	const abi = parseAbi(humanReadableAbi as any)
 	const methods = abi.filter((field) => {
 		return field.type === 'function'
 	})
 	return {
+		bytecode,
 		name,
 		abi: abi as any,
 		humanReadableAbi,

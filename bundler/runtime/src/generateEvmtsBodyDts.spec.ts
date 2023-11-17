@@ -6,6 +6,9 @@ describe('generateDtsBody', () => {
 	const artifacts = {
 		MyContract: {
 			abi: [{ type: 'constructor', inputs: [], stateMutability: 'payable' }],
+			evm: {
+				bytecode: '0x420',
+			} as any,
 			userdoc: {
 				kind: 'user',
 				version: 1,
@@ -19,6 +22,9 @@ describe('generateDtsBody', () => {
 		},
 		AnotherContract: {
 			abi: [],
+			evm: {
+				bytecode: '0x420',
+			} as any,
 			userdoc: {
 				kind: 'user',
 				version: 1,
@@ -27,6 +33,9 @@ describe('generateDtsBody', () => {
 		},
 		MissingContract: {
 			abi: [],
+			evm: {
+				bytecode: '0x420',
+			} as any,
 			userdoc: {
 				kind: 'user',
 				version: 1,
@@ -41,7 +50,7 @@ describe('generateDtsBody', () => {
 	} as const
 
 	it('should generate correct body with etherscan links', () => {
-		expect(runSync(generateDtsBody(artifacts))).toMatchInlineSnapshot(`
+		expect(runSync(generateDtsBody(artifacts, false))).toMatchInlineSnapshot(`
 			"const _abiMyContract = [\\"constructor() payable\\"] as const;
 			const _nameMyContract = \\"MyContract\\" as const;
 			/**
@@ -49,14 +58,14 @@ describe('generateDtsBody', () => {
 			 * @notice MyContract
 			 * @property balanceOf(address) Returns the amount of tokens owned by account
 			 */
-			export const MyContract: EvmtsContract<typeof _nameMyContract, typeof _abiMyContract>;
+			export const MyContract: EvmtsContract<typeof _nameMyContract, typeof _abiMyContract, undefined>;
 			const _abiAnotherContract = [] as const;
 			const _nameAnotherContract = \\"AnotherContract\\" as const;
 			/**
 			 * AnotherContract EvmtsContract
 			 * @notice MyContract
 			 */
-			export const AnotherContract: EvmtsContract<typeof _nameAnotherContract, typeof _abiAnotherContract>;
+			export const AnotherContract: EvmtsContract<typeof _nameAnotherContract, typeof _abiAnotherContract, undefined>;
 			const _abiMissingContract = [] as const;
 			const _nameMissingContract = \\"MissingContract\\" as const;
 			/**
@@ -64,7 +73,7 @@ describe('generateDtsBody', () => {
 			 * @notice MyContract
 			 * @property balanceOf(address) Returns the amount of tokens owned by account
 			 */
-			export const MissingContract: EvmtsContract<typeof _nameMissingContract, typeof _abiMissingContract>;"
+			export const MissingContract: EvmtsContract<typeof _nameMissingContract, typeof _abiMissingContract, undefined>;"
 		`)
 	})
 })

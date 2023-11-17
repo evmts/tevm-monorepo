@@ -55,7 +55,15 @@ const mockCompileContractSync = compileContractSync as MockedFunction<
 describe('resolveArtifactsSync', () => {
 	it('should throw an error if the file is not a solidity file', () => {
 		expect(() =>
-			resolveArtifactsSync('test.txt', basedir, logger, config, false, fao),
+			resolveArtifactsSync(
+				'test.txt',
+				basedir,
+				logger,
+				config,
+				false,
+				false,
+				fao,
+			),
 		).toThrowErrorMatchingInlineSnapshot('"Not a solidity file"')
 	})
 
@@ -65,7 +73,7 @@ describe('resolveArtifactsSync', () => {
 			throw new Error('Oops')
 		})
 		expect(() =>
-			resolveArtifactsSync(solFile, basedir, logger, config, false, fao),
+			resolveArtifactsSync(solFile, basedir, logger, config, false, false, fao),
 		).toThrowErrorMatchingInlineSnapshot('"Oops"')
 	})
 
@@ -75,13 +83,14 @@ describe('resolveArtifactsSync', () => {
 			modules: mockModules,
 		} as any)
 		expect(
-			resolveArtifactsSync(solFile, basedir, logger, config, false, fao),
+			resolveArtifactsSync(solFile, basedir, logger, config, false, false, fao),
 		).toMatchInlineSnapshot(`
 			{
 			  "artifacts": {
 			    "Test": {
 			      "abi": [],
 			      "contractName": "Test",
+			      "evm": {},
 			      "userdoc": undefined,
 			    },
 			  },
@@ -121,6 +130,7 @@ describe('resolveArtifactsSync', () => {
 			logger,
 			config,
 			false,
+			false,
 			fao,
 		)
 
@@ -128,6 +138,7 @@ describe('resolveArtifactsSync', () => {
 			Test: {
 				contractName: 'Test',
 				abi: ['testAbi'],
+				evm: { bytecode: { object: 'testBytecode' } },
 			},
 		})
 	})
@@ -139,13 +150,21 @@ describe('resolveArtifactsSync', () => {
 		} as any)
 
 		expect(() =>
-			resolveArtifactsSync(solFile, basedir, logger, config, false, fao),
+			resolveArtifactsSync(solFile, basedir, logger, config, false, false, fao),
 		).toThrowErrorMatchingInlineSnapshot('"Compilation failed"')
 	})
 
 	it('should throw an error if file doesnt end in .sol', () => {
 		expect(() =>
-			resolveArtifactsSync('test.txt', basedir, logger, config, false, fao),
+			resolveArtifactsSync(
+				'test.txt',
+				basedir,
+				logger,
+				config,
+				false,
+				false,
+				fao,
+			),
 		).toThrowErrorMatchingInlineSnapshot('"Not a solidity file"')
 	})
 })
