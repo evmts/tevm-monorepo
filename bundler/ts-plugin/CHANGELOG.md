@@ -1,5 +1,16 @@
 # @evmts/ts-plugin
 
+## 1.0.0-next.3
+
+### Minor Changes
+
+- [#674](https://github.com/evmts/evmts-monorepo/pull/674) [`eddcef02`](https://github.com/evmts/evmts-monorepo/commit/eddcef024aebc62b713a1fd51304e12f0b093d18) Thanks [@roninjin10](https://github.com/roninjin10)! - Added debug option to evmts config. When turned on the output of evmts contract imports will be written to disk and can be debugged. In future logging for the bundler will also be printed to a debug log file
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @evmts/base@1.0.0-next.3
+
 ## 1.0.0-next.2
 
 ### Minor Changes
