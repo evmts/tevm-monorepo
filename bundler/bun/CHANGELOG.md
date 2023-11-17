@@ -75,7 +75,7 @@
   Install build dependencies
 
   ```typescript
-  bun install -D bun-types @evmts/bun-plugin @evmts/ts-plugin @evmts/core solc
+  pnpm install -D bun-types @evmts/bun-plugin @evmts/ts-plugin @evmts/core solc
   ```
 
   ### Setup

@@ -37,4 +37,4 @@
 
 #### Defined in
 
-node_modules/typescript/lib/tsserverlibrary.d.ts:3243
+node_modules/.pnpm/typescript@5.2.2/node_modules/typescript/lib/tsserverlibrary.d.ts:3243

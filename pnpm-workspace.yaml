@@ -1,0 +1,10 @@
+packages:
+  - "bundler/*"
+  - "bundler"
+  - "experimental/*"
+  - "configs/*"
+  - "apps/*"
+  - "extensions/*"
+  - "packages/*"
+  - "examples/*"
+  - "vm"

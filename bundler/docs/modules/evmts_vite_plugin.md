@@ -27,4 +27,4 @@
 
 #### Defined in
 
-node_modules/unplugin/dist/index.d.mts:83
+node_modules/.pnpm/unplugin@1.5.1/node_modules/unplugin/dist/index.d.mts:83
