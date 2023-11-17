@@ -1,5 +1,11 @@
 # @evmts/core
 
+## 1.0.0-next.6
+
+### Patch Changes
+
+- [#680](https://github.com/evmts/evmts-monorepo/pull/680) [`699ae1c1`](https://github.com/evmts/evmts-monorepo/commit/699ae1c19177c0d19d0b699d42d8c0024b278b7f) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug with @evmts/resolutions being listed as a dev dep instead of normal dep
+
 ## 1.0.0-next.5
 
 ### Patch Changes
