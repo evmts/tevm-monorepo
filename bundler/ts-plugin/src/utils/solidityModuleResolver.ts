@@ -10,7 +10,7 @@ import type typescript from 'typescript/lib/tsserverlibrary.js'
 export const solidityModuleResolver = (
 	moduleName: string,
 	ts: typeof typescript,
-	_: typescript.server.PluginCreateInfo,
+	createInfo: typescript.server.PluginCreateInfo,
 	containingFile: string,
 ): typescript.ResolvedModuleFull | undefined => {
 	if (isRelativeSolidity(moduleName)) {
@@ -30,17 +30,27 @@ export const solidityModuleResolver = (
 
 	// to handle the case where the import is coming from a node_module or a different workspace
 	// we need to always point @evmts/core to the local version
-	if (
-		moduleName.startsWith('@evmts/core') &&
-		!moduleName.startsWith(process.cwd()) &&
-		!containingFile.includes('node_modules')
-	) {
-		return {
-			extension: ts.Extension.Dts,
-			isExternalLibraryImport: true,
-			resolvedFileName: createRequire(`${process.cwd()}/`).resolve(
-				'@evmts/core',
-			),
+	if (moduleName.startsWith('@evmts/core')) {
+		const result = ts.resolveModuleName(
+			moduleName,
+			containingFile,
+			createInfo.project.getCompilerOptions(),
+			createInfo.project,
+		)
+
+		if (result.resolvedModule) {
+			return {
+				extension: ts.Extension.Dts,
+				isExternalLibraryImport: true,
+				resolvedFileName: result.resolvedModule.resolvedFileName,
+			}
+		} else {
+			console.error(
+				'Could not resolve module. Is evmts/core installed?',
+				moduleName,
+				result,
+			)
+			return undefined
 		}
 	}
 	return undefined
