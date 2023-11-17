@@ -772,7 +772,7 @@ importers:
   examples/bun:
     dependencies:
       '@evmts/core':
-        specifier: ^1.0.0-next.2
+        specifier: ^1.0.0-next.4
         version: link:../../packages/core
       bun-types:
         specifier: ^1.0.7
@@ -812,7 +812,7 @@ importers:
   examples/esbuild:
     dependencies:
       '@evmts/core':
-        specifier: ^1.0.0-next.2
+        specifier: ^1.0.0-next.4
         version: link:../../packages/core
       viem:
         specifier: ^1.18.1
@@ -922,7 +922,7 @@ importers:
         specifier: ^0.0.1
         version: 0.0.1(@types/node@20.9.1)(@types/react@18.2.37)(ethers@6.8.1)(react-dom@18.2.0)(react@18.2.0)(typescript@5.2.2)
       '@evmts/core':
-        specifier: workspace:^1.0.0-next.2
+        specifier: workspace:^1.0.0-next.4
         version: link:../../packages/core
       '@evmts/ethers':
         specifier: workspace:^

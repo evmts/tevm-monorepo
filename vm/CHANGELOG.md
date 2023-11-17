@@ -1,5 +1,11 @@
 # @evmts/core
 
+## 1.0.0-next.4
+
+### Patch Changes
+
+- [#676](https://github.com/evmts/evmts-monorepo/pull/676) [`93cab845`](https://github.com/evmts/evmts-monorepo/commit/93cab8451874bb16e8f21bb86c909c8aab277d90) Thanks [@roninjin10](https://github.com/roninjin10)! - Switched package manager to pnpm from bun
+
 ## 1.0.0-next.1
 
 ### Patch Changes

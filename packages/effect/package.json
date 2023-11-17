@@ -1,6 +1,6 @@
 {
 	"name": "@evmts/effect",
-	"version": "1.0.0-next.0",
+	"version": "1.0.0-next.4",
 	"private": false,
 	"description": "Effect.ts utilities",
 	"keywords": [
