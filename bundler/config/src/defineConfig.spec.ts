@@ -48,6 +48,7 @@ describe(defineConfig.name, () => {
 			remappings: defaultConfig.remappings,
 			foundryProject: 'forge',
 			libs: ['lib1', 'lib2'],
+			debug: false,
 		})
 		expect(mockExecSync).toHaveBeenCalledWith('forge config --json', {
 			cwd: './',
@@ -72,6 +73,7 @@ describe(defineConfig.name, () => {
 			remappings: defaultConfig.remappings,
 			foundryProject: true,
 			libs: ['lib1', 'lib2'],
+			debug: false,
 		})
 		expect(mockExecSync).toHaveBeenCalledWith('forge config --json', {
 			cwd: './',

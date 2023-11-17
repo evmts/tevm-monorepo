@@ -10,6 +10,7 @@ describe(loadConfig.name, () => {
 			runSync(loadConfig(join(__dirname, 'fixtures/basic'))),
 		).toMatchInlineSnapshot(`
 			{
+			  "debug": false,
 			  "foundryProject": false,
 			  "libs": [],
 			  "remappings": {},
@@ -28,6 +29,7 @@ describe(loadConfig.name, () => {
 			runSync(loadConfig(join(__dirname, 'fixtures/jsonc'))),
 		).toMatchInlineSnapshot(`
 			{
+			  "debug": false,
 			  "foundryProject": false,
 			  "libs": [],
 			  "remappings": {},
@@ -40,6 +42,7 @@ describe(loadConfig.name, () => {
 			runSync(loadConfig(join(__dirname, 'fixtures/withFoundry'))),
 		).toMatchInlineSnapshot(`
 			{
+			  "debug": false,
 			  "foundryProject": false,
 			  "libs": [],
 			  "remappings": {},

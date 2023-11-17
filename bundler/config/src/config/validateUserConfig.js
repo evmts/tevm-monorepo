@@ -69,6 +69,7 @@ const SCompilerConfig = struct({
 	foundryProject: optional(union(boolean, string, SUndefined)),
 	libs: optional(union(array(string), SUndefined)),
 	remappings: optional(union(record(string, string), SUndefined)),
+	debug: optional(union(boolean, SUndefined)),
 })
 
 /**

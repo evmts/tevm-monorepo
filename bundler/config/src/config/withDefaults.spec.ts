@@ -18,6 +18,7 @@ describe(withDefaults.name, () => {
 			foundryProject: true,
 			remappings: { foo: 'bar' },
 			libs: ['lib1', 'lib2'],
+			debug: false,
 		})
 		expect(
 			runSync(
@@ -29,6 +30,7 @@ describe(withDefaults.name, () => {
 			foundryProject: true,
 			remappings: defaultConfig.remappings,
 			libs: defaultConfig.libs,
+			debug: false,
 		})
 		expect(
 			runSync(
@@ -40,6 +42,7 @@ describe(withDefaults.name, () => {
 			foundryProject: defaultConfig.foundryProject,
 			remappings: { foo: 'bar' },
 			libs: defaultConfig.libs,
+			debug: false,
 		})
 		expect(
 			runSync(
@@ -51,6 +54,7 @@ describe(withDefaults.name, () => {
 			foundryProject: false,
 			remappings: defaultConfig.remappings,
 			libs: ['lib1', 'lib2'],
+			debug: false,
 		})
 	})
 })
