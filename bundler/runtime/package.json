@@ -1,6 +1,6 @@
 {
 	"name": "@evmts/runtime",
-	"version": "1.0.0-next.2",
+	"version": "1.0.0-next.4",
 	"private": false,
 	"description": "Tools for generating the EVMts contract runtime",
 	"keywords": [
