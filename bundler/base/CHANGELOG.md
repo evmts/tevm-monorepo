@@ -1,5 +1,17 @@
 # @evmts/base
 
+## 1.0.0-next.5
+
+### Patch Changes
+
+- [#678](https://github.com/evmts/evmts-monorepo/pull/678) [`77baab6b`](https://github.com/evmts/evmts-monorepo/commit/77baab6b56bfdd200d5f5bb00636c6f519925ac2) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed issue with npm publishing
+
+- Updated dependencies [[`77baab6b`](https://github.com/evmts/evmts-monorepo/commit/77baab6b56bfdd200d5f5bb00636c6f519925ac2)]:
+  - @evmts/config@1.0.0-next.5
+  - @evmts/runtime@1.0.0-next.5
+  - @evmts/solc@1.0.0-next.5
+  - @evmts/tsconfig@1.0.0-next.5
+
 ## 1.0.0-next.4
 
 ### Patch Changes
