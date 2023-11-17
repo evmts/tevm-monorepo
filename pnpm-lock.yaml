@@ -500,6 +500,9 @@ importers:
       '@evmts/config':
         specifier: workspace:^
         version: link:../config
+      '@evmts/resolutions':
+        specifier: workspace:^
+        version: link:../resolutions
       '@evmts/tsconfig':
         specifier: workspace:^
         version: link:../../configs/tsconfig
@@ -525,12 +528,6 @@ importers:
         specifier: ^1.5.0
         version: 1.5.1
     devDependencies:
-      '@evmts/core':
-        specifier: workspace:^
-        version: link:../../packages/core
-      '@evmts/resolutions':
-        specifier: workspace:^
-        version: link:../resolutions
       '@openzeppelin/contracts':
         specifier: ^4.9.3
         version: 4.9.3
