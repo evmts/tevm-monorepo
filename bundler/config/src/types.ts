@@ -23,6 +23,10 @@ export type CompilerConfig = {
 	 * Remap the location of contracts
 	 */
 	remappings?: ReadonlyRecord<string> | undefined
+	/**
+	 * If debug is true evmts will write the .d.ts files in the ts server and publish extra debug info to a debug file
+	 */
+	debug?: boolean | undefined
 }
 
 /*
@@ -49,6 +53,10 @@ export type ResolvedCompilerConfig = {
 	 * Remap the location of contracts
 	 */
 	remappings: ReadonlyRecord<string>
+	/**
+	 * If debug is true evmts will write the .d.ts files in the ts server and publish extra debug info to a debug file
+	 */
+	debug?: boolean | undefined
 }
 
 export type DefineConfigErrorType =

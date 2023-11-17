@@ -20,6 +20,7 @@ The default CompilerConfig
 
 | Name | Type |
 | :------ | :------ |
+| `debug` | `boolean` |
 | `foundryProject` | `boolean` |
 | `libs` | `never`[] |
 | `remappings` | {} |

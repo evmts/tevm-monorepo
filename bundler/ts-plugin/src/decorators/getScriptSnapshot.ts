@@ -1,7 +1,7 @@
 import { createHostDecorator } from '../factories/index.js'
 import { isSolidity } from '../utils/index.js'
 import { Cache, bundler } from '@evmts/base'
-import { existsSync } from 'fs'
+import { existsSync, writeFileSync } from 'fs'
 
 /**
  * Decorate `LangaugeServerHost.getScriptSnapshot` to return generated `.d.ts` file for `.sol` files
@@ -30,6 +30,12 @@ export const getScriptSnapshotDecorator = (solcCache?: Cache) =>
 						false,
 						resolveBytecode,
 					)
+					if (config.debug) {
+						writeFileSync(
+							`${filePath}.debug.d.ts`,
+							`// Debug: the following snapshot is what evmts resolves ${filePath} to\n${snapshot.code}`,
+						)
+					}
 					return ts.ScriptSnapshot.fromString(snapshot.code)
 				} catch (e) {
 					logger.error(

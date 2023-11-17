@@ -7,6 +7,7 @@ export const defaultConfig = {
 	foundryProject: false,
 	remappings: {},
 	libs: [],
+	debug: false,
 }
 
 /**
@@ -28,6 +29,7 @@ export const withDefaults = (config) =>
 			...config.remappings,
 		},
 		libs: [...defaultConfig.libs, ...(config.libs ?? [])],
+		debug: config.debug ?? defaultConfig.debug,
 	}).pipe(
 		tap((configWithDefaults) =>
 			logDebug(

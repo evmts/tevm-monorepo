@@ -25,6 +25,7 @@ When resolved with defaults it is a [ResolvedCompilerConfig](evmts_config.types.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
+| `debug?` | `boolean` | If debug is true evmts will write the .d.ts files in the ts server and publish extra debug info to a debug file |
 | `foundryProject?` | `boolean` \| `string` | If set to true it will resolve forge remappings and libs Set to "path/to/forge/executable" to use a custom forge executable |
 | `libs?` | readonly `string`[] | Sets directories to search for solidity imports in Read autoamtically for forge projects if forge: true |
 | `remappings?` | `ReadonlyRecord`\<`string`\> | Remap the location of contracts |
@@ -49,7 +50,7 @@ ___
 
 #### Defined in
 
-[bundler/config/src/types.ts:31](https://github.com/evmts/evmts-monorepo/blob/main/bundler/config/src/types.ts#L31)
+[bundler/config/src/types.ts:35](https://github.com/evmts/evmts-monorepo/blob/main/bundler/config/src/types.ts#L35)
 
 ___
 
@@ -90,7 +91,7 @@ export default defineConfig({
 
 #### Defined in
 
-[bundler/config/src/types.ts:68](https://github.com/evmts/evmts-monorepo/blob/main/bundler/config/src/types.ts#L68)
+[bundler/config/src/types.ts:76](https://github.com/evmts/evmts-monorepo/blob/main/bundler/config/src/types.ts#L76)
 
 ___
 
@@ -100,7 +101,7 @@ ___
 
 #### Defined in
 
-[bundler/config/src/types.ts:54](https://github.com/evmts/evmts-monorepo/blob/main/bundler/config/src/types.ts#L54)
+[bundler/config/src/types.ts:62](https://github.com/evmts/evmts-monorepo/blob/main/bundler/config/src/types.ts#L62)
 
 ___
 
@@ -115,10 +116,11 @@ See [CompilerConfig](evmts_config.types.md#compilerconfig)
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
+| `debug?` | `boolean` | If debug is true evmts will write the .d.ts files in the ts server and publish extra debug info to a debug file |
 | `foundryProject` | `boolean` \| `string` | If set to true it will resolve forge remappings and libs Set to "path/to/forge/executable" to use a custom forge executable |
 | `libs` | readonly `string`[] | Sets directories to search for solidity imports in Read autoamtically for forge projects if forge: true |
 | `remappings` | `ReadonlyRecord`\<`string`\> | Remap the location of contracts |
 
 #### Defined in
 
-[bundler/config/src/types.ts:37](https://github.com/evmts/evmts-monorepo/blob/main/bundler/config/src/types.ts#L37)
+[bundler/config/src/types.ts:41](https://github.com/evmts/evmts-monorepo/blob/main/bundler/config/src/types.ts#L41)
