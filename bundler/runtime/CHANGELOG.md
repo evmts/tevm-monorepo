@@ -1,5 +1,11 @@
 # @evmts/runtime
 
+## 1.0.0-next.2
+
+### Minor Changes
+
+- [#668](https://github.com/evmts/evmts-monorepo/pull/668) [`31ed39a5`](https://github.com/evmts/evmts-monorepo/commit/31ed39a58665ac555a2f18f5fcf5bc800b135785) Thanks [@roninjin10](https://github.com/roninjin10)! - Added back bytecode to EVMts bundler. When the compiler encounters a file ending in .s.sol it will compile the bytecode in addition to the abi
+
 ## 1.0.0-next.0
 
 ### Patch Changes

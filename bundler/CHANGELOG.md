@@ -1,5 +1,22 @@
 # @evmts/bundler
 
+## 1.0.0-next.2
+
+### Minor Changes
+
+- [#668](https://github.com/evmts/evmts-monorepo/pull/668) [`31ed39a5`](https://github.com/evmts/evmts-monorepo/commit/31ed39a58665ac555a2f18f5fcf5bc800b135785) Thanks [@roninjin10](https://github.com/roninjin10)! - Added back bytecode to EVMts bundler. When the compiler encounters a file ending in .s.sol it will compile the bytecode in addition to the abi
+
+### Patch Changes
+
+- Updated dependencies [[`2f13396d`](https://github.com/evmts/evmts-monorepo/commit/2f13396d5b64687e56d4618aaff88a67a05df7e2), [`31ed39a5`](https://github.com/evmts/evmts-monorepo/commit/31ed39a58665ac555a2f18f5fcf5bc800b135785)]:
+  - @evmts/ts-plugin@1.0.0-next.2
+  - @evmts/bun-plugin@1.0.0-next.2
+  - @evmts/esbuild-plugin@1.0.0-next.2
+  - @evmts/rollup-plugin@1.0.0-next.2
+  - @evmts/rspack-plugin@1.0.0-next.2
+  - @evmts/vite-plugin@1.0.0-next.2
+  - @evmts/webpack-plugin@1.0.0-next.2
+
 ## 1.0.0-next.0
 
 ### Major Changes
