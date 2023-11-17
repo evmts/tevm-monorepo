@@ -34,9 +34,6 @@ jobs:
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - name: Build repo
-        run: bun run nx run-many --skip-nx-cache --targets=build:dist,build:types
-
       - name: Check for pre.json file existence
         id: check_files
         uses: andstor/file-existence-action@v2.0.0
