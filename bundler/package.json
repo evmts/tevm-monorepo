@@ -1,6 +1,6 @@
 {
 	"name": "@evmts/bundler",
-	"version": "1.0.0-next.5",
+	"version": "1.0.0-next.6",
 	"private": false,
 	"description": "Bundler for EVMts",
 	"keywords": [

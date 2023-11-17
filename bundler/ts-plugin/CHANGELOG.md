@@ -1,5 +1,12 @@
 # @evmts/ts-plugin
 
+## 1.0.0-next.6
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @evmts/base@1.0.0-next.6
+
 ## 1.0.0-next.5
 
 ### Patch Changes
