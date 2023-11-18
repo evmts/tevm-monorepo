@@ -10,20 +10,20 @@
 			"cache": true
 		},
 		"test": {
-			"inputs": ["default", "outputsDist"],
+			"inputs": ["testFiles", "outputsDist"],
 			"dependsOn": ["^build:dist", "pretest"]
 		},
 		"test:run": {
-			"inputs": ["default", "outputsDist"],
+			"inputs": ["testFiles", "outputsDist"],
 			"dependsOn": ["^build:dist", "pretest"],
 			"cache": true
 		},
 		"test:watch": {
-			"inputs": ["default", "outputsDist"],
+			"inputs": ["testFiles", "outputsDist"],
 			"dependsOn": ["^build:dist"]
 		},
 		"test:coverage": {
-			"inputs": ["default", "outputsDist"],
+			"inputs": ["testFiles", "outputsDist"],
 			"dependsOn": ["^build:dist"],
 			"outputs": ["{projectRoot}/coverage"],
 			"cache": true
@@ -66,7 +66,9 @@
 			"cache": true
 		},
 		"generate:docs": {
+			"inputs": ["production", "outputsDts"],
 			"outputs": ["{projectRoot}/docs"],
+			"dependsOn": ["^build:types"],
 			"cache": true
 		},
 		"dev": {
@@ -90,6 +92,7 @@
 			"{projectRoot}/tsup.config.ts"
 		],
 		"default": ["{projectRoot}/**/*", "sharedGlobals"],
+		"testFiles": ["{projectRoot}/src/**/*", "{projectRoot}/vitest.config.ts"],
 		"sharedGlobals": [
 			"{workspaceRoot}/nx.json",
 			"{workspaceRoot}/bun.lockb",
