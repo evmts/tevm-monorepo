@@ -19,6 +19,7 @@ export const generateEvmtsBody = (artifacts, moduleType, includeBytecode) => {
 					name: contractName,
 					humanReadableAbi: formatAbi(abi),
 					bytecode: evm?.bytecode.object,
+					deployedBytecode: evm?.deployedBytecode.object,
 				})
 				const natspec = Object.entries(userdoc.methods ?? {}).map(
 					([method, { notice }]) => ` * @property ${method} ${notice}`,

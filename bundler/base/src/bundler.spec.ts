@@ -304,7 +304,7 @@ describe(bundler.name, () => {
 				/**
 				 * TestContract EvmtsContract
 				 */
-				export const TestContract: EvmtsContract<typeof _nameTestContract, typeof _abiTestContract, undefined>;",
+				export const TestContract: EvmtsContract<typeof _nameTestContract, typeof _abiTestContract, undefined, undefined>;",
 				  "modules": {
 				    "module1": {
 				      "code": "import { TestContract } from 'module2'
@@ -378,7 +378,7 @@ describe(bundler.name, () => {
 				/**
 				 * TestContract EvmtsContract
 				 */
-				export const TestContract: EvmtsContract<typeof _nameTestContract, typeof _abiTestContract, undefined>;",
+				export const TestContract: EvmtsContract<typeof _nameTestContract, typeof _abiTestContract, undefined, undefined>;",
 				  "modules": {
 				    "module1": {
 				      "code": "import { TestContract } from 'module2'

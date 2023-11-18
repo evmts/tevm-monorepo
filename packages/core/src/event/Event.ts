@@ -18,6 +18,7 @@ export type Events<
 	TName extends string,
 	THumanReadableAbi extends readonly string[],
 	TBytecode extends Hex | undefined,
+	TDeployedBytecode extends Hex | undefined,
 > = {
 	[TEventName in ExtractAbiEventNames<ParseAbi<THumanReadableAbi>>]: (<
 		TStrict extends boolean = false,
@@ -49,6 +50,7 @@ export type Events<
 		eventName: TEventName
 		abi: [ExtractAbiEvent<ParseAbi<THumanReadableAbi>, TEventName>]
 		bytecode: TBytecode
+		deployedBytecode: TDeployedBytecode
 	}) & {
 		eventName: TEventName
 		humanReadableAbi: FormatAbi<
@@ -56,5 +58,6 @@ export type Events<
 		>
 		abi: [ExtractAbiEvent<ParseAbi<THumanReadableAbi>, TEventName>]
 		bytecode: TBytecode
+		deployedBytecode: TDeployedBytecode
 	}
 }

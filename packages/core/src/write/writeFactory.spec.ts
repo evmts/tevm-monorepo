@@ -8,6 +8,7 @@ const contract = evmtsContractFactory({
 	humanReadableAbi: formatAbi(dummyAbi),
 	name: 'DummyContract',
 	bytecode: undefined,
+	deployedBytecode: undefined,
 })
 
 describe('write', () => {

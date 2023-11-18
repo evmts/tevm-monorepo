@@ -7,9 +7,11 @@ export type ValueOf<T> = T[keyof T]
 export const eventsFactory = ({
 	abi,
 	bytecode,
+	deployedBytecode,
 }: {
 	abi: Abi
 	bytecode?: Hex | undefined
+	deployedBytecode?: Hex | undefined
 }) =>
 	Object.fromEntries(
 		abi
@@ -23,6 +25,7 @@ export const eventsFactory = ({
 						abi: [eventAbi],
 						humanReadableAbi: formatAbi([eventAbi]),
 						bytecode,
+						deployedBytecode,
 						...params,
 					}
 				}
@@ -30,6 +33,7 @@ export const eventsFactory = ({
 				creator.eventName = (eventAbi as AbiEvent).name
 				creator.humanReadableAbi = formatAbi([eventAbi])
 				creator.bytecode = bytecode
+				creator.deployedBytecode = deployedBytecode
 				return [(eventAbi as AbiEvent).name, creator]
 			}),
 	)

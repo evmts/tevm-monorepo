@@ -58,7 +58,7 @@ describe('EVMts should create a local vm in JavaScript', () => {
 		it('should work for add contract', async () => {
 			const evmts = await EVMts.create()
 			const res = await evmts.runScript({
-				bytecode: addbytecode,
+				deployedBytecode: addbytecode,
 				abi: addabi,
 				functionName: 'add',
 				args: [1n, 2n],
@@ -137,7 +137,7 @@ describe('EVMts should create a local vm in JavaScript', () => {
 		it('should insert a new contract with bytecode', async () => {
 			const evmts = await EVMts.create()
 			const code = await evmts.putContractCode({
-				bytecode: DaiContract.bytecode,
+				deployedBytecode: DaiContract.deployedBytecode,
 				contractAddress: '0xff420000000000000000000000000000000000ff',
 			})
 			expect(code).toHaveLength(4782)

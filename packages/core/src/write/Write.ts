@@ -12,6 +12,7 @@ export type Write<
 	TName extends string,
 	THumanReadableAbi extends readonly string[],
 	TBytecode extends Hex | undefined,
+	TDeployedBytecode extends Hex | undefined,
 > = {
 	[TFunctionName in
 		ExtractAbiFunctionNames<
@@ -35,6 +36,7 @@ export type Write<
 				>
 				abi: [ExtractAbiFunction<ParseAbi<THumanReadableAbi>, TFunctionName>]
 				bytecode: TBytecode
+				deployedBytecode: TDeployedBytecode
 		  }
 		: {
 				evmtsContractName: TName
@@ -45,5 +47,6 @@ export type Write<
 				>
 				abi: [ExtractAbiFunction<ParseAbi<THumanReadableAbi>, TFunctionName>]
 				bytecode: TBytecode
+				deployedBytecode: TDeployedBytecode
 		  }
 }

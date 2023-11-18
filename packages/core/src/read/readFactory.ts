@@ -5,7 +5,12 @@ import type { Hex } from 'viem'
 export const readFactory = ({
 	methods,
 	bytecode,
-}: { methods: Abi; bytecode?: Hex | undefined }) =>
+	deployedBytecode,
+}: {
+	methods: Abi
+	bytecode?: Hex | undefined
+	deployedBytecode?: Hex | undefined
+}) =>
 	Object.fromEntries(
 		methods
 			.filter(({ type }) => type === 'function')
@@ -22,12 +27,14 @@ export const readFactory = ({
 						humanReadableAbi: formatAbi([method]),
 						functionName: (method as AbiFunction).name,
 						bytecode,
+						deployedBytecode,
 						...maybeArgs,
 					}
 				}
 				creator.abi = [method]
 				creator.humanReadableAbi = formatAbi([method])
 				creator.bytecode = bytecode
+				creator.deployedBytecode = deployedBytecode
 				return [(method as AbiFunction).name, creator]
 			}),
 	)

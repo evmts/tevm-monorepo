@@ -7,7 +7,7 @@ describe('generateRuntime', () => {
 	const artifacts: Artifacts = {
 		MyContract: {
 			abi: [{ type: 'constructor', inputs: [], stateMutability: 'payable' }],
-			evm: { bytecode: '0x420' } as any,
+			evm: { bytecode: '0x420', deployedBytecode: '0x420420' } as any,
 			userdoc: {
 				kind: 'user',
 				version: 1,
@@ -69,7 +69,7 @@ describe('generateRuntime', () => {
 			 * @notice MyContract
 			 * @property balanceOf(address) Returns the amount of tokens owned by account
 			 */
-			export const MyContract: EvmtsContract<typeof _nameMyContract, typeof _abiMyContract, undefined>;"
+			export const MyContract: EvmtsContract<typeof _nameMyContract, typeof _abiMyContract, undefined, undefined>;"
 		`)
 	})
 

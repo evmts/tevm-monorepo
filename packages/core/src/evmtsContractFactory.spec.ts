@@ -8,6 +8,7 @@ describe(evmtsContractFactory.name, () => {
 		bytecode: undefined,
 		humanReadableAbi: formatAbi(dummyAbi),
 		name: 'DummyContract',
+		deployedBytecode: undefined,
 	})
 
 	it('should have correct name', () => {

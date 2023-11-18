@@ -15,7 +15,7 @@ export type RunScriptAction<
 	TAbi extends Abi | readonly unknown[] = Abi,
 	TFunctionName extends string = string,
 > = EncodeFunctionDataParameters<TAbi, TFunctionName> & {
-	bytecode: Hex
+	deployedBytecode: Hex
 	caller?: Address
 }
 
@@ -33,7 +33,7 @@ export const runScriptHandler = async <
 >(
 	evmts: EVMts,
 	{
-		bytecode,
+		deployedBytecode,
 		args,
 		abi,
 		caller,
@@ -43,7 +43,7 @@ export const runScriptHandler = async <
 	const contractAddress = '0x00000000000000000000000000000000000000ff' as const
 	await putContractCodeHandler(evmts, {
 		contractAddress: '0x00000000000000000000000000000000000000ff',
-		bytecode,
+		deployedBytecode,
 	})
 	return runContractCallHandler(evmts, {
 		functionName,
