@@ -123,9 +123,6 @@ describe('unpluginFn', () => {
 
 		const result = plugin.load?.call(mockPlugin, 'test.sol')
 		expect(await result).toMatchInlineSnapshot('"mockedModule"')
-
-		const nonSolResult = plugin.load?.call(mockPlugin, 'test.js')
-		expect(await nonSolResult).toBeUndefined()
 	})
 
 	it('should throw an error for invalid compiler option', () => {
@@ -193,34 +190,30 @@ describe('unpluginFn', () => {
 		)
 	})
 
-	it('should handle @evmts/core/runtime id correctly', async () => {
-		const plugin = evmtsUnplugin({}, {} as any)
-
-		// Insert logic here based on what the behavior should be when id.startsWith('@evmts/core/runtime') is true
-		// For now, let's just call it and assert that it doesn't throw an error
-		const testFn = () => plugin.load?.call(mockPlugin, '@evmts/core/runtime')
-		expect(testFn).not.toThrow()
-	})
-
-	it('should return undefined if .sol file has corresponding .ts file', async () => {
+	it('should not load non .sol files', async () => {
 		const plugin = evmtsUnplugin({}, {} as any)
 		mockExistsSync.mockReturnValueOnce(true)
+		const result = plugin.loadInclude?.call(mockPlugin, 'test.js')
+		expect(result).toBe(false)
+		expect(mockExistsSync).not.toHaveBeenCalled()
+	})
 
-		const result = await plugin.load?.call(mockPlugin, 'test.sol')
-
-		expect(result).toBeUndefined()
+	it('should not load if .sol file has corresponding .ts file', async () => {
+		const plugin = evmtsUnplugin({}, {} as any)
+		mockExistsSync.mockImplementation((path) => path.endsWith('.ts'))
+		const result = plugin.loadInclude?.call(mockPlugin, 'test.sol')
+		expect(result).toBe(false)
 		expect(mockExistsSync).toHaveBeenCalledWith('test.sol.ts')
 	})
 
-	it('should return undefined if .sol file has corresponding .d.ts file', async () => {
+	it('should not load if .sol file has corresponding .d.ts file', async () => {
 		const plugin = evmtsUnplugin({}, {} as any)
-		mockExistsSync.mockReturnValueOnce(false).mockReturnValueOnce(true)
-
-		const result = await plugin.load?.call(mockPlugin, 'test.sol')
-
-		expect(result).toBeUndefined()
+		mockExistsSync.mockImplementation((path) => path.endsWith('.d.ts'))
+		const result = plugin.loadInclude?.call(mockPlugin, 'test.sol')
+		expect(result).toBe(false)
 		expect(mockExistsSync).toHaveBeenCalledWith('test.sol.d.ts')
 	})
+
 	describe('unpluginFn.resolveId', () => {
 		it('should resolve to local @evmts/core when id starts with @evmts/core', async () => {
 			const plugin = evmtsUnplugin({}, {} as any)
