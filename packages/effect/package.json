@@ -3,19 +3,14 @@
 	"version": "1.0.0-next.5",
 	"private": false,
 	"description": "Effect.ts utilities",
-	"keywords": [
-		"effect",
-		"evmts"
-	],
+	"keywords": ["effect", "evmts"],
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/evmts/evmts-monorepo.git",
 		"directory": "packages/effect"
 	},
 	"license": "MIT",
-	"contributors": [
-		"Will Cory <willcory10@gmail.com>"
-	],
+	"contributors": ["Will Cory <willcory10@gmail.com>"],
 	"type": "module",
 	"exports": {
 		"./package.json": "./package.json",
@@ -29,11 +24,7 @@
 	"main": "dist/index.cjs",
 	"module": "src/index.js",
 	"types": "types/src/index.d.ts",
-	"files": [
-		"dist",
-		"types",
-		"src"
-	],
+	"files": ["dist", "types", "src"],
 	"scripts": {
 		"all": "bun run lint && bun run format && bun run build:dist && bun run build:types && bun run test:run && bun run generate:docs",
 		"build": "nx run-many --targets=build:dist,build:types --projects=@evmts/effect ",
@@ -51,9 +42,9 @@
 		"test:ui": "vitest --ui"
 	},
 	"dependencies": {
-		"@effect/schema": "^0.46.3",
+		"@effect/schema": "0.48.3",
 		"bundle-require": "^4.0.2",
-		"effect": "^2.0.0-next.54",
+		"effect": "2.0.0-next.55",
 		"jsonc-parser": "^3.2.0",
 		"resolve": "^1.22.8",
 		"viem": "^1.18.1"

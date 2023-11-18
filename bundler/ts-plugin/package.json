@@ -3,22 +3,14 @@
 	"version": "1.0.0-next.6",
 	"private": false,
 	"description": "A typescript plugin for evmts",
-	"keywords": [
-		"typescript",
-		"plugin",
-		"solidity",
-		"sol",
-		"evmts"
-	],
+	"keywords": ["typescript", "plugin", "solidity", "sol", "evmts"],
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/evmts/evmts-monorepo.git",
 		"directory": "bundler/ts-plugin"
 	},
 	"license": "MIT",
-	"contributors": [
-		"Will Cory <willcory10@gmail.com>"
-	],
+	"contributors": ["Will Cory <willcory10@gmail.com>"],
 	"type": "module",
 	"exports": {
 		"./package.json": "./package.json",
@@ -35,11 +27,7 @@
 	"bin": {
 		"evmts-gen": "./dist/bin/evmts-gen.js"
 	},
-	"files": [
-		"dist",
-		"types",
-		"src"
-	],
+	"files": ["dist", "types", "src"],
 	"scripts": {
 		"build": "nx run-many --targets=build:dist,build:types --projects=@evmts/ts-plugin ",
 		"build:dist": "bun run tsup",
@@ -57,7 +45,7 @@
 	},
 	"dependencies": {
 		"@evmts/base": "workspace:^",
-		"effect": "^2.0.0-next.54",
+		"effect": "2.0.0-next.55",
 		"esbuild": "0.19.5",
 		"glob": "^10.3.10",
 		"solidity-ast": "^0.4.52",

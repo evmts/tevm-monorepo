@@ -18,9 +18,7 @@
 		"directory": "bundler/base"
 	},
 	"license": "MIT",
-	"contributors": [
-		"Will Cory <willcory10@gmail.com>"
-	],
+	"contributors": ["Will Cory <willcory10@gmail.com>"],
 	"type": "module",
 	"exports": {
 		"./package.json": "./package.json",
@@ -34,11 +32,7 @@
 	"main": "dist/index.cjs",
 	"module": "src/index.js",
 	"types": "types/src/index.d.ts",
-	"files": [
-		"dist",
-		"types",
-		"src"
-	],
+	"files": ["dist", "types", "src"],
 	"scripts": {
 		"build": "nx run-many --targets=build:dist,build:types --projects=@evmts/base ",
 		"build:dist": "bun run tsup",
@@ -61,7 +55,7 @@
 		"@evmts/tsconfig": "workspace:^",
 		"@types/node": "^20.8.9",
 		"@types/resolve": "^1.20.4",
-		"effect": "^2.0.0-next.54",
+		"effect": "2.0.0-next.55",
 		"glob": "^10.3.10",
 		"resolve": "^1.22.8",
 		"solidity-ast": "^0.4.52",

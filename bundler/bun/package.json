@@ -3,22 +3,14 @@
 	"version": "1.0.0-next.6",
 	"private": false,
 	"description": "A bun plugin for evmts",
-	"keywords": [
-		"bun",
-		"plugin",
-		"solidity",
-		"sol",
-		"evmts"
-	],
+	"keywords": ["bun", "plugin", "solidity", "sol", "evmts"],
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/evmts/evmts-monorepo.git",
 		"directory": "bundler/plugin"
 	},
 	"license": "MIT",
-	"contributors": [
-		"Will Cory <willcory10@gmail.com>"
-	],
+	"contributors": ["Will Cory <willcory10@gmail.com>"],
 	"type": "module",
 	"exports": {
 		".": {
@@ -32,11 +24,7 @@
 	"main": "dist/index.cjs",
 	"module": "src/index.js",
 	"types": "types/index.d.ts",
-	"files": [
-		"dist",
-		"src",
-		"types"
-	],
+	"files": ["dist", "src", "types"],
 	"scripts": {
 		"build": "nx run-many --targets=build:dist,build:types --projects=@evmts/bun-plugin ",
 		"build:dist": "bun run tsup",
@@ -55,7 +43,7 @@
 	"dependencies": {
 		"@evmts/base": "workspace:^",
 		"@evmts/config": "workspace:^",
-		"effect": "^2.0.0-next.54"
+		"effect": "2.0.0-next.55"
 	},
 	"devDependencies": {
 		"@evmts/core": "workspace:^",
