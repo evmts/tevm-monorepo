@@ -1,5 +1,16 @@
 # @evmts/core
 
+## 1.0.0-next.11
+
+### Minor Changes
+
+- [#690](https://github.com/evmts/evmts-monorepo/pull/690) [`3af18276`](https://github.com/evmts/evmts-monorepo/commit/3af1827637ef43d351398578e8cfbbd825dbb98d) Thanks [@roninjin10](https://github.com/roninjin10)! - Added deployedBytecode to evmts contract instances
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @evmts/resolutions@1.0.0-next.9
+
 ## 1.0.0-next.9
 
 ### Patch Changes
