@@ -27,10 +27,10 @@ export const evmtsContractFactory = <
 		abi: abi as any,
 		humanReadableAbi,
 		// TODO make this more internally typesafe
-		events: eventsFactory({ abi }) as any,
+		events: eventsFactory({ abi, bytecode }) as any,
 		// TODO make this more internally typesafe
-		write: writeFactory({ methods }) as any,
+		write: writeFactory({ methods, bytecode }) as any,
 		// TODO make this more internally typesafe
-		read: readFactory({ methods }) as any,
+		read: readFactory({ methods, bytecode }) as any,
 	}
 }

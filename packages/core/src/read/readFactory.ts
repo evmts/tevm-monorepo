@@ -1,7 +1,11 @@
 import type { Abi, AbiFunction } from 'abitype'
 import { formatAbi } from 'abitype'
+import type { Hex } from 'viem'
 
-export const readFactory = ({ methods }: { methods: Abi }) =>
+export const readFactory = ({
+	methods,
+	bytecode,
+}: { methods: Abi; bytecode?: Hex | undefined }) =>
 	Object.fromEntries(
 		methods
 			.filter(({ type }) => type === 'function')
@@ -17,11 +21,13 @@ export const readFactory = ({ methods }: { methods: Abi }) =>
 						abi: methodAbi,
 						humanReadableAbi: formatAbi([method]),
 						functionName: (method as AbiFunction).name,
+						bytecode,
 						...maybeArgs,
 					}
 				}
 				creator.abi = [method]
 				creator.humanReadableAbi = formatAbi([method])
+				creator.bytecode = bytecode
 				return [(method as AbiFunction).name, creator]
 			}),
 	)
