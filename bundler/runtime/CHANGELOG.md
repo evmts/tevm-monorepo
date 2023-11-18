@@ -1,5 +1,11 @@
 # @evmts/runtime
 
+## 1.0.0-next.13
+
+### Patch Changes
+
+- [#694](https://github.com/evmts/evmts-monorepo/pull/694) [`85de0e10`](https://github.com/evmts/evmts-monorepo/commit/85de0e101c075868d8a1948ad39f6887891f5ac8) Thanks [@roninjin10](https://github.com/roninjin10)! - Prefix 0x in evmts/runtime bytecode
+
 ## 1.0.0-next.11
 
 ### Minor Changes

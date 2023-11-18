@@ -1,5 +1,12 @@
 # @evmts/bun-plugin
 
+## 1.0.0-next.13
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @evmts/base@1.0.0-next.13
+
 ## 1.0.0-next.12
 
 ### Patch Changes
