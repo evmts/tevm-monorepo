@@ -1,0 +1,6 @@
+lib/
+.changeset/
+.idea/
+.devcontainer
+.github
+.vscode
