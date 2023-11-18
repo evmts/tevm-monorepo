@@ -15,7 +15,7 @@
     "test:run": "bun test"
   },
   "dependencies": {
-    "@evmts/core": "^1.0.0-next.7",
+    "@evmts/core": "^1.0.0-next.8",
     "viem": "^1.18.1",
     "zod": "^3.22.4"
   },

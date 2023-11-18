@@ -1,5 +1,12 @@
 # @evmts/plugin
 
+## 1.0.0-next.8
+
+### Patch Changes
+
+- Updated dependencies [[`e5a6b24c`](https://github.com/evmts/evmts-monorepo/commit/e5a6b24cb4717dbffeb7f131ab1e3bd80c1b1830)]:
+  - @evmts/unplugin@1.0.0-next.8
+
 ## 1.0.0-next.6
 
 ### Patch Changes
