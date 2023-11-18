@@ -1,5 +1,14 @@
 # @evmts/plugin
 
+## 1.0.0-next.10
+
+### Patch Changes
+
+- [#688](https://github.com/evmts/evmts-monorepo/pull/688) [`126b9115`](https://github.com/evmts/evmts-monorepo/commit/126b9115cffd12ba6b4820419bc67027f4814976) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug with webpack plugin attempting to parse non javascript files
+
+- Updated dependencies [[`126b9115`](https://github.com/evmts/evmts-monorepo/commit/126b9115cffd12ba6b4820419bc67027f4814976)]:
+  - @evmts/unplugin@1.0.0-next.10
+
 ## 1.0.0-next.9
 
 ### Patch Changes
