@@ -1,5 +1,12 @@
 # @evmts/core
 
+## 1.0.0-next.7
+
+### Patch Changes
+
+- Updated dependencies [[`da8dec29`](https://github.com/evmts/evmts-monorepo/commit/da8dec29359c168538ea68dfd4f18b306f9bce66)]:
+  - @evmts/core@1.0.0-next.7
+
 ## 1.0.0-next.5
 
 ### Patch Changes

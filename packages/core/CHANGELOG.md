@@ -1,5 +1,11 @@
 # @evmts/core
 
+## 1.0.0-next.7
+
+### Patch Changes
+
+- [#682](https://github.com/evmts/evmts-monorepo/pull/682) [`da8dec29`](https://github.com/evmts/evmts-monorepo/commit/da8dec29359c168538ea68dfd4f18b306f9bce66) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug with bytecode not being passed into contract actions like read write and events
+
 ## 1.0.0-next.5
 
 ### Patch Changes

@@ -29,7 +29,7 @@
 		"@evmts/bundler": "workspace:^",
 		"@evmts/config": "workspace:^",
 		"@evmts/contracts": "^0.0.1",
-		"@evmts/core": "workspace:^1.0.0-next.5",
+		"@evmts/core": "workspace:^1.0.0-next.7",
 		"@evmts/ethers": "workspace:^",
 		"@rainbow-me/rainbowkit": "^1.1.4",
 		"@tanstack/react-query": "^5.4.3",
