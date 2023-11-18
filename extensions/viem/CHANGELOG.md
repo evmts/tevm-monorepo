@@ -1,5 +1,11 @@
 # @evmts/viem
 
+## 1.0.0-next.8
+
+### Patch Changes
+
+- [#684](https://github.com/evmts/evmts-monorepo/pull/684) [`e5a6b24c`](https://github.com/evmts/evmts-monorepo/commit/e5a6b24cb4717dbffeb7f131ab1e3bd80c1b1830) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed version mismatch issues with effect
+
 ## 1.0.0-next.5
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
 	"name": "@evmts/schemas",
-	"version": "1.0.0-next.5",
+	"version": "1.0.0-next.8",
 	"private": false,
 	"description": "A typesafe library for writing forge scripts in typescript",
 	"keywords": [

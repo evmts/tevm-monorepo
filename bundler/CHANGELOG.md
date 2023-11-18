@@ -1,5 +1,19 @@
 # @evmts/bundler
 
+## 1.0.0-next.8
+
+### Patch Changes
+
+- Updated dependencies [[`e5a6b24c`](https://github.com/evmts/evmts-monorepo/commit/e5a6b24cb4717dbffeb7f131ab1e3bd80c1b1830)]:
+  - @evmts/ts-plugin@1.0.0-next.8
+  - @evmts/config@1.0.0-next.8
+  - @evmts/bun-plugin@1.0.0-next.8
+  - @evmts/esbuild-plugin@1.0.0-next.8
+  - @evmts/rollup-plugin@1.0.0-next.8
+  - @evmts/rspack-plugin@1.0.0-next.8
+  - @evmts/vite-plugin@1.0.0-next.8
+  - @evmts/webpack-plugin@1.0.0-next.8
+
 ## 1.0.0-next.6
 
 ### Patch Changes
