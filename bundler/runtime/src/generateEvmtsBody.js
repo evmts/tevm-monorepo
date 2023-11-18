@@ -18,8 +18,9 @@ export const generateEvmtsBody = (artifacts, moduleType, includeBytecode) => {
 				const contract = JSON.stringify({
 					name: contractName,
 					humanReadableAbi: formatAbi(abi),
-					bytecode: evm?.bytecode.object,
-					deployedBytecode: evm?.deployedBytecode.object,
+					bytecode: evm?.bytecode.object && `0x${evm.bytecode.object}`,
+					deployedBytecode:
+						evm?.deployedBytecode.object && `0x${evm.deployedBytecode.object}`,
 				})
 				const natspec = Object.entries(userdoc.methods ?? {}).map(
 					([method, { notice }]) => ` * @property ${method} ${notice}`,

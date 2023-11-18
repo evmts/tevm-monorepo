@@ -84,9 +84,9 @@ export function compileContractSync(
 	)
 
 	/**
-	 * @type {['evm.bytecode']}
+	 * @type {['evm.bytecode.object', 'evm.deployedBytecode.object']}
 	 */
-	const evmBytecode = ['evm.bytecode']
+	const evmBytecode = ['evm.bytecode.object', 'evm.deployedBytecode.object']
 	/**
 	 * @type {import('../solcTypes.js').SolcInputDescription}
 	 */
