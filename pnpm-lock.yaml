@@ -225,8 +225,8 @@ importers:
   bundler/config:
     dependencies:
       '@effect/schema':
-        specifier: 0.46.3
-        version: 0.46.3(effect@2.0.0-next.54)(fast-check@3.13.2)
+        specifier: 0.47.7
+        version: 0.47.7(effect@2.0.0-next.54)(fast-check@3.13.2)
       '@evmts/effect':
         specifier: workspace:^
         version: link:../../packages/effect
@@ -1110,8 +1110,8 @@ importers:
         specifier: 1.10.0
         version: 1.10.0
       '@effect/schema':
-        specifier: 0.46.3
-        version: 0.46.3(effect@2.0.0-next.54)(fast-check@3.13.2)
+        specifier: 0.47.7
+        version: 0.47.7(effect@2.0.0-next.54)(fast-check@3.13.2)
       '@noble/curves':
         specifier: 1.2.0
         version: 1.2.0
@@ -1201,8 +1201,8 @@ importers:
   packages/blockexplorer:
     dependencies:
       '@effect/schema':
-        specifier: 0.46.3
-        version: 0.46.3(effect@2.0.0-next.54)(fast-check@3.13.2)
+        specifier: 0.47.7
+        version: 0.47.7(effect@2.0.0-next.54)(fast-check@3.13.2)
       '@evmts/schemas':
         specifier: workspace:^
         version: link:../schemas
@@ -1301,8 +1301,8 @@ importers:
   packages/effect:
     dependencies:
       '@effect/schema':
-        specifier: 0.46.3
-        version: 0.46.3(effect@2.0.0-next.54)(fast-check@3.13.2)
+        specifier: 0.47.7
+        version: 0.47.7(effect@2.0.0-next.54)(fast-check@3.13.2)
       bundle-require:
         specifier: ^4.0.2
         version: 4.0.2(esbuild@0.19.5)
@@ -1407,8 +1407,8 @@ importers:
   packages/schemas:
     dependencies:
       '@effect/schema':
-        specifier: 0.46.3
-        version: 0.46.3(effect@2.0.0-next.54)(fast-check@3.13.2)
+        specifier: 0.47.7
+        version: 0.47.7(effect@2.0.0-next.54)(fast-check@3.13.2)
       effect:
         specifier: 2.0.0-next.54
         version: 2.0.0-next.54
@@ -2376,10 +2376,10 @@ packages:
       - '@algolia/client-search'
     dev: true
 
-  /@effect/schema@0.46.3(effect@2.0.0-next.54)(fast-check@3.13.2):
-    resolution: {integrity: sha512-M8yfdlylsNPc823wN+M8FxGKHrBXAij15yT2JxWo3dTO+DHky+dd6+DVzrF/ArVyl9qWxTMnRIlwd5LIBhb4xw==}
+  /@effect/schema@0.47.7(effect@2.0.0-next.54)(fast-check@3.13.2):
+    resolution: {integrity: sha512-rQpzxfGsv2C3HSpwBRYPt7p5eibekWbn+RrYCd6SWtNSF0YPClhZwzBLygQvqDMXHkk3rHuuSOnJvIdqu7o4Hw==}
     peerDependencies:
-      effect: 2.0.0-next.52
+      effect: 2.0.0-next.54
       fast-check: ^3.13.2
     dependencies:
       effect: 2.0.0-next.54
