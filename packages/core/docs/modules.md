@@ -18,7 +18,7 @@
 
 ### EvmtsContract
 
-Ƭ **EvmtsContract**\<`TName`, `THumanReadableAbi`, `TBytecode`\>: `Object`
+Ƭ **EvmtsContract**\<`TName`, `THumanReadableAbi`, `TBytecode`, `TDeployedBytecode`\>: `Object`
 
 #### Type parameters
 
@@ -27,6 +27,7 @@
 | `TName` | extends `string` |
 | `THumanReadableAbi` | extends `ReadonlyArray`\<`string`\> |
 | `TBytecode` | extends `Hex` \| `undefined` |
+| `TDeployedBytecode` | extends `Hex` \| `undefined` |
 
 #### Type declaration
 
@@ -34,11 +35,12 @@
 | :------ | :------ |
 | `abi` | `ParseAbi`\<`THumanReadableAbi`\> |
 | `bytecode` | `TBytecode` |
-| `events` | `Events`\<`TName`, `THumanReadableAbi`, `TBytecode`\> |
+| `deployedBytecode` | `TDeployedBytecode` |
+| `events` | `Events`\<`TName`, `THumanReadableAbi`, `TBytecode`, `TDeployedBytecode`\> |
 | `humanReadableAbi` | `THumanReadableAbi` |
 | `name` | `TName` |
-| `read` | `Read`\<`TName`, `THumanReadableAbi`, `TBytecode`\> |
-| `write` | `Write`\<`TName`, `THumanReadableAbi`, `TBytecode`\> |
+| `read` | `Read`\<`TName`, `THumanReadableAbi`, `TBytecode`, `TDeployedBytecode`\> |
+| `write` | `Write`\<`TName`, `THumanReadableAbi`, `TBytecode`, `TDeployedBytecode`\> |
 
 #### Defined in
 
@@ -48,7 +50,7 @@
 
 ### evmtsContractFactory
 
-▸ **evmtsContractFactory**\<`TName`, `THumanReadableAbi`, `TBytecode`\>(`«destructured»`): [`EvmtsContract`](modules.md#evmtscontract)\<`TName`, `THumanReadableAbi`, `TBytecode`\>
+▸ **evmtsContractFactory**\<`TName`, `THumanReadableAbi`, `TBytecode`, `TDeployedBytecode`\>(`«destructured»`): [`EvmtsContract`](modules.md#evmtscontract)\<`TName`, `THumanReadableAbi`, `TBytecode`, `TDeployedBytecode`\>
 
 #### Type parameters
 
@@ -57,16 +59,17 @@
 | `TName` | extends `string` |
 | `THumanReadableAbi` | extends readonly `string`[] |
 | `TBytecode` | extends `undefined` \| \`0x$\{string}\` |
+| `TDeployedBytecode` | extends `undefined` \| \`0x$\{string}\` |
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `«destructured»` | `Pick`\<[`EvmtsContract`](modules.md#evmtscontract)\<`TName`, `THumanReadableAbi`, `TBytecode`\>, ``"name"`` \| ``"bytecode"`` \| ``"humanReadableAbi"``\> |
+| `«destructured»` | `Pick`\<[`EvmtsContract`](modules.md#evmtscontract)\<`TName`, `THumanReadableAbi`, `TBytecode`, `TDeployedBytecode`\>, ``"name"`` \| ``"bytecode"`` \| ``"deployedBytecode"`` \| ``"humanReadableAbi"``\> |
 
 #### Returns
 
-[`EvmtsContract`](modules.md#evmtscontract)\<`TName`, `THumanReadableAbi`, `TBytecode`\>
+[`EvmtsContract`](modules.md#evmtscontract)\<`TName`, `THumanReadableAbi`, `TBytecode`, `TDeployedBytecode`\>
 
 #### Defined in
 

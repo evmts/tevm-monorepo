@@ -33,7 +33,7 @@ export const generateDtsBody = (artifacts, includeBytecode) => {
 					' */',
 					`export const ${contractName}: EvmtsContract<typeof _name${contractName}, typeof _abi${contractName}, ${
 						includeBytecode ? '`0x${string}`' : 'undefined'
-					}>;`,
+					}, ${includeBytecode ? '`0x${string}`' : 'undefined'}>;`,
 				].filter(Boolean)
 			})
 			.join('\n'),

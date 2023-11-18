@@ -7,7 +7,12 @@ export type ValueOf<T> = T[keyof T]
 export const writeFactory = ({
 	methods,
 	bytecode,
-}: { methods: Abi; bytecode?: Hex | undefined }) =>
+	deployedBytecode,
+}: {
+	methods: Abi
+	bytecode?: Hex | undefined
+	deployedBytecode?: Hex | undefined
+}) =>
 	Object.fromEntries(
 		methods.map((method) => {
 			const creator = (...args: any[]) => {
@@ -22,6 +27,7 @@ export const writeFactory = ({
 					humanReadableAbi: formatAbi([method]),
 					functionName: (method as AbiFunction).name,
 					bytecode,
+					deployedBytecode,
 					// TODO we are currently defaulting to the first address in the case of no chain id
 					// There has to be a better way like providing an explicit default property in the address config
 					...maybeArgs,
@@ -30,6 +36,7 @@ export const writeFactory = ({
 			creator.abi = [method]
 			creator.humanReadableAbi = formatAbi([method])
 			creator.bytecode = bytecode
+			creator.deployedBytecode = deployedBytecode
 			return [(method as AbiFunction).name, creator]
 		}),
 	)

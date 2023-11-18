@@ -71,8 +71,8 @@ EVMts action to put contract code into the vm state
 
 | Name | Type |
 | :------ | :------ |
-| `bytecode` | `Hex` |
 | `contractAddress` | `Address` |
+| `deployedBytecode` | `Hex` |
 
 #### Defined in
 
@@ -159,7 +159,7 @@ ___
 
 ### RunScriptAction
 
-Ƭ **RunScriptAction**\<`TAbi`, `TFunctionName`\>: `EncodeFunctionDataParameters`\<`TAbi`, `TFunctionName`\> & \{ `bytecode`: `Hex` ; `caller?`: `Address`  }
+Ƭ **RunScriptAction**\<`TAbi`, `TFunctionName`\>: `EncodeFunctionDataParameters`\<`TAbi`, `TFunctionName`\> & \{ `caller?`: `Address` ; `deployedBytecode`: `Hex`  }
 
 EVMts action to deploy and execute a script or contract
 

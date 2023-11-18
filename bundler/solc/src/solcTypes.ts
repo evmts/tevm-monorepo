@@ -444,6 +444,9 @@ export type SolcEVMOutput = {
 	// Bytecode and related details.
 	bytecode: SolcBytecodeOutput
 
+	// Bytecode and related details.
+	deployedBytecode: SolcBytecodeOutput
+
 	// The list of function hashes
 	methodIdentifiers: {
 		[functionSignature: string]: string

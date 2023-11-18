@@ -8,6 +8,7 @@ describe('generateEvmtsBody', () => {
 			abi: [],
 			evm: {
 				bytecode: '0x0',
+				deployedBytecode: '0x0420',
 			} as any,
 			userdoc: {
 				kind: 'user',
@@ -24,6 +25,7 @@ describe('generateEvmtsBody', () => {
 			abi: [],
 			evm: {
 				bytecode: '0x0',
+				deployedBytecode: '0x0420',
 			} as any,
 			userdoc: {
 				kind: 'user',
@@ -94,14 +96,14 @@ describe('generateEvmtsBody', () => {
 			 * @notice MyContract
 			 * @property balanceOf(address) Returns the amount of tokens owned by account
 			 */
-			export const MyContract: EvmtsContract<typeof _nameMyContract, typeof _abiMyContract, undefined>;
+			export const MyContract: EvmtsContract<typeof _nameMyContract, typeof _abiMyContract, undefined, undefined>;
 			const _abiAnotherContract = [] as const;
 			const _nameAnotherContract = \\"AnotherContract\\" as const;
 			/**
 			 * AnotherContract EvmtsContract
 			 * @notice MyContract
 			 */
-			export const AnotherContract: EvmtsContract<typeof _nameAnotherContract, typeof _abiAnotherContract, undefined>;"
+			export const AnotherContract: EvmtsContract<typeof _nameAnotherContract, typeof _abiAnotherContract, undefined, undefined>;"
 		`)
 	})
 })

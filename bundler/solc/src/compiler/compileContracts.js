@@ -95,9 +95,9 @@ export const compileContract = async (
 
 	const emptyString = ''
 	/**
-	 * @type {['evm.bytecode']}
+	 * @type {['evm.bytecode.object', 'evm.deployedBytecode.object']}
 	 */
-	const evmBytecode = ['evm.bytecode']
+	const evmBytecode = ['evm.bytecode.object', 'evm.deployedBytecode.object']
 	/**
 	 * @type {import('../solcTypes.js').SolcInputDescription}
 	 */
