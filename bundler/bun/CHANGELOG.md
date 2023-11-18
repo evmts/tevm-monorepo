@@ -1,5 +1,12 @@
 # @evmts/bun-plugin
 
+## 1.0.0-next.11
+
+### Patch Changes
+
+- Updated dependencies [[`3af18276`](https://github.com/evmts/evmts-monorepo/commit/3af1827637ef43d351398578e8cfbbd825dbb98d)]:
+  - @evmts/base@1.0.0-next.11
+
 ## 1.0.0-next.9
 
 ### Patch Changes
