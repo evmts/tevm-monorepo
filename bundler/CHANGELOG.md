@@ -1,5 +1,12 @@
 # @evmts/bundler
 
+## 1.0.0-next.14
+
+### Patch Changes
+
+- Updated dependencies [[`42e62fc7`](https://github.com/evmts/evmts-monorepo/commit/42e62fc78627db45533d495e0f320547312d2322)]:
+  - @evmts/ts-plugin@1.0.0-next.14
+
 ## 1.0.0-next.13
 
 ### Patch Changes

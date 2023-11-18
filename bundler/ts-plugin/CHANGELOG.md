@@ -1,5 +1,11 @@
 # @evmts/ts-plugin
 
+## 1.0.0-next.14
+
+### Patch Changes
+
+- [#699](https://github.com/evmts/evmts-monorepo/pull/699) [`42e62fc7`](https://github.com/evmts/evmts-monorepo/commit/42e62fc78627db45533d495e0f320547312d2322) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug with node module imports not resolving correctly
+
 ## 1.0.0-next.13
 
 ### Patch Changes
