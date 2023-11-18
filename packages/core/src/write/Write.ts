@@ -5,11 +5,13 @@ import type {
 	FormatAbi,
 	ParseAbi,
 } from 'abitype'
+import type { Hex } from 'viem'
 export type ValueOf<T> = T[keyof T]
 
 export type Write<
 	TName extends string,
 	THumanReadableAbi extends readonly string[],
+	TBytecode extends Hex | undefined,
 > = {
 	[TFunctionName in
 		ExtractAbiFunctionNames<
@@ -32,6 +34,7 @@ export type Write<
 					[ExtractAbiFunction<ParseAbi<THumanReadableAbi>, TFunctionName>]
 				>
 				abi: [ExtractAbiFunction<ParseAbi<THumanReadableAbi>, TFunctionName>]
+				bytecode: TBytecode
 		  }
 		: {
 				evmtsContractName: TName
@@ -41,5 +44,6 @@ export type Write<
 					[ExtractAbiFunction<ParseAbi<THumanReadableAbi>, TFunctionName>]
 				>
 				abi: [ExtractAbiFunction<ParseAbi<THumanReadableAbi>, TFunctionName>]
+				bytecode: TBytecode
 		  }
 }

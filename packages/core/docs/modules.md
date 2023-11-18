@@ -34,11 +34,11 @@
 | :------ | :------ |
 | `abi` | `ParseAbi`\<`THumanReadableAbi`\> |
 | `bytecode` | `TBytecode` |
-| `events` | `Events`\<`TName`, `THumanReadableAbi`\> |
+| `events` | `Events`\<`TName`, `THumanReadableAbi`, `TBytecode`\> |
 | `humanReadableAbi` | `THumanReadableAbi` |
 | `name` | `TName` |
-| `read` | `Read`\<`TName`, `THumanReadableAbi`\> |
-| `write` | `Write`\<`TName`, `THumanReadableAbi`\> |
+| `read` | `Read`\<`TName`, `THumanReadableAbi`, `TBytecode`\> |
+| `write` | `Write`\<`TName`, `THumanReadableAbi`, `TBytecode`\> |
 
 #### Defined in
 
@@ -62,7 +62,7 @@
 
 | Name | Type |
 | :------ | :------ |
-| `«destructured»` | `Pick`\<[`EvmtsContract`](modules.md#evmtscontract)\<`TName`, `THumanReadableAbi`, `TBytecode`\>, ``"name"`` \| ``"humanReadableAbi"`` \| ``"bytecode"``\> |
+| `«destructured»` | `Pick`\<[`EvmtsContract`](modules.md#evmtscontract)\<`TName`, `THumanReadableAbi`, `TBytecode`\>, ``"name"`` \| ``"bytecode"`` \| ``"humanReadableAbi"``\> |
 
 #### Returns
 

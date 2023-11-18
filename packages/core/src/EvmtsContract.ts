@@ -13,7 +13,7 @@ export type EvmtsContract<
 	bytecode: TBytecode
 	humanReadableAbi: THumanReadableAbi
 	name: TName
-	events: Events<TName, THumanReadableAbi>
-	read: Read<TName, THumanReadableAbi>
-	write: Write<TName, THumanReadableAbi>
+	events: Events<TName, THumanReadableAbi, TBytecode>
+	read: Read<TName, THumanReadableAbi, TBytecode>
+	write: Write<TName, THumanReadableAbi, TBytecode>
 }

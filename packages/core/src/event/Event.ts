@@ -4,7 +4,12 @@ import type {
 	FormatAbi,
 	ParseAbi,
 } from 'abitype'
-import type { BlockNumber, BlockTag, CreateEventFilterParameters } from 'viem'
+import type {
+	BlockNumber,
+	BlockTag,
+	CreateEventFilterParameters,
+	Hex,
+} from 'viem'
 import type { MaybeExtractEventArgsFromAbi } from 'viem/_types/types/contract'
 
 export type ValueOf<T> = T[keyof T]
@@ -12,6 +17,7 @@ export type ValueOf<T> = T[keyof T]
 export type Events<
 	TName extends string,
 	THumanReadableAbi extends readonly string[],
+	TBytecode extends Hex | undefined,
 > = {
 	[TEventName in ExtractAbiEventNames<ParseAbi<THumanReadableAbi>>]: (<
 		TStrict extends boolean = false,
@@ -42,11 +48,13 @@ export type Events<
 		evmtsContractName: TName
 		eventName: TEventName
 		abi: [ExtractAbiEvent<ParseAbi<THumanReadableAbi>, TEventName>]
+		bytecode: TBytecode
 	}) & {
 		eventName: TEventName
 		humanReadableAbi: FormatAbi<
 			[ExtractAbiEvent<ParseAbi<THumanReadableAbi>, TEventName>]
 		>
 		abi: [ExtractAbiEvent<ParseAbi<THumanReadableAbi>, TEventName>]
+		bytecode: TBytecode
 	}
 }
