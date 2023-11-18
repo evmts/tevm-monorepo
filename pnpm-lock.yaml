@@ -595,6 +595,9 @@ importers:
       '@evmts/config':
         specifier: workspace:^
         version: link:../config
+      '@openzeppelin/contracts':
+        specifier: ^5.0.0
+        version: 5.0.0
       '@vitest/coverage-v8':
         specifier: ^0.34.6
         version: 0.34.6(vitest@0.34.6)

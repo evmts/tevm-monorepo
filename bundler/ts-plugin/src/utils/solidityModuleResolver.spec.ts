@@ -19,16 +19,17 @@ describe('solidityModuleResolver', () => {
 	})
 	it('should resolve solidity modules', () => {
 		const result = solidityModuleResolver(
-			'module.sol',
+			'@openzeppelin/contracts/token/ERC20/ERC20.sol',
 			typescript,
 			{} as any,
-			'/path/to/file.sol',
+			__dirname,
+		)?.resolvedFileName.replace(
+			path.join(__dirname, '..', '..', '..', '..'),
+			'',
 		)
-		expect(result).toEqual({
-			extension: typescript.Extension.Dts,
-			isExternalLibraryImport: false,
-			resolvedFileName: 'module.sol',
-		})
+		expect(result).toEqual(
+			'/node_modules/.pnpm/@openzeppelin+contracts@5.0.0/node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol',
+		)
 	})
 	it('should return undefined for non-solidity modules', () => {
 		const result = solidityModuleResolver(
