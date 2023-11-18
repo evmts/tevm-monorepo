@@ -63,10 +63,18 @@ export const evmtsUnplugin = (options = {}) => {
 
 	return {
 		name: '@evmts/rollup-plugin',
+		enforce: 'pre',
 		async buildStart() {
 			config = runSync(loadConfig(process.cwd()))
 			moduleResolver = bundler(config, console, fao, solcCache)
 			this.addWatchFile('./tsconfig.json')
+		},
+		loadInclude: (id) => {
+			return (
+				id.endsWith('.sol') &&
+				!existsSync(`${id}.ts`) &&
+				!existsSync(`${id}.d.ts`)
+			)
 		},
 		async resolveId(id, importer, options) {
 			// to handle the case where the import is coming from a node_module or a different workspace
@@ -82,16 +90,6 @@ export const evmtsUnplugin = (options = {}) => {
 			return null
 		},
 		async load(id) {
-			if (!id.endsWith('.sol')) {
-				return
-			}
-			if (existsSync(`${id}.ts`)) {
-				return
-			}
-			if (existsSync(`${id}.d.ts`)) {
-				return
-			}
-
 			const resolveBytecode = id.endsWith('.s.sol')
 
 			const { code, modules } = await moduleResolver.resolveEsmModule(
