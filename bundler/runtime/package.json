@@ -57,7 +57,7 @@
 	},
 	"dependencies": {
 		"@evmts/tsconfig": "workspace:^",
-		"effect": "^2.0.0-next.54"
+		"effect": "2.0.0-next.54"
 	},
 	"devDependencies": {
 		"@evmts/solc": "workspace:^",

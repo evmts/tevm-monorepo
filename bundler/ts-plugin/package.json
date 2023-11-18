@@ -57,7 +57,7 @@
 	},
 	"dependencies": {
 		"@evmts/base": "workspace:^",
-		"effect": "^2.0.0-next.54",
+		"effect": "2.0.0-next.54",
 		"esbuild": "0.19.5",
 		"glob": "^10.3.10",
 		"solidity-ast": "^0.4.52",
