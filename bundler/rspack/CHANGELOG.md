@@ -1,5 +1,12 @@
 # @evmts/plugin
 
+## 1.0.0-next.12
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @evmts/unplugin@1.0.0-next.12
+
 ## 1.0.0-next.11
 
 ### Patch Changes
