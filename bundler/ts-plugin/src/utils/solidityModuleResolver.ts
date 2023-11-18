@@ -24,7 +24,9 @@ export const solidityModuleResolver = (
 		return {
 			extension: ts.Extension.Dts,
 			isExternalLibraryImport: false,
-			resolvedFileName: moduleName,
+			resolvedFileName: createRequire(path.dirname(containingFile)).resolve(
+				moduleName,
+			),
 		}
 	}
 
