@@ -1,5 +1,13 @@
 # @evmts/unplugin
 
+## 1.0.0-next.12
+
+### Patch Changes
+
+- Updated dependencies [[`31c5f265`](https://github.com/evmts/evmts-monorepo/commit/31c5f2654137c521bc0f3e66956de69a0a7a1c88)]:
+  - @evmts/solc@1.0.0-next.12
+  - @evmts/runtime@1.0.0-next.11
+
 ## 1.0.0-next.11
 
 ### Patch Changes

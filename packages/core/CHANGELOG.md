@@ -1,5 +1,11 @@
 # @evmts/core
 
+## 1.0.0-next.12
+
+### Patch Changes
+
+- [#692](https://github.com/evmts/evmts-monorepo/pull/692) [`31c5f265`](https://github.com/evmts/evmts-monorepo/commit/31c5f2654137c521bc0f3e66956de69a0a7a1c88) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug with failing to pass deployedBytecode to contract action creators
+
 ## 1.0.0-next.11
 
 ### Minor Changes

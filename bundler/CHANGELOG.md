@@ -1,5 +1,18 @@
 # @evmts/bundler
 
+## 1.0.0-next.12
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @evmts/bun-plugin@1.0.0-next.12
+  - @evmts/ts-plugin@1.0.0-next.12
+  - @evmts/esbuild-plugin@1.0.0-next.12
+  - @evmts/rollup-plugin@1.0.0-next.12
+  - @evmts/rspack-plugin@1.0.0-next.12
+  - @evmts/vite-plugin@1.0.0-next.12
+  - @evmts/webpack-plugin@1.0.0-next.12
+
 ## 1.0.0-next.11
 
 ### Patch Changes
