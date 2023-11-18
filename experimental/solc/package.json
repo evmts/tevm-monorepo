@@ -1,6 +1,6 @@
 {
 	"name": "@evmts/experimental-solc",
-	"version": "1.0.0-next.8",
+	"version": "1.0.0-next.9",
 	"private": false,
 	"description": "Experimental wrapper around solc",
 	"keywords": [
