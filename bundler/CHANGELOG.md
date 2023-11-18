@@ -1,5 +1,16 @@
 # @evmts/bundler
 
+## 1.0.0-next.10
+
+### Patch Changes
+
+- Updated dependencies [[`126b9115`](https://github.com/evmts/evmts-monorepo/commit/126b9115cffd12ba6b4820419bc67027f4814976)]:
+  - @evmts/webpack-plugin@1.0.0-next.10
+  - @evmts/esbuild-plugin@1.0.0-next.10
+  - @evmts/rollup-plugin@1.0.0-next.10
+  - @evmts/rspack-plugin@1.0.0-next.10
+  - @evmts/vite-plugin@1.0.0-next.10
+
 ## 1.0.0-next.9
 
 ### Patch Changes
