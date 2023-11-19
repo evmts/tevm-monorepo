@@ -39,20 +39,6 @@
 		"types",
 		"src"
 	],
-	"scripts": {
-		"all": "bun run build && bun run format && bun run lint && bun run generate:docs",
-		"build": "nx run-many --targets=build:dist,build:types --projects=@evmts/base,@evmts/bun,@evmts/config,@evmts/esbuild,@evmts/rollup,@evmts/rspack,@evmts/ts-plugin,@evmts/vite,@evmts/webpack",
-		"build:dist": "nx run-many --targets=build:dist --projects=@evmts/base,@evmts/bun,@evmts/config,@evmts/esbuild,@evmts/rollup,@evmts/rspack,@evmts/ts-plugin,@evmts/vite,@evmts/webpack",
-		"build:types": "nx run-many --targets=build:types --projects=@evmts/base,@evmts/bun,@evmts/config,@evmts/esbuild,@evmts/rollup,@evmts/rspack,@evmts/ts-plugin,@evmts/vite,@evmts/webpack",
-		"clean": "rm -rf node_modules && nx run-many --targets=clean --projects=@evmts/base,@evmts/bun,@evmts/config,@evmts/esbuild,@evmts/rollup,@evmts/rspack,@evmts/ts-plugin,@evmts/vite,@evmts/webpack",
-		"format": "nx run-many --targets=format --projects=@evmts/base,@evmts/bun,@evmts/config,@evmts/esbuild,@evmts/rollup,@evmts/rspack,@evmts/ts-plugin,@evmts/vite,@evmts/webpack",
-		"format:check": "nx run-many --targets=format:check --projects=@evmts/base,@evmts/bun,@evmts/config,@evmts/esbuild,@evmts/rollup,@evmts/rspack,@evmts/ts-plugin,@evmts/vite,@evmts/webpack",
-		"test:run": "nx run-many --targets=test:run --projects=@evmts/base,@evmts/bun,@evmts/config,@evmts/esbuild,@evmts/rollup,@evmts/rspack,@evmts/ts-plugin,@evmts/vite,@evmts/webpack",
-		"test:coverage": "nx run-many --targets=test:coverage --projects=@evmts/base,@evmts/bun,@evmts/config,@evmts/esbuild,@evmts/rollup,@evmts/rspack,@evmts/ts-plugin,@evmts/vite,@evmts/webpack",
-		"generate:docs": "bun run typedoc",
-		"lint": "rome check ./src --apply-unsafe",
-		"lint:check": "rome check ./src --verbose"
-	},
 	"dependencies": {
 		"@evmts/bun-plugin": "workspace:^",
 		"@evmts/config": "workspace:^",

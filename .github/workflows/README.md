@@ -1,23 +1,4 @@
 # .github/workflows
 
-Workflows that are run in CI
+Workflows that are run in CI. They are ran with nx cloud which spins up different workers that accept jobs. This creates really fast worst case and best case CI times.
 
-### docker.yml
-
-Builds all docker containers and deploys to dockerhub on release
-
-## e2e.yml
-
-Runs playwright tests vs the example apps
-
-### lint.yml
-
-Runs prettier and eslint
-
-### npm.yml
-
-Runs npm publish in dry mode. On workflow releases it will actually publish
-
-### unit.yml
-
-Runs run unit tests for all packages
