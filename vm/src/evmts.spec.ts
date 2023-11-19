@@ -1,8 +1,8 @@
 import { type CustomPrecompile, EVMts } from './evmts.js'
 import { DaiContract } from './test/DaiContract.sol.js'
 import { Address } from '@ethereumjs/util'
+import { describe, expect, it } from 'bun:test'
 import { hexToBytes } from 'viem'
-import { describe, expect, it } from 'vitest'
 
 const contractAddress = '0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1'
 
@@ -174,7 +174,7 @@ describe('EVMts should create a local vm in JavaScript', () => {
 			data: '0x0',
 			caller: sender,
 		})
-		expect(result.execResult.exceptionError).toBe(undefined)
+		expect(result.execResult.exceptionError).toBeUndefined()
 		expect(result.execResult.returnValue).toEqual(expectedReturn)
 		expect(result.execResult.executionGasUsed).toEqual(expectedGas)
 	})
