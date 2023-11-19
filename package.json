@@ -10,7 +10,7 @@
 	"contributors": [
 		"Will Cory <willcory10@gmail.com>"
 	],
-	"type": "module",
+	"type": "commonjs",
 	"workspaces": [
 		"bundler/*",
 		"bundler",

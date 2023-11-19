@@ -1,0 +1,78 @@
+name: CI
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+env:
+  NX_CLOUD_DISTRIBUTED_EXECUTION: true 
+  # give extra memory to speed up a bit
+  NODE_OPTIONS: '--max_old_space_size=4096'
+  NX_BRANCH: ${{ github.event.number || github.ref_name }}
+  NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
+
+jobs:
+  agents:
+    name: Nx Cloud Agents
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      matrix:
+        agent: [1, 2, 3, 4, 5, 6, 7, 8]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - uses: actions/setup-node@v3
+        with:
+          node-version-file: ".nvmrc"
+          registry-url: https://registry.npmjs.org
+      - name: "Setup"
+        uses: ./.github/actions/setup
+      - name: Start Nx Agent ${{ matrix.agent }}
+        run: bunx nx-cloud start-agent
+        env:
+          NX_AGENT_NAME: ${{ matrix.agent }}
+  main:
+    name: Nx Cloud - Main Job
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        name: Checkout [Pull Request]
+        if: ${{ github.event_name == 'pull_request' }}
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+
+      - uses: actions/checkout@v4
+        name: Checkout [Default Branch]
+        if: ${{ github.event_name != 'pull_request' }}
+        with:
+          fetch-depth: 0
+
+      - name: "Setup"
+        uses: ./.github/actions/setup
+
+      - name: Initialize the Nx Cloud distributed CI run and stop agents when the build tasks are done
+        run: bunx nx-cloud start-ci-run --stop-agents-after=build:dist
+
+      - name: Run verification
+        uses: JamesHenry/parallel-bash-commands@v0.1
+        with:
+          cmd1: bunx nx affected --target build:dist
+          cmd2: bunx nx affected --target build:types
+          cmd3: bunx nx affected --target typecheck
+          cmd4: bunx nx affected --target test:coverage
+          cmd5: bunx nx affected --target lint:check
+          cmd6: bunx nx affected --target dev:run
+          cmd7: bun sort-package-json
+          cmd8: bunx nx affected --target generate:docs
+
+      - name: Stop agents
+        run: bunx nx-cloud stop-all-agents
+
+      - name: Tag main branch if all jobs succeed
+        if: ${{ github.event_name != 'pull_request' }}
+        uses: nrwl/nx-tag-successful-ci-run@v1
+

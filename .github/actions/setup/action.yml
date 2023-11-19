@@ -23,12 +23,6 @@ runs:
       with:
         version: nightly
 
-    # Workaround for parallel building with forge:
-    # https://github.com/foundry-rs/foundry/issues/4736
-    - name: Setup forge hack
-      shell: bash
-      run: forge build
-
     - name: Get pnpm store directory
       shell: bash
       run: |
