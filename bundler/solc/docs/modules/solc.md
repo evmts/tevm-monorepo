@@ -20,13 +20,13 @@
 
 #### Defined in
 
-[solc/src/solc.js:7](https://github.com/evmts/evmts-monorepo/blob/main/bundler/solc/src/solc.js#L7)
+[solc/src/solc.js:4](https://github.com/evmts/evmts-monorepo/blob/main/bundler/solc/src/solc.js#L4)
 
 ## Functions
 
 ### solcCompile
 
-▸ **solcCompile**(`input`): `SolcOutput`
+▸ **solcCompile**(`solc`, `input`): `SolcOutput`
 
 Typesafe wrapper around solc.compile
 
@@ -34,6 +34,7 @@ Typesafe wrapper around solc.compile
 
 | Name | Type |
 | :------ | :------ |
+| `solc` | `any` |
 | `input` | `SolcInputDescription` |
 
 #### Returns
@@ -42,4 +43,4 @@ Typesafe wrapper around solc.compile
 
 #### Defined in
 
-[solc/src/solc.js:14](https://github.com/evmts/evmts-monorepo/blob/main/bundler/solc/src/solc.js#L14)
+[solc/src/solc.js:12](https://github.com/evmts/evmts-monorepo/blob/main/bundler/solc/src/solc.js#L12)

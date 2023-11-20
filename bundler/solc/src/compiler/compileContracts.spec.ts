@@ -38,6 +38,7 @@ describe('compileContract', () => {
 					false,
 					fao,
 					mockLogger,
+					require('solc'),
 				),
 				null,
 				2,

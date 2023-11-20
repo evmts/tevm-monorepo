@@ -7,9 +7,8 @@ import { createRequire } from 'module'
 import { z } from 'zod'
 
 const compilerOptionValidator = z
-	.enum(['solc', 'foundry'])
-	.default('solc')
-	.describe('compiler to use.  Defaults to solc')
+	.any()
+	.describe('Solc compiler to use')
 
 /**
  * @typedef {import("zod").infer<typeof compilerOptionValidator>} CompilerOption
@@ -20,9 +19,9 @@ const bundlers = {
 }
 
 /**
- * @type {import("unplugin").UnpluginFactory<{compiler?: CompilerOption } | undefined, false>}
+ * @type {import("unplugin").UnpluginFactory<{solc: CompilerOption }, false>}
  */
-export const evmtsUnplugin = (options = {}) => {
+export const evmtsUnplugin = (options) => {
 	/**
 	 * @type {import("@evmts/config").ResolvedCompilerConfig}
 	 */
@@ -30,11 +29,11 @@ export const evmtsUnplugin = (options = {}) => {
 
 	// for current release we will hardcode this to solc
 	const parsedCompilerOption = compilerOptionValidator.safeParse(
-		options.compiler,
+		options.solc,
 	)
 	if (!parsedCompilerOption.success) {
 		throw new Error(
-			`Invalid compiler option: ${options.compiler}.  Valid options are 'solc' and 'foundry'`,
+			`Invalid solc compiler passed to EVMts plugin'`,
 		)
 	}
 	const compilerOption = parsedCompilerOption.data
@@ -44,7 +43,7 @@ export const evmtsUnplugin = (options = {}) => {
 			'We have abandoned the foundry option despite supporting it in the past. Please use solc instead. Foundry will be added back as a compiler at a later time.',
 		)
 	}
-	const bundler = bundlers[compilerOption]
+	const bundler = bundlers.solc
 	/**
 	 * @type {ReturnType<typeof bundler>}
 	 */
@@ -66,7 +65,7 @@ export const evmtsUnplugin = (options = {}) => {
 		enforce: 'pre',
 		async buildStart() {
 			config = runSync(loadConfig(process.cwd()))
-			moduleResolver = bundler(config, console, fao, solcCache)
+			moduleResolver = bundler(config, console, fao, compilerOption.solc, solcCache)
 			this.addWatchFile('./tsconfig.json')
 		},
 		loadInclude: (id) => {

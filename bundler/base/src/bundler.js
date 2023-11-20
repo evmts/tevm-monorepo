@@ -5,7 +5,7 @@ import { runSync } from 'effect/Effect'
 /**
  * @type {import('./types.js').Bundler}
  */
-export const bundler = (config, logger, fao) => {
+export const bundler = (config, logger, fao, solc) => {
 	return {
 		name: bundler.name,
 		config,
@@ -20,6 +20,7 @@ export const bundler = (config, logger, fao) => {
 						includeAst,
 						includeBytecode,
 						fao,
+						solc,
 					)
 				if (artifacts && Object.keys(artifacts).length > 0) {
 					return {
@@ -32,7 +33,7 @@ export const bundler = (config, logger, fao) => {
 				}
 				return { solcInput, solcOutput, code: '', modules, asts }
 			} catch (e) {
-				logger.error(/** @type {any} */ (e))
+				logger.error(/** @type {any} */(e))
 				logger.error('there was an error in evmts plugin generating .dts')
 				throw e
 			}
@@ -48,6 +49,7 @@ export const bundler = (config, logger, fao) => {
 						includeAst,
 						includeBytecode,
 						fao,
+						solc,
 					)
 				if (artifacts && Object.keys(artifacts).length > 0) {
 					return {
@@ -60,7 +62,7 @@ export const bundler = (config, logger, fao) => {
 				}
 				return { modules, code: '', asts, solcInput, solcOutput }
 			} catch (e) {
-				logger.error(/** @type {any} */ (e))
+				logger.error(/** @type {any} */(e))
 				logger.error('there was an error in evmts plugin resolving .dts')
 				throw e
 			}
@@ -76,6 +78,7 @@ export const bundler = (config, logger, fao) => {
 						includeAst,
 						includeBytecode,
 						fao,
+						solc,
 					)
 				let code = ''
 				if (artifacts && Object.keys(artifacts).length > 0) {
@@ -83,7 +86,7 @@ export const bundler = (config, logger, fao) => {
 				}
 				return { code, modules, solcInput, solcOutput, asts }
 			} catch (e) {
-				logger.error(/** @type {any} */ (e))
+				logger.error(/** @type {any} */(e))
 				logger.error('there was an error in evmts plugin resolving .ts')
 				throw e
 			}
@@ -104,6 +107,7 @@ export const bundler = (config, logger, fao) => {
 						includeAst,
 						includeBytecode,
 						fao,
+						solc,
 					)
 				let code = ''
 				if (artifacts && Object.keys(artifacts).length > 0) {
@@ -111,7 +115,7 @@ export const bundler = (config, logger, fao) => {
 				}
 				return { code, modules, solcInput, solcOutput, asts }
 			} catch (e) {
-				logger.error(/** @type {any} */ (e))
+				logger.error(/** @type {any} */(e))
 				logger.error('there was an error in evmts plugin resolving .ts')
 				throw e
 			}
@@ -132,6 +136,7 @@ export const bundler = (config, logger, fao) => {
 						includeAst,
 						includeBytecode,
 						fao,
+						solc,
 					)
 				let code = ''
 				if (artifacts && Object.keys(artifacts).length > 0) {
@@ -139,7 +144,7 @@ export const bundler = (config, logger, fao) => {
 				}
 				return { code, modules, solcInput, solcOutput, asts }
 			} catch (e) {
-				logger.error(/** @type {any} */ (e))
+				logger.error(/** @type {any} */(e))
 				logger.error('there was an error in evmts plugin resolving .cjs')
 				throw e
 			}
@@ -160,6 +165,7 @@ export const bundler = (config, logger, fao) => {
 						includeAst,
 						includeBytecode,
 						fao,
+						solc,
 					)
 				let code = ''
 				if (artifacts && Object.keys(artifacts).length > 0) {
@@ -167,7 +173,7 @@ export const bundler = (config, logger, fao) => {
 				}
 				return { code, modules, solcInput, solcOutput, asts }
 			} catch (e) {
-				logger.error(/** @type {any} */ (e))
+				logger.error(/** @type {any} */(e))
 				logger.error('there was an error in evmts plugin resolving .cjs')
 				throw e
 			}
@@ -188,6 +194,7 @@ export const bundler = (config, logger, fao) => {
 						includeAst,
 						includeBytecode,
 						fao,
+						solc,
 					)
 				let code = ''
 				if (artifacts && Object.keys(artifacts).length > 0) {
@@ -196,7 +203,7 @@ export const bundler = (config, logger, fao) => {
 				return { code, modules, solcInput, solcOutput, asts }
 			} catch (e) {
 				logger.error('there was an error in evmts plugin resolving .mjs')
-				logger.error(/** @type {any} */ (e))
+				logger.error(/** @type {any} */(e))
 				throw e
 			}
 		},
@@ -216,6 +223,7 @@ export const bundler = (config, logger, fao) => {
 						includeAst,
 						includeBytecode,
 						fao,
+						solc,
 					)
 				let code = ''
 				if (artifacts && Object.keys(artifacts).length > 0) {
@@ -223,7 +231,7 @@ export const bundler = (config, logger, fao) => {
 				}
 				return { code, modules, solcInput, solcOutput, asts }
 			} catch (e) {
-				logger.error(/** @type {any} */ (e))
+				logger.error(/** @type {any} */(e))
 				logger.error('there was an error in evmts plugin resolving .mjs')
 				throw e
 			}

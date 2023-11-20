@@ -12,6 +12,7 @@ export const resolveArtifacts = async (
 	includeAst,
 	includeBytecode,
 	fao,
+	solc,
 ) => {
 	if (!solFile.endsWith('.sol')) {
 		throw new Error('Not a solidity file')
@@ -25,6 +26,7 @@ export const resolveArtifacts = async (
 			includeBytecode,
 			fao,
 			logger,
+			solc,
 		)
 
 	if (!artifacts) {

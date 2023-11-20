@@ -11,6 +11,7 @@ export const resolveArtifactsSync = (
 	includeAst,
 	includeBytecode,
 	fao,
+	solc,
 ) => {
 	if (!solFile.endsWith('.sol')) {
 		throw new Error('Not a solidity file')
@@ -24,6 +25,7 @@ export const resolveArtifactsSync = (
 			includeBytecode,
 			fao,
 			logger,
+			solc,
 		)
 	if (!artifacts) {
 		logger.error(`Compilation failed for ${solFile}`)

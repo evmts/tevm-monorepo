@@ -63,6 +63,7 @@ describe('resolveArtifactsSync', () => {
 				false,
 				false,
 				fao,
+				require('solc'),
 			),
 		).toThrowErrorMatchingInlineSnapshot('"Not a solidity file"')
 	})
@@ -73,7 +74,16 @@ describe('resolveArtifactsSync', () => {
 			throw new Error('Oops')
 		})
 		expect(() =>
-			resolveArtifactsSync(solFile, basedir, logger, config, false, false, fao),
+			resolveArtifactsSync(
+				solFile,
+				basedir,
+				logger,
+				config,
+				false,
+				false,
+				fao,
+				require('solc'),
+			),
 		).toThrowErrorMatchingInlineSnapshot('"Oops"')
 	})
 
@@ -83,7 +93,16 @@ describe('resolveArtifactsSync', () => {
 			modules: mockModules,
 		} as any)
 		expect(
-			resolveArtifactsSync(solFile, basedir, logger, config, false, false, fao),
+			resolveArtifactsSync(
+				solFile,
+				basedir,
+				logger,
+				config,
+				false,
+				false,
+				fao,
+				require('solc'),
+			),
 		).toMatchInlineSnapshot(`
 			{
 			  "artifacts": {
@@ -132,6 +151,7 @@ describe('resolveArtifactsSync', () => {
 			false,
 			false,
 			fao,
+			require('solc'),
 		)
 
 		expect(artifacts).toEqual({
@@ -150,7 +170,16 @@ describe('resolveArtifactsSync', () => {
 		} as any)
 
 		expect(() =>
-			resolveArtifactsSync(solFile, basedir, logger, config, false, false, fao),
+			resolveArtifactsSync(
+				solFile,
+				basedir,
+				logger,
+				config,
+				false,
+				false,
+				fao,
+				require('solc'),
+			),
 		).toThrowErrorMatchingInlineSnapshot('"Compilation failed"')
 	})
 
@@ -164,6 +193,7 @@ describe('resolveArtifactsSync', () => {
 				false,
 				false,
 				fao,
+				require('solc'),
 			),
 		).toThrowErrorMatchingInlineSnapshot('"Not a solidity file"')
 	})

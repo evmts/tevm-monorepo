@@ -6,6 +6,7 @@ import { runSync } from 'effect/Effect'
 /**
  * @evmts/bun-plugin is a bun plugin that allows you to import solidity files into your typescript files
  * and have them compiled to typescript on the fly.
+ * @param {any} solc
  * @returns {import("bun").BunPlugin}
  * @example
  * ```ts plugin.ts
@@ -19,7 +20,7 @@ import { runSync } from 'effect/Effect'
  * preload = ["./plugins.ts"]
  * ```
  */
-export const evmtsBunPlugin = () => {
+export const evmtsBunPlugin = (solc) => {
 	return {
 		name: '@evmts/esbuild-plugin',
 		async setup(build) {
@@ -29,6 +30,7 @@ export const evmtsBunPlugin = () => {
 				config,
 				console,
 				bunFileAccesObject,
+				solc,
 				solcCache,
 			)
 			/**

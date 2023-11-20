@@ -15,6 +15,7 @@ export type ResolveArtifacts = (
 	includeAst: boolean,
 	includeBytecode: boolean,
 	fao: FileAccessObject,
+	solc: any,
 ) => Promise<{
 	artifacts: Artifacts
 	modules: Record<'string', ModuleInfo>
@@ -31,6 +32,7 @@ export type ResolveArtifactsSync = (
 	includeAst: boolean,
 	includeBytecode: boolean,
 	fao: FileAccessObject,
+	solc: any,
 ) => {
 	artifacts: Artifacts
 	modules: Record<'string', ModuleInfo>
