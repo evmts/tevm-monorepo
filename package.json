@@ -1,62 +1,66 @@
 {
-	"name": "@evmts/root",
-	"version": "0.0.0",
-	"private": true,
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/evmts/evmts-monorepo.git"
-	},
-	"license": "MIT",
-	"contributors": [
-		"Will Cory <willcory10@gmail.com>"
-	],
-	"type": "commonjs",
-	"workspaces": [
-		"bundler/*",
-		"bundler",
-		"experimental/*",
-		"configs/*",
-		"apps/*",
-		"extensions/*",
-		"packages/*",
-		"examples/*",
-		"vm"
-	],
-	"scripts": {
-		"all": "concurrently 'pnpm i' 'bun lint' 'bun sort-package-json' && nx run-many --targets=generate:docs,build:types,typecheck,test:coverage,build:dist --nxBail",
-		"build": "nx run-many --targets=build:dist,build:types",
-		"build:dist": "nx run-many --target=build:dist",
-		"build:types": "nx run-many --targets=build:types,typecheck",
-		"clean": "nx run-many --target=clean && rm -rf node_modules",
-		"e2e": "nx e2e e2e",
-		"format:check": "rome format .",
-		"generate:docs": "nx run-many --target=generate:docs",
-		"lint": "rome check . --apply-unsafe && rome format . --write",
-		"lint:check": "rome check .",
-		"lint:packages": "nx run-many --targets=lint,format",
-		"release:check": "changeset status --verbose --since=origin/main",
-		"release:publish": "pnpm install && bun run build --skip-nx-cache && changeset publish",
-		"release:version": "changeset version && pnpm install --lockfile-only",
-		"sort-package-json": "sort-package-json package.json apps/*/package.json bundler/*/package.json configs/*/package.json examples/*/package.json experimental/*/package.json extensions/*/package.json packages/*/package.json",
-		"sort-package-json:check": "sort-package-json package.json apps/*/package.json bundler/*/package.json configs/*/package.json examples/*/package.json experimental/*/package.json extensions/*/package.json packages/*/package.json && git diff --exit-code",
-		"test": "bun test:run",
-		"test:coverage": "nx run-many --target=test:coverage --skip-nx-cache",
-		"test:run": "nx run-many --target=test:run",
-		"up": "bun x npm-check-updates -ui -ws"
-	},
-	"devDependencies": {
-		"@changesets/changelog-github": "^0.4.8",
-		"@changesets/cli": "^2.26.2",
-		"@nrwl/devkit": "17.0.2",
-		"bun": "^1.0.1",
-		"concurrently": "^8.2.2",
-		"dotenv": "^16.3.1",
-		"gitmoji-cli": "^8.4.0",
-		"nx": "17.0.2",
-		"rome": "^12.1.3",
-		"sort-package-json": "^2.5.1"
-	},
-	"engines": {
-		"node": ">=18"
-	}
+  "name": "@evmts/root",
+  "version": "0.0.0",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/evmts/evmts-monorepo.git"
+  },
+  "license": "MIT",
+  "contributors": [
+    "Will Cory <willcory10@gmail.com>"
+  ],
+  "type": "commonjs",
+  "workspaces": [
+    "bundler/*",
+    "bundler",
+    "experimental/*",
+    "configs/*",
+    "apps/*",
+    "extensions/*",
+    "packages/*",
+    "examples/*",
+    "vm"
+  ],
+  "scripts": {
+    "all": "concurrently 'pnpm i' 'bun lint' 'bun sort-package-json' && nx run-many --targets=generate:docs,build:types,typecheck,test:coverage,build:dist --nxBail",
+    "build": "nx run-many --targets=build:dist,build:types",
+    "build:dist": "nx run-many --target=build:dist",
+    "build:types": "nx run-many --targets=build:types,typecheck",
+    "clean": "nx run-many --target=clean && rm -rf node_modules",
+    "e2e": "nx e2e e2e",
+    "format:check": "rome format .",
+    "generate:docs": "nx run-many --target=generate:docs",
+    "lint": "rome check . --apply-unsafe && rome format . --write",
+    "lint:check": "rome check .",
+    "lint:packages": "nx run-many --targets=lint,format",
+    "release:check": "changeset status --verbose --since=origin/main",
+    "release:publish": "pnpm install && bun run build --skip-nx-cache && changeset publish",
+    "release:version": "changeset version && pnpm install --lockfile-only",
+    "sort-package-json": "sort-package-json package.json apps/*/package.json bundler/*/package.json configs/*/package.json examples/*/package.json experimental/*/package.json extensions/*/package.json packages/*/package.json",
+    "sort-package-json:check": "sort-package-json package.json apps/*/package.json bundler/*/package.json configs/*/package.json examples/*/package.json experimental/*/package.json extensions/*/package.json packages/*/package.json && git diff --exit-code",
+    "test": "bun test:run",
+    "test:coverage": "nx run-many --target=test:coverage --skip-nx-cache",
+    "test:run": "nx run-many --target=test:run",
+    "up": "bun x npm-check-updates -ui -ws"
+  },
+  "devDependencies": {
+    "@changesets/changelog-github": "^0.4.8",
+    "@changesets/cli": "^2.26.2",
+    "@nrwl/devkit": "17.0.2",
+    "bun": "^1.0.1",
+    "concurrently": "^8.2.2",
+    "dotenv": "^16.3.1",
+    "gitmoji-cli": "^8.4.0",
+    "nx": "17.0.2",
+    "rome": "^12.1.3",
+    "sort-package-json": "^2.5.1"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "vite-plugin-node-polyfills": "^0.16.0",
+    "web-streams-polyfill": "^3.2.1"
+  }
 }
