@@ -23,7 +23,8 @@
     "vm"
   ],
   "scripts": {
-    "all": "concurrently 'pnpm i' 'bun lint' 'bun sort-package-json' && nx run-many --targets=generate:docs,build:types,typecheck,test:coverage,build:dist --nxBail",
+		"all": "nx run-many --targets=generate:docs,build:types,typecheck,test:coverage,build:dist",
+		"allz": "concurrently 'pnpm i' 'bun lint' 'bun sort-package-json' && bun all",
     "build": "nx run-many --targets=build:dist,build:types",
     "build:dist": "nx run-many --target=build:dist",
     "build:types": "nx run-many --targets=build:types,typecheck",
@@ -58,9 +59,5 @@
   },
   "engines": {
     "node": ">=18"
-  },
-  "dependencies": {
-    "vite-plugin-node-polyfills": "^0.16.0",
-    "web-streams-polyfill": "^3.2.1"
   }
 }

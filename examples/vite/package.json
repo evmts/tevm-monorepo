@@ -29,9 +29,9 @@
 		"@evmts/bundler": "workspace:^",
 		"@evmts/config": "workspace:^",
 		"@evmts/contracts": "^0.0.1",
-		"@evmts/core": "workspace:^1.0.0-next.12",
+		"@evmts/core": "workspace:^",
 		"@evmts/ethers": "workspace:^",
-		"@evmts/solc": "workspace:1.0.0-next.12",
+		"@evmts/solc": "workspace:^",
 		"@rainbow-me/rainbowkit": "^1.2.0",
 		"@tanstack/react-query": "^5.8.4",
 		"buffer": "^6.0.3",
@@ -64,6 +64,7 @@
 		"solc": "0.8.23-fixed",
 		"typescript": "^5.2.2",
 		"vite": "^5.0.0",
+		"vite-plugin-node-polyfills": "^0.16.0",
 		"vitest": "^0.34.6"
 	}
 }
