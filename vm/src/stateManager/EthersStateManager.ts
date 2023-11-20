@@ -10,7 +10,7 @@ import {
 	bytesToHex,
 	toBytes,
 } from '@ethereumjs/util'
-import debugDefault from 'debug'
+import { debug as createDebugLogger } from 'debug'
 import { keccak256 } from 'ethereum-cryptography/keccak.js'
 import { ethers } from 'ethers'
 
@@ -73,7 +73,6 @@ class OriginalStorageCache {
 		this.map = new Map()
 	}
 }
-const { debug: createDebugLogger } = debugDefault
 
 export interface EthersStateManagerOpts {
 	provider: string | ethers.JsonRpcProvider
@@ -367,10 +366,8 @@ export class EthersStateManager implements EVMStateManagerInterface {
 	): Promise<void> {
 		if (this.DEBUG) {
 			this._debug(
-				`Save account address=${address} nonce=${account?.nonce} balance=${
-					account?.balance
-				} contract=${account?.isContract() ? 'yes' : 'no'} empty=${
-					account?.isEmpty() ? 'yes' : 'no'
+				`Save account address=${address} nonce=${account?.nonce} balance=${account?.balance
+				} contract=${account?.isContract() ? 'yes' : 'no'} empty=${account?.isEmpty() ? 'yes' : 'no'
 				}`,
 			)
 		}
@@ -497,7 +494,7 @@ export class EthersStateManager implements EVMStateManagerInterface {
 	/**
 	 * @deprecated This method is not used by the Ethers State Manager and is a stub required by the State Manager interface
 	 */
-	setStateRoot = async (_root: Uint8Array) => {}
+	setStateRoot = async (_root: Uint8Array) => { }
 
 	/**
 	 * @deprecated This method is not used by the Ethers State Manager and is a stub required by the State Manager interface

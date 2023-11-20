@@ -13,8 +13,7 @@ import {
 	runScriptHandler,
 } from './actions/index.js'
 import { ViemStateManager } from './stateManager/ViemStateManager.js'
-import { Chain, Common, Hardfork } from '@ethereumjs/common'
-import { EVM } from '@ethereumjs/evm'
+import { Common, Hardfork } from '@ethereumjs/common'
 import { DefaultStateManager } from '@ethereumjs/statemanager'
 import type { Abi } from 'abitype'
 import { createPublicClient, http } from 'viem'
@@ -60,7 +59,7 @@ type ConstructorArgument<T> = T extends new (
  * TODO this should be modified to take a hex address rather than an ethjs address to be consistent with rest of EVMts
  */
 export type CustomPrecompile = Exclude<
-	Exclude<ConstructorArgument<typeof EVM>, undefined>['customPrecompiles'],
+	Exclude<ConstructorArgument<typeof import("@ethereumjs/evm").EVM>, undefined>['customPrecompiles'],
 	undefined
 >[number]
 
@@ -105,6 +104,7 @@ export class EVMts {
 	 */
 	static readonly create = async (options: CreateEVMOptions = {}) => {
 		EVMts.isCreating = true
+		const { EVM: _EVM } = await import('@ethereumjs/evm')
 		try {
 			let stateManager: DefaultStateManager | ViemStateManager
 			// ethereumjs throws an error for most chain ids
@@ -121,7 +121,20 @@ export class EVMts {
 				stateManager = new DefaultStateManager()
 			}
 			const common = new Common({ chain: chainId, hardfork })
-			return new EVMts(stateManager, common, options.customPrecompiles)
+			const evm = new _EVM({
+				common,
+				stateManager,
+				// blockchain, // Always running the EVM statelessly so not including blockchain
+				allowUnlimitedContractSize: false,
+				allowUnlimitedInitCodeSize: false,
+				customOpcodes: [],
+				// TODO uncomment the mapping once we make the api correct
+				customPrecompiles: options.customPrecompiles ?? [], // : customPrecompiles.map(p => ({ ...p, address: new EthjsAddress(hexToBytes(p.address)) })),
+				profiler: {
+					enabled: false,
+				},
+			})
+			return new EVMts(evm)
 		} finally {
 			EVMts.isCreating = false
 		}
@@ -131,22 +144,7 @@ export class EVMts {
 	 * A local EVM instance running in JavaScript. Similar to Anvil in your browser
 	 */
 	constructor(
-		stateManager: DefaultStateManager | ViemStateManager,
-		common = new Common({ chain: Chain.Mainnet, hardfork: Hardfork.Shanghai }),
-		customPrecompiles: CustomPrecompile[] = [],
-		public readonly _evm = new EVM({
-			common,
-			stateManager,
-			// blockchain, // Always running the EVM statelessly so not including blockchain
-			allowUnlimitedContractSize: false,
-			allowUnlimitedInitCodeSize: false,
-			customOpcodes: [],
-			// TODO uncomment the mapping once we make the api correct
-			customPrecompiles, // : customPrecompiles.map(p => ({ ...p, address: new EthjsAddress(hexToBytes(p.address)) })),
-			profiler: {
-				enabled: false,
-			},
-		}),
+		public readonly _evm: import("@ethereumjs/evm").EVM,
 	) {
 		if (!EVMts.isCreating) {
 			throw new Error('EVMts must be created with EVMts.create method')

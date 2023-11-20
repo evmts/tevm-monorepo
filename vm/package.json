@@ -15,7 +15,7 @@
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/evmts/evmts-monorepo.git",
-		"directory": "prototype/core"
+		"directory": "vm"
 	},
 	"license": "MIT",
 	"contributors": [
@@ -26,17 +26,18 @@
 		"./package.json": "./package.json",
 		".": {
 			"import": "./dist/index.js",
-			"default": "./dist/index.js",
+			"default": "./dist/index.cjs",
 			"types": "./types/index.d.ts"
 		}
 	},
-	"main": "dist/index.js",
+	"main": "dist/index.cjs",
 	"module": "dist/index.js",
 	"types": "types/index.d.ts",
 	"files": [
 		"dist",
 		"types",
-		"src"
+		"src",
+		"!src/**/*.spec.ts"
 	],
 	"scripts": {
 		"all": "pnpm i  && bun run build && bun lint && bun format && bun test:run && bun generate:docs",
