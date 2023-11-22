@@ -6,15 +6,22 @@ import { describe, expect, it } from 'vitest'
 
 describe(loadConfig.name, () => {
 	it('should work in basic case', () => {
-		expect(
-			runSync(loadConfig(join(__dirname, 'fixtures/basic'))),
-		).toMatchInlineSnapshot(`
+		const config = loadConfig(join(__dirname, 'fixtures/basic'))
+		expect({
+			...runSync(config),
+			remappings: Object.fromEntries(
+				Object.entries(runSync(config).remappings).map(([a, b]) => [
+					a,
+					b.replace(process.cwd(), ''),
+				]),
+			),
+		}).toMatchInlineSnapshot(`
 			{
 			  "debug": false,
 			  "foundryProject": false,
 			  "libs": [],
 			  "remappings": {
-			    "@/": "/Users/willcory/evmts-monorepo/bundler/config/src/fixtures/basic/",
+			    "@/": "/src/fixtures/basic/",
 			  },
 			}
 		`)
