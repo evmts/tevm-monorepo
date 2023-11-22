@@ -1,5 +1,11 @@
 # @evmts/core
 
+## 1.0.0-next.17
+
+### Patch Changes
+
+- [#716](https://github.com/evmts/evmts-monorepo/pull/716) [`65462ea7`](https://github.com/evmts/evmts-monorepo/commit/65462ea79eff3abf9c7d95324d1c8c696fa0e785) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug with not using remappings in ts files
+
 ## 1.0.0-next.16
 
 ### Minor Changes
