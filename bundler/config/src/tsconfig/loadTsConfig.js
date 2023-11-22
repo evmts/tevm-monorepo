@@ -2,9 +2,9 @@ import {
 	array,
 	optional,
 	parseEither,
+	record,
 	string,
 	struct,
-	record
 } from '@effect/schema/Schema'
 import { parseJson } from '@evmts/effect'
 import {
@@ -69,9 +69,7 @@ const STsConfig = struct({
 				name: string,
 			}),
 		),
-		paths: optional(
-			record(string, array(string)),
-		),
+		paths: optional(record(string, array(string))),
 	}),
 })
 

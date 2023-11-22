@@ -64,9 +64,7 @@ describe(getEvmtsConfigFromTsConfig, () => {
 			},
 		}
 		const configPath = '/path/to/config'
-		expect(
-			runSync(getEvmtsConfigFromTsConfig(config, configPath)),
-		).toEqual({
+		expect(runSync(getEvmtsConfigFromTsConfig(config, configPath))).toEqual({
 			...evmtsConfig,
 			remappings: {
 				'@/': `${configPath}/`,
@@ -93,10 +91,12 @@ describe(getEvmtsConfigFromTsConfig, () => {
 				],
 			},
 		}
-		expect(runSync(getEvmtsConfigFromTsConfig(config))).toEqual({
+		expect(
+			runSync(getEvmtsConfigFromTsConfig(config, '/path/to/config')),
+		).toEqual({
 			...evmtsConfig,
 			remappings: {
-				'@/': './',
+				'@/': '/path/to/config/',
 			},
 			libs: [config.compilerOptions.baseUrl, ...evmtsConfig.libs],
 		})
