@@ -1,5 +1,18 @@
 # @evmts/unplugin
 
+## 1.0.0-next.16
+
+### Minor Changes
+
+- [#714](https://github.com/evmts/evmts-monorepo/pull/714) [`95b534c3`](https://github.com/evmts/evmts-monorepo/commit/95b534c39c3ee637c1b4d8fdc6f9b6fd3193ce80) Thanks [@roninjin10](https://github.com/roninjin10)! - Added ability to resolve most paths in tsconfig that look similar to '@/_': ['./_']
+
+### Patch Changes
+
+- Updated dependencies [[`95b534c3`](https://github.com/evmts/evmts-monorepo/commit/95b534c39c3ee637c1b4d8fdc6f9b6fd3193ce80)]:
+  - @evmts/config@1.0.0-next.16
+  - @evmts/solc@1.0.0-next.16
+  - @evmts/runtime@1.0.0-next.13
+
 ## 1.0.0-next.15
 
 ### Patch Changes
