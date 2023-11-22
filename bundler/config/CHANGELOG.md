@@ -1,5 +1,11 @@
 # @evmts/core
 
+## 1.0.0-next.15
+
+### Patch Changes
+
+- [#712](https://github.com/evmts/evmts-monorepo/pull/712) [`300440d8`](https://github.com/evmts/evmts-monorepo/commit/300440d84268783e7578242f67867d677dafdd34) Thanks [@roninjin10](https://github.com/roninjin10)! - Added ability to resolve tsconfig paths for contract imports
+
 ## 1.0.0-next.9
 
 ### Patch Changes
