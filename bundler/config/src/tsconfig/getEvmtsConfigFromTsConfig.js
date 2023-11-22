@@ -18,10 +18,11 @@ export class NoPluginFoundError extends Error {
 
 /**
  * @param {import("./loadTsConfig.js").TsConfig} tsConfig
+ * @param {string} configPath`
  * @returns {import("effect/Effect").Effect<never, GetEvmtsConfigFromTsConfigError, import("../types.js").CompilerConfig>}
  * @internal
  */
-export const getEvmtsConfigFromTsConfig = (tsConfig) => {
+export const getEvmtsConfigFromTsConfig = (tsConfig, configPath) => {
 	if (!tsConfig.compilerOptions?.plugins?.length) {
 		return fail(
 			new NoPluginFoundError('No compilerOptions.plugins in tsconfig'),
@@ -39,6 +40,7 @@ export const getEvmtsConfigFromTsConfig = (tsConfig) => {
 	if (!plugin) {
 		return fail(new NoPluginFoundError())
 	}
+<<<<<<< HEAD
 	const configEffect = validateUserConfig(() => plugin)
 	if (tsConfig.compilerOptions.baseUrl) {
 		const { baseUrl, paths } = tsConfig.compilerOptions
@@ -49,17 +51,35 @@ export const getEvmtsConfigFromTsConfig = (tsConfig) => {
 			]),
 		)
 		return map(configEffect, (config) => ({
+=======
+	const { baseUrl, paths } = tsConfig.compilerOptions
+	const pathRemappings = Object.fromEntries(
+		Object.entries(paths ?? {}).map(([key, value]) => [
+			key.replace(/\/\*$/, '/'),
+			value?.[0]?.replace(/^\./, configPath).replace(/\/\*$/, '/') ?? '',
+		]),
+	)
+	return validateUserConfig(() => plugin).pipe(
+		map(config => ({
+			...config,
+			remappings: {
+				...config.remappings,
+				...pathRemappings,
+			},
+		})),
+		map((config) => baseUrl ? ({
+>>>>>>> 8f084e09 (:sparkles: Feat(config): Add ability to resolve tsconfig paths)
 			...config,
 			remappings: {
 				...pathRemappings,
 				...config.remappings,
 			},
 			libs: [...new Set([baseUrl, ...(config.libs ?? [])])],
-		}))
-	}
-	return tap(configEffect, (config) => {
-		return logDebug(`getting config from tsconfig: 
+		}) : config),
+		tap((config) => {
+			return logDebug(`getting config from tsconfig: 
   tsconfig: ${JSON.stringify(config)}
   result: ${JSON.stringify(config)}`)
-	})
+		})
+	)
 }

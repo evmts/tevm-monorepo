@@ -22,7 +22,9 @@ describe(getEvmtsConfigFromTsConfig, () => {
 				],
 			},
 		}
-		expect(runSync(getEvmtsConfigFromTsConfig(config))).toEqual(evmtsConfig)
+		expect(
+			runSync(getEvmtsConfigFromTsConfig(config, '/path/to/config')),
+		).toEqual({ ...evmtsConfig, remappings: {} })
 		// remove lib should still work
 		evmtsConfig = {
 			name: '@evmts/ts-plugin',
@@ -38,7 +40,39 @@ describe(getEvmtsConfigFromTsConfig, () => {
 				],
 			},
 		}
-		expect(runSync(getEvmtsConfigFromTsConfig(config))).toEqual(evmtsConfig)
+		expect(
+			runSync(getEvmtsConfigFromTsConfig(config, '/path/to/config')),
+		).toEqual({ ...evmtsConfig, remappings: {} })
+	})
+	it('should add paths to lib if it exists', async () => {
+		const evmtsConfig = {
+			name: '@evmts/ts-plugin',
+			libs: ['lib1', 'lib2'],
+		}
+		const config = {
+			compilerOptions: {
+				baseUrl: './src',
+				paths: {
+					'@/*': ['./*'],
+				},
+				plugins: [
+					{
+						name: 'css-modules-typescript-loader',
+					},
+					evmtsConfig,
+				],
+			},
+		}
+		const configPath = '/path/to/config'
+		expect(
+			runSync(getEvmtsConfigFromTsConfig(config, configPath)),
+		).toEqual({
+			...evmtsConfig,
+			remappings: {
+				'@/': `${configPath}/`,
+			},
+			libs: [config.compilerOptions.baseUrl, ...evmtsConfig.libs],
+		})
 	})
 	it('should add paths to lib if it exists', async () => {
 		const evmtsConfig = {
@@ -83,11 +117,11 @@ describe(getEvmtsConfigFromTsConfig, () => {
 				],
 			},
 		}
-		expect(runSync(getEvmtsConfigFromTsConfig(config))).toEqual({
+		expect(
+			runSync(getEvmtsConfigFromTsConfig(config, '/path/to/config')),
+		).toEqual({
 			...evmtsConfig,
-			remappings: {
-
-			},
+			remappings: {},
 			libs: [config.compilerOptions.baseUrl, ...evmtsConfig.libs],
 		})
 	})
@@ -98,7 +132,7 @@ describe(getEvmtsConfigFromTsConfig, () => {
 			},
 		}
 		expect(() =>
-			runSync(getEvmtsConfigFromTsConfig(config as any)),
+			runSync(getEvmtsConfigFromTsConfig(config as any, '/path/to/config')),
 		).toThrowError(
 			new NoPluginFoundError('No compilerOptions.plugins in tsconfig'),
 		)
@@ -113,9 +147,9 @@ describe(getEvmtsConfigFromTsConfig, () => {
 				],
 			},
 		}
-		expect(() => runSync(getEvmtsConfigFromTsConfig(config))).toThrowError(
-			new NoPluginFoundError(),
-		)
+		expect(() =>
+			runSync(getEvmtsConfigFromTsConfig(config, '/path/to/config')),
+		).toThrowError(new NoPluginFoundError())
 	})
 	it(`should throw a ${NoPluginFoundError} if there is no plugin matching @evmts/ts-plugin`, async () => {
 		const config = {
@@ -127,8 +161,8 @@ describe(getEvmtsConfigFromTsConfig, () => {
 				],
 			},
 		}
-		expect(() => runSync(getEvmtsConfigFromTsConfig(config))).toThrowError(
-			new NoPluginFoundError(),
-		)
+		expect(() =>
+			runSync(getEvmtsConfigFromTsConfig(config, '/path/to/config')),
+		).toThrowError(new NoPluginFoundError())
 	})
 })

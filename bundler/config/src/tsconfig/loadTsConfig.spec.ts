@@ -16,6 +16,11 @@ describe(loadTsConfig.name, () => {
 		).toMatchInlineSnapshot(`
 			{
 			  "compilerOptions": {
+			    "paths": {
+			      "@/*": [
+			        "./*",
+			      ],
+			    },
 			    "plugins": [
 			      {
 			        "name": "@evmts/ts-plugin",
