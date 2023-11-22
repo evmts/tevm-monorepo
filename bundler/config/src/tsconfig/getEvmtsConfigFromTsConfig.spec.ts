@@ -40,6 +40,33 @@ describe(getEvmtsConfigFromTsConfig, () => {
 		}
 		expect(runSync(getEvmtsConfigFromTsConfig(config))).toEqual(evmtsConfig)
 	})
+	it('should add paths to lib if it exists', async () => {
+		const evmtsConfig = {
+			name: '@evmts/ts-plugin',
+			libs: ['lib1', 'lib2'],
+		}
+		const config = {
+			compilerOptions: {
+				baseUrl: './src',
+				paths: {
+					'@/*': ['./*'],
+				},
+				plugins: [
+					{
+						name: 'css-modules-typescript-loader',
+					},
+					evmtsConfig,
+				],
+			},
+		}
+		expect(runSync(getEvmtsConfigFromTsConfig(config))).toEqual({
+			...evmtsConfig,
+			remappings: {
+				'@/': './',
+			},
+			libs: [config.compilerOptions.baseUrl, ...evmtsConfig.libs],
+		})
+	})
 	it('should add baseUrl to lib if it exists', async () => {
 		const evmtsConfig = {
 			name: '@evmts/ts-plugin',
@@ -58,6 +85,9 @@ describe(getEvmtsConfigFromTsConfig, () => {
 		}
 		expect(runSync(getEvmtsConfigFromTsConfig(config))).toEqual({
 			...evmtsConfig,
+			remappings: {
+
+			},
 			libs: [config.compilerOptions.baseUrl, ...evmtsConfig.libs],
 		})
 	})

@@ -41,9 +41,19 @@ export const getEvmtsConfigFromTsConfig = (tsConfig) => {
 	}
 	const configEffect = validateUserConfig(() => plugin)
 	if (tsConfig.compilerOptions.baseUrl) {
-		const { baseUrl } = tsConfig.compilerOptions
+		const { baseUrl, paths } = tsConfig.compilerOptions
+		const pathRemappings = Object.fromEntries(
+			Object.entries(paths ?? {}).map(([key, value]) => [
+				key.replace(/\/\*$/, '/'),
+				value?.[0]?.replace(/\/\*$/, '/') ?? '',
+			]),
+		)
 		return map(configEffect, (config) => ({
 			...config,
+			remappings: {
+				...pathRemappings,
+				...config.remappings,
+			},
 			libs: [...new Set([baseUrl, ...(config.libs ?? [])])],
 		}))
 	}

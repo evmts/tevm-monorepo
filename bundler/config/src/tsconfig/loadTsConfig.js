@@ -19,7 +19,7 @@ import * as path from 'path'
 
 /**
  * Expected shape of tsconfig.json or jsconfig.json
- * @typedef {{ compilerOptions?: { plugins: ReadonlyArray<{ name: string }>, baseUrl?: string } }} TsConfig
+ * @typedef {{ compilerOptions?: { plugins: ReadonlyArray<{ name: string }>, baseUrl?: string, paths?: Record<string, Array<string>> } }} TsConfig
  * @internal
  */
 
