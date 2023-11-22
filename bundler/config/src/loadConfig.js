@@ -63,7 +63,7 @@ export const loadConfig = (configFilePath) => {
 		`loadConfig: loading tsConfig at ${JSON.stringify(configFilePath)}`,
 	).pipe(
 		flatMap(() => loadTsConfig(configFilePath)),
-		flatMap(getEvmtsConfigFromTsConfig),
+		flatMap((tsConfig) => getEvmtsConfigFromTsConfig(tsConfig, configFilePath)),
 	)
 	const foundryConfigEffect = flatMap(userConfigEffect, (userConfig) => {
 		return loadFoundryConfig(userConfig.foundryProject, configFilePath)

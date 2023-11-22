@@ -4,6 +4,7 @@ import {
 	parseEither,
 	string,
 	struct,
+	record
 } from '@effect/schema/Schema'
 import { parseJson } from '@evmts/effect'
 import {
@@ -19,7 +20,7 @@ import * as path from 'path'
 
 /**
  * Expected shape of tsconfig.json or jsconfig.json
- * @typedef {{ compilerOptions?: { plugins: ReadonlyArray<{ name: string }>, baseUrl?: string, paths?: Record<string, Array<string>> } }} TsConfig
+ * @typedef {{ compilerOptions?: { plugins: ReadonlyArray<{ name: string }>, baseUrl?: string, paths?: Record<string, ReadonlyArray<string>> } }} TsConfig
  * @internal
  */
 
@@ -67,6 +68,9 @@ const STsConfig = struct({
 			struct({
 				name: string,
 			}),
+		),
+		paths: optional(
+			record(string, array(string)),
 		),
 	}),
 })

@@ -13,7 +13,9 @@ describe(loadConfig.name, () => {
 			  "debug": false,
 			  "foundryProject": false,
 			  "libs": [],
-			  "remappings": {},
+			  "remappings": {
+			    "@/": "/Users/willcory/evmts-monorepo/bundler/config/src/fixtures/basic/",
+			  },
 			}
 		`)
 	})
