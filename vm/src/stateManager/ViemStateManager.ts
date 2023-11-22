@@ -1,6 +1,6 @@
 import { Trie } from '@ethereumjs/trie'
 import { Account } from '@ethereumjs/util'
-import debugDefault from 'debug'
+import { debug as createDebugLogger } from 'debug'
 import { keccak256 } from 'ethereum-cryptography/keccak.js'
 
 import { AccountCache, CacheType, StorageCache } from '@ethereumjs/statemanager'
@@ -24,8 +24,6 @@ import {
 	toBytes,
 	toHex,
 } from 'viem'
-
-const { debug: createDebugLogger } = debugDefault
 
 export interface ViemStateManagerOpts {
 	client: PublicClient
@@ -302,10 +300,8 @@ export class ViemStateManager implements EVMStateManagerInterface {
 	): Promise<void> {
 		if (this.DEBUG) {
 			this._debug(
-				`Save account address=${address} nonce=${account?.nonce} balance=${
-					account?.balance
-				} contract=${account?.isContract() ? 'yes' : 'no'} empty=${
-					account?.isEmpty() ? 'yes' : 'no'
+				`Save account address=${address} nonce=${account?.nonce} balance=${account?.balance
+				} contract=${account?.isContract() ? 'yes' : 'no'} empty=${account?.isEmpty() ? 'yes' : 'no'
 				}`,
 			)
 		}
@@ -442,7 +438,7 @@ export class ViemStateManager implements EVMStateManagerInterface {
 	/**
 	 * @deprecated This method is not used by the Viem State Manager and is a stub required by the State Manager interface
 	 */
-	setStateRoot = async (_root: Uint8Array) => {}
+	setStateRoot = async (_root: Uint8Array) => { }
 
 	/**
 	 * @deprecated This method is not used by the Viem State Manager and is a stub required by the State Manager interface

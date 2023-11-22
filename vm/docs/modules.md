@@ -38,7 +38,7 @@ Options for creating an EVMts instance
 
 #### Defined in
 
-[evmts.ts:42](https://github.com/evmts/evmts-monorepo/blob/main/vm/src/evmts.ts#L42)
+[evmts.ts:41](https://github.com/evmts/evmts-monorepo/blob/main/vm/src/evmts.ts#L41)
 
 ___
 
