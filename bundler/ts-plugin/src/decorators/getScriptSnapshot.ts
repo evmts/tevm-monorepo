@@ -2,6 +2,7 @@ import { createHostDecorator } from '../factories/index.js'
 import { isSolidity } from '../utils/index.js'
 import { Cache, bundler } from '@evmts/base'
 import { existsSync, writeFileSync } from 'fs'
+// @ts-expect-error
 import * as solc from 'solc'
 
 /**

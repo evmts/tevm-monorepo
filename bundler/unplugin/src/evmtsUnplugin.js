@@ -6,9 +6,7 @@ import { readFile } from 'fs/promises'
 import { createRequire } from 'module'
 import { z } from 'zod'
 
-const compilerOptionValidator = z
-	.any()
-	.describe('Solc compiler to use')
+const compilerOptionValidator = z.any().describe('Solc compiler to use')
 
 /**
  * @typedef {import("zod").infer<typeof compilerOptionValidator>} CompilerOption
@@ -28,13 +26,9 @@ export const evmtsUnplugin = (options) => {
 	let config
 
 	// for current release we will hardcode this to solc
-	const parsedCompilerOption = compilerOptionValidator.safeParse(
-		options.solc,
-	)
+	const parsedCompilerOption = compilerOptionValidator.safeParse(options.solc)
 	if (!parsedCompilerOption.success) {
-		throw new Error(
-			`Invalid solc compiler passed to EVMts plugin'`,
-		)
+		throw new Error(`Invalid solc compiler passed to EVMts plugin'`)
 	}
 	const compilerOption = parsedCompilerOption.data
 
@@ -65,7 +59,7 @@ export const evmtsUnplugin = (options) => {
 		enforce: 'pre',
 		async buildStart() {
 			config = runSync(loadConfig(process.cwd()))
-			moduleResolver = bundler(config, console, fao, compilerOption.solc, solcCache)
+			moduleResolver = bundler(config, console, fao, compilerOption, solcCache)
 			this.addWatchFile('./tsconfig.json')
 		},
 		loadInclude: (id) => {
@@ -75,7 +69,7 @@ export const evmtsUnplugin = (options) => {
 				!existsSync(`${id}.d.ts`)
 			)
 		},
-		async resolveId(id, importer, options) {
+		async resolveId(id, importer) {
 			// to handle the case where the import is coming from a node_module or a different workspace
 			// we need to always point @evmts/core to the local version
 			if (
@@ -83,7 +77,6 @@ export const evmtsUnplugin = (options) => {
 				!importer?.startsWith(process.cwd()) &&
 				!importer?.includes('node_modules')
 			) {
-				console.log({ id, importer, options })
 				return createRequire(`${process.cwd()}/`).resolve('@evmts/core')
 			}
 			return null

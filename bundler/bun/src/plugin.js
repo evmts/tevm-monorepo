@@ -20,7 +20,7 @@ import { runSync } from 'effect/Effect'
  * preload = ["./plugins.ts"]
  * ```
  */
-export const evmtsBunPlugin = (solc) => {
+export const evmtsBunPlugin = ({ solc }) => {
 	return {
 		name: '@evmts/esbuild-plugin',
 		async setup(build) {

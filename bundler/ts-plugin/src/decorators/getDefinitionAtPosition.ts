@@ -6,6 +6,7 @@ import {
 } from '../utils/index.js'
 import { Cache, FileAccessObject, bundler } from '@evmts/base'
 import { ResolvedCompilerConfig } from '@evmts/config'
+// @ts-expect-error
 import * as solc from 'solc'
 import { Node } from 'solidity-ast/node.js'
 import { findAll } from 'solidity-ast/utils.js'

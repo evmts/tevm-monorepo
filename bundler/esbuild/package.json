@@ -53,7 +53,8 @@
 		"test:ui": "vitest --ui"
 	},
 	"dependencies": {
-		"@evmts/unplugin": "workspace:^"
+		"@evmts/unplugin": "workspace:^",
+		"solc": "0.8.23-fixed"
 	},
 	"devDependencies": {
 		"@evmts/tsconfig": "workspace:^",

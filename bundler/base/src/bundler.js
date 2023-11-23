@@ -33,7 +33,7 @@ export const bundler = (config, logger, fao, solc) => {
 				}
 				return { solcInput, solcOutput, code: '', modules, asts }
 			} catch (e) {
-				logger.error(/** @type {any} */(e))
+				logger.error(/** @type {any} */ (e))
 				logger.error('there was an error in evmts plugin generating .dts')
 				throw e
 			}
@@ -62,7 +62,7 @@ export const bundler = (config, logger, fao, solc) => {
 				}
 				return { modules, code: '', asts, solcInput, solcOutput }
 			} catch (e) {
-				logger.error(/** @type {any} */(e))
+				logger.error(/** @type {any} */ (e))
 				logger.error('there was an error in evmts plugin resolving .dts')
 				throw e
 			}
@@ -86,7 +86,7 @@ export const bundler = (config, logger, fao, solc) => {
 				}
 				return { code, modules, solcInput, solcOutput, asts }
 			} catch (e) {
-				logger.error(/** @type {any} */(e))
+				logger.error(/** @type {any} */ (e))
 				logger.error('there was an error in evmts plugin resolving .ts')
 				throw e
 			}
@@ -115,7 +115,7 @@ export const bundler = (config, logger, fao, solc) => {
 				}
 				return { code, modules, solcInput, solcOutput, asts }
 			} catch (e) {
-				logger.error(/** @type {any} */(e))
+				logger.error(/** @type {any} */ (e))
 				logger.error('there was an error in evmts plugin resolving .ts')
 				throw e
 			}
@@ -144,7 +144,7 @@ export const bundler = (config, logger, fao, solc) => {
 				}
 				return { code, modules, solcInput, solcOutput, asts }
 			} catch (e) {
-				logger.error(/** @type {any} */(e))
+				logger.error(/** @type {any} */ (e))
 				logger.error('there was an error in evmts plugin resolving .cjs')
 				throw e
 			}
@@ -173,7 +173,7 @@ export const bundler = (config, logger, fao, solc) => {
 				}
 				return { code, modules, solcInput, solcOutput, asts }
 			} catch (e) {
-				logger.error(/** @type {any} */(e))
+				logger.error(/** @type {any} */ (e))
 				logger.error('there was an error in evmts plugin resolving .cjs')
 				throw e
 			}
@@ -203,7 +203,7 @@ export const bundler = (config, logger, fao, solc) => {
 				return { code, modules, solcInput, solcOutput, asts }
 			} catch (e) {
 				logger.error('there was an error in evmts plugin resolving .mjs')
-				logger.error(/** @type {any} */(e))
+				logger.error(/** @type {any} */ (e))
 				throw e
 			}
 		},
@@ -231,7 +231,7 @@ export const bundler = (config, logger, fao, solc) => {
 				}
 				return { code, modules, solcInput, solcOutput, asts }
 			} catch (e) {
-				logger.error(/** @type {any} */(e))
+				logger.error(/** @type {any} */ (e))
 				logger.error('there was an error in evmts plugin resolving .mjs')
 				throw e
 			}

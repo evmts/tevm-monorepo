@@ -5,6 +5,7 @@ import { existsSync, readFileSync } from 'fs'
 import { readFile, writeFile } from 'fs/promises'
 import { glob } from 'glob'
 import path from 'path'
+// @ts-expect-error
 import * as solc from 'solc'
 
 const fao: FileAccessObject = {
