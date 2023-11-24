@@ -35,7 +35,9 @@
  * @typedef {import('./solcTypes.js').SolcDeployedBytecodeOutput} SolcDeployedBytecodeOutput
  * @typedef {import('./solcTypes.js').SolcSecondarySourceLocation} SolcSecondarySourceLocation
  * @typedef {import('./solcTypes.js').SolcInputSourcesDestructibleSettings} SolcInputSourcesDestructibleSettings
+ * @typedef {import('./solcTypes.js').Releases} Releases
+ * @typedef {import('./solcTypes.js').Solc} Solc
  */
 export { resolveArtifacts } from './resolveArtifacts.js'
 export { resolveArtifactsSync } from './resolveArtifactsSync.js'
-export { solcCompile } from './solc.js'
+export { solcCompile, createSolc, releases } from './solc.js'
