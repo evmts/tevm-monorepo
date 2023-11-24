@@ -37,6 +37,7 @@
  * @typedef {import('./solcTypes.js').SolcInputSourcesDestructibleSettings} SolcInputSourcesDestructibleSettings
  * @typedef {import('./solcTypes.js').Releases} Releases
  * @typedef {import('./solcTypes.js').Solc} Solc
+ * @typedef {import('./solcTypes.js').SolcVersions} SolcVersions
  */
 export { resolveArtifacts } from './resolveArtifacts.js'
 export { resolveArtifactsSync } from './resolveArtifactsSync.js'
