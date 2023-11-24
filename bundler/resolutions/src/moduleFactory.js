@@ -2,10 +2,11 @@ import { resolveImports } from './resolveImports.js'
 import { invariant } from './utils/invariant.js'
 import { safeFao } from './utils/safeFao.js'
 import { updateImportPaths } from './utils/updateImportPath.js'
+import { updatePragma } from './utils/updatePragma.js'
 import { gen } from 'effect/Effect'
 
 /**
- * @typedef {import("./resolveImports.js").ResolveImportsError | import("./utils/safeFao.js").ReadFileError | import("./utils/resolveImportPath.js").CouldNotResolveImportError} ModuleFactoryError
+ * @typedef {import("./resolveImports.js").ResolveImportsError | import("./utils/safeFao.js").ReadFileError | import("./utils/resolveImportPath.js").CouldNotResolveImportError | import("./utils/updatePragma.js").NoPragmaFoundError} ModuleFactoryError
  */
 
 /**
@@ -78,7 +79,9 @@ export const moduleFactory = (
 				id: absolutePath,
 				rawCode,
 				importedIds: resolvedImports.map(({ absolute }) => absolute),
-				code: yield* _(updateImportPaths(rawCode, resolvedImports)),
+				code: yield* _(
+					updatePragma(yield* _(updateImportPaths(rawCode, resolvedImports))),
+				),
 			})
 
 			for (const resolvedImport of resolvedImports) {
