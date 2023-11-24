@@ -1,6 +1,6 @@
 {
 	"name": "@evmts/esbuild-plugin",
-	"version": "1.0.0-next.17",
+	"version": "1.0.0-next.18",
 	"private": false,
 	"description": "A esbuild plugin for evmts",
 	"keywords": [

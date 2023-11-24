@@ -1,5 +1,15 @@
 # @evmts/bun-plugin
 
+## 1.0.0-next.18
+
+### Patch Changes
+
+- [#725](https://github.com/evmts/evmts-monorepo/pull/725) [`2dbc4d62`](https://github.com/evmts/evmts-monorepo/commit/2dbc4d62f6ee6ee499c1a720f36476367618268f) Thanks [@roninjin10](https://github.com/roninjin10)! - Defaults solc to using version 0.8.23 if not specified. Solc is no longer needed as a peer dependency
+
+- Updated dependencies [[`f8121742`](https://github.com/evmts/evmts-monorepo/commit/f8121742b323483e786e7448c28962d5995a442a), [`2dbc4d62`](https://github.com/evmts/evmts-monorepo/commit/2dbc4d62f6ee6ee499c1a720f36476367618268f)]:
+  - @evmts/solc@1.0.0-next.18
+  - @evmts/base@1.0.0-next.18
+
 ## 1.0.0-next.17
 
 ### Patch Changes

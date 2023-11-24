@@ -1,5 +1,18 @@
 # @evmts/core
 
+## 1.0.0-next.18
+
+### Minor Changes
+
+- [#718](https://github.com/evmts/evmts-monorepo/pull/718) [`f8121742`](https://github.com/evmts/evmts-monorepo/commit/f8121742b323483e786e7448c28962d5995a442a) Thanks [@roninjin10](https://github.com/roninjin10)! - Added new createSolc function that fetches a solc matching the specified version
+
+### Patch Changes
+
+- [#725](https://github.com/evmts/evmts-monorepo/pull/725) [`2dbc4d62`](https://github.com/evmts/evmts-monorepo/commit/2dbc4d62f6ee6ee499c1a720f36476367618268f) Thanks [@roninjin10](https://github.com/roninjin10)! - Defaults solc to using version 0.8.23 if not specified. Solc is no longer needed as a peer dependency
+
+- Updated dependencies [[`99e6d6f0`](https://github.com/evmts/evmts-monorepo/commit/99e6d6f04456c92c84d0bfa18d62ba5809de6429)]:
+  - @evmts/resolutions@1.0.0-next.18
+
 ## 1.0.0-next.17
 
 ### Patch Changes
