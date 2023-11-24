@@ -59,7 +59,10 @@ type ConstructorArgument<T> = T extends new (
  * TODO this should be modified to take a hex address rather than an ethjs address to be consistent with rest of EVMts
  */
 export type CustomPrecompile = Exclude<
-	Exclude<ConstructorArgument<typeof import("@ethereumjs/evm").EVM>, undefined>['customPrecompiles'],
+	Exclude<
+		ConstructorArgument<typeof import('@ethereumjs/evm').EVM>,
+		undefined
+	>['customPrecompiles'],
 	undefined
 >[number]
 
@@ -143,9 +146,7 @@ export class EVMts {
 	/**
 	 * A local EVM instance running in JavaScript. Similar to Anvil in your browser
 	 */
-	constructor(
-		public readonly _evm: import("@ethereumjs/evm").EVM,
-	) {
+	constructor(public readonly _evm: import('@ethereumjs/evm').EVM) {
 		if (!EVMts.isCreating) {
 			throw new Error('EVMts must be created with EVMts.create method')
 		}

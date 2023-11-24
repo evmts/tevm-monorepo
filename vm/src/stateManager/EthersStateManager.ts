@@ -366,8 +366,10 @@ export class EthersStateManager implements EVMStateManagerInterface {
 	): Promise<void> {
 		if (this.DEBUG) {
 			this._debug(
-				`Save account address=${address} nonce=${account?.nonce} balance=${account?.balance
-				} contract=${account?.isContract() ? 'yes' : 'no'} empty=${account?.isEmpty() ? 'yes' : 'no'
+				`Save account address=${address} nonce=${account?.nonce} balance=${
+					account?.balance
+				} contract=${account?.isContract() ? 'yes' : 'no'} empty=${
+					account?.isEmpty() ? 'yes' : 'no'
 				}`,
 			)
 		}
@@ -494,7 +496,7 @@ export class EthersStateManager implements EVMStateManagerInterface {
 	/**
 	 * @deprecated This method is not used by the Ethers State Manager and is a stub required by the State Manager interface
 	 */
-	setStateRoot = async (_root: Uint8Array) => { }
+	setStateRoot = async (_root: Uint8Array) => {}
 
 	/**
 	 * @deprecated This method is not used by the Ethers State Manager and is a stub required by the State Manager interface
