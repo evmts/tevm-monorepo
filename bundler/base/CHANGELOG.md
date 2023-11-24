@@ -1,5 +1,13 @@
 # @evmts/base
 
+## 1.0.0-next.18
+
+### Patch Changes
+
+- Updated dependencies [[`f8121742`](https://github.com/evmts/evmts-monorepo/commit/f8121742b323483e786e7448c28962d5995a442a), [`2dbc4d62`](https://github.com/evmts/evmts-monorepo/commit/2dbc4d62f6ee6ee499c1a720f36476367618268f)]:
+  - @evmts/solc@1.0.0-next.18
+  - @evmts/runtime@1.0.0-next.13
+
 ## 1.0.0-next.17
 
 ### Patch Changes

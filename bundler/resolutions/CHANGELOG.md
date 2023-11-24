@@ -1,5 +1,11 @@
 # @evmts/resolutions
 
+## 1.0.0-next.18
+
+### Patch Changes
+
+- [#719](https://github.com/evmts/evmts-monorepo/pull/719) [`99e6d6f0`](https://github.com/evmts/evmts-monorepo/commit/99e6d6f04456c92c84d0bfa18d62ba5809de6429) Thanks [@roninjin10](https://github.com/roninjin10)! - EVMts will run in "loose" mode when it comes to respecting pragmas via using latest version of solc and always compiling if pragma specified is lower than current compiler version. This improves general compatibility while still failing early if the pragma version is too early
+
 ## 1.0.0-next.17
 
 ### Patch Changes
