@@ -4,6 +4,7 @@
 	},
 	"files": {
 		"ignore": [
+			".nx",
 			"node_modules",
 			"**/coverage",
 			"**/node_modules",
