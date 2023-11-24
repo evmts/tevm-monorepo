@@ -7,9 +7,11 @@
 ### Variables
 
 - [fileLevelOption](solc.md#fileleveloption)
+- [releases](solc.md#releases)
 
 ### Functions
 
+- [createSolc](solc.md#createsolc)
 - [solcCompile](solc.md#solccompile)
 
 ## Variables
@@ -20,9 +22,41 @@
 
 #### Defined in
 
-[solc/src/solc.js:4](https://github.com/evmts/evmts-monorepo/blob/main/bundler/solc/src/solc.js#L4)
+[solc/src/solc.js:7](https://github.com/evmts/evmts-monorepo/blob/main/bundler/solc/src/solc.js#L7)
+
+___
+
+### releases
+
+• `Const` **releases**: `Releases`
+
+#### Defined in
+
+[solc/src/solc.js:12](https://github.com/evmts/evmts-monorepo/blob/main/bundler/solc/src/solc.js#L12)
 
 ## Functions
+
+### createSolc
+
+▸ **createSolc**(`release`): `Promise`\<`Solc`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `release` | keyof `Releases` |
+
+#### Returns
+
+`Promise`\<`Solc`\>
+
+An instance of solc
+
+#### Defined in
+
+[solc/src/solc.js:135](https://github.com/evmts/evmts-monorepo/blob/main/bundler/solc/src/solc.js#L135)
+
+___
 
 ### solcCompile
 
@@ -43,4 +77,4 @@ Typesafe wrapper around solc.compile
 
 #### Defined in
 
-[solc/src/solc.js:12](https://github.com/evmts/evmts-monorepo/blob/main/bundler/solc/src/solc.js#L12)
+[solc/src/solc.js:127](https://github.com/evmts/evmts-monorepo/blob/main/bundler/solc/src/solc.js#L127)
