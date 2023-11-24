@@ -16,6 +16,7 @@ import { runPromise } from 'effect/Effect'
  * @param {TIncludeBytecode} includeBytecode
  * @param {import('../types.js').FileAccessObject} fao
  * @param {import('../types.js').Logger} logger
+ * @param {any} solc
  * @returns {Promise<import('../types.js').CompiledContracts<TIncludeAsts>>}
  * @example
  * const { artifacts, modules } = await compileContract(
@@ -35,6 +36,7 @@ export const compileContract = async (
 	includeBytecode,
 	fao,
 	logger,
+	solc,
 ) => {
 	const moduleMap = await runPromise(
 		moduleFactory(
@@ -117,7 +119,7 @@ export const compileContract = async (
 	/**
 	 * @type {import('../solcTypes.js').SolcOutput}
 	 */
-	const output = solcCompile(input)
+	const output = solcCompile(solc, input)
 
 	const warnings = output?.errors?.filter(({ type }) => type === 'Warning')
 	const isErrors = (output?.errors?.length ?? 0) > (warnings?.length ?? 0)

@@ -52,7 +52,7 @@ describe(bundler.name, () => {
 			},
 		}
 
-		resolver = bundler(config as any, logger, fao)
+		resolver = bundler(config as any, logger, fao, require('solc'))
 		vi.mock('@evmts/solc', () => {
 			return {
 				resolveArtifacts: vi.fn(),

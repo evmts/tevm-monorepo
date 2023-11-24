@@ -5,7 +5,7 @@ import { runSync } from 'effect/Effect'
 /**
  * @type {import('./types.js').Bundler}
  */
-export const bundler = (config, logger, fao) => {
+export const bundler = (config, logger, fao, solc) => {
 	return {
 		name: bundler.name,
 		config,
@@ -20,6 +20,7 @@ export const bundler = (config, logger, fao) => {
 						includeAst,
 						includeBytecode,
 						fao,
+						solc,
 					)
 				if (artifacts && Object.keys(artifacts).length > 0) {
 					return {
@@ -48,6 +49,7 @@ export const bundler = (config, logger, fao) => {
 						includeAst,
 						includeBytecode,
 						fao,
+						solc,
 					)
 				if (artifacts && Object.keys(artifacts).length > 0) {
 					return {
@@ -76,6 +78,7 @@ export const bundler = (config, logger, fao) => {
 						includeAst,
 						includeBytecode,
 						fao,
+						solc,
 					)
 				let code = ''
 				if (artifacts && Object.keys(artifacts).length > 0) {
@@ -104,6 +107,7 @@ export const bundler = (config, logger, fao) => {
 						includeAst,
 						includeBytecode,
 						fao,
+						solc,
 					)
 				let code = ''
 				if (artifacts && Object.keys(artifacts).length > 0) {
@@ -132,6 +136,7 @@ export const bundler = (config, logger, fao) => {
 						includeAst,
 						includeBytecode,
 						fao,
+						solc,
 					)
 				let code = ''
 				if (artifacts && Object.keys(artifacts).length > 0) {
@@ -160,6 +165,7 @@ export const bundler = (config, logger, fao) => {
 						includeAst,
 						includeBytecode,
 						fao,
+						solc,
 					)
 				let code = ''
 				if (artifacts && Object.keys(artifacts).length > 0) {
@@ -188,6 +194,7 @@ export const bundler = (config, logger, fao) => {
 						includeAst,
 						includeBytecode,
 						fao,
+						solc,
 					)
 				let code = ''
 				if (artifacts && Object.keys(artifacts).length > 0) {
@@ -216,6 +223,7 @@ export const bundler = (config, logger, fao) => {
 						includeAst,
 						includeBytecode,
 						fao,
+						solc,
 					)
 				let code = ''
 				if (artifacts && Object.keys(artifacts).length > 0) {

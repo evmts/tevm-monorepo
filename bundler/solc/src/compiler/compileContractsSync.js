@@ -1,4 +1,4 @@
-import * as solc from '../solc.js'
+import { solcCompile } from '../solc.js'
 import { invariant } from '../utils/invariant.js'
 import { moduleFactory } from '@evmts/resolutions'
 import { runSync } from 'effect/Effect'
@@ -16,6 +16,7 @@ import resolve from 'resolve'
  * @param {TIncludeBytecode} includeBytecode
  * @param {import('../types.js').FileAccessObject} fao
  * @param {import('../types.js').Logger} logger
+ * @param {any} solc
  * @returns {import('../types.js').CompiledContracts}
  * @example
  * const { artifacts, modules } = compileContractSync(
@@ -35,6 +36,7 @@ export function compileContractSync(
 	includeBytecode,
 	fao,
 	logger,
+	solc,
 ) {
 	const moduleMap = runSync(
 		moduleFactory(
@@ -105,7 +107,7 @@ export function compileContractSync(
 	/**
 	 * @type {import('../solcTypes.js').SolcOutput}
 	 */
-	const solcOutput = solc.solcCompile(solcInput)
+	const solcOutput = solcCompile(solc, solcInput)
 
 	const warnings = solcOutput?.errors?.filter(({ type }) => type === 'Warning')
 	const isErrors = (solcOutput?.errors?.length ?? 0) > (warnings?.length ?? 0)

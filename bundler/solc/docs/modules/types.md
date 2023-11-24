@@ -22,7 +22,7 @@
 
 #### Defined in
 
-[solc/src/types.ts:65](https://github.com/evmts/evmts-monorepo/blob/main/bundler/solc/src/types.ts#L65)
+[solc/src/types.ts:67](https://github.com/evmts/evmts-monorepo/blob/main/bundler/solc/src/types.ts#L67)
 
 ___
 
@@ -48,7 +48,7 @@ ___
 
 #### Defined in
 
-[solc/src/types.ts:57](https://github.com/evmts/evmts-monorepo/blob/main/bundler/solc/src/types.ts#L57)
+[solc/src/types.ts:59](https://github.com/evmts/evmts-monorepo/blob/main/bundler/solc/src/types.ts#L59)
 
 ___
 
@@ -66,7 +66,7 @@ ___
 
 #### Defined in
 
-[solc/src/types.ts:42](https://github.com/evmts/evmts-monorepo/blob/main/bundler/solc/src/types.ts#L42)
+[solc/src/types.ts:44](https://github.com/evmts/evmts-monorepo/blob/main/bundler/solc/src/types.ts#L44)
 
 ___
 
@@ -85,7 +85,7 @@ ___
 
 #### Defined in
 
-[solc/src/types.ts:48](https://github.com/evmts/evmts-monorepo/blob/main/bundler/solc/src/types.ts#L48)
+[solc/src/types.ts:50](https://github.com/evmts/evmts-monorepo/blob/main/bundler/solc/src/types.ts#L50)
 
 ___
 
@@ -103,11 +103,11 @@ ___
 
 ### ResolveArtifacts
 
-Ƭ **ResolveArtifacts**: (`solFile`: `string`, `basedir`: `string`, `logger`: [`Logger`](types.md#logger), `config`: `ResolvedCompilerConfig`, `includeAst`: `boolean`, `includeBytecode`: `boolean`, `fao`: [`FileAccessObject`](types.md#fileaccessobject)) => `Promise`\<\{ `artifacts`: [`Artifacts`](types.md#artifacts) ; `asts`: `Record`\<`string`, `Node`\> \| `undefined` ; `modules`: `Record`\<``"string"``, [`ModuleInfo`](types.md#moduleinfo)\> ; `solcInput`: `SolcInputDescription` ; `solcOutput`: `SolcOutput`  }\>
+Ƭ **ResolveArtifacts**: (`solFile`: `string`, `basedir`: `string`, `logger`: [`Logger`](types.md#logger), `config`: `ResolvedCompilerConfig`, `includeAst`: `boolean`, `includeBytecode`: `boolean`, `fao`: [`FileAccessObject`](types.md#fileaccessobject), `solc`: `any`) => `Promise`\<\{ `artifacts`: [`Artifacts`](types.md#artifacts) ; `asts`: `Record`\<`string`, `Node`\> \| `undefined` ; `modules`: `Record`\<``"string"``, [`ModuleInfo`](types.md#moduleinfo)\> ; `solcInput`: `SolcInputDescription` ; `solcOutput`: `SolcOutput`  }\>
 
 #### Type declaration
 
-▸ (`solFile`, `basedir`, `logger`, `config`, `includeAst`, `includeBytecode`, `fao`): `Promise`\<\{ `artifacts`: [`Artifacts`](types.md#artifacts) ; `asts`: `Record`\<`string`, `Node`\> \| `undefined` ; `modules`: `Record`\<``"string"``, [`ModuleInfo`](types.md#moduleinfo)\> ; `solcInput`: `SolcInputDescription` ; `solcOutput`: `SolcOutput`  }\>
+▸ (`solFile`, `basedir`, `logger`, `config`, `includeAst`, `includeBytecode`, `fao`, `solc`): `Promise`\<\{ `artifacts`: [`Artifacts`](types.md#artifacts) ; `asts`: `Record`\<`string`, `Node`\> \| `undefined` ; `modules`: `Record`\<``"string"``, [`ModuleInfo`](types.md#moduleinfo)\> ; `solcInput`: `SolcInputDescription` ; `solcOutput`: `SolcOutput`  }\>
 
 ##### Parameters
 
@@ -120,6 +120,7 @@ ___
 | `includeAst` | `boolean` |
 | `includeBytecode` | `boolean` |
 | `fao` | [`FileAccessObject`](types.md#fileaccessobject) |
+| `solc` | `any` |
 
 ##### Returns
 
@@ -133,11 +134,11 @@ ___
 
 ### ResolveArtifactsSync
 
-Ƭ **ResolveArtifactsSync**: (`solFile`: `string`, `basedir`: `string`, `logger`: [`Logger`](types.md#logger), `config`: `ResolvedCompilerConfig`, `includeAst`: `boolean`, `includeBytecode`: `boolean`, `fao`: [`FileAccessObject`](types.md#fileaccessobject)) => \{ `artifacts`: [`Artifacts`](types.md#artifacts) ; `asts`: `Record`\<`string`, `Node`\> \| `undefined` ; `modules`: `Record`\<``"string"``, [`ModuleInfo`](types.md#moduleinfo)\> ; `solcInput`: `SolcInputDescription` ; `solcOutput`: `SolcOutput`  }
+Ƭ **ResolveArtifactsSync**: (`solFile`: `string`, `basedir`: `string`, `logger`: [`Logger`](types.md#logger), `config`: `ResolvedCompilerConfig`, `includeAst`: `boolean`, `includeBytecode`: `boolean`, `fao`: [`FileAccessObject`](types.md#fileaccessobject), `solc`: `any`) => \{ `artifacts`: [`Artifacts`](types.md#artifacts) ; `asts`: `Record`\<`string`, `Node`\> \| `undefined` ; `modules`: `Record`\<``"string"``, [`ModuleInfo`](types.md#moduleinfo)\> ; `solcInput`: `SolcInputDescription` ; `solcOutput`: `SolcOutput`  }
 
 #### Type declaration
 
-▸ (`solFile`, `basedir`, `logger`, `config`, `includeAst`, `includeBytecode`, `fao`): `Object`
+▸ (`solFile`, `basedir`, `logger`, `config`, `includeAst`, `includeBytecode`, `fao`, `solc`): `Object`
 
 ##### Parameters
 
@@ -150,6 +151,7 @@ ___
 | `includeAst` | `boolean` |
 | `includeBytecode` | `boolean` |
 | `fao` | [`FileAccessObject`](types.md#fileaccessobject) |
+| `solc` | `any` |
 
 ##### Returns
 
@@ -165,4 +167,4 @@ ___
 
 #### Defined in
 
-[solc/src/types.ts:26](https://github.com/evmts/evmts-monorepo/blob/main/bundler/solc/src/types.ts#L26)
+[solc/src/types.ts:27](https://github.com/evmts/evmts-monorepo/blob/main/bundler/solc/src/types.ts#L27)

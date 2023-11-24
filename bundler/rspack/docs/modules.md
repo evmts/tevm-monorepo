@@ -12,14 +12,14 @@
 
 ### rspackPluginEvmts
 
-▸ **rspackPluginEvmts**(`options?`): `RspackPluginInstance`
+▸ **rspackPluginEvmts**(`options`): `RspackPluginInstance`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `options?` | `Object` |
-| `options.compiler?` | ``"solc"`` \| ``"foundry"`` |
+| `options` | `Object` |
+| `options.solc` | `any` |
 
 #### Returns
 

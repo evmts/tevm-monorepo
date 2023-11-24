@@ -12,7 +12,7 @@
 
 ### bundler
 
-▸ **bundler**(`config`, `logger`, `fao`, `cache?`): `Object`
+▸ **bundler**(`config`, `logger`, `fao`, `solc`, `cache?`): `Object`
 
 #### Parameters
 
@@ -21,6 +21,7 @@
 | `config` | `ResolvedCompilerConfig` |
 | `logger` | `Logger` |
 | `fao` | `FileAccessObject` |
+| `solc` | `any` |
 | `cache?` | [`Cache`](createCache.md#cache) |
 
 #### Returns

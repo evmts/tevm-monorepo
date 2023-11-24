@@ -4,6 +4,8 @@ import { bundler } from '@evmts/base'
 import { loadConfig } from '@evmts/config'
 import { succeed } from 'effect/Effect'
 import { exists, readFile } from 'fs/promises'
+// @ts-expect-error
+import * as solc from 'solc'
 import { type Mock, beforeEach, describe, expect, it, vi } from 'vitest'
 
 vi.mock('@evmts/config', async () => ({
@@ -65,17 +67,17 @@ describe('evmtsBunPlugin', () => {
 	})
 
 	it('should create the plugin correctly', async () => {
-		const plugin = evmtsBunPlugin()
+		const plugin = evmtsBunPlugin({ solc })
 		expect(plugin.name).toEqual('@evmts/esbuild-plugin')
 	})
 
 	it('Should not specify a target', async () => {
-		const plugin = evmtsBunPlugin()
+		const plugin = evmtsBunPlugin({ solc })
 		expect(plugin.target).toBeUndefined()
 	})
 
 	it('should load .d.ts and ts files correctly', async () => {
-		const plugin = evmtsBunPlugin()
+		const plugin = evmtsBunPlugin({ solc })
 
 		const mockBuild = {
 			onLoad: vi.fn(),
@@ -116,7 +118,7 @@ describe('evmtsBunPlugin', () => {
 	})
 
 	it('should load sol files correctly', async () => {
-		const plugin = evmtsBunPlugin()
+		const plugin = evmtsBunPlugin({ solc })
 
 		const mockBuild = {
 			onLoad: vi.fn(),
@@ -146,7 +148,7 @@ describe('evmtsBunPlugin', () => {
 	})
 
 	it('should resolve @evmts/core correctly when criteria are met', async () => {
-		const plugin = evmtsBunPlugin()
+		const plugin = evmtsBunPlugin({ solc })
 		const mockBuild = {
 			onResolve: vi.fn(),
 			onLoad: vi.fn(),
@@ -164,7 +166,7 @@ describe('evmtsBunPlugin', () => {
 	})
 
 	it('should resolve @evmts/core when imported from within the project or from node_modules', async () => {
-		const plugin = evmtsBunPlugin()
+		const plugin = evmtsBunPlugin({ solc })
 		const mockBuild = {
 			onResolve: vi.fn(),
 			onLoad: vi.fn(),
@@ -188,7 +190,7 @@ describe('evmtsBunPlugin', () => {
 	})
 
 	it('should resolve solidity file using @evmts/base when neither .d.ts nor .ts files exist', async () => {
-		const plugin = evmtsBunPlugin()
+		const plugin = evmtsBunPlugin({ solc })
 		const mockBuild = {
 			onLoad: vi.fn(),
 			onResolve: vi.fn(),
@@ -209,7 +211,7 @@ describe('evmtsBunPlugin', () => {
 	})
 
 	it('should load .ts file when it exists', async () => {
-		const plugin = evmtsBunPlugin()
+		const plugin = evmtsBunPlugin({ solc })
 
 		const mockBuild = {
 			onLoad: vi.fn(),
@@ -232,7 +234,7 @@ describe('evmtsBunPlugin', () => {
 		expect(result.watchFiles).toEqual([`${contractPath}.ts`])
 	})
 	it('should load .d.ts file over .ts file when both exist', async () => {
-		const plugin = evmtsBunPlugin()
+		const plugin = evmtsBunPlugin({ solc })
 
 		const mockBuild = {
 			onLoad: vi.fn(),

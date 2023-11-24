@@ -6,10 +6,7 @@ import { readFile } from 'fs/promises'
 import { createRequire } from 'module'
 import { z } from 'zod'
 
-const compilerOptionValidator = z
-	.enum(['solc', 'foundry'])
-	.default('solc')
-	.describe('compiler to use.  Defaults to solc')
+const compilerOptionValidator = z.any().describe('Solc compiler to use')
 
 /**
  * @typedef {import("zod").infer<typeof compilerOptionValidator>} CompilerOption
@@ -20,22 +17,18 @@ const bundlers = {
 }
 
 /**
- * @type {import("unplugin").UnpluginFactory<{compiler?: CompilerOption } | undefined, false>}
+ * @type {import("unplugin").UnpluginFactory<{solc: CompilerOption }, false>}
  */
-export const evmtsUnplugin = (options = {}) => {
+export const evmtsUnplugin = (options) => {
 	/**
 	 * @type {import("@evmts/config").ResolvedCompilerConfig}
 	 */
 	let config
 
 	// for current release we will hardcode this to solc
-	const parsedCompilerOption = compilerOptionValidator.safeParse(
-		options.compiler,
-	)
+	const parsedCompilerOption = compilerOptionValidator.safeParse(options.solc)
 	if (!parsedCompilerOption.success) {
-		throw new Error(
-			`Invalid compiler option: ${options.compiler}.  Valid options are 'solc' and 'foundry'`,
-		)
+		throw new Error(`Invalid solc compiler passed to EVMts plugin'`)
 	}
 	const compilerOption = parsedCompilerOption.data
 
@@ -44,7 +37,7 @@ export const evmtsUnplugin = (options = {}) => {
 			'We have abandoned the foundry option despite supporting it in the past. Please use solc instead. Foundry will be added back as a compiler at a later time.',
 		)
 	}
-	const bundler = bundlers[compilerOption]
+	const bundler = bundlers.solc
 	/**
 	 * @type {ReturnType<typeof bundler>}
 	 */
@@ -66,7 +59,7 @@ export const evmtsUnplugin = (options = {}) => {
 		enforce: 'pre',
 		async buildStart() {
 			config = runSync(loadConfig(process.cwd()))
-			moduleResolver = bundler(config, console, fao, solcCache)
+			moduleResolver = bundler(config, console, fao, compilerOption, solcCache)
 			this.addWatchFile('./tsconfig.json')
 		},
 		loadInclude: (id) => {
@@ -76,7 +69,7 @@ export const evmtsUnplugin = (options = {}) => {
 				!existsSync(`${id}.d.ts`)
 			)
 		},
-		async resolveId(id, importer, options) {
+		async resolveId(id, importer) {
 			// to handle the case where the import is coming from a node_module or a different workspace
 			// we need to always point @evmts/core to the local version
 			if (
@@ -84,7 +77,6 @@ export const evmtsUnplugin = (options = {}) => {
 				!importer?.startsWith(process.cwd()) &&
 				!importer?.includes('node_modules')
 			) {
-				console.log({ id, importer, options })
 				return createRequire(`${process.cwd()}/`).resolve('@evmts/core')
 			}
 			return null

@@ -1,5 +1,6 @@
 import { esbuildPluginEvmts } from '@evmts/esbuild-plugin'
 import { build } from 'esbuild'
+import solc from 'solc'
 
 build({
 	entryPoints: ['src/index.js'],
@@ -12,7 +13,7 @@ build({
 			process.env.NODE_ENV ?? 'production',
 		),
 	},
-	plugins: [esbuildPluginEvmts()],
+	plugins: [esbuildPluginEvmts({ solc })],
 	// logLevel: "silent",
 }).catch((e) => {
 	console.error(e)

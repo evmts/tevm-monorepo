@@ -12,14 +12,14 @@
 
 ### rollupPluginEvmts
 
-▸ **rollupPluginEvmts**(`options?`): `Plugin`\<`any`\>
+▸ **rollupPluginEvmts**(`options`): `Plugin`\<`any`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `options?` | `Object` |
-| `options.compiler?` | ``"solc"`` \| ``"foundry"`` |
+| `options` | `Object` |
+| `options.solc` | `any` |
 
 #### Returns
 

@@ -35,6 +35,7 @@ export type Bundler = (
 	config: ResolvedCompilerConfig,
 	logger: Logger,
 	fao: FileAccessObject,
+	solc: any,
 	cache?: Cache,
 ) => {
 	/**

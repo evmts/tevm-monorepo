@@ -2,6 +2,8 @@ import { createHostDecorator } from '../factories/index.js'
 import { isSolidity } from '../utils/index.js'
 import { Cache, bundler } from '@evmts/base'
 import { existsSync, writeFileSync } from 'fs'
+// @ts-expect-error
+import * as solc from 'solc'
 
 /**
  * Decorate `LangaugeServerHost.getScriptSnapshot` to return generated `.d.ts` file for `.sol` files
@@ -22,7 +24,7 @@ export const getScriptSnapshotDecorator = (solcCache?: Cache) =>
 					return languageServiceHost.getScriptSnapshot(filePath)
 				}
 				try {
-					const plugin = bundler(config, logger as any, fao, solcCache)
+					const plugin = bundler(config, logger as any, fao, solc, solcCache)
 					const resolveBytecode = filePath.endsWith('.s.sol')
 					const snapshot = plugin.resolveDtsSync(
 						filePath,

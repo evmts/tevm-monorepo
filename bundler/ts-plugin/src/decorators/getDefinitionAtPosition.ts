@@ -6,6 +6,8 @@ import {
 } from '../utils/index.js'
 import { Cache, FileAccessObject, bundler } from '@evmts/base'
 import { ResolvedCompilerConfig } from '@evmts/config'
+// @ts-expect-error
+import * as solc from 'solc'
 import { Node } from 'solidity-ast/node.js'
 import { findAll } from 'solidity-ast/utils.js'
 import typescript from 'typescript/lib/tsserverlibrary.js'
@@ -38,7 +40,7 @@ export const getDefinitionServiceDecorator = (
 		if (!evmtsContractPath) {
 			return definition
 		}
-		const plugin = bundler(config, logger as any, fao, solcCache)
+		const plugin = bundler(config, logger as any, fao, solc, solcCache)
 		const includedAst = true
 		const { asts, solcInput } = plugin.resolveDtsSync(
 			evmtsContractPath,

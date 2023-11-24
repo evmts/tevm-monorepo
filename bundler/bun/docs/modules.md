@@ -12,10 +12,16 @@
 
 ### evmtsBunPlugin
 
-▸ **evmtsBunPlugin**(): `BunPlugin`
+▸ **evmtsBunPlugin**(`solc`): `BunPlugin`
 
 @evmts/bun-plugin is a bun plugin that allows you to import solidity files into your typescript files
 and have them compiled to typescript on the fly.
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `solc` | `any` |
 
 #### Returns
 
@@ -36,4 +42,4 @@ preload = ["./plugins.ts"]
 
 #### Defined in
 
-[plugin.js:22](https://github.com/evmts/evmts-monorepo/blob/main/bundler/bun/src/plugin.js#L22)
+[plugin.js:23](https://github.com/evmts/evmts-monorepo/blob/main/bundler/bun/src/plugin.js#L23)

@@ -1,11 +1,10 @@
-import { solcCompile } from '@evmts/solc'
 import { useQuery } from '@tanstack/react-query'
 import { highlight, languages } from 'prismjs'
 import 'prismjs/components/prism-core'
 import 'prismjs/themes/prism.css' //Example style, you can use another
 import { useState } from 'react'
 import Editor from 'react-simple-code-editor'
-
+const solcCompile = () => {}
 languages.solidity = languages.extend('clike', {
 	'class-name': {
 		pattern:
