@@ -9,7 +9,6 @@ import { createRequire } from 'module'
 import defaultSolc from 'solc'
 import { z } from 'zod'
 
-console.log(defaultSolc.version())
 const defaultVersion = defaultSolc
 	.version()
 	.slice(0, defaultSolc.version().indexOf('+'))
