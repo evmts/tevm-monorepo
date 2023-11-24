@@ -1,6 +1,6 @@
 {
 	"name": "@evmts/unplugin",
-	"version": "1.0.0-next.18",
+	"version": "1.0.0-next.19",
 	"private": false,
 	"description": "Internal unplugin for Evmts",
 	"keywords": [

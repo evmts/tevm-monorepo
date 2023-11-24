@@ -1,5 +1,11 @@
 # @evmts/unplugin
 
+## 1.0.0-next.19
+
+### Patch Changes
+
+- [#726](https://github.com/evmts/evmts-monorepo/pull/726) [`da1f1d43`](https://github.com/evmts/evmts-monorepo/commit/da1f1d43035edb9d83ca69e4c39fb22c9dd417d9) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug with strangling console.log
+
 ## 1.0.0-next.18
 
 ### Patch Changes
