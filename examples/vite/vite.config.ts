@@ -1,6 +1,5 @@
 import { vitePluginEvmts } from '@evmts/vite-plugin'
 import react from '@vitejs/plugin-react'
-import solc from 'solc'
 import { defineConfig } from 'vite'
 import { nodePolyfills } from 'vite-plugin-node-polyfills'
 
@@ -27,6 +26,6 @@ export default defineConfig({
 			},
 		}),
 		react(),
-		vitePluginEvmts({ solc }) as any,
+		vitePluginEvmts({}) as any,
 	],
 })

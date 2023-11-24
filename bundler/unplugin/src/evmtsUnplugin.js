@@ -1,12 +1,35 @@
 import { bundler, createCache } from '@evmts/base'
 import { loadConfig } from '@evmts/config'
+import { createSolc, releases } from '@evmts/solc'
 import { runSync } from 'effect/Effect'
 import { existsSync, readFileSync } from 'fs'
 import { readFile } from 'fs/promises'
 import { createRequire } from 'module'
+// @ts-expect-error
+import defaultSolc from 'solc'
 import { z } from 'zod'
 
-const compilerOptionValidator = z.any().describe('Solc compiler to use')
+console.log(defaultSolc.version())
+const defaultVersion = defaultSolc
+	.version()
+	.slice(0, defaultSolc.version().indexOf('+'))
+
+/**
+ * @typedef {import("@evmts/solc").SolcVersions} SolcVersions
+ */
+
+/**
+ * @type {import("zod").ZodSchema<SolcVersions>}
+ */
+const compilerOptionValidator = z
+	.union(
+		/**
+		 * @type {any}
+		 */
+		(Object.keys(releases).map((release) => z.literal(release))),
+	)
+	.default(defaultVersion)
+	.describe(`Solc compiler version to use. Defaults to ${defaultVersion}}`)
 
 /**
  * @typedef {import("zod").infer<typeof compilerOptionValidator>} CompilerOption
@@ -17,26 +40,21 @@ const bundlers = {
 }
 
 /**
- * @type {import("unplugin").UnpluginFactory<{solc: CompilerOption }, false>}
+ * @type {import("unplugin").UnpluginFactory<{solc?: CompilerOption } | undefined, false>}
  */
-export const evmtsUnplugin = (options) => {
+export const evmtsUnplugin = (options = {}) => {
 	/**
 	 * @type {import("@evmts/config").ResolvedCompilerConfig}
 	 */
 	let config
 
 	// for current release we will hardcode this to solc
-	const parsedCompilerOption = compilerOptionValidator.safeParse(options.solc)
-	if (!parsedCompilerOption.success) {
+	const parsedSolcVersion = compilerOptionValidator.safeParse(options.solc)
+	if (!parsedSolcVersion.success) {
+		console.error(parsedSolcVersion.error)
 		throw new Error(`Invalid solc compiler passed to EVMts plugin'`)
 	}
-	const compilerOption = parsedCompilerOption.data
 
-	if (compilerOption === 'foundry') {
-		throw new Error(
-			'We have abandoned the foundry option despite supporting it in the past. Please use solc instead. Foundry will be added back as a compiler at a later time.',
-		)
-	}
 	const bundler = bundlers.solc
 	/**
 	 * @type {ReturnType<typeof bundler>}
@@ -59,7 +77,11 @@ export const evmtsUnplugin = (options) => {
 		enforce: 'pre',
 		async buildStart() {
 			config = runSync(loadConfig(process.cwd()))
-			moduleResolver = bundler(config, console, fao, compilerOption, solcCache)
+			const versionedSolc =
+				parsedSolcVersion.data === defaultVersion
+					? defaultSolc
+					: await createSolc(parsedSolcVersion.data)
+			moduleResolver = bundler(config, console, fao, versionedSolc, solcCache)
 			this.addWatchFile('./tsconfig.json')
 		},
 		loadInclude: (id) => {

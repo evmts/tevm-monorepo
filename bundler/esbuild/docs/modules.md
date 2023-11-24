@@ -12,14 +12,14 @@
 
 ### esbuildPluginEvmts
 
-▸ **esbuildPluginEvmts**(`options`): `Plugin`
+▸ **esbuildPluginEvmts**(`options?`): `Plugin`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `options` | `Object` |
-| `options.solc` | `any` |
+| `options?` | `Object` |
+| `options.solc?` | `SolcVersions` |
 
 #### Returns
 

@@ -71,9 +71,6 @@
 		"wasm-pack": "^0.12.1",
 		"zod": "^3.22.4"
 	},
-	"peerDependencies": {
-		"viem": ">1.0.0"
-	},
 	"publishConfig": {
 		"access": "public"
 	}

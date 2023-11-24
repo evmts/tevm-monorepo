@@ -64,9 +64,6 @@
 		"typescript": "^5.2.2",
 		"vitest": "^0.34.6"
 	},
-	"peerDependencies": {
-		"webpack": ">5.0.0"
-	},
 	"publishConfig": {
 		"access": "public"
 	}

@@ -12,14 +12,14 @@
 
 ### webpackPluginEvmts
 
-▸ **webpackPluginEvmts**(`options`): `WebpackPluginInstance`
+▸ **webpackPluginEvmts**(`options?`): `WebpackPluginInstance`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `options` | `Object` |
-| `options.solc` | `any` |
+| `options?` | `Object` |
+| `options.solc?` | `SolcVersions` |
 
 #### Returns
 

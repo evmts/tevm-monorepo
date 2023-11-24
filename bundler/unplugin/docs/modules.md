@@ -21,7 +21,7 @@
 
 #### Defined in
 
-[bundler/unplugin/src/evmtsUnplugin.js:12](https://github.com/evmts/evmts-monorepo/blob/main/bundler/unplugin/src/evmtsUnplugin.js#L12)
+[bundler/unplugin/src/evmtsUnplugin.js:35](https://github.com/evmts/evmts-monorepo/blob/main/bundler/unplugin/src/evmtsUnplugin.js#L35)
 
 ## Functions
 
@@ -60,8 +60,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `options` | `Object` |
-| `options.solc` | `any` |
+| `options` | `undefined` \| \{ `solc?`: `SolcVersions`  } |
 | `meta` | `UnpluginContextMeta` |
 
 #### Returns

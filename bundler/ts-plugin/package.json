@@ -60,6 +60,7 @@
 		"effect": "2.0.0-next.54",
 		"esbuild": "0.19.5",
 		"glob": "^10.3.10",
+		"solc": "0.8.23-fixed",
 		"solidity-ast": "^0.4.52",
 		"zod": "^3.22.4"
 	},
@@ -75,7 +76,6 @@
 		"vitest": "^0.34.6"
 	},
 	"peerDependencies": {
-		"solc": "*",
 		"typescript": ">=5.0.0"
 	}
 }

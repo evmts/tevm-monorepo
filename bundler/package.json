@@ -18,9 +18,7 @@
 		"directory": "bundler"
 	},
 	"license": "MIT",
-	"contributors": [
-		"Will Cory <willcory10@gmail.com>"
-	],
+	"contributors": ["Will Cory <willcory10@gmail.com>"],
 	"type": "module",
 	"exports": {
 		"./package.json": "./package.json",
@@ -34,11 +32,7 @@
 	"main": "index.cjs",
 	"module": "index.mjs",
 	"types": "index.d.ts",
-	"files": [
-		"dist",
-		"types",
-		"src"
-	],
+	"files": ["dist", "types", "src"],
 	"dependencies": {
 		"@evmts/bun-plugin": "workspace:^",
 		"@evmts/config": "workspace:^",
@@ -56,9 +50,6 @@
 		"typedoc": "^0.25.3",
 		"typedoc-plugin-markdown": "^3.16.0",
 		"typescript": "^5.2.2"
-	},
-	"peerDependencies": {
-		"solc": ">0.8.10"
 	},
 	"publishConfig": {
 		"access": "public"

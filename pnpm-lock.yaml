@@ -87,9 +87,6 @@ importers:
       '@evmts/webpack-plugin':
         specifier: workspace:^
         version: link:webpack
-      solc:
-        specifier: '>0.8.10'
-        version: 0.8.22
     devDependencies:
       '@evmts/tsconfig':
         specifier: workspace:1.0.0-next.5
@@ -194,9 +191,15 @@ importers:
       '@evmts/config':
         specifier: workspace:^
         version: link:../config
+      '@evmts/solc':
+        specifier: workspace:1.0.0-next.17
+        version: link:../solc
       effect:
         specifier: 2.0.0-next.54
         version: 2.0.0-next.54
+      solc:
+        specifier: 0.8.23-fixed
+        version: 0.8.23-fixed
     devDependencies:
       '@evmts/core':
         specifier: workspace:^
@@ -252,9 +255,6 @@ importers:
       jsonc-parser:
         specifier: ^3.2.0
         version: 3.2.0
-      solc:
-        specifier: '*'
-        version: 0.8.22
       viem:
         specifier: ^1.18.1
         version: 1.18.9(typescript@5.2.2)(zod@3.22.4)
@@ -439,9 +439,6 @@ importers:
       '@evmts/unplugin':
         specifier: workspace:^
         version: link:../unplugin
-      webpack:
-        specifier: '>5.0.0'
-        version: 5.89.0(esbuild@0.19.5)
     devDependencies:
       '@evmts/tsconfig':
         specifier: workspace:^
@@ -596,8 +593,8 @@ importers:
         specifier: ^10.3.10
         version: 10.3.10
       solc:
-        specifier: '*'
-        version: 0.8.22
+        specifier: 0.8.23-fixed
+        version: 0.8.23-fixed
       solidity-ast:
         specifier: ^0.4.52
         version: 0.4.53
@@ -662,6 +659,9 @@ importers:
       resolve:
         specifier: ^1.22.8
         version: 1.22.8
+      solc:
+        specifier: 0.8.22
+        version: 0.8.22
       solidity-ast:
         specifier: ^0.4.52
         version: 0.4.53
@@ -687,9 +687,6 @@ importers:
       rome:
         specifier: ^12.1.3
         version: 12.1.3
-      solc:
-        specifier: 0.8.22
-        version: 0.8.22
       tsup:
         specifier: ^7.2.0
         version: 7.3.0(typescript@5.2.2)
@@ -717,9 +714,6 @@ importers:
       '@evmts/unplugin':
         specifier: workspace:^
         version: link:../unplugin
-      vite:
-        specifier: '>4.0.0'
-        version: 4.5.0
     devDependencies:
       '@evmts/tsconfig':
         specifier: workspace:^
@@ -1346,9 +1340,6 @@ importers:
       resolve:
         specifier: ^1.22.8
         version: 1.22.8
-      solc:
-        specifier: '*'
-        version: 0.8.22
       viem:
         specifier: ^1.18.1
         version: 1.18.9(typescript@5.2.2)(zod@3.22.4)
@@ -5445,7 +5436,7 @@ packages:
       std-env: 3.5.0
       test-exclude: 6.0.0
       v8-to-istanbul: 9.1.3
-      vitest: 0.34.6(@vitest/ui@0.34.6)
+      vitest: 0.34.6
     transitivePeerDependencies:
       - supports-color
     dev: true
