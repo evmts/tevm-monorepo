@@ -73,7 +73,7 @@ A local EVM instance running in JavaScript. Similar to Anvil in your browser
 
 #### Defined in
 
-[evmts.ts:146](https://github.com/evmts/evmts-monorepo/blob/main/vm/src/evmts.ts#L146)
+[evmts.ts:149](https://github.com/evmts/evmts-monorepo/blob/main/vm/src/evmts.ts#L149)
 
 ## Properties
 
@@ -83,7 +83,7 @@ A local EVM instance running in JavaScript. Similar to Anvil in your browser
 
 #### Defined in
 
-[evmts.ts:147](https://github.com/evmts/evmts-monorepo/blob/main/vm/src/evmts.ts#L147)
+[evmts.ts:149](https://github.com/evmts/evmts-monorepo/blob/main/vm/src/evmts.ts#L149)
 
 ___
 
@@ -95,7 +95,7 @@ Makes sure evmts is invoked with EVMts.create and not with new EVMts
 
 #### Defined in
 
-[evmts.ts:100](https://github.com/evmts/evmts-monorepo/blob/main/vm/src/evmts.ts#L100)
+[evmts.ts:103](https://github.com/evmts/evmts-monorepo/blob/main/vm/src/evmts.ts#L103)
 
 ## Methods
 
@@ -126,7 +126,7 @@ evmts.putAccount({
 
 #### Defined in
 
-[evmts.ts:196](https://github.com/evmts/evmts-monorepo/blob/main/vm/src/evmts.ts#L196)
+[evmts.ts:197](https://github.com/evmts/evmts-monorepo/blob/main/vm/src/evmts.ts#L197)
 
 ___
 
@@ -157,7 +157,7 @@ evmts.putContract({
 
 #### Defined in
 
-[evmts.ts:210](https://github.com/evmts/evmts-monorepo/blob/main/vm/src/evmts.ts#L210)
+[evmts.ts:211](https://github.com/evmts/evmts-monorepo/blob/main/vm/src/evmts.ts#L211)
 
 ___
 
@@ -190,7 +190,7 @@ const result = await evmts.runCall({
 
 #### Defined in
 
-[evmts.ts:226](https://github.com/evmts/evmts-monorepo/blob/main/vm/src/evmts.ts#L226)
+[evmts.ts:227](https://github.com/evmts/evmts-monorepo/blob/main/vm/src/evmts.ts#L227)
 
 ___
 
@@ -230,7 +230,7 @@ const result = await evmts.runContractCall({
 
 #### Defined in
 
-[evmts.ts:242](https://github.com/evmts/evmts-monorepo/blob/main/vm/src/evmts.ts#L242)
+[evmts.ts:243](https://github.com/evmts/evmts-monorepo/blob/main/vm/src/evmts.ts#L243)
 
 ___
 
@@ -283,7 +283,7 @@ evmts.runScript({
 
 #### Defined in
 
-[evmts.ts:177](https://github.com/evmts/evmts-monorepo/blob/main/vm/src/evmts.ts#L177)
+[evmts.ts:178](https://github.com/evmts/evmts-monorepo/blob/main/vm/src/evmts.ts#L178)
 
 ___
 
@@ -305,4 +305,4 @@ Creates a [EVMts](EVMts.md) instance
 
 #### Defined in
 
-[evmts.ts:105](https://github.com/evmts/evmts-monorepo/blob/main/vm/src/evmts.ts#L105)
+[evmts.ts:108](https://github.com/evmts/evmts-monorepo/blob/main/vm/src/evmts.ts#L108)
