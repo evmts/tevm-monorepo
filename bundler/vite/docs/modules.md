@@ -12,14 +12,14 @@
 
 ### vitePluginEvmts
 
-▸ **vitePluginEvmts**(`options`): `Plugin_2`
+▸ **vitePluginEvmts**(`options?`): `Plugin_2`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `options` | `Object` |
-| `options.solc` | `any` |
+| `options?` | `Object` |
+| `options.solc?` | `SolcVersions` |
 
 #### Returns
 

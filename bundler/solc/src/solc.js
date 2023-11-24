@@ -135,7 +135,7 @@ export const solcCompile = (solc, input) => {
 export const createSolc = async (release) => {
 	const s = await new Promise((resolve, reject) =>
 		solc.loadRemoteVersion(
-			release,
+			releases[release],
 			(/** @type {any}*/ e, /** @type {any}*/ s) => {
 				if (e) {
 					reject(e)

@@ -1,11 +1,9 @@
 import { esbuildPluginEvmts } from './index.js'
-// @ts-expect-error
-import * as solc from 'solc'
 import { describe, expect, it, vi } from 'vitest'
 
 describe('esbuildPluginEvmts', () => {
 	it('should properly export the unplugin bundler from @evmts/base', async () => {
-		const plugin = esbuildPluginEvmts({ solc })
+		const plugin = esbuildPluginEvmts()
 
 		expect(plugin.name).toMatchInlineSnapshot('"@evmts/rollup-plugin"')
 

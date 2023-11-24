@@ -55,7 +55,9 @@
 	"dependencies": {
 		"@evmts/base": "workspace:^",
 		"@evmts/config": "workspace:^",
-		"effect": "2.0.0-next.54"
+		"@evmts/solc": "workspace:1.0.0-next.17",
+		"effect": "2.0.0-next.54",
+		"solc": "0.8.23-fixed"
 	},
 	"devDependencies": {
 		"@evmts/core": "workspace:^",

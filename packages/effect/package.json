@@ -72,9 +72,6 @@
 		"vitest": "^0.34.6",
 		"zod": "^3.22.4"
 	},
-	"peerDependencies": {
-		"solc": "*"
-	},
 	"publishConfig": {
 		"access": "public"
 	}

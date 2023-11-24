@@ -1,12 +1,15 @@
 import { bunFileAccesObject } from './bunFileAccessObject.js'
 import { bundler, createCache } from '@evmts/base'
 import { loadConfig } from '@evmts/config'
+import { createSolc } from '@evmts/solc'
 import { runSync } from 'effect/Effect'
+// @ts-expect-error
+import defaultSolc from 'solc'
 
 /**
  * @evmts/bun-plugin is a bun plugin that allows you to import solidity files into your typescript files
  * and have them compiled to typescript on the fly.
- * @param {any} solc
+ * @param {{solc?: import("@evmts/solc").SolcVersions}} SolcVersions
  * @returns {import("bun").BunPlugin}
  * @example
  * ```ts plugin.ts
@@ -20,7 +23,7 @@ import { runSync } from 'effect/Effect'
  * preload = ["./plugins.ts"]
  * ```
  */
-export const evmtsBunPlugin = ({ solc }) => {
+export const evmtsBunPlugin = ({ solc = defaultSolc.version }) => {
 	return {
 		name: '@evmts/esbuild-plugin',
 		async setup(build) {
@@ -30,7 +33,7 @@ export const evmtsBunPlugin = ({ solc }) => {
 				config,
 				console,
 				bunFileAccesObject,
-				solc,
+				solc === defaultSolc.version ? defaultSolc : await createSolc(solc),
 				solcCache,
 			)
 			/**
