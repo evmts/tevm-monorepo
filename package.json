@@ -11,17 +11,6 @@
     "Will Cory <willcory10@gmail.com>"
   ],
   "type": "commonjs",
-  "workspaces": [
-    "bundler/*",
-    "bundler",
-    "experimental/*",
-    "configs/*",
-    "apps/*",
-    "extensions/*",
-    "packages/*",
-    "examples/*",
-    "vm"
-  ],
   "scripts": {
     "all": "nx run-many --targets=generate:docs,build:types,typecheck,test:coverage,build:dist",
     "allz": "concurrently 'pnpm i' 'bun lint' 'bun sort-package-json' && bun all",
