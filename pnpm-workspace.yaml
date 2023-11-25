@@ -5,6 +5,7 @@ packages:
   - "configs/*"
   - "apps/*"
   - "extensions/*"
+  - "lsp/*"
   - "packages/*"
   - "examples/*"
   - "vm"

@@ -21,7 +21,7 @@
 
 #### Defined in
 
-[bundler/unplugin/src/evmtsUnplugin.js:35](https://github.com/evmts/evmts-monorepo/blob/main/bundler/unplugin/src/evmtsUnplugin.js#L35)
+[bundler/unplugin/src/evmtsUnplugin.js:34](https://github.com/evmts/evmts-monorepo/blob/main/bundler/unplugin/src/evmtsUnplugin.js#L34)
 
 ## Functions
 
