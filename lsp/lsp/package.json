@@ -3,6 +3,7 @@
 	"version": "0.0.1",
 	"private": false,
 	"description": "The language server for EVMts",
+	"type": "module",
 	"main": "dist/index.js",
 	"license": "MIT",
 	"keywords": [
@@ -22,17 +23,20 @@
 		"types/**/*.d.ts"
 	],
 	"bin": {
-		"evmts-lsp": "./bin/evmts-lsp.js"
+		"evmts-lsp": "./bin/evmts-lsp.cjs"
 	},
 	"dependencies": {
-		"@evmts/tsconfig": "workspace:^",
 		"@evmts/config": "workspace:^",
+		"@evmts/tsconfig": "workspace:^",
 		"@volar/language-core": "~1.10.5",
 		"@volar/language-server": "~1.10.5",
 		"@volar/language-service": "~1.10.5",
+		"effect": "2.0.0-next.54",
+		"solc": "0.8.23-fixed",
 		"volar-service-css": "0.0.15",
 		"volar-service-emmet": "0.0.15",
 		"volar-service-html": "0.0.15",
+		"volar-service-typescript": "^0.0.17",
 		"vscode-html-languageservice": "^5.1.1",
 		"zod": "^3.22.4"
 	},
