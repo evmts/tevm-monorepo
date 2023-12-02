@@ -40,22 +40,26 @@
 	"scripts": {
 		"all": "pnpm i  && bun run build && bun lint && bun format && bun test:run && bun generate:docs",
 		"build": "nx run-many --targets=build:dist,build:types --projects=@evmts/vm",
-		"build:dist": "bun run tsup",
-		"build:types": "bun run tsc --emitDeclarationOnly --declaration --declarationMap",
+		"build:dist": "bun --bun run tsup",
+		"build:types": "bun --bun run tsc --emitDeclarationOnly --declaration --declarationMap",
 		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
 		"format": "rome format . --write",
 		"format:check": "rome format .",
-		"generate:docs": "bun run typedoc",
+		"generate:docs": "bun --bun run typedoc",
 		"lint": "rome check . --apply-unsafe",
 		"lint:check": "rome check . --verbose",
 		"package:up": "pnpm up --latest",
-		"test": "bun test --watch",
-		"test:coverage": "bun test --coverage",
-		"test:run": "bun test",
+		"test": "vitest",
+		"test:coverage": "vitest --coverage",
+		"test:run": "vitest run",
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
-		"@evmts/vm": "workspace:^"
+		"@evmts/vm": "workspace:^",
+		"@trpc/client": "^10.44.1",
+		"@trpc/server": "^10.44.1",
+		"superjson": "^2.2.1",
+		"trpc-playground": "^1.0.4"
 	},
 	"devDependencies": {
 		"@evmts/tsconfig": "workspace:^",
@@ -66,6 +70,7 @@
 		"typedoc": "^0.25.3",
 		"typedoc-plugin-markdown": "^3.16.0",
 		"typescript": "^5.1.3",
+		"vitest": "^0.34.6",
 		"zod": "^3.21.4"
 	},
 	"publishConfig": {

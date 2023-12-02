@@ -1,6 +1,29 @@
 import type { EVMts } from '../evmts.js'
 import { Address as EthjsAddress } from '@ethereumjs/util'
 import { type Address, type Hex, hexToBytes, maxInt256 } from 'viem'
+import { z } from 'zod'
+import { Address as ZAddress } from 'abitype/zod'
+
+// TODO replace with abitype https://github.com/wevm/abitype/pull/218
+const hexRegex = /^0x[0-9a-fA-F]*$/
+const ZHex = z.string().transform((value, ctx) => {
+	if (!hexRegex.test(value)) {
+		ctx.addIssue({
+			code: z.ZodIssueCode.custom,
+			message: 'value must be a hex string',
+		})
+	}
+	return value as Hex
+})
+
+export const CallActionValidator = z.object({
+	to: ZAddress.describe('the address to send call to'),
+	caller: ZAddress.describe('the address of the caller'),
+	origin: ZAddress.optional().describe('the address of the origin'),
+	gasLimit: z.bigint().optional().describe('the gas limit'),
+	data: ZHex.describe('the data to send'),
+	value: z.bigint().optional().describe('the eth value to send in wei'),
+})
 
 /**
  * EVMts action to execute a call on the vm
@@ -8,10 +31,10 @@ import { type Address, type Hex, hexToBytes, maxInt256 } from 'viem'
 export type RunCallAction = {
 	to: Address
 	caller: Address
-	origin?: Address
-	gasLimit?: bigint
+	origin?: Address | undefined
+	gasLimit?: bigint | undefined
 	data: Hex
-	value?: bigint
+	value?: bigint | undefined
 }
 
 /**
