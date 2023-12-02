@@ -1,8 +1,7 @@
 import type { BuildProcedure, CreateRouterInner } from '@trpc/server'
 import { z } from 'zod'
-import { CallActionValidator, EVMts } from '@evmts/vm'
 
-import type { Trpc } from './Trpc.js'
+import type { Trpc } from '../Trpc.js'
 
 /**
  * Class routes extend to create a TRPC route.
@@ -33,19 +32,4 @@ export abstract class Route {
   constructor(
     protected readonly trpc: Trpc,
   ) { }
-}
-
-export class CallRoute extends Route {
-  constructor(
-    trpc: Trpc,
-    protected readonly vm: EVMts,
-  ) {
-    super(trpc)
-  }
-  public readonly name = 'call'
-  public readonly handler = this.trpc.procedure.meta({
-    description: 'Execute a call on the vm',
-  }).input(CallActionValidator).query(async req => {
-    return this.vm.runCall(req.input)
-  })
 }

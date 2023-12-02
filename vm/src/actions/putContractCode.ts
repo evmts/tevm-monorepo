@@ -1,6 +1,14 @@
 import type { EVMts } from '../evmts.js'
 import { Address as EthjsAddress } from '@ethereumjs/util'
+import { Address as ZAddress } from 'abitype/zod'
 import { type Address, type Hex, hexToBytes } from 'viem'
+import { z } from 'zod'
+import { ZHex } from '../utils/zod.js'
+
+export const PutContractCodeActionValidator = z.object({
+	deployedBytecode: ZHex.describe('The deployed bytecode of the contract'),
+	contractAddress: ZAddress.describe('The address of the contract'),
+})
 
 /**
  * EVMts action to put contract code into the vm state
