@@ -40,7 +40,7 @@
 	"scripts": {
 		"all": "pnpm i  && bun run build && bun lint && bun format && bun test:run && bun generate:docs",
 		"build": "nx run-many --targets=build:dist,build:types --projects=@evmts/vm",
-		"build:dist": "bun --bun run tsup",
+		"build:dist": "bun run tsup",
 		"build:types": "bun --bun run tsc --emitDeclarationOnly --declaration --declarationMap",
 		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
 		"format": "rome format . --write",
