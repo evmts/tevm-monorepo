@@ -1,8 +1,8 @@
 import type { EVMts } from '../evmts.js'
 import { Address as EthjsAddress } from '@ethereumjs/util'
+import { Address as ZAddress } from 'abitype/zod'
 import { type Address, type Hex, hexToBytes, maxInt256 } from 'viem'
 import { z } from 'zod'
-import { Address as ZAddress } from 'abitype/zod'
 
 // TODO replace with abitype https://github.com/wevm/abitype/pull/218
 const hexRegex = /^0x[0-9a-fA-F]*$/
