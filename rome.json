@@ -9,6 +9,7 @@
 			"**/coverage",
 			"**/node_modules",
 			"**/dist",
+			"**/types",
 			"**/artifacts",
 			"**/lib",
 			"**/types",
