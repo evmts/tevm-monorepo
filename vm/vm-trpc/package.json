@@ -45,7 +45,7 @@
 		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
 		"format": "rome format . --write",
 		"format:check": "rome format .",
-		"generate:docs": "bun --bun run typedoc",
+		"generate:docs": "bun run typedoc",
 		"lint": "rome check . --apply-unsafe",
 		"lint:check": "rome check . --verbose",
 		"package:up": "pnpm up --latest",
