@@ -1,7 +1,7 @@
+import { plugin } from './plugin.js'
 import {
 	createConnection,
 	startLanguageServer,
 } from '@volar/language-server/node.js'
-import { plugin } from './plugin.js'
 
 startLanguageServer(createConnection(), plugin)

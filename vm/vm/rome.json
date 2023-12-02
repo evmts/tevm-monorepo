@@ -3,26 +3,7 @@
 		"enabled": true
 	},
 	"files": {
-		"ignore": [
-			".nx",
-			"node_modules",
-			"**/coverage",
-			"**/node_modules",
-			"**/dist",
-			"**/types",
-			"**/artifacts",
-			"**/lib",
-			"**/types",
-			"**/.next",
-			"**/.vitepress/cache",
-			"**/.vitepress/dist",
-			"scaffold-evmts",
-			".vscode",
-			".changeset",
-			".devcontainer",
-			"examples/svelte-ethers/.svelte-kit",
-			"extensions/viem"
-		]
+		"ignore": ["coverage", "node_modules", "dist", "artifacts", "types"]
 	},
 	"formatter": {
 		"enabled": true,
