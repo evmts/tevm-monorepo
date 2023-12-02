@@ -8,5 +8,4 @@ packages:
   - "extensions/*"
   - "lsp/*"
   - "packages/*"
-  - "trpc"
-  - "vm"
+  - "vm/*"
