@@ -1612,6 +1612,58 @@ importers:
         specifier: ^3.22.4
         version: 3.22.4
 
+  vm/server:
+    dependencies:
+      '@evmts/vm':
+        specifier: workspace:^
+        version: link:../vm
+      '@trpc/client':
+        specifier: ^10.44.1
+        version: 10.44.1(@trpc/server@10.44.1)
+      '@trpc/server':
+        specifier: ^10.44.1
+        version: 10.44.1
+      superjson:
+        specifier: ^2.2.1
+        version: 2.2.1
+      trpc-playground:
+        specifier: ^1.0.4
+        version: 1.0.4(@trpc/server@10.44.1)(typescript@5.2.2)(zod@3.22.4)
+    devDependencies:
+      '@evmts/tsconfig':
+        specifier: workspace:^
+        version: link:../../configs/tsconfig
+      '@vitest/coverage-v8':
+        specifier: ^0.34.6
+        version: 0.34.6(vitest@0.34.6)
+      abitype:
+        specifier: ^0.8.11
+        version: 0.8.11(typescript@5.2.2)(zod@3.22.4)
+      bun-types:
+        specifier: ^1.0.7
+        version: 1.0.12
+      rome:
+        specifier: ^12.1.3
+        version: 12.1.3
+      tsup:
+        specifier: ^7.0.0
+        version: 7.3.0(typescript@5.2.2)
+      typedoc:
+        specifier: ^0.25.3
+        version: 0.25.3(typescript@5.2.2)
+      typedoc-plugin-markdown:
+        specifier: ^3.16.0
+        version: 3.17.1(typedoc@0.25.3)
+      typescript:
+        specifier: ^5.1.3
+        version: 5.2.2
+      vitest:
+        specifier: ^0.34.6
+        version: 0.34.6(@vitest/ui@0.34.6)
+      zod:
+        specifier: ^3.21.4
+        version: 3.22.4
+
   vm/vm:
     dependencies:
       '@ethereumjs/block':
@@ -1678,58 +1730,6 @@ importers:
       typescript:
         specifier: ^5.1.3
         version: 5.2.2
-      zod:
-        specifier: ^3.21.4
-        version: 3.22.4
-
-  vm/vm-trpc:
-    dependencies:
-      '@evmts/vm':
-        specifier: workspace:^
-        version: link:../vm
-      '@trpc/client':
-        specifier: ^10.44.1
-        version: 10.44.1(@trpc/server@10.44.1)
-      '@trpc/server':
-        specifier: ^10.44.1
-        version: 10.44.1
-      superjson:
-        specifier: ^2.2.1
-        version: 2.2.1
-      trpc-playground:
-        specifier: ^1.0.4
-        version: 1.0.4(@trpc/server@10.44.1)(typescript@5.2.2)(zod@3.22.4)
-    devDependencies:
-      '@evmts/tsconfig':
-        specifier: workspace:^
-        version: link:../../configs/tsconfig
-      '@vitest/coverage-v8':
-        specifier: ^0.34.6
-        version: 0.34.6(vitest@0.34.6)
-      abitype:
-        specifier: ^0.8.11
-        version: 0.8.11(typescript@5.2.2)(zod@3.22.4)
-      bun-types:
-        specifier: ^1.0.7
-        version: 1.0.12
-      rome:
-        specifier: ^12.1.3
-        version: 12.1.3
-      tsup:
-        specifier: ^7.0.0
-        version: 7.3.0(typescript@5.2.2)
-      typedoc:
-        specifier: ^0.25.3
-        version: 0.25.3(typescript@5.2.2)
-      typedoc-plugin-markdown:
-        specifier: ^3.16.0
-        version: 3.17.1(typedoc@0.25.3)
-      typescript:
-        specifier: ^5.1.3
-        version: 5.2.2
-      vitest:
-        specifier: ^0.34.6
-        version: 0.34.6(@vitest/ui@0.34.6)
       zod:
         specifier: ^3.21.4
         version: 3.22.4
