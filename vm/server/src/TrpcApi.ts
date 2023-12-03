@@ -8,7 +8,7 @@ import {
 	RunScriptRoute,
 } from './routes/index.js'
 
-export class JsonRpc extends Api {
+export class TrpcApi extends Api {
 	public readonly name = 'EVMtsJsonRPC'
 	constructor(
 		trpc: Trpc,
