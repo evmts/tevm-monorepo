@@ -150,6 +150,8 @@ TypeError.prepareStackTrace
 
 node_modules/.pnpm/@types+node@20.9.1/node_modules/@types/node/globals.d.ts:11
 
+node_modules/.pnpm/@types+node@20.9.2/node_modules/@types/node/globals.d.ts:11
+
 ___
 
 ### stackTraceLimit
@@ -163,6 +165,8 @@ TypeError.stackTraceLimit
 #### Defined in
 
 node_modules/.pnpm/@types+node@20.9.1/node_modules/@types/node/globals.d.ts:13
+
+node_modules/.pnpm/@types+node@20.9.2/node_modules/@types/node/globals.d.ts:13
 
 ## Methods
 
@@ -190,3 +194,26 @@ TypeError.captureStackTrace
 #### Defined in
 
 node_modules/.pnpm/@types+node@20.9.1/node_modules/@types/node/globals.d.ts:4
+
+▸ **captureStackTrace**(`targetObject`, `constructorOpt?`): `void`
+
+Create .stack property on a target object
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `targetObject` | `object` |
+| `constructorOpt?` | `Function` |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+TypeError.captureStackTrace
+
+#### Defined in
+
+node_modules/.pnpm/@types+node@20.9.2/node_modules/@types/node/globals.d.ts:4
