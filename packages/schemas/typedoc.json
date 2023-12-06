@@ -7,8 +7,6 @@
 		"./src/common/index.js",
 		"./src/tevm/index.js"
 	],
-	"plugin": [
-		"typedoc-plugin-markdown"
-	],
+	"plugin": ["typedoc-plugin-markdown"],
 	"gitRevision": "main"
 }

@@ -1,7 +1,7 @@
+import { getDefinitionServiceDecorator } from './getDefinitionAtPosition.js'
 import { FileAccessObject } from '@tevm/base'
 import typescript from 'typescript/lib/tsserverlibrary.js'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { getDefinitionServiceDecorator } from './getDefinitionAtPosition.js'
 
 // TODO these tests are awful this should be tested e2e against real fixtures
 

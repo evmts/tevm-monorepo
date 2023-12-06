@@ -5,11 +5,6 @@
  */
 
 import {
-	bigintFromSelf,
-	lessThanOrEqualToBigint,
-	nonNegativeBigint,
-} from '@effect/schema/Schema'
-import {
 	UINT8_MAX,
 	UINT16_MAX,
 	UINT32_MAX,
@@ -17,6 +12,11 @@ import {
 	UINT128_MAX,
 	UINT256_MAX,
 } from './constants.js'
+import {
+	bigintFromSelf,
+	lessThanOrEqualToBigint,
+	nonNegativeBigint,
+} from '@effect/schema/Schema'
 
 /**
  * Type representing a valid UINT8.

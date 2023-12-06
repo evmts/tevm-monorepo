@@ -1,3 +1,4 @@
+import type { Tevm } from '../tevm.js'
 import {
 	Account as EthjsAccount,
 	Address as EthjsAddress,
@@ -6,7 +7,6 @@ import type { Address } from 'abitype'
 import { Address as ZAddress } from 'abitype/zod'
 import { hexToBytes, parseEther } from 'viem'
 import { z } from 'zod'
-import type { Tevm } from '../tevm.js'
 
 const DEFAULT_BALANCE = parseEther('1000')
 

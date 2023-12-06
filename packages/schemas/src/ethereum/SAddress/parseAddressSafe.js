@@ -4,11 +4,11 @@
  * @author William Cory <willcory10@gmail.com>
  */
 
+import { InvalidAddressError } from './Errors.js'
+import { SAddress } from './SAddress.js'
 import { parseEither } from '@effect/schema/Schema'
 import { Effect } from 'effect'
 import { mapError } from 'effect/Effect'
-import { InvalidAddressError } from './Errors.js'
-import { SAddress } from './SAddress.js'
 
 /**
  * Parses an Address safely into an effect.

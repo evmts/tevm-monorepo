@@ -1,3 +1,5 @@
+import { DefineConfigError } from './defineConfig.js'
+import { type CompilerConfig, defaultConfig, defineConfig } from './index.js'
 import { execSync } from 'child_process'
 import { flip, runSync } from 'effect/Effect'
 import {
@@ -8,8 +10,6 @@ import {
 	it,
 	vi,
 } from 'vitest'
-import { DefineConfigError } from './defineConfig.js'
-import { type CompilerConfig, defaultConfig, defineConfig } from './index.js'
 
 vi.mock('child_process', () => ({
 	execSync: vi.fn(),

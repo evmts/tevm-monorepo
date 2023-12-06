@@ -1,5 +1,5 @@
-import { die, map } from 'effect/Effect'
 import { generateTevmBody } from './generateTevmBody.js'
+import { die, map } from 'effect/Effect'
 
 const importsByModuleType = {
 	cjs: `const { createTevmContract } = require('@tevm/core')`,

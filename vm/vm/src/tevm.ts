@@ -1,7 +1,3 @@
-import { Common, Hardfork } from '@ethereumjs/common'
-import { DefaultStateManager } from '@ethereumjs/statemanager'
-import type { Abi } from 'abitype'
-import { http, createPublicClient } from 'viem'
 import {
 	type PutAccountAction,
 	type PutContractCodeAction,
@@ -17,6 +13,10 @@ import {
 	runScriptHandler,
 } from './actions/index.js'
 import { ViemStateManager } from './stateManager/ViemStateManager.js'
+import { Common, Hardfork } from '@ethereumjs/common'
+import { DefaultStateManager } from '@ethereumjs/statemanager'
+import type { Abi } from 'abitype'
+import { createPublicClient, http } from 'viem'
 
 /**
  * Options fetch state that isn't available locally.

@@ -1,3 +1,6 @@
+import { mergeConfigs, withDefaults } from './config/index.js'
+import { loadFoundryConfig } from './foundry/index.js'
+import { getTevmConfigFromTsConfig, loadTsConfig } from './tsconfig/index.js'
 import { logAllErrors } from '@tevm/effect'
 import {
 	all,
@@ -8,9 +11,6 @@ import {
 	tap,
 	tapError,
 } from 'effect/Effect'
-import { mergeConfigs, withDefaults } from './config/index.js'
-import { loadFoundryConfig } from './foundry/index.js'
-import { getTevmConfigFromTsConfig, loadTsConfig } from './tsconfig/index.js'
 
 /**
  * @typedef {import("./tsconfig/index.js").LoadTsConfigError | import("./tsconfig/index.js").GetTevmConfigFromTsConfigError | import("./foundry/index.js").LoadFoundryConfigError} LoadConfigErrorType

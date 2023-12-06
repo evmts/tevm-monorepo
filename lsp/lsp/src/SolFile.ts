@@ -1,4 +1,3 @@
-import { existsSync, readFileSync } from 'fs'
 import { bundler, createCache } from '@tevm/base'
 import { loadConfig } from '@tevm/config'
 import {
@@ -7,6 +6,7 @@ import {
 	type VirtualFile,
 } from '@volar/language-core'
 import { runSync } from 'effect/Effect'
+import { existsSync, readFileSync } from 'fs'
 import { readFile } from 'fs/promises'
 // @ts-expect-error
 import solc from 'solc'

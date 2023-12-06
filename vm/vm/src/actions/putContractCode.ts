@@ -1,9 +1,9 @@
+import type { Tevm } from '../tevm.js'
+import { ZHex } from '../utils/zod.js'
 import { Address as EthjsAddress } from '@ethereumjs/util'
 import { Address as ZAddress } from 'abitype/zod'
 import { type Address, type Hex, hexToBytes } from 'viem'
 import { z } from 'zod'
-import type { Tevm } from '../tevm.js'
-import { ZHex } from '../utils/zod.js'
 
 export const PutContractCodeActionValidator = z.object({
 	deployedBytecode: ZHex.describe('The deployed bytecode of the contract'),

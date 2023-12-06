@@ -4,9 +4,6 @@
  * @author William Cory <willcory10@gmail.com>
  */
 
-import { parseEither } from '@effect/schema/Schema'
-import { Effect } from 'effect'
-import { mapError } from 'effect/Effect'
 import { InvalidUINTError } from './Errors.js'
 import {
 	SUINT8,
@@ -16,6 +13,9 @@ import {
 	SUINT128,
 	SUINT256,
 } from './SUINT.js'
+import { parseEither } from '@effect/schema/Schema'
+import { Effect } from 'effect'
+import { mapError } from 'effect/Effect'
 
 /**
  * Safely parses a UINT8 into an [Effect](https://www.effect.website/docs/essentials/effect-type).

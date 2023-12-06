@@ -1,6 +1,6 @@
+import { generateTevmBody } from './generateTevmBody.js'
 import { runSync } from 'effect/Effect'
 import { describe, expect, it } from 'vitest'
-import { generateTevmBody } from './generateTevmBody.js'
 
 describe('generateTevmBody', () => {
 	const artifacts = {

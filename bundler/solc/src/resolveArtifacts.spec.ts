@@ -1,3 +1,6 @@
+import { compileContract } from './compiler/compileContracts.js'
+import { resolveArtifacts } from './resolveArtifacts.js'
+import type { FileAccessObject, Logger, ModuleInfo } from './types.js'
 import { type ResolvedCompilerConfig, defaultConfig } from '@tevm/config'
 import {
 	type MockedFunction,
@@ -7,9 +10,6 @@ import {
 	it,
 	vi,
 } from 'vitest'
-import { compileContract } from './compiler/compileContracts.js'
-import { resolveArtifacts } from './resolveArtifacts.js'
-import type { FileAccessObject, Logger, ModuleInfo } from './types.js'
 
 vi.mock('./compiler/compileContracts', () => ({
 	compileContract: vi.fn(),

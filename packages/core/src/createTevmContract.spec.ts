@@ -1,7 +1,7 @@
-import { formatAbi, parseAbi } from 'abitype'
-import { describe, expect, it } from 'vitest'
 import { createTevmContract } from './createTevmContract'
 import { dummyAbi } from './test/fixtures'
+import { formatAbi, parseAbi } from 'abitype'
+import { describe, expect, it } from 'vitest'
 
 describe(createTevmContract.name, () => {
 	const contract = createTevmContract({

@@ -1,11 +1,11 @@
 import { ConnectButton } from '@rainbow-me/rainbowkit'
 
-import { useState } from 'react'
 import { EthersExample } from './EthersExample'
 import { SolEditor } from './SolEditor'
 import { WagmiEvents } from './wagmi/WagmiEvents'
 import { WagmiReads } from './wagmi/WagmiReads'
 import { WagmiWrites } from './wagmi/WagmiWrites'
+import { useState } from 'react'
 
 export function App() {
 	const [selectedComponent, selectComponent] =

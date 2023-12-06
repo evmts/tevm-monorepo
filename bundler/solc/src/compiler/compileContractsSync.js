@@ -1,8 +1,8 @@
+import { solcCompile } from '../solc.js'
+import { invariant } from '../utils/invariant.js'
 import { moduleFactory } from '@tevm/resolutions'
 import { runSync } from 'effect/Effect'
 import resolve from 'resolve'
-import { solcCompile } from '../solc.js'
-import { invariant } from '../utils/invariant.js'
 
 /**
  * Compile the Solidity contract and return its ABI.

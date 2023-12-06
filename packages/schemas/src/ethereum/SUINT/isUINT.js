@@ -4,8 +4,6 @@
  * @author William Cory <willcory10@gmail.com>
  */
 
-import { parseEither } from '@effect/schema/Schema'
-import { isRight } from 'effect/Either'
 import {
 	SUINT8,
 	SUINT16,
@@ -14,6 +12,8 @@ import {
 	SUINT128,
 	SUINT256,
 } from './SUINT.js'
+import { parseEither } from '@effect/schema/Schema'
+import { isRight } from 'effect/Either'
 
 /**
  * Type guard that returns true if the provided bigint is a valid Ethereum UINT8.

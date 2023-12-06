@@ -1,5 +1,3 @@
-import { existsSync, readFileSync } from 'fs'
-import * as path from 'path'
 import {
 	array,
 	optional,
@@ -17,6 +15,8 @@ import {
 	tap,
 	try as tryEffect,
 } from 'effect/Effect'
+import { existsSync, readFileSync } from 'fs'
+import * as path from 'path'
 
 /**
  * Expected shape of tsconfig.json or jsconfig.json

@@ -5,13 +5,13 @@
  * Contract keys can be anything including the contract address but by convention they are usually a human readable name for the contract.
  */
 
+import { SBlockNumber } from '../common/index.js'
+import { SAddress } from '../ethereum/index.js'
 import { parseEither, record, string, struct } from '@effect/schema/Schema'
 import { formatErrors } from '@effect/schema/TreeFormatter'
 import { Effect } from 'effect'
 import { mapError, runSync } from 'effect/Effect'
 import { isRight } from 'effect/Either'
-import { SBlockNumber } from '../common/index.js'
-import { SAddress } from '../ethereum/index.js'
 
 /**
  * @typedef {Object} AddressBookEntry

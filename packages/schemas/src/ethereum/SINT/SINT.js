@@ -5,11 +5,6 @@
  */
 
 import {
-	bigintFromSelf,
-	greaterThanOrEqualToBigint,
-	lessThanOrEqualToBigint,
-} from '@effect/schema/Schema'
-import {
 	INT8_MAX,
 	INT8_MIN,
 	INT16_MAX,
@@ -23,6 +18,11 @@ import {
 	INT256_MAX,
 	INT256_MIN,
 } from './constants.js'
+import {
+	bigintFromSelf,
+	greaterThanOrEqualToBigint,
+	lessThanOrEqualToBigint,
+} from '@effect/schema/Schema'
 
 /**
  * Type representing a valid INT8.

@@ -1,9 +1,9 @@
-import { existsSync, writeFileSync } from 'fs'
-import { Cache, bundler } from '@tevm/base'
-// @ts-expect-error
-import * as solc from 'solc'
 import { createHostDecorator } from '../factories/index.js'
 import { isSolidity } from '../utils/index.js'
+import { Cache, bundler } from '@tevm/base'
+import { existsSync, writeFileSync } from 'fs'
+// @ts-expect-error
+import * as solc from 'solc'
 
 /**
  * Decorate `LangaugeServerHost.getScriptSnapshot` to return generated `.d.ts` file for `.sol` files

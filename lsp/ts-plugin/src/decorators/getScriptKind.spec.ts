@@ -1,9 +1,9 @@
+import { getScriptKindDecorator } from './getScriptKind.js'
 import { FileAccessObject } from '@tevm/base'
 import { CompilerConfig, defaultConfig, defineConfig } from '@tevm/config'
 import { runSync } from 'effect/Effect'
 import typescript from 'typescript/lib/tsserverlibrary.js'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { getScriptKindDecorator } from './getScriptKind.js'
 
 type TestAny = any
 

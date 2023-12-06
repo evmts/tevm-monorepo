@@ -1,10 +1,10 @@
-import { existsSync, readFileSync } from 'fs'
-import path from 'path'
 import { FileAccessObject, bundler, createCache } from '@tevm/base'
 import { loadConfig } from '@tevm/config'
 import { runSync } from 'effect/Effect'
+import { existsSync, readFileSync } from 'fs'
 import { readFile, writeFile } from 'fs/promises'
 import { glob } from 'glob'
+import path from 'path'
 // @ts-expect-error
 import * as solc from 'solc'
 

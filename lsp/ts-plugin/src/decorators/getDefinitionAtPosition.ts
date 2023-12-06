@@ -1,3 +1,9 @@
+import { Logger } from '../factories/logger.js'
+import { findNode } from '../utils/index.js'
+import {
+	convertSolcAstToTsDefinitionInfo,
+	findContractDefinitionFileNameFromTevmNode,
+} from '../utils/index.js'
 import { Cache, FileAccessObject, bundler } from '@tevm/base'
 import { ResolvedCompilerConfig } from '@tevm/config'
 // @ts-expect-error
@@ -5,12 +11,6 @@ import * as solc from 'solc'
 import { Node } from 'solidity-ast/node.js'
 import { findAll } from 'solidity-ast/utils.js'
 import typescript from 'typescript/lib/tsserverlibrary.js'
-import { Logger } from '../factories/logger.js'
-import { findNode } from '../utils/index.js'
-import {
-	convertSolcAstToTsDefinitionInfo,
-	findContractDefinitionFileNameFromTevmNode,
-} from '../utils/index.js'
 
 // TODO make me to a normal decorator
 // is a woneoff decorator becuase this decorates the language service not the Host

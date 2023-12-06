@@ -1,7 +1,7 @@
+import type { Logger } from './logger.js'
 import { FileAccessObject } from '@tevm/base'
 import { ResolvedCompilerConfig } from '@tevm/config'
 import type typescript from 'typescript/lib/tsserverlibrary.js'
-import type { Logger } from './logger.js'
 
 /**
  * Internal type representing a leangauge service host decorator.

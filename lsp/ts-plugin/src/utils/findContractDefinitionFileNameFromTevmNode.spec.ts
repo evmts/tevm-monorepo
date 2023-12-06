@@ -1,7 +1,7 @@
-import ts from 'typescript/lib/tsserverlibrary.js'
-import { MockedFunction, describe, expect, it, vi } from 'vitest'
 import { findContractDefinitionFileNameFromTevmNode } from './findContractDefinitionFileNameFromTevmNode.js'
 import { findNode } from './findNode.js'
+import ts from 'typescript/lib/tsserverlibrary.js'
+import { MockedFunction, describe, expect, it, vi } from 'vitest'
 
 const mockContractFile = '/path/to/ContractDefinitionFile.sol'
 

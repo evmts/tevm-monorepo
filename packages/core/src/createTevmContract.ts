@@ -1,9 +1,9 @@
-import { parseAbi } from 'abitype'
-import type { Hex } from 'viem'
 import type { TevmContract } from './TevmContract'
 import { eventsFactory } from './event/eventFactory'
 import { readFactory } from './read/readFactory'
 import { writeFactory } from './write/writeFactory'
+import { parseAbi } from 'abitype'
+import type { Hex } from 'viem'
 
 export const createTevmContract = <
 	TName extends string,

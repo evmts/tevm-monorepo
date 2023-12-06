@@ -3,8 +3,8 @@
  * Types and validators for SBytes.
  */
 
-import { runSync } from 'effect/Effect'
 import { parseBytesSafe } from './parseBytesSafe.js'
+import { runSync } from 'effect/Effect'
 
 /**
  * Parses a Bytes and returns the value if no errors.

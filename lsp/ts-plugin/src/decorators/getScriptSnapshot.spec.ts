@@ -1,13 +1,13 @@
-import { existsSync, readFileSync } from 'fs'
-import path from 'path'
+import { Logger } from '../factories/logger.js'
+import { getScriptSnapshotDecorator } from './getScriptSnapshot.js'
 import { FileAccessObject } from '@tevm/base'
 import { CompilerConfig, defaultConfig, defineConfig } from '@tevm/config'
 import { runSync } from 'effect/Effect'
+import { existsSync, readFileSync } from 'fs'
 import { readFile } from 'fs/promises'
+import path from 'path'
 import typescript from 'typescript/lib/tsserverlibrary.js'
 import { Mock, beforeEach, describe, expect, it, vi } from 'vitest'
-import { Logger } from '../factories/logger.js'
-import { getScriptSnapshotDecorator } from './getScriptSnapshot.js'
 
 const forgeProject = path.join(__dirname, '../..')
 

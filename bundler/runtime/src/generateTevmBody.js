@@ -1,6 +1,6 @@
+import { generateDtsBody } from './generateTevmBodyDts.js'
 import { formatAbi } from 'abitype'
 import { succeed } from 'effect/Effect'
-import { generateDtsBody } from './generateTevmBodyDts.js'
 
 /**
  * @param {import("@tevm/solc").Artifacts} artifacts

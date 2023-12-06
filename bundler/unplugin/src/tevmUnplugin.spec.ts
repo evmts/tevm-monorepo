@@ -1,8 +1,9 @@
-import { existsSync } from 'fs'
-import { createRequire } from 'module'
+import { tevmUnplugin } from './tevmUnplugin.js'
 import { bundler } from '@tevm/base'
 import { loadConfig } from '@tevm/config'
 import { succeed } from 'effect/Effect'
+import { existsSync } from 'fs'
+import { createRequire } from 'module'
 // @ts-expect-error
 import * as solc from 'solc'
 import type { UnpluginBuildContext, UnpluginContext } from 'unplugin'
@@ -15,7 +16,6 @@ import {
 	it,
 	vi,
 } from 'vitest'
-import { tevmUnplugin } from './tevmUnplugin.js'
 
 vi.mock('module', async () => ({
 	...((await vi.importActual('module')) as {}),

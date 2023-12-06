@@ -1,7 +1,7 @@
+import { generateRuntime } from './generateRuntime.js'
 import type { Artifacts } from '@tevm/solc'
 import { runSync } from 'effect/Effect'
 import { describe, expect, it } from 'vitest'
-import { generateRuntime } from './generateRuntime.js'
 
 describe('generateRuntime', () => {
 	const artifacts: Artifacts = {

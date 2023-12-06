@@ -1,5 +1,5 @@
-import { fail, logDebug, map, tap } from 'effect/Effect'
 import { validateUserConfig } from '../config/index.js'
+import { fail, logDebug, map, tap } from 'effect/Effect'
 
 /**
  * Error type for {@link getTevmConfigFromTsConfig}

@@ -1,5 +1,5 @@
-import { existsSync, readFileSync } from 'fs'
 import { file } from './bunFile.js'
+import { existsSync, readFileSync } from 'fs'
 
 /**
  * A adapter around the bun file api to make it compatible with @tevm/base FileAccessObject type

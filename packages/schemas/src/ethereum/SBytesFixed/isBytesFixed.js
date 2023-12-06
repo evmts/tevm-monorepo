@@ -5,8 +5,6 @@
  * @todo some of the examples are copy pasta and wrong
  */
 
-import { parseEither } from '@effect/schema/Schema'
-import { isRight } from 'effect/Either'
 import {
 	SBytes1,
 	SBytes2,
@@ -41,6 +39,8 @@ import {
 	SBytes31,
 	SBytes32,
 } from './SBytesFixed.js'
+import { parseEither } from '@effect/schema/Schema'
+import { isRight } from 'effect/Either'
 
 /**
  * Type guard that returns true if the provided string is a valid Ethereum Bytes1.

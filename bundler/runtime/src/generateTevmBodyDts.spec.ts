@@ -1,6 +1,6 @@
+import { generateDtsBody } from './generateTevmBodyDts.js'
 import { runSync } from 'effect/Effect'
 import { describe, expect, it } from 'vitest'
-import { generateDtsBody } from './generateTevmBodyDts.js'
 
 describe('generateDtsBody', () => {
 	const artifacts = {

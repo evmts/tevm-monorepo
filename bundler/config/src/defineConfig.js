@@ -1,10 +1,10 @@
-import { all, catchTags, fail, flatMap, logDebug, tap } from 'effect/Effect'
 import {
 	mergeConfigs,
 	validateUserConfig,
 	withDefaults,
 } from './config/index.js'
 import { loadFoundryConfig } from './foundry/index.js'
+import { all, catchTags, fail, flatMap, logDebug, tap } from 'effect/Effect'
 
 /**
  * Error class for {@link defineConfig}

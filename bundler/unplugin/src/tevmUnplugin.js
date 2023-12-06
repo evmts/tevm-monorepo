@@ -1,10 +1,10 @@
-import { existsSync, readFileSync } from 'fs'
-import { createRequire } from 'module'
 import { bundler, createCache } from '@tevm/base'
 import { loadConfig } from '@tevm/config'
 import { createSolc, releases } from '@tevm/solc'
 import { runSync } from 'effect/Effect'
+import { existsSync, readFileSync } from 'fs'
 import { readFile } from 'fs/promises'
+import { createRequire } from 'module'
 // @ts-expect-error
 import defaultSolc from 'solc'
 import { z } from 'zod'

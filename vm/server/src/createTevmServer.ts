@@ -1,4 +1,3 @@
-import { Tevm } from '@tevm/vm'
 import { Trpc } from './Trpc.js'
 import { TrpcApi } from './TrpcApi.js'
 import {
@@ -8,6 +7,7 @@ import {
 	RunContractCallRoute,
 	RunScriptRoute,
 } from './routes/index.js'
+import { Tevm } from '@tevm/vm'
 
 export const createTevmServer = (vm: Tevm): TrpcApi => {
 	const trpc = new Trpc()

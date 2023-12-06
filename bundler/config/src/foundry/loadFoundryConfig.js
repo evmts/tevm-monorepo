@@ -1,7 +1,7 @@
 // TODO would be nice to break this up into composable effects
 import { execSync } from 'child_process'
-import * as path from 'path'
 import { fail, logDebug, succeed, tap } from 'effect/Effect'
+import * as path from 'path'
 
 /**
  * Error thrown if foundry is not found in path while foundryProject is set in config

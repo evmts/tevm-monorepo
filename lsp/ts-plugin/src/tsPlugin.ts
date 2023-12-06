@@ -1,7 +1,3 @@
-import { createCache } from '@tevm/base'
-import { loadConfig } from '@tevm/config'
-import { runSync } from 'effect/Effect'
-import typescript from 'typescript/lib/tsserverlibrary.js'
 import { getDefinitionServiceDecorator } from './decorators/getDefinitionAtPosition.js'
 import {
 	getScriptKindDecorator,
@@ -11,6 +7,10 @@ import {
 import { createFileAccessObject } from './factories/fileAccessObject.js'
 import { createLogger, decorateHost } from './factories/index.js'
 import { isSolidity } from './utils/index.js'
+import { createCache } from '@tevm/base'
+import { loadConfig } from '@tevm/config'
+import { runSync } from 'effect/Effect'
+import typescript from 'typescript/lib/tsserverlibrary.js'
 
 /**
  * [Typescript plugin factory](https://github.com/microsoft/TypeScript/wiki/Writing-a-Language-Service-Plugin)

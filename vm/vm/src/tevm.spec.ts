@@ -1,8 +1,8 @@
-import { Address } from '@ethereumjs/util'
-import { hexToBytes } from 'viem'
 import { DaiContract } from './test/DaiContract.sol.js'
 import { type CustomPrecompile, Tevm } from './tevm.js'
+import { Address } from '@ethereumjs/util'
 import { describe, expect, it } from 'bun:test'
+import { hexToBytes } from 'viem'
 
 const contractAddress = '0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1'
 

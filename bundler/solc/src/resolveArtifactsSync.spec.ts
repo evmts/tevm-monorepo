@@ -1,3 +1,6 @@
+import { compileContractSync } from './compiler/compileContractsSync.js'
+import { resolveArtifactsSync } from './resolveArtifactsSync.js'
+import type { FileAccessObject, Logger, ModuleInfo } from './types.js'
 import { type ResolvedCompilerConfig, defaultConfig } from '@tevm/config'
 import {
 	type MockedFunction,
@@ -7,9 +10,6 @@ import {
 	it,
 	vi,
 } from 'vitest'
-import { compileContractSync } from './compiler/compileContractsSync.js'
-import { resolveArtifactsSync } from './resolveArtifactsSync.js'
-import type { FileAccessObject, Logger, ModuleInfo } from './types.js'
 
 vi.mock('./compiler/compileContractsSync', () => ({
 	compileContractSync: vi.fn(),

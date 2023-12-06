@@ -1,3 +1,5 @@
+import { bundler } from './bundler.js'
+import type { Bundler, FileAccessObject, Logger } from './types.js'
 import {
 	type ModuleInfo,
 	type SolcInputDescription,
@@ -15,8 +17,6 @@ import {
 	it,
 	vi,
 } from 'vitest'
-import { bundler } from './bundler.js'
-import type { Bundler, FileAccessObject, Logger } from './types.js'
 
 const fao: FileAccessObject = {
 	existsSync: vi.fn() as any,

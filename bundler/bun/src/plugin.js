@@ -1,10 +1,10 @@
+import { bunFileAccesObject } from './bunFileAccessObject.js'
 import { bundler, createCache } from '@tevm/base'
 import { loadConfig } from '@tevm/config'
 import { createSolc } from '@tevm/solc'
 import { runSync } from 'effect/Effect'
 // @ts-expect-error
 import defaultSolc from 'solc'
-import { bunFileAccesObject } from './bunFileAccessObject.js'
 
 /**
  * @tevm/bun-plugin is a bun plugin that allows you to import solidity files into your typescript files

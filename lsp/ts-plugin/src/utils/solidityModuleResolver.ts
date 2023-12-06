@@ -1,8 +1,8 @@
+import { isRelativeSolidity } from './isRelativeSolidity.js'
+import { isSolidity } from './isSolidity.js'
 import { createRequire } from 'module'
 import path from 'path'
 import type typescript from 'typescript/lib/tsserverlibrary.js'
-import { isRelativeSolidity } from './isRelativeSolidity.js'
-import { isSolidity } from './isSolidity.js'
 
 /**
  * Resolves a Solidity module to a file path and Dts extension.
