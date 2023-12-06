@@ -11,7 +11,7 @@ concurrency: ${{ github.workflow }}-${{ github.ref }}
 jobs:
   prerelease:
     name: Changests Prerelease
-    if: github.repository == 'tevm/tevm-monorepo'
+    if: github.repository == 'evmts/tevm-monorepo'
     runs-on: ubuntu-latest
     # Permissions necessary for Changesets to push a new branch and open PRs
     # (for automated Version Packages PRs), and request the JWT for provenance.
