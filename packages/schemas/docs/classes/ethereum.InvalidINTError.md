@@ -1,4 +1,4 @@
-[@evmts/schemas](../README.md) / [Modules](../modules.md) / [ethereum](../modules/ethereum.md) / InvalidINTError
+[@tevm/schemas](../README.md) / [Modules](../modules.md) / [ethereum](../modules/ethereum.md) / InvalidINTError
 
 # Class: InvalidINTError
 
@@ -59,7 +59,7 @@ TypeError.constructor
 
 #### Defined in
 
-[packages/schemas/src/ethereum/SINT/Errors.js:28](https://github.com/evmts/evmts-monorepo/blob/main/packages/schemas/src/ethereum/SINT/Errors.js#L28)
+[packages/schemas/src/ethereum/SINT/Errors.js:28](https://github.com/evmts/tevm-monorepo/blob/main/packages/schemas/src/ethereum/SINT/Errors.js#L28)
 
 ## Properties
 
@@ -73,7 +73,7 @@ TypeError.cause
 
 #### Defined in
 
-[packages/schemas/src/ethereum/SINT/Errors.js:48](https://github.com/evmts/evmts-monorepo/blob/main/packages/schemas/src/ethereum/SINT/Errors.js#L48)
+[packages/schemas/src/ethereum/SINT/Errors.js:48](https://github.com/evmts/tevm-monorepo/blob/main/packages/schemas/src/ethereum/SINT/Errors.js#L48)
 
 ___
 

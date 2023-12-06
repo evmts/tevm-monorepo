@@ -1,4 +1,4 @@
-[@evmts/effect](../README.md) / [Modules](../modules.md) / resolve
+[@tevm/effect](../README.md) / [Modules](../modules.md) / resolve
 
 # Module: resolve
 
@@ -40,7 +40,7 @@
 
 #### Defined in
 
-[packages/effect/src/resolve.js:10](https://github.com/evmts/evmts-monorepo/blob/main/packages/effect/src/resolve.js#L10)
+[packages/effect/src/resolve.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/effect/src/resolve.js#L10)
 
 ## Functions
 
@@ -83,7 +83,7 @@ Effect wrpper around import('node:resolve')
 
 ```ts
 import {tap} from 'effect/Effect'
-import {resolveAsync} from '@evmts/effect'
+import {resolveAsync} from '@tevm/effect'
 resolveAsync('react').pipe(
    tap(console.log)
 )
@@ -91,7 +91,7 @@ resolveAsync('react').pipe(
 
 #### Defined in
 
-[packages/effect/src/resolve.js:10](https://github.com/evmts/evmts-monorepo/blob/main/packages/effect/src/resolve.js#L10)
+[packages/effect/src/resolve.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/effect/src/resolve.js#L10)
 
 ___
 
@@ -134,7 +134,7 @@ Effect wrapper around import('node:resolve').resolveSync
 
 ```ts
 import {tap} from 'effect/Effect'
-import {resolveSync} from '@evmts/effect'
+import {resolveSync} from '@tevm/effect'
 resolveSync('react').pipe(
    tap(console.log)
 )
@@ -143,4 +143,4 @@ resolveSync('react').pipe(
 
 #### Defined in
 
-[packages/effect/src/resolve.js:10](https://github.com/evmts/evmts-monorepo/blob/main/packages/effect/src/resolve.js#L10)
+[packages/effect/src/resolve.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/effect/src/resolve.js#L10)

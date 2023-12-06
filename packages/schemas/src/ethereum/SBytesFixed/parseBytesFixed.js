@@ -1,9 +1,10 @@
 /**
- * @module @evmts/schemas/ethereum/FixedBytes/parseBytesFixed.js
+ * @module @tevm/schemas/ethereum/FixedBytes/parseBytesFixed.js
  * @description TypeSafe parser for Solidity Fixed Bytes
  * @author William Cory <willcory10@gmail.com>
  */
 
+import { runSync } from 'effect/Effect'
 import {
 	parseBytes1Safe,
 	parseBytes2Safe,
@@ -38,7 +39,6 @@ import {
 	parseBytes31Safe,
 	parseBytes32Safe,
 } from './parseBytesFixedSafe.js'
-import { runSync } from 'effect/Effect'
 
 /**
  * Parses a Bytes1 and returns the value if no errors.
@@ -47,7 +47,7 @@ import { runSync } from 'effect/Effect'
  * @returns {TBytes1}
  * @example
  * ```ts
- * import { parseBytes1 } from '@evmts/schemas';
+ * import { parseBytes1 } from '@tevm/schemas';
  * const parsedBytes1 = parseBytes1('0xff');
  * ```
  */
@@ -62,7 +62,7 @@ export const parseBytes1 = (bytes1) => {
  * @returns {TBytes2}
  * @example
  * ```ts
- * import { parseBytes2 } from '@evmts/schemas';
+ * import { parseBytes2 } from '@tevm/schemas';
  * const parsedBytes2 = parseBytes2('0xffaa');
  * ```
  */
@@ -77,7 +77,7 @@ export const parseBytes2 = (bytes2) => {
  * @returns {TBytes3}
  * @example
  * ```ts
- * import { parseBytes3 } from '@evmts/schemas';
+ * import { parseBytes3 } from '@tevm/schemas';
  * const parsedBytes3 = parseBytes3('0xffaabb');
  * ```
  */
@@ -92,7 +92,7 @@ export const parseBytes3 = (bytes3) => {
  * @returns {TBytes4}
  * @example
  * ```ts
- * import { parseBytes4 } from '@evmts/schemas';
+ * import { parseBytes4 } from '@tevm/schemas';
  * const parsedBytes4 = parseBytes4('0xffaabbcc');
  * ```
  */
@@ -107,7 +107,7 @@ export const parseBytes4 = (bytes4) => {
  * @returns {TBytes5}
  * @example
  * ```ts
- * import { parseBytes5 } from '@evmts/schemas';
+ * import { parseBytes5 } from '@tevm/schemas';
  * const parsedBytes5 = parseBytes5('0xffaabbccdd');
  * ```
  */
@@ -121,7 +121,7 @@ export const parseBytes5 = (bytes5) => {
  * @returns {TBytes6}
  * @example
  * ```ts
- * import { parseBytes6 } from '@evmts/schemas';
+ * import { parseBytes6 } from '@tevm/schemas';
  * const parsedBytes6 = parseBytes6('0xffaabbccddeeff');
  * ```
  */
@@ -136,7 +136,7 @@ export const parseBytes6 = (bytes6) => {
  * @returns {TBytes7}
  * @example
  * ```ts
- * import { parseBytes7 } from '@evmts/schemas';
+ * import { parseBytes7 } from '@tevm/schemas';
  * const parsedBytes7 = parseBytes7('0xffaabbccddeeffaa');
  * ```
  */
@@ -151,7 +151,7 @@ export const parseBytes7 = (bytes7) => {
  * @returns {TBytes8}
  * @example
  * ```ts
- * import { parseBytes8 } from '@evmts/schemas';
+ * import { parseBytes8 } from '@tevm/schemas';
  * const parsedBytes8 = parseBytes8('0xffaabbccddeeffaabb');
  * ```
  */
@@ -166,7 +166,7 @@ export const parseBytes8 = (bytes8) => {
  * @returns {TBytes9}
  * @example
  * ```ts
- * import { parseBytes9 } from '@evmts/schemas';
+ * import { parseBytes9 } from '@tevm/schemas';
  * const parsedBytes9 = parseBytes9('0xffaabbccddeeffaabbcc');
  * ```
  */
@@ -181,7 +181,7 @@ export const parseBytes9 = (bytes9) => {
  * @returns {TBytes10}
  * @example
  * ```ts
- * import { parseBytes10 } from '@evmts/schemas';
+ * import { parseBytes10 } from '@tevm/schemas';
  * const parsedBytes = parseBytes10('0xffaabbccddeeffaabbccdd');
  */
 export const parseBytes10 = (bytes10) => {
@@ -195,7 +195,7 @@ export const parseBytes10 = (bytes10) => {
  * @returns {TBytes11}
  * @example
  * ```ts
- * import { parseBytes11 } from '@evmts/schemas';
+ * import { parseBytes11 } from '@tevm/schemas';
  * const parsedBytes11 = parseBytes11('0xffaabbccddeeffaabbccddaa');
  * ```
  */
@@ -210,7 +210,7 @@ export const parseBytes11 = (bytes11) => {
  * @returns {TBytes12}
  * @example
  * ```ts
- * import { parseBytes12 } from '@evmts/schemas';
+ * import { parseBytes12 } from '@tevm/schemas';
  * const parsedBytes12 = parseBytes12('0xffaabbccddeeffaabbccddaaee');
  * ```
  */
@@ -225,7 +225,7 @@ export const parseBytes12 = (bytes12) => {
  * @returns {TBytes13}
  * @example
  * ```ts
- * import { parseBytes13 } from '@evmts/schemas';
+ * import { parseBytes13 } from '@tevm/schemas';
  * const parsedBytes13 = parseBytes13('0xffaabbccddeeffaabbccddaaeeff');
  * ```
  */
@@ -240,7 +240,7 @@ export const parseBytes13 = (bytes13) => {
  * @returns {TBytes14}
  * @example
  * ```ts
- * import { parseBytes14 } from '@evmts/schemas';
+ * import { parseBytes14 } from '@tevm/schemas';
  * const parsedBytes14 = parseBytes14('0xffaabbccddeeffaabbccddaaeeffaa');
  * ```
  */
@@ -255,7 +255,7 @@ export const parseBytes14 = (bytes14) => {
  * @returns {TBytes15}
  * @example
  * ```ts
- * import { parseBytes15 } from '@evmts/schemas';
+ * import { parseBytes15 } from '@tevm/schemas';
  * const parsedBytes15 = parseBytes15('0xffaabbccddeeffaabbccddaaeeffaaee');
  * ```
  */
@@ -270,7 +270,7 @@ export const parseBytes15 = (bytes15) => {
  * @returns {TBytes16}
  * @example
  * ```ts
- * import { parseBytes16 } from '@evmts/schemas';
+ * import { parseBytes16 } from '@tevm/schemas';
  * const parsedBytes16 = parseBytes16('0xffaabbccddeeffaabbccddaaeeffaaeeff');
  * ```
  */
@@ -285,7 +285,7 @@ export const parseBytes16 = (bytes16) => {
  * @returns {TBytes17}
  * @example
  * ```ts
- * import { parseBytes17 } from '@evmts/schemas';
+ * import { parseBytes17 } from '@tevm/schemas';
  * const parsedBytes17 = parseBytes17('0xffaabbccddeeffaabbccddaaeeffaaeeffaa');
  * ```
  */
@@ -300,7 +300,7 @@ export const parseBytes17 = (bytes17) => {
  * @returns {TBytes18}
  * @example
  * ```ts
- * import { parseBytes18 } from '@evmts/schemas';
+ * import { parseBytes18 } from '@tevm/schemas';
  * const parsedBytes18 = parseBytes18('0xffaabbccddeeffaabbccddaaeeffaaeeffbb');
  * ```
  */
@@ -315,7 +315,7 @@ export const parseBytes18 = (bytes18) => {
  * @returns {TBytes19}
  * @example
  * ```ts
- * import { parseBytes19 } from '@evmts/schemas';
+ * import { parseBytes19 } from '@tevm/schemas';
  * const parsedBytes19 = parseBytes19('0xffaabbccddeeffaabbccddaaeeffaaeeffbbcc');
  * ```
  */
@@ -330,7 +330,7 @@ export const parseBytes19 = (bytes19) => {
  * @returns {TBytes20}
  * @example
  * ```ts
- * import { parseBytes20 } from '@evmts/schemas';
+ * import { parseBytes20 } from '@tevm/schemas';
  * const parsedBytes20 = parseBytes20('0xffaabbccddeeffaabbccddaaeeffaaeeffbbccdd');
  * ```
  */
@@ -345,7 +345,7 @@ export const parseBytes20 = (bytes20) => {
  * @returns {TBytes21}
  * @example
  * ```ts
- * import { parseBytes21 } from '@evmts/schemas';
+ * import { parseBytes21 } from '@tevm/schemas';
  * const parsedBytes21 = parseBytes21('0xffaabbccddeeffaabbccddaaeeffaaeeffbbccddaa');
  * ```
  */
@@ -360,7 +360,7 @@ export const parseBytes21 = (bytes21) => {
  * @returns {TBytes22}
  * @example
  * ```ts
- * import { parseBytes22 } from '@evmts/schemas';
+ * import { parseBytes22 } from '@tevm/schemas';
  * const parsedBytes22 = parseBytes22('0xffaabbccddeeffaabbccddaaeeffaaeeffbbccddbb');
  * ```
  */
@@ -375,7 +375,7 @@ export const parseBytes22 = (bytes22) => {
  * @returns {TBytes23}
  * @example
  * ```ts
- * import { parseBytes23 } from '@evmts/schemas';
+ * import { parseBytes23 } from '@tevm/schemas';
  * const parsedBytes23 = parseBytes23('0xffaabbccddeeffaabbccddaaeeffaaeeffbbccddcc');
  * ```
  */
@@ -390,7 +390,7 @@ export const parseBytes23 = (bytes23) => {
  * @returns {TBytes24}
  * @example
  * ```ts
- * import { parseBytes24 } from '@evmts/schemas';
+ * import { parseBytes24 } from '@tevm/schemas';
  * const parsedBytes24 = parseBytes24('0xffaabbccddeeffaabbccddaaeeffaaeeffbbccddccbb');
  * ```
  */
@@ -405,7 +405,7 @@ export const parseBytes24 = (bytes24) => {
  * @returns {TBytes25}
  * @example
  * ```ts
- * import { parseBytes25 } from '@evmts/schemas';
+ * import { parseBytes25 } from '@tevm/schemas';
  * const parsedBytes25 = parseBytes25('0xffaabbccddeeffaabbccddaaeeffaaeeffbbccddccbbdd');
  * ```
  */
@@ -420,7 +420,7 @@ export const parseBytes25 = (bytes25) => {
  * @returns {TBytes26}
  * @example
  * ```ts
- * import { parseBytes26 } from '@evmts/schemas';
+ * import { parseBytes26 } from '@tevm/schemas';
  * const parsedBytes26 = parseBytes26('0xffaabbccddeeffaabbccddaaeeffaaeeffbbccddccbbddaa');
  * ```
  */
@@ -435,7 +435,7 @@ export const parseBytes26 = (bytes26) => {
  * @returns {TBytes27}
  * @example
  * ```ts
- * import { parseBytes27 } from '@evmts/schemas';
+ * import { parseBytes27 } from '@tevm/schemas';
  * const parsedBytes27 = parseBytes27('0xffaabbccddeeffaabbccddaaeeffaaeeffbbccddccbbddbb');
  * ```
  */
@@ -449,7 +449,7 @@ export const parseBytes27 = (bytes27) => {
  * @returns {TBytes28}
  * @example
  * ```ts
- * import { parseBytes28 } from '@evmts/schemas';
+ * import { parseBytes28 } from '@tevm/schemas';
  * const parsedBytes28 = parseBytes28('0xffaabbccddeeffaabbccddaaeeffaaeeffbbccddccbbddbbcc');
  * ```
  */
@@ -464,7 +464,7 @@ export const parseBytes28 = (bytes28) => {
  * @returns {TBytes29}
  * @example
  * ```ts
- * import { parseBytes29 } from '@evmts/schemas';
+ * import { parseBytes29 } from '@tevm/schemas';
  * const parsedBytes29 = parseBytes29('0xffaabbccddeeffaabbccddaaeeffaaeeffbbccddccbbddbbccaa');
  * ```
  */
@@ -479,7 +479,7 @@ export const parseBytes29 = (bytes29) => {
  * @returns {TBytes30}
  * @example
  * ```ts
- * import { parseBytes30 } from '@evmts/schemas';
+ * import { parseBytes30 } from '@tevm/schemas';
  * const parsedBytes30 = parseBytes30('0xffaabbccddeeffaabbccddaaeeffaaeeffbbccddccbbddbbccaaaa');
  * ```
  */
@@ -494,7 +494,7 @@ export const parseBytes30 = (bytes30) => {
  * @returns {TBytes31}
  * @example
  * ```ts
- * import { parseBytes31 } from '@evmts/schemas';
+ * import { parseBytes31 } from '@tevm/schemas';
  * const parsedBytes31 = parseBytes31('0xffaabbccddeeffaabbccddaaeeffaaeeffbbccddccbbddbbccaaaaaa');
  * ```
  */
@@ -509,7 +509,7 @@ export const parseBytes31 = (bytes31) => {
  * @returns {TBytes32}
  * @example
  * ```ts
- * import { parseBytes32 } from '@evmts/schemas';
+ * import { parseBytes32 } from '@tevm/schemas';
  * const parsedBytes32 = parseBytes32('0xffaabbccddeeffaabbccddaaeeffaaeeffbbccddccbbddbbccaaaaaabb');
  * ```
  */

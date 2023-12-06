@@ -1,18 +1,18 @@
-[Documentation](../README.md) / [Modules](../modules.md) / @evmts/rspack-plugin
+[Documentation](../README.md) / [Modules](../modules.md) / @tevm/rspack-plugin
 
-# Module: @evmts/rspack-plugin
+# Module: @tevm/rspack-plugin
 
 ## Table of contents
 
 ### Functions
 
-- [rspackPluginEvmts](evmts_rspack_plugin.md#rspackpluginevmts)
+- [rspackPluginTevm](tevm_rspack_plugin.md#rspackplugintevm)
 
 ## Functions
 
-### rspackPluginEvmts
+### rspackPluginTevm
 
-▸ **rspackPluginEvmts**(`options?`): `RspackPluginInstance`
+▸ **rspackPluginTevm**(`options?`): `RspackPluginInstance`
 
 #### Parameters
 

@@ -1,13 +1,13 @@
 import { describe, expect, it } from 'vitest'
 
+import { join } from 'path'
+import { ParseJsonError } from '@tevm/effect'
+import { runSync } from 'effect/Effect'
 import {
 	FailedToReadConfigError,
 	InvalidTsConfigError,
 	loadTsConfig,
 } from './loadTsConfig.js'
-import { ParseJsonError } from '@evmts/effect'
-import { runSync } from 'effect/Effect'
-import { join } from 'path'
 
 describe(loadTsConfig.name, () => {
 	it('should correctly load a tsconfig.json', async () => {
@@ -23,7 +23,7 @@ describe(loadTsConfig.name, () => {
 			    },
 			    "plugins": [
 			      {
-			        "name": "@evmts/ts-plugin",
+			        "name": "@tevm/ts-plugin",
 			      },
 			    ],
 			  },
@@ -38,7 +38,7 @@ describe(loadTsConfig.name, () => {
 			  "compilerOptions": {
 			    "plugins": [
 			      {
-			        "name": "@evmts/ts-plugin",
+			        "name": "@tevm/ts-plugin",
 			      },
 			    ],
 			  },
@@ -53,7 +53,7 @@ describe(loadTsConfig.name, () => {
 			  "compilerOptions": {
 			    "plugins": [
 			      {
-			        "name": "@evmts/ts-plugin",
+			        "name": "@tevm/ts-plugin",
 			      },
 			    ],
 			  },

@@ -1,9 +1,10 @@
 /**
- * @module @evmts/schemas/ethereum/SUINT/parseUINT.js
+ * @module @tevm/schemas/ethereum/SUINT/parseUINT.js
  * @description TypeSafe parser for Solidity UINT
  * @author William Cory <willcory10@gmail.com>
  */
 
+import { runSync } from 'effect/Effect'
 import {
 	parseUINT8Safe,
 	parseUINT16Safe,
@@ -12,7 +13,6 @@ import {
 	parseUINT128Safe,
 	parseUINT256Safe,
 } from './parseUINTSafe.js'
-import { runSync } from 'effect/Effect'
 
 /**
  * Parses a UINT8 and returns the value if no errors.
@@ -21,7 +21,7 @@ import { runSync } from 'effect/Effect'
  * @returns {TUINT8}
  * @example
  * ```ts
- * import { parseUINT8 } from '@evmts/schemas';
+ * import { parseUINT8 } from '@tevm/schemas';
  * const parsedUINT8 = parseUINT8(BigInt(127));
  * ```
  */
@@ -35,7 +35,7 @@ export const parseUINT8 = (uint8) => {
  * @returns {TUINT16}
  * @example
  * ```ts
- * import { parseUINT16 } from '@evmts/schemas';
+ * import { parseUINT16 } from '@tevm/schemas';
  * const parsedUINT16 = parseUINT16(BigInt(32767));
  * ```
  */
@@ -49,7 +49,7 @@ export const parseUINT16 = (uint16) => {
  * @returns {TUINT32}
  * @example
  * ```ts
- * import { parseUINT32 } from '@evmts/schemas';
+ * import { parseUINT32 } from '@tevm/schemas';
  * const parsedUINT32 = parseUINT32(BigInt(2147483647));
  * ```
  */
@@ -63,7 +63,7 @@ export const parseUINT32 = (uint32) => {
  * @returns {TUINT64}
  * @example
  * ```ts
- * import { parseUINT64 } from '@evmts/schemas';
+ * import { parseUINT64 } from '@tevm/schemas';
  * const parsedUINT64 = parseUINT64(BigInt("9223372036854775807"));
  * ```
  */
@@ -77,7 +77,7 @@ export const parseUINT64 = (uint64) => {
  * @returns {TUINT128}
  * @example
  * ```ts
- * import { parseUINT128 } from '@evmts/schemas';
+ * import { parseUINT128 } from '@tevm/schemas';
  * const parsedUINT128 = parseUINT128(BigInt("170141183460469231731687303715884105727"));
  * ```
  */
@@ -91,7 +91,7 @@ export const parseUINT128 = (uint128) => {
  * @returns {TUINT256}
  * @example
  * ```ts
- * import { parseUINT256 } from '@evmts/schemas';
+ * import { parseUINT256 } from '@tevm/schemas';
  * const parsedUINT256 = parseUINT256('0x1234567890abcdef1234567890abcdef12345678');
  * ```
  */

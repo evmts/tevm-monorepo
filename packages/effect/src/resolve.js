@@ -42,7 +42,7 @@ export class CouldNotResolveImportError extends Error {
  * @example
  * ```ts
  * import {tap} from 'effect/Effect'
- * import {resolveSync} from '@evmts/effect'
+ * import {resolveSync} from '@tevm/effect'
  * resolveSync('react').pipe(
  *    tap(console.log)
  * )
@@ -67,7 +67,7 @@ export const resolveSync = (importPath, options) => {
  * @example
  * ```ts
  * import {tap} from 'effect/Effect'
- * import {resolveAsync} from '@evmts/effect'
+ * import {resolveAsync} from '@tevm/effect'
  * resolveAsync('react').pipe(
  *    tap(console.log)
  * )

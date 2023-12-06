@@ -16,7 +16,7 @@ import { isRight } from 'effect/Either'
  * @typedef {number} BlockNumber
  * @example
  * ```typescript
- * import { BlockNumber } from '@evmts/schemas';
+ * import { BlockNumber } from '@tevm/schemas';
  * const blockNumber = '0x1234567890abcdef1234567890abcdef12345678' as const satisfies BlockNumber;
  * ```
  */
@@ -38,7 +38,7 @@ export const SBlockNumber = number.pipe(nonNegative(), int())
  * @returns {boolean}
  * @example
  * ```ts
- * import { isBlockNumber } from '@evmts/schemas';
+ * import { isBlockNumber } from '@tevm/schemas';
  * isBlockNumber('0x1234567890abcdef1234567890abcdef12345678');  // true
  * isBlockNumber('not a blockNumber'); // false
  * ````
@@ -63,7 +63,7 @@ export class InvalidBlockNumberError extends TypeError {
 		blockNumber,
 		message = `Value ${blockNumber} is not a valid BlockNumber. BlockNumbers must be an integer >= 0`,
 		cause,
-		docs = 'https://evmts.dev/reference/errors',
+		docs = 'https://tevm.dev/reference/errors',
 	} = {}) {
 		super(`${InvalidBlockNumberError.name}: ${message}\n${docs}`)
 		this.cause = cause && formatErrors(cause)
@@ -77,7 +77,7 @@ export class InvalidBlockNumberError extends TypeError {
  * @returns {Effect.Effect<never, InvalidBlockNumberError, TBlockNumber>}
  * @example
  * ```ts
- * import { parseBlockNumberSafe } from '@evmts/schemas';
+ * import { parseBlockNumberSafe } from '@tevm/schemas';
  * const parsedBlockNumberEffect = parseBlockNumberSafe('0x1234567890abcdef1234567890abcdef12345678');
  * ```
  */
@@ -102,7 +102,7 @@ export const parseBlockNumberSafe = (blockNumber) => {
  * @returns {TBlockNumber}
  * @example
  * ```ts
- * import { parseBlockNumber } from '@evmts/schemas';
+ * import { parseBlockNumber } from '@tevm/schemas';
  * const parsedBlockNumber = parseBlockNumber('0x1234567890abcdef1234567890abcdef12345678');
  * ```
  */

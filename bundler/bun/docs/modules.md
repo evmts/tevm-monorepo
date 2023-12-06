@@ -1,20 +1,20 @@
-[@evmts/bun-plugin](README.md) / Exports
+[@tevm/bun-plugin](README.md) / Exports
 
-# @evmts/bun-plugin
+# @tevm/bun-plugin
 
 ## Table of contents
 
 ### Functions
 
-- [evmtsBunPlugin](modules.md#evmtsbunplugin)
+- [tevmBunPlugin](modules.md#tevmbunplugin)
 
 ## Functions
 
-### evmtsBunPlugin
+### tevmBunPlugin
 
-▸ **evmtsBunPlugin**(`SolcVersions`): `BunPlugin`
+▸ **tevmBunPlugin**(`SolcVersions`): `BunPlugin`
 
-@evmts/bun-plugin is a bun plugin that allows you to import solidity files into your typescript files
+@tevm/bun-plugin is a bun plugin that allows you to import solidity files into your typescript files
 and have them compiled to typescript on the fly.
 
 #### Parameters
@@ -31,10 +31,10 @@ and have them compiled to typescript on the fly.
 **`Example`**
 
 ```ts plugin.ts
-import { evmtsBunPlugin } from '@evmts/esbuild-plugin'
+import { tevmBunPlugin } from '@tevm/esbuild-plugin'
 import { plugin } from 'bun'
 
-plugin(evmtsBunPlugin())
+plugin(tevmBunPlugin())
 ```
 
 ```ts bunfig.toml
@@ -43,4 +43,4 @@ preload = ["./plugins.ts"]
 
 #### Defined in
 
-[plugin.js:26](https://github.com/evmts/evmts-monorepo/blob/main/bundler/bun/src/plugin.js#L26)
+[plugin.js:26](https://github.com/evmts/tevm-monorepo/blob/main/bundler/bun/src/plugin.js#L26)

@@ -1,4 +1,4 @@
-[@evmts/config](../README.md) / [Modules](../modules.md) / loadConfig
+[@tevm/config](../README.md) / [Modules](../modules.md) / loadConfig
 
 # Module: loadConfig
 
@@ -20,11 +20,11 @@
 
 ### LoadConfigErrorType
 
-Ƭ **LoadConfigErrorType**\<\>: `LoadTsConfigError` \| `GetEvmtsConfigFromTsConfigError` \| `LoadFoundryConfigError`
+Ƭ **LoadConfigErrorType**\<\>: `LoadTsConfigError` \| `GetTevmConfigFromTsConfigError` \| `LoadFoundryConfigError`
 
 #### Defined in
 
-[bundler/config/src/loadConfig.js:16](https://github.com/evmts/evmts-monorepo/blob/main/bundler/config/src/loadConfig.js#L16)
+[bundler/config/src/loadConfig.js:16](https://github.com/evmts/tevm-monorepo/blob/main/bundler/config/src/loadConfig.js#L16)
 
 ## Functions
 
@@ -32,7 +32,7 @@
 
 ▸ **loadConfig**(`configFilePath`): `Effect`\<`never`, [`LoadConfigError`](../classes/loadConfig.LoadConfigError.md), [`ResolvedCompilerConfig`](types.md#resolvedcompilerconfig)\>
 
-Loads an EVMts config from the given path
+Loads an Tevm config from the given path
 
 #### Parameters
 
@@ -48,7 +48,7 @@ Loads an EVMts config from the given path
 
 ```ts
 import {tap} from 'effect/Effect'
-import {loadConfig} from '@evmts/config'
+import {loadConfig} from '@tevm/config'
 
 runPromise(loadConfig('./tsconfig.json')).pipe(
   tap(config => console.log(config))
@@ -57,4 +57,4 @@ runPromise(loadConfig('./tsconfig.json')).pipe(
 
 #### Defined in
 
-[bundler/config/src/loadConfig.js:61](https://github.com/evmts/evmts-monorepo/blob/main/bundler/config/src/loadConfig.js#L61)
+[bundler/config/src/loadConfig.js:61](https://github.com/evmts/tevm-monorepo/blob/main/bundler/config/src/loadConfig.js#L61)

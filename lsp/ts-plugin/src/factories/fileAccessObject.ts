@@ -1,4 +1,4 @@
-import { FileAccessObject } from '@evmts/base'
+import { FileAccessObject } from '@tevm/base'
 import typescript from 'typescript/lib/tsserverlibrary.js'
 
 export const createFileAccessObject = (
@@ -8,7 +8,7 @@ export const createFileAccessObject = (
 		readFile: async (fileName, encoding) => {
 			const file = lsHost.readFile(fileName, encoding)
 			if (!file) {
-				throw new Error(`@evmts/ts-plugin: unable to read file ${fileName}`)
+				throw new Error(`@tevm/ts-plugin: unable to read file ${fileName}`)
 			}
 			return file
 		},
@@ -16,7 +16,7 @@ export const createFileAccessObject = (
 		readFileSync: (fileName, encoding) => {
 			const file = lsHost.readFile(fileName, encoding)
 			if (!file) {
-				throw new Error(`@evmts/ts-plugin: unable to read file ${fileName}`)
+				throw new Error(`@tevm/ts-plugin: unable to read file ${fileName}`)
 			}
 			return file
 		},

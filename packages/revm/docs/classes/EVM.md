@@ -1,4 +1,4 @@
-[@evmts/revm](../README.md) / [Exports](../modules.md) / EVM
+[@tevm/revm](../README.md) / [Exports](../modules.md) / EVM
 
 # Class: EVM
 
@@ -35,7 +35,7 @@
 
 #### Defined in
 
-revmts.d.ts:6
+rtevm.d.ts:6
 
 ___
 
@@ -49,4 +49,4 @@ ___
 
 #### Defined in
 
-revmts.d.ts:10
+rtevm.d.ts:10

@@ -1,6 +1,6 @@
 # Tutorial
 
-To learn all the pieces of Evmts we will configure a new project from scratch.  We only assume basic TypeScript knowledge and knowledge of what a Smart Contract is
+To learn all the pieces of Tevm we will configure a new project from scratch.  We only assume basic TypeScript knowledge and knowledge of what a Smart Contract is
 
 ::: info You will learn
 

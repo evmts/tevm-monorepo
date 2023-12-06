@@ -1,4 +1,4 @@
-[@evmts/effect](/reference/effect/README.md) / [Exports](/reference/effect/modules.md) / ParseJsonError
+[@tevm/effect](/reference/effect/README.md) / [Exports](/reference/effect/modules.md) / ParseJsonError
 
 # Class: ParseJsonError
 
@@ -49,7 +49,7 @@ Error.constructor
 
 #### Defined in
 
-[effect/src/parseJson.js:17](https://github.com/evmts/evmts-monorepo/blob/main/effect/src/parseJson.js#L17)
+[effect/src/parseJson.js:17](https://github.com/evmts/tevm-monorepo/blob/main/effect/src/parseJson.js#L17)
 
 ## Properties
 
@@ -59,7 +59,7 @@ Error.constructor
 
 #### Defined in
 
-[effect/src/parseJson.js:12](https://github.com/evmts/evmts-monorepo/blob/main/effect/src/parseJson.js#L12)
+[effect/src/parseJson.js:12](https://github.com/evmts/tevm-monorepo/blob/main/effect/src/parseJson.js#L12)
 
 ___
 

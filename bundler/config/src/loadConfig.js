@@ -1,7 +1,4 @@
-import { mergeConfigs, withDefaults } from './config/index.js'
-import { loadFoundryConfig } from './foundry/index.js'
-import { getEvmtsConfigFromTsConfig, loadTsConfig } from './tsconfig/index.js'
-import { logAllErrors } from '@evmts/effect'
+import { logAllErrors } from '@tevm/effect'
 import {
 	all,
 	catchTags,
@@ -11,9 +8,12 @@ import {
 	tap,
 	tapError,
 } from 'effect/Effect'
+import { mergeConfigs, withDefaults } from './config/index.js'
+import { loadFoundryConfig } from './foundry/index.js'
+import { getTevmConfigFromTsConfig, loadTsConfig } from './tsconfig/index.js'
 
 /**
- * @typedef {import("./tsconfig/index.js").LoadTsConfigError | import("./tsconfig/index.js").GetEvmtsConfigFromTsConfigError | import("./foundry/index.js").LoadFoundryConfigError} LoadConfigErrorType
+ * @typedef {import("./tsconfig/index.js").LoadTsConfigError | import("./tsconfig/index.js").GetTevmConfigFromTsConfigError | import("./foundry/index.js").LoadFoundryConfigError} LoadConfigErrorType
  */
 
 /**
@@ -45,13 +45,13 @@ ${underlyingError.message}`,
 }
 
 /**
- * Loads an EVMts config from the given path
+ * Loads an Tevm config from the given path
  * @param {string} configFilePath
  * @returns {import("effect/Effect").Effect<never, LoadConfigError, import("./types.js").ResolvedCompilerConfig>}
  * @example
  * ```ts
  * import {tap} from 'effect/Effect'
- * import {loadConfig} from '@evmts/config'
+ * import {loadConfig} from '@tevm/config'
  *
  * runPromise(loadConfig('./tsconfig.json')).pipe(
  *   tap(config => console.log(config))
@@ -63,7 +63,7 @@ export const loadConfig = (configFilePath) => {
 		`loadConfig: loading tsConfig at ${JSON.stringify(configFilePath)}`,
 	).pipe(
 		flatMap(() => loadTsConfig(configFilePath)),
-		flatMap((tsConfig) => getEvmtsConfigFromTsConfig(tsConfig, configFilePath)),
+		flatMap((tsConfig) => getTevmConfigFromTsConfig(tsConfig, configFilePath)),
 	)
 	const foundryConfigEffect = flatMap(userConfigEffect, (userConfig) => {
 		return loadFoundryConfig(userConfig.foundryProject, configFilePath)

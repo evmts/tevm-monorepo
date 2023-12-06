@@ -1,9 +1,8 @@
-import { evmtsUnplugin } from './evmtsUnplugin.js'
-import { bundler } from '@evmts/base'
-import { loadConfig } from '@evmts/config'
-import { succeed } from 'effect/Effect'
 import { existsSync } from 'fs'
 import { createRequire } from 'module'
+import { bundler } from '@tevm/base'
+import { loadConfig } from '@tevm/config'
+import { succeed } from 'effect/Effect'
 // @ts-expect-error
 import * as solc from 'solc'
 import type { UnpluginBuildContext, UnpluginContext } from 'unplugin'
@@ -16,18 +15,19 @@ import {
 	it,
 	vi,
 } from 'vitest'
+import { tevmUnplugin } from './tevmUnplugin.js'
 
 vi.mock('module', async () => ({
 	...((await vi.importActual('module')) as {}),
 	createRequire: vi.fn(),
 }))
 
-vi.mock('@evmts/config', async () => ({
-	...((await vi.importActual('@evmts/config')) as {}),
+vi.mock('@tevm/config', async () => ({
+	...((await vi.importActual('@tevm/config')) as {}),
 	loadConfig: vi.fn(),
 }))
-vi.mock('@evmts/base', async () => ({
-	...((await vi.importActual('@evmts/base')) as {}),
+vi.mock('@tevm/base', async () => ({
+	...((await vi.importActual('@tevm/base')) as {}),
 	bundler: vi.fn(),
 }))
 
@@ -75,8 +75,8 @@ describe('unpluginFn', () => {
 	})
 
 	it('should create the plugin correctly', async () => {
-		const plugin = evmtsUnplugin({}, {} as any)
-		expect(plugin.name).toEqual('@evmts/rollup-plugin')
+		const plugin = tevmUnplugin({}, {} as any)
+		expect(plugin.name).toEqual('@tevm/rollup-plugin')
 		expect((plugin as any).version).toBeTruthy()
 
 		// call buildstart with mockPlugin as this
@@ -148,7 +148,7 @@ describe('unpluginFn', () => {
 	})
 
 	it('should watch the tsconfig.json file', async () => {
-		const plugin = evmtsUnplugin({}, {} as any)
+		const plugin = tevmUnplugin({}, {} as any)
 
 		// call buildstart with mockPlugin as this
 		await plugin.buildStart?.call(mockPlugin)
@@ -158,7 +158,7 @@ describe('unpluginFn', () => {
 	})
 
 	it('should add module id to watch files if it is a .sol file', async () => {
-		const plugin = evmtsUnplugin({}, {} as any)
+		const plugin = tevmUnplugin({}, {} as any)
 		const mockedModuleId = 'mockedModuleId'
 		const mockedModule = {
 			code: 'mockedCode',
@@ -178,7 +178,7 @@ describe('unpluginFn', () => {
 	})
 
 	it('should not add module id to watch files if it is a .sol file in node modules', async () => {
-		const plugin = evmtsUnplugin({}, {} as any)
+		const plugin = tevmUnplugin({}, {} as any)
 		const mockedModuleId = 'mockedModuleId'
 		const mockedModule = {
 			code: 'mockedCode',
@@ -198,7 +198,7 @@ describe('unpluginFn', () => {
 	})
 
 	it('should not load non .sol files', async () => {
-		const plugin = evmtsUnplugin({}, {} as any)
+		const plugin = tevmUnplugin({}, {} as any)
 		mockExistsSync.mockReturnValueOnce(true)
 		const result = plugin.loadInclude?.call(mockPlugin, 'test.js')
 		expect(result).toBe(false)
@@ -206,7 +206,7 @@ describe('unpluginFn', () => {
 	})
 
 	it('should not load if .sol file has corresponding .ts file', async () => {
-		const plugin = evmtsUnplugin({}, {} as any)
+		const plugin = tevmUnplugin({}, {} as any)
 		mockExistsSync.mockImplementation((path) => path.endsWith('.ts'))
 		const result = plugin.loadInclude?.call(mockPlugin, 'test.sol')
 		expect(result).toBe(false)
@@ -214,7 +214,7 @@ describe('unpluginFn', () => {
 	})
 
 	it('should not load if .sol file has corresponding .d.ts file', async () => {
-		const plugin = evmtsUnplugin({}, {} as any)
+		const plugin = tevmUnplugin({}, {} as any)
 		mockExistsSync.mockImplementation((path) => path.endsWith('.d.ts'))
 		const result = plugin.loadInclude?.call(mockPlugin, 'test.sol')
 		expect(result).toBe(false)
@@ -222,24 +222,22 @@ describe('unpluginFn', () => {
 	})
 
 	describe('unpluginFn.resolveId', () => {
-		it('should resolve to local @evmts/core when id starts with @evmts/core', async () => {
-			const plugin = evmtsUnplugin({}, {} as any)
+		it('should resolve to local @tevm/core when id starts with @tevm/core', async () => {
+			const plugin = tevmUnplugin({}, {} as any)
 			const mockCreateRequre = createRequire as MockedFunction<
 				typeof createRequire
 			>
 			const mockRequireResolve = vi.fn()
-			mockRequireResolve.mockReturnValue('/path/to/node_modules/@evmts/core')
+			mockRequireResolve.mockReturnValue('/path/to/node_modules/@tevm/core')
 			mockCreateRequre.mockReturnValue({ resolve: mockRequireResolve } as any)
 			const result = await plugin.resolveId?.call(
 				mockPlugin,
-				'@evmts/core',
+				'@tevm/core',
 				'/different/workspace',
 				{} as any,
 			)
 
-			expect(result).toMatchInlineSnapshot(
-				'"/path/to/node_modules/@evmts/core"',
-			)
+			expect(result).toMatchInlineSnapshot('"/path/to/node_modules/@tevm/core"')
 			expect(mockCreateRequre.mock.lastCall).toMatchInlineSnapshot(`
 				[
 				  "mock/process/dot/cwd/",
@@ -247,13 +245,13 @@ describe('unpluginFn', () => {
 			`)
 			expect(mockRequireResolve.mock.lastCall).toMatchInlineSnapshot(`
 				[
-				  "@evmts/core",
+				  "@tevm/core",
 				]
 			`)
 		})
 
-		it('should return null when id does not start with @evmts/core', async () => {
-			const plugin = evmtsUnplugin({}, {} as any)
+		it('should return null when id does not start with @tevm/core', async () => {
+			const plugin = tevmUnplugin({}, {} as any)
 
 			const result = await plugin.resolveId?.call(
 				mockPlugin,
@@ -265,12 +263,12 @@ describe('unpluginFn', () => {
 			expect(result).toBeNull()
 		})
 
-		it('should return null when id starts with @evmts/core but importer is in node_modules or the same workspace', async () => {
-			const plugin = evmtsUnplugin({}, {} as any)
+		it('should return null when id starts with @tevm/core but importer is in node_modules or the same workspace', async () => {
+			const plugin = tevmUnplugin({}, {} as any)
 
 			const resultInNodeModules = await plugin.resolveId?.call(
 				mockPlugin,
-				'@evmts/core',
+				'@tevm/core',
 				'/some/workspace/node_modules',
 				{} as any,
 			)
@@ -278,7 +276,7 @@ describe('unpluginFn', () => {
 
 			const resultInSameWorkspace = await plugin.resolveId?.call(
 				mockPlugin,
-				'@evmts/core',
+				'@tevm/core',
 				mockCwd,
 				{} as any,
 			)

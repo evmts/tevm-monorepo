@@ -39,7 +39,7 @@ export type Write<
 				deployedBytecode: TDeployedBytecode
 		  }
 		: {
-				evmtsContractName: TName
+				tevmContractName: TName
 				functionName: TFunctionName
 				args: TArgs
 				humanReadableAbi: FormatAbi<

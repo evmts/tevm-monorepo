@@ -9,7 +9,7 @@ Creates an [ethers.js contract instance](TODO.link)
 ```ts [example.ts]
 import { ERC20 } from "./ERC20.sol";
 import { JsonRpcProvider } from 'ethers'
-import { createEthersContract } from "@evmts/ethers";
+import { createEthersContract } from "@tevm/ethers";
 
 const CHAIN_ID = 10
 
@@ -32,15 +32,15 @@ contract ERC20 {
 }
 ```
 
-```ts [evmts.config.ts]
-import { defineConfig } from "@evmts/config";
+```ts [tevm.config.ts]
+import { defineConfig } from "@tevm/config";
 
 /**
- * @see https://evmts.dev/reference/config.html
+ * @see https://tevm.dev/reference/config.html
  */
 export default defineConfig(() => ({
   /**
-   * Deployments allow evmts to configure default addresses for different networks
+   * Deployments allow tevm to configure default addresses for different networks
    */
   deployments: [
     {

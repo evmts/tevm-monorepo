@@ -1,12 +1,12 @@
 /**
- * @module @evmts/schemas/ethereum/SINT/isINT.js
+ * @module @tevm/schemas/ethereum/SINT/isINT.js
  * @description Type guards for Solidity INT type
  * @author William Cory <willcory10@gmail.com>
  */
 
-import { SINT8, SINT16, SINT32, SINT64, SINT128, SINT256 } from './SINT.js'
 import { parseEither } from '@effect/schema/Schema'
 import { isRight } from 'effect/Either'
+import { SINT8, SINT16, SINT32, SINT64, SINT128, SINT256 } from './SINT.js'
 
 /**
  * Type guard that returns true if the provided bigint is a valid Ethereum INT8.
@@ -14,7 +14,7 @@ import { isRight } from 'effect/Either'
  * @returns {boolean}
  * @example
  * ```ts
- * import { isINT8 } from '@evmts/schemas';
+ * import { isINT8 } from '@tevm/schemas';
  * isINT8(BigInt(-128));  // true
  * isINT8(BigInt(127));   // true
  * isINT8(BigInt(128));   // false
@@ -31,7 +31,7 @@ export const isINT8 = (int8) => {
  * @returns {boolean}
  * @example
  * ```ts
- * import { isINT16 } from '@evmts/schemas';
+ * import { isINT16 } from '@tevm/schemas';
  * isINT16(BigInt(-32768));  // true
  * isINT16(BigInt(32767));   // true
  * isINT16(BigInt(32768));   // false
@@ -48,7 +48,7 @@ export const isINT16 = (int16) => {
  * @returns {boolean}
  * @example
  * ```ts
- * import { isINT32 } from '@evmts/schemas';
+ * import { isINT32 } from '@tevm/schemas';
  * isINT32(BigInt(-2147483648));  // true
  * isINT32(BigInt(2147483647));   // true
  * isINT32(BigInt(2147483648));   // false
@@ -65,7 +65,7 @@ export const isINT32 = (int32) => {
  * @returns {boolean}
  * @example
  * ```ts
- * import { isINT64 } from '@evmts/schemas';
+ * import { isINT64 } from '@tevm/schemas';
  * isINT64(BigInt("-9223372036854775808"));  // true
  * isINT64(BigInt("9223372036854775807"));   // true
  * isINT64(BigInt("9223372036854775808"));   // false
@@ -82,7 +82,7 @@ export const isINT64 = (int64) => {
  * @returns {boolean}
  * @example
  * ```ts
- * import { isINT128 } from '@evmts/schemas';
+ * import { isINT128 } from '@tevm/schemas';
  * isINT128(BigInt("-170141183460469231731687303715884105728"));  // true
  * isINT128(BigInt("170141183460469231731687303715884105727"));   // true
  * isINT128(BigInt("170141183460469231731687303715884105728"));   // false
@@ -99,7 +99,7 @@ export const isINT128 = (int128) => {
  * @returns {boolean}
  * @example
  * ```ts
- * import { isINT256 } from '@evmts/schemas';
+ * import { isINT256 } from '@tevm/schemas';
  * isINT256(BigInt("-115792089237316195423570985008687907853269984665640564039457584007913129639936"));  // true
  * isINT256(BigInt("115792089237316195423570985008687907853269984665640564039457584007913129639935"));   // true
  * isINT256(BigInt("115792089237316195423570985008687907853269984665640564039457584007913129639936"));   // false

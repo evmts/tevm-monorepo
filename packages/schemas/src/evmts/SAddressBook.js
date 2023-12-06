@@ -5,13 +5,13 @@
  * Contract keys can be anything including the contract address but by convention they are usually a human readable name for the contract.
  */
 
-import { SBlockNumber } from '../common/index.js'
-import { SAddress } from '../ethereum/index.js'
 import { parseEither, record, string, struct } from '@effect/schema/Schema'
 import { formatErrors } from '@effect/schema/TreeFormatter'
 import { Effect } from 'effect'
 import { mapError, runSync } from 'effect/Effect'
 import { isRight } from 'effect/Either'
+import { SBlockNumber } from '../common/index.js'
+import { SAddress } from '../ethereum/index.js'
 
 /**
  * @typedef {Object} AddressBookEntry
@@ -63,7 +63,7 @@ export class InvalidAddressBookError extends TypeError {
 	 */
 	constructor({
 		message = 'Address book is invalid',
-		docs = 'https://evmts.dev/reference/errors',
+		docs = 'https://tevm.dev/reference/errors',
 		cause,
 	} = {}) {
 		super(`${InvalidAddressBookError.name}: ${message}\n${docs}`)
@@ -78,7 +78,7 @@ export class InvalidAddressBookError extends TypeError {
  * @returns {Effect.Effect<never, InvalidAddressBookError, TAddressBook>}
  * @example
  * ```typescript
- * import {parseAddressBookSafe} from '@evmts/schemas'
+ * import {parseAddressBookSafe} from '@tevm/schemas'
  * const parsedAddressBookEffect = parseAddressBookSafe({
  *   MyContract: {
  *     blockCreated: 0,
@@ -109,7 +109,7 @@ export const parseAddressBookSafe = (addressBook) => {
  * @returns {TAddressBook}
  * @example
  * ```typescript
- * import {parseAddressBook} from '@evmts/schemas'
+ * import {parseAddressBook} from '@tevm/schemas'
  * const parsedAddressBook = parseAddressBook({
  *   MyContract: {
  *     blockCreated: 0,

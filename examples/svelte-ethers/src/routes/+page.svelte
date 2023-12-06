@@ -2,7 +2,7 @@
   import { onMount } from 'svelte';
   import { writable } from 'svelte/store';
   import { EthersMintExample } from '../contracts/EthersMintExample.sol';
-  import {Contract} from '@evmts/ethers'
+  import {Contract} from '@tevm/ethers'
   import { JsonRpcProvider } from 'ethers'
   import { addresses } from '../addresses';
 
@@ -16,7 +16,7 @@
   const provider = new JsonRpcProvider('https://goerli.optimism.io', 420)
   const ethersContract = new Contract(
     addresses[420],
-    EthersMintExample.abi, 
+    EthersMintExample.abi,
 		provider
 	)
 

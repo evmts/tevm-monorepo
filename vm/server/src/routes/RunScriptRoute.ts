@@ -1,10 +1,10 @@
-import { EVMts, RunScriptActionValidator } from '@evmts/vm'
+import { RunScriptActionValidator, Tevm } from '@tevm/vm'
 
 import type { Trpc } from '../Trpc.js'
 import { Route } from './Route.js'
 
 export class RunScriptRoute extends Route {
-	constructor(trpc: Trpc, protected readonly vm: EVMts) {
+	constructor(trpc: Trpc, protected readonly vm: Tevm) {
 		super(trpc)
 	}
 	public readonly name = 'runScript'

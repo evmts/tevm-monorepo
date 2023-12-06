@@ -1,6 +1,6 @@
-[@evmts/blockexplorer](/reference/blockexplorer/README.md) / Exports
+[@tevm/blockexplorer](/reference/blockexplorer/README.md) / Exports
 
-# @evmts/blockexplorer
+# @tevm/blockexplorer
 
 ## Table of contents
 
@@ -26,7 +26,7 @@
 
 #### Defined in
 
-[blockExplorer.js:14](https://github.com/evmts/evmts-monorepo/blob/main/blockexplorer/src/blockExplorer.js#L14)
+[blockExplorer.js:14](https://github.com/evmts/tevm-monorepo/blob/main/blockexplorer/src/blockExplorer.js#L14)
 
 ___
 
@@ -36,4 +36,4 @@ ___
 
 #### Defined in
 
-[blockExplorer.js:13](https://github.com/evmts/evmts-monorepo/blob/main/blockexplorer/src/blockExplorer.js#L13)
+[blockExplorer.js:13](https://github.com/evmts/tevm-monorepo/blob/main/blockexplorer/src/blockExplorer.js#L13)

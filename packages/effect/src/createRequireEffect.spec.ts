@@ -1,11 +1,5 @@
-// TODO move this to @evmts/createRequire package
-import {
-	CreateRequireError,
-	RequireError,
-	createRequireEffect,
-} from './createRequireEffect.js'
-import { runSync } from 'effect/Effect'
 import { createRequire } from 'module'
+import { runSync } from 'effect/Effect'
 import {
 	type MockedFunction,
 	beforeEach,
@@ -14,6 +8,12 @@ import {
 	it,
 	vi,
 } from 'vitest'
+// TODO move this to @tevm/createRequire package
+import {
+	CreateRequireError,
+	RequireError,
+	createRequireEffect,
+} from './createRequireEffect.js'
 
 vi.mock('module', () => ({
 	createRequire: vi.fn(),

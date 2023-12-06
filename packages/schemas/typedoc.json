@@ -5,8 +5,10 @@
 		"./src/types.d.ts",
 		"./src/ethereum/index.js",
 		"./src/common/index.js",
-		"./src/evmts/index.js"
+		"./src/tevm/index.js"
 	],
-	"plugin": ["typedoc-plugin-markdown"],
+	"plugin": [
+		"typedoc-plugin-markdown"
+	],
 	"gitRevision": "main"
 }

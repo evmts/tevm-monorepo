@@ -74,7 +74,7 @@ contract AddNumbers {
 
 	return (
 		<div>
-			<h3>Edit this solidity contract to see how EVMts works</h3>
+			<h3>Edit this solidity contract to see how Tevm works</h3>
 			<Editor
 				value={code}
 				onValueChange={(code) => setCode(code)}
@@ -85,12 +85,12 @@ contract AddNumbers {
 					fontSize: 12,
 				}}
 			/>
-			<h3>EVMts compiler</h3>
+			<h3>Tevm compiler</h3>
 			<p>
-				The EVMts compiler will compile the above solidity contract into the
+				The Tevm compiler will compile the above solidity contract into the
 				following artifacts using{' '}
-				<a href='https://github.com/evmts/evmts-monorepo/blob/main/bundler/solc/docs/modules/solc.md#solccompile'>
-					import("@evmts/solc").solcCompile
+				<a href='https://github.com/evmts/tevm-monorepo/blob/main/bundler/solc/docs/modules/solc.md#solccompile'>
+					import("@tevm/solc").solcCompile
 				</a>{' '}
 				which is just a typesafe wrapper around{' '}
 				<a href='https://docs.soliditylang.org/en/latest/installing-solidity.html'>

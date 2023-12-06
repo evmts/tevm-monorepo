@@ -1,3 +1,4 @@
+import { Tevm } from '@tevm/vm'
 import { Trpc } from './Trpc.js'
 import { TrpcApi } from './TrpcApi.js'
 import {
@@ -7,9 +8,8 @@ import {
 	RunContractCallRoute,
 	RunScriptRoute,
 } from './routes/index.js'
-import { EVMts } from '@evmts/vm'
 
-export const createEvmtsServer = (vm: EVMts): TrpcApi => {
+export const createTevmServer = (vm: Tevm): TrpcApi => {
 	const trpc = new Trpc()
 	return new TrpcApi(
 		trpc,

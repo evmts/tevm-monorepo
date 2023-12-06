@@ -1,8 +1,8 @@
-import { solcCompile } from '../solc.js'
-import { invariant, resolveEffect } from '../utils/index.js'
-import { moduleFactory } from '@evmts/resolutions'
+import { moduleFactory } from '@tevm/resolutions'
 import { Effect } from 'effect'
 import { runPromise } from 'effect/Effect'
+import { solcCompile } from '../solc.js'
+import { invariant, resolveEffect } from '../utils/index.js'
 
 /**
  * Compile the Solidity contract and return its ABI.
@@ -11,7 +11,7 @@ import { runPromise } from 'effect/Effect'
  * @template TIncludeBytecode
  * @param {string} filePath
  * @param {string} basedir
- * @param {import('@evmts/config').ResolvedCompilerConfig} config
+ * @param {import('@tevm/config').ResolvedCompilerConfig} config
  * @param {TIncludeAsts} includeAst
  * @param {TIncludeBytecode} includeBytecode
  * @param {import('../types.js').FileAccessObject} fao

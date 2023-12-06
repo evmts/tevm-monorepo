@@ -1,5 +1,3 @@
-import { DefineConfigError } from './defineConfig.js'
-import { type CompilerConfig, defaultConfig, defineConfig } from './index.js'
 import { execSync } from 'child_process'
 import { flip, runSync } from 'effect/Effect'
 import {
@@ -10,6 +8,8 @@ import {
 	it,
 	vi,
 } from 'vitest'
+import { DefineConfigError } from './defineConfig.js'
+import { type CompilerConfig, defaultConfig, defineConfig } from './index.js'
 
 vi.mock('child_process', () => ({
 	execSync: vi.fn(),
@@ -114,8 +114,8 @@ describe(defineConfig.name, () => {
 		expect(e._tag).toBe('InvalidConfigError')
 		expect(e.name).toBe('InvalidConfigError')
 		expect(e.message).toMatchInlineSnapshot(`
-			"InvalidConfigError: Unable to resolve EVMts CompilerConfig at ./
-			Invalid EVMts CompilerConfig detected"
+			"InvalidConfigError: Unable to resolve Tevm CompilerConfig at ./
+			Invalid Tevm CompilerConfig detected"
 		`)
 	})
 
@@ -135,10 +135,10 @@ describe(defineConfig.name, () => {
 		expect(e._tag).toBe('FoundryNotFoundError')
 		expect(e.name).toBe('FoundryNotFoundError')
 		expect(e.message).toMatchInlineSnapshot(`
-			"FoundryNotFoundError: Unable to resolve EVMts CompilerConfig at ./
+			"FoundryNotFoundError: Unable to resolve Tevm CompilerConfig at ./
 			Failed to resolve forge config using \\"forge config --json\\" command. Make sure forge is installed and accessible and forge config --json works.
 			note: forge is used to fetch remappings only if forgeConfig is set. If you would prefer to not use forge you can set remappings
-			or lib directly in your EVMts compiler config and then EVMts will run without forge"
+			or lib directly in your Tevm compiler config and then Tevm will run without forge"
 		`)
 	})
 
@@ -155,7 +155,7 @@ describe(defineConfig.name, () => {
 		expect(e._tag).toBe('FoundryConfigError')
 		expect(e.name).toBe('FoundryConfigError')
 		expect(e.message).toMatchInlineSnapshot(`
-			"FoundryConfigError: Unable to resolve EVMts CompilerConfig at ./
+			"FoundryConfigError: Unable to resolve Tevm CompilerConfig at ./
 			Unable to resolve foundry config using forge config --json"
 		`)
 	})
@@ -177,7 +177,7 @@ describe(defineConfig.name, () => {
 		expect(e._tag).toBe('InvalidRemappingsError')
 		expect(e.name).toBe('InvalidRemappingsError')
 		expect(e.message).toMatchInlineSnapshot(`
-			"InvalidRemappingsError: Unable to resolve EVMts CompilerConfig at ./
+			"InvalidRemappingsError: Unable to resolve Tevm CompilerConfig at ./
 			Invalid remappings: invalid=remapping=format"
 		`)
 	})

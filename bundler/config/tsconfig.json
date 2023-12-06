@@ -1,5 +1,5 @@
 {
-  "extends": "@evmts/tsconfig/base.json",
+  "extends": "@tevm/tsconfig/base.json",
   "compilerOptions": {
     "composite": true,
     "outDir": "types",

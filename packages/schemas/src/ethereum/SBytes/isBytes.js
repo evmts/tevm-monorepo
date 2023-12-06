@@ -14,7 +14,7 @@ const hexRegex = /^0x[0-9a-fA-F]*$/
  * @returns {boolean} - True if the string is a valid hex string.
  * @example
  * ```javascript
- * import { isBytes } from '@evmts/schemas';
+ * import { isBytes } from '@tevm/schemas';
  * const hex = '0x1234567890abcdef1234567890abcdef12345678';
  * const isHex = isBytes(hex);
  * ```

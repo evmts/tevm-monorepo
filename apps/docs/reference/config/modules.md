@@ -1,6 +1,6 @@
-[@evmts/config](/reference/config/README.md) / Exports
+[@tevm/config](/reference/config/README.md) / Exports
 
-# @evmts/config
+# @tevm/config
 
 ## Table of contents
 
@@ -37,7 +37,7 @@ When resolved with defaults it is a [ResolvedCompilerConfig](/reference/config/m
 
 #### Defined in
 
-[types.ts:11](https://github.com/evmts/evmts-monorepo/blob/main/config/src/types.ts#L11)
+[types.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/config/src/types.ts#L11)
 
 ___
 
@@ -58,7 +58,7 @@ See [CompilerConfig](/reference/config/modules.md#compilerconfig)
 
 #### Defined in
 
-[types.ts:37](https://github.com/evmts/evmts-monorepo/blob/main/config/src/types.ts#L37)
+[types.ts:37](https://github.com/evmts/tevm-monorepo/blob/main/config/src/types.ts#L37)
 
 ## Variables
 
@@ -78,7 +78,7 @@ The default CompilerConfig
 
 #### Defined in
 
-[config/withDefaults.js:6](https://github.com/evmts/evmts-monorepo/blob/main/config/src/config/withDefaults.js#L6)
+[config/withDefaults.js:6](https://github.com/evmts/tevm-monorepo/blob/main/config/src/config/withDefaults.js#L6)
 
 ## Functions
 
@@ -86,7 +86,7 @@ The default CompilerConfig
 
 ▸ **defineConfig**(`configFactory`): `Object`
 
-Typesafe way to create an EVMts CompilerConfig
+Typesafe way to create an Tevm CompilerConfig
 
 #### Parameters
 
@@ -105,7 +105,7 @@ Typesafe way to create an EVMts CompilerConfig
 **`Example`**
 
 ```ts
-import { defineConfig } from '@evmts/ts-plugin'
+import { defineConfig } from '@tevm/ts-plugin'
 
 export default defineConfig(() => ({
 	lib: ['lib'],
@@ -116,7 +116,7 @@ export default defineConfig(() => ({
 
 #### Defined in
 
-[types.ts:68](https://github.com/evmts/evmts-monorepo/blob/main/config/src/types.ts#L68)
+[types.ts:68](https://github.com/evmts/tevm-monorepo/blob/main/config/src/types.ts#L68)
 
 ___
 
@@ -124,7 +124,7 @@ ___
 
 ▸ **loadConfig**(`configFilePath`): `Effect`<`never`, `LoadConfigError`, [`ResolvedCompilerConfig`](/reference/config/modules.md#resolvedcompilerconfig)\>
 
-Loads an EVMts config from the given path
+Loads an Tevm config from the given path
 
 #### Parameters
 
@@ -140,7 +140,7 @@ Loads an EVMts config from the given path
 
 ```ts
 import {tap} from 'effect/Effect'
-import {loadConfig} from '@evmts/config'
+import {loadConfig} from '@tevm/config'
 
 runPromise(loadConfig('./tsconfig.json')).pipe(
   tap(config => console.log(config))
@@ -149,4 +149,4 @@ runPromise(loadConfig('./tsconfig.json')).pipe(
 
 #### Defined in
 
-[loadConfig.js:61](https://github.com/evmts/evmts-monorepo/blob/main/config/src/loadConfig.js#L61)
+[loadConfig.js:61](https://github.com/evmts/tevm-monorepo/blob/main/config/src/loadConfig.js#L61)

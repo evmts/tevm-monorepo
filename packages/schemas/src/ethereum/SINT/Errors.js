@@ -1,5 +1,5 @@
 /**
- * @module @evmts/schemas/ethereum/SINT/Errors.js
+ * @module @tevm/schemas/ethereum/SINT/Errors.js
  * @description Errors for SINT parsing
  * @author William Cory <willcory10@gmail.com>
  */
@@ -30,7 +30,7 @@ export class InvalidINTError extends TypeError {
 		size,
 		message,
 		cause,
-		docs = 'https://evmts.dev/reference/errors',
+		docs = 'https://tevm.dev/reference/errors',
 	}) {
 		if (!message) {
 			const min = BigInt(1) << BigInt(size - 1)

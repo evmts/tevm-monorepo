@@ -1,18 +1,18 @@
-[Documentation](../README.md) / [Modules](../modules.md) / @evmts/webpack-plugin
+[Documentation](../README.md) / [Modules](../modules.md) / @tevm/webpack-plugin
 
-# Module: @evmts/webpack-plugin
+# Module: @tevm/webpack-plugin
 
 ## Table of contents
 
 ### Functions
 
-- [webpackPluginEvmts](evmts_webpack_plugin.md#webpackpluginevmts)
+- [webpackPluginTevm](tevm_webpack_plugin.md#webpackplugintevm)
 
 ## Functions
 
-### webpackPluginEvmts
+### webpackPluginTevm
 
-▸ **webpackPluginEvmts**(`options?`): `WebpackPluginInstance`
+▸ **webpackPluginTevm**(`options?`): `WebpackPluginInstance`
 
 #### Parameters
 

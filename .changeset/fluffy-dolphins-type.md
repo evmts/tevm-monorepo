@@ -1,5 +1,5 @@
 ---
-"@evmts/bundler": patch
+"@tevm/bundler": patch
 ---
 
-Updated @evmts/bundler to NodeNext for improved compatibility
+Updated @tevm/bundler to NodeNext for improved compatibility

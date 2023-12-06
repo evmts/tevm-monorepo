@@ -1,5 +1,5 @@
 ---
-"@evmts/config": patch
+"@tevm/config": patch
 ---
 
-Migrated @evmts/config to NodeNext. This will improve overall compatibility with tooling
+Migrated @tevm/config to NodeNext. This will improve overall compatibility with tooling

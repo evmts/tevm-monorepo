@@ -1,4 +1,4 @@
-[@evmts/solc](/reference/solc/README.md) / [Modules](/reference/solc/modules.md) / resolveArtifactsSync
+[@tevm/solc](/reference/solc/README.md) / [Modules](/reference/solc/modules.md) / resolveArtifactsSync
 
 # Module: resolveArtifactsSync
 
@@ -39,4 +39,4 @@
 
 #### Defined in
 
-[resolveArtifactsSync.d.ts:16](https://github.com/evmts/evmts-monorepo/blob/main/solc/src/resolveArtifactsSync.d.ts#L16)
+[resolveArtifactsSync.d.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/solc/src/resolveArtifactsSync.d.ts#L16)

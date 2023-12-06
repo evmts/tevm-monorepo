@@ -1,6 +1,6 @@
-[@evmts/config](README.md) / Modules
+[@tevm/config](README.md) / Modules
 
-# @evmts/config
+# @tevm/config
 
 ## Table of contents
 

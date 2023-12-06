@@ -1,4 +1,4 @@
-[@evmts/effect](../README.md) / [Modules](../modules.md) / fileExists
+[@tevm/effect](../README.md) / [Modules](../modules.md) / fileExists
 
 # Module: fileExists
 
@@ -37,4 +37,4 @@ await fileExists('./someFile.txt')
 
 #### Defined in
 
-[packages/effect/src/fileExists.js:16](https://github.com/evmts/evmts-monorepo/blob/main/packages/effect/src/fileExists.js#L16)
+[packages/effect/src/fileExists.js:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/effect/src/fileExists.js#L16)

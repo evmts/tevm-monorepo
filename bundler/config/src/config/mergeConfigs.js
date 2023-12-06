@@ -8,7 +8,7 @@ import { succeed } from 'effect/Effect'
  * @example
  * ```ts
  * import {runSync} from 'effect/Effect'
- * import {mergeConfigs} from '@evmts/config'
+ * import {mergeConfigs} from '@tevm/config'
  * const userConfig = { remappings: { key1: 'value1' }, libs: ['lib1'] };
  * const foundryConfig = { remappings: { key2: 'value2' }, libs: ['lib2', 'lib1'], foundryProject: 'forge' };
  * const mergedConfig = runSync(mergeConfigs([userConfig, foundryConfig]));

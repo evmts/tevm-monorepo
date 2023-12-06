@@ -1,5 +1,5 @@
 ---
-"@evmts/esbuild-plugin": patch
+"@tevm/esbuild-plugin": patch
 ---
 
-Update @evmts/esbuild-plugin to NodeNext. This will improve compatibility.
+Update @tevm/esbuild-plugin to NodeNext. This will improve compatibility.

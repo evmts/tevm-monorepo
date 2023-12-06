@@ -1,5 +1,5 @@
 /**
- * @module @evmts/schemas/ethereum/FixedBytes/Errors.js
+ * @module @tevm/schemas/ethereum/FixedBytes/Errors.js
  * @description Errors for FixedBytes parsing
  * @author William Cory <willcory10@gmail.com>
  * @todo add docs to how to encode into bytes from other data types
@@ -30,7 +30,7 @@ export class InvalidBytesFixedError extends TypeError {
 		size,
 		message,
 		cause,
-		docs = 'https://evmts.dev/reference/errors',
+		docs = 'https://tevm.dev/reference/errors',
 	}) {
 		if (!message) {
 			const expectedLength = 2 + size * 2 // "0x" prefix + two characters for each byte

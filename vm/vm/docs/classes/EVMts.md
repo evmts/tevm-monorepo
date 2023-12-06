@@ -1,17 +1,17 @@
-[@evmts/vm](../README.md) / [Exports](../modules.md) / EVMts
+[@tevm/vm](../README.md) / [Exports](../modules.md) / Tevm
 
-# Class: EVMts
+# Class: Tevm
 
 A local EVM instance running in JavaScript. Similar to Anvil in your browser
 
 **`Example`**
 
 ```ts
-import { EVMts } from "evmts"
+import { Tevm } from "tevm"
 import { createPublicClient, http } from "viem"
 import { MyERC721 } from './MyERC721.sol'
 
-const evmts = EVMts.create({
+const tevm = Tevm.create({
 	fork: {
 	  url: "https://mainnet.optimism.io",
 	},
@@ -19,13 +19,13 @@ const evmts = EVMts.create({
 
 const address = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
 
-await evmts.runContractCall(
+await tevm.runContractCall(
   MyERC721.write.mint({
     caller: address,
   }),
 )
 
-const balance = await evmts.runContractCall(
+const balance = await tevm.runContractCall(
  MyERC721.read.balanceOf({
  caller: address,
  }),
@@ -37,27 +37,27 @@ const balance = await evmts.runContractCall(
 
 ### Constructors
 
-- [constructor](EVMts.md#constructor)
+- [constructor](Tevm.md#constructor)
 
 ### Properties
 
-- [\_evm](EVMts.md#_evm)
-- [isCreating](EVMts.md#iscreating)
+- [\_evm](Tevm.md#_evm)
+- [isCreating](Tevm.md#iscreating)
 
 ### Methods
 
-- [putAccount](EVMts.md#putaccount)
-- [putContractCode](EVMts.md#putcontractcode)
-- [runCall](EVMts.md#runcall)
-- [runContractCall](EVMts.md#runcontractcall)
-- [runScript](EVMts.md#runscript)
-- [create](EVMts.md#create)
+- [putAccount](Tevm.md#putaccount)
+- [putContractCode](Tevm.md#putcontractcode)
+- [runCall](Tevm.md#runcall)
+- [runContractCall](Tevm.md#runcontractcall)
+- [runScript](Tevm.md#runscript)
+- [create](Tevm.md#create)
 
 ## Constructors
 
 ### constructor
 
-• **new EVMts**(`_evm`): [`EVMts`](EVMts.md)
+• **new Tevm**(`_evm`): [`Tevm`](Tevm.md)
 
 A local EVM instance running in JavaScript. Similar to Anvil in your browser
 
@@ -69,11 +69,11 @@ A local EVM instance running in JavaScript. Similar to Anvil in your browser
 
 #### Returns
 
-[`EVMts`](EVMts.md)
+[`Tevm`](Tevm.md)
 
 #### Defined in
 
-[vm/vm/src/evmts.ts:149](https://github.com/evmts/evmts-monorepo/blob/main/vm/vm/src/evmts.ts#L149)
+[vm/vm/src/tevm.ts:149](https://github.com/evmts/tevm-monorepo/blob/main/vm/vm/src/tevm.ts#L149)
 
 ## Properties
 
@@ -83,7 +83,7 @@ A local EVM instance running in JavaScript. Similar to Anvil in your browser
 
 #### Defined in
 
-[vm/vm/src/evmts.ts:149](https://github.com/evmts/evmts-monorepo/blob/main/vm/vm/src/evmts.ts#L149)
+[vm/vm/src/tevm.ts:149](https://github.com/evmts/tevm-monorepo/blob/main/vm/vm/src/tevm.ts#L149)
 
 ___
 
@@ -91,11 +91,11 @@ ___
 
 ▪ `Static` `Private` **isCreating**: `boolean` = `false`
 
-Makes sure evmts is invoked with EVMts.create and not with new EVMts
+Makes sure tevm is invoked with Tevm.create and not with new Tevm
 
 #### Defined in
 
-[vm/vm/src/evmts.ts:103](https://github.com/evmts/evmts-monorepo/blob/main/vm/vm/src/evmts.ts#L103)
+[vm/vm/src/tevm.ts:103](https://github.com/evmts/tevm-monorepo/blob/main/vm/vm/src/tevm.ts#L103)
 
 ## Methods
 
@@ -118,7 +118,7 @@ Puts an account with ether balance into the state
 **`Example`**
 
 ```ts
-evmts.putAccount({
+tevm.putAccount({
 	address: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
 	balance: 100n,
 })
@@ -126,7 +126,7 @@ evmts.putAccount({
 
 #### Defined in
 
-[vm/vm/src/evmts.ts:197](https://github.com/evmts/evmts-monorepo/blob/main/vm/vm/src/evmts.ts#L197)
+[vm/vm/src/tevm.ts:197](https://github.com/evmts/tevm-monorepo/blob/main/vm/vm/src/tevm.ts#L197)
 
 ___
 
@@ -149,7 +149,7 @@ Puts a contract into the state
 **`Example`**
 
 ```ts
-evmts.putContract({
+tevm.putContract({
  bytecode,
  contractAddress,
 })
@@ -157,7 +157,7 @@ evmts.putContract({
 
 #### Defined in
 
-[vm/vm/src/evmts.ts:211](https://github.com/evmts/evmts-monorepo/blob/main/vm/vm/src/evmts.ts#L211)
+[vm/vm/src/tevm.ts:211](https://github.com/evmts/tevm-monorepo/blob/main/vm/vm/src/tevm.ts#L211)
 
 ___
 
@@ -180,7 +180,7 @@ Executes a call on the EVM
 **`Example`**
 
 ```ts
-const result = await evmts.runCall({
+const result = await tevm.runCall({
   data: '0x...',
   caller: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
   gasLimit: 1000000n,
@@ -190,7 +190,7 @@ const result = await evmts.runCall({
 
 #### Defined in
 
-[vm/vm/src/evmts.ts:227](https://github.com/evmts/evmts-monorepo/blob/main/vm/vm/src/evmts.ts#L227)
+[vm/vm/src/tevm.ts:227](https://github.com/evmts/tevm-monorepo/blob/main/vm/vm/src/tevm.ts#L227)
 
 ___
 
@@ -220,7 +220,7 @@ Calls contract code using an ABI and returns the decoded result
 **`Example`**
 
 ```ts
-const result = await evmts.runContractCall({
+const result = await tevm.runContractCall({
  abi: MyContract.abi,
  contractAddress: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
  functionName: 'balanceOf',
@@ -230,7 +230,7 @@ const result = await evmts.runContractCall({
 
 #### Defined in
 
-[vm/vm/src/evmts.ts:243](https://github.com/evmts/evmts-monorepo/blob/main/vm/vm/src/evmts.ts#L243)
+[vm/vm/src/tevm.ts:243](https://github.com/evmts/tevm-monorepo/blob/main/vm/vm/src/tevm.ts#L243)
 
 ___
 
@@ -239,7 +239,7 @@ ___
 ▸ **runScript**\<`TAbi`, `TFunctionName`\>(`action`): `Promise`\<[`RunScriptResult`](../modules.md#runscriptresult)\<`TAbi`, `TFunctionName`\>\>
 
 Runs a script or contract that is not deployed to the chain
-The recomended way to use a script is with an EVMts import
+The recomended way to use a script is with an Tevm import
 
 #### Type parameters
 
@@ -263,9 +263,9 @@ The recomended way to use a script is with an EVMts import
 ```ts
 // Scripts require bytecode
 import { MyContractOrScript } from './MyContractOrScript.sol' with {
-  evmts: 'bytecode'
+  tevm: 'bytecode'
 }
-evmts.runScript(
+tevm.runScript(
   MyContractOrScript.script.run()
 )
 ```
@@ -274,7 +274,7 @@ Scripts can also be called directly via passing in args
 **`Example`**
 
 ```ts
-evmts.runScript({
+tevm.runScript({
   bytecode,
   abi,
   functionName: 'run',
@@ -283,15 +283,15 @@ evmts.runScript({
 
 #### Defined in
 
-[vm/vm/src/evmts.ts:178](https://github.com/evmts/evmts-monorepo/blob/main/vm/vm/src/evmts.ts#L178)
+[vm/vm/src/tevm.ts:178](https://github.com/evmts/tevm-monorepo/blob/main/vm/vm/src/tevm.ts#L178)
 
 ___
 
 ### create
 
-▸ **create**(`options?`): `Promise`\<[`EVMts`](EVMts.md)\>
+▸ **create**(`options?`): `Promise`\<[`Tevm`](Tevm.md)\>
 
-Creates a [EVMts](EVMts.md) instance
+Creates a [Tevm](Tevm.md) instance
 
 #### Parameters
 
@@ -301,8 +301,8 @@ Creates a [EVMts](EVMts.md) instance
 
 #### Returns
 
-`Promise`\<[`EVMts`](EVMts.md)\>
+`Promise`\<[`Tevm`](Tevm.md)\>
 
 #### Defined in
 
-[vm/vm/src/evmts.ts:108](https://github.com/evmts/evmts-monorepo/blob/main/vm/vm/src/evmts.ts#L108)
+[vm/vm/src/tevm.ts:108](https://github.com/evmts/tevm-monorepo/blob/main/vm/vm/src/tevm.ts#L108)

@@ -1,9 +1,12 @@
 /**
- * @module @evmts/schemas/ethereum/FixedBytes/parseBytesFixedSafe.js
+ * @module @tevm/schemas/ethereum/FixedBytes/parseBytesFixedSafe.js
  * @description Effect parser for Solidity FixedBytes
  * @author William Cory <willcory10@gmail.com>
  */
 
+import { parseEither } from '@effect/schema/Schema'
+import { Effect } from 'effect'
+import { mapError } from 'effect/Effect'
 import { InvalidBytesFixedError } from './Errors.js'
 import {
 	SBytes1,
@@ -39,9 +42,6 @@ import {
 	SBytes31,
 	SBytes32,
 } from './SBytesFixed.js'
-import { parseEither } from '@effect/schema/Schema'
-import { Effect } from 'effect'
-import { mapError } from 'effect/Effect'
 
 /**
  * Safely parses a Bytes1 into an [Effect](https://www.effect.website/docs/essentials/effect-type).

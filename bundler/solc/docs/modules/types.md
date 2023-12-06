@@ -1,4 +1,4 @@
-[@evmts/solc](../README.md) / [Modules](../modules.md) / types
+[@tevm/solc](../README.md) / [Modules](../modules.md) / types
 
 # Module: types
 
@@ -22,7 +22,7 @@
 
 #### Defined in
 
-[solc/src/types.ts:67](https://github.com/evmts/evmts-monorepo/blob/main/bundler/solc/src/types.ts#L67)
+[solc/src/types.ts:67](https://github.com/evmts/tevm-monorepo/blob/main/bundler/solc/src/types.ts#L67)
 
 ___
 
@@ -48,7 +48,7 @@ ___
 
 #### Defined in
 
-[solc/src/types.ts:59](https://github.com/evmts/evmts-monorepo/blob/main/bundler/solc/src/types.ts#L59)
+[solc/src/types.ts:59](https://github.com/evmts/tevm-monorepo/blob/main/bundler/solc/src/types.ts#L59)
 
 ___
 
@@ -66,7 +66,7 @@ ___
 
 #### Defined in
 
-[solc/src/types.ts:44](https://github.com/evmts/evmts-monorepo/blob/main/bundler/solc/src/types.ts#L44)
+[solc/src/types.ts:44](https://github.com/evmts/tevm-monorepo/blob/main/bundler/solc/src/types.ts#L44)
 
 ___
 
@@ -85,7 +85,7 @@ ___
 
 #### Defined in
 
-[solc/src/types.ts:50](https://github.com/evmts/evmts-monorepo/blob/main/bundler/solc/src/types.ts#L50)
+[solc/src/types.ts:50](https://github.com/evmts/tevm-monorepo/blob/main/bundler/solc/src/types.ts#L50)
 
 ___
 
@@ -128,7 +128,7 @@ ___
 
 #### Defined in
 
-[solc/src/types.ts:10](https://github.com/evmts/evmts-monorepo/blob/main/bundler/solc/src/types.ts#L10)
+[solc/src/types.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/bundler/solc/src/types.ts#L10)
 
 ___
 
@@ -167,4 +167,4 @@ ___
 
 #### Defined in
 
-[solc/src/types.ts:27](https://github.com/evmts/evmts-monorepo/blob/main/bundler/solc/src/types.ts#L27)
+[solc/src/types.ts:27](https://github.com/evmts/tevm-monorepo/blob/main/bundler/solc/src/types.ts#L27)

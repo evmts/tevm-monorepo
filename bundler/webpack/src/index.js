@@ -1,3 +1,3 @@
-import { createUnplugin, evmtsUnplugin } from '@evmts/unplugin'
+import { createUnplugin, tevmUnplugin } from '@tevm/unplugin'
 
-export const { webpack: webpackPluginEvmts } = createUnplugin(evmtsUnplugin)
+export const { webpack: webpackPluginTevm } = createUnplugin(tevmUnplugin)

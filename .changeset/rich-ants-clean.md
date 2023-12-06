@@ -1,5 +1,5 @@
 ---
-"@evmts/ethers": patch
+"@tevm/ethers": patch
 ---
 
-Converted @evmts/ethers to NodeNext. This will help compatibility
+Converted @tevm/ethers to NodeNext. This will help compatibility

@@ -1,6 +1,6 @@
-import { generateDtsBody } from './generateEvmtsBodyDts.js'
 import { runSync } from 'effect/Effect'
 import { describe, expect, it } from 'vitest'
+import { generateDtsBody } from './generateTevmBodyDts.js'
 
 describe('generateDtsBody', () => {
 	const artifacts = {
@@ -54,26 +54,26 @@ describe('generateDtsBody', () => {
 			"const _abiMyContract = [\\"constructor() payable\\"] as const;
 			const _nameMyContract = \\"MyContract\\" as const;
 			/**
-			 * MyContract EvmtsContract
+			 * MyContract TevmContract
 			 * @notice MyContract
 			 * @property balanceOf(address) Returns the amount of tokens owned by account
 			 */
-			export const MyContract: EvmtsContract<typeof _nameMyContract, typeof _abiMyContract, undefined, undefined>;
+			export const MyContract: TevmContract<typeof _nameMyContract, typeof _abiMyContract, undefined, undefined>;
 			const _abiAnotherContract = [] as const;
 			const _nameAnotherContract = \\"AnotherContract\\" as const;
 			/**
-			 * AnotherContract EvmtsContract
+			 * AnotherContract TevmContract
 			 * @notice MyContract
 			 */
-			export const AnotherContract: EvmtsContract<typeof _nameAnotherContract, typeof _abiAnotherContract, undefined, undefined>;
+			export const AnotherContract: TevmContract<typeof _nameAnotherContract, typeof _abiAnotherContract, undefined, undefined>;
 			const _abiMissingContract = [] as const;
 			const _nameMissingContract = \\"MissingContract\\" as const;
 			/**
-			 * MissingContract EvmtsContract
+			 * MissingContract TevmContract
 			 * @notice MyContract
 			 * @property balanceOf(address) Returns the amount of tokens owned by account
 			 */
-			export const MissingContract: EvmtsContract<typeof _nameMissingContract, typeof _abiMissingContract, undefined, undefined>;"
+			export const MissingContract: TevmContract<typeof _nameMissingContract, typeof _abiMissingContract, undefined, undefined>;"
 		`)
 	})
 })

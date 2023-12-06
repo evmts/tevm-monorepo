@@ -1,8 +1,8 @@
+import type { Effect } from 'effect/Effect'
+import type { ReadonlyRecord } from 'effect/ReadonlyRecord'
 import type { ValidateUserConfigError } from './config/index.js'
 import type { DefineConfigError } from './defineConfig.js'
 import type { LoadFoundryConfigError } from './foundry/index.js'
-import type { Effect } from 'effect/Effect'
-import type { ReadonlyRecord } from 'effect/ReadonlyRecord'
 
 /**
  * Configuration of the solidity compiler
@@ -24,7 +24,7 @@ export type CompilerConfig = {
 	 */
 	remappings?: ReadonlyRecord<string> | undefined
 	/**
-	 * If debug is true evmts will write the .d.ts files in the ts server and publish extra debug info to a debug file
+	 * If debug is true tevm will write the .d.ts files in the ts server and publish extra debug info to a debug file
 	 */
 	debug?: boolean | undefined
 }
@@ -54,7 +54,7 @@ export type ResolvedCompilerConfig = {
 	 */
 	remappings: ReadonlyRecord<string>
 	/**
-	 * If debug is true evmts will write the .d.ts files in the ts server and publish extra debug info to a debug file
+	 * If debug is true tevm will write the .d.ts files in the ts server and publish extra debug info to a debug file
 	 */
 	debug?: boolean | undefined
 }
@@ -64,10 +64,10 @@ export type DefineConfigErrorType =
 	| LoadFoundryConfigError
 
 /**
- * Creates an EVMts config
+ * Creates an Tevm config
  * Takes a user provided configFactory
  * @example
- * import { defineConfig } from 'evmts/config'
+ * import { defineConfig } from 'tevm/config'
  * export default defineConfig({
  * 	foundryProject: true,
  * 		libs: ['libs/contracts'],

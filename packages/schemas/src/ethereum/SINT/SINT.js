@@ -1,9 +1,14 @@
 /**
- * @module @evmts/schemas/ethereum/SINT/SINT.js
+ * @module @tevm/schemas/ethereum/SINT/SINT.js
  * @description Types and validators for Solidity INT
  * @author William Cory <willcory10@gmail.com>
  */
 
+import {
+	bigintFromSelf,
+	greaterThanOrEqualToBigint,
+	lessThanOrEqualToBigint,
+} from '@effect/schema/Schema'
 import {
 	INT8_MAX,
 	INT8_MIN,
@@ -18,11 +23,6 @@ import {
 	INT256_MAX,
 	INT256_MIN,
 } from './constants.js'
-import {
-	bigintFromSelf,
-	greaterThanOrEqualToBigint,
-	lessThanOrEqualToBigint,
-} from '@effect/schema/Schema'
 
 /**
  * Type representing a valid INT8.

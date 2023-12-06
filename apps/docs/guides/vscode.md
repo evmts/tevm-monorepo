@@ -10,6 +10,6 @@ For instructions, see: [Using the workspace version of TypeScript](https://code.
 You can simple add this plugin to "typescript.tsserver.pluginPaths" in settings. You cannot provide plugin options with this approach.
 
 {
-  "typescript.tsserver.pluginPaths": ["@evmts/ts-plugin"]
+  "typescript.tsserver.pluginPaths": ["@tevm/ts-plugin"]
 }
 

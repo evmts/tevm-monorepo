@@ -1,5 +1,5 @@
 ---
-"@evmts/ts-plugin": patch
+"@tevm/ts-plugin": patch
 ---
 
 Fixed bug with node module imports not resolving correctly

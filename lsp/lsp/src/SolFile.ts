@@ -1,12 +1,12 @@
-import { bundler, createCache } from '@evmts/base'
-import { loadConfig } from '@evmts/config'
+import { existsSync, readFileSync } from 'fs'
+import { bundler, createCache } from '@tevm/base'
+import { loadConfig } from '@tevm/config'
 import {
 	FileCapabilities,
 	FileKind,
 	type VirtualFile,
 } from '@volar/language-core'
 import { runSync } from 'effect/Effect'
-import { existsSync, readFileSync } from 'fs'
 import { readFile } from 'fs/promises'
 // @ts-expect-error
 import solc from 'solc'
@@ -77,7 +77,7 @@ export class SolFile implements VirtualFile {
 					documentSymbol: false,
 					documentFormatting: false,
 				},
-				// TODO generate source mappings https://github.com/evmts/evmts-monorepo/issues/731
+				// TODO generate source mappings https://github.com/evmts/tevm-monorepo/issues/731
 				mappings: [],
 				embeddedFiles: [],
 				codegenStacks: [],

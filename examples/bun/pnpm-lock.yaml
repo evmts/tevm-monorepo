@@ -5,7 +5,7 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
-  '@evmts/core':
+  '@tevm/core':
     specifier: ^0.3.1
     version: 0.3.1(typescript@5.1.6)(zod@3.21.4)
   viem:
@@ -13,13 +13,13 @@ dependencies:
     version: 1.2.12(typescript@5.1.6)(zod@3.21.4)
 
 devDependencies:
-  '@evmts/esbuild-plugin':
+  '@tevm/esbuild-plugin':
     specifier: ^0.4.2
     version: 0.4.2(esbuild@0.18.11)(solc@0.8.20)(typescript@5.1.6)
-  '@evmts/ts-plugin':
+  '@tevm/ts-plugin':
     specifier: ^0.4.2
     version: 0.4.2(solc@0.8.20)(typescript@5.1.6)
-  '@evmts/vite-plugin':
+  '@tevm/vite-plugin':
     specifier: ^0.4.2
     version: 0.4.2(esbuild@0.18.11)(solc@0.8.20)(typescript@5.1.6)(vite@4.4.2)
   '@nomicfoundation/hardhat-foundry':
@@ -1019,13 +1019,13 @@ packages:
       '@ethersproject/strings': 5.7.0
     dev: true
 
-  /@evmts/bundler@0.4.2(esbuild@0.18.11)(solc@0.8.20)(typescript@5.1.6):
+  /@tevm/bundler@0.4.2(esbuild@0.18.11)(solc@0.8.20)(typescript@5.1.6):
     resolution: {integrity: sha512-idh7J5bXGwx13EgPBUsyagOwERWPBtUF7UN05xvYiPzT+LZrNJN78S0KdlAY9tGLWSrC3FW7VVOlsOISGU9Rlw==}
     peerDependencies:
       solc: '>0.8.10'
     dependencies:
-      '@evmts/config': 0.2.1(esbuild@0.18.11)
-      '@evmts/core': 0.3.1(typescript@5.1.6)(zod@3.21.4)
+      '@tevm/config': 0.2.1(esbuild@0.18.11)
+      '@tevm/core': 0.3.1(typescript@5.1.6)(zod@3.21.4)
       '@types/resolve': 1.20.2
       glob: 10.3.3
       resolve: 1.22.2
@@ -1039,13 +1039,13 @@ packages:
       - zod
     dev: true
 
-  /@evmts/bundler@0.4.2(esbuild@0.18.8)(solc@0.8.20)(typescript@5.1.6)(zod@3.21.4):
+  /@tevm/bundler@0.4.2(esbuild@0.18.8)(solc@0.8.20)(typescript@5.1.6)(zod@3.21.4):
     resolution: {integrity: sha512-idh7J5bXGwx13EgPBUsyagOwERWPBtUF7UN05xvYiPzT+LZrNJN78S0KdlAY9tGLWSrC3FW7VVOlsOISGU9Rlw==}
     peerDependencies:
       solc: '>0.8.10'
     dependencies:
-      '@evmts/config': 0.2.1(esbuild@0.18.8)
-      '@evmts/core': 0.3.1(typescript@5.1.6)(zod@3.21.4)
+      '@tevm/config': 0.2.1(esbuild@0.18.8)
+      '@tevm/core': 0.3.1(typescript@5.1.6)(zod@3.21.4)
       '@types/resolve': 1.20.2
       glob: 10.3.3
       resolve: 1.22.2
@@ -1059,7 +1059,7 @@ packages:
       - zod
     dev: true
 
-  /@evmts/config@0.2.1(esbuild@0.18.11):
+  /@tevm/config@0.2.1(esbuild@0.18.11):
     resolution: {integrity: sha512-zqDNw45uxZbIyYTwiNYorxJ9y2vFbdZyi8Ndz3OzmVdhR6+qKJf59Bi5lIqbe+kda6bVrp5XPQr/cjJ9HgNToQ==}
     dependencies:
       '@types/node': 20.4.1
@@ -1068,7 +1068,7 @@ packages:
       - esbuild
     dev: true
 
-  /@evmts/config@0.2.1(esbuild@0.18.8):
+  /@tevm/config@0.2.1(esbuild@0.18.8):
     resolution: {integrity: sha512-zqDNw45uxZbIyYTwiNYorxJ9y2vFbdZyi8Ndz3OzmVdhR6+qKJf59Bi5lIqbe+kda6bVrp5XPQr/cjJ9HgNToQ==}
     dependencies:
       '@types/node': 20.4.1
@@ -1077,7 +1077,7 @@ packages:
       - esbuild
     dev: true
 
-  /@evmts/core@0.3.1(typescript@5.1.6)(zod@3.21.4):
+  /@tevm/core@0.3.1(typescript@5.1.6)(zod@3.21.4):
     resolution: {integrity: sha512-kRbIGo1UyAfND4klxIZRcLq02sw1TSyxYDERilRMoadvfk1aIsqDqZr7vQh/riJdGRwk1bMZaLvG7dLK0miISA==}
     dependencies:
       abitype: 0.8.11(typescript@5.1.6)(zod@3.21.4)
@@ -1089,10 +1089,10 @@ packages:
       - utf-8-validate
       - zod
 
-  /@evmts/esbuild-plugin@0.4.2(esbuild@0.18.11)(solc@0.8.20)(typescript@5.1.6):
+  /@tevm/esbuild-plugin@0.4.2(esbuild@0.18.11)(solc@0.8.20)(typescript@5.1.6):
     resolution: {integrity: sha512-uqTT2lQeXbZvdR+Q1cjahVWEEnqOT2t8NRFgnRDs2mcwX1b8ymlcDX3WnxHOCAZYHdyC7368mFibnzwrZP+Qew==}
     dependencies:
-      '@evmts/bundler': 0.4.2(esbuild@0.18.11)(solc@0.8.20)(typescript@5.1.6)
+      '@tevm/bundler': 0.4.2(esbuild@0.18.11)(solc@0.8.20)(typescript@5.1.6)
     transitivePeerDependencies:
       - bufferutil
       - esbuild
@@ -1102,13 +1102,13 @@ packages:
       - zod
     dev: true
 
-  /@evmts/ts-plugin@0.4.2(solc@0.8.20)(typescript@5.1.6):
+  /@tevm/ts-plugin@0.4.2(solc@0.8.20)(typescript@5.1.6):
     resolution: {integrity: sha512-hfP2jy8LJ+F/jm3q3NvhsW3ZcBoZwsJpcezb/2iCWu7uG29/Y63Z/yd96mUDx/g+kI5Yv5V5J0CrZ4IFeQOO9Q==}
     hasBin: true
     peerDependencies:
       typescript: '>=5.0.0'
     dependencies:
-      '@evmts/bundler': 0.4.2(esbuild@0.18.8)(solc@0.8.20)(typescript@5.1.6)(zod@3.21.4)
+      '@tevm/bundler': 0.4.2(esbuild@0.18.8)(solc@0.8.20)(typescript@5.1.6)(zod@3.21.4)
       esbuild: 0.18.8
       glob: 10.3.3
       typescript: 5.1.6
@@ -1119,12 +1119,12 @@ packages:
       - utf-8-validate
     dev: true
 
-  /@evmts/vite-plugin@0.4.2(esbuild@0.18.11)(solc@0.8.20)(typescript@5.1.6)(vite@4.4.2):
+  /@tevm/vite-plugin@0.4.2(esbuild@0.18.11)(solc@0.8.20)(typescript@5.1.6)(vite@4.4.2):
     resolution: {integrity: sha512-GVfBMQZVmVezw9bNCrFcGM6QtUM0vffq5gdj6NDHIMV0NMe8rGAo4wcpUtfJf+7RdSIsDcqUlQJh6InUY85/Kg==}
     peerDependencies:
       vite: '>4.0.0'
     dependencies:
-      '@evmts/bundler': 0.4.2(esbuild@0.18.11)(solc@0.8.20)(typescript@5.1.6)
+      '@tevm/bundler': 0.4.2(esbuild@0.18.11)(solc@0.8.20)(typescript@5.1.6)
       vite: 4.4.2(@types/node@20.4.1)
     transitivePeerDependencies:
       - bufferutil

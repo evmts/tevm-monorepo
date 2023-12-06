@@ -1,4 +1,4 @@
-[@evmts/viem](/reference/viem-effect/README.md) / [Modules](/reference/viem-effect/modules.md) / accounts
+[@tevm/viem](/reference/viem-effect/README.md) / [Modules](/reference/viem-effect/modules.md) / accounts
 
 # Module: accounts
 
@@ -44,7 +44,7 @@
 
 #### Defined in
 
-[extensions/viem/src/wrapInEffect.d.ts:14](https://github.com/evmts/evmts-monorepo/blob/main/extensions/viem/src/wrapInEffect.d.ts#L14)
+[extensions/viem/src/wrapInEffect.d.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/wrapInEffect.d.ts#L14)
 
 ___
 
@@ -70,7 +70,7 @@ ___
 
 #### Defined in
 
-[extensions/viem/src/wrapInEffect.d.ts:14](https://github.com/evmts/evmts-monorepo/blob/main/extensions/viem/src/wrapInEffect.d.ts#L14)
+[extensions/viem/src/wrapInEffect.d.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/wrapInEffect.d.ts#L14)
 
 ___
 
@@ -96,7 +96,7 @@ ___
 
 #### Defined in
 
-[extensions/viem/src/wrapInEffect.d.ts:14](https://github.com/evmts/evmts-monorepo/blob/main/extensions/viem/src/wrapInEffect.d.ts#L14)
+[extensions/viem/src/wrapInEffect.d.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/wrapInEffect.d.ts#L14)
 
 ___
 
@@ -122,7 +122,7 @@ ___
 
 #### Defined in
 
-[extensions/viem/src/wrapInEffect.d.ts:14](https://github.com/evmts/evmts-monorepo/blob/main/extensions/viem/src/wrapInEffect.d.ts#L14)
+[extensions/viem/src/wrapInEffect.d.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/wrapInEffect.d.ts#L14)
 
 ___
 
@@ -148,7 +148,7 @@ ___
 
 #### Defined in
 
-[extensions/viem/src/wrapInEffect.d.ts:14](https://github.com/evmts/evmts-monorepo/blob/main/extensions/viem/src/wrapInEffect.d.ts#L14)
+[extensions/viem/src/wrapInEffect.d.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/wrapInEffect.d.ts#L14)
 
 ___
 
@@ -174,7 +174,7 @@ ___
 
 #### Defined in
 
-[extensions/viem/src/wrapInEffect.d.ts:14](https://github.com/evmts/evmts-monorepo/blob/main/extensions/viem/src/wrapInEffect.d.ts#L14)
+[extensions/viem/src/wrapInEffect.d.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/wrapInEffect.d.ts#L14)
 
 ___
 
@@ -200,7 +200,7 @@ ___
 
 #### Defined in
 
-[extensions/viem/src/wrapInEffect.d.ts:14](https://github.com/evmts/evmts-monorepo/blob/main/extensions/viem/src/wrapInEffect.d.ts#L14)
+[extensions/viem/src/wrapInEffect.d.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/wrapInEffect.d.ts#L14)
 
 ___
 
@@ -226,7 +226,7 @@ ___
 
 #### Defined in
 
-[extensions/viem/src/wrapInEffect.d.ts:14](https://github.com/evmts/evmts-monorepo/blob/main/extensions/viem/src/wrapInEffect.d.ts#L14)
+[extensions/viem/src/wrapInEffect.d.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/wrapInEffect.d.ts#L14)
 
 ___
 
@@ -252,7 +252,7 @@ ___
 
 #### Defined in
 
-[extensions/viem/src/wrapInEffect.d.ts:14](https://github.com/evmts/evmts-monorepo/blob/main/extensions/viem/src/wrapInEffect.d.ts#L14)
+[extensions/viem/src/wrapInEffect.d.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/wrapInEffect.d.ts#L14)
 
 ___
 
@@ -278,7 +278,7 @@ ___
 
 #### Defined in
 
-[extensions/viem/src/wrapInEffect.d.ts:14](https://github.com/evmts/evmts-monorepo/blob/main/extensions/viem/src/wrapInEffect.d.ts#L14)
+[extensions/viem/src/wrapInEffect.d.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/wrapInEffect.d.ts#L14)
 
 ___
 
@@ -304,7 +304,7 @@ ___
 
 #### Defined in
 
-[extensions/viem/src/wrapInEffect.d.ts:14](https://github.com/evmts/evmts-monorepo/blob/main/extensions/viem/src/wrapInEffect.d.ts#L14)
+[extensions/viem/src/wrapInEffect.d.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/wrapInEffect.d.ts#L14)
 
 ___
 
@@ -330,7 +330,7 @@ ___
 
 #### Defined in
 
-[extensions/viem/src/wrapInEffect.d.ts:14](https://github.com/evmts/evmts-monorepo/blob/main/extensions/viem/src/wrapInEffect.d.ts#L14)
+[extensions/viem/src/wrapInEffect.d.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/wrapInEffect.d.ts#L14)
 
 ___
 
@@ -356,4 +356,4 @@ ___
 
 #### Defined in
 
-[extensions/viem/src/wrapInEffect.d.ts:14](https://github.com/evmts/evmts-monorepo/blob/main/extensions/viem/src/wrapInEffect.d.ts#L14)
+[extensions/viem/src/wrapInEffect.d.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/wrapInEffect.d.ts#L14)

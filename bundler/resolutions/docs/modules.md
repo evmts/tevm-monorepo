@@ -1,6 +1,6 @@
-[@evmts/resolutions](README.md) / Modules
+[@tevm/resolutions](README.md) / Modules
 
-# @evmts/resolutions
+# @tevm/resolutions
 
 ## Table of contents
 

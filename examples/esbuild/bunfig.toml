@@ -1,6 +1,6 @@
-# Load plugin including EVMts plugin
-# EVMts is configured in the tsconfig.json
-# in future it will be configured via evmts.config.ts
+# Load plugin including Tevm plugin
+# Tevm is configured in the tsconfig.json
+# in future it will be configured via tevm.config.ts
 preload = ["./plugins.ts"]
 
 # Use plugin in tests too

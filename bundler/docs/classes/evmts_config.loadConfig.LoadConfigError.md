@@ -1,10 +1,10 @@
-[Documentation](../README.md) / [Modules](../modules.md) / [@evmts/config](../modules/evmts_config.md) / [loadConfig](../modules/evmts_config.loadConfig.md) / LoadConfigError
+[Documentation](../README.md) / [Modules](../modules.md) / [@tevm/config](../modules/tevm_config.md) / [loadConfig](../modules/tevm_config.loadConfig.md) / LoadConfigError
 
 # Class: LoadConfigError
 
-[@evmts/config](../modules/evmts_config.md).[loadConfig](../modules/evmts_config.loadConfig.md).LoadConfigError
+[@tevm/config](../modules/tevm_config.md).[loadConfig](../modules/tevm_config.loadConfig.md).LoadConfigError
 
-Error class for [loadConfig](../modules/evmts_config.loadConfig.md#loadconfig)
+Error class for [loadConfig](../modules/tevm_config.loadConfig.md#loadconfig)
 
 ## Hierarchy
 
@@ -16,38 +16,38 @@ Error class for [loadConfig](../modules/evmts_config.loadConfig.md#loadconfig)
 
 ### Constructors
 
-- [constructor](evmts_config.loadConfig.LoadConfigError.md#constructor)
+- [constructor](tevm_config.loadConfig.LoadConfigError.md#constructor)
 
 ### Properties
 
-- [\_tag](evmts_config.loadConfig.LoadConfigError.md#_tag)
-- [cause](evmts_config.loadConfig.LoadConfigError.md#cause)
-- [message](evmts_config.loadConfig.LoadConfigError.md#message)
-- [name](evmts_config.loadConfig.LoadConfigError.md#name)
-- [stack](evmts_config.loadConfig.LoadConfigError.md#stack)
-- [prepareStackTrace](evmts_config.loadConfig.LoadConfigError.md#preparestacktrace)
-- [stackTraceLimit](evmts_config.loadConfig.LoadConfigError.md#stacktracelimit)
+- [\_tag](tevm_config.loadConfig.LoadConfigError.md#_tag)
+- [cause](tevm_config.loadConfig.LoadConfigError.md#cause)
+- [message](tevm_config.loadConfig.LoadConfigError.md#message)
+- [name](tevm_config.loadConfig.LoadConfigError.md#name)
+- [stack](tevm_config.loadConfig.LoadConfigError.md#stack)
+- [prepareStackTrace](tevm_config.loadConfig.LoadConfigError.md#preparestacktrace)
+- [stackTraceLimit](tevm_config.loadConfig.LoadConfigError.md#stacktracelimit)
 
 ### Methods
 
-- [captureStackTrace](evmts_config.loadConfig.LoadConfigError.md#capturestacktrace)
+- [captureStackTrace](tevm_config.loadConfig.LoadConfigError.md#capturestacktrace)
 
 ## Constructors
 
 ### constructor
 
-• **new LoadConfigError**(`configFilePath`, `underlyingError`): [`LoadConfigError`](evmts_config.loadConfig.LoadConfigError.md)
+• **new LoadConfigError**(`configFilePath`, `underlyingError`): [`LoadConfigError`](tevm_config.loadConfig.LoadConfigError.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `configFilePath` | `string` |
-| `underlyingError` | [`LoadConfigErrorType`](../modules/evmts_config.loadConfig.md#loadconfigerrortype) |
+| `underlyingError` | [`LoadConfigErrorType`](../modules/tevm_config.loadConfig.md#loadconfigerrortype) |
 
 #### Returns
 
-[`LoadConfigError`](evmts_config.loadConfig.LoadConfigError.md)
+[`LoadConfigError`](tevm_config.loadConfig.LoadConfigError.md)
 
 #### Overrides
 
@@ -55,7 +55,7 @@ Error.constructor
 
 #### Defined in
 
-[bundler/config/src/loadConfig.js:36](https://github.com/evmts/evmts-monorepo/blob/main/bundler/config/src/loadConfig.js#L36)
+[bundler/config/src/loadConfig.js:36](https://github.com/evmts/tevm-monorepo/blob/main/bundler/config/src/loadConfig.js#L36)
 
 ## Properties
 
@@ -65,7 +65,7 @@ Error.constructor
 
 #### Defined in
 
-[bundler/config/src/loadConfig.js:31](https://github.com/evmts/evmts-monorepo/blob/main/bundler/config/src/loadConfig.js#L31)
+[bundler/config/src/loadConfig.js:31](https://github.com/evmts/tevm-monorepo/blob/main/bundler/config/src/loadConfig.js#L31)
 
 ___
 
@@ -107,7 +107,7 @@ Error.name
 
 #### Defined in
 
-[bundler/config/src/loadConfig.js:27](https://github.com/evmts/evmts-monorepo/blob/main/bundler/config/src/loadConfig.js#L27)
+[bundler/config/src/loadConfig.js:27](https://github.com/evmts/tevm-monorepo/blob/main/bundler/config/src/loadConfig.js#L27)
 
 ___
 

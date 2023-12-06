@@ -2,11 +2,15 @@
   "compilerOptions": {
     "plugins": [
       {
-        "name": "@evmts/ts-plugin"
+        "name": "@tevm/ts-plugin"
       }
     ],
     "target": "es6",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -19,8 +23,15 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    "types": ["bun-types"]
+    "types": [
+      "bun-types"
+    ]
   },
-  "include": ["**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules"]
+  "include": [
+    "**/*.ts",
+    "**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

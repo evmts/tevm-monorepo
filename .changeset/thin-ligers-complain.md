@@ -1,5 +1,5 @@
 ---
-"@evmts/bun-plugin": patch
+"@tevm/bun-plugin": patch
 ---
 
-Updated @evmts/bun-plugin to NodeNext this will improve compatibility
+Updated @tevm/bun-plugin to NodeNext this will improve compatibility

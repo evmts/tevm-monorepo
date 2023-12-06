@@ -1,14 +1,14 @@
-import { addresses } from '../addresses'
-import { WagmiMintExample } from '../contracts/WagmiMintExample.sol'
 import { useState } from 'react'
 import { useAccount, useBlockNumber, useContractEvent } from 'wagmi'
+import { addresses } from '../addresses'
+import { WagmiMintExample } from '../contracts/WagmiMintExample.sol'
 
 export const WagmiEvents = () => {
 	const { address } = useAccount()
 
 	const { data: blockNumber } = useBlockNumber()
 
-	// TODO add types to EvmtsContract type
+	// TODO add types to TevmContract type
 	const [events, setEvents] = useState<any[]>([])
 
 	/**

@@ -1,6 +1,6 @@
-[@evmts/runtime](/reference/runtime/README.md) / Exports
+[@tevm/runtime](/reference/runtime/README.md) / Exports
 
-# @evmts/runtime
+# @tevm/runtime
 
 ## Table of contents
 
@@ -11,7 +11,7 @@
 ### Functions
 
 - [generateDtsBody](/reference/runtime/modules.md#generatedtsbody)
-- [generateEvmtsBody](/reference/runtime/modules.md#generateevmtsbody)
+- [generateTevmBody](/reference/runtime/modules.md#generatetevmbody)
 - [generateRuntime](/reference/runtime/modules.md#generateruntime)
 - [generateRuntimeSync](/reference/runtime/modules.md#generateruntimesync)
 
@@ -23,7 +23,7 @@
 
 #### Defined in
 
-[generateEvmtsBody.js:5](https://github.com/evmts/evmts-monorepo/blob/main/runtime/src/generateEvmtsBody.js#L5)
+[generateTevmBody.js:5](https://github.com/evmts/tevm-monorepo/blob/main/runtime/src/generateTevmBody.js#L5)
 
 ## Functions
 
@@ -43,13 +43,13 @@
 
 #### Defined in
 
-[generateEvmtsBodyDts.js:7](https://github.com/evmts/evmts-monorepo/blob/main/runtime/src/generateEvmtsBodyDts.js#L7)
+[generateTevmBodyDts.js:7](https://github.com/evmts/tevm-monorepo/blob/main/runtime/src/generateTevmBodyDts.js#L7)
 
 ___
 
-### generateEvmtsBody
+### generateTevmBody
 
-▸ **generateEvmtsBody**(`artifacts`, `moduleType`): `string`
+▸ **generateTevmBody**(`artifacts`, `moduleType`): `string`
 
 #### Parameters
 
@@ -64,7 +64,7 @@ ___
 
 #### Defined in
 
-[generateEvmtsBody.js:13](https://github.com/evmts/evmts-monorepo/blob/main/runtime/src/generateEvmtsBody.js#L13)
+[generateTevmBody.js:13](https://github.com/evmts/tevm-monorepo/blob/main/runtime/src/generateTevmBody.js#L13)
 
 ___
 
@@ -88,7 +88,7 @@ Generates the runtime code for the given artifacts.
 
 #### Defined in
 
-[generateRuntime.js:10](https://github.com/evmts/evmts-monorepo/blob/main/runtime/src/generateRuntime.js#L10)
+[generateRuntime.js:10](https://github.com/evmts/tevm-monorepo/blob/main/runtime/src/generateRuntime.js#L10)
 
 ___
 
@@ -110,4 +110,4 @@ ___
 
 #### Defined in
 
-[generateRuntimeSync.js:9](https://github.com/evmts/evmts-monorepo/blob/main/runtime/src/generateRuntimeSync.js#L9)
+[generateRuntimeSync.js:9](https://github.com/evmts/tevm-monorepo/blob/main/runtime/src/generateRuntimeSync.js#L9)

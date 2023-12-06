@@ -1,4 +1,4 @@
-[@evmts/effect](../README.md) / [Modules](../modules.md) / [resolve](../modules/resolve.md) / CouldNotResolveImportError
+[@tevm/effect](../README.md) / [Modules](../modules.md) / [resolve](../modules/resolve.md) / CouldNotResolveImportError
 
 # Class: CouldNotResolveImportError
 
@@ -56,7 +56,7 @@ Error.constructor
 
 #### Defined in
 
-[packages/effect/src/resolve.js:31](https://github.com/evmts/evmts-monorepo/blob/main/packages/effect/src/resolve.js#L31)
+[packages/effect/src/resolve.js:31](https://github.com/evmts/tevm-monorepo/blob/main/packages/effect/src/resolve.js#L31)
 
 ## Properties
 
@@ -66,7 +66,7 @@ Error.constructor
 
 #### Defined in
 
-[packages/effect/src/resolve.js:20](https://github.com/evmts/evmts-monorepo/blob/main/packages/effect/src/resolve.js#L20)
+[packages/effect/src/resolve.js:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/effect/src/resolve.js#L20)
 
 ___
 
@@ -108,7 +108,7 @@ Error.name
 
 #### Defined in
 
-[packages/effect/src/resolve.js:25](https://github.com/evmts/evmts-monorepo/blob/main/packages/effect/src/resolve.js#L25)
+[packages/effect/src/resolve.js:25](https://github.com/evmts/tevm-monorepo/blob/main/packages/effect/src/resolve.js#L25)
 
 ___
 

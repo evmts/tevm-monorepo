@@ -1,10 +1,10 @@
-import { EVMts, PutContractCodeActionValidator } from '@evmts/vm'
+import { PutContractCodeActionValidator, Tevm } from '@tevm/vm'
 
 import type { Trpc } from '../Trpc.js'
 import { Route } from './Route.js'
 
 export class PutContractCodeRoute extends Route {
-	constructor(trpc: Trpc, protected readonly vm: EVMts) {
+	constructor(trpc: Trpc, protected readonly vm: Tevm) {
 		super(trpc)
 	}
 	public readonly name = 'putContractCode'

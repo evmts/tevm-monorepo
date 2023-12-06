@@ -1,11 +1,11 @@
-import { StandardBlockExplorer } from './blockExplorer.js'
 import {
 	InvalidAddressError,
 	InvalidBytesError,
 	InvalidUrlError,
-} from '@evmts/schemas'
+} from '@tevm/schemas'
 import { optimism } from 'viem/chains'
 import { describe, expect, expectTypeOf, it } from 'vitest'
+import { StandardBlockExplorer } from './blockExplorer.js'
 
 const optimismExplorer = new StandardBlockExplorer({
 	name: optimism.name,

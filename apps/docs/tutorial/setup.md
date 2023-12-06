@@ -12,13 +12,13 @@
 #### Create a new project
 
 1. Install [nodejs](https://nodejs.org/)
-2. Create a new project folder 
+2. Create a new project folder
 
 ```bash
-mkdir evmts-tut && cd evmts-tut && npm init
+mkdir tevm-tut && cd tevm-tut && npm init
 ```
 
-3. Initialize a new npm project.  
+3. Initialize a new npm project.
 
 ```bash
 npm init --yes

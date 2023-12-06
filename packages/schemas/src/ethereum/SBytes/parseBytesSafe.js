@@ -3,11 +3,11 @@
  * Types and validators for SBytes.
  */
 
-import { InvalidBytesError } from './Errors.js'
-import { SBytes } from './SBytes.js'
 import { parseEither } from '@effect/schema/Schema'
 import { Effect } from 'effect'
 import { mapError } from 'effect/Effect'
+import { InvalidBytesError } from './Errors.js'
+import { SBytes } from './SBytes.js'
 
 /**
  * Safely parses a Bytes into an [Effect](https://www.effect.website/docs/essentials/effect-type).
@@ -16,7 +16,7 @@ import { mapError } from 'effect/Effect'
  * @returns {Effect.Effect<never, InvalidBytesError, TBytes>}
  * @example
  * ```javascript
- * import { parseBytesSafe } from '@evmts/schemas';
+ * import { parseBytesSafe } from '@tevm/schemas';
  * const parsedBytesEffect = parseBytesSafe('0x1234567890abcdef1234567890abcdef12345678');
  * ```
  */

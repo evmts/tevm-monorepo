@@ -1,6 +1,6 @@
 # Tutorial
 
-To learn all the pieces of Evmts we will configure a new project from scratch.  We only assume basic TypeScript knowledge and knowledge of what a Smart Contract is
+To learn all the pieces of Tevm we will configure a new project from scratch.  We only assume basic TypeScript knowledge and knowledge of what a Smart Contract is
 
 ::: info You will learn
 
@@ -20,7 +20,7 @@ Looking to get started fast? Try forking one of our example projects or using ou
 2. Create a new project folder
 
 ```bash
-mkdir evmts-tut && cd evmts-tut && npm init
+mkdir tevm-tut && cd tevm-tut && npm init
 ```
 
 3. Initialize a new npm project.
@@ -64,15 +64,15 @@ Install the [typescript plugin](../configuration/typescript.md)
 ::: code-group
 
 ```bash [npm]
-npm i @evmts/ts-plugin
+npm i @tevm/ts-plugin
 ```
 
 ```bash [pnpm]
-pnpm i @evmts/ts-plugin
+pnpm i @tevm/ts-plugin
 ```
 
 ```bash [yarn]
-yarn add @evmts/ts-plugin
+yarn add @tevm/ts-plugin
 ```
 :::
 
@@ -81,14 +81,14 @@ Add TypeScript plugin to [tsconfig](https://www.typescriptlang.org/tsconfig)
 ```json
 {
   compilerOptions: {
-    plugins: ["@evmts/ts-plugin"]
+    plugins: ["@tevm/ts-plugin"]
   }
 }
 ```
 
 #### Bundler integration
 
-Evmts requires a bundler configured to handle `.sol` files
+Tevm requires a bundler configured to handle `.sol` files
 
 Install your integration of preference.  This hello-world tutorial will use esbuild.
 

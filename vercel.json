@@ -1,5 +1,5 @@
 {
-	"buildCommand": "bun nx build @evmts/docs",
+	"buildCommand": "bun nx build @tevm/docs",
 	"devCommand": "bun dev --port $PORT",
 	"framework": "vitepress",
 	"installCommand": "pnpm install",

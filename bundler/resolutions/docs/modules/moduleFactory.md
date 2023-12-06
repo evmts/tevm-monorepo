@@ -1,4 +1,4 @@
-[@evmts/resolutions](../README.md) / [Modules](../modules.md) / moduleFactory
+[@tevm/resolutions](../README.md) / [Modules](../modules.md) / moduleFactory
 
 # Module: moduleFactory
 
@@ -20,7 +20,7 @@
 
 #### Defined in
 
-[moduleFactory.js:9](https://github.com/evmts/evmts-monorepo/blob/main/bundler/resolutions/src/moduleFactory.js#L9)
+[moduleFactory.js:9](https://github.com/evmts/tevm-monorepo/blob/main/bundler/resolutions/src/moduleFactory.js#L9)
 
 ## Functions
 
@@ -80,4 +80,4 @@ console.log(modules.get(pathToSolidity)) // { id: '/path/to/Contract.sol', rawCo
 
 #### Defined in
 
-[moduleFactory.js:53](https://github.com/evmts/evmts-monorepo/blob/main/bundler/resolutions/src/moduleFactory.js#L53)
+[moduleFactory.js:53](https://github.com/evmts/tevm-monorepo/blob/main/bundler/resolutions/src/moduleFactory.js#L53)

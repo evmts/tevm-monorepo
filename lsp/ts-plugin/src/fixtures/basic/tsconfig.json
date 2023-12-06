@@ -1,13 +1,17 @@
 {
-  "extends": "@evmts/tsconfig/base.json",
+  "extends": "@tevm/tsconfig/base.json",
   "compilerOptions": {
     "composite": true,
     "outDir": "types",
     "skipLibCheck": true,
-    "plugins": [{
-      "name": "@evmts/ts-plugin",
-      "libs": ["mylib"]
-    }]
+    "plugins": [
+      {
+        "name": "@tevm/ts-plugin",
+        "libs": [
+          "mylib"
+        ]
+      }
+    ]
   },
   "include": [
     "src",

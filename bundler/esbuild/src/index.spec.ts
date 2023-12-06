@@ -1,11 +1,11 @@
-import { esbuildPluginEvmts } from './index.js'
 import { describe, expect, it, vi } from 'vitest'
+import { esbuildPluginTevm } from './index.js'
 
-describe('esbuildPluginEvmts', () => {
-	it('should properly export the unplugin bundler from @evmts/base', async () => {
-		const plugin = esbuildPluginEvmts()
+describe('esbuildPluginTevm', () => {
+	it('should properly export the unplugin bundler from @tevm/base', async () => {
+		const plugin = esbuildPluginTevm()
 
-		expect(plugin.name).toMatchInlineSnapshot('"@evmts/rollup-plugin"')
+		expect(plugin.name).toMatchInlineSnapshot('"@tevm/rollup-plugin"')
 
 		const initialOptions = {}
 		const resolve = vi.fn()

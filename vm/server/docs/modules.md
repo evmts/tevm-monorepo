@@ -1,42 +1,42 @@
-[@evmts/server](README.md) / Exports
+[@tevm/server](README.md) / Exports
 
-# @evmts/server
+# @tevm/server
 
 ## Table of contents
 
 ### Type Aliases
 
-- [EvmtsTrpcRouter](modules.md#evmtstrpcrouter)
+- [TevmTrpcRouter](modules.md#tevmtrpcrouter)
 
 ### Functions
 
-- [createEvmtsServer](modules.md#createevmtsserver)
+- [createTevmServer](modules.md#createtevmserver)
 
 ## Type Aliases
 
-### EvmtsTrpcRouter
+### TevmTrpcRouter
 
-Ƭ **EvmtsTrpcRouter**: `TrpcApi`[``"handler"``]
+Ƭ **TevmTrpcRouter**: `TrpcApi`[``"handler"``]
 
-The TRPC Router type for the EVMts server
-Note: It is recomended to use @evmts/vm-client rather than this directly
+The TRPC Router type for the Tevm server
+Note: It is recomended to use @tevm/vm-client rather than this directly
 as it's more typesafe via generics
 
 #### Defined in
 
-[index.ts:8](https://github.com/evmts/evmts-monorepo/blob/main/vm/server/src/index.ts#L8)
+[index.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/vm/server/src/index.ts#L8)
 
 ## Functions
 
-### createEvmtsServer
+### createTevmServer
 
-▸ **createEvmtsServer**(`vm`): `TrpcApi`
+▸ **createTevmServer**(`vm`): `TrpcApi`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `vm` | `EVMts` |
+| `vm` | `Tevm` |
 
 #### Returns
 
@@ -44,4 +44,4 @@ as it's more typesafe via generics
 
 #### Defined in
 
-[createEvmtsServer.ts:12](https://github.com/evmts/evmts-monorepo/blob/main/vm/server/src/createEvmtsServer.ts#L12)
+[createTevmServer.ts:12](https://github.com/evmts/tevm-monorepo/blob/main/vm/server/src/createTevmServer.ts#L12)

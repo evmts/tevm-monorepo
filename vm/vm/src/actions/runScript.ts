@@ -1,4 +1,8 @@
-import type { EVMts } from '../evmts.js'
+import type { Abi } from 'abitype'
+import { Abi as ZAbi, Address as ZAddress } from 'abitype/zod'
+import { type Address, type EncodeFunctionDataParameters, type Hex } from 'viem'
+import { z } from 'zod'
+import type { Tevm } from '../tevm.js'
 import { ZHex } from '../utils/zod.js'
 import { putContractCodeHandler } from './putContractCode.js'
 import {
@@ -6,10 +10,6 @@ import {
 	type RunContractCallResult,
 	runContractCallHandler,
 } from './runContractCall.js'
-import type { Abi } from 'abitype'
-import { Abi as ZAbi, Address as ZAddress } from 'abitype/zod'
-import { type Address, type EncodeFunctionDataParameters, type Hex } from 'viem'
-import { z } from 'zod'
 
 export const RunScriptActionValidator = z
 	.object({
@@ -25,7 +25,7 @@ export const RunScriptActionValidator = z
 	.describe('Action to run a script or contract')
 
 /**
- * EVMts action to deploy and execute a script or contract
+ * Tevm action to deploy and execute a script or contract
  */
 export type RunScriptAction<
 	TAbi extends Abi | readonly unknown[] = Abi,
@@ -47,7 +47,7 @@ export const runScriptHandler = async <
 	TAbi extends Abi | readonly unknown[] = Abi,
 	TFunctionName extends string = string,
 >(
-	evmts: EVMts,
+	tevm: Tevm,
 	{
 		deployedBytecode,
 		args,
@@ -57,11 +57,11 @@ export const runScriptHandler = async <
 	}: RunScriptAction<TAbi, TFunctionName>,
 ): Promise<RunScriptResult<TAbi, TFunctionName>> => {
 	const contractAddress = '0x00000000000000000000000000000000000000ff' as const
-	await putContractCodeHandler(evmts, {
+	await putContractCodeHandler(tevm, {
 		contractAddress: '0x00000000000000000000000000000000000000ff',
 		deployedBytecode,
 	})
-	return runContractCallHandler(evmts, {
+	return runContractCallHandler(tevm, {
 		functionName,
 		caller,
 		args,

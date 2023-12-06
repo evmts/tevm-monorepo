@@ -1,3 +1,7 @@
+import { Common, Hardfork } from '@ethereumjs/common'
+import { DefaultStateManager } from '@ethereumjs/statemanager'
+import type { Abi } from 'abitype'
+import { http, createPublicClient } from 'viem'
 import {
 	type PutAccountAction,
 	type PutContractCodeAction,
@@ -13,10 +17,6 @@ import {
 	runScriptHandler,
 } from './actions/index.js'
 import { ViemStateManager } from './stateManager/ViemStateManager.js'
-import { Common, Hardfork } from '@ethereumjs/common'
-import { DefaultStateManager } from '@ethereumjs/statemanager'
-import type { Abi } from 'abitype'
-import { createPublicClient, http } from 'viem'
 
 /**
  * Options fetch state that isn't available locally.
@@ -36,7 +36,7 @@ type ForkOptions = {
 }
 
 /**
- * Options for creating an EVMts instance
+ * Options for creating an Tevm instance
  */
 export type CreateEVMOptions = {
 	fork?: ForkOptions
@@ -56,7 +56,7 @@ type ConstructorArgument<T> = T extends new (
  * TODO This should be publically exported from ethereumjs but isn't
  * Typing this by hand is tedious so we are using some typescript inference to get it
  * do a pr to export this from ethereumjs and then replace this with an import
- * TODO this should be modified to take a hex address rather than an ethjs address to be consistent with rest of EVMts
+ * TODO this should be modified to take a hex address rather than an ethjs address to be consistent with rest of Tevm
  */
 export type CustomPrecompile = Exclude<
 	Exclude<
@@ -70,25 +70,25 @@ export type CustomPrecompile = Exclude<
  * A local EVM instance running in JavaScript. Similar to Anvil in your browser
  * @example
  * ```ts
- * import { EVMts } from "evmts"
+ * import { Tevm } from "tevm"
  * import { createPublicClient, http } from "viem"
  * import { MyERC721 } from './MyERC721.sol'
- * 
- * const evmts = EVMts.create({
+ *
+ * const tevm = Tevm.create({
  * 	fork: {
  * 	  url: "https://mainnet.optimism.io",
  * 	},
  * })
  *
  * const address = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
- 
- * await evmts.runContractCall(
+
+ * await tevm.runContractCall(
  *   MyERC721.write.mint({
  *     caller: address,
  *   }),
  * )
  *
- * const balance = await evmts.runContractCall(
+ * const balance = await tevm.runContractCall(
  *  MyERC721.read.balanceOf({
  *  caller: address,
  *  }),
@@ -96,17 +96,17 @@ export type CustomPrecompile = Exclude<
  *  console.log(balance) // 1n
  *  ```
  */
-export class EVMts {
+export class Tevm {
 	/**
-	 * Makes sure evmts is invoked with EVMts.create and not with new EVMts
+	 * Makes sure tevm is invoked with Tevm.create and not with new Tevm
 	 */
 	private static isCreating = false
 
 	/**
-	 * Creates a {@link EVMts} instance
+	 * Creates a {@link Tevm} instance
 	 */
 	static readonly create = async (options: CreateEVMOptions = {}) => {
-		EVMts.isCreating = true
+		Tevm.isCreating = true
 		const { EVM: _EVM } = await import('@ethereumjs/evm')
 		try {
 			let stateManager: DefaultStateManager | ViemStateManager
@@ -137,9 +137,9 @@ export class EVMts {
 					enabled: false,
 				},
 			})
-			return new EVMts(evm)
+			return new Tevm(evm)
 		} finally {
-			EVMts.isCreating = false
+			Tevm.isCreating = false
 		}
 	}
 
@@ -147,28 +147,28 @@ export class EVMts {
 	 * A local EVM instance running in JavaScript. Similar to Anvil in your browser
 	 */
 	constructor(public readonly _evm: import('@ethereumjs/evm').EVM) {
-		if (!EVMts.isCreating) {
-			throw new Error('EVMts must be created with EVMts.create method')
+		if (!Tevm.isCreating) {
+			throw new Error('Tevm must be created with Tevm.create method')
 		}
 	}
 
 	/**
 	 * Runs a script or contract that is not deployed to the chain
-	 * The recomended way to use a script is with an EVMts import
+	 * The recomended way to use a script is with an Tevm import
 	 * @example
 	 * ```ts
 	 * // Scripts require bytecode
 	 * import { MyContractOrScript } from './MyContractOrScript.sol' with {
-	 *   evmts: 'bytecode'
+	 *   tevm: 'bytecode'
 	 * }
-	 * evmts.runScript(
+	 * tevm.runScript(
 	 *   MyContractOrScript.script.run()
 	 * )
 	 * ```
 	 * Scripts can also be called directly via passing in args
 	 * @example
 	 * ```ts
-	 * evmts.runScript({
+	 * tevm.runScript({
 	 *   bytecode,
 	 *   abi,
 	 *   functionName: 'run',
@@ -188,7 +188,7 @@ export class EVMts {
 	 * Puts an account with ether balance into the state
 	 * @example
 	 * ```ts
-	 * evmts.putAccount({
+	 * tevm.putAccount({
 	 * 	address: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
 	 * 	balance: 100n,
 	 * })
@@ -202,7 +202,7 @@ export class EVMts {
 	 * Puts a contract into the state
 	 * @example
 	 * ```ts
-	 * evmts.putContract({
+	 * tevm.putContract({
 	 *  bytecode,
 	 *  contractAddress,
 	 * })
@@ -216,7 +216,7 @@ export class EVMts {
 	 * Executes a call on the EVM
 	 * @example
 	 * ```ts
-	 * const result = await evmts.runCall({
+	 * const result = await tevm.runCall({
 	 *   data: '0x...',
 	 *   caller: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
 	 *   gasLimit: 1000000n,
@@ -232,7 +232,7 @@ export class EVMts {
 	 * Calls contract code using an ABI and returns the decoded result
 	 * @example
 	 * ```ts
-	 * const result = await evmts.runContractCall({
+	 * const result = await tevm.runContractCall({
 	 *  abi: MyContract.abi,
 	 *  contractAddress: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
 	 *  functionName: 'balanceOf',

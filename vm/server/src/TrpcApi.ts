@@ -9,7 +9,7 @@ import {
 } from './routes/index.js'
 
 export class TrpcApi extends Api {
-	public readonly name = 'EVMtsJsonRPC'
+	public readonly name = 'TevmJsonRPC'
 	constructor(
 		trpc: Trpc,
 		callRoute: CallRoute,

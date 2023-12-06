@@ -1,4 +1,4 @@
-[@evmts/viem-effect](/reference/viem-effect/README.md) / [Modules](/reference/viem-effect/modules.md) / actions
+[@tevm/viem-effect](/reference/viem-effect/README.md) / [Modules](/reference/viem-effect/modules.md) / actions
 
 # Module: actions
 
@@ -32,4 +32,4 @@
 
 #### Defined in
 
-[viem-effect/src/wrapInEffect.d.ts:14](https://github.com/evmts/evmts-monorepo/blob/main/viem-effect/src/wrapInEffect.d.ts#L14)
+[viem-effect/src/wrapInEffect.d.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/viem-effect/src/wrapInEffect.d.ts#L14)

@@ -1,4 +1,4 @@
-import type { ResolvedConfig } from '@evmts/config'
+import type { ResolvedConfig } from '@tevm/config'
 
 type BundlerResult = {
 	code: string

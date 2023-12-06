@@ -6,7 +6,7 @@ import {
 	parseAddressSafe,
 	parseBytesSafe,
 	parseUrlSafe,
-} from '@evmts/schemas'
+} from '@tevm/schemas'
 import { Effect } from 'effect'
 
 /**

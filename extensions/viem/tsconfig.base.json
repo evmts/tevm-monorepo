@@ -5,7 +5,6 @@
     // Incremental builds
     // NOTE: Enabling incremental builds speeds up `tsc`. Keep in mind though that it does not reliably bust the cache when the `tsconfig.json` file changes.
     "incremental": true,
-
     // Type checking
     "strict": true,
     "useDefineForClassFields": true, // Not enabled by default in `strict` mode unless we bump `target` to ES2022.
@@ -15,24 +14,19 @@
     "noImplicitOverride": true, // Not enabled by default in `strict` mode.
     "noUnusedLocals": true, // Not enabled by default in `strict` mode.
     "noUnusedParameters": true, // Not enabled by default in `strict` mode.
-
-    // this isn't in the viem config I added this for evmts
+    // this isn't in the viem config I added this for tevm
     "checkJs": true,
-    // this isn't in the viem config I added this for evmts
+    // this isn't in the viem config I added this for tevm
     "allowJs": true,
-
     // TODO: The following options are also not enabled by default in `strict` mode and would be nice to have but would require some adjustments to the codebase.
     // "exactOptionalPropertyTypes": true,
     // "noUncheckedIndexedAccess": true,
-
-
     // Interop constraints
     "esModuleInterop": false,
     "allowSyntheticDefaultImports": false,
     "forceConsistentCasingInFileNames": true,
     "verbatimModuleSyntax": true,
     "importHelpers": true, // This is only used for build validation. Since we do not have `tslib` installed, this will fail if we accidentally make use of anything that'd require injection of helpers.
-
     // Language and environment
     "moduleResolution": "NodeNext",
     "module": "NodeNext",
@@ -41,7 +35,6 @@
       "ES2022", // By using ES2022 we get access to the `.cause` property on `Error` instances.
       "DOM" // We are adding `DOM` here to get the `fetch`, etc. types. This should be removed once these types are available via DefinitelyTyped.
     ],
-
     // Skip type checking for node modules
     "skipLibCheck": true
   }

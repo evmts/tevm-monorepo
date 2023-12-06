@@ -1,4 +1,4 @@
-import { esbuildPluginEvmts } from '@evmts/esbuild-plugin'
+import { esbuildPluginTevm } from '@tevm/esbuild-plugin'
 import { build } from 'esbuild'
 
 build({
@@ -12,7 +12,7 @@ build({
 			process.env.NODE_ENV ?? 'production',
 		),
 	},
-	plugins: [esbuildPluginEvmts()],
+	plugins: [esbuildPluginTevm()],
 	// logLevel: "silent",
 }).catch((e) => {
 	console.error(e)

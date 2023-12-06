@@ -1,5 +1,5 @@
 ---
-"@evmts/config": patch
+"@tevm/config": patch
 ---
 
-Detailed contributing docs for @evmts/config added to /config/CONTRIBUTING.md
+Detailed contributing docs for @tevm/config added to /config/CONTRIBUTING.md

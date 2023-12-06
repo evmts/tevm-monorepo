@@ -1,18 +1,18 @@
-[@evmts/rollup-plugin](/reference/rollup-plugin/README.md) / Exports
+[@tevm/rollup-plugin](/reference/rollup-plugin/README.md) / Exports
 
-# @evmts/rollup-plugin
+# @tevm/rollup-plugin
 
 ## Table of contents
 
 ### Functions
 
-- [rollupPluginEvmts](/reference/rollup-plugin/modules.md#rolluppluginevmts)
+- [rollupPluginTevm](/reference/rollup-plugin/modules.md#rollupplugintevm)
 
 ## Functions
 
-### rollupPluginEvmts
+### rollupPluginTevm
 
-▸ **rollupPluginEvmts**(`options?`): `Plugin`<`any`\>
+▸ **rollupPluginTevm**(`options?`): `Plugin`<`any`\>
 
 #### Parameters
 

@@ -1,5 +1,5 @@
 {
-	"extends": "@evmts/tsconfig/base",
+	"extends": "@tevm/tsconfig/base",
 	"compilerOptions": {
 		"outDir": "dist",
 		"rootDir": "src"

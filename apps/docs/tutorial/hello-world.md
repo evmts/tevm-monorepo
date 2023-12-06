@@ -10,7 +10,7 @@
 
 ## 1. Create a script
 
-The power of Evmts comes in it's ability to write simple Scripts. Scripts execute clientside and have access to cheat codes
+The power of Tevm comes in it's ability to write simple Scripts. Scripts execute clientside and have access to cheat codes
 
 Let's create a simple hello-world contract `src/HelloWorld.s.sol`.
 
@@ -25,14 +25,14 @@ contract HelloWorld {
 }
 ```
 
-## 2. Create an Evmts client
+## 2. Create an Tevm client
 
-The Evmts client is build on top of [viem](https://viem.sh/docs/clients/intro.html) clients and add the ability to execute scripts and simulate contracts clientside.
+The Tevm client is build on top of [viem](https://viem.sh/docs/clients/intro.html) clients and add the ability to execute scripts and simulate contracts clientside.
 
-```typescript evmts.ts
-import { forkUrl, createPublicClient, optimism } from "@evmts/core";
+```typescript tevm.ts
+import { forkUrl, createPublicClient, optimism } from "@tevm/core";
 
-export const evmts = createPublicClient({
+export const tevm = createPublicClient({
   chain: optimism,
   transport: forkUrl({
     url: `https://mainnet.optimism.io`,
@@ -45,10 +45,10 @@ export const evmts = createPublicClient({
 To create a new contract instance simply [import your contract](./configuration.md) and pass it into client.script.
 
 ```typescript helloWorld.ts
-import { evmts } from "./evmts";
+import { tevm } from "./tevm";
 import { HelloWorld } from "./HelloWorld.s.sol"; // [!code focus]
 
-const helloWorldScript = evmts.script(HelloWorld); // [!code focus]
+const helloWorldScript = tevm.script(HelloWorld); // [!code focus]
 ```
 
 ## 4. Now execute the HelloWorld.s.sol script
@@ -56,10 +56,10 @@ const helloWorldScript = evmts.script(HelloWorld); // [!code focus]
 Now simply call `run()` to execute the script in the clientside evm.
 
 ```typescript
-import { evmts } from "./evmts";
+import { tevm } from "./tevm";
 import { HelloWorld } from "./HelloWorld.s.sol";
 
-const helloWorldScript = evmts.script(HelloWorld);
+const helloWorldScript = tevm.script(HelloWorld);
 
 helloWorldScript // [!code focus]
   .greet() // [!code focus]

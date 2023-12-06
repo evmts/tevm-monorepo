@@ -1,7 +1,7 @@
-@evmts/unplugin / [Exports](modules.md)
+@tevm/unplugin / [Exports](modules.md)
 
 <p align="center">
-  <a href="https://evmts.dev/">
+  <a href="https://tevm.dev/">
     <picture>
       <source media="(prefers-color-scheme: dark)" srcset="https://user-images.githubusercontent.com/35039927/218812217-92f0f784-cb85-43b9-9ca6-e2b9effd9eb2.png">
       <img alt="wagmi logo" src="https://user-images.githubusercontent.com/35039927/218812217-92f0f784-cb85-43b9-9ca6-e2b9effd9eb2.png" width="auto" height="300">
@@ -13,26 +13,26 @@
   Execute solidity scripts in browser
 </p>
 
-[![CI](https://github.com/evmts/evmts-monorepo/actions/workflows/e2e.yml/badge.svg)](https://github.com/evmts/evmts-monorepo/actions/workflows/e2e.yml)
-[![CI](https://github.com/evmts/evmts-monorepo/actions/workflows/unit.yml/badge.svg)](https://github.com/evmts/evmts-monorepo/actions/workflows/unit.yml)
-<a href="https://www.npmjs.com/package/@evmts/core" target="\_parent">
-<img alt="" src="https://img.shields.io/npm/dm/@evmts/core.svg" />
+[![CI](https://github.com/evmts/tevm-monorepo/actions/workflows/e2e.yml/badge.svg)](https://github.com/evmts/tevm-monorepo/actions/workflows/e2e.yml)
+[![CI](https://github.com/evmts/tevm-monorepo/actions/workflows/unit.yml/badge.svg)](https://github.com/evmts/tevm-monorepo/actions/workflows/unit.yml)
+<a href="https://www.npmjs.com/package/@tevm/core" target="\_parent">
+<img alt="" src="https://img.shields.io/npm/dm/@tevm/core.svg" />
 </a>
-<a href="https://bundlephobia.com/package/@evmts/core@latest" target="\_parent">
-<img alt="" src="https://badgen.net/bundlephobia/minzip/@evmts/core" />
+<a href="https://bundlephobia.com/package/@tevm/core@latest" target="\_parent">
+<img alt="" src="https://badgen.net/bundlephobia/minzip/@tevm/core" />
 </a>
 
-# @evmts/unplugin
+# @tevm/unplugin
 
-[unplugin](https://github.com/unjs/unplugin) plugin for EVMts. Unplugin allows us to build a rollup plugin once and reuse it for many different bundlers.
+[unplugin](https://github.com/unjs/unplugin) plugin for Tevm. Unplugin allows us to build a rollup plugin once and reuse it for many different bundlers.
 
 Used in following packages
 
-- [@evmts/esbuild](https://github.com/evmts/evmts-monorepo/tree/main/bundlers/esbuild)
-- [@evmts/rollup](https://github.com/evmts/evmts-monorepo/tree/main/bundlers/rollup)
-- [@evmts/rspack](https://github.com/evmts/evmts-monorepo/tree/main/bundlers/rspack)
-- [@evmts/vite](https://github.com/evmts/evmts-monorepo/tree/main/bundlers/vite)
-- [@evmts/webpack](https://github.com/evmts/evmts-monorepo/tree/main/bundlers/webpack)
+- [@tevm/esbuild](https://github.com/evmts/tevm-monorepo/tree/main/bundlers/esbuild)
+- [@tevm/rollup](https://github.com/evmts/tevm-monorepo/tree/main/bundlers/rollup)
+- [@tevm/rspack](https://github.com/evmts/tevm-monorepo/tree/main/bundlers/rspack)
+- [@tevm/vite](https://github.com/evmts/tevm-monorepo/tree/main/bundlers/vite)
+- [@tevm/webpack](https://github.com/evmts/tevm-monorepo/tree/main/bundlers/webpack)
 
 ## License 📄
 

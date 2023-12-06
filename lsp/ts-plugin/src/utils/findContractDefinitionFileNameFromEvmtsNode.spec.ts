@@ -1,7 +1,7 @@
-import { findContractDefinitionFileNameFromEvmtsNode } from './findContractDefinitionFileNameFromEvmtsNode.js'
-import { findNode } from './findNode.js'
 import ts from 'typescript/lib/tsserverlibrary.js'
 import { MockedFunction, describe, expect, it, vi } from 'vitest'
+import { findContractDefinitionFileNameFromTevmNode } from './findContractDefinitionFileNameFromTevmNode.js'
+import { findNode } from './findNode.js'
 
 const mockContractFile = '/path/to/ContractDefinitionFile.sol'
 
@@ -14,7 +14,7 @@ const mockLanguageService = {
 	]),
 } as unknown as ts.LanguageService
 
-describe('findContractDefinitionFileNameFromEvmtsNode', () => {
+describe('findContractDefinitionFileNameFromTevmNode', () => {
 	it('should find contract definition file name', () => {
 		const fileText = `import { viemClient } from './viemClient';
 import { MyContract } from './MyContract.sol';
@@ -41,7 +41,7 @@ const eventCall = MyContract.events().someEvent(5, 'foo')
 		}
 
 		expect(
-			findContractDefinitionFileNameFromEvmtsNode(
+			findContractDefinitionFileNameFromTevmNode(
 				somePropertyNode,
 				mockLanguageService,
 				'test.ts',
@@ -59,7 +59,7 @@ const eventCall = MyContract.events().someEvent(5, 'foo')
 		`)
 
 		expect(
-			findContractDefinitionFileNameFromEvmtsNode(
+			findContractDefinitionFileNameFromTevmNode(
 				someWriteNode,
 				mockLanguageService,
 				'test.ts',
@@ -77,7 +77,7 @@ const eventCall = MyContract.events().someEvent(5, 'foo')
 		`)
 
 		expect(
-			findContractDefinitionFileNameFromEvmtsNode(
+			findContractDefinitionFileNameFromTevmNode(
 				someEventNode,
 				mockLanguageService,
 				'test.ts',
@@ -122,7 +122,7 @@ const eventCall = MyContract.events().someEvent(5, 'foo')
 					throw new Error('node is not valid')
 				}
 				const contractDefinitionFileName =
-					findContractDefinitionFileNameFromEvmtsNode(
+					findContractDefinitionFileNameFromTevmNode(
 						node,
 						mockLanguageService,
 						'test.ts',
@@ -149,16 +149,15 @@ const eventCall = MyContract.events().someEvent(5, 'foo')
 			throw new Error('node is not valid')
 		}
 		mockLanguageService.getDefinitionAtPosition = vi.fn(() => [])
-		let contractDefinitionFileName =
-			findContractDefinitionFileNameFromEvmtsNode(
-				node,
-				mockLanguageService,
-				'test.ts',
-				ts,
-			)
+		let contractDefinitionFileName = findContractDefinitionFileNameFromTevmNode(
+			node,
+			mockLanguageService,
+			'test.ts',
+			ts,
+		)
 		expect(contractDefinitionFileName).toBeNull()
 		mockLanguageService.getDefinitionAtPosition = vi.fn(() => null as any)
-		contractDefinitionFileName = findContractDefinitionFileNameFromEvmtsNode(
+		contractDefinitionFileName = findContractDefinitionFileNameFromTevmNode(
 			node,
 			mockLanguageService,
 			'test.ts',
@@ -185,7 +184,7 @@ const res = MyContract.read().myMethod();
 		mockLanguageService.getDefinitionAtPosition = () =>
 			[{ fileName: 'foo.js' }] as any
 		const contractDefinitionFileName =
-			findContractDefinitionFileNameFromEvmtsNode(
+			findContractDefinitionFileNameFromTevmNode(
 				node,
 				mockLanguageService,
 				'test.ts',

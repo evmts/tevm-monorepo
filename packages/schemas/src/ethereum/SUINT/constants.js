@@ -1,5 +1,5 @@
 /**
- * @module @evmts/schemas/ethereum/SUINT/constants.js
+ * @module @tevm/schemas/ethereum/SUINT/constants.js
  * @description Constants for SUINT
  * @author William Cory <willcory10@gmail.com>
  */

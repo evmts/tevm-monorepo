@@ -1,5 +1,5 @@
 /**
- * @module @evmts/schemas/ethereum/SINT/constants.js
+ * @module @tevm/schemas/ethereum/SINT/constants.js
  * @description Constants for SINT
  * @author William Cory <willcory10@gmail.com>
  */

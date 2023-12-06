@@ -1,24 +1,24 @@
-[@evmts/core](/reference/core/README.md) / Exports
+[@tevm/core](/reference/core/README.md) / Exports
 
-# @evmts/core
+# @tevm/core
 
 ## Table of contents
 
 ### Type Aliases
 
-- [EvmtsContract](/reference/core/modules.md#evmtscontract)
+- [TevmContract](/reference/core/modules.md#tevmcontract)
 
 ### Functions
 
-- [evmtsContractFactory](/reference/core/modules.md#evmtscontractfactory)
+- [createTevmContract](/reference/core/modules.md#createTevmContract)
 - [formatAbi](/reference/core/modules.md#formatabi)
 - [parseAbi](/reference/core/modules.md#parseabi)
 
 ## Type Aliases
 
-### EvmtsContract
+### TevmContract
 
-Ƭ **EvmtsContract**<`TName`, `THumanReadableAbi`\>: `Object`
+Ƭ **TevmContract**<`TName`, `THumanReadableAbi`\>: `Object`
 
 #### Type parameters
 
@@ -40,13 +40,13 @@
 
 #### Defined in
 
-[core/src/EvmtsContract.ts:6](https://github.com/evmts/evmts-monorepo/blob/main/core/src/EvmtsContract.ts#L6)
+[core/src/TevmContract.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/core/src/TevmContract.ts#L6)
 
 ## Functions
 
-### evmtsContractFactory
+### createTevmContract
 
-▸ **evmtsContractFactory**<`TName`, `THumanReadableAbi`\>(`«destructured»`): [`EvmtsContract`](/reference/core/modules.md#evmtscontract)<`TName`, `THumanReadableAbi`\>
+▸ **createTevmContract**<`TName`, `THumanReadableAbi`\>(`«destructured»`): [`TevmContract`](/reference/core/modules.md#tevmcontract)<`TName`, `THumanReadableAbi`\>
 
 #### Type parameters
 
@@ -59,15 +59,15 @@
 
 | Name | Type |
 | :------ | :------ |
-| `«destructured»` | `Pick`<[`EvmtsContract`](/reference/core/modules.md#evmtscontract)<`TName`, `THumanReadableAbi`\>, ``"name"`` \| ``"humanReadableAbi"``\> |
+| `«destructured»` | `Pick`<[`TevmContract`](/reference/core/modules.md#tevmcontract)<`TName`, `THumanReadableAbi`\>, ``"name"`` \| ``"humanReadableAbi"``\> |
 
 #### Returns
 
-[`EvmtsContract`](/reference/core/modules.md#evmtscontract)<`TName`, `THumanReadableAbi`\>
+[`TevmContract`](/reference/core/modules.md#tevmcontract)<`TName`, `THumanReadableAbi`\>
 
 #### Defined in
 
-[core/src/evmtsContractFactory.ts:7](https://github.com/evmts/evmts-monorepo/blob/main/core/src/evmtsContractFactory.ts#L7)
+[core/src/createTevmContract.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/core/src/createTevmContract.ts#L7)
 
 ___
 

@@ -1,15 +1,15 @@
-import { generateEvmtsBody } from './generateEvmtsBody.js'
 import { die, map } from 'effect/Effect'
+import { generateTevmBody } from './generateTevmBody.js'
 
 const importsByModuleType = {
-	cjs: `const { evmtsContractFactory } = require('@evmts/core')`,
-	dts: `import { EvmtsContract } from '@evmts/core'`,
-	ts: `import { evmtsContractFactory } from '@evmts/core'`,
-	mjs: `import { evmtsContractFactory } from '@evmts/core'`,
+	cjs: `const { createTevmContract } = require('@tevm/core')`,
+	dts: `import { TevmContract } from '@tevm/core'`,
+	ts: `import { createTevmContract } from '@tevm/core'`,
+	mjs: `import { createTevmContract } from '@tevm/core'`,
 }
 
 /**
- * @param {import("@evmts/solc").Artifacts} artifacts
+ * @param {import("@tevm/solc").Artifacts} artifacts
  * @param {import('./types.js').ModuleType} moduleType
  * @param {boolean} includeBytecode
  * @returns {import('effect/Effect').Effect<never, never, string>}
@@ -26,7 +26,7 @@ export const generateRuntime = (artifacts, moduleType, includeBytecode) => {
 			).join(', ')}`,
 		)
 	}
-	return generateEvmtsBody(artifacts, moduleType, includeBytecode).pipe(
+	return generateTevmBody(artifacts, moduleType, includeBytecode).pipe(
 		map((body) => [imports, body].join('\n')),
 	)
 }

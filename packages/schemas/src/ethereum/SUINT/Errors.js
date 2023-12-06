@@ -1,5 +1,5 @@
 /**
- * @module @evmts/schemas/ethereum/SUINT/Errors.js
+ * @module @tevm/schemas/ethereum/SUINT/Errors.js
  * @description Errors for SUINT parsing
  * @author William Cory <willcory10@gmail.com>
  */
@@ -32,7 +32,7 @@ export class InvalidUINTError extends TypeError {
 			? `Recieved ${uint} is too small to be a ${size}. Must be >= 0.`
 			: `Value uint${size} is too big to be a UINT${size}`,
 		cause,
-		docs = 'https://evmts.dev/reference/errors',
+		docs = 'https://tevm.dev/reference/errors',
 	}) {
 		super(`${InvalidUINTError.name}: ${message}\n${docs}`)
 		this.cause = cause && formatErrors(cause)

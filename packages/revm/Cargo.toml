@@ -1,11 +1,11 @@
 [package]
 authors = ["William Cory <willcory10@gmail.com>"]
-description = "@evmts/revm - Rust Ethereum Virtual Machine Web Assembly lib"
+description = "@tevm/revm - Rust Ethereum Virtual Machine Web Assembly lib"
 edition = "2021"
-keywords = ["ethereum", "evm", "rust", "evmts"]
+keywords = ["ethereum", "evm", "rust", "tevm"]
 license = "MIT"
-name = "revmts"
-repository = "https://github.com/evmts/evmts-monorepo"
+name = "rtevm"
+repository = "https://github.com/evmts/tevm-monorepo"
 version = "0.1.0"
 
 [lib]

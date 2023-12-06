@@ -1,4 +1,4 @@
-[Documentation](../README.md) / [Modules](../modules.md) / [@evmts/config](evmts_config.md) / types
+[Documentation](../README.md) / [Modules](../modules.md) / [@tevm/config](tevm_config.md) / types
 
 # Module: types
 
@@ -6,11 +6,11 @@
 
 ### Type Aliases
 
-- [CompilerConfig](evmts_config.types.md#compilerconfig)
-- [ConfigFactory](evmts_config.types.md#configfactory)
-- [DefineConfig](evmts_config.types.md#defineconfig)
-- [DefineConfigErrorType](evmts_config.types.md#defineconfigerrortype)
-- [ResolvedCompilerConfig](evmts_config.types.md#resolvedcompilerconfig)
+- [CompilerConfig](tevm_config.types.md#compilerconfig)
+- [ConfigFactory](tevm_config.types.md#configfactory)
+- [DefineConfig](tevm_config.types.md#defineconfig)
+- [DefineConfigErrorType](tevm_config.types.md#defineconfigerrortype)
+- [ResolvedCompilerConfig](tevm_config.types.md#resolvedcompilerconfig)
 
 ## Type Aliases
 
@@ -19,57 +19,57 @@
 Ƭ **CompilerConfig**: `Object`
 
 Configuration of the solidity compiler
-When resolved with defaults it is a [ResolvedCompilerConfig](evmts_config.types.md#resolvedcompilerconfig)
+When resolved with defaults it is a [ResolvedCompilerConfig](tevm_config.types.md#resolvedcompilerconfig)
 
 #### Type declaration
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `debug?` | `boolean` | If debug is true evmts will write the .d.ts files in the ts server and publish extra debug info to a debug file |
+| `debug?` | `boolean` | If debug is true tevm will write the .d.ts files in the ts server and publish extra debug info to a debug file |
 | `foundryProject?` | `boolean` \| `string` | If set to true it will resolve forge remappings and libs Set to "path/to/forge/executable" to use a custom forge executable |
 | `libs?` | readonly `string`[] | Sets directories to search for solidity imports in Read autoamtically for forge projects if forge: true |
 | `remappings?` | `ReadonlyRecord`\<`string`\> | Remap the location of contracts |
 
 #### Defined in
 
-[bundler/config/src/types.ts:11](https://github.com/evmts/evmts-monorepo/blob/main/bundler/config/src/types.ts#L11)
+[bundler/config/src/types.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/bundler/config/src/types.ts#L11)
 
 ___
 
 ### ConfigFactory
 
-Ƭ **ConfigFactory**: () => [`CompilerConfig`](evmts_config.types.md#compilerconfig)
+Ƭ **ConfigFactory**: () => [`CompilerConfig`](tevm_config.types.md#compilerconfig)
 
 #### Type declaration
 
-▸ (): [`CompilerConfig`](evmts_config.types.md#compilerconfig)
+▸ (): [`CompilerConfig`](tevm_config.types.md#compilerconfig)
 
 ##### Returns
 
-[`CompilerConfig`](evmts_config.types.md#compilerconfig)
+[`CompilerConfig`](tevm_config.types.md#compilerconfig)
 
 #### Defined in
 
-[bundler/config/src/types.ts:35](https://github.com/evmts/evmts-monorepo/blob/main/bundler/config/src/types.ts#L35)
+[bundler/config/src/types.ts:35](https://github.com/evmts/tevm-monorepo/blob/main/bundler/config/src/types.ts#L35)
 
 ___
 
 ### DefineConfig
 
-Ƭ **DefineConfig**: (`configFactory`: [`ConfigFactory`](evmts_config.types.md#configfactory)) => \{ `configFn`: (`configFilePath`: `string`) => `Effect`\<`never`, [`DefineConfigError`](../classes/evmts_config.defineConfig.DefineConfigError.md), [`ResolvedCompilerConfig`](evmts_config.types.md#resolvedcompilerconfig)\>  }
+Ƭ **DefineConfig**: (`configFactory`: [`ConfigFactory`](tevm_config.types.md#configfactory)) => \{ `configFn`: (`configFilePath`: `string`) => `Effect`\<`never`, [`DefineConfigError`](../classes/tevm_config.defineConfig.DefineConfigError.md), [`ResolvedCompilerConfig`](tevm_config.types.md#resolvedcompilerconfig)\>  }
 
 #### Type declaration
 
 ▸ (`configFactory`): `Object`
 
-Creates an EVMts config
+Creates an Tevm config
 Takes a user provided configFactory
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `configFactory` | [`ConfigFactory`](evmts_config.types.md#configfactory) |
+| `configFactory` | [`ConfigFactory`](tevm_config.types.md#configfactory) |
 
 ##### Returns
 
@@ -77,12 +77,12 @@ Takes a user provided configFactory
 
 | Name | Type |
 | :------ | :------ |
-| `configFn` | (`configFilePath`: `string`) => `Effect`\<`never`, [`DefineConfigError`](../classes/evmts_config.defineConfig.DefineConfigError.md), [`ResolvedCompilerConfig`](evmts_config.types.md#resolvedcompilerconfig)\> |
+| `configFn` | (`configFilePath`: `string`) => `Effect`\<`never`, [`DefineConfigError`](../classes/tevm_config.defineConfig.DefineConfigError.md), [`ResolvedCompilerConfig`](tevm_config.types.md#resolvedcompilerconfig)\> |
 
 **`Example`**
 
 ```ts
-import { defineConfig } from 'evmts/config'
+import { defineConfig } from 'tevm/config'
 export default defineConfig({
 	foundryProject: true,
 		libs: ['libs/contracts'],
@@ -91,7 +91,7 @@ export default defineConfig({
 
 #### Defined in
 
-[bundler/config/src/types.ts:76](https://github.com/evmts/evmts-monorepo/blob/main/bundler/config/src/types.ts#L76)
+[bundler/config/src/types.ts:76](https://github.com/evmts/tevm-monorepo/blob/main/bundler/config/src/types.ts#L76)
 
 ___
 
@@ -101,7 +101,7 @@ ___
 
 #### Defined in
 
-[bundler/config/src/types.ts:62](https://github.com/evmts/evmts-monorepo/blob/main/bundler/config/src/types.ts#L62)
+[bundler/config/src/types.ts:62](https://github.com/evmts/tevm-monorepo/blob/main/bundler/config/src/types.ts#L62)
 
 ___
 
@@ -110,17 +110,17 @@ ___
 Ƭ **ResolvedCompilerConfig**: `Object`
 
 A fully resolved compiler config with defaults filled in
-See [CompilerConfig](evmts_config.types.md#compilerconfig)
+See [CompilerConfig](tevm_config.types.md#compilerconfig)
 
 #### Type declaration
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `debug?` | `boolean` | If debug is true evmts will write the .d.ts files in the ts server and publish extra debug info to a debug file |
+| `debug?` | `boolean` | If debug is true tevm will write the .d.ts files in the ts server and publish extra debug info to a debug file |
 | `foundryProject` | `boolean` \| `string` | If set to true it will resolve forge remappings and libs Set to "path/to/forge/executable" to use a custom forge executable |
 | `libs` | readonly `string`[] | Sets directories to search for solidity imports in Read autoamtically for forge projects if forge: true |
 | `remappings` | `ReadonlyRecord`\<`string`\> | Remap the location of contracts |
 
 #### Defined in
 
-[bundler/config/src/types.ts:41](https://github.com/evmts/evmts-monorepo/blob/main/bundler/config/src/types.ts#L41)
+[bundler/config/src/types.ts:41](https://github.com/evmts/tevm-monorepo/blob/main/bundler/config/src/types.ts#L41)

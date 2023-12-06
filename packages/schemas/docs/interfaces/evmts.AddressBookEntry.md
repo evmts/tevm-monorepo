@@ -1,15 +1,15 @@
-[@evmts/schemas](../README.md) / [Modules](../modules.md) / [evmts](../modules/evmts.md) / AddressBookEntry
+[@tevm/schemas](../README.md) / [Modules](../modules.md) / [tevm](../modules/tevm.md) / AddressBookEntry
 
 # Interface: AddressBookEntry\<\>
 
-[evmts](../modules/evmts.md).AddressBookEntry
+[tevm](../modules/tevm.md).AddressBookEntry
 
 ## Table of contents
 
 ### Properties
 
-- [address](evmts.AddressBookEntry.md#address)
-- [blockCreated](evmts.AddressBookEntry.md#blockcreated)
+- [address](tevm.AddressBookEntry.md#address)
+- [blockCreated](tevm.AddressBookEntry.md#blockcreated)
 
 ## Properties
 
@@ -19,7 +19,7 @@
 
 #### Defined in
 
-[packages/schemas/src/evmts/SAddressBook.js:19](https://github.com/evmts/evmts-monorepo/blob/main/packages/schemas/src/evmts/SAddressBook.js#L19)
+[packages/schemas/src/tevm/SAddressBook.js:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/schemas/src/tevm/SAddressBook.js#L19)
 
 ___
 
@@ -29,4 +29,4 @@ ___
 
 #### Defined in
 
-[packages/schemas/src/evmts/SAddressBook.js:18](https://github.com/evmts/evmts-monorepo/blob/main/packages/schemas/src/evmts/SAddressBook.js#L18)
+[packages/schemas/src/tevm/SAddressBook.js:18](https://github.com/evmts/tevm-monorepo/blob/main/packages/schemas/src/tevm/SAddressBook.js#L18)

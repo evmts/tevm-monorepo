@@ -1,4 +1,4 @@
-## @evmts/ts-plugin
+## @tevm/ts-plugin
 
 A typescript plugin for adding typescript support and autocomplete to your `.sol` file imports.
 
@@ -7,12 +7,12 @@ A typescript plugin for adding typescript support and autocomplete to your `.sol
 #### Installation
 
 ```bash [npm]
-npm i @evmts/rollup-plugin @evmts/ts-plugin
+npm i @tevm/rollup-plugin @tevm/ts-plugin
 ```
 
 ### Configuration
 
-- Add @evmts/ts-plugin to your `plugins` array in `compilerOptions`
+- Add @tevm/ts-plugin to your `plugins` array in `compilerOptions`
 - if `foundry.toml` config is not in the same directory as the ts-config pass in a relative path to the the project root as `project` config option
 
 ```json
@@ -20,7 +20,7 @@ npm i @evmts/rollup-plugin @evmts/ts-plugin
   "compilerOptions": {
     "plugins": [
       {
-        "name": "@evmts/ts-plugin",
+        "name": "@tevm/ts-plugin",
         "project": "../"
       }
     ]

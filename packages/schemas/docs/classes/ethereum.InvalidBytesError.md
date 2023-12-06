@@ -1,4 +1,4 @@
-[@evmts/schemas](../README.md) / [Modules](../modules.md) / [ethereum](../modules/ethereum.md) / InvalidBytesError
+[@tevm/schemas](../README.md) / [Modules](../modules.md) / [ethereum](../modules/ethereum.md) / InvalidBytesError
 
 # Class: InvalidBytesError
 
@@ -57,7 +57,7 @@ TypeError.constructor
 
 #### Defined in
 
-[packages/schemas/src/ethereum/SBytes/Errors.js:19](https://github.com/evmts/evmts-monorepo/blob/main/packages/schemas/src/ethereum/SBytes/Errors.js#L19)
+[packages/schemas/src/ethereum/SBytes/Errors.js:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/schemas/src/ethereum/SBytes/Errors.js#L19)
 
 ## Properties
 
@@ -71,7 +71,7 @@ TypeError.cause
 
 #### Defined in
 
-[packages/schemas/src/ethereum/SBytes/Errors.js:26](https://github.com/evmts/evmts-monorepo/blob/main/packages/schemas/src/ethereum/SBytes/Errors.js#L26)
+[packages/schemas/src/ethereum/SBytes/Errors.js:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/schemas/src/ethereum/SBytes/Errors.js#L26)
 
 ___
 

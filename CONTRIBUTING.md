@@ -1,4 +1,4 @@
-## Contributing to EVMts
+## Contributing to Tevm
 
 ## Quick start
 
@@ -34,7 +34,7 @@ This includes
 
 ## Monorepo
 
-EVMts is a monorepo using
+Tevm is a monorepo using
 
 - [nx](https://nx.dev/concepts/mental-model) for caching and task management
 - [bun](https://bun.sh/docs) for script runner and workspace node_module management
@@ -44,7 +44,7 @@ For a list of all packages see the `workspaces` key in the root level [package.j
 
 ## Packages
 
-EVMts is heavily broken up into small packages. To see the entire package graph use nx
+Tevm is heavily broken up into small packages. To see the entire package graph use nx
 
 ```bash
 bun run nx graph
@@ -54,30 +54,30 @@ The main ones to start with are the following.
 
 #### Build packages
 
-- [@evmts/bundler](./bundlers/bundler) is the main bundler used to create all the build tools. It bundles all contract imports using [@evmts/solc](./solc) for it's solidity compiler and [@evmts/runtime](./runtime) to construct runtimes.
-- [@evmts/ts-plugin](./ts-plugin) is the LSP (language service protocol) plugin. It is what allows code editors such as VSCode to correctly infer types of solidity imports.
-- [bundlers/*](./bundlers) Are where all the supported bundlers live. Most are created using [@evmts/unplugin](./bundlers/unplugin) which implements a rollup plugin once to be reused in many packages including [@evmts/webpack](./bundlers/webpack) and [@evmts/vite](./bundlers/vite) and more.
-- [@evmts/config](./config) is the package that loads the EVMts config
+- [@tevm/bundler](./bundlers/bundler) is the main bundler used to create all the build tools. It bundles all contract imports using [@tevm/solc](./solc) for it's solidity compiler and [@tevm/runtime](./runtime) to construct runtimes.
+- [@tevm/ts-plugin](./ts-plugin) is the LSP (language service protocol) plugin. It is what allows code editors such as VSCode to correctly infer types of solidity imports.
+- [bundlers/*](./bundlers) Are where all the supported bundlers live. Most are created using [@tevm/unplugin](./bundlers/unplugin) which implements a rollup plugin once to be reused in many packages including [@tevm/webpack](./bundlers/webpack) and [@tevm/vite](./bundlers/vite) and more.
+- [@tevm/config](./config) is the package that loads the Tevm config
 
 #### Runtime packages
 
-- [@evmts/core](./core) is the main entrypoint for all runtime functionality.
+- [@tevm/core](./core) is the main entrypoint for all runtime functionality.
 
 #### Docs
 
-- [@evmts/docs](./docs) is the [vitepress docs site](https://evmts.dev). It's reference docs are generated via `bun generate:docs`
+- [@tevm/docs](./docs) is the [vitepress docs site](https://tevm.dev). It's reference docs are generated via `bun generate:docs`
 
 #### Example apps
 
-Example apps are in [/examples/*](./examples). [@evmts/example-esbuild](./examples/esbuild) has a vitest test and is the simplist app.
+Example apps are in [/examples/*](./examples). [@tevm/example-esbuild](./examples/esbuild) has a vitest test and is the simplist app.
 
 ## Code best practices
 
 #### JavaScript with jsdoc
 
-`@evmts` is written in javascript with jsdoc so it's `esm` build does not need to be built. This means any user using modern `esm` will be using the same src code in their node_modules as what is here.
+`@tevm` is written in javascript with jsdoc so it's `esm` build does not need to be built. This means any user using modern `esm` will be using the same src code in their node_modules as what is here.
 
-This means all evmts packages run without being built by default and the same src code is shipped to most users
+This means all tevm packages run without being built by default and the same src code is shipped to most users
 
 - [src/index.js](./src/index.js) - the entrypoint to the package
 
@@ -91,8 +91,8 @@ The types are built to cache their result for end users.
 bun build:types
 ```
 
-- [tsconfig](./tsconfig.json) - @evmts/config tsconfig
-- [@evmts/tsconfig](../tsconfig/base.json) - base tsconfig inherited from
+- [tsconfig](./tsconfig.json) - @tevm/config tsconfig
+- [@tevm/tsconfig](../tsconfig/base.json) - base tsconfig inherited from
 
 ## Running tests
 
@@ -100,7 +100,7 @@ bun build:types
 bun run test
 ```
 
-`@evmts/config` has >99% test coverage. Run the tests with `bun run test`
+`@tevm/config` has >99% test coverage. Run the tests with `bun run test`
 
 Note `bun test` will run bun instead of [vitest](https://vitest.dev) resulting in errors
 
@@ -186,11 +186,11 @@ All functions return a type `Effect<never, MyFunctionNameError | never, ReturnTy
 
 #### Return Types
 
-Most apps rely on type infering return types. Because it's important for library code like EVMts to stay stable as a best practice return types of functions are always explicitly typed
+Most apps rely on type infering return types. Because it's important for library code like Tevm to stay stable as a best practice return types of functions are always explicitly typed
 
 #### JavaScript with JSDOC
 
-Typescript is used in EVMts for test code and dev scripts. But any source code is written with JavaScript with 0 build transpilation steps. Sometimes types will also be imported from [src/types.ts](./src/types.ts) which is where types can be placed if they are too tedious to write in jsdoc.
+Typescript is used in Tevm for test code and dev scripts. But any source code is written with JavaScript with 0 build transpilation steps. Sometimes types will also be imported from [src/types.ts](./src/types.ts) which is where types can be placed if they are too tedious to write in jsdoc.
 
 For examples of how to use jsdoc it is recomended to look at other examples.  Ai tools are very good at jsdoc. But here are some basics to get you started
 
@@ -261,12 +261,12 @@ Since documentation is generated from jsdoc it is recomended to add jsdoc docume
 
 ```typescript
 /**
- * Loads an EVMts config from the given path
+ * Loads an Tevm config from the given path
  * @param {string} configFilePath
  * @returns {import("effect/Effect").Effect<never, LoadConfigError, import("./types.js").ResolvedCompilerConfig>}
  * @example
  * import {tap} from 'effect/Effect'
- * import {loadConfig} from '@evmts/config'
+ * import {loadConfig} from '@tevm/config'
  *
  * runPromise(loadConfig('./tsconfig.json')).pipe(
  *   tap(config => console.log(config))

@@ -1,14 +1,16 @@
 {
-  "extends": "@evmts/tsconfig/base.json",
+  "extends": "@tevm/tsconfig/base.json",
   "compilerOptions": {
     "composite": true,
     "outDir": "types",
     "skipLibCheck": true,
-    "plugins": [{
-      "name": "@evmts/ts-plugin",
-      // should load the remappings
-      "foundryProject": true
-    }]
+    "plugins": [
+      {
+        "name": "@tevm/ts-plugin",
+        // should load the remappings
+        "foundryProject": true
+      }
+    ]
   },
   "include": [
     "src",

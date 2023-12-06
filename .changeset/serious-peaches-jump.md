@@ -1,5 +1,5 @@
 ---
-"@evmts/schemas": patch
+"@tevm/schemas": patch
 ---
 
 Added BytesFixed solidity type

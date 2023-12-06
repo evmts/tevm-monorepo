@@ -1,8 +1,8 @@
-[@evmts/schemas](/reference/schemas/README.md) / [Modules](/reference/schemas/modules.md) / [evmts](/reference/schemas/modules/evmts.md) / InvalidAddressBookError
+[@tevm/schemas](/reference/schemas/README.md) / [Modules](/reference/schemas/modules.md) / [tevm](/reference/schemas/modules/tevm.md) / InvalidAddressBookError
 
 # Class: InvalidAddressBookError
 
-[evmts](/reference/schemas/modules/evmts.md).InvalidAddressBookError
+[tevm](/reference/schemas/modules/tevm.md).InvalidAddressBookError
 
 Error thrown when an AddressBook is invalid.
 
@@ -16,20 +16,20 @@ Error thrown when an AddressBook is invalid.
 
 ### Constructors
 
-- [constructor](/reference/schemas/classes/evmts.InvalidAddressBookError.md#constructor)
+- [constructor](/reference/schemas/classes/tevm.InvalidAddressBookError.md#constructor)
 
 ### Properties
 
-- [cause](/reference/schemas/classes/evmts.InvalidAddressBookError.md#cause)
-- [message](/reference/schemas/classes/evmts.InvalidAddressBookError.md#message)
-- [name](/reference/schemas/classes/evmts.InvalidAddressBookError.md#name)
-- [stack](/reference/schemas/classes/evmts.InvalidAddressBookError.md#stack)
-- [prepareStackTrace](/reference/schemas/classes/evmts.InvalidAddressBookError.md#preparestacktrace)
-- [stackTraceLimit](/reference/schemas/classes/evmts.InvalidAddressBookError.md#stacktracelimit)
+- [cause](/reference/schemas/classes/tevm.InvalidAddressBookError.md#cause)
+- [message](/reference/schemas/classes/tevm.InvalidAddressBookError.md#message)
+- [name](/reference/schemas/classes/tevm.InvalidAddressBookError.md#name)
+- [stack](/reference/schemas/classes/tevm.InvalidAddressBookError.md#stack)
+- [prepareStackTrace](/reference/schemas/classes/tevm.InvalidAddressBookError.md#preparestacktrace)
+- [stackTraceLimit](/reference/schemas/classes/tevm.InvalidAddressBookError.md#stacktracelimit)
 
 ### Methods
 
-- [captureStackTrace](/reference/schemas/classes/evmts.InvalidAddressBookError.md#capturestacktrace)
+- [captureStackTrace](/reference/schemas/classes/tevm.InvalidAddressBookError.md#capturestacktrace)
 
 ## Constructors
 
@@ -52,7 +52,7 @@ TypeError.constructor
 
 #### Defined in
 
-[schemas/src/evmts/SAddressBook.js:64](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/evmts/SAddressBook.js#L64)
+[schemas/src/tevm/SAddressBook.js:64](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/tevm/SAddressBook.js#L64)
 
 ## Properties
 
@@ -66,7 +66,7 @@ TypeError.cause
 
 #### Defined in
 
-[schemas/src/evmts/SAddressBook.js:70](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/evmts/SAddressBook.js#L70)
+[schemas/src/tevm/SAddressBook.js:70](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/tevm/SAddressBook.js#L70)
 
 ___
 

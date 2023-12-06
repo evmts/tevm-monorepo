@@ -26,7 +26,7 @@ export class ParseJsonError extends Error {
  * @throws {ParseJsonError} when the tsconfig.json file is not valid json
  * @example
  * ```ts
- * const jsonEffect = parseJson('{ "compilerOptions": { "plugins": [{ "name": "@evmts/ts-plugin" }] } }')
+ * const jsonEffect = parseJson('{ "compilerOptions": { "plugins": [{ "name": "@tevm/ts-plugin" }] } }')
  * ````
  * @internal
  */

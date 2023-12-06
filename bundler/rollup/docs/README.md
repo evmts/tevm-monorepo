@@ -1,15 +1,15 @@
-@evmts/rollup-plugin / [Exports](modules.md)
+@tevm/rollup-plugin / [Exports](modules.md)
 
-# @evmts/plugin
+# @tevm/plugin
 
 A rollup plugin for importing solidity files.
 
-Currently @evmts/plugin only works in forge projects but work to make it support [all wagmi plugins](https://wagmi.sh/cli/plugins) is underway
+Currently @tevm/plugin only works in forge projects but work to make it support [all wagmi plugins](https://wagmi.sh/cli/plugins) is underway
 
 ## Instalation
 
 ```bash
-pnpm i @evmts/rollup-plugin
+pnpm i @tevm/rollup-plugin
 ```
 
 ## Vite usage
@@ -17,28 +17,28 @@ pnpm i @evmts/rollup-plugin
 Install rollup plugin
 
 ```bash
-npm i @evmts/rollup-plugin
+npm i @tevm/rollup-plugin
 ```
 
 Add to your vite config
 
 ```typescript
-import { evmtsPluginrollup } from '@evmts/rollup-plugin`
+import { tevmPluginrollup } from '@tevm/rollup-plugin`
 import { defineConfig } from 'vite'
 
 export default defineConfig({
-  plugins: [evmtsPluginRollup()]
+  plugins: [tevmPluginRollup()]
 })
 ```
 
 ## Rollup usage
 
 ```typescript
-const { evmtsPlugin } = require('@evmts/plugin');
+const { tevmPlugin } = require('@tevm/plugin');
 
 module.exports = {
   ...
-  plugins: [evmtsPlugin()]
+  plugins: [tevmPlugin()]
 };
 ```
 
@@ -48,7 +48,7 @@ To configure pass in the forge executable and the root folder that your foundery
 
 ```typescript
 plugins: [
-  evmtsPlugin({
+  tevmPlugin({
     forgeExecutable: "forge",
     projectRoot: __dirname,
   }),
@@ -83,17 +83,17 @@ export default {
 
 The typescript can then go ahead and use the artifacts however it pleases
 
-## Usage in @evmts/core
+## Usage in @tevm/core
 
-See full [evms-core](https://github.com/evmts/evmts-monorepo-monorepo/tree/main/docs/evmts) for how it's used in evmts. This plugin can be used in other repos as well.
+See full [evms-core](https://github.com/evmts/tevm-monorepo-monorepo/tree/main/docs/tevm) for how it's used in tevm. This plugin can be used in other repos as well.
 
 ## Usage in other libraries
 
-Currently only `@evmts/core` is using this but this could easily be adapted or extended for other libraries.
+Currently only `@tevm/core` is using this but this could easily be adapted or extended for other libraries.
 
 ## Autocompletion and Typesafety
 
-For typesafety and autocompletion in your editor add [@evmts/ts-plugin](https://github.com/evmts/evmts-monorepo/tree/main/ts-plugin) to your tsconfig.json.
+For typesafety and autocompletion in your editor add [@tevm/ts-plugin](https://github.com/evmts/tevm-monorepo/tree/main/ts-plugin) to your tsconfig.json.
 
 **Custom Ts plugins are for developer experience only**
 

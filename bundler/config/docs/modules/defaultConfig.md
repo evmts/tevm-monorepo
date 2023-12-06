@@ -1,4 +1,4 @@
-[@evmts/config](../README.md) / [Modules](../modules.md) / defaultConfig
+[@tevm/config](../README.md) / [Modules](../modules.md) / defaultConfig
 
 # Module: defaultConfig
 
@@ -27,4 +27,4 @@ The default CompilerConfig
 
 #### Defined in
 
-[bundler/config/src/config/withDefaults.js:6](https://github.com/evmts/evmts-monorepo/blob/main/bundler/config/src/config/withDefaults.js#L6)
+[bundler/config/src/config/withDefaults.js:6](https://github.com/evmts/tevm-monorepo/blob/main/bundler/config/src/config/withDefaults.js#L6)

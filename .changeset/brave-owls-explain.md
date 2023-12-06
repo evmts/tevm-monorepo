@@ -1,5 +1,5 @@
 ---
-"@evmts/config": patch
+"@tevm/config": patch
 ---
 
-Converted @evmts/config to js with jsdoc and explicit exports
+Converted @tevm/config to js with jsdoc and explicit exports

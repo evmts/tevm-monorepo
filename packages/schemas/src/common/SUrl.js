@@ -14,8 +14,8 @@ import { mapError, runSync } from 'effect/Effect'
  * @typedef {string} Url
  * @example
  * ```javascript
- * import { Url } from '@evmts/schemas';
- * const url = 'https://evmts.dev'; // satisfies Url
+ * import { Url } from '@tevm/schemas';
+ * const url = 'https://tevm.dev'; // satisfies Url
  * ```
  */
 
@@ -25,8 +25,8 @@ import { mapError, runSync } from 'effect/Effect'
  * @returns {boolean}
  * @example
  * ```javascript
- * import { isUrl } from '@evmts/schemas';
- * isUrl('https://evmts.dev');  // true
+ * import { isUrl } from '@tevm/schemas';
+ * isUrl('https://tevm.dev');  // true
  * isUrl('not a url'); // false
  * ````
  */
@@ -51,7 +51,7 @@ export const isUrl = (value) => {
 export const SUrl = string.pipe(
 	filter(isUrl, {
 		message: (url) => `Invalid URL value: ${url}
-See https://evmts.dev/reference/errors for more information.`,
+See https://tevm.dev/reference/errors for more information.`,
 	}),
 )
 /**
@@ -69,7 +69,7 @@ export class InvalidUrlError extends TypeError {
 	constructor({
 		url,
 		message = `Provided value ${url} is not a valid URL`,
-		docs = 'https://evmts.dev/reference/errors',
+		docs = 'https://tevm.dev/reference/errors',
 		cause,
 	} = {}) {
 		super(`${InvalidUrlError.name}: ${message}\n${docs}`)
@@ -84,8 +84,8 @@ export class InvalidUrlError extends TypeError {
  * @returns {Effect.Effect<never, InvalidUrlError, TUrl>}
  * @example
  * ```javascript
- * import { parseUrlSafe } from '@evmts/schemas';
- * const parsedUrlEffect = parseUrlSafe('https://evmts.dev');
+ * import { parseUrlSafe } from '@tevm/schemas';
+ * const parsedUrlEffect = parseUrlSafe('https://tevm.dev');
  * ```
  */
 export const parseUrlSafe = (url) => {
@@ -106,8 +106,8 @@ export const parseUrlSafe = (url) => {
  * @returns {TUrl}
  * @example
  * ```javascript
- * import { parseUrl } from '@evmts/schemas';
- * const parsedUrl = parseUrl('https://evmts.dev');
+ * import { parseUrl } from '@tevm/schemas';
+ * const parsedUrl = parseUrl('https://tevm.dev');
  * ```
  */
 export const parseUrl = (url) => {

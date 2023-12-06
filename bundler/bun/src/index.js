@@ -1,1 +1,1 @@
-export { evmtsBunPlugin } from './plugin.js'
+export { tevmBunPlugin } from './plugin.js'

@@ -1,6 +1,6 @@
 # Tutorial
 
-To learn all the pieces of Evmts we will configure a new project from scratch.  We only assume basic TypeScript knowledge and knowledge of what a Smart Contract is
+To learn all the pieces of Tevm we will configure a new project from scratch.  We only assume basic TypeScript knowledge and knowledge of what a Smart Contract is
 
 ::: info On this page you will learn
 
@@ -19,7 +19,7 @@ Looking to get started fast? Try forking one of our example projects or using ou
 2. Create a new project folder
 
 ```bash
-mkdir evmts-tut && cd evmts-tut && npm init
+mkdir tevm-tut && cd tevm-tut && npm init
 ```
 
 3. Initialize a new npm project.
@@ -75,5 +75,5 @@ solc_version = "0.8.13"
 - `src` tells Foundry which folder contains the contract code.   We will put our contracts in `src/contracts`
 - `out` tells foundry where to put the artifacts.   We will put them in a folder called `artifacts`
 - `lib` tells foundry where to load library code from.   Putting 'node_modules` in there lets us load contracts from node_modules
-- Finally `solc_version` is telling Foundry to use the same solc version as Evmts.
+- Finally `solc_version` is telling Foundry to use the same solc version as Tevm.
 

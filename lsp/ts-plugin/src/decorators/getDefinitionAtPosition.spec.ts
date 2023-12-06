@@ -1,11 +1,11 @@
-import { getDefinitionServiceDecorator } from './getDefinitionAtPosition.js'
-import { FileAccessObject } from '@evmts/base'
+import { FileAccessObject } from '@tevm/base'
 import typescript from 'typescript/lib/tsserverlibrary.js'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { getDefinitionServiceDecorator } from './getDefinitionAtPosition.js'
 
 // TODO these tests are awful this should be tested e2e against real fixtures
 
-vi.mock('@evmts/base', async () => ({
+vi.mock('@tevm/base', async () => ({
 	bundler: vi.fn(),
 }))
 vi.mock('../utils', async () => {
@@ -15,7 +15,7 @@ vi.mock('../utils', async () => {
 			getText: vi.fn(() => 'some text'),
 		})),
 		convertSolcAstToTsDefinitionInfo: vi.fn(),
-		findContractDefinitionFileNameFromEvmtsNode: vi.fn(
+		findContractDefinitionFileNameFromTevmNode: vi.fn(
 			() => '/bar/Contract.sol',
 		),
 	}
@@ -75,7 +75,7 @@ const mockLanguageService = {
 
 describe('getDefinitionServiceDecorator', () => {
 	beforeEach(() => {
-		vi.mock('@evmts/base', async () => ({
+		vi.mock('@tevm/base', async () => ({
 			bundler: vi.fn(),
 		}))
 		vi.mock('../utils', async () => {
@@ -85,7 +85,7 @@ describe('getDefinitionServiceDecorator', () => {
 					getText: vi.fn(() => 'some text'),
 				})),
 				convertSolcAstToTsDefinitionInfo: vi.fn(),
-				findContractDefinitionFileNameFromEvmtsNode: vi.fn(
+				findContractDefinitionFileNameFromTevmNode: vi.fn(
 					() => '/bar/Contract.sol',
 				),
 			}
@@ -146,11 +146,11 @@ describe('getDefinitionServiceDecorator', () => {
 		`)
 	})
 
-	it('should return original definitions if evmtsContractPath is null', () => {
+	it('should return original definitions if tevmContractPath is null', () => {
 		vi.mock(
-			'../utils/findContractDefinitionFileNameFromEvmtsNode',
+			'../utils/findContractDefinitionFileNameFromTevmNode',
 			async () => ({
-				findContractDefinitionFileNameFromEvmtsNode: vi.fn(() => null),
+				findContractDefinitionFileNameFromTevmNode: vi.fn(() => null),
 			}),
 		)
 
@@ -181,7 +181,7 @@ describe('getDefinitionServiceDecorator', () => {
 	})
 
 	it('should log an error if resolveDtsSync cannot resolve ASTs', () => {
-		vi.mock('@evmts/base', async () => ({
+		vi.mock('@tevm/base', async () => ({
 			bundler: vi.fn(() => ({
 				resolveDtsSync: vi.fn(() => ({ asts: null })),
 			})),
@@ -193,7 +193,7 @@ describe('getDefinitionServiceDecorator', () => {
 					getText: vi.fn(() => 'some text'),
 				})),
 				convertSolcAstToTsDefinitionInfo: vi.fn(),
-				findContractDefinitionFileNameFromEvmtsNode: vi.fn(
+				findContractDefinitionFileNameFromTevmNode: vi.fn(
 					() => '/bar/Contract.sol',
 				),
 			}
@@ -225,7 +225,7 @@ describe('getDefinitionServiceDecorator', () => {
 
 		expect(mockLogger.error.mock.lastCall).toMatchInlineSnapshot(`
 			[
-			  "@evmts/ts-plugin: unable to find definitions /bar/Contract.sol",
+			  "@tevm/ts-plugin: unable to find definitions /bar/Contract.sol",
 			]
 		`)
 	})
@@ -261,13 +261,13 @@ describe('getDefinitionServiceDecorator', () => {
 
 		expect(mockLogger.error.mock.lastCall).toMatchInlineSnapshot(`
 			[
-			  "@evmts/ts-plugin: unable to find definitions /bar/Contract.sol",
+			  "@tevm/ts-plugin: unable to find definitions /bar/Contract.sol",
 			]
 		`)
 	})
 
 	it('should handle multiple ASTs', () => {
-		vi.mock('@evmts/base', async () => ({
+		vi.mock('@tevm/base', async () => ({
 			bundler: vi.fn(() => ({
 				resolveDtsSync: vi.fn(() => ({
 					asts: {

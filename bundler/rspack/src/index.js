@@ -1,3 +1,3 @@
-import { createUnplugin, evmtsUnplugin } from '@evmts/unplugin'
+import { createUnplugin, tevmUnplugin } from '@tevm/unplugin'
 
-export const { rspack: rspackPluginEvmts } = createUnplugin(evmtsUnplugin)
+export const { rspack: rspackPluginTevm } = createUnplugin(tevmUnplugin)

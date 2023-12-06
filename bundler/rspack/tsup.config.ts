@@ -1,7 +1,7 @@
 import { defineConfig } from 'tsup'
 
 export default defineConfig({
-	name: '@evmts/rspack-plugin',
+	name: '@tevm/rspack-plugin',
 	entry: ['src/index.js'],
 	outDir: 'dist',
 	format: ['cjs'],

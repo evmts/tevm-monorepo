@@ -1,10 +1,10 @@
-import { solidityModuleResolver } from '../utils/index.js'
-import { resolveModuleNameLiteralsDecorator } from './resolveModuleNameLiterals.js'
-import { FileAccessObject } from '@evmts/base'
-import { CompilerConfig, defaultConfig, defineConfig } from '@evmts/config'
+import { FileAccessObject } from '@tevm/base'
+import { CompilerConfig, defaultConfig, defineConfig } from '@tevm/config'
 import { runSync } from 'effect/Effect'
 import typescript from 'typescript/lib/tsserverlibrary.js'
 import { MockedFunction, describe, expect, it, vi } from 'vitest'
+import { solidityModuleResolver } from '../utils/index.js'
+import { resolveModuleNameLiteralsDecorator } from './resolveModuleNameLiterals.js'
 
 const { remappings, ...compilerOptions } = defaultConfig
 const mockConfig: CompilerConfig = {

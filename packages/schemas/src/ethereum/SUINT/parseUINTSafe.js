@@ -1,9 +1,12 @@
 /**
- * @module @evmts/schemas/ethereum/SUINT/parseUINTSafe.js
+ * @module @tevm/schemas/ethereum/SUINT/parseUINTSafe.js
  * @description Effect parser for Solidity UINT
  * @author William Cory <willcory10@gmail.com>
  */
 
+import { parseEither } from '@effect/schema/Schema'
+import { Effect } from 'effect'
+import { mapError } from 'effect/Effect'
 import { InvalidUINTError } from './Errors.js'
 import {
 	SUINT8,
@@ -13,9 +16,6 @@ import {
 	SUINT128,
 	SUINT256,
 } from './SUINT.js'
-import { parseEither } from '@effect/schema/Schema'
-import { Effect } from 'effect'
-import { mapError } from 'effect/Effect'
 
 /**
  * Safely parses a UINT8 into an [Effect](https://www.effect.website/docs/essentials/effect-type).
@@ -141,7 +141,7 @@ export const parseUINT128Safe = (uint128) => {
  * @returns {Effect.Effect<never, InvalidUINTError, TUINT256>}
  * @example
  * ```ts
- * import { parseUINT256Safe } from '@evmts/schemas';
+ * import { parseUINT256Safe } from '@tevm/schemas';
  * const parsedUINT256Effect = parseUINT256Safe('0x1234567890abcdef1234567890abcdef12345678');
  * ```
  */

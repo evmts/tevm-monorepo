@@ -27,7 +27,7 @@ export type Read<
 		...args: TArgs
 	) => TArgs['length'] extends 0
 		? {
-				evmtsContractName: TName
+				tevmContractName: TName
 				functionName: TFunctionName
 				humanReadableAbi: FormatAbi<
 					[ExtractAbiFunction<ParseAbi<THumanReadableAbi>, TFunctionName>]
@@ -37,7 +37,7 @@ export type Read<
 				deployedBytecode: TDeployedBytecode
 		  }
 		: {
-				evmtsContractName: TName
+				tevmContractName: TName
 				functionName: TFunctionName
 				args: TArgs
 				humanReadableAbi: FormatAbi<

@@ -1,14 +1,14 @@
-import { generateDtsBody } from './generateEvmtsBodyDts.js'
 import { formatAbi } from 'abitype'
 import { succeed } from 'effect/Effect'
+import { generateDtsBody } from './generateTevmBodyDts.js'
 
 /**
- * @param {import("@evmts/solc").Artifacts} artifacts
+ * @param {import("@tevm/solc").Artifacts} artifacts
  * @param {import('./types.js').ModuleType} moduleType
  * @param {boolean} includeBytecode
  * @returns {import('effect/Effect').Effect<never, never, string>}
  */
-export const generateEvmtsBody = (artifacts, moduleType, includeBytecode) => {
+export const generateTevmBody = (artifacts, moduleType, includeBytecode) => {
 	if (moduleType === 'dts') {
 		return generateDtsBody(artifacts, includeBytecode)
 	}
@@ -36,7 +36,7 @@ export const generateEvmtsBody = (artifacts, moduleType, includeBytecode) => {
 					return [
 						`const _${contractName} = ${contract}`,
 						...natspec,
-						`module.exports.${contractName} = evmtsContractFactory(_${contractName})`,
+						`module.exports.${contractName} = createTevmContract(_${contractName})`,
 					]
 				}
 
@@ -44,14 +44,14 @@ export const generateEvmtsBody = (artifacts, moduleType, includeBytecode) => {
 					return [
 						`const _${contractName} = ${contract} as const`,
 						...natspec,
-						`export const ${contractName} = evmtsContractFactory(_${contractName})`,
+						`export const ${contractName} = createTevmContract(_${contractName})`,
 					]
 				}
 
 				return [
 					`const _${contractName} = ${contract}`,
 					...natspec,
-					`export const ${contractName} = evmtsContractFactory(_${contractName})`,
+					`export const ${contractName} = createTevmContract(_${contractName})`,
 				]
 			})
 			.join('\n'),

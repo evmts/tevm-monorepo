@@ -1,17 +1,17 @@
 ---
-"@evmts/blockexplorer": patch
-"@evmts/resolutions": patch
-"@evmts/ts-plugin": patch
-"@evmts/unplugin": patch
-"@evmts/schemas": patch
-"@evmts/runtime": patch
-"@evmts/viem": patch
-"@evmts/effect": patch
-"@evmts/config": patch
-"@evmts/core": patch
-"@evmts/base": patch
-"@evmts/solc": patch
-"@evmts/bun-plugin": patch
+"@tevm/blockexplorer": patch
+"@tevm/resolutions": patch
+"@tevm/ts-plugin": patch
+"@tevm/unplugin": patch
+"@tevm/schemas": patch
+"@tevm/runtime": patch
+"@tevm/viem": patch
+"@tevm/effect": patch
+"@tevm/config": patch
+"@tevm/core": patch
+"@tevm/base": patch
+"@tevm/solc": patch
+"@tevm/bun-plugin": patch
 ---
 
 Fixed version mismatch issues with effect

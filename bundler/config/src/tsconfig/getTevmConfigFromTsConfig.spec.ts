@@ -1,15 +1,15 @@
 import { describe, expect, it } from 'vitest'
 
+import { runSync } from 'effect/Effect'
 import {
 	NoPluginFoundError,
-	getEvmtsConfigFromTsConfig,
-} from './getEvmtsConfigFromTsConfig.js'
-import { runSync } from 'effect/Effect'
+	getTevmConfigFromTsConfig,
+} from './getTevmConfigFromTsConfig.js'
 
-describe(getEvmtsConfigFromTsConfig, () => {
+describe(getTevmConfigFromTsConfig, () => {
 	it('should return the expected ResolvedConfig', async () => {
-		let evmtsConfig = {
-			name: '@evmts/ts-plugin',
+		let tevmConfig = {
+			name: '@tevm/ts-plugin',
 			libs: ['lib1', 'lib2'],
 		}
 		let config = {
@@ -18,16 +18,16 @@ describe(getEvmtsConfigFromTsConfig, () => {
 					{
 						name: 'css-modules-typescript-loader',
 					},
-					evmtsConfig,
+					tevmConfig,
 				],
 			},
 		}
 		expect(
-			runSync(getEvmtsConfigFromTsConfig(config, '/path/to/config')),
-		).toEqual({ ...evmtsConfig, remappings: {} })
+			runSync(getTevmConfigFromTsConfig(config, '/path/to/config')),
+		).toEqual({ ...tevmConfig, remappings: {} })
 		// remove lib should still work
-		evmtsConfig = {
-			name: '@evmts/ts-plugin',
+		tevmConfig = {
+			name: '@tevm/ts-plugin',
 			libs: undefined,
 		} as any
 		config = {
@@ -36,17 +36,17 @@ describe(getEvmtsConfigFromTsConfig, () => {
 					{
 						name: 'css-modules-typescript-loader',
 					},
-					evmtsConfig,
+					tevmConfig,
 				],
 			},
 		}
 		expect(
-			runSync(getEvmtsConfigFromTsConfig(config, '/path/to/config')),
-		).toEqual({ ...evmtsConfig, remappings: {} })
+			runSync(getTevmConfigFromTsConfig(config, '/path/to/config')),
+		).toEqual({ ...tevmConfig, remappings: {} })
 	})
 	it('should add paths to lib if it exists', async () => {
-		const evmtsConfig = {
-			name: '@evmts/ts-plugin',
+		const tevmConfig = {
+			name: '@tevm/ts-plugin',
 			libs: ['lib1', 'lib2'],
 		}
 		const config = {
@@ -59,22 +59,22 @@ describe(getEvmtsConfigFromTsConfig, () => {
 					{
 						name: 'css-modules-typescript-loader',
 					},
-					evmtsConfig,
+					tevmConfig,
 				],
 			},
 		}
 		const configPath = '/path/to/config'
-		expect(runSync(getEvmtsConfigFromTsConfig(config, configPath))).toEqual({
-			...evmtsConfig,
+		expect(runSync(getTevmConfigFromTsConfig(config, configPath))).toEqual({
+			...tevmConfig,
 			remappings: {
 				'@/': `${configPath}/`,
 			},
-			libs: [config.compilerOptions.baseUrl, ...evmtsConfig.libs],
+			libs: [config.compilerOptions.baseUrl, ...tevmConfig.libs],
 		})
 	})
 	it('should add paths to lib if it exists', async () => {
-		const evmtsConfig = {
-			name: '@evmts/ts-plugin',
+		const tevmConfig = {
+			name: '@tevm/ts-plugin',
 			libs: ['lib1', 'lib2'],
 		}
 		const config = {
@@ -87,23 +87,23 @@ describe(getEvmtsConfigFromTsConfig, () => {
 					{
 						name: 'css-modules-typescript-loader',
 					},
-					evmtsConfig,
+					tevmConfig,
 				],
 			},
 		}
 		expect(
-			runSync(getEvmtsConfigFromTsConfig(config, '/path/to/config')),
+			runSync(getTevmConfigFromTsConfig(config, '/path/to/config')),
 		).toEqual({
-			...evmtsConfig,
+			...tevmConfig,
 			remappings: {
 				'@/': '/path/to/config/',
 			},
-			libs: [config.compilerOptions.baseUrl, ...evmtsConfig.libs],
+			libs: [config.compilerOptions.baseUrl, ...tevmConfig.libs],
 		})
 	})
 	it('should add baseUrl to lib if it exists', async () => {
-		const evmtsConfig = {
-			name: '@evmts/ts-plugin',
+		const tevmConfig = {
+			name: '@tevm/ts-plugin',
 			libs: ['lib1', 'lib2'],
 		}
 		const config = {
@@ -113,16 +113,16 @@ describe(getEvmtsConfigFromTsConfig, () => {
 					{
 						name: 'css-modules-typescript-loader',
 					},
-					evmtsConfig,
+					tevmConfig,
 				],
 			},
 		}
 		expect(
-			runSync(getEvmtsConfigFromTsConfig(config, '/path/to/config')),
+			runSync(getTevmConfigFromTsConfig(config, '/path/to/config')),
 		).toEqual({
-			...evmtsConfig,
+			...tevmConfig,
 			remappings: {},
-			libs: [config.compilerOptions.baseUrl, ...evmtsConfig.libs],
+			libs: [config.compilerOptions.baseUrl, ...tevmConfig.libs],
 		})
 	})
 	it(`should throw a ${NoPluginFoundError} if there is no plugins`, async () => {
@@ -132,7 +132,7 @@ describe(getEvmtsConfigFromTsConfig, () => {
 			},
 		}
 		expect(() =>
-			runSync(getEvmtsConfigFromTsConfig(config as any, '/path/to/config')),
+			runSync(getTevmConfigFromTsConfig(config as any, '/path/to/config')),
 		).toThrowError(
 			new NoPluginFoundError('No compilerOptions.plugins in tsconfig'),
 		)
@@ -148,10 +148,10 @@ describe(getEvmtsConfigFromTsConfig, () => {
 			},
 		}
 		expect(() =>
-			runSync(getEvmtsConfigFromTsConfig(config, '/path/to/config')),
+			runSync(getTevmConfigFromTsConfig(config, '/path/to/config')),
 		).toThrowError(new NoPluginFoundError())
 	})
-	it(`should throw a ${NoPluginFoundError} if there is no plugin matching @evmts/ts-plugin`, async () => {
+	it(`should throw a ${NoPluginFoundError} if there is no plugin matching @tevm/ts-plugin`, async () => {
 		const config = {
 			compilerOptions: {
 				plugins: [
@@ -162,7 +162,7 @@ describe(getEvmtsConfigFromTsConfig, () => {
 			},
 		}
 		expect(() =>
-			runSync(getEvmtsConfigFromTsConfig(config, '/path/to/config')),
+			runSync(getTevmConfigFromTsConfig(config, '/path/to/config')),
 		).toThrowError(new NoPluginFoundError())
 	})
 })

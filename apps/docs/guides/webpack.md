@@ -3,7 +3,7 @@
 Webpack configuration can be done by adding the webpack plugin to webpack config
 
 ::: info You will learn
-How to configure NEXT.js to bundle solidity files with Evmts
+How to configure NEXT.js to bundle solidity files with Tevm
 :::
 
 ## 1. Install webpack plugin
@@ -11,32 +11,32 @@ How to configure NEXT.js to bundle solidity files with Evmts
 ::: code-group
 
 ```bash [npm]
-npm install @evmts/webpack --save-dev
+npm install @tevm/webpack --save-dev
 ```
 
 ```bash [pnpm]
-pnpm install @evmts/webpack --save-dev
+pnpm install @tevm/webpack --save-dev
 ```
 
 ```bash [yarn]
-yarn add @evmts/webpack -D
+yarn add @tevm/webpack -D
 ```
 
 :::
 
 ## 2. Add to webpack config
 
-The webpack plugin config takes no options.  For custom configuration add a [evmts.config.ts](../reference/config.md)
+The webpack plugin config takes no options.  For custom configuration add a [tevm.config.ts](../reference/config.md)
 
 - **Example**
 
 ```ts [example.ts]
-import { webpackPluginEvmts } from '@evmts/webpack-plugin'
+import { webpackPluginTevm } from '@tevm/webpack-plugin'
 
 /** @type {import('next').NextConfig} */
 export default {
   ...restOfConfig,
-  plugins: [webpackPluginEvmts()]
+  plugins: [webpackPluginTevm()]
 }
 ```
 
@@ -46,7 +46,7 @@ For editor support use either the [ts-plugin](../tutorial/typescript.md) or [vsc
 
 - **Details**
 
-`pluginWebpackEvmts` allows you to import solidity files directly in your NEXT.js
+`pluginWebpackTevm` allows you to import solidity files directly in your NEXT.js
 
 
 - **Examples**

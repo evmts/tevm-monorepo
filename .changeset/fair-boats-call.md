@@ -1,5 +1,5 @@
 ---
-"@evmts/ts-plugin": patch
+"@tevm/ts-plugin": patch
 ---
 
-Fixed bug with @evmts/core imports resolving the wrong types sometimes when ts-plugin is used.
+Fixed bug with @tevm/core imports resolving the wrong types sometimes when ts-plugin is used.

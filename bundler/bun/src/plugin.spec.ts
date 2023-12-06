@@ -1,18 +1,18 @@
-import { file } from './bunFile.js'
-import { evmtsBunPlugin } from './index.js'
-import { bundler } from '@evmts/base'
-import { loadConfig } from '@evmts/config'
+import { bundler } from '@tevm/base'
+import { loadConfig } from '@tevm/config'
 import { succeed } from 'effect/Effect'
 import { exists, readFile } from 'fs/promises'
 import { type Mock, beforeEach, describe, expect, it, vi } from 'vitest'
+import { file } from './bunFile.js'
+import { tevmBunPlugin } from './index.js'
 
-vi.mock('@evmts/config', async () => ({
-	...((await vi.importActual('@evmts/config')) as {}),
+vi.mock('@tevm/config', async () => ({
+	...((await vi.importActual('@tevm/config')) as {}),
 	loadConfig: vi.fn(),
 }))
 
-vi.mock('@evmts/base', async () => ({
-	...((await vi.importActual('@evmts/base')) as {}),
+vi.mock('@tevm/base', async () => ({
+	...((await vi.importActual('@tevm/base')) as {}),
 	bundler: vi.fn(),
 }))
 
@@ -44,7 +44,7 @@ vi.stubGlobal('process', {
 
 const contractPath = '../../../examples/bun/ExampleContract.sol'
 
-describe('evmtsBunPlugin', () => {
+describe('tevmBunPlugin', () => {
 	beforeEach(() => {
 		mockFile.mockImplementation((filePath: string) => ({
 			exists: () => exists(filePath),
@@ -65,17 +65,17 @@ describe('evmtsBunPlugin', () => {
 	})
 
 	it('should create the plugin correctly', async () => {
-		const plugin = evmtsBunPlugin({})
-		expect(plugin.name).toEqual('@evmts/esbuild-plugin')
+		const plugin = tevmBunPlugin({})
+		expect(plugin.name).toEqual('@tevm/esbuild-plugin')
 	})
 
 	it('Should not specify a target', async () => {
-		const plugin = evmtsBunPlugin({})
+		const plugin = tevmBunPlugin({})
 		expect(plugin.target).toBeUndefined()
 	})
 
 	it('should load .d.ts and ts files correctly', async () => {
-		const plugin = evmtsBunPlugin({})
+		const plugin = tevmBunPlugin({})
 
 		const mockBuild = {
 			onLoad: vi.fn(),
@@ -116,7 +116,7 @@ describe('evmtsBunPlugin', () => {
 	})
 
 	it('should load sol files correctly', async () => {
-		const plugin = evmtsBunPlugin({})
+		const plugin = tevmBunPlugin({})
 
 		const mockBuild = {
 			onLoad: vi.fn(),
@@ -145,8 +145,8 @@ describe('evmtsBunPlugin', () => {
     `)
 	})
 
-	it('should resolve @evmts/core correctly when criteria are met', async () => {
-		const plugin = evmtsBunPlugin({})
+	it('should resolve @tevm/core correctly when criteria are met', async () => {
+		const plugin = tevmBunPlugin({})
 		const mockBuild = {
 			onResolve: vi.fn(),
 			onLoad: vi.fn(),
@@ -156,15 +156,15 @@ describe('evmtsBunPlugin', () => {
 
 		const [_, onResolveFn] = mockBuild.onResolve.mock.calls[0]
 		const resolved = onResolveFn({
-			path: '@evmts/core',
+			path: '@tevm/core',
 			importer: 'some-random-importer',
 		})
 
-		expect(resolved.path).toEqual(require.resolve('@evmts/core'))
+		expect(resolved.path).toEqual(require.resolve('@tevm/core'))
 	})
 
-	it('should resolve @evmts/core when imported from within the project or from node_modules', async () => {
-		const plugin = evmtsBunPlugin({})
+	it('should resolve @tevm/core when imported from within the project or from node_modules', async () => {
+		const plugin = tevmBunPlugin({})
 		const mockBuild = {
 			onResolve: vi.fn(),
 			onLoad: vi.fn(),
@@ -175,20 +175,20 @@ describe('evmtsBunPlugin', () => {
 		const [_, onResolveFn] = mockBuild.onResolve.mock.calls[0]
 
 		let resolved = onResolveFn({
-			path: '@evmts/core',
+			path: '@tevm/core',
 			importer: `${mockCwd}/some-relative-path`,
 		})
-		expect(resolved.path).toEqual(require.resolve('@evmts/core'))
+		expect(resolved.path).toEqual(require.resolve('@tevm/core'))
 
 		resolved = onResolveFn({
-			path: '@evmts/core',
+			path: '@tevm/core',
 			importer: 'node_modules/some-package/index.js',
 		})
-		expect(resolved.path).toEqual(require.resolve('@evmts/core'))
+		expect(resolved.path).toEqual(require.resolve('@tevm/core'))
 	})
 
-	it('should resolve solidity file using @evmts/base when neither .d.ts nor .ts files exist', async () => {
-		const plugin = evmtsBunPlugin({})
+	it('should resolve solidity file using @tevm/base when neither .d.ts nor .ts files exist', async () => {
+		const plugin = tevmBunPlugin({})
 		const mockBuild = {
 			onLoad: vi.fn(),
 			onResolve: vi.fn(),
@@ -209,7 +209,7 @@ describe('evmtsBunPlugin', () => {
 	})
 
 	it('should load .ts file when it exists', async () => {
-		const plugin = evmtsBunPlugin({})
+		const plugin = tevmBunPlugin({})
 
 		const mockBuild = {
 			onLoad: vi.fn(),
@@ -232,7 +232,7 @@ describe('evmtsBunPlugin', () => {
 		expect(result.watchFiles).toEqual([`${contractPath}.ts`])
 	})
 	it('should load .d.ts file over .ts file when both exist', async () => {
-		const plugin = evmtsBunPlugin({})
+		const plugin = tevmBunPlugin({})
 
 		const mockBuild = {
 			onLoad: vi.fn(),

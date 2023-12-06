@@ -5,7 +5,7 @@ export const sidebar: DefaultTheme.Sidebar = [
 	{
 		text: 'Getting Started',
 		items: [
-			{ text: 'Why Evmts', link: '/getting-started/why' },
+			{ text: 'Why Tevm', link: '/getting-started/why' },
 			{ text: 'Introduction', link: '/getting-started/introduction' },
 			{ text: 'Quick Start', link: '/getting-started/quick-start' },
 		],

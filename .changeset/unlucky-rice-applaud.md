@@ -1,5 +1,5 @@
 ---
-"@evmts/config": major
+"@tevm/config": major
 ---
 
-Removed async methods from evmts/config for effect based replacements. In future if we need the extra peformance we will add support for runPromise
+Removed async methods from tevm/config for effect based replacements. In future if we need the extra peformance we will add support for runPromise
