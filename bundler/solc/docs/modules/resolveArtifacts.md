@@ -35,4 +35,4 @@ Resolves artifacts with solc asyncronously
 
 #### Defined in
 
-[solc/src/types.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/bundler/solc/src/types.ts#L10)
+[solc/src/types.ts:10](https://github.com/tevm/tevm-monorepo/blob/main/bundler/solc/src/types.ts#L10)

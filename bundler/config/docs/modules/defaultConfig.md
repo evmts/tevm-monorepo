@@ -27,4 +27,4 @@ The default CompilerConfig
 
 #### Defined in
 
-[bundler/config/src/config/withDefaults.js:6](https://github.com/evmts/tevm-monorepo/blob/main/bundler/config/src/config/withDefaults.js#L6)
+[bundler/config/src/config/withDefaults.js:6](https://github.com/tevm/tevm-monorepo/blob/main/bundler/config/src/config/withDefaults.js#L6)

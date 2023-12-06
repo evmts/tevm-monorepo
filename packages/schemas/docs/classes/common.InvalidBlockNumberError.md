@@ -58,7 +58,7 @@ TypeError.constructor
 
 #### Defined in
 
-[packages/schemas/src/common/SBlockNumber.js:62](https://github.com/evmts/tevm-monorepo/blob/main/packages/schemas/src/common/SBlockNumber.js#L62)
+[packages/schemas/src/common/SBlockNumber.js:62](https://github.com/tevm/tevm-monorepo/blob/main/packages/schemas/src/common/SBlockNumber.js#L62)
 
 ## Properties
 
@@ -72,7 +72,7 @@ TypeError.cause
 
 #### Defined in
 
-[packages/schemas/src/common/SBlockNumber.js:69](https://github.com/evmts/tevm-monorepo/blob/main/packages/schemas/src/common/SBlockNumber.js#L69)
+[packages/schemas/src/common/SBlockNumber.js:69](https://github.com/tevm/tevm-monorepo/blob/main/packages/schemas/src/common/SBlockNumber.js#L69)
 
 ___
 

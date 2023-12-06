@@ -20,7 +20,7 @@
 
 #### Defined in
 
-[types.ts:1](https://github.com/evmts/tevm-monorepo/blob/main/bundler/runtime/src/types.ts#L1)
+[types.ts:1](https://github.com/tevm/tevm-monorepo/blob/main/bundler/runtime/src/types.ts#L1)
 
 ## Functions
 
@@ -42,4 +42,4 @@
 
 #### Defined in
 
-[generateRuntime.js:17](https://github.com/evmts/tevm-monorepo/blob/main/bundler/runtime/src/generateRuntime.js#L17)
+[generateRuntime.js:17](https://github.com/tevm/tevm-monorepo/blob/main/bundler/runtime/src/generateRuntime.js#L17)

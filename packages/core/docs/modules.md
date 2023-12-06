@@ -10,7 +10,7 @@
 
 ### Functions
 
-- [createTevmContract](modules.md#createTevmContract)
+- [createTevmContract](modules.md#createtevmcontract)
 - [formatAbi](modules.md#formatabi)
 - [parseAbi](modules.md#parseabi)
 
@@ -44,7 +44,7 @@
 
 #### Defined in
 
-[packages/core/src/TevmContract.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/core/src/TevmContract.ts#L7)
+[packages/core/src/TevmContract.ts:7](https://github.com/tevm/tevm-monorepo/blob/main/packages/core/src/TevmContract.ts#L7)
 
 ## Functions
 
@@ -73,7 +73,7 @@
 
 #### Defined in
 
-[packages/core/src/createTevmContract.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/core/src/createTevmContract.ts#L8)
+[packages/core/src/createTevmContract.ts:8](https://github.com/tevm/tevm-monorepo/blob/main/packages/core/src/createTevmContract.ts#L8)
 
 ___
 

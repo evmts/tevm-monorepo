@@ -32,7 +32,7 @@ When resolved with defaults it is a [ResolvedCompilerConfig](types.md#resolvedco
 
 #### Defined in
 
-[bundler/config/src/types.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/bundler/config/src/types.ts#L11)
+[bundler/config/src/types.ts:11](https://github.com/tevm/tevm-monorepo/blob/main/bundler/config/src/types.ts#L11)
 
 ___
 
@@ -50,7 +50,7 @@ ___
 
 #### Defined in
 
-[bundler/config/src/types.ts:35](https://github.com/evmts/tevm-monorepo/blob/main/bundler/config/src/types.ts#L35)
+[bundler/config/src/types.ts:35](https://github.com/tevm/tevm-monorepo/blob/main/bundler/config/src/types.ts#L35)
 
 ___
 
@@ -91,7 +91,7 @@ export default defineConfig({
 
 #### Defined in
 
-[bundler/config/src/types.ts:76](https://github.com/evmts/tevm-monorepo/blob/main/bundler/config/src/types.ts#L76)
+[bundler/config/src/types.ts:76](https://github.com/tevm/tevm-monorepo/blob/main/bundler/config/src/types.ts#L76)
 
 ___
 
@@ -101,7 +101,7 @@ ___
 
 #### Defined in
 
-[bundler/config/src/types.ts:62](https://github.com/evmts/tevm-monorepo/blob/main/bundler/config/src/types.ts#L62)
+[bundler/config/src/types.ts:62](https://github.com/tevm/tevm-monorepo/blob/main/bundler/config/src/types.ts#L62)
 
 ___
 
@@ -123,4 +123,4 @@ See [CompilerConfig](types.md#compilerconfig)
 
 #### Defined in
 
-[bundler/config/src/types.ts:41](https://github.com/evmts/tevm-monorepo/blob/main/bundler/config/src/types.ts#L41)
+[bundler/config/src/types.ts:41](https://github.com/tevm/tevm-monorepo/blob/main/bundler/config/src/types.ts#L41)

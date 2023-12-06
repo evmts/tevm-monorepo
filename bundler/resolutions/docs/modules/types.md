@@ -30,7 +30,7 @@
 
 #### Defined in
 
-[types.ts:1](https://github.com/evmts/tevm-monorepo/blob/main/bundler/resolutions/src/types.ts#L1)
+[types.ts:1](https://github.com/tevm/tevm-monorepo/blob/main/bundler/resolutions/src/types.ts#L1)
 
 ___
 
@@ -49,7 +49,7 @@ ___
 
 #### Defined in
 
-[types.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/bundler/resolutions/src/types.ts#L7)
+[types.ts:7](https://github.com/tevm/tevm-monorepo/blob/main/bundler/resolutions/src/types.ts#L7)
 
 ___
 
@@ -69,4 +69,4 @@ The result of the resolution of an  import
 
 #### Defined in
 
-[types.ts:27](https://github.com/evmts/tevm-monorepo/blob/main/bundler/resolutions/src/types.ts#L27)
+[types.ts:27](https://github.com/tevm/tevm-monorepo/blob/main/bundler/resolutions/src/types.ts#L27)

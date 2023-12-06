@@ -20,7 +20,7 @@
 
 #### Defined in
 
-[resolveImports.js:20](https://github.com/evmts/tevm-monorepo/blob/main/bundler/resolutions/src/resolveImports.js#L20)
+[resolveImports.js:20](https://github.com/tevm/tevm-monorepo/blob/main/bundler/resolutions/src/resolveImports.js#L20)
 
 ## Functions
 
@@ -66,4 +66,4 @@ console.log(imports) // [{ updated: '/path/to/Contract.sol', absolute: '/path/to
 
 #### Defined in
 
-[resolveImports.js:50](https://github.com/evmts/tevm-monorepo/blob/main/bundler/resolutions/src/resolveImports.js#L50)
+[resolveImports.js:50](https://github.com/tevm/tevm-monorepo/blob/main/bundler/resolutions/src/resolveImports.js#L50)

@@ -41,4 +41,4 @@
 
 #### Defined in
 
-[solc/src/types.ts:27](https://github.com/evmts/tevm-monorepo/blob/main/bundler/solc/src/types.ts#L27)
+[solc/src/types.ts:27](https://github.com/tevm/tevm-monorepo/blob/main/bundler/solc/src/types.ts#L27)

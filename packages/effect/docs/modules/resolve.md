@@ -40,7 +40,7 @@
 
 #### Defined in
 
-[packages/effect/src/resolve.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/effect/src/resolve.js#L10)
+[packages/effect/src/resolve.js:10](https://github.com/tevm/tevm-monorepo/blob/main/packages/effect/src/resolve.js#L10)
 
 ## Functions
 
@@ -91,7 +91,7 @@ resolveAsync('react').pipe(
 
 #### Defined in
 
-[packages/effect/src/resolve.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/effect/src/resolve.js#L10)
+[packages/effect/src/resolve.js:10](https://github.com/tevm/tevm-monorepo/blob/main/packages/effect/src/resolve.js#L10)
 
 ___
 
@@ -143,4 +143,4 @@ resolveSync('react').pipe(
 
 #### Defined in
 
-[packages/effect/src/resolve.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/effect/src/resolve.js#L10)
+[packages/effect/src/resolve.js:10](https://github.com/tevm/tevm-monorepo/blob/main/packages/effect/src/resolve.js#L10)

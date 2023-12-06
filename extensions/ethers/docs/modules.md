@@ -45,7 +45,7 @@
 
 #### Defined in
 
-[extensions/ethers/src/Contract.d.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/extensions/ethers/src/Contract.d.ts#L21)
+[extensions/ethers/src/Contract.d.ts:21](https://github.com/tevm/tevm-monorepo/blob/main/extensions/ethers/src/Contract.d.ts#L21)
 
 ___
 
@@ -75,7 +75,7 @@ ___
 
 #### Defined in
 
-[extensions/ethers/src/Contract.d.ts:12](https://github.com/evmts/tevm-monorepo/blob/main/extensions/ethers/src/Contract.d.ts#L12)
+[extensions/ethers/src/Contract.d.ts:12](https://github.com/tevm/tevm-monorepo/blob/main/extensions/ethers/src/Contract.d.ts#L12)
 
 ## Variables
 
@@ -85,7 +85,7 @@ ___
 
 #### Defined in
 
-[extensions/ethers/src/Contract.d.ts:30](https://github.com/evmts/tevm-monorepo/blob/main/extensions/ethers/src/Contract.d.ts#L30)
+[extensions/ethers/src/Contract.d.ts:30](https://github.com/tevm/tevm-monorepo/blob/main/extensions/ethers/src/Contract.d.ts#L30)
 
 ___
 
@@ -95,4 +95,4 @@ ___
 
 #### Defined in
 
-[extensions/ethers/src/Contract.d.ts:19](https://github.com/evmts/tevm-monorepo/blob/main/extensions/ethers/src/Contract.d.ts#L19)
+[extensions/ethers/src/Contract.d.ts:19](https://github.com/tevm/tevm-monorepo/blob/main/extensions/ethers/src/Contract.d.ts#L19)

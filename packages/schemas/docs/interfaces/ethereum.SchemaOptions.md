@@ -20,4 +20,4 @@ The message to display.
 
 #### Defined in
 
-[packages/schemas/src/ethereum/SAddress/SAddress.js:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/schemas/src/ethereum/SAddress/SAddress.js#L17)
+[packages/schemas/src/ethereum/SAddress/SAddress.js:17](https://github.com/tevm/tevm-monorepo/blob/main/packages/schemas/src/ethereum/SAddress/SAddress.js#L17)
