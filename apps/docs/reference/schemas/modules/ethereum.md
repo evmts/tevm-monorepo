@@ -1,4 +1,4 @@
-[@evmts/schemas](/reference/schemas/README.md) / [Modules](/reference/schemas/modules.md) / ethereum
+[@tevm/schemas](/reference/schemas/README.md) / [Modules](/reference/schemas/modules.md) / ethereum
 
 # Module: ethereum
 
@@ -291,7 +291,7 @@ Type representing a valid Ethereum address
 
 #### Defined in
 
-[schemas/src/ethereum/SAddress/SAddress.js:11](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SAddress/SAddress.js#L11)
+[schemas/src/ethereum/SAddress/SAddress.js:11](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SAddress/SAddress.js#L11)
 
 ___
 
@@ -301,7 +301,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytes/SBytes.js:11](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytes/SBytes.js#L11)
+[schemas/src/ethereum/SBytes/SBytes.js:11](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytes/SBytes.js#L11)
 
 ___
 
@@ -313,7 +313,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:27](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L27)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:27](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L27)
 
 ___
 
@@ -325,7 +325,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:81](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L81)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:81](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L81)
 
 ___
 
@@ -337,7 +337,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:87](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L87)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:87](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L87)
 
 ___
 
@@ -349,7 +349,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:93](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L93)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:93](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L93)
 
 ___
 
@@ -361,7 +361,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:99](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L99)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:99](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L99)
 
 ___
 
@@ -373,7 +373,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:105](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L105)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:105](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L105)
 
 ___
 
@@ -385,7 +385,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:111](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L111)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:111](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L111)
 
 ___
 
@@ -397,7 +397,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:117](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L117)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:117](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L117)
 
 ___
 
@@ -409,7 +409,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:123](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L123)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:123](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L123)
 
 ___
 
@@ -421,7 +421,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:129](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L129)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:129](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L129)
 
 ___
 
@@ -433,7 +433,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:135](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L135)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:135](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L135)
 
 ___
 
@@ -445,7 +445,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:33](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L33)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:33](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L33)
 
 ___
 
@@ -457,7 +457,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:141](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L141)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:141](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L141)
 
 ___
 
@@ -469,7 +469,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:147](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L147)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:147](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L147)
 
 ___
 
@@ -481,7 +481,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:153](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L153)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:153](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L153)
 
 ___
 
@@ -493,7 +493,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:159](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L159)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:159](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L159)
 
 ___
 
@@ -505,7 +505,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:165](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L165)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:165](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L165)
 
 ___
 
@@ -517,7 +517,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:171](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L171)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:171](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L171)
 
 ___
 
@@ -529,7 +529,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:177](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L177)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:177](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L177)
 
 ___
 
@@ -541,7 +541,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:183](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L183)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:183](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L183)
 
 ___
 
@@ -553,7 +553,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:189](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L189)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:189](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L189)
 
 ___
 
@@ -565,7 +565,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:195](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L195)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:195](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L195)
 
 ___
 
@@ -577,7 +577,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:39](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L39)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:39](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L39)
 
 ___
 
@@ -589,7 +589,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:201](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L201)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:201](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L201)
 
 ___
 
@@ -601,7 +601,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:207](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L207)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:207](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L207)
 
 ___
 
@@ -613,7 +613,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:213](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L213)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:213](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L213)
 
 ___
 
@@ -625,7 +625,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:45](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L45)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:45](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L45)
 
 ___
 
@@ -637,7 +637,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:51](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L51)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:51](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L51)
 
 ___
 
@@ -649,7 +649,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:57](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L57)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:57](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L57)
 
 ___
 
@@ -661,7 +661,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:63](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L63)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:63](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L63)
 
 ___
 
@@ -673,7 +673,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:69](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L69)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:69](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L69)
 
 ___
 
@@ -685,7 +685,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:75](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L75)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:75](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L75)
 
 ___
 
@@ -695,7 +695,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/Errors.js:11](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/Errors.js#L11)
+[schemas/src/ethereum/SBytesFixed/Errors.js:11](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/Errors.js#L11)
 
 ___
 
@@ -705,7 +705,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/SINT.js:50](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/SINT.js#L50)
+[schemas/src/ethereum/SINT/SINT.js:50](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SINT/SINT.js#L50)
 
 ___
 
@@ -715,7 +715,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/SINT.js:35](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/SINT.js#L35)
+[schemas/src/ethereum/SINT/SINT.js:35](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SINT/SINT.js#L35)
 
 ___
 
@@ -725,7 +725,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/SINT.js:55](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/SINT.js#L55)
+[schemas/src/ethereum/SINT/SINT.js:55](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SINT/SINT.js#L55)
 
 ___
 
@@ -735,7 +735,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/SINT.js:40](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/SINT.js#L40)
+[schemas/src/ethereum/SINT/SINT.js:40](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SINT/SINT.js#L40)
 
 ___
 
@@ -745,7 +745,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/SINT.js:45](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/SINT.js#L45)
+[schemas/src/ethereum/SINT/SINT.js:45](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SINT/SINT.js#L45)
 
 ___
 
@@ -755,7 +755,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/SINT.js:30](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/SINT.js#L30)
+[schemas/src/ethereum/SINT/SINT.js:30](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SINT/SINT.js#L30)
 
 ___
 
@@ -765,7 +765,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/Errors.js:10](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/Errors.js#L10)
+[schemas/src/ethereum/SINT/Errors.js:10](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SINT/Errors.js#L10)
 
 ___
 
@@ -775,7 +775,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/Errors.js:11](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/Errors.js#L11)
+[schemas/src/ethereum/SINT/Errors.js:11](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SINT/Errors.js#L11)
 
 ___
 
@@ -789,9 +789,9 @@ Effect/schema for Address type.
 
 #### Defined in
 
-[schemas/src/ethereum/SAddress/SAddress.js:31](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SAddress/SAddress.js#L31)
+[schemas/src/ethereum/SAddress/SAddress.js:31](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SAddress/SAddress.js#L31)
 
-[schemas/src/ethereum/SAddress/SAddress.js:27](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SAddress/SAddress.js#L27)
+[schemas/src/ethereum/SAddress/SAddress.js:27](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SAddress/SAddress.js#L27)
 
 ___
 
@@ -804,7 +804,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SAddress/SAddress.js:21](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SAddress/SAddress.js#L21)
+[schemas/src/ethereum/SAddress/SAddress.js:21](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SAddress/SAddress.js#L21)
 
 ___
 
@@ -814,7 +814,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SUINT/SUINT.js:68](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SUINT/SUINT.js#L68)
+[schemas/src/ethereum/SUINT/SUINT.js:68](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SUINT/SUINT.js#L68)
 
 ___
 
@@ -824,7 +824,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SUINT/SUINT.js:35](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SUINT/SUINT.js#L35)
+[schemas/src/ethereum/SUINT/SUINT.js:35](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SUINT/SUINT.js#L35)
 
 ___
 
@@ -834,7 +834,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SUINT/SUINT.js:79](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SUINT/SUINT.js#L79)
+[schemas/src/ethereum/SUINT/SUINT.js:79](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SUINT/SUINT.js#L79)
 
 ___
 
@@ -844,7 +844,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SUINT/SUINT.js:46](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SUINT/SUINT.js#L46)
+[schemas/src/ethereum/SUINT/SUINT.js:46](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SUINT/SUINT.js#L46)
 
 ___
 
@@ -854,7 +854,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SUINT/SUINT.js:57](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SUINT/SUINT.js#L57)
+[schemas/src/ethereum/SUINT/SUINT.js:57](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SUINT/SUINT.js#L57)
 
 ___
 
@@ -864,7 +864,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SUINT/SUINT.js:24](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SUINT/SUINT.js#L24)
+[schemas/src/ethereum/SUINT/SUINT.js:24](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SUINT/SUINT.js#L24)
 
 ___
 
@@ -874,7 +874,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SUINT/Errors.js:10](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SUINT/Errors.js#L10)
+[schemas/src/ethereum/SUINT/Errors.js:10](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SUINT/Errors.js#L10)
 
 ___
 
@@ -884,7 +884,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SUINT/Errors.js:11](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SUINT/Errors.js#L11)
+[schemas/src/ethereum/SUINT/Errors.js:11](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SUINT/Errors.js#L11)
 
 ## Variables
 
@@ -897,7 +897,7 @@ The maximum value a [INT128](/reference/schemas/modules/ethereum.md#int128) can 
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/constants.js:51](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/constants.js#L51)
+[schemas/src/ethereum/SINT/constants.js:51](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SINT/constants.js#L51)
 
 ___
 
@@ -910,7 +910,7 @@ The minimum value a [INT128](/reference/schemas/modules/ethereum.md#int128) can 
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/constants.js:56](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/constants.js#L56)
+[schemas/src/ethereum/SINT/constants.js:56](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SINT/constants.js#L56)
 
 ___
 
@@ -923,7 +923,7 @@ The maximum value a [INT16](/reference/schemas/modules/ethereum.md#int16) can be
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/constants.js:21](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/constants.js#L21)
+[schemas/src/ethereum/SINT/constants.js:21](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SINT/constants.js#L21)
 
 ___
 
@@ -936,7 +936,7 @@ The minimum value a [INT16](/reference/schemas/modules/ethereum.md#int16) can be
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/constants.js:26](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/constants.js#L26)
+[schemas/src/ethereum/SINT/constants.js:26](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SINT/constants.js#L26)
 
 ___
 
@@ -949,7 +949,7 @@ The maximum value a [INT256](/reference/schemas/modules/ethereum.md#int256) can 
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/constants.js:61](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/constants.js#L61)
+[schemas/src/ethereum/SINT/constants.js:61](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SINT/constants.js#L61)
 
 ___
 
@@ -962,7 +962,7 @@ The minimum value a [INT256](/reference/schemas/modules/ethereum.md#int256) can 
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/constants.js:68](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/constants.js#L68)
+[schemas/src/ethereum/SINT/constants.js:68](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SINT/constants.js#L68)
 
 ___
 
@@ -975,7 +975,7 @@ The maximum value a [INT32](/reference/schemas/modules/ethereum.md#int32) can be
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/constants.js:31](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/constants.js#L31)
+[schemas/src/ethereum/SINT/constants.js:31](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SINT/constants.js#L31)
 
 ___
 
@@ -988,7 +988,7 @@ The minimum value a [INT32](/reference/schemas/modules/ethereum.md#int32) can be
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/constants.js:36](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/constants.js#L36)
+[schemas/src/ethereum/SINT/constants.js:36](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SINT/constants.js#L36)
 
 ___
 
@@ -1001,7 +1001,7 @@ The maximum value a [INT64](/reference/schemas/modules/ethereum.md#int64) can be
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/constants.js:41](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/constants.js#L41)
+[schemas/src/ethereum/SINT/constants.js:41](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SINT/constants.js#L41)
 
 ___
 
@@ -1014,7 +1014,7 @@ The minimum value a [INT64](/reference/schemas/modules/ethereum.md#int64) can be
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/constants.js:46](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/constants.js#L46)
+[schemas/src/ethereum/SINT/constants.js:46](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SINT/constants.js#L46)
 
 ___
 
@@ -1027,7 +1027,7 @@ The maximum value a [INT8](/reference/schemas/modules/ethereum.md#int8) can be.
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/constants.js:11](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/constants.js#L11)
+[schemas/src/ethereum/SINT/constants.js:11](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SINT/constants.js#L11)
 
 ___
 
@@ -1040,7 +1040,7 @@ The minimum value a [INT8](/reference/schemas/modules/ethereum.md#int8) can be.
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/constants.js:16](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/constants.js#L16)
+[schemas/src/ethereum/SINT/constants.js:16](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SINT/constants.js#L16)
 
 ___
 
@@ -1050,9 +1050,9 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SAddress/SAddress.js:31](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SAddress/SAddress.js#L31)
+[schemas/src/ethereum/SAddress/SAddress.js:31](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SAddress/SAddress.js#L31)
 
-[schemas/src/ethereum/SAddress/SAddress.js:27](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SAddress/SAddress.js#L27)
+[schemas/src/ethereum/SAddress/SAddress.js:27](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SAddress/SAddress.js#L27)
 
 ___
 
@@ -1071,7 +1071,7 @@ export const SBytes: Schema<string, Bytes>;
 
 #### Defined in
 
-[schemas/src/ethereum/SBytes/SBytes.js:28](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytes/SBytes.js#L28)
+[schemas/src/ethereum/SBytes/SBytes.js:28](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytes/SBytes.js#L28)
 
 ___
 
@@ -1083,7 +1083,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:222](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L222)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:222](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L222)
 
 ___
 
@@ -1095,7 +1095,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:348](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L348)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:348](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L348)
 
 ___
 
@@ -1107,7 +1107,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:362](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L362)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:362](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L362)
 
 ___
 
@@ -1119,7 +1119,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:376](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L376)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:376](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L376)
 
 ___
 
@@ -1131,7 +1131,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:390](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L390)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:390](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L390)
 
 ___
 
@@ -1143,7 +1143,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:404](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L404)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:404](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L404)
 
 ___
 
@@ -1155,7 +1155,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:418](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L418)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:418](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L418)
 
 ___
 
@@ -1167,7 +1167,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:432](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L432)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:432](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L432)
 
 ___
 
@@ -1179,7 +1179,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:446](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L446)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:446](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L446)
 
 ___
 
@@ -1191,7 +1191,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:460](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L460)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:460](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L460)
 
 ___
 
@@ -1203,7 +1203,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:474](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L474)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:474](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L474)
 
 ___
 
@@ -1215,7 +1215,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:236](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L236)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:236](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L236)
 
 ___
 
@@ -1227,7 +1227,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:488](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L488)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:488](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L488)
 
 ___
 
@@ -1239,7 +1239,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:502](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L502)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:502](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L502)
 
 ___
 
@@ -1251,7 +1251,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:516](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L516)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:516](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L516)
 
 ___
 
@@ -1263,7 +1263,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:530](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L530)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:530](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L530)
 
 ___
 
@@ -1275,7 +1275,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:544](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L544)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:544](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L544)
 
 ___
 
@@ -1287,7 +1287,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:558](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L558)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:558](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L558)
 
 ___
 
@@ -1299,7 +1299,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:572](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L572)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:572](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L572)
 
 ___
 
@@ -1311,7 +1311,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:586](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L586)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:586](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L586)
 
 ___
 
@@ -1323,7 +1323,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:600](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L600)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:600](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L600)
 
 ___
 
@@ -1335,7 +1335,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:614](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L614)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:614](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L614)
 
 ___
 
@@ -1347,7 +1347,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:250](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L250)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:250](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L250)
 
 ___
 
@@ -1359,7 +1359,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:628](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L628)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:628](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L628)
 
 ___
 
@@ -1371,7 +1371,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:642](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L642)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:642](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L642)
 
 ___
 
@@ -1383,7 +1383,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:656](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L656)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:656](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L656)
 
 ___
 
@@ -1395,7 +1395,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:264](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L264)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:264](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L264)
 
 ___
 
@@ -1407,7 +1407,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:278](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L278)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:278](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L278)
 
 ___
 
@@ -1419,7 +1419,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:292](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L292)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:292](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L292)
 
 ___
 
@@ -1431,7 +1431,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:306](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L306)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:306](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L306)
 
 ___
 
@@ -1443,7 +1443,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:320](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L320)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:320](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L320)
 
 ___
 
@@ -1455,7 +1455,7 @@ ___
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:334](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L334)
+[schemas/src/ethereum/SBytesFixed/SBytesFixed.js:334](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L334)
 
 ___
 
@@ -1475,7 +1475,7 @@ export const SINT128: Schema<bigint, INT128>;
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/SINT.js:128](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/SINT.js#L128)
+[schemas/src/ethereum/SINT/SINT.js:128](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SINT/SINT.js#L128)
 
 ___
 
@@ -1495,7 +1495,7 @@ export const SINT16: Schema<bigint, INT16>;
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/SINT.js:83](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/SINT.js#L83)
+[schemas/src/ethereum/SINT/SINT.js:83](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SINT/SINT.js#L83)
 
 ___
 
@@ -1515,7 +1515,7 @@ export const SINT256: Schema<bigint, INT256>;
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/SINT.js:143](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/SINT.js#L143)
+[schemas/src/ethereum/SINT/SINT.js:143](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SINT/SINT.js#L143)
 
 ___
 
@@ -1535,7 +1535,7 @@ export const SINT32: Schema<bigint, INT32>;
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/SINT.js:98](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/SINT.js#L98)
+[schemas/src/ethereum/SINT/SINT.js:98](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SINT/SINT.js#L98)
 
 ___
 
@@ -1555,7 +1555,7 @@ export const SINT64: Schema<bigint, INT64>;
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/SINT.js:113](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/SINT.js#L113)
+[schemas/src/ethereum/SINT/SINT.js:113](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SINT/SINT.js#L113)
 
 ___
 
@@ -1575,7 +1575,7 @@ export const SINT8: Schema<bigint, INT8>;
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/SINT.js:68](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/SINT.js#L68)
+[schemas/src/ethereum/SINT/SINT.js:68](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SINT/SINT.js#L68)
 
 ___
 
@@ -1595,7 +1595,7 @@ export const SUINT128: Schema<bigint, UINT128>;
 
 #### Defined in
 
-[schemas/src/ethereum/SUINT/SUINT.js:154](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SUINT/SUINT.js#L154)
+[schemas/src/ethereum/SUINT/SUINT.js:154](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SUINT/SUINT.js#L154)
 
 ___
 
@@ -1615,7 +1615,7 @@ export const SUINT16: Schema<bigint, UINT16>;
 
 #### Defined in
 
-[schemas/src/ethereum/SUINT/SUINT.js:112](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SUINT/SUINT.js#L112)
+[schemas/src/ethereum/SUINT/SUINT.js:112](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SUINT/SUINT.js#L112)
 
 ___
 
@@ -1635,7 +1635,7 @@ export const SUINT256: Schema<bigint, UINT256>;
 
 #### Defined in
 
-[schemas/src/ethereum/SUINT/SUINT.js:168](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SUINT/SUINT.js#L168)
+[schemas/src/ethereum/SUINT/SUINT.js:168](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SUINT/SUINT.js#L168)
 
 ___
 
@@ -1655,7 +1655,7 @@ export const SUINT32: Schema<bigint, UINT32>;
 
 #### Defined in
 
-[schemas/src/ethereum/SUINT/SUINT.js:126](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SUINT/SUINT.js#L126)
+[schemas/src/ethereum/SUINT/SUINT.js:126](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SUINT/SUINT.js#L126)
 
 ___
 
@@ -1675,7 +1675,7 @@ export const SUINT64: Schema<bigint, UINT64>;
 
 #### Defined in
 
-[schemas/src/ethereum/SUINT/SUINT.js:140](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SUINT/SUINT.js#L140)
+[schemas/src/ethereum/SUINT/SUINT.js:140](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SUINT/SUINT.js#L140)
 
 ___
 
@@ -1695,7 +1695,7 @@ export const SUINT8: Schema<bigint, UINT8>;
 
 #### Defined in
 
-[schemas/src/ethereum/SUINT/SUINT.js:98](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SUINT/SUINT.js#L98)
+[schemas/src/ethereum/SUINT/SUINT.js:98](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SUINT/SUINT.js#L98)
 
 ___
 
@@ -1708,7 +1708,7 @@ The maximum value a [UINT128](/reference/schemas/modules/ethereum.md#uint128) ca
 
 #### Defined in
 
-[schemas/src/ethereum/SUINT/constants.js:31](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SUINT/constants.js#L31)
+[schemas/src/ethereum/SUINT/constants.js:31](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SUINT/constants.js#L31)
 
 ___
 
@@ -1721,7 +1721,7 @@ The maximum value a [UINT16](/reference/schemas/modules/ethereum.md#uint16) can 
 
 #### Defined in
 
-[schemas/src/ethereum/SUINT/constants.js:16](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SUINT/constants.js#L16)
+[schemas/src/ethereum/SUINT/constants.js:16](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SUINT/constants.js#L16)
 
 ___
 
@@ -1734,7 +1734,7 @@ The maximum value a [UINT256](/reference/schemas/modules/ethereum.md#uint256) ca
 
 #### Defined in
 
-[schemas/src/ethereum/SUINT/constants.js:36](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SUINT/constants.js#L36)
+[schemas/src/ethereum/SUINT/constants.js:36](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SUINT/constants.js#L36)
 
 ___
 
@@ -1747,7 +1747,7 @@ The maximum value a [UINT32](/reference/schemas/modules/ethereum.md#uint32) can 
 
 #### Defined in
 
-[schemas/src/ethereum/SUINT/constants.js:21](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SUINT/constants.js#L21)
+[schemas/src/ethereum/SUINT/constants.js:21](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SUINT/constants.js#L21)
 
 ___
 
@@ -1760,7 +1760,7 @@ The maximum value a [UINT64](/reference/schemas/modules/ethereum.md#uint64) can 
 
 #### Defined in
 
-[schemas/src/ethereum/SUINT/constants.js:26](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SUINT/constants.js#L26)
+[schemas/src/ethereum/SUINT/constants.js:26](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SUINT/constants.js#L26)
 
 ___
 
@@ -1773,7 +1773,7 @@ The maximum value a [UINT8](/reference/schemas/modules/ethereum.md#uint8) can be
 
 #### Defined in
 
-[schemas/src/ethereum/SUINT/constants.js:11](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SUINT/constants.js#L11)
+[schemas/src/ethereum/SUINT/constants.js:11](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SUINT/constants.js#L11)
 
 ## Functions
 
@@ -1805,7 +1805,7 @@ isAddress('0x1234567890123456789012345678901234567890'); // true
 
 #### Defined in
 
-[schemas/src/ethereum/SAddress/isAddress.js:23](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SAddress/isAddress.js#L23)
+[schemas/src/ethereum/SAddress/isAddress.js:23](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SAddress/isAddress.js#L23)
 
 ___
 
@@ -1830,14 +1830,14 @@ Type guard that returns true if a string is a valid hex string.
 **`Example`**
 
 ```javascript
-import { isBytes } from '@evmts/schemas';
+import { isBytes } from '@tevm/schemas';
 const hex = '0x1234567890abcdef1234567890abcdef12345678';
 const isHex = isBytes(hex);
 ```
 
 #### Defined in
 
-[schemas/src/ethereum/SBytes/isBytes.js:22](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytes/isBytes.js#L22)
+[schemas/src/ethereum/SBytes/isBytes.js:22](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytes/isBytes.js#L22)
 
 ___
 
@@ -1860,14 +1860,14 @@ Type guard that returns true if the provided string is a valid Ethereum Bytes1.
 **`Example`**
 
 ```ts
-import { isBytes1 } from '@evmts/schemas';
+import { isBytes1 } from '@tevm/schemas';
 isBytes1("0xff");  // true
 isBytes1("0xfff"); // false
 ````
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:56](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L56)
+[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:56](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L56)
 
 ___
 
@@ -1890,14 +1890,14 @@ Type guard that returns true if the provided string is a valid Ethereum Bytes10.
 **`Example`**
 
 ```ts
-import { isBytes10 } from '@evmts/schemas';
+import { isBytes10 } from '@tevm/schemas';
 isBytes10("0xff");  // true
 isBytes10("0xfff"); // false
 ````
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:191](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L191)
+[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:191](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L191)
 
 ___
 
@@ -1920,14 +1920,14 @@ Type guard that returns true if the provided string is a valid Ethereum Bytes11.
 **`Example`**
 
 ```ts
-import { isBytes11 } from '@evmts/schemas';
+import { isBytes11 } from '@tevm/schemas';
 isBytes11("0xff");  // true
 isBytes11("0xfff"); // false
 ````
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:206](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L206)
+[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:206](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L206)
 
 ___
 
@@ -1950,14 +1950,14 @@ Type guard that returns true if the provided string is a valid Ethereum Bytes12.
 **`Example`**
 
 ```ts
-import { isBytes12 } from '@evmts/schemas';
+import { isBytes12 } from '@tevm/schemas';
 isBytes12("0xff");  // true
 isBytes12("0xfff"); // false
 ````
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:221](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L221)
+[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:221](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L221)
 
 ___
 
@@ -1980,14 +1980,14 @@ Type guard that returns true if the provided string is a valid Ethereum Bytes13.
 **`Example`**
 
 ```ts
-import { isBytes13 } from '@evmts/schemas';
+import { isBytes13 } from '@tevm/schemas';
 isBytes13("0xff");  // true
 isBytes13("0xfff"); // false
 ````
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:236](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L236)
+[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:236](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L236)
 
 ___
 
@@ -2010,14 +2010,14 @@ Type guard that returns true if the provided string is a valid Ethereum Bytes14.
 **`Example`**
 
 ```ts
-import { isBytes14 } from '@evmts/schemas';
+import { isBytes14 } from '@tevm/schemas';
 isBytes14("0xff");  // true
 isBytes14("0xfff"); // false
 ````
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:251](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L251)
+[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:251](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L251)
 
 ___
 
@@ -2040,14 +2040,14 @@ Type guard that returns true if the provided string is a valid Ethereum Bytes15.
 **`Example`**
 
 ```ts
-import { isBytes15 } from '@evmts/schemas';
+import { isBytes15 } from '@tevm/schemas';
 isBytes15("0xff");  // true
 isBytes15("0xfff"); // false
 ````
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:266](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L266)
+[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:266](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L266)
 
 ___
 
@@ -2070,14 +2070,14 @@ Type guard that returns true if the provided string is a valid Ethereum Bytes16.
 **`Example`**
 
 ```ts
-import { isBytes16 } from '@evmts/schemas';
+import { isBytes16 } from '@tevm/schemas';
 isBytes16("0xff");  // true
 isBytes16("0xfff"); // false
 ````
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:281](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L281)
+[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:281](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L281)
 
 ___
 
@@ -2100,14 +2100,14 @@ Type guard that returns true if the provided string is a valid Ethereum Bytes17.
 **`Example`**
 
 ```ts
-import { isBytes17 } from '@evmts/schemas';
+import { isBytes17 } from '@tevm/schemas';
 isBytes17("0xff");  // true
 isBytes17("0xfff"); // false
 ````
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:296](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L296)
+[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:296](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L296)
 
 ___
 
@@ -2130,14 +2130,14 @@ Type guard that returns true if the provided string is a valid Ethereum Bytes18.
 **`Example`**
 
 ```ts
-import { isBytes18 } from '@evmts/schemas';
+import { isBytes18 } from '@tevm/schemas';
 isBytes18("0xff");  // true
 isBytes18("0xfff"); // false
 ````
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:311](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L311)
+[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:311](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L311)
 
 ___
 
@@ -2160,14 +2160,14 @@ Type guard that returns true if the provided string is a valid Ethereum Bytes19.
 **`Example`**
 
 ```ts
-import { isBytes19 } from '@evmts/schemas';
+import { isBytes19 } from '@tevm/schemas';
 isBytes19("0xff");  // true
 isBytes19("0xfff"); // false
 ````
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:326](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L326)
+[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:326](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L326)
 
 ___
 
@@ -2190,14 +2190,14 @@ Type guard that returns true if the provided string is a valid Ethereum Bytes2.
 **`Example`**
 
 ```ts
-import { isBytes2 } from '@evmts/schemas';
+import { isBytes2 } from '@tevm/schemas';
 isBytes2("0xff");  // true
 isBytes2("0xfff"); // false
 ````
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:71](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L71)
+[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:71](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L71)
 
 ___
 
@@ -2220,14 +2220,14 @@ Type guard that returns true if the provided string is a valid Ethereum Bytes20.
 **`Example`**
 
 ```ts
-import { isBytes20 } from '@evmts/schemas';
+import { isBytes20 } from '@tevm/schemas';
 isBytes20("0xff");  // true
 isBytes20("0xfff"); // false
 ````
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:341](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L341)
+[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:341](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L341)
 
 ___
 
@@ -2250,14 +2250,14 @@ Type guard that returns true if the provided string is a valid Ethereum Bytes21.
 **`Example`**
 
 ```ts
-import { isBytes21 } from '@evmts/schemas';
+import { isBytes21 } from '@tevm/schemas';
 isBytes21("0xff");  // true
 isBytes21("0xfff"); // false
 ````
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:356](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L356)
+[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:356](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L356)
 
 ___
 
@@ -2280,14 +2280,14 @@ Type guard that returns true if the provided string is a valid Ethereum Bytes22.
 **`Example`**
 
 ```ts
-import { isBytes22 } from '@evmts/schemas';
+import { isBytes22 } from '@tevm/schemas';
 isBytes22("0xff");  // true
 isBytes22("0xfff"); // false
 ````
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:371](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L371)
+[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:371](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L371)
 
 ___
 
@@ -2310,14 +2310,14 @@ Type guard that returns true if the provided string is a valid Ethereum Bytes23.
 **`Example`**
 
 ```ts
-import { isBytes23 } from '@evmts/schemas';
+import { isBytes23 } from '@tevm/schemas';
 isBytes23("0xff");  // true
 isBytes23("0xfff"); // false
 ````
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:386](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L386)
+[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:386](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L386)
 
 ___
 
@@ -2340,14 +2340,14 @@ Type guard that returns true if the provided string is a valid Ethereum Bytes24.
 **`Example`**
 
 ```ts
-import { isBytes24 } from '@evmts/schemas';
+import { isBytes24 } from '@tevm/schemas';
 isBytes24("0xff");  // true
 isBytes24("0xfff"); // false
 ````
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:401](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L401)
+[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:401](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L401)
 
 ___
 
@@ -2370,14 +2370,14 @@ Type guard that returns true if the provided string is a valid Ethereum Bytes25.
 **`Example`**
 
 ```ts
-import { isBytes25 } from '@evmts/schemas';
+import { isBytes25 } from '@tevm/schemas';
 isBytes25("0xff");  // true
 isBytes25("0xfff"); // false
 ````
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:416](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L416)
+[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:416](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L416)
 
 ___
 
@@ -2400,14 +2400,14 @@ Type guard that returns true if the provided string is a valid Ethereum Bytes26.
 **`Example`**
 
 ```ts
-import { isBytes26 } from '@evmts/schemas';
+import { isBytes26 } from '@tevm/schemas';
 isBytes26("0xff");  // true
 isBytes26("0xfff"); // false
 ````
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:431](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L431)
+[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:431](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L431)
 
 ___
 
@@ -2430,14 +2430,14 @@ Type guard that returns true if the provided string is a valid Ethereum Bytes27.
 **`Example`**
 
 ```ts
-import { isBytes27 } from '@evmts/schemas';
+import { isBytes27 } from '@tevm/schemas';
 isBytes27("0xff");  // true
 isBytes27("0xfff"); // false
 ````
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:446](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L446)
+[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:446](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L446)
 
 ___
 
@@ -2460,14 +2460,14 @@ Type guard that returns true if the provided string is a valid Ethereum Bytes28.
 **`Example`**
 
 ```ts
-import { isBytes28 } from '@evmts/schemas';
+import { isBytes28 } from '@tevm/schemas';
 isBytes28("0xff");  // true
 isBytesBytes2fff"); // false
 ````
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:461](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L461)
+[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:461](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L461)
 
 ___
 
@@ -2490,14 +2490,14 @@ Type guard that returns true if the provided string is a valid Ethereum Bytes29.
 **`Example`**
 
 ```ts
-import { isBytes29 } from '@evmts/schemas';
+import { isBytes29 } from '@tevm/schemas';
 isBytes29("0xff");  // true
 isBytes29("0xfff"); // false
 ````
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:476](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L476)
+[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:476](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L476)
 
 ___
 
@@ -2520,14 +2520,14 @@ Type guard that returns true if the provided string is a valid Ethereum Bytes3.
 **`Example`**
 
 ```ts
-import { isBytes3 } from '@evmts/schemas';
+import { isBytes3 } from '@tevm/schemas';
 isBytes3("0xff");  // true
 isBytes3("0xfff"); // false
 ````
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:86](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L86)
+[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:86](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L86)
 
 ___
 
@@ -2550,14 +2550,14 @@ Type guard that returns true if the provided string is a valid Ethereum Bytes30.
 **`Example`**
 
 ```ts
-import { isBytes30 } from '@evmts/schemas';
+import { isBytes30 } from '@tevm/schemas';
 isBytes30("0xff");  // true
 isBytes30("0xfff"); // false
 ````
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:491](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L491)
+[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:491](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L491)
 
 ___
 
@@ -2580,14 +2580,14 @@ Type guard that returns true if the provided string is a valid Ethereum Bytes31.
 **`Example`**
 
 ```ts
-import { isBytes31 } from '@evmts/schemas';
+import { isBytes31 } from '@tevm/schemas';
 isBytes31("0xff");  // true
 isBytes31("0xfff"); // false
 ````
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:506](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L506)
+[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:506](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L506)
 
 ___
 
@@ -2610,14 +2610,14 @@ Type guard that returns true if the provided string is a valid Ethereum Bytes22.
 **`Example`**
 
 ```ts
-import { isBytes22 } from '@evmts/schemas';
+import { isBytes22 } from '@tevm/schemas';
 isBytes22("0xff");  // true
 isBytes22("0xfff"); // false
 ````
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:521](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L521)
+[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:521](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L521)
 
 ___
 
@@ -2640,14 +2640,14 @@ Type guard that returns true if the provided string is a valid Ethereum Bytes4.
 **`Example`**
 
 ```ts
-import { isBytes4 } from '@evmts/schemas';
+import { isBytes4 } from '@tevm/schemas';
 isBytes4("0xff");  // true
 isBytes4("0xfff"); // false
 ````
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:101](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L101)
+[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:101](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L101)
 
 ___
 
@@ -2670,14 +2670,14 @@ Type guard that returns true if the provided string is a valid Ethereum Bytes5.
 **`Example`**
 
 ```ts
-import { isBytes5 } from '@evmts/schemas';
+import { isBytes5 } from '@tevm/schemas';
 isBytes5("0xff");  // true
 isBytes5("0xfff"); // false
 ````
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:116](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L116)
+[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:116](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L116)
 
 ___
 
@@ -2700,14 +2700,14 @@ Type guard that returns true if the provided string is a valid Ethereum Bytes6.
 **`Example`**
 
 ```ts
-import { isBytes6 } from '@evmts/schemas';
+import { isBytes6 } from '@tevm/schemas';
 isBytes6("0xff");  // true
 isBytes6("0xfff"); // false
 ````
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:131](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L131)
+[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:131](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L131)
 
 ___
 
@@ -2730,14 +2730,14 @@ Type guard that returns true if the provided string is a valid Ethereum Bytes7.
 **`Example`**
 
 ```ts
-import { isBytes7 } from '@evmts/schemas';
+import { isBytes7 } from '@tevm/schemas';
 isBytes7("0xff");  // true
 isBytes7("0xfff"); // false
 ````
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:146](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L146)
+[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:146](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L146)
 
 ___
 
@@ -2760,14 +2760,14 @@ Type guard that returns true if the provided string is a valid Ethereum Bytes8.
 **`Example`**
 
 ```ts
-import { isBytes8 } from '@evmts/schemas';
+import { isBytes8 } from '@tevm/schemas';
 isBytes8("0xff");  // true
 isBytes8("0xfff"); // false
 ````
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:161](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L161)
+[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:161](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L161)
 
 ___
 
@@ -2790,14 +2790,14 @@ Type guard that returns true if the provided string is a valid Ethereum Bytes9.
 **`Example`**
 
 ```ts
-import { isBytes9 } from '@evmts/schemas';
+import { isBytes9 } from '@tevm/schemas';
 isBytes9("0xff");  // true
 isBytes9("0xfff"); // false
 ````
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:176](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L176)
+[schemas/src/ethereum/SBytesFixed/isBytesFixed.js:176](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L176)
 
 ___
 
@@ -2820,7 +2820,7 @@ Type guard that returns true if the provided bigint is a valid Ethereum INT128.
 **`Example`**
 
 ```ts
-import { isINT128 } from '@evmts/schemas';
+import { isINT128 } from '@tevm/schemas';
 isINT128(BigInt("-170141183460469231731687303715884105728"));  // true
 isINT128(BigInt("170141183460469231731687303715884105727"));   // true
 isINT128(BigInt("170141183460469231731687303715884105728"));   // false
@@ -2829,7 +2829,7 @@ isINT128(BigInt("-170141183460469231731687303715884105729"));  // false
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/isINT.js:92](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/isINT.js#L92)
+[schemas/src/ethereum/SINT/isINT.js:92](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SINT/isINT.js#L92)
 
 ___
 
@@ -2852,7 +2852,7 @@ Type guard that returns true if the provided bigint is a valid Ethereum INT16.
 **`Example`**
 
 ```ts
-import { isINT16 } from '@evmts/schemas';
+import { isINT16 } from '@tevm/schemas';
 isINT16(BigInt(-32768));  // true
 isINT16(BigInt(32767));   // true
 isINT16(BigInt(32768));   // false
@@ -2861,7 +2861,7 @@ isINT16(BigInt(-32769));  // false
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/isINT.js:41](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/isINT.js#L41)
+[schemas/src/ethereum/SINT/isINT.js:41](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SINT/isINT.js#L41)
 
 ___
 
@@ -2884,7 +2884,7 @@ Type guard that returns true if the provided bigint is a valid Ethereum INT256.
 **`Example`**
 
 ```ts
-import { isINT256 } from '@evmts/schemas';
+import { isINT256 } from '@tevm/schemas';
 isINT256(BigInt("-115792089237316195423570985008687907853269984665640564039457584007913129639936"));  // true
 isINT256(BigInt("115792089237316195423570985008687907853269984665640564039457584007913129639935"));   // true
 isINT256(BigInt("115792089237316195423570985008687907853269984665640564039457584007913129639936"));   // false
@@ -2893,7 +2893,7 @@ isINT256(BigInt("-11579208923731619542357098500868790785326998466564056403945758
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/isINT.js:109](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/isINT.js#L109)
+[schemas/src/ethereum/SINT/isINT.js:109](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SINT/isINT.js#L109)
 
 ___
 
@@ -2916,7 +2916,7 @@ Type guard that returns true if the provided bigint is a valid Ethereum INT32.
 **`Example`**
 
 ```ts
-import { isINT32 } from '@evmts/schemas';
+import { isINT32 } from '@tevm/schemas';
 isINT32(BigInt(-2147483648));  // true
 isINT32(BigInt(2147483647));   // true
 isINT32(BigInt(2147483648));   // false
@@ -2925,7 +2925,7 @@ isINT32(BigInt(-2147483649));  // false
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/isINT.js:58](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/isINT.js#L58)
+[schemas/src/ethereum/SINT/isINT.js:58](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SINT/isINT.js#L58)
 
 ___
 
@@ -2948,7 +2948,7 @@ Type guard that returns true if the provided bigint is a valid Ethereum INT64.
 **`Example`**
 
 ```ts
-import { isINT64 } from '@evmts/schemas';
+import { isINT64 } from '@tevm/schemas';
 isINT64(BigInt("-9223372036854775808"));  // true
 isINT64(BigInt("9223372036854775807"));   // true
 isINT64(BigInt("9223372036854775808"));   // false
@@ -2957,7 +2957,7 @@ isINT64(BigInt("-9223372036854775809"));  // false
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/isINT.js:75](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/isINT.js#L75)
+[schemas/src/ethereum/SINT/isINT.js:75](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SINT/isINT.js#L75)
 
 ___
 
@@ -2980,7 +2980,7 @@ Type guard that returns true if the provided bigint is a valid Ethereum INT8.
 **`Example`**
 
 ```ts
-import { isINT8 } from '@evmts/schemas';
+import { isINT8 } from '@tevm/schemas';
 isINT8(BigInt(-128));  // true
 isINT8(BigInt(127));   // true
 isINT8(BigInt(128));   // false
@@ -2989,7 +2989,7 @@ isINT8(BigInt(-129));  // false
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/isINT.js:24](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/isINT.js#L24)
+[schemas/src/ethereum/SINT/isINT.js:24](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SINT/isINT.js#L24)
 
 ___
 
@@ -3012,14 +3012,14 @@ Type guard that returns true if the provided bigint is a valid Ethereum UINT128.
 **`Example`**
 
 ```ts
-import { isUINT128 } from '@evmts/schemas';
+import { isUINT128 } from '@tevm/schemas';
 isUINT128(BigInt("170141183460469231731687303715884105727"));  // true
 isUINT128(BigInt("340282366920938463463374607431768211456"));  // false
 ````
 
 #### Defined in
 
-[schemas/src/ethereum/SUINT/isUINT.js:85](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SUINT/isUINT.js#L85)
+[schemas/src/ethereum/SUINT/isUINT.js:85](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SUINT/isUINT.js#L85)
 
 ___
 
@@ -3042,14 +3042,14 @@ Type guard that returns true if the provided bigint is a valid Ethereum UINT16.
 **`Example`**
 
 ```ts
-import { isUINT16 } from '@evmts/schemas';
+import { isUINT16 } from '@tevm/schemas';
 isUINT16(BigInt(32767));  // true
 isUINT16(BigInt(65536));  // false
 ````
 
 #### Defined in
 
-[schemas/src/ethereum/SUINT/isUINT.js:43](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SUINT/isUINT.js#L43)
+[schemas/src/ethereum/SUINT/isUINT.js:43](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SUINT/isUINT.js#L43)
 
 ___
 
@@ -3072,14 +3072,14 @@ Type guard that returns true if the provided bigint is a valid Ethereum UINT256.
 **`Example`**
 
 ```ts
-import { isUINT256 } from '@evmts/schemas';
+import { isUINT256 } from '@tevm/schemas';
 isUINT256(BigInt("115792089237316195423570985008687907853269984665640564039457584007913129639935"));  // true
 isUINT256(BigInt("231584178474632390847141970017375815706539969331281128078915168015826259279872"));  // false
 ````
 
 #### Defined in
 
-[schemas/src/ethereum/SUINT/isUINT.js:99](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SUINT/isUINT.js#L99)
+[schemas/src/ethereum/SUINT/isUINT.js:99](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SUINT/isUINT.js#L99)
 
 ___
 
@@ -3102,14 +3102,14 @@ Type guard that returns true if the provided bigint is a valid Ethereum UINT32.
 **`Example`**
 
 ```ts
-import { isUINT32 } from '@evmts/schemas';
+import { isUINT32 } from '@tevm/schemas';
 isUINT32(BigInt(2147483647));  // true
 isUINT32(BigInt(4294967296));  // false
 ````
 
 #### Defined in
 
-[schemas/src/ethereum/SUINT/isUINT.js:57](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SUINT/isUINT.js#L57)
+[schemas/src/ethereum/SUINT/isUINT.js:57](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SUINT/isUINT.js#L57)
 
 ___
 
@@ -3132,14 +3132,14 @@ Type guard that returns true if the provided bigint is a valid Ethereum UINT64.
 **`Example`**
 
 ```ts
-import { isUINT64 } from '@evmts/schemas';
+import { isUINT64 } from '@tevm/schemas';
 isUINT64(BigInt("9223372036854775807"));  // true
 isUINT64(BigInt("18446744073709551616"));  // false
 ````
 
 #### Defined in
 
-[schemas/src/ethereum/SUINT/isUINT.js:71](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SUINT/isUINT.js#L71)
+[schemas/src/ethereum/SUINT/isUINT.js:71](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SUINT/isUINT.js#L71)
 
 ___
 
@@ -3162,14 +3162,14 @@ Type guard that returns true if the provided bigint is a valid Ethereum UINT8.
 **`Example`**
 
 ```ts
-import { isUINT8 } from '@evmts/schemas';
+import { isUINT8 } from '@tevm/schemas';
 isUINT8(BigInt(127));  // true
 isUINT8(BigInt(256));  // false
 ````
 
 #### Defined in
 
-[schemas/src/ethereum/SUINT/isUINT.js:29](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SUINT/isUINT.js#L29)
+[schemas/src/ethereum/SUINT/isUINT.js:29](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SUINT/isUINT.js#L29)
 
 ___
 
@@ -3203,7 +3203,7 @@ Parses an Address returning the address or throwing an InvalidAddressError if in
 
 #### Defined in
 
-[schemas/src/ethereum/SAddress/parseAddress.js:17](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SAddress/parseAddress.js#L17)
+[schemas/src/ethereum/SAddress/parseAddress.js:17](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SAddress/parseAddress.js#L17)
 
 ___
 
@@ -3233,7 +3233,7 @@ Parses an Address safely into an effect.
 
 #### Defined in
 
-[schemas/src/ethereum/SAddress/parseAddressSafe.js:19](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SAddress/parseAddressSafe.js#L19)
+[schemas/src/ethereum/SAddress/parseAddressSafe.js:19](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SAddress/parseAddressSafe.js#L19)
 
 ___
 
@@ -3262,13 +3262,13 @@ Parses a Bytes and returns the value if no errors.
 **`Example`**
 
 ```javascript
-import { parseBytes } from '@evmts/schemas';
+import { parseBytes } from '@tevm/schemas';
 const parsedBytes = parseBytes('0x1234567890abcdef1234567890abcdef12345678');
 ```
 
 #### Defined in
 
-[schemas/src/ethereum/SBytes/parseBytes.js:20](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytes/parseBytes.js#L20)
+[schemas/src/ethereum/SBytes/parseBytes.js:20](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytes/parseBytes.js#L20)
 
 ___
 
@@ -3297,13 +3297,13 @@ Parses a Bytes1 and returns the value if no errors.
 **`Example`**
 
 ```ts
-import { parseBytes1 } from '@evmts/schemas';
+import { parseBytes1 } from '@tevm/schemas';
 const parsedBytes1 = parseBytes1('0xff');
 ```
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:54](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L54)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:54](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L54)
 
 ___
 
@@ -3332,12 +3332,12 @@ Parses a Bytes10 and returns the value if no errors.
 **`Example`**
 
 ```ts
-import { parseBytes10 } from '@evmts/schemas';
+import { parseBytes10 } from '@tevm/schemas';
 const parsedBytes = parseBytes10('0xffaabbccddeeffaabbccdd');
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:187](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L187)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:187](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L187)
 
 ___
 
@@ -3365,7 +3365,7 @@ Safely parses a Bytes10 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:268](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L268)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:268](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L268)
 
 ___
 
@@ -3394,13 +3394,13 @@ Parses a Bytes11 and returns the value if no errors.
 **`Example`**
 
 ```ts
-import { parseBytes11 } from '@evmts/schemas';
+import { parseBytes11 } from '@tevm/schemas';
 const parsedBytes11 = parseBytes11('0xffaabbccddeeffaabbccddaa');
 ```
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:202](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L202)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:202](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L202)
 
 ___
 
@@ -3428,7 +3428,7 @@ Safely parses a Bytes11 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:292](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L292)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:292](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L292)
 
 ___
 
@@ -3457,13 +3457,13 @@ Parses a Bytes12 and returns the value if no errors.
 **`Example`**
 
 ```ts
-import { parseBytes12 } from '@evmts/schemas';
+import { parseBytes12 } from '@tevm/schemas';
 const parsedBytes12 = parseBytes12('0xffaabbccddeeffaabbccddaaee');
 ```
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:217](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L217)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:217](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L217)
 
 ___
 
@@ -3491,7 +3491,7 @@ Safely parses a Bytes12 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:316](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L316)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:316](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L316)
 
 ___
 
@@ -3520,13 +3520,13 @@ Parses a Bytes13 and returns the value if no errors.
 **`Example`**
 
 ```ts
-import { parseBytes13 } from '@evmts/schemas';
+import { parseBytes13 } from '@tevm/schemas';
 const parsedBytes13 = parseBytes13('0xffaabbccddeeffaabbccddaaeeff');
 ```
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:232](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L232)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:232](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L232)
 
 ___
 
@@ -3554,7 +3554,7 @@ Safely parses a Bytes13 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:340](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L340)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:340](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L340)
 
 ___
 
@@ -3583,13 +3583,13 @@ Parses a Bytes14 and returns the value if no errors.
 **`Example`**
 
 ```ts
-import { parseBytes14 } from '@evmts/schemas';
+import { parseBytes14 } from '@tevm/schemas';
 const parsedBytes14 = parseBytes14('0xffaabbccddeeffaabbccddaaeeffaa');
 ```
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:247](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L247)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:247](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L247)
 
 ___
 
@@ -3617,7 +3617,7 @@ Safely parses a Bytes14 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:364](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L364)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:364](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L364)
 
 ___
 
@@ -3646,13 +3646,13 @@ Parses a Bytes15 and returns the value if no errors.
 **`Example`**
 
 ```ts
-import { parseBytes15 } from '@evmts/schemas';
+import { parseBytes15 } from '@tevm/schemas';
 const parsedBytes15 = parseBytes15('0xffaabbccddeeffaabbccddaaeeffaaee');
 ```
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:262](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L262)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:262](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L262)
 
 ___
 
@@ -3680,7 +3680,7 @@ Safely parses a Bytes15 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:388](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L388)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:388](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L388)
 
 ___
 
@@ -3709,13 +3709,13 @@ Parses a Bytes16 and returns the value if no errors.
 **`Example`**
 
 ```ts
-import { parseBytes16 } from '@evmts/schemas';
+import { parseBytes16 } from '@tevm/schemas';
 const parsedBytes16 = parseBytes16('0xffaabbccddeeffaabbccddaaeeffaaeeff');
 ```
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:277](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L277)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:277](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L277)
 
 ___
 
@@ -3743,7 +3743,7 @@ Safely parses a Bytes16 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:412](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L412)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:412](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L412)
 
 ___
 
@@ -3772,13 +3772,13 @@ Parses a Bytes17 and returns the value if no errors.
 **`Example`**
 
 ```ts
-import { parseBytes17 } from '@evmts/schemas';
+import { parseBytes17 } from '@tevm/schemas';
 const parsedBytes17 = parseBytes17('0xffaabbccddeeffaabbccddaaeeffaaeeffaa');
 ```
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:292](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L292)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:292](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L292)
 
 ___
 
@@ -3806,7 +3806,7 @@ Safely parses a Bytes17 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:436](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L436)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:436](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L436)
 
 ___
 
@@ -3835,13 +3835,13 @@ Parses a Bytes18 and returns the value if no errors.
 **`Example`**
 
 ```ts
-import { parseBytes18 } from '@evmts/schemas';
+import { parseBytes18 } from '@tevm/schemas';
 const parsedBytes18 = parseBytes18('0xffaabbccddeeffaabbccddaaeeffaaeeffbb');
 ```
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:307](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L307)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:307](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L307)
 
 ___
 
@@ -3869,7 +3869,7 @@ Safely parses a Bytes18 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:460](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L460)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:460](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L460)
 
 ___
 
@@ -3898,13 +3898,13 @@ Parses a Bytes19 and returns the value if no errors.
 **`Example`**
 
 ```ts
-import { parseBytes19 } from '@evmts/schemas';
+import { parseBytes19 } from '@tevm/schemas';
 const parsedBytes19 = parseBytes19('0xffaabbccddeeffaabbccddaaeeffaaeeffbbcc');
 ```
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:322](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L322)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:322](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L322)
 
 ___
 
@@ -3932,7 +3932,7 @@ Safely parses a Bytes19 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:484](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L484)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:484](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L484)
 
 ___
 
@@ -3960,7 +3960,7 @@ Safely parses a Bytes1 into an [Effect](https://www.effect.website/docs/essentia
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:52](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L52)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:52](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L52)
 
 ___
 
@@ -3989,13 +3989,13 @@ Parses a Bytes2 and returns the value if no errors.
 **`Example`**
 
 ```ts
-import { parseBytes2 } from '@evmts/schemas';
+import { parseBytes2 } from '@tevm/schemas';
 const parsedBytes2 = parseBytes2('0xffaa');
 ```
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:69](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L69)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:69](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L69)
 
 ___
 
@@ -4024,13 +4024,13 @@ Parses a Bytes20 and returns the value if no errors.
 **`Example`**
 
 ```ts
-import { parseBytes20 } from '@evmts/schemas';
+import { parseBytes20 } from '@tevm/schemas';
 const parsedBytes20 = parseBytes20('0xffaabbccddeeffaabbccddaaeeffaaeeffbbccdd');
 ```
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:337](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L337)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:337](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L337)
 
 ___
 
@@ -4058,7 +4058,7 @@ Safely parses a Bytes20 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:508](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L508)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:508](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L508)
 
 ___
 
@@ -4087,13 +4087,13 @@ Parses a Bytes21 and returns the value if no errors.
 **`Example`**
 
 ```ts
-import { parseBytes21 } from '@evmts/schemas';
+import { parseBytes21 } from '@tevm/schemas';
 const parsedBytes21 = parseBytes21('0xffaabbccddeeffaabbccddaaeeffaaeeffbbccddaa');
 ```
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:352](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L352)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:352](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L352)
 
 ___
 
@@ -4121,7 +4121,7 @@ Safely parses a Bytes21 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:532](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L532)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:532](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L532)
 
 ___
 
@@ -4150,13 +4150,13 @@ Parses a Bytes22 and returns the value if no errors.
 **`Example`**
 
 ```ts
-import { parseBytes22 } from '@evmts/schemas';
+import { parseBytes22 } from '@tevm/schemas';
 const parsedBytes22 = parseBytes22('0xffaabbccddeeffaabbccddaaeeffaaeeffbbccddbb');
 ```
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:367](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L367)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:367](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L367)
 
 ___
 
@@ -4184,7 +4184,7 @@ Safely parses a Bytes22 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:556](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L556)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:556](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L556)
 
 ___
 
@@ -4213,13 +4213,13 @@ Parses a Bytes23 and returns the value if no errors.
 **`Example`**
 
 ```ts
-import { parseBytes23 } from '@evmts/schemas';
+import { parseBytes23 } from '@tevm/schemas';
 const parsedBytes23 = parseBytes23('0xffaabbccddeeffaabbccddaaeeffaaeeffbbccddcc');
 ```
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:382](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L382)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:382](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L382)
 
 ___
 
@@ -4247,7 +4247,7 @@ Safely parses a Bytes23 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:580](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L580)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:580](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L580)
 
 ___
 
@@ -4276,13 +4276,13 @@ Parses a Bytes24 and returns the value if no errors.
 **`Example`**
 
 ```ts
-import { parseBytes24 } from '@evmts/schemas';
+import { parseBytes24 } from '@tevm/schemas';
 const parsedBytes24 = parseBytes24('0xffaabbccddeeffaabbccddaaeeffaaeeffbbccddccbb');
 ```
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:397](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L397)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:397](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L397)
 
 ___
 
@@ -4310,7 +4310,7 @@ Safely parses a Bytes24 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:604](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L604)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:604](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L604)
 
 ___
 
@@ -4339,13 +4339,13 @@ Parses a Bytes25 and returns the value if no errors.
 **`Example`**
 
 ```ts
-import { parseBytes25 } from '@evmts/schemas';
+import { parseBytes25 } from '@tevm/schemas';
 const parsedBytes25 = parseBytes25('0xffaabbccddeeffaabbccddaaeeffaaeeffbbccddccbbdd');
 ```
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:412](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L412)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:412](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L412)
 
 ___
 
@@ -4373,7 +4373,7 @@ Safely parses a Bytes25 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:628](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L628)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:628](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L628)
 
 ___
 
@@ -4402,13 +4402,13 @@ Parses a Bytes26 and returns the value if no errors.
 **`Example`**
 
 ```ts
-import { parseBytes26 } from '@evmts/schemas';
+import { parseBytes26 } from '@tevm/schemas';
 const parsedBytes26 = parseBytes26('0xffaabbccddeeffaabbccddaaeeffaaeeffbbccddccbbddaa');
 ```
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:427](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L427)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:427](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L427)
 
 ___
 
@@ -4436,7 +4436,7 @@ Safely parses a Bytes26 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:652](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L652)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:652](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L652)
 
 ___
 
@@ -4465,13 +4465,13 @@ Parses a Bytes27 and returns the value if no errors.
 **`Example`**
 
 ```ts
-import { parseBytes27 } from '@evmts/schemas';
+import { parseBytes27 } from '@tevm/schemas';
 const parsedBytes27 = parseBytes27('0xffaabbccddeeffaabbccddaaeeffaaeeffbbccddccbbddbb');
 ```
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:442](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L442)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:442](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L442)
 
 ___
 
@@ -4499,7 +4499,7 @@ Safely parses a Bytes27 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:676](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L676)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:676](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L676)
 
 ___
 
@@ -4528,13 +4528,13 @@ Parses a Bytes28 and returns the value if no errors.
 **`Example`**
 
 ```ts
-import { parseBytes28 } from '@evmts/schemas';
+import { parseBytes28 } from '@tevm/schemas';
 const parsedBytes28 = parseBytes28('0xffaabbccddeeffaabbccddaaeeffaaeeffbbccddccbbddbbcc');
 ```
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:456](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L456)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:456](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L456)
 
 ___
 
@@ -4562,7 +4562,7 @@ Safely parses a Bytes28 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:700](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L700)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:700](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L700)
 
 ___
 
@@ -4591,13 +4591,13 @@ Parses a Bytes29 and returns the value if no errors.
 **`Example`**
 
 ```ts
-import { parseBytes29 } from '@evmts/schemas';
+import { parseBytes29 } from '@tevm/schemas';
 const parsedBytes29 = parseBytes29('0xffaabbccddeeffaabbccddaaeeffaaeeffbbccddccbbddbbccaa');
 ```
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:471](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L471)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:471](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L471)
 
 ___
 
@@ -4625,7 +4625,7 @@ Safely parses a Bytes29 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:724](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L724)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:724](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L724)
 
 ___
 
@@ -4653,7 +4653,7 @@ Safely parses a Bytes2 into an [Effect](https://www.effect.website/docs/essentia
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:76](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L76)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:76](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L76)
 
 ___
 
@@ -4682,13 +4682,13 @@ Parses a Bytes3 and returns the value if no errors.
 **`Example`**
 
 ```ts
-import { parseBytes3 } from '@evmts/schemas';
+import { parseBytes3 } from '@tevm/schemas';
 const parsedBytes3 = parseBytes3('0xffaabb');
 ```
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:84](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L84)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:84](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L84)
 
 ___
 
@@ -4717,13 +4717,13 @@ Parses a Bytes30 and returns the value if no errors.
 **`Example`**
 
 ```ts
-import { parseBytes30 } from '@evmts/schemas';
+import { parseBytes30 } from '@tevm/schemas';
 const parsedBytes30 = parseBytes30('0xffaabbccddeeffaabbccddaaeeffaaeeffbbccddccbbddbbccaaaa');
 ```
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:486](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L486)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:486](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L486)
 
 ___
 
@@ -4751,7 +4751,7 @@ Safely parses a Bytes30 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:748](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L748)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:748](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L748)
 
 ___
 
@@ -4780,13 +4780,13 @@ Parses a Bytes31 and returns the value if no errors.
 **`Example`**
 
 ```ts
-import { parseBytes31 } from '@evmts/schemas';
+import { parseBytes31 } from '@tevm/schemas';
 const parsedBytes31 = parseBytes31('0xffaabbccddeeffaabbccddaaeeffaaeeffbbccddccbbddbbccaaaaaa');
 ```
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:501](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L501)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:501](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L501)
 
 ___
 
@@ -4814,7 +4814,7 @@ Safely parses a Bytes31 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:772](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L772)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:772](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L772)
 
 ___
 
@@ -4843,13 +4843,13 @@ Parses a Bytes32 and returns the value if no errors.
 **`Example`**
 
 ```ts
-import { parseBytes32 } from '@evmts/schemas';
+import { parseBytes32 } from '@tevm/schemas';
 const parsedBytes32 = parseBytes32('0xffaabbccddeeffaabbccddaaeeffaaeeffbbccddccbbddbbccaaaaaabb');
 ```
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:516](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L516)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:516](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L516)
 
 ___
 
@@ -4877,7 +4877,7 @@ Safely parses a Bytes32 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:796](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L796)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:796](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L796)
 
 ___
 
@@ -4905,7 +4905,7 @@ Safely parses a Bytes3 into an [Effect](https://www.effect.website/docs/essentia
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:100](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L100)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:100](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L100)
 
 ___
 
@@ -4934,13 +4934,13 @@ Parses a Bytes4 and returns the value if no errors.
 **`Example`**
 
 ```ts
-import { parseBytes4 } from '@evmts/schemas';
+import { parseBytes4 } from '@tevm/schemas';
 const parsedBytes4 = parseBytes4('0xffaabbcc');
 ```
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:99](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L99)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:99](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L99)
 
 ___
 
@@ -4968,7 +4968,7 @@ Safely parses a Bytes4 into an [Effect](https://www.effect.website/docs/essentia
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:124](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L124)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:124](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L124)
 
 ___
 
@@ -4997,13 +4997,13 @@ Parses a Bytes5 and returns the value if no errors.
 **`Example`**
 
 ```ts
-import { parseBytes5 } from '@evmts/schemas';
+import { parseBytes5 } from '@tevm/schemas';
 const parsedBytes5 = parseBytes5('0xffaabbccdd');
 ```
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:114](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L114)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:114](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L114)
 
 ___
 
@@ -5031,7 +5031,7 @@ Safely parses a Bytes5 into an [Effect](https://www.effect.website/docs/essentia
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:148](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L148)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:148](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L148)
 
 ___
 
@@ -5060,13 +5060,13 @@ Parses a Bytes6 and returns the value if no errors.
 **`Example`**
 
 ```ts
-import { parseBytes6 } from '@evmts/schemas';
+import { parseBytes6 } from '@tevm/schemas';
 const parsedBytes6 = parseBytes6('0xffaabbccddeeff');
 ```
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:128](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L128)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:128](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L128)
 
 ___
 
@@ -5094,7 +5094,7 @@ Safely parses a Bytes6 into an [Effect](https://www.effect.website/docs/essentia
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:172](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L172)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:172](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L172)
 
 ___
 
@@ -5123,13 +5123,13 @@ Parses a Bytes7 and returns the value if no errors.
 **`Example`**
 
 ```ts
-import { parseBytes7 } from '@evmts/schemas';
+import { parseBytes7 } from '@tevm/schemas';
 const parsedBytes7 = parseBytes7('0xffaabbccddeeffaa');
 ```
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:143](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L143)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:143](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L143)
 
 ___
 
@@ -5157,7 +5157,7 @@ Safely parses a Bytes7 into an [Effect](https://www.effect.website/docs/essentia
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:196](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L196)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:196](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L196)
 
 ___
 
@@ -5186,13 +5186,13 @@ Parses a Bytes8 and returns the value if no errors.
 **`Example`**
 
 ```ts
-import { parseBytes8 } from '@evmts/schemas';
+import { parseBytes8 } from '@tevm/schemas';
 const parsedBytes8 = parseBytes8('0xffaabbccddeeffaabb');
 ```
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:158](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L158)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:158](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L158)
 
 ___
 
@@ -5220,7 +5220,7 @@ Safely parses a Bytes8 into an [Effect](https://www.effect.website/docs/essentia
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:220](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L220)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:220](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L220)
 
 ___
 
@@ -5249,13 +5249,13 @@ Parses a Bytes9 and returns the value if no errors.
 **`Example`**
 
 ```ts
-import { parseBytes9 } from '@evmts/schemas';
+import { parseBytes9 } from '@tevm/schemas';
 const parsedBytes9 = parseBytes9('0xffaabbccddeeffaabbcc');
 ```
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:173](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L173)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:173](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L173)
 
 ___
 
@@ -5283,7 +5283,7 @@ Safely parses a Bytes9 into an [Effect](https://www.effect.website/docs/essentia
 
 #### Defined in
 
-[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:244](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L244)
+[schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:244](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L244)
 
 ___
 
@@ -5312,13 +5312,13 @@ Safely parses a Bytes into an [Effect](https://www.effect.website/docs/essential
 **`Example`**
 
 ```javascript
-import { parseBytesSafe } from '@evmts/schemas';
+import { parseBytesSafe } from '@tevm/schemas';
 const parsedBytesEffect = parseBytesSafe('0x1234567890abcdef1234567890abcdef12345678');
 ```
 
 #### Defined in
 
-[schemas/src/ethereum/SBytes/parseBytesSafe.js:23](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SBytes/parseBytesSafe.js#L23)
+[schemas/src/ethereum/SBytes/parseBytesSafe.js:23](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SBytes/parseBytesSafe.js#L23)
 
 ___
 
@@ -5346,7 +5346,7 @@ Safely parses an INT128 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/parseINTSafe.js:115](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/parseINTSafe.js#L115)
+[schemas/src/ethereum/SINT/parseINTSafe.js:115](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SINT/parseINTSafe.js#L115)
 
 ___
 
@@ -5374,7 +5374,7 @@ Safely parses an INT16 into an [Effect](https://www.effect.website/docs/essentia
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/parseINTSafe.js:43](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/parseINTSafe.js#L43)
+[schemas/src/ethereum/SINT/parseINTSafe.js:43](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SINT/parseINTSafe.js#L43)
 
 ___
 
@@ -5402,7 +5402,7 @@ Safely parses an INT256 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/parseINTSafe.js:139](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/parseINTSafe.js#L139)
+[schemas/src/ethereum/SINT/parseINTSafe.js:139](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SINT/parseINTSafe.js#L139)
 
 ___
 
@@ -5430,7 +5430,7 @@ Safely parses an INT32 into an [Effect](https://www.effect.website/docs/essentia
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/parseINTSafe.js:67](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/parseINTSafe.js#L67)
+[schemas/src/ethereum/SINT/parseINTSafe.js:67](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SINT/parseINTSafe.js#L67)
 
 ___
 
@@ -5458,7 +5458,7 @@ Safely parses an INT64 into an [Effect](https://www.effect.website/docs/essentia
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/parseINTSafe.js:91](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/parseINTSafe.js#L91)
+[schemas/src/ethereum/SINT/parseINTSafe.js:91](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SINT/parseINTSafe.js#L91)
 
 ___
 
@@ -5486,7 +5486,7 @@ Safely parses an INT8 into an [Effect](https://www.effect.website/docs/essential
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/parseINTSafe.js:19](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/parseINTSafe.js#L19)
+[schemas/src/ethereum/SINT/parseINTSafe.js:19](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SINT/parseINTSafe.js#L19)
 
 ___
 
@@ -5515,13 +5515,13 @@ Parses an INT128 and returns the value if no errors.
 **`Example`**
 
 ```ts
-import { parseInt128 } from '@evmts/schemas';
+import { parseInt128 } from '@tevm/schemas';
 const parsedINT128 = parseInt128(BigInt("-170141183460469231731687303715884105728"));
 ```
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/parseINT.js:88](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/parseINT.js#L88)
+[schemas/src/ethereum/SINT/parseINT.js:88](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SINT/parseINT.js#L88)
 
 ___
 
@@ -5550,13 +5550,13 @@ Parses an INT16 and returns the value if no errors.
 **`Example`**
 
 ```ts
-import { parseInt16 } from '@evmts/schemas';
+import { parseInt16 } from '@tevm/schemas';
 const parsedINT16 = parseInt16(BigInt(-32768));
 ```
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/parseINT.js:43](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/parseINT.js#L43)
+[schemas/src/ethereum/SINT/parseINT.js:43](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SINT/parseINT.js#L43)
 
 ___
 
@@ -5585,13 +5585,13 @@ Parses an INT256 and returns the value if no errors.
 **`Example`**
 
 ```ts
-import { parseInt256 } from '@evmts/schemas';
+import { parseInt256 } from '@tevm/schemas';
 const parsedINT256 = parseInt256(420n);
 ```
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/parseINT.js:103](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/parseINT.js#L103)
+[schemas/src/ethereum/SINT/parseINT.js:103](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SINT/parseINT.js#L103)
 
 ___
 
@@ -5620,13 +5620,13 @@ Parses an INT32 and returns the value if no errors.
 **`Example`**
 
 ```ts
-import { parseInt32 } from '@evmts/schemas';
+import { parseInt32 } from '@tevm/schemas';
 const parsedINT32 = parseInt32(BigInt(-2147483648));
 ```
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/parseINT.js:58](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/parseINT.js#L58)
+[schemas/src/ethereum/SINT/parseINT.js:58](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SINT/parseINT.js#L58)
 
 ___
 
@@ -5655,13 +5655,13 @@ Parses an INT64 and returns the value if no errors.
 **`Example`**
 
 ```ts
-import { parseInt64 } from '@evmts/schemas';
+import { parseInt64 } from '@tevm/schemas';
 const parsedINT64 = parseInt64(BigInt("-9223372036854775808"));
 ```
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/parseINT.js:73](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/parseINT.js#L73)
+[schemas/src/ethereum/SINT/parseINT.js:73](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SINT/parseINT.js#L73)
 
 ___
 
@@ -5690,13 +5690,13 @@ Parses an INT8 and returns the value if no errors.
 **`Example`**
 
 ```ts
-import { parseInt8 } from '@evmts/schemas';
+import { parseInt8 } from '@tevm/schemas';
 const parsedINT8 = parseInt8(BigInt(-128));
 ```
 
 #### Defined in
 
-[schemas/src/ethereum/SINT/parseINT.js:28](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SINT/parseINT.js#L28)
+[schemas/src/ethereum/SINT/parseINT.js:28](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SINT/parseINT.js#L28)
 
 ___
 
@@ -5725,13 +5725,13 @@ Parses a UINT128 and returns the value if no errors.
 **`Example`**
 
 ```ts
-import { parseUINT128 } from '@evmts/schemas';
+import { parseUINT128 } from '@tevm/schemas';
 const parsedUINT128 = parseUINT128(BigInt("170141183460469231731687303715884105727"));
 ```
 
 #### Defined in
 
-[schemas/src/ethereum/SUINT/parseUINT.js:84](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SUINT/parseUINT.js#L84)
+[schemas/src/ethereum/SUINT/parseUINT.js:84](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SUINT/parseUINT.js#L84)
 
 ___
 
@@ -5759,7 +5759,7 @@ Safely parses a UINT128 into an [Effect](https://www.effect.website/docs/essenti
 
 #### Defined in
 
-[schemas/src/ethereum/SUINT/parseUINTSafe.js:120](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SUINT/parseUINTSafe.js#L120)
+[schemas/src/ethereum/SUINT/parseUINTSafe.js:120](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SUINT/parseUINTSafe.js#L120)
 
 ___
 
@@ -5788,13 +5788,13 @@ Parses a UINT16 and returns the value if no errors.
 **`Example`**
 
 ```ts
-import { parseUINT16 } from '@evmts/schemas';
+import { parseUINT16 } from '@tevm/schemas';
 const parsedUINT16 = parseUINT16(BigInt(32767));
 ```
 
 #### Defined in
 
-[schemas/src/ethereum/SUINT/parseUINT.js:42](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SUINT/parseUINT.js#L42)
+[schemas/src/ethereum/SUINT/parseUINT.js:42](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SUINT/parseUINT.js#L42)
 
 ___
 
@@ -5822,7 +5822,7 @@ Safely parses a UINT16 into an [Effect](https://www.effect.website/docs/essentia
 
 #### Defined in
 
-[schemas/src/ethereum/SUINT/parseUINTSafe.js:49](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SUINT/parseUINTSafe.js#L49)
+[schemas/src/ethereum/SUINT/parseUINTSafe.js:49](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SUINT/parseUINTSafe.js#L49)
 
 ___
 
@@ -5851,13 +5851,13 @@ Parses a UINT256 and returns the value if no errors.
 **`Example`**
 
 ```ts
-import { parseUINT256 } from '@evmts/schemas';
+import { parseUINT256 } from '@tevm/schemas';
 const parsedUINT256 = parseUINT256('0x1234567890abcdef1234567890abcdef12345678');
 ```
 
 #### Defined in
 
-[schemas/src/ethereum/SUINT/parseUINT.js:98](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SUINT/parseUINT.js#L98)
+[schemas/src/ethereum/SUINT/parseUINT.js:98](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SUINT/parseUINT.js#L98)
 
 ___
 
@@ -5886,13 +5886,13 @@ Safely parses a UINT256 into an [Effect](https://www.effect.website/docs/essenti
 **`Example`**
 
 ```ts
-import { parseUINT256Safe } from '@evmts/schemas';
+import { parseUINT256Safe } from '@tevm/schemas';
 const parsedUINT256Effect = parseUINT256Safe('0x1234567890abcdef1234567890abcdef12345678');
 ```
 
 #### Defined in
 
-[schemas/src/ethereum/SUINT/parseUINTSafe.js:148](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SUINT/parseUINTSafe.js#L148)
+[schemas/src/ethereum/SUINT/parseUINTSafe.js:148](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SUINT/parseUINTSafe.js#L148)
 
 ___
 
@@ -5921,13 +5921,13 @@ Parses a UINT32 and returns the value if no errors.
 **`Example`**
 
 ```ts
-import { parseUINT32 } from '@evmts/schemas';
+import { parseUINT32 } from '@tevm/schemas';
 const parsedUINT32 = parseUINT32(BigInt(2147483647));
 ```
 
 #### Defined in
 
-[schemas/src/ethereum/SUINT/parseUINT.js:56](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SUINT/parseUINT.js#L56)
+[schemas/src/ethereum/SUINT/parseUINT.js:56](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SUINT/parseUINT.js#L56)
 
 ___
 
@@ -5955,7 +5955,7 @@ Safely parses a UINT32 into an [Effect](https://www.effect.website/docs/essentia
 
 #### Defined in
 
-[schemas/src/ethereum/SUINT/parseUINTSafe.js:72](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SUINT/parseUINTSafe.js#L72)
+[schemas/src/ethereum/SUINT/parseUINTSafe.js:72](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SUINT/parseUINTSafe.js#L72)
 
 ___
 
@@ -5984,13 +5984,13 @@ Parses a UINT64 and returns the value if no errors.
 **`Example`**
 
 ```ts
-import { parseUINT64 } from '@evmts/schemas';
+import { parseUINT64 } from '@tevm/schemas';
 const parsedUINT64 = parseUINT64(BigInt("9223372036854775807"));
 ```
 
 #### Defined in
 
-[schemas/src/ethereum/SUINT/parseUINT.js:70](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SUINT/parseUINT.js#L70)
+[schemas/src/ethereum/SUINT/parseUINT.js:70](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SUINT/parseUINT.js#L70)
 
 ___
 
@@ -6018,7 +6018,7 @@ Safely parses a UINT64 into an [Effect](https://www.effect.website/docs/essentia
 
 #### Defined in
 
-[schemas/src/ethereum/SUINT/parseUINTSafe.js:97](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SUINT/parseUINTSafe.js#L97)
+[schemas/src/ethereum/SUINT/parseUINTSafe.js:97](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SUINT/parseUINTSafe.js#L97)
 
 ___
 
@@ -6047,13 +6047,13 @@ Parses a UINT8 and returns the value if no errors.
 **`Example`**
 
 ```ts
-import { parseUINT8 } from '@evmts/schemas';
+import { parseUINT8 } from '@tevm/schemas';
 const parsedUINT8 = parseUINT8(BigInt(127));
 ```
 
 #### Defined in
 
-[schemas/src/ethereum/SUINT/parseUINT.js:28](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SUINT/parseUINT.js#L28)
+[schemas/src/ethereum/SUINT/parseUINT.js:28](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SUINT/parseUINT.js#L28)
 
 ___
 
@@ -6081,4 +6081,4 @@ Safely parses a UINT8 into an [Effect](https://www.effect.website/docs/essential
 
 #### Defined in
 
-[schemas/src/ethereum/SUINT/parseUINTSafe.js:26](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SUINT/parseUINTSafe.js#L26)
+[schemas/src/ethereum/SUINT/parseUINTSafe.js:26](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SUINT/parseUINTSafe.js#L26)

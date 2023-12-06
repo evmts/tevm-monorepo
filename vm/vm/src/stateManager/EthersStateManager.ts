@@ -1,7 +1,7 @@
 // This file has the same license as ethereumjs monorepo while it is still using ethers js to implement the state manager
 // It' currently copied from https://github.com/ethereumjs/ethereumjs-monorepo/blob/master/packages/statemanager/src/cache/originalStorageCache.ts
 // We want to reimplement this interface with viem
-// We will need to heavily customize this for EVMts to read from aconfigurable EVMts store
+// We will need to heavily customize this for Tevm to read from aconfigurable Tevm store
 import { Trie } from '@ethereumjs/trie'
 import {
 	Account,

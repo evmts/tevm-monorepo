@@ -51,7 +51,7 @@ export class InvalidConfigError extends TypeError {
 	 * @param {unknown} [options.cause]
 	 */
 	constructor(options) {
-		super('Invalid EVMts CompilerConfig detected', options)
+		super('Invalid Tevm CompilerConfig detected', options)
 	}
 }
 
@@ -65,7 +65,7 @@ export class InvalidConfigError extends TypeError {
  * @internal
  */
 const SCompilerConfig = struct({
-	name: optional(union(literal('@evmts/ts-plugin'), SUndefined)),
+	name: optional(union(literal('@tevm/ts-plugin'), SUndefined)),
 	foundryProject: optional(union(boolean, string, SUndefined)),
 	libs: optional(union(array(string), SUndefined)),
 	remappings: optional(union(record(string, string), SUndefined)),

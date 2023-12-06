@@ -1,8 +1,8 @@
 {
-	"name": "@evmts/revm",
+	"name": "@tevm/revm",
 	"version": "1.0.0-next.5",
 	"private": false,
-	"description": "WASM JS bindings for REVM for use in EVMts",
+	"description": "WASM JS bindings for REVM for use in Tevm",
 	"keywords": [
 		"solidity",
 		"forge",
@@ -14,13 +14,11 @@
 	],
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/evmts/evmts-monorepo.git",
+		"url": "https://github.com/evmts/tevm-monorepo.git",
 		"directory": "packages/revm"
 	},
 	"license": "MIT",
-	"contributors": [
-		"Will Cory <willcory10@gmail.com>"
-	],
+	"contributors": ["Will Cory <willcory10@gmail.com>"],
 	"type": "module",
 	"exports": {
 		"./package.json": "./package.json",
@@ -33,12 +31,7 @@
 	},
 	"main": "dist/cjs/revm.js",
 	"module": "dist/esm/revm.js",
-	"files": [
-		"dist",
-		"src",
-		"cargo.toml",
-		"Cargo.lock"
-	],
+	"files": ["dist", "src", "cargo.toml", "Cargo.lock"],
 	"scripts": {
 		"//test": "vitest --coverage",
 		"//test:coverage": "vitest run --coverage",
@@ -56,7 +49,7 @@
 		"lint:check": "rome check . --verbose"
 	},
 	"devDependencies": {
-		"@evmts/tsconfig": "workspace:^",
+		"@tevm/tsconfig": "workspace:^",
 		"@vitest/coverage-v8": "^0.34.6",
 		"@vitest/ui": "^0.34.6",
 		"abitype": "^0.10.2",

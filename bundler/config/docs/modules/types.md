@@ -1,4 +1,4 @@
-[@evmts/config](../README.md) / [Modules](../modules.md) / types
+[@tevm/config](../README.md) / [Modules](../modules.md) / types
 
 # Module: types
 
@@ -25,14 +25,14 @@ When resolved with defaults it is a [ResolvedCompilerConfig](types.md#resolvedco
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `debug?` | `boolean` | If debug is true evmts will write the .d.ts files in the ts server and publish extra debug info to a debug file |
+| `debug?` | `boolean` | If debug is true tevm will write the .d.ts files in the ts server and publish extra debug info to a debug file |
 | `foundryProject?` | `boolean` \| `string` | If set to true it will resolve forge remappings and libs Set to "path/to/forge/executable" to use a custom forge executable |
 | `libs?` | readonly `string`[] | Sets directories to search for solidity imports in Read autoamtically for forge projects if forge: true |
 | `remappings?` | `ReadonlyRecord`\<`string`\> | Remap the location of contracts |
 
 #### Defined in
 
-[bundler/config/src/types.ts:11](https://github.com/evmts/evmts-monorepo/blob/main/bundler/config/src/types.ts#L11)
+[bundler/config/src/types.ts:11](https://github.com/tevm/tevm-monorepo/blob/main/bundler/config/src/types.ts#L11)
 
 ___
 
@@ -50,7 +50,7 @@ ___
 
 #### Defined in
 
-[bundler/config/src/types.ts:35](https://github.com/evmts/evmts-monorepo/blob/main/bundler/config/src/types.ts#L35)
+[bundler/config/src/types.ts:35](https://github.com/tevm/tevm-monorepo/blob/main/bundler/config/src/types.ts#L35)
 
 ___
 
@@ -62,7 +62,7 @@ ___
 
 ▸ (`configFactory`): `Object`
 
-Creates an EVMts config
+Creates an Tevm config
 Takes a user provided configFactory
 
 ##### Parameters
@@ -82,7 +82,7 @@ Takes a user provided configFactory
 **`Example`**
 
 ```ts
-import { defineConfig } from 'evmts/config'
+import { defineConfig } from 'tevm/config'
 export default defineConfig({
 	foundryProject: true,
 		libs: ['libs/contracts'],
@@ -91,7 +91,7 @@ export default defineConfig({
 
 #### Defined in
 
-[bundler/config/src/types.ts:76](https://github.com/evmts/evmts-monorepo/blob/main/bundler/config/src/types.ts#L76)
+[bundler/config/src/types.ts:76](https://github.com/tevm/tevm-monorepo/blob/main/bundler/config/src/types.ts#L76)
 
 ___
 
@@ -101,7 +101,7 @@ ___
 
 #### Defined in
 
-[bundler/config/src/types.ts:62](https://github.com/evmts/evmts-monorepo/blob/main/bundler/config/src/types.ts#L62)
+[bundler/config/src/types.ts:62](https://github.com/tevm/tevm-monorepo/blob/main/bundler/config/src/types.ts#L62)
 
 ___
 
@@ -116,11 +116,11 @@ See [CompilerConfig](types.md#compilerconfig)
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `debug?` | `boolean` | If debug is true evmts will write the .d.ts files in the ts server and publish extra debug info to a debug file |
+| `debug?` | `boolean` | If debug is true tevm will write the .d.ts files in the ts server and publish extra debug info to a debug file |
 | `foundryProject` | `boolean` \| `string` | If set to true it will resolve forge remappings and libs Set to "path/to/forge/executable" to use a custom forge executable |
 | `libs` | readonly `string`[] | Sets directories to search for solidity imports in Read autoamtically for forge projects if forge: true |
 | `remappings` | `ReadonlyRecord`\<`string`\> | Remap the location of contracts |
 
 #### Defined in
 
-[bundler/config/src/types.ts:41](https://github.com/evmts/evmts-monorepo/blob/main/bundler/config/src/types.ts#L41)
+[bundler/config/src/types.ts:41](https://github.com/tevm/tevm-monorepo/blob/main/bundler/config/src/types.ts#L41)

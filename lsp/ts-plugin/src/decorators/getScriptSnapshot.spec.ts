@@ -1,7 +1,7 @@
 import { Logger } from '../factories/logger.js'
 import { getScriptSnapshotDecorator } from './getScriptSnapshot.js'
-import { FileAccessObject } from '@evmts/base'
-import { CompilerConfig, defaultConfig, defineConfig } from '@evmts/config'
+import { FileAccessObject } from '@tevm/base'
+import { CompilerConfig, defaultConfig, defineConfig } from '@tevm/config'
 import { runSync } from 'effect/Effect'
 import { existsSync, readFileSync } from 'fs'
 import { readFile } from 'fs/promises'
@@ -106,19 +106,19 @@ describe(getScriptSnapshotDecorator.name, () => {
 		const fileName = path.join(__dirname, '../test/fixtures/HelloWorld2.sol')
 		const result = decorator.getScriptSnapshot(fileName)
 		expect((result as any).text).toMatchInlineSnapshot(`
-			"import { EvmtsContract } from '@evmts/core'
+			"import { TevmContract } from '@tevm/core'
 			const _abiHelloWorld = [\\"function greet() pure returns (string)\\"] as const;
 			const _nameHelloWorld = \\"HelloWorld\\" as const;
 			/**
-			 * HelloWorld EvmtsContract
+			 * HelloWorld TevmContract
 			 */
-			export const HelloWorld: EvmtsContract<typeof _nameHelloWorld, typeof _abiHelloWorld, undefined, undefined>;
+			export const HelloWorld: TevmContract<typeof _nameHelloWorld, typeof _abiHelloWorld, undefined, undefined>;
 			const _abiHelloWorld2 = [\\"function greet2() pure returns (string)\\"] as const;
 			const _nameHelloWorld2 = \\"HelloWorld2\\" as const;
 			/**
-			 * HelloWorld2 EvmtsContract
+			 * HelloWorld2 TevmContract
 			 */
-			export const HelloWorld2: EvmtsContract<typeof _nameHelloWorld2, typeof _abiHelloWorld2, undefined, undefined>;"
+			export const HelloWorld2: TevmContract<typeof _nameHelloWorld2, typeof _abiHelloWorld2, undefined, undefined>;"
 		`)
 	})
 	it('should handle resolveDts throwing', () => {

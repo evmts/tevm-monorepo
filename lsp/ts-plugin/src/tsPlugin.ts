@@ -7,8 +7,8 @@ import {
 import { createFileAccessObject } from './factories/fileAccessObject.js'
 import { createLogger, decorateHost } from './factories/index.js'
 import { isSolidity } from './utils/index.js'
-import { createCache } from '@evmts/base'
-import { loadConfig } from '@evmts/config'
+import { createCache } from '@tevm/base'
+import { loadConfig } from '@tevm/config'
 import { runSync } from 'effect/Effect'
 import typescript from 'typescript/lib/tsserverlibrary.js'
 
@@ -17,7 +17,7 @@ import typescript from 'typescript/lib/tsserverlibrary.js'
  * @example
  * ```json
  * {
- *   "plugins": [{ "name": "evmts-ts-plugin"}]
+ *   "plugins": [{ "name": "tevm-ts-plugin"}]
  * }
  * @see https://github.com/microsoft/TypeScript/wiki/Writing-a-Language-Service-Plugin#decorator-creation
  */

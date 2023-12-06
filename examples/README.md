@@ -1,6 +1,6 @@
 # examples/
 
-Example apps for Evmts
+Example apps for Tevm
 
 ## [examples/esbuild/](/examples/esbuild/)
 

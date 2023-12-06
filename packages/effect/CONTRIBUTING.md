@@ -1,6 +1,6 @@
-## Contributing to @evmts/effect
+## Contributing to @tevm/effect
 
-Evmts config is low level wrapper around effect
+Tevm config is low level wrapper around effect
 
 ## Installing node modules
 
@@ -30,15 +30,15 @@ pnpm i
 bun build
 ```
 
-By default evmts/effect needs no build because it's written in JavaScript with jsdoc comments for types. It does build the following:
+By default tevm/effect needs no build because it's written in JavaScript with jsdoc comments for types. It does build the following:
 
 `bun run build`
 
 #### ESM no build
 
-`@evmts` is written in javascript with jsdoc so it's `esm` build does not need to be built. This means any user using modern `esm` will be using the same src code in their node_modules as what is here.
+`@tevm` is written in javascript with jsdoc so it's `esm` build does not need to be built. This means any user using modern `esm` will be using the same src code in their node_modules as what is here.
 
-This means all evmts packages run without being built by default and the same src code is shipped to most users
+This means all tevm packages run without being built by default and the same src code is shipped to most users
 
 - [src/index.js](./src/index.js) - the entrypoint to the package
 
@@ -50,8 +50,8 @@ The types are built to cache their result for end users.
 bun build:types
 ```
 
-- [tsconfig](./tsconfig.json) - @evmts/effect tsconfig
-- [@evmts/tsconfig](../tsconfig/base.json) - base tsconfig inherited from
+- [tsconfig](./tsconfig.json) - @tevm/effect tsconfig
+- [@tevm/tsconfig](../tsconfig/base.json) - base tsconfig inherited from
 
 ## Running tests
 
@@ -59,7 +59,7 @@ bun build:types
 bun run test
 ```
 
-`@evmts/effect` has >99% test coverage. Run the tests with `bun run test`
+`@tevm/effect` has >99% test coverage. Run the tests with `bun run test`
 
 Note `bun test` will run bun instead of [vitest](https://vitest.dev) resulting in errors
 
@@ -145,11 +145,11 @@ All functions return a type `Effect<never, MyFunctionNameError | never, ReturnTy
 
 #### Return Types
 
-Most apps rely on type infering return types. Because it's important for library code like EVMts to stay stable as a best practice return types of functions are always explicitly typed
+Most apps rely on type infering return types. Because it's important for library code like Tevm to stay stable as a best practice return types of functions are always explicitly typed
 
 #### JavaScript with JSDOC
 
-Typescript is used in EVMts for test code and dev scripts. But any source code is written with JavaScript with 0 build transpilation steps. Sometimes types will also be imported from [src/types.ts](./src/types.ts) which is where types can be placed if they are too tedious to write in jsdoc.
+Typescript is used in Tevm for test code and dev scripts. But any source code is written with JavaScript with 0 build transpilation steps. Sometimes types will also be imported from [src/types.ts](./src/types.ts) which is where types can be placed if they are too tedious to write in jsdoc.
 
 For examples of how to use jsdoc it is recomended to look at other examples.  Ai tools are very good at jsdoc. But here are some basics to get you started
 
@@ -220,12 +220,12 @@ Since documentation is generated from jsdoc it is recomended to add jsdoc docume
 
 ```typescript
 /**
- * Loads an EVMts config from the given path
+ * Loads an Tevm config from the given path
  * @param {string} configFilePath
  * @returns {import("effect/Effect").Effect<never, LoadConfigError, import("./types.js").ResolvedCompilerConfig>}
  * @example
  * import {tap} from 'effect/Effect'
- * import {loadConfig} from '@evmts/config'
+ * import {loadConfig} from '@tevm/config'
  *
  * runPromise(loadConfig('./tsconfig.json')).pipe(
  *   tap(config => console.log(config))

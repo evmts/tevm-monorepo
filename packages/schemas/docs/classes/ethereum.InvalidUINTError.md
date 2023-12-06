@@ -1,4 +1,4 @@
-[@evmts/schemas](../README.md) / [Modules](../modules.md) / [ethereum](../modules/ethereum.md) / InvalidUINTError
+[@tevm/schemas](../README.md) / [Modules](../modules.md) / [ethereum](../modules/ethereum.md) / InvalidUINTError
 
 # Class: InvalidUINTError
 
@@ -59,7 +59,7 @@ TypeError.constructor
 
 #### Defined in
 
-[packages/schemas/src/ethereum/SUINT/Errors.js:28](https://github.com/evmts/evmts-monorepo/blob/main/packages/schemas/src/ethereum/SUINT/Errors.js#L28)
+[packages/schemas/src/ethereum/SUINT/Errors.js:28](https://github.com/tevm/tevm-monorepo/blob/main/packages/schemas/src/ethereum/SUINT/Errors.js#L28)
 
 ## Properties
 
@@ -73,7 +73,7 @@ TypeError.cause
 
 #### Defined in
 
-[packages/schemas/src/ethereum/SUINT/Errors.js:38](https://github.com/evmts/evmts-monorepo/blob/main/packages/schemas/src/ethereum/SUINT/Errors.js#L38)
+[packages/schemas/src/ethereum/SUINT/Errors.js:38](https://github.com/tevm/tevm-monorepo/blob/main/packages/schemas/src/ethereum/SUINT/Errors.js#L38)
 
 ___
 

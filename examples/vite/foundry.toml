@@ -1,5 +1,5 @@
 [profile.default]
-# Keep this version in sync with package.json and evmts.config.ts
+# Keep this version in sync with package.json and tevm.config.ts
 solc = "0.8.19"
 src = "src/contracts"
 test = "test"

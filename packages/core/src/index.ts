@@ -1,5 +1,5 @@
-export type { EvmtsContract } from './EvmtsContract'
-export { evmtsContractFactory } from './evmtsContractFactory'
+export type { TevmContract } from './TevmContract'
+export { createTevmContract } from './createTevmContract'
 // reexported because they are needed to be able to
-// instanciate an EvmtsContract with a json abi
+// instanciate an TevmContract with a json abi
 export { formatAbi, parseAbi } from 'abitype'

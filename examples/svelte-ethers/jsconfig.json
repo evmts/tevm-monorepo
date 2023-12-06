@@ -2,9 +2,9 @@
 	"extends": "./.svelte-kit/tsconfig.json",
 	"compilerOptions": {
 		"plugins": [
-      {
-        "name": "@evmts/ts-plugin"
-      }
+			{
+				"name": "@tevm/ts-plugin"
+			}
 		],
 		"allowJs": true,
 		"checkJs": true,

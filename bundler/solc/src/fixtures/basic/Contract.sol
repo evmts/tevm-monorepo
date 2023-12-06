@@ -4,16 +4,17 @@ pragma solidity >0.8.16;
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/utils/Base64.sol";
+
 // import "this shouldn't be imorted";
 
 /// @author Wagmi
-/// @author EVMts
+/// @author Tevm
 /// @title  WagmiMintExample
 /// @notice An example token original from the wagmi template
 contract WagmiMintExample is ERC721 {
     uint256 public totalSupply;
 
-// import "@openzeppelin/contracts/utils/Base64.sol";
+    // import "@openzeppelin/contracts/utils/Base64.sol";
     uint256 private nextTokenId = 0;
 
     constructor() ERC721("wagmi", "WAGMI") {}

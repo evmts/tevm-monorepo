@@ -1,4 +1,4 @@
-import type { EVMts } from '../evmts.js'
+import type { Tevm } from '../tevm.js'
 import { putAccountHandler } from './putAccount.js'
 import { runCallHandler } from './runCall.js'
 import type { Log } from '@ethereumjs/evm'
@@ -33,7 +33,7 @@ export const RunContractCallActionValidator = z.object({
 })
 
 /**
- * EVMts action to execute a call on a contract
+ * Tevm action to execute a call on a contract
  */
 export type RunContractCallAction<
 	TAbi extends Abi | readonly unknown[] = Abi,
@@ -62,7 +62,7 @@ export const runContractCallHandler = async <
 	TAbi extends Abi | readonly unknown[] = Abi,
 	TFunctionName extends string = string,
 >(
-	evmts: EVMts,
+	tevm: Tevm,
 	{
 		abi,
 		args,
@@ -73,13 +73,13 @@ export const runContractCallHandler = async <
 	}: RunContractCallAction<TAbi, TFunctionName>,
 ): Promise<RunContractCallResult<TAbi, TFunctionName>> => {
 	if (caller === defaultCaller) {
-		await putAccountHandler(evmts, {
+		await putAccountHandler(tevm, {
 			account: defaultCaller,
 			balance: BigInt(0x11111111),
 		})
 	}
 
-	const result = await runCallHandler(evmts, {
+	const result = await runCallHandler(tevm, {
 		to: contractAddress,
 		caller: caller,
 		origin: caller,

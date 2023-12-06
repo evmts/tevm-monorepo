@@ -1,6 +1,6 @@
 import { createHostDecorator } from '../factories/index.js'
 import { isSolidity } from '../utils/index.js'
-import { Cache, bundler } from '@evmts/base'
+import { Cache, bundler } from '@tevm/base'
 import { existsSync, writeFileSync } from 'fs'
 // @ts-expect-error
 import * as solc from 'solc'
@@ -35,13 +35,13 @@ export const getScriptSnapshotDecorator = (solcCache?: Cache) =>
 					if (config.debug) {
 						writeFileSync(
 							`${filePath}.debug.d.ts`,
-							`// Debug: the following snapshot is what evmts resolves ${filePath} to\n${snapshot.code}`,
+							`// Debug: the following snapshot is what tevm resolves ${filePath} to\n${snapshot.code}`,
 						)
 					}
 					return ts.ScriptSnapshot.fromString(snapshot.code)
 				} catch (e) {
 					logger.error(
-						`@evmts/ts-plugin: getScriptSnapshotDecorator was unable to resolve dts for ${filePath}`,
+						`@tevm/ts-plugin: getScriptSnapshotDecorator was unable to resolve dts for ${filePath}`,
 					)
 					logger.error(e as any)
 					return ts.ScriptSnapshot.fromString('export {}')

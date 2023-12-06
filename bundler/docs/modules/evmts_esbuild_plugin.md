@@ -1,18 +1,18 @@
-[Documentation](../README.md) / [Modules](../modules.md) / @evmts/esbuild-plugin
+[Documentation](../README.md) / [Modules](../modules.md) / @tevm/esbuild-plugin
 
-# Module: @evmts/esbuild-plugin
+# Module: @tevm/esbuild-plugin
 
 ## Table of contents
 
 ### Functions
 
-- [esbuildPluginEvmts](evmts_esbuild_plugin.md#esbuildpluginevmts)
+- [esbuildPluginTevm](tevm_esbuild_plugin.md#esbuildplugintevm)
 
 ## Functions
 
-### esbuildPluginEvmts
+### esbuildPluginTevm
 
-▸ **esbuildPluginEvmts**(`options?`): `Plugin`
+▸ **esbuildPluginTevm**(`options?`): `Plugin`
 
 #### Parameters
 

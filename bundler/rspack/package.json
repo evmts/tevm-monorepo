@@ -1,24 +1,16 @@
 {
-	"name": "@evmts/rspack-plugin",
+	"name": "@tevm/rspack-plugin",
 	"version": "1.0.0-next.19",
 	"private": false,
-	"description": "An (experimental) rspack plugin for evmts",
-	"keywords": [
-		"rspack",
-		"plugin",
-		"solidity",
-		"sol",
-		"evmts"
-	],
+	"description": "An (experimental) rspack plugin for tevm",
+	"keywords": ["rspack", "plugin", "solidity", "sol", "tevm"],
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/evmts/evmts-monorepo.git",
+		"url": "https://github.com/evmts/tevm-monorepo.git",
 		"directory": "bundler/rspack"
 	},
 	"license": "MIT",
-	"contributors": [
-		"Will Cory <willcory10@gmail.com>"
-	],
+	"contributors": ["Will Cory <willcory10@gmail.com>"],
 	"type": "module",
 	"exports": {
 		"./package.json": "./package.json",
@@ -32,13 +24,9 @@
 	"main": "dist/index.cjs",
 	"module": "src/index.js",
 	"types": "types/index.d.ts",
-	"files": [
-		"dist",
-		"types",
-		"src"
-	],
+	"files": ["dist", "types", "src"],
 	"scripts": {
-		"build": "nx run-many --targets=build:dist,build:types --projects=@evmts/rspack-plugin ",
+		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/rspack-plugin ",
 		"build:dist": "bun run tsup",
 		"build:types": "bun run tsc --emitDeclarationOnly --declaration --declarationMap",
 		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
@@ -52,10 +40,10 @@
 		"test:ui": "vitest --ui"
 	},
 	"dependencies": {
-		"@evmts/unplugin": "workspace:^"
+		"@tevm/unplugin": "workspace:^"
 	},
 	"devDependencies": {
-		"@evmts/tsconfig": "workspace:^",
+		"@tevm/tsconfig": "workspace:^",
 		"@vitest/ui": "^0.34.6",
 		"rome": "^12.1.3",
 		"tsup": "^7.2.0",

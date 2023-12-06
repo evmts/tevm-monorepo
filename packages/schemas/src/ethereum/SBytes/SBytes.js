@@ -11,7 +11,7 @@ import { isHex } from 'viem'
  * @typedef {`0x${string}`} Bytes
  * @example
  * ```javascript
- * import { Bytes } from '@evmts/schemas';
+ * import { Bytes } from '@tevm/schemas';
  * const hex = '0x1234567890abcdef1234567890abcdef12345678' as const satisfies Bytes;
  * ```
  */
@@ -31,7 +31,7 @@ export const SBytes =
 		string.pipe(
 			filter(isHex, {
 				message: (value) => `Invalid hex value: ${value}
-See https://evmts.dev/reference/errors for more information.`,
+See https://tevm.dev/reference/errors for more information.`,
 			}),
 		)
 	)

@@ -1,5 +1,5 @@
 ---
-"@evmts/ts-plugin": patch
+"@tevm/ts-plugin": patch
 ---
 
-Updated @evmts/ts-plugin to NodeNext. This will improve compatibility
+Updated @tevm/ts-plugin to NodeNext. This will improve compatibility

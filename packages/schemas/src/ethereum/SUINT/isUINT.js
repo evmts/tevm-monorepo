@@ -1,5 +1,5 @@
 /**
- * @module @evmts/schemas/ethereum/SUINT/isUINT.js
+ * @module @tevm/schemas/ethereum/SUINT/isUINT.js
  * @description Type guards for Solidity UINT type
  * @author William Cory <willcory10@gmail.com>
  */
@@ -21,7 +21,7 @@ import { isRight } from 'effect/Either'
  * @returns {boolean}
  * @example
  * ```ts
- * import { isUINT8 } from '@evmts/schemas';
+ * import { isUINT8 } from '@tevm/schemas';
  * isUINT8(BigInt(127));  // true
  * isUINT8(BigInt(256));  // false
  * ````
@@ -35,7 +35,7 @@ export const isUINT8 = (uint8) => {
  * @returns {boolean}
  * @example
  * ```ts
- * import { isUINT16 } from '@evmts/schemas';
+ * import { isUINT16 } from '@tevm/schemas';
  * isUINT16(BigInt(32767));  // true
  * isUINT16(BigInt(65536));  // false
  * ````
@@ -49,7 +49,7 @@ export const isUINT16 = (uint16) => {
  * @returns {boolean}
  * @example
  * ```ts
- * import { isUINT32 } from '@evmts/schemas';
+ * import { isUINT32 } from '@tevm/schemas';
  * isUINT32(BigInt(2147483647));  // true
  * isUINT32(BigInt(4294967296));  // false
  * ````
@@ -63,7 +63,7 @@ export const isUINT32 = (uint32) => {
  * @returns {boolean}
  * @example
  * ```ts
- * import { isUINT64 } from '@evmts/schemas';
+ * import { isUINT64 } from '@tevm/schemas';
  * isUINT64(BigInt("9223372036854775807"));  // true
  * isUINT64(BigInt("18446744073709551616"));  // false
  * ````
@@ -77,7 +77,7 @@ export const isUINT64 = (uint64) => {
  * @returns {boolean}
  * @example
  * ```ts
- * import { isUINT128 } from '@evmts/schemas';
+ * import { isUINT128 } from '@tevm/schemas';
  * isUINT128(BigInt("170141183460469231731687303715884105727"));  // true
  * isUINT128(BigInt("340282366920938463463374607431768211456"));  // false
  * ````
@@ -91,7 +91,7 @@ export const isUINT128 = (uint128) => {
  * @returns {boolean}
  * @example
  * ```ts
- * import { isUINT256 } from '@evmts/schemas';
+ * import { isUINT256 } from '@tevm/schemas';
  * isUINT256(BigInt("115792089237316195423570985008687907853269984665640564039457584007913129639935"));  // true
  * isUINT256(BigInt("231584178474632390847141970017375815706539969331281128078915168015826259279872"));  // false
  * ````

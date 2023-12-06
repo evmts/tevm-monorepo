@@ -5,7 +5,7 @@ import {
 	InvalidTsConfigError,
 	loadTsConfig,
 } from './loadTsConfig.js'
-import { ParseJsonError } from '@evmts/effect'
+import { ParseJsonError } from '@tevm/effect'
 import { runSync } from 'effect/Effect'
 import { join } from 'path'
 
@@ -23,7 +23,7 @@ describe(loadTsConfig.name, () => {
 			    },
 			    "plugins": [
 			      {
-			        "name": "@evmts/ts-plugin",
+			        "name": "@tevm/ts-plugin",
 			      },
 			    ],
 			  },
@@ -38,7 +38,7 @@ describe(loadTsConfig.name, () => {
 			  "compilerOptions": {
 			    "plugins": [
 			      {
-			        "name": "@evmts/ts-plugin",
+			        "name": "@tevm/ts-plugin",
 			      },
 			    ],
 			  },
@@ -53,7 +53,7 @@ describe(loadTsConfig.name, () => {
 			  "compilerOptions": {
 			    "plugins": [
 			      {
-			        "name": "@evmts/ts-plugin",
+			        "name": "@tevm/ts-plugin",
 			      },
 			    ],
 			  },

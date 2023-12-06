@@ -1,4 +1,4 @@
-[@evmts/schemas](/reference/schemas/README.md) / [Modules](/reference/schemas/modules.md) / [common](/reference/schemas/modules/common.md) / InvalidBlockNumberError
+[@tevm/schemas](/reference/schemas/README.md) / [Modules](/reference/schemas/modules.md) / [common](/reference/schemas/modules/common.md) / InvalidBlockNumberError
 
 # Class: InvalidBlockNumberError
 
@@ -54,7 +54,7 @@ TypeError.constructor
 
 #### Defined in
 
-[schemas/src/common/SBlockNumber.js:62](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/common/SBlockNumber.js#L62)
+[schemas/src/common/SBlockNumber.js:62](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/common/SBlockNumber.js#L62)
 
 ## Properties
 
@@ -68,7 +68,7 @@ TypeError.cause
 
 #### Defined in
 
-[schemas/src/common/SBlockNumber.js:69](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/common/SBlockNumber.js#L69)
+[schemas/src/common/SBlockNumber.js:69](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/common/SBlockNumber.js#L69)
 
 ___
 

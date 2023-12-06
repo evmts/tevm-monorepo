@@ -1,5 +1,5 @@
 /**
- * @module @evmts/schemas/ethereum/SINT/parseINTSafe.js
+ * @module @tevm/schemas/ethereum/SINT/parseINTSafe.js
  * @description Effect parser for Solidity INT
  * @author William Cory <willcory10@gmail.com>
  */

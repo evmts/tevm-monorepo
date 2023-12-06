@@ -1,5 +1,5 @@
 /**
- * @module @evmts/schemas/ethereum/SINT/SINT.js
+ * @module @tevm/schemas/ethereum/SINT/SINT.js
  * @description Types and validators for Solidity INT
  * @author William Cory <willcory10@gmail.com>
  */

@@ -1,4 +1,4 @@
-[@evmts/bundler](/reference/bundler/README.md) / [Modules](/reference/bundler/modules.md) / bundler
+[@tevm/bundler](/reference/bundler/README.md) / [Modules](/reference/bundler/modules.md) / bundler
 
 # Module: bundler
 
@@ -44,4 +44,4 @@
 
 #### Defined in
 
-[types.ts:32](https://github.com/evmts/evmts-monorepo/blob/main/bundlers/bundler/src/types.ts#L32)
+[types.ts:32](https://github.com/evmts/tevm-monorepo/blob/main/bundlers/bundler/src/types.ts#L32)

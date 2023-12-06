@@ -63,7 +63,7 @@ export class InvalidAddressBookError extends TypeError {
 	 */
 	constructor({
 		message = 'Address book is invalid',
-		docs = 'https://evmts.dev/reference/errors',
+		docs = 'https://tevm.dev/reference/errors',
 		cause,
 	} = {}) {
 		super(`${InvalidAddressBookError.name}: ${message}\n${docs}`)
@@ -78,7 +78,7 @@ export class InvalidAddressBookError extends TypeError {
  * @returns {Effect.Effect<never, InvalidAddressBookError, TAddressBook>}
  * @example
  * ```typescript
- * import {parseAddressBookSafe} from '@evmts/schemas'
+ * import {parseAddressBookSafe} from '@tevm/schemas'
  * const parsedAddressBookEffect = parseAddressBookSafe({
  *   MyContract: {
  *     blockCreated: 0,
@@ -109,7 +109,7 @@ export const parseAddressBookSafe = (addressBook) => {
  * @returns {TAddressBook}
  * @example
  * ```typescript
- * import {parseAddressBook} from '@evmts/schemas'
+ * import {parseAddressBook} from '@tevm/schemas'
  * const parsedAddressBook = parseAddressBook({
  *   MyContract: {
  *     blockCreated: 0,

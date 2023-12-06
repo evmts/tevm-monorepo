@@ -13,30 +13,30 @@ How to configure vite to bundle your solidity files in vite and vitest
 ::: code-group
 
 ```bash [npm]
-npm install @evmts/vite --save-dev
+npm install @tevm/vite --save-dev
 ```
 
 ```bash [pnpm]
-pnpm install @evmts/vite --save-dev
+pnpm install @tevm/vite --save-dev
 ```
 
 ```bash [yarn]
-yarn add @evmts/vite -D
+yarn add @tevm/vite -D
 ```
 
-::: 
+:::
 
 ## 2. Add to vite.config.ts
 
-Add to vite.config.ts.  The vite config takes no options.  For custom configuration add a [evmts.config.ts](../reference/config.md)
+Add to vite.config.ts.  The vite config takes no options.  For custom configuration add a [tevm.config.ts](../reference/config.md)
 
 ```typescript vite.config.ts
-import { vitePluginEvmts } from '@evmts/vite-plugin'
+import { vitePluginTevm } from '@tevm/vite-plugin'
 import { defineConfig } from 'vite'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-	plugins: [vitePluginEvmts()],
+	plugins: [vitePluginTevm()],
 })
 ```
 

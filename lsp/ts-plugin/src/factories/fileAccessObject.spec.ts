@@ -26,7 +26,7 @@ describe('createFileAccessObject', () => {
 		expect(
 			fileAccessObject.readFile('test.ts', 'utf8'),
 		).rejects.toThrowErrorMatchingInlineSnapshot(
-			'"@evmts/ts-plugin: unable to read file test.ts"',
+			'"@tevm/ts-plugin: unable to read file test.ts"',
 		)
 	})
 
@@ -53,6 +53,6 @@ describe('createFileAccessObject', () => {
 
 		expect(() => {
 			fileAccessObject.readFileSync('test.ts', 'utf8')
-		}).toThrow('@evmts/ts-plugin: unable to read file test.ts')
+		}).toThrow('@tevm/ts-plugin: unable to read file test.ts')
 	})
 })

@@ -1,4 +1,4 @@
-[@evmts/solc](../README.md) / [Modules](../modules.md) / solc
+[@tevm/solc](../README.md) / [Modules](../modules.md) / solc
 
 # Module: solc
 
@@ -22,7 +22,7 @@
 
 #### Defined in
 
-[solc/src/solc.js:7](https://github.com/evmts/evmts-monorepo/blob/main/bundler/solc/src/solc.js#L7)
+[solc/src/solc.js:7](https://github.com/tevm/tevm-monorepo/blob/main/bundler/solc/src/solc.js#L7)
 
 ___
 
@@ -32,7 +32,7 @@ ___
 
 #### Defined in
 
-[solc/src/solc.js:12](https://github.com/evmts/evmts-monorepo/blob/main/bundler/solc/src/solc.js#L12)
+[solc/src/solc.js:12](https://github.com/tevm/tevm-monorepo/blob/main/bundler/solc/src/solc.js#L12)
 
 ## Functions
 
@@ -54,7 +54,7 @@ An instance of solc
 
 #### Defined in
 
-[solc/src/solc.js:135](https://github.com/evmts/evmts-monorepo/blob/main/bundler/solc/src/solc.js#L135)
+[solc/src/solc.js:135](https://github.com/tevm/tevm-monorepo/blob/main/bundler/solc/src/solc.js#L135)
 
 ___
 
@@ -77,4 +77,4 @@ Typesafe wrapper around solc.compile
 
 #### Defined in
 
-[solc/src/solc.js:127](https://github.com/evmts/evmts-monorepo/blob/main/bundler/solc/src/solc.js#L127)
+[solc/src/solc.js:127](https://github.com/tevm/tevm-monorepo/blob/main/bundler/solc/src/solc.js#L127)

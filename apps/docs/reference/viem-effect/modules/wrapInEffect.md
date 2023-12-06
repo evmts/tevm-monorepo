@@ -1,4 +1,4 @@
-[@evmts/viem-effect](/reference/viem-effect/README.md) / [Modules](/reference/viem-effect/modules.md) / wrapInEffect
+[@tevm/viem-effect](/reference/viem-effect/README.md) / [Modules](/reference/viem-effect/modules.md) / wrapInEffect
 
 # Module: wrapInEffect
 
@@ -42,7 +42,7 @@
 
 #### Defined in
 
-[viem-effect/src/wrapInEffect.d.ts:4](https://github.com/evmts/evmts-monorepo/blob/main/viem-effect/src/wrapInEffect.d.ts#L4)
+[viem-effect/src/wrapInEffect.d.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/viem-effect/src/wrapInEffect.d.ts#L4)
 
 ___
 
@@ -79,7 +79,7 @@ ___
 
 #### Defined in
 
-[viem-effect/src/wrapInEffect.d.ts:11](https://github.com/evmts/evmts-monorepo/blob/main/viem-effect/src/wrapInEffect.d.ts#L11)
+[viem-effect/src/wrapInEffect.d.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/viem-effect/src/wrapInEffect.d.ts#L11)
 
 ## Functions
 
@@ -106,4 +106,4 @@ ___
 
 #### Defined in
 
-[viem-effect/src/wrapInEffect.d.ts:4](https://github.com/evmts/evmts-monorepo/blob/main/viem-effect/src/wrapInEffect.d.ts#L4)
+[viem-effect/src/wrapInEffect.d.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/viem-effect/src/wrapInEffect.d.ts#L4)

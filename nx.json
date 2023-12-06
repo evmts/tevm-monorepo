@@ -1,5 +1,5 @@
 {
-	"defaultProject": "@evmts/example-vite",
+	"defaultProject": "@tevm/example-vite",
 	"tasksRunnerOptions": {
 		"default": {
 			"runner": "nx-cloud",

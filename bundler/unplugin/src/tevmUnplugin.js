@@ -1,6 +1,6 @@
-import { bundler, createCache } from '@evmts/base'
-import { loadConfig } from '@evmts/config'
-import { createSolc, releases } from '@evmts/solc'
+import { bundler, createCache } from '@tevm/base'
+import { loadConfig } from '@tevm/config'
+import { createSolc, releases } from '@tevm/solc'
 import { runSync } from 'effect/Effect'
 import { existsSync, readFileSync } from 'fs'
 import { readFile } from 'fs/promises'
@@ -14,7 +14,7 @@ const defaultVersion = defaultSolc
 	.slice(0, defaultSolc.version().indexOf('+'))
 
 /**
- * @typedef {import("@evmts/solc").SolcVersions} SolcVersions
+ * @typedef {import("@tevm/solc").SolcVersions} SolcVersions
  */
 
 /**
@@ -41,9 +41,9 @@ const bundlers = {
 /**
  * @type {import("unplugin").UnpluginFactory<{solc?: CompilerOption } | undefined, false>}
  */
-export const evmtsUnplugin = (options = {}) => {
+export const tevmUnplugin = (options = {}) => {
 	/**
-	 * @type {import("@evmts/config").ResolvedCompilerConfig}
+	 * @type {import("@tevm/config").ResolvedCompilerConfig}
 	 */
 	let config
 
@@ -51,7 +51,7 @@ export const evmtsUnplugin = (options = {}) => {
 	const parsedSolcVersion = compilerOptionValidator.safeParse(options.solc)
 	if (!parsedSolcVersion.success) {
 		console.error(parsedSolcVersion.error)
-		throw new Error(`Invalid solc compiler passed to EVMts plugin'`)
+		throw new Error(`Invalid solc compiler passed to Tevm plugin'`)
 	}
 
 	const bundler = bundlers.solc
@@ -61,7 +61,7 @@ export const evmtsUnplugin = (options = {}) => {
 	let moduleResolver
 
 	/**
-	 * @type {import("@evmts/base").FileAccessObject}
+	 * @type {import("@tevm/base").FileAccessObject}
 	 */
 	const fao = {
 		existsSync,
@@ -72,7 +72,7 @@ export const evmtsUnplugin = (options = {}) => {
 	const solcCache = createCache(console)
 
 	return {
-		name: '@evmts/rollup-plugin',
+		name: '@tevm/rollup-plugin',
 		enforce: 'pre',
 		async buildStart() {
 			config = runSync(loadConfig(process.cwd()))
@@ -92,13 +92,13 @@ export const evmtsUnplugin = (options = {}) => {
 		},
 		async resolveId(id, importer) {
 			// to handle the case where the import is coming from a node_module or a different workspace
-			// we need to always point @evmts/core to the local version
+			// we need to always point @tevm/core to the local version
 			if (
-				id.startsWith('@evmts/core') &&
+				id.startsWith('@tevm/core') &&
 				!importer?.startsWith(process.cwd()) &&
 				!importer?.includes('node_modules')
 			) {
-				return createRequire(`${process.cwd()}/`).resolve('@evmts/core')
+				return createRequire(`${process.cwd()}/`).resolve('@tevm/core')
 			}
 			return null
 		},

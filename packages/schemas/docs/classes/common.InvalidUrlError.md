@@ -1,4 +1,4 @@
-[@evmts/schemas](../README.md) / [Modules](../modules.md) / [common](../modules/common.md) / InvalidUrlError
+[@tevm/schemas](../README.md) / [Modules](../modules.md) / [common](../modules/common.md) / InvalidUrlError
 
 # Class: InvalidUrlError
 
@@ -57,7 +57,7 @@ TypeError.constructor
 
 #### Defined in
 
-[packages/schemas/src/common/SUrl.js:69](https://github.com/evmts/evmts-monorepo/blob/main/packages/schemas/src/common/SUrl.js#L69)
+[packages/schemas/src/common/SUrl.js:69](https://github.com/tevm/tevm-monorepo/blob/main/packages/schemas/src/common/SUrl.js#L69)
 
 ## Properties
 
@@ -71,7 +71,7 @@ TypeError.cause
 
 #### Defined in
 
-[packages/schemas/src/common/SUrl.js:76](https://github.com/evmts/evmts-monorepo/blob/main/packages/schemas/src/common/SUrl.js#L76)
+[packages/schemas/src/common/SUrl.js:76](https://github.com/tevm/tevm-monorepo/blob/main/packages/schemas/src/common/SUrl.js#L76)
 
 ___
 

@@ -1,5 +1,5 @@
 ---
-"@evmts/rollup-plugin": patch
+"@tevm/rollup-plugin": patch
 ---
 
-Migrated @evmts/rollup-plugin to NodeNext. This will improve compatibility
+Migrated @tevm/rollup-plugin to NodeNext. This will improve compatibility

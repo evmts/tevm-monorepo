@@ -1,6 +1,6 @@
-[@evmts/base](README.md) / Modules
+[@tevm/base](README.md) / Modules
 
-# @evmts/base
+# @tevm/base
 
 ## Table of contents
 

@@ -1,26 +1,21 @@
 {
 	"private": true,
-	"name": "@evmts/vscode",
+	"name": "@tevm/vscode",
 	"version": "0.0.1",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/evmts/evmts-monorepo.git",
+		"url": "https://github.com/evmts/tevm-monorepo.git",
 		"directory": "lsp/vscode"
 	},
-	"categories": [
-		"Programming Languages"
-	],
-	"displayName": "EVMts Language Features",
-	"description": "EVMts Language Features",
-	"author": "evmts",
-	"publisher": "evmts",
+	"categories": ["Programming Languages"],
+	"displayName": "Tevm Language Features",
+	"description": "Tevm Language Features",
+	"author": "tevm",
+	"publisher": "tevm",
 	"engines": {
 		"vscode": "^1.82.0"
 	},
-	"activationEvents": [
-		"onLanguage:javascript",
-		"onLanguage:typescript"
-	],
+	"activationEvents": ["onLanguage:javascript", "onLanguage:typescript"],
 	"main": "./dist/client.js",
 	"scripts": {
 		"build": "node scripts/build -- --minify",
@@ -29,8 +24,8 @@
 		"release": "npm run build && vsce publish --pre-release"
 	},
 	"devDependencies": {
-		"@evmts/tsconfig": "workspace:^",
-		"@evmts/lsp": "workspace:^",
+		"@tevm/tsconfig": "workspace:^",
+		"@tevm/lsp": "workspace:^",
 		"@types/vscode": "^1.82.0",
 		"@volar/language-server": "~1.10.5",
 		"@volar/vscode": "~1.10.5",

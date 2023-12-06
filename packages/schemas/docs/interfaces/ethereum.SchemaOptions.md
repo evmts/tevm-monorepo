@@ -1,4 +1,4 @@
-[@evmts/schemas](../README.md) / [Modules](../modules.md) / [ethereum](../modules/ethereum.md) / SchemaOptions
+[@tevm/schemas](../README.md) / [Modules](../modules.md) / [ethereum](../modules/ethereum.md) / SchemaOptions
 
 # Interface: SchemaOptions\<\>
 
@@ -20,4 +20,4 @@ The message to display.
 
 #### Defined in
 
-[packages/schemas/src/ethereum/SAddress/SAddress.js:17](https://github.com/evmts/evmts-monorepo/blob/main/packages/schemas/src/ethereum/SAddress/SAddress.js#L17)
+[packages/schemas/src/ethereum/SAddress/SAddress.js:17](https://github.com/tevm/tevm-monorepo/blob/main/packages/schemas/src/ethereum/SAddress/SAddress.js#L17)

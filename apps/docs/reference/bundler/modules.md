@@ -1,6 +1,6 @@
-[@evmts/bundler](/reference/bundler/README.md) / Modules
+[@tevm/bundler](/reference/bundler/README.md) / Modules
 
-# @evmts/bundler
+# @tevm/bundler
 
 ## Table of contents
 

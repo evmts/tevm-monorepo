@@ -6,7 +6,7 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/utils/Base64.sol";
 
 /// @author Wagmi
-/// @author EVMts
+/// @author Tevm
 /// @title  WagmiMintExample
 /// @notice An example token original from the wagmi template
 contract ExampleContract is ERC721 {

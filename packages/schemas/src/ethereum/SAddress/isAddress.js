@@ -1,5 +1,5 @@
 /**
- * @module @evmts/schemas/ethereum/SAddress/isAddress.js
+ * @module @tevm/schemas/ethereum/SAddress/isAddress.js
  * @category Ethereum
  * @description Checks if a string is a valid Ethereum address.
  */

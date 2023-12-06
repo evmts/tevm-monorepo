@@ -1,4 +1,4 @@
-export { EVMts, type CreateEVMOptions } from './evmts.js'
+export { Tevm, type CreateEVMOptions } from './tevm.js'
 export {
 	type PutAccountAction,
 	type PutContractCodeAction,

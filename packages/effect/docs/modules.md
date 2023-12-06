@@ -1,6 +1,6 @@
-[@evmts/effect](README.md) / Modules
+[@tevm/effect](README.md) / Modules
 
-# @evmts/effect
+# @tevm/effect
 
 ## Table of contents
 

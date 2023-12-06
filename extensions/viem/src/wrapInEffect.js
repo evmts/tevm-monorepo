@@ -7,7 +7,7 @@ import { Effect } from 'effect'
  * @example
  * ```ts
  * import {parseUnits} from 'viem/utils'
- * import {wrapViemAsync} from '@evmts/viem-effect'
+ * import {wrapViemAsync} from '@tevm/viem-effect'
  * const parseUnitsEffect = wrapViemAsync(parseUnits)
  * ````
  */

@@ -1,4 +1,4 @@
-[@evmts/config](../README.md) / [Modules](../modules.md) / defineConfig
+[@tevm/config](../README.md) / [Modules](../modules.md) / defineConfig
 
 # Module: defineConfig
 
@@ -18,7 +18,7 @@
 
 ▸ **defineConfig**(`configFactory`): `Object`
 
-Typesafe way to create an EVMts CompilerConfig
+Typesafe way to create an Tevm CompilerConfig
 
 #### Parameters
 
@@ -37,7 +37,7 @@ Typesafe way to create an EVMts CompilerConfig
 **`Example`**
 
 ```ts
-import { defineConfig } from '@evmts/ts-plugin'
+import { defineConfig } from '@tevm/ts-plugin'
 
 export default defineConfig(() => ({
 	lib: ['lib'],
@@ -49,4 +49,4 @@ export default defineConfig(() => ({
 
 #### Defined in
 
-[bundler/config/src/types.ts:76](https://github.com/evmts/evmts-monorepo/blob/main/bundler/config/src/types.ts#L76)
+[bundler/config/src/types.ts:76](https://github.com/tevm/tevm-monorepo/blob/main/bundler/config/src/types.ts#L76)

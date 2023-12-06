@@ -1,12 +1,12 @@
-[Documentation](../README.md) / [Modules](../modules.md) / @evmts/config
+[Documentation](../README.md) / [Modules](../modules.md) / @tevm/config
 
-# Module: @evmts/config
+# Module: @tevm/config
 
 ## Table of contents
 
 ### Modules
 
-- [defaultConfig](evmts_config.defaultConfig.md)
-- [defineConfig](evmts_config.defineConfig.md)
-- [loadConfig](evmts_config.loadConfig.md)
-- [types](evmts_config.types.md)
+- [defaultConfig](tevm_config.defaultConfig.md)
+- [defineConfig](tevm_config.defineConfig.md)
+- [loadConfig](tevm_config.loadConfig.md)
+- [types](tevm_config.types.md)

@@ -11,7 +11,7 @@ concurrency: ${{ github.workflow }}-${{ github.ref }}
 jobs:
   release:
     name: Version 🔖
-    if: github.repository == 'evmts/evmts-monorepo'
+    if: github.repository == 'tevm/tevm-monorepo'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

@@ -1,4 +1,4 @@
-[@evmts/resolutions](../README.md) / [Modules](../modules.md) / [types](../modules/types.md) / ModuleInfo
+[@tevm/resolutions](../README.md) / [Modules](../modules.md) / [types](../modules/types.md) / ModuleInfo
 
 # Interface: ModuleInfo
 
@@ -27,7 +27,7 @@ https://rollupjs.org/plugin-development/#this-getmoduleinfo
 
 #### Defined in
 
-[types.ts:20](https://github.com/evmts/evmts-monorepo/blob/main/bundler/resolutions/src/types.ts#L20)
+[types.ts:20](https://github.com/tevm/tevm-monorepo/blob/main/bundler/resolutions/src/types.ts#L20)
 
 ___
 
@@ -37,7 +37,7 @@ ___
 
 #### Defined in
 
-[types.ts:18](https://github.com/evmts/evmts-monorepo/blob/main/bundler/resolutions/src/types.ts#L18)
+[types.ts:18](https://github.com/tevm/tevm-monorepo/blob/main/bundler/resolutions/src/types.ts#L18)
 
 ___
 
@@ -47,7 +47,7 @@ ___
 
 #### Defined in
 
-[types.ts:21](https://github.com/evmts/evmts-monorepo/blob/main/bundler/resolutions/src/types.ts#L21)
+[types.ts:21](https://github.com/tevm/tevm-monorepo/blob/main/bundler/resolutions/src/types.ts#L21)
 
 ___
 
@@ -57,4 +57,4 @@ ___
 
 #### Defined in
 
-[types.ts:19](https://github.com/evmts/evmts-monorepo/blob/main/bundler/resolutions/src/types.ts#L19)
+[types.ts:19](https://github.com/tevm/tevm-monorepo/blob/main/bundler/resolutions/src/types.ts#L19)

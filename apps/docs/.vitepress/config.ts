@@ -6,7 +6,7 @@ import { defineConfig } from 'vitepress'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-	title: 'Evmts alpha docs',
+	title: 'Tevm alpha docs',
 	description: 'Execute solidity scripts in the browser',
 	// https://vitepress.dev/reference/default-theme-config
 	themeConfig: {
@@ -15,7 +15,7 @@ export default defineConfig({
 		sidebar,
 		socialLinks,
 		editLink: {
-			pattern: 'https://github.com/evmts/evmts-monorepo/edit/main/docs/:path',
+			pattern: 'https://github.com/evmts/tevm-monorepo/edit/main/docs/:path',
 			text: 'Edit this page on GitHub',
 		},
 	},

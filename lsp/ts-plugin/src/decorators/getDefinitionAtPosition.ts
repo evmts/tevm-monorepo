@@ -2,10 +2,10 @@ import { Logger } from '../factories/logger.js'
 import { findNode } from '../utils/index.js'
 import {
 	convertSolcAstToTsDefinitionInfo,
-	findContractDefinitionFileNameFromEvmtsNode,
+	findContractDefinitionFileNameFromTevmNode,
 } from '../utils/index.js'
-import { Cache, FileAccessObject, bundler } from '@evmts/base'
-import { ResolvedCompilerConfig } from '@evmts/config'
+import { Cache, FileAccessObject, bundler } from '@tevm/base'
+import { ResolvedCompilerConfig } from '@tevm/config'
 // @ts-expect-error
 import * as solc from 'solc'
 import { Node } from 'solidity-ast/node.js'
@@ -34,23 +34,23 @@ export const getDefinitionServiceDecorator = (
 		const definition = service.getDefinitionAtPosition(fileName, position)
 		const sourceFile = service.getProgram()?.getSourceFile(fileName)
 		const node = sourceFile && findNode(sourceFile, position)
-		const evmtsContractPath =
+		const tevmContractPath =
 			node &&
-			findContractDefinitionFileNameFromEvmtsNode(node, service, fileName, ts)
-		if (!evmtsContractPath) {
+			findContractDefinitionFileNameFromTevmNode(node, service, fileName, ts)
+		if (!tevmContractPath) {
 			return definition
 		}
 		const plugin = bundler(config, logger as any, fao, solc, solcCache)
 		const includedAst = true
 		const { asts, solcInput } = plugin.resolveDtsSync(
-			evmtsContractPath,
+			tevmContractPath,
 			process.cwd(),
 			includedAst,
 			false,
 		)
 		if (!asts) {
 			logger.error(
-				`@evmts/ts-plugin: getDefinitionAtPositionDecorator was unable to resolve asts for ${evmtsContractPath}`,
+				`@tevm/ts-plugin: getDefinitionAtPositionDecorator was unable to resolve asts for ${tevmContractPath}`,
 			)
 			return definition
 		}
@@ -79,12 +79,12 @@ export const getDefinitionServiceDecorator = (
 		}
 		if (!definitions.length) {
 			logger.error(
-				`@evmts/ts-plugin: unable to find definitions ${evmtsContractPath}`,
+				`@tevm/ts-plugin: unable to find definitions ${tevmContractPath}`,
 			)
 			return definition
 		}
 		const contractName =
-			evmtsContractPath.split('/').pop()?.split('.')[0] ?? 'EvmtsContract'
+			tevmContractPath.split('/').pop()?.split('.')[0] ?? 'TevmContract'
 		return [
 			...definitions.map(({ fileName, node }) =>
 				convertSolcAstToTsDefinitionInfo(

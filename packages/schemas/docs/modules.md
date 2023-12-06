@@ -1,6 +1,6 @@
-[@evmts/schemas](README.md) / Modules
+[@tevm/schemas](README.md) / Modules
 
-# @evmts/schemas
+# @tevm/schemas
 
 ## Table of contents
 
@@ -8,5 +8,5 @@
 
 - [common](modules/common.md)
 - [ethereum](modules/ethereum.md)
-- [evmts](modules/evmts.md)
+- [tevm](modules/tevm.md)
 - [types](modules/types.md)

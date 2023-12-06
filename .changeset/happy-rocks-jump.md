@@ -1,12 +1,12 @@
 ---
-"@evmts/ts-plugin": minor
-"@evmts/unplugin": minor
-"@evmts/runtime": minor
-"@evmts/core": minor
-"@evmts/base": minor
-"@evmts/solc": minor
-"@evmts/bun-plugin": minor
-"@evmts/bundler": minor
+"@tevm/ts-plugin": minor
+"@tevm/unplugin": minor
+"@tevm/runtime": minor
+"@tevm/core": minor
+"@tevm/base": minor
+"@tevm/solc": minor
+"@tevm/bun-plugin": minor
+"@tevm/bundler": minor
 ---
 
-Added back bytecode to EVMts bundler. When the compiler encounters a file ending in .s.sol it will compile the bytecode in addition to the abi
+Added back bytecode to Tevm bundler. When the compiler encounters a file ending in .s.sol it will compile the bytecode in addition to the abi

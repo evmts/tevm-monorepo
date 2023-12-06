@@ -1,10 +1,10 @@
 ---
-"@evmts/ts-plugin": minor
-"@evmts/runtime": minor
-"@evmts/core": minor
-"@evmts/base": minor
-"@evmts/solc": minor
-"@evmts/vm": minor
+"@tevm/ts-plugin": minor
+"@tevm/runtime": minor
+"@tevm/core": minor
+"@tevm/base": minor
+"@tevm/solc": minor
+"@tevm/vm": minor
 ---
 
-Added deployedBytecode to evmts contract instances
+Added deployedBytecode to tevm contract instances

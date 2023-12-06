@@ -1,12 +1,12 @@
-[@evmts/vm](README.md) / Exports
+[@tevm/vm](README.md) / Exports
 
-# @evmts/vm
+# @tevm/vm
 
 ## Table of contents
 
 ### Classes
 
-- [EVMts](classes/EVMts.md)
+- [Tevm](classes/Tevm.md)
 
 ### Type Aliases
 
@@ -35,7 +35,7 @@
 
 Ƭ **CreateEVMOptions**: `Object`
 
-Options for creating an EVMts instance
+Options for creating an Tevm instance
 
 #### Type declaration
 
@@ -46,7 +46,7 @@ Options for creating an EVMts instance
 
 #### Defined in
 
-[vm/vm/src/evmts.ts:41](https://github.com/evmts/evmts-monorepo/blob/main/vm/vm/src/evmts.ts#L41)
+[vm/vm/src/tevm.ts:41](https://github.com/tevm/tevm-monorepo/blob/main/vm/vm/src/tevm.ts#L41)
 
 ___
 
@@ -54,7 +54,7 @@ ___
 
 Ƭ **PutAccountAction**: `Object`
 
-EVMts action to put an account into the vm state
+Tevm action to put an account into the vm state
 
 #### Type declaration
 
@@ -65,7 +65,7 @@ EVMts action to put an account into the vm state
 
 #### Defined in
 
-[vm/vm/src/actions/putAccount.ts:25](https://github.com/evmts/evmts-monorepo/blob/main/vm/vm/src/actions/putAccount.ts#L25)
+[vm/vm/src/actions/putAccount.ts:25](https://github.com/tevm/tevm-monorepo/blob/main/vm/vm/src/actions/putAccount.ts#L25)
 
 ___
 
@@ -73,7 +73,7 @@ ___
 
 Ƭ **PutContractCodeAction**: `Object`
 
-EVMts action to put contract code into the vm state
+Tevm action to put contract code into the vm state
 
 #### Type declaration
 
@@ -84,7 +84,7 @@ EVMts action to put contract code into the vm state
 
 #### Defined in
 
-[vm/vm/src/actions/putContractCode.ts:16](https://github.com/evmts/evmts-monorepo/blob/main/vm/vm/src/actions/putContractCode.ts#L16)
+[vm/vm/src/actions/putContractCode.ts:16](https://github.com/tevm/tevm-monorepo/blob/main/vm/vm/src/actions/putContractCode.ts#L16)
 
 ___
 
@@ -92,7 +92,7 @@ ___
 
 Ƭ **RunCallAction**: `Object`
 
-EVMts action to execute a call on the vm
+Tevm action to execute a call on the vm
 
 #### Type declaration
 
@@ -107,7 +107,7 @@ EVMts action to execute a call on the vm
 
 #### Defined in
 
-[vm/vm/src/actions/runCall.ts:31](https://github.com/evmts/evmts-monorepo/blob/main/vm/vm/src/actions/runCall.ts#L31)
+[vm/vm/src/actions/runCall.ts:31](https://github.com/tevm/tevm-monorepo/blob/main/vm/vm/src/actions/runCall.ts#L31)
 
 ___
 
@@ -115,7 +115,7 @@ ___
 
 Ƭ **RunContractCallAction**\<`TAbi`, `TFunctionName`\>: `EncodeFunctionDataParameters`\<`TAbi`, `TFunctionName`\> & \{ `caller?`: `Address` ; `contractAddress`: `Address` ; `gasLimit?`: `bigint`  }
 
-EVMts action to execute a call on a contract
+Tevm action to execute a call on a contract
 
 #### Type parameters
 
@@ -126,7 +126,7 @@ EVMts action to execute a call on a contract
 
 #### Defined in
 
-[vm/vm/src/actions/runContractCall.ts:38](https://github.com/evmts/evmts-monorepo/blob/main/vm/vm/src/actions/runContractCall.ts#L38)
+[vm/vm/src/actions/runContractCall.ts:38](https://github.com/tevm/tevm-monorepo/blob/main/vm/vm/src/actions/runContractCall.ts#L38)
 
 ___
 
@@ -136,7 +136,7 @@ ___
 
 #### Defined in
 
-[vm/vm/src/actions/runContractCall.ts:48](https://github.com/evmts/evmts-monorepo/blob/main/vm/vm/src/actions/runContractCall.ts#L48)
+[vm/vm/src/actions/runContractCall.ts:48](https://github.com/tevm/tevm-monorepo/blob/main/vm/vm/src/actions/runContractCall.ts#L48)
 
 ___
 
@@ -161,7 +161,7 @@ ___
 
 #### Defined in
 
-[vm/vm/src/actions/runContractCall.ts:50](https://github.com/evmts/evmts-monorepo/blob/main/vm/vm/src/actions/runContractCall.ts#L50)
+[vm/vm/src/actions/runContractCall.ts:50](https://github.com/tevm/tevm-monorepo/blob/main/vm/vm/src/actions/runContractCall.ts#L50)
 
 ___
 
@@ -169,7 +169,7 @@ ___
 
 Ƭ **RunScriptAction**\<`TAbi`, `TFunctionName`\>: `EncodeFunctionDataParameters`\<`TAbi`, `TFunctionName`\> & \{ `caller?`: `Address` ; `deployedBytecode`: `Hex`  }
 
-EVMts action to deploy and execute a script or contract
+Tevm action to deploy and execute a script or contract
 
 #### Type parameters
 
@@ -180,7 +180,7 @@ EVMts action to deploy and execute a script or contract
 
 #### Defined in
 
-[vm/vm/src/actions/runScript.ts:30](https://github.com/evmts/evmts-monorepo/blob/main/vm/vm/src/actions/runScript.ts#L30)
+[vm/vm/src/actions/runScript.ts:30](https://github.com/tevm/tevm-monorepo/blob/main/vm/vm/src/actions/runScript.ts#L30)
 
 ___
 
@@ -190,7 +190,7 @@ ___
 
 #### Defined in
 
-[vm/vm/src/actions/runScript.ts:39](https://github.com/evmts/evmts-monorepo/blob/main/vm/vm/src/actions/runScript.ts#L39)
+[vm/vm/src/actions/runScript.ts:39](https://github.com/tevm/tevm-monorepo/blob/main/vm/vm/src/actions/runScript.ts#L39)
 
 ___
 
@@ -207,7 +207,7 @@ ___
 
 #### Defined in
 
-[vm/vm/src/actions/runScript.ts:41](https://github.com/evmts/evmts-monorepo/blob/main/vm/vm/src/actions/runScript.ts#L41)
+[vm/vm/src/actions/runScript.ts:41](https://github.com/tevm/tevm-monorepo/blob/main/vm/vm/src/actions/runScript.ts#L41)
 
 ## Variables
 
@@ -217,7 +217,7 @@ ___
 
 #### Defined in
 
-[vm/vm/src/actions/runCall.ts:19](https://github.com/evmts/evmts-monorepo/blob/main/vm/vm/src/actions/runCall.ts#L19)
+[vm/vm/src/actions/runCall.ts:19](https://github.com/tevm/tevm-monorepo/blob/main/vm/vm/src/actions/runCall.ts#L19)
 
 ___
 
@@ -227,7 +227,7 @@ ___
 
 #### Defined in
 
-[vm/vm/src/actions/putAccount.ts:13](https://github.com/evmts/evmts-monorepo/blob/main/vm/vm/src/actions/putAccount.ts#L13)
+[vm/vm/src/actions/putAccount.ts:13](https://github.com/tevm/tevm-monorepo/blob/main/vm/vm/src/actions/putAccount.ts#L13)
 
 ___
 
@@ -237,7 +237,7 @@ ___
 
 #### Defined in
 
-[vm/vm/src/actions/putContractCode.ts:8](https://github.com/evmts/evmts-monorepo/blob/main/vm/vm/src/actions/putContractCode.ts#L8)
+[vm/vm/src/actions/putContractCode.ts:8](https://github.com/tevm/tevm-monorepo/blob/main/vm/vm/src/actions/putContractCode.ts#L8)
 
 ___
 
@@ -247,7 +247,7 @@ ___
 
 #### Defined in
 
-[vm/vm/src/actions/runContractCall.ts:20](https://github.com/evmts/evmts-monorepo/blob/main/vm/vm/src/actions/runContractCall.ts#L20)
+[vm/vm/src/actions/runContractCall.ts:20](https://github.com/tevm/tevm-monorepo/blob/main/vm/vm/src/actions/runContractCall.ts#L20)
 
 ___
 
@@ -257,4 +257,4 @@ ___
 
 #### Defined in
 
-[vm/vm/src/actions/runScript.ts:14](https://github.com/evmts/evmts-monorepo/blob/main/vm/vm/src/actions/runScript.ts#L14)
+[vm/vm/src/actions/runScript.ts:14](https://github.com/tevm/tevm-monorepo/blob/main/vm/vm/src/actions/runScript.ts#L14)

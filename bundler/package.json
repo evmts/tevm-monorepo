@@ -1,8 +1,8 @@
 {
-	"name": "@evmts/bundler",
+	"name": "@tevm/bundler",
 	"version": "1.0.0-next.19",
 	"private": false,
-	"description": "Bundler for EVMts",
+	"description": "Bundler for Tevm",
 	"keywords": [
 		"solidity",
 		"forge",
@@ -14,13 +14,11 @@
 	],
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/evmts/evmts-monorepo.git",
+		"url": "https://github.com/evmts/tevm-monorepo.git",
 		"directory": "bundler"
 	},
 	"license": "MIT",
-	"contributors": [
-		"Will Cory <willcory10@gmail.com>"
-	],
+	"contributors": ["Will Cory <willcory10@gmail.com>"],
 	"type": "module",
 	"exports": {
 		"./package.json": "./package.json",
@@ -34,23 +32,19 @@
 	"main": "index.cjs",
 	"module": "index.mjs",
 	"types": "index.d.ts",
-	"files": [
-		"dist",
-		"types",
-		"src"
-	],
+	"files": ["dist", "types", "src"],
 	"dependencies": {
-		"@evmts/bun-plugin": "workspace:^",
-		"@evmts/config": "workspace:^",
-		"@evmts/esbuild-plugin": "workspace:^",
-		"@evmts/rollup-plugin": "workspace:^",
-		"@evmts/rspack-plugin": "workspace:^",
-		"@evmts/ts-plugin": "workspace:^",
-		"@evmts/vite-plugin": "workspace:^",
-		"@evmts/webpack-plugin": "workspace:^"
+		"@tevm/bun-plugin": "workspace:^",
+		"@tevm/config": "workspace:^",
+		"@tevm/esbuild-plugin": "workspace:^",
+		"@tevm/rollup-plugin": "workspace:^",
+		"@tevm/rspack-plugin": "workspace:^",
+		"@tevm/ts-plugin": "workspace:^",
+		"@tevm/vite-plugin": "workspace:^",
+		"@tevm/webpack-plugin": "workspace:^"
 	},
 	"devDependencies": {
-		"@evmts/tsconfig": "workspace:1.0.0-next.5",
+		"@tevm/tsconfig": "workspace:1.0.0-next.5",
 		"rome": "^12.1.3",
 		"tsup": "^7.2.0",
 		"typedoc": "^0.25.3",

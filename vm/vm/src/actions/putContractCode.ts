@@ -1,4 +1,4 @@
-import type { EVMts } from '../evmts.js'
+import type { Tevm } from '../tevm.js'
 import { ZHex } from '../utils/zod.js'
 import { Address as EthjsAddress } from '@ethereumjs/util'
 import { Address as ZAddress } from 'abitype/zod'
@@ -11,7 +11,7 @@ export const PutContractCodeActionValidator = z.object({
 })
 
 /**
- * EVMts action to put contract code into the vm state
+ * Tevm action to put contract code into the vm state
  */
 export type PutContractCodeAction = {
 	deployedBytecode: Hex
@@ -19,13 +19,13 @@ export type PutContractCodeAction = {
 }
 
 export const putContractCodeHandler = async (
-	evmts: EVMts,
+	tevm: Tevm,
 	action: PutContractCodeAction,
 ) => {
 	const ethAddress = new EthjsAddress(hexToBytes(action.contractAddress))
-	await evmts._evm.stateManager.putContractCode(
+	await tevm._evm.stateManager.putContractCode(
 		ethAddress,
 		hexToBytes(action.deployedBytecode),
 	)
-	return evmts._evm.stateManager.getContractCode(ethAddress)
+	return tevm._evm.stateManager.getContractCode(ethAddress)
 }

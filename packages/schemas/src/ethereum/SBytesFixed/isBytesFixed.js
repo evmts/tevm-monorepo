@@ -1,5 +1,5 @@
 /**
- * @module @evmts/schemas/ethereum/FixedBytes/isFixedBytes.js
+ * @module @tevm/schemas/ethereum/FixedBytes/isFixedBytes.js
  * @description Type guards for Solidity FixedBytes type
  * @author William Cory <willcory10@gmail.com>
  * @todo some of the examples are copy pasta and wrong
@@ -48,7 +48,7 @@ import { isRight } from 'effect/Either'
  * @returns {boolean}
  * @example
  * ```ts
- * import { isBytes1 } from '@evmts/schemas';
+ * import { isBytes1 } from '@tevm/schemas';
  * isBytes1("0xff");  // true
  * isBytes1("0xfff"); // false
  * ````
@@ -63,7 +63,7 @@ export const isBytes1 = (bytes1) => {
  * @returns {boolean}
  * @example
  * ```ts
- * import { isBytes2 } from '@evmts/schemas';
+ * import { isBytes2 } from '@tevm/schemas';
  * isBytes2("0xff");  // true
  * isBytes2("0xfff"); // false
  * ````
@@ -78,7 +78,7 @@ export const isBytes2 = (bytes2) => {
  * @returns {boolean}
  * @example
  * ```ts
- * import { isBytes3 } from '@evmts/schemas';
+ * import { isBytes3 } from '@tevm/schemas';
  * isBytes3("0xff");  // true
  * isBytes3("0xfff"); // false
  * ````
@@ -93,7 +93,7 @@ export const isBytes3 = (bytes3) => {
  * @returns {boolean}
  * @example
  * ```ts
- * import { isBytes4 } from '@evmts/schemas';
+ * import { isBytes4 } from '@tevm/schemas';
  * isBytes4("0xff");  // true
  * isBytes4("0xfff"); // false
  * ````
@@ -108,7 +108,7 @@ export const isBytes4 = (bytes4) => {
  * @returns {boolean}
  * @example
  * ```ts
- * import { isBytes5 } from '@evmts/schemas';
+ * import { isBytes5 } from '@tevm/schemas';
  * isBytes5("0xff");  // true
  * isBytes5("0xfff"); // false
  * ````
@@ -123,7 +123,7 @@ export const isBytes5 = (bytes5) => {
  * @returns {boolean}
  * @example
  * ```ts
- * import { isBytes6 } from '@evmts/schemas';
+ * import { isBytes6 } from '@tevm/schemas';
  * isBytes6("0xff");  // true
  * isBytes6("0xfff"); // false
  * ````
@@ -138,7 +138,7 @@ export const isBytes6 = (bytes6) => {
  * @returns {boolean}
  * @example
  * ```ts
- * import { isBytes7 } from '@evmts/schemas';
+ * import { isBytes7 } from '@tevm/schemas';
  * isBytes7("0xff");  // true
  * isBytes7("0xfff"); // false
  * ````
@@ -153,7 +153,7 @@ export const isBytes7 = (bytes7) => {
  * @returns {boolean}
  * @example
  * ```ts
- * import { isBytes8 } from '@evmts/schemas';
+ * import { isBytes8 } from '@tevm/schemas';
  * isBytes8("0xff");  // true
  * isBytes8("0xfff"); // false
  * ````
@@ -168,7 +168,7 @@ export const isBytes8 = (bytes8) => {
  * @returns {boolean}
  * @example
  * ```ts
- * import { isBytes9 } from '@evmts/schemas';
+ * import { isBytes9 } from '@tevm/schemas';
  * isBytes9("0xff");  // true
  * isBytes9("0xfff"); // false
  * ````
@@ -183,7 +183,7 @@ export const isBytes9 = (bytes9) => {
  * @returns {boolean}
  * @example
  * ```ts
- * import { isBytes10 } from '@evmts/schemas';
+ * import { isBytes10 } from '@tevm/schemas';
  * isBytes10("0xff");  // true
  * isBytes10("0xfff"); // false
  * ````
@@ -198,7 +198,7 @@ export const isBytes10 = (bytes10) => {
  * @returns {boolean}
  * @example
  * ```ts
- * import { isBytes11 } from '@evmts/schemas';
+ * import { isBytes11 } from '@tevm/schemas';
  * isBytes11("0xff");  // true
  * isBytes11("0xfff"); // false
  * ````
@@ -213,7 +213,7 @@ export const isBytes11 = (bytes11) => {
  * @returns {boolean}
  * @example
  * ```ts
- * import { isBytes12 } from '@evmts/schemas';
+ * import { isBytes12 } from '@tevm/schemas';
  * isBytes12("0xff");  // true
  * isBytes12("0xfff"); // false
  * ````
@@ -228,7 +228,7 @@ export const isBytes12 = (bytes12) => {
  * @returns {boolean}
  * @example
  * ```ts
- * import { isBytes13 } from '@evmts/schemas';
+ * import { isBytes13 } from '@tevm/schemas';
  * isBytes13("0xff");  // true
  * isBytes13("0xfff"); // false
  * ````
@@ -243,7 +243,7 @@ export const isBytes13 = (bytes13) => {
  * @returns {boolean}
  * @example
  * ```ts
- * import { isBytes14 } from '@evmts/schemas';
+ * import { isBytes14 } from '@tevm/schemas';
  * isBytes14("0xff");  // true
  * isBytes14("0xfff"); // false
  * ````
@@ -258,7 +258,7 @@ export const isBytes14 = (bytes14) => {
  * @returns {boolean}
  * @example
  * ```ts
- * import { isBytes15 } from '@evmts/schemas';
+ * import { isBytes15 } from '@tevm/schemas';
  * isBytes15("0xff");  // true
  * isBytes15("0xfff"); // false
  * ````
@@ -273,7 +273,7 @@ export const isBytes15 = (bytes15) => {
  * @returns {boolean}
  * @example
  * ```ts
- * import { isBytes16 } from '@evmts/schemas';
+ * import { isBytes16 } from '@tevm/schemas';
  * isBytes16("0xff");  // true
  * isBytes16("0xfff"); // false
  * ````
@@ -288,7 +288,7 @@ export const isBytes16 = (bytes16) => {
  * @returns {boolean}
  * @example
  * ```ts
- * import { isBytes17 } from '@evmts/schemas';
+ * import { isBytes17 } from '@tevm/schemas';
  * isBytes17("0xff");  // true
  * isBytes17("0xfff"); // false
  * ````
@@ -303,7 +303,7 @@ export const isBytes17 = (bytes17) => {
  * @returns {boolean}
  * @example
  * ```ts
- * import { isBytes18 } from '@evmts/schemas';
+ * import { isBytes18 } from '@tevm/schemas';
  * isBytes18("0xff");  // true
  * isBytes18("0xfff"); // false
  * ````
@@ -318,7 +318,7 @@ export const isBytes18 = (bytes18) => {
  * @returns {boolean}
  * @example
  * ```ts
- * import { isBytes19 } from '@evmts/schemas';
+ * import { isBytes19 } from '@tevm/schemas';
  * isBytes19("0xff");  // true
  * isBytes19("0xfff"); // false
  * ````
@@ -333,7 +333,7 @@ export const isBytes19 = (bytes19) => {
  * @returns {boolean}
  * @example
  * ```ts
- * import { isBytes20 } from '@evmts/schemas';
+ * import { isBytes20 } from '@tevm/schemas';
  * isBytes20("0xff");  // true
  * isBytes20("0xfff"); // false
  * ````
@@ -348,7 +348,7 @@ export const isBytes20 = (bytes20) => {
  * @returns {boolean}
  * @example
  * ```ts
- * import { isBytes21 } from '@evmts/schemas';
+ * import { isBytes21 } from '@tevm/schemas';
  * isBytes21("0xff");  // true
  * isBytes21("0xfff"); // false
  * ````
@@ -363,7 +363,7 @@ export const isBytes21 = (bytes21) => {
  * @returns {boolean}
  * @example
  * ```ts
- * import { isBytes22 } from '@evmts/schemas';
+ * import { isBytes22 } from '@tevm/schemas';
  * isBytes22("0xff");  // true
  * isBytes22("0xfff"); // false
  * ````
@@ -378,7 +378,7 @@ export const isBytes22 = (bytes22) => {
  * @returns {boolean}
  * @example
  * ```ts
- * import { isBytes23 } from '@evmts/schemas';
+ * import { isBytes23 } from '@tevm/schemas';
  * isBytes23("0xff");  // true
  * isBytes23("0xfff"); // false
  * ````
@@ -393,7 +393,7 @@ export const isBytes23 = (bytes23) => {
  * @returns {boolean}
  * @example
  * ```ts
- * import { isBytes24 } from '@evmts/schemas';
+ * import { isBytes24 } from '@tevm/schemas';
  * isBytes24("0xff");  // true
  * isBytes24("0xfff"); // false
  * ````
@@ -408,7 +408,7 @@ export const isBytes24 = (bytes24) => {
  * @returns {boolean}
  * @example
  * ```ts
- * import { isBytes25 } from '@evmts/schemas';
+ * import { isBytes25 } from '@tevm/schemas';
  * isBytes25("0xff");  // true
  * isBytes25("0xfff"); // false
  * ````
@@ -423,7 +423,7 @@ export const isBytes25 = (bytes25) => {
  * @returns {boolean}
  * @example
  * ```ts
- * import { isBytes26 } from '@evmts/schemas';
+ * import { isBytes26 } from '@tevm/schemas';
  * isBytes26("0xff");  // true
  * isBytes26("0xfff"); // false
  * ````
@@ -438,7 +438,7 @@ export const isBytes26 = (bytes26) => {
  * @returns {boolean}
  * @example
  * ```ts
- * import { isBytes27 } from '@evmts/schemas';
+ * import { isBytes27 } from '@tevm/schemas';
  * isBytes27("0xff");  // true
  * isBytes27("0xfff"); // false
  * ````
@@ -453,7 +453,7 @@ export const isBytes27 = (bytes27) => {
  * @returns {boolean}
  * @example
  * ```ts
- * import { isBytes28 } from '@evmts/schemas';
+ * import { isBytes28 } from '@tevm/schemas';
  * isBytes28("0xff");  // true
  * isBytesBytes2fff"); // false
  * ````
@@ -468,7 +468,7 @@ export const isBytes28 = (bytes28) => {
  * @returns {boolean}
  * @example
  * ```ts
- * import { isBytes29 } from '@evmts/schemas';
+ * import { isBytes29 } from '@tevm/schemas';
  * isBytes29("0xff");  // true
  * isBytes29("0xfff"); // false
  * ````
@@ -483,7 +483,7 @@ export const isBytes29 = (bytes29) => {
  * @returns {boolean}
  * @example
  * ```ts
- * import { isBytes30 } from '@evmts/schemas';
+ * import { isBytes30 } from '@tevm/schemas';
  * isBytes30("0xff");  // true
  * isBytes30("0xfff"); // false
  * ````
@@ -498,7 +498,7 @@ export const isBytes30 = (bytes30) => {
  * @returns {boolean}
  * @example
  * ```ts
- * import { isBytes31 } from '@evmts/schemas';
+ * import { isBytes31 } from '@tevm/schemas';
  * isBytes31("0xff");  // true
  * isBytes31("0xfff"); // false
  * ````
@@ -513,7 +513,7 @@ export const isBytes31 = (bytes31) => {
  * @returns {boolean}
  * @example
  * ```ts
- * import { isBytes22 } from '@evmts/schemas';
+ * import { isBytes22 } from '@tevm/schemas';
  * isBytes22("0xff");  // true
  * isBytes22("0xfff"); // false
  * ````

@@ -1,4 +1,4 @@
-[@evmts/effect](../README.md) / [Modules](../modules.md) / parseJson
+[@tevm/effect](../README.md) / [Modules](../modules.md) / parseJson
 
 # Module: parseJson
 
@@ -37,10 +37,10 @@ when the tsconfig.json file is not valid json
 **`Example`**
 
 ```ts
-const jsonEffect = parseJson('{ "compilerOptions": { "plugins": [{ "name": "@evmts/ts-plugin" }] } }')
+const jsonEffect = parseJson('{ "compilerOptions": { "plugins": [{ "name": "@tevm/ts-plugin" }] } }')
 ````
 @internal
 
 #### Defined in
 
-[packages/effect/src/parseJson.js:33](https://github.com/evmts/evmts-monorepo/blob/main/packages/effect/src/parseJson.js#L33)
+[packages/effect/src/parseJson.js:33](https://github.com/tevm/tevm-monorepo/blob/main/packages/effect/src/parseJson.js#L33)

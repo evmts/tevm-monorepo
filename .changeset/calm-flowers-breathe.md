@@ -1,5 +1,5 @@
 ---
-"@evmts/state": patch
+"@tevm/state": patch
 ---
 
-Added new state package for handling evmts state with zustand
+Added new state package for handling tevm state with zustand

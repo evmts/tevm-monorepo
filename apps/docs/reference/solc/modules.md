@@ -1,6 +1,6 @@
-[@evmts/solc](/reference/solc/README.md) / Modules
+[@tevm/solc](/reference/solc/README.md) / Modules
 
-# @evmts/solc
+# @tevm/solc
 
 ## Table of contents
 

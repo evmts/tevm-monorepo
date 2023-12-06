@@ -6,7 +6,7 @@ import {
 	string,
 	struct,
 } from '@effect/schema/Schema'
-import { parseJson } from '@evmts/effect'
+import { parseJson } from '@tevm/effect'
 import {
 	catchTag,
 	fail,
@@ -74,12 +74,12 @@ const STsConfig = struct({
 })
 
 /**
- * @typedef {import("@evmts/effect").ParseJsonError | FailedToReadConfigError | InvalidTsConfigError} LoadTsConfigError
+ * @typedef {import("@tevm/effect").ParseJsonError | FailedToReadConfigError | InvalidTsConfigError} LoadTsConfigError
  * @internal
  */
 
 /**
- * Asyncronously loads an EVMts config from the given path
+ * Asyncronously loads an Tevm config from the given path
  * @param {string} configFilePath
  * @returns {import("effect/Effect").Effect<never, LoadTsConfigError, TsConfig>} the contents of the tsconfig.json file
  * @internal

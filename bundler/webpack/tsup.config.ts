@@ -1,7 +1,7 @@
 import { defineConfig } from 'tsup'
 
 export default defineConfig({
-	name: '@evmts/rollup-plugin',
+	name: '@tevm/rollup-plugin',
 	entry: ['src/index.js'],
 	outDir: 'dist',
 	format: ['cjs'],

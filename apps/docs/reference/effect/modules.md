@@ -1,6 +1,6 @@
-[@evmts/effect](/reference/effect/README.md) / Exports
+[@tevm/effect](/reference/effect/README.md) / Exports
 
-# @evmts/effect
+# @tevm/effect
 
 ## Table of contents
 
@@ -53,7 +53,7 @@ https://nodejs.org/api/modules.html#modules_module_createrequire_filename
 
 #### Defined in
 
-[effect/src/createRequireEffect.js:50](https://github.com/evmts/evmts-monorepo/blob/main/effect/src/createRequireEffect.js#L50)
+[effect/src/createRequireEffect.js:50](https://github.com/evmts/tevm-monorepo/blob/main/effect/src/createRequireEffect.js#L50)
 
 ___
 
@@ -84,7 +84,7 @@ await fileExists('./someFile.txt')
 
 #### Defined in
 
-[effect/src/fileExists.js:16](https://github.com/evmts/evmts-monorepo/blob/main/effect/src/fileExists.js#L16)
+[effect/src/fileExists.js:16](https://github.com/evmts/tevm-monorepo/blob/main/effect/src/fileExists.js#L16)
 
 ___
 
@@ -115,7 +115,7 @@ someEffect.pipe(
 
 #### Defined in
 
-[effect/src/logAllErrors.js:16](https://github.com/evmts/evmts-monorepo/blob/main/effect/src/logAllErrors.js#L16)
+[effect/src/logAllErrors.js:16](https://github.com/evmts/tevm-monorepo/blob/main/effect/src/logAllErrors.js#L16)
 
 ___
 
@@ -142,10 +142,10 @@ when the tsconfig.json file is not valid json
 **`Example`**
 
 ```ts
-const jsonEffect = parseJson('{ "compilerOptions": { "plugins": [{ "name": "@evmts/ts-plugin" }] } }')
+const jsonEffect = parseJson('{ "compilerOptions": { "plugins": [{ "name": "@tevm/ts-plugin" }] } }')
 ````
 @internal
 
 #### Defined in
 
-[effect/src/parseJson.js:33](https://github.com/evmts/evmts-monorepo/blob/main/effect/src/parseJson.js#L33)
+[effect/src/parseJson.js:33](https://github.com/evmts/tevm-monorepo/blob/main/effect/src/parseJson.js#L33)

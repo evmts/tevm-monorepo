@@ -1,4 +1,4 @@
-[@evmts/solc](/reference/solc/README.md) / [Modules](/reference/solc/modules.md) / solc
+[@tevm/solc](/reference/solc/README.md) / [Modules](/reference/solc/modules.md) / solc
 
 # Module: solc
 
@@ -20,7 +20,7 @@
 
 #### Defined in
 
-[solc.js:7](https://github.com/evmts/evmts-monorepo/blob/main/solc/src/solc.js#L7)
+[solc.js:7](https://github.com/evmts/tevm-monorepo/blob/main/solc/src/solc.js#L7)
 
 ## Functions
 
@@ -42,4 +42,4 @@ Typesafe wrapper around solc.compile
 
 #### Defined in
 
-[solc.js:14](https://github.com/evmts/evmts-monorepo/blob/main/solc/src/solc.js#L14)
+[solc.js:14](https://github.com/evmts/tevm-monorepo/blob/main/solc/src/solc.js#L14)

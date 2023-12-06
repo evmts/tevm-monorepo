@@ -1,5 +1,5 @@
 /**
- * @module @evmts/schemas/ethereum/SAddress/parseAddress.js
+ * @module @tevm/schemas/ethereum/SAddress/parseAddress.js
  * @description Parser for Address type
  * @author William Cory <willcory10@gmail.com>
  */

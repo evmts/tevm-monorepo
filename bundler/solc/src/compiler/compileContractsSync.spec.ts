@@ -1,6 +1,6 @@
 import type { FileAccessObject } from '../types.js'
 import { compileContractSync } from './compileContractsSync.js'
-import type { ResolvedCompilerConfig } from '@evmts/config'
+import type { ResolvedCompilerConfig } from '@tevm/config'
 import { existsSync, readFileSync } from 'fs'
 import { readFile } from 'fs/promises'
 import { join } from 'path'

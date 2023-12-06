@@ -1,5 +1,5 @@
 ---
-"@evmts/webpack-plugin": patch
+"@tevm/webpack-plugin": patch
 ---
 
-Updated @evmts/webpack-plugin to NodeNext. This will improve compatibility
+Updated @tevm/webpack-plugin to NodeNext. This will improve compatibility

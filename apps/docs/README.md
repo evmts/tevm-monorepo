@@ -1,4 +1,4 @@
-# @evmts/docs
+# @tevm/docs
 
-The [vitepress](https://vitepress.dev/) based docs application for Evmts
+The [vitepress](https://vitepress.dev/) based docs application for Tevm
 

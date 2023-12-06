@@ -1,4 +1,4 @@
-[@evmts/viem-effect](/reference/viem-effect/README.md) / [Modules](/reference/viem-effect/modules.md) / types
+[@tevm/viem-effect](/reference/viem-effect/README.md) / [Modules](/reference/viem-effect/modules.md) / types
 
 # Module: types
 
@@ -32,7 +32,7 @@
 
 #### Defined in
 
-[viem-effect/src/types.ts:2](https://github.com/evmts/evmts-monorepo/blob/main/viem-effect/src/types.ts#L2)
+[viem-effect/src/types.ts:2](https://github.com/evmts/tevm-monorepo/blob/main/viem-effect/src/types.ts#L2)
 
 ___
 
@@ -56,7 +56,7 @@ ___
 
 #### Defined in
 
-[viem-effect/src/types.ts:1](https://github.com/evmts/evmts-monorepo/blob/main/viem-effect/src/types.ts#L1)
+[viem-effect/src/types.ts:1](https://github.com/evmts/tevm-monorepo/blob/main/viem-effect/src/types.ts#L1)
 
 ___
 
@@ -80,4 +80,4 @@ ___
 
 #### Defined in
 
-[viem-effect/src/types.ts:3](https://github.com/evmts/evmts-monorepo/blob/main/viem-effect/src/types.ts#L3)
+[viem-effect/src/types.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/viem-effect/src/types.ts#L3)

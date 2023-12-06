@@ -1,5 +1,5 @@
 /**
- * @module @evmts/schemas/ethereum/FixedBytes/parseBytesFixedSafe.js
+ * @module @tevm/schemas/ethereum/FixedBytes/parseBytesFixedSafe.js
  * @description Effect parser for Solidity FixedBytes
  * @author William Cory <willcory10@gmail.com>
  */

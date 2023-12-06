@@ -1,23 +1,23 @@
 ---
-"@evmts/resolutions": patch
-"@evmts/ts-plugin": patch
-"@evmts/experimental-solc": patch
-"@evmts/ethers": patch
-"@evmts/unplugin": patch
-"@evmts/schemas": patch
-"@evmts/esbuild-plugin": patch
-"@evmts/runtime": patch
-"@evmts/webpack-plugin": patch
-"@evmts/effect": patch
-"@evmts/config": patch
-"@evmts/rollup-plugin": patch
-"@evmts/rspack-plugin": patch
-"@evmts/core": patch
-"@evmts/solc": patch
-"@evmts/vite-plugin": patch
-"@evmts/bun-plugin": patch
-"@evmts/bundler": patch
-"@evmts/vm": patch
+"@tevm/resolutions": patch
+"@tevm/ts-plugin": patch
+"@tevm/experimental-solc": patch
+"@tevm/ethers": patch
+"@tevm/unplugin": patch
+"@tevm/schemas": patch
+"@tevm/esbuild-plugin": patch
+"@tevm/runtime": patch
+"@tevm/webpack-plugin": patch
+"@tevm/effect": patch
+"@tevm/config": patch
+"@tevm/rollup-plugin": patch
+"@tevm/rspack-plugin": patch
+"@tevm/core": patch
+"@tevm/solc": patch
+"@tevm/vite-plugin": patch
+"@tevm/bun-plugin": patch
+"@tevm/bundler": patch
+"@tevm/vm": patch
 ---
 
 Switched package manager to pnpm from bun

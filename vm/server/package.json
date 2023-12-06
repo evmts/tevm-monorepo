@@ -1,24 +1,16 @@
 {
-	"name": "@evmts/server",
+	"name": "@tevm/server",
 	"version": "0.0.1",
 	"private": false,
-	"description": "A TRPC server serving JSON RPC for EVMts vm",
-	"keywords": [
-		"solidity",
-		"sol",
-		"typescript",
-		"trpc",
-		"blockchain"
-	],
+	"description": "A TRPC server serving JSON RPC for Tevm vm",
+	"keywords": ["solidity", "sol", "typescript", "trpc", "blockchain"],
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/evmts/evmts-monorepo.git",
+		"url": "https://github.com/evmts/tevm-monorepo.git",
 		"directory": "vm/server"
 	},
 	"license": "MIT",
-	"contributors": [
-		"Will Cory <willcory10@gmail.com>"
-	],
+	"contributors": ["Will Cory <willcory10@gmail.com>"],
 	"type": "module",
 	"exports": {
 		"./package.json": "./package.json",
@@ -31,15 +23,10 @@
 	"main": "dist/index.cjs",
 	"module": "dist/index.js",
 	"types": "types/index.d.ts",
-	"files": [
-		"dist",
-		"types",
-		"src",
-		"!src/**/*.spec.ts"
-	],
+	"files": ["dist", "types", "src", "!src/**/*.spec.ts"],
 	"scripts": {
 		"all": "pnpm i  && bun run build && bun lint && bun format && bun test:run && bun generate:docs",
-		"build": "nx run-many --targets=build:dist,build:types --projects=@evmts/vm",
+		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/vm",
 		"build:dist": "bun run tsup",
 		"build:types": "bun --bun run tsc --emitDeclarationOnly --declaration --declarationMap",
 		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
@@ -55,14 +42,14 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
-		"@evmts/vm": "workspace:^",
+		"@tevm/vm": "workspace:^",
 		"@trpc/client": "^10.44.1",
 		"@trpc/server": "^10.44.1",
 		"superjson": "^2.2.1",
 		"trpc-playground": "^1.0.4"
 	},
 	"devDependencies": {
-		"@evmts/tsconfig": "workspace:^",
+		"@tevm/tsconfig": "workspace:^",
 		"@vitest/coverage-v8": "^0.34.6",
 		"abitype": "^0.8.11",
 		"bun-types": "^1.0.7",

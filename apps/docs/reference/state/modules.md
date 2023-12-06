@@ -1,6 +1,6 @@
-[@evmts/state](/reference/state/README.md) / Exports
+[@tevm/state](/reference/state/README.md) / Exports
 
-# @evmts/state
+# @tevm/state
 
 ## Table of contents
 

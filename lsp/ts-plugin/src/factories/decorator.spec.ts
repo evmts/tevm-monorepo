@@ -4,8 +4,8 @@ import {
 	createHostDecorator,
 	decorateHost,
 } from './index.js'
-import { FileAccessObject } from '@evmts/base'
-import { CompilerConfig, defaultConfig, defineConfig } from '@evmts/config'
+import { FileAccessObject } from '@tevm/base'
+import { CompilerConfig, defaultConfig, defineConfig } from '@tevm/config'
 import { runSync } from 'effect/Effect'
 import typescript from 'typescript/lib/tsserverlibrary.js'
 import { describe, expect, it, vi } from 'vitest'

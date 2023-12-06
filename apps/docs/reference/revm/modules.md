@@ -1,6 +1,6 @@
-[@evmts/revm](/reference/revm/README.md) / Exports
+[@tevm/revm](/reference/revm/README.md) / Exports
 
-# @evmts/revm
+# @tevm/revm
 
 ## Table of contents
 

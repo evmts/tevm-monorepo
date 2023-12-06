@@ -1,5 +1,5 @@
 /**
- * @module @evmts/schemas/ethereum/SBytesFixed/SBytesFixed.js
+ * @module @tevm/schemas/ethereum/SBytesFixed/SBytesFixed.js
  * @description Types and validators for Solidity BytesFixed
  * @author William Cory <willcory10@gmail.com>
  * {@link https://docs.soliditylang.org/en/latest/types.html#fixed-size-byte-arrays Solidity docs}

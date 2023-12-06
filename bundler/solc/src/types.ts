@@ -3,8 +3,8 @@ import type {
 	SolcInputDescription,
 	SolcOutput,
 } from './solcTypes.js'
-import type { ResolvedCompilerConfig } from '@evmts/config'
-import type { ModuleInfo } from '@evmts/resolutions'
+import type { ResolvedCompilerConfig } from '@tevm/config'
+import type { ModuleInfo } from '@tevm/resolutions'
 import type { Node } from 'solidity-ast/node.js'
 
 export type ResolveArtifacts = (

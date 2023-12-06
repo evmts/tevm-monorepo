@@ -1,11 +1,11 @@
-import type { EvmtsContract } from './EvmtsContract'
+import type { TevmContract } from './TevmContract'
 import { eventsFactory } from './event/eventFactory'
 import { readFactory } from './read/readFactory'
 import { writeFactory } from './write/writeFactory'
 import { parseAbi } from 'abitype'
 import type { Hex } from 'viem'
 
-export const evmtsContractFactory = <
+export const createTevmContract = <
 	TName extends string,
 	THumanReadableAbi extends readonly string[],
 	TBytecode extends Hex | undefined,
@@ -16,9 +16,9 @@ export const evmtsContractFactory = <
 	bytecode,
 	deployedBytecode,
 }: Pick<
-	EvmtsContract<TName, THumanReadableAbi, TBytecode, TDeployedBytecode>,
+	TevmContract<TName, THumanReadableAbi, TBytecode, TDeployedBytecode>,
 	'name' | 'humanReadableAbi' | 'bytecode' | 'deployedBytecode'
->): EvmtsContract<TName, THumanReadableAbi, TBytecode, TDeployedBytecode> => {
+>): TevmContract<TName, THumanReadableAbi, TBytecode, TDeployedBytecode> => {
 	const abi = parseAbi(humanReadableAbi as any)
 	const methods = abi.filter((field) => {
 		return field.type === 'function'

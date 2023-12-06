@@ -1,31 +1,31 @@
 import { bunFileAccesObject } from './bunFileAccessObject.js'
-import { bundler, createCache } from '@evmts/base'
-import { loadConfig } from '@evmts/config'
-import { createSolc } from '@evmts/solc'
+import { bundler, createCache } from '@tevm/base'
+import { loadConfig } from '@tevm/config'
+import { createSolc } from '@tevm/solc'
 import { runSync } from 'effect/Effect'
 // @ts-expect-error
 import defaultSolc from 'solc'
 
 /**
- * @evmts/bun-plugin is a bun plugin that allows you to import solidity files into your typescript files
+ * @tevm/bun-plugin is a bun plugin that allows you to import solidity files into your typescript files
  * and have them compiled to typescript on the fly.
- * @param {{solc?: import("@evmts/solc").SolcVersions}} SolcVersions
+ * @param {{solc?: import("@tevm/solc").SolcVersions}} SolcVersions
  * @returns {import("bun").BunPlugin}
  * @example
  * ```ts plugin.ts
- * import { evmtsBunPlugin } from '@evmts/esbuild-plugin'
+ * import { tevmBunPlugin } from '@tevm/esbuild-plugin'
  * import { plugin } from 'bun'
  *
- * plugin(evmtsBunPlugin())
+ * plugin(tevmBunPlugin())
  * ```
  *
  * ```ts bunfig.toml
  * preload = ["./plugins.ts"]
  * ```
  */
-export const evmtsBunPlugin = ({ solc = defaultSolc.version }) => {
+export const tevmBunPlugin = ({ solc = defaultSolc.version }) => {
 	return {
-		name: '@evmts/esbuild-plugin',
+		name: '@tevm/esbuild-plugin',
 		async setup(build) {
 			const config = runSync(loadConfig(process.cwd()))
 			const solcCache = createCache(console)
@@ -37,19 +37,19 @@ export const evmtsBunPlugin = ({ solc = defaultSolc.version }) => {
 				solcCache,
 			)
 			/**
-			 * @evmts/core is used to construct the evmts modules for solidity files
+			 * @tevm/core is used to construct the tevm modules for solidity files
 			 * sometimes the solidity file might exist in the node_modules folder
 			 * or in a different package in a monorepo. We need to resolve it correctly
-			 * in all cases so we always resolve to the current package's @evmts/core
+			 * in all cases so we always resolve to the current package's @tevm/core
 			 */
-			build.onResolve({ filter: /^@evmts\/core/ }, ({ path, importer }) => {
+			build.onResolve({ filter: /^@tevm\/core/ }, ({ path, importer }) => {
 				if (
-					path.startsWith('@evmts/core') &&
+					path.startsWith('@tevm/core') &&
 					!importer.startsWith(process.cwd()) &&
 					!importer.includes('node_modules')
 				) {
 					return {
-						path: require.resolve('@evmts/core'),
+						path: require.resolve('@tevm/core'),
 					}
 				}
 				return {
@@ -58,7 +58,7 @@ export const evmtsBunPlugin = ({ solc = defaultSolc.version }) => {
 			})
 
 			/**
-			 * Load solidity files with @evmts/base
+			 * Load solidity files with @tevm/base
 			 * If a .d.ts file or .ts file is pregenerated already (as will be case for external contracts)
 			 * go ahead and load that instead
 			 */

@@ -1,5 +1,5 @@
 /**
- * @typedef {import("./evmtsUnplugin.js").CompilerOption} CompilerOption
+ * @typedef {import("./tevmUnplugin.js").CompilerOption} CompilerOption
  */
-export { evmtsUnplugin } from './evmtsUnplugin.js'
+export { tevmUnplugin } from './tevmUnplugin.js'
 export { createUnplugin } from 'unplugin'

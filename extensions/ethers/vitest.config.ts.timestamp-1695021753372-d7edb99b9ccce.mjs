@@ -1,5 +1,5 @@
 // ethers/vitest.config.ts
-import { defineConfig } from 'file:///Users/willcory/evmts-monorepo/node_modules/.pnpm/vitest@0.34.4_@vitest+ui@0.34.4/node_modules/vitest/dist/config.js'
+import { defineConfig } from 'file:///Users/willcory/tevm-monorepo/node_modules/.pnpm/vitest@0.34.4_@vitest+ui@0.34.4/node_modules/vitest/dist/config.js'
 const vitest_config_default = defineConfig({
 	test: {
 		include: ['src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],

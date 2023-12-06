@@ -21,7 +21,7 @@ export function App() {
 
 	return (
 		<>
-			<h1>Evmts example</h1>
+			<h1>Tevm example</h1>
 			<ConnectButton />
 			{
 				<>

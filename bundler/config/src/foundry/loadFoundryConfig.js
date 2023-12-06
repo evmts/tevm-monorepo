@@ -21,7 +21,7 @@ export class FoundryNotFoundError extends Error {
 		super(
 			`Failed to resolve forge config using "${forgeCommand} config --json" command. Make sure forge is installed and accessible and forge config --json works.
 note: forge is used to fetch remappings only if forgeConfig is set. If you would prefer to not use forge you can set remappings
-or lib directly in your EVMts compiler config and then EVMts will run without forge`,
+or lib directly in your Tevm compiler config and then Tevm will run without forge`,
 			options,
 		)
 	}
@@ -129,7 +129,7 @@ export const loadFoundryConfig = (foundryProject, configFilePath) => {
 		}),
 		(config) => {
 			return logDebug(
-				`loadFoundryConfig: foundryProject is set, loading foundry config as an EVMts CompilerConfig: ${JSON.stringify(
+				`loadFoundryConfig: foundryProject is set, loading foundry config as an Tevm CompilerConfig: ${JSON.stringify(
 					config,
 				)}`,
 			)

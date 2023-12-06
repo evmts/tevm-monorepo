@@ -2,7 +2,7 @@
 
 [Wagmi hook](https://wagmi.sh/react/hooks/useContractRead) for calling a read method on the contract.
 
-To use this hook import it directly from wagmi. This guide will show how to integrate it with Evmts.
+To use this hook import it directly from wagmi. This guide will show how to integrate it with Tevm.
 
 For more documentation specific to useContractRead see [wagmi documentation](https://wagmi.sh/react/hooks/useContractRead)
 
@@ -39,15 +39,15 @@ contract ERC20 {
 }
 ```
 
-```ts [evmts.config.ts]
-import { defineConfig } from "@evmts/config";
+```ts [tevm.config.ts]
+import { defineConfig } from "@tevm/config";
 
 /**
- * @see https://evmts.dev/reference/config.html
+ * @see https://tevm.dev/reference/config.html
  */
 export default defineConfig(() => ({
   /**
-   * Deployments allow evmts to configure default addresses for different networks
+   * Deployments allow tevm to configure default addresses for different networks
    */
   deployments: [
     {

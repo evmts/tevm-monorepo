@@ -1,4 +1,4 @@
-import { vitePluginEvmts } from '@evmts/vite-plugin'
+import { vitePluginTevm } from '@tevm/vite-plugin'
 import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
 import { nodePolyfills } from 'vite-plugin-node-polyfills'
@@ -26,6 +26,6 @@ export default defineConfig({
 			},
 		}),
 		react(),
-		vitePluginEvmts({}) as any,
+		vitePluginTevm({}) as any,
 	],
 })

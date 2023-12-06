@@ -1,4 +1,4 @@
-[@evmts/blockexplorer](/reference/blockexplorer/README.md) / [Exports](/reference/blockexplorer/modules.md) / BlockExplorerOptions
+[@tevm/blockexplorer](/reference/blockexplorer/README.md) / [Exports](/reference/blockexplorer/modules.md) / BlockExplorerOptions
 
 # Interface: BlockExplorerOptions<\>
 
@@ -18,7 +18,7 @@
 
 #### Defined in
 
-[blockExplorer.js:21](https://github.com/evmts/evmts-monorepo/blob/main/blockexplorer/src/blockExplorer.js#L21)
+[blockExplorer.js:21](https://github.com/evmts/tevm-monorepo/blob/main/blockexplorer/src/blockExplorer.js#L21)
 
 ___
 
@@ -28,7 +28,7 @@ ___
 
 #### Defined in
 
-[blockExplorer.js:19](https://github.com/evmts/evmts-monorepo/blob/main/blockexplorer/src/blockExplorer.js#L19)
+[blockExplorer.js:19](https://github.com/evmts/tevm-monorepo/blob/main/blockexplorer/src/blockExplorer.js#L19)
 
 ___
 
@@ -38,4 +38,4 @@ ___
 
 #### Defined in
 
-[blockExplorer.js:20](https://github.com/evmts/evmts-monorepo/blob/main/blockexplorer/src/blockExplorer.js#L20)
+[blockExplorer.js:20](https://github.com/evmts/tevm-monorepo/blob/main/blockexplorer/src/blockExplorer.js#L20)

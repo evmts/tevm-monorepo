@@ -1,5 +1,5 @@
-import { FileAccessObject, bundler, createCache } from '@evmts/base'
-import { loadConfig } from '@evmts/config'
+import { FileAccessObject, bundler, createCache } from '@tevm/base'
+import { loadConfig } from '@tevm/config'
 import { runSync } from 'effect/Effect'
 import { existsSync, readFileSync } from 'fs'
 import { readFile, writeFile } from 'fs/promises'

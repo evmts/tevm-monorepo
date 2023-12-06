@@ -6,7 +6,7 @@ import {
 	type SolcOutput,
 	resolveArtifacts,
 	resolveArtifactsSync,
-} from '@evmts/solc'
+} from '@tevm/solc'
 import type { Node } from 'solidity-ast/node.js'
 import {
 	type Mock,
@@ -53,7 +53,7 @@ describe(bundler.name, () => {
 		}
 
 		resolver = bundler(config as any, logger, fao, require('solc'))
-		vi.mock('@evmts/solc', () => {
+		vi.mock('@tevm/solc', () => {
 			return {
 				resolveArtifacts: vi.fn(),
 				resolveArtifactsSync: vi.fn(),
@@ -78,7 +78,7 @@ describe(bundler.name, () => {
 				    [Error: Test error],
 				  ],
 				  [
-				    "there was an error in evmts plugin generating .dts",
+				    "there was an error in tevm plugin generating .dts",
 				  ],
 				]
 			`)
@@ -99,7 +99,7 @@ describe(bundler.name, () => {
 					    [Error: Test error sync],
 					  ],
 					  [
-					    "there was an error in evmts plugin resolving .dts",
+					    "there was an error in tevm plugin resolving .dts",
 					  ],
 					]
 				`)
@@ -120,7 +120,7 @@ describe(bundler.name, () => {
 					    [Error: Test error sync],
 					  ],
 					  [
-					    "there was an error in evmts plugin resolving .ts",
+					    "there was an error in tevm plugin resolving .ts",
 					  ],
 					]
 				`)
@@ -139,7 +139,7 @@ describe(bundler.name, () => {
 					    [Error: Test error],
 					  ],
 					  [
-					    "there was an error in evmts plugin resolving .ts",
+					    "there was an error in tevm plugin resolving .ts",
 					  ],
 					]
 				`)
@@ -160,7 +160,7 @@ describe(bundler.name, () => {
 					    [Error: Test error sync],
 					  ],
 					  [
-					    "there was an error in evmts plugin resolving .cjs",
+					    "there was an error in tevm plugin resolving .cjs",
 					  ],
 					]
 				`)
@@ -179,7 +179,7 @@ describe(bundler.name, () => {
 					    [Error: Test error],
 					  ],
 					  [
-					    "there was an error in evmts plugin resolving .cjs",
+					    "there was an error in tevm plugin resolving .cjs",
 					  ],
 					]
 				`)
@@ -197,7 +197,7 @@ describe(bundler.name, () => {
 				expect((logger.error as Mock).mock.calls).toMatchInlineSnapshot(`
 					[
 					  [
-					    "there was an error in evmts plugin resolving .mjs",
+					    "there was an error in tevm plugin resolving .mjs",
 					  ],
 					  [
 					    [Error: Test error sync],
@@ -219,7 +219,7 @@ describe(bundler.name, () => {
 					    [Error: Test error],
 					  ],
 					  [
-					    "there was an error in evmts plugin resolving .mjs",
+					    "there was an error in tevm plugin resolving .mjs",
 					  ],
 					]
 				`)
@@ -298,13 +298,13 @@ describe(bundler.name, () => {
 				      "sources": {},
 				    },
 				  },
-				  "code": "import { EvmtsContract } from '@evmts/core'
+				  "code": "import { TevmContract } from '@tevm/core'
 				const _abiTestContract = [] as const;
 				const _nameTestContract = \\"TestContract\\" as const;
 				/**
-				 * TestContract EvmtsContract
+				 * TestContract TevmContract
 				 */
-				export const TestContract: EvmtsContract<typeof _nameTestContract, typeof _abiTestContract, undefined, undefined>;",
+				export const TestContract: TevmContract<typeof _nameTestContract, typeof _abiTestContract, undefined, undefined>;",
 				  "modules": {
 				    "module1": {
 				      "code": "import { TestContract } from 'module2'
@@ -372,13 +372,13 @@ describe(bundler.name, () => {
 				      "evmVersion": "homestead",
 				    },
 				  },
-				  "code": "import { EvmtsContract } from '@evmts/core'
+				  "code": "import { TevmContract } from '@tevm/core'
 				const _abiTestContract = [] as const;
 				const _nameTestContract = \\"TestContract\\" as const;
 				/**
-				 * TestContract EvmtsContract
+				 * TestContract TevmContract
 				 */
-				export const TestContract: EvmtsContract<typeof _nameTestContract, typeof _abiTestContract, undefined, undefined>;",
+				export const TestContract: TevmContract<typeof _nameTestContract, typeof _abiTestContract, undefined, undefined>;",
 				  "modules": {
 				    "module1": {
 				      "code": "import { TestContract } from 'module2'
@@ -466,9 +466,9 @@ describe(bundler.name, () => {
 				      "evmVersion": "homestead",
 				    },
 				  },
-				  "code": "import { evmtsContractFactory } from '@evmts/core'
+				  "code": "import { createTevmContract } from '@tevm/core'
 				const _TestContract = {\\"name\\":\\"TestContract\\",\\"humanReadableAbi\\":[]} as const
-				export const TestContract = evmtsContractFactory(_TestContract)",
+				export const TestContract = createTevmContract(_TestContract)",
 				  "modules": {
 				    "module1": {
 				      "code": "import { TestContract } from 'module2'
@@ -556,9 +556,9 @@ describe(bundler.name, () => {
 				      "evmVersion": "homestead",
 				    },
 				  },
-				  "code": "import { evmtsContractFactory } from '@evmts/core'
+				  "code": "import { createTevmContract } from '@tevm/core'
 				const _TestContract = {\\"name\\":\\"TestContract\\",\\"humanReadableAbi\\":[]} as const
-				export const TestContract = evmtsContractFactory(_TestContract)",
+				export const TestContract = createTevmContract(_TestContract)",
 				  "modules": {
 				    "module1": {
 				      "code": "import { TestContract } from 'module2'
@@ -646,9 +646,9 @@ describe(bundler.name, () => {
 				      "evmVersion": "homestead",
 				    },
 				  },
-				  "code": "const { evmtsContractFactory } = require('@evmts/core')
+				  "code": "const { createTevmContract } = require('@tevm/core')
 				const _TestContract = {\\"name\\":\\"TestContract\\",\\"humanReadableAbi\\":[]}
-				module.exports.TestContract = evmtsContractFactory(_TestContract)",
+				module.exports.TestContract = createTevmContract(_TestContract)",
 				  "modules": {
 				    "module1": {
 				      "code": "import { TestContract } from 'module2'
@@ -736,9 +736,9 @@ describe(bundler.name, () => {
 				      "evmVersion": "homestead",
 				    },
 				  },
-				  "code": "const { evmtsContractFactory } = require('@evmts/core')
+				  "code": "const { createTevmContract } = require('@tevm/core')
 				const _TestContract = {\\"name\\":\\"TestContract\\",\\"humanReadableAbi\\":[]}
-				module.exports.TestContract = evmtsContractFactory(_TestContract)",
+				module.exports.TestContract = createTevmContract(_TestContract)",
 				  "modules": {
 				    "module1": {
 				      "code": "import { TestContract } from 'module2'
@@ -826,9 +826,9 @@ describe(bundler.name, () => {
 				      "evmVersion": "homestead",
 				    },
 				  },
-				  "code": "import { evmtsContractFactory } from '@evmts/core'
+				  "code": "import { createTevmContract } from '@tevm/core'
 				const _TestContract = {\\"name\\":\\"TestContract\\",\\"humanReadableAbi\\":[]}
-				export const TestContract = evmtsContractFactory(_TestContract)",
+				export const TestContract = createTevmContract(_TestContract)",
 				  "modules": {
 				    "module1": {
 				      "code": "import { TestContract } from 'module2'
@@ -916,9 +916,9 @@ describe(bundler.name, () => {
 				      "evmVersion": "homestead",
 				    },
 				  },
-				  "code": "import { evmtsContractFactory } from '@evmts/core'
+				  "code": "import { createTevmContract } from '@tevm/core'
 				const _TestContract = {\\"name\\":\\"TestContract\\",\\"humanReadableAbi\\":[]}
-				export const TestContract = evmtsContractFactory(_TestContract)",
+				export const TestContract = createTevmContract(_TestContract)",
 				  "modules": {
 				    "module1": {
 				      "code": "import { TestContract } from 'module2'

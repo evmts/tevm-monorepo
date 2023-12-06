@@ -1,5 +1,5 @@
 /**
- * @module @evmts/schemas/ethereum/SAddress/SAddress.js
+ * @module @tevm/schemas/ethereum/SAddress/SAddress.js
  * @description Types and schema for solidity Address
  * @author William Cory <willcory10@gmail.com>
  */
@@ -31,6 +31,6 @@ import { filter, string } from '@effect/schema/Schema'
 export const SAddress = string.pipe(
 	filter(isAddress, {
 		message: (address) => `Invalid address value: ${address}
-See https://evmts.dev/reference/errors for more information.`,
+See https://tevm.dev/reference/errors for more information.`,
 	}),
 )

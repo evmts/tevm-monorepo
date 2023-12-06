@@ -1,5 +1,5 @@
 ---
-"@evmts/runtime": patch
+"@tevm/runtime": patch
 ---
 
-Prefix 0x in evmts/runtime bytecode
+Prefix 0x in tevm/runtime bytecode

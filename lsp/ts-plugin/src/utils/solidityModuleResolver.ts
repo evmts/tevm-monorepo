@@ -31,8 +31,8 @@ export const solidityModuleResolver = (
 	}
 
 	// to handle the case where the import is coming from a node_module or a different workspace
-	// we need to always point @evmts/core to the local version
-	if (moduleName.startsWith('@evmts/core')) {
+	// we need to always point @tevm/core to the local version
+	if (moduleName.startsWith('@tevm/core')) {
 		const result = ts.resolveModuleName(
 			moduleName,
 			containingFile,
@@ -48,7 +48,7 @@ export const solidityModuleResolver = (
 			}
 		} else {
 			console.error(
-				'Could not resolve module. Is evmts/core installed?',
+				'Could not resolve module. Is tevm/core installed?',
 				moduleName,
 				result,
 			)

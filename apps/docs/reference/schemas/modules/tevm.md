@@ -1,34 +1,34 @@
-[@evmts/schemas](/reference/schemas/README.md) / [Modules](/reference/schemas/modules.md) / evmts
+[@tevm/schemas](/reference/schemas/README.md) / [Modules](/reference/schemas/modules.md) / tevm
 
-# Module: evmts
+# Module: tevm
 
 ## Table of contents
 
 ### References
 
-- [IsAddressBook](/reference/schemas/modules/evmts.md#isaddressbook)
+- [IsAddressBook](/reference/schemas/modules/tevm.md#isaddressbook)
 
 ### Classes
 
-- [InvalidAddressBookError](/reference/schemas/classes/evmts.InvalidAddressBookError.md)
+- [InvalidAddressBookError](/reference/schemas/classes/tevm.InvalidAddressBookError.md)
 
 ### Interfaces
 
-- [AddressBookEntry](/reference/schemas/interfaces/evmts.AddressBookEntry.md)
+- [AddressBookEntry](/reference/schemas/interfaces/tevm.AddressBookEntry.md)
 
 ### Type Aliases
 
-- [AddressBook](/reference/schemas/modules/evmts.md#addressbook)
+- [AddressBook](/reference/schemas/modules/tevm.md#addressbook)
 
 ### Variables
 
-- [SAddressBook](/reference/schemas/modules/evmts.md#saddressbook)
+- [SAddressBook](/reference/schemas/modules/tevm.md#saddressbook)
 
 ### Functions
 
-- [isAddressBook](/reference/schemas/modules/evmts.md#isaddressbook-1)
-- [parseAddressBook](/reference/schemas/modules/evmts.md#parseaddressbook)
-- [parseAddressBookSafe](/reference/schemas/modules/evmts.md#parseaddressbooksafe)
+- [isAddressBook](/reference/schemas/modules/tevm.md#isaddressbook-1)
+- [parseAddressBook](/reference/schemas/modules/tevm.md#parseaddressbook)
+- [parseAddressBookSafe](/reference/schemas/modules/tevm.md#parseaddressbooksafe)
 
 ## References
 
@@ -44,7 +44,7 @@ Re-exports [IsAddressBook](/reference/schemas/modules/types.md#isaddressbook)
 
 #### Defined in
 
-[schemas/src/evmts/SAddressBook.js:26](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/evmts/SAddressBook.js#L26)
+[schemas/src/tevm/SAddressBook.js:26](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/tevm/SAddressBook.js#L26)
 
 ## Variables
 
@@ -56,7 +56,7 @@ Re-exports [IsAddressBook](/reference/schemas/modules/types.md#isaddressbook)
 
 #### Defined in
 
-[schemas/src/evmts/SAddressBook.js:46](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/evmts/SAddressBook.js#L46)
+[schemas/src/tevm/SAddressBook.js:46](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/tevm/SAddressBook.js#L46)
 
 ## Functions
 
@@ -84,7 +84,7 @@ addressBook is AddressBook<TContractNames\>
 
 #### Defined in
 
-[schemas/src/types.d.ts:27](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/types.d.ts#L27)
+[schemas/src/types.d.ts:27](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/types.d.ts#L27)
 
 ___
 
@@ -113,7 +113,7 @@ Parses an address book and returns the value if no errors.
 **`Example`**
 
 ```typescript
-import {parseAddressBook} from '@evmts/schemas'
+import {parseAddressBook} from '@tevm/schemas'
 const parsedAddressBook = parseAddressBook({
   MyContract: {
     blockCreated: 0,
@@ -124,13 +124,13 @@ const parsedAddressBook = parseAddressBook({
 
 #### Defined in
 
-[schemas/src/evmts/SAddressBook.js:121](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/evmts/SAddressBook.js#L121)
+[schemas/src/tevm/SAddressBook.js:121](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/tevm/SAddressBook.js#L121)
 
 ___
 
 ### parseAddressBookSafe
 
-▸ **parseAddressBookSafe**<`TAddressBook`\>(`addressBook`): `Effect`<`never`, [`InvalidAddressBookError`](/reference/schemas/classes/evmts.InvalidAddressBookError.md), `TAddressBook`\>
+▸ **parseAddressBookSafe**<`TAddressBook`\>(`addressBook`): `Effect`<`never`, [`InvalidAddressBookError`](/reference/schemas/classes/tevm.InvalidAddressBookError.md), `TAddressBook`\>
 
 Safely parses an address book into an [Effect](https://www.effect.website/docs/essentials/effect-type).
 
@@ -148,12 +148,12 @@ Safely parses an address book into an [Effect](https://www.effect.website/docs/e
 
 #### Returns
 
-`Effect`<`never`, [`InvalidAddressBookError`](/reference/schemas/classes/evmts.InvalidAddressBookError.md), `TAddressBook`\>
+`Effect`<`never`, [`InvalidAddressBookError`](/reference/schemas/classes/tevm.InvalidAddressBookError.md), `TAddressBook`\>
 
 **`Example`**
 
 ```typescript
-import {parseAddressBookSafe} from '@evmts/schemas'
+import {parseAddressBookSafe} from '@tevm/schemas'
 const parsedAddressBookEffect = parseAddressBookSafe({
   MyContract: {
     blockCreated: 0,
@@ -164,4 +164,4 @@ const parsedAddressBookEffect = parseAddressBookSafe({
 
 #### Defined in
 
-[schemas/src/evmts/SAddressBook.js:90](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/evmts/SAddressBook.js#L90)
+[schemas/src/tevm/SAddressBook.js:90](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/tevm/SAddressBook.js#L90)

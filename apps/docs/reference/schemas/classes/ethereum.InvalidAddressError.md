@@ -1,4 +1,4 @@
-[@evmts/schemas](/reference/schemas/README.md) / [Modules](/reference/schemas/modules.md) / [ethereum](/reference/schemas/modules/ethereum.md) / InvalidAddressError
+[@tevm/schemas](/reference/schemas/README.md) / [Modules](/reference/schemas/modules.md) / [ethereum](/reference/schemas/modules/ethereum.md) / InvalidAddressError
 
 # Class: InvalidAddressError
 
@@ -60,7 +60,7 @@ TypeError.constructor
 
 #### Defined in
 
-[schemas/src/ethereum/SAddress/Errors.js:25](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SAddress/Errors.js#L25)
+[schemas/src/ethereum/SAddress/Errors.js:25](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SAddress/Errors.js#L25)
 
 ## Properties
 
@@ -74,7 +74,7 @@ TypeError.cause
 
 #### Defined in
 
-[schemas/src/ethereum/SAddress/Errors.js:32](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/ethereum/SAddress/Errors.js#L32)
+[schemas/src/ethereum/SAddress/Errors.js:32](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/ethereum/SAddress/Errors.js#L32)
 
 ___
 

@@ -1,4 +1,4 @@
-[@evmts/effect](../README.md) / [Modules](../modules.md) / createRequireEffect
+[@tevm/effect](../README.md) / [Modules](../modules.md) / createRequireEffect
 
 # Module: createRequireEffect
 
@@ -49,4 +49,4 @@ https://nodejs.org/api/modules.html#modules_module_createrequire_filename
 
 #### Defined in
 
-[packages/effect/src/createRequireEffect.js:50](https://github.com/evmts/evmts-monorepo/blob/main/packages/effect/src/createRequireEffect.js#L50)
+[packages/effect/src/createRequireEffect.js:50](https://github.com/tevm/tevm-monorepo/blob/main/packages/effect/src/createRequireEffect.js#L50)

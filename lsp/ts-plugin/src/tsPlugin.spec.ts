@@ -1,5 +1,5 @@
 import tsPlugin from './index.js'
-import { CompilerConfig } from '@evmts/config'
+import { CompilerConfig } from '@tevm/config'
 import path from 'path'
 import typescript from 'typescript/lib/tsserverlibrary.js'
 import { Mock, describe, expect, it, vi } from 'vitest'

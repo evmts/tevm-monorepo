@@ -1,4 +1,4 @@
-import type { EVMts } from '../evmts.js'
+import type { Tevm } from '../tevm.js'
 import {
 	Account as EthjsAccount,
 	Address as EthjsAddress,
@@ -20,7 +20,7 @@ export const PutAccountActionValidator = z.object({
 })
 
 /**
- * EVMts action to put an account into the vm state
+ * Tevm action to put an account into the vm state
  */
 export type PutAccountAction = {
 	account: Address
@@ -28,13 +28,13 @@ export type PutAccountAction = {
 }
 
 export const putAccountHandler = async (
-	evmts: EVMts,
+	tevm: Tevm,
 	{ account, balance = DEFAULT_BALANCE }: PutAccountAction,
 ): Promise<EthjsAccount> => {
 	const address = new EthjsAddress(hexToBytes(account))
-	await evmts._evm.stateManager.putAccount(
+	await tevm._evm.stateManager.putAccount(
 		address,
 		new EthjsAccount(BigInt(0), balance),
 	)
-	return evmts._evm.stateManager.getAccount(address) as Promise<EthjsAccount>
+	return tevm._evm.stateManager.getAccount(address) as Promise<EthjsAccount>
 }

@@ -1,10 +1,10 @@
-import { evmtsContractFactory } from '../evmtsContractFactory'
+import { createTevmContract } from '../createTevmContract'
 import { dummyAbi } from '../test/fixtures'
 import { eventsFactory } from './eventFactory'
 import { formatAbi } from 'abitype'
 import { describe, expect, it } from 'vitest'
 
-const contract = evmtsContractFactory({
+const contract = createTevmContract({
 	humanReadableAbi: formatAbi(dummyAbi),
 	name: 'DummyContract',
 	bytecode: undefined,
@@ -13,7 +13,7 @@ const contract = evmtsContractFactory({
 
 const dummyAbiNoEvent = dummyAbi.filter((abi) => abi.type !== 'event')
 
-const contractNoEvent = evmtsContractFactory({
+const contractNoEvent = createTevmContract({
 	humanReadableAbi: formatAbi(dummyAbiNoEvent),
 	name: 'DummyContract',
 	bytecode: undefined,

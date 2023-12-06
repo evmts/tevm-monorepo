@@ -249,7 +249,7 @@ const abi = [
 	},
 ] as const
 
-// This mock is the same shape as the evmts contract imports
+// This mock is the same shape as the tevm contract imports
 export const DaiContract = {
 	abi,
 	deployedBytecode,

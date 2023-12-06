@@ -1,4 +1,4 @@
-[@evmts/state](/reference/state/README.md) / [Exports](/reference/state/modules.md) / BaseStateOptions
+[@tevm/state](/reference/state/README.md) / [Exports](/reference/state/modules.md) / BaseStateOptions
 
 # Interface: BaseStateOptions
 
@@ -16,4 +16,4 @@
 
 #### Defined in
 
-[BaseState.ts:5](https://github.com/evmts/evmts-monorepo/blob/main/packages/state/src/BaseState.ts#L5)
+[BaseState.ts:5](https://github.com/tevm/tevm-monorepo/blob/main/packages/state/src/BaseState.ts#L5)

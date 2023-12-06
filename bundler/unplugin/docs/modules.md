@@ -1,6 +1,6 @@
-[@evmts/unplugin](README.md) / Exports
+[@tevm/unplugin](README.md) / Exports
 
-# @evmts/unplugin
+# @tevm/unplugin
 
 ## Table of contents
 
@@ -11,7 +11,7 @@
 ### Functions
 
 - [createUnplugin](modules.md#createunplugin)
-- [evmtsUnplugin](modules.md#evmtsunplugin)
+- [tevmUnplugin](modules.md#tevmunplugin)
 
 ## Type Aliases
 
@@ -21,7 +21,7 @@
 
 #### Defined in
 
-[bundler/unplugin/src/evmtsUnplugin.js:34](https://github.com/evmts/evmts-monorepo/blob/main/bundler/unplugin/src/evmtsUnplugin.js#L34)
+[bundler/unplugin/src/tevmUnplugin.js:34](https://github.com/tevm/tevm-monorepo/blob/main/bundler/unplugin/src/tevmUnplugin.js#L34)
 
 ## Functions
 
@@ -52,9 +52,9 @@ node_modules/.pnpm/unplugin@1.5.1/node_modules/unplugin/dist/index.d.mts:120
 
 ___
 
-### evmtsUnplugin
+### tevmUnplugin
 
-▸ **evmtsUnplugin**(`options`, `meta`): `UnpluginOptions`
+▸ **tevmUnplugin**(`options`, `meta`): `UnpluginOptions`
 
 #### Parameters
 

@@ -1,3 +1,3 @@
-import { createUnplugin, evmtsUnplugin } from '@evmts/unplugin'
+import { createUnplugin, tevmUnplugin } from '@tevm/unplugin'
 
-export const { vite: vitePluginEvmts } = createUnplugin(evmtsUnplugin)
+export const { vite: vitePluginTevm } = createUnplugin(tevmUnplugin)

@@ -1,6 +1,6 @@
-[@evmts/viem](/reference/viem-effect/README.md) / Modules
+[@tevm/viem](/reference/viem-effect/README.md) / Modules
 
-# @evmts/viem
+# @tevm/viem
 
 ## Table of contents
 

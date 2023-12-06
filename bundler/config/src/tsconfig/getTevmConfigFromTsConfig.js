@@ -2,7 +2,7 @@ import { validateUserConfig } from '../config/index.js'
 import { fail, logDebug, map, tap } from 'effect/Effect'
 
 /**
- * Error type for {@link getEvmtsConfigFromTsConfig}
+ * Error type for {@link getTevmConfigFromTsConfig}
  * @internal
  */
 export class NoPluginFoundError extends Error {
@@ -13,16 +13,16 @@ export class NoPluginFoundError extends Error {
 }
 
 /**
- * @typedef {NoPluginFoundError | import("../config/index.js").ValidateUserConfigError } GetEvmtsConfigFromTsConfigError
+ * @typedef {NoPluginFoundError | import("../config/index.js").ValidateUserConfigError } GetTevmConfigFromTsConfigError
  */
 
 /**
  * @param {import("./loadTsConfig.js").TsConfig} tsConfig
  * @param {string} configPath`
- * @returns {import("effect/Effect").Effect<never, GetEvmtsConfigFromTsConfigError, import("../types.js").CompilerConfig>}
+ * @returns {import("effect/Effect").Effect<never, GetTevmConfigFromTsConfigError, import("../types.js").CompilerConfig>}
  * @internal
  */
-export const getEvmtsConfigFromTsConfig = (tsConfig, configPath) => {
+export const getTevmConfigFromTsConfig = (tsConfig, configPath) => {
 	if (!tsConfig.compilerOptions?.plugins?.length) {
 		return fail(
 			new NoPluginFoundError('No compilerOptions.plugins in tsconfig'),
@@ -34,7 +34,7 @@ export const getEvmtsConfigFromTsConfig = (tsConfig, configPath) => {
 		 */
 		(
 			tsConfig.compilerOptions.plugins.find(
-				(/** @type {any}*/ plugin) => plugin.name === '@evmts/ts-plugin',
+				(/** @type {any}*/ plugin) => plugin.name === '@tevm/ts-plugin',
 			)
 		)
 	if (!plugin) {
@@ -68,7 +68,7 @@ export const getEvmtsConfigFromTsConfig = (tsConfig, configPath) => {
 				: config,
 		),
 		tap((config) => {
-			return logDebug(`getting config from tsconfig: 
+			return logDebug(`getting config from tsconfig:
   tsconfig: ${JSON.stringify(config)}
   result: ${JSON.stringify(config)}`)
 		}),

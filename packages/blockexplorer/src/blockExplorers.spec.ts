@@ -3,7 +3,7 @@ import {
 	InvalidAddressError,
 	InvalidBytesError,
 	InvalidUrlError,
-} from '@evmts/schemas'
+} from '@tevm/schemas'
 import { optimism } from 'viem/chains'
 import { describe, expect, expectTypeOf, it } from 'vitest'
 

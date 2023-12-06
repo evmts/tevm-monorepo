@@ -1,11 +1,11 @@
-# @evmts/plugin
+# @tevm/plugin
 
 A webpack plugin for importing solidity files.
 
 ## Installation
 
 ```bash
-pnpm i @evmts/webpack-plugin
+pnpm i @tevm/webpack-plugin
 ```
 
 ## Usage
@@ -13,13 +13,13 @@ pnpm i @evmts/webpack-plugin
 Install webpack plugin
 
 ```bash
-npm i @evmts/webpack-plugin
+npm i @tevm/webpack-plugin
 ```
 
 Add to your webpack config
 
 ```typescript
-import {ForgePlugin} from '@evmts/webpack-plugin'
+import {ForgePlugin} from '@tevm/webpack-plugin'
 
 export default {
   // ... other configuration settings
@@ -35,7 +35,7 @@ export default {
 ## ConfigOptions
 
 
-## Usage in @evmts/core
+## Usage in @tevm/core
 
 ## Usage in other libraries
 

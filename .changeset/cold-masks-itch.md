@@ -1,18 +1,18 @@
 ---
-"@evmts/bundler": patch
-"@evmts/esbuild-plugin": patch
-"@evmts/webpack-plugin": patch
-"@evmts/rollup-plugin": patch
-"@evmts/rspack-plugin": patch
-"@evmts/blockexplorer": patch
-"@evmts/vite-plugin": patch
-"@evmts/bun-plugin": patch
-"@evmts/ts-plugin": patch
-"@evmts/schemas": patch
-"@evmts/config": patch
-"@evmts/ethers": patch
-"@evmts/core": patch
-"@evmts/revm": patch
+"@tevm/bundler": patch
+"@tevm/esbuild-plugin": patch
+"@tevm/webpack-plugin": patch
+"@tevm/rollup-plugin": patch
+"@tevm/rspack-plugin": patch
+"@tevm/blockexplorer": patch
+"@tevm/vite-plugin": patch
+"@tevm/bun-plugin": patch
+"@tevm/ts-plugin": patch
+"@tevm/schemas": patch
+"@tevm/config": patch
+"@tevm/ethers": patch
+"@tevm/core": patch
+"@tevm/revm": patch
 ---
 
 Updated all packages to automatically generate up to date reference docs

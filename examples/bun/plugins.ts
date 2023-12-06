@@ -1,7 +1,7 @@
-import { evmtsBunPlugin } from '@evmts/bun-plugin'
+import { tevmBunPlugin } from '@tevm/bun-plugin'
 import { plugin } from 'bun'
 
-// Load EVMts plugin to enable solidity imports
-// EVMts is configured in the tsconfig.json
-// in future it will be configured via evmts.config.ts
-plugin(evmtsBunPlugin({}))
+// Load Tevm plugin to enable solidity imports
+// Tevm is configured in the tsconfig.json
+// in future it will be configured via tevm.config.ts
+plugin(tevmBunPlugin({}))

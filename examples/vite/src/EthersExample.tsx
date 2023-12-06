@@ -1,7 +1,7 @@
 import { addresses } from './addresses'
 import { WagmiMintExample } from './contracts/WagmiMintExample.sol'
-import { Contract } from '@evmts/ethers'
 import { useQuery } from '@tanstack/react-query'
+import { Contract } from '@tevm/ethers'
 import { JsonRpcProvider } from 'ethers'
 
 const getBalance = async () => {

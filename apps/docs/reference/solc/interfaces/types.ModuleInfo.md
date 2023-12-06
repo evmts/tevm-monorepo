@@ -1,4 +1,4 @@
-[@evmts/solc](/reference/solc/README.md) / [Modules](/reference/solc/modules.md) / [types](/reference/solc/modules/types.md) / ModuleInfo
+[@tevm/solc](/reference/solc/README.md) / [Modules](/reference/solc/modules.md) / [types](/reference/solc/modules/types.md) / ModuleInfo
 
 # Interface: ModuleInfo
 
@@ -28,7 +28,7 @@ https://rollupjs.org/plugin-development/#this-getmoduleinfo
 
 #### Defined in
 
-[types.ts:27](https://github.com/evmts/evmts-monorepo/blob/main/solc/src/types.ts#L27)
+[types.ts:27](https://github.com/evmts/tevm-monorepo/blob/main/solc/src/types.ts#L27)
 
 ___
 
@@ -38,7 +38,7 @@ ___
 
 #### Defined in
 
-[types.ts:25](https://github.com/evmts/evmts-monorepo/blob/main/solc/src/types.ts#L25)
+[types.ts:25](https://github.com/evmts/tevm-monorepo/blob/main/solc/src/types.ts#L25)
 
 ___
 
@@ -48,7 +48,7 @@ ___
 
 #### Defined in
 
-[types.ts:28](https://github.com/evmts/evmts-monorepo/blob/main/solc/src/types.ts#L28)
+[types.ts:28](https://github.com/evmts/tevm-monorepo/blob/main/solc/src/types.ts#L28)
 
 ___
 
@@ -58,7 +58,7 @@ ___
 
 #### Defined in
 
-[types.ts:26](https://github.com/evmts/evmts-monorepo/blob/main/solc/src/types.ts#L26)
+[types.ts:26](https://github.com/evmts/tevm-monorepo/blob/main/solc/src/types.ts#L26)
 
 ___
 
@@ -68,4 +68,4 @@ ___
 
 #### Defined in
 
-[types.ts:29](https://github.com/evmts/evmts-monorepo/blob/main/solc/src/types.ts#L29)
+[types.ts:29](https://github.com/evmts/tevm-monorepo/blob/main/solc/src/types.ts#L29)

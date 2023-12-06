@@ -1,4 +1,4 @@
-// TODO unused move this to @evmts/createRequire package
+// TODO unused move this to @tevm/createRequire package
 import { try as tryEffect } from 'effect/Effect'
 import { map } from 'effect/Effect'
 import { createRequire } from 'module'

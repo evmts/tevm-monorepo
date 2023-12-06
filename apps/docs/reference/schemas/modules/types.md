@@ -1,4 +1,4 @@
-[@evmts/schemas](/reference/schemas/README.md) / [Modules](/reference/schemas/modules.md) / types
+[@tevm/schemas](/reference/schemas/README.md) / [Modules](/reference/schemas/modules.md) / types
 
 # Module: types
 
@@ -26,7 +26,7 @@
 
 #### Defined in
 
-[schemas/src/types.d.ts:23](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/types.d.ts#L23)
+[schemas/src/types.d.ts:23](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/types.d.ts#L23)
 
 ___
 
@@ -43,7 +43,7 @@ ___
 
 #### Defined in
 
-[schemas/src/types.d.ts:18](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/types.d.ts#L18)
+[schemas/src/types.d.ts:18](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/types.d.ts#L18)
 
 ___
 
@@ -53,7 +53,7 @@ ___
 
 #### Defined in
 
-[schemas/src/types.d.ts:3](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/types.d.ts#L3)
+[schemas/src/types.d.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/types.d.ts#L3)
 
 ___
 
@@ -83,7 +83,7 @@ addressBook is AddressBook<TContractNames\>
 
 #### Defined in
 
-[schemas/src/types.d.ts:27](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/types.d.ts#L27)
+[schemas/src/types.d.ts:27](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/types.d.ts#L27)
 
 ___
 
@@ -121,4 +121,4 @@ isBlockNumber(1.1) // false
 
 #### Defined in
 
-[schemas/src/types.d.ts:16](https://github.com/evmts/evmts-monorepo/blob/main/schemas/src/types.d.ts#L16)
+[schemas/src/types.d.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/schemas/src/types.d.ts#L16)

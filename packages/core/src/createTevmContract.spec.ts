@@ -1,10 +1,10 @@
-import { evmtsContractFactory } from './evmtsContractFactory'
+import { createTevmContract } from './createTevmContract'
 import { dummyAbi } from './test/fixtures'
 import { formatAbi, parseAbi } from 'abitype'
 import { describe, expect, it } from 'vitest'
 
-describe(evmtsContractFactory.name, () => {
-	const contract = evmtsContractFactory({
+describe(createTevmContract.name, () => {
+	const contract = createTevmContract({
 		bytecode: undefined,
 		humanReadableAbi: formatAbi(dummyAbi),
 		name: 'DummyContract',

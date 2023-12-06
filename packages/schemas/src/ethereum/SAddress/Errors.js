@@ -1,5 +1,5 @@
 /**
- * @module @evmts/schemas/ethereum/SAddress/Errors.js
+ * @module @tevm/schemas/ethereum/SAddress/Errors.js
  * @description Error types for solidity Address type.
  * @author William Cory <willcory10@gmail.com>
  */
@@ -26,7 +26,7 @@ export class InvalidAddressError extends TypeError {
 		address,
 		cause,
 		message = `Provided value ${address} is not a valid Address`,
-		docs = 'https://evmts.dev/reference/errors',
+		docs = 'https://tevm.dev/reference/errors',
 	}) {
 		super(`${InvalidAddressError.name}: ${message}\n${docs}`)
 		this.cause = cause && formatErrors(cause)

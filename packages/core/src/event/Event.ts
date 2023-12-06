@@ -46,7 +46,7 @@ export type Events<
 		TEventName,
 		MaybeExtractEventArgsFromAbi<ParseAbi<THumanReadableAbi>, TEventName>
 	> & {
-		evmtsContractName: TName
+		tevmContractName: TName
 		eventName: TEventName
 		abi: [ExtractAbiEvent<ParseAbi<THumanReadableAbi>, TEventName>]
 		bytecode: TBytecode

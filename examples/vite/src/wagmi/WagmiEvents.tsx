@@ -8,7 +8,7 @@ export const WagmiEvents = () => {
 
 	const { data: blockNumber } = useBlockNumber()
 
-	// TODO add types to EvmtsContract type
+	// TODO add types to TevmContract type
 	const [events, setEvents] = useState<any[]>([])
 
 	/**

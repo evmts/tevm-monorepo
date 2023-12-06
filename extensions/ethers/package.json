@@ -1,8 +1,8 @@
 {
-	"name": "@evmts/ethers",
+	"name": "@tevm/ethers",
 	"version": "1.0.0-next.5",
 	"private": false,
-	"description": "A collection of ethers.js utilities for working with Evmts",
+	"description": "A collection of ethers.js utilities for working with Tevm",
 	"keywords": [
 		"ethers",
 		"solidity",
@@ -15,13 +15,11 @@
 	],
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/evmts/evmts-monorepo.git",
+		"url": "https://github.com/evmts/tevm-monorepo.git",
 		"directory": "extensions/ethers"
 	},
 	"license": "MIT",
-	"contributors": [
-		"Will Cory <willcory10@gmail.com>"
-	],
+	"contributors": ["Will Cory <willcory10@gmail.com>"],
 	"type": "module",
 	"exports": {
 		"./package.json": "./package.json",
@@ -35,13 +33,9 @@
 	"main": "dist/index.cjs",
 	"module": "src/index.js",
 	"types": "types/index.d.ts",
-	"files": [
-		"dist",
-		"src",
-		"types"
-	],
+	"files": ["dist", "src", "types"],
 	"scripts": {
-		"build": "nx run-many --targets=build:dist,build:types --projects=@evmts/ethers ",
+		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/ethers ",
 		"build:dist": "bun run tsup",
 		"build:types": "bun run tsc --emitDeclarationOnly --declaration --declarationMap",
 		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
@@ -56,8 +50,8 @@
 		"test:ui": "vitest --ui"
 	},
 	"devDependencies": {
-		"@evmts/core": "workspace:^",
-		"@evmts/tsconfig": "workspace:^",
+		"@tevm/core": "workspace:^",
+		"@tevm/tsconfig": "workspace:^",
 		"@vitest/coverage-v8": "^0.34.6",
 		"@vitest/ui": "^0.34.6",
 		"abitype": "^0.10.2",

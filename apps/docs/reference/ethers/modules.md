@@ -1,6 +1,6 @@
-[@evmts/ethers](/reference/ethers/README.md) / Exports
+[@tevm/ethers](/reference/ethers/README.md) / Exports
 
-# @evmts/ethers
+# @tevm/ethers
 
 ## Table of contents
 
@@ -45,7 +45,7 @@
 
 #### Defined in
 
-[ethers/src/Contract.d.ts:21](https://github.com/evmts/evmts-monorepo/blob/main/ethers/src/Contract.d.ts#L21)
+[ethers/src/Contract.d.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/ethers/src/Contract.d.ts#L21)
 
 ___
 
@@ -75,7 +75,7 @@ ___
 
 #### Defined in
 
-[ethers/src/Contract.d.ts:12](https://github.com/evmts/evmts-monorepo/blob/main/ethers/src/Contract.d.ts#L12)
+[ethers/src/Contract.d.ts:12](https://github.com/evmts/tevm-monorepo/blob/main/ethers/src/Contract.d.ts#L12)
 
 ## Variables
 
@@ -85,7 +85,7 @@ ___
 
 #### Defined in
 
-[ethers/src/Contract.d.ts:30](https://github.com/evmts/evmts-monorepo/blob/main/ethers/src/Contract.d.ts#L30)
+[ethers/src/Contract.d.ts:30](https://github.com/evmts/tevm-monorepo/blob/main/ethers/src/Contract.d.ts#L30)
 
 ___
 
@@ -95,4 +95,4 @@ ___
 
 #### Defined in
 
-[ethers/src/Contract.d.ts:19](https://github.com/evmts/evmts-monorepo/blob/main/ethers/src/Contract.d.ts#L19)
+[ethers/src/Contract.d.ts:19](https://github.com/evmts/tevm-monorepo/blob/main/ethers/src/Contract.d.ts#L19)

@@ -1,4 +1,4 @@
-[@evmts/solc](/reference/solc/README.md) / [Modules](/reference/solc/modules.md) / resolveArtifacts
+[@tevm/solc](/reference/solc/README.md) / [Modules](/reference/solc/modules.md) / resolveArtifacts
 
 # Module: resolveArtifacts
 
@@ -41,4 +41,4 @@ Resolves artifacts with solc asyncronously
 
 #### Defined in
 
-[resolveArtifactsSync.d.ts:16](https://github.com/evmts/evmts-monorepo/blob/main/solc/src/resolveArtifactsSync.d.ts#L16)
+[resolveArtifactsSync.d.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/solc/src/resolveArtifactsSync.d.ts#L16)

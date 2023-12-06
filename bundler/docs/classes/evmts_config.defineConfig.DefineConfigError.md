@@ -1,10 +1,10 @@
-[Documentation](../README.md) / [Modules](../modules.md) / [@evmts/config](../modules/evmts_config.md) / [defineConfig](../modules/evmts_config.defineConfig.md) / DefineConfigError
+[Documentation](../README.md) / [Modules](../modules.md) / [@tevm/config](../modules/tevm_config.md) / [defineConfig](../modules/tevm_config.defineConfig.md) / DefineConfigError
 
 # Class: DefineConfigError
 
-[@evmts/config](../modules/evmts_config.md).[defineConfig](../modules/evmts_config.defineConfig.md).DefineConfigError
+[@tevm/config](../modules/tevm_config.md).[defineConfig](../modules/tevm_config.defineConfig.md).DefineConfigError
 
-Error class for [defineConfig](../modules/evmts_config.defineConfig.md#defineconfig)
+Error class for [defineConfig](../modules/tevm_config.defineConfig.md#defineconfig)
 
 ## Hierarchy
 
@@ -16,38 +16,38 @@ Error class for [defineConfig](../modules/evmts_config.defineConfig.md#definecon
 
 ### Constructors
 
-- [constructor](evmts_config.defineConfig.DefineConfigError.md#constructor)
+- [constructor](tevm_config.defineConfig.DefineConfigError.md#constructor)
 
 ### Properties
 
-- [\_tag](evmts_config.defineConfig.DefineConfigError.md#_tag)
-- [cause](evmts_config.defineConfig.DefineConfigError.md#cause)
-- [message](evmts_config.defineConfig.DefineConfigError.md#message)
-- [name](evmts_config.defineConfig.DefineConfigError.md#name)
-- [stack](evmts_config.defineConfig.DefineConfigError.md#stack)
-- [prepareStackTrace](evmts_config.defineConfig.DefineConfigError.md#preparestacktrace)
-- [stackTraceLimit](evmts_config.defineConfig.DefineConfigError.md#stacktracelimit)
+- [\_tag](tevm_config.defineConfig.DefineConfigError.md#_tag)
+- [cause](tevm_config.defineConfig.DefineConfigError.md#cause)
+- [message](tevm_config.defineConfig.DefineConfigError.md#message)
+- [name](tevm_config.defineConfig.DefineConfigError.md#name)
+- [stack](tevm_config.defineConfig.DefineConfigError.md#stack)
+- [prepareStackTrace](tevm_config.defineConfig.DefineConfigError.md#preparestacktrace)
+- [stackTraceLimit](tevm_config.defineConfig.DefineConfigError.md#stacktracelimit)
 
 ### Methods
 
-- [captureStackTrace](evmts_config.defineConfig.DefineConfigError.md#capturestacktrace)
+- [captureStackTrace](tevm_config.defineConfig.DefineConfigError.md#capturestacktrace)
 
 ## Constructors
 
 ### constructor
 
-• **new DefineConfigError**(`configFilePath`, `underlyingError`): [`DefineConfigError`](evmts_config.defineConfig.DefineConfigError.md)
+• **new DefineConfigError**(`configFilePath`, `underlyingError`): [`DefineConfigError`](tevm_config.defineConfig.DefineConfigError.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `configFilePath` | `string` |
-| `underlyingError` | [`DefineConfigErrorType`](../modules/evmts_config.types.md#defineconfigerrortype) |
+| `underlyingError` | [`DefineConfigErrorType`](../modules/tevm_config.types.md#defineconfigerrortype) |
 
 #### Returns
 
-[`DefineConfigError`](evmts_config.defineConfig.DefineConfigError.md)
+[`DefineConfigError`](tevm_config.defineConfig.DefineConfigError.md)
 
 #### Overrides
 
@@ -55,7 +55,7 @@ Error.constructor
 
 #### Defined in
 
-[bundler/config/src/defineConfig.js:26](https://github.com/evmts/evmts-monorepo/blob/main/bundler/config/src/defineConfig.js#L26)
+[bundler/config/src/defineConfig.js:26](https://github.com/evmts/tevm-monorepo/blob/main/bundler/config/src/defineConfig.js#L26)
 
 ## Properties
 
@@ -65,7 +65,7 @@ Error.constructor
 
 #### Defined in
 
-[bundler/config/src/defineConfig.js:21](https://github.com/evmts/evmts-monorepo/blob/main/bundler/config/src/defineConfig.js#L21)
+[bundler/config/src/defineConfig.js:21](https://github.com/evmts/tevm-monorepo/blob/main/bundler/config/src/defineConfig.js#L21)
 
 ___
 
@@ -107,7 +107,7 @@ Error.name
 
 #### Defined in
 
-[bundler/config/src/defineConfig.js:17](https://github.com/evmts/evmts-monorepo/blob/main/bundler/config/src/defineConfig.js#L17)
+[bundler/config/src/defineConfig.js:17](https://github.com/evmts/tevm-monorepo/blob/main/bundler/config/src/defineConfig.js#L17)
 
 ___
 

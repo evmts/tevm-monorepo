@@ -5,20 +5,20 @@
 	"type": "module",
 	"scripts": {
 		"build": "vite build",
-		"check": "echo 'cli typechecking will not be available until EVMts beta. Stay tuned to updates in the evmts/evmts-monorepo repo. Your editor should be able to provide typechecking in the meantime'",
-		"check:watch": "echo 'typechecking will not be available until EVMts beta. Stay tuned to updates in the evmts/evmts-monorepo repo. Your editor should be able to provide typechecking in the meantime'",
+		"check": "echo 'cli typechecking will not be available until Tevm beta. Stay tuned to updates in the tevm/tevm-monorepo repo. Your editor should be able to provide typechecking in the meantime'",
+		"check:watch": "echo 'typechecking will not be available until Tevm beta. Stay tuned to updates in the tevm/tevm-monorepo repo. Your editor should be able to provide typechecking in the meantime'",
 		"dev": "vite dev",
 		"preview": "vite preview",
 		"test": "vitest"
 	},
 	"dependencies": {
-		"@evmts/core": "workspace:^",
-		"@evmts/ethers": "workspace:^",
+		"@tevm/core": "workspace:^",
+		"@tevm/ethers": "workspace:^",
 		"ethers": "^6.8.0"
 	},
 	"devDependencies": {
-		"@evmts/ts-plugin": "workspace:^",
-		"@evmts/vite-plugin": "workspace:^",
+		"@tevm/ts-plugin": "workspace:^",
+		"@tevm/vite-plugin": "workspace:^",
 		"@openzeppelin/contracts": "^5.0.0",
 		"@sveltejs/adapter-auto": "^2.1.0",
 		"@sveltejs/kit": "^1.27.2",

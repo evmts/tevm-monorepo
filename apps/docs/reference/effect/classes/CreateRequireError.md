@@ -1,4 +1,4 @@
-[@evmts/effect](/reference/effect/README.md) / [Exports](/reference/effect/modules.md) / CreateRequireError
+[@tevm/effect](/reference/effect/README.md) / [Exports](/reference/effect/modules.md) / CreateRequireError
 
 # Class: CreateRequireError
 
@@ -47,7 +47,7 @@ Error.constructor
 
 #### Defined in
 
-[effect/src/createRequireEffect.js:17](https://github.com/evmts/evmts-monorepo/blob/main/effect/src/createRequireEffect.js#L17)
+[effect/src/createRequireEffect.js:17](https://github.com/evmts/tevm-monorepo/blob/main/effect/src/createRequireEffect.js#L17)
 
 ## Properties
 
@@ -57,7 +57,7 @@ Error.constructor
 
 #### Defined in
 
-[effect/src/createRequireEffect.js:10](https://github.com/evmts/evmts-monorepo/blob/main/effect/src/createRequireEffect.js#L10)
+[effect/src/createRequireEffect.js:10](https://github.com/evmts/tevm-monorepo/blob/main/effect/src/createRequireEffect.js#L10)
 
 ___
 

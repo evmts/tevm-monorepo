@@ -1,18 +1,18 @@
-[@evmts/vite-plugin](/reference/vite-plugin/README.md) / Exports
+[@tevm/vite-plugin](/reference/vite-plugin/README.md) / Exports
 
-# @evmts/vite-plugin
+# @tevm/vite-plugin
 
 ## Table of contents
 
 ### Functions
 
-- [vitePluginEvmts](/reference/vite-plugin/modules.md#vitepluginevmts)
+- [vitePluginTevm](/reference/vite-plugin/modules.md#viteplugintevm)
 
 ## Functions
 
-### vitePluginEvmts
+### vitePluginTevm
 
-▸ **vitePluginEvmts**(`options?`): `Plugin_2`
+▸ **vitePluginTevm**(`options?`): `Plugin_2`
 
 #### Parameters
 

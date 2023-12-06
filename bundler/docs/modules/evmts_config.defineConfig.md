@@ -1,4 +1,4 @@
-[Documentation](../README.md) / [Modules](../modules.md) / [@evmts/config](evmts_config.md) / defineConfig
+[Documentation](../README.md) / [Modules](../modules.md) / [@tevm/config](tevm_config.md) / defineConfig
 
 # Module: defineConfig
 
@@ -6,11 +6,11 @@
 
 ### Classes
 
-- [DefineConfigError](../classes/evmts_config.defineConfig.DefineConfigError.md)
+- [DefineConfigError](../classes/tevm_config.defineConfig.DefineConfigError.md)
 
 ### Functions
 
-- [defineConfig](evmts_config.defineConfig.md#defineconfig)
+- [defineConfig](tevm_config.defineConfig.md#defineconfig)
 
 ## Functions
 
@@ -18,13 +18,13 @@
 
 ▸ **defineConfig**(`configFactory`): `Object`
 
-Typesafe way to create an EVMts CompilerConfig
+Typesafe way to create an Tevm CompilerConfig
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `configFactory` | [`ConfigFactory`](evmts_config.types.md#configfactory) |
+| `configFactory` | [`ConfigFactory`](tevm_config.types.md#configfactory) |
 
 #### Returns
 
@@ -32,12 +32,12 @@ Typesafe way to create an EVMts CompilerConfig
 
 | Name | Type |
 | :------ | :------ |
-| `configFn` | (`configFilePath`: `string`) => `Effect`\<`never`, [`DefineConfigError`](../classes/evmts_config.defineConfig.DefineConfigError.md), [`ResolvedCompilerConfig`](evmts_config.types.md#resolvedcompilerconfig)\> |
+| `configFn` | (`configFilePath`: `string`) => `Effect`\<`never`, [`DefineConfigError`](../classes/tevm_config.defineConfig.DefineConfigError.md), [`ResolvedCompilerConfig`](tevm_config.types.md#resolvedcompilerconfig)\> |
 
 **`Example`**
 
 ```ts
-import { defineConfig } from '@evmts/ts-plugin'
+import { defineConfig } from '@tevm/ts-plugin'
 
 export default defineConfig(() => ({
 	lib: ['lib'],
@@ -49,4 +49,4 @@ export default defineConfig(() => ({
 
 #### Defined in
 
-[bundler/config/src/types.ts:76](https://github.com/evmts/evmts-monorepo/blob/main/bundler/config/src/types.ts#L76)
+[bundler/config/src/types.ts:76](https://github.com/evmts/tevm-monorepo/blob/main/bundler/config/src/types.ts#L76)

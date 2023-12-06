@@ -1,9 +1,9 @@
 ---
-"@evmts/blockexplorer": patch
-"@evmts/schemas": patch
-"@evmts/viem": patch
-"@evmts/effect": patch
-"@evmts/config": patch
+"@tevm/blockexplorer": patch
+"@tevm/schemas": patch
+"@tevm/viem": patch
+"@tevm/effect": patch
+"@tevm/config": patch
 ---
 
 Fixed effect/schema version

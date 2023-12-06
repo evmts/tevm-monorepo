@@ -1,5 +1,5 @@
 {
-	"name": "@evmts/vm",
+	"name": "@tevm/vm",
 	"version": "1.0.0-next.11",
 	"private": false,
 	"description": "A typesafe library for writing forge scripts in typescript",
@@ -14,13 +14,11 @@
 	],
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/evmts/evmts-monorepo.git",
+		"url": "https://github.com/evmts/tevm-monorepo.git",
 		"directory": "vm"
 	},
 	"license": "MIT",
-	"contributors": [
-		"Will Cory <willcory10@gmail.com>"
-	],
+	"contributors": ["Will Cory <willcory10@gmail.com>"],
 	"type": "module",
 	"exports": {
 		"./package.json": "./package.json",
@@ -33,15 +31,10 @@
 	"main": "dist/index.cjs",
 	"module": "dist/index.js",
 	"types": "types/index.d.ts",
-	"files": [
-		"dist",
-		"types",
-		"src",
-		"!src/**/*.spec.ts"
-	],
+	"files": ["dist", "types", "src", "!src/**/*.spec.ts"],
 	"scripts": {
 		"all": "pnpm i  && bun run build && bun lint && bun format && bun test:run && bun generate:docs",
-		"build": "nx run-many --targets=build:dist,build:types --projects=@evmts/vm",
+		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/vm",
 		"build:dist": "bun run tsup",
 		"build:types": "bun run tsc --emitDeclarationOnly --declaration --declarationMap",
 		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
@@ -73,7 +66,7 @@
 		"viem": "^1.2.10"
 	},
 	"devDependencies": {
-		"@evmts/tsconfig": "workspace:^",
+		"@tevm/tsconfig": "workspace:^",
 		"@types/debug": "^4.1.12",
 		"bun-types": "^1.0.7",
 		"tsup": "^7.0.0",

@@ -1,5 +1,5 @@
 {
-  "name": "evmts Dev Container",
+  "name": "tevm Dev Container",
   "build": {
     "dockerfile": "./Dockerfile",
     "args": {

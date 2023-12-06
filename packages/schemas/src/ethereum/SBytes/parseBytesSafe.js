@@ -16,7 +16,7 @@ import { mapError } from 'effect/Effect'
  * @returns {Effect.Effect<never, InvalidBytesError, TBytes>}
  * @example
  * ```javascript
- * import { parseBytesSafe } from '@evmts/schemas';
+ * import { parseBytesSafe } from '@tevm/schemas';
  * const parsedBytesEffect = parseBytesSafe('0x1234567890abcdef1234567890abcdef12345678');
  * ```
  */

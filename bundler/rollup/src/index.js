@@ -1,3 +1,3 @@
-import { createUnplugin, evmtsUnplugin } from '@evmts/unplugin'
+import { createUnplugin, tevmUnplugin } from '@tevm/unplugin'
 
-export const { rollup: rollupPluginEvmts } = createUnplugin(evmtsUnplugin)
+export const { rollup: rollupPluginTevm } = createUnplugin(tevmUnplugin)

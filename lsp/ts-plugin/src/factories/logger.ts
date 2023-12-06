@@ -23,19 +23,19 @@ export const createLogger = (
 ): Logger => {
 	const info = (msg: string) =>
 		pluginCreateInfo.project.projectService.logger.info(
-			`[evmts-ts-plugin] ${msg}`,
+			`[tevm-ts-plugin] ${msg}`,
 		)
 	const warn = (msg: string) =>
 		pluginCreateInfo.project.projectService.logger.info(
-			`[evmts-ts-plugin] warning: ${msg}`,
+			`[tevm-ts-plugin] warning: ${msg}`,
 		)
 	const error = (msg: string) =>
 		pluginCreateInfo.project.projectService.logger.info(
-			`[evmts-ts-plugin] error: ${msg}`,
+			`[tevm-ts-plugin] error: ${msg}`,
 		)
 	const log = (msg: string) =>
 		pluginCreateInfo.project.projectService.logger.info(
-			`[evmts-ts-plugin] log: ${msg}`,
+			`[tevm-ts-plugin] log: ${msg}`,
 		)
 	return { info, warn, error, log }
 }

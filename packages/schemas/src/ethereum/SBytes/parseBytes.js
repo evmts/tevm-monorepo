@@ -13,7 +13,7 @@ import { runSync } from 'effect/Effect'
  * @returns {TBytes}
  * @example
  * ```javascript
- * import { parseBytes } from '@evmts/schemas';
+ * import { parseBytes } from '@tevm/schemas';
  * const parsedBytes = parseBytes('0x1234567890abcdef1234567890abcdef12345678');
  * ```
  */

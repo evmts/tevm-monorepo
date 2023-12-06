@@ -1,6 +1,6 @@
-[@evmts/ts-plugin](/reference/ts-plugin/README.md) / Exports
+[@tevm/ts-plugin](/reference/ts-plugin/README.md) / Exports
 
-# @evmts/ts-plugin
+# @tevm/ts-plugin
 
 ## Table of contents
 
@@ -31,7 +31,7 @@
 
 ```json
 {
-  "plugins": [{ "name": "evmts-ts-plugin"}]
+  "plugins": [{ "name": "tevm-ts-plugin"}]
 }
 @see https://github.com/microsoft/TypeScript/wiki/Writing-a-Language-Service-Plugin#decorator-creation
 

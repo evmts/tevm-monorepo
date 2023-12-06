@@ -1,5 +1,5 @@
 /**
- * @module @evmts/schemas/ethereum/SUINT/SUINT.js
+ * @module @tevm/schemas/ethereum/SUINT/SUINT.js
  * @description Types and validators for Solidity UINT
  * @author William Cory <willcory10@gmail.com>
  */
@@ -24,7 +24,7 @@ import {
  * @typedef {bigint} UINT8
  * @example
  * ```typescript
- * import { UINT8 } from '@evmts/schemas';
+ * import { UINT8 } from '@tevm/schemas';
  * const uint8 = BigInt(127) as UINT8;
  * ```
  * {@link https://docs.soliditylang.org/en/latest/types.html#integers Solidity docs}
@@ -35,7 +35,7 @@ import {
  * @typedef {bigint} UINT16
  * @example
  * ```typescript
- * import { UINT16 } from '@evmts/schemas';
+ * import { UINT16 } from '@tevm/schemas';
  * const uint16 = BigInt(32767) as UINT16;
  * ```
  * {@link https://docs.soliditylang.org/en/latest/types.html#integers Solidity docs}
@@ -46,7 +46,7 @@ import {
  * @typedef {bigint} UINT32
  * @example
  * ```typescript
- * import { UINT32 } from '@evmts/schemas';
+ * import { UINT32 } from '@tevm/schemas';
  * const uint32 = BigInt(2147483647) as UINT32;
  * ```
  * {@link https://docs.soliditylang.org/en/latest/types.html#integers Solidity docs}
@@ -57,7 +57,7 @@ import {
  * @typedef {bigint} UINT64
  * @example
  * ```typescript
- * import { UINT64 } from '@evmts/schemas';
+ * import { UINT64 } from '@tevm/schemas';
  * const uint64 = BigInt(9223372036854775807) as UINT64;
  * ```
  * {@link https://docs.soliditylang.org/en/latest/types.html#integers Solidity docs}
@@ -68,7 +68,7 @@ import {
  * @typedef {bigint} UINT128
  * @example
  * ```typescript
- * import { UINT128 } from '@evmts/schemas';
+ * import { UINT128 } from '@tevm/schemas';
  * const uint128 = BigInt("170141183460469231731687303715884105727") as UINT128;
  * ```
  * {@link https://docs.soliditylang.org/en/latest/types.html#integers Solidity docs}
@@ -79,7 +79,7 @@ import {
  * @typedef {bigint} UINT256
  * @example
  * ```typescript
- * import { UINT256 } from '@evmts/schemas';
+ * import { UINT256 } from '@tevm/schemas';
  * const uint256 = BigInt("115792089237316195423570985008687907853269984665640564039457584007913129639935") as UINT256;
  * ```
  * {@link https://docs.soliditylang.org/en/latest/types.html#integers Solidity docs}

@@ -1,4 +1,4 @@
-// TODO move this to @evmts/createRequire package
+// TODO move this to @tevm/createRequire package
 import {
 	CreateRequireError,
 	RequireError,

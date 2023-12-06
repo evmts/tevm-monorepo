@@ -1,4 +1,4 @@
-# @evmts/plugin-bun
+# @tevm/plugin-bun
 
 A bun plugin for importing solidity files.
 
@@ -7,7 +7,7 @@ A bun plugin for importing solidity files.
 Install build dependencies
 
 ```typescript
-pnpm install -D bun-types @evmts/bun-plugin @evmts/ts-plugin @evmts/core solc
+pnpm install -D bun-types @tevm/bun-plugin @tevm/ts-plugin @tevm/core solc
 ```
 
 ### Setup
@@ -15,10 +15,10 @@ pnpm install -D bun-types @evmts/bun-plugin @evmts/ts-plugin @evmts/core solc
 first create a `plugins.ts` file
 
 ```typescript
-import { evmtsBunPlugin } from "@evmts/bun-plugin";
+import { tevmBunPlugin } from "@tevm/bun-plugin";
 import { plugin } from 'bun'
 
-plugin(evmtsBunPlugin())
+plugin(tevmBunPlugin())
 ```
 
 Next load your `plugin.ts` file in your `bunfig.toml`
