@@ -1,6 +1,6 @@
 import { BaseState } from './BaseState.js';
 /**
- * Class representing the EVMts state
+ * Class representing the Tevm state
  * @extends {BaseState<{count: number}>}
  */
 export declare class AppState extends BaseState<AppState> {
