@@ -26,7 +26,7 @@
 	"dependencies": {
 		"@tevm/bundler": "workspace:^",
 		"@tevm/config": "workspace:^",
-		"@tevm/core": "workspace:^",
+		"@tevm/contract": "workspace:^",
 		"@tevm/ethers": "workspace:^",
 		"@tevm/solc": "workspace:^",
 		"@rainbow-me/rainbowkit": "^1.2.0",

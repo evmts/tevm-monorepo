@@ -222,22 +222,24 @@ describe('unpluginFn', () => {
 	})
 
 	describe('unpluginFn.resolveId', () => {
-		it('should resolve to local @tevm/core when id starts with @tevm/core', async () => {
+		it('should resolve to local @tevm/contract when id starts with @tevm/contract', async () => {
 			const plugin = tevmUnplugin({}, {} as any)
 			const mockCreateRequre = createRequire as MockedFunction<
 				typeof createRequire
 			>
 			const mockRequireResolve = vi.fn()
-			mockRequireResolve.mockReturnValue('/path/to/node_modules/@tevm/core')
+			mockRequireResolve.mockReturnValue('/path/to/node_modules/@tevm/contract')
 			mockCreateRequre.mockReturnValue({ resolve: mockRequireResolve } as any)
 			const result = await plugin.resolveId?.call(
 				mockPlugin,
-				'@tevm/core',
+				'@tevm/contract',
 				'/different/workspace',
 				{} as any,
 			)
 
-			expect(result).toMatchInlineSnapshot('"/path/to/node_modules/@tevm/core"')
+			expect(result).toMatchInlineSnapshot(
+				'"/path/to/node_modules/@tevm/contract"',
+			)
 			expect(mockCreateRequre.mock.lastCall).toMatchInlineSnapshot(`
 				[
 				  "mock/process/dot/cwd/",
@@ -245,12 +247,12 @@ describe('unpluginFn', () => {
 			`)
 			expect(mockRequireResolve.mock.lastCall).toMatchInlineSnapshot(`
 				[
-				  "@tevm/core",
+				  "@tevm/contract",
 				]
 			`)
 		})
 
-		it('should return null when id does not start with @tevm/core', async () => {
+		it('should return null when id does not start with @tevm/contract', async () => {
 			const plugin = tevmUnplugin({}, {} as any)
 
 			const result = await plugin.resolveId?.call(
@@ -263,12 +265,12 @@ describe('unpluginFn', () => {
 			expect(result).toBeNull()
 		})
 
-		it('should return null when id starts with @tevm/core but importer is in node_modules or the same workspace', async () => {
+		it('should return null when id starts with @tevm/contract but importer is in node_modules or the same workspace', async () => {
 			const plugin = tevmUnplugin({}, {} as any)
 
 			const resultInNodeModules = await plugin.resolveId?.call(
 				mockPlugin,
-				'@tevm/core',
+				'@tevm/contract',
 				'/some/workspace/node_modules',
 				{} as any,
 			)
@@ -276,7 +278,7 @@ describe('unpluginFn', () => {
 
 			const resultInSameWorkspace = await plugin.resolveId?.call(
 				mockPlugin,
-				'@tevm/core',
+				'@tevm/contract',
 				mockCwd,
 				{} as any,
 			)

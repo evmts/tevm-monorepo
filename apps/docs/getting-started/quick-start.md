@@ -40,7 +40,7 @@ The language server will give you support in your editor for things like autoimp
 Install Tevm core
 
 ```bash
-npm install @tevm/core
+npm install @tevm/contract
 ```
 
 Install the typescript plugin and the solc compiler as dev dependencies

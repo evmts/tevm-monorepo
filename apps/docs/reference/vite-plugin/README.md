@@ -83,13 +83,13 @@ export default {
 
 The typescript can then go ahead and use the artifacts however it pleases
 
-## Usage in @tevm/core
+## Usage in @tevm/contract
 
 See full [evms-core](https://github.com/evmts/tevm-monorepo-monorepo/tree/main/docs/tevm) for how it's used in tevm. This plugin can be used in other repos as well.
 
 ## Usage in other libraries
 
-Currently only `@tevm/core` is using this but this could easily be adapted or extended for other libraries.
+Currently only `@tevm/contract` is using this but this could easily be adapted or extended for other libraries.
 
 ## Autocompletion and Typesafety
 

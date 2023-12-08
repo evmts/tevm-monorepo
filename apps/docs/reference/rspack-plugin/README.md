@@ -16,7 +16,7 @@ TODO
 
 ## ConfigOptions
 
-## Usage in @tevm/core
+## Usage in @tevm/contract
 
 ## Usage in other libraries
 

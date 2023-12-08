@@ -92,13 +92,13 @@ export const tevmUnplugin = (options = {}) => {
 		},
 		async resolveId(id, importer) {
 			// to handle the case where the import is coming from a node_module or a different workspace
-			// we need to always point @tevm/core to the local version
+			// we need to always point @tevm/contract to the local version
 			if (
-				id.startsWith('@tevm/core') &&
+				id.startsWith('@tevm/contract') &&
 				!importer?.startsWith(process.cwd()) &&
 				!importer?.includes('node_modules')
 			) {
-				return createRequire(`${process.cwd()}/`).resolve('@tevm/core')
+				return createRequire(`${process.cwd()}/`).resolve('@tevm/contract')
 			}
 			return null
 		},

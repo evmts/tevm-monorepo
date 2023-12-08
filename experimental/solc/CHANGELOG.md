@@ -1,4 +1,4 @@
-# @tevm/core
+# @tevm/contract
 
 ## 1.0.0-next.17
 
@@ -26,14 +26,14 @@
 ### Patch Changes
 
 - Updated dependencies [[`31c5f265`](https://github.com/evmts/tevm-monorepo/commit/31c5f2654137c521bc0f3e66956de69a0a7a1c88)]:
-  - @tevm/core@1.0.0-next.12
+  - @tevm/contract@1.0.0-next.12
 
 ## 1.0.0-next.11
 
 ### Patch Changes
 
 - Updated dependencies [[`3af18276`](https://github.com/evmts/tevm-monorepo/commit/3af1827637ef43d351398578e8cfbbd825dbb98d)]:
-  - @tevm/core@1.0.0-next.11
+  - @tevm/contract@1.0.0-next.11
 
 ## 1.0.0-next.9
 
@@ -48,14 +48,14 @@
 
 - Updated dependencies [[`e5a6b24c`](https://github.com/evmts/tevm-monorepo/commit/e5a6b24cb4717dbffeb7f131ab1e3bd80c1b1830)]:
   - @tevm/config@1.0.0-next.8
-  - @tevm/core@1.0.0-next.8
+  - @tevm/contract@1.0.0-next.8
 
 ## 1.0.0-next.7
 
 ### Patch Changes
 
 - Updated dependencies [[`da8dec29`](https://github.com/evmts/tevm-monorepo/commit/da8dec29359c168538ea68dfd4f18b306f9bce66)]:
-  - @tevm/core@1.0.0-next.7
+  - @tevm/contract@1.0.0-next.7
 
 ## 1.0.0-next.5
 
@@ -66,7 +66,7 @@
 - Updated dependencies [[`77baab6b`](https://github.com/evmts/tevm-monorepo/commit/77baab6b56bfdd200d5f5bb00636c6f519925ac2)]:
   - @tevm/config@1.0.0-next.5
   - @tevm/tsconfig@1.0.0-next.5
-  - @tevm/core@1.0.0-next.5
+  - @tevm/contract@1.0.0-next.5
 
 ## 1.0.0-next.4
 
@@ -76,7 +76,7 @@
 
 - Updated dependencies [[`93cab845`](https://github.com/evmts/tevm-monorepo/commit/93cab8451874bb16e8f21bb86c909c8aab277d90)]:
   - @tevm/config@1.0.0-next.4
-  - @tevm/core@1.0.0-next.4
+  - @tevm/contract@1.0.0-next.4
 
 ## 1.0.0-next.3
 
@@ -90,7 +90,7 @@
 ### Patch Changes
 
 - Updated dependencies [[`31ed39a5`](https://github.com/evmts/tevm-monorepo/commit/31ed39a58665ac555a2f18f5fcf5bc800b135785)]:
-  - @tevm/core@1.0.0-next.2
+  - @tevm/contract@1.0.0-next.2
 
 ## 1.0.0-next.0
 
@@ -103,14 +103,14 @@
 - Updated dependencies [[`a8248fb5`](https://github.com/evmts/tevm-monorepo/commit/a8248fb5008594a2c5d0797780d7d033a455c442), [`32c7f253`](https://github.com/evmts/tevm-monorepo/commit/32c7f2537555380dd8c48883729add6ea658d52e), [`570c4ed6`](https://github.com/evmts/tevm-monorepo/commit/570c4ed60d494f36f0839113507f3725e13dc933), [`64a404ce`](https://github.com/evmts/tevm-monorepo/commit/64a404ce56305c126847be15cf42ab14bfb38764), [`a1b10f21`](https://github.com/evmts/tevm-monorepo/commit/a1b10f21cab6183b7fb599983e03677250310dc2), [`c12528a3`](https://github.com/evmts/tevm-monorepo/commit/c12528a3b1c16ecb7a6b4e3487070feebd9a8c3e), [`7065f458`](https://github.com/evmts/tevm-monorepo/commit/7065f4585a2173548abda55cdeaf3fbf1679f033), [`747728d9`](https://github.com/evmts/tevm-monorepo/commit/747728d9e909906812472404a5f4155730127bd0), [`21ea35e3`](https://github.com/evmts/tevm-monorepo/commit/21ea35e3989ecf5d5eb2946eab96234d170fa9e5), [`2349d58c`](https://github.com/evmts/tevm-monorepo/commit/2349d58ca90bc78a98db6284b65d6dd329ac140d), [`7065f458`](https://github.com/evmts/tevm-monorepo/commit/7065f4585a2173548abda55cdeaf3fbf1679f033)]:
   - @tevm/tsconfig@1.0.0-next.0
   - @tevm/config@1.0.0-next.0
-  - @tevm/core@1.0.0-next.0
+  - @tevm/contract@1.0.0-next.0
 
 ## 0.11.2
 
 ### Patch Changes
 
 - Updated dependencies [[`f3b2b21`](https://github.com/evmts/tevm-monorepo/commit/f3b2b2184aad4dbefd1c840bae72dcf9aff4a1fc)]:
-  - @tevm/core@0.11.2
+  - @tevm/contract@0.11.2
 
 ## 0.10.0
 
@@ -118,7 +118,7 @@
 
 - Updated dependencies [[`dbc2da6`](https://github.com/evmts/tevm-monorepo/commit/dbc2da6092eae3a7ec2d2519ea8c04505aa911f6), [`cb83c0c`](https://github.com/evmts/tevm-monorepo/commit/cb83c0c81fae63decd7bbdb79b9c3cce2c7e0b8e)]:
   - @tevm/config@0.10.0
-  - @tevm/core@0.10.0
+  - @tevm/contract@0.10.0
 
 ## 0.7.1
 
@@ -127,7 +127,7 @@
 - Updated dependencies [[`eb6ec5d`](https://github.com/evmts/tevm-monorepo/commit/eb6ec5dff13c51baa09f0019fb8b1b94a41108cb)]:
   - @tevm/tsconfig@0.7.1
   - @tevm/config@0.7.0
-  - @tevm/core@0.6.0
+  - @tevm/contract@0.6.0
 
 ## 0.7.0
 
@@ -135,7 +135,7 @@
 
 - [#419](https://github.com/evmts/tevm-monorepo/pull/419) [`644e8fd`](https://github.com/evmts/tevm-monorepo/commit/644e8fda95d2824c9145f8d6278cbdb6272b0609) Thanks [@roninjin10](https://github.com/roninjin10)! - Added support for monorepo imports and node_module imports
 
-  Previously, these use cases would fail because @tevm/core was not in scope. Tevm injects a module that uses the `@tevm/core` package to create the contract objects at runtime. These packages are installed to the users node_modules and thus were not in scope for sub dependencies and other workspaces. @tevm/core now handles this via always importing @tevm/core from the users main workspace. This feature enables 2 use cases.
+  Previously, these use cases would fail because @tevm/contract was not in scope. Tevm injects a module that uses the `@tevm/contract` package to create the contract objects at runtime. These packages are installed to the users node_modules and thus were not in scope for sub dependencies and other workspaces. @tevm/contract now handles this via always importing @tevm/contract from the users main workspace. This feature enables 2 use cases.
 
   ## Use case 1 - Importing from Node Modules
 
@@ -190,7 +190,7 @@
 - [#370](https://github.com/evmts/tevm-monorepo/pull/370) [`58862a6`](https://github.com/evmts/tevm-monorepo/commit/58862a6ebe6ec1e04961dbc2da6e846a02ef0692) Thanks [@roninjin10](https://github.com/roninjin10)! - Added 100% test coverage to bundler
 
 - Updated dependencies [[`6da3fe7`](https://github.com/evmts/tevm-monorepo/commit/6da3fe7fdec9bc2e4d35fc0558b79c65a105a516), [`6de12df`](https://github.com/evmts/tevm-monorepo/commit/6de12df39cf9da0635c246c685036e83a8e97255), [`0ff53e7`](https://github.com/evmts/tevm-monorepo/commit/0ff53e71ff792ed4df1fa180f5a72dd5d65f4142), [`e24901a`](https://github.com/evmts/tevm-monorepo/commit/e24901a7b503354af6174bac81a868a8598f143b), [`3a2dfae`](https://github.com/evmts/tevm-monorepo/commit/3a2dfae3a38ca7052b57b57e5c95a952a7f0be71), [`6dd223b`](https://github.com/evmts/tevm-monorepo/commit/6dd223b0b625bd7dcbea7537f053b32457761955), [`6da3fe7`](https://github.com/evmts/tevm-monorepo/commit/6da3fe7fdec9bc2e4d35fc0558b79c65a105a516)]:
-  - @tevm/core@0.6.0
+  - @tevm/contract@0.6.0
   - @tevm/config@0.6.0
 
 ## 0.5.7
@@ -213,7 +213,7 @@
 
 - Updated dependencies [[`6d9365d`](https://github.com/evmts/tevm-monorepo/commit/6d9365db3ab197ea4ad53f777d755ee3ad562b21)]:
   - @tevm/config@0.5.6
-  - @tevm/core@0.5.6
+  - @tevm/contract@0.5.6
 
 ## 0.5.5
 
@@ -229,28 +229,28 @@
 
 - Updated dependencies [[`0116537`](https://github.com/evmts/tevm-monorepo/commit/0116537d3423c8decfd0adaf490d37d33f8a540f), [`2b8b5ed`](https://github.com/evmts/tevm-monorepo/commit/2b8b5ed9852c32e15a7466f00f4ca9c0458cfeef)]:
   - @tevm/config@0.5.4
-  - @tevm/core@0.5.4
+  - @tevm/contract@0.5.4
 
 ## 0.5.3
 
 ### Patch Changes
 
 - Updated dependencies [[`2dc1950`](https://github.com/evmts/tevm-monorepo/commit/2dc19507c9d957948dcff8f65a359fc25b0ceb10)]:
-  - @tevm/core@0.5.3
+  - @tevm/contract@0.5.3
 
 ## 0.5.2
 
 ### Patch Changes
 
 - Updated dependencies [[`cdbe2b1`](https://github.com/evmts/tevm-monorepo/commit/cdbe2b14d3a9b40ea37898829bc982b5e76e3c4c)]:
-  - @tevm/core@0.5.2
+  - @tevm/contract@0.5.2
 
 ## 0.5.1
 
 ### Patch Changes
 
 - Updated dependencies [[`cec44b5`](https://github.com/evmts/tevm-monorepo/commit/cec44b5042bc76c21a9b695383714642c2b44da6)]:
-  - @tevm/core@0.5.1
+  - @tevm/contract@0.5.1
 
 ## 0.5.0
 
@@ -270,7 +270,7 @@
 
 - Updated dependencies [[`700b3d0`](https://github.com/evmts/tevm-monorepo/commit/700b3d0907df243b29e96b1b3246b8c75cfb9900), [`720bfdb`](https://github.com/evmts/tevm-monorepo/commit/720bfdba790699e388c5ec1c68630b9f0f077158), [`05a8efe`](https://github.com/evmts/tevm-monorepo/commit/05a8efede4acad157e3820bdba24d92f598699e5), [`85c340d`](https://github.com/evmts/tevm-monorepo/commit/85c340dc4a63afdbc6bd92fb4b2cf3fe0ffdc6e7), [`0bd5b45`](https://github.com/evmts/tevm-monorepo/commit/0bd5b4511e292380a7ac87a898d22dbd32df9e35), [`720bfdb`](https://github.com/evmts/tevm-monorepo/commit/720bfdba790699e388c5ec1c68630b9f0f077158), [`2ab7c02`](https://github.com/evmts/tevm-monorepo/commit/2ab7c022520fe3c03f337d51dc0f7875830492f1)]:
   - @tevm/config@0.5.0
-  - @tevm/core@0.5.0
+  - @tevm/contract@0.5.0
 
 ## 0.4.2
 
@@ -294,7 +294,7 @@
 ### Patch Changes
 
 - Updated dependencies [[`1f6919c`](https://github.com/evmts/tevm-monorepo/commit/1f6919cfc54648499129d3642ddbb64568b1e798), [`a37844f`](https://github.com/evmts/tevm-monorepo/commit/a37844faa425d1eaca112b9a09640b7ec7e288de)]:
-  - @tevm/core@0.3.1
+  - @tevm/contract@0.3.1
   - @tevm/config@0.2.0
 
 ## 0.3.0
@@ -308,7 +308,7 @@
 - [#258](https://github.com/evmts/tevm-monorepo/pull/258) [`9a9b963`](https://github.com/evmts/tevm-monorepo/commit/9a9b96327cd2f8415cf09a471a7589fa3df90394) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug with handling overloaded functions
 
 - Updated dependencies [[`7ad7463`](https://github.com/evmts/tevm-monorepo/commit/7ad746347d3e127f001abdc28fff2a10c1ffed65), [`9a9b963`](https://github.com/evmts/tevm-monorepo/commit/9a9b96327cd2f8415cf09a471a7589fa3df90394)]:
-  - @tevm/core@0.3.0
+  - @tevm/contract@0.3.0
 
 ## 0.2.0
 
@@ -322,7 +322,7 @@
 
 - Updated dependencies [[`52732a1`](https://github.com/evmts/tevm-monorepo/commit/52732a1bcd59faa7970e5298d1e71a61c687fd67), [`4b361ea`](https://github.com/evmts/tevm-monorepo/commit/4b361ea43fb34541bee4f75c8bea9d93543b1813)]:
   - @tevm/config@0.1.0
-  - @tevm/core@0.2.0
+  - @tevm/contract@0.2.0
 
 ## 0.1.0
 
@@ -339,14 +339,14 @@
 ### Patch Changes
 
 - Updated dependencies [[`ab40941`](https://github.com/evmts/tevm-monorepo/commit/ab40941221c4edacce16659ef88bdfdb90c325bb), [`058d904`](https://github.com/evmts/tevm-monorepo/commit/058d90474598ea790d4de9fd8501381a77edbcb6)]:
-  - @tevm/core@0.1.2
+  - @tevm/contract@0.1.2
 
 ## 0.0.2
 
 ### Patch Changes
 
 - Updated dependencies []:
-  - @tevm/core@0.1.1
+  - @tevm/contract@0.1.1
 
 ## 0.0.1
 
@@ -355,7 +355,7 @@
 - [`2a31d64`](https://github.com/evmts/tevm-monorepo/commit/2a31d640b61a3e3eda63e0ca0442104ea27bfaec) - Init new changesets
 
 - Updated dependencies [[`e21f2f4`](https://github.com/evmts/tevm-monorepo/commit/e21f2f4fbdafc7d6d859f513afa319b9812826f0), [`88ec554`](https://github.com/evmts/tevm-monorepo/commit/88ec554a592d29aaba0a0d69ec61fd75118e817c), [`877c137`](https://github.com/evmts/tevm-monorepo/commit/877c137dfbe8a143099ddb0656236c35bceb2f87), [`2a31d64`](https://github.com/evmts/tevm-monorepo/commit/2a31d640b61a3e3eda63e0ca0442104ea27bfaec)]:
-  - @tevm/core@0.1.0
+  - @tevm/contract@0.1.0
   - @tevm/config@0.0.1
 
 ## 0.0.1-next.0
@@ -366,7 +366,7 @@
 
 - Updated dependencies [[`2a31d64`](https://github.com/evmts/tevm-monorepo/commit/2a31d640b61a3e3eda63e0ca0442104ea27bfaec)]:
   - @tevm/config@0.0.1-next.0
-  - @tevm/core@0.0.4-next.0
+  - @tevm/contract@0.0.4-next.0
 
 ## 0.0.2
 

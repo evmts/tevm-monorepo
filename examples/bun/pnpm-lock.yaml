@@ -5,7 +5,7 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
-  '@tevm/core':
+  '@tevm/contract':
     specifier: ^0.3.1
     version: 0.3.1(typescript@5.1.6)(zod@3.21.4)
   viem:
@@ -1025,7 +1025,7 @@ packages:
       solc: '>0.8.10'
     dependencies:
       '@tevm/config': 0.2.1(esbuild@0.18.11)
-      '@tevm/core': 0.3.1(typescript@5.1.6)(zod@3.21.4)
+      '@tevm/contract': 0.3.1(typescript@5.1.6)(zod@3.21.4)
       '@types/resolve': 1.20.2
       glob: 10.3.3
       resolve: 1.22.2
@@ -1045,7 +1045,7 @@ packages:
       solc: '>0.8.10'
     dependencies:
       '@tevm/config': 0.2.1(esbuild@0.18.8)
-      '@tevm/core': 0.3.1(typescript@5.1.6)(zod@3.21.4)
+      '@tevm/contract': 0.3.1(typescript@5.1.6)(zod@3.21.4)
       '@types/resolve': 1.20.2
       glob: 10.3.3
       resolve: 1.22.2
@@ -1077,7 +1077,7 @@ packages:
       - esbuild
     dev: true
 
-  /@tevm/core@0.3.1(typescript@5.1.6)(zod@3.21.4):
+  /@tevm/contract@0.3.1(typescript@5.1.6)(zod@3.21.4):
     resolution: {integrity: sha512-kRbIGo1UyAfND4klxIZRcLq02sw1TSyxYDERilRMoadvfk1aIsqDqZr7vQh/riJdGRwk1bMZaLvG7dLK0miISA==}
     dependencies:
       abitype: 0.8.11(typescript@5.1.6)(zod@3.21.4)

@@ -2,10 +2,10 @@ import { generateTevmBody } from './generateTevmBody.js'
 import { die, map } from 'effect/Effect'
 
 const importsByModuleType = {
-	cjs: `const { createTevmContract } = require('@tevm/core')`,
-	dts: `import { TevmContract } from '@tevm/core'`,
-	ts: `import { createTevmContract } from '@tevm/core'`,
-	mjs: `import { createTevmContract } from '@tevm/core'`,
+	cjs: `const { createTevmContract } = require('@tevm/contract')`,
+	dts: `import { TevmContract } from '@tevm/contract'`,
+	ts: `import { createTevmContract } from '@tevm/contract'`,
+	mjs: `import { createTevmContract } from '@tevm/contract'`,
 }
 
 /**

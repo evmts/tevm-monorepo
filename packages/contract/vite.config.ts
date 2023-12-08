@@ -1,7 +1,20 @@
+import { vitePluginEvmts } from '@evmts/vite-plugin'
+import { resolve } from 'path'
 import { defineConfig } from 'vitest/config'
 
 // https://vitest.dev/config/ - for docs
 export default defineConfig({
+	build: {
+		outDir: 'dist',
+		lib: {
+			entry: [
+				resolve(__dirname, 'src/index.ts'),
+				resolve(__dirname, 'src/common/index.ts'),
+			],
+			formats: ['es', 'cjs'],
+		},
+	},
+	plugins: [vitePluginEvmts() as any],
 	test: {
 		include: ['src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
 		environment: 'node',

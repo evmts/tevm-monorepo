@@ -1,6 +1,6 @@
-[@tevm/core](/reference/core/README.md) / Exports
+[@tevm/contract](/reference/core/README.md) / Exports
 
-# @tevm/core
+# @tevm/contract
 
 ## Table of contents
 

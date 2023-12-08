@@ -43,4 +43,4 @@ const jsonEffect = parseJson('{ "compilerOptions": { "plugins": [{ "name": "@tev
 
 #### Defined in
 
-[packages/effect/src/parseJson.js:33](https://github.com/tevm/tevm-monorepo/blob/main/packages/effect/src/parseJson.js#L33)
+[packages/effect/src/parseJson.js:33](https://github.com/evmts/tevm-monorepo/blob/main/packages/effect/src/parseJson.js#L33)

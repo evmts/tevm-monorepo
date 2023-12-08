@@ -30,7 +30,7 @@ contract HelloWorld {
 The Tevm client is build on top of [viem](https://viem.sh/docs/clients/intro.html) clients and add the ability to execute scripts and simulate contracts clientside.
 
 ```typescript tevm.ts
-import { forkUrl, createPublicClient, optimism } from "@tevm/core";
+import { forkUrl, createPublicClient, optimism } from "@tevm/contract";
 
 export const tevm = createPublicClient({
   chain: optimism,

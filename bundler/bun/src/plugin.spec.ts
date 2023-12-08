@@ -145,7 +145,7 @@ describe('tevmBunPlugin', () => {
     `)
 	})
 
-	it('should resolve @tevm/core correctly when criteria are met', async () => {
+	it('should resolve @tevm/contract correctly when criteria are met', async () => {
 		const plugin = tevmBunPlugin({})
 		const mockBuild = {
 			onResolve: vi.fn(),
@@ -156,14 +156,14 @@ describe('tevmBunPlugin', () => {
 
 		const [_, onResolveFn] = mockBuild.onResolve.mock.calls[0]
 		const resolved = onResolveFn({
-			path: '@tevm/core',
+			path: '@tevm/contract',
 			importer: 'some-random-importer',
 		})
 
-		expect(resolved.path).toEqual(require.resolve('@tevm/core'))
+		expect(resolved.path).toEqual(require.resolve('@tevm/contract'))
 	})
 
-	it('should resolve @tevm/core when imported from within the project or from node_modules', async () => {
+	it('should resolve @tevm/contract when imported from within the project or from node_modules', async () => {
 		const plugin = tevmBunPlugin({})
 		const mockBuild = {
 			onResolve: vi.fn(),
@@ -175,16 +175,16 @@ describe('tevmBunPlugin', () => {
 		const [_, onResolveFn] = mockBuild.onResolve.mock.calls[0]
 
 		let resolved = onResolveFn({
-			path: '@tevm/core',
+			path: '@tevm/contract',
 			importer: `${mockCwd}/some-relative-path`,
 		})
-		expect(resolved.path).toEqual(require.resolve('@tevm/core'))
+		expect(resolved.path).toEqual(require.resolve('@tevm/contract'))
 
 		resolved = onResolveFn({
-			path: '@tevm/core',
+			path: '@tevm/contract',
 			importer: 'node_modules/some-package/index.js',
 		})
-		expect(resolved.path).toEqual(require.resolve('@tevm/core'))
+		expect(resolved.path).toEqual(require.resolve('@tevm/contract'))
 	})
 
 	it('should resolve solidity file using @tevm/base when neither .d.ts nor .ts files exist', async () => {

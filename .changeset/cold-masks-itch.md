@@ -11,7 +11,7 @@
 "@tevm/schemas": patch
 "@tevm/config": patch
 "@tevm/ethers": patch
-"@tevm/core": patch
+"@tevm/contract": patch
 "@tevm/revm": patch
 ---
 

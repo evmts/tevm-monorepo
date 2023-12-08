@@ -72,7 +72,9 @@ describe(getScriptKindDecorator.name, () => {
 			config,
 			fao,
 		)
-		expect(decorated.getScriptKind?.('foo.sol')).toBe(typescript.ScriptKind.TS)
+		expect(decorated.getScriptKind?.('foo.sol')).toBe(
+			typescript.ScriptKind.External,
+		)
 		expect(decorated.getScriptKind?.('./foo.sol')).toBe(
 			typescript.ScriptKind.TS,
 		)

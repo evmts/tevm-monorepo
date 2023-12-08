@@ -179,7 +179,7 @@
   Install build dependencies
 
   ```typescript
-  pnpm install -D bun-types @tevm/bun-plugin @tevm/ts-plugin @tevm/core solc
+  pnpm install -D bun-types @tevm/bun-plugin @tevm/ts-plugin @tevm/contract solc
   ```
 
   ### Setup

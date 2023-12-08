@@ -61,7 +61,7 @@ The main ones to start with are the following.
 
 #### Runtime packages
 
-- [@tevm/core](./core) is the main entrypoint for all runtime functionality.
+- [@tevm/contract](./core) is the main entrypoint for all runtime functionality.
 
 #### Docs
 

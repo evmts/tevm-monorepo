@@ -5,7 +5,7 @@
 ### Patch Changes
 
 - Updated dependencies [[`cb83c0c`](https://github.com/evmts/tevm-monorepo/commit/cb83c0c81fae63decd7bbdb79b9c3cce2c7e0b8e)]:
-  - @tevm/core@0.10.0
+  - @tevm/contract@0.10.0
   - @tevm/ethers@0.8.1
 
 ## 0.1.2
@@ -15,7 +15,7 @@
 - [#453](https://github.com/evmts/tevm-monorepo/pull/453) [`c23302a`](https://github.com/evmts/tevm-monorepo/commit/c23302a9623a968917df19de8dfa2c56b4612712) Thanks [@roninjin10](https://github.com/roninjin10)! - Started publishing every commit to main so all Tevm changes can be used early. To use the latest main branch release install with `@main` tag. e.g. `npm install @tevm/ts-plugin@main`
 
 - Updated dependencies [[`c23302a`](https://github.com/evmts/tevm-monorepo/commit/c23302a9623a968917df19de8dfa2c56b4612712)]:
-  - @tevm/core@0.8.1
+  - @tevm/contract@0.8.1
   - @tevm/ethers@0.8.1
 
 ## 0.1.1
@@ -24,7 +24,7 @@
 
 - Updated dependencies [[`eedb7e0`](https://github.com/evmts/tevm-monorepo/commit/eedb7e0e8f853acf59c3f86c1d7317bad8ee7e2b), [`b020298`](https://github.com/evmts/tevm-monorepo/commit/b020298f1acbfad396b0c1c9a1618e00bc750a43)]:
   - @tevm/ethers@0.8.0
-  - @tevm/core@0.8.0
+  - @tevm/contract@0.8.0
 
 ## 0.1.0
 

@@ -31,8 +31,8 @@ export const solidityModuleResolver = (
 	}
 
 	// to handle the case where the import is coming from a node_module or a different workspace
-	// we need to always point @tevm/core to the local version
-	if (moduleName.startsWith('@tevm/core')) {
+	// we need to always point @tevm/contract to the local version
+	if (moduleName.startsWith('@tevm/contract')) {
 		const result = ts.resolveModuleName(
 			moduleName,
 			containingFile,

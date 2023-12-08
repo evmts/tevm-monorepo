@@ -1,4 +1,4 @@
-# @tevm/core
+# @tevm/contract
 
 ## 1.0.0-next.11
 

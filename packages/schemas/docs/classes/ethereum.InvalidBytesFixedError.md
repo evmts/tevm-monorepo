@@ -59,7 +59,7 @@ TypeError.constructor
 
 #### Defined in
 
-[packages/schemas/src/ethereum/SBytesFixed/Errors.js:28](https://github.com/tevm/tevm-monorepo/blob/main/packages/schemas/src/ethereum/SBytesFixed/Errors.js#L28)
+[packages/schemas/src/ethereum/SBytesFixed/Errors.js:28](https://github.com/evmts/tevm-monorepo/blob/main/packages/schemas/src/ethereum/SBytesFixed/Errors.js#L28)
 
 ## Properties
 
@@ -73,7 +73,7 @@ TypeError.cause
 
 #### Defined in
 
-[packages/schemas/src/ethereum/SBytesFixed/Errors.js:40](https://github.com/tevm/tevm-monorepo/blob/main/packages/schemas/src/ethereum/SBytesFixed/Errors.js#L40)
+[packages/schemas/src/ethereum/SBytesFixed/Errors.js:40](https://github.com/evmts/tevm-monorepo/blob/main/packages/schemas/src/ethereum/SBytesFixed/Errors.js#L40)
 
 ___
 

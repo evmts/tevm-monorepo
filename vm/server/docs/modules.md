@@ -24,7 +24,7 @@ as it's more typesafe via generics
 
 #### Defined in
 
-[index.ts:8](https://github.com/tevm/tevm-monorepo/blob/main/vm/server/src/index.ts#L8)
+[index.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/vm/server/src/index.ts#L8)
 
 ## Functions
 
@@ -44,4 +44,4 @@ as it's more typesafe via generics
 
 #### Defined in
 
-[createTevmServer.ts:12](https://github.com/tevm/tevm-monorepo/blob/main/vm/server/src/createTevmServer.ts#L12)
+[createTevmServer.ts:12](https://github.com/evmts/tevm-monorepo/blob/main/vm/server/src/createTevmServer.ts#L12)

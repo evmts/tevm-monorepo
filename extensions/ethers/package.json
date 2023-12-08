@@ -50,7 +50,7 @@
 		"test:ui": "vitest --ui"
 	},
 	"devDependencies": {
-		"@tevm/core": "workspace:^",
+		"@tevm/contract": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
 		"@vitest/coverage-v8": "^0.34.6",
 		"@vitest/ui": "^0.34.6",

@@ -37,4 +37,4 @@ await fileExists('./someFile.txt')
 
 #### Defined in
 
-[packages/effect/src/fileExists.js:16](https://github.com/tevm/tevm-monorepo/blob/main/packages/effect/src/fileExists.js#L16)
+[packages/effect/src/fileExists.js:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/effect/src/fileExists.js#L16)
