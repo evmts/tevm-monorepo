@@ -18,7 +18,9 @@
 		"directory": "bundler/unplugin"
 	},
 	"license": "MIT",
-	"contributors": ["Will Cory <willcory10@gmail.com>"],
+	"contributors": [
+		"Will Cory <willcory10@gmail.com>"
+	],
 	"type": "module",
 	"exports": {
 		"./package.json": "./package.json",
@@ -32,7 +34,11 @@
 	"main": "dist/index.cjs",
 	"module": "src/index.js",
 	"types": "types/src/index.d.ts",
-	"files": ["dist", "types", "src"],
+	"files": [
+		"dist",
+		"types",
+		"src"
+	],
 	"scripts": {
 		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/unplugin ",
 		"build:dist": "bun run tsup",

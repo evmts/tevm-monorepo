@@ -681,7 +681,7 @@ importers:
   examples/bun:
     dependencies:
       '@tevm/contract':
-        specifier: ^1.0.0-next.12
+        specifier: ^1.0.0-next.20
         version: link:../../packages/contract
       bun-types:
         specifier: ^1.0.7
@@ -721,7 +721,7 @@ importers:
   examples/esbuild:
     dependencies:
       '@tevm/contract':
-        specifier: ^1.0.0-next.12
+        specifier: ^1.0.0-next.20
         version: link:../../packages/contract
       viem:
         specifier: ^1.18.1
@@ -1327,13 +1327,13 @@ importers:
         version: 1.0.0-next.12(viem@1.19.4)
       '@evmts/esbuild-plugin':
         specifier: next
-        version: 1.0.0-next.19(esbuild@0.19.5)(fast-check@3.14.0)(typescript@5.2.2)(zod@3.22.4)
+        version: 1.0.0-next.19(esbuild@0.19.8)(fast-check@3.14.0)(typescript@5.2.2)(zod@3.22.4)
       '@evmts/ts-plugin':
         specifier: next
         version: 1.0.0-next.18(fast-check@3.14.0)(typescript@5.2.2)
       '@evmts/vite-plugin':
         specifier: next
-        version: 1.0.0-next.19(esbuild@0.19.5)(fast-check@3.14.0)(typescript@5.2.2)(zod@3.22.4)
+        version: 1.0.0-next.19(esbuild@0.19.8)(fast-check@3.14.0)(typescript@5.2.2)(zod@3.22.4)
       '@openzeppelin/contracts':
         specifier: ^5.0.1
         version: 5.0.1
@@ -3760,28 +3760,6 @@ packages:
       - zod
     dev: true
 
-  /@evmts/config@1.0.0-next.17(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.22)(typescript@5.2.2)(zod@3.22.4):
-    resolution: {integrity: sha512-rxyLCYOROZ7rDGYrcKpnK0ulXTWJwAyyqKbbogAikLZkUh2VSH8GVpYzNpHj2Uy2ZMiNHlYrpEMbWRt53rCsgg==}
-    peerDependencies:
-      solc: '*'
-    dependencies:
-      '@effect/schema': 0.47.7(effect@2.0.0-next.54)(fast-check@3.14.0)
-      '@evmts/effect': 1.0.0-next.9(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.22)(typescript@5.2.2)(zod@3.22.4)
-      '@types/node': 20.9.2
-      bundle-require: 4.0.2(esbuild@0.19.5)
-      effect: 2.0.0-next.54
-      jsonc-parser: 3.2.0
-      solc: 0.8.22
-      viem: 1.19.4(typescript@5.2.2)(zod@3.22.4)
-    transitivePeerDependencies:
-      - bufferutil
-      - esbuild
-      - fast-check
-      - typescript
-      - utf-8-validate
-      - zod
-    dev: true
-
   /@evmts/config@1.0.0-next.17(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.23-fixed)(typescript@5.2.2)(zod@3.22.4):
     resolution: {integrity: sha512-rxyLCYOROZ7rDGYrcKpnK0ulXTWJwAyyqKbbogAikLZkUh2VSH8GVpYzNpHj2Uy2ZMiNHlYrpEMbWRt53rCsgg==}
     peerDependencies:
@@ -3804,24 +3782,17 @@ packages:
       - zod
     dev: true
 
-  /@evmts/core@1.0.0-next.12(viem@1.19.4):
-    resolution: {integrity: sha512-1Hqxfl3C9K5b2eSjbXc0KpXU2kjSsh4O6mOcKILTujceJ4QwRVQNmSiVddYi1zvpGS7WYiXGyE1S2XACZMbdZw==}
-    peerDependencies:
-      viem: '>1.0.0'
-    dependencies:
-      viem: 1.19.4(typescript@5.2.2)(zod@3.22.4)
-    dev: true
-
-  /@evmts/effect@1.0.0-next.9(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.22)(typescript@5.2.2)(zod@3.22.4):
-    resolution: {integrity: sha512-EDhjN26goPELm2XjxBcY3/8xx7J3HTGdOqgKQoolWt/5eghyxXcvcFFnynN3KSd6mSciozBWGuOFms8HEi4QTg==}
+  /@evmts/config@1.0.0-next.17(esbuild@0.19.8)(fast-check@3.14.0)(solc@0.8.22)(typescript@5.2.2)(zod@3.22.4):
+    resolution: {integrity: sha512-rxyLCYOROZ7rDGYrcKpnK0ulXTWJwAyyqKbbogAikLZkUh2VSH8GVpYzNpHj2Uy2ZMiNHlYrpEMbWRt53rCsgg==}
     peerDependencies:
       solc: '*'
     dependencies:
       '@effect/schema': 0.47.7(effect@2.0.0-next.54)(fast-check@3.14.0)
-      bundle-require: 4.0.2(esbuild@0.19.5)
+      '@evmts/effect': 1.0.0-next.9(esbuild@0.19.8)(fast-check@3.14.0)(solc@0.8.22)(typescript@5.2.2)(zod@3.22.4)
+      '@types/node': 20.9.2
+      bundle-require: 4.0.2(esbuild@0.19.8)
       effect: 2.0.0-next.54
       jsonc-parser: 3.2.0
-      resolve: 1.22.8
       solc: 0.8.22
       viem: 1.19.4(typescript@5.2.2)(zod@3.22.4)
     transitivePeerDependencies:
@@ -3831,6 +3802,14 @@ packages:
       - typescript
       - utf-8-validate
       - zod
+    dev: true
+
+  /@evmts/core@1.0.0-next.12(viem@1.19.4):
+    resolution: {integrity: sha512-1Hqxfl3C9K5b2eSjbXc0KpXU2kjSsh4O6mOcKILTujceJ4QwRVQNmSiVddYi1zvpGS7WYiXGyE1S2XACZMbdZw==}
+    peerDependencies:
+      viem: '>1.0.0'
+    dependencies:
+      viem: 1.19.4(typescript@5.2.2)(zod@3.22.4)
     dev: true
 
   /@evmts/effect@1.0.0-next.9(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.23-fixed)(typescript@5.2.2)(zod@3.22.4):
@@ -3854,14 +3833,20 @@ packages:
       - zod
     dev: true
 
-  /@evmts/esbuild-plugin@1.0.0-next.19(esbuild@0.19.5)(fast-check@3.14.0)(typescript@5.2.2)(zod@3.22.4):
-    resolution: {integrity: sha512-IQK/y9k99upiiZhc3PYBjOIxcM9vuzLBw6hLVtQ/EWDqf9nKHwbXFka8x/v6CwxddgYiH+ZMAEKXOJ8Ha2SaJA==}
+  /@evmts/effect@1.0.0-next.9(esbuild@0.19.8)(fast-check@3.14.0)(solc@0.8.22)(typescript@5.2.2)(zod@3.22.4):
+    resolution: {integrity: sha512-EDhjN26goPELm2XjxBcY3/8xx7J3HTGdOqgKQoolWt/5eghyxXcvcFFnynN3KSd6mSciozBWGuOFms8HEi4QTg==}
+    peerDependencies:
+      solc: '*'
     dependencies:
-      '@evmts/unplugin': 1.0.0-next.19(esbuild@0.19.5)(fast-check@3.14.0)(typescript@5.2.2)(zod@3.22.4)
-      solc: 0.8.23-fixed
+      '@effect/schema': 0.47.7(effect@2.0.0-next.54)(fast-check@3.14.0)
+      bundle-require: 4.0.2(esbuild@0.19.8)
+      effect: 2.0.0-next.54
+      jsonc-parser: 3.2.0
+      resolve: 1.22.8
+      solc: 0.8.22
+      viem: 1.19.4(typescript@5.2.2)(zod@3.22.4)
     transitivePeerDependencies:
       - bufferutil
-      - debug
       - esbuild
       - fast-check
       - typescript
@@ -3869,24 +3854,16 @@ packages:
       - zod
     dev: true
 
-  /@evmts/resolutions@1.0.0-next.18(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.22)(typescript@5.2.2)(zod@3.22.4):
-    resolution: {integrity: sha512-+VB+sh5IF1KtuXuyDHH5KOJjNEJs/REtVz0yzht/RaEOql+cOqtprVivemzzTwPT04bzNhilykas5EfKU08PNw==}
+  /@evmts/esbuild-plugin@1.0.0-next.19(esbuild@0.19.8)(fast-check@3.14.0)(typescript@5.2.2)(zod@3.22.4):
+    resolution: {integrity: sha512-IQK/y9k99upiiZhc3PYBjOIxcM9vuzLBw6hLVtQ/EWDqf9nKHwbXFka8x/v6CwxddgYiH+ZMAEKXOJ8Ha2SaJA==}
     dependencies:
-      '@evmts/config': 1.0.0-next.17(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.22)(typescript@5.2.2)(zod@3.22.4)
-      '@evmts/effect': 1.0.0-next.9(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.22)(typescript@5.2.2)(zod@3.22.4)
-      '@evmts/tsconfig': 1.0.0-next.5
-      '@types/node': 20.9.2
-      '@types/resolve': 1.20.5
-      effect: 2.0.0-next.54
-      glob: 10.3.10
-      resolve: 1.22.8
-      solidity-ast: 0.4.53
-      unplugin: 1.5.1
+      '@evmts/unplugin': 1.0.0-next.19(esbuild@0.19.8)(fast-check@3.14.0)(typescript@5.2.2)(zod@3.22.4)
+      solc: 0.8.23-fixed
     transitivePeerDependencies:
       - bufferutil
+      - debug
       - esbuild
       - fast-check
-      - solc
       - typescript
       - utf-8-validate
       - zod
@@ -3915,18 +3892,11 @@ packages:
       - zod
     dev: true
 
-  /@evmts/runtime@1.0.0-next.13:
-    resolution: {integrity: sha512-sYyyZn40vecJLMwxIX2pWUumLfk/6DfRmoUebx4kshDz8QAwMVk4mtLZbpUNDibqa80YTMOV/8/Cpvr1ax7e1g==}
+  /@evmts/resolutions@1.0.0-next.18(esbuild@0.19.8)(fast-check@3.14.0)(solc@0.8.22)(typescript@5.2.2)(zod@3.22.4):
+    resolution: {integrity: sha512-+VB+sh5IF1KtuXuyDHH5KOJjNEJs/REtVz0yzht/RaEOql+cOqtprVivemzzTwPT04bzNhilykas5EfKU08PNw==}
     dependencies:
-      '@evmts/tsconfig': 1.0.0-next.5
-      effect: 2.0.0-next.54
-    dev: true
-
-  /@evmts/solc@1.0.0-next.18(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.22)(typescript@5.2.2)(zod@3.22.4):
-    resolution: {integrity: sha512-MGGIz+a8ZKtkmh2z8tmjfJ+DRSLdJV7lSBge0a0sIEhtUFSfc24MVEvHt4KOPms5bNc0OI6BLMM1j72xj4/UDw==}
-    dependencies:
-      '@evmts/config': 1.0.0-next.17(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.22)(typescript@5.2.2)(zod@3.22.4)
-      '@evmts/resolutions': 1.0.0-next.18(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.22)(typescript@5.2.2)(zod@3.22.4)
+      '@evmts/config': 1.0.0-next.17(esbuild@0.19.8)(fast-check@3.14.0)(solc@0.8.22)(typescript@5.2.2)(zod@3.22.4)
+      '@evmts/effect': 1.0.0-next.9(esbuild@0.19.8)(fast-check@3.14.0)(solc@0.8.22)(typescript@5.2.2)(zod@3.22.4)
       '@evmts/tsconfig': 1.0.0-next.5
       '@types/node': 20.9.2
       '@types/resolve': 1.20.5
@@ -3945,11 +3915,41 @@ packages:
       - zod
     dev: true
 
+  /@evmts/runtime@1.0.0-next.13:
+    resolution: {integrity: sha512-sYyyZn40vecJLMwxIX2pWUumLfk/6DfRmoUebx4kshDz8QAwMVk4mtLZbpUNDibqa80YTMOV/8/Cpvr1ax7e1g==}
+    dependencies:
+      '@evmts/tsconfig': 1.0.0-next.5
+      effect: 2.0.0-next.54
+    dev: true
+
   /@evmts/solc@1.0.0-next.18(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.23-fixed)(typescript@5.2.2)(zod@3.22.4):
     resolution: {integrity: sha512-MGGIz+a8ZKtkmh2z8tmjfJ+DRSLdJV7lSBge0a0sIEhtUFSfc24MVEvHt4KOPms5bNc0OI6BLMM1j72xj4/UDw==}
     dependencies:
       '@evmts/config': 1.0.0-next.17(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.23-fixed)(typescript@5.2.2)(zod@3.22.4)
       '@evmts/resolutions': 1.0.0-next.18(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.23-fixed)(typescript@5.2.2)(zod@3.22.4)
+      '@evmts/tsconfig': 1.0.0-next.5
+      '@types/node': 20.9.2
+      '@types/resolve': 1.20.5
+      effect: 2.0.0-next.54
+      glob: 10.3.10
+      resolve: 1.22.8
+      solidity-ast: 0.4.53
+      unplugin: 1.5.1
+    transitivePeerDependencies:
+      - bufferutil
+      - esbuild
+      - fast-check
+      - solc
+      - typescript
+      - utf-8-validate
+      - zod
+    dev: true
+
+  /@evmts/solc@1.0.0-next.18(esbuild@0.19.8)(fast-check@3.14.0)(solc@0.8.22)(typescript@5.2.2)(zod@3.22.4):
+    resolution: {integrity: sha512-MGGIz+a8ZKtkmh2z8tmjfJ+DRSLdJV7lSBge0a0sIEhtUFSfc24MVEvHt4KOPms5bNc0OI6BLMM1j72xj4/UDw==}
+    dependencies:
+      '@evmts/config': 1.0.0-next.17(esbuild@0.19.8)(fast-check@3.14.0)(solc@0.8.22)(typescript@5.2.2)(zod@3.22.4)
+      '@evmts/resolutions': 1.0.0-next.18(esbuild@0.19.8)(fast-check@3.14.0)(solc@0.8.22)(typescript@5.2.2)(zod@3.22.4)
       '@evmts/tsconfig': 1.0.0-next.5
       '@types/node': 20.9.2
       '@types/resolve': 1.20.5
@@ -3993,12 +3993,12 @@ packages:
     resolution: {integrity: sha512-GWguzA58Ry2CPQhvNAH0x2Au0Bdm+MsBORWHF9usCVD44yC++joPHaIWBSbe3SrF0BccLEf5yIfOKgS5XIEecQ==}
     dev: true
 
-  /@evmts/unplugin@1.0.0-next.19(esbuild@0.19.5)(fast-check@3.14.0)(typescript@5.2.2)(zod@3.22.4):
+  /@evmts/unplugin@1.0.0-next.19(esbuild@0.19.8)(fast-check@3.14.0)(typescript@5.2.2)(zod@3.22.4):
     resolution: {integrity: sha512-NgIXsZ5IEliByfgM/TBhyibLTawCipZs6oIGe7XIehGAVBADOBEWaT7QgIjGQkS5dEyE0OMTEAmgRQhbYhUIog==}
     dependencies:
-      '@evmts/config': 1.0.0-next.17(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.22)(typescript@5.2.2)(zod@3.22.4)
+      '@evmts/config': 1.0.0-next.17(esbuild@0.19.8)(fast-check@3.14.0)(solc@0.8.22)(typescript@5.2.2)(zod@3.22.4)
       '@evmts/runtime': 1.0.0-next.13
-      '@evmts/solc': 1.0.0-next.18(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.22)(typescript@5.2.2)(zod@3.22.4)
+      '@evmts/solc': 1.0.0-next.18(esbuild@0.19.8)(fast-check@3.14.0)(solc@0.8.22)(typescript@5.2.2)(zod@3.22.4)
       '@evmts/tsconfig': 1.0.0-next.5
       '@types/node': 20.9.2
       '@types/resolve': 1.20.5
@@ -4018,10 +4018,10 @@ packages:
       - zod
     dev: true
 
-  /@evmts/vite-plugin@1.0.0-next.19(esbuild@0.19.5)(fast-check@3.14.0)(typescript@5.2.2)(zod@3.22.4):
+  /@evmts/vite-plugin@1.0.0-next.19(esbuild@0.19.8)(fast-check@3.14.0)(typescript@5.2.2)(zod@3.22.4):
     resolution: {integrity: sha512-rZ3cMVskpkeiHr5N4HtN2tVLm2PJtSyoWMZqFnEPGsbH3nK7FEh8ZX9134kbCuk7SFM/S49GgNqPEoRb2OzkLg==}
     dependencies:
-      '@evmts/unplugin': 1.0.0-next.19(esbuild@0.19.5)(fast-check@3.14.0)(typescript@5.2.2)(zod@3.22.4)
+      '@evmts/unplugin': 1.0.0-next.19(esbuild@0.19.8)(fast-check@3.14.0)(typescript@5.2.2)(zod@3.22.4)
     transitivePeerDependencies:
       - bufferutil
       - debug

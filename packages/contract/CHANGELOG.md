@@ -1,5 +1,17 @@
 # @tevm/contract
 
+## 1.0.0-next.20
+
+### Minor Changes
+
+- [#743](https://github.com/evmts/tevm-monorepo/pull/743) [`47746be1`](https://github.com/evmts/tevm-monorepo/commit/47746be1c9475e289ced612a0bfe4a0a0e677589) Thanks [@roninjin10](https://github.com/roninjin10)! - Added common contracts such as Multicall3 ERC20 and ERC721 to @evmts/contract/common
+
+- [#743](https://github.com/evmts/tevm-monorepo/pull/743) [`47746be1`](https://github.com/evmts/tevm-monorepo/commit/47746be1c9475e289ced612a0bfe4a0a0e677589) Thanks [@roninjin10](https://github.com/roninjin10)! - Added getContractFromAbi method that can be used instead of human readable one
+
+### Patch Changes
+
+- [#743](https://github.com/evmts/tevm-monorepo/pull/743) [`47746be1`](https://github.com/evmts/tevm-monorepo/commit/47746be1c9475e289ced612a0bfe4a0a0e677589) Thanks [@roninjin10](https://github.com/roninjin10)! - Renamed @evmts/core @evmts/contracts
+
 ## 1.0.0-next.12
 
 ### Patch Changes
