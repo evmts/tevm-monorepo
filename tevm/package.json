@@ -1,5 +1,5 @@
 {
-	"name": "@tevm/contract",
+	"name": "tevm",
 	"version": "1.0.0-next.12",
 	"private": false,
 	"description": "A typesafe library for writing forge scripts in typescript",
@@ -30,11 +30,23 @@
 			"default": "./dist/index.cjs",
 			"types": "./types/index.d.ts"
 		},
-		"./common": {
+		"./vm": {
+			"import": "./dist/vm.js",
+			"require": "./dist/vm.cjs",
+			"default": "./dist/vm.cjs",
+			"types": "./dist/vm.ts"
+		},
+		"./contract": {
+			"import": "./dist/contract.js",
+			"require": "./dist/contract.cjs",
+			"default": "./dist/contract.cjs",
+			"types": "./dist/contract.ts"
+		},
+		"./contract/common": {
 			"import": "./dist/common.js",
 			"require": "./dist/common.cjs",
 			"default": "./dist/common.cjs",
-			"types": "./src/common/index.ts"
+			"types": "./src/contract/common/index.ts"
 		}
 	},
 	"main": "dist/index.cjs",
@@ -86,5 +98,9 @@
 	},
 	"publishConfig": {
 		"access": "public"
+	},
+	"dependencies": {
+		"@tevm/contract": "workspace:1.0.0-next.12",
+		"@tevm/vm": "workspace:1.0.0-next.11"
 	}
 }

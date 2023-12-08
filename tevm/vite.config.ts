@@ -9,7 +9,9 @@ export default defineConfig({
 		lib: {
 			entry: [
 				resolve(__dirname, 'src/index.ts'),
-				resolve(__dirname, 'src/common/common.ts'),
+				resolve(__dirname, 'src/contract/contract.ts'),
+				resolve(__dirname, 'src/vm/vm.ts'),
+				resolve(__dirname, 'src/contract/common/common.ts'),
 			],
 			formats: ['es', 'cjs'],
 		},
