@@ -1,0 +1,21 @@
+{
+  "extends": "@tevm/tsconfig/base.json",
+  "compilerOptions": {
+    "plugins": [
+      {
+        "name": "@evmts/ts-plugin"
+      }
+    ],
+    "composite": true,
+    "outDir": "types",
+    "skipLibCheck": true
+  },
+  "include": [
+    "src",
+    "src/**/*.json",
+    "**/*.sol"
+  ],
+  "exclude": [
+    "src/contract/common/**/*"
+  ]
+}
