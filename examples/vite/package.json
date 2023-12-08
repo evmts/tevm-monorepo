@@ -24,7 +24,6 @@
 		"test": "vitest"
 	},
 	"dependencies": {
-		"@tevm/bundler": "workspace:^",
 		"@tevm/config": "workspace:^",
 		"@tevm/contract": "workspace:^",
 		"@tevm/ethers": "workspace:^",
