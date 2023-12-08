@@ -31,7 +31,10 @@
     "@tevm/revm": "0.11.2",
     "@tevm/schemas": "0.11.2",
     "@tevm/state": "0.11.2",
-    "@tevm/vm": "0.0.1"
+    "@tevm/vm": "0.0.1",
+    "@tevm/lsp": "0.0.1",
+    "@tevm/vscode": "0.0.1",
+    "@tevm/server": "0.0.1"
   },
   "changesets": [
     "afraid-socks-work",
@@ -44,6 +47,7 @@
     "chilly-rocks-yawn",
     "chilly-trees-explain",
     "cold-masks-itch",
+    "early-pears-exist",
     "eleven-masks-sin",
     "empty-turkeys-impress",
     "fair-boats-call",
@@ -62,7 +66,9 @@
     "pink-keys-add",
     "plenty-numbers-hear",
     "proud-panthers-build",
+    "proud-pumpkins-breathe",
     "purple-drinks-beg",
+    "rare-dodos-melt",
     "real-seahorses-fail",
     "rich-ants-clean",
     "rich-turkeys-relate",
