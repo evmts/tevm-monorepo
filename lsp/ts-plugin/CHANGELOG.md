@@ -127,7 +127,7 @@
 
 ### Patch Changes
 
-- [#671](https://github.com/evmts/tevm-monorepo/pull/671) [`2f13396d`](https://github.com/evmts/tevm-monorepo/commit/2f13396d5b64687e56d4618aaff88a67a05df7e2) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug with @tevm/core imports resolving the wrong types sometimes when ts-plugin is used.
+- [#671](https://github.com/evmts/tevm-monorepo/pull/671) [`2f13396d`](https://github.com/evmts/tevm-monorepo/commit/2f13396d5b64687e56d4618aaff88a67a05df7e2) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug with @tevm/contract imports resolving the wrong types sometimes when ts-plugin is used.
 
 - Updated dependencies [[`31ed39a5`](https://github.com/evmts/tevm-monorepo/commit/31ed39a58665ac555a2f18f5fcf5bc800b135785)]:
   - @tevm/base@1.0.0-next.2

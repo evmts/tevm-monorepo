@@ -1,6 +1,6 @@
-[@tevm/core](README.md) / Exports
+[@tevm/contract](README.md) / Exports
 
-# @tevm/core
+# @tevm/contract
 
 ## Table of contents
 
@@ -11,6 +11,7 @@
 ### Functions
 
 - [createTevmContract](modules.md#createtevmcontract)
+- [createTevmContractFromAbi](modules.md#createtevmcontractfromabi)
 - [formatAbi](modules.md#formatabi)
 - [parseAbi](modules.md#parseabi)
 
@@ -44,7 +45,7 @@
 
 #### Defined in
 
-[packages/core/src/TevmContract.ts:7](https://github.com/tevm/tevm-monorepo/blob/main/packages/core/src/TevmContract.ts#L7)
+[packages/contract/src/TevmContract.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/TevmContract.ts#L7)
 
 ## Functions
 
@@ -73,7 +74,36 @@
 
 #### Defined in
 
-[packages/core/src/createTevmContract.ts:8](https://github.com/tevm/tevm-monorepo/blob/main/packages/core/src/createTevmContract.ts#L8)
+[packages/contract/src/createTevmContract.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/createTevmContract.ts#L8)
+
+___
+
+### createTevmContractFromAbi
+
+▸ **createTevmContractFromAbi**\<`TName`, `TAbi`, `TBytecode`, `TDeployedBytecode`\>(`«destructured»`): [`TevmContract`](modules.md#tevmcontract)\<`TName`, `FormatAbi`\<`TAbi`\>, `TBytecode`, `TDeployedBytecode`\>
+
+#### Type parameters
+
+| Name | Type |
+| :------ | :------ |
+| `TName` | extends `string` |
+| `TAbi` | extends `Abi` |
+| `TBytecode` | extends `undefined` \| \`0x$\{string}\` |
+| `TDeployedBytecode` | extends `undefined` \| \`0x$\{string}\` |
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `«destructured»` | `Pick`\<[`TevmContract`](modules.md#tevmcontract)\<`TName`, `FormatAbi`\<`TAbi`\>, `TBytecode`, `TDeployedBytecode`\>, ``"name"`` \| ``"abi"`` \| ``"bytecode"`` \| ``"deployedBytecode"``\> |
+
+#### Returns
+
+[`TevmContract`](modules.md#tevmcontract)\<`TName`, `FormatAbi`\<`TAbi`\>, `TBytecode`, `TDeployedBytecode`\>
+
+#### Defined in
+
+[packages/contract/src/createTevmContractFromAbi.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/createTevmContractFromAbi.ts#L8)
 
 ___
 

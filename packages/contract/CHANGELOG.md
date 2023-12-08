@@ -1,4 +1,4 @@
-# @tevm/core
+# @tevm/contract
 
 ## 1.0.0-next.12
 
@@ -109,7 +109,7 @@
 
 - [#384](https://github.com/evmts/tevm-monorepo/pull/384) [`6dd223b`](https://github.com/evmts/tevm-monorepo/commit/6dd223b0b625bd7dcbea7537f053b32457761955) Thanks [@roninjin10](https://github.com/roninjin10)! - Upgrade deps to latest versions
 
-- [#367](https://github.com/evmts/tevm-monorepo/pull/367) [`6da3fe7`](https://github.com/evmts/tevm-monorepo/commit/6da3fe7fdec9bc2e4d35fc0558b79c65a105a516) Thanks [@roninjin10](https://github.com/roninjin10)! - Added 100% test coverage to @tevm/core
+- [#367](https://github.com/evmts/tevm-monorepo/pull/367) [`6da3fe7`](https://github.com/evmts/tevm-monorepo/commit/6da3fe7fdec9bc2e4d35fc0558b79c65a105a516) Thanks [@roninjin10](https://github.com/roninjin10)! - Added 100% test coverage to @tevm/contract
 
 ## 0.5.6
 

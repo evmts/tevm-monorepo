@@ -1,4 +1,4 @@
-import { TevmContract } from '@tevm/core'
+import { TevmContract } from '@tevm/contract'
 const _abiTestContract = [
 	{
 		constant: true,

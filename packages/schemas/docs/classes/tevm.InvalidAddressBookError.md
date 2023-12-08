@@ -56,7 +56,7 @@ TypeError.constructor
 
 #### Defined in
 
-[packages/schemas/src/tevm/SAddressBook.js:64](https://github.com/tevm/tevm-monorepo/blob/main/packages/schemas/src/tevm/SAddressBook.js#L64)
+[packages/schemas/src/tevm/SAddressBook.js:64](https://github.com/evmts/tevm-monorepo/blob/main/packages/schemas/src/tevm/SAddressBook.js#L64)
 
 ## Properties
 
@@ -70,7 +70,7 @@ TypeError.cause
 
 #### Defined in
 
-[packages/schemas/src/tevm/SAddressBook.js:70](https://github.com/tevm/tevm-monorepo/blob/main/packages/schemas/src/tevm/SAddressBook.js#L70)
+[packages/schemas/src/tevm/SAddressBook.js:70](https://github.com/evmts/tevm-monorepo/blob/main/packages/schemas/src/tevm/SAddressBook.js#L70)
 
 ___
 

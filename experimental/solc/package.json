@@ -37,7 +37,7 @@
 	},
 	"dependencies": {
 		"@tevm/config": "workspace:^",
-		"@tevm/core": "workspace:^",
+		"@tevm/contract": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
 		"@types/resolve": "^1.20.4",
 		"glob": "^10.3.10",

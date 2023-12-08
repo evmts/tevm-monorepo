@@ -1,5 +1,5 @@
 ---
-"@tevm/core": major
+"@tevm/contract": major
 ---
 
 Changed TevmContract to use human readable ABIs by default

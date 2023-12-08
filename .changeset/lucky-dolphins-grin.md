@@ -8,7 +8,7 @@
 "@tevm/viem": patch
 "@tevm/effect": patch
 "@tevm/config": patch
-"@tevm/core": patch
+"@tevm/contract": patch
 "@tevm/base": patch
 "@tevm/solc": patch
 "@tevm/bun-plugin": patch

@@ -37,19 +37,19 @@ export const tevmBunPlugin = ({ solc = defaultSolc.version }) => {
 				solcCache,
 			)
 			/**
-			 * @tevm/core is used to construct the tevm modules for solidity files
+			 * @tevm/contract is used to construct the tevm modules for solidity files
 			 * sometimes the solidity file might exist in the node_modules folder
 			 * or in a different package in a monorepo. We need to resolve it correctly
-			 * in all cases so we always resolve to the current package's @tevm/core
+			 * in all cases so we always resolve to the current package's @tevm/contract
 			 */
 			build.onResolve({ filter: /^@tevm\/core/ }, ({ path, importer }) => {
 				if (
-					path.startsWith('@tevm/core') &&
+					path.startsWith('@tevm/contract') &&
 					!importer.startsWith(process.cwd()) &&
 					!importer.includes('node_modules')
 				) {
 					return {
-						path: require.resolve('@tevm/core'),
+						path: require.resolve('@tevm/contract'),
 					}
 				}
 				return {

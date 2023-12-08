@@ -12,7 +12,7 @@
 "@tevm/config": patch
 "@tevm/rollup-plugin": patch
 "@tevm/rspack-plugin": patch
-"@tevm/core": patch
+"@tevm/contract": patch
 "@tevm/solc": patch
 "@tevm/vite-plugin": patch
 "@tevm/bun-plugin": patch

@@ -1,3 +1,5 @@
+@tevm/contract / [Exports](modules.md)
+
 <p align="center">
   <a href="https://tevm.dev/">
     <picture>
@@ -13,11 +15,11 @@
 
 [![CI](https://github.com/evmts/tevm-monorepo/actions/workflows/e2e.yml/badge.svg)](https://github.com/evmts/tevm-monorepo/actions/workflows/e2e.yml)
 [![CI](https://github.com/evmts/tevm-monorepo/actions/workflows/unit.yml/badge.svg)](https://github.com/evmts/tevm-monorepo/actions/workflows/unit.yml)
-<a href="https://www.npmjs.com/package/@tevm/core" target="\_parent">
-<img alt="" src="https://img.shields.io/npm/dm/@tevm/core.svg" />
+<a href="https://www.npmjs.com/package/@tevm/contracts" target="\_parent">
+<img alt="" src="https://img.shields.io/npm/dm/@tevm/contracts.svg" />
 </a>
-<a href="https://bundlephobia.com/package/@tevm/core@latest" target="\_parent">
-<img alt="" src="https://badgen.net/bundlephobia/minzip/@tevm/core" />
+<a href="https://bundlephobia.com/package/@tevm/contracts@latest" target="\_parent">
+<img alt="" src="https://badgen.net/bundlephobia/minzip/@tevm/contracts" />
 </a>
 
 # tevm-monorepo

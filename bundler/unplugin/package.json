@@ -64,7 +64,7 @@
 	},
 	"devDependencies": {
 		"@tevm/base": "workspace:^",
-		"@tevm/core": "workspace:^",
+		"@tevm/contract": "workspace:^",
 		"@vitest/coverage-v8": "^0.34.6",
 		"@vitest/ui": "^0.34.6",
 		"abitype": "^0.10.2",

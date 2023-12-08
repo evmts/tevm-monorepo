@@ -26,7 +26,7 @@
     "@tevm/ethers": "0.11.1",
     "@tevm/viem": "0.11.2",
     "@tevm/blockexplorer": "0.11.2",
-    "@tevm/core": "0.11.2",
+    "@tevm/contract": "0.11.2",
     "@tevm/effect": "0.10.0",
     "@tevm/revm": "0.11.2",
     "@tevm/schemas": "0.11.2",

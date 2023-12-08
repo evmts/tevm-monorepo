@@ -55,7 +55,7 @@ Error.constructor
 
 #### Defined in
 
-[packages/effect/src/parseJson.js:17](https://github.com/tevm/tevm-monorepo/blob/main/packages/effect/src/parseJson.js#L17)
+[packages/effect/src/parseJson.js:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/effect/src/parseJson.js#L17)
 
 ## Properties
 
@@ -65,7 +65,7 @@ Error.constructor
 
 #### Defined in
 
-[packages/effect/src/parseJson.js:12](https://github.com/tevm/tevm-monorepo/blob/main/packages/effect/src/parseJson.js#L12)
+[packages/effect/src/parseJson.js:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/effect/src/parseJson.js#L12)
 
 ___
 

@@ -18,7 +18,7 @@
 "@tevm/ethers": patch
 "@tevm/viem": patch
 "@tevm/blockexplorer": patch
-"@tevm/core": patch
+"@tevm/contract": patch
 "@tevm/effect": patch
 "@tevm/revm": patch
 "@tevm/schemas": patch

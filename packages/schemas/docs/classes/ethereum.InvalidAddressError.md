@@ -64,7 +64,7 @@ TypeError.constructor
 
 #### Defined in
 
-[packages/schemas/src/ethereum/SAddress/Errors.js:25](https://github.com/tevm/tevm-monorepo/blob/main/packages/schemas/src/ethereum/SAddress/Errors.js#L25)
+[packages/schemas/src/ethereum/SAddress/Errors.js:25](https://github.com/evmts/tevm-monorepo/blob/main/packages/schemas/src/ethereum/SAddress/Errors.js#L25)
 
 ## Properties
 
@@ -78,7 +78,7 @@ TypeError.cause
 
 #### Defined in
 
-[packages/schemas/src/ethereum/SAddress/Errors.js:32](https://github.com/tevm/tevm-monorepo/blob/main/packages/schemas/src/ethereum/SAddress/Errors.js#L32)
+[packages/schemas/src/ethereum/SAddress/Errors.js:32](https://github.com/evmts/tevm-monorepo/blob/main/packages/schemas/src/ethereum/SAddress/Errors.js#L32)
 
 ___
 

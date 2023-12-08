@@ -1,7 +1,7 @@
 ---
 "@tevm/ts-plugin": minor
 "@tevm/runtime": minor
-"@tevm/core": minor
+"@tevm/contract": minor
 "@tevm/base": minor
 "@tevm/solc": minor
 "@tevm/vm": minor

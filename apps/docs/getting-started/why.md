@@ -44,7 +44,7 @@ For those building full stack applications you will get editor support and types
 
 ## Modular design
 
-Tevm is originally built to provide the optimal dev experience for the [@tevm/core](../future-plans.md) library that will include forge scripting and optimistic VM execution in the browser. It is modularly built however to be a industry standard build tool that interops with all other tooling including [ethers](todo.link), [wagmi](https://wagmi.sh), [web3.js](todo.link) and more.
+Tevm is originally built to provide the optimal dev experience for the [@tevm/contract](../future-plans.md) library that will include forge scripting and optimistic VM execution in the browser. It is modularly built however to be a industry standard build tool that interops with all other tooling including [ethers](todo.link), [wagmi](https://wagmi.sh), [web3.js](todo.link) and more.
 If you are writing TypeScript code that interops with a blockchain you likely will benifit from utilizing Tevm imports in your workflow
 
 ## Just try it
