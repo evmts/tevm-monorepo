@@ -18,7 +18,9 @@
 		"directory": "vm"
 	},
 	"license": "MIT",
-	"contributors": ["Will Cory <willcory10@gmail.com>"],
+	"contributors": [
+		"Will Cory <willcory10@gmail.com>"
+	],
 	"type": "module",
 	"exports": {
 		"./package.json": "./package.json",
@@ -31,7 +33,12 @@
 	"main": "dist/index.cjs",
 	"module": "dist/index.js",
 	"types": "types/index.d.ts",
-	"files": ["dist", "types", "src", "!src/**/*.spec.ts"],
+	"files": [
+		"dist",
+		"types",
+		"src",
+		"!src/**/*.spec.ts"
+	],
 	"scripts": {
 		"all": "pnpm i  && bun run build && bun lint && bun format && bun test:run && bun generate:docs",
 		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/vm",
@@ -58,22 +65,22 @@
 		"@ethereumjs/tx": "^5.1.0",
 		"@ethereumjs/util": "^9.0.1",
 		"@ethereumjs/vm": "^7.1.0",
-		"abitype": "^0.8.11",
+		"abitype": "^0.10.3",
 		"debug": "^4.3.4",
 		"ethereum-cryptography": "^2.1.2",
-		"ethers": "^6.8.0",
+		"ethers": "^6.9.0",
 		"rome": "^12.1.3",
-		"viem": "^1.2.10"
+		"viem": "^1.19.11"
 	},
 	"devDependencies": {
 		"@tevm/tsconfig": "workspace:^",
 		"@types/debug": "^4.1.12",
-		"bun-types": "^1.0.7",
-		"tsup": "^7.0.0",
-		"typedoc": "^0.25.3",
-		"typedoc-plugin-markdown": "^3.16.0",
-		"typescript": "^5.1.3",
-		"zod": "^3.21.4"
+		"bun-types": "^1.0.15",
+		"tsup": "^8.0.1",
+		"typedoc": "^0.25.4",
+		"typedoc-plugin-markdown": "^3.17.1",
+		"typescript": "^5.3.3",
+		"zod": "^3.22.4"
 	},
 	"publishConfig": {
 		"access": "public"
