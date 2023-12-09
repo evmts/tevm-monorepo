@@ -1,4 +1,4 @@
-import { type Cache, createCache } from './createCache.js'
+import { type Cache, createCache } from './index.js'
 import type { Logger } from './types.js'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 

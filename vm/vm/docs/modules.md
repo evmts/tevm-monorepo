@@ -6,69 +6,28 @@
 
 ### Classes
 
-- [Tevm](undefined)
+- [Tevm](classes/Tevm.md)
 
 ### Type Aliases
 
-- [CreateEVMOptions](undefined)
-- [PutAccountAction](undefined)
-- [PutContractCodeAction](undefined)
-- [RunCallAction](undefined)
-- [RunContractCallAction](undefined)
-- [RunContractCallError](undefined)
-- [RunContractCallResult](undefined)
-- [RunScriptAction](undefined)
-- [RunScriptError](undefined)
-- [RunScriptResult](undefined)
+- [CreateEVMOptions](modules.md#createevmoptions)
+- [PutAccountAction](modules.md#putaccountaction)
+- [PutContractCodeAction](modules.md#putcontractcodeaction)
+- [RunCallAction](modules.md#runcallaction)
+- [RunContractCallAction](modules.md#runcontractcallaction)
+- [RunContractCallError](modules.md#runcontractcallerror)
+- [RunContractCallResult](modules.md#runcontractcallresult)
+- [RunScriptAction](modules.md#runscriptaction)
+- [RunScriptError](modules.md#runscripterror)
+- [RunScriptResult](modules.md#runscriptresult)
 
 ### Variables
 
-- [CallActionValidator](undefined)
-- [PutAccountActionValidator](undefined)
-- [PutContractCodeActionValidator](undefined)
-- [RunContractCallActionValidator](undefined)
-- [RunScriptActionValidator](undefined)
-
-## Classes
-
-### Tevm
-
-• **Tevm**: Class Tevm
-
-A local EVM instance running in JavaScript. Similar to Anvil in your browser
-
-**`Example`**
-
-```ts
-import { Tevm } from "tevm"
-import { createPublicClient, http } from "viem"
-import { MyERC721 } from './MyERC721.sol'
-
-const tevm = Tevm.create({
-	fork: {
-	  url: "https://mainnet.optimism.io",
-	},
-})
-
-const address = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
-
-await tevm.runContractCall(
-  MyERC721.write.mint({
-    caller: address,
-  }),
-)
-
-const balance = await tevm.runContractCall(
- MyERC721.read.balanceOf({
- caller: address,
- }),
- )
- console.log(balance) // 1n
- ```
-
-#### Defined in
-
-[vm/vm/src/tevm.ts:99](https://github.com/evmts/tevm-monorepo/blob/main/vm/vm/src/tevm.ts#L99)
+- [CallActionValidator](modules.md#callactionvalidator)
+- [PutAccountActionValidator](modules.md#putaccountactionvalidator)
+- [PutContractCodeActionValidator](modules.md#putcontractcodeactionvalidator)
+- [RunContractCallActionValidator](modules.md#runcontractcallactionvalidator)
+- [RunScriptActionValidator](modules.md#runscriptactionvalidator)
 
 ## Type Aliases
 
@@ -82,8 +41,8 @@ Options for creating an Tevm instance
 
 | Name | Type |
 | :------ | :------ |
-| `customPrecompiles?` | CustomPrecompile[] |
-| `fork?` | ForkOptions |
+| `customPrecompiles?` | `CustomPrecompile`[] |
+| `fork?` | `ForkOptions` |
 
 #### Defined in
 
@@ -101,8 +60,8 @@ Tevm action to put an account into the vm state
 
 | Name | Type |
 | :------ | :------ |
-| `account` | Address |
-| `balance?` | bigint |
+| `account` | `Address` |
+| `balance?` | `bigint` |
 
 #### Defined in
 
@@ -120,8 +79,8 @@ Tevm action to put contract code into the vm state
 
 | Name | Type |
 | :------ | :------ |
-| `contractAddress` | Address |
-| `deployedBytecode` | Hex |
+| `contractAddress` | `Address` |
+| `deployedBytecode` | `Hex` |
 
 #### Defined in
 
@@ -139,12 +98,12 @@ Tevm action to execute a call on the vm
 
 | Name | Type |
 | :------ | :------ |
-| `caller` | Address |
-| `data` | Hex |
-| `gasLimit?` | bigint |
-| `origin?` | Address |
-| `to` | Address |
-| `value?` | bigint |
+| `caller` | `Address` |
+| `data` | `Hex` |
+| `gasLimit?` | `bigint` |
+| `origin?` | `Address` |
+| `to` | `Address` |
+| `value?` | `bigint` |
 
 #### Defined in
 
@@ -154,7 +113,7 @@ ___
 
 ### RunContractCallAction
 
-Ƭ **RunContractCallAction**: EncodeFunctionDataParameters\<TAbi, TFunctionName\> & Object
+Ƭ **RunContractCallAction**\<`TAbi`, `TFunctionName`\>: `EncodeFunctionDataParameters`\<`TAbi`, `TFunctionName`\> & \{ `caller?`: `Address` ; `contractAddress`: `Address` ; `gasLimit?`: `bigint`  }
 
 Tevm action to execute a call on a contract
 
@@ -162,8 +121,8 @@ Tevm action to execute a call on a contract
 
 | Name | Type |
 | :------ | :------ |
-| `TAbi` | extends Abi \| readonly unknown[] = Abi |
-| `TFunctionName` | extends string = string |
+| `TAbi` | extends `Abi` \| readonly `unknown`[] = `Abi` |
+| `TFunctionName` | extends `string` = `string` |
 
 #### Defined in
 
@@ -173,7 +132,7 @@ ___
 
 ### RunContractCallError
 
-Ƭ **RunContractCallError**: Error
+Ƭ **RunContractCallError**: `Error`
 
 #### Defined in
 
@@ -183,22 +142,22 @@ ___
 
 ### RunContractCallResult
 
-Ƭ **RunContractCallResult**: `Object`
+Ƭ **RunContractCallResult**\<`TAbi`, `TFunctionName`\>: `Object`
 
 #### Type parameters
 
 | Name | Type |
 | :------ | :------ |
-| `TAbi` | extends Abi \| readonly unknown[] = Abi |
-| `TFunctionName` | extends string = string |
+| `TAbi` | extends `Abi` \| readonly `unknown`[] = `Abi` |
+| `TFunctionName` | extends `string` = `string` |
 
 #### Type declaration
 
 | Name | Type |
 | :------ | :------ |
-| `data` | DecodeFunctionResultReturnType\<TAbi, TFunctionName\> |
-| `gasUsed` | BigInt |
-| `logs` | Log[] |
+| `data` | `DecodeFunctionResultReturnType`\<`TAbi`, `TFunctionName`\> |
+| `gasUsed` | `BigInt` |
+| `logs` | `Log`[] |
 
 #### Defined in
 
@@ -208,7 +167,7 @@ ___
 
 ### RunScriptAction
 
-Ƭ **RunScriptAction**: EncodeFunctionDataParameters\<TAbi, TFunctionName\> & Object
+Ƭ **RunScriptAction**\<`TAbi`, `TFunctionName`\>: `EncodeFunctionDataParameters`\<`TAbi`, `TFunctionName`\> & \{ `caller?`: `Address` ; `deployedBytecode`: `Hex`  }
 
 Tevm action to deploy and execute a script or contract
 
@@ -216,8 +175,8 @@ Tevm action to deploy and execute a script or contract
 
 | Name | Type |
 | :------ | :------ |
-| `TAbi` | extends Abi \| readonly unknown[] = Abi |
-| `TFunctionName` | extends string = string |
+| `TAbi` | extends `Abi` \| readonly `unknown`[] = `Abi` |
+| `TFunctionName` | extends `string` = `string` |
 
 #### Defined in
 
@@ -227,7 +186,7 @@ ___
 
 ### RunScriptError
 
-Ƭ **RunScriptError**: Error
+Ƭ **RunScriptError**: `Error`
 
 #### Defined in
 
@@ -237,14 +196,14 @@ ___
 
 ### RunScriptResult
 
-Ƭ **RunScriptResult**: RunContractCallResult\<TAbi, TFunctionName\>
+Ƭ **RunScriptResult**\<`TAbi`, `TFunctionName`\>: [`RunContractCallResult`](modules.md#runcontractcallresult)\<`TAbi`, `TFunctionName`\>
 
 #### Type parameters
 
 | Name | Type |
 | :------ | :------ |
-| `TAbi` | extends Abi \| readonly unknown[] = Abi |
-| `TFunctionName` | extends string = string |
+| `TAbi` | extends `Abi` \| readonly `unknown`[] = `Abi` |
+| `TFunctionName` | extends `string` = `string` |
 
 #### Defined in
 
@@ -254,7 +213,7 @@ ___
 
 ### CallActionValidator
 
-• `Const` **CallActionValidator**: ZodObject\<Object, "strip", ZodTypeAny, Object, Object\>
+• `Const` **CallActionValidator**: `ZodObject`\<\{ `caller`: `ZodEffects`\<`ZodString`, \`0x$\{string}\`, `string`\> ; `data`: `ZodEffects`\<`ZodString`, \`0x$\{string}\`, `string`\> ; `gasLimit`: `ZodOptional`\<`ZodBigInt`\> ; `origin`: `ZodOptional`\<`ZodEffects`\<`ZodString`, \`0x$\{string}\`, `string`\>\> ; `to`: `ZodEffects`\<`ZodString`, \`0x$\{string}\`, `string`\> ; `value`: `ZodOptional`\<`ZodBigInt`\>  }, ``"strip"``, `ZodTypeAny`, \{ `caller`: \`0x$\{string}\` ; `data`: \`0x$\{string}\` ; `gasLimit?`: `bigint` ; `origin?`: \`0x$\{string}\` ; `to`: \`0x$\{string}\` ; `value?`: `bigint`  }, \{ `caller`: `string` ; `data`: `string` ; `gasLimit?`: `bigint` ; `origin?`: `string` ; `to`: `string` ; `value?`: `bigint`  }\>
 
 #### Defined in
 
@@ -264,7 +223,7 @@ ___
 
 ### PutAccountActionValidator
 
-• `Const` **PutAccountActionValidator**: ZodObject\<Object, "strip", ZodTypeAny, Object, Object\>
+• `Const` **PutAccountActionValidator**: `ZodObject`\<\{ `account`: `ZodEffects`\<`ZodString`, \`0x$\{string}\`, `string`\> ; `balance`: `ZodDefault`\<`ZodOptional`\<`ZodBigInt`\>\>  }, ``"strip"``, `ZodTypeAny`, \{ `account`: \`0x$\{string}\` ; `balance`: `bigint`  }, \{ `account`: `string` ; `balance?`: `bigint`  }\>
 
 #### Defined in
 
@@ -274,7 +233,7 @@ ___
 
 ### PutContractCodeActionValidator
 
-• `Const` **PutContractCodeActionValidator**: ZodObject\<Object, "strip", ZodTypeAny, Object, Object\>
+• `Const` **PutContractCodeActionValidator**: `ZodObject`\<\{ `contractAddress`: `ZodEffects`\<`ZodString`, \`0x$\{string}\`, `string`\> ; `deployedBytecode`: `ZodEffects`\<`ZodString`, \`0x$\{string}\`, `string`\>  }, ``"strip"``, `ZodTypeAny`, \{ `contractAddress`: \`0x$\{string}\` ; `deployedBytecode`: \`0x$\{string}\`  }, \{ `contractAddress`: `string` ; `deployedBytecode`: `string`  }\>
 
 #### Defined in
 
@@ -284,7 +243,7 @@ ___
 
 ### RunContractCallActionValidator
 
-• `Const` **RunContractCallActionValidator**: ZodObject\<Object, "strip", ZodTypeAny, Object, Object\>
+• `Const` **RunContractCallActionValidator**: `ZodObject`\<\{ `abi`: `ZodReadonly`\<`ZodArray`\<`ZodUnion`\<[`ZodObject`\<\{ `inputs`: `ZodReadonly`\<`ZodArray`\<`ZodType`\<`AbiParameter`, `ZodTypeDef`, `AbiParameter`\>, ``"many"``\>\> ; `name`: `ZodString` ; `type`: `ZodLiteral`\<``"error"``\>  }, ``"strip"``, `ZodTypeAny`, \{ `inputs`: readonly `AbiParameter`[] ; `name`: `string` ; `type`: ``"error"``  }, \{ `inputs`: `AbiParameter`[] ; `name`: `string` ; `type`: ``"error"``  }\>, `ZodObject`\<\{ `anonymous`: `ZodOptional`\<`ZodBoolean`\> ; `inputs`: `ZodReadonly`\<`ZodArray`\<`ZodType`\<`AbiEventParameter`, `ZodTypeDef`, `AbiEventParameter`\>, ``"many"``\>\> ; `name`: `ZodString` ; `type`: `ZodLiteral`\<``"event"``\>  }, ``"strip"``, `ZodTypeAny`, \{ `anonymous?`: `boolean` ; `inputs`: readonly `AbiEventParameter`[] ; `name`: `string` ; `type`: ``"event"``  }, \{ `anonymous?`: `boolean` ; `inputs`: `AbiEventParameter`[] ; `name`: `string` ; `type`: ``"event"``  }\>, `ZodEffects`\<`ZodIntersection`\<`ZodObject`\<\{ `constant`: `ZodOptional`\<`ZodBoolean`\> ; `gas`: `ZodOptional`\<`ZodNumber`\> ; `payable`: `ZodOptional`\<`ZodBoolean`\>  }, ``"strip"``, `ZodTypeAny`, \{ `constant?`: `boolean` ; `gas?`: `number` ; `payable?`: `boolean`  }, \{ `constant?`: `boolean` ; `gas?`: `number` ; `payable?`: `boolean`  }\>, `ZodDiscriminatedUnion`\<``"type"``, [`ZodObject`\<\{ `inputs`: `ZodReadonly`\<`ZodArray`\<`ZodType`\<`AbiParameter`, `ZodTypeDef`, `AbiParameter`\>, ``"many"``\>\> ; `name`: `ZodString` ; `outputs`: `ZodReadonly`\<`ZodArray`\<`ZodType`\<`AbiParameter`, `ZodTypeDef`, `AbiParameter`\>, ``"many"``\>\> ; `stateMutability`: `ZodUnion`\<[`ZodLiteral`\<``"pure"``\>, `ZodLiteral`\<``"view"``\>, `ZodLiteral`\<``"nonpayable"``\>, `ZodLiteral`\<``"payable"``\>]\> ; `type`: `ZodLiteral`\<``"function"``\>  }, ``"strip"``, `ZodTypeAny`, \{ `inputs`: readonly `AbiParameter`[] ; `name`: `string` ; `outputs`: readonly `AbiParameter`[] ; `stateMutability`: ``"pure"`` \| ``"view"`` \| ``"nonpayable"`` \| ``"payable"`` ; `type`: ``"function"``  }, \{ `inputs`: `AbiParameter`[] ; `name`: `string` ; `outputs`: `AbiParameter`[] ; `stateMutability`: ``"pure"`` \| ``"view"`` \| ``"nonpayable"`` \| ``"payable"`` ; `type`: ``"function"``  }\>, `ZodObject`\<\{ `inputs`: `ZodReadonly`\<`ZodArray`\<`ZodType`\<`AbiParameter`, `ZodTypeDef`, `AbiParameter`\>, ``"many"``\>\> ; `stateMutability`: `ZodUnion`\<[`ZodLiteral`\<``"payable"``\>, `ZodLiteral`\<``"nonpayable"``\>]\> ; `type`: `ZodLiteral`\<``"constructor"``\>  }, ``"strip"``, `ZodTypeAny`, \{ `inputs`: readonly `AbiParameter`[] ; `stateMutability`: ``"nonpayable"`` \| ``"payable"`` ; `type`: ``"constructor"``  }, \{ `inputs`: `AbiParameter`[] ; `stateMutability`: ``"nonpayable"`` \| ``"payable"`` ; `type`: ``"constructor"``  }\>, `ZodObject`\<\{ `inputs`: `ZodOptional`\<`ZodTuple`\<[], ``null``\>\> ; `stateMutability`: `ZodUnion`\<[`ZodLiteral`\<``"payable"``\>, `ZodLiteral`\<``"nonpayable"``\>]\> ; `type`: `ZodLiteral`\<``"fallback"``\>  }, ``"strip"``, `ZodTypeAny`, \{ `inputs?`: [] ; `stateMutability`: ``"nonpayable"`` \| ``"payable"`` ; `type`: ``"fallback"``  }, \{ `inputs?`: [] ; `stateMutability`: ``"nonpayable"`` \| ``"payable"`` ; `type`: ``"fallback"``  }\>, `ZodObject`\<\{ `stateMutability`: `ZodLiteral`\<``"payable"``\> ; `type`: `ZodLiteral`\<``"receive"``\>  }, ``"strip"``, `ZodTypeAny`, \{ `stateMutability`: ``"payable"`` ; `type`: ``"receive"``  }, \{ `stateMutability`: ``"payable"`` ; `type`: ``"receive"``  }\>]\>\>, \{ `constant?`: `boolean` ; `gas?`: `number` ; `payable?`: `boolean` ; `stateMutability`: ``"pure"`` \| ``"view"`` \| ``"nonpayable"`` \| ``"payable"`` ; `type`: ``"function"`` \| ``"constructor"`` \| ``"fallback"`` \| ``"receive"``  }, `unknown`\>]\>, ``"many"``\>\> ; `args`: `ZodOptional`\<`ZodArray`\<`ZodAny`, ``"many"``\>\> ; `caller`: `ZodOptional`\<`ZodEffects`\<`ZodString`, \`0x$\{string}\`, `string`\>\> ; `contractAddress`: `ZodEffects`\<`ZodString`, \`0x$\{string}\`, `string`\> ; `functionName`: `ZodOptional`\<`ZodString`\> ; `gasLimit`: `ZodOptional`\<`ZodBigInt`\>  }, ``"strip"``, `ZodTypeAny`, \{ `abi`: readonly (\{ `inputs`: readonly AbiParameter[] ; `name`: `string` ; `type`: ``"error"``  } \| \{ `anonymous?`: `boolean` ; `inputs`: readonly AbiEventParameter[] ; `name`: `string` ; `type`: ``"event"``  } \| \{ `constant?`: `boolean` ; `gas?`: `number` ; `payable?`: `boolean` ; `stateMutability`: ``"pure"`` \| ``"view"`` \| ``"nonpayable"`` \| ``"payable"`` ; `type`: ``"function"`` \| ``"constructor"`` \| ``"fallback"`` \| ``"receive"``  })[] ; `args?`: `any`[] ; `caller?`: \`0x$\{string}\` ; `contractAddress`: \`0x$\{string}\` ; `functionName?`: `string` ; `gasLimit?`: `bigint`  }, \{ `abi`: `unknown`[] ; `args?`: `any`[] ; `caller?`: `string` ; `contractAddress`: `string` ; `functionName?`: `string` ; `gasLimit?`: `bigint`  }\>
 
 #### Defined in
 
@@ -294,7 +253,7 @@ ___
 
 ### RunScriptActionValidator
 
-• `Const` **RunScriptActionValidator**: ZodObject\<Object, "strip", ZodTypeAny, Object, Object\>
+• `Const` **RunScriptActionValidator**: `ZodObject`\<\{ `abi`: `ZodReadonly`\<`ZodArray`\<`ZodUnion`\<[`ZodObject`\<\{ `inputs`: `ZodReadonly`\<`ZodArray`\<`ZodType`\<`AbiParameter`, `ZodTypeDef`, `AbiParameter`\>, ``"many"``\>\> ; `name`: `ZodString` ; `type`: `ZodLiteral`\<``"error"``\>  }, ``"strip"``, `ZodTypeAny`, \{ `inputs`: readonly `AbiParameter`[] ; `name`: `string` ; `type`: ``"error"``  }, \{ `inputs`: `AbiParameter`[] ; `name`: `string` ; `type`: ``"error"``  }\>, `ZodObject`\<\{ `anonymous`: `ZodOptional`\<`ZodBoolean`\> ; `inputs`: `ZodReadonly`\<`ZodArray`\<`ZodType`\<`AbiEventParameter`, `ZodTypeDef`, `AbiEventParameter`\>, ``"many"``\>\> ; `name`: `ZodString` ; `type`: `ZodLiteral`\<``"event"``\>  }, ``"strip"``, `ZodTypeAny`, \{ `anonymous?`: `boolean` ; `inputs`: readonly `AbiEventParameter`[] ; `name`: `string` ; `type`: ``"event"``  }, \{ `anonymous?`: `boolean` ; `inputs`: `AbiEventParameter`[] ; `name`: `string` ; `type`: ``"event"``  }\>, `ZodEffects`\<`ZodIntersection`\<`ZodObject`\<\{ `constant`: `ZodOptional`\<`ZodBoolean`\> ; `gas`: `ZodOptional`\<`ZodNumber`\> ; `payable`: `ZodOptional`\<`ZodBoolean`\>  }, ``"strip"``, `ZodTypeAny`, \{ `constant?`: `boolean` ; `gas?`: `number` ; `payable?`: `boolean`  }, \{ `constant?`: `boolean` ; `gas?`: `number` ; `payable?`: `boolean`  }\>, `ZodDiscriminatedUnion`\<``"type"``, [`ZodObject`\<\{ `inputs`: `ZodReadonly`\<`ZodArray`\<`ZodType`\<`AbiParameter`, `ZodTypeDef`, `AbiParameter`\>, ``"many"``\>\> ; `name`: `ZodString` ; `outputs`: `ZodReadonly`\<`ZodArray`\<`ZodType`\<`AbiParameter`, `ZodTypeDef`, `AbiParameter`\>, ``"many"``\>\> ; `stateMutability`: `ZodUnion`\<[`ZodLiteral`\<``"pure"``\>, `ZodLiteral`\<``"view"``\>, `ZodLiteral`\<``"nonpayable"``\>, `ZodLiteral`\<``"payable"``\>]\> ; `type`: `ZodLiteral`\<``"function"``\>  }, ``"strip"``, `ZodTypeAny`, \{ `inputs`: readonly `AbiParameter`[] ; `name`: `string` ; `outputs`: readonly `AbiParameter`[] ; `stateMutability`: ``"pure"`` \| ``"view"`` \| ``"nonpayable"`` \| ``"payable"`` ; `type`: ``"function"``  }, \{ `inputs`: `AbiParameter`[] ; `name`: `string` ; `outputs`: `AbiParameter`[] ; `stateMutability`: ``"pure"`` \| ``"view"`` \| ``"nonpayable"`` \| ``"payable"`` ; `type`: ``"function"``  }\>, `ZodObject`\<\{ `inputs`: `ZodReadonly`\<`ZodArray`\<`ZodType`\<`AbiParameter`, `ZodTypeDef`, `AbiParameter`\>, ``"many"``\>\> ; `stateMutability`: `ZodUnion`\<[`ZodLiteral`\<``"payable"``\>, `ZodLiteral`\<``"nonpayable"``\>]\> ; `type`: `ZodLiteral`\<``"constructor"``\>  }, ``"strip"``, `ZodTypeAny`, \{ `inputs`: readonly `AbiParameter`[] ; `stateMutability`: ``"nonpayable"`` \| ``"payable"`` ; `type`: ``"constructor"``  }, \{ `inputs`: `AbiParameter`[] ; `stateMutability`: ``"nonpayable"`` \| ``"payable"`` ; `type`: ``"constructor"``  }\>, `ZodObject`\<\{ `inputs`: `ZodOptional`\<`ZodTuple`\<[], ``null``\>\> ; `stateMutability`: `ZodUnion`\<[`ZodLiteral`\<``"payable"``\>, `ZodLiteral`\<``"nonpayable"``\>]\> ; `type`: `ZodLiteral`\<``"fallback"``\>  }, ``"strip"``, `ZodTypeAny`, \{ `inputs?`: [] ; `stateMutability`: ``"nonpayable"`` \| ``"payable"`` ; `type`: ``"fallback"``  }, \{ `inputs?`: [] ; `stateMutability`: ``"nonpayable"`` \| ``"payable"`` ; `type`: ``"fallback"``  }\>, `ZodObject`\<\{ `stateMutability`: `ZodLiteral`\<``"payable"``\> ; `type`: `ZodLiteral`\<``"receive"``\>  }, ``"strip"``, `ZodTypeAny`, \{ `stateMutability`: ``"payable"`` ; `type`: ``"receive"``  }, \{ `stateMutability`: ``"payable"`` ; `type`: ``"receive"``  }\>]\>\>, \{ `constant?`: `boolean` ; `gas?`: `number` ; `payable?`: `boolean` ; `stateMutability`: ``"pure"`` \| ``"view"`` \| ``"nonpayable"`` \| ``"payable"`` ; `type`: ``"function"`` \| ``"constructor"`` \| ``"fallback"`` \| ``"receive"``  }, `unknown`\>]\>, ``"many"``\>\> ; `args`: `ZodOptional`\<`ZodArray`\<`ZodAny`, ``"many"``\>\> ; `caller`: `ZodOptional`\<`ZodEffects`\<`ZodString`, \`0x$\{string}\`, `string`\>\> ; `deployedBytecode`: `ZodEffects`\<`ZodString`, \`0x$\{string}\`, `string`\> ; `functionName`: `ZodString`  }, ``"strip"``, `ZodTypeAny`, \{ `abi`: readonly (\{ `inputs`: readonly AbiParameter[] ; `name`: `string` ; `type`: ``"error"``  } \| \{ `anonymous?`: `boolean` ; `inputs`: readonly AbiEventParameter[] ; `name`: `string` ; `type`: ``"event"``  } \| \{ `constant?`: `boolean` ; `gas?`: `number` ; `payable?`: `boolean` ; `stateMutability`: ``"pure"`` \| ``"view"`` \| ``"nonpayable"`` \| ``"payable"`` ; `type`: ``"function"`` \| ``"constructor"`` \| ``"fallback"`` \| ``"receive"``  })[] ; `args?`: `any`[] ; `caller?`: \`0x$\{string}\` ; `deployedBytecode`: \`0x$\{string}\` ; `functionName`: `string`  }, \{ `abi`: `unknown`[] ; `args?`: `any`[] ; `caller?`: `string` ; `deployedBytecode`: `string` ; `functionName`: `string`  }\>
 
 #### Defined in
 

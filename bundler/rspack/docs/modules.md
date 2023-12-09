@@ -6,24 +6,24 @@
 
 ### Functions
 
-- [rspackPluginTevm](modules.md#rspackplugintevm)
+- [rspackPluginTevm](undefined)
 
 ## Functions
 
 ### rspackPluginTevm
 
-▸ **rspackPluginTevm**(`options?`): `RspackPluginInstance`
+▸ **rspackPluginTevm**(`options?`): RspackPluginInstance
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `options?` | `Object` |
-| `options.solc?` | `SolcVersions` |
+| `options?` | Object |
+| `options.solc?` | SolcVersions |
 
 #### Returns
 
-`RspackPluginInstance`
+RspackPluginInstance
 
 #### Defined in
 

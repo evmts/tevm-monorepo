@@ -6,17 +6,17 @@
 
 ### Type Aliases
 
-- [TevmTrpcRouter](modules.md#tevmtrpcrouter)
+- [TevmTrpcRouter](undefined)
 
 ### Functions
 
-- [createTevmServer](modules.md#createtevmserver)
+- [createTevmServer](undefined)
 
 ## Type Aliases
 
 ### TevmTrpcRouter
 
-Ƭ **TevmTrpcRouter**: `TrpcApi`[``"handler"``]
+Ƭ **TevmTrpcRouter**: TrpcApi["handler"]
 
 The TRPC Router type for the Tevm server
 Note: It is recomended to use @tevm/vm-client rather than this directly
@@ -30,17 +30,17 @@ as it's more typesafe via generics
 
 ### createTevmServer
 
-▸ **createTevmServer**(`vm`): `TrpcApi`
+▸ **createTevmServer**(`vm`): TrpcApi
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `vm` | `Tevm` |
+| `vm` | Tevm |
 
 #### Returns
 
-`TrpcApi`
+TrpcApi
 
 #### Defined in
 

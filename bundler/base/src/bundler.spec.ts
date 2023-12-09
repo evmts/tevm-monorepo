@@ -1,4 +1,4 @@
-import { bundler } from './bundler.js'
+import { bundler } from './index.js'
 import type { Bundler, FileAccessObject, Logger } from './types.js'
 import {
 	type ModuleInfo,
@@ -300,7 +300,7 @@ describe(bundler.name, () => {
 				  },
 				  "code": "import { TevmContract } from '@tevm/contract'
 				const _abiTestContract = [] as const;
-				const _nameTestContract = \\"TestContract\\" as const;
+				const _nameTestContract = "TestContract" as const;
 				/**
 				 * TestContract TevmContract
 				 */
@@ -374,7 +374,7 @@ describe(bundler.name, () => {
 				  },
 				  "code": "import { TevmContract } from '@tevm/contract'
 				const _abiTestContract = [] as const;
-				const _nameTestContract = \\"TestContract\\" as const;
+				const _nameTestContract = "TestContract" as const;
 				/**
 				 * TestContract TevmContract
 				 */
@@ -467,7 +467,7 @@ describe(bundler.name, () => {
 				    },
 				  },
 				  "code": "import { createTevmContract } from '@tevm/contract'
-				const _TestContract = {\\"name\\":\\"TestContract\\",\\"humanReadableAbi\\":[]} as const
+				const _TestContract = {"name":"TestContract","humanReadableAbi":[]} as const
 				export const TestContract = createTevmContract(_TestContract)",
 				  "modules": {
 				    "module1": {
@@ -557,7 +557,7 @@ describe(bundler.name, () => {
 				    },
 				  },
 				  "code": "import { createTevmContract } from '@tevm/contract'
-				const _TestContract = {\\"name\\":\\"TestContract\\",\\"humanReadableAbi\\":[]} as const
+				const _TestContract = {"name":"TestContract","humanReadableAbi":[]} as const
 				export const TestContract = createTevmContract(_TestContract)",
 				  "modules": {
 				    "module1": {
@@ -647,7 +647,7 @@ describe(bundler.name, () => {
 				    },
 				  },
 				  "code": "const { createTevmContract } = require('@tevm/contract')
-				const _TestContract = {\\"name\\":\\"TestContract\\",\\"humanReadableAbi\\":[]}
+				const _TestContract = {"name":"TestContract","humanReadableAbi":[]}
 				module.exports.TestContract = createTevmContract(_TestContract)",
 				  "modules": {
 				    "module1": {
@@ -737,7 +737,7 @@ describe(bundler.name, () => {
 				    },
 				  },
 				  "code": "const { createTevmContract } = require('@tevm/contract')
-				const _TestContract = {\\"name\\":\\"TestContract\\",\\"humanReadableAbi\\":[]}
+				const _TestContract = {"name":"TestContract","humanReadableAbi":[]}
 				module.exports.TestContract = createTevmContract(_TestContract)",
 				  "modules": {
 				    "module1": {
@@ -827,7 +827,7 @@ describe(bundler.name, () => {
 				    },
 				  },
 				  "code": "import { createTevmContract } from '@tevm/contract'
-				const _TestContract = {\\"name\\":\\"TestContract\\",\\"humanReadableAbi\\":[]}
+				const _TestContract = {"name":"TestContract","humanReadableAbi":[]}
 				export const TestContract = createTevmContract(_TestContract)",
 				  "modules": {
 				    "module1": {
@@ -917,7 +917,7 @@ describe(bundler.name, () => {
 				    },
 				  },
 				  "code": "import { createTevmContract } from '@tevm/contract'
-				const _TestContract = {\\"name\\":\\"TestContract\\",\\"humanReadableAbi\\":[]}
+				const _TestContract = {"name":"TestContract","humanReadableAbi":[]}
 				export const TestContract = createTevmContract(_TestContract)",
 				  "modules": {
 				    "module1": {
