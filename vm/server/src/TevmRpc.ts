@@ -1,7 +1,5 @@
 import type { PutAccountAction, RunScriptAction, PutContractCodeAction, RunCallAction, RunContractCallAction, RunContractCallResult, RunScriptResult, Tevm } from '@tevm/vm'
 import type { Abi } from 'abitype'
-import { JsonRpcSuccessResponse } from './jsonrpc/JsonRpcSuccessResponse'
-import { JsonRpcRequest } from './jsonrpc/JsonRpcRequest'
 
 export type TevmContractCall = <
 	TAbi extends Abi | readonly unknown[] = Abi,

@@ -1,7 +1,4 @@
 import type { IncomingMessage, ServerResponse } from 'http';
-import { JsonRpcRequest } from '../jsonrpc/JsonRpcRequest';
-import { JsonRpcErrorResponse } from '../jsonrpc/JsonRpcErrorResponse';
-import { TevmRpc } from '../TevmRpc';
 
 export function createHTTPHandler(rpc: TevmRpc) {
   return async (req: IncomingMessage, res: ServerResponse) => {

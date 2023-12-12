@@ -8,7 +8,7 @@ import { DEFAULT_BALANCE } from './DEFAULT_BALANCE.js'
 /**
  * @param {import("../../tevm.js").Tevm} tevm
  * @param {import("./PutAccountAction.js").PutAccountAction} action
- * @returns {Promise<import("@ethereumjs/util").Account>}
+ * @returns {Promise<import("./PutAccountResult.js").PutAccountResult>}
  */
 export const putAccountHandler = async (
 	tevm,

@@ -4,7 +4,7 @@ import { hexToBytes } from 'viem'
 /**
  * @param {import("../../tevm.js").Tevm} tevm
  * @param {import("./PutContractCodeAction.js").PutContractCodeAction} action
- * @returns {Promise<Uint8Array>}
+ * @returns {Promise<import("./PutContractCodeResult.js").PutContractCodeResult>}
  */
 export const putContractCodeHandler = async (
 	tevm,

@@ -1,0 +1,11 @@
+import type { Tevm } from '../../tevm.js'
+import type { Abi } from 'abitype'
+import type { TevmScriptRequest } from './TevmScriptRequest.js'
+import type { TevmScriptResponse } from './TevmScriptResponse.js'
+
+export type TevmScriptGeneric = <
+  TAbi extends Abi | readonly unknown[] = Abi,
+  TFunctionName extends string = string,
+>(vm: Tevm, request: TevmScriptRequest<TAbi, TFunctionName>) => Promise<
+  TevmScriptResponse<TAbi, TFunctionName>
+>

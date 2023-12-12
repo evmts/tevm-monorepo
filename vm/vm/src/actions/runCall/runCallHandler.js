@@ -5,7 +5,7 @@ import { hexToBytes, maxInt256 } from 'viem'
  * Executes a call on the vm
  * @param {import("../../tevm.js").Tevm} tevm
  * @param {import("./RunCallAction.js").RunCallAction} action
- * @returns {Promise<import("@ethereumjs/evm").EVMResult>}
+ * @returns {Promise<import("./RunCallResponse.js").RunCallResponse>}
  */
 export const runCallHandler = async (tevm, action) => {
 	return tevm._evm.runCall({
