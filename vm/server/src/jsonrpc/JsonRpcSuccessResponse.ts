@@ -1,4 +1,4 @@
-import type { PrimitiveType } from "./PrimitiveType";
+import type { PrimitiveType } from "./PrimitiveType.js";
 
 export type JsonRpcSuccessResponse = {
   readonly jsonrpc: '2.0';

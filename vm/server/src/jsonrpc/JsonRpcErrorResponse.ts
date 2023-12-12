@@ -1,5 +1,5 @@
-import type { Id } from "./Id";
-import type { PrimitiveType } from "./PrimitiveType";
+import type { Id } from "./Id.js";
+import type { PrimitiveType } from "./PrimitiveType.js";
 
 export type JsonRpcErrorResponse = {
   readonly error: {

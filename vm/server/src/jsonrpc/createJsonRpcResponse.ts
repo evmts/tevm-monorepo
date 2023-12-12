@@ -1,7 +1,7 @@
-import type { JsonRpcErrorResponse } from "./JsonRpcErrorResponse"
-import type { JsonRpcSuccessResponse } from "./JsonRpcSuccessResponse"
-import { createJsonRpcErrorResponse } from "./createJsonRpcErrorResponse"
-import { createJsonRpcSuccessResponse } from "./createJsonRpcSuccessResponse"
+import type { JsonRpcErrorResponse } from "./JsonRpcErrorResponse.js"
+import type { JsonRpcSuccessResponse } from "./JsonRpcSuccessResponse.js"
+import { createJsonRpcErrorResponse } from "./createJsonRpcErrorResponse.js"
+import { createJsonRpcSuccessResponse } from "./createJsonRpcSuccessResponse.js"
 
 export function createJsonRpcResponse<TResponse extends Omit<JsonRpcSuccessResponse, 'jsonrpc'> | Omit<JsonRpcErrorResponse, 'jsonrpc'>>(
   response: TResponse,

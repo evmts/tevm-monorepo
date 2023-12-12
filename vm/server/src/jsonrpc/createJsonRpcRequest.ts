@@ -1,4 +1,4 @@
-import type { JsonRpcRequest } from "./JsonRpcRequest"
+import type { JsonRpcRequest } from "./JsonRpcRequest.js"
 
 export function createJsonRpcRequest<TRequest extends Omit<JsonRpcRequest, 'jsonrpc'>>(
   request: TRequest,

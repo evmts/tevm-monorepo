@@ -1,6 +1,7 @@
-import { CallActionValidator, type RunCallAction } from './runCall.js'
 import { describe, expect, it } from 'bun:test'
 import type { z } from 'zod'
+import type { RunCallAction } from './RunCallAction.js'
+import { CallActionValidator } from './CallActionValidator.js'
 
 describe('runCall', () => {
 	it('should be able to use zod validator', () => {

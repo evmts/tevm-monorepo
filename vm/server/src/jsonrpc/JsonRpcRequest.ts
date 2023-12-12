@@ -1,4 +1,4 @@
-import type { Id } from "./Id"
+import type { Id } from "./Id.js"
 
 export type JsonRpcRequest = {
   readonly jsonrpc: '2.0'

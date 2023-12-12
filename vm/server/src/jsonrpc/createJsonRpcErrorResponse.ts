@@ -1,4 +1,4 @@
-import { JsonRpcErrorResponse } from "./JsonRpcErrorResponse"
+import type { JsonRpcErrorResponse } from "./JsonRpcErrorResponse.js"
 
 export function createJsonRpcErrorResponse<TResponse extends Omit<JsonRpcErrorResponse, 'jsonrpc'>>(
   response: TResponse,
