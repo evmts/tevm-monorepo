@@ -15,10 +15,10 @@
 		"viem": "^1.18.1"
 	},
 	"devDependencies": {
+		"@openzeppelin/contracts": "^5.0.0",
 		"@tevm/bun-plugin": "workspace:^",
 		"@tevm/esbuild-plugin": "workspace:^",
 		"@tevm/ts-plugin": "workspace:^",
-		"@openzeppelin/contracts": "^5.0.0",
 		"@types/live-server": "^1.2.2",
 		"@types/node": "^20.8.9",
 		"solc": "0.8.22",

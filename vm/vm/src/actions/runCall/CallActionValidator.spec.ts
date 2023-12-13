@@ -1,4 +1,5 @@
-import { CallActionValidator, type RunCallAction } from './runCall.js'
+import { CallActionValidator } from './CallActionValidator.js'
+import type { RunCallAction } from './RunCallAction.js'
 import { describe, expect, it } from 'bun:test'
 import type { z } from 'zod'
 

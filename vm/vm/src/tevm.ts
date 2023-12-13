@@ -1,17 +1,23 @@
+import type { RunContractCallAction } from './actions/contractCall/RunContractCallAction.js'
+import type { RunContractCallResult } from './actions/contractCall/RunContractCallResult.js'
+import type { PutAccountAction } from './actions/putAccount/PutAccountAction.js'
+import type { PutContractCodeAction } from './actions/putContractCode/PutContractCodeAction.js'
+import type { RunCallAction } from './actions/runCall/RunCallAction.js'
+import type { RunScriptAction } from './actions/runScript/RunScriptAction.js'
+import type { RunScriptResult } from './actions/runScript/RunScriptResult.js'
+import type { TevmJsonRpcRequest } from './jsonrpc/TevmJsonRpcRequest.js'
+import { createHttpHandler } from './jsonrpc/createHttpHandler.js'
 import {
-	type PutAccountAction,
-	type PutContractCodeAction,
-	type RunCallAction,
-	type RunContractCallAction,
-	type RunContractCallResult,
-	type RunScriptAction,
-	type RunScriptResult,
+	type BackendReturnType,
+	createJsonrpcClient,
+} from './jsonrpc/createJsonrpcClient.js'
+import {
 	putAccountHandler,
 	putContractCodeHandler,
 	runCallHandler,
 	runContractCallHandler,
 	runScriptHandler,
-} from './actions/index.js'
+} from './jsonrpc/index.js'
 import { ViemStateManager } from './stateManager/ViemStateManager.js'
 import { Common, Hardfork } from '@ethereumjs/common'
 import { DefaultStateManager } from '@ethereumjs/statemanager'
@@ -151,6 +157,33 @@ export class Tevm {
 			throw new Error('Tevm must be created with Tevm.create method')
 		}
 	}
+
+	/**
+	 * Executes a jsonrpc request
+	 */
+	public readonly request = <TRequest extends TevmJsonRpcRequest>(
+		request: TRequest,
+	): Promise<BackendReturnType<TRequest>> => {
+		return this.createJsonrpcClient()(request)
+	}
+
+	/**
+	 * Creates a jsonrpc client
+	 */
+	public readonly createJsonrpcClient = () => {
+		return createJsonrpcClient(this)
+	}
+
+	/**
+	 * Creates a httpHandler that can be used with node http server
+	 */
+	public readonly createHttpHandler = () => {
+		return createHttpHandler(this)
+	}
+
+	/**
+	 * Create
+	 */
 
 	/**
 	 * Runs a script or contract that is not deployed to the chain

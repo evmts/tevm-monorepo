@@ -2,7 +2,9 @@
 	"name": "@tevm/docs",
 	"version": "0.0.1",
 	"private": true,
-	"contributors": ["Will Cory <willcory10@gmail.com>"],
+	"contributors": [
+		"Will Cory <willcory10@gmail.com>"
+	],
 	"type": "module",
 	"scripts": {
 		"build": "bun build:dist",

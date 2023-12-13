@@ -26,12 +26,12 @@
 		"test": "vitest"
 	},
 	"dependencies": {
+		"@rainbow-me/rainbowkit": "^1.2.0",
+		"@tanstack/react-query": "^5.8.4",
 		"@tevm/config": "workspace:^",
 		"@tevm/contract": "workspace:^",
 		"@tevm/ethers": "workspace:^",
 		"@tevm/solc": "workspace:^",
-		"@rainbow-me/rainbowkit": "^1.2.0",
-		"@tanstack/react-query": "^5.8.4",
 		"buffer": "^6.0.3",
 		"ds-test": "github:dapphub/ds-test",
 		"ethers": "^6.8.1",
@@ -45,10 +45,10 @@
 		"wagmi": "^1.4.7"
 	},
 	"devDependencies": {
-		"@tevm/ts-plugin": "workspace:^",
-		"@tevm/vite-plugin": "workspace:^",
 		"@openzeppelin/contracts": "^4.9.3",
 		"@testing-library/react": "^14.1.2",
+		"@tevm/ts-plugin": "workspace:^",
+		"@tevm/vite-plugin": "workspace:^",
 		"@types/prismjs": "^1.26.3",
 		"@types/react": "^18.2.37",
 		"@types/react-dom": "^18.2.15",
