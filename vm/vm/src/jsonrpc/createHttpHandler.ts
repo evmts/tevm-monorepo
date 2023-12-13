@@ -5,7 +5,7 @@ import {
 	createJsonrpcClient,
 } from './createJsonrpcClient.js'
 import type { IncomingMessage, ServerResponse } from 'http'
-
+import { stringify } from 'superjson'
 /**
  * Creates an http request handler for tevm requests
  */
@@ -75,7 +75,7 @@ export function createHttpHandler(tevm: Tevm) {
 				.then((result) => {
 					try {
 						res.writeHead(200, { 'Content-Type': 'application/json' })
-						res.end(JSON.stringify(result))
+						res.end(stringify(result))
 						return
 					} catch (e) {
 						res.writeHead(500, { 'Content-Type': 'application/json' })

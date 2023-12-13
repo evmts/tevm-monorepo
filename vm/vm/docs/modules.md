@@ -6,6 +6,7 @@
 
 ### Classes
 
+- [Client](undefined)
 - [Tevm](undefined)
 
 ### Type Aliases
@@ -13,6 +14,16 @@
 - [CreateEVMOptions](undefined)
 
 ## Classes
+
+### Client
+
+• **Client**: Class Client
+
+#### Defined in
+
+[client/createClient.ts:17](https://github.com/evmts/tevm-monorepo/blob/main/vm/vm/src/client/createClient.ts#L17)
+
+___
 
 ### Tevm
 
