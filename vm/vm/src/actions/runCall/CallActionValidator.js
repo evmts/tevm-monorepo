@@ -1,6 +1,6 @@
+import { ZHex } from '../../utils/ZHex.js'
 import { Address as ZAddress } from 'abitype/zod'
 import { z } from 'zod'
-import { ZHex } from '../../utils/ZHex.js'
 
 export const CallActionValidator = z.object({
 	to: ZAddress.describe('the address to send call to'),

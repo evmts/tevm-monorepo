@@ -17,11 +17,11 @@
 		"ethers": "^6.8.0"
 	},
 	"devDependencies": {
-		"@tevm/ts-plugin": "workspace:^",
-		"@tevm/vite-plugin": "workspace:^",
 		"@openzeppelin/contracts": "^5.0.0",
 		"@sveltejs/adapter-auto": "^2.1.0",
 		"@sveltejs/kit": "^1.27.2",
+		"@tevm/ts-plugin": "workspace:^",
+		"@tevm/vite-plugin": "workspace:^",
 		"solc": "0.8.22",
 		"svelte": "^4.2.2",
 		"svelte-check": "^3.5.2",

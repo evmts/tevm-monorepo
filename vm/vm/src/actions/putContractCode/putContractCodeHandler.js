@@ -6,10 +6,7 @@ import { hexToBytes } from 'viem'
  * @param {import("./PutContractCodeAction.js").PutContractCodeAction} action
  * @returns {Promise<import("./PutContractCodeResult.js").PutContractCodeResult>}
  */
-export const putContractCodeHandler = async (
-	tevm,
-	action,
-) => {
+export const putContractCodeHandler = async (tevm, action) => {
 	const ethAddress = new EthjsAddress(hexToBytes(action.contractAddress))
 	await tevm._evm.stateManager.putContractCode(
 		ethAddress,

@@ -1,6 +1,6 @@
+import { hexRegex } from './hexRegex.js'
 import { type Hex } from 'viem'
 import { z } from 'zod'
-import { hexRegex } from './hexRegex.js'
 
 export const ZHex = z.string().transform((value, ctx) => {
 	if (!hexRegex.test(value)) {

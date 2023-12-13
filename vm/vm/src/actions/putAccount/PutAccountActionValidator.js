@@ -1,6 +1,6 @@
+import { DEFAULT_BALANCE } from './DEFAULT_BALANCE.js'
 import { Address as ZAddress } from 'abitype/zod'
 import { z } from 'zod'
-import { DEFAULT_BALANCE } from './DEFAULT_BALANCE.js'
 
 export const PutAccountActionValidator = z.object({
 	account: ZAddress.describe('The account to give eth to'),

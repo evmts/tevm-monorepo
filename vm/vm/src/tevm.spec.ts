@@ -1,10 +1,10 @@
+import type { TevmContractCallRequest } from './jsonrpc/contractCall/TevmContractCallRequest.js'
+import type { TevmScriptRequest } from './jsonrpc/runScript/TevmScriptRequest.js'
 import { DaiContract } from './test/DaiContract.sol.js'
 import { type CustomPrecompile, Tevm } from './tevm.js'
 import { Address } from '@ethereumjs/util'
 import { describe, expect, it } from 'bun:test'
 import { hexToBytes } from 'viem'
-import type { TevmScriptRequest } from './jsonrpc/runScript/TevmScriptRequest.js'
-import type { TevmContractCallRequest } from './jsonrpc/contractCall/TevmContractCallRequest.js'
 
 const contractAddress = '0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1'
 
@@ -203,6 +203,9 @@ describe('Tevm should create a local vm in JavaScript', () => {
 		})
 
 		it('should execute a contractCall request', async () => {
+			const tevm = await Tevm.create({
+				fork: forkConfig,
+			})
 			const req = {
 				params: DaiContract.read.balanceOf(
 					'0xf0d4c12a5768d806021f80a262b4d39d26c58b8d',
@@ -249,7 +252,7 @@ describe('Tevm should create a local vm in JavaScript', () => {
 			expect(res.id).toBe(1)
 			expect(res.method).toBe('tevm_call')
 			expect(res.result.execResult.exceptionError).toBeUndefined()
-			expect(res.result.execResult.returnValue).toBe(Uint8Array.of())
+			expect(res.result.execResult.returnValue).toEqual(Uint8Array.of())
 			expect(
 				(
 					await tevm._evm.stateManager.getAccount(
@@ -276,7 +279,7 @@ describe('Tevm should create a local vm in JavaScript', () => {
 				params: {
 					account: '0xff420000000000000000000000000000000000ff',
 					balance,
-				}
+				},
 			})
 			expect(res.result.balance).toBe(balance)
 			expect(res.jsonrpc).toBe('2.0')
@@ -287,10 +290,13 @@ describe('Tevm should create a local vm in JavaScript', () => {
 		it('Should execute a putContractCode request', async () => {
 			const tevm = await Tevm.create()
 			const res = await tevm.request({
-				id: 1, method: 'tevm_putContractCode', jsonrpc: '2.0', params: {
+				id: 1,
+				method: 'tevm_putContractCode',
+				jsonrpc: '2.0',
+				params: {
 					deployedBytecode: DaiContract.deployedBytecode,
 					contractAddress: '0xff420000000000000000000000000000000000ff',
-				}
+				},
 			})
 			expect(res.result).toHaveLength(4782)
 			expect(res.jsonrpc).toBe('2.0')

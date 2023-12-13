@@ -1,8 +1,6 @@
 import type { Log } from '@ethereumjs/evm'
 import type { Abi } from 'abitype'
-import {
-	type DecodeFunctionResultReturnType,
-} from 'viem'
+import { type DecodeFunctionResultReturnType } from 'viem'
 
 export type RunContractCallResult<
 	TAbi extends Abi | readonly unknown[] = Abi,

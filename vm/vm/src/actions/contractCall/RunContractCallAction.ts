@@ -1,8 +1,5 @@
 import type { Abi } from 'abitype'
-import {
-	type Address,
-	type EncodeFunctionDataParameters,
-} from 'viem'
+import { type Address, type EncodeFunctionDataParameters } from 'viem'
 
 /**
  * Tevm action to execute a call on a contract
@@ -15,4 +12,3 @@ export type RunContractCallAction<
 	caller?: Address
 	gasLimit?: bigint
 }
-

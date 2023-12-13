@@ -1,19 +1,28 @@
+import type { RunContractCallAction } from './actions/contractCall/RunContractCallAction.js'
+import type { RunContractCallResult } from './actions/contractCall/RunContractCallResult.js'
+import type { PutAccountAction } from './actions/putAccount/PutAccountAction.js'
+import type { PutContractCodeAction } from './actions/putContractCode/PutContractCodeAction.js'
+import type { RunCallAction } from './actions/runCall/RunCallAction.js'
+import type { RunScriptAction } from './actions/runScript/RunScriptAction.js'
+import type { RunScriptResult } from './actions/runScript/RunScriptResult.js'
+import type { TevmJsonRpcRequest } from './jsonrpc/TevmJsonRpcRequest.js'
+import { createHttpHandler } from './jsonrpc/createHttpHandler.js'
+import {
+	type BackendReturnType,
+	createJsonrpcClient,
+} from './jsonrpc/createJsonrpcClient.js'
+import {
+	putAccountHandler,
+	putContractCodeHandler,
+	runCallHandler,
+	runContractCallHandler,
+	runScriptHandler,
+} from './jsonrpc/index.js'
 import { ViemStateManager } from './stateManager/ViemStateManager.js'
 import { Common, Hardfork } from '@ethereumjs/common'
 import { DefaultStateManager } from '@ethereumjs/statemanager'
 import type { Abi } from 'abitype'
 import { createPublicClient, http } from 'viem'
-import type { RunScriptAction } from './actions/runScript/RunScriptAction.js'
-import type { RunScriptResult } from './actions/runScript/RunScriptResult.js'
-import { putAccountHandler, putContractCodeHandler, runCallHandler, runContractCallHandler, runScriptHandler } from './jsonrpc/index.js'
-import type { PutAccountAction } from './actions/putAccount/PutAccountAction.js'
-import type { PutContractCodeAction } from './actions/putContractCode/PutContractCodeAction.js'
-import type { RunCallAction } from './actions/runCall/RunCallAction.js'
-import type { RunContractCallAction } from './actions/contractCall/RunContractCallAction.js'
-import type { RunContractCallResult } from './actions/contractCall/RunContractCallResult.js'
-import type { TevmJsonRpcRequest } from './jsonrpc/TevmJsonRpcRequest.js'
-import { createJsonrpcClient, type BackendReturnType } from './jsonrpc/createJsonrpcClient.js'
-import { createHttpHandler } from './jsonrpc/createHttpHandler.js'
 
 /**
  * Options fetch state that isn't available locally.
@@ -152,7 +161,9 @@ export class Tevm {
 	/**
 	 * Executes a jsonrpc request
 	 */
-	public readonly request = <TRequest extends TevmJsonRpcRequest>(request: TRequest): Promise<BackendReturnType<TRequest>> => {
+	public readonly request = <TRequest extends TevmJsonRpcRequest>(
+		request: TRequest,
+	): Promise<BackendReturnType<TRequest>> => {
 		return this.createJsonrpcClient()(request)
 	}
 
@@ -171,7 +182,7 @@ export class Tevm {
 	}
 
 	/**
-	 * Create 
+	 * Create
 	 */
 
 	/**

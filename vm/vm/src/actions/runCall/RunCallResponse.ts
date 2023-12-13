@@ -1,3 +1,3 @@
-import type { EVMResult } from "@ethereumjs/evm";
+import type { EVMResult } from '@ethereumjs/evm'
 
 export type RunCallResponse = EVMResult

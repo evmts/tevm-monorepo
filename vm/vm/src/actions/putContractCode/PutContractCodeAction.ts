@@ -7,4 +7,3 @@ export type PutContractCodeAction = {
 	deployedBytecode: Hex
 	contractAddress: Address
 }
-

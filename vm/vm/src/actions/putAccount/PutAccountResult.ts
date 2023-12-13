@@ -1,3 +1,3 @@
-import type { Account } from "@ethereumjs/util";
+import type { Account } from '@ethereumjs/util'
 
 export type PutAccountResult = Account

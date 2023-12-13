@@ -1,14 +1,15 @@
-import { runContractCallHandler } from "../../actions/contractCall/runContractCallHandler.js"
+import { runCallHandler } from '../index.js'
 
 /**
- * @type {import("./TevmContractCallGeneric.js").TevmContractCallGeneric}
+ * @param {import("../../tevm.js").Tevm} vm
+ * @param {import("./TevmCallRequest.js").TevmCallRequest} request
+ * @returns {Promise<import("./TevmCallResponse.js").TevmCallResponse>}
  */
 export const ethCall = async (vm, request) => {
-  return {
-    jsonrpc: '2.0',
-    result: await runContractCallHandler(vm, request.params),
-    method: 'tevm_contractCall',
-    ...(request.id === undefined ? {} : { id: request.id })
-  }
+	return {
+		jsonrpc: '2.0',
+		result: await runCallHandler(vm, request.params),
+		method: 'tevm_call',
+		...(request.id === undefined ? {} : { id: request.id }),
+	}
 }
-
