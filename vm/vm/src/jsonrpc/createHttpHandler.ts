@@ -1,8 +1,8 @@
+import type { IncomingMessage, ServerResponse } from 'http'
+import { parse, stringify } from 'superjson'
 import type { Tevm } from '../Tevm.js'
 import type { TevmJsonRpcRequest } from '../jsonrpc/TevmJsonRpcRequest.js'
 import { createJsonRpcClient } from './createJsonRpcClient.js'
-import type { IncomingMessage, ServerResponse } from 'http'
-import { parse, stringify } from 'superjson'
 
 /**
  * Creates an http request handler for tevm requests
