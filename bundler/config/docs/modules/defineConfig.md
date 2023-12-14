@@ -49,4 +49,4 @@ export default defineConfig(() => ({
 
 #### Defined in
 
-[bundler/config/src/types.ts:76](https://github.com/evmts/tevm-monorepo/blob/main/bundler/config/src/types.ts#L76)
+[bundler/config/src/types.ts:84](https://github.com/evmts/tevm-monorepo/blob/main/bundler/config/src/types.ts#L84)

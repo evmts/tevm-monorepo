@@ -49,6 +49,7 @@ describe(defineConfig.name, () => {
 			foundryProject: 'forge',
 			libs: ['lib1', 'lib2'],
 			debug: false,
+			cacheDir: defaultConfig.cacheDir,
 		})
 		expect(mockExecSync).toHaveBeenCalledWith('forge config --json', {
 			cwd: './',
@@ -74,6 +75,7 @@ describe(defineConfig.name, () => {
 			foundryProject: true,
 			libs: ['lib1', 'lib2'],
 			debug: false,
+			cacheDir: defaultConfig.cacheDir,
 		})
 		expect(mockExecSync).toHaveBeenCalledWith('forge config --json', {
 			cwd: './',

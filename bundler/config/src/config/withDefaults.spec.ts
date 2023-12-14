@@ -19,6 +19,7 @@ describe(withDefaults.name, () => {
 			remappings: { foo: 'bar' },
 			libs: ['lib1', 'lib2'],
 			debug: false,
+			cacheDir: defaultConfig.cacheDir,
 		})
 		expect(
 			runSync(
@@ -31,6 +32,7 @@ describe(withDefaults.name, () => {
 			remappings: defaultConfig.remappings,
 			libs: defaultConfig.libs,
 			debug: false,
+			cacheDir: defaultConfig.cacheDir,
 		})
 		expect(
 			runSync(
@@ -43,6 +45,7 @@ describe(withDefaults.name, () => {
 			remappings: { foo: 'bar' },
 			libs: defaultConfig.libs,
 			debug: false,
+			cacheDir: defaultConfig.cacheDir,
 		})
 		expect(
 			runSync(
@@ -55,6 +58,7 @@ describe(withDefaults.name, () => {
 			remappings: defaultConfig.remappings,
 			libs: ['lib1', 'lib2'],
 			debug: false,
+			cacheDir: defaultConfig.cacheDir,
 		})
 	})
 })

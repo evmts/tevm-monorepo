@@ -6,7 +6,7 @@ describe(mergeConfigs.name, () => {
 	it('should correctly merge multiple configurations', () => {
 		const config1 = { remappings: { key1: 'value1' }, libs: ['lib1', 'lib2'] }
 		const config2 = { remappings: { key2: 'value2' }, libs: ['lib3'] }
-		const config3 = { foundryProject: 'forge' }
+		const config3 = { foundryProject: 'forge', debug: true, cacheDir: 'cache' }
 
 		const result = runSync(mergeConfigs([config1, config2, config3]))
 
@@ -14,6 +14,8 @@ describe(mergeConfigs.name, () => {
 			remappings: { key1: 'value1', key2: 'value2' },
 			libs: ['lib3', 'lib1', 'lib2'],
 			foundryProject: 'forge',
+			debug: true,
+			cacheDir: 'cache',
 		})
 	})
 

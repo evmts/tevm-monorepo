@@ -17,6 +17,7 @@ describe(loadConfig.name, () => {
 			),
 		}).toMatchInlineSnapshot(`
 			{
+			  "cacheDir": ".tevm",
 			  "debug": false,
 			  "foundryProject": false,
 			  "libs": [],
@@ -38,6 +39,7 @@ describe(loadConfig.name, () => {
 			runSync(loadConfig(join(__dirname, 'fixtures/jsonc'))),
 		).toMatchInlineSnapshot(`
 			{
+			  "cacheDir": ".tevm",
 			  "debug": false,
 			  "foundryProject": false,
 			  "libs": [],
@@ -51,6 +53,7 @@ describe(loadConfig.name, () => {
 			runSync(loadConfig(join(__dirname, 'fixtures/withFoundry'))),
 		).toMatchInlineSnapshot(`
 			{
+			  "cacheDir": ".tevm",
 			  "debug": false,
 			  "foundryProject": false,
 			  "libs": [],
