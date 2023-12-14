@@ -2,7 +2,7 @@ import { Address as EthjsAddress } from '@ethereumjs/util'
 import { hexToBytes } from 'viem'
 
 /**
- * @param {import("../../tevm.js").Tevm} tevm
+ * @param {import("../../Tevm.js").Tevm} tevm
  * @param {import("./PutContractCodeAction.js").PutContractCodeAction} action
  * @returns {Promise<import("./PutContractCodeResult.js").PutContractCodeResult>}
  */

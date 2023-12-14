@@ -1,4 +1,4 @@
-import type { Tevm } from '../../tevm.js'
+import type { Tevm } from '../../Tevm.js'
 import type { RunScriptAction } from './RunScriptAction.js'
 import type { RunScriptResult } from './RunScriptResult.js'
 import type { Abi } from 'abitype'

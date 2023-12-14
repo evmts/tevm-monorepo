@@ -1,7 +1,7 @@
 import { runCallHandler } from '../index.js'
 
 /**
- * @param {import("../../tevm.js").Tevm} vm
+ * @param {import("../../Tevm.js").Tevm} vm
  * @param {import("./TevmCallRequest.js").TevmCallRequest} request
  * @returns {Promise<import("./TevmCallResponse.js").TevmCallResponse>}
  */

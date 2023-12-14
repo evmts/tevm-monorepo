@@ -1,7 +1,8 @@
+import { type CustomPrecompile } from './Tevm.js'
+import { createTevm } from './createTevm.js'
 import type { TevmContractCallRequest } from './jsonrpc/contractCall/TevmContractCallRequest.js'
 import type { TevmScriptRequest } from './jsonrpc/runScript/TevmScriptRequest.js'
 import { DaiContract } from './test/DaiContract.sol.js'
-import { type CustomPrecompile, Tevm } from './tevm.js'
 import { Address } from '@ethereumjs/util'
 import { describe, expect, it } from 'bun:test'
 import supertest from 'supertest'
@@ -47,7 +48,7 @@ const forkConfig = {
 describe('Tevm should create a local vm in JavaScript', () => {
 	describe('Tevm.prototype.runScript', () => {
 		it('should execute scripts based on their bytecode and return the result', async () => {
-			const tevm = await Tevm.create()
+			const tevm = await createTevm()
 			const res = await tevm.runScript(
 				DaiContract.script.balanceOf(
 					'0x00000000000000000000000000000000000000ff',
@@ -59,7 +60,7 @@ describe('Tevm should create a local vm in JavaScript', () => {
 		})
 
 		it('should work for add contract', async () => {
-			const tevm = await Tevm.create()
+			const tevm = await createTevm()
 			const res = await tevm.runScript({
 				deployedBytecode: addbytecode,
 				abi: addabi,
@@ -74,7 +75,7 @@ describe('Tevm should create a local vm in JavaScript', () => {
 
 	describe('Tevm.prototype.runCall', () => {
 		it('should execute a call on the vm', async () => {
-			const tevm = await Tevm.create()
+			const tevm = await createTevm()
 			const balance = 0x11111111n
 			const address1 = '0x1f420000000000000000000000000000000000ff'
 			const address2 = '0x2f420000000000000000000000000000000000ff'
@@ -109,7 +110,7 @@ describe('Tevm should create a local vm in JavaScript', () => {
 
 	describe('Tevm.prototype.runContractCall', () => {
 		it('should fork a network and then execute a contract call', async () => {
-			const tevm = await Tevm.create({ fork: forkConfig })
+			const tevm = await createTevm({ fork: forkConfig })
 			const res = await tevm.runContractCall(
 				DaiContract.read.balanceOf(
 					'0xf0d4c12a5768d806021f80a262b4d39d26c58b8d',
@@ -126,7 +127,7 @@ describe('Tevm should create a local vm in JavaScript', () => {
 
 	describe('Tevm.prototype.putAccount', () => {
 		it('should insert a new account with eth into the state', async () => {
-			const tevm = await Tevm.create()
+			const tevm = await createTevm()
 			const balance = 0x11111111n
 			const account = await tevm.putAccount({
 				account: '0xff420000000000000000000000000000000000ff',
@@ -138,7 +139,7 @@ describe('Tevm should create a local vm in JavaScript', () => {
 
 	describe('Tevm.prototype.putContractCode', () => {
 		it('should insert a new contract with bytecode', async () => {
-			const tevm = await Tevm.create()
+			const tevm = await createTevm()
 			const code = await tevm.putContractCode({
 				deployedBytecode: DaiContract.deployedBytecode,
 				contractAddress: '0xff420000000000000000000000000000000000ff',
@@ -167,7 +168,7 @@ describe('Tevm should create a local vm in JavaScript', () => {
 			},
 		}
 
-		const tevm = await Tevm.create({ customPrecompiles: [precompile] })
+		const tevm = await createTevm({ customPrecompiles: [precompile] })
 		expect(tevm._evm.getPrecompile(new Address(hexToBytes(address)))).toEqual(
 			precompile.function,
 		)
@@ -183,7 +184,7 @@ describe('Tevm should create a local vm in JavaScript', () => {
 	})
 
 	describe('Tevm.prototype.request', async () => {
-		const tevm = await Tevm.create()
+		const tevm = await createTevm()
 
 		it('should execute a script request', async () => {
 			const req = {
@@ -204,7 +205,7 @@ describe('Tevm should create a local vm in JavaScript', () => {
 		})
 
 		it('should execute a contractCall request', async () => {
-			const tevm = await Tevm.create({
+			const tevm = await createTevm({
 				fork: forkConfig,
 			})
 			const req = {
@@ -228,7 +229,7 @@ describe('Tevm should create a local vm in JavaScript', () => {
 		})
 
 		it('should execute a call request', async () => {
-			const tevm = await Tevm.create()
+			const tevm = await createTevm()
 			const balance = 0x11111111n
 			const address1 = '0x1f420000000000000000000000000000000000ff'
 			const address2 = '0x2f420000000000000000000000000000000000ff'
@@ -271,7 +272,7 @@ describe('Tevm should create a local vm in JavaScript', () => {
 		})
 
 		it('Should execute a putAccount request', async () => {
-			const tevm = await Tevm.create()
+			const tevm = await createTevm()
 			const balance = 0x11111111n
 			const res = await tevm.request({
 				jsonrpc: '2.0',
@@ -289,7 +290,7 @@ describe('Tevm should create a local vm in JavaScript', () => {
 		})
 
 		it('Should execute a putContractCode request', async () => {
-			const tevm = await Tevm.create()
+			const tevm = await createTevm()
 			const res = await tevm.request({
 				id: 1,
 				method: 'tevm_putContractCode',
@@ -311,7 +312,7 @@ describe('Tevm should create a local vm in JavaScript', () => {
 		// haven't debugged if code is broke or test is broke yet
 		// landing immediately to avoid merge conflicts in other prs but need to circle back
 		it.todo('should create an http handler', async () => {
-			const tevm = await Tevm.create()
+			const tevm = await createTevm()
 
 			const server = require('http').createServer(tevm.createHttpHandler())
 
