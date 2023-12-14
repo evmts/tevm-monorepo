@@ -6,7 +6,7 @@ import {
 import { hexToBytes } from 'viem'
 
 /**
- * @param {import("../../tevm.js").Tevm} tevm
+ * @param {import("../../Tevm.js").Tevm} tevm
  * @param {import("./PutAccountAction.js").PutAccountAction} action
  * @returns {Promise<import("./PutAccountResult.js").PutAccountResult>}
  */

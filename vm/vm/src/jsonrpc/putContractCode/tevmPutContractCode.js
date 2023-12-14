@@ -1,7 +1,7 @@
 import { putContractCodeHandler } from '../../actions/putContractCode/putContractCodeHandler.js'
 
 /**
- * @param {import('../../tevm.js').Tevm} vm
+ * @param {import('../../Tevm.js').Tevm} vm
  * @param {import('./TevmPutContractCodeRequest.js').TevmPutContractCodeRequest} request
  * @returns {Promise<import('./TevmPutContractCodeResponse.js').TevmPutContractCodeResponse>}
  */

@@ -1,5 +1,5 @@
+import type { Tevm } from '../Tevm.js'
 import type { TevmJsonRpcRequest } from '../jsonrpc/TevmJsonRpcRequest.js'
-import type { Tevm } from '../tevm.js'
 import {
 	UnknownMethodError,
 	createJsonrpcClient,

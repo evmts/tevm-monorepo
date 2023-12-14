@@ -1,4 +1,4 @@
-import type { Tevm } from '../../tevm.js'
+import type { Tevm } from '../../Tevm.js'
 import type { RunContractCallAction } from './RunContractCallAction.js'
 import type { RunContractCallResult } from './RunContractCallResult.js'
 import type { Abi } from 'abitype'
