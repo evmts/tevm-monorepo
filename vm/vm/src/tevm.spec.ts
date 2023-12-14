@@ -8,7 +8,6 @@ import { Address } from '@ethereumjs/util'
 import { describe, expect, it } from 'bun:test'
 import supertest from 'supertest'
 import { hexToBytes } from 'viem'
-import supertest from 'supertest'
 
 const contractAddress = '0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1'
 
@@ -394,7 +393,7 @@ describe('Tevm should create a local vm in JavaScript', () => {
 
 	describe('httpHandler', () => {
 		it('should create an http handler', async () => {
-			const tevm = await Tevm.create()
+			const tevm = await createTevm()
 
 			const server = require('http').createServer(tevm.createHttpHandler())
 
