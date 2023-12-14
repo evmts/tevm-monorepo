@@ -1,5 +1,8 @@
+import { Common, Hardfork } from '@ethereumjs/common'
+import { DefaultStateManager } from '@ethereumjs/statemanager'
+import { http, createPublicClient } from 'viem'
 import { createHttpHandler as _createHttpHandler } from './jsonrpc/createHttpHandler.js'
-import { createJsonrpcClient as _createJsonrpcClient } from './jsonrpc/createJsonrpcClient.js'
+import { createJsonRpcClient as _createJsonrpcClient } from './jsonrpc/createJsonRpcClient.js'
 import {
 	putAccountHandler,
 	putContractCodeHandler,
@@ -8,9 +11,6 @@ import {
 	runScriptHandler,
 } from './jsonrpc/index.js'
 import { ViemStateManager } from './stateManager/ViemStateManager.js'
-import { Common, Hardfork } from '@ethereumjs/common'
-import { DefaultStateManager } from '@ethereumjs/statemanager'
-import { createPublicClient, http } from 'viem'
 
 /**
  * A local EVM instance running in JavaScript. Similar to Anvil in your browser
@@ -84,13 +84,13 @@ export const createTevm = async (options = {}) => {
 	 * @type {import('./Tevm.js').Tevm['request']}
 	 */
 	const request = (request) => {
-		return createJsonrpcClient()(request)
+		return createJsonRpcClient()(request)
 	}
 
 	/**
-	 * @type {import('./Tevm.js').Tevm['createJsonrpcClient']}
+	 * @type {import('./Tevm.js').Tevm['createJsonRpcClient']}
 	 */
-	const createJsonrpcClient = () => {
+	const createJsonRpcClient = () => {
 		return _createJsonrpcClient(tevm)
 	}
 
@@ -196,7 +196,7 @@ export const createTevm = async (options = {}) => {
 	const tevm = {
 		_evm: evm,
 		request,
-		createJsonrpcClient,
+		createJsonRpcClient,
 		createHttpHandler,
 		runScript,
 		putAccount,
