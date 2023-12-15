@@ -1,9 +1,5 @@
 import type { SolcInputDescription, SolcOutput } from './solc/solc.js'
-import type { Logger } from './types.js'
-
-export type CacheObject = {
-	[filePath: string]: SolcOutput
-}
+import type { FileAccessObject, Logger } from './types.js'
 
 export type Cache = {
 	read: (entryModuleId: string) => SolcOutput
@@ -14,6 +10,6 @@ export type Cache = {
 	) => boolean
 }
 
-export type CreateCache = (logger: Logger) => Cache
+export type CreateCache = (logger: Logger, cacheDir: string, fs: FileAccessObject, cwd: string) => Cache
 
 export const createCache: CreateCache

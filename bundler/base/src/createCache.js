@@ -4,27 +4,45 @@
 /**
  * @type {import('./createCache.js').CreateCache}
  */
-export const createCache = (logger) => {
+export const createCache = (logger, cacheDir, fs, cwd) => {
 	/**
-	 * @type {import('./createCache.js').CacheObject}
+	 * @param {string} entryModuleId
 	 */
-	const cache = {}
+	const getArtifactsPath = (entryModuleId) => {
+		const normalizedEntryModuleId = entryModuleId.replace(entryModuleId, cwd)
+		// TODO This doesn't support windows
+		return [cacheDir, normalizedEntryModuleId, 'artifacts.json'].join('/')
+	}
 
 	return {
 		write: (entryModuleId, compiledContracts) => {
-			cache[entryModuleId] = compiledContracts
+			const artifactsPath = getArtifactsPath(entryModuleId)
+			fs.writeFileSync(artifactsPath, JSON.stringify(compiledContracts))
 		},
 		read: (entryModuleId) => {
-			const out = cache[entryModuleId]
-			if (!out) {
+			const artifactsPath = getArtifactsPath(entryModuleId)
+			if (!fs.existsSync(artifactsPath)) {
 				throw new Error(
 					`Cache miss for ${entryModuleId}. Try calling isCached first`,
 				)
 			}
-			return out
+			try {
+				return JSON.parse(fs.readFileSync(artifactsPath, 'utf8').toString())
+			} catch (e) {
+				throw new Error(
+					`Cache miss for ${entryModuleId} because it isn't valid json. Try calling isCached first`,
+				)
+			}
 		},
 		isCached: (entryModuleId, sources) => {
-			const previousCachedItem = cache[entryModuleId]
+			const artifactsPath = getArtifactsPath(entryModuleId)
+			if (!fs.existsSync(artifactsPath)) {
+				return false
+			}
+			/**
+			 * @type {import('@tevm/solc').SolcOutput}
+			 */
+			const previousCachedItem = JSON.parse(fs.readFileSync(artifactsPath, 'utf8').toString())
 			if (!previousCachedItem) {
 				return false
 			}

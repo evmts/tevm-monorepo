@@ -12,6 +12,7 @@ export type BundlerResult = {
 }
 
 export type FileAccessObject = {
+	writeFileSync: (path: string, data: string) => void
 	readFile: (path: string, encoding: BufferEncoding) => Promise<string>
 	readFileSync: (path: string, encoding: BufferEncoding) => string
 	existsSync: (path: string) => boolean

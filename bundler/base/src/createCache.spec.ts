@@ -1,5 +1,5 @@
 import { type Cache, createCache } from './createCache.js'
-import type { Logger } from './types.js'
+import type { FileAccessObject, Logger } from './types.js'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 describe(createCache.name, () => {
@@ -9,7 +9,16 @@ describe(createCache.name, () => {
 		error: vi.fn(),
 		info: vi.fn(),
 	}
-	let cache: Cache = createCache(mockLogger)
+	const cacheDir = '/path/to/project/cache'
+	let fs: FileAccessObject = {
+		existsSync: vi.fn(),
+		readFile: vi.fn(),
+		readFileSync: vi.fn(),
+		writeFileSync: vi.fn(),
+	}
+	const cwd = '/path/to/project'
+
+	let cache: Cache = createCache(mockLogger, cacheDir, fs, cwd)
 
 	beforeEach(() => {
 		mockLogger = {
@@ -18,7 +27,13 @@ describe(createCache.name, () => {
 			error: vi.fn(),
 			info: vi.fn(),
 		}
-		cache = createCache(mockLogger)
+		fs = {
+			existsSync: vi.fn(),
+			readFile: vi.fn(),
+			readFileSync: vi.fn(),
+			writeFileSync: vi.fn(),
+		}
+		cache = createCache(mockLogger, cacheDir, fs, cwd)
 	})
 
 	describe(cache.read.name, () => {
