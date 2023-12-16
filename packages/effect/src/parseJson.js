@@ -22,7 +22,7 @@ export class ParseJsonError extends Error {
 /**
  * Parses a json string
  * @param {string} jsonStr
- * @returns {import("effect/Effect").Effect<never, ParseJsonError, {compilerOptions?: {plugins: Array<{name: string}>}}>}
+ * @returns {import("effect/Effect").Effect<never, ParseJsonError, unknown>}
  * @throws {ParseJsonError} when the tsconfig.json file is not valid json
  * @example
  * ```ts
