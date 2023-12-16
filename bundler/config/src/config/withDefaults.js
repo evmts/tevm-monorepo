@@ -8,6 +8,7 @@ export const defaultConfig = {
 	remappings: {},
 	libs: [],
 	debug: false,
+	cacheDir: '.tevm',
 }
 
 /**
@@ -30,6 +31,7 @@ export const withDefaults = (config) =>
 		},
 		libs: [...defaultConfig.libs, ...(config.libs ?? [])],
 		debug: config.debug ?? defaultConfig.debug,
+		cacheDir: config.cacheDir ?? defaultConfig.cacheDir,
 	}).pipe(
 		tap((configWithDefaults) =>
 			logDebug(

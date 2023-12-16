@@ -70,6 +70,7 @@ const SCompilerConfig = struct({
 	libs: optional(union(array(string), SUndefined)),
 	remappings: optional(union(record(string, string), SUndefined)),
 	debug: optional(union(boolean, SUndefined)),
+	cacheDir: optional(union(string, SUndefined)),
 })
 
 /**
