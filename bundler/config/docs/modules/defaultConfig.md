@@ -20,6 +20,7 @@ The default CompilerConfig
 
 | Name | Type |
 | :------ | :------ |
+| `cacheDir` | `string` |
 | `debug` | `boolean` |
 | `foundryProject` | `boolean` |
 | `libs` | `never`[] |

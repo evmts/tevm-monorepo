@@ -27,6 +27,10 @@ export type CompilerConfig = {
 	 * If debug is true tevm will write the .d.ts files in the ts server and publish extra debug info to a debug file
 	 */
 	debug?: boolean | undefined
+	/**
+	 * Location of the tevm cache folder
+	 */
+	cacheDir?: string | undefined
 }
 
 /*
@@ -57,6 +61,10 @@ export type ResolvedCompilerConfig = {
 	 * If debug is true tevm will write the .d.ts files in the ts server and publish extra debug info to a debug file
 	 */
 	debug?: boolean | undefined
+	/**
+	 * Location of the tevm cache folder
+	 */
+	cacheDir: string
 }
 
 export type DefineConfigErrorType =
