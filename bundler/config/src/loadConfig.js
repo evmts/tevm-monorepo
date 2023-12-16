@@ -62,25 +62,25 @@ ${underlyingError.message}`,
 export const loadConfig = (configFilePath) => {
 	const tsConfig = logDebug(
 		`loadConfig: loading tsConfig at ${JSON.stringify(configFilePath)}`,
-	).pipe(
-		flatMap(() => loadTsConfig(configFilePath)),
-	)
+	).pipe(flatMap(() => loadTsConfig(configFilePath)))
 	const userConfig = logDebug(
 		`loadConfig: loading userConfig at ${JSON.stringify(configFilePath)}`,
 	).pipe(
 		flatMap(() => loadJsonConfig(configFilePath)),
 		catchTags({
 			// for backwards compatibility attempt to read config from tsconfig
-			FailedToReadConfigError: e =>
+			FailedToReadConfigError: (e) =>
 				tsConfig.pipe(
-					flatMap((tsConfig) => getTevmConfigFromTsConfig(tsConfig, configFilePath)),
+					flatMap((tsConfig) =>
+						getTevmConfigFromTsConfig(tsConfig, configFilePath),
+					),
 					catchTags({
 						// if there is no fallback config we want to throw the original error
 						NoPluginInTsConfigFoundError: () => fail(e),
 						LoadTsConfigError: () => fail(e),
-					})
-				)
-		})
+					}),
+				),
+		}),
 	)
 	const foundryConfig = flatMap(userConfig, (userConfig) => {
 		return loadFoundryConfig(userConfig.foundryProject, configFilePath)

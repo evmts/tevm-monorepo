@@ -16,7 +16,7 @@
 
 ### parseJson
 
-▸ **parseJson**(`jsonStr`): `Effect`\<`never`, [`ParseJsonError`](../classes/parseJson.ParseJsonError.md), \{ `compilerOptions?`: \{ `plugins`: \{ `name`: `string`  }[]  }  }\>
+▸ **parseJson**(`jsonStr`): `Effect`\<`never`, [`ParseJsonError`](../classes/parseJson.ParseJsonError.md), `unknown`\>
 
 Parses a json string
 
@@ -28,7 +28,7 @@ Parses a json string
 
 #### Returns
 
-`Effect`\<`never`, [`ParseJsonError`](../classes/parseJson.ParseJsonError.md), \{ `compilerOptions?`: \{ `plugins`: \{ `name`: `string`  }[]  }  }\>
+`Effect`\<`never`, [`ParseJsonError`](../classes/parseJson.ParseJsonError.md), `unknown`\>
 
 **`Throws`**
 

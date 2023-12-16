@@ -25,7 +25,9 @@ export class NoPluginInTsConfigFoundError extends Error {
 export const getTevmConfigFromTsConfig = (tsConfig, configPath) => {
 	if (!tsConfig.compilerOptions?.plugins?.length) {
 		return fail(
-			new NoPluginInTsConfigFoundError('No compilerOptions.plugins in tsconfig'),
+			new NoPluginInTsConfigFoundError(
+				'No compilerOptions.plugins in tsconfig',
+			),
 		)
 	}
 	const plugin =
@@ -50,7 +52,7 @@ export const getTevmConfigFromTsConfig = (tsConfig, configPath) => {
 	return validateUserConfig(() => plugin).pipe(
 		catchTags({
 			// this can't happen we can cean this up via validateUserConfig taking a config instead of a configFn
-			ConfigFnThrowError: e => die(e),
+			ConfigFnThrowError: (e) => die(e),
 		}),
 		map((config) => ({
 			...config,
@@ -62,13 +64,13 @@ export const getTevmConfigFromTsConfig = (tsConfig, configPath) => {
 		map((config) =>
 			baseUrl
 				? {
-					...config,
-					remappings: {
-						...pathRemappings,
-						...config.remappings,
-					},
-					libs: [...new Set([baseUrl, ...(config.libs ?? [])])],
-				}
+						...config,
+						remappings: {
+							...pathRemappings,
+							...config.remappings,
+						},
+						libs: [...new Set([baseUrl, ...(config.libs ?? [])])],
+				  }
 				: config,
 		),
 		tap((config) => {

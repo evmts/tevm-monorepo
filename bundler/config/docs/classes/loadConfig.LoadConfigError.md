@@ -55,17 +55,17 @@ Error.constructor
 
 #### Defined in
 
-[bundler/config/src/loadConfig.js:36](https://github.com/evmts/tevm-monorepo/blob/main/bundler/config/src/loadConfig.js#L36)
+[bundler/config/src/loadConfig.js:37](https://github.com/evmts/tevm-monorepo/blob/main/bundler/config/src/loadConfig.js#L37)
 
 ## Properties
 
 ### \_tag
 
-• **\_tag**: ``"ConfigFnThrowError"`` \| ``"InvalidConfigError"`` \| ``"FoundryNotFoundError"`` \| ``"FoundryConfigError"`` \| ``"InvalidRemappingsError"`` \| ``"FailedToReadConfigError"`` \| ``"ParseJsonError"`` \| ``"NoPluginFoundError"``
+• **\_tag**: ``"InvalidConfigError"`` \| ``"FoundryNotFoundError"`` \| ``"FoundryConfigError"`` \| ``"InvalidRemappingsError"`` \| ``"FailedToReadConfigError"`` \| ``"ParseJsonError"`` \| ``"NoPluginInTsConfigFoundError"``
 
 #### Defined in
 
-[bundler/config/src/loadConfig.js:31](https://github.com/evmts/tevm-monorepo/blob/main/bundler/config/src/loadConfig.js#L31)
+[bundler/config/src/loadConfig.js:32](https://github.com/evmts/tevm-monorepo/blob/main/bundler/config/src/loadConfig.js#L32)
 
 ___
 
@@ -99,7 +99,7 @@ ___
 
 ### name
 
-• **name**: ``"ConfigFnThrowError"`` \| ``"InvalidConfigError"`` \| ``"FoundryNotFoundError"`` \| ``"FoundryConfigError"`` \| ``"InvalidRemappingsError"`` \| ``"FailedToReadConfigError"`` \| ``"ParseJsonError"`` \| ``"NoPluginFoundError"``
+• **name**: ``"InvalidConfigError"`` \| ``"FoundryNotFoundError"`` \| ``"FoundryConfigError"`` \| ``"InvalidRemappingsError"`` \| ``"FailedToReadConfigError"`` \| ``"ParseJsonError"`` \| ``"NoPluginInTsConfigFoundError"``
 
 #### Overrides
 
@@ -107,7 +107,7 @@ Error.name
 
 #### Defined in
 
-[bundler/config/src/loadConfig.js:27](https://github.com/evmts/tevm-monorepo/blob/main/bundler/config/src/loadConfig.js#L27)
+[bundler/config/src/loadConfig.js:28](https://github.com/evmts/tevm-monorepo/blob/main/bundler/config/src/loadConfig.js#L28)
 
 ___
 
