@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 
 import {
-	NoPluginFoundError,
+	NoPluginInTsConfigFoundError,
 	getTevmConfigFromTsConfig,
 } from './getTevmConfigFromTsConfig.js'
 import { runSync } from 'effect/Effect'
@@ -125,7 +125,7 @@ describe(getTevmConfigFromTsConfig, () => {
 			libs: [config.compilerOptions.baseUrl, ...tevmConfig.libs],
 		})
 	})
-	it(`should throw a ${NoPluginFoundError} if there is no plugins`, async () => {
+	it(`should throw a ${NoPluginInTsConfigFoundError} if there is no plugins`, async () => {
 		const config = {
 			compilerOptions: {
 				baseUrl: '.',
@@ -134,7 +134,9 @@ describe(getTevmConfigFromTsConfig, () => {
 		expect(() =>
 			runSync(getTevmConfigFromTsConfig(config as any, '/path/to/config')),
 		).toThrowError(
-			new NoPluginFoundError('No compilerOptions.plugins in tsconfig'),
+			new NoPluginInTsConfigFoundError(
+				'No compilerOptions.plugins in tsconfig',
+			),
 		)
 	})
 	it('should handle foundry returning an invalid json', async () => {
@@ -149,9 +151,9 @@ describe(getTevmConfigFromTsConfig, () => {
 		}
 		expect(() =>
 			runSync(getTevmConfigFromTsConfig(config, '/path/to/config')),
-		).toThrowError(new NoPluginFoundError())
+		).toThrowError(new NoPluginInTsConfigFoundError())
 	})
-	it(`should throw a ${NoPluginFoundError} if there is no plugin matching @tevm/ts-plugin`, async () => {
+	it(`should throw a ${NoPluginInTsConfigFoundError} if there is no plugin matching @tevm/ts-plugin`, async () => {
 		const config = {
 			compilerOptions: {
 				plugins: [
@@ -163,6 +165,6 @@ describe(getTevmConfigFromTsConfig, () => {
 		}
 		expect(() =>
 			runSync(getTevmConfigFromTsConfig(config, '/path/to/config')),
-		).toThrowError(new NoPluginFoundError())
+		).toThrowError(new NoPluginInTsConfigFoundError())
 	})
 })

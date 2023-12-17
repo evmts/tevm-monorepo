@@ -1,19 +1,19 @@
 import { validateUserConfig } from '../config/index.js'
-import { fail, logDebug, map, tap } from 'effect/Effect'
+import { catchTags, die, fail, logDebug, map, tap } from 'effect/Effect'
 
 /**
  * Error type for {@link getTevmConfigFromTsConfig}
  * @internal
  */
-export class NoPluginFoundError extends Error {
+export class NoPluginInTsConfigFoundError extends Error {
 	/**
-	 * @type {'NoPluginFoundError'}
+	 * @type {'NoPluginInTsConfigFoundError'}
 	 */
-	_tag = 'NoPluginFoundError'
+	_tag = 'NoPluginInTsConfigFoundError'
 }
 
 /**
- * @typedef {NoPluginFoundError | import("../config/index.js").ValidateUserConfigError } GetTevmConfigFromTsConfigError
+ * @typedef {NoPluginInTsConfigFoundError | import("../config/index.js").InvalidConfigError } GetTevmConfigFromTsConfigError
  */
 
 /**
@@ -25,7 +25,9 @@ export class NoPluginFoundError extends Error {
 export const getTevmConfigFromTsConfig = (tsConfig, configPath) => {
 	if (!tsConfig.compilerOptions?.plugins?.length) {
 		return fail(
-			new NoPluginFoundError('No compilerOptions.plugins in tsconfig'),
+			new NoPluginInTsConfigFoundError(
+				'No compilerOptions.plugins in tsconfig',
+			),
 		)
 	}
 	const plugin =
@@ -38,7 +40,7 @@ export const getTevmConfigFromTsConfig = (tsConfig, configPath) => {
 			)
 		)
 	if (!plugin) {
-		return fail(new NoPluginFoundError())
+		return fail(new NoPluginInTsConfigFoundError())
 	}
 	const { baseUrl, paths } = tsConfig.compilerOptions
 	const pathRemappings = Object.fromEntries(
@@ -48,6 +50,10 @@ export const getTevmConfigFromTsConfig = (tsConfig, configPath) => {
 		]),
 	)
 	return validateUserConfig(() => plugin).pipe(
+		catchTags({
+			// this can't happen we can cean this up via validateUserConfig taking a config instead of a configFn
+			ConfigFnThrowError: (e) => die(e),
+		}),
 		map((config) => ({
 			...config,
 			remappings: {
