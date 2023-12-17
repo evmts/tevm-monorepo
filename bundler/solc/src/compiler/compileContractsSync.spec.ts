@@ -24,6 +24,7 @@ describe('compileContractSync', () => {
 
 	it('should successfully compile a contract without errors', async () => {
 		const config: ResolvedCompilerConfig = {
+			cacheDir: '.tevm',
 			foundryProject: false,
 			libs: [],
 			remappings: {},

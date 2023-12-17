@@ -20,11 +20,11 @@
 
 ### LoadConfigErrorType
 
-Ƭ **LoadConfigErrorType**\<\>: `LoadTsConfigError` \| `GetTevmConfigFromTsConfigError` \| `LoadFoundryConfigError`
+Ƭ **LoadConfigErrorType**\<\>: `LoadTsConfigError` \| `GetTevmConfigFromTsConfigError` \| `LoadFoundryConfigError` \| `InvalidJsonConfigError`
 
 #### Defined in
 
-[bundler/config/src/loadConfig.js:17](https://github.com/evmts/tevm-monorepo/blob/main/bundler/config/src/loadConfig.js#L17)
+[bundler/config/src/loadConfig.js:20](https://github.com/evmts/tevm-monorepo/blob/main/bundler/config/src/loadConfig.js#L20)
 
 ## Functions
 
@@ -57,4 +57,4 @@ runPromise(loadConfig('./tsconfig.json')).pipe(
 
 #### Defined in
 
-[bundler/config/src/loadConfig.js:62](https://github.com/evmts/tevm-monorepo/blob/main/bundler/config/src/loadConfig.js#L62)
+[bundler/config/src/loadConfig.js:65](https://github.com/evmts/tevm-monorepo/blob/main/bundler/config/src/loadConfig.js#L65)

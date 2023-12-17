@@ -1,6 +1,9 @@
 import { mergeConfigs, withDefaults } from './config/index.js'
 import { loadFoundryConfig } from './foundry/index.js'
-import { loadJsonConfig } from './json/loadJsonConfig.js'
+import {
+	InvalidJsonConfigError,
+	loadJsonConfig,
+} from './json/loadJsonConfig.js'
 import { getTevmConfigFromTsConfig, loadTsConfig } from './tsconfig/index.js'
 import { logAllErrors } from '@tevm/effect'
 import {
@@ -14,7 +17,7 @@ import {
 } from 'effect/Effect'
 
 /**
- * @typedef {import("./tsconfig/index.js").LoadTsConfigError | import("./tsconfig/index.js").GetTevmConfigFromTsConfigError | import("./foundry/index.js").LoadFoundryConfigError} LoadConfigErrorType
+ * @typedef {import("./tsconfig/index.js").LoadTsConfigError | import("./tsconfig/index.js").GetTevmConfigFromTsConfigError | import("./foundry/index.js").LoadFoundryConfigError | InvalidJsonConfigError} LoadConfigErrorType
  */
 
 /**

@@ -32,7 +32,7 @@ Parses a json string
 
 **`Throws`**
 
-when the tsconfig.json file is not valid json
+when the tevm.json file is not valid json
 
 **`Example`**
 

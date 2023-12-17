@@ -1,4 +1,7 @@
-import { validateUserConfig } from '../config/validateUserConfig.js'
+import {
+	InvalidConfigError,
+	validateUserConfig,
+} from '../config/validateUserConfig.js'
 import { parseJson } from '@tevm/effect'
 import {
 	catchTag,
@@ -23,7 +26,7 @@ export class FailedToReadConfigError extends Error {
 	 * @param {unknown} [options.cause]
 	 */
 	constructor(configFilePath, options) {
-		super(`Failed to find ${configFilePath}/tsconfig.json`, options)
+		super(`Failed to find ${configFilePath}/tevm.json`, options)
 	}
 }
 
@@ -33,9 +36,14 @@ export class FailedToReadConfigError extends Error {
  */
 export class InvalidJsonConfigError extends TypeError {
 	/**
-	 * @type {'InvalidConfigError'}
+	 * @type {'InvalidJsonConfigError'}
+	 * @override
 	 */
-	_tag = 'InvalidConfigError'
+	name = 'InvalidJsonConfigError'
+	/**
+	 * @type {'InvalidJsonConfigError'}
+	 */
+	_tag = 'InvalidJsonConfigError'
 	/**
 	 * @param {object} [options]
 	 * @param {unknown} [options.cause]
@@ -46,12 +54,12 @@ export class InvalidJsonConfigError extends TypeError {
 }
 
 /**
- * @typedef {import("@tevm/effect").ParseJsonError | FailedToReadConfigError | InvalidJsonConfigError} LoadJsonConfigError
+ * @typedef {import("@tevm/effect").ParseJsonError | FailedToReadConfigError | InvalidJsonConfigError | InvalidConfigError} LoadJsonConfigError
  * @internal
  */
 
 /**
- * Asyncronously loads an Tevm config from the given path
+ * Synchronously loads a Tevm config from the given path
  * @param {string} configFilePath
  * @returns {import("effect/Effect").Effect<never, LoadJsonConfigError, import('../types.js').CompilerConfig>} the contents of the tsconfig.json file
  * @internal

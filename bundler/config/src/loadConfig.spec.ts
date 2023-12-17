@@ -1,4 +1,5 @@
 import { loadConfig } from './index.js'
+import { InvalidJsonConfigError } from './json/loadJsonConfig.js'
 import { LoadConfigError } from './loadConfig.js'
 import { flip, runSync } from 'effect/Effect'
 import { join } from 'path'
@@ -79,20 +80,14 @@ describe(loadConfig.name, () => {
 		expect(e).toBeInstanceOf(LoadConfigError)
 		expect(e._tag).toBe('InvalidConfigError')
 		expect(e.name).toBe('InvalidConfigError')
-		expect(
-			e.message.startsWith('InvalidConfigError: Unable load config from'),
-		).toBe(true)
 	})
 
-	it('should throw a InvalidConfigError when the tsconfig.json is not valid json', () => {
+	it('should throw a InvalidJsonError when the tsconfig.json is not valid json', () => {
 		const configEffect = loadConfig(join(__dirname, 'fixtures/invalidJson'))
 		const errorChannel = flip(configEffect)
 		const e = runSync(errorChannel)
-		expect(e).toBeInstanceOf(LoadConfigError)
-		expect(e._tag).toBe('InvalidConfigError')
-		expect(e.name).toBe('InvalidConfigError')
-		expect(
-			e.message.startsWith('InvalidConfigError: Unable load config from'),
-		).toBe(true)
+		expect(e).toBeInstanceOf(InvalidJsonConfigError)
+		expect(e._tag).toBe('InvalidJsonConfigError')
+		expect(e.name).toBe('InvalidJsonConfigError')
 	})
 })
