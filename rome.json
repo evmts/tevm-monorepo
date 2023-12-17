@@ -22,7 +22,7 @@
 			".devcontainer",
 			"examples/svelte-ethers/.svelte-kit",
 			"extensions/viem",
-			"bundler/config/src/fixturs"
+			"bundler/config/src/fixtures"
 		]
 	},
 	"formatter": {
