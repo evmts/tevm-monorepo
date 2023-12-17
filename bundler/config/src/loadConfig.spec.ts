@@ -50,9 +50,16 @@ describe(loadConfig.name, () => {
 	})
 
 	it('should work with foundry', () => {
-		expect(
-			runSync(loadConfig(join(__dirname, 'fixtures/withFoundry'))),
-		).toMatchInlineSnapshot(`
+		const res = runSync(loadConfig(join(__dirname, 'fixtures/withFoundry')))
+		expect({
+			...res,
+			remappings: Object.fromEntries(
+				Object.entries(res.remappings).map(([a, b]) => [
+					a,
+					b.replace(process.cwd(), ''),
+				]),
+			),
+		}).toMatchInlineSnapshot(`
 			{
 			  "cacheDir": ".tevm",
 			  "debug": false,
@@ -61,7 +68,7 @@ describe(loadConfig.name, () => {
 			    "lib",
 			  ],
 			  "remappings": {
-			    "@solmate-utils/": "/Users/willcory/evmts-monorepo/bundler/config/src/fixtures/withFoundry/lib/solmate/src/utils/",
+			    "@solmate-utils/": "/src/fixtures/withFoundry/lib/solmate/src/utils/",
 			  },
 			}
 		`)
