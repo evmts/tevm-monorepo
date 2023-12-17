@@ -109,8 +109,8 @@
     "build": "nx run-many --targets=build:dist --projects=@tevm/viem-effect ",
     "build:dist": "bun run tsup",
     "clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
-    "format": "rome format . --write",
-    "format:check": "rome format .",
+    "//format": "rome format . --write",
+    "//format:check": "rome format .",
     "generate:docs": "bun run typedoc",
     "generate:src": "bun run generateSrc.ts",
     "typecheck": "bun run tsc --noEmit"
