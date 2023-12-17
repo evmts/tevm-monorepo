@@ -21,7 +21,7 @@ export class ContractDoesNotExistError extends Error {
 	 */
 	constructor(contractAddress) {
 		super(
-			`Contract ${contractAddress} does not exist no bytecode found at address`,
+			`Contract ${contractAddress} does not exist because no bytecode was found at the address`,
 		)
 	}
 }
