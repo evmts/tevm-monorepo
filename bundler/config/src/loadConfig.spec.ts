@@ -17,13 +17,13 @@ describe(loadConfig.name, () => {
 			),
 		}).toMatchInlineSnapshot(`
 			{
-			  "cacheDir": ".tevm",
+			  "cacheDir": ".cache",
 			  "debug": false,
 			  "foundryProject": false,
-			  "libs": [],
-			  "remappings": {
-			    "@/": "/src/fixtures/basic/",
-			  },
+			  "libs": [
+			    "mylib",
+			  ],
+			  "remappings": {},
 			}
 		`)
 	})
@@ -55,9 +55,13 @@ describe(loadConfig.name, () => {
 			{
 			  "cacheDir": ".tevm",
 			  "debug": false,
-			  "foundryProject": false,
-			  "libs": [],
-			  "remappings": {},
+			  "foundryProject": true,
+			  "libs": [
+			    "lib",
+			  ],
+			  "remappings": {
+			    "@solmate-utils/": "/Users/willcory/evmts-monorepo/bundler/config/src/fixtures/withFoundry/lib/solmate/src/utils/",
+			  },
 			}
 		`)
 	})
@@ -80,15 +84,15 @@ describe(loadConfig.name, () => {
 		).toBe(true)
 	})
 
-	it('should throw a ParseJsonError when the tsconfig.json is not valid json', () => {
+	it('should throw a InvalidConfigError when the tsconfig.json is not valid json', () => {
 		const configEffect = loadConfig(join(__dirname, 'fixtures/invalidJson'))
 		const errorChannel = flip(configEffect)
 		const e = runSync(errorChannel)
 		expect(e).toBeInstanceOf(LoadConfigError)
-		expect(e._tag).toBe('ParseJsonError')
-		expect(e.name).toBe('ParseJsonError')
+		expect(e._tag).toBe('InvalidConfigError')
+		expect(e.name).toBe('InvalidConfigError')
 		expect(
-			e.message.startsWith('ParseJsonError: Unable load config from'),
+			e.message.startsWith('InvalidConfigError: Unable load config from'),
 		).toBe(true)
 	})
 })
