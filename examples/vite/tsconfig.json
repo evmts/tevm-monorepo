@@ -2,8 +2,7 @@
   "compilerOptions": {
     "plugins": [
       {
-        "name": "@tevm/ts-plugin",
-        "foundryProject": true
+        "name": "@tevm/ts-plugin"
       }
     ],
     "allowJs": false,
