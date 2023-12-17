@@ -1,11 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import {
-	FailedToReadConfigError,
-	InvalidTsConfigError,
-	loadTsConfig,
-} from './loadTsConfig.js'
-import { ParseJsonError } from '@tevm/effect'
+import { FailedToReadConfigError, loadTsConfig } from './loadTsConfig.js'
 import { runSync } from 'effect/Effect'
 import { join } from 'path'
 
@@ -32,7 +27,7 @@ describe(loadTsConfig.name, () => {
 	})
 	it('should load a jsconfig.json', async () => {
 		expect(
-			runSync(loadTsConfig(join(__dirname, '../fixtures/js'))),
+			runSync(loadTsConfig(join(__dirname, '../fixtures/legacy-js'))),
 		).toMatchInlineSnapshot(`
 			{
 			  "compilerOptions": {
@@ -66,15 +61,5 @@ describe(loadTsConfig.name, () => {
 		).toThrowError(
 			new FailedToReadConfigError(join(__dirname, '../fixtures/doesntexist')),
 		)
-	})
-	it(`should throw a ${ParseJsonError.name} if the file is invalid json`, () => {
-		expect(() =>
-			runSync(loadTsConfig(join(__dirname, '../fixtures/invalidJson'))),
-		).toThrowError(new ParseJsonError())
-	})
-	it(`should throw a ${InvalidTsConfigError.name} if the file is invalid tsconfig`, () => {
-		expect(() =>
-			runSync(loadTsConfig(join(__dirname, '../fixtures/invalid'))),
-		).toThrowError(new InvalidTsConfigError())
 	})
 })

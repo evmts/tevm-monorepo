@@ -1,0 +1,4 @@
+{
+	"cacheDir": ".cache",
+	"libs": ["mylib"]
+}

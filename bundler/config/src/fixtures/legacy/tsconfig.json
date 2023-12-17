@@ -6,9 +6,18 @@
     "skipLibCheck": true,
     "plugins": [
       {
-        "name": "@tevm/ts-plugin"
+        "name": "@tevm/ts-plugin",
+        "cacheDir": ".cache",
+        "libs": [
+          "mylib"
+        ]
       }
-    ]
+    ],
+    "paths": {
+      "@/*": [
+        "./*"
+      ]
+    }
   },
   "include": [
     "src",

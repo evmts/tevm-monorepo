@@ -3,7 +3,7 @@
 		"enabled": true
 	},
 	"files": {
-		"ignore": ["coverage", "node_modules", "dist", "artifacts"]
+		"ignore": ["coverage", "node_modules", "dist", "artifacts", "src/fixtures"]
 	},
 	"formatter": {
 		"enabled": true,
