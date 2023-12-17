@@ -2,7 +2,29 @@ import { putAccountHandler } from '../putAccount/putAccountHandler.js'
 import { runCallHandler } from '../runCall/runCallHandler.js'
 import { defaultCaller } from './defaultCaller.js'
 import { defaultGasLimit } from './defaultGasLimit.js'
+import { Address } from '@ethereumjs/util'
 import { decodeFunctionResult, encodeFunctionData, toHex } from 'viem'
+
+export class ContractDoesNotExistError extends Error {
+	/**
+	 * @type {'ContractDoesNotExistError'}
+	 * @override
+	 */
+	name = 'ContractDoesNotExistError'
+	/**
+	 * @type {'ContractDoesNotExistError'}
+	 */
+	_tag = 'ContractDoesNotExistError'
+
+	/**
+	 * @param {string} contractAddress
+	 */
+	constructor(contractAddress) {
+		super(
+			`Contract ${contractAddress} does not exist because no bytecode was found at the address`,
+		)
+	}
+}
 
 /**
  * @type {import("./RunContractCallHandlerGeneric.js").RunContractCallHandlerGeneric}
@@ -25,7 +47,14 @@ export const runContractCallHandler = async (
 		})
 	}
 
-	console.log(args)
+	// check early if contract exists
+	const contract = await tevm._evm.stateManager.getContractCode(
+		Address.fromString(contractAddress),
+	)
+	if (contract.length === 0) {
+		throw new ContractDoesNotExistError(contractAddress)
+	}
+
 	const result = await runCallHandler(tevm, {
 		to: contractAddress,
 		caller: caller,
