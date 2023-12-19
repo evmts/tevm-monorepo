@@ -6,24 +6,18 @@
 
 ### Classes
 
-- [Client](undefined)
 - [Tevm](undefined)
 
 ### Type Aliases
 
+- [Client](undefined)
 - [CreateEVMOptions](undefined)
 
+### Functions
+
+- [createClient](undefined)
+
 ## Classes
-
-### Client
-
-• **Client**: Class Client
-
-#### Defined in
-
-[client/createClient.ts:17](https://github.com/evmts/tevm-monorepo/blob/main/vm/vm/src/client/createClient.ts#L17)
-
-___
 
 ### Tevm
 
@@ -66,6 +60,27 @@ const balance = await tevm.runContractCall(
 
 ## Type Aliases
 
+### Client
+
+Ƭ **Client**: `Object`
+
+#### Type declaration
+
+| Name | Type |
+| :------ | :------ |
+| `putAccount` | Method putAccount |
+| `putContractCode` | Method putContractCode |
+| `request` | Method request |
+| `runCall` | Method runCall |
+| `runContractCall` | Method runContractCall |
+| `runScript` | Method runScript |
+
+#### Defined in
+
+[client/createClient.ts:17](https://github.com/evmts/tevm-monorepo/blob/main/vm/vm/src/client/createClient.ts#L17)
+
+___
+
 ### CreateEVMOptions
 
 Ƭ **CreateEVMOptions**: `Object`
@@ -82,3 +97,23 @@ Options for creating an Tevm instance
 #### Defined in
 
 [tevm.ts:47](https://github.com/evmts/tevm-monorepo/blob/main/vm/vm/src/tevm.ts#L47)
+
+## Functions
+
+### createClient
+
+▸ **createClient**(`rpcUrl`): Client
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `rpcUrl` | string |
+
+#### Returns
+
+Client
+
+#### Defined in
+
+[client/createClient.ts:38](https://github.com/evmts/tevm-monorepo/blob/main/vm/vm/src/client/createClient.ts#L38)

@@ -14,7 +14,7 @@ import type { Abi } from 'abitype'
 import { parse, stringify } from 'superjson'
 import { http } from 'viem'
 
-type Client = {
+export type Client = {
 	request<T extends TevmJsonRpcRequest>(r: T): Promise<BackendReturnType<T>>
 	runScript<
 		TAbi extends Abi | readonly unknown[] = Abi,
