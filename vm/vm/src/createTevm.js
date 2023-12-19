@@ -70,7 +70,7 @@ export const createTevm = async (options = {}) => {
 		common,
 		stateManager,
 		// blockchain, // Always running the EVM statelessly so not including blockchain
-		allowUnlimitedContractSize: false,
+		allowUnlimitedContractSize: options.allowUnlimitedContractSize ?? false,
 		allowUnlimitedInitCodeSize: false,
 		customOpcodes: [],
 		// TODO uncomment the mapping once we make the api correct

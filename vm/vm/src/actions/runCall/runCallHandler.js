@@ -9,7 +9,9 @@ import { hexToBytes, maxInt256 } from 'viem'
  */
 export const runCallHandler = async (tevm, action) => {
 	return tevm._evm.runCall({
-		to: new EthjsAddress(hexToBytes(action.to)),
+		...(action.to && {
+			to: new EthjsAddress(hexToBytes(action.to)),
+		}),
 		caller: new EthjsAddress(hexToBytes(action.caller)),
 		gasLimit: action.gasLimit ?? maxInt256,
 		data: hexToBytes(action.data),
