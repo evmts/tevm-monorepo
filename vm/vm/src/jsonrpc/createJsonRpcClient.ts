@@ -54,7 +54,7 @@ export type BackendReturnType<T extends TevmJsonRpcRequest> = T extends {
  * })
  * ```
  */
-export const createJsonrpcClient = (tevm: Tevm) => {
+export const createJsonRpcClient = (tevm: Tevm) => {
 	return <TRequest extends TevmJsonRpcRequest>(
 		request: TRequest,
 	): Promise<BackendReturnType<TRequest>> => {
@@ -81,4 +81,4 @@ export const createJsonrpcClient = (tevm: Tevm) => {
 	}
 }
 
-export type JsonRpcClient = ReturnType<typeof createJsonrpcClient>
+export type JsonRpcClient = ReturnType<typeof createJsonRpcClient>
