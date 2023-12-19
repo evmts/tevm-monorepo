@@ -211,5 +211,9 @@ export const createTevm = async (options = {}) => {
 			: { forkUrl: options.fork?.url }),
 	}
 
+	options.predeploys?.forEach((predeploy) => {
+		putContractCodeHandler(tevm, predeploy)
+	})
+
 	return tevm
 }
