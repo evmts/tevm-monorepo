@@ -1,11 +1,11 @@
-import type { IncomingMessage, ServerResponse } from 'http'
-import { stringify } from 'superjson'
 import type { Tevm } from '../Tevm.js'
 import type { TevmJsonRpcRequest } from '../jsonrpc/TevmJsonRpcRequest.js'
 import {
 	UnknownMethodError,
 	createJsonRpcClient,
 } from './createJsonRpcClient.js'
+import type { IncomingMessage, ServerResponse } from 'http'
+import { stringify } from 'superjson'
 /**
  * Creates an http request handler for tevm requests
  */

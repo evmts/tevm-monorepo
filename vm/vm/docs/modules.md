@@ -53,7 +53,7 @@ Options for creating an Tevm instance
 
 #### Defined in
 
-Tevm.ts:38
+[Tevm.ts:38](https://github.com/evmts/tevm-monorepo/blob/main/vm/vm/src/Tevm.ts#L38)
 
 ___
 
@@ -98,7 +98,7 @@ const balance = await tevm.runContractCall(
 | :------ | :------ | :------ |
 | `_evm` | EVM | Internal instance of the EVM. Can be used for lower level operations but is not guaranteed to stay stable between versions |
 | `createHttpHandler` | Function | - |
-| `createJsonrpcClient` | Function | - |
+| `createJsonRpcClient` | Function | - |
 | `putAccount` | Function | - |
 | `putContractCode` | Function | - |
 | `request` | Function | - |
@@ -108,7 +108,7 @@ const balance = await tevm.runContractCall(
 
 #### Defined in
 
-Tevm.ts:96
+[Tevm.ts:96](https://github.com/evmts/tevm-monorepo/blob/main/vm/vm/src/Tevm.ts#L96)
 
 ## Functions
 
