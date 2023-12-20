@@ -396,7 +396,7 @@ describe('Tevm should create a local vm in JavaScript', () => {
 		// haven't debugged if code is broke or test is broke yet
 		// landing immediately to avoid merge conflicts in other prs but need to circle back
 		it.todo('should create an http handler', async () => {
-			const tevm = await Tevm.create()
+			const tevm = await createTevm()
 
 			const server = require('http').createServer(tevm.createHttpHandler())
 
