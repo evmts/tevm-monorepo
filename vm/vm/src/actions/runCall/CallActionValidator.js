@@ -3,7 +3,7 @@ import { Address as ZAddress } from 'abitype/zod'
 import { z } from 'zod'
 
 export const CallActionValidator = z.object({
-	to: ZAddress.describe('the address to send call to'),
+	to: ZAddress.optional().describe('the address to send call to'),
 	caller: ZAddress.describe('the address of the caller'),
 	origin: ZAddress.optional().describe('the address of the origin'),
 	gasLimit: z.bigint().optional().describe('the gas limit'),
