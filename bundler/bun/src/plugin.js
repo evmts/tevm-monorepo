@@ -70,9 +70,7 @@ export const tevmBunPlugin = ({ solc = defaultSolc.version }) => {
 					`${path}.cjs`,
 				]
 				const existsArr = await Promise.all(
-					filePaths.map((filePath) =>
-						bunFileAccesObject.exists(filePath),
-					),
+					filePaths.map((filePath) => bunFileAccesObject.exists(filePath)),
 				)
 				for (const [i, exists] of existsArr.entries()) {
 					if (exists) {
