@@ -3,11 +3,11 @@ import { createTevm } from './createTevm.js'
 import type { TevmContractCallRequest } from './jsonrpc/contractCall/TevmContractCallRequest.js'
 import type { TevmScriptRequest } from './jsonrpc/runScript/TevmScriptRequest.js'
 import { DaiContract } from './test/DaiContract.sol.js'
+import { EVMErrorMessage } from '@ethereumjs/evm'
 import { Address } from '@ethereumjs/util'
 import { describe, expect, it } from 'bun:test'
 import supertest from 'supertest'
 import { hexToBytes } from 'viem'
-import { EVMErrorMessage } from '@ethereumjs/evm'
 
 const contractAddress = '0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1'
 
