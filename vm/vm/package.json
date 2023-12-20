@@ -28,6 +28,11 @@
 			"import": "./dist/index.js",
 			"default": "./dist/index.cjs",
 			"types": "./types/index.d.ts"
+		},
+		"./viem": {
+			"import": "./src/viem/index.js",
+			"default": "./dist/viem/index.cjs",
+			"types": "./types/viem/index.d.ts"
 		}
 	},
 	"main": "dist/index.cjs",
