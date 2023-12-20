@@ -1,5 +1,8 @@
 import type { Tevm } from '../Tevm.js'
-import type { TevmJsonRpcRequest } from './TevmJsonRpcRequest.js'
+import type {
+	NonVerboseTevmJsonRpcRequest,
+	TevmJsonRpcRequest,
+} from './TevmJsonRpcRequest.js'
 import type { TevmContractCallResponse } from './contractCall/TevmContractCallResponse.js'
 import {
 	tevmCall,
@@ -21,22 +24,26 @@ export class UnknownMethodError extends Error {
 	}
 }
 
-export type BackendReturnType<T extends TevmJsonRpcRequest> = T extends {
-	method: 'tevm_call'
-}
-	? TevmCallResponse
-	: T extends { method: 'tevm_contractCall' }
-	? TevmContractCallResponse<
-			T['params']['abi'],
-			T['params']['functionName'] & string
-	  >
-	: T extends { method: 'tevm_putAccount' }
-	? TevmPutAccountResponse
-	: T extends { method: 'tevm_putContractCode' }
-	? TevmPutContractCodeResponse
-	: T extends { method: 'tevm_script' }
-	? TevmScriptResponse<T['params']['abi'], T['params']['functionName'] & string>
-	: never
+export type BackendReturnType<T extends NonVerboseTevmJsonRpcRequest> =
+	T extends {
+		method: 'tevm_call'
+	}
+		? TevmCallResponse
+		: T extends { method: 'tevm_contractCall' }
+		? TevmContractCallResponse<
+				T['params']['abi'],
+				T['params']['functionName'] & string
+		  >
+		: T extends { method: 'tevm_putAccount' }
+		? TevmPutAccountResponse
+		: T extends { method: 'tevm_putContractCode' }
+		? TevmPutContractCodeResponse
+		: T extends { method: 'tevm_script' }
+		? TevmScriptResponse<
+				T['params']['abi'],
+				T['params']['functionName'] & string
+		  >
+		: never
 
 /**
  * Creates a vanillajs jsonrpc handler for tevm requests
