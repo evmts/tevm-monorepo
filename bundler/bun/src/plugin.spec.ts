@@ -74,47 +74,6 @@ describe('tevmBunPlugin', () => {
 		expect(plugin.target).toBeUndefined()
 	})
 
-	it('should load .d.ts and ts files correctly', async () => {
-		const plugin = tevmBunPlugin({})
-
-		const mockBuild = {
-			onLoad: vi.fn(),
-			onResolve: vi.fn(),
-			config: {} as any,
-		} as any
-		await plugin.setup(mockBuild)
-
-		const [onLoadFilter, onLoadFn] = mockBuild.onLoad.mock.lastCall ?? []
-
-		expect(onLoadFilter.filter).toMatchInlineSnapshot('/\\\\\\.sol\\$/')
-
-		mockExists.mockImplementation(async (path) => {
-			if (path.endsWith('.d.ts')) return true
-			return false
-		})
-		expect(await onLoadFn({ path: contractPath })).toMatchInlineSnapshot(`
-      {
-        "contents": "export const ExampleContract = {abi: {}}",
-        "watchFiles": [
-          "../../../examples/bun/ExampleContract.sol.d.ts",
-        ],
-      }
-    `)
-
-		mockExists.mockImplementation(async (path) => {
-			if (path.endsWith('.ts')) return true
-			return false
-		})
-		expect(await onLoadFn({ path: contractPath })).toMatchInlineSnapshot(`
-      {
-        "contents": "export const ExampleContract = {abi: {}}",
-        "watchFiles": [
-          "../../../examples/bun/ExampleContract.sol.d.ts",
-        ],
-      }
-    `)
-	})
-
 	it('should load sol files correctly', async () => {
 		const plugin = tevmBunPlugin({})
 
@@ -136,13 +95,13 @@ describe('tevmBunPlugin', () => {
 		})
 
 		expect(await onLoadFn({ path: contractPath })).toMatchInlineSnapshot(`
-      {
-        "contents": "export const ExampleContract = {abi: {}}",
-        "watchFiles": [
-          "../../../examples/bun/ExampleContract.sol.d.ts",
-        ],
-      }
-    `)
+			{
+			  "contents": "export const ExampleContract = {abi: {}}",
+			  "watchFiles": [
+			    "../../../examples/bun/ExampleContract.sol.ts",
+			  ],
+			}
+		`)
 	})
 
 	it('should resolve @tevm/contract correctly when criteria are met', async () => {
@@ -221,7 +180,7 @@ describe('tevmBunPlugin', () => {
 		const [_, onLoadFn] = mockBuild.onLoad.mock.lastCall ?? []
 
 		mockExists.mockImplementation(async (path) => {
-			if (path.endsWith('.d.ts')) return false
+			if (path.endsWith('.js')) return false
 			if (path.endsWith('.ts')) return true
 			return false
 		})
@@ -231,7 +190,7 @@ describe('tevmBunPlugin', () => {
 		expect(result.contents).toBe('export const ExampleContract = {abi: {}}')
 		expect(result.watchFiles).toEqual([`${contractPath}.ts`])
 	})
-	it('should load .d.ts file over .ts file when both exist', async () => {
+	it('should load .ts file when exist', async () => {
 		const plugin = tevmBunPlugin({})
 
 		const mockBuild = {
@@ -244,13 +203,13 @@ describe('tevmBunPlugin', () => {
 		const [_, onLoadFn] = mockBuild.onLoad.mock.lastCall ?? []
 
 		mockExists.mockImplementation(async (path) => {
-			if (path.endsWith('.d.ts') || path.endsWith('.ts')) return true
+			if (path.endsWith('.js') || path.endsWith('.ts')) return true
 			return false
 		})
 
 		const result = await onLoadFn({ path: contractPath })
 
 		expect(result.contents).toBe('export const ExampleContract = {abi: {}}')
-		expect(result.watchFiles).toEqual([`${contractPath}.d.ts`])
+		expect(result.watchFiles).toEqual([`${contractPath}.ts`])
 	})
 })

@@ -59,28 +59,28 @@ export const tevmBunPlugin = ({ solc = defaultSolc.version }) => {
 
 			/**
 			 * Load solidity files with @tevm/base
-			 * If a .d.ts file or .ts file is pregenerated already (as will be case for external contracts)
+			 * If a .ts .js file .mjs or .cjs file is pregenerated already (as will be case for external contracts)
 			 * go ahead and load that instead
 			 */
 			build.onLoad({ filter: /\.sol$/ }, async ({ path }) => {
-				const filePaths = { dts: `${path}.d.ts`, ts: `${path}.ts` }
-				const [dtsExists, tsExists] = await Promise.all(
-					Object.values(filePaths).map((filePath) =>
-						bunFileAccesObject.exists(filePath),
-					),
+				const filePaths = [
+					`${path}.ts`,
+					`${path}.js`,
+					`${path}.mjs`,
+					`${path}.cjs`,
+				]
+				const existsArr = await Promise.all(
+					filePaths.map((filePath) => bunFileAccesObject.exists(filePath)),
 				)
-				if (dtsExists) {
-					const filePath = `${path}.d.ts`
-					return {
-						contents: await bunFileAccesObject.readFile(filePath, 'utf8'),
-						watchFiles: [filePath],
-					}
-				}
-				if (tsExists) {
-					const filePath = `${path}.ts`
-					return {
-						contents: await bunFileAccesObject.readFile(filePath, 'utf8'),
-						watchFiles: [filePath],
+				for (const [i, exists] of existsArr.entries()) {
+					if (exists) {
+						return {
+							contents: await bunFileAccesObject.readFile(
+								/** @type {any} */ (filePaths[i]),
+								'utf8',
+							),
+							watchFiles: [filePaths[i]],
+						}
 					}
 				}
 
