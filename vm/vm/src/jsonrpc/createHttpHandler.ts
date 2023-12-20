@@ -1,8 +1,6 @@
 import type { Tevm } from '../Tevm.js'
 import type { TevmJsonRpcRequest } from '../jsonrpc/TevmJsonRpcRequest.js'
-import {
-	createJsonRpcClient,
-} from './createJsonRpcClient.js'
+import { createJsonRpcClient } from './createJsonRpcClient.js'
 import type { IncomingMessage, ServerResponse } from 'http'
 import { parse, stringify } from 'superjson'
 
@@ -44,7 +42,10 @@ export function createHttpHandler(tevm: Tevm) {
 							'Content-Type': 'application/json',
 						},
 					}).then((response) => {
-						res.writeHead(response.status, Object.fromEntries(response.headers.entries()))
+						res.writeHead(
+							response.status,
+							Object.fromEntries(response.headers.entries()),
+						)
 						res.end(response.body)
 					})
 				}
