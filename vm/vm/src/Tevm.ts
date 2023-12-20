@@ -38,6 +38,7 @@ type ForkOptions = {
 export type CreateEVMOptions = {
 	fork?: ForkOptions
 	customPrecompiles?: CustomPrecompile[]
+	allowUnlimitedContractSize?: boolean
 }
 
 /**

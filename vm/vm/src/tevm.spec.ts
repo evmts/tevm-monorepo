@@ -3,6 +3,7 @@ import { createTevm } from './createTevm.js'
 import type { TevmContractCallRequest } from './jsonrpc/contractCall/TevmContractCallRequest.js'
 import type { TevmScriptRequest } from './jsonrpc/runScript/TevmScriptRequest.js'
 import { DaiContract } from './test/DaiContract.sol.js'
+import { EVMErrorMessage } from '@ethereumjs/evm'
 import { Address } from '@ethereumjs/util'
 import { describe, expect, it } from 'bun:test'
 import supertest from 'supertest'
@@ -304,6 +305,53 @@ describe('Tevm should create a local vm in JavaScript', () => {
 			expect(res.jsonrpc).toBe('2.0')
 			expect(res.id).toBe(1)
 			expect(res.method).toBe('tevm_putContractCode')
+		})
+
+		it('Should fail a evm call request if the file is too large', async () => {
+			const tevm = await createTevm()
+			const address1 = '0x1f420000000000000000000000000000000000ff'
+
+			/*
+				Simple bytecode to deploy a large contract
+				`62` PUSH4, `FFFFFF` value being pushed, `60` PUSH1, `00` value, `F3` return
+				https://github.com/ethereumjs/ethereumjs-monorepo/blob/a0ef459e26f6a843d67bb2142977b67359109839/packages/evm/test/runCall.spec.ts#L543
+			*/
+			const data = '0x62FFFFFF6000F3'
+
+			const res = await tevm.request({
+				id: 1,
+				method: 'tevm_call',
+				jsonrpc: '2.0',
+				params: {
+					caller: address1,
+					data,
+				},
+			})
+			expect(res.result.execResult.exceptionError?.error).toBe(
+				EVMErrorMessage.CODESIZE_EXCEEDS_MAXIMUM,
+			)
+		})
+
+		it('Should deploy large files if allowUnlimitedContractSize option is true', async () => {
+			const tevm = await createTevm({
+				allowUnlimitedContractSize: true,
+			})
+			const address1 = '0x1f420000000000000000000000000000000000ff'
+
+			const data = '0x62FFFFFF6000F3'
+			const res = await tevm.request({
+				id: 1,
+				method: 'tevm_call',
+				jsonrpc: '2.0',
+				params: {
+					caller: address1,
+					data,
+				},
+			})
+			expect(res.jsonrpc).toBe('2.0')
+			expect(res.id).toBe(1)
+			expect(res.method).toBe('tevm_call')
+			expect(res.result.execResult.exceptionError).toBeUndefined()
 		})
 	})
 
