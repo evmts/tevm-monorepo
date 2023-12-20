@@ -1,11 +1,11 @@
 import type { Tevm } from '../Tevm.js'
 import type { TevmJsonRpcRequest } from '../jsonrpc/TevmJsonRpcRequest.js'
 import {
-	UnknownMethodError,
 	createJsonRpcClient,
 } from './createJsonRpcClient.js'
 import type { IncomingMessage, ServerResponse } from 'http'
-import { stringify } from 'superjson'
+import { parse, stringify } from 'superjson'
+
 /**
  * Creates an http request handler for tevm requests
  */
@@ -21,7 +21,34 @@ export function createHttpHandler(tevm: Tevm) {
 		req.on('end', () => {
 			let jsonBody: TevmJsonRpcRequest
 			try {
-				jsonBody = JSON.parse(body)
+				const raw = JSON.parse(body)
+				if (!raw.method.startsWith('tevm_')) {
+					if (!tevm.forkUrl) {
+						res.writeHead(404, { 'Content-Type': 'application/json' })
+						const error = {
+							id: raw.id,
+							method: raw.method,
+							jsonrpc: '2.0',
+							error: {
+								code: 404,
+								message: 'Invalid jsonrpc request: Fork url not set',
+							},
+						}
+						res.end(JSON.stringify(error))
+						return
+					}
+					fetch(tevm.forkUrl, {
+						method: 'POST',
+						body: JSON.stringify(raw),
+						headers: {
+							'Content-Type': 'application/json',
+						},
+					}).then((response) => {
+						res.writeHead(response.status, Object.fromEntries(response.headers.entries()))
+						res.end(response.body)
+					})
+				}
+				jsonBody = { ...raw, params: raw.params && parse(raw.params) }
 			} catch (e) {
 				res.writeHead(500, { 'Content-Type': 'application/json' })
 				const error = {
@@ -93,20 +120,19 @@ export function createHttpHandler(tevm: Tevm) {
 					}
 				})
 				.catch((e: Error) => {
-					if (e instanceof UnknownMethodError) {
-						res.writeHead(404, { 'Content-Type': 'application/json' })
-						const error = {
-							id: jsonBody.id,
-							method: jsonBody.method,
-							jsonrpc: jsonBody.jsonrpc,
-							error: {
-								code: 404,
-								message: `Request method ${jsonBody.method} not supported`,
-							},
-						}
-						res.end(JSON.stringify(error))
-						return
+					console.error(e)
+					res.writeHead(500, { 'Content-Type': 'application/json' })
+					const error = {
+						id: jsonBody.id,
+						method: jsonBody.method,
+						jsonrpc: jsonBody.jsonrpc,
+						error: {
+							code: 404,
+							message: `Request method ${jsonBody.method} not supported`,
+						},
 					}
+					res.end(JSON.stringify(error))
+					return
 				})
 		})
 	}

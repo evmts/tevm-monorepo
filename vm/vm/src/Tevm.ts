@@ -96,6 +96,10 @@ export type CustomPrecompile = Exclude<
  */
 export type Tevm = {
 	/**
+	 * Fork url if the EVM is forked
+	 */
+	readonly forkUrl?: string | undefined
+	/**
 	 * Internal instance of the EVM. Can be used for lower level operations
 	 * but is not guaranteed to stay stable between versions
 	 */

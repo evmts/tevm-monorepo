@@ -193,6 +193,9 @@ export const createTevm = async (options = {}) => {
 		return runContractCallHandler(tevm, action)
 	}
 
+	/**
+	 * @type {import('./Tevm.js').Tevm}
+	 */
 	const tevm = {
 		_evm: evm,
 		request,
@@ -203,6 +206,9 @@ export const createTevm = async (options = {}) => {
 		putContractCode,
 		runCall,
 		runContractCall,
+		...(
+			options.fork?.url ? { forkUrl: options.fork.url } : { forkUrl: options.fork?.url }
+		)
 	}
 
 	return tevm
