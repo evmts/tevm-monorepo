@@ -9,20 +9,11 @@ import type { TevmJsonRpcRequest } from './jsonrpc/TevmJsonRpcRequest.js'
 import { createHttpHandler } from './jsonrpc/createHttpHandler.js'
 import {
 	type BackendReturnType,
-	createJsonrpcClient,
+	type JsonRpcClient,
 } from './jsonrpc/createJsonrpcClient.js'
-import {
-	putAccountHandler,
-	putContractCodeHandler,
-	runCallHandler,
-	runContractCallHandler,
-	runScriptHandler,
-} from './jsonrpc/index.js'
-import { ViemStateManager } from './stateManager/ViemStateManager.js'
-import { Common, Hardfork } from '@ethereumjs/common'
-import { DefaultStateManager } from '@ethereumjs/statemanager'
+import type { EVMResult } from '@ethereumjs/evm'
+import type { Account } from '@ethereumjs/util'
 import type { Abi } from 'abitype'
-import { createPublicClient, http } from 'viem'
 
 /**
  * Options fetch state that isn't available locally.
@@ -102,89 +93,27 @@ export type CustomPrecompile = Exclude<
  *  console.log(balance) // 1n
  *  ```
  */
-export class Tevm {
+export type Tevm = {
 	/**
-	 * Makes sure tevm is invoked with Tevm.create and not with new Tevm
+	 * Internal instance of the EVM. Can be used for lower level operations
+	 * but is not guaranteed to stay stable between versions
 	 */
-	private static isCreating = false
-
-	/**
-	 * Creates a {@link Tevm} instance
-	 */
-	static readonly create = async (options: CreateEVMOptions = {}) => {
-		Tevm.isCreating = true
-		const { EVM: _EVM } = await import('@ethereumjs/evm')
-		try {
-			let stateManager: DefaultStateManager | ViemStateManager
-			// ethereumjs throws an error for most chain ids
-			const chainId: number = 1
-			const hardfork = Hardfork.Shanghai
-			if (options.fork?.url) {
-				const client = createPublicClient({
-					transport: http(options.fork.url),
-				})
-				const blockTag =
-					options.fork.blockTag ?? (await client.getBlockNumber())
-				stateManager = new ViemStateManager({ client, blockTag })
-			} else {
-				stateManager = new DefaultStateManager()
-			}
-			const common = new Common({ chain: chainId, hardfork })
-			const evm = new _EVM({
-				common,
-				stateManager,
-				// blockchain, // Always running the EVM statelessly so not including blockchain
-				allowUnlimitedContractSize: false,
-				allowUnlimitedInitCodeSize: false,
-				customOpcodes: [],
-				// TODO uncomment the mapping once we make the api correct
-				customPrecompiles: options.customPrecompiles ?? [], // : customPrecompiles.map(p => ({ ...p, address: new EthjsAddress(hexToBytes(p.address)) })),
-				profiler: {
-					enabled: false,
-				},
-			})
-			return new Tevm(evm)
-		} finally {
-			Tevm.isCreating = false
-		}
-	}
-
-	/**
-	 * A local EVM instance running in JavaScript. Similar to Anvil in your browser
-	 */
-	constructor(public readonly _evm: import('@ethereumjs/evm').EVM) {
-		if (!Tevm.isCreating) {
-			throw new Error('Tevm must be created with Tevm.create method')
-		}
-	}
+	readonly _evm: import('@ethereumjs/evm').EVM
 
 	/**
 	 * Executes a jsonrpc request
 	 */
-	public readonly request = <TRequest extends TevmJsonRpcRequest>(
+	readonly request: <TRequest extends TevmJsonRpcRequest>(
 		request: TRequest,
-	): Promise<BackendReturnType<TRequest>> => {
-		return this.createJsonrpcClient()(request)
-	}
-
+	) => Promise<BackendReturnType<TRequest>>
 	/**
 	 * Creates a jsonrpc client
 	 */
-	public readonly createJsonrpcClient = () => {
-		return createJsonrpcClient(this)
-	}
-
+	readonly createJsonrpcClient: () => JsonRpcClient
 	/**
 	 * Creates a httpHandler that can be used with node http server
 	 */
-	public readonly createHttpHandler = () => {
-		return createHttpHandler(this)
-	}
-
-	/**
-	 * Create
-	 */
-
+	readonly createHttpHandler: () => ReturnType<typeof createHttpHandler>
 	/**
 	 * Runs a script or contract that is not deployed to the chain
 	 * The recomended way to use a script is with an Tevm import
@@ -208,14 +137,12 @@ export class Tevm {
 	 * })
 	 * ```
 	 */
-	public readonly runScript = async <
+	readonly runScript: <
 		TAbi extends Abi | readonly unknown[] = Abi,
 		TFunctionName extends string = string,
 	>(
 		action: RunScriptAction<TAbi, TFunctionName>,
-	): Promise<RunScriptResult<TAbi, TFunctionName>> => {
-		return runScriptHandler(this, action)
-	}
+	) => Promise<RunScriptResult<TAbi, TFunctionName>>
 
 	/**
 	 * Puts an account with ether balance into the state
@@ -227,9 +154,7 @@ export class Tevm {
 	 * })
 	 * ```
 	 */
-	public readonly putAccount = async (action: PutAccountAction) => {
-		return putAccountHandler(this, action)
-	}
+	readonly putAccount: (action: PutAccountAction) => Promise<Account>
 
 	/**
 	 * Puts a contract into the state
@@ -241,9 +166,9 @@ export class Tevm {
 	 * })
 	 * ```
 	 */
-	public readonly putContractCode = async (action: PutContractCodeAction) => {
-		return putContractCodeHandler(this, action)
-	}
+	readonly putContractCode: (
+		action: PutContractCodeAction,
+	) => Promise<Uint8Array>
 
 	/**
 	 * Executes a call on the EVM
@@ -257,9 +182,7 @@ export class Tevm {
 	 * })
 	 * ```
 	 */
-	public readonly runCall = async (action: RunCallAction) => {
-		return runCallHandler(this, action)
-	}
+	readonly runCall: (action: RunCallAction) => Promise<EVMResult>
 
 	/**
 	 * Calls contract code using an ABI and returns the decoded result
@@ -273,12 +196,10 @@ export class Tevm {
 	 * })
 	 * ```
 	 */
-	public readonly runContractCall = async <
+	readonly runContractCall: <
 		TAbi extends Abi | readonly unknown[] = Abi,
 		TFunctionName extends string = string,
 	>(
 		action: RunContractCallAction<TAbi, TFunctionName>,
-	): Promise<RunContractCallResult<TAbi, TFunctionName>> => {
-		return runContractCallHandler(this, action)
-	}
+	) => Promise<RunContractCallResult<TAbi, TFunctionName>>
 }

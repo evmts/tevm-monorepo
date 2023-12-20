@@ -1,7 +1,7 @@
 import { putAccountHandler } from '../../actions/putAccount/putAccountHandler.js'
 
 /**
- * @param {import('../../tevm.js').Tevm} vm
+ * @param {import('../../Tevm.js').Tevm} vm
  * @param {import('./TevmPutAccountRequest.js').TevmPutAccountRequest} request
  * @returns {Promise<import('./TevmPutAccountResponse.js').TevmPutAccountResponse>}
  */

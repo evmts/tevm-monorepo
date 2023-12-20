@@ -1,3 +1,4 @@
+import type { Tevm } from '../Tevm.js'
 import type { TevmJsonRpcRequest } from '../jsonrpc/TevmJsonRpcRequest.js'
 import type { TevmContractCallResponse } from '../jsonrpc/contractCall/TevmContractCallResponse.js'
 import {
@@ -11,7 +12,6 @@ import type { TevmPutAccountResponse } from '../jsonrpc/putAccount/TevmPutAccoun
 import type { TevmPutContractCodeResponse } from '../jsonrpc/putContractCode/TevmPutContractCodeResponse.js'
 import type { TevmCallResponse } from '../jsonrpc/runCall/TevmCallResponse.js'
 import type { TevmScriptResponse } from '../jsonrpc/runScript/TevmScriptResponse.js'
-import type { Tevm } from '../tevm.js'
 
 export class UnknownMethodError extends Error {
 	override name = 'UnknownMethodError'
@@ -80,3 +80,5 @@ export const createJsonrpcClient = (tevm: Tevm) => {
 		}
 	}
 }
+
+export type JsonRpcClient = ReturnType<typeof createJsonrpcClient>
