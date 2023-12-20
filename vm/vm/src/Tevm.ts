@@ -10,7 +10,7 @@ import { createHttpHandler } from './jsonrpc/createHttpHandler.js'
 import {
 	type BackendReturnType,
 	type JsonRpcClient,
-} from './jsonrpc/createJsonrpcClient.js'
+} from './jsonrpc/createJsonRpcClient.js'
 import type { EVMResult } from '@ethereumjs/evm'
 import type { Account } from '@ethereumjs/util'
 import type { Abi } from 'abitype'
@@ -109,7 +109,7 @@ export type Tevm = {
 	/**
 	 * Creates a jsonrpc client
 	 */
-	readonly createJsonrpcClient: () => JsonRpcClient
+	readonly createJsonRpcClient: () => JsonRpcClient
 	/**
 	 * Creates a httpHandler that can be used with node http server
 	 */

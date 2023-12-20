@@ -2,15 +2,15 @@ import type { Tevm } from '../Tevm.js'
 import type { TevmJsonRpcRequest } from '../jsonrpc/TevmJsonRpcRequest.js'
 import {
 	UnknownMethodError,
-	createJsonrpcClient,
-} from './createJsonrpcClient.js'
+	createJsonRpcClient,
+} from './createJsonRpcClient.js'
 import type { IncomingMessage, ServerResponse } from 'http'
 import { stringify } from 'superjson'
 /**
  * Creates an http request handler for tevm requests
  */
 export function createHttpHandler(tevm: Tevm) {
-	const client = createJsonrpcClient(tevm)
+	const client = createJsonRpcClient(tevm)
 	return async (req: IncomingMessage, res: ServerResponse) => {
 		let body = ''
 

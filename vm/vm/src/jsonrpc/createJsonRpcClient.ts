@@ -1,17 +1,17 @@
 import type { Tevm } from '../Tevm.js'
-import type { TevmJsonRpcRequest } from '../jsonrpc/TevmJsonRpcRequest.js'
-import type { TevmContractCallResponse } from '../jsonrpc/contractCall/TevmContractCallResponse.js'
+import type { TevmJsonRpcRequest } from './TevmJsonRpcRequest.js'
+import type { TevmContractCallResponse } from './contractCall/TevmContractCallResponse.js'
 import {
 	tevmCall,
 	tevmContractCall,
 	tevmPutAccount,
 	tevmPutContractCode,
 	tevmScript,
-} from '../jsonrpc/index.js'
-import type { TevmPutAccountResponse } from '../jsonrpc/putAccount/TevmPutAccountResponse.js'
-import type { TevmPutContractCodeResponse } from '../jsonrpc/putContractCode/TevmPutContractCodeResponse.js'
-import type { TevmCallResponse } from '../jsonrpc/runCall/TevmCallResponse.js'
-import type { TevmScriptResponse } from '../jsonrpc/runScript/TevmScriptResponse.js'
+} from './index.js'
+import type { TevmPutAccountResponse } from './putAccount/TevmPutAccountResponse.js'
+import type { TevmPutContractCodeResponse } from './putContractCode/TevmPutContractCodeResponse.js'
+import type { TevmCallResponse } from './runCall/TevmCallResponse.js'
+import type { TevmScriptResponse } from './runScript/TevmScriptResponse.js'
 
 export class UnknownMethodError extends Error {
 	override name = 'UnknownMethodError'
@@ -54,7 +54,7 @@ export type BackendReturnType<T extends TevmJsonRpcRequest> = T extends {
  * })
  * ```
  */
-export const createJsonrpcClient = (tevm: Tevm) => {
+export const createJsonRpcClient = (tevm: Tevm) => {
 	return <TRequest extends TevmJsonRpcRequest>(
 		request: TRequest,
 	): Promise<BackendReturnType<TRequest>> => {
@@ -81,4 +81,4 @@ export const createJsonrpcClient = (tevm: Tevm) => {
 	}
 }
 
-export type JsonRpcClient = ReturnType<typeof createJsonrpcClient>
+export type JsonRpcClient = ReturnType<typeof createJsonRpcClient>
