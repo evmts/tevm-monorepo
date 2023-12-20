@@ -16,6 +16,9 @@
 		"lint:check": "rome check . --verbose",
 		"preview": "vitepress preview ."
 	},
+	"dependencies": {
+		"@vercel/analytics": "^1.1.1"
+	},
 	"devDependencies": {
 		"@vue/runtime-dom": "^3.3.7",
 		"@vue/server-renderer": "^3.3.7",

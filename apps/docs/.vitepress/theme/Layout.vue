@@ -1,5 +1,6 @@
 <script>
 import {VPNavsdf} from 'vitepress'
+import {Analytics} from '../Analytics.vue'
 
 export default {
   // JavaScript for component
@@ -153,6 +154,7 @@ contract.call('balanceOf', '0x...');</code></pre>
       <div class="container mx-auto text-center"></div>
    </footer>
 </div>
+<Analytics />
 </template>
 
 

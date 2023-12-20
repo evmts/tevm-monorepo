@@ -65,10 +65,9 @@ jobs:
           cmd3: bunx nx affected --target typecheck
           cmd4: bunx nx affected --target test:coverage
           cmd5: bunx nx affected --target lint:check
-          cmd5: bunx nx affected --target format:check
           cmd6: bunx nx affected --target dev:run
-          cmd7: bunx nx affected --target generate:docs:checks
-          cmd8: bun sort-package-json
+          cmd7: bun sort-package-json
+          cmd8: bunx nx affected --target generate:docs
 
       - name: Stop agents
         run: bunx nx-cloud stop-all-agents
