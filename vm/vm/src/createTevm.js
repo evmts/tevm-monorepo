@@ -206,9 +206,9 @@ export const createTevm = async (options = {}) => {
 		putContractCode,
 		runCall,
 		runContractCall,
-		...(
-			options.fork?.url ? { forkUrl: options.fork.url } : { forkUrl: options.fork?.url }
-		)
+		...(options.fork?.url
+			? { forkUrl: options.fork.url }
+			: { forkUrl: options.fork?.url }),
 	}
 
 	return tevm
