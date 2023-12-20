@@ -7,6 +7,7 @@ import { Address } from '@ethereumjs/util'
 import { describe, expect, it } from 'bun:test'
 import supertest from 'supertest'
 import { hexToBytes } from 'viem'
+import { EVMErrorMessage } from '@ethereumjs/evm'
 
 const contractAddress = '0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1'
 
@@ -323,15 +324,17 @@ describe('Tevm should create a local vm in JavaScript', () => {
 				jsonrpc: '2.0',
 				params: {
 					caller: address1,
-					data
+					data,
 				},
 			})
-			expect(res.result.execResult.exceptionError?.error.toString()).toBe("code size to deposit exceeds maximum code size")
+			expect(res.result.execResult.exceptionError?.error).toBe(
+				EVMErrorMessage.CODESIZE_EXCEEDS_MAXIMUM,
+			)
 		})
 
 		it('Should deploy large files if allowUnlimitedContractSize option is true', async () => {
 			const tevm = await createTevm({
-				allowUnlimitedContractSize: true
+				allowUnlimitedContractSize: true,
 			})
 			const address1 = '0x1f420000000000000000000000000000000000ff'
 
