@@ -1,4 +1,7 @@
+import Layout from './Layout.vue'
 import './index.css'
-import defaultTheme from 'vitepress/theme'
+import './tailwind.postcss'
 
-export default defaultTheme
+export default {
+	Layout,
+}
