@@ -22,25 +22,28 @@
 
 | Name | Type |
 | :------ | :------ |
-| `isCached` | (`entryModuleId`: `string`, `sources`: `SolcInputDescription`[``"sources"``]) => `boolean` |
-| `read` | (`entryModuleId`: `string`) => `SolcOutput` |
-| `write` | (`entryModuleId`: `string`, `compiledContracts`: `SolcOutput`) => `void` |
+| `isCached` | (`entryModuleId`: `string`, `sources`: `SolcInputDescription`[``"sources"``], `cachedItem`: `CachedItem`) => `boolean` |
+| `read` | `ReadFunction` |
+| `write` | `WriteFunction` |
 
 #### Defined in
 
-[createCache.d.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/bundler/base/src/createCache.d.ts#L8)
+[createCache.d.ts:22](https://github.com/evmts/tevm-monorepo/blob/main/bundler/base/src/createCache.d.ts#L22)
 
 ## Functions
 
 ### createCache
 
-▸ **createCache**(`logger`): [`Cache`](createCache.md#cache)
+▸ **createCache**(`logger`, `cacheDir`, `fs`, `cwd`): [`Cache`](createCache.md#cache)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `logger` | `Logger` |
+| `cacheDir` | `string` |
+| `fs` | `FileAccessObject` |
+| `cwd` | `string` |
 
 #### Returns
 
@@ -48,4 +51,4 @@
 
 #### Defined in
 
-[createCache.d.ts:17](https://github.com/evmts/tevm-monorepo/blob/main/bundler/base/src/createCache.d.ts#L17)
+[createCache.d.ts:32](https://github.com/evmts/tevm-monorepo/blob/main/bundler/base/src/createCache.d.ts#L32)

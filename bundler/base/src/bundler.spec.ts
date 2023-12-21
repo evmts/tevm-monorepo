@@ -22,6 +22,7 @@ const fao: FileAccessObject = {
 	existsSync: vi.fn() as any,
 	readFile: vi.fn() as any,
 	readFileSync: vi.fn() as any,
+	writeFileSync: vi.fn() as any,
 }
 
 const mockModules: Record<string, ModuleInfo> = {

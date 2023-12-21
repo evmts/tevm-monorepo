@@ -3,7 +3,7 @@ import { getScriptSnapshotDecorator } from './getScriptSnapshot.js'
 import { FileAccessObject } from '@tevm/base'
 import { CompilerConfig, defaultConfig, defineConfig } from '@tevm/config'
 import { runSync } from 'effect/Effect'
-import { existsSync, readFileSync } from 'fs'
+import { existsSync, readFileSync, writeFileSync } from 'fs'
 import { readFile } from 'fs/promises'
 import path from 'path'
 import typescript from 'typescript/lib/tsserverlibrary.js'
@@ -22,6 +22,7 @@ const fao: FileAccessObject = {
 	readFile,
 	readFileSync,
 	existsSync,
+	writeFileSync,
 }
 
 describe(getScriptSnapshotDecorator.name, () => {

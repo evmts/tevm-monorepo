@@ -2,7 +2,7 @@ import { bundler, createCache } from '@tevm/base'
 import { loadConfig } from '@tevm/config'
 import { createSolc, releases } from '@tevm/solc'
 import { runSync } from 'effect/Effect'
-import { existsSync, readFileSync } from 'fs'
+import { existsSync, readFileSync, writeFileSync } from 'fs'
 import { readFile } from 'fs/promises'
 import { createRequire } from 'module'
 // @ts-expect-error
@@ -67,6 +67,7 @@ export const tevmUnplugin = (options = {}) => {
 		existsSync,
 		readFile,
 		readFileSync,
+		writeFileSync,
 	}
 
 	const solcCache = createCache(console)

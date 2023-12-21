@@ -40,6 +40,7 @@
 		"src"
 	],
 	"scripts": {
+		"all": "bun run build && bun run format && bun run lint && bun run test:coverage && bun run generate:docs",
 		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/base ",
 		"build:dist": "bun run tsup",
 		"build:types": "bun run tsc --emitDeclarationOnly --declaration --declarationMap",

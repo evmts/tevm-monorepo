@@ -20,5 +20,8 @@ export const createFileAccessObject = (
 			}
 			return file
 		},
+		writeFileSync: (fileName, data) => {
+			lsHost.writeFile?.(fileName, data)
+		},
 	}
 }
