@@ -7,42 +7,57 @@
 export const createCache = (logger, cacheDir, fs, cwd) => {
 	/**
 	 * @param {string} entryModuleId
+	 * @param {import('./createCache.js').CachedItem} item
 	 */
-	const getArtifactsPath = (entryModuleId) => {
-		const normalizedEntryModuleId = entryModuleId.replace(entryModuleId, cwd)
-		// TODO This doesn't support windows
-		return [cacheDir, normalizedEntryModuleId, 'artifacts.json'].join('/')
+	const getArtifactsPath = (entryModuleId, item) => {
+		const fileName = {
+			dts: 'contract.d.ts',
+			artifactsJson: 'artifacts.json',
+			mjs: 'contract.mjs',
+		}[item]
+		const normalizedEntryModuleId = entryModuleId.replace(cwd, '')
+		return [cacheDir, normalizedEntryModuleId, fileName].join('/')
 	}
 
 	return {
-		write: (entryModuleId, compiledContracts) => {
-			const artifactsPath = getArtifactsPath(entryModuleId)
-			fs.writeFileSync(artifactsPath, JSON.stringify(compiledContracts))
+		write: (entryModuleId, item, cachedItem) => {
+			const artifactsPath = getArtifactsPath(entryModuleId, cachedItem)
+			fs.writeFileSync(
+				artifactsPath,
+				typeof item === 'string' ? item : JSON.stringify(item),
+			)
 		},
-		read: (entryModuleId) => {
-			const artifactsPath = getArtifactsPath(entryModuleId)
+		read: (entryModuleId, cachedItem) => {
+			const artifactsPath = getArtifactsPath(entryModuleId, cachedItem)
 			if (!fs.existsSync(artifactsPath)) {
 				throw new Error(
 					`Cache miss for ${entryModuleId}. Try calling isCached first`,
 				)
 			}
+			const content = fs.readFileSync(artifactsPath, 'utf8')
+			if (cachedItem === 'dts' || cachedItem === 'mjs') {
+				return content
+			}
 			try {
-				return JSON.parse(fs.readFileSync(artifactsPath, 'utf8').toString())
+				return JSON.parse(content)
 			} catch (e) {
 				throw new Error(
 					`Cache miss for ${entryModuleId} because it isn't valid json. Try calling isCached first`,
 				)
 			}
 		},
-		isCached: (entryModuleId, sources) => {
-			const artifactsPath = getArtifactsPath(entryModuleId)
+		isCached: (entryModuleId, sources, itemType) => {
+			// Always check artifacts are cached first
+			const artifactsPath = getArtifactsPath(entryModuleId, 'artifactsJson')
 			if (!fs.existsSync(artifactsPath)) {
 				return false
 			}
 			/**
 			 * @type {import('@tevm/solc').SolcOutput}
 			 */
-			const previousCachedItem = JSON.parse(fs.readFileSync(artifactsPath, 'utf8').toString())
+			const previousCachedItem = JSON.parse(
+				fs.readFileSync(artifactsPath, 'utf8').toString(),
+			)
 			if (!previousCachedItem) {
 				return false
 			}
@@ -64,6 +79,9 @@ export const createCache = (logger, cacheDir, fs, cwd) => {
 				if (oldSource.content !== newSource.content) {
 					return false
 				}
+			}
+			if (itemType === 'dts' || itemType === 'mjs') {
+				return fs.existsSync(getArtifactsPath(entryModuleId, itemType))
 			}
 			return true
 		},

@@ -45,4 +45,4 @@
 
 #### Defined in
 
-[types.ts:34](https://github.com/evmts/tevm-monorepo/blob/main/bundler/base/src/types.ts#L34)
+[types.ts:35](https://github.com/evmts/tevm-monorepo/blob/main/bundler/base/src/types.ts#L35)

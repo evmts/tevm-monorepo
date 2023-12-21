@@ -1,7 +1,7 @@
 import { FileAccessObject, bundler, createCache } from '@tevm/base'
 import { loadConfig } from '@tevm/config'
 import { runSync } from 'effect/Effect'
-import { existsSync, readFileSync } from 'fs'
+import { existsSync, readFileSync, writeFileSync } from 'fs'
 import { readFile, writeFile } from 'fs/promises'
 import { glob } from 'glob'
 import path from 'path'
@@ -12,6 +12,7 @@ const fao: FileAccessObject = {
 	existsSync: existsSync,
 	readFile: readFile,
 	readFileSync: readFileSync,
+	writeFileSync: writeFileSync,
 }
 
 const generate = (cwd = process.cwd(), include = ['src/**/*.sol']) => {

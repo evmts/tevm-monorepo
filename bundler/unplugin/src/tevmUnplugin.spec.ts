@@ -114,6 +114,7 @@ describe('unpluginFn', () => {
 			    "existsSync": [MockFunction spy],
 			    "readFile": [Function],
 			    "readFileSync": [Function],
+			    "writeFileSync": [Function],
 			  },
 			  {
 			    "compile": [Function],

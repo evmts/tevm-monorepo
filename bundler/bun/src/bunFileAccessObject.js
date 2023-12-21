@@ -16,4 +16,8 @@ export const bunFileAccesObject = {
 		return bunFile.text()
 	},
 	readFileSync,
+	writeFileSync: (filePath, data) => {
+		const bunFile = file(filePath)
+		return bunFile.writer().write(data)
+	},
 }
