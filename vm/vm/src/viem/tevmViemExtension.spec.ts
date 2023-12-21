@@ -84,6 +84,21 @@ describe('tevmViemExtension', () => {
 			chain: {} as any,
 		} as const
 		const response = await decorated.writeContractOptimistic(params)
+
+		expect((client.request as jest.Mock).mock.lastCall[0]).toEqual({
+			method: 'tevm_contractCall',
+			params: JSON.parse(stringify(params)),
+		})
+		expect((client.writeContract as jest.Mock).mock.lastCall[0]).toEqual({
+			abi: params.abi,
+			functionName: params.functionName,
+			args: params.args,
+			caller: params.caller,
+			address: params.address,
+			account: params.account,
+			chain: params.chain,
+		})
+
 		expect(await response.result()).toEqual(mockWriteContractResponse)
 		expect(await response.optimisticResult()).toEqual({ gasUsed: 420n } as any)
 	})

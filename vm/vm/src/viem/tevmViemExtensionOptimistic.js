@@ -10,15 +10,13 @@ export const tevmViemExtensionOptimistic = () => {
 				/**
 				 * @type {import('./types.js').ViemTevmClient['tevmRequest']}
 				 */
-				const tevmRequest = async (request) => {
+				const tevmRequest = async ({ method, params }) => {
 					return /** @type {any} */ (
 						parse(
 							JSON.stringify(
 								await client.request({
-									method: /** @type {any}*/ (request.method),
-									params: /** @type {any}*/ (
-										JSON.parse(stringify(request.params))
-									),
+									method: /** @type {any}*/ (method),
+									params: /** @type {any}*/ (JSON.parse(stringify(params))),
 								}),
 							),
 						)
