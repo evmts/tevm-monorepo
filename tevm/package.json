@@ -34,19 +34,25 @@
 			"import": "./dist/vm.js",
 			"require": "./dist/vm.cjs",
 			"default": "./dist/vm.cjs",
-			"types": "./dist/vm.ts"
+			"types": "./types/vm/vm.d.ts"
+		},
+		"./viem-extension": {
+			"import": "./dist/viem-extension.js",
+			"require": "./dist/viem-extension.cjs",
+			"default": "./dist/viem-extension.cjs",
+			"types": "./types/viem-extension/viem-extension.d.ts"
 		},
 		"./contract": {
 			"import": "./dist/contract.js",
 			"require": "./dist/contract.cjs",
 			"default": "./dist/contract.cjs",
-			"types": "./dist/contract.ts"
+			"types": "./types/contract/contract.d.ts"
 		},
 		"./contract/common": {
 			"import": "./dist/common.js",
 			"require": "./dist/common.cjs",
 			"default": "./dist/common.cjs",
-			"types": "./src/contract/common/index.ts"
+			"types": "./types/contract/common/common.ts"
 		}
 	},
 	"main": "dist/index.cjs",
@@ -68,16 +74,12 @@
 		"generate:docs": "bun run typedoc",
 		"lint": "rome check . --apply-unsafe",
 		"lint:check": "rome check . --verbose",
-		"test": "vitest --coverage",
-		"test:coverage": "vitest run --coverage",
-		"test:run": "vitest run",
-		"test:ui": "vitest --ui"
+		"//test": "vitest --coverage",
+		"//test:coverage": "vitest run --coverage",
+		"//test:run": "vitest run",
+		"//test:ui": "vitest --ui"
 	},
 	"devDependencies": {
-		"@evmts/core": "next",
-		"@evmts/esbuild-plugin": "next",
-		"@evmts/ts-plugin": "next",
-		"@evmts/vite-plugin": "next",
 		"@openzeppelin/contracts": "^5.0.1",
 		"@tevm/tsconfig": "workspace:^",
 		"@vitest/coverage-v8": "^0.34.6",
@@ -101,6 +103,7 @@
 	},
 	"dependencies": {
 		"@tevm/contract": "workspace:1.0.0-next.12",
+		"@tevm/viem-extension": "workspace:1.0.0-next.11",
 		"@tevm/vm": "workspace:1.0.0-next.11"
 	}
 }
