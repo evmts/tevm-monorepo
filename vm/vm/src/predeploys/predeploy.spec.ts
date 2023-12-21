@@ -1,8 +1,8 @@
-import { expect, test } from 'bun:test'
-import { createTevm } from '../createTevm.js'
-import { definePredeploy } from './definePredeploy.js'
-import { DaiContract } from '../test/DaiContract.sol.js'
 import { createTevmContract } from '@tevm/contract'
+import { createTevm } from '../createTevm.js'
+import { DaiContract } from '../test/DaiContract.sol.js'
+import { definePredeploy } from './definePredeploy.js'
+import { expect, test } from 'bun:test'
 
 test('Call predeploy from TypeScript', async () => {
 	const { abi, deployedBytecode } = DaiContract
@@ -17,14 +17,16 @@ test('Call predeploy from TypeScript', async () => {
 	})
 
 	const tevm = await createTevm({
-		predeploys: [predeploy],
+		customPredeploys: [predeploy],
 	})
 
 	expect(
 		await tevm
 			.runContractCall({
 				address: predeploy.address,
-				...predeploy.contract.read.exampleFunction(),
+				...predeploy.contract.read.balanceOf(
+					'0xf0d4c12a5768d806021f80a262b4d39d26c58b8d',
+				),
 			})
 			.then((res) => {
 				res.data
