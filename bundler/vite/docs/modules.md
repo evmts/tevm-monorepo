@@ -12,7 +12,7 @@
 
 ### vitePluginTevm
 
-▸ **vitePluginTevm**(`options?`): `Plugin`\<`any`\>
+▸ **vitePluginTevm**(`options?`): `Plugin_2`
 
 #### Parameters
 
@@ -23,7 +23,7 @@
 
 #### Returns
 
-`Plugin`\<`any`\>
+`Plugin_2`
 
 #### Defined in
 
