@@ -1,4 +1,5 @@
-import { bundler, createCache } from '@tevm/base'
+import { bundler } from '@tevm/base'
+import { createCache } from '@tevm/bundler-cache'
 import { loadConfig } from '@tevm/config'
 import { createSolc, releases } from '@tevm/solc'
 import { runSync } from 'effect/Effect'
@@ -70,13 +71,17 @@ export const tevmUnplugin = (options = {}) => {
 		writeFileSync,
 	}
 
-	const solcCache = createCache(console)
-
 	return {
 		name: '@tevm/rollup-plugin',
 		enforce: 'pre',
 		async buildStart() {
 			config = runSync(loadConfig(process.cwd()))
+			const solcCache = createCache(
+				console,
+				config.cacheDir,
+				fao,
+				process.cwd(),
+			)
 			const versionedSolc =
 				parsedSolcVersion.data === defaultVersion
 					? defaultSolc

@@ -7,7 +7,7 @@ import {
 import { createFileAccessObject } from './factories/fileAccessObject.js'
 import { createLogger, decorateHost } from './factories/index.js'
 import { isSolidity } from './utils/index.js'
-import { createCache } from '@tevm/base'
+import { createCache } from '@tevm/bundler-cache'
 import { loadConfig } from '@tevm/config'
 import { runSync } from 'effect/Effect'
 import typescript from 'typescript/lib/tsserverlibrary.js'

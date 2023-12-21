@@ -43,4 +43,4 @@ preload = ["./plugins.ts"]
 
 #### Defined in
 
-[plugin.js:26](https://github.com/evmts/tevm-monorepo/blob/main/bundler/bun/src/plugin.js#L26)
+[plugin.js:27](https://github.com/evmts/tevm-monorepo/blob/main/bundler/bun/src/plugin.js#L27)

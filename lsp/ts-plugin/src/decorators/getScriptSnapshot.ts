@@ -1,6 +1,7 @@
 import { createHostDecorator } from '../factories/index.js'
 import { isSolidity } from '../utils/index.js'
-import { Cache, bundler } from '@tevm/base'
+import { bundler } from '@tevm/base'
+import { Cache } from '@tevm/bundler-cache'
 import { existsSync, writeFileSync } from 'fs'
 // @ts-expect-error
 import * as solc from 'solc'

@@ -7,9 +7,5 @@
  * @typedef {import('./types.js').Logger} Logger
  * @typedef {import('./types.js').SolidityResolver} SolidityResolver
  * @typedef {import('./types.js').SyncBundlerResult} SyncBundlerResult
- *
- * ./createCache.js
- * @typedef {import('./createCache.js').Cache} Cache
  */
 export { bundler } from './bundler.js'
-export { createCache } from './createCache.js'
