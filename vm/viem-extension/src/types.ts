@@ -1,17 +1,17 @@
-import type { RunContractCallAction } from '../actions/contractCall/RunContractCallAction.js'
-import type { RunContractCallResult } from '../actions/contractCall/RunContractCallResult.js'
 import type {
+	RunContractCallAction,
+	RunContractCallResult,
 	PutAccountAction,
 	PutContractCodeAction,
 	RunCallAction,
-} from '../actions/index.js'
-import type { RunScriptAction } from '../actions/runScript/RunScriptAction.js'
-import type { RunScriptResult } from '../actions/runScript/RunScriptResult.js'
-import type { NonVerboseTevmJsonRpcRequest } from '../jsonrpc/TevmJsonRpcRequest.js'
-import type { BackendReturnType } from '../jsonrpc/createJsonRpcClient.js'
-import type { TevmPutAccountResponse } from '../jsonrpc/putAccount/TevmPutAccountResponse.js'
-import type { TevmPutContractCodeResponse } from '../jsonrpc/putContractCode/TevmPutContractCodeResponse.js'
-import type { TevmCallResponse } from '../jsonrpc/runCall/TevmCallResponse.js'
+	RunScriptAction,
+	RunScriptResult,
+	NonVerboseTevmJsonRpcRequest,
+	BackendReturnType,
+	TevmPutAccountResponse,
+	TevmPutContractCodeResponse
+} from '@tevm/vm'
+import type { TevmCallResponse } from '@tevm/vm'
 import type { Abi } from 'abitype'
 import type {
 	Account,

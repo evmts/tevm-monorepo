@@ -1,7 +1,20 @@
 import { parse, stringify } from 'superjson'
 
 /**
+ * A [Viem](https://viem.sh) extension for interacting with the Tevm vm over jsonrpc
  * @type {import('./types.js').ViemTevmExtension}
+ * @example
+ * ```typescript
+ * import { viemClient } from './viemClient.js'
+ * import { tevmViemExtension } from '@tevm/viem-extension'
+ *
+ * const client = viemClient.extend(tevmViemExtension())
+ *
+ * // run a script
+ * import { MyScript } from './MyScript.sol'
+ * const result = await client.runScript(MyScript)
+ * console.log(result)
+ * ```
  */
 export const tevmViemExtension = () => {
 	return (client) => {
