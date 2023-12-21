@@ -13,6 +13,7 @@
 			"**/artifacts",
 			"**/lib",
 			"**/types",
+			"**/fixtures",
 			"**/.next",
 			"**/.vitepress/cache",
 			"**/.vitepress/dist",

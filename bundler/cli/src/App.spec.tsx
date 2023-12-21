@@ -1,10 +1,10 @@
 import { App } from './App.js'
-import { afterAll, expect, test } from 'vitest'
 import chalk from 'chalk'
-import { render } from 'ink-testing-library'
-import React from 'react'
 import { existsSync, rmSync } from 'fs-extra'
+import { render } from 'ink-testing-library'
 import { join } from 'path'
+import React from 'react'
+import { afterAll, expect, test } from 'vitest'
 
 afterAll(() => {
 	rmSync(join(__dirname, '..', '..', 'my-app'), { recursive: true })
@@ -13,7 +13,7 @@ afterAll(() => {
 test('Should work', async () => {
 	const { lastFrame, stdin } = render(
 		<App
-			args={["my-app"]}
+			args={['my-app']}
 			options={{
 				noGit: false,
 				noInstall: false,
@@ -22,7 +22,9 @@ test('Should work', async () => {
 				skipPrompts: true,
 				useCase: 'ui',
 				walletConnectProjectId: '123',
-			}} />)
+			}}
+		/>,
+	)
 
 	// hackily waiting
 	await new Promise((resolve) => setTimeout(resolve, 2000))

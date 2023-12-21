@@ -1,4 +1,4 @@
-import { command } from "../index.js"
+import { command } from '../index.js'
 
 export const isDefault = true
 export const args = command.args

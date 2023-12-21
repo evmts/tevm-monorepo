@@ -1,6 +1,7 @@
-import styles from './content.module.css'
-import { addresses } from '../addresses'
 import { WagmiMintExample } from '../../contracts/WagmiMintExample.sol'
+import { addresses } from '../addresses'
+import styles from './content.module.css'
+import * as chains from 'viem/chains'
 import {
 	Address,
 	useAccount,
@@ -9,22 +10,21 @@ import {
 	useContractWrite,
 	useWaitForTransaction,
 } from 'wagmi'
-import * as chains from 'viem/chains'
 
 function getRandomInt(min = 1, max = 1_000_000_000) {
 	const range = max - min + 1
 	return Math.floor(Math.random() * range) + min
 }
 
-function EtherscanLink({ hash, chainId }: { hash: string, chainId: number }) {
-	const chain = [chains.optimism, chains.mainnet, chains.optimismGoerli].find((c) => c.id === chainId)
-	return chain?.blockExplorers.etherscan.url + '/tx/' + hash
+function EtherscanLink({ hash, chainId }: { hash: string; chainId: number }) {
+	const chain = [chains.optimism, chains.mainnet, chains.optimismGoerli].find(
+		(c) => c.id === chainId,
+	)
+	return `${chain?.blockExplorers.etherscan.url}/tx/${hash}`
 }
 
 export default function WagmiWrites() {
-	const getEtherscanLink = () => {
-
-	}
+	const getEtherscanLink = () => {}
 
 	const { address, isConnected } = useAccount()
 	const chainId = useChainId()
@@ -38,7 +38,13 @@ export default function WagmiWrites() {
 		enabled: isConnected,
 	})
 
-	const { error, writeAsync: writeMint, data: mintData, isLoading, isSuccess } = useContractWrite({
+	const {
+		error,
+		writeAsync: writeMint,
+		data: mintData,
+		isLoading,
+		isSuccess,
+	} = useContractWrite({
 		address: addresses[chainId as 420],
 		/**
 		 * Not calling the function will return abi and address without args
@@ -67,22 +73,34 @@ export default function WagmiWrites() {
 				<div className={styles.infoItem}>
 					<div className={styles.columnContainer}>
 						<div className={styles.methodName}>Mint status</div>
-						<div className={styles.methodValue}>{isLoading ? 'loading...' : isSuccess ? 'successful!' : error ? 'error' : 'idle'}</div>
+						<div className={styles.methodValue}>
+							{isLoading
+								? 'loading...'
+								: isSuccess
+								? 'successful!'
+								: error
+								? 'error'
+								: 'idle'}
+						</div>
 					</div>
 				</div>
-				{mintData?.hash && <div className={styles.infoItem}>
-					<div className={styles.columnContainer}>
-						<div className={styles.methodName}>Tx link</div>
-						<div className={styles.methodValue}><EtherscanLink chainId={chainId} hash={mintData.hash} /></div>
+				{mintData?.hash && (
+					<div className={styles.infoItem}>
+						<div className={styles.columnContainer}>
+							<div className={styles.methodName}>Tx link</div>
+							<div className={styles.methodValue}>
+								<EtherscanLink chainId={chainId} hash={mintData.hash} />
+							</div>
+						</div>
 					</div>
-				</div>}
+				)}
 				<button
 					type='button'
 					className={styles.button}
 					onClick={() =>
 						writeMint({
 							address: addresses[chainId as 420],
-							...WagmiMintExample.write.mint(BigInt(getRandomInt()))
+							...WagmiMintExample.write.mint(BigInt(getRandomInt())),
 						})
 					}
 				>
@@ -92,4 +110,3 @@ export default function WagmiWrites() {
 		</div>
 	)
 }
-
