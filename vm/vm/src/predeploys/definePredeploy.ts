@@ -1,5 +1,5 @@
 import { Address } from '@ethereumjs/util'
-import { type EvmtsContract } from '@evmts/core'
+import { type TevmContract } from '@tevm/core'
 
 //Make predeploy call evm function
 export abstract class Predeploy<
@@ -8,7 +8,7 @@ export abstract class Predeploy<
 	TBytecode extends `0x${string}` | undefined,
 	TDeployedBytecode extends `0x${string}` | undefined,
 > {
-	public abstract readonly contract: EvmtsContract<
+	public abstract readonly contract: TevmContract<
 		TName,
 		THumanReadableAbi,
 		TBytecode,

@@ -1,3 +1,6 @@
+import type { EVMResult } from '@ethereumjs/evm'
+import type { Account } from '@ethereumjs/util'
+import type { Abi } from 'abitype'
 import type { RunContractCallAction } from './actions/contractCall/RunContractCallAction.js'
 import type { RunContractCallResult } from './actions/contractCall/RunContractCallResult.js'
 import type { PutAccountAction } from './actions/putAccount/PutAccountAction.js'
@@ -11,9 +14,6 @@ import {
 	type BackendReturnType,
 	type JsonRpcClient,
 } from './jsonrpc/createJsonRpcClient.js'
-import type { EVMResult } from '@ethereumjs/evm'
-import type { Account } from '@ethereumjs/util'
-import type { Abi } from 'abitype'
 /**
  * Options fetch state that isn't available locally.
  */
@@ -37,7 +37,7 @@ type ForkOptions = {
 export type CreateEVMOptions = {
 	fork?: ForkOptions
 	customPrecompiles?: CustomPrecompile[]
-	customPredeploys?: any[],
+	customPredeploys?: any[]
 	allowUnlimitedContractSize?: boolean
 }
 

@@ -1,4 +1,6 @@
+import { Address, hexToBytes, toBytes } from '@ethereumjs/util'
 import { createTevmContract } from '@tevm/contract'
+import { formatAbi } from 'abitype'
 import { createTevm } from '../createTevm.js'
 import { DaiContract } from '../test/DaiContract.sol.js'
 import { definePredeploy } from './definePredeploy.js'
@@ -6,72 +8,40 @@ import { expect, test } from 'bun:test'
 
 test('Call predeploy from TypeScript', async () => {
 	const { abi, deployedBytecode } = DaiContract
+	const formatted = formatAbi(abi)
+	const contract = createTevmContract({
+		bytecode: undefined,
+		humanReadableAbi: formatted,
+		name: 'ExamplePredeploy',
+		deployedBytecode: deployedBytecode,
+	})
 
+	const predeployAddress = '0x0420042004200420042004200420042004200420'
 	const predeploy = definePredeploy({
-		address: `0x${'0420'.repeat(10)}`,
-		contract: createTevmContract({
-			abi,
-			deployedBytecode,
-			name: 'ExamplePredeploy',
-		}),
+		address: predeployAddress,
+		contract,
 	})
 
 	const tevm = await createTevm({
 		customPredeploys: [predeploy],
 	})
 
+	// Predeploy Contract exists in vm
 	expect(
-		await tevm
-			.runContractCall({
-				address: predeploy.address,
-				...predeploy.contract.read.balanceOf(
-					'0xf0d4c12a5768d806021f80a262b4d39d26c58b8d',
-				),
-			})
-			.then((res) => {
-				res.data
-			}),
-	).toBe('return value')
+		await tevm._evm.stateManager.getContractCode(
+			new Address(hexToBytes(predeployAddress)),
+		),
+	).toEqual(toBytes(deployedBytecode))
 
-	/**
+	// Test predeploy contract call
+	const res = await tevm.runContractCall({
+		contractAddress: predeploy.address,
+		...predeploy.contract.read.balanceOf(
+			'0xf0d4c12a5768d806021f80a262b4d39d26c58b8d',
+		),
+	})
 
-  const vm = await EVMts.create({
-    customPrecompiles: [fsPrecompile.precompile()]
-  })
-
-  await vm.runContractCall({
-    contractAddress: fsPrecompile.address,
-    ...fsPrecompile.contract.write.writeFile('test.txt', 'hello world')
-  })
-
-  expect(existsSync('test.txt')).toBe(true)
-  expect(
-    (await vm.runContractCall({
-      contractAddress: fsPrecompile.address,
-      ...fsPrecompile.contract.read.readFile('test.txt')
-    })).data
-  ).toBe('hello world')
-
-  rmSync('test.txt')
-
-  **/
+	expect(res.data).toBe(0n)
+	expect(res.gasUsed).toBe(2447n)
+	expect(res.logs).toEqual([])
 })
-
-/**
-test('Call precompile from solidity script', async () => {
-  const { WriteHelloWorld } = await import("./WriteHelloWorld.s.sol")
-
-  const vm = await EVMts.create({
-    customPrecompiles: [fsPrecompile.precompile()]
-  })
-
-  await vm.runScript(
-    WriteHelloWorld.write.write(fsPrecompile.address)
-  )
-
-  expect(existsSync('test.txt')).toBe(true)
-
-  rmSync('test.txt')
-})
-
-*/

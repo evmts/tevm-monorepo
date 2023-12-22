@@ -1,16 +1,16 @@
 {
   "extends": "@tevm/tsconfig/base.json",
   "compilerOptions": {
+    "plugins": [
+      {
+        "name": "@evmts/ts-plugin"
+      }
+    ],
     "rootDir": "src",
     "composite": true,
     "outDir": "types",
     "skipLibCheck": true,
-    "types": [
-      "bun-types"
-    ]
+    "types": ["bun-types"]
   },
-  "include": [
-    "src",
-    "src/**/*.json"
-  ]
+  "include": ["src", "src/**/*.json"]
 }

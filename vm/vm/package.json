@@ -18,9 +18,7 @@
 		"directory": "vm"
 	},
 	"license": "MIT",
-	"contributors": [
-		"Will Cory <willcory10@gmail.com>"
-	],
+	"contributors": ["Will Cory <willcory10@gmail.com>"],
 	"type": "module",
 	"exports": {
 		"./package.json": "./package.json",
@@ -38,12 +36,7 @@
 	"main": "dist/index.cjs",
 	"module": "dist/index.js",
 	"types": "types/index.d.ts",
-	"files": [
-		"dist",
-		"types",
-		"src",
-		"!src/**/*.spec.ts"
-	],
+	"files": ["dist", "types", "src", "!src/**/*.spec.ts"],
 	"scripts": {
 		"all": "pnpm i  && bun run build && bun lint && bun format && bun test:run && bun generate:docs",
 		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/vm",
@@ -70,6 +63,8 @@
 		"@ethereumjs/tx": "^5.1.0",
 		"@ethereumjs/util": "^9.0.1",
 		"@ethereumjs/vm": "^7.1.0",
+		"@tevm/contract": "workspace:1.0.0-next.20",
+		"@tevm/core": "1.0.0-next.12",
 		"@types/supertest": "^2.0.16",
 		"abitype": "^0.10.3",
 		"debug": "^4.3.4",
@@ -80,6 +75,7 @@
 		"viem": "^1.19.11"
 	},
 	"devDependencies": {
+		"@evmts/ts-plugin": "next",
 		"@tevm/tsconfig": "workspace:^",
 		"@types/debug": "^4.1.12",
 		"bun-types": "^1.0.15",

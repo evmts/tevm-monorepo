@@ -1,3 +1,6 @@
+import { Common, Hardfork } from '@ethereumjs/common'
+import { DefaultStateManager } from '@ethereumjs/statemanager'
+import { http, createPublicClient } from 'viem'
 import { createHttpHandler as _createHttpHandler } from './jsonrpc/createHttpHandler.js'
 import { createJsonRpcClient as _createJsonrpcClient } from './jsonrpc/createJsonRpcClient.js'
 import {
@@ -8,9 +11,6 @@ import {
 	runScriptHandler,
 } from './jsonrpc/index.js'
 import { ViemStateManager } from './stateManager/ViemStateManager.js'
-import { Common, Hardfork } from '@ethereumjs/common'
-import { DefaultStateManager } from '@ethereumjs/statemanager'
-import { createPublicClient, http } from 'viem'
 
 /**
  * A local EVM instance running in JavaScript. Similar to Anvil in your browser
@@ -211,9 +211,14 @@ export const createTevm = async (options = {}) => {
 			: { forkUrl: options.fork?.url }),
 	}
 
-	options.predeploys?.forEach((predeploy) => {
-		putContractCodeHandler(tevm, predeploy)
-	})
+	await Promise.all(
+		options.customPredeploys?.map((predeploy) => {
+			putContractCodeHandler(tevm, {
+				contractAddress: predeploy.address,
+				deployedBytecode: predeploy.contract.deployedBytecode,
+			})
+		}) || [],
+	)
 
 	return tevm
 }
