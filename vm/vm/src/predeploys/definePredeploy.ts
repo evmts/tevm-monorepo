@@ -1,7 +1,6 @@
 import { Address } from '@ethereumjs/util'
 import { type TevmContract } from '@tevm/core'
 
-//Make predeploy call evm function
 export abstract class Predeploy<
 	TName extends string,
 	THumanReadableAbi extends readonly string[],
