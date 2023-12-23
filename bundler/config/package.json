@@ -62,10 +62,8 @@
 		"@effect/schema": "0.47.7",
 		"@tevm/effect": "workspace:^",
 		"@types/node": "^20.8.9",
-		"bundle-require": "^4.0.2",
 		"effect": "2.0.0-next.54",
-		"jsonc-parser": "^3.2.0",
-		"viem": "^1.18.1"
+		"zod": "^3.22.4"
 	},
 	"devDependencies": {
 		"@tevm/tsconfig": "workspace:^",
@@ -76,8 +74,7 @@
 		"typedoc": "^0.25.3",
 		"typedoc-plugin-markdown": "^3.16.0",
 		"typescript": "^5.2.2",
-		"vitest": "^0.34.6",
-		"zod": "^3.22.4"
+		"vitest": "^0.34.6"
 	},
 	"publishConfig": {
 		"access": "public"
