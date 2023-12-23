@@ -63,7 +63,6 @@
 	},
 	"devDependencies": {
 		"@evmts/core": "next",
-		"@evmts/esbuild-plugin": "next",
 		"@evmts/ts-plugin": "next",
 		"@evmts/vite-plugin": "next",
 		"@openzeppelin/contracts": "^5.0.1",
@@ -77,12 +76,7 @@
 		"typescript": "^5.2.2",
 		"viem": "^1.18.1",
 		"vite": "^5.0.6",
-		"vitest": "^0.34.6",
-		"wagmi": "^1.4.5",
-		"zod": "^3.22.4"
-	},
-	"peerDependencies": {
-		"viem": ">1.0.0"
+		"vitest": "^0.34.6"
 	},
 	"publishConfig": {
 		"access": "public"

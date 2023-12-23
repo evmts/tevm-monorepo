@@ -11,8 +11,8 @@
   "editor.formatOnSave": true,
   "editor.inlineSuggest.enabled": true,
   "editor.codeActionsOnSave": {
-    "source.fixAll": true,
-    "source.organizeImports.rome": true
+    "source.fixAll": "explicit",
+    "source.organizeImports.rome": "explicit"
   },
   "files.eol": "\n",
   "[typescript]": {
