@@ -1,5 +1,5 @@
 import { Address as EthjsAddress } from '@ethereumjs/util'
-import { type TevmContract } from '@tevm/core'
+import { type TevmContract } from '@tevm/contract'
 import { type Address } from 'abitype'
 import { getAddress } from 'viem'
 

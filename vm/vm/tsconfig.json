@@ -1,11 +1,6 @@
 {
   "extends": "@tevm/tsconfig/base.json",
   "compilerOptions": {
-    "plugins": [
-      {
-        "name": "@tevm/ts-plugin"
-      }
-    ],
     "rootDir": "src",
     "composite": true,
     "outDir": "types",
