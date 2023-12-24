@@ -60,12 +60,12 @@ jobs:
       - name: Run verification
         uses: JamesHenry/parallel-bash-commands@v0.1
         with:
-          cmd1: bunx nx affected --target build:dist
-          cmd2: bunx nx affected --target build:types
-          cmd3: bunx nx affected --target typecheck
-          cmd4: bunx nx affected --target test:coverage
-          cmd5: bunx nx affected --target lint:check
-          cmd6: bunx nx affected --target dev:run
+          cmd1: bunx nx affected --target build:dist --skip-nx-cache
+          cmd2: bunx nx affected --target build:types --skip-nx-cache
+          cmd3: bunx nx affected --target typecheck --skip-nx-cache
+          cmd4: bunx nx affected --target test:coverage --skip-nx-cache
+          cmd5: bunx nx affected --target lint:check --skip-nx-cache
+          cmd6: bunx nx affected --target dev:run --skip-nx-cache
           cmd7: bun sort-package-json
           cmd8: bunx nx affected --target generate:docs
 
