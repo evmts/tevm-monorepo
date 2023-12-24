@@ -1,4 +1,5 @@
 import { parse, stringify } from 'superjson'
+import { waitForTransactionReceipt } from 'viem/actions'
 
 /**
  * @type {import('./types.js').ViemTevmOptimisticExtension}
@@ -6,57 +7,61 @@ import { parse, stringify } from 'superjson'
 export const tevmViemExtensionOptimistic = () => {
 	return (client) => {
 		return {
-			writeContractOptimistic: async (action) => {
+			writeContractOptimistic: async function*(action) {
+				/**
+				 * @type {Array<import('./types.js').TypedError<string>>}
+				 */
+				const errors = []
+				const getErrorsIfExist = () => errors.length > 0 ? { errors } : {}
 				/**
 				 * @type {import('./types.js').ViemTevmClient['tevmRequest']}
 				 */
-				const tevmRequest = async ({ method, params }) => {
+				const tevmRequest = async (request) => {
 					return /** @type {any} */ (
 						parse(
 							JSON.stringify(
 								await client.request({
-									method: /** @type {any}*/ (method),
-									params: /** @type {any}*/ (JSON.parse(stringify(params))),
+									method: /** @type {any}*/ (request.method),
+									params: /** @type {any}*/ (JSON.parse(stringify(request.params))),
 								}),
 							),
 						)
 					)
 				}
 
-				const writeContractResult = client.writeContract(action)
+				const writeContractResult = client.writeContract(action);
 				const optimisticResult = tevmRequest({
 					method: 'tevm_contractCall',
-					params: /** @type {any}*/ (action),
-				})
+					params: /** @type {any}*/(action),
+				});
 
-				// wait for one of the two results to come back
-				// This allows us to reject right away if the optimistic result fails
-				const error = await Promise.race([
-					writeContractResult,
-					optimisticResult,
-				])
-					.then(() => undefined)
-					.catch((err) => err)
-
-				// If error wait for all the promises to resolve before throwing
-				// We may want to consider using async generators or event emitters in future
-				if (error) {
-					const errors = await Promise.allSettled([
-						writeContractResult,
-						optimisticResult,
-					]).then((results) => {
-						return results.filter((result) => result.status === 'rejected')
-					})
-					if (errors.length === 1) {
-						throw errors[0]
-					}
-					throw new AggregateError(errors)
+				try {
+					yield { success: true, tag: 'OPTIMISTIC_RESULT', data: /** @type {any}*/(await optimisticResult), ...getErrorsIfExist() };
+				} catch (error) {
+					errors.push(/** @type {any}*/(error))
+					yield { success: false, tag: 'OPTIMISTIC_RESULT', error: /** @type {any} */ error, ...getErrorsIfExist() };
 				}
 
-				// Return the result as soon as at least 1 of them is available
-				return {
-					optimisticResult: () => optimisticResult,
-					result: () => writeContractResult,
+				/**
+				 * @type {import('viem').Hex | undefined}
+				 **/
+				let hash = undefined
+				try {
+					hash = await writeContractResult;
+					yield { success: true, tag: 'HASH', data: /** @type {any}*/hash, ...getErrorsIfExist() };
+				} catch (error) {
+					errors.push(/** @type {any}*/(error))
+					yield { success: false, tag: 'HASH', error: /** @type {any}*/error, ...getErrorsIfExist() };
+				}
+
+				if (hash) {
+					try {
+						const receipt = await waitForTransactionReceipt(/** @type{any}*/(client), { hash })
+						yield { success: true, tag: 'RECEIPT', data: /** @type {any} */(receipt), ...getErrorsIfExist() };
+					} catch (error) {
+						errors.push(/** @type {any}*/(error))
+						yield { success: false, tag: 'RECEIPT', error: /** @type {any} */(error), errors, ...getErrorsIfExist() };
+					}
 				}
 			},
 		}
