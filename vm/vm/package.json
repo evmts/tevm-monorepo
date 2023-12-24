@@ -63,7 +63,7 @@
 		"@ethereumjs/tx": "^5.1.0",
 		"@ethereumjs/util": "^9.0.1",
 		"@ethereumjs/vm": "^7.1.0",
-		"@tevm/contract": "workspace:1.0.0-next.20",
+		"@tevm/contract": "workspace:^",
 		"@tevm/core": "1.0.0-next.12",
 		"@types/supertest": "^2.0.16",
 		"abitype": "^0.10.3",
@@ -75,7 +75,7 @@
 		"viem": "^1.19.11"
 	},
 	"devDependencies": {
-		"@evmts/ts-plugin": "next",
+		"@evmts/ts-plugin": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
 		"@types/debug": "^4.1.12",
 		"bun-types": "^1.0.15",
