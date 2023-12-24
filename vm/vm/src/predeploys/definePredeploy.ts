@@ -4,7 +4,7 @@ import { type Address } from 'abitype'
 import { getAddress } from 'viem'
 
 export type CustomPredeploy = {
-	address: string
+	address: Address
 	contract: TevmContract
 }
 
