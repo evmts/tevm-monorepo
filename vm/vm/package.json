@@ -73,7 +73,7 @@
 		"viem": "^1.19.11"
 	},
 	"devDependencies": {
-		"@evmts/ts-plugin": "workspace:^",
+		"@tevm/ts-plugin": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
 		"@types/debug": "^4.1.12",
 		"bun-types": "^1.0.15",
