@@ -1615,7 +1615,7 @@ importers:
         specifier: ^7.1.0
         version: 7.1.0
       '@tevm/contract':
-        specifier: workspace:1.0.0-next.20
+        specifier: workspace:^
         version: link:../../packages/contract
       '@tevm/core':
         specifier: 1.0.0-next.12
