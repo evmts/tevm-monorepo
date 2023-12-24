@@ -55,12 +55,10 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
-		"@ethereumjs/block": "^5.0.1",
 		"@ethereumjs/common": "^4.1.0",
 		"@ethereumjs/evm": "^2.1.0",
 		"@ethereumjs/statemanager": "^2.1.0",
 		"@ethereumjs/trie": "^6.0.1",
-		"@ethereumjs/tx": "^5.1.0",
 		"@ethereumjs/util": "^9.0.1",
 		"@ethereumjs/vm": "^7.1.0",
 		"@tevm/contract": "workspace:^",
