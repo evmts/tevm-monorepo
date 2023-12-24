@@ -1,10 +1,11 @@
-import { Address } from '@ethereumjs/util'
+import { Address as EthjsAddress } from '@ethereumjs/util'
 import { type TevmContract } from '@tevm/core'
-
+import { type Address } from 'abitype'
+import { getAddress } from 'viem'
 
 export type CustomPredeploy = {
-	address : string,
-	contract : TevmContract
+	address: string
+	contract: TevmContract
 }
 
 export abstract class Predeploy<
@@ -19,8 +20,8 @@ export abstract class Predeploy<
 		TBytecode,
 		TDeployedBytecode
 	>
-	public abstract readonly address: `0x${string}`
-	protected readonly ethjsAddress = () => Address.fromString(this.address)
+	public abstract readonly address: Address
+	protected readonly ethjsAddress = () => EthjsAddress.fromString(this.address)
 	public readonly predeploy = () => ({
 		address: this.ethjsAddress(),
 	})
@@ -45,7 +46,7 @@ export const definePredeploy = <
 		TDeployedBytecode
 	> {
 		contract = contract
-		address = address
+		address = getAddress(address)
 	}
 	return new PredeployImplementation()
 }
