@@ -83,7 +83,18 @@ describe('tevmViemExtension', () => {
 			account: {} as any,
 			chain: {} as any,
 		} as const
-		const response = await decorated.writeContractOptimistic(params)
+		const response = decorated.writeContractOptimistic(params)
+
+		expect((await response.next()).value).toEqual({
+			data: { gasUsed: 420n },
+			success: true,
+			tag: 'OPTIMISTIC_RESULT',
+		})
+		expect((await response.next()).value).toEqual({
+			data: mockWriteContractResponse,
+			success: true,
+			tag: 'HASH',
+		})
 
 		expect((client.request as jest.Mock).mock.lastCall[0]).toEqual({
 			method: 'tevm_contractCall',
@@ -98,8 +109,5 @@ describe('tevmViemExtension', () => {
 			account: params.account,
 			chain: params.chain,
 		})
-
-		expect(await response.result()).toEqual(mockWriteContractResponse)
-		expect(await response.optimisticResult()).toEqual({ gasUsed: 420n } as any)
 	})
 })

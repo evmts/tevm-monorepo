@@ -17,7 +17,7 @@
 
 #### Defined in
 
-[index.ts:1](https://github.com/evmts/tevm-monorepo/blob/main/vm/vm/src/index.ts#L1)
+[vm/vm/src/index.ts:1](https://github.com/evmts/tevm-monorepo/blob/main/vm/vm/src/index.ts#L1)
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 #### Defined in
 
-[viem/index.js:1](https://github.com/evmts/tevm-monorepo/blob/main/vm/vm/src/viem/index.js#L1)
+[vm/vm/src/viem/index.js:1](https://github.com/evmts/tevm-monorepo/blob/main/vm/vm/src/viem/index.js#L1)
