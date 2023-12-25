@@ -8,9 +8,8 @@ mock.module('viem/actions', () => ({
 	waitForTransactionReceipt: jest.fn(),
 }))
 
-
 const client = (() => {
-	const c = ({
+	const c = {
 		request: jest.fn(),
 		writeContract: jest.fn(),
 		extend: (decorator: ReturnType<typeof tevmViemExtensionOptimistic>) => {
@@ -19,8 +18,8 @@ const client = (() => {
 				...decorated,
 				...c,
 			}
-		}
-	})
+		},
+	}
 	return c
 })()
 
@@ -40,16 +39,18 @@ const mockTxReciept: WaitForTransactionReceiptReturnType = {
 	to: '0x420',
 	transactionHash: '0x420',
 	transactionIndex: 0,
-	type: 'eip1559'
+	type: 'eip1559',
 }
 
 client.request.mockResolvedValue(mockRequestResponse)
 client.writeContract.mockResolvedValue(mockWriteContractResponse)
-const mockWaitForTransactionReceipt = (await import('viem/actions')).waitForTransactionReceipt as jest.Mock
-mockWaitForTransactionReceipt.mockResolvedValue(mockTxReciept)
 
 describe('tevmViemExtension', () => {
 	it('writeContractOptimistic should write a contract call and optimistically execute it against the vm', async () => {
+		const mockWaitForTransactionReceipt = (await import('viem/actions'))
+			.waitForTransactionReceipt as jest.Mock
+		mockWaitForTransactionReceipt.mockResolvedValue(mockTxReciept)
+
 		const decoratedClient = client.extend(tevmViemExtensionOptimistic())
 
 		const params = {
@@ -62,7 +63,9 @@ describe('tevmViemExtension', () => {
 			chain: {} as any,
 		} as const
 
-		for await (const result of decoratedClient.writeContractOptimistic(params)) {
+		for await (const result of decoratedClient.writeContractOptimistic(
+			params,
+		)) {
 			if (result.tag === 'OPTIMISTIC_RESULT') {
 				expect(result).toEqual({
 					data: parse(JSON.stringify(mockRequestResponse)),
@@ -100,7 +103,5 @@ describe('tevmViemExtension', () => {
 				})
 			}
 		}
-
 	})
 })
-

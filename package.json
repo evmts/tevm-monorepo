@@ -38,7 +38,7 @@
 		"@changesets/changelog-github": "^0.4.8",
 		"@changesets/cli": "^2.26.2",
 		"@nrwl/devkit": "17.0.2",
-		"bun": "^1.0.1",
+		"bun": "^1.0.20",
 		"concurrently": "^8.2.2",
 		"dotenv": "^16.3.1",
 		"gitmoji-cli": "^8.4.0",

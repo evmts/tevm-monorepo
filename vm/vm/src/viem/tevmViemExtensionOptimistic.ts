@@ -1,7 +1,13 @@
 import type { OptimisticResult, TypedError, ViemTevmClient } from './types.js'
 import type { Abi } from 'abitype'
 import { parse, stringify } from 'superjson'
-import type { Account, Chain, Hex, Transport, WriteContractParameters } from 'viem'
+import type {
+	Account,
+	Chain,
+	Hex,
+	Transport,
+	WriteContractParameters,
+} from 'viem'
 import { waitForTransactionReceipt } from 'viem/actions'
 
 export const tevmViemExtensionOptimistic = () => {
@@ -59,7 +65,7 @@ export const tevmViemExtensionOptimistic = () => {
 						...getErrorsIfExist(),
 					}
 				} catch (error) {
-					errors.push(/** @type {any}*/(error as any))
+					errors.push(/** @type {any}*/ (error as any))
 					yield {
 						success: false,
 						tag: 'OPTIMISTIC_RESULT',
@@ -81,7 +87,7 @@ export const tevmViemExtensionOptimistic = () => {
 						...getErrorsIfExist(),
 					}
 				} catch (error) {
-					errors.push(/** @type {any}*/(error as any))
+					errors.push(/** @type {any}*/ (error as any))
 					yield {
 						success: false,
 						tag: 'HASH',
@@ -93,7 +99,7 @@ export const tevmViemExtensionOptimistic = () => {
 				if (hash) {
 					try {
 						const receipt = await waitForTransactionReceipt(
-							/** @type{any}*/(client as any),
+							/** @type{any}*/ (client as any),
 							{ hash },
 						)
 						yield {
@@ -103,7 +109,7 @@ export const tevmViemExtensionOptimistic = () => {
 							...getErrorsIfExist(),
 						}
 					} catch (error) {
-						errors.push(/** @type {any}*/(error as any))
+						errors.push(/** @type {any}*/ (error as any))
 						yield {
 							success: false,
 							tag: 'RECEIPT',

@@ -51,20 +51,14 @@ export type ViemTevmClient = {
 
 export type TypedError<T> = Error & { tag: T }
 
-export type GenResult<
-	TDataType,
-	TTag extends string,
-> = {
+export type GenResult<TDataType, TTag extends string> = {
 	success: true
 	tag: TTag
 	data: TDataType
 	errors?: ReadonlyArray<TypedError<string>>
 }
 
-type GenError<
-	TErrorType,
-	TTag extends string,
-> = {
+type GenError<TErrorType, TTag extends string> = {
 	errors?: ReadonlyArray<TypedError<string>>
 	error: TErrorType
 	success: false
@@ -104,7 +98,6 @@ export type ViemTevmOptimisticClient<
 		>,
 	): AsyncGenerator<OptimisticResult<TAbi, TFunctionName, TChain>>
 }
-
 
 export type ViemTevmClientDecorator = (
 	client: Pick<import('viem').Client, 'request'>,
