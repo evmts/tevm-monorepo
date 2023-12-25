@@ -136,7 +136,7 @@ describe(tsPlugin.name, () => {
 			getFileNames: () => ['foo.ts', 'bar.sol'],
 		}
 		const decorator = tsPlugin({ typescript })
-		expect(decorator.getExternalFiles?.(mockProject as any)).toEqual([
+		expect(decorator.getExternalFiles?.(mockProject as any, 0)).toEqual([
 			'bar.sol',
 		])
 	})
