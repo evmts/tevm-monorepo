@@ -1,7 +1,7 @@
 import type { OptimisticResult, TypedError, ViemTevmClient } from './types.js'
 import type { Abi } from 'abitype'
 import { parse, stringify } from 'superjson'
-import type { Account, Chain, Transport, WriteContractParameters } from 'viem'
+import type { Account, Chain, Hex, Transport, WriteContractParameters } from 'viem'
 import { waitForTransactionReceipt } from 'viem/actions'
 
 export const tevmViemExtensionOptimistic = () => {
@@ -59,7 +59,7 @@ export const tevmViemExtensionOptimistic = () => {
 						...getErrorsIfExist(),
 					}
 				} catch (error) {
-					errors.push(/** @type {any}*/ (error as any))
+					errors.push(/** @type {any}*/(error as any))
 					yield {
 						success: false,
 						tag: 'OPTIMISTIC_RESULT',
@@ -71,7 +71,7 @@ export const tevmViemExtensionOptimistic = () => {
 				/**
 				 * @type {import('viem').Hex | undefined}
 				 **/
-				let hash = undefined
+				let hash: Hex | undefined = undefined
 				try {
 					hash = await writeContractResult
 					yield {
@@ -81,11 +81,11 @@ export const tevmViemExtensionOptimistic = () => {
 						...getErrorsIfExist(),
 					}
 				} catch (error) {
-					errors.push(/** @type {any}*/ (error as any))
-					return {
+					errors.push(/** @type {any}*/(error as any))
+					yield {
 						success: false,
 						tag: 'HASH',
-						error: /** @type {any}*/ error,
+						error: /** @type {any}*/ error as any,
 						...getErrorsIfExist(),
 					}
 				}
@@ -93,27 +93,27 @@ export const tevmViemExtensionOptimistic = () => {
 				if (hash) {
 					try {
 						const receipt = await waitForTransactionReceipt(
-							/** @type{any}*/ (client as any),
+							/** @type{any}*/(client as any),
 							{ hash },
 						)
-						return {
+						yield {
 							success: true,
 							tag: 'RECEIPT',
-							data: /** @type {any} */ (receipt),
+							data: /** @type {any} */ (receipt as any),
 							...getErrorsIfExist(),
 						}
 					} catch (error) {
-						errors.push(/** @type {any}*/ (error as any))
-						return {
+						errors.push(/** @type {any}*/(error as any))
+						yield {
 							success: false,
 							tag: 'RECEIPT',
-							error: /** @type {any} */ (error),
+							error: /** @type {any} */ (error as any),
 							errors,
 							...getErrorsIfExist(),
 						}
 					}
 				}
-				throw new Error('Unexpected error: Impossible codepath')
+				return
 			},
 		}
 	}
