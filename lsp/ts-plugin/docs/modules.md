@@ -6,13 +6,13 @@
 
 ### Functions
 
-- [export=](modules.md#export=)
+- [export=](undefined)
 
 ## Functions
 
 ### export&#x3D;
 
-▸ **export=**(`mod`): `PluginModule`
+▸ **export=**(`mod`): PluginModule
 
 [Typescript plugin factory](https://github.com/microsoft/TypeScript/wiki/Writing-a-Language-Service-Plugin)
 
@@ -20,12 +20,12 @@
 
 | Name | Type |
 | :------ | :------ |
-| `mod` | `Object` |
-| `mod.typescript` | typeof `ts` |
+| `mod` | Object |
+| `mod.typescript` | typeof ts |
 
 #### Returns
 
-`PluginModule`
+PluginModule
 
 **`Example`**
 
@@ -37,4 +37,4 @@
 
 #### Defined in
 
-node_modules/.pnpm/typescript@5.2.2/node_modules/typescript/lib/tsserverlibrary.d.ts:3243
+node_modules/.pnpm/typescript@5.3.3/node_modules/typescript/lib/typescript.d.ts:3284

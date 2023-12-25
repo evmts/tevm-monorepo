@@ -68,18 +68,12 @@
 		"ethers": "^6.9.0",
 		"superjson": "^2.2.1",
 		"supertest": "^6.3.3",
-		"viem": "^1.19.11"
+		"viem": "^1.19.11",
+		"zod": "^3.22.4"
 	},
 	"devDependencies": {
 		"@tevm/tsconfig": "workspace:^",
-		"@types/debug": "^4.1.12",
-		"bun-types": "^1.0.15",
-		"rome": "^12.1.3",
-		"tsup": "^8.0.1",
-		"typedoc": "^0.25.4",
-		"typedoc-plugin-markdown": "^3.17.1",
-		"typescript": "^5.3.3",
-		"zod": "^3.22.4"
+		"@types/debug": "^4.1.12"
 	},
 	"publishConfig": {
 		"access": "public"

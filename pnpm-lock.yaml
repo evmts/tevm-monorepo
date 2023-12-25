@@ -17,9 +17,18 @@ importers:
       '@nrwl/devkit':
         specifier: 17.0.2
         version: 17.0.2(nx@17.0.2)
+      '@vitest/coverage-v8':
+        specifier: ^0.34.6
+        version: 0.34.6(vitest@0.34.6)
+      '@vitest/ui':
+        specifier: ^0.34.6
+        version: 0.34.6(vitest@0.34.6)
       bun:
         specifier: ^1.0.20
         version: 1.0.20
+      bun-types:
+        specifier: ^1.0.15
+        version: 1.0.15
       concurrently:
         specifier: ^8.2.2
         version: 8.2.2
@@ -38,6 +47,24 @@ importers:
       sort-package-json:
         specifier: ^2.5.1
         version: 2.6.0
+      tsup:
+        specifier: ^8.0.1
+        version: 8.0.1(typescript@5.3.3)
+      typedoc:
+        specifier: ^0.25.4
+        version: 0.25.4(typescript@5.3.3)
+      typedoc-plugin-markdown:
+        specifier: ^3.17.1
+        version: 3.17.1(typedoc@0.25.4)
+      typescript:
+        specifier: ^5.3.3
+        version: 5.3.3
+      vite:
+        specifier: ^5.0.6
+        version: 5.0.6
+      vitest:
+        specifier: ^0.34.6
+        version: 0.34.6(@vitest/ui@0.34.6)
 
   apps/docs:
     dependencies:
@@ -65,7 +92,7 @@ importers:
         version: 3.3.5
       vitepress:
         specifier: 1.0.0-rc.24
-        version: 1.0.0-rc.24(@algolia/client-search@4.20.0)(postcss@8.4.31)(search-insights@2.11.0)
+        version: 1.0.0-rc.24(@algolia/client-search@4.20.0)(postcss@8.4.31)(search-insights@2.11.0)(typescript@5.3.3)
 
   bundler/base:
     dependencies:
@@ -94,33 +121,9 @@ importers:
       '@types/node':
         specifier: ^20.8.9
         version: 20.9.1
-      '@vitest/coverage-v8':
-        specifier: ^0.34.6
-        version: 0.34.6(vitest@0.34.6)
-      '@vitest/ui':
-        specifier: ^0.34.6
-        version: 0.34.6(vitest@0.34.6)
-      rome:
-        specifier: ^12.1.3
-        version: 12.1.3
       solc:
         specifier: 0.8.22
         version: 0.8.22
-      tsup:
-        specifier: ^7.2.0
-        version: 7.3.0(typescript@5.2.2)
-      typedoc:
-        specifier: ^0.25.3
-        version: 0.25.3(typescript@5.2.2)
-      typedoc-plugin-markdown:
-        specifier: ^3.16.0
-        version: 3.17.1(typedoc@0.25.3)
-      typescript:
-        specifier: ^5.2.2
-        version: 5.2.2
-      vitest:
-        specifier: ^0.34.6
-        version: 0.34.6(@vitest/ui@0.34.6)
 
   bundler/bun:
     dependencies:
@@ -146,33 +149,6 @@ importers:
       '@tevm/tsconfig':
         specifier: workspace:^
         version: link:../../configs/tsconfig
-      '@vitest/coverage-v8':
-        specifier: ^0.34.6
-        version: 0.34.6(vitest@0.34.6)
-      '@vitest/ui':
-        specifier: ^0.34.6
-        version: 0.34.6(vitest@0.34.6)
-      bun-types:
-        specifier: ^1.0.7
-        version: 1.0.12
-      rome:
-        specifier: ^12.1.3
-        version: 12.1.3
-      tsup:
-        specifier: ^7.2.0
-        version: 7.3.0(typescript@5.2.2)
-      typedoc:
-        specifier: ^0.25.3
-        version: 0.25.3(typescript@5.2.2)
-      typedoc-plugin-markdown:
-        specifier: ^3.16.0
-        version: 3.17.1(typedoc@0.25.3)
-      typescript:
-        specifier: ^5.2.2
-        version: 5.2.2
-      vitest:
-        specifier: ^0.34.6
-        version: 0.34.6(@vitest/ui@0.34.6)
 
   bundler/config:
     dependencies:
@@ -195,30 +171,6 @@ importers:
       '@tevm/tsconfig':
         specifier: workspace:^
         version: link:../../configs/tsconfig
-      '@vitest/coverage-v8':
-        specifier: ^0.34.6
-        version: 0.34.6(vitest@0.34.6)
-      '@vitest/ui':
-        specifier: ^0.34.6
-        version: 0.34.6(vitest@0.34.6)
-      rome:
-        specifier: ^12.1.3
-        version: 12.1.3
-      tsup:
-        specifier: ^7.2.0
-        version: 7.3.0(typescript@5.2.2)
-      typedoc:
-        specifier: ^0.25.3
-        version: 0.25.3(typescript@5.2.2)
-      typedoc-plugin-markdown:
-        specifier: ^3.16.0
-        version: 3.17.1(typedoc@0.25.3)
-      typescript:
-        specifier: ^5.2.2
-        version: 5.2.2
-      vitest:
-        specifier: ^0.34.6
-        version: 0.34.6(@vitest/ui@0.34.6)
 
   bundler/esbuild:
     dependencies:
@@ -232,30 +184,6 @@ importers:
       '@tevm/tsconfig':
         specifier: workspace:^
         version: link:../../configs/tsconfig
-      '@vitest/coverage-v8':
-        specifier: ^0.34.6
-        version: 0.34.6(vitest@0.34.6)
-      '@vitest/ui':
-        specifier: ^0.34.6
-        version: 0.34.6(vitest@0.34.6)
-      rome:
-        specifier: ^12.1.3
-        version: 12.1.3
-      tsup:
-        specifier: ^7.2.0
-        version: 7.3.0(typescript@5.2.2)
-      typedoc:
-        specifier: ^0.25.3
-        version: 0.25.3(typescript@5.2.2)
-      typedoc-plugin-markdown:
-        specifier: ^3.16.0
-        version: 3.17.1(typedoc@0.25.3)
-      typescript:
-        specifier: ^5.2.2
-        version: 5.2.2
-      vitest:
-        specifier: ^0.34.6
-        version: 0.34.6(@vitest/ui@0.34.6)
 
   bundler/resolutions:
     dependencies:
@@ -284,30 +212,6 @@ importers:
       '@types/resolve':
         specifier: ^1.20.4
         version: 1.20.5
-      '@vitest/coverage-v8':
-        specifier: ^0.34.6
-        version: 0.34.6(vitest@0.34.6)
-      '@vitest/ui':
-        specifier: ^0.34.6
-        version: 0.34.6(vitest@0.34.6)
-      rome:
-        specifier: ^12.1.3
-        version: 12.1.3
-      tsup:
-        specifier: ^7.2.0
-        version: 7.3.0(typescript@5.2.2)
-      typedoc:
-        specifier: ^0.25.3
-        version: 0.25.3(typescript@5.2.2)
-      typedoc-plugin-markdown:
-        specifier: ^3.16.0
-        version: 3.17.1(typedoc@0.25.3)
-      typescript:
-        specifier: ^5.2.2
-        version: 5.2.2
-      vitest:
-        specifier: ^0.34.6
-        version: 0.34.6(@vitest/ui@0.34.6)
 
   bundler/rollup:
     dependencies:
@@ -318,27 +222,6 @@ importers:
       '@tevm/tsconfig':
         specifier: workspace:^
         version: link:../../configs/tsconfig
-      '@vitest/ui':
-        specifier: ^0.34.6
-        version: 0.34.6(vitest@0.34.6)
-      rome:
-        specifier: ^12.1.3
-        version: 12.1.3
-      tsup:
-        specifier: ^7.2.0
-        version: 7.3.0(typescript@5.2.2)
-      typedoc:
-        specifier: ^0.25.3
-        version: 0.25.3(typescript@5.2.2)
-      typedoc-plugin-markdown:
-        specifier: ^3.16.0
-        version: 3.17.1(typedoc@0.25.3)
-      typescript:
-        specifier: ^5.2.2
-        version: 5.2.2
-      vitest:
-        specifier: ^0.34.6
-        version: 0.34.6(@vitest/ui@0.34.6)
 
   bundler/rspack:
     dependencies:
@@ -349,27 +232,6 @@ importers:
       '@tevm/tsconfig':
         specifier: workspace:^
         version: link:../../configs/tsconfig
-      '@vitest/ui':
-        specifier: ^0.34.6
-        version: 0.34.6(vitest@0.34.6)
-      rome:
-        specifier: ^12.1.3
-        version: 12.1.3
-      tsup:
-        specifier: ^7.2.0
-        version: 7.3.0(typescript@5.2.2)
-      typedoc:
-        specifier: ^0.25.3
-        version: 0.25.3(typescript@5.2.2)
-      typedoc-plugin-markdown:
-        specifier: ^3.16.0
-        version: 3.17.1(typedoc@0.25.3)
-      typescript:
-        specifier: ^5.2.2
-        version: 5.2.2
-      vitest:
-        specifier: ^0.34.6
-        version: 0.34.6(@vitest/ui@0.34.6)
 
   bundler/runtime:
     dependencies:
@@ -383,33 +245,9 @@ importers:
       '@tevm/solc':
         specifier: workspace:^
         version: link:../solc
-      '@vitest/coverage-v8':
-        specifier: ^0.34.6
-        version: 0.34.6(vitest@0.34.6)
-      '@vitest/ui':
-        specifier: ^0.34.6
-        version: 0.34.6(vitest@0.34.6)
       abitype:
         specifier: ^0.10.2
-        version: 0.10.2(typescript@5.2.2)(zod@3.22.4)
-      rome:
-        specifier: ^12.1.3
-        version: 12.1.3
-      tsup:
-        specifier: ^7.2.0
-        version: 7.3.0(typescript@5.2.2)
-      typedoc:
-        specifier: ^0.25.3
-        version: 0.25.3(typescript@5.2.2)
-      typedoc-plugin-markdown:
-        specifier: ^3.16.0
-        version: 3.17.1(typedoc@0.25.3)
-      typescript:
-        specifier: ^5.2.2
-        version: 5.2.2
-      vitest:
-        specifier: ^0.34.6
-        version: 0.34.6(@vitest/ui@0.34.6)
+        version: 0.10.2(typescript@5.3.3)
 
   bundler/solc:
     dependencies:
@@ -447,45 +285,18 @@ importers:
       '@openzeppelin/contracts':
         specifier: ^4.9.3
         version: 4.9.3
-      '@vitest/coverage-v8':
-        specifier: ^0.34.6
-        version: 0.34.6(vitest@0.34.6)
-      '@vitest/ui':
-        specifier: ^0.34.6
-        version: 0.34.6(vitest@0.34.6)
       abitype:
         specifier: ^0.10.2
-        version: 0.10.2(typescript@5.2.2)(zod@3.22.4)
-      rome:
-        specifier: ^12.1.3
-        version: 12.1.3
+        version: 0.10.2(typescript@5.3.3)
       solc:
         specifier: 0.8.22
         version: 0.8.22
-      tsup:
-        specifier: ^7.2.0
-        version: 7.3.0(typescript@5.2.2)
-      typedoc:
-        specifier: ^0.25.3
-        version: 0.25.3(typescript@5.2.2)
-      typedoc-plugin-markdown:
-        specifier: ^3.16.0
-        version: 3.17.1(typedoc@0.25.3)
-      typescript:
-        specifier: ^5.2.2
-        version: 5.2.2
-      vitest:
-        specifier: ^0.34.6
-        version: 0.34.6(@vitest/ui@0.34.6)
-      wagmi:
-        specifier: ^1.4.5
-        version: 1.4.7(react@18.2.0)(typescript@5.2.2)(viem@1.19.11)(zod@3.22.4)
-      zod:
-        specifier: ^3.22.4
-        version: 3.22.4
 
   bundler/unplugin:
     dependencies:
+      '@tevm/base':
+        specifier: workspace:^
+        version: link:../base
       '@tevm/config':
         specifier: workspace:^
         version: link:../config
@@ -501,43 +312,16 @@ importers:
       unplugin:
         specifier: ^1.5.0
         version: 1.5.1
+      zod:
+        specifier: ^3.22.4
+        version: 3.22.4
     devDependencies:
-      '@tevm/base':
-        specifier: workspace:^
-        version: link:../base
       '@tevm/tsconfig':
         specifier: workspace:^
         version: link:../../configs/tsconfig
       '@types/node':
         specifier: ^20.8.9
         version: 20.9.1
-      '@vitest/coverage-v8':
-        specifier: ^0.34.6
-        version: 0.34.6(vitest@0.34.6)
-      '@vitest/ui':
-        specifier: ^0.34.6
-        version: 0.34.6(vitest@0.34.6)
-      rome:
-        specifier: ^12.1.3
-        version: 12.1.3
-      tsup:
-        specifier: ^7.2.0
-        version: 7.3.0(typescript@5.2.2)
-      typedoc:
-        specifier: ^0.25.3
-        version: 0.25.3(typescript@5.2.2)
-      typedoc-plugin-markdown:
-        specifier: ^3.16.0
-        version: 3.17.1(typedoc@0.25.3)
-      typescript:
-        specifier: ^5.2.2
-        version: 5.2.2
-      vitest:
-        specifier: ^0.34.6
-        version: 0.34.6(@vitest/ui@0.34.6)
-      zod:
-        specifier: ^3.22.4
-        version: 3.22.4
 
   bundler/vite:
     dependencies:
@@ -548,27 +332,6 @@ importers:
       '@tevm/tsconfig':
         specifier: workspace:^
         version: link:../../configs/tsconfig
-      '@vitest/ui':
-        specifier: ^0.34.6
-        version: 0.34.6(vitest@0.34.6)
-      rome:
-        specifier: ^12.1.3
-        version: 12.1.3
-      tsup:
-        specifier: ^7.2.0
-        version: 7.3.0(typescript@5.2.2)
-      typedoc:
-        specifier: ^0.25.3
-        version: 0.25.3(typescript@5.2.2)
-      typedoc-plugin-markdown:
-        specifier: ^3.16.0
-        version: 3.17.1(typedoc@0.25.3)
-      typescript:
-        specifier: ^5.2.2
-        version: 5.2.2
-      vitest:
-        specifier: ^0.34.6
-        version: 0.34.6(@vitest/ui@0.34.6)
 
   bundler/webpack:
     dependencies:
@@ -577,32 +340,11 @@ importers:
         version: link:../unplugin
       webpack:
         specifier: '>5.0.0'
-        version: 5.89.0(esbuild@0.19.8)
+        version: 5.89.0(esbuild@0.19.10)
     devDependencies:
       '@tevm/tsconfig':
         specifier: workspace:^
         version: link:../../configs/tsconfig
-      '@vitest/ui':
-        specifier: ^0.34.6
-        version: 0.34.6(vitest@0.34.6)
-      rome:
-        specifier: ^12.1.3
-        version: 12.1.3
-      tsup:
-        specifier: ^7.2.0
-        version: 7.3.0(typescript@5.2.2)
-      typedoc:
-        specifier: ^0.25.3
-        version: 0.25.3(typescript@5.2.2)
-      typedoc-plugin-markdown:
-        specifier: ^3.16.0
-        version: 3.17.1(typedoc@0.25.3)
-      typescript:
-        specifier: ^5.2.2
-        version: 5.2.2
-      vitest:
-        specifier: ^0.34.6
-        version: 0.34.6(@vitest/ui@0.34.6)
 
   configs/tsconfig: {}
 
@@ -796,7 +538,7 @@ importers:
         version: 0.12.5
       viem:
         specifier: ~1.19.4
-        version: 1.19.4(typescript@5.2.2)(zod@3.22.4)
+        version: 1.19.4(typescript@5.2.2)
       wagmi:
         specifier: ^1.4.7
         version: 1.4.7(@types/react@18.2.37)(react-dom@18.2.0)(react@18.2.0)(typescript@5.2.2)(viem@1.19.4)
@@ -916,36 +658,12 @@ importers:
       '@tevm/tsconfig':
         specifier: workspace:^
         version: link:../../configs/tsconfig
-      '@vitest/coverage-v8':
-        specifier: ^0.34.6
-        version: 0.34.6(vitest@0.34.6)
-      '@vitest/ui':
-        specifier: ^0.34.6
-        version: 0.34.6(vitest@0.34.6)
       abitype:
         specifier: ^0.10.2
-        version: 0.10.2(typescript@5.2.2)(zod@3.22.4)
+        version: 0.10.2(typescript@5.3.3)
       ethers:
         specifier: ^6.8.0
         version: 6.8.1
-      rome:
-        specifier: ^12.1.3
-        version: 12.1.3
-      tsup:
-        specifier: ^7.2.0
-        version: 7.3.0(typescript@5.2.2)
-      typedoc:
-        specifier: ^0.25.3
-        version: 0.25.3(typescript@5.2.2)
-      typedoc-plugin-markdown:
-        specifier: ^3.16.0
-        version: 3.17.1(typedoc@0.25.3)
-      typescript:
-        specifier: ^5.2.2
-        version: 5.2.2
-      vitest:
-        specifier: ^0.34.6
-        version: 0.34.6(@vitest/ui@0.34.6)
 
   extensions/viem:
     dependencies:
@@ -1135,27 +853,9 @@ importers:
       '@tevm/config':
         specifier: workspace:^
         version: link:../../bundler/config
-      '@vitest/coverage-v8':
-        specifier: ^0.34.6
-        version: 0.34.6(vitest@0.34.6)
-      rome:
-        specifier: ^12.1.3
-        version: 12.1.3
-      tsup:
-        specifier: ^7.2.0
-        version: 7.3.0(typescript@5.2.2)
-      typedoc:
-        specifier: ^0.25.3
-        version: 0.25.3(typescript@5.2.2)
-      typedoc-plugin-markdown:
-        specifier: ^3.16.0
-        version: 3.17.1(typedoc@0.25.3)
       typescript:
         specifier: ^5.2.2
-        version: 5.2.2
-      vitest:
-        specifier: ^0.34.6
-        version: 0.34.6(@vitest/ui@0.34.6)
+        version: 5.3.3
 
   lsp/vscode:
     devDependencies:
@@ -1249,46 +949,22 @@ importers:
         version: 1.0.0-next.12(viem@1.19.4)
       '@evmts/ts-plugin':
         specifier: next
-        version: 1.0.0-next.18(fast-check@3.14.0)(typescript@5.2.2)
+        version: 1.0.0-next.18(fast-check@3.14.0)(typescript@5.3.3)
       '@evmts/vite-plugin':
         specifier: next
-        version: 1.0.0-next.19(esbuild@0.19.5)(fast-check@3.14.0)(typescript@5.2.2)
+        version: 1.0.0-next.19(esbuild@0.19.5)(fast-check@3.14.0)(typescript@5.3.3)
       '@openzeppelin/contracts':
         specifier: ^5.0.1
         version: 5.0.1
       '@tevm/tsconfig':
         specifier: workspace:^
         version: link:../../configs/tsconfig
-      '@vitest/coverage-v8':
-        specifier: ^0.34.6
-        version: 0.34.6(vitest@0.34.6)
-      '@vitest/ui':
-        specifier: ^0.34.6
-        version: 0.34.6(vitest@0.34.6)
       abitype:
         specifier: ^0.10.2
-        version: 0.10.2(typescript@5.2.2)(zod@3.22.4)
-      rome:
-        specifier: ^12.1.3
-        version: 12.1.3
-      typedoc:
-        specifier: ^0.25.3
-        version: 0.25.3(typescript@5.2.2)
-      typedoc-plugin-markdown:
-        specifier: ^3.16.0
-        version: 3.17.1(typedoc@0.25.3)
-      typescript:
-        specifier: ^5.2.2
-        version: 5.2.2
+        version: 0.10.2(typescript@5.3.3)
       viem:
         specifier: ^1.18.1
-        version: 1.19.4(typescript@5.2.2)(zod@3.22.4)
-      vite:
-        specifier: ^5.0.6
-        version: 5.0.6
-      vitest:
-        specifier: ^0.34.6
-        version: 0.34.6(@vitest/ui@0.34.6)
+        version: 1.19.4(typescript@5.3.3)(zod@3.22.4)
 
   packages/effect:
     dependencies:
@@ -1314,30 +990,6 @@ importers:
       '@types/resolve':
         specifier: ^1.20.4
         version: 1.20.5
-      '@vitest/coverage-v8':
-        specifier: ^0.34.6
-        version: 0.34.6(vitest@0.34.6)
-      '@vitest/ui':
-        specifier: ^0.34.6
-        version: 0.34.6(vitest@0.34.6)
-      rome:
-        specifier: ^12.1.3
-        version: 12.1.3
-      tsup:
-        specifier: ^7.2.0
-        version: 7.3.0(typescript@5.2.2)
-      typedoc:
-        specifier: ^0.25.3
-        version: 0.25.3(typescript@5.2.2)
-      typedoc-plugin-markdown:
-        specifier: ^3.16.0
-        version: 3.17.1(typedoc@0.25.3)
-      typescript:
-        specifier: ^5.2.2
-        version: 5.2.2
-      vitest:
-        specifier: ^0.34.6
-        version: 0.34.6(@vitest/ui@0.34.6)
 
   packages/revm:
     devDependencies:
@@ -1396,42 +1048,12 @@ importers:
       '@tevm/tsconfig':
         specifier: workspace:^
         version: link:../../configs/tsconfig
-      '@vitest/coverage-v8':
-        specifier: ^0.34.6
-        version: 0.34.6(vitest@0.34.6)
-      '@vitest/ui':
-        specifier: ^0.34.6
-        version: 0.34.6(vitest@0.34.6)
       abitype:
         specifier: ^0.10.2
-        version: 0.10.2(typescript@5.2.2)(zod@3.22.4)
-      rome:
-        specifier: ^12.1.3
-        version: 12.1.3
-      tsup:
-        specifier: ^7.2.0
-        version: 7.3.0(typescript@5.2.2)
-      typedoc:
-        specifier: ^0.25.3
-        version: 0.25.3(typescript@5.2.2)
-      typedoc-plugin-markdown:
-        specifier: ^3.16.0
-        version: 3.17.1(typedoc@0.25.3)
-      typescript:
-        specifier: ^5.2.2
-        version: 5.2.2
+        version: 0.10.2(typescript@5.3.3)
       viem:
         specifier: ^1.18.1
-        version: 1.18.9(typescript@5.2.2)(zod@3.22.4)
-      vitest:
-        specifier: ^0.34.6
-        version: 0.34.6(@vitest/ui@0.34.6)
-      wagmi:
-        specifier: ^1.4.5
-        version: 1.4.7(react@18.2.0)(typescript@5.2.2)(viem@1.18.9)(zod@3.22.4)
-      zod:
-        specifier: ^3.22.4
-        version: 3.22.4
+        version: 1.18.9(typescript@5.3.3)
 
   packages/state:
     dependencies:
@@ -1523,6 +1145,9 @@ importers:
       viem:
         specifier: ^1.19.11
         version: 1.19.11(typescript@5.3.3)(zod@3.22.4)
+      zod:
+        specifier: ^3.22.4
+        version: 3.22.4
     devDependencies:
       '@tevm/tsconfig':
         specifier: workspace:^
@@ -1530,27 +1155,6 @@ importers:
       '@types/debug':
         specifier: ^4.1.12
         version: 4.1.12
-      bun-types:
-        specifier: ^1.0.15
-        version: 1.0.15
-      rome:
-        specifier: ^12.1.3
-        version: 12.1.3
-      tsup:
-        specifier: ^8.0.1
-        version: 8.0.1(typescript@5.3.3)
-      typedoc:
-        specifier: ^0.25.4
-        version: 0.25.4(typescript@5.3.3)
-      typedoc-plugin-markdown:
-        specifier: ^3.17.1
-        version: 3.17.1(typedoc@0.25.4)
-      typescript:
-        specifier: ^5.3.3
-        version: 5.3.3
-      zod:
-        specifier: ^3.22.4
-        version: 3.22.4
 
 packages:
 
@@ -2383,6 +1987,14 @@ packages:
     resolution: {integrity: sha512-kBJtf7PH6aWwZ6fka3zQ0p6SBYzx4fl1LoZXE2RrnYST9Xljm7WfKJrU4g/Xr3Beg72MLrp1AWNUmuYJTL7Cow==}
     dev: false
 
+  /@esbuild/aix-ppc64@0.19.10:
+    resolution: {integrity: sha512-Q+mk96KJ+FZ30h9fsJl+67IjNJm3x2eX+GBWGmocAKgzp27cowCOOqSdscX80s0SpdFXZnIv/+1xD1EctFx96Q==}
+    engines: {node: '>=12'}
+    cpu: [ppc64]
+    os: [aix]
+    requiresBuild: true
+    optional: true
+
   /@esbuild/android-arm64@0.18.20:
     resolution: {integrity: sha512-Nz4rJcchGDtENV0eMKUNa6L12zz2zBDXuhj/Vjh18zGqB44Bi7MBMSXjgunJgjRhCmKOjnPuZp4Mb6OKqtMHLQ==}
     engines: {node: '>=12'}
@@ -2390,6 +2002,14 @@ packages:
     os: [android]
     requiresBuild: true
     dev: true
+    optional: true
+
+  /@esbuild/android-arm64@0.19.10:
+    resolution: {integrity: sha512-1X4CClKhDgC3by7k8aOWZeBXQX8dHT5QAMCAQDArCLaYfkppoARvh0fit3X2Qs+MXDngKcHv6XXyQCpY0hkK1Q==}
+    engines: {node: '>=12'}
+    cpu: [arm64]
+    os: [android]
+    requiresBuild: true
     optional: true
 
   /@esbuild/android-arm64@0.19.5:
@@ -2415,6 +2035,7 @@ packages:
     cpu: [arm64]
     os: [android]
     requiresBuild: true
+    dev: true
     optional: true
 
   /@esbuild/android-arm@0.18.20:
@@ -2424,6 +2045,14 @@ packages:
     os: [android]
     requiresBuild: true
     dev: true
+    optional: true
+
+  /@esbuild/android-arm@0.19.10:
+    resolution: {integrity: sha512-7W0bK7qfkw1fc2viBfrtAEkDKHatYfHzr/jKAHNr9BvkYDXPcC6bodtm8AyLJNNuqClLNaeTLuwURt4PRT9d7w==}
+    engines: {node: '>=12'}
+    cpu: [arm]
+    os: [android]
+    requiresBuild: true
     optional: true
 
   /@esbuild/android-arm@0.19.5:
@@ -2449,6 +2078,7 @@ packages:
     cpu: [arm]
     os: [android]
     requiresBuild: true
+    dev: true
     optional: true
 
   /@esbuild/android-x64@0.18.20:
@@ -2458,6 +2088,14 @@ packages:
     os: [android]
     requiresBuild: true
     dev: true
+    optional: true
+
+  /@esbuild/android-x64@0.19.10:
+    resolution: {integrity: sha512-O/nO/g+/7NlitUxETkUv/IvADKuZXyH4BHf/g/7laqKC4i/7whLpB0gvpPc2zpF0q9Q6FXS3TS75QHac9MvVWw==}
+    engines: {node: '>=12'}
+    cpu: [x64]
+    os: [android]
+    requiresBuild: true
     optional: true
 
   /@esbuild/android-x64@0.19.5:
@@ -2483,6 +2121,7 @@ packages:
     cpu: [x64]
     os: [android]
     requiresBuild: true
+    dev: true
     optional: true
 
   /@esbuild/darwin-arm64@0.18.20:
@@ -2492,6 +2131,14 @@ packages:
     os: [darwin]
     requiresBuild: true
     dev: true
+    optional: true
+
+  /@esbuild/darwin-arm64@0.19.10:
+    resolution: {integrity: sha512-YSRRs2zOpwypck+6GL3wGXx2gNP7DXzetmo5pHXLrY/VIMsS59yKfjPizQ4lLt5vEI80M41gjm2BxrGZ5U+VMA==}
+    engines: {node: '>=12'}
+    cpu: [arm64]
+    os: [darwin]
+    requiresBuild: true
     optional: true
 
   /@esbuild/darwin-arm64@0.19.5:
@@ -2517,6 +2164,7 @@ packages:
     cpu: [arm64]
     os: [darwin]
     requiresBuild: true
+    dev: true
     optional: true
 
   /@esbuild/darwin-x64@0.18.20:
@@ -2526,6 +2174,14 @@ packages:
     os: [darwin]
     requiresBuild: true
     dev: true
+    optional: true
+
+  /@esbuild/darwin-x64@0.19.10:
+    resolution: {integrity: sha512-alfGtT+IEICKtNE54hbvPg13xGBe4GkVxyGWtzr+yHO7HIiRJppPDhOKq3zstTcVf8msXb/t4eavW3jCDpMSmA==}
+    engines: {node: '>=12'}
+    cpu: [x64]
+    os: [darwin]
+    requiresBuild: true
     optional: true
 
   /@esbuild/darwin-x64@0.19.5:
@@ -2551,6 +2207,7 @@ packages:
     cpu: [x64]
     os: [darwin]
     requiresBuild: true
+    dev: true
     optional: true
 
   /@esbuild/freebsd-arm64@0.18.20:
@@ -2560,6 +2217,14 @@ packages:
     os: [freebsd]
     requiresBuild: true
     dev: true
+    optional: true
+
+  /@esbuild/freebsd-arm64@0.19.10:
+    resolution: {integrity: sha512-dMtk1wc7FSH8CCkE854GyGuNKCewlh+7heYP/sclpOG6Cectzk14qdUIY5CrKDbkA/OczXq9WesqnPl09mj5dg==}
+    engines: {node: '>=12'}
+    cpu: [arm64]
+    os: [freebsd]
+    requiresBuild: true
     optional: true
 
   /@esbuild/freebsd-arm64@0.19.5:
@@ -2585,6 +2250,7 @@ packages:
     cpu: [arm64]
     os: [freebsd]
     requiresBuild: true
+    dev: true
     optional: true
 
   /@esbuild/freebsd-x64@0.18.20:
@@ -2594,6 +2260,14 @@ packages:
     os: [freebsd]
     requiresBuild: true
     dev: true
+    optional: true
+
+  /@esbuild/freebsd-x64@0.19.10:
+    resolution: {integrity: sha512-G5UPPspryHu1T3uX8WiOEUa6q6OlQh6gNl4CO4Iw5PS+Kg5bVggVFehzXBJY6X6RSOMS8iXDv2330VzaObm4Ag==}
+    engines: {node: '>=12'}
+    cpu: [x64]
+    os: [freebsd]
+    requiresBuild: true
     optional: true
 
   /@esbuild/freebsd-x64@0.19.5:
@@ -2619,6 +2293,7 @@ packages:
     cpu: [x64]
     os: [freebsd]
     requiresBuild: true
+    dev: true
     optional: true
 
   /@esbuild/linux-arm64@0.18.20:
@@ -2628,6 +2303,14 @@ packages:
     os: [linux]
     requiresBuild: true
     dev: true
+    optional: true
+
+  /@esbuild/linux-arm64@0.19.10:
+    resolution: {integrity: sha512-QxaouHWZ+2KWEj7cGJmvTIHVALfhpGxo3WLmlYfJ+dA5fJB6lDEIg+oe/0//FuyVHuS3l79/wyBxbHr0NgtxJQ==}
+    engines: {node: '>=12'}
+    cpu: [arm64]
+    os: [linux]
+    requiresBuild: true
     optional: true
 
   /@esbuild/linux-arm64@0.19.5:
@@ -2653,6 +2336,7 @@ packages:
     cpu: [arm64]
     os: [linux]
     requiresBuild: true
+    dev: true
     optional: true
 
   /@esbuild/linux-arm@0.18.20:
@@ -2662,6 +2346,14 @@ packages:
     os: [linux]
     requiresBuild: true
     dev: true
+    optional: true
+
+  /@esbuild/linux-arm@0.19.10:
+    resolution: {integrity: sha512-j6gUW5aAaPgD416Hk9FHxn27On28H4eVI9rJ4az7oCGTFW48+LcgNDBN+9f8rKZz7EEowo889CPKyeaD0iw9Kg==}
+    engines: {node: '>=12'}
+    cpu: [arm]
+    os: [linux]
+    requiresBuild: true
     optional: true
 
   /@esbuild/linux-arm@0.19.5:
@@ -2687,6 +2379,7 @@ packages:
     cpu: [arm]
     os: [linux]
     requiresBuild: true
+    dev: true
     optional: true
 
   /@esbuild/linux-ia32@0.18.20:
@@ -2696,6 +2389,14 @@ packages:
     os: [linux]
     requiresBuild: true
     dev: true
+    optional: true
+
+  /@esbuild/linux-ia32@0.19.10:
+    resolution: {integrity: sha512-4ub1YwXxYjj9h1UIZs2hYbnTZBtenPw5NfXCRgEkGb0b6OJ2gpkMvDqRDYIDRjRdWSe/TBiZltm3Y3Q8SN1xNg==}
+    engines: {node: '>=12'}
+    cpu: [ia32]
+    os: [linux]
+    requiresBuild: true
     optional: true
 
   /@esbuild/linux-ia32@0.19.5:
@@ -2721,6 +2422,7 @@ packages:
     cpu: [ia32]
     os: [linux]
     requiresBuild: true
+    dev: true
     optional: true
 
   /@esbuild/linux-loong64@0.18.20:
@@ -2730,6 +2432,14 @@ packages:
     os: [linux]
     requiresBuild: true
     dev: true
+    optional: true
+
+  /@esbuild/linux-loong64@0.19.10:
+    resolution: {integrity: sha512-lo3I9k+mbEKoxtoIbM0yC/MZ1i2wM0cIeOejlVdZ3D86LAcFXFRdeuZmh91QJvUTW51bOK5W2BznGNIl4+mDaA==}
+    engines: {node: '>=12'}
+    cpu: [loong64]
+    os: [linux]
+    requiresBuild: true
     optional: true
 
   /@esbuild/linux-loong64@0.19.5:
@@ -2755,6 +2465,7 @@ packages:
     cpu: [loong64]
     os: [linux]
     requiresBuild: true
+    dev: true
     optional: true
 
   /@esbuild/linux-mips64el@0.18.20:
@@ -2764,6 +2475,14 @@ packages:
     os: [linux]
     requiresBuild: true
     dev: true
+    optional: true
+
+  /@esbuild/linux-mips64el@0.19.10:
+    resolution: {integrity: sha512-J4gH3zhHNbdZN0Bcr1QUGVNkHTdpijgx5VMxeetSk6ntdt+vR1DqGmHxQYHRmNb77tP6GVvD+K0NyO4xjd7y4A==}
+    engines: {node: '>=12'}
+    cpu: [mips64el]
+    os: [linux]
+    requiresBuild: true
     optional: true
 
   /@esbuild/linux-mips64el@0.19.5:
@@ -2789,6 +2508,7 @@ packages:
     cpu: [mips64el]
     os: [linux]
     requiresBuild: true
+    dev: true
     optional: true
 
   /@esbuild/linux-ppc64@0.18.20:
@@ -2798,6 +2518,14 @@ packages:
     os: [linux]
     requiresBuild: true
     dev: true
+    optional: true
+
+  /@esbuild/linux-ppc64@0.19.10:
+    resolution: {integrity: sha512-tgT/7u+QhV6ge8wFMzaklOY7KqiyitgT1AUHMApau32ZlvTB/+efeCtMk4eXS+uEymYK249JsoiklZN64xt6oQ==}
+    engines: {node: '>=12'}
+    cpu: [ppc64]
+    os: [linux]
+    requiresBuild: true
     optional: true
 
   /@esbuild/linux-ppc64@0.19.5:
@@ -2823,6 +2551,7 @@ packages:
     cpu: [ppc64]
     os: [linux]
     requiresBuild: true
+    dev: true
     optional: true
 
   /@esbuild/linux-riscv64@0.18.20:
@@ -2832,6 +2561,14 @@ packages:
     os: [linux]
     requiresBuild: true
     dev: true
+    optional: true
+
+  /@esbuild/linux-riscv64@0.19.10:
+    resolution: {integrity: sha512-0f/spw0PfBMZBNqtKe5FLzBDGo0SKZKvMl5PHYQr3+eiSscfJ96XEknCe+JoOayybWUFQbcJTrk946i3j9uYZA==}
+    engines: {node: '>=12'}
+    cpu: [riscv64]
+    os: [linux]
+    requiresBuild: true
     optional: true
 
   /@esbuild/linux-riscv64@0.19.5:
@@ -2857,6 +2594,7 @@ packages:
     cpu: [riscv64]
     os: [linux]
     requiresBuild: true
+    dev: true
     optional: true
 
   /@esbuild/linux-s390x@0.18.20:
@@ -2866,6 +2604,14 @@ packages:
     os: [linux]
     requiresBuild: true
     dev: true
+    optional: true
+
+  /@esbuild/linux-s390x@0.19.10:
+    resolution: {integrity: sha512-pZFe0OeskMHzHa9U38g+z8Yx5FNCLFtUnJtQMpwhS+r4S566aK2ci3t4NCP4tjt6d5j5uo4h7tExZMjeKoehAA==}
+    engines: {node: '>=12'}
+    cpu: [s390x]
+    os: [linux]
+    requiresBuild: true
     optional: true
 
   /@esbuild/linux-s390x@0.19.5:
@@ -2891,6 +2637,7 @@ packages:
     cpu: [s390x]
     os: [linux]
     requiresBuild: true
+    dev: true
     optional: true
 
   /@esbuild/linux-x64@0.18.20:
@@ -2900,6 +2647,14 @@ packages:
     os: [linux]
     requiresBuild: true
     dev: true
+    optional: true
+
+  /@esbuild/linux-x64@0.19.10:
+    resolution: {integrity: sha512-SpYNEqg/6pZYoc+1zLCjVOYvxfZVZj6w0KROZ3Fje/QrM3nfvT2llI+wmKSrWuX6wmZeTapbarvuNNK/qepSgA==}
+    engines: {node: '>=12'}
+    cpu: [x64]
+    os: [linux]
+    requiresBuild: true
     optional: true
 
   /@esbuild/linux-x64@0.19.5:
@@ -2925,6 +2680,7 @@ packages:
     cpu: [x64]
     os: [linux]
     requiresBuild: true
+    dev: true
     optional: true
 
   /@esbuild/netbsd-x64@0.18.20:
@@ -2934,6 +2690,14 @@ packages:
     os: [netbsd]
     requiresBuild: true
     dev: true
+    optional: true
+
+  /@esbuild/netbsd-x64@0.19.10:
+    resolution: {integrity: sha512-ACbZ0vXy9zksNArWlk2c38NdKg25+L9pr/mVaj9SUq6lHZu/35nx2xnQVRGLrC1KKQqJKRIB0q8GspiHI3J80Q==}
+    engines: {node: '>=12'}
+    cpu: [x64]
+    os: [netbsd]
+    requiresBuild: true
     optional: true
 
   /@esbuild/netbsd-x64@0.19.5:
@@ -2959,6 +2723,7 @@ packages:
     cpu: [x64]
     os: [netbsd]
     requiresBuild: true
+    dev: true
     optional: true
 
   /@esbuild/openbsd-x64@0.18.20:
@@ -2968,6 +2733,14 @@ packages:
     os: [openbsd]
     requiresBuild: true
     dev: true
+    optional: true
+
+  /@esbuild/openbsd-x64@0.19.10:
+    resolution: {integrity: sha512-PxcgvjdSjtgPMiPQrM3pwSaG4kGphP+bLSb+cihuP0LYdZv1epbAIecHVl5sD3npkfYBZ0ZnOjR878I7MdJDFg==}
+    engines: {node: '>=12'}
+    cpu: [x64]
+    os: [openbsd]
+    requiresBuild: true
     optional: true
 
   /@esbuild/openbsd-x64@0.19.5:
@@ -2993,6 +2766,7 @@ packages:
     cpu: [x64]
     os: [openbsd]
     requiresBuild: true
+    dev: true
     optional: true
 
   /@esbuild/sunos-x64@0.18.20:
@@ -3002,6 +2776,14 @@ packages:
     os: [sunos]
     requiresBuild: true
     dev: true
+    optional: true
+
+  /@esbuild/sunos-x64@0.19.10:
+    resolution: {integrity: sha512-ZkIOtrRL8SEJjr+VHjmW0znkPs+oJXhlJbNwfI37rvgeMtk3sxOQevXPXjmAPZPigVTncvFqLMd+uV0IBSEzqA==}
+    engines: {node: '>=12'}
+    cpu: [x64]
+    os: [sunos]
+    requiresBuild: true
     optional: true
 
   /@esbuild/sunos-x64@0.19.5:
@@ -3027,6 +2809,7 @@ packages:
     cpu: [x64]
     os: [sunos]
     requiresBuild: true
+    dev: true
     optional: true
 
   /@esbuild/win32-arm64@0.18.20:
@@ -3036,6 +2819,14 @@ packages:
     os: [win32]
     requiresBuild: true
     dev: true
+    optional: true
+
+  /@esbuild/win32-arm64@0.19.10:
+    resolution: {integrity: sha512-+Sa4oTDbpBfGpl3Hn3XiUe4f8TU2JF7aX8cOfqFYMMjXp6ma6NJDztl5FDG8Ezx0OjwGikIHw+iA54YLDNNVfw==}
+    engines: {node: '>=12'}
+    cpu: [arm64]
+    os: [win32]
+    requiresBuild: true
     optional: true
 
   /@esbuild/win32-arm64@0.19.5:
@@ -3061,6 +2852,7 @@ packages:
     cpu: [arm64]
     os: [win32]
     requiresBuild: true
+    dev: true
     optional: true
 
   /@esbuild/win32-ia32@0.18.20:
@@ -3070,6 +2862,14 @@ packages:
     os: [win32]
     requiresBuild: true
     dev: true
+    optional: true
+
+  /@esbuild/win32-ia32@0.19.10:
+    resolution: {integrity: sha512-EOGVLK1oWMBXgfttJdPHDTiivYSjX6jDNaATeNOaCOFEVcfMjtbx7WVQwPSE1eIfCp/CaSF2nSrDtzc4I9f8TQ==}
+    engines: {node: '>=12'}
+    cpu: [ia32]
+    os: [win32]
+    requiresBuild: true
     optional: true
 
   /@esbuild/win32-ia32@0.19.5:
@@ -3095,6 +2895,7 @@ packages:
     cpu: [ia32]
     os: [win32]
     requiresBuild: true
+    dev: true
     optional: true
 
   /@esbuild/win32-x64@0.18.20:
@@ -3104,6 +2905,14 @@ packages:
     os: [win32]
     requiresBuild: true
     dev: true
+    optional: true
+
+  /@esbuild/win32-x64@0.19.10:
+    resolution: {integrity: sha512-whqLG6Sc70AbU73fFYvuYzaE4MNMBIlR1Y/IrUeOXFrWHxBEjjbZaQ3IXIQS8wJdAzue2GwYZCjOrgrU1oUHoA==}
+    engines: {node: '>=12'}
+    cpu: [x64]
+    os: [win32]
+    requiresBuild: true
     optional: true
 
   /@esbuild/win32-x64@0.19.5:
@@ -3129,6 +2938,7 @@ packages:
     cpu: [x64]
     os: [win32]
     requiresBuild: true
+    dev: true
     optional: true
 
   /@ethereumjs/common@4.1.0:
@@ -3546,12 +3356,12 @@ packages:
       '@ethersproject/strings': 5.7.0
     dev: true
 
-  /@evmts/base@1.0.0-next.18(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.23-fixed)(typescript@5.2.2)(zod@3.22.4):
+  /@evmts/base@1.0.0-next.18(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.23-fixed)(typescript@5.3.3)(zod@3.22.4):
     resolution: {integrity: sha512-C4dm8iP4T1zY1rtYP1OWr2VY9GpOG/cvqSgsLhiTYXtysJv8ZoNSlf9xkovwdRWnVtbfh5rFoMVplOBQCVWsjQ==}
     dependencies:
-      '@evmts/config': 1.0.0-next.17(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.23-fixed)(typescript@5.2.2)(zod@3.22.4)
+      '@evmts/config': 1.0.0-next.17(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.23-fixed)(typescript@5.3.3)(zod@3.22.4)
       '@evmts/runtime': 1.0.0-next.13
-      '@evmts/solc': 1.0.0-next.18(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.23-fixed)(typescript@5.2.2)(zod@3.22.4)
+      '@evmts/solc': 1.0.0-next.18(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.23-fixed)(typescript@5.3.3)(zod@3.22.4)
       '@evmts/tsconfig': 1.0.0-next.5
       '@types/node': 20.10.4
       '@types/resolve': 1.20.5
@@ -3570,19 +3380,19 @@ packages:
       - zod
     dev: true
 
-  /@evmts/config@1.0.0-next.17(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.22)(typescript@5.2.2):
+  /@evmts/config@1.0.0-next.17(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.22)(typescript@5.3.3):
     resolution: {integrity: sha512-rxyLCYOROZ7rDGYrcKpnK0ulXTWJwAyyqKbbogAikLZkUh2VSH8GVpYzNpHj2Uy2ZMiNHlYrpEMbWRt53rCsgg==}
     peerDependencies:
       solc: '*'
     dependencies:
       '@effect/schema': 0.47.7(effect@2.0.0-next.54)(fast-check@3.14.0)
-      '@evmts/effect': 1.0.0-next.9(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.22)(typescript@5.2.2)
+      '@evmts/effect': 1.0.0-next.9(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.22)(typescript@5.3.3)
       '@types/node': 20.9.2
       bundle-require: 4.0.2(esbuild@0.19.5)
       effect: 2.0.0-next.54
       jsonc-parser: 3.2.0
       solc: 0.8.22
-      viem: 1.19.4(typescript@5.2.2)(zod@3.22.4)
+      viem: 1.19.4(typescript@5.3.3)(zod@3.22.4)
     transitivePeerDependencies:
       - bufferutil
       - esbuild
@@ -3592,19 +3402,19 @@ packages:
       - zod
     dev: true
 
-  /@evmts/config@1.0.0-next.17(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.23-fixed)(typescript@5.2.2)(zod@3.22.4):
+  /@evmts/config@1.0.0-next.17(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.23-fixed)(typescript@5.3.3)(zod@3.22.4):
     resolution: {integrity: sha512-rxyLCYOROZ7rDGYrcKpnK0ulXTWJwAyyqKbbogAikLZkUh2VSH8GVpYzNpHj2Uy2ZMiNHlYrpEMbWRt53rCsgg==}
     peerDependencies:
       solc: '*'
     dependencies:
       '@effect/schema': 0.47.7(effect@2.0.0-next.54)(fast-check@3.14.0)
-      '@evmts/effect': 1.0.0-next.9(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.23-fixed)(typescript@5.2.2)(zod@3.22.4)
+      '@evmts/effect': 1.0.0-next.9(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.23-fixed)(typescript@5.3.3)(zod@3.22.4)
       '@types/node': 20.9.2
       bundle-require: 4.0.2(esbuild@0.19.5)
       effect: 2.0.0-next.54
       jsonc-parser: 3.2.0
       solc: 0.8.23-fixed
-      viem: 1.19.4(typescript@5.2.2)(zod@3.22.4)
+      viem: 1.19.4(typescript@5.3.3)(zod@3.22.4)
     transitivePeerDependencies:
       - bufferutil
       - esbuild
@@ -3619,10 +3429,10 @@ packages:
     peerDependencies:
       viem: '>1.0.0'
     dependencies:
-      viem: 1.19.4(typescript@5.2.2)(zod@3.22.4)
+      viem: 1.19.4(typescript@5.3.3)(zod@3.22.4)
     dev: true
 
-  /@evmts/effect@1.0.0-next.9(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.22)(typescript@5.2.2):
+  /@evmts/effect@1.0.0-next.9(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.22)(typescript@5.3.3):
     resolution: {integrity: sha512-EDhjN26goPELm2XjxBcY3/8xx7J3HTGdOqgKQoolWt/5eghyxXcvcFFnynN3KSd6mSciozBWGuOFms8HEi4QTg==}
     peerDependencies:
       solc: '*'
@@ -3633,7 +3443,7 @@ packages:
       jsonc-parser: 3.2.0
       resolve: 1.22.8
       solc: 0.8.22
-      viem: 1.19.4(typescript@5.2.2)(zod@3.22.4)
+      viem: 1.19.4(typescript@5.3.3)(zod@3.22.4)
     transitivePeerDependencies:
       - bufferutil
       - esbuild
@@ -3643,7 +3453,7 @@ packages:
       - zod
     dev: true
 
-  /@evmts/effect@1.0.0-next.9(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.23-fixed)(typescript@5.2.2)(zod@3.22.4):
+  /@evmts/effect@1.0.0-next.9(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.23-fixed)(typescript@5.3.3)(zod@3.22.4):
     resolution: {integrity: sha512-EDhjN26goPELm2XjxBcY3/8xx7J3HTGdOqgKQoolWt/5eghyxXcvcFFnynN3KSd6mSciozBWGuOFms8HEi4QTg==}
     peerDependencies:
       solc: '*'
@@ -3654,7 +3464,7 @@ packages:
       jsonc-parser: 3.2.0
       resolve: 1.22.8
       solc: 0.8.23-fixed
-      viem: 1.19.4(typescript@5.2.2)(zod@3.22.4)
+      viem: 1.19.4(typescript@5.3.3)(zod@3.22.4)
     transitivePeerDependencies:
       - bufferutil
       - esbuild
@@ -3664,11 +3474,11 @@ packages:
       - zod
     dev: true
 
-  /@evmts/resolutions@1.0.0-next.18(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.22)(typescript@5.2.2):
+  /@evmts/resolutions@1.0.0-next.18(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.22)(typescript@5.3.3):
     resolution: {integrity: sha512-+VB+sh5IF1KtuXuyDHH5KOJjNEJs/REtVz0yzht/RaEOql+cOqtprVivemzzTwPT04bzNhilykas5EfKU08PNw==}
     dependencies:
-      '@evmts/config': 1.0.0-next.17(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.22)(typescript@5.2.2)
-      '@evmts/effect': 1.0.0-next.9(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.22)(typescript@5.2.2)
+      '@evmts/config': 1.0.0-next.17(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.22)(typescript@5.3.3)
+      '@evmts/effect': 1.0.0-next.9(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.22)(typescript@5.3.3)
       '@evmts/tsconfig': 1.0.0-next.5
       '@types/node': 20.9.2
       '@types/resolve': 1.20.5
@@ -3687,11 +3497,11 @@ packages:
       - zod
     dev: true
 
-  /@evmts/resolutions@1.0.0-next.18(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.23-fixed)(typescript@5.2.2)(zod@3.22.4):
+  /@evmts/resolutions@1.0.0-next.18(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.23-fixed)(typescript@5.3.3)(zod@3.22.4):
     resolution: {integrity: sha512-+VB+sh5IF1KtuXuyDHH5KOJjNEJs/REtVz0yzht/RaEOql+cOqtprVivemzzTwPT04bzNhilykas5EfKU08PNw==}
     dependencies:
-      '@evmts/config': 1.0.0-next.17(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.23-fixed)(typescript@5.2.2)(zod@3.22.4)
-      '@evmts/effect': 1.0.0-next.9(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.23-fixed)(typescript@5.2.2)(zod@3.22.4)
+      '@evmts/config': 1.0.0-next.17(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.23-fixed)(typescript@5.3.3)(zod@3.22.4)
+      '@evmts/effect': 1.0.0-next.9(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.23-fixed)(typescript@5.3.3)(zod@3.22.4)
       '@evmts/tsconfig': 1.0.0-next.5
       '@types/node': 20.9.2
       '@types/resolve': 1.20.5
@@ -3717,11 +3527,11 @@ packages:
       effect: 2.0.0-next.54
     dev: true
 
-  /@evmts/solc@1.0.0-next.18(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.22)(typescript@5.2.2):
+  /@evmts/solc@1.0.0-next.18(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.22)(typescript@5.3.3):
     resolution: {integrity: sha512-MGGIz+a8ZKtkmh2z8tmjfJ+DRSLdJV7lSBge0a0sIEhtUFSfc24MVEvHt4KOPms5bNc0OI6BLMM1j72xj4/UDw==}
     dependencies:
-      '@evmts/config': 1.0.0-next.17(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.22)(typescript@5.2.2)
-      '@evmts/resolutions': 1.0.0-next.18(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.22)(typescript@5.2.2)
+      '@evmts/config': 1.0.0-next.17(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.22)(typescript@5.3.3)
+      '@evmts/resolutions': 1.0.0-next.18(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.22)(typescript@5.3.3)
       '@evmts/tsconfig': 1.0.0-next.5
       '@types/node': 20.9.2
       '@types/resolve': 1.20.5
@@ -3740,11 +3550,11 @@ packages:
       - zod
     dev: true
 
-  /@evmts/solc@1.0.0-next.18(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.23-fixed)(typescript@5.2.2)(zod@3.22.4):
+  /@evmts/solc@1.0.0-next.18(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.23-fixed)(typescript@5.3.3)(zod@3.22.4):
     resolution: {integrity: sha512-MGGIz+a8ZKtkmh2z8tmjfJ+DRSLdJV7lSBge0a0sIEhtUFSfc24MVEvHt4KOPms5bNc0OI6BLMM1j72xj4/UDw==}
     dependencies:
-      '@evmts/config': 1.0.0-next.17(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.23-fixed)(typescript@5.2.2)(zod@3.22.4)
-      '@evmts/resolutions': 1.0.0-next.18(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.23-fixed)(typescript@5.2.2)(zod@3.22.4)
+      '@evmts/config': 1.0.0-next.17(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.23-fixed)(typescript@5.3.3)(zod@3.22.4)
+      '@evmts/resolutions': 1.0.0-next.18(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.23-fixed)(typescript@5.3.3)(zod@3.22.4)
       '@evmts/tsconfig': 1.0.0-next.5
       '@types/node': 20.9.2
       '@types/resolve': 1.20.5
@@ -3763,19 +3573,19 @@ packages:
       - zod
     dev: true
 
-  /@evmts/ts-plugin@1.0.0-next.18(fast-check@3.14.0)(typescript@5.2.2):
+  /@evmts/ts-plugin@1.0.0-next.18(fast-check@3.14.0)(typescript@5.3.3):
     resolution: {integrity: sha512-Vaf2EoDKnAEok7iY/drsrfzUnorHfRmjvmf/ACsnLbZHYKny0ZsWKGKvXzugYUf0blFGxeNH4yZodovPKKtzHg==}
     hasBin: true
     peerDependencies:
       typescript: '>=5.0.0'
     dependencies:
-      '@evmts/base': 1.0.0-next.18(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.23-fixed)(typescript@5.2.2)(zod@3.22.4)
+      '@evmts/base': 1.0.0-next.18(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.23-fixed)(typescript@5.3.3)(zod@3.22.4)
       effect: 2.0.0-next.54
       esbuild: 0.19.5
       glob: 10.3.10
       solc: 0.8.23-fixed
       solidity-ast: 0.4.53
-      typescript: 5.2.2
+      typescript: 5.3.3
       zod: 3.22.4
     transitivePeerDependencies:
       - bufferutil
@@ -3788,12 +3598,12 @@ packages:
     resolution: {integrity: sha512-GWguzA58Ry2CPQhvNAH0x2Au0Bdm+MsBORWHF9usCVD44yC++joPHaIWBSbe3SrF0BccLEf5yIfOKgS5XIEecQ==}
     dev: true
 
-  /@evmts/unplugin@1.0.0-next.19(esbuild@0.19.5)(fast-check@3.14.0)(typescript@5.2.2):
+  /@evmts/unplugin@1.0.0-next.19(esbuild@0.19.5)(fast-check@3.14.0)(typescript@5.3.3):
     resolution: {integrity: sha512-NgIXsZ5IEliByfgM/TBhyibLTawCipZs6oIGe7XIehGAVBADOBEWaT7QgIjGQkS5dEyE0OMTEAmgRQhbYhUIog==}
     dependencies:
-      '@evmts/config': 1.0.0-next.17(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.22)(typescript@5.2.2)
+      '@evmts/config': 1.0.0-next.17(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.22)(typescript@5.3.3)
       '@evmts/runtime': 1.0.0-next.13
-      '@evmts/solc': 1.0.0-next.18(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.22)(typescript@5.2.2)
+      '@evmts/solc': 1.0.0-next.18(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.22)(typescript@5.3.3)
       '@evmts/tsconfig': 1.0.0-next.5
       '@types/node': 20.9.2
       '@types/resolve': 1.20.5
@@ -3813,10 +3623,10 @@ packages:
       - zod
     dev: true
 
-  /@evmts/vite-plugin@1.0.0-next.19(esbuild@0.19.5)(fast-check@3.14.0)(typescript@5.2.2):
+  /@evmts/vite-plugin@1.0.0-next.19(esbuild@0.19.5)(fast-check@3.14.0)(typescript@5.3.3):
     resolution: {integrity: sha512-rZ3cMVskpkeiHr5N4HtN2tVLm2PJtSyoWMZqFnEPGsbH3nK7FEh8ZX9134kbCuk7SFM/S49GgNqPEoRb2OzkLg==}
     dependencies:
-      '@evmts/unplugin': 1.0.0-next.19(esbuild@0.19.5)(fast-check@3.14.0)(typescript@5.2.2)
+      '@evmts/unplugin': 1.0.0-next.19(esbuild@0.19.5)(fast-check@3.14.0)(typescript@5.3.3)
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -4698,7 +4508,7 @@ packages:
       react-dom: 18.2.0(react@18.2.0)
       react-remove-scroll: 2.5.4(@types/react@18.2.37)(react@18.2.0)
       ua-parser-js: 1.0.37
-      viem: 1.19.4(typescript@5.2.2)(zod@3.22.4)
+      viem: 1.19.4(typescript@5.2.2)
       wagmi: 1.4.7(@types/react@18.2.37)(react-dom@18.2.0)(react@18.2.0)(typescript@5.2.2)(viem@1.19.4)
     transitivePeerDependencies:
       - '@types/react'
@@ -5760,7 +5570,7 @@ packages:
       vue: ^3.2.25
     dependencies:
       vite: 4.5.0
-      vue: 3.3.8
+      vue: 3.3.8(typescript@5.3.3)
     dev: true
 
   /@vitest/coverage-v8@0.34.6(vitest@0.34.6):
@@ -5949,7 +5759,7 @@ packages:
       '@vue/shared': 3.3.8
       estree-walker: 2.0.2
       magic-string: 0.30.5
-      postcss: 8.4.31
+      postcss: 8.4.32
       source-map-js: 1.0.2
     dev: true
 
@@ -6002,7 +5812,7 @@ packages:
     dependencies:
       '@vue/compiler-ssr': 3.3.8
       '@vue/shared': 3.3.8
-      vue: 3.3.8
+      vue: 3.3.8(typescript@5.3.3)
     dev: true
 
   /@vue/shared@3.3.8:
@@ -6104,7 +5914,7 @@ packages:
       abitype: 0.8.7(typescript@5.2.2)(zod@3.22.4)
       eventemitter3: 4.0.7
       typescript: 5.2.2
-      viem: 1.19.4(typescript@5.2.2)(zod@3.22.4)
+      viem: 1.19.4(typescript@5.2.2)
     transitivePeerDependencies:
       - '@azure/app-configuration'
       - '@azure/cosmos'
@@ -6226,7 +6036,7 @@ packages:
       abitype: 0.8.7(typescript@5.2.2)(zod@3.22.4)
       eventemitter3: 4.0.7
       typescript: 5.2.2
-      viem: 1.19.4(typescript@5.2.2)(zod@3.22.4)
+      viem: 1.19.4(typescript@5.2.2)
       zustand: 4.4.6(@types/react@18.2.37)(react@18.2.0)
     transitivePeerDependencies:
       - '@azure/app-configuration'
@@ -6905,6 +6715,20 @@ packages:
       typescript: 5.2.2
       zod: 3.22.4
 
+  /abitype@0.10.2(typescript@5.3.3):
+    resolution: {integrity: sha512-1XndI+RKFWK4+TXCNv1683MRyX5NGmlHXCvqzjOqhSS3PQrxT2QYRZq1bMPPRNjn89B3eVaM2w7y3jVj/OIUzA==}
+    peerDependencies:
+      typescript: '>=5.0.4'
+      zod: ^3 >=3.22.0
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+      zod:
+        optional: true
+    dependencies:
+      typescript: 5.3.3
+    dev: true
+
   /abitype@0.10.3(typescript@5.3.3)(zod@3.22.4):
     resolution: {integrity: sha512-tRN+7XIa7J9xugdbRzFv/95ka5ivR/sRe01eiWvM0HWWjHuigSZEACgKa0sj4wGuekTDtghCx+5Izk/cOi78pQ==}
     peerDependencies:
@@ -6959,7 +6783,6 @@ packages:
     dependencies:
       typescript: 5.3.3
       zod: 3.22.4
-    dev: false
 
   /abstract-level@1.0.3:
     resolution: {integrity: sha512-t6jv+xHy+VYwc4xqZMn2Pa9DjcdzvzZmQGRjTFc8spIbRGHgBrEKbPq+rYXc7CCo0lxgYvSgKVg9qZAhpVQSjA==}
@@ -8034,6 +7857,7 @@ packages:
 
   /bun-types@1.0.12:
     resolution: {integrity: sha512-jGXEQ9pkp1kwdgYY6X6SPP5V4kxEGGZQaZMEKUVeJ7T1/XFyrAwL4AeaM4lSvjYqwsPXIDdKCFgw5M1KLoK4qw==}
+    dev: false
 
   /bun-types@1.0.15:
     resolution: {integrity: sha512-XkEvWLV1JIhcVIpf2Lu6FXnZUxRUkQVJmgY+VT7os6Tk5X1nkXx11q4Rtu6txsqpDJZfUeZXblnnD59K+6wsVA==}
@@ -8052,6 +7876,16 @@ packages:
       '@oven/bun-linux-aarch64': 1.0.20
       '@oven/bun-linux-x64': 1.0.20
       '@oven/bun-linux-x64-baseline': 1.0.20
+    dev: true
+
+  /bundle-require@4.0.2(esbuild@0.19.10):
+    resolution: {integrity: sha512-jwzPOChofl67PSTW2SGubV9HBQAhhR2i6nskiOThauo9dzwDUgOWQScFVaJkjEfYX+UXiD+LEx8EblQMc2wIag==}
+    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
+    peerDependencies:
+      esbuild: '>=0.17'
+    dependencies:
+      esbuild: 0.19.10
+      load-tsconfig: 0.2.5
     dev: true
 
   /bundle-require@4.0.2(esbuild@0.19.5):
@@ -9580,6 +9414,36 @@ packages:
       '@esbuild/win32-x64': 0.18.20
     dev: true
 
+  /esbuild@0.19.10:
+    resolution: {integrity: sha512-S1Y27QGt/snkNYrRcswgRFqZjaTG5a5xM3EQo97uNBnH505pdzSNe/HLBq1v0RO7iK/ngdbhJB6mDAp0OK+iUA==}
+    engines: {node: '>=12'}
+    hasBin: true
+    requiresBuild: true
+    optionalDependencies:
+      '@esbuild/aix-ppc64': 0.19.10
+      '@esbuild/android-arm': 0.19.10
+      '@esbuild/android-arm64': 0.19.10
+      '@esbuild/android-x64': 0.19.10
+      '@esbuild/darwin-arm64': 0.19.10
+      '@esbuild/darwin-x64': 0.19.10
+      '@esbuild/freebsd-arm64': 0.19.10
+      '@esbuild/freebsd-x64': 0.19.10
+      '@esbuild/linux-arm': 0.19.10
+      '@esbuild/linux-arm64': 0.19.10
+      '@esbuild/linux-ia32': 0.19.10
+      '@esbuild/linux-loong64': 0.19.10
+      '@esbuild/linux-mips64el': 0.19.10
+      '@esbuild/linux-ppc64': 0.19.10
+      '@esbuild/linux-riscv64': 0.19.10
+      '@esbuild/linux-s390x': 0.19.10
+      '@esbuild/linux-x64': 0.19.10
+      '@esbuild/netbsd-x64': 0.19.10
+      '@esbuild/openbsd-x64': 0.19.10
+      '@esbuild/sunos-x64': 0.19.10
+      '@esbuild/win32-arm64': 0.19.10
+      '@esbuild/win32-ia32': 0.19.10
+      '@esbuild/win32-x64': 0.19.10
+
   /esbuild@0.19.5:
     resolution: {integrity: sha512-bUxalY7b1g8vNhQKdB24QDmHeY4V4tw/s6Ak5z+jJX9laP5MoQseTOMemAr0gxssjNcH0MCViG8ONI2kksvfFQ==}
     engines: {node: '>=12'}
@@ -9667,6 +9531,7 @@ packages:
       '@esbuild/win32-arm64': 0.19.8
       '@esbuild/win32-ia32': 0.19.8
       '@esbuild/win32-x64': 0.19.8
+    dev: true
 
   /escalade@3.1.1:
     resolution: {integrity: sha512-k0er2gUkLf8O0zKJiAhmkTnJlTvINGv7ygDNPbeIsX/TJjGJZHuh9B2UxbsaEkmlEo9MfhrSzmhIlhRlI2GXnw==}
@@ -10669,7 +10534,7 @@ packages:
       fs.realpath: 1.0.0
       inflight: 1.0.6
       inherits: 2.0.4
-      minimatch: 3.0.5
+      minimatch: 3.1.2
       once: 1.4.0
       path-is-absolute: 1.0.1
     dev: true
@@ -15717,8 +15582,8 @@ packages:
       picocolors: 1.0.0
       sade: 1.8.1
       svelte: 4.2.5
-      svelte-preprocess: 5.1.0(svelte@4.2.5)(typescript@5.2.2)
-      typescript: 5.2.2
+      svelte-preprocess: 5.1.0(svelte@4.2.5)(typescript@5.3.3)
+      typescript: 5.3.3
     transitivePeerDependencies:
       - '@babel/core'
       - coffeescript
@@ -15740,7 +15605,7 @@ packages:
       svelte: 4.2.5
     dev: true
 
-  /svelte-preprocess@5.1.0(svelte@4.2.5)(typescript@5.2.2):
+  /svelte-preprocess@5.1.0(svelte@4.2.5)(typescript@5.3.3):
     resolution: {integrity: sha512-EkErPiDzHAc0k2MF5m6vBNmRUh338h2myhinUw/xaqsLs7/ZvsgREiLGj03VrSzbY/TB5ZXgBOsKraFee5yceA==}
     engines: {node: '>= 14.10.0'}
     requiresBuild: true
@@ -15784,7 +15649,7 @@ packages:
       sorcery: 0.11.0
       strip-indent: 3.0.0
       svelte: 4.2.5
-      typescript: 5.2.2
+      typescript: 5.3.3
     dev: true
 
   /svelte@4.2.5:
@@ -15898,7 +15763,7 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /terser-webpack-plugin@5.3.9(esbuild@0.19.8)(webpack@5.89.0):
+  /terser-webpack-plugin@5.3.9(esbuild@0.19.10)(webpack@5.89.0):
     resolution: {integrity: sha512-ZuXsqE07EcggTWQjXUj+Aot/OMcD0bMKGgF63f7UxYcu5/AJF53aIpK1YoP5xR9l6s/Hy2b+t1AM0bLNPRuhwA==}
     engines: {node: '>= 10.13.0'}
     peerDependencies:
@@ -15915,12 +15780,12 @@ packages:
         optional: true
     dependencies:
       '@jridgewell/trace-mapping': 0.3.20
-      esbuild: 0.19.8
+      esbuild: 0.19.10
       jest-worker: 27.5.1
       schema-utils: 3.3.0
       serialize-javascript: 6.0.1
       terser: 5.24.0
-      webpack: 5.89.0(esbuild@0.19.8)
+      webpack: 5.89.0(esbuild@0.19.10)
     dev: false
 
   /terser@5.24.0:
@@ -16195,11 +16060,11 @@ packages:
       typescript:
         optional: true
     dependencies:
-      bundle-require: 4.0.2(esbuild@0.19.8)
+      bundle-require: 4.0.2(esbuild@0.19.10)
       cac: 6.7.14
       chokidar: 3.5.3
       debug: 4.3.4(supports-color@8.1.1)
-      esbuild: 0.19.8
+      esbuild: 0.19.10
       execa: 5.1.1
       globby: 11.1.0
       joycon: 3.1.1
@@ -16841,6 +16706,29 @@ packages:
       - utf-8-validate
       - zod
 
+  /viem@1.18.9(typescript@5.3.3):
+    resolution: {integrity: sha512-eAXtoTwAFA3YEgjTYMb5ZTQrDC0UPx5qyZ4sv90TirVKepcM9mBPksTkC1SSWya0UdxhBmhEBL/CiYMjmGCTWg==}
+    peerDependencies:
+      typescript: '>=5.0.4'
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+    dependencies:
+      '@adraffy/ens-normalize': 1.9.4
+      '@noble/curves': 1.2.0
+      '@noble/hashes': 1.3.2
+      '@scure/bip32': 1.3.2
+      '@scure/bip39': 1.2.1
+      abitype: 0.9.8(typescript@5.3.3)(zod@3.22.4)
+      isows: 1.0.3(ws@8.13.0)
+      typescript: 5.3.3
+      ws: 8.13.0
+    transitivePeerDependencies:
+      - bufferutil
+      - utf-8-validate
+      - zod
+    dev: true
+
   /viem@1.19.11(typescript@5.2.2)(zod@3.22.4):
     resolution: {integrity: sha512-dbsXEWDBZkByuzJXAs/e01j7dpUJ5ICF5WcyntFwf8Y97n5vnC/91lAleSa6DA5V4WJvYZbhDpYeTctsMAQnhA==}
     peerDependencies:
@@ -16886,7 +16774,7 @@ packages:
       - zod
     dev: false
 
-  /viem@1.19.4(typescript@5.2.2)(zod@3.22.4):
+  /viem@1.19.4(typescript@5.2.2):
     resolution: {integrity: sha512-CvAVaOzxlu3Q/cpfrYvTRMBIPDMAkLu8aFmHLqU1Bg25DyUxp9xwoF1Ljp38q7/Rosm1OPFQ4y6K64v/VwoumQ==}
     peerDependencies:
       typescript: '>=5.0.4'
@@ -16907,8 +16795,32 @@ packages:
       - bufferutil
       - utf-8-validate
       - zod
+    dev: false
 
-  /vite-node@0.34.6(@types/node@20.9.2):
+  /viem@1.19.4(typescript@5.3.3)(zod@3.22.4):
+    resolution: {integrity: sha512-CvAVaOzxlu3Q/cpfrYvTRMBIPDMAkLu8aFmHLqU1Bg25DyUxp9xwoF1Ljp38q7/Rosm1OPFQ4y6K64v/VwoumQ==}
+    peerDependencies:
+      typescript: '>=5.0.4'
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+    dependencies:
+      '@adraffy/ens-normalize': 1.10.0
+      '@noble/curves': 1.2.0
+      '@noble/hashes': 1.3.2
+      '@scure/bip32': 1.3.2
+      '@scure/bip39': 1.2.1
+      abitype: 0.9.8(typescript@5.3.3)(zod@3.22.4)
+      isows: 1.0.3(ws@8.13.0)
+      typescript: 5.3.3
+      ws: 8.13.0
+    transitivePeerDependencies:
+      - bufferutil
+      - utf-8-validate
+      - zod
+    dev: true
+
+  /vite-node@0.34.6(@types/node@20.10.4):
     resolution: {integrity: sha512-nlBMJ9x6n7/Amaz6F3zJ97EBwR2FkzhBRxF5e+jE6LA3yi6Wtc2lyTij1OnDMIr34v5g/tVQtsVAzhT0jc5ygA==}
     engines: {node: '>=v14.18.0'}
     hasBin: true
@@ -16918,7 +16830,7 @@ packages:
       mlly: 1.4.2
       pathe: 1.1.1
       picocolors: 1.0.0
-      vite: 5.0.6(@types/node@20.9.2)
+      vite: 5.0.6(@types/node@20.10.4)
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -17014,42 +16926,6 @@ packages:
       fsevents: 2.3.3
     dev: true
 
-  /vite@5.0.0(@types/node@20.9.2):
-    resolution: {integrity: sha512-ESJVM59mdyGpsiNAeHQOR/0fqNoOyWPYesFto8FFZugfmhdHx8Fzd8sF3Q/xkVhZsyOxHfdM7ieiVAorI9RjFw==}
-    engines: {node: ^18.0.0 || >=20.0.0}
-    hasBin: true
-    peerDependencies:
-      '@types/node': ^18.0.0 || >=20.0.0
-      less: '*'
-      lightningcss: ^1.21.0
-      sass: '*'
-      stylus: '*'
-      sugarss: '*'
-      terser: ^5.4.0
-    peerDependenciesMeta:
-      '@types/node':
-        optional: true
-      less:
-        optional: true
-      lightningcss:
-        optional: true
-      sass:
-        optional: true
-      stylus:
-        optional: true
-      sugarss:
-        optional: true
-      terser:
-        optional: true
-    dependencies:
-      '@types/node': 20.9.2
-      esbuild: 0.19.8
-      postcss: 8.4.31
-      rollup: 4.7.0
-    optionalDependencies:
-      fsevents: 2.3.3
-    dev: true
-
   /vite@5.0.6:
     resolution: {integrity: sha512-MD3joyAEBtV7QZPl2JVVUai6zHms3YOmLR+BpMzLlX2Yzjfcc4gTgNi09d/Rua3F4EtC8zdwPU8eQYyib4vVMQ==}
     engines: {node: ^18.0.0 || >=20.0.0}
@@ -17078,14 +16954,14 @@ packages:
       terser:
         optional: true
     dependencies:
-      esbuild: 0.19.8
+      esbuild: 0.19.10
       postcss: 8.4.32
-      rollup: 4.5.0
+      rollup: 4.7.0
     optionalDependencies:
       fsevents: 2.3.3
     dev: true
 
-  /vite@5.0.6(@types/node@20.9.2):
+  /vite@5.0.6(@types/node@20.10.4):
     resolution: {integrity: sha512-MD3joyAEBtV7QZPl2JVVUai6zHms3YOmLR+BpMzLlX2Yzjfcc4gTgNi09d/Rua3F4EtC8zdwPU8eQYyib4vVMQ==}
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
@@ -17113,7 +16989,7 @@ packages:
       terser:
         optional: true
     dependencies:
-      '@types/node': 20.9.2
+      '@types/node': 20.10.4
       esbuild: 0.19.8
       postcss: 8.4.32
       rollup: 4.7.0
@@ -17132,7 +17008,7 @@ packages:
       vite: 4.5.0
     dev: true
 
-  /vitepress@1.0.0-rc.24(@algolia/client-search@4.20.0)(postcss@8.4.31)(search-insights@2.11.0):
+  /vitepress@1.0.0-rc.24(@algolia/client-search@4.20.0)(postcss@8.4.31)(search-insights@2.11.0)(typescript@5.3.3):
     resolution: {integrity: sha512-RpnL8cnOGwiRlBbrYQUm9sYkJbtyOt/wYXk2diTcokY4yvks/5lq9LuSt+MURWB6ZqwpSNHvTmxgaSfLoG0/OA==}
     hasBin: true
     peerDependencies:
@@ -17157,7 +17033,7 @@ packages:
       postcss: 8.4.31
       shiki: 0.14.5
       vite: 4.5.0
-      vue: 3.3.8
+      vue: 3.3.8(typescript@5.3.3)
     transitivePeerDependencies:
       - '@algolia/client-search'
       - '@types/node'
@@ -17219,7 +17095,7 @@ packages:
     dependencies:
       '@types/chai': 4.3.10
       '@types/chai-subset': 1.3.5
-      '@types/node': 20.9.2
+      '@types/node': 20.10.4
       '@vitest/expect': 0.34.6
       '@vitest/runner': 0.34.6
       '@vitest/snapshot': 0.34.6
@@ -17239,8 +17115,8 @@ packages:
       strip-literal: 1.3.0
       tinybench: 2.5.1
       tinypool: 0.7.0
-      vite: 5.0.0(@types/node@20.9.2)
-      vite-node: 0.34.6(@types/node@20.9.2)
+      vite: 5.0.6(@types/node@20.10.4)
+      vite-node: 0.34.6(@types/node@20.10.4)
       why-is-node-running: 2.2.2
     transitivePeerDependencies:
       - less
@@ -17421,10 +17297,10 @@ packages:
       '@vue/composition-api':
         optional: true
     dependencies:
-      vue: 3.3.8
+      vue: 3.3.8(typescript@5.3.3)
     dev: true
 
-  /vue@3.3.8:
+  /vue@3.3.8(typescript@5.3.3):
     resolution: {integrity: sha512-5VSX/3DabBikOXMsxzlW8JyfeLKlG9mzqnWgLQLty88vdZL7ZJgrdgBOmrArwxiLtmS+lNNpPcBYqrhE6TQW5w==}
     peerDependencies:
       typescript: '*'
@@ -17437,6 +17313,7 @@ packages:
       '@vue/runtime-dom': 3.3.8
       '@vue/server-renderer': 3.3.8(vue@3.3.8)
       '@vue/shared': 3.3.8
+      typescript: 5.3.3
     dev: true
 
   /wagmi@1.4.7(@types/react@18.2.37)(react-dom@18.2.0)(react@18.2.0)(typescript@5.2.2)(viem@1.19.4):
@@ -17457,7 +17334,7 @@ packages:
       react: 18.2.0
       typescript: 5.2.2
       use-sync-external-store: 1.2.0(react@18.2.0)
-      viem: 1.19.4(typescript@5.2.2)(zod@3.22.4)
+      viem: 1.19.4(typescript@5.2.2)
     transitivePeerDependencies:
       - '@azure/app-configuration'
       - '@azure/cosmos'
@@ -17621,7 +17498,7 @@ packages:
   /webpack-virtual-modules@0.6.0:
     resolution: {integrity: sha512-KnaMTE6EItz/f2q4Gwg5/rmeKVi79OR58NoYnwDJqCk9ywMtTGbBnBcfoBtN4QbYu0lWXvyMoH2Owxuhe4qI6Q==}
 
-  /webpack@5.89.0(esbuild@0.19.8):
+  /webpack@5.89.0(esbuild@0.19.10):
     resolution: {integrity: sha512-qyfIC10pOr70V+jkmud8tMfajraGCZMBWJtrmuBymQKCrLTRejBI8STDp1MCyZu/QTdZSeacCQYpYNQVOzX5kw==}
     engines: {node: '>=10.13.0'}
     hasBin: true
@@ -17652,7 +17529,7 @@ packages:
       neo-async: 2.6.2
       schema-utils: 3.3.0
       tapable: 2.2.1
-      terser-webpack-plugin: 5.3.9(esbuild@0.19.8)(webpack@5.89.0)
+      terser-webpack-plugin: 5.3.9(esbuild@0.19.10)(webpack@5.89.0)
       watchpack: 2.4.0
       webpack-sources: 3.2.3
     transitivePeerDependencies:
