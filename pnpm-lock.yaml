@@ -18,8 +18,8 @@ importers:
         specifier: 17.0.2
         version: 17.0.2(nx@17.0.2)
       bun:
-        specifier: ^1.0.1
-        version: 1.0.12
+        specifier: ^1.0.20
+        version: 1.0.20
       concurrently:
         specifier: ^8.2.2
         version: 8.2.2
@@ -4472,48 +4472,48 @@ packages:
     resolution: {integrity: sha512-yQJaT5HDp9hYOOp4jTYxMsR02gdFZFXhewX5HW9Jo4fsqSVqqyIO/xTHdWDaKX5a3pv1txmf076Lziz+sO7L1w==}
     dev: true
 
-  /@oven/bun-darwin-aarch64@1.0.12:
-    resolution: {integrity: sha512-e/iNyt8HXlvDTzyvKUyq+vIUVyID9WykyDvNEcz5jM9bcdwimiAo+VGvRhAWnRkazhDBY5H3DL+ixEGy0ljIGw==}
+  /@oven/bun-darwin-aarch64@1.0.20:
+    resolution: {integrity: sha512-8eB/OtkCuesoUI8qk6CywuJ+OSH5rk3LDStn2+c91dmHhXZ5q++D8nJKNOkyRh4nWsR3q2loav+CPQddbEJp9g==}
     cpu: [arm64]
     os: [darwin]
     requiresBuild: true
     dev: true
     optional: true
 
-  /@oven/bun-darwin-x64-baseline@1.0.12:
-    resolution: {integrity: sha512-E/0pWuimJlrSzbk6TLgHHvJ0YkRv6oUT1grvgbJz1zyY5/86tAzbc8N6i37kot3jvJ/qF4pF98DkAK+V5TKOMg==}
+  /@oven/bun-darwin-x64-baseline@1.0.20:
+    resolution: {integrity: sha512-QF1Bja1lhKjG25UkTkZ1VzJ9ZzkVPppskSKX/y2zx8xwKPlCgoxLXrvx4edKpqIgbD0zGTSRO8EOuPn/VbGDAA==}
     cpu: [x64]
     os: [darwin]
     requiresBuild: true
     dev: true
     optional: true
 
-  /@oven/bun-darwin-x64@1.0.12:
-    resolution: {integrity: sha512-CWfuYPJ1oObCKskOZeg7aM6ToJgt1LEpIIyaqRiYiVji3lrEcnNVPFUJqj7JlQrchZrcrqRr0duKypVCQ+8Jig==}
+  /@oven/bun-darwin-x64@1.0.20:
+    resolution: {integrity: sha512-esoLmnV8/FrAMb1DaXdmPJXni1Ow7wjOd6qoq6yd/CkMwkO2LIGBOpR1fG31QKW78GgsHiDFi4NfyNBVvOc/mA==}
     cpu: [x64]
     os: [darwin]
     requiresBuild: true
     dev: true
     optional: true
 
-  /@oven/bun-linux-aarch64@1.0.12:
-    resolution: {integrity: sha512-0az/FbWNerffUw4ik2VYq/L1m+YncV1uRj59YJMVgB7Eyo1ykgGAmKM/7bUFNrwO1c8Ydz0vj2oOXeYJzWc1Tg==}
+  /@oven/bun-linux-aarch64@1.0.20:
+    resolution: {integrity: sha512-Zy4PwUb1JRnBoPc3N9S1XtMzRIz+2R5VME9O08bFRlj2sg2mf7bSFElavsRTTEPys5X/QJU3E3GngWFxKpc4Vw==}
     cpu: [arm64]
     os: [linux]
     requiresBuild: true
     dev: true
     optional: true
 
-  /@oven/bun-linux-x64-baseline@1.0.12:
-    resolution: {integrity: sha512-/sSpuNXbCnNoZ3HHL2veGZWmBqIEeM4skaAMp4rSD+Yf5NbHZXeB4qhj7bp7DTMyRESkScMir1DpJifqNhNd/Q==}
+  /@oven/bun-linux-x64-baseline@1.0.20:
+    resolution: {integrity: sha512-lZUcUsq4Fk3CxhF5UhZhB2hhNViYzAFPprL47LxuFuvtybPtXVCOCyGSP37MiMfA6QxE+nNW6w7oJQqXkC1exg==}
     cpu: [x64]
     os: [linux]
     requiresBuild: true
     dev: true
     optional: true
 
-  /@oven/bun-linux-x64@1.0.12:
-    resolution: {integrity: sha512-A5PP4JpKVwqtj31ZPOHJlerFyw8zOJKRk6ssk1m0jRaFm0/4tEcpqQzX/pPmZcoFhWKcKDnwSJDUIT5vR0q24w==}
+  /@oven/bun-linux-x64@1.0.20:
+    resolution: {integrity: sha512-1iA6EFGfAGCPbmEvRXCmayoFZXNm/8KrLF5RJt51FBt1mHmbVE7vX/xOexAQbh69bO1EFy6ruslPV3arLLie+g==}
     cpu: [x64]
     os: [linux]
     requiresBuild: true
@@ -8039,19 +8039,19 @@ packages:
     resolution: {integrity: sha512-XkEvWLV1JIhcVIpf2Lu6FXnZUxRUkQVJmgY+VT7os6Tk5X1nkXx11q4Rtu6txsqpDJZfUeZXblnnD59K+6wsVA==}
     dev: true
 
-  /bun@1.0.12:
-    resolution: {integrity: sha512-I0CAJJ0HQcu+hdid1jPpRuG1qAyiToZD2eJ0jOX9FLPvhyQQcul6DjRAlW+N1gk9brovK82sba4GvEQxVdCyUA==}
+  /bun@1.0.20:
+    resolution: {integrity: sha512-dBTDB8ombE6JzBgxRqY1GCjl5gcYziNcC9lvgqXx7bnq+bTBeW3rd8TKIgPNmmJbdwXTLJRe/5G7E2Po4CxGlA==}
     cpu: [arm64, x64]
     os: [darwin, linux]
     hasBin: true
     requiresBuild: true
     optionalDependencies:
-      '@oven/bun-darwin-aarch64': 1.0.12
-      '@oven/bun-darwin-x64': 1.0.12
-      '@oven/bun-darwin-x64-baseline': 1.0.12
-      '@oven/bun-linux-aarch64': 1.0.12
-      '@oven/bun-linux-x64': 1.0.12
-      '@oven/bun-linux-x64-baseline': 1.0.12
+      '@oven/bun-darwin-aarch64': 1.0.20
+      '@oven/bun-darwin-x64': 1.0.20
+      '@oven/bun-darwin-x64-baseline': 1.0.20
+      '@oven/bun-linux-aarch64': 1.0.20
+      '@oven/bun-linux-x64': 1.0.20
+      '@oven/bun-linux-x64-baseline': 1.0.20
     dev: true
 
   /bundle-require@4.0.2(esbuild@0.19.5):
