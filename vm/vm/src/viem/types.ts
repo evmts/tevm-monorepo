@@ -1,4 +1,5 @@
 import type { RunContractCallAction } from '../actions/contractCall/RunContractCallAction.js'
+import type { RunContractCallError } from '../actions/contractCall/RunContractCallError.js'
 import type { RunContractCallResult } from '../actions/contractCall/RunContractCallResult.js'
 import type {
 	PutAccountAction,
@@ -17,6 +18,8 @@ import type {
 	Account,
 	Chain,
 	Transport,
+	WaitForTransactionReceiptReturnType,
+	WriteContractErrorType,
 	WriteContractParameters,
 	WriteContractReturnType,
 } from 'viem'
@@ -46,6 +49,37 @@ export type ViemTevmClient = {
 	): Promise<RunContractCallResult<TAbi, TFunctionName>>
 }
 
+export type TypedError<T> = Error & { tag: T }
+
+export type GenResult<TDataType, TTag extends string> = {
+	success: true
+	tag: TTag
+	data: TDataType
+	errors?: ReadonlyArray<TypedError<string>>
+}
+
+type GenError<TErrorType, TTag extends string> = {
+	errors?: ReadonlyArray<TypedError<string>>
+	error: TErrorType
+	success: false
+	tag: TTag
+}
+
+export type OptimisticResult<
+	TAbi extends Abi | readonly unknown[],
+	TFunctionName extends string,
+	TChain extends Chain | undefined,
+> =
+	| GenResult<RunContractCallResult<TAbi, TFunctionName>, 'OPTIMISTIC_RESULT'>
+	| GenError<RunContractCallError, 'OPTIMISTIC_RESULT'>
+	| GenResult<WriteContractReturnType, 'HASH'>
+	| GenError<WriteContractErrorType, 'HASH'>
+	| GenResult<WaitForTransactionReceiptReturnType<TChain>, 'RECEIPT'>
+	| GenError<WriteContractErrorType, 'RECEIPT'>
+// TODO emit a finalized result when app considers risk of reorg to be 0
+// | GenResult<undefined, 'FINALIZED'>
+// TODO emit a reorg event
+
 export type ViemTevmOptimisticClient<
 	TChain extends Chain | undefined = Chain,
 	TAccount extends Account | undefined = Account | undefined,
@@ -62,10 +96,7 @@ export type ViemTevmOptimisticClient<
 			TAccount,
 			TChainOverride
 		>,
-	): Promise<{
-		optimisticResult: () => Promise<RunContractCallResult<TAbi, TFunctionName>>
-		result: () => Promise<WriteContractReturnType>
-	}>
+	): AsyncGenerator<OptimisticResult<TAbi, TFunctionName, TChain>>
 }
 
 export type ViemTevmClientDecorator = (
