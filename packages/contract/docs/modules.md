@@ -6,42 +6,42 @@
 
 ### Type Aliases
 
-- [TevmContract](modules.md#tevmcontract)
+- [TevmContract](undefined)
 
 ### Functions
 
-- [createTevmContract](modules.md#createtevmcontract)
-- [createTevmContractFromAbi](modules.md#createtevmcontractfromabi)
-- [formatAbi](modules.md#formatabi)
-- [parseAbi](modules.md#parseabi)
+- [createTevmContract](undefined)
+- [createTevmContractFromAbi](undefined)
+- [formatAbi](undefined)
+- [parseAbi](undefined)
 
 ## Type Aliases
 
 ### TevmContract
 
-Ƭ **TevmContract**\<`TName`, `THumanReadableAbi`, `TBytecode`, `TDeployedBytecode`\>: `Object`
+Ƭ **TevmContract**: `Object`
 
 #### Type parameters
 
 | Name | Type |
 | :------ | :------ |
-| `TName` | extends `string` |
-| `THumanReadableAbi` | extends `ReadonlyArray`\<`string`\> |
-| `TBytecode` | extends `Hex` \| `undefined` |
-| `TDeployedBytecode` | extends `Hex` \| `undefined` |
+| `TName` | extends string |
+| `THumanReadableAbi` | extends ReadonlyArray\<string\> |
+| `TBytecode` | extends Hex \| undefined |
+| `TDeployedBytecode` | extends Hex \| undefined |
 
 #### Type declaration
 
 | Name | Type |
 | :------ | :------ |
-| `abi` | `ParseAbi`\<`THumanReadableAbi`\> |
-| `bytecode` | `TBytecode` |
-| `deployedBytecode` | `TDeployedBytecode` |
-| `events` | `Events`\<`TName`, `THumanReadableAbi`, `TBytecode`, `TDeployedBytecode`\> |
-| `humanReadableAbi` | `THumanReadableAbi` |
-| `name` | `TName` |
-| `read` | `Read`\<`TName`, `THumanReadableAbi`, `TBytecode`, `TDeployedBytecode`\> |
-| `write` | `Write`\<`TName`, `THumanReadableAbi`, `TBytecode`, `TDeployedBytecode`\> |
+| `abi` | ParseAbi\<THumanReadableAbi\> |
+| `bytecode` | TBytecode |
+| `deployedBytecode` | TDeployedBytecode |
+| `events` | Events\<TName, THumanReadableAbi, TBytecode, TDeployedBytecode\> |
+| `humanReadableAbi` | THumanReadableAbi |
+| `name` | TName |
+| `read` | Read\<TName, THumanReadableAbi, TBytecode, TDeployedBytecode\> |
+| `write` | Write\<TName, THumanReadableAbi, TBytecode, TDeployedBytecode\> |
 
 #### Defined in
 
@@ -51,26 +51,26 @@
 
 ### createTevmContract
 
-▸ **createTevmContract**\<`TName`, `THumanReadableAbi`, `TBytecode`, `TDeployedBytecode`\>(`«destructured»`): [`TevmContract`](modules.md#tevmcontract)\<`TName`, `THumanReadableAbi`, `TBytecode`, `TDeployedBytecode`\>
+▸ **createTevmContract**\<`TName`, `THumanReadableAbi`, `TBytecode`, `TDeployedBytecode`\>(`«destructured»`): TevmContract\<TName, THumanReadableAbi, TBytecode, TDeployedBytecode\>
 
 #### Type parameters
 
 | Name | Type |
 | :------ | :------ |
-| `TName` | extends `string` |
-| `THumanReadableAbi` | extends readonly `string`[] |
-| `TBytecode` | extends `undefined` \| \`0x$\{string}\` |
-| `TDeployedBytecode` | extends `undefined` \| \`0x$\{string}\` |
+| `TName` | extends string |
+| `THumanReadableAbi` | extends readonly string[] |
+| `TBytecode` | extends undefined \| \`0x$\{string}\` |
+| `TDeployedBytecode` | extends undefined \| \`0x$\{string}\` |
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `«destructured»` | `Pick`\<[`TevmContract`](modules.md#tevmcontract)\<`TName`, `THumanReadableAbi`, `TBytecode`, `TDeployedBytecode`\>, ``"name"`` \| ``"bytecode"`` \| ``"deployedBytecode"`` \| ``"humanReadableAbi"``\> |
+| `«destructured»` | Pick\<TevmContract\<TName, THumanReadableAbi, TBytecode, TDeployedBytecode\>, "name" \| "bytecode" \| "deployedBytecode" \| "humanReadableAbi"\> |
 
 #### Returns
 
-[`TevmContract`](modules.md#tevmcontract)\<`TName`, `THumanReadableAbi`, `TBytecode`, `TDeployedBytecode`\>
+TevmContract\<TName, THumanReadableAbi, TBytecode, TDeployedBytecode\>
 
 #### Defined in
 
@@ -80,26 +80,26 @@ ___
 
 ### createTevmContractFromAbi
 
-▸ **createTevmContractFromAbi**\<`TName`, `TAbi`, `TBytecode`, `TDeployedBytecode`\>(`«destructured»`): [`TevmContract`](modules.md#tevmcontract)\<`TName`, `FormatAbi`\<`TAbi`\>, `TBytecode`, `TDeployedBytecode`\>
+▸ **createTevmContractFromAbi**\<`TName`, `TAbi`, `TBytecode`, `TDeployedBytecode`\>(`«destructured»`): TevmContract\<TName, FormatAbi\<TAbi\>, TBytecode, TDeployedBytecode\>
 
 #### Type parameters
 
 | Name | Type |
 | :------ | :------ |
-| `TName` | extends `string` |
-| `TAbi` | extends `Abi` |
-| `TBytecode` | extends `undefined` \| \`0x$\{string}\` |
-| `TDeployedBytecode` | extends `undefined` \| \`0x$\{string}\` |
+| `TName` | extends string |
+| `TAbi` | extends Abi |
+| `TBytecode` | extends undefined \| \`0x$\{string}\` |
+| `TDeployedBytecode` | extends undefined \| \`0x$\{string}\` |
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `«destructured»` | `Pick`\<[`TevmContract`](modules.md#tevmcontract)\<`TName`, `FormatAbi`\<`TAbi`\>, `TBytecode`, `TDeployedBytecode`\>, ``"name"`` \| ``"abi"`` \| ``"bytecode"`` \| ``"deployedBytecode"``\> |
+| `«destructured»` | Pick\<TevmContract\<TName, FormatAbi\<TAbi\>, TBytecode, TDeployedBytecode\>, "name" \| "abi" \| "bytecode" \| "deployedBytecode"\> |
 
 #### Returns
 
-[`TevmContract`](modules.md#tevmcontract)\<`TName`, `FormatAbi`\<`TAbi`\>, `TBytecode`, `TDeployedBytecode`\>
+TevmContract\<TName, FormatAbi\<TAbi\>, TBytecode, TDeployedBytecode\>
 
 #### Defined in
 
@@ -109,7 +109,7 @@ ___
 
 ### formatAbi
 
-▸ **formatAbi**\<`TAbi`\>(`abi`): `FormatAbi`\<`TAbi`\>
+▸ **formatAbi**\<`TAbi`\>(`abi`): FormatAbi\<TAbi\>
 
 Parses JSON ABI into human-readable ABI
 
@@ -117,29 +117,29 @@ Parses JSON ABI into human-readable ABI
 
 | Name | Type |
 | :------ | :------ |
-| `TAbi` | extends `Abi` \| readonly `unknown`[] |
+| `TAbi` | extends Abi \| readonly unknown[] |
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `abi` | `TAbi` | ABI |
+| `abi` | TAbi | ABI |
 
 #### Returns
 
-`FormatAbi`\<`TAbi`\>
+FormatAbi\<TAbi\>
 
 Human-readable ABI
 
 #### Defined in
 
-node_modules/.pnpm/abitype@0.10.2_typescript@5.2.2_zod@3.22.4/node_modules/abitype/dist/types/human-readable/formatAbi.d.ts:18
+node_modules/.pnpm/abitype@0.10.2_typescript@5.3.3/node_modules/abitype/dist/types/human-readable/formatAbi.d.ts:18
 
 ___
 
 ### parseAbi
 
-▸ **parseAbi**\<`TSignatures`\>(`signatures`): `ParseAbi`\<`TSignatures`\>
+▸ **parseAbi**\<`TSignatures`\>(`signatures`): ParseAbi\<TSignatures\>
 
 Parses human-readable ABI into JSON Abi
 
@@ -147,17 +147,17 @@ Parses human-readable ABI into JSON Abi
 
 | Name | Type |
 | :------ | :------ |
-| `TSignatures` | extends readonly `string`[] |
+| `TSignatures` | extends readonly string[] |
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `signatures` | `TSignatures`[``"length"``] extends ``0`` ? [``"Error: At least one signature required"``] : `Signatures`\<`TSignatures`\> extends `TSignatures` ? `TSignatures` : `Signatures`\<`TSignatures`\> | Human-Readable ABI |
+| `signatures` | TSignatures["length"] extends 0 ? ["Error: At least one signature required"] : Signatures\<TSignatures\> extends TSignatures ? TSignatures : Signatures\<TSignatures\> | Human-Readable ABI |
 
 #### Returns
 
-`ParseAbi`\<`TSignatures`\>
+ParseAbi\<TSignatures\>
 
 Parsed Abi
 
@@ -173,4 +173,4 @@ const abi = parseAbi([
 
 #### Defined in
 
-node_modules/.pnpm/abitype@0.10.2_typescript@5.2.2_zod@3.22.4/node_modules/abitype/dist/types/human-readable/parseAbi.d.ts:37
+node_modules/.pnpm/abitype@0.10.2_typescript@5.3.3/node_modules/abitype/dist/types/human-readable/parseAbi.d.ts:37
