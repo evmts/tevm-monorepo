@@ -30,7 +30,7 @@
 			"types": "./types/index.d.ts"
 		},
 		"./viem": {
-			"import": "./src/viem/index.js",
+			"import": "./dist/viem/index.js",
 			"default": "./dist/viem/index.cjs",
 			"types": "./types/viem/index.d.ts"
 		}
