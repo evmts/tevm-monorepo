@@ -1,0 +1,79 @@
+{
+	"name": "@tevm/react",
+	"version": "1.0.0-next.11",
+	"private": false,
+	"description": "A typesafe library for writing forge scripts in typescript",
+	"keywords": [
+		"solidity",
+		"forge",
+		"foundry",
+		"sol",
+		"typescript",
+		"web3",
+		"blockchain"
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/evmts/tevm-monorepo.git",
+		"directory": "vm/react"
+	},
+	"license": "MIT",
+	"contributors": [
+		"Will Cory <willcory10@gmail.com>"
+	],
+	"type": "module",
+	"exports": {
+		"./package.json": "./package.json",
+		".": {
+			"import": "./dist/index.js",
+			"default": "./dist/index.cjs",
+			"types": "./types/index.d.ts"
+		},
+		"./viem": {
+			"import": "./dist/viem/index.js",
+			"default": "./dist/viem/index.cjs",
+			"types": "./types/viem/index.d.ts"
+		}
+	},
+	"main": "dist/index.cjs",
+	"module": "dist/index.js",
+	"types": "types/index.d.ts",
+	"files": [
+		"dist",
+		"types",
+		"src",
+		"!src/**/*.spec.ts"
+	],
+	"scripts": {
+		"all": "pnpm i  && bun run build && bun lint && bun format && bun test:run && bun generate:docs",
+		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/react",
+		"build:dist": "bun run tsup",
+		"build:types": "bun run tsc --emitDeclarationOnly --declaration --declarationMap",
+		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
+		"format": "rome format . --write",
+		"format:check": "rome format .",
+		"generate:docs": "bun run typedoc",
+		"lint": "rome check . --apply-unsafe",
+		"lint:check": "rome check . --verbose",
+		"package:up": "pnpm up --latest",
+		"test": "bun test --watch",
+		"test:coverage": "bun test --coverage",
+		"test:run": "bun test",
+		"typecheck": "tsc --noEmit"
+	},
+	"dependencies": {
+		"@tanstack/react-query": "^5.8.4",
+		"@tevm/vm": "workspace:^",
+		"@wagmi/core": "2.0.0-rc.1",
+		"react": "^18.2.0",
+		"wagmi": "2.0.0-rc.1"
+	},
+	"devDependencies": {
+		"@tevm/tsconfig": "workspace:^",
+		"@types/debug": "^4.1.12",
+		"@types/react": "^18.2.37"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
+}
