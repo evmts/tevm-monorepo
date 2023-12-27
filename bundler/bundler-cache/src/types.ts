@@ -1,5 +1,9 @@
 import type { SolcInputDescription, SolcOutput } from '@tevm/solc'
 
+/**
+ * Generalized interface for accessing file system
+ * Allows this package to be used in browser environments or otherwise pluggable
+ */
 export type FileAccessObject = {
 	writeFileSync: (path: string, data: string) => void
 	readFile: (path: string, encoding: BufferEncoding) => Promise<string>

@@ -1,0 +1,2 @@
+export function putAccountHandler(tevm: import("../../Tevm.js").Tevm, { account, balance }: import("./PutAccountAction.js").PutAccountAction): Promise<import("./PutAccountResult.js").PutAccountResult>;
+//# sourceMappingURL=putAccountHandler.d.ts.map

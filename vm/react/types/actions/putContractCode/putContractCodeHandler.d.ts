@@ -1,0 +1,2 @@
+export function putContractCodeHandler(tevm: import("../../Tevm.js").Tevm, action: import("./PutContractCodeAction.js").PutContractCodeAction): Promise<import("./PutContractCodeResult.js").PutContractCodeResult>;
+//# sourceMappingURL=putContractCodeHandler.d.ts.map

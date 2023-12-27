@@ -1,5 +1,5 @@
-import { type Cache, createCache } from './createCache.js'
-import type { FileAccessObject, Logger } from './types.js'
+import { createCache } from './createCache.js'
+import type { Cache, FileAccessObject, Logger } from './types.js'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 describe(createCache.name, () => {

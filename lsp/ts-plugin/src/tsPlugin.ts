@@ -25,12 +25,22 @@ export const tsPlugin: typescript.server.PluginModuleFactory = (modules) => {
 	return {
 		create: (createInfo) => {
 			const logger = createLogger(createInfo)
-			const snapshotSolcCache = createCache(logger)
-			const definitionSolcCache = createCache(logger)
 			const config = runSync(
 				loadConfig(createInfo.project.getCurrentDirectory()),
 			)
 			const fao = createFileAccessObject(createInfo.languageServiceHost)
+			const snapshotSolcCache = createCache(
+				logger,
+				config.cacheDir,
+				fao,
+				createInfo.project.getCurrentDirectory(),
+			)
+			const definitionSolcCache = createCache(
+				logger,
+				config.cacheDir,
+				fao,
+				createInfo.project.getCurrentDirectory(),
+			)
 			const service = getDefinitionServiceDecorator(
 				modules.typescript.createLanguageService(
 					decorateHost(

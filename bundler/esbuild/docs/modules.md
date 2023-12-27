@@ -6,24 +6,24 @@
 
 ### Functions
 
-- [esbuildPluginTevm](modules.md#esbuildplugintevm)
+- [esbuildPluginTevm](undefined)
 
 ## Functions
 
 ### esbuildPluginTevm
 
-▸ **esbuildPluginTevm**(`options?`): `Plugin`
+▸ **esbuildPluginTevm**(`options?`): Plugin
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `options?` | `Object` |
-| `options.solc?` | `SolcVersions` |
+| `options?` | Object |
+| `options.solc?` | SolcVersions |
 
 #### Returns
 
-`Plugin`
+Plugin
 
 #### Defined in
 
