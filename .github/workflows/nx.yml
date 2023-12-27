@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 env:
-  NX_CLOUD_DISTRIBUTED_EXECUTION: true 
+  NX_CLOUD_DISTRIBUTED_EXECUTION: true
   # give extra memory to speed up a bit
   NODE_OPTIONS: '--max_old_space_size=4096'
   NX_BRANCH: ${{ github.event.number || github.ref_name }}

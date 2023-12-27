@@ -11,10 +11,10 @@ import {
 	type BackendReturnType,
 	type JsonRpcClient,
 } from './jsonrpc/createJsonRpcClient.js'
+import type { CustomPredeploy } from './predeploys/definePredeploy.js'
 import type { EVMResult } from '@ethereumjs/evm'
 import type { Account } from '@ethereumjs/util'
 import type { Abi } from 'abitype'
-
 /**
  * Options fetch state that isn't available locally.
  */
@@ -38,6 +38,7 @@ type ForkOptions = {
 export type CreateEVMOptions = {
 	fork?: ForkOptions
 	customPrecompiles?: CustomPrecompile[]
+	customPredeploys?: CustomPredeploy[]
 	allowUnlimitedContractSize?: boolean
 }
 

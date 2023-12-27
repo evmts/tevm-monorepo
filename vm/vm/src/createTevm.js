@@ -211,5 +211,14 @@ export const createTevm = async (options = {}) => {
 			: { forkUrl: options.fork?.url }),
 	}
 
+	await Promise.all(
+		options.customPredeploys?.map((predeploy) => {
+			putContractCodeHandler(tevm, {
+				contractAddress: predeploy.address,
+				deployedBytecode: predeploy.contract.deployedBytecode,
+			})
+		}) || [],
+	)
+
 	return tevm
 }

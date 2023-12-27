@@ -28,7 +28,7 @@
 			"import": "./dist/index.js",
 			"require": "./dist/index.cjs",
 			"default": "./dist/index.cjs",
-			"types": "./types/index.d.ts"
+			"types": "./types/src/index.d.ts"
 		},
 		"./common": {
 			"import": "./dist/common.js",
@@ -39,7 +39,7 @@
 	},
 	"main": "dist/index.cjs",
 	"module": "dist/index.js",
-	"types": "types/index.d.ts",
+	"types": "types/src/index.d.ts",
 	"files": [
 		"dist",
 		"src",

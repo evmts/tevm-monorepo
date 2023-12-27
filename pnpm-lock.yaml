@@ -1118,6 +1118,9 @@ importers:
       '@ethereumjs/util':
         specifier: ^9.0.1
         version: 9.0.1
+      '@tevm/contract':
+        specifier: workspace:^
+        version: link:../../packages/contract
       '@types/supertest':
         specifier: ^2.0.16
         version: 2.0.16

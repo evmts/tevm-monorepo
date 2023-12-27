@@ -18,9 +18,7 @@
 		"directory": "vm"
 	},
 	"license": "MIT",
-	"contributors": [
-		"Will Cory <willcory10@gmail.com>"
-	],
+	"contributors": ["Will Cory <willcory10@gmail.com>"],
 	"type": "module",
 	"exports": {
 		"./package.json": "./package.json",
@@ -38,12 +36,7 @@
 	"main": "dist/index.cjs",
 	"module": "dist/index.js",
 	"types": "types/index.d.ts",
-	"files": [
-		"dist",
-		"types",
-		"src",
-		"!src/**/*.spec.ts"
-	],
+	"files": ["dist", "types", "src", "!src/**/*.spec.ts"],
 	"scripts": {
 		"all": "pnpm i  && bun run build && bun lint && bun format && bun test:run && bun generate:docs",
 		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/vm",
@@ -67,6 +60,7 @@
 		"@ethereumjs/statemanager": "^2.1.0",
 		"@ethereumjs/trie": "^6.0.1",
 		"@ethereumjs/util": "^9.0.1",
+		"@tevm/contract": "workspace:^",
 		"@types/supertest": "^2.0.16",
 		"abitype": "^0.10.3",
 		"debug": "^4.3.4",
