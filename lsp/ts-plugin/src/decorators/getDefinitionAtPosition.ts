@@ -26,7 +26,7 @@ export const getDefinitionServiceDecorator = (
 	logger: Logger,
 	ts: typeof typescript,
 	fao: FileAccessObject,
-	solcCache?: Cache,
+	solcCache: Cache,
 ): typescript.LanguageService => {
 	const getDefinitionAtPosition: typeof service.getDefinitionAtPosition = (
 		fileName,

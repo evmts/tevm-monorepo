@@ -1,12 +1,4 @@
 /**
- * ./types.ts
- * @typedef {import('./types.js').Artifacts} Artifacts
- * @typedef {import('./types.js').CompiledContracts} CompiledContracts
- * @typedef {import('./types.js').FileAccessObject} FileAccessObject
- * @typedef {import('./types.js').Logger} Logger
- * @typedef {import('./types.js').ModuleInfo} ModuleInfo
- */
-/**
  * ./solcTypes.ts
  * @typedef {import('./solcTypes.js').SolcOutput} SolcOutput
  * @typedef {import('./solcTypes.js').SolcLanguage} SolcLanguage
@@ -39,6 +31,4 @@
  * @typedef {import('./solcTypes.js').Solc} Solc
  * @typedef {import('./solcTypes.js').SolcVersions} SolcVersions
  */
-export { resolveArtifacts } from './resolveArtifacts.js'
-export { resolveArtifactsSync } from './resolveArtifactsSync.js'
 export { solcCompile, createSolc, releases } from './solc.js'

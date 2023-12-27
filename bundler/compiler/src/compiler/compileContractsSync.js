@@ -1,4 +1,4 @@
-import { solcCompile } from '../solc.js'
+import { solcCompile } from '@tevm/solc'
 import { invariant } from '../utils/invariant.js'
 import { moduleFactory } from '@tevm/resolutions'
 import { runSync } from 'effect/Effect'
@@ -71,7 +71,7 @@ export function compileContractSync(
 		modules[m.id] = m
 		for (const dep of m.importedIds) {
 			stack.push(
-				/** @type {import("../types.js").ModuleInfo} */ (moduleMap.get(dep)),
+				/** @type {import("../types.js").ModuleInfo} */(moduleMap.get(dep)),
 			)
 		}
 	}
@@ -90,7 +90,7 @@ export function compileContractSync(
 	 */
 	const evmBytecode = ['evm.bytecode.object', 'evm.deployedBytecode.object']
 	/**
-	 * @type {import('../solcTypes.js').SolcInputDescription}
+	 * @type {import('@tevm/solc').SolcInputDescription}
 	 */
 	const solcInput = {
 		language: 'Solidity',
@@ -105,7 +105,7 @@ export function compileContractSync(
 		},
 	}
 	/**
-	 * @type {import('../solcTypes.js').SolcOutput}
+	 * @type {import('@tevm/solc').SolcOutput}
 	 */
 	const solcOutput = solcCompile(solc, solcInput)
 
@@ -113,11 +113,11 @@ export function compileContractSync(
 	const isErrors = (solcOutput?.errors?.length ?? 0) > (warnings?.length ?? 0)
 
 	if (isErrors) {
-		logger.error('Compilation errors:', /** @type {any}*/ (solcOutput?.errors))
+		logger.error('Compilation errors:', /** @type {any}*/(solcOutput?.errors))
 		throw new Error('Compilation failed')
 	}
 	if (warnings?.length) {
-		logger.warn('Compilation warnings:', /** @type {any}*/ (solcOutput?.errors))
+		logger.warn('Compilation warnings:', /** @type {any}*/(solcOutput?.errors))
 	}
 
 	if (includeAst) {

@@ -60,7 +60,7 @@
 		"effect": "2.0.0-next.54"
 	},
 	"devDependencies": {
-		"@tevm/solc": "workspace:^",
+		"@tevm/compiler": "workspace:^",
 		"abitype": "^0.10.2"
 	},
 	"publishConfig": {

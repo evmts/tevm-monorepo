@@ -2,7 +2,7 @@ import { formatAbi } from 'abitype'
 import { succeed } from 'effect/Effect'
 
 /**
- * @param {import("@tevm/solc").Artifacts} artifacts
+ * @param {import("@tevm/compiler").Artifacts} artifacts
  * @param {boolean} includeBytecode
  * @returns {import('effect/Effect').Effect<never, never, string>}
  */
@@ -31,8 +31,7 @@ export const generateDtsBody = (artifacts, includeBytecode) => {
 					` * ${contractName} TevmContract`,
 					...natspec,
 					' */',
-					`export const ${contractName}: TevmContract<typeof _name${contractName}, typeof _abi${contractName}, ${
-						includeBytecode ? '`0x${string}`' : 'undefined'
+					`export const ${contractName}: TevmContract<typeof _name${contractName}, typeof _abi${contractName}, ${includeBytecode ? '`0x${string}`' : 'undefined'
 					}, ${includeBytecode ? '`0x${string}`' : 'undefined'}>;`,
 				].filter(Boolean)
 			})

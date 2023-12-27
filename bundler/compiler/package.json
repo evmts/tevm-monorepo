@@ -1,8 +1,8 @@
 {
-	"name": "@tevm/base",
+	"name": "@tevm/compiler",
 	"version": "1.0.0-next.18",
 	"private": false,
-	"description": "Internal bundler for Tevm",
+	"description": "Utilities around compiler",
 	"keywords": [
 		"solidity",
 		"forge",
@@ -15,7 +15,7 @@
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/evmts/tevm-monorepo.git",
-		"directory": "bundler/base"
+		"directory": "bundler/compiler"
 	},
 	"license": "MIT",
 	"contributors": [
@@ -40,34 +40,38 @@
 		"src"
 	],
 	"scripts": {
-		"all": "bun run build && bun run format && bun run lint && bun run test:coverage && bun run generate:docs",
-		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/base ",
+		"all": "pnpm i  && bun run build && bun run lint && bun run lint:check && bun run format:check && bun run format && bun run test:coverage && bun run generate:docs",
+		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/compiler ",
 		"build:dist": "bun run tsup",
 		"build:types": "bun run tsc --emitDeclarationOnly --declaration --declarationMap",
 		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
 		"format": "rome format . --write",
 		"format:check": "rome format .",
-		"generate:docs": "bun run typedoc --plugin typedoc-plugin-markdown",
+		"generate:docs": "bun run typedoc",
 		"lint": "rome check . --apply-unsafe",
 		"lint:check": "rome check . --verbose",
-		"test": "vitest --coverage",
-		"test:coverage": "vitest run --coverage",
-		"test:run": "vitest run",
-		"test:ui": "vitest --ui"
+		"test": "bun run vitest --coverage",
+		"test:coverage": "bun run vitest run --coverage",
+		"test:run": "bun run vitest run",
+		"test:ui": "bun run vitest --ui"
 	},
 	"dependencies": {
-		"@tevm/bundler-cache": "workspace:^",
 		"@tevm/config": "workspace:^",
-		"@tevm/runtime": "workspace:^",
-		"@tevm/compiler": "workspace:^",
-		"effect": "2.0.0-next.54",
-		"solidity-ast": "^0.4.52"
-	},
-	"devDependencies": {
-		"@tevm/contract": "workspace:^",
+		"@tevm/bundler-cache": "workspace:^",
+		"@tevm/resolutions": "workspace:^",
 		"@tevm/solc": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
 		"@types/node": "^20.8.9",
+		"@types/resolve": "^1.20.4",
+		"effect": "2.0.0-next.54",
+		"glob": "^10.3.10",
+		"resolve": "^1.22.8",
+		"solidity-ast": "^0.4.52",
+		"unplugin": "^1.5.0"
+	},
+	"devDependencies": {
+		"@openzeppelin/contracts": "^4.9.3",
+		"abitype": "^0.10.2",
 		"solc": "0.8.22"
 	},
 	"publishConfig": {

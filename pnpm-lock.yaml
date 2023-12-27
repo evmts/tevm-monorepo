@@ -99,15 +99,15 @@ importers:
       '@tevm/bundler-cache':
         specifier: workspace:^
         version: link:../bundler-cache
+      '@tevm/compiler':
+        specifier: workspace:^
+        version: link:../compiler
       '@tevm/config':
         specifier: workspace:^
         version: link:../config
       '@tevm/runtime':
         specifier: workspace:^
         version: link:../runtime
-      '@tevm/solc':
-        specifier: workspace:^
-        version: link:../solc
       effect:
         specifier: 2.0.0-next.54
         version: 2.0.0-next.54
@@ -118,6 +118,9 @@ importers:
       '@tevm/contract':
         specifier: workspace:^
         version: link:../../packages/contract
+      '@tevm/solc':
+        specifier: workspace:^
+        version: link:../solc
       '@tevm/tsconfig':
         specifier: workspace:^
         version: link:../../configs/tsconfig
@@ -192,6 +195,55 @@ importers:
       vitest:
         specifier: ^0.34.6
         version: 0.34.6(@vitest/ui@0.34.6)
+
+  bundler/compiler:
+    dependencies:
+      '@tevm/bundler-cache':
+        specifier: workspace:^
+        version: link:../bundler-cache
+      '@tevm/config':
+        specifier: workspace:^
+        version: link:../config
+      '@tevm/resolutions':
+        specifier: workspace:^
+        version: link:../resolutions
+      '@tevm/solc':
+        specifier: workspace:^
+        version: link:../solc
+      '@tevm/tsconfig':
+        specifier: workspace:^
+        version: link:../../configs/tsconfig
+      '@types/node':
+        specifier: ^20.8.9
+        version: 20.10.4
+      '@types/resolve':
+        specifier: ^1.20.4
+        version: 1.20.5
+      effect:
+        specifier: 2.0.0-next.54
+        version: 2.0.0-next.54
+      glob:
+        specifier: ^10.3.10
+        version: 10.3.10
+      resolve:
+        specifier: ^1.22.8
+        version: 1.22.8
+      solidity-ast:
+        specifier: ^0.4.52
+        version: 0.4.53
+      unplugin:
+        specifier: ^1.5.0
+        version: 1.5.1
+    devDependencies:
+      '@openzeppelin/contracts':
+        specifier: ^4.9.3
+        version: 4.9.3
+      abitype:
+        specifier: ^0.10.2
+        version: 0.10.3(typescript@5.3.3)(zod@3.22.4)
+      solc:
+        specifier: 0.8.22
+        version: 0.8.22
 
   bundler/config:
     dependencies:
@@ -285,49 +337,19 @@ importers:
         specifier: 2.0.0-next.54
         version: 2.0.0-next.54
     devDependencies:
-      '@tevm/solc':
+      '@tevm/compiler':
         specifier: workspace:^
-        version: link:../solc
+        version: link:../compiler
       abitype:
         specifier: ^0.10.2
         version: 0.10.2(typescript@5.3.3)
 
   bundler/solc:
     dependencies:
-      '@tevm/config':
-        specifier: workspace:^
-        version: link:../config
-      '@tevm/resolutions':
-        specifier: workspace:^
-        version: link:../resolutions
       '@tevm/tsconfig':
         specifier: workspace:^
         version: link:../../configs/tsconfig
-      '@types/node':
-        specifier: ^20.8.9
-        version: 20.9.1
-      '@types/resolve':
-        specifier: ^1.20.4
-        version: 1.20.5
-      effect:
-        specifier: 2.0.0-next.54
-        version: 2.0.0-next.54
-      glob:
-        specifier: ^10.3.10
-        version: 10.3.10
-      resolve:
-        specifier: ^1.22.8
-        version: 1.22.8
-      solidity-ast:
-        specifier: ^0.4.52
-        version: 0.4.53
-      unplugin:
-        specifier: ^1.5.0
-        version: 1.5.1
     devDependencies:
-      '@openzeppelin/contracts':
-        specifier: ^4.9.3
-        version: 4.9.3
       abitype:
         specifier: ^0.10.2
         version: 0.10.2(typescript@5.3.3)
@@ -6785,7 +6807,6 @@ packages:
     dependencies:
       typescript: 5.3.3
       zod: 3.22.4
-    dev: false
 
   /abitype@0.8.7(typescript@5.2.2)(zod@3.22.4):
     resolution: {integrity: sha512-wQ7hV8Yg/yKmGyFpqrNZufCxbszDe5es4AZGYPBitocfSqXtjrTG9JMWFcc4N30ukl2ve48aBTwt7NJxVQdU3w==}
@@ -12291,10 +12312,6 @@ packages:
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
     dev: true
 
-  /lru-cache@10.0.3:
-    resolution: {integrity: sha512-B7gr+F6MkqB3uzINHXNctGieGsRTMwIBgxkp0yq/5BwcuDzD4A8wQpHQW6vDAm1uKSLQghmRdD9sKqf2vJ1cEg==}
-    engines: {node: 14 || >=16.14}
-
   /lru-cache@10.1.0:
     resolution: {integrity: sha512-/1clY/ui8CzjKFyjdvwPWJUYKiFVXG2I2cY0ssG7h4+hwk+XOIX7ZSG9Q7TW8TW3Kp3BUSqgFWBLgL4PJ+Blag==}
     engines: {node: 14 || >=16.14}
@@ -13560,7 +13577,7 @@ packages:
     resolution: {integrity: sha512-MkhCqzzBEpPvxxQ71Md0b1Kk51W01lrYvlMzSUaIzNsODdd7mqhiimSZlr+VegAz5Z6Vzt9Xg2ttE//XBhH3EQ==}
     engines: {node: '>=16 || 14 >=14.17'}
     dependencies:
-      lru-cache: 10.0.3
+      lru-cache: 10.1.0
       minipass: 7.0.4
 
   /path-to-regexp@2.2.1:

@@ -1,5 +1,5 @@
 import { generateRuntime } from './generateRuntime.js'
-import type { Artifacts } from '@tevm/solc'
+import type { Artifacts } from '@tevm/compiler'
 import { runSync } from 'effect/Effect'
 import { describe, expect, it } from 'vitest'
 

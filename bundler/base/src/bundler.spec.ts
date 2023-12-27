@@ -1,12 +1,14 @@
 import { bundler } from './bundler.js'
 import type { Bundler, FileAccessObject, Logger } from './types.js'
 import {
-	type ModuleInfo,
 	type SolcInputDescription,
 	type SolcOutput,
+} from '@tevm/solc'
+import {
+	type ModuleInfo,
 	resolveArtifacts,
 	resolveArtifactsSync,
-} from '@tevm/solc'
+} from '@tevm/compiler'
 import type { Node } from 'solidity-ast/node.js'
 import {
 	type Mock,
@@ -17,6 +19,8 @@ import {
 	it,
 	vi,
 } from 'vitest'
+import { createCache } from '@tevm/bundler-cache'
+import { tmpdir } from 'os'
 
 const fao: FileAccessObject = {
 	existsSync: vi.fn() as any,
@@ -53,7 +57,7 @@ describe(bundler.name, () => {
 			},
 		}
 
-		resolver = bundler(config as any, logger, fao, require('solc'))
+		resolver = bundler(config as any, logger, fao, require('solc'), createCache(logger, tmpdir(), fao, tmpdir()))
 		vi.mock('@tevm/solc', () => {
 			return {
 				resolveArtifacts: vi.fn(),
@@ -434,25 +438,25 @@ describe(bundler.name, () => {
 			const artifacts = {
 				TestContract: { contractName: 'TestContract', abi: [] },
 			}
-			;(resolveArtifactsSync as Mock).mockReturnValueOnce({
-				artifacts,
-				modules: mockModules,
-				asts: {
-					'TestContract.sol': {
-						absolutePath: '/absolute/path',
-						evmVersion: 'homestead',
+				; (resolveArtifactsSync as Mock).mockReturnValueOnce({
+					artifacts,
+					modules: mockModules,
+					asts: {
+						'TestContract.sol': {
+							absolutePath: '/absolute/path',
+							evmVersion: 'homestead',
+						},
 					},
-				},
-				solcInput: {
-					language: 'Solidity',
-					settings: { outputSelection: { sources: {} } },
-					sources: {},
-				} satisfies SolcInputDescription,
-				solcOutput: {
-					contracts: {},
-					sources: {},
-				} satisfies SolcOutput,
-			})
+					solcInput: {
+						language: 'Solidity',
+						settings: { outputSelection: { sources: {} } },
+						sources: {},
+					} satisfies SolcInputDescription,
+					solcOutput: {
+						contracts: {},
+						sources: {},
+					} satisfies SolcOutput,
+				})
 			const result = resolver.resolveTsModuleSync(
 				'module',
 				'basedir',

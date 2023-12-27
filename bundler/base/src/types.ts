@@ -1,6 +1,7 @@
 import type { Cache } from '@tevm/bundler-cache'
 import type { ResolvedCompilerConfig } from '@tevm/config'
-import type { ModuleInfo, SolcInputDescription, SolcOutput } from '@tevm/solc'
+import type { SolcInputDescription, SolcOutput } from '@tevm/solc'
+import type { ModuleInfo } from '@tevm/compiler'
 import type { Node } from 'solidity-ast/node.js'
 
 export type BundlerResult = {
@@ -37,7 +38,7 @@ export type Bundler = (
 	logger: Logger,
 	fao: FileAccessObject,
 	solc: any,
-	cache?: Cache,
+	cache: Cache,
 ) => {
 	/**
 	 * The name of the plugin.

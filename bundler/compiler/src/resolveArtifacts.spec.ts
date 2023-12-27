@@ -1,3 +1,4 @@
+import { createCache } from '@tevm/bundler-cache'
 import { compileContract } from './compiler/compileContracts.js'
 import { resolveArtifacts } from './resolveArtifacts.js'
 import type { FileAccessObject, Logger, ModuleInfo } from './types.js'
@@ -10,6 +11,7 @@ import {
 	it,
 	vi,
 } from 'vitest'
+import { tmpdir } from 'os'
 
 vi.mock('./compiler/compileContracts', () => ({
 	compileContract: vi.fn(),
@@ -56,6 +58,7 @@ describe('resolveArtifacts', () => {
 				false,
 				fao,
 				require('solc'),
+				createCache(logger, tmpdir(), fao as any, tmpdir())
 			),
 		).toMatchInlineSnapshot(`
 			{
@@ -90,6 +93,7 @@ describe('resolveArtifacts', () => {
 				false,
 				fao,
 				require('solc'),
+				createCache(logger, tmpdir(), fao as any, tmpdir())
 			),
 		).rejects.toThrowErrorMatchingInlineSnapshot('"Not a solidity file"')
 	})
@@ -109,6 +113,7 @@ describe('resolveArtifacts', () => {
 				false,
 				fao,
 				require('solc'),
+				createCache(logger, tmpdir(), fao as any, tmpdir())
 			),
 		).rejects.toThrowErrorMatchingInlineSnapshot('"Compilation failed"')
 	})

@@ -1,3 +1,4 @@
+import { createCache } from '@tevm/bundler-cache'
 import type { FileAccessObject } from '../types.js'
 import { compileContract } from './compileContracts.js'
 import type { ResolvedCompilerConfig } from '@tevm/config'
@@ -5,6 +6,7 @@ import { existsSync, readFileSync } from 'fs'
 import { readFile } from 'fs/promises'
 import { join } from 'path'
 import { describe, expect, it, vi } from 'vitest'
+import { tmpdir } from 'os'
 
 const absolutePathContext = join(__dirname, '..', '..', '..', '..')
 
@@ -40,6 +42,7 @@ describe('compileContract', () => {
 					fao,
 					mockLogger,
 					require('solc'),
+					createCache(mockLogger, tmpdir(), fao as any, tmpdir())
 				),
 				null,
 				2,

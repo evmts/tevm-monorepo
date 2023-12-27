@@ -1,11 +1,11 @@
 import { generateRuntime } from '@tevm/runtime'
-import { resolveArtifacts, resolveArtifactsSync } from '@tevm/solc'
+import { resolveArtifacts, resolveArtifactsSync } from '@tevm/compiler'
 import { runSync } from 'effect/Effect'
 
 /**
  * @type {import('./types.js').Bundler}
  */
-export const bundler = (config, logger, fao, solc) => {
+export const bundler = (config, logger, fao, solc, cache) => {
 	return {
 		name: bundler.name,
 		config,
@@ -21,6 +21,7 @@ export const bundler = (config, logger, fao, solc) => {
 						includeBytecode,
 						fao,
 						solc,
+						cache
 					)
 				if (artifacts && Object.keys(artifacts).length > 0) {
 					return {
@@ -33,7 +34,7 @@ export const bundler = (config, logger, fao, solc) => {
 				}
 				return { solcInput, solcOutput, code: '', modules, asts }
 			} catch (e) {
-				logger.error(/** @type {any} */ (e))
+				logger.error(/** @type {any} */(e))
 				logger.error('there was an error in tevm plugin generating .dts')
 				throw e
 			}
@@ -50,6 +51,7 @@ export const bundler = (config, logger, fao, solc) => {
 						includeBytecode,
 						fao,
 						solc,
+						cache,
 					)
 				if (artifacts && Object.keys(artifacts).length > 0) {
 					return {
@@ -62,7 +64,7 @@ export const bundler = (config, logger, fao, solc) => {
 				}
 				return { modules, code: '', asts, solcInput, solcOutput }
 			} catch (e) {
-				logger.error(/** @type {any} */ (e))
+				logger.error(/** @type {any} */(e))
 				logger.error('there was an error in tevm plugin resolving .dts')
 				throw e
 			}
@@ -79,6 +81,7 @@ export const bundler = (config, logger, fao, solc) => {
 						includeBytecode,
 						fao,
 						solc,
+						cache,
 					)
 				let code = ''
 				if (artifacts && Object.keys(artifacts).length > 0) {
@@ -86,7 +89,7 @@ export const bundler = (config, logger, fao, solc) => {
 				}
 				return { code, modules, solcInput, solcOutput, asts }
 			} catch (e) {
-				logger.error(/** @type {any} */ (e))
+				logger.error(/** @type {any} */(e))
 				logger.error('there was an error in tevm plugin resolving .ts')
 				throw e
 			}
@@ -108,6 +111,7 @@ export const bundler = (config, logger, fao, solc) => {
 						includeBytecode,
 						fao,
 						solc,
+						cache,
 					)
 				let code = ''
 				if (artifacts && Object.keys(artifacts).length > 0) {
@@ -115,7 +119,7 @@ export const bundler = (config, logger, fao, solc) => {
 				}
 				return { code, modules, solcInput, solcOutput, asts }
 			} catch (e) {
-				logger.error(/** @type {any} */ (e))
+				logger.error(/** @type {any} */(e))
 				logger.error('there was an error in tevm plugin resolving .ts')
 				throw e
 			}
@@ -137,6 +141,7 @@ export const bundler = (config, logger, fao, solc) => {
 						includeBytecode,
 						fao,
 						solc,
+						cache,
 					)
 				let code = ''
 				if (artifacts && Object.keys(artifacts).length > 0) {
@@ -144,7 +149,7 @@ export const bundler = (config, logger, fao, solc) => {
 				}
 				return { code, modules, solcInput, solcOutput, asts }
 			} catch (e) {
-				logger.error(/** @type {any} */ (e))
+				logger.error(/** @type {any} */(e))
 				logger.error('there was an error in tevm plugin resolving .cjs')
 				throw e
 			}
@@ -166,6 +171,7 @@ export const bundler = (config, logger, fao, solc) => {
 						includeBytecode,
 						fao,
 						solc,
+						cache,
 					)
 				let code = ''
 				if (artifacts && Object.keys(artifacts).length > 0) {
@@ -173,7 +179,7 @@ export const bundler = (config, logger, fao, solc) => {
 				}
 				return { code, modules, solcInput, solcOutput, asts }
 			} catch (e) {
-				logger.error(/** @type {any} */ (e))
+				logger.error(/** @type {any} */(e))
 				logger.error('there was an error in tevm plugin resolving .cjs')
 				throw e
 			}
@@ -195,6 +201,7 @@ export const bundler = (config, logger, fao, solc) => {
 						includeBytecode,
 						fao,
 						solc,
+						cache,
 					)
 				let code = ''
 				if (artifacts && Object.keys(artifacts).length > 0) {
@@ -203,7 +210,7 @@ export const bundler = (config, logger, fao, solc) => {
 				return { code, modules, solcInput, solcOutput, asts }
 			} catch (e) {
 				logger.error('there was an error in tevm plugin resolving .mjs')
-				logger.error(/** @type {any} */ (e))
+				logger.error(/** @type {any} */(e))
 				throw e
 			}
 		},
@@ -224,6 +231,7 @@ export const bundler = (config, logger, fao, solc) => {
 						includeBytecode,
 						fao,
 						solc,
+						cache,
 					)
 				let code = ''
 				if (artifacts && Object.keys(artifacts).length > 0) {
@@ -231,7 +239,7 @@ export const bundler = (config, logger, fao, solc) => {
 				}
 				return { code, modules, solcInput, solcOutput, asts }
 			} catch (e) {
-				logger.error(/** @type {any} */ (e))
+				logger.error(/** @type {any} */(e))
 				logger.error('there was an error in tevm plugin resolving .mjs')
 				throw e
 			}
