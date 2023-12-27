@@ -1,6 +1,6 @@
-[@tevm/solc](README.md) / Modules
+[@tevm/compiler](README.md) / Modules
 
-# @tevm/solc
+# @tevm/compiler
 
 ## Table of contents
 
@@ -8,7 +8,6 @@
 
 - [resolveArtifacts](undefined)
 - [resolveArtifactsSync](undefined)
-- [solc](undefined)
 - [types](undefined)
 
 ## Modules
@@ -19,7 +18,7 @@
 
 #### Defined in
 
-[solc/src/resolveArtifacts.js:1](https://github.com/evmts/tevm-monorepo/blob/main/bundler/solc/src/resolveArtifacts.js#L1)
+[compiler/src/resolveArtifacts.js:1](https://github.com/evmts/tevm-monorepo/blob/main/bundler/compiler/src/resolveArtifacts.js#L1)
 
 ___
 
@@ -29,17 +28,7 @@ ___
 
 #### Defined in
 
-[solc/src/resolveArtifactsSync.js:1](https://github.com/evmts/tevm-monorepo/blob/main/bundler/solc/src/resolveArtifactsSync.js#L1)
-
-___
-
-### solc
-
-• **solc**: Module solc
-
-#### Defined in
-
-[solc/src/solc.js:1](https://github.com/evmts/tevm-monorepo/blob/main/bundler/solc/src/solc.js#L1)
+[compiler/src/resolveArtifactsSync.js:1](https://github.com/evmts/tevm-monorepo/blob/main/bundler/compiler/src/resolveArtifactsSync.js#L1)
 
 ___
 
@@ -49,4 +38,4 @@ ___
 
 #### Defined in
 
-[solc/src/types.ts:1](https://github.com/evmts/tevm-monorepo/blob/main/bundler/solc/src/types.ts#L1)
+[compiler/src/types.ts:1](https://github.com/evmts/tevm-monorepo/blob/main/bundler/compiler/src/types.ts#L1)

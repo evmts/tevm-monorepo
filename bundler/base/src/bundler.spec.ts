@@ -58,7 +58,7 @@ describe(bundler.name, () => {
 		}
 
 		resolver = bundler(config as any, logger, fao, require('solc'), createCache(logger, tmpdir(), fao, tmpdir()))
-		vi.mock('@tevm/solc', () => {
+		vi.mock('@tevm/compiler', () => {
 			return {
 				resolveArtifacts: vi.fn(),
 				resolveArtifactsSync: vi.fn(),
