@@ -1,1 +1,0 @@
-{"version":3,"file":"TevmPutAccountResponse.d.ts","sourceRoot":"","sources":["../../../src/jsonrpc/putAccount/TevmPutAccountResponse.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,gBAAgB,EAAE,MAAM,8CAA8C,CAAA;AAEpF,MAAM,MAAM,sBAAsB,GAAG;IACpC,OAAO,EAAE,KAAK,CAAA;IACd,MAAM,EAAE,iBAAiB,CAAA;IACzB,MAAM,EAAE,gBAAgB,CAAA;IACxB,EAAE,CAAC,EAAE,MAAM,GAAG,MAAM,GAAG,IAAI,CAAA;CAC3B,CAAA"}

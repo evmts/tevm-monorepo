@@ -1,1 +1,0 @@
-{"version":3,"file":"TevmCallRequest.d.ts","sourceRoot":"","sources":["../../../src/jsonrpc/runCall/TevmCallRequest.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,aAAa,EAAE,MAAM,wCAAwC,CAAA;AAE3E,MAAM,MAAM,eAAe,GAAG;IAC7B,MAAM,EAAE,aAAa,CAAA;IACrB,OAAO,EAAE,KAAK,CAAA;IACd,MAAM,EAAE,WAAW,CAAA;IACnB,EAAE,CAAC,EAAE,MAAM,GAAG,MAAM,GAAG,IAAI,CAAA;CAC3B,CAAA"}

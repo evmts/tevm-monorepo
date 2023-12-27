@@ -1,2 +1,0 @@
-export function tevmPutAccount(vm: import('../../Tevm.js').Tevm, request: import('./TevmPutAccountRequest.js').TevmPutAccountRequest): Promise<import('./TevmPutAccountResponse.js').TevmPutAccountResponse>;
-//# sourceMappingURL=tevmPutAccount.d.ts.map

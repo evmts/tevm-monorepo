@@ -1,2 +1,0 @@
-export function runCallHandler(tevm: import("../../Tevm.js").Tevm, action: import("./RunCallAction.js").RunCallAction): Promise<import("./RunCallResponse.js").RunCallResponse>;
-//# sourceMappingURL=runCallHandler.d.ts.map
