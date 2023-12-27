@@ -1,5 +1,6 @@
 import { bunFileAccesObject } from './bunFileAccessObject.js'
-import { bundler, createCache } from '@tevm/base'
+import { bundler } from '@tevm/base'
+import { createCache } from '@tevm/bundler-cache'
 import { loadConfig } from '@tevm/config'
 import { createSolc } from '@tevm/solc'
 import { runSync } from 'effect/Effect'
@@ -28,7 +29,12 @@ export const tevmBunPlugin = ({ solc = defaultSolc.version }) => {
 		name: '@tevm/esbuild-plugin',
 		async setup(build) {
 			const config = runSync(loadConfig(process.cwd()))
-			const solcCache = createCache(console)
+			const solcCache = createCache(
+				console,
+				config.cacheDir,
+				bunFileAccesObject,
+				process.cwd(),
+			)
 			const moduleResolver = bundler(
 				config,
 				console,

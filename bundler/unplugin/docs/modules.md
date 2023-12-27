@@ -6,45 +6,45 @@
 
 ### Type Aliases
 
-- [CompilerOption](modules.md#compileroption)
+- [CompilerOption](undefined)
 
 ### Functions
 
-- [createUnplugin](modules.md#createunplugin)
-- [tevmUnplugin](modules.md#tevmunplugin)
+- [createUnplugin](undefined)
+- [tevmUnplugin](undefined)
 
 ## Type Aliases
 
 ### CompilerOption
 
-Ƭ **CompilerOption**\<\>: `infer`
+Ƭ **CompilerOption**: infer
 
 #### Defined in
 
-[bundler/unplugin/src/tevmUnplugin.js:34](https://github.com/evmts/tevm-monorepo/blob/main/bundler/unplugin/src/tevmUnplugin.js#L34)
+[bundler/unplugin/src/tevmUnplugin.js:35](https://github.com/evmts/tevm-monorepo/blob/main/bundler/unplugin/src/tevmUnplugin.js#L35)
 
 ## Functions
 
 ### createUnplugin
 
-▸ **createUnplugin**\<`UserOptions`, `Nested`\>(`factory`): `UnpluginInstance`\<`UserOptions`, `Nested`\>
+▸ **createUnplugin**\<`UserOptions`, `Nested`\>(`factory`): UnpluginInstance\<UserOptions, Nested\>
 
 #### Type parameters
 
 | Name | Type |
 | :------ | :------ |
 | `UserOptions` | `UserOptions` |
-| `Nested` | extends `boolean` = `boolean` |
+| `Nested` | extends boolean = boolean |
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `factory` | `UnpluginFactory`\<`UserOptions`, `Nested`\> |
+| `factory` | UnpluginFactory\<UserOptions, Nested\> |
 
 #### Returns
 
-`UnpluginInstance`\<`UserOptions`, `Nested`\>
+UnpluginInstance\<UserOptions, Nested\>
 
 #### Defined in
 
@@ -54,18 +54,18 @@ ___
 
 ### tevmUnplugin
 
-▸ **tevmUnplugin**(`options`, `meta`): `UnpluginOptions`
+▸ **tevmUnplugin**(`options`, `meta`): UnpluginOptions
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `options` | `undefined` \| \{ `solc?`: `SolcVersions`  } |
-| `meta` | `UnpluginContextMeta` |
+| `options` | undefined \| Object |
+| `meta` | UnpluginContextMeta |
 
 #### Returns
 
-`UnpluginOptions`
+UnpluginOptions
 
 #### Defined in
 

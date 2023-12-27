@@ -56,6 +56,7 @@
 	},
 	"dependencies": {
 		"@tevm/base": "workspace:^",
+		"@tevm/bundler-cache": "workspace:^",
 		"@tevm/config": "workspace:^",
 		"@tevm/solc": "workspace:^",
 		"effect": "2.0.0-next.54",

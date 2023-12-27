@@ -6,24 +6,24 @@
 
 ### Functions
 
-- [webpackPluginTevm](modules.md#webpackplugintevm)
+- [webpackPluginTevm](undefined)
 
 ## Functions
 
 ### webpackPluginTevm
 
-▸ **webpackPluginTevm**(`options?`): `WebpackPluginInstance`
+▸ **webpackPluginTevm**(`options?`): WebpackPluginInstance
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `options?` | `Object` |
-| `options.solc?` | `SolcVersions` |
+| `options?` | Object |
+| `options.solc?` | SolcVersions |
 
 #### Returns
 
-`WebpackPluginInstance`
+WebpackPluginInstance
 
 #### Defined in
 

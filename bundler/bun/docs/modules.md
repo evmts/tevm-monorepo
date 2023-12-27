@@ -6,13 +6,13 @@
 
 ### Functions
 
-- [tevmBunPlugin](modules.md#tevmbunplugin)
+- [tevmBunPlugin](undefined)
 
 ## Functions
 
 ### tevmBunPlugin
 
-▸ **tevmBunPlugin**(`SolcVersions`): `BunPlugin`
+▸ **tevmBunPlugin**(`SolcVersions`): BunPlugin
 
 @tevm/bun-plugin is a bun plugin that allows you to import solidity files into your typescript files
 and have them compiled to typescript on the fly.
@@ -21,12 +21,12 @@ and have them compiled to typescript on the fly.
 
 | Name | Type |
 | :------ | :------ |
-| `SolcVersions` | `Object` |
-| `SolcVersions.solc?` | `SolcVersions` |
+| `SolcVersions` | Object |
+| `SolcVersions.solc?` | SolcVersions |
 
 #### Returns
 
-`BunPlugin`
+BunPlugin
 
 **`Example`**
 
@@ -43,4 +43,4 @@ preload = ["./plugins.ts"]
 
 #### Defined in
 
-[plugin.js:26](https://github.com/evmts/tevm-monorepo/blob/main/bundler/bun/src/plugin.js#L26)
+[plugin.js:27](https://github.com/evmts/tevm-monorepo/blob/main/bundler/bun/src/plugin.js#L27)

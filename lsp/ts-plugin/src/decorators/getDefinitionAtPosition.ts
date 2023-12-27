@@ -4,7 +4,8 @@ import {
 	convertSolcAstToTsDefinitionInfo,
 	findContractDefinitionFileNameFromTevmNode,
 } from '../utils/index.js'
-import { Cache, FileAccessObject, bundler } from '@tevm/base'
+import { FileAccessObject, bundler } from '@tevm/base'
+import { Cache } from '@tevm/bundler-cache'
 import { ResolvedCompilerConfig } from '@tevm/config'
 // @ts-expect-error
 import * as solc from 'solc'
