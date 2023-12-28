@@ -3,9 +3,12 @@
  * @param {string} entryModuleId
  * @param {string} cwd
  * @param {string} cacheDir
- * @returns {string}
+ * @returns {{dir: string, path: string}}
  */
 export const getMetadataPath = (entryModuleId, cwd, cacheDir) => {
 	const normalizedEntryModuleId = entryModuleId.replace(cwd, '')
-	return [cacheDir, normalizedEntryModuleId, 'metadata.json'].join('/')
+	// TODO these are busted on windows
+	const dir = [cacheDir, normalizedEntryModuleId].join('/')
+	const path = [dir, 'metadata.json'].join('/')
+	return { dir, path }
 }

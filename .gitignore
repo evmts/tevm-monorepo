@@ -3,6 +3,9 @@
 /target/
 **/*.rs.bk
 
+# Tevm cache
+**/.tevm
+
 cache
 forge-artifacts
 broadcast

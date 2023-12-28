@@ -112,6 +112,7 @@ describe('unpluginFn', () => {
 			  },
 			  {
 			    "existsSync": [MockFunction spy],
+			    "mkdirSync": [Function],
 			    "readFile": [Function],
 			    "readFileSync": [Function],
 			    "statSync": [Function],

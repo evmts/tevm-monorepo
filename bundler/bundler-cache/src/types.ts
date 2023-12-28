@@ -1,5 +1,5 @@
 import type { ResolvedArtifacts } from '@tevm/compiler'
-import { statSync } from 'fs'
+import { mkdirSync, statSync } from 'fs'
 
 /**
  * Generalized interface for accessing file system
@@ -11,6 +11,7 @@ export type FileAccessObject = {
 	readFileSync: (path: string, encoding: BufferEncoding) => string
 	existsSync: (path: string) => boolean
 	statSync: typeof statSync
+	mkdirSync: typeof mkdirSync
 }
 
 export type CachedItem = 'artifactsJson' | 'dts' | 'mjs'

@@ -10,13 +10,13 @@ import { version } from './version.js'
  * @returns {import('@tevm/compiler').ResolvedArtifacts | undefined}
  */
 export const readArtifacts = (cacheDir, fs, cwd, entryModuleId) => {
-	const artifactsPath = getArtifactsPath(
+	const { path: artifactsPath } = getArtifactsPath(
 		entryModuleId,
 		'artifactsJson',
 		cwd,
 		cacheDir,
 	)
-	const metadataPath = getMetadataPath(entryModuleId, cwd, cacheDir)
+	const { path: metadataPath } = getMetadataPath(entryModuleId, cwd, cacheDir)
 
 	if (!fs.existsSync(artifactsPath) || !fs.existsSync(metadataPath)) {
 		return undefined

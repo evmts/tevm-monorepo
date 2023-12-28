@@ -33,7 +33,7 @@
 
 #### Defined in
 
-[types.ts:35](https://github.com/evmts/tevm-monorepo/blob/main/bundler/bundler-cache/src/types.ts#L35)
+[types.ts:36](https://github.com/evmts/tevm-monorepo/blob/main/bundler/bundler-cache/src/types.ts#L36)
 
 ___
 
@@ -43,7 +43,7 @@ ___
 
 #### Defined in
 
-[types.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/bundler/bundler-cache/src/types.ts#L16)
+[types.ts:17](https://github.com/evmts/tevm-monorepo/blob/main/bundler/bundler-cache/src/types.ts#L17)
 
 ___
 
@@ -59,6 +59,7 @@ Allows this package to be used in browser environments or otherwise pluggable
 | Name | Type |
 | :------ | :------ |
 | `existsSync` | (`path`: `string`) => `boolean` |
+| `mkdirSync` | typeof `mkdirSync` |
 | `readFile` | (`path`: `string`, `encoding`: `BufferEncoding`) => `Promise`\<`string`\> |
 | `readFileSync` | (`path`: `string`, `encoding`: `BufferEncoding`) => `string` |
 | `statSync` | typeof `statSync` |

@@ -4,7 +4,7 @@
  * @param {import('./types.js').CachedItem} item
  * @param {string} cwd
  * @param {string} cacheDir
- * @returns {string}
+ * @returns {{dir: string, path: string}}
  */
 export const getArtifactsPath = (entryModuleId, item, cwd, cacheDir) => {
 	const fileName = {
@@ -13,5 +13,8 @@ export const getArtifactsPath = (entryModuleId, item, cwd, cacheDir) => {
 		mjs: 'contract.mjs',
 	}[item]
 	const normalizedEntryModuleId = entryModuleId.replace(cwd, '')
-	return [cacheDir, normalizedEntryModuleId, fileName].join('/')
+	// TODO both of these are busted on windows
+	const dir = [cacheDir, normalizedEntryModuleId].join('/')
+	const path = [dir, fileName].join('/')
+	return { dir, path }
 }
