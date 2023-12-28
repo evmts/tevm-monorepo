@@ -1,3 +1,7 @@
+import { getArtifactsPath } from './getArtifactsPath.js'
+import { readArtifacts } from './readArtifacts.js'
+import { writeArtifacts } from './writeArtifacts.js'
+
 /**
  * Creates a Tevm cache object for reading and writing cached items
  * @param {string} cacheDir
@@ -6,53 +10,27 @@
  * @returns {import('./types.js').Cache}
  */
 export const createCache = (cacheDir, fs, cwd) => {
-	/**
-	 * @param {string} entryModuleId
-	 * @param {import('./types.js').CachedItem} item
-	 */
-	const getArtifactsPath = (entryModuleId, item) => {
-		const fileName = {
-			dts: 'contract.d.ts',
-			artifactsJson: 'artifacts.json',
-			mjs: 'contract.mjs',
-		}[item]
-		const normalizedEntryModuleId = entryModuleId.replace(cwd, '')
-		return [cacheDir, normalizedEntryModuleId, fileName].join('/')
-	}
-
 	return {
 		writeArtifacts: (entryModuleId, compiledContracts) => {
-			const artifactsPath = getArtifactsPath(entryModuleId, 'artifactsJson')
-			fs.writeFileSync(
-				artifactsPath,
-				JSON.stringify(compiledContracts, null, 2),
-			)
-			return artifactsPath
+			return writeArtifacts(cwd, cacheDir, entryModuleId, compiledContracts, fs)
 		},
 
 		readArtifacts: (entryModuleId) => {
-			const artifactsPath = getArtifactsPath(entryModuleId, 'artifactsJson')
-			if (!fs.existsSync(artifactsPath)) {
-				return undefined
-			}
-			const content = fs.readFileSync(artifactsPath, 'utf8')
-			try {
-				return JSON.parse(content)
-			} catch (e) {
-				throw new Error(
-					`Cache miss for ${entryModuleId} because it isn't valid json`,
-				)
-			}
+			return readArtifacts(cacheDir, fs, cwd, entryModuleId)
 		},
 
+		// Note: though we are writing dts and mjs files, we don't read from them
+		// They are cheap to generate and we only write them for debugging purposes
+		// And to get @tevm/tsc to work
+
 		writeDts: (entryModuleId, dtsFile) => {
-			const dtsPath = getArtifactsPath(entryModuleId, 'dts')
+			const dtsPath = getArtifactsPath(entryModuleId, 'dts', cwd, cacheDir)
 			fs.writeFileSync(dtsPath, dtsFile)
 			return dtsPath
 		},
 
 		readDts: (entryModuleId) => {
-			const dtsPath = getArtifactsPath(entryModuleId, 'dts')
+			const dtsPath = getArtifactsPath(entryModuleId, 'dts', cwd, cacheDir)
 			if (!fs.existsSync(dtsPath)) {
 				return undefined
 			}
@@ -60,13 +38,13 @@ export const createCache = (cacheDir, fs, cwd) => {
 		},
 
 		writeMjs: (entryModuleId, mjsFile) => {
-			const mjsPath = getArtifactsPath(entryModuleId, 'mjs')
+			const mjsPath = getArtifactsPath(entryModuleId, 'mjs', cwd, cacheDir)
 			fs.writeFileSync(mjsPath, mjsFile)
 			return mjsPath
 		},
 
 		readMjs: (entryModuleId) => {
-			const mjsPath = getArtifactsPath(entryModuleId, 'mjs')
+			const mjsPath = getArtifactsPath(entryModuleId, 'mjs', cwd, cacheDir)
 			if (!fs.existsSync(mjsPath)) {
 				return undefined
 			}

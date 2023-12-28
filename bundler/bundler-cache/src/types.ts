@@ -13,20 +13,20 @@ export type FileAccessObject = {
 
 export type CachedItem = 'artifactsJson' | 'dts' | 'mjs'
 
-type ReadArtifacts = (entryModuleId: string) => CompiledContracts | undefined
+export type ReadArtifacts = (entryModuleId: string) => CompiledContracts | undefined
 
-type ReadDts = (entryModuleId: string) => string | undefined
+export type ReadDts = (entryModuleId: string) => string | undefined
 
-type ReadMjs = (entryModuleId: string) => string | undefined
+export type ReadMjs = (entryModuleId: string) => string | undefined
 
-type WriteArtifacts = (
+export type WriteArtifacts = (
 	entryModuleId: string,
 	artifacts: CompiledContracts
 ) => string
 
-type WriteDts = (entryModuleId: string, dtsFile: string) => void
+export type WriteDts = (entryModuleId: string, dtsFile: string) => void
 
-type WriteMjs = (entryModuleId: string, mjsFile: string) => void
+export type WriteMjs = (entryModuleId: string, mjsFile: string) => void
 
 export type Cache = {
 	readArtifacts: ReadArtifacts
