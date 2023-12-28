@@ -56,7 +56,6 @@
 		"test:ui": "bun run vitest --ui"
 	},
 	"dependencies": {
-		"@tevm/bundler-cache": "workspace:^",
 		"@tevm/config": "workspace:^",
 		"@tevm/resolutions": "workspace:^",
 		"@tevm/solc": "workspace:^",

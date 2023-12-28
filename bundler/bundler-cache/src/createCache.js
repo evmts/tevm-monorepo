@@ -1,7 +1,11 @@
 /**
- * @type {import('./types.js').CreateCache}
+ * Creates a Tevm cache object for reading and writing cached items
+ * @param {string} cacheDir
+ * @param {import('fs')} fs
+ * @param {string} cwd
+ * @returns {import('./types.js').Cache}
  */
-export const createCache = (logger, cacheDir, fs, cwd) => {
+export const createCache = (cacheDir, fs, cwd) => {
 	/**
 	 * @param {string} entryModuleId
 	 * @param {import('./types.js').CachedItem} item
@@ -17,70 +21,56 @@ export const createCache = (logger, cacheDir, fs, cwd) => {
 	}
 
 	return {
-		write: (entryModuleId, item, cachedItem) => {
-			const artifactsPath = getArtifactsPath(entryModuleId, cachedItem)
+		writeArtifacts: (entryModuleId, compiledContracts) => {
+			const artifactsPath = getArtifactsPath(entryModuleId, 'artifactsJson')
 			fs.writeFileSync(
 				artifactsPath,
-				typeof item === 'string' ? item : JSON.stringify(item),
+				JSON.stringify(compiledContracts, null, 2),
 			)
+			return artifactsPath
 		},
-		read: (entryModuleId, cachedItem) => {
-			const artifactsPath = getArtifactsPath(entryModuleId, cachedItem)
+
+		readArtifacts: (entryModuleId) => {
+			const artifactsPath = getArtifactsPath(entryModuleId, 'artifactsJson')
 			if (!fs.existsSync(artifactsPath)) {
-				throw new Error(
-					`Cache miss for ${entryModuleId}. Try calling isCached first`,
-				)
+				return undefined
 			}
 			const content = fs.readFileSync(artifactsPath, 'utf8')
-			if (cachedItem === 'dts' || cachedItem === 'mjs') {
-				return content
-			}
 			try {
 				return JSON.parse(content)
 			} catch (e) {
 				throw new Error(
-					`Cache miss for ${entryModuleId} because it isn't valid json. Try calling isCached first`,
+					`Cache miss for ${entryModuleId} because it isn't valid json`,
 				)
 			}
 		},
-		isCached: (entryModuleId, sources, itemType) => {
-			// Always check artifacts are cached first
-			const artifactsPath = getArtifactsPath(entryModuleId, 'artifactsJson')
-			if (!fs.existsSync(artifactsPath)) {
-				return false
+
+		writeDts: (entryModuleId, dtsFile) => {
+			const dtsPath = getArtifactsPath(entryModuleId, 'dts')
+			fs.writeFileSync(dtsPath, dtsFile)
+			return dtsPath
+		},
+
+		readDts: (entryModuleId) => {
+			const dtsPath = getArtifactsPath(entryModuleId, 'dts')
+			if (!fs.existsSync(dtsPath)) {
+				return undefined
 			}
-			/**
-			 * @type {import('@tevm/solc').SolcOutput}
-			 */
-			const previousCachedItem = JSON.parse(
-				fs.readFileSync(artifactsPath, 'utf8').toString(),
-			)
-			if (!previousCachedItem) {
-				return false
+			return fs.readFileSync(dtsPath, 'utf8')
+		},
+
+		writeMjs: (entryModuleId, mjsFile) => {
+			const mjsPath = getArtifactsPath(entryModuleId, 'mjs')
+			fs.writeFileSync(mjsPath, mjsFile)
+			return mjsPath
+		},
+
+		readMjs: (entryModuleId) => {
+			const mjsPath = getArtifactsPath(entryModuleId, 'mjs')
+			if (!fs.existsSync(mjsPath)) {
+				return undefined
 			}
-			const { sources: previousSources } = previousCachedItem
-			if (Object.keys(sources).length !== Object.keys(previousSources).length) {
-				return false
-			}
-			for (const [key, newSource] of Object.entries(sources)) {
-				const oldSource = previousSources[key]
-				if (!oldSource) {
-					return false
-				}
-				if (!('content' in oldSource) || !('content' in newSource)) {
-					logger.error(
-						'Unexpected error: Unable to use cache because content is undefined. Continuing without cache.',
-					)
-					return false
-				}
-				if (oldSource.content !== newSource.content) {
-					return false
-				}
-			}
-			if (itemType === 'dts' || itemType === 'mjs') {
-				return fs.existsSync(getArtifactsPath(entryModuleId, itemType))
-			}
-			return true
+			return fs.readFileSync(mjsPath, 'utf8')
 		},
 	}
 }
