@@ -4,7 +4,7 @@ import { FileAccessObject } from '@tevm/base'
 import { Cache, createCache } from '@tevm/bundler-cache'
 import { CompilerConfig, defaultConfig, defineConfig } from '@tevm/config'
 import { runSync } from 'effect/Effect'
-import { existsSync, readFileSync, writeFileSync } from 'fs'
+import { existsSync, readFileSync, statSync, writeFileSync } from 'fs'
 import { readFile } from 'fs/promises'
 import { tmpdir } from 'os'
 import path from 'path'
@@ -25,6 +25,7 @@ const fao: FileAccessObject = {
 	readFileSync,
 	existsSync,
 	writeFileSync,
+	statSync,
 }
 
 describe(getScriptSnapshotDecorator.name, () => {
@@ -53,7 +54,7 @@ describe(getScriptSnapshotDecorator.name, () => {
 		languageServiceHost = {
 			getScriptSnapshot: vi.fn(),
 		}
-		cache = createCache(logger, tmpdir(), fao, tmpdir())
+		cache = createCache(tmpdir(), fao, tmpdir())
 	})
 
 	it('should proxy to the languageServiceHost for non solidity files', () => {

@@ -24,6 +24,7 @@ const fao: FileAccessObject = {
 	readFile: vi.fn() as any,
 	readFileSync: vi.fn() as any,
 	writeFileSync: vi.fn() as any,
+	statSync: vi.fn() as any,
 }
 
 const mockModules: Record<string, ModuleInfo> = {
@@ -59,7 +60,7 @@ describe(bundler.name, () => {
 			logger,
 			fao,
 			require('solc'),
-			createCache(logger, tmpdir(), fao, tmpdir()),
+			createCache(tmpdir(), fao, tmpdir()),
 		)
 		vi.mock('@tevm/compiler', () => {
 			return {

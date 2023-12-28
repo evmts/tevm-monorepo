@@ -29,14 +29,7 @@ export const tsPlugin: typescript.server.PluginModuleFactory = (modules) => {
 				loadConfig(createInfo.project.getCurrentDirectory()),
 			)
 			const fao = createFileAccessObject(createInfo.languageServiceHost)
-			const snapshotSolcCache = createCache(
-				logger,
-				config.cacheDir,
-				fao,
-				createInfo.project.getCurrentDirectory(),
-			)
-			const definitionSolcCache = createCache(
-				logger,
+			const cache = createCache(
 				config.cacheDir,
 				fao,
 				createInfo.project.getCurrentDirectory(),
@@ -46,14 +39,14 @@ export const tsPlugin: typescript.server.PluginModuleFactory = (modules) => {
 					decorateHost(
 						getScriptKindDecorator,
 						resolveModuleNameLiteralsDecorator,
-						getScriptSnapshotDecorator(snapshotSolcCache),
+						getScriptSnapshotDecorator(cache),
 					)(createInfo, modules.typescript, logger, config, fao),
 				),
 				config,
 				logger,
 				modules.typescript,
 				fao,
-				definitionSolcCache,
+				cache,
 			)
 
 			return service

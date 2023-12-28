@@ -28,6 +28,7 @@ const fao: FileAccessObject = {
 	readFileSync: vi.fn() as any,
 	readFile: vi.fn() as any,
 	writeFileSync: vi.fn() as any,
+	statSync: vi.fn() as any,
 }
 
 const mockLogger = {
@@ -101,7 +102,7 @@ describe('getDefinitionServiceDecorator', () => {
 			mockLogger as any,
 			typescript,
 			fao,
-			createCache(mockLogger as any, tmpdir(), fao, tmpdir()),
+			createCache(tmpdir(), fao, tmpdir()),
 		)
 
 		const definitions = decoratedService.getDefinitionAtPosition(
@@ -128,7 +129,7 @@ describe('getDefinitionServiceDecorator', () => {
 			mockLogger as any,
 			typescript,
 			fao,
-			createCache(mockLogger as any, tmpdir(), fao, tmpdir()),
+			createCache(tmpdir(), fao, tmpdir()),
 		)
 
 		const result = decoratedService.getDefinitionAndBoundSpan('someFile.ts', 42)
@@ -165,7 +166,7 @@ describe('getDefinitionServiceDecorator', () => {
 			mockLogger as any,
 			typescript,
 			fao,
-			createCache(mockLogger as any, tmpdir(), fao, tmpdir()),
+			createCache(tmpdir(), fao, tmpdir()),
 		)
 
 		const definitions = decoratedService.getDefinitionAtPosition(
@@ -211,7 +212,7 @@ describe('getDefinitionServiceDecorator', () => {
 			mockLogger as any,
 			typescript,
 			fao,
-			createCache(mockLogger as any, tmpdir(), fao, tmpdir()),
+			createCache(tmpdir(), fao, tmpdir()),
 		)
 
 		const definitions = decoratedService.getDefinitionAtPosition(
@@ -248,7 +249,7 @@ describe('getDefinitionServiceDecorator', () => {
 			mockLogger as any,
 			typescript,
 			fao,
-			createCache(mockLogger as any, tmpdir(), fao, tmpdir()),
+			createCache(tmpdir(), fao, tmpdir()),
 		)
 
 		const definitions = decoratedService.getDefinitionAtPosition(
@@ -293,7 +294,7 @@ describe('getDefinitionServiceDecorator', () => {
 			mockLogger as any,
 			typescript,
 			fao,
-			createCache(mockLogger as any, tmpdir(), fao, tmpdir()),
+			createCache(tmpdir(), fao, tmpdir()),
 		)
 
 		const definitions = decoratedService.getDefinitionAtPosition(

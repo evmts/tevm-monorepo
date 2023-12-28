@@ -161,6 +161,9 @@ importers:
 
   bundler/bundler-cache:
     dependencies:
+      '@tevm/compiler':
+        specifier: workspace:1.0.0-next.18
+        version: link:../compiler
       '@tevm/solc':
         specifier: workspace:^
         version: link:../solc
@@ -170,6 +173,9 @@ importers:
       '@types/node':
         specifier: ^20.8.9
         version: 20.10.4
+      solidity-ast:
+        specifier: ^0.4.52
+        version: 0.4.53
     devDependencies:
       '@vitest/coverage-v8':
         specifier: ^0.34.6
@@ -198,9 +204,6 @@ importers:
 
   bundler/compiler:
     dependencies:
-      '@tevm/bundler-cache':
-        specifier: workspace:^
-        version: link:../bundler-cache
       '@tevm/config':
         specifier: workspace:^
         version: link:../config

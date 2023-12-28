@@ -17,7 +17,6 @@ import { runPromise } from 'effect/Effect'
  * @param {import('../types.js').FileAccessObject} fao
  * @param {import('../types.js').Logger} logger
  * @param {any} solc
- * @param {import('@tevm/bundler-cache').Cache} cache
  * @returns {Promise<import('../types.js').CompiledContracts<TIncludeAsts>>}
  * @example
  * const { artifacts, modules } = await compileContract(
@@ -38,10 +37,7 @@ export const compileContract = async (
 	fao,
 	logger,
 	solc,
-	cache,
 ) => {
-	// TODO use this
-	cache
 	const moduleMap = await runPromise(
 		moduleFactory(
 			filePath,

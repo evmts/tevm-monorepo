@@ -2,7 +2,7 @@ import { FileAccessObject, bundler } from '@tevm/base'
 import { createCache } from '@tevm/bundler-cache'
 import { loadConfig } from '@tevm/config'
 import { runSync } from 'effect/Effect'
-import { existsSync, readFileSync, writeFileSync } from 'fs'
+import { existsSync, readFileSync, statSync, writeFileSync } from 'fs'
 import { readFile, writeFile } from 'fs/promises'
 import { glob } from 'glob'
 import path from 'path'
@@ -14,6 +14,7 @@ const fao: FileAccessObject = {
 	readFile: readFile,
 	readFileSync: readFileSync,
 	writeFileSync: writeFileSync,
+	statSync,
 }
 
 const generate = (cwd = process.cwd(), include = ['src/**/*.sol']) => {
@@ -27,7 +28,7 @@ const generate = (cwd = process.cwd(), include = ['src/**/*.sol']) => {
 		const fileName = file.split('/').at(-1) as string
 		const fileDir = file.split('/').slice(0, -1).join('/')
 		const config = runSync(loadConfig(cwd))
-		const solcCache = createCache(console, config.cacheDir, fao, cwd)
+		const solcCache = createCache(config.cacheDir, fao, cwd)
 		const plugin = bundler(config, console, fao, solc, solcCache)
 		plugin
 			.resolveTsModule(file, cwd, false, false)

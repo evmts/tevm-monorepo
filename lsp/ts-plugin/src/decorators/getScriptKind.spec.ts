@@ -20,6 +20,7 @@ const fao: FileAccessObject = {
 	readFileSync: vi.fn(),
 	existsSync: vi.fn(),
 	writeFileSync: vi.fn(),
+	statSync: vi.fn() as any,
 }
 
 describe(getScriptKindDecorator.name, () => {

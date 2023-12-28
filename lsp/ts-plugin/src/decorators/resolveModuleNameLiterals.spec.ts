@@ -3,6 +3,7 @@ import { resolveModuleNameLiteralsDecorator } from './resolveModuleNameLiterals.
 import { FileAccessObject } from '@tevm/base'
 import { CompilerConfig, defaultConfig, defineConfig } from '@tevm/config'
 import { runSync } from 'effect/Effect'
+import { statSync } from 'fs'
 import typescript from 'typescript/lib/tsserverlibrary.js'
 import { MockedFunction, describe, expect, it, vi } from 'vitest'
 
@@ -18,6 +19,7 @@ const fao: FileAccessObject = {
 	readFileSync: vi.fn(),
 	readFile: vi.fn(),
 	writeFileSync: vi.fn(),
+	statSync,
 }
 
 const mockSolidityModuleResolver = solidityModuleResolver as MockedFunction<

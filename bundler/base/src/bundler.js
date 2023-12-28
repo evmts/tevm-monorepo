@@ -6,6 +6,8 @@ import { runSync } from 'effect/Effect'
  * @type {import('./types.js').Bundler}
  */
 export const bundler = (config, logger, fao, solc, cache) => {
+	// TODO use cache
+	cache
 	return {
 		name: bundler.name,
 		config,
@@ -21,7 +23,6 @@ export const bundler = (config, logger, fao, solc, cache) => {
 						includeBytecode,
 						fao,
 						solc,
-						cache,
 					)
 				if (artifacts && Object.keys(artifacts).length > 0) {
 					return {
@@ -51,7 +52,6 @@ export const bundler = (config, logger, fao, solc, cache) => {
 						includeBytecode,
 						fao,
 						solc,
-						cache,
 					)
 				if (artifacts && Object.keys(artifacts).length > 0) {
 					return {
@@ -81,7 +81,6 @@ export const bundler = (config, logger, fao, solc, cache) => {
 						includeBytecode,
 						fao,
 						solc,
-						cache,
 					)
 				let code = ''
 				if (artifacts && Object.keys(artifacts).length > 0) {
@@ -111,7 +110,6 @@ export const bundler = (config, logger, fao, solc, cache) => {
 						includeBytecode,
 						fao,
 						solc,
-						cache,
 					)
 				let code = ''
 				if (artifacts && Object.keys(artifacts).length > 0) {
@@ -141,7 +139,6 @@ export const bundler = (config, logger, fao, solc, cache) => {
 						includeBytecode,
 						fao,
 						solc,
-						cache,
 					)
 				let code = ''
 				if (artifacts && Object.keys(artifacts).length > 0) {
@@ -171,7 +168,6 @@ export const bundler = (config, logger, fao, solc, cache) => {
 						includeBytecode,
 						fao,
 						solc,
-						cache,
 					)
 				let code = ''
 				if (artifacts && Object.keys(artifacts).length > 0) {
@@ -201,7 +197,6 @@ export const bundler = (config, logger, fao, solc, cache) => {
 						includeBytecode,
 						fao,
 						solc,
-						cache,
 					)
 				let code = ''
 				if (artifacts && Object.keys(artifacts).length > 0) {
@@ -231,7 +226,6 @@ export const bundler = (config, logger, fao, solc, cache) => {
 						includeBytecode,
 						fao,
 						solc,
-						cache,
 					)
 				let code = ''
 				if (artifacts && Object.keys(artifacts).length > 0) {

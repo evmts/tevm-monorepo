@@ -40,6 +40,10 @@
 		"src"
 	],
 	"scripts": {
+		"//test": "vitest --coverage",
+		"//test:coverage": "vitest run --coverage",
+		"//test:run": "vitest run",
+		"//test:ui": "vitest --ui",
 		"all": "bun run build && bun run format && bun run lint && bun run test:coverage && bun run generate:docs",
 		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/base ",
 		"build:dist": "bun run tsup",
@@ -49,16 +53,14 @@
 		"format:check": "rome format .",
 		"generate:docs": "bun run typedoc --plugin typedoc-plugin-markdown",
 		"lint": "rome check . --apply-unsafe",
-		"lint:check": "rome check . --verbose",
-		"test": "vitest --coverage",
-		"test:coverage": "vitest run --coverage",
-		"test:run": "vitest run",
-		"test:ui": "vitest --ui"
+		"lint:check": "rome check . --verbose"
 	},
 	"dependencies": {
+		"@tevm/compiler": "workspace:1.0.0-next.18",
 		"@tevm/solc": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
-		"@types/node": "^20.8.9"
+		"@types/node": "^20.8.9",
+		"solidity-ast": "^0.4.52"
 	},
 	"devDependencies": {
 		"@vitest/coverage-v8": "^0.34.6",

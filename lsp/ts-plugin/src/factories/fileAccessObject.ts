@@ -1,4 +1,5 @@
 import { FileAccessObject } from '@tevm/base'
+import { statSync } from 'fs'
 import typescript from 'typescript/lib/tsserverlibrary.js'
 
 export const createFileAccessObject = (
@@ -23,5 +24,6 @@ export const createFileAccessObject = (
 		writeFileSync: (fileName, data) => {
 			lsHost.writeFile?.(fileName, data)
 		},
+		statSync,
 	}
 }

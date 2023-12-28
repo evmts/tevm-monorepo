@@ -8,13 +8,11 @@
 
 - [Cache](modules.md#cache)
 - [CachedItem](modules.md#cacheditem)
-- [CreateCache](modules.md#createcache)
 - [FileAccessObject](modules.md#fileaccessobject)
-- [Logger](modules.md#logger)
 
 ### Functions
 
-- [createCache](modules.md#createcache-1)
+- [createCache](modules.md#createcache)
 
 ## Type Aliases
 
@@ -26,13 +24,16 @@
 
 | Name | Type |
 | :------ | :------ |
-| `isCached` | (`entryModuleId`: `string`, `sources`: `SolcInputDescription`[``"sources"``], `cachedItem`: [`CachedItem`](modules.md#cacheditem)) => `boolean` |
-| `read` | `ReadFunction` |
-| `write` | `WriteFunction` |
+| `readArtifacts` | `ReadArtifacts` |
+| `readDts` | `ReadDts` |
+| `readMjs` | `ReadMjs` |
+| `writeArtifacts` | `WriteArtifacts` |
+| `writeDts` | `WriteDts` |
+| `writeMjs` | `WriteMjs` |
 
 #### Defined in
 
-[types.ts:39](https://github.com/evmts/tevm-monorepo/blob/main/bundler/bundler-cache/src/types.ts#L39)
+[types.ts:35](https://github.com/evmts/tevm-monorepo/blob/main/bundler/bundler-cache/src/types.ts#L35)
 
 ___
 
@@ -42,34 +43,7 @@ ___
 
 #### Defined in
 
-[types.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/bundler/bundler-cache/src/types.ts#L21)
-
-___
-
-### CreateCache
-
-Ƭ **CreateCache**: (`logger`: [`Logger`](modules.md#logger), `cacheDir`: `string`, `fs`: [`FileAccessObject`](modules.md#fileaccessobject), `cwd`: `string`) => [`Cache`](modules.md#cache)
-
-#### Type declaration
-
-▸ (`logger`, `cacheDir`, `fs`, `cwd`): [`Cache`](modules.md#cache)
-
-##### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `logger` | [`Logger`](modules.md#logger) |
-| `cacheDir` | `string` |
-| `fs` | [`FileAccessObject`](modules.md#fileaccessobject) |
-| `cwd` | `string` |
-
-##### Returns
-
-[`Cache`](modules.md#cache)
-
-#### Defined in
-
-[types.ts:49](https://github.com/evmts/tevm-monorepo/blob/main/bundler/bundler-cache/src/types.ts#L49)
+[types.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/bundler/bundler-cache/src/types.ts#L16)
 
 ___
 
@@ -87,42 +61,25 @@ Allows this package to be used in browser environments or otherwise pluggable
 | `existsSync` | (`path`: `string`) => `boolean` |
 | `readFile` | (`path`: `string`, `encoding`: `BufferEncoding`) => `Promise`\<`string`\> |
 | `readFileSync` | (`path`: `string`, `encoding`: `BufferEncoding`) => `string` |
+| `statSync` | typeof `statSync` |
 | `writeFileSync` | (`path`: `string`, `data`: `string`) => `void` |
 
 #### Defined in
 
-[types.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/bundler/bundler-cache/src/types.ts#L7)
-
-___
-
-### Logger
-
-Ƭ **Logger**: `Object`
-
-#### Type declaration
-
-| Name | Type |
-| :------ | :------ |
-| `error` | (...`message`: `string`[]) => `void` |
-| `info` | (...`messages`: `string`[]) => `void` |
-| `log` | (...`message`: `string`[]) => `void` |
-| `warn` | (...`message`: `string`[]) => `void` |
-
-#### Defined in
-
-[types.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/bundler/bundler-cache/src/types.ts#L14)
+[types.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/bundler/bundler-cache/src/types.ts#L8)
 
 ## Functions
 
 ### createCache
 
-▸ **createCache**(`logger`, `cacheDir`, `fs`, `cwd`): [`Cache`](modules.md#cache)
+▸ **createCache**(`cacheDir`, `fs`, `cwd`): [`Cache`](modules.md#cache)
+
+Creates a Tevm cache object for reading and writing cached items
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `logger` | [`Logger`](modules.md#logger) |
 | `cacheDir` | `string` |
 | `fs` | [`FileAccessObject`](modules.md#fileaccessobject) |
 | `cwd` | `string` |
@@ -133,4 +90,4 @@ ___
 
 #### Defined in
 
-[types.ts:49](https://github.com/evmts/tevm-monorepo/blob/main/bundler/bundler-cache/src/types.ts#L49)
+[createCache.js:12](https://github.com/evmts/tevm-monorepo/blob/main/bundler/bundler-cache/src/createCache.js#L12)
