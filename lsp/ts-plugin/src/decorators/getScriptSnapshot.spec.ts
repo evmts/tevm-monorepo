@@ -4,7 +4,13 @@ import { FileAccessObject } from '@tevm/base'
 import { Cache, createCache } from '@tevm/bundler-cache'
 import { CompilerConfig, defaultConfig, defineConfig } from '@tevm/config'
 import { runSync } from 'effect/Effect'
-import { existsSync, readFileSync, statSync, writeFileSync } from 'fs'
+import {
+	existsSync,
+	mkdirSync,
+	readFileSync,
+	statSync,
+	writeFileSync,
+} from 'fs'
 import { readFile } from 'fs/promises'
 import { tmpdir } from 'os'
 import path from 'path'
@@ -26,6 +32,7 @@ const fao: FileAccessObject = {
 	existsSync,
 	writeFileSync,
 	statSync,
+	mkdirSync,
 }
 
 describe(getScriptSnapshotDecorator.name, () => {

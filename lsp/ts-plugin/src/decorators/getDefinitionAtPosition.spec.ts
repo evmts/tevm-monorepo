@@ -29,6 +29,7 @@ const fao: FileAccessObject = {
 	readFile: vi.fn() as any,
 	writeFileSync: vi.fn() as any,
 	statSync: vi.fn() as any,
+	mkdirSync: vi.fn() as any,
 }
 
 const mockLogger = {

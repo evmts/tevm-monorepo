@@ -21,7 +21,7 @@
 
 #### Defined in
 
-[bundler/unplugin/src/tevmUnplugin.js:35](https://github.com/evmts/tevm-monorepo/blob/main/bundler/unplugin/src/tevmUnplugin.js#L35)
+[bundler/unplugin/src/tevmUnplugin.js:41](https://github.com/evmts/tevm-monorepo/blob/main/bundler/unplugin/src/tevmUnplugin.js#L41)
 
 ## Functions
 

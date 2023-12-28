@@ -27,6 +27,7 @@ const fao: FileAccessObject = {
 	readFileSync: vi.fn(),
 	writeFileSync: vi.fn(),
 	statSync: vi.fn() as any,
+	mkdirSync: vi.fn(),
 }
 
 const createProxy = <T extends object>(instance: T, proxy: Partial<T>): T => {
