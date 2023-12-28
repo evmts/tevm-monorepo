@@ -50,7 +50,8 @@ export const resolveModuleSync = (
 				solc,
 			)
 		let code = ''
-		if (artifacts && Object.keys(artifacts).length > 0) {
+		const artifactsExist = artifacts && Object.keys(artifacts).length > 0
+		if (artifactsExist) {
 			code = runSync(generateRuntime(artifacts, moduleType, includeBytecode))
 		} else {
 			const message = `there were no artifacts for ${modulePath}. This is likely a bug in tevm`
@@ -66,6 +67,11 @@ export const resolveModuleSync = (
 				code,
 				modulePath,
 				moduleType,
+				// This is kinda quick and dirty but works for now
+				// We are skipping writing artifacts if there is an error
+				// But still write dts and mjs files since they always
+				// fall back to generating an empty file with error messages
+				artifactsExist,
 			)
 		}
 

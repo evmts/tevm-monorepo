@@ -12,7 +12,10 @@ export const getArtifactsPath = (entryModuleId, item, cwd, cacheDir) => {
 		artifactsJson: 'artifacts.json',
 		mjs: 'contract.mjs',
 	}[item]
-	const normalizedEntryModuleId = entryModuleId.replace(cwd, '')
+	let normalizedEntryModuleId = entryModuleId.replace(cwd, '')
+	if (normalizedEntryModuleId.startsWith('/')) {
+		normalizedEntryModuleId = normalizedEntryModuleId.slice(1)
+	}
 	// TODO both of these are busted on windows
 	const dir = [cacheDir, normalizedEntryModuleId].join('/')
 	const path = [dir, fileName].join('/')
