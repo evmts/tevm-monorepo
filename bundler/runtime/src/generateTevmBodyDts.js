@@ -2,7 +2,7 @@ import { formatAbi } from 'abitype'
 import { succeed } from 'effect/Effect'
 
 /**
- * @param {import("@tevm/solc").Artifacts} artifacts
+ * @param {import("@tevm/compiler").Artifacts} artifacts
  * @param {boolean} includeBytecode
  * @returns {import('effect/Effect').Effect<never, never, string>}
  */

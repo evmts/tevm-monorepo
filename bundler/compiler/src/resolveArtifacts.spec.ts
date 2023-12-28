@@ -1,7 +1,9 @@
 import { compileContract } from './compiler/compileContracts.js'
 import { resolveArtifacts } from './resolveArtifacts.js'
 import type { FileAccessObject, Logger, ModuleInfo } from './types.js'
+import { createCache } from '@tevm/bundler-cache'
 import { type ResolvedCompilerConfig, defaultConfig } from '@tevm/config'
+import { tmpdir } from 'os'
 import {
 	type MockedFunction,
 	afterEach,
@@ -56,6 +58,7 @@ describe('resolveArtifacts', () => {
 				false,
 				fao,
 				require('solc'),
+				createCache(logger, tmpdir(), fao as any, tmpdir()),
 			),
 		).toMatchInlineSnapshot(`
 			{
@@ -90,6 +93,7 @@ describe('resolveArtifacts', () => {
 				false,
 				fao,
 				require('solc'),
+				createCache(logger, tmpdir(), fao as any, tmpdir()),
 			),
 		).rejects.toThrowErrorMatchingInlineSnapshot('"Not a solidity file"')
 	})
@@ -109,6 +113,7 @@ describe('resolveArtifacts', () => {
 				false,
 				fao,
 				require('solc'),
+				createCache(logger, tmpdir(), fao as any, tmpdir()),
 			),
 		).rejects.toThrowErrorMatchingInlineSnapshot('"Compilation failed"')
 	})

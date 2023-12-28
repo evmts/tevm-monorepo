@@ -12,7 +12,7 @@
 
 ### bundler
 
-▸ **bundler**(`config`, `logger`, `fao`, `solc`, `cache?`): Object
+▸ **bundler**(`config`, `logger`, `fao`, `solc`, `cache`): Object
 
 #### Parameters
 
@@ -22,7 +22,7 @@
 | `logger` | Logger |
 | `fao` | FileAccessObject |
 | `solc` | any |
-| `cache?` | Cache |
+| `cache` | Cache |
 
 #### Returns
 
@@ -45,4 +45,4 @@ Object
 
 #### Defined in
 
-[types.ts:35](https://github.com/evmts/tevm-monorepo/blob/main/bundler/base/src/types.ts#L35)
+[types.ts:36](https://github.com/evmts/tevm-monorepo/blob/main/bundler/base/src/types.ts#L36)

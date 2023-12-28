@@ -1,11 +1,11 @@
+import { resolveArtifacts, resolveArtifactsSync } from '@tevm/compiler'
 import { generateRuntime } from '@tevm/runtime'
-import { resolveArtifacts, resolveArtifactsSync } from '@tevm/solc'
 import { runSync } from 'effect/Effect'
 
 /**
  * @type {import('./types.js').Bundler}
  */
-export const bundler = (config, logger, fao, solc) => {
+export const bundler = (config, logger, fao, solc, cache) => {
 	return {
 		name: bundler.name,
 		config,
@@ -21,6 +21,7 @@ export const bundler = (config, logger, fao, solc) => {
 						includeBytecode,
 						fao,
 						solc,
+						cache,
 					)
 				if (artifacts && Object.keys(artifacts).length > 0) {
 					return {
@@ -50,6 +51,7 @@ export const bundler = (config, logger, fao, solc) => {
 						includeBytecode,
 						fao,
 						solc,
+						cache,
 					)
 				if (artifacts && Object.keys(artifacts).length > 0) {
 					return {
@@ -79,6 +81,7 @@ export const bundler = (config, logger, fao, solc) => {
 						includeBytecode,
 						fao,
 						solc,
+						cache,
 					)
 				let code = ''
 				if (artifacts && Object.keys(artifacts).length > 0) {
@@ -108,6 +111,7 @@ export const bundler = (config, logger, fao, solc) => {
 						includeBytecode,
 						fao,
 						solc,
+						cache,
 					)
 				let code = ''
 				if (artifacts && Object.keys(artifacts).length > 0) {
@@ -137,6 +141,7 @@ export const bundler = (config, logger, fao, solc) => {
 						includeBytecode,
 						fao,
 						solc,
+						cache,
 					)
 				let code = ''
 				if (artifacts && Object.keys(artifacts).length > 0) {
@@ -166,6 +171,7 @@ export const bundler = (config, logger, fao, solc) => {
 						includeBytecode,
 						fao,
 						solc,
+						cache,
 					)
 				let code = ''
 				if (artifacts && Object.keys(artifacts).length > 0) {
@@ -195,6 +201,7 @@ export const bundler = (config, logger, fao, solc) => {
 						includeBytecode,
 						fao,
 						solc,
+						cache,
 					)
 				let code = ''
 				if (artifacts && Object.keys(artifacts).length > 0) {
@@ -224,6 +231,7 @@ export const bundler = (config, logger, fao, solc) => {
 						includeBytecode,
 						fao,
 						solc,
+						cache,
 					)
 				let code = ''
 				if (artifacts && Object.keys(artifacts).length > 0) {

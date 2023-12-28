@@ -4,49 +4,77 @@
 
 ## Table of contents
 
-### Modules
+### Variables
 
-- [resolveArtifacts](undefined)
-- [resolveArtifactsSync](undefined)
-- [solc](undefined)
-- [types](undefined)
+- [fileLevelOption](undefined)
+- [releases](undefined)
 
-## Modules
+### Functions
 
-### resolveArtifacts
+- [createSolc](undefined)
+- [solcCompile](undefined)
 
-• **resolveArtifacts**: Module resolveArtifacts
+## Variables
+
+### fileLevelOption
+
+• `Const` **fileLevelOption**: "" = `''`
 
 #### Defined in
 
-[solc/src/resolveArtifacts.js:1](https://github.com/evmts/tevm-monorepo/blob/main/bundler/solc/src/resolveArtifacts.js#L1)
+[solc.js:7](https://github.com/evmts/tevm-monorepo/blob/main/bundler/solc/src/solc.js#L7)
 
 ___
 
-### resolveArtifactsSync
+### releases
 
-• **resolveArtifactsSync**: Module resolveArtifactsSync
+• `Const` **releases**: Releases
 
 #### Defined in
 
-[solc/src/resolveArtifactsSync.js:1](https://github.com/evmts/tevm-monorepo/blob/main/bundler/solc/src/resolveArtifactsSync.js#L1)
+[solc.js:12](https://github.com/evmts/tevm-monorepo/blob/main/bundler/solc/src/solc.js#L12)
+
+## Functions
+
+### createSolc
+
+▸ **createSolc**(`release`): Promise\<Solc\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `release` | keyof Releases |
+
+#### Returns
+
+Promise\<Solc\>
+
+An instance of solc
+
+#### Defined in
+
+[solc.js:135](https://github.com/evmts/tevm-monorepo/blob/main/bundler/solc/src/solc.js#L135)
 
 ___
 
-### solc
+### solcCompile
 
-• **solc**: Module solc
+▸ **solcCompile**(`solc`, `input`): SolcOutput
+
+Typesafe wrapper around solc.compile
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `solc` | any |
+| `input` | SolcInputDescription |
+
+#### Returns
+
+SolcOutput
 
 #### Defined in
 
-[solc/src/solc.js:1](https://github.com/evmts/tevm-monorepo/blob/main/bundler/solc/src/solc.js#L1)
-
-___
-
-### types
-
-• **types**: Module types
-
-#### Defined in
-
-[solc/src/types.ts:1](https://github.com/evmts/tevm-monorepo/blob/main/bundler/solc/src/types.ts#L1)
+[solc.js:127](https://github.com/evmts/tevm-monorepo/blob/main/bundler/solc/src/solc.js#L127)

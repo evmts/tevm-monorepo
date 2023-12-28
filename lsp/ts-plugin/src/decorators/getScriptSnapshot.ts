@@ -12,7 +12,7 @@ import * as solc from 'solc'
  * @see https://github.com/wagmi-dev/wagmi/blob/main/packages/cli/src/plugins/foundry.ts
  * TODO replace with modules for code reuse
  */
-export const getScriptSnapshotDecorator = (solcCache?: Cache) =>
+export const getScriptSnapshotDecorator = (solcCache: Cache) =>
 	createHostDecorator(({ languageServiceHost }, ts, logger, config, fao) => {
 		return {
 			getScriptSnapshot: (filePath) => {

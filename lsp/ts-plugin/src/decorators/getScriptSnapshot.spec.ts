@@ -1,10 +1,12 @@
 import { Logger } from '../factories/logger.js'
 import { getScriptSnapshotDecorator } from './getScriptSnapshot.js'
 import { FileAccessObject } from '@tevm/base'
+import { Cache, createCache } from '@tevm/bundler-cache'
 import { CompilerConfig, defaultConfig, defineConfig } from '@tevm/config'
 import { runSync } from 'effect/Effect'
 import { existsSync, readFileSync, writeFileSync } from 'fs'
 import { readFile } from 'fs/promises'
+import { tmpdir } from 'os'
 import path from 'path'
 import typescript from 'typescript/lib/tsserverlibrary.js'
 import { Mock, beforeEach, describe, expect, it, vi } from 'vitest'
@@ -34,6 +36,9 @@ describe(getScriptSnapshotDecorator.name, () => {
 	let project = {
 		getCurrentDirectory: vi.fn(),
 	}
+
+	let cache: Cache
+
 	beforeEach(() => {
 		logger = {
 			info: vi.fn(),
@@ -48,6 +53,7 @@ describe(getScriptSnapshotDecorator.name, () => {
 		languageServiceHost = {
 			getScriptSnapshot: vi.fn(),
 		}
+		cache = createCache(logger, tmpdir(), fao, tmpdir())
 	})
 
 	it('should proxy to the languageServiceHost for non solidity files', () => {
@@ -55,7 +61,7 @@ describe(getScriptSnapshotDecorator.name, () => {
     export type Foo = string
     `
 		languageServiceHost.getScriptSnapshot.mockReturnValue(expectedReturn)
-		const decorator = getScriptSnapshotDecorator()(
+		const decorator = getScriptSnapshotDecorator(cache)(
 			{ languageServiceHost, project } as any,
 			typescript,
 			logger,
@@ -69,7 +75,7 @@ describe(getScriptSnapshotDecorator.name, () => {
 	})
 
 	it('should return the .ts file if it exists', () => {
-		const decorator = getScriptSnapshotDecorator()(
+		const decorator = getScriptSnapshotDecorator(cache)(
 			{ languageServiceHost, project } as any,
 			typescript,
 			logger,
@@ -83,7 +89,7 @@ describe(getScriptSnapshotDecorator.name, () => {
 		)
 	})
 	it('should return the .d.ts file if it exists', () => {
-		const decorator = getScriptSnapshotDecorator()(
+		const decorator = getScriptSnapshotDecorator(cache)(
 			{ languageServiceHost, project } as any,
 			typescript,
 			logger,
@@ -97,7 +103,7 @@ describe(getScriptSnapshotDecorator.name, () => {
 		)
 	})
 	it('should return a generated .d.ts file for solidity files', () => {
-		const decorator = getScriptSnapshotDecorator()(
+		const decorator = getScriptSnapshotDecorator(cache)(
 			{ languageServiceHost, project } as any,
 			typescript,
 			logger,
@@ -123,7 +129,7 @@ describe(getScriptSnapshotDecorator.name, () => {
 		`)
 	})
 	it('should handle resolveDts throwing', () => {
-		const decorator = getScriptSnapshotDecorator()(
+		const decorator = getScriptSnapshotDecorator(cache)(
 			{ languageServiceHost, project } as any,
 			typescript,
 			logger,

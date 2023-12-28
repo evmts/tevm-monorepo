@@ -1,12 +1,13 @@
 import { bundler } from './bundler.js'
 import type { Bundler, FileAccessObject, Logger } from './types.js'
+import { createCache } from '@tevm/bundler-cache'
 import {
 	type ModuleInfo,
-	type SolcInputDescription,
-	type SolcOutput,
 	resolveArtifacts,
 	resolveArtifactsSync,
-} from '@tevm/solc'
+} from '@tevm/compiler'
+import { type SolcInputDescription, type SolcOutput } from '@tevm/solc'
+import { tmpdir } from 'os'
 import type { Node } from 'solidity-ast/node.js'
 import {
 	type Mock,
@@ -53,8 +54,14 @@ describe(bundler.name, () => {
 			},
 		}
 
-		resolver = bundler(config as any, logger, fao, require('solc'))
-		vi.mock('@tevm/solc', () => {
+		resolver = bundler(
+			config as any,
+			logger,
+			fao,
+			require('solc'),
+			createCache(logger, tmpdir(), fao, tmpdir()),
+		)
+		vi.mock('@tevm/compiler', () => {
 			return {
 				resolveArtifacts: vi.fn(),
 				resolveArtifactsSync: vi.fn(),

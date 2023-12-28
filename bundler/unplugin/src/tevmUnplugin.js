@@ -73,6 +73,10 @@ export const tevmUnplugin = (options = {}) => {
 
 	return {
 		name: '@tevm/rollup-plugin',
+		/**
+		 * Make this plugin run before other plugins
+		 * We do this so other plugins (specifically webpack ones) don't barf on the solidity imports
+		 */
 		enforce: 'pre',
 		async buildStart() {
 			config = runSync(loadConfig(process.cwd()))

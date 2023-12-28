@@ -57,14 +57,15 @@
 	},
 	"dependencies": {
 		"@tevm/bundler-cache": "workspace:^",
+		"@tevm/compiler": "workspace:^",
 		"@tevm/config": "workspace:^",
 		"@tevm/runtime": "workspace:^",
-		"@tevm/solc": "workspace:^",
 		"effect": "2.0.0-next.54",
 		"solidity-ast": "^0.4.52"
 	},
 	"devDependencies": {
 		"@tevm/contract": "workspace:^",
+		"@tevm/solc": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
 		"@types/node": "^20.8.9",
 		"solc": "0.8.22"

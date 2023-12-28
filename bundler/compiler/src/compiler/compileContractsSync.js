@@ -1,6 +1,6 @@
-import { solcCompile } from '../solc.js'
 import { invariant } from '../utils/invariant.js'
 import { moduleFactory } from '@tevm/resolutions'
+import { solcCompile } from '@tevm/solc'
 import { runSync } from 'effect/Effect'
 import resolve from 'resolve'
 
@@ -90,7 +90,7 @@ export function compileContractSync(
 	 */
 	const evmBytecode = ['evm.bytecode.object', 'evm.deployedBytecode.object']
 	/**
-	 * @type {import('../solcTypes.js').SolcInputDescription}
+	 * @type {import('@tevm/solc').SolcInputDescription}
 	 */
 	const solcInput = {
 		language: 'Solidity',
@@ -105,7 +105,7 @@ export function compileContractSync(
 		},
 	}
 	/**
-	 * @type {import('../solcTypes.js').SolcOutput}
+	 * @type {import('@tevm/solc').SolcOutput}
 	 */
 	const solcOutput = solcCompile(solc, solcInput)
 

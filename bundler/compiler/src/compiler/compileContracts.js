@@ -1,6 +1,6 @@
-import { solcCompile } from '../solc.js'
 import { invariant, resolveEffect } from '../utils/index.js'
 import { moduleFactory } from '@tevm/resolutions'
+import { solcCompile } from '@tevm/solc'
 import { Effect } from 'effect'
 import { runPromise } from 'effect/Effect'
 
@@ -17,6 +17,7 @@ import { runPromise } from 'effect/Effect'
  * @param {import('../types.js').FileAccessObject} fao
  * @param {import('../types.js').Logger} logger
  * @param {any} solc
+ * @param {import('@tevm/bundler-cache').Cache} cache
  * @returns {Promise<import('../types.js').CompiledContracts<TIncludeAsts>>}
  * @example
  * const { artifacts, modules } = await compileContract(
@@ -37,7 +38,10 @@ export const compileContract = async (
 	fao,
 	logger,
 	solc,
+	cache,
 ) => {
+	// TODO use this
+	cache
 	const moduleMap = await runPromise(
 		moduleFactory(
 			filePath,
@@ -101,7 +105,7 @@ export const compileContract = async (
 	 */
 	const evmBytecode = ['evm.bytecode.object', 'evm.deployedBytecode.object']
 	/**
-	 * @type {import('../solcTypes.js').SolcInputDescription}
+	 * @type {import('@tevm/solc').SolcInputDescription}
 	 */
 	const input = {
 		language: 'Solidity',
@@ -117,7 +121,7 @@ export const compileContract = async (
 	}
 
 	/**
-	 * @type {import('../solcTypes.js').SolcOutput}
+	 * @type {import('@tevm/solc').SolcOutput}
 	 */
 	const output = solcCompile(solc, input)
 

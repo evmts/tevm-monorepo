@@ -1,5 +1,7 @@
 import { getDefinitionServiceDecorator } from './getDefinitionAtPosition.js'
 import { FileAccessObject } from '@tevm/base'
+import { createCache } from '@tevm/bundler-cache'
+import { tmpdir } from 'os'
 import typescript from 'typescript/lib/tsserverlibrary.js'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
@@ -99,6 +101,7 @@ describe('getDefinitionServiceDecorator', () => {
 			mockLogger as any,
 			typescript,
 			fao,
+			createCache(mockLogger as any, tmpdir(), fao, tmpdir()),
 		)
 
 		const definitions = decoratedService.getDefinitionAtPosition(
@@ -125,6 +128,7 @@ describe('getDefinitionServiceDecorator', () => {
 			mockLogger as any,
 			typescript,
 			fao,
+			createCache(mockLogger as any, tmpdir(), fao, tmpdir()),
 		)
 
 		const result = decoratedService.getDefinitionAndBoundSpan('someFile.ts', 42)
@@ -161,6 +165,7 @@ describe('getDefinitionServiceDecorator', () => {
 			mockLogger as any,
 			typescript,
 			fao,
+			createCache(mockLogger as any, tmpdir(), fao, tmpdir()),
 		)
 
 		const definitions = decoratedService.getDefinitionAtPosition(
@@ -206,6 +211,7 @@ describe('getDefinitionServiceDecorator', () => {
 			mockLogger as any,
 			typescript,
 			fao,
+			createCache(mockLogger as any, tmpdir(), fao, tmpdir()),
 		)
 
 		const definitions = decoratedService.getDefinitionAtPosition(
@@ -242,6 +248,7 @@ describe('getDefinitionServiceDecorator', () => {
 			mockLogger as any,
 			typescript,
 			fao,
+			createCache(mockLogger as any, tmpdir(), fao, tmpdir()),
 		)
 
 		const definitions = decoratedService.getDefinitionAtPosition(
@@ -286,6 +293,7 @@ describe('getDefinitionServiceDecorator', () => {
 			mockLogger as any,
 			typescript,
 			fao,
+			createCache(mockLogger as any, tmpdir(), fao, tmpdir()),
 		)
 
 		const definitions = decoratedService.getDefinitionAtPosition(
