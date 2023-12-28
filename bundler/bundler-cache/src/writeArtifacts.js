@@ -26,7 +26,9 @@ export const writeArtifacts = (
 
 	const { path: metadataPath } = getMetadataPath(entryModuleId, cwd, cacheDir)
 
-	fs.mkdirSync(dir, { recursive: true })
+	if (!fs.existsSync(dir)) {
+		fs.mkdirSync(dir, { recursive: true })
+	}
 	fs.writeFileSync(path, JSON.stringify(resolvedArtifacts, null, 2))
 	fs.writeFileSync(
 		metadataPath,

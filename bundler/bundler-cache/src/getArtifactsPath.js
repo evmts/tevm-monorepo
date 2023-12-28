@@ -17,7 +17,7 @@ export const getArtifactsPath = (entryModuleId, item, cwd, cacheDir) => {
 		normalizedEntryModuleId = normalizedEntryModuleId.slice(1)
 	}
 	// TODO both of these are busted on windows
-	const dir = [cacheDir, normalizedEntryModuleId].join('/')
+	const dir = [cwd, cacheDir, normalizedEntryModuleId].join('/')
 	const path = [dir, fileName].join('/')
 	return { dir, path }
 }

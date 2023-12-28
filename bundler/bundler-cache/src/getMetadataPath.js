@@ -8,7 +8,7 @@
 export const getMetadataPath = (entryModuleId, cwd, cacheDir) => {
 	const normalizedEntryModuleId = entryModuleId.replace(cwd, '')
 	// TODO these are busted on windows
-	const dir = [cacheDir, normalizedEntryModuleId].join('/')
+	const dir = [cwd, cacheDir, normalizedEntryModuleId].join('/')
 	const path = [dir, 'metadata.json'].join('/')
 	return { dir, path }
 }

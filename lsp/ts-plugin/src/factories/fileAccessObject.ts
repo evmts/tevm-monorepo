@@ -1,5 +1,12 @@
 import { FileAccessObject } from '@tevm/base'
-import { mkdirSync, statSync } from 'fs'
+import {
+	existsSync,
+	mkdirSync,
+	readFileSync,
+	statSync,
+	writeFileSync,
+} from 'fs'
+import { readFile } from 'fs/promises'
 import typescript from 'typescript/lib/tsserverlibrary.js'
 
 export const createFileAccessObject = (
@@ -25,8 +32,19 @@ export const createFileAccessObject = (
 			lsHost.writeFile?.(fileName, data)
 		},
 		// TODO clean this up. This works fine only because only the cache needs them and the cache is operating on a real file system and not a virtual one
-		// What we should do is instead create a real file system Fao interface and a virtual one and then use the real one for the cache the virtual one for the typeserver
+		// These are just stubs to match interface since making multiple interfaces is tedious atm
 		statSync,
-		mkdirSync: mkdirSync,
+		mkdirSync,
+	}
+}
+
+export const createRealFileAccessObject = (): FileAccessObject => {
+	return {
+		readFile,
+		existsSync,
+		readFileSync,
+		writeFileSync,
+		statSync,
+		mkdirSync,
 	}
 }

@@ -59,21 +59,19 @@ export const resolveModuleSync = (
 			logger.warn(message)
 		}
 
-		if (!cachedResult && artifacts) {
-			writeCache(
-				logger,
-				cache,
-				{ solcInput, solcOutput, asts, artifacts, modules },
-				code,
-				modulePath,
-				moduleType,
-				// This is kinda quick and dirty but works for now
-				// We are skipping writing artifacts if there is an error
-				// But still write dts and mjs files since they always
-				// fall back to generating an empty file with error messages
-				artifactsExist,
-			)
-		}
+		writeCache(
+			logger,
+			cache,
+			{ solcInput, solcOutput, asts, artifacts, modules },
+			code,
+			modulePath,
+			moduleType,
+			// This is kinda quick and dirty but works for now
+			// We are skipping writing artifacts if there is an error
+			// But still write dts and mjs files since they always
+			// fall back to generating an empty file with error messages
+			artifactsExist,
+		)
 
 		return { solcInput, solcOutput, asts, modules, code }
 	} catch (e) {
