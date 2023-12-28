@@ -7,14 +7,14 @@ import { version } from './version.js'
  * @param {string} cwd
  * @param {string} cacheDir
  * @param {string} entryModuleId
- * @param {import('@tevm/compiler').CompiledContracts} compiledContracts
+ * @param {import('@tevm/compiler').ResolvedArtifacts} resolvedArtifacts
  * @param {import('./types.js').FileAccessObject} fs
  */
 export const writeArtifacts = (
 	cwd,
 	cacheDir,
 	entryModuleId,
-	compiledContracts,
+	resolvedArtifacts,
 	fs,
 ) => {
 	const artifactsPath = getArtifactsPath(
@@ -24,12 +24,12 @@ export const writeArtifacts = (
 		cacheDir,
 	)
 
-	fs.writeFileSync(artifactsPath, JSON.stringify(compiledContracts, null, 2))
+	fs.writeFileSync(artifactsPath, JSON.stringify(resolvedArtifacts, null, 2))
 
 	const metadata = {
 		version,
 		files: Object.fromEntries(
-			Object.keys(compiledContracts.solcInput.sources).map((sourcePath) => {
+			Object.keys(resolvedArtifacts.solcInput.sources).map((sourcePath) => {
 				// for efficiency let's only check the last updated timestamp of the files
 				return [sourcePath, fs.statSync(sourcePath).mtimeMs]
 			}),

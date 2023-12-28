@@ -7,7 +7,7 @@ import { version } from './version.js'
  * @param {import('./types.js').FileAccessObject} fs
  * @param {string} cwd
  * @param {string} entryModuleId
- * @returns {import('@tevm/compiler').CompiledContracts | undefined}
+ * @returns {import('@tevm/compiler').ResolvedArtifacts | undefined}
  */
 export const readArtifacts = (cacheDir, fs, cwd, entryModuleId) => {
 	const artifactsPath = getArtifactsPath(
