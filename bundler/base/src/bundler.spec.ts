@@ -25,6 +25,7 @@ const fao: FileAccessObject = {
 	readFileSync: vi.fn() as any,
 	writeFileSync: vi.fn() as any,
 	statSync: vi.fn() as any,
+	mkdirSync: vi.fn() as any,
 }
 
 const mockModules: Record<string, ModuleInfo> = {
@@ -82,15 +83,15 @@ describe(bundler.name, () => {
 					resolver.resolveDts('module', 'basedir', false, false),
 				).rejects.toThrow('Test error')
 				expect((logger.error as Mock).mock.calls).toMatchInlineSnapshot(`
-				[
-				  [
-				    [Error: Test error],
-				  ],
-				  [
-				    "there was an error in tevm plugin generating .dts",
-				  ],
-				]
-			`)
+					[
+					  [
+					    "there was an error in tevm plugin resolving .dts",
+					  ],
+					  [
+					    [Error: Test error],
+					  ],
+					]
+				`)
 			})
 		})
 
@@ -105,10 +106,10 @@ describe(bundler.name, () => {
 				expect((logger.error as Mock).mock.calls).toMatchInlineSnapshot(`
 					[
 					  [
-					    [Error: Test error sync],
+					    "there was an error in tevm plugin resolving .dts",
 					  ],
 					  [
-					    "there was an error in tevm plugin resolving .dts",
+					    [Error: Test error sync],
 					  ],
 					]
 				`)
@@ -126,10 +127,10 @@ describe(bundler.name, () => {
 				expect((logger.error as Mock).mock.calls).toMatchInlineSnapshot(`
 					[
 					  [
-					    [Error: Test error sync],
+					    "there was an error in tevm plugin resolving .ts",
 					  ],
 					  [
-					    "there was an error in tevm plugin resolving .ts",
+					    [Error: Test error sync],
 					  ],
 					]
 				`)
@@ -145,10 +146,10 @@ describe(bundler.name, () => {
 				expect((logger.error as Mock).mock.calls).toMatchInlineSnapshot(`
 					[
 					  [
-					    [Error: Test error],
+					    "there was an error in tevm plugin resolving .ts",
 					  ],
 					  [
-					    "there was an error in tevm plugin resolving .ts",
+					    [Error: Test error],
 					  ],
 					]
 				`)
@@ -166,10 +167,10 @@ describe(bundler.name, () => {
 				expect((logger.error as Mock).mock.calls).toMatchInlineSnapshot(`
 					[
 					  [
-					    [Error: Test error sync],
+					    "there was an error in tevm plugin resolving .cjs",
 					  ],
 					  [
-					    "there was an error in tevm plugin resolving .cjs",
+					    [Error: Test error sync],
 					  ],
 					]
 				`)
@@ -185,10 +186,10 @@ describe(bundler.name, () => {
 				expect((logger.error as Mock).mock.calls).toMatchInlineSnapshot(`
 					[
 					  [
-					    [Error: Test error],
+					    "there was an error in tevm plugin resolving .cjs",
 					  ],
 					  [
-					    "there was an error in tevm plugin resolving .cjs",
+					    [Error: Test error],
 					  ],
 					]
 				`)
@@ -225,10 +226,10 @@ describe(bundler.name, () => {
 				expect((logger.error as Mock).mock.calls).toMatchInlineSnapshot(`
 					[
 					  [
-					    [Error: Test error],
+					    "there was an error in tevm plugin resolving .mjs",
 					  ],
 					  [
-					    "there was an error in tevm plugin resolving .mjs",
+					    [Error: Test error],
 					  ],
 					]
 				`)
@@ -249,7 +250,7 @@ describe(bundler.name, () => {
 			expect(result).toMatchInlineSnapshot(`
 				{
 				  "asts": undefined,
-				  "code": "",
+				  "code": "// there were no artifacts for module. This is likely a bug in tevm",
 				  "modules": undefined,
 				  "solcInput": undefined,
 				  "solcOutput": undefined,
@@ -264,20 +265,20 @@ describe(bundler.name, () => {
 			mockResolveArtifacts.mockResolvedValueOnce({
 				artifacts,
 				modules: mockModules,
+				solcInput: {
+					language: 'Solidity',
+					settings: { outputSelection: { sources: {} } },
+					sources: {},
+				} satisfies SolcInputDescription,
+				solcOutput: {
+					contracts: {},
+					sources: {},
+				} satisfies SolcOutput,
 				asts: {
 					'TestContract.sol': {
 						absolutePath: '/absolute/path',
 						evmVersion: 'homestead',
 					},
-					solcInput: {
-						language: 'Solidity',
-						settings: { outputSelection: { sources: {} } },
-						sources: {},
-					} satisfies SolcInputDescription,
-					solcOutput: {
-						contracts: {},
-						sources: {},
-					} satisfies SolcOutput,
 				} as any as Record<string, Node>,
 			})
 			const result = await resolver.resolveDts(
@@ -292,19 +293,6 @@ describe(bundler.name, () => {
 				    "TestContract.sol": {
 				      "absolutePath": "/absolute/path",
 				      "evmVersion": "homestead",
-				    },
-				    "solcInput": {
-				      "language": "Solidity",
-				      "settings": {
-				        "outputSelection": {
-				          "sources": {},
-				        },
-				      },
-				      "sources": {},
-				    },
-				    "solcOutput": {
-				      "contracts": {},
-				      "sources": {},
 				    },
 				  },
 				  "code": "import { TevmContract } from '@tevm/contract'
@@ -326,8 +314,19 @@ describe(bundler.name, () => {
 				contract TestContract {}",
 				    },
 				  },
-				  "solcInput": undefined,
-				  "solcOutput": undefined,
+				  "solcInput": {
+				    "language": "Solidity",
+				    "settings": {
+				      "outputSelection": {
+				        "sources": {},
+				      },
+				    },
+				    "sources": {},
+				  },
+				  "solcOutput": {
+				    "contracts": {},
+				    "sources": {},
+				  },
 				}
 			`)
 		})
@@ -341,7 +340,7 @@ describe(bundler.name, () => {
 			expect(result).toMatchInlineSnapshot(`
 				{
 				  "asts": undefined,
-				  "code": "",
+				  "code": "// there were no artifacts for module. This is likely a bug in tevm",
 				  "modules": undefined,
 				  "solcInput": undefined,
 				  "solcOutput": undefined,
@@ -430,7 +429,7 @@ describe(bundler.name, () => {
 			expect(result).toMatchInlineSnapshot(`
 				{
 				  "asts": undefined,
-				  "code": "",
+				  "code": "// there were no artifacts for module. This is likely a bug in tevm",
 				  "modules": undefined,
 				  "solcInput": undefined,
 				  "solcOutput": undefined,
@@ -520,7 +519,7 @@ describe(bundler.name, () => {
 			expect(result).toMatchInlineSnapshot(`
 				{
 				  "asts": undefined,
-				  "code": "",
+				  "code": "// there were no artifacts for module. This is likely a bug in tevm",
 				  "modules": undefined,
 				  "solcInput": undefined,
 				  "solcOutput": undefined,
@@ -610,7 +609,7 @@ describe(bundler.name, () => {
 			expect(result).toMatchInlineSnapshot(`
 				{
 				  "asts": undefined,
-				  "code": "",
+				  "code": "// there were no artifacts for module. This is likely a bug in tevm",
 				  "modules": undefined,
 				  "solcInput": undefined,
 				  "solcOutput": undefined,
@@ -700,7 +699,7 @@ describe(bundler.name, () => {
 			expect(result).toMatchInlineSnapshot(`
 				{
 				  "asts": undefined,
-				  "code": "",
+				  "code": "// there were no artifacts for module. This is likely a bug in tevm",
 				  "modules": undefined,
 				  "solcInput": undefined,
 				  "solcOutput": undefined,
@@ -790,7 +789,7 @@ describe(bundler.name, () => {
 			expect(result).toMatchInlineSnapshot(`
 				{
 				  "asts": undefined,
-				  "code": "",
+				  "code": "// there were no artifacts for module. This is likely a bug in tevm",
 				  "modules": undefined,
 				  "solcInput": undefined,
 				  "solcOutput": undefined,
@@ -880,7 +879,7 @@ describe(bundler.name, () => {
 			expect(result).toMatchInlineSnapshot(`
 				{
 				  "asts": undefined,
-				  "code": "",
+				  "code": "// there were no artifacts for module. This is likely a bug in tevm",
 				  "modules": undefined,
 				  "solcInput": undefined,
 				  "solcOutput": undefined,

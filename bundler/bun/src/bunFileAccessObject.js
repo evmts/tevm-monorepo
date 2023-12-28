@@ -1,5 +1,5 @@
 import { file } from './bunFile.js'
-import { existsSync, readFileSync, statSync } from 'fs'
+import { existsSync, mkdirSync, readFileSync, statSync } from 'fs'
 
 /**
  * A adapter around the bun file api to make it compatible with @tevm/base FileAccessObject type
@@ -21,4 +21,5 @@ export const bunFileAccesObject = {
 		return bunFile.writer().write(data)
 	},
 	statSync,
+	mkdirSync,
 }

@@ -1,5 +1,5 @@
-import type { CompiledContracts } from '@tevm/compiler'
-import { statSync } from 'fs'
+import type { ResolvedArtifacts } from '@tevm/compiler'
+import { mkdirSync, statSync } from 'fs'
 
 /**
  * Generalized interface for accessing file system
@@ -11,13 +11,14 @@ export type FileAccessObject = {
 	readFileSync: (path: string, encoding: BufferEncoding) => string
 	existsSync: (path: string) => boolean
 	statSync: typeof statSync
+	mkdirSync: typeof mkdirSync
 }
 
 export type CachedItem = 'artifactsJson' | 'dts' | 'mjs'
 
 export type ReadArtifacts = (
 	entryModuleId: string,
-) => CompiledContracts | undefined
+) => ResolvedArtifacts | undefined
 
 export type ReadDts = (entryModuleId: string) => string | undefined
 
@@ -25,7 +26,7 @@ export type ReadMjs = (entryModuleId: string) => string | undefined
 
 export type WriteArtifacts = (
 	entryModuleId: string,
-	artifacts: CompiledContracts,
+	artifacts: ResolvedArtifacts,
 ) => string
 
 export type WriteDts = (entryModuleId: string, dtsFile: string) => void

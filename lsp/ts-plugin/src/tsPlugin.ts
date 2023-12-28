@@ -4,7 +4,10 @@ import {
 	getScriptSnapshotDecorator,
 	resolveModuleNameLiteralsDecorator,
 } from './decorators/index.js'
-import { createFileAccessObject } from './factories/fileAccessObject.js'
+import {
+	createFileAccessObject,
+	createRealFileAccessObject,
+} from './factories/fileAccessObject.js'
 import { createLogger, decorateHost } from './factories/index.js'
 import { isSolidity } from './utils/index.js'
 import { createCache } from '@tevm/bundler-cache'
@@ -28,10 +31,13 @@ export const tsPlugin: typescript.server.PluginModuleFactory = (modules) => {
 			const config = runSync(
 				loadConfig(createInfo.project.getCurrentDirectory()),
 			)
+			// this fao uses the lsp not the real file system
 			const fao = createFileAccessObject(createInfo.languageServiceHost)
 			const cache = createCache(
 				config.cacheDir,
-				fao,
+				// this fao uses real file system
+				// TODO we want to handle the case where fs doesn't exist
+				createRealFileAccessObject(),
 				createInfo.project.getCurrentDirectory(),
 			)
 			const service = getDefinitionServiceDecorator(
