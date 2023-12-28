@@ -8,28 +8,38 @@ import { version } from './version.js'
  * @param {string} cacheDir
  * @param {string} entryModuleId
  * @param {import('@tevm/compiler').CompiledContracts} compiledContracts
- * @param {import('fs')} fs
+ * @param {import('./types.js').FileAccessObject} fs
  */
-export const writeArtifacts = (cwd, cacheDir, entryModuleId, compiledContracts, fs) => {
-  const artifactsPath = getArtifactsPath(entryModuleId, 'artifactsJson', cwd, cacheDir)
+export const writeArtifacts = (
+	cwd,
+	cacheDir,
+	entryModuleId,
+	compiledContracts,
+	fs,
+) => {
+	const artifactsPath = getArtifactsPath(
+		entryModuleId,
+		'artifactsJson',
+		cwd,
+		cacheDir,
+	)
 
-  fs.writeFileSync(
-    artifactsPath,
-    JSON.stringify(compiledContracts, null, 2),
-  )
+	fs.writeFileSync(artifactsPath, JSON.stringify(compiledContracts, null, 2))
 
-  const metadata = {
-    version,
-    files: Object.fromEntries(Object.keys(compiledContracts.solcInput.sources).map((sourcePath) => {
-      // for efficiency let's only check the last updated timestamp of the files 
-      return [sourcePath, fs.statSync(sourcePath).mtimeMs]
-    }))
-  }
+	const metadata = {
+		version,
+		files: Object.fromEntries(
+			Object.keys(compiledContracts.solcInput.sources).map((sourcePath) => {
+				// for efficiency let's only check the last updated timestamp of the files
+				return [sourcePath, fs.statSync(sourcePath).mtimeMs]
+			}),
+		),
+	}
 
-  fs.writeFileSync(
-    getMetadataPath(entryModuleId, cwd, cacheDir),
-    JSON.stringify(metadata, null, 2),
-  )
+	fs.writeFileSync(
+		getMetadataPath(entryModuleId, cwd, cacheDir),
+		JSON.stringify(metadata, null, 2),
+	)
 
-  return artifactsPath
+	return artifactsPath
 }

@@ -30,7 +30,6 @@ export const tevmBunPlugin = ({ solc = defaultSolc.version }) => {
 		async setup(build) {
 			const config = runSync(loadConfig(process.cwd()))
 			const solcCache = createCache(
-				console,
 				config.cacheDir,
 				bunFileAccesObject,
 				process.cwd(),

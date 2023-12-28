@@ -6,6 +6,6 @@
  * @returns {string}
  */
 export const getMetadataPath = (entryModuleId, cwd, cacheDir) => {
-  const normalizedEntryModuleId = entryModuleId.replace(cwd, '')
-  return [cacheDir, normalizedEntryModuleId, 'metadata.json'].join('/')
+	const normalizedEntryModuleId = entryModuleId.replace(cwd, '')
+	return [cacheDir, normalizedEntryModuleId, 'metadata.json'].join('/')
 }

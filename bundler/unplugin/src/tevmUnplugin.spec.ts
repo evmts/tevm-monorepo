@@ -114,6 +114,7 @@ describe('unpluginFn', () => {
 			    "existsSync": [MockFunction spy],
 			    "readFile": [Function],
 			    "readFileSync": [Function],
+			    "statSync": [Function],
 			    "writeFileSync": [Function],
 			  },
 			  {
@@ -137,9 +138,12 @@ describe('unpluginFn', () => {
 			    "version": [Function],
 			  },
 			  {
-			    "isCached": [Function],
-			    "read": [Function],
-			    "write": [Function],
+			    "readArtifacts": [Function],
+			    "readDts": [Function],
+			    "readMjs": [Function],
+			    "writeArtifacts": [Function],
+			    "writeDts": [Function],
+			    "writeMjs": [Function],
 			  },
 			]
 		`)

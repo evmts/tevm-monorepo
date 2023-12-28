@@ -1,4 +1,5 @@
 import type { CompiledContracts } from '@tevm/compiler'
+import { statSync } from 'fs'
 
 /**
  * Generalized interface for accessing file system
@@ -9,11 +10,14 @@ export type FileAccessObject = {
 	readFile: (path: string, encoding: BufferEncoding) => Promise<string>
 	readFileSync: (path: string, encoding: BufferEncoding) => string
 	existsSync: (path: string) => boolean
+	statSync: typeof statSync
 }
 
 export type CachedItem = 'artifactsJson' | 'dts' | 'mjs'
 
-export type ReadArtifacts = (entryModuleId: string) => CompiledContracts | undefined
+export type ReadArtifacts = (
+	entryModuleId: string,
+) => CompiledContracts | undefined
 
 export type ReadDts = (entryModuleId: string) => string | undefined
 
@@ -21,7 +25,7 @@ export type ReadMjs = (entryModuleId: string) => string | undefined
 
 export type WriteArtifacts = (
 	entryModuleId: string,
-	artifacts: CompiledContracts
+	artifacts: CompiledContracts,
 ) => string
 
 export type WriteDts = (entryModuleId: string, dtsFile: string) => void

@@ -5,7 +5,7 @@ import { writeArtifacts } from './writeArtifacts.js'
 /**
  * Creates a Tevm cache object for reading and writing cached items
  * @param {string} cacheDir
- * @param {import('fs')} fs
+ * @param {import('./types.js').FileAccessObject} fs
  * @param {string} cwd
  * @returns {import('./types.js').Cache}
  */
