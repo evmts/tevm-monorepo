@@ -1,8 +1,9 @@
-import { createCache } from '@tevm/bundler-cache'
 import { compileContractSync } from './compiler/compileContractsSync.js'
 import { resolveArtifactsSync } from './resolveArtifactsSync.js'
 import type { FileAccessObject, Logger, ModuleInfo } from './types.js'
+import { createCache } from '@tevm/bundler-cache'
 import { type ResolvedCompilerConfig, defaultConfig } from '@tevm/config'
+import { tmpdir } from 'os'
 import {
 	type MockedFunction,
 	afterEach,
@@ -11,7 +12,6 @@ import {
 	it,
 	vi,
 } from 'vitest'
-import { tmpdir } from 'os'
 
 vi.mock('./compiler/compileContractsSync', () => ({
 	compileContractSync: vi.fn(),
@@ -66,7 +66,7 @@ describe('resolveArtifactsSync', () => {
 				false,
 				fao,
 				require('solc'),
-				createCache(logger, tmpdir(), fao as any, tmpdir())
+				createCache(logger, tmpdir(), fao as any, tmpdir()),
 			),
 		).toThrowErrorMatchingInlineSnapshot('"Not a solidity file"')
 	})
@@ -86,7 +86,7 @@ describe('resolveArtifactsSync', () => {
 				false,
 				fao,
 				require('solc'),
-				createCache(logger, tmpdir(), fao as any, tmpdir())
+				createCache(logger, tmpdir(), fao as any, tmpdir()),
 			),
 		).toThrowErrorMatchingInlineSnapshot('"Oops"')
 	})
@@ -106,7 +106,7 @@ describe('resolveArtifactsSync', () => {
 				false,
 				fao,
 				require('solc'),
-				createCache(logger, tmpdir(), fao as any, tmpdir())
+				createCache(logger, tmpdir(), fao as any, tmpdir()),
 			),
 		).toMatchInlineSnapshot(`
 			{
@@ -157,7 +157,7 @@ describe('resolveArtifactsSync', () => {
 			false,
 			fao,
 			require('solc'),
-			createCache(logger, tmpdir(), fao as any, tmpdir())
+			createCache(logger, tmpdir(), fao as any, tmpdir()),
 		)
 
 		expect(artifacts).toEqual({
@@ -185,7 +185,7 @@ describe('resolveArtifactsSync', () => {
 				false,
 				fao,
 				require('solc'),
-				createCache(logger, tmpdir(), fao as any, tmpdir())
+				createCache(logger, tmpdir(), fao as any, tmpdir()),
 			),
 		).toThrowErrorMatchingInlineSnapshot('"Compilation failed"')
 	})
@@ -201,7 +201,7 @@ describe('resolveArtifactsSync', () => {
 				false,
 				fao,
 				require('solc'),
-				createCache(logger, tmpdir(), fao as any, tmpdir())
+				createCache(logger, tmpdir(), fao as any, tmpdir()),
 			),
 		).toThrowErrorMatchingInlineSnapshot('"Not a solidity file"')
 	})

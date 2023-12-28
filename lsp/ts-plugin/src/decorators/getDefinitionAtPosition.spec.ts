@@ -101,7 +101,7 @@ describe('getDefinitionServiceDecorator', () => {
 			mockLogger as any,
 			typescript,
 			fao,
-			createCache(mockLogger as any, tmpdir(), fao, tmpdir())
+			createCache(mockLogger as any, tmpdir(), fao, tmpdir()),
 		)
 
 		const definitions = decoratedService.getDefinitionAtPosition(
@@ -128,7 +128,7 @@ describe('getDefinitionServiceDecorator', () => {
 			mockLogger as any,
 			typescript,
 			fao,
-			createCache(mockLogger as any, tmpdir(), fao, tmpdir())
+			createCache(mockLogger as any, tmpdir(), fao, tmpdir()),
 		)
 
 		const result = decoratedService.getDefinitionAndBoundSpan('someFile.ts', 42)
@@ -165,7 +165,7 @@ describe('getDefinitionServiceDecorator', () => {
 			mockLogger as any,
 			typescript,
 			fao,
-			createCache(mockLogger as any, tmpdir(), fao, tmpdir())
+			createCache(mockLogger as any, tmpdir(), fao, tmpdir()),
 		)
 
 		const definitions = decoratedService.getDefinitionAtPosition(
@@ -211,7 +211,7 @@ describe('getDefinitionServiceDecorator', () => {
 			mockLogger as any,
 			typescript,
 			fao,
-			createCache(mockLogger as any, tmpdir(), fao, tmpdir())
+			createCache(mockLogger as any, tmpdir(), fao, tmpdir()),
 		)
 
 		const definitions = decoratedService.getDefinitionAtPosition(
@@ -248,7 +248,7 @@ describe('getDefinitionServiceDecorator', () => {
 			mockLogger as any,
 			typescript,
 			fao,
-			createCache(mockLogger as any, tmpdir(), fao, tmpdir())
+			createCache(mockLogger as any, tmpdir(), fao, tmpdir()),
 		)
 
 		const definitions = decoratedService.getDefinitionAtPosition(
@@ -293,7 +293,7 @@ describe('getDefinitionServiceDecorator', () => {
 			mockLogger as any,
 			typescript,
 			fao,
-			createCache(mockLogger as any, tmpdir(), fao, tmpdir())
+			createCache(mockLogger as any, tmpdir(), fao, tmpdir()),
 		)
 
 		const definitions = decoratedService.getDefinitionAtPosition(

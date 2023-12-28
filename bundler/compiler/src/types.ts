@@ -1,12 +1,12 @@
+import type { Cache } from '@tevm/bundler-cache'
+import type { ResolvedCompilerConfig } from '@tevm/config'
+import type { ModuleInfo } from '@tevm/resolutions'
 import type {
 	SolcContractOutput,
 	SolcInputDescription,
 	SolcOutput,
 } from '@tevm/solc'
-import type { ResolvedCompilerConfig } from '@tevm/config'
-import type { ModuleInfo } from '@tevm/resolutions'
 import type { Node } from 'solidity-ast/node.js'
-import type { Cache } from '@tevm/bundler-cache'
 
 export type ResolveArtifacts = (
 	solFile: string,
@@ -17,7 +17,7 @@ export type ResolveArtifacts = (
 	includeBytecode: boolean,
 	fao: FileAccessObject,
 	solc: any,
-	cache: Cache
+	cache: Cache,
 ) => Promise<{
 	artifacts: Artifacts
 	modules: Record<'string', ModuleInfo>
@@ -35,7 +35,7 @@ export type ResolveArtifactsSync = (
 	includeBytecode: boolean,
 	fao: FileAccessObject,
 	solc: any,
-	cache: Cache
+	cache: Cache,
 ) => {
 	artifacts: Artifacts
 	modules: Record<'string', ModuleInfo>

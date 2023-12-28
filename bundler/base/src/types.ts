@@ -1,7 +1,7 @@
 import type { Cache } from '@tevm/bundler-cache'
+import type { ModuleInfo } from '@tevm/compiler'
 import type { ResolvedCompilerConfig } from '@tevm/config'
 import type { SolcInputDescription, SolcOutput } from '@tevm/solc'
-import type { ModuleInfo } from '@tevm/compiler'
 import type { Node } from 'solidity-ast/node.js'
 
 export type BundlerResult = {

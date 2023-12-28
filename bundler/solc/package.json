@@ -38,6 +38,10 @@
 		"src"
 	],
 	"scripts": {
+		"//test": "bun run vitest --coverage",
+		"//test:coverage": "bun run vitest run --coverage",
+		"//test:run": "bun run vitest run",
+		"//test:ui": "bun run vitest --ui",
 		"all": "pnpm i  && bun run build && bun run lint && bun run lint:check && bun run format:check && bun run format && bun run test:coverage && bun run generate:docs",
 		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/solc ",
 		"build:dist": "bun run tsup",
@@ -47,11 +51,7 @@
 		"format:check": "rome format .",
 		"generate:docs": "bun run typedoc",
 		"lint": "rome check . --apply-unsafe",
-		"lint:check": "rome check . --verbose",
-		"//test": "bun run vitest --coverage",
-		"//test:coverage": "bun run vitest run --coverage",
-		"//test:run": "bun run vitest run",
-		"//test:ui": "bun run vitest --ui"
+		"lint:check": "rome check . --verbose"
 	},
 	"dependencies": {
 		"@tevm/tsconfig": "workspace:^"

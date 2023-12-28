@@ -1,6 +1,6 @@
-import { solcCompile } from '@tevm/solc'
 import { invariant } from '../utils/invariant.js'
 import { moduleFactory } from '@tevm/resolutions'
+import { solcCompile } from '@tevm/solc'
 import { runSync } from 'effect/Effect'
 import resolve from 'resolve'
 
@@ -71,7 +71,7 @@ export function compileContractSync(
 		modules[m.id] = m
 		for (const dep of m.importedIds) {
 			stack.push(
-				/** @type {import("../types.js").ModuleInfo} */(moduleMap.get(dep)),
+				/** @type {import("../types.js").ModuleInfo} */ (moduleMap.get(dep)),
 			)
 		}
 	}
@@ -113,11 +113,11 @@ export function compileContractSync(
 	const isErrors = (solcOutput?.errors?.length ?? 0) > (warnings?.length ?? 0)
 
 	if (isErrors) {
-		logger.error('Compilation errors:', /** @type {any}*/(solcOutput?.errors))
+		logger.error('Compilation errors:', /** @type {any}*/ (solcOutput?.errors))
 		throw new Error('Compilation failed')
 	}
 	if (warnings?.length) {
-		logger.warn('Compilation warnings:', /** @type {any}*/(solcOutput?.errors))
+		logger.warn('Compilation warnings:', /** @type {any}*/ (solcOutput?.errors))
 	}
 
 	if (includeAst) {
