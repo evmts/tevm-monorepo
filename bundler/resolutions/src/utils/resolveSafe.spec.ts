@@ -4,6 +4,7 @@ import { safeFao } from './safeFao.js'
 import { Effect } from 'effect'
 import { flip } from 'effect/Effect'
 import fs from 'fs'
+import { access } from 'fs/promises'
 import { describe, expect, it } from 'vitest'
 
 const fao: FileAccessObject = {
@@ -13,6 +14,14 @@ const fao: FileAccessObject = {
 			fs.readFileSync(filePath, { encoding: encoding as 'utf8' }),
 		),
 	readFileSync: (filePath: string) => fs.readFileSync(filePath, 'utf8'),
+	exists: async (filePath: string) => {
+		try {
+			await access(filePath)
+			return true
+		} catch (e) {
+			return false
+		}
+	},
 }
 
 describe('resolveSafe', () => {
@@ -35,7 +44,7 @@ describe('resolveSafe', () => {
 	})
 
 	it('should throw an error for non-existent file', async () => {
-		fao.existsSync = () => false
+		fao.exists = () => Promise.resolve(false)
 		await expect(
 			Effect.runPromise(
 				resolveSafe('./resolveSafe.spec.ts', './src/utils', safeFao(fao)),
@@ -44,7 +53,7 @@ describe('resolveSafe', () => {
 	})
 
 	it('should throw an error if existsSync throws', async () => {
-		fao.existsSync = () => {
+		fao.exists = () => {
 			throw new Error('existsSync error')
 		}
 		expect(
@@ -52,7 +61,7 @@ describe('resolveSafe', () => {
 				flip(resolveSafe('./resolveSafe.spec.ts', './src/utils', safeFao(fao))),
 			),
 		).toMatchInlineSnapshot(
-			'[ExistsSyncError: ExistsSync error: ExistsSync error: existsSync error]',
+			'[ExistsError: Unable to determine existence: Unable to determine existence: existsSync error]',
 		)
 	})
 	it('should return ReadFileError if readFile throws', async () => {
@@ -61,19 +70,19 @@ describe('resolveSafe', () => {
 			flip(resolveSafe('./resolveSafe.spec.ts', './src/utils', safeFao(fao))),
 		)
 		expect(error).toMatchInlineSnapshot(
-			'[ExistsSyncError: ExistsSync error: ExistsSync error: existsSync error]',
+			'[ExistsError: Unable to determine existence: Unable to determine existence: existsSync error]',
 		)
 	})
 
 	it('should return ExistsSyncError if existsSync throws', async () => {
-		fao.existsSync = () => {
+		fao.exists = () => {
 			throw new Error('existsSync error')
 		}
 		const error = await Effect.runPromise(
 			flip(resolveSafe('./resolveSafe.spec.ts', './src/utils', safeFao(fao))),
 		)
 		expect(error).toMatchInlineSnapshot(
-			'[ExistsSyncError: ExistsSync error: ExistsSync error: existsSync error]',
+			'[ExistsError: Unable to determine existence: Unable to determine existence: existsSync error]',
 		)
 	})
 })

@@ -41,6 +41,7 @@ export type FileAccessObject = {
 	readFile: (path: string, encoding: BufferEncoding) => Promise<string>
 	readFileSync: (path: string, encoding: BufferEncoding) => string
 	existsSync: (path: string) => boolean
+	exists: (path: string) => Promise<boolean>
 }
 
 export type Logger = {

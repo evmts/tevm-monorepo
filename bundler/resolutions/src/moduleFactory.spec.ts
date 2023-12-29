@@ -2,7 +2,7 @@ import { moduleFactory } from './moduleFactory.js'
 import type { FileAccessObject } from './types.js'
 import { runPromise, runSync } from 'effect/Effect'
 import { existsSync, readFileSync } from 'fs'
-import { readFile } from 'fs/promises'
+import { access, readFile } from 'fs/promises'
 import { join } from 'path'
 import { describe, expect, it } from 'vitest'
 
@@ -10,6 +10,14 @@ const fao: FileAccessObject = {
 	existsSync: existsSync,
 	readFile: readFile,
 	readFileSync: readFileSync,
+	exists: async (file: string) => {
+		try {
+			await access(file)
+			return true
+		} catch (e) {
+			return false
+		}
+	},
 }
 
 class Fixture {

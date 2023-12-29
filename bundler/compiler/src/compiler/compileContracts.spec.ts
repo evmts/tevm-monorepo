@@ -2,7 +2,7 @@ import type { FileAccessObject } from '../types.js'
 import { compileContract } from './compileContracts.js'
 import type { ResolvedCompilerConfig } from '@tevm/config'
 import { existsSync, readFileSync } from 'fs'
-import { readFile } from 'fs/promises'
+import { access, readFile } from 'fs/promises'
 import { join } from 'path'
 import { describe, expect, it, vi } from 'vitest'
 
@@ -20,6 +20,14 @@ describe('compileContract', () => {
 		existsSync,
 		readFile,
 		readFileSync,
+		exists: async (path: string) => {
+			try {
+				await access(path)
+				return true
+			} catch (e) {
+				return false
+			}
+		},
 	}
 
 	it('should successfully compile a contract without errors', async () => {

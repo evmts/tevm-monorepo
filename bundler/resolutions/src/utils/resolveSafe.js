@@ -1,11 +1,5 @@
-import { ExistsSyncError, ReadFileError } from './safeFao.js'
-import {
-	async as effectAsync,
-	fail,
-	runPromise,
-	runSync,
-	succeed,
-} from 'effect/Effect'
+import { ExistsError, ReadFileError } from './safeFao.js'
+import { async as effectAsync, fail, runPromise, succeed } from 'effect/Effect'
 import resolve from 'resolve'
 
 /**
@@ -30,7 +24,7 @@ export class ResolveError extends Error {
 }
 
 /**
- * @typedef {ResolveError|import("./safeFao.js").ReadFileError | import("./safeFao.js").ExistsSyncError} ResolveSafeError
+ * @typedef {ResolveError|import("./safeFao.js").ReadFileError | import("./safeFao.js").ExistsError} ResolveSafeError
  */
 
 /**
@@ -61,9 +55,9 @@ export const resolveSafe = (filePath, basedir, fao) => {
 							cb(e)
 						})
 				},
-				isFile: (file, cb) => {
+				isFile: async (file, cb) => {
 					try {
-						cb(null, runSync(fao.existsSync(file)))
+						cb(null, await runPromise(fao.exists(file)))
 					} catch (e) {
 						cb(/** @type {Error} */ (e))
 					}
@@ -72,11 +66,11 @@ export const resolveSafe = (filePath, basedir, fao) => {
 			(err, res) => {
 				if (err) {
 					const typedError =
-						/** @type {import("./safeFao.js").ReadFileError | import("./safeFao.js").ExistsSyncError} */ (
+						/** @type {import("./safeFao.js").ReadFileError | import("./safeFao.js").ExistsError} */ (
 							err
 						)
-					if (typedError.name === 'ExistsSyncError') {
-						resume(fail(new ExistsSyncError(typedError)))
+					if (typedError.name === 'ExistsError') {
+						resume(fail(new ExistsError(typedError)))
 					} else if (typedError.name === 'ReadFileError') {
 						resume(fail(new ReadFileError(typedError)))
 					} else {

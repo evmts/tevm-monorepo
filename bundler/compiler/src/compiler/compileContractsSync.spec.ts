@@ -20,6 +20,7 @@ describe('compileContractSync', () => {
 		existsSync,
 		readFile,
 		readFileSync,
+		exists: vi.fn(),
 	}
 
 	it('should successfully compile a contract without errors', async () => {
