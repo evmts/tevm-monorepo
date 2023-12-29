@@ -1,16 +1,9 @@
+import { fao } from './fao.js'
 import { bundler } from '@tevm/base'
 import { createCache } from '@tevm/bundler-cache'
 import { loadConfig } from '@tevm/config'
 import { createSolc, releases } from '@tevm/solc'
 import { runSync } from 'effect/Effect'
-import {
-	existsSync,
-	mkdirSync,
-	readFileSync,
-	statSync,
-	writeFileSync,
-} from 'fs'
-import { readFile } from 'fs/promises'
 import { createRequire } from 'module'
 // @ts-expect-error
 import defaultSolc from 'solc'
@@ -67,18 +60,6 @@ export const tevmUnplugin = (options = {}) => {
 	 */
 	let moduleResolver
 
-	/**
-	 * @type {import("@tevm/base").FileAccessObject}
-	 */
-	const fao = {
-		existsSync,
-		readFile,
-		readFileSync,
-		writeFileSync,
-		statSync,
-		mkdirSync,
-	}
-
 	return {
 		name: '@tevm/rollup-plugin',
 		/**
@@ -99,8 +80,8 @@ export const tevmUnplugin = (options = {}) => {
 		loadInclude: (id) => {
 			return (
 				id.endsWith('.sol') &&
-				!existsSync(`${id}.ts`) &&
-				!existsSync(`${id}.d.ts`)
+				!fao.existsSync(`${id}.ts`) &&
+				!fao.existsSync(`${id}.d.ts`)
 			)
 		},
 		async resolveId(id, importer) {

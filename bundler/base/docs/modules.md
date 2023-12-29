@@ -45,4 +45,4 @@ Object
 
 #### Defined in
 
-[types.ts:39](https://github.com/evmts/tevm-monorepo/blob/main/bundler/base/src/types.ts#L39)
+[types.ts:48](https://github.com/evmts/tevm-monorepo/blob/main/bundler/base/src/types.ts#L48)

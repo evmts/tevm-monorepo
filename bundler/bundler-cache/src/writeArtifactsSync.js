@@ -9,9 +9,8 @@ import { version } from './version.js'
  * @param {string} entryModuleId
  * @param {import('@tevm/compiler').ResolvedArtifacts} resolvedArtifacts
  * @param {import('./types.js').FileAccessObject} fs
- * @returns {Promise<string>}
  */
-export const writeArtifacts = async (
+export const writeArtifactsSync = (
 	cwd,
 	cacheDir,
 	entryModuleId,
@@ -27,30 +26,26 @@ export const writeArtifacts = async (
 
 	const { path: metadataPath } = getMetadataPath(entryModuleId, cwd, cacheDir)
 
-	if (!(await fs.exists(dir))) {
-		await fs.mkdir(dir, { recursive: true })
+	if (!fs.existsSync(dir)) {
+		fs.mkdirSync(dir, { recursive: true })
 	}
-	await Promise.all([
-		fs.writeFile(path, JSON.stringify(resolvedArtifacts, null, 2)),
-		fs.writeFile(
-			metadataPath,
-			JSON.stringify(
-				{
-					version,
-					files: Object.fromEntries(
-						Object.keys(resolvedArtifacts.solcInput.sources).map(
-							(sourcePath) => {
-								// for efficiency let's only check the last updated timestamp of the files
-								return [sourcePath, fs.statSync(sourcePath).mtimeMs]
-							},
-						),
-					),
-				},
-				null,
-				2,
-			),
+	fs.writeFileSync(path, JSON.stringify(resolvedArtifacts, null, 2))
+	fs.writeFileSync(
+		metadataPath,
+		JSON.stringify(
+			{
+				version,
+				files: Object.fromEntries(
+					Object.keys(resolvedArtifacts.solcInput.sources).map((sourcePath) => {
+						// for efficiency let's only check the last updated timestamp of the files
+						return [sourcePath, fs.statSync(sourcePath).mtimeMs]
+					}),
+				),
+			},
+			null,
+			2,
 		),
-	])
+	)
 
 	return path
 }
