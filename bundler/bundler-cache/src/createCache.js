@@ -11,11 +11,19 @@ import { writeArtifacts } from './writeArtifacts.js'
  */
 export const createCache = (cacheDir, fs, cwd) => {
 	return {
-		writeArtifacts: (entryModuleId, compiledContracts) => {
+		writeArtifactsSync: (entryModuleId, compiledContracts) => {
 			return writeArtifacts(cwd, cacheDir, entryModuleId, compiledContracts, fs)
 		},
 
-		readArtifacts: (entryModuleId) => {
+		writeArtifacts: async (entryModuleId, compiledContracts) => {
+			return writeArtifacts(cwd, cacheDir, entryModuleId, compiledContracts, fs)
+		},
+
+		readArtifactsSync: (entryModuleId) => {
+			return readArtifacts(cacheDir, fs, cwd, entryModuleId)
+		},
+
+		readArtifacts: async (entryModuleId) => {
 			return readArtifacts(cacheDir, fs, cwd, entryModuleId)
 		},
 
@@ -23,7 +31,7 @@ export const createCache = (cacheDir, fs, cwd) => {
 		// They are cheap to generate and we only write them for debugging purposes
 		// And to get @tevm/tsc to work
 
-		writeDts: (entryModuleId, dtsFile) => {
+		writeDtsSync: (entryModuleId, dtsFile) => {
 			const { path: dtsPath, dir: dtsDir } = getArtifactsPath(
 				entryModuleId,
 				'dts',
@@ -35,7 +43,19 @@ export const createCache = (cacheDir, fs, cwd) => {
 			return dtsPath
 		},
 
-		readDts: (entryModuleId) => {
+		writeDts: async (entryModuleId, dtsFile) => {
+			const { path: dtsPath, dir: dtsDir } = getArtifactsPath(
+				entryModuleId,
+				'dts',
+				cwd,
+				cacheDir,
+			)
+			await fs.mkdir(dtsDir, { recursive: true })
+			await fs.writeFile(dtsPath, dtsFile)
+			return dtsPath
+		},
+
+		readDtsSync: (entryModuleId) => {
 			const { path: dtsPath } = getArtifactsPath(
 				entryModuleId,
 				'dts',
@@ -48,7 +68,20 @@ export const createCache = (cacheDir, fs, cwd) => {
 			return fs.readFileSync(dtsPath, 'utf8')
 		},
 
-		writeMjs: (entryModuleId, mjsFile) => {
+		readDts: async (entryModuleId) => {
+			const { path: dtsPath } = getArtifactsPath(
+				entryModuleId,
+				'dts',
+				cwd,
+				cacheDir,
+			)
+			if (!(await fs.exists(dtsPath))) {
+				return undefined
+			}
+			return fs.readFile(dtsPath, 'utf8')
+		},
+
+		writeMjsSync: (entryModuleId, mjsFile) => {
 			const { path: mjsPath, dir: mjsDir } = getArtifactsPath(
 				entryModuleId,
 				'mjs',
@@ -60,7 +93,19 @@ export const createCache = (cacheDir, fs, cwd) => {
 			return mjsPath
 		},
 
-		readMjs: (entryModuleId) => {
+		writeMjs: async (entryModuleId, mjsFile) => {
+			const { path: mjsPath, dir: mjsDir } = getArtifactsPath(
+				entryModuleId,
+				'mjs',
+				cwd,
+				cacheDir,
+			)
+			await fs.mkdir(mjsDir, { recursive: true })
+			await fs.writeFile(mjsPath, mjsFile)
+			return mjsPath
+		},
+
+		readMjsSync: (entryModuleId) => {
 			const { path: mjsPath } = getArtifactsPath(
 				entryModuleId,
 				'mjs',
@@ -71,6 +116,19 @@ export const createCache = (cacheDir, fs, cwd) => {
 				return undefined
 			}
 			return fs.readFileSync(mjsPath, 'utf8')
+		},
+
+		readMjs: async (entryModuleId) => {
+			const { path: mjsPath } = getArtifactsPath(
+				entryModuleId,
+				'mjs',
+				cwd,
+				cacheDir,
+			)
+			if (!(await fs.exists(mjsPath))) {
+				return undefined
+			}
+			return fs.readFile(mjsPath, 'utf8')
 		},
 	}
 }
