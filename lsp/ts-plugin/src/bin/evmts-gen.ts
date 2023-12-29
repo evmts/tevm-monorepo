@@ -9,7 +9,7 @@ import {
 	statSync,
 	writeFileSync,
 } from 'fs'
-import { access, mkdir, readFile, writeFile } from 'fs/promises'
+import { access, mkdir, readFile, stat, writeFile } from 'fs/promises'
 import { glob } from 'glob'
 import path from 'path'
 // @ts-expect-error
@@ -21,6 +21,7 @@ const fao: FileAccessObject = {
 	readFileSync: readFileSync,
 	writeFileSync: writeFileSync,
 	statSync,
+	stat,
 	mkdirSync,
 	mkdir,
 	writeFile,

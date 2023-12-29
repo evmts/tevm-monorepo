@@ -5,7 +5,7 @@ import {
 	statSync,
 	writeFileSync,
 } from 'fs'
-import { access, mkdir, readFile, writeFile } from 'fs/promises'
+import { access, mkdir, readFile, stat, writeFile } from 'fs/promises'
 // @ts-expect-error
 import defaultSolc from 'solc'
 
@@ -18,6 +18,7 @@ export const fao = {
 	readFileSync,
 	writeFileSync,
 	statSync,
+	stat,
 	mkdirSync,
 	writeFile,
 	mkdir,

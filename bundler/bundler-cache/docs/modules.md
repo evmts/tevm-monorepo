@@ -39,7 +39,7 @@
 
 #### Defined in
 
-[types.ts:57](https://github.com/evmts/tevm-monorepo/blob/main/bundler/bundler-cache/src/types.ts#L57)
+[types.ts:58](https://github.com/evmts/tevm-monorepo/blob/main/bundler/bundler-cache/src/types.ts#L58)
 
 ___
 
@@ -49,7 +49,7 @@ ___
 
 #### Defined in
 
-[types.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/bundler/bundler-cache/src/types.ts#L21)
+[types.ts:22](https://github.com/evmts/tevm-monorepo/blob/main/bundler/bundler-cache/src/types.ts#L22)
 
 ___
 
@@ -70,6 +70,7 @@ Allows this package to be used in browser environments or otherwise pluggable
 | `mkdirSync` | typeof `mkdirSync` |
 | `readFile` | (`path`: `string`, `encoding`: `BufferEncoding`) => `Promise`\<`string`\> |
 | `readFileSync` | (`path`: `string`, `encoding`: `BufferEncoding`) => `string` |
+| `stat` | typeof `stat` |
 | `statSync` | typeof `statSync` |
 | `writeFile` | typeof `writeFile` |
 | `writeFileSync` | (`path`: `string`, `data`: `string`) => `void` |
@@ -100,4 +101,4 @@ Creates a Tevm cache object for reading and writing cached items
 
 #### Defined in
 
-[createCache.js:12](https://github.com/evmts/tevm-monorepo/blob/main/bundler/bundler-cache/src/createCache.js#L12)
+[createCache.js:14](https://github.com/evmts/tevm-monorepo/blob/main/bundler/bundler-cache/src/createCache.js#L14)

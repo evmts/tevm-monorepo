@@ -6,7 +6,7 @@ import {
 	statSync,
 	writeFileSync,
 } from 'fs'
-import { access, mkdir, readFile, writeFile } from 'fs/promises'
+import { access, mkdir, readFile, stat, writeFile } from 'fs/promises'
 import typescript from 'typescript/lib/tsserverlibrary.js'
 
 export const createFileAccessObject = (
@@ -36,6 +36,7 @@ export const createFileAccessObject = (
 			}
 			return file
 		},
+		stat,
 		statSync,
 		mkdirSync,
 		mkdir,
@@ -50,6 +51,7 @@ export const createRealFileAccessObject = (): FileAccessObject => {
 		readFileSync,
 		writeFileSync,
 		statSync,
+		stat,
 		mkdirSync,
 		mkdir,
 		writeFile,

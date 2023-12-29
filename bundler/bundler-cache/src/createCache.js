@@ -1,6 +1,8 @@
 import { getArtifactsPath } from './getArtifactsPath.js'
 import { readArtifacts } from './readArtifacts.js'
+import { readArtifactsSync } from './readArtifactsSync.js'
 import { writeArtifacts } from './writeArtifacts.js'
+import { writeArtifactsSync } from './writeArtifactsSync.js'
 
 /**
  * Creates a Tevm cache object for reading and writing cached items
@@ -12,7 +14,13 @@ import { writeArtifacts } from './writeArtifacts.js'
 export const createCache = (cacheDir, fs, cwd) => {
 	return {
 		writeArtifactsSync: (entryModuleId, compiledContracts) => {
-			return writeArtifacts(cwd, cacheDir, entryModuleId, compiledContracts, fs)
+			return writeArtifactsSync(
+				cwd,
+				cacheDir,
+				entryModuleId,
+				compiledContracts,
+				fs,
+			)
 		},
 
 		writeArtifacts: async (entryModuleId, compiledContracts) => {
@@ -20,7 +28,7 @@ export const createCache = (cacheDir, fs, cwd) => {
 		},
 
 		readArtifactsSync: (entryModuleId) => {
-			return readArtifacts(cacheDir, fs, cwd, entryModuleId)
+			return readArtifactsSync(cacheDir, fs, cwd, entryModuleId)
 		},
 
 		readArtifacts: async (entryModuleId) => {

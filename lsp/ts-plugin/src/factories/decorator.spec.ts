@@ -31,6 +31,7 @@ const fao: FileAccessObject = {
 	exists: vi.fn(),
 	mkdir: vi.fn() as any,
 	writeFile: vi.fn(),
+	stat: vi.fn() as any,
 }
 
 const createProxy = <T extends object>(instance: T, proxy: Partial<T>): T => {

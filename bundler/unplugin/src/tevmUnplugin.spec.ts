@@ -117,6 +117,7 @@ describe('unpluginFn', () => {
 			    "mkdirSync": [Function],
 			    "readFile": [Function],
 			    "readFileSync": [Function],
+			    "stat": [Function],
 			    "statSync": [Function],
 			    "writeFile": [Function],
 			    "writeFileSync": [Function],

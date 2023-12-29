@@ -3,7 +3,7 @@ import type { ModuleInfo } from '@tevm/compiler'
 import type { ResolvedCompilerConfig } from '@tevm/config'
 import type { SolcInputDescription, SolcOutput } from '@tevm/solc'
 import type { mkdirSync, statSync } from 'fs'
-import type { mkdir, writeFile } from 'fs/promises'
+import type { mkdir, stat, writeFile } from 'fs/promises'
 import type { Node } from 'solidity-ast/node.js'
 
 export type BundlerResult = {
@@ -26,6 +26,7 @@ export type FileAccessObject = {
 	exists: (path: string) => Promise<boolean>
 	existsSync: (path: string) => boolean
 	statSync: typeof statSync
+	stat: typeof stat
 	mkdirSync: typeof mkdirSync
 	mkdir: typeof mkdir
 }

@@ -1,6 +1,6 @@
 import type { ResolvedArtifacts } from '@tevm/compiler'
 import { mkdirSync, statSync } from 'fs'
-import type { mkdir, writeFile } from 'fs/promises'
+import type { mkdir, stat, writeFile } from 'fs/promises'
 
 /**
  * Generalized interface for accessing file system
@@ -14,6 +14,7 @@ export type FileAccessObject = {
 	exists: (path: string) => Promise<boolean>
 	existsSync: (path: string) => boolean
 	statSync: typeof statSync
+	stat: typeof stat
 	mkdirSync: typeof mkdirSync
 	mkdir: typeof mkdir
 }

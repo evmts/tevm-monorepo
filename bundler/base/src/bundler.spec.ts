@@ -25,6 +25,7 @@ const fao: FileAccessObject = {
 	readFileSync: vi.fn() as any,
 	writeFileSync: vi.fn() as any,
 	statSync: vi.fn() as any,
+	stat: vi.fn() as any,
 	mkdirSync: vi.fn() as any,
 	exists: vi.fn() as any,
 	mkdir: vi.fn() as any,

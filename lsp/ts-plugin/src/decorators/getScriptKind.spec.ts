@@ -2,7 +2,7 @@ import { getScriptKindDecorator } from './getScriptKind.js'
 import { FileAccessObject } from '@tevm/base'
 import { CompilerConfig, defaultConfig, defineConfig } from '@tevm/config'
 import { runSync } from 'effect/Effect'
-import { access, mkdir, writeFile } from 'fs/promises'
+import { access, mkdir, stat, writeFile } from 'fs/promises'
 import typescript from 'typescript/lib/tsserverlibrary.js'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
@@ -22,6 +22,7 @@ const fao: FileAccessObject = {
 	existsSync: vi.fn(),
 	writeFileSync: vi.fn(),
 	statSync: vi.fn() as any,
+	stat,
 	mkdirSync: vi.fn(),
 	mkdir,
 	writeFile,
