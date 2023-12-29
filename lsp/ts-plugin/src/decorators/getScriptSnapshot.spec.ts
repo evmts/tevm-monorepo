@@ -11,7 +11,7 @@ import {
 	statSync,
 	writeFileSync,
 } from 'fs'
-import { readFile } from 'fs/promises'
+import { access, mkdir, readFile, stat, writeFile } from 'fs/promises'
 import { tmpdir } from 'os'
 import path from 'path'
 import typescript from 'typescript/lib/tsserverlibrary.js'
@@ -32,7 +32,18 @@ const fao: FileAccessObject = {
 	existsSync,
 	writeFileSync,
 	statSync,
+	stat,
 	mkdirSync,
+	mkdir,
+	writeFile,
+	exists: async (path: string) => {
+		try {
+			await access(path)
+			return true
+		} catch (e) {
+			return false
+		}
+	},
 }
 
 describe(getScriptSnapshotDecorator.name, () => {

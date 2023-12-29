@@ -1,6 +1,7 @@
 import { getDefinitionServiceDecorator } from './getDefinitionAtPosition.js'
 import { FileAccessObject } from '@tevm/base'
 import { createCache } from '@tevm/bundler-cache'
+import { access, mkdir, writeFile } from 'fs/promises'
 import { tmpdir } from 'os'
 import typescript from 'typescript/lib/tsserverlibrary.js'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
@@ -29,7 +30,18 @@ const fao: FileAccessObject = {
 	readFile: vi.fn() as any,
 	writeFileSync: vi.fn() as any,
 	statSync: vi.fn() as any,
+	stat: vi.fn() as any,
 	mkdirSync: vi.fn() as any,
+	mkdir,
+	writeFile,
+	exists: async (path: string) => {
+		try {
+			await access(path)
+			return true
+		} catch (e) {
+			return false
+		}
+	},
 }
 
 const mockLogger = {

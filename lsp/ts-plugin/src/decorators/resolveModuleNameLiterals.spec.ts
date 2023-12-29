@@ -20,7 +20,11 @@ const fao: FileAccessObject = {
 	readFile: vi.fn(),
 	writeFileSync: vi.fn(),
 	statSync: vi.fn().mockImplementation(statSync),
+	stat: vi.fn() as any,
 	mkdirSync: vi.fn(),
+	exists: vi.fn(),
+	mkdir: vi.fn() as any,
+	writeFile: vi.fn(),
 }
 
 const mockSolidityModuleResolver = solidityModuleResolver as MockedFunction<

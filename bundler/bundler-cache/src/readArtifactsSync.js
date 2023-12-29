@@ -7,9 +7,9 @@ import { version } from './version.js'
  * @param {import('./types.js').FileAccessObject} fs
  * @param {string} cwd
  * @param {string} entryModuleId
- * @returns {Promise<import('@tevm/compiler').ResolvedArtifacts | undefined>}
+ * @returns {import('@tevm/compiler').ResolvedArtifacts | undefined}
  */
-export const readArtifacts = async (cacheDir, fs, cwd, entryModuleId) => {
+export const readArtifactsSync = (cacheDir, fs, cwd, entryModuleId) => {
 	const { path: artifactsPath } = getArtifactsPath(
 		entryModuleId,
 		'artifactsJson',
@@ -18,28 +18,23 @@ export const readArtifacts = async (cacheDir, fs, cwd, entryModuleId) => {
 	)
 	const { path: metadataPath } = getMetadataPath(entryModuleId, cwd, cacheDir)
 
-	if (!(await fs.exists(artifactsPath)) || !(await fs.exists(metadataPath))) {
+	if (!fs.existsSync(artifactsPath) || !fs.existsSync(metadataPath)) {
 		return undefined
 	}
 
-	const metadata = JSON.parse(await fs.readFile(metadataPath, 'utf8'))
+	const metadata = JSON.parse(fs.readFileSync(metadataPath, 'utf8'))
 
 	const didContentChange =
-		version !== metadata.version ||
-		(
-			await Promise.all(
-				Object.entries(metadata.files).map(async ([sourcePath, timestamp]) => {
-					const didChange = timestamp !== (await fs.stat(sourcePath)).mtimeMs
-					return didChange
-				}),
-			)
-		).some((didChange) => didChange)
+		metadata.version !== version ||
+		Object.entries(metadata.files).some(([sourcePath, timestamp]) => {
+			return timestamp !== fs.statSync(sourcePath).mtimeMs
+		})
 
 	if (didContentChange) {
 		return undefined
 	}
 
-	const content = await fs.readFile(artifactsPath, 'utf8')
+	const content = fs.readFileSync(artifactsPath, 'utf8')
 
 	try {
 		return JSON.parse(content)

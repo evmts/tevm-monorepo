@@ -1,5 +1,5 @@
-import { readCache } from './readCache.js'
-import { writeCache } from './writeCache.js'
+import { readCacheSync } from './readCacheSync.js'
+import { writeCacheSync } from './writeCacheSync.js'
 import { resolveArtifactsSync } from '@tevm/compiler'
 import { generateRuntime } from '@tevm/runtime'
 import { runSync } from 'effect/Effect'
@@ -29,7 +29,7 @@ export const resolveModuleSync = (
 	moduleType,
 	cache,
 ) => {
-	const cachedResult = readCache(
+	const cachedResult = readCacheSync(
 		logger,
 		cache,
 		modulePath,
@@ -59,7 +59,7 @@ export const resolveModuleSync = (
 			logger.warn(message)
 		}
 
-		writeCache(
+		writeCacheSync(
 			logger,
 			cache,
 			{ solcInput, solcOutput, asts, artifacts, modules },
