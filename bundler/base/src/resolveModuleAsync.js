@@ -61,7 +61,8 @@ export const resolveModuleAsync = async (
 			logger.warn(message)
 		}
 
-		// this floating promise is on puprose
+		// The `writeCache` function is intentionally not awaited to allow non-blocking cache writes.
+    // This enables the rest of the module resolution to proceed without waiting for the cache operation to complete.
 		writeCache(
 			logger,
 			cache,
