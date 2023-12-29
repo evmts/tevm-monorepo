@@ -1,12 +1,6 @@
-import {
-	async as effectAsync,
-	fail,
-	runPromise,
-	runSync,
-	succeed,
-} from 'effect/Effect'
-import resolve from 'resolve'
 import { ExistsError, ReadFileError } from './safeFao.js'
+import { async as effectAsync, fail, runPromise, succeed } from 'effect/Effect'
+import resolve from 'resolve'
 
 /**
  * Error thrown when resolve fails
@@ -61,9 +55,9 @@ export const resolveSafe = (filePath, basedir, fao) => {
 							cb(e)
 						})
 				},
-				isFile: (file, cb) => {
+				isFile: async (file, cb) => {
 					try {
-						cb(null, runSync(fao.existsSync(file)))
+						cb(null, await runPromise(fao.exists(file)))
 					} catch (e) {
 						cb(/** @type {Error} */ (e))
 					}

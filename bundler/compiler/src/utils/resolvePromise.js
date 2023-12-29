@@ -27,9 +27,9 @@ export const resolveEffect = (filePath, basedir, fao, logger) => {
 							cb(e)
 						})
 				},
-				isFile: (file, cb) => {
+				isFile: async (file, cb) => {
 					try {
-						cb(null, fao.existsSync(file))
+						cb(null, await fao.exists(file))
 					} catch (e) {
 						cb(/** @type Error */ (e))
 						logger.error(/** @type any */ (e))

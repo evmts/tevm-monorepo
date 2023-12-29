@@ -79,7 +79,7 @@ const STsConfig = struct({
  */
 
 /**
- * Asyncronously loads an Tevm config from the given path
+ * Syncronously loads an Tevm config from the given path
  * @param {string} configFilePath
  * @returns {import("effect/Effect").Effect<never, LoadTsConfigError, TsConfig>} the contents of the tsconfig.json file
  * @internal
