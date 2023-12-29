@@ -17,7 +17,7 @@
 		"ethers": "^6.8.0"
 	},
 	"devDependencies": {
-		"@openzeppelin/contracts": "^5.0.0",
+		"@openzeppelin/contracts": "^4.9.x",
 		"@sveltejs/adapter-auto": "^2.1.0",
 		"@sveltejs/kit": "^1.27.2",
 		"@tevm/ts-plugin": "workspace:^",
