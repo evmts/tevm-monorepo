@@ -9,7 +9,7 @@ import {
 	statSync,
 	writeFileSync,
 } from 'fs'
-import { readFile, writeFile } from 'fs/promises'
+import { access, mkdir, readFile, writeFile } from 'fs/promises'
 import { glob } from 'glob'
 import path from 'path'
 // @ts-expect-error
@@ -22,6 +22,16 @@ const fao: FileAccessObject = {
 	writeFileSync: writeFileSync,
 	statSync,
 	mkdirSync,
+	mkdir,
+	writeFile,
+	exists: async (path: string) => {
+		try {
+			await access(path)
+			return true
+		} catch (e) {
+			return false
+		}
+	},
 }
 
 const generate = (cwd = process.cwd(), include = ['src/**/*.sol']) => {

@@ -29,7 +29,7 @@ export const resolveModuleAsync = async (
 	moduleType,
 	cache,
 ) => {
-	const cachedResult = readCache(
+	const cachedResult = await readCache(
 		logger,
 		cache,
 		modulePath,
@@ -61,6 +61,7 @@ export const resolveModuleAsync = async (
 			logger.warn(message)
 		}
 
+		// this floating promise is on puprose
 		writeCache(
 			logger,
 			cache,

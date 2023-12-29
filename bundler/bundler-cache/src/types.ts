@@ -43,10 +43,16 @@ export type WriteArtifacts = (
 ) => Promise<string>
 
 export type WriteDtsSync = (entryModuleId: string, dtsFile: string) => string
-export type WriteDts = (entryModuleId: string, dtsFile: string) => Promise<string>
+export type WriteDts = (
+	entryModuleId: string,
+	dtsFile: string,
+) => Promise<string>
 
 export type WriteMjsSync = (entryModuleId: string, mjsFile: string) => string
-export type WriteMjs = (entryModuleId: string, mjsFile: string) => Promise<string>
+export type WriteMjs = (
+	entryModuleId: string,
+	mjsFile: string,
+) => Promise<string>
 
 export type Cache = {
 	readArtifactsSync: ReadArtifactsSync

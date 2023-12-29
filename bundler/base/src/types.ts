@@ -3,6 +3,7 @@ import type { ModuleInfo } from '@tevm/compiler'
 import type { ResolvedCompilerConfig } from '@tevm/config'
 import type { SolcInputDescription, SolcOutput } from '@tevm/solc'
 import type { mkdirSync, statSync } from 'fs'
+import type { mkdir, writeFile } from 'fs/promises'
 import type { Node } from 'solidity-ast/node.js'
 
 export type BundlerResult = {
@@ -13,13 +14,20 @@ export type BundlerResult = {
 	asts?: Record<string, Node> | undefined
 }
 
+/**
+ * Generalized interface for accessing file system
+ * Allows this package to be used in browser environments or otherwise pluggable
+ */
 export type FileAccessObject = {
 	writeFileSync: (path: string, data: string) => void
+	writeFile: typeof writeFile
 	readFile: (path: string, encoding: BufferEncoding) => Promise<string>
 	readFileSync: (path: string, encoding: BufferEncoding) => string
+	exists: (path: string) => Promise<boolean>
 	existsSync: (path: string) => boolean
 	statSync: typeof statSync
 	mkdirSync: typeof mkdirSync
+	mkdir: typeof mkdir
 }
 
 export type AsyncBundlerResult = (

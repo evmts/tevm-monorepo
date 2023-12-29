@@ -25,15 +25,21 @@
 | Name | Type |
 | :------ | :------ |
 | `readArtifacts` | `ReadArtifacts` |
+| `readArtifactsSync` | `ReadArtifactsSync` |
 | `readDts` | `ReadDts` |
+| `readDtsSync` | `ReadDtsSync` |
 | `readMjs` | `ReadMjs` |
+| `readMjsSync` | `ReadMjsSync` |
 | `writeArtifacts` | `WriteArtifacts` |
+| `writeArtifactsSync` | `WriteArtifactsSync` |
 | `writeDts` | `WriteDts` |
+| `writeDtsSync` | `WriteDtsSync` |
 | `writeMjs` | `WriteMjs` |
+| `writeMjsSync` | `WriteMjsSync` |
 
 #### Defined in
 
-[types.ts:36](https://github.com/evmts/tevm-monorepo/blob/main/bundler/bundler-cache/src/types.ts#L36)
+[types.ts:57](https://github.com/evmts/tevm-monorepo/blob/main/bundler/bundler-cache/src/types.ts#L57)
 
 ___
 
@@ -43,7 +49,7 @@ ___
 
 #### Defined in
 
-[types.ts:17](https://github.com/evmts/tevm-monorepo/blob/main/bundler/bundler-cache/src/types.ts#L17)
+[types.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/bundler/bundler-cache/src/types.ts#L21)
 
 ___
 
@@ -58,16 +64,19 @@ Allows this package to be used in browser environments or otherwise pluggable
 
 | Name | Type |
 | :------ | :------ |
+| `exists` | (`path`: `string`) => `Promise`\<`boolean`\> |
 | `existsSync` | (`path`: `string`) => `boolean` |
+| `mkdir` | typeof `mkdir` |
 | `mkdirSync` | typeof `mkdirSync` |
 | `readFile` | (`path`: `string`, `encoding`: `BufferEncoding`) => `Promise`\<`string`\> |
 | `readFileSync` | (`path`: `string`, `encoding`: `BufferEncoding`) => `string` |
 | `statSync` | typeof `statSync` |
+| `writeFile` | typeof `writeFile` |
 | `writeFileSync` | (`path`: `string`, `data`: `string`) => `void` |
 
 #### Defined in
 
-[types.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/bundler/bundler-cache/src/types.ts#L8)
+[types.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/bundler/bundler-cache/src/types.ts#L9)
 
 ## Functions
 

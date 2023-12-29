@@ -4,9 +4,9 @@
  * @param {string} modulePath
  * @param {boolean} includeAst
  * @param {boolean} includeBytecode
- * @returns {ReturnType<import('@tevm/bundler-cache').Cache['readArtifacts']>}
+ * @returns {ReturnType<import('@tevm/bundler-cache').Cache['readArtifactsSync']>}
  */
-export const readCache = async (
+export const readCacheSync = (
 	logger,
 	cache,
 	modulePath,
@@ -14,7 +14,7 @@ export const readCache = async (
 	includeBytecode,
 ) => {
 	try {
-		const cachedArtifacts = await cache.readArtifacts(modulePath)
+		const cachedArtifacts = cache.readArtifactsSync(modulePath)
 
 		const isCachedAsts = () =>
 			cachedArtifacts?.asts && Object.keys(cachedArtifacts.asts).length > 0

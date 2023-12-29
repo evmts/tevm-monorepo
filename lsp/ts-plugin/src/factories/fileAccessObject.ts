@@ -6,20 +6,13 @@ import {
 	statSync,
 	writeFileSync,
 } from 'fs'
-import { readFile } from 'fs/promises'
+import { access, mkdir, readFile, writeFile } from 'fs/promises'
 import typescript from 'typescript/lib/tsserverlibrary.js'
 
 export const createFileAccessObject = (
 	lsHost: typescript.LanguageServiceHost,
 ): FileAccessObject => {
 	return {
-		readFile: async (fileName, encoding) => {
-			const file = lsHost.readFile(fileName, encoding)
-			if (!file) {
-				throw new Error(`@tevm/ts-plugin: unable to read file ${fileName}`)
-			}
-			return file
-		},
 		existsSync: (fileName) => lsHost.fileExists(fileName),
 		readFileSync: (fileName, encoding) => {
 			const file = lsHost.readFile(fileName, encoding)
@@ -33,8 +26,20 @@ export const createFileAccessObject = (
 		},
 		// TODO clean this up. This works fine only because only the cache needs them and the cache is operating on a real file system and not a virtual one
 		// These are just stubs to match interface since making multiple interfaces is tedious atm
+		exists: async (fileName) => {
+			return lsHost.fileExists(fileName)
+		},
+		readFile: async (fileName, encoding) => {
+			const file = lsHost.readFile(fileName, encoding)
+			if (!file) {
+				throw new Error(`@tevm/ts-plugin: unable to read file ${fileName}`)
+			}
+			return file
+		},
 		statSync,
 		mkdirSync,
+		mkdir,
+		writeFile,
 	}
 }
 
@@ -46,5 +51,15 @@ export const createRealFileAccessObject = (): FileAccessObject => {
 		writeFileSync,
 		statSync,
 		mkdirSync,
+		mkdir,
+		writeFile,
+		exists: async (fileName) => {
+			try {
+				await access(fileName)
+				return true
+			} catch (e) {
+				return false
+			}
+		},
 	}
 }

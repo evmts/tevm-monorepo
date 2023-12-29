@@ -7,9 +7,9 @@
  * @param {string} modulePath
  * @param {string} moduleType
  * @param {boolean} writeArtifacts
- * @returns {Promise<void>}
+ * @returns {void}
  */
-export const writeCache = async (
+export const writeCacheSync = (
 	logger,
 	cache,
 	artifacts,
@@ -22,19 +22,14 @@ export const writeCache = async (
 	// fall back to generating an empty file with error messages
 	writeArtifacts,
 ) => {
-	/**
-	 * @type {Array<Promise<any>>}
-	 */
-	const promises = []
 	if (writeArtifacts) {
-		promises.push(cache.writeArtifacts(modulePath, artifacts))
+		cache.writeArtifactsSync(modulePath, artifacts)
 	}
 	if (moduleType === 'dts') {
-		promises.push(cache.writeDts(modulePath, code))
+		cache.writeDts(modulePath, code)
 	} else if (moduleType === 'mjs') {
-		promises.push(cache.writeMjs(modulePath, code))
+		cache.writeMjs(modulePath, code)
 	} else {
 		logger.warn(`No caching for module type ${moduleType}} implemented yet`)
 	}
-	await Promise.all(promises)
 }
