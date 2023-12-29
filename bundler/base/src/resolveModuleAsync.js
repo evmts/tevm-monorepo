@@ -75,15 +75,17 @@ export const resolveModuleAsync = async (
 			// But still write dts and mjs files since they always
 			// fall back to generating an empty file with error messages
 			artifactsExist,
-		).catch(e => {
+		).catch((e) => {
 			logger.error(e)
-			logger.error('there was an error writing to the cache. This may cause peformance issues')
+			logger.error(
+				'there was an error writing to the cache. This may cause peformance issues',
+			)
 		})
 
 		return { solcInput, solcOutput, asts, modules, code }
 	} catch (e) {
 		logger.error(`there was an error in tevm plugin resolving .${moduleType}`)
-		logger.error(/** @type any */(e))
+		logger.error(/** @type any */ (e))
 		throw e
 	}
 }
