@@ -4,7 +4,7 @@ import { mkdir, stat, writeFile } from 'fs/promises'
 
 /**
  * A adapter around the bun file api to make it compatible with @tevm/base FileAccessObject type
- * @type {import("@tevm/base").FileAccessObject & { exists: (filePath: string) => Promise<boolean> }}
+ * @type {import("@tevm/base").FileAccessObject}
  */
 export const bunFileAccesObject = {
 	existsSync,
