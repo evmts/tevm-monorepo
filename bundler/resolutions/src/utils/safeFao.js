@@ -22,21 +22,21 @@ export class ReadFileError extends Error {
 	}
 }
 
-export class ExistsSyncError extends Error {
+export class ExistsError extends Error {
 	/**
-	 * @type {'ExistsSyncError'}
+	 * @type {'ExistsError'}
 	 */
-	_tag = 'ExistsSyncError'
+	_tag = 'ExistsError'
 	/**
-	 * @type {'ExistsSyncError'}
+	 * @type {'ExistsError'}
 	 * @override
 	 */
-	name = 'ExistsSyncError'
+	name = 'ExistsError'
 	/**
 	 * @param {Error} cause
 	 */
 	constructor(cause) {
-		super(`ExistsSync error: ${cause.message}`, { cause })
+		super(`Unable to determine existence: ${cause.message}`, { cause })
 	}
 }
 
@@ -89,13 +89,26 @@ export const safeFao = (fao) => {
 		/**
 		 * @param {string} path
 		 */
+		exists: (path) => {
+			return tryPromise({
+				try: () => {
+					return fao.exists(path)
+				},
+				catch: (e) => {
+					return new ExistsError(/** @type Error */ (e))
+				},
+			})
+		},
+		/**
+		 * @param {string} path
+		 */
 		existsSync: (path) => {
 			return trySync({
 				try: () => {
 					return fao.existsSync(path)
 				},
 				catch: (e) => {
-					return new ExistsSyncError(/** @type Error */ (e))
+					return new ExistsError(/** @type Error */ (e))
 				},
 			})
 		},
