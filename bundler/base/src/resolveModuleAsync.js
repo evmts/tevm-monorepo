@@ -62,7 +62,7 @@ export const resolveModuleAsync = async (
 		}
 
 		// The `writeCache` function is intentionally not awaited to allow non-blocking cache writes.
-    // This enables the rest of the module resolution to proceed without waiting for the cache operation to complete.
+		// This enables the rest of the module resolution to proceed without waiting for the cache operation to complete.
 		writeCache(
 			logger,
 			cache,
@@ -75,12 +75,15 @@ export const resolveModuleAsync = async (
 			// But still write dts and mjs files since they always
 			// fall back to generating an empty file with error messages
 			artifactsExist,
-		)
+		).catch(e => {
+			logger.error(e)
+			logger.error('there was an error writing to the cache. This may cause peformance issues')
+		})
 
 		return { solcInput, solcOutput, asts, modules, code }
 	} catch (e) {
 		logger.error(`there was an error in tevm plugin resolving .${moduleType}`)
-		logger.error(/** @type any */ (e))
+		logger.error(/** @type any */(e))
 		throw e
 	}
 }
