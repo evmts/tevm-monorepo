@@ -527,8 +527,8 @@ importers:
         version: 6.8.1
     devDependencies:
       '@openzeppelin/contracts':
-        specifier: ^5.0.0
-        version: 5.0.0
+        specifier: ^4.9.x
+        version: 4.9.3
       '@sveltejs/adapter-auto':
         specifier: ^2.1.0
         version: 2.1.1(@sveltejs/kit@1.27.6)
