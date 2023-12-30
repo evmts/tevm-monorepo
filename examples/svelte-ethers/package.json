@@ -4,7 +4,8 @@
 	"private": true,
 	"type": "module",
 	"scripts": {
-		"build": "vite build",
+		"build": "bun run build:app",
+		"build:app": "vite build",
 		"check": "echo 'cli typechecking will not be available until Tevm beta. Stay tuned to updates in the tevm/tevm-monorepo repo. Your editor should be able to provide typechecking in the meantime'",
 		"check:watch": "echo 'typechecking will not be available until Tevm beta. Stay tuned to updates in the tevm/tevm-monorepo repo. Your editor should be able to provide typechecking in the meantime'",
 		"dev": "vite dev",

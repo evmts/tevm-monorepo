@@ -67,6 +67,12 @@
 			"dependsOn": ["^build:dist"],
 			"outputs": ["{projectRoot}/dist"]
 		},
+		"build:app": {
+			"inputs": ["production", "outputsDist"],
+			"dependsOn": ["^build:dist", "^build:types"],
+			"outputs": ["{projectRoot}/dist"],
+			"cache": true
+		},
 		"build:dist": {
 			"inputs": ["production", "outputsDist"],
 			"dependsOn": ["^build:dist"],

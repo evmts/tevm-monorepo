@@ -7,8 +7,8 @@
 	],
 	"type": "module",
 	"scripts": {
-		"build": "bun build:dist",
-		"build:dist": "bun run vitepress build .",
+		"build": "bun build:app",
+		"build:app": "bun run vitepress build .",
 		"dev": "bun run vitepress dev .",
 		"format": "rome format . --write",
 		"format:check": "rome format .",
