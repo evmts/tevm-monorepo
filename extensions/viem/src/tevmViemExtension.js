@@ -1,12 +1,12 @@
 import { parse, stringify } from 'superjson'
 
 /**
- * @type {import('./types.js').ViemTevmExtension}
+ * @type {import('./ViemTevmExtension.js').ViemTevmExtension}
  */
 export const tevmViemExtension = () => {
 	return (client) => {
 		/**
-		 * @type {import('./types.js').ViemTevmClient['tevmRequest']}
+		 * @type {import('./ViemTevmClient.js').ViemTevmClient['tevmRequest']}
 		 */
 		const tevmRequest = async (request) => {
 			return /** @type {any} */ (

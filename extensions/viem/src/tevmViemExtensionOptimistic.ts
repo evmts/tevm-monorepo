@@ -1,4 +1,3 @@
-import type { OptimisticResult, TypedError, ViemTevmClient } from './types.js'
 import type { Abi } from 'abitype'
 import { parse, stringify } from 'superjson'
 import type {
@@ -9,6 +8,9 @@ import type {
 	WriteContractParameters,
 } from 'viem'
 import { waitForTransactionReceipt } from 'viem/actions'
+import type { OptimisticResult } from './OptimisticResult.js'
+import type { TypedError } from './TypedError.js'
+import type { ViemTevmClient } from './ViemTevmClient.js'
 
 export const tevmViemExtensionOptimistic = () => {
 	const decorator = <

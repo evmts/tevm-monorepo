@@ -23,13 +23,13 @@
 	"exports": {
 		"./package.json": "./package.json",
 		".": {
-			"import": "./dist/index.js",
+			"import": "./src/index.js",
 			"default": "./dist/index.cjs",
 			"types": "./types/index.d.ts"
 		}
 	},
 	"main": "dist/index.cjs",
-	"module": "dist/index.js",
+	"module": "src/index.js",
 	"types": "types/index.d.ts",
 	"files": ["dist", "types", "src", "!src/**/*.spec.ts"],
 	"scripts": {

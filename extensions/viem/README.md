@@ -20,9 +20,9 @@
 <img alt="" src="https://badgen.net/bundlephobia/minzip/@tevm/viem" />
 </a>
 
-# tevm-monorepo
+# @tevm/viem
 
-Viem integrations for tevm
+Viem client for tevm. For an ethers client see [@tevm/ethers](../ethers/) and for a lightweight fetch based client see [@tevm/client](../../vm/client/)
 
 ## Visit [Docs](https://tevm.dev/) for docs, guides, API and more!
 
