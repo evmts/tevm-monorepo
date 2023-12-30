@@ -20,7 +20,7 @@
 <img alt="" src="https://badgen.net/bundlephobia/minzip/@tevm/state" />
 </a>
 
-# tevm-monorepo
+# @tevm/state
 
 Tevm vm state package for holding tevm state.
 

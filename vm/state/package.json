@@ -64,7 +64,7 @@
 	},
 	"devDependencies": {
 		"@tevm/tsconfig": "workspace:^",
-		"@types/debug": "^4.1.12"
+		"@types/debug": "^4.1.12",
 		"ethers": "^6.9.0",
 		"viem": "^1.19.11"
 	},
