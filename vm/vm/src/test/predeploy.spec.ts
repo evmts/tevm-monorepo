@@ -1,8 +1,8 @@
 import { createTevm } from '../createTevm.js'
 import { DaiContract } from '../test/DaiContract.sol.js'
-import { definePredeploy } from './definePredeploy.js'
 import { Address, hexToBytes, toBytes } from '@ethereumjs/util'
 import { createTevmContract } from '@tevm/contract'
+import { definePredeploy } from '@tevm/predeploys'
 import { formatAbi } from 'abitype'
 import { expect, test } from 'bun:test'
 
