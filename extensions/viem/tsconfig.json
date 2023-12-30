@@ -1,13 +1,11 @@
 {
-  // This configuration is used for local development and type checking.
-  "extends": "./tsconfig.base.json",
-  "include": ["src", "test/src"],
-  "exclude": [],
+  "extends": "@tevm/tsconfig/base.json",
   "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "~viem/*": ["./src/*"],
-      "~test/*": ["./test/*"]
-    }
-  }
+    "rootDir": "src",
+    "composite": true,
+    "outDir": "types",
+    "skipLibCheck": true,
+    "types": ["bun-types"]
+  },
+  "include": ["src", "src/**/*.json"]
 }

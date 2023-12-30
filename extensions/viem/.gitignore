@@ -5,10 +5,8 @@ forge-artifacts
 broadcast
 
 # compiled output
-types/
-!src-viem/types
-!src/types
 dist
+types
 packages/*/dist
 tmp
 /out-tsc

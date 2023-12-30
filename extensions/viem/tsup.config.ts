@@ -3,10 +3,11 @@ import { defineConfig } from 'tsup'
 
 export default defineConfig({
 	name: packageJson.name,
-	entry: ['src/index.js'],
+	entry: ['src/index.ts'],
 	outDir: 'dist',
-	format: ['cjs'],
+	format: ['esm', 'cjs'],
 	splitting: false,
+	treeshake: true,
 	sourcemap: true,
 	clean: true,
 })
