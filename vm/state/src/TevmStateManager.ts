@@ -25,7 +25,7 @@ import {
 	toHex,
 } from 'viem'
 
-export interface ViemStateManagerOpts {
+export interface TevmStateManagerOpts {
 	client: PublicClient
 	blockTag: bigint | 'earliest'
 }
@@ -34,7 +34,7 @@ export interface ViemStateManagerOpts {
  * A state manager that will fetch state from rpc using a viem public client and cache it for
  *f future requests
  */
-export class ViemStateManager implements EVMStateManagerInterface {
+export class TevmStateManager implements EVMStateManagerInterface {
 	protected _contractCache: Map<string, Uint8Array>
 	protected _storageCache: StorageCache
 	protected _blockTag: { blockTag: BlockTag } | { blockNumber: bigint }
@@ -43,7 +43,7 @@ export class ViemStateManager implements EVMStateManagerInterface {
 	protected _debug: Debugger
 	protected DEBUG: boolean
 	protected client: PublicClient
-	constructor(opts: ViemStateManagerOpts) {
+	constructor(opts: TevmStateManagerOpts) {
 		this.DEBUG = false
 
 		this.client = opts.client
@@ -67,10 +67,10 @@ export class ViemStateManager implements EVMStateManagerInterface {
 	}
 
 	/**
-	 * Returns a new instance of the ViemStateManager with the same opts
+	 * Returns a new instance of the TevmStateManager with the same opts
 	 */
-	shallowCopy(): ViemStateManager {
-		const newState = new ViemStateManager({
+	shallowCopy(): TevmStateManager {
+		const newState = new TevmStateManager({
 			client: this.client,
 			blockTag: Object.values(this._blockTag)[0],
 		})
@@ -300,10 +300,8 @@ export class ViemStateManager implements EVMStateManagerInterface {
 	): Promise<void> {
 		if (this.DEBUG) {
 			this._debug(
-				`Save account address=${address} nonce=${account?.nonce} balance=${
-					account?.balance
-				} contract=${account?.isContract() ? 'yes' : 'no'} empty=${
-					account?.isEmpty() ? 'yes' : 'no'
+				`Save account address=${address} nonce=${account?.nonce} balance=${account?.balance
+				} contract=${account?.isContract() ? 'yes' : 'no'} empty=${account?.isEmpty() ? 'yes' : 'no'
 				}`,
 			)
 		}
@@ -431,19 +429,19 @@ export class ViemStateManager implements EVMStateManagerInterface {
 	}
 
 	/**
-	 * @deprecated This method is not used by the Viem State Manager and is a stub required by the State Manager interface
+	 * @deprecated This method is not used by the Tevm State Manager and is a stub required by the State Manager interface
 	 */
 	getStateRoot = async () => {
 		return new Uint8Array(32)
 	}
 
 	/**
-	 * @deprecated This method is not used by the Viem State Manager and is a stub required by the State Manager interface
+	 * @deprecated This method is not used by the Tevm State Manager and is a stub required by the State Manager interface
 	 */
-	setStateRoot = async (_root: Uint8Array) => {}
+	setStateRoot = async (_root: Uint8Array) => { }
 
 	/**
-	 * @deprecated This method is not used by the Viem State Manager and is a stub required by the State Manager interface
+	 * @deprecated This method is not used by the Tevm State Manager and is a stub required by the State Manager interface
 	 */
 	hasStateRoot = () => {
 		throw new Error('function not implemented')
