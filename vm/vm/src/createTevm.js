@@ -1,20 +1,22 @@
-import { createHttpHandler as _createHttpHandler } from './jsonrpc/createHttpHandler.js'
-import { createJsonRpcClient as _createJsonrpcClient } from './jsonrpc/createJsonRpcClient.js'
+import { Common, Hardfork } from '@ethereumjs/common'
+import { DefaultStateManager } from '@ethereumjs/statemanager'
 import {
 	putAccountHandler,
 	putContractCodeHandler,
 	runCallHandler,
 	runContractCallHandler,
 	runScriptHandler,
-} from './jsonrpc/index.js'
-import { ViemStateManager } from './stateManager/ViemStateManager.js'
-import { Common, Hardfork } from '@ethereumjs/common'
-import { DefaultStateManager } from '@ethereumjs/statemanager'
+} from '@tevm/action-handlers'
+import {
+	createHttpHandler as _createHttpHandler,
+	createJsonRpcClient as _createJsonrpcClient,
+} from '@tevm/jsonrpc'
+import { TevmStateManager } from '@tevm/state'
 import { createPublicClient, http } from 'viem'
 
 /**
  * A local EVM instance running in JavaScript. Similar to Anvil in your browser
- * @param {import('./Tevm.js').CreateEVMOptions} [options]
+ * @param {import('./CreateEVMOptions.js').CreateEVMOptions} [options]
  * @returns {Promise<import('./Tevm.js').Tevm>}
  * @example
  * ```ts
@@ -48,7 +50,7 @@ export const createTevm = async (options = {}) => {
 	const { EVM: _EVM } = await import('@ethereumjs/evm')
 
 	/**
-	 * @type {DefaultStateManager | ViemStateManager}
+	 * @type {DefaultStateManager | TevmStateManager}
 	 */
 	let stateManager
 	// ethereumjs throws an error for most chain ids
@@ -57,7 +59,7 @@ export const createTevm = async (options = {}) => {
 			transport: http(options.fork.url),
 		})
 		const blockTag = options.fork.blockTag ?? (await client.getBlockNumber())
-		stateManager = new ViemStateManager({ client, blockTag })
+		stateManager = new TevmStateManager({ client, blockTag })
 	} else {
 		stateManager = new DefaultStateManager()
 	}
@@ -91,14 +93,18 @@ export const createTevm = async (options = {}) => {
 	 * @type {import('./Tevm.js').Tevm['createJsonRpcClient']}
 	 */
 	const createJsonRpcClient = () => {
-		return _createJsonrpcClient(tevm)
+		return _createJsonrpcClient(tevm._evm)
 	}
 
 	/**
 	 * @type {import('./Tevm.js').Tevm['createHttpHandler']}
 	 */
 	const createHttpHandler = () => {
-		return _createHttpHandler(tevm)
+		if (tevm.forkUrl) {
+			return _createHttpHandler({ evm: tevm._evm, forkUrl: tevm.forkUrl })
+		} else {
+			return _createHttpHandler({ evm: tevm._evm })
+		}
 	}
 
 	/**
@@ -126,7 +132,7 @@ export const createTevm = async (options = {}) => {
 	 * ```
 	 */
 	const runScript = async (action) => {
-		return runScriptHandler(tevm, action)
+		return runScriptHandler(tevm._evm, action)
 	}
 
 	/**
@@ -141,7 +147,7 @@ export const createTevm = async (options = {}) => {
 	 * ```
 	 */
 	const putAccount = async (action) => {
-		return putAccountHandler(tevm, action)
+		return putAccountHandler(tevm._evm, action)
 	}
 
 	/**
@@ -156,7 +162,7 @@ export const createTevm = async (options = {}) => {
 	 * ```
 	 */
 	const putContractCode = async (action) => {
-		return putContractCodeHandler(tevm, action)
+		return putContractCodeHandler(tevm._evm, action)
 	}
 
 	/**
@@ -173,7 +179,7 @@ export const createTevm = async (options = {}) => {
 	 * ```
 	 */
 	const runCall = async (action) => {
-		return runCallHandler(tevm, action)
+		return runCallHandler(tevm._evm, action)
 	}
 
 	/**
@@ -190,7 +196,7 @@ export const createTevm = async (options = {}) => {
 	 * ```
 	 */
 	const runContractCall = async (action) => {
-		return runContractCallHandler(tevm, action)
+		return runContractCallHandler(tevm._evm, action)
 	}
 
 	/**
@@ -213,7 +219,7 @@ export const createTevm = async (options = {}) => {
 
 	await Promise.all(
 		options.customPredeploys?.map((predeploy) => {
-			putContractCodeHandler(tevm, {
+			putContractCodeHandler(tevm._evm, {
 				contractAddress: predeploy.address,
 				deployedBytecode: predeploy.contract.deployedBytecode,
 			})
