@@ -55,7 +55,7 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Initialize the Nx Cloud distributed CI run and stop agents when the build tasks are done
-        run: bunx nx-cloud start-ci-run --stop-agents-after=build:dist
+        run: bunx nx-cloud start-ci-run --stop-agents-after=build:app
 
       - name: Run verification
         uses: JamesHenry/parallel-bash-commands@v0.1
@@ -66,8 +66,9 @@ jobs:
           cmd4: bunx nx affected --target test:coverage
           cmd5: bunx nx affected --target lint:check
           cmd6: bunx nx affected --target dev:run
-          cmd7: bun sort-package-json
+          cmd7: bun sort-package-json:check
           cmd8: bunx nx affected --target generate:docs
+          cmd9: bunx nx affected --target build:app
 
       - name: Stop agents
         run: bunx nx-cloud stop-all-agents
