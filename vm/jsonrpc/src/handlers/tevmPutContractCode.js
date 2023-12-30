@@ -1,14 +1,14 @@
-import { putContractCodeHandler } from '../../actions/putContractCode/putContractCodeHandler.js'
+import { putContractCodeHandler } from '@tevm/action-handlers'
 
 /**
- * @param {import('../../Tevm.js').Tevm} vm
- * @param {import('./TevmPutContractCodeRequest.js').TevmPutContractCodeRequest} request
- * @returns {Promise<import('./TevmPutContractCodeResponse.js').TevmPutContractCodeResponse>}
+ * @param {import('@ethereumjs/evm').EVM} evm
+ * @param {import('../requests/index.js').TevmPutContractCodeRequest} request
+ * @returns {Promise<import('../responses/index.js').TevmPutContractCodeResponse>}
  */
-export const tevmPutContractCode = async (vm, request) => {
+export const tevmPutContractCode = async (evm, request) => {
 	return {
 		jsonrpc: '2.0',
-		result: await putContractCodeHandler(vm, request.params),
+		result: await putContractCodeHandler(evm, request.params),
 		method: 'tevm_putContractCode',
 		...(request.id === undefined ? {} : { id: request.id }),
 	}

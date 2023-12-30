@@ -1,4 +1,4 @@
-import { runScriptHandler } from '../../actions/runScript/runScriptHandler.js'
+import { runScriptHandler } from '@tevm/action-handlers'
 
 /**
  * @type {import("./TevmScriptGeneric.js").TevmScriptGeneric}

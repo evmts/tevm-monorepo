@@ -1,14 +1,14 @@
-import { putAccountHandler } from '../../actions/putAccount/putAccountHandler.js'
+import { putAccountHandler } from '@tevm/action-handlers'
 
 /**
- * @param {import('../../Tevm.js').Tevm} vm
- * @param {import('./TevmPutAccountRequest.js').TevmPutAccountRequest} request
- * @returns {Promise<import('./TevmPutAccountResponse.js').TevmPutAccountResponse>}
+ * @param {import('@ethereumjs/evm').EVM} evm
+ * @param {import('../requests/index.js').TevmPutAccountRequest} request
+ * @returns {Promise<import('../responses/index.js').TevmPutAccountResponse>}
  */
-export const tevmPutAccount = async (vm, request) => {
+export const tevmPutAccount = async (evm, request) => {
 	return {
 		jsonrpc: '2.0',
-		result: await putAccountHandler(vm, request.params),
+		result: await putAccountHandler(evm, request.params),
 		method: 'tevm_putAccount',
 		...(request.id === undefined ? {} : { id: request.id }),
 	}

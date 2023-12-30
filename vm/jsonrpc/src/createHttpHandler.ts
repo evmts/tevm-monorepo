@@ -1,14 +1,22 @@
-import type { Tevm } from '../Tevm.js'
-import type { TevmJsonRpcRequest } from '../jsonrpc/TevmJsonRpcRequest.js'
+import type { TevmJsonRpcRequest } from './TevmJsonRpcRequest.js'
 import { createJsonRpcClient } from './createJsonRpcClient.js'
+import type { EVM } from '@ethereumjs/evm'
 import type { IncomingMessage, ServerResponse } from 'http'
 import { parse, stringify } from 'superjson'
+
+type CreatehttpHandlerParameters = {
+	evm: EVM
+	forkUrl?: string
+}
 
 /**
  * Creates an http request handler for tevm requests
  */
-export function createHttpHandler(tevm: Tevm) {
-	const client = createJsonRpcClient(tevm)
+export function createHttpHandler({
+	evm,
+	forkUrl,
+}: CreatehttpHandlerParameters) {
+	const client = createJsonRpcClient(evm)
 	return async (req: IncomingMessage, res: ServerResponse) => {
 		let body = ''
 
@@ -21,7 +29,7 @@ export function createHttpHandler(tevm: Tevm) {
 			try {
 				const raw = JSON.parse(body)
 				if (!raw.method.startsWith('tevm_')) {
-					if (!tevm.forkUrl) {
+					if (!forkUrl) {
 						res.writeHead(404, { 'Content-Type': 'application/json' })
 						const error = {
 							id: raw.id,
@@ -35,7 +43,7 @@ export function createHttpHandler(tevm: Tevm) {
 						res.end(JSON.stringify(error))
 						return
 					}
-					fetch(tevm.forkUrl, {
+					fetch(forkUrl, {
 						method: 'POST',
 						body: JSON.stringify(raw),
 						headers: {

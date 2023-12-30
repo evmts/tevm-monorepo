@@ -1,0 +1,2 @@
+export function tevmPutAccount(evm: import('@ethereumjs/evm').EVM, request: import('../requests/index.js').TevmPutAccountRequest): Promise<import('../responses/index.js').TevmPutAccountResponse>;
+//# sourceMappingURL=tevmPutAccount.d.ts.map

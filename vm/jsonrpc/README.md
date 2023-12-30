@@ -13,16 +13,16 @@
 
 [![CI](https://github.com/evmts/tevm-monorepo/actions/workflows/e2e.yml/badge.svg)](https://github.com/evmts/tevm-monorepo/actions/workflows/e2e.yml)
 [![CI](https://github.com/evmts/tevm-monorepo/actions/workflows/unit.yml/badge.svg)](https://github.com/evmts/tevm-monorepo/actions/workflows/unit.yml)
-<a href="https://www.npmjs.com/package/@tevm/state" target="\_parent">
-<img alt="" src="https://img.shields.io/npm/dm/@tevm/state.svg" />
+<a href="https://www.npmjs.com/package/@tevm/jsonrpc" target="\_parent">
+<img alt="" src="https://img.shields.io/npm/dm/@tevm/jsonrpc.svg" />
 </a>
-<a href="https://bundlephobia.com/package/@tevm/state@latest" target="\_parent">
-<img alt="" src="https://badgen.net/bundlephobia/minzip/@tevm/state" />
+<a href="https://bundlephobia.com/package/@tevm/jsonrpc@latest" target="\_parent">
+<img alt="" src="https://badgen.net/bundlephobia/minzip/@tevm/jsonrpc" />
 </a>
 
 # tevm-monorepo
 
-Tevm vm state package for holding tevm state.
+Jsonrpc interface for interfacing with the tevm vm remotely
 
 ## Visit [Docs](https://tevm.dev/) for docs, guides, API and more!
 

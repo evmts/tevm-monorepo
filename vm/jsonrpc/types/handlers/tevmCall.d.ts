@@ -1,0 +1,2 @@
+export function tevmCall(evm: import('@ethereumjs/evm').EVM, request: import('../requests/index.js').TevmCallRequest): Promise<import('../responses/index.js').TevmCallResponse>;
+//# sourceMappingURL=tevmCall.d.ts.map

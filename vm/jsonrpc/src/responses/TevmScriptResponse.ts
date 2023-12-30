@@ -1,4 +1,4 @@
-import type { RunScriptResult } from '@tevm/actions'
+import type { RunScriptResponse } from '@tevm/actions'
 import type { Abi } from 'abitype'
 
 export type TevmScriptResponse<
@@ -7,6 +7,6 @@ export type TevmScriptResponse<
 > = {
 	jsonrpc: '2.0'
 	method: 'tevm_script'
-	result: RunScriptResult<TAbi, TFunctionName>
+	result: RunScriptResponse<TAbi, TFunctionName>
 	id?: string | number | null
 }

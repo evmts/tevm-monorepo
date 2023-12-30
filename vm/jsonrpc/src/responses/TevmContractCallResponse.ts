@@ -1,4 +1,4 @@
-import type { RunContractCallResult } from '@tevm/actions'
+import type { RunContractCallResponse } from '@tevm/actions'
 import type { Abi } from 'abitype'
 
 export type TevmContractCallResponse<
@@ -7,6 +7,6 @@ export type TevmContractCallResponse<
 > = {
 	jsonrpc: '2.0'
 	method: 'tevm_contractCall'
-	result: RunContractCallResult<TAbi, TFunctionName>
+	result: RunContractCallResponse<TAbi, TFunctionName>
 	id?: string | number | null
 }
