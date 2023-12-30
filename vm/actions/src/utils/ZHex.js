@@ -8,5 +8,5 @@ export const ZHex = z.string().transform((value, ctx) => {
 			message: 'value must be a hex string',
 		})
 	}
-	return /** @type {import('viem').Hex}*/(value)
+	return /** @type {import('viem').Hex}*/ (value)
 })
