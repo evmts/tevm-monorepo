@@ -1,0 +1,65 @@
+{
+	"name": "@tevm/action-handlers",
+	"version": "1.0.0-next.11",
+	"private": false,
+	"description": "A typesafe library for writing forge scripts in typescript",
+	"keywords": [
+		"solidity",
+		"forge",
+		"foundry",
+		"sol",
+		"typescript",
+		"web3",
+		"blockchain"
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/evmts/tevm-monorepo.git",
+		"directory": "action-handlers"
+	},
+	"license": "MIT",
+	"contributors": ["Will Cory <willcory10@gmail.com>"],
+	"type": "module",
+	"exports": {
+		"./package.json": "./package.json",
+		".": {
+			"import": "./dist/index.js",
+			"default": "./dist/index.cjs",
+			"types": "./types/index.d.ts"
+		}
+	},
+	"main": "dist/index.cjs",
+	"module": "dist/index.js",
+	"types": "types/index.d.ts",
+	"files": ["dist", "types", "src", "!src/**/*.spec.ts"],
+	"scripts": {
+		"all": "pnpm i  && bun run build && bun lint && bun format && bun test:run && bun generate:docs",
+		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/action-handlers",
+		"build:dist": "bun run tsup",
+		"build:types": "bun run tsc --emitDeclarationOnly --declaration --declarationMap",
+		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
+		"format": "rome format . --write",
+		"format:check": "rome format .",
+		"generate:docs": "bun run typedoc",
+		"lint": "rome check . --apply-unsafe",
+		"lint:check": "rome check . --verbose",
+		"package:up": "pnpm up --latest",
+		"test": "bun test --watch",
+		"test:coverage": "bun test --coverage",
+		"test:run": "bun test",
+		"typecheck": "tsc --noEmit"
+	},
+	"dependencies": {
+		"@ethereumjs/evm": "^2.1.0",
+		"@ethereumjs/util": "^9.0.1",
+		"@tevm/actions": "workspace:^",
+		"abitype": "^0.10.3",
+		"viem": "^1.19.11"
+	},
+	"devDependencies": {
+		"@tevm/tsconfig": "workspace:^"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
+}
