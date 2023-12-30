@@ -31,7 +31,7 @@
 
 #### Defined in
 
-Client.ts:19
+[Client.ts:19](https://github.com/evmts/tevm-monorepo/blob/main/vm/client/src/Client.ts#L19)
 
 ## Functions
 
@@ -51,4 +51,4 @@ Client.ts:19
 
 #### Defined in
 
-createClient.js:11
+[createClient.js:11](https://github.com/evmts/tevm-monorepo/blob/main/vm/client/src/createClient.js#L11)

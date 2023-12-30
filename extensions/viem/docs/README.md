@@ -1,4 +1,4 @@
-@tevm/state / [Exports](modules.md)
+@tevm/viem / [Exports](modules.md)
 
 <p align="center">
   <a href="https://tevm.dev/">
@@ -15,16 +15,16 @@
 
 [![CI](https://github.com/evmts/tevm-monorepo/actions/workflows/e2e.yml/badge.svg)](https://github.com/evmts/tevm-monorepo/actions/workflows/e2e.yml)
 [![CI](https://github.com/evmts/tevm-monorepo/actions/workflows/unit.yml/badge.svg)](https://github.com/evmts/tevm-monorepo/actions/workflows/unit.yml)
-<a href="https://www.npmjs.com/package/@tevm/state" target="\_parent">
-<img alt="" src="https://img.shields.io/npm/dm/@tevm/state.svg" />
+<a href="https://www.npmjs.com/package/@tevm/viem" target="\_parent">
+<img alt="" src="https://img.shields.io/npm/dm/@tevm/viem.svg" />
 </a>
-<a href="https://bundlephobia.com/package/@tevm/state@latest" target="\_parent">
-<img alt="" src="https://badgen.net/bundlephobia/minzip/@tevm/state" />
+<a href="https://bundlephobia.com/package/@tevm/viem@latest" target="\_parent">
+<img alt="" src="https://badgen.net/bundlephobia/minzip/@tevm/viem" />
 </a>
 
-# @tevm/state
+# @tevm/viem
 
-Tevm vm state package for holding tevm state.
+Viem client for tevm. For an ethers client see [@tevm/ethers](../ethers/) and for a lightweight fetch based client see [@tevm/client](../../vm/client/)
 
 ## Visit [Docs](https://tevm.dev/) for docs, guides, API and more!
 

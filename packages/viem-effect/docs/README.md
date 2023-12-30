@@ -1,4 +1,4 @@
-@tevm/viem / [Modules](/reference/viem-effect/modules.md)
+@tevm/viem-effect / [Modules](/reference/viem-effect/modules.md)
 
 <p align="center">
   <a href="https://tevm.dev/">

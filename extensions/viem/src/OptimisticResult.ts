@@ -1,6 +1,6 @@
-import type {
-	RunContractCallResponse,
-} from '@tevm/actions'
+import type { GenError } from './GenError.js'
+import type { GenResult } from './GenResult.js'
+import type { RunContractCallResponse } from '@tevm/actions'
 import type { Abi } from 'abitype'
 import type {
 	Chain,
@@ -8,9 +8,6 @@ import type {
 	WriteContractErrorType,
 	WriteContractReturnType,
 } from 'viem'
-import type { GenResult } from './GenResult.js'
-import type { GenError } from './GenError.js'
-
 
 export type OptimisticResult<
 	TAbi extends Abi | readonly unknown[],
@@ -27,4 +24,3 @@ export type OptimisticResult<
 // TODO emit a finalized result when app considers risk of reorg to be 0
 // | GenResult<undefined, 'FINALIZED'>
 // TODO emit a reorg event
-

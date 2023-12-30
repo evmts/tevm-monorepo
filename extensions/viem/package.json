@@ -18,7 +18,9 @@
 		"directory": "vm"
 	},
 	"license": "MIT",
-	"contributors": ["Will Cory <willcory10@gmail.com>"],
+	"contributors": [
+		"Will Cory <willcory10@gmail.com>"
+	],
 	"type": "module",
 	"exports": {
 		"./package.json": "./package.json",
@@ -31,7 +33,12 @@
 	"main": "dist/index.cjs",
 	"module": "src/index.js",
 	"types": "types/index.d.ts",
-	"files": ["dist", "types", "src", "!src/**/*.spec.ts"],
+	"files": [
+		"dist",
+		"types",
+		"src",
+		"!src/**/*.spec.ts"
+	],
 	"scripts": {
 		"all": "pnpm i  && bun run build && bun lint && bun format && bun test:run && bun generate:docs",
 		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/vm",
@@ -53,9 +60,9 @@
 		"superjson": "^2.2.1"
 	},
 	"devDependencies": {
-		"@tevm/tsconfig": "workspace:^",
 		"@tevm/actions": "workspace:^",
 		"@tevm/jsonrpc": "workspace:^",
+		"@tevm/tsconfig": "workspace:^",
 		"abitype": "^0.10.3",
 		"viem": "^1.19.11"
 	},

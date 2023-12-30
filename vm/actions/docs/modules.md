@@ -4,10 +4,6 @@
 
 ## Table of contents
 
-### Classes
-
-- [ContractDoesNotExistError](classes/ContractDoesNotExistError.md)
-
 ### Type Aliases
 
 - [PutAccountAction](modules.md#putaccountaction)
@@ -19,7 +15,6 @@
 - [RunContractCallAction](modules.md#runcontractcallaction)
 - [RunContractCallResponse](modules.md#runcontractcallresponse)
 - [RunScriptAction](modules.md#runscriptaction)
-- [RunScriptError](modules.md#runscripterror)
 - [RunScriptResponse](modules.md#runscriptresponse)
 
 ### Variables
@@ -62,7 +57,7 @@ Tevm response type for the PutAccount action
 
 #### Defined in
 
-vm/actions/src/responses/PutAccountResponse.ts:6
+[vm/actions/src/responses/PutAccountResponse.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/vm/actions/src/responses/PutAccountResponse.ts#L6)
 
 ___
 
@@ -91,7 +86,7 @@ ___
 
 #### Defined in
 
-vm/actions/src/responses/PutContractCodeResponse.ts:1
+[vm/actions/src/responses/PutContractCodeResponse.ts:1](https://github.com/evmts/tevm-monorepo/blob/main/vm/actions/src/responses/PutContractCodeResponse.ts#L1)
 
 ___
 
@@ -124,7 +119,7 @@ ___
 
 #### Defined in
 
-vm/actions/src/responses/RunCallResponse.ts:3
+[vm/actions/src/responses/RunCallResponse.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/vm/actions/src/responses/RunCallResponse.ts#L3)
 
 ___
 
@@ -168,7 +163,7 @@ ___
 
 #### Defined in
 
-vm/actions/src/responses/RunContractCallResponse.ts:5
+[vm/actions/src/responses/RunContractCallResponse.ts:5](https://github.com/evmts/tevm-monorepo/blob/main/vm/actions/src/responses/RunContractCallResponse.ts#L5)
 
 ___
 
@@ -191,16 +186,6 @@ Tevm action to deploy and execute a script or contract
 
 ___
 
-### RunScriptError
-
-Ƭ **RunScriptError**: `Error`
-
-#### Defined in
-
-[vm/actions/src/errors/RunScriptError.ts:1](https://github.com/evmts/tevm-monorepo/blob/main/vm/actions/src/errors/RunScriptError.ts#L1)
-
-___
-
 ### RunScriptResponse
 
 Ƭ **RunScriptResponse**\<`TAbi`, `TFunctionName`\>: [`RunContractCallResponse`](modules.md#runcontractcallresponse)\<`TAbi`, `TFunctionName`\>
@@ -214,7 +199,7 @@ ___
 
 #### Defined in
 
-vm/actions/src/responses/RunScriptResponse.ts:4
+[vm/actions/src/responses/RunScriptResponse.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/vm/actions/src/responses/RunScriptResponse.ts#L4)
 
 ## Variables
 

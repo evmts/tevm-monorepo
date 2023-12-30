@@ -1,5 +1,5 @@
-import type { Account, Chain, Transport } from 'viem';
-import type { ViemTevmOptimisticClient } from './ViemTevmOptimisticClient.js';
+import type { ViemTevmOptimisticClient } from './ViemTevmOptimisticClient.js'
+import type { Account, Chain, Transport } from 'viem'
 
 export type ViemTevmOptimisticClientDecorator = <
 	TTransport extends Transport = Transport,
@@ -11,4 +11,3 @@ export type ViemTevmOptimisticClientDecorator = <
 		'request' | 'writeContract'
 	>,
 ) => ViemTevmOptimisticClient<TChain, TAccount>
-

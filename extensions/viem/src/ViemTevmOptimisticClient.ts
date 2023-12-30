@@ -1,10 +1,6 @@
-import type { Abi } from 'abitype'
-import type {
-	Account,
-	Chain,
-	WriteContractParameters,
-} from 'viem'
 import type { OptimisticResult } from './OptimisticResult.js'
+import type { Abi } from 'abitype'
+import type { Account, Chain, WriteContractParameters } from 'viem'
 
 export type ViemTevmOptimisticClient<
 	TChain extends Chain | undefined = Chain,

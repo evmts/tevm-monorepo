@@ -1,4 +1,4 @@
-import type { TypedError } from "./TypedError.js"
+import type { TypedError } from './TypedError.js'
 
 export type GenResult<TDataType, TTag extends string> = {
 	success: true
@@ -6,4 +6,3 @@ export type GenResult<TDataType, TTag extends string> = {
 	data: TDataType
 	errors?: ReadonlyArray<TypedError<string>>
 }
-
