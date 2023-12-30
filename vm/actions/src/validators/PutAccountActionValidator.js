@@ -1,4 +1,4 @@
-import { DEFAULT_BALANCE } from './DEFAULT_BALANCE.js'
+import { DEFAULT_BALANCE } from '../constants/index.js'
 import { Address as ZAddress } from 'abitype/zod'
 import { z } from 'zod'
 

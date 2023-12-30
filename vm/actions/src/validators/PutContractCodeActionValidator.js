@@ -1,4 +1,4 @@
-import { ZHex } from '../../utils/ZHex.js'
+import { ZHex } from '../utils/ZHex.js'
 import { Address as ZAddress } from 'abitype/zod'
 import { z } from 'zod'
 

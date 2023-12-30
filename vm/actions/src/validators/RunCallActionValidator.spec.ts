@@ -1,5 +1,5 @@
-import { CallActionValidator } from './CallActionValidator.js'
-import type { RunCallAction } from './RunCallAction.js'
+import { RunCallActionValidator } from './RunCallActionValidator.js'
+import type { RunCallAction } from '../actions/index.js'
 import { describe, expect, it } from 'bun:test'
 import type { z } from 'zod'
 
@@ -15,7 +15,7 @@ describe('runCall', () => {
 			value: transferAmount,
 			origin: address1,
 		}
-		action satisfies z.infer<typeof CallActionValidator>
-		expect(CallActionValidator.parse(action)).toEqual(action)
+		action satisfies z.infer<typeof RunCallActionValidator>
+		expect(RunCallActionValidator.parse(action)).toEqual(action)
 	})
 })

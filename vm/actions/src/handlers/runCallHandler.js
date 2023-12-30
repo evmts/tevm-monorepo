@@ -3,12 +3,12 @@ import { hexToBytes, maxInt256 } from 'viem'
 
 /**
  * Executes a call on the vm
- * @param {import("../../Tevm.js").Tevm} tevm
- * @param {import("./RunCallAction.js").RunCallAction} action
- * @returns {Promise<import("./RunCallResponse.js").RunCallResponse>}
+ * @param {import("@ethereumjs/evm").EVM} evm
+ * @param {import("../actions/index.js").RunCallAction} action
+ * @returns {Promise<import("../actions/index.js").RunCallResponse>}
  */
-export const runCallHandler = async (tevm, action) => {
-	return tevm._evm.runCall({
+export const runCallHandler = async (evm, action) => {
+	return evm.runCall({
 		...(action.to && {
 			to: new EthjsAddress(hexToBytes(action.to)),
 		}),

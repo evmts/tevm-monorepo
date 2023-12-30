@@ -1,4 +1,4 @@
-import { DEFAULT_BALANCE } from './DEFAULT_BALANCE.js'
+import { DEFAULT_BALANCE } from '../constants/index.js'
 import {
 	Account as EthjsAccount,
 	Address as EthjsAddress,
@@ -6,20 +6,20 @@ import {
 import { hexToBytes } from 'viem'
 
 /**
- * @param {import("../../Tevm.js").Tevm} tevm
- * @param {import("./PutAccountAction.js").PutAccountAction} action
- * @returns {Promise<import("./PutAccountResult.js").PutAccountResult>}
+ * @param {import("@ethereumjs/evm").EVM} evm
+ * @param {import("../actions/index.js").PutAccountAction} action
+ * @returns {Promise<import("../actions/index.js").PutAccountResponse>}
  */
 export const putAccountHandler = async (
-	tevm,
+	evm,
 	{ account, balance = DEFAULT_BALANCE },
 ) => {
 	const address = new EthjsAddress(hexToBytes(account))
-	await tevm._evm.stateManager.putAccount(
+	await evm.stateManager.putAccount(
 		address,
 		new EthjsAccount(BigInt(0), balance),
 	)
-	const out = await tevm._evm.stateManager.getAccount(address)
+	const out = await evm.stateManager.getAccount(address)
 	if (!out) {
 		throw new Error('Account not successfuly put')
 	}

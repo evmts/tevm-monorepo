@@ -1,12 +1,11 @@
-import type { Tevm } from '../../Tevm.js'
-import type { RunContractCallAction } from './RunContractCallAction.js'
-import type { RunContractCallResult } from './RunContractCallResult.js'
+import type { EVM } from '@ethereumjs/evm'
 import type { Abi } from 'abitype'
+import type { RunContractCallAction, RunContractCallResult } from '../index.js'
 
 export type RunContractCallHandlerGeneric = <
   TAbi extends Abi | readonly unknown[] = Abi,
   TFunctionName extends string = string,
 >(
-  tevm: Tevm,
+  evm: EVM,
   action: RunContractCallAction<TAbi, TFunctionName>,
 ) => Promise<RunContractCallResult<TAbi, TFunctionName>>

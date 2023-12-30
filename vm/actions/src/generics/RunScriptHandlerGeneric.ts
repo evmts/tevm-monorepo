@@ -1,13 +1,12 @@
-import type { Tevm } from '../../Tevm.js'
-import type { RunScriptAction } from './RunScriptAction.js'
-import type { RunScriptResult } from './RunScriptResult.js'
+import type { EVM } from '@ethereumjs/evm'
 import type { Abi } from 'abitype'
+import type { RunScriptAction, RunScriptResult } from '../index.js'
 
 export type RunScriptHandler = <
 	TAbi extends Abi | readonly unknown[] = Abi,
 	TFunctionName extends string = string,
 >(
-	tevm: Tevm,
+	evm: EVM,
 	{
 		deployedBytecode,
 		args,

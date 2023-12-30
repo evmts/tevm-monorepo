@@ -1,8 +1,7 @@
-import { runContractCallHandler } from '../contractCall/runContractCallHandler.js'
-import { putContractCodeHandler } from '../putContractCode/putContractCodeHandler.js'
+import { runContractCallHandler, putContractCodeHandler } from '../handlers/index.js'
 
 /**
- * @type {import("./RunScriptHandlerGeneric.js").RunScriptHandler}
+ * @type {import("../generics/index.js").RunScriptHandler}
  */
 export const runScriptHandler = async (
 	tevm,
@@ -15,7 +14,7 @@ export const runScriptHandler = async (
 	})
 	return runContractCallHandler(
 		tevm,
-		/** @type {any} */ ({
+		/** @type {any} */({
 			functionName,
 			caller,
 			args,

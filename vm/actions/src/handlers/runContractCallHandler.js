@@ -1,41 +1,39 @@
-import { putAccountHandler } from '../putAccount/putAccountHandler.js'
-import { runCallHandler } from '../runCall/runCallHandler.js'
-import { ContractDoesNotExistError } from './ContractDoesNotExistError.js'
-import { defaultCaller } from './defaultCaller.js'
-import { defaultGasLimit } from './defaultGasLimit.js'
+import { putAccountHandler, runCallHandler } from '../handlers/index.js'
+import { ContractDoesNotExistError } from '../errors/index.js'
+import { DEFAULT_CALLER, DEFAULT_GAS_LIMIT } from '../constants/index.js'
 import { Address } from '@ethereumjs/util'
 import { decodeFunctionResult, encodeFunctionData, toHex } from 'viem'
 
 /**
- * @type {import("./RunContractCallHandlerGeneric.js").RunContractCallHandlerGeneric}
+ * @type {import("../generics/index.js").RunContractCallHandlerGeneric}
  */
 export const runContractCallHandler = async (
-	tevm,
+	evm,
 	{
 		abi,
 		args,
 		functionName,
-		caller = defaultCaller,
+		caller = DEFAULT_CALLER,
 		contractAddress,
-		gasLimit = defaultGasLimit,
+		gasLimit = DEFAULT_GAS_LIMIT,
 	},
 ) => {
-	if (caller === defaultCaller) {
-		await putAccountHandler(tevm, {
-			account: defaultCaller,
+	if (caller === DEFAULT_CALLER) {
+		await putAccountHandler(evm, {
+			account: DEFAULT_CALLER,
 			balance: BigInt(0x11111111),
 		})
 	}
 
 	// check early if contract exists
-	const contract = await tevm._evm.stateManager.getContractCode(
+	const contract = await evm.stateManager.getContractCode(
 		Address.fromString(contractAddress),
 	)
 	if (contract.length === 0) {
 		throw new ContractDoesNotExistError(contractAddress)
 	}
 
-	const result = await runCallHandler(tevm, {
+	const result = await runCallHandler(evm, {
 		to: contractAddress,
 		caller: caller,
 		origin: caller,

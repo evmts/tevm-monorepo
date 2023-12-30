@@ -1,4 +1,4 @@
-import type { RunContractCallResult } from '../contractCall/RunContractCallResult.js'
+import type { RunContractCallResult } from './RunContractCallResult.js'
 import type { Abi } from 'abitype'
 
 export type RunScriptResult<
