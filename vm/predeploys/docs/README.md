@@ -1,4 +1,4 @@
-@tevm/vm / [Modules](modules.md)
+@tevm/predeploys / [Modules](modules.md)
 
 <p align="center">
   <a href="https://tevm.dev/">
@@ -22,9 +22,7 @@
 <img alt="" src="https://badgen.net/bundlephobia/minzip/@tevm/runtime" />
 </a>
 
-# tevm-monorepo
-
-tevm enables direct evm execution clientside with forge cheat codes and direct solidity file imports.
+# @tevm/predeploys
 
 ## Visit [Docs](https://tevm.dev/) for docs, guides, API and more!
 

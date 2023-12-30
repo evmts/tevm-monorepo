@@ -1,5 +1,5 @@
 {
-	"name": "@tevm/vm",
+	"name": "@tevm/predeploys",
 	"version": "1.0.0-next.11",
 	"private": false,
 	"description": "A typesafe library for writing forge scripts in typescript",
@@ -15,7 +15,7 @@
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/evmts/tevm-monorepo.git",
-		"directory": "vm"
+		"directory": "predeploys"
 	},
 	"license": "MIT",
 	"contributors": ["Will Cory <willcory10@gmail.com>"],
@@ -26,11 +26,6 @@
 			"import": "./dist/index.js",
 			"default": "./dist/index.cjs",
 			"types": "./types/index.d.ts"
-		},
-		"./viem": {
-			"import": "./dist/viem/index.js",
-			"default": "./dist/viem/index.cjs",
-			"types": "./types/viem/index.d.ts"
 		}
 	},
 	"main": "dist/index.cjs",
@@ -39,7 +34,7 @@
 	"files": ["dist", "types", "src", "!src/**/*.spec.ts"],
 	"scripts": {
 		"all": "pnpm i  && bun run build && bun lint && bun format && bun test:run && bun generate:docs",
-		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/vm",
+		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/predeploys",
 		"build:dist": "bun run tsup",
 		"build:types": "bun run tsc --emitDeclarationOnly --declaration --declarationMap",
 		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
