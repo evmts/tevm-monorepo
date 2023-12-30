@@ -21,7 +21,7 @@
 			".changeset",
 			".devcontainer",
 			"examples/svelte-ethers/.svelte-kit",
-			"extensions/viem",
+			"packages/viem-effect",
 			"bundler/config/src/fixtures"
 		]
 	},

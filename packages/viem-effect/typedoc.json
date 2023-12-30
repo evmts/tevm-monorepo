@@ -1,0 +1,14 @@
+{
+	"$schema": "https://typedoc.org/schema.json",
+	"out": "./docs",
+	"entryPoints": [
+		"./src/wrapInEffect.d.ts",
+		"./src/types.ts",
+		"./src/accounts/index.js",
+		"./src/actions/index.js",
+		"./src/utils/index.js"
+	],
+	"publicPath": "/reference/viem-effect/",
+	"plugin": ["typedoc-plugin-markdown"],
+	"gitRevision": "main"
+}

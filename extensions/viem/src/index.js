@@ -1,3 +1,2 @@
-export * from './accounts/index.js'
-export * from './actions/index.js'
-export * from './utils/index.js'
+export { tevmViemExtension } from './tevmViemExtension.js'
+export { tevmViemExtensionOptimistic } from './tevmViemExtensionOptimistic.js'

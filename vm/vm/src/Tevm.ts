@@ -1,75 +1,23 @@
-import type { EVMStateManagerInterface, StorageDump } from '@ethereumjs/common'
-import { EVM, type EVMResult } from '@ethereumjs/evm'
-import type { Account, Address } from '@ethereumjs/util'
+import { EVMStateManagerInterface, StorageDump } from '@ethereumjs/common'
+import type { EVMResult } from '@ethereumjs/evm'
+import type { Account } from '@ethereumjs/util'
+import type {
+	PutAccountAction,
+	PutContractCodeAction,
+	RunCallAction,
+	RunContractCallAction,
+	RunContractCallResponse,
+	RunScriptAction,
+	RunScriptResponse,
+} from '@tevm/actions'
+import type {
+	BackendReturnType,
+	JsonRpcClient,
+	TevmJsonRpcRequest,
+	createHttpHandler,
+} from '@tevm/jsonrpc'
 import type { Abi } from 'abitype'
-import type { RunContractCallAction } from './actions/contractCall/RunContractCallAction.js'
-import type { RunContractCallResult } from './actions/contractCall/RunContractCallResult.js'
-import type { PutAccountAction } from './actions/putAccount/PutAccountAction.js'
-import type { PutContractCodeAction } from './actions/putContractCode/PutContractCodeAction.js'
-import type { RunCallAction } from './actions/runCall/RunCallAction.js'
-import type { RunScriptAction } from './actions/runScript/RunScriptAction.js'
-import type { RunScriptResult } from './actions/runScript/RunScriptResult.js'
-import type { TevmJsonRpcRequest } from './jsonrpc/TevmJsonRpcRequest.js'
-import { createHttpHandler } from './jsonrpc/createHttpHandler.js'
-import {
-	type BackendReturnType,
-	type JsonRpcClient,
-} from './jsonrpc/createJsonRpcClient.js'
-import type { CustomPredeploy } from './predeploys/definePredeploy.js'
-import { TevmStateManager } from './stateManager/TevmStateManager.js'
-/**
- * Options fetch state that isn't available locally.
- */
-type ForkOptions = {
-	/**
-	 * A viem PublicClient to use for the EVM.
-	 * It will be used to fetch state that isn't available locally.
-	 */
-	url: string
-	/**
-	 * The block tag to use for the EVM.
-	 * If not passed it will start from the latest
-	 * block at the time of forking
-	 */
-	blockTag?: bigint
-}
-
-/**
- * Options for creating an Tevm instance
- */
-export type CreateEVMOptions = {
-	fork?: ForkOptions
-	customPrecompiles?: CustomPrecompile[]
-	customPredeploys?: CustomPredeploy[]
-	allowUnlimitedContractSize?: boolean
-}
-
-/**
- * Infers the the first argument of a class
- */
-type ConstructorArgument<T> = T extends new (
-	...args: infer P
-) => any
-	? P[0]
-	: never
-
-export class TevmEvm extends EVM {
-	public declare stateManager: TevmStateManager
-}
-
-/**
- * TODO This should be publically exported from ethereumjs but isn't
- * Typing this by hand is tedious so we are using some typescript inference to get it
- * do a pr to export this from ethereumjs and then replace this with an import
- * TODO this should be modified to take a hex address rather than an ethjs address to be consistent with rest of Tevm
- */
-export type CustomPrecompile = Exclude<
-	Exclude<
-		ConstructorArgument<typeof import('@ethereumjs/evm').EVM>,
-		undefined
-	>['customPrecompiles'],
-	undefined
->[number]
+import { TevmEvm } from '../types/Tevm'
 
 /**
  * A local EVM instance running in JavaScript. Similar to Anvil in your browser
@@ -154,7 +102,7 @@ export type Tevm = {
 		TFunctionName extends string = string,
 	>(
 		action: RunScriptAction<TAbi, TFunctionName>,
-	) => Promise<RunScriptResult<TAbi, TFunctionName>>
+	) => Promise<RunScriptResponse<TAbi, TFunctionName>>
 
 	/**
 	 * Puts an account with ether balance into the state
@@ -213,23 +161,5 @@ export type Tevm = {
 		TFunctionName extends string = string,
 	>(
 		action: RunContractCallAction<TAbi, TFunctionName>,
-	) => Promise<RunContractCallResult<TAbi, TFunctionName>>
-}
-
-export interface TevmStateManagerInterface extends EVMStateManagerInterface {
-	getAccountAddresses: () => string[]
-	putAccountData: (address: Address, accountData: Account) => void
-}
-
-// Inspired by https://github.com/foundry-rs/foundry/blob/master/crates/anvil/src/eth/backend/db.rs#L353-L359
-interface AccountStorage {
-	nonce: bigint
-	balance: bigint
-	storageRoot: Uint8Array
-	codeHash: Uint8Array
-	storage?: StorageDump
-}
-
-export type TevmState = {
-	[key: string]: AccountStorage
+	) => Promise<RunContractCallResponse<TAbi, TFunctionName>>
 }
