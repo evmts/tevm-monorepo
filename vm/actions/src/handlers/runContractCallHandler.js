@@ -1,30 +1,10 @@
 import { putAccountHandler } from '../putAccount/putAccountHandler.js'
 import { runCallHandler } from '../runCall/runCallHandler.js'
+import { ContractDoesNotExistError } from './ContractDoesNotExistError.js'
 import { defaultCaller } from './defaultCaller.js'
 import { defaultGasLimit } from './defaultGasLimit.js'
 import { Address } from '@ethereumjs/util'
 import { decodeFunctionResult, encodeFunctionData, toHex } from 'viem'
-
-export class ContractDoesNotExistError extends Error {
-	/**
-	 * @type {'ContractDoesNotExistError'}
-	 * @override
-	 */
-	name = 'ContractDoesNotExistError'
-	/**
-	 * @type {'ContractDoesNotExistError'}
-	 */
-	_tag = 'ContractDoesNotExistError'
-
-	/**
-	 * @param {string} contractAddress
-	 */
-	constructor(contractAddress) {
-		super(
-			`Contract ${contractAddress} does not exist because no bytecode was found at the address`,
-		)
-	}
-}
 
 /**
  * @type {import("./RunContractCallHandlerGeneric.js").RunContractCallHandlerGeneric}
@@ -62,7 +42,7 @@ export const runContractCallHandler = async (
 		// pass lots of gas
 		gasLimit,
 		data: encodeFunctionData(
-			/** @type {any} */ ({
+			/** @type {any} */({
 				abi,
 				functionName,
 				args,
@@ -79,7 +59,7 @@ export const runContractCallHandler = async (
 		gasUsed: result.execResult.executionGasUsed,
 		logs: result.execResult.logs ?? [],
 		data: decodeFunctionResult(
-			/** @type any */ ({
+			/** @type any */({
 				abi,
 				data: toHex(result.execResult.returnValue),
 				functionName,

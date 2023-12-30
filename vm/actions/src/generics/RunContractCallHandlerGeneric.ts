@@ -4,9 +4,9 @@ import type { RunContractCallResult } from './RunContractCallResult.js'
 import type { Abi } from 'abitype'
 
 export type RunContractCallHandlerGeneric = <
-	TAbi extends Abi | readonly unknown[] = Abi,
-	TFunctionName extends string = string,
+  TAbi extends Abi | readonly unknown[] = Abi,
+  TFunctionName extends string = string,
 >(
-	tevm: Tevm,
-	action: RunContractCallAction<TAbi, TFunctionName>,
+  tevm: Tevm,
+  action: RunContractCallAction<TAbi, TFunctionName>,
 ) => Promise<RunContractCallResult<TAbi, TFunctionName>>
