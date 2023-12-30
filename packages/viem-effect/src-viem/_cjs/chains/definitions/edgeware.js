@@ -1,0 +1,29 @@
+'use strict'
+Object.defineProperty(exports, '__esModule', { value: true })
+exports.edgeware = void 0
+const chain_js_1 = require('../../utils/chain.js')
+exports.edgeware = (0, chain_js_1.defineChain)({
+	id: 2021,
+	name: 'Edgeware EdgeEVM Mainnet',
+	network: 'edgeware',
+	nativeCurrency: {
+		decimals: 18,
+		name: 'Edgeware',
+		symbol: 'EDG',
+	},
+	rpcUrls: {
+		default: { http: ['https://edgeware-evm.jelliedowl.net'] },
+		public: { http: ['https://edgeware-evm.jelliedowl.net'] },
+	},
+	blockExplorers: {
+		etherscan: { name: 'Edgscan by Bharathcoorg', url: 'https://edgscan.live' },
+		default: { name: 'Edgscan by Bharathcoorg', url: 'https://edgscan.live' },
+	},
+	contracts: {
+		multicall3: {
+			address: '0xca11bde05977b3631167028862be2a173976ca11',
+			blockCreated: 18117872,
+		},
+	},
+})
+//# sourceMappingURL=edgeware.js.map
