@@ -1,2 +1,0 @@
-export function tevmPutContractCode(evm: import('@ethereumjs/evm').EVM, request: import('../requests/index.js').TevmPutContractCodeRequest): Promise<import('../responses/index.js').TevmPutContractCodeResponse>;
-//# sourceMappingURL=tevmPutContractCode.d.ts.map
