@@ -56,7 +56,9 @@
 		"test:ui": "vitest --ui"
 	},
 	"devDependencies": {
+		"@tevm/contract": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
+		"@tevm/vm": "workspace:1.0.0-next.11",
 		"abitype": "^0.10.2",
 		"ethers": "^6.8.0"
 	},
@@ -69,6 +71,7 @@
 	"dependencies": {
 		"@tevm/actions": "workspace:1.0.0-next.11",
 		"@tevm/client": "workspace:1.0.0-next.11",
-		"@tevm/jsonrpc": "workspace:1.0.0-next.11"
+		"@tevm/jsonrpc": "workspace:1.0.0-next.11",
+		"superjson": "^2.2.1"
 	}
 }

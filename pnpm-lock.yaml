@@ -92,7 +92,7 @@ importers:
         version: 3.3.5
       vitepress:
         specifier: 1.0.0-rc.24
-        version: 1.0.0-rc.24(@algolia/client-search@4.20.0)(postcss@8.4.31)(search-insights@2.11.0)(typescript@5.3.3)
+        version: 1.0.0-rc.24(@algolia/client-search@4.22.0)(postcss@8.4.31)(search-insights@2.13.0)(typescript@5.3.3)
 
   bundler/base:
     dependencies:
@@ -252,7 +252,7 @@ importers:
     dependencies:
       '@effect/schema':
         specifier: 0.47.7
-        version: 0.47.7(effect@2.0.0-next.54)(fast-check@3.14.0)
+        version: 0.47.7(effect@2.0.0-next.54)(fast-check@3.15.0)
       '@tevm/effect':
         specifier: workspace:^
         version: link:../../packages/effect
@@ -473,7 +473,7 @@ importers:
     devDependencies:
       '@nomicfoundation/hardhat-foundry':
         specifier: ^1.1.1
-        version: 1.1.1(hardhat@2.19.2)
+        version: 1.1.1(hardhat@2.19.4)
       '@openzeppelin/contracts':
         specifier: ^4.9.3
         version: 4.9.3
@@ -609,7 +609,7 @@ importers:
         version: 0.12.5
       viem:
         specifier: ~1.19.4
-        version: 1.19.4(typescript@5.2.2)
+        version: 1.19.4(typescript@5.2.2)(zod@3.22.4)
       wagmi:
         specifier: ^1.4.7
         version: 1.4.7(@types/react@18.2.37)(react-dom@18.2.0)(react@18.2.0)(typescript@5.2.2)(viem@1.19.4)
@@ -719,7 +719,7 @@ importers:
         version: 5.2.2
       wagmi:
         specifier: ^1.4.5
-        version: 1.4.7(react@18.2.0)(typescript@5.2.2)(viem@1.19.11)(zod@3.22.4)
+        version: 1.4.7(react@18.2.0)(typescript@5.2.2)(viem@1.21.3)(zod@3.22.4)
       zod:
         specifier: ^3.22.4
         version: 3.22.4
@@ -735,10 +735,19 @@ importers:
       '@tevm/jsonrpc':
         specifier: workspace:1.0.0-next.11
         version: link:../../vm/jsonrpc
+      superjson:
+        specifier: ^2.2.1
+        version: 2.2.1
     devDependencies:
+      '@tevm/contract':
+        specifier: workspace:^
+        version: link:../../packages/contract
       '@tevm/tsconfig':
         specifier: workspace:^
         version: link:../../configs/tsconfig
+      '@tevm/vm':
+        specifier: workspace:1.0.0-next.11
+        version: link:../../vm/vm
       abitype:
         specifier: ^0.10.2
         version: 0.10.2(typescript@5.3.3)(zod@3.22.4)
@@ -900,7 +909,7 @@ importers:
     dependencies:
       '@effect/schema':
         specifier: 0.47.7
-        version: 0.47.7(effect@2.0.0-next.54)(fast-check@3.14.0)
+        version: 0.47.7(effect@2.0.0-next.54)(fast-check@3.15.0)
       '@tevm/schemas':
         specifier: workspace:^
         version: link:../schemas
@@ -961,10 +970,10 @@ importers:
         version: 1.0.0-next.12(viem@1.21.3)
       '@evmts/ts-plugin':
         specifier: next
-        version: 1.0.0-next.18(fast-check@3.14.0)(typescript@5.3.3)
+        version: 1.0.0-next.18(fast-check@3.15.0)(typescript@5.3.3)
       '@evmts/vite-plugin':
         specifier: next
-        version: 1.0.0-next.19(esbuild@0.19.5)(fast-check@3.14.0)(typescript@5.3.3)
+        version: 1.0.0-next.19(esbuild@0.19.11)(fast-check@3.15.0)(typescript@5.3.3)
       '@openzeppelin/contracts':
         specifier: ^5.0.1
         version: 5.0.1
@@ -982,7 +991,7 @@ importers:
     dependencies:
       '@effect/schema':
         specifier: 0.47.7
-        version: 0.47.7(effect@2.0.0-next.54)(fast-check@3.14.0)
+        version: 0.47.7(effect@2.0.0-next.54)(fast-check@3.15.0)
       effect:
         specifier: 2.0.0-next.54
         version: 2.0.0-next.54
@@ -1052,7 +1061,7 @@ importers:
     dependencies:
       '@effect/schema':
         specifier: 0.47.7
-        version: 0.47.7(effect@2.0.0-next.54)(fast-check@3.14.0)
+        version: 0.47.7(effect@2.0.0-next.54)(fast-check@3.15.0)
       effect:
         specifier: 2.0.0-next.54
         version: 2.0.0-next.54
@@ -1074,7 +1083,7 @@ importers:
         version: 1.10.0
       '@effect/schema':
         specifier: 0.47.7
-        version: 0.47.7(effect@2.0.0-next.54)(fast-check@3.14.0)
+        version: 0.47.7(effect@2.0.0-next.54)(fast-check@3.15.0)
       '@noble/curves':
         specifier: 1.2.0
         version: 1.2.0
@@ -1101,7 +1110,7 @@ importers:
         version: 1.0.3(ws@8.14.2)
       ws:
         specifier: 8.14.2
-        version: 8.14.2(bufferutil@4.0.8)(utf-8-validate@5.0.10)
+        version: 8.14.2
     devDependencies:
       '@babel/core':
         specifier: ^7.23.2
@@ -1533,47 +1542,47 @@ packages:
   /@adraffy/ens-normalize@1.9.4:
     resolution: {integrity: sha512-UK0bHA7hh9cR39V+4gl2/NnBBjoXIxkuWAPCaY4X7fbH4L/azIi7ilWOCjMUYfpJgraLUAqkRi2BqrjME8Rynw==}
 
-  /@algolia/autocomplete-core@1.9.3(@algolia/client-search@4.20.0)(algoliasearch@4.20.0)(search-insights@2.11.0):
+  /@algolia/autocomplete-core@1.9.3(@algolia/client-search@4.22.0)(algoliasearch@4.20.0)(search-insights@2.13.0):
     resolution: {integrity: sha512-009HdfugtGCdC4JdXUbVJClA0q0zh24yyePn+KUGk3rP7j8FEe/m5Yo/z65gn6nP/cM39PxpzqKrL7A6fP6PPw==}
     dependencies:
-      '@algolia/autocomplete-plugin-algolia-insights': 1.9.3(@algolia/client-search@4.20.0)(algoliasearch@4.20.0)(search-insights@2.11.0)
-      '@algolia/autocomplete-shared': 1.9.3(@algolia/client-search@4.20.0)(algoliasearch@4.20.0)
+      '@algolia/autocomplete-plugin-algolia-insights': 1.9.3(@algolia/client-search@4.22.0)(algoliasearch@4.20.0)(search-insights@2.13.0)
+      '@algolia/autocomplete-shared': 1.9.3(@algolia/client-search@4.22.0)(algoliasearch@4.20.0)
     transitivePeerDependencies:
       - '@algolia/client-search'
       - algoliasearch
       - search-insights
     dev: true
 
-  /@algolia/autocomplete-plugin-algolia-insights@1.9.3(@algolia/client-search@4.20.0)(algoliasearch@4.20.0)(search-insights@2.11.0):
+  /@algolia/autocomplete-plugin-algolia-insights@1.9.3(@algolia/client-search@4.22.0)(algoliasearch@4.20.0)(search-insights@2.13.0):
     resolution: {integrity: sha512-a/yTUkcO/Vyy+JffmAnTWbr4/90cLzw+CC3bRbhnULr/EM0fGNvM13oQQ14f2moLMcVDyAx/leczLlAOovhSZg==}
     peerDependencies:
       search-insights: '>= 1 < 3'
     dependencies:
-      '@algolia/autocomplete-shared': 1.9.3(@algolia/client-search@4.20.0)(algoliasearch@4.20.0)
-      search-insights: 2.11.0
+      '@algolia/autocomplete-shared': 1.9.3(@algolia/client-search@4.22.0)(algoliasearch@4.20.0)
+      search-insights: 2.13.0
     transitivePeerDependencies:
       - '@algolia/client-search'
       - algoliasearch
     dev: true
 
-  /@algolia/autocomplete-preset-algolia@1.9.3(@algolia/client-search@4.20.0)(algoliasearch@4.20.0):
+  /@algolia/autocomplete-preset-algolia@1.9.3(@algolia/client-search@4.22.0)(algoliasearch@4.20.0):
     resolution: {integrity: sha512-d4qlt6YmrLMYy95n5TB52wtNDr6EgAIPH81dvvvW8UmuWRgxEtY0NJiPwl/h95JtG2vmRM804M0DSwMCNZlzRA==}
     peerDependencies:
       '@algolia/client-search': '>= 4.9.1 < 6'
       algoliasearch: '>= 4.9.1 < 6'
     dependencies:
-      '@algolia/autocomplete-shared': 1.9.3(@algolia/client-search@4.20.0)(algoliasearch@4.20.0)
-      '@algolia/client-search': 4.20.0
+      '@algolia/autocomplete-shared': 1.9.3(@algolia/client-search@4.22.0)(algoliasearch@4.20.0)
+      '@algolia/client-search': 4.22.0
       algoliasearch: 4.20.0
     dev: true
 
-  /@algolia/autocomplete-shared@1.9.3(@algolia/client-search@4.20.0)(algoliasearch@4.20.0):
+  /@algolia/autocomplete-shared@1.9.3(@algolia/client-search@4.22.0)(algoliasearch@4.20.0):
     resolution: {integrity: sha512-Wnm9E4Ye6Rl6sTTqjoymD+l8DjSTHsHboVRYrKgEt8Q7UHm9nYbqhN/i0fhUYA3OAEH7WA8x3jfpnmJm3rKvaQ==}
     peerDependencies:
       '@algolia/client-search': '>= 4.9.1 < 6'
       algoliasearch: '>= 4.9.1 < 6'
     dependencies:
-      '@algolia/client-search': 4.20.0
+      '@algolia/client-search': 4.22.0
       algoliasearch: 4.20.0
     dev: true
 
@@ -1585,6 +1594,10 @@ packages:
 
   /@algolia/cache-common@4.20.0:
     resolution: {integrity: sha512-vCfxauaZutL3NImzB2G9LjLt36vKAckc6DhMp05An14kVo8F1Yofb6SIl6U3SaEz8pG2QOB9ptwM5c+zGevwIQ==}
+    dev: true
+
+  /@algolia/cache-common@4.22.0:
+    resolution: {integrity: sha512-TPwUMlIGPN16eW67qamNQUmxNiGHg/WBqWcrOoCddhqNTqGDPVqmgfaM85LPbt24t3r1z0zEz/tdsmuq3Q6oaA==}
     dev: true
 
   /@algolia/cache-in-memory@4.20.0:
@@ -1617,6 +1630,13 @@ packages:
       '@algolia/transporter': 4.20.0
     dev: true
 
+  /@algolia/client-common@4.22.0:
+    resolution: {integrity: sha512-BlbkF4qXVWuwTmYxVWvqtatCR3lzXwxx628p1wj1Q7QP2+LsTmGt1DiUYRuy9jG7iMsnlExby6kRMOOlbhv2Ag==}
+    dependencies:
+      '@algolia/requester-common': 4.22.0
+      '@algolia/transporter': 4.22.0
+    dev: true
+
   /@algolia/client-personalization@4.20.0:
     resolution: {integrity: sha512-N9+zx0tWOQsLc3K4PVRDV8GUeOLAY0i445En79Pr3zWB+m67V+n/8w4Kw1C5LlbHDDJcyhMMIlqezh6BEk7xAQ==}
     dependencies:
@@ -1633,8 +1653,20 @@ packages:
       '@algolia/transporter': 4.20.0
     dev: true
 
+  /@algolia/client-search@4.22.0:
+    resolution: {integrity: sha512-bn4qQiIdRPBGCwsNuuqB8rdHhGKKWIij9OqidM1UkQxnSG8yzxHdb7CujM30pvp5EnV7jTqDZRbxacbjYVW20Q==}
+    dependencies:
+      '@algolia/client-common': 4.22.0
+      '@algolia/requester-common': 4.22.0
+      '@algolia/transporter': 4.22.0
+    dev: true
+
   /@algolia/logger-common@4.20.0:
     resolution: {integrity: sha512-xouigCMB5WJYEwvoWW5XDv7Z9f0A8VoXJc3VKwlHJw/je+3p2RcDXfksLI4G4lIVncFUYMZx30tP/rsdlvvzHQ==}
+    dev: true
+
+  /@algolia/logger-common@4.22.0:
+    resolution: {integrity: sha512-HMUQTID0ucxNCXs5d1eBJ5q/HuKg8rFVE/vOiLaM4Abfeq1YnTtGV3+rFEhOPWhRQxNDd+YHa4q864IMc0zHpQ==}
     dev: true
 
   /@algolia/logger-console@4.20.0:
@@ -1653,6 +1685,10 @@ packages:
     resolution: {integrity: sha512-9h6ye6RY/BkfmeJp7Z8gyyeMrmmWsMOCRBXQDs4mZKKsyVlfIVICpcSibbeYcuUdurLhIlrOUkH3rQEgZzonng==}
     dev: true
 
+  /@algolia/requester-common@4.22.0:
+    resolution: {integrity: sha512-Y9cEH/cKjIIZgzvI1aI0ARdtR/xRrOR13g5psCxkdhpgRN0Vcorx+zePhmAa4jdQNqexpxtkUdcKYugBzMZJgQ==}
+    dev: true
+
   /@algolia/requester-node-http@4.20.0:
     resolution: {integrity: sha512-ocJ66L60ABSSTRFnCHIEZpNHv6qTxsBwJEPfYaSBsLQodm0F9ptvalFkHMpvj5DfE22oZrcrLbOYM2bdPJRHng==}
     dependencies:
@@ -1665,6 +1701,14 @@ packages:
       '@algolia/cache-common': 4.20.0
       '@algolia/logger-common': 4.20.0
       '@algolia/requester-common': 4.20.0
+    dev: true
+
+  /@algolia/transporter@4.22.0:
+    resolution: {integrity: sha512-ieO1k8x2o77GNvOoC+vAkFKppydQSVfbjM3YrSjLmgywiBejPTvU1R1nEvG59JIIUvtSLrZsLGPkd6vL14zopA==}
+    dependencies:
+      '@algolia/cache-common': 4.22.0
+      '@algolia/logger-common': 4.22.0
+      '@algolia/requester-common': 4.22.0
     dev: true
 
   /@alloc/quick-lru@5.2.0:
@@ -2288,10 +2332,10 @@ packages:
     resolution: {integrity: sha512-SPiDHaWKQZpwR2siD0KQUwlStvIAnEyK6tAE2h2Wuoq8ue9skzhlyVQ1ddzOxX6khULnAALDiR/isSF3bnuciA==}
     dev: true
 
-  /@docsearch/js@3.5.2(@algolia/client-search@4.20.0)(search-insights@2.11.0):
+  /@docsearch/js@3.5.2(@algolia/client-search@4.22.0)(search-insights@2.13.0):
     resolution: {integrity: sha512-p1YFTCDflk8ieHgFJYfmyHBki1D61+U9idwrLh+GQQMrBSP3DLGKpy0XUJtPjAOPltcVbqsTjiPFfH7JImjUNg==}
     dependencies:
-      '@docsearch/react': 3.5.2(@algolia/client-search@4.20.0)(search-insights@2.11.0)
+      '@docsearch/react': 3.5.2(@algolia/client-search@4.22.0)(search-insights@2.13.0)
       preact: 10.19.2
     transitivePeerDependencies:
       - '@algolia/client-search'
@@ -2301,7 +2345,7 @@ packages:
       - search-insights
     dev: true
 
-  /@docsearch/react@3.5.2(@algolia/client-search@4.20.0)(search-insights@2.11.0):
+  /@docsearch/react@3.5.2(@algolia/client-search@4.22.0)(search-insights@2.13.0):
     resolution: {integrity: sha512-9Ahcrs5z2jq/DcAvYtvlqEBHImbm4YJI8M9y0x6Tqg598P40HTEkX7hsMcIuThI+hTFxRGZ9hll0Wygm2yEjng==}
     peerDependencies:
       '@types/react': '>= 16.8.0 < 19.0.0'
@@ -2318,23 +2362,23 @@ packages:
       search-insights:
         optional: true
     dependencies:
-      '@algolia/autocomplete-core': 1.9.3(@algolia/client-search@4.20.0)(algoliasearch@4.20.0)(search-insights@2.11.0)
-      '@algolia/autocomplete-preset-algolia': 1.9.3(@algolia/client-search@4.20.0)(algoliasearch@4.20.0)
+      '@algolia/autocomplete-core': 1.9.3(@algolia/client-search@4.22.0)(algoliasearch@4.20.0)(search-insights@2.13.0)
+      '@algolia/autocomplete-preset-algolia': 1.9.3(@algolia/client-search@4.22.0)(algoliasearch@4.20.0)
       '@docsearch/css': 3.5.2
       algoliasearch: 4.20.0
-      search-insights: 2.11.0
+      search-insights: 2.13.0
     transitivePeerDependencies:
       - '@algolia/client-search'
     dev: true
 
-  /@effect/schema@0.47.7(effect@2.0.0-next.54)(fast-check@3.14.0):
+  /@effect/schema@0.47.7(effect@2.0.0-next.54)(fast-check@3.15.0):
     resolution: {integrity: sha512-rQpzxfGsv2C3HSpwBRYPt7p5eibekWbn+RrYCd6SWtNSF0YPClhZwzBLygQvqDMXHkk3rHuuSOnJvIdqu7o4Hw==}
     peerDependencies:
       effect: 2.0.0-next.54
       fast-check: ^3.13.2
     dependencies:
       effect: 2.0.0-next.54
-      fast-check: 3.14.0
+      fast-check: 3.15.0
 
   /@emmetio/abbreviation@2.3.3:
     resolution: {integrity: sha512-mgv58UrU3rh4YgbE/TzgLQwJ3pFsHHhCLqY20aJq+9comytTXUDNGG/SMtSeMJdkpxgXSXunBGLD8Boka3JyVA==}
@@ -3932,12 +3976,12 @@ packages:
       '@ethersproject/strings': 5.7.0
     dev: true
 
-  /@evmts/base@1.0.0-next.18(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.23-fixed)(typescript@5.3.3)(zod@3.22.4):
+  /@evmts/base@1.0.0-next.18(esbuild@0.19.5)(fast-check@3.15.0)(solc@0.8.23-fixed)(typescript@5.3.3)(zod@3.22.4):
     resolution: {integrity: sha512-C4dm8iP4T1zY1rtYP1OWr2VY9GpOG/cvqSgsLhiTYXtysJv8ZoNSlf9xkovwdRWnVtbfh5rFoMVplOBQCVWsjQ==}
     dependencies:
-      '@evmts/config': 1.0.0-next.17(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.23-fixed)(typescript@5.3.3)(zod@3.22.4)
+      '@evmts/config': 1.0.0-next.17(esbuild@0.19.5)(fast-check@3.15.0)(solc@0.8.23-fixed)(typescript@5.3.3)(zod@3.22.4)
       '@evmts/runtime': 1.0.0-next.13
-      '@evmts/solc': 1.0.0-next.18(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.23-fixed)(typescript@5.3.3)(zod@3.22.4)
+      '@evmts/solc': 1.0.0-next.18(esbuild@0.19.5)(fast-check@3.15.0)(solc@0.8.23-fixed)(typescript@5.3.3)(zod@3.22.4)
       '@evmts/tsconfig': 1.0.0-next.5
       '@types/node': 20.10.4
       '@types/resolve': 1.20.5
@@ -3956,15 +4000,15 @@ packages:
       - zod
     dev: true
 
-  /@evmts/config@1.0.0-next.17(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.22)(typescript@5.3.3):
+  /@evmts/config@1.0.0-next.17(esbuild@0.19.11)(fast-check@3.15.0)(solc@0.8.22)(typescript@5.3.3):
     resolution: {integrity: sha512-rxyLCYOROZ7rDGYrcKpnK0ulXTWJwAyyqKbbogAikLZkUh2VSH8GVpYzNpHj2Uy2ZMiNHlYrpEMbWRt53rCsgg==}
     peerDependencies:
       solc: '*'
     dependencies:
-      '@effect/schema': 0.47.7(effect@2.0.0-next.54)(fast-check@3.14.0)
-      '@evmts/effect': 1.0.0-next.9(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.22)(typescript@5.3.3)
+      '@effect/schema': 0.47.7(effect@2.0.0-next.54)(fast-check@3.15.0)
+      '@evmts/effect': 1.0.0-next.9(esbuild@0.19.11)(fast-check@3.15.0)(solc@0.8.22)(typescript@5.3.3)
       '@types/node': 20.10.4
-      bundle-require: 4.0.2(esbuild@0.19.5)
+      bundle-require: 4.0.2(esbuild@0.19.11)
       effect: 2.0.0-next.54
       jsonc-parser: 3.2.0
       solc: 0.8.22
@@ -3978,13 +4022,13 @@ packages:
       - zod
     dev: true
 
-  /@evmts/config@1.0.0-next.17(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.23-fixed)(typescript@5.3.3)(zod@3.22.4):
+  /@evmts/config@1.0.0-next.17(esbuild@0.19.5)(fast-check@3.15.0)(solc@0.8.23-fixed)(typescript@5.3.3)(zod@3.22.4):
     resolution: {integrity: sha512-rxyLCYOROZ7rDGYrcKpnK0ulXTWJwAyyqKbbogAikLZkUh2VSH8GVpYzNpHj2Uy2ZMiNHlYrpEMbWRt53rCsgg==}
     peerDependencies:
       solc: '*'
     dependencies:
-      '@effect/schema': 0.47.7(effect@2.0.0-next.54)(fast-check@3.14.0)
-      '@evmts/effect': 1.0.0-next.9(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.23-fixed)(typescript@5.3.3)(zod@3.22.4)
+      '@effect/schema': 0.47.7(effect@2.0.0-next.54)(fast-check@3.15.0)
+      '@evmts/effect': 1.0.0-next.9(esbuild@0.19.5)(fast-check@3.15.0)(solc@0.8.23-fixed)(typescript@5.3.3)(zod@3.22.4)
       '@types/node': 20.10.4
       bundle-require: 4.0.2(esbuild@0.19.5)
       effect: 2.0.0-next.54
@@ -4008,13 +4052,13 @@ packages:
       viem: 1.21.3(typescript@5.3.3)(zod@3.22.4)
     dev: true
 
-  /@evmts/effect@1.0.0-next.9(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.22)(typescript@5.3.3):
+  /@evmts/effect@1.0.0-next.9(esbuild@0.19.11)(fast-check@3.15.0)(solc@0.8.22)(typescript@5.3.3):
     resolution: {integrity: sha512-EDhjN26goPELm2XjxBcY3/8xx7J3HTGdOqgKQoolWt/5eghyxXcvcFFnynN3KSd6mSciozBWGuOFms8HEi4QTg==}
     peerDependencies:
       solc: '*'
     dependencies:
-      '@effect/schema': 0.47.7(effect@2.0.0-next.54)(fast-check@3.14.0)
-      bundle-require: 4.0.2(esbuild@0.19.5)
+      '@effect/schema': 0.47.7(effect@2.0.0-next.54)(fast-check@3.15.0)
+      bundle-require: 4.0.2(esbuild@0.19.11)
       effect: 2.0.0-next.54
       jsonc-parser: 3.2.0
       resolve: 1.22.8
@@ -4029,12 +4073,12 @@ packages:
       - zod
     dev: true
 
-  /@evmts/effect@1.0.0-next.9(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.23-fixed)(typescript@5.3.3)(zod@3.22.4):
+  /@evmts/effect@1.0.0-next.9(esbuild@0.19.5)(fast-check@3.15.0)(solc@0.8.23-fixed)(typescript@5.3.3)(zod@3.22.4):
     resolution: {integrity: sha512-EDhjN26goPELm2XjxBcY3/8xx7J3HTGdOqgKQoolWt/5eghyxXcvcFFnynN3KSd6mSciozBWGuOFms8HEi4QTg==}
     peerDependencies:
       solc: '*'
     dependencies:
-      '@effect/schema': 0.47.7(effect@2.0.0-next.54)(fast-check@3.14.0)
+      '@effect/schema': 0.47.7(effect@2.0.0-next.54)(fast-check@3.15.0)
       bundle-require: 4.0.2(esbuild@0.19.5)
       effect: 2.0.0-next.54
       jsonc-parser: 3.2.0
@@ -4050,11 +4094,11 @@ packages:
       - zod
     dev: true
 
-  /@evmts/resolutions@1.0.0-next.18(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.22)(typescript@5.3.3):
+  /@evmts/resolutions@1.0.0-next.18(esbuild@0.19.11)(fast-check@3.15.0)(solc@0.8.22)(typescript@5.3.3):
     resolution: {integrity: sha512-+VB+sh5IF1KtuXuyDHH5KOJjNEJs/REtVz0yzht/RaEOql+cOqtprVivemzzTwPT04bzNhilykas5EfKU08PNw==}
     dependencies:
-      '@evmts/config': 1.0.0-next.17(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.22)(typescript@5.3.3)
-      '@evmts/effect': 1.0.0-next.9(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.22)(typescript@5.3.3)
+      '@evmts/config': 1.0.0-next.17(esbuild@0.19.11)(fast-check@3.15.0)(solc@0.8.22)(typescript@5.3.3)
+      '@evmts/effect': 1.0.0-next.9(esbuild@0.19.11)(fast-check@3.15.0)(solc@0.8.22)(typescript@5.3.3)
       '@evmts/tsconfig': 1.0.0-next.5
       '@types/node': 20.10.4
       '@types/resolve': 1.20.5
@@ -4073,11 +4117,11 @@ packages:
       - zod
     dev: true
 
-  /@evmts/resolutions@1.0.0-next.18(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.23-fixed)(typescript@5.3.3)(zod@3.22.4):
+  /@evmts/resolutions@1.0.0-next.18(esbuild@0.19.5)(fast-check@3.15.0)(solc@0.8.23-fixed)(typescript@5.3.3)(zod@3.22.4):
     resolution: {integrity: sha512-+VB+sh5IF1KtuXuyDHH5KOJjNEJs/REtVz0yzht/RaEOql+cOqtprVivemzzTwPT04bzNhilykas5EfKU08PNw==}
     dependencies:
-      '@evmts/config': 1.0.0-next.17(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.23-fixed)(typescript@5.3.3)(zod@3.22.4)
-      '@evmts/effect': 1.0.0-next.9(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.23-fixed)(typescript@5.3.3)(zod@3.22.4)
+      '@evmts/config': 1.0.0-next.17(esbuild@0.19.5)(fast-check@3.15.0)(solc@0.8.23-fixed)(typescript@5.3.3)(zod@3.22.4)
+      '@evmts/effect': 1.0.0-next.9(esbuild@0.19.5)(fast-check@3.15.0)(solc@0.8.23-fixed)(typescript@5.3.3)(zod@3.22.4)
       '@evmts/tsconfig': 1.0.0-next.5
       '@types/node': 20.10.4
       '@types/resolve': 1.20.5
@@ -4103,11 +4147,11 @@ packages:
       effect: 2.0.0-next.54
     dev: true
 
-  /@evmts/solc@1.0.0-next.18(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.22)(typescript@5.3.3):
+  /@evmts/solc@1.0.0-next.18(esbuild@0.19.11)(fast-check@3.15.0)(solc@0.8.22)(typescript@5.3.3):
     resolution: {integrity: sha512-MGGIz+a8ZKtkmh2z8tmjfJ+DRSLdJV7lSBge0a0sIEhtUFSfc24MVEvHt4KOPms5bNc0OI6BLMM1j72xj4/UDw==}
     dependencies:
-      '@evmts/config': 1.0.0-next.17(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.22)(typescript@5.3.3)
-      '@evmts/resolutions': 1.0.0-next.18(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.22)(typescript@5.3.3)
+      '@evmts/config': 1.0.0-next.17(esbuild@0.19.11)(fast-check@3.15.0)(solc@0.8.22)(typescript@5.3.3)
+      '@evmts/resolutions': 1.0.0-next.18(esbuild@0.19.11)(fast-check@3.15.0)(solc@0.8.22)(typescript@5.3.3)
       '@evmts/tsconfig': 1.0.0-next.5
       '@types/node': 20.10.4
       '@types/resolve': 1.20.5
@@ -4126,11 +4170,11 @@ packages:
       - zod
     dev: true
 
-  /@evmts/solc@1.0.0-next.18(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.23-fixed)(typescript@5.3.3)(zod@3.22.4):
+  /@evmts/solc@1.0.0-next.18(esbuild@0.19.5)(fast-check@3.15.0)(solc@0.8.23-fixed)(typescript@5.3.3)(zod@3.22.4):
     resolution: {integrity: sha512-MGGIz+a8ZKtkmh2z8tmjfJ+DRSLdJV7lSBge0a0sIEhtUFSfc24MVEvHt4KOPms5bNc0OI6BLMM1j72xj4/UDw==}
     dependencies:
-      '@evmts/config': 1.0.0-next.17(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.23-fixed)(typescript@5.3.3)(zod@3.22.4)
-      '@evmts/resolutions': 1.0.0-next.18(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.23-fixed)(typescript@5.3.3)(zod@3.22.4)
+      '@evmts/config': 1.0.0-next.17(esbuild@0.19.5)(fast-check@3.15.0)(solc@0.8.23-fixed)(typescript@5.3.3)(zod@3.22.4)
+      '@evmts/resolutions': 1.0.0-next.18(esbuild@0.19.5)(fast-check@3.15.0)(solc@0.8.23-fixed)(typescript@5.3.3)(zod@3.22.4)
       '@evmts/tsconfig': 1.0.0-next.5
       '@types/node': 20.10.4
       '@types/resolve': 1.20.5
@@ -4149,13 +4193,13 @@ packages:
       - zod
     dev: true
 
-  /@evmts/ts-plugin@1.0.0-next.18(fast-check@3.14.0)(typescript@5.3.3):
+  /@evmts/ts-plugin@1.0.0-next.18(fast-check@3.15.0)(typescript@5.3.3):
     resolution: {integrity: sha512-Vaf2EoDKnAEok7iY/drsrfzUnorHfRmjvmf/ACsnLbZHYKny0ZsWKGKvXzugYUf0blFGxeNH4yZodovPKKtzHg==}
     hasBin: true
     peerDependencies:
       typescript: '>=5.0.0'
     dependencies:
-      '@evmts/base': 1.0.0-next.18(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.23-fixed)(typescript@5.3.3)(zod@3.22.4)
+      '@evmts/base': 1.0.0-next.18(esbuild@0.19.5)(fast-check@3.15.0)(solc@0.8.23-fixed)(typescript@5.3.3)(zod@3.22.4)
       effect: 2.0.0-next.54
       esbuild: 0.19.5
       glob: 10.3.10
@@ -4174,12 +4218,12 @@ packages:
     resolution: {integrity: sha512-GWguzA58Ry2CPQhvNAH0x2Au0Bdm+MsBORWHF9usCVD44yC++joPHaIWBSbe3SrF0BccLEf5yIfOKgS5XIEecQ==}
     dev: true
 
-  /@evmts/unplugin@1.0.0-next.19(esbuild@0.19.5)(fast-check@3.14.0)(typescript@5.3.3):
+  /@evmts/unplugin@1.0.0-next.19(esbuild@0.19.11)(fast-check@3.15.0)(typescript@5.3.3):
     resolution: {integrity: sha512-NgIXsZ5IEliByfgM/TBhyibLTawCipZs6oIGe7XIehGAVBADOBEWaT7QgIjGQkS5dEyE0OMTEAmgRQhbYhUIog==}
     dependencies:
-      '@evmts/config': 1.0.0-next.17(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.22)(typescript@5.3.3)
+      '@evmts/config': 1.0.0-next.17(esbuild@0.19.11)(fast-check@3.15.0)(solc@0.8.22)(typescript@5.3.3)
       '@evmts/runtime': 1.0.0-next.13
-      '@evmts/solc': 1.0.0-next.18(esbuild@0.19.5)(fast-check@3.14.0)(solc@0.8.22)(typescript@5.3.3)
+      '@evmts/solc': 1.0.0-next.18(esbuild@0.19.11)(fast-check@3.15.0)(solc@0.8.22)(typescript@5.3.3)
       '@evmts/tsconfig': 1.0.0-next.5
       '@types/node': 20.10.4
       '@types/resolve': 1.20.5
@@ -4199,10 +4243,10 @@ packages:
       - zod
     dev: true
 
-  /@evmts/vite-plugin@1.0.0-next.19(esbuild@0.19.5)(fast-check@3.14.0)(typescript@5.3.3):
+  /@evmts/vite-plugin@1.0.0-next.19(esbuild@0.19.11)(fast-check@3.15.0)(typescript@5.3.3):
     resolution: {integrity: sha512-rZ3cMVskpkeiHr5N4HtN2tVLm2PJtSyoWMZqFnEPGsbH3nK7FEh8ZX9134kbCuk7SFM/S49GgNqPEoRb2OzkLg==}
     dependencies:
-      '@evmts/unplugin': 1.0.0-next.19(esbuild@0.19.5)(fast-check@3.14.0)(typescript@5.3.3)
+      '@evmts/unplugin': 1.0.0-next.19(esbuild@0.19.11)(fast-check@3.15.0)(typescript@5.3.3)
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -4410,6 +4454,11 @@ packages:
     dependencies:
       '@noble/hashes': 1.3.2
 
+  /@noble/curves@1.3.0:
+    resolution: {integrity: sha512-t01iSXPuN+Eqzb4eBX0S5oubSqXbK/xXa1Ne18Hj8f9pStxztHCE2gfboSp/dZRLSqfuLpRK2nDXDK+W9puocA==}
+    dependencies:
+      '@noble/hashes': 1.3.3
+
   /@noble/hashes@1.2.0:
     resolution: {integrity: sha512-FZfhjEDbT5GRswV3C6uvLPHMiVD6lQBmpoX5+eSiPaMTXte/IKqI5dykDxzZB/WBeK/CDuQRBWarPdi3FNY2zQ==}
     dev: true
@@ -4421,6 +4470,10 @@ packages:
 
   /@noble/hashes@1.3.2:
     resolution: {integrity: sha512-MVC8EAQp7MvEcm30KWENFjgR+Mkmf+D189XJTkFIlwohU5hcBbn1ZkKq7KVTi2Hme3PMGF390DaL52beVrIihQ==}
+    engines: {node: '>= 16'}
+
+  /@noble/hashes@1.3.3:
+    resolution: {integrity: sha512-V7/fPHgl+jsVPXqqeOzT8egNj2iBIVt+ECeMMG8TdcnTikP3oaBtUVqpT/gYCR68aEBJSF+XbYUxStjbFMqIIA==}
     engines: {node: '>= 16'}
 
   /@noble/secp256k1@1.7.1:
@@ -4606,13 +4659,13 @@ packages:
       - utf-8-validate
     dev: true
 
-  /@nomicfoundation/hardhat-foundry@1.1.1(hardhat@2.19.2):
+  /@nomicfoundation/hardhat-foundry@1.1.1(hardhat@2.19.4):
     resolution: {integrity: sha512-cXGCBHAiXas9Pg9MhMOpBVQCkWRYoRFG7GJJAph+sdQsfd22iRs5U5Vs9XmpGEQd1yEvYISQZMeE68Nxj65iUQ==}
     peerDependencies:
       hardhat: ^2.17.2
     dependencies:
       chalk: 2.4.2
-      hardhat: 2.19.2(typescript@5.2.2)
+      hardhat: 2.19.4(typescript@5.2.2)
     dev: true
 
   /@nomicfoundation/solidity-analyzer-darwin-arm64@0.1.1:
@@ -5084,7 +5137,7 @@ packages:
       react-dom: 18.2.0(react@18.2.0)
       react-remove-scroll: 2.5.4(@types/react@18.2.37)(react@18.2.0)
       ua-parser-js: 1.0.37
-      viem: 1.19.4(typescript@5.2.2)
+      viem: 1.19.4(typescript@5.2.2)(zod@3.22.4)
       wagmi: 1.4.7(@types/react@18.2.37)(react-dom@18.2.0)(react@18.2.0)(typescript@5.2.2)(viem@1.19.4)
     transitivePeerDependencies:
       - '@types/react'
@@ -5416,7 +5469,7 @@ packages:
     resolution: {integrity: sha512-XJbEPuaVc7b9n23MqlF6c+ToYIS3f7P2Sel8f3cSBQ9WORE4xrSuvhMpK9fDSFqJ7by/brc+rmJR/5HViRr0/w==}
     dependencies:
       '@safe-global/safe-gateway-typescript-sdk': 3.13.2
-      viem: 1.19.11(typescript@5.2.2)(zod@3.22.4)
+      viem: 1.19.4(typescript@5.2.2)(zod@3.22.4)
     transitivePeerDependencies:
       - bufferutil
       - typescript
@@ -5427,7 +5480,7 @@ packages:
     resolution: {integrity: sha512-XJbEPuaVc7b9n23MqlF6c+ToYIS3f7P2Sel8f3cSBQ9WORE4xrSuvhMpK9fDSFqJ7by/brc+rmJR/5HViRr0/w==}
     dependencies:
       '@safe-global/safe-gateway-typescript-sdk': 3.13.2
-      viem: 1.19.11(typescript@5.3.3)(zod@3.22.4)
+      viem: 1.19.4(typescript@5.3.3)(zod@3.22.4)
     transitivePeerDependencies:
       - bufferutil
       - typescript
@@ -5442,19 +5495,23 @@ packages:
   /@scure/base@1.1.3:
     resolution: {integrity: sha512-/+SgoRjLq7Xlf0CWuLHq2LUZeL/w65kfzAPG5NH9pcmBhs+nunQTn4gvdwgMTIXnt9b2C/1SeL2XiysZEyIC9Q==}
 
+  /@scure/base@1.1.5:
+    resolution: {integrity: sha512-Brj9FiG2W1MRQSTB212YVPRrcbjkv48FoZi/u4l/zds/ieRrqsh7aUf6CLwkAq61oKXr/ZlTzlY66gLIj3TFTQ==}
+    dev: true
+
   /@scure/bip32@1.1.5:
     resolution: {integrity: sha512-XyNh1rB0SkEqd3tXcXMi+Xe1fvg+kUIcoRIEujP1Jgv7DqW2r9lg3Ah0NkFaCs9sTkQAQA8kw7xiRXzENi9Rtw==}
     dependencies:
       '@noble/hashes': 1.2.0
       '@noble/secp256k1': 1.7.1
-      '@scure/base': 1.1.3
+      '@scure/base': 1.1.5
     dev: true
 
   /@scure/bip32@1.3.1:
     resolution: {integrity: sha512-osvveYtyzdEVbt3OfwwXFr4P2iVBL5u1Q3q4ONBfDY/UpOuXmOlbgwc1xECEboY8wIays8Yt6onaWMUdUbfl0A==}
     dependencies:
       '@noble/curves': 1.1.0
-      '@noble/hashes': 1.3.2
+      '@noble/hashes': 1.3.1
       '@scure/base': 1.1.3
     dev: false
 
@@ -5469,7 +5526,7 @@ packages:
     resolution: {integrity: sha512-t+wDck2rVkh65Hmv280fYdVdY25J9YeEUIgn2LG1WM6gxFkGzcksoDiUkWVpVp3Oex9xGC68JU2dSbUfwZ2jPg==}
     dependencies:
       '@noble/hashes': 1.2.0
-      '@scure/base': 1.1.3
+      '@scure/base': 1.1.5
     dev: true
 
   /@scure/bip39@1.2.1:
@@ -5567,8 +5624,8 @@ packages:
     resolution: {integrity: sha512-LkqsEBgTZztFiccZZXnawWa8qNCATEqE97/d0vIwjTclmVlc8pBpD1DmjfVHtZ1HS5fZorFlVhXfpwnCNDZfyg==}
     dependencies:
       '@babel/runtime': 7.23.2
-      '@noble/curves': 1.2.0
-      '@noble/hashes': 1.3.2
+      '@noble/curves': 1.3.0
+      '@noble/hashes': 1.3.3
       '@solana/buffer-layout': 4.0.1
       agentkeepalive: 4.5.0
       bigint-buffer: 1.1.5
@@ -5891,13 +5948,13 @@ packages:
   /@types/bn.js@4.11.6:
     resolution: {integrity: sha512-pqr857jrp2kPuO9uRjZ3PwnJTjoQy+fcdxvBTvHm6dkmEL9q+hDD/2j/0ELOBPtPnS8LjCX0gI9nbl8lVkadpg==}
     dependencies:
-      '@types/node': 20.10.4
+      '@types/node': 20.10.6
     dev: true
 
   /@types/bn.js@5.1.5:
     resolution: {integrity: sha512-V46N0zwKRF5Q00AZ6hWtN0T8gGmDUaUzLWQvHFo5yThtVwK/VCenFY3wXVbOvNfajEpsTfQM4IN9k/d6gUVX3A==}
     dependencies:
-      '@types/node': 20.10.4
+      '@types/node': 20.10.6
     dev: true
 
   /@types/chai-subset@1.3.5:
@@ -6022,6 +6079,12 @@ packages:
     dependencies:
       undici-types: 5.26.5
 
+  /@types/node@20.10.6:
+    resolution: {integrity: sha512-Vac8H+NlRNNlAmDfGUP7b5h/KA+AtWIzuXy0E6OyP8f1tCLYAtPvKRRDJjAPqhpCb0t6U2j7/xqAuLEebW2kiw==}
+    dependencies:
+      undici-types: 5.26.5
+    dev: true
+
   /@types/node@20.9.1:
     resolution: {integrity: sha512-HhmzZh5LSJNS5O8jQKpJ/3ZcrrlG6L70hpGqMIAoM9YVD0YBRNWYsfwcXq8VnSjlNpCpgLzMXdiPo+dxcvSmiA==}
     dependencies:
@@ -6034,7 +6097,7 @@ packages:
   /@types/pbkdf2@3.1.2:
     resolution: {integrity: sha512-uRwJqmiXmh9++aSu1VNEn3iIxWOhd8AHXNSdlaLfdAAdSTY9jYVeGWnzejM3dvrkbqE3/hyQkQQ29IFATEGlew==}
     dependencies:
-      '@types/node': 20.10.4
+      '@types/node': 20.10.6
     dev: true
 
   /@types/prismjs@1.26.3:
@@ -6076,7 +6139,7 @@ packages:
   /@types/secp256k1@4.0.6:
     resolution: {integrity: sha512-hHxJU6PAEUn0TP4S/ZOzuTUvJWuZ6eIKeNKb5RBpODvSl6hp1Wrw4s7ATY50rklRCScUDpHzVA/DQdSjJ3UoYQ==}
     dependencies:
-      '@types/node': 20.10.4
+      '@types/node': 20.10.6
     dev: true
 
   /@types/semver@7.5.5:
@@ -6520,7 +6583,7 @@ packages:
       abitype: 0.8.7(typescript@5.2.2)(zod@3.22.4)
       eventemitter3: 4.0.7
       typescript: 5.2.2
-      viem: 1.19.4(typescript@5.2.2)
+      viem: 1.19.4(typescript@5.2.2)(zod@3.22.4)
     transitivePeerDependencies:
       - '@azure/app-configuration'
       - '@azure/cosmos'
@@ -6586,7 +6649,7 @@ packages:
       - zod
     dev: true
 
-  /@wagmi/connectors@3.1.5(react@18.2.0)(typescript@5.2.2)(viem@1.19.11)(zod@3.22.4):
+  /@wagmi/connectors@3.1.5(react@18.2.0)(typescript@5.2.2)(viem@1.21.3)(zod@3.22.4):
     resolution: {integrity: sha512-aE4rWZbivqWa9HqjiLDPtwROH2b1Az+lBVMeZ3o/aFxGNGNEkdrSAMOUG15/UFy3VnN6HqGOtTobOBZ10JhfNQ==}
     peerDependencies:
       typescript: '>=5.0.4'
@@ -6606,7 +6669,7 @@ packages:
       abitype: 0.8.7(typescript@5.2.2)(zod@3.22.4)
       eventemitter3: 4.0.7
       typescript: 5.2.2
-      viem: 1.19.11(typescript@5.2.2)(zod@3.22.4)
+      viem: 1.21.3(typescript@5.2.2)(zod@3.22.4)
     transitivePeerDependencies:
       - '@azure/app-configuration'
       - '@azure/cosmos'
@@ -6685,7 +6748,7 @@ packages:
       abitype: 0.8.7(typescript@5.2.2)(zod@3.22.4)
       eventemitter3: 4.0.7
       typescript: 5.2.2
-      viem: 1.19.4(typescript@5.2.2)
+      viem: 1.19.4(typescript@5.2.2)(zod@3.22.4)
       zustand: 4.4.6(@types/react@18.2.37)(react@18.2.0)
     transitivePeerDependencies:
       - '@azure/app-configuration'
@@ -6748,7 +6811,7 @@ packages:
       - zod
     dev: true
 
-  /@wagmi/core@1.4.7(react@18.2.0)(typescript@5.2.2)(viem@1.19.11)(zod@3.22.4):
+  /@wagmi/core@1.4.7(react@18.2.0)(typescript@5.2.2)(viem@1.21.3)(zod@3.22.4):
     resolution: {integrity: sha512-PiOIGni8ArQoPmuDylHX38zMt2nPnTYRIluIqiduKyGCM61X/tf10a0rafUMOOphDPudZu1TacNDhCSeoh/LEA==}
     peerDependencies:
       typescript: '>=5.0.4'
@@ -6757,11 +6820,11 @@ packages:
       typescript:
         optional: true
     dependencies:
-      '@wagmi/connectors': 3.1.5(react@18.2.0)(typescript@5.2.2)(viem@1.19.11)(zod@3.22.4)
+      '@wagmi/connectors': 3.1.5(react@18.2.0)(typescript@5.2.2)(viem@1.21.3)(zod@3.22.4)
       abitype: 0.8.7(typescript@5.2.2)(zod@3.22.4)
       eventemitter3: 4.0.7
       typescript: 5.2.2
-      viem: 1.19.11(typescript@5.2.2)(zod@3.22.4)
+      viem: 1.21.3(typescript@5.2.2)(zod@3.22.4)
       zustand: 4.4.6(@types/react@18.2.37)(react@18.2.0)
     transitivePeerDependencies:
       - '@azure/app-configuration'
@@ -8009,7 +8072,7 @@ packages:
   /axios@0.26.1:
     resolution: {integrity: sha512-fPwcX4EvnSHuInCMItEhAGnaSEXRBjtzh9fOtsE6E1G6p7vl7edEeZe11QHf18+6+9gR5PbKV/sGKNaD8YaMeA==}
     dependencies:
-      follow-redirects: 1.15.3(debug@4.3.4)
+      follow-redirects: 1.15.3
     transitivePeerDependencies:
       - debug
     dev: true
@@ -8017,7 +8080,7 @@ packages:
   /axios@1.6.2:
     resolution: {integrity: sha512-7i24Ri4pmDRfJTR7LDBhsOTtcm+9kjX5WiY1X3wIisx6G9So3pfMkEiU7emUBe46oceVImccTEM3k6C5dbVW8A==}
     dependencies:
-      follow-redirects: 1.15.3(debug@4.3.4)
+      follow-redirects: 1.15.3
       form-data: 4.0.0
       proxy-from-env: 1.1.0
     transitivePeerDependencies:
@@ -10682,8 +10745,8 @@ packages:
     resolution: {integrity: sha512-GipyPsXO1anza0AOZdy69Im7hGFCNB7Y/NGjDlZGJ3GJJLtwNSb2vrzYrTYJRrRloVx7pl+bhUaTB8yiccPvFQ==}
     engines: {node: '> 0.1.90'}
 
-  /fast-check@3.14.0:
-    resolution: {integrity: sha512-9Z0zqASzDNjXBox/ileV/fd+4P+V/f3o4shM6QawvcdLFh8yjPG4h5BrHUZ8yzY6amKGDTAmRMyb/JZqe+dCgw==}
+  /fast-check@3.15.0:
+    resolution: {integrity: sha512-iBz6c+EXL6+nI931x/sbZs1JYTZtLG6Cko0ouS8LRTikhDR7+wZk4TYzdRavlnByBs2G6+nuuJ7NYL9QplNt8Q==}
     engines: {node: '>=8.0.0'}
     dependencies:
       pure-rand: 6.0.4
@@ -10893,8 +10956,17 @@ packages:
       tabbable: 6.2.0
     dev: true
 
-  /follow-redirects@1.15.3(debug@4.3.4):
+  /follow-redirects@1.15.3:
     resolution: {integrity: sha512-1VzOtuEM8pC9SFU1E+8KfTjZyMztRsgEfwQl44z8A25uy13jSzTj6dyK2Df52iV0vgHCfBwLhDWevLn95w5v6Q==}
+    engines: {node: '>=4.0'}
+    peerDependencies:
+      debug: '*'
+    peerDependenciesMeta:
+      debug:
+        optional: true
+
+  /follow-redirects@1.15.4(debug@4.3.4):
+    resolution: {integrity: sha512-Cr4D/5wlrb0z9dgERpUL3LrmPKVDsETIJhaCMeDfuFYcqa5bldGV6wBsAN6X/vxlXQtFBMrXdXxdL8CbDTGniw==}
     engines: {node: '>=4.0'}
     peerDependencies:
       debug: '*'
@@ -10903,6 +10975,7 @@ packages:
         optional: true
     dependencies:
       debug: 4.3.4(supports-color@8.1.1)
+    dev: true
 
   /for-each@0.3.3:
     resolution: {integrity: sha512-jqYfLp7mo9vIyQf8ykW2v7A+2N4QjeCeI5+Dz9XraiO1ign81wjiH7Fb9vSOWvQfNtmSa4H2RoQTrrXivdUZmw==}
@@ -11419,8 +11492,8 @@ packages:
     engines: {node: '>=6'}
     dev: true
 
-  /hardhat@2.19.2(typescript@5.2.2):
-    resolution: {integrity: sha512-CRU3+0Cc8Qh9UpxKd8cLADDPes7ZDtKj4dTK+ERtLBomEzhRPLWklJn4VKOwjre9/k8GNd/e9DYxpfuzcxbXPQ==}
+  /hardhat@2.19.4(typescript@5.2.2):
+    resolution: {integrity: sha512-fTQJpqSt3Xo9Mn/WrdblNGAfcANM6XC3tAEi6YogB4s02DmTf93A8QsGb8uR0KR8TFcpcS8lgiW4ugAIYpnbrQ==}
     hasBin: true
     peerDependencies:
       ts-node: '*'
@@ -12393,7 +12466,7 @@ packages:
     peerDependencies:
       ws: '*'
     dependencies:
-      ws: 8.14.2(bufferutil@4.0.8)(utf-8-validate@5.0.10)
+      ws: 8.14.2
     dev: false
 
   /istanbul-lib-coverage@3.2.2:
@@ -15298,7 +15371,7 @@ packages:
       '@babel/runtime': 7.23.2
       eventemitter3: 4.0.7
       uuid: 8.3.2
-      ws: 8.14.2(bufferutil@4.0.8)(utf-8-validate@5.0.10)
+      ws: 8.16.0(bufferutil@4.0.8)(utf-8-validate@5.0.10)
     optionalDependencies:
       bufferutil: 4.0.8
       utf-8-validate: 5.0.10
@@ -15422,8 +15495,8 @@ packages:
     resolution: {integrity: sha512-cdwTTnqPu0Hyvf5in5asVdZocVDTNRmR7XEcJuIzMjJeSHybHl7vpB66AzwTaIg6CLSbtjcxc8fqcySfnTkccA==}
     dev: true
 
-  /search-insights@2.11.0:
-    resolution: {integrity: sha512-Uin2J8Bpm3xaZi9Y8QibSys6uJOFZ+REMrf42v20AA3FUDUrshKkMEP6liJbMAHCm71wO6ls4mwAf7a3gFVxLw==}
+  /search-insights@2.13.0:
+    resolution: {integrity: sha512-Orrsjf9trHHxFRuo9/rzm0KIWmgzE8RMlZMzuhZOJ01Rnz3D0YBAe+V6473t6/H6c7irs6Lt48brULAiRWb3Vw==}
     dev: true
 
   /secp256k1@4.0.3:
@@ -15783,7 +15856,7 @@ packages:
     dependencies:
       command-exists: 1.2.9
       commander: 3.0.2
-      follow-redirects: 1.15.3(debug@4.3.4)
+      follow-redirects: 1.15.4(debug@4.3.4)
       fs-extra: 0.30.0
       js-sha3: 0.8.0
       memorystream: 0.3.1
@@ -15801,7 +15874,7 @@ packages:
     dependencies:
       command-exists: 1.2.9
       commander: 8.3.0
-      follow-redirects: 1.15.3(debug@4.3.4)
+      follow-redirects: 1.15.3
       js-sha3: 0.8.0
       memorystream: 0.3.1
       semver: 5.7.2
@@ -15816,7 +15889,7 @@ packages:
     dependencies:
       command-exists: 1.2.9
       commander: 8.3.0
-      follow-redirects: 1.15.3(debug@4.3.4)
+      follow-redirects: 1.15.3
       js-sha3: 0.8.0
       memorystream: 0.3.1
       semver: 5.7.2
@@ -17536,7 +17609,7 @@ packages:
       - utf-8-validate
       - zod
 
-  /viem@1.19.4(typescript@5.2.2):
+  /viem@1.19.4(typescript@5.2.2)(zod@3.22.4):
     resolution: {integrity: sha512-CvAVaOzxlu3Q/cpfrYvTRMBIPDMAkLu8aFmHLqU1Bg25DyUxp9xwoF1Ljp38q7/Rosm1OPFQ4y6K64v/VwoumQ==}
     peerDependencies:
       typescript: '>=5.0.4'
@@ -17557,7 +17630,52 @@ packages:
       - bufferutil
       - utf-8-validate
       - zod
-    dev: false
+
+  /viem@1.19.4(typescript@5.3.3)(zod@3.22.4):
+    resolution: {integrity: sha512-CvAVaOzxlu3Q/cpfrYvTRMBIPDMAkLu8aFmHLqU1Bg25DyUxp9xwoF1Ljp38q7/Rosm1OPFQ4y6K64v/VwoumQ==}
+    peerDependencies:
+      typescript: '>=5.0.4'
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+    dependencies:
+      '@adraffy/ens-normalize': 1.10.0
+      '@noble/curves': 1.2.0
+      '@noble/hashes': 1.3.2
+      '@scure/bip32': 1.3.2
+      '@scure/bip39': 1.2.1
+      abitype: 0.9.8(typescript@5.3.3)(zod@3.22.4)
+      isows: 1.0.3(ws@8.13.0)
+      typescript: 5.3.3
+      ws: 8.13.0
+    transitivePeerDependencies:
+      - bufferutil
+      - utf-8-validate
+      - zod
+    dev: true
+
+  /viem@1.21.3(typescript@5.2.2)(zod@3.22.4):
+    resolution: {integrity: sha512-tBCRj+AtpGGcyrY7k2Xjv0k8JB6ShGQ+dxeCdtIxWJO6ATmicTp7Qbgn/0IsbyQ0nUF06LMyo8PR569cRflnIA==}
+    peerDependencies:
+      typescript: '>=5.0.4'
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+    dependencies:
+      '@adraffy/ens-normalize': 1.10.0
+      '@noble/curves': 1.2.0
+      '@noble/hashes': 1.3.2
+      '@scure/bip32': 1.3.2
+      '@scure/bip39': 1.2.1
+      abitype: 0.9.8(typescript@5.2.2)(zod@3.22.4)
+      isows: 1.0.3(ws@8.13.0)
+      typescript: 5.2.2
+      ws: 8.13.0
+    transitivePeerDependencies:
+      - bufferutil
+      - utf-8-validate
+      - zod
+    dev: true
 
   /viem@1.21.3(typescript@5.3.3)(zod@3.22.4):
     resolution: {integrity: sha512-tBCRj+AtpGGcyrY7k2Xjv0k8JB6ShGQ+dxeCdtIxWJO6ATmicTp7Qbgn/0IsbyQ0nUF06LMyo8PR569cRflnIA==}
@@ -17770,7 +17888,7 @@ packages:
       vite: 4.5.0
     dev: true
 
-  /vitepress@1.0.0-rc.24(@algolia/client-search@4.20.0)(postcss@8.4.31)(search-insights@2.11.0)(typescript@5.3.3):
+  /vitepress@1.0.0-rc.24(@algolia/client-search@4.22.0)(postcss@8.4.31)(search-insights@2.13.0)(typescript@5.3.3):
     resolution: {integrity: sha512-RpnL8cnOGwiRlBbrYQUm9sYkJbtyOt/wYXk2diTcokY4yvks/5lq9LuSt+MURWB6ZqwpSNHvTmxgaSfLoG0/OA==}
     hasBin: true
     peerDependencies:
@@ -17783,7 +17901,7 @@ packages:
         optional: true
     dependencies:
       '@docsearch/css': 3.5.2
-      '@docsearch/js': 3.5.2(@algolia/client-search@4.20.0)(search-insights@2.11.0)
+      '@docsearch/js': 3.5.2(@algolia/client-search@4.22.0)(search-insights@2.13.0)
       '@types/markdown-it': 13.0.6
       '@vitejs/plugin-vue': 4.3.1(vite@4.5.0)(vue@3.3.8)
       '@vue/devtools-api': 6.5.1
@@ -18096,7 +18214,7 @@ packages:
       react: 18.2.0
       typescript: 5.2.2
       use-sync-external-store: 1.2.0(react@18.2.0)
-      viem: 1.19.4(typescript@5.2.2)
+      viem: 1.19.4(typescript@5.2.2)(zod@3.22.4)
     transitivePeerDependencies:
       - '@azure/app-configuration'
       - '@azure/cosmos'
@@ -18164,7 +18282,7 @@ packages:
       - zod
     dev: true
 
-  /wagmi@1.4.7(react@18.2.0)(typescript@5.2.2)(viem@1.19.11)(zod@3.22.4):
+  /wagmi@1.4.7(react@18.2.0)(typescript@5.2.2)(viem@1.21.3)(zod@3.22.4):
     resolution: {integrity: sha512-/k8gA9S6RnwU6Qroxs630jAFvRIx+DSKpCP1owgAEGWc7D2bAJHljwRSCRTGENz48HyJ4V3R7KYV1yImxPvM3A==}
     peerDependencies:
       react: '>=17.0.0'
@@ -18177,12 +18295,12 @@ packages:
       '@tanstack/query-sync-storage-persister': 4.36.1
       '@tanstack/react-query': 4.36.1(react-dom@18.2.0)(react@18.2.0)
       '@tanstack/react-query-persist-client': 4.36.1(@tanstack/react-query@4.36.1)
-      '@wagmi/core': 1.4.7(react@18.2.0)(typescript@5.2.2)(viem@1.19.11)(zod@3.22.4)
+      '@wagmi/core': 1.4.7(react@18.2.0)(typescript@5.2.2)(viem@1.21.3)(zod@3.22.4)
       abitype: 0.8.7(typescript@5.2.2)(zod@3.22.4)
       react: 18.2.0
       typescript: 5.2.2
       use-sync-external-store: 1.2.0(react@18.2.0)
-      viem: 1.19.11(typescript@5.2.2)(zod@3.22.4)
+      viem: 1.21.3(typescript@5.2.2)(zod@3.22.4)
     transitivePeerDependencies:
       - '@azure/app-configuration'
       - '@azure/cosmos'
@@ -18537,8 +18655,21 @@ packages:
       utf-8-validate:
         optional: true
 
-  /ws@8.14.2(bufferutil@4.0.8)(utf-8-validate@5.0.10):
+  /ws@8.14.2:
     resolution: {integrity: sha512-wEBG1ftX4jcglPxgFCMJmZ2PLtSbJ2Peg6TmpJFTbe9GZYOQCDPdMYu/Tm0/bGZkw8paZnJY45J4K2PZrLYq8g==}
+    engines: {node: '>=10.0.0'}
+    peerDependencies:
+      bufferutil: ^4.0.1
+      utf-8-validate: '>=5.0.2'
+    peerDependenciesMeta:
+      bufferutil:
+        optional: true
+      utf-8-validate:
+        optional: true
+    dev: false
+
+  /ws@8.16.0(bufferutil@4.0.8)(utf-8-validate@5.0.10):
+    resolution: {integrity: sha512-HS0c//TP7Ina87TfiPUz1rQzMhHrl/SG2guqRcTOIUYD2q8uhUdNHZYJUaQ8aTGPzCh+c6oawMKW35nFl1dxyQ==}
     engines: {node: '>=10.0.0'}
     peerDependencies:
       bufferutil: ^4.0.1

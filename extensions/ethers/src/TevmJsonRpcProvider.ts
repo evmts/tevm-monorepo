@@ -1,16 +1,10 @@
 import {
   JsonRpcProvider,
 } from "ethers";
-import {
-  type Client as TevmClient,
-  createClient as createTevmClient
-} from '@tevm/client'
 import type {
   BigNumberish,
   BytesLike,
   Numeric,
-  JsonRpcApiProviderOptions,
-  Networkish
 } from "ethers";
 import type { Abi } from "abitype";
 import type {
@@ -29,6 +23,8 @@ import type {
   TevmJsonRpcRequest,
   BackendReturnType,
 } from '@tevm/jsonrpc'
+import type { Client as TevmClient } from "@tevm/client";
+import { stringify, parse } from 'superjson'
 
 export interface AccountState {
   balance?: BigNumberish;
@@ -38,17 +34,12 @@ export interface AccountState {
 
 export type TevmMethods = Omit<TevmClient, 'request'> & { tevmRequest: TevmClient['request'] }
 
+const asSuperJson = (value: object) => JSON.parse(stringify(value))
+const parseSuperJson = (value: { result?: any }) => parse(JSON.stringify(value))
+
 export class TevmJsonRpcProvider extends JsonRpcProvider implements TevmMethods {
-  private readonly tevmClient: TevmClient;
-
-  constructor(url: string, network?: Networkish, options?: JsonRpcApiProviderOptions) {
-    super(url, network, options);
-
-    this.tevmClient = createTevmClient(url)
-  }
-
   public readonly tevmRequest = <T extends TevmJsonRpcRequest>(r: T): Promise<BackendReturnType<T>> => {
-    return this.tevmClient.request(r)
+    return this.send(r.method, r.params)
   }
 
   public readonly runScript = <
@@ -57,21 +48,41 @@ export class TevmJsonRpcProvider extends JsonRpcProvider implements TevmMethods 
   >(
     action: RunScriptAction<TAbi, TFunctionName>,
   ): Promise<RunScriptResponse<TAbi, TFunctionName>> => {
-    return this.tevmClient.runScript(action)
+    return this.tevmRequest({
+      jsonrpc: '2.0',
+      id: 1,
+      method: 'tevm_script',
+      params: asSuperJson(action),
+    }).then(parseSuperJson) as any
   }
 
   public readonly putAccount = (action: PutAccountAction): Promise<TevmPutAccountResponse> => {
-    return this.tevmClient.putAccount(action)
+    return this.tevmRequest({
+      jsonrpc: '2.0',
+      id: 1,
+      method: 'tevm_putAccount',
+      params: asSuperJson(action)
+    }).then(parseSuperJson) as any
   }
 
   public readonly putContractCode = (
     action: PutContractCodeAction,
   ): Promise<TevmPutContractCodeResponse> => {
-    return this.tevmClient.putContractCode(action)
+    return this.tevmRequest({
+      jsonrpc: '2.0',
+      id: 1,
+      method: 'tevm_putContractCode',
+      params: asSuperJson(action)
+    }).then(parseSuperJson) as any
   }
 
   public readonly runCall = (action: RunCallAction): Promise<TevmCallResponse> => {
-    return this.tevmClient.runCall(action)
+    return this.tevmRequest({
+      jsonrpc: '2.0',
+      id: 1,
+      method: 'tevm_call',
+      params: asSuperJson(action)
+    }).then(parseSuperJson) as any
   }
 
   public readonly runContractCall = <
@@ -80,6 +91,11 @@ export class TevmJsonRpcProvider extends JsonRpcProvider implements TevmMethods 
   >(
     action: RunContractCallAction<TAbi, TFunctionName>,
   ): Promise<RunContractCallResponse<TAbi, TFunctionName>> => {
-    return this.tevmClient.runContractCall(action)
+    return this.tevmRequest({
+      jsonrpc: '2.0',
+      id: 1,
+      method: 'tevm_contractCall',
+      params: asSuperJson(action)
+    }).then(parseSuperJson) as any
   }
 }
