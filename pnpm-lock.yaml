@@ -948,7 +948,7 @@ importers:
     devDependencies:
       '@evmts/core':
         specifier: next
-        version: 1.0.0-next.12(viem@1.19.4)
+        version: 1.0.0-next.12(viem@1.21.3)
       '@evmts/ts-plugin':
         specifier: next
         version: 1.0.0-next.18(fast-check@3.14.0)(typescript@5.3.3)
@@ -965,8 +965,8 @@ importers:
         specifier: ^0.10.2
         version: 0.10.2(typescript@5.3.3)(zod@3.22.4)
       viem:
-        specifier: ^1.18.1
-        version: 1.19.4(typescript@5.3.3)
+        specifier: ^1.21.3
+        version: 1.21.3(typescript@5.3.3)(zod@3.22.4)
 
   packages/effect:
     dependencies:
@@ -3958,7 +3958,7 @@ packages:
       effect: 2.0.0-next.54
       jsonc-parser: 3.2.0
       solc: 0.8.22
-      viem: 1.19.11(typescript@5.3.3)(zod@3.22.4)
+      viem: 1.21.3(typescript@5.3.3)(zod@3.22.4)
     transitivePeerDependencies:
       - bufferutil
       - esbuild
@@ -3980,7 +3980,7 @@ packages:
       effect: 2.0.0-next.54
       jsonc-parser: 3.2.0
       solc: 0.8.23-fixed
-      viem: 1.19.11(typescript@5.3.3)(zod@3.22.4)
+      viem: 1.21.3(typescript@5.3.3)(zod@3.22.4)
     transitivePeerDependencies:
       - bufferutil
       - esbuild
@@ -3990,12 +3990,12 @@ packages:
       - zod
     dev: true
 
-  /@evmts/core@1.0.0-next.12(viem@1.19.4):
+  /@evmts/core@1.0.0-next.12(viem@1.21.3):
     resolution: {integrity: sha512-1Hqxfl3C9K5b2eSjbXc0KpXU2kjSsh4O6mOcKILTujceJ4QwRVQNmSiVddYi1zvpGS7WYiXGyE1S2XACZMbdZw==}
     peerDependencies:
       viem: '>1.0.0'
     dependencies:
-      viem: 1.19.4(typescript@5.3.3)
+      viem: 1.21.3(typescript@5.3.3)(zod@3.22.4)
     dev: true
 
   /@evmts/effect@1.0.0-next.9(esbuild@0.19.11)(fast-check@3.14.0)(solc@0.8.22)(typescript@5.3.3):
@@ -4009,7 +4009,7 @@ packages:
       jsonc-parser: 3.2.0
       resolve: 1.22.8
       solc: 0.8.22
-      viem: 1.19.11(typescript@5.3.3)(zod@3.22.4)
+      viem: 1.21.3(typescript@5.3.3)(zod@3.22.4)
     transitivePeerDependencies:
       - bufferutil
       - esbuild
@@ -4030,7 +4030,7 @@ packages:
       jsonc-parser: 3.2.0
       resolve: 1.22.8
       solc: 0.8.23-fixed
-      viem: 1.19.11(typescript@5.3.3)(zod@3.22.4)
+      viem: 1.21.3(typescript@5.3.3)(zod@3.22.4)
     transitivePeerDependencies:
       - bufferutil
       - esbuild
@@ -17549,8 +17549,8 @@ packages:
       - zod
     dev: false
 
-  /viem@1.19.4(typescript@5.3.3):
-    resolution: {integrity: sha512-CvAVaOzxlu3Q/cpfrYvTRMBIPDMAkLu8aFmHLqU1Bg25DyUxp9xwoF1Ljp38q7/Rosm1OPFQ4y6K64v/VwoumQ==}
+  /viem@1.21.3(typescript@5.3.3)(zod@3.22.4):
+    resolution: {integrity: sha512-tBCRj+AtpGGcyrY7k2Xjv0k8JB6ShGQ+dxeCdtIxWJO6ATmicTp7Qbgn/0IsbyQ0nUF06LMyo8PR569cRflnIA==}
     peerDependencies:
       typescript: '>=5.0.4'
     peerDependenciesMeta:

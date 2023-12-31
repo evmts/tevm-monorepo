@@ -8,6 +8,6 @@ import type { CustomPredeploy } from '@tevm/predeploys'
 export type CreateEVMOptions = {
 	fork?: ForkOptions
 	customPrecompiles?: CustomPrecompile[]
-	customPredeploys?: CustomPredeploy[]
+	customPredeploys?: ReadonlyArray<CustomPredeploy<any, any, any, any>>
 	allowUnlimitedContractSize?: boolean
 }

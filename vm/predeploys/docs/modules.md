@@ -20,14 +20,23 @@
 
 ### CustomPredeploy
 
-Ƭ **CustomPredeploy**: `Object`
+Ƭ **CustomPredeploy**\<`TName`, `THumanReadableAbi`, `TBytecode`, `TDeployedBytecode`\>: `Object`
+
+#### Type parameters
+
+| Name | Type |
+| :------ | :------ |
+| `TName` | extends `string` |
+| `THumanReadableAbi` | extends `ReadonlyArray`\<`string`\> |
+| `TBytecode` | extends \`0x$\{string}\` \| `undefined` |
+| `TDeployedBytecode` | extends \`0x$\{string}\` \| `undefined` |
 
 #### Type declaration
 
 | Name | Type |
 | :------ | :------ |
 | `address` | `Address` |
-| `contract` | `TevmContract` |
+| `contract` | `TevmContract`\<`TName`, `THumanReadableAbi`, `TBytecode`, `TDeployedBytecode`\> |
 
 #### Defined in
 
@@ -45,14 +54,14 @@
 | :------ | :------ |
 | `TName` | extends `string` |
 | `THumanReadableAbi` | extends readonly `string`[] |
-| `TBytecode` | extends `undefined` \| \`0x$\{string}\` |
-| `TDeployedBytecode` | extends `undefined` \| \`0x$\{string}\` |
+| `TBytecode` | extends \`0x$\{string}\` |
+| `TDeployedBytecode` | extends \`0x$\{string}\` |
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `«destructured»` | `Pick`\<[`Predeploy`](classes/Predeploy.md)\<`TName`, `THumanReadableAbi`, `TBytecode`, `TDeployedBytecode`\>, ``"contract"`` \| ``"address"``\> |
+| `«destructured»` | `Pick`\<[`Predeploy`](classes/Predeploy.md)\<`TName`, `THumanReadableAbi`, `TBytecode`, `TDeployedBytecode`\>, ``"address"`` \| ``"contract"``\> |
 
 #### Returns
 
@@ -60,4 +69,4 @@
 
 #### Defined in
 
-[definePredeploy.ts:30](https://github.com/evmts/tevm-monorepo/blob/main/vm/predeploys/src/definePredeploy.ts#L30)
+[definePredeploy.ts:35](https://github.com/evmts/tevm-monorepo/blob/main/vm/predeploys/src/definePredeploy.ts#L35)

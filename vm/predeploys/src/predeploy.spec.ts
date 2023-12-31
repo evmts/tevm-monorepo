@@ -10,7 +10,7 @@ test('definePredeploy should define a predeploy', async () => {
 	const { abi, deployedBytecode } = DaiContract
 	const formatted = formatAbi(abi)
 	const contract = createTevmContract({
-		bytecode: undefined,
+		bytecode: '0x420',
 		humanReadableAbi: formatted,
 		name: 'ExamplePredeploy',
 		deployedBytecode: deployedBytecode,

@@ -54,7 +54,7 @@
 
 #### Defined in
 
-[definePredeploy.ts:23](https://github.com/evmts/tevm-monorepo/blob/main/vm/predeploys/src/definePredeploy.ts#L23)
+[definePredeploy.ts:28](https://github.com/evmts/tevm-monorepo/blob/main/vm/predeploys/src/definePredeploy.ts#L28)
 
 ___
 
@@ -64,7 +64,7 @@ ___
 
 #### Defined in
 
-[definePredeploy.ts:17](https://github.com/evmts/tevm-monorepo/blob/main/vm/predeploys/src/definePredeploy.ts#L17)
+[definePredeploy.ts:22](https://github.com/evmts/tevm-monorepo/blob/main/vm/predeploys/src/definePredeploy.ts#L22)
 
 ## Methods
 
@@ -78,7 +78,7 @@ ___
 
 #### Defined in
 
-[definePredeploy.ts:24](https://github.com/evmts/tevm-monorepo/blob/main/vm/predeploys/src/definePredeploy.ts#L24)
+[definePredeploy.ts:29](https://github.com/evmts/tevm-monorepo/blob/main/vm/predeploys/src/definePredeploy.ts#L29)
 
 ___
 
@@ -96,4 +96,4 @@ ___
 
 #### Defined in
 
-[definePredeploy.ts:25](https://github.com/evmts/tevm-monorepo/blob/main/vm/predeploys/src/definePredeploy.ts#L25)
+[definePredeploy.ts:30](https://github.com/evmts/tevm-monorepo/blob/main/vm/predeploys/src/definePredeploy.ts#L30)
