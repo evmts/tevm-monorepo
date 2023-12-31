@@ -1,7 +1,7 @@
-import type { TevmContract } from './TevmContract'
-import { eventsFactory } from './event/eventFactory'
-import { readFactory } from './read/readFactory'
-import { writeFactory } from './write/writeFactory'
+import type { TevmContract } from './TevmContract.js'
+import { eventsFactory } from './event/eventFactory.js'
+import { readFactory } from './read/readFactory.js'
+import { writeFactory } from './write/writeFactory.js'
 import { parseAbi } from 'abitype'
 import type { Hex } from 'viem'
 

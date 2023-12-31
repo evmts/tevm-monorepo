@@ -1,6 +1,6 @@
-import { createTevmContract } from '../createTevmContract'
-import { dummyAbi } from '../test/fixtures'
-import { eventsFactory } from './eventFactory'
+import { createTevmContract } from '../createTevmContract.js'
+import { dummyAbi } from '../test/fixtures.js'
+import { eventsFactory } from './eventFactory.js'
 import { formatAbi } from 'abitype'
 import { describe, expect, it } from 'vitest'
 

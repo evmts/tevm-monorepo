@@ -1,5 +1,5 @@
-import { createTevmContractFromAbi } from './createTevmContractFromAbi'
-import { dummyAbi } from './test/fixtures'
+import { createTevmContractFromAbi } from './createTevmContractFromAbi.js'
+import { dummyAbi } from './test/fixtures.js'
 import { describe, expect, it } from 'vitest'
 
 describe(createTevmContractFromAbi.name, () => {
