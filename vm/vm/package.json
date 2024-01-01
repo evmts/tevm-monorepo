@@ -18,7 +18,9 @@
 		"directory": "vm"
 	},
 	"license": "MIT",
-	"contributors": ["Will Cory <willcory10@gmail.com>"],
+	"contributors": [
+		"Will Cory <willcory10@gmail.com>"
+	],
 	"type": "module",
 	"exports": {
 		"./package.json": "./package.json",
@@ -61,16 +63,16 @@
 		"@ethereumjs/evm": "^2.1.0",
 		"@ethereumjs/statemanager": "^2.1.0",
 		"@ethereumjs/util": "^9.0.1",
+		"@tevm/api": "workspace:^",
 		"@tevm/contract": "workspace:^",
 		"@tevm/predeploys": "workspace:^",
-		"@tevm/jsonrpc": "workspace:^",
-		"@tevm/actions": "workspace:^",
-		"@tevm/action-handlers": "workspace:^",
+		"@tevm/procedures": "workspace:^",
+		"@tevm/server": "workspace:^",
 		"@tevm/state": "workspace:^",
 		"@types/supertest": "^2.0.16",
 		"abitype": "^0.10.3",
 		"supertest": "^6.3.3",
-		"viem": "^1.19.11"
+		"viem": "^2.0.0"
 	},
 	"devDependencies": {
 		"@tevm/tsconfig": "workspace:^",

@@ -1,7 +1,7 @@
 import { createTevm } from '../createTevm.js'
 import { DaiContract } from './DaiContract.sol.js'
 import { Address } from '@ethereumjs/util'
-import type { TevmContractCallRequest, TevmScriptRequest } from '@tevm/jsonrpc'
+import type { ContractJsonRpcRequest, ScriptJsonRpcRequest } from '@tevm/api'
 import { describe, expect, it } from 'bun:test'
 import { hexToBytes } from 'viem'
 
@@ -12,7 +12,7 @@ const forkConfig = {
 	blockTag: 111791332n,
 }
 
-describe('Tevm.prototype.request', async () => {
+describe('Tevm.request', async () => {
 	const tevm = await createTevm()
 
 	it('should execute a script request', async () => {
@@ -23,10 +23,13 @@ describe('Tevm.prototype.request', async () => {
 			jsonrpc: '2.0',
 			method: 'tevm_script',
 			id: 1,
-		} as const satisfies TevmScriptRequest
+		} as const satisfies ScriptJsonRpcRequest
 		const res = await tevm.request(req)
+		if ('error' in res) {
+			throw new Error(res.error.message)
+		}
 		expect(res.result.data satisfies bigint).toBe(0n)
-		expect(res.result.gasUsed satisfies BigInt).toBe(2447n)
+		expect(res.result.executionGasUsed satisfies BigInt).toBe(2447n)
 		expect(res.result.logs).toEqual([])
 		expect(res.method).toBe(req.method)
 		expect(res.id).toBe(req.id)
@@ -38,19 +41,25 @@ describe('Tevm.prototype.request', async () => {
 			fork: forkConfig,
 		})
 		const req = {
-			params: DaiContract.read.balanceOf(
-				'0xf0d4c12a5768d806021f80a262b4d39d26c58b8d',
-				{
-					contractAddress,
-				},
-			),
+			params: {
+				to: contractAddress,
+				...DaiContract.read.balanceOf(
+					'0xf0d4c12a5768d806021f80a262b4d39d26c58b8d',
+					{
+						contractAddress,
+					},
+				),
+			},
 			jsonrpc: '2.0',
-			method: 'tevm_contractCall',
+			method: 'tevm_contract',
 			id: 1,
-		} as const satisfies TevmContractCallRequest
+		} as const satisfies ContractJsonRpcRequest
 		const res = await tevm.request(req)
+		if ('error' in res) {
+			throw new Error(res.error.message)
+		}
 		expect(res.result.data satisfies bigint).toBe(1n)
-		expect(res.result.gasUsed).toBe(2447n)
+		expect(res.result.executionGasUsed).toBe(2447n)
 		expect(res.result.logs).toEqual([])
 		expect(res.method).toBe(req.method)
 		expect(res.id).toBe(req.id)
@@ -62,8 +71,8 @@ describe('Tevm.prototype.request', async () => {
 		const balance = 0x11111111n
 		const address1 = '0x1f420000000000000000000000000000000000ff'
 		const address2 = '0x2f420000000000000000000000000000000000ff'
-		await tevm.putAccount({
-			account: address1,
+		await tevm.account({
+			address: address1,
 			balance,
 		})
 		const transferAmount = 0x420n
@@ -82,8 +91,9 @@ describe('Tevm.prototype.request', async () => {
 		expect(res.jsonrpc).toBe('2.0')
 		expect(res.id).toBe(1)
 		expect(res.method).toBe('tevm_call')
-		expect(res.result.execResult.exceptionError).toBeUndefined()
-		expect(res.result.execResult.returnValue).toEqual(Uint8Array.of())
+		if ('error' in res) throw new Error(res.error.message)
+		expect(res.result.errors).toBeUndefined()
+		expect(res.result.rawData).toEqual('0x0')
 		expect(
 			(
 				await tevm._evm.stateManager.getAccount(
@@ -105,33 +115,13 @@ describe('Tevm.prototype.request', async () => {
 		const balance = 0x11111111n
 		const res = await tevm.request({
 			jsonrpc: '2.0',
-			method: 'tevm_putAccount',
+			method: 'tevm_account',
 			id: 1,
 			params: {
-				account: '0xff420000000000000000000000000000000000ff',
+				address: '0xff420000000000000000000000000000000000ff',
 				balance,
 			},
 		})
-		expect(res.result.balance).toBe(balance)
-		expect(res.jsonrpc).toBe('2.0')
-		expect(res.id).toBe(1)
-		expect(res.method).toBe('tevm_putAccount')
-	})
-
-	it('Should execute a putContractCode request', async () => {
-		const tevm = await createTevm()
-		const res = await tevm.request({
-			id: 1,
-			method: 'tevm_putContractCode',
-			jsonrpc: '2.0',
-			params: {
-				deployedBytecode: DaiContract.deployedBytecode,
-				contractAddress: '0xff420000000000000000000000000000000000ff',
-			},
-		})
-		expect(res.result).toHaveLength(4782)
-		expect(res.jsonrpc).toBe('2.0')
-		expect(res.id).toBe(1)
-		expect(res.method).toBe('tevm_putContractCode')
+		expect(res).not.toHaveProperty('error')
 	})
 })

@@ -1,60 +1,51 @@
-import { parse, stringify } from 'superjson'
-
 /**
  * @type {import('./ViemTevmExtension.js').ViemTevmExtension}
  */
 export const tevmViemExtension = () => {
 	return (client) => {
 		/**
-		 * @type {import('./ViemTevmClient.js').ViemTevmClient['tevmRequest']}
+		 * @type {import('@tevm/api').TevmClient['request']}
 		 */
-		const tevmRequest = async (request) => {
-			return /** @type {any} */ (
-				parse(
-					JSON.stringify(
-						await client.request({
-							method: /** @type {any}*/ (request.method),
-							params: /** @type {any}*/ (JSON.parse(stringify(request.params))),
-						}),
-					),
-				)
-			)
-		}
+		const request = /** @type {any} */ (client.request)
 		return {
-			tevmRequest,
-			runScript: async (action) => {
-				return /** @type {any} */ (
-					tevmRequest({
-						method: 'tevm_script',
-						params: /** @type any*/ (action),
-					})
-				)
-			},
-			putAccount: async (action) => {
-				return tevmRequest({
-					method: 'tevm_putAccount',
-					params: action,
-				})
-			},
-			putContractCode: async (action) => {
-				return tevmRequest({
-					method: 'tevm_putContractCode',
-					params: action,
-				})
-			},
-			runCall: async (action) => {
-				return tevmRequest({
-					method: 'tevm_call',
-					params: action,
-				})
-			},
-			runContractCall: async (action) => {
-				return /** @type {any} */ (
-					tevmRequest({
-						method: 'tevm_contractCall',
-						params: /** @type {any}*/ (action),
-					})
-				)
+			tevm: {
+				request,
+				script: async (action) => {
+					return /** @type {any} */ (
+						request({
+							method: 'tevm_script',
+							jsonrpc: '2.0',
+							params: /** @type any*/ (action),
+						})
+					)
+				},
+				account: async (action) => {
+					return /** @type {any} */ (
+						request({
+							method: 'tevm_account',
+							jsonrpc: '2.0',
+							params: action,
+						})
+					)
+				},
+				call: async (action) => {
+					return /** @type {any} */ (
+						request({
+							method: 'tevm_call',
+							jsonrpc: '2.0',
+							params: action,
+						})
+					)
+				},
+				contract: async (action) => {
+					return /** @type {any} */ (
+						request({
+							method: 'tevm_contract',
+							jsonrpc: '2.0',
+							params: /** @type {any}*/ (action),
+						})
+					)
+				},
 			},
 		}
 	}

@@ -40,7 +40,8 @@
 	"types": "src/index.ts",
 	"files": [
 		"dist",
-		"src"
+		"src",
+		"!src/**/*.spec.ts"
 	],
 	"scripts": {
 		"all": "pnpm i && bun run build && bun run test && bun run lint && bun run format && bun run generate:docs",

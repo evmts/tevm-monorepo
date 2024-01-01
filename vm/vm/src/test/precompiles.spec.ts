@@ -2,7 +2,7 @@ import { type CustomPrecompile } from '../CustomPrecompile.js'
 import { createTevm } from '../createTevm.js'
 import { Address } from '@ethereumjs/util'
 import { expect, it } from 'bun:test'
-import { hexToBytes } from 'viem'
+import { bytesToHex, hexToBytes } from 'viem'
 
 it('should be able to add custom precompiles', async () => {
 	const address = '0xff420000000000000000000000000000000000ff'
@@ -28,13 +28,13 @@ it('should be able to add custom precompiles', async () => {
 	expect(tevm._evm.getPrecompile(new Address(hexToBytes(address)))).toEqual(
 		precompile.function,
 	)
-	const result = await tevm.runCall({
+	const result = await tevm.call({
 		to: address,
 		gasLimit: BigInt(30000),
 		data: '0x0',
 		caller: sender,
 	})
-	expect(result.execResult.exceptionError).toBeUndefined()
-	expect(result.execResult.returnValue).toEqual(expectedReturn)
-	expect(result.execResult.executionGasUsed).toEqual(expectedGas)
+	expect(result.errors).toBeUndefined()
+	expect(result.rawData).toEqual(bytesToHex(expectedReturn))
+	expect(result.executionGasUsed).toEqual(expectedGas)
 })

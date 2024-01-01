@@ -42,45 +42,49 @@ const forkConfig = {
 }
 
 describe('Tevm should create a local vm in JavaScript', () => {
-	describe('Tevm.prototype.runScript', () => {
+	describe('Tevm.script', () => {
 		it('should execute scripts based on their bytecode and return the result', async () => {
 			const tevm = await createTevm()
-			const res = await tevm.runScript(
+			const res = await tevm.script(
 				DaiContract.script.balanceOf(
 					'0x00000000000000000000000000000000000000ff',
 				),
 			)
 			expect(res.data).toBe(0n)
-			expect(res.gasUsed).toBe(2447n)
+			expect(res.executionGasUsed).toBe(2447n)
 			expect(res.logs).toEqual([])
+			expect('errors' in res).toBe(false)
+			expect(res.rawData).toBe('0x0')
+			// TODO test the other properties
 		})
 
 		it('should work for add contract', async () => {
 			const tevm = await createTevm()
-			const res = await tevm.runScript({
+			const res = await tevm.script({
 				deployedBytecode: addbytecode,
 				abi: addabi,
 				functionName: 'add',
 				args: [1n, 2n],
 			})
 			expect(res.data).toBe(3n)
-			expect(res.gasUsed).toBe(927n)
+			expect(res.executionGasUsed).toBe(927n)
 			expect(res.logs).toEqual([])
 		})
 	})
 
-	describe('Tevm.prototype.runCall', () => {
+	describe('Tevm.call', () => {
 		it('should execute a call on the vm', async () => {
 			const tevm = await createTevm()
 			const balance = 0x11111111n
 			const address1 = '0x1f420000000000000000000000000000000000ff'
 			const address2 = '0x2f420000000000000000000000000000000000ff'
-			await tevm.putAccount({
-				account: address1,
+			await tevm.account({
+				address: address1,
 				balance,
 			})
 			const transferAmount = 0x420n
-			await tevm.runCall({
+			// TODO test other input options
+			await tevm.call({
 				caller: address1,
 				data: '0x0',
 				to: address2,
@@ -101,46 +105,48 @@ describe('Tevm should create a local vm in JavaScript', () => {
 					)
 				)?.balance,
 			).toBe(balance - transferAmount)
+			// TODO test other return properties
 		})
 	})
 
-	describe('Tevm.prototype.runContractCall', () => {
+	describe('Tevm.contract', () => {
 		it('should fork a network and then execute a contract call', async () => {
 			const tevm = await createTevm({ fork: forkConfig })
-			const res = await tevm.runContractCall(
-				DaiContract.read.balanceOf(
+			// TODO test other inputs
+			const res = await tevm.contract({
+				to: contractAddress,
+				...DaiContract.read.balanceOf(
 					'0xf0d4c12a5768d806021f80a262b4d39d26c58b8d',
 					{
 						contractAddress,
 					},
 				),
-			)
+			})
 			expect(res.data).toBe(1n)
-			expect(res.gasUsed).toBe(2447n)
+			expect(res.executionGasUsed).toBe(2447n)
 			expect(res.logs).toEqual([])
+			// TODO test other properties
 		})
 	})
 
-	describe('Tevm.prototype.putAccount', () => {
+	describe('Tevm.account', () => {
 		it('should insert a new account with eth into the state', async () => {
 			const tevm = await createTevm()
 			const balance = 0x11111111n
-			const account = await tevm.putAccount({
-				account: '0xff420000000000000000000000000000000000ff',
+			const account = await tevm.account({
+				address: '0xff420000000000000000000000000000000000ff',
 				balance,
 			})
-			expect(account.balance).toBe(balance)
+			expect(account).not.toHaveProperty('errors')
 		})
-	})
-
-	describe('Tevm.prototype.putContractCode', () => {
 		it('should insert a new contract with bytecode', async () => {
 			const tevm = await createTevm()
-			const code = await tevm.putContractCode({
+			const code = await tevm.account({
 				deployedBytecode: DaiContract.deployedBytecode,
-				contractAddress: '0xff420000000000000000000000000000000000ff',
+				address: '0xff420000000000000000000000000000000000ff',
 			})
 			expect(code).toHaveLength(4782)
 		})
+		// TODO test storage root
 	})
 })
