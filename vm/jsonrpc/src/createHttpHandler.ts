@@ -1,6 +1,8 @@
 import type { TevmJsonRpcRequest } from './TevmJsonRpcRequest.js'
 import { createJsonRpcClient } from './createJsonRpcClient.js'
+import type { TevmCallResponse } from './index.js'
 import type { EVM } from '@ethereumjs/evm'
+import type { PutAccountResponse } from '@tevm/actions'
 import type { IncomingMessage, ServerResponse } from 'http'
 import { parse, stringify } from 'superjson'
 
@@ -102,6 +104,52 @@ export function createHttpHandler({
 
 		try {
 			const result = await client(parsedRequest as any)
+			// TODO superjson for some reason cannot serialize a putAccount request
+			if (parsedRequest.method === 'tevm_putAccount') {
+				return {
+					id: parsedRequest.id,
+					...result,
+					result: JSON.parse(
+						stringify({
+							nonce: (result.result as PutAccountResponse).nonce,
+							balance: (result.result as PutAccountResponse).balance,
+							// if we include the uint8array fields codehash and stateRoot this entire thing fails
+							// codehash: result.result.codehash,
+							// stateRoot: result.result.stateRoot,
+						}),
+					),
+				}
+			}
+			// TODO superjson for some reason cannot serialize a call request
+			if (parsedRequest.method === 'tevm_call') {
+				// later we will make it so all uint8arrays are hex in tevm natively since this is causing so many issues
+				function uint8ArrayToHex(uint8Array: Uint8Array) {
+					let hexStr = '0x'
+					for (let i = 0; i < uint8Array.length; i++) {
+						const nextItem = uint8Array[i] as number
+						const hex = nextItem.toString(16)
+						hexStr += hex.length === 1 ? `0${hex}` : hex
+					}
+					return hexStr
+				}
+				const tevmCallResult = result as TevmCallResponse
+				return {
+					id: parsedRequest.id,
+					...result,
+					result: JSON.parse(
+						stringify({
+							execResult: {
+								returnValue: uint8ArrayToHex(
+									tevmCallResult.result.execResult.returnValue,
+								),
+								gas: tevmCallResult.result.execResult.gas,
+								logs: tevmCallResult.result.execResult.logs,
+								// TODO lazily not including all fields since this code is temporary
+							},
+						}),
+					),
+				}
+			}
 			return {
 				id: parsedRequest.id,
 				...result,
@@ -135,7 +183,6 @@ export function createHttpHandler({
 				if (Array.isArray(raw)) {
 					const responses = await Promise.all(raw.map(processRequest))
 					res.writeHead(200, { 'Content-Type': 'application/json' })
-					console.log(JSON.stringify(responses, null, 2))
 					res.end(JSON.stringify(responses))
 				} else {
 					const response = await processRequest(raw)
