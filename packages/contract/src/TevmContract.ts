@@ -1,6 +1,6 @@
-import type { Events } from './event/Event'
-import type { Read } from './read/Read'
-import type { Write } from './write/Write'
+import type { Events } from './event/Event.js'
+import type { Read } from './read/Read.js'
+import type { Write } from './write/Write.js'
 import type { ParseAbi } from 'abitype'
 import type { Hex } from 'viem'
 

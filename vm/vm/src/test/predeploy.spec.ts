@@ -10,11 +10,11 @@ test('Call predeploy from TypeScript', async () => {
 	const { abi, deployedBytecode } = DaiContract
 	const formatted = formatAbi(abi)
 	const contract = createTevmContract({
-		bytecode: undefined,
+		bytecode: '0x420',
 		humanReadableAbi: formatted,
 		name: 'ExamplePredeploy',
 		deployedBytecode: deployedBytecode,
-	})
+	} as const)
 
 	const predeployAddress = '0x0420042004200420042004200420042004200420'
 	const predeploy = definePredeploy({

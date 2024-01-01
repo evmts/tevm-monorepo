@@ -1,4 +1,4 @@
-import type { TevmContract } from './TevmContract'
+import type { TevmContract } from './TevmContract.js'
 import type { Abi, FormatAbi } from 'abitype'
 import type { Hex } from 'viem'
 

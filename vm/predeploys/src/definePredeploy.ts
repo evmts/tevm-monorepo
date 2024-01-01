@@ -3,9 +3,14 @@ import { type TevmContract } from '@tevm/contract'
 import { type Address } from 'abitype'
 import { getAddress } from 'viem'
 
-export type CustomPredeploy = {
+export type CustomPredeploy<
+	TName extends string,
+	THumanReadableAbi extends ReadonlyArray<string>,
+	TBytecode extends `0x${string}` | undefined,
+	TDeployedBytecode extends `0x${string}` | undefined,
+> = {
 	address: Address
-	contract: TevmContract
+	contract: TevmContract<TName, THumanReadableAbi, TBytecode, TDeployedBytecode>
 }
 
 export abstract class Predeploy<
@@ -30,8 +35,8 @@ export abstract class Predeploy<
 export const definePredeploy = <
 	TName extends string,
 	THumanReadableAbi extends readonly string[],
-	TBytecode extends `0x${string}` | undefined,
-	TDeployedBytecode extends `0x${string}` | undefined,
+	TBytecode extends `0x${string}`,
+	TDeployedBytecode extends `0x${string}`,
 >({
 	contract,
 	address,
