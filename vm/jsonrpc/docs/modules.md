@@ -332,7 +332,7 @@ Creates an http request handler for tevm requests
 
 #### Defined in
 
-[vm/jsonrpc/src/createHttpHandler.ts:15](https://github.com/evmts/tevm-monorepo/blob/main/vm/jsonrpc/src/createHttpHandler.ts#L15)
+[vm/jsonrpc/src/createHttpHandler.ts:17](https://github.com/evmts/tevm-monorepo/blob/main/vm/jsonrpc/src/createHttpHandler.ts#L17)
 
 ___
 

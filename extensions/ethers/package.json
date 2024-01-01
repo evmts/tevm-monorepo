@@ -55,6 +55,12 @@
 		"test:run": "vitest run",
 		"test:ui": "vitest --ui"
 	},
+	"dependencies": {
+		"@tevm/actions": "workspace:1.0.0-next.11",
+		"@tevm/client": "workspace:1.0.0-next.11",
+		"@tevm/jsonrpc": "workspace:1.0.0-next.11",
+		"superjson": "^2.2.1"
+	},
 	"devDependencies": {
 		"@tevm/contract": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
@@ -67,11 +73,5 @@
 	},
 	"publishConfig": {
 		"access": "public"
-	},
-	"dependencies": {
-		"@tevm/actions": "workspace:1.0.0-next.11",
-		"@tevm/client": "workspace:1.0.0-next.11",
-		"@tevm/jsonrpc": "workspace:1.0.0-next.11",
-		"superjson": "^2.2.1"
 	}
 }
