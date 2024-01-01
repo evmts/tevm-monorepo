@@ -727,13 +727,13 @@ importers:
   extensions/ethers:
     dependencies:
       '@tevm/actions':
-        specifier: workspace:1.0.0-next.11
+        specifier: workspace:^
         version: link:../../vm/actions
       '@tevm/client':
-        specifier: workspace:1.0.0-next.11
+        specifier: workspace:^
         version: link:../../vm/client
       '@tevm/jsonrpc':
-        specifier: workspace:1.0.0-next.11
+        specifier: workspace:^
         version: link:../../vm/jsonrpc
       superjson:
         specifier: ^2.2.1
@@ -746,7 +746,7 @@ importers:
         specifier: workspace:^
         version: link:../../configs/tsconfig
       '@tevm/vm':
-        specifier: workspace:1.0.0-next.11
+        specifier: workspace:^
         version: link:../../vm/vm
       abitype:
         specifier: ^0.10.2
