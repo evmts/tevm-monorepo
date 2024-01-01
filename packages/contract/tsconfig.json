@@ -10,8 +10,8 @@
     "outDir": "types",
     "skipLibCheck": true,
     // this should be "Bundler" but don't want to fight a broken type
-    "moduleResolution": "Node",
-    "module": "ESNext"
+    "moduleResolution": "NodeNext",
+    "module": "NodeNext"
   },
   "include": [
     "src",

@@ -1,4 +1,5 @@
 import type {
+	Abi,
 	ExtractAbiEvent,
 	ExtractAbiEventNames,
 	FormatAbi,
@@ -8,9 +9,18 @@ import type {
 	BlockNumber,
 	BlockTag,
 	CreateEventFilterParameters,
+	GetEventArgs,
 	Hex,
 } from 'viem'
-import type { MaybeExtractEventArgsFromAbi } from 'viem/_types/types/contract'
+
+export type MaybeExtractEventArgsFromAbi<
+	TAbi extends Abi | readonly unknown[] | undefined,
+	TEventName extends string | undefined,
+> = TAbi extends Abi | readonly unknown[]
+	? TEventName extends string
+		? GetEventArgs<TAbi, TEventName>
+		: undefined
+	: undefined
 
 export type ValueOf<T> = T[keyof T]
 
