@@ -19,7 +19,7 @@
 		"build:app": "nx run-many --target=build:app",
 		"build:dist": "nx run-many --target=build:dist",
 		"build:types": "nx run-many --targets=build:types,typecheck",
-		"clean": "nx run-many --target=clean && rm -rf node_modules",
+		"clean": "nx run-many --target=clean && rm -rf node_modules && rm -rf .nx",
 		"e2e": "nx e2e e2e",
 		"format:check": "rome format .",
 		"generate:docs": "nx run-many --target=generate:docs",
