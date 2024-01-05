@@ -1,0 +1,4 @@
+ignores: [
+  "@types/resolve"
+]
+skip-missing: true

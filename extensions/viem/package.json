@@ -25,14 +25,19 @@
 	"exports": {
 		"./package.json": "./package.json",
 		".": {
-			"import": "./src/index.js",
-			"default": "./dist/index.cjs",
-			"types": "./types/index.d.ts"
+			"import": {
+				"types": "./dist/index.d.ts",
+				"default": "./dist/index.js"
+			},
+			"require": {
+				"types": "./dist/index.d.cts",
+				"default": "./dist/index.cjs"
+			}
 		}
 	},
 	"main": "dist/index.cjs",
-	"module": "src/index.js",
-	"types": "types/index.d.ts",
+	"module": "dist/index.js",
+	"types": "dist/index.d.ts",
 	"files": [
 		"dist",
 		"types",
@@ -43,13 +48,15 @@
 		"all": "pnpm i  && bun run build && bun lint && bun format && bun test:run && bun generate:docs",
 		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/vm",
 		"build:dist": "bun run tsup",
-		"build:types": "bun run tsc --emitDeclarationOnly --declaration --declarationMap",
+		"build:types": "tsup --dts-only",
 		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
 		"format": "rome format . --write",
 		"format:check": "rome format .",
 		"generate:docs": "bun run typedoc",
 		"lint": "rome check . --apply-unsafe",
 		"lint:check": "rome check . --verbose",
+		"lint:deps": "bunx depcheck",
+		"lint:package": "bunx publint --strict && attw --pack",
 		"package:up": "pnpm up --latest",
 		"test": "bun test --watch",
 		"test:coverage": "bun test --coverage",
@@ -63,6 +70,7 @@
 		"@tevm/actions": "workspace:^",
 		"@tevm/jsonrpc": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
+		"@tevm/tsupconfig": "workspace:^",
 		"abitype": "^0.10.3",
 		"viem": "^1.19.11"
 	},

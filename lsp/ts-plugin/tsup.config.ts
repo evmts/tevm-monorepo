@@ -1,13 +1,6 @@
-import packageJson from './package.json'
-import { defineConfig } from 'tsup'
+import { createTsUpOptions } from '@tevm/tsupconfig'
 
-export default defineConfig({
-	name: packageJson.name,
-	entry: ['src/index.ts', 'src/bin/tevm-gen.ts'],
-	outDir: 'dist',
-	format: ['esm', 'cjs'],
-	external: ['esbuild'],
-	splitting: false,
-	sourcemap: true,
-	clean: true,
+export default createTsUpOptions({
+	entry: ['src/index.ts'],
+	target: 'node',
 })

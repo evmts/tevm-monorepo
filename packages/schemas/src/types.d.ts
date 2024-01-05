@@ -1,4 +1,4 @@
-import type { Address } from './SAddress.js'
+import type { Address } from './ethereum/index.js'
 
 export type BlockNumber = number
 

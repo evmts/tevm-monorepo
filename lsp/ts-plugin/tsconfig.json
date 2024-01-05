@@ -3,7 +3,10 @@
     "declaration": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "lib": ["esnext", "dom"],
+    "lib": [
+      "esnext",
+      "dom"
+    ],
     "module": "commonjs",
     "moduleResolution": "node",
     "noEmitOnError": true,
@@ -15,6 +18,10 @@
     "strict": true,
     "target": "ES2022"
   },
-  "include": ["src"],
-  "exclude": ["dist"]
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "dist"
+  ]
 }

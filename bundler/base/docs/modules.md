@@ -18,11 +18,11 @@
 
 | Name | Type |
 | :------ | :------ |
-| `config` | ResolvedCompilerConfig |
+| `config` | ResolvedCompilerConfig$1 |
 | `logger` | Logger |
 | `fao` | FileAccessObject |
 | `solc` | any |
-| `cache` | Cache |
+| `cache` | Cache$1 |
 
 #### Returns
 
@@ -30,7 +30,7 @@ Object
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `config` | ResolvedCompilerConfig | The configuration of the plugin. |
+| `config` | ResolvedCompilerConfig$1 | The configuration of the plugin. |
 | `exclude?` | string[] | - |
 | `include?` | string[] | - |
 | `name` | string | The name of the plugin. |

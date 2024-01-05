@@ -13,6 +13,14 @@
 			"inputs": ["default"],
 			"cache": true
 		},
+		"lint:package": {
+			"inputs": ["default"],
+			"cache": true
+		},
+		"lint:deps": {
+			"inputs": ["default"],
+			"cache": true
+		},
 		"format:check": {
 			"inputs": ["default"],
 			"cache": true
@@ -44,28 +52,13 @@
 		"build:types": {
 			"inputs": ["production", "outputsDts"],
 			"dependsOn": ["^build:types"],
-			"outputs": ["{projectRoot}/types"],
-			"cache": true
-		},
-		"build": {
-			"inputs": ["production", "outputsDist"],
-			"dependsOn": ["^build:dist", "^build:types", "prebuild"],
 			"outputs": [
-				"{projectRoot}/dist",
-				"{projectRoot}/.vitepress/dist",
-				"{projectRoot}/types"
+				"{projectRoot}/dist/**/*.d.ts",
+				"{projectRoot}/types",
+				"{projectRoot}/dist/**/*.d.cts",
+				"{projectRoot}/dist/**/*.d.mts"
 			],
 			"cache": true
-		},
-		"build:esm": {
-			"inputs": ["production", "outputsDist"],
-			"dependsOn": ["^build:dist"],
-			"outputs": ["{projectRoot}/dist"]
-		},
-		"build:cjs": {
-			"inputs": ["production", "outputsDist"],
-			"dependsOn": ["^build:dist"],
-			"outputs": ["{projectRoot}/dist"]
 		},
 		"build:app": {
 			"inputs": ["production", "outputsDist"],
@@ -76,7 +69,11 @@
 		"build:dist": {
 			"inputs": ["production", "outputsDist"],
 			"dependsOn": ["^build:dist"],
-			"outputs": ["{projectRoot}/dist"],
+			"outputs": [
+				"{projectRoot}/dist/**/*.js",
+				"{projectRoot}/dist/**/*.cjs",
+				"{projectRoot}/dist/**/*.mjs"
+			],
 			"cache": true
 		},
 		"generate:docs": {
@@ -86,10 +83,10 @@
 			"cache": true
 		},
 		"dev": {
-			"dependsOn": ["^build", "predev"]
+			"dependsOn": ["^build:dist", "^build:types", "predev"]
 		},
 		"dev:run": {
-			"dependsOn": ["^build", "predev"],
+			"dependsOn": ["^build:dist", "^build:types", "predev"],
 			"cache": true
 		},
 		"e2e": {

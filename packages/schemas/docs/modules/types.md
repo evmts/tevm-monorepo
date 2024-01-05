@@ -38,7 +38,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `address` | `Address` |
+| `address` | [`Address`](ethereum.md#address) |
 | `blockCreated` | `number` |
 
 #### Defined in

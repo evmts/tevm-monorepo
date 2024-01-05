@@ -25,15 +25,20 @@
 	"exports": {
 		"./package.json": "./package.json",
 		".": {
-			"import": "./src/index.js",
-			"require": "./dist/index.cjs",
-			"default": "./dist/index.cjs",
+			"import": {
+				"types": "./dist/index.d.ts",
+				"default": "./dist/index.js"
+			},
+			"require": {
+				"types": "./dist/index.d.cts",
+				"default": "./dist/index.cjs"
+			},
 			"types": "./types/src/index.d.ts"
 		}
 	},
 	"main": "dist/index.cjs",
-	"module": "src/index.js",
-	"types": "types/src/index.d.ts",
+	"module": "dist/index.js",
+	"types": "dist/index.d.ts",
 	"files": [
 		"dist",
 		"types",
@@ -43,7 +48,7 @@
 		"all": "bun run lint && bun run format && bun run build:dist && bun run build:types && bun run dev:run && bun run test:run && bun run generate:docs",
 		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/config ",
 		"build:dist": "bun run tsup",
-		"build:types": "bun run tsc --emitDeclarationOnly --declaration --declarationMap",
+		"build:types": "tsup --dts-only",
 		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
 		"dev": "bun --watch scripts/dev.ts",
 		"dev:run": "bun scripts/dev.ts",
@@ -53,6 +58,8 @@
 		"generate:docs": "bun run typedoc",
 		"lint": "rome check . --apply-unsafe",
 		"lint:check": "rome check . --verbose",
+		"lint:deps": "bunx depcheck",
+		"lint:package": "bunx publint --strict && attw --pack",
 		"test": "vitest --coverage",
 		"test:coverage": "bun run vitest run --coverage",
 		"test:run": "vitest run",
@@ -66,7 +73,8 @@
 		"zod": "^3.22.4"
 	},
 	"devDependencies": {
-		"@tevm/tsconfig": "workspace:^"
+		"@tevm/tsconfig": "workspace:^",
+		"@tevm/tsupconfig": "workspace:^"
 	},
 	"publishConfig": {
 		"access": "public"

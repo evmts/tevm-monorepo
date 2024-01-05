@@ -150,7 +150,7 @@ TypeError.prepareStackTrace
 
 node_modules/.pnpm/@types+node@20.9.1/node_modules/@types/node/globals.d.ts:11
 
-node_modules/.pnpm/@types+node@20.10.4/node_modules/@types/node/globals.d.ts:28
+node_modules/.pnpm/@types+node@20.10.6/node_modules/@types/node/globals.d.ts:28
 
 ___
 
@@ -166,7 +166,7 @@ TypeError.stackTraceLimit
 
 node_modules/.pnpm/@types+node@20.9.1/node_modules/@types/node/globals.d.ts:13
 
-node_modules/.pnpm/@types+node@20.10.4/node_modules/@types/node/globals.d.ts:30
+node_modules/.pnpm/@types+node@20.10.6/node_modules/@types/node/globals.d.ts:30
 
 ## Methods
 
@@ -216,4 +216,4 @@ TypeError.captureStackTrace
 
 #### Defined in
 
-node_modules/.pnpm/@types+node@20.10.4/node_modules/@types/node/globals.d.ts:21
+node_modules/.pnpm/@types+node@20.10.6/node_modules/@types/node/globals.d.ts:21
