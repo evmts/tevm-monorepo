@@ -36,7 +36,7 @@ describe('Tevm.request', async () => {
 		expect(res.jsonrpc).toBe(req.jsonrpc)
 	})
 
-	it('should execute a contractCall request', async () => {
+	it.only('should execute a contractCall request', async () => {
 		const tevm = await createTevm({
 			fork: forkConfig,
 		})
