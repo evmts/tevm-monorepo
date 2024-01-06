@@ -236,8 +236,8 @@ importers:
         version: 0.4.53
     devDependencies:
       '@openzeppelin/contracts':
-        specifier: ^5.0.1
-        version: 5.0.1
+        specifier: ^4.x.x
+        version: 4.9.3
       '@tevm/tsconfig':
         specifier: workspace:^
         version: link:../../configs/tsconfig

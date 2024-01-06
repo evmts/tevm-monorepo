@@ -151,9 +151,9 @@ Error.prepareStackTrace
 
 #### Defined in
 
-node_modules/.pnpm/bun-types@1.0.15/node_modules/bun-types/types.d.ts:37226
+node_modules/.pnpm/@types+node@20.9.1/node_modules/@types/node/globals.d.ts:11
 
-node_modules/.pnpm/@types+node@20.10.4/node_modules/@types/node/globals.d.ts:28
+node_modules/.pnpm/bun-types@1.0.15/node_modules/bun-types/types.d.ts:37226
 
 ___
 
@@ -167,9 +167,9 @@ Error.stackTraceLimit
 
 #### Defined in
 
-node_modules/.pnpm/bun-types@1.0.15/node_modules/bun-types/types.d.ts:37230
+node_modules/.pnpm/@types+node@20.9.1/node_modules/@types/node/globals.d.ts:13
 
-node_modules/.pnpm/@types+node@20.10.4/node_modules/@types/node/globals.d.ts:30
+node_modules/.pnpm/bun-types@1.0.15/node_modules/bun-types/types.d.ts:37230
 
 ## Methods
 
@@ -196,7 +196,7 @@ Error.captureStackTrace
 
 #### Defined in
 
-node_modules/.pnpm/bun-types@1.0.15/node_modules/bun-types/types.d.ts:37219
+node_modules/.pnpm/@types+node@20.9.1/node_modules/@types/node/globals.d.ts:4
 
 ▸ **captureStackTrace**(`targetObject`, `constructorOpt?`): `void`
 
@@ -219,4 +219,4 @@ Error.captureStackTrace
 
 #### Defined in
 
-node_modules/.pnpm/@types+node@20.10.4/node_modules/@types/node/globals.d.ts:21
+node_modules/.pnpm/bun-types@1.0.15/node_modules/bun-types/types.d.ts:37219
