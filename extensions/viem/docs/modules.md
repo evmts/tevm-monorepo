@@ -85,12 +85,12 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `TAbi` | extends `Abi` \| readonly `unknown`[] |
-| `TFunctionName` | extends `string` |
+| `TFunctionName` | extends `ContractFunctionName`\<`TAbi`\> |
 | `TChain` | extends `Chain` \| `undefined` |
 
 #### Defined in
 
-[OptimisticResult.ts:12](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/OptimisticResult.ts#L12)
+[OptimisticResult.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/OptimisticResult.ts#L13)
 
 ___
 
@@ -183,11 +183,11 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `tevm` | `TevmClient` & \{ `writeContractOptimistic`: \<TAbi, TFunctionName, TChainOverride\>(`action`: `WriteContractParameters`\<`TAbi`, `TFunctionName`, `TChain`, `TAccount`, `TChainOverride`\>) => `AsyncGenerator`\<[`OptimisticResult`](modules.md#optimisticresult)\<`TAbi`, `TFunctionName`, `TChain`\>, `any`, `unknown`\>  } |
+| `tevm` | `TevmClient` & \{ `writeContractOptimistic`: \<TAbi, TFunctionName, TArgs, TChainOverride\>(`action`: `WriteContractParameters`\<`TAbi`, `TFunctionName`, `TArgs`, `TChain`, `TAccount`, `TChainOverride`\>) => `AsyncGenerator`\<[`OptimisticResult`](modules.md#optimisticresult)\<`TAbi`, `TFunctionName`, `TChain`\>, `any`, `unknown`\>  } |
 
 #### Defined in
 
-[ViemTevmOptimisticClient.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/ViemTevmOptimisticClient.ts#L6)
+[ViemTevmOptimisticClient.ts:12](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/ViemTevmOptimisticClient.ts#L12)
 
 ___
 
