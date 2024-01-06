@@ -31,7 +31,10 @@ export const accountHandler = (evm) => async (action) => {
 			),
 		)
 		if (action.deployedBytecode) {
-			await evm.stateManager.putContractCode(address, hexToBytes(action.deployedBytecode))
+			await evm.stateManager.putContractCode(
+				address,
+				hexToBytes(action.deployedBytecode),
+			)
 		}
 		return {}
 	} catch (e) {

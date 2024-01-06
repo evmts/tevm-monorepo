@@ -1,6 +1,6 @@
 import { Address as EthjsAddress, zeros } from '@ethereumjs/util'
 import { validateCallParams } from '@tevm/zod'
-import { getAddress, toHex } from 'viem'
+import { getAddress, hexToBytes, toHex } from 'viem'
 
 const DEFAULT_BLOCK = {
 	header: {
@@ -71,7 +71,7 @@ export const callHandler = (evm) => async (action) => {
 		opts.to = EthjsAddress.fromString(action.to)
 	}
 	if (action.data) {
-		opts.data = Buffer.from(action.data, 'hex')
+		opts.data = hexToBytes(action.data)
 	}
 	if (action.salt) {
 		opts.salt = Buffer.from(action.salt, 'hex')
@@ -109,6 +109,7 @@ export const callHandler = (evm) => async (action) => {
 		opts.gasLimit = BigInt(action.gasLimit)
 	}
 
+	console.log('running with opts', opts)
 	const runCallResult = await evm.runCall(opts)
 	console.log(
 		runCallResult.execResult.returnValue,
