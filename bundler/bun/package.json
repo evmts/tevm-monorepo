@@ -3,14 +3,22 @@
 	"version": "1.0.0-next.18",
 	"private": false,
 	"description": "A bun plugin for tevm",
-	"keywords": ["bun", "plugin", "solidity", "sol", "tevm"],
+	"keywords": [
+		"bun",
+		"plugin",
+		"solidity",
+		"sol",
+		"tevm"
+	],
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/evmts/tevm-monorepo.git",
 		"directory": "bundler/plugin"
 	},
 	"license": "MIT",
-	"contributors": ["Will Cory <willcory10@gmail.com>"],
+	"contributors": [
+		"Will Cory <willcory10@gmail.com>"
+	],
 	"type": "module",
 	"exports": {
 		".": {
@@ -28,7 +36,10 @@
 	"main": "dist/index.cjs",
 	"module": "dist/index.js",
 	"types": "dist/index.d.ts",
-	"files": ["dist", "src"],
+	"files": [
+		"dist",
+		"src"
+	],
 	"scripts": {
 		"all": "bun run build && bun run lint && bun run format && bun run generate:docs && bun run test:coverage",
 		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/bun-plugin ",
