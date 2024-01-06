@@ -15,6 +15,7 @@
 		},
 		"lint:package": {
 			"inputs": ["default"],
+			"dependsOn": ["build:dist", "build:types"],
 			"cache": true
 		},
 		"lint:deps": {
