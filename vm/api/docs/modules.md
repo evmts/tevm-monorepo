@@ -404,7 +404,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `TAbi` | extends `Abi` \| readonly `unknown`[] = `Abi` |
-| `TFunctionName` | extends `string` = `string` |
+| `TFunctionName` | extends `ContractFunctionName`\<`TAbi`\> = `ContractFunctionName`\<`TAbi`\> |
 
 ##### Parameters
 
@@ -418,7 +418,7 @@ ___
 
 #### Defined in
 
-[handlers/ContractHandler.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/handlers/ContractHandler.ts#L4)
+[handlers/ContractHandler.ts:5](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/handlers/ContractHandler.ts#L5)
 
 ___
 
@@ -435,7 +435,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `TAbi` | extends `Abi` |
-| `TFunctionName` | extends `string` |
+| `TFunctionName` | extends `ContractFunctionName`\<`TAbi`\> |
 
 ##### Parameters
 
@@ -449,7 +449,7 @@ ___
 
 #### Defined in
 
-[procedure/ContractJsonRpcProcedure.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/procedure/ContractJsonRpcProcedure.ts#L10)
+[procedure/ContractJsonRpcProcedure.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/procedure/ContractJsonRpcProcedure.ts#L11)
 
 ___
 
@@ -462,11 +462,11 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `TAbi` | extends `Abi` \| readonly `unknown`[] = `Abi` |
-| `TFunctionName` | extends `string` = `string` |
+| `TFunctionName` | extends `ContractFunctionName`\<`TAbi`\> = `ContractFunctionName`\<`TAbi`\> |
 
 #### Defined in
 
-[requests/ContractJsonRpcRequest.ts:5](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/requests/ContractJsonRpcRequest.ts#L5)
+[requests/ContractJsonRpcRequest.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/requests/ContractJsonRpcRequest.ts#L6)
 
 ___
 
@@ -479,11 +479,11 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `TAbi` | extends `Abi` = `Abi` |
-| `TFunctionName` | extends `string` = `string` |
+| `TFunctionName` | extends `ContractFunctionName`\<`TAbi`\> = `ContractFunctionName`\<`TAbi`\> |
 
 #### Defined in
 
-[responses/ContractJsonRpcResponse.ts:5](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/responses/ContractJsonRpcResponse.ts#L5)
+[responses/ContractJsonRpcResponse.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/responses/ContractJsonRpcResponse.ts#L6)
 
 ___
 
@@ -498,11 +498,11 @@ Tevm action to execute a call on a contract
 | Name | Type |
 | :------ | :------ |
 | `TAbi` | extends `Abi` \| readonly `unknown`[] = `Abi` |
-| `TFunctionName` | extends `string` = `string` |
+| `TFunctionName` | extends `ContractFunctionName`\<`TAbi`\> = `ContractFunctionName`\<`TAbi`\> |
 
 #### Defined in
 
-[params/ContractParams.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/ContractParams.ts#L8)
+[params/ContractParams.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/ContractParams.ts#L11)
 
 ___
 
@@ -515,12 +515,12 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `TAbi` | extends `Abi` \| readonly `unknown`[] = `Abi` |
-| `TFunctionName` | extends `string` = `string` |
+| `TFunctionName` | extends `ContractFunctionName`\<`TAbi`\> = `ContractFunctionName`\<`TAbi`\> |
 | `ErrorType` | [`ContractError`](modules.md#contracterror) |
 
 #### Defined in
 
-[result/ContractResult.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/ContractResult.ts#L6)
+[result/ContractResult.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/ContractResult.ts#L9)
 
 ___
 
@@ -841,7 +841,7 @@ ___
 
 ### JsonRpcResponseFromRequest
 
-Ƭ **JsonRpcResponseFromRequest**\<`T`\>: `T` extends `Pick`\<[`CallJsonRpcRequest`](modules.md#calljsonrpcrequest), ``"method"``\> ? [`CallJsonRpcResponse`](modules.md#calljsonrpcresponse) : `T` extends `Pick`\<[`ContractJsonRpcRequest`](modules.md#contractjsonrpcrequest), ``"method"``\> ? [`ContractJsonRpcResponse`](modules.md#contractjsonrpcresponse)\<`T`[``"params"``][``"abi"``], `T`[``"params"``][``"functionName"``] & `string`\> : `T` extends `Pick`\<[`AccountJsonRpcRequest`](modules.md#accountjsonrpcrequest), ``"method"``\> ? [`AccountJsonRpcResponse`](modules.md#accountjsonrpcresponse) : `T` extends `Pick`\<[`ScriptJsonRpcRequest`](modules.md#scriptjsonrpcrequest), ``"method"``\> ? [`ScriptJsonRpcResponse`](modules.md#scriptjsonrpcresponse)\<`T`[``"params"``][``"abi"``], `T`[``"params"``][``"functionName"``] & `string`\> : `never`
+Ƭ **JsonRpcResponseFromRequest**\<`T`\>: `T` extends `Pick`\<[`CallJsonRpcRequest`](modules.md#calljsonrpcrequest), ``"method"``\> ? [`CallJsonRpcResponse`](modules.md#calljsonrpcresponse) : `T` extends `Pick`\<[`ContractJsonRpcRequest`](modules.md#contractjsonrpcrequest), ``"method"``\> ? [`ContractJsonRpcResponse`](modules.md#contractjsonrpcresponse)\<`T`[``"params"``][``"abi"``], `T`[``"params"``][``"functionName"``] & `ContractFunctionName`\<`T`[``"params"``][``"abi"``]\>\> : `T` extends `Pick`\<[`AccountJsonRpcRequest`](modules.md#accountjsonrpcrequest), ``"method"``\> ? [`AccountJsonRpcResponse`](modules.md#accountjsonrpcresponse) : `T` extends `Pick`\<[`ScriptJsonRpcRequest`](modules.md#scriptjsonrpcrequest), ``"method"``\> ? [`ScriptJsonRpcResponse`](modules.md#scriptjsonrpcresponse)\<`T`[``"params"``][``"abi"``], `T`[``"params"``][``"functionName"``] & `ContractFunctionName`\<`T`[``"params"``][``"abi"``]\>\> : `never`
 
 Correctly types a JSON-RPC response based on the request.
 
@@ -853,7 +853,7 @@ Correctly types a JSON-RPC response based on the request.
 
 #### Defined in
 
-[responses/JsonRpcResponseFromRequest.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/responses/JsonRpcResponseFromRequest.ts#L16)
+[responses/JsonRpcResponseFromRequest.ts:17](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/responses/JsonRpcResponseFromRequest.ts#L17)
 
 ___
 
@@ -900,7 +900,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `TAbi` | extends `Abi` \| readonly `unknown`[] = `Abi` |
-| `TFunctionName` | extends `string` = `string` |
+| `TFunctionName` | extends `ContractFunctionName`\<`TAbi`\> = `ContractFunctionName`\<`TAbi`\> |
 
 ##### Parameters
 
@@ -914,7 +914,7 @@ ___
 
 #### Defined in
 
-[handlers/ScriptHandler.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/handlers/ScriptHandler.ts#L4)
+[handlers/ScriptHandler.ts:5](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/handlers/ScriptHandler.ts#L5)
 
 ___
 
@@ -931,7 +931,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `TAbi` | extends `Abi` |
-| `TFunctionName` | extends `string` |
+| `TFunctionName` | extends `ContractFunctionName`\<`TAbi`\> |
 
 ##### Parameters
 
@@ -945,7 +945,7 @@ ___
 
 #### Defined in
 
-[procedure/ScriptJsonRpcProcedure.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/procedure/ScriptJsonRpcProcedure.ts#L10)
+[procedure/ScriptJsonRpcProcedure.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/procedure/ScriptJsonRpcProcedure.ts#L11)
 
 ___
 
@@ -958,11 +958,11 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `TAbi` | extends `Abi` \| readonly `unknown`[] = `Abi` |
-| `TFunctionName` | extends `string` = `string` |
+| `TFunctionName` | extends `ContractFunctionName`\<`TAbi`\> = `ContractFunctionName`\<`TAbi`\> |
 
 #### Defined in
 
-[requests/ScriptJsonRpcRequest.ts:5](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/requests/ScriptJsonRpcRequest.ts#L5)
+[requests/ScriptJsonRpcRequest.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/requests/ScriptJsonRpcRequest.ts#L6)
 
 ___
 
@@ -975,11 +975,11 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `TAbi` | extends `Abi` = `Abi` |
-| `TFunctionName` | extends `string` = `string` |
+| `TFunctionName` | extends `ContractFunctionName`\<`TAbi`\> = `ContractFunctionName`\<`TAbi`\> |
 
 #### Defined in
 
-[responses/ScriptJsonRpcResponse.ts:5](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/responses/ScriptJsonRpcResponse.ts#L5)
+[responses/ScriptJsonRpcResponse.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/responses/ScriptJsonRpcResponse.ts#L6)
 
 ___
 
@@ -994,11 +994,11 @@ Tevm action to deploy and execute a script or contract
 | Name | Type |
 | :------ | :------ |
 | `TAbi` | extends `Abi` \| readonly `unknown`[] = `Abi` |
-| `TFunctionName` | extends `string` = `string` |
+| `TFunctionName` | extends `ContractFunctionName`\<`TAbi`\> = `ContractFunctionName`\<`TAbi`\> |
 
 #### Defined in
 
-[params/ScriptParams.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/ScriptParams.ts#L8)
+[params/ScriptParams.ts:12](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/ScriptParams.ts#L12)
 
 ___
 
@@ -1011,12 +1011,12 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `TAbi` | extends `Abi` \| readonly `unknown`[] = `Abi` |
-| `TFunctionName` | extends `string` = `string` |
+| `TFunctionName` | extends `ContractFunctionName`\<`TAbi`\> = `ContractFunctionName`\<`TAbi`\> |
 | `TErrorType` | [`ScriptError`](modules.md#scripterror) |
 
 #### Defined in
 
-[result/ScriptResult.ts:5](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/ScriptResult.ts#L5)
+[result/ScriptResult.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/ScriptResult.ts#L6)
 
 ___
 

@@ -4,6 +4,7 @@ import type { ContractResult } from '@tevm/api'
 import type { Abi } from 'abitype'
 import type {
 	Chain,
+	ContractFunctionName,
 	WaitForTransactionReceiptReturnType,
 	WriteContractErrorType,
 	WriteContractReturnType,
@@ -11,7 +12,7 @@ import type {
 
 export type OptimisticResult<
 	TAbi extends Abi | readonly unknown[],
-	TFunctionName extends string,
+	TFunctionName extends ContractFunctionName<TAbi>,
 	TChain extends Chain | undefined,
 > =
 	| GenResult<ContractResult<TAbi, TFunctionName>, 'OPTIMISTIC_RESULT'>

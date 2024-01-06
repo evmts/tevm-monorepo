@@ -1,9 +1,10 @@
 import type { ScriptParams, ScriptResult } from '../index.js'
 import type { Abi } from 'abitype'
+import type { ContractFunctionName } from 'viem'
 
 export type ScriptHandler = <
 	TAbi extends Abi | readonly unknown[] = Abi,
-	TFunctionName extends string = string,
+	TFunctionName extends ContractFunctionName<TAbi> = ContractFunctionName<TAbi>,
 >(
 	params: ScriptParams<TAbi, TFunctionName>,
 ) => Promise<ScriptResult<TAbi, TFunctionName>>

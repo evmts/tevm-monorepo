@@ -9,6 +9,7 @@ import type {
 	ScriptJsonRpcResponse,
 	TevmJsonRpcRequest,
 } from '../index.js'
+import type { ContractFunctionName } from 'viem'
 
 /**
  * Correctly types a JSON-RPC response based on the request.
@@ -19,13 +20,13 @@ export type JsonRpcResponseFromRequest<T extends TevmJsonRpcRequest> =
 		: T extends Pick<ContractJsonRpcRequest, 'method'>
 		? ContractJsonRpcResponse<
 				T['params']['abi'],
-				T['params']['functionName'] & string
+				T['params']['functionName'] & ContractFunctionName<T['params']['abi']>
 		  >
 		: T extends Pick<AccountJsonRpcRequest, 'method'>
 		? AccountJsonRpcResponse
 		: T extends Pick<ScriptJsonRpcRequest, 'method'>
 		? ScriptJsonRpcResponse<
 				T['params']['abi'],
-				T['params']['functionName'] & string
+				T['params']['functionName'] & ContractFunctionName<T['params']['abi']>
 		  >
 		: never

@@ -59,7 +59,8 @@
 		"test": "vitest --coverage",
 		"test:coverage": "vitest run --coverage",
 		"test:run": "vitest run",
-		"test:ui": "vitest --ui"
+		"test:ui": "vitest --ui",
+		"typecheck": "tsc --noEmit"
 	},
 	"devDependencies": {
 		"@evmts/core": "next",
@@ -69,7 +70,7 @@
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",
 		"abitype": "^0.10.2",
-		"viem": "^1.21.3"
+		"viem": "^2.0.0"
 	},
 	"publishConfig": {
 		"access": "public"

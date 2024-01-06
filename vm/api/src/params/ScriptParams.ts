@@ -1,13 +1,17 @@
 import type { BaseCallParams } from './BaseCallParams.js'
 import type { Abi } from 'abitype'
-import { type EncodeFunctionDataParameters, type Hex } from 'viem'
+import {
+	type ContractFunctionName,
+	type EncodeFunctionDataParameters,
+	type Hex,
+} from 'viem'
 
 /**
  * Tevm action to deploy and execute a script or contract
  */
 export type ScriptParams<
 	TAbi extends Abi | readonly unknown[] = Abi,
-	TFunctionName extends string = string,
+	TFunctionName extends ContractFunctionName<TAbi> = ContractFunctionName<TAbi>,
 > = EncodeFunctionDataParameters<TAbi, TFunctionName> &
 	BaseCallParams & {
 		/**

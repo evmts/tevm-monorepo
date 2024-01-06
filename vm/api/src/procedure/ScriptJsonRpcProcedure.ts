@@ -6,10 +6,11 @@ import type {
 	ScriptResult,
 } from '../index.js'
 import type { Abi } from 'abitype'
+import type { ContractFunctionName } from 'viem'
 
 export type ScriptJsonRpcProcedure = <
 	TAbi extends Abi,
-	TFunctionName extends string,
+	TFunctionName extends ContractFunctionName<TAbi>,
 >(
 	request: JsonRpcRequest<'tevm_script', ScriptParams<TAbi, TFunctionName>>,
 ) => Promise<
