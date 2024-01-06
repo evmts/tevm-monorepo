@@ -1,2 +1,2 @@
-import { js } from '@tevm/tsupconfig'
-export default js
+import { node } from '@tevm/tsupconfig'
+export default node
