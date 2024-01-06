@@ -32,7 +32,7 @@
 
 | Name | Type |
 | :------ | :------ |
-| `artifacts` | Artifacts |
+| `artifacts` | Artifacts$1 |
 | `moduleType` | ModuleType |
 | `includeBytecode` | boolean |
 

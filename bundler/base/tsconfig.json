@@ -1,11 +1,11 @@
 {
   "extends": "@tevm/tsconfig/base.json",
   "compilerOptions": {
-    "composite": true,
     "outDir": "types",
     "skipLibCheck": true,
     "allowSyntheticDefaultImports": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "incremental": false
   },
   "include": [
     "src",

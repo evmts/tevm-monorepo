@@ -2,16 +2,8 @@
 	"name": "@tevm/state",
 	"version": "1.0.0-next.11",
 	"private": false,
-	"description": "A typesafe library for writing forge scripts in typescript",
-	"keywords": [
-		"solidity",
-		"forge",
-		"foundry",
-		"sol",
-		"typescript",
-		"web3",
-		"blockchain"
-	],
+	"description": "A custom implementation of ethereumjs state manager",
+	"keywords": ["solidity", "ethereumjs", "typescript", "web3", "blockchain"],
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/evmts/tevm-monorepo.git",
@@ -23,23 +15,30 @@
 	"exports": {
 		"./package.json": "./package.json",
 		".": {
-			"import": "./dist/index.js",
-			"default": "./dist/index.cjs",
-			"types": "./types/index.d.ts"
+			"import": {
+				"types": "./dist/index.d.ts",
+				"default": "./dist/index.js"
+			},
+			"require": {
+				"types": "./dist/index.d.cts",
+				"default": "./dist/index.cjs"
+			}
 		}
 	},
 	"main": "dist/index.cjs",
 	"module": "dist/index.js",
-	"types": "types/index.d.ts",
+	"types": "dist/index.d.ts",
 	"files": ["dist", "types", "src", "!src/**/*.spec.ts"],
 	"scripts": {
 		"all": "pnpm i  && bun run build && bun lint && bun format && bun test:run && bun generate:docs",
 		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/state",
 		"build:dist": "bun run tsup",
-		"build:types": "bun run tsc --emitDeclarationOnly --declaration --declarationMap",
+		"build:types": "tsup --dts-only",
 		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
 		"format": "rome format . --write",
 		"format:check": "rome format .",
+		"lint:deps": "bunx depcheck",
+		"lint:package": "bunx publint --strict && attw --pack",
 		"generate:docs": "bun run typedoc",
 		"lint": "rome check . --apply-unsafe",
 		"lint:check": "rome check . --verbose",
@@ -51,12 +50,9 @@
 	},
 	"dependencies": {
 		"@ethereumjs/common": "^4.1.0",
-		"@ethereumjs/evm": "^2.1.0",
 		"@ethereumjs/statemanager": "^2.1.0",
 		"@ethereumjs/trie": "^6.0.1",
 		"@ethereumjs/util": "^9.0.1",
-		"@tevm/contract": "workspace:^",
-		"@types/supertest": "^2.0.16",
 		"abitype": "^0.10.3",
 		"debug": "^4.3.4",
 		"ethereum-cryptography": "^2.1.2",
@@ -64,8 +60,8 @@
 	},
 	"devDependencies": {
 		"@tevm/tsconfig": "workspace:^",
+		"@tevm/tsupconfig": "workspace:^",
 		"@types/debug": "^4.1.12",
-		"ethers": "^6.9.0",
 		"viem": "^1.19.11"
 	},
 	"publishConfig": {

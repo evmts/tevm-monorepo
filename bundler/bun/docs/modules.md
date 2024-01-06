@@ -22,7 +22,7 @@ and have them compiled to typescript on the fly.
 | Name | Type |
 | :------ | :------ |
 | `SolcVersions` | Object |
-| `SolcVersions.solc?` | SolcVersions |
+| `SolcVersions.solc?` | SolcVersions$1 |
 
 #### Returns
 

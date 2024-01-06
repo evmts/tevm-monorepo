@@ -19,6 +19,8 @@
 	"dependencies": {
 		"@tevm/config": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
+		"@tevm/tsupconfig": "workspace:^",
+		"@tevm/tsupconfig": "workspace:^",
 		"@volar/language-core": "~1.10.5",
 		"@volar/language-server": "~1.10.5",
 		"@volar/language-service": "~1.10.5",
