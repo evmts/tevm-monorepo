@@ -11,29 +11,29 @@ import { hexToBytes } from 'viem'
  * @param {import('@ethereumjs/evm').EVM} evm
  * @returns {import('@tevm/api').AccountHandler}
  */
-export const accountHandler = (evm) => async (action) => {
+export const accountHandler = (evm) => async (params) => {
 	/**
 	 * @type {Array<import('@tevm/api').AccountError>}
 	 */
-	const errors = validateAccountParams(action)
+	const errors = validateAccountParams(params)
 	if (errors.length > 0) {
 		return { errors }
 	}
 
-	const address = new EthjsAddress(hexToBytes(action.address))
+	const address = new EthjsAddress(hexToBytes(params.address))
 	try {
 		await evm.stateManager.putAccount(
 			address,
 			new EthjsAccount(
-				action.nonce,
-				action.balance,
-				action.storageRoot && hexToBytes(action.storageRoot),
+				params.nonce,
+				params.balance,
+				params.storageRoot && hexToBytes(params.storageRoot),
 			),
 		)
-		if (action.deployedBytecode) {
+		if (params.deployedBytecode) {
 			await evm.stateManager.putContractCode(
 				address,
-				hexToBytes(action.deployedBytecode),
+				hexToBytes(params.deployedBytecode),
 			)
 		}
 		// TODO offer way of setting contract storage with evm.stateManager.putContractStorage
