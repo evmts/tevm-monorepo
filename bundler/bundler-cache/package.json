@@ -18,9 +18,7 @@
 		"directory": "bundler/base"
 	},
 	"license": "MIT",
-	"contributors": [
-		"Will Cory <willcory10@gmail.com>"
-	],
+	"contributors": ["Will Cory <willcory10@gmail.com>"],
 	"type": "module",
 	"exports": {
 		"./package.json": "./package.json",
@@ -38,11 +36,7 @@
 	"main": "dist/index.cjs",
 	"module": "dist/index.js",
 	"types": "dist/index.d.ts",
-	"files": [
-		"dist",
-		"types",
-		"src"
-	],
+	"files": ["dist", "types", "src"],
 	"scripts": {
 		"//test": "vitest --coverage",
 		"//test:coverage": "vitest run --coverage",
@@ -50,12 +44,12 @@
 		"//test:ui": "vitest --ui",
 		"all": "bun run build && bun run format && bun run lint && bun run test:coverage && bun run generate:docs",
 		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/base ",
-		"build:dist": "bun run tsup",
+		"build:dist": "tsup",
 		"build:types": "tsup --dts-only",
 		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
 		"format": "rome format . --write",
 		"format:check": "rome format .",
-		"generate:docs": "bun run typedoc --plugin typedoc-plugin-markdown",
+		"generate:docs": "typedoc --plugin typedoc-plugin-markdown",
 		"lint": "rome check . --apply-unsafe",
 		"lint:check": "rome check . --verbose",
 		"lint:deps": "bunx depcheck",

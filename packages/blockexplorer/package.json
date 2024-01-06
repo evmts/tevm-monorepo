@@ -18,9 +18,7 @@
 		"directory": "packages/blockexplorer"
 	},
 	"license": "MIT",
-	"contributors": [
-		"Will Cory <willcory10@gmail.com>"
-	],
+	"contributors": ["Will Cory <willcory10@gmail.com>"],
 	"type": "module",
 	"exports": {
 		".": {
@@ -38,19 +36,16 @@
 	"main": "dist/index.cjs",
 	"module": "dist/index.js",
 	"types": "src/index.d.ts",
-	"files": [
-		"dist",
-		"src"
-	],
+	"files": ["dist", "src"],
 	"scripts": {
 		"all": "bun run lint && bun run format && bun run build && bun run test",
 		"build": "nx run-many --targets=build:dist --projects=@tevm/blockexplorer ",
-		"build:dist": "bun run tsup",
+		"build:dist": "tsup",
 		"build:types": "tsup --dts-only",
 		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
 		"format": "rome format . --write",
 		"format:check": "rome format .",
-		"generate:docs": "bun run typedoc",
+		"generate:docs": "typedoc",
 		"lint": "rome check . --apply-unsafe",
 		"lint:check": "rome check . --verbose",
 		"lint:deps": "bunx depcheck",
@@ -59,7 +54,7 @@
 		"test:coverage": "vitest run --coverage",
 		"test:run": "vitest run",
 		"test:ui": "vitest --ui",
-		"typecheck": "bun run tsc --noEmit"
+		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
 		"@tevm/schemas": "workspace:^",

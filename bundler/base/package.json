@@ -3,13 +3,7 @@
 	"version": "1.0.0-next.18",
 	"private": false,
 	"description": "Internal bundler for Tevm",
-	"keywords": [
-		"tevm",
-		"solidity",
-		"typescript",
-		"web3",
-		"blockchain"
-	],
+	"keywords": ["tevm", "solidity", "typescript", "web3", "blockchain"],
 	"homepage": "https://evmts.dev",
 	"repository": {
 		"type": "git",
@@ -18,9 +12,7 @@
 	},
 	"license": "MIT",
 	"author": "roninjin10",
-	"contributors": [
-		"Will Cory <willcory10@gmail.com>"
-	],
+	"contributors": ["Will Cory <willcory10@gmail.com>"],
 	"type": "module",
 	"exports": {
 		"./package.json": "./package.json",
@@ -38,10 +30,7 @@
 	"main": "dist/index.cjs",
 	"module": "dist/index.js",
 	"types": "dist/index.d.ts",
-	"files": [
-		"dist",
-		"src"
-	],
+	"files": ["dist", "src"],
 	"scripts": {
 		"all": "bun run build && bun run format && bun run lint && bun run test:coverage && bun run generate:docs && bun lint:deps && bun lint:package",
 		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/base ",
@@ -50,7 +39,7 @@
 		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
 		"format": "rome format . --write",
 		"format:check": "rome format .",
-		"generate:docs": "bun run typedoc --plugin typedoc-plugin-markdown",
+		"generate:docs": "typedoc --plugin typedoc-plugin-markdown",
 		"lint": "rome check . --apply-unsafe",
 		"lint:check": "rome check . --verbose",
 		"lint:deps": "bunx depcheck",

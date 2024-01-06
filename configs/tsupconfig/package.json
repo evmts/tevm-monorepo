@@ -18,10 +18,7 @@
 	"main": "dist/index.cjs",
 	"module": "dist/index.js",
 	"types": "dist/index.d.ts",
-	"files": [
-		"src",
-		"dist"
-	],
+	"files": ["src", "dist"],
 	"scripts": {
 		"all": "bun run build && bun run format && bun run lint && bun run test:run && bun run generate:docs && bun lint:deps && bun lint:package",
 		"build": "nx build:dist && nx build:types",
@@ -30,7 +27,7 @@
 		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
 		"format": "rome format . --write",
 		"format:check": "rome format .",
-		"generate:docs": "bun run typedoc --plugin typedoc-plugin-markdown",
+		"generate:docs": "typedoc --plugin typedoc-plugin-markdown",
 		"lint": "rome check . --apply-unsafe",
 		"lint:check": "rome check . --verbose",
 		"lint:deps": "bunx depcheck",

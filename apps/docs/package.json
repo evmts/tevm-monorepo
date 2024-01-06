@@ -2,14 +2,12 @@
 	"name": "@tevm/docs",
 	"version": "0.0.1",
 	"private": true,
-	"contributors": [
-		"Will Cory <willcory10@gmail.com>"
-	],
+	"contributors": ["Will Cory <willcory10@gmail.com>"],
 	"type": "module",
 	"scripts": {
 		"build": "bun build:app",
-		"build:app": "bun run vitepress build .",
-		"dev": "bun run vitepress dev .",
+		"build:app": "vitepress build .",
+		"dev": "vitepress dev .",
 		"format": "rome format . --write",
 		"format:check": "rome format .",
 		"lint": "rome check . --apply-unsafe",

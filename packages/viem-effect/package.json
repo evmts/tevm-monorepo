@@ -109,11 +109,11 @@
     "//test:run": "vitest run",
     "//test:ui": "vitest --ui",
     "build": "nx run-many --targets=build:dist --projects=@tevm/viem-effect ",
-    "build:dist": "bun run tsup",
+    "build:dist": "tsup",
     "clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
-    "generate:docs": "bun run typedoc",
+    "generate:docs": "typedoc",
     "generate:src": "bun run generateSrc.ts",
-    "typecheck": "bun run tsc --noEmit"
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@adraffy/ens-normalize": "1.10.0",
