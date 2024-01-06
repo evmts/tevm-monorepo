@@ -46,7 +46,7 @@
 	"scripts": {
 		"all": "pnpm i && bun run build && bun run test && bun run lint && bun run format && bun run generate:docs",
 		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/contracts ",
-		"build:dist": "vite build",
+		"build:dist": "tsup",
 		"build:types": "tsup --dts-only",
 		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
 		"format": "rome format . --write",
