@@ -36,10 +36,13 @@ export const accountHandler = (evm) => async (action) => {
 				hexToBytes(action.deployedBytecode),
 			)
 		}
+		// TODO offer way of setting contract storage with evm.stateManager.putContractStorage
 		return {}
 	} catch (e) {
 		errors.push(
-			createError('UnexpectedError', String(e), JSON.stringify(action)),
+			createError(
+				'UnexpectedError',
+				typeof e === 'string' ? e : e instanceof Error ? e.message : 'unknown error'),
 		)
 		return { errors }
 	}
