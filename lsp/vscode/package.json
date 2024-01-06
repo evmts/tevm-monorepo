@@ -26,7 +26,6 @@
 	"devDependencies": {
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",
-		"@tevm/tsupconfig": "workspace:^",
 		"@tevm/lsp": "workspace:^",
 		"@types/vscode": "^1.82.0",
 		"@volar/language-server": "~1.10.5",
