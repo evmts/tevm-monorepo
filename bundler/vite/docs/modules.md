@@ -19,7 +19,7 @@
 | Name | Type |
 | :------ | :------ |
 | `options?` | Object |
-| `options.solc?` | SolcVersions |
+| `options.solc?` | SolcVersions$1 |
 
 #### Returns
 

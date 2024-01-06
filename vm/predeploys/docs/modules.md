@@ -61,7 +61,7 @@
 
 | Name | Type |
 | :------ | :------ |
-| `«destructured»` | `Pick`\<[`Predeploy`](classes/Predeploy.md)\<`TName`, `THumanReadableAbi`, `TBytecode`, `TDeployedBytecode`\>, ``"address"`` \| ``"contract"``\> |
+| `«destructured»` | `Pick`\<[`Predeploy`](classes/Predeploy.md)\<`TName`, `THumanReadableAbi`, `TBytecode`, `TDeployedBytecode`\>, ``"contract"`` \| ``"address"``\> |
 
 #### Returns
 

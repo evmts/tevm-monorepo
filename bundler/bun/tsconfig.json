@@ -2,7 +2,6 @@
   "extends": "@tevm/tsconfig/base.json",
   "compilerOptions": {
     "rootDir": "src",
-    "composite": true,
     "outDir": "types",
     "skipLibCheck": true,
     "types": [

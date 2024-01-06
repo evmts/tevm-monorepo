@@ -15,28 +15,34 @@
 	"exports": {
 		"./package.json": "./package.json",
 		".": {
-			"import": "./dist/index.js",
-			"require": "./dist/index.cjs",
-			"types": "./types/index.d.ts",
-			"default": "./dist/index.cjs"
+			"import": {
+				"types": "./dist/index.d.ts",
+				"default": "./dist/index.js"
+			},
+			"require": {
+				"types": "./dist/index.d.cts",
+				"default": "./dist/index.cjs"
+			}
 		}
 	},
 	"main": "dist/index.cjs",
 	"module": "dist/index.js",
-	"types": "types/index.d.ts",
+	"types": "dist/index.d.ts",
 	"bin": {
 		"tevm-gen": "./dist/bin/tevm-gen.js"
 	},
-	"files": ["dist", "types", "src"],
+	"files": ["dist", "src"],
 	"scripts": {
 		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/ts-plugin ",
-		"build:dist": "bun run tsup",
-		"build:types": "bun run tsc --emitDeclarationOnly --declaration --declarationMap",
+		"build:dist": "tsup",
+		"build:types": "tsup --dts-only",
 		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
 		"dev": "TSS_DEBUG_BRK=9559 code ../../examples/forge-foundry",
 		"format": "rome format . --write",
 		"format:check": "rome format .",
-		"generate:docs": "bun run typedoc",
+		"lint:deps": "bunx depcheck",
+		"// lint:package": "bunx publint --strict && attw --pack",
+		"generate:docs": "typedoc",
 		"lint": "rome check . --apply-unsafe",
 		"lint:check": "rome check . --verbose",
 		"test": "vitest --coverage",
@@ -47,15 +53,13 @@
 		"@tevm/base": "workspace:^",
 		"@tevm/bundler-cache": "workspace:^",
 		"effect": "2.0.0-next.54",
-		"esbuild": "0.19.5",
 		"glob": "^10.3.10",
 		"solc": "0.8.23-fixed",
-		"solidity-ast": "^0.4.52",
-		"zod": "^3.22.4"
+		"solidity-ast": "^0.4.52"
 	},
 	"devDependencies": {
 		"@tevm/config": "workspace:^",
-		"@openzeppelin/contracts": "^5.0.0",
+		"@tevm/tsupconfig": "workspace:^",
 		"typescript": "^5.2.2"
 	},
 	"peerDependencies": {

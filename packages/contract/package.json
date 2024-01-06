@@ -25,10 +25,14 @@
 	"exports": {
 		"./package.json": "./package.json",
 		".": {
-			"import": "./dist/index.js",
-			"require": "./dist/index.cjs",
-			"default": "./dist/index.cjs",
-			"types": "./src/index.ts"
+			"import": {
+				"types": "./dist/index.d.ts",
+				"default": "./dist/index.js"
+			},
+			"require": {
+				"types": "./dist/index.d.cts",
+				"default": "./dist/index.cjs"
+			}
 		}
 	},
 	"main": "dist/index.cjs",
@@ -36,20 +40,21 @@
 	"types": "src/index.ts",
 	"files": [
 		"dist",
-		"src",
-		"types"
+		"src"
 	],
 	"scripts": {
 		"all": "pnpm i && bun run build && bun run test && bun run lint && bun run format && bun run generate:docs",
 		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/contracts ",
 		"build:dist": "vite build",
-		"build:types": "bun run tsc --emitDeclarationOnly --declaration --declarationMap",
+		"build:types": "tsup --dts-only",
 		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
 		"format": "rome format . --write",
 		"format:check": "rome format .",
 		"generate:docs": "bun run typedoc",
 		"lint": "rome check . --apply-unsafe",
 		"lint:check": "rome check . --verbose",
+		"lint:deps": "bunx depcheck",
+		"lint:package": "bunx publint --strict && attw --pack",
 		"test": "vitest --coverage",
 		"test:coverage": "vitest run --coverage",
 		"test:run": "vitest run",
@@ -61,6 +66,7 @@
 		"@evmts/vite-plugin": "next",
 		"@openzeppelin/contracts": "^5.0.1",
 		"@tevm/tsconfig": "workspace:^",
+		"@tevm/tsupconfig": "workspace:^",
 		"abitype": "^0.10.2",
 		"viem": "^1.21.3"
 	},

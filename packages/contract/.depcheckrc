@@ -1,0 +1,5 @@
+ignores: [
+  "@evmts/core",
+  "@evmts/ts-plugin"
+]
+skip-missing: true
