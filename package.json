@@ -12,7 +12,7 @@
 	],
 	"type": "commonjs",
 	"scripts": {
-		"all": "nx run-many --targets=generate:docs,build:types,typecheck,test:coverage,build:dist,dev:run,build:app",
+		"all": "nx run-many --targets=generate:docs,build:types,typecheck,test:coverage,build:dist,dev:run,build:app --parallel=5",
 		"all:clean": "bun clean && pnpm i && bun allz",
 		"allz": "concurrently 'pnpm i' 'bun lint' 'bun sort-package-json' && bun all && nx run-many --targets=lint:package,lint:deps",
 		"build": "nx run-many --targets=build:dist,build:app,build:types",
@@ -50,7 +50,7 @@
 		"depcheck": "^1.4.7",
 		"dotenv": "^16.3.1",
 		"gitmoji-cli": "^8.4.0",
-		"nx": "17.0.2",
+		"nx": "17.2.8",
 		"publint": "^0.2.7",
 		"rome": "^12.1.3",
 		"sort-package-json": "^2.5.1",
