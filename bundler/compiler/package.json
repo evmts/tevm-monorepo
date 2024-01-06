@@ -71,6 +71,7 @@
 		"solidity-ast": "^0.4.52"
 	},
 	"devDependencies": {
+		"@openzeppelin/contracts": "^5.0.1",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",
 		"solc": "0.8.22"
