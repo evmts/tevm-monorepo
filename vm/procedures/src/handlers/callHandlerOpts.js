@@ -1,5 +1,5 @@
 import { Address as EthjsAddress, zeros } from '@ethereumjs/util'
-import { hexToBytes } from 'viem'
+import { hexToBytes, keccak256 } from 'viem'
 
 const DEFAULT_BLOCK = {
 	header: {
@@ -79,7 +79,7 @@ export const callHandlerOpts = (params) => {
 		)
 	}
 	if (params.deployedBytecode) {
-		opts.code = Buffer.from(params.deployedBytecode, 'hex')
+		opts.code = hexToBytes(keccak256(params.deployedBytecode))
 	}
 	if (params.selfdestruct) {
 		opts.selfdestruct = params.selfdestruct

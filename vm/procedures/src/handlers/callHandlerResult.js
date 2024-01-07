@@ -6,7 +6,6 @@ import { getAddress, toHex } from 'viem'
  * @returns {import('@tevm/api').CallResult}
  */
 export const callHandlerResult = (evmResult) => {
-
 	/**
 	 * @type {import('@tevm/api').CallResult}
 	 */

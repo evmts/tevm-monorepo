@@ -42,7 +42,12 @@ export const accountHandler = (evm) => async (params) => {
 		errors.push(
 			createError(
 				'UnexpectedError',
-				typeof e === 'string' ? e : e instanceof Error ? e.message : 'unknown error'),
+				typeof e === 'string'
+					? e
+					: e instanceof Error
+					? e.message
+					: 'unknown error',
+			),
 		)
 		return { errors }
 	}

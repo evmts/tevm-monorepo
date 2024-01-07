@@ -7,8 +7,16 @@ import { z } from 'zod'
 export const zAccountParams = z
 	.strictObject({
 		address: zAddress.describe('The ethereum address of the account'),
-		balance: z.bigint().positive().optional().describe('The balance to give the account'),
-		nonce: z.bigint().positive().optional().describe('The nonce to give the account'),
+		balance: z
+			.bigint()
+			.positive()
+			.optional()
+			.describe('The balance to give the account'),
+		nonce: z
+			.bigint()
+			.positive()
+			.optional()
+			.describe('The nonce to give the account'),
 		deployedBytecode: zBytecode
 			.optional()
 			.describe(

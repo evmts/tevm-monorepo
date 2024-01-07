@@ -1,6 +1,6 @@
-import { validateCallParams } from '@tevm/zod'
 import { callHandlerOpts } from './callHandlerOpts.js'
 import { callHandlerResult } from './callHandlerResult.js'
+import { validateCallParams } from '@tevm/zod'
 
 /**
  * Creates an CallHandler for handling call params with Ethereumjs EVM
@@ -24,7 +24,12 @@ export const callHandler = (evm) => async (params) => {
 				{
 					name: 'UnexpectedError',
 					_tag: 'UnexpectedError',
-					message: typeof e === 'string' ? e : e instanceof Error ? e.message : 'unknown error',
+					message:
+						typeof e === 'string'
+							? e
+							: e instanceof Error
+								? e.message
+								: 'unknown error',
 				},
 			],
 			executionGasUsed: 0n,

@@ -1,14 +1,16 @@
+import { Address } from '@ethereumjs/util'
 import { callHandler } from './callHandler.js'
 import { validateScriptParams } from '@tevm/zod'
 import { decodeFunctionResult, encodeFunctionData } from 'viem'
+import { accountHandler } from './accountHandler.js'
 
 /**
  * Creates an ScriptHandler for handling script params with Ethereumjs EVM
  * @param {import('@ethereumjs/evm').EVM} evm
  * @returns {import("@tevm/api").ScriptHandler}
  */
-export const scriptHandler = (evm) => async (action) => {
-	const errors = validateScriptParams(/** @type any*/ (action))
+export const scriptHandler = (evm) => async (params) => {
+	const errors = validateScriptParams(/** @type any*/(params))
 	if (errors.length > 0) {
 		return { errors, executionGasUsed: 0n, rawData: '0x' }
 	}
@@ -16,10 +18,10 @@ export const scriptHandler = (evm) => async (action) => {
 	let functionData
 	try {
 		functionData = encodeFunctionData(
-			/** @type {any} */ ({
-				abi: action.abi,
-				functionName: action.functionName,
-				args: action.args,
+			/** @type {any} */({
+				abi: params.abi,
+				functionName: params.functionName,
+				args: params.args,
 			}),
 		)
 	} catch (e) {
@@ -38,13 +40,29 @@ export const scriptHandler = (evm) => async (action) => {
 		}
 	}
 
+	const randomBigInt = BigInt(Math.floor(Math.random() * 1_000_000_000_000_000))
+	const scriptAddress = /** @type {import('viem').Address}*/(Address.generate(Address.fromString(`0x${'6969'.repeat(10)}`), randomBigInt).toString())
+
+	const accountRes = await accountHandler(evm)({
+		deployedBytecode: params.deployedBytecode,
+		address: scriptAddress,
+	})
+
 	/**
 	 * @type {import('@tevm/api').CallParams}
 	 */
 	const callParams = {
-		...action,
-		skipBalance: action.skipBalance === undefined ? true : action.skipBalance,
+		...params,
+		to: scriptAddress,
+		skipBalance: params.skipBalance === undefined ? true : params.skipBalance,
 		data: functionData,
+	}
+	delete callParams.deployedBytecode
+
+
+	if ((accountRes.errors ?? []).length > 0) {
+		// this should only fail if deployedBytecode is not formatted correctly
+		return accountRes
 	}
 
 	const result = await callHandler(evm)(callParams)
@@ -56,10 +74,10 @@ export const scriptHandler = (evm) => async (action) => {
 	let decodedResult
 	try {
 		decodedResult = decodeFunctionResult(
-			/** @type {any} */ ({
-				abi: action.abi,
+			/** @type {any} */({
+				abi: params.abi,
 				data: result.rawData,
-				functionName: action.functionName,
+				functionName: params.functionName,
 			}),
 		)
 	} catch (e) {
@@ -72,8 +90,7 @@ export const scriptHandler = (evm) => async (action) => {
 			message: /** @type {Error}*/ (e).message,
 		}
 		return {
-			rawData: '0x',
-			executionGasUsed: 0n,
+			...result,
 			errors: [err],
 		}
 	}
