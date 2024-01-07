@@ -1,4 +1,4 @@
-import type { StorageDump } from '@ethereumjs/common'
+import type { EVMStateManagerInterface, StorageDump } from '@ethereumjs/common'
 import { EVM, type EVMResult } from '@ethereumjs/evm'
 import type { Account, AccountData } from '@ethereumjs/util'
 import type { Abi, Address } from 'abitype'
@@ -217,6 +217,12 @@ export type Tevm = {
 	) => Promise<RunContractCallResult<TAbi, TFunctionName>>
 }
 
+export interface TevmStateManagerInterface extends EVMStateManagerInterface {
+	dumpState: () => Promise<{}>
+	loadState: (state: {}) => Promise<void>
+}
+
+// Inspired by https://github.com/foundry-rs/foundry/blob/master/crates/anvil/src/eth/backend/db.rs#L353-L359
 interface AccountStorage {
 	nonce: bigint
 	balance: bigint

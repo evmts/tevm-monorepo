@@ -1,7 +1,6 @@
 import { DefaultStateManager } from '@ethereumjs/statemanager'
 import { Account, Address } from '@ethereumjs/util'
-import { TevmStateManagerInterface } from '../../types/stateManager/TevmStateManagerInterface'
-import type { TevmState } from '../Tevm.js'
+import type { TevmState, TevmStateManagerInterface } from '../Tevm.js'
 
 export class TevmStateManager
 	extends DefaultStateManager
