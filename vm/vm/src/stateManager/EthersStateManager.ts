@@ -23,7 +23,7 @@ import type { Debugger } from 'debug'
 
 import { bytesToUnprefixedHex } from '@ethereumjs/util'
 import type { Address } from '@ethereumjs/util'
-import { TevmStateManagerInterface } from '../../types/stateManager/TevmStateManagerInterface'
+import type { TevmStateManagerInterface } from '../Tevm.js'
 
 type getContractStorage = (
 	address: Address,
