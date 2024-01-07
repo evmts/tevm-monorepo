@@ -24,13 +24,15 @@ describe('tevm.httpHandler()', () => {
 		const req = {
 			params: {
 				to: contractAddress,
-				data: encodeFunctionData(DaiContract.read.balanceOf(
-					'0xf0d4c12a5768d806021f80a262b4d39d26c58b8d',
-					// this stubbed api is not the correct api atm
-					{
-						contractAddress,
-					},
-				)),
+				data: encodeFunctionData(
+					DaiContract.read.balanceOf(
+						'0xf0d4c12a5768d806021f80a262b4d39d26c58b8d',
+						// this stubbed api is not the correct api atm
+						{
+							contractAddress,
+						},
+					),
+				),
 			},
 			jsonrpc: '2.0',
 			method: 'tevm_call',
@@ -43,7 +45,13 @@ describe('tevm.httpHandler()', () => {
 			.expect(200)
 			.expect('Content-Type', /json/)
 
-		expect(decodeFunctionResult({ data: res.body.result.rawData, abi: DaiContract.abi, functionName: 'balanceOf' })).toBe(1n)
+		expect(
+			decodeFunctionResult({
+				data: res.body.result.rawData,
+				abi: DaiContract.abi,
+				functionName: 'balanceOf',
+			}),
+		).toBe(1n)
 		expect(hexToBigInt(res.body.result.executionGasUsed)).toBe(2447n)
 		expect(res.body.result.logs).toEqual([])
 		expect(res.body.method).toBe(req.method)

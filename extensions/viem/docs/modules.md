@@ -118,7 +118,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `tevm` | `TevmClient` |
+| `tevm` | `Omit`\<`TevmClient`, ``"request"``\> |
 
 #### Defined in
 
@@ -183,7 +183,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `tevm` | `TevmClient` & \{ `writeContractOptimistic`: \<TAbi, TFunctionName, TArgs, TChainOverride\>(`action`: `WriteContractParameters`\<`TAbi`, `TFunctionName`, `TArgs`, `TChain`, `TAccount`, `TChainOverride`\>) => `AsyncGenerator`\<[`OptimisticResult`](modules.md#optimisticresult)\<`TAbi`, `TFunctionName`, `TChain`\>, `any`, `unknown`\>  } |
+| `tevm` | `Omit`\<`TevmClient`, ``"request"``\> & \{ `writeContractOptimistic`: \<TAbi, TFunctionName, TArgs, TChainOverride\>(`action`: `WriteContractParameters`\<`TAbi`, `TFunctionName`, `TArgs`, `TChain`, `TAccount`, `TChainOverride`\>) => `AsyncGenerator`\<[`OptimisticResult`](modules.md#optimisticresult)\<`TAbi`, `TFunctionName`, `TChain`\>, `any`, `unknown`\>  } |
 
 #### Defined in
 

@@ -14,4 +14,7 @@ type SerializedParams = SerializeToJson<BaseCallParams> & {
 	deployedBytecode: Hex
 }
 
-export type ScriptJsonRpcRequest = JsonRpcRequest<'tevm_script', SerializedParams>
+export type ScriptJsonRpcRequest = JsonRpcRequest<
+	'tevm_script',
+	SerializedParams
+>

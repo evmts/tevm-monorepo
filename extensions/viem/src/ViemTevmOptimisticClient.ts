@@ -13,7 +13,7 @@ export type ViemTevmOptimisticClient<
 	TChain extends Chain | undefined = Chain,
 	TAccount extends Account | undefined = Account | undefined,
 > = {
-	tevm: TevmClient & {
+	tevm: Omit<TevmClient, 'request'> & {
 		writeContractOptimistic<
 			TAbi extends Abi | readonly unknown[] = Abi,
 			TFunctionName extends ContractFunctionName<TAbi> = ContractFunctionName<TAbi>,

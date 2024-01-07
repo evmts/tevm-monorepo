@@ -3,7 +3,14 @@ import { DaiContract } from './DaiContract.sol.js'
 import { Address, bigIntToHex } from '@ethereumjs/util'
 import type { ContractJsonRpcRequest, ScriptJsonRpcRequest } from '@tevm/api'
 import { describe, expect, it } from 'bun:test'
-import { decodeFunctionResult, encodeFunctionData, hexToBigInt, hexToBytes, keccak256, toHex } from 'viem'
+import {
+	decodeFunctionResult,
+	encodeFunctionData,
+	hexToBigInt,
+	hexToBytes,
+	keccak256,
+	toHex,
+} from 'viem'
 
 const contractAddress = '0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1'
 
@@ -18,9 +25,11 @@ describe('Tevm.request', async () => {
 	it('should execute a script request', async () => {
 		const req = {
 			params: {
-				data: encodeFunctionData(DaiContract.read.balanceOf(contractAddress, {
-					contractAddress
-				})),
+				data: encodeFunctionData(
+					DaiContract.read.balanceOf(contractAddress, {
+						contractAddress,
+					}),
+				),
 				deployedBytecode: DaiContract.deployedBytecode,
 			},
 			jsonrpc: '2.0',
@@ -31,11 +40,13 @@ describe('Tevm.request', async () => {
 		if ('error' in res) {
 			throw new Error(res.error.message)
 		}
-		expect(decodeFunctionResult({
-			abi: DaiContract.abi,
-			data: res.result.rawData,
-			functionName: 'balanceOf',
-		}) satisfies bigint).toBe(0n)
+		expect(
+			decodeFunctionResult({
+				abi: DaiContract.abi,
+				data: res.result.rawData,
+				functionName: 'balanceOf',
+			}) satisfies bigint,
+		).toBe(0n)
 		expect(res.result.executionGasUsed).toBe(bigIntToHex(2447n) as any)
 		expect(res.result.logs).toEqual([])
 		expect(res.method).toBe(req.method)
@@ -43,14 +54,15 @@ describe('Tevm.request', async () => {
 		expect(res.jsonrpc).toBe(req.jsonrpc)
 	})
 
-
 	it('should throw an error if attempting a tevm_contractCall request', async () => {
 		const tevm = await createTevm()
 		const req = {
 			params: {
-				data: encodeFunctionData(DaiContract.read.balanceOf(contractAddress, {
-					contractAddress
-				})),
+				data: encodeFunctionData(
+					DaiContract.read.balanceOf(contractAddress, {
+						contractAddress,
+					}),
+				),
 				to: contractAddress,
 			},
 			jsonrpc: '2.0',
@@ -58,9 +70,7 @@ describe('Tevm.request', async () => {
 			id: 1,
 		} as const satisfies ContractJsonRpcRequest
 		const res = await tevm.request(req)
-		expect(res.error.code).toEqual(
-			'UnknownMethodError'
-		)
+		expect(res.error.code).toEqual('UnknownMethodError')
 	})
 
 	it('should execute a contractCall request via using tevm_call', async () => {
@@ -69,9 +79,14 @@ describe('Tevm.request', async () => {
 		})
 		const req = {
 			params: {
-				data: encodeFunctionData(DaiContract.read.balanceOf('0xf0d4c12a5768d806021f80a262b4d39d26c58b8d', {
-					contractAddress
-				})),
+				data: encodeFunctionData(
+					DaiContract.read.balanceOf(
+						'0xf0d4c12a5768d806021f80a262b4d39d26c58b8d',
+						{
+							contractAddress,
+						},
+					),
+				),
 				to: contractAddress,
 			},
 			jsonrpc: '2.0',
@@ -82,7 +97,13 @@ describe('Tevm.request', async () => {
 		if ('error' in res) {
 			throw new Error(res.error.message)
 		}
-		expect(decodeFunctionResult({ data: res.result.rawData, abi: DaiContract.abi, functionName: 'balanceOf' }) satisfies bigint).toBe(1n)
+		expect(
+			decodeFunctionResult({
+				data: res.result.rawData,
+				abi: DaiContract.abi,
+				functionName: 'balanceOf',
+			}) satisfies bigint,
+		).toBe(1n)
 		expect(hexToBigInt(res.result.executionGasUsed)).toBe(2447n)
 		expect(res.result.logs).toEqual([])
 		expect(res.method).toBe(req.method)
@@ -148,8 +169,12 @@ describe('Tevm.request', async () => {
 			},
 		})
 		expect(res).not.toHaveProperty('error')
-		const account = await tevm._evm.stateManager.getAccount(Address.fromString('0xff420000000000000000000000000000000000ff'))
+		const account = await tevm._evm.stateManager.getAccount(
+			Address.fromString('0xff420000000000000000000000000000000000ff'),
+		)
 		expect(account?.balance).toEqual(balance)
-		expect(account?.codeHash).toEqual(hexToBytes(keccak256(DaiContract.deployedBytecode)))
+		expect(account?.codeHash).toEqual(
+			hexToBytes(keccak256(DaiContract.deployedBytecode)),
+		)
 	})
 })

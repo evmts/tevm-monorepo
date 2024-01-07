@@ -1,5 +1,6 @@
 import { tevmViemExtension } from './tevmViemExtension.js'
 import { beforeEach, describe, expect, it, jest } from 'bun:test'
+import { encodeFunctionData, numberToHex } from 'viem'
 
 describe('tevmViemExtension', () => {
 	let mockClient: any
@@ -18,14 +19,17 @@ describe('tevmViemExtension', () => {
 
 		expect((mockClient.request as jest.Mock).mock.lastCall[0]).toEqual({
 			method: 'tevm_account',
-			params: params,
+			params: {
+				address: '0x420',
+				balance: numberToHex(420n),
+			},
 			jsonrpc: '2.0',
 		})
 		expect(response.errors).toBe(undefined as any)
 	})
 
 	it('runScript should call client.request with "tevm_script" and parse the response', async () => {
-		const mockResponse = { executionGasUsed: 420n }
+		const mockResponse = { executionGasUsed: numberToHex(420n) }
 		mockClient.request.mockResolvedValue(mockResponse)
 
 		const decorated = tevmViemExtension()(mockClient)
@@ -40,7 +44,11 @@ describe('tevmViemExtension', () => {
 
 		expect((mockClient.request as jest.Mock).mock.lastCall[0]).toEqual({
 			method: 'tevm_script',
-			params: params,
+			params: {
+				data: encodeFunctionData(params),
+				deployedBytecode: params.deployedBytecode,
+				caller: params.caller,
+			},
 			jsonrpc: '2.0',
 		})
 		expect(response.executionGasUsed).toEqual(420n)
@@ -56,7 +64,10 @@ describe('tevmViemExtension', () => {
 
 		expect((mockClient.request as jest.Mock).mock.lastCall[0]).toEqual({
 			method: 'tevm_account',
-			params: params,
+			params: {
+				address: '0x420',
+				balance: numberToHex(420n),
+			},
 			jsonrpc: '2.0',
 		})
 		expect(response).not.toHaveProperty('errors')

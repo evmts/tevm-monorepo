@@ -1,4 +1,9 @@
-import type { AccountJsonRpcResponse, CallJsonRpcResponse, ScriptJsonRpcResponse, TevmJsonRpcRequest } from './index.js'
+import type {
+	AccountJsonRpcResponse,
+	CallJsonRpcResponse,
+	ScriptJsonRpcResponse,
+	TevmJsonRpcRequest,
+} from './index.js'
 
 type ReturnType<TRequest extends TevmJsonRpcRequest> = {
 	tevm_call: CallJsonRpcResponse
@@ -6,4 +11,6 @@ type ReturnType<TRequest extends TevmJsonRpcRequest> = {
 	tevm_account: AccountJsonRpcResponse
 }[TRequest['method']]
 
-export type TevmJsonRpcRequestHandler = <TRequest extends TevmJsonRpcRequest>(request: TRequest) => Promise<ReturnType<TRequest>>
+export type TevmJsonRpcRequestHandler = <TRequest extends TevmJsonRpcRequest>(
+	request: TRequest,
+) => Promise<ReturnType<TRequest>>

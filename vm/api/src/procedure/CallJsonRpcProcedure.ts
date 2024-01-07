@@ -1,3 +1,5 @@
-import type { CallJsonRpcRequest, CallJsonRpcResponse } from "../index.js";
+import type { CallJsonRpcRequest, CallJsonRpcResponse } from '../index.js'
 
-export type CallJsonRpcProcedure = (request: CallJsonRpcRequest) => Promise<CallJsonRpcResponse>
+export type CallJsonRpcProcedure = (
+	request: CallJsonRpcRequest,
+) => Promise<CallJsonRpcResponse>

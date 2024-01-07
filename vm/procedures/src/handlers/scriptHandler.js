@@ -18,7 +18,7 @@ export const scriptHandler = (evm) => async (params) => {
 	if (/** @type any*/ (params).data) {
 		functionData = /** @type any*/ (params).data
 	} else {
-		const errors = validateScriptParams(/** @type any*/(params))
+		const errors = validateScriptParams(/** @type any*/ (params))
 		if (errors.length > 0) {
 			return { errors, executionGasUsed: 0n, rawData: '0x' }
 		}
@@ -28,12 +28,12 @@ export const scriptHandler = (evm) => async (params) => {
 		functionData =
 			functionData === '0x'
 				? encodeFunctionData(
-						/** @type {any} */({
-						abi: params.abi,
-						functionName: params.functionName,
-						args: params.args,
-					}),
-				)
+						/** @type {any} */ ({
+							abi: params.abi,
+							functionName: params.functionName,
+							args: params.args,
+						}),
+				  )
 				: functionData
 	} catch (e) {
 		/**
@@ -94,7 +94,7 @@ export const scriptHandler = (evm) => async (params) => {
 	let decodedResult
 	try {
 		decodedResult = decodeFunctionResult(
-			/** @type {any} */({
+			/** @type {any} */ ({
 				abi: params.abi,
 				data: result.rawData,
 				functionName: params.functionName,

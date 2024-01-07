@@ -43,7 +43,7 @@ ___
 
 ### zAccountParams
 
-• `Const` **zAccountParams**: `ZodObject`\<\{ `address`: `ZodEffects`\<`ZodString`, \`0x$\{string}\`, `string`\> ; `balance`: `ZodOptional`\<`ZodBigInt`\> ; `deployedBytecode`: `ZodOptional`\<`ZodEffects`\<`ZodEffects`\<`ZodString`, \`0x$\{string}\`, `string`\>, \`0x$\{string}\`, `string`\>\> ; `nonce`: `ZodOptional`\<`ZodNumber`\> ; `storageRoot`: `ZodOptional`\<`ZodEffects`\<`ZodString`, `string`, `string`\>\>  }, ``"strict"``, `ZodTypeAny`, \{ `address`: \`0x$\{string}\` ; `balance?`: `bigint` ; `deployedBytecode?`: \`0x$\{string}\` ; `nonce?`: `number` ; `storageRoot?`: `string`  }, \{ `address`: `string` ; `balance?`: `bigint` ; `deployedBytecode?`: `string` ; `nonce?`: `number` ; `storageRoot?`: `string`  }\>
+• `Const` **zAccountParams**: `ZodObject`\<\{ `address`: `ZodEffects`\<`ZodString`, \`0x$\{string}\`, `string`\> ; `balance`: `ZodOptional`\<`ZodBigInt`\> ; `deployedBytecode`: `ZodOptional`\<`ZodEffects`\<`ZodEffects`\<`ZodString`, \`0x$\{string}\`, `string`\>, \`0x$\{string}\`, `string`\>\> ; `nonce`: `ZodOptional`\<`ZodBigInt`\> ; `storageRoot`: `ZodOptional`\<`ZodEffects`\<`ZodString`, `string`, `string`\>\>  }, ``"strict"``, `ZodTypeAny`, \{ `address`: \`0x$\{string}\` ; `balance?`: `bigint` ; `deployedBytecode?`: \`0x$\{string}\` ; `nonce?`: `bigint` ; `storageRoot?`: `string`  }, \{ `address`: `string` ; `balance?`: `bigint` ; `deployedBytecode?`: `string` ; `nonce?`: `bigint` ; `storageRoot?`: `string`  }\>
 
 Zod validator for a valid account action
 

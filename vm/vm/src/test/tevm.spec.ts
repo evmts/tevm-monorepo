@@ -54,7 +54,9 @@ describe('Tevm should create a local vm in JavaScript', () => {
 			expect(res.executionGasUsed).toBe(2447n)
 			expect(res.logs).toEqual([])
 			expect('errors' in res).toBe(false)
-			expect(res.rawData).toBe('0x0000000000000000000000000000000000000000000000000000000000000000')
+			expect(res.rawData).toBe(
+				'0x0000000000000000000000000000000000000000000000000000000000000000',
+			)
 			expect(res.data).toBe(0n)
 			// TODO test the other properties
 		})

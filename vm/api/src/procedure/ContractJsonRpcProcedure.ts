@@ -1,4 +1,4 @@
-import type { CallJsonRpcRequest } from "../index.js";
+import type { CallJsonRpcRequest } from '../index.js'
 
 /**
  *  Since ContractJsonRpcProcedure is a quality of life wrapper around CallJsonRpcProcedure

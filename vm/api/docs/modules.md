@@ -53,10 +53,8 @@
 - [InvalidStorageRootError](modules.md#invalidstoragerooterror)
 - [InvalidToError](modules.md#invalidtoerror)
 - [InvalidValueError](modules.md#invalidvalueerror)
-- [JsonRpcProcedure](modules.md#jsonrpcprocedure)
 - [JsonRpcRequest](modules.md#jsonrpcrequest)
 - [JsonRpcResponse](modules.md#jsonrpcresponse)
-- [JsonRpcResponseFromRequest](modules.md#jsonrpcresponsefromrequest)
 - [Log](modules.md#log)
 - [ScriptError](modules.md#scripterror)
 - [ScriptHandler](modules.md#scripthandler)
@@ -109,31 +107,45 @@ ___
 
 ### AccountJsonRpcProcedure
 
-Ƭ **AccountJsonRpcProcedure**: [`JsonRpcProcedure`](modules.md#jsonrpcprocedure)\<``"tevm_account"``, [`AccountParams`](modules.md#accountparams), [`AccountResult`](modules.md#accountresult)\<`never`\>, [`AccountError`](modules.md#accounterror)[``"_tag"``]\>
+Ƭ **AccountJsonRpcProcedure**: (`request`: [`AccountJsonRpcRequest`](modules.md#accountjsonrpcrequest)) => `Promise`\<[`AccountJsonRpcResponse`](modules.md#accountjsonrpcresponse)\>
+
+#### Type declaration
+
+▸ (`request`): `Promise`\<[`AccountJsonRpcResponse`](modules.md#accountjsonrpcresponse)\>
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `request` | [`AccountJsonRpcRequest`](modules.md#accountjsonrpcrequest) |
+
+##### Returns
+
+`Promise`\<[`AccountJsonRpcResponse`](modules.md#accountjsonrpcresponse)\>
 
 #### Defined in
 
-[procedure/AccountJsonRpcProcedure.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/procedure/AccountJsonRpcProcedure.ts#L4)
+[procedure/AccountJsonRpcProcedure.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/procedure/AccountJsonRpcProcedure.ts#L3)
 
 ___
 
 ### AccountJsonRpcRequest
 
-Ƭ **AccountJsonRpcRequest**: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"tevm_account"``, [`AccountParams`](modules.md#accountparams)\>
+Ƭ **AccountJsonRpcRequest**: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"tevm_account"``, `SerializeToJson`\<[`AccountParams`](modules.md#accountparams)\>\>
 
 #### Defined in
 
-[requests/AccountJsonRpcRequest.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/requests/AccountJsonRpcRequest.ts#L4)
+[requests/AccountJsonRpcRequest.ts:5](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/requests/AccountJsonRpcRequest.ts#L5)
 
 ___
 
 ### AccountJsonRpcResponse
 
-Ƭ **AccountJsonRpcResponse**: [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"tevm_account"``, [`AccountResult`](modules.md#accountresult), [`AccountError`](modules.md#accounterror)[``"_tag"``]\>
+Ƭ **AccountJsonRpcResponse**: [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"tevm_account"``, `SerializeToJson`\<[`AccountResult`](modules.md#accountresult)\>, [`AccountError`](modules.md#accounterror)[``"_tag"``]\>
 
 #### Defined in
 
-[responses/AccountJsonRpcResponse.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/responses/AccountJsonRpcResponse.ts#L4)
+[responses/AccountJsonRpcResponse.ts:5](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/responses/AccountJsonRpcResponse.ts#L5)
 
 ___
 
@@ -295,31 +307,45 @@ ___
 
 ### CallJsonRpcProcedure
 
-Ƭ **CallJsonRpcProcedure**: [`JsonRpcProcedure`](modules.md#jsonrpcprocedure)\<``"tevm_call"``, [`CallParams`](modules.md#callparams), [`CallResult`](modules.md#callresult)\<`never`\>, [`CallError`](modules.md#callerror)[``"_tag"``]\>
+Ƭ **CallJsonRpcProcedure**: (`request`: [`CallJsonRpcRequest`](modules.md#calljsonrpcrequest)) => `Promise`\<[`CallJsonRpcResponse`](modules.md#calljsonrpcresponse)\>
+
+#### Type declaration
+
+▸ (`request`): `Promise`\<[`CallJsonRpcResponse`](modules.md#calljsonrpcresponse)\>
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `request` | [`CallJsonRpcRequest`](modules.md#calljsonrpcrequest) |
+
+##### Returns
+
+`Promise`\<[`CallJsonRpcResponse`](modules.md#calljsonrpcresponse)\>
 
 #### Defined in
 
-[procedure/CallJsonRpcProcedure.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/procedure/CallJsonRpcProcedure.ts#L4)
+[procedure/CallJsonRpcProcedure.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/procedure/CallJsonRpcProcedure.ts#L3)
 
 ___
 
 ### CallJsonRpcRequest
 
-Ƭ **CallJsonRpcRequest**: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"tevm_call"``, [`CallParams`](modules.md#callparams)\>
+Ƭ **CallJsonRpcRequest**: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"tevm_call"``, `SerializeToJson`\<[`CallParams`](modules.md#callparams)\>\>
 
 #### Defined in
 
-[requests/CallJsonRpcRequest.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/requests/CallJsonRpcRequest.ts#L4)
+[requests/CallJsonRpcRequest.ts:5](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/requests/CallJsonRpcRequest.ts#L5)
 
 ___
 
 ### CallJsonRpcResponse
 
-Ƭ **CallJsonRpcResponse**: [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"tevm_call"``, [`CallResult`](modules.md#callresult), [`CallError`](modules.md#callerror)[``"_tag"``]\>
+Ƭ **CallJsonRpcResponse**: [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"tevm_call"``, `SerializeToJson`\<[`CallResult`](modules.md#callresult)\>, [`CallError`](modules.md#callerror)[``"_tag"``]\>
 
 #### Defined in
 
-[responses/CallJsonRpcResponse.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/responses/CallJsonRpcResponse.ts#L4)
+[responses/CallJsonRpcResponse.ts:5](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/responses/CallJsonRpcResponse.ts#L5)
 
 ___
 
@@ -424,66 +450,40 @@ ___
 
 ### ContractJsonRpcProcedure
 
-Ƭ **ContractJsonRpcProcedure**: \<TAbi, TFunctionName\>(`request`: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"tevm_contract"``, [`ContractParams`](modules.md#contractparams)\<`TAbi`, `TFunctionName`\>\>) => `Promise`\<[`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"tevm_contract"``, [`ContractResult`](modules.md#contractresult)\<`TAbi`, `TFunctionName`, `never`\>, [`ContractError`](modules.md#contracterror)[``"_tag"``]\>\>
+Ƭ **ContractJsonRpcProcedure**: [`CallJsonRpcRequest`](modules.md#calljsonrpcrequest)
 
-#### Type declaration
-
-▸ \<`TAbi`, `TFunctionName`\>(`request`): `Promise`\<[`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"tevm_contract"``, [`ContractResult`](modules.md#contractresult)\<`TAbi`, `TFunctionName`, `never`\>, [`ContractError`](modules.md#contracterror)[``"_tag"``]\>\>
-
-##### Type parameters
-
-| Name | Type |
-| :------ | :------ |
-| `TAbi` | extends `Abi` |
-| `TFunctionName` | extends `ContractFunctionName`\<`TAbi`\> |
-
-##### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `request` | [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"tevm_contract"``, [`ContractParams`](modules.md#contractparams)\<`TAbi`, `TFunctionName`\>\> |
-
-##### Returns
-
-`Promise`\<[`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"tevm_contract"``, [`ContractResult`](modules.md#contractresult)\<`TAbi`, `TFunctionName`, `never`\>, [`ContractError`](modules.md#contracterror)[``"_tag"``]\>\>
+Since ContractJsonRpcProcedure is a quality of life wrapper around CallJsonRpcProcedure
+ We choose to overload the type instead of creating a new one
 
 #### Defined in
 
-[procedure/ContractJsonRpcProcedure.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/procedure/ContractJsonRpcProcedure.ts#L11)
+[procedure/ContractJsonRpcProcedure.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/procedure/ContractJsonRpcProcedure.ts#L7)
 
 ___
 
 ### ContractJsonRpcRequest
 
-Ƭ **ContractJsonRpcRequest**\<`TAbi`, `TFunctionName`\>: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"tevm_contract"``, [`ContractParams`](modules.md#contractparams)\<`TAbi`, `TFunctionName`\>\>
+Ƭ **ContractJsonRpcRequest**: [`CallJsonRpcRequest`](modules.md#calljsonrpcrequest)
 
-#### Type parameters
-
-| Name | Type |
-| :------ | :------ |
-| `TAbi` | extends `Abi` \| readonly `unknown`[] = `Abi` |
-| `TFunctionName` | extends `ContractFunctionName`\<`TAbi`\> = `ContractFunctionName`\<`TAbi`\> |
+Since contract calls are just a quality of life wrapper around call we avoid using tevm_contract
+in favor of overloading tevm_call
 
 #### Defined in
 
-[requests/ContractJsonRpcRequest.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/requests/ContractJsonRpcRequest.ts#L6)
+[requests/ContractJsonRpcRequest.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/requests/ContractJsonRpcRequest.ts#L7)
 
 ___
 
 ### ContractJsonRpcResponse
 
-Ƭ **ContractJsonRpcResponse**\<`TAbi`, `TFunctionName`\>: [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"tevm_contract"``, [`ContractResult`](modules.md#contractresult)\<`TAbi`, `TFunctionName`\>, [`ContractError`](modules.md#contracterror)[``"_tag"``]\>
+Ƭ **ContractJsonRpcResponse**: [`CallJsonRpcResponse`](modules.md#calljsonrpcresponse)
 
-#### Type parameters
-
-| Name | Type |
-| :------ | :------ |
-| `TAbi` | extends `Abi` = `Abi` |
-| `TFunctionName` | extends `ContractFunctionName`\<`TAbi`\> = `ContractFunctionName`\<`TAbi`\> |
+Since contract calls are just a quality of life wrapper around call we avoid using tevm_contract
+in favor of overloading tevm_call
 
 #### Defined in
 
-[responses/ContractJsonRpcResponse.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/responses/ContractJsonRpcResponse.ts#L6)
+[responses/ContractJsonRpcResponse.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/responses/ContractJsonRpcResponse.ts#L7)
 
 ___
 
@@ -760,41 +760,6 @@ ___
 
 ___
 
-### JsonRpcProcedure
-
-Ƭ **JsonRpcProcedure**\<`TMethod`, `TParams`, `TResult`, `TErrorCode`, `TRequest`, `TResponse`\>: (`request`: `TRequest`) => `Promise`\<`TResponse`\>
-
-#### Type parameters
-
-| Name | Type |
-| :------ | :------ |
-| `TMethod` | extends `string` |
-| `TParams` | `TParams` |
-| `TResult` | `TResult` |
-| `TErrorCode` | extends `string` |
-| `TRequest` | extends [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<`TMethod`, `TParams`\> = [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<`TMethod`, `TParams`\> |
-| `TResponse` | extends [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<`TMethod`, `TResult`, `TErrorCode`\> = [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<`TMethod`, `TResult`, `TErrorCode`\> |
-
-#### Type declaration
-
-▸ (`request`): `Promise`\<`TResponse`\>
-
-##### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `request` | `TRequest` |
-
-##### Returns
-
-`Promise`\<`TResponse`\>
-
-#### Defined in
-
-[procedure/JsonRpcProcedure.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/procedure/JsonRpcProcedure.ts#L3)
-
-___
-
 ### JsonRpcRequest
 
 Ƭ **JsonRpcRequest**\<`TMethod`, `TParams`\>: `Object`
@@ -836,24 +801,6 @@ ___
 #### Defined in
 
 [responses/JsonRpcResponse.ts:1](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/responses/JsonRpcResponse.ts#L1)
-
-___
-
-### JsonRpcResponseFromRequest
-
-Ƭ **JsonRpcResponseFromRequest**\<`T`\>: `T` extends `Pick`\<[`CallJsonRpcRequest`](modules.md#calljsonrpcrequest), ``"method"``\> ? [`CallJsonRpcResponse`](modules.md#calljsonrpcresponse) : `T` extends `Pick`\<[`ContractJsonRpcRequest`](modules.md#contractjsonrpcrequest), ``"method"``\> ? [`ContractJsonRpcResponse`](modules.md#contractjsonrpcresponse)\<`T`[``"params"``][``"abi"``], `T`[``"params"``][``"functionName"``] & `ContractFunctionName`\<`T`[``"params"``][``"abi"``]\>\> : `T` extends `Pick`\<[`AccountJsonRpcRequest`](modules.md#accountjsonrpcrequest), ``"method"``\> ? [`AccountJsonRpcResponse`](modules.md#accountjsonrpcresponse) : `T` extends `Pick`\<[`ScriptJsonRpcRequest`](modules.md#scriptjsonrpcrequest), ``"method"``\> ? [`ScriptJsonRpcResponse`](modules.md#scriptjsonrpcresponse)\<`T`[``"params"``][``"abi"``], `T`[``"params"``][``"functionName"``] & `ContractFunctionName`\<`T`[``"params"``][``"abi"``]\>\> : `never`
-
-Correctly types a JSON-RPC response based on the request.
-
-#### Type parameters
-
-| Name | Type |
-| :------ | :------ |
-| `T` | extends [`TevmJsonRpcRequest`](modules.md#tevmjsonrpcrequest) |
-
-#### Defined in
-
-[responses/JsonRpcResponseFromRequest.ts:17](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/responses/JsonRpcResponseFromRequest.ts#L17)
 
 ___
 
@@ -920,66 +867,45 @@ ___
 
 ### ScriptJsonRpcProcedure
 
-Ƭ **ScriptJsonRpcProcedure**: \<TAbi, TFunctionName\>(`request`: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"tevm_script"``, [`ScriptParams`](modules.md#scriptparams)\<`TAbi`, `TFunctionName`\>\>) => `Promise`\<[`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"tevm_script"``, [`ScriptResult`](modules.md#scriptresult)\<`TAbi`, `TFunctionName`, `never`\>, [`ScriptError`](modules.md#scripterror)[``"_tag"``]\>\>
+Ƭ **ScriptJsonRpcProcedure**: (`request`: [`ScriptJsonRpcRequest`](modules.md#scriptjsonrpcrequest)) => `Promise`\<[`ScriptJsonRpcResponse`](modules.md#scriptjsonrpcresponse)\>
 
 #### Type declaration
 
-▸ \<`TAbi`, `TFunctionName`\>(`request`): `Promise`\<[`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"tevm_script"``, [`ScriptResult`](modules.md#scriptresult)\<`TAbi`, `TFunctionName`, `never`\>, [`ScriptError`](modules.md#scripterror)[``"_tag"``]\>\>
-
-##### Type parameters
-
-| Name | Type |
-| :------ | :------ |
-| `TAbi` | extends `Abi` |
-| `TFunctionName` | extends `ContractFunctionName`\<`TAbi`\> |
+▸ (`request`): `Promise`\<[`ScriptJsonRpcResponse`](modules.md#scriptjsonrpcresponse)\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"tevm_script"``, [`ScriptParams`](modules.md#scriptparams)\<`TAbi`, `TFunctionName`\>\> |
+| `request` | [`ScriptJsonRpcRequest`](modules.md#scriptjsonrpcrequest) |
 
 ##### Returns
 
-`Promise`\<[`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"tevm_script"``, [`ScriptResult`](modules.md#scriptresult)\<`TAbi`, `TFunctionName`, `never`\>, [`ScriptError`](modules.md#scripterror)[``"_tag"``]\>\>
+`Promise`\<[`ScriptJsonRpcResponse`](modules.md#scriptjsonrpcresponse)\>
 
 #### Defined in
 
-[procedure/ScriptJsonRpcProcedure.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/procedure/ScriptJsonRpcProcedure.ts#L11)
+[procedure/ScriptJsonRpcProcedure.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/procedure/ScriptJsonRpcProcedure.ts#L3)
 
 ___
 
 ### ScriptJsonRpcRequest
 
-Ƭ **ScriptJsonRpcRequest**\<`TAbi`, `TFunctionName`\>: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"tevm_script"``, [`ScriptParams`](modules.md#scriptparams)\<`TAbi`, `TFunctionName`\>\>
-
-#### Type parameters
-
-| Name | Type |
-| :------ | :------ |
-| `TAbi` | extends `Abi` \| readonly `unknown`[] = `Abi` |
-| `TFunctionName` | extends `ContractFunctionName`\<`TAbi`\> = `ContractFunctionName`\<`TAbi`\> |
+Ƭ **ScriptJsonRpcRequest**: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"tevm_script"``, `SerializedParams`\>
 
 #### Defined in
 
-[requests/ScriptJsonRpcRequest.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/requests/ScriptJsonRpcRequest.ts#L6)
+[requests/ScriptJsonRpcRequest.ts:17](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/requests/ScriptJsonRpcRequest.ts#L17)
 
 ___
 
 ### ScriptJsonRpcResponse
 
-Ƭ **ScriptJsonRpcResponse**\<`TAbi`, `TFunctionName`\>: [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"tevm_script"``, [`ScriptResult`](modules.md#scriptresult)\<`TAbi`, `TFunctionName`\>, [`ScriptError`](modules.md#scripterror)[``"_tag"``]\>
-
-#### Type parameters
-
-| Name | Type |
-| :------ | :------ |
-| `TAbi` | extends `Abi` = `Abi` |
-| `TFunctionName` | extends `ContractFunctionName`\<`TAbi`\> = `ContractFunctionName`\<`TAbi`\> |
+Ƭ **ScriptJsonRpcResponse**: [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"tevm_script"``, `SerializeToJson`\<[`CallResult`](modules.md#callresult)\>, [`ScriptError`](modules.md#scripterror)[``"_tag"``]\>
 
 #### Defined in
 
-[responses/ScriptJsonRpcResponse.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/responses/ScriptJsonRpcResponse.ts#L6)
+[responses/ScriptJsonRpcResponse.ts:5](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/responses/ScriptJsonRpcResponse.ts#L5)
 
 ___
 
@@ -1057,11 +983,11 @@ ___
 
 ### TevmJsonRpcRequestHandler
 
-Ƭ **TevmJsonRpcRequestHandler**: \<TRequest\>(`request`: `TRequest`) => `Promise`\<[`JsonRpcResponseFromRequest`](modules.md#jsonrpcresponsefromrequest)\<`TRequest`\>\>
+Ƭ **TevmJsonRpcRequestHandler**: \<TRequest\>(`request`: `TRequest`) => `Promise`\<`ReturnType`\<`TRequest`\>\>
 
 #### Type declaration
 
-▸ \<`TRequest`\>(`request`): `Promise`\<[`JsonRpcResponseFromRequest`](modules.md#jsonrpcresponsefromrequest)\<`TRequest`\>\>
+▸ \<`TRequest`\>(`request`): `Promise`\<`ReturnType`\<`TRequest`\>\>
 
 ##### Type parameters
 
@@ -1077,11 +1003,11 @@ ___
 
 ##### Returns
 
-`Promise`\<[`JsonRpcResponseFromRequest`](modules.md#jsonrpcresponsefromrequest)\<`TRequest`\>\>
+`Promise`\<`ReturnType`\<`TRequest`\>\>
 
 #### Defined in
 
-[TevmJsonRpcRequestHandler.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/TevmJsonRpcRequestHandler.ts#L4)
+[TevmJsonRpcRequestHandler.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/TevmJsonRpcRequestHandler.ts#L14)
 
 ___
 
