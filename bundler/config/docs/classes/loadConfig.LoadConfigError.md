@@ -1,48 +1,53 @@
-[@tevm/jsonrpc](../README.md) / [Exports](../modules.md) / UnknownMethodError
+[@tevm/config](../README.md) / [Modules](../modules.md) / [loadConfig](../modules/loadConfig.md) / LoadConfigError
 
-# Class: UnknownMethodError
+# Class: LoadConfigError
+
+[loadConfig](../modules/loadConfig.md).LoadConfigError
+
+Error class for [loadConfig](../modules/loadConfig.md#loadconfig)
 
 ## Hierarchy
 
 - `Error`
 
-  ↳ **`UnknownMethodError`**
+  ↳ **`LoadConfigError`**
 
 ## Table of contents
 
 ### Constructors
 
-- [constructor](UnknownMethodError.md#constructor)
+- [constructor](loadConfig.LoadConfigError.md#constructor)
 
 ### Properties
 
-- [\_tag](UnknownMethodError.md#_tag)
-- [cause](UnknownMethodError.md#cause)
-- [message](UnknownMethodError.md#message)
-- [name](UnknownMethodError.md#name)
-- [stack](UnknownMethodError.md#stack)
-- [prepareStackTrace](UnknownMethodError.md#preparestacktrace)
-- [stackTraceLimit](UnknownMethodError.md#stacktracelimit)
+- [\_tag](loadConfig.LoadConfigError.md#_tag)
+- [cause](loadConfig.LoadConfigError.md#cause)
+- [message](loadConfig.LoadConfigError.md#message)
+- [name](loadConfig.LoadConfigError.md#name)
+- [stack](loadConfig.LoadConfigError.md#stack)
+- [prepareStackTrace](loadConfig.LoadConfigError.md#preparestacktrace)
+- [stackTraceLimit](loadConfig.LoadConfigError.md#stacktracelimit)
 
 ### Methods
 
-- [captureStackTrace](UnknownMethodError.md#capturestacktrace)
+- [captureStackTrace](loadConfig.LoadConfigError.md#capturestacktrace)
 
 ## Constructors
 
 ### constructor
 
-• **new UnknownMethodError**(`request`): [`UnknownMethodError`](UnknownMethodError.md)
+• **new LoadConfigError**(`configFilePath`, `underlyingError`): [`LoadConfigError`](loadConfig.LoadConfigError.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | `never` |
+| `configFilePath` | `string` |
+| `underlyingError` | [`LoadConfigErrorType`](../modules/loadConfig.md#loadconfigerrortype) |
 
 #### Returns
 
-[`UnknownMethodError`](UnknownMethodError.md)
+[`LoadConfigError`](loadConfig.LoadConfigError.md)
 
 #### Overrides
 
@@ -50,17 +55,17 @@ Error.constructor
 
 #### Defined in
 
-[vm/jsonrpc/src/createJsonRpcClient.ts:24](https://github.com/evmts/tevm-monorepo/blob/main/vm/jsonrpc/src/createJsonRpcClient.ts#L24)
+[bundler/config/src/loadConfig.js:40](https://github.com/evmts/tevm-monorepo/blob/main/bundler/config/src/loadConfig.js#L40)
 
 ## Properties
 
 ### \_tag
 
-• **\_tag**: `string` = `'UnknownMethodError'`
+• **\_tag**: ``"InvalidConfigError"`` \| ``"FoundryNotFoundError"`` \| ``"FoundryConfigError"`` \| ``"InvalidRemappingsError"`` \| ``"FailedToReadConfigError"`` \| ``"InvalidJsonConfigError"`` \| ``"ParseJsonError"`` \| ``"NoPluginInTsConfigFoundError"``
 
 #### Defined in
 
-[vm/jsonrpc/src/createJsonRpcClient.ts:23](https://github.com/evmts/tevm-monorepo/blob/main/vm/jsonrpc/src/createJsonRpcClient.ts#L23)
+[bundler/config/src/loadConfig.js:35](https://github.com/evmts/tevm-monorepo/blob/main/bundler/config/src/loadConfig.js#L35)
 
 ___
 
@@ -94,7 +99,7 @@ ___
 
 ### name
 
-• **name**: `string` = `'UnknownMethodError'`
+• **name**: ``"InvalidConfigError"`` \| ``"FoundryNotFoundError"`` \| ``"FoundryConfigError"`` \| ``"InvalidRemappingsError"`` \| ``"FailedToReadConfigError"`` \| ``"InvalidJsonConfigError"`` \| ``"ParseJsonError"`` \| ``"NoPluginInTsConfigFoundError"``
 
 #### Overrides
 
@@ -102,7 +107,7 @@ Error.name
 
 #### Defined in
 
-[vm/jsonrpc/src/createJsonRpcClient.ts:22](https://github.com/evmts/tevm-monorepo/blob/main/vm/jsonrpc/src/createJsonRpcClient.ts#L22)
+[bundler/config/src/loadConfig.js:31](https://github.com/evmts/tevm-monorepo/blob/main/bundler/config/src/loadConfig.js#L31)
 
 ___
 
@@ -153,8 +158,6 @@ Error.prepareStackTrace
 
 node_modules/.pnpm/@types+node@20.9.1/node_modules/@types/node/globals.d.ts:11
 
-node_modules/.pnpm/bun-types@1.0.21/node_modules/bun-types/types.d.ts:2235
-
 ___
 
 ### stackTraceLimit
@@ -168,8 +171,6 @@ Error.stackTraceLimit
 #### Defined in
 
 node_modules/.pnpm/@types+node@20.9.1/node_modules/@types/node/globals.d.ts:13
-
-node_modules/.pnpm/bun-types@1.0.21/node_modules/bun-types/types.d.ts:2239
 
 ## Methods
 
@@ -197,26 +198,3 @@ Error.captureStackTrace
 #### Defined in
 
 node_modules/.pnpm/@types+node@20.9.1/node_modules/@types/node/globals.d.ts:4
-
-▸ **captureStackTrace**(`targetObject`, `constructorOpt?`): `void`
-
-Create .stack property on a target object
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `targetObject` | `object` |
-| `constructorOpt?` | `Function` |
-
-#### Returns
-
-`void`
-
-#### Inherited from
-
-Error.captureStackTrace
-
-#### Defined in
-
-node_modules/.pnpm/bun-types@1.0.21/node_modules/bun-types/types.d.ts:2228

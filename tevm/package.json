@@ -65,7 +65,7 @@
 		"format:check": "rome format .",
 		"lint:deps": "bunx depcheck",
 		"lint:package": "bunx publint --strict && attw --pack",
-		"generate:docs": "bun run typedoc",
+		"generate:docs": "typedoc",
 		"lint": "rome check . --apply-unsafe",
 		"lint:check": "rome check . --verbose",
 		"test": "vitest --coverage",

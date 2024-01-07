@@ -1,18 +1,18 @@
-[@tevm/rspack-plugin](README.md) / Exports
+[@tevm/rollup-plugin](README.md) / Exports
 
-# @tevm/rspack-plugin
+# @tevm/rollup-plugin
 
 ## Table of contents
 
 ### Functions
 
-- [rspackPluginTevm](modules.md#rspackplugintevm)
+- [rollupPluginTevm](modules.md#rollupplugintevm)
 
 ## Functions
 
-### rspackPluginTevm
+### rollupPluginTevm
 
-▸ **rspackPluginTevm**(`options?`): `RspackPluginInstance`
+▸ **rollupPluginTevm**(`options?`): `Plugin`\<`any`\>
 
 #### Parameters
 
@@ -23,7 +23,7 @@
 
 #### Returns
 
-`RspackPluginInstance`
+`Plugin`\<`any`\>
 
 #### Defined in
 
