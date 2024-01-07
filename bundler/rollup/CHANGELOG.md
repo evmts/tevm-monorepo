@@ -1,5 +1,12 @@
 # @tevm/plugin
 
+## 1.0.0-next.21
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @tevm/unplugin@1.0.0-next.21
+
 ## 1.0.0-next.19
 
 ### Patch Changes

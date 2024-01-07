@@ -1,5 +1,14 @@
 # @tevm/contract
 
+## 1.0.0-next.21
+
+### Patch Changes
+
+- [#796](https://github.com/evmts/tevm-monorepo/pull/796) [`80282898`](https://github.com/evmts/tevm-monorepo/commit/802828983746ca17361f48d71b673b152b458afa) Thanks [@roninjin10](https://github.com/roninjin10)! - Added the @tevm/predeploys package. Predeploys can be added to the tevm vm.
+
+- Updated dependencies [[`03f7aac9`](https://github.com/evmts/tevm-monorepo/commit/03f7aac96eb8daba6fe8da44603585ef183319a2), [`143418bb`](https://github.com/evmts/tevm-monorepo/commit/143418bb6282e98622cb5c0fb4ab677382f5dc9d)]:
+  - @tevm/contract@1.0.0-next.21
+
 ## 1.0.0-next.11
 
 ### Minor Changes

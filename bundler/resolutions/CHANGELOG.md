@@ -1,5 +1,11 @@
 # @tevm/resolutions
 
+## 1.0.0-next.21
+
+### Patch Changes
+
+- [#788](https://github.com/evmts/tevm-monorepo/pull/788) [`a7026e37`](https://github.com/evmts/tevm-monorepo/commit/a7026e372c2ce2aca2ff7f9e058fd4ff95700833) Thanks [@roninjin10](https://github.com/roninjin10)! - Improved peformance of bundler operations by utilzing more async methods rather than syncronous methods for file system access
+
 ## 1.0.0-next.18
 
 ### Patch Changes
