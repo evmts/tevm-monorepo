@@ -1,3 +1,6 @@
-import type { Tevm, TevmState } from '../../Tevm.js'
+import type { TevmState } from '../../Tevm.js'
+import type { TevmStateManager } from '../../stateManager/TevmStateManager.js'
 
-export type RunDumpStateHandlerGeneric = (evm: Tevm) => Promise<TevmState>
+export type RunDumpStateHandlerGeneric = (
+	stateManager: TevmStateManager,
+) => Promise<TevmState>

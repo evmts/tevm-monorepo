@@ -1,8 +1,7 @@
 import type { EVMStateManagerInterface, StorageDump } from '@ethereumjs/common'
 import { EVM, type EVMResult } from '@ethereumjs/evm'
-import type { Account, AccountData } from '@ethereumjs/util'
-import type { Abi, Address } from 'abitype'
-import type { ByteArray } from 'viem'
+import type { Account, Address } from '@ethereumjs/util'
+import type { Abi } from 'abitype'
 import type { RunContractCallAction } from './actions/contractCall/RunContractCallAction.js'
 import type { RunContractCallResult } from './actions/contractCall/RunContractCallResult.js'
 import type { PutAccountAction } from './actions/putAccount/PutAccountAction.js'
@@ -218,8 +217,8 @@ export type Tevm = {
 }
 
 export interface TevmStateManagerInterface extends EVMStateManagerInterface {
-	dumpState: () => Promise<{}>
-	loadState: (state: {}) => Promise<void>
+	getAccountAddresses: () => string[]
+	putAccountData: (address: Address, accountData: Account) => void
 }
 
 // Inspired by https://github.com/foundry-rs/foundry/blob/master/crates/anvil/src/eth/backend/db.rs#L353-L359

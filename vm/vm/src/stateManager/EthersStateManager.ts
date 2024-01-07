@@ -118,22 +118,6 @@ export class EthersStateManager implements TevmStateManagerInterface {
 		)
 	}
 
-	dumpState() {
-		const accounts: any[] = []
-
-		this._accountCache._lruCache?.forEach((accountElement) => {
-			accounts.push(accountElement.accountRLP)
-		})
-
-		console.log(`accounts ${accounts}`)
-
-		return accounts
-	}
-
-	loadState(input) {
-		return
-	}
-
 	/**
 	 * Note that the returned statemanager will share the same JsonRpcProvider as the original
 	 *
@@ -520,5 +504,19 @@ export class EthersStateManager implements TevmStateManagerInterface {
 
 	generateCanonicalGenesis(_initState: any): Promise<void> {
 		return Promise.resolve()
+	}
+
+	getAccountAddresses = () => {
+		const accountAddresses: string[] = []
+		//TODO check both caches?
+		this._accountCache?._orderedMapCache?.forEach((e) => {
+			accountAddresses.push(e[0])
+		})
+
+		return accountAddresses
+	}
+
+	putAccountData = (address: Address, accountData: Account) => {
+		this._accountCache?.put(address, accountData)
 	}
 }

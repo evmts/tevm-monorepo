@@ -19,7 +19,7 @@ import {
 	toBytes,
 	toHex,
 } from 'viem'
-import { TevmStateManagerInterface } from '../../types/stateManager/TevmStateManagerInterface.js'
+import type { TevmStateManagerInterface } from '../Tevm.js'
 import { Cache } from './Cache.js'
 
 export interface ViemStateManagerOpts {
@@ -62,8 +62,6 @@ export class ViemStateManager implements TevmStateManagerInterface {
 
 		this.originalStorageCache = new Cache(this.getContractStorage.bind(this))
 	}
-	loadState: (state: {}) => void
-	dumpState: () => any[]
 
 	/**
 	 * Returns a new instance of the ViemStateManager with the same opts
@@ -450,5 +448,19 @@ export class ViemStateManager implements TevmStateManagerInterface {
 
 	generateCanonicalGenesis(_initState: any): Promise<void> {
 		return Promise.resolve()
+	}
+
+	getAccountAddresses = () => {
+		const accountAddresses: string[] = []
+		//TODO check both caches?
+		this._accountCache?._orderedMapCache?.forEach((e) => {
+			accountAddresses.push(e[0])
+		})
+
+		return accountAddresses
+	}
+
+	putAccountData = (address: EthjsAddress, accountData: Account) => {
+		this._accountCache?.put(address, accountData)
 	}
 }

@@ -1,6 +1,7 @@
 import { Address } from '@ethereumjs/util'
 import { hexToBytes } from 'viem'
 import { createTevm } from '../../createTevm.js'
+import { RunDumpStateActionHandler } from './RunDumpStateActionHandler.js'
 import { expect, test } from 'bun:test'
 
 test('should dump important account info and storage', async () => {
@@ -15,11 +16,13 @@ test('should dump important account info and storage', async () => {
 	0xe94221640002d9d59e66a8025d032dd0171dc4555914e89fdfacb92d57fee992
 	tevm._evm.stateManager.putContractStorage(account, storageKey, storageValue)
 
-	const res = await tevm._evm.stateManager.dumpState()
+	const res = await RunDumpStateActionHandler(tevm._evm.stateManager)
+
 	const accountData = res[accountAddress]
 
 	expect(accountData?.nonce).toEqual(0n)
 	expect(accountData?.balance).toEqual(100n)
 
+	console.log(accountData?.storage)
 	//TODO : check storage data is dumped properly
 })
