@@ -5,6 +5,10 @@ import type { Hex } from 'viem'
 
 type SerializedParams = SerializeToJson<BaseCallParams> & {
 	/**
+	 * The raw call data
+	 */
+	data: Hex
+	/**
 	 * The deployed bytecode of the contract.
 	 */
 	deployedBytecode: Hex

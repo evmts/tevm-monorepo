@@ -10,20 +10,28 @@ import { accountHandler } from './accountHandler.js'
  * @returns {import("@tevm/api").ScriptHandler}
  */
 export const scriptHandler = (evm) => async (params) => {
-	const errors = validateScriptParams(/** @type any*/(params))
-	if (errors.length > 0) {
-		return { errors, executionGasUsed: 0n, rawData: '0x' }
+	/**
+	 * @type {import('viem').Hex}
+	 */
+	let functionData = '0x'
+	// Internally we overload this function to take raw data too for the jsonrpc handler
+	if (/** @type any*/(params).data) {
+		functionData = /** @type any*/(params).data
+	} else {
+		const errors = validateScriptParams(/** @type any*/(params))
+		if (errors.length > 0) {
+			return { errors, executionGasUsed: 0n, rawData: '0x' }
+		}
 	}
 
-	let functionData
 	try {
-		functionData = encodeFunctionData(
+		functionData = functionData === '0x' ? encodeFunctionData(
 			/** @type {any} */({
 				abi: params.abi,
 				functionName: params.functionName,
 				args: params.args,
 			}),
-		)
+		) : functionData
 	} catch (e) {
 		/**
 		 * @type {import('@tevm/api').InvalidRequestError}
@@ -68,6 +76,11 @@ export const scriptHandler = (evm) => async (params) => {
 	const result = await callHandler(evm)(callParams)
 
 	if ((result.errors ?? []).length > 0) {
+		return result
+	}
+
+	// Internally we use runScript without encoding/decoding
+	if (/** @type any*/(params).data) {
 		return result
 	}
 

@@ -1,3 +1,4 @@
+import { hexToBigInt } from 'viem'
 import { accountHandler } from '../index.js'
 
 /**
@@ -6,7 +7,14 @@ import { accountHandler } from '../index.js'
  * @returns {import('@tevm/api').AccountJsonRpcProcedure}
  */
 export const accountProcedure = (evm) => async (request) => {
-	const { errors = [], ...result } = await accountHandler(evm)(request.params)
+	request.params
+	const { errors = [], ...result } = await accountHandler(evm)({
+		address: request.params.address,
+		...(request.params.nonce ? { nonce: hexToBigInt(request.params.nonce) } : {}),
+		...(request.params.balance ? { balance: hexToBigInt(request.params.balance) } : {}),
+		...(request.params.deployedBytecode ? { deployedBytecode: request.params.deployedBytecode } : {}),
+		...(request.params.storageRoot ? { storageRoot: request.params.storageRoot } : {}),
+	})
 	if (errors.length > 0) {
 		const error = /** @type {import('@tevm/api').AccountError}*/ (errors[0])
 		return {

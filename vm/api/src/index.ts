@@ -64,10 +64,8 @@ export type {
 	ContractJsonRpcResponse,
 	ScriptJsonRpcResponse,
 	AccountJsonRpcResponse,
-	JsonRpcResponseFromRequest,
 } from './responses/index.js'
 export type {
-	JsonRpcProcedure,
 	CallJsonRpcProcedure,
 	ContractJsonRpcProcedure,
 	ScriptJsonRpcProcedure,

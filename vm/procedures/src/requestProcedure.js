@@ -2,7 +2,6 @@ import { UnknownMethodError } from './errors/UnknownMethodError.js'
 import {
 	accountProcedure,
 	callProcedure,
-	contractProcedure,
 	scriptProcedure,
 } from './index.js'
 
@@ -32,8 +31,15 @@ export const requestProcedure = (evm) => {
 		switch (request.method) {
 			case 'tevm_call':
 				return /**@type any*/ (callProcedure)(evm)(request)
-			case 'tevm_contract':
-				return /**@type any*/ (contractProcedure)(evm)(request)
+			case /** @type {any} */('tevm_contract'):
+				return /**@type any*/ ({
+					id: /** @type any*/ (request).id,
+					jsonrpc: '2.0',
+					error: {
+						code: 'UnknownMethodError',
+						message: 'UnknownMethodError: tevm_contract is not supported. Encode the contract arguments and use tevm_call instead.',
+					}
+				})
 			case 'tevm_account':
 				return /**@type any*/ (accountProcedure)(evm)(request)
 			case 'tevm_script':
