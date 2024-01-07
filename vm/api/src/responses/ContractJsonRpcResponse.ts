@@ -1,13 +1,7 @@
-import type { ContractError, ContractResult } from '../index.js'
-import type { JsonRpcResponse } from './JsonRpcResponse.js'
-import type { Abi } from 'abitype'
-import type { ContractFunctionName } from 'viem'
+import type { CallJsonRpcResponse } from "./CallJsonRpcResponse.js";
 
-export type ContractJsonRpcResponse<
-	TAbi extends Abi = Abi,
-	TFunctionName extends ContractFunctionName<TAbi> = ContractFunctionName<TAbi>,
-> = JsonRpcResponse<
-	'tevm_contract',
-	ContractResult<TAbi, TFunctionName>,
-	ContractError['_tag']
->
+/**
+ * Since contract calls are just a quality of life wrapper around call we avoid using tevm_contract
+ * in favor of overloading tevm_call
+ */
+export type ContractJsonRpcResponse = CallJsonRpcResponse

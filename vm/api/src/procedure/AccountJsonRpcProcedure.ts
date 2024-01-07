@@ -1,9 +1,3 @@
-import type { AccountError, AccountParams, AccountResult } from '../index.js'
-import type { JsonRpcProcedure } from './JsonRpcProcedure.js'
+import type { AccountJsonRpcRequest, AccountJsonRpcResponse } from '../index.js'
 
-export type AccountJsonRpcProcedure = JsonRpcProcedure<
-	'tevm_account',
-	AccountParams,
-	AccountResult<never>,
-	AccountError['_tag']
->
+export type AccountJsonRpcProcedure = (request: AccountJsonRpcRequest) => Promise<AccountJsonRpcResponse>

@@ -1,9 +1,13 @@
-import type { ScriptParams } from '../index.js'
+import type { BaseCallParams } from '../index.js'
+import type { SerializeToJson } from '../utils/SerializeToJson.js'
 import type { JsonRpcRequest } from './JsonRpcRequest.js'
-import type { Abi } from 'abitype'
-import type { ContractFunctionName } from 'viem'
+import type { Hex } from 'viem'
 
-export type ScriptJsonRpcRequest<
-	TAbi extends Abi | readonly unknown[] = Abi,
-	TFunctionName extends ContractFunctionName<TAbi> = ContractFunctionName<TAbi>,
-> = JsonRpcRequest<'tevm_script', ScriptParams<TAbi, TFunctionName>>
+type SerializedParams = SerializeToJson<BaseCallParams> & {
+	/**
+	 * The deployed bytecode of the contract.
+	 */
+	deployedBytecode: Hex
+}
+
+export type ScriptJsonRpcRequest = JsonRpcRequest<'tevm_script', SerializedParams>

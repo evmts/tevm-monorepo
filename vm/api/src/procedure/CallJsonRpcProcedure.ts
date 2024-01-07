@@ -1,9 +1,3 @@
-import type { CallError, CallParams, CallResult } from '../index.js'
-import type { JsonRpcProcedure } from './JsonRpcProcedure.js'
+import type { CallJsonRpcRequest, CallJsonRpcResponse } from "../index.js";
 
-export type CallJsonRpcProcedure = JsonRpcProcedure<
-	'tevm_call',
-	CallParams,
-	CallResult<never>,
-	CallError['_tag']
->
+export type CallJsonRpcProcedure = (request: CallJsonRpcRequest) => Promise<CallJsonRpcResponse>

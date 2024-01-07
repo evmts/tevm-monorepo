@@ -1,13 +1,8 @@
-import type { ScriptError, ScriptResult } from '../index.js'
+import type { CallResult, ScriptError } from '../index.js'
 import type { JsonRpcResponse } from './JsonRpcResponse.js'
-import type { Abi } from 'abitype'
-import type { ContractFunctionName } from 'viem'
 
-export type ScriptJsonRpcResponse<
-	TAbi extends Abi = Abi,
-	TFunctionName extends ContractFunctionName<TAbi> = ContractFunctionName<TAbi>,
-> = JsonRpcResponse<
+export type ScriptJsonRpcResponse = JsonRpcResponse<
 	'tevm_script',
-	ScriptResult<TAbi, TFunctionName>,
+	CallResult,
 	ScriptError['_tag']
 >

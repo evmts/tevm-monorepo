@@ -1,22 +1,7 @@
-import type {
-	ContractError,
-	ContractParams,
-	ContractResult,
-	JsonRpcRequest,
-	JsonRpcResponse,
-} from '../index.js'
-import type { Abi } from 'abitype'
-import type { ContractFunctionName } from 'viem'
+import type { CallJsonRpcRequest, CallJsonRpcResponse } from "../index.js";
 
-export type ContractJsonRpcProcedure = <
-	TAbi extends Abi,
-	TFunctionName extends ContractFunctionName<TAbi>,
->(
-	request: JsonRpcRequest<'tevm_contract', ContractParams<TAbi, TFunctionName>>,
-) => Promise<
-	JsonRpcResponse<
-		'tevm_contract',
-		ContractResult<TAbi, TFunctionName, never>,
-		ContractError['_tag']
-	>
->
+/**
+ *  Since ContractJsonRpcProcedure is a quality of life wrapper around CallJsonRpcProcedure
+ *  We choose to overload the type instead of creating a new one
+ */
+export type ContractJsonRpcProcedure = CallJsonRpcRequest
