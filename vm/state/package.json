@@ -56,13 +56,13 @@
 		"abitype": "^0.10.3",
 		"debug": "^4.3.4",
 		"ethereum-cryptography": "^2.1.2",
-		"viem": "^1.19.11"
+		"viem": "^2.0.0"
 	},
 	"devDependencies": {
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",
 		"@types/debug": "^4.1.12",
-		"viem": "^1.19.11"
+		"viem": "^2.0.0"
 	},
 	"publishConfig": {
 		"access": "public"

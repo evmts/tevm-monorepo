@@ -15,7 +15,7 @@
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/evmts/tevm-monorepo.git",
-		"directory": "vm"
+		"directory": "extensions/viem"
 	},
 	"license": "MIT",
 	"contributors": [
@@ -46,7 +46,7 @@
 	],
 	"scripts": {
 		"all": "pnpm i  && bun run build && bun lint && bun format && bun test:run && bun generate:docs",
-		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/vm",
+		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/viem",
 		"build:dist": "tsup",
 		"build:types": "tsup --dts-only",
 		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
@@ -63,16 +63,12 @@
 		"test:run": "bun test",
 		"typecheck": "tsc --noEmit"
 	},
-	"dependencies": {
-		"superjson": "^2.2.1"
-	},
 	"devDependencies": {
-		"@tevm/actions": "workspace:^",
-		"@tevm/jsonrpc": "workspace:^",
+		"@tevm/api": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",
 		"abitype": "^0.10.3",
-		"viem": "^1.19.11"
+		"viem": "^2.0.0"
 	},
 	"publishConfig": {
 		"access": "public"

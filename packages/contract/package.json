@@ -40,12 +40,13 @@
 	"types": "src/index.ts",
 	"files": [
 		"dist",
-		"src"
+		"src",
+		"!src/**/*.spec.ts"
 	],
 	"scripts": {
 		"all": "pnpm i && bun run build && bun run test && bun run lint && bun run format && bun run generate:docs",
 		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/contracts ",
-		"build:dist": "vite build",
+		"build:dist": "tsup",
 		"build:types": "tsup --dts-only",
 		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
 		"format": "rome format . --write",
@@ -58,17 +59,17 @@
 		"test": "vitest --coverage",
 		"test:coverage": "vitest run --coverage",
 		"test:run": "vitest run",
-		"test:ui": "vitest --ui"
+		"test:ui": "vitest --ui",
+		"typecheck": "tsc --noEmit"
 	},
 	"devDependencies": {
 		"@evmts/core": "next",
 		"@evmts/ts-plugin": "next",
 		"@evmts/vite-plugin": "next",
-		"@openzeppelin/contracts": "^5.0.1",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",
 		"abitype": "^0.10.2",
-		"viem": "^1.21.3"
+		"viem": "^2.0.0"
 	},
 	"publishConfig": {
 		"access": "public"

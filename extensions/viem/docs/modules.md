@@ -46,7 +46,7 @@
 
 #### Defined in
 
-[extensions/viem/src/GenError.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/GenError.ts#L3)
+[GenError.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/GenError.ts#L3)
 
 ___
 
@@ -72,25 +72,25 @@ ___
 
 #### Defined in
 
-[extensions/viem/src/GenResult.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/GenResult.ts#L3)
+[GenResult.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/GenResult.ts#L3)
 
 ___
 
 ### OptimisticResult
 
-Ƭ **OptimisticResult**\<`TAbi`, `TFunctionName`, `TChain`\>: [`GenResult`](modules.md#genresult)\<`RunContractCallResponse`\<`TAbi`, `TFunctionName`\>, ``"OPTIMISTIC_RESULT"``\> \| [`GenError`](modules.md#generror)\<`Error`, ``"OPTIMISTIC_RESULT"``\> \| [`GenResult`](modules.md#genresult)\<`WriteContractReturnType`, ``"HASH"``\> \| [`GenError`](modules.md#generror)\<`WriteContractErrorType`, ``"HASH"``\> \| [`GenResult`](modules.md#genresult)\<`WaitForTransactionReceiptReturnType`\<`TChain`\>, ``"RECEIPT"``\> \| [`GenError`](modules.md#generror)\<`WriteContractErrorType`, ``"RECEIPT"``\>
+Ƭ **OptimisticResult**\<`TAbi`, `TFunctionName`, `TChain`\>: [`GenResult`](modules.md#genresult)\<`ContractResult`\<`TAbi`, `TFunctionName`\>, ``"OPTIMISTIC_RESULT"``\> \| [`GenError`](modules.md#generror)\<`Error`, ``"OPTIMISTIC_RESULT"``\> \| [`GenResult`](modules.md#genresult)\<`WriteContractReturnType`, ``"HASH"``\> \| [`GenError`](modules.md#generror)\<`WriteContractErrorType`, ``"HASH"``\> \| [`GenResult`](modules.md#genresult)\<`WaitForTransactionReceiptReturnType`\<`TChain`\>, ``"RECEIPT"``\> \| [`GenError`](modules.md#generror)\<`WriteContractErrorType`, ``"RECEIPT"``\>
 
 #### Type parameters
 
 | Name | Type |
 | :------ | :------ |
 | `TAbi` | extends `Abi` \| readonly `unknown`[] |
-| `TFunctionName` | extends `string` |
+| `TFunctionName` | extends `ContractFunctionName`\<`TAbi`\> |
 | `TChain` | extends `Chain` \| `undefined` |
 
 #### Defined in
 
-[extensions/viem/src/OptimisticResult.ts:12](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/OptimisticResult.ts#L12)
+[OptimisticResult.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/OptimisticResult.ts#L13)
 
 ___
 
@@ -106,7 +106,7 @@ ___
 
 #### Defined in
 
-[extensions/viem/src/TypedError.ts:1](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/TypedError.ts#L1)
+[TypedError.ts:1](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/TypedError.ts#L1)
 
 ___
 
@@ -118,16 +118,11 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `putAccount` | (`action`: `PutAccountAction`) => `Promise`\<`Account`\> |
-| `putContractCode` | (`action`: `PutContractCodeAction`) => `Promise`\<`Uint8Array`\> |
-| `runCall` | (`action`: `RunCallAction`) => `Promise`\<`EVMResult`\> |
-| `runContractCall` | \<TAbi, TFunctionName\>(`action`: `RunContractCallAction`\<`TAbi`, `TFunctionName`\>) => `Promise`\<`RunContractCallResponse`\<`TAbi`, `TFunctionName`\>\> |
-| `runScript` | \<TAbi, TFunctionName\>(`action`: `RunScriptAction`\<`TAbi`, `TFunctionName`\>) => `Promise`\<`RunScriptResponse`\<`TAbi`, `TFunctionName`\>\> |
-| `tevmRequest` | \<T\>(`r`: `T`) => `Promise`\<`BackendReturnType`\<`T`\>[``"result"``]\> |
+| `tevm` | `Omit`\<`TevmClient`, ``"request"``\> |
 
 #### Defined in
 
-[extensions/viem/src/ViemTevmClient.ts:19](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/ViemTevmClient.ts#L19)
+[ViemTevmClient.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/ViemTevmClient.ts#L3)
 
 ___
 
@@ -151,7 +146,7 @@ ___
 
 #### Defined in
 
-[extensions/viem/src/ViemTevmClientDecorator.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/ViemTevmClientDecorator.ts#L3)
+[ViemTevmClientDecorator.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/ViemTevmClientDecorator.ts#L3)
 
 ___
 
@@ -169,7 +164,7 @@ ___
 
 #### Defined in
 
-[extensions/viem/src/ViemTevmExtension.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/ViemTevmExtension.ts#L3)
+[ViemTevmExtension.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/ViemTevmExtension.ts#L3)
 
 ___
 
@@ -188,11 +183,11 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `writeContractOptimistic` | \<TAbi, TFunctionName, TChainOverride\>(`action`: `WriteContractParameters`\<`TAbi`, `TFunctionName`, `TChain`, `TAccount`, `TChainOverride`\>) => `AsyncGenerator`\<[`OptimisticResult`](modules.md#optimisticresult)\<`TAbi`, `TFunctionName`, `TChain`\>, `any`, `unknown`\> |
+| `tevm` | `Omit`\<`TevmClient`, ``"request"``\> & \{ `writeContractOptimistic`: \<TAbi, TFunctionName, TArgs, TChainOverride\>(`action`: `WriteContractParameters`\<`TAbi`, `TFunctionName`, `TArgs`, `TChain`, `TAccount`, `TChainOverride`\>) => `AsyncGenerator`\<[`OptimisticResult`](modules.md#optimisticresult)\<`TAbi`, `TFunctionName`, `TChain`\>, `any`, `unknown`\>  } |
 
 #### Defined in
 
-[extensions/viem/src/ViemTevmOptimisticClient.ts:5](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/ViemTevmOptimisticClient.ts#L5)
+[ViemTevmOptimisticClient.ts:12](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/ViemTevmOptimisticClient.ts#L12)
 
 ___
 
@@ -224,7 +219,7 @@ ___
 
 #### Defined in
 
-[extensions/viem/src/ViemTevmOptimisticClientDecorator.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/ViemTevmOptimisticClientDecorator.ts#L4)
+[ViemTevmOptimisticClientDecorator.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/ViemTevmOptimisticClientDecorator.ts#L4)
 
 ___
 
@@ -242,7 +237,7 @@ ___
 
 #### Defined in
 
-[extensions/viem/src/ViemTevmOptimisticExtension.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/ViemTevmOptimisticExtension.ts#L3)
+[ViemTevmOptimisticExtension.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/ViemTevmOptimisticExtension.ts#L3)
 
 ## Functions
 
@@ -256,42 +251,18 @@ ___
 
 #### Defined in
 
-[extensions/viem/src/ViemTevmExtension.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/ViemTevmExtension.ts#L3)
+[ViemTevmExtension.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/ViemTevmExtension.ts#L3)
 
 ___
 
 ### tevmViemExtensionOptimistic
 
-▸ **tevmViemExtensionOptimistic**(): \<TTransport, TChain, TAccount\>(`client`: `Pick`\<\{ `account`: `TAccount` ; `addChain`: (`args`: `AddChainParameters`) => `Promise`\<`void`\> ; `batch?`: \{ `multicall?`: `boolean` \| \{ batchSize?: number \| undefined; wait?: number \| undefined; }  } ; `cacheTime`: `number` ; `chain`: `TChain` ; `deployContract`: \<TAbi, TChainOverride\>(`args`: `DeployContractParameters`\<`TAbi`, `TChain`, `TAccount`, `TChainOverride`\>) => `Promise`\<\`0x$\{string}\`\> ; `extend`: \<client\>(`fn`: (`client`: `Client`\<`TTransport`, `TChain`, `TAccount`, `WalletRpcSchema`, `WalletActions`\<`TChain`, `TAccount`\>\>) => `client`) => `Client`\<`TTransport`, `TChain`, `TAccount`, `WalletRpcSchema`, \{ [K in keyof client]: client[K]; } & `WalletActions`\<`TChain`, `TAccount`\>\> ; `getAddresses`: () => `Promise`\<`GetAddressesReturnType`\> ; `getChainId`: () => `Promise`\<`number`\> ; `getPermissions`: () => `Promise`\<`GetPermissionsReturnType`\> ; `key`: `string` ; `name`: `string` ; `pollingInterval`: `number` ; `prepareTransactionRequest`: \<TChainOverride\>(`args`: `PrepareTransactionRequestParameters`\<`TChain`, `TAccount`, `TChainOverride`\>) => `Promise`\<`PrepareTransactionRequestReturnType`\> ; `request`: `EIP1193RequestFn`\<`WalletRpcSchema`\> ; `requestAddresses`: () => `Promise`\<`RequestAddressesReturnType`\> ; `requestPermissions`: (`args`: \{ [x: string]: Record\<string, any\>; eth\_accounts: Record\<string, any\>; }) => `Promise`\<`RequestPermissionsReturnType`\> ; `sendRawTransaction`: (`args`: `SendRawTransactionParameters`) => `Promise`\<\`0x$\{string}\`\> ; `sendTransaction`: \<TChainOverride\>(`args`: `SendTransactionParameters`\<`TChain`, `TAccount`, `TChainOverride`\>) => `Promise`\<\`0x$\{string}\`\> ; `signMessage`: (`args`: `SignMessageParameters`\<`TAccount`\>) => `Promise`\<\`0x$\{string}\`\> ; `signTransaction`: \<TChainOverride\>(`args`: `SignTransactionParameters`\<`TChain`, `TAccount`, `TChainOverride`\>) => `Promise`\<\`0x$\{string}\`\> ; `signTypedData`: \<TTypedData, TPrimaryType\>(`args`: `SignTypedDataParameters`\<`TTypedData`, `TPrimaryType`, `TAccount`\>) => `Promise`\<\`0x$\{string}\`\> ; `switchChain`: (`args`: `SwitchChainParameters`) => `Promise`\<`void`\> ; `transport`: `ReturnType`\<`TTransport`\>[``"config"``] & `ReturnType`\<`TTransport`\>[``"value"``] ; `type`: `string` ; `uid`: `string` ; `watchAsset`: (`args`: `WatchAssetParams`) => `Promise`\<`boolean`\> ; `writeContract`: \<TAbi, TFunctionName, TChainOverride\>(`args`: `WriteContractParameters`\<`TAbi`, `TFunctionName`, `TChain`, `TAccount`, `TChainOverride`\>) => `Promise`\<\`0x$\{string}\`\>  }, ``"request"`` \| ``"writeContract"``\>) => \{ `writeContractOptimistic`: \<TAbi, TFunctionName, TChainOverride\>(`action`: `WriteContractParameters`\<`TAbi`, `TFunctionName`, `TChain`, `TAccount`, `TChainOverride`\>) => `AsyncGenerator`\<[`OptimisticResult`](modules.md#optimisticresult)\<`TAbi`, `TFunctionName`, `TChain`\>, `any`, `unknown`\>  }
+▸ **tevmViemExtensionOptimistic**(): [`ViemTevmOptimisticClientDecorator`](modules.md#viemtevmoptimisticclientdecorator)
 
 #### Returns
 
-`fn`
-
-▸ \<`TTransport`, `TChain`, `TAccount`\>(`client`): `Object`
-
-##### Type parameters
-
-| Name | Type |
-| :------ | :------ |
-| `TTransport` | extends `Transport` = `Transport` |
-| `TChain` | extends `undefined` \| `Chain` = `undefined` \| `Chain` |
-| `TAccount` | extends `undefined` \| `Account` = `undefined` \| `Account` |
-
-##### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `client` | `Pick`\<\{ `account`: `TAccount` ; `addChain`: (`args`: `AddChainParameters`) => `Promise`\<`void`\> ; `batch?`: \{ `multicall?`: `boolean` \| \{ batchSize?: number \| undefined; wait?: number \| undefined; }  } ; `cacheTime`: `number` ; `chain`: `TChain` ; `deployContract`: \<TAbi, TChainOverride\>(`args`: `DeployContractParameters`\<`TAbi`, `TChain`, `TAccount`, `TChainOverride`\>) => `Promise`\<\`0x$\{string}\`\> ; `extend`: \<client\>(`fn`: (`client`: `Client`\<`TTransport`, `TChain`, `TAccount`, `WalletRpcSchema`, `WalletActions`\<`TChain`, `TAccount`\>\>) => `client`) => `Client`\<`TTransport`, `TChain`, `TAccount`, `WalletRpcSchema`, \{ [K in keyof client]: client[K]; } & `WalletActions`\<`TChain`, `TAccount`\>\> ; `getAddresses`: () => `Promise`\<`GetAddressesReturnType`\> ; `getChainId`: () => `Promise`\<`number`\> ; `getPermissions`: () => `Promise`\<`GetPermissionsReturnType`\> ; `key`: `string` ; `name`: `string` ; `pollingInterval`: `number` ; `prepareTransactionRequest`: \<TChainOverride\>(`args`: `PrepareTransactionRequestParameters`\<`TChain`, `TAccount`, `TChainOverride`\>) => `Promise`\<`PrepareTransactionRequestReturnType`\> ; `request`: `EIP1193RequestFn`\<`WalletRpcSchema`\> ; `requestAddresses`: () => `Promise`\<`RequestAddressesReturnType`\> ; `requestPermissions`: (`args`: \{ [x: string]: Record\<string, any\>; eth\_accounts: Record\<string, any\>; }) => `Promise`\<`RequestPermissionsReturnType`\> ; `sendRawTransaction`: (`args`: `SendRawTransactionParameters`) => `Promise`\<\`0x$\{string}\`\> ; `sendTransaction`: \<TChainOverride\>(`args`: `SendTransactionParameters`\<`TChain`, `TAccount`, `TChainOverride`\>) => `Promise`\<\`0x$\{string}\`\> ; `signMessage`: (`args`: `SignMessageParameters`\<`TAccount`\>) => `Promise`\<\`0x$\{string}\`\> ; `signTransaction`: \<TChainOverride\>(`args`: `SignTransactionParameters`\<`TChain`, `TAccount`, `TChainOverride`\>) => `Promise`\<\`0x$\{string}\`\> ; `signTypedData`: \<TTypedData, TPrimaryType\>(`args`: `SignTypedDataParameters`\<`TTypedData`, `TPrimaryType`, `TAccount`\>) => `Promise`\<\`0x$\{string}\`\> ; `switchChain`: (`args`: `SwitchChainParameters`) => `Promise`\<`void`\> ; `transport`: `ReturnType`\<`TTransport`\>[``"config"``] & `ReturnType`\<`TTransport`\>[``"value"``] ; `type`: `string` ; `uid`: `string` ; `watchAsset`: (`args`: `WatchAssetParams`) => `Promise`\<`boolean`\> ; `writeContract`: \<TAbi, TFunctionName, TChainOverride\>(`args`: `WriteContractParameters`\<`TAbi`, `TFunctionName`, `TChain`, `TAccount`, `TChainOverride`\>) => `Promise`\<\`0x$\{string}\`\>  }, ``"request"`` \| ``"writeContract"``\> |
-
-##### Returns
-
-`Object`
-
-| Name | Type |
-| :------ | :------ |
-| `writeContractOptimistic` | \<TAbi, TFunctionName, TChainOverride\>(`action`: `WriteContractParameters`\<`TAbi`, `TFunctionName`, `TChain`, `TAccount`, `TChainOverride`\>) => `AsyncGenerator`\<[`OptimisticResult`](modules.md#optimisticresult)\<`TAbi`, `TFunctionName`, `TChain`\>, `any`, `unknown`\> |
+[`ViemTevmOptimisticClientDecorator`](modules.md#viemtevmoptimisticclientdecorator)
 
 #### Defined in
 
-[extensions/viem/src/tevmViemExtensionOptimistic.ts:15](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/tevmViemExtensionOptimistic.ts#L15)
+[tevmViemExtensionOptimistic.js:4](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/tevmViemExtensionOptimistic.js#L4)
