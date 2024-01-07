@@ -46,20 +46,20 @@
 	"scripts": {
 		"all": "pnpm i  && bun run build && bun run lint && bun run lint:check && bun run format:check && bun run format && bun run test:coverage && bun run generate:docs",
 		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/compiler ",
-		"build:dist": "bun run tsup",
+		"build:dist": "tsup",
 		"build:types": "tsup --dts-only",
 		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
 		"format": "rome format . --write",
 		"format:check": "rome format .",
-		"generate:docs": "bun run typedoc",
+		"generate:docs": "typedoc",
 		"lint": "rome check . --apply-unsafe",
 		"lint:check": "rome check . --verbose",
 		"lint:deps": "bunx depcheck",
 		"lint:package": "bunx publint --strict && attw --pack",
-		"test": "bun run vitest --coverage",
-		"test:coverage": "bun run vitest run --coverage",
-		"test:run": "bun run vitest run",
-		"test:ui": "bun run vitest --ui"
+		"test": "vitest --coverage",
+		"test:coverage": "vitest run --coverage",
+		"test:run": "vitest run",
+		"test:ui": "vitest --ui"
 	},
 	"dependencies": {
 		"@tevm/config": "workspace:^",

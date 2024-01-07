@@ -50,7 +50,7 @@
 		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
 		"format": "rome format . --write",
 		"format:check": "rome format .",
-		"generate:docs": "bun run typedoc --plugin typedoc-plugin-markdown",
+		"generate:docs": "typedoc --plugin typedoc-plugin-markdown",
 		"lint": "rome check . --apply-unsafe",
 		"lint:check": "rome check . --verbose",
 		"lint:deps": "bunx depcheck",
