@@ -7,7 +7,9 @@
 		"url": "https://github.com/evmts/tevm-monorepo.git",
 		"directory": "lsp/vscode"
 	},
-	"categories": ["Programming Languages"],
+	"categories": [
+		"Programming Languages"
+	],
 	"displayName": "Tevm Language Features",
 	"description": "Tevm Language Features",
 	"author": "tevm",
@@ -15,7 +17,10 @@
 	"engines": {
 		"vscode": "^1.82.0"
 	},
-	"activationEvents": ["onLanguage:javascript", "onLanguage:typescript"],
+	"activationEvents": [
+		"onLanguage:javascript",
+		"onLanguage:typescript"
+	],
 	"main": "./dist/client.js",
 	"scripts": {
 		"build": "node scripts/build -- --minify",

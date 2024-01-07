@@ -1,5 +1,13 @@
 # @tevm/ts-plugin
 
+## 1.0.0-next.21
+
+### Patch Changes
+
+- Updated dependencies [[`a7026e37`](https://github.com/evmts/tevm-monorepo/commit/a7026e372c2ce2aca2ff7f9e058fd4ff95700833), [`9c3e6a9a`](https://github.com/evmts/tevm-monorepo/commit/9c3e6a9aec2ec5b0689b2c7463525071bd67163e)]:
+  - @tevm/base@1.0.0-next.21
+  - @tevm/bundler-cache@1.0.0-next.21
+
 ## 1.0.0-next.18
 
 ### Patch Changes

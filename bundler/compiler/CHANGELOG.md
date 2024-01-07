@@ -1,5 +1,16 @@
 # @tevm/contract
 
+## 1.0.0-next.21
+
+### Patch Changes
+
+- [#788](https://github.com/evmts/tevm-monorepo/pull/788) [`a7026e37`](https://github.com/evmts/tevm-monorepo/commit/a7026e372c2ce2aca2ff7f9e058fd4ff95700833) Thanks [@roninjin10](https://github.com/roninjin10)! - Improved peformance of bundler operations by utilzing more async methods rather than syncronous methods for file system access
+
+- Updated dependencies [[`a9be5009`](https://github.com/evmts/tevm-monorepo/commit/a9be5009bb642c35b3a405c0be888b85d398c56e), [`c7a314cc`](https://github.com/evmts/tevm-monorepo/commit/c7a314cc71e28774dc5f03b0c9c8c578a2dda3f7), [`d1affad0`](https://github.com/evmts/tevm-monorepo/commit/d1affad04b0f3acaa801176301ec03b5f3247225), [`e7f75e0b`](https://github.com/evmts/tevm-monorepo/commit/e7f75e0bcf2efa6e30de8fbc686f15ea3944aeb7), [`a7026e37`](https://github.com/evmts/tevm-monorepo/commit/a7026e372c2ce2aca2ff7f9e058fd4ff95700833)]:
+  - @tevm/config@1.0.0-next.21
+  - @tevm/solc@1.0.0-next.21
+  - @tevm/resolutions@1.0.0-next.21
+
 ## 1.0.0-next.18
 
 ### Minor Changes

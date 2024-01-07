@@ -1,5 +1,18 @@
 # @tevm/base
 
+## 1.0.0-next.21
+
+### Minor Changes
+
+- [#785](https://github.com/evmts/tevm-monorepo/pull/785) [`9c3e6a9a`](https://github.com/evmts/tevm-monorepo/commit/9c3e6a9aec2ec5b0689b2c7463525071bd67163e) Thanks [@roninjin10](https://github.com/roninjin10)! - Updated @tevm/cache api to more generalized api
+
+### Patch Changes
+
+- [#788](https://github.com/evmts/tevm-monorepo/pull/788) [`a7026e37`](https://github.com/evmts/tevm-monorepo/commit/a7026e372c2ce2aca2ff7f9e058fd4ff95700833) Thanks [@roninjin10](https://github.com/roninjin10)! - Improved peformance of bundler operations by utilzing more async methods rather than syncronous methods for file system access
+
+- Updated dependencies [[`a7026e37`](https://github.com/evmts/tevm-monorepo/commit/a7026e372c2ce2aca2ff7f9e058fd4ff95700833)]:
+  - @tevm/compiler@1.0.0-next.21
+
 ## 1.0.0-next.18
 
 ### Patch Changes

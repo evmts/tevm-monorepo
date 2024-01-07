@@ -1,5 +1,20 @@
 # @tevm/contract
 
+## 1.0.0-next.21
+
+### Minor Changes
+
+- [#755](https://github.com/evmts/tevm-monorepo/pull/755) [`a9be5009`](https://github.com/evmts/tevm-monorepo/commit/a9be5009bb642c35b3a405c0be888b85d398c56e) Thanks [@roninjin10](https://github.com/roninjin10)! - Added `cacheDir` as a config option that defaults to '.tevm'. Cache dir is where the tevm build cache is stored
+
+- [#759](https://github.com/evmts/tevm-monorepo/pull/759) [`c7a314cc`](https://github.com/evmts/tevm-monorepo/commit/c7a314cc71e28774dc5f03b0c9c8c578a2dda3f7) Thanks [@roninjin10](https://github.com/roninjin10)! - Added a tevm $schema file to the config package. This allows one to reference it for typesafe configs.
+
+- [#757](https://github.com/evmts/tevm-monorepo/pull/757) [`d1affad0`](https://github.com/evmts/tevm-monorepo/commit/d1affad04b0f3acaa801176301ec03b5f3247225) Thanks [@roninjin10](https://github.com/roninjin10)! - Added support for json configs in Tevm
+
+### Patch Changes
+
+- Updated dependencies [[`d1affad0`](https://github.com/evmts/tevm-monorepo/commit/d1affad04b0f3acaa801176301ec03b5f3247225)]:
+  - @tevm/effect@1.0.0-next.21
+
 ## 1.0.0-next.17
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @tevm/effect
 
+## 1.0.0-next.21
+
+### Patch Changes
+
+- [#757](https://github.com/evmts/tevm-monorepo/pull/757) [`d1affad0`](https://github.com/evmts/tevm-monorepo/commit/d1affad04b0f3acaa801176301ec03b5f3247225) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug in @tevm/effect where return type of parseJson was hardcoded instead of unknown
+
 ## 1.0.0-next.9
 
 ### Patch Changes
