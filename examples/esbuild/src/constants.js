@@ -6,6 +6,6 @@ export const rpcUrls = {
 		.string()
 		.url()
 		.optional()
-		.default(mainnet.rpcUrls.public.http[0])
+		.default(mainnet.rpcUrls.default.http[0])
 		.parse(process.env.RPC_URL_MAINNET),
 }

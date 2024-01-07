@@ -1,9 +1,16 @@
 import { createTevm } from '../createTevm.js'
 import { DaiContract } from './DaiContract.sol.js'
-import { Address } from '@ethereumjs/util'
-import type { TevmContractCallRequest, TevmScriptRequest } from '@tevm/jsonrpc'
+import { Address, bigIntToHex } from '@ethereumjs/util'
+import type { ContractJsonRpcRequest, ScriptJsonRpcRequest } from '@tevm/api'
 import { describe, expect, it } from 'bun:test'
-import { hexToBytes } from 'viem'
+import {
+	decodeFunctionResult,
+	encodeFunctionData,
+	hexToBigInt,
+	hexToBytes,
+	keccak256,
+	toHex,
+} from 'viem'
 
 const contractAddress = '0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1'
 
@@ -12,45 +19,92 @@ const forkConfig = {
 	blockTag: 111791332n,
 }
 
-describe('Tevm.prototype.request', async () => {
+describe('Tevm.request', async () => {
 	const tevm = await createTevm()
 
 	it('should execute a script request', async () => {
 		const req = {
-			params: DaiContract.script.balanceOf(
-				'0x00000000000000000000000000000000000000ff',
-			),
+			params: {
+				data: encodeFunctionData(
+					DaiContract.read.balanceOf(contractAddress, {
+						contractAddress,
+					}),
+				),
+				deployedBytecode: DaiContract.deployedBytecode,
+			},
 			jsonrpc: '2.0',
 			method: 'tevm_script',
 			id: 1,
-		} as const satisfies TevmScriptRequest
+		} as const satisfies ScriptJsonRpcRequest
 		const res = await tevm.request(req)
-		expect(res.result.data satisfies bigint).toBe(0n)
-		expect(res.result.gasUsed satisfies BigInt).toBe(2447n)
+		if ('error' in res) {
+			throw new Error(res.error.message)
+		}
+		expect(
+			decodeFunctionResult({
+				abi: DaiContract.abi,
+				data: res.result.rawData,
+				functionName: 'balanceOf',
+			}) satisfies bigint,
+		).toBe(0n)
+		expect(res.result.executionGasUsed).toBe(bigIntToHex(2447n) as any)
 		expect(res.result.logs).toEqual([])
 		expect(res.method).toBe(req.method)
 		expect(res.id).toBe(req.id)
 		expect(res.jsonrpc).toBe(req.jsonrpc)
 	})
 
-	it('should execute a contractCall request', async () => {
+	it('should throw an error if attempting a tevm_contractCall request', async () => {
+		const tevm = await createTevm()
+		const req = {
+			params: {
+				data: encodeFunctionData(
+					DaiContract.read.balanceOf(contractAddress, {
+						contractAddress,
+					}),
+				),
+				to: contractAddress,
+			},
+			jsonrpc: '2.0',
+			method: 'tevm_contractCall' as any,
+			id: 1,
+		} as const satisfies ContractJsonRpcRequest
+		const res = await tevm.request(req)
+		expect(res.error.code).toEqual('UnknownMethodError')
+	})
+
+	it('should execute a contractCall request via using tevm_call', async () => {
 		const tevm = await createTevm({
 			fork: forkConfig,
 		})
 		const req = {
-			params: DaiContract.read.balanceOf(
-				'0xf0d4c12a5768d806021f80a262b4d39d26c58b8d',
-				{
-					contractAddress,
-				},
-			),
+			params: {
+				data: encodeFunctionData(
+					DaiContract.read.balanceOf(
+						'0xf0d4c12a5768d806021f80a262b4d39d26c58b8d',
+						{
+							contractAddress,
+						},
+					),
+				),
+				to: contractAddress,
+			},
 			jsonrpc: '2.0',
-			method: 'tevm_contractCall',
+			method: 'tevm_call',
 			id: 1,
-		} as const satisfies TevmContractCallRequest
+		} as const satisfies ContractJsonRpcRequest
 		const res = await tevm.request(req)
-		expect(res.result.data satisfies bigint).toBe(1n)
-		expect(res.result.gasUsed).toBe(2447n)
+		if ('error' in res) {
+			throw new Error(res.error.message)
+		}
+		expect(
+			decodeFunctionResult({
+				data: res.result.rawData,
+				abi: DaiContract.abi,
+				functionName: 'balanceOf',
+			}) satisfies bigint,
+		).toBe(1n)
+		expect(hexToBigInt(res.result.executionGasUsed)).toBe(2447n)
 		expect(res.result.logs).toEqual([])
 		expect(res.method).toBe(req.method)
 		expect(res.id).toBe(req.id)
@@ -62,8 +116,8 @@ describe('Tevm.prototype.request', async () => {
 		const balance = 0x11111111n
 		const address1 = '0x1f420000000000000000000000000000000000ff'
 		const address2 = '0x2f420000000000000000000000000000000000ff'
-		await tevm.putAccount({
-			account: address1,
+		await tevm.account({
+			address: address1,
 			balance,
 		})
 		const transferAmount = 0x420n
@@ -72,7 +126,7 @@ describe('Tevm.prototype.request', async () => {
 				caller: address1,
 				data: '0x0',
 				to: address2,
-				value: transferAmount,
+				value: toHex(transferAmount),
 				origin: address1,
 			},
 			jsonrpc: '2.0',
@@ -82,8 +136,9 @@ describe('Tevm.prototype.request', async () => {
 		expect(res.jsonrpc).toBe('2.0')
 		expect(res.id).toBe(1)
 		expect(res.method).toBe('tevm_call')
-		expect(res.result.execResult.exceptionError).toBeUndefined()
-		expect(res.result.execResult.returnValue).toEqual(Uint8Array.of())
+		if ('error' in res) throw new Error(res.error.message)
+		expect(res.result.errors).toBeUndefined()
+		expect(res.result.rawData).toEqual('0x')
 		expect(
 			(
 				await tevm._evm.stateManager.getAccount(
@@ -105,33 +160,21 @@ describe('Tevm.prototype.request', async () => {
 		const balance = 0x11111111n
 		const res = await tevm.request({
 			jsonrpc: '2.0',
-			method: 'tevm_putAccount',
+			method: 'tevm_account',
 			id: 1,
 			params: {
-				account: '0xff420000000000000000000000000000000000ff',
-				balance,
-			},
-		})
-		expect(res.result.balance).toBe(balance)
-		expect(res.jsonrpc).toBe('2.0')
-		expect(res.id).toBe(1)
-		expect(res.method).toBe('tevm_putAccount')
-	})
-
-	it('Should execute a putContractCode request', async () => {
-		const tevm = await createTevm()
-		const res = await tevm.request({
-			id: 1,
-			method: 'tevm_putContractCode',
-			jsonrpc: '2.0',
-			params: {
+				address: '0xff420000000000000000000000000000000000ff',
+				balance: toHex(balance),
 				deployedBytecode: DaiContract.deployedBytecode,
-				contractAddress: '0xff420000000000000000000000000000000000ff',
 			},
 		})
-		expect(res.result).toHaveLength(4782)
-		expect(res.jsonrpc).toBe('2.0')
-		expect(res.id).toBe(1)
-		expect(res.method).toBe('tevm_putContractCode')
+		expect(res).not.toHaveProperty('error')
+		const account = await tevm._evm.stateManager.getAccount(
+			Address.fromString('0xff420000000000000000000000000000000000ff'),
+		)
+		expect(account?.balance).toEqual(balance)
+		expect(account?.codeHash).toEqual(
+			hexToBytes(keccak256(DaiContract.deployedBytecode)),
+		)
 	})
 })

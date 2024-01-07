@@ -1,0 +1,5 @@
+ignores: [
+  "@ethereumjs/evm",
+  "@tevm/api"
+]
+skip-missing: true

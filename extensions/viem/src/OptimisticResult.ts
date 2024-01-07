@@ -1,9 +1,10 @@
 import type { GenError } from './GenError.js'
 import type { GenResult } from './GenResult.js'
-import type { RunContractCallResponse } from '@tevm/actions'
+import type { ContractResult } from '@tevm/api'
 import type { Abi } from 'abitype'
 import type {
 	Chain,
+	ContractFunctionName,
 	WaitForTransactionReceiptReturnType,
 	WriteContractErrorType,
 	WriteContractReturnType,
@@ -11,10 +12,10 @@ import type {
 
 export type OptimisticResult<
 	TAbi extends Abi | readonly unknown[],
-	TFunctionName extends string,
+	TFunctionName extends ContractFunctionName<TAbi>,
 	TChain extends Chain | undefined,
 > =
-	| GenResult<RunContractCallResponse<TAbi, TFunctionName>, 'OPTIMISTIC_RESULT'>
+	| GenResult<ContractResult<TAbi, TFunctionName>, 'OPTIMISTIC_RESULT'>
 	// TODO type this error better
 	| GenError<Error, 'OPTIMISTIC_RESULT'>
 	| GenResult<WriteContractReturnType, 'HASH'>

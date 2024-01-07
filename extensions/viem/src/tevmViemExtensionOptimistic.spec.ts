@@ -1,7 +1,6 @@
 // TODO convert to js and make src the entrypoint
 import { tevmViemExtensionOptimistic } from './tevmViemExtensionOptimistic.js'
 import { describe, expect, it, jest, mock } from 'bun:test'
-import { parse, stringify } from 'superjson'
 import { type WaitForTransactionReceiptReturnType } from 'viem/actions'
 
 mock.module('viem/actions', () => ({
@@ -24,7 +23,7 @@ const client = (() => {
 	return c
 })()
 
-const mockRequestResponse = JSON.parse(stringify({ gasUsed: 420n }))
+const mockRequestResponse = { executionGasUsed: 420n }
 const mockWriteContractResponse = '0x420420420'
 const mockTxReciept: WaitForTransactionReceiptReturnType = {
 	blockHash: '0x420',
@@ -64,18 +63,19 @@ describe('tevmViemExtension', () => {
 			chain: {} as any,
 		} as const
 
-		for await (const result of decoratedClient.writeContractOptimistic(
+		for await (const result of decoratedClient.tevm.writeContractOptimistic(
 			params,
 		)) {
 			if (result.tag === 'OPTIMISTIC_RESULT') {
 				expect(result).toEqual({
-					data: parse(JSON.stringify(mockRequestResponse)),
+					data: mockRequestResponse as any,
 					success: true,
 					tag: 'OPTIMISTIC_RESULT',
 				})
 				expect((client.request as jest.Mock).mock.lastCall[0]).toEqual({
-					method: 'tevm_contractCall',
-					params: JSON.parse(stringify(params)),
+					method: 'tevm_contract',
+					params: params,
+					jsonrpc: '2.0',
 				})
 				expect((client.writeContract as jest.Mock).mock.lastCall[0]).toEqual({
 					abi: params.abi,

@@ -60,16 +60,9 @@
 		"test:run": "vitest run",
 		"test:ui": "vitest --ui"
 	},
-	"dependencies": {
-		"@tevm/actions": "workspace:^",
-		"@tevm/jsonrpc": "workspace:^",
-		"superjson": "^2.2.1"
-	},
 	"devDependencies": {
-		"@tevm/contract": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",
-		"@tevm/vm": "workspace:^",
 		"abitype": "^0.10.2",
 		"ethers": "^6.8.0"
 	},
