@@ -1,3 +1,8 @@
+import type { StorageDump } from '@ethereumjs/common'
+import { EVM, type EVMResult } from '@ethereumjs/evm'
+import type { Account, AccountData } from '@ethereumjs/util'
+import type { Abi, Address } from 'abitype'
+import type { ByteArray } from 'viem'
 import type { RunContractCallAction } from './actions/contractCall/RunContractCallAction.js'
 import type { RunContractCallResult } from './actions/contractCall/RunContractCallResult.js'
 import type { PutAccountAction } from './actions/putAccount/PutAccountAction.js'
@@ -12,9 +17,7 @@ import {
 	type JsonRpcClient,
 } from './jsonrpc/createJsonRpcClient.js'
 import type { CustomPredeploy } from './predeploys/definePredeploy.js'
-import type { EVMResult } from '@ethereumjs/evm'
-import type { Account } from '@ethereumjs/util'
-import type { Abi } from 'abitype'
+import { TevmStateManager } from './stateManager/TevmStateManager.js'
 /**
  * Options fetch state that isn't available locally.
  */
@@ -50,6 +53,10 @@ type ConstructorArgument<T> = T extends new (
 ) => any
 	? P[0]
 	: never
+
+export class TevmEvm extends EVM {
+	public declare stateManager: TevmStateManager
+}
 
 /**
  * TODO This should be publically exported from ethereumjs but isn't
@@ -104,7 +111,7 @@ export type Tevm = {
 	 * Internal instance of the EVM. Can be used for lower level operations
 	 * but is not guaranteed to stay stable between versions
 	 */
-	readonly _evm: import('@ethereumjs/evm').EVM
+	readonly _evm: TevmEvm
 
 	/**
 	 * Executes a jsonrpc request
@@ -208,4 +215,16 @@ export type Tevm = {
 	>(
 		action: RunContractCallAction<TAbi, TFunctionName>,
 	) => Promise<RunContractCallResult<TAbi, TFunctionName>>
+}
+
+interface AccountStorage {
+	nonce: bigint
+	balance: bigint
+	storageRoot: Uint8Array
+	codeHash: Uint8Array
+	storage?: StorageDump
+}
+
+export type TevmState = {
+	[key: string]: AccountStorage
 }

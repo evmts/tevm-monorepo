@@ -5,12 +5,7 @@ import { keccak256 } from 'ethereum-cryptography/keccak.js'
 
 import { AccountCache, CacheType, StorageCache } from '@ethereumjs/statemanager'
 
-import { Cache } from './Cache.js'
-import type {
-	AccountFields,
-	EVMStateManagerInterface,
-	StorageDump,
-} from '@ethereumjs/common'
+import type { AccountFields, StorageDump } from '@ethereumjs/common'
 import type { StorageRange } from '@ethereumjs/common'
 import type { Proof } from '@ethereumjs/statemanager'
 import type { Address as EthjsAddress } from '@ethereumjs/util'
@@ -24,6 +19,8 @@ import {
 	toBytes,
 	toHex,
 } from 'viem'
+import { TevmStateManagerInterface } from '../../types/stateManager/TevmStateManagerInterface.js'
+import { Cache } from './Cache.js'
 
 export interface ViemStateManagerOpts {
 	client: PublicClient
@@ -34,7 +31,7 @@ export interface ViemStateManagerOpts {
  * A state manager that will fetch state from rpc using a viem public client and cache it for
  *f future requests
  */
-export class ViemStateManager implements EVMStateManagerInterface {
+export class ViemStateManager implements TevmStateManagerInterface {
 	protected _contractCache: Map<string, Uint8Array>
 	protected _storageCache: StorageCache
 	protected _blockTag: { blockTag: BlockTag } | { blockNumber: bigint }
@@ -65,6 +62,8 @@ export class ViemStateManager implements EVMStateManagerInterface {
 
 		this.originalStorageCache = new Cache(this.getContractStorage.bind(this))
 	}
+	loadState: (state: {}) => void
+	dumpState: () => any[]
 
 	/**
 	 * Returns a new instance of the ViemStateManager with the same opts

@@ -1,3 +1,6 @@
+import { Common, Hardfork } from '@ethereumjs/common'
+import { http, createPublicClient } from 'viem'
+import { TevmEvm } from './Tevm.js'
 import { createHttpHandler as _createHttpHandler } from './jsonrpc/createHttpHandler.js'
 import { createJsonRpcClient as _createJsonrpcClient } from './jsonrpc/createJsonRpcClient.js'
 import {
@@ -7,10 +10,9 @@ import {
 	runContractCallHandler,
 	runScriptHandler,
 } from './jsonrpc/index.js'
+import { TevmStateManager } from './stateManager/TevmStateManager.js'
 import { ViemStateManager } from './stateManager/ViemStateManager.js'
-import { Common, Hardfork } from '@ethereumjs/common'
-import { DefaultStateManager } from '@ethereumjs/statemanager'
-import { createPublicClient, http } from 'viem'
+
 
 /**
  * A local EVM instance running in JavaScript. Similar to Anvil in your browser
@@ -45,10 +47,8 @@ import { createPublicClient, http } from 'viem'
  *  ```
  */
 export const createTevm = async (options = {}) => {
-	const { EVM: _EVM } = await import('@ethereumjs/evm')
-
 	/**
-	 * @type {DefaultStateManager | ViemStateManager}
+	 * @type {TevmStateManager | ViemStateManager}
 	 */
 	let stateManager
 	// ethereumjs throws an error for most chain ids
@@ -59,14 +59,14 @@ export const createTevm = async (options = {}) => {
 		const blockTag = options.fork.blockTag ?? (await client.getBlockNumber())
 		stateManager = new ViemStateManager({ client, blockTag })
 	} else {
-		stateManager = new DefaultStateManager()
+		stateManager = new TevmStateManager()
 	}
 
 	const chainId = 1
 	const hardfork = Hardfork.Shanghai
 	const common = new Common({ chain: chainId, hardfork })
 
-	const evm = new _EVM({
+	const evm = new TevmEvm({
 		common,
 		stateManager,
 		// blockchain, // Always running the EVM statelessly so not including blockchain

@@ -16,17 +16,14 @@ import { ethers } from 'ethers'
 
 import { AccountCache, CacheType, StorageCache } from '@ethereumjs/statemanager'
 
-import type {
-	AccountFields,
-	EVMStateManagerInterface,
-	StorageDump,
-} from '@ethereumjs/common'
+import type { AccountFields, StorageDump } from '@ethereumjs/common'
 import type { StorageRange } from '@ethereumjs/common'
 import type { Proof } from '@ethereumjs/statemanager'
 import type { Debugger } from 'debug'
 
 import { bytesToUnprefixedHex } from '@ethereumjs/util'
 import type { Address } from '@ethereumjs/util'
+import { TevmStateManagerInterface } from '../../types/stateManager/TevmStateManagerInterface'
 
 type getContractStorage = (
 	address: Address,
@@ -79,7 +76,7 @@ export interface EthersStateManagerOpts {
 	blockTag: bigint | 'earliest'
 }
 
-export class EthersStateManager implements EVMStateManagerInterface {
+export class EthersStateManager implements TevmStateManagerInterface {
 	protected _provider: ethers.JsonRpcProvider
 	protected _contractCache: Map<string, Uint8Array>
 	protected _storageCache: StorageCache
@@ -119,6 +116,22 @@ export class EthersStateManager implements EVMStateManagerInterface {
 		this.originalStorageCache = new OriginalStorageCache(
 			this.getContractStorage.bind(this),
 		)
+	}
+
+	dumpState() {
+		const accounts: any[] = []
+
+		this._accountCache._lruCache?.forEach((accountElement) => {
+			accounts.push(accountElement.accountRLP)
+		})
+
+		console.log(`accounts ${accounts}`)
+
+		return accounts
+	}
+
+	loadState(input) {
+		return
 	}
 
 	/**
