@@ -58,7 +58,7 @@ Creates an Account JSON-RPC Procedure for handling account requests with Ethereu
 
 #### Defined in
 
-[jsonrpc/accountProcedure.js:8](https://github.com/evmts/tevm-monorepo/blob/main/vm/procedures/src/jsonrpc/accountProcedure.js#L8)
+[jsonrpc/accountProcedure.js:9](https://github.com/evmts/tevm-monorepo/blob/main/vm/procedures/src/jsonrpc/accountProcedure.js#L9)
 
 ___
 
@@ -80,7 +80,7 @@ Creates an CallHandler for handling call params with Ethereumjs EVM
 
 #### Defined in
 
-[handlers/callHandler.js:24](https://github.com/evmts/tevm-monorepo/blob/main/vm/procedures/src/handlers/callHandler.js#L24)
+[handlers/callHandler.js:10](https://github.com/evmts/tevm-monorepo/blob/main/vm/procedures/src/handlers/callHandler.js#L10)
 
 ___
 
@@ -102,7 +102,7 @@ Creates a Call JSON-RPC Procedure for handling call requests with Ethereumjs EVM
 
 #### Defined in
 
-[jsonrpc/callProcedure.js:8](https://github.com/evmts/tevm-monorepo/blob/main/vm/procedures/src/jsonrpc/callProcedure.js#L8)
+[jsonrpc/callProcedure.js:10](https://github.com/evmts/tevm-monorepo/blob/main/vm/procedures/src/jsonrpc/callProcedure.js#L10)
 
 ___
 
@@ -130,9 +130,11 @@ ___
 
 ### contractProcedure
 
-▸ **contractProcedure**(`evm`): `ContractJsonRpcProcedure`
+▸ **contractProcedure**(`evm`): `CallJsonRpcProcedure`
 
 Creates a Contract JSON-RPC Procedure for handling contract requests with Ethereumjs EVM
+Because the Contract handler is a quality of life wrapper around a call for the JSON rpc interface
+we simply overload call instead of creating a seperate tevm_contract method
 
 #### Parameters
 
@@ -142,11 +144,11 @@ Creates a Contract JSON-RPC Procedure for handling contract requests with Ethere
 
 #### Returns
 
-`ContractJsonRpcProcedure`
+`CallJsonRpcProcedure`
 
 #### Defined in
 
-[jsonrpc/contractProcedure.js:8](https://github.com/evmts/tevm-monorepo/blob/main/vm/procedures/src/jsonrpc/contractProcedure.js#L8)
+[jsonrpc/callProcedure.js:10](https://github.com/evmts/tevm-monorepo/blob/main/vm/procedures/src/jsonrpc/callProcedure.js#L10)
 
 ___
 
@@ -183,7 +185,7 @@ const res = await handler({
 
 #### Defined in
 
-[requestProcedure.js:27](https://github.com/evmts/tevm-monorepo/blob/main/vm/procedures/src/requestProcedure.js#L27)
+[requestProcedure.js:22](https://github.com/evmts/tevm-monorepo/blob/main/vm/procedures/src/requestProcedure.js#L22)
 
 ___
 
@@ -205,7 +207,7 @@ Creates an ScriptHandler for handling script params with Ethereumjs EVM
 
 #### Defined in
 
-[handlers/scriptHandler.js:10](https://github.com/evmts/tevm-monorepo/blob/main/vm/procedures/src/handlers/scriptHandler.js#L10)
+[handlers/scriptHandler.js:12](https://github.com/evmts/tevm-monorepo/blob/main/vm/procedures/src/handlers/scriptHandler.js#L12)
 
 ___
 
@@ -227,4 +229,4 @@ Creates a Script JSON-RPC Procedure for handling script requests with Ethereumjs
 
 #### Defined in
 
-[jsonrpc/scriptProcedure.js:8](https://github.com/evmts/tevm-monorepo/blob/main/vm/procedures/src/jsonrpc/scriptProcedure.js#L8)
+[jsonrpc/scriptProcedure.js:10](https://github.com/evmts/tevm-monorepo/blob/main/vm/procedures/src/jsonrpc/scriptProcedure.js#L10)

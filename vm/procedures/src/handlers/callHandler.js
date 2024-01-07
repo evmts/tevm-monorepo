@@ -28,8 +28,8 @@ export const callHandler = (evm) => async (params) => {
 						typeof e === 'string'
 							? e
 							: e instanceof Error
-								? e.message
-								: 'unknown error',
+							? e.message
+							: 'unknown error',
 				},
 			],
 			executionGasUsed: 0n,

@@ -289,16 +289,17 @@ const ERC20_ABI = [
 	},
 ] as const
 
-
 describe('contractHandler', () => {
 	it('should execute a contract call', async () => {
 		const evm = new EVM({})
 		// deploy contract
 		expect(
-			(await accountHandler(evm)({
-				address: ERC20_ADDRESS,
-				deployedBytecode: ERC20_BYTECODE,
-			})).errors
+			(
+				await accountHandler(evm)({
+					address: ERC20_ADDRESS,
+					deployedBytecode: ERC20_BYTECODE,
+				})
+			).errors,
 		).toBeUndefined()
 		// test contract call
 		expect(

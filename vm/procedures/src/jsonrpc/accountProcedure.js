@@ -1,5 +1,5 @@
-import { hexToBigInt } from 'viem'
 import { accountHandler } from '../index.js'
+import { hexToBigInt } from 'viem'
 
 /**
  * Creates an Account JSON-RPC Procedure for handling account requests with Ethereumjs EVM
@@ -10,10 +10,18 @@ export const accountProcedure = (evm) => async (request) => {
 	request.params
 	const { errors = [], ...result } = await accountHandler(evm)({
 		address: request.params.address,
-		...(request.params.nonce ? { nonce: hexToBigInt(request.params.nonce) } : {}),
-		...(request.params.balance ? { balance: hexToBigInt(request.params.balance) } : {}),
-		...(request.params.deployedBytecode ? { deployedBytecode: request.params.deployedBytecode } : {}),
-		...(request.params.storageRoot ? { storageRoot: request.params.storageRoot } : {}),
+		...(request.params.nonce
+			? { nonce: hexToBigInt(request.params.nonce) }
+			: {}),
+		...(request.params.balance
+			? { balance: hexToBigInt(request.params.balance) }
+			: {}),
+		...(request.params.deployedBytecode
+			? { deployedBytecode: request.params.deployedBytecode }
+			: {}),
+		...(request.params.storageRoot
+			? { storageRoot: request.params.storageRoot }
+			: {}),
 	})
 	if (errors.length > 0) {
 		const error = /** @type {import('@tevm/api').AccountError}*/ (errors[0])

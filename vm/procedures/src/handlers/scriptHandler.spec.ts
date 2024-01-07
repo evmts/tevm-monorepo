@@ -1,6 +1,6 @@
+import { scriptHandler } from './scriptHandler.js'
 import { EVM } from '@ethereumjs/evm'
 import { describe, expect, it } from 'bun:test'
-import { scriptHandler } from './scriptHandler.js'
 
 const ERC20_ADDRESS = `0x${'3'.repeat(40)}` as const
 const ERC20_BYTECODE =
@@ -297,7 +297,7 @@ describe('scriptHandler', () => {
 				functionName: 'balanceOf',
 				to: ERC20_ADDRESS,
 				args: [ERC20_ADDRESS],
-			})
+			}),
 		).toEqual({
 			rawData:
 				'0x0000000000000000000000000000000000000000000000000000000000000000',

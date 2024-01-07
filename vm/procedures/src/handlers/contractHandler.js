@@ -9,7 +9,7 @@ import { decodeFunctionResult, encodeFunctionData } from 'viem'
  * @returns {import("@tevm/api").ContractHandler}
  */
 export const contractHandler = (evm) => async (action) => {
-	const errors = validateContractParams(/** @type any*/(action))
+	const errors = validateContractParams(/** @type any*/ (action))
 	if (errors.length > 0) {
 		return { errors, executionGasUsed: 0n, rawData: '0x' }
 	}
@@ -34,7 +34,7 @@ export const contractHandler = (evm) => async (action) => {
 	let functionData
 	try {
 		functionData = encodeFunctionData(
-			/** @type {any} */({
+			/** @type {any} */ ({
 				abi: action.abi,
 				functionName: action.functionName,
 				args: action.args,
@@ -68,7 +68,7 @@ export const contractHandler = (evm) => async (action) => {
 	let decodedResult
 	try {
 		decodedResult = decodeFunctionResult(
-			/** @type {any} */({
+			/** @type {any} */ ({
 				abi: action.abi,
 				data: result.rawData,
 				functionName: action.functionName,

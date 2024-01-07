@@ -1,8 +1,8 @@
-import { Address } from '@ethereumjs/util'
+import { accountHandler } from './accountHandler.js'
 import { callHandler } from './callHandler.js'
+import { Address } from '@ethereumjs/util'
 import { validateScriptParams } from '@tevm/zod'
 import { decodeFunctionResult, encodeFunctionData } from 'viem'
-import { accountHandler } from './accountHandler.js'
 
 /**
  * Creates an ScriptHandler for handling script params with Ethereumjs EVM
@@ -15,8 +15,8 @@ export const scriptHandler = (evm) => async (params) => {
 	 */
 	let functionData = '0x'
 	// Internally we overload this function to take raw data too for the jsonrpc handler
-	if (/** @type any*/(params).data) {
-		functionData = /** @type any*/(params).data
+	if (/** @type any*/ (params).data) {
+		functionData = /** @type any*/ (params).data
 	} else {
 		const errors = validateScriptParams(/** @type any*/(params))
 		if (errors.length > 0) {
@@ -25,13 +25,16 @@ export const scriptHandler = (evm) => async (params) => {
 	}
 
 	try {
-		functionData = functionData === '0x' ? encodeFunctionData(
-			/** @type {any} */({
-				abi: params.abi,
-				functionName: params.functionName,
-				args: params.args,
-			}),
-		) : functionData
+		functionData =
+			functionData === '0x'
+				? encodeFunctionData(
+						/** @type {any} */({
+						abi: params.abi,
+						functionName: params.functionName,
+						args: params.args,
+					}),
+				)
+				: functionData
 	} catch (e) {
 		/**
 		 * @type {import('@tevm/api').InvalidRequestError}
@@ -49,7 +52,12 @@ export const scriptHandler = (evm) => async (params) => {
 	}
 
 	const randomBigInt = BigInt(Math.floor(Math.random() * 1_000_000_000_000_000))
-	const scriptAddress = /** @type {import('viem').Address}*/(Address.generate(Address.fromString(`0x${'6969'.repeat(10)}`), randomBigInt).toString())
+	const scriptAddress = /** @type {import('viem').Address}*/ (
+		Address.generate(
+			Address.fromString(`0x${'6969'.repeat(10)}`),
+			randomBigInt,
+		).toString()
+	)
 
 	const accountRes = await accountHandler(evm)({
 		deployedBytecode: params.deployedBytecode,
@@ -67,7 +75,6 @@ export const scriptHandler = (evm) => async (params) => {
 	}
 	delete callParams.deployedBytecode
 
-
 	if ((accountRes.errors ?? []).length > 0) {
 		// this should only fail if deployedBytecode is not formatted correctly
 		return accountRes
@@ -80,7 +87,7 @@ export const scriptHandler = (evm) => async (params) => {
 	}
 
 	// Internally we use runScript without encoding/decoding
-	if (/** @type any*/(params).data) {
+	if (/** @type any*/ (params).data) {
 		return result
 	}
 

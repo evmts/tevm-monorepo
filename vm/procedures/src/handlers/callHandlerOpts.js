@@ -1,5 +1,5 @@
 import { Address as EthjsAddress, zeros } from '@ethereumjs/util'
-import { hexToBytes, maxInt256 } from 'viem'
+import { hexToBytes } from 'viem'
 
 const DEFAULT_BLOCK = {
 	header: {
@@ -92,16 +92,12 @@ export const callHandlerOpts = (params) => {
 	}
 	if (params.value) {
 		opts.value = BigInt(params.value)
-	} else if (params.skipBalance) {
-		opts.value = maxInt256
 	}
 	if (params.origin) {
 		opts.origin = EthjsAddress.fromString(params.origin)
 	}
 	if (params.gasLimit) {
 		opts.gasLimit = BigInt(params.gasLimit)
-	} else if (params.skipBalance) {
-		opts.gasLimit = maxInt256
 	}
 
 	return opts
