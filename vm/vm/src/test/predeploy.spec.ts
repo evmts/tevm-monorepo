@@ -41,6 +41,7 @@ test('Call predeploy from TypeScript', async () => {
 		),
 	})
 
+	expect(res.errors).toEqual(undefined as any)
 	expect(res.data).toBe(0n)
 	expect(res.executionGasUsed).toBe(2447n)
 	expect(res.logs).toEqual([])

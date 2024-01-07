@@ -3,7 +3,7 @@ import { DaiContract } from './DaiContract.sol.js'
 import type { ContractJsonRpcRequest } from '@tevm/api'
 import { describe, expect, it } from 'bun:test'
 import supertest from 'supertest'
-import { base } from 'viem/chains'
+import { optimism } from 'viem/chains'
 
 const contractAddress = '0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1'
 
@@ -14,7 +14,7 @@ describe('httpHandler', () => {
 	it('should create an http handler', async () => {
 		const tevm = await createTevm({
 			fork: {
-				url: base.rpcUrls.default.http[0],
+				url: optimism.rpcUrls.default.http[0],
 			},
 		})
 
