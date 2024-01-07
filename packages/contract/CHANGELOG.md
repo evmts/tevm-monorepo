@@ -1,5 +1,13 @@
 # @tevm/contract
 
+## 1.0.0-next.21
+
+### Patch Changes
+
+- [#792](https://github.com/evmts/tevm-monorepo/pull/792) [`03f7aac9`](https://github.com/evmts/tevm-monorepo/commit/03f7aac96eb8daba6fe8da44603585ef183319a2) Thanks [@roninjin10](https://github.com/roninjin10)! - Updated types to NodeNext for maximum compatibility with all build tool setups. NodeNext requires explicit file extensions like `./Foo/index.js` instead of `./Foo` which maximizes general compatibility with latest versions of node and all bundlers.
+
+- [#777](https://github.com/evmts/tevm-monorepo/pull/777) [`143418bb`](https://github.com/evmts/tevm-monorepo/commit/143418bb6282e98622cb5c0fb4ab677382f5dc9d) Thanks [@0xNonCents](https://github.com/0xNonCents)! - Fixed bug with types not resolving correctly in tevm/contracts
+
 ## 1.0.0-next.20
 
 ### Minor Changes

@@ -1,5 +1,11 @@
 # @tevm/contract
 
+## 1.0.0-next.21
+
+### Minor Changes
+
+- [#782](https://github.com/evmts/tevm-monorepo/pull/782) [`e7f75e0b`](https://github.com/evmts/tevm-monorepo/commit/e7f75e0bcf2efa6e30de8fbc686f15ea3944aeb7) Thanks [@roninjin10](https://github.com/roninjin10)! - Moved compiler to @tevm/compiler from @tevm/solc. @tevm/solc is now simply a typesafe wrapper around solc with the tevm compiler being a seperate package.
+
 ## 1.0.0-next.18
 
 ### Minor Changes

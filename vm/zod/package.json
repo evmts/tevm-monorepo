@@ -1,6 +1,6 @@
 {
 	"name": "@tevm/zod",
-	"version": "1.0.0-next.11",
+	"version": "1.0.0-next.21",
 	"private": false,
 	"description": "Zod validators for Tevm",
 	"keywords": [
@@ -18,7 +18,9 @@
 		"directory": "vm/zod"
 	},
 	"license": "MIT",
-	"contributors": ["Will Cory <willcory10@gmail.com>"],
+	"contributors": [
+		"Will Cory <willcory10@gmail.com>"
+	],
 	"type": "module",
 	"exports": {
 		"./package.json": "./package.json",
@@ -36,7 +38,12 @@
 	"main": "dist/index.cjs",
 	"module": "dist/index.js",
 	"types": "dist/index.d.ts",
-	"files": ["dist", "types", "src", "!src/**/*.spec.ts"],
+	"files": [
+		"dist",
+		"types",
+		"src",
+		"!src/**/*.spec.ts"
+	],
 	"scripts": {
 		"all": "pnpm i  && bun run build && bun lint && bun format && bun test:run && bun generate:docs",
 		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/zod",

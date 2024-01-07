@@ -1,5 +1,15 @@
 # @tevm/ethers
 
+## 1.0.0-next.21
+
+### Minor Changes
+
+- [#794](https://github.com/evmts/tevm-monorepo/pull/794) [`133afb3a`](https://github.com/evmts/tevm-monorepo/commit/133afb3a57493d27df8d6a8e476b53b528d4819d) Thanks [@roninjin10](https://github.com/roninjin10)! - Added TevmJsonRpcProvider for using the tevm backend
+
+### Patch Changes
+
+- [#796](https://github.com/evmts/tevm-monorepo/pull/796) [`80282898`](https://github.com/evmts/tevm-monorepo/commit/802828983746ca17361f48d71b673b152b458afa) Thanks [@roninjin10](https://github.com/roninjin10)! - Removed the tevm client from @tevm/ethers in favor of adding this to the ethers organization on github
+
 ## 1.0.0-next.5
 
 ### Patch Changes

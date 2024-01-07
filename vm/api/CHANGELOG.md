@@ -1,5 +1,11 @@
 # @tevm/contract
 
+## 1.0.0-next.21
+
+### Patch Changes
+
+- [#796](https://github.com/evmts/tevm-monorepo/pull/796) [`80282898`](https://github.com/evmts/tevm-monorepo/commit/802828983746ca17361f48d71b673b152b458afa) Thanks [@roninjin10](https://github.com/roninjin10)! - Created @tevm/api package. @tevm/api is a type-only package that specifies the Tevm JSON-RPC API in detail. This API is implemented by other packages most notably @tevm/procedures which provide low level implementation of the Tevm API around ethereumjs
+
 ## 1.0.0-next.11
 
 ### Minor Changes

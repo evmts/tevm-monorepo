@@ -1,6 +1,6 @@
 {
 	"name": "@tevm/vm",
-	"version": "1.0.0-next.11",
+	"version": "1.0.0-next.21",
 	"private": false,
 	"description": "A typesafe library for writing forge scripts in typescript",
 	"keywords": [
@@ -38,7 +38,12 @@
 	"main": "dist/index.cjs",
 	"module": "dist/index.js",
 	"types": "dist/index.d.ts",
-	"files": ["dist", "types", "src", "!src/**/*.spec.ts"],
+	"files": [
+		"dist",
+		"types",
+		"src",
+		"!src/**/*.spec.ts"
+	],
 	"scripts": {
 		"all": "pnpm i  && bun run build && bun lint && bun format && bun test:run && bun generate:docs",
 		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/vm",
