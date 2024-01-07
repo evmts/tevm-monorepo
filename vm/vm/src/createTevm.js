@@ -1,5 +1,4 @@
 import { Common, Hardfork } from '@ethereumjs/common'
-import { DefaultStateManager } from '@ethereumjs/statemanager'
 import {
 	accountHandler,
 	callHandler,
@@ -10,6 +9,8 @@ import {
 import { createHttpHandler as _createHttpHandler } from '@tevm/server'
 import { TevmStateManager } from '@tevm/state'
 import { http, createPublicClient } from 'viem'
+import { TevmEvm } from './Tevm.js'
+import { createJsonRpcClient as _createJsonrpcClient } from './jsonrpc/createJsonRpcClient.js'
 
 /**
  * A local EVM instance running in JavaScript. Similar to Anvil in your browser
@@ -45,7 +46,7 @@ import { http, createPublicClient } from 'viem'
  */
 export const createTevm = async (options = {}) => {
 	/**
-	 * @type {DefaultStateManager | TevmStateManager}
+	 * @type {TevmStateManager | ViemStateManager}
 	 */
 	let stateManager
 	// ethereumjs throws an error for most chain ids

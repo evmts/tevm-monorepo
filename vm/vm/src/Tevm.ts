@@ -1,9 +1,10 @@
+import { StorageDump } from '@ethereumjs/common'
+import { EVM } from '@ethereumjs/evm'
 import { createHttpHandler } from '@tevm/server'
-import { TevmEvm } from '../types/Tevm'
+import { TevmStateManager } from '../types/stateManager/TevmStateManager'
 
 /**
- * A local EVM instance running in JavaScript. Similar to Anvil in your browser/node
- * Implemented with ethereumjs
+ * A local EVM instance running in JavaScript. Similar to Anvil in your browser
  * @example
  * ```ts
  * import { Tevm } from "tevm"
@@ -46,4 +47,20 @@ export type Tevm = import('@tevm/api').Tevm & {
 	 * Creates a HTTP handler for the tevm vm
 	 */
 	readonly createHttpHandler: () => ReturnType<typeof createHttpHandler>
+}
+
+export class TevmEvm extends EVM {
+	public declare stateManager: TevmStateManager
+}
+
+interface AccountStorage {
+	nonce: bigint
+	balance: bigint
+	storageRoot: Uint8Array
+	codeHash: Uint8Array
+	storage?: StorageDump
+}
+
+export type TevmState = {
+	[key: string]: AccountStorage
 }
