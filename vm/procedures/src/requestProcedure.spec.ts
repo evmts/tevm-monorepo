@@ -1,7 +1,9 @@
-import { accountHandler } from './accountHandler.js'
-import { contractHandler } from './contractHandler.js'
+import { callProcedure, scriptProcedure } from './index.js'
+import { requestProcedure } from './requestProcedure.js'
 import { EVM } from '@ethereumjs/evm'
+import { Account, Address } from '@ethereumjs/util'
 import { describe, expect, it } from 'bun:test'
+import { bytesToHex, encodeFunctionData, keccak256, numberToHex } from 'viem'
 
 const ERC20_ADDRESS = `0x${'3'.repeat(40)}` as const
 const ERC20_BYTECODE =
@@ -289,35 +291,88 @@ const ERC20_ABI = [
 	},
 ] as const
 
-describe('contractHandler', () => {
-	it('should execute a contract call', async () => {
+describe('requestProcedure', () => {
+	it('tevm_account', async () => {
 		const evm = new EVM({})
-		// deploy contract
+		const res = await requestProcedure(evm)({
+			jsonrpc: '2.0',
+			method: 'tevm_account',
+			id: 1,
+			params: {
+				address: ERC20_ADDRESS,
+				deployedBytecode: ERC20_BYTECODE,
+				balance: numberToHex(420n),
+				nonce: numberToHex(69n),
+			},
+		})
+		expect(res.error).toBeUndefined()
+		const account = (await evm.stateManager.getAccount(
+			Address.fromString(ERC20_ADDRESS),
+		)) as Account
+		expect(account?.balance).toBe(420n)
+		expect(account?.nonce).toBe(69n)
+		expect(bytesToHex(account.codeHash)).toBe(keccak256(ERC20_BYTECODE))
+	})
+
+	it('tevm_call', async () => {
+		const evm = new EVM({})
+		const to = `0x${'69'.repeat(20)}` as const
+		// send value
 		expect(
-			(
-				await accountHandler(evm)({
-					address: ERC20_ADDRESS,
-					deployedBytecode: ERC20_BYTECODE,
-				})
-			).errors,
-		).toBeUndefined()
-		// test contract call
-		expect(
-			await contractHandler(evm)({
-				abi: ERC20_ABI,
-				functionName: 'balanceOf',
-				to: ERC20_ADDRESS,
-				args: [ERC20_ADDRESS],
+			await callProcedure(evm)({
+				jsonrpc: '2.0',
+				method: 'tevm_call',
+				id: 1,
+				params: {
+					to,
+					value: numberToHex(420n),
+					skipBalance: true,
+				},
 			}),
 		).toEqual({
-			rawData:
-				'0x0000000000000000000000000000000000000000000000000000000000000000',
-			executionGasUsed: 2447n,
-			selfdestruct: new Set(),
-			gas: 16774768n,
-			logs: [],
-			createdAddresses: new Set(),
-			data: 0n,
+			id: 1,
+			method: 'tevm_call',
+			jsonrpc: '2.0',
+			result: {
+				executionGasUsed: numberToHex(0n),
+				rawData: '0x',
+			},
+		})
+
+		expect(
+			(await evm.stateManager.getAccount(Address.fromString(to)))?.balance,
+		).toEqual(420n)
+	})
+
+	it('tevm_script', async () => {
+		expect(
+			await scriptProcedure(new EVM({}))({
+				jsonrpc: '2.0',
+				method: 'tevm_script',
+				id: 1,
+				params: {
+					deployedBytecode: ERC20_BYTECODE,
+					data: encodeFunctionData({
+						abi: ERC20_ABI,
+						functionName: 'balanceOf',
+						args: [ERC20_ADDRESS],
+					}),
+					to: ERC20_ADDRESS,
+				},
+			}),
+		).toEqual({
+			method: 'tevm_script',
+			jsonrpc: '2.0',
+			id: 1,
+			result: {
+				rawData:
+					'0x0000000000000000000000000000000000000000000000000000000000000000',
+				executionGasUsed: numberToHex(2447n),
+				selfdestruct: [],
+				gas: numberToHex(16774768n),
+				logs: [],
+				createdAddresses: [],
+			},
 		})
 	})
 })

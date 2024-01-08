@@ -68,21 +68,21 @@ export const callHandlerOpts = (params) => {
 		opts.data = hexToBytes(params.data)
 	}
 	if (params.salt) {
-		opts.salt = Buffer.from(params.salt, 'hex')
+		opts.salt = hexToBytes(params.salt)
 	}
 	if (params.depth) {
 		opts.depth = params.depth
 	}
 	if (params.blobVersionedHashes) {
 		opts.blobVersionedHashes = params.blobVersionedHashes.map((hash) =>
-			Buffer.from(hash, 'hex'),
+			hexToBytes(hash),
 		)
 	}
 	if (params.selfdestruct) {
 		opts.selfdestruct = params.selfdestruct
 	}
 	if (params.skipBalance) {
-		opts.skipBalance = params.skipBalance
+		opts.skipBalance = Boolean(params.skipBalance)
 	}
 	if (params.gasRefund) {
 		opts.gasRefund = BigInt(params.gasRefund)
