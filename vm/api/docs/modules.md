@@ -63,7 +63,7 @@
 - [ScriptJsonRpcResponse](modules.md#scriptjsonrpcresponse)
 - [ScriptParams](modules.md#scriptparams)
 - [ScriptResult](modules.md#scriptresult)
-- [TevmClient](modules.md#tevmclient)
+- [Tevm](modules.md#tevm)
 - [TevmJsonRpcRequest](modules.md#tevmjsonrpcrequest)
 - [TevmJsonRpcRequestHandler](modules.md#tevmjsonrpcrequesthandler)
 - [TypedError](modules.md#typederror)
@@ -75,9 +75,22 @@
 
 Ƭ **AccountError**: [`InvalidAddressError`](modules.md#invalidaddresserror) \| [`InvalidBalanceError`](modules.md#invalidbalanceerror) \| [`InvalidNonceError`](modules.md#invalidnonceerror) \| [`InvalidStorageRootError`](modules.md#invalidstoragerooterror) \| [`InvalidBytecodeError`](modules.md#invalidbytecodeerror) \| [`InvalidRequestError`](modules.md#invalidrequesterror) \| [`UnexpectedError`](modules.md#unexpectederror)
 
+Errors returned by account tevm procedure
+
+**`Example`**
+
+```ts
+const {errors} = await tevm.account({address: '0x1234'})
+
+if (errors?.length) {
+  console.log(errors[0].name) // InvalidAddressError
+  console.log(errors[0].message) // Invalid address: 0x1234
+}
+```
+
 #### Defined in
 
-[errors/AccountError.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/errors/AccountError.ts#L9)
+[errors/AccountError.ts:19](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/errors/AccountError.ts#L19)
 
 ___
 
@@ -88,6 +101,8 @@ ___
 #### Type declaration
 
 ▸ (`params`): `Promise`\<[`AccountResult`](modules.md#accountresult)\>
+
+Handler for account tevm procedure
 
 ##### Parameters
 
@@ -101,7 +116,7 @@ ___
 
 #### Defined in
 
-[handlers/AccountHandler.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/handlers/AccountHandler.ts#L3)
+[handlers/AccountHandler.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/handlers/AccountHandler.ts#L6)
 
 ___
 
@@ -112,6 +127,8 @@ ___
 #### Type declaration
 
 ▸ (`request`): `Promise`\<[`AccountJsonRpcResponse`](modules.md#accountjsonrpcresponse)\>
+
+Account JSON-RPC tevm procedure puts an account or contract into the tevm state
 
 ##### Parameters
 
@@ -125,7 +142,7 @@ ___
 
 #### Defined in
 
-[procedure/AccountJsonRpcProcedure.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/procedure/AccountJsonRpcProcedure.ts#L3)
+[procedure/AccountJsonRpcProcedure.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/procedure/AccountJsonRpcProcedure.ts#L6)
 
 ___
 
@@ -133,9 +150,11 @@ ___
 
 Ƭ **AccountJsonRpcRequest**: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"tevm_account"``, `SerializeToJson`\<[`AccountParams`](modules.md#accountparams)\>\>
 
+JSON-RPC request for `tevm_account` method
+
 #### Defined in
 
-[requests/AccountJsonRpcRequest.ts:5](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/requests/AccountJsonRpcRequest.ts#L5)
+[requests/AccountJsonRpcRequest.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/requests/AccountJsonRpcRequest.ts#L8)
 
 ___
 
@@ -153,7 +172,7 @@ ___
 
 Ƭ **AccountParams**: `Object`
 
-Tevm action to put an account into the vm state
+Tevm params to put an account into the vm state
 
 **`Example`**
 
@@ -212,9 +231,11 @@ ___
 
 Ƭ **BaseCallError**: [`EvmError`](modules.md#evmerror) \| [`InvalidRequestError`](modules.md#invalidrequesterror) \| [`InvalidAddressError`](modules.md#invalidaddresserror) \| [`InvalidBalanceError`](modules.md#invalidbalanceerror) \| [`InvalidBlobVersionedHashesError`](modules.md#invalidblobversionedhasheserror) \| [`InvalidBlockError`](modules.md#invalidblockerror) \| [`InvalidCallerError`](modules.md#invalidcallererror) \| [`InvalidDepthError`](modules.md#invaliddeptherror) \| [`InvalidGasLimitError`](modules.md#invalidgaslimiterror) \| [`InvalidGasPriceError`](modules.md#invalidgaspriceerror) \| [`InvalidGasRefundError`](modules.md#invalidgasrefunderror) \| [`InvalidNonceError`](modules.md#invalidnonceerror) \| [`InvalidOriginError`](modules.md#invalidoriginerror) \| [`InvalidSelfdestructError`](modules.md#invalidselfdestructerror) \| [`InvalidSkipBalanceError`](modules.md#invalidskipbalanceerror) \| [`InvalidStorageRootError`](modules.md#invalidstoragerooterror) \| [`InvalidToError`](modules.md#invalidtoerror) \| [`InvalidValueError`](modules.md#invalidvalueerror) \| [`UnexpectedError`](modules.md#unexpectederror)
 
+Errors returned by all call based tevm procedures including call, contract, and script
+
 #### Defined in
 
-[errors/BaseCallError.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/errors/BaseCallError.ts#L21)
+[errors/BaseCallError.ts:24](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/errors/BaseCallError.ts#L24)
 
 ___
 
@@ -222,7 +243,7 @@ ___
 
 Ƭ **BaseCallParams**: `Object`
 
-Properties shared accross call-like actions
+Properties shared accross call-like params
 
 #### Type declaration
 
@@ -275,9 +296,20 @@ ___
 
 Ƭ **CallError**: [`BaseCallError`](modules.md#basecallerror) \| [`InvalidSaltError`](modules.md#invalidsalterror) \| [`InvalidDataError`](modules.md#invaliddataerror) \| [`InvalidDeployedBytecodeError`](modules.md#invaliddeployedbytecodeerror)
 
+Error returned by call tevm procedure
+
+**`Example`**
+
+```ts
+const {errors} = await tevm.call({address: '0x1234'})
+if (errors?.length) {
+ console.log(errors[0].name) // InvalidDataError
+}
+```
+
 #### Defined in
 
-[errors/CallError.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/errors/CallError.ts#L6)
+[errors/CallError.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/errors/CallError.ts#L14)
 
 ___
 
@@ -288,6 +320,8 @@ ___
 #### Type declaration
 
 ▸ (`action`): `Promise`\<[`CallResult`](modules.md#callresult)\>
+
+Handler for call tevm procedure
 
 ##### Parameters
 
@@ -301,7 +335,7 @@ ___
 
 #### Defined in
 
-[handlers/CallHandler.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/handlers/CallHandler.ts#L3)
+[handlers/CallHandler.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/handlers/CallHandler.ts#L6)
 
 ___
 
@@ -312,6 +346,8 @@ ___
 #### Type declaration
 
 ▸ (`request`): `Promise`\<[`CallJsonRpcResponse`](modules.md#calljsonrpcresponse)\>
+
+Call JSON-RPC procedure executes a call against the tevm EVM
 
 ##### Parameters
 
@@ -325,7 +361,7 @@ ___
 
 #### Defined in
 
-[procedure/CallJsonRpcProcedure.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/procedure/CallJsonRpcProcedure.ts#L3)
+[procedure/CallJsonRpcProcedure.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/procedure/CallJsonRpcProcedure.ts#L6)
 
 ___
 
@@ -333,9 +369,11 @@ ___
 
 Ƭ **CallJsonRpcRequest**: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"tevm_call"``, `SerializeToJson`\<[`CallParams`](modules.md#callparams)\>\>
 
+JSON-RPC request for `tevm_call`
+
 #### Defined in
 
-[requests/CallJsonRpcRequest.ts:5](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/requests/CallJsonRpcRequest.ts#L5)
+[requests/CallJsonRpcRequest.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/requests/CallJsonRpcRequest.ts#L8)
 
 ___
 
@@ -353,7 +391,7 @@ ___
 
 Ƭ **CallParams**: [`BaseCallParams`](modules.md#basecallparams) & \{ `data?`: `Hex` ; `deployedBytecode?`: `Hex` ; `salt?`: `Hex`  }
 
-Tevm action to execute a call on the vm
+Tevm params to execute a call on the vm
 Call is the lowest level method to interact with the vm
 and other messages such as contract and script are using call
 under the hood
@@ -411,9 +449,20 @@ ___
 
 Ƭ **ContractError**: [`BaseCallError`](modules.md#basecallerror) \| [`InvalidAddressError`](modules.md#invalidaddresserror) \| [`EvmError`](modules.md#evmerror) \| [`InvalidRequestError`](modules.md#invalidrequesterror) \| [`UnexpectedError`](modules.md#unexpectederror) \| `InvalidAbiError` \| [`InvalidDataError`](modules.md#invaliddataerror) \| [`InvalidFunctionNameError`](modules.md#invalidfunctionnameerror) \| `InvalidArgsError` \| `DecodeFunctionDataError` \| `EncodeFunctionReturnDataError`
 
+Errors returned by contract tevm procedure
+
+**`Example`**
+
+```ts
+const {errors} = await tevm.contract({address: '0x1234'})
+if (errors?.length) {
+  console.log(errors[0].name) // InvalidAddressError
+}
+```
+
 #### Defined in
 
-[errors/ContractError.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/errors/ContractError.ts#L13)
+[errors/ContractError.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/errors/ContractError.ts#L21)
 
 ___
 
@@ -424,6 +473,9 @@ ___
 #### Type declaration
 
 ▸ \<`TAbi`, `TFunctionName`\>(`action`): `Promise`\<[`ContractResult`](modules.md#contractresult)\<`TAbi`, `TFunctionName`\>\>
+
+Handler for contract tevm procedure
+It's API resuses the viem `contractRead`/`contractWrite` API to encode abi, functionName, and args
 
 ##### Type parameters
 
@@ -444,7 +496,7 @@ ___
 
 #### Defined in
 
-[handlers/ContractHandler.ts:5](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/handlers/ContractHandler.ts#L5)
+[handlers/ContractHandler.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/handlers/ContractHandler.ts#L9)
 
 ___
 
@@ -453,11 +505,12 @@ ___
 Ƭ **ContractJsonRpcProcedure**: [`CallJsonRpcRequest`](modules.md#calljsonrpcrequest)
 
 Since ContractJsonRpcProcedure is a quality of life wrapper around CallJsonRpcProcedure
- We choose to overload the type instead of creating a new one
+ We choose to overload the type instead of creating a new one. Tevm contract handlers encode their
+ contract call as a normal call request over JSON-rpc
 
 #### Defined in
 
-[procedure/ContractJsonRpcProcedure.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/procedure/ContractJsonRpcProcedure.ts#L7)
+[procedure/ContractJsonRpcProcedure.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/procedure/ContractJsonRpcProcedure.ts#L8)
 
 ___
 
@@ -491,7 +544,7 @@ ___
 
 Ƭ **ContractParams**\<`TAbi`, `TFunctionName`\>: `EncodeFunctionDataParameters`\<`TAbi`, `TFunctionName`\> & [`BaseCallParams`](modules.md#basecallparams) & \{ `to`: `Address`  }
 
-Tevm action to execute a call on a contract
+Tevm params to execute a call on a contract
 
 #### Type parameters
 
@@ -528,6 +581,8 @@ ___
 
 Ƭ **EvmError**\<`TEVMErrorMessage`\>: [`TypedError`](modules.md#typederror)\<`TEVMErrorMessage`\>
 
+Error type of errors thrown while internally executing a call in the EVM
+
 #### Type parameters
 
 | Name | Type |
@@ -536,7 +591,7 @@ ___
 
 #### Defined in
 
-[errors/EvmError.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/errors/EvmError.ts#L4)
+[errors/EvmError.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/errors/EvmError.ts#L7)
 
 ___
 
@@ -544,9 +599,11 @@ ___
 
 Ƭ **InvalidAddressError**: [`TypedError`](modules.md#typederror)\<``"InvalidAddressError"``\>
 
+Error thrown when address is invalid
+
 #### Defined in
 
-[errors/InvalidAddressError.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/errors/InvalidAddressError.ts#L3)
+[errors/InvalidAddressError.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/errors/InvalidAddressError.ts#L6)
 
 ___
 
@@ -554,9 +611,11 @@ ___
 
 Ƭ **InvalidBalanceError**: [`TypedError`](modules.md#typederror)\<``"InvalidBalanceError"``\>
 
+Error thrown when balance parameter is invalid
+
 #### Defined in
 
-[errors/InvalidBalanceError.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/errors/InvalidBalanceError.ts#L3)
+[errors/InvalidBalanceError.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/errors/InvalidBalanceError.ts#L6)
 
 ___
 
@@ -564,9 +623,11 @@ ___
 
 Ƭ **InvalidBlobVersionedHashesError**: [`TypedError`](modules.md#typederror)\<``"InvalidBlobVersionedHashesError"``\>
 
+Error thrown when blobVersionedHashes parameter is invalid
+
 #### Defined in
 
-[errors/InvalidBlobVersionedHashesError.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/errors/InvalidBlobVersionedHashesError.ts#L3)
+[errors/InvalidBlobVersionedHashesError.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/errors/InvalidBlobVersionedHashesError.ts#L6)
 
 ___
 
@@ -574,9 +635,11 @@ ___
 
 Ƭ **InvalidBlockError**: [`TypedError`](modules.md#typederror)\<``"InvalidBlockError"``\>
 
+Error thrown when block parameter is invalid
+
 #### Defined in
 
-[errors/InvalidBlockError.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/errors/InvalidBlockError.ts#L3)
+[errors/InvalidBlockError.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/errors/InvalidBlockError.ts#L6)
 
 ___
 
@@ -584,9 +647,11 @@ ___
 
 Ƭ **InvalidBytecodeError**: [`TypedError`](modules.md#typederror)\<``"InvalidBytecodeError"``\>
 
+Error thrown when bytecode parameter is invalid
+
 #### Defined in
 
-[errors/InvalidBytecodeError.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/errors/InvalidBytecodeError.ts#L3)
+[errors/InvalidBytecodeError.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/errors/InvalidBytecodeError.ts#L6)
 
 ___
 
@@ -594,9 +659,11 @@ ___
 
 Ƭ **InvalidCallerError**: [`TypedError`](modules.md#typederror)\<``"InvalidCallerError"``\>
 
+Error thrown when caller parameter is invalid
+
 #### Defined in
 
-[errors/InvalidCallerError.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/errors/InvalidCallerError.ts#L3)
+[errors/InvalidCallerError.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/errors/InvalidCallerError.ts#L6)
 
 ___
 
@@ -604,9 +671,11 @@ ___
 
 Ƭ **InvalidDataError**: [`TypedError`](modules.md#typederror)\<``"InvalidDataError"``\>
 
+Error thrown when data parameter is invalid
+
 #### Defined in
 
-[errors/InvalidDataError.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/errors/InvalidDataError.ts#L3)
+[errors/InvalidDataError.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/errors/InvalidDataError.ts#L6)
 
 ___
 
@@ -614,9 +683,11 @@ ___
 
 Ƭ **InvalidDeployedBytecodeError**: [`TypedError`](modules.md#typederror)\<``"InvalidDeployedBytecodeError"``\>
 
+Error thrown when deployedBytecode parameter is invalid
+
 #### Defined in
 
-[errors/InvalidDeployedBytecodeError.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/errors/InvalidDeployedBytecodeError.ts#L3)
+[errors/InvalidDeployedBytecodeError.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/errors/InvalidDeployedBytecodeError.ts#L6)
 
 ___
 
@@ -624,9 +695,11 @@ ___
 
 Ƭ **InvalidDepthError**: [`TypedError`](modules.md#typederror)\<``"InvalidDepthError"``\>
 
+Error thrown when depth parameter is invalid
+
 #### Defined in
 
-[errors/InvalidDepthError.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/errors/InvalidDepthError.ts#L3)
+[errors/InvalidDepthError.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/errors/InvalidDepthError.ts#L6)
 
 ___
 
@@ -634,9 +707,11 @@ ___
 
 Ƭ **InvalidFunctionNameError**: [`TypedError`](modules.md#typederror)\<``"InvalidFunctionNameError"``\>
 
+Error thrown when function name is invalid
+
 #### Defined in
 
-[errors/InvalidFunctionNameError.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/errors/InvalidFunctionNameError.ts#L3)
+[errors/InvalidFunctionNameError.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/errors/InvalidFunctionNameError.ts#L6)
 
 ___
 
@@ -644,9 +719,11 @@ ___
 
 Ƭ **InvalidGasLimitError**: [`TypedError`](modules.md#typederror)\<``"InvalidGasLimitError"``\>
 
+Error thrown when gas limit is invalid
+
 #### Defined in
 
-[errors/InvalidGasLimitError.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/errors/InvalidGasLimitError.ts#L3)
+[errors/InvalidGasLimitError.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/errors/InvalidGasLimitError.ts#L6)
 
 ___
 
@@ -654,9 +731,11 @@ ___
 
 Ƭ **InvalidGasPriceError**: [`TypedError`](modules.md#typederror)\<``"InvalidGasPriceError"``\>
 
+Error thrown when gasPrice parameter is invalid
+
 #### Defined in
 
-[errors/InvalidGasPriceError.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/errors/InvalidGasPriceError.ts#L3)
+[errors/InvalidGasPriceError.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/errors/InvalidGasPriceError.ts#L6)
 
 ___
 
@@ -664,9 +743,11 @@ ___
 
 Ƭ **InvalidGasRefundError**: [`TypedError`](modules.md#typederror)\<``"InvalidGasRefundError"``\>
 
+Error thrown when gas refund is invalid
+
 #### Defined in
 
-[errors/InvalidGasRefundError.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/errors/InvalidGasRefundError.ts#L3)
+[errors/InvalidGasRefundError.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/errors/InvalidGasRefundError.ts#L6)
 
 ___
 
@@ -674,9 +755,11 @@ ___
 
 Ƭ **InvalidNonceError**: [`TypedError`](modules.md#typederror)\<``"InvalidNonceError"``\>
 
+Error thrown when nonce parameter is invalid
+
 #### Defined in
 
-[errors/InvalidNonceError.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/errors/InvalidNonceError.ts#L3)
+[errors/InvalidNonceError.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/errors/InvalidNonceError.ts#L6)
 
 ___
 
@@ -684,9 +767,11 @@ ___
 
 Ƭ **InvalidOriginError**: [`TypedError`](modules.md#typederror)\<``"InvalidOriginError"``\>
 
+Error thrown when origin parameter is invalid
+
 #### Defined in
 
-[errors/InvalidOriginError.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/errors/InvalidOriginError.ts#L3)
+[errors/InvalidOriginError.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/errors/InvalidOriginError.ts#L6)
 
 ___
 
@@ -694,9 +779,11 @@ ___
 
 Ƭ **InvalidRequestError**: [`TypedError`](modules.md#typederror)\<``"InvalidRequestError"``\>
 
+Error thrown when request is invalid
+
 #### Defined in
 
-[errors/InvalidRequestError.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/errors/InvalidRequestError.ts#L3)
+[errors/InvalidRequestError.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/errors/InvalidRequestError.ts#L6)
 
 ___
 
@@ -704,9 +791,11 @@ ___
 
 Ƭ **InvalidSaltError**: [`TypedError`](modules.md#typederror)\<``"InvalidSaltError"``\>
 
+Error thrown when salt parameter is invalid
+
 #### Defined in
 
-[errors/InvalidSaltError.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/errors/InvalidSaltError.ts#L3)
+[errors/InvalidSaltError.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/errors/InvalidSaltError.ts#L6)
 
 ___
 
@@ -714,9 +803,11 @@ ___
 
 Ƭ **InvalidSelfdestructError**: [`TypedError`](modules.md#typederror)\<``"InvalidSelfdestructError"``\>
 
+Error thrown when selfdestruct parameter is invalid
+
 #### Defined in
 
-[errors/InvalidSelfdestructError.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/errors/InvalidSelfdestructError.ts#L3)
+[errors/InvalidSelfdestructError.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/errors/InvalidSelfdestructError.ts#L6)
 
 ___
 
@@ -724,9 +815,11 @@ ___
 
 Ƭ **InvalidSkipBalanceError**: [`TypedError`](modules.md#typederror)\<``"InvalidSkipBalanceError"``\>
 
+Error thrown when skipBalance parameter is invalid
+
 #### Defined in
 
-[errors/InvalidSkipBalanceError.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/errors/InvalidSkipBalanceError.ts#L3)
+[errors/InvalidSkipBalanceError.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/errors/InvalidSkipBalanceError.ts#L6)
 
 ___
 
@@ -734,9 +827,11 @@ ___
 
 Ƭ **InvalidStorageRootError**: [`TypedError`](modules.md#typederror)\<``"InvalidStorageRootError"``\>
 
+Error thrown when storage root parameter is invalid
+
 #### Defined in
 
-[errors/InvalidStorageRootError.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/errors/InvalidStorageRootError.ts#L3)
+[errors/InvalidStorageRootError.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/errors/InvalidStorageRootError.ts#L6)
 
 ___
 
@@ -744,9 +839,11 @@ ___
 
 Ƭ **InvalidToError**: [`TypedError`](modules.md#typederror)\<``"InvalidToError"``\>
 
+Error thrown when `to` parameter is invalid
+
 #### Defined in
 
-[errors/InvalidToError.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/errors/InvalidToError.ts#L3)
+[errors/InvalidToError.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/errors/InvalidToError.ts#L6)
 
 ___
 
@@ -754,15 +851,19 @@ ___
 
 Ƭ **InvalidValueError**: [`TypedError`](modules.md#typederror)\<``"InvalidValueError"``\>
 
+Error thrown when value parameter is invalid
+
 #### Defined in
 
-[errors/InvalidValueError.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/errors/InvalidValueError.ts#L3)
+[errors/InvalidValueError.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/errors/InvalidValueError.ts#L6)
 
 ___
 
 ### JsonRpcRequest
 
 Ƭ **JsonRpcRequest**\<`TMethod`, `TParams`\>: `Object`
+
+Helper type for creating JSON-RPC request types
 
 #### Type parameters
 
@@ -782,7 +883,7 @@ ___
 
 #### Defined in
 
-[requests/JsonRpcRequest.ts:1](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/requests/JsonRpcRequest.ts#L1)
+[requests/JsonRpcRequest.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/requests/JsonRpcRequest.ts#L4)
 
 ___
 
@@ -828,9 +929,21 @@ ___
 
 Ƭ **ScriptError**: [`ContractError`](modules.md#contracterror) \| [`InvalidBytecodeError`](modules.md#invalidbytecodeerror) \| [`InvalidDeployedBytecodeError`](modules.md#invaliddeployedbytecodeerror)
 
+Error type of errors thrown by the script procedure
+
+**`Example`**
+
+```ts
+const {errors} = await tevm.script({address: '0x1234'})
+if (errors?.length) {
+ console.log(errors[0].name) // InvalidBytecodeError
+ console.log(errors[0].message) // Invalid bytecode should be a hex string: 1234
+}
+```
+
 #### Defined in
 
-[errors/ScriptError.ts:5](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/errors/ScriptError.ts#L5)
+[errors/ScriptError.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/errors/ScriptError.ts#L14)
 
 ___
 
@@ -841,6 +954,8 @@ ___
 #### Type declaration
 
 ▸ \<`TAbi`, `TFunctionName`\>(`params`): `Promise`\<[`ScriptResult`](modules.md#scriptresult)\<`TAbi`, `TFunctionName`\>\>
+
+Handler for script tevm procedure
 
 ##### Type parameters
 
@@ -861,7 +976,7 @@ ___
 
 #### Defined in
 
-[handlers/ScriptHandler.ts:5](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/handlers/ScriptHandler.ts#L5)
+[handlers/ScriptHandler.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/handlers/ScriptHandler.ts#L8)
 
 ___
 
@@ -872,6 +987,8 @@ ___
 #### Type declaration
 
 ▸ (`request`): `Promise`\<[`ScriptJsonRpcResponse`](modules.md#scriptjsonrpcresponse)\>
+
+Procedure for handling script JSON-RPC requests
 
 ##### Parameters
 
@@ -885,7 +1002,7 @@ ___
 
 #### Defined in
 
-[procedure/ScriptJsonRpcProcedure.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/procedure/ScriptJsonRpcProcedure.ts#L3)
+[procedure/ScriptJsonRpcProcedure.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/procedure/ScriptJsonRpcProcedure.ts#L6)
 
 ___
 
@@ -893,9 +1010,11 @@ ___
 
 Ƭ **ScriptJsonRpcRequest**: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"tevm_script"``, `SerializedParams`\>
 
+The JSON-RPC request for the `tevm_script` method
+
 #### Defined in
 
-[requests/ScriptJsonRpcRequest.ts:17](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/requests/ScriptJsonRpcRequest.ts#L17)
+[requests/ScriptJsonRpcRequest.ts:26](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/requests/ScriptJsonRpcRequest.ts#L26)
 
 ___
 
@@ -913,7 +1032,7 @@ ___
 
 Ƭ **ScriptParams**\<`TAbi`, `TFunctionName`\>: `EncodeFunctionDataParameters`\<`TAbi`, `TFunctionName`\> & [`BaseCallParams`](modules.md#basecallparams) & \{ `deployedBytecode`: `Hex`  }
 
-Tevm action to deploy and execute a script or contract
+Tevm params for deploying and running a script
 
 #### Type parameters
 
@@ -946,12 +1065,13 @@ ___
 
 ___
 
-### TevmClient
+### Tevm
 
-Ƭ **TevmClient**: `Object`
+Ƭ **Tevm**: `Object`
 
-The specification for a Tevm client
-It has a request method and quality of life methods for each type of request
+The specification for the Tevm api
+It has a request method for JSON-RPC requests and more ergonomic handler methods
+for each type of request
 
 #### Type declaration
 
@@ -965,7 +1085,7 @@ It has a request method and quality of life methods for each type of request
 
 #### Defined in
 
-[TevmClient.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/TevmClient.ts#L13)
+[Tevm.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/Tevm.ts#L14)
 
 ___
 
@@ -973,11 +1093,12 @@ ___
 
 Ƭ **TevmJsonRpcRequest**: [`AccountJsonRpcRequest`](modules.md#accountjsonrpcrequest) \| [`CallJsonRpcRequest`](modules.md#calljsonrpcrequest) \| [`ContractJsonRpcRequest`](modules.md#contractjsonrpcrequest) \| [`ScriptJsonRpcRequest`](modules.md#scriptjsonrpcrequest)
 
-Any valid tevm jsonrpc request
+A Tevm JSON-RPC request
+`tevm_account`, `tevm_call`, `tevm_contract`, `tevm_script`
 
 #### Defined in
 
-[requests/TevmJsonRpcRequest.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/requests/TevmJsonRpcRequest.ts#L9)
+[requests/TevmJsonRpcRequest.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/requests/TevmJsonRpcRequest.ts#L10)
 
 ___
 
@@ -988,6 +1109,9 @@ ___
 #### Type declaration
 
 ▸ \<`TRequest`\>(`request`): `Promise`\<`ReturnType`\<`TRequest`\>\>
+
+Type of a JSON-RPC request handler for tevm procedures
+Generic and returns the correct response type for a given request
 
 ##### Type parameters
 
@@ -1007,13 +1131,20 @@ ___
 
 #### Defined in
 
-[TevmJsonRpcRequestHandler.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/TevmJsonRpcRequestHandler.ts#L14)
+[TevmJsonRpcRequestHandler.ts:18](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/TevmJsonRpcRequestHandler.ts#L18)
 
 ___
 
 ### TypedError
 
 Ƭ **TypedError**\<`TName`, `TMeta`\>: `Object`
+
+Internal utility for creating a typed error as typed by Tevm
+`name` is analogous to `code` in a JSON RPC error and is the value used to discriminate errors
+for tevm users.
+`_tag` is same as name and used internally so it can be changed in non breaking way with regard to name
+`message` is a human readable error message
+`meta` is an optional object containing additional information about the error
 
 #### Type parameters
 
@@ -1033,7 +1164,7 @@ ___
 
 #### Defined in
 
-[errors/TypedError.ts:1](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/errors/TypedError.ts#L1)
+[errors/TypedError.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/errors/TypedError.ts#L9)
 
 ___
 
@@ -1041,6 +1172,10 @@ ___
 
 Ƭ **UnexpectedError**: [`TypedError`](modules.md#typederror)\<``"UnexpectedError"``\>
 
+Error representing an unknown error occurred
+It should never get thrown. This error being thrown
+means an error wasn't properly handled already
+
 #### Defined in
 
-[errors/UnexpectedError.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/errors/UnexpectedError.ts#L3)
+[errors/UnexpectedError.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/errors/UnexpectedError.ts#L8)

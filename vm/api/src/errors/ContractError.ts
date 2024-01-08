@@ -10,6 +10,14 @@ import type { InvalidFunctionNameError } from './InvalidFunctionNameError.js'
 import type { InvalidRequestError } from './InvalidRequestError.js'
 import type { UnexpectedError } from './UnexpectedError.js'
 
+/***
+ * Errors returned by contract tevm procedure
+ * @example
+ * const {errors} = await tevm.contract({address: '0x1234'})
+ * if (errors?.length) {
+ *   console.log(errors[0].name) // InvalidAddressError
+ * }
+ */
 export type ContractError =
 	| BaseCallError
 	| InvalidAddressError

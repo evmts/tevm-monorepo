@@ -6,7 +6,7 @@ import {
 } from 'viem'
 
 /**
- * Tevm action to execute a call on a contract
+ * Tevm params to execute a call on a contract
  */
 export type ContractParams<
 	TAbi extends Abi | readonly unknown[] = Abi,

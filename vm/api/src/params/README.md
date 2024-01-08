@@ -1,7 +1,7 @@
 ## @tevm/api/params
 
-Specification of Tevm params as TypeScript types. 
+Specification of Tevm params as TypeScript types. Params are used by [handlers](../handlers) which then return the corresponding [result](../result/)
 
-## See also
+## JSON-RPC
 
-- [@tevm/api/requests](../requests/)
+The analogous JSON-RPC version of params are [requests](../requests). These requests have a param prop which is a [serialized](../utils/SerializeToJson.ts) version of the param type.

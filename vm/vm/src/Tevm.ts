@@ -1,9 +1,10 @@
-import type { TevmClient } from '@tevm/api'
+import type { Tevm as TevmSpec } from '@tevm/api'
 import { createHttpHandler } from '@tevm/server'
 import { TevmEvm } from '../types/Tevm'
 
 /**
- * A local EVM instance running in JavaScript. Similar to Anvil in your browser
+ * A local EVM instance running in JavaScript. Similar to Anvil in your browser/node
+ * Implemented with ethereumjs
  * @example
  * ```ts
  * import { Tevm } from "tevm"
@@ -32,7 +33,7 @@ import { TevmEvm } from '../types/Tevm'
  *  console.log(balance) // 1n
  *  ```
  */
-export type Tevm = TevmClient & {
+export type Tevm = TevmSpec & {
 	/**
 	 * Fork url if the EVM is forked
 	 */

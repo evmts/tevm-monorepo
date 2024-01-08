@@ -72,4 +72,4 @@ export type {
 	AccountJsonRpcProcedure,
 } from './procedure/index.js'
 export type { TevmJsonRpcRequestHandler } from './TevmJsonRpcRequestHandler.js'
-export type { TevmClient } from './TevmClient.js'
+export type { Tevm } from './Tevm.js'

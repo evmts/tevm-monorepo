@@ -2,7 +2,7 @@ import type { Address } from 'abitype'
 import type { Hex } from 'viem'
 
 /**
- * Tevm action to put an account into the vm state
+ * Tevm params to put an account into the vm state
  * @example
  * // all fields are optional except address
  * const accountParams: import('@tevm/api').AccountParams = {
