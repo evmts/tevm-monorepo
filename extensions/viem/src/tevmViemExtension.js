@@ -25,7 +25,7 @@ export const tevmViemExtension = () => {
 		}
 
 		/**
-		 * @type {import('@tevm/api').TevmClient['request']}
+		 * @type {import('@tevm/api').Tevm['request']}
 		 */
 		const request = async (req) => {
 			try {
@@ -53,7 +53,7 @@ export const tevmViemExtension = () => {
 		}
 
 		/**
-		 * @type {import('@tevm/api').TevmClient['script']}
+		 * @type {import('@tevm/api').Tevm['script']}
 		 */
 		const script = async (params) => {
 			return /** @type {any} */ (
@@ -78,7 +78,7 @@ export const tevmViemExtension = () => {
 		}
 
 		/**
-		 * @type {import('@tevm/api').TevmClient['account']}
+		 * @type {import('@tevm/api').Tevm['account']}
 		 */
 		const account = async (params) => {
 			return /** @type {any} */ (
@@ -157,7 +157,7 @@ export const tevmViemExtension = () => {
 		}
 
 		/**
-		 * @type {import('@tevm/api').TevmClient['call']}
+		 * @type {import('@tevm/api').Tevm['call']}
 		 */
 		const call = async (params) => {
 			const response = await request({
@@ -212,7 +212,7 @@ export const tevmViemExtension = () => {
 		}
 
 		/**
-		 * @type {import('@tevm/api').TevmClient['contract']}
+		 * @type {import('@tevm/api').Tevm['contract']}
 		 */
 		const contract = async (params) => {
 			return /** @type {any} */ (

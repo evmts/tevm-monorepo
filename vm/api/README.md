@@ -22,33 +22,41 @@
 
 # @tevm/api
 
-Tevm spec represented as typescript types
+`@tevm/api` is the official tevm spec represented as typescript types and reused across the rest of the tevm monorepo
 
-This package has no javascript only typescript types. For it's implementation see [@tevm/procedures](../handlers)
+This package has no javascript only typescript types. 
 
-- [./src/actions] - Request Action types for interacting with tevm
-- [./src/common] - Common types such as block types and log types
-- [./src/errors] - Error types for tevm actions
-- [./src/handlers] - Request/Response Interface for Tevm handlers. Sometimes generic
-- [./src/responses] - Response types
+## [Tevm.ts](./src/Tevm.ts)
 
-## Actions
+`Tevm` is the API type of Tevm implemented by 
 
-#### Account
+- `@tevm/vm` package the evm implementation of tevm
+- `@tevm/client` package the remote JSON-RPC client for talking to a remote Tevm EVM
 
-Modifies the evm with an account or contract
+## High level API
 
-#### Call
+Tevm core api follows an input/output pattern and is implemented in two ways:
 
-Low level call of the evm with very low level control
+- The ergonomic high level `action` based API 
+- The lower level JSON-RPC based API used for remote calls
 
-#### Contract
+This API is implemented with the following packages
 
-A typesafe higher level action similar to call but typed for using a contract. The bytecode is expected to already be deployed.
+#### Tevm high-level action based API
 
-#### Script
+The high-level action based API is what most users and internal code are using whenever possible. It's more ergonomic, types are generic, and it is able to return more than 1 error.
 
-Similar to Contract but runs arbitrary bytecode that may or may not be deployed already
+- [@tevm/api/params](./src/params) - Inputs for tevm handlers
+- [@tevm/api/result](./src/result) - Outputs for tevm handlers
+- [@tevm/api/handlers](./src/handlers) - Generic handler types for processing params into results
+
+#### Tevm low-level JSON-rpc based API
+
+The lower level JSON-RPC api is more suitable for sending tevm requests remotely and mirrors the high level api.  Though sometimes a single JSON-RPC method will be overloaded with multiple higher level API actions.
+
+- [@tevm/api/params](./src/params) - Inputs for tevm handlers
+- [@tevm/api/result](./src/result) - Outputs for tevm handlers
+- [@tevm/api/handlers](./src/handlers) - Generic handler types for processing params into results
 
 ## Visit [Docs](https://tevm.dev/) for docs, guides, API and more!
 

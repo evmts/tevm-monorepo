@@ -1184,23 +1184,22 @@ importers:
         version: 3.22.4
 
   vm/api:
-    dependencies:
+    devDependencies:
       '@ethereumjs/evm':
         specifier: ^2.1.0
         version: 2.1.0
-      abitype:
-        specifier: ^0.10.3
-        version: 0.10.3(typescript@5.3.3)(zod@3.22.4)
-      viem:
-        specifier: ^2.0.0
-        version: 2.0.2(typescript@5.3.3)(zod@3.22.4)
-    devDependencies:
       '@tevm/tsconfig':
         specifier: workspace:^
         version: link:../../configs/tsconfig
       '@tevm/tsupconfig':
         specifier: workspace:^
         version: link:../../configs/tsupconfig
+      abitype:
+        specifier: ^0.10.3
+        version: 0.10.3(typescript@5.3.3)(zod@3.22.4)
+      viem:
+        specifier: ^2.0.0
+        version: 2.0.2(typescript@5.3.3)(zod@3.22.4)
 
   vm/predeploys:
     dependencies:

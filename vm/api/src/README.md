@@ -1,5 +1,3 @@
-@tevm/api / [Exports](modules.md)
-
 # @tevm/api/src
 
 ## Tevm.ts
@@ -44,4 +42,4 @@ The result type for Tevm JSON-rpc responses and tevm handlers
 
 ## utils
 
-Internal type utils
+Internal type utils 
