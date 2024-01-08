@@ -18,6 +18,9 @@ import type { InvalidToError } from './InvalidToError.js'
 import type { InvalidValueError } from './InvalidValueError.js'
 import type { UnexpectedError } from './UnexpectedError.js'
 
+/**
+ * Errors returned by all call based tevm procedures including call, contract, and script
+ */
 export type BaseCallError =
 	| EvmError
 	| InvalidRequestError

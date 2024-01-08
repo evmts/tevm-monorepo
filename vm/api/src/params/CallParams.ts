@@ -2,7 +2,7 @@ import type { BaseCallParams } from './BaseCallParams.js'
 import { type Hex } from 'viem'
 
 /**
- * Tevm action to execute a call on the vm
+ * Tevm params to execute a call on the vm
  * Call is the lowest level method to interact with the vm
  * and other messages such as contract and script are using call
  * under the hood

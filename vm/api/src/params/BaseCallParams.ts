@@ -2,7 +2,7 @@ import type { Block } from '../common/Block.js'
 import { type Address, type Hex } from 'viem'
 
 /**
- * Properties shared accross call-like actions
+ * Properties shared accross call-like params
  */
 export type BaseCallParams = {
 	/**

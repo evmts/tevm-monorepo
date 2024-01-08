@@ -7,7 +7,7 @@ import {
 } from 'viem'
 
 /**
- * Tevm action to deploy and execute a script or contract
+ * Tevm params for deploying and running a script
  */
 export type ScriptParams<
 	TAbi extends Abi | readonly unknown[] = Abi,

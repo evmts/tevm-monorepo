@@ -7,10 +7,11 @@ import type {
 } from './handlers/index.js'
 
 /**
- * The specification for a Tevm client
- * It has a request method and quality of life methods for each type of request
+ * The specification for the Tevm api
+ * It has a request method for JSON-RPC requests and more ergonomic handler methods
+ * for each type of request
  */
-export type TevmClient = {
+export type Tevm = {
 	request: TevmJsonRpcRequestHandler
 	script: ScriptHandler
 	account: AccountHandler

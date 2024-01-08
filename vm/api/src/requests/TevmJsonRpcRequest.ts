@@ -4,7 +4,8 @@ import type { ContractJsonRpcRequest } from './ContractJsonRpcRequest.js'
 import type { ScriptJsonRpcRequest } from './ScriptJsonRpcRequest.js'
 
 /**
- * Any valid tevm jsonrpc request
+ * A Tevm JSON-RPC request
+ * `tevm_account`, `tevm_call`, `tevm_contract`, `tevm_script`
  */
 export type TevmJsonRpcRequest =
 	| AccountJsonRpcRequest
