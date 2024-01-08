@@ -1,8 +1,8 @@
 import { Address } from '@ethereumjs/util'
 import { hexToBytes, keccak256, toRlp } from 'viem'
 import { createTevm } from '../../createTevm.js'
-import { RunLoadStateActionHandler } from '../loadState/RunLoadStateActionHandler.js'
-import { RunDumpStateActionHandler } from './RunDumpStateActionHandler.js'
+import { RunLoadStateActionHandler } from '../loadState/loadStateHandler.js'
+import { RunDumpStateActionHandler } from './dumpStateHandler.js'
 import { expect, test } from 'bun:test'
 
 test('should dump important account info and storage', async () => {

@@ -1,3 +1,1 @@
-export { RunLoadStateActionHandler } from './RunLoadStateActionHandler.js'
-
-//TODO - write validator
+export { RunLoadStateActionHandler } from './loadStateHandler.js'

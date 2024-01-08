@@ -1,3 +1,1 @@
-export { RunDumpStateActionHandler } from './RunDumpStateActionHandler.js'
-
-//TODO - write validator
+export { RunDumpStateActionHandler } from './dumpStateHandler.js'

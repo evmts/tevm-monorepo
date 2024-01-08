@@ -1,7 +1,7 @@
 import { Address } from '@ethereumjs/util'
 import { bytesToHex, hexToBytes, toRlp } from 'viem'
 import { createTevm } from '../../createTevm.js'
-import { RunLoadStateActionHandler } from './RunLoadStateActionHandler.js'
+import { RunLoadStateActionHandler } from './loadStateHandler.js'
 import { expect, test } from 'bun:test'
 
 test('should load state into the state manager', async () => {
