@@ -10,5 +10,5 @@
 	"access": "public",
 	"baseBranch": "main",
 	"updateInternalDependencies": "patch",
-	"ignore": ["@tevm/example*", "@tevm/docs*", "svelte-ethers"]
+	"ignore": ["@tevm/example*", "@tevm/docs*", "svelte-ethers", "@tevm/tevm"]
 }
