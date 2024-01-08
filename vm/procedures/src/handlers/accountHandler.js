@@ -4,7 +4,7 @@ import {
 	Address as EthjsAddress,
 } from '@ethereumjs/util'
 import { validateAccountParams } from '@tevm/zod'
-import { hexToBytes } from 'viem'
+import { hexToBytes, keccak256 } from 'viem'
 
 /**
  * Creates an AccountHandler for handling account params with Ethereumjs EVM
@@ -28,6 +28,8 @@ export const accountHandler = (evm) => async (params) => {
 				params.nonce,
 				params.balance,
 				params.storageRoot && hexToBytes(params.storageRoot),
+				params.deployedBytecode &&
+					hexToBytes(keccak256(params.deployedBytecode)),
 			),
 		)
 		if (params.deployedBytecode) {

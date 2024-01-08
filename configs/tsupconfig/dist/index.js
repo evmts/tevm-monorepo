@@ -1,3 +1,6 @@
+import { readFileSync } from 'fs';
+import { join } from 'path';
+
 // src/targets.js
 var nodeTargets = ["node16"];
 var browserTargets = [
@@ -16,12 +19,9 @@ var targets = {
   // target browsers
   browser: browserTargets
 };
-
-// src/createTsupOptions.js
-import { readFileSync } from "fs";
-import { join } from "path";
 var createTsUpOptions = ({
   entry = ["src/index.js"],
+  outDir = "dist",
   target = "js",
   format = ["cjs", "esm"]
 }) => {
@@ -31,10 +31,11 @@ var createTsUpOptions = ({
   return {
     name,
     entry,
-    outDir: "dist",
+    outDir,
     target: targets[target],
     format,
     splitting: false,
+    treeshake: true,
     sourcemap: true,
     clean: false,
     skipNodeModulesBundle: true
@@ -55,10 +56,7 @@ var js = createTsUpOptions({
 var node = createTsUpOptions({
   target: "node"
 });
-export {
-  browser,
-  createTsUpOptions,
-  js,
-  node
-};
+
+export { browser, createTsUpOptions, js, node };
+//# sourceMappingURL=out.js.map
 //# sourceMappingURL=index.js.map

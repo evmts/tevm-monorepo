@@ -62,14 +62,16 @@
 		"test:ui": "vitest --ui",
 		"typecheck": "tsc --noEmit"
 	},
+	"dependencies": {
+		"abitype": "^0.10.2",
+		"viem": "^2.0.0"
+	},
 	"devDependencies": {
 		"@evmts/core": "next",
 		"@evmts/ts-plugin": "next",
 		"@evmts/vite-plugin": "next",
 		"@tevm/tsconfig": "workspace:^",
-		"@tevm/tsupconfig": "workspace:^",
-		"abitype": "^0.10.2",
-		"viem": "^2.0.0"
+		"@tevm/tsupconfig": "workspace:^"
 	},
 	"publishConfig": {
 		"access": "public"

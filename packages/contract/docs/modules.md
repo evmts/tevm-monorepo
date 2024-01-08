@@ -12,8 +12,16 @@
 
 - [createTevmContract](modules.md#createtevmcontract)
 - [createTevmContractFromAbi](modules.md#createtevmcontractfromabi)
+- [decodeFunctionData](modules.md#decodefunctiondata)
+- [decodeFunctionResult](modules.md#decodefunctionresult)
+- [encodeFunctionData](modules.md#encodefunctiondata)
+- [encodeFunctionResult](modules.md#encodefunctionresult)
 - [formatAbi](modules.md#formatabi)
+- [fromBytes](modules.md#frombytes)
+- [fromHex](modules.md#fromhex)
 - [parseAbi](modules.md#parseabi)
+- [toBytes](modules.md#tobytes)
+- [toHex](modules.md#tohex)
 
 ## Type Aliases
 
@@ -107,6 +115,114 @@ ___
 
 ___
 
+### decodeFunctionData
+
+▸ **decodeFunctionData**\<`abi`\>(`parameters`): `DecodeFunctionDataReturnType`\<`abi`, `ContractFunctionName`\<`abi`, `AbiStateMutability`\>\>
+
+#### Type parameters
+
+| Name | Type |
+| :------ | :------ |
+| `abi` | extends readonly `unknown`[] \| `Abi` |
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `parameters` | `DecodeFunctionDataParameters`\<`abi`\> |
+
+#### Returns
+
+`DecodeFunctionDataReturnType`\<`abi`, `ContractFunctionName`\<`abi`, `AbiStateMutability`\>\>
+
+#### Defined in
+
+node_modules/.pnpm/viem@2.0.2_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/decodeFunctionData.d.ts:25
+
+___
+
+### decodeFunctionResult
+
+▸ **decodeFunctionResult**\<`abi`, `functionName`, `args`\>(`parameters`): `DecodeFunctionResultReturnType`\<`abi`, `functionName`, `args`\>
+
+#### Type parameters
+
+| Name | Type |
+| :------ | :------ |
+| `abi` | extends readonly `unknown`[] \| `Abi` |
+| `functionName` | extends `undefined` \| `string` = `undefined` |
+| `args` | extends `unknown` = `ContractFunctionArgs`\<`abi`, `AbiStateMutability`, `functionName` extends `ContractFunctionName`\<`abi`\> ? `functionName` : `ContractFunctionName`\<`abi`\>\> |
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `parameters` | `DecodeFunctionResultParameters`\<`abi`, `functionName`, `args`, `abi` extends `Abi` ? `Abi` extends `abi` ? ``true`` : [`Extract`\<`abi`[`number`], \{ `stateMutability`: `AbiStateMutability` ; `type`: ``"function"``  }\>] extends [`never`] ? ``false`` : ``true`` : ``true``, `ContractFunctionArgs`\<`abi`, `AbiStateMutability`, `functionName` extends `ContractFunctionName`\<`abi`, `AbiStateMutability`\> ? `functionName` : `ContractFunctionName`\<`abi`, `AbiStateMutability`\>\>, `ContractFunctionName`\<`abi`, `AbiStateMutability`\>\> |
+
+#### Returns
+
+`DecodeFunctionResultReturnType`\<`abi`, `functionName`, `args`\>
+
+#### Defined in
+
+node_modules/.pnpm/viem@2.0.2_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/decodeFunctionResult.d.ts:25
+
+___
+
+### encodeFunctionData
+
+▸ **encodeFunctionData**\<`abi`, `functionName`\>(`parameters`): `EncodeFunctionDataReturnType`
+
+#### Type parameters
+
+| Name | Type |
+| :------ | :------ |
+| `abi` | extends readonly `unknown`[] \| `Abi` |
+| `functionName` | extends `undefined` \| `string` = `undefined` |
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `parameters` | `EncodeFunctionDataParameters`\<`abi`, `functionName`, `abi` extends `Abi` ? `Abi` extends `abi` ? ``true`` : [`Extract`\<`abi`[`number`], \{ `stateMutability`: `AbiStateMutability` ; `type`: ``"function"``  }\>] extends [`never`] ? ``false`` : ``true`` : ``true``, `ContractFunctionArgs`\<`abi`, `AbiStateMutability`, `functionName` extends `ContractFunctionName`\<`abi`, `AbiStateMutability`\> ? `functionName` : `ContractFunctionName`\<`abi`, `AbiStateMutability`\>\>, `ContractFunctionName`\<`abi`, `AbiStateMutability`\>\> |
+
+#### Returns
+
+`EncodeFunctionDataReturnType`
+
+#### Defined in
+
+node_modules/.pnpm/viem@2.0.2_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/encodeFunctionData.d.ts:27
+
+___
+
+### encodeFunctionResult
+
+▸ **encodeFunctionResult**\<`abi`, `functionName`\>(`parameters`): `EncodeFunctionResultReturnType`
+
+#### Type parameters
+
+| Name | Type |
+| :------ | :------ |
+| `abi` | extends readonly `unknown`[] \| `Abi` |
+| `functionName` | extends `undefined` \| `string` = `undefined` |
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `parameters` | `EncodeFunctionResultParameters`\<`abi`, `functionName`, `abi` extends `Abi` ? `Abi` extends `abi` ? ``true`` : [`Extract`\<`abi`[`number`], \{ `stateMutability`: `AbiStateMutability` ; `type`: ``"function"``  }\>] extends [`never`] ? ``false`` : ``true`` : ``true``, `ContractFunctionName`\<`abi`, `AbiStateMutability`\>\> |
+
+#### Returns
+
+`EncodeFunctionResultReturnType`
+
+#### Defined in
+
+node_modules/.pnpm/viem@2.0.2_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/encodeFunctionResult.d.ts:21
+
+___
+
 ### formatAbi
 
 ▸ **formatAbi**\<`TAbi`\>(`abi`): `FormatAbi`\<`TAbi`\>
@@ -134,6 +250,120 @@ Human-readable ABI
 #### Defined in
 
 node_modules/.pnpm/abitype@0.10.2_typescript@5.3.3_zod@3.22.4/node_modules/abitype/dist/types/human-readable/formatAbi.d.ts:18
+
+___
+
+### fromBytes
+
+▸ **fromBytes**\<`TTo`\>(`bytes`, `toOrOpts`): `FromBytesReturnType`\<`TTo`\>
+
+Decodes a byte array into a UTF-8 string, hex value, number, bigint or boolean.
+
+- Docs: https://viem.sh/docs/utilities/fromBytes.html
+- Example: https://viem.sh/docs/utilities/fromBytes.html#usage
+
+#### Type parameters
+
+| Name | Type |
+| :------ | :------ |
+| `TTo` | extends ``"string"`` \| ``"number"`` \| ``"bigint"`` \| ``"boolean"`` \| ``"hex"`` |
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `bytes` | `Uint8Array` | Byte array to decode. |
+| `toOrOpts` | `FromBytesParameters`\<`TTo`\> | Type to convert to or options. |
+
+#### Returns
+
+`FromBytesReturnType`\<`TTo`\>
+
+Decoded value.
+
+**`Example`**
+
+```ts
+import { fromBytes } from 'viem'
+const data = fromBytes(new Uint8Array([1, 164]), 'number')
+// 420
+```
+
+**`Example`**
+
+```ts
+import { fromBytes } from 'viem'
+const data = fromBytes(
+  new Uint8Array([72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100, 33]),
+  'string'
+)
+// 'Hello world'
+```
+
+#### Defined in
+
+node_modules/.pnpm/viem@2.0.2_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/fromBytes.d.ts:37
+
+___
+
+### fromHex
+
+▸ **fromHex**\<`TTo`\>(`hex`, `toOrOpts`): `FromHexReturnType`\<`TTo`\>
+
+Decodes a hex string into a string, number, bigint, boolean, or byte array.
+
+- Docs: https://viem.sh/docs/utilities/fromHex.html
+- Example: https://viem.sh/docs/utilities/fromHex.html#usage
+
+#### Type parameters
+
+| Name | Type |
+| :------ | :------ |
+| `TTo` | extends ``"string"`` \| ``"number"`` \| ``"bigint"`` \| ``"boolean"`` \| ``"bytes"`` |
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `hex` | \`0x$\{string}\` | Hex string to decode. |
+| `toOrOpts` | `FromHexParameters`\<`TTo`\> | Type to convert to or options. |
+
+#### Returns
+
+`FromHexReturnType`\<`TTo`\>
+
+Decoded value.
+
+**`Example`**
+
+```ts
+import { fromHex } from 'viem'
+const data = fromHex('0x1a4', 'number')
+// 420
+```
+
+**`Example`**
+
+```ts
+import { fromHex } from 'viem'
+const data = fromHex('0x48656c6c6f20576f726c6421', 'string')
+// 'Hello world'
+```
+
+**`Example`**
+
+```ts
+import { fromHex } from 'viem'
+const data = fromHex('0x48656c6c6f20576f726c64210000000000000000000000000000000000000000', {
+  size: 32,
+  to: 'string'
+})
+// 'Hello world'
+```
+
+#### Defined in
+
+node_modules/.pnpm/viem@2.0.2_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/fromHex.d.ts:47
 
 ___
 
@@ -174,3 +404,107 @@ const abi = parseAbi([
 #### Defined in
 
 node_modules/.pnpm/abitype@0.10.2_typescript@5.3.3_zod@3.22.4/node_modules/abitype/dist/types/human-readable/parseAbi.d.ts:37
+
+___
+
+### toBytes
+
+▸ **toBytes**(`value`, `opts?`): `ByteArray`
+
+Encodes a UTF-8 string, hex value, bigint, number or boolean to a byte array.
+
+- Docs: https://viem.sh/docs/utilities/toBytes.html
+- Example: https://viem.sh/docs/utilities/toBytes.html#usage
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `value` | `string` \| `number` \| `bigint` \| `boolean` | Value to encode. |
+| `opts?` | `ToBytesParameters` | Options. |
+
+#### Returns
+
+`ByteArray`
+
+Byte array value.
+
+**`Example`**
+
+```ts
+import { toBytes } from 'viem'
+const data = toBytes('Hello world')
+// Uint8Array([72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100, 33])
+```
+
+**`Example`**
+
+```ts
+import { toBytes } from 'viem'
+const data = toBytes(420)
+// Uint8Array([1, 164])
+```
+
+**`Example`**
+
+```ts
+import { toBytes } from 'viem'
+const data = toBytes(420, { size: 4 })
+// Uint8Array([0, 0, 1, 164])
+```
+
+#### Defined in
+
+node_modules/.pnpm/viem@2.0.2_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/toBytes.d.ts:37
+
+___
+
+### toHex
+
+▸ **toHex**(`value`, `opts?`): `Hex`
+
+Encodes a string, number, bigint, or ByteArray into a hex string
+
+- Docs: https://viem.sh/docs/utilities/toHex.html
+- Example: https://viem.sh/docs/utilities/toHex.html#usage
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `value` | `string` \| `number` \| `bigint` \| `boolean` \| `Uint8Array` | Value to encode. |
+| `opts?` | `ToHexParameters` | Options. |
+
+#### Returns
+
+`Hex`
+
+Hex value.
+
+**`Example`**
+
+```ts
+import { toHex } from 'viem'
+const data = toHex('Hello world')
+// '0x48656c6c6f20776f726c6421'
+```
+
+**`Example`**
+
+```ts
+import { toHex } from 'viem'
+const data = toHex(420)
+// '0x1a4'
+```
+
+**`Example`**
+
+```ts
+import { toHex } from 'viem'
+const data = toHex('Hello world', { size: 32 })
+// '0x48656c6c6f20776f726c64210000000000000000000000000000000000000000'
+```
+
+#### Defined in
+
+node_modules/.pnpm/viem@2.0.2_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/toHex.d.ts:36

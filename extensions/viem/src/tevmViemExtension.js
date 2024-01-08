@@ -1,4 +1,9 @@
-import { encodeFunctionData, hexToBigInt, numberToHex } from 'viem'
+import {
+	decodeFunctionResult,
+	encodeFunctionData,
+	hexToBigInt,
+	numberToHex,
+} from 'viem'
 
 /**
  * @type {import('./ViemTevmExtension.js').ViemTevmExtension}
@@ -41,6 +46,10 @@ export const tevmViemExtension = () => {
 					jsonrpc: '2.0',
 					...(req.id ? { id: req.id } : {}),
 					method: req.method,
+					error: {
+						code: /** @type Error */ (e).name,
+						message: /** @type {Error}*/ (e).message,
+					},
 					errors: [
 						{
 							_tag: /** @type Error */ (e).name,
@@ -53,10 +62,10 @@ export const tevmViemExtension = () => {
 		}
 
 		/**
-		 * @type {import('@tevm/api').Tevm['script']}
+		 * @type {import('@tevm/api').ScriptHandler}
 		 */
 		const script = async (params) => {
-			return /** @type {any} */ (
+			const out = /** @type {any} */ (
 				parseCallResponse(
 					await request({
 						method: 'tevm_script',
@@ -75,10 +84,19 @@ export const tevmViemExtension = () => {
 					}),
 				)
 			)
+			out.data = decodeFunctionResult(
+				/** @type any*/ ({
+					data: out.rawData,
+					abi: params.abi,
+					functionName: params.functionName,
+					args: params.args,
+				}),
+			)
+			return out
 		}
 
 		/**
-		 * @type {import('@tevm/api').Tevm['account']}
+		 * @type {import('@tevm/api').AccountHandler}
 		 */
 		const account = async (params) => {
 			return /** @type {any} */ (
@@ -157,7 +175,7 @@ export const tevmViemExtension = () => {
 		}
 
 		/**
-		 * @type {import('@tevm/api').Tevm['call']}
+		 * @type {import('@tevm/api').CallHandler}
 		 */
 		const call = async (params) => {
 			const response = await request({
@@ -212,10 +230,10 @@ export const tevmViemExtension = () => {
 		}
 
 		/**
-		 * @type {import('@tevm/api').Tevm['contract']}
+		 * @type {import('@tevm/api').ContractHandler}
 		 */
 		const contract = async (params) => {
-			return /** @type {any} */ (
+			const out = /** @type {any} */ (
 				call({
 					...params,
 					data: encodeFunctionData(
@@ -227,6 +245,15 @@ export const tevmViemExtension = () => {
 					),
 				})
 			)
+			out.data = decodeFunctionResult(
+				/** @type any*/ ({
+					data: out.rawData,
+					abi: params.abi,
+					functionName: params.functionName,
+					args: params.args,
+				}),
+			)
+			return out
 		}
 
 		return {
