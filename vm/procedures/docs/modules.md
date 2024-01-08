@@ -172,8 +172,7 @@ Infers return type from request
 **`Example`**
 
 ```typescript
-const handler = createJsonrpcClient(tevm)
-const res = await handler({
+const res = await requestProcedure(evm)({
  jsonrpc: '2.0',
  id: '1',
  method: 'tevm_call',
@@ -185,7 +184,7 @@ const res = await handler({
 
 #### Defined in
 
-[requestProcedure.js:22](https://github.com/evmts/tevm-monorepo/blob/main/vm/procedures/src/requestProcedure.js#L22)
+[requestProcedure.js:21](https://github.com/evmts/tevm-monorepo/blob/main/vm/procedures/src/requestProcedure.js#L21)
 
 ___
 
