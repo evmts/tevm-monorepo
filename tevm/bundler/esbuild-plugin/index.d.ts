@@ -1,1 +1,1 @@
-export { esbuildPluginTevm } from '@tevm/esbuild-plugin';
+export { esbuildPluginTevm } from '@tevm/esbuild-plugin'

@@ -771,9 +771,6 @@ importers:
 
   extensions/ethers:
     devDependencies:
-      '@tevm/contract':
-        specifier: workspace:^
-        version: link:../../packages/contract
       '@tevm/tsconfig':
         specifier: workspace:^
         version: link:../../configs/tsconfig
@@ -793,9 +790,6 @@ importers:
         specifier: workspace:^
         version: link:../../vm/vm
     devDependencies:
-      '@ethereumjs/evm':
-        specifier: ^2.1.0
-        version: 2.1.0
       '@ethereumjs/util':
         specifier: ^9.0.1
         version: 9.0.1
