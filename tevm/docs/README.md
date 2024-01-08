@@ -1,4 +1,4 @@
-@tevm/contract / [Exports](modules.md)
+tevm / [Modules](modules.md)
 
 <p align="center">
   <a href="https://tevm.dev/">

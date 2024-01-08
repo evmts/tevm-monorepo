@@ -1,7 +1,25 @@
 {
 	"$schema": "https://typedoc.org/schema.json",
 	"out": "./docs",
-	"entryPoints": ["./src/contract/contract.ts", "./src/vm/vm.ts"],
+	"entryPoints": [
+		"./index.ts",
+		"./api/index.ts",
+		"./bundler/index.ts",
+		"./client/index.ts",
+		"./contract/index.ts",
+		"./viem/index.ts",
+		"./vm/index.ts",
+		"./bundler/bun-plugin/index.ts",
+		"./bundler/esbuild-plugin/index.ts",
+		"./bundler/rollup-plugin/index.ts",
+		"./bundler/rspack-plugin/index.ts",
+		"./bundler/ts-plugin/index.ts",
+		"./bundler/vite-plugin/index.ts",
+		"./bundler/webpack-plugin/index.ts",
+		"./bundler/solc/index.ts",
+		"./bundler/config/index.ts",
+		"./bundler/compiler/index.ts"
+	],
 	"plugin": ["typedoc-plugin-markdown"],
 	"gitRevision": "main"
 }

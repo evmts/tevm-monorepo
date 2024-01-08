@@ -1,4 +1,3 @@
-import type { Tevm as TevmSpec } from '@tevm/api'
 import { createHttpHandler } from '@tevm/server'
 
 /**
@@ -32,7 +31,7 @@ import { createHttpHandler } from '@tevm/server'
  *  console.log(balance) // 1n
  *  ```
  */
-export type Tevm = TevmSpec & {
+export type Tevm = import('@tevm/api').Tevm & {
 	/**
 	 * Fork url if the EVM is forked
 	 */

@@ -1,4 +1,4 @@
-@tevm/vm / [Modules](modules.md)
+@tevm/vm / [Exports](modules.md)
 
 <p align="center">
   <a href="https://tevm.dev/">

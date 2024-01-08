@@ -28,7 +28,8 @@ export const accountHandler = (evm) => async (params) => {
 				params.nonce,
 				params.balance,
 				params.storageRoot && hexToBytes(params.storageRoot),
-				params.deployedBytecode && hexToBytes(keccak256(params.deployedBytecode))
+				params.deployedBytecode &&
+					hexToBytes(keccak256(params.deployedBytecode)),
 			),
 		)
 		if (params.deployedBytecode) {
@@ -46,8 +47,8 @@ export const accountHandler = (evm) => async (params) => {
 				typeof e === 'string'
 					? e
 					: e instanceof Error
-						? e.message
-						: 'unknown error',
+					? e.message
+					: 'unknown error',
 			),
 		)
 		return { errors }

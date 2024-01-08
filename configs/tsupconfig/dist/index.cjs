@@ -1,31 +1,7 @@
-"use strict";
-var __defProp = Object.defineProperty;
-var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
-var __getOwnPropNames = Object.getOwnPropertyNames;
-var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __export = (target, all) => {
-  for (var name in all)
-    __defProp(target, name, { get: all[name], enumerable: true });
-};
-var __copyProps = (to, from, except, desc) => {
-  if (from && typeof from === "object" || typeof from === "function") {
-    for (let key of __getOwnPropNames(from))
-      if (!__hasOwnProp.call(to, key) && key !== except)
-        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
-  }
-  return to;
-};
-var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
+'use strict';
 
-// src/index.js
-var src_exports = {};
-__export(src_exports, {
-  browser: () => browser,
-  createTsUpOptions: () => createTsUpOptions,
-  js: () => js,
-  node: () => node
-});
-module.exports = __toCommonJS(src_exports);
+var fs = require('fs');
+var path = require('path');
 
 // src/targets.js
 var nodeTargets = ["node16"];
@@ -45,25 +21,23 @@ var targets = {
   // target browsers
   browser: browserTargets
 };
-
-// src/createTsupOptions.js
-var import_fs = require("fs");
-var import_path = require("path");
 var createTsUpOptions = ({
   entry = ["src/index.js"],
+  outDir = "dist",
   target = "js",
   format = ["cjs", "esm"]
 }) => {
   const { name } = JSON.parse(
-    (0, import_fs.readFileSync)((0, import_path.join)(process.cwd(), "package.json"), "utf-8")
+    fs.readFileSync(path.join(process.cwd(), "package.json"), "utf-8")
   );
   return {
     name,
     entry,
-    outDir: "dist",
+    outDir,
     target: targets[target],
     format,
     splitting: false,
+    treeshake: true,
     sourcemap: true,
     clean: false,
     skipNodeModulesBundle: true
@@ -84,11 +58,10 @@ var js = createTsUpOptions({
 var node = createTsUpOptions({
   target: "node"
 });
-// Annotate the CommonJS export names for ESM import in node:
-0 && (module.exports = {
-  browser,
-  createTsUpOptions,
-  js,
-  node
-});
+
+exports.browser = browser;
+exports.createTsUpOptions = createTsUpOptions;
+exports.js = js;
+exports.node = node;
+//# sourceMappingURL=out.js.map
 //# sourceMappingURL=index.cjs.map

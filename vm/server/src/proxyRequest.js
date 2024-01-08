@@ -28,7 +28,7 @@ export const proxyRequest = (url) => {
 		return createJsonRpcFetcher(url)
 			.request(request)
 			.catch((e) => {
-				console.error(e)
+				console.error('\n\n\n\n', 'error is here', e, '\n\n\n\n')
 				const err = new ProxyFetchError(request.method)
 				console.error(err)
 				return {

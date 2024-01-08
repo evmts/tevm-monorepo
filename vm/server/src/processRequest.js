@@ -13,11 +13,6 @@ export const processRequest = (evm, proxyUrl) => {
 	return async (request) => {
 		if (!request.method.startsWith('tevm_')) {
 			const res = proxyRequest(proxyUrl)(request)
-			console.log('fetch proxy', {
-				request,
-				proxyUrl,
-				res,
-			})
 			return res
 		}
 		try {

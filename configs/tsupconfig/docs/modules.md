@@ -59,6 +59,7 @@ Creates tsup options from params
 | `options` | `Object` |  |
 | `options.entry` | `undefined` \| `string`[] | entry points Defaults to src/index.js |
 | `options.format` | `undefined` \| (``"cjs"`` \| ``"esm"``)[] | module format Defaults to cjs and esm |
+| `options.outDir` | `undefined` \| `string` | output directory Defaults to dist |
 | `options.target` | `undefined` \| `Target` | environment to target Defaults to js |
 
 #### Returns
@@ -67,4 +68,4 @@ Creates tsup options from params
 
 #### Defined in
 
-[createTsupOptions.js:13](https://github.com/evmts/tevm-monorepo/blob/main/configs/tsupconfig/src/createTsupOptions.js#L13)
+[createTsupOptions.js:14](https://github.com/evmts/tevm-monorepo/blob/main/configs/tsupconfig/src/createTsupOptions.js#L14)
