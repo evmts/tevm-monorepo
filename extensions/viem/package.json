@@ -63,11 +63,20 @@
 		"test:run": "bun test",
 		"typecheck": "tsc --noEmit"
 	},
+	"dependencies": {
+		"@tevm/vm": "workspace:^"
+	},
 	"devDependencies": {
+		"@ethereumjs/evm": "^2.1.0",
+		"@ethereumjs/util": "^9.0.1",
 		"@tevm/api": "workspace:^",
+		"@tevm/contract": "workspace:1.0.0-next.21",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",
 		"abitype": "^0.10.3",
+		"viem": "^2.0.0"
+	},
+	"peerDependencies": {
 		"viem": "^2.0.0"
 	},
 	"publishConfig": {

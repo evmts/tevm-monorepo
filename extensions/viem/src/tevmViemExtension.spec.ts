@@ -1,75 +1,60 @@
 import { tevmViemExtension } from './tevmViemExtension.js'
-import { beforeEach, describe, expect, it, jest } from 'bun:test'
-import { encodeFunctionData, numberToHex } from 'viem'
+import { beforeAll, afterAll, describe, expect, it } from 'bun:test'
+import { createPublicClient, http, type PublicClient } from 'viem'
+import { ERC20 } from './tests/ERC20.sol.js'
+import type { Tevm } from '@tevm/vm'
+import { createServer, Server } from 'http'
+import { createTevm } from '@tevm/vm'
+import { Address } from '@ethereumjs/util'
 
 describe('tevmViemExtension', () => {
-	let mockClient: any
+	let tevm: Tevm
+	let server: Server
+	let client: PublicClient
 
-	beforeEach(() => {
-		mockClient = { request: jest.fn() }
+	beforeAll(async () => {
+		tevm = await createTevm({ fork: { url: 'https://mainnet.optimism.io' } })
+		server = createServer(tevm.createHttpHandler()).listen(6969)
+		client = createPublicClient({
+			transport: http('http://localhost:6969'),
+		})
+	})
+
+	afterAll(() => {
+		server.close()
 	})
 
 	it('tevmRequest should call client.request and parse the response', async () => {
-		const mockResponse = { balance: 420n }
-		mockClient.request.mockResolvedValue(mockResponse)
-
-		const decorated = tevmViemExtension()(mockClient)
-		const params = { address: '0x420', balance: 420n } as const
+		const decorated = tevmViemExtension()(client)
+		const params = { address: `0x${'77'.repeat(20)}`, balance: 420n } as const
 		const response = await decorated.tevm.account(params)
 
-		expect((mockClient.request as jest.Mock).mock.lastCall[0]).toEqual({
-			method: 'tevm_account',
-			params: {
-				address: '0x420',
-				balance: numberToHex(420n),
-			},
-			jsonrpc: '2.0',
-		})
 		expect(response.errors).toBe(undefined as any)
+		expect((await tevm._evm.stateManager.getAccount(Address.fromString(params.address)))?.balance).toBe(420n)
 	})
 
 	it('runScript should call client.request with "tevm_script" and parse the response', async () => {
-		const mockResponse = { executionGasUsed: numberToHex(420n) }
-		mockClient.request.mockResolvedValue(mockResponse)
-
-		const decorated = tevmViemExtension()(mockClient)
+		const decorated = tevmViemExtension()(client)
 		const params = {
-			abi: [{ type: 'function', name: 'testFunction', inputs: [] }],
-			functionName: 'testFunction',
-			args: [],
-			deployedBytecode: '0x420',
-			caller: '0x69',
+			caller: `0x${'4'.repeat(40)}`,
+			...ERC20.read.balanceOf(`0x${'4'.repeat(40)}`),
 		} as const
 		const response = await decorated.tevm.script(params)
 
-		expect((mockClient.request as jest.Mock).mock.lastCall[0]).toEqual({
-			method: 'tevm_script',
-			params: {
-				data: encodeFunctionData(params),
-				deployedBytecode: params.deployedBytecode,
-				caller: params.caller,
-			},
-			jsonrpc: '2.0',
-		})
-		expect(response.executionGasUsed).toEqual(420n)
+		expect(response.executionGasUsed).toEqual(2447n)
+		expect(response.rawData).toEqual("0x0000000000000000000000000000000000000000000000000000000000000000")
+		expect(response.data).toBe(0n)
 	})
 
 	it('putAccount should call client.request with "tevm_putAccount" and parse the response', async () => {
-		const mockResponse = { balance: 420n }
-		mockClient.request.mockResolvedValue(mockResponse)
-
-		const decorated = tevmViemExtension()(mockClient)
-		const params = { balance: 420n, address: '0x420' } as const
+		const decorated = tevmViemExtension()(client)
+		const params = { balance: 420n, address: `0x${'88'.repeat(20)}` } as const
 		const response = await decorated.tevm.account(params)
 
-		expect((mockClient.request as jest.Mock).mock.lastCall[0]).toEqual({
-			method: 'tevm_account',
-			params: {
-				address: '0x420',
-				balance: numberToHex(420n),
-			},
-			jsonrpc: '2.0',
-		})
 		expect(response).not.toHaveProperty('errors')
+
+		const account = await tevm._evm.stateManager.getAccount(Address.fromString(params.address))
+
+		expect(account?.balance).toBe(420n)
 	})
 })

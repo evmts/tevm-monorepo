@@ -52,6 +52,7 @@ export const createJsonRpcFetcher = (url) => {
 			}
 			try {
 				const out = await res.json()
+				console.log(out)
 				if (typeof out !== 'object') {
 					throw new Error('JSON-RPC response was not an object')
 				}
@@ -72,9 +73,6 @@ export const createJsonRpcFetcher = (url) => {
 				}
 				if (!('jsonrpc' in out) || out.jsonrpc !== '2.0') {
 					throw new Error('JSON-RPC response was missing a jsonrpc field')
-				}
-				if (!('method' in out) || typeof out.method !== 'string') {
-					throw new Error('JSON-RPC response was missing a method field')
 				}
 				// TODO do more validation and remove this typecast
 				return /**@type any*/ (out)
