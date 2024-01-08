@@ -8,6 +8,7 @@ export type JsonRpcResponse<
 			method: TMethod
 			result: TResult
 			id?: string | number | null
+			error?: never
 	  }
 	| {
 			jsonrpc: '2.0'
@@ -17,4 +18,5 @@ export type JsonRpcResponse<
 				message: string
 			}
 			id?: string | number | null
+			result?: never
 	  }

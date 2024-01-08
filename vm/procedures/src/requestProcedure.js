@@ -5,11 +5,10 @@ import { accountProcedure, callProcedure, scriptProcedure } from './index.js'
  * Handles a single tevm json rpc request
  * Infers return type from request
  * @param {import('@ethereumjs/evm').EVM} evm
- * @returns {import('@tevm/api').Tevm['request']}
+ * @returns {import('@tevm/api').TevmJsonRpcRequestHandler}
  * @example
  * ```typescript
- * const handler = createJsonrpcClient(tevm)
- * const res = await handler({
+ * const res = await requestProcedure(evm)({
  *  jsonrpc: '2.0',
  *  id: '1',
  *  method: 'tevm_call',
