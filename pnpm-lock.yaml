@@ -785,10 +785,20 @@ importers:
         version: 6.8.1
 
   extensions/viem:
+    dependencies:
+      '@tevm/vm':
+        specifier: workspace:^
+        version: link:../../vm/vm
     devDependencies:
+      '@ethereumjs/util':
+        specifier: ^9.0.1
+        version: 9.0.1
       '@tevm/api':
         specifier: workspace:^
         version: link:../../vm/api
+      '@tevm/contract':
+        specifier: workspace:^
+        version: link:../../packages/contract
       '@tevm/tsconfig':
         specifier: workspace:^
         version: link:../../configs/tsconfig
@@ -974,6 +984,13 @@ importers:
         version: 0.34.6(@vitest/ui@0.34.6)
 
   packages/contract:
+    dependencies:
+      abitype:
+        specifier: ^0.10.2
+        version: 0.10.2(typescript@5.3.3)(zod@3.22.4)
+      viem:
+        specifier: ^2.0.0
+        version: 2.0.2(typescript@5.3.3)(zod@3.22.4)
     devDependencies:
       '@evmts/core':
         specifier: next
@@ -983,19 +1000,13 @@ importers:
         version: 1.0.0-next.18(fast-check@3.15.0)(typescript@5.3.3)
       '@evmts/vite-plugin':
         specifier: next
-        version: 1.0.0-next.19(esbuild@0.19.11)(fast-check@3.15.0)(typescript@5.3.3)
+        version: 1.0.0-next.19(esbuild@0.19.5)(fast-check@3.15.0)(typescript@5.3.3)
       '@tevm/tsconfig':
         specifier: workspace:^
         version: link:../../configs/tsconfig
       '@tevm/tsupconfig':
         specifier: workspace:^
         version: link:../../configs/tsupconfig
-      abitype:
-        specifier: ^0.10.2
-        version: 0.10.2(typescript@5.3.3)(zod@3.22.4)
-      viem:
-        specifier: ^2.0.0
-        version: 2.0.2(typescript@5.3.3)(zod@3.22.4)
 
   packages/effect:
     dependencies:
@@ -1195,6 +1206,70 @@ importers:
         specifier: ^3.22.4
         version: 3.22.4
 
+  tevm:
+    dependencies:
+      '@tevm/api':
+        specifier: workspace:^
+        version: link:../vm/api
+      '@tevm/base':
+        specifier: workspace:1.0.0-next.21
+        version: link:../bundler/base
+      '@tevm/client':
+        specifier: workspace:^
+        version: link:../vm/client
+      '@tevm/contract':
+        specifier: workspace:^
+        version: link:../packages/contract
+      '@tevm/viem':
+        specifier: workspace:^
+        version: link:../extensions/viem
+      '@tevm/vm':
+        specifier: workspace:^
+        version: link:../vm/vm
+      abitype:
+        specifier: ^0.10.3
+        version: 0.10.3(typescript@5.3.3)(zod@3.22.4)
+      viem:
+        specifier: '>1.0.0'
+        version: 2.0.3(typescript@5.3.3)
+    devDependencies:
+      '@tevm/bun-plugin':
+        specifier: workspace:^
+        version: link:../bundler/bun
+      '@tevm/compiler':
+        specifier: workspace:^
+        version: link:../bundler/compiler
+      '@tevm/config':
+        specifier: workspace:^
+        version: link:../bundler/config
+      '@tevm/esbuild-plugin':
+        specifier: workspace:^
+        version: link:../bundler/esbuild
+      '@tevm/rollup-plugin':
+        specifier: workspace:^
+        version: link:../bundler/rollup
+      '@tevm/rspack-plugin':
+        specifier: workspace:^
+        version: link:../bundler/rspack
+      '@tevm/solc':
+        specifier: workspace:^
+        version: link:../bundler/solc
+      '@tevm/ts-plugin':
+        specifier: workspace:^
+        version: link:../lsp/ts-plugin
+      '@tevm/tsconfig':
+        specifier: workspace:^
+        version: link:../configs/tsconfig
+      '@tevm/tsupconfig':
+        specifier: workspace:^
+        version: link:../configs/tsupconfig
+      '@tevm/vite-plugin':
+        specifier: workspace:^
+        version: link:../bundler/vite
+      '@tevm/webpack-plugin':
+        specifier: workspace:^
+        version: link:../bundler/webpack
+
   vm/api:
     devDependencies:
       '@ethereumjs/evm':
@@ -1212,6 +1287,31 @@ importers:
       viem:
         specifier: ^2.0.0
         version: 2.0.2(typescript@5.3.3)(zod@3.22.4)
+
+  vm/client:
+    dependencies:
+      '@tevm/contract':
+        specifier: workspace:^
+        version: link:../../packages/contract
+      '@tevm/viem':
+        specifier: workspace:^
+        version: link:../../extensions/viem
+      '@tevm/vm':
+        specifier: workspace:^
+        version: link:../vm
+      viem:
+        specifier: ^2.0.0
+        version: 2.0.2(typescript@5.3.3)(zod@3.22.4)
+    devDependencies:
+      '@ethereumjs/util':
+        specifier: ^9.0.1
+        version: 9.0.1
+      '@tevm/tsconfig':
+        specifier: workspace:^
+        version: link:../../configs/tsconfig
+      '@tevm/tsupconfig':
+        specifier: workspace:^
+        version: link:../../configs/tsupconfig
 
   vm/predeploys:
     dependencies:
@@ -4016,15 +4116,15 @@ packages:
       - zod
     dev: true
 
-  /@evmts/config@1.0.0-next.17(esbuild@0.19.11)(fast-check@3.15.0)(solc@0.8.22)(typescript@5.3.3):
+  /@evmts/config@1.0.0-next.17(esbuild@0.19.5)(fast-check@3.15.0)(solc@0.8.22)(typescript@5.3.3):
     resolution: {integrity: sha512-rxyLCYOROZ7rDGYrcKpnK0ulXTWJwAyyqKbbogAikLZkUh2VSH8GVpYzNpHj2Uy2ZMiNHlYrpEMbWRt53rCsgg==}
     peerDependencies:
       solc: '*'
     dependencies:
       '@effect/schema': 0.47.7(effect@2.0.0-next.54)(fast-check@3.15.0)
-      '@evmts/effect': 1.0.0-next.9(esbuild@0.19.11)(fast-check@3.15.0)(solc@0.8.22)(typescript@5.3.3)
+      '@evmts/effect': 1.0.0-next.9(esbuild@0.19.5)(fast-check@3.15.0)(solc@0.8.22)(typescript@5.3.3)
       '@types/node': 20.10.6
-      bundle-require: 4.0.2(esbuild@0.19.11)
+      bundle-require: 4.0.2(esbuild@0.19.5)
       effect: 2.0.0-next.54
       jsonc-parser: 3.2.0
       solc: 0.8.22
@@ -4068,13 +4168,13 @@ packages:
       viem: 2.0.2(typescript@5.3.3)(zod@3.22.4)
     dev: true
 
-  /@evmts/effect@1.0.0-next.9(esbuild@0.19.11)(fast-check@3.15.0)(solc@0.8.22)(typescript@5.3.3):
+  /@evmts/effect@1.0.0-next.9(esbuild@0.19.5)(fast-check@3.15.0)(solc@0.8.22)(typescript@5.3.3):
     resolution: {integrity: sha512-EDhjN26goPELm2XjxBcY3/8xx7J3HTGdOqgKQoolWt/5eghyxXcvcFFnynN3KSd6mSciozBWGuOFms8HEi4QTg==}
     peerDependencies:
       solc: '*'
     dependencies:
       '@effect/schema': 0.47.7(effect@2.0.0-next.54)(fast-check@3.15.0)
-      bundle-require: 4.0.2(esbuild@0.19.11)
+      bundle-require: 4.0.2(esbuild@0.19.5)
       effect: 2.0.0-next.54
       jsonc-parser: 3.2.0
       resolve: 1.22.8
@@ -4110,11 +4210,11 @@ packages:
       - zod
     dev: true
 
-  /@evmts/resolutions@1.0.0-next.18(esbuild@0.19.11)(fast-check@3.15.0)(solc@0.8.22)(typescript@5.3.3):
+  /@evmts/resolutions@1.0.0-next.18(esbuild@0.19.5)(fast-check@3.15.0)(solc@0.8.22)(typescript@5.3.3):
     resolution: {integrity: sha512-+VB+sh5IF1KtuXuyDHH5KOJjNEJs/REtVz0yzht/RaEOql+cOqtprVivemzzTwPT04bzNhilykas5EfKU08PNw==}
     dependencies:
-      '@evmts/config': 1.0.0-next.17(esbuild@0.19.11)(fast-check@3.15.0)(solc@0.8.22)(typescript@5.3.3)
-      '@evmts/effect': 1.0.0-next.9(esbuild@0.19.11)(fast-check@3.15.0)(solc@0.8.22)(typescript@5.3.3)
+      '@evmts/config': 1.0.0-next.17(esbuild@0.19.5)(fast-check@3.15.0)(solc@0.8.22)(typescript@5.3.3)
+      '@evmts/effect': 1.0.0-next.9(esbuild@0.19.5)(fast-check@3.15.0)(solc@0.8.22)(typescript@5.3.3)
       '@evmts/tsconfig': 1.0.0-next.5
       '@types/node': 20.10.6
       '@types/resolve': 1.20.5
@@ -4163,11 +4263,11 @@ packages:
       effect: 2.0.0-next.54
     dev: true
 
-  /@evmts/solc@1.0.0-next.18(esbuild@0.19.11)(fast-check@3.15.0)(solc@0.8.22)(typescript@5.3.3):
+  /@evmts/solc@1.0.0-next.18(esbuild@0.19.5)(fast-check@3.15.0)(solc@0.8.22)(typescript@5.3.3):
     resolution: {integrity: sha512-MGGIz+a8ZKtkmh2z8tmjfJ+DRSLdJV7lSBge0a0sIEhtUFSfc24MVEvHt4KOPms5bNc0OI6BLMM1j72xj4/UDw==}
     dependencies:
-      '@evmts/config': 1.0.0-next.17(esbuild@0.19.11)(fast-check@3.15.0)(solc@0.8.22)(typescript@5.3.3)
-      '@evmts/resolutions': 1.0.0-next.18(esbuild@0.19.11)(fast-check@3.15.0)(solc@0.8.22)(typescript@5.3.3)
+      '@evmts/config': 1.0.0-next.17(esbuild@0.19.5)(fast-check@3.15.0)(solc@0.8.22)(typescript@5.3.3)
+      '@evmts/resolutions': 1.0.0-next.18(esbuild@0.19.5)(fast-check@3.15.0)(solc@0.8.22)(typescript@5.3.3)
       '@evmts/tsconfig': 1.0.0-next.5
       '@types/node': 20.10.6
       '@types/resolve': 1.20.5
@@ -4234,12 +4334,12 @@ packages:
     resolution: {integrity: sha512-GWguzA58Ry2CPQhvNAH0x2Au0Bdm+MsBORWHF9usCVD44yC++joPHaIWBSbe3SrF0BccLEf5yIfOKgS5XIEecQ==}
     dev: true
 
-  /@evmts/unplugin@1.0.0-next.19(esbuild@0.19.11)(fast-check@3.15.0)(typescript@5.3.3):
+  /@evmts/unplugin@1.0.0-next.19(esbuild@0.19.5)(fast-check@3.15.0)(typescript@5.3.3):
     resolution: {integrity: sha512-NgIXsZ5IEliByfgM/TBhyibLTawCipZs6oIGe7XIehGAVBADOBEWaT7QgIjGQkS5dEyE0OMTEAmgRQhbYhUIog==}
     dependencies:
-      '@evmts/config': 1.0.0-next.17(esbuild@0.19.11)(fast-check@3.15.0)(solc@0.8.22)(typescript@5.3.3)
+      '@evmts/config': 1.0.0-next.17(esbuild@0.19.5)(fast-check@3.15.0)(solc@0.8.22)(typescript@5.3.3)
       '@evmts/runtime': 1.0.0-next.13
-      '@evmts/solc': 1.0.0-next.18(esbuild@0.19.11)(fast-check@3.15.0)(solc@0.8.22)(typescript@5.3.3)
+      '@evmts/solc': 1.0.0-next.18(esbuild@0.19.5)(fast-check@3.15.0)(solc@0.8.22)(typescript@5.3.3)
       '@evmts/tsconfig': 1.0.0-next.5
       '@types/node': 20.10.6
       '@types/resolve': 1.20.5
@@ -4259,10 +4359,10 @@ packages:
       - zod
     dev: true
 
-  /@evmts/vite-plugin@1.0.0-next.19(esbuild@0.19.11)(fast-check@3.15.0)(typescript@5.3.3):
+  /@evmts/vite-plugin@1.0.0-next.19(esbuild@0.19.5)(fast-check@3.15.0)(typescript@5.3.3):
     resolution: {integrity: sha512-rZ3cMVskpkeiHr5N4HtN2tVLm2PJtSyoWMZqFnEPGsbH3nK7FEh8ZX9134kbCuk7SFM/S49GgNqPEoRb2OzkLg==}
     dependencies:
-      '@evmts/unplugin': 1.0.0-next.19(esbuild@0.19.11)(fast-check@3.15.0)(typescript@5.3.3)
+      '@evmts/unplugin': 1.0.0-next.19(esbuild@0.19.5)(fast-check@3.15.0)(typescript@5.3.3)
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -5787,7 +5887,7 @@ packages:
     dependencies:
       '@noble/curves': 1.1.0
       '@noble/hashes': 1.3.2
-      '@scure/base': 1.1.3
+      '@scure/base': 1.1.5
 
   /@scure/bip32@1.3.2:
     resolution: {integrity: sha512-N1ZhksgwD3OBlwTv3R6KFEcPojl/W4ElJOeCZdi+vuI5QmTFwLq3OFf2zd2ROpKvxFdgZ6hUpb0dx9bVNEwYCA==}
@@ -9125,16 +9225,6 @@ packages:
       esbuild: '>=0.17'
     dependencies:
       esbuild: 0.19.10
-      load-tsconfig: 0.2.5
-    dev: true
-
-  /bundle-require@4.0.2(esbuild@0.19.11):
-    resolution: {integrity: sha512-jwzPOChofl67PSTW2SGubV9HBQAhhR2i6nskiOThauo9dzwDUgOWQScFVaJkjEfYX+UXiD+LEx8EblQMc2wIag==}
-    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
-    peerDependencies:
-      esbuild: '>=0.17'
-    dependencies:
-      esbuild: 0.19.11
       load-tsconfig: 0.2.5
     dev: true
 
@@ -19652,6 +19742,29 @@ packages:
       - bufferutil
       - utf-8-validate
       - zod
+
+  /viem@2.0.3(typescript@5.3.3):
+    resolution: {integrity: sha512-9r+CMEA0zf8QCvCobTUX4vhP9x0t7wRjHbadfHDHw8ULjnzwoQc1Yc1pK99GtqK4hv5hKacDe78dibg80p/a+A==}
+    peerDependencies:
+      typescript: '>=5.0.4'
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+    dependencies:
+      '@adraffy/ens-normalize': 1.10.0
+      '@noble/curves': 1.2.0
+      '@noble/hashes': 1.3.2
+      '@scure/bip32': 1.3.2
+      '@scure/bip39': 1.2.1
+      abitype: 0.10.0(typescript@5.3.3)(zod@3.22.4)
+      isows: 1.0.3(ws@8.13.0)
+      typescript: 5.3.3
+      ws: 8.13.0
+    transitivePeerDependencies:
+      - bufferutil
+      - utf-8-validate
+      - zod
+    dev: false
 
   /vite-node@0.34.6(@types/node@20.10.6):
     resolution: {integrity: sha512-nlBMJ9x6n7/Amaz6F3zJ97EBwR2FkzhBRxF5e+jE6LA3yi6Wtc2lyTij1OnDMIr34v5g/tVQtsVAzhT0jc5ygA==}

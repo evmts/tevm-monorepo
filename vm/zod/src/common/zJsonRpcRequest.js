@@ -10,7 +10,7 @@ export const zJsonRpcRequest = z
 		method: z.string(),
 		// Could be strictor here
 		// The actual type is any object any array of json serializable values
-		params: z.union([z.record(z.any()), z.array(z.any())]),
+		params: z.union([z.record(z.any()), z.array(z.any())]).optional(),
 	})
 	.strict()
 	.describe('A valid JsonRpcRequest')

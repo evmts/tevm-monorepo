@@ -6,16 +6,16 @@
         "name": "@evmts/ts-plugin"
       }
     ],
-    "composite": true,
-    "outDir": "types",
+    "module": "NodeNext",
     "skipLibCheck": true
   },
   "include": [
-    "src",
-    "src/**/*.json",
-    "**/*.sol"
-  ],
-  "exclude": [
-    "src/contract/common/**/*"
+    "api/index.ts",
+    "bundler/**/index.ts",
+    "client/index.ts",
+    "contract/index.ts",
+    "viem/index.ts",
+    "vm/index.ts",
+    "index.ts"
   ]
 }

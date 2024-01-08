@@ -1,0 +1,1 @@
+{"version":3,"sources":["index.ts"],"names":[],"mappings":";AAAA;AAAA,EAGC;AAAA,EACA;AAAA,OACM","sourcesContent":["export {\n\ttype MemoryClient,\n\ttype RemoteClient,\n\tcreateMemoryClient,\n\tcreateRemoteClient,\n} from '@tevm/client'\n"]}

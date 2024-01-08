@@ -1,1 +1,5 @@
 export { createTevm } from './createTevm.js'
+export type { Tevm } from './Tevm.js'
+export type { ForkOptions } from './ForkOptions.js'
+export type { CustomPrecompile } from './CustomPrecompile.js'
+export type { CreateEVMOptions } from './CreateEVMOptions.js'

@@ -10,7 +10,7 @@ import { zJsonRpcRequest } from '@tevm/zod'
 /**
  * @param {CreateHttpHandlerParameters} parameters
  */
-export function createHttpHandler({ evm, proxyUrl }) {
+export const createHttpHandler = ({ evm, proxyUrl }) => {
 	/**
 	 * @param {import('http').IncomingMessage} req
 	 * @param {import('http').ServerResponse} res
