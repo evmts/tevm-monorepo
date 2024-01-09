@@ -66,7 +66,6 @@
 	"dependencies": {
 		"@ethereumjs/common": "^4.1.0",
 		"@ethereumjs/evm": "^2.1.0",
-		"@ethereumjs/statemanager": "^2.1.0",
 		"@ethereumjs/util": "^9.0.1",
 		"@tevm/api": "workspace:^",
 		"@tevm/contract": "workspace:^",
