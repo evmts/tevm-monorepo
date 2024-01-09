@@ -6,24 +6,24 @@ import { DefaultTevmStateManager, TevmStateManager } from '@tevm/state'
 export const RunDumpStateActionHandler = async (stateManager) => {
 	const accountAddresses = await stateManager.getAccountAddresses()
 
-/**
- * @type {import('@tevm/state').SerializableTevmState}
- */
-const state = {}
+	/**
+	 * @type {import('@tevm/state').SerializableTevmState}
+	 */
+	const state = {}
 
 	for (const address of accountAddresses) {
-			const hexAddress = `0x${address}`
-			const account = await stateManager.getAccount(
+		const hexAddress = `0x${address}`
+		const account = await stateManager.getAccount(
+			Address.fromString(hexAddress),
+		)
+
+		if (account !== undefined) {
+			const storage = await stateManager.dumpStorage(
 				Address.fromString(hexAddress),
 			)
 
-			if (account !== undefined) {
-				const storage = await stateManager.dumpStorage(
-					Address.fromString(hexAddress),
-				)
-
-				state[hexAddress] = { ...account, storage }
-			}
+			state[hexAddress] = { ...account, storage }
+		}
 	}
 
 	return state

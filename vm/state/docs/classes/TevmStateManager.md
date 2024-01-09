@@ -7,7 +7,7 @@ f future requests
 
 ## Implements
 
-- `EVMStateManagerInterface`
+- [`TevmStateManagerInterface`](../interfaces/TevmStateManagerInterface.md)
 
 ## Table of contents
 
@@ -39,6 +39,7 @@ f future requests
 - [flush](TevmStateManager.md#flush)
 - [generateCanonicalGenesis](TevmStateManager.md#generatecanonicalgenesis)
 - [getAccount](TevmStateManager.md#getaccount)
+- [getAccountAddresses](TevmStateManager.md#getaccountaddresses)
 - [getAccountFromProvider](TevmStateManager.md#getaccountfromprovider)
 - [getContractCode](TevmStateManager.md#getcontractcode)
 - [getContractStorage](TevmStateManager.md#getcontractstorage)
@@ -72,7 +73,7 @@ f future requests
 
 #### Defined in
 
-[vm/state/src/TevmStateManager.ts:46](https://github.com/evmts/tevm-monorepo/blob/main/vm/state/src/TevmStateManager.ts#L46)
+[vm/state/src/TevmStateManager.ts:51](https://github.com/evmts/tevm-monorepo/blob/main/vm/state/src/TevmStateManager.ts#L51)
 
 ## Properties
 
@@ -82,7 +83,7 @@ f future requests
 
 #### Defined in
 
-[vm/state/src/TevmStateManager.ts:44](https://github.com/evmts/tevm-monorepo/blob/main/vm/state/src/TevmStateManager.ts#L44)
+[vm/state/src/TevmStateManager.ts:49](https://github.com/evmts/tevm-monorepo/blob/main/vm/state/src/TevmStateManager.ts#L49)
 
 ___
 
@@ -92,7 +93,7 @@ ___
 
 #### Defined in
 
-[vm/state/src/TevmStateManager.ts:41](https://github.com/evmts/tevm-monorepo/blob/main/vm/state/src/TevmStateManager.ts#L41)
+[vm/state/src/TevmStateManager.ts:46](https://github.com/evmts/tevm-monorepo/blob/main/vm/state/src/TevmStateManager.ts#L46)
 
 ___
 
@@ -102,7 +103,7 @@ ___
 
 #### Defined in
 
-[vm/state/src/TevmStateManager.ts:40](https://github.com/evmts/tevm-monorepo/blob/main/vm/state/src/TevmStateManager.ts#L40)
+[vm/state/src/TevmStateManager.ts:45](https://github.com/evmts/tevm-monorepo/blob/main/vm/state/src/TevmStateManager.ts#L45)
 
 ___
 
@@ -112,7 +113,7 @@ ___
 
 #### Defined in
 
-[vm/state/src/TevmStateManager.ts:38](https://github.com/evmts/tevm-monorepo/blob/main/vm/state/src/TevmStateManager.ts#L38)
+[vm/state/src/TevmStateManager.ts:43](https://github.com/evmts/tevm-monorepo/blob/main/vm/state/src/TevmStateManager.ts#L43)
 
 ___
 
@@ -122,7 +123,7 @@ ___
 
 #### Defined in
 
-[vm/state/src/TevmStateManager.ts:43](https://github.com/evmts/tevm-monorepo/blob/main/vm/state/src/TevmStateManager.ts#L43)
+[vm/state/src/TevmStateManager.ts:48](https://github.com/evmts/tevm-monorepo/blob/main/vm/state/src/TevmStateManager.ts#L48)
 
 ___
 
@@ -132,7 +133,7 @@ ___
 
 #### Defined in
 
-[vm/state/src/TevmStateManager.ts:39](https://github.com/evmts/tevm-monorepo/blob/main/vm/state/src/TevmStateManager.ts#L39)
+[vm/state/src/TevmStateManager.ts:44](https://github.com/evmts/tevm-monorepo/blob/main/vm/state/src/TevmStateManager.ts#L44)
 
 ___
 
@@ -206,7 +207,7 @@ ___
 
 #### Defined in
 
-[vm/state/src/TevmStateManager.ts:45](https://github.com/evmts/tevm-monorepo/blob/main/vm/state/src/TevmStateManager.ts#L45)
+[vm/state/src/TevmStateManager.ts:50](https://github.com/evmts/tevm-monorepo/blob/main/vm/state/src/TevmStateManager.ts#L50)
 
 ___
 
@@ -216,11 +217,11 @@ ___
 
 #### Implementation of
 
-EVMStateManagerInterface.originalStorageCache
+[TevmStateManagerInterface](../interfaces/TevmStateManagerInterface.md).[originalStorageCache](../interfaces/TevmStateManagerInterface.md#originalstoragecache)
 
 #### Defined in
 
-[vm/state/src/TevmStateManager.ts:42](https://github.com/evmts/tevm-monorepo/blob/main/vm/state/src/TevmStateManager.ts#L42)
+[vm/state/src/TevmStateManager.ts:47](https://github.com/evmts/tevm-monorepo/blob/main/vm/state/src/TevmStateManager.ts#L47)
 
 ## Methods
 
@@ -242,7 +243,7 @@ Checks if an `account` exists at `address`
 
 #### Defined in
 
-[vm/state/src/TevmStateManager.ts:232](https://github.com/evmts/tevm-monorepo/blob/main/vm/state/src/TevmStateManager.ts#L232)
+[vm/state/src/TevmStateManager.ts:237](https://github.com/evmts/tevm-monorepo/blob/main/vm/state/src/TevmStateManager.ts#L237)
 
 ___
 
@@ -262,11 +263,11 @@ Partial implementation, called from the subclass.
 
 #### Implementation of
 
-EVMStateManagerInterface.checkpoint
+[TevmStateManagerInterface](../interfaces/TevmStateManagerInterface.md).[checkpoint](../interfaces/TevmStateManagerInterface.md#checkpoint)
 
 #### Defined in
 
-[vm/state/src/TevmStateManager.ts:402](https://github.com/evmts/tevm-monorepo/blob/main/vm/state/src/TevmStateManager.ts#L402)
+[vm/state/src/TevmStateManager.ts:407](https://github.com/evmts/tevm-monorepo/blob/main/vm/state/src/TevmStateManager.ts#L407)
 
 ___
 
@@ -282,7 +283,7 @@ Resets all internal caches
 
 #### Defined in
 
-[vm/state/src/TevmStateManager.ts:104](https://github.com/evmts/tevm-monorepo/blob/main/vm/state/src/TevmStateManager.ts#L104)
+[vm/state/src/TevmStateManager.ts:109](https://github.com/evmts/tevm-monorepo/blob/main/vm/state/src/TevmStateManager.ts#L109)
 
 ___
 
@@ -304,11 +305,11 @@ Clears all storage entries for the account corresponding to `address`.
 
 #### Implementation of
 
-EVMStateManagerInterface.clearContractStorage
+[TevmStateManagerInterface](../interfaces/TevmStateManagerInterface.md).[clearContractStorage](../interfaces/TevmStateManagerInterface.md#clearcontractstorage)
 
 #### Defined in
 
-[vm/state/src/TevmStateManager.ts:198](https://github.com/evmts/tevm-monorepo/blob/main/vm/state/src/TevmStateManager.ts#L198)
+[vm/state/src/TevmStateManager.ts:203](https://github.com/evmts/tevm-monorepo/blob/main/vm/state/src/TevmStateManager.ts#L203)
 
 ___
 
@@ -327,11 +328,11 @@ Partial implementation, called from the subclass.
 
 #### Implementation of
 
-EVMStateManagerInterface.commit
+[TevmStateManagerInterface](../interfaces/TevmStateManagerInterface.md).[commit](../interfaces/TevmStateManagerInterface.md#commit)
 
 #### Defined in
 
-[vm/state/src/TevmStateManager.ts:413](https://github.com/evmts/tevm-monorepo/blob/main/vm/state/src/TevmStateManager.ts#L413)
+[vm/state/src/TevmStateManager.ts:418](https://github.com/evmts/tevm-monorepo/blob/main/vm/state/src/TevmStateManager.ts#L418)
 
 ___
 
@@ -353,11 +354,11 @@ Deletes an account from state under the provided `address`.
 
 #### Implementation of
 
-EVMStateManagerInterface.deleteAccount
+[TevmStateManagerInterface](../interfaces/TevmStateManagerInterface.md).[deleteAccount](../interfaces/TevmStateManagerInterface.md#deleteaccount)
 
 #### Defined in
 
-[vm/state/src/TevmStateManager.ts:356](https://github.com/evmts/tevm-monorepo/blob/main/vm/state/src/TevmStateManager.ts#L356)
+[vm/state/src/TevmStateManager.ts:361](https://github.com/evmts/tevm-monorepo/blob/main/vm/state/src/TevmStateManager.ts#L361)
 
 ___
 
@@ -383,11 +384,11 @@ Both are represented as `0x` prefixed hex strings.
 
 #### Implementation of
 
-EVMStateManagerInterface.dumpStorage
+[TevmStateManagerInterface](../interfaces/TevmStateManagerInterface.md).[dumpStorage](../interfaces/TevmStateManagerInterface.md#dumpstorage)
 
 #### Defined in
 
-[vm/state/src/TevmStateManager.ts:209](https://github.com/evmts/tevm-monorepo/blob/main/vm/state/src/TevmStateManager.ts#L209)
+[vm/state/src/TevmStateManager.ts:214](https://github.com/evmts/tevm-monorepo/blob/main/vm/state/src/TevmStateManager.ts#L214)
 
 ___
 
@@ -409,11 +410,11 @@ ___
 
 #### Implementation of
 
-EVMStateManagerInterface.dumpStorageRange
+[TevmStateManagerInterface](../interfaces/TevmStateManagerInterface.md).[dumpStorageRange](../interfaces/TevmStateManagerInterface.md#dumpstoragerange)
 
 #### Defined in
 
-[vm/state/src/TevmStateManager.ts:220](https://github.com/evmts/tevm-monorepo/blob/main/vm/state/src/TevmStateManager.ts#L220)
+[vm/state/src/TevmStateManager.ts:225](https://github.com/evmts/tevm-monorepo/blob/main/vm/state/src/TevmStateManager.ts#L225)
 
 ___
 
@@ -427,7 +428,7 @@ ___
 
 #### Defined in
 
-[vm/state/src/TevmStateManager.ts:429](https://github.com/evmts/tevm-monorepo/blob/main/vm/state/src/TevmStateManager.ts#L429)
+[vm/state/src/TevmStateManager.ts:434](https://github.com/evmts/tevm-monorepo/blob/main/vm/state/src/TevmStateManager.ts#L434)
 
 ___
 
@@ -447,11 +448,11 @@ ___
 
 #### Implementation of
 
-EVMStateManagerInterface.generateCanonicalGenesis
+[TevmStateManagerInterface](../interfaces/TevmStateManagerInterface.md).[generateCanonicalGenesis](../interfaces/TevmStateManagerInterface.md#generatecanonicalgenesis)
 
 #### Defined in
 
-[vm/state/src/TevmStateManager.ts:452](https://github.com/evmts/tevm-monorepo/blob/main/vm/state/src/TevmStateManager.ts#L452)
+[vm/state/src/TevmStateManager.ts:457](https://github.com/evmts/tevm-monorepo/blob/main/vm/state/src/TevmStateManager.ts#L457)
 
 ___
 
@@ -473,11 +474,29 @@ Gets the code corresponding to the provided `address`.
 
 #### Implementation of
 
-EVMStateManagerInterface.getAccount
+[TevmStateManagerInterface](../interfaces/TevmStateManagerInterface.md).[getAccount](../interfaces/TevmStateManagerInterface.md#getaccount)
 
 #### Defined in
 
-[vm/state/src/TevmStateManager.ts:256](https://github.com/evmts/tevm-monorepo/blob/main/vm/state/src/TevmStateManager.ts#L256)
+[vm/state/src/TevmStateManager.ts:261](https://github.com/evmts/tevm-monorepo/blob/main/vm/state/src/TevmStateManager.ts#L261)
+
+___
+
+### getAccountAddresses
+
+▸ **getAccountAddresses**(): `string`[]
+
+#### Returns
+
+`string`[]
+
+#### Implementation of
+
+[TevmStateManagerInterface](../interfaces/TevmStateManagerInterface.md).[getAccountAddresses](../interfaces/TevmStateManagerInterface.md#getaccountaddresses)
+
+#### Defined in
+
+[vm/state/src/TevmStateManager.ts:461](https://github.com/evmts/tevm-monorepo/blob/main/vm/state/src/TevmStateManager.ts#L461)
 
 ___
 
@@ -499,7 +518,7 @@ Retrieves an account from the provider and stores in the local trie
 
 #### Defined in
 
-[vm/state/src/TevmStateManager.ts:275](https://github.com/evmts/tevm-monorepo/blob/main/vm/state/src/TevmStateManager.ts#L275)
+[vm/state/src/TevmStateManager.ts:280](https://github.com/evmts/tevm-monorepo/blob/main/vm/state/src/TevmStateManager.ts#L280)
 
 ___
 
@@ -524,11 +543,11 @@ Returns an empty `Uint8Array` if the account has no associated code.
 
 #### Implementation of
 
-EVMStateManagerInterface.getContractCode
+[TevmStateManagerInterface](../interfaces/TevmStateManagerInterface.md).[getContractCode](../interfaces/TevmStateManagerInterface.md#getcontractcode)
 
 #### Defined in
 
-[vm/state/src/TevmStateManager.ts:116](https://github.com/evmts/tevm-monorepo/blob/main/vm/state/src/TevmStateManager.ts#L116)
+[vm/state/src/TevmStateManager.ts:121](https://github.com/evmts/tevm-monorepo/blob/main/vm/state/src/TevmStateManager.ts#L121)
 
 ___
 
@@ -556,11 +575,11 @@ If this does not exist an empty `Uint8Array` is returned.
 
 #### Implementation of
 
-EVMStateManagerInterface.getContractStorage
+[TevmStateManagerInterface](../interfaces/TevmStateManagerInterface.md).[getContractStorage](../interfaces/TevmStateManagerInterface.md#getcontractstorage)
 
 #### Defined in
 
-[vm/state/src/TevmStateManager.ts:151](https://github.com/evmts/tevm-monorepo/blob/main/vm/state/src/TevmStateManager.ts#L151)
+[vm/state/src/TevmStateManager.ts:156](https://github.com/evmts/tevm-monorepo/blob/main/vm/state/src/TevmStateManager.ts#L156)
 
 ___
 
@@ -585,11 +604,11 @@ an EIP-1186 formatted proof
 
 #### Implementation of
 
-EVMStateManagerInterface.getProof
+[TevmStateManagerInterface](../interfaces/TevmStateManagerInterface.md).[getProof](../interfaces/TevmStateManagerInterface.md#getproof)
 
 #### Defined in
 
-[vm/state/src/TevmStateManager.ts:369](https://github.com/evmts/tevm-monorepo/blob/main/vm/state/src/TevmStateManager.ts#L369)
+[vm/state/src/TevmStateManager.ts:374](https://github.com/evmts/tevm-monorepo/blob/main/vm/state/src/TevmStateManager.ts#L374)
 
 ___
 
@@ -607,11 +626,11 @@ This method is not used by the Tevm State Manager and is a stub required by the 
 
 #### Implementation of
 
-EVMStateManagerInterface.getStateRoot
+[TevmStateManagerInterface](../interfaces/TevmStateManagerInterface.md).[getStateRoot](../interfaces/TevmStateManagerInterface.md#getstateroot)
 
 #### Defined in
 
-[vm/state/src/TevmStateManager.ts:436](https://github.com/evmts/tevm-monorepo/blob/main/vm/state/src/TevmStateManager.ts#L436)
+[vm/state/src/TevmStateManager.ts:441](https://github.com/evmts/tevm-monorepo/blob/main/vm/state/src/TevmStateManager.ts#L441)
 
 ___
 
@@ -629,11 +648,11 @@ This method is not used by the Tevm State Manager and is a stub required by the 
 
 #### Implementation of
 
-EVMStateManagerInterface.hasStateRoot
+[TevmStateManagerInterface](../interfaces/TevmStateManagerInterface.md).[hasStateRoot](../interfaces/TevmStateManagerInterface.md#hasstateroot)
 
 #### Defined in
 
-[vm/state/src/TevmStateManager.ts:448](https://github.com/evmts/tevm-monorepo/blob/main/vm/state/src/TevmStateManager.ts#L448)
+[vm/state/src/TevmStateManager.ts:453](https://github.com/evmts/tevm-monorepo/blob/main/vm/state/src/TevmStateManager.ts#L453)
 
 ___
 
@@ -658,11 +677,11 @@ fields, then saves the account into state. Account fields can include
 
 #### Implementation of
 
-EVMStateManagerInterface.modifyAccountFields
+[TevmStateManagerInterface](../interfaces/TevmStateManagerInterface.md).[modifyAccountFields](../interfaces/TevmStateManagerInterface.md#modifyaccountfields)
 
 #### Defined in
 
-[vm/state/src/TevmStateManager.ts:324](https://github.com/evmts/tevm-monorepo/blob/main/vm/state/src/TevmStateManager.ts#L324)
+[vm/state/src/TevmStateManager.ts:329](https://github.com/evmts/tevm-monorepo/blob/main/vm/state/src/TevmStateManager.ts#L329)
 
 ___
 
@@ -685,11 +704,11 @@ Saves an account into state under the provided `address`.
 
 #### Implementation of
 
-EVMStateManagerInterface.putAccount
+[TevmStateManagerInterface](../interfaces/TevmStateManagerInterface.md).[putAccount](../interfaces/TevmStateManagerInterface.md#putaccount)
 
 #### Defined in
 
-[vm/state/src/TevmStateManager.ts:297](https://github.com/evmts/tevm-monorepo/blob/main/vm/state/src/TevmStateManager.ts#L297)
+[vm/state/src/TevmStateManager.ts:302](https://github.com/evmts/tevm-monorepo/blob/main/vm/state/src/TevmStateManager.ts#L302)
 
 ___
 
@@ -713,11 +732,11 @@ corresponding to `address` to reference this.
 
 #### Implementation of
 
-EVMStateManagerInterface.putContractCode
+[TevmStateManagerInterface](../interfaces/TevmStateManagerInterface.md).[putContractCode](../interfaces/TevmStateManagerInterface.md#putcontractcode)
 
 #### Defined in
 
-[vm/state/src/TevmStateManager.ts:134](https://github.com/evmts/tevm-monorepo/blob/main/vm/state/src/TevmStateManager.ts#L134)
+[vm/state/src/TevmStateManager.ts:139](https://github.com/evmts/tevm-monorepo/blob/main/vm/state/src/TevmStateManager.ts#L139)
 
 ___
 
@@ -742,11 +761,11 @@ corresponding to `address` at the provided `key`.
 
 #### Implementation of
 
-EVMStateManagerInterface.putContractStorage
+[TevmStateManagerInterface](../interfaces/TevmStateManagerInterface.md).[putContractStorage](../interfaces/TevmStateManagerInterface.md#putcontractstorage)
 
 #### Defined in
 
-[vm/state/src/TevmStateManager.ts:186](https://github.com/evmts/tevm-monorepo/blob/main/vm/state/src/TevmStateManager.ts#L186)
+[vm/state/src/TevmStateManager.ts:191](https://github.com/evmts/tevm-monorepo/blob/main/vm/state/src/TevmStateManager.ts#L191)
 
 ___
 
@@ -765,11 +784,11 @@ Partial implementation , called from the subclass.
 
 #### Implementation of
 
-EVMStateManagerInterface.revert
+[TevmStateManagerInterface](../interfaces/TevmStateManagerInterface.md).[revert](../interfaces/TevmStateManagerInterface.md#revert)
 
 #### Defined in
 
-[vm/state/src/TevmStateManager.ts:423](https://github.com/evmts/tevm-monorepo/blob/main/vm/state/src/TevmStateManager.ts#L423)
+[vm/state/src/TevmStateManager.ts:428](https://github.com/evmts/tevm-monorepo/blob/main/vm/state/src/TevmStateManager.ts#L428)
 
 ___
 
@@ -791,7 +810,7 @@ Sets the new block tag and clears the internal cache
 
 #### Defined in
 
-[vm/state/src/TevmStateManager.ts:92](https://github.com/evmts/tevm-monorepo/blob/main/vm/state/src/TevmStateManager.ts#L92)
+[vm/state/src/TevmStateManager.ts:97](https://github.com/evmts/tevm-monorepo/blob/main/vm/state/src/TevmStateManager.ts#L97)
 
 ___
 
@@ -815,11 +834,11 @@ This method is not used by the Tevm State Manager and is a stub required by the 
 
 #### Implementation of
 
-EVMStateManagerInterface.setStateRoot
+[TevmStateManagerInterface](../interfaces/TevmStateManagerInterface.md).[setStateRoot](../interfaces/TevmStateManagerInterface.md#setstateroot)
 
 #### Defined in
 
-[vm/state/src/TevmStateManager.ts:443](https://github.com/evmts/tevm-monorepo/blob/main/vm/state/src/TevmStateManager.ts#L443)
+[vm/state/src/TevmStateManager.ts:448](https://github.com/evmts/tevm-monorepo/blob/main/vm/state/src/TevmStateManager.ts#L448)
 
 ___
 
@@ -835,8 +854,8 @@ Returns a new instance of the TevmStateManager with the same opts
 
 #### Implementation of
 
-EVMStateManagerInterface.shallowCopy
+[TevmStateManagerInterface](../interfaces/TevmStateManagerInterface.md).[shallowCopy](../interfaces/TevmStateManagerInterface.md#shallowcopy)
 
 #### Defined in
 
-[vm/state/src/TevmStateManager.ts:72](https://github.com/evmts/tevm-monorepo/blob/main/vm/state/src/TevmStateManager.ts#L72)
+[vm/state/src/TevmStateManager.ts:77](https://github.com/evmts/tevm-monorepo/blob/main/vm/state/src/TevmStateManager.ts#L77)

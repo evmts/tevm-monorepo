@@ -1,4 +1,3 @@
-
 import { EVM } from '@ethereumjs/evm'
 import { createHttpHandler } from '@tevm/server'
 import { TevmStateManager } from '@tevm/state'

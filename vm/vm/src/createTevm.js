@@ -1,3 +1,4 @@
+import { TevmEvm } from './Tevm.js'
 import { Common, Hardfork } from '@ethereumjs/common'
 import {
 	accountHandler,
@@ -8,8 +9,7 @@ import {
 } from '@tevm/procedures'
 import { createHttpHandler as _createHttpHandler } from '@tevm/server'
 import { DefaultTevmStateManager, TevmStateManager } from '@tevm/state'
-import { http, createPublicClient } from 'viem'
-import { TevmEvm } from './Tevm.js'
+import { createPublicClient, http } from 'viem'
 
 /**
  * A local EVM instance running in JavaScript. Similar to Anvil in your browser

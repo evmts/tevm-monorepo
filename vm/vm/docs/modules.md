@@ -74,10 +74,9 @@ ___
 
 ### Tevm
 
-Ƭ **Tevm**: `Tevm` & \{ `_evm`: `EVM` ; `createHttpHandler`: () => `ReturnType`\<typeof `createHttpHandler`\> ; `forkUrl?`: `string`  }
+Ƭ **Tevm**: `Tevm` & \{ `_evm`: `TevmEvm` ; `createHttpHandler`: () => `ReturnType`\<typeof `createHttpHandler`\> ; `forkUrl?`: `string`  }
 
-A local EVM instance running in JavaScript. Similar to Anvil in your browser/node
-Implemented with ethereumjs
+A local EVM instance running in JavaScript. Similar to Anvil in your browser
 
 **`Example`**
 
@@ -110,7 +109,7 @@ const balance = await tevm.runContractCall(
 
 #### Defined in
 
-[Tevm.ts:34](https://github.com/evmts/tevm-monorepo/blob/main/vm/vm/src/Tevm.ts#L34)
+[Tevm.ts:36](https://github.com/evmts/tevm-monorepo/blob/main/vm/vm/src/Tevm.ts#L36)
 
 ## Functions
 

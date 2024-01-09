@@ -457,7 +457,7 @@ export class TevmStateManager implements TevmStateManagerInterface {
 	generateCanonicalGenesis(_initState: any): Promise<void> {
 		return Promise.resolve()
 	}
-  
+
 	getAccountAddresses = () => {
 		const accountAddresses: string[] = []
 		//TODO check both caches?
