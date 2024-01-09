@@ -1,8 +1,8 @@
-import { Address } from '@ethereumjs/util'
+import { Account, Address } from '@ethereumjs/util'
 import { hexToBytes, keccak256, toRlp } from 'viem'
-import { createTevm } from '../../createTevm.js'
-import { RunLoadStateActionHandler } from '../loadState/loadStateHandler.js'
+import { createTevm } from '../../../vm/src/createTevm.js'
 import { RunDumpStateActionHandler } from './dumpStateHandler.js'
+import { RunLoadStateActionHandler } from './loadStateHandler.js'
 import { expect, test } from 'bun:test'
 
 test('should dump important account info and storage', async () => {
@@ -10,7 +10,10 @@ test('should dump important account info and storage', async () => {
 
 	const accountAddress = '0x0420042004200420042004200420042004200420'
 	const account = Address.fromString(accountAddress)
-	tevm.putAccount({ account: accountAddress, balance: 100n })
+
+	const accountInstance = new Account(0n, 100n)
+
+	tevm._evm.stateManager.putAccount(account, accountInstance)
 
 	const storageKey = hexToBytes('0x1', { size: 32 })
 	const storageValue = hexToBytes('0x1', { size: 32 })
@@ -31,6 +34,8 @@ test('should dump important account info and storage', async () => {
 		account,
 		storageKey,
 	)
+
+	expect(Object.keys(accountStorage).length).toBe(1)
 
 	const tevm2 = await createTevm()
 

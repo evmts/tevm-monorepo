@@ -1,7 +1,7 @@
-import { StorageDump } from '@ethereumjs/common'
+import type { StorageDump } from '@ethereumjs/common'
 import { EVM } from '@ethereumjs/evm'
 import { createHttpHandler } from '@tevm/server'
-import { TevmStateManager } from '../types/stateManager/TevmStateManager'
+import { TevmStateManager } from '@tevm/state'
 
 /**
  * A local EVM instance running in JavaScript. Similar to Anvil in your browser
