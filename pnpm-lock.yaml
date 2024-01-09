@@ -1353,6 +1353,9 @@ importers:
       '@tevm/api':
         specifier: workspace:^
         version: link:../api
+      '@tevm/state':
+        specifier: workspace:^
+        version: link:../state
       '@tevm/tsconfig':
         specifier: workspace:^
         version: link:../../configs/tsconfig
