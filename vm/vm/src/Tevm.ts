@@ -1,3 +1,4 @@
+
 import { EVM } from '@ethereumjs/evm'
 import { createHttpHandler } from '@tevm/server'
 import { TevmStateManager } from '@tevm/state'
@@ -41,6 +42,7 @@ export type Tevm = import('@tevm/api').Tevm & {
 	 * Internal instance of the EVM. Can be used for lower level operations
 	 * but is not guaranteed to stay stable between versions
 	 */
+
 	readonly _evm: TevmEvm
 	/**
 	 * Creates a HTTP handler for the tevm vm

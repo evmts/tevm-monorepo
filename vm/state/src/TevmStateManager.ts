@@ -5,9 +5,13 @@ import { keccak256 } from 'ethereum-cryptography/keccak.js'
 
 import { AccountCache, CacheType, StorageCache } from '@ethereumjs/statemanager'
 
-import type { AccountFields, StorageDump } from '@ethereumjs/common'
+import { Cache } from './Cache.js'
+import type {
+	AccountFields,
+	EVMStateManagerInterface,
+	StorageDump,
+} from '@ethereumjs/common'
 import type { StorageRange } from '@ethereumjs/common'
-import type { EVMStateManagerInterface } from '@ethereumjs/common'
 import type { Proof } from '@ethereumjs/statemanager'
 import type { Address as EthjsAddress } from '@ethereumjs/util'
 import type { Address } from 'abitype'
@@ -20,7 +24,6 @@ import {
 	toBytes,
 	toHex,
 } from 'viem'
-import { Cache } from './Cache.js'
 
 export interface TevmStateManagerOpts {
 	client: PublicClient
@@ -35,6 +38,7 @@ export interface TevmStateManagerInterface extends EVMStateManagerInterface {
  * A state manager that will fetch state from rpc using a viem public client and cache it for
  *f future requests
  */
+
 export class TevmStateManager implements TevmStateManagerInterface {
 	protected _contractCache: Map<string, Uint8Array>
 	protected _storageCache: StorageCache
@@ -453,7 +457,7 @@ export class TevmStateManager implements TevmStateManagerInterface {
 	generateCanonicalGenesis(_initState: any): Promise<void> {
 		return Promise.resolve()
 	}
-
+  
 	getAccountAddresses = () => {
 		const accountAddresses: string[] = []
 		//TODO check both caches?
