@@ -1,17 +1,17 @@
 import { Address } from '@ethereumjs/util'
+import { DefaultTevmStateManager } from '@tevm/state'
 import { bytesToHex, hexToBytes, toRlp } from 'viem'
-import { createTevm } from '../../createTevm.js'
 import { RunLoadStateActionHandler } from './loadStateHandler.js'
 import { expect, test } from 'bun:test'
 
 test('should load state into the state manager', async () => {
-	const tevm = await createTevm()
+	const stateManager = new DefaultTevmStateManager()
 
 	const account = Address.fromString(
 		'0x0420042004200420042004200420042004200420',
 	)
 
-	let accountData = await tevm._evm.stateManager.getAccount(account)
+	let accountData = await stateManager.getAccount(account)
 
 	// Expect state to be initially empty
 	expect(accountData?.nonce).toBeUndefined()
@@ -42,18 +42,18 @@ test('should load state into the state manager', async () => {
 		},
 	}
 
-	await RunLoadStateActionHandler(tevm, state)
+	await RunLoadStateActionHandler(stateManager, state)
 
-	accountData = await tevm._evm.stateManager.getAccount(account)
+	accountData = await stateManager.getAccount(account)
 
 	expect(accountData?.nonce).toEqual(0n)
 	expect(accountData?.balance).toEqual(100n)
 
-	const storageDump = await tevm._evm.stateManager.dumpStorage(account)
+	const storageDump = await stateManager.dumpStorage(account)
 
 	expect(Object.keys(storageDump).length).toBe(1)
 
-	const storedValue = await tevm._evm.stateManager.getContractStorage(
+	const storedValue = await stateManager.getContractStorage(
 		account,
 		hexToBytes(hashedStorageKey),
 	)

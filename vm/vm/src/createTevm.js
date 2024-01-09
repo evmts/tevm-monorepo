@@ -1,5 +1,4 @@
 import { Common, Hardfork } from '@ethereumjs/common'
-import { DefaultStateManager } from '@ethereumjs/statemanager'
 import {
 	accountHandler,
 	callHandler,
@@ -8,7 +7,7 @@ import {
 	scriptHandler,
 } from '@tevm/procedures'
 import { createHttpHandler as _createHttpHandler } from '@tevm/server'
-import { TevmStateManager } from '@tevm/state'
+import { DefaultTevmStateManager, TevmStateManager } from '@tevm/state'
 import { http, createPublicClient } from 'viem'
 import { TevmEvm } from './Tevm.js'
 
@@ -46,7 +45,7 @@ import { TevmEvm } from './Tevm.js'
  */
 export const createTevm = async (options = {}) => {
 	/**
-	 * @type {TevmStateManager | DefaultStateManager}
+	 * @type {TevmStateManager | DefaultTevmStateManager}
 	 */
 	let stateManager
 	// ethereumjs throws an error for most chain ids
@@ -57,7 +56,7 @@ export const createTevm = async (options = {}) => {
 		const blockTag = options.fork.blockTag ?? (await client.getBlockNumber())
 		stateManager = new TevmStateManager({ client, blockTag })
 	} else {
-		stateManager = new DefaultStateManager()
+		stateManager = new DefaultTevmStateManager()
 	}
 
 	const evm = new TevmEvm({

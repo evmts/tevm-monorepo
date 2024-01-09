@@ -1,4 +1,3 @@
-import type { StorageDump } from '@ethereumjs/common'
 import { EVM } from '@ethereumjs/evm'
 import { createHttpHandler } from '@tevm/server'
 import { TevmStateManager } from '@tevm/state'
@@ -51,16 +50,4 @@ export type Tevm = import('@tevm/api').Tevm & {
 
 export class TevmEvm extends EVM {
 	public declare stateManager: TevmStateManager
-}
-
-interface AccountStorage {
-	nonce: bigint
-	balance: bigint
-	storageRoot: Uint8Array
-	codeHash: Uint8Array
-	storage?: StorageDump
-}
-
-export type TevmState = {
-	[key: string]: AccountStorage
 }
