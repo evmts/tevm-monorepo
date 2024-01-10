@@ -5,6 +5,7 @@ import { keccak256 } from 'ethereum-cryptography/keccak.js'
 
 import { AccountCache, CacheType, StorageCache } from '@ethereumjs/statemanager'
 
+import { Cache } from './Cache.js'
 import type {
 	AccountFields,
 	EVMStateManagerInterface,
@@ -23,7 +24,6 @@ import {
 	toBytes,
 	toHex,
 } from 'viem'
-import { Cache } from './Cache.js'
 
 export interface TevmStateManagerOpts {
 	client: PublicClient
