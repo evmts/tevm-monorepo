@@ -1,5 +1,5 @@
-import { DefaultStateManager } from '@ethereumjs/statemanager'
 import type { TevmStateManagerInterface } from './TevmStateManager.js'
+import { DefaultStateManager } from '@ethereumjs/statemanager'
 
 /**
  * Custom implementation of the TevmStateManagerInterface that extends the DefaultStateManager class.
