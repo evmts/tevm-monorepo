@@ -41,7 +41,6 @@ export type Tevm = import('@tevm/api').Tevm & {
 	 * Internal instance of the EVM. Can be used for lower level operations
 	 * but is not guaranteed to stay stable between versions
 	 */
-
 	readonly _evm: TevmEvm
 	/**
 	 * Creates a HTTP handler for the tevm vm
