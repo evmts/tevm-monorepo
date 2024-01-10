@@ -2,6 +2,8 @@
 
 # Class: DefaultTevmStateManager
 
+Custom implementation of the TevmStateManagerInterface that extends the DefaultStateManager class.
+
 ## Hierarchy
 
 - `DefaultStateManager`
@@ -725,9 +727,13 @@ ___
 
 ▸ **getAccountAddresses**(): `string`[]
 
+Retrieves the addresses of all the accounts in the state.
+
 #### Returns
 
 `string`[]
+
+An array of account addresses.
 
 #### Implementation of
 
@@ -735,7 +741,7 @@ ___
 
 #### Defined in
 
-[vm/state/src/DefaultTevmStateManager.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/vm/state/src/DefaultTevmStateManager.ts#L8)
+[vm/state/src/DefaultTevmStateManager.ts:15](https://github.com/evmts/tevm-monorepo/blob/main/vm/state/src/DefaultTevmStateManager.ts#L15)
 
 ___
 
