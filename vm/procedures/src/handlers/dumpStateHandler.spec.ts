@@ -1,9 +1,9 @@
-import { Account, Address } from '@ethereumjs/util'
-import { DefaultTevmStateManager } from '@tevm/state'
-import { hexToBytes, keccak256, toRlp } from 'viem'
 import { runDumpStateActionHandler } from './dumpStateHandler.js'
 import { runLoadStateActionHandler } from './loadStateHandler.js'
+import { Account, Address } from '@ethereumjs/util'
+import { DefaultTevmStateManager } from '@tevm/state'
 import { expect, test } from 'bun:test'
+import { hexToBytes, keccak256, toRlp } from 'viem'
 
 test('should dump important account info and storage', async () => {
 	const stateManager = new DefaultTevmStateManager()
