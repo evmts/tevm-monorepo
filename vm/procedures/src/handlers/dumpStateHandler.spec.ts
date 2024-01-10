@@ -1,9 +1,9 @@
-import { RunDumpStateActionHandler } from './dumpStateHandler.js'
-import { RunLoadStateActionHandler } from './loadStateHandler.js'
 import { Account, Address } from '@ethereumjs/util'
 import { DefaultTevmStateManager } from '@tevm/state'
-import { expect, test } from 'bun:test'
 import { hexToBytes, keccak256, toRlp } from 'viem'
+import { runDumpStateActionHandler } from './dumpStateHandler.js'
+import { runLoadStateActionHandler } from './loadStateHandler.js'
+import { expect, test } from 'bun:test'
 
 test('should dump important account info and storage', async () => {
 	const stateManager = new DefaultTevmStateManager()
@@ -19,7 +19,7 @@ test('should dump important account info and storage', async () => {
 	const storageValue = hexToBytes('0x1', { size: 32 })
 	stateManager.putContractStorage(account, storageKey, storageValue)
 
-	const dumpedState = await RunDumpStateActionHandler(stateManager)
+	const dumpedState = await runDumpStateActionHandler(stateManager)
 
 	const accountData = dumpedState[accountAddress]
 
@@ -34,7 +34,7 @@ test('should dump important account info and storage', async () => {
 
 	const stateManager2 = new DefaultTevmStateManager()
 
-	await RunLoadStateActionHandler(stateManager2, dumpedState)
+	await runLoadStateActionHandler(stateManager2, dumpedState)
 	const accountStorage = await stateManager2.getContractStorage(
 		account,
 		hexToBytes(keccak256(storageKey, 'hex')),

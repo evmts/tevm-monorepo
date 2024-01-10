@@ -6,7 +6,7 @@ import { fromRlp, hexToBytes, isHex } from 'viem'
  * @param {TevmStateManager | DefaultTevmStateManager} stateManager
  * @param {import("@tevm/state").SerializableTevmState} tevmState
  */
-export const RunLoadStateActionHandler = async (stateManager, tevmState) => {
+export const runLoadStateActionHandler = async (stateManager, tevmState) => {
 	for (const [k, v] of Object.entries(tevmState)) {
 		const { nonce, balance, storageRoot, codeHash, storage } = v
 		const account = new Account(nonce, balance, storageRoot, codeHash)

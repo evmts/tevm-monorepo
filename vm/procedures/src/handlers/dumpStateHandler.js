@@ -2,8 +2,9 @@ import { Address } from '@ethereumjs/util'
 import { DefaultTevmStateManager, TevmStateManager } from '@tevm/state'
 /**
  * @param {TevmStateManager | DefaultTevmStateManager} stateManager
+ * @returns {Promise<import('@tevm/state').SerializableTevmState>}
  */
-export const RunDumpStateActionHandler = async (stateManager) => {
+export const runDumpStateActionHandler = async (stateManager) => {
 	const accountAddresses = await stateManager.getAccountAddresses()
 
 	/**

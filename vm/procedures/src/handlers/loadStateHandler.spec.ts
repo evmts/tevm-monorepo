@@ -1,8 +1,8 @@
-import { RunLoadStateActionHandler } from './loadStateHandler.js'
 import { Address } from '@ethereumjs/util'
 import { DefaultTevmStateManager } from '@tevm/state'
-import { expect, test } from 'bun:test'
 import { bytesToHex, hexToBytes, toRlp } from 'viem'
+import { runLoadStateActionHandler } from './loadStateHandler.js'
+import { expect, test } from 'bun:test'
 
 test('should load state into the state manager', async () => {
 	const stateManager = new DefaultTevmStateManager()
@@ -42,7 +42,7 @@ test('should load state into the state manager', async () => {
 		},
 	}
 
-	await RunLoadStateActionHandler(stateManager, state)
+	await runLoadStateActionHandler(stateManager, state)
 
 	accountData = await stateManager.getAccount(account)
 
