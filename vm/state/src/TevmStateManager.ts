@@ -5,7 +5,6 @@ import { keccak256 } from 'ethereum-cryptography/keccak.js'
 
 import { AccountCache, CacheType, StorageCache } from '@ethereumjs/statemanager'
 
-import { Cache } from './Cache.js'
 import type {
 	AccountFields,
 	EVMStateManagerInterface,
@@ -24,6 +23,7 @@ import {
 	toBytes,
 	toHex,
 } from 'viem'
+import { Cache } from './Cache.js'
 
 export interface TevmStateManagerOpts {
 	client: PublicClient
@@ -460,7 +460,7 @@ export class TevmStateManager implements TevmStateManagerInterface {
 
 	getAccountAddresses = () => {
 		const accountAddresses: string[] = []
-		//TODO check both caches?
+		//Tevm initializes stateManager account cache with an ordered map cache
 		this._accountCache?._orderedMapCache?.forEach((e) => {
 			accountAddresses.push(e[0])
 		})
