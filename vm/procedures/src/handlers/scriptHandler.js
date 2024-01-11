@@ -2,7 +2,12 @@ import { accountHandler } from './accountHandler.js'
 import { callHandler } from './callHandler.js'
 import { Address } from '@ethereumjs/util'
 import { validateScriptParams } from '@tevm/zod'
-import { decodeFunctionResult, encodeFunctionData } from 'viem'
+import {
+	decodeErrorResult,
+	decodeFunctionResult,
+	encodeFunctionData,
+	isHex,
+} from 'viem'
 
 /**
  * Creates an ScriptHandler for handling script params with Ethereumjs EVM
@@ -83,7 +88,25 @@ export const scriptHandler = (evm) => async (params) => {
 
 	const result = await callHandler(evm)(callParams)
 
-	if ((result.errors ?? []).length > 0) {
+	if (result.errors && result.errors.length > 0) {
+		result.errors = result.errors.map((err) => {
+			if (isHex(err.message) && err._tag === 'revert') {
+				const decodedError = decodeErrorResult(
+					/** @type {any} */ ({
+						abi: params.abi,
+						data: err.message,
+						functionName: params.functionName,
+					}),
+				)
+				return {
+					...err,
+					message: `Revert: ${decodedError.errorName}: ${decodedError.args.join(
+						', ',
+					)}`,
+				}
+			}
+			return err
+		})
 		return result
 	}
 

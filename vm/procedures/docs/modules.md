@@ -124,7 +124,7 @@ Creates an ContractHandler for handling contract params with Ethereumjs EVM
 
 #### Defined in
 
-[handlers/contractHandler.js:11](https://github.com/evmts/tevm-monorepo/blob/main/vm/procedures/src/handlers/contractHandler.js#L11)
+[handlers/contractHandler.js:16](https://github.com/evmts/tevm-monorepo/blob/main/vm/procedures/src/handlers/contractHandler.js#L16)
 
 ___
 
@@ -206,7 +206,7 @@ Creates an ScriptHandler for handling script params with Ethereumjs EVM
 
 #### Defined in
 
-[handlers/scriptHandler.js:12](https://github.com/evmts/tevm-monorepo/blob/main/vm/procedures/src/handlers/scriptHandler.js#L12)
+[handlers/scriptHandler.js:17](https://github.com/evmts/tevm-monorepo/blob/main/vm/procedures/src/handlers/scriptHandler.js#L17)
 
 ___
 

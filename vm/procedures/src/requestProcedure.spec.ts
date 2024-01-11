@@ -412,9 +412,9 @@ describe('requestProcedure', () => {
 					code: 'revert',
 					...{
 						data: {
-							errors: ['There was an error executing the evm'],
+							errors: ['0x'],
 						},
-						message: 'There was an error executing the evm',
+						message: '0x',
 					},
 				},
 				id: 1,
@@ -480,10 +480,10 @@ describe('requestProcedure', () => {
 					code: 'revert',
 					...{
 						data: {
-							errors: ['There was an error executing the evm'],
+							errors: ['Revert: Error: Dai/insufficient-balance'],
 						},
 					},
-					message: 'There was an error executing the evm',
+					message: 'Revert: Error: Dai/insufficient-balance',
 				},
 				id: 1,
 				jsonrpc: '2.0',

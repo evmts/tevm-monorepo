@@ -439,7 +439,7 @@ describe('scriptHandler', () => {
 			errors: [
 				{
 					_tag: 'revert',
-					message: 'There was an error executing the evm',
+					message: 'Revert: Error: Dai/insufficient-balance',
 					name: 'revert',
 				},
 			],

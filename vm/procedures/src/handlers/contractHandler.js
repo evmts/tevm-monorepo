@@ -1,21 +1,26 @@
 import { callHandler } from './callHandler.js'
 import { Address } from '@ethereumjs/util'
 import { validateContractParams } from '@tevm/zod'
-import { decodeFunctionResult, encodeFunctionData } from 'viem'
+import {
+	decodeErrorResult,
+	decodeFunctionResult,
+	encodeFunctionData,
+	isHex,
+} from 'viem'
 
 /**
  * Creates an ContractHandler for handling contract params with Ethereumjs EVM
  * @param {import('@ethereumjs/evm').EVM} evm
  * @returns {import("@tevm/api").ContractHandler}
  */
-export const contractHandler = (evm) => async (action) => {
-	const errors = validateContractParams(/** @type any*/ (action))
+export const contractHandler = (evm) => async (params) => {
+	const errors = validateContractParams(/** @type any*/ (params))
 	if (errors.length > 0) {
 		return { errors, executionGasUsed: 0n, rawData: '0x' }
 	}
 
 	const contract = await evm.stateManager.getContractCode(
-		Address.fromString(action.to),
+		Address.fromString(params.to),
 	)
 	if (contract.length === 0 && typeof contract !== 'function') {
 		return {
@@ -25,7 +30,7 @@ export const contractHandler = (evm) => async (action) => {
 				{
 					_tag: 'InvalidRequestError',
 					name: 'InvalidRequestError',
-					message: `Contract at address ${action.to} does not exist`,
+					message: `Contract at address ${params.to} does not exist`,
 				},
 			],
 		}
@@ -35,9 +40,9 @@ export const contractHandler = (evm) => async (action) => {
 	try {
 		functionData = encodeFunctionData(
 			/** @type {any} */ ({
-				abi: action.abi,
-				functionName: action.functionName,
-				args: action.args,
+				abi: params.abi,
+				functionName: params.functionName,
+				args: params.args,
 			}),
 		)
 	} catch (e) {
@@ -57,11 +62,29 @@ export const contractHandler = (evm) => async (action) => {
 	}
 
 	const result = await callHandler(evm)({
-		...action,
+		...params,
 		data: functionData,
 	})
 
-	if ((result.errors ?? []).length > 0) {
+	if (result.errors && result.errors.length > 0) {
+		result.errors = result.errors.map((err) => {
+			if (isHex(err.message) && err._tag === 'revert') {
+				const decodedError = decodeErrorResult(
+					/** @type {any} */ ({
+						abi: params.abi,
+						data: err.message,
+						functionName: params.functionName,
+					}),
+				)
+				return {
+					...err,
+					message: `Revert: ${decodedError.errorName} ${decodedError.args.join(
+						', ',
+					)}`,
+				}
+			}
+			return err
+		})
 		return result
 	}
 
@@ -69,9 +92,9 @@ export const contractHandler = (evm) => async (action) => {
 	try {
 		decodedResult = decodeFunctionResult(
 			/** @type {any} */ ({
-				abi: action.abi,
+				abi: params.abi,
 				data: result.rawData,
-				functionName: action.functionName,
+				functionName: params.functionName,
 			}),
 		)
 	} catch (e) {

@@ -1,4 +1,4 @@
-import { getAddress, toHex } from 'viem'
+import { bytesToHex, getAddress, isBytes, toHex } from 'viem'
 
 /**
  * Creates an CallHandler for handling call params with Ethereumjs EVM
@@ -49,7 +49,9 @@ export const callHandlerResult = (evmResult) => {
 			{
 				name: evmResult.execResult.exceptionError.error,
 				_tag: evmResult.execResult.exceptionError.error,
-				message: 'There was an error executing the evm',
+				message: isBytes(evmResult.execResult.returnValue)
+					? bytesToHex(evmResult.execResult.returnValue)
+					: 'There was an error executing call',
 			},
 		]
 	}

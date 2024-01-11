@@ -349,7 +349,7 @@ describe('contractHandler', () => {
 			errors: [
 				{
 					_tag: EVMErrorMessage.REVERT,
-					message: 'There was an error executing the evm',
+					message: 'Revert: Error Dai/insufficient-balance',
 					name: EVMErrorMessage.REVERT,
 				},
 			],
