@@ -80,7 +80,7 @@ const accountParams: import('@tevm/api').AccountParams = {
 
 #### Defined in
 
-vm/api/dist/index.d.ts:17
+vm/api/dist/index.d.ts:16
 
 ___
 
@@ -139,7 +139,7 @@ const callParams: import('@tevm/api').CallParams = {
 
 #### Defined in
 
-vm/api/dist/index.d.ts:142
+vm/api/dist/index.d.ts:141
 
 ___
 
@@ -191,7 +191,7 @@ Tevm params to execute a call on a contract
 
 #### Defined in
 
-vm/api/dist/index.d.ts:160
+vm/api/dist/index.d.ts:159
 
 ___
 
@@ -258,7 +258,7 @@ Tevm params for deploying and running a script
 
 #### Defined in
 
-vm/api/dist/index.d.ts:170
+vm/api/dist/index.d.ts:169
 
 ___
 

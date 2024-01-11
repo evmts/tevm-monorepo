@@ -1272,9 +1272,6 @@ importers:
 
   vm/api:
     devDependencies:
-      '@ethereumjs/evm':
-        specifier: ^2.1.0
-        version: 2.1.0
       '@tevm/tsconfig':
         specifier: workspace:^
         version: link:../../configs/tsconfig

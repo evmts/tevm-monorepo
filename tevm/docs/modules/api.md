@@ -268,7 +268,7 @@ Properties shared accross call-like params
 
 #### Defined in
 
-vm/api/dist/index.d.ts:77
+vm/api/dist/index.d.ts:76
 
 ___
 
@@ -292,7 +292,7 @@ Header information of an ethereum block
 
 #### Defined in
 
-vm/api/dist/index.d.ts:43
+vm/api/dist/index.d.ts:42
 
 ___
 
@@ -496,7 +496,7 @@ Error type of errors thrown while internally executing a call in the EVM
 
 | Name | Type |
 | :------ | :------ |
-| `TEVMErrorMessage` | extends `EVMErrorMessage` = `EVMErrorMessage` |
+| `TEVMErrorMessage` | extends `TevmEVMErrorMessage` = `TevmEVMErrorMessage` |
 
 #### Defined in
 
@@ -524,7 +524,7 @@ Error thrown when balance parameter is invalid
 
 #### Defined in
 
-vm/api/dist/index.d.ts:219
+vm/api/dist/index.d.ts:218
 
 ___
 
@@ -560,7 +560,7 @@ Error thrown when bytecode parameter is invalid
 
 #### Defined in
 
-vm/api/dist/index.d.ts:204
+vm/api/dist/index.d.ts:203
 
 ___
 
@@ -584,7 +584,7 @@ Error thrown when data parameter is invalid
 
 #### Defined in
 
-vm/api/dist/index.d.ts:214
+vm/api/dist/index.d.ts:213
 
 ___
 
@@ -620,7 +620,7 @@ Error thrown when function name is invalid
 
 #### Defined in
 
-vm/api/dist/index.d.ts:224
+vm/api/dist/index.d.ts:223
 
 ___
 
@@ -740,7 +740,7 @@ Error thrown when storage root parameter is invalid
 
 #### Defined in
 
-vm/api/dist/index.d.ts:209
+vm/api/dist/index.d.ts:208
 
 ___
 
@@ -830,7 +830,7 @@ Generic log information
 
 #### Defined in
 
-vm/api/dist/index.d.ts:180
+vm/api/dist/index.d.ts:179
 
 ___
 
@@ -990,7 +990,7 @@ for tevm users.
 
 #### Defined in
 
-vm/api/dist/index.d.ts:194
+vm/api/dist/index.d.ts:193
 
 ___
 
