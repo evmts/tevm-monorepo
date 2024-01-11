@@ -10,9 +10,14 @@ export type ContractResult<
 	TAbi extends Abi | readonly unknown[] = Abi,
 	TFunctionName extends ContractFunctionName<TAbi> = ContractFunctionName<TAbi>,
 	ErrorType = ContractError,
-> = CallResult<ErrorType> & {
-	/**
-	 * The parsed data
-	 */
-	data: DecodeFunctionResultReturnType<TAbi, TFunctionName>
-}
+> =
+	| (Omit<CallResult, 'errors'> & {
+			errors?: never
+			/**
+			 * The parsed data
+			 */
+			data: DecodeFunctionResultReturnType<TAbi, TFunctionName>
+	  })
+	| (CallResult<ErrorType> & {
+			data?: never
+	  })

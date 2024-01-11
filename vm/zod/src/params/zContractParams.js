@@ -13,9 +13,6 @@ export const zContractParams = zBaseCallParams
 			.array(z.any())
 			.optional()
 			.describe('The arguments to pass to the function'),
-		functionName: z
-			.string()
-			.optional()
-			.describe('The name of the function to call'),
+		functionName: z.string().describe('The name of the function to call'),
 	})
 	.describe('Params to execute a contract method in the tevm EVM')

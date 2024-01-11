@@ -299,6 +299,7 @@ describe('scriptHandler', () => {
 				args: [ERC20_ADDRESS],
 			}),
 		).toEqual({
+			...({} as { errors: never }),
 			rawData:
 				'0x0000000000000000000000000000000000000000000000000000000000000000',
 			executionGasUsed: 2447n,

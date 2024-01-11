@@ -1,11 +1,15 @@
 import { callHandlerResult } from './callHandlerResult.js'
-import type { EVMResult } from '@ethereumjs/evm'
+import type { EVMResult, Log } from '@ethereumjs/evm'
 import { describe, expect, it } from 'bun:test'
-import { getAddress, toHex } from 'viem'
+import { bytesToHex, getAddress, toHex } from 'viem'
 
 describe('callHandlerResult', () => {
 	const dummyAddress = `0x${'1'.repeat(40)}` as const
-
+	const mockLog: Log = [
+		new Uint8Array(20), // Address
+		[new Uint8Array(32), new Uint8Array(32)], // Topics (an array of two Uint8Array elements)
+		new Uint8Array(64), // Data
+	] as const
 	const dummyEVMResult = {
 		execResult: {
 			returnValue: Buffer.from('test'),
@@ -13,7 +17,7 @@ describe('callHandlerResult', () => {
 			gasRefund: 1000n,
 			selfdestruct: new Set([dummyAddress]),
 			gas: 50000n,
-			logs: [],
+			logs: [mockLog],
 			blobGasUsed: 3000n,
 			createdAddresses: new Set([dummyAddress]),
 		},
@@ -26,7 +30,13 @@ describe('callHandlerResult', () => {
 		expect(result.gasRefund).toEqual(1000n)
 		expect(result.selfdestruct).toEqual(new Set([getAddress(dummyAddress)]))
 		expect(result.gas).toEqual(50000n)
-		expect(result.logs).toEqual([])
+		expect(result.logs).toEqual([
+			{
+				address: bytesToHex(mockLog[0]),
+				topics: mockLog[1].map((b) => bytesToHex(b)),
+				data: bytesToHex(mockLog[2]),
+			},
+		])
 		expect(result.blobGasUsed).toEqual(3000n)
 		expect(result.createdAddresses).toEqual(new Set([getAddress(dummyAddress)]))
 	})

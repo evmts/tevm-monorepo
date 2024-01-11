@@ -561,7 +561,7 @@ ___
 
 ### ContractResult
 
-Ƭ **ContractResult**\<`TAbi`, `TFunctionName`, `ErrorType`\>: [`CallResult`](modules.md#callresult)\<`ErrorType`\> & \{ `data`: `DecodeFunctionResultReturnType`\<`TAbi`, `TFunctionName`\>  }
+Ƭ **ContractResult**\<`TAbi`, `TFunctionName`, `ErrorType`\>: `Omit`\<[`CallResult`](modules.md#callresult), ``"errors"``\> & \{ `data`: `DecodeFunctionResultReturnType`\<`TAbi`, `TFunctionName`\> ; `errors?`: `never`  } \| [`CallResult`](modules.md#callresult)\<`ErrorType`\> & \{ `data?`: `never`  }
 
 #### Type parameters
 
