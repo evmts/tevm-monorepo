@@ -71,7 +71,8 @@
 		"@ethereumjs/evm": "^2.1.0",
 		"@tevm/api": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",
-		"@tevm/tsconfig": "workspace:^"
+		"@tevm/tsconfig": "workspace:^",
+		"@tevm/state": "workspace:^"
 	},
 	"publishConfig": {
 		"access": "public"

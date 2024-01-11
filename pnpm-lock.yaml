@@ -1353,6 +1353,9 @@ importers:
       '@tevm/api':
         specifier: workspace:^
         version: link:../api
+      '@tevm/state':
+        specifier: workspace:^
+        version: link:../state
       '@tevm/tsconfig':
         specifier: workspace:^
         version: link:../../configs/tsconfig
@@ -1428,9 +1431,6 @@ importers:
         specifier: ^4.1.0
         version: 4.1.0
       '@ethereumjs/evm':
-        specifier: ^2.1.0
-        version: 2.1.0
-      '@ethereumjs/statemanager':
         specifier: ^2.1.0
         version: 2.1.0
       '@ethereumjs/util':

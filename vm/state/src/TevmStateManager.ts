@@ -30,11 +30,16 @@ export interface TevmStateManagerOpts {
 	blockTag: bigint | 'earliest'
 }
 
+export interface TevmStateManagerInterface extends EVMStateManagerInterface {
+	getAccountAddresses: () => string[]
+}
+
 /**
  * A state manager that will fetch state from rpc using a viem public client and cache it for
  *f future requests
  */
-export class TevmStateManager implements EVMStateManagerInterface {
+
+export class TevmStateManager implements TevmStateManagerInterface {
 	protected _contractCache: Map<string, Uint8Array>
 	protected _storageCache: StorageCache
 	protected _blockTag: { blockTag: BlockTag } | { blockNumber: bigint }
@@ -451,5 +456,15 @@ export class TevmStateManager implements EVMStateManagerInterface {
 
 	generateCanonicalGenesis(_initState: any): Promise<void> {
 		return Promise.resolve()
+	}
+
+	getAccountAddresses = () => {
+		const accountAddresses: string[] = []
+		//Tevm initializes stateManager account cache with an ordered map cache
+		this._accountCache?._orderedMapCache?.forEach((e) => {
+			accountAddresses.push(e[0])
+		})
+
+		return accountAddresses
 	}
 }
