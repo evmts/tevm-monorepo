@@ -15,6 +15,7 @@ export const scriptHandler = (evm) => async (params) => {
 	 */
 	let functionData = '0x'
 	// Internally we overload this function to take raw data too for the jsonrpc handler
+	// We might make this public later
 	if (/** @type any*/ (params).data) {
 		functionData = /** @type any*/ (params).data
 	} else {

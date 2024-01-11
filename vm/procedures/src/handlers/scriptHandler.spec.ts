@@ -1,6 +1,7 @@
 import { scriptHandler } from './scriptHandler.js'
 import { EVM } from '@ethereumjs/evm'
 import { describe, expect, it } from 'bun:test'
+import { encodeFunctionData, hexToBytes } from 'viem'
 
 const ERC20_ADDRESS = `0x${'3'.repeat(40)}` as const
 const ERC20_BYTECODE =
@@ -308,6 +309,140 @@ describe('scriptHandler', () => {
 			logs: [],
 			createdAddresses: new Set(),
 			data: 0n,
+		})
+	})
+
+	it('should validate params', async () => {
+		expect(await scriptHandler(new EVM({}))({} as any)).toEqual({
+			errors: [
+				{
+					_tag: 'InvalidDeployedBytecodeError',
+					...{ input: 'undefined' },
+					message: 'InvalidDeployedBytecodeError: Required',
+					name: 'InvalidDeployedBytecodeError',
+				},
+				{
+					_tag: 'InvalidAbiError',
+					message: 'InvalidAbiError: Required',
+					name: 'InvalidAbiError',
+				},
+			],
+			executionGasUsed: 0n,
+			rawData: '0x',
+		})
+	})
+
+	it('should handle passing in data', async () => {
+		expect(
+			await scriptHandler(new EVM({}))({
+				deployedBytecode: ERC20_BYTECODE,
+				...{
+					data: encodeFunctionData({
+						abi: ERC20_ABI,
+						functionName: 'balanceOf',
+						args: [ERC20_ADDRESS],
+					}),
+				},
+			} as any),
+		).toEqual({
+			...({} as { errors: never }),
+			rawData:
+				'0x0000000000000000000000000000000000000000000000000000000000000000',
+			executionGasUsed: 2447n,
+			selfdestruct: new Set(),
+			gas: 16774768n,
+			logs: [],
+			createdAddresses: new Set(),
+		})
+	})
+
+	it('should handle invalid function data', async () => {
+		expect(
+			await scriptHandler(new EVM({}))({
+				deployedBytecode: ERC20_BYTECODE,
+				abi: ERC20_ABI,
+				functionName: 'balanceOf',
+				to: ERC20_ADDRESS,
+				args: ['not valid' as any],
+			}),
+		).toEqual({
+			errors: [
+				{
+					_tag: 'InvalidRequestError',
+					message: 'Address "not valid" is invalid.\n\nVersion: viem@2.0.2',
+					name: 'InvalidRequestError',
+				},
+			],
+			executionGasUsed: 0n,
+			rawData: '0x',
+		})
+	})
+
+	it('should handle unlikely event decoding data fails', async () => {
+		const evm = new EVM({})
+		const originalRunCall = evm.runCall.bind(evm)
+		evm.runCall = async function (args) {
+			const realResult = await originalRunCall(args)
+			return {
+				...realResult,
+				execResult: {
+					...realResult.execResult,
+					returnValue: hexToBytes('0x524'),
+				},
+			}
+		}
+		expect(
+			await scriptHandler(evm)({
+				deployedBytecode: ERC20_BYTECODE,
+				abi: ERC20_ABI,
+				functionName: 'balanceOf',
+				to: ERC20_ADDRESS,
+				args: [ERC20_ADDRESS],
+			}),
+		).toEqual({
+			createdAddresses: new Set(),
+			errors: [
+				{
+					_tag: 'DecodeFunctionDataError',
+					message:
+						'Data size of 2 bytes is too small for given parameters.\n\nParams: (uint256 balance)\nData:   0x0524 (2 bytes)\n\nVersion: viem@2.0.2',
+					name: 'DecodeFunctionDataError',
+				},
+			],
+			executionGasUsed: 2447n,
+			gas: 16774768n,
+			logs: [],
+			rawData: '0x0524',
+			selfdestruct: new Set(),
+		})
+	})
+
+	it('should handle a call that reverts', async () => {
+		const evm = new EVM({})
+		const caller = `0x${'1'.repeat(40)}` as const
+		expect(
+			await scriptHandler(evm)({
+				deployedBytecode: ERC20_BYTECODE,
+				abi: ERC20_ABI,
+				functionName: 'transferFrom',
+				to: ERC20_ADDRESS,
+				args: [caller, caller, 1n],
+			}),
+		).toEqual({
+			createdAddresses: new Set(),
+			errors: [
+				{
+					_tag: 'revert',
+					message: 'There was an error executing the evm',
+					name: 'revert',
+				},
+			],
+			executionGasUsed: 2754n,
+			gas: 16774461n,
+			logs: [],
+			rawData:
+				'0x08c379a0000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000184461692f696e73756666696369656e742d62616c616e63650000000000000000',
+			selfdestruct: new Set(),
 		})
 	})
 })

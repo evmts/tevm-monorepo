@@ -461,4 +461,79 @@ describe('contractHandler', () => {
 			rawData: '0x',
 		})
 	})
+
+	it('Handles the unlikely event the function data cannot be decoded', async () => {
+		const evm = new EVM({})
+		const originalRunCall = evm.runCall.bind(evm)
+		evm.runCall = function (args) {
+			return {
+				...originalRunCall(args),
+				execResult: { returnValue: '0x42424242' },
+			}
+		}
+		// deploy contract
+		expect(
+			(
+				await accountHandler(evm)({
+					address: ERC20_ADDRESS,
+					deployedBytecode: ERC20_BYTECODE,
+				})
+			).errors,
+		).toBeUndefined()
+		// test contract call
+		expect(
+			await contractHandler(evm)({
+				abi: ERC20_ABI,
+				functionName: 'balanceOf',
+				args: [ERC20_ADDRESS],
+				to: ERC20_ADDRESS,
+				gasLimit: 16784800n,
+			}),
+		).toEqual({
+			errors: [
+				{
+					_tag: 'DecodeFunctionDataError',
+					message:
+						'Data size of 10 bytes is too small for given parameters.\n\nParams: (uint256 balance)\nData:   0x30783432343234323432 (10 bytes)\n\nVersion: viem@2.0.2',
+					name: 'DecodeFunctionDataError',
+				},
+			],
+			executionGasUsed: 0n,
+			rawData: '0x',
+		})
+	})
+
+	it('Handls function data not being encodable', async () => {
+		const evm = new EVM({})
+		// deploy contract
+		expect(
+			(
+				await accountHandler(evm)({
+					address: ERC20_ADDRESS,
+					deployedBytecode: ERC20_BYTECODE,
+				})
+			).errors,
+		).toBeUndefined()
+		// test contract call
+		expect(
+			await contractHandler(evm)({
+				abi: ERC20_ABI,
+				functionName: 'balanceOf',
+				args: ['not correct type' as any],
+				to: ERC20_ADDRESS,
+				gasLimit: 16784800n,
+			}),
+		).toEqual({
+			errors: [
+				{
+					_tag: 'InvalidRequestError',
+					message:
+						'Address "not correct type" is invalid.\n\nVersion: viem@2.0.2',
+					name: 'InvalidRequestError',
+				},
+			],
+			executionGasUsed: 0n,
+			rawData: '0x',
+		})
+	})
 })

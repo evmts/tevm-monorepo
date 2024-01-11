@@ -292,56 +292,143 @@ const ERC20_ABI = [
 ] as const
 
 describe('requestProcedure', () => {
-	it('tevm_account', async () => {
-		const evm = new EVM({})
-		const res = await requestProcedure(evm)({
-			jsonrpc: '2.0',
-			method: 'tevm_account',
-			id: 1,
-			params: {
-				address: ERC20_ADDRESS,
-				deployedBytecode: ERC20_BYTECODE,
-				balance: numberToHex(420n),
-				nonce: numberToHex(69n),
-			},
-		})
-		expect(res.error).toBeUndefined()
-		const account = (await evm.stateManager.getAccount(
-			Address.fromString(ERC20_ADDRESS),
-		)) as Account
-		expect(account?.balance).toBe(420n)
-		expect(account?.nonce).toBe(69n)
-		expect(bytesToHex(account.codeHash)).toBe(keccak256(ERC20_BYTECODE))
-	})
-
-	it('tevm_call', async () => {
-		const evm = new EVM({})
-		const to = `0x${'69'.repeat(20)}` as const
-		// send value
-		expect(
-			await callProcedure(evm)({
+	describe('tevm_account', () => {
+		it('should work', async () => {
+			const evm = new EVM({})
+			const res = await requestProcedure(evm)({
 				jsonrpc: '2.0',
-				method: 'tevm_call',
+				method: 'tevm_account',
 				id: 1,
 				params: {
-					to,
-					value: numberToHex(420n),
-					skipBalance: true,
+					address: ERC20_ADDRESS,
+					deployedBytecode: ERC20_BYTECODE,
+					balance: numberToHex(420n),
+					nonce: numberToHex(69n),
 				},
-			}),
-		).toEqual({
-			id: 1,
-			method: 'tevm_call',
-			jsonrpc: '2.0',
-			result: {
-				executionGasUsed: numberToHex(0n),
-				rawData: '0x',
-			},
+			})
+			expect(res.error).toBeUndefined()
+			const account = (await evm.stateManager.getAccount(
+				Address.fromString(ERC20_ADDRESS),
+			)) as Account
+			expect(account?.balance).toBe(420n)
+			expect(account?.nonce).toBe(69n)
+			expect(bytesToHex(account.codeHash)).toBe(keccak256(ERC20_BYTECODE))
+		})
+		it('should handle account throwing an unexpected error', async () => {
+			const evm = new EVM({})
+			evm.stateManager.putAccount = () => {
+				throw new Error('unexpected error')
+			}
+			const res = await requestProcedure(evm)({
+				jsonrpc: '2.0',
+				method: 'tevm_account',
+				id: 1,
+				params: {
+					address: ERC20_ADDRESS,
+					deployedBytecode: ERC20_BYTECODE,
+					balance: numberToHex(420n),
+					nonce: numberToHex(69n),
+				},
+			})
+			expect(res).toEqual({
+				error: {
+					message: "UnexpectedError: unexpected error",
+					code: "UnexpectedError",
+					...{
+						data: {
+							errors: [
+								"UnexpectedError: unexpected error"
+							],
+						}
+					},
+
+				},
+				id: 1,
+				jsonrpc: "2.0",
+				method: "tevm_account",
+
+			})
+		})
+	})
+
+	describe('tevm_call', async () => {
+		it('should work', async () => {
+			const evm = new EVM({})
+			const to = `0x${'69'.repeat(20)}` as const
+			// send value
+			expect(
+				await callProcedure(evm)({
+					jsonrpc: '2.0',
+					method: 'tevm_call',
+					id: 1,
+					params: {
+						to,
+						value: numberToHex(420n),
+						skipBalance: true,
+					},
+				}),
+			).toEqual({
+				id: 1,
+				method: 'tevm_call',
+				jsonrpc: '2.0',
+				result: {
+					executionGasUsed: numberToHex(0n),
+					rawData: '0x',
+				},
+			})
+
+			expect(
+				(await evm.stateManager.getAccount(Address.fromString(to)))?.balance,
+			).toEqual(420n)
 		})
 
-		expect(
-			(await evm.stateManager.getAccount(Address.fromString(to)))?.balance,
-		).toEqual(420n)
+		it('should handle an error', async () => {
+			const evm = new EVM({})
+			const originalRunCall = evm.runCall.bind(evm)
+			evm.runCall = async (args) => {
+				const res = await originalRunCall(args)
+				return {
+					...res,
+					execResult: {
+						...res.execResult,
+						exceptionError: {
+							error: 'revert',
+							errorType: 'Contract was reverted',
+						} as any
+					}
+
+				}
+			}
+			const to = `0x${'69'.repeat(20)}` as const
+			// send value
+			expect(
+				await callProcedure(evm)({
+					jsonrpc: '2.0',
+					method: 'tevm_call',
+					id: 1,
+					params: {
+						to,
+						value: numberToHex(420n),
+						skipBalance: true,
+					},
+				}),
+			).toEqual({
+				error: {
+					code: "revert",
+					...{
+						data: {
+							errors: [
+								"There was an error executing the evm"
+							],
+						},
+						message: "There was an error executing the evm",
+					}
+				},
+				id: 1,
+				jsonrpc: "2.0",
+				method: "tevm_call",
+			})
+		})
 	})
 
 	it('tevm_script', async () => {
