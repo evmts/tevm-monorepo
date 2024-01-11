@@ -332,21 +332,17 @@ describe('requestProcedure', () => {
 			})
 			expect(res).toEqual({
 				error: {
-					message: "UnexpectedError: unexpected error",
-					code: "UnexpectedError",
+					message: 'UnexpectedError: unexpected error',
+					code: 'UnexpectedError',
 					...{
 						data: {
-							errors: [
-								"UnexpectedError: unexpected error"
-							],
-						}
+							errors: ['UnexpectedError: unexpected error'],
+						},
 					},
-
 				},
 				id: 1,
-				jsonrpc: "2.0",
-				method: "tevm_account",
-
+				jsonrpc: '2.0',
+				method: 'tevm_account',
 			})
 		})
 	})
@@ -394,9 +390,8 @@ describe('requestProcedure', () => {
 						exceptionError: {
 							error: 'revert',
 							errorType: 'Contract was reverted',
-						} as any
-					}
-
+						} as any,
+					},
 				}
 			}
 			const to = `0x${'69'.repeat(20)}` as const
@@ -414,52 +409,122 @@ describe('requestProcedure', () => {
 				}),
 			).toEqual({
 				error: {
-					code: "revert",
+					code: 'revert',
 					...{
 						data: {
-							errors: [
-								"There was an error executing the evm"
-							],
+							errors: ['There was an error executing the evm'],
 						},
-						message: "There was an error executing the evm",
-					}
+						message: 'There was an error executing the evm',
+					},
 				},
 				id: 1,
-				jsonrpc: "2.0",
-				method: "tevm_call",
+				jsonrpc: '2.0',
+				method: 'tevm_call',
 			})
 		})
 	})
 
-	it('tevm_script', async () => {
-		expect(
-			await scriptProcedure(new EVM({}))({
+	describe('tevm_script', async () => {
+		it('should work', async () => {
+			expect(
+				await scriptProcedure(new EVM({}))({
+					jsonrpc: '2.0',
+					method: 'tevm_script',
+					id: 1,
+					params: {
+						deployedBytecode: ERC20_BYTECODE,
+						data: encodeFunctionData({
+							abi: ERC20_ABI,
+							functionName: 'balanceOf',
+							args: [ERC20_ADDRESS],
+						}),
+						to: ERC20_ADDRESS,
+					},
+				}),
+			).toEqual({
+				method: 'tevm_script',
+				jsonrpc: '2.0',
+				id: 1,
+				result: {
+					rawData:
+						'0x0000000000000000000000000000000000000000000000000000000000000000',
+					executionGasUsed: numberToHex(2447n),
+					selfdestruct: [],
+					gas: numberToHex(16774768n),
+					logs: [],
+					createdAddresses: [],
+				},
+			})
+		})
+
+		it('should handle the evm throwing an error', async () => {
+			const evm = new EVM({})
+			const caller = `0x${'69'.repeat(20)}` as const
+			expect(
+				await scriptProcedure(evm)({
+					jsonrpc: '2.0',
+					method: 'tevm_script',
+					id: 1,
+					params: {
+						deployedBytecode: ERC20_BYTECODE,
+						data: encodeFunctionData({
+							abi: ERC20_ABI,
+							functionName: 'transferFrom',
+							args: [caller, caller, 420n],
+						}),
+						to: ERC20_ADDRESS,
+					},
+				}),
+			).toEqual({
+				error: {
+					code: 'revert',
+					...{
+						data: {
+							errors: ['There was an error executing the evm'],
+						},
+					},
+					message: 'There was an error executing the evm',
+				},
+				id: 1,
 				jsonrpc: '2.0',
 				method: 'tevm_script',
-				id: 1,
-				params: {
-					deployedBytecode: ERC20_BYTECODE,
-					data: encodeFunctionData({
-						abi: ERC20_ABI,
-						functionName: 'balanceOf',
-						args: [ERC20_ADDRESS],
-					}),
-					to: ERC20_ADDRESS,
+			})
+		})
+
+		it('should handle the handler function unexpectedly throwing', async () => {
+			const evm = new EVM({})
+			evm.runCall = async () => {
+				throw new Error('unexpected error')
+			}
+			expect(
+				await scriptProcedure(evm)({
+					jsonrpc: '2.0',
+					method: 'tevm_script',
+					id: 1,
+					params: {
+						deployedBytecode: ERC20_BYTECODE,
+						data: encodeFunctionData({
+							abi: ERC20_ABI,
+							functionName: 'balanceOf',
+							args: [ERC20_ADDRESS],
+						}),
+						to: ERC20_ADDRESS,
+					},
+				}),
+			).toEqual({
+				error: {
+					code: 'UnexpectedError',
+					...{
+						data: {
+							errors: ['unexpected error'],
+						},
+					},
+					message: 'unexpected error',
 				},
-			}),
-		).toEqual({
-			method: 'tevm_script',
-			jsonrpc: '2.0',
-			id: 1,
-			result: {
-				rawData:
-					'0x0000000000000000000000000000000000000000000000000000000000000000',
-				executionGasUsed: numberToHex(2447n),
-				selfdestruct: [],
-				gas: numberToHex(16774768n),
-				logs: [],
-				createdAddresses: [],
-			},
+				id: 1,
+				jsonrpc: '2.0',
+				method: 'tevm_script',
+			})
 		})
 	})
 })
