@@ -197,7 +197,7 @@ ___
 
 ### ContractResult
 
-Ƭ **ContractResult**\<`TAbi`, `TFunctionName`, `ErrorType`\>: [`CallResult`](index.md#callresult)\<`ErrorType`\> & \{ `data`: `DecodeFunctionResultReturnType`\<`TAbi`, `TFunctionName`\>  }
+Ƭ **ContractResult**\<`TAbi`, `TFunctionName`, `ErrorType`\>: `Omit`\<[`CallResult`](index.md#callresult), ``"errors"``\> & \{ `data`: `DecodeFunctionResultReturnType`\<`TAbi`, `TFunctionName`\> ; `errors?`: `never`  } \| [`CallResult`](index.md#callresult)\<`ErrorType`\> & \{ `data?`: `never`  }
 
 #### Type parameters
 
@@ -276,7 +276,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:485
+vm/api/dist/index.d.ts:488
 
 ___
 
@@ -321,7 +321,7 @@ A Tevm JSON-RPC request
 
 #### Defined in
 
-vm/api/dist/index.d.ts:550
+vm/api/dist/index.d.ts:553
 
 ___
 
@@ -354,7 +354,7 @@ Generic and returns the correct response type for a given request
 
 #### Defined in
 
-vm/api/dist/index.d.ts:612
+vm/api/dist/index.d.ts:615
 
 ## Functions
 

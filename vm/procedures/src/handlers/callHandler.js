@@ -13,10 +13,8 @@ export const callHandler = (evm) => async (params) => {
 		return { errors, executionGasUsed: 0n, rawData: '0x' }
 	}
 
-	const opts = callHandlerOpts(params)
-
 	try {
-		const evmResult = await evm.runCall(opts)
+		const evmResult = await evm.runCall(callHandlerOpts(params))
 		return callHandlerResult(evmResult)
 	} catch (e) {
 		return {

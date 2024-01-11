@@ -205,7 +205,7 @@ Account JSON-RPC tevm procedure puts an account or contract into the tevm state
 
 #### Defined in
 
-vm/api/dist/index.d.ts:584
+vm/api/dist/index.d.ts:587
 
 ___
 
@@ -217,7 +217,7 @@ JSON-RPC request for `tevm_account` method
 
 #### Defined in
 
-vm/api/dist/index.d.ts:512
+vm/api/dist/index.d.ts:515
 
 ___
 
@@ -227,7 +227,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:569
+vm/api/dist/index.d.ts:572
 
 ___
 
@@ -365,7 +365,7 @@ Call JSON-RPC procedure executes a call against the tevm EVM
 
 #### Defined in
 
-vm/api/dist/index.d.ts:589
+vm/api/dist/index.d.ts:592
 
 ___
 
@@ -377,7 +377,7 @@ JSON-RPC request for `tevm_call`
 
 #### Defined in
 
-vm/api/dist/index.d.ts:517
+vm/api/dist/index.d.ts:520
 
 ___
 
@@ -387,7 +387,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:571
+vm/api/dist/index.d.ts:574
 
 ___
 
@@ -456,7 +456,7 @@ Since ContractJsonRpcProcedure is a quality of life wrapper around CallJsonRpcPr
 
 #### Defined in
 
-vm/api/dist/index.d.ts:596
+vm/api/dist/index.d.ts:599
 
 ___
 
@@ -469,7 +469,7 @@ in favor of overloading tevm_call
 
 #### Defined in
 
-vm/api/dist/index.d.ts:523
+vm/api/dist/index.d.ts:526
 
 ___
 
@@ -482,7 +482,7 @@ in favor of overloading tevm_call
 
 #### Defined in
 
-vm/api/dist/index.d.ts:577
+vm/api/dist/index.d.ts:580
 
 ___
 
@@ -792,7 +792,7 @@ Helper type for creating JSON-RPC request types
 
 #### Defined in
 
-vm/api/dist/index.d.ts:502
+vm/api/dist/index.d.ts:505
 
 ___
 
@@ -810,7 +810,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:552
+vm/api/dist/index.d.ts:555
 
 ___
 
@@ -911,7 +911,7 @@ Procedure for handling script JSON-RPC requests
 
 #### Defined in
 
-vm/api/dist/index.d.ts:601
+vm/api/dist/index.d.ts:604
 
 ___
 
@@ -923,7 +923,7 @@ The JSON-RPC request for the `tevm_script` method
 
 #### Defined in
 
-vm/api/dist/index.d.ts:544
+vm/api/dist/index.d.ts:547
 
 ___
 
@@ -933,7 +933,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:579
+vm/api/dist/index.d.ts:582
 
 ___
 
@@ -957,7 +957,7 @@ for each type of request
 
 #### Defined in
 
-vm/api/dist/index.d.ts:619
+vm/api/dist/index.d.ts:622
 
 ___
 
