@@ -40,6 +40,11 @@ export const validateContractParams = (action) => {
 				)
 			})
 		}
+		if (formattedErrors.to) {
+			formattedErrors.to._errors.forEach((error) => {
+				errors.push(createError('InvalidAddressError', error, action.to))
+			})
+		}
 	}
 
 	return errors
