@@ -587,11 +587,11 @@ Error type of errors thrown while internally executing a call in the EVM
 
 | Name | Type |
 | :------ | :------ |
-| `TEVMErrorMessage` | extends `EVMErrorMessage` = `EVMErrorMessage` |
+| `TEVMErrorMessage` | extends `TevmEVMErrorMessage` = `TevmEVMErrorMessage` |
 
 #### Defined in
 
-[errors/EvmError.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/errors/EvmError.ts#L7)
+[errors/EvmError.ts:45](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/errors/EvmError.ts#L45)
 
 ___
 
