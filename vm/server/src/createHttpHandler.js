@@ -8,7 +8,32 @@ import { zJsonRpcRequest } from '@tevm/zod'
  */
 
 /**
+ * Creates a Node.js http handler for handling JSON-RPC requests with Ethereumjs EVM
+ * Any unimplemented methods will be proxied to the given proxyUrl
+ * This handler works for any server that supports the Node.js http module
  * @param {CreateHttpHandlerParameters} parameters
+ * @returns {import('http').RequestListener}
+ * @example 
+ * import { createHttpHandler } from '@tevm/http'
+ * import { Tevm } from '@tevm/vm'
+ * import { createServer } from 'http'
+ *
+ * const PORT = 8080
+ *
+ * const vm = new Tevm({
+ *   fork: {
+ *     url: 'https://mainnet.optimism.io'
+ *   }
+ * })
+ *
+ * const server = createServer(
+ *   createHttpHandler({  
+ *     evm: vm, 
+ *     proxyUrl: 'https://mainnet.optimism.io' 
+ *   })
+ * )
+ * server.listen(PORT, () => console.log({ listening: PORT }))
+ *
  */
 export const createHttpHandler = ({ evm, proxyUrl }) => {
 	/**
