@@ -1,10 +1,9 @@
 import { BadRequestError } from './BadRequestError.js'
-import { UnexpectedInternalServerError } from './UnexpectedInternalServerError.js'
-import { processRequest } from './processRequest.js'
+import { UnexpectedInternalServerError } from '@tevm/vm'
 import { zJsonRpcRequest } from '@tevm/zod'
 
 /**
- * @typedef {{evm: import('@ethereumjs/evm').EVM, proxyUrl?: string}} CreateHttpHandlerParameters
+ * @typedef {{request: import('@tevm/api').TevmJsonRpcRequestHandler}} CreateHttpHandlerParameters
  */
 
 /**
@@ -35,7 +34,7 @@ import { zJsonRpcRequest } from '@tevm/zod'
  * server.listen(PORT, () => console.log({ listening: PORT }))
  *
  */
-export const createHttpHandler = ({ evm, proxyUrl }) => {
+export const createHttpHandler = (parameters) => {
 	/**
 	 * @param {import('http').IncomingMessage} req
 	 * @param {import('http').ServerResponse} res
@@ -98,7 +97,9 @@ export const createHttpHandler = ({ evm, proxyUrl }) => {
 				 */
 				const requests = parsedRequest.data
 				const responses = await Promise.allSettled(
-					requests.map(processRequest(evm, proxyUrl)),
+					requests.map((request) =>
+						parameters.request(/** @type any*/ (request)),
+					),
 				)
 				responses.map((response, i) => {
 					const request =
@@ -128,7 +129,10 @@ export const createHttpHandler = ({ evm, proxyUrl }) => {
 						parsedRequest.data
 					)
 				try {
-					const response = await processRequest(evm, proxyUrl)(request)
+					// TODO update this type to accept any jsonrpc request if a fork url pass through exists
+					// We don't officially support it until we explicitly implement all the endpoints instead of
+					// blindly passing through
+					const response = await parameters.request(/** @type any*/ (request))
 					res.writeHead(200, { 'Content-Type': 'application/json' })
 					return res.end(JSON.stringify(response))
 				} catch (e) {

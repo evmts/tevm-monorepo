@@ -55,7 +55,6 @@
 			"dependsOn": ["^build:types"],
 			"outputs": [
 				"{projectRoot}/dist/**/*.d.ts",
-				"{projectRoot}/types",
 				"{projectRoot}/dist/**/*.d.cts",
 				"{projectRoot}/dist/**/*.d.mts"
 			],

@@ -1,4 +1,4 @@
-import { UnexpectedInternalServerError } from './UnexpectedInternalServerError.js'
+import { UnexpectedInternalServerError } from './errors/index.js'
 import { proxyRequest } from './proxyRequest.js'
 import { requestProcedure } from '@tevm/procedures'
 

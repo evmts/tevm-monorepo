@@ -4,6 +4,12 @@
 
 ## Table of contents
 
+### Classes
+
+- [NoProxyConfiguredError](classes/NoProxyConfiguredError.md)
+- [ProxyFetchError](classes/ProxyFetchError.md)
+- [UnexpectedInternalServerError](classes/UnexpectedInternalServerError.md)
+
 ### Type Aliases
 
 - [CreateEVMOptions](modules.md#createevmoptions)
@@ -34,7 +40,7 @@ Options for creating an Tevm instance
 
 #### Defined in
 
-[CreateEVMOptions.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/vm/vm/src/CreateEVMOptions.ts#L8)
+[vm/vm/src/CreateEVMOptions.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/vm/vm/src/CreateEVMOptions.ts#L8)
 
 ___
 
@@ -49,7 +55,7 @@ TODO this should be modified to take a hex address rather than an ethjs address 
 
 #### Defined in
 
-[CustomPrecompile.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/vm/vm/src/CustomPrecompile.ts#L16)
+[vm/vm/src/CustomPrecompile.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/vm/vm/src/CustomPrecompile.ts#L16)
 
 ___
 
@@ -68,13 +74,13 @@ Options fetch state that isn't available locally.
 
 #### Defined in
 
-[ForkOptions.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/vm/vm/src/ForkOptions.ts#L4)
+[vm/vm/src/ForkOptions.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/vm/vm/src/ForkOptions.ts#L4)
 
 ___
 
 ### Tevm
 
-Ƭ **Tevm**: `Tevm` & \{ `_evm`: `TevmEvm` ; `createHttpHandler`: () => `ReturnType`\<typeof `createHttpHandler`\> ; `forkUrl?`: `string`  }
+Ƭ **Tevm**: `Tevm` & \{ `_evm`: `TevmEvm` ; `forkUrl?`: `string`  }
 
 A local EVM instance running in JavaScript. Similar to Anvil in your browser
 
@@ -109,7 +115,7 @@ const balance = await tevm.runContractCall(
 
 #### Defined in
 
-[Tevm.ts:35](https://github.com/evmts/tevm-monorepo/blob/main/vm/vm/src/Tevm.ts#L35)
+[vm/vm/src/Tevm.ts:34](https://github.com/evmts/tevm-monorepo/blob/main/vm/vm/src/Tevm.ts#L34)
 
 ## Functions
 
@@ -160,4 +166,4 @@ const balance = await tevm.runContractCall(
 
 #### Defined in
 
-[createTevm.js:46](https://github.com/evmts/tevm-monorepo/blob/main/vm/vm/src/createTevm.js#L46)
+[vm/vm/src/createTevm.js:45](https://github.com/evmts/tevm-monorepo/blob/main/vm/vm/src/createTevm.js#L45)

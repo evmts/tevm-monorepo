@@ -1,5 +1,4 @@
-import { NoProxyConfiguredError } from './NoProxyConfiguredError.js'
-import { ProxyFetchError } from './ProxyFetchError.js'
+import { NoProxyConfiguredError, ProxyFetchError } from './errors/index.js'
 import { createJsonRpcFetcher } from '@tevm/jsonrpc'
 
 /**

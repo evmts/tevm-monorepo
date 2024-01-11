@@ -1,13 +1,12 @@
 import { TevmEvm } from './Tevm.js'
+import { processRequest } from './processRequest.js'
 import { Common, Hardfork } from '@ethereumjs/common'
 import {
 	accountHandler,
 	callHandler,
 	contractHandler,
-	requestProcedure,
 	scriptHandler,
 } from '@tevm/procedures'
-import { createHttpHandler as _createHttpHandler } from '@tevm/server'
 import { DefaultTevmStateManager, TevmStateManager } from '@tevm/state'
 import { createPublicClient, http } from 'viem'
 
@@ -78,18 +77,11 @@ export const createTevm = async (options = {}) => {
 	 */
 	const tevm = {
 		_evm: evm,
-		request: requestProcedure(evm),
+		request: processRequest(evm, options.fork?.url),
 		script: scriptHandler(evm),
 		account: accountHandler(evm),
 		call: callHandler(evm),
 		contract: contractHandler(evm),
-		createHttpHandler: () => {
-			if (tevm.forkUrl) {
-				return _createHttpHandler({ evm: tevm._evm, proxyUrl: tevm.forkUrl })
-			} else {
-				return _createHttpHandler({ evm: tevm._evm })
-			}
-		},
 		...(options.fork?.url
 			? { forkUrl: options.fork.url }
 			: { forkUrl: options.fork?.url }),

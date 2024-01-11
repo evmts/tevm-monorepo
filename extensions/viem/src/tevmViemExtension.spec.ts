@@ -1,6 +1,7 @@
 import { ERC20 } from './tests/ERC20.sol.js'
 import { tevmViemExtension } from './tevmViemExtension.js'
 import { Address } from '@ethereumjs/util'
+import { createHttpHandler } from '@tevm/server'
 import type { Tevm } from '@tevm/vm'
 import { createTevm } from '@tevm/vm'
 import { afterAll, beforeAll, describe, expect, it } from 'bun:test'
@@ -14,7 +15,7 @@ describe('tevmViemExtension', () => {
 
 	beforeAll(async () => {
 		tevm = await createTevm({ fork: { url: 'https://mainnet.optimism.io' } })
-		server = createServer(tevm.createHttpHandler()).listen(6969)
+		server = createServer(createHttpHandler(tevm)).listen(6969)
 		client = createPublicClient({
 			transport: http('http://localhost:6969'),
 		})
