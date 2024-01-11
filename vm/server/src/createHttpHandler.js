@@ -13,7 +13,7 @@ import { zJsonRpcRequest } from '@tevm/zod'
  * This handler works for any server that supports the Node.js http module
  * @param {CreateHttpHandlerParameters} parameters
  * @returns {import('http').RequestListener}
- * @example 
+ * @example
  * import { createHttpHandler } from '@tevm/http'
  * import { Tevm } from '@tevm/vm'
  * import { createServer } from 'http'
@@ -27,9 +27,9 @@ import { zJsonRpcRequest } from '@tevm/zod'
  * })
  *
  * const server = createServer(
- *   createHttpHandler({  
- *     evm: vm, 
- *     proxyUrl: 'https://mainnet.optimism.io' 
+ *   createHttpHandler({
+ *     evm: vm,
+ *     proxyUrl: 'https://mainnet.optimism.io'
  *   })
  * )
  * server.listen(PORT, () => console.log({ listening: PORT }))

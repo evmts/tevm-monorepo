@@ -1,9 +1,7 @@
 import { accountHandler } from './accountHandler.js'
-import { callHandler } from './callHandler.js'
+import { contractHandler } from './contractHandler.js'
 import { EVM, EVMErrorMessage } from '@ethereumjs/evm'
-import { Address } from '@ethereumjs/util'
 import { describe, expect, it } from 'bun:test'
-import { encodeFunctionData } from 'viem'
 
 const ERC20_ADDRESS = `0x${'3'.repeat(40)}` as const
 const ERC20_BYTECODE =
@@ -291,7 +289,7 @@ const ERC20_ABI = [
 	},
 ] as const
 
-describe('callHandler', () => {
+describe('contractHandler', () => {
 	it('should execute a contract call', async () => {
 		const evm = new EVM({})
 		// deploy contract
@@ -305,16 +303,15 @@ describe('callHandler', () => {
 		).toBeUndefined()
 		// test contract call
 		expect(
-			await callHandler(evm)({
-				data: encodeFunctionData({
-					abi: ERC20_ABI,
-					functionName: 'balanceOf',
-					args: [ERC20_ADDRESS],
-				}),
+			await contractHandler(evm)({
+				abi: ERC20_ABI,
+				functionName: 'balanceOf',
+				args: [ERC20_ADDRESS],
 				to: ERC20_ADDRESS,
 				gasLimit: 16784800n,
 			}),
 		).toEqual({
+			data: 0n,
 			rawData:
 				'0x0000000000000000000000000000000000000000000000000000000000000000',
 			executionGasUsed: 2447n,
@@ -323,26 +320,6 @@ describe('callHandler', () => {
 			logs: [],
 			createdAddresses: new Set(),
 		})
-	})
-
-	it('should be able to send value', async () => {
-		const evm = new EVM({})
-		const to = `0x${'69'.repeat(20)}` as const
-		// send value
-		expect(
-			await callHandler(evm)({
-				to,
-				value: 420n,
-				skipBalance: true,
-			}),
-		).toEqual({
-			executionGasUsed: 0n,
-			rawData: '0x',
-		})
-
-		expect(
-			(await evm.stateManager.getAccount(Address.fromString(to)))?.balance,
-		).toEqual(420n)
 	})
 
 	it('should handle errors returned during contract call', async () => {
@@ -359,15 +336,14 @@ describe('callHandler', () => {
 		// test contract call that should fail from lack of owning any tokens
 		const caller = `0x${'23'.repeat(20)}` as const
 		expect(
-			await callHandler(evm)({
-				data: encodeFunctionData({
-					abi: ERC20_ABI,
-					functionName: 'transferFrom',
-					args: [caller, caller, 1n],
-				}),
+			await contractHandler(evm)({
+				abi: ERC20_ABI,
+				functionName: 'transferFrom',
+				args: [caller, caller, 1n],
 				to: ERC20_ADDRESS,
 			}),
 		).toEqual({
+			...({} as { data: never }),
 			logs: [],
 			createdAddresses: new Set(),
 			errors: [
@@ -385,23 +361,100 @@ describe('callHandler', () => {
 		})
 	})
 
-	it('should handle the EVM unexpectedly throwing', async () => {
+	it('should handle a contract not existing', async () => {
 		const evm = new EVM({})
-		evm.runCall = () => {
-			throw new Error('Unexpected error')
-		}
+		const caller = `0x${'23'.repeat(20)}` as const
 		expect(
-			await callHandler(evm)({
-				data: '0x0',
+			await contractHandler(evm)({
+				abi: ERC20_ABI,
+				functionName: 'transferFrom',
+				args: [caller, caller, 1n],
 				to: ERC20_ADDRESS,
 				value: 420n,
 			}),
 		).toEqual({
+			...({} as { data: never }),
+			errors: [
+				{
+					_tag: 'InvalidRequestError',
+					message:
+						'Contract at address 0x3333333333333333333333333333333333333333 does not exist',
+					name: 'InvalidRequestError',
+				},
+			],
+			executionGasUsed: 0n,
+			rawData: '0x',
+		})
+	})
+
+	it('should handle the EVM unexpectedly throwing', async () => {
+		const evm = new EVM({})
+		// deploy contract
+		expect(
+			(
+				await accountHandler(evm)({
+					address: ERC20_ADDRESS,
+					deployedBytecode: ERC20_BYTECODE,
+				})
+			).errors,
+		).toBeUndefined()
+		evm.runCall = () => {
+			throw new Error('Unexpected error')
+		}
+		const caller = `0x${'23'.repeat(20)}` as const
+		expect(
+			await contractHandler(evm)({
+				abi: ERC20_ABI,
+				functionName: 'transferFrom',
+				args: [caller, caller, 1n],
+				to: ERC20_ADDRESS,
+				value: 420n,
+			}),
+		).toEqual({
+			...({} as { data: never }),
 			errors: [
 				{
 					_tag: 'UnexpectedError',
 					message: 'Unexpected error',
 					name: 'UnexpectedError',
+				},
+			],
+			executionGasUsed: 0n,
+			rawData: '0x',
+		})
+	})
+
+	it('should handle the invalid contract params', async () => {
+		const evm = new EVM({})
+		// deploy contract
+		expect(
+			(
+				await accountHandler(evm)({
+					address: ERC20_ADDRESS,
+					deployedBytecode: ERC20_BYTECODE,
+				})
+			).errors,
+		).toBeUndefined()
+
+		expect(await contractHandler(evm)({} as any)).toEqual({
+			...({} as { data: never }),
+			errors: [
+				{
+					_tag: 'InvalidAbiError',
+					message: 'InvalidAbiError: Required',
+					name: 'InvalidAbiError',
+				},
+
+				{
+					_tag: 'InvalidFunctionNameError',
+					...{ input: 'undefined' },
+					message: 'InvalidFunctionNameError: Required',
+					name: 'InvalidFunctionNameError',
+				},
+				{
+					_tag: 'InvalidAddressError',
+					message: 'InvalidAddressError: Required',
+					name: 'InvalidAddressError',
 				},
 			],
 			executionGasUsed: 0n,
