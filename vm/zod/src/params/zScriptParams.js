@@ -13,10 +13,7 @@ export const zScriptParams = zBaseCallParams
 			.array(z.any())
 			.optional()
 			.describe('The arguments to pass to the function'),
-		functionName: z
-			.string()
-			.optional()
-			.describe('The name of the function to call'),
+		functionName: z.string().describe('The name of the function to call'),
 		deployedBytecode: zHex.describe('The deployed bytecode of the contract'),
 	})
 	.describe('Params to run a script or contract')

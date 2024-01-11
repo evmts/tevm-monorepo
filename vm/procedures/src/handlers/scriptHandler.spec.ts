@@ -326,6 +326,12 @@ describe('scriptHandler', () => {
 					message: 'InvalidAbiError: Required',
 					name: 'InvalidAbiError',
 				},
+				{
+					_tag: 'InvalidFunctionNameError',
+					...{ input: 'undefined' },
+					message: 'InvalidFunctionNameError: Required',
+					name: 'InvalidFunctionNameError',
+				},
 			],
 			executionGasUsed: 0n,
 			rawData: '0x',
