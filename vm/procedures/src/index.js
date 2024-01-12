@@ -11,6 +11,8 @@ export {
 	getBalanceHandler,
 	getStorageAtHandler,
 	NoForkUrlSetError,
+	dumpStateHandler,
+	loadStateHandler,
 } from './handlers/index.js'
 export {
 	callProcedure,
@@ -23,4 +25,6 @@ export {
 	gasPriceProcedure,
 	getBalanceProcedure,
 	getStorageAtProcedure,
+	dumpStateProcedure,
+	loadStateProcedure,
 } from './jsonrpc/index.js'

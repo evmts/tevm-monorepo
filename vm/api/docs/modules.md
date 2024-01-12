@@ -121,6 +121,11 @@
 - [DebugTraceTransactionParams](modules.md#debugtracetransactionparams)
 - [DebugTraceTransactionProcedure](modules.md#debugtracetransactionprocedure)
 - [DebugTraceTransactionResult](modules.md#debugtracetransactionresult)
+- [DumpStateError](modules.md#dumpstateerror)
+- [DumpStateHandler](modules.md#dumpstatehandler)
+- [DumpStateJsonRpcProcedure](modules.md#dumpstatejsonrpcprocedure)
+- [DumpStateJsonRpcRequest](modules.md#dumpstatejsonrpcrequest)
+- [DumpStateResult](modules.md#dumpstateresult)
 - [EthAccountsHandler](modules.md#ethaccountshandler)
 - [EthAccountsJsonRpcProcedure](modules.md#ethaccountsjsonrpcprocedure)
 - [EthAccountsJsonRpcRequest](modules.md#ethaccountsjsonrpcrequest)
@@ -378,6 +383,12 @@
 - [InvalidValueError](modules.md#invalidvalueerror)
 - [JsonRpcRequest](modules.md#jsonrpcrequest)
 - [JsonRpcResponse](modules.md#jsonrpcresponse)
+- [LoadStateError](modules.md#loadstateerror)
+- [LoadStateHandler](modules.md#loadstatehandler)
+- [LoadStateJsonRpcProcedure](modules.md#loadstatejsonrpcprocedure)
+- [LoadStateJsonRpcRequest](modules.md#loadstatejsonrpcrequest)
+- [LoadStateJsonRpcResponse](modules.md#loadstatejsonrpcresponse)
+- [LoadStateParams](modules.md#loadstateparams)
 - [Log](modules.md#log)
 - [ScriptError](modules.md#scripterror)
 - [ScriptHandler](modules.md#scripthandler)
@@ -2474,6 +2485,114 @@ ___
 #### Defined in
 
 [result/DebugResult.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/DebugResult.ts#L14)
+
+___
+
+### DumpStateError
+
+Ƭ **DumpStateError**: [`InvalidRequestError`](modules.md#invalidrequesterror) \| [`UnexpectedError`](modules.md#unexpectederror)
+
+Error Returned by dump state procedure
+
+**`Example`**
+
+```ts
+const {errors} = await tevm.dumpState()
+
+if (errors?.length) {
+  console.log(errors[0].name) // InvalidAddressError
+  console.log(errors[0].message) // Invalid address: 0x1234
+}
+```
+
+#### Defined in
+
+[errors/DumpStateError.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/errors/DumpStateError.ts#L14)
+
+___
+
+### DumpStateHandler
+
+Ƭ **DumpStateHandler**: () => `Promise`\<[`DumpStateResult`](modules.md#dumpstateresult)\>
+
+#### Type declaration
+
+▸ (): `Promise`\<[`DumpStateResult`](modules.md#dumpstateresult)\>
+
+Handler for account tevm procedure
+
+##### Returns
+
+`Promise`\<[`DumpStateResult`](modules.md#dumpstateresult)\>
+
+#### Defined in
+
+[handlers/DumpStateHandler.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/handlers/DumpStateHandler.ts#L6)
+
+___
+
+### DumpStateJsonRpcProcedure
+
+Ƭ **DumpStateJsonRpcProcedure**: (`request`: [`DumpStateJsonRpcRequest`](modules.md#dumpstatejsonrpcrequest)) => `Promise`\<`DumpStateJsonRpcResponse`\>
+
+#### Type declaration
+
+▸ (`request`): `Promise`\<`DumpStateJsonRpcResponse`\>
+
+Procedure for handling script JSON-RPC requests
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `request` | [`DumpStateJsonRpcRequest`](modules.md#dumpstatejsonrpcrequest) |
+
+##### Returns
+
+`Promise`\<`DumpStateJsonRpcResponse`\>
+
+#### Defined in
+
+[procedure/DumpStateJsonRpcProcedure.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/procedure/DumpStateJsonRpcProcedure.ts#L7)
+
+___
+
+### DumpStateJsonRpcRequest
+
+Ƭ **DumpStateJsonRpcRequest**: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"tevm_dump_state"``, `void`\>
+
+The JSON-RPC request for the `tevm_script` method
+Takes no parameters at this time thus retrieving the state for every account
+TODO: Add parameters to request only a subset of the state
+
+#### Defined in
+
+[requests/DumpStateJsonRpcRequest.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/requests/DumpStateJsonRpcRequest.ts#L8)
+
+___
+
+### DumpStateResult
+
+Ƭ **DumpStateResult**\<`ErrorType`\>: `Object`
+
+Result of Account Action
+
+#### Type parameters
+
+| Name | Type |
+| :------ | :------ |
+| `ErrorType` | [`DumpStateError`](modules.md#dumpstateerror) |
+
+#### Type declaration
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `errors?` | `ErrorType`[] | Description of the exception, if any occurred |
+| `state` | `SerializableTevmState` | The serialized tevm state |
+
+#### Defined in
+
+[result/DumpStateResult.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/DumpStateResult.ts#L7)
 
 ___
 
@@ -5215,7 +5334,7 @@ ___
 
 #### Defined in
 
-[TevmJsonRpcRequestHandler.ts:158](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/TevmJsonRpcRequestHandler.ts#L158)
+[TevmJsonRpcRequestHandler.ts:162](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/TevmJsonRpcRequestHandler.ts#L162)
 
 ___
 
@@ -6636,6 +6755,119 @@ ___
 
 ___
 
+### LoadStateError
+
+Ƭ **LoadStateError**: [`InvalidRequestError`](modules.md#invalidrequesterror) \| [`UnexpectedError`](modules.md#unexpectederror)
+
+Error Returned by load state procedure
+
+**`Example`**
+
+```ts
+const {errors} = await tevm.loadState()
+
+if (errors?.length) {
+  console.log(errors[0].name) // InvalidAddressError
+  console.log(errors[0].message) // Invalid address: 0x1234
+}
+```
+
+#### Defined in
+
+[errors/LoadStateError.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/errors/LoadStateError.ts#L14)
+
+___
+
+### LoadStateHandler
+
+Ƭ **LoadStateHandler**: (`params`: [`LoadStateParams`](modules.md#loadstateparams)) => `Promise`\<`LoadStateResult`\>
+
+#### Type declaration
+
+▸ (`params`): `Promise`\<`LoadStateResult`\>
+
+Handler for load state tevm procedure
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `params` | [`LoadStateParams`](modules.md#loadstateparams) |
+
+##### Returns
+
+`Promise`\<`LoadStateResult`\>
+
+#### Defined in
+
+[handlers/LoadStateHandler.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/handlers/LoadStateHandler.ts#L7)
+
+___
+
+### LoadStateJsonRpcProcedure
+
+Ƭ **LoadStateJsonRpcProcedure**: (`request`: [`LoadStateJsonRpcRequest`](modules.md#loadstatejsonrpcrequest)) => `Promise`\<[`LoadStateJsonRpcResponse`](modules.md#loadstatejsonrpcresponse)\>
+
+#### Type declaration
+
+▸ (`request`): `Promise`\<[`LoadStateJsonRpcResponse`](modules.md#loadstatejsonrpcresponse)\>
+
+Procedure for handling script JSON-RPC requests
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `request` | [`LoadStateJsonRpcRequest`](modules.md#loadstatejsonrpcrequest) |
+
+##### Returns
+
+`Promise`\<[`LoadStateJsonRpcResponse`](modules.md#loadstatejsonrpcresponse)\>
+
+#### Defined in
+
+[procedure/LoadStateJsonRpcProcedure.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/procedure/LoadStateJsonRpcProcedure.ts#L7)
+
+___
+
+### LoadStateJsonRpcRequest
+
+Ƭ **LoadStateJsonRpcRequest**: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"tevm_load_state"``, `SerializedParams`\>
+
+The JSON-RPC request for the `tevm_script` method
+
+#### Defined in
+
+[requests/LoadStateJsonRpcRequest.ts:18](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/requests/LoadStateJsonRpcRequest.ts#L18)
+
+___
+
+### LoadStateJsonRpcResponse
+
+Ƭ **LoadStateJsonRpcResponse**: [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"tevm_load_state"``, `SerializeToJson`\<`LoadStateResult`\>, [`LoadStateError`](modules.md#loadstateerror)[``"_tag"``]\>
+
+#### Defined in
+
+[responses/LoadStateJsonRpcResponse.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/responses/LoadStateJsonRpcResponse.ts#L6)
+
+___
+
+### LoadStateParams
+
+Ƭ **LoadStateParams**: `Object`
+
+#### Type declaration
+
+| Name | Type |
+| :------ | :------ |
+| `state` | `SerializableTevmState` |
+
+#### Defined in
+
+[params/LoadStateParams.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/LoadStateParams.ts#L3)
+
+___
+
 ### Log
 
 Ƭ **Log**: `Object`
@@ -6811,8 +7043,10 @@ for each type of request
 | Name | Type |
 | :------ | :------ |
 | `account` | [`AccountHandler`](modules.md#accounthandler) |
+| `blockNumber` | [`EthBlockNumberHandler`](modules.md#ethblocknumberhandler) |
 | `call` | [`CallHandler`](modules.md#callhandler) |
 | `contract` | [`ContractHandler`](modules.md#contracthandler) |
+| `dumpState` | [`DumpStateHandler`](modules.md#dumpstatehandler) |
 | `eth` | \{ `blockNumber`: [`EthBlockNumberHandler`](modules.md#ethblocknumberhandler) ; `chainId`: [`EthChainIdHandler`](modules.md#ethchainidhandler) ; `gasPrice`: [`EthGasPriceHandler`](modules.md#ethgaspricehandler) ; `getBalance`: [`EthGetBalanceHandler`](modules.md#ethgetbalancehandler) ; `getCode`: [`EthGetCodeHandler`](modules.md#ethgetcodehandler) ; `getStorageAt`: [`EthGetStorageAtHandler`](modules.md#ethgetstorageathandler)  } |
 | `eth.blockNumber` | [`EthBlockNumberHandler`](modules.md#ethblocknumberhandler) |
 | `eth.chainId` | [`EthChainIdHandler`](modules.md#ethchainidhandler) |
@@ -6820,12 +7054,13 @@ for each type of request
 | `eth.getBalance` | [`EthGetBalanceHandler`](modules.md#ethgetbalancehandler) |
 | `eth.getCode` | [`EthGetCodeHandler`](modules.md#ethgetcodehandler) |
 | `eth.getStorageAt` | [`EthGetStorageAtHandler`](modules.md#ethgetstorageathandler) |
+| `loadState` | [`LoadStateHandler`](modules.md#loadstatehandler) |
 | `request` | [`TevmJsonRpcRequestHandler`](modules.md#tevmjsonrpcrequesthandler) |
 | `script` | [`ScriptHandler`](modules.md#scripthandler) |
 
 #### Defined in
 
-[Tevm.ts:23](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/Tevm.ts#L23)
+[Tevm.ts:25](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/Tevm.ts#L25)
 
 ___
 
@@ -6841,14 +7076,14 @@ ___
 
 ### TevmJsonRpcRequest
 
-Ƭ **TevmJsonRpcRequest**: [`AccountJsonRpcRequest`](modules.md#accountjsonrpcrequest) \| [`CallJsonRpcRequest`](modules.md#calljsonrpcrequest) \| [`ContractJsonRpcRequest`](modules.md#contractjsonrpcrequest) \| [`ScriptJsonRpcRequest`](modules.md#scriptjsonrpcrequest)
+Ƭ **TevmJsonRpcRequest**: [`AccountJsonRpcRequest`](modules.md#accountjsonrpcrequest) \| [`CallJsonRpcRequest`](modules.md#calljsonrpcrequest) \| [`ContractJsonRpcRequest`](modules.md#contractjsonrpcrequest) \| [`ScriptJsonRpcRequest`](modules.md#scriptjsonrpcrequest) \| [`LoadStateJsonRpcRequest`](modules.md#loadstatejsonrpcrequest) \| [`DumpStateJsonRpcRequest`](modules.md#dumpstatejsonrpcrequest)
 
 A Tevm JSON-RPC request
 `tevm_account`, `tevm_call`, `tevm_contract`, `tevm_script`
 
 #### Defined in
 
-[requests/TevmJsonRpcRequest.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/requests/TevmJsonRpcRequest.ts#L10)
+[requests/TevmJsonRpcRequest.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/requests/TevmJsonRpcRequest.ts#L11)
 
 ___
 
@@ -6881,7 +7116,7 @@ Generic and returns the correct response type for a given request
 
 #### Defined in
 
-[TevmJsonRpcRequestHandler.ts:148](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/TevmJsonRpcRequestHandler.ts#L148)
+[TevmJsonRpcRequestHandler.ts:152](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/TevmJsonRpcRequestHandler.ts#L152)
 
 ___
 

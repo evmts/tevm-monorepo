@@ -1,31 +1,50 @@
+import { createError } from './createError.js'
 import { Address } from '@ethereumjs/util'
 import { DefaultTevmStateManager, TevmStateManager } from '@tevm/state'
 /**
  * @param {TevmStateManager | DefaultTevmStateManager} stateManager
- * @returns {Promise<import('@tevm/state').SerializableTevmState>}
+ * @returns {import('@tevm/api').DumpStateHandler}
  */
-export const runDumpStateActionHandler = async (stateManager) => {
-	const accountAddresses = await stateManager.getAccountAddresses()
+export const dumpStateHandler = (stateManager) => async () => {
+	const accountAddresses = stateManager.getAccountAddresses()
 
 	/**
 	 * @type {import('@tevm/state').SerializableTevmState}
 	 */
 	const state = {}
 
-	for (const address of accountAddresses) {
-		const hexAddress = `0x${address}`
-		const account = await stateManager.getAccount(
-			Address.fromString(hexAddress),
-		)
-
-		if (account !== undefined) {
-			const storage = await stateManager.dumpStorage(
+	try {
+		for (const address of accountAddresses) {
+			const hexAddress = `0x${address}`
+			const account = await stateManager.getAccount(
 				Address.fromString(hexAddress),
 			)
 
-			state[hexAddress] = { ...account, storage }
+			if (account !== undefined) {
+				const storage = await stateManager.dumpStorage(
+					Address.fromString(hexAddress),
+				)
+
+				state[hexAddress] = { ...account, storage }
+			}
+		}
+	} catch (e) {
+		return {
+			state,
+			errors: [
+				createError(
+					'UnexpectedError',
+					typeof e === 'string'
+						? e
+						: e instanceof Error
+						? e.message
+						: 'unknown error',
+				),
+			],
 		}
 	}
 
-	return state
+	return {
+		state,
+	}
 }

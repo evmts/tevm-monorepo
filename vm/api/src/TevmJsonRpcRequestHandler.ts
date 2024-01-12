@@ -54,12 +54,14 @@ import type {
 	EthSignTransactionJsonRpcResponse,
 	EthSyncingJsonRpcResponse,
 	EthUninstallFilterJsonRpcResponse,
+	LoadStateJsonRpcResponse,
 	ScriptJsonRpcResponse,
 	TevmJsonRpcRequest,
 } from './index.js'
 import type { AnvilJsonRpcRequest } from './requests/AnvilJsonRpcRequest.js'
 import type { DebugJsonRpcRequest } from './requests/DebugJsonRpcRequest.js'
 import type { EthJsonRpcRequest } from './requests/EthJsonRpcRequest.js'
+import type { DumpStateJsonRpcResponse } from './responses/DumpStateJsonRpcResponse.js'
 
 type DebugReturnType = {
 	debug_traceTransaction: DebugTraceTransactionJsonRpcResponse
@@ -128,6 +130,8 @@ type TevmReturnType = {
 	tevm_call: CallJsonRpcResponse
 	tevm_script: ScriptJsonRpcResponse
 	tevm_account: AccountJsonRpcResponse
+	tevm_load_state: LoadStateJsonRpcResponse
+	tevm_dump_state: DumpStateJsonRpcResponse
 }
 
 type ReturnType<

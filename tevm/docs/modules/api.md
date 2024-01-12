@@ -128,6 +128,10 @@
 - [DebugTraceTransactionParams](api.md#debugtracetransactionparams)
 - [DebugTraceTransactionProcedure](api.md#debugtracetransactionprocedure)
 - [DebugTraceTransactionResult](api.md#debugtracetransactionresult)
+- [DumpStateError](api.md#dumpstateerror)
+- [DumpStateHandler](api.md#dumpstatehandler)
+- [DumpStateJsonRpcProcedure](api.md#dumpstatejsonrpcprocedure)
+- [DumpStateResult](api.md#dumpstateresult)
 - [EthAccountsHandler](api.md#ethaccountshandler)
 - [EthAccountsJsonRpcProcedure](api.md#ethaccountsjsonrpcprocedure)
 - [EthAccountsJsonRpcRequest](api.md#ethaccountsjsonrpcrequest)
@@ -385,6 +389,9 @@
 - [InvalidValueError](api.md#invalidvalueerror)
 - [JsonRpcRequest](api.md#jsonrpcrequest)
 - [JsonRpcResponse](api.md#jsonrpcresponse)
+- [LoadStateError](api.md#loadstateerror)
+- [LoadStateHandler](api.md#loadstatehandler)
+- [LoadStateJsonRpcProcedure](api.md#loadstatejsonrpcprocedure)
 - [Log](api.md#log)
 - [ScriptError](api.md#scripterror)
 - [ScriptHandler](api.md#scripthandler)
@@ -484,7 +491,7 @@ if (errors?.length) {
 
 #### Defined in
 
-vm/api/dist/index.d.ts:905
+vm/api/dist/index.d.ts:910
 
 ___
 
@@ -510,7 +517,7 @@ Handler for account tevm procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:925
+vm/api/dist/index.d.ts:954
 
 ___
 
@@ -536,7 +543,7 @@ Account JSON-RPC tevm procedure puts an account or contract into the tevm state
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1866
+vm/api/dist/index.d.ts:1952
 
 ___
 
@@ -548,7 +555,7 @@ JSON-RPC request for `tevm_account` method
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1296
+vm/api/dist/index.d.ts:1359
 
 ___
 
@@ -560,7 +567,7 @@ JSON-RPC response for `tevm_account` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1609
+vm/api/dist/index.d.ts:1693
 
 ___
 
@@ -584,7 +591,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:962
+vm/api/dist/index.d.ts:991
 
 ___
 
@@ -596,7 +603,7 @@ JSON-RPC request for `anvil_dropTransaction` method
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1548
+vm/api/dist/index.d.ts:1632
 
 ___
 
@@ -608,7 +615,7 @@ JSON-RPC response for `anvil_dropTransaction` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1823
+vm/api/dist/index.d.ts:1907
 
 ___
 
@@ -626,7 +633,7 @@ Params for `anvil_dropTransaction` handler
 
 #### Defined in
 
-vm/api/dist/index.d.ts:452
+vm/api/dist/index.d.ts:453
 
 ___
 
@@ -652,7 +659,7 @@ JSON-RPC procedure for `anvil_dropTransaction`
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1951
+vm/api/dist/index.d.ts:2037
 
 ___
 
@@ -662,7 +669,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:948
+vm/api/dist/index.d.ts:977
 
 ___
 
@@ -686,7 +693,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:968
+vm/api/dist/index.d.ts:997
 
 ___
 
@@ -698,7 +705,7 @@ JSON-RPC request for `anvil_dumpState` method
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1572
+vm/api/dist/index.d.ts:1656
 
 ___
 
@@ -710,7 +717,7 @@ JSON-RPC response for `anvil_dumpState` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1847
+vm/api/dist/index.d.ts:1931
 
 ___
 
@@ -722,7 +729,7 @@ Params for `anvil_dumpState` handler
 
 #### Defined in
 
-vm/api/dist/index.d.ts:526
+vm/api/dist/index.d.ts:527
 
 ___
 
@@ -748,7 +755,7 @@ JSON-RPC procedure for `anvil_dumpState`
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1975
+vm/api/dist/index.d.ts:2061
 
 ___
 
@@ -758,7 +765,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:954
+vm/api/dist/index.d.ts:983
 
 ___
 
@@ -782,7 +789,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:959
+vm/api/dist/index.d.ts:988
 
 ___
 
@@ -794,7 +801,7 @@ JSON-RPC request for `anvil_getAutomine` method
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1536
+vm/api/dist/index.d.ts:1620
 
 ___
 
@@ -806,7 +813,7 @@ JSON-RPC response for `anvil_getAutomine` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1811
+vm/api/dist/index.d.ts:1895
 
 ___
 
@@ -818,7 +825,7 @@ Params for `anvil_getAutomine` handler
 
 #### Defined in
 
-vm/api/dist/index.d.ts:420
+vm/api/dist/index.d.ts:421
 
 ___
 
@@ -844,7 +851,7 @@ JSON-RPC procedure for `anvil_getAutomine`
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1939
+vm/api/dist/index.d.ts:2025
 
 ___
 
@@ -854,7 +861,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:945
+vm/api/dist/index.d.ts:974
 
 ___
 
@@ -878,7 +885,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:957
+vm/api/dist/index.d.ts:986
 
 ___
 
@@ -890,7 +897,7 @@ JSON-RPC request for `anvil_impersonateAccount` method
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1524
+vm/api/dist/index.d.ts:1608
 
 ___
 
@@ -902,7 +909,7 @@ JSON-RPC response for `anvil_impersonateAccount` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1799
+vm/api/dist/index.d.ts:1883
 
 ___
 
@@ -920,7 +927,7 @@ Params fro `anvil_impersonateAccount` handler
 
 #### Defined in
 
-vm/api/dist/index.d.ts:398
+vm/api/dist/index.d.ts:399
 
 ___
 
@@ -946,7 +953,7 @@ JSON-RPC procedure for `anvil_impersonateAccount`
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1927
+vm/api/dist/index.d.ts:2013
 
 ___
 
@@ -956,7 +963,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:943
+vm/api/dist/index.d.ts:972
 
 ___
 
@@ -980,7 +987,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:969
+vm/api/dist/index.d.ts:998
 
 ___
 
@@ -992,7 +999,7 @@ JSON-RPC request for `anvil_loadState` method
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1576
+vm/api/dist/index.d.ts:1660
 
 ___
 
@@ -1004,7 +1011,7 @@ JSON-RPC response for `anvil_loadState` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1851
+vm/api/dist/index.d.ts:1935
 
 ___
 
@@ -1022,7 +1029,7 @@ Params for `anvil_loadState` handler
 
 #### Defined in
 
-vm/api/dist/index.d.ts:530
+vm/api/dist/index.d.ts:531
 
 ___
 
@@ -1048,7 +1055,7 @@ JSON-RPC procedure for `anvil_loadState`
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1979
+vm/api/dist/index.d.ts:2065
 
 ___
 
@@ -1058,7 +1065,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:955
+vm/api/dist/index.d.ts:984
 
 ___
 
@@ -1082,7 +1089,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:960
+vm/api/dist/index.d.ts:989
 
 ___
 
@@ -1094,7 +1101,7 @@ JSON-RPC request for `anvil_mine` method
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1540
+vm/api/dist/index.d.ts:1624
 
 ___
 
@@ -1106,7 +1113,7 @@ JSON-RPC response for `anvil_mine` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1815
+vm/api/dist/index.d.ts:1899
 
 ___
 
@@ -1125,7 +1132,7 @@ Params for `anvil_mine` handler
 
 #### Defined in
 
-vm/api/dist/index.d.ts:424
+vm/api/dist/index.d.ts:425
 
 ___
 
@@ -1151,7 +1158,7 @@ JSON-RPC procedure for `anvil_mine`
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1943
+vm/api/dist/index.d.ts:2029
 
 ___
 
@@ -1161,7 +1168,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:946
+vm/api/dist/index.d.ts:975
 
 ___
 
@@ -1185,7 +1192,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:961
+vm/api/dist/index.d.ts:990
 
 ___
 
@@ -1197,7 +1204,7 @@ JSON-RPC request for `anvil_reset` method
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1544
+vm/api/dist/index.d.ts:1628
 
 ___
 
@@ -1209,7 +1216,7 @@ JSON-RPC response for `anvil_reset` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1819
+vm/api/dist/index.d.ts:1903
 
 ___
 
@@ -1229,7 +1236,7 @@ Params for `anvil_reset` handler
 
 #### Defined in
 
-vm/api/dist/index.d.ts:437
+vm/api/dist/index.d.ts:438
 
 ___
 
@@ -1255,7 +1262,7 @@ JSON-RPC procedure for `anvil_reset`
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1947
+vm/api/dist/index.d.ts:2033
 
 ___
 
@@ -1265,7 +1272,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:947
+vm/api/dist/index.d.ts:976
 
 ___
 
@@ -1289,7 +1296,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:963
+vm/api/dist/index.d.ts:992
 
 ___
 
@@ -1301,7 +1308,7 @@ JSON-RPC request for `anvil_setBalance` method
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1552
+vm/api/dist/index.d.ts:1636
 
 ___
 
@@ -1313,7 +1320,7 @@ JSON-RPC response for `anvil_setBalance` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1827
+vm/api/dist/index.d.ts:1911
 
 ___
 
@@ -1332,7 +1339,7 @@ Params for `anvil_setBalance` handler
 
 #### Defined in
 
-vm/api/dist/index.d.ts:461
+vm/api/dist/index.d.ts:462
 
 ___
 
@@ -1358,7 +1365,7 @@ JSON-RPC procedure for `anvil_setBalance`
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1955
+vm/api/dist/index.d.ts:2041
 
 ___
 
@@ -1368,7 +1375,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:949
+vm/api/dist/index.d.ts:978
 
 ___
 
@@ -1392,7 +1399,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:967
+vm/api/dist/index.d.ts:996
 
 ___
 
@@ -1404,7 +1411,7 @@ JSON-RPC request for `anvil_setChainId` method
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1568
+vm/api/dist/index.d.ts:1652
 
 ___
 
@@ -1416,7 +1423,7 @@ JSON-RPC response for `anvil_setChainId` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1843
+vm/api/dist/index.d.ts:1927
 
 ___
 
@@ -1434,7 +1441,7 @@ Params for `anvil_setChainId` handler
 
 #### Defined in
 
-vm/api/dist/index.d.ts:517
+vm/api/dist/index.d.ts:518
 
 ___
 
@@ -1460,7 +1467,7 @@ JSON-RPC procedure for `anvil_setChainId`
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1971
+vm/api/dist/index.d.ts:2057
 
 ___
 
@@ -1470,7 +1477,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:953
+vm/api/dist/index.d.ts:982
 
 ___
 
@@ -1494,7 +1501,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:964
+vm/api/dist/index.d.ts:993
 
 ___
 
@@ -1506,7 +1513,7 @@ JSON-RPC request for `anvil_setCode` method
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1556
+vm/api/dist/index.d.ts:1640
 
 ___
 
@@ -1518,7 +1525,7 @@ JSON-RPC response for `anvil_setCode` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1831
+vm/api/dist/index.d.ts:1915
 
 ___
 
@@ -1537,7 +1544,7 @@ Params for `anvil_setCode` handler
 
 #### Defined in
 
-vm/api/dist/index.d.ts:474
+vm/api/dist/index.d.ts:475
 
 ___
 
@@ -1563,7 +1570,7 @@ JSON-RPC procedure for `anvil_setCode`
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1959
+vm/api/dist/index.d.ts:2045
 
 ___
 
@@ -1573,7 +1580,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:950
+vm/api/dist/index.d.ts:979
 
 ___
 
@@ -1597,7 +1604,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:965
+vm/api/dist/index.d.ts:994
 
 ___
 
@@ -1609,7 +1616,7 @@ JSON-RPC request for `anvil_setNonce` method
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1560
+vm/api/dist/index.d.ts:1644
 
 ___
 
@@ -1621,7 +1628,7 @@ JSON-RPC response for `anvil_setNonce` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1835
+vm/api/dist/index.d.ts:1919
 
 ___
 
@@ -1640,7 +1647,7 @@ Params for `anvil_setNonce` handler
 
 #### Defined in
 
-vm/api/dist/index.d.ts:487
+vm/api/dist/index.d.ts:488
 
 ___
 
@@ -1666,7 +1673,7 @@ JSON-RPC procedure for `anvil_setNonce`
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1963
+vm/api/dist/index.d.ts:2049
 
 ___
 
@@ -1676,7 +1683,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:951
+vm/api/dist/index.d.ts:980
 
 ___
 
@@ -1700,7 +1707,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:966
+vm/api/dist/index.d.ts:995
 
 ___
 
@@ -1712,7 +1719,7 @@ JSON-RPC request for `anvil_setStorageAt` method
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1564
+vm/api/dist/index.d.ts:1648
 
 ___
 
@@ -1724,7 +1731,7 @@ JSON-RPC response for `anvil_setStorageAt` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1839
+vm/api/dist/index.d.ts:1923
 
 ___
 
@@ -1744,7 +1751,7 @@ Params for `anvil_setStorageAt` handler
 
 #### Defined in
 
-vm/api/dist/index.d.ts:500
+vm/api/dist/index.d.ts:501
 
 ___
 
@@ -1770,7 +1777,7 @@ JSON-RPC procedure for `anvil_setStorageAt`
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1967
+vm/api/dist/index.d.ts:2053
 
 ___
 
@@ -1780,7 +1787,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:952
+vm/api/dist/index.d.ts:981
 
 ___
 
@@ -1804,7 +1811,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:958
+vm/api/dist/index.d.ts:987
 
 ___
 
@@ -1816,7 +1823,7 @@ JSON-RPC request for `anvil_stopImpersonatingAccount` method
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1528
+vm/api/dist/index.d.ts:1612
 
 ___
 
@@ -1828,7 +1835,7 @@ JSON-RPC response for `anvil_stopImpersonatingAccount` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1803
+vm/api/dist/index.d.ts:1887
 
 ___
 
@@ -1846,7 +1853,7 @@ Params for `anvil_stopImpersonatingAccount` handler
 
 #### Defined in
 
-vm/api/dist/index.d.ts:407
+vm/api/dist/index.d.ts:408
 
 ___
 
@@ -1872,7 +1879,7 @@ JSON-RPC procedure for `anvil_stopImpersonatingAccount`
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1931
+vm/api/dist/index.d.ts:2017
 
 ___
 
@@ -1882,7 +1889,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:944
+vm/api/dist/index.d.ts:973
 
 ___
 
@@ -1894,7 +1901,7 @@ Errors returned by all call based tevm procedures including call, contract, and 
 
 #### Defined in
 
-vm/api/dist/index.d.ts:837
+vm/api/dist/index.d.ts:842
 
 ___
 
@@ -1923,7 +1930,7 @@ Properties shared accross call-like params
 
 #### Defined in
 
-vm/api/dist/index.d.ts:76
+vm/api/dist/index.d.ts:77
 
 ___
 
@@ -1947,7 +1954,7 @@ Header information of an ethereum block
 
 #### Defined in
 
-vm/api/dist/index.d.ts:42
+vm/api/dist/index.d.ts:43
 
 ___
 
@@ -1983,7 +1990,7 @@ json rpc procedures
 
 #### Defined in
 
-vm/api/dist/index.d.ts:592
+vm/api/dist/index.d.ts:597
 
 ___
 
@@ -2004,7 +2011,7 @@ if (errors?.length) {
 
 #### Defined in
 
-vm/api/dist/index.d.ts:920
+vm/api/dist/index.d.ts:925
 
 ___
 
@@ -2030,7 +2037,7 @@ Handler for call tevm procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:930
+vm/api/dist/index.d.ts:959
 
 ___
 
@@ -2056,7 +2063,7 @@ Call JSON-RPC procedure executes a call against the tevm EVM
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1871
+vm/api/dist/index.d.ts:1957
 
 ___
 
@@ -2068,7 +2075,7 @@ JSON-RPC request for `tevm_call`
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1301
+vm/api/dist/index.d.ts:1364
 
 ___
 
@@ -2080,7 +2087,7 @@ JSON-RPC response for `tevm_call` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1614
+vm/api/dist/index.d.ts:1698
 
 ___
 
@@ -2101,7 +2108,7 @@ if (errors?.length) {
 
 #### Defined in
 
-vm/api/dist/index.d.ts:877
+vm/api/dist/index.d.ts:882
 
 ___
 
@@ -2135,7 +2142,7 @@ It's API resuses the viem `contractRead`/`contractWrite` API to encode abi, func
 
 #### Defined in
 
-vm/api/dist/index.d.ts:936
+vm/api/dist/index.d.ts:965
 
 ___
 
@@ -2149,7 +2156,7 @@ Since ContractJsonRpcProcedure is a quality of life wrapper around CallJsonRpcPr
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1878
+vm/api/dist/index.d.ts:1964
 
 ___
 
@@ -2162,7 +2169,7 @@ in favor of overloading tevm_call
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1307
+vm/api/dist/index.d.ts:1370
 
 ___
 
@@ -2175,7 +2182,7 @@ in favor of overloading tevm_call
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1620
+vm/api/dist/index.d.ts:1704
 
 ___
 
@@ -2199,7 +2206,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1227
+vm/api/dist/index.d.ts:1280
 
 ___
 
@@ -2211,7 +2218,7 @@ JSON-RPC request for `debug_traceCall` method
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1586
+vm/api/dist/index.d.ts:1670
 
 ___
 
@@ -2223,7 +2230,7 @@ JSON-RPC response for `debug_traceCall` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1861
+vm/api/dist/index.d.ts:1945
 
 ___
 
@@ -2241,7 +2248,7 @@ Params taken by `debug_traceCall` handler
 
 #### Defined in
 
-vm/api/dist/index.d.ts:568
+vm/api/dist/index.d.ts:569
 
 ___
 
@@ -2267,7 +2274,7 @@ JSON-RPC procedure for `debug_traceCall`
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1988
+vm/api/dist/index.d.ts:2074
 
 ___
 
@@ -2286,7 +2293,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1219
+vm/api/dist/index.d.ts:1248
 
 ___
 
@@ -2310,7 +2317,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1226
+vm/api/dist/index.d.ts:1279
 
 ___
 
@@ -2322,7 +2329,7 @@ JSON-RPC request for `debug_traceTransaction` method
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1582
+vm/api/dist/index.d.ts:1666
 
 ___
 
@@ -2334,7 +2341,7 @@ JSON-RPC response for `debug_traceTransaction` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1857
+vm/api/dist/index.d.ts:1941
 
 ___
 
@@ -2346,7 +2353,7 @@ Params taken by `debug_traceTransaction` handler
 
 #### Defined in
 
-vm/api/dist/index.d.ts:559
+vm/api/dist/index.d.ts:560
 
 ___
 
@@ -2372,7 +2379,7 @@ JSON-RPC procedure for `debug_traceTransaction`
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1984
+vm/api/dist/index.d.ts:2070
 
 ___
 
@@ -2382,7 +2389,101 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1218
+vm/api/dist/index.d.ts:1247
+
+___
+
+### DumpStateError
+
+Ƭ **DumpStateError**: [`InvalidRequestError`](api.md#invalidrequesterror) \| [`UnexpectedError`](api.md#unexpectederror)
+
+Error Returned by dump state procedure
+
+**`Example`**
+
+```ts
+const {errors} = await tevm.dumpState()
+
+if (errors?.length) {
+  console.log(errors[0].name) // InvalidAddressError
+  console.log(errors[0].message) // Invalid address: 0x1234
+}
+```
+
+#### Defined in
+
+vm/api/dist/index.d.ts:949
+
+___
+
+### DumpStateHandler
+
+Ƭ **DumpStateHandler**: () => `Promise`\<[`DumpStateResult`](api.md#dumpstateresult)\>
+
+#### Type declaration
+
+▸ (): `Promise`\<[`DumpStateResult`](api.md#dumpstateresult)\>
+
+Handler for account tevm procedure
+
+##### Returns
+
+`Promise`\<[`DumpStateResult`](api.md#dumpstateresult)\>
+
+#### Defined in
+
+vm/api/dist/index.d.ts:1324
+
+___
+
+### DumpStateJsonRpcProcedure
+
+Ƭ **DumpStateJsonRpcProcedure**: (`request`: `DumpStateJsonRpcRequest`) => `Promise`\<`DumpStateJsonRpcResponse`\>
+
+#### Type declaration
+
+▸ (`request`): `Promise`\<`DumpStateJsonRpcResponse`\>
+
+Procedure for handling script JSON-RPC requests
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `request` | `DumpStateJsonRpcRequest` |
+
+##### Returns
+
+`Promise`\<`DumpStateJsonRpcResponse`\>
+
+#### Defined in
+
+vm/api/dist/index.d.ts:2086
+
+___
+
+### DumpStateResult
+
+Ƭ **DumpStateResult**\<`ErrorType`\>: `Object`
+
+Result of Account Action
+
+#### Type parameters
+
+| Name | Type |
+| :------ | :------ |
+| `ErrorType` | [`DumpStateError`](api.md#dumpstateerror) |
+
+#### Type declaration
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `errors?` | `ErrorType`[] | Description of the exception, if any occurred |
+| `state` | `SerializableTevmState` | The serialized tevm state |
+
+#### Defined in
+
+vm/api/dist/index.d.ts:1258
 
 ___
 
@@ -2406,7 +2507,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1229
+vm/api/dist/index.d.ts:1282
 
 ___
 
@@ -2430,7 +2531,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1885
+vm/api/dist/index.d.ts:1971
 
 ___
 
@@ -2442,7 +2543,7 @@ JSON-RPC request for `eth_accounts` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1339
+vm/api/dist/index.d.ts:1423
 
 ___
 
@@ -2454,7 +2555,7 @@ JSON-RPC response for `eth_accounts` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1630
+vm/api/dist/index.d.ts:1714
 
 ___
 
@@ -2466,7 +2567,7 @@ Params taken by `eth_accounts` handler
 
 #### Defined in
 
-vm/api/dist/index.d.ts:194
+vm/api/dist/index.d.ts:195
 
 ___
 
@@ -2480,7 +2581,7 @@ need to be updated as t hey are implemented
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1045
+vm/api/dist/index.d.ts:1074
 
 ___
 
@@ -2504,7 +2605,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1230
+vm/api/dist/index.d.ts:1283
 
 ___
 
@@ -2528,7 +2629,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1886
+vm/api/dist/index.d.ts:1972
 
 ___
 
@@ -2540,7 +2641,7 @@ JSON-RPC request for `eth_blockNumber` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1343
+vm/api/dist/index.d.ts:1427
 
 ___
 
@@ -2552,7 +2653,7 @@ JSON-RPC response for `eth_blockNumber` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1634
+vm/api/dist/index.d.ts:1718
 
 ___
 
@@ -2564,7 +2665,7 @@ JSON-RPC request for `eth_blockNumber` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:198
+vm/api/dist/index.d.ts:199
 
 ___
 
@@ -2576,7 +2677,7 @@ JSON-RPC response for `eth_blockNumber` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1049
+vm/api/dist/index.d.ts:1078
 
 ___
 
@@ -2600,7 +2701,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1231
+vm/api/dist/index.d.ts:1284
 
 ___
 
@@ -2624,7 +2725,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1887
+vm/api/dist/index.d.ts:1973
 
 ___
 
@@ -2636,7 +2737,7 @@ JSON-RPC request for `eth_call` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1347
+vm/api/dist/index.d.ts:1431
 
 ___
 
@@ -2648,7 +2749,7 @@ JSON-RPC response for `eth_call` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1638
+vm/api/dist/index.d.ts:1722
 
 ___
 
@@ -2660,7 +2761,7 @@ JSON-RPC request for `eth_call` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:202
+vm/api/dist/index.d.ts:203
 
 ___
 
@@ -2672,7 +2773,7 @@ JSON-RPC response for `eth_call` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1053
+vm/api/dist/index.d.ts:1082
 
 ___
 
@@ -2696,7 +2797,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1232
+vm/api/dist/index.d.ts:1285
 
 ___
 
@@ -2720,7 +2821,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1888
+vm/api/dist/index.d.ts:1974
 
 ___
 
@@ -2732,7 +2833,7 @@ JSON-RPC request for `eth_chainId` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1351
+vm/api/dist/index.d.ts:1435
 
 ___
 
@@ -2744,7 +2845,7 @@ JSON-RPC response for `eth_chainId` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1642
+vm/api/dist/index.d.ts:1726
 
 ___
 
@@ -2756,7 +2857,7 @@ JSON-RPC request for `eth_chainId` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:206
+vm/api/dist/index.d.ts:207
 
 ___
 
@@ -2768,7 +2869,7 @@ JSON-RPC response for `eth_chainId` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1057
+vm/api/dist/index.d.ts:1086
 
 ___
 
@@ -2792,7 +2893,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1233
+vm/api/dist/index.d.ts:1286
 
 ___
 
@@ -2816,7 +2917,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1889
+vm/api/dist/index.d.ts:1975
 
 ___
 
@@ -2828,7 +2929,7 @@ JSON-RPC request for `eth_coinbase` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1355
+vm/api/dist/index.d.ts:1439
 
 ___
 
@@ -2840,7 +2941,7 @@ JSON-RPC response for `eth_coinbase` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1646
+vm/api/dist/index.d.ts:1730
 
 ___
 
@@ -2852,7 +2953,7 @@ JSON-RPC request for `eth_coinbase` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:210
+vm/api/dist/index.d.ts:211
 
 ___
 
@@ -2864,7 +2965,7 @@ JSON-RPC response for `eth_coinbase` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1061
+vm/api/dist/index.d.ts:1090
 
 ___
 
@@ -2888,7 +2989,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1234
+vm/api/dist/index.d.ts:1287
 
 ___
 
@@ -2912,7 +3013,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1890
+vm/api/dist/index.d.ts:1976
 
 ___
 
@@ -2924,7 +3025,7 @@ JSON-RPC request for `eth_estimateGas` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1359
+vm/api/dist/index.d.ts:1443
 
 ___
 
@@ -2936,7 +3037,7 @@ JSON-RPC response for `eth_estimateGas` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1650
+vm/api/dist/index.d.ts:1734
 
 ___
 
@@ -2948,7 +3049,7 @@ JSON-RPC request for `eth_estimateGas` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:214
+vm/api/dist/index.d.ts:215
 
 ___
 
@@ -2960,7 +3061,7 @@ JSON-RPC response for `eth_estimateGas` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1065
+vm/api/dist/index.d.ts:1094
 
 ___
 
@@ -2984,7 +3085,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1236
+vm/api/dist/index.d.ts:1289
 
 ___
 
@@ -3008,7 +3109,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1892
+vm/api/dist/index.d.ts:1978
 
 ___
 
@@ -3020,7 +3121,7 @@ JSON-RPC request for `eth_gasPrice` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1367
+vm/api/dist/index.d.ts:1451
 
 ___
 
@@ -3032,7 +3133,7 @@ JSON-RPC response for `eth_gasPrice` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1658
+vm/api/dist/index.d.ts:1742
 
 ___
 
@@ -3044,7 +3145,7 @@ JSON-RPC request for `eth_gasPrice` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:222
+vm/api/dist/index.d.ts:223
 
 ___
 
@@ -3056,7 +3157,7 @@ JSON-RPC response for `eth_gasPrice` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1073
+vm/api/dist/index.d.ts:1102
 
 ___
 
@@ -3080,7 +3181,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1237
+vm/api/dist/index.d.ts:1290
 
 ___
 
@@ -3104,7 +3205,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1893
+vm/api/dist/index.d.ts:1979
 
 ___
 
@@ -3116,7 +3217,7 @@ JSON-RPC request for `eth_getBalance` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1371
+vm/api/dist/index.d.ts:1455
 
 ___
 
@@ -3128,7 +3229,7 @@ JSON-RPC response for `eth_getBalance` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1662
+vm/api/dist/index.d.ts:1746
 
 ___
 
@@ -3140,7 +3241,7 @@ JSON-RPC request for `eth_getBalance` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:226
+vm/api/dist/index.d.ts:227
 
 ___
 
@@ -3152,7 +3253,7 @@ JSON-RPC response for `eth_getBalance` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1077
+vm/api/dist/index.d.ts:1106
 
 ___
 
@@ -3176,7 +3277,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1238
+vm/api/dist/index.d.ts:1291
 
 ___
 
@@ -3200,7 +3301,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1894
+vm/api/dist/index.d.ts:1980
 
 ___
 
@@ -3212,7 +3313,7 @@ JSON-RPC request for `eth_getBlockByHash` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1378
+vm/api/dist/index.d.ts:1462
 
 ___
 
@@ -3224,7 +3325,7 @@ JSON-RPC response for `eth_getBlockByHash` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1666
+vm/api/dist/index.d.ts:1750
 
 ___
 
@@ -3243,7 +3344,7 @@ JSON-RPC request for `eth_getBlockByHash` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:230
+vm/api/dist/index.d.ts:231
 
 ___
 
@@ -3255,7 +3356,7 @@ JSON-RPC response for `eth_getBlockByHash` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1081
+vm/api/dist/index.d.ts:1110
 
 ___
 
@@ -3279,7 +3380,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1239
+vm/api/dist/index.d.ts:1292
 
 ___
 
@@ -3303,7 +3404,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1895
+vm/api/dist/index.d.ts:1981
 
 ___
 
@@ -3315,7 +3416,7 @@ JSON-RPC request for `eth_getBlockByNumber` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1382
+vm/api/dist/index.d.ts:1466
 
 ___
 
@@ -3327,7 +3428,7 @@ JSON-RPC response for `eth_getBlockByNumber` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1670
+vm/api/dist/index.d.ts:1754
 
 ___
 
@@ -3346,7 +3447,7 @@ JSON-RPC request for `eth_getBlockByNumber` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:237
+vm/api/dist/index.d.ts:238
 
 ___
 
@@ -3358,7 +3459,7 @@ JSON-RPC response for `eth_getBlockByNumber` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1085
+vm/api/dist/index.d.ts:1114
 
 ___
 
@@ -3382,7 +3483,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1240
+vm/api/dist/index.d.ts:1293
 
 ___
 
@@ -3406,7 +3507,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1896
+vm/api/dist/index.d.ts:1982
 
 ___
 
@@ -3418,7 +3519,7 @@ JSON-RPC request for `eth_getBlockTransactionCountByHash` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1386
+vm/api/dist/index.d.ts:1470
 
 ___
 
@@ -3430,7 +3531,7 @@ JSON-RPC response for `eth_getBlockTransactionCountByHash` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1674
+vm/api/dist/index.d.ts:1758
 
 ___
 
@@ -3448,7 +3549,7 @@ JSON-RPC request for `eth_getBlockTransactionCountByHash` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:244
+vm/api/dist/index.d.ts:245
 
 ___
 
@@ -3460,7 +3561,7 @@ JSON-RPC response for `eth_getBlockTransactionCountByHash` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1089
+vm/api/dist/index.d.ts:1118
 
 ___
 
@@ -3484,7 +3585,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1241
+vm/api/dist/index.d.ts:1294
 
 ___
 
@@ -3508,7 +3609,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1897
+vm/api/dist/index.d.ts:1983
 
 ___
 
@@ -3520,7 +3621,7 @@ JSON-RPC request for `eth_getBlockTransactionCountByNumber` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1390
+vm/api/dist/index.d.ts:1474
 
 ___
 
@@ -3532,7 +3633,7 @@ JSON-RPC response for `eth_getBlockTransactionCountByNumber` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1678
+vm/api/dist/index.d.ts:1762
 
 ___
 
@@ -3550,7 +3651,7 @@ JSON-RPC request for `eth_getBlockTransactionCountByNumber` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:250
+vm/api/dist/index.d.ts:251
 
 ___
 
@@ -3562,7 +3663,7 @@ JSON-RPC response for `eth_getBlockTransactionCountByNumber` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1093
+vm/api/dist/index.d.ts:1122
 
 ___
 
@@ -3586,7 +3687,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1242
+vm/api/dist/index.d.ts:1295
 
 ___
 
@@ -3610,7 +3711,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1898
+vm/api/dist/index.d.ts:1984
 
 ___
 
@@ -3622,7 +3723,7 @@ JSON-RPC request for `eth_getCode` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1394
+vm/api/dist/index.d.ts:1478
 
 ___
 
@@ -3634,7 +3735,7 @@ JSON-RPC response for `eth_getCode` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1682
+vm/api/dist/index.d.ts:1766
 
 ___
 
@@ -3653,7 +3754,7 @@ JSON-RPC request for `eth_getCode` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:256
+vm/api/dist/index.d.ts:257
 
 ___
 
@@ -3665,7 +3766,7 @@ JSON-RPC response for `eth_getCode` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1097
+vm/api/dist/index.d.ts:1126
 
 ___
 
@@ -3689,7 +3790,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1243
+vm/api/dist/index.d.ts:1296
 
 ___
 
@@ -3713,7 +3814,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1899
+vm/api/dist/index.d.ts:1985
 
 ___
 
@@ -3725,7 +3826,7 @@ JSON-RPC request for `eth_getFilterChanges` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1398
+vm/api/dist/index.d.ts:1482
 
 ___
 
@@ -3737,7 +3838,7 @@ JSON-RPC response for `eth_getFilterChanges` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1686
+vm/api/dist/index.d.ts:1770
 
 ___
 
@@ -3755,7 +3856,7 @@ JSON-RPC request for `eth_getFilterChanges` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:263
+vm/api/dist/index.d.ts:264
 
 ___
 
@@ -3767,7 +3868,7 @@ JSON-RPC response for `eth_getFilterChanges` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1101
+vm/api/dist/index.d.ts:1130
 
 ___
 
@@ -3791,7 +3892,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1244
+vm/api/dist/index.d.ts:1297
 
 ___
 
@@ -3815,7 +3916,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1900
+vm/api/dist/index.d.ts:1986
 
 ___
 
@@ -3827,7 +3928,7 @@ JSON-RPC request for `eth_getFilterLogs` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1404
+vm/api/dist/index.d.ts:1488
 
 ___
 
@@ -3839,7 +3940,7 @@ JSON-RPC response for `eth_getFilterLogs` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1690
+vm/api/dist/index.d.ts:1774
 
 ___
 
@@ -3857,7 +3958,7 @@ JSON-RPC request for `eth_getFilterLogs` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:269
+vm/api/dist/index.d.ts:270
 
 ___
 
@@ -3869,7 +3970,7 @@ JSON-RPC response for `eth_getFilterLogs` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1105
+vm/api/dist/index.d.ts:1134
 
 ___
 
@@ -3893,7 +3994,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1245
+vm/api/dist/index.d.ts:1298
 
 ___
 
@@ -3917,7 +4018,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1901
+vm/api/dist/index.d.ts:1987
 
 ___
 
@@ -3929,7 +4030,7 @@ JSON-RPC request for `eth_getLogs` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1410
+vm/api/dist/index.d.ts:1494
 
 ___
 
@@ -3941,7 +4042,7 @@ JSON-RPC response for `eth_getLogs` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1694
+vm/api/dist/index.d.ts:1778
 
 ___
 
@@ -3959,7 +4060,7 @@ JSON-RPC request for `eth_getLogs` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:275
+vm/api/dist/index.d.ts:276
 
 ___
 
@@ -3971,7 +4072,7 @@ JSON-RPC response for `eth_getLogs` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1109
+vm/api/dist/index.d.ts:1138
 
 ___
 
@@ -3995,7 +4096,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1246
+vm/api/dist/index.d.ts:1299
 
 ___
 
@@ -4019,7 +4120,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1902
+vm/api/dist/index.d.ts:1988
 
 ___
 
@@ -4031,7 +4132,7 @@ JSON-RPC request for `eth_getStorageAt` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1416
+vm/api/dist/index.d.ts:1500
 
 ___
 
@@ -4043,7 +4144,7 @@ JSON-RPC response for `eth_getStorageAt` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1698
+vm/api/dist/index.d.ts:1782
 
 ___
 
@@ -4063,7 +4164,7 @@ JSON-RPC request for `eth_getStorageAt` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:281
+vm/api/dist/index.d.ts:282
 
 ___
 
@@ -4075,7 +4176,7 @@ JSON-RPC response for `eth_getStorageAt` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1113
+vm/api/dist/index.d.ts:1142
 
 ___
 
@@ -4099,7 +4200,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1251
+vm/api/dist/index.d.ts:1304
 
 ___
 
@@ -4123,7 +4224,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1907
+vm/api/dist/index.d.ts:1993
 
 ___
 
@@ -4135,7 +4236,7 @@ JSON-RPC request for `eth_getTransactionByBlockHashAndIndex` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1436
+vm/api/dist/index.d.ts:1520
 
 ___
 
@@ -4147,7 +4248,7 @@ JSON-RPC response for `eth_getTransactionByBlockHashAndIndex` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1718
+vm/api/dist/index.d.ts:1802
 
 ___
 
@@ -4166,7 +4267,7 @@ JSON-RPC request for `eth_getTransactionByBlockHashAndIndex` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:314
+vm/api/dist/index.d.ts:315
 
 ___
 
@@ -4178,7 +4279,7 @@ JSON-RPC response for `eth_getTransactionByBlockHashAndIndex` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1133
+vm/api/dist/index.d.ts:1162
 
 ___
 
@@ -4202,7 +4303,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1252
+vm/api/dist/index.d.ts:1305
 
 ___
 
@@ -4226,7 +4327,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1908
+vm/api/dist/index.d.ts:1994
 
 ___
 
@@ -4238,7 +4339,7 @@ JSON-RPC request for `eth_getTransactionByBlockNumberAndIndex` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1440
+vm/api/dist/index.d.ts:1524
 
 ___
 
@@ -4250,7 +4351,7 @@ JSON-RPC response for `eth_getTransactionByBlockNumberAndIndex` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1722
+vm/api/dist/index.d.ts:1806
 
 ___
 
@@ -4269,7 +4370,7 @@ JSON-RPC request for `eth_getTransactionByBlockNumberAndIndex` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:321
+vm/api/dist/index.d.ts:322
 
 ___
 
@@ -4281,7 +4382,7 @@ JSON-RPC response for `eth_getTransactionByBlockNumberAndIndex` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1137
+vm/api/dist/index.d.ts:1166
 
 ___
 
@@ -4305,7 +4406,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1250
+vm/api/dist/index.d.ts:1303
 
 ___
 
@@ -4329,7 +4430,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1906
+vm/api/dist/index.d.ts:1992
 
 ___
 
@@ -4341,7 +4442,7 @@ JSON-RPC request for `eth_getTransactionByHash` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1432
+vm/api/dist/index.d.ts:1516
 
 ___
 
@@ -4353,7 +4454,7 @@ JSON-RPC response for `eth_getTransactionByHash` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1714
+vm/api/dist/index.d.ts:1798
 
 ___
 
@@ -4371,7 +4472,7 @@ JSON-RPC request for `eth_getTransactionByHash` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:308
+vm/api/dist/index.d.ts:309
 
 ___
 
@@ -4383,7 +4484,7 @@ JSON-RPC response for `eth_getTransactionByHash` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1129
+vm/api/dist/index.d.ts:1158
 
 ___
 
@@ -4407,7 +4508,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1247
+vm/api/dist/index.d.ts:1300
 
 ___
 
@@ -4431,7 +4532,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1903
+vm/api/dist/index.d.ts:1989
 
 ___
 
@@ -4443,7 +4544,7 @@ JSON-RPC request for `eth_getTransactionCount` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1420
+vm/api/dist/index.d.ts:1504
 
 ___
 
@@ -4455,7 +4556,7 @@ JSON-RPC response for `eth_getTransactionCount` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1702
+vm/api/dist/index.d.ts:1786
 
 ___
 
@@ -4474,7 +4575,7 @@ JSON-RPC request for `eth_getTransactionCount` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:289
+vm/api/dist/index.d.ts:290
 
 ___
 
@@ -4486,7 +4587,7 @@ JSON-RPC response for `eth_getTransactionCount` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1117
+vm/api/dist/index.d.ts:1146
 
 ___
 
@@ -4510,7 +4611,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1253
+vm/api/dist/index.d.ts:1306
 
 ___
 
@@ -4534,7 +4635,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1909
+vm/api/dist/index.d.ts:1995
 
 ___
 
@@ -4546,7 +4647,7 @@ JSON-RPC request for `eth_getTransactionReceipt` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1444
+vm/api/dist/index.d.ts:1528
 
 ___
 
@@ -4558,7 +4659,7 @@ JSON-RPC response for `eth_getTransactionReceipt` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1726
+vm/api/dist/index.d.ts:1810
 
 ___
 
@@ -4570,7 +4671,7 @@ JSON-RPC request for `eth_getTransactionReceipt` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:328
+vm/api/dist/index.d.ts:329
 
 ___
 
@@ -4582,7 +4683,7 @@ JSON-RPC response for `eth_getTransactionReceipt` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1141
+vm/api/dist/index.d.ts:1170
 
 ___
 
@@ -4606,7 +4707,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1254
+vm/api/dist/index.d.ts:1307
 
 ___
 
@@ -4630,7 +4731,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1910
+vm/api/dist/index.d.ts:1996
 
 ___
 
@@ -4642,7 +4743,7 @@ JSON-RPC request for `eth_getUncleByBlockHashAndIndex` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1450
+vm/api/dist/index.d.ts:1534
 
 ___
 
@@ -4654,7 +4755,7 @@ JSON-RPC response for `eth_getUncleByBlockHashAndIndex` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1730
+vm/api/dist/index.d.ts:1814
 
 ___
 
@@ -4673,7 +4774,7 @@ JSON-RPC request for `eth_getUncleByBlockHashAndIndex` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:332
+vm/api/dist/index.d.ts:333
 
 ___
 
@@ -4685,7 +4786,7 @@ JSON-RPC response for `eth_getUncleByBlockHashAndIndex` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1145
+vm/api/dist/index.d.ts:1174
 
 ___
 
@@ -4709,7 +4810,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1255
+vm/api/dist/index.d.ts:1308
 
 ___
 
@@ -4733,7 +4834,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1911
+vm/api/dist/index.d.ts:1997
 
 ___
 
@@ -4745,7 +4846,7 @@ JSON-RPC request for `eth_getUncleByBlockNumberAndIndex` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1454
+vm/api/dist/index.d.ts:1538
 
 ___
 
@@ -4757,7 +4858,7 @@ JSON-RPC response for `eth_getUncleByBlockNumberAndIndex` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1734
+vm/api/dist/index.d.ts:1818
 
 ___
 
@@ -4776,7 +4877,7 @@ JSON-RPC request for `eth_getUncleByBlockNumberAndIndex` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:339
+vm/api/dist/index.d.ts:340
 
 ___
 
@@ -4788,7 +4889,7 @@ JSON-RPC response for `eth_getUncleByBlockNumberAndIndex` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1149
+vm/api/dist/index.d.ts:1178
 
 ___
 
@@ -4812,7 +4913,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1248
+vm/api/dist/index.d.ts:1301
 
 ___
 
@@ -4836,7 +4937,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1904
+vm/api/dist/index.d.ts:1990
 
 ___
 
@@ -4848,7 +4949,7 @@ JSON-RPC request for `eth_getUncleCountByBlockHash` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1424
+vm/api/dist/index.d.ts:1508
 
 ___
 
@@ -4860,7 +4961,7 @@ JSON-RPC response for `eth_getUncleCountByBlockHash` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1706
+vm/api/dist/index.d.ts:1790
 
 ___
 
@@ -4878,7 +4979,7 @@ JSON-RPC request for `eth_getUncleCountByBlockHash` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:296
+vm/api/dist/index.d.ts:297
 
 ___
 
@@ -4890,7 +4991,7 @@ JSON-RPC response for `eth_getUncleCountByBlockHash` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1121
+vm/api/dist/index.d.ts:1150
 
 ___
 
@@ -4914,7 +5015,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1249
+vm/api/dist/index.d.ts:1302
 
 ___
 
@@ -4938,7 +5039,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1905
+vm/api/dist/index.d.ts:1991
 
 ___
 
@@ -4950,7 +5051,7 @@ JSON-RPC request for `eth_getUncleCountByBlockNumber` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1428
+vm/api/dist/index.d.ts:1512
 
 ___
 
@@ -4962,7 +5063,7 @@ JSON-RPC response for `eth_getUncleCountByBlockNumber` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1710
+vm/api/dist/index.d.ts:1794
 
 ___
 
@@ -4980,7 +5081,7 @@ JSON-RPC request for `eth_getUncleCountByBlockNumber` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:302
+vm/api/dist/index.d.ts:303
 
 ___
 
@@ -4992,7 +5093,7 @@ JSON-RPC response for `eth_getUncleCountByBlockNumber` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1125
+vm/api/dist/index.d.ts:1154
 
 ___
 
@@ -5016,7 +5117,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1235
+vm/api/dist/index.d.ts:1288
 
 ___
 
@@ -5040,7 +5141,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1891
+vm/api/dist/index.d.ts:1977
 
 ___
 
@@ -5052,7 +5153,7 @@ JSON-RPC request for `eth_hashrate` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1363
+vm/api/dist/index.d.ts:1447
 
 ___
 
@@ -5064,7 +5165,7 @@ JSON-RPC response for `eth_hashrate` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1654
+vm/api/dist/index.d.ts:1738
 
 ___
 
@@ -5076,7 +5177,7 @@ JSON-RPC request for `eth_hashrate` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:218
+vm/api/dist/index.d.ts:219
 
 ___
 
@@ -5088,7 +5189,7 @@ JSON-RPC response for `eth_hashrate` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1069
+vm/api/dist/index.d.ts:1098
 
 ___
 
@@ -5098,7 +5199,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1519
+vm/api/dist/index.d.ts:1603
 
 ___
 
@@ -5128,7 +5229,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:2060
+vm/api/dist/index.d.ts:2160
 
 ___
 
@@ -5152,7 +5253,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1256
+vm/api/dist/index.d.ts:1309
 
 ___
 
@@ -5176,7 +5277,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1912
+vm/api/dist/index.d.ts:1998
 
 ___
 
@@ -5188,7 +5289,7 @@ JSON-RPC request for `eth_mining` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1458
+vm/api/dist/index.d.ts:1542
 
 ___
 
@@ -5200,7 +5301,7 @@ JSON-RPC response for `eth_mining` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1738
+vm/api/dist/index.d.ts:1822
 
 ___
 
@@ -5212,7 +5313,7 @@ JSON-RPC request for `eth_mining` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:346
+vm/api/dist/index.d.ts:347
 
 ___
 
@@ -5224,7 +5325,7 @@ JSON-RPC response for `eth_mining` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1153
+vm/api/dist/index.d.ts:1182
 
 ___
 
@@ -5248,7 +5349,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1264
+vm/api/dist/index.d.ts:1317
 
 ___
 
@@ -5272,7 +5373,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1920
+vm/api/dist/index.d.ts:2006
 
 ___
 
@@ -5284,7 +5385,7 @@ JSON-RPC request for `eth_newBlockFilter` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1508
+vm/api/dist/index.d.ts:1592
 
 ___
 
@@ -5296,7 +5397,7 @@ JSON-RPC response for `eth_newBlockFilter` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1785
+vm/api/dist/index.d.ts:1869
 
 ___
 
@@ -5308,7 +5409,7 @@ JSON-RPC request for `eth_newBlockFilter` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:378
+vm/api/dist/index.d.ts:379
 
 ___
 
@@ -5320,7 +5421,7 @@ JSON-RPC response for `eth_newBlockFilter` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1200
+vm/api/dist/index.d.ts:1229
 
 ___
 
@@ -5344,7 +5445,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1263
+vm/api/dist/index.d.ts:1316
 
 ___
 
@@ -5368,7 +5469,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1919
+vm/api/dist/index.d.ts:2005
 
 ___
 
@@ -5380,7 +5481,7 @@ JSON-RPC request for `eth_newFilter` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1504
+vm/api/dist/index.d.ts:1588
 
 ___
 
@@ -5392,7 +5493,7 @@ JSON-RPC response for `eth_newFilter` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1781
+vm/api/dist/index.d.ts:1865
 
 ___
 
@@ -5404,7 +5505,7 @@ JSON-RPC request for `eth_newFilter` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:374
+vm/api/dist/index.d.ts:375
 
 ___
 
@@ -5416,7 +5517,7 @@ JSON-RPC response for `eth_newFilter` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1196
+vm/api/dist/index.d.ts:1225
 
 ___
 
@@ -5440,7 +5541,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1265
+vm/api/dist/index.d.ts:1318
 
 ___
 
@@ -5464,7 +5565,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1921
+vm/api/dist/index.d.ts:2007
 
 ___
 
@@ -5476,7 +5577,7 @@ JSON-RPC request for `eth_newPendingTransactionFilter` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1512
+vm/api/dist/index.d.ts:1596
 
 ___
 
@@ -5488,7 +5589,7 @@ JSON-RPC response for `eth_newPendingTransactionFilter` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1789
+vm/api/dist/index.d.ts:1873
 
 ___
 
@@ -5500,7 +5601,7 @@ JSON-RPC request for `eth_newPendingTransactionFilter` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:382
+vm/api/dist/index.d.ts:383
 
 ___
 
@@ -5512,7 +5613,7 @@ JSON-RPC response for `eth_newPendingTransactionFilter` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1204
+vm/api/dist/index.d.ts:1233
 
 ___
 
@@ -5522,7 +5623,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:389
+vm/api/dist/index.d.ts:390
 
 ___
 
@@ -5546,7 +5647,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1257
+vm/api/dist/index.d.ts:1310
 
 ___
 
@@ -5570,7 +5671,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1913
+vm/api/dist/index.d.ts:1999
 
 ___
 
@@ -5582,7 +5683,7 @@ JSON-RPC request for `eth_protocolVersion` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1462
+vm/api/dist/index.d.ts:1546
 
 ___
 
@@ -5594,7 +5695,7 @@ JSON-RPC response for `eth_protocolVersion` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1742
+vm/api/dist/index.d.ts:1826
 
 ___
 
@@ -5606,7 +5707,7 @@ JSON-RPC request for `eth_protocolVersion` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:350
+vm/api/dist/index.d.ts:351
 
 ___
 
@@ -5618,7 +5719,7 @@ JSON-RPC response for `eth_protocolVersion` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1157
+vm/api/dist/index.d.ts:1186
 
 ___
 
@@ -5642,7 +5743,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1258
+vm/api/dist/index.d.ts:1311
 
 ___
 
@@ -5666,7 +5767,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1914
+vm/api/dist/index.d.ts:2000
 
 ___
 
@@ -5678,7 +5779,7 @@ JSON-RPC request for `eth_sendRawTransaction` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1466
+vm/api/dist/index.d.ts:1550
 
 ___
 
@@ -5690,7 +5791,7 @@ JSON-RPC response for `eth_sendRawTransaction` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1746
+vm/api/dist/index.d.ts:1830
 
 ___
 
@@ -5702,7 +5803,7 @@ JSON-RPC request for `eth_sendRawTransaction` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:354
+vm/api/dist/index.d.ts:355
 
 ___
 
@@ -5714,7 +5815,7 @@ JSON-RPC response for `eth_sendRawTransaction` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1161
+vm/api/dist/index.d.ts:1190
 
 ___
 
@@ -5738,7 +5839,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1259
+vm/api/dist/index.d.ts:1312
 
 ___
 
@@ -5762,7 +5863,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1915
+vm/api/dist/index.d.ts:2001
 
 ___
 
@@ -5774,7 +5875,7 @@ JSON-RPC request for `eth_sendTransaction` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1472
+vm/api/dist/index.d.ts:1556
 
 ___
 
@@ -5786,7 +5887,7 @@ JSON-RPC response for `eth_sendTransaction` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1750
+vm/api/dist/index.d.ts:1834
 
 ___
 
@@ -5798,7 +5899,7 @@ JSON-RPC request for `eth_sendTransaction` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:358
+vm/api/dist/index.d.ts:359
 
 ___
 
@@ -5810,7 +5911,7 @@ JSON-RPC response for `eth_sendTransaction` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1165
+vm/api/dist/index.d.ts:1194
 
 ___
 
@@ -5834,7 +5935,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1260
+vm/api/dist/index.d.ts:1313
 
 ___
 
@@ -5858,7 +5959,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1916
+vm/api/dist/index.d.ts:2002
 
 ___
 
@@ -5870,7 +5971,7 @@ JSON-RPC request for `eth_sign` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1478
+vm/api/dist/index.d.ts:1562
 
 ___
 
@@ -5882,7 +5983,7 @@ JSON-RPC response for `eth_sign` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1754
+vm/api/dist/index.d.ts:1838
 
 ___
 
@@ -5894,7 +5995,7 @@ JSON-RPC request for `eth_sign` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:362
+vm/api/dist/index.d.ts:363
 
 ___
 
@@ -5906,7 +6007,7 @@ JSON-RPC response for `eth_sign` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1169
+vm/api/dist/index.d.ts:1198
 
 ___
 
@@ -5930,7 +6031,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1261
+vm/api/dist/index.d.ts:1314
 
 ___
 
@@ -5954,7 +6055,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1917
+vm/api/dist/index.d.ts:2003
 
 ___
 
@@ -5966,7 +6067,7 @@ JSON-RPC request for `eth_signTransaction` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1485
+vm/api/dist/index.d.ts:1569
 
 ___
 
@@ -5978,7 +6079,7 @@ JSON-RPC response for `eth_signTransaction` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1758
+vm/api/dist/index.d.ts:1842
 
 ___
 
@@ -5990,7 +6091,7 @@ JSON-RPC request for `eth_signTransaction` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:366
+vm/api/dist/index.d.ts:367
 
 ___
 
@@ -6002,7 +6103,7 @@ JSON-RPC response for `eth_signTransaction` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1173
+vm/api/dist/index.d.ts:1202
 
 ___
 
@@ -6026,7 +6127,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1262
+vm/api/dist/index.d.ts:1315
 
 ___
 
@@ -6050,7 +6151,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1918
+vm/api/dist/index.d.ts:2004
 
 ___
 
@@ -6062,7 +6163,7 @@ JSON-RPC request for `eth_syncing` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1500
+vm/api/dist/index.d.ts:1584
 
 ___
 
@@ -6074,7 +6175,7 @@ JSON-RPC response for `eth_syncing` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1762
+vm/api/dist/index.d.ts:1846
 
 ___
 
@@ -6086,7 +6187,7 @@ JSON-RPC request for `eth_syncing` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:370
+vm/api/dist/index.d.ts:371
 
 ___
 
@@ -6098,7 +6199,7 @@ JSON-RPC response for `eth_syncing` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1177
+vm/api/dist/index.d.ts:1206
 
 ___
 
@@ -6122,7 +6223,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1266
+vm/api/dist/index.d.ts:1319
 
 ___
 
@@ -6146,7 +6247,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1922
+vm/api/dist/index.d.ts:2008
 
 ___
 
@@ -6158,7 +6259,7 @@ JSON-RPC request for `eth_uninstallFilter` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1516
+vm/api/dist/index.d.ts:1600
 
 ___
 
@@ -6170,7 +6271,7 @@ JSON-RPC response for `eth_uninstallFilter` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1793
+vm/api/dist/index.d.ts:1877
 
 ___
 
@@ -6188,7 +6289,7 @@ JSON-RPC request for `eth_uninstallFilter` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:386
+vm/api/dist/index.d.ts:387
 
 ___
 
@@ -6200,7 +6301,7 @@ JSON-RPC response for `eth_uninstallFilter` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1208
+vm/api/dist/index.d.ts:1237
 
 ___
 
@@ -6218,7 +6319,7 @@ Error type of errors thrown while internally executing a call in the EVM
 
 #### Defined in
 
-vm/api/dist/index.d.ts:750
+vm/api/dist/index.d.ts:755
 
 ___
 
@@ -6244,7 +6345,7 @@ FilterLog type for eth JSON-RPC procedures
 
 #### Defined in
 
-vm/api/dist/index.d.ts:616
+vm/api/dist/index.d.ts:621
 
 ___
 
@@ -6256,7 +6357,7 @@ Error thrown when address is invalid
 
 #### Defined in
 
-vm/api/dist/index.d.ts:755
+vm/api/dist/index.d.ts:760
 
 ___
 
@@ -6268,7 +6369,7 @@ Error thrown when balance parameter is invalid
 
 #### Defined in
 
-vm/api/dist/index.d.ts:739
+vm/api/dist/index.d.ts:744
 
 ___
 
@@ -6280,7 +6381,7 @@ Error thrown when blobVersionedHashes parameter is invalid
 
 #### Defined in
 
-vm/api/dist/index.d.ts:760
+vm/api/dist/index.d.ts:765
 
 ___
 
@@ -6292,7 +6393,7 @@ Error thrown when block parameter is invalid
 
 #### Defined in
 
-vm/api/dist/index.d.ts:765
+vm/api/dist/index.d.ts:770
 
 ___
 
@@ -6304,7 +6405,7 @@ Error thrown when bytecode parameter is invalid
 
 #### Defined in
 
-vm/api/dist/index.d.ts:724
+vm/api/dist/index.d.ts:729
 
 ___
 
@@ -6316,7 +6417,7 @@ Error thrown when caller parameter is invalid
 
 #### Defined in
 
-vm/api/dist/index.d.ts:770
+vm/api/dist/index.d.ts:775
 
 ___
 
@@ -6328,7 +6429,7 @@ Error thrown when data parameter is invalid
 
 #### Defined in
 
-vm/api/dist/index.d.ts:734
+vm/api/dist/index.d.ts:739
 
 ___
 
@@ -6340,7 +6441,7 @@ Error thrown when deployedBytecode parameter is invalid
 
 #### Defined in
 
-vm/api/dist/index.d.ts:882
+vm/api/dist/index.d.ts:887
 
 ___
 
@@ -6352,7 +6453,7 @@ Error thrown when depth parameter is invalid
 
 #### Defined in
 
-vm/api/dist/index.d.ts:775
+vm/api/dist/index.d.ts:780
 
 ___
 
@@ -6364,7 +6465,7 @@ Error thrown when function name is invalid
 
 #### Defined in
 
-vm/api/dist/index.d.ts:744
+vm/api/dist/index.d.ts:749
 
 ___
 
@@ -6376,7 +6477,7 @@ Error thrown when gas limit is invalid
 
 #### Defined in
 
-vm/api/dist/index.d.ts:780
+vm/api/dist/index.d.ts:785
 
 ___
 
@@ -6388,7 +6489,7 @@ Error thrown when gasPrice parameter is invalid
 
 #### Defined in
 
-vm/api/dist/index.d.ts:785
+vm/api/dist/index.d.ts:790
 
 ___
 
@@ -6400,7 +6501,7 @@ Error thrown when gas refund is invalid
 
 #### Defined in
 
-vm/api/dist/index.d.ts:790
+vm/api/dist/index.d.ts:795
 
 ___
 
@@ -6412,7 +6513,7 @@ Error thrown when nonce parameter is invalid
 
 #### Defined in
 
-vm/api/dist/index.d.ts:795
+vm/api/dist/index.d.ts:800
 
 ___
 
@@ -6424,7 +6525,7 @@ Error thrown when origin parameter is invalid
 
 #### Defined in
 
-vm/api/dist/index.d.ts:800
+vm/api/dist/index.d.ts:805
 
 ___
 
@@ -6436,7 +6537,7 @@ Error thrown when request is invalid
 
 #### Defined in
 
-vm/api/dist/index.d.ts:805
+vm/api/dist/index.d.ts:810
 
 ___
 
@@ -6448,7 +6549,7 @@ Error thrown when salt parameter is invalid
 
 #### Defined in
 
-vm/api/dist/index.d.ts:910
+vm/api/dist/index.d.ts:915
 
 ___
 
@@ -6460,7 +6561,7 @@ Error thrown when selfdestruct parameter is invalid
 
 #### Defined in
 
-vm/api/dist/index.d.ts:810
+vm/api/dist/index.d.ts:815
 
 ___
 
@@ -6472,7 +6573,7 @@ Error thrown when skipBalance parameter is invalid
 
 #### Defined in
 
-vm/api/dist/index.d.ts:815
+vm/api/dist/index.d.ts:820
 
 ___
 
@@ -6484,7 +6585,7 @@ Error thrown when storage root parameter is invalid
 
 #### Defined in
 
-vm/api/dist/index.d.ts:729
+vm/api/dist/index.d.ts:734
 
 ___
 
@@ -6496,7 +6597,7 @@ Error thrown when `to` parameter is invalid
 
 #### Defined in
 
-vm/api/dist/index.d.ts:820
+vm/api/dist/index.d.ts:825
 
 ___
 
@@ -6508,7 +6609,7 @@ Error thrown when value parameter is invalid
 
 #### Defined in
 
-vm/api/dist/index.d.ts:825
+vm/api/dist/index.d.ts:830
 
 ___
 
@@ -6527,7 +6628,7 @@ Helper type for creating JSON-RPC request types
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1283
+vm/api/dist/index.d.ts:1346
 
 ___
 
@@ -6545,7 +6646,82 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1589
+vm/api/dist/index.d.ts:1673
+
+___
+
+### LoadStateError
+
+Ƭ **LoadStateError**: [`InvalidRequestError`](api.md#invalidrequesterror) \| [`UnexpectedError`](api.md#unexpectederror)
+
+Error Returned by load state procedure
+
+**`Example`**
+
+```ts
+const {errors} = await tevm.loadState()
+
+if (errors?.length) {
+  console.log(errors[0].name) // InvalidAddressError
+  console.log(errors[0].message) // Invalid address: 0x1234
+}
+```
+
+#### Defined in
+
+vm/api/dist/index.d.ts:937
+
+___
+
+### LoadStateHandler
+
+Ƭ **LoadStateHandler**: (`params`: `LoadStateParams`) => `Promise`\<`LoadStateResult`\>
+
+#### Type declaration
+
+▸ (`params`): `Promise`\<`LoadStateResult`\>
+
+Handler for load state tevm procedure
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `params` | `LoadStateParams` |
+
+##### Returns
+
+`Promise`\<`LoadStateResult`\>
+
+#### Defined in
+
+vm/api/dist/index.d.ts:1329
+
+___
+
+### LoadStateJsonRpcProcedure
+
+Ƭ **LoadStateJsonRpcProcedure**: (`request`: `LoadStateJsonRpcRequest`) => `Promise`\<`LoadStateJsonRpcResponse`\>
+
+#### Type declaration
+
+▸ (`request`): `Promise`\<`LoadStateJsonRpcResponse`\>
+
+Procedure for handling script JSON-RPC requests
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `request` | `LoadStateJsonRpcRequest` |
+
+##### Returns
+
+`Promise`\<`LoadStateJsonRpcResponse`\>
+
+#### Defined in
+
+vm/api/dist/index.d.ts:2079
 
 ___
 
@@ -6565,7 +6741,7 @@ Generic log information
 
 #### Defined in
 
-vm/api/dist/index.d.ts:582
+vm/api/dist/index.d.ts:587
 
 ___
 
@@ -6587,7 +6763,7 @@ if (errors?.length) {
 
 #### Defined in
 
-vm/api/dist/index.d.ts:893
+vm/api/dist/index.d.ts:898
 
 ___
 
@@ -6620,7 +6796,7 @@ Handler for script tevm procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:941
+vm/api/dist/index.d.ts:970
 
 ___
 
@@ -6646,19 +6822,19 @@ Procedure for handling script JSON-RPC requests
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1883
+vm/api/dist/index.d.ts:1969
 
 ___
 
 ### ScriptJsonRpcRequest
 
-Ƭ **ScriptJsonRpcRequest**: [`JsonRpcRequest`](api.md#jsonrpcrequest)\<``"tevm_script"``, `SerializedParams`\>
+Ƭ **ScriptJsonRpcRequest**: [`JsonRpcRequest`](api.md#jsonrpcrequest)\<``"tevm_script"``, `SerializedParams$1`\>
 
 The JSON-RPC request for the `tevm_script` method
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1328
+vm/api/dist/index.d.ts:1391
 
 ___
 
@@ -6670,7 +6846,7 @@ JSON-RPC response for `tevm_script` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1625
+vm/api/dist/index.d.ts:1709
 
 ___
 
@@ -6687,8 +6863,10 @@ for each type of request
 | Name | Type |
 | :------ | :------ |
 | `account` | [`AccountHandler`](api.md#accounthandler) |
+| `blockNumber` | [`EthBlockNumberHandler`](api.md#ethblocknumberhandler) |
 | `call` | [`CallHandler`](api.md#callhandler) |
 | `contract` | [`ContractHandler`](api.md#contracthandler) |
+| `dumpState` | [`DumpStateHandler`](api.md#dumpstatehandler) |
 | `eth` | \{ `blockNumber`: [`EthBlockNumberHandler`](api.md#ethblocknumberhandler) ; `chainId`: [`EthChainIdHandler`](api.md#ethchainidhandler) ; `gasPrice`: [`EthGasPriceHandler`](api.md#ethgaspricehandler) ; `getBalance`: [`EthGetBalanceHandler`](api.md#ethgetbalancehandler) ; `getCode`: [`EthGetCodeHandler`](api.md#ethgetcodehandler) ; `getStorageAt`: [`EthGetStorageAtHandler`](api.md#ethgetstorageathandler)  } |
 | `eth.blockNumber` | [`EthBlockNumberHandler`](api.md#ethblocknumberhandler) |
 | `eth.chainId` | [`EthChainIdHandler`](api.md#ethchainidhandler) |
@@ -6696,12 +6874,13 @@ for each type of request
 | `eth.getBalance` | [`EthGetBalanceHandler`](api.md#ethgetbalancehandler) |
 | `eth.getCode` | [`EthGetCodeHandler`](api.md#ethgetcodehandler) |
 | `eth.getStorageAt` | [`EthGetStorageAtHandler`](api.md#ethgetstorageathandler) |
+| `loadState` | [`LoadStateHandler`](api.md#loadstatehandler) |
 | `request` | [`TevmJsonRpcRequestHandler`](index.md#tevmjsonrpcrequesthandler) |
 | `script` | [`ScriptHandler`](api.md#scripthandler) |
 
 #### Defined in
 
-vm/api/dist/index.d.ts:2067
+vm/api/dist/index.d.ts:2167
 
 ___
 
@@ -6711,7 +6890,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:746
+vm/api/dist/index.d.ts:751
 
 ___
 
@@ -6735,7 +6914,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:682
+vm/api/dist/index.d.ts:687
 
 ___
 
@@ -6755,7 +6934,7 @@ Config params for trace calls
 
 #### Defined in
 
-vm/api/dist/index.d.ts:540
+vm/api/dist/index.d.ts:541
 
 ___
 
@@ -6779,7 +6958,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:694
+vm/api/dist/index.d.ts:699
 
 ___
 
@@ -6789,7 +6968,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:680
+vm/api/dist/index.d.ts:685
 
 ___
 
@@ -6813,7 +6992,7 @@ A transaction request object
 
 #### Defined in
 
-vm/api/dist/index.d.ts:631
+vm/api/dist/index.d.ts:636
 
 ___
 
@@ -6842,7 +7021,7 @@ Transaction receipt result type for eth JSON-RPC procedures
 
 #### Defined in
 
-vm/api/dist/index.d.ts:644
+vm/api/dist/index.d.ts:649
 
 ___
 
@@ -6874,7 +7053,7 @@ json rpc procedures
 
 #### Defined in
 
-vm/api/dist/index.d.ts:663
+vm/api/dist/index.d.ts:668
 
 ___
 
@@ -6907,7 +7086,7 @@ for tevm users.
 
 #### Defined in
 
-vm/api/dist/index.d.ts:714
+vm/api/dist/index.d.ts:719
 
 ___
 
@@ -6921,4 +7100,4 @@ means an error wasn't properly handled already
 
 #### Defined in
 
-vm/api/dist/index.d.ts:832
+vm/api/dist/index.d.ts:837

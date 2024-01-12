@@ -1,12 +1,19 @@
 import { Account, Address } from '@ethereumjs/util'
 import { DefaultTevmStateManager, TevmStateManager } from '@tevm/state'
+import { validateLoadStateParams } from '@tevm/zod'
 import { fromRlp, hexToBytes, isHex } from 'viem'
 
 /**
  * @param {TevmStateManager | DefaultTevmStateManager} stateManager
- * @param {import("@tevm/state").SerializableTevmState} tevmState
+ * @returns {import('@tevm/api').LoadStateHandler}
  */
-export const runLoadStateActionHandler = async (stateManager, tevmState) => {
+export const loadStateHandler = (stateManager) => async (params) => {
+	const errors = validateLoadStateParams(params)
+	if (errors.length > 0) {
+		return { errors }
+	}
+
+	const tevmState = params.state
 	for (const [k, v] of Object.entries(tevmState)) {
 		const { nonce, balance, storageRoot, codeHash, storage } = v
 		const account = new Account(nonce, balance, storageRoot, codeHash)
@@ -29,4 +36,6 @@ export const runLoadStateActionHandler = async (stateManager, tevmState) => {
 			}
 		}
 	}
+
+	return {}
 }

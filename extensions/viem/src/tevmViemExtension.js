@@ -346,6 +346,36 @@ export const tevmViemExtension = () => {
 			)
 		}
 
+		/**
+		 * @type {import('@tevm/api').LoadStateHandler}
+		 */
+		const loadState = async (params) => {
+			return /** @type {any} */ (
+				formatResult(
+					await request({
+						method: 'tevm_load_state',
+						jsonrpc: '2.0',
+						params,
+					}),
+				)
+			)
+		}
+
+		/**
+		 * @type {import('@tevm/api').DumpStateHandler}
+		 */
+		const dumpState = async () => {
+			return /** @type {any} */ (
+				formatResult(
+					await request({
+						method: 'tevm_dump_state',
+						jsonrpc: '2.0',
+						params: undefined,
+					}),
+				)
+			)
+		}
+
 		return {
 			tevm: {
 				eth: {
@@ -361,6 +391,9 @@ export const tevmViemExtension = () => {
 				account,
 				call,
 				contract,
+				blockNumber,
+				dumpState,
+				loadState,
 			},
 		}
 	}

@@ -3,6 +3,7 @@ import type {
 	AccountHandler,
 	CallHandler,
 	ContractHandler,
+	DumpStateHandler,
 	// DebugTraceCallHandler,
 	// DebugTraceTransactionHandler,
 	EthBlockNumberHandler,
@@ -12,6 +13,7 @@ import type {
 	EthGetBalanceHandler,
 	EthGetCodeHandler,
 	EthGetStorageAtHandler,
+	LoadStateHandler,
 	ScriptHandler,
 } from './handlers/index.js'
 
@@ -48,4 +50,7 @@ export type Tevm = {
 	// Not implementing any yet
 	// Compile handlers
 	// Not implementing any yet
+	blockNumber: EthBlockNumberHandler
+	dumpState: DumpStateHandler
+	loadState: LoadStateHandler
 }
