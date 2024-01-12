@@ -1,6 +1,11 @@
 import { TevmEvm } from './Tevm.js'
 import { processRequest } from './processRequest.js'
+import { Block } from '@ethereumjs/block'
+import { Blockchain } from '@ethereumjs/blockchain'
 import { Common, Hardfork } from '@ethereumjs/common'
+import { genesisStateRoot } from '@ethereumjs/trie'
+import { MapDB } from '@ethereumjs/util'
+import { VM } from '@ethereumjs/vm'
 import {
 	accountHandler,
 	callHandler,
@@ -47,6 +52,8 @@ export const createTevm = async (options = {}) => {
 	 * @type {TevmStateManager | DefaultTevmStateManager}
 	 */
 	let stateManager
+	const common = new Common({ chain: 1, hardfork: Hardfork.Shanghai })
+
 	// ethereumjs throws an error for most chain ids
 	if (options.fork?.url) {
 		const client = createPublicClient({
@@ -58,17 +65,71 @@ export const createTevm = async (options = {}) => {
 		stateManager = new DefaultTevmStateManager()
 	}
 
+	/**
+	 * @type {import('@ethereumjs/util').GenesisState}
+	 */
+	const genesisState = {}
+
+	const genesisBlock = Block.fromBlockData(
+		{
+			header: common.genesis(),
+			...(common.isActivatedEIP(4895)
+				? {
+						withdrawals:
+							/** @type {Array<import('@ethereumjs/util').WithdrawalData>}*/ ([]),
+				  }
+				: {}),
+		},
+		{ common, setHardfork: false, skipConsensusFormatValidation: true },
+	)
+
+	/**
+	 * @type {Map<string | number | Uint8Array, string | Uint8Array | import('@ethereumjs/util').DBObject>}
+	 */
+	const mapDb = new Map()
+	const db = new MapDB(mapDb)
+
+	const stateRoot = await genesisStateRoot(genesisState)
+
+	// We might need to update this instead of naively using a blank blockchain
+	const blockchain = await Blockchain.create({
+		genesisState,
+		hardforkByHeadBlockNumber: false,
+		db,
+		common,
+		validateBlocks: false,
+		validateConsensus: false,
+		genesisBlock,
+		genesisStateRoot: stateRoot,
+		// using ethereumjs defaults for this and disabling it
+		// consensus,
+	})
+
 	const evm = new TevmEvm({
-		common: new Common({ chain: 1, hardfork: Hardfork.Shanghai }),
+		common,
 		stateManager,
-		// blockchain, // Always running the EVM statelessly so not including blockchain
+		blockchain,
 		allowUnlimitedContractSize: options.allowUnlimitedContractSize ?? false,
 		allowUnlimitedInitCodeSize: false,
 		customOpcodes: [],
 		// TODO uncomment the mapping once we make the api correct
 		customPrecompiles: options.customPrecompiles ?? [], // : customPrecompiles.map(p => ({ ...p, address: new EthjsAddress(hexToBytes(p.address)) })),
 		profiler: {
-			enabled: false,
+			enabled: true,
+		},
+	})
+
+	const vm = await VM.create({
+		stateManager,
+		evm,
+		activatePrecompiles: true,
+		blockchain,
+		common,
+		genesisState,
+		setHardfork: false,
+		profilerOpts: {
+			reportAfterTx: true,
+			reportAfterBlock: false,
 		},
 	})
 
@@ -77,6 +138,7 @@ export const createTevm = async (options = {}) => {
 	 */
 	const tevm = {
 		_evm: evm,
+		_vm: vm,
 		request: processRequest(evm, options.fork?.url),
 		script: scriptHandler(evm),
 		account: accountHandler(evm),

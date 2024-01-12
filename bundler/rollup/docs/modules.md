@@ -6,24 +6,24 @@
 
 ### Functions
 
-- [rollupPluginTevm](modules.md#rollupplugintevm)
+- [rollupPluginTevm](undefined)
 
 ## Functions
 
 ### rollupPluginTevm
 
-▸ **rollupPluginTevm**(`options?`): `Plugin`\<`any`\>
+▸ **rollupPluginTevm**(`options?`): Plugin\<any\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `options?` | `Object` |
-| `options.solc?` | `SolcVersions$1` |
+| `options?` | Object |
+| `options.solc?` | SolcVersions$1 |
 
 #### Returns
 
-`Plugin`\<`any`\>
+Plugin\<any\>
 
 #### Defined in
 

@@ -6,19 +6,19 @@
 
 ### Variables
 
-- [fileLevelOption](modules.md#fileleveloption)
-- [releases](modules.md#releases)
+- [fileLevelOption](undefined)
+- [releases](undefined)
 
 ### Functions
 
-- [createSolc](modules.md#createsolc)
-- [solcCompile](modules.md#solccompile)
+- [createSolc](undefined)
+- [solcCompile](undefined)
 
 ## Variables
 
 ### fileLevelOption
 
-• `Const` **fileLevelOption**: ``""``
+• `Const` **fileLevelOption**: "" = `''`
 
 #### Defined in
 
@@ -28,7 +28,7 @@ ___
 
 ### releases
 
-• `Const` **releases**: `Releases`
+• `Const` **releases**: Releases
 
 #### Defined in
 
@@ -38,17 +38,17 @@ ___
 
 ### createSolc
 
-▸ **createSolc**(`release`): `Promise`\<`Solc`\>
+▸ **createSolc**(`release`): Promise\<Solc\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `release` | keyof `Releases` |
+| `release` | keyof Releases |
 
 #### Returns
 
-`Promise`\<`Solc`\>
+Promise\<Solc\>
 
 An instance of solc
 
@@ -60,7 +60,7 @@ ___
 
 ### solcCompile
 
-▸ **solcCompile**(`solc`, `input`): `SolcOutput`
+▸ **solcCompile**(`solc`, `input`): SolcOutput
 
 Typesafe wrapper around solc.compile
 
@@ -68,12 +68,12 @@ Typesafe wrapper around solc.compile
 
 | Name | Type |
 | :------ | :------ |
-| `solc` | `any` |
-| `input` | `SolcInputDescription` |
+| `solc` | any |
+| `input` | SolcInputDescription |
 
 #### Returns
 
-`SolcOutput`
+SolcOutput
 
 #### Defined in
 

@@ -415,7 +415,7 @@ ___
 
 #### Defined in
 
-vm/vm/dist/index.d.ts:91
+vm/vm/dist/index.d.ts:97
 
 ___
 

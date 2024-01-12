@@ -6,24 +6,24 @@
 
 ### Functions
 
-- [vitePluginTevm](modules.md#viteplugintevm)
+- [vitePluginTevm](undefined)
 
 ## Functions
 
 ### vitePluginTevm
 
-▸ **vitePluginTevm**(`options?`): `Plugin`\<`any`\>
+▸ **vitePluginTevm**(`options?`): Plugin\<any\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `options?` | `Object` |
-| `options.solc?` | `SolcVersions$1` |
+| `options?` | Object |
+| `options.solc?` | SolcVersions$1 |
 
 #### Returns
 
-`Plugin`\<`any`\>
+Plugin\<any\>
 
 #### Defined in
 
