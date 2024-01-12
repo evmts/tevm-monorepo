@@ -11,6 +11,8 @@ import {
 	blockNumberHandler,
 	callHandler,
 	contractHandler,
+	dumpStateHandler,
+	loadStateHandler,
 	scriptHandler,
 } from '@tevm/procedures'
 import { DefaultTevmStateManager, TevmStateManager } from '@tevm/state'
@@ -146,6 +148,8 @@ export const createTevm = async (options = {}) => {
 		call: callHandler(evm),
 		contract: contractHandler(evm),
 		blockNumber: blockNumberHandler(blockchain),
+		dumpState: dumpStateHandler(evm.stateManager),
+		loadState: loadStateHandler(evm.stateManager),
 		...(options.fork?.url
 			? { forkUrl: options.fork.url }
 			: { forkUrl: options.fork?.url }),

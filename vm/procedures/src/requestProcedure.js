@@ -1,5 +1,11 @@
 import { UnknownMethodError } from './errors/UnknownMethodError.js'
-import { accountProcedure, callProcedure, scriptProcedure } from './index.js'
+import {
+	accountProcedure,
+	callProcedure,
+	dumpStateProcedure,
+	loadStateProcedure,
+	scriptProcedure,
+} from './index.js'
 import { blockNumberProcedure } from './jsonrpc/ethProcedure.js'
 
 /**
@@ -43,6 +49,13 @@ export const requestProcedure = (vm) => {
 				return /**@type any*/ (scriptProcedure)(vm.evm)(request)
 			case 'eth_blockNumber':
 				return /** @type any */ (blockNumberProcedure(vm.blockchain)(request))
+			case 'tevm_dump_state':
+				return /** @type any */ (dumpStateProcedure)(vm.stateManager)(request)
+			case 'tevm_load_state': {
+				// @ts-ignore
+				const stateManager = vm.stateManager
+				return /** @type any */ (loadStateProcedure)(stateManager)(request)
+			}
 			case 'eth_call':
 			case 'eth_sign':
 			case 'eth_mining':

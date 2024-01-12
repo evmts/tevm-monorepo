@@ -14,6 +14,10 @@
 - [callProcedure](modules.md#callprocedure)
 - [contractHandler](modules.md#contracthandler)
 - [contractProcedure](modules.md#contractprocedure)
+- [dumpStateHandler](modules.md#dumpstatehandler)
+- [dumpStateProcedure](modules.md#dumpstateprocedure)
+- [loadStateHandler](modules.md#loadstatehandler)
+- [loadStateProcedure](modules.md#loadstateprocedure)
 - [requestProcedure](modules.md#requestprocedure)
 - [scriptHandler](modules.md#scripthandler)
 - [scriptProcedure](modules.md#scriptprocedure)
@@ -194,6 +198,90 @@ we simply overload call instead of creating a seperate tevm_contract method
 
 ___
 
+### dumpStateHandler
+
+▸ **dumpStateHandler**(`stateManager`): `DumpStateHandler`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `stateManager` | `TevmStateManager` \| `DefaultTevmStateManager` |
+
+#### Returns
+
+`DumpStateHandler`
+
+#### Defined in
+
+[handlers/dumpStateHandler.js:8](https://github.com/evmts/tevm-monorepo/blob/main/vm/procedures/src/handlers/dumpStateHandler.js#L8)
+
+___
+
+### dumpStateProcedure
+
+▸ **dumpStateProcedure**(`stateManager`): `DumpStateJsonRpcProcedure`
+
+Creates a DumpState JSON-RPC Procedure for handling dumpState requests with Ethereumjs EVM
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `stateManager` | `TevmStateManager` |
+
+#### Returns
+
+`DumpStateJsonRpcProcedure`
+
+#### Defined in
+
+[jsonrpc/dumpStateProcedure.js:8](https://github.com/evmts/tevm-monorepo/blob/main/vm/procedures/src/jsonrpc/dumpStateProcedure.js#L8)
+
+___
+
+### loadStateHandler
+
+▸ **loadStateHandler**(`stateManager`): `LoadStateHandler`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `stateManager` | `TevmStateManager` \| `DefaultTevmStateManager` |
+
+#### Returns
+
+`LoadStateHandler`
+
+#### Defined in
+
+[handlers/loadStateHandler.js:10](https://github.com/evmts/tevm-monorepo/blob/main/vm/procedures/src/handlers/loadStateHandler.js#L10)
+
+___
+
+### loadStateProcedure
+
+▸ **loadStateProcedure**(`stateManager`): `LoadStateJsonRpcProcedure`
+
+Creates a DumpState JSON-RPC Procedure for handling dumpState requests with Ethereumjs EVM
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `stateManager` | `TevmStateManager` |
+
+#### Returns
+
+`LoadStateJsonRpcProcedure`
+
+#### Defined in
+
+[jsonrpc/loadStateProcedure.js:8](https://github.com/evmts/tevm-monorepo/blob/main/vm/procedures/src/jsonrpc/loadStateProcedure.js#L8)
+
+___
+
 ### requestProcedure
 
 ▸ **requestProcedure**(`vm`): `TevmJsonRpcRequestHandler`
@@ -226,7 +314,7 @@ const res = await requestProcedure(evm)({
 
 #### Defined in
 
-[requestProcedure.js:22](https://github.com/evmts/tevm-monorepo/blob/main/vm/procedures/src/requestProcedure.js#L22)
+[requestProcedure.js:28](https://github.com/evmts/tevm-monorepo/blob/main/vm/procedures/src/requestProcedure.js#L28)
 
 ___
 

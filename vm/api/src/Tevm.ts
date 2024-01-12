@@ -3,7 +3,9 @@ import type {
 	AccountHandler,
 	CallHandler,
 	ContractHandler,
+	DumpStateHandler,
 	EthBlockNumberHandler,
+	LoadStateHandler,
 	ScriptHandler,
 } from './handlers/index.js'
 
@@ -19,4 +21,6 @@ export type Tevm = {
 	call: CallHandler
 	contract: ContractHandler
 	blockNumber: EthBlockNumberHandler
+	dumpState: DumpStateHandler
+	loadState: LoadStateHandler
 }

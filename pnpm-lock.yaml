@@ -1275,6 +1275,9 @@ importers:
 
   vm/api:
     devDependencies:
+      '@tevm/state':
+        specifier: workspace:^
+        version: link:../state
       '@tevm/tsconfig':
         specifier: workspace:^
         version: link:../../configs/tsconfig

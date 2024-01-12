@@ -2,7 +2,7 @@
 
 Typescript types of Tevm JsonRpc procedures to fulfill [tevm requests](../requests/).
 
-Procedures fullfill tevm requests over JSON-RPC for use when the Tevm vm is runnign in a backend server or a service worker.
+Procedures fullfill tevm requests over JSON-RPC for use when the Tevm vm is running in a backend server or a service worker.
 
 Procedures are less ergonomic than [handlers](../handlers) and thus are usually wrapped with handlers when using tevm remotely.
 

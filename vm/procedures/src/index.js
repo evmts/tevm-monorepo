@@ -5,6 +5,8 @@ export {
 	accountHandler,
 	contractHandler,
 	blockNumberHandler,
+	dumpStateHandler,
+	loadStateHandler,
 } from './handlers/index.js'
 export {
 	callProcedure,
@@ -12,4 +14,6 @@ export {
 	accountProcedure,
 	contractProcedure,
 	blockNumberProcedure,
+	dumpStateProcedure,
+	loadStateProcedure,
 } from './jsonrpc/index.js'

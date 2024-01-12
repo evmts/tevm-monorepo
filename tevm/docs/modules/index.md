@@ -80,7 +80,7 @@ const accountParams: import('@tevm/api').AccountParams = {
 
 #### Defined in
 
-vm/api/dist/index.d.ts:16
+vm/api/dist/index.d.ts:17
 
 ___
 
@@ -104,7 +104,7 @@ Result of Account Action
 
 #### Defined in
 
-vm/api/dist/index.d.ts:950
+vm/api/dist/index.d.ts:963
 
 ___
 
@@ -139,7 +139,7 @@ const callParams: import('@tevm/api').CallParams = {
 
 #### Defined in
 
-vm/api/dist/index.d.ts:141
+vm/api/dist/index.d.ts:142
 
 ___
 
@@ -172,7 +172,7 @@ Result of a Tevm VM Call method
 
 #### Defined in
 
-vm/api/dist/index.d.ts:960
+vm/api/dist/index.d.ts:973
 
 ___
 
@@ -191,7 +191,7 @@ Tevm params to execute a call on a contract
 
 #### Defined in
 
-vm/api/dist/index.d.ts:159
+vm/api/dist/index.d.ts:160
 
 ___
 
@@ -209,7 +209,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1003
+vm/api/dist/index.d.ts:1016
 
 ___
 
@@ -258,7 +258,7 @@ Tevm params for deploying and running a script
 
 #### Defined in
 
-vm/api/dist/index.d.ts:169
+vm/api/dist/index.d.ts:170
 
 ___
 
@@ -276,7 +276,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1013
+vm/api/dist/index.d.ts:1026
 
 ___
 
@@ -314,14 +314,14 @@ ___
 
 ### TevmJsonRpcRequest
 
-Ƭ **TevmJsonRpcRequest**: [`AccountJsonRpcRequest`](api.md#accountjsonrpcrequest) \| [`CallJsonRpcRequest`](api.md#calljsonrpcrequest) \| [`ContractJsonRpcRequest`](api.md#contractjsonrpcrequest) \| [`ScriptJsonRpcRequest`](api.md#scriptjsonrpcrequest)
+Ƭ **TevmJsonRpcRequest**: [`AccountJsonRpcRequest`](api.md#accountjsonrpcrequest) \| [`CallJsonRpcRequest`](api.md#calljsonrpcrequest) \| [`ContractJsonRpcRequest`](api.md#contractjsonrpcrequest) \| [`ScriptJsonRpcRequest`](api.md#scriptjsonrpcrequest) \| `LoadStateJsonRpcRequest` \| `DumpStateJsonRpcRequest`
 
 A Tevm JSON-RPC request
 `tevm_account`, `tevm_call`, `tevm_contract`, `tevm_script`
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1323
+vm/api/dist/index.d.ts:1391
 
 ___
 
@@ -354,7 +354,7 @@ Generic and returns the correct response type for a given request
 
 #### Defined in
 
-vm/api/dist/index.d.ts:2041
+vm/api/dist/index.d.ts:2125
 
 ## Functions
 

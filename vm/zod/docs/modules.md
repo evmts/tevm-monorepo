@@ -25,6 +25,7 @@
 - [validateBaseCallParams](modules.md#validatebasecallparams)
 - [validateCallParams](modules.md#validatecallparams)
 - [validateContractParams](modules.md#validatecontractparams)
+- [validateLoadStateParams](modules.md#validateloadstateparams)
 - [validateScriptParams](modules.md#validatescriptparams)
 
 ## Variables
@@ -248,6 +249,26 @@ ___
 #### Defined in
 
 [vm/zod/src/validators/validateContractParams.js:9](https://github.com/evmts/tevm-monorepo/blob/main/vm/zod/src/validators/validateContractParams.js#L9)
+
+___
+
+### validateLoadStateParams
+
+▸ **validateLoadStateParams**(`action`): `LoadStateError`[]
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `action` | `LoadStateParams` |
+
+#### Returns
+
+`LoadStateError`[]
+
+#### Defined in
+
+[vm/zod/src/validators/validateLoadStateParams.js:7](https://github.com/evmts/tevm-monorepo/blob/main/vm/zod/src/validators/validateLoadStateParams.js#L7)
 
 ___
 

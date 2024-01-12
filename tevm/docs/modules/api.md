@@ -37,6 +37,10 @@
 - [ContractJsonRpcProcedure](api.md#contractjsonrpcprocedure)
 - [ContractJsonRpcRequest](api.md#contractjsonrpcrequest)
 - [ContractJsonRpcResponse](api.md#contractjsonrpcresponse)
+- [DumpStateError](api.md#dumpstateerror)
+- [DumpStateHandler](api.md#dumpstatehandler)
+- [DumpStateJsonRpcProcedure](api.md#dumpstatejsonrpcprocedure)
+- [DumpStateResult](api.md#dumpstateresult)
 - [EvmError](api.md#evmerror)
 - [InvalidAddressError](api.md#invalidaddresserror)
 - [InvalidBalanceError](api.md#invalidbalanceerror)
@@ -62,6 +66,9 @@
 - [InvalidValueError](api.md#invalidvalueerror)
 - [JsonRpcRequest](api.md#jsonrpcrequest)
 - [JsonRpcResponse](api.md#jsonrpcresponse)
+- [LoadStateError](api.md#loadstateerror)
+- [LoadStateHandler](api.md#loadstatehandler)
+- [LoadStateJsonRpcProcedure](api.md#loadstatejsonrpcprocedure)
 - [Log](api.md#log)
 - [ScriptError](api.md#scripterror)
 - [ScriptHandler](api.md#scripthandler)
@@ -153,7 +160,7 @@ if (errors?.length) {
 
 #### Defined in
 
-vm/api/dist/index.d.ts:909
+vm/api/dist/index.d.ts:914
 
 ___
 
@@ -179,7 +186,7 @@ Handler for account tevm procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:929
+vm/api/dist/index.d.ts:942
 
 ___
 
@@ -205,7 +212,7 @@ Account JSON-RPC tevm procedure puts an account or contract into the tevm state
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1851
+vm/api/dist/index.d.ts:1921
 
 ___
 
@@ -217,7 +224,7 @@ JSON-RPC request for `tevm_account` method
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1285
+vm/api/dist/index.d.ts:1332
 
 ___
 
@@ -229,7 +236,7 @@ JSON-RPC response for `tevm_account` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1596
+vm/api/dist/index.d.ts:1664
 
 ___
 
@@ -241,7 +248,7 @@ Errors returned by all call based tevm procedures including call, contract, and 
 
 #### Defined in
 
-vm/api/dist/index.d.ts:841
+vm/api/dist/index.d.ts:846
 
 ___
 
@@ -270,7 +277,7 @@ Properties shared accross call-like params
 
 #### Defined in
 
-vm/api/dist/index.d.ts:76
+vm/api/dist/index.d.ts:77
 
 ___
 
@@ -294,7 +301,7 @@ Header information of an ethereum block
 
 #### Defined in
 
-vm/api/dist/index.d.ts:42
+vm/api/dist/index.d.ts:43
 
 ___
 
@@ -315,7 +322,7 @@ if (errors?.length) {
 
 #### Defined in
 
-vm/api/dist/index.d.ts:924
+vm/api/dist/index.d.ts:929
 
 ___
 
@@ -341,7 +348,7 @@ Handler for call tevm procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:934
+vm/api/dist/index.d.ts:947
 
 ___
 
@@ -367,7 +374,7 @@ Call JSON-RPC procedure executes a call against the tevm EVM
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1856
+vm/api/dist/index.d.ts:1926
 
 ___
 
@@ -379,7 +386,7 @@ JSON-RPC request for `tevm_call`
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1290
+vm/api/dist/index.d.ts:1337
 
 ___
 
@@ -391,7 +398,7 @@ JSON-RPC response for `tevm_call` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1601
+vm/api/dist/index.d.ts:1669
 
 ___
 
@@ -412,7 +419,7 @@ if (errors?.length) {
 
 #### Defined in
 
-vm/api/dist/index.d.ts:881
+vm/api/dist/index.d.ts:886
 
 ___
 
@@ -446,7 +453,7 @@ It's API resuses the viem `contractRead`/`contractWrite` API to encode abi, func
 
 #### Defined in
 
-vm/api/dist/index.d.ts:940
+vm/api/dist/index.d.ts:953
 
 ___
 
@@ -460,7 +467,7 @@ Since ContractJsonRpcProcedure is a quality of life wrapper around CallJsonRpcPr
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1863
+vm/api/dist/index.d.ts:1933
 
 ___
 
@@ -473,7 +480,7 @@ in favor of overloading tevm_call
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1296
+vm/api/dist/index.d.ts:1343
 
 ___
 
@@ -486,7 +493,91 @@ in favor of overloading tevm_call
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1607
+vm/api/dist/index.d.ts:1675
+
+___
+
+### DumpStateError
+
+Ƭ **DumpStateError**: [`InvalidRequestError`](api.md#invalidrequesterror) \| [`UnexpectedError`](api.md#unexpectederror)
+
+Error Returned by dump state procedure
+TODO : Give example call
+
+#### Defined in
+
+vm/api/dist/index.d.ts:937
+
+___
+
+### DumpStateHandler
+
+Ƭ **DumpStateHandler**: () => `Promise`\<[`DumpStateResult`](api.md#dumpstateresult)\>
+
+#### Type declaration
+
+▸ (): `Promise`\<[`DumpStateResult`](api.md#dumpstateresult)\>
+
+Handler for account tevm procedure
+
+##### Returns
+
+`Promise`\<[`DumpStateResult`](api.md#dumpstateresult)\>
+
+#### Defined in
+
+vm/api/dist/index.d.ts:1297
+
+___
+
+### DumpStateJsonRpcProcedure
+
+Ƭ **DumpStateJsonRpcProcedure**: (`request`: `DumpStateJsonRpcRequest`) => `Promise`\<`DumpStateJsonRpcResponse`\>
+
+#### Type declaration
+
+▸ (`request`): `Promise`\<`DumpStateJsonRpcResponse`\>
+
+Procedure for handling script JSON-RPC requests
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `request` | `DumpStateJsonRpcRequest` |
+
+##### Returns
+
+`Promise`\<`DumpStateJsonRpcResponse`\>
+
+#### Defined in
+
+vm/api/dist/index.d.ts:2054
+
+___
+
+### DumpStateResult
+
+Ƭ **DumpStateResult**\<`ErrorType`\>: `Object`
+
+Result of Account Action
+
+#### Type parameters
+
+| Name | Type |
+| :------ | :------ |
+| `ErrorType` | [`DumpStateError`](api.md#dumpstateerror) |
+
+#### Type declaration
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `errors?` | `ErrorType`[] | Description of the exception, if any occurred |
+| `state` | `SerializableTevmState` | The serialized tevm state |
+
+#### Defined in
+
+vm/api/dist/index.d.ts:1218
 
 ___
 
@@ -504,7 +595,7 @@ Error type of errors thrown while internally executing a call in the EVM
 
 #### Defined in
 
-vm/api/dist/index.d.ts:754
+vm/api/dist/index.d.ts:759
 
 ___
 
@@ -516,7 +607,7 @@ Error thrown when address is invalid
 
 #### Defined in
 
-vm/api/dist/index.d.ts:759
+vm/api/dist/index.d.ts:764
 
 ___
 
@@ -528,7 +619,7 @@ Error thrown when balance parameter is invalid
 
 #### Defined in
 
-vm/api/dist/index.d.ts:743
+vm/api/dist/index.d.ts:748
 
 ___
 
@@ -540,7 +631,7 @@ Error thrown when blobVersionedHashes parameter is invalid
 
 #### Defined in
 
-vm/api/dist/index.d.ts:764
+vm/api/dist/index.d.ts:769
 
 ___
 
@@ -552,7 +643,7 @@ Error thrown when block parameter is invalid
 
 #### Defined in
 
-vm/api/dist/index.d.ts:769
+vm/api/dist/index.d.ts:774
 
 ___
 
@@ -564,7 +655,7 @@ Error thrown when bytecode parameter is invalid
 
 #### Defined in
 
-vm/api/dist/index.d.ts:728
+vm/api/dist/index.d.ts:733
 
 ___
 
@@ -576,7 +667,7 @@ Error thrown when caller parameter is invalid
 
 #### Defined in
 
-vm/api/dist/index.d.ts:774
+vm/api/dist/index.d.ts:779
 
 ___
 
@@ -588,7 +679,7 @@ Error thrown when data parameter is invalid
 
 #### Defined in
 
-vm/api/dist/index.d.ts:738
+vm/api/dist/index.d.ts:743
 
 ___
 
@@ -600,7 +691,7 @@ Error thrown when deployedBytecode parameter is invalid
 
 #### Defined in
 
-vm/api/dist/index.d.ts:886
+vm/api/dist/index.d.ts:891
 
 ___
 
@@ -612,7 +703,7 @@ Error thrown when depth parameter is invalid
 
 #### Defined in
 
-vm/api/dist/index.d.ts:779
+vm/api/dist/index.d.ts:784
 
 ___
 
@@ -624,7 +715,7 @@ Error thrown when function name is invalid
 
 #### Defined in
 
-vm/api/dist/index.d.ts:748
+vm/api/dist/index.d.ts:753
 
 ___
 
@@ -636,7 +727,7 @@ Error thrown when gas limit is invalid
 
 #### Defined in
 
-vm/api/dist/index.d.ts:784
+vm/api/dist/index.d.ts:789
 
 ___
 
@@ -648,7 +739,7 @@ Error thrown when gasPrice parameter is invalid
 
 #### Defined in
 
-vm/api/dist/index.d.ts:789
+vm/api/dist/index.d.ts:794
 
 ___
 
@@ -660,7 +751,7 @@ Error thrown when gas refund is invalid
 
 #### Defined in
 
-vm/api/dist/index.d.ts:794
+vm/api/dist/index.d.ts:799
 
 ___
 
@@ -672,7 +763,7 @@ Error thrown when nonce parameter is invalid
 
 #### Defined in
 
-vm/api/dist/index.d.ts:799
+vm/api/dist/index.d.ts:804
 
 ___
 
@@ -684,7 +775,7 @@ Error thrown when origin parameter is invalid
 
 #### Defined in
 
-vm/api/dist/index.d.ts:804
+vm/api/dist/index.d.ts:809
 
 ___
 
@@ -696,7 +787,7 @@ Error thrown when request is invalid
 
 #### Defined in
 
-vm/api/dist/index.d.ts:809
+vm/api/dist/index.d.ts:814
 
 ___
 
@@ -708,7 +799,7 @@ Error thrown when salt parameter is invalid
 
 #### Defined in
 
-vm/api/dist/index.d.ts:914
+vm/api/dist/index.d.ts:919
 
 ___
 
@@ -720,7 +811,7 @@ Error thrown when selfdestruct parameter is invalid
 
 #### Defined in
 
-vm/api/dist/index.d.ts:814
+vm/api/dist/index.d.ts:819
 
 ___
 
@@ -732,7 +823,7 @@ Error thrown when skipBalance parameter is invalid
 
 #### Defined in
 
-vm/api/dist/index.d.ts:819
+vm/api/dist/index.d.ts:824
 
 ___
 
@@ -744,7 +835,7 @@ Error thrown when storage root parameter is invalid
 
 #### Defined in
 
-vm/api/dist/index.d.ts:733
+vm/api/dist/index.d.ts:738
 
 ___
 
@@ -756,7 +847,7 @@ Error thrown when `to` parameter is invalid
 
 #### Defined in
 
-vm/api/dist/index.d.ts:824
+vm/api/dist/index.d.ts:829
 
 ___
 
@@ -768,7 +859,7 @@ Error thrown when value parameter is invalid
 
 #### Defined in
 
-vm/api/dist/index.d.ts:829
+vm/api/dist/index.d.ts:834
 
 ___
 
@@ -787,7 +878,7 @@ Helper type for creating JSON-RPC request types
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1272
+vm/api/dist/index.d.ts:1319
 
 ___
 
@@ -805,7 +896,69 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1576
+vm/api/dist/index.d.ts:1644
+
+___
+
+### LoadStateError
+
+Ƭ **LoadStateError**: [`InvalidRequestError`](api.md#invalidrequesterror) \| [`UnexpectedError`](api.md#unexpectederror)
+
+#### Defined in
+
+vm/api/dist/index.d.ts:931
+
+___
+
+### LoadStateHandler
+
+Ƭ **LoadStateHandler**: (`params`: `LoadStateParams`) => `Promise`\<`LoadStateResult`\>
+
+#### Type declaration
+
+▸ (`params`): `Promise`\<`LoadStateResult`\>
+
+Handler for load state tevm procedure
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `params` | `LoadStateParams` |
+
+##### Returns
+
+`Promise`\<`LoadStateResult`\>
+
+#### Defined in
+
+vm/api/dist/index.d.ts:1302
+
+___
+
+### LoadStateJsonRpcProcedure
+
+Ƭ **LoadStateJsonRpcProcedure**: (`request`: `LoadStateJsonRpcRequest`) => `Promise`\<`LoadStateJsonRpcResponse`\>
+
+#### Type declaration
+
+▸ (`request`): `Promise`\<`LoadStateJsonRpcResponse`\>
+
+Procedure for handling script JSON-RPC requests
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `request` | `LoadStateJsonRpcRequest` |
+
+##### Returns
+
+`Promise`\<`LoadStateJsonRpcResponse`\>
+
+#### Defined in
+
+vm/api/dist/index.d.ts:2047
 
 ___
 
@@ -825,7 +978,7 @@ Generic log information
 
 #### Defined in
 
-vm/api/dist/index.d.ts:586
+vm/api/dist/index.d.ts:591
 
 ___
 
@@ -847,7 +1000,7 @@ if (errors?.length) {
 
 #### Defined in
 
-vm/api/dist/index.d.ts:897
+vm/api/dist/index.d.ts:902
 
 ___
 
@@ -880,7 +1033,7 @@ Handler for script tevm procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:945
+vm/api/dist/index.d.ts:958
 
 ___
 
@@ -906,19 +1059,19 @@ Procedure for handling script JSON-RPC requests
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1868
+vm/api/dist/index.d.ts:1938
 
 ___
 
 ### ScriptJsonRpcRequest
 
-Ƭ **ScriptJsonRpcRequest**: [`JsonRpcRequest`](api.md#jsonrpcrequest)\<``"tevm_script"``, `SerializedParams`\>
+Ƭ **ScriptJsonRpcRequest**: [`JsonRpcRequest`](api.md#jsonrpcrequest)\<``"tevm_script"``, `SerializedParams$1`\>
 
 The JSON-RPC request for the `tevm_script` method
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1317
+vm/api/dist/index.d.ts:1364
 
 ___
 
@@ -930,7 +1083,7 @@ JSON-RPC response for `tevm_script` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1612
+vm/api/dist/index.d.ts:1680
 
 ___
 
@@ -950,12 +1103,14 @@ for each type of request
 | `blockNumber` | `EthBlockNumberHandler` |
 | `call` | [`CallHandler`](api.md#callhandler) |
 | `contract` | [`ContractHandler`](api.md#contracthandler) |
+| `dumpState` | [`DumpStateHandler`](api.md#dumpstatehandler) |
+| `loadState` | [`LoadStateHandler`](api.md#loadstatehandler) |
 | `request` | [`TevmJsonRpcRequestHandler`](index.md#tevmjsonrpcrequesthandler) |
 | `script` | [`ScriptHandler`](api.md#scripthandler) |
 
 #### Defined in
 
-vm/api/dist/index.d.ts:2049
+vm/api/dist/index.d.ts:2133
 
 ___
 
@@ -988,7 +1143,7 @@ for tevm users.
 
 #### Defined in
 
-vm/api/dist/index.d.ts:718
+vm/api/dist/index.d.ts:723
 
 ___
 
@@ -1002,4 +1157,4 @@ means an error wasn't properly handled already
 
 #### Defined in
 
-vm/api/dist/index.d.ts:836
+vm/api/dist/index.d.ts:841
