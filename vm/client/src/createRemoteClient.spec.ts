@@ -2,6 +2,7 @@ import { createMemoryClient } from './createMemoryClient.js'
 import { type RemoteClient, createRemoteClient } from './createRemoteClient.js'
 import { ERC20_ADDRESS } from './test/ERC20.sol.js'
 import { Address } from '@ethereumjs/util'
+import { createHttpHandler } from '@tevm/server'
 import { type Tevm, createTevm } from '@tevm/vm'
 import { afterAll, beforeAll, describe, expect, it } from 'bun:test'
 import { Server, createServer } from 'http'
@@ -14,7 +15,9 @@ describe(createMemoryClient.name, () => {
 
 	beforeAll(async () => {
 		tevm = await createTevm({ fork: { url: 'https://mainnet.optimism.io' } })
-		server = createServer(tevm.createHttpHandler()).listen(6969)
+		server = createServer(createHttpHandler({ request: tevm.request })).listen(
+			6969,
+		)
 		client = createRemoteClient({ url: 'http://localhost:6969' })
 	})
 

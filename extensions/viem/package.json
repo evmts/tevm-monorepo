@@ -70,6 +70,7 @@
 		"@ethereumjs/util": "^9.0.1",
 		"@tevm/api": "workspace:^",
 		"@tevm/contract": "workspace:^",
+		"@tevm/server": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",
 		"abitype": "^0.10.3",

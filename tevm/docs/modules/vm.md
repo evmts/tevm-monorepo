@@ -40,7 +40,7 @@ Options for creating an Tevm instance
 
 #### Defined in
 
-vm/vm/dist/index.d.ts:89
+vm/vm/dist/index.d.ts:84
 
 ___
 
@@ -55,7 +55,7 @@ TODO this should be modified to take a hex address rather than an ethjs address 
 
 #### Defined in
 
-vm/vm/dist/index.d.ts:67
+vm/vm/dist/index.d.ts:62
 
 ___
 
@@ -74,13 +74,13 @@ Options fetch state that isn't available locally.
 
 #### Defined in
 
-vm/vm/dist/index.d.ts:72
+vm/vm/dist/index.d.ts:67
 
 ___
 
 ### Tevm
 
-Ƭ **Tevm**: [`Tevm`](api.md#tevm) & \{ `_evm`: `TevmEvm` ; `createHttpHandler`: () => `ReturnType`\<typeof `createHttpHandler`\> ; `forkUrl?`: `string`  }
+Ƭ **Tevm**: [`Tevm`](api.md#tevm) & \{ `_evm`: `TevmEvm` ; `forkUrl?`: `string`  }
 
 A local EVM instance running in JavaScript. Similar to Anvil in your browser
 
@@ -115,4 +115,4 @@ const balance = await tevm.runContractCall(
 
 #### Defined in
 
-vm/vm/dist/index.d.ts:38
+vm/vm/dist/index.d.ts:37

@@ -1,6 +1,7 @@
-import { createTevm } from '../createTevm.js'
+import { createHttpHandler } from '../createHttpHandler.js'
 import { DaiContract } from './DaiContract.sol.js'
 import type { ContractJsonRpcRequest } from '@tevm/api'
+import { createTevm } from '@tevm/vm'
 import { describe, expect, it } from 'bun:test'
 import supertest from 'supertest'
 import { decodeFunctionResult, encodeFunctionData, hexToBigInt } from 'viem'
@@ -8,7 +9,7 @@ import { optimism } from 'viem/chains'
 
 const contractAddress = '0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1'
 
-describe('tevm.httpHandler()', () => {
+describe('createHttpHandler', () => {
 	// this doesn't work yet
 	// haven't debugged if code is broke or test is broke yet
 	// landing immediately to avoid merge conflicts in other prs but need to circle back
@@ -19,7 +20,7 @@ describe('tevm.httpHandler()', () => {
 			},
 		})
 
-		const server = require('http').createServer(tevm.createHttpHandler())
+		const server = require('http').createServer(createHttpHandler(tevm))
 
 		const req = {
 			params: {

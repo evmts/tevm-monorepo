@@ -69,13 +69,11 @@
 		"@ethereumjs/util": "^9.0.1",
 		"@tevm/api": "workspace:^",
 		"@tevm/contract": "workspace:^",
+		"@tevm/jsonrpc": "workspace:^",
 		"@tevm/predeploys": "workspace:^",
 		"@tevm/procedures": "workspace:^",
-		"@tevm/server": "workspace:^",
 		"@tevm/state": "workspace:^",
-		"@types/supertest": "^2.0.16",
 		"abitype": "^0.10.3",
-		"supertest": "^6.3.3",
 		"viem": "^2.0.0"
 	},
 	"devDependencies": {

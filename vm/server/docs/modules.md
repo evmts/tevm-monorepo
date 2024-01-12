@@ -54,4 +54,4 @@ server.listen(PORT, () => console.log({ listening: PORT }))
 
 #### Defined in
 
-[createHttpHandler.js:38](https://github.com/evmts/tevm-monorepo/blob/main/vm/server/src/createHttpHandler.js#L38)
+[createHttpHandler.js:37](https://github.com/evmts/tevm-monorepo/blob/main/vm/server/src/createHttpHandler.js#L37)

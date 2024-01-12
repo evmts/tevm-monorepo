@@ -64,15 +64,17 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
-		"@tevm/jsonrpc": "workspace:^",
-		"@tevm/procedures": "workspace:^",
 		"@tevm/zod": "workspace:^"
 	},
 	"devDependencies": {
 		"@ethereumjs/evm": "^2.1.0",
 		"@tevm/api": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
-		"@tevm/tsupconfig": "workspace:^"
+		"@tevm/tsupconfig": "workspace:^",
+		"@tevm/vm": "workspace:^",
+		"@types/supertest": "^2.0.16",
+		"supertest": "^6.3.3",
+		"viem": "^2.0.6"
 	},
 	"publishConfig": {
 		"access": "public"
