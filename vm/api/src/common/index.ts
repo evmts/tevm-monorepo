@@ -1,2 +1,8 @@
 export type * from './Block.js'
 export type * from './Log.js'
+export type * from './BlockResult.js'
+export type * from './FilterLog.js'
+export type * from './Log.js'
+export type * from './TransactionParams.js'
+export type * from './TransactionReceiptResult.js'
+export type * from './TransactionResult.js'

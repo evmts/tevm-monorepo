@@ -104,7 +104,7 @@ Result of Account Action
 
 #### Defined in
 
-vm/api/dist/index.d.ts:425
+vm/api/dist/index.d.ts:732
 
 ___
 
@@ -172,7 +172,7 @@ Result of a Tevm VM Call method
 
 #### Defined in
 
-vm/api/dist/index.d.ts:435
+vm/api/dist/index.d.ts:742
 
 ___
 
@@ -209,7 +209,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:478
+vm/api/dist/index.d.ts:785
 
 ___
 
@@ -276,7 +276,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:488
+vm/api/dist/index.d.ts:795
 
 ___
 
@@ -321,17 +321,17 @@ A Tevm JSON-RPC request
 
 #### Defined in
 
-vm/api/dist/index.d.ts:553
+vm/api/dist/index.d.ts:1070
 
 ___
 
 ### TevmJsonRpcRequestHandler
 
-Ƭ **TevmJsonRpcRequestHandler**: \<TRequest\>(`request`: `TRequest`) => `Promise`\<`ReturnType`\<`TRequest`\>\>
+Ƭ **TevmJsonRpcRequestHandler**: \<TRequest\>(`request`: `TRequest`) => `TRequest` extends [`TevmJsonRpcRequest`](index.md#tevmjsonrpcrequest) \| `EthJsonRpcRequest` ? `Promise`\<`ReturnType`\<`TRequest`[``"method"``]\>\> : `never`
 
 #### Type declaration
 
-▸ \<`TRequest`\>(`request`): `Promise`\<`ReturnType`\<`TRequest`\>\>
+▸ \<`TRequest`\>(`request`): `TRequest` extends [`TevmJsonRpcRequest`](index.md#tevmjsonrpcrequest) \| `EthJsonRpcRequest` ? `Promise`\<`ReturnType`\<`TRequest`[``"method"``]\>\> : `never`
 
 Type of a JSON-RPC request handler for tevm procedures
 Generic and returns the correct response type for a given request
@@ -340,7 +340,7 @@ Generic and returns the correct response type for a given request
 
 | Name | Type |
 | :------ | :------ |
-| `TRequest` | extends [`TevmJsonRpcRequest`](index.md#tevmjsonrpcrequest) |
+| `TRequest` | extends [`TevmJsonRpcRequest`](index.md#tevmjsonrpcrequest) \| `EthJsonRpcRequest` |
 
 ##### Parameters
 
@@ -350,11 +350,11 @@ Generic and returns the correct response type for a given request
 
 ##### Returns
 
-`Promise`\<`ReturnType`\<`TRequest`\>\>
+`TRequest` extends [`TevmJsonRpcRequest`](index.md#tevmjsonrpcrequest) \| `EthJsonRpcRequest` ? `Promise`\<`ReturnType`\<`TRequest`[``"method"``]\>\> : `never`
 
 #### Defined in
 
-vm/api/dist/index.d.ts:615
+vm/api/dist/index.d.ts:1574
 
 ## Functions
 
