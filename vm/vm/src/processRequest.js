@@ -3,25 +3,22 @@ import { proxyRequest } from './proxyRequest.js'
 import { requestProcedure } from '@tevm/procedures'
 
 /**
- * @param {import('@ethereumjs/evm').EVM} evm
+ * @param {import('@ethereumjs/vm').VM} vm
  * @param {string} [proxyUrl]
+ * @returns {import('@tevm/api').TevmJsonRpcRequestHandler}
  */
-export const processRequest = (evm, proxyUrl) => {
-	/**
-	 * @param {import('@tevm/api').TevmJsonRpcRequest | import('@tevm/api').JsonRpcRequest<string, object>} request
-	 */
-	return async (request) => {
-		if (!request.method.startsWith('tevm_')) {
-			const res = proxyRequest(proxyUrl)(request)
-			return res
-		}
+export const processRequest = (vm, proxyUrl) => {
+	return (request) => {
 		try {
-			return requestProcedure(evm)(/**@type any*/ (request))
+			if (!request.method.startsWith('tevm_')) {
+				return proxyRequest(proxyUrl)(request)
+			}
+			return requestProcedure(vm)(/**@type any*/ (request))
 		} catch (e) {
 			console.error(e)
 			const err = new UnexpectedInternalServerError(request.method)
 			console.error(err)
-			return {
+			return Promise.resolve({
 				id: request.id ?? null,
 				method: request.method,
 				jsonrpc: '2.0',
@@ -29,7 +26,7 @@ export const processRequest = (evm, proxyUrl) => {
 					code: err._tag,
 					message: err.message,
 				},
-			}
+			})
 		}
 	}
 }

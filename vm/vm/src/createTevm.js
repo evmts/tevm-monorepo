@@ -8,6 +8,7 @@ import { MapDB } from '@ethereumjs/util'
 import { VM } from '@ethereumjs/vm'
 import {
 	accountHandler,
+	blockNumberHandler,
 	callHandler,
 	contractHandler,
 	scriptHandler,
@@ -139,11 +140,12 @@ export const createTevm = async (options = {}) => {
 	const tevm = {
 		_evm: evm,
 		_vm: vm,
-		request: processRequest(evm, options.fork?.url),
+		request: processRequest(vm, options.fork?.url),
 		script: scriptHandler(evm),
 		account: accountHandler(evm),
 		call: callHandler(evm),
 		contract: contractHandler(evm),
+		blockNumber: blockNumberHandler(blockchain),
 		...(options.fork?.url
 			? { forkUrl: options.fork.url }
 			: { forkUrl: options.fork?.url }),

@@ -1,7 +1,10 @@
 import { callProcedure, scriptProcedure } from './index.js'
+import { blockNumberProcedure } from './jsonrpc/ethProcedure.js'
 import { requestProcedure } from './requestProcedure.js'
+import { Blockchain } from '@ethereumjs/blockchain'
 import { EVM } from '@ethereumjs/evm'
 import { Account, Address } from '@ethereumjs/util'
+import { VM } from '@ethereumjs/vm'
 import { describe, expect, it } from 'bun:test'
 import { bytesToHex, encodeFunctionData, keccak256, numberToHex } from 'viem'
 
@@ -295,7 +298,8 @@ describe('requestProcedure', () => {
 	describe('tevm_account', () => {
 		it('should work', async () => {
 			const evm = new EVM({})
-			const res = await requestProcedure(evm)({
+			const vm = await VM.create({ evm })
+			const res = await requestProcedure(vm)({
 				jsonrpc: '2.0',
 				method: 'tevm_account',
 				id: 1,
@@ -316,10 +320,11 @@ describe('requestProcedure', () => {
 		})
 		it('should handle account throwing an unexpected error', async () => {
 			const evm = new EVM({})
+			const vm = await VM.create({ evm })
 			evm.stateManager.putAccount = () => {
 				throw new Error('unexpected error')
 			}
-			const res = await requestProcedure(evm)({
+			const res = await requestProcedure(vm)({
 				jsonrpc: '2.0',
 				method: 'tevm_account',
 				id: 1,
@@ -524,6 +529,25 @@ describe('requestProcedure', () => {
 				id: 1,
 				jsonrpc: '2.0',
 				method: 'tevm_script',
+			})
+		})
+	})
+
+	describe('eth_blockNumber', async () => {
+		it('should work', async () => {
+			const blockchain = await Blockchain.create()
+			// send value
+			expect(
+				await blockNumberProcedure(blockchain)({
+					jsonrpc: '2.0',
+					method: 'eth_blockNumber',
+					id: 1,
+				}),
+			).toEqual({
+				id: 1,
+				method: 'eth_blockNumber',
+				jsonrpc: '2.0',
+				result: '0x0',
 			})
 		})
 	})

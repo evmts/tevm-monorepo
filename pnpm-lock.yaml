@@ -1340,9 +1340,15 @@ importers:
 
   vm/procedures:
     dependencies:
+      '@ethereumjs/blockchain':
+        specifier: ^7.0.1
+        version: 7.0.1
       '@ethereumjs/util':
         specifier: ^9.0.1
         version: 9.0.1
+      '@ethereumjs/vm':
+        specifier: ^7.1.0
+        version: 7.1.0
       '@tevm/zod':
         specifier: workspace:^
         version: link:../zod

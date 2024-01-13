@@ -4,4 +4,8 @@ import type { Hex } from 'viem'
 /**
  * Generic log information
  */
-export type Log = { address: Address; topics: Hex[]; data: Hex }
+export type Log = {
+	readonly address: Address
+	readonly topics: Hex[]
+	readonly data: Hex
+}
