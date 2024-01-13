@@ -1,4 +1,5 @@
 import { EVM } from '@ethereumjs/evm'
+import type { VM } from '@ethereumjs/vm'
 import { TevmStateManager } from '@tevm/state'
 
 /**
@@ -41,6 +42,11 @@ export type Tevm = import('@tevm/api').Tevm & {
 	 * but is not guaranteed to stay stable between versions
 	 */
 	readonly _evm: TevmEvm
+	/**
+	 * Internal instance of the VM. Can be used for lower level operations
+	 * but is not guaranteed to stay stable between versions
+	 */
+	readonly _vm: VM
 }
 
 export class TevmEvm extends EVM {

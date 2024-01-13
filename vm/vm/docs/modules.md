@@ -80,7 +80,7 @@ ___
 
 ### Tevm
 
-Ƭ **Tevm**: `Tevm` & \{ `_evm`: `TevmEvm` ; `forkUrl?`: `string`  }
+Ƭ **Tevm**: `Tevm` & \{ `_evm`: `TevmEvm` ; `_vm`: `VM` ; `forkUrl?`: `string`  }
 
 A local EVM instance running in JavaScript. Similar to Anvil in your browser
 
@@ -115,7 +115,7 @@ const balance = await tevm.runContractCall(
 
 #### Defined in
 
-[vm/vm/src/Tevm.ts:34](https://github.com/evmts/tevm-monorepo/blob/main/vm/vm/src/Tevm.ts#L34)
+[vm/vm/src/Tevm.ts:35](https://github.com/evmts/tevm-monorepo/blob/main/vm/vm/src/Tevm.ts#L35)
 
 ## Functions
 
@@ -166,4 +166,4 @@ const balance = await tevm.runContractCall(
 
 #### Defined in
 
-[vm/vm/src/createTevm.js:45](https://github.com/evmts/tevm-monorepo/blob/main/vm/vm/src/createTevm.js#L45)
+[vm/vm/src/createTevm.js:50](https://github.com/evmts/tevm-monorepo/blob/main/vm/vm/src/createTevm.js#L50)

@@ -1436,15 +1436,27 @@ importers:
 
   vm/vm:
     dependencies:
+      '@ethereumjs/block':
+        specifier: ^5.0.1
+        version: 5.0.1
+      '@ethereumjs/blockchain':
+        specifier: ^7.0.1
+        version: 7.0.1
       '@ethereumjs/common':
         specifier: ^4.1.0
         version: 4.1.0
       '@ethereumjs/evm':
         specifier: ^2.1.0
         version: 2.1.0
+      '@ethereumjs/trie':
+        specifier: ^6.0.1
+        version: 6.0.1
       '@ethereumjs/util':
         specifier: ^9.0.1
         version: 9.0.1
+      '@ethereumjs/vm':
+        specifier: ^7.1.0
+        version: 7.1.0
       '@tevm/api':
         specifier: workspace:^
         version: link:../api
@@ -3687,6 +3699,41 @@ packages:
     dev: true
     optional: true
 
+  /@ethereumjs/block@5.0.1:
+    resolution: {integrity: sha512-DoQ/lVEO3NGl5sfxoWjl1zjPnQqAaFqlqq7aOmzB4qMe89nXm0mYTate2xDUruS7it8R8FHzXga16soV7qQykA==}
+    engines: {node: '>=18'}
+    dependencies:
+      '@ethereumjs/common': 4.1.0
+      '@ethereumjs/rlp': 5.0.1
+      '@ethereumjs/trie': 6.0.1
+      '@ethereumjs/tx': 5.1.0
+      '@ethereumjs/util': 9.0.1
+      ethereum-cryptography: 2.1.2
+    transitivePeerDependencies:
+      - buffer
+      - c-kzg
+    dev: false
+
+  /@ethereumjs/blockchain@7.0.1:
+    resolution: {integrity: sha512-JQoRpMHxAyMnlHSNe7H3EnM3mMZOHaBGkBmwLQ02Jv9zg9rnJ/g9r9LvW6yhjs7ifrKCn94j54yMv4i+W99XwA==}
+    engines: {node: '>=18'}
+    dependencies:
+      '@ethereumjs/block': 5.0.1
+      '@ethereumjs/common': 4.1.0
+      '@ethereumjs/ethash': 3.0.1
+      '@ethereumjs/rlp': 5.0.1
+      '@ethereumjs/trie': 6.0.1
+      '@ethereumjs/tx': 5.1.0
+      '@ethereumjs/util': 9.0.1
+      debug: 4.3.4(supports-color@8.1.1)
+      ethereum-cryptography: 2.1.2
+      lru-cache: 10.1.0
+    transitivePeerDependencies:
+      - buffer
+      - c-kzg
+      - supports-color
+    dev: false
+
   /@ethereumjs/common@4.1.0:
     resolution: {integrity: sha512-XWdQvUjlQHVwh4uGEPFKHpsic69GOsMXEhlHrggS5ju/+2zAmmlz6B25TkCCymeElC9DUp13tH5Tc25Iuvtlcg==}
     dependencies:
@@ -3695,6 +3742,20 @@ packages:
     transitivePeerDependencies:
       - buffer
       - c-kzg
+
+  /@ethereumjs/ethash@3.0.1:
+    resolution: {integrity: sha512-GEAOOqiYeHk6c0u7XCaKguYXlhBJYrQNgPJaJl4JPZSAOtUv5QwSpplWDwmbBvSYL6/JhJAkPRGtVrmLpjfFFg==}
+    engines: {node: '>=18'}
+    dependencies:
+      '@ethereumjs/block': 5.0.1
+      '@ethereumjs/rlp': 5.0.1
+      '@ethereumjs/util': 9.0.1
+      bigint-crypto-utils: 3.3.0
+      ethereum-cryptography: 2.1.2
+    transitivePeerDependencies:
+      - buffer
+      - c-kzg
+    dev: false
 
   /@ethereumjs/evm@2.1.0:
     resolution: {integrity: sha512-+4X9fw9X3pRnvbtJn02TDbwoTICc+W6ccNLgNx2IXiJkIArtUTK8xJ764MgmUvNIb14PuXAAUMEZ0l6UrZQcDw==}
@@ -3779,6 +3840,29 @@ packages:
     dependencies:
       '@ethereumjs/rlp': 5.0.1
       ethereum-cryptography: 2.1.2
+
+  /@ethereumjs/vm@7.1.0:
+    resolution: {integrity: sha512-AWLsz6GFWR8aRDHFjrLXsBVJ6qjP6jVJiuQeGY8JYbzwGIrKjgN/xxFtZwzyIpXgAXsX+WZYp8omRmkBlPA3zg==}
+    engines: {node: '>=18'}
+    dependencies:
+      '@ethereumjs/block': 5.0.1
+      '@ethereumjs/blockchain': 7.0.1
+      '@ethereumjs/common': 4.1.0
+      '@ethereumjs/evm': 2.1.0
+      '@ethereumjs/rlp': 5.0.1
+      '@ethereumjs/statemanager': 2.1.0
+      '@ethereumjs/trie': 6.0.1
+      '@ethereumjs/tx': 5.1.0
+      '@ethereumjs/util': 9.0.1
+      debug: 4.3.4(supports-color@8.1.1)
+      ethereum-cryptography: 2.1.2
+    transitivePeerDependencies:
+      - buffer
+      - bufferutil
+      - c-kzg
+      - supports-color
+      - utf-8-validate
+    dev: false
 
   /@ethersproject/abi@5.7.0:
     resolution: {integrity: sha512-351ktp42TiRcYB3H1OP8yajPeAQstMW/yCFokj/AthP9bLHzQFPlOrxOcwYEDkUAICmOHljvN4K39OMTMUa9RA==}
@@ -8903,7 +8987,6 @@ packages:
   /bigint-crypto-utils@3.3.0:
     resolution: {integrity: sha512-jOTSb+drvEDxEq6OuUybOAv/xxoh3cuYRUIPyu8sSHQNKM303UQ2R1DAo45o1AkcIXw6fzbaFI1+xGGdaXs2lg==}
     engines: {node: '>=14.0.0'}
-    dev: true
 
   /bignumber.js@9.1.2:
     resolution: {integrity: sha512-2/mKyZH9K85bzOEfhXDBFZTGd1CTs+5IHpeFQo9luiBG7hghdC851Pj2WAhb6E3R6b9tZj/XKhbg4fum+Kepug==}
