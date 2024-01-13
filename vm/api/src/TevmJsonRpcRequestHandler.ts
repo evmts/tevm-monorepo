@@ -1,6 +1,21 @@
 import type {
 	AccountJsonRpcResponse,
+	AnvilDropTransactionJsonRpcResponse,
+	AnvilDumpStateJsonRpcResponse,
+	AnvilGetAutomineJsonRpcResponse,
+	AnvilImpersonateAccountJsonRpcResponse,
+	AnvilLoadStateJsonRpcResponse,
+	AnvilMineJsonRpcResponse,
+	AnvilResetJsonRpcResponse,
+	AnvilSetBalanceJsonRpcResponse,
+	AnvilSetChainIdJsonRpcResponse,
+	AnvilSetCodeJsonRpcResponse,
+	AnvilSetNonceJsonRpcResponse,
+	AnvilSetStorageAtJsonRpcResponse,
+	AnvilStopImpersonatingAccountJsonRpcResponse,
 	CallJsonRpcResponse,
+	DebugTraceCallJsonRpcResponse,
+	DebugTraceTransactionJsonRpcResponse,
 	EthAccountsJsonRpcResponse,
 	EthBlockNumberJsonRpcResponse,
 	EthCallJsonRpcResponse,
@@ -42,7 +57,27 @@ import type {
 	ScriptJsonRpcResponse,
 	TevmJsonRpcRequest,
 } from './index.js'
+import type { AnvilJsonRpcRequest } from './requests/AnvilJsonRpcRequest.js'
 import type { EthJsonRpcRequest } from './requests/EthJsonRpcRequest.js'
+
+type AnvilReturnType = {
+	debug_traceTransaction: DebugTraceTransactionJsonRpcResponse
+	debug_traceCall: DebugTraceCallJsonRpcResponse
+	anvil_impersonateAccount: AnvilImpersonateAccountJsonRpcResponse
+	anvil_stopImpersonatingAccount: AnvilStopImpersonatingAccountJsonRpcResponse
+	// anvil_autoImpersonateAccount: AnvilAutoImpersonateAccountJsonRpcResponse,
+	anvil_getAutomine: AnvilGetAutomineJsonRpcResponse
+	anvil_mine: AnvilMineJsonRpcResponse
+	anvil_reset: AnvilResetJsonRpcResponse
+	anvil_dropTransaction: AnvilDropTransactionJsonRpcResponse
+	anvil_setBalance: AnvilSetBalanceJsonRpcResponse
+	anvil_setCode: AnvilSetCodeJsonRpcResponse
+	anvil_setNonce: AnvilSetNonceJsonRpcResponse
+	anvil_setStorageAt: AnvilSetStorageAtJsonRpcResponse
+	anvil_setChainId: AnvilSetChainIdJsonRpcResponse
+	anvil_dumpState: AnvilDumpStateJsonRpcResponse
+	anvil_loadState: AnvilLoadStateJsonRpcResponse
+}
 
 type EthReturnType = {
 	eth_call: EthCallJsonRpcResponse
@@ -91,15 +126,19 @@ type TevmReturnType = {
 	tevm_account: AccountJsonRpcResponse
 }
 
-type ReturnType<TMethod extends keyof EthReturnType | keyof TevmReturnType> =
-	(EthReturnType & TevmReturnType)[TMethod]
+type ReturnType<
+	TMethod extends
+		| keyof EthReturnType
+		| keyof TevmReturnType
+		| keyof AnvilReturnType,
+> = (EthReturnType & TevmReturnType & AnvilReturnType)[TMethod]
 
 /**
  * Type of a JSON-RPC request handler for tevm procedures
  * Generic and returns the correct response type for a given request
  */
 export type TevmJsonRpcRequestHandler = <
-	TRequest extends TevmJsonRpcRequest | EthJsonRpcRequest,
+	TRequest extends TevmJsonRpcRequest | EthJsonRpcRequest | AnvilJsonRpcRequest,
 >(
 	request: TRequest,
 ) => Promise<ReturnType<TRequest['method']>>

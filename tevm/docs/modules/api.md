@@ -153,7 +153,7 @@ if (errors?.length) {
 
 #### Defined in
 
-vm/api/dist/index.d.ts:691
+vm/api/dist/index.d.ts:909
 
 ___
 
@@ -179,7 +179,7 @@ Handler for account tevm procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:711
+vm/api/dist/index.d.ts:929
 
 ___
 
@@ -205,7 +205,7 @@ Account JSON-RPC tevm procedure puts an account or contract into the tevm state
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1469
+vm/api/dist/index.d.ts:1851
 
 ___
 
@@ -217,7 +217,7 @@ JSON-RPC request for `tevm_account` method
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1035
+vm/api/dist/index.d.ts:1285
 
 ___
 
@@ -229,7 +229,7 @@ JSON-RPC response for `tevm_account` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1280
+vm/api/dist/index.d.ts:1596
 
 ___
 
@@ -241,7 +241,7 @@ Errors returned by all call based tevm procedures including call, contract, and 
 
 #### Defined in
 
-vm/api/dist/index.d.ts:623
+vm/api/dist/index.d.ts:841
 
 ___
 
@@ -315,7 +315,7 @@ if (errors?.length) {
 
 #### Defined in
 
-vm/api/dist/index.d.ts:706
+vm/api/dist/index.d.ts:924
 
 ___
 
@@ -341,7 +341,7 @@ Handler for call tevm procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:716
+vm/api/dist/index.d.ts:934
 
 ___
 
@@ -367,7 +367,7 @@ Call JSON-RPC procedure executes a call against the tevm EVM
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1474
+vm/api/dist/index.d.ts:1856
 
 ___
 
@@ -379,7 +379,7 @@ JSON-RPC request for `tevm_call`
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1040
+vm/api/dist/index.d.ts:1290
 
 ___
 
@@ -391,7 +391,7 @@ JSON-RPC response for `tevm_call` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1285
+vm/api/dist/index.d.ts:1601
 
 ___
 
@@ -412,7 +412,7 @@ if (errors?.length) {
 
 #### Defined in
 
-vm/api/dist/index.d.ts:663
+vm/api/dist/index.d.ts:881
 
 ___
 
@@ -446,7 +446,7 @@ It's API resuses the viem `contractRead`/`contractWrite` API to encode abi, func
 
 #### Defined in
 
-vm/api/dist/index.d.ts:722
+vm/api/dist/index.d.ts:940
 
 ___
 
@@ -460,7 +460,7 @@ Since ContractJsonRpcProcedure is a quality of life wrapper around CallJsonRpcPr
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1481
+vm/api/dist/index.d.ts:1863
 
 ___
 
@@ -473,7 +473,7 @@ in favor of overloading tevm_call
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1046
+vm/api/dist/index.d.ts:1296
 
 ___
 
@@ -486,7 +486,7 @@ in favor of overloading tevm_call
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1291
+vm/api/dist/index.d.ts:1607
 
 ___
 
@@ -504,7 +504,7 @@ Error type of errors thrown while internally executing a call in the EVM
 
 #### Defined in
 
-vm/api/dist/index.d.ts:536
+vm/api/dist/index.d.ts:754
 
 ___
 
@@ -516,7 +516,7 @@ Error thrown when address is invalid
 
 #### Defined in
 
-vm/api/dist/index.d.ts:541
+vm/api/dist/index.d.ts:759
 
 ___
 
@@ -528,7 +528,7 @@ Error thrown when balance parameter is invalid
 
 #### Defined in
 
-vm/api/dist/index.d.ts:525
+vm/api/dist/index.d.ts:743
 
 ___
 
@@ -540,7 +540,7 @@ Error thrown when blobVersionedHashes parameter is invalid
 
 #### Defined in
 
-vm/api/dist/index.d.ts:546
+vm/api/dist/index.d.ts:764
 
 ___
 
@@ -552,7 +552,7 @@ Error thrown when block parameter is invalid
 
 #### Defined in
 
-vm/api/dist/index.d.ts:551
+vm/api/dist/index.d.ts:769
 
 ___
 
@@ -564,7 +564,7 @@ Error thrown when bytecode parameter is invalid
 
 #### Defined in
 
-vm/api/dist/index.d.ts:510
+vm/api/dist/index.d.ts:728
 
 ___
 
@@ -576,7 +576,7 @@ Error thrown when caller parameter is invalid
 
 #### Defined in
 
-vm/api/dist/index.d.ts:556
+vm/api/dist/index.d.ts:774
 
 ___
 
@@ -588,7 +588,7 @@ Error thrown when data parameter is invalid
 
 #### Defined in
 
-vm/api/dist/index.d.ts:520
+vm/api/dist/index.d.ts:738
 
 ___
 
@@ -600,7 +600,7 @@ Error thrown when deployedBytecode parameter is invalid
 
 #### Defined in
 
-vm/api/dist/index.d.ts:668
+vm/api/dist/index.d.ts:886
 
 ___
 
@@ -612,7 +612,7 @@ Error thrown when depth parameter is invalid
 
 #### Defined in
 
-vm/api/dist/index.d.ts:561
+vm/api/dist/index.d.ts:779
 
 ___
 
@@ -624,7 +624,7 @@ Error thrown when function name is invalid
 
 #### Defined in
 
-vm/api/dist/index.d.ts:530
+vm/api/dist/index.d.ts:748
 
 ___
 
@@ -636,7 +636,7 @@ Error thrown when gas limit is invalid
 
 #### Defined in
 
-vm/api/dist/index.d.ts:566
+vm/api/dist/index.d.ts:784
 
 ___
 
@@ -648,7 +648,7 @@ Error thrown when gasPrice parameter is invalid
 
 #### Defined in
 
-vm/api/dist/index.d.ts:571
+vm/api/dist/index.d.ts:789
 
 ___
 
@@ -660,7 +660,7 @@ Error thrown when gas refund is invalid
 
 #### Defined in
 
-vm/api/dist/index.d.ts:576
+vm/api/dist/index.d.ts:794
 
 ___
 
@@ -672,7 +672,7 @@ Error thrown when nonce parameter is invalid
 
 #### Defined in
 
-vm/api/dist/index.d.ts:581
+vm/api/dist/index.d.ts:799
 
 ___
 
@@ -684,7 +684,7 @@ Error thrown when origin parameter is invalid
 
 #### Defined in
 
-vm/api/dist/index.d.ts:586
+vm/api/dist/index.d.ts:804
 
 ___
 
@@ -696,7 +696,7 @@ Error thrown when request is invalid
 
 #### Defined in
 
-vm/api/dist/index.d.ts:591
+vm/api/dist/index.d.ts:809
 
 ___
 
@@ -708,7 +708,7 @@ Error thrown when salt parameter is invalid
 
 #### Defined in
 
-vm/api/dist/index.d.ts:696
+vm/api/dist/index.d.ts:914
 
 ___
 
@@ -720,7 +720,7 @@ Error thrown when selfdestruct parameter is invalid
 
 #### Defined in
 
-vm/api/dist/index.d.ts:596
+vm/api/dist/index.d.ts:814
 
 ___
 
@@ -732,7 +732,7 @@ Error thrown when skipBalance parameter is invalid
 
 #### Defined in
 
-vm/api/dist/index.d.ts:601
+vm/api/dist/index.d.ts:819
 
 ___
 
@@ -744,7 +744,7 @@ Error thrown when storage root parameter is invalid
 
 #### Defined in
 
-vm/api/dist/index.d.ts:515
+vm/api/dist/index.d.ts:733
 
 ___
 
@@ -756,7 +756,7 @@ Error thrown when `to` parameter is invalid
 
 #### Defined in
 
-vm/api/dist/index.d.ts:606
+vm/api/dist/index.d.ts:824
 
 ___
 
@@ -768,7 +768,7 @@ Error thrown when value parameter is invalid
 
 #### Defined in
 
-vm/api/dist/index.d.ts:611
+vm/api/dist/index.d.ts:829
 
 ___
 
@@ -787,7 +787,7 @@ Helper type for creating JSON-RPC request types
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1022
+vm/api/dist/index.d.ts:1272
 
 ___
 
@@ -805,7 +805,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1260
+vm/api/dist/index.d.ts:1576
 
 ___
 
@@ -825,7 +825,7 @@ Generic log information
 
 #### Defined in
 
-vm/api/dist/index.d.ts:394
+vm/api/dist/index.d.ts:586
 
 ___
 
@@ -847,7 +847,7 @@ if (errors?.length) {
 
 #### Defined in
 
-vm/api/dist/index.d.ts:679
+vm/api/dist/index.d.ts:897
 
 ___
 
@@ -880,7 +880,7 @@ Handler for script tevm procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:727
+vm/api/dist/index.d.ts:945
 
 ___
 
@@ -906,7 +906,7 @@ Procedure for handling script JSON-RPC requests
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1486
+vm/api/dist/index.d.ts:1868
 
 ___
 
@@ -918,7 +918,7 @@ The JSON-RPC request for the `tevm_script` method
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1067
+vm/api/dist/index.d.ts:1317
 
 ___
 
@@ -930,7 +930,7 @@ JSON-RPC response for `tevm_script` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1296
+vm/api/dist/index.d.ts:1612
 
 ___
 
@@ -955,7 +955,7 @@ for each type of request
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1585
+vm/api/dist/index.d.ts:2049
 
 ___
 
@@ -988,7 +988,7 @@ for tevm users.
 
 #### Defined in
 
-vm/api/dist/index.d.ts:500
+vm/api/dist/index.d.ts:718
 
 ___
 
@@ -1002,4 +1002,4 @@ means an error wasn't properly handled already
 
 #### Defined in
 
-vm/api/dist/index.d.ts:618
+vm/api/dist/index.d.ts:836

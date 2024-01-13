@@ -13,6 +13,84 @@
 - [AccountJsonRpcResponse](modules.md#accountjsonrpcresponse)
 - [AccountParams](modules.md#accountparams)
 - [AccountResult](modules.md#accountresult)
+- [AnvilDropTransactionHandler](modules.md#anvildroptransactionhandler)
+- [AnvilDropTransactionJsonRpcRequest](modules.md#anvildroptransactionjsonrpcrequest)
+- [AnvilDropTransactionJsonRpcResponse](modules.md#anvildroptransactionjsonrpcresponse)
+- [AnvilDropTransactionParams](modules.md#anvildroptransactionparams)
+- [AnvilDropTransactionProcedure](modules.md#anvildroptransactionprocedure)
+- [AnvilDropTransactionResult](modules.md#anvildroptransactionresult)
+- [AnvilDumpStateHandler](modules.md#anvildumpstatehandler)
+- [AnvilDumpStateJsonRpcRequest](modules.md#anvildumpstatejsonrpcrequest)
+- [AnvilDumpStateJsonRpcResponse](modules.md#anvildumpstatejsonrpcresponse)
+- [AnvilDumpStateParams](modules.md#anvildumpstateparams)
+- [AnvilDumpStateProcedure](modules.md#anvildumpstateprocedure)
+- [AnvilDumpStateResult](modules.md#anvildumpstateresult)
+- [AnvilGetAutomineHandler](modules.md#anvilgetautominehandler)
+- [AnvilGetAutomineJsonRpcRequest](modules.md#anvilgetautominejsonrpcrequest)
+- [AnvilGetAutomineJsonRpcResponse](modules.md#anvilgetautominejsonrpcresponse)
+- [AnvilGetAutomineParams](modules.md#anvilgetautomineparams)
+- [AnvilGetAutomineProcedure](modules.md#anvilgetautomineprocedure)
+- [AnvilGetAutomineResult](modules.md#anvilgetautomineresult)
+- [AnvilImpersonateAccountHandler](modules.md#anvilimpersonateaccounthandler)
+- [AnvilImpersonateAccountJsonRpcRequest](modules.md#anvilimpersonateaccountjsonrpcrequest)
+- [AnvilImpersonateAccountJsonRpcResponse](modules.md#anvilimpersonateaccountjsonrpcresponse)
+- [AnvilImpersonateAccountParams](modules.md#anvilimpersonateaccountparams)
+- [AnvilImpersonateAccountProcedure](modules.md#anvilimpersonateaccountprocedure)
+- [AnvilImpersonateAccountResult](modules.md#anvilimpersonateaccountresult)
+- [AnvilLoadStateHandler](modules.md#anvilloadstatehandler)
+- [AnvilLoadStateJsonRpcRequest](modules.md#anvilloadstatejsonrpcrequest)
+- [AnvilLoadStateJsonRpcResponse](modules.md#anvilloadstatejsonrpcresponse)
+- [AnvilLoadStateParams](modules.md#anvilloadstateparams)
+- [AnvilLoadStateProcedure](modules.md#anvilloadstateprocedure)
+- [AnvilLoadStateResult](modules.md#anvilloadstateresult)
+- [AnvilMineHandler](modules.md#anvilminehandler)
+- [AnvilMineJsonRpcRequest](modules.md#anvilminejsonrpcrequest)
+- [AnvilMineJsonRpcResponse](modules.md#anvilminejsonrpcresponse)
+- [AnvilMineParams](modules.md#anvilmineparams)
+- [AnvilMineProcedure](modules.md#anvilmineprocedure)
+- [AnvilMineResult](modules.md#anvilmineresult)
+- [AnvilResetHandler](modules.md#anvilresethandler)
+- [AnvilResetJsonRpcRequest](modules.md#anvilresetjsonrpcrequest)
+- [AnvilResetJsonRpcResponse](modules.md#anvilresetjsonrpcresponse)
+- [AnvilResetParams](modules.md#anvilresetparams)
+- [AnvilResetProcedure](modules.md#anvilresetprocedure)
+- [AnvilResetResult](modules.md#anvilresetresult)
+- [AnvilSetBalanceHandler](modules.md#anvilsetbalancehandler)
+- [AnvilSetBalanceJsonRpcRequest](modules.md#anvilsetbalancejsonrpcrequest)
+- [AnvilSetBalanceJsonRpcResponse](modules.md#anvilsetbalancejsonrpcresponse)
+- [AnvilSetBalanceParams](modules.md#anvilsetbalanceparams)
+- [AnvilSetBalanceProcedure](modules.md#anvilsetbalanceprocedure)
+- [AnvilSetBalanceResult](modules.md#anvilsetbalanceresult)
+- [AnvilSetChainIdHandler](modules.md#anvilsetchainidhandler)
+- [AnvilSetChainIdJsonRpcRequest](modules.md#anvilsetchainidjsonrpcrequest)
+- [AnvilSetChainIdJsonRpcResponse](modules.md#anvilsetchainidjsonrpcresponse)
+- [AnvilSetChainIdParams](modules.md#anvilsetchainidparams)
+- [AnvilSetChainIdProcedure](modules.md#anvilsetchainidprocedure)
+- [AnvilSetChainIdResult](modules.md#anvilsetchainidresult)
+- [AnvilSetCodeHandler](modules.md#anvilsetcodehandler)
+- [AnvilSetCodeJsonRpcRequest](modules.md#anvilsetcodejsonrpcrequest)
+- [AnvilSetCodeJsonRpcResponse](modules.md#anvilsetcodejsonrpcresponse)
+- [AnvilSetCodeParams](modules.md#anvilsetcodeparams)
+- [AnvilSetCodeProcedure](modules.md#anvilsetcodeprocedure)
+- [AnvilSetCodeResult](modules.md#anvilsetcoderesult)
+- [AnvilSetNonceHandler](modules.md#anvilsetnoncehandler)
+- [AnvilSetNonceJsonRpcRequest](modules.md#anvilsetnoncejsonrpcrequest)
+- [AnvilSetNonceJsonRpcResponse](modules.md#anvilsetnoncejsonrpcresponse)
+- [AnvilSetNonceParams](modules.md#anvilsetnonceparams)
+- [AnvilSetNonceProcedure](modules.md#anvilsetnonceprocedure)
+- [AnvilSetNonceResult](modules.md#anvilsetnonceresult)
+- [AnvilSetStorageAtHandler](modules.md#anvilsetstorageathandler)
+- [AnvilSetStorageAtJsonRpcRequest](modules.md#anvilsetstorageatjsonrpcrequest)
+- [AnvilSetStorageAtJsonRpcResponse](modules.md#anvilsetstorageatjsonrpcresponse)
+- [AnvilSetStorageAtParams](modules.md#anvilsetstorageatparams)
+- [AnvilSetStorageAtProcedure](modules.md#anvilsetstorageatprocedure)
+- [AnvilSetStorageAtResult](modules.md#anvilsetstorageatresult)
+- [AnvilStopImpersonatingAccountHandler](modules.md#anvilstopimpersonatingaccounthandler)
+- [AnvilStopImpersonatingAccountJsonRpcRequest](modules.md#anvilstopimpersonatingaccountjsonrpcrequest)
+- [AnvilStopImpersonatingAccountJsonRpcResponse](modules.md#anvilstopimpersonatingaccountjsonrpcresponse)
+- [AnvilStopImpersonatingAccountParams](modules.md#anvilstopimpersonatingaccountparams)
+- [AnvilStopImpersonatingAccountProcedure](modules.md#anvilstopimpersonatingaccountprocedure)
+- [AnvilStopImpersonatingAccountResult](modules.md#anvilstopimpersonatingaccountresult)
 - [BaseCallError](modules.md#basecallerror)
 - [BaseCallParams](modules.md#basecallparams)
 - [Block](modules.md#block)
@@ -31,6 +109,18 @@
 - [ContractJsonRpcResponse](modules.md#contractjsonrpcresponse)
 - [ContractParams](modules.md#contractparams)
 - [ContractResult](modules.md#contractresult)
+- [DebugTraceCallHandler](modules.md#debugtracecallhandler)
+- [DebugTraceCallJsonRpcRequest](modules.md#debugtracecalljsonrpcrequest)
+- [DebugTraceCallJsonRpcResponse](modules.md#debugtracecalljsonrpcresponse)
+- [DebugTraceCallParams](modules.md#debugtracecallparams)
+- [DebugTraceCallProcedure](modules.md#debugtracecallprocedure)
+- [DebugTraceCallResult](modules.md#debugtracecallresult)
+- [DebugTraceTransactionHandler](modules.md#debugtracetransactionhandler)
+- [DebugTraceTransactionJsonRpcRequest](modules.md#debugtracetransactionjsonrpcrequest)
+- [DebugTraceTransactionJsonRpcResponse](modules.md#debugtracetransactionjsonrpcresponse)
+- [DebugTraceTransactionParams](modules.md#debugtracetransactionparams)
+- [DebugTraceTransactionProcedure](modules.md#debugtracetransactionprocedure)
+- [DebugTraceTransactionResult](modules.md#debugtracetransactionresult)
 - [EthAccountsHandler](modules.md#ethaccountshandler)
 - [EthAccountsJsonRpcProcedure](modules.md#ethaccountsjsonrpcprocedure)
 - [EthAccountsJsonRpcRequest](modules.md#ethaccountsjsonrpcrequest)
@@ -193,6 +283,7 @@
 - [EthHashrateJsonRpcResponse](modules.md#ethhashratejsonrpcresponse)
 - [EthHashrateParams](modules.md#ethhashrateparams)
 - [EthHashrateResult](modules.md#ethhashrateresult)
+- [EthJsonRpcRequest](modules.md#ethjsonrpcrequest)
 - [EthJsonRpcRequestHandler](modules.md#ethjsonrpcrequesthandler)
 - [EthMiningHandler](modules.md#ethmininghandler)
 - [EthMiningJsonRpcProcedure](modules.md#ethminingjsonrpcprocedure)
@@ -299,6 +390,10 @@
 - [TevmEVMErrorMessage](modules.md#tevmevmerrormessage)
 - [TevmJsonRpcRequest](modules.md#tevmjsonrpcrequest)
 - [TevmJsonRpcRequestHandler](modules.md#tevmjsonrpcrequesthandler)
+- [TraceCall](modules.md#tracecall)
+- [TraceParams](modules.md#traceparams)
+- [TraceResult](modules.md#traceresult)
+- [TraceType](modules.md#tracetype)
 - [TransactionParams](modules.md#transactionparams)
 - [TransactionReceiptResult](modules.md#transactionreceiptresult)
 - [TransactionResult](modules.md#transactionresult)
@@ -462,6 +557,1328 @@ Result of Account Action
 #### Defined in
 
 [result/AccountResult.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/AccountResult.ts#L6)
+
+___
+
+### AnvilDropTransactionHandler
+
+Ƭ **AnvilDropTransactionHandler**: (`params`: [`AnvilDropTransactionParams`](modules.md#anvildroptransactionparams)) => `Promise`\<[`AnvilDropTransactionResult`](modules.md#anvildroptransactionresult)\>
+
+#### Type declaration
+
+▸ (`params`): `Promise`\<[`AnvilDropTransactionResult`](modules.md#anvildroptransactionresult)\>
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `params` | [`AnvilDropTransactionParams`](modules.md#anvildroptransactionparams) |
+
+##### Returns
+
+`Promise`\<[`AnvilDropTransactionResult`](modules.md#anvildroptransactionresult)\>
+
+#### Defined in
+
+[handlers/AnvilHandler.ts:68](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/handlers/AnvilHandler.ts#L68)
+
+___
+
+### AnvilDropTransactionJsonRpcRequest
+
+Ƭ **AnvilDropTransactionJsonRpcRequest**: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"anvil_dropTransaction"``, `SerializeToJson`\<[`AnvilDropTransactionParams`](modules.md#anvildroptransactionparams)\>\>
+
+JSON-RPC request for `anvil_dropTransaction` method
+
+#### Defined in
+
+[requests/AnvilJsonRpcRequest.ts:87](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/requests/AnvilJsonRpcRequest.ts#L87)
+
+___
+
+### AnvilDropTransactionJsonRpcResponse
+
+Ƭ **AnvilDropTransactionJsonRpcResponse**: [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"anvil_dropTransaction"``, `SerializeToJson`\<[`AnvilDropTransactionResult`](modules.md#anvildroptransactionresult)\>, `AnvilError`\>
+
+JSON-RPC response for `anvil_dropTransaction` procedure
+
+#### Defined in
+
+[responses/AnvilJsonRpcResponse.ts:98](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/responses/AnvilJsonRpcResponse.ts#L98)
+
+___
+
+### AnvilDropTransactionParams
+
+Ƭ **AnvilDropTransactionParams**: `Object`
+
+Params for `anvil_dropTransaction` handler
+
+#### Type declaration
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `transactionHash` | `Hex` | The transaction hash |
+
+#### Defined in
+
+[params/AnvilParams.ts:131](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/AnvilParams.ts#L131)
+
+___
+
+### AnvilDropTransactionProcedure
+
+Ƭ **AnvilDropTransactionProcedure**: (`request`: [`AnvilDropTransactionJsonRpcRequest`](modules.md#anvildroptransactionjsonrpcrequest)) => `Promise`\<[`AnvilDropTransactionJsonRpcResponse`](modules.md#anvildroptransactionjsonrpcresponse)\>
+
+#### Type declaration
+
+▸ (`request`): `Promise`\<[`AnvilDropTransactionJsonRpcResponse`](modules.md#anvildroptransactionjsonrpcresponse)\>
+
+JSON-RPC procedure for `anvil_dropTransaction`
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `request` | [`AnvilDropTransactionJsonRpcRequest`](modules.md#anvildroptransactionjsonrpcrequest) |
+
+##### Returns
+
+`Promise`\<[`AnvilDropTransactionJsonRpcResponse`](modules.md#anvildroptransactionjsonrpcresponse)\>
+
+#### Defined in
+
+[procedure/AnvilProcedure.ts:95](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/procedure/AnvilProcedure.ts#L95)
+
+___
+
+### AnvilDropTransactionResult
+
+Ƭ **AnvilDropTransactionResult**: ``null``
+
+#### Defined in
+
+[result/AnvilResult.ts:22](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/AnvilResult.ts#L22)
+
+___
+
+### AnvilDumpStateHandler
+
+Ƭ **AnvilDumpStateHandler**: (`params`: [`AnvilDumpStateParams`](modules.md#anvildumpstateparams)) => `Promise`\<[`AnvilDumpStateResult`](modules.md#anvildumpstateresult)\>
+
+#### Type declaration
+
+▸ (`params`): `Promise`\<[`AnvilDumpStateResult`](modules.md#anvildumpstateresult)\>
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `params` | [`AnvilDumpStateParams`](modules.md#anvildumpstateparams) |
+
+##### Returns
+
+`Promise`\<[`AnvilDumpStateResult`](modules.md#anvildumpstateresult)\>
+
+#### Defined in
+
+[handlers/AnvilHandler.ts:93](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/handlers/AnvilHandler.ts#L93)
+
+___
+
+### AnvilDumpStateJsonRpcRequest
+
+Ƭ **AnvilDumpStateJsonRpcRequest**: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"anvil_dumpState"``, `SerializeToJson`\<[`AnvilDumpStateParams`](modules.md#anvildumpstateparams)\>\>
+
+JSON-RPC request for `anvil_dumpState` method
+
+#### Defined in
+
+[requests/AnvilJsonRpcRequest.ts:136](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/requests/AnvilJsonRpcRequest.ts#L136)
+
+___
+
+### AnvilDumpStateJsonRpcResponse
+
+Ƭ **AnvilDumpStateJsonRpcResponse**: [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"anvil_dumpState"``, `SerializeToJson`\<[`AnvilDumpStateResult`](modules.md#anvildumpstateresult)\>, `AnvilError`\>
+
+JSON-RPC response for `anvil_dumpState` procedure
+
+#### Defined in
+
+[responses/AnvilJsonRpcResponse.ts:153](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/responses/AnvilJsonRpcResponse.ts#L153)
+
+___
+
+### AnvilDumpStateParams
+
+Ƭ **AnvilDumpStateParams**: {} \| `undefined` \| `never`
+
+Params for `anvil_dumpState` handler
+
+#### Defined in
+
+[params/AnvilParams.ts:218](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/AnvilParams.ts#L218)
+
+___
+
+### AnvilDumpStateProcedure
+
+Ƭ **AnvilDumpStateProcedure**: (`request`: [`AnvilDumpStateJsonRpcRequest`](modules.md#anvildumpstatejsonrpcrequest)) => `Promise`\<[`AnvilDumpStateJsonRpcResponse`](modules.md#anvildumpstatejsonrpcresponse)\>
+
+#### Type declaration
+
+▸ (`request`): `Promise`\<[`AnvilDumpStateJsonRpcResponse`](modules.md#anvildumpstatejsonrpcresponse)\>
+
+JSON-RPC procedure for `anvil_dumpState`
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `request` | [`AnvilDumpStateJsonRpcRequest`](modules.md#anvildumpstatejsonrpcrequest) |
+
+##### Returns
+
+`Promise`\<[`AnvilDumpStateJsonRpcResponse`](modules.md#anvildumpstatejsonrpcresponse)\>
+
+#### Defined in
+
+[procedure/AnvilProcedure.ts:138](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/procedure/AnvilProcedure.ts#L138)
+
+___
+
+### AnvilDumpStateResult
+
+Ƭ **AnvilDumpStateResult**: `Hex`
+
+#### Defined in
+
+[result/AnvilResult.ts:35](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/AnvilResult.ts#L35)
+
+___
+
+### AnvilGetAutomineHandler
+
+Ƭ **AnvilGetAutomineHandler**: (`params`: [`AnvilGetAutomineParams`](modules.md#anvilgetautomineparams)) => `Promise`\<[`AnvilGetAutomineResult`](modules.md#anvilgetautomineresult)\>
+
+#### Type declaration
+
+▸ (`params`): `Promise`\<[`AnvilGetAutomineResult`](modules.md#anvilgetautomineresult)\>
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `params` | [`AnvilGetAutomineParams`](modules.md#anvilgetautomineparams) |
+
+##### Returns
+
+`Promise`\<[`AnvilGetAutomineResult`](modules.md#anvilgetautomineresult)\>
+
+#### Defined in
+
+[handlers/AnvilHandler.ts:56](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/handlers/AnvilHandler.ts#L56)
+
+___
+
+### AnvilGetAutomineJsonRpcRequest
+
+Ƭ **AnvilGetAutomineJsonRpcRequest**: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"anvil_getAutomine"``, `SerializeToJson`\<[`AnvilGetAutomineParams`](modules.md#anvilgetautomineparams)\>\>
+
+JSON-RPC request for `anvil_getAutomine` method
+
+#### Defined in
+
+[requests/AnvilJsonRpcRequest.ts:63](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/requests/AnvilJsonRpcRequest.ts#L63)
+
+___
+
+### AnvilGetAutomineJsonRpcResponse
+
+Ƭ **AnvilGetAutomineJsonRpcResponse**: [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"anvil_getAutomine"``, `SerializeToJson`\<[`AnvilGetAutomineResult`](modules.md#anvilgetautomineresult)\>, `AnvilError`\>
+
+JSON-RPC response for `anvil_getAutomine` procedure
+
+#### Defined in
+
+[responses/AnvilJsonRpcResponse.ts:71](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/responses/AnvilJsonRpcResponse.ts#L71)
+
+___
+
+### AnvilGetAutomineParams
+
+Ƭ **AnvilGetAutomineParams**: {} \| `undefined` \| `never`
+
+Params for `anvil_getAutomine` handler
+
+#### Defined in
+
+[params/AnvilParams.ts:93](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/AnvilParams.ts#L93)
+
+___
+
+### AnvilGetAutomineProcedure
+
+Ƭ **AnvilGetAutomineProcedure**: (`request`: [`AnvilGetAutomineJsonRpcRequest`](modules.md#anvilgetautominejsonrpcrequest)) => `Promise`\<[`AnvilGetAutomineJsonRpcResponse`](modules.md#anvilgetautominejsonrpcresponse)\>
+
+#### Type declaration
+
+▸ (`request`): `Promise`\<[`AnvilGetAutomineJsonRpcResponse`](modules.md#anvilgetautominejsonrpcresponse)\>
+
+JSON-RPC procedure for `anvil_getAutomine`
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `request` | [`AnvilGetAutomineJsonRpcRequest`](modules.md#anvilgetautominejsonrpcrequest) |
+
+##### Returns
+
+`Promise`\<[`AnvilGetAutomineJsonRpcResponse`](modules.md#anvilgetautominejsonrpcresponse)\>
+
+#### Defined in
+
+[procedure/AnvilProcedure.ts:74](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/procedure/AnvilProcedure.ts#L74)
+
+___
+
+### AnvilGetAutomineResult
+
+Ƭ **AnvilGetAutomineResult**: `boolean`
+
+#### Defined in
+
+[result/AnvilResult.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/AnvilResult.ts#L16)
+
+___
+
+### AnvilImpersonateAccountHandler
+
+Ƭ **AnvilImpersonateAccountHandler**: (`params`: [`AnvilImpersonateAccountParams`](modules.md#anvilimpersonateaccountparams)) => `Promise`\<[`AnvilImpersonateAccountResult`](modules.md#anvilimpersonateaccountresult)\>
+
+#### Type declaration
+
+▸ (`params`): `Promise`\<[`AnvilImpersonateAccountResult`](modules.md#anvilimpersonateaccountresult)\>
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `params` | [`AnvilImpersonateAccountParams`](modules.md#anvilimpersonateaccountparams) |
+
+##### Returns
+
+`Promise`\<[`AnvilImpersonateAccountResult`](modules.md#anvilimpersonateaccountresult)\>
+
+#### Defined in
+
+[handlers/AnvilHandler.ts:45](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/handlers/AnvilHandler.ts#L45)
+
+___
+
+### AnvilImpersonateAccountJsonRpcRequest
+
+Ƭ **AnvilImpersonateAccountJsonRpcRequest**: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"anvil_impersonateAccount"``, `SerializeToJson`\<[`AnvilImpersonateAccountParams`](modules.md#anvilimpersonateaccountparams)\>\>
+
+JSON-RPC request for `anvil_impersonateAccount` method
+
+#### Defined in
+
+[requests/AnvilJsonRpcRequest.ts:41](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/requests/AnvilJsonRpcRequest.ts#L41)
+
+___
+
+### AnvilImpersonateAccountJsonRpcResponse
+
+Ƭ **AnvilImpersonateAccountJsonRpcResponse**: [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"anvil_impersonateAccount"``, `SerializeToJson`\<[`AnvilImpersonateAccountResult`](modules.md#anvilimpersonateaccountresult)\>, `AnvilError`\>
+
+JSON-RPC response for `anvil_impersonateAccount` procedure
+
+#### Defined in
+
+[responses/AnvilJsonRpcResponse.ts:47](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/responses/AnvilJsonRpcResponse.ts#L47)
+
+___
+
+### AnvilImpersonateAccountParams
+
+Ƭ **AnvilImpersonateAccountParams**: `Object`
+
+Params fro `anvil_impersonateAccount` handler
+
+#### Type declaration
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `address` | `Address` | The address to impersonate |
+
+#### Defined in
+
+[params/AnvilParams.ts:64](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/AnvilParams.ts#L64)
+
+___
+
+### AnvilImpersonateAccountProcedure
+
+Ƭ **AnvilImpersonateAccountProcedure**: (`request`: [`AnvilImpersonateAccountJsonRpcRequest`](modules.md#anvilimpersonateaccountjsonrpcrequest)) => `Promise`\<[`AnvilImpersonateAccountJsonRpcResponse`](modules.md#anvilimpersonateaccountjsonrpcresponse)\>
+
+#### Type declaration
+
+▸ (`request`): `Promise`\<[`AnvilImpersonateAccountJsonRpcResponse`](modules.md#anvilimpersonateaccountjsonrpcresponse)\>
+
+JSON-RPC procedure for `anvil_impersonateAccount`
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `request` | [`AnvilImpersonateAccountJsonRpcRequest`](modules.md#anvilimpersonateaccountjsonrpcrequest) |
+
+##### Returns
+
+`Promise`\<[`AnvilImpersonateAccountJsonRpcResponse`](modules.md#anvilimpersonateaccountjsonrpcresponse)\>
+
+#### Defined in
+
+[procedure/AnvilProcedure.ts:55](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/procedure/AnvilProcedure.ts#L55)
+
+___
+
+### AnvilImpersonateAccountResult
+
+Ƭ **AnvilImpersonateAccountResult**: ``null``
+
+#### Defined in
+
+[result/AnvilResult.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/AnvilResult.ts#L9)
+
+___
+
+### AnvilLoadStateHandler
+
+Ƭ **AnvilLoadStateHandler**: (`params`: [`AnvilLoadStateParams`](modules.md#anvilloadstateparams)) => `Promise`\<[`AnvilLoadStateResult`](modules.md#anvilloadstateresult)\>
+
+#### Type declaration
+
+▸ (`params`): `Promise`\<[`AnvilLoadStateResult`](modules.md#anvilloadstateresult)\>
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `params` | [`AnvilLoadStateParams`](modules.md#anvilloadstateparams) |
+
+##### Returns
+
+`Promise`\<[`AnvilLoadStateResult`](modules.md#anvilloadstateresult)\>
+
+#### Defined in
+
+[handlers/AnvilHandler.ts:98](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/handlers/AnvilHandler.ts#L98)
+
+___
+
+### AnvilLoadStateJsonRpcRequest
+
+Ƭ **AnvilLoadStateJsonRpcRequest**: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"anvil_loadState"``, `SerializeToJson`\<[`AnvilLoadStateParams`](modules.md#anvilloadstateparams)\>\>
+
+JSON-RPC request for `anvil_loadState` method
+
+#### Defined in
+
+[requests/AnvilJsonRpcRequest.ts:145](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/requests/AnvilJsonRpcRequest.ts#L145)
+
+___
+
+### AnvilLoadStateJsonRpcResponse
+
+Ƭ **AnvilLoadStateJsonRpcResponse**: [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"anvil_loadState"``, `SerializeToJson`\<[`AnvilLoadStateResult`](modules.md#anvilloadstateresult)\>, `AnvilError`\>
+
+JSON-RPC response for `anvil_loadState` procedure
+
+#### Defined in
+
+[responses/AnvilJsonRpcResponse.ts:163](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/responses/AnvilJsonRpcResponse.ts#L163)
+
+___
+
+### AnvilLoadStateParams
+
+Ƭ **AnvilLoadStateParams**: `Object`
+
+Params for `anvil_loadState` handler
+
+#### Type declaration
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `state` | `Record`\<`Hex`, `Hex`\> | The state to load |
+
+#### Defined in
+
+[params/AnvilParams.ts:225](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/AnvilParams.ts#L225)
+
+___
+
+### AnvilLoadStateProcedure
+
+Ƭ **AnvilLoadStateProcedure**: (`request`: [`AnvilLoadStateJsonRpcRequest`](modules.md#anvilloadstatejsonrpcrequest)) => `Promise`\<[`AnvilLoadStateJsonRpcResponse`](modules.md#anvilloadstatejsonrpcresponse)\>
+
+#### Type declaration
+
+▸ (`request`): `Promise`\<[`AnvilLoadStateJsonRpcResponse`](modules.md#anvilloadstatejsonrpcresponse)\>
+
+JSON-RPC procedure for `anvil_loadState`
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `request` | [`AnvilLoadStateJsonRpcRequest`](modules.md#anvilloadstatejsonrpcrequest) |
+
+##### Returns
+
+`Promise`\<[`AnvilLoadStateJsonRpcResponse`](modules.md#anvilloadstatejsonrpcresponse)\>
+
+#### Defined in
+
+[procedure/AnvilProcedure.ts:146](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/procedure/AnvilProcedure.ts#L146)
+
+___
+
+### AnvilLoadStateResult
+
+Ƭ **AnvilLoadStateResult**: ``null``
+
+#### Defined in
+
+[result/AnvilResult.ts:38](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/AnvilResult.ts#L38)
+
+___
+
+### AnvilMineHandler
+
+Ƭ **AnvilMineHandler**: (`params`: [`AnvilMineParams`](modules.md#anvilmineparams)) => `Promise`\<[`AnvilMineResult`](modules.md#anvilmineresult)\>
+
+#### Type declaration
+
+▸ (`params`): `Promise`\<[`AnvilMineResult`](modules.md#anvilmineresult)\>
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `params` | [`AnvilMineParams`](modules.md#anvilmineparams) |
+
+##### Returns
+
+`Promise`\<[`AnvilMineResult`](modules.md#anvilmineresult)\>
+
+#### Defined in
+
+[handlers/AnvilHandler.ts:60](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/handlers/AnvilHandler.ts#L60)
+
+___
+
+### AnvilMineJsonRpcRequest
+
+Ƭ **AnvilMineJsonRpcRequest**: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"anvil_mine"``, `SerializeToJson`\<[`AnvilMineParams`](modules.md#anvilmineparams)\>\>
+
+JSON-RPC request for `anvil_mine` method
+
+#### Defined in
+
+[requests/AnvilJsonRpcRequest.ts:71](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/requests/AnvilJsonRpcRequest.ts#L71)
+
+___
+
+### AnvilMineJsonRpcResponse
+
+Ƭ **AnvilMineJsonRpcResponse**: [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"anvil_mine"``, `SerializeToJson`\<[`AnvilMineResult`](modules.md#anvilmineresult)\>, `AnvilError`\>
+
+JSON-RPC response for `anvil_mine` procedure
+
+#### Defined in
+
+[responses/AnvilJsonRpcResponse.ts:80](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/responses/AnvilJsonRpcResponse.ts#L80)
+
+___
+
+### AnvilMineParams
+
+Ƭ **AnvilMineParams**: `Object`
+
+Params for `anvil_mine` handler
+
+#### Type declaration
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `blockCount?` | `number` | Number of blocks to mine. Defaults to 1 |
+| `interval?` | `number` | mineing interval |
+
+#### Defined in
+
+[params/AnvilParams.ts:99](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/AnvilParams.ts#L99)
+
+___
+
+### AnvilMineProcedure
+
+Ƭ **AnvilMineProcedure**: (`request`: [`AnvilMineJsonRpcRequest`](modules.md#anvilminejsonrpcrequest)) => `Promise`\<[`AnvilMineJsonRpcResponse`](modules.md#anvilminejsonrpcresponse)\>
+
+#### Type declaration
+
+▸ (`request`): `Promise`\<[`AnvilMineJsonRpcResponse`](modules.md#anvilminejsonrpcresponse)\>
+
+JSON-RPC procedure for `anvil_mine`
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `request` | [`AnvilMineJsonRpcRequest`](modules.md#anvilminejsonrpcrequest) |
+
+##### Returns
+
+`Promise`\<[`AnvilMineJsonRpcResponse`](modules.md#anvilminejsonrpcresponse)\>
+
+#### Defined in
+
+[procedure/AnvilProcedure.ts:81](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/procedure/AnvilProcedure.ts#L81)
+
+___
+
+### AnvilMineResult
+
+Ƭ **AnvilMineResult**: ``null``
+
+#### Defined in
+
+[result/AnvilResult.ts:18](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/AnvilResult.ts#L18)
+
+___
+
+### AnvilResetHandler
+
+Ƭ **AnvilResetHandler**: (`params`: [`AnvilResetParams`](modules.md#anvilresetparams)) => `Promise`\<[`AnvilResetResult`](modules.md#anvilresetresult)\>
+
+#### Type declaration
+
+▸ (`params`): `Promise`\<[`AnvilResetResult`](modules.md#anvilresetresult)\>
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `params` | [`AnvilResetParams`](modules.md#anvilresetparams) |
+
+##### Returns
+
+`Promise`\<[`AnvilResetResult`](modules.md#anvilresetresult)\>
+
+#### Defined in
+
+[handlers/AnvilHandler.ts:64](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/handlers/AnvilHandler.ts#L64)
+
+___
+
+### AnvilResetJsonRpcRequest
+
+Ƭ **AnvilResetJsonRpcRequest**: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"anvil_reset"``, `SerializeToJson`\<[`AnvilResetParams`](modules.md#anvilresetparams)\>\>
+
+JSON-RPC request for `anvil_reset` method
+
+#### Defined in
+
+[requests/AnvilJsonRpcRequest.ts:79](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/requests/AnvilJsonRpcRequest.ts#L79)
+
+___
+
+### AnvilResetJsonRpcResponse
+
+Ƭ **AnvilResetJsonRpcResponse**: [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"anvil_reset"``, `SerializeToJson`\<[`AnvilResetResult`](modules.md#anvilresetresult)\>, `AnvilError`\>
+
+JSON-RPC response for `anvil_reset` procedure
+
+#### Defined in
+
+[responses/AnvilJsonRpcResponse.ts:89](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/responses/AnvilJsonRpcResponse.ts#L89)
+
+___
+
+### AnvilResetParams
+
+Ƭ **AnvilResetParams**: `Object`
+
+Params for `anvil_reset` handler
+
+#### Type declaration
+
+| Name | Type |
+| :------ | :------ |
+| `fork` | \{ `block?`: `BlockTag` \| `Hex` \| `BigInt` ; `url?`: `string`  } |
+| `fork.block?` | `BlockTag` \| `Hex` \| `BigInt` |
+| `fork.url?` | `string` |
+
+#### Defined in
+
+[params/AnvilParams.ts:114](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/AnvilParams.ts#L114)
+
+___
+
+### AnvilResetProcedure
+
+Ƭ **AnvilResetProcedure**: (`request`: [`AnvilResetJsonRpcRequest`](modules.md#anvilresetjsonrpcrequest)) => `Promise`\<[`AnvilResetJsonRpcResponse`](modules.md#anvilresetjsonrpcresponse)\>
+
+#### Type declaration
+
+▸ (`request`): `Promise`\<[`AnvilResetJsonRpcResponse`](modules.md#anvilresetjsonrpcresponse)\>
+
+JSON-RPC procedure for `anvil_reset`
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `request` | [`AnvilResetJsonRpcRequest`](modules.md#anvilresetjsonrpcrequest) |
+
+##### Returns
+
+`Promise`\<[`AnvilResetJsonRpcResponse`](modules.md#anvilresetjsonrpcresponse)\>
+
+#### Defined in
+
+[procedure/AnvilProcedure.ts:88](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/procedure/AnvilProcedure.ts#L88)
+
+___
+
+### AnvilResetResult
+
+Ƭ **AnvilResetResult**: ``null``
+
+#### Defined in
+
+[result/AnvilResult.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/AnvilResult.ts#L20)
+
+___
+
+### AnvilSetBalanceHandler
+
+Ƭ **AnvilSetBalanceHandler**: (`params`: [`AnvilSetBalanceParams`](modules.md#anvilsetbalanceparams)) => `Promise`\<[`AnvilSetBalanceResult`](modules.md#anvilsetbalanceresult)\>
+
+#### Type declaration
+
+▸ (`params`): `Promise`\<[`AnvilSetBalanceResult`](modules.md#anvilsetbalanceresult)\>
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `params` | [`AnvilSetBalanceParams`](modules.md#anvilsetbalanceparams) |
+
+##### Returns
+
+`Promise`\<[`AnvilSetBalanceResult`](modules.md#anvilsetbalanceresult)\>
+
+#### Defined in
+
+[handlers/AnvilHandler.ts:72](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/handlers/AnvilHandler.ts#L72)
+
+___
+
+### AnvilSetBalanceJsonRpcRequest
+
+Ƭ **AnvilSetBalanceJsonRpcRequest**: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"anvil_setBalance"``, `SerializeToJson`\<[`AnvilSetBalanceParams`](modules.md#anvilsetbalanceparams)\>\>
+
+JSON-RPC request for `anvil_setBalance` method
+
+#### Defined in
+
+[requests/AnvilJsonRpcRequest.ts:95](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/requests/AnvilJsonRpcRequest.ts#L95)
+
+___
+
+### AnvilSetBalanceJsonRpcResponse
+
+Ƭ **AnvilSetBalanceJsonRpcResponse**: [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"anvil_setBalance"``, `SerializeToJson`\<[`AnvilSetBalanceResult`](modules.md#anvilsetbalanceresult)\>, `AnvilError`\>
+
+JSON-RPC response for `anvil_setBalance` procedure
+
+#### Defined in
+
+[responses/AnvilJsonRpcResponse.ts:107](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/responses/AnvilJsonRpcResponse.ts#L107)
+
+___
+
+### AnvilSetBalanceParams
+
+Ƭ **AnvilSetBalanceParams**: `Object`
+
+Params for `anvil_setBalance` handler
+
+#### Type declaration
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `address` | `Address` | The address to set the balance for |
+| `balance` | `Hex` \| `BigInt` | The balance to set |
+
+#### Defined in
+
+[params/AnvilParams.ts:142](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/AnvilParams.ts#L142)
+
+___
+
+### AnvilSetBalanceProcedure
+
+Ƭ **AnvilSetBalanceProcedure**: (`request`: [`AnvilSetBalanceJsonRpcRequest`](modules.md#anvilsetbalancejsonrpcrequest)) => `Promise`\<[`AnvilSetBalanceJsonRpcResponse`](modules.md#anvilsetbalancejsonrpcresponse)\>
+
+#### Type declaration
+
+▸ (`request`): `Promise`\<[`AnvilSetBalanceJsonRpcResponse`](modules.md#anvilsetbalancejsonrpcresponse)\>
+
+JSON-RPC procedure for `anvil_setBalance`
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `request` | [`AnvilSetBalanceJsonRpcRequest`](modules.md#anvilsetbalancejsonrpcrequest) |
+
+##### Returns
+
+`Promise`\<[`AnvilSetBalanceJsonRpcResponse`](modules.md#anvilsetbalancejsonrpcresponse)\>
+
+#### Defined in
+
+[procedure/AnvilProcedure.ts:102](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/procedure/AnvilProcedure.ts#L102)
+
+___
+
+### AnvilSetBalanceResult
+
+Ƭ **AnvilSetBalanceResult**: ``null``
+
+#### Defined in
+
+[result/AnvilResult.ts:24](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/AnvilResult.ts#L24)
+
+___
+
+### AnvilSetChainIdHandler
+
+Ƭ **AnvilSetChainIdHandler**: (`params`: [`AnvilSetChainIdParams`](modules.md#anvilsetchainidparams)) => `Promise`\<[`AnvilSetChainIdResult`](modules.md#anvilsetchainidresult)\>
+
+#### Type declaration
+
+▸ (`params`): `Promise`\<[`AnvilSetChainIdResult`](modules.md#anvilsetchainidresult)\>
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `params` | [`AnvilSetChainIdParams`](modules.md#anvilsetchainidparams) |
+
+##### Returns
+
+`Promise`\<[`AnvilSetChainIdResult`](modules.md#anvilsetchainidresult)\>
+
+#### Defined in
+
+[handlers/AnvilHandler.ts:88](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/handlers/AnvilHandler.ts#L88)
+
+___
+
+### AnvilSetChainIdJsonRpcRequest
+
+Ƭ **AnvilSetChainIdJsonRpcRequest**: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"anvil_setChainId"``, `SerializeToJson`\<[`AnvilSetChainIdParams`](modules.md#anvilsetchainidparams)\>\>
+
+JSON-RPC request for `anvil_setChainId` method
+
+#### Defined in
+
+[requests/AnvilJsonRpcRequest.ts:127](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/requests/AnvilJsonRpcRequest.ts#L127)
+
+___
+
+### AnvilSetChainIdJsonRpcResponse
+
+Ƭ **AnvilSetChainIdJsonRpcResponse**: [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"anvil_setChainId"``, `SerializeToJson`\<[`AnvilSetChainIdResult`](modules.md#anvilsetchainidresult)\>, `AnvilError`\>
+
+JSON-RPC response for `anvil_setChainId` procedure
+
+#### Defined in
+
+[responses/AnvilJsonRpcResponse.ts:143](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/responses/AnvilJsonRpcResponse.ts#L143)
+
+___
+
+### AnvilSetChainIdParams
+
+Ƭ **AnvilSetChainIdParams**: `Object`
+
+Params for `anvil_setChainId` handler
+
+#### Type declaration
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `chainId` | `number` | The chain id to set |
+
+#### Defined in
+
+[params/AnvilParams.ts:206](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/AnvilParams.ts#L206)
+
+___
+
+### AnvilSetChainIdProcedure
+
+Ƭ **AnvilSetChainIdProcedure**: (`request`: [`AnvilSetChainIdJsonRpcRequest`](modules.md#anvilsetchainidjsonrpcrequest)) => `Promise`\<[`AnvilSetChainIdJsonRpcResponse`](modules.md#anvilsetchainidjsonrpcresponse)\>
+
+#### Type declaration
+
+▸ (`request`): `Promise`\<[`AnvilSetChainIdJsonRpcResponse`](modules.md#anvilsetchainidjsonrpcresponse)\>
+
+JSON-RPC procedure for `anvil_setChainId`
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `request` | [`AnvilSetChainIdJsonRpcRequest`](modules.md#anvilsetchainidjsonrpcrequest) |
+
+##### Returns
+
+`Promise`\<[`AnvilSetChainIdJsonRpcResponse`](modules.md#anvilsetchainidjsonrpcresponse)\>
+
+#### Defined in
+
+[procedure/AnvilProcedure.ts:130](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/procedure/AnvilProcedure.ts#L130)
+
+___
+
+### AnvilSetChainIdResult
+
+Ƭ **AnvilSetChainIdResult**: ``null``
+
+#### Defined in
+
+[result/AnvilResult.ts:32](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/AnvilResult.ts#L32)
+
+___
+
+### AnvilSetCodeHandler
+
+Ƭ **AnvilSetCodeHandler**: (`params`: [`AnvilSetCodeParams`](modules.md#anvilsetcodeparams)) => `Promise`\<[`AnvilSetCodeResult`](modules.md#anvilsetcoderesult)\>
+
+#### Type declaration
+
+▸ (`params`): `Promise`\<[`AnvilSetCodeResult`](modules.md#anvilsetcoderesult)\>
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `params` | [`AnvilSetCodeParams`](modules.md#anvilsetcodeparams) |
+
+##### Returns
+
+`Promise`\<[`AnvilSetCodeResult`](modules.md#anvilsetcoderesult)\>
+
+#### Defined in
+
+[handlers/AnvilHandler.ts:76](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/handlers/AnvilHandler.ts#L76)
+
+___
+
+### AnvilSetCodeJsonRpcRequest
+
+Ƭ **AnvilSetCodeJsonRpcRequest**: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"anvil_setCode"``, `SerializeToJson`\<[`AnvilSetCodeParams`](modules.md#anvilsetcodeparams)\>\>
+
+JSON-RPC request for `anvil_setCode` method
+
+#### Defined in
+
+[requests/AnvilJsonRpcRequest.ts:103](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/requests/AnvilJsonRpcRequest.ts#L103)
+
+___
+
+### AnvilSetCodeJsonRpcResponse
+
+Ƭ **AnvilSetCodeJsonRpcResponse**: [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"anvil_setCode"``, `SerializeToJson`\<[`AnvilSetCodeResult`](modules.md#anvilsetcoderesult)\>, `AnvilError`\>
+
+JSON-RPC response for `anvil_setCode` procedure
+
+#### Defined in
+
+[responses/AnvilJsonRpcResponse.ts:116](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/responses/AnvilJsonRpcResponse.ts#L116)
+
+___
+
+### AnvilSetCodeParams
+
+Ƭ **AnvilSetCodeParams**: `Object`
+
+Params for `anvil_setCode` handler
+
+#### Type declaration
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `address` | `Address` | The address to set the code for |
+| `code` | `Hex` | The code to set |
+
+#### Defined in
+
+[params/AnvilParams.ts:157](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/AnvilParams.ts#L157)
+
+___
+
+### AnvilSetCodeProcedure
+
+Ƭ **AnvilSetCodeProcedure**: (`request`: [`AnvilSetCodeJsonRpcRequest`](modules.md#anvilsetcodejsonrpcrequest)) => `Promise`\<[`AnvilSetCodeJsonRpcResponse`](modules.md#anvilsetcodejsonrpcresponse)\>
+
+#### Type declaration
+
+▸ (`request`): `Promise`\<[`AnvilSetCodeJsonRpcResponse`](modules.md#anvilsetcodejsonrpcresponse)\>
+
+JSON-RPC procedure for `anvil_setCode`
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `request` | [`AnvilSetCodeJsonRpcRequest`](modules.md#anvilsetcodejsonrpcrequest) |
+
+##### Returns
+
+`Promise`\<[`AnvilSetCodeJsonRpcResponse`](modules.md#anvilsetcodejsonrpcresponse)\>
+
+#### Defined in
+
+[procedure/AnvilProcedure.ts:109](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/procedure/AnvilProcedure.ts#L109)
+
+___
+
+### AnvilSetCodeResult
+
+Ƭ **AnvilSetCodeResult**: ``null``
+
+#### Defined in
+
+[result/AnvilResult.ts:26](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/AnvilResult.ts#L26)
+
+___
+
+### AnvilSetNonceHandler
+
+Ƭ **AnvilSetNonceHandler**: (`params`: [`AnvilSetNonceParams`](modules.md#anvilsetnonceparams)) => `Promise`\<[`AnvilSetNonceResult`](modules.md#anvilsetnonceresult)\>
+
+#### Type declaration
+
+▸ (`params`): `Promise`\<[`AnvilSetNonceResult`](modules.md#anvilsetnonceresult)\>
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `params` | [`AnvilSetNonceParams`](modules.md#anvilsetnonceparams) |
+
+##### Returns
+
+`Promise`\<[`AnvilSetNonceResult`](modules.md#anvilsetnonceresult)\>
+
+#### Defined in
+
+[handlers/AnvilHandler.ts:80](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/handlers/AnvilHandler.ts#L80)
+
+___
+
+### AnvilSetNonceJsonRpcRequest
+
+Ƭ **AnvilSetNonceJsonRpcRequest**: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"anvil_setNonce"``, `SerializeToJson`\<[`AnvilSetNonceParams`](modules.md#anvilsetnonceparams)\>\>
+
+JSON-RPC request for `anvil_setNonce` method
+
+#### Defined in
+
+[requests/AnvilJsonRpcRequest.ts:111](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/requests/AnvilJsonRpcRequest.ts#L111)
+
+___
+
+### AnvilSetNonceJsonRpcResponse
+
+Ƭ **AnvilSetNonceJsonRpcResponse**: [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"anvil_setNonce"``, `SerializeToJson`\<[`AnvilSetNonceResult`](modules.md#anvilsetnonceresult)\>, `AnvilError`\>
+
+JSON-RPC response for `anvil_setNonce` procedure
+
+#### Defined in
+
+[responses/AnvilJsonRpcResponse.ts:125](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/responses/AnvilJsonRpcResponse.ts#L125)
+
+___
+
+### AnvilSetNonceParams
+
+Ƭ **AnvilSetNonceParams**: `Object`
+
+Params for `anvil_setNonce` handler
+
+#### Type declaration
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `address` | `Address` | The address to set the nonce for |
+| `nonce` | `BigInt` | The nonce to set |
+
+#### Defined in
+
+[params/AnvilParams.ts:172](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/AnvilParams.ts#L172)
+
+___
+
+### AnvilSetNonceProcedure
+
+Ƭ **AnvilSetNonceProcedure**: (`request`: [`AnvilSetNonceJsonRpcRequest`](modules.md#anvilsetnoncejsonrpcrequest)) => `Promise`\<[`AnvilSetNonceJsonRpcResponse`](modules.md#anvilsetnoncejsonrpcresponse)\>
+
+#### Type declaration
+
+▸ (`request`): `Promise`\<[`AnvilSetNonceJsonRpcResponse`](modules.md#anvilsetnoncejsonrpcresponse)\>
+
+JSON-RPC procedure for `anvil_setNonce`
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `request` | [`AnvilSetNonceJsonRpcRequest`](modules.md#anvilsetnoncejsonrpcrequest) |
+
+##### Returns
+
+`Promise`\<[`AnvilSetNonceJsonRpcResponse`](modules.md#anvilsetnoncejsonrpcresponse)\>
+
+#### Defined in
+
+[procedure/AnvilProcedure.ts:116](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/procedure/AnvilProcedure.ts#L116)
+
+___
+
+### AnvilSetNonceResult
+
+Ƭ **AnvilSetNonceResult**: ``null``
+
+#### Defined in
+
+[result/AnvilResult.ts:28](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/AnvilResult.ts#L28)
+
+___
+
+### AnvilSetStorageAtHandler
+
+Ƭ **AnvilSetStorageAtHandler**: (`params`: [`AnvilSetStorageAtParams`](modules.md#anvilsetstorageatparams)) => `Promise`\<[`AnvilSetStorageAtResult`](modules.md#anvilsetstorageatresult)\>
+
+#### Type declaration
+
+▸ (`params`): `Promise`\<[`AnvilSetStorageAtResult`](modules.md#anvilsetstorageatresult)\>
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `params` | [`AnvilSetStorageAtParams`](modules.md#anvilsetstorageatparams) |
+
+##### Returns
+
+`Promise`\<[`AnvilSetStorageAtResult`](modules.md#anvilsetstorageatresult)\>
+
+#### Defined in
+
+[handlers/AnvilHandler.ts:84](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/handlers/AnvilHandler.ts#L84)
+
+___
+
+### AnvilSetStorageAtJsonRpcRequest
+
+Ƭ **AnvilSetStorageAtJsonRpcRequest**: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"anvil_setStorageAt"``, `SerializeToJson`\<[`AnvilSetStorageAtParams`](modules.md#anvilsetstorageatparams)\>\>
+
+JSON-RPC request for `anvil_setStorageAt` method
+
+#### Defined in
+
+[requests/AnvilJsonRpcRequest.ts:119](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/requests/AnvilJsonRpcRequest.ts#L119)
+
+___
+
+### AnvilSetStorageAtJsonRpcResponse
+
+Ƭ **AnvilSetStorageAtJsonRpcResponse**: [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"anvil_setStorageAt"``, `SerializeToJson`\<[`AnvilSetStorageAtResult`](modules.md#anvilsetstorageatresult)\>, `AnvilError`\>
+
+JSON-RPC response for `anvil_setStorageAt` procedure
+
+#### Defined in
+
+[responses/AnvilJsonRpcResponse.ts:134](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/responses/AnvilJsonRpcResponse.ts#L134)
+
+___
+
+### AnvilSetStorageAtParams
+
+Ƭ **AnvilSetStorageAtParams**: `Object`
+
+Params for `anvil_setStorageAt` handler
+
+#### Type declaration
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `address` | `Address` | The address to set the storage for |
+| `position` | `Hex` \| `BigInt` | The position in storage to set |
+| `value` | `Hex` \| `BigInt` | The value to set |
+
+#### Defined in
+
+[params/AnvilParams.ts:187](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/AnvilParams.ts#L187)
+
+___
+
+### AnvilSetStorageAtProcedure
+
+Ƭ **AnvilSetStorageAtProcedure**: (`request`: [`AnvilSetStorageAtJsonRpcRequest`](modules.md#anvilsetstorageatjsonrpcrequest)) => `Promise`\<[`AnvilSetStorageAtJsonRpcResponse`](modules.md#anvilsetstorageatjsonrpcresponse)\>
+
+#### Type declaration
+
+▸ (`request`): `Promise`\<[`AnvilSetStorageAtJsonRpcResponse`](modules.md#anvilsetstorageatjsonrpcresponse)\>
+
+JSON-RPC procedure for `anvil_setStorageAt`
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `request` | [`AnvilSetStorageAtJsonRpcRequest`](modules.md#anvilsetstorageatjsonrpcrequest) |
+
+##### Returns
+
+`Promise`\<[`AnvilSetStorageAtJsonRpcResponse`](modules.md#anvilsetstorageatjsonrpcresponse)\>
+
+#### Defined in
+
+[procedure/AnvilProcedure.ts:123](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/procedure/AnvilProcedure.ts#L123)
+
+___
+
+### AnvilSetStorageAtResult
+
+Ƭ **AnvilSetStorageAtResult**: ``null``
+
+#### Defined in
+
+[result/AnvilResult.ts:30](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/AnvilResult.ts#L30)
+
+___
+
+### AnvilStopImpersonatingAccountHandler
+
+Ƭ **AnvilStopImpersonatingAccountHandler**: (`params`: [`AnvilStopImpersonatingAccountParams`](modules.md#anvilstopimpersonatingaccountparams)) => `Promise`\<[`AnvilStopImpersonatingAccountResult`](modules.md#anvilstopimpersonatingaccountresult)\>
+
+#### Type declaration
+
+▸ (`params`): `Promise`\<[`AnvilStopImpersonatingAccountResult`](modules.md#anvilstopimpersonatingaccountresult)\>
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `params` | [`AnvilStopImpersonatingAccountParams`](modules.md#anvilstopimpersonatingaccountparams) |
+
+##### Returns
+
+`Promise`\<[`AnvilStopImpersonatingAccountResult`](modules.md#anvilstopimpersonatingaccountresult)\>
+
+#### Defined in
+
+[handlers/AnvilHandler.ts:49](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/handlers/AnvilHandler.ts#L49)
+
+___
+
+### AnvilStopImpersonatingAccountJsonRpcRequest
+
+Ƭ **AnvilStopImpersonatingAccountJsonRpcRequest**: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"anvil_stopImpersonatingAccount"``, `SerializeToJson`\<[`AnvilStopImpersonatingAccountParams`](modules.md#anvilstopimpersonatingaccountparams)\>\>
+
+JSON-RPC request for `anvil_stopImpersonatingAccount` method
+
+#### Defined in
+
+[requests/AnvilJsonRpcRequest.ts:49](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/requests/AnvilJsonRpcRequest.ts#L49)
+
+___
+
+### AnvilStopImpersonatingAccountJsonRpcResponse
+
+Ƭ **AnvilStopImpersonatingAccountJsonRpcResponse**: [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"anvil_stopImpersonatingAccount"``, `SerializeToJson`\<[`AnvilStopImpersonatingAccountResult`](modules.md#anvilstopimpersonatingaccountresult)\>, `AnvilError`\>
+
+JSON-RPC response for `anvil_stopImpersonatingAccount` procedure
+
+#### Defined in
+
+[responses/AnvilJsonRpcResponse.ts:56](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/responses/AnvilJsonRpcResponse.ts#L56)
+
+___
+
+### AnvilStopImpersonatingAccountParams
+
+Ƭ **AnvilStopImpersonatingAccountParams**: `Object`
+
+Params for `anvil_stopImpersonatingAccount` handler
+
+#### Type declaration
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `address` | `Address` | The address to stop impersonating |
+
+#### Defined in
+
+[params/AnvilParams.ts:75](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/AnvilParams.ts#L75)
+
+___
+
+### AnvilStopImpersonatingAccountProcedure
+
+Ƭ **AnvilStopImpersonatingAccountProcedure**: (`request`: [`AnvilStopImpersonatingAccountJsonRpcRequest`](modules.md#anvilstopimpersonatingaccountjsonrpcrequest)) => `Promise`\<[`AnvilStopImpersonatingAccountJsonRpcResponse`](modules.md#anvilstopimpersonatingaccountjsonrpcresponse)\>
+
+#### Type declaration
+
+▸ (`request`): `Promise`\<[`AnvilStopImpersonatingAccountJsonRpcResponse`](modules.md#anvilstopimpersonatingaccountjsonrpcresponse)\>
+
+JSON-RPC procedure for `anvil_stopImpersonatingAccount`
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `request` | [`AnvilStopImpersonatingAccountJsonRpcRequest`](modules.md#anvilstopimpersonatingaccountjsonrpcrequest) |
+
+##### Returns
+
+`Promise`\<[`AnvilStopImpersonatingAccountJsonRpcResponse`](modules.md#anvilstopimpersonatingaccountjsonrpcresponse)\>
+
+#### Defined in
+
+[procedure/AnvilProcedure.ts:62](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/procedure/AnvilProcedure.ts#L62)
+
+___
+
+### AnvilStopImpersonatingAccountResult
+
+Ƭ **AnvilStopImpersonatingAccountResult**: ``null``
+
+#### Defined in
+
+[result/AnvilResult.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/AnvilResult.ts#L11)
 
 ___
 
@@ -850,6 +2267,204 @@ ___
 #### Defined in
 
 [result/ContractResult.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/ContractResult.ts#L9)
+
+___
+
+### DebugTraceCallHandler
+
+Ƭ **DebugTraceCallHandler**: (`params`: [`DebugTraceCallParams`](modules.md#debugtracecallparams)) => `Promise`\<[`DebugTraceCallResult`](modules.md#debugtracecallresult)\>
+
+#### Type declaration
+
+▸ (`params`): `Promise`\<[`DebugTraceCallResult`](modules.md#debugtracecallresult)\>
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `params` | [`DebugTraceCallParams`](modules.md#debugtracecallparams) |
+
+##### Returns
+
+`Promise`\<[`DebugTraceCallResult`](modules.md#debugtracecallresult)\>
+
+#### Defined in
+
+[handlers/AnvilHandler.ts:41](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/handlers/AnvilHandler.ts#L41)
+
+___
+
+### DebugTraceCallJsonRpcRequest
+
+Ƭ **DebugTraceCallJsonRpcRequest**: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"debug_traceCall"``, `SerializeToJson`\<[`DebugTraceCallParams`](modules.md#debugtracecallparams)\>\>
+
+JSON-RPC request for `debug_traceCall` method
+
+#### Defined in
+
+[requests/AnvilJsonRpcRequest.ts:33](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/requests/AnvilJsonRpcRequest.ts#L33)
+
+___
+
+### DebugTraceCallJsonRpcResponse
+
+Ƭ **DebugTraceCallJsonRpcResponse**: [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"debug_traceCall"``, `SerializeToJson`\<[`DebugTraceCallResult`](modules.md#debugtracecallresult)\>, `AnvilError`\>
+
+JSON-RPC response for `debug_traceCall` procedure
+
+#### Defined in
+
+[responses/AnvilJsonRpcResponse.ts:38](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/responses/AnvilJsonRpcResponse.ts#L38)
+
+___
+
+### DebugTraceCallParams
+
+Ƭ **DebugTraceCallParams**\<`TChain`\>: [`TraceParams`](modules.md#traceparams) & \{ `block?`: `BlockTag` \| `Hex` \| `BigInt` ; `transaction`: `CallParameters`\<`TChain`\>  }
+
+Params taken by `debug_traceCall` handler
+
+#### Type parameters
+
+| Name | Type |
+| :------ | :------ |
+| `TChain` | extends `Chain` \| `undefined` = `Chain` \| `undefined` |
+
+#### Defined in
+
+[params/AnvilParams.ts:47](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/AnvilParams.ts#L47)
+
+___
+
+### DebugTraceCallProcedure
+
+Ƭ **DebugTraceCallProcedure**: (`request`: [`DebugTraceCallJsonRpcRequest`](modules.md#debugtracecalljsonrpcrequest)) => `Promise`\<[`DebugTraceCallJsonRpcResponse`](modules.md#debugtracecalljsonrpcresponse)\>
+
+#### Type declaration
+
+▸ (`request`): `Promise`\<[`DebugTraceCallJsonRpcResponse`](modules.md#debugtracecalljsonrpcresponse)\>
+
+JSON-RPC procedure for `debug_traceCall`
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `request` | [`DebugTraceCallJsonRpcRequest`](modules.md#debugtracecalljsonrpcrequest) |
+
+##### Returns
+
+`Promise`\<[`DebugTraceCallJsonRpcResponse`](modules.md#debugtracecalljsonrpcresponse)\>
+
+#### Defined in
+
+[procedure/AnvilProcedure.ts:48](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/procedure/AnvilProcedure.ts#L48)
+
+___
+
+### DebugTraceCallResult
+
+Ƭ **DebugTraceCallResult**: [`TraceResult`](modules.md#traceresult)
+
+#### Defined in
+
+[result/AnvilResult.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/AnvilResult.ts#L7)
+
+___
+
+### DebugTraceTransactionHandler
+
+Ƭ **DebugTraceTransactionHandler**: (`params`: [`DebugTraceTransactionParams`](modules.md#debugtracetransactionparams)) => `Promise`\<[`DebugTraceTransactionResult`](modules.md#debugtracetransactionresult)\>
+
+#### Type declaration
+
+▸ (`params`): `Promise`\<[`DebugTraceTransactionResult`](modules.md#debugtracetransactionresult)\>
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `params` | [`DebugTraceTransactionParams`](modules.md#debugtracetransactionparams) |
+
+##### Returns
+
+`Promise`\<[`DebugTraceTransactionResult`](modules.md#debugtracetransactionresult)\>
+
+#### Defined in
+
+[handlers/AnvilHandler.ts:37](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/handlers/AnvilHandler.ts#L37)
+
+___
+
+### DebugTraceTransactionJsonRpcRequest
+
+Ƭ **DebugTraceTransactionJsonRpcRequest**: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"debug_traceTransaction"``, `SerializeToJson`\<[`DebugTraceTransactionParams`](modules.md#debugtracetransactionparams)\>\>
+
+JSON-RPC request for `debug_traceTransaction` method
+
+#### Defined in
+
+[requests/AnvilJsonRpcRequest.ts:25](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/requests/AnvilJsonRpcRequest.ts#L25)
+
+___
+
+### DebugTraceTransactionJsonRpcResponse
+
+Ƭ **DebugTraceTransactionJsonRpcResponse**: [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"debug_traceTransaction"``, `SerializeToJson`\<[`DebugTraceTransactionResult`](modules.md#debugtracetransactionresult)\>, `AnvilError`\>
+
+JSON-RPC response for `debug_traceTransaction` procedure
+
+#### Defined in
+
+[responses/AnvilJsonRpcResponse.ts:29](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/responses/AnvilJsonRpcResponse.ts#L29)
+
+___
+
+### DebugTraceTransactionParams
+
+Ƭ **DebugTraceTransactionParams**: [`TraceParams`](modules.md#traceparams) & \{ `transactionHash`: `Hex`  }
+
+Params taken by `debug_traceTransaction` handler
+
+#### Defined in
+
+[params/AnvilParams.ts:36](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/AnvilParams.ts#L36)
+
+___
+
+### DebugTraceTransactionProcedure
+
+Ƭ **DebugTraceTransactionProcedure**: (`request`: [`DebugTraceTransactionJsonRpcRequest`](modules.md#debugtracetransactionjsonrpcrequest)) => `Promise`\<[`DebugTraceTransactionJsonRpcResponse`](modules.md#debugtracetransactionjsonrpcresponse)\>
+
+#### Type declaration
+
+▸ (`request`): `Promise`\<[`DebugTraceTransactionJsonRpcResponse`](modules.md#debugtracetransactionjsonrpcresponse)\>
+
+JSON-RPC procedure for `debug_traceTransaction`
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `request` | [`DebugTraceTransactionJsonRpcRequest`](modules.md#debugtracetransactionjsonrpcrequest) |
+
+##### Returns
+
+`Promise`\<[`DebugTraceTransactionJsonRpcResponse`](modules.md#debugtracetransactionjsonrpcresponse)\>
+
+#### Defined in
+
+[procedure/AnvilProcedure.ts:41](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/procedure/AnvilProcedure.ts#L41)
+
+___
+
+### DebugTraceTransactionResult
+
+Ƭ **DebugTraceTransactionResult**: [`TraceResult`](modules.md#traceresult)
+
+#### Defined in
+
+[result/AnvilResult.ts:5](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/AnvilResult.ts#L5)
 
 ___
 
@@ -3555,6 +5170,16 @@ JSON-RPC response for `eth_hashrate` procedure
 
 ___
 
+### EthJsonRpcRequest
+
+Ƭ **EthJsonRpcRequest**: [`EthAccountsJsonRpcRequest`](modules.md#ethaccountsjsonrpcrequest) \| [`EthAccountsJsonRpcRequest`](modules.md#ethaccountsjsonrpcrequest) \| [`EthBlockNumberJsonRpcRequest`](modules.md#ethblocknumberjsonrpcrequest) \| [`EthCallJsonRpcRequest`](modules.md#ethcalljsonrpcrequest) \| [`EthChainIdJsonRpcRequest`](modules.md#ethchainidjsonrpcrequest) \| [`EthCoinbaseJsonRpcRequest`](modules.md#ethcoinbasejsonrpcrequest) \| [`EthEstimateGasJsonRpcRequest`](modules.md#ethestimategasjsonrpcrequest) \| [`EthHashrateJsonRpcRequest`](modules.md#ethhashratejsonrpcrequest) \| [`EthGasPriceJsonRpcRequest`](modules.md#ethgaspricejsonrpcrequest) \| [`EthGetBalanceJsonRpcRequest`](modules.md#ethgetbalancejsonrpcrequest) \| [`EthGetBlockByHashJsonRpcRequest`](modules.md#ethgetblockbyhashjsonrpcrequest) \| [`EthGetBlockByNumberJsonRpcRequest`](modules.md#ethgetblockbynumberjsonrpcrequest) \| [`EthGetBlockTransactionCountByHashJsonRpcRequest`](modules.md#ethgetblocktransactioncountbyhashjsonrpcrequest) \| [`EthGetBlockTransactionCountByNumberJsonRpcRequest`](modules.md#ethgetblocktransactioncountbynumberjsonrpcrequest) \| [`EthGetCodeJsonRpcRequest`](modules.md#ethgetcodejsonrpcrequest) \| [`EthGetFilterChangesJsonRpcRequest`](modules.md#ethgetfilterchangesjsonrpcrequest) \| [`EthGetFilterLogsJsonRpcRequest`](modules.md#ethgetfilterlogsjsonrpcrequest) \| [`EthGetLogsJsonRpcRequest`](modules.md#ethgetlogsjsonrpcrequest) \| [`EthGetStorageAtJsonRpcRequest`](modules.md#ethgetstorageatjsonrpcrequest) \| [`EthGetTransactionCountJsonRpcRequest`](modules.md#ethgettransactioncountjsonrpcrequest) \| [`EthGetUncleCountByBlockHashJsonRpcRequest`](modules.md#ethgetunclecountbyblockhashjsonrpcrequest) \| [`EthGetUncleCountByBlockNumberJsonRpcRequest`](modules.md#ethgetunclecountbyblocknumberjsonrpcrequest) \| [`EthGetTransactionByHashJsonRpcRequest`](modules.md#ethgettransactionbyhashjsonrpcrequest) \| [`EthGetTransactionByBlockHashAndIndexJsonRpcRequest`](modules.md#ethgettransactionbyblockhashandindexjsonrpcrequest) \| [`EthGetTransactionByBlockNumberAndIndexJsonRpcRequest`](modules.md#ethgettransactionbyblocknumberandindexjsonrpcrequest) \| [`EthGetTransactionReceiptJsonRpcRequest`](modules.md#ethgettransactionreceiptjsonrpcrequest) \| [`EthGetUncleByBlockHashAndIndexJsonRpcRequest`](modules.md#ethgetunclebyblockhashandindexjsonrpcrequest) \| [`EthGetUncleByBlockNumberAndIndexJsonRpcRequest`](modules.md#ethgetunclebyblocknumberandindexjsonrpcrequest) \| [`EthMiningJsonRpcRequest`](modules.md#ethminingjsonrpcrequest) \| [`EthProtocolVersionJsonRpcRequest`](modules.md#ethprotocolversionjsonrpcrequest) \| [`EthSendRawTransactionJsonRpcRequest`](modules.md#ethsendrawtransactionjsonrpcrequest) \| [`EthSendTransactionJsonRpcRequest`](modules.md#ethsendtransactionjsonrpcrequest) \| [`EthSignJsonRpcRequest`](modules.md#ethsignjsonrpcrequest) \| [`EthSignTransactionJsonRpcRequest`](modules.md#ethsigntransactionjsonrpcrequest) \| [`EthSyncingJsonRpcRequest`](modules.md#ethsyncingjsonrpcrequest) \| [`EthNewFilterJsonRpcRequest`](modules.md#ethnewfilterjsonrpcrequest) \| [`EthNewBlockFilterJsonRpcRequest`](modules.md#ethnewblockfilterjsonrpcrequest) \| [`EthNewPendingTransactionFilterJsonRpcRequest`](modules.md#ethnewpendingtransactionfilterjsonrpcrequest) \| [`EthUninstallFilterJsonRpcRequest`](modules.md#ethuninstallfilterjsonrpcrequest)
+
+#### Defined in
+
+[requests/EthJsonRpcRequest.ts:321](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/requests/EthJsonRpcRequest.ts#L321)
+
+___
+
 ### EthJsonRpcRequestHandler
 
 Ƭ **EthJsonRpcRequestHandler**: \<TRequest\>(`request`: `TRequest`) => `Promise`\<`EthReturnType`[`TRequest`[``"method"``]]\>
@@ -3567,7 +5192,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `TRequest` | extends `EthJsonRpcRequest` |
+| `TRequest` | extends [`EthJsonRpcRequest`](modules.md#ethjsonrpcrequest) |
 
 ##### Parameters
 
@@ -3581,7 +5206,7 @@ ___
 
 #### Defined in
 
-[TevmJsonRpcRequestHandler.ts:107](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/TevmJsonRpcRequestHandler.ts#L107)
+[TevmJsonRpcRequestHandler.ts:146](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/TevmJsonRpcRequestHandler.ts#L146)
 
 ___
 
@@ -5227,7 +6852,7 @@ Generic and returns the correct response type for a given request
 
 | Name | Type |
 | :------ | :------ |
-| `TRequest` | extends [`TevmJsonRpcRequest`](modules.md#tevmjsonrpcrequest) \| `EthJsonRpcRequest` |
+| `TRequest` | extends [`TevmJsonRpcRequest`](modules.md#tevmjsonrpcrequest) \| [`EthJsonRpcRequest`](modules.md#ethjsonrpcrequest) \| `AnvilJsonRpcRequest` |
 
 ##### Parameters
 
@@ -5241,7 +6866,86 @@ Generic and returns the correct response type for a given request
 
 #### Defined in
 
-[TevmJsonRpcRequestHandler.ts:101](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/TevmJsonRpcRequestHandler.ts#L101)
+[TevmJsonRpcRequestHandler.ts:140](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/TevmJsonRpcRequestHandler.ts#L140)
+
+___
+
+### TraceCall
+
+Ƭ **TraceCall**: `Object`
+
+#### Type declaration
+
+| Name | Type |
+| :------ | :------ |
+| `calls?` | [`TraceCall`](modules.md#tracecall)[] |
+| `from` | `Address` |
+| `gas?` | `bigint` |
+| `gasUsed?` | `bigint` |
+| `input` | `Hex` |
+| `output` | `Hex` |
+| `to` | `Address` |
+| `type` | [`TraceType`](modules.md#tracetype) |
+| `value?` | `bigint` |
+
+#### Defined in
+
+[common/TraceCall.ts:5](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/common/TraceCall.ts#L5)
+
+___
+
+### TraceParams
+
+Ƭ **TraceParams**: `Object`
+
+Config params for trace calls
+
+#### Type declaration
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `timeout?` | `string` | A duration string of decimal numbers that overrides the default timeout of 5 seconds for JavaScript-based tracing calls. Max timeout is "10s". Valid time units are "ns", "us", "ms", "s" each with optional fraction, such as "300ms" or "2s45ms". **`Example`** ```ts "10s" ``` |
+| `tracer` | ``"callTracer"`` \| ``"prestateTracer"`` | The type of tracer Currently only callTracer supported |
+| `tracerConfig?` | \{ `onlyTopCall`: `boolean`  } | object to specify configurations for the tracer |
+| `tracerConfig.onlyTopCall` | `boolean` | boolean Setting this to true will only trace the main (top-level) call and none of the sub-calls. This avoids extra processing for each call frame if only the top-level call info are required (useful for getting revertReason). |
+
+#### Defined in
+
+[params/AnvilParams.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/AnvilParams.ts#L10)
+
+___
+
+### TraceResult
+
+Ƭ **TraceResult**: `Object`
+
+#### Type declaration
+
+| Name | Type |
+| :------ | :------ |
+| `calls?` | [`TraceCall`](modules.md#tracecall)[] |
+| `from` | `Address` |
+| `gas` | `bigint` |
+| `gasUsed` | `bigint` |
+| `input` | `Hex` |
+| `output` | `Hex` |
+| `to` | `Address` |
+| `type` | [`TraceType`](modules.md#tracetype) |
+| `value` | `bigint` |
+
+#### Defined in
+
+[common/TraceResult.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/common/TraceResult.ts#L6)
+
+___
+
+### TraceType
+
+Ƭ **TraceType**: ``"CALL"`` \| ``"DELEGATECALL"`` \| ``"STATICCALL"`` \| ``"CREATE"`` \| ``"CREATE2"`` \| ``"SELFDESTRUCT"`` \| ``"REWARD"``
+
+#### Defined in
+
+[common/TraceType.ts:1](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/common/TraceType.ts#L1)
 
 ___
 

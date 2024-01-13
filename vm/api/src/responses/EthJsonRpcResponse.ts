@@ -337,24 +337,24 @@ export type EthSyncingJsonRpcResponse = JsonRpcResponse<
 	'eth_syncing',
 	| boolean
 	| {
-		startingBlock: Hex
-		currentBlock: Hex
-		highestBlock: Hex
-		// some clients return these
-		// geth
-		headedBytecodebytes?: Hex
-		healedBytecodes?: Hex
-		healedTrienodes?: Hex
-		healingBytecode?: Hex
-		healingTrienodes?: Hex
-		syncedBytecodeBytes?: Hex
-		syncedBytecodes?: Hex
-		syncedStorage?: Hex
-		syncedStorageBytes?: Hex
-		// besu
-		pulledStates: Hex
-		knownStates: Hex
-	},
+			startingBlock: Hex
+			currentBlock: Hex
+			highestBlock: Hex
+			// some clients return these
+			// geth
+			headedBytecodebytes?: Hex
+			healedBytecodes?: Hex
+			healedTrienodes?: Hex
+			healingBytecode?: Hex
+			healingTrienodes?: Hex
+			syncedBytecodeBytes?: Hex
+			syncedBytecodes?: Hex
+			syncedStorage?: Hex
+			syncedStorageBytes?: Hex
+			// besu
+			pulledStates: Hex
+			knownStates: Hex
+	  },
 	string
 >
 
