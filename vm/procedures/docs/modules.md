@@ -8,6 +8,8 @@
 
 - [accountHandler](modules.md#accounthandler)
 - [accountProcedure](modules.md#accountprocedure)
+- [blockNumberHandler](modules.md#blocknumberhandler)
+- [blockNumberProcedure](modules.md#blocknumberprocedure)
 - [callHandler](modules.md#callhandler)
 - [callProcedure](modules.md#callprocedure)
 - [contractHandler](modules.md#contracthandler)
@@ -59,6 +61,46 @@ Creates an Account JSON-RPC Procedure for handling account requests with Ethereu
 #### Defined in
 
 [jsonrpc/accountProcedure.js:9](https://github.com/evmts/tevm-monorepo/blob/main/vm/procedures/src/jsonrpc/accountProcedure.js#L9)
+
+___
+
+### blockNumberHandler
+
+▸ **blockNumberHandler**(`blockchain`): `EthBlockNumberHandler`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `blockchain` | `BlockchainInterface` |
+
+#### Returns
+
+`EthBlockNumberHandler`
+
+#### Defined in
+
+handlers/ethHandler.js:5
+
+___
+
+### blockNumberProcedure
+
+▸ **blockNumberProcedure**(`blockchain`): `EthBlockNumberJsonRpcProcedure`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `blockchain` | `BlockchainInterface` |
+
+#### Returns
+
+`EthBlockNumberJsonRpcProcedure`
+
+#### Defined in
+
+jsonrpc/ethProcedure.js:8
 
 ___
 
@@ -154,7 +196,7 @@ ___
 
 ### requestProcedure
 
-▸ **requestProcedure**(`evm`): `TevmJsonRpcRequestHandler`
+▸ **requestProcedure**(`vm`): `TevmJsonRpcRequestHandler`
 
 Handles a single tevm json rpc request
 Infers return type from request
@@ -163,7 +205,7 @@ Infers return type from request
 
 | Name | Type |
 | :------ | :------ |
-| `evm` | `EVM` |
+| `vm` | `VM` |
 
 #### Returns
 
@@ -184,7 +226,7 @@ const res = await requestProcedure(evm)({
 
 #### Defined in
 
-[requestProcedure.js:21](https://github.com/evmts/tevm-monorepo/blob/main/vm/procedures/src/requestProcedure.js#L21)
+[requestProcedure.js:22](https://github.com/evmts/tevm-monorepo/blob/main/vm/procedures/src/requestProcedure.js#L22)
 
 ___
 

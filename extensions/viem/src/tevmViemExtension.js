@@ -256,6 +256,21 @@ export const tevmViemExtension = () => {
 			return out
 		}
 
+		/**
+		 * @type {import('@tevm/api').EthBlockNumberHandler}
+		 */
+		const blockNumber = async () => {
+			return /** @type {any} */ (
+				formatResult(
+					await request({
+						method: 'eth_blockNumber',
+						jsonrpc: '2.0',
+						params: [],
+					}),
+				)
+			)
+		}
+
 		return {
 			tevm: {
 				request,
@@ -263,6 +278,7 @@ export const tevmViemExtension = () => {
 				account,
 				call,
 				contract,
+				blockNumber,
 			},
 		}
 	}

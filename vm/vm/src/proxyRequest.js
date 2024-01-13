@@ -7,7 +7,7 @@ import { createJsonRpcFetcher } from '@tevm/jsonrpc'
  */
 export const proxyRequest = (url) => {
 	/**
-	 * @param {import('@tevm/api').TevmJsonRpcRequest | import('@tevm/api').JsonRpcRequest<string, object>} request
+	 * @param {import('@tevm/api').TevmJsonRpcRequest | import('@tevm/api').JsonRpcRequest<string, unknown> | import('@tevm/api').JsonRpcRequest<string, readonly []>} request
 	 * @returns {Promise<import('@tevm/api').JsonRpcResponse<any, any, any>>}
 	 */
 	return async (request) => {

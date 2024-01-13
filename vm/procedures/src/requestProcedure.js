@@ -1,10 +1,11 @@
 import { UnknownMethodError } from './errors/UnknownMethodError.js'
 import { accountProcedure, callProcedure, scriptProcedure } from './index.js'
+import { blockNumberProcedure } from './jsonrpc/ethProcedure.js'
 
 /**
  * Handles a single tevm json rpc request
  * Infers return type from request
- * @param {import('@ethereumjs/evm').EVM} evm
+ * @param {import('@ethereumjs/vm').VM} vm
  * @returns {import('@tevm/api').TevmJsonRpcRequestHandler}
  * @example
  * ```typescript
@@ -18,14 +19,14 @@ import { accountProcedure, callProcedure, scriptProcedure } from './index.js'
  * })
  * ```
  */
-export const requestProcedure = (evm) => {
+export const requestProcedure = (vm) => {
 	/**
 	 * @type {import('@tevm/api').Tevm['request']}
 	 */
 	return async (request) => {
 		switch (request.method) {
 			case 'tevm_call':
-				return /**@type any*/ (callProcedure)(evm)(request)
+				return /**@type any*/ (callProcedure)(vm.evm)(request)
 			case /** @type {any} */ ('tevm_contract'):
 				return /**@type any*/ ({
 					id: /** @type any*/ (request).id,
@@ -37,9 +38,11 @@ export const requestProcedure = (evm) => {
 					},
 				})
 			case 'tevm_account':
-				return /**@type any*/ (accountProcedure)(evm)(request)
+				return /**@type any*/ (accountProcedure)(vm.evm)(request)
 			case 'tevm_script':
-				return /**@type any*/ (scriptProcedure)(evm)(request)
+				return /**@type any*/ (scriptProcedure)(vm.evm)(request)
+			case 'eth_blockNumber':
+				return /** @type any */ (blockNumberProcedure(vm.blockchain)(request))
 			case 'eth_call':
 			case 'eth_sign':
 			case 'eth_mining':
@@ -53,7 +56,6 @@ export const requestProcedure = (evm) => {
 			case 'eth_gasPrice':
 			case 'eth_newFilter':
 			case 'eth_getBalance':
-			case 'eth_blockNumber':
 			case 'eth_estimateGas':
 			case 'eth_getStorageAt':
 			case 'eth_getFilterLogs':

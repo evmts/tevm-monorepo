@@ -321,17 +321,17 @@ A Tevm JSON-RPC request
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1070
+vm/api/dist/index.d.ts:1073
 
 ___
 
 ### TevmJsonRpcRequestHandler
 
-Ƭ **TevmJsonRpcRequestHandler**: \<TRequest\>(`request`: `TRequest`) => `TRequest` extends [`TevmJsonRpcRequest`](index.md#tevmjsonrpcrequest) \| `EthJsonRpcRequest` ? `Promise`\<`ReturnType`\<`TRequest`[``"method"``]\>\> : `never`
+Ƭ **TevmJsonRpcRequestHandler**: \<TRequest\>(`request`: `TRequest`) => `Promise`\<`ReturnType`\<`TRequest`[``"method"``]\>\>
 
 #### Type declaration
 
-▸ \<`TRequest`\>(`request`): `TRequest` extends [`TevmJsonRpcRequest`](index.md#tevmjsonrpcrequest) \| `EthJsonRpcRequest` ? `Promise`\<`ReturnType`\<`TRequest`[``"method"``]\>\> : `never`
+▸ \<`TRequest`\>(`request`): `Promise`\<`ReturnType`\<`TRequest`[``"method"``]\>\>
 
 Type of a JSON-RPC request handler for tevm procedures
 Generic and returns the correct response type for a given request
@@ -350,11 +350,11 @@ Generic and returns the correct response type for a given request
 
 ##### Returns
 
-`TRequest` extends [`TevmJsonRpcRequest`](index.md#tevmjsonrpcrequest) \| `EthJsonRpcRequest` ? `Promise`\<`ReturnType`\<`TRequest`[``"method"``]\>\> : `never`
+`Promise`\<`ReturnType`\<`TRequest`[``"method"``]\>\>
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1574
+vm/api/dist/index.d.ts:1577
 
 ## Functions
 

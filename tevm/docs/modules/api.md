@@ -205,7 +205,7 @@ Account JSON-RPC tevm procedure puts an account or contract into the tevm state
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1466
+vm/api/dist/index.d.ts:1469
 
 ___
 
@@ -217,7 +217,7 @@ JSON-RPC request for `tevm_account` method
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1032
+vm/api/dist/index.d.ts:1035
 
 ___
 
@@ -229,7 +229,7 @@ JSON-RPC response for `tevm_account` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1277
+vm/api/dist/index.d.ts:1280
 
 ___
 
@@ -367,7 +367,7 @@ Call JSON-RPC procedure executes a call against the tevm EVM
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1471
+vm/api/dist/index.d.ts:1474
 
 ___
 
@@ -379,7 +379,7 @@ JSON-RPC request for `tevm_call`
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1037
+vm/api/dist/index.d.ts:1040
 
 ___
 
@@ -391,7 +391,7 @@ JSON-RPC response for `tevm_call` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1282
+vm/api/dist/index.d.ts:1285
 
 ___
 
@@ -460,7 +460,7 @@ Since ContractJsonRpcProcedure is a quality of life wrapper around CallJsonRpcPr
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1478
+vm/api/dist/index.d.ts:1481
 
 ___
 
@@ -473,7 +473,7 @@ in favor of overloading tevm_call
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1043
+vm/api/dist/index.d.ts:1046
 
 ___
 
@@ -486,7 +486,7 @@ in favor of overloading tevm_call
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1288
+vm/api/dist/index.d.ts:1291
 
 ___
 
@@ -774,7 +774,7 @@ ___
 
 ### JsonRpcRequest
 
-Ƭ **JsonRpcRequest**\<`TMethod`, `TParams`\>: `Object`
+Ƭ **JsonRpcRequest**\<`TMethod`, `TParams`\>: \{ `id?`: `string` \| `number` \| ``null`` ; `jsonrpc`: ``"2.0"`` ; `method`: `TMethod`  } & `TParams` extends readonly [] ? \{ `params?`: `TParams`  } : \{ `params`: `TParams`  }
 
 Helper type for creating JSON-RPC request types
 
@@ -784,15 +784,6 @@ Helper type for creating JSON-RPC request types
 | :------ | :------ |
 | `TMethod` | extends `string` |
 | `TParams` | `TParams` |
-
-#### Type declaration
-
-| Name | Type |
-| :------ | :------ |
-| `id?` | `string` \| `number` \| ``null`` |
-| `jsonrpc` | ``"2.0"`` |
-| `method` | `TMethod` |
-| `params` | `TParams` |
 
 #### Defined in
 
@@ -814,7 +805,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1257
+vm/api/dist/index.d.ts:1260
 
 ___
 
@@ -915,7 +906,7 @@ Procedure for handling script JSON-RPC requests
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1483
+vm/api/dist/index.d.ts:1486
 
 ___
 
@@ -927,7 +918,7 @@ The JSON-RPC request for the `tevm_script` method
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1064
+vm/api/dist/index.d.ts:1067
 
 ___
 
@@ -939,7 +930,7 @@ JSON-RPC response for `tevm_script` procedure
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1293
+vm/api/dist/index.d.ts:1296
 
 ___
 
@@ -956,6 +947,7 @@ for each type of request
 | Name | Type |
 | :------ | :------ |
 | `account` | [`AccountHandler`](api.md#accounthandler) |
+| `blockNumber` | `EthBlockNumberHandler` |
 | `call` | [`CallHandler`](api.md#callhandler) |
 | `contract` | [`ContractHandler`](api.md#contracthandler) |
 | `request` | [`TevmJsonRpcRequestHandler`](index.md#tevmjsonrpcrequesthandler) |
@@ -963,7 +955,7 @@ for each type of request
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1582
+vm/api/dist/index.d.ts:1585
 
 ___
 

@@ -102,9 +102,7 @@ export type TevmJsonRpcRequestHandler = <
 	TRequest extends TevmJsonRpcRequest | EthJsonRpcRequest,
 >(
 	request: TRequest,
-) => TRequest extends TevmJsonRpcRequest | EthJsonRpcRequest
-	? Promise<ReturnType<TRequest['method']>>
-	: never
+) => Promise<ReturnType<TRequest['method']>>
 
 export type EthJsonRpcRequestHandler = <TRequest extends EthJsonRpcRequest>(
 	request: TRequest,

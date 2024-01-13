@@ -2,7 +2,9 @@ import type { BlockResult } from '../common/BlockResult.js'
 import type { FilterLog } from '../common/FilterLog.js'
 import type { TransactionReceiptResult } from '../common/TransactionReceiptResult.js'
 import type { TransactionResult } from '../common/TransactionResult.js'
+import type { EthBlockNumberResult } from '../index.js'
 import type { JsonRpcResponse } from '../responses/index.js'
+import type { SerializeToJson } from '../utils/SerializeToJson.js'
 import type { Address } from 'abitype'
 import type { Hex } from 'viem'
 
@@ -22,7 +24,7 @@ export type EthAccountsJsonRpcResponse = JsonRpcResponse<
  */
 export type EthBlockNumberJsonRpcResponse = JsonRpcResponse<
 	'eth_blockNumber',
-	Hex,
+	SerializeToJson<EthBlockNumberResult>,
 	string
 >
 

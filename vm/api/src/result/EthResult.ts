@@ -15,7 +15,7 @@ export type EthAccountsResult = Array<Address>
 /**
  * JSON-RPC response for `eth_blockNumber` procedure
  */
-export type EthBlockNumberResult = Hex
+export type EthBlockNumberResult = bigint
 
 // eth_call
 /**
