@@ -271,14 +271,96 @@ export const tevmViemExtension = () => {
 			)
 		}
 
+		/**
+		 * @type {import('@tevm/api').EthChainIdHandler}
+		 */
+		const chainId = async () => {
+			return /** @type {any} */ (
+				formatResult(
+					await request({
+						method: 'eth_chainId',
+						jsonrpc: '2.0',
+						params: [],
+					}),
+				)
+			)
+		}
+
+		/**
+		 * @type {import('@tevm/api').EthGasPriceHandler}
+		 */
+		const gasPrice = async () => {
+			return /** @type {any} */ (
+				formatResult(
+					await request({
+						method: 'eth_gasPrice',
+						jsonrpc: '2.0',
+						params: [],
+					}),
+				)
+			)
+		}
+
+		/**
+		 * @type {import('@tevm/api').EthGetBalanceHandler}
+		 */
+		const getBalance = async (params) => {
+			return /** @type {any} */ (
+				formatResult(
+					await request({
+						method: 'eth_getBalance',
+						jsonrpc: '2.0',
+						params: [params.address, params.blockTag ?? 'pending'],
+					}),
+				)
+			)
+		}
+
+		/**
+		 * @type {import('@tevm/api').EthGetCodeHandler}
+		 */
+		const getCode = async (params) => {
+			return /** @type {any} */ (
+				formatResult(
+					await request({
+						method: 'eth_getCode',
+						jsonrpc: '2.0',
+						params: [params.address, params.tag],
+					}),
+				)
+			)
+		}
+
+		/**
+		 * @type {import('@tevm/api').EthGetStorageAtHandler}
+		 */
+		const getStorageAt = async (params) => {
+			return /** @type {any} */ (
+				formatResult(
+					await request({
+						method: 'eth_getStorageAt',
+						jsonrpc: '2.0',
+						params: [params.address, params.position, params.tag],
+					}),
+				)
+			)
+		}
+
 		return {
 			tevm: {
+				eth: {
+					blockNumber,
+					chainId,
+					gasPrice,
+					getBalance,
+					getCode,
+					getStorageAt,
+				},
 				request,
 				script,
 				account,
 				call,
 				contract,
-				blockNumber,
 			},
 		}
 	}

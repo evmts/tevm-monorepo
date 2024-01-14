@@ -81,17 +81,17 @@ import type {
 
 // eth_accounts
 export type EthAccountsHandler = (
-	request: EthAccountsParams,
+	request?: EthAccountsParams,
 ) => Promise<EthAccountsResult>
 // eth_blockNumber
 export type EthBlockNumberHandler = (
-	request: EthBlockNumberParams,
+	request?: EthBlockNumberParams,
 ) => Promise<EthBlockNumberResult>
 // eth_call
 export type EthCallHandler = (request: EthCallParams) => Promise<EthCallResult>
 // eth_chainId
 export type EthChainIdHandler = (
-	request: EthChainIdParams,
+	request?: EthChainIdParams,
 ) => Promise<EthChainIdResult>
 // eth_coinbase
 export type EthCoinbaseHandler = (
@@ -103,11 +103,11 @@ export type EthEstimateGasHandler = (
 ) => Promise<EthEstimateGasResult>
 // eth_hashrate
 export type EthHashrateHandler = (
-	request: EthHashrateParams,
+	request?: EthHashrateParams,
 ) => Promise<EthHashrateResult>
 // eth_gasPrice
 export type EthGasPriceHandler = (
-	request: EthGasPriceParams,
+	request?: EthGasPriceParams,
 ) => Promise<EthGasPriceResult>
 // eth_getBalance
 export type EthGetBalanceHandler = (

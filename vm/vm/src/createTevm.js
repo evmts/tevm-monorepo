@@ -10,7 +10,12 @@ import {
 	accountHandler,
 	blockNumberHandler,
 	callHandler,
+	chainIdHandler,
 	contractHandler,
+	gasPriceHandler,
+	getBalanceHandler,
+	getCodeHandler,
+	getStorageAtHandler,
 	scriptHandler,
 } from '@tevm/procedures'
 import { DefaultTevmStateManager, TevmStateManager } from '@tevm/state'
@@ -55,12 +60,22 @@ export const createTevm = async (options = {}) => {
 	let stateManager
 	const common = new Common({ chain: 1, hardfork: Hardfork.Shanghai })
 
+	let chainId = 420n
+
 	// ethereumjs throws an error for most chain ids
 	if (options.fork?.url) {
 		const client = createPublicClient({
 			transport: http(options.fork.url),
 		})
-		const blockTag = options.fork.blockTag ?? (await client.getBlockNumber())
+		const blockTagPromise = options.fork.blockTag
+			? Promise.resolve(options.fork.blockTag)
+			: client.getBlockNumber()
+		const chainIdPromise = client.getChainId()
+		const [blockTag, _chainId] = await Promise.all([
+			blockTagPromise,
+			chainIdPromise,
+		])
+		chainId = BigInt(_chainId)
 		stateManager = new TevmStateManager({ client, blockTag })
 	} else {
 		stateManager = new DefaultTevmStateManager()
@@ -145,7 +160,26 @@ export const createTevm = async (options = {}) => {
 		account: accountHandler(evm),
 		call: callHandler(evm),
 		contract: contractHandler(evm),
-		blockNumber: blockNumberHandler(blockchain),
+		eth: {
+			blockNumber: blockNumberHandler(blockchain),
+			chainId: chainIdHandler(chainId),
+			gasPrice: gasPriceHandler({
+				forkUrl: options.fork?.url,
+				blockchain,
+			}),
+			getBalance: getBalanceHandler({
+				forkUrl: options.fork?.url,
+				stateManager,
+			}),
+			getCode: getCodeHandler({
+				stateManager,
+				forkUrl: options.fork?.url,
+			}),
+			getStorageAt: getStorageAtHandler({
+				stateManager,
+				forkUrl: options.fork?.url,
+			}),
+		},
 		...(options.fork?.url
 			? { forkUrl: options.fork.url }
 			: { forkUrl: options.fork?.url }),

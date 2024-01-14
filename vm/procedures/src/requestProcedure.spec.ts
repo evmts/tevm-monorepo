@@ -1,5 +1,8 @@
-import { callProcedure, scriptProcedure } from './index.js'
-import { blockNumberProcedure } from './jsonrpc/ethProcedure.js'
+import {
+	blockNumberProcedure,
+	callProcedure,
+	scriptProcedure,
+} from './index.js'
 import { requestProcedure } from './requestProcedure.js'
 import { Blockchain } from '@ethereumjs/blockchain'
 import { EVM } from '@ethereumjs/evm'

@@ -166,4 +166,4 @@ const balance = await tevm.runContractCall(
 
 #### Defined in
 
-[vm/vm/src/createTevm.js:51](https://github.com/evmts/tevm-monorepo/blob/main/vm/vm/src/createTevm.js#L51)
+[vm/vm/src/createTevm.js:56](https://github.com/evmts/tevm-monorepo/blob/main/vm/vm/src/createTevm.js#L56)

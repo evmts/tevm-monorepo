@@ -947,9 +947,15 @@ for each type of request
 | Name | Type |
 | :------ | :------ |
 | `account` | [`AccountHandler`](api.md#accounthandler) |
-| `blockNumber` | `EthBlockNumberHandler` |
 | `call` | [`CallHandler`](api.md#callhandler) |
 | `contract` | [`ContractHandler`](api.md#contracthandler) |
+| `eth` | \{ `blockNumber`: `EthBlockNumberHandler` ; `chainId`: `EthChainIdHandler` ; `gasPrice`: `EthGasPriceHandler` ; `getBalance`: `EthGetBalanceHandler` ; `getCode`: `EthGetCodeHandler` ; `getStorageAt`: `EthGetStorageAtHandler`  } |
+| `eth.blockNumber` | `EthBlockNumberHandler` |
+| `eth.chainId` | `EthChainIdHandler` |
+| `eth.gasPrice` | `EthGasPriceHandler` |
+| `eth.getBalance` | `EthGetBalanceHandler` |
+| `eth.getCode` | `EthGetCodeHandler` |
+| `eth.getStorageAt` | `EthGetStorageAtHandler` |
 | `request` | [`TevmJsonRpcRequestHandler`](index.md#tevmjsonrpcrequesthandler) |
 | `script` | [`ScriptHandler`](api.md#scripthandler) |
 

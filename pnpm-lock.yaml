@@ -1340,6 +1340,9 @@ importers:
 
   vm/procedures:
     dependencies:
+      '@ethereumjs/block':
+        specifier: ^5.0.1
+        version: 5.0.1
       '@ethereumjs/blockchain':
         specifier: ^7.0.1
         version: 7.0.1
@@ -1349,6 +1352,9 @@ importers:
       '@ethereumjs/vm':
         specifier: ^7.1.0
         version: 7.1.0
+      '@tevm/jsonrpc':
+        specifier: workspace:1.0.0-next.21
+        version: link:../../packages/jsonrpc
       '@tevm/zod':
         specifier: workspace:^
         version: link:../zod

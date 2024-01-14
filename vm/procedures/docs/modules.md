@@ -4,6 +4,10 @@
 
 ## Table of contents
 
+### Classes
+
+- [NoForkUrlSetError](classes/NoForkUrlSetError.md)
+
 ### Functions
 
 - [accountHandler](modules.md#accounthandler)
@@ -12,8 +16,18 @@
 - [blockNumberProcedure](modules.md#blocknumberprocedure)
 - [callHandler](modules.md#callhandler)
 - [callProcedure](modules.md#callprocedure)
+- [chainIdHandler](modules.md#chainidhandler)
+- [chainIdProcedure](modules.md#chainidprocedure)
 - [contractHandler](modules.md#contracthandler)
 - [contractProcedure](modules.md#contractprocedure)
+- [gasPriceHandler](modules.md#gaspricehandler)
+- [gasPriceProcedure](modules.md#gaspriceprocedure)
+- [getBalanceHandler](modules.md#getbalancehandler)
+- [getBalanceProcedure](modules.md#getbalanceprocedure)
+- [getCodeHandler](modules.md#getcodehandler)
+- [getCodeProcedure](modules.md#getcodeprocedure)
+- [getStorageAtHandler](modules.md#getstorageathandler)
+- [getStorageAtProcedure](modules.md#getstorageatprocedure)
 - [requestProcedure](modules.md#requestprocedure)
 - [scriptHandler](modules.md#scripthandler)
 - [scriptProcedure](modules.md#scriptprocedure)
@@ -38,7 +52,7 @@ Creates an AccountHandler for handling account params with Ethereumjs EVM
 
 #### Defined in
 
-[handlers/accountHandler.js:14](https://github.com/evmts/tevm-monorepo/blob/main/vm/procedures/src/handlers/accountHandler.js#L14)
+[vm/procedures/src/handlers/accountHandler.js:14](https://github.com/evmts/tevm-monorepo/blob/main/vm/procedures/src/handlers/accountHandler.js#L14)
 
 ___
 
@@ -60,7 +74,7 @@ Creates an Account JSON-RPC Procedure for handling account requests with Ethereu
 
 #### Defined in
 
-[jsonrpc/accountProcedure.js:9](https://github.com/evmts/tevm-monorepo/blob/main/vm/procedures/src/jsonrpc/accountProcedure.js#L9)
+[vm/procedures/src/jsonrpc/accountProcedure.js:9](https://github.com/evmts/tevm-monorepo/blob/main/vm/procedures/src/jsonrpc/accountProcedure.js#L9)
 
 ___
 
@@ -80,7 +94,7 @@ ___
 
 #### Defined in
 
-[handlers/ethHandler.js:5](https://github.com/evmts/tevm-monorepo/blob/main/vm/procedures/src/handlers/ethHandler.js#L5)
+[vm/procedures/src/handlers/eth/blockNumberHandler.js:5](https://github.com/evmts/tevm-monorepo/blob/main/vm/procedures/src/handlers/eth/blockNumberHandler.js#L5)
 
 ___
 
@@ -100,7 +114,7 @@ ___
 
 #### Defined in
 
-[jsonrpc/ethProcedure.js:8](https://github.com/evmts/tevm-monorepo/blob/main/vm/procedures/src/jsonrpc/ethProcedure.js#L8)
+vm/procedures/src/jsonrpc/eth/blockNumberProcedure.js:8
 
 ___
 
@@ -122,7 +136,7 @@ Creates an CallHandler for handling call params with Ethereumjs EVM
 
 #### Defined in
 
-[handlers/callHandler.js:10](https://github.com/evmts/tevm-monorepo/blob/main/vm/procedures/src/handlers/callHandler.js#L10)
+[vm/procedures/src/handlers/callHandler.js:10](https://github.com/evmts/tevm-monorepo/blob/main/vm/procedures/src/handlers/callHandler.js#L10)
 
 ___
 
@@ -144,7 +158,47 @@ Creates a Call JSON-RPC Procedure for handling call requests with Ethereumjs EVM
 
 #### Defined in
 
-[jsonrpc/callProcedure.js:10](https://github.com/evmts/tevm-monorepo/blob/main/vm/procedures/src/jsonrpc/callProcedure.js#L10)
+[vm/procedures/src/jsonrpc/callProcedure.js:10](https://github.com/evmts/tevm-monorepo/blob/main/vm/procedures/src/jsonrpc/callProcedure.js#L10)
+
+___
+
+### chainIdHandler
+
+▸ **chainIdHandler**(`chainId`): `EthBlockNumberHandler`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `chainId` | `bigint` |
+
+#### Returns
+
+`EthBlockNumberHandler`
+
+#### Defined in
+
+[vm/procedures/src/handlers/eth/chainIdHandler.js:5](https://github.com/evmts/tevm-monorepo/blob/main/vm/procedures/src/handlers/eth/chainIdHandler.js#L5)
+
+___
+
+### chainIdProcedure
+
+▸ **chainIdProcedure**(`chainId`): `EthChainIdJsonRpcProcedure`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `chainId` | `bigint` |
+
+#### Returns
+
+`EthChainIdJsonRpcProcedure`
+
+#### Defined in
+
+vm/procedures/src/jsonrpc/eth/chainIdProcedure.js:8
 
 ___
 
@@ -166,7 +220,7 @@ Creates an ContractHandler for handling contract params with Ethereumjs EVM
 
 #### Defined in
 
-[handlers/contractHandler.js:16](https://github.com/evmts/tevm-monorepo/blob/main/vm/procedures/src/handlers/contractHandler.js#L16)
+[vm/procedures/src/handlers/contractHandler.js:16](https://github.com/evmts/tevm-monorepo/blob/main/vm/procedures/src/handlers/contractHandler.js#L16)
 
 ___
 
@@ -190,7 +244,183 @@ we simply overload call instead of creating a seperate tevm_contract method
 
 #### Defined in
 
-[jsonrpc/callProcedure.js:10](https://github.com/evmts/tevm-monorepo/blob/main/vm/procedures/src/jsonrpc/callProcedure.js#L10)
+[vm/procedures/src/jsonrpc/callProcedure.js:10](https://github.com/evmts/tevm-monorepo/blob/main/vm/procedures/src/jsonrpc/callProcedure.js#L10)
+
+___
+
+### gasPriceHandler
+
+▸ **gasPriceHandler**(`options`): `EthGasPriceHandler`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `options` | `Object` |
+| `options.blockchain` | `Blockchain` |
+| `options.forkUrl` | `undefined` \| `string` |
+
+#### Returns
+
+`EthGasPriceHandler`
+
+#### Defined in
+
+[vm/procedures/src/handlers/eth/gasPriceHandler.js:11](https://github.com/evmts/tevm-monorepo/blob/main/vm/procedures/src/handlers/eth/gasPriceHandler.js#L11)
+
+___
+
+### gasPriceProcedure
+
+▸ **gasPriceProcedure**(`options`): `EthGasPriceJsonRpcProcedure`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `options` | `Object` |
+| `options.blockchain` | `Blockchain` |
+| `options.forkUrl` | `undefined` \| `string` |
+
+#### Returns
+
+`EthGasPriceJsonRpcProcedure`
+
+#### Defined in
+
+vm/procedures/src/jsonrpc/eth/gasPriceProcedure.js:9
+
+___
+
+### getBalanceHandler
+
+▸ **getBalanceHandler**(`options`): `EthGetBalanceHandler`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `options` | `Object` |
+| `options.forkUrl` | `undefined` \| `string` |
+| `options.stateManager` | `EVMStateManagerInterface` |
+
+#### Returns
+
+`EthGetBalanceHandler`
+
+#### Defined in
+
+[vm/procedures/src/handlers/eth/getBalanceHandler.js:24](https://github.com/evmts/tevm-monorepo/blob/main/vm/procedures/src/handlers/eth/getBalanceHandler.js#L24)
+
+___
+
+### getBalanceProcedure
+
+▸ **getBalanceProcedure**(`options`): `EthGetBalanceJsonRpcProcedure`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `options` | `Object` |
+| `options.forkUrl` | `undefined` \| `string` |
+| `options.stateManager` | `EVMStateManagerInterface` |
+
+#### Returns
+
+`EthGetBalanceJsonRpcProcedure`
+
+#### Defined in
+
+vm/procedures/src/jsonrpc/eth/getBalanceProcedure.js:9
+
+___
+
+### getCodeHandler
+
+▸ **getCodeHandler**(`options`): `EthGetCodeHandler`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `options` | `Object` |
+| `options.forkUrl` | `undefined` \| `string` |
+| `options.stateManager` | `EVMStateManagerInterface` |
+
+#### Returns
+
+`EthGetCodeHandler`
+
+#### Defined in
+
+[vm/procedures/src/handlers/eth/getCodeHandler.js:12](https://github.com/evmts/tevm-monorepo/blob/main/vm/procedures/src/handlers/eth/getCodeHandler.js#L12)
+
+___
+
+### getCodeProcedure
+
+▸ **getCodeProcedure**(`options`): `EthGetCodeJsonRpcProcedure`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `options` | `Object` |
+| `options.forkUrl` | `undefined` \| `string` |
+| `options.stateManager` | `EVMStateManagerInterface` |
+
+#### Returns
+
+`EthGetCodeJsonRpcProcedure`
+
+#### Defined in
+
+vm/procedures/src/jsonrpc/eth/getCodeProcedure.js:8
+
+___
+
+### getStorageAtHandler
+
+▸ **getStorageAtHandler**(`options`): `EthGetStorageAtHandler`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `options` | `Object` |
+| `options.forkUrl` | `undefined` \| `string` |
+| `options.stateManager` | `EVMStateManagerInterface` |
+
+#### Returns
+
+`EthGetStorageAtHandler`
+
+#### Defined in
+
+[vm/procedures/src/handlers/eth/getStorageAtHandler.js:13](https://github.com/evmts/tevm-monorepo/blob/main/vm/procedures/src/handlers/eth/getStorageAtHandler.js#L13)
+
+___
+
+### getStorageAtProcedure
+
+▸ **getStorageAtProcedure**(`options`): `EthGetStorageAtJsonRpcProcedure`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `options` | `Object` |
+| `options.forkUrl` | `undefined` \| `string` |
+| `options.stateManager` | `EVMStateManagerInterface` |
+
+#### Returns
+
+`EthGetStorageAtJsonRpcProcedure`
+
+#### Defined in
+
+vm/procedures/src/jsonrpc/eth/getStorageAtProcedure.js:8
 
 ___
 
@@ -226,7 +456,7 @@ const res = await requestProcedure(evm)({
 
 #### Defined in
 
-[requestProcedure.js:22](https://github.com/evmts/tevm-monorepo/blob/main/vm/procedures/src/requestProcedure.js#L22)
+[vm/procedures/src/requestProcedure.js:31](https://github.com/evmts/tevm-monorepo/blob/main/vm/procedures/src/requestProcedure.js#L31)
 
 ___
 
@@ -248,7 +478,7 @@ Creates an ScriptHandler for handling script params with Ethereumjs EVM
 
 #### Defined in
 
-[handlers/scriptHandler.js:17](https://github.com/evmts/tevm-monorepo/blob/main/vm/procedures/src/handlers/scriptHandler.js#L17)
+[vm/procedures/src/handlers/scriptHandler.js:17](https://github.com/evmts/tevm-monorepo/blob/main/vm/procedures/src/handlers/scriptHandler.js#L17)
 
 ___
 
@@ -270,4 +500,4 @@ Creates a Script JSON-RPC Procedure for handling script requests with Ethereumjs
 
 #### Defined in
 
-[jsonrpc/scriptProcedure.js:10](https://github.com/evmts/tevm-monorepo/blob/main/vm/procedures/src/jsonrpc/scriptProcedure.js#L10)
+[vm/procedures/src/jsonrpc/scriptProcedure.js:10](https://github.com/evmts/tevm-monorepo/blob/main/vm/procedures/src/jsonrpc/scriptProcedure.js#L10)

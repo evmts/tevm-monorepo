@@ -2470,17 +2470,17 @@ ___
 
 ### EthAccountsHandler
 
-Ƭ **EthAccountsHandler**: (`request`: [`EthAccountsParams`](modules.md#ethaccountsparams)) => `Promise`\<[`EthAccountsResult`](modules.md#ethaccountsresult)\>
+Ƭ **EthAccountsHandler**: (`request?`: [`EthAccountsParams`](modules.md#ethaccountsparams)) => `Promise`\<[`EthAccountsResult`](modules.md#ethaccountsresult)\>
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`EthAccountsResult`](modules.md#ethaccountsresult)\>
+▸ (`request?`): `Promise`\<[`EthAccountsResult`](modules.md#ethaccountsresult)\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`EthAccountsParams`](modules.md#ethaccountsparams) |
+| `request?` | [`EthAccountsParams`](modules.md#ethaccountsparams) |
 
 ##### Returns
 
@@ -2564,17 +2564,17 @@ ___
 
 ### EthBlockNumberHandler
 
-Ƭ **EthBlockNumberHandler**: (`request`: [`EthBlockNumberParams`](modules.md#ethblocknumberparams)) => `Promise`\<[`EthBlockNumberResult`](modules.md#ethblocknumberresult)\>
+Ƭ **EthBlockNumberHandler**: (`request?`: [`EthBlockNumberParams`](modules.md#ethblocknumberparams)) => `Promise`\<[`EthBlockNumberResult`](modules.md#ethblocknumberresult)\>
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`EthBlockNumberResult`](modules.md#ethblocknumberresult)\>
+▸ (`request?`): `Promise`\<[`EthBlockNumberResult`](modules.md#ethblocknumberresult)\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`EthBlockNumberParams`](modules.md#ethblocknumberparams) |
+| `request?` | [`EthBlockNumberParams`](modules.md#ethblocknumberparams) |
 
 ##### Returns
 
@@ -2756,17 +2756,17 @@ ___
 
 ### EthChainIdHandler
 
-Ƭ **EthChainIdHandler**: (`request`: [`EthChainIdParams`](modules.md#ethchainidparams)) => `Promise`\<[`EthChainIdResult`](modules.md#ethchainidresult)\>
+Ƭ **EthChainIdHandler**: (`request?`: [`EthChainIdParams`](modules.md#ethchainidparams)) => `Promise`\<[`EthChainIdResult`](modules.md#ethchainidresult)\>
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`EthChainIdResult`](modules.md#ethchainidresult)\>
+▸ (`request?`): `Promise`\<[`EthChainIdResult`](modules.md#ethchainidresult)\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`EthChainIdParams`](modules.md#ethchainidparams) |
+| `request?` | [`EthChainIdParams`](modules.md#ethchainidparams) |
 
 ##### Returns
 
@@ -2840,7 +2840,7 @@ ___
 
 ### EthChainIdResult
 
-Ƭ **EthChainIdResult**: `Hex`
+Ƭ **EthChainIdResult**: `bigint`
 
 JSON-RPC response for `eth_chainId` procedure
 
@@ -2936,7 +2936,7 @@ ___
 
 ### EthCoinbaseResult
 
-Ƭ **EthCoinbaseResult**: `Hex`
+Ƭ **EthCoinbaseResult**: `Address`
 
 JSON-RPC response for `eth_coinbase` procedure
 
@@ -3032,7 +3032,7 @@ ___
 
 ### EthEstimateGasResult
 
-Ƭ **EthEstimateGasResult**: `Hex`
+Ƭ **EthEstimateGasResult**: `bigint`
 
 JSON-RPC response for `eth_estimateGas` procedure
 
@@ -3044,17 +3044,17 @@ ___
 
 ### EthGasPriceHandler
 
-Ƭ **EthGasPriceHandler**: (`request`: [`EthGasPriceParams`](modules.md#ethgaspriceparams)) => `Promise`\<[`EthGasPriceResult`](modules.md#ethgaspriceresult)\>
+Ƭ **EthGasPriceHandler**: (`request?`: [`EthGasPriceParams`](modules.md#ethgaspriceparams)) => `Promise`\<[`EthGasPriceResult`](modules.md#ethgaspriceresult)\>
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`EthGasPriceResult`](modules.md#ethgaspriceresult)\>
+▸ (`request?`): `Promise`\<[`EthGasPriceResult`](modules.md#ethgaspriceresult)\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`EthGasPriceParams`](modules.md#ethgaspriceparams) |
+| `request?` | [`EthGasPriceParams`](modules.md#ethgaspriceparams) |
 
 ##### Returns
 
@@ -3128,7 +3128,7 @@ ___
 
 ### EthGasPriceResult
 
-Ƭ **EthGasPriceResult**: `Hex`
+Ƭ **EthGasPriceResult**: `bigint`
 
 JSON-RPC response for `eth_gasPrice` procedure
 
@@ -3224,7 +3224,7 @@ ___
 
 ### EthGetBalanceResult
 
-Ƭ **EthGetBalanceResult**: `Hex`
+Ƭ **EthGetBalanceResult**: `bigint`
 
 JSON-RPC response for `eth_getBalance` procedure
 
@@ -5076,17 +5076,17 @@ ___
 
 ### EthHashrateHandler
 
-Ƭ **EthHashrateHandler**: (`request`: [`EthHashrateParams`](modules.md#ethhashrateparams)) => `Promise`\<[`EthHashrateResult`](modules.md#ethhashrateresult)\>
+Ƭ **EthHashrateHandler**: (`request?`: [`EthHashrateParams`](modules.md#ethhashrateparams)) => `Promise`\<[`EthHashrateResult`](modules.md#ethhashrateresult)\>
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`EthHashrateResult`](modules.md#ethhashrateresult)\>
+▸ (`request?`): `Promise`\<[`EthHashrateResult`](modules.md#ethhashrateresult)\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`EthHashrateParams`](modules.md#ethhashrateparams) |
+| `request?` | [`EthHashrateParams`](modules.md#ethhashrateparams) |
 
 ##### Returns
 
@@ -6802,15 +6802,21 @@ for each type of request
 | Name | Type |
 | :------ | :------ |
 | `account` | [`AccountHandler`](modules.md#accounthandler) |
-| `blockNumber` | [`EthBlockNumberHandler`](modules.md#ethblocknumberhandler) |
 | `call` | [`CallHandler`](modules.md#callhandler) |
 | `contract` | [`ContractHandler`](modules.md#contracthandler) |
+| `eth` | \{ `blockNumber`: [`EthBlockNumberHandler`](modules.md#ethblocknumberhandler) ; `chainId`: [`EthChainIdHandler`](modules.md#ethchainidhandler) ; `gasPrice`: [`EthGasPriceHandler`](modules.md#ethgaspricehandler) ; `getBalance`: [`EthGetBalanceHandler`](modules.md#ethgetbalancehandler) ; `getCode`: [`EthGetCodeHandler`](modules.md#ethgetcodehandler) ; `getStorageAt`: [`EthGetStorageAtHandler`](modules.md#ethgetstorageathandler)  } |
+| `eth.blockNumber` | [`EthBlockNumberHandler`](modules.md#ethblocknumberhandler) |
+| `eth.chainId` | [`EthChainIdHandler`](modules.md#ethchainidhandler) |
+| `eth.gasPrice` | [`EthGasPriceHandler`](modules.md#ethgaspricehandler) |
+| `eth.getBalance` | [`EthGetBalanceHandler`](modules.md#ethgetbalancehandler) |
+| `eth.getCode` | [`EthGetCodeHandler`](modules.md#ethgetcodehandler) |
+| `eth.getStorageAt` | [`EthGetStorageAtHandler`](modules.md#ethgetstorageathandler) |
 | `request` | [`TevmJsonRpcRequestHandler`](modules.md#tevmjsonrpcrequesthandler) |
 | `script` | [`ScriptHandler`](modules.md#scripthandler) |
 
 #### Defined in
 
-[Tevm.ts:15](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/Tevm.ts#L15)
+[Tevm.ts:23](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/Tevm.ts#L23)
 
 ___
 

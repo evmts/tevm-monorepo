@@ -1,6 +1,15 @@
 import { UnknownMethodError } from './errors/UnknownMethodError.js'
-import { accountProcedure, callProcedure, scriptProcedure } from './index.js'
-import { blockNumberProcedure } from './jsonrpc/ethProcedure.js'
+import {
+	accountProcedure,
+	blockNumberProcedure,
+	callProcedure,
+	chainIdProcedure,
+	gasPriceProcedure,
+	getBalanceProcedure,
+	getCodeProcedure,
+	getStorageAtProcedure,
+	scriptProcedure,
+} from './index.js'
 
 /**
  * Handles a single tevm json rpc request
@@ -20,6 +29,8 @@ import { blockNumberProcedure } from './jsonrpc/ethProcedure.js'
  * ```
  */
 export const requestProcedure = (vm) => {
+	// TODO implement chainid
+	const chainId = 10n
 	/**
 	 * @type {import('@tevm/api').Tevm['request']}
 	 */
@@ -43,21 +54,38 @@ export const requestProcedure = (vm) => {
 				return /**@type any*/ (scriptProcedure)(vm.evm)(request)
 			case 'eth_blockNumber':
 				return /** @type any */ (blockNumberProcedure(vm.blockchain)(request))
+			case 'eth_chainId':
+				return /** @type any */ (chainIdProcedure(chainId)(request))
 			case 'eth_call':
+				return /** @type any */ (callProcedure)(vm)(request.params[0])
+			case 'eth_getCode':
+				return /** @type any */ (
+					getCodeProcedure({ stateManager: vm.evm.stateManager })(request)
+				)
+			case 'eth_getStorageAt':
+				return /** @type any */ (
+					getStorageAtProcedure({ stateManager: vm.evm.stateManager })(request)
+				)
+			case 'eth_gasPrice':
+				// TODO this vm.blockchain should not be type any
+				return /** @type any */ (
+					gasPriceProcedure({ blockchain: /** @type any*/ (vm.blockchain) })(
+						request,
+					)
+				)
+			case 'eth_getBalance':
+				return /** @type any */ (
+					getBalanceProcedure({ stateManager: vm.evm.stateManager })(request)
+				)
 			case 'eth_sign':
 			case 'eth_mining':
-			case 'eth_chainId':
-			case 'eth_getCode':
 			case 'eth_getLogs':
 			case 'eth_syncing':
 			case 'eth_accounts':
 			case 'eth_coinbase':
 			case 'eth_hashrate':
-			case 'eth_gasPrice':
 			case 'eth_newFilter':
-			case 'eth_getBalance':
 			case 'eth_estimateGas':
-			case 'eth_getStorageAt':
 			case 'eth_getFilterLogs':
 			case 'eth_getBlockByHash':
 			case 'eth_newBlockFilter':
@@ -95,7 +123,7 @@ export const requestProcedure = (vm) => {
 			case 'anvil_dropTransaction':
 			case 'anvil_impersonateAccount':
 			case 'anvil_stopImpersonatingAccount':
-				throw new Error('not implemented')
+				throw new Error(`Method ${request.method} is not implemented yet`)
 			default: {
 				const err = new UnknownMethodError(request)
 				return /** @type {any}*/ ({
