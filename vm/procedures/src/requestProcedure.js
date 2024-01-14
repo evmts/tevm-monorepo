@@ -80,6 +80,21 @@ export const requestProcedure = (vm) => {
 			case 'eth_getBlockTransactionCountByNumber':
 			case 'eth_getTransactionByBlockHashAndIndex':
 			case 'eth_getTransactionByBlockNumberAndIndex':
+			case 'debug_traceCall':
+			case 'debug_traceTransaction':
+			case 'anvil_mine':
+			case 'anvil_reset':
+			case 'anvil_setCode':
+			case 'anvil_setNonce':
+			case 'anvil_dumpState':
+			case 'anvil_loadState':
+			case 'anvil_setBalance':
+			case 'anvil_setChainId':
+			case 'anvil_getAutomine':
+			case 'anvil_setStorageAt':
+			case 'anvil_dropTransaction':
+			case 'anvil_impersonateAccount':
+			case 'anvil_stopImpersonatingAccount':
 				throw new Error('not implemented')
 			default: {
 				const err = new UnknownMethodError(request)

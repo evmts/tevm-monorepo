@@ -80,7 +80,7 @@ ___
 
 #### Defined in
 
-handlers/ethHandler.js:5
+[handlers/ethHandler.js:5](https://github.com/evmts/tevm-monorepo/blob/main/vm/procedures/src/handlers/ethHandler.js#L5)
 
 ___
 
@@ -100,7 +100,7 @@ ___
 
 #### Defined in
 
-jsonrpc/ethProcedure.js:8
+[jsonrpc/ethProcedure.js:8](https://github.com/evmts/tevm-monorepo/blob/main/vm/procedures/src/jsonrpc/ethProcedure.js#L8)
 
 ___
 

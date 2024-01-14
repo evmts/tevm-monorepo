@@ -5,18 +5,18 @@ import type { Hex } from 'viem'
  * json rpc procedures
  */
 export type TransactionResult = {
-	blockHash: Hex
-	blockNumber: Hex
-	from: Hex
-	gas: Hex
-	gasPrice: Hex
-	hash: Hex
-	input: Hex
-	nonce: Hex
-	to: Hex
-	transactionIndex: Hex
-	value: Hex
-	v: Hex
-	r: Hex
-	s: Hex
+	readonly blockHash: Hex
+	readonly blockNumber: Hex
+	readonly from: Hex
+	readonly gas: Hex
+	readonly gasPrice: Hex
+	readonly hash: Hex
+	readonly input: Hex
+	readonly nonce: Hex
+	readonly to: Hex
+	readonly transactionIndex: Hex
+	readonly value: Hex
+	readonly v: Hex
+	readonly r: Hex
+	readonly s: Hex
 }
