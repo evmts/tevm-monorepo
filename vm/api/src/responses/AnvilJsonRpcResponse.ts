@@ -14,8 +14,6 @@ import type {
 	AnvilSetNonceResult,
 	AnvilSetStorageAtResult,
 	AnvilStopImpersonatingAccountResult,
-	DebugTraceCallResult,
-	DebugTraceTransactionResult,
 } from '../result/AnvilResult.js'
 import type { SerializeToJson } from '../utils/SerializeToJson.js'
 import type { JsonRpcResponse } from './JsonRpcResponse.js'
@@ -23,23 +21,6 @@ import type { JsonRpcResponse } from './JsonRpcResponse.js'
 // TODO type the errors strongly
 type AnvilError = string
 
-/**
- * JSON-RPC response for `debug_traceTransaction` procedure
- */
-export type DebugTraceTransactionJsonRpcResponse = JsonRpcResponse<
-	'debug_traceTransaction',
-	SerializeToJson<DebugTraceTransactionResult>,
-	AnvilError
->
-// debug_traceCall
-/**
- * JSON-RPC response for `debug_traceCall` procedure
- */
-export type DebugTraceCallJsonRpcResponse = JsonRpcResponse<
-	'debug_traceCall',
-	SerializeToJson<DebugTraceCallResult>,
-	AnvilError
->
 // anvil_impersonateAccount
 /**
  * JSON-RPC response for `anvil_impersonateAccount` procedure

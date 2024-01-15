@@ -12,28 +12,10 @@ import type {
 	AnvilSetNonceParams,
 	AnvilSetStorageAtParams,
 	AnvilStopImpersonatingAccountParams,
-	DebugTraceCallParams,
-	DebugTraceTransactionParams,
-} from '../params/AnvilParams.js'
-import type { SerializeToJson } from '../utils/SerializeToJson.js'
+} from '../params/index.js'
+import type { SerializeToJson } from '../utils/index.js'
 import type { JsonRpcRequest } from './JsonRpcRequest.js'
 
-// debug_traceTransaction
-/**
- * JSON-RPC request for `debug_traceTransaction` method
- */
-export type DebugTraceTransactionJsonRpcRequest = JsonRpcRequest<
-	'debug_traceTransaction',
-	SerializeToJson<DebugTraceTransactionParams>
->
-// debug_traceCall
-/**
- * JSON-RPC request for `debug_traceCall` method
- */
-export type DebugTraceCallJsonRpcRequest = JsonRpcRequest<
-	'debug_traceCall',
-	SerializeToJson<DebugTraceCallParams>
->
 // anvil_impersonateAccount
 /**
  * JSON-RPC request for `anvil_impersonateAccount` method
@@ -148,8 +130,6 @@ export type AnvilLoadStateJsonRpcRequest = JsonRpcRequest<
 >
 
 export type AnvilJsonRpcRequest =
-	| DebugTraceTransactionJsonRpcRequest
-	| DebugTraceCallJsonRpcRequest
 	| AnvilImpersonateAccountJsonRpcRequest
 	| AnvilStopImpersonatingAccountJsonRpcRequest
 	| AnvilGetAutomineJsonRpcRequest

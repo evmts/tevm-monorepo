@@ -1,5 +1,3 @@
-// debug_traceTransaction
-
 import type {
 	AnvilDropTransactionJsonRpcRequest,
 	AnvilDumpStateJsonRpcRequest,
@@ -14,8 +12,6 @@ import type {
 	AnvilSetNonceJsonRpcRequest,
 	AnvilSetStorageAtJsonRpcRequest,
 	AnvilStopImpersonatingAccountJsonRpcRequest,
-	DebugTraceCallJsonRpcRequest,
-	DebugTraceTransactionJsonRpcRequest,
 } from '../requests/AnvilJsonRpcRequest.js'
 import type {
 	AnvilDropTransactionJsonRpcResponse,
@@ -31,23 +27,8 @@ import type {
 	AnvilSetNonceJsonRpcResponse,
 	AnvilSetStorageAtJsonRpcResponse,
 	AnvilStopImpersonatingAccountJsonRpcResponse,
-	DebugTraceCallJsonRpcResponse,
-	DebugTraceTransactionJsonRpcResponse,
 } from '../responses/AnvilJsonRpcResponse.js'
 
-/**
- * JSON-RPC procedure for `debug_traceTransaction`
- */
-export type DebugTraceTransactionProcedure = (
-	request: DebugTraceTransactionJsonRpcRequest,
-) => Promise<DebugTraceTransactionJsonRpcResponse>
-// debug_traceCall
-/**
- * JSON-RPC procedure for `debug_traceCall`
- */
-export type DebugTraceCallProcedure = (
-	request: DebugTraceCallJsonRpcRequest,
-) => Promise<DebugTraceCallJsonRpcResponse>
 // anvil_impersonateAccount
 /**
  * JSON-RPC procedure for `anvil_impersonateAccount`

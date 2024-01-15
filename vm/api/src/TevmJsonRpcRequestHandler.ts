@@ -58,11 +58,15 @@ import type {
 	TevmJsonRpcRequest,
 } from './index.js'
 import type { AnvilJsonRpcRequest } from './requests/AnvilJsonRpcRequest.js'
+import type { DebugJsonRpcRequest } from './requests/DebugJsonRpcRequest.js'
 import type { EthJsonRpcRequest } from './requests/EthJsonRpcRequest.js'
 
-type AnvilReturnType = {
+type DebugReturnType = {
 	debug_traceTransaction: DebugTraceTransactionJsonRpcResponse
 	debug_traceCall: DebugTraceCallJsonRpcResponse
+}
+
+type AnvilReturnType = {
 	anvil_impersonateAccount: AnvilImpersonateAccountJsonRpcResponse
 	anvil_stopImpersonatingAccount: AnvilStopImpersonatingAccountJsonRpcResponse
 	// anvil_autoImpersonateAccount: AnvilAutoImpersonateAccountJsonRpcResponse,
@@ -130,15 +134,23 @@ type ReturnType<
 	TMethod extends
 		| keyof EthReturnType
 		| keyof TevmReturnType
-		| keyof AnvilReturnType,
-> = (EthReturnType & TevmReturnType & AnvilReturnType)[TMethod]
+		| keyof AnvilReturnType
+		| keyof DebugReturnType,
+> = (EthReturnType &
+	TevmReturnType &
+	AnvilReturnType &
+	DebugReturnType)[TMethod]
 
 /**
  * Type of a JSON-RPC request handler for tevm procedures
  * Generic and returns the correct response type for a given request
  */
 export type TevmJsonRpcRequestHandler = <
-	TRequest extends TevmJsonRpcRequest | EthJsonRpcRequest | AnvilJsonRpcRequest,
+	TRequest extends
+		| TevmJsonRpcRequest
+		| EthJsonRpcRequest
+		| AnvilJsonRpcRequest
+		| DebugJsonRpcRequest,
 >(
 	request: TRequest,
 ) => Promise<ReturnType<TRequest['method']>>

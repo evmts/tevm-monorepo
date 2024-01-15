@@ -12,8 +12,6 @@ import type {
 	AnvilSetNonceParams,
 	AnvilSetStorageAtParams,
 	AnvilStopImpersonatingAccountParams,
-	DebugTraceCallParams,
-	DebugTraceTransactionParams,
 } from '../params/index.js'
 import type {
 	AnvilDropTransactionResult,
@@ -29,18 +27,8 @@ import type {
 	AnvilSetNonceResult,
 	AnvilSetStorageAtResult,
 	AnvilStopImpersonatingAccountResult,
-	DebugTraceCallResult,
-	DebugTraceTransactionResult,
 } from '../result/AnvilResult.js'
 
-// debug_traceTransaction
-export type DebugTraceTransactionHandler = (
-	params: DebugTraceTransactionParams,
-) => Promise<DebugTraceTransactionResult>
-// debug_traceCall
-export type DebugTraceCallHandler = (
-	params: DebugTraceCallParams,
-) => Promise<DebugTraceCallResult>
 // anvil_impersonateAccount
 export type AnvilImpersonateAccountHandler = (
 	params: AnvilImpersonateAccountParams,
