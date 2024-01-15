@@ -1,4 +1,4 @@
-import { blockNumberHandler } from '../handlers/ethHandler.js'
+import { blockNumberHandler } from '../../handlers/index.js'
 import { numberToHex } from 'viem'
 
 /**

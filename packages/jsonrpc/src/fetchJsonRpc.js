@@ -41,9 +41,20 @@ export const createJsonRpcFetcher = (url) => {
 						{
 							method: request.method,
 							status: res.status,
-							message: await res.text().catch(() => {
-								return 'Could not parse error message likely because of a network error'
-							}),
+							message: await (
+								res.text ??
+								(() => {
+									return Promise.reject('no text defined')
+								})
+							)()
+								.catch(async () => {
+									return res.json().then((resJson) => {
+										return JSON.stringify(/** @type any*/ (resJson).error)
+									})
+								})
+								.catch(() => {
+									return 'Could not parse error message likely because of a network error'
+								}),
 						},
 						null,
 						2,

@@ -3,7 +3,15 @@ import type {
 	AccountHandler,
 	CallHandler,
 	ContractHandler,
+	// DebugTraceCallHandler,
+	// DebugTraceTransactionHandler,
 	EthBlockNumberHandler,
+	// EthCallHandler,
+	EthChainIdHandler,
+	EthGasPriceHandler,
+	EthGetBalanceHandler,
+	EthGetCodeHandler,
+	EthGetStorageAtHandler,
 	ScriptHandler,
 } from './handlers/index.js'
 
@@ -14,9 +22,30 @@ import type {
  */
 export type Tevm = {
 	request: TevmJsonRpcRequestHandler
+	// Tevm Handlers
 	script: ScriptHandler
 	account: AccountHandler
 	call: CallHandler
 	contract: ContractHandler
-	blockNumber: EthBlockNumberHandler
+	eth: {
+		blockNumber: EthBlockNumberHandler
+		chainId: EthChainIdHandler
+		// call: EthCallHandler
+		getCode: EthGetCodeHandler
+		getStorageAt: EthGetStorageAtHandler
+		gasPrice: EthGasPriceHandler
+		getBalance: EthGetBalanceHandler
+	}
+	// Eth Handlers
+	// debug handlers
+	// traceTransaction: DebugTraceTransactionHandler
+	// traceCall: DebugTraceCallHandler
+	// anvil handlers
+	// Not implementing any yet
+	// hardhat handlers
+	// Not implementing any yet
+	// Ganache handlers
+	// Not implementing any yet
+	// Compile handlers
+	// Not implementing any yet
 }

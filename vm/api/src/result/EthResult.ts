@@ -27,19 +27,19 @@ export type EthCallResult = Hex
 /**
  * JSON-RPC response for `eth_chainId` procedure
  */
-export type EthChainIdResult = Hex
+export type EthChainIdResult = bigint
 
 // eth_coinbase
 /**
  * JSON-RPC response for `eth_coinbase` procedure
  */
-export type EthCoinbaseResult = Hex
+export type EthCoinbaseResult = Address
 
 // eth_estimateGas
 /**
  * JSON-RPC response for `eth_estimateGas` procedure
  */
-export type EthEstimateGasResult = Hex
+export type EthEstimateGasResult = bigint
 
 // eth_hashrate
 /**
@@ -51,13 +51,13 @@ export type EthHashrateResult = Hex
 /**
  * JSON-RPC response for `eth_gasPrice` procedure
  */
-export type EthGasPriceResult = Hex
+export type EthGasPriceResult = bigint
 
 // eth_getBalance
 /**
  * JSON-RPC response for `eth_getBalance` procedure
  */
-export type EthGetBalanceResult = Hex
+export type EthGetBalanceResult = bigint
 
 // eth_getBlockByHash
 /**
