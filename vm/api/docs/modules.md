@@ -622,7 +622,7 @@ Params for `anvil_dropTransaction` handler
 
 #### Defined in
 
-[params/AnvilParams.ts:131](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/AnvilParams.ts#L131)
+[params/AnvilParams.ts:143](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/AnvilParams.ts#L143)
 
 ___
 
@@ -658,7 +658,7 @@ ___
 
 #### Defined in
 
-[result/AnvilResult.ts:22](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/AnvilResult.ts#L22)
+[result/AnvilResult.ts:36](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/AnvilResult.ts#L36)
 
 ___
 
@@ -718,7 +718,7 @@ Params for `anvil_dumpState` handler
 
 #### Defined in
 
-[params/AnvilParams.ts:218](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/AnvilParams.ts#L218)
+[params/AnvilParams.ts:230](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/AnvilParams.ts#L230)
 
 ___
 
@@ -754,7 +754,7 @@ ___
 
 #### Defined in
 
-[result/AnvilResult.ts:35](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/AnvilResult.ts#L35)
+[result/AnvilResult.ts:49](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/AnvilResult.ts#L49)
 
 ___
 
@@ -814,7 +814,7 @@ Params for `anvil_getAutomine` handler
 
 #### Defined in
 
-[params/AnvilParams.ts:93](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/AnvilParams.ts#L93)
+[params/AnvilParams.ts:105](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/AnvilParams.ts#L105)
 
 ___
 
@@ -850,7 +850,7 @@ ___
 
 #### Defined in
 
-[result/AnvilResult.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/AnvilResult.ts#L16)
+[result/AnvilResult.ts:30](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/AnvilResult.ts#L30)
 
 ___
 
@@ -916,7 +916,7 @@ Params fro `anvil_impersonateAccount` handler
 
 #### Defined in
 
-[params/AnvilParams.ts:64](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/AnvilParams.ts#L64)
+[params/AnvilParams.ts:76](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/AnvilParams.ts#L76)
 
 ___
 
@@ -952,7 +952,7 @@ ___
 
 #### Defined in
 
-[result/AnvilResult.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/AnvilResult.ts#L9)
+[result/AnvilResult.ts:23](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/AnvilResult.ts#L23)
 
 ___
 
@@ -1018,7 +1018,7 @@ Params for `anvil_loadState` handler
 
 #### Defined in
 
-[params/AnvilParams.ts:225](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/AnvilParams.ts#L225)
+[params/AnvilParams.ts:237](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/AnvilParams.ts#L237)
 
 ___
 
@@ -1054,7 +1054,7 @@ ___
 
 #### Defined in
 
-[result/AnvilResult.ts:38](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/AnvilResult.ts#L38)
+[result/AnvilResult.ts:52](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/AnvilResult.ts#L52)
 
 ___
 
@@ -1121,7 +1121,7 @@ Params for `anvil_mine` handler
 
 #### Defined in
 
-[params/AnvilParams.ts:99](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/AnvilParams.ts#L99)
+[params/AnvilParams.ts:111](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/AnvilParams.ts#L111)
 
 ___
 
@@ -1157,7 +1157,7 @@ ___
 
 #### Defined in
 
-[result/AnvilResult.ts:18](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/AnvilResult.ts#L18)
+[result/AnvilResult.ts:32](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/AnvilResult.ts#L32)
 
 ___
 
@@ -1225,7 +1225,7 @@ Params for `anvil_reset` handler
 
 #### Defined in
 
-[params/AnvilParams.ts:114](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/AnvilParams.ts#L114)
+[params/AnvilParams.ts:126](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/AnvilParams.ts#L126)
 
 ___
 
@@ -1261,7 +1261,7 @@ ___
 
 #### Defined in
 
-[result/AnvilResult.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/AnvilResult.ts#L20)
+[result/AnvilResult.ts:34](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/AnvilResult.ts#L34)
 
 ___
 
@@ -1328,7 +1328,7 @@ Params for `anvil_setBalance` handler
 
 #### Defined in
 
-[params/AnvilParams.ts:142](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/AnvilParams.ts#L142)
+[params/AnvilParams.ts:154](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/AnvilParams.ts#L154)
 
 ___
 
@@ -1364,7 +1364,7 @@ ___
 
 #### Defined in
 
-[result/AnvilResult.ts:24](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/AnvilResult.ts#L24)
+[result/AnvilResult.ts:38](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/AnvilResult.ts#L38)
 
 ___
 
@@ -1430,7 +1430,7 @@ Params for `anvil_setChainId` handler
 
 #### Defined in
 
-[params/AnvilParams.ts:206](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/AnvilParams.ts#L206)
+[params/AnvilParams.ts:218](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/AnvilParams.ts#L218)
 
 ___
 
@@ -1466,7 +1466,7 @@ ___
 
 #### Defined in
 
-[result/AnvilResult.ts:32](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/AnvilResult.ts#L32)
+[result/AnvilResult.ts:46](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/AnvilResult.ts#L46)
 
 ___
 
@@ -1533,7 +1533,7 @@ Params for `anvil_setCode` handler
 
 #### Defined in
 
-[params/AnvilParams.ts:157](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/AnvilParams.ts#L157)
+[params/AnvilParams.ts:169](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/AnvilParams.ts#L169)
 
 ___
 
@@ -1569,7 +1569,7 @@ ___
 
 #### Defined in
 
-[result/AnvilResult.ts:26](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/AnvilResult.ts#L26)
+[result/AnvilResult.ts:40](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/AnvilResult.ts#L40)
 
 ___
 
@@ -1636,7 +1636,7 @@ Params for `anvil_setNonce` handler
 
 #### Defined in
 
-[params/AnvilParams.ts:172](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/AnvilParams.ts#L172)
+[params/AnvilParams.ts:184](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/AnvilParams.ts#L184)
 
 ___
 
@@ -1672,7 +1672,7 @@ ___
 
 #### Defined in
 
-[result/AnvilResult.ts:28](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/AnvilResult.ts#L28)
+[result/AnvilResult.ts:42](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/AnvilResult.ts#L42)
 
 ___
 
@@ -1740,7 +1740,7 @@ Params for `anvil_setStorageAt` handler
 
 #### Defined in
 
-[params/AnvilParams.ts:187](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/AnvilParams.ts#L187)
+[params/AnvilParams.ts:199](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/AnvilParams.ts#L199)
 
 ___
 
@@ -1776,7 +1776,7 @@ ___
 
 #### Defined in
 
-[result/AnvilResult.ts:30](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/AnvilResult.ts#L30)
+[result/AnvilResult.ts:44](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/AnvilResult.ts#L44)
 
 ___
 
@@ -1842,7 +1842,7 @@ Params for `anvil_stopImpersonatingAccount` handler
 
 #### Defined in
 
-[params/AnvilParams.ts:75](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/AnvilParams.ts#L75)
+[params/AnvilParams.ts:87](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/AnvilParams.ts#L87)
 
 ___
 
@@ -1878,7 +1878,7 @@ ___
 
 #### Defined in
 
-[result/AnvilResult.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/AnvilResult.ts#L11)
+[result/AnvilResult.ts:25](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/AnvilResult.ts#L25)
 
 ___
 
@@ -2332,7 +2332,7 @@ Params taken by `debug_traceCall` handler
 
 #### Defined in
 
-[params/AnvilParams.ts:47](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/AnvilParams.ts#L47)
+[params/AnvilParams.ts:59](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/AnvilParams.ts#L59)
 
 ___
 
@@ -2364,11 +2364,20 @@ ___
 
 ### DebugTraceCallResult
 
-Ƭ **DebugTraceCallResult**: [`TraceResult`](modules.md#traceresult)
+Ƭ **DebugTraceCallResult**: `Object`
+
+#### Type declaration
+
+| Name | Type |
+| :------ | :------ |
+| `failed` | `boolean` |
+| `gas` | `bigint` |
+| `returnValue` | `Hex` |
+| `structLogs` | `ReadonlyArray`\<`StructLog`\> |
 
 #### Defined in
 
-[result/AnvilResult.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/AnvilResult.ts#L7)
+[result/AnvilResult.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/AnvilResult.ts#L16)
 
 ___
 
@@ -2428,7 +2437,7 @@ Params taken by `debug_traceTransaction` handler
 
 #### Defined in
 
-[params/AnvilParams.ts:36](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/AnvilParams.ts#L36)
+[params/AnvilParams.ts:48](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/AnvilParams.ts#L48)
 
 ___
 
@@ -2464,7 +2473,7 @@ ___
 
 #### Defined in
 
-[result/AnvilResult.ts:5](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/AnvilResult.ts#L5)
+[result/AnvilResult.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/AnvilResult.ts#L14)
 
 ___
 
@@ -6912,8 +6921,11 @@ Config params for trace calls
 | :------ | :------ | :------ |
 | `timeout?` | `string` | A duration string of decimal numbers that overrides the default timeout of 5 seconds for JavaScript-based tracing calls. Max timeout is "10s". Valid time units are "ns", "us", "ms", "s" each with optional fraction, such as "300ms" or "2s45ms". **`Example`** ```ts "10s" ``` |
 | `tracer` | ``"callTracer"`` \| ``"prestateTracer"`` | The type of tracer Currently only callTracer supported |
-| `tracerConfig?` | \{ `onlyTopCall`: `boolean`  } | object to specify configurations for the tracer |
-| `tracerConfig.onlyTopCall` | `boolean` | boolean Setting this to true will only trace the main (top-level) call and none of the sub-calls. This avoids extra processing for each call frame if only the top-level call info are required (useful for getting revertReason). |
+| `tracerConfig?` | \{ `disableStack?`: `boolean` ; `disableStorage?`: `boolean` ; `enableMemory?`: `boolean` ; `onlyTopCall?`: `boolean`  } | object to specify configurations for the tracer |
+| `tracerConfig.disableStack?` | `boolean` | boolean Setting this to true will disable stack capture. This avoids extra processing for each call frame if stack is not required. |
+| `tracerConfig.disableStorage?` | `boolean` | boolean Setting this to true will disable storage capture. This avoids extra processing for each call frame if storage is not required. |
+| `tracerConfig.enableMemory?` | `boolean` |  |
+| `tracerConfig.onlyTopCall?` | `boolean` | boolean Setting this to true will only trace the main (top-level) call and none of the sub-calls. This avoids extra processing for each call frame if only the top-level call info are required (useful for getting revertReason). |
 
 #### Defined in
 

@@ -12,20 +12,32 @@ export type TraceParams = {
 	 * The type of tracer
 	 * Currently only callTracer supported
 	 */
-	tracer: 'callTracer' | 'prestateTracer'
+	readonly tracer: 'callTracer' | 'prestateTracer'
 	/**
 	 * A duration string of decimal numbers that overrides the default timeout of 5 seconds for JavaScript-based tracing calls. Max timeout is "10s". Valid time units are "ns", "us", "ms", "s" each with optional fraction, such as "300ms" or "2s45ms".
 	 * @example "10s"
 	 */
-	timeout?: string
+	readonly timeout?: string
 	/**
 	 * object to specify configurations for the tracer
 	 */
-	tracerConfig?: {
+	readonly tracerConfig?: {
 		/**
 		 * boolean Setting this to true will only trace the main (top-level) call and none of the sub-calls. This avoids extra processing for each call frame if only the top-level call info are required (useful for getting revertReason).
 		 */
-		onlyTopCall: boolean
+		readonly onlyTopCall?: boolean
+		/**
+		 * boolean Setting this to true will disable storage capture. This avoids extra processing for each call frame if storage is not required.
+		 */
+		readonly disableStorage?: boolean
+		/**
+		 *
+		 */
+		readonly enableMemory?: boolean
+		/**
+		 * boolean Setting this to true will disable stack capture. This avoids extra processing for each call frame if stack is not required.
+		 */
+		readonly disableStack?: boolean
 	}
 }
 
