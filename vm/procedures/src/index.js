@@ -7,6 +7,12 @@ export {
 	blockNumberHandler,
 	dumpStateHandler,
 	loadStateHandler,
+	chainIdHandler,
+	getCodeHandler,
+	gasPriceHandler,
+	getBalanceHandler,
+	getStorageAtHandler,
+	NoForkUrlSetError,
 } from './handlers/index.js'
 export {
 	callProcedure,
@@ -16,4 +22,9 @@ export {
 	blockNumberProcedure,
 	dumpStateProcedure,
 	loadStateProcedure,
+	chainIdProcedure,
+	getCodeProcedure,
+	gasPriceProcedure,
+	getBalanceProcedure,
+	getStorageAtProcedure,
 } from './jsonrpc/index.js'

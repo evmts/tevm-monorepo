@@ -1,5 +1,5 @@
-import { zHex } from '../common/index.js'
 import { z } from 'zod'
+import { zHex } from '../common/index.js'
 /**
  * Zod validator for a valid load state action
  */
@@ -12,6 +12,6 @@ const AccountStorage = z.object({
 	storage: z.optional(z.record(zHex)),
 })
 
-export const zLoadStateParams = z.object({ state: z.record(AccountStorage) })
-
-.describe('Properties shared across the load state')
+export const zLoadStateParams = z
+	.object({ state: z.record(AccountStorage) })
+	.describe('Properties shared across the load state')

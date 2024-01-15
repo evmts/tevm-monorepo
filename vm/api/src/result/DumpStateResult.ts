@@ -1,5 +1,5 @@
-import type { DumpStateError } from '../errors/DumpStateError.js'
 import type { SerializableTevmState } from '@tevm/state'
+import type { DumpStateError } from '../errors/DumpStateError.js'
 
 /**
  * Result of Account Action

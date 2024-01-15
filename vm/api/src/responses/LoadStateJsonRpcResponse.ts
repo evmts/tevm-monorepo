@@ -4,7 +4,7 @@ import type { SerializeToJson } from '../utils/SerializeToJson.js'
 import type { JsonRpcResponse } from './JsonRpcResponse.js'
 
 export type LoadStateJsonRpcResponse = JsonRpcResponse<
-	'tevm_load_state',
+	'tevm_loadState',
 	SerializeToJson<LoadStateResult>,
 	LoadStateError['_tag']
 >

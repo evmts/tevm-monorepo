@@ -3,6 +3,10 @@ import type { UnexpectedError } from './UnexpectedError.js'
 
 /**
  * Error Returned by dump state procedure
- * TODO : Give example call
+ * @example
+ * const {errors} = await tevm.dumpState()
+ * if (errors?.length) {
+ *  console.log(errors[0].name) // InvalidRequestError
+ * }
  */
 export type DumpStateError = InvalidRequestError | UnexpectedError

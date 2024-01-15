@@ -104,7 +104,7 @@ Result of Account Action
 
 #### Defined in
 
-vm/api/dist/index.d.ts:963
+vm/api/dist/index.d.ts:975
 
 ___
 
@@ -172,7 +172,7 @@ Result of a Tevm VM Call method
 
 #### Defined in
 
-vm/api/dist/index.d.ts:973
+vm/api/dist/index.d.ts:985
 
 ___
 
@@ -209,7 +209,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1016
+vm/api/dist/index.d.ts:1028
 
 ___
 
@@ -276,7 +276,7 @@ ___
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1026
+vm/api/dist/index.d.ts:1038
 
 ___
 
@@ -321,7 +321,7 @@ A Tevm JSON-RPC request
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1391
+vm/api/dist/index.d.ts:1400
 
 ___
 
@@ -340,7 +340,7 @@ Generic and returns the correct response type for a given request
 
 | Name | Type |
 | :------ | :------ |
-| `TRequest` | extends [`TevmJsonRpcRequest`](index.md#tevmjsonrpcrequest) \| `EthJsonRpcRequest` \| `AnvilJsonRpcRequest` |
+| `TRequest` | extends [`TevmJsonRpcRequest`](index.md#tevmjsonrpcrequest) \| [`EthJsonRpcRequest`](api.md#ethjsonrpcrequest) \| `AnvilJsonRpcRequest` |
 
 ##### Parameters
 
@@ -354,7 +354,7 @@ Generic and returns the correct response type for a given request
 
 #### Defined in
 
-vm/api/dist/index.d.ts:2125
+vm/api/dist/index.d.ts:2137
 
 ## Functions
 

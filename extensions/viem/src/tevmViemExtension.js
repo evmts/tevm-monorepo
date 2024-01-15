@@ -1,4 +1,5 @@
 import {
+	bytesToHex,
 	decodeFunctionResult,
 	encodeFunctionData,
 	hexToBigInt,
@@ -278,9 +279,24 @@ export const tevmViemExtension = () => {
 			return /** @type {any} */ (
 				formatResult(
 					await request({
-						method: 'tevm_dump_state',
+						method: 'tevm_dumpState',
 						jsonrpc: '2.0',
-						params: undefined,
+						params: {},
+					}),
+				)
+			)
+		}
+
+		/**
+		 * @type {import('@tevm/api').EthChainIdHandler}
+		 */
+		const chainId = async () => {
+			return /** @type {any} */ (
+				formatResult(
+					await request({
+						method: 'eth_chainId',
+						jsonrpc: '2.0',
+						params: [],
 					}),
 				)
 			)
@@ -290,12 +306,90 @@ export const tevmViemExtension = () => {
 		 * @type {import('@tevm/api').LoadStateHandler}
 		 */
 		const loadState = async (params) => {
+			/**
+			 * @type {import('@tevm/state').ParameterizedTevmState}
+			 */
+			const encodedState = {}
+
+			for (const [k, v] of Object.entries(params.state)) {
+				const { nonce, balance, storageRoot, codeHash } = v
+				//turn all bigints to hex strings
+				const account = {
+					...v,
+					nonce: numberToHex(nonce),
+					balance: numberToHex(balance),
+					storageRoot: bytesToHex(storageRoot),
+					codeHash: bytesToHex(codeHash),
+				}
+
+				encodedState[k] = account
+			}
+
 			return /** @type {any} */ (
 				formatResult(
 					await request({
-						method: 'tevm_load_state',
+						method: 'tevm_loadState',
 						jsonrpc: '2.0',
-						params,
+						params: { state: encodedState },
+					}),
+				)
+			)
+		}
+		/**
+		 * @type {import('@tevm/api').EthGasPriceHandler}
+		 */
+		const gasPrice = async () => {
+			return /** @type {any} */ (
+				formatResult(
+					await request({
+						method: 'eth_gasPrice',
+						jsonrpc: '2.0',
+						params: [],
+					}),
+				)
+			)
+		}
+
+		/**
+		 * @type {import('@tevm/api').EthGetBalanceHandler}
+		 */
+		const getBalance = async (params) => {
+			return /** @type {any} */ (
+				formatResult(
+					await request({
+						method: 'eth_getBalance',
+						jsonrpc: '2.0',
+						params: [params.address, params.blockTag ?? 'pending'],
+					}),
+				)
+			)
+		}
+
+		/**
+		 * @type {import('@tevm/api').EthGetCodeHandler}
+		 */
+		const getCode = async (params) => {
+			return /** @type {any} */ (
+				formatResult(
+					await request({
+						method: 'eth_getCode',
+						jsonrpc: '2.0',
+						params: [params.address, params.tag],
+					}),
+				)
+			)
+		}
+
+		/**
+		 * @type {import('@tevm/api').EthGetStorageAtHandler}
+		 */
+		const getStorageAt = async (params) => {
+			return /** @type {any} */ (
+				formatResult(
+					await request({
+						method: 'eth_getStorageAt',
+						jsonrpc: '2.0',
+						params: [params.address, params.position, params.tag],
 					}),
 				)
 			)
@@ -303,6 +397,14 @@ export const tevmViemExtension = () => {
 
 		return {
 			tevm: {
+				eth: {
+					blockNumber,
+					chainId,
+					gasPrice,
+					getBalance,
+					getCode,
+					getStorageAt,
+				},
 				request,
 				script,
 				account,

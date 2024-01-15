@@ -1,8 +1,8 @@
-import { zLoadStateParams } from './zLoadStateParams.js'
 import type { LoadStateParams } from '@tevm/api'
-import { expect, test } from 'bun:test'
 import { hexToBytes } from 'viem'
 import type { z } from 'zod'
+import { zLoadStateParams } from './zLoadStateParams.js'
+import { expect, test } from 'bun:test'
 
 test('zLoadStateParams', () => {
 	const AccountStorage = {
@@ -18,7 +18,7 @@ test('zLoadStateParams', () => {
 		),
 		storage: {
 			'0x0c2d1b9c97b15f8a18e224fe94a8453f996465e14217e0939995ce76fbe01129':
-				'0xa0100000000000000' as `0x${string}`,
+				'0xa0100000000000000' as const,
 		},
 	}
 
