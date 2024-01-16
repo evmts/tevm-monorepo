@@ -1,4 +1,6 @@
 export type {
+	TraceScriptParams,
+	TraceContractParams, TraceCallParams,
 	AnvilImpersonateAccountParams,
 	AnvilMineParams,
 	DebugTraceCallParams,
@@ -106,6 +108,9 @@ export type {
 	TevmEVMErrorMessage,
 } from './errors/index.js'
 export type {
+	TraceScriptHandler,
+	TraceContractHandler,
+	TraceCallHandler,
 	CallHandler,
 	ScriptHandler,
 	AccountHandler,
@@ -165,6 +170,8 @@ export type {
 	AnvilStopImpersonatingAccountHandler,
 } from './handlers/index.js'
 export type {
+	TraceCallResult,
+	StructLog,
 	AccountResult,
 	CallResult,
 	ScriptResult,
@@ -222,8 +229,15 @@ export type {
 	AnvilDropTransactionResult,
 	AnvilStopImpersonatingAccountResult,
 	DebugTraceTransactionResult,
+	TraceScriptResult,
+	TraceContractResult
 } from './result/index.js'
 export type {
+	TraceCallJsonRpcRequest,
+	AnvilJsonRpcRequest,
+	DebugJsonRpcRequest,
+	TraceScriptJsonRpcRequest,
+	TraceContractJsonRpcRequest,
 	JsonRpcRequest,
 	CallJsonRpcRequest,
 	ScriptJsonRpcRequest,
@@ -286,6 +300,9 @@ export type {
 	EthJsonRpcRequest,
 } from './requests/index.js'
 export type {
+	TraceScriptJsonRpcResponse,
+	TraceContractJsonRpcResponse,
+	TraceCallJsonRpcResponse,
 	JsonRpcResponse,
 	CallJsonRpcResponse,
 	ContractJsonRpcResponse,
@@ -346,6 +363,9 @@ export type {
 	DebugTraceTransactionJsonRpcResponse,
 } from './responses/index.js'
 export type {
+	TraceCallProcedure,
+	TraceScriptProcedure,
+	TraceContractProcedure,
 	CallJsonRpcProcedure,
 	ContractJsonRpcProcedure,
 	ScriptJsonRpcProcedure,

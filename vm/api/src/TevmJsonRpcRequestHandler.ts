@@ -60,6 +60,9 @@ import type {
 import type { AnvilJsonRpcRequest } from './requests/AnvilJsonRpcRequest.js'
 import type { DebugJsonRpcRequest } from './requests/DebugJsonRpcRequest.js'
 import type { EthJsonRpcRequest } from './requests/EthJsonRpcRequest.js'
+import type { TraceCallJsonRpcResponse } from './responses/TraceCallJsonRpcResponse.js'
+import type { TraceContractJsonRpcResponse } from './responses/TraceContractJsonRpcResponse.js'
+import type { TraceScriptJsonRpcResponse } from './responses/TraceScriptJsonRpcResponse.js'
 
 type DebugReturnType = {
 	debug_traceTransaction: DebugTraceTransactionJsonRpcResponse
@@ -128,14 +131,17 @@ type TevmReturnType = {
 	tevm_call: CallJsonRpcResponse
 	tevm_script: ScriptJsonRpcResponse
 	tevm_account: AccountJsonRpcResponse
+	tevm_traceCall: TraceCallJsonRpcResponse
+	tevm_traceContract: TraceContractJsonRpcResponse
+	tevm_traceScript: TraceScriptJsonRpcResponse
 }
 
 type ReturnType<
 	TMethod extends
-		| keyof EthReturnType
-		| keyof TevmReturnType
-		| keyof AnvilReturnType
-		| keyof DebugReturnType,
+	| keyof EthReturnType
+	| keyof TevmReturnType
+	| keyof AnvilReturnType
+	| keyof DebugReturnType,
 > = (EthReturnType &
 	TevmReturnType &
 	AnvilReturnType &
@@ -147,10 +153,10 @@ type ReturnType<
  */
 export type TevmJsonRpcRequestHandler = <
 	TRequest extends
-		| TevmJsonRpcRequest
-		| EthJsonRpcRequest
-		| AnvilJsonRpcRequest
-		| DebugJsonRpcRequest,
+	| TevmJsonRpcRequest
+	| EthJsonRpcRequest
+	| AnvilJsonRpcRequest
+	| DebugJsonRpcRequest,
 >(
 	request: TRequest,
 ) => Promise<ReturnType<TRequest['method']>>

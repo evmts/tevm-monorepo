@@ -10,80 +10,81 @@ import { bytesToHex, hexToBytes, numberToHex } from 'viem'
  */
 export const traceCallHandler =
 	({ evm: _evm }) =>
-	async (params) => {
-		const evm = /** @type {import('@ethereumjs/evm').EVMInterface}*/ (
-			_evm.shallowCopy()
-		)
-		const {
-			account,
-			to,
-			gas: gasLimit,
-			gasPrice,
-			value,
-			data,
-		} = params.transaction
+		async (params) => {
+			const evm = /** @type {import('@ethereumjs/evm').EVMInterface}*/ (
+				_evm.shallowCopy()
+			)
+			const {
+				account,
+				to,
+				gas: gasLimit,
+				gasPrice,
+				value,
+				data,
+			} = params.transaction
 
-		const trace = {
-			gas: 0n,
-			/**
-			 * @type {import('viem').Hex}
-			 */
-			returnValue: '0x0',
-			failed: false,
-			/**
-			 * @type {Array<import('@tevm/api').DebugTraceCallResult['structLogs'][number]>}
-			 */
-			structLogs: [],
-		}
-		evm.events?.on('step', async (step, next) => {
-			trace.structLogs.push({
-				pc: step.pc,
-				op: step.opcode.name,
-				gasCost: BigInt(step.opcode.fee) + (step.opcode.dynamicFee ?? 0n),
-				gas: step.gasLeft,
-				depth: step.depth,
-				stack: step.stack.map((code) => numberToHex(code)),
-			})
-			next?.()
-		})
-
-		evm.events?.on('afterMessage', (data, next) => {
-			if (
-				data.execResult.exceptionError !== undefined &&
-				trace.structLogs.length > 0
-			) {
-				// Mark last opcode trace as error if exception occurs
-				const nextLog = trace.structLogs[trace.structLogs.length - 1]
-				if (!nextLog) {
-					throw new Error('No structLogs to mark as error')
-				}
-				// TODO fix this type
-				Object.assign(nextLog, {
-					error: data.execResult.exceptionError,
-				})
+			const trace = {
+				gas: 0n,
+				/**
+				 * @type {import('viem').Hex}
+				 */
+				returnValue: '0x0',
+				failed: false,
+				/**
+				 * @type {Array<import('@tevm/api').DebugTraceCallResult['structLogs'][number]>}
+				 */
+				structLogs: [],
 			}
-			next?.()
-		})
+			evm.events?.on('step', async (step, next) => {
+				trace.structLogs.push({
+					pc: step.pc,
+					op: step.opcode.name,
+					gasCost: BigInt(step.opcode.fee) + (step.opcode.dynamicFee ?? 0n),
+					gas: step.gasLeft,
+					depth: step.depth,
+					stack: step.stack.map((code) => numberToHex(code)),
+				})
+				next?.()
+			})
 
-		const res = await evm.runCall({
-			...(account !== undefined
-				? {
+			evm.events?.on('afterMessage', (data, next) => {
+				if (
+					data.execResult.exceptionError !== undefined &&
+					trace.structLogs.length > 0
+				) {
+					// Mark last opcode trace as error if exception occurs
+					const nextLog = trace.structLogs[trace.structLogs.length - 1]
+					if (!nextLog) {
+						// this should never happen just making typescript happy
+						throw new Error('No structLogs to mark as error')
+					}
+					// TODO fix this type
+					Object.assign(nextLog, {
+						error: data.execResult.exceptionError,
+					})
+				}
+				next?.()
+			})
+
+			const res = await evm.runCall({
+				...(account !== undefined
+					? {
 						origin: Address.fromString(
 							typeof account === 'string' ? account : account.address,
 						),
 						caller: Address.fromString(
 							typeof account === 'string' ? account : account.address,
 						),
-				  }
-				: {}),
-			...(data !== undefined ? { data: hexToBytes(data) } : {}),
-			...(to ? { to: Address.fromString(to) } : {}),
-			...(gasPrice ? { gasPrice } : {}),
-			...(gasLimit ? { gasLimit } : {}),
-			...(value ? { value } : {}),
-		})
-		trace.gas = res.execResult.executionGasUsed
-		trace.failed = res.execResult.exceptionError !== undefined
-		trace.returnValue = bytesToHex(res.execResult.returnValue)
-		return trace
-	}
+					}
+					: {}),
+				...(data !== undefined ? { data: hexToBytes(data) } : {}),
+				...(to ? { to: Address.fromString(to) } : {}),
+				...(gasPrice ? { gasPrice } : {}),
+				...(gasLimit ? { gasLimit } : {}),
+				...(value ? { value } : {}),
+			})
+			trace.gas = res.execResult.executionGasUsed
+			trace.failed = res.execResult.exceptionError !== undefined
+			trace.returnValue = bytesToHex(res.execResult.returnValue)
+			return trace
+		}

@@ -3,16 +3,18 @@ import type {
 	AccountHandler,
 	CallHandler,
 	ContractHandler,
-	// DebugTraceCallHandler,
-	// DebugTraceTransactionHandler,
+	DebugTraceCallHandler,
+	DebugTraceTransactionHandler,
 	EthBlockNumberHandler,
-	// EthCallHandler,
 	EthChainIdHandler,
 	EthGasPriceHandler,
 	EthGetBalanceHandler,
 	EthGetCodeHandler,
 	EthGetStorageAtHandler,
 	ScriptHandler,
+	TraceCallHandler,
+	TraceContractHandler,
+	TraceScriptHandler,
 } from './handlers/index.js'
 
 /**
@@ -27,25 +29,19 @@ export type Tevm = {
 	account: AccountHandler
 	call: CallHandler
 	contract: ContractHandler
+	traceCall: TraceCallHandler
+	traceContract: TraceContractHandler
+	traceScript: TraceScriptHandler
 	eth: {
 		blockNumber: EthBlockNumberHandler
 		chainId: EthChainIdHandler
-		// call: EthCallHandler
 		getCode: EthGetCodeHandler
 		getStorageAt: EthGetStorageAtHandler
 		gasPrice: EthGasPriceHandler
 		getBalance: EthGetBalanceHandler
 	}
-	// Eth Handlers
-	// debug handlers
-	// traceTransaction: DebugTraceTransactionHandler
-	// traceCall: DebugTraceCallHandler
-	// anvil handlers
-	// Not implementing any yet
-	// hardhat handlers
-	// Not implementing any yet
-	// Ganache handlers
-	// Not implementing any yet
-	// Compile handlers
-	// Not implementing any yet
+	debug: {
+		traceTransaction: DebugTraceTransactionHandler
+		traceCall: DebugTraceCallHandler
+	}
 }

@@ -1,4 +1,5 @@
-import type { BlockTag, CallParameters, Chain, Hex } from 'viem'
+import type { BlockTag, Hex } from 'viem'
+import type { CallParams } from './CallParams.js'
 
 /**
  * Config params for trace calls
@@ -33,7 +34,7 @@ export type TraceParams = {
 		/**
 		 * boolean Setting this to true will disable stack capture. This avoids extra processing for each call frame if stack is not required.
 		 */
-		// readonly disableStack?: boolean
+		readonly disableStack?: boolean
 	}
 }
 
@@ -45,22 +46,20 @@ export type DebugTraceTransactionParams = TraceParams & {
 	/**
 	 * The transaction hash
 	 */
-	transactionHash: Hex
+	readonly transactionHash: Hex
 }
 
 // debug_traceCall
 /**
  * Params taken by `debug_traceCall` handler
  */
-export type DebugTraceCallParams<
-	TChain extends Chain | undefined = Chain | undefined,
-> = TraceParams & {
+export type DebugTraceCallParams = TraceParams & {
 	/**
-	 * The transaction to debug
+	 * The call to debug
 	 */
-	transaction: CallParameters<TChain>
+	readonly call: CallParams
 	/**
 	 * Block information
 	 */
-	block?: BlockTag | Hex | BigInt
+	readonly block?: BlockTag | Hex | bigint
 }
