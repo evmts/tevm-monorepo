@@ -10,3 +10,6 @@
 [submodule "lib/skystrife"]
 	path = lib/skystrife
 	url = https://github.com/evmts/skystrife-tevm.git
+[submodule "lib/mud"]
+	path = lib/mud
+	url = https://github.com/latticexyz/mud.git
