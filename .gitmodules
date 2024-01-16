@@ -7,3 +7,6 @@
 [submodule "lib/ethereumjs"]
 	path = lib/ethereumjs
 	url = https://github.com/ethereumjs/ethereumjs-monorepo.git
+[submodule "lib/skystrife"]
+	path = lib/skystrife
+	url = https://github.com/evmts/skystrife-tevm.git
