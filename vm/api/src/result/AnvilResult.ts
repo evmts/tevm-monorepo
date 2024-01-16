@@ -1,10 +1,5 @@
-import type { TraceResult } from '../common/TraceResult.js'
 import type { Hex } from 'viem'
 
-// debug_traceTransaction
-export type DebugTraceTransactionResult = TraceResult
-// debug_traceCall
-export type DebugTraceCallResult = TraceResult
 // anvil_impersonateAccount
 export type AnvilImpersonateAccountResult = null
 // anvil_stopImpersonatingAccount

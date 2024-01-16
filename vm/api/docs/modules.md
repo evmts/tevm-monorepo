@@ -580,7 +580,7 @@ ___
 
 #### Defined in
 
-[handlers/AnvilHandler.ts:68](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/handlers/AnvilHandler.ts#L68)
+[handlers/AnvilHandler.ts:56](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/handlers/AnvilHandler.ts#L56)
 
 ___
 
@@ -592,7 +592,7 @@ JSON-RPC request for `anvil_dropTransaction` method
 
 #### Defined in
 
-[requests/AnvilJsonRpcRequest.ts:87](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/requests/AnvilJsonRpcRequest.ts#L87)
+[requests/AnvilJsonRpcRequest.ts:69](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/requests/AnvilJsonRpcRequest.ts#L69)
 
 ___
 
@@ -604,7 +604,7 @@ JSON-RPC response for `anvil_dropTransaction` procedure
 
 #### Defined in
 
-[responses/AnvilJsonRpcResponse.ts:98](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/responses/AnvilJsonRpcResponse.ts#L98)
+[responses/AnvilJsonRpcResponse.ts:79](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/responses/AnvilJsonRpcResponse.ts#L79)
 
 ___
 
@@ -622,7 +622,7 @@ Params for `anvil_dropTransaction` handler
 
 #### Defined in
 
-[params/AnvilParams.ts:131](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/AnvilParams.ts#L131)
+[params/AnvilParams.ts:78](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/AnvilParams.ts#L78)
 
 ___
 
@@ -648,7 +648,7 @@ JSON-RPC procedure for `anvil_dropTransaction`
 
 #### Defined in
 
-[procedure/AnvilProcedure.ts:95](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/procedure/AnvilProcedure.ts#L95)
+[procedure/AnvilProcedure.ts:76](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/procedure/AnvilProcedure.ts#L76)
 
 ___
 
@@ -658,7 +658,7 @@ ___
 
 #### Defined in
 
-[result/AnvilResult.ts:22](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/AnvilResult.ts#L22)
+[result/AnvilResult.ts:17](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/AnvilResult.ts#L17)
 
 ___
 
@@ -682,7 +682,7 @@ ___
 
 #### Defined in
 
-[handlers/AnvilHandler.ts:93](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/handlers/AnvilHandler.ts#L93)
+[handlers/AnvilHandler.ts:81](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/handlers/AnvilHandler.ts#L81)
 
 ___
 
@@ -694,7 +694,7 @@ JSON-RPC request for `anvil_dumpState` method
 
 #### Defined in
 
-[requests/AnvilJsonRpcRequest.ts:136](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/requests/AnvilJsonRpcRequest.ts#L136)
+[requests/AnvilJsonRpcRequest.ts:118](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/requests/AnvilJsonRpcRequest.ts#L118)
 
 ___
 
@@ -706,7 +706,7 @@ JSON-RPC response for `anvil_dumpState` procedure
 
 #### Defined in
 
-[responses/AnvilJsonRpcResponse.ts:153](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/responses/AnvilJsonRpcResponse.ts#L153)
+[responses/AnvilJsonRpcResponse.ts:134](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/responses/AnvilJsonRpcResponse.ts#L134)
 
 ___
 
@@ -718,7 +718,7 @@ Params for `anvil_dumpState` handler
 
 #### Defined in
 
-[params/AnvilParams.ts:218](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/AnvilParams.ts#L218)
+[params/AnvilParams.ts:165](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/AnvilParams.ts#L165)
 
 ___
 
@@ -744,7 +744,7 @@ JSON-RPC procedure for `anvil_dumpState`
 
 #### Defined in
 
-[procedure/AnvilProcedure.ts:138](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/procedure/AnvilProcedure.ts#L138)
+[procedure/AnvilProcedure.ts:119](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/procedure/AnvilProcedure.ts#L119)
 
 ___
 
@@ -754,7 +754,7 @@ ___
 
 #### Defined in
 
-[result/AnvilResult.ts:35](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/AnvilResult.ts#L35)
+[result/AnvilResult.ts:30](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/AnvilResult.ts#L30)
 
 ___
 
@@ -778,7 +778,7 @@ ___
 
 #### Defined in
 
-[handlers/AnvilHandler.ts:56](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/handlers/AnvilHandler.ts#L56)
+[handlers/AnvilHandler.ts:44](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/handlers/AnvilHandler.ts#L44)
 
 ___
 
@@ -790,7 +790,7 @@ JSON-RPC request for `anvil_getAutomine` method
 
 #### Defined in
 
-[requests/AnvilJsonRpcRequest.ts:63](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/requests/AnvilJsonRpcRequest.ts#L63)
+[requests/AnvilJsonRpcRequest.ts:45](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/requests/AnvilJsonRpcRequest.ts#L45)
 
 ___
 
@@ -802,7 +802,7 @@ JSON-RPC response for `anvil_getAutomine` procedure
 
 #### Defined in
 
-[responses/AnvilJsonRpcResponse.ts:71](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/responses/AnvilJsonRpcResponse.ts#L71)
+[responses/AnvilJsonRpcResponse.ts:52](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/responses/AnvilJsonRpcResponse.ts#L52)
 
 ___
 
@@ -814,7 +814,7 @@ Params for `anvil_getAutomine` handler
 
 #### Defined in
 
-[params/AnvilParams.ts:93](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/AnvilParams.ts#L93)
+[params/AnvilParams.ts:40](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/AnvilParams.ts#L40)
 
 ___
 
@@ -840,7 +840,7 @@ JSON-RPC procedure for `anvil_getAutomine`
 
 #### Defined in
 
-[procedure/AnvilProcedure.ts:74](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/procedure/AnvilProcedure.ts#L74)
+[procedure/AnvilProcedure.ts:55](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/procedure/AnvilProcedure.ts#L55)
 
 ___
 
@@ -850,7 +850,7 @@ ___
 
 #### Defined in
 
-[result/AnvilResult.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/AnvilResult.ts#L16)
+[result/AnvilResult.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/AnvilResult.ts#L11)
 
 ___
 
@@ -874,7 +874,7 @@ ___
 
 #### Defined in
 
-[handlers/AnvilHandler.ts:45](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/handlers/AnvilHandler.ts#L45)
+[handlers/AnvilHandler.ts:33](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/handlers/AnvilHandler.ts#L33)
 
 ___
 
@@ -886,7 +886,7 @@ JSON-RPC request for `anvil_impersonateAccount` method
 
 #### Defined in
 
-[requests/AnvilJsonRpcRequest.ts:41](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/requests/AnvilJsonRpcRequest.ts#L41)
+[requests/AnvilJsonRpcRequest.ts:23](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/requests/AnvilJsonRpcRequest.ts#L23)
 
 ___
 
@@ -898,7 +898,7 @@ JSON-RPC response for `anvil_impersonateAccount` procedure
 
 #### Defined in
 
-[responses/AnvilJsonRpcResponse.ts:47](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/responses/AnvilJsonRpcResponse.ts#L47)
+[responses/AnvilJsonRpcResponse.ts:28](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/responses/AnvilJsonRpcResponse.ts#L28)
 
 ___
 
@@ -916,7 +916,7 @@ Params fro `anvil_impersonateAccount` handler
 
 #### Defined in
 
-[params/AnvilParams.ts:64](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/AnvilParams.ts#L64)
+[params/AnvilParams.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/AnvilParams.ts#L11)
 
 ___
 
@@ -942,7 +942,7 @@ JSON-RPC procedure for `anvil_impersonateAccount`
 
 #### Defined in
 
-[procedure/AnvilProcedure.ts:55](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/procedure/AnvilProcedure.ts#L55)
+[procedure/AnvilProcedure.ts:36](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/procedure/AnvilProcedure.ts#L36)
 
 ___
 
@@ -952,7 +952,7 @@ ___
 
 #### Defined in
 
-[result/AnvilResult.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/AnvilResult.ts#L9)
+[result/AnvilResult.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/AnvilResult.ts#L4)
 
 ___
 
@@ -976,7 +976,7 @@ ___
 
 #### Defined in
 
-[handlers/AnvilHandler.ts:98](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/handlers/AnvilHandler.ts#L98)
+[handlers/AnvilHandler.ts:86](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/handlers/AnvilHandler.ts#L86)
 
 ___
 
@@ -988,7 +988,7 @@ JSON-RPC request for `anvil_loadState` method
 
 #### Defined in
 
-[requests/AnvilJsonRpcRequest.ts:145](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/requests/AnvilJsonRpcRequest.ts#L145)
+[requests/AnvilJsonRpcRequest.ts:127](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/requests/AnvilJsonRpcRequest.ts#L127)
 
 ___
 
@@ -1000,7 +1000,7 @@ JSON-RPC response for `anvil_loadState` procedure
 
 #### Defined in
 
-[responses/AnvilJsonRpcResponse.ts:163](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/responses/AnvilJsonRpcResponse.ts#L163)
+[responses/AnvilJsonRpcResponse.ts:144](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/responses/AnvilJsonRpcResponse.ts#L144)
 
 ___
 
@@ -1018,7 +1018,7 @@ Params for `anvil_loadState` handler
 
 #### Defined in
 
-[params/AnvilParams.ts:225](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/AnvilParams.ts#L225)
+[params/AnvilParams.ts:172](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/AnvilParams.ts#L172)
 
 ___
 
@@ -1044,7 +1044,7 @@ JSON-RPC procedure for `anvil_loadState`
 
 #### Defined in
 
-[procedure/AnvilProcedure.ts:146](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/procedure/AnvilProcedure.ts#L146)
+[procedure/AnvilProcedure.ts:127](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/procedure/AnvilProcedure.ts#L127)
 
 ___
 
@@ -1054,7 +1054,7 @@ ___
 
 #### Defined in
 
-[result/AnvilResult.ts:38](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/AnvilResult.ts#L38)
+[result/AnvilResult.ts:33](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/AnvilResult.ts#L33)
 
 ___
 
@@ -1078,7 +1078,7 @@ ___
 
 #### Defined in
 
-[handlers/AnvilHandler.ts:60](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/handlers/AnvilHandler.ts#L60)
+[handlers/AnvilHandler.ts:48](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/handlers/AnvilHandler.ts#L48)
 
 ___
 
@@ -1090,7 +1090,7 @@ JSON-RPC request for `anvil_mine` method
 
 #### Defined in
 
-[requests/AnvilJsonRpcRequest.ts:71](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/requests/AnvilJsonRpcRequest.ts#L71)
+[requests/AnvilJsonRpcRequest.ts:53](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/requests/AnvilJsonRpcRequest.ts#L53)
 
 ___
 
@@ -1102,7 +1102,7 @@ JSON-RPC response for `anvil_mine` procedure
 
 #### Defined in
 
-[responses/AnvilJsonRpcResponse.ts:80](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/responses/AnvilJsonRpcResponse.ts#L80)
+[responses/AnvilJsonRpcResponse.ts:61](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/responses/AnvilJsonRpcResponse.ts#L61)
 
 ___
 
@@ -1121,7 +1121,7 @@ Params for `anvil_mine` handler
 
 #### Defined in
 
-[params/AnvilParams.ts:99](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/AnvilParams.ts#L99)
+[params/AnvilParams.ts:46](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/AnvilParams.ts#L46)
 
 ___
 
@@ -1147,7 +1147,7 @@ JSON-RPC procedure for `anvil_mine`
 
 #### Defined in
 
-[procedure/AnvilProcedure.ts:81](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/procedure/AnvilProcedure.ts#L81)
+[procedure/AnvilProcedure.ts:62](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/procedure/AnvilProcedure.ts#L62)
 
 ___
 
@@ -1157,7 +1157,7 @@ ___
 
 #### Defined in
 
-[result/AnvilResult.ts:18](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/AnvilResult.ts#L18)
+[result/AnvilResult.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/AnvilResult.ts#L13)
 
 ___
 
@@ -1181,7 +1181,7 @@ ___
 
 #### Defined in
 
-[handlers/AnvilHandler.ts:64](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/handlers/AnvilHandler.ts#L64)
+[handlers/AnvilHandler.ts:52](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/handlers/AnvilHandler.ts#L52)
 
 ___
 
@@ -1193,7 +1193,7 @@ JSON-RPC request for `anvil_reset` method
 
 #### Defined in
 
-[requests/AnvilJsonRpcRequest.ts:79](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/requests/AnvilJsonRpcRequest.ts#L79)
+[requests/AnvilJsonRpcRequest.ts:61](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/requests/AnvilJsonRpcRequest.ts#L61)
 
 ___
 
@@ -1205,7 +1205,7 @@ JSON-RPC response for `anvil_reset` procedure
 
 #### Defined in
 
-[responses/AnvilJsonRpcResponse.ts:89](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/responses/AnvilJsonRpcResponse.ts#L89)
+[responses/AnvilJsonRpcResponse.ts:70](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/responses/AnvilJsonRpcResponse.ts#L70)
 
 ___
 
@@ -1225,7 +1225,7 @@ Params for `anvil_reset` handler
 
 #### Defined in
 
-[params/AnvilParams.ts:114](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/AnvilParams.ts#L114)
+[params/AnvilParams.ts:61](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/AnvilParams.ts#L61)
 
 ___
 
@@ -1251,7 +1251,7 @@ JSON-RPC procedure for `anvil_reset`
 
 #### Defined in
 
-[procedure/AnvilProcedure.ts:88](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/procedure/AnvilProcedure.ts#L88)
+[procedure/AnvilProcedure.ts:69](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/procedure/AnvilProcedure.ts#L69)
 
 ___
 
@@ -1261,7 +1261,7 @@ ___
 
 #### Defined in
 
-[result/AnvilResult.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/AnvilResult.ts#L20)
+[result/AnvilResult.ts:15](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/AnvilResult.ts#L15)
 
 ___
 
@@ -1285,7 +1285,7 @@ ___
 
 #### Defined in
 
-[handlers/AnvilHandler.ts:72](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/handlers/AnvilHandler.ts#L72)
+[handlers/AnvilHandler.ts:60](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/handlers/AnvilHandler.ts#L60)
 
 ___
 
@@ -1297,7 +1297,7 @@ JSON-RPC request for `anvil_setBalance` method
 
 #### Defined in
 
-[requests/AnvilJsonRpcRequest.ts:95](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/requests/AnvilJsonRpcRequest.ts#L95)
+[requests/AnvilJsonRpcRequest.ts:77](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/requests/AnvilJsonRpcRequest.ts#L77)
 
 ___
 
@@ -1309,7 +1309,7 @@ JSON-RPC response for `anvil_setBalance` procedure
 
 #### Defined in
 
-[responses/AnvilJsonRpcResponse.ts:107](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/responses/AnvilJsonRpcResponse.ts#L107)
+[responses/AnvilJsonRpcResponse.ts:88](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/responses/AnvilJsonRpcResponse.ts#L88)
 
 ___
 
@@ -1328,7 +1328,7 @@ Params for `anvil_setBalance` handler
 
 #### Defined in
 
-[params/AnvilParams.ts:142](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/AnvilParams.ts#L142)
+[params/AnvilParams.ts:89](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/AnvilParams.ts#L89)
 
 ___
 
@@ -1354,7 +1354,7 @@ JSON-RPC procedure for `anvil_setBalance`
 
 #### Defined in
 
-[procedure/AnvilProcedure.ts:102](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/procedure/AnvilProcedure.ts#L102)
+[procedure/AnvilProcedure.ts:83](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/procedure/AnvilProcedure.ts#L83)
 
 ___
 
@@ -1364,7 +1364,7 @@ ___
 
 #### Defined in
 
-[result/AnvilResult.ts:24](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/AnvilResult.ts#L24)
+[result/AnvilResult.ts:19](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/AnvilResult.ts#L19)
 
 ___
 
@@ -1388,7 +1388,7 @@ ___
 
 #### Defined in
 
-[handlers/AnvilHandler.ts:88](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/handlers/AnvilHandler.ts#L88)
+[handlers/AnvilHandler.ts:76](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/handlers/AnvilHandler.ts#L76)
 
 ___
 
@@ -1400,7 +1400,7 @@ JSON-RPC request for `anvil_setChainId` method
 
 #### Defined in
 
-[requests/AnvilJsonRpcRequest.ts:127](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/requests/AnvilJsonRpcRequest.ts#L127)
+[requests/AnvilJsonRpcRequest.ts:109](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/requests/AnvilJsonRpcRequest.ts#L109)
 
 ___
 
@@ -1412,7 +1412,7 @@ JSON-RPC response for `anvil_setChainId` procedure
 
 #### Defined in
 
-[responses/AnvilJsonRpcResponse.ts:143](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/responses/AnvilJsonRpcResponse.ts#L143)
+[responses/AnvilJsonRpcResponse.ts:124](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/responses/AnvilJsonRpcResponse.ts#L124)
 
 ___
 
@@ -1430,7 +1430,7 @@ Params for `anvil_setChainId` handler
 
 #### Defined in
 
-[params/AnvilParams.ts:206](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/AnvilParams.ts#L206)
+[params/AnvilParams.ts:153](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/AnvilParams.ts#L153)
 
 ___
 
@@ -1456,7 +1456,7 @@ JSON-RPC procedure for `anvil_setChainId`
 
 #### Defined in
 
-[procedure/AnvilProcedure.ts:130](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/procedure/AnvilProcedure.ts#L130)
+[procedure/AnvilProcedure.ts:111](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/procedure/AnvilProcedure.ts#L111)
 
 ___
 
@@ -1466,7 +1466,7 @@ ___
 
 #### Defined in
 
-[result/AnvilResult.ts:32](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/AnvilResult.ts#L32)
+[result/AnvilResult.ts:27](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/AnvilResult.ts#L27)
 
 ___
 
@@ -1490,7 +1490,7 @@ ___
 
 #### Defined in
 
-[handlers/AnvilHandler.ts:76](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/handlers/AnvilHandler.ts#L76)
+[handlers/AnvilHandler.ts:64](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/handlers/AnvilHandler.ts#L64)
 
 ___
 
@@ -1502,7 +1502,7 @@ JSON-RPC request for `anvil_setCode` method
 
 #### Defined in
 
-[requests/AnvilJsonRpcRequest.ts:103](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/requests/AnvilJsonRpcRequest.ts#L103)
+[requests/AnvilJsonRpcRequest.ts:85](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/requests/AnvilJsonRpcRequest.ts#L85)
 
 ___
 
@@ -1514,7 +1514,7 @@ JSON-RPC response for `anvil_setCode` procedure
 
 #### Defined in
 
-[responses/AnvilJsonRpcResponse.ts:116](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/responses/AnvilJsonRpcResponse.ts#L116)
+[responses/AnvilJsonRpcResponse.ts:97](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/responses/AnvilJsonRpcResponse.ts#L97)
 
 ___
 
@@ -1533,7 +1533,7 @@ Params for `anvil_setCode` handler
 
 #### Defined in
 
-[params/AnvilParams.ts:157](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/AnvilParams.ts#L157)
+[params/AnvilParams.ts:104](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/AnvilParams.ts#L104)
 
 ___
 
@@ -1559,7 +1559,7 @@ JSON-RPC procedure for `anvil_setCode`
 
 #### Defined in
 
-[procedure/AnvilProcedure.ts:109](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/procedure/AnvilProcedure.ts#L109)
+[procedure/AnvilProcedure.ts:90](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/procedure/AnvilProcedure.ts#L90)
 
 ___
 
@@ -1569,7 +1569,7 @@ ___
 
 #### Defined in
 
-[result/AnvilResult.ts:26](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/AnvilResult.ts#L26)
+[result/AnvilResult.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/AnvilResult.ts#L21)
 
 ___
 
@@ -1593,7 +1593,7 @@ ___
 
 #### Defined in
 
-[handlers/AnvilHandler.ts:80](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/handlers/AnvilHandler.ts#L80)
+[handlers/AnvilHandler.ts:68](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/handlers/AnvilHandler.ts#L68)
 
 ___
 
@@ -1605,7 +1605,7 @@ JSON-RPC request for `anvil_setNonce` method
 
 #### Defined in
 
-[requests/AnvilJsonRpcRequest.ts:111](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/requests/AnvilJsonRpcRequest.ts#L111)
+[requests/AnvilJsonRpcRequest.ts:93](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/requests/AnvilJsonRpcRequest.ts#L93)
 
 ___
 
@@ -1617,7 +1617,7 @@ JSON-RPC response for `anvil_setNonce` procedure
 
 #### Defined in
 
-[responses/AnvilJsonRpcResponse.ts:125](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/responses/AnvilJsonRpcResponse.ts#L125)
+[responses/AnvilJsonRpcResponse.ts:106](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/responses/AnvilJsonRpcResponse.ts#L106)
 
 ___
 
@@ -1636,7 +1636,7 @@ Params for `anvil_setNonce` handler
 
 #### Defined in
 
-[params/AnvilParams.ts:172](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/AnvilParams.ts#L172)
+[params/AnvilParams.ts:119](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/AnvilParams.ts#L119)
 
 ___
 
@@ -1662,7 +1662,7 @@ JSON-RPC procedure for `anvil_setNonce`
 
 #### Defined in
 
-[procedure/AnvilProcedure.ts:116](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/procedure/AnvilProcedure.ts#L116)
+[procedure/AnvilProcedure.ts:97](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/procedure/AnvilProcedure.ts#L97)
 
 ___
 
@@ -1672,7 +1672,7 @@ ___
 
 #### Defined in
 
-[result/AnvilResult.ts:28](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/AnvilResult.ts#L28)
+[result/AnvilResult.ts:23](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/AnvilResult.ts#L23)
 
 ___
 
@@ -1696,7 +1696,7 @@ ___
 
 #### Defined in
 
-[handlers/AnvilHandler.ts:84](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/handlers/AnvilHandler.ts#L84)
+[handlers/AnvilHandler.ts:72](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/handlers/AnvilHandler.ts#L72)
 
 ___
 
@@ -1708,7 +1708,7 @@ JSON-RPC request for `anvil_setStorageAt` method
 
 #### Defined in
 
-[requests/AnvilJsonRpcRequest.ts:119](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/requests/AnvilJsonRpcRequest.ts#L119)
+[requests/AnvilJsonRpcRequest.ts:101](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/requests/AnvilJsonRpcRequest.ts#L101)
 
 ___
 
@@ -1720,7 +1720,7 @@ JSON-RPC response for `anvil_setStorageAt` procedure
 
 #### Defined in
 
-[responses/AnvilJsonRpcResponse.ts:134](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/responses/AnvilJsonRpcResponse.ts#L134)
+[responses/AnvilJsonRpcResponse.ts:115](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/responses/AnvilJsonRpcResponse.ts#L115)
 
 ___
 
@@ -1740,7 +1740,7 @@ Params for `anvil_setStorageAt` handler
 
 #### Defined in
 
-[params/AnvilParams.ts:187](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/AnvilParams.ts#L187)
+[params/AnvilParams.ts:134](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/AnvilParams.ts#L134)
 
 ___
 
@@ -1766,7 +1766,7 @@ JSON-RPC procedure for `anvil_setStorageAt`
 
 #### Defined in
 
-[procedure/AnvilProcedure.ts:123](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/procedure/AnvilProcedure.ts#L123)
+[procedure/AnvilProcedure.ts:104](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/procedure/AnvilProcedure.ts#L104)
 
 ___
 
@@ -1776,7 +1776,7 @@ ___
 
 #### Defined in
 
-[result/AnvilResult.ts:30](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/AnvilResult.ts#L30)
+[result/AnvilResult.ts:25](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/AnvilResult.ts#L25)
 
 ___
 
@@ -1800,7 +1800,7 @@ ___
 
 #### Defined in
 
-[handlers/AnvilHandler.ts:49](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/handlers/AnvilHandler.ts#L49)
+[handlers/AnvilHandler.ts:37](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/handlers/AnvilHandler.ts#L37)
 
 ___
 
@@ -1812,7 +1812,7 @@ JSON-RPC request for `anvil_stopImpersonatingAccount` method
 
 #### Defined in
 
-[requests/AnvilJsonRpcRequest.ts:49](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/requests/AnvilJsonRpcRequest.ts#L49)
+[requests/AnvilJsonRpcRequest.ts:31](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/requests/AnvilJsonRpcRequest.ts#L31)
 
 ___
 
@@ -1824,7 +1824,7 @@ JSON-RPC response for `anvil_stopImpersonatingAccount` procedure
 
 #### Defined in
 
-[responses/AnvilJsonRpcResponse.ts:56](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/responses/AnvilJsonRpcResponse.ts#L56)
+[responses/AnvilJsonRpcResponse.ts:37](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/responses/AnvilJsonRpcResponse.ts#L37)
 
 ___
 
@@ -1842,7 +1842,7 @@ Params for `anvil_stopImpersonatingAccount` handler
 
 #### Defined in
 
-[params/AnvilParams.ts:75](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/AnvilParams.ts#L75)
+[params/AnvilParams.ts:22](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/AnvilParams.ts#L22)
 
 ___
 
@@ -1868,7 +1868,7 @@ JSON-RPC procedure for `anvil_stopImpersonatingAccount`
 
 #### Defined in
 
-[procedure/AnvilProcedure.ts:62](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/procedure/AnvilProcedure.ts#L62)
+[procedure/AnvilProcedure.ts:43](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/procedure/AnvilProcedure.ts#L43)
 
 ___
 
@@ -1878,7 +1878,7 @@ ___
 
 #### Defined in
 
-[result/AnvilResult.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/AnvilResult.ts#L11)
+[result/AnvilResult.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/AnvilResult.ts#L6)
 
 ___
 
@@ -2290,7 +2290,7 @@ ___
 
 #### Defined in
 
-[handlers/AnvilHandler.ts:41](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/handlers/AnvilHandler.ts#L41)
+[handlers/DebugHandler.ts:15](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/handlers/DebugHandler.ts#L15)
 
 ___
 
@@ -2302,19 +2302,19 @@ JSON-RPC request for `debug_traceCall` method
 
 #### Defined in
 
-[requests/AnvilJsonRpcRequest.ts:33](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/requests/AnvilJsonRpcRequest.ts#L33)
+[requests/DebugJsonRpcRequest.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/requests/DebugJsonRpcRequest.ts#L20)
 
 ___
 
 ### DebugTraceCallJsonRpcResponse
 
-Ƭ **DebugTraceCallJsonRpcResponse**: [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"debug_traceCall"``, `SerializeToJson`\<[`DebugTraceCallResult`](modules.md#debugtracecallresult)\>, `AnvilError`\>
+Ƭ **DebugTraceCallJsonRpcResponse**: [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"debug_traceCall"``, `SerializeToJson`\<[`DebugTraceCallResult`](modules.md#debugtracecallresult)\>, `DebugError`\>
 
 JSON-RPC response for `debug_traceCall` procedure
 
 #### Defined in
 
-[responses/AnvilJsonRpcResponse.ts:38](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/responses/AnvilJsonRpcResponse.ts#L38)
+[responses/DebugJsonRpcResponse.ts:25](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/responses/DebugJsonRpcResponse.ts#L25)
 
 ___
 
@@ -2332,7 +2332,7 @@ Params taken by `debug_traceCall` handler
 
 #### Defined in
 
-[params/AnvilParams.ts:47](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/AnvilParams.ts#L47)
+[params/DebugParams.ts:55](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/DebugParams.ts#L55)
 
 ___
 
@@ -2358,17 +2358,26 @@ JSON-RPC procedure for `debug_traceCall`
 
 #### Defined in
 
-[procedure/AnvilProcedure.ts:48](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/procedure/AnvilProcedure.ts#L48)
+[procedure/DebugProcedure.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/procedure/DebugProcedure.ts#L20)
 
 ___
 
 ### DebugTraceCallResult
 
-Ƭ **DebugTraceCallResult**: [`TraceResult`](modules.md#traceresult)
+Ƭ **DebugTraceCallResult**: `Object`
+
+#### Type declaration
+
+| Name | Type |
+| :------ | :------ |
+| `failed` | `boolean` |
+| `gas` | `bigint` |
+| `returnValue` | `Hex` |
+| `structLogs` | `ReadonlyArray`\<`StructLog`\> |
 
 #### Defined in
 
-[result/AnvilResult.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/AnvilResult.ts#L7)
+[result/DebugResult.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/DebugResult.ts#L16)
 
 ___
 
@@ -2392,7 +2401,7 @@ ___
 
 #### Defined in
 
-[handlers/AnvilHandler.ts:37](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/handlers/AnvilHandler.ts#L37)
+[handlers/DebugHandler.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/handlers/DebugHandler.ts#L11)
 
 ___
 
@@ -2404,19 +2413,19 @@ JSON-RPC request for `debug_traceTransaction` method
 
 #### Defined in
 
-[requests/AnvilJsonRpcRequest.ts:25](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/requests/AnvilJsonRpcRequest.ts#L25)
+[requests/DebugJsonRpcRequest.ts:12](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/requests/DebugJsonRpcRequest.ts#L12)
 
 ___
 
 ### DebugTraceTransactionJsonRpcResponse
 
-Ƭ **DebugTraceTransactionJsonRpcResponse**: [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"debug_traceTransaction"``, `SerializeToJson`\<[`DebugTraceTransactionResult`](modules.md#debugtracetransactionresult)\>, `AnvilError`\>
+Ƭ **DebugTraceTransactionJsonRpcResponse**: [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"debug_traceTransaction"``, `SerializeToJson`\<[`DebugTraceTransactionResult`](modules.md#debugtracetransactionresult)\>, `DebugError`\>
 
 JSON-RPC response for `debug_traceTransaction` procedure
 
 #### Defined in
 
-[responses/AnvilJsonRpcResponse.ts:29](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/responses/AnvilJsonRpcResponse.ts#L29)
+[responses/DebugJsonRpcResponse.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/responses/DebugJsonRpcResponse.ts#L16)
 
 ___
 
@@ -2428,7 +2437,7 @@ Params taken by `debug_traceTransaction` handler
 
 #### Defined in
 
-[params/AnvilParams.ts:36](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/AnvilParams.ts#L36)
+[params/DebugParams.ts:44](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/DebugParams.ts#L44)
 
 ___
 
@@ -2454,7 +2463,7 @@ JSON-RPC procedure for `debug_traceTransaction`
 
 #### Defined in
 
-[procedure/AnvilProcedure.ts:41](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/procedure/AnvilProcedure.ts#L41)
+[procedure/DebugProcedure.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/procedure/DebugProcedure.ts#L13)
 
 ___
 
@@ -2464,7 +2473,7 @@ ___
 
 #### Defined in
 
-[result/AnvilResult.ts:5](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/AnvilResult.ts#L5)
+[result/DebugResult.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/DebugResult.ts#L14)
 
 ___
 
@@ -5206,7 +5215,7 @@ ___
 
 #### Defined in
 
-[TevmJsonRpcRequestHandler.ts:146](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/TevmJsonRpcRequestHandler.ts#L146)
+[TevmJsonRpcRequestHandler.ts:158](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/TevmJsonRpcRequestHandler.ts#L158)
 
 ___
 
@@ -6858,7 +6867,7 @@ Generic and returns the correct response type for a given request
 
 | Name | Type |
 | :------ | :------ |
-| `TRequest` | extends [`TevmJsonRpcRequest`](modules.md#tevmjsonrpcrequest) \| [`EthJsonRpcRequest`](modules.md#ethjsonrpcrequest) \| `AnvilJsonRpcRequest` |
+| `TRequest` | extends [`TevmJsonRpcRequest`](modules.md#tevmjsonrpcrequest) \| [`EthJsonRpcRequest`](modules.md#ethjsonrpcrequest) \| `AnvilJsonRpcRequest` \| `DebugJsonRpcRequest` |
 
 ##### Parameters
 
@@ -6872,7 +6881,7 @@ Generic and returns the correct response type for a given request
 
 #### Defined in
 
-[TevmJsonRpcRequestHandler.ts:140](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/TevmJsonRpcRequestHandler.ts#L140)
+[TevmJsonRpcRequestHandler.ts:148](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/TevmJsonRpcRequestHandler.ts#L148)
 
 ___
 
@@ -6912,12 +6921,11 @@ Config params for trace calls
 | :------ | :------ | :------ |
 | `timeout?` | `string` | A duration string of decimal numbers that overrides the default timeout of 5 seconds for JavaScript-based tracing calls. Max timeout is "10s". Valid time units are "ns", "us", "ms", "s" each with optional fraction, such as "300ms" or "2s45ms". **`Example`** ```ts "10s" ``` |
 | `tracer` | ``"callTracer"`` \| ``"prestateTracer"`` | The type of tracer Currently only callTracer supported |
-| `tracerConfig?` | \{ `onlyTopCall`: `boolean`  } | object to specify configurations for the tracer |
-| `tracerConfig.onlyTopCall` | `boolean` | boolean Setting this to true will only trace the main (top-level) call and none of the sub-calls. This avoids extra processing for each call frame if only the top-level call info are required (useful for getting revertReason). |
+| `tracerConfig?` | {} | object to specify configurations for the tracer |
 
 #### Defined in
 
-[params/AnvilParams.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/AnvilParams.ts#L10)
+[params/DebugParams.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/DebugParams.ts#L6)
 
 ___
 

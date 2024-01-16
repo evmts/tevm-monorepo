@@ -114,7 +114,7 @@ ___
 
 #### Defined in
 
-vm/procedures/src/jsonrpc/eth/blockNumberProcedure.js:8
+[vm/procedures/src/jsonrpc/eth/blockNumberProcedure.js:8](https://github.com/evmts/tevm-monorepo/blob/main/vm/procedures/src/jsonrpc/eth/blockNumberProcedure.js#L8)
 
 ___
 
@@ -198,7 +198,7 @@ ___
 
 #### Defined in
 
-vm/procedures/src/jsonrpc/eth/chainIdProcedure.js:8
+[vm/procedures/src/jsonrpc/eth/chainIdProcedure.js:8](https://github.com/evmts/tevm-monorepo/blob/main/vm/procedures/src/jsonrpc/eth/chainIdProcedure.js#L8)
 
 ___
 
@@ -288,7 +288,7 @@ ___
 
 #### Defined in
 
-vm/procedures/src/jsonrpc/eth/gasPriceProcedure.js:9
+[vm/procedures/src/jsonrpc/eth/gasPriceProcedure.js:9](https://github.com/evmts/tevm-monorepo/blob/main/vm/procedures/src/jsonrpc/eth/gasPriceProcedure.js#L9)
 
 ___
 
@@ -332,7 +332,7 @@ ___
 
 #### Defined in
 
-vm/procedures/src/jsonrpc/eth/getBalanceProcedure.js:9
+[vm/procedures/src/jsonrpc/eth/getBalanceProcedure.js:9](https://github.com/evmts/tevm-monorepo/blob/main/vm/procedures/src/jsonrpc/eth/getBalanceProcedure.js#L9)
 
 ___
 
@@ -376,7 +376,7 @@ ___
 
 #### Defined in
 
-vm/procedures/src/jsonrpc/eth/getCodeProcedure.js:8
+[vm/procedures/src/jsonrpc/eth/getCodeProcedure.js:8](https://github.com/evmts/tevm-monorepo/blob/main/vm/procedures/src/jsonrpc/eth/getCodeProcedure.js#L8)
 
 ___
 
@@ -420,7 +420,7 @@ ___
 
 #### Defined in
 
-vm/procedures/src/jsonrpc/eth/getStorageAtProcedure.js:8
+[vm/procedures/src/jsonrpc/eth/getStorageAtProcedure.js:8](https://github.com/evmts/tevm-monorepo/blob/main/vm/procedures/src/jsonrpc/eth/getStorageAtProcedure.js#L8)
 
 ___
 
