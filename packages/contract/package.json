@@ -44,7 +44,7 @@
 		"!src/**/*.spec.ts"
 	],
 	"scripts": {
-		"all": "pnpm i && bun run build && bun run test && bun run lint && bun run format && bun run generate:docs",
+		"all": "bun run build && bun run test:coverage && bun run lint && bun run format && bun run generate:docs && bun lint:package && bun lint:deps",
 		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/contracts ",
 		"build:dist": "tsup",
 		"build:types": "tsup --dts-only",

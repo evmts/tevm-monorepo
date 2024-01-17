@@ -1,14 +1,12 @@
-import { createTevmContract } from '../createTevmContract.js'
+import { createContract } from '../createContract.js'
 import { dummyAbi } from '../test/fixtures.js'
 import { readFactory } from './readFactory.js'
 import { formatAbi } from 'abitype'
 import { describe, expect, it } from 'vitest'
 
-const contract = createTevmContract({
+const contract = createContract({
 	humanReadableAbi: formatAbi(dummyAbi),
 	name: 'DummyContract',
-	bytecode: undefined,
-	deployedBytecode: undefined,
 })
 
 describe(readFactory.name, () => {

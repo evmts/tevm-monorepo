@@ -1,5 +1,6 @@
 import type {
 	Abi,
+	Address,
 	ExtractAbiEvent,
 	ExtractAbiEventNames,
 	FormatAbi,
@@ -25,10 +26,11 @@ export type MaybeExtractEventArgsFromAbi<
 export type ValueOf<T> = T[keyof T]
 
 export type Events<
-	TName extends string,
 	THumanReadableAbi extends readonly string[],
 	TBytecode extends Hex | undefined,
 	TDeployedBytecode extends Hex | undefined,
+	TAddress extends Address | undefined,
+	TAddressArgs = TAddress extends undefined ? {} : { address: TAddress },
 > = {
 	[TEventName in ExtractAbiEventNames<ParseAbi<THumanReadableAbi>>]: (<
 		TStrict extends boolean = false,
@@ -56,7 +58,6 @@ export type Events<
 		TEventName,
 		MaybeExtractEventArgsFromAbi<ParseAbi<THumanReadableAbi>, TEventName>
 	> & {
-		tevmContractName: TName
 		eventName: TEventName
 		abi: [ExtractAbiEvent<ParseAbi<THumanReadableAbi>, TEventName>]
 		bytecode: TBytecode
@@ -69,5 +70,5 @@ export type Events<
 		abi: [ExtractAbiEvent<ParseAbi<THumanReadableAbi>, TEventName>]
 		bytecode: TBytecode
 		deployedBytecode: TDeployedBytecode
-	}
+	} & TAddressArgs
 }
