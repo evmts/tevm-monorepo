@@ -1,5 +1,8 @@
 export {
 	type Contract,
+	type Script,
+	type CreateScriptParams,
+	type CreateContractParams,
 	toHex,
 	fromHex,
 	toBytes,
@@ -7,8 +10,12 @@ export {
 	formatAbi,
 	fromBytes,
 	createContract,
+	createScript,
 	decodeFunctionData,
 	encodeFunctionData,
 	decodeFunctionResult,
 	encodeFunctionResult,
+	formatLog,
+	formatGwei,
+	formatEther,
 } from '@tevm/contract'
