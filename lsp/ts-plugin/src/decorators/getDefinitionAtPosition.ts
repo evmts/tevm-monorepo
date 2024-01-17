@@ -35,23 +35,23 @@ export const getDefinitionServiceDecorator = (
 		const definition = service.getDefinitionAtPosition(fileName, position)
 		const sourceFile = service.getProgram()?.getSourceFile(fileName)
 		const node = sourceFile && findNode(sourceFile, position)
-		const tevmContractPath =
+		const ContractPath =
 			node &&
 			findContractDefinitionFileNameFromTevmNode(node, service, fileName, ts)
-		if (!tevmContractPath) {
+		if (!ContractPath) {
 			return definition
 		}
 		const plugin = bundler(config, logger as any, fao, solc, solcCache)
 		const includedAst = true
 		const { asts, solcInput } = plugin.resolveDtsSync(
-			tevmContractPath,
+			ContractPath,
 			process.cwd(),
 			includedAst,
 			false,
 		)
 		if (!asts) {
 			logger.error(
-				`@tevm/ts-plugin: getDefinitionAtPositionDecorator was unable to resolve asts for ${tevmContractPath}`,
+				`@tevm/ts-plugin: getDefinitionAtPositionDecorator was unable to resolve asts for ${ContractPath}`,
 			)
 			return definition
 		}
@@ -80,12 +80,12 @@ export const getDefinitionServiceDecorator = (
 		}
 		if (!definitions.length) {
 			logger.error(
-				`@tevm/ts-plugin: unable to find definitions ${tevmContractPath}`,
+				`@tevm/ts-plugin: unable to find definitions ${ContractPath}`,
 			)
 			return definition
 		}
 		const contractName =
-			tevmContractPath.split('/').pop()?.split('.')[0] ?? 'TevmContract'
+			ContractPath.split('/').pop()?.split('.')[0] ?? 'Contract'
 		return [
 			...definitions.map(({ fileName, node }) =>
 				convertSolcAstToTsDefinitionInfo(

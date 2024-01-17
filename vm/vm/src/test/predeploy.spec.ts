@@ -1,15 +1,15 @@
-import { Address, hexToBytes, toBytes } from '@ethereumjs/util'
-import { createContract } from '@tevm/contract'
-import { definePredeploy } from '@tevm/predeploys'
-import { formatAbi } from 'abitype'
 import { createTevm } from '../createTevm.js'
 import { DaiContract } from '../test/DaiContract.sol.js'
+import { Address, hexToBytes, toBytes } from '@ethereumjs/util'
+import { createScript } from '@tevm/contract'
+import { definePredeploy } from '@tevm/predeploys'
+import { formatAbi } from 'abitype'
 import { expect, test } from 'bun:test'
 
 test('Call predeploy from TypeScript', async () => {
 	const { abi, deployedBytecode } = DaiContract
 	const formatted = formatAbi(abi)
-	const contract = createContract({
+	const contract = createScript({
 		bytecode: '0x420',
 		humanReadableAbi: formatted,
 		name: 'ExamplePredeploy',

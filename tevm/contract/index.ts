@@ -1,5 +1,5 @@
 export {
-	type TevmContract,
+	type Contract,
 	toHex,
 	fromHex,
 	toBytes,

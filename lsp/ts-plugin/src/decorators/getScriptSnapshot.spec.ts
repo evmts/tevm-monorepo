@@ -132,19 +132,19 @@ describe(getScriptSnapshotDecorator.name, () => {
 		const fileName = path.join(__dirname, '../test/fixtures/HelloWorld2.sol')
 		const result = decorator.getScriptSnapshot(fileName)
 		expect((result as any).text).toMatchInlineSnapshot(`
-			"import { TevmContract } from '@tevm/contract'
+			"import { Contract } from '@tevm/contract'
 			const _abiHelloWorld = [\\"function greet() pure returns (string)\\"] as const;
 			const _nameHelloWorld = \\"HelloWorld\\" as const;
 			/**
-			 * HelloWorld TevmContract
+			 * HelloWorld Contract
 			 */
-			export const HelloWorld: TevmContract<typeof _nameHelloWorld, typeof _abiHelloWorld, undefined, undefined>;
+			export const HelloWorld: Contract<typeof _nameHelloWorld, typeof _abiHelloWorld>;
 			const _abiHelloWorld2 = [\\"function greet2() pure returns (string)\\"] as const;
 			const _nameHelloWorld2 = \\"HelloWorld2\\" as const;
 			/**
-			 * HelloWorld2 TevmContract
+			 * HelloWorld2 Contract
 			 */
-			export const HelloWorld2: TevmContract<typeof _nameHelloWorld2, typeof _abiHelloWorld2, undefined, undefined>;"
+			export const HelloWorld2: Contract<typeof _nameHelloWorld2, typeof _abiHelloWorld2>;"
 		`)
 	})
 	it('should handle resolveDts throwing', () => {

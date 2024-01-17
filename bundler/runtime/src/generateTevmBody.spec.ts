@@ -1,6 +1,6 @@
+import { generateTevmBody } from './generateTevmBody.js'
 import { runSync } from 'effect/Effect'
 import { describe, expect, it } from 'vitest'
-import { generateTevmBody } from './generateTevmBody.js'
 
 describe('generateTevmBody', () => {
 	const artifacts = {
@@ -92,18 +92,18 @@ describe('generateTevmBody', () => {
 			"const _abiMyContract = [] as const;
 			const _nameMyContract = \\"MyContract\\" as const;
 			/**
-			 * MyContract TevmContract
+			 * MyContract Contract
 			 * @notice MyContract
 			 * @property balanceOf(address) Returns the amount of tokens owned by account
 			 */
-			export const MyContract: TevmContract<typeof _nameMyContract, typeof _abiMyContract, undefined, undefined>;
+			export const MyContract: Contract<typeof _nameMyContract, typeof _abiMyContract>;
 			const _abiAnotherContract = [] as const;
 			const _nameAnotherContract = \\"AnotherContract\\" as const;
 			/**
-			 * AnotherContract TevmContract
+			 * AnotherContract Contract
 			 * @notice MyContract
 			 */
-			export const AnotherContract: TevmContract<typeof _nameAnotherContract, typeof _abiAnotherContract, undefined, undefined>;"
+			export const AnotherContract: Contract<typeof _nameAnotherContract, typeof _abiAnotherContract>;"
 		`)
 	})
 })

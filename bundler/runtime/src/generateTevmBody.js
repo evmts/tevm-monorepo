@@ -1,6 +1,6 @@
+import { generateDtsBody } from './generateTevmBodyDts.js'
 import { formatAbi } from 'abitype'
 import { succeed } from 'effect/Effect'
-import { generateDtsBody } from './generateTevmBodyDts.js'
 
 /**
  * @param {import("@tevm/compiler").Artifacts} artifacts
@@ -18,9 +18,14 @@ export const generateTevmBody = (artifacts, moduleType, includeBytecode) => {
 				const contract = JSON.stringify({
 					name: contractName,
 					humanReadableAbi: formatAbi(abi),
-					bytecode: evm?.bytecode.object && `0x${evm.bytecode.object}`,
-					deployedBytecode:
-						evm?.deployedBytecode.object && `0x${evm.deployedBytecode.object}`,
+					...(includeBytecode
+						? {
+								bytecode: evm?.bytecode?.object && `0x${evm.bytecode.object}`,
+								deployedBytecode:
+									evm?.deployedBytecode?.object &&
+									`0x${evm.deployedBytecode.object}`,
+						  }
+						: {}),
 				})
 				const natspec = Object.entries(userdoc.methods ?? {}).map(
 					([method, { notice }]) => ` * @property ${method} ${notice}`,
@@ -36,7 +41,9 @@ export const generateTevmBody = (artifacts, moduleType, includeBytecode) => {
 					return [
 						`const _${contractName} = ${contract}`,
 						...natspec,
-						`module.exports.${contractName} = createContract(_${contractName})`,
+						`module.exports.${contractName} = ${
+							includeBytecode ? 'createScript' : 'createContract'
+						}(_${contractName})`,
 					]
 				}
 

@@ -4,18 +4,18 @@ import type { Script } from './Script.js'
 export type CreateContractParams<
 	TName extends string,
 	THumanReadableAbi extends readonly string[],
-> = Pick<
-	Contract<TName, THumanReadableAbi>,
-	'name' | 'humanReadableAbi'
->
+> = Pick<Contract<TName, THumanReadableAbi>, 'name' | 'humanReadableAbi'>
 
 export type CreateContract = <
 	TName extends string,
 	THumanReadableAbi extends readonly string[],
 >({
 	name,
-	humanReadableAbi
-}: CreateContractParams<TName, THumanReadableAbi>) => Contract<TName, THumanReadableAbi>
+	humanReadableAbi,
+}: CreateContractParams<TName, THumanReadableAbi>) => Contract<
+	TName,
+	THumanReadableAbi
+>
 
 export type CreateScriptParams<
 	TName extends string,
@@ -33,4 +33,7 @@ export type CreateScript = <
 	humanReadableAbi,
 	bytecode,
 	deployedBytecode,
-}: CreateScriptParams<TName, THumanReadableAbi>) => Script<TName, THumanReadableAbi> 
+}: CreateScriptParams<TName, THumanReadableAbi>) => Script<
+	TName,
+	THumanReadableAbi
+>

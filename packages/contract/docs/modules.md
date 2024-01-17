@@ -17,6 +17,7 @@
 ### Functions
 
 - [createContract](modules.md#createcontract)
+- [createScript](modules.md#createscript)
 - [decodeFunctionData](modules.md#decodefunctiondata)
 - [decodeFunctionResult](modules.md#decodefunctionresult)
 - [encodeFunctionData](modules.md#encodefunctiondata)
@@ -215,7 +216,36 @@ To use a json abi first pass it into `formatAbi` to turn it into human readable
 
 #### Defined in
 
-[packages/contract/src/types.ts:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/types.ts#L12)
+[packages/contract/src/types.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/types.ts#L9)
+
+___
+
+### createScript
+
+▸ **createScript**\<`TName`, `THumanReadableAbi`\>(`«destructured»`): [`Script`](modules.md#script)\<`TName`, `THumanReadableAbi`\>
+
+Creates a Tevm Script instance from humanReadableAbi and bytecode
+
+#### Type parameters
+
+| Name | Type |
+| :------ | :------ |
+| `TName` | extends `string` |
+| `THumanReadableAbi` | extends readonly `string`[] |
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `«destructured»` | [`CreateScriptParams`](modules.md#createscriptparams)\<`TName`, `THumanReadableAbi`\> |
+
+#### Returns
+
+[`Script`](modules.md#script)\<`TName`, `THumanReadableAbi`\>
+
+#### Defined in
+
+[packages/contract/src/types.ts:28](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/types.ts#L28)
 
 ___
 

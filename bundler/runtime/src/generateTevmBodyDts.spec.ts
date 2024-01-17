@@ -54,26 +54,26 @@ describe('generateDtsBody', () => {
 			"const _abiMyContract = [\\"constructor() payable\\"] as const;
 			const _nameMyContract = \\"MyContract\\" as const;
 			/**
-			 * MyContract TevmContract
+			 * MyContract Contract
 			 * @notice MyContract
 			 * @property balanceOf(address) Returns the amount of tokens owned by account
 			 */
-			export const MyContract: TevmContract<typeof _nameMyContract, typeof _abiMyContract, undefined, undefined>;
+			export const MyContract: Contract<typeof _nameMyContract, typeof _abiMyContract>;
 			const _abiAnotherContract = [] as const;
 			const _nameAnotherContract = \\"AnotherContract\\" as const;
 			/**
-			 * AnotherContract TevmContract
+			 * AnotherContract Contract
 			 * @notice MyContract
 			 */
-			export const AnotherContract: TevmContract<typeof _nameAnotherContract, typeof _abiAnotherContract, undefined, undefined>;
+			export const AnotherContract: Contract<typeof _nameAnotherContract, typeof _abiAnotherContract>;
 			const _abiMissingContract = [] as const;
 			const _nameMissingContract = \\"MissingContract\\" as const;
 			/**
-			 * MissingContract TevmContract
+			 * MissingContract Contract
 			 * @notice MyContract
 			 * @property balanceOf(address) Returns the amount of tokens owned by account
 			 */
-			export const MissingContract: TevmContract<typeof _nameMissingContract, typeof _abiMissingContract, undefined, undefined>;"
+			export const MissingContract: Contract<typeof _nameMissingContract, typeof _abiMissingContract>;"
 		`)
 	})
 })

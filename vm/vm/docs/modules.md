@@ -35,7 +35,7 @@ Options for creating an Tevm instance
 | :------ | :------ |
 | `allowUnlimitedContractSize?` | `boolean` |
 | `customPrecompiles?` | [`CustomPrecompile`](modules.md#customprecompile)[] |
-| `customPredeploys?` | `ReadonlyArray`\<`CustomPredeploy`\<`any`, `any`, `any`, `any`\>\> |
+| `customPredeploys?` | `ReadonlyArray`\<`CustomPredeploy`\<`any`, `any`\>\> |
 | `fork?` | [`ForkOptions`](modules.md#forkoptions) |
 
 #### Defined in

@@ -6,8 +6,8 @@
 
 ### References
 
-- [TevmContract](contract.md#tevmcontract)
-- [createTevmContract](contract.md#createtevmcontract)
+- [Contract](contract.md#contract)
+- [createContract](contract.md#createcontract)
 - [decodeFunctionData](contract.md#decodefunctiondata)
 - [decodeFunctionResult](contract.md#decodefunctionresult)
 - [encodeFunctionData](contract.md#encodefunctiondata)
@@ -24,15 +24,15 @@
 
 ## References
 
-### TevmContract
+### Contract
 
-Re-exports [TevmContract](index.md#tevmcontract)
+Re-exports [Contract](index.md#contract)
 
 ___
 
-### createTevmContract
+### createContract
 
-Re-exports [createTevmContract](index.md#createtevmcontract)
+Re-exports [createContract](index.md#createcontract)
 
 ___
 

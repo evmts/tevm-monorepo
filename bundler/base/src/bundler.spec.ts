@@ -1,4 +1,5 @@
-import { tmpdir } from 'os'
+import { bundler } from './bundler.js'
+import type { Bundler, FileAccessObject, Logger } from './types.js'
 import { createCache } from '@tevm/bundler-cache'
 import {
 	type ModuleInfo,
@@ -6,6 +7,7 @@ import {
 	resolveArtifactsSync,
 } from '@tevm/compiler'
 import { type SolcInputDescription, type SolcOutput } from '@tevm/solc'
+import { tmpdir } from 'os'
 import type { Node } from 'solidity-ast/node.js'
 import {
 	type Mock,
@@ -16,8 +18,6 @@ import {
 	it,
 	vi,
 } from 'vitest'
-import { bundler } from './bundler.js'
-import type { Bundler, FileAccessObject, Logger } from './types.js'
 
 const fao: FileAccessObject = {
 	existsSync: vi.fn() as any,
@@ -299,13 +299,13 @@ describe(bundler.name, () => {
 				      "evmVersion": "homestead",
 				    },
 				  },
-				  "code": "import { TevmContract } from '@tevm/contract'
+				  "code": "import { Contract } from '@tevm/contract'
 				const _abiTestContract = [] as const;
 				const _nameTestContract = \\"TestContract\\" as const;
 				/**
-				 * TestContract TevmContract
+				 * TestContract Contract
 				 */
-				export const TestContract: TevmContract<typeof _nameTestContract, typeof _abiTestContract, undefined, undefined>;",
+				export const TestContract: Contract<typeof _nameTestContract, typeof _abiTestContract>;",
 				  "modules": {
 				    "module1": {
 				      "code": "import { TestContract } from 'module2'
@@ -384,13 +384,13 @@ describe(bundler.name, () => {
 				      "evmVersion": "homestead",
 				    },
 				  },
-				  "code": "import { TevmContract } from '@tevm/contract'
+				  "code": "import { Contract } from '@tevm/contract'
 				const _abiTestContract = [] as const;
 				const _nameTestContract = \\"TestContract\\" as const;
 				/**
-				 * TestContract TevmContract
+				 * TestContract Contract
 				 */
-				export const TestContract: TevmContract<typeof _nameTestContract, typeof _abiTestContract, undefined, undefined>;",
+				export const TestContract: Contract<typeof _nameTestContract, typeof _abiTestContract>;",
 				  "modules": {
 				    "module1": {
 				      "code": "import { TestContract } from 'module2'

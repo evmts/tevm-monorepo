@@ -1,7 +1,7 @@
+import { generateRuntime } from './generateRuntime.js'
 import type { Artifacts } from '@tevm/compiler'
 import { runSync } from 'effect/Effect'
 import { describe, expect, it } from 'vitest'
-import { generateRuntime } from './generateRuntime.js'
 
 describe('generateRuntime', () => {
 	const artifacts: Artifacts = {
@@ -25,7 +25,7 @@ describe('generateRuntime', () => {
 		expect(() =>
 			runSync(generateRuntime(artifacts, 'invalidType' as any, false)),
 		).toThrowErrorMatchingInlineSnapshot(
-			'"Unknown module type: invalidType. Valid module types include cjs, dts, ts, mjs"',
+			'"Unknown module type: invalidType. Valid module types include contract, script"',
 		)
 	})
 
@@ -61,15 +61,15 @@ describe('generateRuntime', () => {
 	it('should handle dts module type', () => {
 		const result = runSync(generateRuntime(artifacts, 'dts', false))
 		expect(result).toMatchInlineSnapshot(`
-			"import { TevmContract } from '@tevm/contract'
+			"import { Contract } from '@tevm/contract'
 			const _abiMyContract = [\\"constructor() payable\\"] as const;
 			const _nameMyContract = \\"MyContract\\" as const;
 			/**
-			 * MyContract TevmContract
+			 * MyContract Contract
 			 * @notice MyContract
 			 * @property balanceOf(address) Returns the amount of tokens owned by account
 			 */
-			export const MyContract: TevmContract<typeof _nameMyContract, typeof _abiMyContract, undefined, undefined>;"
+			export const MyContract: Contract<typeof _nameMyContract, typeof _abiMyContract>;"
 		`)
 	})
 

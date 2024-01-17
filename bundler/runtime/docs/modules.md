@@ -6,17 +6,17 @@
 
 ### Type Aliases
 
-- [ModuleType](undefined)
+- [ModuleType](modules.md#moduletype)
 
 ### Functions
 
-- [generateRuntime](undefined)
+- [generateRuntime](modules.md#generateruntime)
 
 ## Type Aliases
 
 ### ModuleType
 
-Ƭ **ModuleType**: "cjs" \| "dts" \| "ts" \| "mjs"
+Ƭ **ModuleType**: ``"cjs"`` \| ``"dts"`` \| ``"ts"`` \| ``"mjs"``
 
 #### Defined in
 
@@ -26,20 +26,20 @@
 
 ### generateRuntime
 
-▸ **generateRuntime**(`artifacts`, `moduleType`, `includeBytecode`): Effect\<never, never, string\>
+▸ **generateRuntime**(`artifacts`, `moduleType`, `includeBytecode`): `Effect`\<`never`, `never`, `string`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `artifacts` | Artifacts$1 |
-| `moduleType` | ModuleType |
-| `includeBytecode` | boolean |
+| `artifacts` | `Artifacts$1` |
+| `moduleType` | [`ModuleType`](modules.md#moduletype) |
+| `includeBytecode` | `boolean` |
 
 #### Returns
 
-Effect\<never, never, string\>
+`Effect`\<`never`, `never`, `string`\>
 
 #### Defined in
 
-[generateRuntime.js:17](https://github.com/evmts/tevm-monorepo/blob/main/bundler/runtime/src/generateRuntime.js#L17)
+[generateRuntime.js:25](https://github.com/evmts/tevm-monorepo/blob/main/bundler/runtime/src/generateRuntime.js#L25)
