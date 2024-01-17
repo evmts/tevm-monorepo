@@ -5,14 +5,14 @@ export {
 	accountHandler,
 	contractHandler,
 	blockNumberHandler,
+	dumpStateHandler,
+	loadStateHandler,
 	chainIdHandler,
 	getCodeHandler,
 	gasPriceHandler,
 	getBalanceHandler,
 	getStorageAtHandler,
 	NoForkUrlSetError,
-	dumpStateHandler,
-	loadStateHandler,
 } from './handlers/index.js'
 export {
 	callProcedure,

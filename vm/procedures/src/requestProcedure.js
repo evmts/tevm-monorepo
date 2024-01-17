@@ -56,15 +56,19 @@ export const requestProcedure = (vm) => {
 				return /**@type any*/ (scriptProcedure)(vm.evm)(request)
 			case 'eth_blockNumber':
 				return /** @type any */ (blockNumberProcedure(vm.blockchain)(request))
-			case 'eth_chainId':
-				return /** @type any */ (chainIdProcedure(chainId)(request))
-			case 'tevm_dump_state':
+			case 'tevm_dumpState':
 				return /** @type any */ (dumpStateProcedure)(vm.stateManager)(request)
-			case 'tevm_load_state': {
-				// @ts-ignore
+			case 'tevm_loadState': {
+				/**
+				 * @param {object} options
+				 * @param {import('@tevm/state').TevmStateManager}  options.stateManager
+				 * @param {import('@ethereumjs/vm').VM} options.vm
+				 */
 				const stateManager = vm.stateManager
 				return /** @type any */ (loadStateProcedure)(stateManager)(request)
 			}
+			case 'eth_chainId':
+				return /** @type any */ (chainIdProcedure(chainId)(request))
 			case 'eth_call':
 				return /** @type any */ (callProcedure)(vm)(request.params[0])
 			case 'eth_getCode':

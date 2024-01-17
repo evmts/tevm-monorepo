@@ -268,7 +268,7 @@ ___
 
 #### Defined in
 
-[vm/procedures/src/handlers/dumpStateHandler.js:8](https://github.com/evmts/tevm-monorepo/blob/main/vm/procedures/src/handlers/dumpStateHandler.js#L8)
+[vm/procedures/src/handlers/dumpStateHandler.js:9](https://github.com/evmts/tevm-monorepo/blob/main/vm/procedures/src/handlers/dumpStateHandler.js#L9)
 
 ___
 
@@ -290,7 +290,7 @@ Creates a DumpState JSON-RPC Procedure for handling dumpState requests with Ethe
 
 #### Defined in
 
-[vm/procedures/src/jsonrpc/dumpStateProcedure.js:8](https://github.com/evmts/tevm-monorepo/blob/main/vm/procedures/src/jsonrpc/dumpStateProcedure.js#L8)
+[vm/procedures/src/jsonrpc/dumpStateProcedure.js:9](https://github.com/evmts/tevm-monorepo/blob/main/vm/procedures/src/jsonrpc/dumpStateProcedure.js#L9)
 
 ___
 
@@ -486,7 +486,7 @@ ___
 
 #### Defined in
 
-[vm/procedures/src/handlers/loadStateHandler.js:10](https://github.com/evmts/tevm-monorepo/blob/main/vm/procedures/src/handlers/loadStateHandler.js#L10)
+[vm/procedures/src/handlers/loadStateHandler.js:11](https://github.com/evmts/tevm-monorepo/blob/main/vm/procedures/src/handlers/loadStateHandler.js#L11)
 
 ___
 
@@ -494,7 +494,7 @@ ___
 
 ▸ **loadStateProcedure**(`stateManager`): `LoadStateJsonRpcProcedure`
 
-Creates a DumpState JSON-RPC Procedure for handling dumpState requests with Ethereumjs EVM
+Creates a LoadState JSON-RPC Procedure for handling LoadState requests with Ethereumjs EVM
 
 #### Parameters
 
@@ -508,7 +508,7 @@ Creates a DumpState JSON-RPC Procedure for handling dumpState requests with Ethe
 
 #### Defined in
 
-[vm/procedures/src/jsonrpc/loadStateProcedure.js:8](https://github.com/evmts/tevm-monorepo/blob/main/vm/procedures/src/jsonrpc/loadStateProcedure.js#L8)
+[vm/procedures/src/jsonrpc/loadStateProcedure.js:9](https://github.com/evmts/tevm-monorepo/blob/main/vm/procedures/src/jsonrpc/loadStateProcedure.js#L9)
 
 ___
 

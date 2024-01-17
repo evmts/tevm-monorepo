@@ -320,7 +320,7 @@ A Tevm JSON-RPC request
 
 #### Defined in
 
-vm/api/dist/index.d.ts:1418
+vm/api/dist/index.d.ts:1413
 
 ___
 
@@ -353,7 +353,7 @@ Generic and returns the correct response type for a given request
 
 #### Defined in
 
-vm/api/dist/index.d.ts:2159
+vm/api/dist/index.d.ts:2157
 
 ## Functions
 
@@ -375,7 +375,7 @@ To use a json abi first pass it into `formatAbi` to turn it into human readable
 
 | Name | Type |
 | :------ | :------ |
-| `«destructured»` | `CreateContractParams`\<`TName`, `THumanReadableAbi`\> |
+| `«destructured»` | [`CreateContractParams`](contract.md#createcontractparams)\<`TName`, `THumanReadableAbi`\> |
 
 #### Returns
 

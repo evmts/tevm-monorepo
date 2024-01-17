@@ -14,9 +14,19 @@
 - [encodeFunctionResult](contract.md#encodefunctionresult)
 - [parseAbi](contract.md#parseabi)
 
+### Type Aliases
+
+- [CreateContractParams](contract.md#createcontractparams)
+- [CreateScriptParams](contract.md#createscriptparams)
+- [Script](contract.md#script)
+
 ### Functions
 
+- [createScript](contract.md#createscript)
 - [formatAbi](contract.md#formatabi)
+- [formatEther](contract.md#formatether)
+- [formatGwei](contract.md#formatgwei)
+- [formatLog](contract.md#formatlog)
 - [fromBytes](contract.md#frombytes)
 - [fromHex](contract.md#fromhex)
 - [toBytes](contract.md#tobytes)
@@ -64,7 +74,101 @@ ___
 
 Re-exports [parseAbi](index.md#parseabi)
 
+## Type Aliases
+
+### CreateContractParams
+
+Ƭ **CreateContractParams**\<`TName`, `THumanReadableAbi`\>: `Pick`\<[`Contract`](index.md#contract)\<`TName`, `THumanReadableAbi`\>, ``"name"`` \| ``"humanReadableAbi"``\>
+
+#### Type parameters
+
+| Name | Type |
+| :------ | :------ |
+| `TName` | extends `string` |
+| `THumanReadableAbi` | extends readonly `string`[] |
+
+#### Defined in
+
+packages/contract/dist/index.d.ts:108
+
+___
+
+### CreateScriptParams
+
+Ƭ **CreateScriptParams**\<`TName`, `THumanReadableAbi`\>: `Pick`\<[`Script`](contract.md#script)\<`TName`, `THumanReadableAbi`\>, ``"name"`` \| ``"humanReadableAbi"`` \| ``"bytecode"`` \| ``"deployedBytecode"``\>
+
+#### Type parameters
+
+| Name | Type |
+| :------ | :------ |
+| `TName` | extends `string` |
+| `THumanReadableAbi` | extends readonly `string`[] |
+
+#### Defined in
+
+packages/contract/dist/index.d.ts:110
+
+___
+
+### Script
+
+Ƭ **Script**\<`TName`, `THumanReadableAbi`\>: `Object`
+
+#### Type parameters
+
+| Name | Type |
+| :------ | :------ |
+| `TName` | extends `string` |
+| `THumanReadableAbi` | extends `ReadonlyArray`\<`string`\> |
+
+#### Type declaration
+
+| Name | Type |
+| :------ | :------ |
+| `abi` | `ParseAbi`\<`THumanReadableAbi`\> |
+| `bytecode` | `Hex` |
+| `deployedBytecode` | `Hex` |
+| `events` | `Events`\<`THumanReadableAbi`, `Hex`, `Hex`, `undefined`\> |
+| `humanReadableAbi` | `THumanReadableAbi` |
+| `name` | `TName` |
+| `read` | `Read`\<`THumanReadableAbi`, `Hex`, `Hex`, `undefined`\> |
+| `withAddress` | \<TAddress\>(`address`: `TAddress`) => [`Script`](contract.md#script)\<`TName`, `THumanReadableAbi`\> & \{ `address`: `TAddress` ; `events`: `Events`\<`THumanReadableAbi`, `Hex`, `Hex`, `TAddress`\> ; `read`: `Read`\<`THumanReadableAbi`, `Hex`, `Hex`, `TAddress`\> ; `write`: `Write`\<`THumanReadableAbi`, `Hex`, `Hex`, `TAddress`\>  } |
+| `write` | `Write`\<`THumanReadableAbi`, `Hex`, `Hex`, `undefined`\> |
+
+#### Defined in
+
+packages/contract/dist/index.d.ts:91
+
 ## Functions
+
+### createScript
+
+▸ **createScript**\<`TName`, `THumanReadableAbi`\>(`«destructured»`): [`Script`](contract.md#script)\<`TName`, `THumanReadableAbi`\>
+
+Creates a Tevm Script instance from humanReadableAbi and bytecode
+
+#### Type parameters
+
+| Name | Type |
+| :------ | :------ |
+| `TName` | extends `string` |
+| `THumanReadableAbi` | extends readonly `string`[] |
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `«destructured»` | [`CreateScriptParams`](contract.md#createscriptparams)\<`TName`, `THumanReadableAbi`\> |
+
+#### Returns
+
+[`Script`](contract.md#script)\<`TName`, `THumanReadableAbi`\>
+
+#### Defined in
+
+packages/contract/dist/index.d.ts:111
+
+___
 
 ### formatAbi
 
@@ -93,6 +197,97 @@ Human-readable ABI
 #### Defined in
 
 node_modules/.pnpm/abitype@0.10.2_typescript@5.3.3_zod@3.22.4/node_modules/abitype/dist/types/human-readable/formatAbi.d.ts:18
+
+___
+
+### formatEther
+
+▸ **formatEther**(`wei`, `unit?`): `string`
+
+Converts numerical wei to a string representation of ether.
+
+- Docs: https://viem.sh/docs/utilities/formatEther.html
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `wei` | `bigint` |
+| `unit?` | ``"wei"`` \| ``"gwei"`` |
+
+#### Returns
+
+`string`
+
+**`Example`**
+
+```ts
+import { formatEther } from 'viem'
+
+formatEther(1000000000000000000n)
+// '1'
+```
+
+#### Defined in
+
+node_modules/.pnpm/viem@2.0.2_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/unit/formatEther.d.ts:14
+
+___
+
+### formatGwei
+
+▸ **formatGwei**(`wei`, `unit?`): `string`
+
+Converts numerical wei to a string representation of gwei.
+
+- Docs: https://viem.sh/docs/utilities/formatGwei.html
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `wei` | `bigint` |
+| `unit?` | ``"wei"`` |
+
+#### Returns
+
+`string`
+
+**`Example`**
+
+```ts
+import { formatGwei } from 'viem'
+
+formatGwei(1000000000n)
+// '1'
+```
+
+#### Defined in
+
+node_modules/.pnpm/viem@2.0.2_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/unit/formatGwei.d.ts:14
+
+___
+
+### formatLog
+
+▸ **formatLog**(`log`, `«destructured»?`): `Log`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `log` | `Partial`\<`RpcLog`\> |
+| `«destructured»` | `Object` |
+| › `args?` | `unknown` |
+| › `eventName?` | `string` |
+
+#### Returns
+
+`Log`
+
+#### Defined in
+
+node_modules/.pnpm/viem@2.0.2_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/formatters/log.d.ts:5
 
 ___
 

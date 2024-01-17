@@ -29,6 +29,8 @@ export type Tevm = {
 	account: AccountHandler
 	call: CallHandler
 	contract: ContractHandler
+	dumpState: DumpStateHandler
+	loadState: LoadStateHandler
 	eth: {
 		blockNumber: EthBlockNumberHandler
 		chainId: EthChainIdHandler
@@ -51,6 +53,4 @@ export type Tevm = {
 	// Compile handlers
 	// Not implementing any yet
 	blockNumber: EthBlockNumberHandler
-	dumpState: DumpStateHandler
-	loadState: LoadStateHandler
 }

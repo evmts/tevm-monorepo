@@ -1,24 +1,22 @@
 import { zLoadStateParams } from './zLoadStateParams.js'
 import type { LoadStateParams } from '@tevm/api'
 import { expect, test } from 'bun:test'
-import { hexToBytes } from 'viem'
+import { stringToHex } from 'viem'
 import type { z } from 'zod'
 
 test('zLoadStateParams', () => {
 	const AccountStorage = {
 		nonce: 0n,
 		balance: 100n,
-		storageRoot: hexToBytes(
+		storageRoot: stringToHex(
 			'0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
-			{ size: 32 },
 		),
-		codeHash: hexToBytes(
+		codeHash: stringToHex(
 			'0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470',
-			{ size: 32 },
 		),
 		storage: {
 			'0x0c2d1b9c97b15f8a18e224fe94a8453f996465e14217e0939995ce76fbe01129':
-				'0xa0100000000000000' as `0x${string}`,
+				'0xa0100000000000000' as const,
 		},
 	}
 

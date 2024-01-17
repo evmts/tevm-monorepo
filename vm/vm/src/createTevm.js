@@ -162,6 +162,8 @@ export const createTevm = async (options = {}) => {
 		account: accountHandler(evm),
 		call: callHandler(evm),
 		contract: contractHandler(evm),
+		dumpState: dumpStateHandler(evm.stateManager),
+		loadState: loadStateHandler(evm.stateManager),
 		eth: {
 			blockNumber: blockNumberHandler(blockchain),
 			chainId: chainIdHandler(chainId),
@@ -183,8 +185,6 @@ export const createTevm = async (options = {}) => {
 			}),
 		},
 		blockNumber: blockNumberHandler(blockchain),
-		dumpState: dumpStateHandler(evm.stateManager),
-		loadState: loadStateHandler(evm.stateManager),
 		...(options.fork?.url
 			? { forkUrl: options.fork.url }
 			: { forkUrl: options.fork?.url }),

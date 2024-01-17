@@ -808,6 +808,9 @@ importers:
       '@tevm/server':
         specifier: workspace:^
         version: link:../../vm/server
+      '@tevm/state':
+        specifier: workspace:^
+        version: link:../../vm/state
       '@tevm/tsconfig':
         specifier: workspace:^
         version: link:../../configs/tsconfig

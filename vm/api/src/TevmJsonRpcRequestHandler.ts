@@ -130,8 +130,8 @@ type TevmReturnType = {
 	tevm_call: CallJsonRpcResponse
 	tevm_script: ScriptJsonRpcResponse
 	tevm_account: AccountJsonRpcResponse
-	tevm_load_state: LoadStateJsonRpcResponse
-	tevm_dump_state: DumpStateJsonRpcResponse
+	tevm_loadState: LoadStateJsonRpcResponse
+	tevm_dumpState: DumpStateJsonRpcResponse
 }
 
 type ReturnType<

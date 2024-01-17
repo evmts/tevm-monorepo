@@ -1,6 +1,7 @@
 import { createError } from './createError.js'
 import { Address } from '@ethereumjs/util'
 import { DefaultTevmStateManager, TevmStateManager } from '@tevm/state'
+import { bytesToHex } from 'viem'
 /**
  * @param {TevmStateManager | DefaultTevmStateManager} stateManager
  * @returns {import('@tevm/api').DumpStateHandler}
@@ -25,7 +26,12 @@ export const dumpStateHandler = (stateManager) => async () => {
 					Address.fromString(hexAddress),
 				)
 
-				state[hexAddress] = { ...account, storage }
+				state[hexAddress] = {
+					...account,
+					storageRoot: bytesToHex(account.storageRoot),
+					codeHash: bytesToHex(account.codeHash),
+					storage,
+				}
 			}
 		}
 	} catch (e) {

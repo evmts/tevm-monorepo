@@ -2559,15 +2559,13 @@ ___
 
 ### DumpStateJsonRpcRequest
 
-Ƭ **DumpStateJsonRpcRequest**: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"tevm_dump_state"``, `void`\>
+Ƭ **DumpStateJsonRpcRequest**: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"tevm_dumpState"``, {}\>
 
-The JSON-RPC request for the `tevm_script` method
-Takes no parameters at this time thus retrieving the state for every account
-TODO: Add parameters to request only a subset of the state
+The JSON-RPC request for the `tevm_dumpState` method
 
 #### Defined in
 
-[requests/DumpStateJsonRpcRequest.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/requests/DumpStateJsonRpcRequest.ts#L8)
+[requests/DumpStateJsonRpcRequest.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/requests/DumpStateJsonRpcRequest.ts#L6)
 
 ___
 
@@ -6832,19 +6830,19 @@ ___
 
 ### LoadStateJsonRpcRequest
 
-Ƭ **LoadStateJsonRpcRequest**: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"tevm_load_state"``, `SerializedParams`\>
+Ƭ **LoadStateJsonRpcRequest**: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"tevm_loadState"``, `SerializedParams`\>
 
-The JSON-RPC request for the `tevm_script` method
+The JSON-RPC request for the `tevm_loadState` method
 
 #### Defined in
 
-[requests/LoadStateJsonRpcRequest.ts:18](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/requests/LoadStateJsonRpcRequest.ts#L18)
+[requests/LoadStateJsonRpcRequest.ts:15](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/requests/LoadStateJsonRpcRequest.ts#L15)
 
 ___
 
 ### LoadStateJsonRpcResponse
 
-Ƭ **LoadStateJsonRpcResponse**: [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"tevm_load_state"``, `SerializeToJson`\<`LoadStateResult`\>, [`LoadStateError`](modules.md#loadstateerror)[``"_tag"``]\>
+Ƭ **LoadStateJsonRpcResponse**: [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"tevm_loadState"``, `SerializeToJson`\<`LoadStateResult`\>, [`LoadStateError`](modules.md#loadstateerror)[``"_tag"``]\>
 
 #### Defined in
 
