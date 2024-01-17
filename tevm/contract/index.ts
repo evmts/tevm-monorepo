@@ -6,7 +6,7 @@ export {
 	parseAbi,
 	formatAbi,
 	fromBytes,
-	createTevmContract,
+	createContract,
 	decodeFunctionData,
 	encodeFunctionData,
 	decodeFunctionResult,

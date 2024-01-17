@@ -1,6 +1,6 @@
-import { generateTevmBody } from './generateTevmBody.js'
 import { runSync } from 'effect/Effect'
 import { describe, expect, it } from 'vitest'
+import { generateTevmBody } from './generateTevmBody.js'
 
 describe('generateTevmBody', () => {
 	const artifacts = {
@@ -43,12 +43,12 @@ describe('generateTevmBody', () => {
 			 * MyContract
 			 * @property balanceOf(address) Returns the amount of tokens owned by account
 			 */
-			module.exports.MyContract = createTevmContract(_MyContract)
+			module.exports.MyContract = createContract(_MyContract)
 			const _AnotherContract = {\\"name\\":\\"AnotherContract\\",\\"humanReadableAbi\\":[]}
 			/**
 			 * MyContract
 			 */
-			module.exports.AnotherContract = createTevmContract(_AnotherContract)"
+			module.exports.AnotherContract = createContract(_AnotherContract)"
 		`)
 	})
 
@@ -60,12 +60,12 @@ describe('generateTevmBody', () => {
 			 * MyContract
 			 * @property balanceOf(address) Returns the amount of tokens owned by account
 			 */
-			export const MyContract = createTevmContract(_MyContract)
+			export const MyContract = createContract(_MyContract)
 			const _AnotherContract = {\\"name\\":\\"AnotherContract\\",\\"humanReadableAbi\\":[]}
 			/**
 			 * MyContract
 			 */
-			export const AnotherContract = createTevmContract(_AnotherContract)"
+			export const AnotherContract = createContract(_AnotherContract)"
 		`)
 	})
 
@@ -77,12 +77,12 @@ describe('generateTevmBody', () => {
 			 * MyContract
 			 * @property balanceOf(address) Returns the amount of tokens owned by account
 			 */
-			export const MyContract = createTevmContract(_MyContract)
+			export const MyContract = createContract(_MyContract)
 			const _AnotherContract = {\\"name\\":\\"AnotherContract\\",\\"humanReadableAbi\\":[]} as const
 			/**
 			 * MyContract
 			 */
-			export const AnotherContract = createTevmContract(_AnotherContract)"
+			export const AnotherContract = createContract(_AnotherContract)"
 		`)
 	})
 

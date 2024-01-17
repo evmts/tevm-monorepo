@@ -1,6 +1,6 @@
-import { generateDtsBody } from './generateTevmBodyDts.js'
 import { formatAbi } from 'abitype'
 import { succeed } from 'effect/Effect'
+import { generateDtsBody } from './generateTevmBodyDts.js'
 
 /**
  * @param {import("@tevm/compiler").Artifacts} artifacts
@@ -36,7 +36,7 @@ export const generateTevmBody = (artifacts, moduleType, includeBytecode) => {
 					return [
 						`const _${contractName} = ${contract}`,
 						...natspec,
-						`module.exports.${contractName} = createTevmContract(_${contractName})`,
+						`module.exports.${contractName} = createContract(_${contractName})`,
 					]
 				}
 
@@ -44,14 +44,14 @@ export const generateTevmBody = (artifacts, moduleType, includeBytecode) => {
 					return [
 						`const _${contractName} = ${contract} as const`,
 						...natspec,
-						`export const ${contractName} = createTevmContract(_${contractName})`,
+						`export const ${contractName} = createContract(_${contractName})`,
 					]
 				}
 
 				return [
 					`const _${contractName} = ${contract}`,
 					...natspec,
-					`export const ${contractName} = createTevmContract(_${contractName})`,
+					`export const ${contractName} = createContract(_${contractName})`,
 				]
 			})
 			.join('\n'),

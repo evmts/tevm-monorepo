@@ -1,5 +1,4 @@
-import { bundler } from './bundler.js'
-import type { Bundler, FileAccessObject, Logger } from './types.js'
+import { tmpdir } from 'os'
 import { createCache } from '@tevm/bundler-cache'
 import {
 	type ModuleInfo,
@@ -7,7 +6,6 @@ import {
 	resolveArtifactsSync,
 } from '@tevm/compiler'
 import { type SolcInputDescription, type SolcOutput } from '@tevm/solc'
-import { tmpdir } from 'os'
 import type { Node } from 'solidity-ast/node.js'
 import {
 	type Mock,
@@ -18,6 +16,8 @@ import {
 	it,
 	vi,
 } from 'vitest'
+import { bundler } from './bundler.js'
+import type { Bundler, FileAccessObject, Logger } from './types.js'
 
 const fao: FileAccessObject = {
 	existsSync: vi.fn() as any,
@@ -478,9 +478,9 @@ describe(bundler.name, () => {
 				      "evmVersion": "homestead",
 				    },
 				  },
-				  "code": "import { createTevmContract } from '@tevm/contract'
+				  "code": "import { createContract } from '@tevm/contract'
 				const _TestContract = {\\"name\\":\\"TestContract\\",\\"humanReadableAbi\\":[]} as const
-				export const TestContract = createTevmContract(_TestContract)",
+				export const TestContract = createContract(_TestContract)",
 				  "modules": {
 				    "module1": {
 				      "code": "import { TestContract } from 'module2'
@@ -568,9 +568,9 @@ describe(bundler.name, () => {
 				      "evmVersion": "homestead",
 				    },
 				  },
-				  "code": "import { createTevmContract } from '@tevm/contract'
+				  "code": "import { createContract } from '@tevm/contract'
 				const _TestContract = {\\"name\\":\\"TestContract\\",\\"humanReadableAbi\\":[]} as const
-				export const TestContract = createTevmContract(_TestContract)",
+				export const TestContract = createContract(_TestContract)",
 				  "modules": {
 				    "module1": {
 				      "code": "import { TestContract } from 'module2'
@@ -658,9 +658,9 @@ describe(bundler.name, () => {
 				      "evmVersion": "homestead",
 				    },
 				  },
-				  "code": "const { createTevmContract } = require('@tevm/contract')
+				  "code": "const { createContract } = require('@tevm/contract')
 				const _TestContract = {\\"name\\":\\"TestContract\\",\\"humanReadableAbi\\":[]}
-				module.exports.TestContract = createTevmContract(_TestContract)",
+				module.exports.TestContract = createContract(_TestContract)",
 				  "modules": {
 				    "module1": {
 				      "code": "import { TestContract } from 'module2'
@@ -748,9 +748,9 @@ describe(bundler.name, () => {
 				      "evmVersion": "homestead",
 				    },
 				  },
-				  "code": "const { createTevmContract } = require('@tevm/contract')
+				  "code": "const { createContract } = require('@tevm/contract')
 				const _TestContract = {\\"name\\":\\"TestContract\\",\\"humanReadableAbi\\":[]}
-				module.exports.TestContract = createTevmContract(_TestContract)",
+				module.exports.TestContract = createContract(_TestContract)",
 				  "modules": {
 				    "module1": {
 				      "code": "import { TestContract } from 'module2'
@@ -838,9 +838,9 @@ describe(bundler.name, () => {
 				      "evmVersion": "homestead",
 				    },
 				  },
-				  "code": "import { createTevmContract } from '@tevm/contract'
+				  "code": "import { createContract } from '@tevm/contract'
 				const _TestContract = {\\"name\\":\\"TestContract\\",\\"humanReadableAbi\\":[]}
-				export const TestContract = createTevmContract(_TestContract)",
+				export const TestContract = createContract(_TestContract)",
 				  "modules": {
 				    "module1": {
 				      "code": "import { TestContract } from 'module2'
@@ -928,9 +928,9 @@ describe(bundler.name, () => {
 				      "evmVersion": "homestead",
 				    },
 				  },
-				  "code": "import { createTevmContract } from '@tevm/contract'
+				  "code": "import { createContract } from '@tevm/contract'
 				const _TestContract = {\\"name\\":\\"TestContract\\",\\"humanReadableAbi\\":[]}
-				export const TestContract = createTevmContract(_TestContract)",
+				export const TestContract = createContract(_TestContract)",
 				  "modules": {
 				    "module1": {
 				      "code": "import { TestContract } from 'module2'

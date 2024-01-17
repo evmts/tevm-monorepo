@@ -18,7 +18,7 @@ export {
 } from '@tevm/client'
 export {
 	TevmContract,
-	createTevmContract,
+	createContract,
 	decodeFunctionData,
 	decodeFunctionResult,
 	encodeFunctionData,
