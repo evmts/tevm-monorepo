@@ -1,6 +1,6 @@
 {
 	"name": "@tevm/procedures",
-	"version": "1.0.0-next.21",
+	"version": "1.0.0-next.22",
 	"private": false,
 	"description": "A typesafe library for writing forge scripts in typescript",
 	"keywords": [
@@ -67,7 +67,7 @@
 		"@ethereumjs/blockchain": "^7.0.1",
 		"@ethereumjs/util": "^9.0.1",
 		"@ethereumjs/vm": "^7.1.0",
-		"@tevm/jsonrpc": "workspace:1.0.0-next.21",
+		"@tevm/jsonrpc": "workspace:1.0.0-next.22",
 		"@tevm/zod": "workspace:^",
 		"viem": "^2.0.0"
 	},

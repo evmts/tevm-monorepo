@@ -1,5 +1,12 @@
 # @tevm/contract
 
+## 1.0.0-next.22
+
+### Patch Changes
+
+- Updated dependencies [[`3b5f6729`](https://github.com/evmts/tevm-monorepo/commit/3b5f67291550b590dda16471059a05bd10fe324d)]:
+  - @tevm/contract@1.0.0-next.22
+
 ## 1.0.0-next.21
 
 ### Patch Changes
