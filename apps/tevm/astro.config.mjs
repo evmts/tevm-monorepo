@@ -5,16 +5,18 @@ import { defineConfig } from 'astro/config'
 export default defineConfig({
 	integrations: [
 		starlight({
-			title: 'My Docs',
+			title: 'Tevm Docs',
 			social: {
-				github: 'https://github.com/withastro/starlight',
+				github: 'https://github.com/evmts/tevm-monorepo',
 			},
 			sidebar: [
 				{
-					label: 'Guides',
+					label: 'Getting Started',
 					items: [
-						// Each item here is one entry in the navigation menu.
-						{ label: 'Example Guide', link: '/guides/example/' },
+						{ label: 'Quick start (5m)', link: '/guides/quick-start/' },
+						{ label: 'Tutorial (5m)', link: '/guides/tutorial/' },
+						{ label: 'Solidity imports', link: '/guides/solidity-imports/' },
+						{ label: 'Community', link: '/guides/community/' },
 					],
 				},
 				{
