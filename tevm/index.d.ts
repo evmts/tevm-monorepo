@@ -17,8 +17,8 @@ export {
 	createRemoteClient,
 } from '@tevm/client'
 export {
-	TevmContract,
-	createTevmContract,
+	Contract,
+	createContract,
 	decodeFunctionData,
 	decodeFunctionResult,
 	encodeFunctionData,

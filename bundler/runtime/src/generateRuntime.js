@@ -2,10 +2,18 @@ import { generateTevmBody } from './generateTevmBody.js'
 import { die, map } from 'effect/Effect'
 
 const importsByModuleType = {
-	cjs: `const { createTevmContract } = require('@tevm/contract')`,
-	dts: `import { TevmContract } from '@tevm/contract'`,
-	ts: `import { createTevmContract } from '@tevm/contract'`,
-	mjs: `import { createTevmContract } from '@tevm/contract'`,
+	contract: {
+		cjs: `const { createContract } = require('@tevm/contract')`,
+		dts: `import { Contract } from '@tevm/contract'`,
+		ts: `import { createContract } from '@tevm/contract'`,
+		mjs: `import { createContract } from '@tevm/contract'`,
+	},
+	script: {
+		cjs: `const { createScript } = require('@tevm/contract')`,
+		dts: `import { Script } from '@tevm/contract'`,
+		ts: `import { createScript } from '@tevm/contract'`,
+		mjs: `import { createScript } from '@tevm/contract'`,
+	},
 }
 
 /**
@@ -18,7 +26,8 @@ export const generateRuntime = (artifacts, moduleType, includeBytecode) => {
 	if (!artifacts || Object.keys(artifacts).length === 0) {
 		return die('No artifacts provided to generateRuntime')
 	}
-	const imports = importsByModuleType[moduleType]
+	const imports =
+		importsByModuleType[includeBytecode ? 'script' : 'contract'][moduleType]
 	if (!imports) {
 		return die(
 			`Unknown module type: ${moduleType}. Valid module types include ${Object.keys(

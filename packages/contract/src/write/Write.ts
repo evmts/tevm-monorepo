@@ -1,5 +1,6 @@
 import type {
 	AbiParametersToPrimitiveTypes,
+	Address,
 	ExtractAbiFunction,
 	ExtractAbiFunctionNames,
 	FormatAbi,
@@ -9,16 +10,17 @@ import type { Hex } from 'viem'
 export type ValueOf<T> = T[keyof T]
 
 export type Write<
-	TName extends string,
 	THumanReadableAbi extends readonly string[],
 	TBytecode extends Hex | undefined,
 	TDeployedBytecode extends Hex | undefined,
+	TAddress extends Address | undefined,
+	TAddressArgs = TAddress extends undefined ? {} : { address: TAddress },
 > = {
 	[TFunctionName in
 		ExtractAbiFunctionNames<
 			ParseAbi<THumanReadableAbi>,
 			'payable' | 'nonpayable'
-		>]: <
+		>]: (<
 		TArgs extends AbiParametersToPrimitiveTypes<
 			ExtractAbiFunction<ParseAbi<THumanReadableAbi>, TFunctionName>['inputs']
 		> &
@@ -28,25 +30,26 @@ export type Write<
 			any[],
 	>(
 		...args: TArgs
-	) => TArgs['length'] extends 0
-		? {
-				functionName: TFunctionName
-				humanReadableAbi: FormatAbi<
-					[ExtractAbiFunction<ParseAbi<THumanReadableAbi>, TFunctionName>]
-				>
-				abi: [ExtractAbiFunction<ParseAbi<THumanReadableAbi>, TFunctionName>]
-				bytecode: TBytecode
-				deployedBytecode: TDeployedBytecode
-		  }
+	) => {
+		functionName: TFunctionName
+		humanReadableAbi: FormatAbi<
+			[ExtractAbiFunction<ParseAbi<THumanReadableAbi>, TFunctionName>]
+		>
+		abi: [ExtractAbiFunction<ParseAbi<THumanReadableAbi>, TFunctionName>]
+		bytecode: TBytecode
+		deployedBytecode: TDeployedBytecode
+	} & (TArgs['length'] extends 0
+		? {}
 		: {
-				tevmContractName: TName
-				functionName: TFunctionName
 				args: TArgs
-				humanReadableAbi: FormatAbi<
-					[ExtractAbiFunction<ParseAbi<THumanReadableAbi>, TFunctionName>]
-				>
-				abi: [ExtractAbiFunction<ParseAbi<THumanReadableAbi>, TFunctionName>]
-				bytecode: TBytecode
-				deployedBytecode: TDeployedBytecode
-		  }
+		  }) &
+		TAddressArgs) & {
+		functionName: TFunctionName
+		humanReadableAbi: FormatAbi<
+			[ExtractAbiFunction<ParseAbi<THumanReadableAbi>, TFunctionName>]
+		>
+		abi: [ExtractAbiFunction<ParseAbi<THumanReadableAbi>, TFunctionName>]
+		bytecode: TBytecode
+		deployedBytecode: TDeployedBytecode
+	} & TAddressArgs
 }

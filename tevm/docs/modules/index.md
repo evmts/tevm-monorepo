@@ -12,6 +12,7 @@
 - [Address](index.md#address)
 - [CallParams](index.md#callparams)
 - [CallResult](index.md#callresult)
+- [Contract](index.md#contract)
 - [ContractParams](index.md#contractparams)
 - [ContractResult](index.md#contractresult)
 - [Hex](index.md#hex)
@@ -19,16 +20,15 @@
 - [RemoteClient](index.md#remoteclient)
 - [ScriptParams](index.md#scriptparams)
 - [ScriptResult](index.md#scriptresult)
-- [TevmContract](index.md#tevmcontract)
 - [TevmJsonRpcRequest](index.md#tevmjsonrpcrequest)
 - [TevmJsonRpcRequestHandler](index.md#tevmjsonrpcrequesthandler)
 
 ### Functions
 
+- [createContract](index.md#createcontract)
 - [createMemoryClient](index.md#creatememoryclient)
 - [createRemoteClient](index.md#createremoteclient)
 - [createTevm](index.md#createtevm)
-- [createTevmContract](index.md#createtevmcontract)
 - [decodeFunctionData](index.md#decodefunctiondata)
 - [decodeFunctionResult](index.md#decodefunctionresult)
 - [encodeFunctionData](index.md#encodefunctiondata)
@@ -176,6 +176,37 @@ vm/api/dist/index.d.ts:984
 
 ___
 
+### Contract
+
+Ƭ **Contract**\<`TName`, `THumanReadableAbi`\>: `Object`
+
+#### Type parameters
+
+| Name | Type |
+| :------ | :------ |
+| `TName` | extends `string` |
+| `THumanReadableAbi` | extends `ReadonlyArray`\<`string`\> |
+
+#### Type declaration
+
+| Name | Type |
+| :------ | :------ |
+| `abi` | `ParseAbi`\<`THumanReadableAbi`\> |
+| `bytecode?` | `undefined` |
+| `deployedBytecode?` | `undefined` |
+| `events` | `Events`\<`THumanReadableAbi`, `undefined`, `undefined`, `undefined`\> |
+| `humanReadableAbi` | `THumanReadableAbi` |
+| `name` | `TName` |
+| `read` | `Read`\<`THumanReadableAbi`, `undefined`, `undefined`, `undefined`\> |
+| `withAddress` | \<TAddress\>(`address`: `TAddress`) => `Omit`\<[`Contract`](index.md#contract)\<`TName`, `THumanReadableAbi`\>, ``"read"`` \| ``"write"`` \| ``"events"``\> & \{ `address`: `TAddress` ; `events`: `Events`\<`THumanReadableAbi`, `undefined`, `undefined`, `TAddress`\> ; `read`: `Read`\<`THumanReadableAbi`, `undefined`, `undefined`, `TAddress`\> ; `write`: `Write`\<`THumanReadableAbi`, `undefined`, `undefined`, `TAddress`\>  } |
+| `write` | `Write`\<`THumanReadableAbi`, `undefined`, `undefined`, `undefined`\> |
+
+#### Defined in
+
+packages/contract/dist/index.d.ts:74
+
+___
+
 ### ContractParams
 
 Ƭ **ContractParams**\<`TAbi`, `TFunctionName`\>: `EncodeFunctionDataParameters`\<`TAbi`, `TFunctionName`\> & [`BaseCallParams`](api.md#basecallparams) & \{ `to`: [`Address`](index.md#address)  }
@@ -280,38 +311,6 @@ vm/api/dist/index.d.ts:1037
 
 ___
 
-### TevmContract
-
-Ƭ **TevmContract**\<`TName`, `THumanReadableAbi`, `TBytecode`, `TDeployedBytecode`\>: `Object`
-
-#### Type parameters
-
-| Name | Type |
-| :------ | :------ |
-| `TName` | extends `string` |
-| `THumanReadableAbi` | extends `ReadonlyArray`\<`string`\> |
-| `TBytecode` | extends `Hex` \| `undefined` |
-| `TDeployedBytecode` | extends `Hex` \| `undefined` |
-
-#### Type declaration
-
-| Name | Type |
-| :------ | :------ |
-| `abi` | `ParseAbi`\<`THumanReadableAbi`\> |
-| `bytecode` | `TBytecode` |
-| `deployedBytecode` | `TDeployedBytecode` |
-| `events` | `Events`\<`TName`, `THumanReadableAbi`, `TBytecode`, `TDeployedBytecode`\> |
-| `humanReadableAbi` | `THumanReadableAbi` |
-| `name` | `TName` |
-| `read` | `Read`\<`TName`, `THumanReadableAbi`, `TBytecode`, `TDeployedBytecode`\> |
-| `write` | `Write`\<`TName`, `THumanReadableAbi`, `TBytecode`, `TDeployedBytecode`\> |
-
-#### Defined in
-
-packages/contract/dist/index.d.ts:70
-
-___
-
 ### TevmJsonRpcRequest
 
 Ƭ **TevmJsonRpcRequest**: [`AccountJsonRpcRequest`](api.md#accountjsonrpcrequest) \| [`CallJsonRpcRequest`](api.md#calljsonrpcrequest) \| [`ContractJsonRpcRequest`](api.md#contractjsonrpcrequest) \| [`ScriptJsonRpcRequest`](api.md#scriptjsonrpcrequest)
@@ -357,6 +356,36 @@ Generic and returns the correct response type for a given request
 vm/api/dist/index.d.ts:2059
 
 ## Functions
+
+### createContract
+
+▸ **createContract**\<`TName`, `THumanReadableAbi`\>(`«destructured»`): [`Contract`](index.md#contract)\<`TName`, `THumanReadableAbi`\>
+
+Creates a tevm Contract instance from human readable abi
+To use a json abi first pass it into `formatAbi` to turn it into human readable
+
+#### Type parameters
+
+| Name | Type |
+| :------ | :------ |
+| `TName` | extends `string` |
+| `THumanReadableAbi` | extends readonly `string`[] |
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `«destructured»` | `CreateContractParams`\<`TName`, `THumanReadableAbi`\> |
+
+#### Returns
+
+[`Contract`](index.md#contract)\<`TName`, `THumanReadableAbi`\>
+
+#### Defined in
+
+packages/contract/dist/index.d.ts:109
+
+___
 
 ### createMemoryClient
 
@@ -416,35 +445,6 @@ ___
 #### Defined in
 
 vm/vm/dist/index.d.ts:97
-
-___
-
-### createTevmContract
-
-▸ **createTevmContract**\<`TName`, `THumanReadableAbi`, `TBytecode`, `TDeployedBytecode`\>(`«destructured»`): [`TevmContract`](index.md#tevmcontract)\<`TName`, `THumanReadableAbi`, `TBytecode`, `TDeployedBytecode`\>
-
-#### Type parameters
-
-| Name | Type |
-| :------ | :------ |
-| `TName` | extends `string` |
-| `THumanReadableAbi` | extends readonly `string`[] |
-| `TBytecode` | extends `undefined` \| \`0x$\{string}\` |
-| `TDeployedBytecode` | extends `undefined` \| \`0x$\{string}\` |
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `«destructured»` | `Pick`\<[`TevmContract`](index.md#tevmcontract)\<`TName`, `THumanReadableAbi`, `TBytecode`, `TDeployedBytecode`\>, ``"name"`` \| ``"deployedBytecode"`` \| ``"bytecode"`` \| ``"humanReadableAbi"``\> |
-
-#### Returns
-
-[`TevmContract`](index.md#tevmcontract)\<`TName`, `THumanReadableAbi`, `TBytecode`, `TDeployedBytecode`\>
-
-#### Defined in
-
-packages/contract/dist/index.d.ts:81
 
 ___
 

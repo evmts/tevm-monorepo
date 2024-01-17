@@ -1,6 +1,6 @@
 [@tevm/predeploys](../README.md) / [Modules](../modules.md) / Predeploy
 
-# Class: Predeploy\<TName, THumanReadableAbi, TBytecode, TDeployedBytecode\>
+# Class: Predeploy\<TName, THumanReadableAbi\>
 
 ## Type parameters
 
@@ -8,8 +8,6 @@
 | :------ | :------ |
 | `TName` | extends `string` |
 | `THumanReadableAbi` | extends readonly `string`[] |
-| `TBytecode` | extends \`0x$\{string}\` \| `undefined` |
-| `TDeployedBytecode` | extends \`0x$\{string}\` \| `undefined` |
 
 ## Table of contents
 
@@ -31,7 +29,7 @@
 
 ### constructor
 
-• **new Predeploy**\<`TName`, `THumanReadableAbi`, `TBytecode`, `TDeployedBytecode`\>(): [`Predeploy`](Predeploy.md)\<`TName`, `THumanReadableAbi`, `TBytecode`, `TDeployedBytecode`\>
+• **new Predeploy**\<`TName`, `THumanReadableAbi`\>(): [`Predeploy`](Predeploy.md)\<`TName`, `THumanReadableAbi`\>
 
 #### Type parameters
 
@@ -39,12 +37,10 @@
 | :------ | :------ |
 | `TName` | extends `string` |
 | `THumanReadableAbi` | extends readonly `string`[] |
-| `TBytecode` | extends `undefined` \| \`0x$\{string}\` |
-| `TDeployedBytecode` | extends `undefined` \| \`0x$\{string}\` |
 
 #### Returns
 
-[`Predeploy`](Predeploy.md)\<`TName`, `THumanReadableAbi`, `TBytecode`, `TDeployedBytecode`\>
+[`Predeploy`](Predeploy.md)\<`TName`, `THumanReadableAbi`\>
 
 ## Properties
 
@@ -54,17 +50,17 @@
 
 #### Defined in
 
-[definePredeploy.ts:28](https://github.com/evmts/tevm-monorepo/blob/main/vm/predeploys/src/definePredeploy.ts#L28)
+[definePredeploy.ts:19](https://github.com/evmts/tevm-monorepo/blob/main/vm/predeploys/src/definePredeploy.ts#L19)
 
 ___
 
 ### contract
 
-• `Readonly` `Abstract` **contract**: `TevmContract`\<`TName`, `THumanReadableAbi`, `TBytecode`, `TDeployedBytecode`\>
+• `Readonly` `Abstract` **contract**: `Script`\<`TName`, `THumanReadableAbi`\>
 
 #### Defined in
 
-[definePredeploy.ts:22](https://github.com/evmts/tevm-monorepo/blob/main/vm/predeploys/src/definePredeploy.ts#L22)
+[definePredeploy.ts:18](https://github.com/evmts/tevm-monorepo/blob/main/vm/predeploys/src/definePredeploy.ts#L18)
 
 ## Methods
 
@@ -78,7 +74,7 @@ ___
 
 #### Defined in
 
-[definePredeploy.ts:29](https://github.com/evmts/tevm-monorepo/blob/main/vm/predeploys/src/definePredeploy.ts#L29)
+[definePredeploy.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/vm/predeploys/src/definePredeploy.ts#L20)
 
 ___
 
@@ -96,4 +92,4 @@ ___
 
 #### Defined in
 
-[definePredeploy.ts:30](https://github.com/evmts/tevm-monorepo/blob/main/vm/predeploys/src/definePredeploy.ts#L30)
+[definePredeploy.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/vm/predeploys/src/definePredeploy.ts#L21)

@@ -1,7 +1,7 @@
 import { definePredeploy } from './definePredeploy.js'
 import { DaiContract } from './test/DaiContract.sol.js'
 import { Address } from '@ethereumjs/util'
-import { createTevmContract } from '@tevm/contract'
+import { createScript } from '@tevm/contract'
 import { formatAbi } from 'abitype'
 import { expect, test } from 'bun:test'
 
@@ -9,7 +9,7 @@ import { expect, test } from 'bun:test'
 test('definePredeploy should define a predeploy', async () => {
 	const { abi, deployedBytecode } = DaiContract
 	const formatted = formatAbi(abi)
-	const contract = createTevmContract({
+	const contract = createScript({
 		bytecode: '0x420',
 		humanReadableAbi: formatted,
 		name: 'ExamplePredeploy',

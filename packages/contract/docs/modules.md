@@ -6,17 +6,26 @@
 
 ### Type Aliases
 
-- [TevmContract](modules.md#tevmcontract)
+- [Contract](modules.md#contract)
+- [CreateContractParams](modules.md#createcontractparams)
+- [CreateScriptParams](modules.md#createscriptparams)
+- [Events](modules.md#events)
+- [Read](modules.md#read)
+- [Script](modules.md#script)
+- [Write](modules.md#write)
 
 ### Functions
 
-- [createTevmContract](modules.md#createtevmcontract)
-- [createTevmContractFromAbi](modules.md#createtevmcontractfromabi)
+- [createContract](modules.md#createcontract)
+- [createScript](modules.md#createscript)
 - [decodeFunctionData](modules.md#decodefunctiondata)
 - [decodeFunctionResult](modules.md#decodefunctionresult)
 - [encodeFunctionData](modules.md#encodefunctiondata)
 - [encodeFunctionResult](modules.md#encodefunctionresult)
 - [formatAbi](modules.md#formatabi)
+- [formatEther](modules.md#formatether)
+- [formatGwei](modules.md#formatgwei)
+- [formatLog](modules.md#formatlog)
 - [fromBytes](modules.md#frombytes)
 - [fromHex](modules.md#fromhex)
 - [parseAbi](modules.md#parseabi)
@@ -25,9 +34,9 @@
 
 ## Type Aliases
 
-### TevmContract
+### Contract
 
-Ƭ **TevmContract**\<`TName`, `THumanReadableAbi`, `TBytecode`, `TDeployedBytecode`\>: `Object`
+Ƭ **Contract**\<`TName`, `THumanReadableAbi`\>: `Object`
 
 #### Type parameters
 
@@ -35,31 +44,30 @@
 | :------ | :------ |
 | `TName` | extends `string` |
 | `THumanReadableAbi` | extends `ReadonlyArray`\<`string`\> |
-| `TBytecode` | extends `Hex` \| `undefined` |
-| `TDeployedBytecode` | extends `Hex` \| `undefined` |
 
 #### Type declaration
 
 | Name | Type |
 | :------ | :------ |
 | `abi` | `ParseAbi`\<`THumanReadableAbi`\> |
-| `bytecode` | `TBytecode` |
-| `deployedBytecode` | `TDeployedBytecode` |
-| `events` | `Events`\<`TName`, `THumanReadableAbi`, `TBytecode`, `TDeployedBytecode`\> |
+| `bytecode?` | `undefined` |
+| `deployedBytecode?` | `undefined` |
+| `events` | [`Events`](modules.md#events)\<`THumanReadableAbi`, `undefined`, `undefined`, `undefined`\> |
 | `humanReadableAbi` | `THumanReadableAbi` |
 | `name` | `TName` |
-| `read` | `Read`\<`TName`, `THumanReadableAbi`, `TBytecode`, `TDeployedBytecode`\> |
-| `write` | `Write`\<`TName`, `THumanReadableAbi`, `TBytecode`, `TDeployedBytecode`\> |
+| `read` | [`Read`](modules.md#read)\<`THumanReadableAbi`, `undefined`, `undefined`, `undefined`\> |
+| `withAddress` | \<TAddress\>(`address`: `TAddress`) => `Omit`\<[`Contract`](modules.md#contract)\<`TName`, `THumanReadableAbi`\>, ``"read"`` \| ``"write"`` \| ``"events"``\> & \{ `address`: `TAddress` ; `events`: [`Events`](modules.md#events)\<`THumanReadableAbi`, `undefined`, `undefined`, `TAddress`\> ; `read`: [`Read`](modules.md#read)\<`THumanReadableAbi`, `undefined`, `undefined`, `TAddress`\> ; `write`: [`Write`](modules.md#write)\<`THumanReadableAbi`, `undefined`, `undefined`, `TAddress`\>  } |
+| `write` | [`Write`](modules.md#write)\<`THumanReadableAbi`, `undefined`, `undefined`, `undefined`\> |
 
 #### Defined in
 
-[packages/contract/src/TevmContract.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/TevmContract.ts#L7)
+[packages/contract/src/Contract.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/Contract.ts#L6)
 
-## Functions
+___
 
-### createTevmContract
+### CreateContractParams
 
-▸ **createTevmContract**\<`TName`, `THumanReadableAbi`, `TBytecode`, `TDeployedBytecode`\>(`«destructured»`): [`TevmContract`](modules.md#tevmcontract)\<`TName`, `THumanReadableAbi`, `TBytecode`, `TDeployedBytecode`\>
+Ƭ **CreateContractParams**\<`TName`, `THumanReadableAbi`\>: `Pick`\<[`Contract`](modules.md#contract)\<`TName`, `THumanReadableAbi`\>, ``"name"`` \| ``"humanReadableAbi"``\>
 
 #### Type parameters
 
@@ -67,51 +75,177 @@
 | :------ | :------ |
 | `TName` | extends `string` |
 | `THumanReadableAbi` | extends readonly `string`[] |
-| `TBytecode` | extends `undefined` \| \`0x$\{string}\` |
-| `TDeployedBytecode` | extends `undefined` \| \`0x$\{string}\` |
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `«destructured»` | `Pick`\<[`TevmContract`](modules.md#tevmcontract)\<`TName`, `THumanReadableAbi`, `TBytecode`, `TDeployedBytecode`\>, ``"name"`` \| ``"bytecode"`` \| ``"deployedBytecode"`` \| ``"humanReadableAbi"``\> |
-
-#### Returns
-
-[`TevmContract`](modules.md#tevmcontract)\<`TName`, `THumanReadableAbi`, `TBytecode`, `TDeployedBytecode`\>
 
 #### Defined in
 
-[packages/contract/src/createTevmContract.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/createTevmContract.ts#L8)
+[packages/contract/src/types.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/types.ts#L4)
 
 ___
 
-### createTevmContractFromAbi
+### CreateScriptParams
 
-▸ **createTevmContractFromAbi**\<`TName`, `TAbi`, `TBytecode`, `TDeployedBytecode`\>(`«destructured»`): [`TevmContract`](modules.md#tevmcontract)\<`TName`, `FormatAbi`\<`TAbi`\>, `TBytecode`, `TDeployedBytecode`\>
+Ƭ **CreateScriptParams**\<`TName`, `THumanReadableAbi`\>: `Pick`\<[`Script`](modules.md#script)\<`TName`, `THumanReadableAbi`\>, ``"name"`` \| ``"humanReadableAbi"`` \| ``"bytecode"`` \| ``"deployedBytecode"``\>
 
 #### Type parameters
 
 | Name | Type |
 | :------ | :------ |
 | `TName` | extends `string` |
-| `TAbi` | extends `Abi` |
-| `TBytecode` | extends `undefined` \| \`0x$\{string}\` |
-| `TDeployedBytecode` | extends `undefined` \| \`0x$\{string}\` |
+| `THumanReadableAbi` | extends readonly `string`[] |
+
+#### Defined in
+
+[packages/contract/src/types.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/types.ts#L20)
+
+___
+
+### Events
+
+Ƭ **Events**\<`THumanReadableAbi`, `TBytecode`, `TDeployedBytecode`, `TAddress`, `TAddressArgs`\>: \{ [TEventName in ExtractAbiEventNames\<ParseAbi\<THumanReadableAbi\>\>]: Function & Object & TAddressArgs }
+
+#### Type parameters
+
+| Name | Type |
+| :------ | :------ |
+| `THumanReadableAbi` | extends readonly `string`[] |
+| `TBytecode` | extends `Hex` \| `undefined` |
+| `TDeployedBytecode` | extends `Hex` \| `undefined` |
+| `TAddress` | extends `Address` \| `undefined` |
+| `TAddressArgs` | `TAddress` extends `undefined` ? {} : \{ `address`: `TAddress`  } |
+
+#### Defined in
+
+[packages/contract/src/event/Event.ts:28](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/event/Event.ts#L28)
+
+___
+
+### Read
+
+Ƭ **Read**\<`THumanReadableAbi`, `TBytecode`, `TDeployedBytecode`, `TAddress`, `TAddressArgs`\>: \{ [TFunctionName in ExtractAbiFunctionNames\<ParseAbi\<THumanReadableAbi\>, "pure" \| "view"\>]: Function & Object & TAddressArgs }
+
+#### Type parameters
+
+| Name | Type |
+| :------ | :------ |
+| `THumanReadableAbi` | extends readonly `string`[] |
+| `TBytecode` | extends `Hex` \| `undefined` |
+| `TDeployedBytecode` | extends `Hex` \| `undefined` |
+| `TAddress` | extends `Address` \| `undefined` |
+| `TAddressArgs` | `TAddress` extends `undefined` ? {} : \{ `address`: `TAddress`  } |
+
+#### Defined in
+
+[packages/contract/src/read/Read.ts:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/read/Read.ts#L12)
+
+___
+
+### Script
+
+Ƭ **Script**\<`TName`, `THumanReadableAbi`\>: `Object`
+
+#### Type parameters
+
+| Name | Type |
+| :------ | :------ |
+| `TName` | extends `string` |
+| `THumanReadableAbi` | extends `ReadonlyArray`\<`string`\> |
+
+#### Type declaration
+
+| Name | Type |
+| :------ | :------ |
+| `abi` | `ParseAbi`\<`THumanReadableAbi`\> |
+| `bytecode` | `Hex` |
+| `deployedBytecode` | `Hex` |
+| `events` | [`Events`](modules.md#events)\<`THumanReadableAbi`, `Hex`, `Hex`, `undefined`\> |
+| `humanReadableAbi` | `THumanReadableAbi` |
+| `name` | `TName` |
+| `read` | [`Read`](modules.md#read)\<`THumanReadableAbi`, `Hex`, `Hex`, `undefined`\> |
+| `withAddress` | \<TAddress\>(`address`: `TAddress`) => [`Script`](modules.md#script)\<`TName`, `THumanReadableAbi`\> & \{ `address`: `TAddress` ; `events`: [`Events`](modules.md#events)\<`THumanReadableAbi`, `Hex`, `Hex`, `TAddress`\> ; `read`: [`Read`](modules.md#read)\<`THumanReadableAbi`, `Hex`, `Hex`, `TAddress`\> ; `write`: [`Write`](modules.md#write)\<`THumanReadableAbi`, `Hex`, `Hex`, `TAddress`\>  } |
+| `write` | [`Write`](modules.md#write)\<`THumanReadableAbi`, `Hex`, `Hex`, `undefined`\> |
+
+#### Defined in
+
+[packages/contract/src/Script.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/Script.ts#L7)
+
+___
+
+### Write
+
+Ƭ **Write**\<`THumanReadableAbi`, `TBytecode`, `TDeployedBytecode`, `TAddress`, `TAddressArgs`\>: \{ [TFunctionName in ExtractAbiFunctionNames\<ParseAbi\<THumanReadableAbi\>, "payable" \| "nonpayable"\>]: Function & Object & TAddressArgs }
+
+#### Type parameters
+
+| Name | Type |
+| :------ | :------ |
+| `THumanReadableAbi` | extends readonly `string`[] |
+| `TBytecode` | extends `Hex` \| `undefined` |
+| `TDeployedBytecode` | extends `Hex` \| `undefined` |
+| `TAddress` | extends `Address` \| `undefined` |
+| `TAddressArgs` | `TAddress` extends `undefined` ? {} : \{ `address`: `TAddress`  } |
+
+#### Defined in
+
+[packages/contract/src/write/Write.ts:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/write/Write.ts#L12)
+
+## Functions
+
+### createContract
+
+▸ **createContract**\<`TName`, `THumanReadableAbi`\>(`«destructured»`): [`Contract`](modules.md#contract)\<`TName`, `THumanReadableAbi`\>
+
+Creates a tevm Contract instance from human readable abi
+To use a json abi first pass it into `formatAbi` to turn it into human readable
+
+#### Type parameters
+
+| Name | Type |
+| :------ | :------ |
+| `TName` | extends `string` |
+| `THumanReadableAbi` | extends readonly `string`[] |
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `«destructured»` | `Pick`\<[`TevmContract`](modules.md#tevmcontract)\<`TName`, `FormatAbi`\<`TAbi`\>, `TBytecode`, `TDeployedBytecode`\>, ``"name"`` \| ``"abi"`` \| ``"bytecode"`` \| ``"deployedBytecode"``\> |
+| `«destructured»` | [`CreateContractParams`](modules.md#createcontractparams)\<`TName`, `THumanReadableAbi`\> |
 
 #### Returns
 
-[`TevmContract`](modules.md#tevmcontract)\<`TName`, `FormatAbi`\<`TAbi`\>, `TBytecode`, `TDeployedBytecode`\>
+[`Contract`](modules.md#contract)\<`TName`, `THumanReadableAbi`\>
 
 #### Defined in
 
-[packages/contract/src/createTevmContractFromAbi.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/createTevmContractFromAbi.ts#L8)
+[packages/contract/src/types.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/types.ts#L9)
+
+___
+
+### createScript
+
+▸ **createScript**\<`TName`, `THumanReadableAbi`\>(`«destructured»`): [`Script`](modules.md#script)\<`TName`, `THumanReadableAbi`\>
+
+Creates a Tevm Script instance from humanReadableAbi and bytecode
+
+#### Type parameters
+
+| Name | Type |
+| :------ | :------ |
+| `TName` | extends `string` |
+| `THumanReadableAbi` | extends readonly `string`[] |
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `«destructured»` | [`CreateScriptParams`](modules.md#createscriptparams)\<`TName`, `THumanReadableAbi`\> |
+
+#### Returns
+
+[`Script`](modules.md#script)\<`TName`, `THumanReadableAbi`\>
+
+#### Defined in
+
+[packages/contract/src/types.ts:28](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/types.ts#L28)
 
 ___
 
@@ -250,6 +384,97 @@ Human-readable ABI
 #### Defined in
 
 node_modules/.pnpm/abitype@0.10.2_typescript@5.3.3_zod@3.22.4/node_modules/abitype/dist/types/human-readable/formatAbi.d.ts:18
+
+___
+
+### formatEther
+
+▸ **formatEther**(`wei`, `unit?`): `string`
+
+Converts numerical wei to a string representation of ether.
+
+- Docs: https://viem.sh/docs/utilities/formatEther.html
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `wei` | `bigint` |
+| `unit?` | ``"wei"`` \| ``"gwei"`` |
+
+#### Returns
+
+`string`
+
+**`Example`**
+
+```ts
+import { formatEther } from 'viem'
+
+formatEther(1000000000000000000n)
+// '1'
+```
+
+#### Defined in
+
+node_modules/.pnpm/viem@2.0.2_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/unit/formatEther.d.ts:14
+
+___
+
+### formatGwei
+
+▸ **formatGwei**(`wei`, `unit?`): `string`
+
+Converts numerical wei to a string representation of gwei.
+
+- Docs: https://viem.sh/docs/utilities/formatGwei.html
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `wei` | `bigint` |
+| `unit?` | ``"wei"`` |
+
+#### Returns
+
+`string`
+
+**`Example`**
+
+```ts
+import { formatGwei } from 'viem'
+
+formatGwei(1000000000n)
+// '1'
+```
+
+#### Defined in
+
+node_modules/.pnpm/viem@2.0.2_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/unit/formatGwei.d.ts:14
+
+___
+
+### formatLog
+
+▸ **formatLog**(`log`, `«destructured»?`): `Log`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `log` | `Partial`\<`RpcLog`\> |
+| `«destructured»` | `Object` |
+| › `args?` | `unknown` |
+| › `eventName?` | `string` |
+
+#### Returns
+
+`Log`
+
+#### Defined in
+
+node_modules/.pnpm/viem@2.0.2_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/formatters/log.d.ts:5
 
 ___
 

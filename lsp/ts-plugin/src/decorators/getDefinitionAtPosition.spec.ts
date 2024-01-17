@@ -165,7 +165,7 @@ describe('getDefinitionServiceDecorator', () => {
 		`)
 	})
 
-	it('should return original definitions if tevmContractPath is null', () => {
+	it('should return original definitions if ContractPath is null', () => {
 		vi.mock(
 			'../utils/findContractDefinitionFileNameFromTevmNode',
 			async () => ({

@@ -1,5 +1,5 @@
 export {
-	createTevmContract,
+	createContract,
 	decodeFunctionData,
 	decodeFunctionResult,
 	encodeFunctionData,

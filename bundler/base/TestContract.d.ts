@@ -1,4 +1,4 @@
-import { TevmContract } from '@tevm/contract'
+import { Contract } from '@tevm/contract'
 const _abiTestContract = [
 	{
 		constant: true,
@@ -119,10 +119,10 @@ const _abiTestContract = [
 const _chainAddressMapTestContract = { '10': '0x123' } as const
 const _nameTestContract = 'TestContract' as const
 /**
- * TestContract TevmContract
+ * TestContract Contract
  * @etherscan-10 https://optimistic.etherscan.io/address/0x123
  */
-export const TestContract: TevmContract<
+export const TestContract: Contract<
 	typeof _nameTestContract,
 	typeof _chainAddressMapTestContract,
 	typeof _abiTestContract

@@ -19,13 +19,13 @@ export {
 } from '@tevm/client'
 
 export {
-	type TevmContract,
+	type Contract,
 	parseAbi,
 	decodeFunctionData,
 	decodeFunctionResult,
 	encodeFunctionData,
 	encodeFunctionResult,
-	createTevmContract,
+	createContract,
 } from '@tevm/contract'
 
 export { createTevm } from '@tevm/vm'

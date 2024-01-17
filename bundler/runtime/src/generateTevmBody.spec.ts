@@ -43,12 +43,12 @@ describe('generateTevmBody', () => {
 			 * MyContract
 			 * @property balanceOf(address) Returns the amount of tokens owned by account
 			 */
-			module.exports.MyContract = createTevmContract(_MyContract)
+			module.exports.MyContract = createContract(_MyContract)
 			const _AnotherContract = {\\"name\\":\\"AnotherContract\\",\\"humanReadableAbi\\":[]}
 			/**
 			 * MyContract
 			 */
-			module.exports.AnotherContract = createTevmContract(_AnotherContract)"
+			module.exports.AnotherContract = createContract(_AnotherContract)"
 		`)
 	})
 
@@ -60,12 +60,12 @@ describe('generateTevmBody', () => {
 			 * MyContract
 			 * @property balanceOf(address) Returns the amount of tokens owned by account
 			 */
-			export const MyContract = createTevmContract(_MyContract)
+			export const MyContract = createContract(_MyContract)
 			const _AnotherContract = {\\"name\\":\\"AnotherContract\\",\\"humanReadableAbi\\":[]}
 			/**
 			 * MyContract
 			 */
-			export const AnotherContract = createTevmContract(_AnotherContract)"
+			export const AnotherContract = createContract(_AnotherContract)"
 		`)
 	})
 
@@ -77,12 +77,12 @@ describe('generateTevmBody', () => {
 			 * MyContract
 			 * @property balanceOf(address) Returns the amount of tokens owned by account
 			 */
-			export const MyContract = createTevmContract(_MyContract)
+			export const MyContract = createContract(_MyContract)
 			const _AnotherContract = {\\"name\\":\\"AnotherContract\\",\\"humanReadableAbi\\":[]} as const
 			/**
 			 * MyContract
 			 */
-			export const AnotherContract = createTevmContract(_AnotherContract)"
+			export const AnotherContract = createContract(_AnotherContract)"
 		`)
 	})
 
@@ -92,18 +92,18 @@ describe('generateTevmBody', () => {
 			"const _abiMyContract = [] as const;
 			const _nameMyContract = \\"MyContract\\" as const;
 			/**
-			 * MyContract TevmContract
+			 * MyContract Contract
 			 * @notice MyContract
 			 * @property balanceOf(address) Returns the amount of tokens owned by account
 			 */
-			export const MyContract: TevmContract<typeof _nameMyContract, typeof _abiMyContract, undefined, undefined>;
+			export const MyContract: Contract<typeof _nameMyContract, typeof _abiMyContract>;
 			const _abiAnotherContract = [] as const;
 			const _nameAnotherContract = \\"AnotherContract\\" as const;
 			/**
-			 * AnotherContract TevmContract
+			 * AnotherContract Contract
 			 * @notice MyContract
 			 */
-			export const AnotherContract: TevmContract<typeof _nameAnotherContract, typeof _abiAnotherContract, undefined, undefined>;"
+			export const AnotherContract: Contract<typeof _nameAnotherContract, typeof _abiAnotherContract>;"
 		`)
 	})
 })

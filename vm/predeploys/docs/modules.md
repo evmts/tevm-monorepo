@@ -20,7 +20,7 @@
 
 ### CustomPredeploy
 
-Ƭ **CustomPredeploy**\<`TName`, `THumanReadableAbi`, `TBytecode`, `TDeployedBytecode`\>: `Object`
+Ƭ **CustomPredeploy**\<`TName`, `THumanReadableAbi`\>: `Object`
 
 #### Type parameters
 
@@ -28,15 +28,13 @@
 | :------ | :------ |
 | `TName` | extends `string` |
 | `THumanReadableAbi` | extends `ReadonlyArray`\<`string`\> |
-| `TBytecode` | extends \`0x$\{string}\` \| `undefined` |
-| `TDeployedBytecode` | extends \`0x$\{string}\` \| `undefined` |
 
 #### Type declaration
 
 | Name | Type |
 | :------ | :------ |
 | `address` | `Address` |
-| `contract` | `TevmContract`\<`TName`, `THumanReadableAbi`, `TBytecode`, `TDeployedBytecode`\> |
+| `contract` | `Script`\<`TName`, `THumanReadableAbi`\> |
 
 #### Defined in
 
@@ -46,7 +44,7 @@
 
 ### definePredeploy
 
-▸ **definePredeploy**\<`TName`, `THumanReadableAbi`, `TBytecode`, `TDeployedBytecode`\>(`«destructured»`): [`Predeploy`](classes/Predeploy.md)\<`TName`, `THumanReadableAbi`, `TBytecode`, `TDeployedBytecode`\>
+▸ **definePredeploy**\<`TName`, `THumanReadableAbi`\>(`«destructured»`): [`Predeploy`](classes/Predeploy.md)\<`TName`, `THumanReadableAbi`\>
 
 #### Type parameters
 
@@ -54,19 +52,17 @@
 | :------ | :------ |
 | `TName` | extends `string` |
 | `THumanReadableAbi` | extends readonly `string`[] |
-| `TBytecode` | extends \`0x$\{string}\` |
-| `TDeployedBytecode` | extends \`0x$\{string}\` |
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `«destructured»` | `Pick`\<[`Predeploy`](classes/Predeploy.md)\<`TName`, `THumanReadableAbi`, `TBytecode`, `TDeployedBytecode`\>, ``"contract"`` \| ``"address"``\> |
+| `«destructured»` | `Pick`\<[`Predeploy`](classes/Predeploy.md)\<`TName`, `THumanReadableAbi`\>, ``"contract"`` \| ``"address"``\> |
 
 #### Returns
 
-[`Predeploy`](classes/Predeploy.md)\<`TName`, `THumanReadableAbi`, `TBytecode`, `TDeployedBytecode`\>
+[`Predeploy`](classes/Predeploy.md)\<`TName`, `THumanReadableAbi`\>
 
 #### Defined in
 
-[definePredeploy.ts:35](https://github.com/evmts/tevm-monorepo/blob/main/vm/predeploys/src/definePredeploy.ts#L35)
+[definePredeploy.ts:26](https://github.com/evmts/tevm-monorepo/blob/main/vm/predeploys/src/definePredeploy.ts#L26)
