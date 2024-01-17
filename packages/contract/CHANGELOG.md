@@ -1,5 +1,36 @@
 # @tevm/contract
 
+## 1.0.0-next.22
+
+### Major Changes
+
+- [#828](https://github.com/evmts/tevm-monorepo/pull/828) [`3b5f6729`](https://github.com/evmts/tevm-monorepo/commit/3b5f67291550b590dda16471059a05bd10fe324d) Thanks [@roninjin10](https://github.com/roninjin10)! - - Changed name of `TevmContract` to `Contract`
+
+  - Changed name of `createTevmContract` to `createContract`
+  - Added `Script` to be a Contract with bytecode
+  - Removed bytecode from `Contract`
+  - Added a new `withAddress` method for adding an address to a contract
+  - Removed need to explicitly pass in undefined for optional params
+
+  ## withAddress
+
+  Before we had to spred contracts like this:
+
+  ```typescript
+  client.readContract({
+    address: contractAddress,
+    ...Erc20Contract.read.balanceOf(userAddress),
+  });
+  ```
+
+  Now Tevm can create a contract with an address attatched
+
+  ```typescript
+  client.readContract(
+    Erc20Contract.withAddress(contractAddress).read.balanceOf(userAddress)
+  );
+  ```
+
 ## 1.0.0-next.21
 
 ### Patch Changes
