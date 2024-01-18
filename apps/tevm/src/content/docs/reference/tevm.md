@@ -61,7 +61,7 @@ import { Tevm } from "tevm"
 import { createPublicClient, http } from "viem"
 import { MyERC721 } from './MyERC721.sol'
 
-const tevm = Tevm.create({
+const tevm = createTevm({
 	fork: {
 	  url: "https://mainnet.optimism.io",
 	},
@@ -81,11 +81,6 @@ const balance = await tevm.runContractCall(
  }),
  )
  console.log(balance) // 1n
- ```
-
-#### Defined in
-
-[vm/vm/src/createTevm.js:56](https://github.com/evmts/tevm-monorepo/blob/main/vm/vm/src/createTevm.js#L56)
 
 ## Tevm
 
