@@ -344,7 +344,7 @@ ___
 
 Ƭ **AnvilImpersonateAccountParams**: `Object`
 
-Params fro `anvil_impersonateAccount` handler
+Params for `anvil_impersonateAccount` handler
 
 #### Type declaration
 
