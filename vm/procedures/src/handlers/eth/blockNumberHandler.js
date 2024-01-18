@@ -1,4 +1,5 @@
 /**
+ * Handler for the `eth_blockNumber` RPC call
  * @param {import('@ethereumjs/blockchain').BlockchainInterface} blockchain
  * @returns {import('@tevm/api').EthBlockNumberHandler}
  */
