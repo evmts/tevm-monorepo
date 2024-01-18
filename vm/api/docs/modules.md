@@ -6,405 +6,405 @@
 
 ### Type Aliases
 
-- [AccountError](modules.md#accounterror)
-- [AccountHandler](modules.md#accounthandler)
-- [AccountJsonRpcProcedure](modules.md#accountjsonrpcprocedure)
-- [AccountJsonRpcRequest](modules.md#accountjsonrpcrequest)
-- [AccountJsonRpcResponse](modules.md#accountjsonrpcresponse)
-- [AccountParams](modules.md#accountparams)
-- [AccountResult](modules.md#accountresult)
-- [AnvilDropTransactionHandler](modules.md#anvildroptransactionhandler)
-- [AnvilDropTransactionJsonRpcRequest](modules.md#anvildroptransactionjsonrpcrequest)
-- [AnvilDropTransactionJsonRpcResponse](modules.md#anvildroptransactionjsonrpcresponse)
-- [AnvilDropTransactionParams](modules.md#anvildroptransactionparams)
-- [AnvilDropTransactionProcedure](modules.md#anvildroptransactionprocedure)
-- [AnvilDropTransactionResult](modules.md#anvildroptransactionresult)
-- [AnvilDumpStateHandler](modules.md#anvildumpstatehandler)
-- [AnvilDumpStateJsonRpcRequest](modules.md#anvildumpstatejsonrpcrequest)
-- [AnvilDumpStateJsonRpcResponse](modules.md#anvildumpstatejsonrpcresponse)
-- [AnvilDumpStateParams](modules.md#anvildumpstateparams)
-- [AnvilDumpStateProcedure](modules.md#anvildumpstateprocedure)
-- [AnvilDumpStateResult](modules.md#anvildumpstateresult)
-- [AnvilGetAutomineHandler](modules.md#anvilgetautominehandler)
-- [AnvilGetAutomineJsonRpcRequest](modules.md#anvilgetautominejsonrpcrequest)
-- [AnvilGetAutomineJsonRpcResponse](modules.md#anvilgetautominejsonrpcresponse)
-- [AnvilGetAutomineParams](modules.md#anvilgetautomineparams)
-- [AnvilGetAutomineProcedure](modules.md#anvilgetautomineprocedure)
-- [AnvilGetAutomineResult](modules.md#anvilgetautomineresult)
-- [AnvilImpersonateAccountHandler](modules.md#anvilimpersonateaccounthandler)
-- [AnvilImpersonateAccountJsonRpcRequest](modules.md#anvilimpersonateaccountjsonrpcrequest)
-- [AnvilImpersonateAccountJsonRpcResponse](modules.md#anvilimpersonateaccountjsonrpcresponse)
-- [AnvilImpersonateAccountParams](modules.md#anvilimpersonateaccountparams)
-- [AnvilImpersonateAccountProcedure](modules.md#anvilimpersonateaccountprocedure)
-- [AnvilImpersonateAccountResult](modules.md#anvilimpersonateaccountresult)
-- [AnvilLoadStateHandler](modules.md#anvilloadstatehandler)
-- [AnvilLoadStateJsonRpcRequest](modules.md#anvilloadstatejsonrpcrequest)
-- [AnvilLoadStateJsonRpcResponse](modules.md#anvilloadstatejsonrpcresponse)
-- [AnvilLoadStateParams](modules.md#anvilloadstateparams)
-- [AnvilLoadStateProcedure](modules.md#anvilloadstateprocedure)
-- [AnvilLoadStateResult](modules.md#anvilloadstateresult)
-- [AnvilMineHandler](modules.md#anvilminehandler)
-- [AnvilMineJsonRpcRequest](modules.md#anvilminejsonrpcrequest)
-- [AnvilMineJsonRpcResponse](modules.md#anvilminejsonrpcresponse)
-- [AnvilMineParams](modules.md#anvilmineparams)
-- [AnvilMineProcedure](modules.md#anvilmineprocedure)
-- [AnvilMineResult](modules.md#anvilmineresult)
-- [AnvilResetHandler](modules.md#anvilresethandler)
-- [AnvilResetJsonRpcRequest](modules.md#anvilresetjsonrpcrequest)
-- [AnvilResetJsonRpcResponse](modules.md#anvilresetjsonrpcresponse)
-- [AnvilResetParams](modules.md#anvilresetparams)
-- [AnvilResetProcedure](modules.md#anvilresetprocedure)
-- [AnvilResetResult](modules.md#anvilresetresult)
-- [AnvilSetBalanceHandler](modules.md#anvilsetbalancehandler)
-- [AnvilSetBalanceJsonRpcRequest](modules.md#anvilsetbalancejsonrpcrequest)
-- [AnvilSetBalanceJsonRpcResponse](modules.md#anvilsetbalancejsonrpcresponse)
-- [AnvilSetBalanceParams](modules.md#anvilsetbalanceparams)
-- [AnvilSetBalanceProcedure](modules.md#anvilsetbalanceprocedure)
-- [AnvilSetBalanceResult](modules.md#anvilsetbalanceresult)
-- [AnvilSetChainIdHandler](modules.md#anvilsetchainidhandler)
-- [AnvilSetChainIdJsonRpcRequest](modules.md#anvilsetchainidjsonrpcrequest)
-- [AnvilSetChainIdJsonRpcResponse](modules.md#anvilsetchainidjsonrpcresponse)
-- [AnvilSetChainIdParams](modules.md#anvilsetchainidparams)
-- [AnvilSetChainIdProcedure](modules.md#anvilsetchainidprocedure)
-- [AnvilSetChainIdResult](modules.md#anvilsetchainidresult)
-- [AnvilSetCodeHandler](modules.md#anvilsetcodehandler)
-- [AnvilSetCodeJsonRpcRequest](modules.md#anvilsetcodejsonrpcrequest)
-- [AnvilSetCodeJsonRpcResponse](modules.md#anvilsetcodejsonrpcresponse)
-- [AnvilSetCodeParams](modules.md#anvilsetcodeparams)
-- [AnvilSetCodeProcedure](modules.md#anvilsetcodeprocedure)
-- [AnvilSetCodeResult](modules.md#anvilsetcoderesult)
-- [AnvilSetNonceHandler](modules.md#anvilsetnoncehandler)
-- [AnvilSetNonceJsonRpcRequest](modules.md#anvilsetnoncejsonrpcrequest)
-- [AnvilSetNonceJsonRpcResponse](modules.md#anvilsetnoncejsonrpcresponse)
-- [AnvilSetNonceParams](modules.md#anvilsetnonceparams)
-- [AnvilSetNonceProcedure](modules.md#anvilsetnonceprocedure)
-- [AnvilSetNonceResult](modules.md#anvilsetnonceresult)
-- [AnvilSetStorageAtHandler](modules.md#anvilsetstorageathandler)
-- [AnvilSetStorageAtJsonRpcRequest](modules.md#anvilsetstorageatjsonrpcrequest)
-- [AnvilSetStorageAtJsonRpcResponse](modules.md#anvilsetstorageatjsonrpcresponse)
-- [AnvilSetStorageAtParams](modules.md#anvilsetstorageatparams)
-- [AnvilSetStorageAtProcedure](modules.md#anvilsetstorageatprocedure)
-- [AnvilSetStorageAtResult](modules.md#anvilsetstorageatresult)
-- [AnvilStopImpersonatingAccountHandler](modules.md#anvilstopimpersonatingaccounthandler)
-- [AnvilStopImpersonatingAccountJsonRpcRequest](modules.md#anvilstopimpersonatingaccountjsonrpcrequest)
-- [AnvilStopImpersonatingAccountJsonRpcResponse](modules.md#anvilstopimpersonatingaccountjsonrpcresponse)
-- [AnvilStopImpersonatingAccountParams](modules.md#anvilstopimpersonatingaccountparams)
-- [AnvilStopImpersonatingAccountProcedure](modules.md#anvilstopimpersonatingaccountprocedure)
-- [AnvilStopImpersonatingAccountResult](modules.md#anvilstopimpersonatingaccountresult)
-- [BaseCallError](modules.md#basecallerror)
-- [BaseCallParams](modules.md#basecallparams)
-- [Block](modules.md#block)
-- [BlockResult](modules.md#blockresult)
-- [CallError](modules.md#callerror)
-- [CallHandler](modules.md#callhandler)
-- [CallJsonRpcProcedure](modules.md#calljsonrpcprocedure)
-- [CallJsonRpcRequest](modules.md#calljsonrpcrequest)
-- [CallJsonRpcResponse](modules.md#calljsonrpcresponse)
-- [CallParams](modules.md#callparams)
-- [CallResult](modules.md#callresult)
-- [ContractError](modules.md#contracterror)
-- [ContractHandler](modules.md#contracthandler)
-- [ContractJsonRpcProcedure](modules.md#contractjsonrpcprocedure)
-- [ContractJsonRpcRequest](modules.md#contractjsonrpcrequest)
-- [ContractJsonRpcResponse](modules.md#contractjsonrpcresponse)
-- [ContractParams](modules.md#contractparams)
-- [ContractResult](modules.md#contractresult)
-- [DebugTraceCallHandler](modules.md#debugtracecallhandler)
-- [DebugTraceCallJsonRpcRequest](modules.md#debugtracecalljsonrpcrequest)
-- [DebugTraceCallJsonRpcResponse](modules.md#debugtracecalljsonrpcresponse)
-- [DebugTraceCallParams](modules.md#debugtracecallparams)
-- [DebugTraceCallProcedure](modules.md#debugtracecallprocedure)
-- [DebugTraceCallResult](modules.md#debugtracecallresult)
-- [DebugTraceTransactionHandler](modules.md#debugtracetransactionhandler)
-- [DebugTraceTransactionJsonRpcRequest](modules.md#debugtracetransactionjsonrpcrequest)
-- [DebugTraceTransactionJsonRpcResponse](modules.md#debugtracetransactionjsonrpcresponse)
-- [DebugTraceTransactionParams](modules.md#debugtracetransactionparams)
-- [DebugTraceTransactionProcedure](modules.md#debugtracetransactionprocedure)
-- [DebugTraceTransactionResult](modules.md#debugtracetransactionresult)
-- [EthAccountsHandler](modules.md#ethaccountshandler)
-- [EthAccountsJsonRpcProcedure](modules.md#ethaccountsjsonrpcprocedure)
-- [EthAccountsJsonRpcRequest](modules.md#ethaccountsjsonrpcrequest)
-- [EthAccountsJsonRpcResponse](modules.md#ethaccountsjsonrpcresponse)
-- [EthAccountsParams](modules.md#ethaccountsparams)
-- [EthAccountsResult](modules.md#ethaccountsresult)
-- [EthBlockNumberHandler](modules.md#ethblocknumberhandler)
-- [EthBlockNumberJsonRpcProcedure](modules.md#ethblocknumberjsonrpcprocedure)
-- [EthBlockNumberJsonRpcRequest](modules.md#ethblocknumberjsonrpcrequest)
-- [EthBlockNumberJsonRpcResponse](modules.md#ethblocknumberjsonrpcresponse)
-- [EthBlockNumberParams](modules.md#ethblocknumberparams)
-- [EthBlockNumberResult](modules.md#ethblocknumberresult)
-- [EthCallHandler](modules.md#ethcallhandler)
-- [EthCallJsonRpcProcedure](modules.md#ethcalljsonrpcprocedure)
-- [EthCallJsonRpcRequest](modules.md#ethcalljsonrpcrequest)
-- [EthCallJsonRpcResponse](modules.md#ethcalljsonrpcresponse)
-- [EthCallParams](modules.md#ethcallparams)
-- [EthCallResult](modules.md#ethcallresult)
-- [EthChainIdHandler](modules.md#ethchainidhandler)
-- [EthChainIdJsonRpcProcedure](modules.md#ethchainidjsonrpcprocedure)
-- [EthChainIdJsonRpcRequest](modules.md#ethchainidjsonrpcrequest)
-- [EthChainIdJsonRpcResponse](modules.md#ethchainidjsonrpcresponse)
-- [EthChainIdParams](modules.md#ethchainidparams)
-- [EthChainIdResult](modules.md#ethchainidresult)
-- [EthCoinbaseHandler](modules.md#ethcoinbasehandler)
-- [EthCoinbaseJsonRpcProcedure](modules.md#ethcoinbasejsonrpcprocedure)
-- [EthCoinbaseJsonRpcRequest](modules.md#ethcoinbasejsonrpcrequest)
-- [EthCoinbaseJsonRpcResponse](modules.md#ethcoinbasejsonrpcresponse)
-- [EthCoinbaseParams](modules.md#ethcoinbaseparams)
-- [EthCoinbaseResult](modules.md#ethcoinbaseresult)
-- [EthEstimateGasHandler](modules.md#ethestimategashandler)
-- [EthEstimateGasJsonRpcProcedure](modules.md#ethestimategasjsonrpcprocedure)
-- [EthEstimateGasJsonRpcRequest](modules.md#ethestimategasjsonrpcrequest)
-- [EthEstimateGasJsonRpcResponse](modules.md#ethestimategasjsonrpcresponse)
-- [EthEstimateGasParams](modules.md#ethestimategasparams)
-- [EthEstimateGasResult](modules.md#ethestimategasresult)
-- [EthGasPriceHandler](modules.md#ethgaspricehandler)
-- [EthGasPriceJsonRpcProcedure](modules.md#ethgaspricejsonrpcprocedure)
-- [EthGasPriceJsonRpcRequest](modules.md#ethgaspricejsonrpcrequest)
-- [EthGasPriceJsonRpcResponse](modules.md#ethgaspricejsonrpcresponse)
-- [EthGasPriceParams](modules.md#ethgaspriceparams)
-- [EthGasPriceResult](modules.md#ethgaspriceresult)
-- [EthGetBalanceHandler](modules.md#ethgetbalancehandler)
-- [EthGetBalanceJsonRpcProcedure](modules.md#ethgetbalancejsonrpcprocedure)
-- [EthGetBalanceJsonRpcRequest](modules.md#ethgetbalancejsonrpcrequest)
-- [EthGetBalanceJsonRpcResponse](modules.md#ethgetbalancejsonrpcresponse)
-- [EthGetBalanceParams](modules.md#ethgetbalanceparams)
-- [EthGetBalanceResult](modules.md#ethgetbalanceresult)
-- [EthGetBlockByHashHandler](modules.md#ethgetblockbyhashhandler)
-- [EthGetBlockByHashJsonRpcProcedure](modules.md#ethgetblockbyhashjsonrpcprocedure)
-- [EthGetBlockByHashJsonRpcRequest](modules.md#ethgetblockbyhashjsonrpcrequest)
-- [EthGetBlockByHashJsonRpcResponse](modules.md#ethgetblockbyhashjsonrpcresponse)
-- [EthGetBlockByHashParams](modules.md#ethgetblockbyhashparams)
-- [EthGetBlockByHashResult](modules.md#ethgetblockbyhashresult)
-- [EthGetBlockByNumberHandler](modules.md#ethgetblockbynumberhandler)
-- [EthGetBlockByNumberJsonRpcProcedure](modules.md#ethgetblockbynumberjsonrpcprocedure)
-- [EthGetBlockByNumberJsonRpcRequest](modules.md#ethgetblockbynumberjsonrpcrequest)
-- [EthGetBlockByNumberJsonRpcResponse](modules.md#ethgetblockbynumberjsonrpcresponse)
-- [EthGetBlockByNumberParams](modules.md#ethgetblockbynumberparams)
-- [EthGetBlockByNumberResult](modules.md#ethgetblockbynumberresult)
-- [EthGetBlockTransactionCountByHashHandler](modules.md#ethgetblocktransactioncountbyhashhandler)
-- [EthGetBlockTransactionCountByHashJsonRpcProcedure](modules.md#ethgetblocktransactioncountbyhashjsonrpcprocedure)
-- [EthGetBlockTransactionCountByHashJsonRpcRequest](modules.md#ethgetblocktransactioncountbyhashjsonrpcrequest)
-- [EthGetBlockTransactionCountByHashJsonRpcResponse](modules.md#ethgetblocktransactioncountbyhashjsonrpcresponse)
-- [EthGetBlockTransactionCountByHashParams](modules.md#ethgetblocktransactioncountbyhashparams)
-- [EthGetBlockTransactionCountByHashResult](modules.md#ethgetblocktransactioncountbyhashresult)
-- [EthGetBlockTransactionCountByNumberHandler](modules.md#ethgetblocktransactioncountbynumberhandler)
-- [EthGetBlockTransactionCountByNumberJsonRpcProcedure](modules.md#ethgetblocktransactioncountbynumberjsonrpcprocedure)
-- [EthGetBlockTransactionCountByNumberJsonRpcRequest](modules.md#ethgetblocktransactioncountbynumberjsonrpcrequest)
-- [EthGetBlockTransactionCountByNumberJsonRpcResponse](modules.md#ethgetblocktransactioncountbynumberjsonrpcresponse)
-- [EthGetBlockTransactionCountByNumberParams](modules.md#ethgetblocktransactioncountbynumberparams)
-- [EthGetBlockTransactionCountByNumberResult](modules.md#ethgetblocktransactioncountbynumberresult)
-- [EthGetCodeHandler](modules.md#ethgetcodehandler)
-- [EthGetCodeJsonRpcProcedure](modules.md#ethgetcodejsonrpcprocedure)
-- [EthGetCodeJsonRpcRequest](modules.md#ethgetcodejsonrpcrequest)
-- [EthGetCodeJsonRpcResponse](modules.md#ethgetcodejsonrpcresponse)
-- [EthGetCodeParams](modules.md#ethgetcodeparams)
-- [EthGetCodeResult](modules.md#ethgetcoderesult)
-- [EthGetFilterChangesHandler](modules.md#ethgetfilterchangeshandler)
-- [EthGetFilterChangesJsonRpcProcedure](modules.md#ethgetfilterchangesjsonrpcprocedure)
-- [EthGetFilterChangesJsonRpcRequest](modules.md#ethgetfilterchangesjsonrpcrequest)
-- [EthGetFilterChangesJsonRpcResponse](modules.md#ethgetfilterchangesjsonrpcresponse)
-- [EthGetFilterChangesParams](modules.md#ethgetfilterchangesparams)
-- [EthGetFilterChangesResult](modules.md#ethgetfilterchangesresult)
-- [EthGetFilterLogsHandler](modules.md#ethgetfilterlogshandler)
-- [EthGetFilterLogsJsonRpcProcedure](modules.md#ethgetfilterlogsjsonrpcprocedure)
-- [EthGetFilterLogsJsonRpcRequest](modules.md#ethgetfilterlogsjsonrpcrequest)
-- [EthGetFilterLogsJsonRpcResponse](modules.md#ethgetfilterlogsjsonrpcresponse)
-- [EthGetFilterLogsParams](modules.md#ethgetfilterlogsparams)
-- [EthGetFilterLogsResult](modules.md#ethgetfilterlogsresult)
-- [EthGetLogsHandler](modules.md#ethgetlogshandler)
-- [EthGetLogsJsonRpcProcedure](modules.md#ethgetlogsjsonrpcprocedure)
-- [EthGetLogsJsonRpcRequest](modules.md#ethgetlogsjsonrpcrequest)
-- [EthGetLogsJsonRpcResponse](modules.md#ethgetlogsjsonrpcresponse)
-- [EthGetLogsParams](modules.md#ethgetlogsparams)
-- [EthGetLogsResult](modules.md#ethgetlogsresult)
-- [EthGetStorageAtHandler](modules.md#ethgetstorageathandler)
-- [EthGetStorageAtJsonRpcProcedure](modules.md#ethgetstorageatjsonrpcprocedure)
-- [EthGetStorageAtJsonRpcRequest](modules.md#ethgetstorageatjsonrpcrequest)
-- [EthGetStorageAtJsonRpcResponse](modules.md#ethgetstorageatjsonrpcresponse)
-- [EthGetStorageAtParams](modules.md#ethgetstorageatparams)
-- [EthGetStorageAtResult](modules.md#ethgetstorageatresult)
-- [EthGetTransactionByBlockHashAndIndexHandler](modules.md#ethgettransactionbyblockhashandindexhandler)
-- [EthGetTransactionByBlockHashAndIndexJsonRpcProcedure](modules.md#ethgettransactionbyblockhashandindexjsonrpcprocedure)
-- [EthGetTransactionByBlockHashAndIndexJsonRpcRequest](modules.md#ethgettransactionbyblockhashandindexjsonrpcrequest)
-- [EthGetTransactionByBlockHashAndIndexJsonRpcResponse](modules.md#ethgettransactionbyblockhashandindexjsonrpcresponse)
-- [EthGetTransactionByBlockHashAndIndexParams](modules.md#ethgettransactionbyblockhashandindexparams)
-- [EthGetTransactionByBlockHashAndIndexResult](modules.md#ethgettransactionbyblockhashandindexresult)
-- [EthGetTransactionByBlockNumberAndIndexHandler](modules.md#ethgettransactionbyblocknumberandindexhandler)
-- [EthGetTransactionByBlockNumberAndIndexJsonRpcProcedure](modules.md#ethgettransactionbyblocknumberandindexjsonrpcprocedure)
-- [EthGetTransactionByBlockNumberAndIndexJsonRpcRequest](modules.md#ethgettransactionbyblocknumberandindexjsonrpcrequest)
-- [EthGetTransactionByBlockNumberAndIndexJsonRpcResponse](modules.md#ethgettransactionbyblocknumberandindexjsonrpcresponse)
-- [EthGetTransactionByBlockNumberAndIndexParams](modules.md#ethgettransactionbyblocknumberandindexparams)
-- [EthGetTransactionByBlockNumberAndIndexResult](modules.md#ethgettransactionbyblocknumberandindexresult)
-- [EthGetTransactionByHashHandler](modules.md#ethgettransactionbyhashhandler)
-- [EthGetTransactionByHashJsonRpcProcedure](modules.md#ethgettransactionbyhashjsonrpcprocedure)
-- [EthGetTransactionByHashJsonRpcRequest](modules.md#ethgettransactionbyhashjsonrpcrequest)
-- [EthGetTransactionByHashJsonRpcResponse](modules.md#ethgettransactionbyhashjsonrpcresponse)
-- [EthGetTransactionByHashParams](modules.md#ethgettransactionbyhashparams)
-- [EthGetTransactionByHashResult](modules.md#ethgettransactionbyhashresult)
-- [EthGetTransactionCountHandler](modules.md#ethgettransactioncounthandler)
-- [EthGetTransactionCountJsonRpcProcedure](modules.md#ethgettransactioncountjsonrpcprocedure)
-- [EthGetTransactionCountJsonRpcRequest](modules.md#ethgettransactioncountjsonrpcrequest)
-- [EthGetTransactionCountJsonRpcResponse](modules.md#ethgettransactioncountjsonrpcresponse)
-- [EthGetTransactionCountParams](modules.md#ethgettransactioncountparams)
-- [EthGetTransactionCountResult](modules.md#ethgettransactioncountresult)
-- [EthGetTransactionReceiptHandler](modules.md#ethgettransactionreceipthandler)
-- [EthGetTransactionReceiptJsonRpcProcedure](modules.md#ethgettransactionreceiptjsonrpcprocedure)
-- [EthGetTransactionReceiptJsonRpcRequest](modules.md#ethgettransactionreceiptjsonrpcrequest)
-- [EthGetTransactionReceiptJsonRpcResponse](modules.md#ethgettransactionreceiptjsonrpcresponse)
-- [EthGetTransactionReceiptParams](modules.md#ethgettransactionreceiptparams)
-- [EthGetTransactionReceiptResult](modules.md#ethgettransactionreceiptresult)
-- [EthGetUncleByBlockHashAndIndexHandler](modules.md#ethgetunclebyblockhashandindexhandler)
-- [EthGetUncleByBlockHashAndIndexJsonRpcProcedure](modules.md#ethgetunclebyblockhashandindexjsonrpcprocedure)
-- [EthGetUncleByBlockHashAndIndexJsonRpcRequest](modules.md#ethgetunclebyblockhashandindexjsonrpcrequest)
-- [EthGetUncleByBlockHashAndIndexJsonRpcResponse](modules.md#ethgetunclebyblockhashandindexjsonrpcresponse)
-- [EthGetUncleByBlockHashAndIndexParams](modules.md#ethgetunclebyblockhashandindexparams)
-- [EthGetUncleByBlockHashAndIndexResult](modules.md#ethgetunclebyblockhashandindexresult)
-- [EthGetUncleByBlockNumberAndIndexHandler](modules.md#ethgetunclebyblocknumberandindexhandler)
-- [EthGetUncleByBlockNumberAndIndexJsonRpcProcedure](modules.md#ethgetunclebyblocknumberandindexjsonrpcprocedure)
-- [EthGetUncleByBlockNumberAndIndexJsonRpcRequest](modules.md#ethgetunclebyblocknumberandindexjsonrpcrequest)
-- [EthGetUncleByBlockNumberAndIndexJsonRpcResponse](modules.md#ethgetunclebyblocknumberandindexjsonrpcresponse)
-- [EthGetUncleByBlockNumberAndIndexParams](modules.md#ethgetunclebyblocknumberandindexparams)
-- [EthGetUncleByBlockNumberAndIndexResult](modules.md#ethgetunclebyblocknumberandindexresult)
-- [EthGetUncleCountByBlockHashHandler](modules.md#ethgetunclecountbyblockhashhandler)
-- [EthGetUncleCountByBlockHashJsonRpcProcedure](modules.md#ethgetunclecountbyblockhashjsonrpcprocedure)
-- [EthGetUncleCountByBlockHashJsonRpcRequest](modules.md#ethgetunclecountbyblockhashjsonrpcrequest)
-- [EthGetUncleCountByBlockHashJsonRpcResponse](modules.md#ethgetunclecountbyblockhashjsonrpcresponse)
-- [EthGetUncleCountByBlockHashParams](modules.md#ethgetunclecountbyblockhashparams)
-- [EthGetUncleCountByBlockHashResult](modules.md#ethgetunclecountbyblockhashresult)
-- [EthGetUncleCountByBlockNumberHandler](modules.md#ethgetunclecountbyblocknumberhandler)
-- [EthGetUncleCountByBlockNumberJsonRpcProcedure](modules.md#ethgetunclecountbyblocknumberjsonrpcprocedure)
-- [EthGetUncleCountByBlockNumberJsonRpcRequest](modules.md#ethgetunclecountbyblocknumberjsonrpcrequest)
-- [EthGetUncleCountByBlockNumberJsonRpcResponse](modules.md#ethgetunclecountbyblocknumberjsonrpcresponse)
-- [EthGetUncleCountByBlockNumberParams](modules.md#ethgetunclecountbyblocknumberparams)
-- [EthGetUncleCountByBlockNumberResult](modules.md#ethgetunclecountbyblocknumberresult)
-- [EthHashrateHandler](modules.md#ethhashratehandler)
-- [EthHashrateJsonRpcProcedure](modules.md#ethhashratejsonrpcprocedure)
-- [EthHashrateJsonRpcRequest](modules.md#ethhashratejsonrpcrequest)
-- [EthHashrateJsonRpcResponse](modules.md#ethhashratejsonrpcresponse)
-- [EthHashrateParams](modules.md#ethhashrateparams)
-- [EthHashrateResult](modules.md#ethhashrateresult)
-- [EthJsonRpcRequest](modules.md#ethjsonrpcrequest)
-- [EthJsonRpcRequestHandler](modules.md#ethjsonrpcrequesthandler)
-- [EthMiningHandler](modules.md#ethmininghandler)
-- [EthMiningJsonRpcProcedure](modules.md#ethminingjsonrpcprocedure)
-- [EthMiningJsonRpcRequest](modules.md#ethminingjsonrpcrequest)
-- [EthMiningJsonRpcResponse](modules.md#ethminingjsonrpcresponse)
-- [EthMiningParams](modules.md#ethminingparams)
-- [EthMiningResult](modules.md#ethminingresult)
-- [EthNewBlockFilterHandler](modules.md#ethnewblockfilterhandler)
-- [EthNewBlockFilterJsonRpcProcedure](modules.md#ethnewblockfilterjsonrpcprocedure)
-- [EthNewBlockFilterJsonRpcRequest](modules.md#ethnewblockfilterjsonrpcrequest)
-- [EthNewBlockFilterJsonRpcResponse](modules.md#ethnewblockfilterjsonrpcresponse)
-- [EthNewBlockFilterParams](modules.md#ethnewblockfilterparams)
-- [EthNewBlockFilterResult](modules.md#ethnewblockfilterresult)
-- [EthNewFilterHandler](modules.md#ethnewfilterhandler)
-- [EthNewFilterJsonRpcProcedure](modules.md#ethnewfilterjsonrpcprocedure)
-- [EthNewFilterJsonRpcRequest](modules.md#ethnewfilterjsonrpcrequest)
-- [EthNewFilterJsonRpcResponse](modules.md#ethnewfilterjsonrpcresponse)
-- [EthNewFilterParams](modules.md#ethnewfilterparams)
-- [EthNewFilterResult](modules.md#ethnewfilterresult)
-- [EthNewPendingTransactionFilterHandler](modules.md#ethnewpendingtransactionfilterhandler)
-- [EthNewPendingTransactionFilterJsonRpcProcedure](modules.md#ethnewpendingtransactionfilterjsonrpcprocedure)
-- [EthNewPendingTransactionFilterJsonRpcRequest](modules.md#ethnewpendingtransactionfilterjsonrpcrequest)
-- [EthNewPendingTransactionFilterJsonRpcResponse](modules.md#ethnewpendingtransactionfilterjsonrpcresponse)
-- [EthNewPendingTransactionFilterParams](modules.md#ethnewpendingtransactionfilterparams)
-- [EthNewPendingTransactionFilterResult](modules.md#ethnewpendingtransactionfilterresult)
-- [EthParams](modules.md#ethparams)
-- [EthProtocolVersionHandler](modules.md#ethprotocolversionhandler)
-- [EthProtocolVersionJsonRpcProcedure](modules.md#ethprotocolversionjsonrpcprocedure)
-- [EthProtocolVersionJsonRpcRequest](modules.md#ethprotocolversionjsonrpcrequest)
-- [EthProtocolVersionJsonRpcResponse](modules.md#ethprotocolversionjsonrpcresponse)
-- [EthProtocolVersionParams](modules.md#ethprotocolversionparams)
-- [EthProtocolVersionResult](modules.md#ethprotocolversionresult)
-- [EthSendRawTransactionHandler](modules.md#ethsendrawtransactionhandler)
-- [EthSendRawTransactionJsonRpcProcedure](modules.md#ethsendrawtransactionjsonrpcprocedure)
-- [EthSendRawTransactionJsonRpcRequest](modules.md#ethsendrawtransactionjsonrpcrequest)
-- [EthSendRawTransactionJsonRpcResponse](modules.md#ethsendrawtransactionjsonrpcresponse)
-- [EthSendRawTransactionParams](modules.md#ethsendrawtransactionparams)
-- [EthSendRawTransactionResult](modules.md#ethsendrawtransactionresult)
-- [EthSendTransactionHandler](modules.md#ethsendtransactionhandler)
-- [EthSendTransactionJsonRpcProcedure](modules.md#ethsendtransactionjsonrpcprocedure)
-- [EthSendTransactionJsonRpcRequest](modules.md#ethsendtransactionjsonrpcrequest)
-- [EthSendTransactionJsonRpcResponse](modules.md#ethsendtransactionjsonrpcresponse)
-- [EthSendTransactionParams](modules.md#ethsendtransactionparams)
-- [EthSendTransactionResult](modules.md#ethsendtransactionresult)
-- [EthSignHandler](modules.md#ethsignhandler)
-- [EthSignJsonRpcProcedure](modules.md#ethsignjsonrpcprocedure)
-- [EthSignJsonRpcRequest](modules.md#ethsignjsonrpcrequest)
-- [EthSignJsonRpcResponse](modules.md#ethsignjsonrpcresponse)
-- [EthSignParams](modules.md#ethsignparams)
-- [EthSignResult](modules.md#ethsignresult)
-- [EthSignTransactionHandler](modules.md#ethsigntransactionhandler)
-- [EthSignTransactionJsonRpcProcedure](modules.md#ethsigntransactionjsonrpcprocedure)
-- [EthSignTransactionJsonRpcRequest](modules.md#ethsigntransactionjsonrpcrequest)
-- [EthSignTransactionJsonRpcResponse](modules.md#ethsigntransactionjsonrpcresponse)
-- [EthSignTransactionParams](modules.md#ethsigntransactionparams)
-- [EthSignTransactionResult](modules.md#ethsigntransactionresult)
-- [EthSyncingHandler](modules.md#ethsyncinghandler)
-- [EthSyncingJsonRpcProcedure](modules.md#ethsyncingjsonrpcprocedure)
-- [EthSyncingJsonRpcRequest](modules.md#ethsyncingjsonrpcrequest)
-- [EthSyncingJsonRpcResponse](modules.md#ethsyncingjsonrpcresponse)
-- [EthSyncingParams](modules.md#ethsyncingparams)
-- [EthSyncingResult](modules.md#ethsyncingresult)
-- [EthUninstallFilterHandler](modules.md#ethuninstallfilterhandler)
-- [EthUninstallFilterJsonRpcProcedure](modules.md#ethuninstallfilterjsonrpcprocedure)
-- [EthUninstallFilterJsonRpcRequest](modules.md#ethuninstallfilterjsonrpcrequest)
-- [EthUninstallFilterJsonRpcResponse](modules.md#ethuninstallfilterjsonrpcresponse)
-- [EthUninstallFilterParams](modules.md#ethuninstallfilterparams)
-- [EthUninstallFilterResult](modules.md#ethuninstallfilterresult)
-- [EvmError](modules.md#evmerror)
-- [FilterLog](modules.md#filterlog)
-- [InvalidAddressError](modules.md#invalidaddresserror)
-- [InvalidBalanceError](modules.md#invalidbalanceerror)
-- [InvalidBlobVersionedHashesError](modules.md#invalidblobversionedhasheserror)
-- [InvalidBlockError](modules.md#invalidblockerror)
-- [InvalidBytecodeError](modules.md#invalidbytecodeerror)
-- [InvalidCallerError](modules.md#invalidcallererror)
-- [InvalidDataError](modules.md#invaliddataerror)
-- [InvalidDeployedBytecodeError](modules.md#invaliddeployedbytecodeerror)
-- [InvalidDepthError](modules.md#invaliddeptherror)
-- [InvalidFunctionNameError](modules.md#invalidfunctionnameerror)
-- [InvalidGasLimitError](modules.md#invalidgaslimiterror)
-- [InvalidGasPriceError](modules.md#invalidgaspriceerror)
-- [InvalidGasRefundError](modules.md#invalidgasrefunderror)
-- [InvalidNonceError](modules.md#invalidnonceerror)
-- [InvalidOriginError](modules.md#invalidoriginerror)
-- [InvalidRequestError](modules.md#invalidrequesterror)
-- [InvalidSaltError](modules.md#invalidsalterror)
-- [InvalidSelfdestructError](modules.md#invalidselfdestructerror)
-- [InvalidSkipBalanceError](modules.md#invalidskipbalanceerror)
-- [InvalidStorageRootError](modules.md#invalidstoragerooterror)
-- [InvalidToError](modules.md#invalidtoerror)
-- [InvalidValueError](modules.md#invalidvalueerror)
-- [JsonRpcRequest](modules.md#jsonrpcrequest)
-- [JsonRpcResponse](modules.md#jsonrpcresponse)
-- [Log](modules.md#log)
-- [ScriptError](modules.md#scripterror)
-- [ScriptHandler](modules.md#scripthandler)
-- [ScriptJsonRpcProcedure](modules.md#scriptjsonrpcprocedure)
-- [ScriptJsonRpcRequest](modules.md#scriptjsonrpcrequest)
-- [ScriptJsonRpcResponse](modules.md#scriptjsonrpcresponse)
-- [ScriptParams](modules.md#scriptparams)
-- [ScriptResult](modules.md#scriptresult)
-- [Tevm](modules.md#tevm)
-- [TevmEVMErrorMessage](modules.md#tevmevmerrormessage)
-- [TevmJsonRpcRequest](modules.md#tevmjsonrpcrequest)
-- [TevmJsonRpcRequestHandler](modules.md#tevmjsonrpcrequesthandler)
-- [TraceCall](modules.md#tracecall)
-- [TraceParams](modules.md#traceparams)
-- [TraceResult](modules.md#traceresult)
-- [TraceType](modules.md#tracetype)
-- [TransactionParams](modules.md#transactionparams)
-- [TransactionReceiptResult](modules.md#transactionreceiptresult)
-- [TransactionResult](modules.md#transactionresult)
-- [TypedError](modules.md#typederror)
-- [UnexpectedError](modules.md#unexpectederror)
+- [AccountError](undefined)
+- [AccountHandler](undefined)
+- [AccountJsonRpcProcedure](undefined)
+- [AccountJsonRpcRequest](undefined)
+- [AccountJsonRpcResponse](undefined)
+- [AccountParams](undefined)
+- [AccountResult](undefined)
+- [AnvilDropTransactionHandler](undefined)
+- [AnvilDropTransactionJsonRpcRequest](undefined)
+- [AnvilDropTransactionJsonRpcResponse](undefined)
+- [AnvilDropTransactionParams](undefined)
+- [AnvilDropTransactionProcedure](undefined)
+- [AnvilDropTransactionResult](undefined)
+- [AnvilDumpStateHandler](undefined)
+- [AnvilDumpStateJsonRpcRequest](undefined)
+- [AnvilDumpStateJsonRpcResponse](undefined)
+- [AnvilDumpStateParams](undefined)
+- [AnvilDumpStateProcedure](undefined)
+- [AnvilDumpStateResult](undefined)
+- [AnvilGetAutomineHandler](undefined)
+- [AnvilGetAutomineJsonRpcRequest](undefined)
+- [AnvilGetAutomineJsonRpcResponse](undefined)
+- [AnvilGetAutomineParams](undefined)
+- [AnvilGetAutomineProcedure](undefined)
+- [AnvilGetAutomineResult](undefined)
+- [AnvilImpersonateAccountHandler](undefined)
+- [AnvilImpersonateAccountJsonRpcRequest](undefined)
+- [AnvilImpersonateAccountJsonRpcResponse](undefined)
+- [AnvilImpersonateAccountParams](undefined)
+- [AnvilImpersonateAccountProcedure](undefined)
+- [AnvilImpersonateAccountResult](undefined)
+- [AnvilLoadStateHandler](undefined)
+- [AnvilLoadStateJsonRpcRequest](undefined)
+- [AnvilLoadStateJsonRpcResponse](undefined)
+- [AnvilLoadStateParams](undefined)
+- [AnvilLoadStateProcedure](undefined)
+- [AnvilLoadStateResult](undefined)
+- [AnvilMineHandler](undefined)
+- [AnvilMineJsonRpcRequest](undefined)
+- [AnvilMineJsonRpcResponse](undefined)
+- [AnvilMineParams](undefined)
+- [AnvilMineProcedure](undefined)
+- [AnvilMineResult](undefined)
+- [AnvilResetHandler](undefined)
+- [AnvilResetJsonRpcRequest](undefined)
+- [AnvilResetJsonRpcResponse](undefined)
+- [AnvilResetParams](undefined)
+- [AnvilResetProcedure](undefined)
+- [AnvilResetResult](undefined)
+- [AnvilSetBalanceHandler](undefined)
+- [AnvilSetBalanceJsonRpcRequest](undefined)
+- [AnvilSetBalanceJsonRpcResponse](undefined)
+- [AnvilSetBalanceParams](undefined)
+- [AnvilSetBalanceProcedure](undefined)
+- [AnvilSetBalanceResult](undefined)
+- [AnvilSetChainIdHandler](undefined)
+- [AnvilSetChainIdJsonRpcRequest](undefined)
+- [AnvilSetChainIdJsonRpcResponse](undefined)
+- [AnvilSetChainIdParams](undefined)
+- [AnvilSetChainIdProcedure](undefined)
+- [AnvilSetChainIdResult](undefined)
+- [AnvilSetCodeHandler](undefined)
+- [AnvilSetCodeJsonRpcRequest](undefined)
+- [AnvilSetCodeJsonRpcResponse](undefined)
+- [AnvilSetCodeParams](undefined)
+- [AnvilSetCodeProcedure](undefined)
+- [AnvilSetCodeResult](undefined)
+- [AnvilSetNonceHandler](undefined)
+- [AnvilSetNonceJsonRpcRequest](undefined)
+- [AnvilSetNonceJsonRpcResponse](undefined)
+- [AnvilSetNonceParams](undefined)
+- [AnvilSetNonceProcedure](undefined)
+- [AnvilSetNonceResult](undefined)
+- [AnvilSetStorageAtHandler](undefined)
+- [AnvilSetStorageAtJsonRpcRequest](undefined)
+- [AnvilSetStorageAtJsonRpcResponse](undefined)
+- [AnvilSetStorageAtParams](undefined)
+- [AnvilSetStorageAtProcedure](undefined)
+- [AnvilSetStorageAtResult](undefined)
+- [AnvilStopImpersonatingAccountHandler](undefined)
+- [AnvilStopImpersonatingAccountJsonRpcRequest](undefined)
+- [AnvilStopImpersonatingAccountJsonRpcResponse](undefined)
+- [AnvilStopImpersonatingAccountParams](undefined)
+- [AnvilStopImpersonatingAccountProcedure](undefined)
+- [AnvilStopImpersonatingAccountResult](undefined)
+- [BaseCallError](undefined)
+- [BaseCallParams](undefined)
+- [Block](undefined)
+- [BlockResult](undefined)
+- [CallError](undefined)
+- [CallHandler](undefined)
+- [CallJsonRpcProcedure](undefined)
+- [CallJsonRpcRequest](undefined)
+- [CallJsonRpcResponse](undefined)
+- [CallParams](undefined)
+- [CallResult](undefined)
+- [ContractError](undefined)
+- [ContractHandler](undefined)
+- [ContractJsonRpcProcedure](undefined)
+- [ContractJsonRpcRequest](undefined)
+- [ContractJsonRpcResponse](undefined)
+- [ContractParams](undefined)
+- [ContractResult](undefined)
+- [DebugTraceCallHandler](undefined)
+- [DebugTraceCallJsonRpcRequest](undefined)
+- [DebugTraceCallJsonRpcResponse](undefined)
+- [DebugTraceCallParams](undefined)
+- [DebugTraceCallProcedure](undefined)
+- [DebugTraceCallResult](undefined)
+- [DebugTraceTransactionHandler](undefined)
+- [DebugTraceTransactionJsonRpcRequest](undefined)
+- [DebugTraceTransactionJsonRpcResponse](undefined)
+- [DebugTraceTransactionParams](undefined)
+- [DebugTraceTransactionProcedure](undefined)
+- [DebugTraceTransactionResult](undefined)
+- [EthAccountsHandler](undefined)
+- [EthAccountsJsonRpcProcedure](undefined)
+- [EthAccountsJsonRpcRequest](undefined)
+- [EthAccountsJsonRpcResponse](undefined)
+- [EthAccountsParams](undefined)
+- [EthAccountsResult](undefined)
+- [EthBlockNumberHandler](undefined)
+- [EthBlockNumberJsonRpcProcedure](undefined)
+- [EthBlockNumberJsonRpcRequest](undefined)
+- [EthBlockNumberJsonRpcResponse](undefined)
+- [EthBlockNumberParams](undefined)
+- [EthBlockNumberResult](undefined)
+- [EthCallHandler](undefined)
+- [EthCallJsonRpcProcedure](undefined)
+- [EthCallJsonRpcRequest](undefined)
+- [EthCallJsonRpcResponse](undefined)
+- [EthCallParams](undefined)
+- [EthCallResult](undefined)
+- [EthChainIdHandler](undefined)
+- [EthChainIdJsonRpcProcedure](undefined)
+- [EthChainIdJsonRpcRequest](undefined)
+- [EthChainIdJsonRpcResponse](undefined)
+- [EthChainIdParams](undefined)
+- [EthChainIdResult](undefined)
+- [EthCoinbaseHandler](undefined)
+- [EthCoinbaseJsonRpcProcedure](undefined)
+- [EthCoinbaseJsonRpcRequest](undefined)
+- [EthCoinbaseJsonRpcResponse](undefined)
+- [EthCoinbaseParams](undefined)
+- [EthCoinbaseResult](undefined)
+- [EthEstimateGasHandler](undefined)
+- [EthEstimateGasJsonRpcProcedure](undefined)
+- [EthEstimateGasJsonRpcRequest](undefined)
+- [EthEstimateGasJsonRpcResponse](undefined)
+- [EthEstimateGasParams](undefined)
+- [EthEstimateGasResult](undefined)
+- [EthGasPriceHandler](undefined)
+- [EthGasPriceJsonRpcProcedure](undefined)
+- [EthGasPriceJsonRpcRequest](undefined)
+- [EthGasPriceJsonRpcResponse](undefined)
+- [EthGasPriceParams](undefined)
+- [EthGasPriceResult](undefined)
+- [EthGetBalanceHandler](undefined)
+- [EthGetBalanceJsonRpcProcedure](undefined)
+- [EthGetBalanceJsonRpcRequest](undefined)
+- [EthGetBalanceJsonRpcResponse](undefined)
+- [EthGetBalanceParams](undefined)
+- [EthGetBalanceResult](undefined)
+- [EthGetBlockByHashHandler](undefined)
+- [EthGetBlockByHashJsonRpcProcedure](undefined)
+- [EthGetBlockByHashJsonRpcRequest](undefined)
+- [EthGetBlockByHashJsonRpcResponse](undefined)
+- [EthGetBlockByHashParams](undefined)
+- [EthGetBlockByHashResult](undefined)
+- [EthGetBlockByNumberHandler](undefined)
+- [EthGetBlockByNumberJsonRpcProcedure](undefined)
+- [EthGetBlockByNumberJsonRpcRequest](undefined)
+- [EthGetBlockByNumberJsonRpcResponse](undefined)
+- [EthGetBlockByNumberParams](undefined)
+- [EthGetBlockByNumberResult](undefined)
+- [EthGetBlockTransactionCountByHashHandler](undefined)
+- [EthGetBlockTransactionCountByHashJsonRpcProcedure](undefined)
+- [EthGetBlockTransactionCountByHashJsonRpcRequest](undefined)
+- [EthGetBlockTransactionCountByHashJsonRpcResponse](undefined)
+- [EthGetBlockTransactionCountByHashParams](undefined)
+- [EthGetBlockTransactionCountByHashResult](undefined)
+- [EthGetBlockTransactionCountByNumberHandler](undefined)
+- [EthGetBlockTransactionCountByNumberJsonRpcProcedure](undefined)
+- [EthGetBlockTransactionCountByNumberJsonRpcRequest](undefined)
+- [EthGetBlockTransactionCountByNumberJsonRpcResponse](undefined)
+- [EthGetBlockTransactionCountByNumberParams](undefined)
+- [EthGetBlockTransactionCountByNumberResult](undefined)
+- [EthGetCodeHandler](undefined)
+- [EthGetCodeJsonRpcProcedure](undefined)
+- [EthGetCodeJsonRpcRequest](undefined)
+- [EthGetCodeJsonRpcResponse](undefined)
+- [EthGetCodeParams](undefined)
+- [EthGetCodeResult](undefined)
+- [EthGetFilterChangesHandler](undefined)
+- [EthGetFilterChangesJsonRpcProcedure](undefined)
+- [EthGetFilterChangesJsonRpcRequest](undefined)
+- [EthGetFilterChangesJsonRpcResponse](undefined)
+- [EthGetFilterChangesParams](undefined)
+- [EthGetFilterChangesResult](undefined)
+- [EthGetFilterLogsHandler](undefined)
+- [EthGetFilterLogsJsonRpcProcedure](undefined)
+- [EthGetFilterLogsJsonRpcRequest](undefined)
+- [EthGetFilterLogsJsonRpcResponse](undefined)
+- [EthGetFilterLogsParams](undefined)
+- [EthGetFilterLogsResult](undefined)
+- [EthGetLogsHandler](undefined)
+- [EthGetLogsJsonRpcProcedure](undefined)
+- [EthGetLogsJsonRpcRequest](undefined)
+- [EthGetLogsJsonRpcResponse](undefined)
+- [EthGetLogsParams](undefined)
+- [EthGetLogsResult](undefined)
+- [EthGetStorageAtHandler](undefined)
+- [EthGetStorageAtJsonRpcProcedure](undefined)
+- [EthGetStorageAtJsonRpcRequest](undefined)
+- [EthGetStorageAtJsonRpcResponse](undefined)
+- [EthGetStorageAtParams](undefined)
+- [EthGetStorageAtResult](undefined)
+- [EthGetTransactionByBlockHashAndIndexHandler](undefined)
+- [EthGetTransactionByBlockHashAndIndexJsonRpcProcedure](undefined)
+- [EthGetTransactionByBlockHashAndIndexJsonRpcRequest](undefined)
+- [EthGetTransactionByBlockHashAndIndexJsonRpcResponse](undefined)
+- [EthGetTransactionByBlockHashAndIndexParams](undefined)
+- [EthGetTransactionByBlockHashAndIndexResult](undefined)
+- [EthGetTransactionByBlockNumberAndIndexHandler](undefined)
+- [EthGetTransactionByBlockNumberAndIndexJsonRpcProcedure](undefined)
+- [EthGetTransactionByBlockNumberAndIndexJsonRpcRequest](undefined)
+- [EthGetTransactionByBlockNumberAndIndexJsonRpcResponse](undefined)
+- [EthGetTransactionByBlockNumberAndIndexParams](undefined)
+- [EthGetTransactionByBlockNumberAndIndexResult](undefined)
+- [EthGetTransactionByHashHandler](undefined)
+- [EthGetTransactionByHashJsonRpcProcedure](undefined)
+- [EthGetTransactionByHashJsonRpcRequest](undefined)
+- [EthGetTransactionByHashJsonRpcResponse](undefined)
+- [EthGetTransactionByHashParams](undefined)
+- [EthGetTransactionByHashResult](undefined)
+- [EthGetTransactionCountHandler](undefined)
+- [EthGetTransactionCountJsonRpcProcedure](undefined)
+- [EthGetTransactionCountJsonRpcRequest](undefined)
+- [EthGetTransactionCountJsonRpcResponse](undefined)
+- [EthGetTransactionCountParams](undefined)
+- [EthGetTransactionCountResult](undefined)
+- [EthGetTransactionReceiptHandler](undefined)
+- [EthGetTransactionReceiptJsonRpcProcedure](undefined)
+- [EthGetTransactionReceiptJsonRpcRequest](undefined)
+- [EthGetTransactionReceiptJsonRpcResponse](undefined)
+- [EthGetTransactionReceiptParams](undefined)
+- [EthGetTransactionReceiptResult](undefined)
+- [EthGetUncleByBlockHashAndIndexHandler](undefined)
+- [EthGetUncleByBlockHashAndIndexJsonRpcProcedure](undefined)
+- [EthGetUncleByBlockHashAndIndexJsonRpcRequest](undefined)
+- [EthGetUncleByBlockHashAndIndexJsonRpcResponse](undefined)
+- [EthGetUncleByBlockHashAndIndexParams](undefined)
+- [EthGetUncleByBlockHashAndIndexResult](undefined)
+- [EthGetUncleByBlockNumberAndIndexHandler](undefined)
+- [EthGetUncleByBlockNumberAndIndexJsonRpcProcedure](undefined)
+- [EthGetUncleByBlockNumberAndIndexJsonRpcRequest](undefined)
+- [EthGetUncleByBlockNumberAndIndexJsonRpcResponse](undefined)
+- [EthGetUncleByBlockNumberAndIndexParams](undefined)
+- [EthGetUncleByBlockNumberAndIndexResult](undefined)
+- [EthGetUncleCountByBlockHashHandler](undefined)
+- [EthGetUncleCountByBlockHashJsonRpcProcedure](undefined)
+- [EthGetUncleCountByBlockHashJsonRpcRequest](undefined)
+- [EthGetUncleCountByBlockHashJsonRpcResponse](undefined)
+- [EthGetUncleCountByBlockHashParams](undefined)
+- [EthGetUncleCountByBlockHashResult](undefined)
+- [EthGetUncleCountByBlockNumberHandler](undefined)
+- [EthGetUncleCountByBlockNumberJsonRpcProcedure](undefined)
+- [EthGetUncleCountByBlockNumberJsonRpcRequest](undefined)
+- [EthGetUncleCountByBlockNumberJsonRpcResponse](undefined)
+- [EthGetUncleCountByBlockNumberParams](undefined)
+- [EthGetUncleCountByBlockNumberResult](undefined)
+- [EthHashrateHandler](undefined)
+- [EthHashrateJsonRpcProcedure](undefined)
+- [EthHashrateJsonRpcRequest](undefined)
+- [EthHashrateJsonRpcResponse](undefined)
+- [EthHashrateParams](undefined)
+- [EthHashrateResult](undefined)
+- [EthJsonRpcRequest](undefined)
+- [EthJsonRpcRequestHandler](undefined)
+- [EthMiningHandler](undefined)
+- [EthMiningJsonRpcProcedure](undefined)
+- [EthMiningJsonRpcRequest](undefined)
+- [EthMiningJsonRpcResponse](undefined)
+- [EthMiningParams](undefined)
+- [EthMiningResult](undefined)
+- [EthNewBlockFilterHandler](undefined)
+- [EthNewBlockFilterJsonRpcProcedure](undefined)
+- [EthNewBlockFilterJsonRpcRequest](undefined)
+- [EthNewBlockFilterJsonRpcResponse](undefined)
+- [EthNewBlockFilterParams](undefined)
+- [EthNewBlockFilterResult](undefined)
+- [EthNewFilterHandler](undefined)
+- [EthNewFilterJsonRpcProcedure](undefined)
+- [EthNewFilterJsonRpcRequest](undefined)
+- [EthNewFilterJsonRpcResponse](undefined)
+- [EthNewFilterParams](undefined)
+- [EthNewFilterResult](undefined)
+- [EthNewPendingTransactionFilterHandler](undefined)
+- [EthNewPendingTransactionFilterJsonRpcProcedure](undefined)
+- [EthNewPendingTransactionFilterJsonRpcRequest](undefined)
+- [EthNewPendingTransactionFilterJsonRpcResponse](undefined)
+- [EthNewPendingTransactionFilterParams](undefined)
+- [EthNewPendingTransactionFilterResult](undefined)
+- [EthParams](undefined)
+- [EthProtocolVersionHandler](undefined)
+- [EthProtocolVersionJsonRpcProcedure](undefined)
+- [EthProtocolVersionJsonRpcRequest](undefined)
+- [EthProtocolVersionJsonRpcResponse](undefined)
+- [EthProtocolVersionParams](undefined)
+- [EthProtocolVersionResult](undefined)
+- [EthSendRawTransactionHandler](undefined)
+- [EthSendRawTransactionJsonRpcProcedure](undefined)
+- [EthSendRawTransactionJsonRpcRequest](undefined)
+- [EthSendRawTransactionJsonRpcResponse](undefined)
+- [EthSendRawTransactionParams](undefined)
+- [EthSendRawTransactionResult](undefined)
+- [EthSendTransactionHandler](undefined)
+- [EthSendTransactionJsonRpcProcedure](undefined)
+- [EthSendTransactionJsonRpcRequest](undefined)
+- [EthSendTransactionJsonRpcResponse](undefined)
+- [EthSendTransactionParams](undefined)
+- [EthSendTransactionResult](undefined)
+- [EthSignHandler](undefined)
+- [EthSignJsonRpcProcedure](undefined)
+- [EthSignJsonRpcRequest](undefined)
+- [EthSignJsonRpcResponse](undefined)
+- [EthSignParams](undefined)
+- [EthSignResult](undefined)
+- [EthSignTransactionHandler](undefined)
+- [EthSignTransactionJsonRpcProcedure](undefined)
+- [EthSignTransactionJsonRpcRequest](undefined)
+- [EthSignTransactionJsonRpcResponse](undefined)
+- [EthSignTransactionParams](undefined)
+- [EthSignTransactionResult](undefined)
+- [EthSyncingHandler](undefined)
+- [EthSyncingJsonRpcProcedure](undefined)
+- [EthSyncingJsonRpcRequest](undefined)
+- [EthSyncingJsonRpcResponse](undefined)
+- [EthSyncingParams](undefined)
+- [EthSyncingResult](undefined)
+- [EthUninstallFilterHandler](undefined)
+- [EthUninstallFilterJsonRpcProcedure](undefined)
+- [EthUninstallFilterJsonRpcRequest](undefined)
+- [EthUninstallFilterJsonRpcResponse](undefined)
+- [EthUninstallFilterParams](undefined)
+- [EthUninstallFilterResult](undefined)
+- [EvmError](undefined)
+- [FilterLog](undefined)
+- [InvalidAddressError](undefined)
+- [InvalidBalanceError](undefined)
+- [InvalidBlobVersionedHashesError](undefined)
+- [InvalidBlockError](undefined)
+- [InvalidBytecodeError](undefined)
+- [InvalidCallerError](undefined)
+- [InvalidDataError](undefined)
+- [InvalidDeployedBytecodeError](undefined)
+- [InvalidDepthError](undefined)
+- [InvalidFunctionNameError](undefined)
+- [InvalidGasLimitError](undefined)
+- [InvalidGasPriceError](undefined)
+- [InvalidGasRefundError](undefined)
+- [InvalidNonceError](undefined)
+- [InvalidOriginError](undefined)
+- [InvalidRequestError](undefined)
+- [InvalidSaltError](undefined)
+- [InvalidSelfdestructError](undefined)
+- [InvalidSkipBalanceError](undefined)
+- [InvalidStorageRootError](undefined)
+- [InvalidToError](undefined)
+- [InvalidValueError](undefined)
+- [JsonRpcRequest](undefined)
+- [JsonRpcResponse](undefined)
+- [Log](undefined)
+- [ScriptError](undefined)
+- [ScriptHandler](undefined)
+- [ScriptJsonRpcProcedure](undefined)
+- [ScriptJsonRpcRequest](undefined)
+- [ScriptJsonRpcResponse](undefined)
+- [ScriptParams](undefined)
+- [ScriptResult](undefined)
+- [Tevm](undefined)
+- [TevmEVMErrorMessage](undefined)
+- [TevmJsonRpcRequest](undefined)
+- [TevmJsonRpcRequestHandler](undefined)
+- [TraceCall](undefined)
+- [TraceParams](undefined)
+- [TraceResult](undefined)
+- [TraceType](undefined)
+- [TransactionParams](undefined)
+- [TransactionReceiptResult](undefined)
+- [TransactionResult](undefined)
+- [TypedError](undefined)
+- [UnexpectedError](undefined)
 
 ## Type Aliases
 
 ### AccountError
 
-Ƭ **AccountError**: [`InvalidAddressError`](modules.md#invalidaddresserror) \| [`InvalidBalanceError`](modules.md#invalidbalanceerror) \| [`InvalidNonceError`](modules.md#invalidnonceerror) \| [`InvalidStorageRootError`](modules.md#invalidstoragerooterror) \| [`InvalidBytecodeError`](modules.md#invalidbytecodeerror) \| [`InvalidRequestError`](modules.md#invalidrequesterror) \| [`UnexpectedError`](modules.md#unexpectederror)
+Ƭ **AccountError**: InvalidAddressError \| InvalidBalanceError \| InvalidNonceError \| InvalidStorageRootError \| InvalidBytecodeError \| InvalidRequestError \| UnexpectedError
 
 Errors returned by account tevm procedure
 
@@ -427,23 +427,23 @@ ___
 
 ### AccountHandler
 
-Ƭ **AccountHandler**: (`params`: [`AccountParams`](modules.md#accountparams)) => `Promise`\<[`AccountResult`](modules.md#accountresult)\>
+Ƭ **AccountHandler**: Function
+
+Handler for account tevm procedure
 
 #### Type declaration
 
-▸ (`params`): `Promise`\<[`AccountResult`](modules.md#accountresult)\>
-
-Handler for account tevm procedure
+▸ (`params`): Promise\<AccountResult\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `params` | [`AccountParams`](modules.md#accountparams) |
+| `params` | AccountParams |
 
 ##### Returns
 
-`Promise`\<[`AccountResult`](modules.md#accountresult)\>
+Promise\<AccountResult\>
 
 #### Defined in
 
@@ -453,23 +453,23 @@ ___
 
 ### AccountJsonRpcProcedure
 
-Ƭ **AccountJsonRpcProcedure**: (`request`: [`AccountJsonRpcRequest`](modules.md#accountjsonrpcrequest)) => `Promise`\<[`AccountJsonRpcResponse`](modules.md#accountjsonrpcresponse)\>
+Ƭ **AccountJsonRpcProcedure**: Function
+
+Account JSON-RPC tevm procedure puts an account or contract into the tevm state
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`AccountJsonRpcResponse`](modules.md#accountjsonrpcresponse)\>
-
-Account JSON-RPC tevm procedure puts an account or contract into the tevm state
+▸ (`request`): Promise\<AccountJsonRpcResponse\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`AccountJsonRpcRequest`](modules.md#accountjsonrpcrequest) |
+| `request` | AccountJsonRpcRequest |
 
 ##### Returns
 
-`Promise`\<[`AccountJsonRpcResponse`](modules.md#accountjsonrpcresponse)\>
+Promise\<AccountJsonRpcResponse\>
 
 #### Defined in
 
@@ -479,7 +479,7 @@ ___
 
 ### AccountJsonRpcRequest
 
-Ƭ **AccountJsonRpcRequest**: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"tevm_account"``, `SerializeToJson`\<[`AccountParams`](modules.md#accountparams)\>\>
+Ƭ **AccountJsonRpcRequest**: JsonRpcRequest\<"tevm\_account", SerializeToJson\<AccountParams\>\>
 
 JSON-RPC request for `tevm_account` method
 
@@ -491,7 +491,7 @@ ___
 
 ### AccountJsonRpcResponse
 
-Ƭ **AccountJsonRpcResponse**: [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"tevm_account"``, `SerializeToJson`\<[`AccountResult`](modules.md#accountresult)\>, [`AccountError`](modules.md#accounterror)[``"_tag"``]\>
+Ƭ **AccountJsonRpcResponse**: JsonRpcResponse\<"tevm\_account", SerializeToJson\<AccountResult\>, AccountError["\_tag"]\>
 
 JSON-RPC response for `tevm_account` procedure
 
@@ -524,11 +524,11 @@ const accountParams: import('@tevm/api').AccountParams = {
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `address` | `Address` | Address of account |
-| `balance?` | `bigint` | Balance to set account to |
-| `deployedBytecode?` | `Hex` | Contract bytecode to set account to |
-| `nonce?` | `bigint` | Nonce to set account to |
-| `storageRoot?` | `Hex` | Storage root to set account to |
+| `address` | Address | Address of account |
+| `balance?` | bigint | Balance to set account to |
+| `deployedBytecode?` | Hex | Contract bytecode to set account to |
+| `nonce?` | bigint | Nonce to set account to |
+| `storageRoot?` | Hex | Storage root to set account to |
 
 #### Defined in
 
@@ -538,7 +538,7 @@ ___
 
 ### AccountResult
 
-Ƭ **AccountResult**\<`ErrorType`\>: `Object`
+Ƭ **AccountResult**: `Object`
 
 Result of Account Action
 
@@ -546,13 +546,13 @@ Result of Account Action
 
 | Name | Type |
 | :------ | :------ |
-| `ErrorType` | [`AccountError`](modules.md#accounterror) |
+| `ErrorType` | AccountError |
 
 #### Type declaration
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `errors?` | `ErrorType`[] | Description of the exception, if any occurred |
+| `errors?` | ErrorType[] | Description of the exception, if any occurred |
 
 #### Defined in
 
@@ -562,21 +562,21 @@ ___
 
 ### AnvilDropTransactionHandler
 
-Ƭ **AnvilDropTransactionHandler**: (`params`: [`AnvilDropTransactionParams`](modules.md#anvildroptransactionparams)) => `Promise`\<[`AnvilDropTransactionResult`](modules.md#anvildroptransactionresult)\>
+Ƭ **AnvilDropTransactionHandler**: Function
 
 #### Type declaration
 
-▸ (`params`): `Promise`\<[`AnvilDropTransactionResult`](modules.md#anvildroptransactionresult)\>
+▸ (`params`): Promise\<AnvilDropTransactionResult\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `params` | [`AnvilDropTransactionParams`](modules.md#anvildroptransactionparams) |
+| `params` | AnvilDropTransactionParams |
 
 ##### Returns
 
-`Promise`\<[`AnvilDropTransactionResult`](modules.md#anvildroptransactionresult)\>
+Promise\<AnvilDropTransactionResult\>
 
 #### Defined in
 
@@ -586,7 +586,7 @@ ___
 
 ### AnvilDropTransactionJsonRpcRequest
 
-Ƭ **AnvilDropTransactionJsonRpcRequest**: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"anvil_dropTransaction"``, `SerializeToJson`\<[`AnvilDropTransactionParams`](modules.md#anvildroptransactionparams)\>\>
+Ƭ **AnvilDropTransactionJsonRpcRequest**: JsonRpcRequest\<"anvil\_dropTransaction", SerializeToJson\<AnvilDropTransactionParams\>\>
 
 JSON-RPC request for `anvil_dropTransaction` method
 
@@ -598,7 +598,7 @@ ___
 
 ### AnvilDropTransactionJsonRpcResponse
 
-Ƭ **AnvilDropTransactionJsonRpcResponse**: [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"anvil_dropTransaction"``, `SerializeToJson`\<[`AnvilDropTransactionResult`](modules.md#anvildroptransactionresult)\>, `AnvilError`\>
+Ƭ **AnvilDropTransactionJsonRpcResponse**: JsonRpcResponse\<"anvil\_dropTransaction", SerializeToJson\<AnvilDropTransactionResult\>, AnvilError\>
 
 JSON-RPC response for `anvil_dropTransaction` procedure
 
@@ -618,7 +618,7 @@ Params for `anvil_dropTransaction` handler
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `transactionHash` | `Hex` | The transaction hash |
+| `transactionHash` | Hex | The transaction hash |
 
 #### Defined in
 
@@ -628,23 +628,23 @@ ___
 
 ### AnvilDropTransactionProcedure
 
-Ƭ **AnvilDropTransactionProcedure**: (`request`: [`AnvilDropTransactionJsonRpcRequest`](modules.md#anvildroptransactionjsonrpcrequest)) => `Promise`\<[`AnvilDropTransactionJsonRpcResponse`](modules.md#anvildroptransactionjsonrpcresponse)\>
+Ƭ **AnvilDropTransactionProcedure**: Function
+
+JSON-RPC procedure for `anvil_dropTransaction`
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`AnvilDropTransactionJsonRpcResponse`](modules.md#anvildroptransactionjsonrpcresponse)\>
-
-JSON-RPC procedure for `anvil_dropTransaction`
+▸ (`request`): Promise\<AnvilDropTransactionJsonRpcResponse\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`AnvilDropTransactionJsonRpcRequest`](modules.md#anvildroptransactionjsonrpcrequest) |
+| `request` | AnvilDropTransactionJsonRpcRequest |
 
 ##### Returns
 
-`Promise`\<[`AnvilDropTransactionJsonRpcResponse`](modules.md#anvildroptransactionjsonrpcresponse)\>
+Promise\<AnvilDropTransactionJsonRpcResponse\>
 
 #### Defined in
 
@@ -654,7 +654,7 @@ ___
 
 ### AnvilDropTransactionResult
 
-Ƭ **AnvilDropTransactionResult**: ``null``
+Ƭ **AnvilDropTransactionResult**: null
 
 #### Defined in
 
@@ -664,21 +664,21 @@ ___
 
 ### AnvilDumpStateHandler
 
-Ƭ **AnvilDumpStateHandler**: (`params`: [`AnvilDumpStateParams`](modules.md#anvildumpstateparams)) => `Promise`\<[`AnvilDumpStateResult`](modules.md#anvildumpstateresult)\>
+Ƭ **AnvilDumpStateHandler**: Function
 
 #### Type declaration
 
-▸ (`params`): `Promise`\<[`AnvilDumpStateResult`](modules.md#anvildumpstateresult)\>
+▸ (`params`): Promise\<AnvilDumpStateResult\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `params` | [`AnvilDumpStateParams`](modules.md#anvildumpstateparams) |
+| `params` | AnvilDumpStateParams |
 
 ##### Returns
 
-`Promise`\<[`AnvilDumpStateResult`](modules.md#anvildumpstateresult)\>
+Promise\<AnvilDumpStateResult\>
 
 #### Defined in
 
@@ -688,7 +688,7 @@ ___
 
 ### AnvilDumpStateJsonRpcRequest
 
-Ƭ **AnvilDumpStateJsonRpcRequest**: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"anvil_dumpState"``, `SerializeToJson`\<[`AnvilDumpStateParams`](modules.md#anvildumpstateparams)\>\>
+Ƭ **AnvilDumpStateJsonRpcRequest**: JsonRpcRequest\<"anvil\_dumpState", SerializeToJson\<AnvilDumpStateParams\>\>
 
 JSON-RPC request for `anvil_dumpState` method
 
@@ -700,7 +700,7 @@ ___
 
 ### AnvilDumpStateJsonRpcResponse
 
-Ƭ **AnvilDumpStateJsonRpcResponse**: [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"anvil_dumpState"``, `SerializeToJson`\<[`AnvilDumpStateResult`](modules.md#anvildumpstateresult)\>, `AnvilError`\>
+Ƭ **AnvilDumpStateJsonRpcResponse**: JsonRpcResponse\<"anvil\_dumpState", SerializeToJson\<AnvilDumpStateResult\>, AnvilError\>
 
 JSON-RPC response for `anvil_dumpState` procedure
 
@@ -712,7 +712,7 @@ ___
 
 ### AnvilDumpStateParams
 
-Ƭ **AnvilDumpStateParams**: {} \| `undefined` \| `never`
+Ƭ **AnvilDumpStateParams**: Object \| undefined \| never
 
 Params for `anvil_dumpState` handler
 
@@ -724,23 +724,23 @@ ___
 
 ### AnvilDumpStateProcedure
 
-Ƭ **AnvilDumpStateProcedure**: (`request`: [`AnvilDumpStateJsonRpcRequest`](modules.md#anvildumpstatejsonrpcrequest)) => `Promise`\<[`AnvilDumpStateJsonRpcResponse`](modules.md#anvildumpstatejsonrpcresponse)\>
+Ƭ **AnvilDumpStateProcedure**: Function
+
+JSON-RPC procedure for `anvil_dumpState`
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`AnvilDumpStateJsonRpcResponse`](modules.md#anvildumpstatejsonrpcresponse)\>
-
-JSON-RPC procedure for `anvil_dumpState`
+▸ (`request`): Promise\<AnvilDumpStateJsonRpcResponse\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`AnvilDumpStateJsonRpcRequest`](modules.md#anvildumpstatejsonrpcrequest) |
+| `request` | AnvilDumpStateJsonRpcRequest |
 
 ##### Returns
 
-`Promise`\<[`AnvilDumpStateJsonRpcResponse`](modules.md#anvildumpstatejsonrpcresponse)\>
+Promise\<AnvilDumpStateJsonRpcResponse\>
 
 #### Defined in
 
@@ -750,7 +750,7 @@ ___
 
 ### AnvilDumpStateResult
 
-Ƭ **AnvilDumpStateResult**: `Hex`
+Ƭ **AnvilDumpStateResult**: Hex
 
 #### Defined in
 
@@ -760,21 +760,21 @@ ___
 
 ### AnvilGetAutomineHandler
 
-Ƭ **AnvilGetAutomineHandler**: (`params`: [`AnvilGetAutomineParams`](modules.md#anvilgetautomineparams)) => `Promise`\<[`AnvilGetAutomineResult`](modules.md#anvilgetautomineresult)\>
+Ƭ **AnvilGetAutomineHandler**: Function
 
 #### Type declaration
 
-▸ (`params`): `Promise`\<[`AnvilGetAutomineResult`](modules.md#anvilgetautomineresult)\>
+▸ (`params`): Promise\<AnvilGetAutomineResult\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `params` | [`AnvilGetAutomineParams`](modules.md#anvilgetautomineparams) |
+| `params` | AnvilGetAutomineParams |
 
 ##### Returns
 
-`Promise`\<[`AnvilGetAutomineResult`](modules.md#anvilgetautomineresult)\>
+Promise\<AnvilGetAutomineResult\>
 
 #### Defined in
 
@@ -784,7 +784,7 @@ ___
 
 ### AnvilGetAutomineJsonRpcRequest
 
-Ƭ **AnvilGetAutomineJsonRpcRequest**: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"anvil_getAutomine"``, `SerializeToJson`\<[`AnvilGetAutomineParams`](modules.md#anvilgetautomineparams)\>\>
+Ƭ **AnvilGetAutomineJsonRpcRequest**: JsonRpcRequest\<"anvil\_getAutomine", SerializeToJson\<AnvilGetAutomineParams\>\>
 
 JSON-RPC request for `anvil_getAutomine` method
 
@@ -796,7 +796,7 @@ ___
 
 ### AnvilGetAutomineJsonRpcResponse
 
-Ƭ **AnvilGetAutomineJsonRpcResponse**: [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"anvil_getAutomine"``, `SerializeToJson`\<[`AnvilGetAutomineResult`](modules.md#anvilgetautomineresult)\>, `AnvilError`\>
+Ƭ **AnvilGetAutomineJsonRpcResponse**: JsonRpcResponse\<"anvil\_getAutomine", SerializeToJson\<AnvilGetAutomineResult\>, AnvilError\>
 
 JSON-RPC response for `anvil_getAutomine` procedure
 
@@ -808,7 +808,7 @@ ___
 
 ### AnvilGetAutomineParams
 
-Ƭ **AnvilGetAutomineParams**: {} \| `undefined` \| `never`
+Ƭ **AnvilGetAutomineParams**: Object \| undefined \| never
 
 Params for `anvil_getAutomine` handler
 
@@ -820,23 +820,23 @@ ___
 
 ### AnvilGetAutomineProcedure
 
-Ƭ **AnvilGetAutomineProcedure**: (`request`: [`AnvilGetAutomineJsonRpcRequest`](modules.md#anvilgetautominejsonrpcrequest)) => `Promise`\<[`AnvilGetAutomineJsonRpcResponse`](modules.md#anvilgetautominejsonrpcresponse)\>
+Ƭ **AnvilGetAutomineProcedure**: Function
+
+JSON-RPC procedure for `anvil_getAutomine`
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`AnvilGetAutomineJsonRpcResponse`](modules.md#anvilgetautominejsonrpcresponse)\>
-
-JSON-RPC procedure for `anvil_getAutomine`
+▸ (`request`): Promise\<AnvilGetAutomineJsonRpcResponse\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`AnvilGetAutomineJsonRpcRequest`](modules.md#anvilgetautominejsonrpcrequest) |
+| `request` | AnvilGetAutomineJsonRpcRequest |
 
 ##### Returns
 
-`Promise`\<[`AnvilGetAutomineJsonRpcResponse`](modules.md#anvilgetautominejsonrpcresponse)\>
+Promise\<AnvilGetAutomineJsonRpcResponse\>
 
 #### Defined in
 
@@ -846,7 +846,7 @@ ___
 
 ### AnvilGetAutomineResult
 
-Ƭ **AnvilGetAutomineResult**: `boolean`
+Ƭ **AnvilGetAutomineResult**: boolean
 
 #### Defined in
 
@@ -856,21 +856,21 @@ ___
 
 ### AnvilImpersonateAccountHandler
 
-Ƭ **AnvilImpersonateAccountHandler**: (`params`: [`AnvilImpersonateAccountParams`](modules.md#anvilimpersonateaccountparams)) => `Promise`\<[`AnvilImpersonateAccountResult`](modules.md#anvilimpersonateaccountresult)\>
+Ƭ **AnvilImpersonateAccountHandler**: Function
 
 #### Type declaration
 
-▸ (`params`): `Promise`\<[`AnvilImpersonateAccountResult`](modules.md#anvilimpersonateaccountresult)\>
+▸ (`params`): Promise\<AnvilImpersonateAccountResult\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `params` | [`AnvilImpersonateAccountParams`](modules.md#anvilimpersonateaccountparams) |
+| `params` | AnvilImpersonateAccountParams |
 
 ##### Returns
 
-`Promise`\<[`AnvilImpersonateAccountResult`](modules.md#anvilimpersonateaccountresult)\>
+Promise\<AnvilImpersonateAccountResult\>
 
 #### Defined in
 
@@ -880,7 +880,7 @@ ___
 
 ### AnvilImpersonateAccountJsonRpcRequest
 
-Ƭ **AnvilImpersonateAccountJsonRpcRequest**: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"anvil_impersonateAccount"``, `SerializeToJson`\<[`AnvilImpersonateAccountParams`](modules.md#anvilimpersonateaccountparams)\>\>
+Ƭ **AnvilImpersonateAccountJsonRpcRequest**: JsonRpcRequest\<"anvil\_impersonateAccount", SerializeToJson\<AnvilImpersonateAccountParams\>\>
 
 JSON-RPC request for `anvil_impersonateAccount` method
 
@@ -892,7 +892,7 @@ ___
 
 ### AnvilImpersonateAccountJsonRpcResponse
 
-Ƭ **AnvilImpersonateAccountJsonRpcResponse**: [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"anvil_impersonateAccount"``, `SerializeToJson`\<[`AnvilImpersonateAccountResult`](modules.md#anvilimpersonateaccountresult)\>, `AnvilError`\>
+Ƭ **AnvilImpersonateAccountJsonRpcResponse**: JsonRpcResponse\<"anvil\_impersonateAccount", SerializeToJson\<AnvilImpersonateAccountResult\>, AnvilError\>
 
 JSON-RPC response for `anvil_impersonateAccount` procedure
 
@@ -912,7 +912,7 @@ Params fro `anvil_impersonateAccount` handler
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `address` | `Address` | The address to impersonate |
+| `address` | Address | The address to impersonate |
 
 #### Defined in
 
@@ -922,23 +922,23 @@ ___
 
 ### AnvilImpersonateAccountProcedure
 
-Ƭ **AnvilImpersonateAccountProcedure**: (`request`: [`AnvilImpersonateAccountJsonRpcRequest`](modules.md#anvilimpersonateaccountjsonrpcrequest)) => `Promise`\<[`AnvilImpersonateAccountJsonRpcResponse`](modules.md#anvilimpersonateaccountjsonrpcresponse)\>
+Ƭ **AnvilImpersonateAccountProcedure**: Function
+
+JSON-RPC procedure for `anvil_impersonateAccount`
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`AnvilImpersonateAccountJsonRpcResponse`](modules.md#anvilimpersonateaccountjsonrpcresponse)\>
-
-JSON-RPC procedure for `anvil_impersonateAccount`
+▸ (`request`): Promise\<AnvilImpersonateAccountJsonRpcResponse\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`AnvilImpersonateAccountJsonRpcRequest`](modules.md#anvilimpersonateaccountjsonrpcrequest) |
+| `request` | AnvilImpersonateAccountJsonRpcRequest |
 
 ##### Returns
 
-`Promise`\<[`AnvilImpersonateAccountJsonRpcResponse`](modules.md#anvilimpersonateaccountjsonrpcresponse)\>
+Promise\<AnvilImpersonateAccountJsonRpcResponse\>
 
 #### Defined in
 
@@ -948,7 +948,7 @@ ___
 
 ### AnvilImpersonateAccountResult
 
-Ƭ **AnvilImpersonateAccountResult**: ``null``
+Ƭ **AnvilImpersonateAccountResult**: null
 
 #### Defined in
 
@@ -958,21 +958,21 @@ ___
 
 ### AnvilLoadStateHandler
 
-Ƭ **AnvilLoadStateHandler**: (`params`: [`AnvilLoadStateParams`](modules.md#anvilloadstateparams)) => `Promise`\<[`AnvilLoadStateResult`](modules.md#anvilloadstateresult)\>
+Ƭ **AnvilLoadStateHandler**: Function
 
 #### Type declaration
 
-▸ (`params`): `Promise`\<[`AnvilLoadStateResult`](modules.md#anvilloadstateresult)\>
+▸ (`params`): Promise\<AnvilLoadStateResult\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `params` | [`AnvilLoadStateParams`](modules.md#anvilloadstateparams) |
+| `params` | AnvilLoadStateParams |
 
 ##### Returns
 
-`Promise`\<[`AnvilLoadStateResult`](modules.md#anvilloadstateresult)\>
+Promise\<AnvilLoadStateResult\>
 
 #### Defined in
 
@@ -982,7 +982,7 @@ ___
 
 ### AnvilLoadStateJsonRpcRequest
 
-Ƭ **AnvilLoadStateJsonRpcRequest**: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"anvil_loadState"``, `SerializeToJson`\<[`AnvilLoadStateParams`](modules.md#anvilloadstateparams)\>\>
+Ƭ **AnvilLoadStateJsonRpcRequest**: JsonRpcRequest\<"anvil\_loadState", SerializeToJson\<AnvilLoadStateParams\>\>
 
 JSON-RPC request for `anvil_loadState` method
 
@@ -994,7 +994,7 @@ ___
 
 ### AnvilLoadStateJsonRpcResponse
 
-Ƭ **AnvilLoadStateJsonRpcResponse**: [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"anvil_loadState"``, `SerializeToJson`\<[`AnvilLoadStateResult`](modules.md#anvilloadstateresult)\>, `AnvilError`\>
+Ƭ **AnvilLoadStateJsonRpcResponse**: JsonRpcResponse\<"anvil\_loadState", SerializeToJson\<AnvilLoadStateResult\>, AnvilError\>
 
 JSON-RPC response for `anvil_loadState` procedure
 
@@ -1014,7 +1014,7 @@ Params for `anvil_loadState` handler
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `state` | `Record`\<`Hex`, `Hex`\> | The state to load |
+| `state` | Record\<Hex, Hex\> | The state to load |
 
 #### Defined in
 
@@ -1024,23 +1024,23 @@ ___
 
 ### AnvilLoadStateProcedure
 
-Ƭ **AnvilLoadStateProcedure**: (`request`: [`AnvilLoadStateJsonRpcRequest`](modules.md#anvilloadstatejsonrpcrequest)) => `Promise`\<[`AnvilLoadStateJsonRpcResponse`](modules.md#anvilloadstatejsonrpcresponse)\>
+Ƭ **AnvilLoadStateProcedure**: Function
+
+JSON-RPC procedure for `anvil_loadState`
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`AnvilLoadStateJsonRpcResponse`](modules.md#anvilloadstatejsonrpcresponse)\>
-
-JSON-RPC procedure for `anvil_loadState`
+▸ (`request`): Promise\<AnvilLoadStateJsonRpcResponse\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`AnvilLoadStateJsonRpcRequest`](modules.md#anvilloadstatejsonrpcrequest) |
+| `request` | AnvilLoadStateJsonRpcRequest |
 
 ##### Returns
 
-`Promise`\<[`AnvilLoadStateJsonRpcResponse`](modules.md#anvilloadstatejsonrpcresponse)\>
+Promise\<AnvilLoadStateJsonRpcResponse\>
 
 #### Defined in
 
@@ -1050,7 +1050,7 @@ ___
 
 ### AnvilLoadStateResult
 
-Ƭ **AnvilLoadStateResult**: ``null``
+Ƭ **AnvilLoadStateResult**: null
 
 #### Defined in
 
@@ -1060,21 +1060,21 @@ ___
 
 ### AnvilMineHandler
 
-Ƭ **AnvilMineHandler**: (`params`: [`AnvilMineParams`](modules.md#anvilmineparams)) => `Promise`\<[`AnvilMineResult`](modules.md#anvilmineresult)\>
+Ƭ **AnvilMineHandler**: Function
 
 #### Type declaration
 
-▸ (`params`): `Promise`\<[`AnvilMineResult`](modules.md#anvilmineresult)\>
+▸ (`params`): Promise\<AnvilMineResult\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `params` | [`AnvilMineParams`](modules.md#anvilmineparams) |
+| `params` | AnvilMineParams |
 
 ##### Returns
 
-`Promise`\<[`AnvilMineResult`](modules.md#anvilmineresult)\>
+Promise\<AnvilMineResult\>
 
 #### Defined in
 
@@ -1084,7 +1084,7 @@ ___
 
 ### AnvilMineJsonRpcRequest
 
-Ƭ **AnvilMineJsonRpcRequest**: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"anvil_mine"``, `SerializeToJson`\<[`AnvilMineParams`](modules.md#anvilmineparams)\>\>
+Ƭ **AnvilMineJsonRpcRequest**: JsonRpcRequest\<"anvil\_mine", SerializeToJson\<AnvilMineParams\>\>
 
 JSON-RPC request for `anvil_mine` method
 
@@ -1096,7 +1096,7 @@ ___
 
 ### AnvilMineJsonRpcResponse
 
-Ƭ **AnvilMineJsonRpcResponse**: [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"anvil_mine"``, `SerializeToJson`\<[`AnvilMineResult`](modules.md#anvilmineresult)\>, `AnvilError`\>
+Ƭ **AnvilMineJsonRpcResponse**: JsonRpcResponse\<"anvil\_mine", SerializeToJson\<AnvilMineResult\>, AnvilError\>
 
 JSON-RPC response for `anvil_mine` procedure
 
@@ -1116,8 +1116,8 @@ Params for `anvil_mine` handler
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `blockCount?` | `number` | Number of blocks to mine. Defaults to 1 |
-| `interval?` | `number` | mineing interval |
+| `blockCount?` | number | Number of blocks to mine. Defaults to 1 |
+| `interval?` | number | mineing interval |
 
 #### Defined in
 
@@ -1127,23 +1127,23 @@ ___
 
 ### AnvilMineProcedure
 
-Ƭ **AnvilMineProcedure**: (`request`: [`AnvilMineJsonRpcRequest`](modules.md#anvilminejsonrpcrequest)) => `Promise`\<[`AnvilMineJsonRpcResponse`](modules.md#anvilminejsonrpcresponse)\>
+Ƭ **AnvilMineProcedure**: Function
+
+JSON-RPC procedure for `anvil_mine`
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`AnvilMineJsonRpcResponse`](modules.md#anvilminejsonrpcresponse)\>
-
-JSON-RPC procedure for `anvil_mine`
+▸ (`request`): Promise\<AnvilMineJsonRpcResponse\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`AnvilMineJsonRpcRequest`](modules.md#anvilminejsonrpcrequest) |
+| `request` | AnvilMineJsonRpcRequest |
 
 ##### Returns
 
-`Promise`\<[`AnvilMineJsonRpcResponse`](modules.md#anvilminejsonrpcresponse)\>
+Promise\<AnvilMineJsonRpcResponse\>
 
 #### Defined in
 
@@ -1153,7 +1153,7 @@ ___
 
 ### AnvilMineResult
 
-Ƭ **AnvilMineResult**: ``null``
+Ƭ **AnvilMineResult**: null
 
 #### Defined in
 
@@ -1163,21 +1163,21 @@ ___
 
 ### AnvilResetHandler
 
-Ƭ **AnvilResetHandler**: (`params`: [`AnvilResetParams`](modules.md#anvilresetparams)) => `Promise`\<[`AnvilResetResult`](modules.md#anvilresetresult)\>
+Ƭ **AnvilResetHandler**: Function
 
 #### Type declaration
 
-▸ (`params`): `Promise`\<[`AnvilResetResult`](modules.md#anvilresetresult)\>
+▸ (`params`): Promise\<AnvilResetResult\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `params` | [`AnvilResetParams`](modules.md#anvilresetparams) |
+| `params` | AnvilResetParams |
 
 ##### Returns
 
-`Promise`\<[`AnvilResetResult`](modules.md#anvilresetresult)\>
+Promise\<AnvilResetResult\>
 
 #### Defined in
 
@@ -1187,7 +1187,7 @@ ___
 
 ### AnvilResetJsonRpcRequest
 
-Ƭ **AnvilResetJsonRpcRequest**: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"anvil_reset"``, `SerializeToJson`\<[`AnvilResetParams`](modules.md#anvilresetparams)\>\>
+Ƭ **AnvilResetJsonRpcRequest**: JsonRpcRequest\<"anvil\_reset", SerializeToJson\<AnvilResetParams\>\>
 
 JSON-RPC request for `anvil_reset` method
 
@@ -1199,7 +1199,7 @@ ___
 
 ### AnvilResetJsonRpcResponse
 
-Ƭ **AnvilResetJsonRpcResponse**: [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"anvil_reset"``, `SerializeToJson`\<[`AnvilResetResult`](modules.md#anvilresetresult)\>, `AnvilError`\>
+Ƭ **AnvilResetJsonRpcResponse**: JsonRpcResponse\<"anvil\_reset", SerializeToJson\<AnvilResetResult\>, AnvilError\>
 
 JSON-RPC response for `anvil_reset` procedure
 
@@ -1219,9 +1219,9 @@ Params for `anvil_reset` handler
 
 | Name | Type |
 | :------ | :------ |
-| `fork` | \{ `block?`: `BlockTag` \| `Hex` \| `BigInt` ; `url?`: `string`  } |
-| `fork.block?` | `BlockTag` \| `Hex` \| `BigInt` |
-| `fork.url?` | `string` |
+| `fork` | Object |
+| `fork.block?` | BlockTag \| Hex \| BigInt |
+| `fork.url?` | string |
 
 #### Defined in
 
@@ -1231,23 +1231,23 @@ ___
 
 ### AnvilResetProcedure
 
-Ƭ **AnvilResetProcedure**: (`request`: [`AnvilResetJsonRpcRequest`](modules.md#anvilresetjsonrpcrequest)) => `Promise`\<[`AnvilResetJsonRpcResponse`](modules.md#anvilresetjsonrpcresponse)\>
+Ƭ **AnvilResetProcedure**: Function
+
+JSON-RPC procedure for `anvil_reset`
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`AnvilResetJsonRpcResponse`](modules.md#anvilresetjsonrpcresponse)\>
-
-JSON-RPC procedure for `anvil_reset`
+▸ (`request`): Promise\<AnvilResetJsonRpcResponse\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`AnvilResetJsonRpcRequest`](modules.md#anvilresetjsonrpcrequest) |
+| `request` | AnvilResetJsonRpcRequest |
 
 ##### Returns
 
-`Promise`\<[`AnvilResetJsonRpcResponse`](modules.md#anvilresetjsonrpcresponse)\>
+Promise\<AnvilResetJsonRpcResponse\>
 
 #### Defined in
 
@@ -1257,7 +1257,7 @@ ___
 
 ### AnvilResetResult
 
-Ƭ **AnvilResetResult**: ``null``
+Ƭ **AnvilResetResult**: null
 
 #### Defined in
 
@@ -1267,21 +1267,21 @@ ___
 
 ### AnvilSetBalanceHandler
 
-Ƭ **AnvilSetBalanceHandler**: (`params`: [`AnvilSetBalanceParams`](modules.md#anvilsetbalanceparams)) => `Promise`\<[`AnvilSetBalanceResult`](modules.md#anvilsetbalanceresult)\>
+Ƭ **AnvilSetBalanceHandler**: Function
 
 #### Type declaration
 
-▸ (`params`): `Promise`\<[`AnvilSetBalanceResult`](modules.md#anvilsetbalanceresult)\>
+▸ (`params`): Promise\<AnvilSetBalanceResult\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `params` | [`AnvilSetBalanceParams`](modules.md#anvilsetbalanceparams) |
+| `params` | AnvilSetBalanceParams |
 
 ##### Returns
 
-`Promise`\<[`AnvilSetBalanceResult`](modules.md#anvilsetbalanceresult)\>
+Promise\<AnvilSetBalanceResult\>
 
 #### Defined in
 
@@ -1291,7 +1291,7 @@ ___
 
 ### AnvilSetBalanceJsonRpcRequest
 
-Ƭ **AnvilSetBalanceJsonRpcRequest**: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"anvil_setBalance"``, `SerializeToJson`\<[`AnvilSetBalanceParams`](modules.md#anvilsetbalanceparams)\>\>
+Ƭ **AnvilSetBalanceJsonRpcRequest**: JsonRpcRequest\<"anvil\_setBalance", SerializeToJson\<AnvilSetBalanceParams\>\>
 
 JSON-RPC request for `anvil_setBalance` method
 
@@ -1303,7 +1303,7 @@ ___
 
 ### AnvilSetBalanceJsonRpcResponse
 
-Ƭ **AnvilSetBalanceJsonRpcResponse**: [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"anvil_setBalance"``, `SerializeToJson`\<[`AnvilSetBalanceResult`](modules.md#anvilsetbalanceresult)\>, `AnvilError`\>
+Ƭ **AnvilSetBalanceJsonRpcResponse**: JsonRpcResponse\<"anvil\_setBalance", SerializeToJson\<AnvilSetBalanceResult\>, AnvilError\>
 
 JSON-RPC response for `anvil_setBalance` procedure
 
@@ -1323,8 +1323,8 @@ Params for `anvil_setBalance` handler
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `address` | `Address` | The address to set the balance for |
-| `balance` | `Hex` \| `BigInt` | The balance to set |
+| `address` | Address | The address to set the balance for |
+| `balance` | Hex \| BigInt | The balance to set |
 
 #### Defined in
 
@@ -1334,23 +1334,23 @@ ___
 
 ### AnvilSetBalanceProcedure
 
-Ƭ **AnvilSetBalanceProcedure**: (`request`: [`AnvilSetBalanceJsonRpcRequest`](modules.md#anvilsetbalancejsonrpcrequest)) => `Promise`\<[`AnvilSetBalanceJsonRpcResponse`](modules.md#anvilsetbalancejsonrpcresponse)\>
+Ƭ **AnvilSetBalanceProcedure**: Function
+
+JSON-RPC procedure for `anvil_setBalance`
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`AnvilSetBalanceJsonRpcResponse`](modules.md#anvilsetbalancejsonrpcresponse)\>
-
-JSON-RPC procedure for `anvil_setBalance`
+▸ (`request`): Promise\<AnvilSetBalanceJsonRpcResponse\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`AnvilSetBalanceJsonRpcRequest`](modules.md#anvilsetbalancejsonrpcrequest) |
+| `request` | AnvilSetBalanceJsonRpcRequest |
 
 ##### Returns
 
-`Promise`\<[`AnvilSetBalanceJsonRpcResponse`](modules.md#anvilsetbalancejsonrpcresponse)\>
+Promise\<AnvilSetBalanceJsonRpcResponse\>
 
 #### Defined in
 
@@ -1360,7 +1360,7 @@ ___
 
 ### AnvilSetBalanceResult
 
-Ƭ **AnvilSetBalanceResult**: ``null``
+Ƭ **AnvilSetBalanceResult**: null
 
 #### Defined in
 
@@ -1370,21 +1370,21 @@ ___
 
 ### AnvilSetChainIdHandler
 
-Ƭ **AnvilSetChainIdHandler**: (`params`: [`AnvilSetChainIdParams`](modules.md#anvilsetchainidparams)) => `Promise`\<[`AnvilSetChainIdResult`](modules.md#anvilsetchainidresult)\>
+Ƭ **AnvilSetChainIdHandler**: Function
 
 #### Type declaration
 
-▸ (`params`): `Promise`\<[`AnvilSetChainIdResult`](modules.md#anvilsetchainidresult)\>
+▸ (`params`): Promise\<AnvilSetChainIdResult\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `params` | [`AnvilSetChainIdParams`](modules.md#anvilsetchainidparams) |
+| `params` | AnvilSetChainIdParams |
 
 ##### Returns
 
-`Promise`\<[`AnvilSetChainIdResult`](modules.md#anvilsetchainidresult)\>
+Promise\<AnvilSetChainIdResult\>
 
 #### Defined in
 
@@ -1394,7 +1394,7 @@ ___
 
 ### AnvilSetChainIdJsonRpcRequest
 
-Ƭ **AnvilSetChainIdJsonRpcRequest**: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"anvil_setChainId"``, `SerializeToJson`\<[`AnvilSetChainIdParams`](modules.md#anvilsetchainidparams)\>\>
+Ƭ **AnvilSetChainIdJsonRpcRequest**: JsonRpcRequest\<"anvil\_setChainId", SerializeToJson\<AnvilSetChainIdParams\>\>
 
 JSON-RPC request for `anvil_setChainId` method
 
@@ -1406,7 +1406,7 @@ ___
 
 ### AnvilSetChainIdJsonRpcResponse
 
-Ƭ **AnvilSetChainIdJsonRpcResponse**: [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"anvil_setChainId"``, `SerializeToJson`\<[`AnvilSetChainIdResult`](modules.md#anvilsetchainidresult)\>, `AnvilError`\>
+Ƭ **AnvilSetChainIdJsonRpcResponse**: JsonRpcResponse\<"anvil\_setChainId", SerializeToJson\<AnvilSetChainIdResult\>, AnvilError\>
 
 JSON-RPC response for `anvil_setChainId` procedure
 
@@ -1426,7 +1426,7 @@ Params for `anvil_setChainId` handler
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `chainId` | `number` | The chain id to set |
+| `chainId` | number | The chain id to set |
 
 #### Defined in
 
@@ -1436,23 +1436,23 @@ ___
 
 ### AnvilSetChainIdProcedure
 
-Ƭ **AnvilSetChainIdProcedure**: (`request`: [`AnvilSetChainIdJsonRpcRequest`](modules.md#anvilsetchainidjsonrpcrequest)) => `Promise`\<[`AnvilSetChainIdJsonRpcResponse`](modules.md#anvilsetchainidjsonrpcresponse)\>
+Ƭ **AnvilSetChainIdProcedure**: Function
+
+JSON-RPC procedure for `anvil_setChainId`
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`AnvilSetChainIdJsonRpcResponse`](modules.md#anvilsetchainidjsonrpcresponse)\>
-
-JSON-RPC procedure for `anvil_setChainId`
+▸ (`request`): Promise\<AnvilSetChainIdJsonRpcResponse\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`AnvilSetChainIdJsonRpcRequest`](modules.md#anvilsetchainidjsonrpcrequest) |
+| `request` | AnvilSetChainIdJsonRpcRequest |
 
 ##### Returns
 
-`Promise`\<[`AnvilSetChainIdJsonRpcResponse`](modules.md#anvilsetchainidjsonrpcresponse)\>
+Promise\<AnvilSetChainIdJsonRpcResponse\>
 
 #### Defined in
 
@@ -1462,7 +1462,7 @@ ___
 
 ### AnvilSetChainIdResult
 
-Ƭ **AnvilSetChainIdResult**: ``null``
+Ƭ **AnvilSetChainIdResult**: null
 
 #### Defined in
 
@@ -1472,21 +1472,21 @@ ___
 
 ### AnvilSetCodeHandler
 
-Ƭ **AnvilSetCodeHandler**: (`params`: [`AnvilSetCodeParams`](modules.md#anvilsetcodeparams)) => `Promise`\<[`AnvilSetCodeResult`](modules.md#anvilsetcoderesult)\>
+Ƭ **AnvilSetCodeHandler**: Function
 
 #### Type declaration
 
-▸ (`params`): `Promise`\<[`AnvilSetCodeResult`](modules.md#anvilsetcoderesult)\>
+▸ (`params`): Promise\<AnvilSetCodeResult\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `params` | [`AnvilSetCodeParams`](modules.md#anvilsetcodeparams) |
+| `params` | AnvilSetCodeParams |
 
 ##### Returns
 
-`Promise`\<[`AnvilSetCodeResult`](modules.md#anvilsetcoderesult)\>
+Promise\<AnvilSetCodeResult\>
 
 #### Defined in
 
@@ -1496,7 +1496,7 @@ ___
 
 ### AnvilSetCodeJsonRpcRequest
 
-Ƭ **AnvilSetCodeJsonRpcRequest**: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"anvil_setCode"``, `SerializeToJson`\<[`AnvilSetCodeParams`](modules.md#anvilsetcodeparams)\>\>
+Ƭ **AnvilSetCodeJsonRpcRequest**: JsonRpcRequest\<"anvil\_setCode", SerializeToJson\<AnvilSetCodeParams\>\>
 
 JSON-RPC request for `anvil_setCode` method
 
@@ -1508,7 +1508,7 @@ ___
 
 ### AnvilSetCodeJsonRpcResponse
 
-Ƭ **AnvilSetCodeJsonRpcResponse**: [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"anvil_setCode"``, `SerializeToJson`\<[`AnvilSetCodeResult`](modules.md#anvilsetcoderesult)\>, `AnvilError`\>
+Ƭ **AnvilSetCodeJsonRpcResponse**: JsonRpcResponse\<"anvil\_setCode", SerializeToJson\<AnvilSetCodeResult\>, AnvilError\>
 
 JSON-RPC response for `anvil_setCode` procedure
 
@@ -1528,8 +1528,8 @@ Params for `anvil_setCode` handler
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `address` | `Address` | The address to set the code for |
-| `code` | `Hex` | The code to set |
+| `address` | Address | The address to set the code for |
+| `code` | Hex | The code to set |
 
 #### Defined in
 
@@ -1539,23 +1539,23 @@ ___
 
 ### AnvilSetCodeProcedure
 
-Ƭ **AnvilSetCodeProcedure**: (`request`: [`AnvilSetCodeJsonRpcRequest`](modules.md#anvilsetcodejsonrpcrequest)) => `Promise`\<[`AnvilSetCodeJsonRpcResponse`](modules.md#anvilsetcodejsonrpcresponse)\>
+Ƭ **AnvilSetCodeProcedure**: Function
+
+JSON-RPC procedure for `anvil_setCode`
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`AnvilSetCodeJsonRpcResponse`](modules.md#anvilsetcodejsonrpcresponse)\>
-
-JSON-RPC procedure for `anvil_setCode`
+▸ (`request`): Promise\<AnvilSetCodeJsonRpcResponse\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`AnvilSetCodeJsonRpcRequest`](modules.md#anvilsetcodejsonrpcrequest) |
+| `request` | AnvilSetCodeJsonRpcRequest |
 
 ##### Returns
 
-`Promise`\<[`AnvilSetCodeJsonRpcResponse`](modules.md#anvilsetcodejsonrpcresponse)\>
+Promise\<AnvilSetCodeJsonRpcResponse\>
 
 #### Defined in
 
@@ -1565,7 +1565,7 @@ ___
 
 ### AnvilSetCodeResult
 
-Ƭ **AnvilSetCodeResult**: ``null``
+Ƭ **AnvilSetCodeResult**: null
 
 #### Defined in
 
@@ -1575,21 +1575,21 @@ ___
 
 ### AnvilSetNonceHandler
 
-Ƭ **AnvilSetNonceHandler**: (`params`: [`AnvilSetNonceParams`](modules.md#anvilsetnonceparams)) => `Promise`\<[`AnvilSetNonceResult`](modules.md#anvilsetnonceresult)\>
+Ƭ **AnvilSetNonceHandler**: Function
 
 #### Type declaration
 
-▸ (`params`): `Promise`\<[`AnvilSetNonceResult`](modules.md#anvilsetnonceresult)\>
+▸ (`params`): Promise\<AnvilSetNonceResult\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `params` | [`AnvilSetNonceParams`](modules.md#anvilsetnonceparams) |
+| `params` | AnvilSetNonceParams |
 
 ##### Returns
 
-`Promise`\<[`AnvilSetNonceResult`](modules.md#anvilsetnonceresult)\>
+Promise\<AnvilSetNonceResult\>
 
 #### Defined in
 
@@ -1599,7 +1599,7 @@ ___
 
 ### AnvilSetNonceJsonRpcRequest
 
-Ƭ **AnvilSetNonceJsonRpcRequest**: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"anvil_setNonce"``, `SerializeToJson`\<[`AnvilSetNonceParams`](modules.md#anvilsetnonceparams)\>\>
+Ƭ **AnvilSetNonceJsonRpcRequest**: JsonRpcRequest\<"anvil\_setNonce", SerializeToJson\<AnvilSetNonceParams\>\>
 
 JSON-RPC request for `anvil_setNonce` method
 
@@ -1611,7 +1611,7 @@ ___
 
 ### AnvilSetNonceJsonRpcResponse
 
-Ƭ **AnvilSetNonceJsonRpcResponse**: [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"anvil_setNonce"``, `SerializeToJson`\<[`AnvilSetNonceResult`](modules.md#anvilsetnonceresult)\>, `AnvilError`\>
+Ƭ **AnvilSetNonceJsonRpcResponse**: JsonRpcResponse\<"anvil\_setNonce", SerializeToJson\<AnvilSetNonceResult\>, AnvilError\>
 
 JSON-RPC response for `anvil_setNonce` procedure
 
@@ -1631,8 +1631,8 @@ Params for `anvil_setNonce` handler
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `address` | `Address` | The address to set the nonce for |
-| `nonce` | `BigInt` | The nonce to set |
+| `address` | Address | The address to set the nonce for |
+| `nonce` | BigInt | The nonce to set |
 
 #### Defined in
 
@@ -1642,23 +1642,23 @@ ___
 
 ### AnvilSetNonceProcedure
 
-Ƭ **AnvilSetNonceProcedure**: (`request`: [`AnvilSetNonceJsonRpcRequest`](modules.md#anvilsetnoncejsonrpcrequest)) => `Promise`\<[`AnvilSetNonceJsonRpcResponse`](modules.md#anvilsetnoncejsonrpcresponse)\>
+Ƭ **AnvilSetNonceProcedure**: Function
+
+JSON-RPC procedure for `anvil_setNonce`
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`AnvilSetNonceJsonRpcResponse`](modules.md#anvilsetnoncejsonrpcresponse)\>
-
-JSON-RPC procedure for `anvil_setNonce`
+▸ (`request`): Promise\<AnvilSetNonceJsonRpcResponse\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`AnvilSetNonceJsonRpcRequest`](modules.md#anvilsetnoncejsonrpcrequest) |
+| `request` | AnvilSetNonceJsonRpcRequest |
 
 ##### Returns
 
-`Promise`\<[`AnvilSetNonceJsonRpcResponse`](modules.md#anvilsetnoncejsonrpcresponse)\>
+Promise\<AnvilSetNonceJsonRpcResponse\>
 
 #### Defined in
 
@@ -1668,7 +1668,7 @@ ___
 
 ### AnvilSetNonceResult
 
-Ƭ **AnvilSetNonceResult**: ``null``
+Ƭ **AnvilSetNonceResult**: null
 
 #### Defined in
 
@@ -1678,21 +1678,21 @@ ___
 
 ### AnvilSetStorageAtHandler
 
-Ƭ **AnvilSetStorageAtHandler**: (`params`: [`AnvilSetStorageAtParams`](modules.md#anvilsetstorageatparams)) => `Promise`\<[`AnvilSetStorageAtResult`](modules.md#anvilsetstorageatresult)\>
+Ƭ **AnvilSetStorageAtHandler**: Function
 
 #### Type declaration
 
-▸ (`params`): `Promise`\<[`AnvilSetStorageAtResult`](modules.md#anvilsetstorageatresult)\>
+▸ (`params`): Promise\<AnvilSetStorageAtResult\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `params` | [`AnvilSetStorageAtParams`](modules.md#anvilsetstorageatparams) |
+| `params` | AnvilSetStorageAtParams |
 
 ##### Returns
 
-`Promise`\<[`AnvilSetStorageAtResult`](modules.md#anvilsetstorageatresult)\>
+Promise\<AnvilSetStorageAtResult\>
 
 #### Defined in
 
@@ -1702,7 +1702,7 @@ ___
 
 ### AnvilSetStorageAtJsonRpcRequest
 
-Ƭ **AnvilSetStorageAtJsonRpcRequest**: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"anvil_setStorageAt"``, `SerializeToJson`\<[`AnvilSetStorageAtParams`](modules.md#anvilsetstorageatparams)\>\>
+Ƭ **AnvilSetStorageAtJsonRpcRequest**: JsonRpcRequest\<"anvil\_setStorageAt", SerializeToJson\<AnvilSetStorageAtParams\>\>
 
 JSON-RPC request for `anvil_setStorageAt` method
 
@@ -1714,7 +1714,7 @@ ___
 
 ### AnvilSetStorageAtJsonRpcResponse
 
-Ƭ **AnvilSetStorageAtJsonRpcResponse**: [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"anvil_setStorageAt"``, `SerializeToJson`\<[`AnvilSetStorageAtResult`](modules.md#anvilsetstorageatresult)\>, `AnvilError`\>
+Ƭ **AnvilSetStorageAtJsonRpcResponse**: JsonRpcResponse\<"anvil\_setStorageAt", SerializeToJson\<AnvilSetStorageAtResult\>, AnvilError\>
 
 JSON-RPC response for `anvil_setStorageAt` procedure
 
@@ -1734,9 +1734,9 @@ Params for `anvil_setStorageAt` handler
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `address` | `Address` | The address to set the storage for |
-| `position` | `Hex` \| `BigInt` | The position in storage to set |
-| `value` | `Hex` \| `BigInt` | The value to set |
+| `address` | Address | The address to set the storage for |
+| `position` | Hex \| BigInt | The position in storage to set |
+| `value` | Hex \| BigInt | The value to set |
 
 #### Defined in
 
@@ -1746,23 +1746,23 @@ ___
 
 ### AnvilSetStorageAtProcedure
 
-Ƭ **AnvilSetStorageAtProcedure**: (`request`: [`AnvilSetStorageAtJsonRpcRequest`](modules.md#anvilsetstorageatjsonrpcrequest)) => `Promise`\<[`AnvilSetStorageAtJsonRpcResponse`](modules.md#anvilsetstorageatjsonrpcresponse)\>
+Ƭ **AnvilSetStorageAtProcedure**: Function
+
+JSON-RPC procedure for `anvil_setStorageAt`
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`AnvilSetStorageAtJsonRpcResponse`](modules.md#anvilsetstorageatjsonrpcresponse)\>
-
-JSON-RPC procedure for `anvil_setStorageAt`
+▸ (`request`): Promise\<AnvilSetStorageAtJsonRpcResponse\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`AnvilSetStorageAtJsonRpcRequest`](modules.md#anvilsetstorageatjsonrpcrequest) |
+| `request` | AnvilSetStorageAtJsonRpcRequest |
 
 ##### Returns
 
-`Promise`\<[`AnvilSetStorageAtJsonRpcResponse`](modules.md#anvilsetstorageatjsonrpcresponse)\>
+Promise\<AnvilSetStorageAtJsonRpcResponse\>
 
 #### Defined in
 
@@ -1772,7 +1772,7 @@ ___
 
 ### AnvilSetStorageAtResult
 
-Ƭ **AnvilSetStorageAtResult**: ``null``
+Ƭ **AnvilSetStorageAtResult**: null
 
 #### Defined in
 
@@ -1782,21 +1782,21 @@ ___
 
 ### AnvilStopImpersonatingAccountHandler
 
-Ƭ **AnvilStopImpersonatingAccountHandler**: (`params`: [`AnvilStopImpersonatingAccountParams`](modules.md#anvilstopimpersonatingaccountparams)) => `Promise`\<[`AnvilStopImpersonatingAccountResult`](modules.md#anvilstopimpersonatingaccountresult)\>
+Ƭ **AnvilStopImpersonatingAccountHandler**: Function
 
 #### Type declaration
 
-▸ (`params`): `Promise`\<[`AnvilStopImpersonatingAccountResult`](modules.md#anvilstopimpersonatingaccountresult)\>
+▸ (`params`): Promise\<AnvilStopImpersonatingAccountResult\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `params` | [`AnvilStopImpersonatingAccountParams`](modules.md#anvilstopimpersonatingaccountparams) |
+| `params` | AnvilStopImpersonatingAccountParams |
 
 ##### Returns
 
-`Promise`\<[`AnvilStopImpersonatingAccountResult`](modules.md#anvilstopimpersonatingaccountresult)\>
+Promise\<AnvilStopImpersonatingAccountResult\>
 
 #### Defined in
 
@@ -1806,7 +1806,7 @@ ___
 
 ### AnvilStopImpersonatingAccountJsonRpcRequest
 
-Ƭ **AnvilStopImpersonatingAccountJsonRpcRequest**: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"anvil_stopImpersonatingAccount"``, `SerializeToJson`\<[`AnvilStopImpersonatingAccountParams`](modules.md#anvilstopimpersonatingaccountparams)\>\>
+Ƭ **AnvilStopImpersonatingAccountJsonRpcRequest**: JsonRpcRequest\<"anvil\_stopImpersonatingAccount", SerializeToJson\<AnvilStopImpersonatingAccountParams\>\>
 
 JSON-RPC request for `anvil_stopImpersonatingAccount` method
 
@@ -1818,7 +1818,7 @@ ___
 
 ### AnvilStopImpersonatingAccountJsonRpcResponse
 
-Ƭ **AnvilStopImpersonatingAccountJsonRpcResponse**: [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"anvil_stopImpersonatingAccount"``, `SerializeToJson`\<[`AnvilStopImpersonatingAccountResult`](modules.md#anvilstopimpersonatingaccountresult)\>, `AnvilError`\>
+Ƭ **AnvilStopImpersonatingAccountJsonRpcResponse**: JsonRpcResponse\<"anvil\_stopImpersonatingAccount", SerializeToJson\<AnvilStopImpersonatingAccountResult\>, AnvilError\>
 
 JSON-RPC response for `anvil_stopImpersonatingAccount` procedure
 
@@ -1838,7 +1838,7 @@ Params for `anvil_stopImpersonatingAccount` handler
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `address` | `Address` | The address to stop impersonating |
+| `address` | Address | The address to stop impersonating |
 
 #### Defined in
 
@@ -1848,23 +1848,23 @@ ___
 
 ### AnvilStopImpersonatingAccountProcedure
 
-Ƭ **AnvilStopImpersonatingAccountProcedure**: (`request`: [`AnvilStopImpersonatingAccountJsonRpcRequest`](modules.md#anvilstopimpersonatingaccountjsonrpcrequest)) => `Promise`\<[`AnvilStopImpersonatingAccountJsonRpcResponse`](modules.md#anvilstopimpersonatingaccountjsonrpcresponse)\>
+Ƭ **AnvilStopImpersonatingAccountProcedure**: Function
+
+JSON-RPC procedure for `anvil_stopImpersonatingAccount`
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`AnvilStopImpersonatingAccountJsonRpcResponse`](modules.md#anvilstopimpersonatingaccountjsonrpcresponse)\>
-
-JSON-RPC procedure for `anvil_stopImpersonatingAccount`
+▸ (`request`): Promise\<AnvilStopImpersonatingAccountJsonRpcResponse\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`AnvilStopImpersonatingAccountJsonRpcRequest`](modules.md#anvilstopimpersonatingaccountjsonrpcrequest) |
+| `request` | AnvilStopImpersonatingAccountJsonRpcRequest |
 
 ##### Returns
 
-`Promise`\<[`AnvilStopImpersonatingAccountJsonRpcResponse`](modules.md#anvilstopimpersonatingaccountjsonrpcresponse)\>
+Promise\<AnvilStopImpersonatingAccountJsonRpcResponse\>
 
 #### Defined in
 
@@ -1874,7 +1874,7 @@ ___
 
 ### AnvilStopImpersonatingAccountResult
 
-Ƭ **AnvilStopImpersonatingAccountResult**: ``null``
+Ƭ **AnvilStopImpersonatingAccountResult**: null
 
 #### Defined in
 
@@ -1884,7 +1884,7 @@ ___
 
 ### BaseCallError
 
-Ƭ **BaseCallError**: [`EvmError`](modules.md#evmerror) \| [`InvalidRequestError`](modules.md#invalidrequesterror) \| [`InvalidAddressError`](modules.md#invalidaddresserror) \| [`InvalidBalanceError`](modules.md#invalidbalanceerror) \| [`InvalidBlobVersionedHashesError`](modules.md#invalidblobversionedhasheserror) \| [`InvalidBlockError`](modules.md#invalidblockerror) \| [`InvalidCallerError`](modules.md#invalidcallererror) \| [`InvalidDepthError`](modules.md#invaliddeptherror) \| [`InvalidGasLimitError`](modules.md#invalidgaslimiterror) \| [`InvalidGasPriceError`](modules.md#invalidgaspriceerror) \| [`InvalidGasRefundError`](modules.md#invalidgasrefunderror) \| [`InvalidNonceError`](modules.md#invalidnonceerror) \| [`InvalidOriginError`](modules.md#invalidoriginerror) \| [`InvalidSelfdestructError`](modules.md#invalidselfdestructerror) \| [`InvalidSkipBalanceError`](modules.md#invalidskipbalanceerror) \| [`InvalidStorageRootError`](modules.md#invalidstoragerooterror) \| [`InvalidToError`](modules.md#invalidtoerror) \| [`InvalidValueError`](modules.md#invalidvalueerror) \| [`UnexpectedError`](modules.md#unexpectederror)
+Ƭ **BaseCallError**: EvmError \| InvalidRequestError \| InvalidAddressError \| InvalidBalanceError \| InvalidBlobVersionedHashesError \| InvalidBlockError \| InvalidCallerError \| InvalidDepthError \| InvalidGasLimitError \| InvalidGasPriceError \| InvalidGasRefundError \| InvalidNonceError \| InvalidOriginError \| InvalidSelfdestructError \| InvalidSkipBalanceError \| InvalidStorageRootError \| InvalidToError \| InvalidValueError \| UnexpectedError
 
 Errors returned by all call based tevm procedures including call, contract, and script
 
@@ -1904,18 +1904,18 @@ Properties shared accross call-like params
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `blobVersionedHashes?` | `Hex`[] | Versioned hashes for each blob in a blob transaction |
-| `block?` | `Partial`\<[`Block`](modules.md#block)\> | The `block` the `tx` belongs to. If omitted a default blank block will be used. |
-| `caller?` | `Address` | The address that ran this code (`msg.sender`). Defaults to the zero address. |
-| `depth?` | `number` | The call depth. Defaults to `0` |
-| `gasLimit?` | `bigint` | The gas limit for the call. Defaults to `16777215` (`0xffffff`) |
-| `gasPrice?` | `bigint` | The gas price for the call. Defaults to `0` |
-| `gasRefund?` | `bigint` | Refund counter. Defaults to `0` |
-| `origin?` | `Address` | The address where the call originated from. Defaults to the zero address. |
-| `selfdestruct?` | `Set`\<`Address`\> | Addresses to selfdestruct. Defaults to the empty set. |
-| `skipBalance?` | `boolean` | Set caller to msg.value of less than msg.value Defaults to false exceipt for when running scripts where it is set to true |
-| `to?` | `Address` | The address of the account that is executing this code (`address(this)`). Defaults to the zero address. |
-| `value?` | `bigint` | The value in ether that is being sent to `opts.address`. Defaults to `0` |
+| `blobVersionedHashes?` | Hex[] | Versioned hashes for each blob in a blob transaction |
+| `block?` | Partial\<Block\> | The `block` the `tx` belongs to. If omitted a default blank block will be used. |
+| `caller?` | Address | The address that ran this code (`msg.sender`). Defaults to the zero address. |
+| `depth?` | number | The call depth. Defaults to `0` |
+| `gasLimit?` | bigint | The gas limit for the call. Defaults to `16777215` (`0xffffff`) |
+| `gasPrice?` | bigint | The gas price for the call. Defaults to `0` |
+| `gasRefund?` | bigint | Refund counter. Defaults to `0` |
+| `origin?` | Address | The address where the call originated from. Defaults to the zero address. |
+| `selfdestruct?` | Set\<Address\> | Addresses to selfdestruct. Defaults to the empty set. |
+| `skipBalance?` | boolean | Set caller to msg.value of less than msg.value Defaults to false exceipt for when running scripts where it is set to true |
+| `to?` | Address | The address of the account that is executing this code (`address(this)`). Defaults to the zero address. |
+| `value?` | bigint | The value in ether that is being sent to `opts.address`. Defaults to `0` |
 
 #### Defined in
 
@@ -1933,13 +1933,13 @@ Header information of an ethereum block
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `baseFeePerGas?` | `bigint` | (Optional) The base fee per gas in the block, introduced in EIP-1559 for dynamic transaction fee calculation. |
-| `blobGasPrice?` | `bigint` | The gas price for the block; may be undefined in blocks after EIP-1559. |
-| `coinbase` | `Address` | The address of the miner or validator who mined or validated the block. |
-| `difficulty` | `bigint` | The difficulty level of the block (relevant in PoW chains). |
-| `gasLimit` | `bigint` | The gas limit for the block, i.e., the maximum amount of gas that can be used by the transactions in the block. |
-| `number` | `bigint` | The block number (height) in the blockchain. |
-| `timestamp` | `bigint` | The timestamp at which the block was mined or validated. |
+| `baseFeePerGas?` | bigint | (Optional) The base fee per gas in the block, introduced in EIP-1559 for dynamic transaction fee calculation. |
+| `blobGasPrice?` | bigint | The gas price for the block; may be undefined in blocks after EIP-1559. |
+| `coinbase` | Address | The address of the miner or validator who mined or validated the block. |
+| `difficulty` | bigint | The difficulty level of the block (relevant in PoW chains). |
+| `gasLimit` | bigint | The gas limit for the block, i.e., the maximum amount of gas that can be used by the transactions in the block. |
+| `number` | bigint | The block number (height) in the blockchain. |
+| `timestamp` | bigint | The timestamp at which the block was mined or validated. |
 
 #### Defined in
 
@@ -1958,24 +1958,24 @@ json rpc procedures
 
 | Name | Type |
 | :------ | :------ |
-| `difficulty` | `Hex` |
-| `extraData` | `Hex` |
-| `gasLimit` | `Hex` |
-| `gasUsed` | `Hex` |
-| `hash` | `Hex` |
-| `logsBloom` | `Hex` |
-| `miner` | `Hex` |
-| `nonce` | `Hex` |
-| `number` | `Hex` |
-| `parentHash` | `Hex` |
-| `sha3Uncles` | `Hex` |
-| `size` | `Hex` |
-| `stateRoot` | `Hex` |
-| `timestamp` | `Hex` |
-| `totalDifficulty` | `Hex` |
-| `transactions` | `Hex`[] |
-| `transactionsRoot` | `Hex` |
-| `uncles` | `Hex`[] |
+| `difficulty` | Hex |
+| `extraData` | Hex |
+| `gasLimit` | Hex |
+| `gasUsed` | Hex |
+| `hash` | Hex |
+| `logsBloom` | Hex |
+| `miner` | Hex |
+| `nonce` | Hex |
+| `number` | Hex |
+| `parentHash` | Hex |
+| `sha3Uncles` | Hex |
+| `size` | Hex |
+| `stateRoot` | Hex |
+| `timestamp` | Hex |
+| `totalDifficulty` | Hex |
+| `transactions` | Hex[] |
+| `transactionsRoot` | Hex |
+| `uncles` | Hex[] |
 
 #### Defined in
 
@@ -1985,7 +1985,7 @@ ___
 
 ### CallError
 
-Ƭ **CallError**: [`BaseCallError`](modules.md#basecallerror) \| [`InvalidSaltError`](modules.md#invalidsalterror) \| [`InvalidDataError`](modules.md#invaliddataerror) \| [`InvalidDeployedBytecodeError`](modules.md#invaliddeployedbytecodeerror)
+Ƭ **CallError**: BaseCallError \| InvalidSaltError \| InvalidDataError \| InvalidDeployedBytecodeError
 
 Error returned by call tevm procedure
 
@@ -2006,23 +2006,23 @@ ___
 
 ### CallHandler
 
-Ƭ **CallHandler**: (`action`: [`CallParams`](modules.md#callparams)) => `Promise`\<[`CallResult`](modules.md#callresult)\>
+Ƭ **CallHandler**: Function
+
+Handler for call tevm procedure
 
 #### Type declaration
 
-▸ (`action`): `Promise`\<[`CallResult`](modules.md#callresult)\>
-
-Handler for call tevm procedure
+▸ (`action`): Promise\<CallResult\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `action` | [`CallParams`](modules.md#callparams) |
+| `action` | CallParams |
 
 ##### Returns
 
-`Promise`\<[`CallResult`](modules.md#callresult)\>
+Promise\<CallResult\>
 
 #### Defined in
 
@@ -2032,23 +2032,23 @@ ___
 
 ### CallJsonRpcProcedure
 
-Ƭ **CallJsonRpcProcedure**: (`request`: [`CallJsonRpcRequest`](modules.md#calljsonrpcrequest)) => `Promise`\<[`CallJsonRpcResponse`](modules.md#calljsonrpcresponse)\>
+Ƭ **CallJsonRpcProcedure**: Function
+
+Call JSON-RPC procedure executes a call against the tevm EVM
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`CallJsonRpcResponse`](modules.md#calljsonrpcresponse)\>
-
-Call JSON-RPC procedure executes a call against the tevm EVM
+▸ (`request`): Promise\<CallJsonRpcResponse\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`CallJsonRpcRequest`](modules.md#calljsonrpcrequest) |
+| `request` | CallJsonRpcRequest |
 
 ##### Returns
 
-`Promise`\<[`CallJsonRpcResponse`](modules.md#calljsonrpcresponse)\>
+Promise\<CallJsonRpcResponse\>
 
 #### Defined in
 
@@ -2058,7 +2058,7 @@ ___
 
 ### CallJsonRpcRequest
 
-Ƭ **CallJsonRpcRequest**: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"tevm_call"``, `SerializeToJson`\<[`CallParams`](modules.md#callparams)\>\>
+Ƭ **CallJsonRpcRequest**: JsonRpcRequest\<"tevm\_call", SerializeToJson\<CallParams\>\>
 
 JSON-RPC request for `tevm_call`
 
@@ -2070,7 +2070,7 @@ ___
 
 ### CallJsonRpcResponse
 
-Ƭ **CallJsonRpcResponse**: [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"tevm_call"``, `SerializeToJson`\<[`CallResult`](modules.md#callresult)\>, [`CallError`](modules.md#callerror)[``"_tag"``]\>
+Ƭ **CallJsonRpcResponse**: JsonRpcResponse\<"tevm\_call", SerializeToJson\<CallResult\>, CallError["\_tag"]\>
 
 JSON-RPC response for `tevm_call` procedure
 
@@ -2082,7 +2082,7 @@ ___
 
 ### CallParams
 
-Ƭ **CallParams**: [`BaseCallParams`](modules.md#basecallparams) & \{ `data?`: `Hex` ; `deployedBytecode?`: `Hex` ; `salt?`: `Hex`  }
+Ƭ **CallParams**: BaseCallParams & Object
 
 Tevm params to execute a call on the vm
 Call is the lowest level method to interact with the vm
@@ -2107,7 +2107,7 @@ ___
 
 ### CallResult
 
-Ƭ **CallResult**\<`ErrorType`\>: `Object`
+Ƭ **CallResult**: `Object`
 
 Result of a Tevm VM Call method
 
@@ -2115,22 +2115,22 @@ Result of a Tevm VM Call method
 
 | Name | Type |
 | :------ | :------ |
-| `ErrorType` | [`CallError`](modules.md#callerror) |
+| `ErrorType` | CallError |
 
 #### Type declaration
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `blobGasUsed?` | `bigint` | Amount of blob gas consumed by the transaction |
-| `createdAddress?` | `Address` | Address of created account during transaction, if any |
-| `createdAddresses?` | `Set`\<`Address`\> | Map of addresses which were created (used in EIP 6780) |
-| `errors?` | `ErrorType`[] | Description of the exception, if any occurred |
-| `executionGasUsed` | `bigint` | Amount of gas the code used to run |
-| `gas?` | `bigint` | Amount of gas left |
-| `gasRefund?` | `bigint` | The gas refund counter as a uint256 |
-| `logs?` | [`Log`](modules.md#log)[] | Array of logs that the contract emitted |
-| `rawData` | `Hex` | Encoded return value from the contract as hex string |
-| `selfdestruct?` | `Set`\<`Address`\> | A set of accounts to selfdestruct |
+| `blobGasUsed?` | bigint | Amount of blob gas consumed by the transaction |
+| `createdAddress?` | Address | Address of created account during transaction, if any |
+| `createdAddresses?` | Set\<Address\> | Map of addresses which were created (used in EIP 6780) |
+| `errors?` | ErrorType[] | Description of the exception, if any occurred |
+| `executionGasUsed` | bigint | Amount of gas the code used to run |
+| `gas?` | bigint | Amount of gas left |
+| `gasRefund?` | bigint | The gas refund counter as a uint256 |
+| `logs?` | Log[] | Array of logs that the contract emitted |
+| `rawData` | Hex | Encoded return value from the contract as hex string |
+| `selfdestruct?` | Set\<Address\> | A set of accounts to selfdestruct |
 
 #### Defined in
 
@@ -2140,7 +2140,7 @@ ___
 
 ### ContractError
 
-Ƭ **ContractError**: [`BaseCallError`](modules.md#basecallerror) \| [`InvalidAddressError`](modules.md#invalidaddresserror) \| [`EvmError`](modules.md#evmerror) \| [`InvalidRequestError`](modules.md#invalidrequesterror) \| [`UnexpectedError`](modules.md#unexpectederror) \| `InvalidAbiError` \| [`InvalidDataError`](modules.md#invaliddataerror) \| [`InvalidFunctionNameError`](modules.md#invalidfunctionnameerror) \| `InvalidArgsError` \| `DecodeFunctionDataError` \| `EncodeFunctionReturnDataError`
+Ƭ **ContractError**: BaseCallError \| InvalidAddressError \| EvmError \| InvalidRequestError \| UnexpectedError \| InvalidAbiError \| InvalidDataError \| InvalidFunctionNameError \| InvalidArgsError \| DecodeFunctionDataError \| EncodeFunctionReturnDataError
 
 Errors returned by contract tevm procedure
 
@@ -2161,31 +2161,31 @@ ___
 
 ### ContractHandler
 
-Ƭ **ContractHandler**: \<TAbi, TFunctionName\>(`action`: [`ContractParams`](modules.md#contractparams)\<`TAbi`, `TFunctionName`\>) => `Promise`\<[`ContractResult`](modules.md#contractresult)\<`TAbi`, `TFunctionName`\>\>
-
-#### Type declaration
-
-▸ \<`TAbi`, `TFunctionName`\>(`action`): `Promise`\<[`ContractResult`](modules.md#contractresult)\<`TAbi`, `TFunctionName`\>\>
+Ƭ **ContractHandler**: Function
 
 Handler for contract tevm procedure
 It's API resuses the viem `contractRead`/`contractWrite` API to encode abi, functionName, and args
+
+#### Type declaration
+
+▸ \<`TAbi`, `TFunctionName`\>(`action`): Promise\<ContractResult\<TAbi, TFunctionName\>\>
 
 ##### Type parameters
 
 | Name | Type |
 | :------ | :------ |
-| `TAbi` | extends `Abi` \| readonly `unknown`[] = `Abi` |
-| `TFunctionName` | extends `ContractFunctionName`\<`TAbi`\> = `ContractFunctionName`\<`TAbi`\> |
+| `TAbi` | extends Abi \| readonly unknown[] = Abi |
+| `TFunctionName` | extends ContractFunctionName\<TAbi\> = ContractFunctionName\<TAbi\> |
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `action` | [`ContractParams`](modules.md#contractparams)\<`TAbi`, `TFunctionName`\> |
+| `action` | ContractParams\<TAbi, TFunctionName\> |
 
 ##### Returns
 
-`Promise`\<[`ContractResult`](modules.md#contractresult)\<`TAbi`, `TFunctionName`\>\>
+Promise\<ContractResult\<TAbi, TFunctionName\>\>
 
 #### Defined in
 
@@ -2195,7 +2195,7 @@ ___
 
 ### ContractJsonRpcProcedure
 
-Ƭ **ContractJsonRpcProcedure**: [`CallJsonRpcRequest`](modules.md#calljsonrpcrequest)
+Ƭ **ContractJsonRpcProcedure**: CallJsonRpcRequest
 
 Since ContractJsonRpcProcedure is a quality of life wrapper around CallJsonRpcProcedure
  We choose to overload the type instead of creating a new one. Tevm contract handlers encode their
@@ -2209,7 +2209,7 @@ ___
 
 ### ContractJsonRpcRequest
 
-Ƭ **ContractJsonRpcRequest**: [`CallJsonRpcRequest`](modules.md#calljsonrpcrequest)
+Ƭ **ContractJsonRpcRequest**: CallJsonRpcRequest
 
 Since contract calls are just a quality of life wrapper around call we avoid using tevm_contract
 in favor of overloading tevm_call
@@ -2222,7 +2222,7 @@ ___
 
 ### ContractJsonRpcResponse
 
-Ƭ **ContractJsonRpcResponse**: [`CallJsonRpcResponse`](modules.md#calljsonrpcresponse)
+Ƭ **ContractJsonRpcResponse**: CallJsonRpcResponse
 
 Since contract calls are just a quality of life wrapper around call we avoid using tevm_contract
 in favor of overloading tevm_call
@@ -2235,7 +2235,7 @@ ___
 
 ### ContractParams
 
-Ƭ **ContractParams**\<`TAbi`, `TFunctionName`\>: `EncodeFunctionDataParameters`\<`TAbi`, `TFunctionName`\> & [`BaseCallParams`](modules.md#basecallparams) & \{ `to`: `Address`  }
+Ƭ **ContractParams**: EncodeFunctionDataParameters\<TAbi, TFunctionName\> & BaseCallParams & Object
 
 Tevm params to execute a call on a contract
 
@@ -2243,8 +2243,8 @@ Tevm params to execute a call on a contract
 
 | Name | Type |
 | :------ | :------ |
-| `TAbi` | extends `Abi` \| readonly `unknown`[] = `Abi` |
-| `TFunctionName` | extends `ContractFunctionName`\<`TAbi`\> = `ContractFunctionName`\<`TAbi`\> |
+| `TAbi` | extends Abi \| readonly unknown[] = Abi |
+| `TFunctionName` | extends ContractFunctionName\<TAbi\> = ContractFunctionName\<TAbi\> |
 
 #### Defined in
 
@@ -2254,15 +2254,15 @@ ___
 
 ### ContractResult
 
-Ƭ **ContractResult**\<`TAbi`, `TFunctionName`, `ErrorType`\>: `Omit`\<[`CallResult`](modules.md#callresult), ``"errors"``\> & \{ `data`: `DecodeFunctionResultReturnType`\<`TAbi`, `TFunctionName`\> ; `errors?`: `never`  } \| [`CallResult`](modules.md#callresult)\<`ErrorType`\> & \{ `data?`: `never`  }
+Ƭ **ContractResult**: Omit\<CallResult, "errors"\> & Object \| CallResult\<ErrorType\> & Object
 
 #### Type parameters
 
 | Name | Type |
 | :------ | :------ |
-| `TAbi` | extends `Abi` \| readonly `unknown`[] = `Abi` |
-| `TFunctionName` | extends `ContractFunctionName`\<`TAbi`\> = `ContractFunctionName`\<`TAbi`\> |
-| `ErrorType` | [`ContractError`](modules.md#contracterror) |
+| `TAbi` | extends Abi \| readonly unknown[] = Abi |
+| `TFunctionName` | extends ContractFunctionName\<TAbi\> = ContractFunctionName\<TAbi\> |
+| `ErrorType` | ContractError |
 
 #### Defined in
 
@@ -2272,21 +2272,21 @@ ___
 
 ### DebugTraceCallHandler
 
-Ƭ **DebugTraceCallHandler**: (`params`: [`DebugTraceCallParams`](modules.md#debugtracecallparams)) => `Promise`\<[`DebugTraceCallResult`](modules.md#debugtracecallresult)\>
+Ƭ **DebugTraceCallHandler**: Function
 
 #### Type declaration
 
-▸ (`params`): `Promise`\<[`DebugTraceCallResult`](modules.md#debugtracecallresult)\>
+▸ (`params`): Promise\<DebugTraceCallResult\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `params` | [`DebugTraceCallParams`](modules.md#debugtracecallparams) |
+| `params` | DebugTraceCallParams |
 
 ##### Returns
 
-`Promise`\<[`DebugTraceCallResult`](modules.md#debugtracecallresult)\>
+Promise\<DebugTraceCallResult\>
 
 #### Defined in
 
@@ -2296,7 +2296,7 @@ ___
 
 ### DebugTraceCallJsonRpcRequest
 
-Ƭ **DebugTraceCallJsonRpcRequest**: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"debug_traceCall"``, `SerializeToJson`\<[`DebugTraceCallParams`](modules.md#debugtracecallparams)\>\>
+Ƭ **DebugTraceCallJsonRpcRequest**: JsonRpcRequest\<"debug\_traceCall", SerializeToJson\<DebugTraceCallParams\>\>
 
 JSON-RPC request for `debug_traceCall` method
 
@@ -2308,7 +2308,7 @@ ___
 
 ### DebugTraceCallJsonRpcResponse
 
-Ƭ **DebugTraceCallJsonRpcResponse**: [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"debug_traceCall"``, `SerializeToJson`\<[`DebugTraceCallResult`](modules.md#debugtracecallresult)\>, `DebugError`\>
+Ƭ **DebugTraceCallJsonRpcResponse**: JsonRpcResponse\<"debug\_traceCall", SerializeToJson\<DebugTraceCallResult\>, DebugError\>
 
 JSON-RPC response for `debug_traceCall` procedure
 
@@ -2320,7 +2320,7 @@ ___
 
 ### DebugTraceCallParams
 
-Ƭ **DebugTraceCallParams**\<`TChain`\>: [`TraceParams`](modules.md#traceparams) & \{ `block?`: `BlockTag` \| `Hex` \| `BigInt` ; `transaction`: `CallParameters`\<`TChain`\>  }
+Ƭ **DebugTraceCallParams**: TraceParams & Object
 
 Params taken by `debug_traceCall` handler
 
@@ -2328,7 +2328,7 @@ Params taken by `debug_traceCall` handler
 
 | Name | Type |
 | :------ | :------ |
-| `TChain` | extends `Chain` \| `undefined` = `Chain` \| `undefined` |
+| `TChain` | extends Chain \| undefined = Chain \| undefined |
 
 #### Defined in
 
@@ -2338,23 +2338,23 @@ ___
 
 ### DebugTraceCallProcedure
 
-Ƭ **DebugTraceCallProcedure**: (`request`: [`DebugTraceCallJsonRpcRequest`](modules.md#debugtracecalljsonrpcrequest)) => `Promise`\<[`DebugTraceCallJsonRpcResponse`](modules.md#debugtracecalljsonrpcresponse)\>
+Ƭ **DebugTraceCallProcedure**: Function
+
+JSON-RPC procedure for `debug_traceCall`
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`DebugTraceCallJsonRpcResponse`](modules.md#debugtracecalljsonrpcresponse)\>
-
-JSON-RPC procedure for `debug_traceCall`
+▸ (`request`): Promise\<DebugTraceCallJsonRpcResponse\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`DebugTraceCallJsonRpcRequest`](modules.md#debugtracecalljsonrpcrequest) |
+| `request` | DebugTraceCallJsonRpcRequest |
 
 ##### Returns
 
-`Promise`\<[`DebugTraceCallJsonRpcResponse`](modules.md#debugtracecalljsonrpcresponse)\>
+Promise\<DebugTraceCallJsonRpcResponse\>
 
 #### Defined in
 
@@ -2370,10 +2370,10 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `failed` | `boolean` |
-| `gas` | `bigint` |
-| `returnValue` | `Hex` |
-| `structLogs` | `ReadonlyArray`\<`StructLog`\> |
+| `failed` | boolean |
+| `gas` | bigint |
+| `returnValue` | Hex |
+| `structLogs` | ReadonlyArray\<StructLog\> |
 
 #### Defined in
 
@@ -2383,21 +2383,21 @@ ___
 
 ### DebugTraceTransactionHandler
 
-Ƭ **DebugTraceTransactionHandler**: (`params`: [`DebugTraceTransactionParams`](modules.md#debugtracetransactionparams)) => `Promise`\<[`DebugTraceTransactionResult`](modules.md#debugtracetransactionresult)\>
+Ƭ **DebugTraceTransactionHandler**: Function
 
 #### Type declaration
 
-▸ (`params`): `Promise`\<[`DebugTraceTransactionResult`](modules.md#debugtracetransactionresult)\>
+▸ (`params`): Promise\<DebugTraceTransactionResult\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `params` | [`DebugTraceTransactionParams`](modules.md#debugtracetransactionparams) |
+| `params` | DebugTraceTransactionParams |
 
 ##### Returns
 
-`Promise`\<[`DebugTraceTransactionResult`](modules.md#debugtracetransactionresult)\>
+Promise\<DebugTraceTransactionResult\>
 
 #### Defined in
 
@@ -2407,7 +2407,7 @@ ___
 
 ### DebugTraceTransactionJsonRpcRequest
 
-Ƭ **DebugTraceTransactionJsonRpcRequest**: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"debug_traceTransaction"``, `SerializeToJson`\<[`DebugTraceTransactionParams`](modules.md#debugtracetransactionparams)\>\>
+Ƭ **DebugTraceTransactionJsonRpcRequest**: JsonRpcRequest\<"debug\_traceTransaction", SerializeToJson\<DebugTraceTransactionParams\>\>
 
 JSON-RPC request for `debug_traceTransaction` method
 
@@ -2419,7 +2419,7 @@ ___
 
 ### DebugTraceTransactionJsonRpcResponse
 
-Ƭ **DebugTraceTransactionJsonRpcResponse**: [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"debug_traceTransaction"``, `SerializeToJson`\<[`DebugTraceTransactionResult`](modules.md#debugtracetransactionresult)\>, `DebugError`\>
+Ƭ **DebugTraceTransactionJsonRpcResponse**: JsonRpcResponse\<"debug\_traceTransaction", SerializeToJson\<DebugTraceTransactionResult\>, DebugError\>
 
 JSON-RPC response for `debug_traceTransaction` procedure
 
@@ -2431,7 +2431,7 @@ ___
 
 ### DebugTraceTransactionParams
 
-Ƭ **DebugTraceTransactionParams**: [`TraceParams`](modules.md#traceparams) & \{ `transactionHash`: `Hex`  }
+Ƭ **DebugTraceTransactionParams**: TraceParams & Object
 
 Params taken by `debug_traceTransaction` handler
 
@@ -2443,23 +2443,23 @@ ___
 
 ### DebugTraceTransactionProcedure
 
-Ƭ **DebugTraceTransactionProcedure**: (`request`: [`DebugTraceTransactionJsonRpcRequest`](modules.md#debugtracetransactionjsonrpcrequest)) => `Promise`\<[`DebugTraceTransactionJsonRpcResponse`](modules.md#debugtracetransactionjsonrpcresponse)\>
+Ƭ **DebugTraceTransactionProcedure**: Function
+
+JSON-RPC procedure for `debug_traceTransaction`
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`DebugTraceTransactionJsonRpcResponse`](modules.md#debugtracetransactionjsonrpcresponse)\>
-
-JSON-RPC procedure for `debug_traceTransaction`
+▸ (`request`): Promise\<DebugTraceTransactionJsonRpcResponse\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`DebugTraceTransactionJsonRpcRequest`](modules.md#debugtracetransactionjsonrpcrequest) |
+| `request` | DebugTraceTransactionJsonRpcRequest |
 
 ##### Returns
 
-`Promise`\<[`DebugTraceTransactionJsonRpcResponse`](modules.md#debugtracetransactionjsonrpcresponse)\>
+Promise\<DebugTraceTransactionJsonRpcResponse\>
 
 #### Defined in
 
@@ -2469,7 +2469,7 @@ ___
 
 ### DebugTraceTransactionResult
 
-Ƭ **DebugTraceTransactionResult**: [`TraceResult`](modules.md#traceresult)
+Ƭ **DebugTraceTransactionResult**: TraceResult
 
 #### Defined in
 
@@ -2479,21 +2479,21 @@ ___
 
 ### EthAccountsHandler
 
-Ƭ **EthAccountsHandler**: (`request?`: [`EthAccountsParams`](modules.md#ethaccountsparams)) => `Promise`\<[`EthAccountsResult`](modules.md#ethaccountsresult)\>
+Ƭ **EthAccountsHandler**: Function
 
 #### Type declaration
 
-▸ (`request?`): `Promise`\<[`EthAccountsResult`](modules.md#ethaccountsresult)\>
+▸ (`request?`): Promise\<EthAccountsResult\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request?` | [`EthAccountsParams`](modules.md#ethaccountsparams) |
+| `request?` | EthAccountsParams |
 
 ##### Returns
 
-`Promise`\<[`EthAccountsResult`](modules.md#ethaccountsresult)\>
+Promise\<EthAccountsResult\>
 
 #### Defined in
 
@@ -2503,21 +2503,21 @@ ___
 
 ### EthAccountsJsonRpcProcedure
 
-Ƭ **EthAccountsJsonRpcProcedure**: (`request`: [`EthAccountsJsonRpcRequest`](modules.md#ethaccountsjsonrpcrequest)) => `Promise`\<[`EthAccountsJsonRpcResponse`](modules.md#ethaccountsjsonrpcresponse)\>
+Ƭ **EthAccountsJsonRpcProcedure**: Function
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`EthAccountsJsonRpcResponse`](modules.md#ethaccountsjsonrpcresponse)\>
+▸ (`request`): Promise\<EthAccountsJsonRpcResponse\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`EthAccountsJsonRpcRequest`](modules.md#ethaccountsjsonrpcrequest) |
+| `request` | EthAccountsJsonRpcRequest |
 
 ##### Returns
 
-`Promise`\<[`EthAccountsJsonRpcResponse`](modules.md#ethaccountsjsonrpcresponse)\>
+Promise\<EthAccountsJsonRpcResponse\>
 
 #### Defined in
 
@@ -2527,7 +2527,7 @@ ___
 
 ### EthAccountsJsonRpcRequest
 
-Ƭ **EthAccountsJsonRpcRequest**: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"eth_accounts"``, readonly []\>
+Ƭ **EthAccountsJsonRpcRequest**: JsonRpcRequest\<"eth\_accounts", readonly []\>
 
 JSON-RPC request for `eth_accounts` procedure
 
@@ -2539,7 +2539,7 @@ ___
 
 ### EthAccountsJsonRpcResponse
 
-Ƭ **EthAccountsJsonRpcResponse**: [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"eth_accounts"``, `Address`[], `string`\>
+Ƭ **EthAccountsJsonRpcResponse**: JsonRpcResponse\<"eth\_accounts", Address[], string\>
 
 JSON-RPC response for `eth_accounts` procedure
 
@@ -2551,7 +2551,7 @@ ___
 
 ### EthAccountsParams
 
-Ƭ **EthAccountsParams**: `EmptyParams`
+Ƭ **EthAccountsParams**: EmptyParams
 
 Params taken by `eth_accounts` handler
 
@@ -2563,7 +2563,7 @@ ___
 
 ### EthAccountsResult
 
-Ƭ **EthAccountsResult**: `Address`[]
+Ƭ **EthAccountsResult**: Address[]
 
 #### Defined in
 
@@ -2573,21 +2573,21 @@ ___
 
 ### EthBlockNumberHandler
 
-Ƭ **EthBlockNumberHandler**: (`request?`: [`EthBlockNumberParams`](modules.md#ethblocknumberparams)) => `Promise`\<[`EthBlockNumberResult`](modules.md#ethblocknumberresult)\>
+Ƭ **EthBlockNumberHandler**: Function
 
 #### Type declaration
 
-▸ (`request?`): `Promise`\<[`EthBlockNumberResult`](modules.md#ethblocknumberresult)\>
+▸ (`request?`): Promise\<EthBlockNumberResult\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request?` | [`EthBlockNumberParams`](modules.md#ethblocknumberparams) |
+| `request?` | EthBlockNumberParams |
 
 ##### Returns
 
-`Promise`\<[`EthBlockNumberResult`](modules.md#ethblocknumberresult)\>
+Promise\<EthBlockNumberResult\>
 
 #### Defined in
 
@@ -2597,21 +2597,21 @@ ___
 
 ### EthBlockNumberJsonRpcProcedure
 
-Ƭ **EthBlockNumberJsonRpcProcedure**: (`request`: [`EthBlockNumberJsonRpcRequest`](modules.md#ethblocknumberjsonrpcrequest)) => `Promise`\<[`EthBlockNumberJsonRpcResponse`](modules.md#ethblocknumberjsonrpcresponse)\>
+Ƭ **EthBlockNumberJsonRpcProcedure**: Function
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`EthBlockNumberJsonRpcResponse`](modules.md#ethblocknumberjsonrpcresponse)\>
+▸ (`request`): Promise\<EthBlockNumberJsonRpcResponse\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`EthBlockNumberJsonRpcRequest`](modules.md#ethblocknumberjsonrpcrequest) |
+| `request` | EthBlockNumberJsonRpcRequest |
 
 ##### Returns
 
-`Promise`\<[`EthBlockNumberJsonRpcResponse`](modules.md#ethblocknumberjsonrpcresponse)\>
+Promise\<EthBlockNumberJsonRpcResponse\>
 
 #### Defined in
 
@@ -2621,7 +2621,7 @@ ___
 
 ### EthBlockNumberJsonRpcRequest
 
-Ƭ **EthBlockNumberJsonRpcRequest**: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"eth_blockNumber"``, readonly []\>
+Ƭ **EthBlockNumberJsonRpcRequest**: JsonRpcRequest\<"eth\_blockNumber", readonly []\>
 
 JSON-RPC request for `eth_blockNumber` procedure
 
@@ -2633,7 +2633,7 @@ ___
 
 ### EthBlockNumberJsonRpcResponse
 
-Ƭ **EthBlockNumberJsonRpcResponse**: [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"eth_blockNumber"``, `SerializeToJson`\<[`EthBlockNumberResult`](modules.md#ethblocknumberresult)\>, `string`\>
+Ƭ **EthBlockNumberJsonRpcResponse**: JsonRpcResponse\<"eth\_blockNumber", SerializeToJson\<EthBlockNumberResult\>, string\>
 
 JSON-RPC response for `eth_blockNumber` procedure
 
@@ -2645,7 +2645,7 @@ ___
 
 ### EthBlockNumberParams
 
-Ƭ **EthBlockNumberParams**: `EmptyParams`
+Ƭ **EthBlockNumberParams**: EmptyParams
 
 JSON-RPC request for `eth_blockNumber` procedure
 
@@ -2657,7 +2657,7 @@ ___
 
 ### EthBlockNumberResult
 
-Ƭ **EthBlockNumberResult**: `bigint`
+Ƭ **EthBlockNumberResult**: bigint
 
 JSON-RPC response for `eth_blockNumber` procedure
 
@@ -2669,21 +2669,21 @@ ___
 
 ### EthCallHandler
 
-Ƭ **EthCallHandler**: (`request`: [`EthCallParams`](modules.md#ethcallparams)) => `Promise`\<[`EthCallResult`](modules.md#ethcallresult)\>
+Ƭ **EthCallHandler**: Function
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`EthCallResult`](modules.md#ethcallresult)\>
+▸ (`request`): Promise\<EthCallResult\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`EthCallParams`](modules.md#ethcallparams) |
+| `request` | EthCallParams |
 
 ##### Returns
 
-`Promise`\<[`EthCallResult`](modules.md#ethcallresult)\>
+Promise\<EthCallResult\>
 
 #### Defined in
 
@@ -2693,21 +2693,21 @@ ___
 
 ### EthCallJsonRpcProcedure
 
-Ƭ **EthCallJsonRpcProcedure**: (`request`: [`EthCallJsonRpcRequest`](modules.md#ethcalljsonrpcrequest)) => `Promise`\<[`EthCallJsonRpcResponse`](modules.md#ethcalljsonrpcresponse)\>
+Ƭ **EthCallJsonRpcProcedure**: Function
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`EthCallJsonRpcResponse`](modules.md#ethcalljsonrpcresponse)\>
+▸ (`request`): Promise\<EthCallJsonRpcResponse\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`EthCallJsonRpcRequest`](modules.md#ethcalljsonrpcrequest) |
+| `request` | EthCallJsonRpcRequest |
 
 ##### Returns
 
-`Promise`\<[`EthCallJsonRpcResponse`](modules.md#ethcalljsonrpcresponse)\>
+Promise\<EthCallJsonRpcResponse\>
 
 #### Defined in
 
@@ -2717,7 +2717,7 @@ ___
 
 ### EthCallJsonRpcRequest
 
-Ƭ **EthCallJsonRpcRequest**: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"eth_call"``, readonly [tx: Transaction, tag: BlockTag \| Hex]\>
+Ƭ **EthCallJsonRpcRequest**: JsonRpcRequest\<"eth\_call", readonly [tx: Transaction, tag: BlockTag \| Hex]\>
 
 JSON-RPC request for `eth_call` procedure
 
@@ -2729,7 +2729,7 @@ ___
 
 ### EthCallJsonRpcResponse
 
-Ƭ **EthCallJsonRpcResponse**: [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"eth_call"``, `Hex`, `string`\>
+Ƭ **EthCallJsonRpcResponse**: JsonRpcResponse\<"eth\_call", Hex, string\>
 
 JSON-RPC response for `eth_call` procedure
 
@@ -2741,7 +2741,7 @@ ___
 
 ### EthCallParams
 
-Ƭ **EthCallParams**: `CallParameters`
+Ƭ **EthCallParams**: CallParameters
 
 JSON-RPC request for `eth_call` procedure
 
@@ -2753,7 +2753,7 @@ ___
 
 ### EthCallResult
 
-Ƭ **EthCallResult**: `Hex`
+Ƭ **EthCallResult**: Hex
 
 JSON-RPC response for `eth_call` procedure
 
@@ -2765,21 +2765,21 @@ ___
 
 ### EthChainIdHandler
 
-Ƭ **EthChainIdHandler**: (`request?`: [`EthChainIdParams`](modules.md#ethchainidparams)) => `Promise`\<[`EthChainIdResult`](modules.md#ethchainidresult)\>
+Ƭ **EthChainIdHandler**: Function
 
 #### Type declaration
 
-▸ (`request?`): `Promise`\<[`EthChainIdResult`](modules.md#ethchainidresult)\>
+▸ (`request?`): Promise\<EthChainIdResult\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request?` | [`EthChainIdParams`](modules.md#ethchainidparams) |
+| `request?` | EthChainIdParams |
 
 ##### Returns
 
-`Promise`\<[`EthChainIdResult`](modules.md#ethchainidresult)\>
+Promise\<EthChainIdResult\>
 
 #### Defined in
 
@@ -2789,21 +2789,21 @@ ___
 
 ### EthChainIdJsonRpcProcedure
 
-Ƭ **EthChainIdJsonRpcProcedure**: (`request`: [`EthChainIdJsonRpcRequest`](modules.md#ethchainidjsonrpcrequest)) => `Promise`\<[`EthChainIdJsonRpcResponse`](modules.md#ethchainidjsonrpcresponse)\>
+Ƭ **EthChainIdJsonRpcProcedure**: Function
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`EthChainIdJsonRpcResponse`](modules.md#ethchainidjsonrpcresponse)\>
+▸ (`request`): Promise\<EthChainIdJsonRpcResponse\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`EthChainIdJsonRpcRequest`](modules.md#ethchainidjsonrpcrequest) |
+| `request` | EthChainIdJsonRpcRequest |
 
 ##### Returns
 
-`Promise`\<[`EthChainIdJsonRpcResponse`](modules.md#ethchainidjsonrpcresponse)\>
+Promise\<EthChainIdJsonRpcResponse\>
 
 #### Defined in
 
@@ -2813,7 +2813,7 @@ ___
 
 ### EthChainIdJsonRpcRequest
 
-Ƭ **EthChainIdJsonRpcRequest**: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"eth_chainId"``, readonly []\>
+Ƭ **EthChainIdJsonRpcRequest**: JsonRpcRequest\<"eth\_chainId", readonly []\>
 
 JSON-RPC request for `eth_chainId` procedure
 
@@ -2825,7 +2825,7 @@ ___
 
 ### EthChainIdJsonRpcResponse
 
-Ƭ **EthChainIdJsonRpcResponse**: [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"eth_chainId"``, `Hex`, `string`\>
+Ƭ **EthChainIdJsonRpcResponse**: JsonRpcResponse\<"eth\_chainId", Hex, string\>
 
 JSON-RPC response for `eth_chainId` procedure
 
@@ -2837,7 +2837,7 @@ ___
 
 ### EthChainIdParams
 
-Ƭ **EthChainIdParams**: `EmptyParams`
+Ƭ **EthChainIdParams**: EmptyParams
 
 JSON-RPC request for `eth_chainId` procedure
 
@@ -2849,7 +2849,7 @@ ___
 
 ### EthChainIdResult
 
-Ƭ **EthChainIdResult**: `bigint`
+Ƭ **EthChainIdResult**: bigint
 
 JSON-RPC response for `eth_chainId` procedure
 
@@ -2861,21 +2861,21 @@ ___
 
 ### EthCoinbaseHandler
 
-Ƭ **EthCoinbaseHandler**: (`request`: [`EthCoinbaseParams`](modules.md#ethcoinbaseparams)) => `Promise`\<[`EthCoinbaseResult`](modules.md#ethcoinbaseresult)\>
+Ƭ **EthCoinbaseHandler**: Function
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`EthCoinbaseResult`](modules.md#ethcoinbaseresult)\>
+▸ (`request`): Promise\<EthCoinbaseResult\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`EthCoinbaseParams`](modules.md#ethcoinbaseparams) |
+| `request` | EthCoinbaseParams |
 
 ##### Returns
 
-`Promise`\<[`EthCoinbaseResult`](modules.md#ethcoinbaseresult)\>
+Promise\<EthCoinbaseResult\>
 
 #### Defined in
 
@@ -2885,21 +2885,21 @@ ___
 
 ### EthCoinbaseJsonRpcProcedure
 
-Ƭ **EthCoinbaseJsonRpcProcedure**: (`request`: [`EthCoinbaseJsonRpcRequest`](modules.md#ethcoinbasejsonrpcrequest)) => `Promise`\<[`EthCoinbaseJsonRpcResponse`](modules.md#ethcoinbasejsonrpcresponse)\>
+Ƭ **EthCoinbaseJsonRpcProcedure**: Function
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`EthCoinbaseJsonRpcResponse`](modules.md#ethcoinbasejsonrpcresponse)\>
+▸ (`request`): Promise\<EthCoinbaseJsonRpcResponse\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`EthCoinbaseJsonRpcRequest`](modules.md#ethcoinbasejsonrpcrequest) |
+| `request` | EthCoinbaseJsonRpcRequest |
 
 ##### Returns
 
-`Promise`\<[`EthCoinbaseJsonRpcResponse`](modules.md#ethcoinbasejsonrpcresponse)\>
+Promise\<EthCoinbaseJsonRpcResponse\>
 
 #### Defined in
 
@@ -2909,7 +2909,7 @@ ___
 
 ### EthCoinbaseJsonRpcRequest
 
-Ƭ **EthCoinbaseJsonRpcRequest**: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"eth_coinbase"``, readonly []\>
+Ƭ **EthCoinbaseJsonRpcRequest**: JsonRpcRequest\<"eth\_coinbase", readonly []\>
 
 JSON-RPC request for `eth_coinbase` procedure
 
@@ -2921,7 +2921,7 @@ ___
 
 ### EthCoinbaseJsonRpcResponse
 
-Ƭ **EthCoinbaseJsonRpcResponse**: [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"eth_coinbase"``, `Hex`, `string`\>
+Ƭ **EthCoinbaseJsonRpcResponse**: JsonRpcResponse\<"eth\_coinbase", Hex, string\>
 
 JSON-RPC response for `eth_coinbase` procedure
 
@@ -2933,7 +2933,7 @@ ___
 
 ### EthCoinbaseParams
 
-Ƭ **EthCoinbaseParams**: `EmptyParams`
+Ƭ **EthCoinbaseParams**: EmptyParams
 
 JSON-RPC request for `eth_coinbase` procedure
 
@@ -2945,7 +2945,7 @@ ___
 
 ### EthCoinbaseResult
 
-Ƭ **EthCoinbaseResult**: `Address`
+Ƭ **EthCoinbaseResult**: Address
 
 JSON-RPC response for `eth_coinbase` procedure
 
@@ -2957,21 +2957,21 @@ ___
 
 ### EthEstimateGasHandler
 
-Ƭ **EthEstimateGasHandler**: (`request`: [`EthEstimateGasParams`](modules.md#ethestimategasparams)) => `Promise`\<[`EthEstimateGasResult`](modules.md#ethestimategasresult)\>
+Ƭ **EthEstimateGasHandler**: Function
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`EthEstimateGasResult`](modules.md#ethestimategasresult)\>
+▸ (`request`): Promise\<EthEstimateGasResult\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`EthEstimateGasParams`](modules.md#ethestimategasparams) |
+| `request` | EthEstimateGasParams |
 
 ##### Returns
 
-`Promise`\<[`EthEstimateGasResult`](modules.md#ethestimategasresult)\>
+Promise\<EthEstimateGasResult\>
 
 #### Defined in
 
@@ -2981,21 +2981,21 @@ ___
 
 ### EthEstimateGasJsonRpcProcedure
 
-Ƭ **EthEstimateGasJsonRpcProcedure**: (`request`: [`EthEstimateGasJsonRpcRequest`](modules.md#ethestimategasjsonrpcrequest)) => `Promise`\<[`EthEstimateGasJsonRpcResponse`](modules.md#ethestimategasjsonrpcresponse)\>
+Ƭ **EthEstimateGasJsonRpcProcedure**: Function
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`EthEstimateGasJsonRpcResponse`](modules.md#ethestimategasjsonrpcresponse)\>
+▸ (`request`): Promise\<EthEstimateGasJsonRpcResponse\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`EthEstimateGasJsonRpcRequest`](modules.md#ethestimategasjsonrpcrequest) |
+| `request` | EthEstimateGasJsonRpcRequest |
 
 ##### Returns
 
-`Promise`\<[`EthEstimateGasJsonRpcResponse`](modules.md#ethestimategasjsonrpcresponse)\>
+Promise\<EthEstimateGasJsonRpcResponse\>
 
 #### Defined in
 
@@ -3005,7 +3005,7 @@ ___
 
 ### EthEstimateGasJsonRpcRequest
 
-Ƭ **EthEstimateGasJsonRpcRequest**: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"eth_estimateGas"``, readonly [tx: Transaction]\>
+Ƭ **EthEstimateGasJsonRpcRequest**: JsonRpcRequest\<"eth\_estimateGas", readonly [tx: Transaction]\>
 
 JSON-RPC request for `eth_estimateGas` procedure
 
@@ -3017,7 +3017,7 @@ ___
 
 ### EthEstimateGasJsonRpcResponse
 
-Ƭ **EthEstimateGasJsonRpcResponse**: [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"eth_estimateGas"``, `Hex`, `string`\>
+Ƭ **EthEstimateGasJsonRpcResponse**: JsonRpcResponse\<"eth\_estimateGas", Hex, string\>
 
 JSON-RPC response for `eth_estimateGas` procedure
 
@@ -3029,7 +3029,7 @@ ___
 
 ### EthEstimateGasParams
 
-Ƭ **EthEstimateGasParams**: `EstimateGasParameters`
+Ƭ **EthEstimateGasParams**: EstimateGasParameters
 
 JSON-RPC request for `eth_estimateGas` procedure
 
@@ -3041,7 +3041,7 @@ ___
 
 ### EthEstimateGasResult
 
-Ƭ **EthEstimateGasResult**: `bigint`
+Ƭ **EthEstimateGasResult**: bigint
 
 JSON-RPC response for `eth_estimateGas` procedure
 
@@ -3053,21 +3053,21 @@ ___
 
 ### EthGasPriceHandler
 
-Ƭ **EthGasPriceHandler**: (`request?`: [`EthGasPriceParams`](modules.md#ethgaspriceparams)) => `Promise`\<[`EthGasPriceResult`](modules.md#ethgaspriceresult)\>
+Ƭ **EthGasPriceHandler**: Function
 
 #### Type declaration
 
-▸ (`request?`): `Promise`\<[`EthGasPriceResult`](modules.md#ethgaspriceresult)\>
+▸ (`request?`): Promise\<EthGasPriceResult\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request?` | [`EthGasPriceParams`](modules.md#ethgaspriceparams) |
+| `request?` | EthGasPriceParams |
 
 ##### Returns
 
-`Promise`\<[`EthGasPriceResult`](modules.md#ethgaspriceresult)\>
+Promise\<EthGasPriceResult\>
 
 #### Defined in
 
@@ -3077,21 +3077,21 @@ ___
 
 ### EthGasPriceJsonRpcProcedure
 
-Ƭ **EthGasPriceJsonRpcProcedure**: (`request`: [`EthGasPriceJsonRpcRequest`](modules.md#ethgaspricejsonrpcrequest)) => `Promise`\<[`EthGasPriceJsonRpcResponse`](modules.md#ethgaspricejsonrpcresponse)\>
+Ƭ **EthGasPriceJsonRpcProcedure**: Function
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`EthGasPriceJsonRpcResponse`](modules.md#ethgaspricejsonrpcresponse)\>
+▸ (`request`): Promise\<EthGasPriceJsonRpcResponse\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`EthGasPriceJsonRpcRequest`](modules.md#ethgaspricejsonrpcrequest) |
+| `request` | EthGasPriceJsonRpcRequest |
 
 ##### Returns
 
-`Promise`\<[`EthGasPriceJsonRpcResponse`](modules.md#ethgaspricejsonrpcresponse)\>
+Promise\<EthGasPriceJsonRpcResponse\>
 
 #### Defined in
 
@@ -3101,7 +3101,7 @@ ___
 
 ### EthGasPriceJsonRpcRequest
 
-Ƭ **EthGasPriceJsonRpcRequest**: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"eth_gasPrice"``, readonly []\>
+Ƭ **EthGasPriceJsonRpcRequest**: JsonRpcRequest\<"eth\_gasPrice", readonly []\>
 
 JSON-RPC request for `eth_gasPrice` procedure
 
@@ -3113,7 +3113,7 @@ ___
 
 ### EthGasPriceJsonRpcResponse
 
-Ƭ **EthGasPriceJsonRpcResponse**: [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"eth_gasPrice"``, `Hex`, `string`\>
+Ƭ **EthGasPriceJsonRpcResponse**: JsonRpcResponse\<"eth\_gasPrice", Hex, string\>
 
 JSON-RPC response for `eth_gasPrice` procedure
 
@@ -3125,7 +3125,7 @@ ___
 
 ### EthGasPriceParams
 
-Ƭ **EthGasPriceParams**: `EmptyParams`
+Ƭ **EthGasPriceParams**: EmptyParams
 
 JSON-RPC request for `eth_gasPrice` procedure
 
@@ -3137,7 +3137,7 @@ ___
 
 ### EthGasPriceResult
 
-Ƭ **EthGasPriceResult**: `bigint`
+Ƭ **EthGasPriceResult**: bigint
 
 JSON-RPC response for `eth_gasPrice` procedure
 
@@ -3149,21 +3149,21 @@ ___
 
 ### EthGetBalanceHandler
 
-Ƭ **EthGetBalanceHandler**: (`request`: [`EthGetBalanceParams`](modules.md#ethgetbalanceparams)) => `Promise`\<[`EthGetBalanceResult`](modules.md#ethgetbalanceresult)\>
+Ƭ **EthGetBalanceHandler**: Function
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`EthGetBalanceResult`](modules.md#ethgetbalanceresult)\>
+▸ (`request`): Promise\<EthGetBalanceResult\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`EthGetBalanceParams`](modules.md#ethgetbalanceparams) |
+| `request` | EthGetBalanceParams |
 
 ##### Returns
 
-`Promise`\<[`EthGetBalanceResult`](modules.md#ethgetbalanceresult)\>
+Promise\<EthGetBalanceResult\>
 
 #### Defined in
 
@@ -3173,21 +3173,21 @@ ___
 
 ### EthGetBalanceJsonRpcProcedure
 
-Ƭ **EthGetBalanceJsonRpcProcedure**: (`request`: [`EthGetBalanceJsonRpcRequest`](modules.md#ethgetbalancejsonrpcrequest)) => `Promise`\<[`EthGetBalanceJsonRpcResponse`](modules.md#ethgetbalancejsonrpcresponse)\>
+Ƭ **EthGetBalanceJsonRpcProcedure**: Function
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`EthGetBalanceJsonRpcResponse`](modules.md#ethgetbalancejsonrpcresponse)\>
+▸ (`request`): Promise\<EthGetBalanceJsonRpcResponse\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`EthGetBalanceJsonRpcRequest`](modules.md#ethgetbalancejsonrpcrequest) |
+| `request` | EthGetBalanceJsonRpcRequest |
 
 ##### Returns
 
-`Promise`\<[`EthGetBalanceJsonRpcResponse`](modules.md#ethgetbalancejsonrpcresponse)\>
+Promise\<EthGetBalanceJsonRpcResponse\>
 
 #### Defined in
 
@@ -3197,7 +3197,7 @@ ___
 
 ### EthGetBalanceJsonRpcRequest
 
-Ƭ **EthGetBalanceJsonRpcRequest**: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"eth_getBalance"``, [address: Address, tag: BlockTag \| Hex]\>
+Ƭ **EthGetBalanceJsonRpcRequest**: JsonRpcRequest\<"eth\_getBalance", [address: Address, tag: BlockTag \| Hex]\>
 
 JSON-RPC request for `eth_getBalance` procedure
 
@@ -3209,7 +3209,7 @@ ___
 
 ### EthGetBalanceJsonRpcResponse
 
-Ƭ **EthGetBalanceJsonRpcResponse**: [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"eth_getBalance"``, `Hex`, `string`\>
+Ƭ **EthGetBalanceJsonRpcResponse**: JsonRpcResponse\<"eth\_getBalance", Hex, string\>
 
 JSON-RPC response for `eth_getBalance` procedure
 
@@ -3221,7 +3221,7 @@ ___
 
 ### EthGetBalanceParams
 
-Ƭ **EthGetBalanceParams**: `GetBalanceParameters`
+Ƭ **EthGetBalanceParams**: GetBalanceParameters
 
 JSON-RPC request for `eth_getBalance` procedure
 
@@ -3233,7 +3233,7 @@ ___
 
 ### EthGetBalanceResult
 
-Ƭ **EthGetBalanceResult**: `bigint`
+Ƭ **EthGetBalanceResult**: bigint
 
 JSON-RPC response for `eth_getBalance` procedure
 
@@ -3245,21 +3245,21 @@ ___
 
 ### EthGetBlockByHashHandler
 
-Ƭ **EthGetBlockByHashHandler**: (`request`: [`EthGetBlockByHashParams`](modules.md#ethgetblockbyhashparams)) => `Promise`\<[`EthGetBlockByHashResult`](modules.md#ethgetblockbyhashresult)\>
+Ƭ **EthGetBlockByHashHandler**: Function
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`EthGetBlockByHashResult`](modules.md#ethgetblockbyhashresult)\>
+▸ (`request`): Promise\<EthGetBlockByHashResult\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`EthGetBlockByHashParams`](modules.md#ethgetblockbyhashparams) |
+| `request` | EthGetBlockByHashParams |
 
 ##### Returns
 
-`Promise`\<[`EthGetBlockByHashResult`](modules.md#ethgetblockbyhashresult)\>
+Promise\<EthGetBlockByHashResult\>
 
 #### Defined in
 
@@ -3269,21 +3269,21 @@ ___
 
 ### EthGetBlockByHashJsonRpcProcedure
 
-Ƭ **EthGetBlockByHashJsonRpcProcedure**: (`request`: [`EthGetBlockByHashJsonRpcRequest`](modules.md#ethgetblockbyhashjsonrpcrequest)) => `Promise`\<[`EthGetBlockByHashJsonRpcResponse`](modules.md#ethgetblockbyhashjsonrpcresponse)\>
+Ƭ **EthGetBlockByHashJsonRpcProcedure**: Function
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`EthGetBlockByHashJsonRpcResponse`](modules.md#ethgetblockbyhashjsonrpcresponse)\>
+▸ (`request`): Promise\<EthGetBlockByHashJsonRpcResponse\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`EthGetBlockByHashJsonRpcRequest`](modules.md#ethgetblockbyhashjsonrpcrequest) |
+| `request` | EthGetBlockByHashJsonRpcRequest |
 
 ##### Returns
 
-`Promise`\<[`EthGetBlockByHashJsonRpcResponse`](modules.md#ethgetblockbyhashjsonrpcresponse)\>
+Promise\<EthGetBlockByHashJsonRpcResponse\>
 
 #### Defined in
 
@@ -3293,7 +3293,7 @@ ___
 
 ### EthGetBlockByHashJsonRpcRequest
 
-Ƭ **EthGetBlockByHashJsonRpcRequest**: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"eth_getBlockByHash"``, readonly [blockHash: Hex, fullTransactionObjects: boolean]\>
+Ƭ **EthGetBlockByHashJsonRpcRequest**: JsonRpcRequest\<"eth\_getBlockByHash", readonly [blockHash: Hex, fullTransactionObjects: boolean]\>
 
 JSON-RPC request for `eth_getBlockByHash` procedure
 
@@ -3305,7 +3305,7 @@ ___
 
 ### EthGetBlockByHashJsonRpcResponse
 
-Ƭ **EthGetBlockByHashJsonRpcResponse**: [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"eth_getBlockByHash"``, [`BlockResult`](modules.md#blockresult), `string`\>
+Ƭ **EthGetBlockByHashJsonRpcResponse**: JsonRpcResponse\<"eth\_getBlockByHash", BlockResult, string\>
 
 JSON-RPC response for `eth_getBlockByHash` procedure
 
@@ -3325,8 +3325,8 @@ JSON-RPC request for `eth_getBlockByHash` procedure
 
 | Name | Type |
 | :------ | :------ |
-| `blockHash` | `Hex` |
-| `fullTransactionObjects` | `boolean` |
+| `blockHash` | Hex |
+| `fullTransactionObjects` | boolean |
 
 #### Defined in
 
@@ -3336,7 +3336,7 @@ ___
 
 ### EthGetBlockByHashResult
 
-Ƭ **EthGetBlockByHashResult**: [`BlockResult`](modules.md#blockresult)
+Ƭ **EthGetBlockByHashResult**: BlockResult
 
 JSON-RPC response for `eth_getBlockByHash` procedure
 
@@ -3348,21 +3348,21 @@ ___
 
 ### EthGetBlockByNumberHandler
 
-Ƭ **EthGetBlockByNumberHandler**: (`request`: [`EthGetBlockByNumberParams`](modules.md#ethgetblockbynumberparams)) => `Promise`\<[`EthGetBlockByNumberResult`](modules.md#ethgetblockbynumberresult)\>
+Ƭ **EthGetBlockByNumberHandler**: Function
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`EthGetBlockByNumberResult`](modules.md#ethgetblockbynumberresult)\>
+▸ (`request`): Promise\<EthGetBlockByNumberResult\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`EthGetBlockByNumberParams`](modules.md#ethgetblockbynumberparams) |
+| `request` | EthGetBlockByNumberParams |
 
 ##### Returns
 
-`Promise`\<[`EthGetBlockByNumberResult`](modules.md#ethgetblockbynumberresult)\>
+Promise\<EthGetBlockByNumberResult\>
 
 #### Defined in
 
@@ -3372,21 +3372,21 @@ ___
 
 ### EthGetBlockByNumberJsonRpcProcedure
 
-Ƭ **EthGetBlockByNumberJsonRpcProcedure**: (`request`: [`EthGetBlockByNumberJsonRpcRequest`](modules.md#ethgetblockbynumberjsonrpcrequest)) => `Promise`\<[`EthGetBlockByNumberJsonRpcResponse`](modules.md#ethgetblockbynumberjsonrpcresponse)\>
+Ƭ **EthGetBlockByNumberJsonRpcProcedure**: Function
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`EthGetBlockByNumberJsonRpcResponse`](modules.md#ethgetblockbynumberjsonrpcresponse)\>
+▸ (`request`): Promise\<EthGetBlockByNumberJsonRpcResponse\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`EthGetBlockByNumberJsonRpcRequest`](modules.md#ethgetblockbynumberjsonrpcrequest) |
+| `request` | EthGetBlockByNumberJsonRpcRequest |
 
 ##### Returns
 
-`Promise`\<[`EthGetBlockByNumberJsonRpcResponse`](modules.md#ethgetblockbynumberjsonrpcresponse)\>
+Promise\<EthGetBlockByNumberJsonRpcResponse\>
 
 #### Defined in
 
@@ -3396,7 +3396,7 @@ ___
 
 ### EthGetBlockByNumberJsonRpcRequest
 
-Ƭ **EthGetBlockByNumberJsonRpcRequest**: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"eth_getBlockByNumber"``, readonly [tag: BlockTag \| Hex, fullTransactionObjects: boolean]\>
+Ƭ **EthGetBlockByNumberJsonRpcRequest**: JsonRpcRequest\<"eth\_getBlockByNumber", readonly [tag: BlockTag \| Hex, fullTransactionObjects: boolean]\>
 
 JSON-RPC request for `eth_getBlockByNumber` procedure
 
@@ -3408,7 +3408,7 @@ ___
 
 ### EthGetBlockByNumberJsonRpcResponse
 
-Ƭ **EthGetBlockByNumberJsonRpcResponse**: [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"eth_getBlockByNumber"``, [`BlockResult`](modules.md#blockresult), `string`\>
+Ƭ **EthGetBlockByNumberJsonRpcResponse**: JsonRpcResponse\<"eth\_getBlockByNumber", BlockResult, string\>
 
 JSON-RPC response for `eth_getBlockByNumber` procedure
 
@@ -3428,8 +3428,8 @@ JSON-RPC request for `eth_getBlockByNumber` procedure
 
 | Name | Type |
 | :------ | :------ |
-| `fullTransactionObjects` | `boolean` |
-| `tag` | `BlockTag` \| `Hex` |
+| `fullTransactionObjects` | boolean |
+| `tag` | BlockTag \| Hex |
 
 #### Defined in
 
@@ -3439,7 +3439,7 @@ ___
 
 ### EthGetBlockByNumberResult
 
-Ƭ **EthGetBlockByNumberResult**: [`BlockResult`](modules.md#blockresult)
+Ƭ **EthGetBlockByNumberResult**: BlockResult
 
 JSON-RPC response for `eth_getBlockByNumber` procedure
 
@@ -3451,21 +3451,21 @@ ___
 
 ### EthGetBlockTransactionCountByHashHandler
 
-Ƭ **EthGetBlockTransactionCountByHashHandler**: (`request`: [`EthGetBlockTransactionCountByHashParams`](modules.md#ethgetblocktransactioncountbyhashparams)) => `Promise`\<[`EthGetBlockTransactionCountByHashResult`](modules.md#ethgetblocktransactioncountbyhashresult)\>
+Ƭ **EthGetBlockTransactionCountByHashHandler**: Function
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`EthGetBlockTransactionCountByHashResult`](modules.md#ethgetblocktransactioncountbyhashresult)\>
+▸ (`request`): Promise\<EthGetBlockTransactionCountByHashResult\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`EthGetBlockTransactionCountByHashParams`](modules.md#ethgetblocktransactioncountbyhashparams) |
+| `request` | EthGetBlockTransactionCountByHashParams |
 
 ##### Returns
 
-`Promise`\<[`EthGetBlockTransactionCountByHashResult`](modules.md#ethgetblocktransactioncountbyhashresult)\>
+Promise\<EthGetBlockTransactionCountByHashResult\>
 
 #### Defined in
 
@@ -3475,21 +3475,21 @@ ___
 
 ### EthGetBlockTransactionCountByHashJsonRpcProcedure
 
-Ƭ **EthGetBlockTransactionCountByHashJsonRpcProcedure**: (`request`: [`EthGetBlockTransactionCountByHashJsonRpcRequest`](modules.md#ethgetblocktransactioncountbyhashjsonrpcrequest)) => `Promise`\<[`EthGetBlockTransactionCountByHashJsonRpcResponse`](modules.md#ethgetblocktransactioncountbyhashjsonrpcresponse)\>
+Ƭ **EthGetBlockTransactionCountByHashJsonRpcProcedure**: Function
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`EthGetBlockTransactionCountByHashJsonRpcResponse`](modules.md#ethgetblocktransactioncountbyhashjsonrpcresponse)\>
+▸ (`request`): Promise\<EthGetBlockTransactionCountByHashJsonRpcResponse\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`EthGetBlockTransactionCountByHashJsonRpcRequest`](modules.md#ethgetblocktransactioncountbyhashjsonrpcrequest) |
+| `request` | EthGetBlockTransactionCountByHashJsonRpcRequest |
 
 ##### Returns
 
-`Promise`\<[`EthGetBlockTransactionCountByHashJsonRpcResponse`](modules.md#ethgetblocktransactioncountbyhashjsonrpcresponse)\>
+Promise\<EthGetBlockTransactionCountByHashJsonRpcResponse\>
 
 #### Defined in
 
@@ -3499,7 +3499,7 @@ ___
 
 ### EthGetBlockTransactionCountByHashJsonRpcRequest
 
-Ƭ **EthGetBlockTransactionCountByHashJsonRpcRequest**: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"eth_getBlockTransactionCountByHash"``, readonly [hash: Hex]\>
+Ƭ **EthGetBlockTransactionCountByHashJsonRpcRequest**: JsonRpcRequest\<"eth\_getBlockTransactionCountByHash", readonly [hash: Hex]\>
 
 JSON-RPC request for `eth_getBlockTransactionCountByHash` procedure
 
@@ -3511,7 +3511,7 @@ ___
 
 ### EthGetBlockTransactionCountByHashJsonRpcResponse
 
-Ƭ **EthGetBlockTransactionCountByHashJsonRpcResponse**: [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"eth_getBlockTransactionCountByHash"``, `Hex`, `string`\>
+Ƭ **EthGetBlockTransactionCountByHashJsonRpcResponse**: JsonRpcResponse\<"eth\_getBlockTransactionCountByHash", Hex, string\>
 
 JSON-RPC response for `eth_getBlockTransactionCountByHash` procedure
 
@@ -3531,7 +3531,7 @@ JSON-RPC request for `eth_getBlockTransactionCountByHash` procedure
 
 | Name | Type |
 | :------ | :------ |
-| `hash` | `Hex` |
+| `hash` | Hex |
 
 #### Defined in
 
@@ -3541,7 +3541,7 @@ ___
 
 ### EthGetBlockTransactionCountByHashResult
 
-Ƭ **EthGetBlockTransactionCountByHashResult**: `Hex`
+Ƭ **EthGetBlockTransactionCountByHashResult**: Hex
 
 JSON-RPC response for `eth_getBlockTransactionCountByHash` procedure
 
@@ -3553,21 +3553,21 @@ ___
 
 ### EthGetBlockTransactionCountByNumberHandler
 
-Ƭ **EthGetBlockTransactionCountByNumberHandler**: (`request`: [`EthGetBlockTransactionCountByNumberParams`](modules.md#ethgetblocktransactioncountbynumberparams)) => `Promise`\<[`EthGetBlockTransactionCountByNumberResult`](modules.md#ethgetblocktransactioncountbynumberresult)\>
+Ƭ **EthGetBlockTransactionCountByNumberHandler**: Function
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`EthGetBlockTransactionCountByNumberResult`](modules.md#ethgetblocktransactioncountbynumberresult)\>
+▸ (`request`): Promise\<EthGetBlockTransactionCountByNumberResult\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`EthGetBlockTransactionCountByNumberParams`](modules.md#ethgetblocktransactioncountbynumberparams) |
+| `request` | EthGetBlockTransactionCountByNumberParams |
 
 ##### Returns
 
-`Promise`\<[`EthGetBlockTransactionCountByNumberResult`](modules.md#ethgetblocktransactioncountbynumberresult)\>
+Promise\<EthGetBlockTransactionCountByNumberResult\>
 
 #### Defined in
 
@@ -3577,21 +3577,21 @@ ___
 
 ### EthGetBlockTransactionCountByNumberJsonRpcProcedure
 
-Ƭ **EthGetBlockTransactionCountByNumberJsonRpcProcedure**: (`request`: [`EthGetBlockTransactionCountByNumberJsonRpcRequest`](modules.md#ethgetblocktransactioncountbynumberjsonrpcrequest)) => `Promise`\<[`EthGetBlockTransactionCountByNumberJsonRpcResponse`](modules.md#ethgetblocktransactioncountbynumberjsonrpcresponse)\>
+Ƭ **EthGetBlockTransactionCountByNumberJsonRpcProcedure**: Function
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`EthGetBlockTransactionCountByNumberJsonRpcResponse`](modules.md#ethgetblocktransactioncountbynumberjsonrpcresponse)\>
+▸ (`request`): Promise\<EthGetBlockTransactionCountByNumberJsonRpcResponse\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`EthGetBlockTransactionCountByNumberJsonRpcRequest`](modules.md#ethgetblocktransactioncountbynumberjsonrpcrequest) |
+| `request` | EthGetBlockTransactionCountByNumberJsonRpcRequest |
 
 ##### Returns
 
-`Promise`\<[`EthGetBlockTransactionCountByNumberJsonRpcResponse`](modules.md#ethgetblocktransactioncountbynumberjsonrpcresponse)\>
+Promise\<EthGetBlockTransactionCountByNumberJsonRpcResponse\>
 
 #### Defined in
 
@@ -3601,7 +3601,7 @@ ___
 
 ### EthGetBlockTransactionCountByNumberJsonRpcRequest
 
-Ƭ **EthGetBlockTransactionCountByNumberJsonRpcRequest**: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"eth_getBlockTransactionCountByNumber"``, readonly [tag: BlockTag \| Hex]\>
+Ƭ **EthGetBlockTransactionCountByNumberJsonRpcRequest**: JsonRpcRequest\<"eth\_getBlockTransactionCountByNumber", readonly [tag: BlockTag \| Hex]\>
 
 JSON-RPC request for `eth_getBlockTransactionCountByNumber` procedure
 
@@ -3613,7 +3613,7 @@ ___
 
 ### EthGetBlockTransactionCountByNumberJsonRpcResponse
 
-Ƭ **EthGetBlockTransactionCountByNumberJsonRpcResponse**: [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"eth_getBlockTransactionCountByNumber"``, `Hex`, `string`\>
+Ƭ **EthGetBlockTransactionCountByNumberJsonRpcResponse**: JsonRpcResponse\<"eth\_getBlockTransactionCountByNumber", Hex, string\>
 
 JSON-RPC response for `eth_getBlockTransactionCountByNumber` procedure
 
@@ -3633,7 +3633,7 @@ JSON-RPC request for `eth_getBlockTransactionCountByNumber` procedure
 
 | Name | Type |
 | :------ | :------ |
-| `tag` | `BlockTag` \| `Hex` |
+| `tag` | BlockTag \| Hex |
 
 #### Defined in
 
@@ -3643,7 +3643,7 @@ ___
 
 ### EthGetBlockTransactionCountByNumberResult
 
-Ƭ **EthGetBlockTransactionCountByNumberResult**: `Hex`
+Ƭ **EthGetBlockTransactionCountByNumberResult**: Hex
 
 JSON-RPC response for `eth_getBlockTransactionCountByNumber` procedure
 
@@ -3655,21 +3655,21 @@ ___
 
 ### EthGetCodeHandler
 
-Ƭ **EthGetCodeHandler**: (`request`: [`EthGetCodeParams`](modules.md#ethgetcodeparams)) => `Promise`\<[`EthGetCodeResult`](modules.md#ethgetcoderesult)\>
+Ƭ **EthGetCodeHandler**: Function
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`EthGetCodeResult`](modules.md#ethgetcoderesult)\>
+▸ (`request`): Promise\<EthGetCodeResult\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`EthGetCodeParams`](modules.md#ethgetcodeparams) |
+| `request` | EthGetCodeParams |
 
 ##### Returns
 
-`Promise`\<[`EthGetCodeResult`](modules.md#ethgetcoderesult)\>
+Promise\<EthGetCodeResult\>
 
 #### Defined in
 
@@ -3679,21 +3679,21 @@ ___
 
 ### EthGetCodeJsonRpcProcedure
 
-Ƭ **EthGetCodeJsonRpcProcedure**: (`request`: [`EthGetCodeJsonRpcRequest`](modules.md#ethgetcodejsonrpcrequest)) => `Promise`\<[`EthGetCodeJsonRpcResponse`](modules.md#ethgetcodejsonrpcresponse)\>
+Ƭ **EthGetCodeJsonRpcProcedure**: Function
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`EthGetCodeJsonRpcResponse`](modules.md#ethgetcodejsonrpcresponse)\>
+▸ (`request`): Promise\<EthGetCodeJsonRpcResponse\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`EthGetCodeJsonRpcRequest`](modules.md#ethgetcodejsonrpcrequest) |
+| `request` | EthGetCodeJsonRpcRequest |
 
 ##### Returns
 
-`Promise`\<[`EthGetCodeJsonRpcResponse`](modules.md#ethgetcodejsonrpcresponse)\>
+Promise\<EthGetCodeJsonRpcResponse\>
 
 #### Defined in
 
@@ -3703,7 +3703,7 @@ ___
 
 ### EthGetCodeJsonRpcRequest
 
-Ƭ **EthGetCodeJsonRpcRequest**: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"eth_getCode"``, readonly [address: Address, tag: BlockTag \| Hex]\>
+Ƭ **EthGetCodeJsonRpcRequest**: JsonRpcRequest\<"eth\_getCode", readonly [address: Address, tag: BlockTag \| Hex]\>
 
 JSON-RPC request for `eth_getCode` procedure
 
@@ -3715,7 +3715,7 @@ ___
 
 ### EthGetCodeJsonRpcResponse
 
-Ƭ **EthGetCodeJsonRpcResponse**: [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"eth_getCode"``, `Hex`, `string`\>
+Ƭ **EthGetCodeJsonRpcResponse**: JsonRpcResponse\<"eth\_getCode", Hex, string\>
 
 JSON-RPC response for `eth_getCode` procedure
 
@@ -3735,8 +3735,8 @@ JSON-RPC request for `eth_getCode` procedure
 
 | Name | Type |
 | :------ | :------ |
-| `address` | `Address` |
-| `tag` | `BlockTag` \| `Hex` |
+| `address` | Address |
+| `tag` | BlockTag \| Hex |
 
 #### Defined in
 
@@ -3746,7 +3746,7 @@ ___
 
 ### EthGetCodeResult
 
-Ƭ **EthGetCodeResult**: `Hex`
+Ƭ **EthGetCodeResult**: Hex
 
 JSON-RPC response for `eth_getCode` procedure
 
@@ -3758,21 +3758,21 @@ ___
 
 ### EthGetFilterChangesHandler
 
-Ƭ **EthGetFilterChangesHandler**: (`request`: [`EthGetFilterChangesParams`](modules.md#ethgetfilterchangesparams)) => `Promise`\<[`EthGetFilterChangesResult`](modules.md#ethgetfilterchangesresult)\>
+Ƭ **EthGetFilterChangesHandler**: Function
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`EthGetFilterChangesResult`](modules.md#ethgetfilterchangesresult)\>
+▸ (`request`): Promise\<EthGetFilterChangesResult\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`EthGetFilterChangesParams`](modules.md#ethgetfilterchangesparams) |
+| `request` | EthGetFilterChangesParams |
 
 ##### Returns
 
-`Promise`\<[`EthGetFilterChangesResult`](modules.md#ethgetfilterchangesresult)\>
+Promise\<EthGetFilterChangesResult\>
 
 #### Defined in
 
@@ -3782,21 +3782,21 @@ ___
 
 ### EthGetFilterChangesJsonRpcProcedure
 
-Ƭ **EthGetFilterChangesJsonRpcProcedure**: (`request`: [`EthGetFilterChangesJsonRpcRequest`](modules.md#ethgetfilterchangesjsonrpcrequest)) => `Promise`\<[`EthGetFilterChangesJsonRpcResponse`](modules.md#ethgetfilterchangesjsonrpcresponse)\>
+Ƭ **EthGetFilterChangesJsonRpcProcedure**: Function
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`EthGetFilterChangesJsonRpcResponse`](modules.md#ethgetfilterchangesjsonrpcresponse)\>
+▸ (`request`): Promise\<EthGetFilterChangesJsonRpcResponse\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`EthGetFilterChangesJsonRpcRequest`](modules.md#ethgetfilterchangesjsonrpcrequest) |
+| `request` | EthGetFilterChangesJsonRpcRequest |
 
 ##### Returns
 
-`Promise`\<[`EthGetFilterChangesJsonRpcResponse`](modules.md#ethgetfilterchangesjsonrpcresponse)\>
+Promise\<EthGetFilterChangesJsonRpcResponse\>
 
 #### Defined in
 
@@ -3806,7 +3806,7 @@ ___
 
 ### EthGetFilterChangesJsonRpcRequest
 
-Ƭ **EthGetFilterChangesJsonRpcRequest**: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"eth_getFilterChanges"``, [filterId: Hex]\>
+Ƭ **EthGetFilterChangesJsonRpcRequest**: JsonRpcRequest\<"eth\_getFilterChanges", [filterId: Hex]\>
 
 JSON-RPC request for `eth_getFilterChanges` procedure
 
@@ -3818,7 +3818,7 @@ ___
 
 ### EthGetFilterChangesJsonRpcResponse
 
-Ƭ **EthGetFilterChangesJsonRpcResponse**: [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"eth_getFilterChanges"``, [`FilterLog`](modules.md#filterlog)[], `string`\>
+Ƭ **EthGetFilterChangesJsonRpcResponse**: JsonRpcResponse\<"eth\_getFilterChanges", FilterLog[], string\>
 
 JSON-RPC response for `eth_getFilterChanges` procedure
 
@@ -3838,7 +3838,7 @@ JSON-RPC request for `eth_getFilterChanges` procedure
 
 | Name | Type |
 | :------ | :------ |
-| `filterId` | `Hex` |
+| `filterId` | Hex |
 
 #### Defined in
 
@@ -3848,7 +3848,7 @@ ___
 
 ### EthGetFilterChangesResult
 
-Ƭ **EthGetFilterChangesResult**: [`FilterLog`](modules.md#filterlog)[]
+Ƭ **EthGetFilterChangesResult**: FilterLog[]
 
 JSON-RPC response for `eth_getFilterChanges` procedure
 
@@ -3860,21 +3860,21 @@ ___
 
 ### EthGetFilterLogsHandler
 
-Ƭ **EthGetFilterLogsHandler**: (`request`: [`EthGetFilterLogsParams`](modules.md#ethgetfilterlogsparams)) => `Promise`\<[`EthGetFilterLogsResult`](modules.md#ethgetfilterlogsresult)\>
+Ƭ **EthGetFilterLogsHandler**: Function
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`EthGetFilterLogsResult`](modules.md#ethgetfilterlogsresult)\>
+▸ (`request`): Promise\<EthGetFilterLogsResult\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`EthGetFilterLogsParams`](modules.md#ethgetfilterlogsparams) |
+| `request` | EthGetFilterLogsParams |
 
 ##### Returns
 
-`Promise`\<[`EthGetFilterLogsResult`](modules.md#ethgetfilterlogsresult)\>
+Promise\<EthGetFilterLogsResult\>
 
 #### Defined in
 
@@ -3884,21 +3884,21 @@ ___
 
 ### EthGetFilterLogsJsonRpcProcedure
 
-Ƭ **EthGetFilterLogsJsonRpcProcedure**: (`request`: [`EthGetFilterLogsJsonRpcRequest`](modules.md#ethgetfilterlogsjsonrpcrequest)) => `Promise`\<[`EthGetFilterLogsJsonRpcResponse`](modules.md#ethgetfilterlogsjsonrpcresponse)\>
+Ƭ **EthGetFilterLogsJsonRpcProcedure**: Function
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`EthGetFilterLogsJsonRpcResponse`](modules.md#ethgetfilterlogsjsonrpcresponse)\>
+▸ (`request`): Promise\<EthGetFilterLogsJsonRpcResponse\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`EthGetFilterLogsJsonRpcRequest`](modules.md#ethgetfilterlogsjsonrpcrequest) |
+| `request` | EthGetFilterLogsJsonRpcRequest |
 
 ##### Returns
 
-`Promise`\<[`EthGetFilterLogsJsonRpcResponse`](modules.md#ethgetfilterlogsjsonrpcresponse)\>
+Promise\<EthGetFilterLogsJsonRpcResponse\>
 
 #### Defined in
 
@@ -3908,7 +3908,7 @@ ___
 
 ### EthGetFilterLogsJsonRpcRequest
 
-Ƭ **EthGetFilterLogsJsonRpcRequest**: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"eth_getFilterLogs"``, [filterId: Hex]\>
+Ƭ **EthGetFilterLogsJsonRpcRequest**: JsonRpcRequest\<"eth\_getFilterLogs", [filterId: Hex]\>
 
 JSON-RPC request for `eth_getFilterLogs` procedure
 
@@ -3920,7 +3920,7 @@ ___
 
 ### EthGetFilterLogsJsonRpcResponse
 
-Ƭ **EthGetFilterLogsJsonRpcResponse**: [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"eth_getFilterLogs"``, [`FilterLog`](modules.md#filterlog)[], `string`\>
+Ƭ **EthGetFilterLogsJsonRpcResponse**: JsonRpcResponse\<"eth\_getFilterLogs", FilterLog[], string\>
 
 JSON-RPC response for `eth_getFilterLogs` procedure
 
@@ -3940,7 +3940,7 @@ JSON-RPC request for `eth_getFilterLogs` procedure
 
 | Name | Type |
 | :------ | :------ |
-| `filterId` | `Hex` |
+| `filterId` | Hex |
 
 #### Defined in
 
@@ -3950,7 +3950,7 @@ ___
 
 ### EthGetFilterLogsResult
 
-Ƭ **EthGetFilterLogsResult**: [`FilterLog`](modules.md#filterlog)[]
+Ƭ **EthGetFilterLogsResult**: FilterLog[]
 
 JSON-RPC response for `eth_getFilterLogs` procedure
 
@@ -3962,21 +3962,21 @@ ___
 
 ### EthGetLogsHandler
 
-Ƭ **EthGetLogsHandler**: (`request`: [`EthGetLogsParams`](modules.md#ethgetlogsparams)) => `Promise`\<[`EthGetLogsResult`](modules.md#ethgetlogsresult)\>
+Ƭ **EthGetLogsHandler**: Function
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`EthGetLogsResult`](modules.md#ethgetlogsresult)\>
+▸ (`request`): Promise\<EthGetLogsResult\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`EthGetLogsParams`](modules.md#ethgetlogsparams) |
+| `request` | EthGetLogsParams |
 
 ##### Returns
 
-`Promise`\<[`EthGetLogsResult`](modules.md#ethgetlogsresult)\>
+Promise\<EthGetLogsResult\>
 
 #### Defined in
 
@@ -3986,21 +3986,21 @@ ___
 
 ### EthGetLogsJsonRpcProcedure
 
-Ƭ **EthGetLogsJsonRpcProcedure**: (`request`: [`EthGetLogsJsonRpcRequest`](modules.md#ethgetlogsjsonrpcrequest)) => `Promise`\<[`EthGetLogsJsonRpcResponse`](modules.md#ethgetlogsjsonrpcresponse)\>
+Ƭ **EthGetLogsJsonRpcProcedure**: Function
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`EthGetLogsJsonRpcResponse`](modules.md#ethgetlogsjsonrpcresponse)\>
+▸ (`request`): Promise\<EthGetLogsJsonRpcResponse\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`EthGetLogsJsonRpcRequest`](modules.md#ethgetlogsjsonrpcrequest) |
+| `request` | EthGetLogsJsonRpcRequest |
 
 ##### Returns
 
-`Promise`\<[`EthGetLogsJsonRpcResponse`](modules.md#ethgetlogsjsonrpcresponse)\>
+Promise\<EthGetLogsJsonRpcResponse\>
 
 #### Defined in
 
@@ -4010,7 +4010,7 @@ ___
 
 ### EthGetLogsJsonRpcRequest
 
-Ƭ **EthGetLogsJsonRpcRequest**: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"eth_getLogs"``, [filterParams: FilterParams]\>
+Ƭ **EthGetLogsJsonRpcRequest**: JsonRpcRequest\<"eth\_getLogs", [filterParams: FilterParams]\>
 
 JSON-RPC request for `eth_getLogs` procedure
 
@@ -4022,7 +4022,7 @@ ___
 
 ### EthGetLogsJsonRpcResponse
 
-Ƭ **EthGetLogsJsonRpcResponse**: [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"eth_getLogs"``, [`FilterLog`](modules.md#filterlog)[], `string`\>
+Ƭ **EthGetLogsJsonRpcResponse**: JsonRpcResponse\<"eth\_getLogs", FilterLog[], string\>
 
 JSON-RPC response for `eth_getLogs` procedure
 
@@ -4042,7 +4042,7 @@ JSON-RPC request for `eth_getLogs` procedure
 
 | Name | Type |
 | :------ | :------ |
-| `filterParams` | `FilterParams` |
+| `filterParams` | FilterParams |
 
 #### Defined in
 
@@ -4052,7 +4052,7 @@ ___
 
 ### EthGetLogsResult
 
-Ƭ **EthGetLogsResult**: [`FilterLog`](modules.md#filterlog)[]
+Ƭ **EthGetLogsResult**: FilterLog[]
 
 JSON-RPC response for `eth_getLogs` procedure
 
@@ -4064,21 +4064,21 @@ ___
 
 ### EthGetStorageAtHandler
 
-Ƭ **EthGetStorageAtHandler**: (`request`: [`EthGetStorageAtParams`](modules.md#ethgetstorageatparams)) => `Promise`\<[`EthGetStorageAtResult`](modules.md#ethgetstorageatresult)\>
+Ƭ **EthGetStorageAtHandler**: Function
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`EthGetStorageAtResult`](modules.md#ethgetstorageatresult)\>
+▸ (`request`): Promise\<EthGetStorageAtResult\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`EthGetStorageAtParams`](modules.md#ethgetstorageatparams) |
+| `request` | EthGetStorageAtParams |
 
 ##### Returns
 
-`Promise`\<[`EthGetStorageAtResult`](modules.md#ethgetstorageatresult)\>
+Promise\<EthGetStorageAtResult\>
 
 #### Defined in
 
@@ -4088,21 +4088,21 @@ ___
 
 ### EthGetStorageAtJsonRpcProcedure
 
-Ƭ **EthGetStorageAtJsonRpcProcedure**: (`request`: [`EthGetStorageAtJsonRpcRequest`](modules.md#ethgetstorageatjsonrpcrequest)) => `Promise`\<[`EthGetStorageAtJsonRpcResponse`](modules.md#ethgetstorageatjsonrpcresponse)\>
+Ƭ **EthGetStorageAtJsonRpcProcedure**: Function
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`EthGetStorageAtJsonRpcResponse`](modules.md#ethgetstorageatjsonrpcresponse)\>
+▸ (`request`): Promise\<EthGetStorageAtJsonRpcResponse\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`EthGetStorageAtJsonRpcRequest`](modules.md#ethgetstorageatjsonrpcrequest) |
+| `request` | EthGetStorageAtJsonRpcRequest |
 
 ##### Returns
 
-`Promise`\<[`EthGetStorageAtJsonRpcResponse`](modules.md#ethgetstorageatjsonrpcresponse)\>
+Promise\<EthGetStorageAtJsonRpcResponse\>
 
 #### Defined in
 
@@ -4112,7 +4112,7 @@ ___
 
 ### EthGetStorageAtJsonRpcRequest
 
-Ƭ **EthGetStorageAtJsonRpcRequest**: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"eth_getStorageAt"``, readonly [address: Address, position: Hex, tag: BlockTag \| Hex]\>
+Ƭ **EthGetStorageAtJsonRpcRequest**: JsonRpcRequest\<"eth\_getStorageAt", readonly [address: Address, position: Hex, tag: BlockTag \| Hex]\>
 
 JSON-RPC request for `eth_getStorageAt` procedure
 
@@ -4124,7 +4124,7 @@ ___
 
 ### EthGetStorageAtJsonRpcResponse
 
-Ƭ **EthGetStorageAtJsonRpcResponse**: [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"eth_getStorageAt"``, `Hex`, `string`\>
+Ƭ **EthGetStorageAtJsonRpcResponse**: JsonRpcResponse\<"eth\_getStorageAt", Hex, string\>
 
 JSON-RPC response for `eth_getStorageAt` procedure
 
@@ -4144,9 +4144,9 @@ JSON-RPC request for `eth_getStorageAt` procedure
 
 | Name | Type |
 | :------ | :------ |
-| `address` | `Address` |
-| `position` | `Hex` |
-| `tag` | `BlockTag` \| `Hex` |
+| `address` | Address |
+| `position` | Hex |
+| `tag` | BlockTag \| Hex |
 
 #### Defined in
 
@@ -4156,7 +4156,7 @@ ___
 
 ### EthGetStorageAtResult
 
-Ƭ **EthGetStorageAtResult**: `Hex`
+Ƭ **EthGetStorageAtResult**: Hex
 
 JSON-RPC response for `eth_getStorageAt` procedure
 
@@ -4168,21 +4168,21 @@ ___
 
 ### EthGetTransactionByBlockHashAndIndexHandler
 
-Ƭ **EthGetTransactionByBlockHashAndIndexHandler**: (`request`: [`EthGetTransactionByBlockHashAndIndexParams`](modules.md#ethgettransactionbyblockhashandindexparams)) => `Promise`\<[`EthGetTransactionByBlockHashAndIndexResult`](modules.md#ethgettransactionbyblockhashandindexresult)\>
+Ƭ **EthGetTransactionByBlockHashAndIndexHandler**: Function
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`EthGetTransactionByBlockHashAndIndexResult`](modules.md#ethgettransactionbyblockhashandindexresult)\>
+▸ (`request`): Promise\<EthGetTransactionByBlockHashAndIndexResult\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`EthGetTransactionByBlockHashAndIndexParams`](modules.md#ethgettransactionbyblockhashandindexparams) |
+| `request` | EthGetTransactionByBlockHashAndIndexParams |
 
 ##### Returns
 
-`Promise`\<[`EthGetTransactionByBlockHashAndIndexResult`](modules.md#ethgettransactionbyblockhashandindexresult)\>
+Promise\<EthGetTransactionByBlockHashAndIndexResult\>
 
 #### Defined in
 
@@ -4192,21 +4192,21 @@ ___
 
 ### EthGetTransactionByBlockHashAndIndexJsonRpcProcedure
 
-Ƭ **EthGetTransactionByBlockHashAndIndexJsonRpcProcedure**: (`request`: [`EthGetTransactionByBlockHashAndIndexJsonRpcRequest`](modules.md#ethgettransactionbyblockhashandindexjsonrpcrequest)) => `Promise`\<[`EthGetTransactionByBlockHashAndIndexJsonRpcResponse`](modules.md#ethgettransactionbyblockhashandindexjsonrpcresponse)\>
+Ƭ **EthGetTransactionByBlockHashAndIndexJsonRpcProcedure**: Function
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`EthGetTransactionByBlockHashAndIndexJsonRpcResponse`](modules.md#ethgettransactionbyblockhashandindexjsonrpcresponse)\>
+▸ (`request`): Promise\<EthGetTransactionByBlockHashAndIndexJsonRpcResponse\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`EthGetTransactionByBlockHashAndIndexJsonRpcRequest`](modules.md#ethgettransactionbyblockhashandindexjsonrpcrequest) |
+| `request` | EthGetTransactionByBlockHashAndIndexJsonRpcRequest |
 
 ##### Returns
 
-`Promise`\<[`EthGetTransactionByBlockHashAndIndexJsonRpcResponse`](modules.md#ethgettransactionbyblockhashandindexjsonrpcresponse)\>
+Promise\<EthGetTransactionByBlockHashAndIndexJsonRpcResponse\>
 
 #### Defined in
 
@@ -4216,7 +4216,7 @@ ___
 
 ### EthGetTransactionByBlockHashAndIndexJsonRpcRequest
 
-Ƭ **EthGetTransactionByBlockHashAndIndexJsonRpcRequest**: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"eth_getTransactionByBlockHashAndIndex"``, readonly [tag: Hex, index: Hex]\>
+Ƭ **EthGetTransactionByBlockHashAndIndexJsonRpcRequest**: JsonRpcRequest\<"eth\_getTransactionByBlockHashAndIndex", readonly [tag: Hex, index: Hex]\>
 
 JSON-RPC request for `eth_getTransactionByBlockHashAndIndex` procedure
 
@@ -4228,7 +4228,7 @@ ___
 
 ### EthGetTransactionByBlockHashAndIndexJsonRpcResponse
 
-Ƭ **EthGetTransactionByBlockHashAndIndexJsonRpcResponse**: [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"eth_getTransactionByBlockHashAndIndex"``, [`TransactionResult`](modules.md#transactionresult), `string`\>
+Ƭ **EthGetTransactionByBlockHashAndIndexJsonRpcResponse**: JsonRpcResponse\<"eth\_getTransactionByBlockHashAndIndex", TransactionResult, string\>
 
 JSON-RPC response for `eth_getTransactionByBlockHashAndIndex` procedure
 
@@ -4248,8 +4248,8 @@ JSON-RPC request for `eth_getTransactionByBlockHashAndIndex` procedure
 
 | Name | Type |
 | :------ | :------ |
-| `index` | `Hex` |
-| `tag` | `Hex` |
+| `index` | Hex |
+| `tag` | Hex |
 
 #### Defined in
 
@@ -4259,7 +4259,7 @@ ___
 
 ### EthGetTransactionByBlockHashAndIndexResult
 
-Ƭ **EthGetTransactionByBlockHashAndIndexResult**: [`TransactionResult`](modules.md#transactionresult)
+Ƭ **EthGetTransactionByBlockHashAndIndexResult**: TransactionResult
 
 JSON-RPC response for `eth_getTransactionByBlockHashAndIndex` procedure
 
@@ -4271,21 +4271,21 @@ ___
 
 ### EthGetTransactionByBlockNumberAndIndexHandler
 
-Ƭ **EthGetTransactionByBlockNumberAndIndexHandler**: (`request`: [`EthGetTransactionByBlockNumberAndIndexParams`](modules.md#ethgettransactionbyblocknumberandindexparams)) => `Promise`\<[`EthGetTransactionByBlockNumberAndIndexResult`](modules.md#ethgettransactionbyblocknumberandindexresult)\>
+Ƭ **EthGetTransactionByBlockNumberAndIndexHandler**: Function
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`EthGetTransactionByBlockNumberAndIndexResult`](modules.md#ethgettransactionbyblocknumberandindexresult)\>
+▸ (`request`): Promise\<EthGetTransactionByBlockNumberAndIndexResult\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`EthGetTransactionByBlockNumberAndIndexParams`](modules.md#ethgettransactionbyblocknumberandindexparams) |
+| `request` | EthGetTransactionByBlockNumberAndIndexParams |
 
 ##### Returns
 
-`Promise`\<[`EthGetTransactionByBlockNumberAndIndexResult`](modules.md#ethgettransactionbyblocknumberandindexresult)\>
+Promise\<EthGetTransactionByBlockNumberAndIndexResult\>
 
 #### Defined in
 
@@ -4295,21 +4295,21 @@ ___
 
 ### EthGetTransactionByBlockNumberAndIndexJsonRpcProcedure
 
-Ƭ **EthGetTransactionByBlockNumberAndIndexJsonRpcProcedure**: (`request`: [`EthGetTransactionByBlockNumberAndIndexJsonRpcRequest`](modules.md#ethgettransactionbyblocknumberandindexjsonrpcrequest)) => `Promise`\<[`EthGetTransactionByBlockNumberAndIndexJsonRpcResponse`](modules.md#ethgettransactionbyblocknumberandindexjsonrpcresponse)\>
+Ƭ **EthGetTransactionByBlockNumberAndIndexJsonRpcProcedure**: Function
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`EthGetTransactionByBlockNumberAndIndexJsonRpcResponse`](modules.md#ethgettransactionbyblocknumberandindexjsonrpcresponse)\>
+▸ (`request`): Promise\<EthGetTransactionByBlockNumberAndIndexJsonRpcResponse\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`EthGetTransactionByBlockNumberAndIndexJsonRpcRequest`](modules.md#ethgettransactionbyblocknumberandindexjsonrpcrequest) |
+| `request` | EthGetTransactionByBlockNumberAndIndexJsonRpcRequest |
 
 ##### Returns
 
-`Promise`\<[`EthGetTransactionByBlockNumberAndIndexJsonRpcResponse`](modules.md#ethgettransactionbyblocknumberandindexjsonrpcresponse)\>
+Promise\<EthGetTransactionByBlockNumberAndIndexJsonRpcResponse\>
 
 #### Defined in
 
@@ -4319,7 +4319,7 @@ ___
 
 ### EthGetTransactionByBlockNumberAndIndexJsonRpcRequest
 
-Ƭ **EthGetTransactionByBlockNumberAndIndexJsonRpcRequest**: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"eth_getTransactionByBlockNumberAndIndex"``, readonly [tag: BlockTag \| Hex, index: Hex]\>
+Ƭ **EthGetTransactionByBlockNumberAndIndexJsonRpcRequest**: JsonRpcRequest\<"eth\_getTransactionByBlockNumberAndIndex", readonly [tag: BlockTag \| Hex, index: Hex]\>
 
 JSON-RPC request for `eth_getTransactionByBlockNumberAndIndex` procedure
 
@@ -4331,7 +4331,7 @@ ___
 
 ### EthGetTransactionByBlockNumberAndIndexJsonRpcResponse
 
-Ƭ **EthGetTransactionByBlockNumberAndIndexJsonRpcResponse**: [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"eth_getTransactionByBlockNumberAndIndex"``, [`TransactionResult`](modules.md#transactionresult), `string`\>
+Ƭ **EthGetTransactionByBlockNumberAndIndexJsonRpcResponse**: JsonRpcResponse\<"eth\_getTransactionByBlockNumberAndIndex", TransactionResult, string\>
 
 JSON-RPC response for `eth_getTransactionByBlockNumberAndIndex` procedure
 
@@ -4351,8 +4351,8 @@ JSON-RPC request for `eth_getTransactionByBlockNumberAndIndex` procedure
 
 | Name | Type |
 | :------ | :------ |
-| `index` | `Hex` |
-| `tag` | `BlockTag` \| `Hex` |
+| `index` | Hex |
+| `tag` | BlockTag \| Hex |
 
 #### Defined in
 
@@ -4362,7 +4362,7 @@ ___
 
 ### EthGetTransactionByBlockNumberAndIndexResult
 
-Ƭ **EthGetTransactionByBlockNumberAndIndexResult**: [`TransactionResult`](modules.md#transactionresult)
+Ƭ **EthGetTransactionByBlockNumberAndIndexResult**: TransactionResult
 
 JSON-RPC response for `eth_getTransactionByBlockNumberAndIndex` procedure
 
@@ -4374,21 +4374,21 @@ ___
 
 ### EthGetTransactionByHashHandler
 
-Ƭ **EthGetTransactionByHashHandler**: (`request`: [`EthGetTransactionByHashParams`](modules.md#ethgettransactionbyhashparams)) => `Promise`\<[`EthGetTransactionByHashResult`](modules.md#ethgettransactionbyhashresult)\>
+Ƭ **EthGetTransactionByHashHandler**: Function
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`EthGetTransactionByHashResult`](modules.md#ethgettransactionbyhashresult)\>
+▸ (`request`): Promise\<EthGetTransactionByHashResult\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`EthGetTransactionByHashParams`](modules.md#ethgettransactionbyhashparams) |
+| `request` | EthGetTransactionByHashParams |
 
 ##### Returns
 
-`Promise`\<[`EthGetTransactionByHashResult`](modules.md#ethgettransactionbyhashresult)\>
+Promise\<EthGetTransactionByHashResult\>
 
 #### Defined in
 
@@ -4398,21 +4398,21 @@ ___
 
 ### EthGetTransactionByHashJsonRpcProcedure
 
-Ƭ **EthGetTransactionByHashJsonRpcProcedure**: (`request`: [`EthGetTransactionByHashJsonRpcRequest`](modules.md#ethgettransactionbyhashjsonrpcrequest)) => `Promise`\<[`EthGetTransactionByHashJsonRpcResponse`](modules.md#ethgettransactionbyhashjsonrpcresponse)\>
+Ƭ **EthGetTransactionByHashJsonRpcProcedure**: Function
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`EthGetTransactionByHashJsonRpcResponse`](modules.md#ethgettransactionbyhashjsonrpcresponse)\>
+▸ (`request`): Promise\<EthGetTransactionByHashJsonRpcResponse\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`EthGetTransactionByHashJsonRpcRequest`](modules.md#ethgettransactionbyhashjsonrpcrequest) |
+| `request` | EthGetTransactionByHashJsonRpcRequest |
 
 ##### Returns
 
-`Promise`\<[`EthGetTransactionByHashJsonRpcResponse`](modules.md#ethgettransactionbyhashjsonrpcresponse)\>
+Promise\<EthGetTransactionByHashJsonRpcResponse\>
 
 #### Defined in
 
@@ -4422,7 +4422,7 @@ ___
 
 ### EthGetTransactionByHashJsonRpcRequest
 
-Ƭ **EthGetTransactionByHashJsonRpcRequest**: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"eth_getTransactionByHash"``, readonly [data: Hex]\>
+Ƭ **EthGetTransactionByHashJsonRpcRequest**: JsonRpcRequest\<"eth\_getTransactionByHash", readonly [data: Hex]\>
 
 JSON-RPC request for `eth_getTransactionByHash` procedure
 
@@ -4434,7 +4434,7 @@ ___
 
 ### EthGetTransactionByHashJsonRpcResponse
 
-Ƭ **EthGetTransactionByHashJsonRpcResponse**: [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"eth_getTransactionByHash"``, [`TransactionResult`](modules.md#transactionresult), `string`\>
+Ƭ **EthGetTransactionByHashJsonRpcResponse**: JsonRpcResponse\<"eth\_getTransactionByHash", TransactionResult, string\>
 
 JSON-RPC response for `eth_getTransactionByHash` procedure
 
@@ -4454,7 +4454,7 @@ JSON-RPC request for `eth_getTransactionByHash` procedure
 
 | Name | Type |
 | :------ | :------ |
-| `data` | `Hex` |
+| `data` | Hex |
 
 #### Defined in
 
@@ -4464,7 +4464,7 @@ ___
 
 ### EthGetTransactionByHashResult
 
-Ƭ **EthGetTransactionByHashResult**: [`TransactionResult`](modules.md#transactionresult)
+Ƭ **EthGetTransactionByHashResult**: TransactionResult
 
 JSON-RPC response for `eth_getTransactionByHash` procedure
 
@@ -4476,21 +4476,21 @@ ___
 
 ### EthGetTransactionCountHandler
 
-Ƭ **EthGetTransactionCountHandler**: (`request`: [`EthGetTransactionCountParams`](modules.md#ethgettransactioncountparams)) => `Promise`\<[`EthGetTransactionCountResult`](modules.md#ethgettransactioncountresult)\>
+Ƭ **EthGetTransactionCountHandler**: Function
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`EthGetTransactionCountResult`](modules.md#ethgettransactioncountresult)\>
+▸ (`request`): Promise\<EthGetTransactionCountResult\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`EthGetTransactionCountParams`](modules.md#ethgettransactioncountparams) |
+| `request` | EthGetTransactionCountParams |
 
 ##### Returns
 
-`Promise`\<[`EthGetTransactionCountResult`](modules.md#ethgettransactioncountresult)\>
+Promise\<EthGetTransactionCountResult\>
 
 #### Defined in
 
@@ -4500,21 +4500,21 @@ ___
 
 ### EthGetTransactionCountJsonRpcProcedure
 
-Ƭ **EthGetTransactionCountJsonRpcProcedure**: (`request`: [`EthGetTransactionCountJsonRpcRequest`](modules.md#ethgettransactioncountjsonrpcrequest)) => `Promise`\<[`EthGetTransactionCountJsonRpcResponse`](modules.md#ethgettransactioncountjsonrpcresponse)\>
+Ƭ **EthGetTransactionCountJsonRpcProcedure**: Function
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`EthGetTransactionCountJsonRpcResponse`](modules.md#ethgettransactioncountjsonrpcresponse)\>
+▸ (`request`): Promise\<EthGetTransactionCountJsonRpcResponse\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`EthGetTransactionCountJsonRpcRequest`](modules.md#ethgettransactioncountjsonrpcrequest) |
+| `request` | EthGetTransactionCountJsonRpcRequest |
 
 ##### Returns
 
-`Promise`\<[`EthGetTransactionCountJsonRpcResponse`](modules.md#ethgettransactioncountjsonrpcresponse)\>
+Promise\<EthGetTransactionCountJsonRpcResponse\>
 
 #### Defined in
 
@@ -4524,7 +4524,7 @@ ___
 
 ### EthGetTransactionCountJsonRpcRequest
 
-Ƭ **EthGetTransactionCountJsonRpcRequest**: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"eth_getTransactionCount"``, readonly [address: Address, tag: BlockTag \| Hex]\>
+Ƭ **EthGetTransactionCountJsonRpcRequest**: JsonRpcRequest\<"eth\_getTransactionCount", readonly [address: Address, tag: BlockTag \| Hex]\>
 
 JSON-RPC request for `eth_getTransactionCount` procedure
 
@@ -4536,7 +4536,7 @@ ___
 
 ### EthGetTransactionCountJsonRpcResponse
 
-Ƭ **EthGetTransactionCountJsonRpcResponse**: [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"eth_getTransactionCount"``, `Hex`, `string`\>
+Ƭ **EthGetTransactionCountJsonRpcResponse**: JsonRpcResponse\<"eth\_getTransactionCount", Hex, string\>
 
 JSON-RPC response for `eth_getTransactionCount` procedure
 
@@ -4556,8 +4556,8 @@ JSON-RPC request for `eth_getTransactionCount` procedure
 
 | Name | Type |
 | :------ | :------ |
-| `address` | `Address` |
-| `tag` | `BlockTag` \| `Hex` |
+| `address` | Address |
+| `tag` | BlockTag \| Hex |
 
 #### Defined in
 
@@ -4567,7 +4567,7 @@ ___
 
 ### EthGetTransactionCountResult
 
-Ƭ **EthGetTransactionCountResult**: `Hex`
+Ƭ **EthGetTransactionCountResult**: Hex
 
 JSON-RPC response for `eth_getTransactionCount` procedure
 
@@ -4579,21 +4579,21 @@ ___
 
 ### EthGetTransactionReceiptHandler
 
-Ƭ **EthGetTransactionReceiptHandler**: (`request`: [`EthGetTransactionReceiptParams`](modules.md#ethgettransactionreceiptparams)) => `Promise`\<[`EthGetTransactionReceiptResult`](modules.md#ethgettransactionreceiptresult)\>
+Ƭ **EthGetTransactionReceiptHandler**: Function
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`EthGetTransactionReceiptResult`](modules.md#ethgettransactionreceiptresult)\>
+▸ (`request`): Promise\<EthGetTransactionReceiptResult\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`EthGetTransactionReceiptParams`](modules.md#ethgettransactionreceiptparams) |
+| `request` | EthGetTransactionReceiptParams |
 
 ##### Returns
 
-`Promise`\<[`EthGetTransactionReceiptResult`](modules.md#ethgettransactionreceiptresult)\>
+Promise\<EthGetTransactionReceiptResult\>
 
 #### Defined in
 
@@ -4603,21 +4603,21 @@ ___
 
 ### EthGetTransactionReceiptJsonRpcProcedure
 
-Ƭ **EthGetTransactionReceiptJsonRpcProcedure**: (`request`: [`EthGetTransactionReceiptJsonRpcRequest`](modules.md#ethgettransactionreceiptjsonrpcrequest)) => `Promise`\<[`EthGetTransactionReceiptJsonRpcResponse`](modules.md#ethgettransactionreceiptjsonrpcresponse)\>
+Ƭ **EthGetTransactionReceiptJsonRpcProcedure**: Function
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`EthGetTransactionReceiptJsonRpcResponse`](modules.md#ethgettransactionreceiptjsonrpcresponse)\>
+▸ (`request`): Promise\<EthGetTransactionReceiptJsonRpcResponse\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`EthGetTransactionReceiptJsonRpcRequest`](modules.md#ethgettransactionreceiptjsonrpcrequest) |
+| `request` | EthGetTransactionReceiptJsonRpcRequest |
 
 ##### Returns
 
-`Promise`\<[`EthGetTransactionReceiptJsonRpcResponse`](modules.md#ethgettransactionreceiptjsonrpcresponse)\>
+Promise\<EthGetTransactionReceiptJsonRpcResponse\>
 
 #### Defined in
 
@@ -4627,7 +4627,7 @@ ___
 
 ### EthGetTransactionReceiptJsonRpcRequest
 
-Ƭ **EthGetTransactionReceiptJsonRpcRequest**: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"eth_getTransactionReceipt"``, [txHash: Hex]\>
+Ƭ **EthGetTransactionReceiptJsonRpcRequest**: JsonRpcRequest\<"eth\_getTransactionReceipt", [txHash: Hex]\>
 
 JSON-RPC request for `eth_getTransactionReceipt` procedure
 
@@ -4639,7 +4639,7 @@ ___
 
 ### EthGetTransactionReceiptJsonRpcResponse
 
-Ƭ **EthGetTransactionReceiptJsonRpcResponse**: [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"eth_getTransactionReceipt"``, [`TransactionReceiptResult`](modules.md#transactionreceiptresult), `string`\>
+Ƭ **EthGetTransactionReceiptJsonRpcResponse**: JsonRpcResponse\<"eth\_getTransactionReceipt", TransactionReceiptResult, string\>
 
 JSON-RPC response for `eth_getTransactionReceipt` procedure
 
@@ -4651,7 +4651,7 @@ ___
 
 ### EthGetTransactionReceiptParams
 
-Ƭ **EthGetTransactionReceiptParams**: `GetTransactionParameters`
+Ƭ **EthGetTransactionReceiptParams**: GetTransactionParameters
 
 JSON-RPC request for `eth_getTransactionReceipt` procedure
 
@@ -4663,7 +4663,7 @@ ___
 
 ### EthGetTransactionReceiptResult
 
-Ƭ **EthGetTransactionReceiptResult**: [`TransactionReceiptResult`](modules.md#transactionreceiptresult)
+Ƭ **EthGetTransactionReceiptResult**: TransactionReceiptResult
 
 JSON-RPC response for `eth_getTransactionReceipt` procedure
 
@@ -4675,21 +4675,21 @@ ___
 
 ### EthGetUncleByBlockHashAndIndexHandler
 
-Ƭ **EthGetUncleByBlockHashAndIndexHandler**: (`request`: [`EthGetUncleByBlockHashAndIndexParams`](modules.md#ethgetunclebyblockhashandindexparams)) => `Promise`\<[`EthGetUncleByBlockHashAndIndexResult`](modules.md#ethgetunclebyblockhashandindexresult)\>
+Ƭ **EthGetUncleByBlockHashAndIndexHandler**: Function
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`EthGetUncleByBlockHashAndIndexResult`](modules.md#ethgetunclebyblockhashandindexresult)\>
+▸ (`request`): Promise\<EthGetUncleByBlockHashAndIndexResult\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`EthGetUncleByBlockHashAndIndexParams`](modules.md#ethgetunclebyblockhashandindexparams) |
+| `request` | EthGetUncleByBlockHashAndIndexParams |
 
 ##### Returns
 
-`Promise`\<[`EthGetUncleByBlockHashAndIndexResult`](modules.md#ethgetunclebyblockhashandindexresult)\>
+Promise\<EthGetUncleByBlockHashAndIndexResult\>
 
 #### Defined in
 
@@ -4699,21 +4699,21 @@ ___
 
 ### EthGetUncleByBlockHashAndIndexJsonRpcProcedure
 
-Ƭ **EthGetUncleByBlockHashAndIndexJsonRpcProcedure**: (`request`: [`EthGetUncleByBlockHashAndIndexJsonRpcRequest`](modules.md#ethgetunclebyblockhashandindexjsonrpcrequest)) => `Promise`\<[`EthGetUncleByBlockHashAndIndexJsonRpcResponse`](modules.md#ethgetunclebyblockhashandindexjsonrpcresponse)\>
+Ƭ **EthGetUncleByBlockHashAndIndexJsonRpcProcedure**: Function
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`EthGetUncleByBlockHashAndIndexJsonRpcResponse`](modules.md#ethgetunclebyblockhashandindexjsonrpcresponse)\>
+▸ (`request`): Promise\<EthGetUncleByBlockHashAndIndexJsonRpcResponse\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`EthGetUncleByBlockHashAndIndexJsonRpcRequest`](modules.md#ethgetunclebyblockhashandindexjsonrpcrequest) |
+| `request` | EthGetUncleByBlockHashAndIndexJsonRpcRequest |
 
 ##### Returns
 
-`Promise`\<[`EthGetUncleByBlockHashAndIndexJsonRpcResponse`](modules.md#ethgetunclebyblockhashandindexjsonrpcresponse)\>
+Promise\<EthGetUncleByBlockHashAndIndexJsonRpcResponse\>
 
 #### Defined in
 
@@ -4723,7 +4723,7 @@ ___
 
 ### EthGetUncleByBlockHashAndIndexJsonRpcRequest
 
-Ƭ **EthGetUncleByBlockHashAndIndexJsonRpcRequest**: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"eth_getUncleByBlockHashAndIndex"``, readonly [blockHash: Hex, uncleIndex: Hex]\>
+Ƭ **EthGetUncleByBlockHashAndIndexJsonRpcRequest**: JsonRpcRequest\<"eth\_getUncleByBlockHashAndIndex", readonly [blockHash: Hex, uncleIndex: Hex]\>
 
 JSON-RPC request for `eth_getUncleByBlockHashAndIndex` procedure
 
@@ -4735,7 +4735,7 @@ ___
 
 ### EthGetUncleByBlockHashAndIndexJsonRpcResponse
 
-Ƭ **EthGetUncleByBlockHashAndIndexJsonRpcResponse**: [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"eth_getUncleByBlockHashAndIndex"``, `Hex`, `string`\>
+Ƭ **EthGetUncleByBlockHashAndIndexJsonRpcResponse**: JsonRpcResponse\<"eth\_getUncleByBlockHashAndIndex", Hex, string\>
 
 JSON-RPC response for `eth_getUncleByBlockHashAndIndex` procedure
 
@@ -4755,8 +4755,8 @@ JSON-RPC request for `eth_getUncleByBlockHashAndIndex` procedure
 
 | Name | Type |
 | :------ | :------ |
-| `blockHash` | `Hex` |
-| `uncleIndex` | `Hex` |
+| `blockHash` | Hex |
+| `uncleIndex` | Hex |
 
 #### Defined in
 
@@ -4766,7 +4766,7 @@ ___
 
 ### EthGetUncleByBlockHashAndIndexResult
 
-Ƭ **EthGetUncleByBlockHashAndIndexResult**: `Hex`
+Ƭ **EthGetUncleByBlockHashAndIndexResult**: Hex
 
 JSON-RPC response for `eth_getUncleByBlockHashAndIndex` procedure
 
@@ -4778,21 +4778,21 @@ ___
 
 ### EthGetUncleByBlockNumberAndIndexHandler
 
-Ƭ **EthGetUncleByBlockNumberAndIndexHandler**: (`request`: [`EthGetUncleByBlockNumberAndIndexParams`](modules.md#ethgetunclebyblocknumberandindexparams)) => `Promise`\<[`EthGetUncleByBlockNumberAndIndexResult`](modules.md#ethgetunclebyblocknumberandindexresult)\>
+Ƭ **EthGetUncleByBlockNumberAndIndexHandler**: Function
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`EthGetUncleByBlockNumberAndIndexResult`](modules.md#ethgetunclebyblocknumberandindexresult)\>
+▸ (`request`): Promise\<EthGetUncleByBlockNumberAndIndexResult\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`EthGetUncleByBlockNumberAndIndexParams`](modules.md#ethgetunclebyblocknumberandindexparams) |
+| `request` | EthGetUncleByBlockNumberAndIndexParams |
 
 ##### Returns
 
-`Promise`\<[`EthGetUncleByBlockNumberAndIndexResult`](modules.md#ethgetunclebyblocknumberandindexresult)\>
+Promise\<EthGetUncleByBlockNumberAndIndexResult\>
 
 #### Defined in
 
@@ -4802,21 +4802,21 @@ ___
 
 ### EthGetUncleByBlockNumberAndIndexJsonRpcProcedure
 
-Ƭ **EthGetUncleByBlockNumberAndIndexJsonRpcProcedure**: (`request`: [`EthGetUncleByBlockNumberAndIndexJsonRpcRequest`](modules.md#ethgetunclebyblocknumberandindexjsonrpcrequest)) => `Promise`\<[`EthGetUncleByBlockNumberAndIndexJsonRpcResponse`](modules.md#ethgetunclebyblocknumberandindexjsonrpcresponse)\>
+Ƭ **EthGetUncleByBlockNumberAndIndexJsonRpcProcedure**: Function
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`EthGetUncleByBlockNumberAndIndexJsonRpcResponse`](modules.md#ethgetunclebyblocknumberandindexjsonrpcresponse)\>
+▸ (`request`): Promise\<EthGetUncleByBlockNumberAndIndexJsonRpcResponse\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`EthGetUncleByBlockNumberAndIndexJsonRpcRequest`](modules.md#ethgetunclebyblocknumberandindexjsonrpcrequest) |
+| `request` | EthGetUncleByBlockNumberAndIndexJsonRpcRequest |
 
 ##### Returns
 
-`Promise`\<[`EthGetUncleByBlockNumberAndIndexJsonRpcResponse`](modules.md#ethgetunclebyblocknumberandindexjsonrpcresponse)\>
+Promise\<EthGetUncleByBlockNumberAndIndexJsonRpcResponse\>
 
 #### Defined in
 
@@ -4826,7 +4826,7 @@ ___
 
 ### EthGetUncleByBlockNumberAndIndexJsonRpcRequest
 
-Ƭ **EthGetUncleByBlockNumberAndIndexJsonRpcRequest**: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"eth_getUncleByBlockNumberAndIndex"``, readonly [tag: BlockTag \| Hex, uncleIndex: Hex]\>
+Ƭ **EthGetUncleByBlockNumberAndIndexJsonRpcRequest**: JsonRpcRequest\<"eth\_getUncleByBlockNumberAndIndex", readonly [tag: BlockTag \| Hex, uncleIndex: Hex]\>
 
 JSON-RPC request for `eth_getUncleByBlockNumberAndIndex` procedure
 
@@ -4838,7 +4838,7 @@ ___
 
 ### EthGetUncleByBlockNumberAndIndexJsonRpcResponse
 
-Ƭ **EthGetUncleByBlockNumberAndIndexJsonRpcResponse**: [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"eth_getUncleByBlockNumberAndIndex"``, `Hex`, `string`\>
+Ƭ **EthGetUncleByBlockNumberAndIndexJsonRpcResponse**: JsonRpcResponse\<"eth\_getUncleByBlockNumberAndIndex", Hex, string\>
 
 JSON-RPC response for `eth_getUncleByBlockNumberAndIndex` procedure
 
@@ -4858,8 +4858,8 @@ JSON-RPC request for `eth_getUncleByBlockNumberAndIndex` procedure
 
 | Name | Type |
 | :------ | :------ |
-| `tag` | `BlockTag` \| `Hex` |
-| `uncleIndex` | `Hex` |
+| `tag` | BlockTag \| Hex |
+| `uncleIndex` | Hex |
 
 #### Defined in
 
@@ -4869,7 +4869,7 @@ ___
 
 ### EthGetUncleByBlockNumberAndIndexResult
 
-Ƭ **EthGetUncleByBlockNumberAndIndexResult**: `Hex`
+Ƭ **EthGetUncleByBlockNumberAndIndexResult**: Hex
 
 JSON-RPC response for `eth_getUncleByBlockNumberAndIndex` procedure
 
@@ -4881,21 +4881,21 @@ ___
 
 ### EthGetUncleCountByBlockHashHandler
 
-Ƭ **EthGetUncleCountByBlockHashHandler**: (`request`: [`EthGetUncleCountByBlockHashParams`](modules.md#ethgetunclecountbyblockhashparams)) => `Promise`\<[`EthGetUncleCountByBlockHashResult`](modules.md#ethgetunclecountbyblockhashresult)\>
+Ƭ **EthGetUncleCountByBlockHashHandler**: Function
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`EthGetUncleCountByBlockHashResult`](modules.md#ethgetunclecountbyblockhashresult)\>
+▸ (`request`): Promise\<EthGetUncleCountByBlockHashResult\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`EthGetUncleCountByBlockHashParams`](modules.md#ethgetunclecountbyblockhashparams) |
+| `request` | EthGetUncleCountByBlockHashParams |
 
 ##### Returns
 
-`Promise`\<[`EthGetUncleCountByBlockHashResult`](modules.md#ethgetunclecountbyblockhashresult)\>
+Promise\<EthGetUncleCountByBlockHashResult\>
 
 #### Defined in
 
@@ -4905,21 +4905,21 @@ ___
 
 ### EthGetUncleCountByBlockHashJsonRpcProcedure
 
-Ƭ **EthGetUncleCountByBlockHashJsonRpcProcedure**: (`request`: [`EthGetUncleCountByBlockHashJsonRpcRequest`](modules.md#ethgetunclecountbyblockhashjsonrpcrequest)) => `Promise`\<[`EthGetUncleCountByBlockHashJsonRpcResponse`](modules.md#ethgetunclecountbyblockhashjsonrpcresponse)\>
+Ƭ **EthGetUncleCountByBlockHashJsonRpcProcedure**: Function
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`EthGetUncleCountByBlockHashJsonRpcResponse`](modules.md#ethgetunclecountbyblockhashjsonrpcresponse)\>
+▸ (`request`): Promise\<EthGetUncleCountByBlockHashJsonRpcResponse\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`EthGetUncleCountByBlockHashJsonRpcRequest`](modules.md#ethgetunclecountbyblockhashjsonrpcrequest) |
+| `request` | EthGetUncleCountByBlockHashJsonRpcRequest |
 
 ##### Returns
 
-`Promise`\<[`EthGetUncleCountByBlockHashJsonRpcResponse`](modules.md#ethgetunclecountbyblockhashjsonrpcresponse)\>
+Promise\<EthGetUncleCountByBlockHashJsonRpcResponse\>
 
 #### Defined in
 
@@ -4929,7 +4929,7 @@ ___
 
 ### EthGetUncleCountByBlockHashJsonRpcRequest
 
-Ƭ **EthGetUncleCountByBlockHashJsonRpcRequest**: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"eth_getUncleCountByBlockHash"``, readonly [hash: Hex]\>
+Ƭ **EthGetUncleCountByBlockHashJsonRpcRequest**: JsonRpcRequest\<"eth\_getUncleCountByBlockHash", readonly [hash: Hex]\>
 
 JSON-RPC request for `eth_getUncleCountByBlockHash` procedure
 
@@ -4941,7 +4941,7 @@ ___
 
 ### EthGetUncleCountByBlockHashJsonRpcResponse
 
-Ƭ **EthGetUncleCountByBlockHashJsonRpcResponse**: [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"eth_getUncleCountByBlockHash"``, `Hex`, `string`\>
+Ƭ **EthGetUncleCountByBlockHashJsonRpcResponse**: JsonRpcResponse\<"eth\_getUncleCountByBlockHash", Hex, string\>
 
 JSON-RPC response for `eth_getUncleCountByBlockHash` procedure
 
@@ -4961,7 +4961,7 @@ JSON-RPC request for `eth_getUncleCountByBlockHash` procedure
 
 | Name | Type |
 | :------ | :------ |
-| `hash` | `Hex` |
+| `hash` | Hex |
 
 #### Defined in
 
@@ -4971,7 +4971,7 @@ ___
 
 ### EthGetUncleCountByBlockHashResult
 
-Ƭ **EthGetUncleCountByBlockHashResult**: `Hex`
+Ƭ **EthGetUncleCountByBlockHashResult**: Hex
 
 JSON-RPC response for `eth_getUncleCountByBlockHash` procedure
 
@@ -4983,21 +4983,21 @@ ___
 
 ### EthGetUncleCountByBlockNumberHandler
 
-Ƭ **EthGetUncleCountByBlockNumberHandler**: (`request`: [`EthGetUncleCountByBlockNumberParams`](modules.md#ethgetunclecountbyblocknumberparams)) => `Promise`\<[`EthGetUncleCountByBlockNumberResult`](modules.md#ethgetunclecountbyblocknumberresult)\>
+Ƭ **EthGetUncleCountByBlockNumberHandler**: Function
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`EthGetUncleCountByBlockNumberResult`](modules.md#ethgetunclecountbyblocknumberresult)\>
+▸ (`request`): Promise\<EthGetUncleCountByBlockNumberResult\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`EthGetUncleCountByBlockNumberParams`](modules.md#ethgetunclecountbyblocknumberparams) |
+| `request` | EthGetUncleCountByBlockNumberParams |
 
 ##### Returns
 
-`Promise`\<[`EthGetUncleCountByBlockNumberResult`](modules.md#ethgetunclecountbyblocknumberresult)\>
+Promise\<EthGetUncleCountByBlockNumberResult\>
 
 #### Defined in
 
@@ -5007,21 +5007,21 @@ ___
 
 ### EthGetUncleCountByBlockNumberJsonRpcProcedure
 
-Ƭ **EthGetUncleCountByBlockNumberJsonRpcProcedure**: (`request`: [`EthGetUncleCountByBlockNumberJsonRpcRequest`](modules.md#ethgetunclecountbyblocknumberjsonrpcrequest)) => `Promise`\<[`EthGetUncleCountByBlockNumberJsonRpcResponse`](modules.md#ethgetunclecountbyblocknumberjsonrpcresponse)\>
+Ƭ **EthGetUncleCountByBlockNumberJsonRpcProcedure**: Function
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`EthGetUncleCountByBlockNumberJsonRpcResponse`](modules.md#ethgetunclecountbyblocknumberjsonrpcresponse)\>
+▸ (`request`): Promise\<EthGetUncleCountByBlockNumberJsonRpcResponse\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`EthGetUncleCountByBlockNumberJsonRpcRequest`](modules.md#ethgetunclecountbyblocknumberjsonrpcrequest) |
+| `request` | EthGetUncleCountByBlockNumberJsonRpcRequest |
 
 ##### Returns
 
-`Promise`\<[`EthGetUncleCountByBlockNumberJsonRpcResponse`](modules.md#ethgetunclecountbyblocknumberjsonrpcresponse)\>
+Promise\<EthGetUncleCountByBlockNumberJsonRpcResponse\>
 
 #### Defined in
 
@@ -5031,7 +5031,7 @@ ___
 
 ### EthGetUncleCountByBlockNumberJsonRpcRequest
 
-Ƭ **EthGetUncleCountByBlockNumberJsonRpcRequest**: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"eth_getUncleCountByBlockNumber"``, readonly [tag: BlockTag \| Hex]\>
+Ƭ **EthGetUncleCountByBlockNumberJsonRpcRequest**: JsonRpcRequest\<"eth\_getUncleCountByBlockNumber", readonly [tag: BlockTag \| Hex]\>
 
 JSON-RPC request for `eth_getUncleCountByBlockNumber` procedure
 
@@ -5043,7 +5043,7 @@ ___
 
 ### EthGetUncleCountByBlockNumberJsonRpcResponse
 
-Ƭ **EthGetUncleCountByBlockNumberJsonRpcResponse**: [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"eth_getUncleCountByBlockNumber"``, `Hex`, `string`\>
+Ƭ **EthGetUncleCountByBlockNumberJsonRpcResponse**: JsonRpcResponse\<"eth\_getUncleCountByBlockNumber", Hex, string\>
 
 JSON-RPC response for `eth_getUncleCountByBlockNumber` procedure
 
@@ -5063,7 +5063,7 @@ JSON-RPC request for `eth_getUncleCountByBlockNumber` procedure
 
 | Name | Type |
 | :------ | :------ |
-| `tag` | `BlockTag` \| `Hex` |
+| `tag` | BlockTag \| Hex |
 
 #### Defined in
 
@@ -5073,7 +5073,7 @@ ___
 
 ### EthGetUncleCountByBlockNumberResult
 
-Ƭ **EthGetUncleCountByBlockNumberResult**: `Hex`
+Ƭ **EthGetUncleCountByBlockNumberResult**: Hex
 
 JSON-RPC response for `eth_getUncleCountByBlockNumber` procedure
 
@@ -5085,21 +5085,21 @@ ___
 
 ### EthHashrateHandler
 
-Ƭ **EthHashrateHandler**: (`request?`: [`EthHashrateParams`](modules.md#ethhashrateparams)) => `Promise`\<[`EthHashrateResult`](modules.md#ethhashrateresult)\>
+Ƭ **EthHashrateHandler**: Function
 
 #### Type declaration
 
-▸ (`request?`): `Promise`\<[`EthHashrateResult`](modules.md#ethhashrateresult)\>
+▸ (`request?`): Promise\<EthHashrateResult\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request?` | [`EthHashrateParams`](modules.md#ethhashrateparams) |
+| `request?` | EthHashrateParams |
 
 ##### Returns
 
-`Promise`\<[`EthHashrateResult`](modules.md#ethhashrateresult)\>
+Promise\<EthHashrateResult\>
 
 #### Defined in
 
@@ -5109,21 +5109,21 @@ ___
 
 ### EthHashrateJsonRpcProcedure
 
-Ƭ **EthHashrateJsonRpcProcedure**: (`request`: [`EthHashrateJsonRpcRequest`](modules.md#ethhashratejsonrpcrequest)) => `Promise`\<[`EthHashrateJsonRpcResponse`](modules.md#ethhashratejsonrpcresponse)\>
+Ƭ **EthHashrateJsonRpcProcedure**: Function
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`EthHashrateJsonRpcResponse`](modules.md#ethhashratejsonrpcresponse)\>
+▸ (`request`): Promise\<EthHashrateJsonRpcResponse\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`EthHashrateJsonRpcRequest`](modules.md#ethhashratejsonrpcrequest) |
+| `request` | EthHashrateJsonRpcRequest |
 
 ##### Returns
 
-`Promise`\<[`EthHashrateJsonRpcResponse`](modules.md#ethhashratejsonrpcresponse)\>
+Promise\<EthHashrateJsonRpcResponse\>
 
 #### Defined in
 
@@ -5133,7 +5133,7 @@ ___
 
 ### EthHashrateJsonRpcRequest
 
-Ƭ **EthHashrateJsonRpcRequest**: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"eth_hashrate"``, readonly []\>
+Ƭ **EthHashrateJsonRpcRequest**: JsonRpcRequest\<"eth\_hashrate", readonly []\>
 
 JSON-RPC request for `eth_hashrate` procedure
 
@@ -5145,7 +5145,7 @@ ___
 
 ### EthHashrateJsonRpcResponse
 
-Ƭ **EthHashrateJsonRpcResponse**: [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"eth_hashrate"``, `Hex`, `string`\>
+Ƭ **EthHashrateJsonRpcResponse**: JsonRpcResponse\<"eth\_hashrate", Hex, string\>
 
 JSON-RPC response for `eth_hashrate` procedure
 
@@ -5157,7 +5157,7 @@ ___
 
 ### EthHashrateParams
 
-Ƭ **EthHashrateParams**: `EmptyParams`
+Ƭ **EthHashrateParams**: EmptyParams
 
 JSON-RPC request for `eth_hashrate` procedure
 
@@ -5169,7 +5169,7 @@ ___
 
 ### EthHashrateResult
 
-Ƭ **EthHashrateResult**: `Hex`
+Ƭ **EthHashrateResult**: Hex
 
 JSON-RPC response for `eth_hashrate` procedure
 
@@ -5181,7 +5181,7 @@ ___
 
 ### EthJsonRpcRequest
 
-Ƭ **EthJsonRpcRequest**: [`EthAccountsJsonRpcRequest`](modules.md#ethaccountsjsonrpcrequest) \| [`EthAccountsJsonRpcRequest`](modules.md#ethaccountsjsonrpcrequest) \| [`EthBlockNumberJsonRpcRequest`](modules.md#ethblocknumberjsonrpcrequest) \| [`EthCallJsonRpcRequest`](modules.md#ethcalljsonrpcrequest) \| [`EthChainIdJsonRpcRequest`](modules.md#ethchainidjsonrpcrequest) \| [`EthCoinbaseJsonRpcRequest`](modules.md#ethcoinbasejsonrpcrequest) \| [`EthEstimateGasJsonRpcRequest`](modules.md#ethestimategasjsonrpcrequest) \| [`EthHashrateJsonRpcRequest`](modules.md#ethhashratejsonrpcrequest) \| [`EthGasPriceJsonRpcRequest`](modules.md#ethgaspricejsonrpcrequest) \| [`EthGetBalanceJsonRpcRequest`](modules.md#ethgetbalancejsonrpcrequest) \| [`EthGetBlockByHashJsonRpcRequest`](modules.md#ethgetblockbyhashjsonrpcrequest) \| [`EthGetBlockByNumberJsonRpcRequest`](modules.md#ethgetblockbynumberjsonrpcrequest) \| [`EthGetBlockTransactionCountByHashJsonRpcRequest`](modules.md#ethgetblocktransactioncountbyhashjsonrpcrequest) \| [`EthGetBlockTransactionCountByNumberJsonRpcRequest`](modules.md#ethgetblocktransactioncountbynumberjsonrpcrequest) \| [`EthGetCodeJsonRpcRequest`](modules.md#ethgetcodejsonrpcrequest) \| [`EthGetFilterChangesJsonRpcRequest`](modules.md#ethgetfilterchangesjsonrpcrequest) \| [`EthGetFilterLogsJsonRpcRequest`](modules.md#ethgetfilterlogsjsonrpcrequest) \| [`EthGetLogsJsonRpcRequest`](modules.md#ethgetlogsjsonrpcrequest) \| [`EthGetStorageAtJsonRpcRequest`](modules.md#ethgetstorageatjsonrpcrequest) \| [`EthGetTransactionCountJsonRpcRequest`](modules.md#ethgettransactioncountjsonrpcrequest) \| [`EthGetUncleCountByBlockHashJsonRpcRequest`](modules.md#ethgetunclecountbyblockhashjsonrpcrequest) \| [`EthGetUncleCountByBlockNumberJsonRpcRequest`](modules.md#ethgetunclecountbyblocknumberjsonrpcrequest) \| [`EthGetTransactionByHashJsonRpcRequest`](modules.md#ethgettransactionbyhashjsonrpcrequest) \| [`EthGetTransactionByBlockHashAndIndexJsonRpcRequest`](modules.md#ethgettransactionbyblockhashandindexjsonrpcrequest) \| [`EthGetTransactionByBlockNumberAndIndexJsonRpcRequest`](modules.md#ethgettransactionbyblocknumberandindexjsonrpcrequest) \| [`EthGetTransactionReceiptJsonRpcRequest`](modules.md#ethgettransactionreceiptjsonrpcrequest) \| [`EthGetUncleByBlockHashAndIndexJsonRpcRequest`](modules.md#ethgetunclebyblockhashandindexjsonrpcrequest) \| [`EthGetUncleByBlockNumberAndIndexJsonRpcRequest`](modules.md#ethgetunclebyblocknumberandindexjsonrpcrequest) \| [`EthMiningJsonRpcRequest`](modules.md#ethminingjsonrpcrequest) \| [`EthProtocolVersionJsonRpcRequest`](modules.md#ethprotocolversionjsonrpcrequest) \| [`EthSendRawTransactionJsonRpcRequest`](modules.md#ethsendrawtransactionjsonrpcrequest) \| [`EthSendTransactionJsonRpcRequest`](modules.md#ethsendtransactionjsonrpcrequest) \| [`EthSignJsonRpcRequest`](modules.md#ethsignjsonrpcrequest) \| [`EthSignTransactionJsonRpcRequest`](modules.md#ethsigntransactionjsonrpcrequest) \| [`EthSyncingJsonRpcRequest`](modules.md#ethsyncingjsonrpcrequest) \| [`EthNewFilterJsonRpcRequest`](modules.md#ethnewfilterjsonrpcrequest) \| [`EthNewBlockFilterJsonRpcRequest`](modules.md#ethnewblockfilterjsonrpcrequest) \| [`EthNewPendingTransactionFilterJsonRpcRequest`](modules.md#ethnewpendingtransactionfilterjsonrpcrequest) \| [`EthUninstallFilterJsonRpcRequest`](modules.md#ethuninstallfilterjsonrpcrequest)
+Ƭ **EthJsonRpcRequest**: EthAccountsJsonRpcRequest \| EthAccountsJsonRpcRequest \| EthBlockNumberJsonRpcRequest \| EthCallJsonRpcRequest \| EthChainIdJsonRpcRequest \| EthCoinbaseJsonRpcRequest \| EthEstimateGasJsonRpcRequest \| EthHashrateJsonRpcRequest \| EthGasPriceJsonRpcRequest \| EthGetBalanceJsonRpcRequest \| EthGetBlockByHashJsonRpcRequest \| EthGetBlockByNumberJsonRpcRequest \| EthGetBlockTransactionCountByHashJsonRpcRequest \| EthGetBlockTransactionCountByNumberJsonRpcRequest \| EthGetCodeJsonRpcRequest \| EthGetFilterChangesJsonRpcRequest \| EthGetFilterLogsJsonRpcRequest \| EthGetLogsJsonRpcRequest \| EthGetStorageAtJsonRpcRequest \| EthGetTransactionCountJsonRpcRequest \| EthGetUncleCountByBlockHashJsonRpcRequest \| EthGetUncleCountByBlockNumberJsonRpcRequest \| EthGetTransactionByHashJsonRpcRequest \| EthGetTransactionByBlockHashAndIndexJsonRpcRequest \| EthGetTransactionByBlockNumberAndIndexJsonRpcRequest \| EthGetTransactionReceiptJsonRpcRequest \| EthGetUncleByBlockHashAndIndexJsonRpcRequest \| EthGetUncleByBlockNumberAndIndexJsonRpcRequest \| EthMiningJsonRpcRequest \| EthProtocolVersionJsonRpcRequest \| EthSendRawTransactionJsonRpcRequest \| EthSendTransactionJsonRpcRequest \| EthSignJsonRpcRequest \| EthSignTransactionJsonRpcRequest \| EthSyncingJsonRpcRequest \| EthNewFilterJsonRpcRequest \| EthNewBlockFilterJsonRpcRequest \| EthNewPendingTransactionFilterJsonRpcRequest \| EthUninstallFilterJsonRpcRequest
 
 #### Defined in
 
@@ -5191,27 +5191,27 @@ ___
 
 ### EthJsonRpcRequestHandler
 
-Ƭ **EthJsonRpcRequestHandler**: \<TRequest\>(`request`: `TRequest`) => `Promise`\<`EthReturnType`[`TRequest`[``"method"``]]\>
+Ƭ **EthJsonRpcRequestHandler**: Function
 
 #### Type declaration
 
-▸ \<`TRequest`\>(`request`): `Promise`\<`EthReturnType`[`TRequest`[``"method"``]]\>
+▸ \<`TRequest`\>(`request`): Promise\<EthReturnType[TRequest["method"]]\>
 
 ##### Type parameters
 
 | Name | Type |
 | :------ | :------ |
-| `TRequest` | extends [`EthJsonRpcRequest`](modules.md#ethjsonrpcrequest) |
+| `TRequest` | extends EthJsonRpcRequest |
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | `TRequest` |
+| `request` | TRequest |
 
 ##### Returns
 
-`Promise`\<`EthReturnType`[`TRequest`[``"method"``]]\>
+Promise\<EthReturnType[TRequest["method"]]\>
 
 #### Defined in
 
@@ -5221,21 +5221,21 @@ ___
 
 ### EthMiningHandler
 
-Ƭ **EthMiningHandler**: (`request`: [`EthMiningParams`](modules.md#ethminingparams)) => `Promise`\<[`EthMiningResult`](modules.md#ethminingresult)\>
+Ƭ **EthMiningHandler**: Function
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`EthMiningResult`](modules.md#ethminingresult)\>
+▸ (`request`): Promise\<EthMiningResult\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`EthMiningParams`](modules.md#ethminingparams) |
+| `request` | EthMiningParams |
 
 ##### Returns
 
-`Promise`\<[`EthMiningResult`](modules.md#ethminingresult)\>
+Promise\<EthMiningResult\>
 
 #### Defined in
 
@@ -5245,21 +5245,21 @@ ___
 
 ### EthMiningJsonRpcProcedure
 
-Ƭ **EthMiningJsonRpcProcedure**: (`request`: [`EthMiningJsonRpcRequest`](modules.md#ethminingjsonrpcrequest)) => `Promise`\<[`EthMiningJsonRpcResponse`](modules.md#ethminingjsonrpcresponse)\>
+Ƭ **EthMiningJsonRpcProcedure**: Function
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`EthMiningJsonRpcResponse`](modules.md#ethminingjsonrpcresponse)\>
+▸ (`request`): Promise\<EthMiningJsonRpcResponse\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`EthMiningJsonRpcRequest`](modules.md#ethminingjsonrpcrequest) |
+| `request` | EthMiningJsonRpcRequest |
 
 ##### Returns
 
-`Promise`\<[`EthMiningJsonRpcResponse`](modules.md#ethminingjsonrpcresponse)\>
+Promise\<EthMiningJsonRpcResponse\>
 
 #### Defined in
 
@@ -5269,7 +5269,7 @@ ___
 
 ### EthMiningJsonRpcRequest
 
-Ƭ **EthMiningJsonRpcRequest**: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"eth_mining"``, readonly []\>
+Ƭ **EthMiningJsonRpcRequest**: JsonRpcRequest\<"eth\_mining", readonly []\>
 
 JSON-RPC request for `eth_mining` procedure
 
@@ -5281,7 +5281,7 @@ ___
 
 ### EthMiningJsonRpcResponse
 
-Ƭ **EthMiningJsonRpcResponse**: [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"eth_mining"``, `boolean`, `string`\>
+Ƭ **EthMiningJsonRpcResponse**: JsonRpcResponse\<"eth\_mining", boolean, string\>
 
 JSON-RPC response for `eth_mining` procedure
 
@@ -5293,7 +5293,7 @@ ___
 
 ### EthMiningParams
 
-Ƭ **EthMiningParams**: `EmptyParams`
+Ƭ **EthMiningParams**: EmptyParams
 
 JSON-RPC request for `eth_mining` procedure
 
@@ -5305,7 +5305,7 @@ ___
 
 ### EthMiningResult
 
-Ƭ **EthMiningResult**: `boolean`
+Ƭ **EthMiningResult**: boolean
 
 JSON-RPC response for `eth_mining` procedure
 
@@ -5317,21 +5317,21 @@ ___
 
 ### EthNewBlockFilterHandler
 
-Ƭ **EthNewBlockFilterHandler**: (`request`: [`EthNewBlockFilterParams`](modules.md#ethnewblockfilterparams)) => `Promise`\<[`EthNewBlockFilterResult`](modules.md#ethnewblockfilterresult)\>
+Ƭ **EthNewBlockFilterHandler**: Function
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`EthNewBlockFilterResult`](modules.md#ethnewblockfilterresult)\>
+▸ (`request`): Promise\<EthNewBlockFilterResult\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`EthNewBlockFilterParams`](modules.md#ethnewblockfilterparams) |
+| `request` | EthNewBlockFilterParams |
 
 ##### Returns
 
-`Promise`\<[`EthNewBlockFilterResult`](modules.md#ethnewblockfilterresult)\>
+Promise\<EthNewBlockFilterResult\>
 
 #### Defined in
 
@@ -5341,21 +5341,21 @@ ___
 
 ### EthNewBlockFilterJsonRpcProcedure
 
-Ƭ **EthNewBlockFilterJsonRpcProcedure**: (`request`: [`EthNewBlockFilterJsonRpcRequest`](modules.md#ethnewblockfilterjsonrpcrequest)) => `Promise`\<[`EthNewBlockFilterJsonRpcResponse`](modules.md#ethnewblockfilterjsonrpcresponse)\>
+Ƭ **EthNewBlockFilterJsonRpcProcedure**: Function
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`EthNewBlockFilterJsonRpcResponse`](modules.md#ethnewblockfilterjsonrpcresponse)\>
+▸ (`request`): Promise\<EthNewBlockFilterJsonRpcResponse\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`EthNewBlockFilterJsonRpcRequest`](modules.md#ethnewblockfilterjsonrpcrequest) |
+| `request` | EthNewBlockFilterJsonRpcRequest |
 
 ##### Returns
 
-`Promise`\<[`EthNewBlockFilterJsonRpcResponse`](modules.md#ethnewblockfilterjsonrpcresponse)\>
+Promise\<EthNewBlockFilterJsonRpcResponse\>
 
 #### Defined in
 
@@ -5365,7 +5365,7 @@ ___
 
 ### EthNewBlockFilterJsonRpcRequest
 
-Ƭ **EthNewBlockFilterJsonRpcRequest**: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"eth_newBlockFilter"``, readonly []\>
+Ƭ **EthNewBlockFilterJsonRpcRequest**: JsonRpcRequest\<"eth\_newBlockFilter", readonly []\>
 
 JSON-RPC request for `eth_newBlockFilter` procedure
 
@@ -5377,7 +5377,7 @@ ___
 
 ### EthNewBlockFilterJsonRpcResponse
 
-Ƭ **EthNewBlockFilterJsonRpcResponse**: [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"eth_newBlockFilter"``, `Hex`, `string`\>
+Ƭ **EthNewBlockFilterJsonRpcResponse**: JsonRpcResponse\<"eth\_newBlockFilter", Hex, string\>
 
 JSON-RPC response for `eth_newBlockFilter` procedure
 
@@ -5389,7 +5389,7 @@ ___
 
 ### EthNewBlockFilterParams
 
-Ƭ **EthNewBlockFilterParams**: `EmptyParams`
+Ƭ **EthNewBlockFilterParams**: EmptyParams
 
 JSON-RPC request for `eth_newBlockFilter` procedure
 
@@ -5401,7 +5401,7 @@ ___
 
 ### EthNewBlockFilterResult
 
-Ƭ **EthNewBlockFilterResult**: `Hex`
+Ƭ **EthNewBlockFilterResult**: Hex
 
 JSON-RPC response for `eth_newBlockFilter` procedure
 
@@ -5413,21 +5413,21 @@ ___
 
 ### EthNewFilterHandler
 
-Ƭ **EthNewFilterHandler**: (`request`: [`EthNewFilterParams`](modules.md#ethnewfilterparams)) => `Promise`\<[`EthNewFilterResult`](modules.md#ethnewfilterresult)\>
+Ƭ **EthNewFilterHandler**: Function
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`EthNewFilterResult`](modules.md#ethnewfilterresult)\>
+▸ (`request`): Promise\<EthNewFilterResult\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`EthNewFilterParams`](modules.md#ethnewfilterparams) |
+| `request` | EthNewFilterParams |
 
 ##### Returns
 
-`Promise`\<[`EthNewFilterResult`](modules.md#ethnewfilterresult)\>
+Promise\<EthNewFilterResult\>
 
 #### Defined in
 
@@ -5437,21 +5437,21 @@ ___
 
 ### EthNewFilterJsonRpcProcedure
 
-Ƭ **EthNewFilterJsonRpcProcedure**: (`request`: [`EthNewFilterJsonRpcRequest`](modules.md#ethnewfilterjsonrpcrequest)) => `Promise`\<[`EthNewFilterJsonRpcResponse`](modules.md#ethnewfilterjsonrpcresponse)\>
+Ƭ **EthNewFilterJsonRpcProcedure**: Function
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`EthNewFilterJsonRpcResponse`](modules.md#ethnewfilterjsonrpcresponse)\>
+▸ (`request`): Promise\<EthNewFilterJsonRpcResponse\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`EthNewFilterJsonRpcRequest`](modules.md#ethnewfilterjsonrpcrequest) |
+| `request` | EthNewFilterJsonRpcRequest |
 
 ##### Returns
 
-`Promise`\<[`EthNewFilterJsonRpcResponse`](modules.md#ethnewfilterjsonrpcresponse)\>
+Promise\<EthNewFilterJsonRpcResponse\>
 
 #### Defined in
 
@@ -5461,7 +5461,7 @@ ___
 
 ### EthNewFilterJsonRpcRequest
 
-Ƭ **EthNewFilterJsonRpcRequest**: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"eth_newFilter"``, `SerializeToJson`\<`FilterParams`\>\>
+Ƭ **EthNewFilterJsonRpcRequest**: JsonRpcRequest\<"eth\_newFilter", SerializeToJson\<FilterParams\>\>
 
 JSON-RPC request for `eth_newFilter` procedure
 
@@ -5473,7 +5473,7 @@ ___
 
 ### EthNewFilterJsonRpcResponse
 
-Ƭ **EthNewFilterJsonRpcResponse**: [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"eth_newFilter"``, `Hex`, `string`\>
+Ƭ **EthNewFilterJsonRpcResponse**: JsonRpcResponse\<"eth\_newFilter", Hex, string\>
 
 JSON-RPC response for `eth_newFilter` procedure
 
@@ -5485,7 +5485,7 @@ ___
 
 ### EthNewFilterParams
 
-Ƭ **EthNewFilterParams**: `FilterParams`
+Ƭ **EthNewFilterParams**: FilterParams
 
 JSON-RPC request for `eth_newFilter` procedure
 
@@ -5497,7 +5497,7 @@ ___
 
 ### EthNewFilterResult
 
-Ƭ **EthNewFilterResult**: `Hex`
+Ƭ **EthNewFilterResult**: Hex
 
 JSON-RPC response for `eth_newFilter` procedure
 
@@ -5509,21 +5509,21 @@ ___
 
 ### EthNewPendingTransactionFilterHandler
 
-Ƭ **EthNewPendingTransactionFilterHandler**: (`request`: [`EthNewPendingTransactionFilterParams`](modules.md#ethnewpendingtransactionfilterparams)) => `Promise`\<[`EthNewPendingTransactionFilterResult`](modules.md#ethnewpendingtransactionfilterresult)\>
+Ƭ **EthNewPendingTransactionFilterHandler**: Function
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`EthNewPendingTransactionFilterResult`](modules.md#ethnewpendingtransactionfilterresult)\>
+▸ (`request`): Promise\<EthNewPendingTransactionFilterResult\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`EthNewPendingTransactionFilterParams`](modules.md#ethnewpendingtransactionfilterparams) |
+| `request` | EthNewPendingTransactionFilterParams |
 
 ##### Returns
 
-`Promise`\<[`EthNewPendingTransactionFilterResult`](modules.md#ethnewpendingtransactionfilterresult)\>
+Promise\<EthNewPendingTransactionFilterResult\>
 
 #### Defined in
 
@@ -5533,21 +5533,21 @@ ___
 
 ### EthNewPendingTransactionFilterJsonRpcProcedure
 
-Ƭ **EthNewPendingTransactionFilterJsonRpcProcedure**: (`request`: [`EthNewPendingTransactionFilterJsonRpcRequest`](modules.md#ethnewpendingtransactionfilterjsonrpcrequest)) => `Promise`\<[`EthNewPendingTransactionFilterJsonRpcResponse`](modules.md#ethnewpendingtransactionfilterjsonrpcresponse)\>
+Ƭ **EthNewPendingTransactionFilterJsonRpcProcedure**: Function
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`EthNewPendingTransactionFilterJsonRpcResponse`](modules.md#ethnewpendingtransactionfilterjsonrpcresponse)\>
+▸ (`request`): Promise\<EthNewPendingTransactionFilterJsonRpcResponse\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`EthNewPendingTransactionFilterJsonRpcRequest`](modules.md#ethnewpendingtransactionfilterjsonrpcrequest) |
+| `request` | EthNewPendingTransactionFilterJsonRpcRequest |
 
 ##### Returns
 
-`Promise`\<[`EthNewPendingTransactionFilterJsonRpcResponse`](modules.md#ethnewpendingtransactionfilterjsonrpcresponse)\>
+Promise\<EthNewPendingTransactionFilterJsonRpcResponse\>
 
 #### Defined in
 
@@ -5557,7 +5557,7 @@ ___
 
 ### EthNewPendingTransactionFilterJsonRpcRequest
 
-Ƭ **EthNewPendingTransactionFilterJsonRpcRequest**: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"eth_newPendingTransactionFilter"``, readonly []\>
+Ƭ **EthNewPendingTransactionFilterJsonRpcRequest**: JsonRpcRequest\<"eth\_newPendingTransactionFilter", readonly []\>
 
 JSON-RPC request for `eth_newPendingTransactionFilter` procedure
 
@@ -5569,7 +5569,7 @@ ___
 
 ### EthNewPendingTransactionFilterJsonRpcResponse
 
-Ƭ **EthNewPendingTransactionFilterJsonRpcResponse**: [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"eth_newPendingTransactionFilter"``, `Hex`, `string`\>
+Ƭ **EthNewPendingTransactionFilterJsonRpcResponse**: JsonRpcResponse\<"eth\_newPendingTransactionFilter", Hex, string\>
 
 JSON-RPC response for `eth_newPendingTransactionFilter` procedure
 
@@ -5581,7 +5581,7 @@ ___
 
 ### EthNewPendingTransactionFilterParams
 
-Ƭ **EthNewPendingTransactionFilterParams**: `EmptyParams`
+Ƭ **EthNewPendingTransactionFilterParams**: EmptyParams
 
 JSON-RPC request for `eth_newPendingTransactionFilter` procedure
 
@@ -5593,7 +5593,7 @@ ___
 
 ### EthNewPendingTransactionFilterResult
 
-Ƭ **EthNewPendingTransactionFilterResult**: `Hex`
+Ƭ **EthNewPendingTransactionFilterResult**: Hex
 
 JSON-RPC response for `eth_newPendingTransactionFilter` procedure
 
@@ -5605,7 +5605,7 @@ ___
 
 ### EthParams
 
-Ƭ **EthParams**: [`EthAccountsParams`](modules.md#ethaccountsparams) \| [`EthAccountsParams`](modules.md#ethaccountsparams) \| [`EthBlockNumberParams`](modules.md#ethblocknumberparams) \| [`EthCallParams`](modules.md#ethcallparams) \| [`EthChainIdParams`](modules.md#ethchainidparams) \| [`EthCoinbaseParams`](modules.md#ethcoinbaseparams) \| [`EthEstimateGasParams`](modules.md#ethestimategasparams) \| [`EthHashrateParams`](modules.md#ethhashrateparams) \| [`EthGasPriceParams`](modules.md#ethgaspriceparams) \| [`EthGetBalanceParams`](modules.md#ethgetbalanceparams) \| [`EthGetBlockByHashParams`](modules.md#ethgetblockbyhashparams) \| [`EthGetBlockByNumberParams`](modules.md#ethgetblockbynumberparams) \| [`EthGetBlockTransactionCountByHashParams`](modules.md#ethgetblocktransactioncountbyhashparams) \| [`EthGetBlockTransactionCountByNumberParams`](modules.md#ethgetblocktransactioncountbynumberparams) \| [`EthGetCodeParams`](modules.md#ethgetcodeparams) \| [`EthGetFilterChangesParams`](modules.md#ethgetfilterchangesparams) \| [`EthGetFilterLogsParams`](modules.md#ethgetfilterlogsparams) \| [`EthGetLogsParams`](modules.md#ethgetlogsparams) \| [`EthGetStorageAtParams`](modules.md#ethgetstorageatparams) \| [`EthGetTransactionCountParams`](modules.md#ethgettransactioncountparams) \| [`EthGetUncleCountByBlockHashParams`](modules.md#ethgetunclecountbyblockhashparams) \| [`EthGetUncleCountByBlockNumberParams`](modules.md#ethgetunclecountbyblocknumberparams) \| [`EthGetTransactionByHashParams`](modules.md#ethgettransactionbyhashparams) \| [`EthGetTransactionByBlockHashAndIndexParams`](modules.md#ethgettransactionbyblockhashandindexparams) \| [`EthGetTransactionByBlockNumberAndIndexParams`](modules.md#ethgettransactionbyblocknumberandindexparams) \| [`EthGetTransactionReceiptParams`](modules.md#ethgettransactionreceiptparams) \| [`EthGetUncleByBlockHashAndIndexParams`](modules.md#ethgetunclebyblockhashandindexparams) \| [`EthGetUncleByBlockNumberAndIndexParams`](modules.md#ethgetunclebyblocknumberandindexparams) \| [`EthMiningParams`](modules.md#ethminingparams) \| [`EthProtocolVersionParams`](modules.md#ethprotocolversionparams) \| [`EthSendRawTransactionParams`](modules.md#ethsendrawtransactionparams) \| [`EthSendTransactionParams`](modules.md#ethsendtransactionparams) \| [`EthSignParams`](modules.md#ethsignparams) \| [`EthSignTransactionParams`](modules.md#ethsigntransactionparams) \| [`EthSyncingParams`](modules.md#ethsyncingparams) \| [`EthNewFilterParams`](modules.md#ethnewfilterparams) \| [`EthNewBlockFilterParams`](modules.md#ethnewblockfilterparams) \| [`EthNewPendingTransactionFilterParams`](modules.md#ethnewpendingtransactionfilterparams) \| [`EthUninstallFilterParams`](modules.md#ethuninstallfilterparams)
+Ƭ **EthParams**: EthAccountsParams \| EthAccountsParams \| EthBlockNumberParams \| EthCallParams \| EthChainIdParams \| EthCoinbaseParams \| EthEstimateGasParams \| EthHashrateParams \| EthGasPriceParams \| EthGetBalanceParams \| EthGetBlockByHashParams \| EthGetBlockByNumberParams \| EthGetBlockTransactionCountByHashParams \| EthGetBlockTransactionCountByNumberParams \| EthGetCodeParams \| EthGetFilterChangesParams \| EthGetFilterLogsParams \| EthGetLogsParams \| EthGetStorageAtParams \| EthGetTransactionCountParams \| EthGetUncleCountByBlockHashParams \| EthGetUncleCountByBlockNumberParams \| EthGetTransactionByHashParams \| EthGetTransactionByBlockHashAndIndexParams \| EthGetTransactionByBlockNumberAndIndexParams \| EthGetTransactionReceiptParams \| EthGetUncleByBlockHashAndIndexParams \| EthGetUncleByBlockNumberAndIndexParams \| EthMiningParams \| EthProtocolVersionParams \| EthSendRawTransactionParams \| EthSendTransactionParams \| EthSignParams \| EthSignTransactionParams \| EthSyncingParams \| EthNewFilterParams \| EthNewBlockFilterParams \| EthNewPendingTransactionFilterParams \| EthUninstallFilterParams
 
 #### Defined in
 
@@ -5615,21 +5615,21 @@ ___
 
 ### EthProtocolVersionHandler
 
-Ƭ **EthProtocolVersionHandler**: (`request`: [`EthProtocolVersionParams`](modules.md#ethprotocolversionparams)) => `Promise`\<[`EthProtocolVersionResult`](modules.md#ethprotocolversionresult)\>
+Ƭ **EthProtocolVersionHandler**: Function
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`EthProtocolVersionResult`](modules.md#ethprotocolversionresult)\>
+▸ (`request`): Promise\<EthProtocolVersionResult\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`EthProtocolVersionParams`](modules.md#ethprotocolversionparams) |
+| `request` | EthProtocolVersionParams |
 
 ##### Returns
 
-`Promise`\<[`EthProtocolVersionResult`](modules.md#ethprotocolversionresult)\>
+Promise\<EthProtocolVersionResult\>
 
 #### Defined in
 
@@ -5639,21 +5639,21 @@ ___
 
 ### EthProtocolVersionJsonRpcProcedure
 
-Ƭ **EthProtocolVersionJsonRpcProcedure**: (`request`: [`EthProtocolVersionJsonRpcRequest`](modules.md#ethprotocolversionjsonrpcrequest)) => `Promise`\<[`EthProtocolVersionJsonRpcResponse`](modules.md#ethprotocolversionjsonrpcresponse)\>
+Ƭ **EthProtocolVersionJsonRpcProcedure**: Function
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`EthProtocolVersionJsonRpcResponse`](modules.md#ethprotocolversionjsonrpcresponse)\>
+▸ (`request`): Promise\<EthProtocolVersionJsonRpcResponse\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`EthProtocolVersionJsonRpcRequest`](modules.md#ethprotocolversionjsonrpcrequest) |
+| `request` | EthProtocolVersionJsonRpcRequest |
 
 ##### Returns
 
-`Promise`\<[`EthProtocolVersionJsonRpcResponse`](modules.md#ethprotocolversionjsonrpcresponse)\>
+Promise\<EthProtocolVersionJsonRpcResponse\>
 
 #### Defined in
 
@@ -5663,7 +5663,7 @@ ___
 
 ### EthProtocolVersionJsonRpcRequest
 
-Ƭ **EthProtocolVersionJsonRpcRequest**: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"eth_protocolVersion"``, readonly []\>
+Ƭ **EthProtocolVersionJsonRpcRequest**: JsonRpcRequest\<"eth\_protocolVersion", readonly []\>
 
 JSON-RPC request for `eth_protocolVersion` procedure
 
@@ -5675,7 +5675,7 @@ ___
 
 ### EthProtocolVersionJsonRpcResponse
 
-Ƭ **EthProtocolVersionJsonRpcResponse**: [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"eth_protocolVersion"``, `Hex`, `string`\>
+Ƭ **EthProtocolVersionJsonRpcResponse**: JsonRpcResponse\<"eth\_protocolVersion", Hex, string\>
 
 JSON-RPC response for `eth_protocolVersion` procedure
 
@@ -5687,7 +5687,7 @@ ___
 
 ### EthProtocolVersionParams
 
-Ƭ **EthProtocolVersionParams**: `EmptyParams`
+Ƭ **EthProtocolVersionParams**: EmptyParams
 
 JSON-RPC request for `eth_protocolVersion` procedure
 
@@ -5699,7 +5699,7 @@ ___
 
 ### EthProtocolVersionResult
 
-Ƭ **EthProtocolVersionResult**: `Hex`
+Ƭ **EthProtocolVersionResult**: Hex
 
 JSON-RPC response for `eth_protocolVersion` procedure
 
@@ -5711,21 +5711,21 @@ ___
 
 ### EthSendRawTransactionHandler
 
-Ƭ **EthSendRawTransactionHandler**: (`request`: [`EthSendRawTransactionParams`](modules.md#ethsendrawtransactionparams)) => `Promise`\<[`EthSendRawTransactionResult`](modules.md#ethsendrawtransactionresult)\>
+Ƭ **EthSendRawTransactionHandler**: Function
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`EthSendRawTransactionResult`](modules.md#ethsendrawtransactionresult)\>
+▸ (`request`): Promise\<EthSendRawTransactionResult\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`EthSendRawTransactionParams`](modules.md#ethsendrawtransactionparams) |
+| `request` | EthSendRawTransactionParams |
 
 ##### Returns
 
-`Promise`\<[`EthSendRawTransactionResult`](modules.md#ethsendrawtransactionresult)\>
+Promise\<EthSendRawTransactionResult\>
 
 #### Defined in
 
@@ -5735,21 +5735,21 @@ ___
 
 ### EthSendRawTransactionJsonRpcProcedure
 
-Ƭ **EthSendRawTransactionJsonRpcProcedure**: (`request`: [`EthSendRawTransactionJsonRpcRequest`](modules.md#ethsendrawtransactionjsonrpcrequest)) => `Promise`\<[`EthSendRawTransactionJsonRpcResponse`](modules.md#ethsendrawtransactionjsonrpcresponse)\>
+Ƭ **EthSendRawTransactionJsonRpcProcedure**: Function
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`EthSendRawTransactionJsonRpcResponse`](modules.md#ethsendrawtransactionjsonrpcresponse)\>
+▸ (`request`): Promise\<EthSendRawTransactionJsonRpcResponse\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`EthSendRawTransactionJsonRpcRequest`](modules.md#ethsendrawtransactionjsonrpcrequest) |
+| `request` | EthSendRawTransactionJsonRpcRequest |
 
 ##### Returns
 
-`Promise`\<[`EthSendRawTransactionJsonRpcResponse`](modules.md#ethsendrawtransactionjsonrpcresponse)\>
+Promise\<EthSendRawTransactionJsonRpcResponse\>
 
 #### Defined in
 
@@ -5759,7 +5759,7 @@ ___
 
 ### EthSendRawTransactionJsonRpcRequest
 
-Ƭ **EthSendRawTransactionJsonRpcRequest**: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"eth_sendRawTransaction"``, [data: Hex]\>
+Ƭ **EthSendRawTransactionJsonRpcRequest**: JsonRpcRequest\<"eth\_sendRawTransaction", [data: Hex]\>
 
 JSON-RPC request for `eth_sendRawTransaction` procedure
 
@@ -5771,7 +5771,7 @@ ___
 
 ### EthSendRawTransactionJsonRpcResponse
 
-Ƭ **EthSendRawTransactionJsonRpcResponse**: [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"eth_sendRawTransaction"``, `Hex`, `string`\>
+Ƭ **EthSendRawTransactionJsonRpcResponse**: JsonRpcResponse\<"eth\_sendRawTransaction", Hex, string\>
 
 JSON-RPC response for `eth_sendRawTransaction` procedure
 
@@ -5783,7 +5783,7 @@ ___
 
 ### EthSendRawTransactionParams
 
-Ƭ **EthSendRawTransactionParams**: `SendRawTransactionParameters`
+Ƭ **EthSendRawTransactionParams**: SendRawTransactionParameters
 
 JSON-RPC request for `eth_sendRawTransaction` procedure
 
@@ -5795,7 +5795,7 @@ ___
 
 ### EthSendRawTransactionResult
 
-Ƭ **EthSendRawTransactionResult**: `Hex`
+Ƭ **EthSendRawTransactionResult**: Hex
 
 JSON-RPC response for `eth_sendRawTransaction` procedure
 
@@ -5807,21 +5807,21 @@ ___
 
 ### EthSendTransactionHandler
 
-Ƭ **EthSendTransactionHandler**: (`request`: [`EthSendTransactionParams`](modules.md#ethsendtransactionparams)) => `Promise`\<[`EthSendTransactionResult`](modules.md#ethsendtransactionresult)\>
+Ƭ **EthSendTransactionHandler**: Function
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`EthSendTransactionResult`](modules.md#ethsendtransactionresult)\>
+▸ (`request`): Promise\<EthSendTransactionResult\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`EthSendTransactionParams`](modules.md#ethsendtransactionparams) |
+| `request` | EthSendTransactionParams |
 
 ##### Returns
 
-`Promise`\<[`EthSendTransactionResult`](modules.md#ethsendtransactionresult)\>
+Promise\<EthSendTransactionResult\>
 
 #### Defined in
 
@@ -5831,21 +5831,21 @@ ___
 
 ### EthSendTransactionJsonRpcProcedure
 
-Ƭ **EthSendTransactionJsonRpcProcedure**: (`request`: [`EthSendTransactionJsonRpcRequest`](modules.md#ethsendtransactionjsonrpcrequest)) => `Promise`\<[`EthSendTransactionJsonRpcResponse`](modules.md#ethsendtransactionjsonrpcresponse)\>
+Ƭ **EthSendTransactionJsonRpcProcedure**: Function
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`EthSendTransactionJsonRpcResponse`](modules.md#ethsendtransactionjsonrpcresponse)\>
+▸ (`request`): Promise\<EthSendTransactionJsonRpcResponse\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`EthSendTransactionJsonRpcRequest`](modules.md#ethsendtransactionjsonrpcrequest) |
+| `request` | EthSendTransactionJsonRpcRequest |
 
 ##### Returns
 
-`Promise`\<[`EthSendTransactionJsonRpcResponse`](modules.md#ethsendtransactionjsonrpcresponse)\>
+Promise\<EthSendTransactionJsonRpcResponse\>
 
 #### Defined in
 
@@ -5855,7 +5855,7 @@ ___
 
 ### EthSendTransactionJsonRpcRequest
 
-Ƭ **EthSendTransactionJsonRpcRequest**: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"eth_sendTransaction"``, [tx: Transaction]\>
+Ƭ **EthSendTransactionJsonRpcRequest**: JsonRpcRequest\<"eth\_sendTransaction", [tx: Transaction]\>
 
 JSON-RPC request for `eth_sendTransaction` procedure
 
@@ -5867,7 +5867,7 @@ ___
 
 ### EthSendTransactionJsonRpcResponse
 
-Ƭ **EthSendTransactionJsonRpcResponse**: [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"eth_sendTransaction"``, `Hex`, `string`\>
+Ƭ **EthSendTransactionJsonRpcResponse**: JsonRpcResponse\<"eth\_sendTransaction", Hex, string\>
 
 JSON-RPC response for `eth_sendTransaction` procedure
 
@@ -5879,7 +5879,7 @@ ___
 
 ### EthSendTransactionParams
 
-Ƭ **EthSendTransactionParams**: `SendTransactionParameters`
+Ƭ **EthSendTransactionParams**: SendTransactionParameters
 
 JSON-RPC request for `eth_sendTransaction` procedure
 
@@ -5891,7 +5891,7 @@ ___
 
 ### EthSendTransactionResult
 
-Ƭ **EthSendTransactionResult**: `Hex`
+Ƭ **EthSendTransactionResult**: Hex
 
 JSON-RPC response for `eth_sendTransaction` procedure
 
@@ -5903,21 +5903,21 @@ ___
 
 ### EthSignHandler
 
-Ƭ **EthSignHandler**: (`request`: [`EthSignParams`](modules.md#ethsignparams)) => `Promise`\<[`EthSignResult`](modules.md#ethsignresult)\>
+Ƭ **EthSignHandler**: Function
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`EthSignResult`](modules.md#ethsignresult)\>
+▸ (`request`): Promise\<EthSignResult\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`EthSignParams`](modules.md#ethsignparams) |
+| `request` | EthSignParams |
 
 ##### Returns
 
-`Promise`\<[`EthSignResult`](modules.md#ethsignresult)\>
+Promise\<EthSignResult\>
 
 #### Defined in
 
@@ -5927,21 +5927,21 @@ ___
 
 ### EthSignJsonRpcProcedure
 
-Ƭ **EthSignJsonRpcProcedure**: (`request`: [`EthSignJsonRpcRequest`](modules.md#ethsignjsonrpcrequest)) => `Promise`\<[`EthSignJsonRpcResponse`](modules.md#ethsignjsonrpcresponse)\>
+Ƭ **EthSignJsonRpcProcedure**: Function
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`EthSignJsonRpcResponse`](modules.md#ethsignjsonrpcresponse)\>
+▸ (`request`): Promise\<EthSignJsonRpcResponse\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`EthSignJsonRpcRequest`](modules.md#ethsignjsonrpcrequest) |
+| `request` | EthSignJsonRpcRequest |
 
 ##### Returns
 
-`Promise`\<[`EthSignJsonRpcResponse`](modules.md#ethsignjsonrpcresponse)\>
+Promise\<EthSignJsonRpcResponse\>
 
 #### Defined in
 
@@ -5951,7 +5951,7 @@ ___
 
 ### EthSignJsonRpcRequest
 
-Ƭ **EthSignJsonRpcRequest**: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"eth_sign"``, [address: Address, message: Hex]\>
+Ƭ **EthSignJsonRpcRequest**: JsonRpcRequest\<"eth\_sign", [address: Address, message: Hex]\>
 
 JSON-RPC request for `eth_sign` procedure
 
@@ -5963,7 +5963,7 @@ ___
 
 ### EthSignJsonRpcResponse
 
-Ƭ **EthSignJsonRpcResponse**: [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"eth_sign"``, `Hex`, `string`\>
+Ƭ **EthSignJsonRpcResponse**: JsonRpcResponse\<"eth\_sign", Hex, string\>
 
 JSON-RPC response for `eth_sign` procedure
 
@@ -5975,7 +5975,7 @@ ___
 
 ### EthSignParams
 
-Ƭ **EthSignParams**: `SignMessageParameters`
+Ƭ **EthSignParams**: SignMessageParameters
 
 JSON-RPC request for `eth_sign` procedure
 
@@ -5987,7 +5987,7 @@ ___
 
 ### EthSignResult
 
-Ƭ **EthSignResult**: `Hex`
+Ƭ **EthSignResult**: Hex
 
 JSON-RPC response for `eth_sign` procedure
 
@@ -5999,21 +5999,21 @@ ___
 
 ### EthSignTransactionHandler
 
-Ƭ **EthSignTransactionHandler**: (`request`: [`EthSignTransactionParams`](modules.md#ethsigntransactionparams)) => `Promise`\<[`EthSignTransactionResult`](modules.md#ethsigntransactionresult)\>
+Ƭ **EthSignTransactionHandler**: Function
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`EthSignTransactionResult`](modules.md#ethsigntransactionresult)\>
+▸ (`request`): Promise\<EthSignTransactionResult\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`EthSignTransactionParams`](modules.md#ethsigntransactionparams) |
+| `request` | EthSignTransactionParams |
 
 ##### Returns
 
-`Promise`\<[`EthSignTransactionResult`](modules.md#ethsigntransactionresult)\>
+Promise\<EthSignTransactionResult\>
 
 #### Defined in
 
@@ -6023,21 +6023,21 @@ ___
 
 ### EthSignTransactionJsonRpcProcedure
 
-Ƭ **EthSignTransactionJsonRpcProcedure**: (`request`: [`EthSignTransactionJsonRpcRequest`](modules.md#ethsigntransactionjsonrpcrequest)) => `Promise`\<[`EthSignTransactionJsonRpcResponse`](modules.md#ethsigntransactionjsonrpcresponse)\>
+Ƭ **EthSignTransactionJsonRpcProcedure**: Function
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`EthSignTransactionJsonRpcResponse`](modules.md#ethsigntransactionjsonrpcresponse)\>
+▸ (`request`): Promise\<EthSignTransactionJsonRpcResponse\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`EthSignTransactionJsonRpcRequest`](modules.md#ethsigntransactionjsonrpcrequest) |
+| `request` | EthSignTransactionJsonRpcRequest |
 
 ##### Returns
 
-`Promise`\<[`EthSignTransactionJsonRpcResponse`](modules.md#ethsigntransactionjsonrpcresponse)\>
+Promise\<EthSignTransactionJsonRpcResponse\>
 
 #### Defined in
 
@@ -6047,7 +6047,7 @@ ___
 
 ### EthSignTransactionJsonRpcRequest
 
-Ƭ **EthSignTransactionJsonRpcRequest**: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"eth_signTransaction"``, [\{ `chainId?`: `Hex` ; `data?`: `Hex` ; `from`: `Address` ; `gas?`: `Hex` ; `gasPrice?`: `Hex` ; `nonce?`: `Hex` ; `to?`: `Address` ; `value?`: `Hex`  }]\>
+Ƭ **EthSignTransactionJsonRpcRequest**: JsonRpcRequest\<"eth\_signTransaction", [Object]\>
 
 JSON-RPC request for `eth_signTransaction` procedure
 
@@ -6059,7 +6059,7 @@ ___
 
 ### EthSignTransactionJsonRpcResponse
 
-Ƭ **EthSignTransactionJsonRpcResponse**: [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"eth_signTransaction"``, `Hex`, `string`\>
+Ƭ **EthSignTransactionJsonRpcResponse**: JsonRpcResponse\<"eth\_signTransaction", Hex, string\>
 
 JSON-RPC response for `eth_signTransaction` procedure
 
@@ -6071,7 +6071,7 @@ ___
 
 ### EthSignTransactionParams
 
-Ƭ **EthSignTransactionParams**: `SignMessageParameters`
+Ƭ **EthSignTransactionParams**: SignMessageParameters
 
 JSON-RPC request for `eth_signTransaction` procedure
 
@@ -6083,7 +6083,7 @@ ___
 
 ### EthSignTransactionResult
 
-Ƭ **EthSignTransactionResult**: `Hex`
+Ƭ **EthSignTransactionResult**: Hex
 
 JSON-RPC response for `eth_signTransaction` procedure
 
@@ -6095,21 +6095,21 @@ ___
 
 ### EthSyncingHandler
 
-Ƭ **EthSyncingHandler**: (`request`: [`EthSyncingParams`](modules.md#ethsyncingparams)) => `Promise`\<[`EthSyncingResult`](modules.md#ethsyncingresult)\>
+Ƭ **EthSyncingHandler**: Function
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`EthSyncingResult`](modules.md#ethsyncingresult)\>
+▸ (`request`): Promise\<EthSyncingResult\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`EthSyncingParams`](modules.md#ethsyncingparams) |
+| `request` | EthSyncingParams |
 
 ##### Returns
 
-`Promise`\<[`EthSyncingResult`](modules.md#ethsyncingresult)\>
+Promise\<EthSyncingResult\>
 
 #### Defined in
 
@@ -6119,21 +6119,21 @@ ___
 
 ### EthSyncingJsonRpcProcedure
 
-Ƭ **EthSyncingJsonRpcProcedure**: (`request`: [`EthSyncingJsonRpcRequest`](modules.md#ethsyncingjsonrpcrequest)) => `Promise`\<[`EthSyncingJsonRpcResponse`](modules.md#ethsyncingjsonrpcresponse)\>
+Ƭ **EthSyncingJsonRpcProcedure**: Function
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`EthSyncingJsonRpcResponse`](modules.md#ethsyncingjsonrpcresponse)\>
+▸ (`request`): Promise\<EthSyncingJsonRpcResponse\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`EthSyncingJsonRpcRequest`](modules.md#ethsyncingjsonrpcrequest) |
+| `request` | EthSyncingJsonRpcRequest |
 
 ##### Returns
 
-`Promise`\<[`EthSyncingJsonRpcResponse`](modules.md#ethsyncingjsonrpcresponse)\>
+Promise\<EthSyncingJsonRpcResponse\>
 
 #### Defined in
 
@@ -6143,7 +6143,7 @@ ___
 
 ### EthSyncingJsonRpcRequest
 
-Ƭ **EthSyncingJsonRpcRequest**: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"eth_syncing"``, readonly []\>
+Ƭ **EthSyncingJsonRpcRequest**: JsonRpcRequest\<"eth\_syncing", readonly []\>
 
 JSON-RPC request for `eth_syncing` procedure
 
@@ -6155,7 +6155,7 @@ ___
 
 ### EthSyncingJsonRpcResponse
 
-Ƭ **EthSyncingJsonRpcResponse**: [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"eth_syncing"``, `boolean` \| \{ `currentBlock`: `Hex` ; `headedBytecodebytes?`: `Hex` ; `healedBytecodes?`: `Hex` ; `healedTrienodes?`: `Hex` ; `healingBytecode?`: `Hex` ; `healingTrienodes?`: `Hex` ; `highestBlock`: `Hex` ; `knownStates`: `Hex` ; `pulledStates`: `Hex` ; `startingBlock`: `Hex` ; `syncedBytecodeBytes?`: `Hex` ; `syncedBytecodes?`: `Hex` ; `syncedStorage?`: `Hex` ; `syncedStorageBytes?`: `Hex`  }, `string`\>
+Ƭ **EthSyncingJsonRpcResponse**: JsonRpcResponse\<"eth\_syncing", boolean \| Object, string\>
 
 JSON-RPC response for `eth_syncing` procedure
 
@@ -6167,7 +6167,7 @@ ___
 
 ### EthSyncingParams
 
-Ƭ **EthSyncingParams**: `EmptyParams`
+Ƭ **EthSyncingParams**: EmptyParams
 
 JSON-RPC request for `eth_syncing` procedure
 
@@ -6179,7 +6179,7 @@ ___
 
 ### EthSyncingResult
 
-Ƭ **EthSyncingResult**: `boolean` \| \{ `currentBlock`: `Hex` ; `headedBytecodebytes?`: `Hex` ; `healedBytecodes?`: `Hex` ; `healedTrienodes?`: `Hex` ; `healingBytecode?`: `Hex` ; `healingTrienodes?`: `Hex` ; `highestBlock`: `Hex` ; `knownStates`: `Hex` ; `pulledStates`: `Hex` ; `startingBlock`: `Hex` ; `syncedBytecodeBytes?`: `Hex` ; `syncedBytecodes?`: `Hex` ; `syncedStorage?`: `Hex` ; `syncedStorageBytes?`: `Hex`  }
+Ƭ **EthSyncingResult**: boolean \| Object
 
 JSON-RPC response for `eth_syncing` procedure
 
@@ -6191,21 +6191,21 @@ ___
 
 ### EthUninstallFilterHandler
 
-Ƭ **EthUninstallFilterHandler**: (`request`: [`EthUninstallFilterParams`](modules.md#ethuninstallfilterparams)) => `Promise`\<[`EthUninstallFilterResult`](modules.md#ethuninstallfilterresult)\>
+Ƭ **EthUninstallFilterHandler**: Function
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`EthUninstallFilterResult`](modules.md#ethuninstallfilterresult)\>
+▸ (`request`): Promise\<EthUninstallFilterResult\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`EthUninstallFilterParams`](modules.md#ethuninstallfilterparams) |
+| `request` | EthUninstallFilterParams |
 
 ##### Returns
 
-`Promise`\<[`EthUninstallFilterResult`](modules.md#ethuninstallfilterresult)\>
+Promise\<EthUninstallFilterResult\>
 
 #### Defined in
 
@@ -6215,21 +6215,21 @@ ___
 
 ### EthUninstallFilterJsonRpcProcedure
 
-Ƭ **EthUninstallFilterJsonRpcProcedure**: (`request`: [`EthUninstallFilterJsonRpcRequest`](modules.md#ethuninstallfilterjsonrpcrequest)) => `Promise`\<[`EthUninstallFilterJsonRpcResponse`](modules.md#ethuninstallfilterjsonrpcresponse)\>
+Ƭ **EthUninstallFilterJsonRpcProcedure**: Function
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`EthUninstallFilterJsonRpcResponse`](modules.md#ethuninstallfilterjsonrpcresponse)\>
+▸ (`request`): Promise\<EthUninstallFilterJsonRpcResponse\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`EthUninstallFilterJsonRpcRequest`](modules.md#ethuninstallfilterjsonrpcrequest) |
+| `request` | EthUninstallFilterJsonRpcRequest |
 
 ##### Returns
 
-`Promise`\<[`EthUninstallFilterJsonRpcResponse`](modules.md#ethuninstallfilterjsonrpcresponse)\>
+Promise\<EthUninstallFilterJsonRpcResponse\>
 
 #### Defined in
 
@@ -6239,7 +6239,7 @@ ___
 
 ### EthUninstallFilterJsonRpcRequest
 
-Ƭ **EthUninstallFilterJsonRpcRequest**: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"eth_uninstallFilter"``, [filterId: Hex]\>
+Ƭ **EthUninstallFilterJsonRpcRequest**: JsonRpcRequest\<"eth\_uninstallFilter", [filterId: Hex]\>
 
 JSON-RPC request for `eth_uninstallFilter` procedure
 
@@ -6251,7 +6251,7 @@ ___
 
 ### EthUninstallFilterJsonRpcResponse
 
-Ƭ **EthUninstallFilterJsonRpcResponse**: [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"eth_uninstallFilter"``, `boolean`, `string`\>
+Ƭ **EthUninstallFilterJsonRpcResponse**: JsonRpcResponse\<"eth\_uninstallFilter", boolean, string\>
 
 JSON-RPC response for `eth_uninstallFilter` procedure
 
@@ -6271,7 +6271,7 @@ JSON-RPC request for `eth_uninstallFilter` procedure
 
 | Name | Type |
 | :------ | :------ |
-| `filterId` | `Hex` |
+| `filterId` | Hex |
 
 #### Defined in
 
@@ -6281,7 +6281,7 @@ ___
 
 ### EthUninstallFilterResult
 
-Ƭ **EthUninstallFilterResult**: `boolean`
+Ƭ **EthUninstallFilterResult**: boolean
 
 JSON-RPC response for `eth_uninstallFilter` procedure
 
@@ -6293,7 +6293,7 @@ ___
 
 ### EvmError
 
-Ƭ **EvmError**\<`TEVMErrorMessage`\>: [`TypedError`](modules.md#typederror)\<`TEVMErrorMessage`\>
+Ƭ **EvmError**: TypedError\<TEVMErrorMessage\>
 
 Error type of errors thrown while internally executing a call in the EVM
 
@@ -6301,7 +6301,7 @@ Error type of errors thrown while internally executing a call in the EVM
 
 | Name | Type |
 | :------ | :------ |
-| `TEVMErrorMessage` | extends [`TevmEVMErrorMessage`](modules.md#tevmevmerrormessage) = [`TevmEVMErrorMessage`](modules.md#tevmevmerrormessage) |
+| `TEVMErrorMessage` | extends TevmEVMErrorMessage = TevmEVMErrorMessage |
 
 #### Defined in
 
@@ -6319,15 +6319,15 @@ FilterLog type for eth JSON-RPC procedures
 
 | Name | Type |
 | :------ | :------ |
-| `address` | `Hex` |
-| `blockHash` | `Hex` |
-| `blockNumber` | `Hex` |
-| `data` | `Hex` |
-| `logIndex` | `Hex` |
-| `removed` | `boolean` |
-| `topics` | readonly `Hex`[] |
-| `transactionHash` | `Hex` |
-| `transactionIndex` | `Hex` |
+| `address` | Hex |
+| `blockHash` | Hex |
+| `blockNumber` | Hex |
+| `data` | Hex |
+| `logIndex` | Hex |
+| `removed` | boolean |
+| `topics` | readonly Hex[] |
+| `transactionHash` | Hex |
+| `transactionIndex` | Hex |
 
 #### Defined in
 
@@ -6337,7 +6337,7 @@ ___
 
 ### InvalidAddressError
 
-Ƭ **InvalidAddressError**: [`TypedError`](modules.md#typederror)\<``"InvalidAddressError"``\>
+Ƭ **InvalidAddressError**: TypedError\<"InvalidAddressError"\>
 
 Error thrown when address is invalid
 
@@ -6349,7 +6349,7 @@ ___
 
 ### InvalidBalanceError
 
-Ƭ **InvalidBalanceError**: [`TypedError`](modules.md#typederror)\<``"InvalidBalanceError"``\>
+Ƭ **InvalidBalanceError**: TypedError\<"InvalidBalanceError"\>
 
 Error thrown when balance parameter is invalid
 
@@ -6361,7 +6361,7 @@ ___
 
 ### InvalidBlobVersionedHashesError
 
-Ƭ **InvalidBlobVersionedHashesError**: [`TypedError`](modules.md#typederror)\<``"InvalidBlobVersionedHashesError"``\>
+Ƭ **InvalidBlobVersionedHashesError**: TypedError\<"InvalidBlobVersionedHashesError"\>
 
 Error thrown when blobVersionedHashes parameter is invalid
 
@@ -6373,7 +6373,7 @@ ___
 
 ### InvalidBlockError
 
-Ƭ **InvalidBlockError**: [`TypedError`](modules.md#typederror)\<``"InvalidBlockError"``\>
+Ƭ **InvalidBlockError**: TypedError\<"InvalidBlockError"\>
 
 Error thrown when block parameter is invalid
 
@@ -6385,7 +6385,7 @@ ___
 
 ### InvalidBytecodeError
 
-Ƭ **InvalidBytecodeError**: [`TypedError`](modules.md#typederror)\<``"InvalidBytecodeError"``\>
+Ƭ **InvalidBytecodeError**: TypedError\<"InvalidBytecodeError"\>
 
 Error thrown when bytecode parameter is invalid
 
@@ -6397,7 +6397,7 @@ ___
 
 ### InvalidCallerError
 
-Ƭ **InvalidCallerError**: [`TypedError`](modules.md#typederror)\<``"InvalidCallerError"``\>
+Ƭ **InvalidCallerError**: TypedError\<"InvalidCallerError"\>
 
 Error thrown when caller parameter is invalid
 
@@ -6409,7 +6409,7 @@ ___
 
 ### InvalidDataError
 
-Ƭ **InvalidDataError**: [`TypedError`](modules.md#typederror)\<``"InvalidDataError"``\>
+Ƭ **InvalidDataError**: TypedError\<"InvalidDataError"\>
 
 Error thrown when data parameter is invalid
 
@@ -6421,7 +6421,7 @@ ___
 
 ### InvalidDeployedBytecodeError
 
-Ƭ **InvalidDeployedBytecodeError**: [`TypedError`](modules.md#typederror)\<``"InvalidDeployedBytecodeError"``\>
+Ƭ **InvalidDeployedBytecodeError**: TypedError\<"InvalidDeployedBytecodeError"\>
 
 Error thrown when deployedBytecode parameter is invalid
 
@@ -6433,7 +6433,7 @@ ___
 
 ### InvalidDepthError
 
-Ƭ **InvalidDepthError**: [`TypedError`](modules.md#typederror)\<``"InvalidDepthError"``\>
+Ƭ **InvalidDepthError**: TypedError\<"InvalidDepthError"\>
 
 Error thrown when depth parameter is invalid
 
@@ -6445,7 +6445,7 @@ ___
 
 ### InvalidFunctionNameError
 
-Ƭ **InvalidFunctionNameError**: [`TypedError`](modules.md#typederror)\<``"InvalidFunctionNameError"``\>
+Ƭ **InvalidFunctionNameError**: TypedError\<"InvalidFunctionNameError"\>
 
 Error thrown when function name is invalid
 
@@ -6457,7 +6457,7 @@ ___
 
 ### InvalidGasLimitError
 
-Ƭ **InvalidGasLimitError**: [`TypedError`](modules.md#typederror)\<``"InvalidGasLimitError"``\>
+Ƭ **InvalidGasLimitError**: TypedError\<"InvalidGasLimitError"\>
 
 Error thrown when gas limit is invalid
 
@@ -6469,7 +6469,7 @@ ___
 
 ### InvalidGasPriceError
 
-Ƭ **InvalidGasPriceError**: [`TypedError`](modules.md#typederror)\<``"InvalidGasPriceError"``\>
+Ƭ **InvalidGasPriceError**: TypedError\<"InvalidGasPriceError"\>
 
 Error thrown when gasPrice parameter is invalid
 
@@ -6481,7 +6481,7 @@ ___
 
 ### InvalidGasRefundError
 
-Ƭ **InvalidGasRefundError**: [`TypedError`](modules.md#typederror)\<``"InvalidGasRefundError"``\>
+Ƭ **InvalidGasRefundError**: TypedError\<"InvalidGasRefundError"\>
 
 Error thrown when gas refund is invalid
 
@@ -6493,7 +6493,7 @@ ___
 
 ### InvalidNonceError
 
-Ƭ **InvalidNonceError**: [`TypedError`](modules.md#typederror)\<``"InvalidNonceError"``\>
+Ƭ **InvalidNonceError**: TypedError\<"InvalidNonceError"\>
 
 Error thrown when nonce parameter is invalid
 
@@ -6505,7 +6505,7 @@ ___
 
 ### InvalidOriginError
 
-Ƭ **InvalidOriginError**: [`TypedError`](modules.md#typederror)\<``"InvalidOriginError"``\>
+Ƭ **InvalidOriginError**: TypedError\<"InvalidOriginError"\>
 
 Error thrown when origin parameter is invalid
 
@@ -6517,7 +6517,7 @@ ___
 
 ### InvalidRequestError
 
-Ƭ **InvalidRequestError**: [`TypedError`](modules.md#typederror)\<``"InvalidRequestError"``\>
+Ƭ **InvalidRequestError**: TypedError\<"InvalidRequestError"\>
 
 Error thrown when request is invalid
 
@@ -6529,7 +6529,7 @@ ___
 
 ### InvalidSaltError
 
-Ƭ **InvalidSaltError**: [`TypedError`](modules.md#typederror)\<``"InvalidSaltError"``\>
+Ƭ **InvalidSaltError**: TypedError\<"InvalidSaltError"\>
 
 Error thrown when salt parameter is invalid
 
@@ -6541,7 +6541,7 @@ ___
 
 ### InvalidSelfdestructError
 
-Ƭ **InvalidSelfdestructError**: [`TypedError`](modules.md#typederror)\<``"InvalidSelfdestructError"``\>
+Ƭ **InvalidSelfdestructError**: TypedError\<"InvalidSelfdestructError"\>
 
 Error thrown when selfdestruct parameter is invalid
 
@@ -6553,7 +6553,7 @@ ___
 
 ### InvalidSkipBalanceError
 
-Ƭ **InvalidSkipBalanceError**: [`TypedError`](modules.md#typederror)\<``"InvalidSkipBalanceError"``\>
+Ƭ **InvalidSkipBalanceError**: TypedError\<"InvalidSkipBalanceError"\>
 
 Error thrown when skipBalance parameter is invalid
 
@@ -6565,7 +6565,7 @@ ___
 
 ### InvalidStorageRootError
 
-Ƭ **InvalidStorageRootError**: [`TypedError`](modules.md#typederror)\<``"InvalidStorageRootError"``\>
+Ƭ **InvalidStorageRootError**: TypedError\<"InvalidStorageRootError"\>
 
 Error thrown when storage root parameter is invalid
 
@@ -6577,7 +6577,7 @@ ___
 
 ### InvalidToError
 
-Ƭ **InvalidToError**: [`TypedError`](modules.md#typederror)\<``"InvalidToError"``\>
+Ƭ **InvalidToError**: TypedError\<"InvalidToError"\>
 
 Error thrown when `to` parameter is invalid
 
@@ -6589,7 +6589,7 @@ ___
 
 ### InvalidValueError
 
-Ƭ **InvalidValueError**: [`TypedError`](modules.md#typederror)\<``"InvalidValueError"``\>
+Ƭ **InvalidValueError**: TypedError\<"InvalidValueError"\>
 
 Error thrown when value parameter is invalid
 
@@ -6601,7 +6601,7 @@ ___
 
 ### JsonRpcRequest
 
-Ƭ **JsonRpcRequest**\<`TMethod`, `TParams`\>: \{ `id?`: `string` \| `number` \| ``null`` ; `jsonrpc`: ``"2.0"`` ; `method`: `TMethod`  } & `TParams` extends readonly [] ? \{ `params?`: `TParams`  } : \{ `params`: `TParams`  }
+Ƭ **JsonRpcRequest**: Object & (TParams extends readonly [] ? Object : Object)
 
 Helper type for creating JSON-RPC request types
 
@@ -6609,7 +6609,7 @@ Helper type for creating JSON-RPC request types
 
 | Name | Type |
 | :------ | :------ |
-| `TMethod` | extends `string` |
+| `TMethod` | extends string |
 | `TParams` | `TParams` |
 
 #### Defined in
@@ -6620,15 +6620,15 @@ ___
 
 ### JsonRpcResponse
 
-Ƭ **JsonRpcResponse**\<`TMethod`, `TResult`, `TErrorCode`\>: \{ `error?`: `never` ; `id?`: `string` \| `number` \| ``null`` ; `jsonrpc`: ``"2.0"`` ; `method`: `TMethod` ; `result`: `TResult`  } \| \{ `error`: \{ `code`: `TErrorCode` ; `message`: `string`  } ; `id?`: `string` \| `number` \| ``null`` ; `jsonrpc`: ``"2.0"`` ; `method`: `TMethod` ; `result?`: `never`  }
+Ƭ **JsonRpcResponse**: Object \| Object
 
 #### Type parameters
 
 | Name | Type |
 | :------ | :------ |
-| `TMethod` | extends `string` |
+| `TMethod` | extends string |
 | `TResult` | `TResult` |
-| `TErrorCode` | extends `string` |
+| `TErrorCode` | extends string |
 
 #### Defined in
 
@@ -6646,9 +6646,9 @@ Generic log information
 
 | Name | Type |
 | :------ | :------ |
-| `address` | `Address` |
-| `data` | `Hex` |
-| `topics` | `Hex`[] |
+| `address` | Address |
+| `data` | Hex |
+| `topics` | Hex[] |
 
 #### Defined in
 
@@ -6658,7 +6658,7 @@ ___
 
 ### ScriptError
 
-Ƭ **ScriptError**: [`ContractError`](modules.md#contracterror) \| [`InvalidBytecodeError`](modules.md#invalidbytecodeerror) \| [`InvalidDeployedBytecodeError`](modules.md#invaliddeployedbytecodeerror)
+Ƭ **ScriptError**: ContractError \| InvalidBytecodeError \| InvalidDeployedBytecodeError
 
 Error type of errors thrown by the script procedure
 
@@ -6680,30 +6680,30 @@ ___
 
 ### ScriptHandler
 
-Ƭ **ScriptHandler**: \<TAbi, TFunctionName\>(`params`: [`ScriptParams`](modules.md#scriptparams)\<`TAbi`, `TFunctionName`\>) => `Promise`\<[`ScriptResult`](modules.md#scriptresult)\<`TAbi`, `TFunctionName`\>\>
+Ƭ **ScriptHandler**: Function
+
+Handler for script tevm procedure
 
 #### Type declaration
 
-▸ \<`TAbi`, `TFunctionName`\>(`params`): `Promise`\<[`ScriptResult`](modules.md#scriptresult)\<`TAbi`, `TFunctionName`\>\>
-
-Handler for script tevm procedure
+▸ \<`TAbi`, `TFunctionName`\>(`params`): Promise\<ScriptResult\<TAbi, TFunctionName\>\>
 
 ##### Type parameters
 
 | Name | Type |
 | :------ | :------ |
-| `TAbi` | extends `Abi` \| readonly `unknown`[] = `Abi` |
-| `TFunctionName` | extends `ContractFunctionName`\<`TAbi`\> = `ContractFunctionName`\<`TAbi`\> |
+| `TAbi` | extends Abi \| readonly unknown[] = Abi |
+| `TFunctionName` | extends ContractFunctionName\<TAbi\> = ContractFunctionName\<TAbi\> |
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `params` | [`ScriptParams`](modules.md#scriptparams)\<`TAbi`, `TFunctionName`\> |
+| `params` | ScriptParams\<TAbi, TFunctionName\> |
 
 ##### Returns
 
-`Promise`\<[`ScriptResult`](modules.md#scriptresult)\<`TAbi`, `TFunctionName`\>\>
+Promise\<ScriptResult\<TAbi, TFunctionName\>\>
 
 #### Defined in
 
@@ -6713,23 +6713,23 @@ ___
 
 ### ScriptJsonRpcProcedure
 
-Ƭ **ScriptJsonRpcProcedure**: (`request`: [`ScriptJsonRpcRequest`](modules.md#scriptjsonrpcrequest)) => `Promise`\<[`ScriptJsonRpcResponse`](modules.md#scriptjsonrpcresponse)\>
+Ƭ **ScriptJsonRpcProcedure**: Function
+
+Procedure for handling script JSON-RPC requests
 
 #### Type declaration
 
-▸ (`request`): `Promise`\<[`ScriptJsonRpcResponse`](modules.md#scriptjsonrpcresponse)\>
-
-Procedure for handling script JSON-RPC requests
+▸ (`request`): Promise\<ScriptJsonRpcResponse\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | [`ScriptJsonRpcRequest`](modules.md#scriptjsonrpcrequest) |
+| `request` | ScriptJsonRpcRequest |
 
 ##### Returns
 
-`Promise`\<[`ScriptJsonRpcResponse`](modules.md#scriptjsonrpcresponse)\>
+Promise\<ScriptJsonRpcResponse\>
 
 #### Defined in
 
@@ -6739,7 +6739,7 @@ ___
 
 ### ScriptJsonRpcRequest
 
-Ƭ **ScriptJsonRpcRequest**: [`JsonRpcRequest`](modules.md#jsonrpcrequest)\<``"tevm_script"``, `SerializedParams`\>
+Ƭ **ScriptJsonRpcRequest**: JsonRpcRequest\<"tevm\_script", SerializedParams\>
 
 The JSON-RPC request for the `tevm_script` method
 
@@ -6751,7 +6751,7 @@ ___
 
 ### ScriptJsonRpcResponse
 
-Ƭ **ScriptJsonRpcResponse**: [`JsonRpcResponse`](modules.md#jsonrpcresponse)\<``"tevm_script"``, `SerializeToJson`\<[`CallResult`](modules.md#callresult)\>, [`ScriptError`](modules.md#scripterror)[``"_tag"``]\>
+Ƭ **ScriptJsonRpcResponse**: JsonRpcResponse\<"tevm\_script", SerializeToJson\<CallResult\>, ScriptError["\_tag"]\>
 
 JSON-RPC response for `tevm_script` procedure
 
@@ -6763,7 +6763,7 @@ ___
 
 ### ScriptParams
 
-Ƭ **ScriptParams**\<`TAbi`, `TFunctionName`\>: `EncodeFunctionDataParameters`\<`TAbi`, `TFunctionName`\> & [`BaseCallParams`](modules.md#basecallparams) & \{ `deployedBytecode`: `Hex`  }
+Ƭ **ScriptParams**: EncodeFunctionDataParameters\<TAbi, TFunctionName\> & BaseCallParams & Object
 
 Tevm params for deploying and running a script
 
@@ -6771,8 +6771,8 @@ Tevm params for deploying and running a script
 
 | Name | Type |
 | :------ | :------ |
-| `TAbi` | extends `Abi` \| readonly `unknown`[] = `Abi` |
-| `TFunctionName` | extends `ContractFunctionName`\<`TAbi`\> = `ContractFunctionName`\<`TAbi`\> |
+| `TAbi` | extends Abi \| readonly unknown[] = Abi |
+| `TFunctionName` | extends ContractFunctionName\<TAbi\> = ContractFunctionName\<TAbi\> |
 
 #### Defined in
 
@@ -6782,15 +6782,15 @@ ___
 
 ### ScriptResult
 
-Ƭ **ScriptResult**\<`TAbi`, `TFunctionName`, `TErrorType`\>: [`ContractResult`](modules.md#contractresult)\<`TAbi`, `TFunctionName`, `TErrorType`\>
+Ƭ **ScriptResult**: ContractResult\<TAbi, TFunctionName, TErrorType\>
 
 #### Type parameters
 
 | Name | Type |
 | :------ | :------ |
-| `TAbi` | extends `Abi` \| readonly `unknown`[] = `Abi` |
-| `TFunctionName` | extends `ContractFunctionName`\<`TAbi`\> = `ContractFunctionName`\<`TAbi`\> |
-| `TErrorType` | [`ScriptError`](modules.md#scripterror) |
+| `TAbi` | extends Abi \| readonly unknown[] = Abi |
+| `TFunctionName` | extends ContractFunctionName\<TAbi\> = ContractFunctionName\<TAbi\> |
+| `TErrorType` | ScriptError |
 
 #### Defined in
 
@@ -6810,18 +6810,18 @@ for each type of request
 
 | Name | Type |
 | :------ | :------ |
-| `account` | [`AccountHandler`](modules.md#accounthandler) |
-| `call` | [`CallHandler`](modules.md#callhandler) |
-| `contract` | [`ContractHandler`](modules.md#contracthandler) |
-| `eth` | \{ `blockNumber`: [`EthBlockNumberHandler`](modules.md#ethblocknumberhandler) ; `chainId`: [`EthChainIdHandler`](modules.md#ethchainidhandler) ; `gasPrice`: [`EthGasPriceHandler`](modules.md#ethgaspricehandler) ; `getBalance`: [`EthGetBalanceHandler`](modules.md#ethgetbalancehandler) ; `getCode`: [`EthGetCodeHandler`](modules.md#ethgetcodehandler) ; `getStorageAt`: [`EthGetStorageAtHandler`](modules.md#ethgetstorageathandler)  } |
-| `eth.blockNumber` | [`EthBlockNumberHandler`](modules.md#ethblocknumberhandler) |
-| `eth.chainId` | [`EthChainIdHandler`](modules.md#ethchainidhandler) |
-| `eth.gasPrice` | [`EthGasPriceHandler`](modules.md#ethgaspricehandler) |
-| `eth.getBalance` | [`EthGetBalanceHandler`](modules.md#ethgetbalancehandler) |
-| `eth.getCode` | [`EthGetCodeHandler`](modules.md#ethgetcodehandler) |
-| `eth.getStorageAt` | [`EthGetStorageAtHandler`](modules.md#ethgetstorageathandler) |
-| `request` | [`TevmJsonRpcRequestHandler`](modules.md#tevmjsonrpcrequesthandler) |
-| `script` | [`ScriptHandler`](modules.md#scripthandler) |
+| `account` | AccountHandler |
+| `call` | CallHandler |
+| `contract` | ContractHandler |
+| `eth` | Object |
+| `eth.blockNumber` | EthBlockNumberHandler |
+| `eth.chainId` | EthChainIdHandler |
+| `eth.gasPrice` | EthGasPriceHandler |
+| `eth.getBalance` | EthGetBalanceHandler |
+| `eth.getCode` | EthGetCodeHandler |
+| `eth.getStorageAt` | EthGetStorageAtHandler |
+| `request` | TevmJsonRpcRequestHandler |
+| `script` | ScriptHandler |
 
 #### Defined in
 
@@ -6831,7 +6831,7 @@ ___
 
 ### TevmEVMErrorMessage
 
-Ƭ **TevmEVMErrorMessage**: ``"out of gas"`` \| ``"code store out of gas"`` \| ``"code size to deposit exceeds maximum code size"`` \| ``"stack underflow"`` \| ``"stack overflow"`` \| ``"invalid JUMP"`` \| ``"invalid opcode"`` \| ``"value out of range"`` \| ``"revert"`` \| ``"static state change"`` \| ``"internal error"`` \| ``"create collision"`` \| ``"stop"`` \| ``"refund exhausted"`` \| ``"value overflow"`` \| ``"insufficient balance"`` \| ``"invalid BEGINSUB"`` \| ``"invalid RETURNSUB"`` \| ``"invalid JUMPSUB"`` \| ``"invalid bytecode deployed"`` \| ``"invalid EOF format"`` \| ``"initcode exceeds max initcode size"`` \| ``"invalid input length"`` \| ``"attempting to AUTHCALL without AUTH set"`` \| ``"attempting to execute AUTHCALL with nonzero external value"`` \| ``"invalid Signature: s-values greater than secp256k1n/2 are considered invalid"`` \| ``"invalid input length"`` \| ``"point not on curve"`` \| ``"input is empty"`` \| ``"fp point not in field"`` \| ``"kzg commitment does not match versioned hash"`` \| ``"kzg inputs invalid"`` \| ``"kzg proof invalid"``
+Ƭ **TevmEVMErrorMessage**: "out of gas" \| "code store out of gas" \| "code size to deposit exceeds maximum code size" \| "stack underflow" \| "stack overflow" \| "invalid JUMP" \| "invalid opcode" \| "value out of range" \| "revert" \| "static state change" \| "internal error" \| "create collision" \| "stop" \| "refund exhausted" \| "value overflow" \| "insufficient balance" \| "invalid BEGINSUB" \| "invalid RETURNSUB" \| "invalid JUMPSUB" \| "invalid bytecode deployed" \| "invalid EOF format" \| "initcode exceeds max initcode size" \| "invalid input length" \| "attempting to AUTHCALL without AUTH set" \| "attempting to execute AUTHCALL with nonzero external value" \| "invalid Signature: s-values greater than secp256k1n/2 are considered invalid" \| "invalid input length" \| "point not on curve" \| "input is empty" \| "fp point not in field" \| "kzg commitment does not match versioned hash" \| "kzg inputs invalid" \| "kzg proof invalid"
 
 #### Defined in
 
@@ -6841,7 +6841,7 @@ ___
 
 ### TevmJsonRpcRequest
 
-Ƭ **TevmJsonRpcRequest**: [`AccountJsonRpcRequest`](modules.md#accountjsonrpcrequest) \| [`CallJsonRpcRequest`](modules.md#calljsonrpcrequest) \| [`ContractJsonRpcRequest`](modules.md#contractjsonrpcrequest) \| [`ScriptJsonRpcRequest`](modules.md#scriptjsonrpcrequest)
+Ƭ **TevmJsonRpcRequest**: AccountJsonRpcRequest \| CallJsonRpcRequest \| ContractJsonRpcRequest \| ScriptJsonRpcRequest
 
 A Tevm JSON-RPC request
 `tevm_account`, `tevm_call`, `tevm_contract`, `tevm_script`
@@ -6854,30 +6854,30 @@ ___
 
 ### TevmJsonRpcRequestHandler
 
-Ƭ **TevmJsonRpcRequestHandler**: \<TRequest\>(`request`: `TRequest`) => `Promise`\<`ReturnType`\<`TRequest`[``"method"``]\>\>
-
-#### Type declaration
-
-▸ \<`TRequest`\>(`request`): `Promise`\<`ReturnType`\<`TRequest`[``"method"``]\>\>
+Ƭ **TevmJsonRpcRequestHandler**: Function
 
 Type of a JSON-RPC request handler for tevm procedures
 Generic and returns the correct response type for a given request
+
+#### Type declaration
+
+▸ \<`TRequest`\>(`request`): Promise\<ReturnType\<TRequest["method"]\>\>
 
 ##### Type parameters
 
 | Name | Type |
 | :------ | :------ |
-| `TRequest` | extends [`TevmJsonRpcRequest`](modules.md#tevmjsonrpcrequest) \| [`EthJsonRpcRequest`](modules.md#ethjsonrpcrequest) \| `AnvilJsonRpcRequest` \| `DebugJsonRpcRequest` |
+| `TRequest` | extends TevmJsonRpcRequest \| EthJsonRpcRequest \| AnvilJsonRpcRequest \| DebugJsonRpcRequest |
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `request` | `TRequest` |
+| `request` | TRequest |
 
 ##### Returns
 
-`Promise`\<`ReturnType`\<`TRequest`[``"method"``]\>\>
+Promise\<ReturnType\<TRequest["method"]\>\>
 
 #### Defined in
 
@@ -6893,15 +6893,15 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `calls?` | [`TraceCall`](modules.md#tracecall)[] |
-| `from` | `Address` |
-| `gas?` | `bigint` |
-| `gasUsed?` | `bigint` |
-| `input` | `Hex` |
-| `output` | `Hex` |
-| `to` | `Address` |
-| `type` | [`TraceType`](modules.md#tracetype) |
-| `value?` | `bigint` |
+| `calls?` | TraceCall[] |
+| `from` | Address |
+| `gas?` | bigint |
+| `gasUsed?` | bigint |
+| `input` | Hex |
+| `output` | Hex |
+| `to` | Address |
+| `type` | TraceType |
+| `value?` | bigint |
 
 #### Defined in
 
@@ -6919,9 +6919,9 @@ Config params for trace calls
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `timeout?` | `string` | A duration string of decimal numbers that overrides the default timeout of 5 seconds for JavaScript-based tracing calls. Max timeout is "10s". Valid time units are "ns", "us", "ms", "s" each with optional fraction, such as "300ms" or "2s45ms". **`Example`** ```ts "10s" ``` |
-| `tracer` | ``"callTracer"`` \| ``"prestateTracer"`` | The type of tracer Currently only callTracer supported |
-| `tracerConfig?` | {} | object to specify configurations for the tracer |
+| `timeout?` | string | A duration string of decimal numbers that overrides the default timeout of 5 seconds for JavaScript-based tracing calls. Max timeout is "10s". Valid time units are "ns", "us", "ms", "s" each with optional fraction, such as "300ms" or "2s45ms". **`Example`** ```ts "10s" ``` |
+| `tracer` | "callTracer" \| "prestateTracer" | The type of tracer Currently only callTracer supported |
+| `tracerConfig?` | Object | object to specify configurations for the tracer |
 
 #### Defined in
 
@@ -6937,15 +6937,15 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `calls?` | [`TraceCall`](modules.md#tracecall)[] |
-| `from` | `Address` |
-| `gas` | `bigint` |
-| `gasUsed` | `bigint` |
-| `input` | `Hex` |
-| `output` | `Hex` |
-| `to` | `Address` |
-| `type` | [`TraceType`](modules.md#tracetype) |
-| `value` | `bigint` |
+| `calls?` | TraceCall[] |
+| `from` | Address |
+| `gas` | bigint |
+| `gasUsed` | bigint |
+| `input` | Hex |
+| `output` | Hex |
+| `to` | Address |
+| `type` | TraceType |
+| `value` | bigint |
 
 #### Defined in
 
@@ -6955,7 +6955,7 @@ ___
 
 ### TraceType
 
-Ƭ **TraceType**: ``"CALL"`` \| ``"DELEGATECALL"`` \| ``"STATICCALL"`` \| ``"CREATE"`` \| ``"CREATE2"`` \| ``"SELFDESTRUCT"`` \| ``"REWARD"``
+Ƭ **TraceType**: "CALL" \| "DELEGATECALL" \| "STATICCALL" \| "CREATE" \| "CREATE2" \| "SELFDESTRUCT" \| "REWARD"
 
 #### Defined in
 
@@ -6973,13 +6973,13 @@ A transaction request object
 
 | Name | Type |
 | :------ | :------ |
-| `from` | `Address` |
-| `gas?` | `Hex` |
-| `gasPrice?` | `Hex` |
-| `input` | `Hex` |
-| `nonce?` | `Hex` |
-| `to?` | `Address` |
-| `value?` | `Hex` |
+| `from` | Address |
+| `gas?` | Hex |
+| `gasPrice?` | Hex |
+| `input` | Hex |
+| `nonce?` | Hex |
+| `to?` | Address |
+| `value?` | Hex |
 
 #### Defined in
 
@@ -6997,18 +6997,18 @@ Transaction receipt result type for eth JSON-RPC procedures
 
 | Name | Type |
 | :------ | :------ |
-| `blockHash` | `Hex` |
-| `blockNumber` | `Hex` |
-| `contractAddress` | `Hex` |
-| `cumulativeGasUsed` | `Hex` |
-| `from` | `Hex` |
-| `gasUsed` | `Hex` |
-| `logs` | readonly [`FilterLog`](modules.md#filterlog)[] |
-| `logsBloom` | `Hex` |
-| `status` | `Hex` |
-| `to` | `Hex` |
-| `transactionHash` | `Hex` |
-| `transactionIndex` | `Hex` |
+| `blockHash` | Hex |
+| `blockNumber` | Hex |
+| `contractAddress` | Hex |
+| `cumulativeGasUsed` | Hex |
+| `from` | Hex |
+| `gasUsed` | Hex |
+| `logs` | readonly FilterLog[] |
+| `logsBloom` | Hex |
+| `status` | Hex |
+| `to` | Hex |
+| `transactionHash` | Hex |
+| `transactionIndex` | Hex |
 
 #### Defined in
 
@@ -7027,20 +7027,20 @@ json rpc procedures
 
 | Name | Type |
 | :------ | :------ |
-| `blockHash` | `Hex` |
-| `blockNumber` | `Hex` |
-| `from` | `Hex` |
-| `gas` | `Hex` |
-| `gasPrice` | `Hex` |
-| `hash` | `Hex` |
-| `input` | `Hex` |
-| `nonce` | `Hex` |
-| `r` | `Hex` |
-| `s` | `Hex` |
-| `to` | `Hex` |
-| `transactionIndex` | `Hex` |
-| `v` | `Hex` |
-| `value` | `Hex` |
+| `blockHash` | Hex |
+| `blockNumber` | Hex |
+| `from` | Hex |
+| `gas` | Hex |
+| `gasPrice` | Hex |
+| `hash` | Hex |
+| `input` | Hex |
+| `nonce` | Hex |
+| `r` | Hex |
+| `s` | Hex |
+| `to` | Hex |
+| `transactionIndex` | Hex |
+| `v` | Hex |
+| `value` | Hex |
 
 #### Defined in
 
@@ -7050,7 +7050,7 @@ ___
 
 ### TypedError
 
-Ƭ **TypedError**\<`TName`, `TMeta`\>: `Object`
+Ƭ **TypedError**: `Object`
 
 Internal utility for creating a typed error as typed by Tevm
 `name` is analogous to `code` in a JSON RPC error and is the value used to discriminate errors
@@ -7063,17 +7063,17 @@ for tevm users.
 
 | Name | Type |
 | :------ | :------ |
-| `TName` | extends `string` |
-| `TMeta` | `never` |
+| `TName` | extends string |
+| `TMeta` | never |
 
 #### Type declaration
 
 | Name | Type |
 | :------ | :------ |
-| `_tag` | `TName` |
-| `message` | `string` |
-| `meta?` | `TMeta` |
-| `name` | `TName` |
+| `_tag` | TName |
+| `message` | string |
+| `meta?` | TMeta |
+| `name` | TName |
 
 #### Defined in
 
@@ -7083,7 +7083,7 @@ ___
 
 ### UnexpectedError
 
-Ƭ **UnexpectedError**: [`TypedError`](modules.md#typederror)\<``"UnexpectedError"``\>
+Ƭ **UnexpectedError**: TypedError\<"UnexpectedError"\>
 
 Error representing an unknown error occurred
 It should never get thrown. This error being thrown
