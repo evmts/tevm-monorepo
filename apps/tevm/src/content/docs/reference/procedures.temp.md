@@ -164,7 +164,7 @@ ___
 
 ### chainIdHandler
 
-▸ **chainIdHandler**(`chainId`): `EthBlockNumberHandler`
+▸ **chainIdHandler**(`chainId`): `ChainIdHandler`
 
 #### Parameters
 
