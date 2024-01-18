@@ -25,7 +25,7 @@ We are using the next.js framework but it isn't necessary to know Next to follow
 
 For the sake of this tutorial not focusing on building UI some visual react components are provided.
 
-```
+```bash
 bun i @tevm/tutorial
 ```
 

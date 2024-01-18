@@ -5,11 +5,13 @@ description: A quick introduction to Tevm
 
 # Tevm Quick Start Guide
 
+This guide uses the basic functionality of Tevm
+
 ## Quickest start
 
 If you prefer to dive in to a batteries included project use the Tevm cli to initialize a project
 
-```
+```bash
 npx tevm create my-app
 ```
 
@@ -90,7 +92,7 @@ The most familiar ones will be on the `eth` namspace and map directly to the [et
 ```typescript
 import { vm } from './vm.js';
 
-const address = `0x${'1'.repeat(40)}`;
+const address = `0x${'1'.repeat(40)}` as const;
 
 // eth action
 const balance = await vm.eth.getBalance({ address });
@@ -105,7 +107,7 @@ Tevm also provides special tevm action handlers that give you additional power t
 ```typescript
 import { vm } from './vm.js';
 
-const address = `0x${'1'.repeat(40)}`;
+const address = `0x${'1'.repeat(40)}` as const;
 
 await vm.setAccount({
   address,
@@ -138,7 +140,7 @@ const vm = await Tevm.create({
   fork: { url: 'https://mainnet.optimism.io' }
 });
 
-const address = `0x${'1'.repeat(40)}`;
+const address = `0x${'1'.repeat(40)}` as const;
 
 await vm.setAccount({
   address,
