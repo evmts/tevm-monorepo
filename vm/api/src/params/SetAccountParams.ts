@@ -2,10 +2,10 @@ import type { Address } from 'abitype'
 import type { Hex } from 'viem'
 
 /**
- * Tevm params to put an account into the vm state
+ * Tevm params to set an account in the vm state
+ * all fields are optional except address
  * @example
- * // all fields are optional except address
- * const accountParams: import('@tevm/api').AccountParams = {
+ * const accountParams: import('tevm/api').SetAccountParams = {
  *   account: '0x...',
  *   nonce: 5n,
  *   balance: 9000000000000n,
@@ -13,7 +13,7 @@ import type { Hex } from 'viem'
  *   deployedBytecode: '0x....'
  * }
  */
-export type AccountParams = {
+export type SetAccountParams = {
 	/**
 	 * Address of account
 	 */

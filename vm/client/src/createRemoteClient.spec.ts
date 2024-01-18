@@ -1,12 +1,12 @@
-import { createMemoryClient } from './createMemoryClient.js'
-import { type RemoteClient, createRemoteClient } from './createRemoteClient.js'
-import { ERC20_ADDRESS } from './test/ERC20.sol.js'
+import { Server, createServer } from 'http'
 import { Address } from '@ethereumjs/util'
 import { createHttpHandler } from '@tevm/server'
 import { type Tevm, createTevm } from '@tevm/vm'
-import { afterAll, beforeAll, describe, expect, it } from 'bun:test'
-import { Server, createServer } from 'http'
 import { bytesToHex, keccak256 } from 'viem'
+import { createMemoryClient } from './createMemoryClient.js'
+import { type RemoteClient, createRemoteClient } from './createRemoteClient.js'
+import { ERC20_ADDRESS } from './test/ERC20.sol.js'
+import { afterAll, beforeAll, describe, expect, it } from 'bun:test'
 
 describe(createMemoryClient.name, () => {
 	let tevm: Tevm
@@ -61,7 +61,7 @@ describe(createMemoryClient.name, () => {
 				address: `0x${'69'.repeat(20)}`,
 				deployedBytecode: ERC20.deployedBytecode,
 			} as const
-			const { errors } = await client.tevm.account(account)
+			const { errors } = await client.tevm.setAccount(account)
 
 			expect(errors).toBeUndefined()
 
@@ -80,7 +80,7 @@ describe(createMemoryClient.name, () => {
 			const client = await createMemoryClient({
 				fork: { url: 'https://mainnet.optimism.io' },
 			})
-			await client.tevm.account({
+			await client.tevm.setAccount({
 				address: ERC20_ADDRESS,
 				deployedBytecode: ERC20.deployedBytecode,
 			})

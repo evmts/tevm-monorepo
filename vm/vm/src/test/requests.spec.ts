@@ -1,8 +1,5 @@
-import { createTevm } from '../createTevm.js'
-import { DaiContract } from './DaiContract.sol.js'
 import { Address, bigIntToHex } from '@ethereumjs/util'
 import type { ContractJsonRpcRequest, ScriptJsonRpcRequest } from '@tevm/api'
-import { describe, expect, it } from 'bun:test'
 import {
 	decodeFunctionResult,
 	encodeFunctionData,
@@ -11,6 +8,9 @@ import {
 	keccak256,
 	toHex,
 } from 'viem'
+import { createTevm } from '../createTevm.js'
+import { DaiContract } from './DaiContract.sol.js'
+import { describe, expect, it } from 'bun:test'
 
 const contractAddress = '0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1'
 
@@ -116,7 +116,7 @@ describe('Tevm.request', async () => {
 		const balance = 0x11111111n
 		const address1 = '0x1f420000000000000000000000000000000000ff'
 		const address2 = '0x2f420000000000000000000000000000000000ff'
-		await tevm.account({
+		await tevm.setAccount({
 			address: address1,
 			balance,
 		})

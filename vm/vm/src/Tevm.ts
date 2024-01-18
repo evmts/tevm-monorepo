@@ -6,11 +6,11 @@ import { TevmStateManager } from '@tevm/state'
  * A local EVM instance running in JavaScript. Similar to Anvil in your browser
  * @example
  * ```ts
- * import { Tevm } from "tevm"
+ * import { createTevm } from "tevm"
  * import { createPublicClient, http } from "viem"
  * import { MyERC721 } from './MyERC721.sol'
  *
- * const tevm = Tevm.create({
+ * const tevm = createTevm({
  * 	fork: {
  * 	  url: "https://mainnet.optimism.io",
  * 	},
@@ -18,7 +18,7 @@ import { TevmStateManager } from '@tevm/state'
  *
  * const address = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
 
- * await tevm.runContractCall(
+ * await tevm.contract(
  *   MyERC721.write.mint({
  *     caller: address,
  *   }),

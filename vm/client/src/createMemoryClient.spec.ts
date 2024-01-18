@@ -1,8 +1,8 @@
+import { Address } from '@ethereumjs/util'
+import { bytesToHex, keccak256 } from 'viem'
 import { createMemoryClient } from './createMemoryClient.js'
 import { ERC20_ADDRESS } from './test/ERC20.sol.js'
-import { Address } from '@ethereumjs/util'
 import { describe, expect, it } from 'bun:test'
-import { bytesToHex, keccak256 } from 'viem'
 
 describe(createMemoryClient.name, () => {
 	it('wraps viem methods', async () => {
@@ -52,7 +52,7 @@ describe(createMemoryClient.name, () => {
 				address: `0x${'69'.repeat(20)}`,
 				deployedBytecode: ERC20.deployedBytecode,
 			} as const
-			const { errors } = await client.tevm.account(account)
+			const { errors } = await client.tevm.setAccount(account)
 
 			expect(errors).toBeUndefined()
 
@@ -71,7 +71,7 @@ describe(createMemoryClient.name, () => {
 			const client = await createMemoryClient({
 				fork: { url: 'https://mainnet.optimism.io' },
 			})
-			await client.tevm.account({
+			await client.tevm.setAccount({
 				address: ERC20_ADDRESS,
 				deployedBytecode: ERC20.deployedBytecode,
 			})

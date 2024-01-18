@@ -474,7 +474,7 @@ Errors returned by account tevm procedure
 **`Example`**
 
 ```ts
-const {errors} = await tevm.account({address: '0x1234'})
+const {errors} = await tevm.setAccount({address: '0x1234'})
 
 if (errors?.length) {
   console.log(errors[0].name) // InvalidAddressError

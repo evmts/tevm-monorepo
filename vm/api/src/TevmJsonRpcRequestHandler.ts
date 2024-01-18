@@ -1,5 +1,6 @@
 import type {
-	AccountJsonRpcResponse,
+	GetAccountJsonRpcResponse,
+	SetAccountJsonRpcResponse,
 	AnvilDropTransactionJsonRpcResponse,
 	AnvilDumpStateJsonRpcResponse,
 	AnvilGetAutomineJsonRpcResponse,
@@ -127,30 +128,46 @@ type EthReturnType = {
 type TevmReturnType = {
 	tevm_call: CallJsonRpcResponse
 	tevm_script: ScriptJsonRpcResponse
-	tevm_account: AccountJsonRpcResponse
+	tevm_getAccount: GetAccountJsonRpcResponse
+	tevm_setAccount: SetAccountJsonRpcResponse
 }
 
 type ReturnType<
 	TMethod extends
-		| keyof EthReturnType
-		| keyof TevmReturnType
-		| keyof AnvilReturnType
-		| keyof DebugReturnType,
+	| keyof EthReturnType
+	| keyof TevmReturnType
+	| keyof AnvilReturnType
+	| keyof DebugReturnType,
 > = (EthReturnType &
 	TevmReturnType &
 	AnvilReturnType &
 	DebugReturnType)[TMethod]
 
 /**
- * Type of a JSON-RPC request handler for tevm procedures
- * Generic and returns the correct response type for a given request
+ * Request handler for JSON-RPC requests. Most users will want to use the `actions` api
+ * instead of this method directly
+ * @example
+ * ```typescript
+ * const blockNumberResponse = await tevm.request({
+ *  method: 'eth_blockNumber',
+ *  params: []
+ *  id: 1
+ *  jsonrpc: '2.0'
+ * })
+ * const accountResponse = await tevm.request({
+ *  method: 'tevm_getAccount',
+ *  params: [{address: '0x123...'}]
+ *  id: 1
+ *  jsonrpc: '2.0'
+ * })
+ * ```
  */
 export type TevmJsonRpcRequestHandler = <
 	TRequest extends
-		| TevmJsonRpcRequest
-		| EthJsonRpcRequest
-		| AnvilJsonRpcRequest
-		| DebugJsonRpcRequest,
+	| TevmJsonRpcRequest
+	| EthJsonRpcRequest
+	| AnvilJsonRpcRequest
+	| DebugJsonRpcRequest,
 >(
 	request: TRequest,
 ) => Promise<ReturnType<TRequest['method']>>

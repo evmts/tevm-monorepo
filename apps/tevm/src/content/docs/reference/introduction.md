@@ -4,7 +4,7 @@ Tevm is a JavaScript library for running the EVM in node, bun and the browser. I
 
 ## Tevm
 
-A Tevm is the API for interacting with the EVM. This includes the EVM itself but also remote clients talking to Tevm on a backend server with JSON-RPC. 
+A Tevm is the API for interacting with the EVM. This includes the EVM itself but also remote clients talking to Tevm on a backend server with JSON-RPC.
 
 Tevms api is built from `Actions` and `Procedures`
 
@@ -39,12 +39,12 @@ console.log(
     "id": 1,
     "method": "eth_blockNumber",
   })
-)   
+)
 ```
 
 ## Actions
 
-Actions are a pattern from [viem](https://mainnet.optimism.io) of wrapping the JSON-RPC interface with more user-friendly but still low-level apis. 
+Actions are a pattern from [viem](https://mainnet.optimism.io) of wrapping the JSON-RPC interface with more user-friendly but still low-level apis.
 
 Actions exist for common ethereum actions such as:
 
@@ -65,12 +65,12 @@ import {createTevm, parseEth} from 'tevm'
 const tevm = createTevm()
 
 console.log(
-  await tevm.account({
+  await tevm.setAccount({
     "address": `0x${'1'.repeat(40)}`,
     "balance": parseEth('1')
     "deployedBytecode": "0x...",
   })
-)   
+)
 
 ```
 
