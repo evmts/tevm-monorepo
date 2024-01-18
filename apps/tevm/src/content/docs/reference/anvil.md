@@ -555,7 +555,7 @@ Params for `anvil_mine` handler
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `blockCount?` | `number` | Number of blocks to mine. Defaults to 1 |
-| `interval?` | `number` | mineing interval |
+| `interval?` | `number` | mining interval |
 
 #### Defined in
 
