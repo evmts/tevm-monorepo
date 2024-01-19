@@ -23,7 +23,6 @@ import type {
  * - Runs in browser bun and node.js environments
  * - Network forking to fork any EVM compatible network
  * - Supports most ethereum JSON-RPC methods
- * - Will have anvil ganache and hardhat compatibility in future versions
  *
  * @see {@link https://todo.todo | createMemoryTevm} for documentation on creating an in memory Tevm instance
  * @see {@link https://todo.todo | createClient} for documentation on creating an client for talking to a remote Tevm instance over HTTP
@@ -64,7 +63,7 @@ import type {
  *
  * #### Anvil hardhat and ganache compatibility
  *
- * Tevm will have compatibility with anvil hardhat and ganache in future versions
+ * Will have anvil_* ganache_* and hardhat_* JSON-RPC compatibility in future versions
  */
 export type Tevm = {
 	/**
