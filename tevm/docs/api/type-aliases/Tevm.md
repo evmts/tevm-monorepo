@@ -8,13 +8,11 @@
 
 > **Tevm**: `object`
 
-Tevm
 A local EVM instance running in the browser or Node.js. Akin to anvil or ganache
 
 - Runs in browser bun and node.js environments
 - Network forking to fork any EVM compatible network
 - Supports most ethereum JSON-RPC methods
-- Will have anvil ganache and hardhat compatibility in future versions
 
 ## See
 
@@ -59,7 +57,7 @@ Ethereum actions are namespaced under [Tevm.eth](Property eth:Object)
 
 #### Anvil hardhat and ganache compatibility
 
-Tevm will have compatibility with anvil hardhat and ganache in future versions
+Will have anvil_* ganache_* and hardhat_* JSON-RPC compatibility in future versions
 
 ## Type declaration
 
@@ -324,7 +322,7 @@ await tevm.setAccount({
 
 ## Source
 
-vm/api/dist/index.d.ts:2280
+vm/api/dist/index.d.ts:2418
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

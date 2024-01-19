@@ -6,10 +6,10 @@
 
 # Type alias: TevmJsonRpcRequestHandler
 
-> **TevmJsonRpcRequestHandler**: \<`TRequest`\>(`request`) => `Promise`\<`ReturnType`\<`TRequest`[`"method"`]\>\>
+> **TevmJsonRpcRequestHandler**: \<`TRequest`\>(`request`) => `Promise`\<`JsonRpcReturnTypeFromMethod`\<`TRequest`[`"method"`]\>\>
 
-Request handler for JSON-RPC requests. Most users will want to use the `actions` api
-instead of this method directly
+Typesafe request handler for JSON-RPC requests. Most users will want to use the higher level
+and more feature-rich `actions` api
 
 ## Type parameters
 
@@ -38,9 +38,70 @@ const accountResponse = await tevm.request({
 })
 ```
 
+### tevm_* methods
+
+#### tevm_call
+
+request - [CallJsonRpcRequest](../../api/type-aliases/CallJsonRpcRequest.md)
+response - [CallJsonRpcRequest](../../api/type-aliases/CallJsonRpcRequest.md)
+
+#### tevm_script
+
+request - [ScriptJsonRpcRequest](../../api/type-aliases/ScriptJsonRpcRequest.md)
+response - [ScriptJsonRpcRequest](../../api/type-aliases/ScriptJsonRpcRequest.md)
+
+#### tevm_getAccount
+
+request - [GetAccountJsonRpcRequest](../../api/type-aliases/GetAccountJsonRpcRequest.md)
+response - [GetAccountJsonRpcRequest](../../api/type-aliases/GetAccountJsonRpcRequest.md)
+
+#### tevm_setAccount
+
+request - [SetAccountJsonRpcRequest](../../api/type-aliases/SetAccountJsonRpcRequest.md)
+response - [SetAccountJsonRpcRequest](../../api/type-aliases/SetAccountJsonRpcRequest.md)
+
+### debug_* methods
+
+#### debug_traceCall
+
+request - [DebugTraceCallJsonRpcRequest](../../api/type-aliases/DebugTraceCallJsonRpcRequest.md)
+response - [DebugTraceCallJsonRpcResponse](../../api/type-aliases/DebugTraceCallJsonRpcResponse.md)
+
+### eth_* methods
+
+#### eth_blockNumber
+
+request - [EthBlockNumberJsonRpcRequest](../../api/type-aliases/EthBlockNumberJsonRpcRequest.md)
+response - [EthBlockNumberJsonRpcResponse](../../api/type-aliases/EthBlockNumberJsonRpcResponse.md)
+
+#### eth_chainId
+
+request - [EthChainIdJsonRpcRequest](../../api/type-aliases/EthChainIdJsonRpcRequest.md)
+response - [EthChainIdJsonRpcResponse](../../api/type-aliases/EthChainIdJsonRpcResponse.md)
+
+#### eth_getCode
+
+request - [EthGetCodeJsonRpcRequest](../../api/type-aliases/EthGetCodeJsonRpcRequest.md)
+response - [EthGetCodeJsonRpcResponse](../../api/type-aliases/EthGetCodeJsonRpcResponse.md)
+
+#### eth_getStorageAt
+
+request - [EthGetStorageAtJsonRpcRequest](../../api/type-aliases/EthGetStorageAtJsonRpcRequest.md)
+response - [EthGetStorageAtJsonRpcResponse](../../api/type-aliases/EthGetStorageAtJsonRpcResponse.md)
+
+#### eth_gasPrice
+
+request - [EthGasPriceJsonRpcRequest](../../api/type-aliases/EthGasPriceJsonRpcRequest.md)
+response - [EthGasPriceJsonRpcResponse](../../api/type-aliases/EthGasPriceJsonRpcResponse.md)
+
+#### eth_getBalance
+
+request - [EthGetBalanceJsonRpcRequest](../../api/type-aliases/EthGetBalanceJsonRpcRequest.md)
+response - [EthGetBalanceJsonRpcResponse](../../api/type-aliases/EthGetBalanceJsonRpcResponse.md)
+
 ## Source
 
-vm/api/dist/index.d.ts:2227
+vm/api/dist/index.d.ts:2368
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

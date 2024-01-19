@@ -398,6 +398,5 @@ export type {
 	AnvilStopImpersonatingAccountProcedure,
 	DebugTraceTransactionProcedure,
 	TevmJsonRpcRequestHandler,
-	EthJsonRpcRequestHandler,
 	Tevm,
 } from '@tevm/api'
