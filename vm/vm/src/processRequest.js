@@ -2,18 +2,43 @@ import { UnexpectedInternalServerError } from './errors/index.js'
 import { proxyRequest } from './proxyRequest.js'
 import { requestProcedure } from '@tevm/procedures'
 
+// TODO let's refactor the JSON-RPC switch statement in vm/vm/src/procedures/somewhere.js to instead grab
+// handlers off of a handler object. Then here we can make this DRY by simply checking to see if the key exists
+// on that same object
 /**
+ * Checks if tevm supports a given method
+ * @param {string} method
+ * @returns {boolean}
+ */
+const supportedMethods = new Set([
+	'tevm_getAccount',
+	'tevm_setAccount',
+	'tevm_call',
+	'tevm_script',
+	'eth_blockNumber',
+	'eth_chainId',
+	'eth_getCode',
+	'eth_getStorageAt',
+	'eth_gasPrice',
+	'eth_getBalance',
+	'debug_traceCall'
+])
+
+/**
+ * Given a vm and proxyUrl creates a request handler to process arbitrary
+ * JSON-RPC requests. It will process requests tevm supports locally using
+ * `requestProcedure` and proxy all other requests to the given proxyUrl
  * @param {import('@ethereumjs/vm').VM} vm
- * @param {string} [proxyUrl]
+ * @param {string} [proxyUrl] Optional url to proxy requests to
  * @returns {import('@tevm/api').TevmJsonRpcRequestHandler}
  */
 export const processRequest = (vm, proxyUrl) => {
 	return (request) => {
 		try {
-			if (!request.method.startsWith('tevm_')) {
+			if (!supportedMethods.has(request.method)) {
 				return proxyRequest(proxyUrl)(request)
 			}
-			return requestProcedure(vm)(/**@type any*/ (request))
+			return requestProcedure(vm)(/**@type any*/(request))
 		} catch (e) {
 			console.error(e)
 			const err = new UnexpectedInternalServerError(request.method)

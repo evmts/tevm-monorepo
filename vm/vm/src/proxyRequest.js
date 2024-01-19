@@ -2,8 +2,20 @@ import { NoProxyConfiguredError, ProxyFetchError } from './errors/index.js'
 import { createJsonRpcFetcher } from '@tevm/jsonrpc'
 
 /**
- * Proxys a request to the given url
+ * Given a url it returns a handler that proxys a request to the given url
  * @param {string} [url]
+ * @example
+ * ```js
+ *
+ * const proxy = proxyRequest('http://localhost:8545')
+ * const response = await proxy({
+ *   method: 'eth_chainId',
+ *   id: 1,
+ *   jsonrpc: '2.0',
+ *   params: [],
+ * })
+ * console.log(response) // { id: 1, jsonrpc: '2.0', result: '0x1' }
+ * ```
  */
 export const proxyRequest = (url) => {
 	/**

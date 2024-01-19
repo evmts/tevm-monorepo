@@ -1,4 +1,4 @@
-import { TevmEvm } from './Tevm.js'
+import { TevmEvm } from './TevmEvm.js'
 import { processRequest } from './processRequest.js'
 import { Block } from '@ethereumjs/block'
 import { Blockchain } from '@ethereumjs/blockchain'
@@ -25,7 +25,7 @@ import { createPublicClient, http } from 'viem'
 /**
  * A local EVM instance running in JavaScript. Similar to Anvil in your browser
  * @param {import('./CreateEVMOptions.js').CreateEVMOptions} [options]
- * @returns {Promise<import('./Tevm.js').Tevm>}
+ * @returns {Promise<import('./MemoryTevm.js').MemoryTevm>}
  * @example
  * ```ts
  * import { Tevm } from "tevm"
@@ -92,9 +92,9 @@ export const createTevm = async (options = {}) => {
 			header: common.genesis(),
 			...(common.isActivatedEIP(4895)
 				? {
-						withdrawals:
+					withdrawals:
 							/** @type {Array<import('@ethereumjs/util').WithdrawalData>}*/ ([]),
-				  }
+				}
 				: {}),
 		},
 		{ common, setHardfork: false, skipConsensusFormatValidation: true },
@@ -151,12 +151,17 @@ export const createTevm = async (options = {}) => {
 	})
 
 	/**
-	 * @type {import('./Tevm.js').Tevm}
+	 * @type {import('./MemoryTevm.js').MemoryTevm}
 	 */
 	const tevm = {
 		_evm: evm,
 		_vm: vm,
-		request: processRequest(vm, options.fork?.url),
+		// we currently don't want to proxy any requests
+		// because this causes confusing behavior with tevm
+		// that we want to avoid or abstract away before enabling
+		// This means tevm will throw an error on all non natively supported
+		// requests
+		request: processRequest(vm/*, options.fork?.url*/),
 		script: scriptHandler(evm),
 		getAccount: getAccountHandler(evm),
 		setAccount: setAccountHandler(evm),
