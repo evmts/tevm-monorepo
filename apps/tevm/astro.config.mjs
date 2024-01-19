@@ -6,10 +6,18 @@ import starlightTypeDoc, { typeDocSidebarGroup } from 'starlight-typedoc'
 export default defineConfig({
 	integrations: [
 		starlight({
-			editLink: { baseUrl: 'https://github.com/evmts/tevm-monorepo/edit/main/apps/tevm' },
+			editLink: {
+				baseUrl: 'https://github.com/evmts/tevm-monorepo/edit/main/apps/tevm',
+			},
 			plugins: [
 				starlightTypeDoc({
-					entryPoints: ['../../vm/api', '../../vm/vm', '../../vm/procedures', '../../vm/server', '../../packages/contract'],
+					entryPoints: [
+						'../../vm/api',
+						'../../vm/vm',
+						'../../vm/procedures',
+						'../../vm/server',
+						'../../packages/contract',
+					],
 					tsconfig: '../../tevm/tsconfig.json',
 					output: 'generated',
 					sidebar: {
@@ -17,8 +25,8 @@ export default defineConfig({
 					},
 					typeDoc: {
 						gitRevision: 'main',
-						entryPointStrategy: 'packages'
-					}
+						entryPointStrategy: 'packages',
+					},
 				}),
 			],
 			title: 'Tevm Docs',

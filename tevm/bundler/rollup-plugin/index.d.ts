@@ -1,1 +1,1 @@
-export { vitePluginTevm } from '@tevm/vite-plugin';
+export { vitePluginTevm } from '@tevm/vite-plugin'

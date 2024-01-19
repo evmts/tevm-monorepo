@@ -1,8 +1,8 @@
-import type { GetAccountJsonRpcRequest } from './GetAccountJsonRpcRequest.js'
-import type { SetAccountJsonRpcRequest } from './SetAccountJsonRpcRequest.js'
 import type { CallJsonRpcRequest } from './CallJsonRpcRequest.js'
 import type { ContractJsonRpcRequest } from './ContractJsonRpcRequest.js'
+import type { GetAccountJsonRpcRequest } from './GetAccountJsonRpcRequest.js'
 import type { ScriptJsonRpcRequest } from './ScriptJsonRpcRequest.js'
+import type { SetAccountJsonRpcRequest } from './SetAccountJsonRpcRequest.js'
 
 /**
  * A Tevm JSON-RPC request

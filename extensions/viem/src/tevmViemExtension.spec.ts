@@ -1,12 +1,12 @@
-import { Server, createServer } from 'http'
+import { ERC20 } from './tests/ERC20.sol.js'
+import { tevmViemExtension } from './tevmViemExtension.js'
 import { Address } from '@ethereumjs/util'
 import { createHttpHandler } from '@tevm/server'
 import type { Tevm } from '@tevm/vm'
 import { createTevm } from '@tevm/vm'
-import { http, type PublicClient, createPublicClient } from 'viem'
-import { ERC20 } from './tests/ERC20.sol.js'
-import { tevmViemExtension } from './tevmViemExtension.js'
 import { afterAll, beforeAll, describe, expect, it } from 'bun:test'
+import { Server, createServer } from 'http'
+import { type PublicClient, createPublicClient, http } from 'viem'
 
 describe('tevmViemExtension', () => {
 	let tevm: Tevm

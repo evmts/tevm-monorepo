@@ -1,5 +1,5 @@
-import { z } from 'zod'
 import { zAddress } from '../index.js'
+import { z } from 'zod'
 
 /**
  * Zod validator for a valid getAccount action

@@ -1,4 +1,4 @@
-import type { TypedError } from "./TypedError.js";
+import type { TypedError } from './TypedError.js'
 
 /**
  * Error thrown when account cannot be found in the state

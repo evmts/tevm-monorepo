@@ -1,7 +1,5 @@
 import type { TevmJsonRpcRequestHandler } from './TevmJsonRpcRequestHandler.js'
 import type {
-	GetAccountHandler,
-	SetAccountHandler,
 	CallHandler,
 	ContractHandler,
 	// DebugTraceCallHandler,
@@ -13,11 +11,13 @@ import type {
 	EthGetBalanceHandler,
 	EthGetCodeHandler,
 	EthGetStorageAtHandler,
+	GetAccountHandler,
 	ScriptHandler,
+	SetAccountHandler,
 } from './handlers/index.js'
 
 /**
- * Tevm 
+ * Tevm
  * A local EVM instance running in the browser or Node.js. Akin to anvil or ganache
  *
  * - Runs in browser bun and node.js environments
@@ -30,12 +30,12 @@ import type {
  *
  * #### JSON-RPC
  *
- * Tevm exposes a JSON-RPC interface for interacting with the EVM via the {@link Tevm.request} 
+ * Tevm exposes a JSON-RPC interface for interacting with the EVM via the {@link Tevm.request}
  *
  * @example
  * ```typescript
  * import {createTevm, type Tevm} from 'tevm'
- * 
+ *
  * const tevm: Tevm = createTevm()
  *
  * await tevm.request({
@@ -60,7 +60,7 @@ import type {
  *
  * #### Ethereum actions
  *
- * Ethereum actions are namespaced under {@link Tevm.eth} 
+ * Ethereum actions are namespaced under {@link Tevm.eth}
  *
  * #### Anvil hardhat and ganache compatibility
  *
@@ -154,7 +154,7 @@ export type Tevm = {
 	/**
 	 * Executes a contract call against the VM. It is similar to `eth_call` but has more
 	 * options for controlling the execution environment along with a typesafe API
-	 * for creating the call via the contract abi. 
+	 * for creating the call via the contract abi.
 	 *
 	 * The contract must already be deployed. Otherwise see `script` which executes calls
 	 * against undeployed contracts

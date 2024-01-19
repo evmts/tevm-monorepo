@@ -1,5 +1,5 @@
-import { numberToHex } from 'viem'
 import { getAccountHandler } from '../index.js'
+import { numberToHex } from 'viem'
 
 /**
  * Creates an GetAccount JSON-RPC Procedure for handling account requests with Ethereumjs EVM
@@ -28,7 +28,7 @@ export const getAccountProcedure = (evm) => async (request) => {
 	}
 	return {
 		jsonrpc: '2.0',
-		result: /** @type any*/({
+		result: /** @type any*/ ({
 			address: result.address,
 			balance: numberToHex(result.balance ?? 0n),
 			deployedBytecode: result.deployedBytecode ?? '0x0',

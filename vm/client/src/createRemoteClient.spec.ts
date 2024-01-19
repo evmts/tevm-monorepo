@@ -1,12 +1,12 @@
-import { Server, createServer } from 'http'
-import { Address } from '@ethereumjs/util'
-import { createHttpHandler } from '@tevm/server'
-import { type Tevm, createTevm } from '@tevm/vm'
-import { bytesToHex, keccak256 } from 'viem'
 import { createMemoryClient } from './createMemoryClient.js'
 import { type RemoteClient, createRemoteClient } from './createRemoteClient.js'
 import { ERC20_ADDRESS } from './test/ERC20.sol.js'
+import { Address } from '@ethereumjs/util'
+import { createHttpHandler } from '@tevm/server'
+import { type Tevm, createTevm } from '@tevm/vm'
 import { afterAll, beforeAll, describe, expect, it } from 'bun:test'
+import { Server, createServer } from 'http'
+import { bytesToHex, keccak256 } from 'viem'
 
 describe(createMemoryClient.name, () => {
 	let tevm: Tevm

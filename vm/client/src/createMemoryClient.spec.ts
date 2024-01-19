@@ -1,8 +1,8 @@
-import { Address } from '@ethereumjs/util'
-import { bytesToHex, keccak256 } from 'viem'
 import { createMemoryClient } from './createMemoryClient.js'
 import { ERC20_ADDRESS } from './test/ERC20.sol.js'
+import { Address } from '@ethereumjs/util'
 import { describe, expect, it } from 'bun:test'
+import { bytesToHex, keccak256 } from 'viem'
 
 describe(createMemoryClient.name, () => {
 	it('wraps viem methods', async () => {

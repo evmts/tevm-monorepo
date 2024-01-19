@@ -1,3 +1,5 @@
+import { TevmEvm } from './Tevm.js'
+import { processRequest } from './processRequest.js'
 import { Block } from '@ethereumjs/block'
 import { Blockchain } from '@ethereumjs/blockchain'
 import { Common, Hardfork } from '@ethereumjs/common'
@@ -18,9 +20,7 @@ import {
 	setAccountHandler,
 } from '@tevm/procedures'
 import { DefaultTevmStateManager, TevmStateManager } from '@tevm/state'
-import { http, createPublicClient } from 'viem'
-import { TevmEvm } from './Tevm.js'
-import { processRequest } from './processRequest.js'
+import { createPublicClient, http } from 'viem'
 
 /**
  * A local EVM instance running in JavaScript. Similar to Anvil in your browser
@@ -92,9 +92,9 @@ export const createTevm = async (options = {}) => {
 			header: common.genesis(),
 			...(common.isActivatedEIP(4895)
 				? {
-					withdrawals:
+						withdrawals:
 							/** @type {Array<import('@ethereumjs/util').WithdrawalData>}*/ ([]),
-				}
+				  }
 				: {}),
 		},
 		{ common, setHardfork: false, skipConsensusFormatValidation: true },

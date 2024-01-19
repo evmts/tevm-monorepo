@@ -1,5 +1,5 @@
-import type { Address } from 'abitype'
 import type { GetAccountError } from '../errors/GetAccountError.js'
+import type { Address } from 'abitype'
 import type { Hex } from 'viem'
 
 /**

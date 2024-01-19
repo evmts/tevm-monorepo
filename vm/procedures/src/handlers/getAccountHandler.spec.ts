@@ -33,8 +33,8 @@ describe('getAccount', () => {
 			{
 				_tag: 'InvalidAddressError',
 				name: 'InvalidAddressError',
-				...{ input: "not an address" },
-				message: "InvalidAddressError: Invalid Address not an address",
+				...{ input: 'not an address' },
+				message: 'InvalidAddressError: Invalid Address not an address',
 			},
 		])
 	})

@@ -1196,12 +1196,6 @@ importers:
       tsup:
         specifier: ^7.2.0
         version: 7.3.0(typescript@5.3.3)
-      typedoc:
-        specifier: ^0.25.3
-        version: 0.25.4(typescript@5.3.3)
-      typedoc-plugin-markdown:
-        specifier: ^3.16.0
-        version: 3.17.1(typedoc@0.25.4)
       typescript:
         specifier: ^5.2.2
         version: 5.3.3
@@ -1293,15 +1287,6 @@ importers:
       abitype:
         specifier: ^0.10.3
         version: 0.10.3(typescript@5.3.3)(zod@3.22.4)
-      starlight-typedoc:
-        specifier: ^0.8.0
-        version: 0.8.0(@astrojs/starlight@0.15.4)(astro@4.2.1)(typedoc-plugin-markdown@4.0.0-next.41)(typedoc@0.25.7)
-      typedoc:
-        specifier: ^0.25.7
-        version: 0.25.7(typescript@5.3.3)
-      typedoc-plugin-markdown:
-        specifier: 4.0.0-next.41
-        version: 4.0.0-next.41(typedoc@0.25.7)
       viem:
         specifier: ^2.0.0
         version: 2.0.2(typescript@5.3.3)(zod@3.22.4)
@@ -18556,22 +18541,6 @@ packages:
       typedoc-plugin-markdown: 4.0.0-next.21(typedoc@0.25.0)
     dev: true
 
-  /starlight-typedoc@0.8.0(@astrojs/starlight@0.15.4)(astro@4.2.1)(typedoc-plugin-markdown@4.0.0-next.41)(typedoc@0.25.7):
-    resolution: {integrity: sha512-lqYZPSafk0Bhh8YHLl/BTt9nhd/aobovMeEkEwybcJ8ag+ro88LM1V/xEh9rgp6vkIgFfqG0iqwlCVgEsNUkeQ==}
-    engines: {node: '>=18.14.1'}
-    peerDependencies:
-      '@astrojs/starlight': '>=0.15.0'
-      astro: '>=4.0.0'
-      typedoc: '>=0.25.0'
-      typedoc-plugin-markdown: '>=4.0.0-next.21'
-    dependencies:
-      '@astrojs/starlight': 0.15.4(astro@4.2.1)
-      astro: 4.2.1(typescript@5.3.3)
-      github-slugger: 2.0.0
-      typedoc: 0.25.7(typescript@5.3.3)
-      typedoc-plugin-markdown: 4.0.0-next.41(typedoc@0.25.7)
-    dev: true
-
   /static-extend@0.1.2:
     resolution: {integrity: sha512-72E9+uLc27Mt718pMHt9VMNiAL4LMsmDbBva8mxWUCkT07fSzEGMYUCk0XWY6lp0j6RBAG4cJ3mWuZv2OE3s0g==}
     engines: {node: '>=0.10.0'}
@@ -19611,14 +19580,6 @@ packages:
       typedoc: 0.25.0(typescript@5.3.3)
     dev: true
 
-  /typedoc-plugin-markdown@4.0.0-next.41(typedoc@0.25.7):
-    resolution: {integrity: sha512-I5VxPhKk9lwHRnaEQVdNIuC8vP9xq5FpBeKLnjgwznyHiYCKqn1A9zSJ6w3ENK8d4hjKds1xdPR1P8U/8OQd6w==}
-    peerDependencies:
-      typedoc: 0.25.x
-    dependencies:
-      typedoc: 0.25.7(typescript@5.3.3)
-    dev: true
-
   /typedoc@0.25.0(typescript@5.3.3):
     resolution: {integrity: sha512-FvCYWhO1n5jACE0C32qg6b3dSfQ8f2VzExnnRboowHtqUD6ARzM2r8YJeZFYXhcm2hI4C2oCRDgNPk/yaQUN9g==}
     engines: {node: '>= 16'}
@@ -19658,20 +19619,6 @@ packages:
       marked: 4.3.0
       minimatch: 9.0.3
       shiki: 0.14.6
-      typescript: 5.3.3
-    dev: true
-
-  /typedoc@0.25.7(typescript@5.3.3):
-    resolution: {integrity: sha512-m6A6JjQRg39p2ZVRIN3NKXgrN8vzlHhOS+r9ymUYtcUP/TIQPvWSq7YgE5ZjASfv5Vd5BW5xrir6Gm2XNNcOow==}
-    engines: {node: '>= 16'}
-    hasBin: true
-    peerDependencies:
-      typescript: 4.6.x || 4.7.x || 4.8.x || 4.9.x || 5.0.x || 5.1.x || 5.2.x || 5.3.x
-    dependencies:
-      lunr: 2.3.9
-      marked: 4.3.0
-      minimatch: 9.0.3
-      shiki: 0.14.7
       typescript: 5.3.3
     dev: true
 

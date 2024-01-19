@@ -1,6 +1,4 @@
 import type {
-	GetAccountJsonRpcResponse,
-	SetAccountJsonRpcResponse,
 	AnvilDropTransactionJsonRpcResponse,
 	AnvilDumpStateJsonRpcResponse,
 	AnvilGetAutomineJsonRpcResponse,
@@ -55,7 +53,9 @@ import type {
 	EthSignTransactionJsonRpcResponse,
 	EthSyncingJsonRpcResponse,
 	EthUninstallFilterJsonRpcResponse,
+	GetAccountJsonRpcResponse,
 	ScriptJsonRpcResponse,
+	SetAccountJsonRpcResponse,
 	TevmJsonRpcRequest,
 } from './index.js'
 import type { AnvilJsonRpcRequest } from './requests/AnvilJsonRpcRequest.js'
@@ -134,10 +134,10 @@ type TevmReturnType = {
 
 type ReturnType<
 	TMethod extends
-	| keyof EthReturnType
-	| keyof TevmReturnType
-	| keyof AnvilReturnType
-	| keyof DebugReturnType,
+		| keyof EthReturnType
+		| keyof TevmReturnType
+		| keyof AnvilReturnType
+		| keyof DebugReturnType,
 > = (EthReturnType &
 	TevmReturnType &
 	AnvilReturnType &
@@ -164,10 +164,10 @@ type ReturnType<
  */
 export type TevmJsonRpcRequestHandler = <
 	TRequest extends
-	| TevmJsonRpcRequest
-	| EthJsonRpcRequest
-	| AnvilJsonRpcRequest
-	| DebugJsonRpcRequest,
+		| TevmJsonRpcRequest
+		| EthJsonRpcRequest
+		| AnvilJsonRpcRequest
+		| DebugJsonRpcRequest,
 >(
 	request: TRequest,
 ) => Promise<ReturnType<TRequest['method']>>
