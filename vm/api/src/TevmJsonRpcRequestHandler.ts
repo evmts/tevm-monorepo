@@ -74,6 +74,7 @@ import type {
 	AnvilSetNonceJsonRpcRequest,
 	AnvilSetStorageAtJsonRpcRequest,
 	AnvilStopImpersonatingAccountJsonRpcRequest,
+	CallJsonRpcRequest,
 	DebugJsonRpcRequest,
 	DebugTraceCallJsonRpcRequest,
 	DebugTraceTransactionJsonRpcRequest,
@@ -115,6 +116,9 @@ import type {
 	EthSignTransactionJsonRpcRequest,
 	EthSyncingJsonRpcRequest,
 	EthUninstallFilterJsonRpcRequest,
+	GetAccountJsonRpcRequest,
+	ScriptJsonRpcRequest,
+	SetAccountJsonRpcRequest,
 } from './requests/index.js'
 
 type DebugReturnType = {
@@ -251,10 +255,10 @@ type TevmReturnType = {
 }
 
 type TevmRequestType = {
-	tevm_call: CallJsonRpcResponse
-	tevm_script: ScriptJsonRpcResponse
-	tevm_getAccount: GetAccountJsonRpcResponse
-	tevm_setAccount: SetAccountJsonRpcResponse
+	tevm_call: CallJsonRpcRequest
+	tevm_script: ScriptJsonRpcRequest
+	tevm_getAccount: GetAccountJsonRpcRequest
+	tevm_setAccount: SetAccountJsonRpcRequest
 }
 
 /**
@@ -266,10 +270,10 @@ type TevmRequestType = {
  */
 export type JsonRpcReturnTypeFromMethod<
 	TMethod extends
-		| keyof EthReturnType
-		| keyof TevmReturnType
-		| keyof AnvilReturnType
-		| keyof DebugReturnType,
+	| keyof EthReturnType
+	| keyof TevmReturnType
+	| keyof AnvilReturnType
+	| keyof DebugReturnType,
 > = (EthReturnType &
 	TevmReturnType &
 	AnvilReturnType &
@@ -284,10 +288,10 @@ export type JsonRpcReturnTypeFromMethod<
  */
 export type JsonRpcRequestTypeFromMethod<
 	TMethod extends
-		| keyof EthRequestType
-		| keyof TevmRequestType
-		| keyof AnvilRequestType
-		| keyof DebugRequestType,
+	| keyof EthRequestType
+	| keyof TevmRequestType
+	| keyof AnvilRequestType
+	| keyof DebugRequestType,
 > = (EthRequestType &
 	TevmRequestType &
 	AnvilRequestType &
@@ -317,22 +321,22 @@ export type JsonRpcRequestTypeFromMethod<
  * #### tevm_call
  *
  * request - {@link CallJsonRpcRequest}
- * response - {@link CallJsonRpcRequest}
+ * response - {@link CallJsonRpcResponse}
  *
  * #### tevm_script
  *
  * request - {@link ScriptJsonRpcRequest}
- * response - {@link ScriptJsonRpcRequest}
+ * response - {@link ScriptJsonRpcResponse}
  *
  * #### tevm_getAccount
  *
  * request - {@link GetAccountJsonRpcRequest}
- * response - {@link GetAccountJsonRpcRequest}
+ * response - {@link GetAccountJsonRpcResponse}
  *
  * #### tevm_setAccount
  *
  * request - {@link SetAccountJsonRpcRequest}
- * response - {@link SetAccountJsonRpcRequest}
+ * response - {@link SetAccountJsonRpcResponse}
  *
  * ### debug_* methods
  *
@@ -375,10 +379,10 @@ export type JsonRpcRequestTypeFromMethod<
  */
 export type TevmJsonRpcRequestHandler = <
 	TRequest extends
-		| TevmJsonRpcRequest
-		| EthJsonRpcRequest
-		| AnvilJsonRpcRequest
-		| DebugJsonRpcRequest,
+	| TevmJsonRpcRequest
+	| EthJsonRpcRequest
+	| AnvilJsonRpcRequest
+	| DebugJsonRpcRequest,
 >(
 	request: TRequest,
 ) => Promise<JsonRpcReturnTypeFromMethod<TRequest['method']>>
