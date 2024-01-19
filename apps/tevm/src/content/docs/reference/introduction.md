@@ -12,12 +12,12 @@ A Tevm is the API for interacting with the EVM. This includes the EVM itself but
 
 Tevms api is built from `Actions` and `Procedures`
 
-An instance of Tevm can be created with `createTevm`
+An instance of Tevm can be created with `createMemoryTevm`
 
 ```typescript
-import {createTevm} from 'tevm'
+import {createMemoryTevm} from 'tevm'
 
-const tevm = createTevm()
+const tevm = createMemoryTevm()
 
 console.log(
   // this is an action which we will get to soon
@@ -33,9 +33,9 @@ For the most part you will not be interacting with procedures directly but inste
 
 
 ```typescript
-import {createTevm} from 'tevm'
+import {createMemoryTevm} from 'tevm'
 
-const tevm = createTevm()
+const tevm = createMemoryTevm()
 
 console.log(
   await tevm.request({
@@ -64,9 +64,9 @@ And there are also powerful special tevm actions. These are:
 - `block` (coming soon) a way to modify the blockchain state such as mining blocks or turning on automine
 
 ```typescript
-import {createTevm, parseEth} from 'tevm'
+import {createMemoryTevm, parseEth} from 'tevm'
 
-const tevm = createTevm()
+const tevm = createMemoryTevm()
 
 console.log(
   await tevm.setAccount({
@@ -87,9 +87,9 @@ Optionally, utilities are provided to further enhance the maintainability of act
 // Tevm build tooling abstracts away turning the solidity code into ABI and bytecode
 // JavaScript can use
 import {MyContract} from './MyContract.sol'
-import {createTevm} from 'tevm'
+import {createMemoryTevm} from 'tevm'
 
-const tevm = createTevm()
+const tevm = createMemoryTevm()
 
 // Action creators provide an intuitive and ergonomic way to dispatch actions to the EVM
 await tevm.contract(

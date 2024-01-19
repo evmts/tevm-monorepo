@@ -52,14 +52,14 @@ contract TicTacToe {
 
 5. Now hook it up in single player mode
 
-Let's get this tic tac toe game running in single player mode. 
+Let's get this tic tac toe game running in single player mode.
 
 - Make a tevm instance
 
 ```solidity tevm
-import {createTevm} from 'tevm'
+import {createMemoryTevm} from 'tevm'
 
-export const tevm = createTevm()
+export const tevm = createMemoryTevm()
 ```
 
 - use your tevm instance in react

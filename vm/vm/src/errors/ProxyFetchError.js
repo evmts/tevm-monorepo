@@ -1,3 +1,7 @@
+/**
+ * Error when there is a problem with the underlying forked provider
+ * Potentially could be network issues
+ */
 export class ProxyFetchError extends Error {
 	/**
 	 * @type {'ProxyFetchError'}

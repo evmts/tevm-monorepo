@@ -11,17 +11,19 @@
 - [NoProxyConfiguredError](classes/NoProxyConfiguredError.md)
 - [ProxyFetchError](classes/ProxyFetchError.md)
 - [UnexpectedInternalServerError](classes/UnexpectedInternalServerError.md)
+- [UnsupportedMethodError](classes/UnsupportedMethodError.md)
 
 ### Type Aliases
 
 - [CreateEVMOptions](type-aliases/CreateEVMOptions.md)
 - [CustomPrecompile](type-aliases/CustomPrecompile.md)
+- [CustomPredeploy](type-aliases/CustomPredeploy.md)
 - [ForkOptions](type-aliases/ForkOptions.md)
-- [Tevm](type-aliases/Tevm.md)
+- [MemoryTevm](type-aliases/MemoryTevm.md)
 
 ### Functions
 
-- [createTevm](functions/createTevm.md)
+- [createMemoryTevm](functions/createMemoryTevm.md)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

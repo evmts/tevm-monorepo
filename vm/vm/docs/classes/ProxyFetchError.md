@@ -6,6 +6,9 @@
 
 # Class: ProxyFetchError
 
+Error when there is a problem with the underlying forked provider
+Potentially could be network issues
+
 ## Extends
 
 - `Error`
@@ -26,7 +29,7 @@ Error.constructor
 
 #### Source
 
-[vm/vm/src/errors/ProxyFetchError.js:14](https://github.com/evmts/tevm-monorepo/blob/main/vm/vm/src/errors/ProxyFetchError.js#L14)
+[vm/vm/src/errors/ProxyFetchError.js:18](https://github.com/evmts/tevm-monorepo/blob/main/vm/vm/src/errors/ProxyFetchError.js#L18)
 
 ## Properties
 
@@ -36,7 +39,7 @@ Error.constructor
 
 #### Source
 
-[vm/vm/src/errors/ProxyFetchError.js:10](https://github.com/evmts/tevm-monorepo/blob/main/vm/vm/src/errors/ProxyFetchError.js#L10)
+[vm/vm/src/errors/ProxyFetchError.js:14](https://github.com/evmts/tevm-monorepo/blob/main/vm/vm/src/errors/ProxyFetchError.js#L14)
 
 ***
 
@@ -78,7 +81,7 @@ Error.name
 
 #### Source
 
-[vm/vm/src/errors/ProxyFetchError.js:6](https://github.com/evmts/tevm-monorepo/blob/main/vm/vm/src/errors/ProxyFetchError.js#L6)
+[vm/vm/src/errors/ProxyFetchError.js:10](https://github.com/evmts/tevm-monorepo/blob/main/vm/vm/src/errors/ProxyFetchError.js#L10)
 
 ***
 

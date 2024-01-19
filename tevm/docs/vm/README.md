@@ -8,24 +8,44 @@
 
 ## Index
 
+### Classes
+
+- [NoProxyConfiguredError](classes/NoProxyConfiguredError.md)
+- [ProxyFetchError](classes/ProxyFetchError.md)
+- [UnexpectedInternalServerError](classes/UnexpectedInternalServerError.md)
+- [UnsupportedMethodError](classes/UnsupportedMethodError.md)
+
 ### Type Aliases
 
-- [CreateEVMOptions](type-aliases/CreateEVMOptions.md)
 - [CustomPrecompile](type-aliases/CustomPrecompile.md)
+- [CustomPredeploy](type-aliases/CustomPredeploy.md)
 - [ForkOptions](type-aliases/ForkOptions.md)
-- [Tevm](type-aliases/Tevm.md)
 
 ## Table of contents
 
 ### References
 
-- [createTevm](README.md#createtevm)
+- [CreateEVMOptions](README.md#createevmoptions)
+- [MemoryTevm](README.md#memorytevm)
+- [createMemoryTevm](README.md#creatememorytevm)
 
 ## References
 
-### createTevm
+### CreateEVMOptions
 
-Re-exports [createTevm](../index/functions/createTevm.md)
+Re-exports [CreateEVMOptions](../index/type-aliases/CreateEVMOptions.md)
+
+***
+
+### MemoryTevm
+
+Re-exports [MemoryTevm](../index/type-aliases/MemoryTevm.md)
+
+***
+
+### createMemoryTevm
+
+Re-exports [createMemoryTevm](../index/functions/createMemoryTevm.md)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

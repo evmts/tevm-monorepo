@@ -25,7 +25,7 @@ import type {
  * - Supports most ethereum JSON-RPC methods
  * - Will have anvil ganache and hardhat compatibility in future versions
  *
- * @see {@link https://todo.todo | createTevm} for documentation on creating an in memory Tevm instance
+ * @see {@link https://todo.todo | createMemoryTevm} for documentation on creating an in memory Tevm instance
  * @see {@link https://todo.todo | createClient} for documentation on creating an client for talking to a remote Tevm instance over HTTP
  *
  * #### JSON-RPC
@@ -34,9 +34,9 @@ import type {
  *
  * @example
  * ```typescript
- * import {createTevm, type Tevm} from 'tevm'
+ * import {createMemoryTevm, type Tevm} from 'tevm'
  *
- * const tevm: Tevm = createTevm()
+ * const tevm: Tevm = createMemoryTevm()
  *
  * await tevm.request({
  *   method: 'eth_blockNumber',

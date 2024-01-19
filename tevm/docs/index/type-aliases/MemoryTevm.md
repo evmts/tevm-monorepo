@@ -1,23 +1,28 @@
-**@tevm/vm** ∙ [README](../README.md) ∙ [API](../API.md)
+**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[API](../API.md) > Tevm
+[API](../../API.md) > [index](../README.md) > MemoryTevm
 
-# Type alias: Tevm
+# Type alias: MemoryTevm
 
-> **Tevm**: `Tevm` & `object`
+> **MemoryTevm**: [`Tevm`](../../api/type-aliases/Tevm.md) & `object`
 
-A local EVM instance running in JavaScript. Similar to Anvil in your browser
+A local EVM instance running in JavaScript. Similar to Anvil in your browser/node/bun environments
+Implements the [Tevm](../../api/type-aliases/Tevm.md) interface with an in memory EVM instance.
+
+## See
+
+[TevmClient](https://todo.todo) for an remote client
 
 ## Example
 
 ```ts
-import { createTevm } from "tevm"
+import { createMemoryTevm } from "tevm"
 import { createPublicClient, http } from "viem"
 import { MyERC721 } from './MyERC721.sol'
 
-const tevm = createTevm({
+const tevm = createMemoryTevm({
 	fork: {
 	  url: "https://mainnet.optimism.io",
 	},
@@ -63,7 +68,7 @@ Fork url if the EVM is forked
 
 ## Source
 
-[vm/vm/src/Tevm.ts:35](https://github.com/evmts/tevm-monorepo/blob/main/vm/vm/src/Tevm.ts#L35)
+vm/vm/dist/index.d.ts:51
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

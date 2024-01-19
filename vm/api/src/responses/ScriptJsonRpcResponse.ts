@@ -5,9 +5,9 @@ import type { JsonRpcResponse } from './JsonRpcResponse.js'
 /**
  * JSON-RPC response for `tevm_script` method
  * @example
- * import { createTevm } from 'tevm'
+ * import { createMemoryTevm } from 'tevm'
  *
- * const tevm = createTevm()
+ * const tevm = createMemoryTevm()
  *
  * const respose: ScriptJsonRpcResponse = await tevm.request({
  *   method: 'tevm_script',

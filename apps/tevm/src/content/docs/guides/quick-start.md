@@ -19,13 +19,13 @@ npx tevm create my-app
 
 This guide will get you familiar with the most essential features of Tevm and start interacting with the Ethereum Virtual Machine (EVM) in Node.js or browser environments with `Tevm`. By the end of this guide you will understand:
 
-1. How to create a forked EVM in JavaScript using `createTevm`
+1. How to create a forked EVM in JavaScript using `createMemoryTevm`
 2. How to write ,build, and execute solidity scripts with `tevm`
-3. How to streamline your workflow using `tevm contract imports` with the tevm bundler 
+3. How to streamline your workflow using `tevm contract imports` with the tevm bundler
 
 ## Prerequisites
 
-- Node.js (version 18 or above) or Bun. 
+- Node.js (version 18 or above) or Bun.
 
 This tutorial uses Bun. You can install Bun globally with Node.js
 
@@ -69,14 +69,14 @@ touch vm.js
 2. Now initialize the Tevm vm forking optimism
 
 ```typescript
-import { createTevm } from 'tevm';
+import { createMemoryTevm } from 'tevm';
 
-export const vm = await createTevm({
+export const vm = await createMemoryTevm({
   fork: { url: 'https://mainnet.optimism.io' }
 });
 ```
 
-This initializes an in memory instance of Tevm. It is similar to starting anvil but in memory in JavaScript. It will read from local state if it exists otherwise fetch and cache it from the forked url. 
+This initializes an in memory instance of Tevm. It is similar to starting anvil but in memory in JavaScript. It will read from local state if it exists otherwise fetch and cache it from the forked url.
 
 3. Create a new JavaScript file:
 
@@ -136,7 +136,7 @@ Now let's run a transaction on the VM using the special `tevm.contract` method. 
 ```typescript
 import { Tevm, parseEth } from 'tevm';
 
-const vm = await Tevm.create({
+const vm = await createMemoryTevm({
   fork: { url: 'https://mainnet.optimism.io' }
 });
 
@@ -201,7 +201,7 @@ You should see a `.js` file get generated with the JavaScript version of your co
 
 4. Create javascript file to run script
 
-Let's use typescript this time. 
+Let's use typescript this time.
 
 Create a `script.ts` file
 
@@ -301,7 +301,7 @@ You will see bun still generated the same files and cached them in the `.tevm` f
 
 5. Configure the TypeScript LSP
 
-Though bun is working you may notice your editor is not recognizing the solidity import. We need to also configure the TypeScript language server protocol that your editor such as `VIM` or `VSCode` uses. 
+Though bun is working you may notice your editor is not recognizing the solidity import. We need to also configure the TypeScript language server protocol that your editor such as `VIM` or `VSCode` uses.
 
 Add `{"name": "tevm/ts-plugin"}` to `compilerOptions.plugins` array to enable tevm in typescript language server.
 
@@ -331,9 +331,9 @@ The following executes a ERC721 balanceOf call against a forked contract on main
 
 ```typescript
 import { ERC721 } from '@openzeppelin/contracts/tokens/ERC721/ERC721.sol'
-import { createTevm } from './vm.js'
+import { createMemoryTevm } from './vm.js'
 
-const result = await createTevm({fork: {url: 'https://cloudflare-eth.com'}}).contract(
+const result = await createMemoryTevm({fork: {url: 'https://cloudflare-eth.com'}}).contract(
   ERC721
     .withAddress('0x5180db8F5c931aaE63c74266b211F580155ecac8')
     .balanceOf(' 0xB72900a2e885dF6A2824969B6e40B969C8ae3CB7')

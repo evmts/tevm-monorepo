@@ -2,10 +2,10 @@
 editUrl: false
 next: false
 prev: false
-title: "createTevm"
+title: "createMemoryTevm"
 ---
 
-> **createTevm**(`options`?): `Promise`\<[`Tevm`](/generated/tevm/vm/type-aliases/tevm/)\>
+> **createMemoryTevm**(`options`?): `Promise`\<[`Tevm`](/generated/tevm/vm/type-aliases/tevm/)\>
 
 A local EVM instance running in JavaScript. Similar to Anvil in your browser
 
@@ -22,7 +22,7 @@ import { Tevm } from "tevm"
 import { createPublicClient, http } from "viem"
 import { MyERC721 } from './MyERC721.sol'
 
-const tevm = Tevm.create({
+const tevm = createMemoryTevm({
 	fork: {
 	  url: "https://mainnet.optimism.io",
 	},
@@ -46,7 +46,7 @@ const balance = await tevm.runContractCall(
 
 ## Source
 
-[vm/vm/src/createTevm.js:57](https://github.com/evmts/tevm-monorepo/blob/main/vm/vm/src/createTevm.js#L57)
+[vm/vm/src/createMemoryTevm.js:57](https://github.com/evmts/tevm-monorepo/blob/main/vm/vm/src/createMemoryTevm.js#L57)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

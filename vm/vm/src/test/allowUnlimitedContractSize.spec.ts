@@ -1,10 +1,10 @@
-import { createTevm } from '../createTevm.js'
+import { createMemoryTevm } from '../createMemoryTevm.js'
 import { EVMErrorMessage } from '@ethereumjs/evm'
 import { describe, expect, test } from 'bun:test'
 
 describe('allowUnlimitedContractSize option', () => {
 	test('Should fail a evm call request if the file is too large', async () => {
-		const tevm = await createTevm()
+		const tevm = await createMemoryTevm()
 		const address1 = '0x1f420000000000000000000000000000000000ff'
 
 		/*
@@ -33,7 +33,7 @@ describe('allowUnlimitedContractSize option', () => {
 	})
 
 	test('Should deploy large files if allowUnlimitedContractSize option is true', async () => {
-		const tevm = await createTevm({
+		const tevm = await createMemoryTevm({
 			allowUnlimitedContractSize: true,
 		})
 		const address1 = '0x1f420000000000000000000000000000000000ff'

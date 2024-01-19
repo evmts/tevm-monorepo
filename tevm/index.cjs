@@ -52,10 +52,10 @@ Object.defineProperty(exports, 'parseAbi', {
 		return contract.parseAbi
 	},
 })
-Object.defineProperty(exports, 'createTevm', {
+Object.defineProperty(exports, 'createMemoryTevm', {
 	enumerable: true,
 	get: function () {
-		return vm.createTevm
+		return vm.createMemoryTevm
 	},
 })
 //# sourceMappingURL=out.js.map

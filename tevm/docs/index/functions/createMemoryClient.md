@@ -10,7 +10,7 @@
 
 ## Parameters
 
-▪ **params**: [`CreateEVMOptions`](../../vm/type-aliases/CreateEVMOptions.md) & `object`
+▪ **params**: [`CreateEVMOptions`](../type-aliases/CreateEVMOptions.md) & `object`
 
 ## Source
 
