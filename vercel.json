@@ -1,7 +1,6 @@
 {
-	"buildCommand": "bun nx build @tevm/docs",
-	"devCommand": "bun dev --port $PORT",
-	"framework": "vitepress",
+	"buildCommand": "bun run build",
+	"framework": "astro",
 	"installCommand": "pnpm install",
-	"outputDirectory": "apps/docs/.vitepress/dist"
+	"outputDirectory": "apps/tevm/dist"
 }
