@@ -2,4 +2,4 @@
 "@tevm/contract": patch
 ---
 
-Renamed Read, Write, and Event, ReadActionCreator, WriteActionCreator, and EventActionCreator. Added full jsdoc documentation to contracts"
+Renamed Read, Write, and Event to ReadActionCreator, WriteActionCreator, and EventActionCreator respectively. Added full JSDoc documentation to contracts.
