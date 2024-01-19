@@ -1,5 +1,5 @@
-import { accountHandler } from './accountHandler.js'
 import { contractHandler } from './contractHandler.js'
+import { setAccountHandler } from './setAccountHandler.js'
 import { EVM, EVMErrorMessage } from '@ethereumjs/evm'
 import { describe, expect, it } from 'bun:test'
 
@@ -295,7 +295,7 @@ describe('contractHandler', () => {
 		// deploy contract
 		expect(
 			(
-				await accountHandler(evm)({
+				await setAccountHandler(evm)({
 					address: ERC20_ADDRESS,
 					deployedBytecode: ERC20_BYTECODE,
 				})
@@ -327,7 +327,7 @@ describe('contractHandler', () => {
 		// deploy contract
 		expect(
 			(
-				await accountHandler(evm)({
+				await setAccountHandler(evm)({
 					address: ERC20_ADDRESS,
 					deployedBytecode: ERC20_BYTECODE,
 				})
@@ -392,7 +392,7 @@ describe('contractHandler', () => {
 		// deploy contract
 		expect(
 			(
-				await accountHandler(evm)({
+				await setAccountHandler(evm)({
 					address: ERC20_ADDRESS,
 					deployedBytecode: ERC20_BYTECODE,
 				})
@@ -429,7 +429,7 @@ describe('contractHandler', () => {
 		// deploy contract
 		expect(
 			(
-				await accountHandler(evm)({
+				await setAccountHandler(evm)({
 					address: ERC20_ADDRESS,
 					deployedBytecode: ERC20_BYTECODE,
 				})
@@ -474,7 +474,7 @@ describe('contractHandler', () => {
 		// deploy contract
 		expect(
 			(
-				await accountHandler(evm)({
+				await setAccountHandler(evm)({
 					address: ERC20_ADDRESS,
 					deployedBytecode: ERC20_BYTECODE,
 				})
@@ -508,7 +508,7 @@ describe('contractHandler', () => {
 		// deploy contract
 		expect(
 			(
-				await accountHandler(evm)({
+				await setAccountHandler(evm)({
 					address: ERC20_ADDRESS,
 					deployedBytecode: ERC20_BYTECODE,
 				})

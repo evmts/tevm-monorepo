@@ -3,7 +3,7 @@ import type { InvalidBytecodeError } from './InvalidBytecodeError.js'
 import type { InvalidDeployedBytecodeError } from './InvalidDeployedBytecodeError.js'
 
 /**
- * Error type of errors thrown by the script procedure
+ * Error type of errors thrown by the tevm_script procedure
  * @example
  * const {errors} = await tevm.script({address: '0x1234'})
  * if (errors?.length) {

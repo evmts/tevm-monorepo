@@ -1,4 +1,5 @@
-export type * from './AccountParams.js'
+export type * from './SetAccountParams.js'
+export type * from './GetAccountParams.js'
 export type * from './BaseCallParams.js'
 export type * from './CallParams.js'
 export type * from './ContractParams.js'

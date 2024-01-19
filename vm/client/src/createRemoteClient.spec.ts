@@ -61,7 +61,7 @@ describe(createMemoryClient.name, () => {
 				address: `0x${'69'.repeat(20)}`,
 				deployedBytecode: ERC20.deployedBytecode,
 			} as const
-			const { errors } = await client.tevm.account(account)
+			const { errors } = await client.tevm.setAccount(account)
 
 			expect(errors).toBeUndefined()
 
@@ -80,7 +80,7 @@ describe(createMemoryClient.name, () => {
 			const client = await createMemoryClient({
 				fork: { url: 'https://mainnet.optimism.io' },
 			})
-			await client.tevm.account({
+			await client.tevm.setAccount({
 				address: ERC20_ADDRESS,
 				deployedBytecode: ERC20.deployedBytecode,
 			})

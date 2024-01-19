@@ -116,7 +116,7 @@ describe('Tevm.request', async () => {
 		const balance = 0x11111111n
 		const address1 = '0x1f420000000000000000000000000000000000ff'
 		const address2 = '0x2f420000000000000000000000000000000000ff'
-		await tevm.account({
+		await tevm.setAccount({
 			address: address1,
 			balance,
 		})
@@ -160,7 +160,7 @@ describe('Tevm.request', async () => {
 		const balance = 0x11111111n
 		const res = await tevm.request({
 			jsonrpc: '2.0',
-			method: 'tevm_account',
+			method: 'tevm_setAccount',
 			id: 1,
 			params: {
 				address: '0xff420000000000000000000000000000000000ff',

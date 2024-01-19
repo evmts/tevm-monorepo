@@ -96,29 +96,36 @@ export const tevmViemExtension = () => {
 		}
 
 		/**
-		 * @type {import('@tevm/api').AccountHandler}
+		 * @type {import('@tevm/api').GetAccountHandler}
 		 */
-		const account = async (params) => {
-			return /** @type {any} */ (
-				formatResult(
-					await request({
-						method: 'tevm_account',
-						jsonrpc: '2.0',
-						params: {
-							address: params.address,
-							...(params.balance
-								? { balance: numberToHex(params.balance) }
-								: {}),
-							...(params.nonce ? { nonce: numberToHex(params.nonce) } : {}),
-							...(params.storageRoot
-								? { storageRoot: params.storageRoot }
-								: {}),
-							...(params.deployedBytecode
-								? { deployedBytecode: params.deployedBytecode }
-								: {}),
-						},
-					}),
-				)
+		const getAccount = async (params) => {
+			return formatResult(
+				await request({
+					method: 'tevm_setAccount',
+					jsonrpc: '2.0',
+					params,
+				}),
+			)
+		}
+
+		/**
+		 * @type {import('@tevm/api').SetAccountHandler}
+		 */
+		const setAccount = async (params) => {
+			return formatResult(
+				await request({
+					method: 'tevm_setAccount',
+					jsonrpc: '2.0',
+					params: {
+						address: params.address,
+						...(params.balance ? { balance: numberToHex(params.balance) } : {}),
+						...(params.nonce ? { nonce: numberToHex(params.nonce) } : {}),
+						...(params.storageRoot ? { storageRoot: params.storageRoot } : {}),
+						...(params.deployedBytecode
+							? { deployedBytecode: params.deployedBytecode }
+							: {}),
+					},
+				}),
 			)
 		}
 
@@ -358,7 +365,8 @@ export const tevmViemExtension = () => {
 				},
 				request,
 				script,
-				account,
+				getAccount,
+				setAccount,
 				call,
 				contract,
 			},

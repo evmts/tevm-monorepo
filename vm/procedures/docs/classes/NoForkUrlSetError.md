@@ -1,168 +1,134 @@
-[@tevm/procedures](../README.md) / [Exports](../modules.md) / NoForkUrlSetError
+**@tevm/procedures** ∙ [README](../README.md) ∙ [API](../API.md)
+
+***
+
+[API](../API.md) > NoForkUrlSetError
 
 # Class: NoForkUrlSetError
 
-## Hierarchy
+## Extends
 
 - `Error`
 
-  ↳ **`NoForkUrlSetError`**
-
-## Table of contents
-
-### Constructors
-
-- [constructor](NoForkUrlSetError.md#constructor)
-
-### Properties
-
-- [\_tag](NoForkUrlSetError.md#_tag)
-- [cause](NoForkUrlSetError.md#cause)
-- [message](NoForkUrlSetError.md#message)
-- [name](NoForkUrlSetError.md#name)
-- [stack](NoForkUrlSetError.md#stack)
-- [prepareStackTrace](NoForkUrlSetError.md#preparestacktrace)
-- [stackTraceLimit](NoForkUrlSetError.md#stacktracelimit)
-
-### Methods
-
-- [captureStackTrace](NoForkUrlSetError.md#capturestacktrace)
-
 ## Constructors
 
-### constructor
+### new NoForkUrlSetError(message)
 
-• **new NoForkUrlSetError**(`message?`): [`NoForkUrlSetError`](NoForkUrlSetError.md)
+> **new NoForkUrlSetError**(`message`?): [`NoForkUrlSetError`](NoForkUrlSetError.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `message?` | `string` |
-
-#### Returns
-
-[`NoForkUrlSetError`](NoForkUrlSetError.md)
+▪ **message?**: `string`
 
 #### Inherited from
 
 Error.constructor
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/typescript@5.3.3/node_modules/typescript/lib/lib.es5.d.ts:1081
+node\_modules/.pnpm/typescript@5.3.3/node\_modules/typescript/lib/lib.es5.d.ts:1081
 
-• **new NoForkUrlSetError**(`message?`, `options?`): [`NoForkUrlSetError`](NoForkUrlSetError.md)
+### new NoForkUrlSetError(message, options)
+
+> **new NoForkUrlSetError**(`message`?, `options`?): [`NoForkUrlSetError`](NoForkUrlSetError.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `message?` | `string` |
-| `options?` | `ErrorOptions` |
+▪ **message?**: `string`
 
-#### Returns
-
-[`NoForkUrlSetError`](NoForkUrlSetError.md)
+▪ **options?**: `ErrorOptions`
 
 #### Inherited from
 
 Error.constructor
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/typescript@5.3.3/node_modules/typescript/lib/lib.es2022.error.d.ts:28
+node\_modules/.pnpm/typescript@5.3.3/node\_modules/typescript/lib/lib.es2022.error.d.ts:28
 
 ## Properties
 
 ### \_tag
 
-• **\_tag**: ``"NoForkUrlSetError"``
+> **\_tag**: `"NoForkUrlSetError"` = `'NoForkUrlSetError'`
 
-#### Defined in
+#### Source
 
 [vm/procedures/src/handlers/eth/getBalanceHandler.js:9](https://github.com/evmts/tevm-monorepo/blob/main/vm/procedures/src/handlers/eth/getBalanceHandler.js#L9)
 
-___
+***
 
 ### cause
 
-• `Optional` **cause**: `unknown`
+> **cause**?: `unknown`
 
 #### Inherited from
 
 Error.cause
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/typescript@5.3.3/node_modules/typescript/lib/lib.es2022.error.d.ts:24
+node\_modules/.pnpm/typescript@5.3.3/node\_modules/typescript/lib/lib.es2022.error.d.ts:24
 
-___
+***
 
 ### message
 
-• **message**: `string`
+> **message**: `string`
 
 #### Inherited from
 
 Error.message
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/typescript@5.3.3/node_modules/typescript/lib/lib.es5.d.ts:1076
+node\_modules/.pnpm/typescript@5.3.3/node\_modules/typescript/lib/lib.es5.d.ts:1076
 
-___
+***
 
 ### name
 
-• **name**: ``"NoForkUrlSetError"``
+> **name**: `"NoForkUrlSetError"` = `'NoForkUrlSetError'`
 
 #### Overrides
 
 Error.name
 
-#### Defined in
+#### Source
 
 [vm/procedures/src/handlers/eth/getBalanceHandler.js:14](https://github.com/evmts/tevm-monorepo/blob/main/vm/procedures/src/handlers/eth/getBalanceHandler.js#L14)
 
-___
+***
 
 ### stack
 
-• `Optional` **stack**: `string`
+> **stack**?: `string`
 
 #### Inherited from
 
 Error.stack
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/typescript@5.3.3/node_modules/typescript/lib/lib.es5.d.ts:1077
+node\_modules/.pnpm/typescript@5.3.3/node\_modules/typescript/lib/lib.es5.d.ts:1077
 
-___
+***
 
 ### prepareStackTrace
 
-▪ `Static` `Optional` **prepareStackTrace**: (`err`: `Error`, `stackTraces`: `CallSite`[]) => `any`
-
-#### Type declaration
-
-▸ (`err`, `stackTraces`): `any`
+> **`static`** **prepareStackTrace**?: (`err`, `stackTraces`) => `any`
 
 Optional override for formatting stack traces
 
-##### Parameters
+#### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `err` | `Error` |
-| `stackTraces` | `CallSite`[] |
+▪ **err**: `Error`
 
-##### Returns
+▪ **stackTraces**: `CallSite`[]
 
-`any`
+#### Returns
 
-**`See`**
+#### See
 
 https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
@@ -170,74 +136,67 @@ https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
 Error.prepareStackTrace
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/@types+node@20.9.1/node_modules/@types/node/globals.d.ts:11
+node\_modules/.pnpm/@types+node@20.9.1/node\_modules/@types/node/globals.d.ts:11
 
-node_modules/.pnpm/bun-types@1.0.21/node_modules/bun-types/types.d.ts:2235
-
-___
+***
 
 ### stackTraceLimit
 
-▪ `Static` **stackTraceLimit**: `number`
+> **`static`** **stackTraceLimit**: `number`
 
 #### Inherited from
 
 Error.stackTraceLimit
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/@types+node@20.9.1/node_modules/@types/node/globals.d.ts:13
-
-node_modules/.pnpm/bun-types@1.0.21/node_modules/bun-types/types.d.ts:2239
+node\_modules/.pnpm/@types+node@20.9.1/node\_modules/@types/node/globals.d.ts:13
 
 ## Methods
 
-### captureStackTrace
+### captureStackTrace()
 
-▸ **captureStackTrace**(`targetObject`, `constructorOpt?`): `void`
+#### captureStackTrace(targetObject, constructorOpt)
 
-Create .stack property on a target object
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `targetObject` | `object` |
-| `constructorOpt?` | `Function` |
-
-#### Returns
-
-`void`
-
-#### Inherited from
-
-Error.captureStackTrace
-
-#### Defined in
-
-node_modules/.pnpm/@types+node@20.9.1/node_modules/@types/node/globals.d.ts:4
-
-▸ **captureStackTrace**(`targetObject`, `constructorOpt?`): `void`
+> **`static`** **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
 
 Create .stack property on a target object
 
-#### Parameters
+##### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `targetObject` | `object` |
-| `constructorOpt?` | `Function` |
+▪ **targetObject**: `object`
 
-#### Returns
+▪ **constructorOpt?**: `Function`
 
-`void`
-
-#### Inherited from
+##### Inherited from
 
 Error.captureStackTrace
 
-#### Defined in
+##### Source
 
-node_modules/.pnpm/bun-types@1.0.21/node_modules/bun-types/types.d.ts:2228
+node\_modules/.pnpm/@types+node@20.9.1/node\_modules/@types/node/globals.d.ts:4
+
+#### captureStackTrace(targetObject, constructorOpt)
+
+> **`static`** **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
+
+Create .stack property on a target object
+
+##### Parameters
+
+▪ **targetObject**: `object`
+
+▪ **constructorOpt?**: `Function`
+
+##### Inherited from
+
+Error.captureStackTrace
+
+##### Source
+
+node\_modules/.pnpm/bun-types@1.0.21/node\_modules/bun-types/types.d.ts:2228
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

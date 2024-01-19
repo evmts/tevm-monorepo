@@ -7,16 +7,17 @@ import { genesisStateRoot } from '@ethereumjs/trie'
 import { MapDB } from '@ethereumjs/util'
 import { VM } from '@ethereumjs/vm'
 import {
-	accountHandler,
 	blockNumberHandler,
 	callHandler,
 	chainIdHandler,
 	contractHandler,
 	gasPriceHandler,
+	getAccountHandler,
 	getBalanceHandler,
 	getCodeHandler,
 	getStorageAtHandler,
 	scriptHandler,
+	setAccountHandler,
 } from '@tevm/procedures'
 import { DefaultTevmStateManager, TevmStateManager } from '@tevm/state'
 import { createPublicClient, http } from 'viem'
@@ -157,7 +158,8 @@ export const createTevm = async (options = {}) => {
 		_vm: vm,
 		request: processRequest(vm, options.fork?.url),
 		script: scriptHandler(evm),
-		account: accountHandler(evm),
+		getAccount: getAccountHandler(evm),
+		setAccount: setAccountHandler(evm),
 		call: callHandler(evm),
 		contract: contractHandler(evm),
 		eth: {
@@ -187,7 +189,7 @@ export const createTevm = async (options = {}) => {
 
 	await Promise.all(
 		options.customPredeploys?.map((predeploy) => {
-			tevm.account({
+			tevm.setAccount({
 				address: predeploy.address,
 				deployedBytecode: predeploy.contract.deployedBytecode,
 			})

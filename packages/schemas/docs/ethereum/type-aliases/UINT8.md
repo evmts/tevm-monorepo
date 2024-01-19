@@ -1,0 +1,21 @@
+**@tevm/schemas** ∙ [README](../../README.md) ∙ [API](../../API.md)
+
+***
+
+[API](../../API.md) > [ethereum](../README.md) > UINT8
+
+# Type alias: UINT8`<>`
+
+> **UINT8**\<\>: `bigint`
+
+## Type parameters
+
+| Parameter |
+| :------ |
+
+## Source
+
+[packages/schemas/src/ethereum/SUINT/SUINT.js:24](https://github.com/evmts/tevm-monorepo/blob/main/packages/schemas/src/ethereum/SUINT/SUINT.js#L24)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

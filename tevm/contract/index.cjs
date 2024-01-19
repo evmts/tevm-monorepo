@@ -2,10 +2,16 @@
 
 const contract = require('@tevm/contract')
 
-Object.defineProperty(exports, 'createTevmContract', {
+Object.defineProperty(exports, 'createContract', {
 	enumerable: true,
 	get: function () {
-		return contract.createTevmContract
+		return contract.createContract
+	},
+})
+Object.defineProperty(exports, 'createScript', {
+	enumerable: true,
+	get: function () {
+		return contract.createScript
 	},
 })
 Object.defineProperty(exports, 'decodeFunctionData', {
@@ -36,6 +42,24 @@ Object.defineProperty(exports, 'formatAbi', {
 	enumerable: true,
 	get: function () {
 		return contract.formatAbi
+	},
+})
+Object.defineProperty(exports, 'formatEther', {
+	enumerable: true,
+	get: function () {
+		return contract.formatEther
+	},
+})
+Object.defineProperty(exports, 'formatGwei', {
+	enumerable: true,
+	get: function () {
+		return contract.formatGwei
+	},
+})
+Object.defineProperty(exports, 'formatLog', {
+	enumerable: true,
+	get: function () {
+		return contract.formatLog
 	},
 })
 Object.defineProperty(exports, 'fromBytes', {

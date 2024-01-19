@@ -13,12 +13,14 @@ export {
 	zContractParams,
 	zCallParams,
 	zBaseCallParams,
-	zAccountParams,
+	zGetAccountParams,
+	zSetAccountParams,
 } from './params/index.js'
 export {
 	validateCallParams,
 	validateScriptParams,
-	validateAccountParams,
+	validateGetAccountParams,
+	validateSetAccountParams,
 	validateBaseCallParams,
 	validateContractParams,
 } from './validators/index.js'

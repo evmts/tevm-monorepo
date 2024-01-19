@@ -16,10 +16,10 @@ Object.defineProperty(exports, 'createRemoteClient', {
 		return client.createRemoteClient
 	},
 })
-Object.defineProperty(exports, 'createTevmContract', {
+Object.defineProperty(exports, 'createContract', {
 	enumerable: true,
 	get: function () {
-		return contract.createTevmContract
+		return contract.createContract
 	},
 })
 Object.defineProperty(exports, 'decodeFunctionData', {

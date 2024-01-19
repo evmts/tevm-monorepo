@@ -1,4 +1,5 @@
-export * from './AccountJsonRpcRequest.js'
+export * from './GetAccountJsonRpcRequest.js'
+export * from './SetAccountJsonRpcRequest.js'
 export * from './CallJsonRpcRequest.js'
 export * from './ContractJsonRpcRequest.js'
 export * from './JsonRpcRequest.js'

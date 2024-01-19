@@ -81,7 +81,7 @@ describe('Tevm should create a local vm in JavaScript', () => {
 			const balance = 0x11111111n
 			const address1 = '0x1f420000000000000000000000000000000000ff'
 			const address2 = '0x2f420000000000000000000000000000000000ff'
-			await tevm.account({
+			await tevm.setAccount({
 				address: address1,
 				balance,
 			})
@@ -136,7 +136,7 @@ describe('Tevm should create a local vm in JavaScript', () => {
 		it('should insert a new account with eth into the state', async () => {
 			const tevm = await createTevm()
 			const balance = 0x11111111n
-			const account = await tevm.account({
+			const account = await tevm.setAccount({
 				address: '0xff420000000000000000000000000000000000ff',
 				balance,
 			})
@@ -144,7 +144,7 @@ describe('Tevm should create a local vm in JavaScript', () => {
 		})
 		it('should insert a new contract with bytecode', async () => {
 			const tevm = await createTevm()
-			const code = await tevm.account({
+			const code = await tevm.setAccount({
 				deployedBytecode: DaiContract.deployedBytecode,
 				address: '0xff420000000000000000000000000000000000ff',
 			})

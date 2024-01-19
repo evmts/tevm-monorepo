@@ -1,0 +1,20 @@
+**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
+
+***
+
+[API](../../API.md) > [api](../README.md) > EthGetLogsHandler
+
+# Type alias: EthGetLogsHandler
+
+> **EthGetLogsHandler**: (`request`) => `Promise`\<[`EthGetLogsResult`](EthGetLogsResult.md)\>
+
+## Parameters
+
+▪ **request**: [`EthGetLogsParams`](EthGetLogsParams.md)
+
+## Source
+
+vm/api/dist/index.d.ts:1358
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
