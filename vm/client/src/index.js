@@ -1,2 +1,1 @@
-export { createRemoteClient } from './createRemoteClient.js'
-export { createMemoryClient } from './createMemoryClient.js'
+export { createClient } from './createClient.js'

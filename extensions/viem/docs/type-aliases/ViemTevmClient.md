@@ -12,7 +12,7 @@
 
 ### tevm
 
-> **tevm**: `Omit`\<`Tevm`, `"request"`\>
+> **tevm**: `Tevm`
 
 ## Source
 
