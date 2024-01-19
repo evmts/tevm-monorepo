@@ -9,6 +9,8 @@ import type {
 import type { Hex } from 'viem'
 export type ValueOf<T> = T[keyof T]
 
+// Adapted from viem
+
 /**
  * A mapping of view and pure contract methods to action creators
  * @example
@@ -25,8 +27,11 @@ export type ReadActionCreator<
 	TAddress extends Address | undefined,
 	TAddressArgs = TAddress extends undefined ? {} : { address: TAddress },
 > = {
+	// For every view and pure function in the abi, create an action creator
 	[TFunctionName in
+		// extract the read functions from abi
 		ExtractAbiFunctionNames<ParseAbi<THumanReadableAbi>, 'pure' | 'view'>]: (<
+		// keep args etc. generic for typesafety reasons. This is adapted from viem
 		TArgs extends AbiParametersToPrimitiveTypes<
 			ExtractAbiFunction<ParseAbi<THumanReadableAbi>, TFunctionName>['inputs']
 		> &
@@ -35,7 +40,9 @@ export type ReadActionCreator<
 		> &
 			any[],
 	>(
+		// take the same args of the function
 		...args: TArgs
+		// return an action creator that matches the viem api
 	) => {
 		functionName: TFunctionName
 		humanReadableAbi: FormatAbi<

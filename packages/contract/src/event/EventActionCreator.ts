@@ -14,6 +14,8 @@ import type {
 	Hex,
 } from 'viem'
 
+// Adapted from viem
+
 export type MaybeExtractEventArgsFromAbi<
 	TAbi extends Abi | readonly unknown[] | undefined,
 	TEventName extends string | undefined,
@@ -41,12 +43,17 @@ export type EventActionCreator<
 	TAddress extends Address | undefined,
 	TAddressArgs = TAddress extends undefined ? {} : { address: TAddress },
 > = {
+	// for every event in the abi, create an action creator
 	[TEventName in ExtractAbiEventNames<ParseAbi<THumanReadableAbi>>]: (<
 		TStrict extends boolean = false,
 		TFromBlock extends BlockNumber | BlockTag | undefined = undefined,
 		TToBlock extends BlockNumber | BlockTag | undefined = undefined,
 	>(
+		// take take these actions. These match the shape of viem actions
 		params: Pick<
+			// CreateEventFilterParameters create viem like parameters
+			// we are taking the subset that aren't implied already from Contract.event.eventName specification
+			// such as abi, eventName etc.
 			CreateEventFilterParameters<
 				ExtractAbiEvent<ParseAbi<THumanReadableAbi>, TEventName>,
 				ParseAbi<THumanReadableAbi>,
@@ -58,6 +65,7 @@ export type EventActionCreator<
 			>,
 			'fromBlock' | 'toBlock' | 'args' | 'strict'
 		>,
+		// Return the following parameters. It merges the supplied parameters with the event name and abi etc.
 	) => CreateEventFilterParameters<
 		ExtractAbiEvent<ParseAbi<THumanReadableAbi>, TEventName>,
 		ParseAbi<THumanReadableAbi>,
@@ -71,6 +79,8 @@ export type EventActionCreator<
 		abi: [ExtractAbiEvent<ParseAbi<THumanReadableAbi>, TEventName>]
 		bytecode: TBytecode
 		deployedBytecode: TDeployedBytecode
+		// if you use the action creator without supplying arguments it's the same shape but missing args
+		// can be useful for lazily evaluating
 	}) & {
 		eventName: TEventName
 		humanReadableAbi: FormatAbi<

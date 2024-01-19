@@ -9,6 +9,8 @@ import type {
 import type { Hex } from 'viem'
 export type ValueOf<T> = T[keyof T]
 
+// Adapted from viem
+
 /**
  * A mapping of payable and nonpayable contract methods to action creators
  * @example
@@ -25,11 +27,14 @@ export type WriteActionCreator<
 	TAddress extends Address | undefined,
 	TAddressArgs = TAddress extends undefined ? {} : { address: TAddress },
 > = {
+	// for each payable and nonpayable function in the abi, create an action creator
 	[TFunctionName in
+		// extract the names of the functions
 		ExtractAbiFunctionNames<
 			ParseAbi<THumanReadableAbi>,
 			'payable' | 'nonpayable'
 		>]: (<
+		// use generic args to maintain typesafety. This is adapted from viem
 		TArgs extends AbiParametersToPrimitiveTypes<
 			ExtractAbiFunction<ParseAbi<THumanReadableAbi>, TFunctionName>['inputs']
 		> &
@@ -38,8 +43,10 @@ export type WriteActionCreator<
 		> &
 			any[],
 	>(
+		// take the same args as the function
 		...args: TArgs
 	) => {
+		// return the action creator that matches viem api and also tevm.contract tevm.script
 		functionName: TFunctionName
 		humanReadableAbi: FormatAbi<
 			[ExtractAbiFunction<ParseAbi<THumanReadableAbi>, TFunctionName>]
