@@ -278,7 +278,6 @@
 - [EthHashrateParams](type-aliases/EthHashrateParams.md)
 - [EthHashrateResult](type-aliases/EthHashrateResult.md)
 - [EthJsonRpcRequest](type-aliases/EthJsonRpcRequest.md)
-- [EthJsonRpcRequestHandler](type-aliases/EthJsonRpcRequestHandler.md)
 - [EthMiningHandler](type-aliases/EthMiningHandler.md)
 - [EthMiningJsonRpcProcedure](type-aliases/EthMiningJsonRpcProcedure.md)
 - [EthMiningJsonRpcRequest](type-aliases/EthMiningJsonRpcRequest.md)

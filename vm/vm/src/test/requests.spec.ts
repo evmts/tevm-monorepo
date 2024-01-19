@@ -55,7 +55,7 @@ describe('Tevm.request', async () => {
 		expect(res.jsonrpc).toBe(req.jsonrpc)
 	})
 
-	it('should throw an error if attempting a invalid request', async () => {
+	it('should throw an error if attempting a tevm_contractCall request', async () => {
 		const tevm = await createMemoryTevm()
 		const req = {
 			params: {
