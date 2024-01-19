@@ -2,18 +2,18 @@
 editUrl: false
 next: false
 prev: false
-title: "AccountResult"
+title: "GetAccountResult"
 ---
 
-> **AccountResult**\<`ErrorType`\>: `object`
+> **GetAccountResult**\<`ErrorType`\>: `object`
 
-Result of Account Action
+Result of GetAccount Action
 
 ## Type parameters
 
 | Parameter | Default |
 | :------ | :------ |
-| `ErrorType` | [`AccountError`](/generated/type-aliases/accounterror/) |
+| `ErrorType` | [`GetAccountError`](/generated/type-aliases/getaccounterror/) |
 
 ## Type declaration
 
@@ -25,7 +25,7 @@ Description of the exception, if any occurred
 
 ## Source
 
-[result/AccountResult.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/AccountResult.ts#L6)
+[result/GetAccountResult.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/GetAccountResult.ts#L6)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

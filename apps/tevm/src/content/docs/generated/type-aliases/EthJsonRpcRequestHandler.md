@@ -17,7 +17,7 @@ title: "EthJsonRpcRequestHandler"
 
 ## Source
 
-[TevmJsonRpcRequestHandler.ts:158](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/TevmJsonRpcRequestHandler.ts#L158)
+[TevmJsonRpcRequestHandler.ts:175](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/TevmJsonRpcRequestHandler.ts#L175)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,3 +1,7 @@
+---
+title: Example Reference
+description: A reference page in my new Starlight docs site.
+---
 ## Introduction to Tevm API
 
 Tevm is a JavaScript library for running the EVM in node, bun and the browser. It's API has the following concepts:

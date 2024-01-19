@@ -17,9 +17,21 @@ import type {
 } from './handlers/index.js'
 
 /**
- * The specification for the Tevm api
- * It has a request method for JSON-RPC requests and more ergonomic handler methods
- * for each type of request
+ * Tevm 
+ * A local EVM instance running in the browser or Node.js. Akin to anvil or ganache
+ *
+ * - Runs in browser bun and node.js environments
+ * - Network forking to fork any EVM compatible network
+ * - Supports most ethereum JSON-RPC methods
+ * - Will have anvil ganache and hardhat compatibility in future versions
+ *
+ * @see {@link https://todo.todo | createTevm} for documentation on creating an in memory Tevm instance
+ * @see {@link https://todo.todo | createClient} for documentation on creating an client for talking to a remote Tevm instance over HTTP
+ *
+ * #### JSON-RPC
+ *
+ * Tevm exposes a JSON-RPC interface for interacting with the EVM via the {@link Tevm.request} 
+ *
  * @example
  * ```typescript
  * import {createTevm, type Tevm} from 'tevm'
@@ -33,6 +45,26 @@ import type {
  *   jsonrpc: '2.0'
  * }) // 2323409234999n
  * ```
+ *
+ * #### Actions
+ *
+ * Tevm exposes a higher level `actions` based api similar to {@link https://viem.sh | viem} for interacting with Tevm in a typesasafe
+ * ergonomic way.
+ *
+ * @example
+ * ```typescript
+ * // same as eth_blockNumber example
+ * const blockNumber = await tevm.eth.blockNumber()
+ * console.log(blockNumber) // 0n
+ * ```
+ *
+ * #### Ethereum actions
+ *
+ * Ethereum actions are namespaced under {@link Tevm.eth} 
+ *
+ * #### Anvil hardhat and ganache compatibility
+ *
+ * Tevm will have compatibility with anvil hardhat and ganache in future versions
  */
 export type Tevm = {
 	/**

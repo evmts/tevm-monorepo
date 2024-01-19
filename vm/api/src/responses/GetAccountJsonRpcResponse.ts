@@ -6,7 +6,7 @@ import type { JsonRpcResponse } from './JsonRpcResponse.js'
  * JSON-RPC response for `tevm_getAccount` method
  */
 export type GetAccountJsonRpcResponse = JsonRpcResponse<
-	'tevm_account',
+	'tevm_getAccount',
 	SerializeToJson<GetAccountResult>,
 	GetAccountError['_tag']
 >

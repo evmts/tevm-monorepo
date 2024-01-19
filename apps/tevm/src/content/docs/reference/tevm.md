@@ -1,3 +1,7 @@
+---
+title: Example Reference
+description: A reference page in my new Starlight docs site.
+---
 ### Tevm
 
 Ƭ **Tevm**: `Tevm` & \{ `_evm`: `TevmEvm` ; `_vm`: `VM` ; `forkUrl?`: `string`  }

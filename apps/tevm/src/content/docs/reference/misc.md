@@ -1,3 +1,7 @@
+---
+title: Example Reference
+description: A reference page in my new Starlight docs site.
+---
 ### JsonRpcRequest
 
 Ƭ **JsonRpcRequest**\<`TMethod`, `TParams`\>: \{ `id?`: `string` \| `number` \| ``null`` ; `jsonrpc`: ``"2.0"`` ; `method`: `TMethod`  } & `TParams` extends readonly [] ? \{ `params?`: `TParams`  } : \{ `params`: `TParams`  }

@@ -7,7 +7,7 @@ title: "ScriptError"
 
 > **ScriptError**: [`ContractError`](/generated/type-aliases/contracterror/) \| [`InvalidBytecodeError`](/generated/type-aliases/invalidbytecodeerror/) \| [`InvalidDeployedBytecodeError`](/generated/type-aliases/invaliddeployedbytecodeerror/)
 
-Error type of errors thrown by the script procedure
+Error type of errors thrown by the tevm_script procedure
 
 ## Example
 

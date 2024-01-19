@@ -9,8 +9,8 @@ export default defineConfig({
 			editLink: { baseUrl: 'https://github.com/evmts/tevm-monorepo/edit/main/apps/tevm' },
 			plugins: [
 				starlightTypeDoc({
-					entryPoints: ['../../vm/api/src/index.ts'],
-					tsconfig: '../../vm/api/tsconfig.json',
+					entryPoints: ['../../tevm/api/index.ts'],
+					tsconfig: '../../tevm/tsconfig.json',
 					output: 'generated',
 					sidebar: {
 						label: 'API (auto-generated)',

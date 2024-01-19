@@ -6,6 +6,6 @@ import type { JsonRpcRequest } from './JsonRpcRequest.js'
  * JSON-RPC request for `tevm_setAccount` method
  */
 export type SetAccountJsonRpcRequest = JsonRpcRequest<
-	'tevm_account',
+	'tevm_setAccount',
 	SerializeToJson<SetAccountParams>
 >

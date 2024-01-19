@@ -1,12 +1,12 @@
-'use strict'
+'use strict';
 
-const vm = require('@tevm/vm')
+var vm = require('@tevm/vm');
+
+
 
 Object.defineProperty(exports, 'createTevm', {
-	enumerable: true,
-	get: function () {
-		return vm.createTevm
-	},
-})
+  enumerable: true,
+  get: function () { return vm.createTevm; }
+});
 //# sourceMappingURL=out.js.map
 //# sourceMappingURL=index.cjs.map

@@ -1,3 +1,7 @@
+---
+title: Example Reference
+description: A reference page in my new Starlight docs site.
+---
 ### ScriptError
 
 Ƭ **ScriptError**: [`ContractError`](modules.md#contracterror) \| [`InvalidBytecodeError`](modules.md#invalidbytecodeerror) \| [`InvalidDeployedBytecodeError`](modules.md#invaliddeployedbytecodeerror)

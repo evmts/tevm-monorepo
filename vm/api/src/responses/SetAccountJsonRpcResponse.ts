@@ -6,7 +6,7 @@ import type { JsonRpcResponse } from './JsonRpcResponse.js'
  * JSON-RPC response for `tevm_setAccount` method
  */
 export type SetAccountJsonRpcResponse = JsonRpcResponse<
-	'tevm_account',
+	'tevm_setAccount',
 	SerializeToJson<SetAccountResult>,
 	SetAccountError['_tag']
 >
