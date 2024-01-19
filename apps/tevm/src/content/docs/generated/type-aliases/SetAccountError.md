@@ -22,7 +22,7 @@ if (errors?.length) {
 
 ## Source
 
-[errors/SetAccountError.ts:19](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/errors/SetAccountError.ts#L19)
+vm/api/dist/index.d.ts:931
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

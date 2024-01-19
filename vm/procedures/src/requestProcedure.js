@@ -1,14 +1,15 @@
 import { UnknownMethodError } from './errors/UnknownMethodError.js'
 import {
-	accountProcedure,
 	blockNumberProcedure,
 	callProcedure,
 	chainIdProcedure,
 	gasPriceProcedure,
+	getAccountProcedure,
 	getBalanceProcedure,
 	getCodeProcedure,
 	getStorageAtProcedure,
 	scriptProcedure,
+	setAccountProcedure,
 } from './index.js'
 
 /**
@@ -48,8 +49,10 @@ export const requestProcedure = (vm) => {
 							'UnknownMethodError: tevm_contract is not supported. Encode the contract arguments and use tevm_call instead.',
 					},
 				})
-			case 'tevm_account':
-				return /**@type any*/ (accountProcedure)(vm.evm)(request)
+			case 'tevm_getAccount':
+				return /**@type any*/ (getAccountProcedure)(vm.evm)(request)
+			case 'tevm_setAccount':
+				return /**@type any*/ (setAccountProcedure)(vm.evm)(request)
 			case 'tevm_script':
 				return /**@type any*/ (scriptProcedure)(vm.evm)(request)
 			case 'eth_blockNumber':

@@ -15,7 +15,7 @@ JSON-RPC procedure for `anvil_loadState`
 
 ## Source
 
-[procedure/AnvilProcedure.ts:127](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/procedure/AnvilProcedure.ts#L127)
+vm/api/dist/index.d.ts:2094
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

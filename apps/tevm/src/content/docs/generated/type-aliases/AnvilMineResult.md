@@ -9,7 +9,7 @@ title: "AnvilMineResult"
 
 ## Source
 
-[result/AnvilResult.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/AnvilResult.ts#L13)
+vm/api/dist/index.d.ts:1024
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

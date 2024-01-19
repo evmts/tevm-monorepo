@@ -70,6 +70,7 @@ export type {
 	TraceResult,
 	TraceCall,
 	TraceType,
+	AccountNotFoundError,
 	GetAccountError,
 	SetAccountError,
 	EvmError,

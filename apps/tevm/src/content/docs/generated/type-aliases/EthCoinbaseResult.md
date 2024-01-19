@@ -5,13 +5,13 @@ prev: false
 title: "EthCoinbaseResult"
 ---
 
-> **EthCoinbaseResult**: `Address`
+> **EthCoinbaseResult**: `Address$1`
 
 JSON-RPC response for `eth_coinbase` procedure
 
 ## Source
 
-[result/EthResult.ts:36](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/EthResult.ts#L36)
+vm/api/dist/index.d.ts:1149
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

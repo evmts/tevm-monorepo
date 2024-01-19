@@ -15,7 +15,7 @@ JSON-RPC procedure for `anvil_getAutomine`
 
 ## Source
 
-[procedure/AnvilProcedure.ts:55](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/procedure/AnvilProcedure.ts#L55)
+vm/api/dist/index.d.ts:2054
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -3,19 +3,19 @@ import {
 	Account as EthjsAccount,
 	Address as EthjsAddress,
 } from '@ethereumjs/util'
-import { validateAccountParams } from '@tevm/zod'
+import { validateSetAccountParams } from '@tevm/zod'
 import { hexToBytes, keccak256 } from 'viem'
 
 /**
- * Creates an AccountHandler for handling account params with Ethereumjs EVM
+ * Creates an SetAccountHandler for handling account params with Ethereumjs EVM
  * @param {import('@ethereumjs/evm').EVM} evm
- * @returns {import('@tevm/api').AccountHandler}
+ * @returns {import('@tevm/api').SetAccountHandler}
  */
-export const accountHandler = (evm) => async (params) => {
+export const setAccountHandler = (evm) => async (params) => {
 	/**
-	 * @type {Array<import('@tevm/api').AccountError>}
+	 * @type {Array<import('@tevm/api').SetAccountError>}
 	 */
-	const errors = validateAccountParams(params)
+	const errors = validateSetAccountParams(params)
 	if (errors.length > 0) {
 		return { errors }
 	}

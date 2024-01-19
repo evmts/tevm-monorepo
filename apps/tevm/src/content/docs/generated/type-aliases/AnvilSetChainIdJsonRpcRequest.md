@@ -11,7 +11,7 @@ JSON-RPC request for `anvil_setChainId` method
 
 ## Source
 
-[requests/AnvilJsonRpcRequest.ts:109](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/requests/AnvilJsonRpcRequest.ts#L109)
+vm/api/dist/index.d.ts:1661
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

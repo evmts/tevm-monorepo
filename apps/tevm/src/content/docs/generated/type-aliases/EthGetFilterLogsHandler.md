@@ -13,7 +13,7 @@ title: "EthGetFilterLogsHandler"
 
 ## Source
 
-[handlers/EthHandler.ts:141](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/handlers/EthHandler.ts#L141)
+vm/api/dist/index.d.ts:1332
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

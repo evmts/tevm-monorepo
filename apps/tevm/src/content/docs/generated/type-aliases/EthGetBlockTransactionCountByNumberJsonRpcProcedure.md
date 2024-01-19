@@ -13,7 +13,7 @@ title: "EthGetBlockTransactionCountByNumberJsonRpcProcedure"
 
 ## Source
 
-[procedure/EthProcedure.ts:131](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/procedure/EthProcedure.ts#L131)
+vm/api/dist/index.d.ts:2012
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

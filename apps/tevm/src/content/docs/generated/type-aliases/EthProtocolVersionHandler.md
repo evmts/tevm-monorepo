@@ -13,7 +13,7 @@ title: "EthProtocolVersionHandler"
 
 ## Source
 
-[handlers/EthHandler.ts:193](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/handlers/EthHandler.ts#L193)
+vm/api/dist/index.d.ts:1345
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

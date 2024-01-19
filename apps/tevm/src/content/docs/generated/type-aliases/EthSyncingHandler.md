@@ -13,7 +13,7 @@ title: "EthSyncingHandler"
 
 ## Source
 
-[handlers/EthHandler.ts:211](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/handlers/EthHandler.ts#L211)
+vm/api/dist/index.d.ts:1350
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -9,7 +9,7 @@ title: "TraceType"
 
 ## Source
 
-[common/TraceType.ts:1](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/common/TraceType.ts#L1)
+vm/api/dist/index.d.ts:694
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

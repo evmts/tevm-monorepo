@@ -27,7 +27,7 @@ Address of account
 
 ## Source
 
-[params/GetAccountParams.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/GetAccountParams.ts#L10)
+vm/api/dist/index.d.ts:46
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

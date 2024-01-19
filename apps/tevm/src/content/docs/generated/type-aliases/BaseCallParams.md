@@ -25,7 +25,7 @@ The `block` the `tx` belongs to. If omitted a default blank block will be used.
 
 ### caller
 
-> **caller**?: `Address`
+> **caller**?: `Address$1`
 
 The address that ran this code (`msg.sender`). Defaults to the zero address.
 
@@ -55,13 +55,13 @@ Refund counter. Defaults to `0`
 
 ### origin
 
-> **origin**?: `Address`
+> **origin**?: `Address$1`
 
 The address where the call originated from. Defaults to the zero address.
 
 ### selfdestruct
 
-> **selfdestruct**?: `Set`\<`Address`\>
+> **selfdestruct**?: `Set`\<`Address$1`\>
 
 Addresses to selfdestruct. Defaults to the empty set.
 
@@ -75,7 +75,7 @@ where it is set to true
 
 ### to
 
-> **to**?: `Address`
+> **to**?: `Address$1`
 
 The address of the account that is executing this code (`address(this)`). Defaults to the zero address.
 
@@ -87,7 +87,7 @@ The value in ether that is being sent to `opts.address`. Defaults to `0`
 
 ## Source
 
-[params/BaseCallParams.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/BaseCallParams.ts#L7)
+vm/api/dist/index.d.ts:90
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

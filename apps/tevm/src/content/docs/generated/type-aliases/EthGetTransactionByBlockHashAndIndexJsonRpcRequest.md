@@ -11,7 +11,7 @@ JSON-RPC request for `eth_getTransactionByBlockHashAndIndex` procedure
 
 ## Source
 
-[requests/EthJsonRpcRequest.ts:187](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/requests/EthJsonRpcRequest.ts#L187)
+vm/api/dist/index.d.ts:1529
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

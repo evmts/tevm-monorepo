@@ -13,7 +13,7 @@ title: "AnvilDropTransactionHandler"
 
 ## Source
 
-[handlers/AnvilHandler.ts:56](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/handlers/AnvilHandler.ts#L56)
+vm/api/dist/index.d.ts:1040
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

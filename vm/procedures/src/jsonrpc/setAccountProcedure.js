@@ -1,14 +1,14 @@
-import { accountHandler } from '../index.js'
+import { setAccountHandler } from '../index.js'
 import { hexToBigInt } from 'viem'
 
 /**
- * Creates an Account JSON-RPC Procedure for handling account requests with Ethereumjs EVM
+ * Creates an SetAccount JSON-RPC Procedure for handling tevm_setAccount requests with Ethereumjs EVM
  * @param {import('@ethereumjs/evm').EVM} evm
- * @returns {import('@tevm/api').AccountJsonRpcProcedure}
+ * @returns {import('@tevm/api').SetAccountJsonRpcProcedure}
  */
-export const accountProcedure = (evm) => async (request) => {
+export const setAccountProcedure = (evm) => async (request) => {
 	request.params
-	const { errors = [], ...result } = await accountHandler(evm)({
+	const { errors = [], ...result } = await setAccountHandler(evm)({
 		address: request.params.address,
 		...(request.params.nonce
 			? { nonce: hexToBigInt(request.params.nonce) }
@@ -24,7 +24,7 @@ export const accountProcedure = (evm) => async (request) => {
 			: {}),
 	})
 	if (errors.length > 0) {
-		const error = /** @type {import('@tevm/api').AccountError}*/ (errors[0])
+		const error = /** @type {import('@tevm/api').SetAccountError}*/ (errors[0])
 		return {
 			jsonrpc: '2.0',
 			error: {
@@ -34,14 +34,14 @@ export const accountProcedure = (evm) => async (request) => {
 					errors: errors.map(({ message }) => message),
 				},
 			},
-			method: 'tevm_account',
+			method: 'tevm_setAccount',
 			...(request.id === undefined ? {} : { id: request.id }),
 		}
 	}
 	return {
 		jsonrpc: '2.0',
 		result,
-		method: 'tevm_account',
+		method: 'tevm_setAccount',
 		...(request.id === undefined ? {} : { id: request.id }),
 	}
 }

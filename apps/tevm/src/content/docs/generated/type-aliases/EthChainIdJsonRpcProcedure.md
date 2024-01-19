@@ -13,7 +13,7 @@ title: "EthChainIdJsonRpcProcedure"
 
 ## Source
 
-[procedure/EthProcedure.ts:95](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/procedure/EthProcedure.ts#L95)
+vm/api/dist/index.d.ts:2003
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

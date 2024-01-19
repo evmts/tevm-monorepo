@@ -1,3 +1,4 @@
+export type * from './AccountNotFoundError.js'
 export type * from './InvalidBytecodeError.js'
 export type * from './InvalidStorageRootError.js'
 export type * from './InvalidDataError.js'

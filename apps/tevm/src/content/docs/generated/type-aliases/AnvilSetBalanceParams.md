@@ -25,7 +25,7 @@ The balance to set
 
 ## Source
 
-[params/AnvilParams.ts:89](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/AnvilParams.ts#L89)
+vm/api/dist/index.d.ts:475
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

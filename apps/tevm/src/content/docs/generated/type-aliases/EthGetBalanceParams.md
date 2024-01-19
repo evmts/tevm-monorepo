@@ -11,7 +11,7 @@ JSON-RPC request for `eth_getBalance` procedure
 
 ## Source
 
-[params/EthParams.ts:64](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/EthParams.ts#L64)
+vm/api/dist/index.d.ts:240
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

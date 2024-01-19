@@ -7,7 +7,7 @@ title: "Tevm"
 
 > **Tevm**: `object`
 
-Tevm 
+Tevm
 A local EVM instance running in the browser or Node.js. Akin to anvil or ganache
 
 - Runs in browser bun and node.js environments
@@ -54,7 +54,7 @@ console.log(blockNumber) // 0n
 
 #### Ethereum actions
 
-Ethereum actions are namespaced under [Tevm.eth](Property eth:Object) 
+Ethereum actions are namespaced under [Tevm.eth](Property eth:Object)
 
 #### Anvil hardhat and ganache compatibility
 
@@ -91,7 +91,7 @@ skipBalance: true,
 
 Executes a contract call against the VM. It is similar to `eth_call` but has more
 options for controlling the execution environment along with a typesafe API
-for creating the call via the contract abi. 
+for creating the call via the contract abi.
 
 The contract must already be deployed. Otherwise see `script` which executes calls
 against undeployed contracts
@@ -323,7 +323,7 @@ await tevm.setAccount({
 
 ## Source
 
-[Tevm.ts:69](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/Tevm.ts#L69)
+vm/api/dist/index.d.ts:2243
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -11,7 +11,7 @@ JSON-RPC response for `eth_getBlockByNumber` procedure
 
 ## Source
 
-[responses/EthJsonRpcResponse.ts:111](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/responses/EthJsonRpcResponse.ts#L111)
+vm/api/dist/index.d.ts:1780
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

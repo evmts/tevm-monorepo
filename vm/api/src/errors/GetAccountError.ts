@@ -1,3 +1,4 @@
+import type { AccountNotFoundError } from './AccountNotFoundError.js'
 import type { InvalidAddressError } from './InvalidAddressError.js'
 import type { InvalidRequestError } from './InvalidRequestError.js'
 import type { UnexpectedError } from './UnexpectedError.js'
@@ -13,6 +14,7 @@ import type { UnexpectedError } from './UnexpectedError.js'
  * }
  */
 export type GetAccountError =
+	| AccountNotFoundError
 	| InvalidAddressError
 	| InvalidRequestError
 	| UnexpectedError

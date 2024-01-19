@@ -11,7 +11,7 @@ JSON-RPC response for `eth_getBlockByHash` procedure
 
 ## Source
 
-[result/EthResult.ts:66](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/EthResult.ts#L66)
+vm/api/dist/index.d.ts:1169
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

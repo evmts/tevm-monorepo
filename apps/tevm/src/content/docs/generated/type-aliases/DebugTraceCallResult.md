@@ -27,7 +27,7 @@ title: "DebugTraceCallResult"
 
 ## Source
 
-[result/DebugResult.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/DebugResult.ts#L16)
+vm/api/dist/index.d.ts:1307
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

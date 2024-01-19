@@ -17,7 +17,7 @@ title: "JsonRpcResponse"
 
 ## Source
 
-[responses/JsonRpcResponse.ts:1](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/responses/JsonRpcResponse.ts#L1)
+vm/api/dist/index.d.ts:1682
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

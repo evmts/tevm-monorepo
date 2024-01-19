@@ -2,7 +2,8 @@ export { requestProcedure } from './requestProcedure.js'
 export {
 	callHandler,
 	scriptHandler,
-	accountHandler,
+	getAccountHandler,
+	setAccountHandler,
 	contractHandler,
 	blockNumberHandler,
 	chainIdHandler,
@@ -15,7 +16,8 @@ export {
 export {
 	callProcedure,
 	scriptProcedure,
-	accountProcedure,
+	getAccountProcedure,
+	setAccountProcedure,
 	contractProcedure,
 	blockNumberProcedure,
 	chainIdProcedure,

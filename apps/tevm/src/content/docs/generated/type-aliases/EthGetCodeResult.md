@@ -11,7 +11,7 @@ JSON-RPC response for `eth_getCode` procedure
 
 ## Source
 
-[result/EthResult.ts:89](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/EthResult.ts#L89)
+vm/api/dist/index.d.ts:1185
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

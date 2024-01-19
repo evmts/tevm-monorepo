@@ -11,7 +11,7 @@ Error thrown when blobVersionedHashes parameter is invalid
 
 ## Source
 
-[errors/InvalidBlobVersionedHashesError.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/errors/InvalidBlobVersionedHashesError.ts#L6)
+vm/api/dist/index.d.ts:774
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -13,7 +13,7 @@ title: "EthGetFilterChangesHandler"
 
 ## Source
 
-[handlers/EthHandler.ts:137](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/handlers/EthHandler.ts#L137)
+vm/api/dist/index.d.ts:1331
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

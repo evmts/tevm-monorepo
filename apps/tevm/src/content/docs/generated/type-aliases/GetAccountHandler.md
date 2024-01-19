@@ -26,7 +26,7 @@ console.log(res.balance)
 
 ## Source
 
-[handlers/GetAccountHandler.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/handlers/GetAccountHandler.ts#L11)
+vm/api/dist/index.d.ts:956
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

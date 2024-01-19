@@ -13,7 +13,7 @@ title: "EthUninstallFilterHandler"
 
 ## Source
 
-[handlers/EthHandler.ts:227](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/handlers/EthHandler.ts#L227)
+vm/api/dist/index.d.ts:1354
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

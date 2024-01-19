@@ -11,7 +11,7 @@ Error thrown when balance parameter is invalid
 
 ## Source
 
-[errors/InvalidBalanceError.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/errors/InvalidBalanceError.ts#L6)
+vm/api/dist/index.d.ts:753
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

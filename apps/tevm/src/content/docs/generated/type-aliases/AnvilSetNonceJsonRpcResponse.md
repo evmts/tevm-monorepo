@@ -11,7 +11,7 @@ JSON-RPC response for `anvil_setNonce` procedure
 
 ## Source
 
-[responses/AnvilJsonRpcResponse.ts:106](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/responses/AnvilJsonRpcResponse.ts#L106)
+vm/api/dist/index.d.ts:1945
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -11,7 +11,7 @@ JSON-RPC response for `eth_getFilterChanges` procedure
 
 ## Source
 
-[responses/EthJsonRpcResponse.ts:148](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/responses/EthJsonRpcResponse.ts#L148)
+vm/api/dist/index.d.ts:1796
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

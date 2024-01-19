@@ -17,7 +17,7 @@ title: "ScriptResult"
 
 ## Source
 
-[result/ScriptResult.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/ScriptResult.ts#L6)
+vm/api/dist/index.d.ts:1125
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

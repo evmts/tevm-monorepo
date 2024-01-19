@@ -11,7 +11,7 @@ JSON-RPC request for `eth_sendTransaction` procedure
 
 ## Source
 
-[params/EthParams.ts:199](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/EthParams.ts#L199)
+vm/api/dist/index.d.ts:372
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

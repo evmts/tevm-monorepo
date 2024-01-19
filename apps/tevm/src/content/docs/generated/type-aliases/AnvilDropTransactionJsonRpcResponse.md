@@ -11,7 +11,7 @@ JSON-RPC response for `anvil_dropTransaction` procedure
 
 ## Source
 
-[responses/AnvilJsonRpcResponse.ts:79](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/responses/AnvilJsonRpcResponse.ts#L79)
+vm/api/dist/index.d.ts:1933
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

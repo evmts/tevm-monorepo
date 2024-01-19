@@ -19,7 +19,7 @@ The address to stop impersonating
 
 ## Source
 
-[params/AnvilParams.ts:22](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/AnvilParams.ts#L22)
+vm/api/dist/index.d.ts:421
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

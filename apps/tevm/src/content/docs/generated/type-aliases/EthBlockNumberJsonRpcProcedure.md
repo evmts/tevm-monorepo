@@ -13,7 +13,7 @@ title: "EthBlockNumberJsonRpcProcedure"
 
 ## Source
 
-[procedure/EthProcedure.ts:87](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/procedure/EthProcedure.ts#L87)
+vm/api/dist/index.d.ts:2001
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

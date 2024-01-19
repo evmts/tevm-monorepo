@@ -11,7 +11,7 @@ Params for `anvil_getAutomine` handler
 
 ## Source
 
-[params/AnvilParams.ts:40](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/AnvilParams.ts#L40)
+vm/api/dist/index.d.ts:434
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -11,7 +11,7 @@ JSON-RPC response for `eth_getUncleByBlockNumberAndIndex` procedure
 
 ## Source
 
-[result/EthResult.ts:167](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/EthResult.ts#L167)
+vm/api/dist/index.d.ts:1237
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

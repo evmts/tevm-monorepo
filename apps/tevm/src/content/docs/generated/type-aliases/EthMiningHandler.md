@@ -13,7 +13,7 @@ title: "EthMiningHandler"
 
 ## Source
 
-[handlers/EthHandler.ts:189](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/handlers/EthHandler.ts#L189)
+vm/api/dist/index.d.ts:1344
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

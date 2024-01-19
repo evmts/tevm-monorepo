@@ -11,7 +11,7 @@ JSON-RPC request for `anvil_stopImpersonatingAccount` method
 
 ## Source
 
-[requests/AnvilJsonRpcRequest.ts:31](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/requests/AnvilJsonRpcRequest.ts#L31)
+vm/api/dist/index.d.ts:1621
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

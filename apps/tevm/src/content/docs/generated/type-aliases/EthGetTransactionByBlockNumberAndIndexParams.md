@@ -21,7 +21,7 @@ JSON-RPC request for `eth_getTransactionByBlockNumberAndIndex` procedure
 
 ## Source
 
-[params/EthParams.ts:155](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/EthParams.ts#L155)
+vm/api/dist/index.d.ts:335
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

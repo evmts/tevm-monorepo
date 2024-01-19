@@ -32,7 +32,7 @@ Helper type for creating JSON-RPC request types
 
 ## Source
 
-[requests/JsonRpcRequest.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/requests/JsonRpcRequest.ts#L4)
+vm/api/dist/index.d.ts:1371
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

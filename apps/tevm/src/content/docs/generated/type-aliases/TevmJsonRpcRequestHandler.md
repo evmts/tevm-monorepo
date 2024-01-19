@@ -39,7 +39,7 @@ const accountResponse = await tevm.request({
 
 ## Source
 
-[TevmJsonRpcRequestHandler.ts:165](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/TevmJsonRpcRequestHandler.ts#L165)
+vm/api/dist/index.d.ts:2190
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

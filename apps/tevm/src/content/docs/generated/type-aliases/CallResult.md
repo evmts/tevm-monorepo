@@ -79,7 +79,7 @@ A set of accounts to selfdestruct
 
 ## Source
 
-[result/CallResult.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/CallResult.ts#L9)
+vm/api/dist/index.d.ts:1072
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

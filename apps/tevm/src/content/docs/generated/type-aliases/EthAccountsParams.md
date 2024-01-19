@@ -11,7 +11,7 @@ Params taken by `eth_accounts` handler
 
 ## Source
 
-[params/EthParams.ts:24](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/EthParams.ts#L24)
+vm/api/dist/index.d.ts:208
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

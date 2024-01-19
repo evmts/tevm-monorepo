@@ -47,7 +47,7 @@ title: "TraceCall"
 
 ## Source
 
-[common/TraceCall.ts:5](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/common/TraceCall.ts#L5)
+vm/api/dist/index.d.ts:696
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

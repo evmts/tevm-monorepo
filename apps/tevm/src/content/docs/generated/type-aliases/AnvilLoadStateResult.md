@@ -9,7 +9,7 @@ title: "AnvilLoadStateResult"
 
 ## Source
 
-[result/AnvilResult.ts:33](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/AnvilResult.ts#L33)
+vm/api/dist/index.d.ts:1033
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

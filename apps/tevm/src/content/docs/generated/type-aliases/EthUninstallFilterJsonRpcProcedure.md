@@ -13,7 +13,7 @@ title: "EthUninstallFilterJsonRpcProcedure"
 
 ## Source
 
-[procedure/EthProcedure.ts:231](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/procedure/EthProcedure.ts#L231)
+vm/api/dist/index.d.ts:2037
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

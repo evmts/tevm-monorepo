@@ -17,7 +17,7 @@ title: "ContractResult"
 
 ## Source
 
-[result/ContractResult.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/ContractResult.ts#L9)
+vm/api/dist/index.d.ts:1115
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

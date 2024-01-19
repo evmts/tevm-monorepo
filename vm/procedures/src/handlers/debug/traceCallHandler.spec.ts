@@ -1,4 +1,4 @@
-import { accountHandler } from '../accountHandler.js'
+import { setAccountHandler } from '../setAccountHandler.js'
 import { traceCallHandler } from './traceCallHandler.js'
 import { EVM } from '@ethereumjs/evm'
 import { describe, expect, it } from 'bun:test'
@@ -296,7 +296,7 @@ describe('traceCallHandler', () => {
 		// deploy contract
 		expect(
 			(
-				await accountHandler(evm)({
+				await setAccountHandler(evm)({
 					address: ERC20_ADDRESS,
 					deployedBytecode: ERC20_BYTECODE,
 					nonce: parseEther('1000'),

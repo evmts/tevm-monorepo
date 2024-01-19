@@ -13,7 +13,7 @@ title: "EthHashrateHandler"
 
 ## Source
 
-[handlers/EthHandler.ts:105](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/handlers/EthHandler.ts#L105)
+vm/api/dist/index.d.ts:1323
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

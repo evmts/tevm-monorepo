@@ -13,7 +13,7 @@ title: "EthChainIdHandler"
 
 ## Source
 
-[handlers/EthHandler.ts:93](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/handlers/EthHandler.ts#L93)
+vm/api/dist/index.d.ts:1320
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

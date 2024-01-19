@@ -11,7 +11,7 @@ JSON-RPC response for `eth_getTransactionByHash` procedure
 
 ## Source
 
-[responses/EthJsonRpcResponse.ts:218](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/responses/EthJsonRpcResponse.ts#L218)
+vm/api/dist/index.d.ts:1824
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

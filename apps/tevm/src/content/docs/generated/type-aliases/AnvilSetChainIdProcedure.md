@@ -15,7 +15,7 @@ JSON-RPC procedure for `anvil_setChainId`
 
 ## Source
 
-[procedure/AnvilProcedure.ts:111](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/procedure/AnvilProcedure.ts#L111)
+vm/api/dist/index.d.ts:2086
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -9,7 +9,7 @@ title: "AnvilDropTransactionResult"
 
 ## Source
 
-[result/AnvilResult.ts:17](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/AnvilResult.ts#L17)
+vm/api/dist/index.d.ts:1026
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

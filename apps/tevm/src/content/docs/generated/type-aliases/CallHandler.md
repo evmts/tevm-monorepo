@@ -34,7 +34,7 @@ skipBalance: true,
 
 ## Source
 
-[handlers/CallHandler.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/handlers/CallHandler.ts#L20)
+vm/api/dist/index.d.ts:988
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -9,7 +9,7 @@ title: "AnvilSetStorageAtResult"
 
 ## Source
 
-[result/AnvilResult.ts:25](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/AnvilResult.ts#L25)
+vm/api/dist/index.d.ts:1030
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -15,7 +15,7 @@ JSON-RPC procedure for `anvil_setCode`
 
 ## Source
 
-[procedure/AnvilProcedure.ts:90](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/procedure/AnvilProcedure.ts#L90)
+vm/api/dist/index.d.ts:2074
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

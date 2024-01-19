@@ -13,7 +13,7 @@ title: "EthSyncingJsonRpcProcedure"
 
 ## Source
 
-[procedure/EthProcedure.ts:215](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/procedure/EthProcedure.ts#L215)
+vm/api/dist/index.d.ts:2033
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

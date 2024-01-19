@@ -9,7 +9,7 @@ export default defineConfig({
 			editLink: { baseUrl: 'https://github.com/evmts/tevm-monorepo/edit/main/apps/tevm' },
 			plugins: [
 				starlightTypeDoc({
-					entryPoints: ['../../tevm/api/index.ts'],
+					entryPoints: ['../../vm/api', '../../vm/vm', '../../vm/procedures', '../../vm/server', '../../packages/contract'],
 					tsconfig: '../../tevm/tsconfig.json',
 					output: 'generated',
 					sidebar: {
@@ -17,6 +17,7 @@ export default defineConfig({
 					},
 					typeDoc: {
 						gitRevision: 'main',
+						entryPointStrategy: 'packages'
 					}
 				}),
 			],

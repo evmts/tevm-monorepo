@@ -298,13 +298,45 @@ const ERC20_ABI = [
 ] as const
 
 describe('requestProcedure', () => {
-	describe('tevm_account', () => {
+	describe('tevm_getAccount', () => {
+		it('should work', async () => {
+			const evm = new EVM({})
+			const vm = await VM.create({ evm })
+			await requestProcedure(vm)({
+				jsonrpc: '2.0',
+				method: 'tevm_setAccount',
+				id: 1,
+				params: {
+					address: ERC20_ADDRESS,
+					deployedBytecode: ERC20_BYTECODE,
+					balance: numberToHex(420n),
+					nonce: numberToHex(69n),
+				},
+			})
+			const res = await requestProcedure(vm)({
+				jsonrpc: '2.0',
+				method: 'tevm_getAccount',
+				id: 1,
+				params: {
+					address: ERC20_ADDRESS,
+				},
+			})
+			expect(res.error).toBeUndefined()
+			expect(res.result).toEqual({
+				balance: numberToHex(420n),
+				nonce: numberToHex(69n),
+				deployedBytecode: ERC20_BYTECODE,
+				address: ERC20_ADDRESS,
+			})
+		})
+	})
+	describe('tevm_setAccount', () => {
 		it('should work', async () => {
 			const evm = new EVM({})
 			const vm = await VM.create({ evm })
 			const res = await requestProcedure(vm)({
 				jsonrpc: '2.0',
-				method: 'tevm_account',
+				method: 'tevm_setAccount',
 				id: 1,
 				params: {
 					address: ERC20_ADDRESS,
@@ -329,7 +361,7 @@ describe('requestProcedure', () => {
 			}
 			const res = await requestProcedure(vm)({
 				jsonrpc: '2.0',
-				method: 'tevm_account',
+				method: 'tevm_setAccount',
 				id: 1,
 				params: {
 					address: ERC20_ADDRESS,
@@ -350,7 +382,7 @@ describe('requestProcedure', () => {
 				},
 				id: 1,
 				jsonrpc: '2.0',
-				method: 'tevm_account',
+				method: 'tevm_setAccount',
 			})
 		})
 	})

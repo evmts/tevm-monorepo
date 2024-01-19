@@ -20,7 +20,7 @@ if (errors?.length) {
 
 ## Source
 
-[errors/CallError.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/errors/CallError.ts#L14)
+vm/api/dist/index.d.ts:946
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

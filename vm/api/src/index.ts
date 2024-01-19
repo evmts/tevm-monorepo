@@ -74,6 +74,7 @@ export type {
 	TraceType,
 } from './common/index.js'
 export type {
+	AccountNotFoundError,
 	GetAccountError,
 	SetAccountError,
 	EvmError,

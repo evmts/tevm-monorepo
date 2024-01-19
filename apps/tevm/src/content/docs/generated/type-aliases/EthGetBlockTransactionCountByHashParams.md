@@ -17,7 +17,7 @@ JSON-RPC request for `eth_getBlockTransactionCountByHash` procedure
 
 ## Source
 
-[params/EthParams.ts:85](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/EthParams.ts#L85)
+vm/api/dist/index.d.ts:258
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

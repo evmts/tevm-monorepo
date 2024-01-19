@@ -11,7 +11,7 @@ Error thrown when depth parameter is invalid
 
 ## Source
 
-[errors/InvalidDepthError.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/errors/InvalidDepthError.ts#L6)
+vm/api/dist/index.d.ts:789
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

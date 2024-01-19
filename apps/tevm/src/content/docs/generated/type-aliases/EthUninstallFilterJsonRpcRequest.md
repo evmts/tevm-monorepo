@@ -11,7 +11,7 @@ JSON-RPC request for `eth_uninstallFilter` procedure
 
 ## Source
 
-[requests/EthJsonRpcRequest.ts:316](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/requests/EthJsonRpcRequest.ts#L316)
+vm/api/dist/index.d.ts:1609
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

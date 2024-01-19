@@ -25,7 +25,7 @@ Description of the exception, if any occurred
 
 ## Source
 
-[result/GetAccountResult.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/GetAccountResult.ts#L6)
+vm/api/dist/index.d.ts:1052
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

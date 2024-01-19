@@ -11,7 +11,7 @@ JSON-RPC response for `eth_getBlockTransactionCountByNumber` procedure
 
 ## Source
 
-[result/EthResult.ts:83](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/result/EthResult.ts#L83)
+vm/api/dist/index.d.ts:1181
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

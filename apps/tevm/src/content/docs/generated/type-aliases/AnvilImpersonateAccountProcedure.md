@@ -15,7 +15,7 @@ JSON-RPC procedure for `anvil_impersonateAccount`
 
 ## Source
 
-[procedure/AnvilProcedure.ts:36](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/procedure/AnvilProcedure.ts#L36)
+vm/api/dist/index.d.ts:2042
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

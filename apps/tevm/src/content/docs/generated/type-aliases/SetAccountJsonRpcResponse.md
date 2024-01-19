@@ -11,7 +11,7 @@ JSON-RPC response for `tevm_setAccount` method
 
 ## Source
 
-[responses/SetAccountJsonRpcResponse.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/responses/SetAccountJsonRpcResponse.ts#L8)
+vm/api/dist/index.d.ts:1707
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
