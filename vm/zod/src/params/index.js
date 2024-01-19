@@ -1,4 +1,5 @@
-export { zAccountParams } from './zAccountParams.js'
+export { zGetAccountParams } from './zGetAccountParams.js'
+export { zSetAccountParams } from './zSetAccountParams.js'
 export { zBaseCallParams } from './zBaseCallParams.js'
 export { zCallParams } from './zCallParams.js'
 export { zContractParams } from './zContractParams.js'

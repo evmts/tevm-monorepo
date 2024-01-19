@@ -1,17 +1,17 @@
 import { createError } from '../common/index.js'
-import { zAccountParams } from '../params/index.js'
+import { zSetAccountParams } from '../params/index.js'
 
 /**
- * @param {import('@tevm/api').AccountParams} action
- * @returns {Array<import('@tevm/api').AccountError>}
+ * @param {import('@tevm/api').SetAccountParams} action
+ * @returns {Array<import('@tevm/api').SetAccountError>}
  */
-export const validateAccountParams = (action) => {
+export const validateSetAccountParams = (action) => {
 	/**
-	 * @type {Array<import('@tevm/api').AccountError>}
+	 * @type {Array<import('@tevm/api').SetAccountError>}
 	 */
 	const errors = []
 
-	const parsedParams = zAccountParams.safeParse(action)
+	const parsedParams = zSetAccountParams.safeParse(action)
 
 	if (parsedParams.success === false) {
 		const formattedErrors = parsedParams.error.format()

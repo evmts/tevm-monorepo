@@ -1,4 +1,5 @@
-export * from './validateAccountParams.js'
+export * from './validateGetAccountParams.js'
+export * from './validateSetAccountParams.js'
 export * from './validateBaseCallParams.js'
 export * from './validateCallParams.js'
 export * from './validateContractParams.js'

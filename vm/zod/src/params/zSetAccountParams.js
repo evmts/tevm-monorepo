@@ -2,9 +2,9 @@ import { zAddress, zBytecode, zStorageRoot } from '../common/index.js'
 import { z } from 'zod'
 
 /**
- * Zod validator for a valid account action
+ * Zod validator for a valid setAccount action
  */
-export const zAccountParams = z
+export const zSetAccountParams = z
 	.strictObject({
 		address: zAddress.describe('The ethereum address of the account'),
 		balance: z
