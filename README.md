@@ -4,14 +4,14 @@
 
 [![CI](https://github.com/evmts/tevm-monorepo/actions/workflows/build.yml/badge.svg)](https://github.com/evmts/tevm-monorepo/actions/workflows/build.yml)
 [![CI](https://github.com/evmts/tevm-monorepo/actions/workflows/test.yml/badge.svg)](https://github.com/evmts/tevm-monorepo/actions/workflows/test.yml)
-<a href="https://www.npmjs.com/package/@tevm/contract">
-<img src="https://img.shields.io/npm/v/@tevm/contract?style=flat" alt="Version">
+<a href="https://www.npmjs.com/package/tevm">
+<img src="https://img.shields.io/npm/v/tevm?style=flat" alt="Version">
 </a>
-<a href="https://www.npmjs.com/package/@tevm/contract" target="\_parent">
-<img alt="" src="https://img.shields.io/npm/dm/@tevm/contract.svg" />
+<a href="https://www.npmjs.com/package/tevm" target="\_parent">
+<img alt="" src="https://img.shields.io/npm/dm/tevm.svg" />
 </a>
-<a href="https://bundlephobia.com/package/@tevm/contract@latest" target="\_parent">
-<img alt="" src="https://badgen.net/bundlephobia/minzip/@tevm/contract" />
+<a href="https://bundlephobia.com/package/tevm@latest" target="\_parent">
+<img alt="" src="https://badgen.net/bundlephobia/minzip/tevm" />
 </a><a href="#badge">
 
 Tevm has paused releases while it works on Tevm 1.0 💥. [Check progress here](https://github.com/orgs/tevm/projects/1)
