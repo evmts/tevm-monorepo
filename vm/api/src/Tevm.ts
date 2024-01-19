@@ -17,7 +17,6 @@ import type {
 } from './handlers/index.js'
 
 /**
- * Tevm
  * A local EVM instance running in the browser or Node.js. Akin to anvil or ganache
  *
  * - Runs in browser bun and node.js environments
@@ -236,16 +235,4 @@ export type Tevm = {
 		 */
 		getBalance: EthGetBalanceHandler
 	}
-	// Eth Handlers
-	// debug handlers
-	// traceTransaction: DebugTraceTransactionHandler
-	// traceCall: DebugTraceCallHandler
-	// anvil handlers
-	// Not implementing any yet
-	// hardhat handlers
-	// Not implementing any yet
-	// Ganache handlers
-	// Not implementing any yet
-	// Compile handlers
-	// Not implementing any yet
 }

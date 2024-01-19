@@ -58,13 +58,73 @@ import type {
 	SetAccountJsonRpcResponse,
 	TevmJsonRpcRequest,
 } from './index.js'
-import type { AnvilJsonRpcRequest } from './requests/AnvilJsonRpcRequest.js'
-import type { DebugJsonRpcRequest } from './requests/DebugJsonRpcRequest.js'
 import type { EthJsonRpcRequest } from './requests/EthJsonRpcRequest.js'
+import type {
+	AnvilDropTransactionJsonRpcRequest,
+	AnvilDumpStateJsonRpcRequest,
+	AnvilGetAutomineJsonRpcRequest,
+	AnvilImpersonateAccountJsonRpcRequest,
+	AnvilJsonRpcRequest,
+	AnvilLoadStateJsonRpcRequest,
+	AnvilMineJsonRpcRequest,
+	AnvilResetJsonRpcRequest,
+	AnvilSetBalanceJsonRpcRequest,
+	AnvilSetChainIdJsonRpcRequest,
+	AnvilSetCodeJsonRpcRequest,
+	AnvilSetNonceJsonRpcRequest,
+	AnvilSetStorageAtJsonRpcRequest,
+	AnvilStopImpersonatingAccountJsonRpcRequest,
+	DebugJsonRpcRequest,
+	DebugTraceCallJsonRpcRequest,
+	DebugTraceTransactionJsonRpcRequest,
+	EthAccountsJsonRpcRequest,
+	EthBlockNumberJsonRpcRequest,
+	EthCallJsonRpcRequest,
+	EthChainIdJsonRpcRequest,
+	EthCoinbaseJsonRpcRequest,
+	EthEstimateGasJsonRpcRequest,
+	EthGasPriceJsonRpcRequest,
+	EthGetBalanceJsonRpcRequest,
+	EthGetBlockByHashJsonRpcRequest,
+	EthGetBlockByNumberJsonRpcRequest,
+	EthGetBlockTransactionCountByHashJsonRpcRequest,
+	EthGetBlockTransactionCountByNumberJsonRpcRequest,
+	EthGetCodeJsonRpcRequest,
+	EthGetFilterChangesJsonRpcRequest,
+	EthGetFilterLogsJsonRpcRequest,
+	EthGetLogsJsonRpcRequest,
+	EthGetStorageAtJsonRpcRequest,
+	EthGetTransactionByBlockHashAndIndexJsonRpcRequest,
+	EthGetTransactionByBlockNumberAndIndexJsonRpcRequest,
+	EthGetTransactionByHashJsonRpcRequest,
+	EthGetTransactionCountJsonRpcRequest,
+	EthGetTransactionReceiptJsonRpcRequest,
+	EthGetUncleByBlockHashAndIndexJsonRpcRequest,
+	EthGetUncleByBlockNumberAndIndexJsonRpcRequest,
+	EthGetUncleCountByBlockHashJsonRpcRequest,
+	EthGetUncleCountByBlockNumberJsonRpcRequest,
+	EthHashrateJsonRpcRequest,
+	EthMiningJsonRpcRequest,
+	EthNewBlockFilterJsonRpcRequest,
+	EthNewFilterJsonRpcRequest,
+	EthNewPendingTransactionFilterJsonRpcRequest,
+	EthProtocolVersionJsonRpcRequest,
+	EthSendRawTransactionJsonRpcRequest,
+	EthSendTransactionJsonRpcRequest,
+	EthSignJsonRpcRequest,
+	EthSignTransactionJsonRpcRequest,
+	EthSyncingJsonRpcRequest,
+	EthUninstallFilterJsonRpcRequest,
+} from './requests/index.js'
 
 type DebugReturnType = {
 	debug_traceTransaction: DebugTraceTransactionJsonRpcResponse
 	debug_traceCall: DebugTraceCallJsonRpcResponse
+}
+
+type DebugRequestType = {
+	debug_traceTransaction: DebugTraceTransactionJsonRpcRequest
+	debug_traceCall: DebugTraceCallJsonRpcRequest
 }
 
 type AnvilReturnType = {
@@ -82,6 +142,23 @@ type AnvilReturnType = {
 	anvil_setChainId: AnvilSetChainIdJsonRpcResponse
 	anvil_dumpState: AnvilDumpStateJsonRpcResponse
 	anvil_loadState: AnvilLoadStateJsonRpcResponse
+}
+
+type AnvilRequestType = {
+	anvil_impersonateAccount: AnvilImpersonateAccountJsonRpcRequest
+	anvil_stopImpersonatingAccount: AnvilStopImpersonatingAccountJsonRpcRequest
+	// anvil_autoImpersonateAccount: AnviAnvilImpersonateAccountJsonRpcRequest,
+	anvil_getAutomine: AnvilGetAutomineJsonRpcRequest
+	anvil_mine: AnvilMineJsonRpcRequest
+	anvil_reset: AnvilResetJsonRpcRequest
+	anvil_dropTransaction: AnvilDropTransactionJsonRpcRequest
+	anvil_setBalance: AnvilSetBalanceJsonRpcRequest
+	anvil_setCode: AnvilSetCodeJsonRpcRequest
+	anvil_setNonce: AnvilSetNonceJsonRpcRequest
+	anvil_setStorageAt: AnvilSetStorageAtJsonRpcRequest
+	anvil_setChainId: AnvilSetChainIdJsonRpcRequest
+	anvil_dumpState: AnvilDumpStateJsonRpcRequest
+	anvil_loadState: AnvilLoadStateJsonRpcRequest
 }
 
 type EthReturnType = {
@@ -125,6 +202,47 @@ type EthReturnType = {
 	eth_getTransactionByBlockNumberAndIndex: EthGetTransactionByBlockNumberAndIndexJsonRpcResponse
 }
 
+type EthRequestType = {
+	eth_call: EthCallJsonRpcRequest
+	eth_gasPrice: EthGasPriceJsonRpcRequest
+	eth_sign: EthSignJsonRpcRequest
+	eth_newBlockFilter: EthNewBlockFilterJsonRpcRequest
+	eth_mining: EthMiningJsonRpcRequest
+	eth_chainId: EthChainIdJsonRpcRequest
+	eth_getCode: EthGetCodeJsonRpcRequest
+	eth_getLogs: EthGetLogsJsonRpcRequest
+	eth_syncing: EthSyncingJsonRpcRequest
+	eth_accounts: EthAccountsJsonRpcRequest
+	eth_coinbase: EthCoinbaseJsonRpcRequest
+	eth_hashrate: EthHashrateJsonRpcRequest
+	eth_newFilter: EthNewFilterJsonRpcRequest
+	eth_getBalance: EthGetBalanceJsonRpcRequest
+	eth_blockNumber: EthBlockNumberJsonRpcRequest
+	eth_estimateGas: EthEstimateGasJsonRpcRequest
+	eth_getStorageAt: EthGetStorageAtJsonRpcRequest
+	eth_getFilterLogs: EthGetFilterLogsJsonRpcRequest
+	eth_getBlockByHash: EthGetBlockByHashJsonRpcRequest
+	eth_protocolVersion: EthProtocolVersionJsonRpcRequest
+	eth_sendTransaction: EthSendTransactionJsonRpcRequest
+	eth_signTransaction: EthSignTransactionJsonRpcRequest
+	eth_uninstallFilter: EthUninstallFilterJsonRpcRequest
+	eth_getBlockByNumber: EthGetBlockByNumberJsonRpcRequest
+	eth_getFilterChanges: EthGetFilterChangesJsonRpcRequest
+	eth_sendRawTransaction: EthSendRawTransactionJsonRpcRequest
+	eth_getTransactionCount: EthGetTransactionCountJsonRpcRequest
+	eth_getTransactionByHash: EthGetTransactionByHashJsonRpcRequest
+	eth_getTransactionReceipt: EthGetTransactionReceiptJsonRpcRequest
+	eth_getUncleCountByBlockHash: EthGetUncleCountByBlockHashJsonRpcRequest
+	eth_getUncleCountByBlockNumber: EthGetUncleCountByBlockNumberJsonRpcRequest
+	eth_getUncleByBlockHashAndIndex: EthGetUncleByBlockHashAndIndexJsonRpcRequest
+	eth_newPendingTransactionFilter: EthNewPendingTransactionFilterJsonRpcRequest
+	eth_getUncleByBlockNumberAndIndex: EthGetUncleByBlockNumberAndIndexJsonRpcRequest
+	eth_getBlockTransactionCountByHash: EthGetBlockTransactionCountByHashJsonRpcRequest
+	eth_getBlockTransactionCountByNumber: EthGetBlockTransactionCountByNumberJsonRpcRequest
+	eth_getTransactionByBlockHashAndIndex: EthGetTransactionByBlockHashAndIndexJsonRpcRequest
+	eth_getTransactionByBlockNumberAndIndex: EthGetTransactionByBlockNumberAndIndexJsonRpcRequest
+}
+
 type TevmReturnType = {
 	tevm_call: CallJsonRpcResponse
 	tevm_script: ScriptJsonRpcResponse
@@ -132,7 +250,21 @@ type TevmReturnType = {
 	tevm_setAccount: SetAccountJsonRpcResponse
 }
 
-type ReturnType<
+type TevmRequestType = {
+	tevm_call: CallJsonRpcResponse
+	tevm_script: ScriptJsonRpcResponse
+	tevm_getAccount: GetAccountJsonRpcResponse
+	tevm_setAccount: SetAccountJsonRpcResponse
+}
+
+/**
+ * Utility type to get the return type given a method name
+ * @example
+ * ```typescript
+ * type BlockNumberReturnType = JsonRpcReturnTypeFromMethod<'eth_blockNumber'>
+ * ```
+ */
+export type JsonRpcReturnTypeFromMethod<
 	TMethod extends
 		| keyof EthReturnType
 		| keyof TevmReturnType
@@ -144,8 +276,26 @@ type ReturnType<
 	DebugReturnType)[TMethod]
 
 /**
- * Request handler for JSON-RPC requests. Most users will want to use the `actions` api
- * instead of this method directly
+ * Utility type to get the request type given a method name
+ * @example
+ * ```typescript
+ * type BlockNumberRequestType = JsonRpcRequestTypeFromMethod<'eth_blockNumber'>
+ * ```
+ */
+export type JsonRpcRequestTypeFromMethod<
+	TMethod extends
+		| keyof EthRequestType
+		| keyof TevmRequestType
+		| keyof AnvilRequestType
+		| keyof DebugRequestType,
+> = (EthRequestType &
+	TevmRequestType &
+	AnvilRequestType &
+	DebugRequestType)[TMethod]
+
+/**
+ * Typesafe request handler for JSON-RPC requests. Most users will want to use the higher level
+ * and more feature-rich `actions` api
  * @example
  * ```typescript
  * const blockNumberResponse = await tevm.request({
@@ -161,6 +311,67 @@ type ReturnType<
  *  jsonrpc: '2.0'
  * })
  * ```
+ *
+ * ### tevm_* methods
+ *
+ * #### tevm_call
+ *
+ * request - {@link CallJsonRpcRequest}
+ * response - {@link CallJsonRpcRequest}
+ *
+ * #### tevm_script
+ *
+ * request - {@link ScriptJsonRpcRequest}
+ * response - {@link ScriptJsonRpcRequest}
+ *
+ * #### tevm_getAccount
+ *
+ * request - {@link GetAccountJsonRpcRequest}
+ * response - {@link GetAccountJsonRpcRequest}
+ *
+ * #### tevm_setAccount
+ *
+ * request - {@link SetAccountJsonRpcRequest}
+ * response - {@link SetAccountJsonRpcRequest}
+ *
+ * ### debug_* methods
+ *
+ * #### debug_traceCall
+ *
+ * request - {@link DebugTraceCallJsonRpcRequest}
+ * response - {@link DebugTraceCallJsonRpcResponse}
+ *
+ * ### eth_* methods
+ *
+ * #### eth_blockNumber
+ *
+ * request - {@link EthBlockNumberJsonRpcRequest}
+ * response - {@link EthBlockNumberJsonRpcResponse}
+ *
+ * #### eth_chainId
+ *
+ * request - {@link EthChainIdJsonRpcRequest}
+ * response - {@link EthChainIdJsonRpcResponse}
+ *
+ * #### eth_getCode
+ *
+ * request - {@link EthGetCodeJsonRpcRequest}
+ * response - {@link EthGetCodeJsonRpcResponse}
+ *
+ * #### eth_getStorageAt
+ *
+ * request - {@link EthGetStorageAtJsonRpcRequest}
+ * response - {@link EthGetStorageAtJsonRpcResponse}
+ *
+ * #### eth_gasPrice
+ *
+ * request - {@link EthGasPriceJsonRpcRequest}
+ * response - {@link EthGasPriceJsonRpcResponse}
+ *
+ * #### eth_getBalance
+ *
+ * request - {@link EthGetBalanceJsonRpcRequest}
+ * response - {@link EthGetBalanceJsonRpcResponse}
  */
 export type TevmJsonRpcRequestHandler = <
 	TRequest extends
@@ -170,8 +381,4 @@ export type TevmJsonRpcRequestHandler = <
 		| DebugJsonRpcRequest,
 >(
 	request: TRequest,
-) => Promise<ReturnType<TRequest['method']>>
-
-export type EthJsonRpcRequestHandler = <TRequest extends EthJsonRpcRequest>(
-	request: TRequest,
-) => Promise<EthReturnType[TRequest['method']]>
+) => Promise<JsonRpcReturnTypeFromMethod<TRequest['method']>>

@@ -413,7 +413,8 @@ export type {
 	DebugTraceTransactionProcedure,
 } from './procedure/index.js'
 export type {
+	JsonRpcReturnTypeFromMethod,
+	JsonRpcRequestTypeFromMethod,
 	TevmJsonRpcRequestHandler,
-	EthJsonRpcRequestHandler,
 } from './TevmJsonRpcRequestHandler.js'
 export type { Tevm } from './Tevm.js'
