@@ -42,7 +42,7 @@ A transaction request object
 
 ## Source
 
-vm/api/dist/index.d.ts:645
+vm/api/dist/index.d.ts:657
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

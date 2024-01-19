@@ -12,7 +12,7 @@ Errors returned by all call based tevm procedures including call, contract, and 
 
 ## Source
 
-vm/api/dist/index.d.ts:856
+vm/api/dist/index.d.ts:868
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

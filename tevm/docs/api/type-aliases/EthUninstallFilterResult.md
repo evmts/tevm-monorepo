@@ -12,7 +12,7 @@ JSON-RPC response for `eth_uninstallFilter` procedure
 
 ## Source
 
-vm/api/dist/index.d.ts:1321
+vm/api/dist/index.d.ts:1333
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

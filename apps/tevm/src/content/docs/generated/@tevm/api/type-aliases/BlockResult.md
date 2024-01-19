@@ -32,6 +32,8 @@ json rpc procedures
 
 > **`readonly`** **hash**: `Hex`
 
+The hex stringhash of the block.
+
 ### logsBloom
 
 > **`readonly`** **logsBloom**: `Hex`
@@ -48,13 +50,19 @@ json rpc procedures
 
 > **`readonly`** **number**: `Hex`
 
+The block number (height) in the blockchain.
+
 ### parentHash
 
 > **`readonly`** **parentHash**: `Hex`
 
+The hex stringhash of the parent block.
+
 ### sha3Uncles
 
 > **`readonly`** **sha3Uncles**: `Hex`
+
+The hex stringhash of the uncles of the block.
 
 ### size
 

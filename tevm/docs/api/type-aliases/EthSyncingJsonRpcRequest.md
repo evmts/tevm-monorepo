@@ -12,7 +12,7 @@ JSON-RPC request for `eth_syncing` procedure
 
 ## Source
 
-vm/api/dist/index.d.ts:1618
+vm/api/dist/index.d.ts:1630
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

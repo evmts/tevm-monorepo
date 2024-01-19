@@ -14,7 +14,7 @@
 
 ## Source
 
-vm/api/dist/index.d.ts:2036
+vm/api/dist/index.d.ts:2048
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

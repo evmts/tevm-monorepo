@@ -12,7 +12,7 @@ JSON-RPC request for `anvil_impersonateAccount` method
 
 ## Source
 
-vm/api/dist/index.d.ts:1642
+vm/api/dist/index.d.ts:1654
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

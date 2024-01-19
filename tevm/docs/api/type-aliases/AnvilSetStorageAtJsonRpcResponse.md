@@ -12,7 +12,7 @@ JSON-RPC response for `anvil_setStorageAt` procedure
 
 ## Source
 
-vm/api/dist/index.d.ts:1974
+vm/api/dist/index.d.ts:1986
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

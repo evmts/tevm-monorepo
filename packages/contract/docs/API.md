@@ -9,12 +9,14 @@
 ### Type Aliases
 
 - [Contract](type-aliases/Contract.md)
+- [CreateContract](type-aliases/CreateContract.md)
 - [CreateContractParams](type-aliases/CreateContractParams.md)
+- [CreateScript](type-aliases/CreateScript.md)
 - [CreateScriptParams](type-aliases/CreateScriptParams.md)
-- [Events](type-aliases/Events.md)
-- [Read](type-aliases/Read.md)
+- [EventActionCreator](type-aliases/EventActionCreator.md)
+- [ReadActionCreator](type-aliases/ReadActionCreator.md)
 - [Script](type-aliases/Script.md)
-- [Write](type-aliases/Write.md)
+- [WriteActionCreator](type-aliases/WriteActionCreator.md)
 
 ### Functions
 

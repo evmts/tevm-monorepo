@@ -8,6 +8,12 @@
 
 > **CreateContractParams**\<`TName`, `THumanReadableAbi`\>: `Pick`\<[`Contract`](Contract.md)\<`TName`, `THumanReadableAbi`\>, `"name"` \| `"humanReadableAbi"`\>
 
+Params for creating a [Contract](Contract.md) instance
+
+## See
+
+[CreateContract](CreateContract.md)
+
 ## Type parameters
 
 | Parameter |
@@ -17,7 +23,7 @@
 
 ## Source
 
-[packages/contract/src/types.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/types.ts#L4)
+[packages/contract/src/types.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/types.ts#L8)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

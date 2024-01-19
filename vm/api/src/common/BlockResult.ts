@@ -5,10 +5,22 @@ import type { Hex } from 'viem'
  * json rpc procedures
  */
 export type BlockResult = {
+	/**
+	 * The block number (height) in the blockchain.
+	 */
 	readonly number: Hex
+	/**
+	 * The hex stringhash of the block.
+	 */
 	readonly hash: Hex
+	/**
+	 * The hex stringhash of the parent block.
+	 */
 	readonly parentHash: Hex
 	readonly nonce: Hex
+	/**
+	 * The hex stringhash of the uncles of the block.
+	 */
 	readonly sha3Uncles: Hex
 	readonly logsBloom: Hex
 	readonly transactionsRoot: Hex

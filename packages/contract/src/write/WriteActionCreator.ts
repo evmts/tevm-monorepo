@@ -9,7 +9,16 @@ import type {
 import type { Hex } from 'viem'
 export type ValueOf<T> = T[keyof T]
 
-export type Read<
+/**
+ * A mapping of payable and nonpayable contract methods to action creators
+ * @example
+ * ```typescript
+ * tevm.contract(
+ *   MyContract.withAddress('0x420...').read.balanceOf('0x1234...'),
+ * )
+ * ```
+ */
+export type WriteActionCreator<
 	THumanReadableAbi extends readonly string[],
 	TBytecode extends Hex | undefined,
 	TDeployedBytecode extends Hex | undefined,
@@ -17,7 +26,10 @@ export type Read<
 	TAddressArgs = TAddress extends undefined ? {} : { address: TAddress },
 > = {
 	[TFunctionName in
-		ExtractAbiFunctionNames<ParseAbi<THumanReadableAbi>, 'pure' | 'view'>]: (<
+		ExtractAbiFunctionNames<
+			ParseAbi<THumanReadableAbi>,
+			'payable' | 'nonpayable'
+		>]: (<
 		TArgs extends AbiParametersToPrimitiveTypes<
 			ExtractAbiFunction<ParseAbi<THumanReadableAbi>, TFunctionName>['inputs']
 		> &

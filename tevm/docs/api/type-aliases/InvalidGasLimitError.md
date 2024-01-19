@@ -12,7 +12,7 @@ Error thrown when gas limit is invalid
 
 ## Source
 
-vm/api/dist/index.d.ts:799
+vm/api/dist/index.d.ts:811
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

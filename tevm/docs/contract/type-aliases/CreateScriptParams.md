@@ -8,6 +8,12 @@
 
 > **CreateScriptParams**\<`TName`, `THumanReadableAbi`\>: `Pick`\<[`Script`](Script.md)\<`TName`, `THumanReadableAbi`\>, `"name"` \| `"humanReadableAbi"` \| `"bytecode"` \| `"deployedBytecode"`\>
 
+Params for creating a [Script](Script.md) instance
+
+## See
+
+[CreateScript](CreateScript.md)
+
 ## Type parameters
 
 | Parameter |
@@ -17,7 +23,7 @@
 
 ## Source
 
-packages/contract/dist/index.d.ts:110
+packages/contract/dist/index.d.ts:454
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

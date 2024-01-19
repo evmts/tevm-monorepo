@@ -12,7 +12,7 @@ JSON-RPC response for `eth_sign` procedure
 
 ## Source
 
-vm/api/dist/index.d.ts:1889
+vm/api/dist/index.d.ts:1901
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

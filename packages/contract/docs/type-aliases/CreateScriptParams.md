@@ -8,6 +8,12 @@
 
 > **CreateScriptParams**\<`TName`, `THumanReadableAbi`\>: `Pick`\<[`Script`](Script.md)\<`TName`, `THumanReadableAbi`\>, `"name"` \| `"humanReadableAbi"` \| `"bytecode"` \| `"deployedBytecode"`\>
 
+Params for creating a [Script](Script.md) instance
+
+## See
+
+[CreateScript](CreateScript.md)
+
 ## Type parameters
 
 | Parameter |
@@ -17,7 +23,7 @@
 
 ## Source
 
-[packages/contract/src/types.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/types.ts#L20)
+[packages/contract/src/types.ts:56](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/types.ts#L56)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

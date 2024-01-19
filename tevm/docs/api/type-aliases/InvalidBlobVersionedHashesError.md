@@ -12,7 +12,7 @@ Error thrown when blobVersionedHashes parameter is invalid
 
 ## Source
 
-vm/api/dist/index.d.ts:779
+vm/api/dist/index.d.ts:791
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

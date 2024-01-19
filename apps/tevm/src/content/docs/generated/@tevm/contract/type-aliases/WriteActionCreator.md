@@ -2,10 +2,20 @@
 editUrl: false
 next: false
 prev: false
-title: "Events"
+title: "WriteActionCreator"
 ---
 
-> **Events**\<`THumanReadableAbi`, `TBytecode`, `TDeployedBytecode`, `TAddress`, `TAddressArgs`\>: `{ [TEventName in ExtractAbiEventNames<ParseAbi<THumanReadableAbi>>]: Function & Object & TAddressArgs }`
+> **WriteActionCreator**\<`THumanReadableAbi`, `TBytecode`, `TDeployedBytecode`, `TAddress`, `TAddressArgs`\>: `{ [TFunctionName in ExtractAbiFunctionNames<ParseAbi<THumanReadableAbi>, "payable" | "nonpayable">]: Function & Object & TAddressArgs }`
+
+A mapping of payable and nonpayable contract methods to action creators
+
+## Example
+
+```typescript
+tevm.contract(
+  MyContract.withAddress('0x420...').read.balanceOf('0x1234...'),
+)
+```
 
 ## Type parameters
 
@@ -19,7 +29,7 @@ title: "Events"
 
 ## Source
 
-[packages/contract/src/event/Event.ts:28](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/event/Event.ts#L28)
+packages/contract/src/write/WriteActionCreator.ts:21
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -16,7 +16,7 @@ JSON-RPC procedure for `anvil_dumpState`
 
 ## Source
 
-vm/api/dist/index.d.ts:2115
+vm/api/dist/index.d.ts:2127
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

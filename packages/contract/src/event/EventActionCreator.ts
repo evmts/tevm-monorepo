@@ -25,7 +25,16 @@ export type MaybeExtractEventArgsFromAbi<
 
 export type ValueOf<T> = T[keyof T]
 
-export type Events<
+/**
+ * A mapping of event names to action creators for events. Can be used to create event filters in a typesafe way
+ * @example
+ * ```typescript
+ * tevm.eth.getLog(
+ *   MyScript.withAddress('0x420...').events.Transfer({ from: '0x1234...' }),
+ * )
+ * ===
+ */
+export type EventActionCreator<
 	THumanReadableAbi extends readonly string[],
 	TBytecode extends Hex | undefined,
 	TDeployedBytecode extends Hex | undefined,

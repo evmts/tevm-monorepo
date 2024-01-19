@@ -12,7 +12,7 @@ Error thrown when deployedBytecode parameter is invalid
 
 ## Source
 
-vm/api/dist/index.d.ts:901
+vm/api/dist/index.d.ts:913
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

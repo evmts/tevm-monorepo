@@ -12,7 +12,7 @@ JSON-RPC request for `anvil_mine` method
 
 ## Source
 
-vm/api/dist/index.d.ts:1658
+vm/api/dist/index.d.ts:1670
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
