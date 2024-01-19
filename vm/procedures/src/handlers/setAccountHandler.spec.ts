@@ -29,7 +29,7 @@ describe('setAccountHandler', () => {
 	it('should validate params', async () => {
 		const evm = new EVM({})
 		// @ts-expect-error
-		const res = await accountHandler(evm)({
+		const res = await setAccountHandler(evm)({
 			// address: ERC20_ADDRESS,
 			deployedBytecode: ERC20_BYTECODE,
 			balance: 420n,

@@ -42,10 +42,15 @@ export const getAccountHandler = (evm) => async (params) => {
 				],
 			}
 		}
+		const code = res?.codeHash !== undefined ? bytesToHex(await evm.stateManager.getContractCode(address)) : '0x'
 		return {
+			// TODO some of these fields are not in the api and should be added to @tevm/api
 			address: params.address,
 			balance: res.balance,
-			deployedBytecode: bytesToHex(res.codeHash),
+			codeHash: res.codeHash,
+			isContract: res.isContract,
+			isEmpty: res.isEmpty(),
+			deployedBytecode: code,
 			nonce: res.nonce,
 			storageRoot: bytesToHex(res.storageRoot),
 		}
@@ -56,8 +61,8 @@ export const getAccountHandler = (evm) => async (params) => {
 				typeof e === 'string'
 					? e
 					: e instanceof Error
-					? e.message
-					: 'unknown error',
+						? e.message
+						: 'unknown error',
 			),
 		)
 		return {

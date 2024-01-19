@@ -25,16 +25,16 @@ describe('getAccount', () => {
 
 	it('should validate params', async () => {
 		const evm = new EVM({})
-		// @ts-expect-error
-		const res = await accountHandler(evm)({
+		const res = await setAccountHandler(evm)({
+			// @ts-expect-error
 			address: 'not an address',
 		})
 		expect(res.errors).toEqual([
 			{
 				_tag: 'InvalidAddressError',
 				name: 'InvalidAddressError',
-				message: 'InvalidAddressError: Required',
-				...{ input: 'undefined' },
+				...{ input: "not an address" },
+				message: "InvalidAddressError: Invalid Address not an address",
 			},
 		])
 	})

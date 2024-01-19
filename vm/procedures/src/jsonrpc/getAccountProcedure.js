@@ -1,3 +1,4 @@
+import { numberToHex } from 'viem'
 import { getAccountHandler } from '../index.js'
 
 /**
@@ -27,7 +28,13 @@ export const getAccountProcedure = (evm) => async (request) => {
 	}
 	return {
 		jsonrpc: '2.0',
-		result: /** @type any*/ (result),
+		result: /** @type any*/({
+			address: result.address,
+			balance: numberToHex(result.balance ?? 0n),
+			deployedBytecode: result.deployedBytecode ?? '0x0',
+			nonce: numberToHex(result.nonce ?? 0n),
+			storageRoot: result.storageRoot,
+		}),
 		method: 'tevm_getAccount',
 		...(request.id === undefined ? {} : { id: request.id }),
 	}
