@@ -48,7 +48,7 @@ const res = tevm.script(
 
 ## Source
 
-vm/api/dist/index.d.ts:1024
+vm/api/dist/index.d.ts:1036
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

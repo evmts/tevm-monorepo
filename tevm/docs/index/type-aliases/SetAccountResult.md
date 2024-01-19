@@ -26,7 +26,7 @@ Description of the exception, if any occurred
 
 ## Source
 
-vm/api/dist/index.d.ts:1087
+vm/api/dist/index.d.ts:1099
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

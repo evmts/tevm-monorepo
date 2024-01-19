@@ -12,7 +12,7 @@ Error thrown when function name is invalid
 
 ## Source
 
-vm/api/dist/index.d.ts:763
+vm/api/dist/index.d.ts:775
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

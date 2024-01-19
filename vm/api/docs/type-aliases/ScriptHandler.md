@@ -48,7 +48,7 @@ const res = tevm.script(
 
 ## Source
 
-[handlers/ScriptHandler.ts:28](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/handlers/ScriptHandler.ts#L28)
+[handlers/ScriptHandler.ts:30](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/handlers/ScriptHandler.ts#L30)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

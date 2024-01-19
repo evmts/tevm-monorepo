@@ -12,7 +12,7 @@ Error thrown when selfdestruct parameter is invalid
 
 ## Source
 
-vm/api/dist/index.d.ts:829
+vm/api/dist/index.d.ts:841
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

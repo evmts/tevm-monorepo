@@ -12,7 +12,7 @@ JSON-RPC request for `anvil_dumpState` method
 
 ## Source
 
-vm/api/dist/index.d.ts:1690
+vm/api/dist/index.d.ts:1702
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

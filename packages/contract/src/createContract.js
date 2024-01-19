@@ -6,8 +6,31 @@ import { getAddress } from 'viem'
 
 /**
  * Creates a tevm Contract instance from human readable abi
- * To use a json abi first pass it into `formatAbi` to turn it into human readable
  * @type {import('./types.js').CreateContract}
+ * @example
+ * ```typescript
+ * import { type Contract, createContract} from 'tevm/contract'
+ *
+ * const contract: Contract = createContract({
+ *   name: 'MyContract',
+ *  	abi: [
+ *  		...
+ *  	],
+ * })
+ * ```
+ *
+ * To use a json abi first pass it into `formatAbi` to turn it into human readable
+ * @example
+ * ```typescript
+ * import { type Contract, createContract} from 'tevm/contract'
+ *
+ * const contract = createContract({
+ *   name: 'MyContract',
+ *  	abi: [
+ *  		...
+ *  	],
+ * })
+ * ```
  */
 export const createContract = ({ name, humanReadableAbi }) => {
 	const abi = parseAbi(/**@type any*/ (humanReadableAbi))

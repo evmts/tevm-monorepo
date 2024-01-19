@@ -16,7 +16,7 @@ SetAccount JSON-RPC tevm procedure sets an account into the tevm state
 
 ## Source
 
-vm/api/dist/index.d.ts:2006
+vm/api/dist/index.d.ts:2018
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

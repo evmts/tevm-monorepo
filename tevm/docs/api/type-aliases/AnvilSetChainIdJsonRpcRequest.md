@@ -12,7 +12,7 @@ JSON-RPC request for `anvil_setChainId` method
 
 ## Source
 
-vm/api/dist/index.d.ts:1686
+vm/api/dist/index.d.ts:1698
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

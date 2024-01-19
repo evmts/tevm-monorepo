@@ -12,7 +12,7 @@ JSON-RPC response for `eth_getTransactionByBlockHashAndIndex` procedure
 
 ## Source
 
-vm/api/dist/index.d.ts:1853
+vm/api/dist/index.d.ts:1865
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

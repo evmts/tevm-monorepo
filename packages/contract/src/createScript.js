@@ -5,8 +5,47 @@ import { parseAbi } from 'abitype'
 import { getAddress } from 'viem'
 
 /**
- * Creates a Tevm Script instance from humanReadableAbi and bytecode
+ * Creates a Tevm `Script` instance from humanReadableAbi and bytecode
  * @type {import('./types.js').CreateScript}
+ * @example
+ * ```typescript
+ * import { type Script, createScript} from 'tevm/contract'
+ *
+ * const script: Script = createScript({
+ *   name: 'MyScript',
+ *   humanReadableAbi: ['function exampleRead(): uint256', ...],
+ *   bytecode: '0x123...',
+ *   deployedBytecode: '0x123...',
+ * })
+ * ```
+ *
+ * To use a json abi first pass it into `formatAbi` to turn it into human readable
+ * @example
+ * ```typescript
+ * import { type Script, createScript, formatAbi} from 'tevm/contract'
+ * import { formatAbi } from 'tevm/abi'
+ *
+ * const script = createScript({
+ *  name: 'MyScript',
+ *  bytecode: '0x123...',
+ *  deployedBytecode: '0x123...',
+ *  humanReadableAbi: formatAbi([
+ *   {
+ *     name: 'balanceOf',
+ *     inputs: [
+ *     {
+ *     name: 'owner',
+ *     type: 'address',
+ *     },
+ *     ],
+ *     outputs: [
+ *     {
+ *     name: 'balance',
+ *     type: 'uint256',
+ *     },
+ *   }
+ *   ]),
+ *  })
  */
 export const createScript = ({
 	name,

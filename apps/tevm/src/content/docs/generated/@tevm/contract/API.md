@@ -10,12 +10,14 @@ title: "@tevm/contract"
 ### Type Aliases
 
 - [Contract](/generated/tevm/contract/type-aliases/contract/)
+- [CreateContract](/generated/tevm/contract/type-aliases/createcontract/)
 - [CreateContractParams](/generated/tevm/contract/type-aliases/createcontractparams/)
+- [CreateScript](/generated/tevm/contract/type-aliases/createscript/)
 - [CreateScriptParams](/generated/tevm/contract/type-aliases/createscriptparams/)
-- [Events](/generated/tevm/contract/type-aliases/events/)
-- [Read](/generated/tevm/contract/type-aliases/read/)
+- [EventActionCreator](/generated/tevm/contract/type-aliases/eventactioncreator/)
+- [ReadActionCreator](/generated/tevm/contract/type-aliases/readactioncreator/)
 - [Script](/generated/tevm/contract/type-aliases/script/)
-- [Write](/generated/tevm/contract/type-aliases/write/)
+- [WriteActionCreator](/generated/tevm/contract/type-aliases/writeactioncreator/)
 
 ### Functions
 

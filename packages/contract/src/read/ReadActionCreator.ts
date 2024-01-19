@@ -9,18 +9,29 @@ import type {
 import type { Hex } from 'viem'
 export type ValueOf<T> = T[keyof T]
 
-export type Write<
+// Adapted from viem
+
+/**
+ * A mapping of view and pure contract methods to action creators
+ * @example
+ * ```typescript
+ * tevm.contract(
+ *   MyScript.withAddress('0x420...').read.balanceOf('0x1234...'),
+ *)
+ * ```
+ */
+export type ReadActionCreator<
 	THumanReadableAbi extends readonly string[],
 	TBytecode extends Hex | undefined,
 	TDeployedBytecode extends Hex | undefined,
 	TAddress extends Address | undefined,
 	TAddressArgs = TAddress extends undefined ? {} : { address: TAddress },
 > = {
+	// For every view and pure function in the abi, create an action creator
 	[TFunctionName in
-		ExtractAbiFunctionNames<
-			ParseAbi<THumanReadableAbi>,
-			'payable' | 'nonpayable'
-		>]: (<
+		// extract the read functions from abi
+		ExtractAbiFunctionNames<ParseAbi<THumanReadableAbi>, 'pure' | 'view'>]: (<
+		// keep args etc. generic for typesafety reasons. This is adapted from viem
 		TArgs extends AbiParametersToPrimitiveTypes<
 			ExtractAbiFunction<ParseAbi<THumanReadableAbi>, TFunctionName>['inputs']
 		> &
@@ -29,7 +40,9 @@ export type Write<
 		> &
 			any[],
 	>(
+		// take the same args of the function
 		...args: TArgs
+		// return an action creator that matches the viem api
 	) => {
 		functionName: TFunctionName
 		humanReadableAbi: FormatAbi<

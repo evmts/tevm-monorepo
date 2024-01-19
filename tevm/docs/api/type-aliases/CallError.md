@@ -21,7 +21,7 @@ if (errors?.length) {
 
 ## Source
 
-vm/api/dist/index.d.ts:951
+vm/api/dist/index.d.ts:963
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

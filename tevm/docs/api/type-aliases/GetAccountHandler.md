@@ -27,7 +27,7 @@ console.log(res.balance)
 
 ## Source
 
-vm/api/dist/index.d.ts:961
+vm/api/dist/index.d.ts:973
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

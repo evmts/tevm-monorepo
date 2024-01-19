@@ -80,7 +80,7 @@ A set of accounts to selfdestruct
 
 ## Source
 
-vm/api/dist/index.d.ts:1097
+vm/api/dist/index.d.ts:1109
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

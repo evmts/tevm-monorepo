@@ -12,7 +12,7 @@ JSON-RPC request for `debug_traceTransaction` method
 
 ## Source
 
-vm/api/dist/index.d.ts:1700
+vm/api/dist/index.d.ts:1712
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

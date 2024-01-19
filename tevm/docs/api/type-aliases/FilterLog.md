@@ -50,7 +50,7 @@ FilterLog type for eth JSON-RPC procedures
 
 ## Source
 
-vm/api/dist/index.d.ts:630
+vm/api/dist/index.d.ts:642
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

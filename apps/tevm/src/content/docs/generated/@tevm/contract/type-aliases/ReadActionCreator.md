@@ -2,10 +2,20 @@
 editUrl: false
 next: false
 prev: false
-title: "Write"
+title: "ReadActionCreator"
 ---
 
-> **Write**\<`THumanReadableAbi`, `TBytecode`, `TDeployedBytecode`, `TAddress`, `TAddressArgs`\>: `{ [TFunctionName in ExtractAbiFunctionNames<ParseAbi<THumanReadableAbi>, "payable" | "nonpayable">]: Function & Object & TAddressArgs }`
+> **ReadActionCreator**\<`THumanReadableAbi`, `TBytecode`, `TDeployedBytecode`, `TAddress`, `TAddressArgs`\>: `{ [TFunctionName in ExtractAbiFunctionNames<ParseAbi<THumanReadableAbi>, "pure" | "view">]: Function & Object & TAddressArgs }`
+
+A mapping of view and pure contract methods to action creators
+
+## Example
+
+```typescript
+tevm.contract(
+  MyScript.withAddress('0x420...').read.balanceOf('0x1234...'),
+)
+```
 
 ## Type parameters
 
@@ -19,7 +29,7 @@ title: "Write"
 
 ## Source
 
-[packages/contract/src/write/Write.ts:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/write/Write.ts#L12)
+packages/contract/src/read/ReadActionCreator.ts:21
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

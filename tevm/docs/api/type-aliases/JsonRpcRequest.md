@@ -33,7 +33,7 @@ Helper type for creating JSON-RPC request types
 
 ## Source
 
-vm/api/dist/index.d.ts:1396
+vm/api/dist/index.d.ts:1408
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

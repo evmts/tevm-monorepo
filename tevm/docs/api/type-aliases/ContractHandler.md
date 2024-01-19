@@ -23,7 +23,7 @@ It's API resuses the viem `contractRead`/`contractWrite` API to encode abi, func
 
 ## Source
 
-vm/api/dist/index.d.ts:999
+vm/api/dist/index.d.ts:1011
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

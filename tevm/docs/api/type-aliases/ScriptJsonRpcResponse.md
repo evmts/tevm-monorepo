@@ -28,7 +28,7 @@ const respose: ScriptJsonRpcResponse = await tevm.request({
 
 ## Source
 
-vm/api/dist/index.d.ts:1760
+vm/api/dist/index.d.ts:1772
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

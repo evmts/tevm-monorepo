@@ -18,7 +18,7 @@ Error type of errors thrown while internally executing a call in the EVM
 
 ## Source
 
-vm/api/dist/index.d.ts:769
+vm/api/dist/index.d.ts:781
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

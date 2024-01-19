@@ -14,7 +14,7 @@ need to be updated as t hey are implemented
 
 ## Source
 
-vm/api/dist/index.d.ts:1158
+vm/api/dist/index.d.ts:1170
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
