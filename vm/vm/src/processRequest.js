@@ -1,4 +1,7 @@
-import { UnexpectedInternalServerError } from './errors/index.js'
+import {
+	UnexpectedInternalServerError,
+	UnsupportedMethodError,
+} from './errors/index.js'
 import { proxyRequest } from './proxyRequest.js'
 import { requestProcedure } from '@tevm/procedures'
 
@@ -21,8 +24,10 @@ const supportedMethods = new Set([
 	'eth_getStorageAt',
 	'eth_gasPrice',
 	'eth_getBalance',
-	'debug_traceCall'
+	'debug_traceCall',
 ])
+
+const throwOnUnsupportedMethods = true
 
 /**
  * @internal
@@ -37,9 +42,22 @@ export const processRequest = (vm, proxyUrl) => {
 	return (request) => {
 		try {
 			if (!supportedMethods.has(request.method)) {
+				if (throwOnUnsupportedMethods) {
+					const err = new UnsupportedMethodError(request.method)
+					console.error(err)
+					return Promise.resolve({
+						id: request.id ?? null,
+						method: request.method,
+						jsonrpc: '2.0',
+						error: {
+							code: err._tag,
+							message: err.message,
+						},
+					})
+				}
 				return proxyRequest(proxyUrl)(request)
 			}
-			return requestProcedure(vm)(/**@type any*/(request))
+			return requestProcedure(vm)(/**@type any*/ (request))
 		} catch (e) {
 			console.error(e)
 			const err = new UnexpectedInternalServerError(request.method)

@@ -1,5 +1,5 @@
-import { EVM } from "@ethereumjs/evm";
-import type { TevmStateManager } from "@tevm/state";
+import { EVM } from '@ethereumjs/evm'
+import type { TevmStateManager } from '@tevm/state'
 
 /**
  * A wrapper around the EVM to expose some protected functionality of the EVMStateManger
@@ -7,5 +7,5 @@ import type { TevmStateManager } from "@tevm/state";
  * @internal
  */
 export class TevmEvm extends EVM {
-  public declare stateManager: TevmStateManager
+	public declare stateManager: TevmStateManager
 }

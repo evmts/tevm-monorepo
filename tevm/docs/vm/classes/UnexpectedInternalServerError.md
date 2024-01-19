@@ -1,8 +1,8 @@
-**@tevm/vm** ∙ [README](../README.md) ∙ [API](../API.md)
+**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[API](../API.md) > UnexpectedInternalServerError
+[API](../../API.md) > [vm](../README.md) > UnexpectedInternalServerError
 
 # Class: UnexpectedInternalServerError
 
@@ -30,17 +30,17 @@ Error.constructor
 
 #### Source
 
-[vm/vm/src/errors/UnexpectedInternalServerError.js:19](https://github.com/evmts/tevm-monorepo/blob/main/vm/vm/src/errors/UnexpectedInternalServerError.js#L19)
+vm/vm/dist/index.d.ts:228
 
 ## Properties
 
 ### \_tag
 
-> **\_tag**: `"UnexpectedInternalServerError"` = `'UnexpectedInternalServerError'`
+> **\_tag**: `"UnexpectedInternalServerError"`
 
 #### Source
 
-[vm/vm/src/errors/UnexpectedInternalServerError.js:15](https://github.com/evmts/tevm-monorepo/blob/main/vm/vm/src/errors/UnexpectedInternalServerError.js#L15)
+vm/vm/dist/index.d.ts:237
 
 ***
 
@@ -74,7 +74,7 @@ node\_modules/.pnpm/typescript@5.3.3/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 ### name
 
-> **name**: `"UnexpectedInternalServerError"` = `'UnexpectedInternalServerError'`
+> **name**: `"UnexpectedInternalServerError"`
 
 #### Overrides
 
@@ -82,7 +82,7 @@ Error.name
 
 #### Source
 
-[vm/vm/src/errors/UnexpectedInternalServerError.js:11](https://github.com/evmts/tevm-monorepo/blob/main/vm/vm/src/errors/UnexpectedInternalServerError.js#L11)
+vm/vm/dist/index.d.ts:233
 
 ***
 
@@ -144,45 +144,23 @@ node\_modules/.pnpm/@types+node@20.9.1/node\_modules/@types/node/globals.d.ts:13
 
 ### captureStackTrace()
 
-#### captureStackTrace(targetObject, constructorOpt)
-
 > **`static`** **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
 
 Create .stack property on a target object
 
-##### Parameters
+#### Parameters
 
 ▪ **targetObject**: `object`
 
 ▪ **constructorOpt?**: `Function`
 
-##### Inherited from
+#### Inherited from
 
 Error.captureStackTrace
 
-##### Source
+#### Source
 
 node\_modules/.pnpm/@types+node@20.9.1/node\_modules/@types/node/globals.d.ts:4
-
-#### captureStackTrace(targetObject, constructorOpt)
-
-> **`static`** **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
-
-Create .stack property on a target object
-
-##### Parameters
-
-▪ **targetObject**: `object`
-
-▪ **constructorOpt?**: `Function`
-
-##### Inherited from
-
-Error.captureStackTrace
-
-##### Source
-
-node\_modules/.pnpm/bun-types@1.0.21/node\_modules/bun-types/types.d.ts:2228
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

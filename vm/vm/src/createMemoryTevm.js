@@ -92,9 +92,9 @@ export const createMemoryTevm = async (options = {}) => {
 			header: common.genesis(),
 			...(common.isActivatedEIP(4895)
 				? {
-					withdrawals:
+						withdrawals:
 							/** @type {Array<import('@ethereumjs/util').WithdrawalData>}*/ ([]),
-				}
+				  }
 				: {}),
 		},
 		{ common, setHardfork: false, skipConsensusFormatValidation: true },
@@ -161,7 +161,7 @@ export const createMemoryTevm = async (options = {}) => {
 		// that we want to avoid or abstract away before enabling
 		// This means tevm will throw an error on all non natively supported
 		// requests
-		request: processRequest(vm/*, options.fork?.url*/),
+		request: processRequest(vm /*, options.fork?.url*/),
 		script: scriptHandler(evm),
 		getAccount: getAccountHandler(evm),
 		setAccount: setAccountHandler(evm),

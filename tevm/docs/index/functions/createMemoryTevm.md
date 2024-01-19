@@ -6,15 +6,15 @@
 
 # Function: createMemoryTevm()
 
-> **createMemoryTevm**(`options`?): `Promise`\<[`Tevm`](../../vm/type-aliases/Tevm.md)\>
+> **createMemoryTevm**(`options`?): `Promise`\<[`MemoryTevm`](../type-aliases/MemoryTevm.md)\>
 
 ## Parameters
 
-▪ **options?**: [`CreateEVMOptions`](../../vm/type-aliases/CreateEVMOptions.md)
+▪ **options?**: [`CreateEVMOptions`](../type-aliases/CreateEVMOptions.md)
 
 ## Source
 
-vm/vm/dist/index.d.ts:97
+vm/vm/dist/index.d.ts:177
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

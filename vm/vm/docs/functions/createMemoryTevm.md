@@ -2,13 +2,19 @@
 
 ***
 
-[API](../API.md) > Tevm
+[API](../API.md) > createMemoryTevm
 
-# Type alias: Tevm
+# Function: createMemoryTevm()
 
-> **Tevm**: `Tevm` & `object`
+> **createMemoryTevm**(`options`?): `Promise`\<[`MemoryTevm`](../type-aliases/MemoryTevm.md)\>
 
 A local EVM instance running in JavaScript. Similar to Anvil in your browser
+
+## Parameters
+
+▪ **options?**: [`CreateEVMOptions`](../type-aliases/CreateEVMOptions.md)= `{}`
+
+## Returns
 
 ## Example
 
@@ -25,7 +31,7 @@ const tevm = createMemoryTevm({
 
 const address = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
 
-await tevm.contract(
+await tevm.runContractCall(
   MyERC721.write.mint({
     caller: address,
   }),
@@ -39,31 +45,9 @@ const balance = await tevm.runContractCall(
  console.log(balance) // 1n
  ```
 
-## Type declaration
-
-### \_evm
-
-> **`readonly`** **\_evm**: `TevmEvm`
-
-Internal instance of the EVM. Can be used for lower level operations
-but is not guaranteed to stay stable between versions
-
-### \_vm
-
-> **`readonly`** **\_vm**: `VM`
-
-Internal instance of the VM. Can be used for lower level operations
-but is not guaranteed to stay stable between versions
-
-### forkUrl
-
-> **`readonly`** **forkUrl**?: `string`
-
-Fork url if the EVM is forked
-
 ## Source
 
-[vm/vm/src/Tevm.ts:35](https://github.com/evmts/tevm-monorepo/blob/main/vm/vm/src/Tevm.ts#L35)
+[vm/vm/src/createMemoryTevm.js:57](https://github.com/evmts/tevm-monorepo/blob/main/vm/vm/src/createMemoryTevm.js#L57)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

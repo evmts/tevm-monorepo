@@ -1,4 +1,5 @@
 import { createMemoryTevm } from '../createMemoryTevm.js'
+import { UnsupportedMethodError } from '../index.js'
 import { DaiContract } from './DaiContract.sol.js'
 import { Address, bigIntToHex } from '@ethereumjs/util'
 import type { ContractJsonRpcRequest, ScriptJsonRpcRequest } from '@tevm/api'
@@ -54,7 +55,7 @@ describe('Tevm.request', async () => {
 		expect(res.jsonrpc).toBe(req.jsonrpc)
 	})
 
-	it('should throw an error if attempting a tevm_contractCall request', async () => {
+	it('should throw an error if attempting a invalid request', async () => {
 		const tevm = await createMemoryTevm()
 		const req = {
 			params: {
@@ -66,11 +67,16 @@ describe('Tevm.request', async () => {
 				to: contractAddress,
 			},
 			jsonrpc: '2.0',
-			method: 'tevm_contractCall' as any,
+			method: 'tevm_NotARequest' as any,
 			id: 1,
 		} as const satisfies ContractJsonRpcRequest
 		const res = await tevm.request(req)
-		expect(res.error.code).toEqual('UnknownMethodError')
+		expect(res.error.code).toMatch(
+			new UnsupportedMethodError('tevm_NotARequest')._tag,
+		)
+		expect(res.error.message).toMatch(
+			new UnsupportedMethodError('tevm_NotARequest').message,
+		)
 	})
 
 	it('should execute a contractCall request via using tevm_call', async () => {

@@ -1,6 +1,6 @@
+import type { TevmEvm } from './TevmEvm.js'
 import type { VM } from '@ethereumjs/vm'
 import type { Tevm } from '@tevm/api'
-import type { TevmEvm } from './TevmEvm.js'
 
 /**
  * A local EVM instance running in JavaScript. Similar to Anvil in your browser/node/bun environments

@@ -2,13 +2,11 @@
 
 ***
 
-[API](../API.md) > UnexpectedInternalServerError
+[API](../API.md) > UnsupportedMethodError
 
-# Class: UnexpectedInternalServerError
+# Class: UnsupportedMethodError
 
-Error that is thrown when something unexpected happens
-THis error being thrown indicates a bug or unhandled error
-internally in tevm and thus shouldn't happen often
+Error when a given JSON-RPC method is not supported
 
 ## Extends
 
@@ -16,9 +14,9 @@ internally in tevm and thus shouldn't happen often
 
 ## Constructors
 
-### new UnexpectedInternalServerError(method)
+### new UnsupportedMethodError(method)
 
-> **new UnexpectedInternalServerError**(`method`): [`UnexpectedInternalServerError`](UnexpectedInternalServerError.md)
+> **new UnsupportedMethodError**(`method`): [`UnsupportedMethodError`](UnsupportedMethodError.md)
 
 #### Parameters
 
@@ -30,17 +28,17 @@ Error.constructor
 
 #### Source
 
-[vm/vm/src/errors/UnexpectedInternalServerError.js:19](https://github.com/evmts/tevm-monorepo/blob/main/vm/vm/src/errors/UnexpectedInternalServerError.js#L19)
+[vm/vm/src/errors/UnsupportedMethodError.js:17](https://github.com/evmts/tevm-monorepo/blob/main/vm/vm/src/errors/UnsupportedMethodError.js#L17)
 
 ## Properties
 
 ### \_tag
 
-> **\_tag**: `"UnexpectedInternalServerError"` = `'UnexpectedInternalServerError'`
+> **\_tag**: `"UnsupportedMethodError"` = `'UnsupportedMethodError'`
 
 #### Source
 
-[vm/vm/src/errors/UnexpectedInternalServerError.js:15](https://github.com/evmts/tevm-monorepo/blob/main/vm/vm/src/errors/UnexpectedInternalServerError.js#L15)
+[vm/vm/src/errors/UnsupportedMethodError.js:13](https://github.com/evmts/tevm-monorepo/blob/main/vm/vm/src/errors/UnsupportedMethodError.js#L13)
 
 ***
 
@@ -74,7 +72,7 @@ node\_modules/.pnpm/typescript@5.3.3/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 ### name
 
-> **name**: `"UnexpectedInternalServerError"` = `'UnexpectedInternalServerError'`
+> **name**: `"UnsupportedMethodError"` = `'UnsupportedMethodError'`
 
 #### Overrides
 
@@ -82,7 +80,7 @@ Error.name
 
 #### Source
 
-[vm/vm/src/errors/UnexpectedInternalServerError.js:11](https://github.com/evmts/tevm-monorepo/blob/main/vm/vm/src/errors/UnexpectedInternalServerError.js#L11)
+[vm/vm/src/errors/UnsupportedMethodError.js:9](https://github.com/evmts/tevm-monorepo/blob/main/vm/vm/src/errors/UnsupportedMethodError.js#L9)
 
 ***
 

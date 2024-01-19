@@ -22,7 +22,7 @@ import { Tevm } from "tevm"
 import { createPublicClient, http } from "viem"
 import { MyERC721 } from './MyERC721.sol'
 
-const tevm = Tevm.create({
+const tevm = createMemoryTevm({
 	fork: {
 	  url: "https://mainnet.optimism.io",
 	},

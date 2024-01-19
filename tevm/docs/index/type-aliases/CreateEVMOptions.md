@@ -1,8 +1,8 @@
-**@tevm/vm** ∙ [README](../README.md) ∙ [API](../API.md)
+**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[API](../API.md) > CreateEVMOptions
+[API](../../API.md) > [index](../README.md) > CreateEVMOptions
 
 # Type alias: CreateEVMOptions
 
@@ -20,7 +20,7 @@ Enable/disable unlimited contract size. Defaults to false.
 
 ### customPrecompiles
 
-> **customPrecompiles**?: [`CustomPrecompile`](CustomPrecompile.md)[]
+> **customPrecompiles**?: [`CustomPrecompile`](../../vm/type-aliases/CustomPrecompile.md)[]
 
 Custom precompiles allow you to run arbitrary JavaScript code in the EVM.
 See the [Precompile guide](https://todo.todo) documentation for a deeper dive
@@ -71,7 +71,7 @@ const tevm = createMemoryTevm({ customPrecompiles: [fsPrecompile] })
 
 ### customPredeploys
 
-> **customPredeploys**?: `ReadonlyArray`\<[`CustomPredeploy`](CustomPredeploy.md)\<`any`, `any`\>\>
+> **customPredeploys**?: `ReadonlyArray`\<[`CustomPredeploy`](../../vm/type-aliases/CustomPredeploy.md)\<`any`, `any`\>\>
 
 Custom predeploys allow you to deploy arbitrary EVM bytecode to an address.
 This is a convenience method and equivalent to calling tevm.setAccount() manually
@@ -91,13 +91,13 @@ const tevm = createMemoryTevm({
 
 ### fork
 
-> **fork**?: [`ForkOptions`](ForkOptions.md)
+> **fork**?: [`ForkOptions`](../../vm/type-aliases/ForkOptions.md)
 
 Fork options fork a live network if enabled
 
 ## Source
 
-[vm/vm/src/CreateEVMOptions.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/vm/vm/src/CreateEVMOptions.ts#L8)
+vm/vm/dist/index.d.ts:104
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -136,7 +136,7 @@ Now let's run a transaction on the VM using the special `tevm.contract` method. 
 ```typescript
 import { Tevm, parseEth } from 'tevm';
 
-const vm = await Tevm.create({
+const vm = await createMemoryTevm({
   fork: { url: 'https://mainnet.optimism.io' }
 });
 

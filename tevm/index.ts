@@ -30,7 +30,11 @@ export {
 	createContract,
 } from '@tevm/contract'
 
-export { createMemoryTevm } from '@tevm/vm'
+export {
+	createMemoryTevm,
+	type MemoryTevm,
+	type CreateEVMOptions,
+} from '@tevm/vm'
 
 export type { Abi, Address } from 'abitype'
 export type { Hex } from 'viem'
