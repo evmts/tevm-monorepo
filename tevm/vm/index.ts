@@ -3,5 +3,5 @@ export {
 	type CustomPrecompile,
 	type CreateEVMOptions,
 	type ForkOptions,
-	createTevm,
+	createMemoryTevm,
 } from '@tevm/vm'

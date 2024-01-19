@@ -22,7 +22,7 @@ export type CreateEVMOptions = {
 	 * For security precompiles can only be added statically when the vm is created.
 	 * @example
 	 * ```ts
-	 * import { createTevm, defineCall, definePrecompile } from 'tevm'
+	 * import { createMemoryTevm, defineCall, definePrecompile } from 'tevm'
 	 * import { createScript } from '@tevm/contract'
 	 * import fs from 'fs/promises'
 	 *
@@ -33,7 +33,7 @@ export type CreateEVMOptions = {
 	 *     'function writeFile(string path, string data) returns (bool)',
 	 *   ]
 	 * })
-	 * 
+	 *
 	 * const fsPrecompile = definePrecompile({
 	 * 	contract: Fs,
 	 * 	address: '0xf2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2',
@@ -51,7 +51,7 @@ export type CreateEVMOptions = {
 	 * 	}),
 	 * })
 	 *
-	 * const tevm = createTevm({ customPrecompiles: [fsPrecompile] })
+	 * const tevm = createMemoryTevm({ customPrecompiles: [fsPrecompile] })
 	 */
 	customPrecompiles?: CustomPrecompile[]
 	/**
@@ -59,7 +59,7 @@ export type CreateEVMOptions = {
 	 * This is a convenience method and equivalent to calling tevm.setAccount() manually
 	 * to set the contract code.
 	 * ```typescript
-	 * const tevm = createTevm({
+	 * const tevm = createMemoryTevm({
 	 *   customPredeploys: [
 	 *     // can pass a `tevm Script` here as well
 	 *     {

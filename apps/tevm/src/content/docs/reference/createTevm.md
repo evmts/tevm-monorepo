@@ -35,7 +35,7 @@ Tevm has a `request` method for handling JSON-RPC requests along with a higher l
 
 - VM implementation
 
-[vm/vm/src/createTevm.js:56](https://github.com/evmts/tevm-monorepo/blob/main/vm/vm/src/createTevm.js#L56)
+[vm/vm/src/createMemoryTevm.js:56](https://github.com/evmts/tevm-monorepo/blob/main/vm/vm/src/createMemoryTevm.js#L56)
 
 - Remote JSON-RPC client implementation
 ___
@@ -194,9 +194,9 @@ const balance = await tevm.runContractCall(
 
 ## Functions
 
-### createTevm
+### createMemoryTevm
 
-▸ **createTevm**(`options?`): `Promise`\<[`Tevm`](modules.md#tevm)\>
+▸ **createMemoryTevm**(`options?`): `Promise`\<[`Tevm`](modules.md#tevm)\>
 
 A local EVM instance running in JavaScript. Similar to Anvil in your browser
 
@@ -241,4 +241,4 @@ const balance = await tevm.runContractCall(
 
 #### Defined in
 
-[vm/vm/src/createTevm.js:56](https://github.com/evmts/tevm-monorepo/blob/main/vm/vm/src/createTevm.js#L56)
+[vm/vm/src/createMemoryTevm.js:56](https://github.com/evmts/tevm-monorepo/blob/main/vm/vm/src/createMemoryTevm.js#L56)

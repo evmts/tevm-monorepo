@@ -13,11 +13,11 @@ A local EVM instance running in JavaScript. Similar to Anvil in your browser
 ## Example
 
 ```ts
-import { createTevm } from "tevm"
+import { createMemoryTevm } from "tevm"
 import { createPublicClient, http } from "viem"
 import { MyERC721 } from './MyERC721.sol'
 
-const tevm = createTevm({
+const tevm = createMemoryTevm({
 	fork: {
 	  url: "https://mainnet.optimism.io",
 	},

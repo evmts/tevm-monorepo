@@ -7,6 +7,6 @@ export {
 	encodeFunctionResult,
 	parseAbi,
 } from '@tevm/contract'
-export { createTevm } from '@tevm/vm'
+export { createMemoryTevm } from '@tevm/vm'
 //# sourceMappingURL=out.js.map
 //# sourceMappingURL=index.js.map

@@ -28,7 +28,7 @@
 
 - [#753](https://github.com/evmts/tevm-monorepo/pull/753) [`1e6ded1f`](https://github.com/evmts/tevm-monorepo/commit/1e6ded1f810fa9e5d4a04867fff174a1dde5a665) Thanks [@roninjin10](https://github.com/roninjin10)! - [Breaking] Migrate classes to factory functions
 
-- [#777](https://github.com/evmts/tevm-monorepo/pull/777) [`143418bb`](https://github.com/evmts/tevm-monorepo/commit/143418bb6282e98622cb5c0fb4ab677382f5dc9d) Thanks [@0xNonCents](https://github.com/0xNonCents)! - Add predeploy contract option to createTevm
+- [#777](https://github.com/evmts/tevm-monorepo/pull/777) [`143418bb`](https://github.com/evmts/tevm-monorepo/commit/143418bb6282e98622cb5c0fb4ab677382f5dc9d) Thanks [@0xNonCents](https://github.com/0xNonCents)! - Add predeploy contract option to createMemoryTevm
 
 - [#774](https://github.com/evmts/tevm-monorepo/pull/774) [`b77e4dc5`](https://github.com/evmts/tevm-monorepo/commit/b77e4dc56cf14c512031e31991e3d8b4fe6d5a45) Thanks [@roninjin10](https://github.com/roninjin10)! - Added optimistic updates to the viem extension writeContractOptimistic. It takes same parameters as writeContract but returns two functions. One to unpack the writeContract result and the other to unpack the optimistic result. This is the most naive implementation and will be expanded over time.
 

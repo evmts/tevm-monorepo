@@ -1,4 +1,4 @@
-export { createTevm } from './createTevm.js'
+export { createMemoryTevm } from './createMemoryTevm.js'
 export type { MemoryTevm } from './MemoryTevm.js'
 export type { ForkOptions } from './ForkOptions.js'
 export type { CreateEVMOptions } from './CreateEVMOptions.js'

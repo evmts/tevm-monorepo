@@ -2,10 +2,10 @@
 
 const vm = require('@tevm/vm')
 
-Object.defineProperty(exports, 'createTevm', {
+Object.defineProperty(exports, 'createMemoryTevm', {
 	enumerable: true,
 	get: function () {
-		return vm.createTevm
+		return vm.createMemoryTevm
 	},
 })
 //# sourceMappingURL=out.js.map

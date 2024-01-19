@@ -1,11 +1,11 @@
-import { createTevm } from '@tevm/vm'
+import { createMemoryTevm } from '@tevm/vm'
 import { createPublicClient, http } from 'viem'
 
 /**
  * @param {import('@tevm/vm').CreateEVMOptions & {fork: {url: string}}} params
  */
 export const createMemoryClient = async (params) => {
-	const tevm = await createTevm(params)
+	const tevm = await createMemoryTevm(params)
 	const client = createPublicClient({
 		name: `TevmMemoryClient:${tevm.forkUrl}`,
 		transport: http(tevm.forkUrl),

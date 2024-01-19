@@ -2,6 +2,7 @@ import { NoProxyConfiguredError, ProxyFetchError } from './errors/index.js'
 import { createJsonRpcFetcher } from '@tevm/jsonrpc'
 
 /**
+ * @internal
  * Given a url it returns a handler that proxys a request to the given url
  * @param {string} [url]
  * @example

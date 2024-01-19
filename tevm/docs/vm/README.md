@@ -19,13 +19,13 @@
 
 ### References
 
-- [createTevm](README.md#createtevm)
+- [createMemoryTevm](README.md#createtevm)
 
 ## References
 
-### createTevm
+### createMemoryTevm
 
-Re-exports [createTevm](../index/functions/createTevm.md)
+Re-exports [createMemoryTevm](../index/functions/createMemoryTevm.md)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

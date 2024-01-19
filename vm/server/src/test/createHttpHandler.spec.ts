@@ -1,7 +1,7 @@
 import { createHttpHandler } from '../createHttpHandler.js'
 import { DaiContract } from './DaiContract.sol.js'
 import type { ContractJsonRpcRequest } from '@tevm/api'
-import { createTevm } from '@tevm/vm'
+import { createMemoryTevm } from '@tevm/vm'
 import { describe, expect, it } from 'bun:test'
 import supertest from 'supertest'
 import { decodeFunctionResult, encodeFunctionData, hexToBigInt } from 'viem'
@@ -14,7 +14,7 @@ describe('createHttpHandler', () => {
 	// haven't debugged if code is broke or test is broke yet
 	// landing immediately to avoid merge conflicts in other prs but need to circle back
 	it('should create an http handler', async () => {
-		const tevm = await createTevm({
+		const tevm = await createMemoryTevm({
 			fork: {
 				url: optimism.rpcUrls.default.http[0],
 			},

@@ -34,7 +34,7 @@
 - [createContract](functions/createContract.md)
 - [createMemoryClient](functions/createMemoryClient.md)
 - [createRemoteClient](functions/createRemoteClient.md)
-- [createTevm](functions/createTevm.md)
+- [createMemoryTevm](functions/createMemoryTevm.md)
 - [decodeFunctionData](functions/decodeFunctionData.md)
 - [decodeFunctionResult](functions/decodeFunctionResult.md)
 - [encodeFunctionData](functions/encodeFunctionData.md)

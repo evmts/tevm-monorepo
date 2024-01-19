@@ -2,11 +2,11 @@
 
 ***
 
-[API](../../API.md) > [index](../README.md) > createTevm
+[API](../../API.md) > [index](../README.md) > createMemoryTevm
 
-# Function: createTevm()
+# Function: createMemoryTevm()
 
-> **createTevm**(`options`?): `Promise`\<[`Tevm`](../../vm/type-aliases/Tevm.md)\>
+> **createMemoryTevm**(`options`?): `Promise`\<[`Tevm`](../../vm/type-aliases/Tevm.md)\>
 
 ## Parameters
 

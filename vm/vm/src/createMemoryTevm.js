@@ -28,11 +28,11 @@ import { createPublicClient, http } from 'viem'
  * @returns {Promise<import('./MemoryTevm.js').MemoryTevm>}
  * @example
  * ```ts
- * import { Tevm } from "tevm"
+ * import { createMemoryTevm } from "tevm"
  * import { createPublicClient, http } from "viem"
  * import { MyERC721 } from './MyERC721.sol'
  *
- * const tevm = Tevm.create({
+ * const tevm = createMemoryTevm({
  * 	fork: {
  * 	  url: "https://mainnet.optimism.io",
  * 	},
@@ -54,7 +54,7 @@ import { createPublicClient, http } from 'viem'
  *  console.log(balance) // 1n
  *  ```
  */
-export const createTevm = async (options = {}) => {
+export const createMemoryTevm = async (options = {}) => {
 	/**
 	 * @type {TevmStateManager | DefaultTevmStateManager}
 	 */

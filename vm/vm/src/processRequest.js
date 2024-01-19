@@ -25,6 +25,7 @@ const supportedMethods = new Set([
 ])
 
 /**
+ * @internal
  * Given a vm and proxyUrl creates a request handler to process arbitrary
  * JSON-RPC requests. It will process requests tevm supports locally using
  * `requestProcedure` and proxy all other requests to the given proxyUrl

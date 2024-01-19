@@ -11,11 +11,11 @@ A local EVM instance running in the browser or Node.js. Similar to anvil in brow
 **`Example`**
 
 ```ts
-import { createTevm } from "tevm"
+import { createMemoryTevm } from "tevm"
 import { createPublicClient, http } from "viem"
 import { MyERC721 } from './MyERC721.sol'
 
-const tevm = createTevm({
+const tevm = createMemoryTevm({
 	fork: {
 	  url: "https://mainnet.optimism.io",
 	},
@@ -42,9 +42,9 @@ const balance = await tevm.contract(
 
 [vm/vm/src/Tevm.ts:35](https://github.com/evmts/tevm-monorepo/blob/main/vm/vm/src/Tevm.ts#L35)
 
-### createTevm
+### createMemoryTevm
 
-▸ **createTevm**(`options?`): `Promise`\<[`Tevm`](modules.md#tevm)\>
+▸ **createMemoryTevm**(`options?`): `Promise`\<[`Tevm`](modules.md#tevm)\>
 
 A local EVM instance running in JavaScript. Similar to Anvil in your browser
 
@@ -65,7 +65,7 @@ import { Tevm } from "tevm"
 import { createPublicClient, http } from "viem"
 import { MyERC721 } from './MyERC721.sol'
 
-const tevm = createTevm({
+const tevm = createMemoryTevm({
 	fork: {
 	  url: "https://mainnet.optimism.io",
 	},
@@ -112,7 +112,7 @@ const balance = await tevm.runContractCall(
 
 - VM implementation
 
-[vm/vm/src/createTevm.js:56](https://github.com/evmts/tevm-monorepo/blob/main/vm/vm/src/createTevm.js#L56)
+[vm/vm/src/createMemoryTevm.js:56](https://github.com/evmts/tevm-monorepo/blob/main/vm/vm/src/createMemoryTevm.js#L56)
 
 - Remote JSON-RPC client implementation
 

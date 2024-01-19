@@ -22,7 +22,7 @@ title: "@tevm/vm"
 
 ### Functions
 
-- [createTevm](/generated/tevm/vm/functions/createtevm/)
+- [createMemoryTevm](/generated/tevm/vm/functions/createtevm/)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
