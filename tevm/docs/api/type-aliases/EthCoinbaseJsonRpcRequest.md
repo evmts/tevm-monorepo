@@ -6,13 +6,13 @@
 
 # Type alias: EthCoinbaseJsonRpcRequest
 
-> **EthCoinbaseJsonRpcRequest**: [`JsonRpcRequest`](JsonRpcRequest.md)\<`"eth_coinbase"`, readonly []\>
+> **EthCoinbaseJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"eth_coinbase"`, readonly []\>
 
 JSON-RPC request for `eth_coinbase` procedure
 
 ## Source
 
-vm/api/dist/index.d.ts:1485
+vm/api/types/requests/EthJsonRpcRequest.d.ts:25
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

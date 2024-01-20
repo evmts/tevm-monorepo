@@ -46,7 +46,7 @@ Error.constructor
 
 #### Source
 
-node\_modules/.pnpm/typescript@5.3.3/node\_modules/typescript/lib/lib.es2022.error.d.ts:28
+node\_modules/.pnpm/typescript@5.3.3/node\_modules/typescript/lib/lib.es5.d.ts:1081
 
 ## Properties
 
@@ -56,7 +56,7 @@ node\_modules/.pnpm/typescript@5.3.3/node\_modules/typescript/lib/lib.es2022.err
 
 #### Source
 
-vm/server/dist/index.d.ts:28
+vm/server/types/BadRequestError.d.ts:13
 
 ***
 
@@ -98,7 +98,7 @@ Error.name
 
 #### Source
 
-vm/server/dist/index.d.ts:24
+vm/server/types/BadRequestError.d.ts:9
 
 ***
 
@@ -119,6 +119,12 @@ node\_modules/.pnpm/typescript@5.3.3/node\_modules/typescript/lib/lib.es5.d.ts:1
 ### prepareStackTrace
 
 > **`static`** **prepareStackTrace**?: (`err`, `stackTraces`) => `any`
+
+Optional override for formatting stack traces
+
+#### See
+
+https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
 Optional override for formatting stack traces
 

@@ -6,13 +6,17 @@
 
 # Type alias: SolcSecondarySourceLocation
 
-> **SolcSecondarySourceLocation**: `SolcSecondarySourceLocation$1`
+> **SolcSecondarySourceLocation**: [`SolcSourceLocation`](SolcSourceLocation.md) & `object`
 
-./solcTypes.ts
+## Type declaration
+
+### message
+
+> **message**: `string`
 
 ## Source
 
-bundler/solc/dist/index.d.ts:453
+bundler/solc/types/src/solcTypes.d.ts:119
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

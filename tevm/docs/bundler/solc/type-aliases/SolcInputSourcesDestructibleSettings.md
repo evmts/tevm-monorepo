@@ -6,13 +6,21 @@
 
 # Type alias: SolcInputSourcesDestructibleSettings
 
-> **SolcInputSourcesDestructibleSettings**: `SolcInputSourcesDestructibleSettings$1`
+> **SolcInputSourcesDestructibleSettings**: `object`
 
-./solcTypes.ts
+## Type declaration
+
+### content
+
+> **content**: `string`
+
+### keccak256
+
+> **keccak256**?: `HexNumber`
 
 ## Source
 
-bundler/solc/dist/index.d.ts:457
+bundler/solc/types/src/solcTypes.d.ts:79
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

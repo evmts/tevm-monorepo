@@ -6,7 +6,7 @@
 
 # Function: createHttpHandler()
 
-> **createHttpHandler**(`parameters`): `http.RequestListener`
+> **createHttpHandler**(`parameters`): `RequestListener`
 
 ## Parameters
 
@@ -14,7 +14,7 @@
 
 ## Source
 
-vm/server/dist/index.d.ts:6
+vm/server/types/createHttpHandler.d.ts:1
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

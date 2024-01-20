@@ -6,13 +6,13 @@
 
 # Type alias: EthGetLogsJsonRpcRequest
 
-> **EthGetLogsJsonRpcRequest**: [`JsonRpcRequest`](JsonRpcRequest.md)\<`"eth_getLogs"`, [`FilterParams`]\>
+> **EthGetLogsJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"eth_getLogs"`, [`FilterParams`]\>
 
 JSON-RPC request for `eth_getLogs` procedure
 
 ## Source
 
-vm/api/dist/index.d.ts:1540
+vm/api/types/requests/EthJsonRpcRequest.d.ts:80
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

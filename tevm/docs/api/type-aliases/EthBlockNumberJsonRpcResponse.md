@@ -6,13 +6,13 @@
 
 # Type alias: EthBlockNumberJsonRpcResponse
 
-> **EthBlockNumberJsonRpcResponse**: [`JsonRpcResponse`](JsonRpcResponse.md)\<`"eth_blockNumber"`, `SerializeToJson`\<[`EthBlockNumberResult`](EthBlockNumberResult.md)\>, `string`\>
+> **EthBlockNumberJsonRpcResponse**: [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"eth_blockNumber"`, `SerializeToJson`\<[`EthBlockNumberResult`](EthBlockNumberResult.md)\>, `string`\>
 
 JSON-RPC response for `eth_blockNumber` procedure
 
 ## Source
 
-vm/api/dist/index.d.ts:1781
+vm/api/types/responses/EthJsonRpcResponse.d.ts:17
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

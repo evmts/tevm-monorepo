@@ -17,7 +17,7 @@ Resolves artifacts with solc asyncronously
 
 ▪ **logger**: [`Logger`](/generated/tevm/compiler/types/type-aliases/logger/)
 
-▪ **config**: `ResolvedCompilerConfig$1`
+▪ **config**: [`ResolvedCompilerConfig`](/generated/tevm/config/types/type-aliases/resolvedcompilerconfig/)
 
 ▪ **includeAst**: `boolean`
 
@@ -29,7 +29,7 @@ Resolves artifacts with solc asyncronously
 
 ## Source
 
-[compiler/src/types.ts:18](https://github.com/evmts/tevm-monorepo/blob/main/bundler/compiler/src/types.ts#L18)
+[compiler/src/resolveArtifacts.js:7](https://github.com/evmts/tevm-monorepo/blob/main/bundler/compiler/src/resolveArtifacts.js#L7)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -5,7 +5,7 @@ prev: false
 title: "TevmClient"
 ---
 
-> **TevmClient**: `Tevm` & `object`
+> **TevmClient**: [`Tevm`](/generated/tevm/api/type-aliases/tevm/) & `object`
 
 A remote Tevm client for talking to a Tevm backend over HTTP JSON-RPC
 Implements the tevm interface so interacting with it is the same api
@@ -13,7 +13,7 @@ as interacting with a `MemoryTevm` instance directly
 
 ## See
 
-[Tevm]([object Object])
+[Tevm](../../api/type-aliases/Tevm.md)
 
 ## Example
 

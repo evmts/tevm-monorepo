@@ -114,7 +114,7 @@ It's provided here to allow easier access of the property when using a
 
 ### events
 
-> **events**: [`EventActionCreator`](../../contract/type-aliases/EventActionCreator.md)\<`THumanReadableAbi`, `undefined`, `undefined`, `undefined`\>
+> **events**: [`EventActionCreator`](EventActionCreator.md)\<`THumanReadableAbi`, `undefined`, `undefined`, `undefined`\>
 
 Action creators for events. Can be used to create event filters in a typesafe way
 
@@ -148,7 +148,7 @@ The name of the contract. If imported this will match the name of the contract i
 
 ### read
 
-> **read**: [`ReadActionCreator`](../../contract/type-aliases/ReadActionCreator.md)\<`THumanReadableAbi`, `undefined`, `undefined`, `undefined`\>
+> **read**: [`ReadActionCreator`](ReadActionCreator.md)\<`THumanReadableAbi`, `undefined`, `undefined`, `undefined`\>
 
 Action creators for contract view and pure functions
 
@@ -167,9 +167,19 @@ tevm.contract(
 Adds an address to the contract. All action creators will return
 the address property if added.
 
+#### Example
+
+```typescript
+import { MyContract } from './MyContract.sol'
+const MyContractOptimism = MyContract.withAddress('0x420...')
+```
+
+Adds an address to the contract. All action creators will return
+the address property if added.
+
 #### Type parameters
 
-▪ **TAddress** extends `Address`
+▪ **TAddress** extends [`Address`](Address.md)
 
 #### Parameters
 
@@ -186,7 +196,7 @@ const MyContractOptimism = MyContract.withAddress('0x420...')
 
 ### write
 
-> **write**: [`WriteActionCreator`](../../contract/type-aliases/WriteActionCreator.md)\<`THumanReadableAbi`, `undefined`, `undefined`, `undefined`\>
+> **write**: [`WriteActionCreator`](WriteActionCreator.md)\<`THumanReadableAbi`, `undefined`, `undefined`, `undefined`\>
 
 Action creators for contract payable and nonpayable functions
 
@@ -200,7 +210,7 @@ tevm.contract(
 
 ## Source
 
-packages/contract/dist/index.d.ts:158
+packages/contract/types/Contract.d.ts:60
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

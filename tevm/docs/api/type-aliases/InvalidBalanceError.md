@@ -12,7 +12,7 @@ Error thrown when balance parameter is invalid
 
 ## Source
 
-vm/api/dist/index.d.ts:770
+vm/api/types/errors/InvalidBalanceError.d.ts:5
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

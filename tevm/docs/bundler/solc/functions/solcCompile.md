@@ -6,17 +6,17 @@
 
 # Function: solcCompile()
 
-> **solcCompile**(`solc`, `input`): `SolcOutput$1`
+> **solcCompile**(`solc`, `input`): `SolcOutput`
 
 ## Parameters
 
 ▪ **solc**: `any`
 
-▪ **input**: `SolcInputDescription$1`
+▪ **input**: [`SolcInputDescription`](../type-aliases/SolcInputDescription.md)
 
 ## Source
 
-bundler/solc/dist/index.d.ts:347
+bundler/solc/types/src/solc.d.ts:9
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

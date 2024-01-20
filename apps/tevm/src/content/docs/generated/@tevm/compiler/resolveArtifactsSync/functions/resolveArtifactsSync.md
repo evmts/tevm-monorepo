@@ -15,7 +15,7 @@ title: "resolveArtifactsSync"
 
 ▪ **logger**: [`Logger`](/generated/tevm/compiler/types/type-aliases/logger/)
 
-▪ **config**: `ResolvedCompilerConfig$1`
+▪ **config**: [`ResolvedCompilerConfig`](/generated/tevm/config/types/type-aliases/resolvedcompilerconfig/)
 
 ▪ **includeAst**: `boolean`
 
@@ -27,7 +27,7 @@ title: "resolveArtifactsSync"
 
 ## Source
 
-[compiler/src/types.ts:29](https://github.com/evmts/tevm-monorepo/blob/main/bundler/compiler/src/types.ts#L29)
+[compiler/src/resolveArtifactsSync.js:6](https://github.com/evmts/tevm-monorepo/blob/main/bundler/compiler/src/resolveArtifactsSync.js#L6)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

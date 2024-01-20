@@ -6,13 +6,29 @@
 
 # Type alias: SolcFunctionDebugData
 
-> **SolcFunctionDebugData**: `SolcFunctionDebugData$1`
+> **SolcFunctionDebugData**: `object`
 
-./solcTypes.ts
+## Type declaration
+
+### entryPoint
+
+> **entryPoint**?: `number`
+
+### id
+
+> **id**?: `number` \| `null`
+
+### parameterSlots
+
+> **parameterSlots**?: `number`
+
+### returnSlots
+
+> **returnSlots**?: `number`
 
 ## Source
 
-bundler/solc/dist/index.d.ts:441
+bundler/solc/types/src/solcTypes.d.ts:181
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

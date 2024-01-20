@@ -6,13 +6,21 @@
 
 # Type alias: SolcEwasmOutput
 
-> **SolcEwasmOutput**: `SolcEwasmOutput$1`
+> **SolcEwasmOutput**: `object`
 
-./solcTypes.ts
+## Type declaration
+
+### wasm
+
+> **wasm**: `string`
+
+### wast
+
+> **wast**: `string`
 
 ## Source
 
-bundler/solc/dist/index.d.ts:385
+bundler/solc/types/src/solcTypes.d.ts:207
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

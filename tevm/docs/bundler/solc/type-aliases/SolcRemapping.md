@@ -6,13 +6,11 @@
 
 # Type alias: SolcRemapping
 
-> **SolcRemapping**: `SolcRemapping$1`
-
-./solcTypes.ts
+> **SolcRemapping**: \`${string}=${string}\`[]
 
 ## Source
 
-bundler/solc/dist/index.d.ts:373
+bundler/solc/types/src/solcTypes.d.ts:13
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

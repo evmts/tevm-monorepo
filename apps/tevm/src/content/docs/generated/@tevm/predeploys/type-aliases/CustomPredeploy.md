@@ -24,7 +24,7 @@ Params taken by the definePredeploy function
 
 ### contract
 
-> **contract**: `Script`\<`TName`, `THumanReadableAbi`\>
+> **contract**: [`Script`](/generated/tevm/contract/type-aliases/script/)\<`TName`, `THumanReadableAbi`\>
 
 ## Source
 

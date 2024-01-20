@@ -6,7 +6,7 @@
 	"exports": {
 		".": {
 			"import": {
-				"types": "./dist/index.d.ts",
+				"types": "./types/index.d.ts",
 				"default": "./dist/index.js"
 			},
 			"require": {
@@ -17,16 +17,17 @@
 	},
 	"main": "dist/index.cjs",
 	"module": "dist/index.js",
-	"types": "dist/index.d.ts",
+	"types": "types/index.d.ts",
 	"files": [
 		"src",
-		"dist"
+		"dist",
+		"types"
 	],
 	"scripts": {
 		"all": "bun run build && bun run format && bun run lint && bun run test:run && bun run generate:docs && bun lint:deps && bun lint:package",
 		"build": "nx build:dist && nx build:types",
 		"build:dist": "tsup",
-		"build:types": "tsup --dts-only",
+		"build:types": "tsup --dts-only && tsc --emitDeclarationOnly --declaration",
 		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
 		"format": "rome format . --write",
 		"format:check": "rome format .",

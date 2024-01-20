@@ -26,7 +26,7 @@ Remote URL to connect to
 
 ## Source
 
-vm/client/dist/index.d.ts:26
+vm/client/types/ClientOptions.d.ts:4
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

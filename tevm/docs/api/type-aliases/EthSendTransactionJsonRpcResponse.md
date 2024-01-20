@@ -6,13 +6,13 @@
 
 # Type alias: EthSendTransactionJsonRpcResponse
 
-> **EthSendTransactionJsonRpcResponse**: [`JsonRpcResponse`](JsonRpcResponse.md)\<`"eth_sendTransaction"`, `Hex`, `string`\>
+> **EthSendTransactionJsonRpcResponse**: [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"eth_sendTransaction"`, `Hex`, `string`\>
 
 JSON-RPC response for `eth_sendTransaction` procedure
 
 ## Source
 
-vm/api/dist/index.d.ts:1897
+vm/api/types/responses/EthJsonRpcResponse.d.ts:133
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

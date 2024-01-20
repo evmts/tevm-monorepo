@@ -4,7 +4,7 @@ var predeploys = require('@tevm/predeploys');
 
 
 
-Object.defineProperty(exports, 'definePredeploy', {
+Object.defineProperty(exports, "definePredeploy", {
   enumerable: true,
   get: function () { return predeploys.definePredeploy; }
 });

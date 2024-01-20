@@ -5,7 +5,7 @@ prev: false
 title: "contractHandler"
 ---
 
-> **contractHandler**(`evm`): `ContractHandler`
+> **contractHandler**(`evm`): [`ContractHandler`](/generated/tevm/api/type-aliases/contracthandler/)
 
 Creates an ContractHandler for handling contract params with Ethereumjs EVM
 

@@ -6,13 +6,13 @@
 
 # Type alias: FileAccessObject
 
-> **FileAccessObject**: `FileAccessObject$1`
+> **FileAccessObject**: `FileAccessObject`
 
 ./types.ts
 
 ## Source
 
-bundler/compiler/dist/index.d.ts:59
+bundler/compiler/types/src/index.d.ts:14
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

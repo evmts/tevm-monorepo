@@ -6,13 +6,21 @@
 
 # Type alias: SolcSourceEntry
 
-> **SolcSourceEntry**: `SolcSourceEntry$1`
+> **SolcSourceEntry**: `object`
 
-./solcTypes.ts
+## Type declaration
+
+### ast
+
+> **ast**: `any`
+
+### id
+
+> **id**: `number`
 
 ## Source
 
-bundler/solc/dist/index.d.ts:393
+bundler/solc/types/src/solcTypes.d.ts:122
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

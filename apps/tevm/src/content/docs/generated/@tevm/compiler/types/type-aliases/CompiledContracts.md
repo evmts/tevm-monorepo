@@ -17,7 +17,7 @@ title: "CompiledContracts"
 
 ### artifacts
 
-> **artifacts**: `SolcOutput`[`"contracts"`][`string`] \| `undefined`
+> **artifacts**: [`SolcOutput`](/generated/tevm/solc/type-aliases/solcoutput/)[`"contracts"`][`string`] \| `undefined`
 
 ### asts
 
@@ -29,11 +29,11 @@ title: "CompiledContracts"
 
 ### solcInput
 
-> **solcInput**: `SolcInputDescription`
+> **solcInput**: [`SolcInputDescription`](/generated/tevm/solc/type-aliases/solcinputdescription/)
 
 ### solcOutput
 
-> **solcOutput**: `SolcOutput`
+> **solcOutput**: [`SolcOutput`](/generated/tevm/solc/type-aliases/solcoutput/)
 
 ## Source
 

@@ -6,13 +6,13 @@
 
 # Type alias: EthGetStorageAtJsonRpcResponse
 
-> **EthGetStorageAtJsonRpcResponse**: [`JsonRpcResponse`](JsonRpcResponse.md)\<`"eth_getStorageAt"`, `Hex`, `string`\>
+> **EthGetStorageAtJsonRpcResponse**: [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"eth_getStorageAt"`, `Hex`, `string`\>
 
 JSON-RPC response for `eth_getStorageAt` procedure
 
 ## Source
 
-vm/api/dist/index.d.ts:1845
+vm/api/types/responses/EthJsonRpcResponse.d.ts:81
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

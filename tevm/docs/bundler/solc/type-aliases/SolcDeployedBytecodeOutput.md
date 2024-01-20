@@ -6,13 +6,21 @@
 
 # Type alias: SolcDeployedBytecodeOutput
 
-> **SolcDeployedBytecodeOutput**: `SolcDeployedBytecodeOutput$1`
+> **SolcDeployedBytecodeOutput**: `object`
 
-./solcTypes.ts
+## Type declaration
+
+### immutableReferences
+
+> **immutableReferences**: `object`
+
+#### Index signature
+
+ \[`astID`: `string`\]: `object`[]
 
 ## Source
 
-bundler/solc/dist/index.d.ts:449
+bundler/solc/types/src/solcTypes.d.ts:173
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

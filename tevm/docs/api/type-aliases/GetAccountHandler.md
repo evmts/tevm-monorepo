@@ -10,12 +10,6 @@
 
 Gets the state of a specific ethereum address
 
-## Parameters
-
-▪ **params**: [`GetAccountParams`](../../index/type-aliases/GetAccountParams.md)
-
-## Returns
-
 ## Example
 
 ```ts
@@ -25,9 +19,13 @@ console.log(res.nonce)
 console.log(res.balance)
 ```
 
+## Parameters
+
+▪ **params**: [`GetAccountParams`](../../index/type-aliases/GetAccountParams.md)
+
 ## Source
 
-vm/api/dist/index.d.ts:973
+vm/api/types/handlers/GetAccountHandler.d.ts:10
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

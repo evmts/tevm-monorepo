@@ -4,7 +4,7 @@ var esbuildPlugin = require('@tevm/esbuild-plugin');
 
 
 
-Object.defineProperty(exports, 'esbuildPluginTevm', {
+Object.defineProperty(exports, "esbuildPluginTevm", {
   enumerable: true,
   get: function () { return esbuildPlugin.esbuildPluginTevm; }
 });

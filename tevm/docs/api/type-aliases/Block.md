@@ -56,7 +56,7 @@ The timestamp at which the block was mined or validated.
 
 ## Source
 
-vm/api/dist/index.d.ts:56
+vm/api/types/common/Block.d.ts:5
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

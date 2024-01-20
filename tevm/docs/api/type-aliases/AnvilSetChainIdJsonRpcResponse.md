@@ -6,13 +6,13 @@
 
 # Type alias: AnvilSetChainIdJsonRpcResponse
 
-> **AnvilSetChainIdJsonRpcResponse**: [`JsonRpcResponse`](JsonRpcResponse.md)\<`"anvil_setChainId"`, `SerializeToJson`\<[`AnvilSetChainIdResult`](AnvilSetChainIdResult.md)\>, `AnvilError`\>
+> **AnvilSetChainIdJsonRpcResponse**: [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"anvil_setChainId"`, `SerializeToJson`\<[`AnvilSetChainIdResult`](AnvilSetChainIdResult.md)\>, `AnvilError`\>
 
 JSON-RPC response for `anvil_setChainId` procedure
 
 ## Source
 
-vm/api/dist/index.d.ts:1990
+vm/api/types/responses/AnvilJsonRpcResponse.d.ts:52
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

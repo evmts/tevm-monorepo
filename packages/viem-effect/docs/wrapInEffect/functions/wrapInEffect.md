@@ -20,7 +20,7 @@
 
 ## Source
 
-[packages/viem-effect/src/wrapInEffect.d.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/viem-effect/src/wrapInEffect.d.ts#L4)
+[packages/viem-effect/src/wrapInEffect.d.ts:24](https://github.com/evmts/tevm-monorepo/blob/main/packages/viem-effect/src/wrapInEffect.d.ts#L24)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

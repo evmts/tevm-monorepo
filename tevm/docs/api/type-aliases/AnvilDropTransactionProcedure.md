@@ -16,7 +16,7 @@ JSON-RPC procedure for `anvil_dropTransaction`
 
 ## Source
 
-vm/api/dist/index.d.ts:2103
+vm/api/types/procedure/AnvilProcedure.d.ts:30
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

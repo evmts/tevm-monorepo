@@ -6,13 +6,13 @@
 
 # Type alias: Bundler
 
-> **Bundler**: `Bundler$1`
+> **Bundler**: `Bundler`
 
 ./types.ts
 
 ## Source
 
-[bundler/base-bundler/dist/index.d.ts:178](https://github.com/evmts/tevm-monorepo/blob/main/bundler/base-bundler/dist/index.d.ts#L178)
+[bundler/base-bundler/types/src/index.d.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/bundler/base-bundler/types/src/index.d.ts#L9)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

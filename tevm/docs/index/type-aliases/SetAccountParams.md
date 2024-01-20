@@ -57,7 +57,7 @@ Storage root to set account to
 
 ## Source
 
-vm/api/dist/index.d.ts:16
+vm/api/types/params/SetAccountParams.d.ts:15
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

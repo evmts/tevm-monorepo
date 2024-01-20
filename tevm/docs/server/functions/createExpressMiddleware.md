@@ -6,7 +6,7 @@
 
 # Function: createExpressMiddleware()
 
-> **createExpressMiddleware**(`options`): `express.RequestHandler`
+> **createExpressMiddleware**(`options`): `RequestHandler`
 
 Creates express middleware for a Tevm JSON-RPC server
 
@@ -50,7 +50,7 @@ const client = createClient({
 
 ## Source
 
-vm/server/dist/index.d.ts:63
+vm/server/types/adapters/createExpressMiddleware.d.ts:33
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

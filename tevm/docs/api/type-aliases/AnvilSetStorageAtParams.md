@@ -32,7 +32,7 @@ The value to set
 
 ## Source
 
-vm/api/dist/index.d.ts:514
+vm/api/types/params/AnvilParams.d.ts:111
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

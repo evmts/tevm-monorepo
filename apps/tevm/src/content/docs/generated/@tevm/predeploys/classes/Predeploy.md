@@ -33,7 +33,7 @@ Type of predeploy contract for tevm
 
 ### `abstract` contract
 
-> **`abstract`** **`readonly`** **contract**: `Script`\<`TName`, `THumanReadableAbi`\>
+> **`abstract`** **`readonly`** **contract**: [`Script`](/generated/tevm/contract/type-aliases/script/)\<`TName`, `THumanReadableAbi`\>
 
 #### Source
 

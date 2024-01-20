@@ -6,13 +6,13 @@
 
 # Type alias: AnvilSetBalanceJsonRpcRequest
 
-> **AnvilSetBalanceJsonRpcRequest**: [`JsonRpcRequest`](JsonRpcRequest.md)\<`"anvil_setBalance"`, `SerializeToJson`\<[`AnvilSetBalanceParams`](AnvilSetBalanceParams.md)\>\>
+> **AnvilSetBalanceJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"anvil_setBalance"`, `SerializeToJson`\<[`AnvilSetBalanceParams`](AnvilSetBalanceParams.md)\>\>
 
 JSON-RPC request for `anvil_setBalance` method
 
 ## Source
 
-vm/api/dist/index.d.ts:1682
+vm/api/types/requests/AnvilJsonRpcRequest.d.ts:35
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

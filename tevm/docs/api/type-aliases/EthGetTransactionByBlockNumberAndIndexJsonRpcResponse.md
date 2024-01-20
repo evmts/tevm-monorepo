@@ -6,13 +6,13 @@
 
 # Type alias: EthGetTransactionByBlockNumberAndIndexJsonRpcResponse
 
-> **EthGetTransactionByBlockNumberAndIndexJsonRpcResponse**: [`JsonRpcResponse`](JsonRpcResponse.md)\<`"eth_getTransactionByBlockNumberAndIndex"`, [`TransactionResult`](TransactionResult.md), `string`\>
+> **EthGetTransactionByBlockNumberAndIndexJsonRpcResponse**: [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"eth_getTransactionByBlockNumberAndIndex"`, [`TransactionResult`](TransactionResult.md), `string`\>
 
 JSON-RPC response for `eth_getTransactionByBlockNumberAndIndex` procedure
 
 ## Source
 
-vm/api/dist/index.d.ts:1869
+vm/api/types/responses/EthJsonRpcResponse.d.ts:105
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

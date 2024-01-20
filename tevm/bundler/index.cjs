@@ -4,7 +4,7 @@ var baseBundler = require('@tevm/base-bundler');
 
 
 
-Object.defineProperty(exports, 'bundler', {
+Object.defineProperty(exports, "bundler", {
   enumerable: true,
   get: function () { return baseBundler.bundler; }
 });

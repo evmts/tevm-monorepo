@@ -29,7 +29,7 @@ Params taken by the definePredeploy function
 
 ## Source
 
-vm/predeploys/dist/index.d.ts:45
+vm/predeploys/types/CustomPredeploy.d.ts:6
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

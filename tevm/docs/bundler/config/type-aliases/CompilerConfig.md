@@ -6,11 +6,11 @@
 
 # Type alias: CompilerConfig
 
-> **CompilerConfig**: `CompilerConfig$1`
+> **CompilerConfig**: `CompilerConfig`
 
 ## Source
 
-bundler/config/dist/index.d.ts:312
+bundler/config/types/index.d.ts:4
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

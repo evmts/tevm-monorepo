@@ -1,2 +1,5 @@
-import { node } from '@tevm/tsupconfig'
-export default node
+import { createTsUpOptions } from '@tevm/tsupconfig'
+export default createTsUpOptions({
+	entry: ['src/index.ts'],
+	target: 'node',
+})

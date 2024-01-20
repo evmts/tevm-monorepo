@@ -6,13 +6,13 @@
 
 # Type alias: DebugTraceCallJsonRpcResponse
 
-> **DebugTraceCallJsonRpcResponse**: [`JsonRpcResponse`](JsonRpcResponse.md)\<`"debug_traceCall"`, `SerializeToJson`\<[`DebugTraceCallResult`](DebugTraceCallResult.md)\>, `DebugError`\>
+> **DebugTraceCallJsonRpcResponse**: [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"debug_traceCall"`, `SerializeToJson`\<[`DebugTraceCallResult`](DebugTraceCallResult.md)\>, `DebugError`\>
 
 JSON-RPC response for `debug_traceCall` procedure
 
 ## Source
 
-vm/api/dist/index.d.ts:2008
+vm/api/types/responses/DebugJsonRpcResponse.d.ts:12
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

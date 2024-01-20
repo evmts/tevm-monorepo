@@ -4,7 +4,7 @@ var bunPlugin = require('@tevm/bun-plugin');
 
 
 
-Object.defineProperty(exports, 'bunPluginTevm', {
+Object.defineProperty(exports, "bunPluginTevm", {
   enumerable: true,
   get: function () { return bunPlugin.bunPluginTevm; }
 });

@@ -14,7 +14,7 @@ Result of GetAccount Action
 
 | Parameter | Default |
 | :------ | :------ |
-| `ErrorType` | [`GetAccountError`](../../api/type-aliases/GetAccountError.md) |
+| `ErrorType` | [`GetAccountError`](GetAccountError.md) |
 
 ## Type declaration
 
@@ -56,7 +56,7 @@ Storage root to set account to
 
 ## Source
 
-vm/api/dist/index.d.ts:1069
+vm/api/types/result/GetAccountResult.d.ts:7
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

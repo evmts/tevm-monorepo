@@ -6,13 +6,13 @@
 
 # Type alias: EthSyncingJsonRpcRequest
 
-> **EthSyncingJsonRpcRequest**: [`JsonRpcRequest`](JsonRpcRequest.md)\<`"eth_syncing"`, readonly []\>
+> **EthSyncingJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"eth_syncing"`, readonly []\>
 
 JSON-RPC request for `eth_syncing` procedure
 
 ## Source
 
-vm/api/dist/index.d.ts:1630
+vm/api/types/requests/EthJsonRpcRequest.d.ts:170
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

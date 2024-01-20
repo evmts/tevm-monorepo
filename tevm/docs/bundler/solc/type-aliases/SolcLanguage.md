@@ -6,13 +6,11 @@
 
 # Type alias: SolcLanguage
 
-> **SolcLanguage**: `SolcLanguage$1`
-
-./solcTypes.ts
+> **SolcLanguage**: `"Solidity"` \| `"Yul"` \| `"SolidityAST"`
 
 ## Source
 
-bundler/solc/dist/index.d.ts:357
+bundler/solc/types/src/solcTypes.d.ts:4
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

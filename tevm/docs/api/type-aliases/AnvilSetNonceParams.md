@@ -26,7 +26,7 @@ The nonce to set
 
 ## Source
 
-vm/api/dist/index.d.ts:501
+vm/api/types/params/AnvilParams.d.ts:98
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

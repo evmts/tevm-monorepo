@@ -16,7 +16,7 @@
 
 ## Source
 
-node\_modules/.pnpm/unplugin@1.5.1/node\_modules/unplugin/dist/index.d.mts:82
+[bundler/unplugin/src/tevmUnplugin.js:40](https://github.com/evmts/tevm-monorepo/blob/main/bundler/unplugin/src/tevmUnplugin.js#L40)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

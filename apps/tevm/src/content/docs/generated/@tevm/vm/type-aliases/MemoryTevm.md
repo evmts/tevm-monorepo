@@ -5,10 +5,10 @@ prev: false
 title: "MemoryTevm"
 ---
 
-> **MemoryTevm**: `Tevm` & `object`
+> **MemoryTevm**: [`Tevm`](/generated/tevm/api/type-aliases/tevm/) & `object`
 
 A local EVM instance running in JavaScript. Similar to Anvil in your browser/node/bun environments
-Implements the [Tevm]([object Object]) interface with an in memory EVM instance.
+Implements the [Tevm](/generated/tevm/api/type-aliases/tevm/) interface with an in memory EVM instance.
 
 ## See
 

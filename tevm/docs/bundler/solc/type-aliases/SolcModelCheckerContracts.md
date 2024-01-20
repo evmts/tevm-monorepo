@@ -6,13 +6,15 @@
 
 # Type alias: SolcModelCheckerContracts
 
-> **SolcModelCheckerContracts**: `SolcModelCheckerContracts$1`
+> **SolcModelCheckerContracts**: `object`
 
-./solcTypes.ts
+## Index signature
+
+ \[`fileName`: \`${string}.sol\`\]: `string`[]
 
 ## Source
 
-bundler/solc/dist/index.d.ts:445
+bundler/solc/types/src/solcTypes.d.ts:42
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

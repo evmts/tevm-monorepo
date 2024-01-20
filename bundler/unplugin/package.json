@@ -40,7 +40,6 @@
 	"types": "dist/index.d.ts",
 	"files": [
 		"dist",
-		"types",
 		"src"
 	],
 	"scripts": {

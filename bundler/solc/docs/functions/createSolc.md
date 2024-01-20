@@ -6,11 +6,11 @@
 
 # Function: createSolc()
 
-> **createSolc**(`release`): `Promise`\<`Solc`\>
+> **createSolc**(`release`): `Promise`\<[`Solc`](../interfaces/Solc.md)\>
 
 ## Parameters
 
-▪ **release**: keyof `Releases`
+▪ **release**: keyof [`Releases`](../type-aliases/Releases.md)
 
 ## Returns
 

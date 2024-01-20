@@ -18,7 +18,7 @@ we simply overload call instead of creating a seperate tevm_contract method
 
 ## Source
 
-[vm/procedures/src/jsonrpc/callProcedure.js:10](https://github.com/evmts/tevm-monorepo/blob/main/vm/procedures/src/jsonrpc/callProcedure.js#L10)
+[vm/procedures/src/jsonrpc/contractProcedure.js:8](https://github.com/evmts/tevm-monorepo/blob/main/vm/procedures/src/jsonrpc/contractProcedure.js#L8)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

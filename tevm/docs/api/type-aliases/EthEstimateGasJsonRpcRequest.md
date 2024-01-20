@@ -6,13 +6,13 @@
 
 # Type alias: EthEstimateGasJsonRpcRequest
 
-> **EthEstimateGasJsonRpcRequest**: [`JsonRpcRequest`](JsonRpcRequest.md)\<`"eth_estimateGas"`, readonly [`Transaction`]\>
+> **EthEstimateGasJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"eth_estimateGas"`, readonly [`Transaction`]\>
 
 JSON-RPC request for `eth_estimateGas` procedure
 
 ## Source
 
-vm/api/dist/index.d.ts:1489
+vm/api/types/requests/EthJsonRpcRequest.d.ts:29
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

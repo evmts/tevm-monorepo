@@ -18,7 +18,7 @@ Typesafe way to create an Tevm CompilerConfig
 
 > ### configFn
 >
-> > **configFn**: (`configFilePath`) => `Effect`\<`never`, `DefineConfigError`, `ResolvedCompilerConfig$1`\>
+> > **configFn**: (`configFilePath`) => `Effect`\<`never`, `DefineConfigError`, `ResolvedCompilerConfig`\>
 >
 > #### Parameters
 >
@@ -40,7 +40,7 @@ export default defineConfig(() => ({
 
 ## Source
 
-bundler/config/dist/index.d.ts:210
+bundler/config/types/defineConfig.d.ts:35
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -23,11 +23,11 @@ title: "ResolvedArtifacts"
 
 ### solcInput
 
-> **solcInput**: `SolcInputDescription`
+> **solcInput**: [`SolcInputDescription`](/generated/tevm/solc/type-aliases/solcinputdescription/)
 
 ### solcOutput
 
-> **solcOutput**: `SolcOutput`
+> **solcOutput**: [`SolcOutput`](/generated/tevm/solc/type-aliases/solcoutput/)
 
 ## Source
 

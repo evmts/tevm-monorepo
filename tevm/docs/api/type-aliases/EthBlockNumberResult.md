@@ -12,7 +12,7 @@ JSON-RPC response for `eth_blockNumber` procedure
 
 ## Source
 
-vm/api/dist/index.d.ts:1174
+vm/api/types/result/EthResult.d.ts:15
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

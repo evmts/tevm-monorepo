@@ -18,7 +18,7 @@ Creates a tevm Contract instance from human readable abi
 
 ## Parameters
 
-▪ **\_\_namedParameters**: [`CreateContractParams`](../../contract/type-aliases/CreateContractParams.md)\<`TName`, `THumanReadableAbi`\>
+▪ **\_\_namedParameters**: [`CreateContractParams`](../type-aliases/CreateContractParams.md)\<`TName`, `THumanReadableAbi`\>
 
 ## Returns
 
@@ -52,7 +52,7 @@ const contract = createContract({
 
 ## Source
 
-packages/contract/dist/index.d.ts:451
+packages/contract/types/createContract.d.ts:29
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -14,7 +14,7 @@
 
 ## Source
 
-vm/api/dist/index.d.ts:2056
+vm/api/types/procedure/EthProcedure.d.ts:22
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

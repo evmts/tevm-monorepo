@@ -6,13 +6,15 @@
 
 # Type alias: SolcOutputSelection
 
-> **SolcOutputSelection**: `SolcOutputSelection$1`
+> **SolcOutputSelection**: `object`
 
-./solcTypes.ts
+## Index signature
+
+ \[`fileName`: `string`\]: `object` & `object`
 
 ## Source
 
-bundler/solc/dist/index.d.ts:425
+bundler/solc/types/src/solcTypes.d.ts:35
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

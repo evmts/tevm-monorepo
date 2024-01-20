@@ -12,7 +12,7 @@ Error thrown when nonce parameter is invalid
 
 ## Source
 
-vm/api/dist/index.d.ts:826
+vm/api/types/errors/InvalidNonceError.d.ts:5
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

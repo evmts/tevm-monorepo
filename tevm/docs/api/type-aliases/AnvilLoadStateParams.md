@@ -20,7 +20,7 @@ The state to load
 
 ## Source
 
-vm/api/dist/index.d.ts:544
+vm/api/types/params/AnvilParams.d.ts:141
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -5,7 +5,7 @@ prev: false
 title: "getCodeHandler"
 ---
 
-> **getCodeHandler**(`options`): `EthGetCodeHandler`
+> **getCodeHandler**(`options`): [`EthGetCodeHandler`](/generated/tevm/api/type-aliases/ethgetcodehandler/)
 
 ## Parameters
 

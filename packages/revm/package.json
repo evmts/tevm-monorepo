@@ -37,7 +37,8 @@
 		"dist",
 		"src",
 		"cargo.toml",
-		"Cargo.lock"
+		"Cargo.lock",
+		"types"
 	],
 	"scripts": {
 		"//test": "vitest --coverage",

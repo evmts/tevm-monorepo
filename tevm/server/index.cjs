@@ -4,23 +4,23 @@ var server = require('@tevm/server');
 
 
 
-Object.defineProperty(exports, 'BadRequestError', {
+Object.defineProperty(exports, "BadRequestError", {
   enumerable: true,
   get: function () { return server.BadRequestError; }
 });
-Object.defineProperty(exports, 'createExpressMiddleware', {
+Object.defineProperty(exports, "createExpressMiddleware", {
   enumerable: true,
   get: function () { return server.createExpressMiddleware; }
 });
-Object.defineProperty(exports, 'createHttpHandler', {
+Object.defineProperty(exports, "createHttpHandler", {
   enumerable: true,
   get: function () { return server.createHttpHandler; }
 });
-Object.defineProperty(exports, 'createNextApiHandler', {
+Object.defineProperty(exports, "createNextApiHandler", {
   enumerable: true,
   get: function () { return server.createNextApiHandler; }
 });
-Object.defineProperty(exports, 'createServer', {
+Object.defineProperty(exports, "createServer", {
   enumerable: true,
   get: function () { return server.createServer; }
 });

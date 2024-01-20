@@ -6,13 +6,13 @@
 
 # Type alias: Logger
 
-> **Logger**: `Logger$1`
+> **Logger**: `Logger`
 
 ./types.ts
 
 ## Source
 
-bundler/compiler/dist/index.d.ts:63
+bundler/compiler/types/src/index.d.ts:18
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

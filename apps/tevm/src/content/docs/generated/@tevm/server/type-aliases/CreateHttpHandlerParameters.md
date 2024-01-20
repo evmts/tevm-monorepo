@@ -11,7 +11,7 @@ title: "CreateHttpHandlerParameters"
 
 ### request
 
-> **request**: `TevmJsonRpcRequestHandler`
+> **request**: [`@tevm/api`](/generated/tevm/api/api/)
 
 ## Source
 

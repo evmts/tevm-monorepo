@@ -4,7 +4,7 @@ var vitePlugin = require('@tevm/vite-plugin');
 
 
 
-Object.defineProperty(exports, 'vitePluginTevm', {
+Object.defineProperty(exports, "vitePluginTevm", {
   enumerable: true,
   get: function () { return vitePlugin.vitePluginTevm; }
 });

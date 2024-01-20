@@ -14,11 +14,11 @@
 | :------ | :------ |
 | `TAbi` extends `Abi` \| readonly `unknown`[] | `Abi` |
 | `TFunctionName` extends `ContractFunctionName`\<`TAbi`\> | `ContractFunctionName`\<`TAbi`\> |
-| `ErrorType` | [`ContractError`](../../api/type-aliases/ContractError.md) |
+| `ErrorType` | [`ContractError`](ContractError.md) |
 
 ## Source
 
-vm/api/dist/index.d.ts:1152
+vm/api/types/result/ContractResult.d.ts:5
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

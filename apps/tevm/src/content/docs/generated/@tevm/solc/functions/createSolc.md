@@ -5,11 +5,11 @@ prev: false
 title: "createSolc"
 ---
 
-> **createSolc**(`release`): `Promise`\<`Solc`\>
+> **createSolc**(`release`): `Promise`\<[`Solc`](/generated/tevm/solc/interfaces/solc/)\>
 
 ## Parameters
 
-▪ **release**: keyof `Releases`
+▪ **release**: keyof [`Releases`](/generated/tevm/solc/type-aliases/releases/)
 
 ## Returns
 

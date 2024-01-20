@@ -9,12 +9,6 @@ title: "SetAccountHandler"
 
 Sets the state of a specific ethereum address
 
-## Parameters
-
-▪ **params**: [`SetAccountParams`](/generated/tevm/api/type-aliases/setaccountparams/)
-
-## Returns
-
 ## Example
 
 ```ts
@@ -26,6 +20,10 @@ await tevm.setAccount({
  balance: parseEther('1.0')
 })
 ```
+
+## Parameters
+
+▪ **params**: [`SetAccountParams`](/generated/tevm/api/type-aliases/setaccountparams/)
 
 ## Source
 

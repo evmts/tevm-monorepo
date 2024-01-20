@@ -5,7 +5,7 @@ prev: false
 title: "releases"
 ---
 
-> **`const`** **releases**: `Releases`
+> **`const`** **releases**: [`Releases`](/generated/tevm/solc/type-aliases/releases/)
 
 ## Source
 
