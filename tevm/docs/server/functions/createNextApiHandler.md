@@ -6,7 +6,7 @@
 
 # Function: createNextApiHandler()
 
-> **createNextApiHandler**(`__namedParameters`): `next.NextApiHandler`
+> **createNextApiHandler**(`__namedParameters`): `NextApiHandler`
 
 ## Parameters
 
@@ -16,7 +16,7 @@
 
 ## Source
 
-vm/server/dist/index.d.ts:67
+vm/server/types/adapters/createNextApiHandler.d.ts:1
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

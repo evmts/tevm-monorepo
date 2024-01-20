@@ -14,15 +14,15 @@ the ts-plugin, the webpack plugin, the bun plugin, the vite plugin, and more.
 
 ## Parameters
 
-▪ **config**: `ResolvedCompilerConfig$1`
+▪ **config**: `ResolvedCompilerConfig`
 
 The tevm config. Can be loaded with `loadConfig()`
 
-▪ **logger**: `Logger$1`
+▪ **logger**: `Logger`
 
 The logger to use for logging. Can be `console`
 
-▪ **fao**: `FileAccessObject$1`
+▪ **fao**: `FileAccessObject`
 
 The file access object to use for reading and writing files. Can use fs to fill this out
 
@@ -30,7 +30,7 @@ The file access object to use for reading and writing files. Can use fs to fill 
 
 The solc compiler to use. Can be loaded with `createSolc()`
 
-▪ **cache**: `Cache$1`
+▪ **cache**: `Cache`
 
 The cache to use. Can be created with `createCache()`
 
@@ -38,7 +38,7 @@ The cache to use. Can be created with `createCache()`
 
 > ### config
 >
-> > **config**: `ResolvedCompilerConfig$1`
+> > **config**: `ResolvedCompilerConfig`
 >
 > The configuration of the plugin.
 >
@@ -58,49 +58,49 @@ The cache to use. Can be created with `createCache()`
 >
 > ### resolveCjsModule
 >
-> > **resolveCjsModule**: `AsyncBundlerResult$1`
+> > **resolveCjsModule**: `AsyncBundlerResult`
 >
 > Resolves cjs representation of the solidity module
 >
 > ### resolveCjsModuleSync
 >
-> > **resolveCjsModuleSync**: `SyncBundlerResult$1`
+> > **resolveCjsModuleSync**: `SyncBundlerResult`
 >
 > Resolves cjs representation of the solidity module
 >
 > ### resolveDts
 >
-> > **resolveDts**: `AsyncBundlerResult$1`
+> > **resolveDts**: `AsyncBundlerResult`
 >
 > Resolves .d.ts representation of the solidity module
 >
 > ### resolveDtsSync
 >
-> > **resolveDtsSync**: `SyncBundlerResult$1`
+> > **resolveDtsSync**: `SyncBundlerResult`
 >
 > Resolves .d.ts representation of the solidity module
 >
 > ### resolveEsmModule
 >
-> > **resolveEsmModule**: `AsyncBundlerResult$1`
+> > **resolveEsmModule**: `AsyncBundlerResult`
 >
 > Resolves the esm representation of the solidity module
 >
 > ### resolveEsmModuleSync
 >
-> > **resolveEsmModuleSync**: `SyncBundlerResult$1`
+> > **resolveEsmModuleSync**: `SyncBundlerResult`
 >
 > Resolves the esm representation of the solidity module
 >
 > ### resolveTsModule
 >
-> > **resolveTsModule**: `AsyncBundlerResult$1`
+> > **resolveTsModule**: `AsyncBundlerResult`
 >
 > Resolves typescript representation of the solidity module
 >
 > ### resolveTsModuleSync
 >
-> > **resolveTsModuleSync**: `SyncBundlerResult$1`
+> > **resolveTsModuleSync**: `SyncBundlerResult`
 >
 > Resolves typescript representation of the solidity module
 >
@@ -133,7 +133,7 @@ const { abi, bytecode } = await b.resolveTs(path, __dirname, true, true)
 
 ## Source
 
-[bundler/base-bundler/dist/index.d.ts:34](https://github.com/evmts/tevm-monorepo/blob/main/bundler/base-bundler/dist/index.d.ts#L34)
+[bundler/base-bundler/types/src/bundler.d.ts:41](https://github.com/evmts/tevm-monorepo/blob/main/bundler/base-bundler/types/src/bundler.d.ts#L41)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

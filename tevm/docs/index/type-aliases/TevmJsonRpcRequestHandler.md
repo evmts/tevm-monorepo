@@ -6,20 +6,10 @@
 
 # Type alias: TevmJsonRpcRequestHandler
 
-> **TevmJsonRpcRequestHandler**: \<`TRequest`\>(`request`) => `Promise`\<`JsonRpcReturnTypeFromMethod`\<`TRequest`[`"method"`]\>\>
+> **TevmJsonRpcRequestHandler**: \<`TRequest`\>(`request`) => `Promise`\<[`JsonRpcReturnTypeFromMethod`](JsonRpcReturnTypeFromMethod.md)\<`TRequest`[`"method"`]\>\>
 
 Typesafe request handler for JSON-RPC requests. Most users will want to use the higher level
 and more feature-rich `actions` api
-
-## Type parameters
-
-▪ **TRequest** extends [`TevmJsonRpcRequest`](TevmJsonRpcRequest.md) \| [`EthJsonRpcRequest`](../../api/type-aliases/EthJsonRpcRequest.md) \| `AnvilJsonRpcRequest` \| `DebugJsonRpcRequest`
-
-## Parameters
-
-▪ **request**: `TRequest`
-
-## Returns
 
 ## Example
 
@@ -99,9 +89,17 @@ response - [EthGasPriceJsonRpcResponse](../../api/type-aliases/EthGasPriceJsonRp
 request - [EthGetBalanceJsonRpcRequest](../../api/type-aliases/EthGetBalanceJsonRpcRequest.md)
 response - [EthGetBalanceJsonRpcResponse](../../api/type-aliases/EthGetBalanceJsonRpcResponse.md)
 
+## Type parameters
+
+▪ **TRequest** extends [`TevmJsonRpcRequest`](TevmJsonRpcRequest.md) \| [`EthJsonRpcRequest`](../../api/type-aliases/EthJsonRpcRequest.md) \| `AnvilJsonRpcRequest` \| `DebugJsonRpcRequest`
+
+## Parameters
+
+▪ **request**: `TRequest`
+
 ## Source
 
-vm/api/dist/index.d.ts:2368
+vm/api/types/TevmJsonRpcRequestHandler.d.ts:230
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

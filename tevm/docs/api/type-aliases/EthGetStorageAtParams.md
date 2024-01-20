@@ -26,7 +26,7 @@ JSON-RPC request for `eth_getStorageAt` procedure
 
 ## Source
 
-vm/api/dist/index.d.ts:295
+vm/api/types/params/EthParams.d.ts:98
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -6,10 +6,10 @@
 
 # Type alias: MemoryTevm
 
-> **MemoryTevm**: [`Tevm`](../../api/type-aliases/Tevm.md) & `object`
+> **MemoryTevm**: [`Tevm`](Tevm.md) & `object`
 
 A local EVM instance running in JavaScript. Similar to Anvil in your browser/node/bun environments
-Implements the [Tevm](../../api/type-aliases/Tevm.md) interface with an in memory EVM instance.
+Implements the [Tevm](Tevm.md) interface with an in memory EVM instance.
 
 ## See
 
@@ -68,7 +68,7 @@ Fork url if the EVM is forked
 
 ## Source
 
-vm/vm/dist/index.d.ts:51
+vm/vm/types/MemoryTevm.d.ts:37
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

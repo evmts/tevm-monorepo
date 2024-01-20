@@ -6,13 +6,13 @@
 
 # Type alias: EthAccountsJsonRpcResponse
 
-> **EthAccountsJsonRpcResponse**: [`JsonRpcResponse`](JsonRpcResponse.md)\<`"eth_accounts"`, `Address`[], `string`\>
+> **EthAccountsJsonRpcResponse**: [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"eth_accounts"`, `Address`[], `string`\>
 
 JSON-RPC response for `eth_accounts` procedure
 
 ## Source
 
-vm/api/dist/index.d.ts:1777
+vm/api/types/responses/EthJsonRpcResponse.d.ts:13
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

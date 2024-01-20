@@ -6,13 +6,13 @@
 
 # Type alias: EthMiningJsonRpcResponse
 
-> **EthMiningJsonRpcResponse**: [`JsonRpcResponse`](JsonRpcResponse.md)\<`"eth_mining"`, `boolean`, `string`\>
+> **EthMiningJsonRpcResponse**: [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"eth_mining"`, `boolean`, `string`\>
 
 JSON-RPC response for `eth_mining` procedure
 
 ## Source
 
-vm/api/dist/index.d.ts:1885
+vm/api/types/responses/EthJsonRpcResponse.d.ts:121
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

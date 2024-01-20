@@ -18,7 +18,7 @@ title: "ViemTevmOptimisticClient"
 
 ### tevm
 
-> **tevm**: `Omit`\<`Tevm`, `"request"`\> & `object`
+> **tevm**: `Omit`\<[`Tevm`](/generated/tevm/api/type-aliases/tevm/), `"request"`\> & `object`
 
 #### Type declaration
 

@@ -12,18 +12,6 @@ Executes scripts against the Tevm EVM. By default the script is sandboxed
 and the state is reset after each execution unless the `persist` option is set
 to true.
 
-## Type parameters
-
-▪ **TAbi** extends `Abi` \| readonly `unknown`[] = `Abi`
-
-▪ **TFunctionName** extends `ContractFunctionName`\<`TAbi`\> = `ContractFunctionName`\<`TAbi`\>
-
-## Parameters
-
-▪ **params**: [`ScriptParams`](../../index/type-aliases/ScriptParams.md)\<`TAbi`, `TFunctionName`\>
-
-## Returns
-
 ## Example
 
 ```typescript
@@ -46,9 +34,19 @@ const res = tevm.script(
 )
 ```
 
+## Type parameters
+
+▪ **TAbi** extends `Abi` \| readonly `unknown`[] = `Abi`
+
+▪ **TFunctionName** extends `ContractFunctionName`\<`TAbi`\> = `ContractFunctionName`\<`TAbi`\>
+
+## Parameters
+
+▪ **params**: [`ScriptParams`](../../index/type-aliases/ScriptParams.md)\<`TAbi`, `TFunctionName`\>
+
 ## Source
 
-vm/api/dist/index.d.ts:1036
+vm/api/types/handlers/ScriptHandler.d.ts:27
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

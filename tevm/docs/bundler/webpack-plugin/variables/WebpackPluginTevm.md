@@ -83,7 +83,7 @@ For custom configuration add a [tevm.config.json](https://todo.todo.todo) file t
 
 ## Source
 
-bundler/webpack/dist/index.d.ts:82
+bundler/webpack/types/WebpackPluginTevm.d.ts:66
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

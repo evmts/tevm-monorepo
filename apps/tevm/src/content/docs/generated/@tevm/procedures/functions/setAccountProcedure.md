@@ -5,7 +5,7 @@ prev: false
 title: "setAccountProcedure"
 ---
 
-> **setAccountProcedure**(`evm`): `SetAccountJsonRpcProcedure`
+> **setAccountProcedure**(`evm`): [`SetAccountJsonRpcProcedure`](/generated/tevm/api/type-aliases/setaccountjsonrpcprocedure/)
 
 Creates an SetAccount JSON-RPC Procedure for handling tevm_setAccount requests with Ethereumjs EVM
 

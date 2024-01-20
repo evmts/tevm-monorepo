@@ -3,28 +3,20 @@
 	"version": "1.0.0-next.21",
 	"private": false,
 	"description": "A typescript plugin for tevm",
-	"keywords": [
-		"typescript",
-		"plugin",
-		"solidity",
-		"sol",
-		"tevm"
-	],
+	"keywords": ["typescript", "plugin", "solidity", "sol", "tevm"],
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/evmts/tevm-monorepo.git",
 		"directory": "lsp/ts-plugin"
 	},
 	"license": "MIT",
-	"contributors": [
-		"Will Cory <willcory10@gmail.com>"
-	],
+	"contributors": ["Will Cory <willcory10@gmail.com>"],
 	"type": "module",
 	"exports": {
 		"./package.json": "./package.json",
 		".": {
 			"import": {
-				"types": "./dist/index.d.ts",
+				"types": "./types/index.d.ts",
 				"default": "./dist/index.js"
 			},
 			"require": {
@@ -35,18 +27,15 @@
 	},
 	"main": "dist/index.cjs",
 	"module": "dist/index.js",
-	"types": "dist/index.d.ts",
+	"types": "types/index.d.ts",
 	"bin": {
 		"tevm-gen": "./dist/bin/tevm-gen.js"
 	},
-	"files": [
-		"dist",
-		"src"
-	],
+	"files": ["dist", "src"],
 	"scripts": {
 		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/ts-plugin ",
 		"build:dist": "tsup",
-		"build:types": "tsup --dts-only",
+		"build:types": "tsup --dts-only && tsc --emitDeclarationOnly --declaration",
 		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
 		"dev": "TSS_DEBUG_BRK=9559 code ../../examples/forge-foundry",
 		"format": "rome format . --write",
@@ -56,6 +45,7 @@
 		"generate:docs": "typedoc",
 		"lint": "rome check . --apply-unsafe",
 		"lint:check": "rome check . --verbose",
+		"typecheck": "tsc --noEmit",
 		"test": "vitest --coverage",
 		"test:coverage": "vitest run --coverage",
 		"test:run": "vitest --run"

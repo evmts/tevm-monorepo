@@ -14,7 +14,7 @@
 
 ## Source
 
-vm/api/dist/index.d.ts:1389
+vm/api/types/handlers/EthHandler.d.ts:38
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

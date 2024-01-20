@@ -97,7 +97,7 @@ For custom configuration of the Tevm compiler add a [tevm.config.json](https://t
 
 ## Source
 
-node\_modules/.pnpm/unplugin@1.5.1/node\_modules/unplugin/dist/index.d.mts:83
+[bundler/vite/src/vitePluginTevm.js:73](https://github.com/evmts/tevm-monorepo/blob/main/bundler/vite/src/vitePluginTevm.js#L73)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

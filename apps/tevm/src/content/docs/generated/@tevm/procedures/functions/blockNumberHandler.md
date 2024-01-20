@@ -5,7 +5,7 @@ prev: false
 title: "blockNumberHandler"
 ---
 
-> **blockNumberHandler**(`blockchain`): `EthBlockNumberHandler`
+> **blockNumberHandler**(`blockchain`): [`EthBlockNumberHandler`](/generated/tevm/api/type-aliases/ethblocknumberhandler/)
 
 Handler for the `eth_blockNumber` RPC call
 

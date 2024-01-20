@@ -6,13 +6,13 @@
 
 # Type alias: AnvilImpersonateAccountJsonRpcResponse
 
-> **AnvilImpersonateAccountJsonRpcResponse**: [`JsonRpcResponse`](JsonRpcResponse.md)\<`"anvil_impersonateAccount"`, `SerializeToJson`\<[`AnvilImpersonateAccountResult`](AnvilImpersonateAccountResult.md)\>, `AnvilError`\>
+> **AnvilImpersonateAccountJsonRpcResponse**: [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"anvil_impersonateAccount"`, `SerializeToJson`\<[`AnvilImpersonateAccountResult`](AnvilImpersonateAccountResult.md)\>, `AnvilError`\>
 
 JSON-RPC response for `anvil_impersonateAccount` procedure
 
 ## Source
 
-vm/api/dist/index.d.ts:1946
+vm/api/types/responses/AnvilJsonRpcResponse.d.ts:8
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

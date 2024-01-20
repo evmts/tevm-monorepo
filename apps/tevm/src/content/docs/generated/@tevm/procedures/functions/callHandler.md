@@ -5,7 +5,7 @@ prev: false
 title: "callHandler"
 ---
 
-> **callHandler**(`evm`): `CallHandler`
+> **callHandler**(`evm`): [`CallHandler`](/generated/tevm/api/type-aliases/callhandler/)
 
 Creates an CallHandler for handling call params with Ethereumjs EVM
 

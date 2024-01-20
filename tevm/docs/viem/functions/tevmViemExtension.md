@@ -10,7 +10,7 @@
 
 ## Source
 
-extensions/viem/dist/index.d.ts:12
+extensions/viem/types/tevmViemExtension.d.ts:4
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

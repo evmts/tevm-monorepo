@@ -26,7 +26,7 @@
 		"./package.json": "./package.json",
 		".": {
 			"import": {
-				"types": "./dist/index.d.ts",
+				"types": "./types/index.d.ts",
 				"default": "./dist/index.js"
 			},
 			"require": {
@@ -37,7 +37,7 @@
 	},
 	"main": "dist/index.cjs",
 	"module": "dist/index.js",
-	"types": "dist/index.d.ts",
+	"types": "types/index.d.ts",
 	"files": [
 		"dist",
 		"types",
@@ -47,7 +47,7 @@
 		"all": "pnpm i  && bun run build && bun run lint && bun run lint:check && bun run format:check && bun run format && bun run test:coverage && bun run generate:docs",
 		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/runtime ",
 		"build:dist": "tsup",
-		"build:types": "tsup --dts-only",
+		"build:types": "tsup --dts-only && tsc --emitDeclarationOnly --declaration",
 		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
 		"format": "rome format . --write",
 		"format:check": "rome format .",

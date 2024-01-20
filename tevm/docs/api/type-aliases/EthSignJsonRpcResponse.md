@@ -6,13 +6,13 @@
 
 # Type alias: EthSignJsonRpcResponse
 
-> **EthSignJsonRpcResponse**: [`JsonRpcResponse`](JsonRpcResponse.md)\<`"eth_sign"`, `Hex`, `string`\>
+> **EthSignJsonRpcResponse**: [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"eth_sign"`, `Hex`, `string`\>
 
 JSON-RPC response for `eth_sign` procedure
 
 ## Source
 
-vm/api/dist/index.d.ts:1901
+vm/api/types/responses/EthJsonRpcResponse.d.ts:137
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

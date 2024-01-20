@@ -28,7 +28,7 @@ describe('solidityModuleResolver', () => {
 			'',
 		)
 		expect(result).toMatchInlineSnapshot(
-			'"/node_modules/.pnpm/@openzeppelin+contracts@4.9.3/node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol"',
+			'"/node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol"',
 		)
 	})
 	it('should return undefined for non-solidity modules', () => {

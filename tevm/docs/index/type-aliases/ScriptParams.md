@@ -27,7 +27,7 @@ The EVM code to run.
 
 ## Source
 
-vm/api/dist/index.d.ts:183
+vm/api/types/params/ScriptParams.d.ts:7
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

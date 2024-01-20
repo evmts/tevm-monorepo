@@ -6,13 +6,13 @@
 
 # Type alias: EthGetCodeJsonRpcRequest
 
-> **EthGetCodeJsonRpcRequest**: [`JsonRpcRequest`](JsonRpcRequest.md)\<`"eth_getCode"`, readonly [`Address`, `BlockTag` \| `Hex`]\>
+> **EthGetCodeJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"eth_getCode"`, readonly [`Address`, `BlockTag` \| `Hex`]\>
 
 JSON-RPC request for `eth_getCode` procedure
 
 ## Source
 
-vm/api/dist/index.d.ts:1524
+vm/api/types/requests/EthJsonRpcRequest.d.ts:64
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

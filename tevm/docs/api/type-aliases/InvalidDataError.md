@@ -12,7 +12,7 @@ Error thrown when data parameter is invalid
 
 ## Source
 
-vm/api/dist/index.d.ts:765
+vm/api/types/errors/InvalidDataError.d.ts:5
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

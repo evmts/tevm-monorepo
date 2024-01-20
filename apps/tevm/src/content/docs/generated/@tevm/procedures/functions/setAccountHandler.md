@@ -5,7 +5,7 @@ prev: false
 title: "setAccountHandler"
 ---
 
-> **setAccountHandler**(`evm`): `SetAccountHandler`
+> **setAccountHandler**(`evm`): [`SetAccountHandler`](/generated/tevm/api/type-aliases/setaccounthandler/)
 
 Creates an SetAccountHandler for handling account params with Ethereumjs EVM
 

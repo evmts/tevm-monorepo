@@ -1,1 +1,1 @@
-export { MemoryClient, RemoteClient, createMemoryClient, createRemoteClient } from '@tevm/client';
+export { ClientOptions, TevmClient, createTevmClient } from '@tevm/client';

@@ -14,7 +14,7 @@ Result of SetAccount Action
 
 | Parameter | Default |
 | :------ | :------ |
-| `ErrorType` | [`SetAccountError`](../../api/type-aliases/SetAccountError.md) |
+| `ErrorType` | [`SetAccountError`](SetAccountError.md) |
 
 ## Type declaration
 
@@ -26,7 +26,7 @@ Description of the exception, if any occurred
 
 ## Source
 
-vm/api/dist/index.d.ts:1099
+vm/api/types/result/SetAccountResult.d.ts:5
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

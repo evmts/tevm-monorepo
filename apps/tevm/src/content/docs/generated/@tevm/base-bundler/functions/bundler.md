@@ -13,7 +13,7 @@ the ts-plugin, the webpack plugin, the bun plugin, the vite plugin, and more.
 
 ## Parameters
 
-▪ **config**: `ResolvedCompilerConfig$1`
+▪ **config**: [`ResolvedCompilerConfig`](/generated/tevm/config/types/type-aliases/resolvedcompilerconfig/)
 
 The tevm config. Can be loaded with `loadConfig()`
 
@@ -29,7 +29,7 @@ The file access object to use for reading and writing files. Can use fs to fill 
 
 The solc compiler to use. Can be loaded with `createSolc()`
 
-▪ **cache**: `Cache$1`
+▪ **cache**: `Cache`
 
 The cache to use. Can be created with `createCache()`
 
@@ -37,7 +37,7 @@ The cache to use. Can be created with `createCache()`
 
 > ### config
 >
-> > **config**: `ResolvedCompilerConfig$1`
+> > **config**: [`ResolvedCompilerConfig`](/generated/tevm/config/types/type-aliases/resolvedcompilerconfig/)
 >
 > The configuration of the plugin.
 >
@@ -132,7 +132,7 @@ const { abi, bytecode } = await b.resolveTs(path, __dirname, true, true)
 
 ## Source
 
-[types.ts:48](https://github.com/evmts/tevm-monorepo/blob/main/bundler/base-bundler/src/types.ts#L48)
+[bundler.js:44](https://github.com/evmts/tevm-monorepo/blob/main/bundler/base-bundler/src/bundler.js#L44)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -18,7 +18,7 @@ Resolves artifacts with solc asyncronously
 
 ▪ **logger**: `Logger$1`
 
-▪ **config**: `ResolvedCompilerConfig$1`
+▪ **config**: `ResolvedCompilerConfig`
 
 ▪ **includeAst**: `boolean`
 
@@ -30,7 +30,7 @@ Resolves artifacts with solc asyncronously
 
 ## Source
 
-bundler/compiler/dist/index.d.ts:13
+bundler/compiler/dist/index.d.ts:41
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

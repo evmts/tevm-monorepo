@@ -11,11 +11,11 @@ title: "JsonRpcClient"
 
 ### request
 
-> **request**: (`request`) => `Promise`\<`JsonRpcResponse`\<`any`, `any`, `any`\>\>
+> **request**: (`request`) => `Promise`\<[`JsonRpcResponse`](/generated/tevm/api/type-aliases/jsonrpcresponse/)\<`any`, `any`, `any`\>\>
 
 #### Parameters
 
-▪ **request**: `JsonRpcRequest`\<`any`, `any`\>
+▪ **request**: [`JsonRpcRequest`](/generated/tevm/api/type-aliases/jsonrpcrequest/)\<`any`, `any`\>
 
 ### url
 

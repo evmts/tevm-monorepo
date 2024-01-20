@@ -4,11 +4,11 @@ var viem = require('@tevm/viem');
 
 
 
-Object.defineProperty(exports, 'tevmViemExtension', {
+Object.defineProperty(exports, "tevmViemExtension", {
   enumerable: true,
   get: function () { return viem.tevmViemExtension; }
 });
-Object.defineProperty(exports, 'tevmViemExtensionOptimistic', {
+Object.defineProperty(exports, "tevmViemExtensionOptimistic", {
   enumerable: true,
   get: function () { return viem.tevmViemExtensionOptimistic; }
 });

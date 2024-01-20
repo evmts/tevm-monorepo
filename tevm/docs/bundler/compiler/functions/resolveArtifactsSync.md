@@ -16,7 +16,7 @@
 
 ▪ **logger**: `Logger$1`
 
-▪ **config**: `ResolvedCompilerConfig$1`
+▪ **config**: `ResolvedCompilerConfig`
 
 ▪ **includeAst**: `boolean`
 
@@ -28,7 +28,7 @@
 
 ## Source
 
-bundler/compiler/dist/index.d.ts:14
+bundler/compiler/dist/index.d.ts:46
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

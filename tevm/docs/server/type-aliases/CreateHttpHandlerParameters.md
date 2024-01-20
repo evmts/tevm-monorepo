@@ -12,11 +12,11 @@
 
 ### request
 
-> **request**: [`TevmJsonRpcRequestHandler`](../../index/type-aliases/TevmJsonRpcRequestHandler.md)
+> **request**: `TevmJsonRpcRequestHandler`
 
 ## Source
 
-vm/server/dist/index.d.ts:7
+vm/server/types/createHttpHandler.d.ts:2
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

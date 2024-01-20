@@ -11,16 +11,6 @@
 Typesafe request handler for JSON-RPC requests. Most users will want to use the higher level
 and more feature-rich `actions` api
 
-## Type parameters
-
-▪ **TRequest** extends [`TevmJsonRpcRequest`](TevmJsonRpcRequest.md) \| [`EthJsonRpcRequest`](EthJsonRpcRequest.md) \| `AnvilJsonRpcRequest` \| `DebugJsonRpcRequest`
-
-## Parameters
-
-▪ **request**: `TRequest`
-
-## Returns
-
 ## Example
 
 ```typescript
@@ -98,6 +88,14 @@ response - [EthGasPriceJsonRpcResponse](EthGasPriceJsonRpcResponse.md)
 
 request - [EthGetBalanceJsonRpcRequest](EthGetBalanceJsonRpcRequest.md)
 response - [EthGetBalanceJsonRpcResponse](EthGetBalanceJsonRpcResponse.md)
+
+## Type parameters
+
+▪ **TRequest** extends [`TevmJsonRpcRequest`](TevmJsonRpcRequest.md) \| [`EthJsonRpcRequest`](EthJsonRpcRequest.md) \| `AnvilJsonRpcRequest` \| `DebugJsonRpcRequest`
+
+## Parameters
+
+▪ **request**: `TRequest`
 
 ## Source
 

@@ -6,11 +6,11 @@
 
 # Type alias: ResolvedCompilerConfig
 
-> **ResolvedCompilerConfig**: `ResolvedCompilerConfig$1`
+> **ResolvedCompilerConfig**: `ResolvedCompilerConfig`
 
 ## Source
 
-bundler/config/dist/index.d.ts:313
+bundler/config/types/index.d.ts:5
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

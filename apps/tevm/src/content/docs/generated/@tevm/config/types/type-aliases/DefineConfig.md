@@ -10,6 +10,16 @@ title: "DefineConfig"
 Creates an Tevm config
 Takes a user provided configFactory
 
+## Example
+
+```ts
+import { defineConfig } from 'tevm/config'
+export default defineConfig({
+	foundryProject: true,
+		libs: ['libs/contracts'],
+	})
+```
+
 ## Parameters
 
 ▪ **configFactory**: [`ConfigFactory`](/generated/tevm/config/types/type-aliases/configfactory/)
@@ -24,16 +34,6 @@ Takes a user provided configFactory
 >
 > ▪ **configFilePath**: `string`
 >
-
-## Example
-
-```ts
-import { defineConfig } from 'tevm/config'
-export default defineConfig({
-	foundryProject: true,
-		libs: ['libs/contracts'],
-	})
-```
 
 ## Source
 

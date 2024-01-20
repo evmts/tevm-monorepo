@@ -28,11 +28,11 @@ The options for the error.
 
 The cause of the error.
 
-▪ **options.docs?**: `undefined` \| `string`
+▪ **options.docs?**: `undefined` \| `string`= `'https://tevm.dev/reference/errors'`
 
 The documentation URL.
 
-▪ **options.message?**: `undefined` \| `string`
+▪ **options.message?**: `undefined` \| `string`= `'Address book is invalid'`
 
 The error message.
 
@@ -70,7 +70,7 @@ TypeError.message
 
 #### Source
 
-node\_modules/.pnpm/typescript@5.3.3/node\_modules/typescript/lib/lib.es5.d.ts:1076
+node\_modules/typescript/lib/lib.es5.d.ts:1076
 
 ***
 
@@ -84,7 +84,7 @@ TypeError.name
 
 #### Source
 
-node\_modules/.pnpm/typescript@5.3.3/node\_modules/typescript/lib/lib.es5.d.ts:1075
+node\_modules/typescript/lib/lib.es5.d.ts:1075
 
 ***
 
@@ -98,13 +98,19 @@ TypeError.stack
 
 #### Source
 
-node\_modules/.pnpm/typescript@5.3.3/node\_modules/typescript/lib/lib.es5.d.ts:1077
+node\_modules/typescript/lib/lib.es5.d.ts:1077
 
 ***
 
 ### prepareStackTrace
 
 > **`static`** **prepareStackTrace**?: (`err`, `stackTraces`) => `any`
+
+Optional override for formatting stack traces
+
+#### See
+
+https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
 Optional override for formatting stack traces
 
@@ -126,7 +132,7 @@ TypeError.prepareStackTrace
 
 #### Source
 
-node\_modules/.pnpm/@types+node@20.11.5/node\_modules/@types/node/globals.d.ts:28
+node\_modules/@types/node/globals.d.ts:28
 
 ***
 
@@ -140,51 +146,29 @@ TypeError.stackTraceLimit
 
 #### Source
 
-node\_modules/.pnpm/@types+node@20.11.5/node\_modules/@types/node/globals.d.ts:30
+node\_modules/@types/node/globals.d.ts:30
 
 ## Methods
 
 ### captureStackTrace()
 
-#### captureStackTrace(targetObject, constructorOpt)
-
 > **`static`** **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
 
 Create .stack property on a target object
 
-##### Parameters
+#### Parameters
 
 ▪ **targetObject**: `object`
 
 ▪ **constructorOpt?**: `Function`
 
-##### Inherited from
+#### Inherited from
 
 TypeError.captureStackTrace
 
-##### Source
+#### Source
 
-node\_modules/.pnpm/@types+node@20.11.5/node\_modules/@types/node/globals.d.ts:21
-
-#### captureStackTrace(targetObject, constructorOpt)
-
-> **`static`** **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
-
-Create .stack property on a target object
-
-##### Parameters
-
-▪ **targetObject**: `object`
-
-▪ **constructorOpt?**: `Function`
-
-##### Inherited from
-
-TypeError.captureStackTrace
-
-##### Source
-
-node\_modules/.pnpm/@types+node@20.10.6/node\_modules/@types/node/globals.d.ts:21
+node\_modules/@types/node/globals.d.ts:21
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

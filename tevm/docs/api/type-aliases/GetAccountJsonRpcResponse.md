@@ -6,13 +6,13 @@
 
 # Type alias: GetAccountJsonRpcResponse
 
-> **GetAccountJsonRpcResponse**: [`JsonRpcResponse`](JsonRpcResponse.md)\<`"tevm_getAccount"`, `SerializeToJson`\<[`GetAccountResult`](../../index/type-aliases/GetAccountResult.md)\>, [`GetAccountError`](GetAccountError.md)[`"_tag"`]\>
+> **GetAccountJsonRpcResponse**: [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"tevm_getAccount"`, `SerializeToJson`\<[`GetAccountResult`](../../index/type-aliases/GetAccountResult.md)\>, [`GetAccountError`](../../index/type-aliases/GetAccountError.md)[`"_tag"`]\>
 
 JSON-RPC response for `tevm_getAccount` method
 
 ## Source
 
-vm/api/dist/index.d.ts:1739
+vm/api/types/responses/GetAccountJsonRpcResponse.d.ts:7
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -14,11 +14,11 @@ Error type of errors thrown while internally executing a call in the EVM
 
 | Parameter | Default |
 | :------ | :------ |
-| `TEVMErrorMessage` extends [`TevmEVMErrorMessage`](TevmEVMErrorMessage.md) | [`TevmEVMErrorMessage`](TevmEVMErrorMessage.md) |
+| `TEVMErrorMessage` extends [`TevmEVMErrorMessage`](../../index/type-aliases/TevmEVMErrorMessage.md) | [`TevmEVMErrorMessage`](../../index/type-aliases/TevmEVMErrorMessage.md) |
 
 ## Source
 
-vm/api/dist/index.d.ts:781
+vm/api/types/errors/EvmError.d.ts:6
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

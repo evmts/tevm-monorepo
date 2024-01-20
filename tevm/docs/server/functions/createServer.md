@@ -6,7 +6,7 @@
 
 # Function: createServer()
 
-> **createServer**(`__namedParameters`): `Promise`\<`http.Server`\<*typeof* `http.IncomingMessage`, *typeof* `http.ServerResponse`\>\>
+> **createServer**(`__namedParameters`): `Promise`\<`Server`\>
 
 ## Parameters
 
@@ -18,7 +18,7 @@
 
 ## Source
 
-vm/server/dist/index.d.ts:11
+vm/server/types/createServer.d.ts:2
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -6,13 +6,13 @@
 
 # Type alias: AnvilGetAutomineJsonRpcRequest
 
-> **AnvilGetAutomineJsonRpcRequest**: [`JsonRpcRequest`](JsonRpcRequest.md)\<`"anvil_getAutomine"`, `SerializeToJson`\<[`AnvilGetAutomineParams`](AnvilGetAutomineParams.md)\>\>
+> **AnvilGetAutomineJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"anvil_getAutomine"`, `SerializeToJson`\<[`AnvilGetAutomineParams`](AnvilGetAutomineParams.md)\>\>
 
 JSON-RPC request for `anvil_getAutomine` method
 
 ## Source
 
-vm/api/dist/index.d.ts:1666
+vm/api/types/requests/AnvilJsonRpcRequest.d.ts:19
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

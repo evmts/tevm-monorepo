@@ -6,7 +6,7 @@
 
 # Variable: zAbi
 
-> **`const`** **zAbi**: `ZodReadonly`\<`ZodArray`\<`ZodUnion`\<[`ZodObject`\<`object`, `"strip"`, `ZodTypeAny`, `object`, `object`\>, `ZodObject`\<`object`, `"strip"`, `ZodTypeAny`, `object`, `object`\>, `ZodEffects`\<`ZodIntersection`\<`ZodObject`\<`object`, `"strip"`, `ZodTypeAny`, `object`, `object`\>, `ZodDiscriminatedUnion`\<`"type"`, [`ZodObject`\<`object`, `"strip"`, `ZodTypeAny`, `object`, `object`\>, `ZodObject`\<`object`, `"strip"`, `ZodTypeAny`, `object`, `object`\>, `ZodObject`\<`object`, `"strip"`, `ZodTypeAny`, `object`, `object`\>, `ZodObject`\<`object`, `"strip"`, `ZodTypeAny`, `object`, `object`\>]\>\>, `Object`, `unknown`\>]\>, `"many"`\>\>
+> **`const`** **zAbi**: `ZodReadonly`\<`ZodArray`\<`ZodUnion`\<[`ZodObject`\<`object`, `"strip"`, `ZodTypeAny`, `object`, `object`\>, `ZodObject`\<`object`, `"strip"`, `ZodTypeAny`, `object`, `object`\>, `ZodEffects`\<`ZodIntersection`\<`ZodObject`\<`object`, `"strip"`, `ZodTypeAny`, `object`, `object`\>, `ZodDiscriminatedUnion`\<`"type"`, [`ZodObject`\<`object`, `"strip"`, `ZodTypeAny`, `object`, `object`\>, `ZodObject`\<`object`, `"strip"`, `ZodTypeAny`, `object`, `object`\>, `ZodObject`\<`object`, `"strip"`, `ZodTypeAny`, `object`, `object`\>, `ZodObject`\<`object`, `"strip"`, `ZodTypeAny`, `object`, `object`\>]\>\>, `object` & `object` \| `object` \| `object` \| `object`, `unknown`\>]\>, `"many"`\>\>
 
 Zod validator for a valid ABI
 

@@ -4,7 +4,7 @@ var client = require('@tevm/client');
 
 
 
-Object.defineProperty(exports, 'createTevmClient', {
+Object.defineProperty(exports, "createTevmClient", {
   enumerable: true,
   get: function () { return client.createTevmClient; }
 });

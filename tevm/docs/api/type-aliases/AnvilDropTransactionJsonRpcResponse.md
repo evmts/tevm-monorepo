@@ -6,13 +6,13 @@
 
 # Type alias: AnvilDropTransactionJsonRpcResponse
 
-> **AnvilDropTransactionJsonRpcResponse**: [`JsonRpcResponse`](JsonRpcResponse.md)\<`"anvil_dropTransaction"`, `SerializeToJson`\<[`AnvilDropTransactionResult`](AnvilDropTransactionResult.md)\>, `AnvilError`\>
+> **AnvilDropTransactionJsonRpcResponse**: [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"anvil_dropTransaction"`, `SerializeToJson`\<[`AnvilDropTransactionResult`](AnvilDropTransactionResult.md)\>, `AnvilError`\>
 
 JSON-RPC response for `anvil_dropTransaction` procedure
 
 ## Source
 
-vm/api/dist/index.d.ts:1970
+vm/api/types/responses/AnvilJsonRpcResponse.d.ts:32
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

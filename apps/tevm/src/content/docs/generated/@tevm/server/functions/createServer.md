@@ -13,7 +13,7 @@ Creates a lightweight http server for handling requests
 
 ▪ **options**: `object`
 
-▪ **options.request**: `TevmJsonRpcRequestHandler`
+▪ **options.request**: [`TevmJsonRpcRequestHandler`](/generated/tevm/api/type-aliases/tevmjsonrpcrequesthandler/)
 
 A request handler for the JSON-RPC requests
 

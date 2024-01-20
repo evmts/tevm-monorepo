@@ -5,7 +5,7 @@ prev: false
 title: "scriptProcedure"
 ---
 
-> **scriptProcedure**(`evm`): `ScriptJsonRpcProcedure`
+> **scriptProcedure**(`evm`): [`ScriptJsonRpcProcedure`](/generated/tevm/api/type-aliases/scriptjsonrpcprocedure/)
 
 Creates a Script JSON-RPC Procedure for handling script requests with Ethereumjs EVM
 

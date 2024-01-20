@@ -5,7 +5,7 @@ prev: false
 title: "getCodeProcedure"
 ---
 
-> **getCodeProcedure**(`options`): `EthGetCodeJsonRpcProcedure`
+> **getCodeProcedure**(`options`): [`EthGetCodeJsonRpcProcedure`](/generated/tevm/api/type-aliases/ethgetcodejsonrpcprocedure/)
 
 ## Parameters
 

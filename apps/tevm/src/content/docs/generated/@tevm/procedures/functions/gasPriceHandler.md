@@ -5,7 +5,7 @@ prev: false
 title: "gasPriceHandler"
 ---
 
-> **gasPriceHandler**(`options`): `EthGasPriceHandler`
+> **gasPriceHandler**(`options`): [`EthGasPriceHandler`](/generated/tevm/api/type-aliases/ethgaspricehandler/)
 
 ## Parameters
 

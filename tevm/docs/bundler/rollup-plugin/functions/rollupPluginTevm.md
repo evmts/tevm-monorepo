@@ -101,7 +101,7 @@ For custom configuration of the Tevm compiler add a [tevm.config.json](https://t
 
 ## Source
 
-bundler/rollup/dist/index.d.ts:75
+bundler/rollup/types/rollupPluginTevm.d.ts:73
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

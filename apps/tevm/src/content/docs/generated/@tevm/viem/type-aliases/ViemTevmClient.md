@@ -11,7 +11,7 @@ title: "ViemTevmClient"
 
 ### tevm
 
-> **tevm**: `Tevm`
+> **tevm**: [`Tevm`](/generated/tevm/api/type-aliases/tevm/)
 
 ## Source
 

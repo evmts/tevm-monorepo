@@ -5,7 +5,7 @@ prev: false
 title: "getBalanceHandler"
 ---
 
-> **getBalanceHandler**(`options`): `EthGetBalanceHandler`
+> **getBalanceHandler**(`options`): [`EthGetBalanceHandler`](/generated/tevm/api/type-aliases/ethgetbalancehandler/)
 
 ## Parameters
 

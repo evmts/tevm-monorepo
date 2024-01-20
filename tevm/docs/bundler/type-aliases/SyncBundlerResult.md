@@ -6,13 +6,13 @@
 
 # Type alias: SyncBundlerResult
 
-> **SyncBundlerResult**: `SyncBundlerResult$1`
+> **SyncBundlerResult**: `SyncBundlerResult`
 
 ./types.ts
 
 ## Source
 
-[bundler/base-bundler/dist/index.d.ts:198](https://github.com/evmts/tevm-monorepo/blob/main/bundler/base-bundler/dist/index.d.ts#L198)
+[bundler/base-bundler/types/src/index.d.ts:29](https://github.com/evmts/tevm-monorepo/blob/main/bundler/base-bundler/types/src/index.d.ts#L29)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

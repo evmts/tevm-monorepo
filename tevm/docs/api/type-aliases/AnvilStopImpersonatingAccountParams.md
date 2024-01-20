@@ -20,7 +20,7 @@ The address to stop impersonating
 
 ## Source
 
-vm/api/dist/index.d.ts:421
+vm/api/types/params/AnvilParams.d.ts:18
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

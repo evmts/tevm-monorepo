@@ -6,13 +6,13 @@
 
 # Type alias: AnvilDumpStateJsonRpcRequest
 
-> **AnvilDumpStateJsonRpcRequest**: [`JsonRpcRequest`](JsonRpcRequest.md)\<`"anvil_dumpState"`, `SerializeToJson`\<[`AnvilDumpStateParams`](AnvilDumpStateParams.md)\>\>
+> **AnvilDumpStateJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"anvil_dumpState"`, `SerializeToJson`\<[`AnvilDumpStateParams`](AnvilDumpStateParams.md)\>\>
 
 JSON-RPC request for `anvil_dumpState` method
 
 ## Source
 
-vm/api/dist/index.d.ts:1702
+vm/api/types/requests/AnvilJsonRpcRequest.d.ts:55
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -10,12 +10,6 @@
 
 Sets the state of a specific ethereum address
 
-## Parameters
-
-▪ **params**: [`SetAccountParams`](../../index/type-aliases/SetAccountParams.md)
-
-## Returns
-
 ## Example
 
 ```ts
@@ -28,9 +22,13 @@ await tevm.setAccount({
 })
 ```
 
+## Parameters
+
+▪ **params**: [`SetAccountParams`](../../index/type-aliases/SetAccountParams.md)
+
 ## Source
 
-vm/api/dist/index.d.ts:986
+vm/api/types/handlers/SetAccountHandler.d.ts:13
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

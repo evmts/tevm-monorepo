@@ -6,13 +6,13 @@
 
 # Type alias: EthGetFilterChangesJsonRpcRequest
 
-> **EthGetFilterChangesJsonRpcRequest**: [`JsonRpcRequest`](JsonRpcRequest.md)\<`"eth_getFilterChanges"`, [`Hex`]\>
+> **EthGetFilterChangesJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"eth_getFilterChanges"`, [`Hex`]\>
 
 JSON-RPC request for `eth_getFilterChanges` procedure
 
 ## Source
 
-vm/api/dist/index.d.ts:1528
+vm/api/types/requests/EthJsonRpcRequest.d.ts:68
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

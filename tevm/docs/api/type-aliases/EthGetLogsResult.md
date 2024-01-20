@@ -12,7 +12,7 @@ JSON-RPC response for `eth_getLogs` procedure
 
 ## Source
 
-vm/api/dist/index.d.ts:1234
+vm/api/types/result/EthResult.d.ts:75
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

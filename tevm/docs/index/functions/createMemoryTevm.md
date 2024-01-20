@@ -6,7 +6,7 @@
 
 # Function: createMemoryTevm()
 
-> **createMemoryTevm**(`options`?): `Promise`\<[`MemoryTevm`](../type-aliases/MemoryTevm.md)\>
+> **createMemoryTevm**(`options`?): `Promise`\<`MemoryTevm`\>
 
 ## Parameters
 
@@ -14,7 +14,7 @@
 
 ## Source
 
-vm/vm/dist/index.d.ts:177
+vm/vm/types/createMemoryTevm.d.ts:1
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

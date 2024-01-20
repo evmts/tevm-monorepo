@@ -14,12 +14,6 @@ options for controlling the execution environment
 See `contract` and `script` which executes calls specifically against deployed contracts
 or undeployed scripts
 
-## Parameters
-
-▪ **action**: [`CallParams`](CallParams.md)
-
-## Returns
-
 ## Example
 
 ```ts
@@ -32,6 +26,10 @@ gasPrice: 1n,
 skipBalance: true,
 }
 ```
+
+## Parameters
+
+▪ **action**: [`CallParams`](CallParams.md)
 
 ## Source
 

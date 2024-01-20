@@ -6,7 +6,7 @@
 
 # Function: loadConfig()
 
-> **loadConfig**(`configFilePath`): `effect_Effect.Effect`\<`never`, `LoadConfigError`, `ResolvedCompilerConfig$1`\>
+> **loadConfig**(`configFilePath`): `Effect`
 
 ## Parameters
 
@@ -14,7 +14,7 @@
 
 ## Source
 
-bundler/config/dist/index.d.ts:309
+bundler/config/types/loadConfig.d.ts:23
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

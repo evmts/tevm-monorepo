@@ -20,7 +20,7 @@ A local EVM instance running in the browser or Node.js. Akin to anvil or ganache
 
 #### JSON-RPC
 
-Tevm exposes a JSON-RPC interface for interacting with the EVM via the [Tevm.request](Property request:TevmJsonRpcRequestHandler)
+Tevm exposes a JSON-RPC interface for interacting with the EVM via the [Tevm.request](Property request: TevmJsonRpcRequestHandler)
 
 ## Example
 
@@ -52,7 +52,7 @@ console.log(blockNumber) // 0n
 
 #### Ethereum actions
 
-Ethereum actions are namespaced under [Tevm.eth](Property eth:Object)
+Ethereum actions are namespaced under [Tevm.eth](Property eth: Object)
 
 #### Anvil hardhat and ganache compatibility
 

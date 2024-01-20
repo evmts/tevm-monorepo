@@ -4,11 +4,11 @@ var compiler = require('@tevm/compiler');
 
 
 
-Object.defineProperty(exports, 'resolveArtifacts', {
+Object.defineProperty(exports, "resolveArtifacts", {
   enumerable: true,
   get: function () { return compiler.resolveArtifacts; }
 });
-Object.defineProperty(exports, 'resolveArtifactsSync', {
+Object.defineProperty(exports, "resolveArtifactsSync", {
   enumerable: true,
   get: function () { return compiler.resolveArtifactsSync; }
 });

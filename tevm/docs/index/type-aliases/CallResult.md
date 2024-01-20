@@ -14,7 +14,7 @@ Result of a Tevm VM Call method
 
 | Parameter | Default |
 | :------ | :------ |
-| `ErrorType` | [`CallError`](../../api/type-aliases/CallError.md) |
+| `ErrorType` | [`CallError`](CallError.md) |
 
 ## Type declaration
 
@@ -80,7 +80,7 @@ A set of accounts to selfdestruct
 
 ## Source
 
-vm/api/dist/index.d.ts:1109
+vm/api/types/result/CallResult.d.ts:8
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

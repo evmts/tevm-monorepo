@@ -53,7 +53,7 @@ Error.cause
 
 #### Source
 
-node\_modules/.pnpm/typescript@5.3.3/node\_modules/typescript/lib/lib.es2022.error.d.ts:24
+node\_modules/typescript/lib/lib.es2022.error.d.ts:24
 
 ***
 
@@ -67,7 +67,7 @@ Error.message
 
 #### Source
 
-node\_modules/.pnpm/typescript@5.3.3/node\_modules/typescript/lib/lib.es5.d.ts:1076
+node\_modules/typescript/lib/lib.es5.d.ts:1076
 
 ***
 
@@ -95,13 +95,19 @@ Error.stack
 
 #### Source
 
-node\_modules/.pnpm/typescript@5.3.3/node\_modules/typescript/lib/lib.es5.d.ts:1077
+node\_modules/typescript/lib/lib.es5.d.ts:1077
 
 ***
 
 ### prepareStackTrace
 
 > **`static`** **prepareStackTrace**?: (`err`, `stackTraces`) => `any`
+
+Optional override for formatting stack traces
+
+#### See
+
+https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
 Optional override for formatting stack traces
 
@@ -123,7 +129,7 @@ Error.prepareStackTrace
 
 #### Source
 
-node\_modules/.pnpm/@types+node@20.9.1/node\_modules/@types/node/globals.d.ts:11
+bundler/config/node\_modules/@types/node/globals.d.ts:11
 
 ***
 
@@ -137,7 +143,7 @@ Error.stackTraceLimit
 
 #### Source
 
-node\_modules/.pnpm/@types+node@20.9.1/node\_modules/@types/node/globals.d.ts:13
+bundler/config/node\_modules/@types/node/globals.d.ts:13
 
 ## Methods
 
@@ -159,7 +165,7 @@ Error.captureStackTrace
 
 #### Source
 
-node\_modules/.pnpm/@types+node@20.9.1/node\_modules/@types/node/globals.d.ts:4
+bundler/config/node\_modules/@types/node/globals.d.ts:4
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

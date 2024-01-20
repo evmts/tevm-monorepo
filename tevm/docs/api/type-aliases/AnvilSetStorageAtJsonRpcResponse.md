@@ -6,13 +6,13 @@
 
 # Type alias: AnvilSetStorageAtJsonRpcResponse
 
-> **AnvilSetStorageAtJsonRpcResponse**: [`JsonRpcResponse`](JsonRpcResponse.md)\<`"anvil_setStorageAt"`, `SerializeToJson`\<[`AnvilSetStorageAtResult`](AnvilSetStorageAtResult.md)\>, `AnvilError`\>
+> **AnvilSetStorageAtJsonRpcResponse**: [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"anvil_setStorageAt"`, `SerializeToJson`\<[`AnvilSetStorageAtResult`](AnvilSetStorageAtResult.md)\>, `AnvilError`\>
 
 JSON-RPC response for `anvil_setStorageAt` procedure
 
 ## Source
 
-vm/api/dist/index.d.ts:1986
+vm/api/types/responses/AnvilJsonRpcResponse.d.ts:48
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

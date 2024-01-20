@@ -5,11 +5,11 @@ prev: false
 title: "JsonRpcFetch"
 ---
 
-> **JsonRpcFetch**: (`request`) => `Promise`\<`JsonRpcResponse`\>
+> **JsonRpcFetch**: (`request`) => `Promise`\<[`@tevm/api`](/generated/tevm/api/api/)\>
 
 ## Parameters
 
-▪ **request**: `JsonRpcRequest`
+▪ **request**: [`@tevm/api`](/generated/tevm/api/api/)
 
 ## Source
 

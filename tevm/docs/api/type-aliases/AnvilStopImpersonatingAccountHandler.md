@@ -14,7 +14,7 @@
 
 ## Source
 
-vm/api/dist/index.d.ts:1053
+vm/api/types/handlers/AnvilHandler.d.ts:4
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -4,7 +4,7 @@ var rspackPlugin = require('@tevm/rspack-plugin');
 
 
 
-Object.defineProperty(exports, 'rspackPluginTevm', {
+Object.defineProperty(exports, "rspackPluginTevm", {
   enumerable: true,
   get: function () { return rspackPlugin.rspackPluginTevm; }
 });

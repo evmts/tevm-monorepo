@@ -45,7 +45,7 @@ An optional CREATE2 salt.
 
 ## Source
 
-vm/api/dist/index.d.ts:155
+vm/api/types/params/CallParams.d.ts:15
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

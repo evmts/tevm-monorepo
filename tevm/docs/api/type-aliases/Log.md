@@ -26,7 +26,7 @@ Generic log information
 
 ## Source
 
-vm/api/dist/index.d.ts:596
+vm/api/types/common/Log.d.ts:6
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
