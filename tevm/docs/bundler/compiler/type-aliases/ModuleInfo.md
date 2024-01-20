@@ -6,13 +6,13 @@
 
 # Type alias: ModuleInfo
 
-> **ModuleInfo**: `ModuleInfo$1`
+> **ModuleInfo**: `ModuleInfo`
 
 ./types.ts
 
 ## Source
 
-bundler/compiler/dist/index.d.ts:67
+bundler/compiler/types/src/index.d.ts:22
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

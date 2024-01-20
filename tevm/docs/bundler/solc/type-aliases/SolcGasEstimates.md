@@ -6,13 +6,13 @@
 
 # Type alias: SolcGasEstimates
 
-> **SolcGasEstimates**: `SolcGasEstimates$1`
+> **SolcGasEstimates**: `SolcGasEstimates`
 
 ./solcTypes.ts
 
 ## Source
 
-bundler/solc/dist/index.d.ts:397
+bundler/solc/types/src/index.d.ts:48
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

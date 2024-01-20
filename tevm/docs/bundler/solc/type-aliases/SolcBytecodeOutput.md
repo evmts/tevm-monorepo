@@ -6,13 +6,13 @@
 
 # Type alias: SolcBytecodeOutput
 
-> **SolcBytecodeOutput**: `SolcBytecodeOutput$1`
+> **SolcBytecodeOutput**: `SolcBytecodeOutput`
 
 ./solcTypes.ts
 
 ## Source
 
-bundler/solc/dist/index.d.ts:413
+bundler/solc/types/src/index.d.ts:64
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

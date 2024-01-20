@@ -6,13 +6,13 @@
 
 # Type alias: SolcInputDescription
 
-> **SolcInputDescription**: `SolcInputDescription$1`
+> **SolcInputDescription**: `SolcInputDescription`
 
 ./solcTypes.ts
 
 ## Source
 
-bundler/solc/dist/index.d.ts:429
+bundler/solc/types/src/index.d.ts:80
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

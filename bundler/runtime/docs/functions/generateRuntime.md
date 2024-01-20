@@ -10,7 +10,7 @@
 
 ## Parameters
 
-▪ **artifacts**: `Artifacts$1`
+▪ **artifacts**: `Artifacts`
 
 ▪ **moduleType**: [`ModuleType`](../type-aliases/ModuleType.md)
 

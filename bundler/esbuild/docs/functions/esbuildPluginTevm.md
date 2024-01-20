@@ -17,7 +17,7 @@ To configure add this plugin to your esbuild config and add the ts-plugin to you
 
 ▪ **options?**: `object`
 
-▪ **options.solc?**: `SolcVersions$1`
+▪ **options.solc?**: `SolcVersions`
 
 ## Returns
 

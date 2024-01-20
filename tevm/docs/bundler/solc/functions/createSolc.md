@@ -6,15 +6,15 @@
 
 # Function: createSolc()
 
-> **createSolc**(`release`): `Promise`\<`Solc$1`\>
+> **createSolc**(`release`): `Promise`\<`Solc`\>
 
 ## Parameters
 
-▪ **release**: keyof `Releases$1`
+▪ **release**: keyof `Releases`
 
 ## Source
 
-bundler/solc/dist/index.d.ts:348
+bundler/solc/types/src/solc.d.ts:10
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

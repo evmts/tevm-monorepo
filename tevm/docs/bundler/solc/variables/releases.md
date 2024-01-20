@@ -6,11 +6,11 @@
 
 # Variable: releases
 
-> **`const`** **releases**: `Releases$1`
+> **`const`** **releases**: `Releases`
 
 ## Source
 
-bundler/solc/dist/index.d.ts:346
+bundler/solc/types/src/solc.d.ts:8
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

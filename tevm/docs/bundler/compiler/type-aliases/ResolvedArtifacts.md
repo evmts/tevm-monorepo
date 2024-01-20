@@ -6,13 +6,13 @@
 
 # Type alias: ResolvedArtifacts
 
-> **ResolvedArtifacts**: `ResolvedArtifacts$1`
+> **ResolvedArtifacts**: `ResolvedArtifacts`
 
 ./types.ts
 
 ## Source
 
-bundler/compiler/dist/index.d.ts:71
+bundler/compiler/types/src/index.d.ts:26
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

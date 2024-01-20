@@ -17,7 +17,7 @@ To configure add this plugin to your vite config and add the ts-plugin to your t
 
 ▪ **options?**: `object`
 
-▪ **options.solc?**: `SolcVersions$1`
+▪ **options.solc?**: `SolcVersions`
 
 ## Returns
 

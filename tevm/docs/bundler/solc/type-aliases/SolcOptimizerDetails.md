@@ -6,13 +6,13 @@
 
 # Type alias: SolcOptimizerDetails
 
-> **SolcOptimizerDetails**: `SolcOptimizerDetails$1`
+> **SolcOptimizerDetails**: `SolcOptimizerDetails`
 
 ./solcTypes.ts
 
 ## Source
 
-bundler/solc/dist/index.d.ts:437
+bundler/solc/types/src/index.d.ts:88
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

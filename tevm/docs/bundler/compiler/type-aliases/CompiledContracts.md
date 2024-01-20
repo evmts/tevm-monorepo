@@ -6,13 +6,13 @@
 
 # Type alias: CompiledContracts
 
-> **CompiledContracts**: `CompiledContracts$1`
+> **CompiledContracts**: `CompiledContracts`
 
 ./types.ts
 
 ## Source
 
-bundler/compiler/dist/index.d.ts:55
+bundler/compiler/types/src/index.d.ts:10
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

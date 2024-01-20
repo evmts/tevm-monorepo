@@ -6,13 +6,13 @@
 
 # Type alias: SolcFunctionDebugData
 
-> **SolcFunctionDebugData**: `SolcFunctionDebugData$1`
+> **SolcFunctionDebugData**: `SolcFunctionDebugData`
 
 ./solcTypes.ts
 
 ## Source
 
-bundler/solc/dist/index.d.ts:441
+bundler/solc/types/src/index.d.ts:92
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -6,13 +6,13 @@
 
 # Type alias: SolcVersions
 
-> **SolcVersions**: `SolcVersions$1`
+> **SolcVersions**: `SolcVersions`
 
 ./solcTypes.ts
 
 ## Source
 
-bundler/solc/dist/index.d.ts:469
+bundler/solc/types/src/index.d.ts:120
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

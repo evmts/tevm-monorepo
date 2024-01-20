@@ -6,7 +6,7 @@
 
 # Function: resolveArtifactsSync()
 
-> **resolveArtifactsSync**(`solFile`, `basedir`, `logger`, `config`, `includeAst`, `includeBytecode`, `fao`, `solc`): `ResolvedArtifacts$1`
+> **resolveArtifactsSync**(`solFile`, `basedir`, `logger`, `config`, `includeAst`, `includeBytecode`, `fao`, `solc`): `ResolvedArtifacts`
 
 ## Parameters
 
@@ -14,7 +14,7 @@
 
 ▪ **basedir**: `string`
 
-▪ **logger**: `Logger$1`
+▪ **logger**: `Logger`
 
 ▪ **config**: `ResolvedCompilerConfig`
 
@@ -22,13 +22,13 @@
 
 ▪ **includeBytecode**: `boolean`
 
-▪ **fao**: `FileAccessObject$1`
+▪ **fao**: `FileAccessObject`
 
 ▪ **solc**: `any`
 
 ## Source
 
-bundler/compiler/dist/index.d.ts:46
+bundler/compiler/types/src/resolveArtifactsSync.d.ts:4
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

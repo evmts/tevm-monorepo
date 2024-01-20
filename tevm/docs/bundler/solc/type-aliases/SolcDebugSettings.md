@@ -6,13 +6,13 @@
 
 # Type alias: SolcDebugSettings
 
-> **SolcDebugSettings**: `SolcDebugSettings$1`
+> **SolcDebugSettings**: `SolcDebugSettings`
 
 ./solcTypes.ts
 
 ## Source
 
-bundler/solc/dist/index.d.ts:409
+bundler/solc/types/src/index.d.ts:60
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

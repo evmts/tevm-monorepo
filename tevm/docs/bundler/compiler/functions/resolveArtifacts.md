@@ -6,7 +6,7 @@
 
 # Function: resolveArtifacts()
 
-> **resolveArtifacts**(`solFile`, `basedir`, `logger`, `config`, `includeAst`, `includeBytecode`, `fao`, `solc`): `Promise`\<`ResolvedArtifacts$1`\>
+> **resolveArtifacts**(`solFile`, `basedir`, `logger`, `config`, `includeAst`, `includeBytecode`, `fao`, `solc`): `Promise`\<`ResolvedArtifacts`\>
 
 Resolves artifacts with solc asyncronously
 
@@ -16,7 +16,7 @@ Resolves artifacts with solc asyncronously
 
 ▪ **basedir**: `string`
 
-▪ **logger**: `Logger$1`
+▪ **logger**: `Logger`
 
 ▪ **config**: `ResolvedCompilerConfig`
 
@@ -24,13 +24,13 @@ Resolves artifacts with solc asyncronously
 
 ▪ **includeBytecode**: `boolean`
 
-▪ **fao**: `FileAccessObject$1`
+▪ **fao**: `FileAccessObject`
 
 ▪ **solc**: `any`
 
 ## Source
 
-bundler/compiler/dist/index.d.ts:41
+bundler/compiler/types/src/resolveArtifacts.d.ts:5
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
