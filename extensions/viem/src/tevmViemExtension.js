@@ -34,7 +34,7 @@ export const tevmViemExtension = () => {
 		 */
 		const request = async (req) => {
 			try {
-				const result = await client.request(/** @type any*/(req))
+				const result = await client.request(/** @type any*/ (req))
 				return /** @type any */ ({
 					jsonrpc: '2.0',
 					method: req.method,
@@ -74,7 +74,7 @@ export const tevmViemExtension = () => {
 							...getCallArgs(params),
 							deployedBytecode: params.deployedBytecode,
 							data: encodeFunctionData(
-								/** @type any*/({
+								/** @type any*/ ({
 									abi: params.abi,
 									functionName: params.functionName,
 									args: params.args,
@@ -85,7 +85,7 @@ export const tevmViemExtension = () => {
 				)
 			)
 			out.data = decodeFunctionResult(
-				/** @type any*/({
+				/** @type any*/ ({
 					data: out.rawData,
 					abi: params.abi,
 					functionName: params.functionName,
@@ -158,25 +158,25 @@ export const tevmViemExtension = () => {
 				...(params.value ? { value: numberToHex(params.value) } : {}),
 				...(params.block
 					? {
-						...(params.block.gasLimit
-							? { gasLimit: numberToHex(params.block.gasLimit) }
-							: {}),
-						...(params.block.baseFeePerGas
-							? { baseFeePerGas: numberToHex(params.block.baseFeePerGas) }
-							: {}),
-						...(params.block.blobGasPrice
-							? { blobGasPrice: numberToHex(params.block.blobGasPrice) }
-							: {}),
-						...(params.block.difficulty
-							? { difficulty: numberToHex(params.block.difficulty) }
-							: {}),
-						...(params.block.number
-							? { number: numberToHex(params.block.number) }
-							: {}),
-						...(params.block.timestamp
-							? { timestamp: numberToHex(params.block.timestamp) }
-							: {}),
-					}
+							...(params.block.gasLimit
+								? { gasLimit: numberToHex(params.block.gasLimit) }
+								: {}),
+							...(params.block.baseFeePerGas
+								? { baseFeePerGas: numberToHex(params.block.baseFeePerGas) }
+								: {}),
+							...(params.block.blobGasPrice
+								? { blobGasPrice: numberToHex(params.block.blobGasPrice) }
+								: {}),
+							...(params.block.difficulty
+								? { difficulty: numberToHex(params.block.difficulty) }
+								: {}),
+							...(params.block.number
+								? { number: numberToHex(params.block.number) }
+								: {}),
+							...(params.block.timestamp
+								? { timestamp: numberToHex(params.block.timestamp) }
+								: {}),
+					  }
 					: {}),
 			}
 		}
@@ -244,7 +244,7 @@ export const tevmViemExtension = () => {
 				call({
 					...params,
 					data: encodeFunctionData(
-						/** @type any*/({
+						/** @type any*/ ({
 							abi: params.abi,
 							functionName: params.functionName,
 							args: params.args,
@@ -253,7 +253,7 @@ export const tevmViemExtension = () => {
 				})
 			)
 			out.data = decodeFunctionResult(
-				/** @type any*/({
+				/** @type any*/ ({
 					data: out.rawData,
 					abi: params.abi,
 					functionName: params.functionName,
@@ -267,14 +267,14 @@ export const tevmViemExtension = () => {
 		 * @type {import('@tevm/api').EthBlockNumberHandler}
 		 */
 		const blockNumber = async () => {
-			return /** @type {any} */ (
+			return hexToBigInt(
 				formatResult(
 					await request({
 						method: 'eth_blockNumber',
 						jsonrpc: '2.0',
 						params: [],
 					}),
-				)
+				),
 			)
 		}
 
@@ -282,30 +282,29 @@ export const tevmViemExtension = () => {
 		 * @type {import('@tevm/api').EthChainIdHandler}
 		 */
 		const chainId = async () => {
-			const res = /** @type {import('viem').Hex} */ (
+			return hexToBigInt(
 				formatResult(
 					await request({
 						method: 'eth_chainId',
 						jsonrpc: '2.0',
 						params: [],
 					}),
-				)
+				),
 			)
-			return hexToBigInt(res)
 		}
 
 		/**
 		 * @type {import('@tevm/api').EthGasPriceHandler}
 		 */
 		const gasPrice = async () => {
-			return /** @type {any} */ (
+			return hexToBigInt(
 				formatResult(
 					await request({
 						method: 'eth_gasPrice',
 						jsonrpc: '2.0',
 						params: [],
 					}),
-				)
+				),
 			)
 		}
 
@@ -313,14 +312,14 @@ export const tevmViemExtension = () => {
 		 * @type {import('@tevm/api').EthGetBalanceHandler}
 		 */
 		const getBalance = async (params) => {
-			return /** @type {any} */ (
+			return hexToBigInt(
 				formatResult(
 					await request({
 						method: 'eth_getBalance',
 						jsonrpc: '2.0',
 						params: [params.address, params.blockTag ?? 'pending'],
 					}),
-				)
+				),
 			)
 		}
 
@@ -333,7 +332,7 @@ export const tevmViemExtension = () => {
 					await request({
 						method: 'eth_getCode',
 						jsonrpc: '2.0',
-						params: [params.address, params.tag],
+						params: [params.address, params.tag ?? 'pending'],
 					}),
 				)
 			)
@@ -348,7 +347,7 @@ export const tevmViemExtension = () => {
 					await request({
 						method: 'eth_getStorageAt',
 						jsonrpc: '2.0',
-						params: [params.address, params.position, params.tag],
+						params: [params.address, params.position, params.tag ?? 'pending'],
 					}),
 				)
 			)
