@@ -240,21 +240,17 @@
 		"vm"
 	],
 	"scripts": {
-		"all": "bun run generate && bun run lint && bun run format && bun run generate:docs && bun run lint:deps && bun run lint:package",
+		"all": "bun run generate && bun run generate:docs && bun run lint:deps && bun run lint:package",
 		"build": "nx run-many --targets=build:dist,build:types --projects=tevm",
-		"build:dist": "bun run generate:dist && bun lint && bun format && git status --porcelain",
-		"build:types": "bun run generate:types && bun lint && bun format && git status --porcelain",
-		"generate": "nx run-many --targets=generate:dist,generate:types --projects=tevm && bun lint && bun format && bun generate:docs",
+		"build:dist": "bun run generate:dist && git status --porcelain",
+		"build:types": "bun run generate:types && git status --porcelain",
+		"generate": "nx run-many --targets=generate:dist,generate:types --projects=tevm && bun generate:docs",
 		"generate:dist": "tsup",
 		"generate:types": "tsup --dts-only",
 		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
-		"format": "rome format . --write",
-		"format:check": "rome format .",
+		"generate:docs": "typedoc",
 		"lint:deps": "bunx depcheck",
 		"lint:package": "bunx publint --strict && attw --pack",
-		"generate:docs": "typedoc",
-		"lint": "rome check . --apply-unsafe",
-		"lint:check": "rome check . --verbose",
 		"typecheck": "tsc --noEmit"
 	},
 	"devDependencies": {

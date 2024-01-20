@@ -1,1 +1,1 @@
-export { webpackPluginTevm } from '@tevm/webpack-plugin'
+export { webpackPluginTevm } from '@tevm/webpack-plugin';

@@ -17,6 +17,7 @@
 			"**/.vitepress/cache",
 			"**/.vitepress/dist",
 			"scaffold-tevm",
+			"tevm/**/*",
 			".vscode",
 			".changeset",
 			".devcontainer",

@@ -1,6 +1,1 @@
-export {
-	HeadersInit,
-	JsonRpcClient,
-	JsonRpcFetch,
-	createJsonRpcFetcher,
-} from '@tevm/jsonrpc'
+export { HeadersInit, JsonRpcClient, JsonRpcFetch, createJsonRpcFetcher } from '@tevm/jsonrpc';
