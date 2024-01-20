@@ -71,7 +71,7 @@ const tevm = createMemoryTevm({ customPrecompiles: [fsPrecompile] })
 
 ### customPredeploys
 
-> **customPredeploys**?: `ReadonlyArray`\<[`CustomPredeploy`](../../predeploys/type-aliases/CustomPredeploy.md)\<`any`, `any`\>\>
+> **customPredeploys**?: `ReadonlyArray`\<[`CustomPredeploy`](../../vm/type-aliases/CustomPredeploy.md)\<`any`, `any`\>\>
 
 Custom predeploys allow you to deploy arbitrary EVM bytecode to an address.
 This is a convenience method and equivalent to calling tevm.setAccount() manually

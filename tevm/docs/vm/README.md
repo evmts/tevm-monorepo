@@ -18,6 +18,7 @@
 ### Type Aliases
 
 - [CustomPrecompile](type-aliases/CustomPrecompile.md)
+- [CustomPredeploy](type-aliases/CustomPredeploy.md)
 - [ForkOptions](type-aliases/ForkOptions.md)
 
 ## Table of contents
@@ -25,7 +26,6 @@
 ### References
 
 - [CreateEVMOptions](README.md#createevmoptions)
-- [CustomPredeploy](README.md#custompredeploy)
 - [MemoryTevm](README.md#memorytevm)
 - [createMemoryTevm](README.md#creatememorytevm)
 
@@ -34,12 +34,6 @@
 ### CreateEVMOptions
 
 Re-exports [CreateEVMOptions](../index/type-aliases/CreateEVMOptions.md)
-
-***
-
-### CustomPredeploy
-
-Re-exports [CustomPredeploy](../predeploys/type-aliases/CustomPredeploy.md)
 
 ***
 
