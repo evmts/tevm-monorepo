@@ -74,6 +74,16 @@
 				"default": "./contract/index.cjs"
 			}
 		},
+		"./ethers": {
+			"import": {
+				"types": "./ethers/index.d.ts",
+				"default": "./ethers/index.js"
+			},
+			"require": {
+				"types": "./ethers/index.d.cts",
+				"default": "./ethers/index.cjs"
+			}
+		},
 		"./jsonrpc": {
 			"import": {
 				"types": "./jsonrpc/index.d.ts",
@@ -254,6 +264,7 @@
 		"bundler",
 		"client",
 		"contract",
+		"ethers",
 		"jsonrpc",
 		"predeploys",
 		"state",
@@ -289,10 +300,8 @@
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",
 		"@tevm/vite-plugin": "workspace:^",
-		"@tevm/webpack-plugin": "workspace:^"
-	},
-	"peerDependencies": {
-		"viem": ">1.0.0"
+		"@tevm/webpack-plugin": "workspace:^",
+		"ethers": "^6.10.0"
 	},
 	"publishConfig": {
 		"access": "public"
@@ -302,11 +311,21 @@
 		"@tevm/base-bundler": "workspace:1.0.0-next.21",
 		"@tevm/client": "workspace:^",
 		"@tevm/contract": "workspace:^",
+		"@tevm/ethers": "workspace:^",
 		"@tevm/jsonrpc": "workspace:^",
 		"@tevm/predeploys": "workspace:^",
 		"@tevm/state": "workspace:^",
 		"@tevm/viem": "workspace:^",
 		"@tevm/vm": "workspace:^",
-		"abitype": "^1.0.0"
+		"abitype": "^1.0.0",
+		"viem": "^2.4.0"
+	},
+	"peerDependencies": {
+		"ethers": "6.x.x"
+	},
+	"peerDependenciesMeta": {
+		"ethers": {
+			"optional": true
+		}
 	}
 }

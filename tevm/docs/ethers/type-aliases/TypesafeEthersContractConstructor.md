@@ -1,8 +1,8 @@
-**@tevm/ethers** ∙ [README](../README.md) ∙ [API](../API.md)
+**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[API](../API.md) > TypesafeEthersContractConstructor
+[API](../../API.md) > [ethers](../README.md) > TypesafeEthersContractConstructor
 
 # Type alias: TypesafeEthersContractConstructor
 
