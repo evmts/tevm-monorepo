@@ -16,6 +16,9 @@ type TypesafeEthersInterfaceConstructor = {
 	> & { fragments: TAbi }
 }
 
+/**
+ * Typesafe version of the ethers Interface class.
+ */
 export const Interface: TypesafeEthersInterfaceConstructor
 
 type TypesafeEthersContractConstructor = {
@@ -27,4 +30,7 @@ type TypesafeEthersContractConstructor = {
 	): TypesafeEthersContract<TAbi> & EthersContract
 }
 
+/**
+ * Typesafe version of the ethers Contract class.
+ */
 export const Contract: TypesafeEthersContractConstructor

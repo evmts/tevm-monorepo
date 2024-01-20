@@ -7,6 +7,7 @@
 		"./bundler/index.ts",
 		"./client/index.ts",
 		"./contract/index.ts",
+		"./ethers/index.ts",
 		"./jsonrpc/index.ts",
 		"./server/index.ts",
 		"./viem/index.ts",

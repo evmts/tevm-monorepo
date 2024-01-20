@@ -74,6 +74,16 @@
 				"default": "./contract/index.cjs"
 			}
 		},
+		"./ethers": {
+			"import": {
+				"types": "./ethers/index.d.ts",
+				"default": "./ethers/index.js"
+			},
+			"require": {
+				"types": "./ethers/index.d.cts",
+				"default": "./ethers/index.cjs"
+			}
+		},
 		"./jsonrpc": {
 			"import": {
 				"types": "./jsonrpc/index.d.ts",
@@ -291,9 +301,6 @@
 		"@tevm/vite-plugin": "workspace:^",
 		"@tevm/webpack-plugin": "workspace:^"
 	},
-	"peerDependencies": {
-		"viem": ">1.0.0"
-	},
 	"publishConfig": {
 		"access": "public"
 	},
@@ -302,6 +309,7 @@
 		"@tevm/base-bundler": "workspace:1.0.0-next.21",
 		"@tevm/client": "workspace:^",
 		"@tevm/contract": "workspace:^",
+		"@tevm/ethers": "workspace:^",
 		"@tevm/jsonrpc": "workspace:^",
 		"@tevm/predeploys": "workspace:^",
 		"@tevm/state": "workspace:^",

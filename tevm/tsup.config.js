@@ -18,6 +18,7 @@ const dirs = [
 	'bundler/webpack-plugin',
 	'client',
 	'contract',
+	'ethers',
 	'jsonrpc',
 	'predeploys',
 	'server',
