@@ -2,9 +2,21 @@ import type { LoadStateParams } from '../index.js'
 import type { LoadStateResult } from '../result/LoadStateResult.js'
 
 /**
- * Handler for load state tevm procedure
+ * Loads a previously dumped state into the VM
+ *
+ * State can be dumped as follows
  * @example
- * const {errors} = await tevm.loadState({ state: { '0x....': '0x....' } })
+ * ```typescript
+ * const {state} = await tevm.dumpState()
+ * fs.writeFileSync('state.json', JSON.stringify(state))
+ * ```
+ *
+ * And then loaded as follows
+ * @example
+ * ```typescript
+ * const state = JSON.parse(fs.readFileSync('state.json'))
+ * await tevm.loadState({state})
+ * ```
  */
 export type LoadStateHandler = (
 	params: LoadStateParams,

@@ -1,7 +1,7 @@
 import type { LoadStateError } from '../errors/LoadStateError.js'
 
 /**
- * Result of Account Action
+ * Result of LoadState Method
  */
 export type LoadStateResult<ErrorType = LoadStateError> = {
 	/**

@@ -2,7 +2,7 @@ import type { DumpStateError } from '../errors/DumpStateError.js'
 import type { SerializableTevmState } from '@tevm/state'
 
 /**
- * Result of Account Action
+ * Result of the dumpState method
  */
 export type DumpStateResult<ErrorType = DumpStateError> = {
 	/**
