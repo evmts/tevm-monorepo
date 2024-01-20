@@ -59,7 +59,7 @@ export type Block<
   uncles: Hash[]
   /** List of withdrawal objects */
   withdrawals?: Withdrawal[]
-  /** Root of the this block’s withdrawals trie */
+  /** Root of the this block’s withdrawals trie. Only available in EIP 4895 is enabled on the EVM */
   withdrawalsRoot?: Hex
 }
 
