@@ -8,16 +8,16 @@ import { createUnplugin, tevmUnplugin } from '@tevm/unplugin'
  * @example
  * ```typescript
  * import { defineConfig } from '@rsbuild/core';
- * import { tevmPluginRspack } from '@tevm/rspack';
- * 
+ * import { rspackPluginTevm } from '@tevm/rspack';
+ *
  * export default defineConfig({
  *   plugins: [
- *     tevmPluginRspack()
+ *     rspackPluginTevm()
  *   ],
  * });
  * ```
  *
- * For LSP so your editor recognizes the solidity imports correctly you must also configure tevm/ts-plugin in your tsconfig.json 
+ * For LSP so your editor recognizes the solidity imports correctly you must also configure tevm/ts-plugin in your tsconfig.json
  * The ts-plugin will provide type hints, code completion, and other features.
  * @example
  * ```json
@@ -72,4 +72,4 @@ import { createUnplugin, tevmUnplugin } from '@tevm/unplugin'
  *
  * @see [Tevm rspack solid.js example](https://todo.todo.todo)
  */
-export const tevmPluginRspack = createUnplugin(tevmUnplugin).rspack
+export const rspackPluginTevm = createUnplugin(tevmUnplugin).rspack

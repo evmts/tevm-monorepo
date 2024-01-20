@@ -1,41 +1,27 @@
-**@tevm/vite-plugin** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/webpack-plugin** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[API](../API.md) > vitePluginTevm
+[API](../API.md) > WebpackPluginTevm
 
-# Function: vitePluginTevm()
+# Variable: WebpackPluginTevm
 
-> **vitePluginTevm**(`options`?): `Plugin`\<`any`\>
+> **`const`** **WebpackPluginTevm**: `TevmWebpackPluginConstructor`
 
-Vite plugin for tevm. Enables Solidity imports in JavaScript. Once enabled the code
-will transform solidity contract imports into Tevm `Contract` instances.
-
-To configure add this plugin to your vite config and add the ts-plugin to your tsconfig.json
-
-## Parameters
-
-▪ **options?**: `object`
-
-▪ **options.solc?**: `SolcVersions$1`
-
-## Returns
+Webpack plugin for tevm. Enables Solidity imports in JavaScript.
 
 ## Example
 
 ```typescript
-import { vitePluginTevm } from '@tevm/vite'
-import { defineConfig } from 'vite'
+import { WebpackPluginTevm } from '@tevm/webpack'
 
-export default defineConfig({
+export default {
  plugins: [
-   vitePluginTevm()
+   new WebpackPluginTevm()
  ]
-})
 ```
 
-For LSP so your editor recognizes the solidity imports correctly you must also configure tevm/ts-plugin in your tsconfig.json
-The ts-plugin will provide type hints, code completion, and other features.
+For LSP support you must also configure tevm/ts-plugin in your tsconfig.json
 
 ## Example
 
@@ -81,7 +67,7 @@ export const ERC20 = createContract({
 })
 ```
 
-For custom configuration of the Tevm compiler add a [tevm.config.json](https://todo.todo.todo) file to your project root.
+For custom configuration add a [tevm.config.json](https://todo.todo.todo) file to your project root.
 
 ## Example
 
@@ -97,7 +83,7 @@ For custom configuration of the Tevm compiler add a [tevm.config.json](https://t
 
 ## Source
 
-node\_modules/.pnpm/unplugin@1.5.1/node\_modules/unplugin/dist/index.d.mts:83
+[WebpackPluginTevm.js:78](https://github.com/evmts/tevm-monorepo/blob/main/bundler/webpack/src/WebpackPluginTevm.js#L78)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -7,17 +7,17 @@ import { createUnplugin, tevmUnplugin } from '@tevm/unplugin'
  * To configure add this plugin to your vite config and add the ts-plugin to your tsconfig.json
  * @example
  * ```typescript
- * import { tevmPluginVite } from '@tevm/vite'
+ * import { vitePluginTevm } from '@tevm/vite'
  * import { defineConfig } from 'vite'
  *
  * export default defineConfig({
  *  plugins: [
- *    tevmPluginVite()
+ *    vitePluginTevm()
  *  ]
  * })
  * ```
  *
- * For LSP so your editor recognizes the solidity imports correctly you must also configure tevm/ts-plugin in your tsconfig.json 
+ * For LSP so your editor recognizes the solidity imports correctly you must also configure tevm/ts-plugin in your tsconfig.json
  * The ts-plugin will provide type hints, code completion, and other features.
  * @example
  * ```json

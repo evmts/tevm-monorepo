@@ -1,38 +1,43 @@
-**@tevm/esbuild-plugin** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/bun-plugin** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-[API](../API.md) > esbuildPluginTevm
+[API](../API.md) > bunPluginTevm
 
-# Function: esbuildPluginTevm()
+# Function: bunPluginTevm()
 
-> **esbuildPluginTevm**(`options`?): `Plugin`
+> **bunPluginTevm**(`SolcVersions`): `BunPlugin`
 
-Esbuild plugin for tevm. Enables Solidity imports in JavaScript. Once enabled the code
+Bun plugin for tevm. Enables Solidity imports in JavaScript. Once enabled the code
 will transform solidity contract imports into Tevm `Contract` instances.
-
-To configure add this plugin to your esbuild config and add the ts-plugin to your tsconfig.json
 
 ## Parameters
 
-▪ **options?**: `object`
+▪ **SolcVersions**: `object`
 
-▪ **options.solc?**: `SolcVersions$1`
+Which solc version to use
+
+▪ **SolcVersions.solc?**: `SolcVersions$1`
 
 ## Returns
 
+- A bun plugin
+
+To configure add this plugin to your Bun config and add the ts-plugin to your tsconfig.json
+
 ## Example
 
-```typescript
-import { esbuildPluginTevm } from '@tevm/esbuild-plugin'
-import { build } from 'esbuild'
+```ts plugin.ts
+// Configure plugin in a plugin.ts file
+import { tevmPluginBun } from '@tevm/bun-plugin'
+import { plugin } from 'bun'
 
-build({
-	entryPoints: ['src/index.js'],
-	outdir: 'dist',
-	bundle: true,
-	plugins: [esbuildPluginTevm()],
-})
+plugin(tevmPluginBun())
+```
+
+// Add the plugin.ts to your bunfig.toml
+```ts bunfig.toml
+preload = ["./plugins.ts"]
 ```
 
 For LSP so your editor recognizes the solidity imports correctly you must also configure tevm/ts-plugin in your tsconfig.json
@@ -102,7 +107,7 @@ For custom configuration of the Tevm compiler add a [tevm.config.json](https://t
 
 ## Source
 
-node\_modules/.pnpm/unplugin@1.5.1/node\_modules/unplugin/dist/index.d.mts:83
+[bunPluginTevm.js:86](https://github.com/evmts/tevm-monorepo/blob/main/bundler/bun/src/bunPluginTevm.js#L86)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

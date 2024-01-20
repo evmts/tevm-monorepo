@@ -17,10 +17,10 @@ import defaultSolc from 'solc'
  * @example
  * ```ts plugin.ts
  * // Configure plugin in a plugin.ts file
- * import { tevmBunPlugin } from '@tevm/bun-plugin'
+ * import { tevmPluginBun } from '@tevm/bun-plugin'
  * import { plugin } from 'bun'
  *
- * plugin(tevmBunPlugin())
+ * plugin(tevmPluginBun())
  * ```
  *
  * // Add the plugin.ts to your bunfig.toml
@@ -83,7 +83,7 @@ import defaultSolc from 'solc'
  *
  * @see [Tevm esbuild example](https://todo.todo.todo)
  */
-export const tevmBunPlugin = ({ solc = defaultSolc.version }) => {
+export const bunPluginTevm = ({ solc = defaultSolc.version }) => {
 	return {
 		name: '@tevm/esbuild-plugin',
 		async setup(build) {
@@ -140,7 +140,7 @@ export const tevmBunPlugin = ({ solc = defaultSolc.version }) => {
 					if (exists) {
 						return {
 							contents: await bunFileAccesObject.readFile(
-								/** @type {any} */(filePaths[i]),
+								/** @type {any} */ (filePaths[i]),
 								'utf8',
 							),
 							watchFiles: [filePaths[i]],

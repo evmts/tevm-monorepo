@@ -1,1 +1,1 @@
-export { tevmPluginEsbuild } from './tevmPluginEsbuild.js'
+export { esbuildPluginTevm } from './esbuildPluginTevm.js'

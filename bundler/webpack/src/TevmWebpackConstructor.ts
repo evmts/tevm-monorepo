@@ -1,4 +1,4 @@
-import type { unplugin } from './unplugin.js';
+import type { unplugin } from './unplugin.js'
 
 /**
  * Webpack plugin for tevm. Enables Solidity imports in JavaScript.
@@ -7,5 +7,7 @@ import type { unplugin } from './unplugin.js';
  * ```
  */
 export interface TevmWebpackPluginConstructor {
-  new(options?: Parameters<typeof unplugin.webpack>[0]): ReturnType<typeof unplugin.webpack>;
+	new (options?: Parameters<typeof unplugin.webpack>[0]): ReturnType<
+		typeof unplugin.webpack
+	>
 }

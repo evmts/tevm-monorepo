@@ -9,7 +9,7 @@ import { createUnplugin, tevmUnplugin } from '@tevm/unplugin'
  * ```typescript
  * import { esbuildPluginTevm } from '@tevm/esbuild-plugin'
  * import { build } from 'esbuild'
- * 
+ *
  * build({
  * 	entryPoints: ['src/index.js'],
  * 	outdir: 'dist',
@@ -18,7 +18,7 @@ import { createUnplugin, tevmUnplugin } from '@tevm/unplugin'
  * })
  * ```
  *
- * For LSP so your editor recognizes the solidity imports correctly you must also configure tevm/ts-plugin in your tsconfig.json 
+ * For LSP so your editor recognizes the solidity imports correctly you must also configure tevm/ts-plugin in your tsconfig.json
  * The ts-plugin will provide type hints, code completion, and other features.
  * @example
  * ```json
@@ -73,4 +73,4 @@ import { createUnplugin, tevmUnplugin } from '@tevm/unplugin'
  *
  * @see [Tevm esbuild example](https://todo.todo.todo)
  */
-export const tevmPluginEsbuild = createUnplugin(tevmUnplugin).esbuild
+export const esbuildPluginTevm = createUnplugin(tevmUnplugin).esbuild

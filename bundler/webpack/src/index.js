@@ -1,2 +1,1 @@
-export { TevmWebpackPlugin } from './TevmWebpackPlugin.js'
-
+export { WebpackPluginTevm } from './WebpackPluginTevm.js'

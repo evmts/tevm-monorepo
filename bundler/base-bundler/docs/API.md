@@ -1,4 +1,4 @@
-**@tevm/base** ∙ [README](README.md) ∙ [API](API.md)
+**@tevm/base-bundler** ∙ [README](README.md) ∙ [API](API.md)
 
 ***
 

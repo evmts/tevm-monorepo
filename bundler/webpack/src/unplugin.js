@@ -1,3 +1,3 @@
-import { createUnplugin, tevmUnplugin } from '@tevm/unplugin';
+import { createUnplugin, tevmUnplugin } from '@tevm/unplugin'
 
-export const unplugin = createUnplugin(tevmUnplugin);
+export const unplugin = createUnplugin(tevmUnplugin)

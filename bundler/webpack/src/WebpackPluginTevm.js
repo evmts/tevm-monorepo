@@ -1,12 +1,13 @@
 import { unplugin } from './unplugin.js'
 
 class WebpackPlugin {
-  /**
-   * @param {Parameters<typeof unplugin.webpack>[0]} options
-   */
-  constructor(options) {
-    return unplugin.webpack(options)
-  }
+	/**
+	 * @param {Parameters<typeof unplugin.webpack>[0]} options
+	 */
+	constructor(options) {
+		// rome-ignore lint/correctness/noConstructorReturn: <explanation>
+		return unplugin.webpack(options)
+	}
 }
 
 /**
@@ -14,11 +15,11 @@ class WebpackPlugin {
  * @type {import('./TevmWebpackConstructor.js').TevmWebpackPluginConstructor}
  * @example
  * ```typescript
- * import { TevmWebpackPlugin } from '@tevm/webpack'
+ * import { WebpackPluginTevm } from '@tevm/webpack'
  *
  * export default {
  *  plugins: [
- *    new TevmWebpackPlugin()
+ *    new WebpackPluginTevm()
  *  ]
  * ```
  *
@@ -74,4 +75,4 @@ class WebpackPlugin {
  * }
  * ```
  */
-export const TevmWebpackPlugin = /** @type any*/(WebpackPlugin)
+export const WebpackPluginTevm = /** @type any*/ (WebpackPlugin)

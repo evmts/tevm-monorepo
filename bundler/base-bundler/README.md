@@ -37,13 +37,9 @@ And all bundlers
 - @tevm/vite-plugin
 - @tevm/webpack-plugin
 
-## API
+## Usage
 
-#### bundler
-
-## Visit [Docs](https://tevm.dev/) for docs, guides, API and more!
-
-## See [Tevm Beta project board](https://github.com/orgs/tevm/projects/1) for progress on the upcoming beta release
+See [docs](./docs/functions/bundler.md)
 
 ## License 📄
 

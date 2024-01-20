@@ -8,16 +8,16 @@ import { createUnplugin, tevmUnplugin } from '@tevm/unplugin'
  * @example
  * ```typescript
  * import { defineConfig } from 'rollup';
- * import { tevmPluginRollup } from '@tevm/rollup';
- * 
+ * import { rollupPluginTevm } from '@tevm/rollup';
+ *
  * export default defineConfig({
  *   plugins: [
- *     tevmPluginRollup()
+ *     rollupPluginTevm()
  *   ],
  * });
  * ```
  *
- * For LSP so your editor recognizes the solidity imports correctly you must also configure tevm/ts-plugin in your tsconfig.json 
+ * For LSP so your editor recognizes the solidity imports correctly you must also configure tevm/ts-plugin in your tsconfig.json
  * The ts-plugin will provide type hints, code completion, and other features.
  * @example
  * ```json

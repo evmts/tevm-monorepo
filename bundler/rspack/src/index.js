@@ -1,1 +1,1 @@
-export { tevmPluginRspack } from './tevmPluginRspack.js'
+export { rspackPluginTevm } from './rspackPluginTevm.js'
