@@ -1257,6 +1257,9 @@ importers:
       '@tevm/rspack-plugin':
         specifier: workspace:^
         version: link:../bundler/rspack
+      '@tevm/server':
+        specifier: workspace:^
+        version: link:../vm/server
       '@tevm/solc':
         specifier: workspace:^
         version: link:../bundler/solc

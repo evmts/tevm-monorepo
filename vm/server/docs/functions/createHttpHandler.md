@@ -14,7 +14,7 @@ This handler works for any server that supports the Node.js http module
 
 ## Parameters
 
-▪ **parameters**: `CreateHttpHandlerParameters`
+▪ **parameters**: [`CreateHttpHandlerParameters`](../type-aliases/CreateHttpHandlerParameters.md)
 
 ## Returns
 

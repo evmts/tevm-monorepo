@@ -17,6 +17,7 @@ const dirs = [
 	'bundler/webpack-plugin',
 	'client',
 	'contract',
+	'server',
 	'viem',
 	'vm',
 ]
