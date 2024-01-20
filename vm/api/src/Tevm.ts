@@ -24,7 +24,7 @@ import type {
  * - Supports most ethereum JSON-RPC methods
  *
  * @see {@link https://todo.todo | createMemoryTevm} for documentation on creating an in memory Tevm instance
- * @see {@link https://todo.todo | createClient} for documentation on creating an client for talking to a remote Tevm instance over HTTP
+ * @see {@link https://todo.todo | createTevmClient} for documentation on creating an client for talking to a remote Tevm instance over HTTP
  *
  * #### JSON-RPC
  *

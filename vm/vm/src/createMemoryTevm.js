@@ -59,7 +59,11 @@ export const createMemoryTevm = async (options = {}) => {
 	 * @type {TevmStateManager | DefaultTevmStateManager}
 	 */
 	let stateManager
-	const common = new Common({ chain: 1, hardfork: Hardfork.Shanghai })
+	const common = new Common({
+		chain: 1,
+		hardfork: Hardfork.Shanghai,
+		eips: [1559, 4895],
+	})
 
 	let chainId = 420n
 

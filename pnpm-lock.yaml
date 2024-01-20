@@ -1309,6 +1309,9 @@ importers:
       '@ethereumjs/util':
         specifier: ^9.0.1
         version: 9.0.1
+      '@tevm/api':
+        specifier: workspace:1.0.0-next.22
+        version: link:../api
       '@tevm/server':
         specifier: workspace:^
         version: link:../server

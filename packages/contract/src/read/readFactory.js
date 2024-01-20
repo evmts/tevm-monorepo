@@ -35,6 +35,7 @@ export const readFactory = ({ methods, bytecode, deployedBytecode, address }) =>
 						bytecode,
 						deployedBytecode,
 						address,
+						to: address,
 						...maybeArgs,
 					}
 				}
@@ -43,6 +44,7 @@ export const readFactory = ({ methods, bytecode, deployedBytecode, address }) =>
 				creator.bytecode = bytecode
 				creator.deployedBytecode = deployedBytecode
 				creator.address = address
+				creator.to = address
 				return [
 					/**@type {import('abitype').AbiFunction}*/ (method).name,
 					creator,

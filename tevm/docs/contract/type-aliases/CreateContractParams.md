@@ -23,7 +23,7 @@ Params for creating a [Contract](../../index/type-aliases/Contract.md) instance
 
 ## Source
 
-packages/contract/dist/index.d.ts:420
+packages/contract/dist/index.d.ts:422
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

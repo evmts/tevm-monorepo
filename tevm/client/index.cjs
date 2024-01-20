@@ -2,16 +2,10 @@
 
 const client = require('@tevm/client')
 
-Object.defineProperty(exports, 'createMemoryClient', {
+Object.defineProperty(exports, 'createTevmClient', {
 	enumerable: true,
 	get: function () {
-		return client.createMemoryClient
-	},
-})
-Object.defineProperty(exports, 'createRemoteClient', {
-	enumerable: true,
-	get: function () {
-		return client.createRemoteClient
+		return client.createTevmClient
 	},
 })
 //# sourceMappingURL=out.js.map

@@ -1,4 +1,4 @@
-export { createMemoryClient, createRemoteClient } from '@tevm/client'
+export { createTevmClient } from '@tevm/client'
 export {
 	createContract,
 	decodeFunctionData,

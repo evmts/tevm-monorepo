@@ -25,7 +25,10 @@ export type WriteActionCreator<
 	TBytecode extends Hex | undefined,
 	TDeployedBytecode extends Hex | undefined,
 	TAddress extends Address | undefined,
-	TAddressArgs = TAddress extends undefined ? {} : { address: TAddress },
+	// we have address and to so we support both tevm and viem with natively
+	TAddressArgs = TAddress extends undefined
+		? {}
+		: { address: TAddress; to: TAddress },
 > = {
 	// for each payable and nonpayable function in the abi, create an action creator
 	[TFunctionName in

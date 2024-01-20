@@ -24,7 +24,7 @@ type BlockNumberReturnType = JsonRpcReturnTypeFromMethod<'eth_blockNumber'>
 
 ## Source
 
-[TevmJsonRpcRequestHandler.ts:267](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/TevmJsonRpcRequestHandler.ts#L267)
+[TevmJsonRpcRequestHandler.ts:271](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/TevmJsonRpcRequestHandler.ts#L271)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

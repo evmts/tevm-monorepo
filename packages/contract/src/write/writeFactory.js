@@ -30,6 +30,8 @@ export const writeFactory = ({
 				)
 				// viem and wagmi barf if we padd in undefined or [] for args so do this to accomidate viem and wagmi
 				const maybeArgs = args.length > 0 ? { args } : {}
+				const maybeTo = address ? { to: address } : {}
+				const maybeAddress = address ? { address } : {}
 				return {
 					abi: methodAbi,
 					humanReadableAbi: formatAbi([method]),
@@ -37,7 +39,8 @@ export const writeFactory = ({
 						.name,
 					bytecode,
 					deployedBytecode,
-					address,
+					...maybeAddress,
+					...maybeTo,
 					...maybeArgs,
 				}
 			}
@@ -46,6 +49,7 @@ export const writeFactory = ({
 			creator.bytecode = bytecode
 			creator.deployedBytecode = deployedBytecode
 			creator.address = address
+			creator.to = address
 			return [/**@type {import('abitype').AbiFunction}*/ (method).name, creator]
 		}),
 	)

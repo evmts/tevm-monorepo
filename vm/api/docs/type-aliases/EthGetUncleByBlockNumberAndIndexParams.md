@@ -14,7 +14,7 @@ JSON-RPC request for `eth_getUncleByBlockNumberAndIndex` procedure
 
 ### tag
 
-> **tag**: `BlockTag` \| `Hex`
+> **tag**?: `BlockTag` \| `Hex`
 
 ### uncleIndex
 

@@ -1,6 +1,7 @@
 import { NoForkUrlSetError } from './getBalanceHandler.js'
 import { Address } from '@ethereumjs/util'
 import { createJsonRpcFetcher } from '@tevm/jsonrpc'
+import { bytesToHex } from 'viem'
 
 /**
  * @param {object} options
@@ -13,7 +14,9 @@ export const getCodeHandler =
 	async (params) => {
 		const tag = params.tag || 'pending'
 		if (tag === 'pending') {
-			return stateManager.getContractCode(Address.fromString(params.address))
+			return bytesToHex(
+				await stateManager.getContractCode(Address.fromString(params.address)),
+			)
 		}
 		if (!forkUrl) {
 			throw new NoForkUrlSetError(

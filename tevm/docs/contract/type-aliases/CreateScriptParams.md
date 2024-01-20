@@ -23,7 +23,7 @@ Params for creating a [Script](Script.md) instance
 
 ## Source
 
-packages/contract/dist/index.d.ts:454
+packages/contract/dist/index.d.ts:456
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

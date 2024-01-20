@@ -17,7 +17,7 @@ A local EVM instance running in the browser or Node.js. Akin to anvil or ganache
 ## See
 
  - [createMemoryTevm](https://todo.todo) for documentation on creating an in memory Tevm instance
- - [createClient](https://todo.todo) for documentation on creating an client for talking to a remote Tevm instance over HTTP
+ - [createTevmClient](https://todo.todo) for documentation on creating an client for talking to a remote Tevm instance over HTTP
 
 #### JSON-RPC
 

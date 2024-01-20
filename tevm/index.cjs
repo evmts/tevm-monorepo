@@ -4,16 +4,10 @@ const client = require('@tevm/client')
 const contract = require('@tevm/contract')
 const vm = require('@tevm/vm')
 
-Object.defineProperty(exports, 'createMemoryClient', {
+Object.defineProperty(exports, 'createTevmClient', {
 	enumerable: true,
 	get: function () {
-		return client.createMemoryClient
-	},
-})
-Object.defineProperty(exports, 'createRemoteClient', {
-	enumerable: true,
-	get: function () {
-		return client.createRemoteClient
+		return client.createTevmClient
 	},
 })
 Object.defineProperty(exports, 'createContract', {
