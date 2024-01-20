@@ -6,7 +6,7 @@
 
 # Type alias: EthGetStorageAtJsonRpcRequest
 
-> **EthGetStorageAtJsonRpcRequest**: [`JsonRpcRequest`](JsonRpcRequest.md)\<`"eth_getStorageAt"`, readonly [[`Address`](../../index/type-aliases/Address.md), `Hex`, `BlockTag` \| `Hex`]\>
+> **EthGetStorageAtJsonRpcRequest**: [`JsonRpcRequest`](JsonRpcRequest.md)\<`"eth_getStorageAt"`, readonly [`Address`, `Hex`, `BlockTag` \| `Hex`]\>
 
 JSON-RPC request for `eth_getStorageAt` procedure
 

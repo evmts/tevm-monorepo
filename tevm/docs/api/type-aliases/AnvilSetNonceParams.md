@@ -14,7 +14,7 @@ Params for `anvil_setNonce` handler
 
 ### address
 
-> **address**: [`Address`](../../index/type-aliases/Address.md)
+> **address**: `Address`
 
 The address to set the nonce for
 

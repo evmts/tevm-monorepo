@@ -1,1 +1,1 @@
-export { rspackPluginTevm } from '@tevm/rspack-plugin'
+export { rspackPluginTevm } from '@tevm/rspack-plugin';

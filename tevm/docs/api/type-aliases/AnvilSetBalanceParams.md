@@ -14,7 +14,7 @@ Params for `anvil_setBalance` handler
 
 ### address
 
-> **address**: [`Address`](../../index/type-aliases/Address.md)
+> **address**: `Address`
 
 The address to set the balance for
 

@@ -14,7 +14,7 @@ Tevm params to execute a call on a contract
 
 ### to
 
-> **to**: [`Address`](Address.md)
+> **to**: `Address`
 
 The address to call.
 
@@ -22,7 +22,7 @@ The address to call.
 
 | Parameter | Default |
 | :------ | :------ |
-| `TAbi` extends [`Abi`](Abi.md) \| readonly `unknown`[] | [`Abi`](Abi.md) |
+| `TAbi` extends `Abi` \| readonly `unknown`[] | `Abi` |
 | `TFunctionName` extends `ContractFunctionName`\<`TAbi`\> | `ContractFunctionName`\<`TAbi`\> |
 
 ## Source

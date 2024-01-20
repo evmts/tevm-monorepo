@@ -74,6 +74,26 @@
 				"default": "./contract/index.cjs"
 			}
 		},
+		"./jsonrpc": {
+			"import": {
+				"types": "./jsonrpc/index.d.ts",
+				"default": "./jsonrpc/index.js"
+			},
+			"require": {
+				"types": "./jsonrpc/index.d.cts",
+				"default": "./jsonrpc/index.cjs"
+			}
+		},
+		"./server": {
+			"import": {
+				"types": "./server/index.d.ts",
+				"default": "./server/index.js"
+			},
+			"require": {
+				"types": "./server/index.d.cts",
+				"default": "./server/index.cjs"
+			}
+		},
 		"./viem": {
 			"import": {
 				"types": "./viem/index.d.ts",
@@ -92,6 +112,16 @@
 			"require": {
 				"types": "./vm/index.d.cts",
 				"default": "./vm/index.cjs"
+			}
+		},
+		"./bundler/base-bundler": {
+			"import": {
+				"types": "./bundler/base-bundler/index.d.ts",
+				"default": "./bundler/base-bundler/index.js"
+			},
+			"require": {
+				"types": "./bundler/base-bundler/index.d.cts",
+				"default": "./bundler/base-bundler/index.cjs"
 			}
 		},
 		"./bundler/bun-plugin": {
@@ -204,26 +234,27 @@
 		"bundler",
 		"client",
 		"contract",
+		"jsonrpc",
+		"server",
 		"viem",
 		"vm"
 	],
 	"scripts": {
-		"all": "pnpm i && bun run build && bun run test && bun run lint && bun run format && bun run generate:docs",
-		"generate": "nx run-many --targets=build:dist,build:types --projects=tevm",
+		"all": "bun run generate && bun run generate:docs && bun run lint:deps && bun run lint:package",
+		"build": "nx run-many --targets=build:dist,build:types --projects=tevm",
+		"build:dist": "bun run generate:dist && git status --porcelain",
+		"build:types": "bun run generate:types && git status --porcelain",
+		"generate": "nx run-many --targets=generate:dist,generate:types --projects=tevm && bun generate:docs",
 		"generate:dist": "tsup",
 		"generate:types": "tsup --dts-only",
 		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
-		"format": "rome format . --write",
-		"format:check": "rome format .",
+		"generate:docs": "typedoc",
 		"lint:deps": "bunx depcheck",
 		"lint:package": "bunx publint --strict && attw --pack",
-		"generate:docs": "typedoc",
-		"lint": "rome check . --apply-unsafe",
-		"lint:check": "rome check . --verbose"
+		"typecheck": "tsc --noEmit"
 	},
 	"devDependencies": {
-		"@tevm/tsconfig": "workspace:^",
-		"@tevm/tsupconfig": "workspace:^",
+		"@tevm/base-bundler": "workspace:^",
 		"@tevm/bun-plugin": "workspace:^",
 		"@tevm/compiler": "workspace:^",
 		"@tevm/config": "workspace:^",
@@ -233,6 +264,8 @@
 		"@tevm/server": "workspace:^",
 		"@tevm/solc": "workspace:^",
 		"@tevm/ts-plugin": "workspace:^",
+		"@tevm/tsconfig": "workspace:^",
+		"@tevm/tsupconfig": "workspace:^",
 		"@tevm/vite-plugin": "workspace:^",
 		"@tevm/webpack-plugin": "workspace:^"
 	},
@@ -247,8 +280,9 @@
 		"@tevm/base-bundler": "workspace:1.0.0-next.21",
 		"@tevm/client": "workspace:^",
 		"@tevm/contract": "workspace:^",
+		"@tevm/jsonrpc": "workspace:^",
 		"@tevm/viem": "workspace:^",
 		"@tevm/vm": "workspace:^",
-		"abitype": "^0.10.3"
+		"abitype": "^1.0.0"
 	}
 }

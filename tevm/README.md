@@ -22,7 +22,9 @@
 
 # tevm-monorepo
 
-tevm enables direct evm execution clientside with forge cheat codes and direct solidity file imports.
+Top level package for tevm tooling. This package has no source code. It contains barrel files that rexport from the source package.
+
+The tevm package allows one to use tevm and only install a single package that has everything they need.
 
 ## Visit [Docs](https://tevm.dev/) for docs, guides, API and more!
 

@@ -8,6 +8,8 @@
 
 > **CustomPredeploy**\<`TName`, `THumanReadableAbi`\>: `object`
 
+Params taken by the definePredeploy function
+
 ## Type parameters
 
 | Parameter |
@@ -19,7 +21,7 @@
 
 ### address
 
-> **address**: [`Address`](../../index/type-aliases/Address.md)
+> **address**: `Address`
 
 ### contract
 
@@ -27,7 +29,7 @@
 
 ## Source
 
-vm/predeploys/dist/index.d.ts:5
+vm/predeploys/dist/index.d.ts:45
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

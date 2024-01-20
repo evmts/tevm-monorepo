@@ -8,6 +8,7 @@
 
 - [api](api/README.md)
 - [bundler](bundler/README.md)
+- [bundler/base-bundler](bundler/base-bundler/README.md)
 - [bundler/bun-plugin](bundler/bun-plugin/README.md)
 - [bundler/compiler](bundler/compiler/README.md)
 - [bundler/config](bundler/config/README.md)
