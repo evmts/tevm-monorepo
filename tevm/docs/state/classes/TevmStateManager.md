@@ -276,11 +276,11 @@ Creates a Filter to retrieve event logs that can be used with [`getFilterChanges
 
 ###### Type parameters
 
-▪ **TAbi** extends `Abi` \| readonly `unknown`[]
+▪ **TAbi** extends readonly `unknown`[] \| `Abi`
 
 ▪ **TEventName** extends `undefined` \| `string`
 
-▪ **TArgs** extends `undefined` \| readonly `unknown`[] \| `Record`\<`string`, `unknown`\>
+▪ **TArgs** extends `undefined` \| `Record`\<`string`, `unknown`\> \| readonly `unknown`[]
 
 ▪ **TStrict** extends `undefined` \| `boolean` = `undefined`
 
@@ -360,7 +360,7 @@ Creates a [`Filter`](https://viem.sh/docs/glossary/types.html#filter) to listen 
 
 ▪ **_EventName** extends `undefined` \| `string` = `MaybeAbiEventName`\<`TAbiEvent`\>
 
-▪ **_Args** extends `undefined` \| readonly `unknown`[] \| `Record`\<`string`, `unknown`\> = `undefined`
+▪ **_Args** extends `undefined` \| `Record`\<`string`, `unknown`\> \| readonly `unknown`[] = `undefined`
 
 ###### Parameters
 
@@ -475,7 +475,7 @@ Estimates the gas required to successfully execute a contract write function cal
 
 ▪ **TChain** extends `undefined` \| `Chain`
 
-▪ **abi** extends `Abi` \| readonly `unknown`[]
+▪ **abi** extends readonly `unknown`[] \| `Abi`
 
 ▪ **functionName** extends `string`
 
@@ -1125,7 +1125,7 @@ Returns a list of event logs emitted by a contract.
 
 ###### Type parameters
 
-▪ **abi** extends `Abi` \| readonly `unknown`[]
+▪ **abi** extends readonly `unknown`[] \| `Abi`
 
 ▪ **eventName** extends `undefined` \| `string` = `undefined`
 
@@ -1813,7 +1813,7 @@ Returns a list of logs or hashes based on a [Filter](/docs/glossary/terms#filter
 
 ▪ **TFilterType** extends `FilterType`
 
-▪ **TAbi** extends `undefined` \| `Abi` \| readonly `unknown`[]
+▪ **TAbi** extends `undefined` \| readonly `unknown`[] \| `Abi`
 
 ▪ **TEventName** extends `undefined` \| `string`
 
@@ -1956,7 +1956,7 @@ Returns a list of event logs since the filter was created.
 
 ###### Type parameters
 
-▪ **TAbi** extends `undefined` \| `Abi` \| readonly `unknown`[]
+▪ **TAbi** extends `undefined` \| readonly `unknown`[] \| `Abi`
 
 ▪ **TEventName** extends `undefined` \| `string`
 
@@ -2743,7 +2743,7 @@ Calls a read-only function on a contract, and returns the response.
 
 ###### Type parameters
 
-▪ **abi** extends `Abi` \| readonly `unknown`[]
+▪ **abi** extends readonly `unknown`[] \| `Abi`
 
 ▪ **functionName** extends `string`
 
@@ -2900,7 +2900,7 @@ Simulates/validates a contract interaction. This is useful for retrieving **retu
 
 ###### Type parameters
 
-▪ **abi** extends `Abi` \| readonly `unknown`[]
+▪ **abi** extends readonly `unknown`[] \| `Abi`
 
 ▪ **functionName** extends `string`
 
@@ -3310,7 +3310,7 @@ Watches and returns emitted contract event logs.
 
 ###### Type parameters
 
-▪ **TAbi** extends `Abi` \| readonly `unknown`[]
+▪ **TAbi** extends readonly `unknown`[] \| `Abi`
 
 ▪ **TEventName** extends `string`
 

@@ -264,6 +264,7 @@
 		"bundler",
 		"client",
 		"contract",
+		"ethers",
 		"jsonrpc",
 		"predeploys",
 		"state",
@@ -299,7 +300,8 @@
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",
 		"@tevm/vite-plugin": "workspace:^",
-		"@tevm/webpack-plugin": "workspace:^"
+		"@tevm/webpack-plugin": "workspace:^",
+		"ethers": "^6.10.0"
 	},
 	"publishConfig": {
 		"access": "public"
@@ -315,6 +317,15 @@
 		"@tevm/state": "workspace:^",
 		"@tevm/viem": "workspace:^",
 		"@tevm/vm": "workspace:^",
-		"abitype": "^1.0.0"
+		"abitype": "^1.0.0",
+		"viem": "^2.4.0"
+	},
+	"peerDependencies": {
+		"ethers": "6.x.x"
+	},
+	"peerDependenciesMeta": {
+		"ethers": {
+			"optional": true
+		}
 	}
 }

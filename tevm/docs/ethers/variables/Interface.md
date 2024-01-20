@@ -1,8 +1,8 @@
-**@tevm/ethers** ∙ [README](../README.md) ∙ [API](../API.md)
+**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[API](../API.md) > Interface
+[API](../../API.md) > [ethers](../README.md) > Interface
 
 # Variable: Interface
 

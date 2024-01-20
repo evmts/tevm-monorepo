@@ -1,10 +1,12 @@
-**@tevm/ethers** ∙ [README](README.md) ∙ [API](API.md)
+**tevm** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
-# API
+[API](../API.md) > ethers
 
-## Exports
+# Module: ethers
+
+## Index
 
 ### Type Aliases
 

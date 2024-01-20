@@ -20,6 +20,7 @@
 - [bundler/webpack-plugin](bundler/webpack-plugin/README.md)
 - [client](client/README.md)
 - [contract](contract/README.md)
+- [ethers](ethers/README.md)
 - [index](index/README.md)
 - [jsonrpc](jsonrpc/README.md)
 - [predeploys](predeploys/README.md)
