@@ -205,7 +205,7 @@ tevm.contract(
 
 ## Source
 
-packages/contract/dist/index.d.ts:299
+packages/contract/dist/index.d.ts:301
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

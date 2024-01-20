@@ -44,7 +44,13 @@ describe(createTevmClient.name, () => {
 		it('tevm.contract', async () => {
 			const contractAddress = `0x${'69'.repeat(20)}` as const
 			const { Add } = await import('./test/Add.s.sol.js')
-			const { errors, data } = await client.contract(Add.withAddress(contractAddress).read.add(399n, 21n))
+			await client.setAccount({
+				address: contractAddress,
+				deployedBytecode: Add.deployedBytecode,
+			})
+			const { errors, data } = await client.contract(
+				Add.withAddress(contractAddress).read.add(399n, 21n),
+			)
 			expect(errors).toBeUndefined()
 			expect(data).toBe(420n)
 		})

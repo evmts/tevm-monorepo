@@ -25,11 +25,13 @@ export const writeFactory = ({
 				// TODO make this more efficient
 				const methodAbi = methods.filter(
 					(m) =>
-						/**@type {import('abitype').AbiFunction}*/(m).name ===
+						/**@type {import('abitype').AbiFunction}*/ (m).name ===
 						/**@type {import('abitype').AbiFunction}*/ (method)?.name,
 				)
 				// viem and wagmi barf if we padd in undefined or [] for args so do this to accomidate viem and wagmi
 				const maybeArgs = args.length > 0 ? { args } : {}
+				const maybeTo = address ? { to: address } : {}
+				const maybeAddress = address ? { address } : {}
 				return {
 					abi: methodAbi,
 					humanReadableAbi: formatAbi([method]),
@@ -37,8 +39,8 @@ export const writeFactory = ({
 						.name,
 					bytecode,
 					deployedBytecode,
-					address,
-					to: address,
+					...maybeAddress,
+					...maybeTo,
 					...maybeArgs,
 				}
 			}

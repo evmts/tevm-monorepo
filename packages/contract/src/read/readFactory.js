@@ -23,7 +23,7 @@ export const readFactory = ({ methods, bytecode, deployedBytecode, address }) =>
 					// TODO make this more efficient
 					const methodAbi = methods.filter(
 						(m) =>
-							/**@type {import('abitype').AbiFunction}*/(m).name ===
+							/**@type {import('abitype').AbiFunction}*/ (m).name ===
 							/**@type {import('abitype').AbiFunction}*/ (method)?.name,
 					)
 					const maybeArgs = args.length > 0 ? { args } : {}

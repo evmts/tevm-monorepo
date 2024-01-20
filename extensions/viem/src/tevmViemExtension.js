@@ -34,7 +34,7 @@ export const tevmViemExtension = () => {
 		 */
 		const request = async (req) => {
 			try {
-				const result = await client.request(/** @type any*/(req))
+				const result = await client.request(/** @type any*/ (req))
 				return /** @type any */ ({
 					jsonrpc: '2.0',
 					method: req.method,
@@ -74,7 +74,7 @@ export const tevmViemExtension = () => {
 							...getCallArgs(params),
 							deployedBytecode: params.deployedBytecode,
 							data: encodeFunctionData(
-								/** @type any*/({
+								/** @type any*/ ({
 									abi: params.abi,
 									functionName: params.functionName,
 									args: params.args,
@@ -85,7 +85,7 @@ export const tevmViemExtension = () => {
 				)
 			)
 			out.data = decodeFunctionResult(
-				/** @type any*/({
+				/** @type any*/ ({
 					data: out.rawData,
 					abi: params.abi,
 					functionName: params.functionName,
@@ -158,25 +158,25 @@ export const tevmViemExtension = () => {
 				...(params.value ? { value: numberToHex(params.value) } : {}),
 				...(params.block
 					? {
-						...(params.block.gasLimit
-							? { gasLimit: numberToHex(params.block.gasLimit) }
-							: {}),
-						...(params.block.baseFeePerGas
-							? { baseFeePerGas: numberToHex(params.block.baseFeePerGas) }
-							: {}),
-						...(params.block.blobGasPrice
-							? { blobGasPrice: numberToHex(params.block.blobGasPrice) }
-							: {}),
-						...(params.block.difficulty
-							? { difficulty: numberToHex(params.block.difficulty) }
-							: {}),
-						...(params.block.number
-							? { number: numberToHex(params.block.number) }
-							: {}),
-						...(params.block.timestamp
-							? { timestamp: numberToHex(params.block.timestamp) }
-							: {}),
-					}
+							...(params.block.gasLimit
+								? { gasLimit: numberToHex(params.block.gasLimit) }
+								: {}),
+							...(params.block.baseFeePerGas
+								? { baseFeePerGas: numberToHex(params.block.baseFeePerGas) }
+								: {}),
+							...(params.block.blobGasPrice
+								? { blobGasPrice: numberToHex(params.block.blobGasPrice) }
+								: {}),
+							...(params.block.difficulty
+								? { difficulty: numberToHex(params.block.difficulty) }
+								: {}),
+							...(params.block.number
+								? { number: numberToHex(params.block.number) }
+								: {}),
+							...(params.block.timestamp
+								? { timestamp: numberToHex(params.block.timestamp) }
+								: {}),
+					  }
 					: {}),
 			}
 		}
@@ -240,31 +240,29 @@ export const tevmViemExtension = () => {
 		 * @type {import('@tevm/api').ContractHandler}
 		 */
 		const contract = async (params) => {
-			const out = await (
-				call({
-					...params,
-					data: encodeFunctionData(
-						/** @type any*/({
-							abi: params.abi,
-							functionName: params.functionName,
-							args: params.args,
-						}),
-					),
-				})
-			)
+			const out = await call({
+				...params,
+				data: encodeFunctionData(
+					/** @type any*/ ({
+						abi: params.abi,
+						functionName: params.functionName,
+						args: params.args,
+					}),
+				),
+			})
 
 			const data = decodeFunctionResult(
-				/** @type any*/({
+				/** @type any*/ ({
 					data: out.rawData,
 					abi: params.abi,
 					functionName: params.functionName,
 					args: params.args,
 				}),
 			)
-			return /** @type any*/({
+			return /** @type any*/ ({
 				...out,
 				rawData: out.rawData,
-				data: /**@type any*/(data),
+				data: /**@type any*/ (data),
 			})
 		}
 

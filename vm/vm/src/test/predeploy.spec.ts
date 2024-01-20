@@ -34,12 +34,11 @@ test('Call predeploy from TypeScript', async () => {
 	).toEqual(toBytes(deployedBytecode))
 
 	// Test predeploy contract call
-	const res = await tevm.contract({
-		to: predeploy.address,
-		...predeploy.contract.read.balanceOf(
-			'0xf0d4c12a5768d806021f80a262b4d39d26c58b8d',
-		),
-	})
+	const res = await tevm.contract(
+		predeploy.contract
+			.withAddress(predeploy.address)
+			.read.balanceOf('0xf0d4c12a5768d806021f80a262b4d39d26c58b8d'),
+	)
 
 	expect(res.errors).toEqual(undefined as any)
 	expect(res.data).toBe(0n)
