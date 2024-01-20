@@ -3,5 +3,6 @@ export {
   type TevmStateManagerOpts,
   type SerializableTevmState,
   type TevmStateManagerInterface,
-  DefaultTevmStateManager
+  DefaultTevmStateManager,
+
 } from '@tevm/state'
