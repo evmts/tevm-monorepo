@@ -10,34 +10,27 @@
 
 ### References
 
-- [MemoryClient](README.md#memoryclient)
-- [RemoteClient](README.md#remoteclient)
-- [createMemoryClient](README.md#creatememoryclient)
-- [createRemoteClient](README.md#createremoteclient)
+- [ClientOptions](README.md#clientoptions)
+- [TevmClient](README.md#tevmclient)
+- [createTevmClient](README.md#createtevmclient)
 
 ## References
 
-### MemoryClient
+### ClientOptions
 
-Re-exports [MemoryClient](../index/type-aliases/MemoryClient.md)
-
-***
-
-### RemoteClient
-
-Re-exports [RemoteClient](../index/type-aliases/RemoteClient.md)
+Re-exports [ClientOptions](../index/type-aliases/ClientOptions.md)
 
 ***
 
-### createMemoryClient
+### TevmClient
 
-Re-exports [createMemoryClient](../index/functions/createMemoryClient.md)
+Re-exports [TevmClient](../index/type-aliases/TevmClient.md)
 
 ***
 
-### createRemoteClient
+### createTevmClient
 
-Re-exports [createRemoteClient](../index/functions/createRemoteClient.md)
+Re-exports [createTevmClient](../index/functions/createTevmClient.md)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

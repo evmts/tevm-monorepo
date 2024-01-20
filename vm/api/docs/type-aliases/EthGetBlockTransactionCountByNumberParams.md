@@ -14,7 +14,7 @@ JSON-RPC request for `eth_getBlockTransactionCountByNumber` procedure
 
 ### tag
 
-> **tag**: `BlockTag` \| `Hex`
+> **tag**?: `BlockTag` \| `Hex`
 
 ## Source
 

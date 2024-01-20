@@ -1,4 +1,4 @@
-import { createClient } from './createClient.js'
+import { createTevmClient } from './createTevmClient.js'
 import { Address } from '@ethereumjs/util'
 import type { Tevm } from '@tevm/api'
 import { createHttpHandler } from '@tevm/server'
@@ -7,7 +7,7 @@ import { afterAll, beforeAll, describe, expect, it } from 'bun:test'
 import { Server, createServer } from 'http'
 import { bytesToHex, keccak256 } from 'viem'
 
-describe(createClient.name, () => {
+describe(createTevmClient.name, () => {
 	let tevm: MemoryTevm
 	let server: Server
 	let client: Tevm
@@ -19,7 +19,7 @@ describe(createClient.name, () => {
 		server = createServer(createHttpHandler({ request: tevm.request })).listen(
 			6969,
 		)
-		client = createClient({ url: 'http://localhost:6969' })
+		client = createTevmClient({ url: 'http://localhost:6969' })
 	})
 
 	afterAll(() => {

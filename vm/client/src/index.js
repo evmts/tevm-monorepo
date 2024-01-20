@@ -1,1 +1,1 @@
-export { createClient } from './createClient.js'
+export { createTevmClient } from './createTevmClient.js'

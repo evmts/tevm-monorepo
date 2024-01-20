@@ -18,7 +18,7 @@ JSON-RPC request for `eth_getTransactionByBlockHashAndIndex` procedure
 
 ### tag
 
-> **tag**: `Hex`
+> **tag**?: `Hex`
 
 ## Source
 

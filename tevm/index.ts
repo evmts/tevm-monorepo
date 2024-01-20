@@ -14,10 +14,9 @@ export type {
 } from '@tevm/api'
 
 export {
-	type MemoryClient,
-	type RemoteClient,
-	createMemoryClient,
-	createRemoteClient,
+	createTevmClient,
+	type TevmClient,
+	type ClientOptions,
 } from '@tevm/client'
 
 export {

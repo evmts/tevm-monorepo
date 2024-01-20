@@ -43,22 +43,22 @@ const accountResponse = await tevm.request({
 #### tevm_call
 
 request - [CallJsonRpcRequest](../../api/type-aliases/CallJsonRpcRequest.md)
-response - [CallJsonRpcRequest](../../api/type-aliases/CallJsonRpcRequest.md)
+response - [CallJsonRpcResponse](../../api/type-aliases/CallJsonRpcResponse.md)
 
 #### tevm_script
 
 request - [ScriptJsonRpcRequest](../../api/type-aliases/ScriptJsonRpcRequest.md)
-response - [ScriptJsonRpcRequest](../../api/type-aliases/ScriptJsonRpcRequest.md)
+response - [ScriptJsonRpcResponse](../../api/type-aliases/ScriptJsonRpcResponse.md)
 
 #### tevm_getAccount
 
 request - [GetAccountJsonRpcRequest](../../api/type-aliases/GetAccountJsonRpcRequest.md)
-response - [GetAccountJsonRpcRequest](../../api/type-aliases/GetAccountJsonRpcRequest.md)
+response - [GetAccountJsonRpcResponse](../../api/type-aliases/GetAccountJsonRpcResponse.md)
 
 #### tevm_setAccount
 
 request - [SetAccountJsonRpcRequest](../../api/type-aliases/SetAccountJsonRpcRequest.md)
-response - [SetAccountJsonRpcRequest](../../api/type-aliases/SetAccountJsonRpcRequest.md)
+response - [SetAccountJsonRpcResponse](../../api/type-aliases/SetAccountJsonRpcResponse.md)
 
 ### debug_* methods
 

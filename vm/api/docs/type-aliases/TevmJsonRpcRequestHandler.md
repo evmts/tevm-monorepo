@@ -43,22 +43,22 @@ const accountResponse = await tevm.request({
 #### tevm_call
 
 request - [CallJsonRpcRequest](CallJsonRpcRequest.md)
-response - [CallJsonRpcRequest](CallJsonRpcRequest.md)
+response - [CallJsonRpcResponse](CallJsonRpcResponse.md)
 
 #### tevm_script
 
 request - [ScriptJsonRpcRequest](ScriptJsonRpcRequest.md)
-response - [ScriptJsonRpcRequest](ScriptJsonRpcRequest.md)
+response - [ScriptJsonRpcResponse](ScriptJsonRpcResponse.md)
 
 #### tevm_getAccount
 
 request - [GetAccountJsonRpcRequest](GetAccountJsonRpcRequest.md)
-response - [GetAccountJsonRpcRequest](GetAccountJsonRpcRequest.md)
+response - [GetAccountJsonRpcResponse](GetAccountJsonRpcResponse.md)
 
 #### tevm_setAccount
 
 request - [SetAccountJsonRpcRequest](SetAccountJsonRpcRequest.md)
-response - [SetAccountJsonRpcRequest](SetAccountJsonRpcRequest.md)
+response - [SetAccountJsonRpcResponse](SetAccountJsonRpcResponse.md)
 
 ### debug_* methods
 
@@ -101,7 +101,7 @@ response - [EthGetBalanceJsonRpcResponse](EthGetBalanceJsonRpcResponse.md)
 
 ## Source
 
-[TevmJsonRpcRequestHandler.ts:376](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/TevmJsonRpcRequestHandler.ts#L376)
+[TevmJsonRpcRequestHandler.ts:380](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/TevmJsonRpcRequestHandler.ts#L380)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,1 +1,1 @@
-export { tevmViemExtension, tevmViemExtensionOptimistic } from '@tevm/viem'
+export { tevmViemExtension, tevmViemExtensionOptimistic } from '@tevm/viem';

@@ -23,9 +23,9 @@ import { createServer as httpCreateServer } from 'http'
  * To interact with the HTTP server you can create a Tevm client
  * @example
  * ```typescript
- * import { createClient } from '@tevm/client'
+ * import { createTevmClient } from '@tevm/client'
  *
- * const client = createClient()
+ * const client = createTevmClient()
  */
 export const createServer = async ({ request, serverOptions }) => {
 	if (serverOptions === undefined) {
