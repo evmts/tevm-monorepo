@@ -1,6 +1,3 @@
-// This is a shortcut. We are simply reusing viem to create this client so we can
-// reuse all of viems transport related error handling. We should implement a client
-// using only `@tevm/jsonrpc` package to make requests once it is as robust as viem
 import { tevmViemExtension } from '@tevm/viem'
 import { createPublicClient, http } from 'viem'
 
@@ -28,6 +25,9 @@ import { createPublicClient, http } from 'viem'
  * @see {@link https://todo.todo.todo httpHandler} - for an http handler that can be used in Next.js or anything that supports HTTP handler api
  */
 export const createClient = ({ url }) => {
+	// This is a shortcut. We are simply reusing viem to create this client so we can
+	// reuse all of viems transport related error handling. We should implement a client
+	// using only `@tevm/jsonrpc` package to make requests once it is as robust as viem
 	const { tevm } = createPublicClient({
 		name: `TevmRemoteClient:${url}`,
 		transport: http(url),

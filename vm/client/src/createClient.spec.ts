@@ -60,54 +60,50 @@ describe(createClient.name, () => {
 				keccak256(account.deployedBytecode),
 			)
 			// testing getAccount
-			const getAccountRes = await client.getAccount({ address: account.address })
+			const getAccountRes = await client.getAccount({
+				address: account.address,
+			})
 			expect(getAccountRes).toMatchSnapshot()
 		})
 
 		it('can use tevm.eth.chainId', async () => {
-			expect(
-				await client.eth.chainId()
-			).toEqual(420n)
+			expect(await client.eth.chainId()).toEqual(10n)
 		})
 
 		it('can use tevm.eth.getCode', async () => {
 			const address = `0x${'69'.repeat(20)}` as const
 			await client.setAccount({
 				address,
-				deployedBytecode: '0x69'
+				deployedBytecode: '0x69',
 			})
-			expect(
-				await client.eth.getCode({ address })
-			).toEqual('0x69')
+			expect(await client.eth.getCode({ address })).toEqual('0x69')
 		})
 
 		it('can use tevm.eth.gasPrice', async () => {
-			expect(
-				await client.eth.gasPrice()
-			).toEqual(420n)
+			expect(await client.eth.gasPrice()).toEqual(1000000000n)
 		})
 
 		it('can use tevm.eth.getBalance', async () => {
 			const address = `0x${'69'.repeat(20)}` as const
 			await client.setAccount({
 				address,
-				balance: 420n
+				balance: 420n,
 			})
-			expect(
-				await client.eth.getBalance({ address })
-			).toEqual(420n)
+			expect(await client.eth.getBalance({ address })).toEqual(420n)
 		})
 
 		it('can use tevm.eth.blockNumber', async () => {
-			expect(
-				await client.eth.blockNumber()
-			).toEqual(0n)
+			expect(await client.eth.blockNumber()).toEqual(0n)
 		})
 
 		// this test isn't blocked just moving fast and breaking things atm
 		it.todo('can use tevm.eth.storageAt', async () => {
 			expect(
-				await client.eth.getStorageAt({ address: '0x0', position: '0x0', tag: 'pending' })
+				await client.eth.getStorageAt({
+					address: '0x0',
+					position: '0x0',
+					tag: 'pending',
+				}),
 			).toEqual('0x69')
 		})
 	})

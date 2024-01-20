@@ -1,1 +1,1 @@
-export { createClient } from './createClient.js'
+export { createClient, type ClientOptions } from './createClient.js'
