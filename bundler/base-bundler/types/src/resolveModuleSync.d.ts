@@ -1,0 +1,2 @@
+export function resolveModuleSync(logger: import('@tevm/compiler').Logger, config: import('@tevm/config').ResolvedCompilerConfig, fao: import('@tevm/compiler').FileAccessObject, solc: import('@tevm/solc').Solc, modulePath: string, basedir: string, includeAst: boolean, includeBytecode: boolean, moduleType: import('@tevm/runtime').ModuleType, cache: import('@tevm/bundler-cache').Cache): import('./types.js').BundlerResult;
+//# sourceMappingURL=resolveModuleSync.d.ts.map

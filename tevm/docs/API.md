@@ -21,6 +21,7 @@
 - [client](client/README.md)
 - [contract](contract/README.md)
 - [index](index/README.md)
+- [server](server/README.md)
 - [viem](viem/README.md)
 - [vm](vm/README.md)
 

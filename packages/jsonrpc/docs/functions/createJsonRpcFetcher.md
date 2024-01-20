@@ -6,7 +6,7 @@
 
 # Function: createJsonRpcFetcher()
 
-> **createJsonRpcFetcher**(`url`): `JsonRpcClient`
+> **createJsonRpcFetcher**(`url`, `headers`): [`JsonRpcClient`](../type-aliases/JsonRpcClient.md)
 
 Makes a JSON-RPC request to a url
 
@@ -15,6 +15,10 @@ Makes a JSON-RPC request to a url
 ▪ **url**: `string`
 
 to JSON RPC backend
+
+▪ **headers**: [`HeadersInit`](../type-aliases/HeadersInit.md)= `undefined`
+
+to send with the request
 
 ## Returns
 
@@ -33,10 +37,11 @@ const params = {
   params: ['latest', false],
 }
 const {result: block} = await fetchJsonRpc(url, params)
+```
 
 ## Source
 
-[fetchJsonRpc.js:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/jsonrpc/src/fetchJsonRpc.js#L19)
+[fetchJsonRpc.js:24](https://github.com/evmts/tevm-monorepo/blob/main/packages/jsonrpc/src/fetchJsonRpc.js#L24)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
