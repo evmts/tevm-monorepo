@@ -3,11 +3,13 @@ import {
 	blockNumberProcedure,
 	callProcedure,
 	chainIdProcedure,
+	dumpStateProcedure,
 	gasPriceProcedure,
 	getAccountProcedure,
 	getBalanceProcedure,
 	getCodeProcedure,
 	getStorageAtProcedure,
+	loadStateProcedure,
 	scriptProcedure,
 	setAccountProcedure,
 } from './index.js'
@@ -68,6 +70,12 @@ export const requestProcedure = (vm) => {
 				return /**@type any*/ (scriptProcedure)(vm.evm)(request)
 			case 'eth_blockNumber':
 				return /** @type any */ (blockNumberProcedure(vm.blockchain)(request))
+			case 'tevm_dumpState':
+				return /** @type any */ (dumpStateProcedure)(vm.stateManager)(request)
+			case 'tevm_loadState': {
+				const stateManager = vm.stateManager
+				return /** @type any */ (loadStateProcedure)(stateManager)(request)
+			}
 			case 'eth_chainId':
 				return /** @type any */ (chainIdProcedure(chainId)(request))
 			case 'eth_call':

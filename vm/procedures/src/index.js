@@ -6,6 +6,8 @@ export {
 	setAccountHandler,
 	contractHandler,
 	blockNumberHandler,
+	dumpStateHandler,
+	loadStateHandler,
 	chainIdHandler,
 	getCodeHandler,
 	gasPriceHandler,
@@ -25,4 +27,6 @@ export {
 	gasPriceProcedure,
 	getBalanceProcedure,
 	getStorageAtProcedure,
+	dumpStateProcedure,
+	loadStateProcedure,
 } from './jsonrpc/index.js'

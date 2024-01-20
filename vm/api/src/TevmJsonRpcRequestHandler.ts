@@ -54,11 +54,11 @@ import type {
 	EthSyncingJsonRpcResponse,
 	EthUninstallFilterJsonRpcResponse,
 	GetAccountJsonRpcResponse,
+	LoadStateJsonRpcResponse,
 	ScriptJsonRpcResponse,
 	SetAccountJsonRpcResponse,
 	TevmJsonRpcRequest,
 } from './index.js'
-import type { EthJsonRpcRequest } from './requests/EthJsonRpcRequest.js'
 import type {
 	AnvilDropTransactionJsonRpcRequest,
 	AnvilDumpStateJsonRpcRequest,
@@ -78,6 +78,7 @@ import type {
 	DebugJsonRpcRequest,
 	DebugTraceCallJsonRpcRequest,
 	DebugTraceTransactionJsonRpcRequest,
+	DumpStateJsonRpcRequest,
 	EthAccountsJsonRpcRequest,
 	EthBlockNumberJsonRpcRequest,
 	EthCallJsonRpcRequest,
@@ -105,6 +106,7 @@ import type {
 	EthGetUncleCountByBlockHashJsonRpcRequest,
 	EthGetUncleCountByBlockNumberJsonRpcRequest,
 	EthHashrateJsonRpcRequest,
+	EthJsonRpcRequest,
 	EthMiningJsonRpcRequest,
 	EthNewBlockFilterJsonRpcRequest,
 	EthNewFilterJsonRpcRequest,
@@ -117,9 +119,11 @@ import type {
 	EthSyncingJsonRpcRequest,
 	EthUninstallFilterJsonRpcRequest,
 	GetAccountJsonRpcRequest,
+	LoadStateJsonRpcRequest,
 	ScriptJsonRpcRequest,
 	SetAccountJsonRpcRequest,
 } from './requests/index.js'
+import type { DumpStateJsonRpcResponse } from './responses/DumpStateJsonRpcResponse.js'
 
 type DebugReturnType = {
 	debug_traceTransaction: DebugTraceTransactionJsonRpcResponse
@@ -250,6 +254,8 @@ type EthRequestType = {
 type TevmReturnType = {
 	tevm_call: CallJsonRpcResponse
 	tevm_script: ScriptJsonRpcResponse
+	tevm_loadState: LoadStateJsonRpcResponse
+	tevm_dumpState: DumpStateJsonRpcResponse
 	tevm_getAccount: GetAccountJsonRpcResponse
 	tevm_setAccount: SetAccountJsonRpcResponse
 }
@@ -257,6 +263,8 @@ type TevmReturnType = {
 type TevmRequestType = {
 	tevm_call: CallJsonRpcRequest
 	tevm_script: ScriptJsonRpcRequest
+	tevm_loadState: LoadStateJsonRpcRequest
+	tevm_dumpState: DumpStateJsonRpcRequest
 	tevm_getAccount: GetAccountJsonRpcRequest
 	tevm_setAccount: SetAccountJsonRpcRequest
 }

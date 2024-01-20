@@ -1,0 +1,4 @@
+ignores: [
+  "@tevm/state"
+]
+skip-missing: true

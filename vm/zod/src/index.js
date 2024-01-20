@@ -23,4 +23,5 @@ export {
 	validateSetAccountParams,
 	validateBaseCallParams,
 	validateContractParams,
+	validateLoadStateParams,
 } from './validators/index.js'

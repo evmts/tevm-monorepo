@@ -45,7 +45,7 @@
 		"!src/**/*.spec.ts"
 	],
 	"scripts": {
-		"all": "pnpm i  && bun run build && bun lint && bun format && bun test:run && bun generate:docs",
+		"all": "pnpm i  && bun run build && bun lint && bun format && bun test:run && bun generate:docs && bun run lint:deps && bun run lint:package",
 		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/viem",
 		"build:dist": "tsup",
 		"build:types": "tsup --dts-only && tsc --emitDeclarationOnly --declaration",
@@ -71,6 +71,7 @@
 		"@tevm/api": "workspace:^",
 		"@tevm/contract": "workspace:^",
 		"@tevm/server": "workspace:^",
+		"@tevm/state": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",
 		"abitype": "^0.10.3",

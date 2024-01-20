@@ -2,6 +2,7 @@ import type { TevmJsonRpcRequestHandler } from './TevmJsonRpcRequestHandler.js'
 import type {
 	CallHandler,
 	ContractHandler,
+	DumpStateHandler,
 	// DebugTraceCallHandler,
 	// DebugTraceTransactionHandler,
 	EthBlockNumberHandler,
@@ -12,6 +13,7 @@ import type {
 	EthGetCodeHandler,
 	EthGetStorageAtHandler,
 	GetAccountHandler,
+	LoadStateHandler,
 	ScriptHandler,
 	SetAccountHandler,
 } from './handlers/index.js'
@@ -171,6 +173,42 @@ export type Tevm = {
 	 * console.log(res.data) // "hello"
 	 */
 	contract: ContractHandler
+	/**
+	 * Dumps the current state of the VM into a JSON-seralizable object
+	 *
+	 * State can be dumped as follows
+	 * @example
+	 * ```typescript
+	 * const {state} = await tevm.dumpState()
+	 * fs.writeFileSync('state.json', JSON.stringify(state))
+	 * ```
+	 *
+	 * And then loaded as follows
+	 * @example
+	 * ```typescript
+	 * const state = JSON.parse(fs.readFileSync('state.json'))
+	 * await tevm.loadState({state})
+	 * ```
+	 */
+	dumpState: DumpStateHandler
+	/**
+	 * Loads a previously dumped state into the VM
+	 *
+	 * State can be dumped as follows
+	 * @example
+	 * ```typescript
+	 * const {state} = await tevm.dumpState()
+	 * fs.writeFileSync('state.json', JSON.stringify(state))
+	 * ```
+	 *
+	 * And then loaded as follows
+	 * @example
+	 * ```typescript
+	 * const state = JSON.parse(fs.readFileSync('state.json'))
+	 * await tevm.loadState({state})
+	 * ```
+	 */
+	loadState: LoadStateHandler
 	/**
 	 * Standard JSON-RPC methods for interacting with the VM
 	 * @see {@link https://ethereum.github.io/execution-apis/api-documentation/ | JSON-RPC}

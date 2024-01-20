@@ -111,6 +111,30 @@ const res = await tevm.contract({
 console.log(res.data) // "hello"
 ```
 
+### dumpState
+
+> **dumpState**: [`DumpStateHandler`](DumpStateHandler.md)
+
+Dumps the current state of the VM into a JSON-seralizable object
+
+State can be dumped as follows
+
+#### Example
+
+```typescript
+const {state} = await tevm.dumpState()
+fs.writeFileSync('state.json', JSON.stringify(state))
+```
+
+And then loaded as follows
+
+#### Example
+
+```typescript
+const state = JSON.parse(fs.readFileSync('state.json'))
+await tevm.loadState({state})
+```
+
 ### eth
 
 > **eth**: `object`
@@ -248,6 +272,30 @@ console.log(res.nonce)
 console.log(res.balance)
 ```
 
+### loadState
+
+> **loadState**: [`LoadStateHandler`](LoadStateHandler.md)
+
+Loads a previously dumped state into the VM
+
+State can be dumped as follows
+
+#### Example
+
+```typescript
+const {state} = await tevm.dumpState()
+fs.writeFileSync('state.json', JSON.stringify(state))
+```
+
+And then loaded as follows
+
+#### Example
+
+```typescript
+const state = JSON.parse(fs.readFileSync('state.json'))
+await tevm.loadState({state})
+```
+
 ### request
 
 > **request**: [`TevmJsonRpcRequestHandler`](TevmJsonRpcRequestHandler.md)
@@ -322,7 +370,7 @@ await tevm.setAccount({
 
 ## Source
 
-[Tevm.ts:67](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/Tevm.ts#L67)
+[Tevm.ts:69](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/Tevm.ts#L69)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

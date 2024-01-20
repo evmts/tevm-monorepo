@@ -28,6 +28,7 @@
 - [validateCallParams](functions/validateCallParams.md)
 - [validateContractParams](functions/validateContractParams.md)
 - [validateGetAccountParams](functions/validateGetAccountParams.md)
+- [validateLoadStateParams](functions/validateLoadStateParams.md)
 - [validateScriptParams](functions/validateScriptParams.md)
 - [validateSetAccountParams](functions/validateSetAccountParams.md)
 

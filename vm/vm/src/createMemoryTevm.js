@@ -11,11 +11,13 @@ import {
 	callHandler,
 	chainIdHandler,
 	contractHandler,
+	dumpStateHandler,
 	gasPriceHandler,
 	getAccountHandler,
 	getBalanceHandler,
 	getCodeHandler,
 	getStorageAtHandler,
+	loadStateHandler,
 	scriptHandler,
 	setAccountHandler,
 } from '@tevm/procedures'
@@ -172,6 +174,8 @@ export const createMemoryTevm = async (options = {}) => {
 		setAccount: setAccountHandler(evm),
 		call: callHandler(evm),
 		contract: contractHandler(evm),
+		dumpState: dumpStateHandler(evm.stateManager),
+		loadState: loadStateHandler(evm.stateManager),
 		eth: {
 			blockNumber: blockNumberHandler(blockchain),
 			chainId: chainIdHandler(chainId),

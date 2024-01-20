@@ -13,11 +13,14 @@
 
 ### Interfaces
 
+- [AccountStorage](interfaces/AccountStorage.md)
+- [ParameterizedAccountStorage](interfaces/ParameterizedAccountStorage.md)
 - [TevmStateManagerInterface](interfaces/TevmStateManagerInterface.md)
 - [TevmStateManagerOpts](interfaces/TevmStateManagerOpts.md)
 
 ### Type Aliases
 
+- [ParameterizedTevmState](type-aliases/ParameterizedTevmState.md)
 - [SerializableTevmState](type-aliases/SerializableTevmState.md)
 
 ***

@@ -60,6 +60,7 @@ export type {
 	EthGetBlockTransactionCountByNumberParams,
 	EthGetTransactionByBlockHashAndIndexParams,
 	EthGetTransactionByBlockNumberAndIndexParams,
+	LoadStateParams,
 } from './params/index.js'
 export type {
 	Log,
@@ -83,6 +84,8 @@ export type {
 	ScriptError,
 	BaseCallError,
 	ContractError,
+	LoadStateError,
+	DumpStateError,
 	InvalidToError,
 	UnexpectedError,
 	InvalidDataError,
@@ -167,6 +170,8 @@ export type {
 	AnvilDropTransactionHandler,
 	AnvilImpersonateAccountHandler,
 	AnvilStopImpersonatingAccountHandler,
+	DumpStateHandler,
+	LoadStateHandler,
 } from './handlers/index.js'
 export type {
 	GetAccountResult,
@@ -227,6 +232,7 @@ export type {
 	AnvilDropTransactionResult,
 	AnvilStopImpersonatingAccountResult,
 	DebugTraceTransactionResult,
+	DumpStateResult,
 } from './result/index.js'
 export type {
 	JsonRpcRequest,
@@ -235,6 +241,8 @@ export type {
 	GetAccountJsonRpcRequest,
 	SetAccountJsonRpcRequest,
 	ContractJsonRpcRequest,
+	DumpStateJsonRpcRequest,
+	LoadStateJsonRpcRequest,
 	TevmJsonRpcRequest,
 	EthCallJsonRpcRequest,
 	EthSignJsonRpcRequest,
@@ -351,6 +359,7 @@ export type {
 	AnvilResetJsonRpcResponse,
 	DebugTraceCallJsonRpcResponse,
 	DebugTraceTransactionJsonRpcResponse,
+	LoadStateJsonRpcResponse,
 } from './responses/index.js'
 export type {
 	CallJsonRpcProcedure,
@@ -411,6 +420,8 @@ export type {
 	AnvilImpersonateAccountProcedure,
 	AnvilStopImpersonatingAccountProcedure,
 	DebugTraceTransactionProcedure,
+	LoadStateJsonRpcProcedure,
+	DumpStateJsonRpcProcedure,
 } from './procedure/index.js'
 export type {
 	JsonRpcReturnTypeFromMethod,

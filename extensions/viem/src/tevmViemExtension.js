@@ -282,6 +282,21 @@ export const tevmViemExtension = () => {
 		}
 
 		/**
+		 * @type {import('@tevm/api').DumpStateHandler}
+		 */
+		const dumpState = async () => {
+			return /** @type {any} */ (
+				formatResult(
+					await request({
+						method: 'tevm_dumpState',
+						jsonrpc: '2.0',
+						params: {},
+					}),
+				)
+			)
+		}
+
+		/**
 		 * @type {import('@tevm/api').EthChainIdHandler}
 		 */
 		const chainId = async () => {
@@ -296,6 +311,39 @@ export const tevmViemExtension = () => {
 			)
 		}
 
+		/**
+		 * @type {import('@tevm/api').LoadStateHandler}
+		 */
+		const loadState = async (params) => {
+			/**
+			 * @type {import('@tevm/state').ParameterizedTevmState}
+			 */
+			const encodedState = {}
+
+			for (const [k, v] of Object.entries(params.state)) {
+				const { nonce, balance, storageRoot, codeHash } = v
+				//turn all bigints to hex strings
+				const account = {
+					...v,
+					nonce: numberToHex(nonce),
+					balance: numberToHex(balance),
+					storageRoot: storageRoot,
+					codeHash: codeHash,
+				}
+
+				encodedState[k] = account
+			}
+
+			return /** @type {any} */ (
+				formatResult(
+					await request({
+						method: 'tevm_loadState',
+						jsonrpc: '2.0',
+						params: { state: encodedState },
+					}),
+				)
+			)
+		}
 		/**
 		 * @type {import('@tevm/api').EthGasPriceHandler}
 		 */
@@ -372,6 +420,8 @@ export const tevmViemExtension = () => {
 				setAccount,
 				call,
 				contract,
+				dumpState,
+				loadState,
 			},
 		}
 	}
