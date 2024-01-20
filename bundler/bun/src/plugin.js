@@ -9,9 +9,9 @@ import defaultSolc from 'solc'
 
 /**
  * @tevm/bun-plugin is a bun plugin that allows you to import solidity files into your typescript files
- * and have them compiled to typescript on the fly.
- * @param {{solc?: import("@tevm/solc").SolcVersions}} SolcVersions
- * @returns {import("bun").BunPlugin}
+ * and have their ABI and bytecode generated at build time
+ * @param {{solc?: import("@tevm/solc").SolcVersions}} SolcVersions - Which solc version to use
+ * @returns {import("bun").BunPlugin} - A bun plugin
  * @example
  * ```ts plugin.ts
  * import { tevmBunPlugin } from '@tevm/esbuild-plugin'
@@ -81,7 +81,7 @@ export const tevmBunPlugin = ({ solc = defaultSolc.version }) => {
 					if (exists) {
 						return {
 							contents: await bunFileAccesObject.readFile(
-								/** @type {any} */ (filePaths[i]),
+								/** @type {any} */(filePaths[i]),
 								'utf8',
 							),
 							watchFiles: [filePaths[i]],
