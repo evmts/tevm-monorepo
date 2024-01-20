@@ -13,14 +13,14 @@
 
 [![CI](https://github.com/evmts/tevm-monorepo/actions/workflows/e2e.yml/badge.svg)](https://github.com/evmts/tevm-monorepo/actions/workflows/e2e.yml)
 [![CI](https://github.com/evmts/tevm-monorepo/actions/workflows/unit.yml/badge.svg)](https://github.com/evmts/tevm-monorepo/actions/workflows/unit.yml)
-<a href="https://www.npmjs.com/package/@tevm/base" target="\_parent">
-<img alt="" src="https://img.shields.io/npm/dm/@tevm/base.svg" />
+<a href="https://www.npmjs.com/package/@tevm/base-bundler" target="\_parent">
+<img alt="" src="https://img.shields.io/npm/dm/@tevm/base-bundler.svg" />
 </a>
-<a href="https://bundlephobia.com/package/@tevm/base@latest" target="\_parent">
-<img alt="" src="https://badgen.net/bundlephobia/minzip/@tevm/base" />
+<a href="https://bundlephobia.com/package/@tevm/base-bundler@latest" target="\_parent">
+<img alt="" src="https://badgen.net/bundlephobia/minzip/@tevm/base-bundler" />
 </a>
 
-# @tevm/base
+# @tevm/base-bundler
 
 Internal base bundler for Tevm
 

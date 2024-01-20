@@ -1,6 +1,6 @@
 import { Logger } from '../factories/logger.js'
 import { getScriptSnapshotDecorator } from './getScriptSnapshot.js'
-import { FileAccessObject } from '@tevm/base'
+import { FileAccessObject } from '@tevm/base-bundler'
 import { Cache, createCache } from '@tevm/bundler-cache'
 import { CompilerConfig, defaultConfig, defineConfig } from '@tevm/config'
 import { runSync } from 'effect/Effect'

@@ -61,7 +61,7 @@
 		"test:ui": "vitest --ui"
 	},
 	"dependencies": {
-		"@tevm/base": "workspace:^",
+		"@tevm/base-bundler": "workspace:^",
 		"@tevm/bundler-cache": "workspace:^",
 		"@tevm/config": "workspace:^",
 		"@tevm/solc": "workspace:^",

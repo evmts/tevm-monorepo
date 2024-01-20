@@ -49,7 +49,7 @@
 		"//test:run": "vitest run",
 		"//test:ui": "vitest --ui",
 		"all": "bun run build && bun run format && bun run lint && bun run test:coverage && bun run generate:docs",
-		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/base ",
+		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/base-bundler ",
 		"build:dist": "tsup",
 		"build:types": "tsup --dts-only",
 		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",

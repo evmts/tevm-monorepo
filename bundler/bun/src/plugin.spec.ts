@@ -1,6 +1,6 @@
 import { file } from './bunFile.js'
 import { tevmBunPlugin } from './index.js'
-import { bundler } from '@tevm/base'
+import { bundler } from '@tevm/base-bundler'
 import { loadConfig } from '@tevm/config'
 import { succeed } from 'effect/Effect'
 import { exists, readFile } from 'fs/promises'
@@ -11,8 +11,8 @@ vi.mock('@tevm/config', async () => ({
 	loadConfig: vi.fn(),
 }))
 
-vi.mock('@tevm/base', async () => ({
-	...((await vi.importActual('@tevm/base')) as {}),
+vi.mock('@tevm/base-bundler', async () => ({
+	...((await vi.importActual('@tevm/base-bundler')) as {}),
 	bundler: vi.fn(),
 }))
 
@@ -146,7 +146,7 @@ describe('tevmBunPlugin', () => {
 		expect(resolved.path).toEqual(require.resolve('@tevm/contract'))
 	})
 
-	it('should resolve solidity file using @tevm/base when neither .d.ts nor .ts files exist', async () => {
+	it('should resolve solidity file using @tevm/base-bundler when neither .d.ts nor .ts files exist', async () => {
 		const plugin = tevmBunPlugin({})
 		const mockBuild = {
 			onLoad: vi.fn(),

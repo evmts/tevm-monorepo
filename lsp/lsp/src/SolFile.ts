@@ -1,4 +1,4 @@
-import { bundler, createCache } from '@tevm/base'
+import { bundler, createCache } from '@tevm/base-bundler'
 import { loadConfig } from '@tevm/config'
 import {
 	FileCapabilities,

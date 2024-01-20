@@ -1,5 +1,5 @@
 import { getScriptKindDecorator } from './getScriptKind.js'
-import { FileAccessObject } from '@tevm/base'
+import { FileAccessObject } from '@tevm/base-bundler'
 import { CompilerConfig, defaultConfig, defineConfig } from '@tevm/config'
 import { runSync } from 'effect/Effect'
 import { access, mkdir, stat, writeFile } from 'fs/promises'

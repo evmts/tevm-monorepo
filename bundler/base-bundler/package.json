@@ -1,5 +1,5 @@
 {
-	"name": "@tevm/base",
+	"name": "@tevm/base-bundler-bundler",
 	"version": "1.0.0-next.21",
 	"private": false,
 	"description": "Internal bundler for Tevm",
@@ -14,7 +14,7 @@
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/evmts/tevm-monorepo.git",
-		"directory": "bundler/base"
+		"directory": "bundler/base-bundler"
 	},
 	"license": "MIT",
 	"author": "roninjin10",
@@ -44,7 +44,7 @@
 	],
 	"scripts": {
 		"all": "bun run build && bun run format && bun run lint && bun run test:coverage && bun run generate:docs && bun lint:deps && bun lint:package",
-		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/base ",
+		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/base-bundler-bundler ",
 		"build:dist": "tsup",
 		"build:types": "tsup --dts-only",
 		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",

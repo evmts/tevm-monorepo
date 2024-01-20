@@ -1,3 +1,1 @@
-import { createUnplugin, tevmUnplugin } from '@tevm/unplugin'
-
-export const { esbuild: esbuildPluginTevm } = createUnplugin(tevmUnplugin)
+export { tevmPluginEsbuild } from './tevmPluginEsbuild.js'

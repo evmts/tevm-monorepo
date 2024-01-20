@@ -1,3 +1,2 @@
-import { createUnplugin, tevmUnplugin } from '@tevm/unplugin'
+export { TevmWebpackPlugin } from './TevmWebpackPlugin.js'
 
-export const { webpack: webpackPluginTevm } = createUnplugin(tevmUnplugin)

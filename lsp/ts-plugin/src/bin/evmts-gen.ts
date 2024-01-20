@@ -1,4 +1,4 @@
-import { FileAccessObject, bundler } from '@tevm/base'
+import { FileAccessObject, bundler } from '@tevm/base-bundler'
 import { createCache } from '@tevm/bundler-cache'
 import { loadConfig } from '@tevm/config'
 import { runSync } from 'effect/Effect'
