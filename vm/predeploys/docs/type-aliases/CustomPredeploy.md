@@ -8,6 +8,8 @@
 
 > **CustomPredeploy**\<`TName`, `THumanReadableAbi`\>: `object`
 
+Params taken by the definePredeploy function
+
 ## Type parameters
 
 | Parameter |
@@ -27,7 +29,7 @@
 
 ## Source
 
-[definePredeploy.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/vm/predeploys/src/definePredeploy.ts#L6)
+CustomPredeploy.ts:7
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

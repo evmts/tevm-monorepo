@@ -17,6 +17,8 @@
     "server/index.ts",
     "viem/index.ts",
     "vm/index.ts",
+    "predeploys/index.ts",
+    "state/index.ts",
     "index.ts"
   ]
 }

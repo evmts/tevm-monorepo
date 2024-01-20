@@ -22,7 +22,9 @@
 - [client](client/README.md)
 - [contract](contract/README.md)
 - [index](index/README.md)
+- [predeploys](predeploys/README.md)
 - [server](server/README.md)
+- [state](state/README.md)
 - [viem](viem/README.md)
 - [vm](vm/README.md)
 

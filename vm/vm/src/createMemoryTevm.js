@@ -69,6 +69,7 @@ export const createMemoryTevm = async (options = {}) => {
 
 	// ethereumjs throws an error for most chain ids
 	if (options.fork?.url) {
+		// TODO we should be using tevm/jsonrpc package instead of viem
 		const client = createPublicClient({
 			transport: http(options.fork.url),
 		})
@@ -81,7 +82,7 @@ export const createMemoryTevm = async (options = {}) => {
 			chainIdPromise,
 		])
 		chainId = BigInt(_chainId)
-		stateManager = new TevmStateManager({ client, blockTag })
+		stateManager = new TevmStateManager({ rpcUrl: options.fork.url, blockTag })
 	} else {
 		stateManager = new DefaultTevmStateManager()
 	}

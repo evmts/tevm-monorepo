@@ -6,6 +6,8 @@
 
 # Class: `abstract` Predeploy`<TName, THumanReadableAbi>`
 
+Type of predeploy contract for tevm
+
 ## Type parameters
 
 ▪ **TName** extends `string`
@@ -26,7 +28,7 @@
 
 #### Source
 
-[definePredeploy.ts:19](https://github.com/evmts/tevm-monorepo/blob/main/vm/predeploys/src/definePredeploy.ts#L19)
+Predeploy.ts:13
 
 ***
 
@@ -36,7 +38,7 @@
 
 #### Source
 
-[definePredeploy.ts:18](https://github.com/evmts/tevm-monorepo/blob/main/vm/predeploys/src/definePredeploy.ts#L18)
+Predeploy.ts:12
 
 ## Methods
 
@@ -46,7 +48,7 @@
 
 #### Source
 
-[definePredeploy.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/vm/predeploys/src/definePredeploy.ts#L20)
+Predeploy.ts:14
 
 ***
 
@@ -63,7 +65,7 @@
 
 #### Source
 
-[definePredeploy.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/vm/predeploys/src/definePredeploy.ts#L21)
+Predeploy.ts:15
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

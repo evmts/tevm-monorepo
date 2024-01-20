@@ -10,6 +10,8 @@
 		"./jsonrpc/index.ts",
 		"./server/index.ts",
 		"./viem/index.ts",
+		"./predeploys/index.ts",
+		"./state/index.ts",
 		"./vm/index.ts",
 		"./bundler/base-bundler/index.ts",
 		"./bundler/bun-plugin/index.ts",
