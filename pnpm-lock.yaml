@@ -1230,6 +1230,9 @@ importers:
       '@tevm/contract':
         specifier: workspace:^
         version: link:../packages/contract
+      '@tevm/jsonrpc':
+        specifier: workspace:^
+        version: link:../packages/jsonrpc
       '@tevm/viem':
         specifier: workspace:^
         version: link:../extensions/viem
