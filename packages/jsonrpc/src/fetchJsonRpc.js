@@ -21,9 +21,12 @@
  * const {result: block} = await fetchJsonRpc(url, params)
  * ```
  */
-export const createJsonRpcFetcher = (url, headers = {
-	Referer: 'https://tevm.sh',
-}) => {
+export const createJsonRpcFetcher = (
+	url,
+	headers = {
+		Referer: 'https://tevm.sh',
+	},
+) => {
 	return {
 		url,
 		request: async (request) => {
@@ -36,7 +39,7 @@ export const createJsonRpcFetcher = (url, headers = {
 			const res = await fetch(url, {
 				headers: {
 					'content-type': 'application/json',
-					...headers
+					...headers,
 				},
 				method: 'POST',
 				body: data,
@@ -55,7 +58,7 @@ export const createJsonRpcFetcher = (url, headers = {
 							)()
 								.catch(async () => {
 									return res.json().then((resJson) => {
-										return JSON.stringify(/** @type any*/(resJson).error)
+										return JSON.stringify(/** @type any*/ (resJson).error)
 									})
 								})
 								.catch(() => {

@@ -6,6 +6,12 @@
 
 ## Exports
 
+### Type Aliases
+
+- [HeadersInit](type-aliases/HeadersInit.md)
+- [JsonRpcClient](type-aliases/JsonRpcClient.md)
+- [JsonRpcFetch](type-aliases/JsonRpcFetch.md)
+
 ### Functions
 
 - [createJsonRpcFetcher](functions/createJsonRpcFetcher.md)
