@@ -14,8 +14,8 @@
 			"cache": true
 		},
 		"lint:package": {
-			"inputs": ["default"],
-			"dependsOn": ["build:dist", "build:types", "^build:dist", "^build:types"],
+			"inputs": ["production", "outputsDist"],
+			"dependsOn": ["^build:dist", "^build:types"],
 			"cache": true
 		},
 		"lint:deps": {
