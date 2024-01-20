@@ -1,0 +1,8 @@
+bundler/*/docs/**/* linguist-generated=true
+configs/*/docs/**/* linguist-generated=true
+extensions/*/docs/**/* linguist-generated=true
+lsp/*/docs/**/* linguist-generated=true
+packages/*/docs/**/* linguist-generated=true
+vm/*/docs/**/* linguist-generated=true
+tevm/docs/**/* linguist-generated=true
+apps/tevm/src/**/generated/**/* linguist-generated=true
