@@ -40,13 +40,19 @@ const server = createServer({
 
 server.listen(8080, () => console.log('listening on 8080'))
 ```
-import { createServer } from '@tevm/http'
-import { Tevm } from '@tevm/vm'
-import { createServer as httpCreateServer } from 'http'
+To interact with the HTTP server you can create a Tevm client
+
+## Example
+
+```typescript
+import { createTevmClient } from '@tevm/client'
+
+const client = createTevmClient()
+```
 
 ## Source
 
-[vm/server/src/createServer.js:29](https://github.com/evmts/tevm-monorepo/blob/main/vm/server/src/createServer.js#L29)
+[vm/server/src/createServer.js:32](https://github.com/evmts/tevm-monorepo/blob/main/vm/server/src/createServer.js#L32)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
