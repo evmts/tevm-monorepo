@@ -1,5 +1,5 @@
 export {
   type Predeploy,
   type CustomPredeploy,
-  definePredeploy
+  definePredeploy,
 } from '@tevm/predeploys'
