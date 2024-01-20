@@ -420,7 +420,6 @@ export const tevmViemExtension = () => {
 				setAccount,
 				call,
 				contract,
-				blockNumber,
 				dumpState,
 				loadState,
 			},

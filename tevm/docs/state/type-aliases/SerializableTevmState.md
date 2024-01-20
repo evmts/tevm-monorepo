@@ -14,7 +14,7 @@
 
 ## Source
 
-vm/state/types/SerializableState.d.ts:9
+vm/state/types/SerializableTevmState.d.ts:2
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
