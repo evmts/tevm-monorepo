@@ -2,12 +2,10 @@
 editUrl: false
 next: false
 prev: false
-title: "UnexpectedInternalServerError"
+title: "BadRequestError"
 ---
 
-Error that is thrown when something unexpected happens
-THis error being thrown indicates a bug or unhandled error
-internally in tevm and thus shouldn't happen often
+Error thrown when request is malformed
 
 ## Extends
 
@@ -15,31 +13,49 @@ internally in tevm and thus shouldn't happen often
 
 ## Constructors
 
-### new UnexpectedInternalServerError(method)
+### new BadRequestError(message)
 
-> **new UnexpectedInternalServerError**(`method`): [`UnexpectedInternalServerError`](/generated/tevm/vm/classes/unexpectedinternalservererror/)
+> **new BadRequestError**(`message`?): [`BadRequestError`](/generated/tevm/server/classes/badrequesterror/)
 
 #### Parameters
 
-▪ **method**: `string`
+▪ **message?**: `string`
 
-#### Overrides
+#### Inherited from
 
 Error.constructor
 
 #### Source
 
-[vm/vm/src/errors/UnexpectedInternalServerError.js:19](https://github.com/evmts/tevm-monorepo/blob/main/vm/vm/src/errors/UnexpectedInternalServerError.js#L19)
+node\_modules/.pnpm/typescript@5.3.3/node\_modules/typescript/lib/lib.es5.d.ts:1081
+
+### new BadRequestError(message, options)
+
+> **new BadRequestError**(`message`?, `options`?): [`BadRequestError`](/generated/tevm/server/classes/badrequesterror/)
+
+#### Parameters
+
+▪ **message?**: `string`
+
+▪ **options?**: `ErrorOptions`
+
+#### Inherited from
+
+Error.constructor
+
+#### Source
+
+node\_modules/.pnpm/typescript@5.3.3/node\_modules/typescript/lib/lib.es2022.error.d.ts:28
 
 ## Properties
 
 ### \_tag
 
-> **\_tag**: `"UnexpectedInternalServerError"` = `'UnexpectedInternalServerError'`
+> **\_tag**: `"BadRequestError"` = `'BadRequestError'`
 
 #### Source
 
-[vm/vm/src/errors/UnexpectedInternalServerError.js:15](https://github.com/evmts/tevm-monorepo/blob/main/vm/vm/src/errors/UnexpectedInternalServerError.js#L15)
+[vm/server/src/BadRequestError.js:13](https://github.com/evmts/tevm-monorepo/blob/main/vm/server/src/BadRequestError.js#L13)
 
 ***
 
@@ -73,7 +89,7 @@ node\_modules/.pnpm/typescript@5.3.3/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 ### name
 
-> **name**: `"UnexpectedInternalServerError"` = `'UnexpectedInternalServerError'`
+> **name**: `"BadRequestError"` = `'BadRequestError'`
 
 #### Overrides
 
@@ -81,7 +97,7 @@ Error.name
 
 #### Source
 
-[vm/vm/src/errors/UnexpectedInternalServerError.js:11](https://github.com/evmts/tevm-monorepo/blob/main/vm/vm/src/errors/UnexpectedInternalServerError.js#L11)
+[vm/server/src/BadRequestError.js:9](https://github.com/evmts/tevm-monorepo/blob/main/vm/server/src/BadRequestError.js#L9)
 
 ***
 

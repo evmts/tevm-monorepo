@@ -29,7 +29,7 @@ tevm.contract(
 
 ## Source
 
-packages/contract/src/write/WriteActionCreator.ts:21
+[packages/contract/src/write/WriteActionCreator.ts:23](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/write/WriteActionCreator.ts#L23)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -5,6 +5,9 @@ prev: false
 title: "NoProxyConfiguredError"
 ---
 
+Error thrown when a action or request cannot be fulfilled
+without a proxy url being configured
+
 ## Extends
 
 - `Error`
@@ -25,7 +28,7 @@ Error.constructor
 
 #### Source
 
-[vm/vm/src/errors/NoProxyConfiguredError.js:14](https://github.com/evmts/tevm-monorepo/blob/main/vm/vm/src/errors/NoProxyConfiguredError.js#L14)
+[vm/vm/src/errors/NoProxyConfiguredError.js:18](https://github.com/evmts/tevm-monorepo/blob/main/vm/vm/src/errors/NoProxyConfiguredError.js#L18)
 
 ## Properties
 
@@ -35,7 +38,7 @@ Error.constructor
 
 #### Source
 
-[vm/vm/src/errors/NoProxyConfiguredError.js:10](https://github.com/evmts/tevm-monorepo/blob/main/vm/vm/src/errors/NoProxyConfiguredError.js#L10)
+[vm/vm/src/errors/NoProxyConfiguredError.js:14](https://github.com/evmts/tevm-monorepo/blob/main/vm/vm/src/errors/NoProxyConfiguredError.js#L14)
 
 ***
 
@@ -77,7 +80,7 @@ Error.name
 
 #### Source
 
-[vm/vm/src/errors/NoProxyConfiguredError.js:6](https://github.com/evmts/tevm-monorepo/blob/main/vm/vm/src/errors/NoProxyConfiguredError.js#L6)
+[vm/vm/src/errors/NoProxyConfiguredError.js:10](https://github.com/evmts/tevm-monorepo/blob/main/vm/vm/src/errors/NoProxyConfiguredError.js#L10)
 
 ***
 
