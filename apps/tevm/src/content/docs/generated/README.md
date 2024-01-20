@@ -11,6 +11,8 @@ title: "Documentation"
 - [@tevm/client](/generated/tevm/client/readme/)
 - [@tevm/procedures](/generated/tevm/procedures/readme/)
 - [@tevm/server](/generated/tevm/server/readme/)
+- [@tevm/predeploys](/generated/tevm/predeploys/readme/)
+- [@tevm/state](/generated/tevm/state/readme/)
 - [@tevm/viem](/generated/tevm/viem/readme/)
 - [@tevm/vm](/generated/tevm/vm/readme/)
 - [@tevm/base-bundler](/generated/tevm/base-bundler/readme/)

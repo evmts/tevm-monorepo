@@ -2,7 +2,7 @@
 
 ***
 
-[API](../../API.md) > [vm](../README.md) > CustomPredeploy
+[API](../../API.md) > [predeploys](../README.md) > CustomPredeploy
 
 # Type alias: CustomPredeploy`<TName, THumanReadableAbi>`
 

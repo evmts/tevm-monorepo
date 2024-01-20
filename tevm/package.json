@@ -255,6 +255,8 @@
 		"client",
 		"contract",
 		"jsonrpc",
+		"predeploys",
+		"state",
 		"server",
 		"viem",
 		"vm"

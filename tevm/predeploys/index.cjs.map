@@ -1,1 +1,1 @@
-{"version":3,"sources":[],"names":[],"mappings":""}
+{"version":3,"sources":["index.ts"],"names":[],"mappings":";AAAA;AAAA,EAGE;AAAA,OACK","sourcesContent":["export {\n  type Predeploy,\n  type CustomPredeploy,\n  definePredeploy\n} from '@tevm/predeploys'\n"]}
