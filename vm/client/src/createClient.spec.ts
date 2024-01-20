@@ -81,22 +81,34 @@ describe(createClient.name, () => {
 			).toEqual('0x69')
 		})
 
-		it('can use tevm.eth.chainId', async () => {
+		it('can use tevm.eth.gasPrice', async () => {
 			expect(
-				await client.eth.chainId()
+				await client.eth.gasPrice()
 			).toEqual(420n)
 		})
 
-		it('can use tevm.eth.chainId', async () => {
+		it('can use tevm.eth.getBalance', async () => {
+			const address = `0x${'69'.repeat(20)}` as const
+			await client.setAccount({
+				address,
+				balance: 420n
+			})
 			expect(
-				await client.eth.chainId()
+				await client.eth.getBalance({ address })
 			).toEqual(420n)
 		})
 
-		it('can use tevm.eth.chainId', async () => {
+		it('can use tevm.eth.blockNumber', async () => {
 			expect(
-				await client.eth.chainId()
-			).toEqual(420n)
+				await client.eth.blockNumber()
+			).toEqual(0n)
+		})
+
+		// this test isn't blocked just moving fast and breaking things atm
+		it.todo('can use tevm.eth.storageAt', async () => {
+			expect(
+				await client.eth.getStorageAt({ address: '0x0', position: '0x0', tag: 'pending' })
+			).toEqual('0x69')
 		})
 	})
 })
