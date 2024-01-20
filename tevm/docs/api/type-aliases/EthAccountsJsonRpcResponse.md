@@ -6,7 +6,7 @@
 
 # Type alias: EthAccountsJsonRpcResponse
 
-> **EthAccountsJsonRpcResponse**: [`JsonRpcResponse`](JsonRpcResponse.md)\<`"eth_accounts"`, [`Address`](../../index/type-aliases/Address.md)[], `string`\>
+> **EthAccountsJsonRpcResponse**: [`JsonRpcResponse`](JsonRpcResponse.md)\<`"eth_accounts"`, `Address`[], `string`\>
 
 JSON-RPC response for `eth_accounts` procedure
 

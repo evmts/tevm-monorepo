@@ -114,14 +114,14 @@
 				"default": "./vm/index.cjs"
 			}
 		},
-		"./bundler/base-plugin": {
+		"./bundler/base-bundler": {
 			"import": {
-				"types": "./bundler/base-plugin/index.d.ts",
-				"default": "./bundler/base-plugin/index.js"
+				"types": "./bundler/base-bundler/index.d.ts",
+				"default": "./bundler/base-bundler/index.js"
 			},
 			"require": {
-				"types": "./bundler/base-plugin/index.d.cts",
-				"default": "./bundler/base-plugin/index.cjs"
+				"types": "./bundler/base-bundler/index.d.cts",
+				"default": "./bundler/base-bundler/index.cjs"
 			}
 		},
 		"./bundler/bun-plugin": {

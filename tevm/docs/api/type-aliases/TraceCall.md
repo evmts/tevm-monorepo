@@ -16,7 +16,7 @@
 
 ### from
 
-> **from**: [`Address`](../../index/type-aliases/Address.md)
+> **from**: `Address`
 
 ### gas
 
@@ -36,7 +36,7 @@
 
 ### to
 
-> **to**: [`Address`](../../index/type-aliases/Address.md)
+> **to**: `Address`
 
 ### type
 

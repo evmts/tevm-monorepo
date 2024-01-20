@@ -11,7 +11,7 @@
 		"./server/index.ts",
 		"./viem/index.ts",
 		"./vm/index.ts",
-		"./bundler/base-plugin/index.ts",
+		"./bundler/base-bundler/index.ts",
 		"./bundler/bun-plugin/index.ts",
 		"./bundler/esbuild-plugin/index.ts",
 		"./bundler/rollup-plugin/index.ts",

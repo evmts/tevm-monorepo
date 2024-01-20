@@ -14,7 +14,7 @@ JSON-RPC request for `eth_getStorageAt` procedure
 
 ### address
 
-> **address**: [`Address`](../../index/type-aliases/Address.md)
+> **address**: `Address`
 
 ### position
 

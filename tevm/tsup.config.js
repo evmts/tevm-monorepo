@@ -5,7 +5,7 @@ const dirs = [
 	'.',
 	'api',
 	'bundler',
-	'bundler/base-plugin',
+	'bundler/base-bundler',
 	'bundler/bun-plugin',
 	'bundler/compiler',
 	'bundler/config',

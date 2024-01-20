@@ -14,7 +14,7 @@ Generic log information
 
 ### address
 
-> **`readonly`** **address**: [`Address`](../../index/type-aliases/Address.md)
+> **`readonly`** **address**: `Address`
 
 ### data
 

@@ -26,13 +26,13 @@ Amount of blob gas consumed by the transaction
 
 ### createdAddress
 
-> **createdAddress**?: [`Address`](Address.md)
+> **createdAddress**?: `Address`
 
 Address of created account during transaction, if any
 
 ### createdAddresses
 
-> **createdAddresses**?: `Set`\<[`Address`](Address.md)\>
+> **createdAddresses**?: `Set`\<`Address`\>
 
 Map of addresses which were created (used in EIP 6780)
 
@@ -74,7 +74,7 @@ Encoded return value from the contract as hex string
 
 ### selfdestruct
 
-> **selfdestruct**?: `Set`\<[`Address`](Address.md)\>
+> **selfdestruct**?: `Set`\<`Address`\>
 
 A set of accounts to selfdestruct
 

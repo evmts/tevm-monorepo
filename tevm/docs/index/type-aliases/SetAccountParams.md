@@ -27,7 +27,7 @@ const accountParams: import('tevm/api').SetAccountParams = {
 
 ### address
 
-> **address**: [`Address`](Address.md)
+> **address**: `Address`
 
 Address of account
 

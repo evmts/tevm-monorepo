@@ -19,7 +19,7 @@
 
 ### address
 
-> **address**: [`Address`](../../index/type-aliases/Address.md)
+> **address**: `Address`
 
 ### contract
 
