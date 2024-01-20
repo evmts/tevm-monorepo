@@ -278,10 +278,10 @@ type TevmRequestType = {
  */
 export type JsonRpcReturnTypeFromMethod<
 	TMethod extends
-	| keyof EthReturnType
-	| keyof TevmReturnType
-	| keyof AnvilReturnType
-	| keyof DebugReturnType,
+		| keyof EthReturnType
+		| keyof TevmReturnType
+		| keyof AnvilReturnType
+		| keyof DebugReturnType,
 > = (EthReturnType &
 	TevmReturnType &
 	AnvilReturnType &
@@ -296,10 +296,10 @@ export type JsonRpcReturnTypeFromMethod<
  */
 export type JsonRpcRequestTypeFromMethod<
 	TMethod extends
-	| keyof EthRequestType
-	| keyof TevmRequestType
-	| keyof AnvilRequestType
-	| keyof DebugRequestType,
+		| keyof EthRequestType
+		| keyof TevmRequestType
+		| keyof AnvilRequestType
+		| keyof DebugRequestType,
 > = (EthRequestType &
 	TevmRequestType &
 	AnvilRequestType &
@@ -387,10 +387,10 @@ export type JsonRpcRequestTypeFromMethod<
  */
 export type TevmJsonRpcRequestHandler = <
 	TRequest extends
-	| TevmJsonRpcRequest
-	| EthJsonRpcRequest
-	| AnvilJsonRpcRequest
-	| DebugJsonRpcRequest,
+		| TevmJsonRpcRequest
+		| EthJsonRpcRequest
+		| AnvilJsonRpcRequest
+		| DebugJsonRpcRequest,
 >(
 	request: TRequest,
 ) => Promise<JsonRpcReturnTypeFromMethod<TRequest['method']>>

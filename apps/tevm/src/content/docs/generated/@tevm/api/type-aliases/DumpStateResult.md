@@ -7,7 +7,7 @@ title: "DumpStateResult"
 
 > **DumpStateResult**\<`ErrorType`\>: `object`
 
-Result of Account Action
+Result of the dumpState method
 
 ## Type parameters
 
