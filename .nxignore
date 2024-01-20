@@ -4,3 +4,13 @@ lib/
 .devcontainer
 .github
 .vscode
+bundler/*/docs
+configs/*/docs
+examples/*/docs
+experimental/*/docs
+extensions/*/docs
+lsp/*/docs
+packages/*/docs
+vm/*/docs
+tevm/docs
+**/generated/**/*
