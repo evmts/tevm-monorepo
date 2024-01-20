@@ -84,6 +84,26 @@
 				"default": "./jsonrpc/index.cjs"
 			}
 		},
+		"./predeploys": {
+			"import": {
+				"types": "./predeploys/index.d.ts",
+				"default": "./predeploys/index.js"
+			},
+			"require": {
+				"types": "./predeploys/index.d.cts",
+				"default": "./predeploys/index.cjs"
+			}
+		},
+		"./state": {
+			"import": {
+				"types": "./state/index.d.ts",
+				"default": "./state/index.js"
+			},
+			"require": {
+				"types": "./state/index.d.cts",
+				"default": "./state/index.cjs"
+			}
+		},
 		"./server": {
 			"import": {
 				"types": "./server/index.d.ts",
@@ -281,6 +301,8 @@
 		"@tevm/client": "workspace:^",
 		"@tevm/contract": "workspace:^",
 		"@tevm/jsonrpc": "workspace:^",
+		"@tevm/predeploys": "workspace:^",
+		"@tevm/state": "workspace:^",
 		"@tevm/viem": "workspace:^",
 		"@tevm/vm": "workspace:^",
 		"abitype": "^1.0.0"

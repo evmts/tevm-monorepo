@@ -20,13 +20,15 @@ import {
 	type BlockTag,
 	type PublicClient,
 	bytesToHex,
+	createPublicClient,
 	hexToBytes,
+	http,
 	toBytes,
 	toHex,
 } from 'viem'
 
 export interface TevmStateManagerOpts {
-	client: PublicClient
+	rpcUrl: string
 	blockTag: bigint | 'earliest'
 }
 
@@ -34,11 +36,21 @@ export interface TevmStateManagerInterface extends EVMStateManagerInterface {
 	getAccountAddresses: () => string[]
 }
 
+// TODO this should be using @tevm/jsonrpc package instead of viem
 /**
- * A state manager that will fetch state from rpc using a viem public client and cache it for
- *f future requests
+ * A state manager that will fetch state from a remote rpc provider
+ * future requests. Used internally in `MemoryTevm`
+ * @example
+ * ```ts
+ * import { TevmStateManager } from '@tevm/state'
+ * import { createMemoryTevm } from 'tevm/vm'
+ *
+ * const stateManager = new TevmStateManager({
+ *   rpcUrl: 'https://mainnet.optimism.io',
+ *   blockTag: 'latest'
+ * })
+ * ```
  */
-
 export class TevmStateManager implements TevmStateManagerInterface {
 	protected _contractCache: Map<string, Uint8Array>
 	protected _storageCache: StorageCache
@@ -48,10 +60,14 @@ export class TevmStateManager implements TevmStateManagerInterface {
 	protected _debug: Debugger
 	protected DEBUG: boolean
 	protected client: PublicClient
-	constructor(opts: TevmStateManagerOpts) {
+	constructor(public readonly opts: TevmStateManagerOpts) {
 		this.DEBUG = false
 
-		this.client = opts.client
+		// TODO this should be using @tevm/jsonrpc package instead of viem
+		this.client = createPublicClient({
+			transport: http(opts.rpcUrl),
+			name: 'tevm-state-manager-viem-client',
+		})
 		this._debug = createDebugLogger('statemanager:viemStateManager')
 		this._blockTag =
 			opts.blockTag === 'earliest'
@@ -76,7 +92,7 @@ export class TevmStateManager implements TevmStateManagerInterface {
 	 */
 	shallowCopy(): TevmStateManager {
 		const newState = new TevmStateManager({
-			client: this.client,
+			rpcUrl: this.opts.rpcUrl,
 			blockTag: Object.values(this._blockTag)[0],
 		})
 		newState._contractCache = new Map(this._contractCache)

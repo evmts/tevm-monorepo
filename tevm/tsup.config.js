@@ -19,7 +19,9 @@ const dirs = [
 	'client',
 	'contract',
 	'jsonrpc',
+	'predeploys',
 	'server',
+	'state',
 	'viem',
 	'vm',
 ]

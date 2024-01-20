@@ -16,6 +16,8 @@ export default defineConfig({
 						'../../vm/client',
 						'../../vm/procedures',
 						'../../vm/server',
+						'../../vm/predeploys',
+						'../../vm/state',
 						'../../extensions/viem',
 						'../../vm/vm',
 						'../../bundler/base-bundler',
