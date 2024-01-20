@@ -75,7 +75,7 @@ export type EthGetBlockByHashParams = {
  * JSON-RPC request for `eth_getBlockByNumber` procedure
  */
 export type EthGetBlockByNumberParams = {
-	tag: BlockTag | Hex
+	tag?: BlockTag | Hex
 	fullTransactionObjects: boolean
 }
 // eth_getBlockTransactionCountByHash
@@ -87,12 +87,12 @@ export type EthGetBlockTransactionCountByHashParams = { hash: Hex }
 /**
  * JSON-RPC request for `eth_getBlockTransactionCountByNumber` procedure
  */
-export type EthGetBlockTransactionCountByNumberParams = { tag: BlockTag | Hex }
+export type EthGetBlockTransactionCountByNumberParams = { tag?: BlockTag | Hex }
 // eth_getCode
 /**
  * JSON-RPC request for `eth_getCode` procedure
  */
-export type EthGetCodeParams = { address: Address; tag: BlockTag | Hex }
+export type EthGetCodeParams = { address: Address; tag?: BlockTag | Hex }
 // eth_getFilterChanges
 /**
  * JSON-RPC request for `eth_getFilterChanges` procedure
@@ -115,7 +115,7 @@ export type EthGetLogsParams = { filterParams: FilterParams }
 export type EthGetStorageAtParams = {
 	address: Address
 	position: Hex
-	tag: BlockTag | Hex
+	tag?: BlockTag | Hex
 }
 // eth_getTransactionCount
 /**
@@ -123,7 +123,7 @@ export type EthGetStorageAtParams = {
  */
 export type EthGetTransactionCountParams = {
 	address: Address
-	tag: BlockTag | Hex
+	tag?: BlockTag | Hex
 }
 // eth_getUncleCountByBlockHash
 /**
@@ -134,7 +134,7 @@ export type EthGetUncleCountByBlockHashParams = { hash: Hex }
 /**
  * JSON-RPC request for `eth_getUncleCountByBlockNumber` procedure
  */
-export type EthGetUncleCountByBlockNumberParams = { tag: BlockTag | Hex }
+export type EthGetUncleCountByBlockNumberParams = { tag?: BlockTag | Hex }
 // eth_getTransactionByHash
 /**
  * JSON-RPC request for `eth_getTransactionByHash` procedure
@@ -145,7 +145,7 @@ export type EthGetTransactionByHashParams = { data: Hex }
  * JSON-RPC request for `eth_getTransactionByBlockHashAndIndex` procedure
  */
 export type EthGetTransactionByBlockHashAndIndexParams = {
-	tag: Hex
+	tag?: Hex
 	index: Hex
 }
 // eth_getTransactionByBlockNumberAndIndex
@@ -153,7 +153,7 @@ export type EthGetTransactionByBlockHashAndIndexParams = {
  * JSON-RPC request for `eth_getTransactionByBlockNumberAndIndex` procedure
  */
 export type EthGetTransactionByBlockNumberAndIndexParams = {
-	tag: BlockTag | Hex
+	tag?: BlockTag | Hex
 	index: Hex
 }
 // eth_getTransactionReceipt
@@ -174,7 +174,7 @@ export type EthGetUncleByBlockHashAndIndexParams = {
  * JSON-RPC request for `eth_getUncleByBlockNumberAndIndex` procedure
  */
 export type EthGetUncleByBlockNumberAndIndexParams = {
-	tag: BlockTag | Hex
+	tag?: BlockTag | Hex
 	uncleIndex: Hex
 }
 // eth_mining
