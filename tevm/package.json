@@ -210,8 +210,8 @@
 	"scripts": {
 		"all": "pnpm i && bun run build && bun run test && bun run lint && bun run format && bun run generate:docs",
 		"build": "nx run-many --targets=build:dist,build:types --projects=tevm",
-		"build:dist": "bun run generate:dist && git status --porcelain",
-		"build:types": "bun run generate:types && git status --porcelain",
+		"build:dist": "bun run generate:dist && bun lint && bun format && git status --porcelain",
+		"build:types": "bun run generate:types && bun lint && bun format && git status --porcelain",
 		"generate": "nx run-many --targets=generate:dist,generate:types --projects=tevm",
 		"generate:dist": "tsup",
 		"generate:types": "tsup --dts-only",
