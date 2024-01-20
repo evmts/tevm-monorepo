@@ -6,7 +6,7 @@
 
 # Function: esbuildPluginTevm()
 
-> **esbuildPluginTevm**(`options`?): `Plugin`
+> **esbuildPluginTevm**(`options`?): `any`
 
 Esbuild plugin for tevm. Enables Solidity imports in JavaScript. Once enabled the code
 will transform solidity contract imports into Tevm `Contract` instances.
