@@ -27,7 +27,7 @@ describe(createTevmClient.name, () => {
 	})
 
 	describe('implements a tevm client', () => {
-		it('can run a script on fork', async () => {
+		it('tevm.script', async () => {
 			const { Add } = await import('./test/Add.s.sol.js')
 			expect(await client.script(Add.read.add(399n, 21n))).toEqual({
 				data: 420n,
@@ -41,7 +41,15 @@ describe(createTevmClient.name, () => {
 			})
 		})
 
-		it('can put an account onto the fork', async () => {
+		it('tevm.contract', async () => {
+			const contractAddress = `0x${'69'.repeat(20)}` as const
+			const { Add } = await import('./test/Add.s.sol.js')
+			const { errors, data } = await client.contract(Add.withAddress(contractAddress).read.add(399n, 21n))
+			expect(errors).toBeUndefined()
+			expect(data).toBe(420n)
+		})
+
+		it('tevm.setAccount and tevm.getAccount', async () => {
 			const { ERC20 } = await import('./test/ERC20.sol.js')
 
 			const account = {

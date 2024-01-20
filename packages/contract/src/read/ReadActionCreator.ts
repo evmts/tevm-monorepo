@@ -25,44 +25,45 @@ export type ReadActionCreator<
 	TBytecode extends Hex | undefined,
 	TDeployedBytecode extends Hex | undefined,
 	TAddress extends Address | undefined,
-	TAddressArgs = TAddress extends undefined ? {} : { address: TAddress },
+	// we have address and to so we support both tevm and viem with natively
+	TAddressArgs = TAddress extends undefined ? {} : { address: TAddress, to: TAddress },
 > = {
-	// For every view and pure function in the abi, create an action creator
-	[TFunctionName in
+		// For every view and pure function in the abi, create an action creator
+		[TFunctionName in
 		// extract the read functions from abi
 		ExtractAbiFunctionNames<ParseAbi<THumanReadableAbi>, 'pure' | 'view'>]: (<
-		// keep args etc. generic for typesafety reasons. This is adapted from viem
-		TArgs extends AbiParametersToPrimitiveTypes<
-			ExtractAbiFunction<ParseAbi<THumanReadableAbi>, TFunctionName>['inputs']
-		> &
+			// keep args etc. generic for typesafety reasons. This is adapted from viem
+			TArgs extends AbiParametersToPrimitiveTypes<
+				ExtractAbiFunction<ParseAbi<THumanReadableAbi>, TFunctionName>['inputs']
+			> &
 			any[] = AbiParametersToPrimitiveTypes<
-			ExtractAbiFunction<ParseAbi<THumanReadableAbi>, TFunctionName>['inputs']
-		> &
+				ExtractAbiFunction<ParseAbi<THumanReadableAbi>, TFunctionName>['inputs']
+			> &
 			any[],
-	>(
-		// take the same args of the function
-		...args: TArgs
-		// return an action creator that matches the viem api
-	) => {
-		functionName: TFunctionName
-		humanReadableAbi: FormatAbi<
-			[ExtractAbiFunction<ParseAbi<THumanReadableAbi>, TFunctionName>]
-		>
-		abi: [ExtractAbiFunction<ParseAbi<THumanReadableAbi>, TFunctionName>]
-		bytecode: TBytecode
-		deployedBytecode: TDeployedBytecode
-	} & (TArgs['length'] extends 0
-		? {}
-		: {
+		>(
+			// take the same args of the function
+			...args: TArgs
+			// return an action creator that matches the viem api
+		) => {
+			functionName: TFunctionName
+			humanReadableAbi: FormatAbi<
+				[ExtractAbiFunction<ParseAbi<THumanReadableAbi>, TFunctionName>]
+			>
+			abi: [ExtractAbiFunction<ParseAbi<THumanReadableAbi>, TFunctionName>]
+			bytecode: TBytecode
+			deployedBytecode: TDeployedBytecode
+		} & (TArgs['length'] extends 0
+			? {}
+			: {
 				args: TArgs
-		  }) &
-		TAddressArgs) & {
-		functionName: TFunctionName
-		humanReadableAbi: FormatAbi<
-			[ExtractAbiFunction<ParseAbi<THumanReadableAbi>, TFunctionName>]
-		>
-		abi: [ExtractAbiFunction<ParseAbi<THumanReadableAbi>, TFunctionName>]
-		bytecode: TBytecode
-		deployedBytecode: TDeployedBytecode
-	} & TAddressArgs
-}
+			}) &
+			TAddressArgs) & {
+				functionName: TFunctionName
+				humanReadableAbi: FormatAbi<
+					[ExtractAbiFunction<ParseAbi<THumanReadableAbi>, TFunctionName>]
+				>
+				abi: [ExtractAbiFunction<ParseAbi<THumanReadableAbi>, TFunctionName>]
+				bytecode: TBytecode
+				deployedBytecode: TDeployedBytecode
+			} & TAddressArgs
+	}
