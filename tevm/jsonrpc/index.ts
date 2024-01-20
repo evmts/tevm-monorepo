@@ -3,5 +3,4 @@ export {
 	type HeadersInit,
 	type JsonRpcFetch,
 	type JsonRpcClient,
-
 } from '@tevm/jsonrpc'

@@ -9,5 +9,4 @@ export {
 	ProxyFetchError,
 	NoProxyConfiguredError,
 	UnexpectedInternalServerError,
-
 } from '@tevm/vm'
