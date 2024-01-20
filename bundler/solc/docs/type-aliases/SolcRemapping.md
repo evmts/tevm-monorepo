@@ -2,15 +2,15 @@
 
 ***
 
-[API](../API.md) > fileLevelOption
+[API](../API.md) > SolcRemapping
 
-# Variable: fileLevelOption
+# Type alias: SolcRemapping
 
-> **`const`** **fileLevelOption**: `""` = `''`
+> **SolcRemapping**: \`${string}=${string}\`[]
 
 ## Source
 
-[solc.js:7](https://github.com/evmts/tevm-monorepo/blob/main/bundler/solc/src/solc.js#L7)
+[solcTypes.ts:52](https://github.com/evmts/tevm-monorepo/blob/main/bundler/solc/src/solcTypes.ts#L52)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

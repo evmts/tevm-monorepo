@@ -6,7 +6,7 @@
 
 # Function: solcCompile()
 
-> **solcCompile**(`solc`, `input`): `SolcOutput`
+> **solcCompile**(`solc`, `input`): [`SolcOutput`](../type-aliases/SolcOutput.md)
 
 Typesafe wrapper around solc.compile
 
@@ -14,7 +14,7 @@ Typesafe wrapper around solc.compile
 
 ▪ **solc**: `any`
 
-▪ **input**: `SolcInputDescription`
+▪ **input**: [`SolcInputDescription`](../type-aliases/SolcInputDescription.md)
 
 ## Returns
 

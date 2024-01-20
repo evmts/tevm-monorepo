@@ -6,13 +6,21 @@
 
 # Type alias: SolcDebugSettings
 
-> **SolcDebugSettings**: `SolcDebugSettings`
+> **SolcDebugSettings**: `object`
 
-./solcTypes.ts
+## Type declaration
+
+### debugInfo
+
+> **debugInfo**?: (`"location"` \| `"snippet"` \| `"*"`)[]
+
+### revertStrings
+
+> **revertStrings**?: `"default"` \| `"strip"` \| `"debug"` \| `"verboseDebug"`
 
 ## Source
 
-bundler/solc/types/src/index.d.ts:60
+bundler/solc/types/src/solcTypes.d.ts:58
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

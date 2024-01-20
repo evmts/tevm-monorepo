@@ -6,13 +6,21 @@
 
 # Type alias: SolcInputSource
 
-> **SolcInputSource**: `SolcInputSource`
+> **SolcInputSource**: `object` & `object` \| `object`
 
-./solcTypes.ts
+## Type declaration
+
+### ast
+
+> **ast**?: `SolcAst`
+
+### keccak256
+
+> **keccak256**?: `HexNumber`
 
 ## Source
 
-bundler/solc/types/src/index.d.ts:40
+bundler/solc/types/src/solcTypes.d.ts:5
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

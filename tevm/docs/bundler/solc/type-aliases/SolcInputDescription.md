@@ -6,13 +6,25 @@
 
 # Type alias: SolcInputDescription
 
-> **SolcInputDescription**: `SolcInputDescription`
+> **SolcInputDescription**: `object`
 
-./solcTypes.ts
+## Type declaration
+
+### language
+
+> **language**: [`SolcLanguage`](SolcLanguage.md)
+
+### settings
+
+> **settings**?: [`SolcSettings`](SolcSettings.md)
+
+### sources
+
+> **sources**: [`SolcInputSources`](SolcInputSources.md)
 
 ## Source
 
-bundler/solc/types/src/index.d.ts:80
+bundler/solc/types/src/solcTypes.d.ts:88
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

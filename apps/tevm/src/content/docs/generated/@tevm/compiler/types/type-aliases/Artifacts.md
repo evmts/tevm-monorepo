@@ -5,7 +5,7 @@ prev: false
 title: "Artifacts"
 ---
 
-> **Artifacts**: `Record`\<`string`, `Pick`\<`SolcContractOutput`, `"abi"` \| `"userdoc"` \| `"evm"`\>\>
+> **Artifacts**: `Record`\<`string`, `Pick`\<[`SolcContractOutput`](/generated/tevm/solc/type-aliases/solccontractoutput/), `"abi"` \| `"userdoc"` \| `"evm"`\>\>
 
 ## Source
 

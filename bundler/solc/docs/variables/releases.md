@@ -6,7 +6,7 @@
 
 # Variable: releases
 
-> **`const`** **releases**: `Releases`
+> **`const`** **releases**: [`Releases`](../type-aliases/Releases.md)
 
 ## Source
 

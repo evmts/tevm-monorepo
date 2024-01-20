@@ -6,13 +6,15 @@
 
 # Type alias: SolcInputSources
 
-> **SolcInputSources**: `SolcInputSources`
+> **SolcInputSources**: `object`
 
-./solcTypes.ts
+## Index signature
+
+ \[`globalName`: `string`\]: [`SolcInputSource`](SolcInputSource.md) & `object`
 
 ## Source
 
-bundler/solc/types/src/index.d.ts:52
+bundler/solc/types/src/solcTypes.d.ts:83
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

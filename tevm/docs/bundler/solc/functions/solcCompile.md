@@ -12,7 +12,7 @@
 
 ▪ **solc**: `any`
 
-▪ **input**: `SolcInputDescription`
+▪ **input**: [`SolcInputDescription`](../type-aliases/SolcInputDescription.md)
 
 ## Source
 

@@ -6,13 +6,25 @@
 
 # Type alias: SolcSourceLocation
 
-> **SolcSourceLocation**: `SolcSourceLocation`
+> **SolcSourceLocation**: `object`
 
-./solcTypes.ts
+## Type declaration
+
+### end
+
+> **end**: `number`
+
+### file
+
+> **file**: `string`
+
+### start
+
+> **start**: `number`
 
 ## Source
 
-bundler/solc/types/src/index.d.ts:72
+bundler/solc/types/src/solcTypes.d.ts:114
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

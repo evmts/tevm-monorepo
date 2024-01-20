@@ -5,7 +5,7 @@ prev: false
 title: "solcCompile"
 ---
 
-> **solcCompile**(`solc`, `input`): `SolcOutput`
+> **solcCompile**(`solc`, `input`): [`SolcOutput`](/generated/tevm/solc/type-aliases/solcoutput/)
 
 Typesafe wrapper around solc.compile
 
@@ -13,7 +13,7 @@ Typesafe wrapper around solc.compile
 
 ▪ **solc**: `any`
 
-▪ **input**: `SolcInputDescription`
+▪ **input**: [`SolcInputDescription`](/generated/tevm/solc/type-aliases/solcinputdescription/)
 
 ## Returns
 

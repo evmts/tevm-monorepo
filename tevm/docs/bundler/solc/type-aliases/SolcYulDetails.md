@@ -6,13 +6,21 @@
 
 # Type alias: SolcYulDetails
 
-> **SolcYulDetails**: `SolcYulDetails`
+> **SolcYulDetails**: `object`
 
-./solcTypes.ts
+## Type declaration
+
+### optimizerSteps
+
+> **optimizerSteps**: `string`
+
+### stackAllocation
+
+> **stackAllocation**?: `boolean`
 
 ## Source
 
-bundler/solc/types/src/index.d.ts:32
+bundler/solc/types/src/solcTypes.d.ts:14
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

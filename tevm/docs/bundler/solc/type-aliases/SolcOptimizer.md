@@ -6,13 +6,25 @@
 
 # Type alias: SolcOptimizer
 
-> **SolcOptimizer**: `SolcOptimizer`
+> **SolcOptimizer**: `object`
 
-./solcTypes.ts
+## Type declaration
+
+### details
+
+> **details**: [`SolcOptimizerDetails`](SolcOptimizerDetails.md)
+
+### enabled
+
+> **enabled**?: `boolean`
+
+### runs
+
+> **runs**: `number`
 
 ## Source
 
-bundler/solc/types/src/index.d.ts:20
+bundler/solc/types/src/solcTypes.d.ts:29
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

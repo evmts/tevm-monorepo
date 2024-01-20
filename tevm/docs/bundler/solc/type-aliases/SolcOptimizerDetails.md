@@ -6,13 +6,49 @@
 
 # Type alias: SolcOptimizerDetails
 
-> **SolcOptimizerDetails**: `SolcOptimizerDetails`
+> **SolcOptimizerDetails**: `object`
 
-./solcTypes.ts
+## Type declaration
+
+### constantOptimizer
+
+> **constantOptimizer**: `boolean`
+
+### cse
+
+> **cse**: `boolean`
+
+### deduplicate
+
+> **deduplicate**: `boolean`
+
+### inliner
+
+> **inliner**: `boolean`
+
+### jumpdestRemover
+
+> **jumpdestRemover**: `boolean`
+
+### orderLiterals
+
+> **orderLiterals**: `boolean`
+
+### peephole
+
+> **peephole**: `boolean`
+
+### yul
+
+> **yul**: `boolean`
+
+### yulDetails
+
+> **yulDetails**: [`SolcYulDetails`](SolcYulDetails.md)
 
 ## Source
 
-bundler/solc/types/src/index.d.ts:88
+bundler/solc/types/src/solcTypes.d.ts:18
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

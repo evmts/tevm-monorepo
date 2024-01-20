@@ -6,7 +6,7 @@
 
 # Function: rollupPluginTevm()
 
-> **rollupPluginTevm**(`options`?): `RollupPlugin`\<`any`\>
+> **rollupPluginTevm**(`options`?): `any`
 
 Rollup plugin for tevm. Enables Solidity imports in JavaScript. Once enabled the code
 will transform solidity contract imports into Tevm `Contract` instances.
@@ -17,7 +17,7 @@ To configure add this plugin to your rollup config and add the ts-plugin to your
 
 ▪ **options?**: `object`
 
-▪ **options.solc?**: `SolcVersions`
+▪ **options.solc?**: `any`
 
 ## Returns
 
@@ -101,7 +101,7 @@ For custom configuration of the Tevm compiler add a [tevm.config.json](https://t
 
 ## Source
 
-bundler/rollup/dist/index.d.ts:76
+bundler/rollup/types/rollupPluginTevm.d.ts:73
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

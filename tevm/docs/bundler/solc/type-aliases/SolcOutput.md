@@ -6,13 +6,33 @@
 
 # Type alias: SolcOutput
 
-> **SolcOutput**: `SolcOutput`
+> **SolcOutput**: `object`
 
-./solcTypes.ts
+## Type declaration
+
+### contracts
+
+> **contracts**: `object`
+
+#### Index signature
+
+ \[`sourceFile`: `string`\]: `object`
+
+### errors
+
+> **errors**?: [`SolcErrorEntry`](SolcErrorEntry.md)[]
+
+### sources
+
+> **sources**: `object`
+
+#### Index signature
+
+ \[`sourceFile`: `string`\]: [`SolcSourceEntry`](SolcSourceEntry.md)
 
 ## Source
 
-bundler/solc/types/src/index.d.ts:4
+bundler/solc/types/src/solcTypes.d.ts:93
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -14,11 +14,7 @@ const defaultVersion = defaultSolc
 	.slice(0, defaultSolc.version().indexOf('+'))
 
 /**
- * @typedef {import("@tevm/solc").SolcVersions} SolcVersions
- */
-
-/**
- * @type {import("zod").ZodSchema<SolcVersions>}
+ * @type {import("zod").ZodSchema<import('@tevm/solc').SolcVersions>}
  */
 const compilerOptionValidator = z
 	.union(
