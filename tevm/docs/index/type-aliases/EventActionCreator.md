@@ -25,7 +25,7 @@ tevm.eth.getLog(
 | `THumanReadableAbi` extends readonly `string`[] | - |
 | `TBytecode` extends `Hex` \| `undefined` | - |
 | `TDeployedBytecode` extends `Hex` \| `undefined` | - |
-| `TAddress` extends `Address` \| `undefined` | - |
+| `TAddress` extends [`Address`](Address.md) \| `undefined` | - |
 | `TAddressArgs` | `TAddress` extends `undefined` ? `object` : `object` |
 
 ## Source

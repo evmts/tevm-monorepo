@@ -16,7 +16,7 @@
 
 ## Source
 
-tevm/node\_modules/viem/\_types/accounts/types.d.ts:9
+node\_modules/.pnpm/viem@2.0.3\_typescript@5.3.3/node\_modules/viem/\_types/accounts/types.d.ts:9
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

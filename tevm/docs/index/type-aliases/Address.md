@@ -10,7 +10,7 @@
 
 ## Source
 
-tevm/node\_modules/abitype/dist/types/abi.d.ts:3
+node\_modules/.pnpm/abitype@1.0.0\_typescript@5.3.3/node\_modules/abitype/dist/types/abi.d.ts:3
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

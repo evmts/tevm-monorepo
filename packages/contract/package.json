@@ -64,7 +64,7 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
-		"abitype": "^0.10.2",
+		"abitype": "^1.0.0",
 		"viem": "^2.0.0"
 	},
 	"devDependencies": {

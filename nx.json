@@ -56,7 +56,8 @@
 			"outputs": [
 				"{projectRoot}/dist/**/*.d.ts",
 				"{projectRoot}/dist/**/*.d.cts",
-				"{projectRoot}/dist/**/*.d.mts"
+				"{projectRoot}/dist/**/*.d.mts",
+				"{projectRoot}/types/**/*"
 			],
 			"cache": true
 		},

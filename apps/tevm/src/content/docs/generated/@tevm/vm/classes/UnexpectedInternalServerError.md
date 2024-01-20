@@ -53,7 +53,7 @@ Error.cause
 
 #### Source
 
-node\_modules/typescript/lib/lib.es2022.error.d.ts:24
+node\_modules/.pnpm/typescript@5.3.3/node\_modules/typescript/lib/lib.es2022.error.d.ts:24
 
 ***
 
@@ -67,7 +67,7 @@ Error.message
 
 #### Source
 
-node\_modules/typescript/lib/lib.es5.d.ts:1076
+node\_modules/.pnpm/typescript@5.3.3/node\_modules/typescript/lib/lib.es5.d.ts:1076
 
 ***
 
@@ -95,7 +95,7 @@ Error.stack
 
 #### Source
 
-node\_modules/typescript/lib/lib.es5.d.ts:1077
+node\_modules/.pnpm/typescript@5.3.3/node\_modules/typescript/lib/lib.es5.d.ts:1077
 
 ***
 
@@ -129,7 +129,7 @@ Error.prepareStackTrace
 
 #### Source
 
-node\_modules/bun-types/types.d.ts:2241
+node\_modules/.pnpm/bun-types@1.0.24/node\_modules/bun-types/types.d.ts:2241
 
 ***
 
@@ -143,7 +143,7 @@ Error.stackTraceLimit
 
 #### Source
 
-node\_modules/bun-types/types.d.ts:2245
+node\_modules/.pnpm/bun-types@1.0.24/node\_modules/bun-types/types.d.ts:2245
 
 ## Methods
 
@@ -167,7 +167,7 @@ Error.captureStackTrace
 
 ##### Source
 
-node\_modules/bun-types/types.d.ts:2234
+node\_modules/.pnpm/bun-types@1.0.24/node\_modules/bun-types/types.d.ts:2234
 
 #### captureStackTrace(targetObject, constructorOpt)
 
@@ -187,7 +187,7 @@ Error.captureStackTrace
 
 ##### Source
 
-node\_modules/@types/node/globals.d.ts:21
+node\_modules/.pnpm/@types+node@20.11.5/node\_modules/@types/node/globals.d.ts:21
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

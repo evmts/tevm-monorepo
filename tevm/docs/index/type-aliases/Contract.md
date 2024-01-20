@@ -179,7 +179,7 @@ the address property if added.
 
 #### Type parameters
 
-▪ **TAddress** extends `Address`
+▪ **TAddress** extends [`Address`](Address.md)
 
 #### Parameters
 

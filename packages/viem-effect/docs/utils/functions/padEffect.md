@@ -18,7 +18,7 @@
 
 ## Source
 
-[src/utils/data/padEffect.js:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/viem-effect/src/utils/data/padEffect.js#L7)
+[packages/viem-effect/src/utils/data/padEffect.js:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/viem-effect/src/utils/data/padEffect.js#L7)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
