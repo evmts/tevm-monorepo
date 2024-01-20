@@ -24,7 +24,7 @@
 		"./package.json": "./package.json",
 		".": {
 			"import": {
-				"types": "./types/index.d.ts",
+				"types": "./dist/index.d.ts",
 				"default": "./dist/index.js"
 			},
 			"require": {
@@ -35,10 +35,9 @@
 	},
 	"main": "dist/index.cjs",
 	"module": "dist/index.js",
-	"types": "types/index.d.ts",
+	"types": "dist/index.d.ts",
 	"files": [
 		"dist",
-		"types",
 		"src"
 	],
 	"scripts": {
@@ -47,7 +46,7 @@
 		"//test:ui": "vitest --ui",
 		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/vite-plugin ",
 		"build:dist": "tsup",
-		"build:types": "tsup --dts-only && tsc --emitDeclarationOnly --declaration",
+		"build:types": "tsup --dts-only",
 		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
 		"format": "rome format . --write",
 		"format:check": "rome format .",
