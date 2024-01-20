@@ -73,11 +73,6 @@ export const requestProcedure = (vm) => {
 			case 'tevm_dumpState':
 				return /** @type any */ (dumpStateProcedure)(vm.stateManager)(request)
 			case 'tevm_loadState': {
-				/**
-				 * @param {object} options
-				 * @param {import('@tevm/state').TevmStateManager}  options.stateManager
-				 * @param {import('@ethereumjs/vm').VM} options.vm
-				 */
 				const stateManager = vm.stateManager
 				return /** @type any */ (loadStateProcedure)(stateManager)(request)
 			}
