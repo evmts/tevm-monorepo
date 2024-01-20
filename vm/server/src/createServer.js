@@ -10,7 +10,8 @@ import { createServer as httpCreateServer } from 'http'
  * To use pass in the Tevm['request'] request handler
  * @example
  * ```typescript
- * import { createServer, createMemoryTevm } from 'tevm'
+ * import { createMemoryTevm } from 'tevm'
+ * import { createServer } from 'tevm/server'
  *
  * const tevm = createMemoryTevm()
  *
@@ -26,6 +27,7 @@ import { createServer as httpCreateServer } from 'http'
  * import { createTevmClient } from '@tevm/client'
  *
  * const client = createTevmClient()
+ * ```
  */
 export const createServer = async ({ request, serverOptions }) => {
 	if (serverOptions === undefined) {

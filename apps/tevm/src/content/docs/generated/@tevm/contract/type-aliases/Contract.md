@@ -135,7 +135,7 @@ The human readable abi of the contract
 
 ```typescript
 import { MyContract } from './MyContract.sol'
-console.log(MyContract.humanReadableAbi) 
+console.log(MyContract.humanReadableAbi)
 // ['function balanceOf(address): uint256', ...]
 ```
 

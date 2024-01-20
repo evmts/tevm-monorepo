@@ -17,7 +17,7 @@ JSON-RPC request for `eth_getBlockByNumber` procedure
 
 ### tag
 
-> **tag**: `BlockTag` \| `Hex`
+> **tag**?: `BlockTag` \| `Hex`
 
 ## Source
 

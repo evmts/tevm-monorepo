@@ -5,7 +5,7 @@ prev: false
 title: "createMemoryTevm"
 ---
 
-> **createMemoryTevm**(`options`?): `Promise`\<[`Tevm`](/generated/tevm/vm/type-aliases/tevm/)\>
+> **createMemoryTevm**(`options`?): `Promise`\<[`MemoryTevm`](/generated/tevm/vm/type-aliases/memorytevm/)\>
 
 A local EVM instance running in JavaScript. Similar to Anvil in your browser
 
@@ -18,7 +18,7 @@ A local EVM instance running in JavaScript. Similar to Anvil in your browser
 ## Example
 
 ```ts
-import { Tevm } from "tevm"
+import { createMemoryTevm } from "tevm"
 import { createPublicClient, http } from "viem"
 import { MyERC721 } from './MyERC721.sol'
 

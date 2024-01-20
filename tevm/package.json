@@ -230,6 +230,7 @@
 		"@tevm/esbuild-plugin": "workspace:^",
 		"@tevm/rollup-plugin": "workspace:^",
 		"@tevm/rspack-plugin": "workspace:^",
+		"@tevm/server": "workspace:^",
 		"@tevm/solc": "workspace:^",
 		"@tevm/ts-plugin": "workspace:^",
 		"@tevm/vite-plugin": "workspace:^",

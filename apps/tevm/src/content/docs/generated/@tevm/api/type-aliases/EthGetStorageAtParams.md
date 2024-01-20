@@ -21,7 +21,7 @@ JSON-RPC request for `eth_getStorageAt` procedure
 
 ### tag
 
-> **tag**: `BlockTag` \| `Hex`
+> **tag**?: `BlockTag` \| `Hex`
 
 ## Source
 

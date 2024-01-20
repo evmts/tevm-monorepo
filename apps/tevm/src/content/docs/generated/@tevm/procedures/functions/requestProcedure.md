@@ -7,8 +7,14 @@ title: "requestProcedure"
 
 > **requestProcedure**(`vm`): `TevmJsonRpcRequestHandler`
 
-Handles a single tevm json rpc request
-Infers return type from request
+Request handler for JSON-RPC requests.
+
+This implementation of the Tevm requestProcedure spec
+implements it via the ethereumjs VM.
+
+Most users will want to use `Tevm.request` instead of
+this method but this method may be desired if hyper optimizing
+bundle size.
 
 ## Parameters
 
@@ -19,19 +25,23 @@ Infers return type from request
 ## Example
 
 ```typescript
-const res = await requestProcedure(evm)({
- jsonrpc: '2.0',
- id: '1',
- method: 'tevm_call',
- params: {
-   to: '0x000000000'
- }
+const blockNumberResponse = await tevm.request({
+ method: 'eth_blockNumber',
+ params: []
+ id: 1
+ jsonrpc: '2.0'
+})
+const accountResponse = await tevm.request({
+ method: 'tevm_getAccount',
+ params: [{address: '0x123...'}]
+ id: 1
+ jsonrpc: '2.0'
 })
 ```
 
 ## Source
 
-[vm/procedures/src/requestProcedure.js:32](https://github.com/evmts/tevm-monorepo/blob/main/vm/procedures/src/requestProcedure.js#L32)
+[vm/procedures/src/requestProcedure.js:43](https://github.com/evmts/tevm-monorepo/blob/main/vm/procedures/src/requestProcedure.js#L43)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -14,6 +14,7 @@
     "bundler/**/index.ts",
     "client/index.ts",
     "contract/index.ts",
+    "server/index.ts",
     "viem/index.ts",
     "vm/index.ts",
     "index.ts"

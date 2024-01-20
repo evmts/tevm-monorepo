@@ -13,23 +13,20 @@ import { zJsonRpcRequest } from '@tevm/zod'
  * @param {CreateHttpHandlerParameters} parameters
  * @returns {import('http').RequestListener}
  * @example
- * import { createHttpHandler } from '@tevm/http'
- * import { Tevm } from '@tevm/vm'
+ * import { createHttpHandler } from 'tevm/server'
+ * import { createTevm } from 'tevm'
  * import { createServer } from 'http'
  *
  * const PORT = 8080
  *
- * const vm = new Tevm({
+ * const tevm = createTevm({
  *   fork: {
  *     url: 'https://mainnet.optimism.io'
  *   }
  * })
  *
  * const server = createServer(
- *   createHttpHandler({
- *     evm: vm,
- *     proxyUrl: 'https://mainnet.optimism.io'
- *   })
+ *   createHttpHandler(tevm)
  * )
  * server.listen(PORT, () => console.log({ listening: PORT }))
  *

@@ -5,6 +5,10 @@ prev: false
 title: "UnexpectedInternalServerError"
 ---
 
+Error that is thrown when something unexpected happens
+THis error being thrown indicates a bug or unhandled error
+internally in tevm and thus shouldn't happen often
+
 ## Extends
 
 - `Error`
@@ -25,7 +29,7 @@ Error.constructor
 
 #### Source
 
-[vm/vm/src/errors/UnexpectedInternalServerError.js:14](https://github.com/evmts/tevm-monorepo/blob/main/vm/vm/src/errors/UnexpectedInternalServerError.js#L14)
+[vm/vm/src/errors/UnexpectedInternalServerError.js:19](https://github.com/evmts/tevm-monorepo/blob/main/vm/vm/src/errors/UnexpectedInternalServerError.js#L19)
 
 ## Properties
 
@@ -35,7 +39,7 @@ Error.constructor
 
 #### Source
 
-[vm/vm/src/errors/UnexpectedInternalServerError.js:10](https://github.com/evmts/tevm-monorepo/blob/main/vm/vm/src/errors/UnexpectedInternalServerError.js#L10)
+[vm/vm/src/errors/UnexpectedInternalServerError.js:15](https://github.com/evmts/tevm-monorepo/blob/main/vm/vm/src/errors/UnexpectedInternalServerError.js#L15)
 
 ***
 
@@ -77,7 +81,7 @@ Error.name
 
 #### Source
 
-[vm/vm/src/errors/UnexpectedInternalServerError.js:6](https://github.com/evmts/tevm-monorepo/blob/main/vm/vm/src/errors/UnexpectedInternalServerError.js#L6)
+[vm/vm/src/errors/UnexpectedInternalServerError.js:11](https://github.com/evmts/tevm-monorepo/blob/main/vm/vm/src/errors/UnexpectedInternalServerError.js#L11)
 
 ***
 

@@ -8,7 +8,7 @@ title: "Script"
 > **Script**\<`TName`, `THumanReadableAbi`\>: `object`
 
 An action creator for `Tevm.script`, `Tevm.contract` and more
-representing a solidity contract bytecode and ABI.  
+representing a solidity contract bytecode and ABI.
 Scripts are akin to Foundry scripts you can run in the Tevm vm.
 
 Script is also is the type solidity contract imports are turned into.
@@ -138,7 +138,7 @@ The human readable abi of the contract
 
 ```typescript
 import { MyScript } from './MyScript.sol'
-console.log(MyScript.humanReadableAbi) 
+console.log(MyScript.humanReadableAbi)
 // ['function balanceOf(address): uint256', ...]
 ```
 

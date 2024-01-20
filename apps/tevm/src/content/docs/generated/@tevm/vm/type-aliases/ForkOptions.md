@@ -17,14 +17,15 @@ Options fetch state that isn't available locally.
 
 The block tag to use for the EVM.
 If not passed it will start from the latest
-block at the time of forking
+block at the time of forking. Defaults to 'latest'
 
 ### url
 
 > **url**: `string`
 
-A viem PublicClient to use for the EVM.
-It will be used to fetch state that isn't available locally.
+The url to fork. This url will be used to fetch state
+that isn't available locally. It will also be used to
+fulfill JSON-RPC requests that cannot be fulfilled locally
 
 ## Source
 

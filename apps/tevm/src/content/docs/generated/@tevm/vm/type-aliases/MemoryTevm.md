@@ -2,12 +2,17 @@
 editUrl: false
 next: false
 prev: false
-title: "Tevm"
+title: "MemoryTevm"
 ---
 
-> **Tevm**: `Tevm` & `object`
+> **MemoryTevm**: `Tevm` & `object`
 
-A local EVM instance running in JavaScript. Similar to Anvil in your browser
+A local EVM instance running in JavaScript. Similar to Anvil in your browser/node/bun environments
+Implements the [Tevm]([object Object]) interface with an in memory EVM instance.
+
+## See
+
+[TevmClient](https://todo.todo) for an remote client
 
 ## Example
 
@@ -62,7 +67,7 @@ Fork url if the EVM is forked
 
 ## Source
 
-[vm/vm/src/Tevm.ts:35](https://github.com/evmts/tevm-monorepo/blob/main/vm/vm/src/Tevm.ts#L35)
+[vm/vm/src/MemoryTevm.ts:38](https://github.com/evmts/tevm-monorepo/blob/main/vm/vm/src/MemoryTevm.ts#L38)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
