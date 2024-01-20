@@ -41,7 +41,8 @@
 	"files": [
 		"dist",
 		"src",
-		"!src/**/*.spec.ts"
+		"!src/**/*.spec.ts",
+		"types"
 	],
 	"scripts": {
 		"all": "bun run build && bun run test:coverage && bun run lint && bun run format && bun run generate:docs && bun lint:package && bun lint:deps",

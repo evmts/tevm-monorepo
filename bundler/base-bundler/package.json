@@ -40,7 +40,8 @@
 	"types": "types/src/index.d.ts",
 	"files": [
 		"dist",
-		"src"
+		"src",
+		"types"
 	],
 	"scripts": {
 		"all": "bun run build && bun run format && bun run lint && bun run test:coverage && bun run generate:docs && bun lint:deps && bun lint:package",

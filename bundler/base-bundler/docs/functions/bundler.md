@@ -30,7 +30,7 @@ The file access object to use for reading and writing files. Can use fs to fill 
 
 The solc compiler to use. Can be loaded with `createSolc()`
 
-▪ **cache**: `Cache$1`
+▪ **cache**: `Cache`
 
 The cache to use. Can be created with `createCache()`
 

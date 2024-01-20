@@ -31,7 +31,7 @@
 	"bin": {
 		"tevm-gen": "./dist/bin/tevm-gen.js"
 	},
-	"files": ["dist", "src"],
+	"files": ["dist", "src", "types"],
 	"scripts": {
 		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/ts-plugin ",
 		"build:dist": "tsup",

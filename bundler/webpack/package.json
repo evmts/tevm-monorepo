@@ -38,7 +38,8 @@
 	"types": "types/index.d.ts",
 	"files": [
 		"dist",
-		"src"
+		"src",
+		"types"
 	],
 	"scripts": {
 		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/webpack-plugin ",
