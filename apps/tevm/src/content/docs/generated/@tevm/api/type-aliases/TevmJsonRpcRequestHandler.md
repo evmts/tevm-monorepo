@@ -98,7 +98,7 @@ response - [EthGetBalanceJsonRpcResponse](EthGetBalanceJsonRpcResponse.md)
 
 ## Source
 
-[TevmJsonRpcRequestHandler.ts:380](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/TevmJsonRpcRequestHandler.ts#L380)
+[TevmJsonRpcRequestHandler.ts:384](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/TevmJsonRpcRequestHandler.ts#L384)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

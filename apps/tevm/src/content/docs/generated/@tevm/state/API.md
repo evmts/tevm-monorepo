@@ -14,11 +14,14 @@ title: "@tevm/state"
 
 ### Interfaces
 
+- [AccountStorage](/generated/tevm/state/interfaces/accountstorage/)
+- [ParameterizedAccountStorage](/generated/tevm/state/interfaces/parameterizedaccountstorage/)
 - [TevmStateManagerInterface](/generated/tevm/state/interfaces/tevmstatemanagerinterface/)
 - [TevmStateManagerOpts](/generated/tevm/state/interfaces/tevmstatemanageropts/)
 
 ### Type Aliases
 
+- [ParameterizedTevmState](/generated/tevm/state/type-aliases/parameterizedtevmstate/)
 - [SerializableTevmState](/generated/tevm/state/type-aliases/serializabletevmstate/)
 
 ***
