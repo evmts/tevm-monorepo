@@ -58,7 +58,7 @@ importers:
         version: 2.6.0
       starlight-typedoc:
         specifier: ^0.8.0
-        version: 0.8.0(@astrojs/starlight@0.15.4)(astro@4.2.1)(typedoc-plugin-markdown@4.0.0-next.21)(typedoc@0.25.7)
+        version: 0.8.0(@astrojs/starlight@0.16.0)(astro@4.2.1)(typedoc-plugin-markdown@4.0.0-next.21)(typedoc@0.25.7)
       tsup:
         specifier: ^8.0.1
         version: 8.0.1(typescript@5.3.3)
@@ -791,11 +791,11 @@ importers:
         specifier: workspace:^
         version: link:../../configs/tsupconfig
       abitype:
-        specifier: ^0.10.2
-        version: 0.10.2(typescript@5.3.3)(zod@3.22.4)
+        specifier: ^1.0.0
+        version: 1.0.0(typescript@5.3.3)
       ethers:
-        specifier: ^6.8.0
-        version: 6.8.1
+        specifier: ^6.10.0
+        version: 6.10.0
 
   extensions/viem:
     dependencies:
@@ -1019,7 +1019,7 @@ importers:
         version: 1.0.0-next.18(fast-check@3.15.0)(typescript@5.3.3)
       '@evmts/vite-plugin':
         specifier: next
-        version: 1.0.0-next.19(esbuild@0.19.11)(fast-check@3.15.0)(typescript@5.3.3)
+        version: 1.0.0-next.19(esbuild@0.19.5)(fast-check@3.15.0)(typescript@5.3.3)
       '@tevm/tsconfig':
         specifier: workspace:^
         version: link:../../configs/tsconfig
@@ -1863,6 +1863,7 @@ packages:
       vfile: 6.0.1
     transitivePeerDependencies:
       - supports-color
+    dev: false
 
   /@astrojs/markdown-remark@4.1.0:
     resolution: {integrity: sha512-JnIy6zk+6f/SgSVMZecZFxQt0faT1uBckwYCuBxKH1hYYJsal8OOe+tx6JxfnyaV+xViyjUvQ28mmn+p/F5LkQ==}
@@ -1910,13 +1911,13 @@ packages:
       - supports-color
     dev: false
 
-  /@astrojs/mdx@2.0.4(astro@4.2.1):
-    resolution: {integrity: sha512-8q8p7AfiGa6CEKUEEWDLZ7HsfonmZlzx8HITZp8eJnkh+n6mmD9vQTpuFNjJc3hiiMEEKLGTIjOUGAU4aGBkrA==}
+  /@astrojs/mdx@2.0.5(astro@4.2.1):
+    resolution: {integrity: sha512-3+1E11J6Yfb8XZIyaEBtJNdc4Dn9YbforPgmxiY5SYa0C5+f6KEUQi30Hd9I/tA8ytS+1MXw6ZE1BXbaRUo3ZA==}
     engines: {node: '>=18.14.1'}
     peerDependencies:
       astro: ^4.0.0
     dependencies:
-      '@astrojs/markdown-remark': 4.0.1
+      '@astrojs/markdown-remark': 4.1.0
       '@mdx-js/mdx': 3.0.0
       acorn: 8.11.3
       astro: 4.2.1(typescript@5.3.3)
@@ -1947,6 +1948,14 @@ packages:
     dependencies:
       sitemap: 7.1.1
       zod: 3.22.4
+    dev: false
+
+  /@astrojs/sitemap@3.0.5:
+    resolution: {integrity: sha512-60eLzNjMza3ABypiQPUC6ElOSZNZeY5CwSwgJ03hfeonl+Db9x12CCzBFdTw7A5Mq+O54xEZVUrR0tB+yWgX8w==}
+    dependencies:
+      sitemap: 7.1.1
+      zod: 3.22.4
+    dev: true
 
   /@astrojs/starlight@0.15.4(astro@4.2.0):
     resolution: {integrity: sha512-o3heYH+RltsCsvO3L0qLnnFJEakwLSRoxW4wFX2zDeDWta9BIpdSOo7+Zg+sSn7k9RPOhI9SGvdFx67B53I18Q==}
@@ -1975,13 +1984,13 @@ packages:
       - supports-color
     dev: false
 
-  /@astrojs/starlight@0.15.4(astro@4.2.1):
-    resolution: {integrity: sha512-o3heYH+RltsCsvO3L0qLnnFJEakwLSRoxW4wFX2zDeDWta9BIpdSOo7+Zg+sSn7k9RPOhI9SGvdFx67B53I18Q==}
+  /@astrojs/starlight@0.16.0(astro@4.2.1):
+    resolution: {integrity: sha512-zwSNiCqzZeiuivUp4Yhx+eMLGww8v8cRYoCYXg9myTXNUwphqPaVG3rp7dbaZ4y1MaejnjYWB444ZRItEgTDcQ==}
     peerDependencies:
       astro: ^4.0.0
     dependencies:
-      '@astrojs/mdx': 2.0.4(astro@4.2.1)
-      '@astrojs/sitemap': 3.0.4
+      '@astrojs/mdx': 2.0.5(astro@4.2.1)
+      '@astrojs/sitemap': 3.0.5
       '@pagefind/default-ui': 1.0.4
       '@types/hast': 3.0.3
       '@types/mdast': 4.0.3
@@ -4125,7 +4134,7 @@ packages:
       '@ethereumjs/util': 9.0.1
       debug: 4.3.4(supports-color@8.1.1)
       ethereum-cryptography: 2.1.2
-      ethers: 6.9.0
+      ethers: 6.10.0
       js-sdsl: 4.4.2
       lru-cache: 10.1.0
     transitivePeerDependencies:
@@ -4538,15 +4547,15 @@ packages:
       - zod
     dev: true
 
-  /@evmts/config@1.0.0-next.17(esbuild@0.19.11)(fast-check@3.15.0)(solc@0.8.22)(typescript@5.3.3):
+  /@evmts/config@1.0.0-next.17(esbuild@0.19.5)(fast-check@3.15.0)(solc@0.8.22)(typescript@5.3.3):
     resolution: {integrity: sha512-rxyLCYOROZ7rDGYrcKpnK0ulXTWJwAyyqKbbogAikLZkUh2VSH8GVpYzNpHj2Uy2ZMiNHlYrpEMbWRt53rCsgg==}
     peerDependencies:
       solc: '*'
     dependencies:
       '@effect/schema': 0.47.7(effect@2.0.0-next.54)(fast-check@3.15.0)
-      '@evmts/effect': 1.0.0-next.9(esbuild@0.19.11)(fast-check@3.15.0)(solc@0.8.22)(typescript@5.3.3)
+      '@evmts/effect': 1.0.0-next.9(esbuild@0.19.5)(fast-check@3.15.0)(solc@0.8.22)(typescript@5.3.3)
       '@types/node': 20.11.5
-      bundle-require: 4.0.2(esbuild@0.19.11)
+      bundle-require: 4.0.2(esbuild@0.19.5)
       effect: 2.0.0-next.54
       jsonc-parser: 3.2.0
       solc: 0.8.22
@@ -4590,13 +4599,13 @@ packages:
       viem: 2.0.2(typescript@5.3.3)(zod@3.22.4)
     dev: true
 
-  /@evmts/effect@1.0.0-next.9(esbuild@0.19.11)(fast-check@3.15.0)(solc@0.8.22)(typescript@5.3.3):
+  /@evmts/effect@1.0.0-next.9(esbuild@0.19.5)(fast-check@3.15.0)(solc@0.8.22)(typescript@5.3.3):
     resolution: {integrity: sha512-EDhjN26goPELm2XjxBcY3/8xx7J3HTGdOqgKQoolWt/5eghyxXcvcFFnynN3KSd6mSciozBWGuOFms8HEi4QTg==}
     peerDependencies:
       solc: '*'
     dependencies:
       '@effect/schema': 0.47.7(effect@2.0.0-next.54)(fast-check@3.15.0)
-      bundle-require: 4.0.2(esbuild@0.19.11)
+      bundle-require: 4.0.2(esbuild@0.19.5)
       effect: 2.0.0-next.54
       jsonc-parser: 3.2.0
       resolve: 1.22.8
@@ -4632,11 +4641,11 @@ packages:
       - zod
     dev: true
 
-  /@evmts/resolutions@1.0.0-next.18(esbuild@0.19.11)(fast-check@3.15.0)(solc@0.8.22)(typescript@5.3.3):
+  /@evmts/resolutions@1.0.0-next.18(esbuild@0.19.5)(fast-check@3.15.0)(solc@0.8.22)(typescript@5.3.3):
     resolution: {integrity: sha512-+VB+sh5IF1KtuXuyDHH5KOJjNEJs/REtVz0yzht/RaEOql+cOqtprVivemzzTwPT04bzNhilykas5EfKU08PNw==}
     dependencies:
-      '@evmts/config': 1.0.0-next.17(esbuild@0.19.11)(fast-check@3.15.0)(solc@0.8.22)(typescript@5.3.3)
-      '@evmts/effect': 1.0.0-next.9(esbuild@0.19.11)(fast-check@3.15.0)(solc@0.8.22)(typescript@5.3.3)
+      '@evmts/config': 1.0.0-next.17(esbuild@0.19.5)(fast-check@3.15.0)(solc@0.8.22)(typescript@5.3.3)
+      '@evmts/effect': 1.0.0-next.9(esbuild@0.19.5)(fast-check@3.15.0)(solc@0.8.22)(typescript@5.3.3)
       '@evmts/tsconfig': 1.0.0-next.5
       '@types/node': 20.11.5
       '@types/resolve': 1.20.5
@@ -4685,11 +4694,11 @@ packages:
       effect: 2.0.0-next.54
     dev: true
 
-  /@evmts/solc@1.0.0-next.18(esbuild@0.19.11)(fast-check@3.15.0)(solc@0.8.22)(typescript@5.3.3):
+  /@evmts/solc@1.0.0-next.18(esbuild@0.19.5)(fast-check@3.15.0)(solc@0.8.22)(typescript@5.3.3):
     resolution: {integrity: sha512-MGGIz+a8ZKtkmh2z8tmjfJ+DRSLdJV7lSBge0a0sIEhtUFSfc24MVEvHt4KOPms5bNc0OI6BLMM1j72xj4/UDw==}
     dependencies:
-      '@evmts/config': 1.0.0-next.17(esbuild@0.19.11)(fast-check@3.15.0)(solc@0.8.22)(typescript@5.3.3)
-      '@evmts/resolutions': 1.0.0-next.18(esbuild@0.19.11)(fast-check@3.15.0)(solc@0.8.22)(typescript@5.3.3)
+      '@evmts/config': 1.0.0-next.17(esbuild@0.19.5)(fast-check@3.15.0)(solc@0.8.22)(typescript@5.3.3)
+      '@evmts/resolutions': 1.0.0-next.18(esbuild@0.19.5)(fast-check@3.15.0)(solc@0.8.22)(typescript@5.3.3)
       '@evmts/tsconfig': 1.0.0-next.5
       '@types/node': 20.11.5
       '@types/resolve': 1.20.5
@@ -4756,12 +4765,12 @@ packages:
     resolution: {integrity: sha512-GWguzA58Ry2CPQhvNAH0x2Au0Bdm+MsBORWHF9usCVD44yC++joPHaIWBSbe3SrF0BccLEf5yIfOKgS5XIEecQ==}
     dev: true
 
-  /@evmts/unplugin@1.0.0-next.19(esbuild@0.19.11)(fast-check@3.15.0)(typescript@5.3.3):
+  /@evmts/unplugin@1.0.0-next.19(esbuild@0.19.5)(fast-check@3.15.0)(typescript@5.3.3):
     resolution: {integrity: sha512-NgIXsZ5IEliByfgM/TBhyibLTawCipZs6oIGe7XIehGAVBADOBEWaT7QgIjGQkS5dEyE0OMTEAmgRQhbYhUIog==}
     dependencies:
-      '@evmts/config': 1.0.0-next.17(esbuild@0.19.11)(fast-check@3.15.0)(solc@0.8.22)(typescript@5.3.3)
+      '@evmts/config': 1.0.0-next.17(esbuild@0.19.5)(fast-check@3.15.0)(solc@0.8.22)(typescript@5.3.3)
       '@evmts/runtime': 1.0.0-next.13
-      '@evmts/solc': 1.0.0-next.18(esbuild@0.19.11)(fast-check@3.15.0)(solc@0.8.22)(typescript@5.3.3)
+      '@evmts/solc': 1.0.0-next.18(esbuild@0.19.5)(fast-check@3.15.0)(solc@0.8.22)(typescript@5.3.3)
       '@evmts/tsconfig': 1.0.0-next.5
       '@types/node': 20.11.5
       '@types/resolve': 1.20.5
@@ -4781,10 +4790,10 @@ packages:
       - zod
     dev: true
 
-  /@evmts/vite-plugin@1.0.0-next.19(esbuild@0.19.11)(fast-check@3.15.0)(typescript@5.3.3):
+  /@evmts/vite-plugin@1.0.0-next.19(esbuild@0.19.5)(fast-check@3.15.0)(typescript@5.3.3):
     resolution: {integrity: sha512-rZ3cMVskpkeiHr5N4HtN2tVLm2PJtSyoWMZqFnEPGsbH3nK7FEh8ZX9134kbCuk7SFM/S49GgNqPEoRb2OzkLg==}
     dependencies:
-      '@evmts/unplugin': 1.0.0-next.19(esbuild@0.19.11)(fast-check@3.15.0)(typescript@5.3.3)
+      '@evmts/unplugin': 1.0.0-next.19(esbuild@0.19.5)(fast-check@3.15.0)(typescript@5.3.3)
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -5326,6 +5335,11 @@ packages:
     dependencies:
       '@noble/hashes': 1.3.2
 
+  /@noble/curves@1.3.0:
+    resolution: {integrity: sha512-t01iSXPuN+Eqzb4eBX0S5oubSqXbK/xXa1Ne18Hj8f9pStxztHCE2gfboSp/dZRLSqfuLpRK2nDXDK+W9puocA==}
+    dependencies:
+      '@noble/hashes': 1.3.3
+
   /@noble/hashes@1.2.0:
     resolution: {integrity: sha512-FZfhjEDbT5GRswV3C6uvLPHMiVD6lQBmpoX5+eSiPaMTXte/IKqI5dykDxzZB/WBeK/CDuQRBWarPdi3FNY2zQ==}
     dev: true
@@ -5336,6 +5350,10 @@ packages:
 
   /@noble/hashes@1.3.2:
     resolution: {integrity: sha512-MVC8EAQp7MvEcm30KWENFjgR+Mkmf+D189XJTkFIlwohU5hcBbn1ZkKq7KVTi2Hme3PMGF390DaL52beVrIihQ==}
+    engines: {node: '>= 16'}
+
+  /@noble/hashes@1.3.3:
+    resolution: {integrity: sha512-V7/fPHgl+jsVPXqqeOzT8egNj2iBIVt+ECeMMG8TdcnTikP3oaBtUVqpT/gYCR68aEBJSF+XbYUxStjbFMqIIA==}
     engines: {node: '>= 16'}
 
   /@noble/secp256k1@1.7.1:
@@ -6502,7 +6520,7 @@ packages:
     resolution: {integrity: sha512-osvveYtyzdEVbt3OfwwXFr4P2iVBL5u1Q3q4ONBfDY/UpOuXmOlbgwc1xECEboY8wIays8Yt6onaWMUdUbfl0A==}
     dependencies:
       '@noble/curves': 1.1.0
-      '@noble/hashes': 1.3.2
+      '@noble/hashes': 1.3.1
       '@scure/base': 1.1.5
 
   /@scure/bip32@1.3.2:
@@ -6619,8 +6637,8 @@ packages:
     resolution: {integrity: sha512-LkqsEBgTZztFiccZZXnawWa8qNCATEqE97/d0vIwjTclmVlc8pBpD1DmjfVHtZ1HS5fZorFlVhXfpwnCNDZfyg==}
     dependencies:
       '@babel/runtime': 7.23.8
-      '@noble/curves': 1.2.0
-      '@noble/hashes': 1.3.2
+      '@noble/curves': 1.3.0
+      '@noble/hashes': 1.3.3
       '@solana/buffer-layout': 4.0.1
       agentkeepalive: 4.5.0
       bigint-buffer: 1.1.5
@@ -7244,7 +7262,7 @@ packages:
   /@types/sax@1.2.7:
     resolution: {integrity: sha512-rO73L89PJxeYM3s3pPPjiPgVVcymqU490g0YO5n5By0k2Erzj6tay/4lr1CHAAU4JyOWd1rpQ8bCf6cZfHU96A==}
     dependencies:
-      '@types/node': 20.11.5
+      '@types/node': 17.0.45
 
   /@types/scheduler@0.16.6:
     resolution: {integrity: sha512-Vlktnchmkylvc9SnwwwozTv04L/e1NykF5vgoQ0XTmI8DD+wxfjQuHuvHS3p0r2jz2x2ghPs2h1FVeDirIteWA==}
@@ -7307,7 +7325,7 @@ packages:
   /@types/ws@7.4.7:
     resolution: {integrity: sha512-JQbbmxZTZehdc2iszGKs5oC3NFnjeay7mtAWrdt7qNtAVK0g19muApzAy4bm9byz79xa2ZnO/BOBC2R8RC5Lww==}
     dependencies:
-      '@types/node': 20.11.5
+      '@types/node': 12.20.55
 
   /@types/ws@8.5.10:
     resolution: {integrity: sha512-vmQSUcfalpIq0R9q7uTo2lXs6eGIpt9wtnLdMv9LVpIjCA/+ufZRozlVoVelIYixx1ugCBKDhn89vnsEGOCx9A==}
@@ -8848,7 +8866,6 @@ packages:
         optional: true
     dependencies:
       typescript: 5.3.3
-    dev: false
 
   /abstract-level@1.0.4:
     resolution: {integrity: sha512-eUP/6pbXBkMbXFdx4IH2fVgvB7M0JvR7/lIL33zcs0IBcwjdzSSl31TOJsaCzmKSSDF9h8QYSOJux4Nd4YJqFg==}
@@ -12235,7 +12252,6 @@ packages:
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
-    dev: true
 
   /ethers@6.8.1:
     resolution: {integrity: sha512-iEKm6zox5h1lDn6scuRWdIdFJUCGg3+/aQWu0F4K0GVyEZiktFkqrJbRjTn1FlYEPz7RKA707D6g5Kdk6j7Ljg==}
@@ -12251,21 +12267,7 @@ packages:
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
-
-  /ethers@6.9.0:
-    resolution: {integrity: sha512-pmfNyQzc2mseLe91FnT2vmNaTt8dDzhxZ/xItAV7uGsF4dI4ek2ufMu3rAkgQETL/TIs0GS5A+U05g9QyWnv3Q==}
-    engines: {node: '>=14.0.0'}
-    dependencies:
-      '@adraffy/ens-normalize': 1.10.0
-      '@noble/curves': 1.2.0
-      '@noble/hashes': 1.3.2
-      '@types/node': 18.15.13
-      aes-js: 4.0.0-beta.5
-      tslib: 2.4.0
-      ws: 8.5.0
-    transitivePeerDependencies:
-      - bufferutil
-      - utf-8-validate
+    dev: false
 
   /ethjs-util@0.1.6:
     resolution: {integrity: sha512-CUnVOQq7gSpDHZVVrQW8ExxUETWrnrvXYvYz55wOU8Uj4VCgw56XC2B/fVqQN+f7gmrnRHSLVnFAwsCuNwji8w==}
@@ -18278,7 +18280,7 @@ packages:
       '@babel/runtime': 7.23.8
       eventemitter3: 4.0.7
       uuid: 8.3.2
-      ws: 8.14.2(bufferutil@4.0.8)(utf-8-validate@5.0.10)
+      ws: 8.16.0(bufferutil@4.0.8)(utf-8-validate@5.0.10)
     optionalDependencies:
       bufferutil: 4.0.8
       utf-8-validate: 5.0.10
@@ -18712,6 +18714,7 @@ packages:
     resolution: {integrity: sha512-4T7X39csvhT0p7GDnq9vysWddf2b6BeioiN3Ymhnt3xcy9tXmDcnsEFVxX18Z4YcQgEE/w48dLJ4pPPUcG9KkA==}
     dependencies:
       hast-util-to-html: 9.0.0
+    dev: false
 
   /shikiji@0.8.7:
     resolution: {integrity: sha512-j5usxwI0yHkDTHOuhuSJl9+wT5CNYeYO82dJMSJBlJ/NYT5SIebGcPoL6y9QOyH15wGrJC4LOP2nz5k8mUDGRQ==}
@@ -19095,7 +19098,7 @@ packages:
   /standard-as-callback@2.1.0:
     resolution: {integrity: sha512-qoRRSyROncaz1z0mvYqIE4lCd9p2R90i6GxW3uZv5ucSu8tU7B5HXUP1gG8pVZsYNVaXjk8ClXHPttLyxAL48A==}
 
-  /starlight-typedoc@0.8.0(@astrojs/starlight@0.15.4)(astro@4.2.1)(typedoc-plugin-markdown@4.0.0-next.21)(typedoc@0.25.7):
+  /starlight-typedoc@0.8.0(@astrojs/starlight@0.16.0)(astro@4.2.1)(typedoc-plugin-markdown@4.0.0-next.21)(typedoc@0.25.7):
     resolution: {integrity: sha512-lqYZPSafk0Bhh8YHLl/BTt9nhd/aobovMeEkEwybcJ8ag+ro88LM1V/xEh9rgp6vkIgFfqG0iqwlCVgEsNUkeQ==}
     engines: {node: '>=18.14.1'}
     peerDependencies:
@@ -19104,7 +19107,7 @@ packages:
       typedoc: '>=0.25.0'
       typedoc-plugin-markdown: '>=4.0.0-next.21'
     dependencies:
-      '@astrojs/starlight': 0.15.4(astro@4.2.1)
+      '@astrojs/starlight': 0.16.0(astro@4.2.1)
       astro: 4.2.1(typescript@5.3.3)
       github-slugger: 2.0.0
       typedoc: 0.25.7(typescript@5.3.3)
@@ -22115,6 +22118,22 @@ packages:
 
   /ws@8.14.2(bufferutil@4.0.8)(utf-8-validate@5.0.10):
     resolution: {integrity: sha512-wEBG1ftX4jcglPxgFCMJmZ2PLtSbJ2Peg6TmpJFTbe9GZYOQCDPdMYu/Tm0/bGZkw8paZnJY45J4K2PZrLYq8g==}
+    engines: {node: '>=10.0.0'}
+    peerDependencies:
+      bufferutil: ^4.0.1
+      utf-8-validate: '>=5.0.2'
+    peerDependenciesMeta:
+      bufferutil:
+        optional: true
+      utf-8-validate:
+        optional: true
+    dependencies:
+      bufferutil: 4.0.8
+      utf-8-validate: 5.0.10
+    dev: false
+
+  /ws@8.16.0(bufferutil@4.0.8)(utf-8-validate@5.0.10):
+    resolution: {integrity: sha512-HS0c//TP7Ina87TfiPUz1rQzMhHrl/SG2guqRcTOIUYD2q8uhUdNHZYJUaQ8aTGPzCh+c6oawMKW35nFl1dxyQ==}
     engines: {node: '>=10.0.0'}
     peerDependencies:
       bufferutil: ^4.0.1
