@@ -52,10 +52,10 @@
 		"lint:check": "rome check . --verbose",
 		"lint:deps": "bunx depcheck",
 		"lint:package": "bunx publint --strict && attw --pack",
-		"typecheck": "tsc --noEmit",
 		"test": "vitest",
 		"test:run": "vitest run",
-		"test:ui": "vitest --ui"
+		"test:ui": "vitest --ui",
+		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
 		"@tevm/unplugin": "workspace:^"
