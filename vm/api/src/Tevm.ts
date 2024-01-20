@@ -52,5 +52,4 @@ export type Tevm = {
 	// Not implementing any yet
 	// Compile handlers
 	// Not implementing any yet
-	blockNumber: EthBlockNumberHandler
 }

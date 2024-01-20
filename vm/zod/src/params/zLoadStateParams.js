@@ -3,7 +3,6 @@ import { zHex } from '../common/index.js'
 /**
  * Zod validator for a valid load state action
  */
-
 const AccountStorage = z.object({
 	nonce: z.bigint().describe('The nonce of the account'),
 	balance: z.bigint().describe('The balance of the account'),

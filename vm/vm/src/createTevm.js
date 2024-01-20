@@ -184,7 +184,6 @@ export const createTevm = async (options = {}) => {
 				forkUrl: options.fork?.url,
 			}),
 		},
-		blockNumber: blockNumberHandler(blockchain),
 		...(options.fork?.url
 			? { forkUrl: options.fork.url }
 			: { forkUrl: options.fork?.url }),
