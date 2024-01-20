@@ -204,6 +204,8 @@
 		"bundler",
 		"client",
 		"contract",
+		"jsonrpc",
+		"server",
 		"viem",
 		"vm"
 	],
@@ -227,6 +229,7 @@
 	"devDependencies": {
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",
+		"@tevm/base-bundler": "workspace:^",
 		"@tevm/bun-plugin": "workspace:^",
 		"@tevm/compiler": "workspace:^",
 		"@tevm/config": "workspace:^",
@@ -250,6 +253,7 @@
 		"@tevm/base-bundler": "workspace:1.0.0-next.21",
 		"@tevm/client": "workspace:^",
 		"@tevm/contract": "workspace:^",
+		"@tevm/jsonrpc": "workspace:^",
 		"@tevm/viem": "workspace:^",
 		"@tevm/vm": "workspace:^",
 		"abitype": "^0.10.3"
