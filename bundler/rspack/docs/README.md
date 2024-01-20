@@ -14,15 +14,7 @@ pnpm i @tevm/rspack-plugin
 
 ## Usage
 
-TODO
-
-## ConfigOptions
-
-## Usage in @tevm/contract
-
-## Usage in other libraries
-
-## Autocompletion and Typesafety
+See [docs](./docs/functions/tevmPluginRspack.md)
 
 ## License 📄
 

@@ -1,4 +1,4 @@
-import { FileAccessObject } from '@tevm/base'
+import { FileAccessObject } from '@tevm/base-bundler'
 import {
 	existsSync,
 	mkdirSync,

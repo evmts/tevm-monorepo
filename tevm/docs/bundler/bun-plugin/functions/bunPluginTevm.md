@@ -2,11 +2,11 @@
 
 ***
 
-[API](../../../API.md) > [bundler/bun-plugin](../README.md) > tevmBunPlugin
+[API](../../../API.md) > [bundler/bun-plugin](../README.md) > bunPluginTevm
 
-# Function: tevmBunPlugin()
+# Function: bunPluginTevm()
 
-> **tevmBunPlugin**(`__namedParameters`): `bun.BunPlugin`
+> **bunPluginTevm**(`__namedParameters`): `bun.BunPlugin`
 
 ## Parameters
 

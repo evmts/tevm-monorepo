@@ -12,7 +12,7 @@
 
 ## Source
 
-bundler/base/dist/index.d.ts:137
+[bundler/base-bundler/dist/index.d.ts:174](https://github.com/evmts/tevm-monorepo/blob/main/bundler/base-bundler/dist/index.d.ts#L174)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -2,10 +2,10 @@
 
 const bunPlugin = require('@tevm/bun-plugin')
 
-Object.defineProperty(exports, 'tevmBunPlugin', {
+Object.defineProperty(exports, 'bunPluginTevm', {
 	enumerable: true,
 	get: function () {
-		return bunPlugin.tevmBunPlugin
+		return bunPlugin.bunPluginTevm
 	},
 })
 //# sourceMappingURL=out.js.map

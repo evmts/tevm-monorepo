@@ -2,10 +2,10 @@
 
 const webpackPlugin = require('@tevm/webpack-plugin')
 
-Object.defineProperty(exports, 'webpackPluginTevm', {
+Object.defineProperty(exports, 'WebpackPluginTevm', {
 	enumerable: true,
 	get: function () {
-		return webpackPlugin.webpackPluginTevm
+		return webpackPlugin.WebpackPluginTevm
 	},
 })
 //# sourceMappingURL=out.js.map

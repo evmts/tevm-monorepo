@@ -42,7 +42,7 @@
 		"zod": "^3.22.4"
 	},
 	"devDependencies": {
-		"@tevm/base": "workspace:^",
+		"@tevm/base-bundler": "workspace:^",
 		"rome": "^12.1.3",
 		"tsup": "^7.2.0",
 		"typedoc": "^0.25.3",

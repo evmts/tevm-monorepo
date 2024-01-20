@@ -1,6 +1,6 @@
 import { file } from './bunFile.js'
-import { tevmBunPlugin } from './index.js'
-import { bundler } from '@tevm/base'
+import { bunPluginTevm } from './index.js'
+import { bundler } from '@tevm/base-bundler'
 import { loadConfig } from '@tevm/config'
 import { succeed } from 'effect/Effect'
 import { exists, readFile } from 'fs/promises'
@@ -11,8 +11,8 @@ vi.mock('@tevm/config', async () => ({
 	loadConfig: vi.fn(),
 }))
 
-vi.mock('@tevm/base', async () => ({
-	...((await vi.importActual('@tevm/base')) as {}),
+vi.mock('@tevm/base-bundler', async () => ({
+	...((await vi.importActual('@tevm/base-bundler')) as {}),
 	bundler: vi.fn(),
 }))
 
@@ -44,7 +44,7 @@ vi.stubGlobal('process', {
 
 const contractPath = '../../../examples/bun/ExampleContract.sol'
 
-describe('tevmBunPlugin', () => {
+describe('bunPluginTevm', () => {
 	beforeEach(() => {
 		mockFile.mockImplementation((filePath: string) => ({
 			exists: () => exists(filePath),
@@ -65,17 +65,17 @@ describe('tevmBunPlugin', () => {
 	})
 
 	it('should create the plugin correctly', async () => {
-		const plugin = tevmBunPlugin({})
+		const plugin = bunPluginTevm({})
 		expect(plugin.name).toEqual('@tevm/esbuild-plugin')
 	})
 
 	it('Should not specify a target', async () => {
-		const plugin = tevmBunPlugin({})
+		const plugin = bunPluginTevm({})
 		expect(plugin.target).toBeUndefined()
 	})
 
 	it('should load sol files correctly', async () => {
-		const plugin = tevmBunPlugin({})
+		const plugin = bunPluginTevm({})
 
 		const mockBuild = {
 			onLoad: vi.fn(),
@@ -105,7 +105,7 @@ describe('tevmBunPlugin', () => {
 	})
 
 	it('should resolve @tevm/contract correctly when criteria are met', async () => {
-		const plugin = tevmBunPlugin({})
+		const plugin = bunPluginTevm({})
 		const mockBuild = {
 			onResolve: vi.fn(),
 			onLoad: vi.fn(),
@@ -123,7 +123,7 @@ describe('tevmBunPlugin', () => {
 	})
 
 	it('should resolve @tevm/contract when imported from within the project or from node_modules', async () => {
-		const plugin = tevmBunPlugin({})
+		const plugin = bunPluginTevm({})
 		const mockBuild = {
 			onResolve: vi.fn(),
 			onLoad: vi.fn(),
@@ -146,8 +146,8 @@ describe('tevmBunPlugin', () => {
 		expect(resolved.path).toEqual(require.resolve('@tevm/contract'))
 	})
 
-	it('should resolve solidity file using @tevm/base when neither .d.ts nor .ts files exist', async () => {
-		const plugin = tevmBunPlugin({})
+	it('should resolve solidity file using @tevm/base-bundler when neither .d.ts nor .ts files exist', async () => {
+		const plugin = bunPluginTevm({})
 		const mockBuild = {
 			onLoad: vi.fn(),
 			onResolve: vi.fn(),
@@ -168,7 +168,7 @@ describe('tevmBunPlugin', () => {
 	})
 
 	it('should load .ts file when it exists', async () => {
-		const plugin = tevmBunPlugin({})
+		const plugin = bunPluginTevm({})
 
 		const mockBuild = {
 			onLoad: vi.fn(),
@@ -191,7 +191,7 @@ describe('tevmBunPlugin', () => {
 		expect(result.watchFiles).toEqual([`${contractPath}.ts`])
 	})
 	it('should load .ts file when exist', async () => {
-		const plugin = tevmBunPlugin({})
+		const plugin = bunPluginTevm({})
 
 		const mockBuild = {
 			onLoad: vi.fn(),

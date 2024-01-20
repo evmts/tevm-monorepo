@@ -123,7 +123,7 @@ Error.prepareStackTrace
 
 #### Source
 
-node\_modules/.pnpm/@types+node@20.9.1/node\_modules/@types/node/globals.d.ts:11
+node\_modules/.pnpm/@types+node@20.11.5/node\_modules/@types/node/globals.d.ts:28
 
 ***
 
@@ -137,7 +137,7 @@ Error.stackTraceLimit
 
 #### Source
 
-node\_modules/.pnpm/@types+node@20.9.1/node\_modules/@types/node/globals.d.ts:13
+node\_modules/.pnpm/@types+node@20.11.5/node\_modules/@types/node/globals.d.ts:30
 
 ## Methods
 
@@ -159,7 +159,7 @@ Error.captureStackTrace
 
 #### Source
 
-node\_modules/.pnpm/@types+node@20.9.1/node\_modules/@types/node/globals.d.ts:4
+node\_modules/.pnpm/@types+node@20.11.5/node\_modules/@types/node/globals.d.ts:21
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

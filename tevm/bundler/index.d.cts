@@ -7,4 +7,4 @@ export {
 	SolidityResolver,
 	SyncBundlerResult,
 	bundler,
-} from '@tevm/base'
+} from '@tevm/base-bundler'

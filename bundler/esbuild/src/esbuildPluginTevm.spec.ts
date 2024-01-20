@@ -1,8 +1,8 @@
-import { esbuildPluginTevm } from './index.js'
+import { esbuildPluginTevm } from './esbuildPluginTevm.js'
 import { describe, expect, it, vi } from 'vitest'
 
 describe('esbuildPluginTevm', () => {
-	it('should properly export the unplugin bundler from @tevm/base', async () => {
+	it('should properly export the unplugin bundler from @tevm/base-bundler', async () => {
 		const plugin = esbuildPluginTevm()
 
 		expect(plugin.name).toMatchInlineSnapshot('"@tevm/rollup-plugin"')

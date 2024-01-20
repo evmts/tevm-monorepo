@@ -139,7 +139,7 @@ Error.prepareStackTrace
 
 #### Source
 
-node\_modules/.pnpm/@types+node@20.9.1/node\_modules/@types/node/globals.d.ts:11
+node\_modules/.pnpm/bun-types@1.0.21/node\_modules/bun-types/types.d.ts:2235
 
 ***
 
@@ -153,7 +153,7 @@ Error.stackTraceLimit
 
 #### Source
 
-node\_modules/.pnpm/@types+node@20.9.1/node\_modules/@types/node/globals.d.ts:13
+node\_modules/.pnpm/bun-types@1.0.21/node\_modules/bun-types/types.d.ts:2239
 
 ## Methods
 
@@ -177,7 +177,7 @@ Error.captureStackTrace
 
 ##### Source
 
-node\_modules/.pnpm/@types+node@20.9.1/node\_modules/@types/node/globals.d.ts:4
+node\_modules/.pnpm/bun-types@1.0.21/node\_modules/bun-types/types.d.ts:2228
 
 #### captureStackTrace(targetObject, constructorOpt)
 
@@ -197,7 +197,7 @@ Error.captureStackTrace
 
 ##### Source
 
-node\_modules/.pnpm/bun-types@1.0.21/node\_modules/bun-types/types.d.ts:2228
+node\_modules/.pnpm/@types+node@20.11.5/node\_modules/@types/node/globals.d.ts:21
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
