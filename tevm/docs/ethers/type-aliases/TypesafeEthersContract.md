@@ -30,7 +30,7 @@
 
 | Parameter |
 | :------ |
-| `TAbi` extends `Abi` |
+| `TAbi` extends [`Abi`](../../index/type-aliases/Abi.md) |
 
 ## Source
 

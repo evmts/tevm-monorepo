@@ -12,7 +12,7 @@ Parses JSON ABI into human-readable ABI
 
 ## Type parameters
 
-▪ **TAbi** extends readonly `unknown`[] \| [`Abi`](../type-aliases/Abi.md)
+▪ **TAbi** extends [`Abi`](../type-aliases/Abi.md) \| readonly `unknown`[]
 
 ## Parameters
 

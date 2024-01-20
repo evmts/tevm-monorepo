@@ -280,7 +280,7 @@ Creates a Filter to retrieve event logs that can be used with [`getFilterChanges
 
 ▪ **TEventName** extends `undefined` \| `string`
 
-▪ **TArgs** extends `undefined` \| `Record`\<`string`, `unknown`\> \| readonly `unknown`[]
+▪ **TArgs** extends `undefined` \| readonly `unknown`[] \| `Record`\<`string`, `unknown`\>
 
 ▪ **TStrict** extends `undefined` \| `boolean` = `undefined`
 
@@ -360,7 +360,7 @@ Creates a [`Filter`](https://viem.sh/docs/glossary/types.html#filter) to listen 
 
 ▪ **_EventName** extends `undefined` \| `string` = `MaybeAbiEventName`\<`TAbiEvent`\>
 
-▪ **_Args** extends `undefined` \| `Record`\<`string`, `unknown`\> \| readonly `unknown`[] = `undefined`
+▪ **_Args** extends `undefined` \| readonly `unknown`[] \| `Record`\<`string`, `unknown`\> = `undefined`
 
 ###### Parameters
 
