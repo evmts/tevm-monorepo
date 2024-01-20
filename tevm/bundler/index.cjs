@@ -1,12 +1,12 @@
-'use strict';
+'use strict'
 
-var baseBundler = require('@tevm/base-bundler');
-
-
+const baseBundler = require('@tevm/base-bundler')
 
 Object.defineProperty(exports, 'bundler', {
-  enumerable: true,
-  get: function () { return baseBundler.bundler; }
-});
+	enumerable: true,
+	get: function () {
+		return baseBundler.bundler
+	},
+})
 //# sourceMappingURL=out.js.map
 //# sourceMappingURL=index.cjs.map
