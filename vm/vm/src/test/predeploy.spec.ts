@@ -1,4 +1,4 @@
-import { createTevm } from '../createTevm.js'
+import { createMemoryTevm } from '../createMemoryTevm.js'
 import { DaiContract } from '../test/DaiContract.sol.js'
 import { Address, hexToBytes, toBytes } from '@ethereumjs/util'
 import { createScript } from '@tevm/contract'
@@ -22,7 +22,7 @@ test('Call predeploy from TypeScript', async () => {
 		contract,
 	})
 
-	const tevm = await createTevm({
+	const tevm = await createMemoryTevm({
 		customPredeploys: [predeploy],
 	})
 
@@ -34,12 +34,11 @@ test('Call predeploy from TypeScript', async () => {
 	).toEqual(toBytes(deployedBytecode))
 
 	// Test predeploy contract call
-	const res = await tevm.contract({
-		to: predeploy.address,
-		...predeploy.contract.read.balanceOf(
-			'0xf0d4c12a5768d806021f80a262b4d39d26c58b8d',
-		),
-	})
+	const res = await tevm.contract(
+		predeploy.contract
+			.withAddress(predeploy.address)
+			.read.balanceOf('0xf0d4c12a5768d806021f80a262b4d39d26c58b8d'),
+	)
 
 	expect(res.errors).toEqual(undefined as any)
 	expect(res.data).toBe(0n)

@@ -1,3 +1,6 @@
+/**
+ * Error thrown when request is malformed
+ */
 export class BadRequestError extends Error {
 	/**
 	 * @type {'BadRequestError'}

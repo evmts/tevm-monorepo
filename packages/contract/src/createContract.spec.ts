@@ -96,6 +96,7 @@ describe(createContract.name, () => {
 			  "humanReadableAbi": [
 			    "function exampleWrite(string str, uint256 num) payable returns (string)",
 			  ],
+			  "to": "0xaAaAaAaaAaAaAaaAaAAAAAAAAaaaAaAaAaaAaaAa",
 			}
 		`)
 		expect(
@@ -135,6 +136,7 @@ describe(createContract.name, () => {
 			  "humanReadableAbi": [
 			    "function exampleRead(string str, uint256 num) pure returns (string)",
 			  ],
+			  "to": "0xaAaAaAaaAaAaAaaAaAAAAAAAAaaaAaAaAaaAaaAa",
 			}
 		`)
 		expect(

@@ -1,5 +1,5 @@
-import { hexToBigInt } from 'viem'
 import { loadStateHandler } from '../index.js'
+import { hexToBigInt } from 'viem'
 
 /**
  * Creates a LoadState JSON-RPC Procedure for handling LoadState requests with Ethereumjs EVM

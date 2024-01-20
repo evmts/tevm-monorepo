@@ -1,4 +1,5 @@
-import { createTevm } from '../createTevm.js'
+import { createMemoryTevm } from '../createMemoryTevm.js'
+import { UnsupportedMethodError } from '../index.js'
 import { DaiContract } from './DaiContract.sol.js'
 import { Address, bigIntToHex } from '@ethereumjs/util'
 import type { ContractJsonRpcRequest, ScriptJsonRpcRequest } from '@tevm/api'
@@ -20,7 +21,7 @@ const forkConfig = {
 }
 
 describe('Tevm.request', async () => {
-	const tevm = await createTevm()
+	const tevm = await createMemoryTevm()
 
 	it('should execute a script request', async () => {
 		const req = {
@@ -55,7 +56,7 @@ describe('Tevm.request', async () => {
 	})
 
 	it('should throw an error if attempting a tevm_contractCall request', async () => {
-		const tevm = await createTevm()
+		const tevm = await createMemoryTevm()
 		const req = {
 			params: {
 				data: encodeFunctionData(
@@ -66,15 +67,20 @@ describe('Tevm.request', async () => {
 				to: contractAddress,
 			},
 			jsonrpc: '2.0',
-			method: 'tevm_contractCall' as any,
+			method: 'tevm_NotARequest' as any,
 			id: 1,
 		} as const satisfies ContractJsonRpcRequest
 		const res = await tevm.request(req)
-		expect(res.error.code).toEqual('UnknownMethodError')
+		expect(res.error.code).toMatch(
+			new UnsupportedMethodError('tevm_NotARequest')._tag,
+		)
+		expect(res.error.message).toMatch(
+			new UnsupportedMethodError('tevm_NotARequest').message,
+		)
 	})
 
 	it('should execute a contractCall request via using tevm_call', async () => {
-		const tevm = await createTevm({
+		const tevm = await createMemoryTevm({
 			fork: forkConfig,
 		})
 		const req = {
@@ -112,11 +118,11 @@ describe('Tevm.request', async () => {
 	})
 
 	it('should execute a call request', async () => {
-		const tevm = await createTevm()
+		const tevm = await createMemoryTevm()
 		const balance = 0x11111111n
 		const address1 = '0x1f420000000000000000000000000000000000ff'
 		const address2 = '0x2f420000000000000000000000000000000000ff'
-		await tevm.account({
+		await tevm.setAccount({
 			address: address1,
 			balance,
 		})
@@ -156,11 +162,11 @@ describe('Tevm.request', async () => {
 	})
 
 	it('Should execute a putAccount request', async () => {
-		const tevm = await createTevm()
+		const tevm = await createMemoryTevm()
 		const balance = 0x11111111n
 		const res = await tevm.request({
 			jsonrpc: '2.0',
-			method: 'tevm_account',
+			method: 'tevm_setAccount',
 			id: 1,
 			params: {
 				address: '0xff420000000000000000000000000000000000ff',

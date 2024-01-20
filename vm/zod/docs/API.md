@@ -1,0 +1,35 @@
+**@tevm/zod** ∙ [README](README.md) ∙ [API](API.md)
+
+***
+
+# API
+
+## Exports
+
+### Variables
+
+- [zAbi](variables/zAbi.md)
+- [zAddress](variables/zAddress.md)
+- [zBaseCallParams](variables/zBaseCallParams.md)
+- [zBlock](variables/zBlock.md)
+- [zBytecode](variables/zBytecode.md)
+- [zCallParams](variables/zCallParams.md)
+- [zContractParams](variables/zContractParams.md)
+- [zGetAccountParams](variables/zGetAccountParams.md)
+- [zHex](variables/zHex.md)
+- [zJsonRpcRequest](variables/zJsonRpcRequest.md)
+- [zScriptParams](variables/zScriptParams.md)
+- [zSetAccountParams](variables/zSetAccountParams.md)
+- [zStorageRoot](variables/zStorageRoot.md)
+
+### Functions
+
+- [validateBaseCallParams](functions/validateBaseCallParams.md)
+- [validateCallParams](functions/validateCallParams.md)
+- [validateContractParams](functions/validateContractParams.md)
+- [validateGetAccountParams](functions/validateGetAccountParams.md)
+- [validateScriptParams](functions/validateScriptParams.md)
+- [validateSetAccountParams](functions/validateSetAccountParams.md)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

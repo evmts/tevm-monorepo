@@ -1,5 +1,5 @@
-import { toHex } from 'viem'
 import { dumpStateHandler } from '../index.js'
+import { toHex } from 'viem'
 
 /**
  * Creates a DumpState JSON-RPC Procedure for handling dumpState requests with Ethereumjs EVM

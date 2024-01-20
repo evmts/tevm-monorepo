@@ -1,6 +1,5 @@
 export {
-	type MemoryClient,
-	type RemoteClient,
-	createMemoryClient,
-	createRemoteClient,
+	type ClientOptions,
+	type TevmClient,
+	createTevmClient,
 } from '@tevm/client'

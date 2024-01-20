@@ -1,4 +1,4 @@
-import { createTevm } from '../createTevm.js'
+import { createMemoryTevm } from '../createMemoryTevm.js'
 import { DaiContract } from './DaiContract.sol.js'
 import { Address } from '@ethereumjs/util'
 import { describe, expect, it } from 'bun:test'
@@ -44,7 +44,7 @@ const forkConfig = {
 describe('Tevm should create a local vm in JavaScript', () => {
 	describe('Tevm.script', () => {
 		it('should execute scripts based on their bytecode and return the result', async () => {
-			const tevm = await createTevm()
+			const tevm = await createMemoryTevm()
 			const res = await tevm.script(
 				DaiContract.script.balanceOf(
 					'0x00000000000000000000000000000000000000ff',
@@ -62,7 +62,7 @@ describe('Tevm should create a local vm in JavaScript', () => {
 		})
 
 		it('should work for add contract', async () => {
-			const tevm = await createTevm()
+			const tevm = await createMemoryTevm()
 			const res = await tevm.script({
 				deployedBytecode: addbytecode,
 				abi: addabi,
@@ -77,11 +77,11 @@ describe('Tevm should create a local vm in JavaScript', () => {
 
 	describe('Tevm.call', () => {
 		it('should execute a call on the vm', async () => {
-			const tevm = await createTevm()
+			const tevm = await createMemoryTevm()
 			const balance = 0x11111111n
 			const address1 = '0x1f420000000000000000000000000000000000ff'
 			const address2 = '0x2f420000000000000000000000000000000000ff'
-			await tevm.account({
+			await tevm.setAccount({
 				address: address1,
 				balance,
 			})
@@ -114,7 +114,7 @@ describe('Tevm should create a local vm in JavaScript', () => {
 
 	describe('Tevm.contract', () => {
 		it('should fork a network and then execute a contract call', async () => {
-			const tevm = await createTevm({ fork: forkConfig })
+			const tevm = await createMemoryTevm({ fork: forkConfig })
 			// TODO test other inputs
 			const res = await tevm.contract({
 				to: contractAddress,
@@ -134,17 +134,17 @@ describe('Tevm should create a local vm in JavaScript', () => {
 
 	describe('Tevm.account', () => {
 		it('should insert a new account with eth into the state', async () => {
-			const tevm = await createTevm()
+			const tevm = await createMemoryTevm()
 			const balance = 0x11111111n
-			const account = await tevm.account({
+			const account = await tevm.setAccount({
 				address: '0xff420000000000000000000000000000000000ff',
 				balance,
 			})
 			expect(account).not.toHaveProperty('errors')
 		})
 		it('should insert a new contract with bytecode', async () => {
-			const tevm = await createTevm()
-			const code = await tevm.account({
+			const tevm = await createMemoryTevm()
+			const code = await tevm.setAccount({
 				deployedBytecode: DaiContract.deployedBytecode,
 				address: '0xff420000000000000000000000000000000000ff',
 			})

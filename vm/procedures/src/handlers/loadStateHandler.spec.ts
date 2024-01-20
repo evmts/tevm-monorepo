@@ -1,8 +1,8 @@
+import { loadStateHandler } from './loadStateHandler.js'
 import { Address } from '@ethereumjs/util'
 import { DefaultTevmStateManager } from '@tevm/state'
-import { bytesToHex, hexToBytes, toRlp } from 'viem'
-import { loadStateHandler } from './loadStateHandler.js'
 import { expect, test } from 'bun:test'
+import { bytesToHex, hexToBytes, toRlp } from 'viem'
 
 test('should load state into the state manager', async () => {
 	const stateManager = new DefaultTevmStateManager()

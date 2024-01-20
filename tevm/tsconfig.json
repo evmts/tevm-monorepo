@@ -14,8 +14,12 @@
     "bundler/**/index.ts",
     "client/index.ts",
     "contract/index.ts",
+    "server/index.ts",
     "viem/index.ts",
+    "jsonrpc/index.ts",
     "vm/index.ts",
+    "predeploys/index.ts",
+    "state/index.ts",
     "index.ts"
   ]
 }

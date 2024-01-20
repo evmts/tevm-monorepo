@@ -25,7 +25,7 @@
 	"exports": {
 		".": {
 			"import": {
-				"types": "./dist/index.d.ts",
+				"types": "./types/index.d.ts",
 				"default": "./dist/index.js"
 			},
 			"require": {
@@ -40,13 +40,14 @@
 	"types": "src/index.d.ts",
 	"files": [
 		"dist",
-		"src"
+		"src",
+		"types"
 	],
 	"scripts": {
 		"all": "bun run lint && bun run format && bun run build && bun run test",
 		"build": "nx run-many --targets=build:dist --projects=@tevm/blockexplorer ",
 		"build:dist": "tsup",
-		"build:types": "tsup --dts-only",
+		"build:types": "tsup --dts-only && tsc --emitDeclarationOnly --declaration",
 		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
 		"format": "rome format . --write",
 		"format:check": "rome format .",

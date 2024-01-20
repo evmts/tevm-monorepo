@@ -1,5 +1,5 @@
 import { fao } from './fao.js'
-import { bundler } from '@tevm/base'
+import { bundler } from '@tevm/base-bundler'
 import { createCache } from '@tevm/bundler-cache'
 import { loadConfig } from '@tevm/config'
 import { createSolc, releases } from '@tevm/solc'
@@ -14,11 +14,7 @@ const defaultVersion = defaultSolc
 	.slice(0, defaultSolc.version().indexOf('+'))
 
 /**
- * @typedef {import("@tevm/solc").SolcVersions} SolcVersions
- */
-
-/**
- * @type {import("zod").ZodSchema<SolcVersions>}
+ * @type {import("zod").ZodSchema<import('@tevm/solc').SolcVersions>}
  */
 const compilerOptionValidator = z
 	.union(

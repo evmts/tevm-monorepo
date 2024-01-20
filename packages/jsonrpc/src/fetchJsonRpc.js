@@ -3,9 +3,13 @@
  */
 
 /**
+ * @typedef {string[][] | Record<string, string | ReadonlyArray<string>> | Headers} HeadersInit
+ */
+/**
  * Makes a JSON-RPC request to a url
  * @see https://ethereum.org/en/developers/docs/apis/json-rpc/
  * @param {string} url to JSON RPC backend
+ * @param {HeadersInit} headers to send with the request
  * @returns {import("./JsonRpcClient.js").JsonRpcClient} the `result` field from the JSON-RPC response
  * @example
  * ```typescript
@@ -15,8 +19,14 @@
  *   params: ['latest', false],
  * }
  * const {result: block} = await fetchJsonRpc(url, params)
+ * ```
  */
-export const createJsonRpcFetcher = (url) => {
+export const createJsonRpcFetcher = (
+	url,
+	headers = {
+		Referer: 'https://tevm.sh',
+	},
+) => {
 	return {
 		url,
 		request: async (request) => {
@@ -29,8 +39,7 @@ export const createJsonRpcFetcher = (url) => {
 			const res = await fetch(url, {
 				headers: {
 					'content-type': 'application/json',
-					// Identify ourselves!
-					Referer: 'foo',
+					...headers,
 				},
 				method: 'POST',
 				body: data,

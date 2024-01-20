@@ -1,5 +1,5 @@
 import { getDefinitionServiceDecorator } from './getDefinitionAtPosition.js'
-import { FileAccessObject } from '@tevm/base'
+import { FileAccessObject } from '@tevm/base-bundler'
 import { createCache } from '@tevm/bundler-cache'
 import { access, mkdir, writeFile } from 'fs/promises'
 import { tmpdir } from 'os'
@@ -8,7 +8,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 // TODO these tests are awful this should be tested e2e against real fixtures
 
-vi.mock('@tevm/base', async () => ({
+vi.mock('@tevm/base-bundler', async () => ({
 	bundler: vi.fn(),
 }))
 vi.mock('../utils', async () => {
@@ -92,7 +92,7 @@ const mockLanguageService = {
 
 describe('getDefinitionServiceDecorator', () => {
 	beforeEach(() => {
-		vi.mock('@tevm/base', async () => ({
+		vi.mock('@tevm/base-bundler', async () => ({
 			bundler: vi.fn(),
 		}))
 		vi.mock('../utils', async () => {
@@ -201,7 +201,7 @@ describe('getDefinitionServiceDecorator', () => {
 	})
 
 	it('should log an error if resolveDtsSync cannot resolve ASTs', () => {
-		vi.mock('@tevm/base', async () => ({
+		vi.mock('@tevm/base-bundler', async () => ({
 			bundler: vi.fn(() => ({
 				resolveDtsSync: vi.fn(() => ({ asts: null })),
 			})),
@@ -289,7 +289,7 @@ describe('getDefinitionServiceDecorator', () => {
 	})
 
 	it('should handle multiple ASTs', () => {
-		vi.mock('@tevm/base', async () => ({
+		vi.mock('@tevm/base-bundler', async () => ({
 			bundler: vi.fn(() => ({
 				resolveDtsSync: vi.fn(() => ({
 					asts: {

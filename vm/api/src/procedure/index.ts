@@ -1,4 +1,5 @@
-export type * from './AccountJsonRpcProcedure.js'
+export type * from './GetAccountJsonRpcProcedure.js'
+export type * from './SetAccountJsonRpcProcedure.js'
 export type * from './CallJsonRpcProcedure.js'
 export type * from './ContractJsonRpcProcedure.js'
 export type * from './ScriptJsonRpcProcedure.js'

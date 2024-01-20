@@ -15,7 +15,8 @@ export type {
 	AnvilSetCodeParams,
 	DebugTraceTransactionParams,
 	TraceParams,
-	AccountParams,
+	GetAccountParams,
+	SetAccountParams,
 	CallParams,
 	ScriptParams,
 	BaseCallParams,
@@ -74,7 +75,9 @@ export type {
 	TraceType,
 } from './common/index.js'
 export type {
-	AccountError,
+	AccountNotFoundError,
+	GetAccountError,
+	SetAccountError,
 	EvmError,
 	CallError,
 	TypedError,
@@ -111,7 +114,8 @@ export type {
 export type {
 	CallHandler,
 	ScriptHandler,
-	AccountHandler,
+	GetAccountHandler,
+	SetAccountHandler,
 	ContractHandler,
 	EthCallHandler,
 	EthSignHandler,
@@ -170,7 +174,8 @@ export type {
 	LoadStateHandler,
 } from './handlers/index.js'
 export type {
-	AccountResult,
+	GetAccountResult,
+	SetAccountResult,
 	CallResult,
 	ScriptResult,
 	ContractResult,
@@ -233,7 +238,8 @@ export type {
 	JsonRpcRequest,
 	CallJsonRpcRequest,
 	ScriptJsonRpcRequest,
-	AccountJsonRpcRequest,
+	GetAccountJsonRpcRequest,
+	SetAccountJsonRpcRequest,
 	ContractJsonRpcRequest,
 	DumpStateJsonRpcRequest,
 	LoadStateJsonRpcRequest,
@@ -298,7 +304,8 @@ export type {
 	CallJsonRpcResponse,
 	ContractJsonRpcResponse,
 	ScriptJsonRpcResponse,
-	AccountJsonRpcResponse,
+	GetAccountJsonRpcResponse,
+	SetAccountJsonRpcResponse,
 	EthCallJsonRpcResponse,
 	EthSignJsonRpcResponse,
 	EthMiningJsonRpcResponse,
@@ -358,7 +365,8 @@ export type {
 	CallJsonRpcProcedure,
 	ContractJsonRpcProcedure,
 	ScriptJsonRpcProcedure,
-	AccountJsonRpcProcedure,
+	GetAccountJsonRpcProcedure,
+	SetAccountJsonRpcProcedure,
 	EthCallJsonRpcProcedure,
 	EthSignJsonRpcProcedure,
 	EthMiningJsonRpcProcedure,
@@ -416,7 +424,8 @@ export type {
 	DumpStateJsonRpcProcedure,
 } from './procedure/index.js'
 export type {
+	JsonRpcReturnTypeFromMethod,
+	JsonRpcRequestTypeFromMethod,
 	TevmJsonRpcRequestHandler,
-	EthJsonRpcRequestHandler,
 } from './TevmJsonRpcRequestHandler.js'
 export type { Tevm } from './Tevm.js'

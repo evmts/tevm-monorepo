@@ -1,2 +1,3 @@
-export { createRemoteClient, type RemoteClient } from './createRemoteClient.js'
-export { createMemoryClient, type MemoryClient } from './createMemoryClient.js'
+export { createTevmClient } from './createTevmClient.js'
+export type { ClientOptions } from './ClientOptions.js'
+export type { TevmClient } from './TevmClient.js'

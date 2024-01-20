@@ -1,5 +1,5 @@
-import { accountHandler } from './accountHandler.js'
 import { callHandler } from './callHandler.js'
+import { setAccountHandler } from './setAccountHandler.js'
 import { Address } from '@ethereumjs/util'
 import { validateScriptParams } from '@tevm/zod'
 import {
@@ -65,7 +65,7 @@ export const scriptHandler = (evm) => async (params) => {
 		).toString()
 	)
 
-	const accountRes = await accountHandler(evm)({
+	const accountRes = await setAccountHandler(evm)({
 		deployedBytecode: params.deployedBytecode,
 		address: scriptAddress,
 	})

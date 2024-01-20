@@ -1,12 +1,12 @@
-'use strict'
+'use strict';
 
-const bunPlugin = require('@tevm/bun-plugin')
+var bunPlugin = require('@tevm/bun-plugin');
 
-Object.defineProperty(exports, 'tevmBunPlugin', {
-	enumerable: true,
-	get: function () {
-		return bunPlugin.tevmBunPlugin
-	},
-})
+
+
+Object.defineProperty(exports, "bunPluginTevm", {
+  enumerable: true,
+  get: function () { return bunPlugin.bunPluginTevm; }
+});
 //# sourceMappingURL=out.js.map
 //# sourceMappingURL=index.cjs.map

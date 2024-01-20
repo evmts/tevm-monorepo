@@ -1,3 +1,7 @@
+/**
+ * Error thrown when a action or request cannot be fulfilled
+ * without a proxy url being configured
+ */
 export class NoProxyConfiguredError extends Error {
 	/**
 	 * @type {'NoProxyConfiguredError'}

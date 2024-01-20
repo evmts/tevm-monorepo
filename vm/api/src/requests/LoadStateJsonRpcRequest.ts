@@ -1,6 +1,6 @@
-import type { ParameterizedTevmState } from '@tevm/state'
 import type { SerializeToJson } from '../utils/SerializeToJson.js'
 import type { JsonRpcRequest } from './JsonRpcRequest.js'
+import type { ParameterizedTevmState } from '@tevm/state'
 
 /**
  * The parameters for the `tevm_loadState` method

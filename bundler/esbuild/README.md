@@ -10,37 +10,7 @@ pnpm i @tevm/webpack-plugin
 
 ## Usage
 
-Install webpack plugin
-
-```bash
-npm i @tevm/webpack-plugin
-```
-
-Add to your webpack config
-
-```typescript
-import {ForgePlugin} from '@tevm/webpack-plugin'
-
-export default {
-  // ... other configuration settings
-  plugins: [
-    // ... other plugins
-    new ForgePlugin({
-      project: './contracts'
-    }),
-  ],
-};
-```
-
-## ConfigOptions
-
-
-## Usage in @tevm/contract
-
-## Usage in other libraries
-
-
-## Autocompletion and Typesafety
+See [docs](./docs/functions/tevmPluginEsbuild.md)
 
 ## License 📄
 

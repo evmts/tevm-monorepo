@@ -5,6 +5,7 @@ const dirs = [
 	'.',
 	'api',
 	'bundler',
+	'bundler/base-bundler',
 	'bundler/bun-plugin',
 	'bundler/compiler',
 	'bundler/config',
@@ -17,6 +18,10 @@ const dirs = [
 	'bundler/webpack-plugin',
 	'client',
 	'contract',
+	'jsonrpc',
+	'predeploys',
+	'server',
+	'state',
 	'viem',
 	'vm',
 ]

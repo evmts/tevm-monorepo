@@ -20,7 +20,7 @@ jobs:
     timeout-minutes: 10
     strategy:
       matrix:
-        agent: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+        agent: [1, 2, 3, 4, 5, 6, 7, 8]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -66,7 +66,7 @@ jobs:
           cmd4: bunx nx affected --target test:coverage
           cmd5: bunx nx affected --target lint:check
           cmd6: bunx nx affected --target lint:deps
-          cmd7: bunx nx affected --target lint:package
+          cmd7: bunx nx affected --target lint:package 
           cmd8: bunx nx affected --target dev:run
           cmd9: bun sort-package-json:check
           cmd10: bunx nx affected --target generate:docs

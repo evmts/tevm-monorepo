@@ -5,6 +5,8 @@
 		"lib": ["esnext"],
 		"module": "NodeNext",
 		"moduleResolution": "NodeNext",
+		"declarationMap": true,
+		"declaration": true,
 		"allowJs": true,
 		"checkJs": true,
 		"isolatedModules": true,

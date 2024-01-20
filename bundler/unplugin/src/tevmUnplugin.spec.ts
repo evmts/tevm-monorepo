@@ -1,5 +1,5 @@
 import { tevmUnplugin } from './tevmUnplugin.js'
-import { bundler } from '@tevm/base'
+import { bundler } from '@tevm/base-bundler'
 import { loadConfig } from '@tevm/config'
 import { succeed } from 'effect/Effect'
 import { existsSync } from 'fs'
@@ -26,8 +26,8 @@ vi.mock('@tevm/config', async () => ({
 	...((await vi.importActual('@tevm/config')) as {}),
 	loadConfig: vi.fn(),
 }))
-vi.mock('@tevm/base', async () => ({
-	...((await vi.importActual('@tevm/base')) as {}),
+vi.mock('@tevm/base-bundler', async () => ({
+	...((await vi.importActual('@tevm/base-bundler')) as {}),
 	bundler: vi.fn(),
 }))
 

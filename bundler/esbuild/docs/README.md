@@ -1,4 +1,6 @@
-@tevm/esbuild-plugin / [Exports](modules.md)
+**@tevm/esbuild-plugin** ∙ [README](README.md) ∙ [API](API.md)
+
+***
 
 # @tevm/plugin
 
@@ -12,36 +14,11 @@ pnpm i @tevm/webpack-plugin
 
 ## Usage
 
-Install webpack plugin
-
-```bash
-npm i @tevm/webpack-plugin
-```
-
-Add to your webpack config
-
-```typescript
-import {ForgePlugin} from '@tevm/webpack-plugin'
-
-export default {
-  // ... other configuration settings
-  plugins: [
-    // ... other plugins
-    new ForgePlugin({
-      project: './contracts'
-    }),
-  ],
-};
-```
-
-## ConfigOptions
-
-## Usage in @tevm/contract
-
-## Usage in other libraries
-
-## Autocompletion and Typesafety
+See [docs](./docs/functions/tevmPluginEsbuild.md)
 
 ## License 📄
 
 <a href="./LICENSE"><img src="https://user-images.githubusercontent.com/35039927/231030761-66f5ce58-a4e9-4695-b1fe-255b1bceac92.png" width="200" /></a>
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,15 +1,15 @@
-'use strict'
+'use strict';
 
-const tsPlugin = require('@tevm/ts-plugin')
+var __require = /* @__PURE__ */ ((x) => typeof require !== "undefined" ? require : typeof Proxy !== "undefined" ? new Proxy(x, {
+  get: (a, b) => (typeof require !== "undefined" ? require : a)[b]
+}) : x)(function(x) {
+  if (typeof require !== "undefined")
+    return require.apply(this, arguments);
+  throw Error('Dynamic require of "' + x + '" is not supported');
+});
 
-Object.keys(tsPlugin).forEach(function (k) {
-	if (k !== 'default' && !Object.prototype.hasOwnProperty.call(exports, k))
-		Object.defineProperty(exports, k, {
-			enumerable: true,
-			get: function () {
-				return tsPlugin[k]
-			},
-		})
-})
+// bundler/ts-plugin/index.ts
+var tsPlugin = __require("@tevm/ts-plugin");
+exports = tsPlugin;
 //# sourceMappingURL=out.js.map
 //# sourceMappingURL=index.cjs.map

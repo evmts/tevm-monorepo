@@ -8,6 +8,7 @@ import { formatAbi } from 'abitype'
  * @param {import('viem').Hex} [params.bytecode]
  * @param {import('viem').Hex} [params.deployedBytecode]
  * @param {import('abitype').Address} [params.address]
+ * @returns {import('./EventActionCreator.js').EventActionCreator<any, any, any, any>}
  */
 export const eventsFactory = ({ abi, bytecode, deployedBytecode, address }) =>
 	Object.fromEntries(

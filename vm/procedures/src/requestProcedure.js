@@ -1,32 +1,44 @@
 import { UnknownMethodError } from './errors/UnknownMethodError.js'
 import {
-	accountProcedure,
 	blockNumberProcedure,
 	callProcedure,
 	chainIdProcedure,
 	dumpStateProcedure,
 	gasPriceProcedure,
+	getAccountProcedure,
 	getBalanceProcedure,
 	getCodeProcedure,
 	getStorageAtProcedure,
 	loadStateProcedure,
 	scriptProcedure,
+	setAccountProcedure,
 } from './index.js'
 
 /**
- * Handles a single tevm json rpc request
- * Infers return type from request
+ * Request handler for JSON-RPC requests.
+ *
+ * This implementation of the Tevm requestProcedure spec
+ * implements it via the ethereumjs VM.
+ *
+ * Most users will want to use `Tevm.request` instead of
+ * this method but this method may be desired if hyper optimizing
+ * bundle size.
+ *
  * @param {import('@ethereumjs/vm').VM} vm
  * @returns {import('@tevm/api').TevmJsonRpcRequestHandler}
  * @example
  * ```typescript
- * const res = await requestProcedure(evm)({
- *  jsonrpc: '2.0',
- *  id: '1',
- *  method: 'tevm_call',
- *  params: {
- *    to: '0x000000000'
- *  }
+ * const blockNumberResponse = await tevm.request({
+ *  method: 'eth_blockNumber',
+ *  params: []
+ *  id: 1
+ *  jsonrpc: '2.0'
+ * })
+ * const accountResponse = await tevm.request({
+ *  method: 'tevm_getAccount',
+ *  params: [{address: '0x123...'}]
+ *  id: 1
+ *  jsonrpc: '2.0'
  * })
  * ```
  */
@@ -50,8 +62,10 @@ export const requestProcedure = (vm) => {
 							'UnknownMethodError: tevm_contract is not supported. Encode the contract arguments and use tevm_call instead.',
 					},
 				})
-			case 'tevm_account':
-				return /**@type any*/ (accountProcedure)(vm.evm)(request)
+			case 'tevm_getAccount':
+				return /**@type any*/ (getAccountProcedure)(vm.evm)(request)
+			case 'tevm_setAccount':
+				return /**@type any*/ (setAccountProcedure)(vm.evm)(request)
 			case 'tevm_script':
 				return /**@type any*/ (scriptProcedure)(vm.evm)(request)
 			case 'eth_blockNumber':

@@ -10,7 +10,7 @@ import { access, mkdir, readFile, stat, writeFile } from 'fs/promises'
 import defaultSolc from 'solc'
 
 /**
- * @type {import("@tevm/base").FileAccessObject}
+ * @type {import("@tevm/base-bundler").FileAccessObject}
  */
 export const fao = {
 	existsSync,

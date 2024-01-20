@@ -2,19 +2,20 @@ import { ERC20 } from './tests/ERC20.sol.js'
 import { tevmViemExtension } from './tevmViemExtension.js'
 import { Address } from '@ethereumjs/util'
 import { createHttpHandler } from '@tevm/server'
-import type { Tevm } from '@tevm/vm'
-import { createTevm } from '@tevm/vm'
+import { type MemoryTevm, createMemoryTevm } from '@tevm/vm'
 import { afterAll, beforeAll, describe, expect, it } from 'bun:test'
 import { Server, createServer } from 'http'
 import { type PublicClient, createPublicClient, http } from 'viem'
 
 describe('tevmViemExtension', () => {
-	let tevm: Tevm
+	let tevm: MemoryTevm
 	let server: Server
 	let client: PublicClient
 
 	beforeAll(async () => {
-		tevm = await createTevm({ fork: { url: 'https://mainnet.optimism.io' } })
+		tevm = await createMemoryTevm({
+			fork: { url: 'https://mainnet.optimism.io' },
+		})
 		server = createServer(createHttpHandler(tevm)).listen(6969)
 		client = createPublicClient({
 			transport: http('http://localhost:6969'),
@@ -28,7 +29,7 @@ describe('tevmViemExtension', () => {
 	it('tevmRequest should call client.request and parse the response', async () => {
 		const decorated = tevmViemExtension()(client)
 		const params = { address: `0x${'77'.repeat(20)}`, balance: 420n } as const
-		const response = await decorated.tevm.account(params)
+		const response = await decorated.tevm.setAccount(params)
 
 		expect(response.errors).toBe(undefined as any)
 		expect(
@@ -58,7 +59,7 @@ describe('tevmViemExtension', () => {
 	it('putAccount should call client.request with "tevm_putAccount" and parse the response', async () => {
 		const decorated = tevmViemExtension()(client)
 		const params = { balance: 420n, address: `0x${'88'.repeat(20)}` } as const
-		const response = await decorated.tevm.account(params)
+		const response = await decorated.tevm.setAccount(params)
 
 		expect(response).not.toHaveProperty('errors')
 

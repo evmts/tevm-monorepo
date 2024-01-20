@@ -8,6 +8,7 @@ import { formatAbi } from 'abitype'
  * @param {import('viem').Hex} [params.bytecode]
  * @param {import('viem').Hex} [params.deployedBytecode]
  * @param {import('abitype').Address} [params.address]
+ * @returns {import('./ReadActionCreator.js').ReadActionCreator<any, any, any, any>} A mapping of method names to action creators
  */
 export const readFactory = ({ methods, bytecode, deployedBytecode, address }) =>
 	Object.fromEntries(
@@ -34,6 +35,7 @@ export const readFactory = ({ methods, bytecode, deployedBytecode, address }) =>
 						bytecode,
 						deployedBytecode,
 						address,
+						to: address,
 						...maybeArgs,
 					}
 				}
@@ -42,6 +44,7 @@ export const readFactory = ({ methods, bytecode, deployedBytecode, address }) =>
 				creator.bytecode = bytecode
 				creator.deployedBytecode = deployedBytecode
 				creator.address = address
+				creator.to = address
 				return [
 					/**@type {import('abitype').AbiFunction}*/ (method).name,
 					creator,

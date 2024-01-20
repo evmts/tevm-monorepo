@@ -5,16 +5,19 @@
   "type": "module",
   "scripts": {
     "astro": "astro",
-    "build": "astro check && astro build",
+    "build": "bun run build:app",
+    "build:app": "astro check && astro build",
     "dev": "astro dev",
     "preview": "astro preview",
     "start": "astro dev"
   },
   "dependencies": {
     "@astrojs/check": "^0.4.1",
-    "@astrojs/starlight": "^0.15.3",
-    "astro": "^4.1.3",
-    "sharp": "^0.33.2",
-    "typescript": "^5.3.3"
+    "@astrojs/starlight": "^0.15.4",
+    "astro": "^4.2.0",
+    "sharp": "^0.33.2"
+  },
+  "devDependencies": {
+    "tevm": "workspace:^"
   }
 }

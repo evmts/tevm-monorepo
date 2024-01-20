@@ -1,7 +1,7 @@
-import type { ParameterizedTevmState } from '@tevm/state'
 import type { DumpStateError } from '../errors/DumpStateError.js'
 import type { SerializeToJson } from '../utils/SerializeToJson.js'
 import type { JsonRpcResponse } from './JsonRpcResponse.js'
+import type { ParameterizedTevmState } from '@tevm/state'
 
 type SerializedResult = { state: ParameterizedTevmState }
 
