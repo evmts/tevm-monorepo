@@ -46,6 +46,7 @@ import { getAddress } from 'viem'
  *   }
  *   ]),
  *  })
+ *  ```
  */
 export const createScript = ({
 	name,
