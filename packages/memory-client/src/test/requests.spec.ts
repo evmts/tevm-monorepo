@@ -12,7 +12,7 @@ import {
 	keccak256,
 	toHex,
 } from 'viem'
-import { createMemoryTevm } from '../createMemoryTevm.js'
+import { createMemoryClient } from '../createMemoryClient.js'
 import { DaiContract } from './DaiContract.sol.js'
 import { describe, expect, it } from 'bun:test'
 
@@ -24,7 +24,7 @@ const forkConfig = {
 }
 
 describe('Tevm.request', async () => {
-	const tevm = await createMemoryTevm()
+	const tevm = await createMemoryClient()
 
 	it('should execute a script request', async () => {
 		const req = {
@@ -59,7 +59,7 @@ describe('Tevm.request', async () => {
 	})
 
 	it('should throw an error if attempting a tevm_contractCall request', async () => {
-		const tevm = await createMemoryTevm()
+		const tevm = await createMemoryClient()
 		const req = {
 			params: {
 				data: encodeFunctionData(
@@ -83,7 +83,7 @@ describe('Tevm.request', async () => {
 	})
 
 	it('should execute a contractCall request via using tevm_call', async () => {
-		const tevm = await createMemoryTevm({
+		const tevm = await createMemoryClient({
 			fork: forkConfig,
 		})
 		const req = {
@@ -121,7 +121,7 @@ describe('Tevm.request', async () => {
 	})
 
 	it('should execute a call request', async () => {
-		const tevm = await createMemoryTevm()
+		const tevm = await createMemoryClient()
 		const balance = 0x11111111n
 		const address1 = '0x1f420000000000000000000000000000000000ff'
 		const address2 = '0x2f420000000000000000000000000000000000ff'
@@ -165,7 +165,7 @@ describe('Tevm.request', async () => {
 	})
 
 	it('Should execute a putAccount request', async () => {
-		const tevm = await createMemoryTevm()
+		const tevm = await createMemoryClient()
 		const balance = 0x11111111n
 		const res = await tevm.request({
 			jsonrpc: '2.0',

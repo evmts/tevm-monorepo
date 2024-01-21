@@ -1,4 +1,4 @@
-import { createMemoryTevm } from '../createMemoryTevm.js'
+import { createMemoryClient } from '../createMemoryClient.js'
 import { DaiContract } from '../test/DaiContract.sol.js'
 import { Address, hexToBytes, toBytes } from '@ethereumjs/util'
 import { createScript } from '@tevm/contract'
@@ -22,7 +22,7 @@ test('Call predeploy from TypeScript', async () => {
 		contract,
 	})
 
-	const tevm = await createMemoryTevm({
+	const tevm = await createMemoryClient({
 		customPredeploys: [predeploy],
 	})
 

@@ -1,6 +1,6 @@
 import type { WrappedEvm } from './WrappedEvm.js'
 import type { VM } from '@ethereumjs/vm'
-import type { Tevm } from '@tevm/client-spec'
+import type { TevmClient } from '@tevm/client-spec'
 
 /**
  * A local EVM instance running in JavaScript. Similar to Anvil in your browser/node/bun environments
@@ -35,7 +35,7 @@ import type { Tevm } from '@tevm/client-spec'
  *  console.log(balance) // 1n
  *  ```
  */
-export type MemoryClient = Tevm & {
+export type MemoryClient = TevmClient & {
 	/**
 	 * Fork url if the EVM is forked
 	 */
