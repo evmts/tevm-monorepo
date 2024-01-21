@@ -7,6 +7,12 @@ title: "GenResult"
 
 > **GenResult**\<`TDataType`, `TTag`\>: `object`
 
+A result type for a single yield of writeContractOptimistic
+
+:::caution[Experimental]
+This API should not be used in production and may be trimmed from a public release.
+:::
+
 ## Type parameters
 
 | Parameter |
@@ -34,7 +40,7 @@ title: "GenResult"
 
 ## Source
 
-[GenResult.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/GenResult.ts#L3)
+[GenResult.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/GenResult.ts#L7)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
