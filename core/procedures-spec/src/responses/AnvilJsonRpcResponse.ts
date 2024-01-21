@@ -1,7 +1,7 @@
 // debug_traceTransaction
 
 import type { SerializeToJson } from '../utils/SerializeToJson.js'
-import type { JsonRpcResponse } from './JsonRpcResponse.js'
+import type { JsonRpcResponse } from '@tevm/jsonrpc'
 import type {
 	AnvilDropTransactionResult,
 	AnvilDumpStateResult,

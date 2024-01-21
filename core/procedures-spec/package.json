@@ -50,6 +50,7 @@
 	},
 	"devDependencies": {
 		"@tevm/errors": "workspace:^",
+		"@tevm/jsonrpc": "workspace:^",
 		"@tevm/actions-spec": "workspace:^",
 		"@tevm/errors": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",

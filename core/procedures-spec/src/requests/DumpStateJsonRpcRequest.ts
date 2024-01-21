@@ -1,4 +1,4 @@
-import type { JsonRpcRequest } from './JsonRpcRequest.js'
+import type { JsonRpcRequest } from '@tevm/jsonrpc'
 
 /**
  * The JSON-RPC request for the `tevm_dumpState` method

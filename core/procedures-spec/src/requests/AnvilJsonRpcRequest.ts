@@ -1,5 +1,5 @@
 import type { SerializeToJson } from '../utils/index.js'
-import type { JsonRpcRequest } from './JsonRpcRequest.js'
+import type { JsonRpcRequest } from '@tevm/JsonRpcRequest'
 import type {
 	AnvilDropTransactionParams,
 	AnvilDumpStateParams,

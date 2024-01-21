@@ -1,4 +1,4 @@
-import type { CallJsonRpcResponse } from './CallJsonRpcResponse.js'
+import type { CallJsonRpcResponse } from '@tevm/jsonrpc'
 
 /**
  * Since contract calls are just a quality of life wrapper around call we avoid using tevm_contract

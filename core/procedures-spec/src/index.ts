@@ -1,5 +1,4 @@
 export type {
-	JsonRpcRequest,
 	AnvilJsonRpcRequest,
 	DebugJsonRpcRequest,
 	CallJsonRpcRequest,
@@ -66,7 +65,6 @@ export type {
 	EthJsonRpcRequest,
 } from './requests/index.js'
 export type {
-	JsonRpcResponse,
 	CallJsonRpcResponse,
 	ContractJsonRpcResponse,
 	ScriptJsonRpcResponse,

@@ -1,4 +1,4 @@
-import type { JsonRpcRequest } from '../requests/index.js'
+import type { JsonRpcRequest } from '@tevm/jsonrpc'
 import type { SerializeToJson } from '../utils/SerializeToJson.js'
 import type { FilterParams } from '@tevm/actions-spec'
 import type { Address } from 'abitype'

@@ -1,4 +1,4 @@
-import type { JsonRpcResponse } from '../responses/index.js'
+import type { JsonRpcResponse } from '@tevm/jsonrpc'
 import type { SerializeToJson } from '../utils/SerializeToJson.js'
 import type { BlockResult } from '@tevm/actions-spec'
 import type { FilterLog } from '@tevm/actions-spec'
@@ -337,24 +337,24 @@ export type EthSyncingJsonRpcResponse = JsonRpcResponse<
 	'eth_syncing',
 	| boolean
 	| {
-			startingBlock: Hex
-			currentBlock: Hex
-			highestBlock: Hex
-			// some clients return these
-			// geth
-			headedBytecodebytes?: Hex
-			healedBytecodes?: Hex
-			healedTrienodes?: Hex
-			healingBytecode?: Hex
-			healingTrienodes?: Hex
-			syncedBytecodeBytes?: Hex
-			syncedBytecodes?: Hex
-			syncedStorage?: Hex
-			syncedStorageBytes?: Hex
-			// besu
-			pulledStates: Hex
-			knownStates: Hex
-	  },
+		startingBlock: Hex
+		currentBlock: Hex
+		highestBlock: Hex
+		// some clients return these
+		// geth
+		headedBytecodebytes?: Hex
+		healedBytecodes?: Hex
+		healedTrienodes?: Hex
+		healingBytecode?: Hex
+		healingTrienodes?: Hex
+		syncedBytecodeBytes?: Hex
+		syncedBytecodes?: Hex
+		syncedStorage?: Hex
+		syncedStorageBytes?: Hex
+		// besu
+		pulledStates: Hex
+		knownStates: Hex
+	},
 	string
 >
 

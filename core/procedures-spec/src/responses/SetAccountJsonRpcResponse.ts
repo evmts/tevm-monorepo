@@ -1,5 +1,5 @@
 import type { SerializeToJson } from '../utils/SerializeToJson.js'
-import type { JsonRpcResponse } from './JsonRpcResponse.js'
+import type { JsonRpcResponse } from '@tevm/jsonrpc'
 import type { SetAccountError, SetAccountResult } from '@tevm/actions-spec'
 
 /**
