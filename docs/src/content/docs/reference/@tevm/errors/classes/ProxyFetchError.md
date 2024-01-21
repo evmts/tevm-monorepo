@@ -28,7 +28,7 @@ Error.constructor
 
 #### Source
 
-[packages/errors/src/errors/ProxyFetchError.js:18](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/errors/ProxyFetchError.js#L18)
+[packages/errors/src/client/ProxyFetchError.js:18](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/client/ProxyFetchError.js#L18)
 
 ## Properties
 
@@ -38,7 +38,7 @@ Error.constructor
 
 #### Source
 
-[packages/errors/src/errors/ProxyFetchError.js:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/errors/ProxyFetchError.js#L14)
+[packages/errors/src/client/ProxyFetchError.js:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/client/ProxyFetchError.js#L14)
 
 ***
 
@@ -80,7 +80,7 @@ Error.name
 
 #### Source
 
-[packages/errors/src/errors/ProxyFetchError.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/errors/ProxyFetchError.js#L10)
+[packages/errors/src/client/ProxyFetchError.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/client/ProxyFetchError.js#L10)
 
 ***
 

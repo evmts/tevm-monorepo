@@ -6,7 +6,7 @@
 
 # Type alias: ScriptJsonRpcResponse
 
-> **ScriptJsonRpcResponse**: [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"tevm_script"`, `SerializeToJson`\<[`CallResult`](../../index/type-aliases/CallResult.md)\>, [`ScriptError`](../../actions-types/type-aliases/ScriptError.md)[`"_tag"`]\>
+> **ScriptJsonRpcResponse**: [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"tevm_script"`, `SerializeToJson`\<[`CallResult`](../../index/type-aliases/CallResult.md)\>, [`ScriptError`](../../errors/type-aliases/ScriptError.md)[`"_tag"`]\>
 
 JSON-RPC response for `tevm_script` method
 
@@ -28,7 +28,7 @@ const respose: ScriptJsonRpcResponse = await tevm.request({
 
 ## Source
 
-packages/procedures-spec/types/responses/ScriptJsonRpcResponse.d.ts:19
+packages/procedures-types/types/responses/ScriptJsonRpcResponse.d.ts:20
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

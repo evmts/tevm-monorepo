@@ -1031,7 +1031,7 @@ importers:
         version: link:../../packages/memory-client
       '@tevm/procedures-types':
         specifier: workspace:^
-        version: link:../../packages/procedures-spec
+        version: link:../../packages/procedures-types
       '@tevm/server':
         specifier: workspace:^
         version: link:../../packages/server
@@ -1209,6 +1209,9 @@ importers:
       '@tevm/actions-types':
         specifier: workspace:^
         version: link:../actions-types
+      '@tevm/errors':
+        specifier: workspace:^
+        version: link:../errors
       '@tevm/state':
         specifier: workspace:^
         version: link:../state
@@ -1221,6 +1224,9 @@ importers:
 
   packages/actions-types:
     devDependencies:
+      '@tevm/errors':
+        specifier: workspace:^
+        version: link:../errors
       '@tevm/state':
         specifier: workspace:^
         version: link:../state
@@ -1244,7 +1250,7 @@ importers:
         version: link:../actions-types
       '@tevm/procedures-types':
         specifier: workspace:^
-        version: link:../procedures-spec
+        version: link:../procedures-types
       '@tevm/tsconfig':
         specifier: workspace:^
         version: link:../../configs/tsconfig
@@ -1401,7 +1407,7 @@ importers:
         version: link:../predeploys
       '@tevm/procedures-types':
         specifier: workspace:^
-        version: link:../procedures-spec
+        version: link:../procedures-types
       '@tevm/state':
         specifier: workspace:^
         version: link:../state
@@ -1469,7 +1475,7 @@ importers:
         version: link:../errors
       '@tevm/procedures-types':
         specifier: workspace:^
-        version: link:../procedures-spec
+        version: link:../procedures-types
       '@tevm/state':
         specifier: workspace:^
         version: link:../state
@@ -1480,7 +1486,7 @@ importers:
         specifier: workspace:^
         version: link:../../configs/tsupconfig
 
-  packages/procedures-spec:
+  packages/procedures-types:
     devDependencies:
       '@tevm/actions-types':
         specifier: workspace:^
@@ -1530,7 +1536,7 @@ importers:
         version: link:../memory-client
       '@tevm/procedures-types':
         specifier: workspace:^
-        version: link:../procedures-spec
+        version: link:../procedures-types
       '@tevm/tsconfig':
         specifier: workspace:^
         version: link:../../configs/tsconfig
@@ -1646,7 +1652,7 @@ importers:
         version: link:../packages/predeploys
       '@tevm/procedures-types':
         specifier: workspace:^
-        version: link:../packages/procedures-spec
+        version: link:../packages/procedures-types
       '@tevm/server':
         specifier: workspace:^
         version: link:../packages/server

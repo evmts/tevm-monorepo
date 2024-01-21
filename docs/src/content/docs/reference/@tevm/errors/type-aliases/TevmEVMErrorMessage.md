@@ -9,7 +9,7 @@ title: "TevmEVMErrorMessage"
 
 ## Source
 
-[packages/errors/src/EvmError.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/EvmError.ts#L3)
+[packages/errors/src/ethereumjs/EvmError.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereumjs/EvmError.ts#L3)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

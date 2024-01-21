@@ -12,7 +12,7 @@ The JSON-RPC request for the `tevm_script` method
 
 ## Source
 
-packages/procedures-spec/types/requests/ScriptJsonRpcRequest.d.ts:24
+packages/procedures-types/types/requests/ScriptJsonRpcRequest.d.ts:24
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

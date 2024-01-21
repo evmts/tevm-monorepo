@@ -13,7 +13,7 @@ Result of LoadState Method
 
 | Parameter | Default |
 | :------ | :------ |
-| `ErrorType` | [`LoadStateError`](/reference/tevm/actions-types/type-aliases/loadstateerror/) |
+| `ErrorType` | [`LoadStateError`](/reference/tevm/errors/type-aliases/loadstateerror/) |
 
 ## Type declaration
 

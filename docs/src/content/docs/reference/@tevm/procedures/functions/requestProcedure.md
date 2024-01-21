@@ -5,7 +5,7 @@ prev: false
 title: "requestProcedure"
 ---
 
-> **requestProcedure**(`vm`): [`TevmJsonRpcRequestHandler`](/reference/tevm/procedures-types/type-aliases/tevmjsonrpcrequesthandler/)
+> **requestProcedure**(`vm`): `TevmJsonRpcRequestHandler`
 
 Request handler for JSON-RPC requests.
 

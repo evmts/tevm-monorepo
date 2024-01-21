@@ -1,5 +1,5 @@
 import type { Log } from '../common/Log.js'
-import type { CallError } from '../errors/CallError.js'
+import type { CallError } from '@tevm/errors'
 import type { Address } from 'abitype'
 import type { Hex } from 'viem'
 

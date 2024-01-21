@@ -29,7 +29,7 @@ Error.constructor
 
 #### Source
 
-packages/errors/types/errors/NoProxyConfiguredError.d.ts:9
+packages/errors/types/client/NoProxyConfiguredError.d.ts:9
 
 ## Properties
 
@@ -39,7 +39,7 @@ packages/errors/types/errors/NoProxyConfiguredError.d.ts:9
 
 #### Source
 
-packages/errors/types/errors/NoProxyConfiguredError.d.ts:18
+packages/errors/types/client/NoProxyConfiguredError.d.ts:18
 
 ***
 
@@ -81,7 +81,7 @@ Error.name
 
 #### Source
 
-packages/errors/types/errors/NoProxyConfiguredError.d.ts:14
+packages/errors/types/client/NoProxyConfiguredError.d.ts:14
 
 ***
 

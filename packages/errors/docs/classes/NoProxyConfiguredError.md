@@ -29,7 +29,7 @@ Error.constructor
 
 #### Source
 
-[packages/errors/src/errors/NoProxyConfiguredError.js:18](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/errors/NoProxyConfiguredError.js#L18)
+[packages/errors/src/client/NoProxyConfiguredError.js:18](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/client/NoProxyConfiguredError.js#L18)
 
 ## Properties
 
@@ -39,7 +39,7 @@ Error.constructor
 
 #### Source
 
-[packages/errors/src/errors/NoProxyConfiguredError.js:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/errors/NoProxyConfiguredError.js#L14)
+[packages/errors/src/client/NoProxyConfiguredError.js:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/client/NoProxyConfiguredError.js#L14)
 
 ***
 
@@ -81,7 +81,7 @@ Error.name
 
 #### Source
 
-[packages/errors/src/errors/NoProxyConfiguredError.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/errors/NoProxyConfiguredError.js#L10)
+[packages/errors/src/client/NoProxyConfiguredError.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/client/NoProxyConfiguredError.js#L10)
 
 ***
 

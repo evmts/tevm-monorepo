@@ -13,7 +13,7 @@ Result of a Tevm VM Call method
 
 | Parameter | Default |
 | :------ | :------ |
-| `ErrorType` | [`CallError`](/reference/tevm/actions-types/type-aliases/callerror/) |
+| `ErrorType` | [`CallError`](/reference/tevm/errors/type-aliases/callerror/) |
 
 ## Type declaration
 

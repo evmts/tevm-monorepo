@@ -29,7 +29,7 @@ Error.constructor
 
 #### Source
 
-[packages/errors/src/errors/UnexpectedInternalServerError.js:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/errors/UnexpectedInternalServerError.js#L19)
+[packages/errors/src/client/UnexpectedInternalServerError.js:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/client/UnexpectedInternalServerError.js#L19)
 
 ## Properties
 
@@ -39,7 +39,7 @@ Error.constructor
 
 #### Source
 
-[packages/errors/src/errors/UnexpectedInternalServerError.js:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/errors/UnexpectedInternalServerError.js#L15)
+[packages/errors/src/client/UnexpectedInternalServerError.js:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/client/UnexpectedInternalServerError.js#L15)
 
 ***
 
@@ -81,7 +81,7 @@ Error.name
 
 #### Source
 
-[packages/errors/src/errors/UnexpectedInternalServerError.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/errors/UnexpectedInternalServerError.js#L11)
+[packages/errors/src/client/UnexpectedInternalServerError.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/client/UnexpectedInternalServerError.js#L11)
 
 ***
 

@@ -14,7 +14,7 @@ Result of LoadState Method
 
 | Parameter | Default |
 | :------ | :------ |
-| `ErrorType` | [`LoadStateError`](LoadStateError.md) |
+| `ErrorType` | `LoadStateError` |
 
 ## Type declaration
 

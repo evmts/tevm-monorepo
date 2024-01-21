@@ -16,7 +16,7 @@ JSON-RPC procedure for `anvil_mine`
 
 ## Source
 
-packages/procedures-spec/types/procedure/AnvilProcedure.d.ts:22
+packages/procedures-types/types/procedure/AnvilProcedure.d.ts:22
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

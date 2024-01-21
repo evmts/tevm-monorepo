@@ -14,7 +14,7 @@ Result of a Tevm VM Call method
 
 | Parameter | Default |
 | :------ | :------ |
-| `ErrorType` | [`CallError`](CallError.md) |
+| `ErrorType` | `CallError` |
 
 ## Type declaration
 

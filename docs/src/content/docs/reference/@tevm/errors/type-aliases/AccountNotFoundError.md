@@ -11,7 +11,7 @@ Error thrown when account cannot be found in the state
 
 ## Source
 
-[packages/errors/src/AccountNotFoundError.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/AccountNotFoundError.ts#L6)
+[packages/errors/src/ethereumjs/AccountNotFoundError.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereumjs/AccountNotFoundError.ts#L6)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -10,7 +10,7 @@ import { bytesToHex, hexToBytes } from 'viem'
  */
 export const getAccountHandler = (evm) => async (params) => {
 	/**
-	 * @type {Array<import('@tevm/actions-types').GetAccountError>}
+	 * @type {Array<import('@tevm/errors').GetAccountError>}
 	 */
 	const errors = validateGetAccountParams(params)
 	if (errors.length > 0) {

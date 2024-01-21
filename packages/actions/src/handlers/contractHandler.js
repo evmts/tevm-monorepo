@@ -47,7 +47,7 @@ export const contractHandler = (evm) => async (params) => {
 		)
 	} catch (e) {
 		/**
-		 * @type {import('@tevm/actions-types').InvalidRequestError}
+		 * @type {import('@tevm/errors').InvalidRequestError}
 		 */
 		const err = {
 			name: 'InvalidRequestError',
@@ -99,7 +99,7 @@ export const contractHandler = (evm) => async (params) => {
 		)
 	} catch (e) {
 		/**
-		 * @type {import('@tevm/actions-types').ContractError}
+		 * @type {import('@tevm/errors').ContractError}
 		 */
 		const err = {
 			name: 'DecodeFunctionDataError',

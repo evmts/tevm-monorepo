@@ -12,7 +12,7 @@ JSON-RPC request for `anvil_stopImpersonatingAccount` method
 
 ## Source
 
-packages/procedures-spec/types/requests/AnvilJsonRpcRequest.d.ts:11
+packages/procedures-types/types/requests/AnvilJsonRpcRequest.d.ts:11
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

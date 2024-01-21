@@ -14,7 +14,7 @@ Result of GetAccount Action
 
 | Parameter | Default |
 | :------ | :------ |
-| `ErrorType` | [`GetAccountError`](GetAccountError.md) |
+| `ErrorType` | `GetAccountError` |
 
 ## Type declaration
 

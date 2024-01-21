@@ -1,4 +1,4 @@
-import type { GetAccountError } from '../errors/GetAccountError.js'
+import type { GetAccountError } from '@tevm/errors'
 import type { Address } from 'abitype'
 import type { Hex } from 'viem'
 

@@ -23,7 +23,7 @@ if (errors?.length) {
 
 ## Source
 
-packages/errors/types/SetAccountError.d.ts:18
+packages/errors/types/actions/SetAccountError.d.ts:13
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

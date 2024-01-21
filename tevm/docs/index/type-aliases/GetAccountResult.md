@@ -14,7 +14,7 @@ Result of GetAccount Action
 
 | Parameter | Default |
 | :------ | :------ |
-| `ErrorType` | [`GetAccountError`](../../actions-types/type-aliases/GetAccountError.md) |
+| `ErrorType` | [`GetAccountError`](../../errors/type-aliases/GetAccountError.md) |
 
 ## Type declaration
 

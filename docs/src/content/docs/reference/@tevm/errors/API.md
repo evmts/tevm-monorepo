@@ -12,6 +12,7 @@ title: "@tevm/errors"
 - [NoProxyConfiguredError](/reference/tevm/errors/classes/noproxyconfigurederror/)
 - [ProxyFetchError](/reference/tevm/errors/classes/proxyfetcherror/)
 - [UnexpectedInternalServerError](/reference/tevm/errors/classes/unexpectedinternalservererror/)
+- [UnknownMethodError](/reference/tevm/errors/classes/unknownmethoderror/)
 - [UnsupportedMethodError](/reference/tevm/errors/classes/unsupportedmethoderror/)
 
 ### Type Aliases
@@ -20,10 +21,14 @@ title: "@tevm/errors"
 - [BaseCallError](/reference/tevm/errors/type-aliases/basecallerror/)
 - [CallError](/reference/tevm/errors/type-aliases/callerror/)
 - [ContractError](/reference/tevm/errors/type-aliases/contracterror/)
+- [DecodeFunctionDataError](/reference/tevm/errors/type-aliases/decodefunctiondataerror/)
 - [DumpStateError](/reference/tevm/errors/type-aliases/dumpstateerror/)
+- [EncodeFunctionReturnDataError](/reference/tevm/errors/type-aliases/encodefunctionreturndataerror/)
 - [EvmError](/reference/tevm/errors/type-aliases/evmerror/)
 - [GetAccountError](/reference/tevm/errors/type-aliases/getaccounterror/)
+- [InvalidAbiError](/reference/tevm/errors/type-aliases/invalidabierror/)
 - [InvalidAddressError](/reference/tevm/errors/type-aliases/invalidaddresserror/)
+- [InvalidArgsError](/reference/tevm/errors/type-aliases/invalidargserror/)
 - [InvalidBalanceError](/reference/tevm/errors/type-aliases/invalidbalanceerror/)
 - [InvalidBlobVersionedHashesError](/reference/tevm/errors/type-aliases/invalidblobversionedhasheserror/)
 - [InvalidBlockError](/reference/tevm/errors/type-aliases/invalidblockerror/)

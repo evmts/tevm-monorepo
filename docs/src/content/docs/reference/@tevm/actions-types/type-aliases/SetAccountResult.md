@@ -13,7 +13,7 @@ Result of SetAccount Action
 
 | Parameter | Default |
 | :------ | :------ |
-| `ErrorType` | [`SetAccountError`](/reference/tevm/actions-types/type-aliases/setaccounterror/) |
+| `ErrorType` | [`SetAccountError`](/reference/tevm/errors/type-aliases/setaccounterror/) |
 
 ## Type declaration
 

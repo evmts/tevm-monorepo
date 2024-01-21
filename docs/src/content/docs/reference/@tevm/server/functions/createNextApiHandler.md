@@ -13,7 +13,7 @@ Creates a Next.js API handler for a Tevm JSON-RPC server
 
 ▪ **options**: `object`
 
-▪ **options.request**: [`TevmJsonRpcRequestHandler`](/reference/tevm/procedures-types/type-aliases/tevmjsonrpcrequesthandler/)
+▪ **options.request**: `TevmJsonRpcRequestHandler`
 
 ## Returns
 

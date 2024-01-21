@@ -13,7 +13,7 @@ title: "ContractResult"
 | :------ | :------ |
 | `TAbi` extends `Abi` \| readonly `unknown`[] | `Abi` |
 | `TFunctionName` extends `ContractFunctionName`\<`TAbi`\> | `ContractFunctionName`\<`TAbi`\> |
-| `ErrorType` | [`ContractError`](/reference/tevm/actions-types/type-aliases/contracterror/) |
+| `ErrorType` | [`ContractError`](/reference/tevm/errors/type-aliases/contracterror/) |
 
 ## Source
 

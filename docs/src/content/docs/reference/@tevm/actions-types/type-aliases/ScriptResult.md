@@ -13,7 +13,7 @@ title: "ScriptResult"
 | :------ | :------ |
 | `TAbi` extends `Abi` \| readonly `unknown`[] | `Abi` |
 | `TFunctionName` extends `ContractFunctionName`\<`TAbi`\> | `ContractFunctionName`\<`TAbi`\> |
-| `TErrorType` | [`ScriptError`](/reference/tevm/actions-types/type-aliases/scripterror/) |
+| `TErrorType` | [`ScriptError`](/reference/tevm/errors/type-aliases/scripterror/) |
 
 ## Source
 

@@ -16,7 +16,7 @@ Procedure for handling script JSON-RPC requests
 
 ## Source
 
-packages/procedures-spec/types/procedure/ScriptJsonRpcProcedure.d.ts:5
+packages/procedures-types/types/procedure/ScriptJsonRpcProcedure.d.ts:5
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

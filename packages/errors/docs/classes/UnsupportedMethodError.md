@@ -28,7 +28,7 @@ Error.constructor
 
 #### Source
 
-[packages/errors/src/errors/UnsupportedMethodError.js:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/errors/UnsupportedMethodError.js#L17)
+[packages/errors/src/client/UnsupportedMethodError.js:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/client/UnsupportedMethodError.js#L17)
 
 ## Properties
 
@@ -38,7 +38,7 @@ Error.constructor
 
 #### Source
 
-[packages/errors/src/errors/UnsupportedMethodError.js:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/errors/UnsupportedMethodError.js#L13)
+[packages/errors/src/client/UnsupportedMethodError.js:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/client/UnsupportedMethodError.js#L13)
 
 ***
 
@@ -80,7 +80,7 @@ Error.name
 
 #### Source
 
-[packages/errors/src/errors/UnsupportedMethodError.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/errors/UnsupportedMethodError.js#L9)
+[packages/errors/src/client/UnsupportedMethodError.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/client/UnsupportedMethodError.js#L9)
 
 ***
 

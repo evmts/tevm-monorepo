@@ -30,7 +30,7 @@ Error.constructor
 
 #### Source
 
-packages/errors/types/errors/UnexpectedInternalServerError.d.ts:10
+packages/errors/types/client/UnexpectedInternalServerError.d.ts:10
 
 ## Properties
 
@@ -40,7 +40,7 @@ packages/errors/types/errors/UnexpectedInternalServerError.d.ts:10
 
 #### Source
 
-packages/errors/types/errors/UnexpectedInternalServerError.d.ts:19
+packages/errors/types/client/UnexpectedInternalServerError.d.ts:19
 
 ***
 
@@ -82,7 +82,7 @@ Error.name
 
 #### Source
 
-packages/errors/types/errors/UnexpectedInternalServerError.d.ts:15
+packages/errors/types/client/UnexpectedInternalServerError.d.ts:15
 
 ***
 

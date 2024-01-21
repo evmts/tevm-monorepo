@@ -13,7 +13,7 @@ Result of the dumpState method
 
 | Parameter | Default |
 | :------ | :------ |
-| `ErrorType` | [`DumpStateError`](/reference/tevm/actions-types/type-aliases/dumpstateerror/) |
+| `ErrorType` | [`DumpStateError`](/reference/tevm/errors/type-aliases/dumpstateerror/) |
 
 ## Type declaration
 

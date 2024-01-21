@@ -1,4 +1,4 @@
-import type { DumpStateError } from '../errors/DumpStateError.js'
+import type { DumpStateError } from '@tevm/errors'
 import type { SerializableTevmState } from '@tevm/state'
 
 /**

@@ -1,4 +1,4 @@
-import type { SetAccountError } from '../errors/SetAccountError.js'
+import type { SetAccountError } from '@tevm/errors'
 
 /**
  * Result of SetAccount Action

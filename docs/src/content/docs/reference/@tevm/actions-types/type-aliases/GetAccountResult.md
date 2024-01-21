@@ -13,7 +13,7 @@ Result of GetAccount Action
 
 | Parameter | Default |
 | :------ | :------ |
-| `ErrorType` | [`GetAccountError`](/reference/tevm/actions-types/type-aliases/getaccounterror/) |
+| `ErrorType` | [`GetAccountError`](/reference/tevm/errors/type-aliases/getaccounterror/) |
 
 ## Type declaration
 
