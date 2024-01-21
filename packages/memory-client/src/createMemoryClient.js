@@ -1,4 +1,4 @@
-import { TevmEvm } from './TevmEvm.js'
+import { WrappedEvm } from './WrappedEvm.js'
 import { processRequest } from './processRequest.js'
 import { Block } from '@ethereumjs/block'
 import { Blockchain } from '@ethereumjs/blockchain'
@@ -27,7 +27,7 @@ import { createPublicClient, http } from 'viem'
 /**
  * A local EVM instance running in JavaScript. Similar to Anvil in your browser
  * @param {import('./CreateEVMOptions.js').CreateEVMOptions} [options]
- * @returns {Promise<import('./MemoryTevm.js').MemoryTevm>}
+ * @returns {Promise<import('./MemoryClient.js').MemoryClient>}
  * @example
  * ```ts
  * import { createMemoryTevm } from "tevm"
@@ -99,9 +99,9 @@ export const createMemoryTevm = async (options = {}) => {
 			header: common.genesis(),
 			...(common.isActivatedEIP(4895)
 				? {
-						withdrawals:
+					withdrawals:
 							/** @type {Array<import('@ethereumjs/util').WithdrawalData>}*/ ([]),
-				  }
+				}
 				: {}),
 		},
 		{ common, setHardfork: false, skipConsensusFormatValidation: true },
@@ -129,7 +129,7 @@ export const createMemoryTevm = async (options = {}) => {
 		// consensus,
 	})
 
-	const evm = new TevmEvm({
+	const evm = new WrappedEvm({
 		common,
 		stateManager,
 		blockchain,
@@ -158,7 +158,7 @@ export const createMemoryTevm = async (options = {}) => {
 	})
 
 	/**
-	 * @type {import('./MemoryTevm.js').MemoryTevm}
+	 * @type {import('./MemoryClient.js').MemoryClient}
 	 */
 	const tevm = {
 		_evm: evm,

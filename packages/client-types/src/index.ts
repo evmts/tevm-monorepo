@@ -1,1 +1,1 @@
-export type { Tevm } from './Tevm.js'
+export type { TevmClient } from './TevmClient.js'

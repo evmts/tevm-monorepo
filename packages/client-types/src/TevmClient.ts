@@ -30,7 +30,7 @@ import type { TevmJsonRpcRequestHandler } from '@tevm/procedures-types'
  *
  * #### JSON-RPC
  *
- * Tevm exposes a JSON-RPC interface for interacting with the EVM via the {@link Tevm.request}
+ * Tevm exposes a JSON-RPC interface for interacting with the EVM via the {@link TevmClient.request}
  *
  * @example
  * ```typescript
@@ -48,7 +48,7 @@ import type { TevmJsonRpcRequestHandler } from '@tevm/procedures-types'
  *
  * #### Actions
  *
- * Tevm exposes a higher level `actions` based api similar to {@link https://viem.sh | viem} for interacting with Tevm in a typesasafe
+ * TevmClient exposes a higher level `actions` based api similar to {@link https://viem.sh | viem} for interacting with TevmClient in a typesasafe
  * ergonomic way.
  *
  * @example
@@ -60,13 +60,13 @@ import type { TevmJsonRpcRequestHandler } from '@tevm/procedures-types'
  *
  * #### Ethereum actions
  *
- * Ethereum actions are namespaced under {@link Tevm.eth}
+ * Ethereum actions are namespaced under {@link TevmClient.eth}
  *
  * #### Anvil hardhat and ganache compatibility
  *
  * Will have anvil_* ganache_* and hardhat_* JSON-RPC compatibility in future versions
  */
-export type Tevm = {
+export type TevmClient = {
 	/**
 	 * Request handler for JSON-RPC requests. Most users will want to use the `actions` api
 	 * instead of this method directly

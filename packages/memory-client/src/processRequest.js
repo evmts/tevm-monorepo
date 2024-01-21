@@ -57,7 +57,7 @@ export const processRequest = (vm, proxyUrl) => {
 				}
 				return proxyRequest(proxyUrl)(request)
 			}
-			return requestProcedure(vm)(/**@type any*/ (request))
+			return requestProcedure(vm)(/**@type any*/(request))
 		} catch (e) {
 			console.error(e)
 			const err = new UnexpectedInternalServerError(request.method)

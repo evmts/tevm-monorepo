@@ -1048,9 +1048,6 @@ importers:
       '@tevm/actions-types':
         specifier: workspace:^
         version: link:../../packages/actions-types
-      '@tevm/memory-client':
-        specifier: workspace:^
-        version: link:../../packages/memory-client
       '@tevm/client-spec':
         specifier: workspace:^
         version: link:../../packages/client-types
@@ -1060,9 +1057,12 @@ importers:
       '@tevm/jsonrpc':
         specifier: workspace:^
         version: link:../../packages/jsonrpc
+      '@tevm/memory-client':
+        specifier: workspace:^
+        version: link:../../packages/memory-client
       '@tevm/procedures-types':
         specifier: workspace:^
-        version: link:../../packages/procedures-types
+        version: link:../../packages/procedures-spec
       '@tevm/server':
         specifier: workspace:^
         version: link:../../packages/server
@@ -1275,7 +1275,7 @@ importers:
         version: link:../actions-types
       '@tevm/procedures-types':
         specifier: workspace:^
-        version: link:../procedures-types
+        version: link:../procedures-spec
       '@tevm/tsconfig':
         specifier: workspace:^
         version: link:../../configs/tsconfig
@@ -1401,7 +1401,7 @@ importers:
         version: link:../predeploys
       '@tevm/procedures-types':
         specifier: workspace:^
-        version: link:../procedures-types
+        version: link:../procedures-spec
       '@tevm/state':
         specifier: workspace:^
         version: link:../state
@@ -1472,7 +1472,7 @@ importers:
         version: link:../actions-types
       '@tevm/procedures-types':
         specifier: workspace:^
-        version: link:../procedures-types
+        version: link:../procedures-spec
       '@tevm/state':
         specifier: workspace:^
         version: link:../state
@@ -1483,7 +1483,7 @@ importers:
         specifier: workspace:^
         version: link:../../configs/tsupconfig
 
-  packages/procedures-types:
+  packages/procedures-spec:
     devDependencies:
       '@tevm/actions-types':
         specifier: workspace:^
@@ -1525,12 +1525,12 @@ importers:
       '@ethereumjs/util':
         specifier: ^9.0.1
         version: 9.0.1
-      '@tevm/memory-client':
-        specifier: workspace:^
-        version: link:../memory-client
       '@tevm/client-spec':
         specifier: workspace:^
         version: link:../client-types
+      '@tevm/memory-client':
+        specifier: workspace:^
+        version: link:../memory-client
       '@tevm/server':
         specifier: workspace:^
         version: link:../server
@@ -1553,18 +1553,18 @@ importers:
       '@tevm/actions-types':
         specifier: workspace:^
         version: link:../actions-types
-      '@tevm/memory-client':
-        specifier: workspace:^
-        version: link:../memory-client
       '@tevm/errors':
         specifier: workspace:^
         version: link:../errors
       '@tevm/jsonrpc':
         specifier: workspace:^
         version: link:../jsonrpc
+      '@tevm/memory-client':
+        specifier: workspace:^
+        version: link:../memory-client
       '@tevm/procedures-types':
         specifier: workspace:^
-        version: link:../procedures-types
+        version: link:../procedures-spec
       '@tevm/tsconfig':
         specifier: workspace:^
         version: link:../../configs/tsconfig
@@ -1657,15 +1657,6 @@ importers:
       '@tevm/actions-types':
         specifier: workspace:^
         version: link:../packages/actions-types
-      '@tevm/base-bundler':
-        specifier: workspace:1.0.0-next.21
-        version: link:../bundler-packages/base-bundler
-      '@tevm/memory-client':
-        specifier: workspace:^
-        version: link:../packages/memory-client
-      '@tevm/remote-client':
-        specifier: workspace:^
-        version: link:../packages/remote-client
       '@tevm/client-spec':
         specifier: workspace:^
         version: link:../packages/client-types
@@ -1675,12 +1666,21 @@ importers:
       '@tevm/errors':
         specifier: workspace:^
         version: link:../packages/errors
+      '@tevm/memory-client':
+        specifier: workspace:^
+        version: link:../packages/memory-client
       '@tevm/predeploys':
         specifier: workspace:^
         version: link:../packages/predeploys
       '@tevm/procedures-types':
         specifier: workspace:^
-        version: link:../packages/procedures-types
+        version: link:../packages/procedures-spec
+      '@tevm/remote-client':
+        specifier: workspace:^
+        version: link:../packages/remote-client
+      '@tevm/server':
+        specifier: workspace:^
+        version: link:../packages/server
       abitype:
         specifier: ^1.0.0
         version: 1.0.0(typescript@5.3.3)(zod@3.22.4)
@@ -1688,48 +1688,15 @@ importers:
         specifier: ^2.4.0
         version: 2.4.0(typescript@5.3.3)(zod@3.22.4)
     devDependencies:
-      '@tevm/bun-plugin':
-        specifier: workspace:^
-        version: link:../bundler-packages/bun
-      '@tevm/compiler':
-        specifier: workspace:^
-        version: link:../bundler-packages/compiler
-      '@tevm/config':
-        specifier: workspace:^
-        version: link:../bundler-packages/config
-      '@tevm/esbuild-plugin':
-        specifier: workspace:^
-        version: link:../bundler-packages/esbuild
-      '@tevm/rollup-plugin':
-        specifier: workspace:^
-        version: link:../bundler-packages/rollup
-      '@tevm/rspack-plugin':
-        specifier: workspace:^
-        version: link:../bundler-packages/rspack
-      '@tevm/server':
-        specifier: workspace:^
-        version: link:../packages/server
       '@tevm/solc':
         specifier: workspace:^
         version: link:../bundler-packages/solc
-      '@tevm/ts-plugin':
-        specifier: workspace:^
-        version: link:../lsp/ts-plugin
       '@tevm/tsconfig':
         specifier: workspace:^
         version: link:../configs/tsconfig
       '@tevm/tsupconfig':
         specifier: workspace:^
         version: link:../configs/tsupconfig
-      '@tevm/vite-plugin':
-        specifier: workspace:^
-        version: link:../bundler-packages/vite
-      '@tevm/webpack-plugin':
-        specifier: workspace:^
-        version: link:../bundler-packages/webpack
-      ethers:
-        specifier: ^6.10.0
-        version: 6.10.0
 
 packages:
 

@@ -6,6 +6,6 @@ import type { TevmStateManager } from '@tevm/state'
  * Ideally we find a way to remove this complexity and replace with a normal `action`
  * @internal
  */
-export class TevmEvm extends EVM {
+export class WrappedEvm extends EVM {
 	public declare stateManager: TevmStateManager
 }
