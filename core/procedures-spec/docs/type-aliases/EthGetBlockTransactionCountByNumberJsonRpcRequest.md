@@ -1,0 +1,18 @@
+**@tevm/api** ∙ [README](../README.md) ∙ [API](../API.md)
+
+***
+
+[API](../API.md) > EthGetBlockTransactionCountByNumberJsonRpcRequest
+
+# Type alias: EthGetBlockTransactionCountByNumberJsonRpcRequest
+
+> **EthGetBlockTransactionCountByNumberJsonRpcRequest**: [`JsonRpcRequest`](JsonRpcRequest.md)\<`"eth_getBlockTransactionCountByNumber"`, readonly [`BlockTag` \| `Hex`]\>
+
+JSON-RPC request for `eth_getBlockTransactionCountByNumber` procedure
+
+## Source
+
+[requests/EthJsonRpcRequest.ts:107](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/requests/EthJsonRpcRequest.ts#L107)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

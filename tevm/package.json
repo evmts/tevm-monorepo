@@ -307,16 +307,13 @@
 		"access": "public"
 	},
 	"dependencies": {
-		"@tevm/api": "workspace:^",
+		"@tevm/actions-spec": "workspace:^",
+		"@tevm/procedures-spec": "workspace:^",
 		"@tevm/base-bundler": "workspace:1.0.0-next.21",
-		"@tevm/client": "workspace:^",
+		"@tevm/client-remote": "workspace:^",
+		"@tevm/client-memory": "workspace:^",
 		"@tevm/contract": "workspace:^",
-		"@tevm/ethers": "workspace:^",
-		"@tevm/jsonrpc": "workspace:^",
 		"@tevm/predeploys": "workspace:^",
-		"@tevm/state": "workspace:^",
-		"@tevm/viem": "workspace:^",
-		"@tevm/vm": "workspace:^",
 		"abitype": "^1.0.0",
 		"viem": "^2.4.0"
 	},

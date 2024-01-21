@@ -8,5 +8,5 @@ packages:
   - "extensions/*"
   - "lsp/*"
   - "packages/*"
-  - "vm/*"
+  - "core/*"
   - 'tevm'

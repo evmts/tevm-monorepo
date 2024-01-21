@@ -63,12 +63,11 @@
 		"test:run": "bun test",
 		"typecheck": "tsc --noEmit"
 	},
-	"dependencies": {
-		"@tevm/vm": "workspace:^"
-	},
+	"dependencies": {},
 	"devDependencies": {
 		"@ethereumjs/util": "^9.0.1",
-		"@tevm/api": "workspace:^",
+		"@tevm/procedures-spec": "workspace:^",
+		"@tevm/actions-spec": "workspace:^",
 		"@tevm/contract": "workspace:^",
 		"@tevm/server": "workspace:^",
 		"@tevm/state": "workspace:^",
