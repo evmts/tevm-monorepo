@@ -148,9 +148,6 @@ importers:
       '@tevm/rspack-plugin':
         specifier: workspace:^
         version: link:../bundler-packages/rspack
-      '@tevm/server':
-        specifier: workspace:^
-        version: link:../packages/server
       '@tevm/solc':
         specifier: workspace:^
         version: link:../bundler-packages/solc
@@ -1458,6 +1455,9 @@ importers:
       '@ethereumjs/evm':
         specifier: ^2.1.0
         version: 2.1.0
+      '@ethereumjs/vm':
+        specifier: ^7.1.0
+        version: 7.1.0
       '@tevm/actions-types':
         specifier: workspace:^
         version: link:../actions-types
@@ -1685,9 +1685,6 @@ importers:
         specifier: ^2.4.0
         version: 2.4.0(typescript@5.3.3)(zod@3.22.4)
     devDependencies:
-      '@tevm/solc':
-        specifier: workspace:^
-        version: link:../bundler-packages/solc
       '@tevm/tsconfig':
         specifier: workspace:^
         version: link:../configs/tsconfig
@@ -3853,7 +3850,6 @@ packages:
     transitivePeerDependencies:
       - buffer
       - c-kzg
-    dev: false
 
   /@ethereumjs/blockchain@7.0.1:
     resolution: {integrity: sha512-JQoRpMHxAyMnlHSNe7H3EnM3mMZOHaBGkBmwLQ02Jv9zg9rnJ/g9r9LvW6yhjs7ifrKCn94j54yMv4i+W99XwA==}
@@ -3873,7 +3869,6 @@ packages:
       - buffer
       - c-kzg
       - supports-color
-    dev: false
 
   /@ethereumjs/common@4.1.0:
     resolution: {integrity: sha512-XWdQvUjlQHVwh4uGEPFKHpsic69GOsMXEhlHrggS5ju/+2zAmmlz6B25TkCCymeElC9DUp13tH5Tc25Iuvtlcg==}
@@ -3896,7 +3891,6 @@ packages:
     transitivePeerDependencies:
       - buffer
       - c-kzg
-    dev: false
 
   /@ethereumjs/evm@2.1.0:
     resolution: {integrity: sha512-+4X9fw9X3pRnvbtJn02TDbwoTICc+W6ccNLgNx2IXiJkIArtUTK8xJ764MgmUvNIb14PuXAAUMEZ0l6UrZQcDw==}
@@ -4003,7 +3997,6 @@ packages:
       - c-kzg
       - supports-color
       - utf-8-validate
-    dev: false
 
   /@ethersproject/abi@5.7.0:
     resolution: {integrity: sha512-351ktp42TiRcYB3H1OP8yajPeAQstMW/yCFokj/AthP9bLHzQFPlOrxOcwYEDkUAICmOHljvN4K39OMTMUa9RA==}

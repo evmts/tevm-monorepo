@@ -158,7 +158,6 @@
 		"viem": "^2.4.0"
 	},
 	"devDependencies": {
-		"@tevm/solc": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^"
 	},

@@ -13,7 +13,7 @@ The decorated properties added by the `tevmViemExtension`
 
 ### tevm
 
-> **tevm**: `TevmClient`
+> **tevm**: [`TevmClient`](/generated/tevm/client-types/type-aliases/tevmclient/)
 
 ## Source
 
