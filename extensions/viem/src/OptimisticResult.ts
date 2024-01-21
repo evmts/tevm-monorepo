@@ -10,6 +10,10 @@ import type {
 	WriteContractReturnType,
 } from 'viem'
 
+/**
+ * @experimental
+ * The result of an optimistic write
+ */
 export type OptimisticResult<
 	TAbi extends Abi | readonly unknown[],
 	TFunctionName extends ContractFunctionName<TAbi>,

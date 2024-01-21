@@ -1,6 +1,10 @@
 import type { ViemTevmOptimisticClient } from './ViemTevmOptimisticClient.js'
 import type { Account, Chain, Transport } from 'viem'
 
+/**
+ * @experimental
+ * A viem decorator for `tevmViemExtension`
+ */
 export type ViemTevmOptimisticClientDecorator = <
 	TTransport extends Transport = Transport,
 	TChain extends Chain | undefined = Chain | undefined,
