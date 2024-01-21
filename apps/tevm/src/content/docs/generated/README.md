@@ -18,6 +18,10 @@ title: "Documentation"
 - [@tevm/procedures](/generated/tevm/procedures/readme/)
 - [@tevm/procedures-types](/generated/tevm/procedures-types/readme/)
 - [@tevm/predeploys](/generated/tevm/predeploys/readme/)
+<<<<<<< HEAD
+=======
+- [@tevm/http-client](/generated/tevm/http-client/readme/)
+>>>>>>> 6064f9a79 (:memo: Feat: Docs)
 - [@tevm/server](/generated/tevm/server/readme/)
 - [@tevm/viem](/generated/tevm/viem/readme/)
 - [@tevm/ethers](/generated/tevm/ethers/readme/)

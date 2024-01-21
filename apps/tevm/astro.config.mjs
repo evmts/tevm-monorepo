@@ -24,7 +24,7 @@ export default defineConfig({
 						'../../packages/procedures',
 						'../../packages/procedures-spec',
 						'../../packages/predeploys',
-						'../../packages/remote-client',
+						'../../packages/http-client',
 						'../../packages/server',
 						'../../extensions/viem',
 						'../../extensions/ethers',
@@ -36,7 +36,7 @@ export default defineConfig({
 						'../../bundler-packages/webpack'
 					],
 					tsconfig: '../../tevm/tsconfig.json',
-					output: 'generated',
+					output: 'reference',
 					sidebar: {
 						label: 'Reference (auto-generated)',
 						collapsed: true,
@@ -63,8 +63,8 @@ export default defineConfig({
 					],
 				},
 				{
-					label: 'Reference',
-					autogenerate: { directory: 'reference' },
+					label: 'Guides',
+					autogenerate: { directory: 'guides' },
 				},
 				typeDocSidebarGroup,
 			],

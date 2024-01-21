@@ -1,5 +1,6 @@
 **@tevm/http-client** ∙ [README](../README.md) ∙ [API](../API.md)
 
+<<<<<<< HEAD:packages/http-client/docs/functions/createHttpClient.md
 ***
 
 [API](../API.md) > createHttpClient
@@ -7,13 +8,20 @@
 # Function: createHttpClient()
 
 > **createHttpClient**(`params`): [`HttpClient`](../type-aliases/HttpClient.md)
+=======
+> **createRemoteClient**(`params`): [`HttpClient`](/generated/tevm/http-client/type-aliases/remoteclient/)
+>>>>>>> 6064f9a79 (:memo: Feat: Docs):apps/tevm/src/content/docs/generated/@tevm/remote-client/functions/createRemoteClient.md
 
 Creates a remote tevm client for interacting with an http server
 over HTTP.
 
 ## Parameters
 
+<<<<<<< HEAD:packages/http-client/docs/functions/createHttpClient.md
 ▪ **params**: [`HttpClientOptions`](../type-aliases/HttpClientOptions.md)
+=======
+▪ **params**: [`RemoteClientOptions`](/generated/tevm/http-client/type-aliases/remoteclientoptions/)
+>>>>>>> 6064f9a79 (:memo: Feat: Docs):apps/tevm/src/content/docs/generated/@tevm/remote-client/functions/createRemoteClient.md
 
 ## Returns
 
@@ -37,7 +45,11 @@ const account = await client.eth.getAccount({
 
 ## Source
 
+<<<<<<< HEAD:packages/http-client/docs/functions/createHttpClient.md
 [createHttpClient.js:23](https://github.com/evmts/tevm-monorepo/blob/main/packages/http-client/src/createHttpClient.js#L23)
+=======
+[createRemoteClient.js:23](https://github.com/evmts/tevm-monorepo/blob/main/packages/http-client/src/createRemoteClient.js#L23)
+>>>>>>> 6064f9a79 (:memo: Feat: Docs):apps/tevm/src/content/docs/generated/@tevm/remote-client/functions/createRemoteClient.md
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
