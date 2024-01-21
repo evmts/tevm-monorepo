@@ -9,11 +9,11 @@ import { hexToBytes, keccak256 } from 'viem'
 /**
  * Creates an SetAccountHandler for handling account params with Ethereumjs EVM
  * @param {import('@ethereumjs/evm').EVM} evm
- * @returns {import('@tevm/actions-spec').SetAccountHandler}
+ * @returns {import('@tevm/actions-types').SetAccountHandler}
  */
 export const setAccountHandler = (evm) => async (params) => {
 	/**
-	 * @type {Array<import('@tevm/actions-spec').SetAccountError>}
+	 * @type {Array<import('@tevm/actions-types').SetAccountError>}
 	 */
 	const errors = validateSetAccountParams(params)
 	if (errors.length > 0) {

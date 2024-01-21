@@ -1,4 +1,4 @@
-**@tevm/actions-spec** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/actions-types** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
@@ -27,7 +27,7 @@ The EVM code to run.
 
 ## Source
 
-[params/ScriptParams.ts:12](https://github.com/evmts/tevm-monorepo/blob/main/core/actions-spec/src/params/ScriptParams.ts#L12)
+[params/ScriptParams.ts:12](https://github.com/evmts/tevm-monorepo/blob/main/core/actions-types/src/params/ScriptParams.ts#L12)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

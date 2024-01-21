@@ -1,4 +1,4 @@
-**@tevm/procedures-spec** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/procedures-types** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
@@ -12,7 +12,7 @@ JSON-RPC response for `tevm_getAccount` method
 
 ## Source
 
-[responses/GetAccountJsonRpcResponse.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/core/procedures-spec/src/responses/GetAccountJsonRpcResponse.ts#L8)
+[responses/GetAccountJsonRpcResponse.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/core/procedures-types/src/responses/GetAccountJsonRpcResponse.ts#L8)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

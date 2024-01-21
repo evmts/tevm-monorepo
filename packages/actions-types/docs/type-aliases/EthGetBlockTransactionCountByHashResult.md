@@ -1,4 +1,4 @@
-**@tevm/actions-spec** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/actions-types** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
@@ -12,7 +12,7 @@ JSON-RPC response for `eth_getBlockTransactionCountByHash` procedure
 
 ## Source
 
-[result/EthResult.ts:77](https://github.com/evmts/tevm-monorepo/blob/main/core/actions-spec/src/result/EthResult.ts#L77)
+[result/EthResult.ts:77](https://github.com/evmts/tevm-monorepo/blob/main/core/actions-types/src/result/EthResult.ts#L77)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

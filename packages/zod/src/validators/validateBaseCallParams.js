@@ -2,7 +2,7 @@ import { createError } from '../common/index.js'
 import { zBaseCallParams } from '../params/index.js'
 
 /**
- * @param {import('@tevm/actions-spec').BaseCallParams} action
+ * @param {import('@tevm/actions-types').BaseCallParams} action
  */
 export const validateBaseCallParams = (action) => {
 	/**

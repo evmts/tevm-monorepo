@@ -1,4 +1,4 @@
-**@tevm/actions-spec** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/actions-types** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
@@ -26,7 +26,7 @@ Description of the exception, if any occurred
 
 ## Source
 
-[result/SetAccountResult.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/core/actions-spec/src/result/SetAccountResult.ts#L6)
+[result/SetAccountResult.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/core/actions-types/src/result/SetAccountResult.ts#L6)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

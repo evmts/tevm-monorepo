@@ -1,11 +1,11 @@
+import { Server, createServer } from 'http'
+import { Address } from '@ethereumjs/util'
+import { type MemoryTevm, createMemoryTevm } from '@tevm/memory-client'
+import { createHttpHandler } from '@tevm/server'
+import { http, type PublicClient, createPublicClient } from 'viem'
 import { ERC20 } from './tests/ERC20.sol.js'
 import { tevmViemExtension } from './tevmViemExtension.js'
-import { Address } from '@ethereumjs/util'
-import { type MemoryTevm, createMemoryTevm } from '@tevm/client-memory'
-import { createHttpHandler } from '@tevm/server'
 import { afterAll, beforeAll, describe, expect, it } from 'bun:test'
-import { Server, createServer } from 'http'
-import { type PublicClient, createPublicClient, http } from 'viem'
 
 describe('tevmViemExtension', () => {
 	let tevm: MemoryTevm

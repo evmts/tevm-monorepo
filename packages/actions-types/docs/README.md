@@ -1,4 +1,4 @@
-**@tevm/actions-spec** ∙ [README](README.md) ∙ [API](API.md)
+**@tevm/actions-types** ∙ [README](README.md) ∙ [API](API.md)
 
 ***
 

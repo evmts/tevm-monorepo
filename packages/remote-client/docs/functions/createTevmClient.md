@@ -1,4 +1,4 @@
-**@tevm/client-remote** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/remote-client** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
@@ -37,7 +37,7 @@ const account = await client.eth.getAccount({
 
 ## Source
 
-[createTevmClient.js:23](https://github.com/evmts/tevm-monorepo/blob/main/core/client-remote/src/createTevmClient.js#L23)
+[createTevmClient.js:23](https://github.com/evmts/tevm-monorepo/blob/main/core/remote-client/src/createTevmClient.js#L23)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

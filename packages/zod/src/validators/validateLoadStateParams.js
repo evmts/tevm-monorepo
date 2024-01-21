@@ -2,7 +2,7 @@ import { createError } from '../common/index.js'
 import { zLoadStateParams } from '../params/zLoadStateParams.js'
 
 /**
- * @param {import('@tevm/actions-spec').LoadStateParams} action
+ * @param {import('@tevm/actions-types').LoadStateParams} action
  */
 export const validateLoadStateParams = (action) => {
 	/**

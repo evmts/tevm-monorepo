@@ -3,7 +3,7 @@ import { numberToHex } from 'viem'
 
 /**
  * @param {Parameters<typeof gasPriceHandler>[0]} options
- * @returns {import('@tevm/procedures-spec').EthGasPriceJsonRpcProcedure}
+ * @returns {import('@tevm/procedures-types').EthGasPriceJsonRpcProcedure}
  */
 export const gasPriceProcedure =
 	({ blockchain, forkUrl }) =>

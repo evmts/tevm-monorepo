@@ -3,28 +3,14 @@ import { defineConfig } from 'tsup'
 
 const dirs = [
 	'.',
-	'api',
-	'bundler',
-	'bundler/base-bundler',
-	'bundler/bun-plugin',
-	'bundler/compiler',
-	'bundler/config',
-	'bundler/esbuild-plugin',
-	'bundler/rollup-plugin',
-	'bundler/rspack-plugin',
-	'bundler/ts-plugin',
-	'bundler/solc',
-	'bundler/vite-plugin',
-	'bundler/webpack-plugin',
-	'client',
+	'actions-types',
+	'client-types',
 	'contract',
-	'ethers',
-	'jsonrpc',
+	'memory-client',
 	'predeploys',
+	'procedures-types',
+	'remote-client',
 	'server',
-	'state',
-	'viem',
-	'vm',
 ]
 
 export default defineConfig(

@@ -4,7 +4,7 @@ import { toHex } from 'viem'
 /**
  * Creates a DumpState JSON-RPC Procedure for handling dumpState requests with Ethereumjs EVM
  * @param {import('@tevm/state').TevmStateManager} stateManager
- * @returns {import('@tevm/procedures-spec').DumpStateJsonRpcProcedure}
+ * @returns {import('@tevm/procedures-types').DumpStateJsonRpcProcedure}
  */
 export const dumpStateProcedure = (stateManager) => async (request) => {
 	const { errors = [], ...result } = await dumpStateHandler(stateManager)()

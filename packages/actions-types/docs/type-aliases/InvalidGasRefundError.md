@@ -1,4 +1,4 @@
-**@tevm/actions-spec** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/actions-types** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
@@ -12,7 +12,7 @@ Error thrown when gas refund is invalid
 
 ## Source
 
-[errors/InvalidGasRefundError.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/core/actions-spec/src/errors/InvalidGasRefundError.ts#L6)
+[errors/InvalidGasRefundError.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/core/actions-types/src/errors/InvalidGasRefundError.ts#L6)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

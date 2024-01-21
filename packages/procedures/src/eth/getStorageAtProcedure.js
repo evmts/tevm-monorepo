@@ -2,7 +2,7 @@ import { getStorageAtHandler } from '@tevm/actions'
 
 /**
  * @param {Parameters<typeof getStorageAtHandler>[0]} options
- * @returns {import('@tevm/procedures-spec').EthGetStorageAtJsonRpcProcedure}
+ * @returns {import('@tevm/procedures-types').EthGetStorageAtJsonRpcProcedure}
  */
 export const getStorageAtProcedure =
 	({ stateManager, forkUrl }) =>

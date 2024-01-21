@@ -1,5 +1,5 @@
 import type { SerializeToJson } from '../utils/SerializeToJson.js'
-import type { LoadStateResult } from '@tevm/actions-spec'
+import type { LoadStateResult } from '@tevm/actions-types'
 import type { LoadStateError } from '@tevm/errors'
 import type { JsonRpcResponse } from '@tevm/jsonrpc'
 

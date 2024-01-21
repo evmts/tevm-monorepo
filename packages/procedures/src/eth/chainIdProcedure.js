@@ -3,7 +3,7 @@ import { numberToHex } from 'viem'
 
 /**
  * @param {bigint} chainId
- * @returns {import('@tevm/procedures-spec').EthChainIdJsonRpcProcedure}
+ * @returns {import('@tevm/procedures-types').EthChainIdJsonRpcProcedure}
  */
 export const chainIdProcedure = (chainId) => async (req) => ({
 	...(req.id ? { id: req.id } : {}),

@@ -6,7 +6,7 @@ import { fromRlp, hexToBytes, isHex } from 'viem'
 
 /**
  * @param {TevmStateManager | DefaultTevmStateManager} stateManager
- * @returns {import('@tevm/actions-spec').LoadStateHandler}
+ * @returns {import('@tevm/actions-types').LoadStateHandler}
  */
 export const loadStateHandler = (stateManager) => async (params) => {
 	const errors = validateLoadStateParams(params)

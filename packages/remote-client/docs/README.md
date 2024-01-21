@@ -1,4 +1,4 @@
-**@tevm/client-remote** ∙ [README](README.md) ∙ [API](API.md)
+**@tevm/remote-client** ∙ [README](README.md) ∙ [API](API.md)
 
 ***
 

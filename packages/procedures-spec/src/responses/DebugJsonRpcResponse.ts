@@ -4,7 +4,7 @@ import type { SerializeToJson } from '../utils/SerializeToJson.js'
 import type {
 	DebugTraceCallResult,
 	DebugTraceTransactionResult,
-} from '@tevm/actions-spec'
+} from '@tevm/actions-types'
 import type { JsonRpcResponse } from '@tevm/jsonrpc'
 
 // TODO type the errors strongly

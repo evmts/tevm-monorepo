@@ -5,7 +5,7 @@ import { bytesToHex, hexToBytes, numberToHex } from 'viem'
  * Returns a trace of an eth_call within the context of the given block execution using the final state of the parent block
  * @param {object} options
  * @param {import('@ethereumjs/evm').EVM} options.evm
- * @returns {import('@tevm/actions-spec').DebugTraceCallHandler} an execution trace of an {@link eth_call} in the context of a given block execution
+ * @returns {import('@tevm/actions-types').DebugTraceCallHandler} an execution trace of an {@link eth_call} in the context of a given block execution
  * mirroring the output from {@link traceTransaction}
  */
 export const traceCallHandler =
@@ -31,7 +31,7 @@ export const traceCallHandler =
 			returnValue: '0x0',
 			failed: false,
 			/**
-			 * @type {Array<import('@tevm/actions-spec').DebugTraceCallResult['structLogs'][number]>}
+			 * @type {Array<import('@tevm/actions-types').DebugTraceCallResult['structLogs'][number]>}
 			 */
 			structLogs: [],
 		}

@@ -13,16 +13,16 @@
 
 [![CI](https://github.com/evmts/tevm-monorepo/actions/workflows/e2e.yml/badge.svg)](https://github.com/evmts/tevm-monorepo/actions/workflows/e2e.yml)
 [![CI](https://github.com/evmts/tevm-monorepo/actions/workflows/unit.yml/badge.svg)](https://github.com/evmts/tevm-monorepo/actions/workflows/unit.yml)
-<a href="https://www.npmjs.com/package/@tevm/actions-spec" target="\_parent">
-<img alt="" src="https://img.shields.io/npm/dm/@tevm/actions-spec.svg" />
+<a href="https://www.npmjs.com/package/@tevm/actions-types" target="\_parent">
+<img alt="" src="https://img.shields.io/npm/dm/@tevm/actions-types.svg" />
 </a>
-<a href="https://bundlephobia.com/package/@tevm/actions-spec@latest" target="\_parent">
-<img alt="" src="https://badgen.net/bundlephobia/minzip/@tevm/actions-spec" />
+<a href="https://bundlephobia.com/package/@tevm/actions-types@latest" target="\_parent">
+<img alt="" src="https://badgen.net/bundlephobia/minzip/@tevm/actions-types" />
 </a>
 
-# @tevm/actions-spec
+# @tevm/actions-types
 
-`@tevm/actions-spec` is the official tevm actions api spec represented as TypeScript types
+`@tevm/actions-types` is the official tevm actions api spec represented as TypeScript types
 
 **This package has no javascript only typescript types.**
 
@@ -33,13 +33,13 @@ The first implementation of this spec is [@tevm/actions](../actions/) which impl
 This package is available in the main `tevm` package
 
 ```typescript
-import {ScriptHandler} from 'tevm/actions-spec'
+import {ScriptHandler} from 'tevm/actions-types'
 ```
 
 But can also be installed as a standalone package.
 
 ```bash
-npm install --save-dev @tevm/actions-spec
+npm install --save-dev @tevm/actions-types
 ```
 
 ## License 📄

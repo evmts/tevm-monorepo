@@ -1,4 +1,4 @@
-**@tevm/actions-spec** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/actions-types** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
@@ -42,7 +42,7 @@ for tevm users.
 
 ## Source
 
-[errors/TypedError.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/core/actions-spec/src/errors/TypedError.ts#L9)
+[errors/TypedError.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/core/actions-types/src/errors/TypedError.ts#L9)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

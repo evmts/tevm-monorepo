@@ -34,34 +34,24 @@
 				"default": "./index.cjs"
 			}
 		},
-		"./api": {
+		"./actions-types": {
 			"import": {
-				"types": "./api/index.d.ts",
-				"default": "./api/index.js"
+				"types": "./actions-types/index.d.ts",
+				"default": "./actions-types/index.js"
 			},
 			"require": {
-				"types": "./api/index.d.cts",
-				"default": "./api/index.cjs"
+				"types": "./actions-types/index.d.cts",
+				"default": "./actions-types/index.cjs"
 			}
 		},
-		"./bundler": {
+		"./client-types": {
 			"import": {
-				"types": "./bundler/index.d.ts",
-				"default": "./bundler/index.js"
+				"types": "./client-types/index.d.ts",
+				"default": "./client-types/index.js"
 			},
 			"require": {
-				"types": "./bundler/index.d.cts",
-				"default": "./bundler/index.cjs"
-			}
-		},
-		"./client": {
-			"import": {
-				"types": "./client/index.d.ts",
-				"default": "./client/index.js"
-			},
-			"require": {
-				"types": "./client/index.d.cts",
-				"default": "./client/index.cjs"
+				"types": "./client-types/index.d.cts",
+				"default": "./client-types/index.cjs"
 			}
 		},
 		"./contract": {
@@ -74,24 +64,14 @@
 				"default": "./contract/index.cjs"
 			}
 		},
-		"./ethers": {
+		"./memory-client": {
 			"import": {
-				"types": "./ethers/index.d.ts",
-				"default": "./ethers/index.js"
+				"types": "./memory-client/index.d.ts",
+				"default": "./memory-client/index.js"
 			},
 			"require": {
-				"types": "./ethers/index.d.cts",
-				"default": "./ethers/index.cjs"
-			}
-		},
-		"./jsonrpc": {
-			"import": {
-				"types": "./jsonrpc/index.d.ts",
-				"default": "./jsonrpc/index.js"
-			},
-			"require": {
-				"types": "./jsonrpc/index.d.cts",
-				"default": "./jsonrpc/index.cjs"
+				"types": "./memory-client/index.d.cts",
+				"default": "./memory-client/index.cjs"
 			}
 		},
 		"./predeploys": {
@@ -104,14 +84,24 @@
 				"default": "./predeploys/index.cjs"
 			}
 		},
-		"./state": {
+		"./procedures-types": {
 			"import": {
-				"types": "./state/index.d.ts",
-				"default": "./state/index.js"
+				"types": "./procedures-types/index.d.ts",
+				"default": "./procedures-types/index.js"
 			},
 			"require": {
-				"types": "./state/index.d.cts",
-				"default": "./state/index.cjs"
+				"types": "./procedures-types/index.d.cts",
+				"default": "./procedures-types/index.cjs"
+			}
+		},
+		"./remote-client": {
+			"import": {
+				"types": "./remote-client/index.d.ts",
+				"default": "./remote-client/index.js"
+			},
+			"require": {
+				"types": "./remote-client/index.d.cts",
+				"default": "./remote-client/index.cjs"
 			}
 		},
 		"./server": {
@@ -123,136 +113,6 @@
 				"types": "./server/index.d.cts",
 				"default": "./server/index.cjs"
 			}
-		},
-		"./viem": {
-			"import": {
-				"types": "./viem/index.d.ts",
-				"default": "./viem/index.js"
-			},
-			"require": {
-				"types": "./viem/index.d.cts",
-				"default": "./viem/index.cjs"
-			}
-		},
-		"./vm": {
-			"import": {
-				"types": "./vm/index.d.ts",
-				"default": "./vm/index.js"
-			},
-			"require": {
-				"types": "./vm/index.d.cts",
-				"default": "./vm/index.cjs"
-			}
-		},
-		"./bundler/base-bundler": {
-			"import": {
-				"types": "./bundler/base-bundler/index.d.ts",
-				"default": "./bundler/base-bundler/index.js"
-			},
-			"require": {
-				"types": "./bundler/base-bundler/index.d.cts",
-				"default": "./bundler/base-bundler/index.cjs"
-			}
-		},
-		"./bundler/bun-plugin": {
-			"import": {
-				"types": "./bundler/bun-plugin/index.d.ts",
-				"default": "./bundler/bun-plugin/index.js"
-			},
-			"require": {
-				"types": "./bundler/bun-plugin/index.d.cts",
-				"default": "./bundler/bun-plugin/index.cjs"
-			}
-		},
-		"./bundler/esbuild-plugin": {
-			"import": {
-				"types": "./bundler/esbuild-plugin/index.d.ts",
-				"default": "./bundler/esbuild-plugin/index.js"
-			},
-			"require": {
-				"types": "./bundler/esbuild-plugin/index.d.cts",
-				"default": "./bundler/esbuild-plugin/index.cjs"
-			}
-		},
-		"./bundler/rollup-plugin": {
-			"import": {
-				"types": "./bundler/rollup-plugin/index.d.ts",
-				"default": "./bundler/rollup-plugin/index.js"
-			},
-			"require": {
-				"types": "./bundler/rollup-plugin/index.d.cts",
-				"default": "./bundler/rollup-plugin/index.cjs"
-			}
-		},
-		"./bundler/rspack-plugin": {
-			"import": {
-				"types": "./bundler/rspack-plugin/index.d.ts",
-				"default": "./bundler/rspack-plugin/index.js"
-			},
-			"require": {
-				"types": "./bundler/rspack-plugin/index.d.cts",
-				"default": "./bundler/rspack-plugin/index.cjs"
-			}
-		},
-		"./bundler/ts-plugin": {
-			"import": {
-				"types": "./bundler/ts-plugin/index.d.ts",
-				"default": "./bundler/ts-plugin/index.js"
-			},
-			"require": {
-				"types": "./bundler/ts-plugin/index.d.cts",
-				"default": "./bundler/ts-plugin/index.cjs"
-			}
-		},
-		"./bundler/vite-plugin": {
-			"import": {
-				"types": "./bundler/vite-plugin/index.d.ts",
-				"default": "./bundler/vite-plugin/index.js"
-			},
-			"require": {
-				"types": "./bundler/vite-plugin/index.d.cts",
-				"default": "./bundler/vite-plugin/index.cjs"
-			}
-		},
-		"./bundler/webpack-plugin": {
-			"import": {
-				"types": "./bundler/webpack-plugin/index.d.ts",
-				"default": "./bundler/webpack-plugin/index.js"
-			},
-			"require": {
-				"types": "./bundler/webpack-plugin/index.d.cts",
-				"default": "./bundler/webpack-plugin/index.cjs"
-			}
-		},
-		"./bundler/compiler": {
-			"import": {
-				"types": "./bundler/compiler/index.d.ts",
-				"default": "./bundler/compiler/index.js"
-			},
-			"require": {
-				"types": "./bundler/compiler/index.d.cts",
-				"default": "./bundler/compiler/index.cjs"
-			}
-		},
-		"./bundler/config": {
-			"import": {
-				"types": "./bundler/config/index.d.ts",
-				"default": "./bundler/config/index.js"
-			},
-			"require": {
-				"types": "./bundler/config/index.d.cts",
-				"default": "./bundler/config/index.cjs"
-			}
-		},
-		"./bundler/solc": {
-			"import": {
-				"types": "./bundler/solc/index.d.ts",
-				"default": "./bundler/solc/index.js"
-			},
-			"require": {
-				"types": "./bundler/solc/index.d.cts",
-				"default": "./bundler/solc/index.cjs"
-			}
 		}
 	},
 	"main": "index.cjs",
@@ -260,17 +120,14 @@
 	"types": "index.d.ts",
 	"files": [
 		"index*",
-		"api",
-		"bundler",
-		"client",
+		"actions-types",
+		"client-types",
 		"contract",
-		"ethers",
-		"jsonrpc",
+		"memory-client",
 		"predeploys",
-		"state",
-		"server",
-		"viem",
-		"vm"
+		"procedures-types",
+		"remote-client",
+		"server"
 	],
 	"scripts": {
 		"all": "bun run generate && bun run generate:docs && bun run lint:deps && bun run lint:package",
@@ -287,48 +144,24 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"devDependencies": {
-		"@tevm/base-bundler": "workspace:^",
-		"@tevm/bun-plugin": "workspace:^",
-		"@tevm/compiler": "workspace:^",
-		"@tevm/config": "workspace:^",
-		"@tevm/esbuild-plugin": "workspace:^",
-		"@tevm/rollup-plugin": "workspace:^",
-		"@tevm/rspack-plugin": "workspace:^",
-		"@tevm/server": "workspace:^",
 		"@tevm/solc": "workspace:^",
-		"@tevm/ts-plugin": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
-		"@tevm/tsupconfig": "workspace:^",
-		"@tevm/vite-plugin": "workspace:^",
-		"@tevm/webpack-plugin": "workspace:^",
-		"ethers": "^6.10.0"
+		"@tevm/tsupconfig": "workspace:^"
 	},
 	"publishConfig": {
 		"access": "public"
 	},
 	"dependencies": {
-		"@tevm/actions-spec": "workspace:^",
-		"@tevm/procedures-spec": "workspace:^",
-		"@tevm/base-bundler": "workspace:1.0.0-next.21",
+		"@tevm/actions-types": "workspace:^",
+		"@tevm/procedures-types": "workspace:^",
 		"@tevm/client-spec": "workspace:^",
-		"@tevm/client-remote": "workspace:^",
-		"@tevm/client-memory": "workspace:^",
+		"@tevm/remote-client": "workspace:^",
+		"@tevm/memory-client": "workspace:^",
 		"@tevm/contract": "workspace:^",
 		"@tevm/errors": "workspace:^",
 		"@tevm/predeploys": "workspace:^",
+		"@tevm/server": "workspace:^",
 		"abitype": "^1.0.0",
 		"viem": "^2.4.0"
-	},
-	"peerDependencies": {
-		"ethers": "6.x.x",
-		"viem": "2.x.x"
-	},
-	"peerDependenciesMeta": {
-		"ethers": {
-			"optional": true
-		},
-		"viem": {
-			"optional": true
-		}
 	}
 }

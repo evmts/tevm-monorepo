@@ -5,7 +5,7 @@ import { validateCallParams } from '@tevm/zod'
 /**
  * Creates an CallHandler for handling call params with Ethereumjs EVM
  * @param {import('@ethereumjs/evm').EVM} evm
- * @returns {import('@tevm/actions-spec').CallHandler}
+ * @returns {import('@tevm/actions-types').CallHandler}
  */
 export const callHandler = (evm) => async (params) => {
 	const errors = validateCallParams(params)

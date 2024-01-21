@@ -77,7 +77,7 @@ export const tevmViemExtension = () => {
 		}
 
 		/**
-		 * @type {import('@tevm/actions-spec').ScriptHandler}
+		 * @type {import('@tevm/actions-types').ScriptHandler}
 		 */
 		const script = async (params) => {
 			const out = /** @type {any} */ (
@@ -111,7 +111,7 @@ export const tevmViemExtension = () => {
 		}
 
 		/**
-		 * @type {import('@tevm/actions-spec').GetAccountHandler}
+		 * @type {import('@tevm/actions-types').GetAccountHandler}
 		 */
 		const getAccount = async (params) => {
 			return formatResult(
@@ -124,7 +124,7 @@ export const tevmViemExtension = () => {
 		}
 
 		/**
-		 * @type {import('@tevm/actions-spec').SetAccountHandler}
+		 * @type {import('@tevm/actions-types').SetAccountHandler}
 		 */
 		const setAccount = async (params) => {
 			return formatResult(
@@ -145,7 +145,7 @@ export const tevmViemExtension = () => {
 		}
 
 		/**
-		 * @param {import('@tevm/actions-spec').CallParams | import('@tevm/actions-spec').ScriptParams} params
+		 * @param {import('@tevm/actions-types').CallParams | import('@tevm/actions-types').ScriptParams} params
 		 */
 		const getCallArgs = (params) => {
 			return {
@@ -197,7 +197,7 @@ export const tevmViemExtension = () => {
 		}
 
 		/**
-		 * @type {import('@tevm/actions-spec').CallHandler}
+		 * @type {import('@tevm/actions-types').CallHandler}
 		 */
 		const call = async (params) => {
 			const response = await request({
@@ -221,7 +221,7 @@ export const tevmViemExtension = () => {
 		}
 
 		/**
-		 * @param {import('@tevm/procedures-spec').CallJsonRpcResponse | import('@tevm/procedures-spec').ScriptJsonRpcResponse} response
+		 * @param {import('@tevm/procedures-types').CallJsonRpcResponse | import('@tevm/procedures-types').ScriptJsonRpcResponse} response
 		 */
 		const parseCallResponse = (response) => {
 			if ('error' in response) {
@@ -252,7 +252,7 @@ export const tevmViemExtension = () => {
 		}
 
 		/**
-		 * @type {import('@tevm/actions-spec').ContractHandler}
+		 * @type {import('@tevm/actions-types').ContractHandler}
 		 */
 		const contract = async (params) => {
 			const out = await call({
@@ -282,7 +282,7 @@ export const tevmViemExtension = () => {
 		}
 
 		/**
-		 * @type {import('@tevm/actions-spec').EthBlockNumberHandler}
+		 * @type {import('@tevm/actions-types').EthBlockNumberHandler}
 		 */
 		const blockNumber = async () => {
 			return hexToBigInt(
@@ -297,7 +297,7 @@ export const tevmViemExtension = () => {
 		}
 
 		/**
-		 * @type {import('@tevm/actions-spec').DumpStateHandler}
+		 * @type {import('@tevm/actions-types').DumpStateHandler}
 		 */
 		const dumpState = async () => {
 			return /** @type {any} */ (
@@ -312,7 +312,7 @@ export const tevmViemExtension = () => {
 		}
 
 		/**
-		 * @type {import('@tevm/actions-spec').EthChainIdHandler}
+		 * @type {import('@tevm/actions-types').EthChainIdHandler}
 		 */
 		const chainId = async () => {
 			return hexToBigInt(
@@ -327,7 +327,7 @@ export const tevmViemExtension = () => {
 		}
 
 		/**
-		 * @type {import('@tevm/actions-spec').LoadStateHandler}
+		 * @type {import('@tevm/actions-types').LoadStateHandler}
 		 */
 		const loadState = async (params) => {
 			/**
@@ -360,7 +360,7 @@ export const tevmViemExtension = () => {
 			)
 		}
 		/**
-		 * @type {import('@tevm/actions-spec').EthGasPriceHandler}
+		 * @type {import('@tevm/actions-types').EthGasPriceHandler}
 		 */
 		const gasPrice = async () => {
 			return hexToBigInt(
@@ -375,7 +375,7 @@ export const tevmViemExtension = () => {
 		}
 
 		/**
-		 * @type {import('@tevm/actions-spec').EthGetBalanceHandler}
+		 * @type {import('@tevm/actions-types').EthGetBalanceHandler}
 		 */
 		const getBalance = async (params) => {
 			return hexToBigInt(
@@ -390,7 +390,7 @@ export const tevmViemExtension = () => {
 		}
 
 		/**
-		 * @type {import('@tevm/actions-spec').EthGetCodeHandler}
+		 * @type {import('@tevm/actions-types').EthGetCodeHandler}
 		 */
 		const getCode = async (params) => {
 			return /** @type {any} */ (
@@ -405,7 +405,7 @@ export const tevmViemExtension = () => {
 		}
 
 		/**
-		 * @type {import('@tevm/actions-spec').EthGetStorageAtHandler}
+		 * @type {import('@tevm/actions-types').EthGetStorageAtHandler}
 		 */
 		const getStorageAt = async (params) => {
 			return /** @type {any} */ (

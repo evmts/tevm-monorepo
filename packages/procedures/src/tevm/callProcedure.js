@@ -5,7 +5,7 @@ import { hexToBigInt } from 'viem'
 /**
  * Creates a Call JSON-RPC Procedure for handling call requests with Ethereumjs EVM
  * @param {import('@ethereumjs/evm').EVM} evm
- * @returns {import('@tevm/procedures-spec').CallJsonRpcProcedure}
+ * @returns {import('@tevm/procedures-types').CallJsonRpcProcedure}
  */
 export const callProcedure = (evm) => async (request) => {
 	const { errors = [], ...result } = await callHandler(evm)({

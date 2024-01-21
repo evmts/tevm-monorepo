@@ -2,7 +2,7 @@ import { hexToBytes } from 'viem'
 
 /**
  * @param {import('@ethereumjs/blockchain').BlockchainInterface} blockchain
- * @returns {import('@tevm/actions-spec').EthGetBlockByHashHandler}
+ * @returns {import('@tevm/actions-types').EthGetBlockByHashHandler}
  */
 export const getBlockByHashHandler = (blockchain) => async (params) => {
 	const block = await blockchain.getBlock(hexToBytes(params.blockHash))

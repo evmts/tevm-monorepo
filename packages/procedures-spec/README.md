@@ -13,14 +13,14 @@
 
 [![CI](https://github.com/evmts/tevm-monorepo/actions/workflows/e2e.yml/badge.svg)](https://github.com/evmts/tevm-monorepo/actions/workflows/e2e.yml)
 [![CI](https://github.com/evmts/tevm-monorepo/actions/workflows/unit.yml/badge.svg)](https://github.com/evmts/tevm-monorepo/actions/workflows/unit.yml)
-<a href="https://www.npmjs.com/package/@tevm/procedures-spec" target="\_parent">
-<img alt="" src="https://img.shields.io/npm/dm/@tevm/procedures-spec.svg" />
+<a href="https://www.npmjs.com/package/@tevm/procedures-types" target="\_parent">
+<img alt="" src="https://img.shields.io/npm/dm/@tevm/procedures-types.svg" />
 </a>
-<a href="https://bundlephobia.com/package/@tevm/procedures-spec@latest" target="\_parent">
-<img alt="" src="https://badgen.net/bundlephobia/minzip/@tevm/procedures-spec" />
+<a href="https://bundlephobia.com/package/@tevm/procedures-types@latest" target="\_parent">
+<img alt="" src="https://badgen.net/bundlephobia/minzip/@tevm/procedures-types" />
 </a>
 
-# @tevm/procedures-spec
+# @tevm/procedures-types
 
 The official tevm spec for the JSON-RPC procedres represented as typescript types
 

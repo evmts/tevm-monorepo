@@ -17,7 +17,7 @@ const DEFAULT_BLOCK = {
 
 /**
  * Parses user provided params into ethereumjs options to pass into the EVM
- * @param {import('@tevm/actions-spec').CallParams} params
+ * @param {import('@tevm/actions-types').CallParams} params
  * @returns {Parameters<import('@ethereumjs/evm').EVM['runCall']>[0]}
  */
 export const callHandlerOpts = (params) => {

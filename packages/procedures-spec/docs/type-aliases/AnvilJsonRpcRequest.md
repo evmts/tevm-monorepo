@@ -1,4 +1,4 @@
-**@tevm/procedures-spec** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/procedures-types** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
@@ -10,7 +10,7 @@
 
 ## Source
 
-[requests/AnvilJsonRpcRequest.ts:132](https://github.com/evmts/tevm-monorepo/blob/main/core/procedures-spec/src/requests/AnvilJsonRpcRequest.ts#L132)
+[requests/AnvilJsonRpcRequest.ts:132](https://github.com/evmts/tevm-monorepo/blob/main/core/procedures-types/src/requests/AnvilJsonRpcRequest.ts#L132)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

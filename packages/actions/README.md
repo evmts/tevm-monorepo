@@ -22,7 +22,7 @@
 
 # @tevm/actions
 
-Ethereumjs implementation of the [@tevm/actions-spec](../actions-spec) 
+Ethereumjs implementation of the [@tevm/actions-types](../actions-types)
 
 ## Installation
 

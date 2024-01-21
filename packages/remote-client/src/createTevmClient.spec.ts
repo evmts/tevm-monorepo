@@ -1,11 +1,11 @@
-import { createTevmClient } from './createTevmClient.js'
-import { Address } from '@ethereumjs/util'
-import { type MemoryTevm, createMemoryTevm } from '@tevm/client-memory'
-import type { Tevm } from '@tevm/client-spec'
-import { createHttpHandler } from '@tevm/server'
-import { afterAll, beforeAll, describe, expect, it } from 'bun:test'
 import { Server, createServer } from 'http'
+import { Address } from '@ethereumjs/util'
+import type { Tevm } from '@tevm/client-spec'
+import { type MemoryTevm, createMemoryTevm } from '@tevm/memory-client'
+import { createHttpHandler } from '@tevm/server'
 import { bytesToHex, keccak256 } from 'viem'
+import { createTevmClient } from './createTevmClient.js'
+import { afterAll, beforeAll, describe, expect, it } from 'bun:test'
 
 describe(createTevmClient.name, () => {
 	let tevm: MemoryTevm

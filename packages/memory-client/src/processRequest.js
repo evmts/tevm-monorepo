@@ -1,9 +1,9 @@
-import { proxyRequest } from './proxyRequest.js'
 import {
 	UnexpectedInternalServerError,
 	UnsupportedMethodError,
 } from '@tevm/errors'
 import { requestProcedure } from '@tevm/procedures'
+import { proxyRequest } from './proxyRequest.js'
 
 // TODO let's refactor the JSON-RPC switch statement in vm/vm/src/procedures/somewhere.js to instead grab
 // handlers off of a handler object. Then here we can make this DRY by simply checking to see if the key exists
@@ -36,7 +36,7 @@ const throwOnUnsupportedMethods = true
  * `requestProcedure` and proxy all other requests to the given proxyUrl
  * @param {import('@ethereumjs/vm').VM} vm
  * @param {string} [proxyUrl] Optional url to proxy requests to
- * @returns {import('@tevm/procedures-spec').TevmJsonRpcRequestHandler}
+ * @returns {import('@tevm/procedures-types').TevmJsonRpcRequestHandler}
  */
 export const processRequest = (vm, proxyUrl) => {
 	return (request) => {

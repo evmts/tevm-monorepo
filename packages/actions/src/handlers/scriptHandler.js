@@ -12,7 +12,7 @@ import {
 /**
  * Creates an ScriptHandler for handling script params with Ethereumjs EVM
  * @param {import('@ethereumjs/evm').EVM} evm
- * @returns {import("@tevm/actions-spec").ScriptHandler}
+ * @returns {import("@tevm/actions-types").ScriptHandler}
  */
 export const scriptHandler = (evm) => async (params) => {
 	/**
@@ -43,7 +43,7 @@ export const scriptHandler = (evm) => async (params) => {
 				: functionData
 	} catch (e) {
 		/**
-		 * @type {import('@tevm/actions-spec').InvalidRequestError}
+		 * @type {import('@tevm/actions-types').InvalidRequestError}
 		 */
 		const err = {
 			name: 'InvalidRequestError',
@@ -71,7 +71,7 @@ export const scriptHandler = (evm) => async (params) => {
 	})
 
 	/**
-	 * @type {import('@tevm/actions-spec').CallParams}
+	 * @type {import('@tevm/actions-types').CallParams}
 	 */
 	const callParams = {
 		...params,
@@ -126,7 +126,7 @@ export const scriptHandler = (evm) => async (params) => {
 		)
 	} catch (e) {
 		/**
-		 * @type {import('@tevm/actions-spec').ContractError}
+		 * @type {import('@tevm/actions-types').ContractError}
 		 */
 		const err = {
 			name: 'DecodeFunctionDataError',

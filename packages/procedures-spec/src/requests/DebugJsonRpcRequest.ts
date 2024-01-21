@@ -2,7 +2,7 @@ import type { SerializeToJson } from '../utils/SerializeToJson.js'
 import type {
 	DebugTraceCallParams,
 	DebugTraceTransactionParams,
-} from '@tevm/actions-spec'
+} from '@tevm/actions-types'
 import type { JsonRpcRequest } from '@tevm/jsonrpc'
 
 // debug_traceTransaction

@@ -1,4 +1,4 @@
-**@tevm/actions-spec** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/actions-types** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
@@ -12,7 +12,7 @@ Error thrown when account cannot be found in the state
 
 ## Source
 
-[errors/AccountNotFoundError.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/core/actions-spec/src/errors/AccountNotFoundError.ts#L6)
+[errors/AccountNotFoundError.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/core/actions-types/src/errors/AccountNotFoundError.ts#L6)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

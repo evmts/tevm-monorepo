@@ -1,7 +1,7 @@
-import { zScriptParams } from './zScriptParams.js'
-import type { ScriptParams } from '@tevm/actions-spec'
-import { expect, test } from 'bun:test'
+import type { ScriptParams } from '@tevm/actions-types'
 import type { z } from 'zod'
+import { zScriptParams } from './zScriptParams.js'
+import { expect, test } from 'bun:test'
 
 test('zScriptParams', () => {
 	const scriptParams = {

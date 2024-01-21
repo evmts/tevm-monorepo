@@ -1,12 +1,9 @@
-import { createMemoryTevm } from '../createMemoryTevm.js'
-import { DaiContract } from './DaiContract.sol.js'
 import { Address, bigIntToHex } from '@ethereumjs/util'
 import { UnsupportedMethodError } from '@tevm/errors'
 import type {
 	ContractJsonRpcRequest,
 	ScriptJsonRpcRequest,
-} from '@tevm/procedures-spec'
-import { describe, expect, it } from 'bun:test'
+} from '@tevm/procedures-types'
 import {
 	decodeFunctionResult,
 	encodeFunctionData,
@@ -15,6 +12,9 @@ import {
 	keccak256,
 	toHex,
 } from 'viem'
+import { createMemoryTevm } from '../createMemoryTevm.js'
+import { DaiContract } from './DaiContract.sol.js'
+import { describe, expect, it } from 'bun:test'
 
 const contractAddress = '0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1'
 

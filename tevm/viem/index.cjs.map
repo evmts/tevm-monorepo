@@ -1,1 +1,0 @@
-{"version":3,"sources":["index.ts"],"names":[],"mappings":";AAAA;AAAA,EACC;AAAA,EACA;AAAA,OACM","sourcesContent":["export {\n\ttevmViemExtension,\n\ttevmViemExtensionOptimistic,\n} from '@tevm/viem'\n"]}

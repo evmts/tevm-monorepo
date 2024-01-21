@@ -1,4 +1,4 @@
-**@tevm/actions-spec** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/actions-types** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
@@ -12,7 +12,7 @@ Errors returned by all call based tevm procedures including call, contract, and 
 
 ## Source
 
-[errors/BaseCallError.ts:24](https://github.com/evmts/tevm-monorepo/blob/main/core/actions-spec/src/errors/BaseCallError.ts#L24)
+[errors/BaseCallError.ts:24](https://github.com/evmts/tevm-monorepo/blob/main/core/actions-types/src/errors/BaseCallError.ts#L24)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

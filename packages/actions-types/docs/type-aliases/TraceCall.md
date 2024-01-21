@@ -1,4 +1,4 @@
-**@tevm/actions-spec** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/actions-types** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
@@ -48,7 +48,7 @@
 
 ## Source
 
-[common/TraceCall.ts:5](https://github.com/evmts/tevm-monorepo/blob/main/core/actions-spec/src/common/TraceCall.ts#L5)
+[common/TraceCall.ts:5](https://github.com/evmts/tevm-monorepo/blob/main/core/actions-types/src/common/TraceCall.ts#L5)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

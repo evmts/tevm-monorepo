@@ -1,4 +1,4 @@
-**@tevm/client-memory** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/memory-client** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 

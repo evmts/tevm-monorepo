@@ -1,5 +1,5 @@
 import type { SerializeToJson } from '../utils/SerializeToJson.js'
-import type { CallError, CallResult } from '@tevm/actions-spec'
+import type { CallError, CallResult } from '@tevm/actions-types'
 import type { JsonRpcResponse } from '@tevm/jsonrpc'
 
 /**

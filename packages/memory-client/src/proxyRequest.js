@@ -20,7 +20,7 @@ import { createJsonRpcFetcher } from '@tevm/jsonrpc'
  */
 export const proxyRequest = (url) => {
 	/**
-	 * @param {import('@tevm/procedures-spec').TevmJsonRpcRequest | import('@tevm/jsonrpc').JsonRpcRequest<string, unknown> | import('@tevm/jsonrpc').JsonRpcRequest<string, readonly []>} request
+	 * @param {import('@tevm/procedures-types').TevmJsonRpcRequest | import('@tevm/jsonrpc').JsonRpcRequest<string, unknown> | import('@tevm/jsonrpc').JsonRpcRequest<string, readonly []>} request
 	 * @returns {Promise<import('@tevm/jsonrpc').JsonRpcResponse<any, any, any>>}
 	 */
 	return async (request) => {

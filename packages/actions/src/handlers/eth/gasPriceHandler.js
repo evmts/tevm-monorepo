@@ -6,7 +6,7 @@ import { hexToBigInt, parseGwei } from 'viem'
  * @param {object} options
  * @param {string} [options.forkUrl]
  * @param {import('@ethereumjs/blockchain').Blockchain} options.blockchain
- * @returns {import('@tevm/actions-spec').EthGasPriceHandler}
+ * @returns {import('@tevm/actions-types').EthGasPriceHandler}
  */
 export const gasPriceHandler = ({ forkUrl, blockchain }) => {
 	/**

@@ -1,4 +1,4 @@
-**@tevm/client-memory** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/memory-client** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
@@ -97,7 +97,7 @@ Fork options fork a live network if enabled
 
 ## Source
 
-[client-memory/src/CreateEVMOptions.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/core/client-memory/src/CreateEVMOptions.ts#L8)
+[memory-client/src/CreateEVMOptions.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/core/memory-client/src/CreateEVMOptions.ts#L8)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,5 +1,5 @@
 import type { SerializeToJson } from '../utils/SerializeToJson.js'
-import type { BaseCallParams } from '@tevm/actions-spec'
+import type { BaseCallParams } from '@tevm/actions-types'
 import type { JsonRpcRequest } from '@tevm/jsonrpc'
 import type { Hex } from 'viem'
 

@@ -18,7 +18,7 @@ export class NoForkUrlSetError extends Error {
  * @param {object} options
  * @param {import('@ethereumjs/evm').EVM['stateManager']} options.stateManager
  * @param {string} [options.forkUrl]
- * @returns {import('@tevm/actions-spec').EthGetBalanceHandler}
+ * @returns {import('@tevm/actions-types').EthGetBalanceHandler}
  */
 export const getBalanceHandler =
 	({ stateManager, forkUrl }) =>

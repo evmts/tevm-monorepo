@@ -1,4 +1,4 @@
-**@tevm/actions-spec** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/actions-types** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
@@ -80,7 +80,7 @@ A set of accounts to selfdestruct
 
 ## Source
 
-[result/CallResult.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/core/actions-spec/src/result/CallResult.ts#L9)
+[result/CallResult.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/core/actions-types/src/result/CallResult.ts#L9)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

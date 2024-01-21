@@ -1,9 +1,9 @@
-import { BadRequestError } from './BadRequestError.js'
 import { UnexpectedInternalServerError } from '@tevm/errors'
 import { zJsonRpcRequest } from '@tevm/zod'
+import { BadRequestError } from './BadRequestError.js'
 
 /**
- * @typedef {{request: import('@tevm/procedures-spec').TevmJsonRpcRequestHandler}} CreateHttpHandlerParameters
+ * @typedef {{request: import('@tevm/procedures-types').TevmJsonRpcRequestHandler}} CreateHttpHandlerParameters
  */
 
 /**

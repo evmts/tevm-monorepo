@@ -13,7 +13,7 @@ import type {
 	AnvilSetNonceParams,
 	AnvilSetStorageAtParams,
 	AnvilStopImpersonatingAccountParams,
-} from '@tevm/actions-spec'
+} from '@tevm/actions-types'
 import type { JsonRpcRequest } from '@tevm/jsonrpc'
 
 // anvil_impersonateAccount

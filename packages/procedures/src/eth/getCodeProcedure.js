@@ -2,7 +2,7 @@ import { getCodeHandler } from '@tevm/actions'
 
 /**
  * @param {Parameters<typeof getCodeHandler>[0]} options
- * @returns {import('@tevm/procedures-spec').EthGetCodeJsonRpcProcedure}
+ * @returns {import('@tevm/procedures-types').EthGetCodeJsonRpcProcedure}
  */
 export const getCodeProcedure =
 	({ stateManager, forkUrl }) =>

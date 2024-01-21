@@ -11,7 +11,7 @@ import {
 /**
  * Creates an ContractHandler for handling contract params with Ethereumjs EVM
  * @param {import('@ethereumjs/evm').EVM} evm
- * @returns {import("@tevm/actions-spec").ContractHandler}
+ * @returns {import("@tevm/actions-types").ContractHandler}
  */
 export const contractHandler = (evm) => async (params) => {
 	const errors = validateContractParams(/** @type any*/ (params))
@@ -47,7 +47,7 @@ export const contractHandler = (evm) => async (params) => {
 		)
 	} catch (e) {
 		/**
-		 * @type {import('@tevm/actions-spec').InvalidRequestError}
+		 * @type {import('@tevm/actions-types').InvalidRequestError}
 		 */
 		const err = {
 			name: 'InvalidRequestError',
@@ -99,7 +99,7 @@ export const contractHandler = (evm) => async (params) => {
 		)
 	} catch (e) {
 		/**
-		 * @type {import('@tevm/actions-spec').ContractError}
+		 * @type {import('@tevm/actions-types').ContractError}
 		 */
 		const err = {
 			name: 'DecodeFunctionDataError',

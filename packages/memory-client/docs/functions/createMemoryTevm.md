@@ -1,4 +1,4 @@
-**@tevm/client-memory** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/memory-client** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
@@ -47,7 +47,7 @@ const balance = await tevm.runContractCall(
 
 ## Source
 
-[client-memory/src/createMemoryTevm.js:59](https://github.com/evmts/tevm-monorepo/blob/main/core/client-memory/src/createMemoryTevm.js#L59)
+[memory-client/src/createMemoryTevm.js:59](https://github.com/evmts/tevm-monorepo/blob/main/core/memory-client/src/createMemoryTevm.js#L59)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

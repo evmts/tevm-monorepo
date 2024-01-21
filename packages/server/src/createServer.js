@@ -1,11 +1,11 @@
-import { createHttpHandler } from './createHttpHandler.js'
 import { createServer as httpCreateServer } from 'http'
+import { createHttpHandler } from './createHttpHandler.js'
 
 /**
  * Creates a lightweight http server for handling requests
  * @param {Object} options
  * @param {import('http').ServerOptions} [options.serverOptions] - Optional options to pass to the http server
- * @param {import('@tevm/procedures-spec').TevmJsonRpcRequestHandler} options.request - A request handler for the JSON-RPC requests
+ * @param {import('@tevm/procedures-types').TevmJsonRpcRequestHandler} options.request - A request handler for the JSON-RPC requests
  *
  * To use pass in the Tevm['request'] request handler
  * @example

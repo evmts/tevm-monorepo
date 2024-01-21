@@ -6,11 +6,11 @@ import { bytesToHex, hexToBytes } from 'viem'
 /**
  * Creates an GetAccountHandler for handling account params with Ethereumjs EVM
  * @param {import('@ethereumjs/evm').EVM} evm
- * @returns {import('@tevm/actions-spec').GetAccountHandler}
+ * @returns {import('@tevm/actions-types').GetAccountHandler}
  */
 export const getAccountHandler = (evm) => async (params) => {
 	/**
-	 * @type {Array<import('@tevm/actions-spec').GetAccountError>}
+	 * @type {Array<import('@tevm/actions-types').GetAccountError>}
 	 */
 	const errors = validateGetAccountParams(params)
 	if (errors.length > 0) {
@@ -47,7 +47,7 @@ export const getAccountHandler = (evm) => async (params) => {
 				? bytesToHex(await evm.stateManager.getContractCode(address))
 				: '0x'
 		return {
-			// TODO some of these fields are not in the api and should be added to @tevm/actions-spec
+			// TODO some of these fields are not in the api and should be added to @tevm/actions-types
 			address: params.address,
 			balance: res.balance,
 			codeHash: res.codeHash,

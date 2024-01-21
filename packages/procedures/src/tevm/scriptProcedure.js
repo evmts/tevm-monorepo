@@ -5,11 +5,11 @@ import { hexToBigInt } from 'viem'
 /**
  * Creates a Script JSON-RPC Procedure for handling script requests with Ethereumjs EVM
  * @param {import('@ethereumjs/evm').EVM} evm
- * @returns {import('@tevm/procedures-spec').ScriptJsonRpcProcedure}
+ * @returns {import('@tevm/procedures-types').ScriptJsonRpcProcedure}
  */
 export const scriptProcedure = (evm) => async (request) => {
 	/**
-	 * @type {import('@tevm/actions-spec').ScriptResult}
+	 * @type {import('@tevm/actions-types').ScriptResult}
 	 */
 	let res
 	try {

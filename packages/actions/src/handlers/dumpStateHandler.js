@@ -4,7 +4,7 @@ import { DefaultTevmStateManager, TevmStateManager } from '@tevm/state'
 import { bytesToHex } from 'viem'
 /**
  * @param {TevmStateManager | DefaultTevmStateManager} stateManager
- * @returns {import('@tevm/actions-spec').DumpStateHandler}
+ * @returns {import('@tevm/actions-types').DumpStateHandler}
  */
 export const dumpStateHandler = (stateManager) => async () => {
 	const accountAddresses = stateManager.getAccountAddresses()

@@ -1,4 +1,4 @@
-**@tevm/actions-spec** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/actions-types** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
@@ -12,7 +12,7 @@ Error thrown when balance parameter is invalid
 
 ## Source
 
-[errors/InvalidBalanceError.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/core/actions-spec/src/errors/InvalidBalanceError.ts#L6)
+[errors/InvalidBalanceError.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/core/actions-types/src/errors/InvalidBalanceError.ts#L6)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -7,7 +7,7 @@ import { bytesToHex, hexToBytes } from 'viem'
  * @param {object} options
  * @param {import('@ethereumjs/evm').EVM['stateManager']} options.stateManager
  * @param {string} [options.forkUrl]
- * @returns {import('@tevm/actions-spec').EthGetStorageAtHandler}
+ * @returns {import('@tevm/actions-types').EthGetStorageAtHandler}
  */
 export const getStorageAtHandler =
 	({ forkUrl, stateManager }) =>

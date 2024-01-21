@@ -1,7 +1,7 @@
-import { zSetAccountParams } from './zSetAccountParams.js'
-import type { SetAccountParams } from '@tevm/actions-spec'
-import { expect, test } from 'bun:test'
+import type { SetAccountParams } from '@tevm/actions-types'
 import type { z } from 'zod'
+import { zSetAccountParams } from './zSetAccountParams.js'
+import { expect, test } from 'bun:test'
 
 test('zSetAccountParams', () => {
 	const accountParams = {

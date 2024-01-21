@@ -1,4 +1,4 @@
-**@tevm/client-remote** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/remote-client** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
@@ -37,7 +37,7 @@ The url being used to connect to the remote Tevm backend
 
 ## Source
 
-[TevmClient.ts:12](https://github.com/evmts/tevm-monorepo/blob/main/core/client-remote/src/TevmClient.ts#L12)
+[TevmClient.ts:12](https://github.com/evmts/tevm-monorepo/blob/main/core/remote-client/src/TevmClient.ts#L12)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

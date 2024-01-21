@@ -1,4 +1,4 @@
-**@tevm/client-memory** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/memory-client** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
@@ -30,7 +30,7 @@ fulfill JSON-RPC requests that cannot be fulfilled locally
 
 ## Source
 
-[client-memory/src/ForkOptions.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/core/client-memory/src/ForkOptions.ts#L4)
+[memory-client/src/ForkOptions.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/core/memory-client/src/ForkOptions.ts#L4)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

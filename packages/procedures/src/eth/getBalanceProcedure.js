@@ -3,7 +3,7 @@ import { numberToHex } from 'viem'
 
 /**
  * @param {Parameters<typeof getBalanceHandler>[0]} options
- * @returns {import('@tevm/procedures-spec').EthGetBalanceJsonRpcProcedure}
+ * @returns {import('@tevm/procedures-types').EthGetBalanceJsonRpcProcedure}
  */
 export const getBalanceProcedure =
 	({ stateManager, forkUrl }) =>

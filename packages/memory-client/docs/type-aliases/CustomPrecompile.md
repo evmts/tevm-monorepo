@@ -1,4 +1,4 @@
-**@tevm/client-memory** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/memory-client** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
@@ -12,7 +12,7 @@ Custom precompiles allow you to run arbitrary JavaScript code in the EVM
 
 ## Source
 
-[client-memory/src/CustomPrecompile.ts:19](https://github.com/evmts/tevm-monorepo/blob/main/core/client-memory/src/CustomPrecompile.ts#L19)
+[memory-client/src/CustomPrecompile.ts:19](https://github.com/evmts/tevm-monorepo/blob/main/core/memory-client/src/CustomPrecompile.ts#L19)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

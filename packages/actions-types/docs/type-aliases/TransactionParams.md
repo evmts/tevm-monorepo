@@ -1,4 +1,4 @@
-**@tevm/actions-spec** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/actions-types** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
@@ -42,7 +42,7 @@ A transaction request object
 
 ## Source
 
-[common/TransactionParams.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/core/actions-spec/src/common/TransactionParams.ts#L7)
+[common/TransactionParams.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/core/actions-types/src/common/TransactionParams.ts#L7)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

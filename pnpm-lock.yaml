@@ -1045,10 +1045,10 @@ importers:
       '@ethereumjs/util':
         specifier: ^9.0.1
         version: 9.0.1
-      '@tevm/actions-spec':
+      '@tevm/actions-types':
         specifier: workspace:^
         version: link:../../packages/actions-types
-      '@tevm/client-memory':
+      '@tevm/memory-client':
         specifier: workspace:^
         version: link:../../packages/memory-client
       '@tevm/client-spec':
@@ -1060,9 +1060,9 @@ importers:
       '@tevm/jsonrpc':
         specifier: workspace:^
         version: link:../../packages/jsonrpc
-      '@tevm/procedures-spec':
+      '@tevm/procedures-types':
         specifier: workspace:^
-        version: link:../../packages/procedures-spec
+        version: link:../../packages/procedures-types
       '@tevm/server':
         specifier: workspace:^
         version: link:../../packages/server
@@ -1237,7 +1237,7 @@ importers:
       '@ethereumjs/evm':
         specifier: ^2.1.0
         version: 2.1.0
-      '@tevm/actions-spec':
+      '@tevm/actions-types':
         specifier: workspace:^
         version: link:../actions-types
       '@tevm/state':
@@ -1270,12 +1270,12 @@ importers:
 
   packages/client-types:
     devDependencies:
-      '@tevm/actions-spec':
+      '@tevm/actions-types':
         specifier: workspace:^
         version: link:../actions-types
-      '@tevm/procedures-spec':
+      '@tevm/procedures-types':
         specifier: workspace:^
-        version: link:../procedures-spec
+        version: link:../procedures-types
       '@tevm/tsconfig':
         specifier: workspace:^
         version: link:../../configs/tsconfig
@@ -1399,9 +1399,9 @@ importers:
       '@tevm/predeploys':
         specifier: workspace:^
         version: link:../predeploys
-      '@tevm/procedures-spec':
+      '@tevm/procedures-types':
         specifier: workspace:^
-        version: link:../procedures-spec
+        version: link:../procedures-types
       '@tevm/state':
         specifier: workspace:^
         version: link:../state
@@ -1467,12 +1467,12 @@ importers:
       '@ethereumjs/evm':
         specifier: ^2.1.0
         version: 2.1.0
-      '@tevm/actions-spec':
+      '@tevm/actions-types':
         specifier: workspace:^
         version: link:../actions-types
-      '@tevm/procedures-spec':
+      '@tevm/procedures-types':
         specifier: workspace:^
-        version: link:../procedures-spec
+        version: link:../procedures-types
       '@tevm/state':
         specifier: workspace:^
         version: link:../state
@@ -1483,9 +1483,9 @@ importers:
         specifier: workspace:^
         version: link:../../configs/tsupconfig
 
-  packages/procedures-spec:
+  packages/procedures-types:
     devDependencies:
-      '@tevm/actions-spec':
+      '@tevm/actions-types':
         specifier: workspace:^
         version: link:../actions-types
       '@tevm/errors':
@@ -1525,7 +1525,7 @@ importers:
       '@ethereumjs/util':
         specifier: ^9.0.1
         version: 9.0.1
-      '@tevm/client-memory':
+      '@tevm/memory-client':
         specifier: workspace:^
         version: link:../memory-client
       '@tevm/client-spec':
@@ -1550,10 +1550,10 @@ importers:
       '@ethereumjs/evm':
         specifier: ^2.1.0
         version: 2.1.0
-      '@tevm/actions-spec':
+      '@tevm/actions-types':
         specifier: workspace:^
         version: link:../actions-types
-      '@tevm/client-memory':
+      '@tevm/memory-client':
         specifier: workspace:^
         version: link:../memory-client
       '@tevm/errors':
@@ -1562,9 +1562,9 @@ importers:
       '@tevm/jsonrpc':
         specifier: workspace:^
         version: link:../jsonrpc
-      '@tevm/procedures-spec':
+      '@tevm/procedures-types':
         specifier: workspace:^
-        version: link:../procedures-spec
+        version: link:../procedures-types
       '@tevm/tsconfig':
         specifier: workspace:^
         version: link:../../configs/tsconfig
@@ -1639,7 +1639,7 @@ importers:
         specifier: ^3.22.4
         version: 3.22.4
     devDependencies:
-      '@tevm/actions-spec':
+      '@tevm/actions-types':
         specifier: workspace:^
         version: link:../actions-types
       '@tevm/errors':
@@ -1654,16 +1654,16 @@ importers:
 
   tevm:
     dependencies:
-      '@tevm/actions-spec':
+      '@tevm/actions-types':
         specifier: workspace:^
         version: link:../packages/actions-types
       '@tevm/base-bundler':
         specifier: workspace:1.0.0-next.21
         version: link:../bundler-packages/base-bundler
-      '@tevm/client-memory':
+      '@tevm/memory-client':
         specifier: workspace:^
         version: link:../packages/memory-client
-      '@tevm/client-remote':
+      '@tevm/remote-client':
         specifier: workspace:^
         version: link:../packages/remote-client
       '@tevm/client-spec':
@@ -1678,9 +1678,9 @@ importers:
       '@tevm/predeploys':
         specifier: workspace:^
         version: link:../packages/predeploys
-      '@tevm/procedures-spec':
+      '@tevm/procedures-types':
         specifier: workspace:^
-        version: link:../packages/procedures-spec
+        version: link:../packages/procedures-types
       abitype:
         specifier: ^1.0.0
         version: 1.0.0(typescript@5.3.3)(zod@3.22.4)

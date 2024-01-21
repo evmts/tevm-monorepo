@@ -15,7 +15,7 @@ import type {
 	AnvilSetNonceResult,
 	AnvilSetStorageAtResult,
 	AnvilStopImpersonatingAccountResult,
-} from '@tevm/actions-spec'
+} from '@tevm/actions-types'
 import type { JsonRpcResponse } from '@tevm/jsonrpc'
 
 // TODO type the errors strongly

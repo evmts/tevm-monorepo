@@ -1,4 +1,4 @@
-**@tevm/client-memory** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/memory-client** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
@@ -68,7 +68,7 @@ Fork url if the EVM is forked
 
 ## Source
 
-[client-memory/src/MemoryTevm.ts:38](https://github.com/evmts/tevm-monorepo/blob/main/core/client-memory/src/MemoryTevm.ts#L38)
+[memory-client/src/MemoryTevm.ts:38](https://github.com/evmts/tevm-monorepo/blob/main/core/memory-client/src/MemoryTevm.ts#L38)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

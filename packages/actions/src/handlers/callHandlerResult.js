@@ -3,11 +3,11 @@ import { bytesToHex, getAddress, isBytes, toHex } from 'viem'
 /**
  * Creates an CallHandler for handling call params with Ethereumjs EVM
  * @param {import('@ethereumjs/evm').EVMResult} evmResult
- * @returns {import('@tevm/actions-spec').CallResult}
+ * @returns {import('@tevm/actions-types').CallResult}
  */
 export const callHandlerResult = (evmResult) => {
 	/**
-	 * @type {import('@tevm/actions-spec').CallResult}
+	 * @type {import('@tevm/actions-types').CallResult}
 	 */
 	const out = {
 		rawData: toHex(evmResult.execResult.returnValue),

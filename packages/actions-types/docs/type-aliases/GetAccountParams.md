@@ -1,4 +1,4 @@
-**@tevm/actions-spec** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/actions-types** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
@@ -28,7 +28,7 @@ Address of account
 
 ## Source
 
-[params/GetAccountParams.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/core/actions-spec/src/params/GetAccountParams.ts#L10)
+[params/GetAccountParams.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/core/actions-types/src/params/GetAccountParams.ts#L10)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

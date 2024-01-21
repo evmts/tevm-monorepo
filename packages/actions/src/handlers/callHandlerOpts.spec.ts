@@ -24,7 +24,7 @@ describe('callHandlerOpts', () => {
 			timestamp: 1625097600n,
 			baseFeePerGas: 100n,
 			blobGasPrice: 200n,
-		} as const satisfies import('@tevm/actions-spec').Block
+		} as const satisfies import('@tevm/actions-types').Block
 		const result = callHandlerOpts({
 			block,
 		})

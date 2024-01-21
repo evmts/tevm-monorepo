@@ -1,4 +1,4 @@
-**@tevm/client-remote** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/remote-client** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
@@ -26,7 +26,7 @@ Remote URL to connect to
 
 ## Source
 
-[ClientOptions.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/core/client-remote/src/ClientOptions.ts#L4)
+[ClientOptions.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/core/remote-client/src/ClientOptions.ts#L4)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

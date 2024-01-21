@@ -24,7 +24,7 @@ import {
  * bundle size.
  *
  * @param {import('@ethereumjs/vm').VM} vm
- * @returns {import('@tevm/procedures-spec').TevmJsonRpcRequestHandler}
+ * @returns {import('@tevm/procedures-types').TevmJsonRpcRequestHandler}
  * @example
  * ```typescript
  * const blockNumberResponse = await tevm.request({
