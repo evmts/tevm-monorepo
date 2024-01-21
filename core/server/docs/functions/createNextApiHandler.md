@@ -30,7 +30,7 @@ export default createNextApiHandler({ request: tevm.request })
 
 ## Source
 
-[vm/server/src/adapters/createNextApiHandler.js:16](https://github.com/evmts/tevm-monorepo/blob/main/vm/server/src/adapters/createNextApiHandler.js#L16)
+[core/server/src/adapters/createNextApiHandler.js:16](https://github.com/evmts/tevm-monorepo/blob/main/core/server/src/adapters/createNextApiHandler.js#L16)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

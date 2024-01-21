@@ -50,7 +50,7 @@ const client = createClient({
 
 ## Source
 
-[vm/server/src/adapters/createExpressMiddleware.js:35](https://github.com/evmts/tevm-monorepo/blob/main/vm/server/src/adapters/createExpressMiddleware.js#L35)
+[core/server/src/adapters/createExpressMiddleware.js:35](https://github.com/evmts/tevm-monorepo/blob/main/core/server/src/adapters/createExpressMiddleware.js#L35)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

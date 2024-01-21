@@ -41,7 +41,7 @@ server.listen(PORT, () => console.log({ listening: PORT }))
 
 ## Source
 
-[vm/server/src/createHttpHandler.js:34](https://github.com/evmts/tevm-monorepo/blob/main/vm/server/src/createHttpHandler.js#L34)
+[core/server/src/createHttpHandler.js:34](https://github.com/evmts/tevm-monorepo/blob/main/core/server/src/createHttpHandler.js#L34)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

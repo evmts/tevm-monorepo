@@ -56,7 +56,7 @@ node\_modules/.pnpm/typescript@5.3.3/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Source
 
-[vm/server/src/BadRequestError.js:13](https://github.com/evmts/tevm-monorepo/blob/main/vm/server/src/BadRequestError.js#L13)
+[core/server/src/BadRequestError.js:13](https://github.com/evmts/tevm-monorepo/blob/main/core/server/src/BadRequestError.js#L13)
 
 ***
 
@@ -98,7 +98,7 @@ Error.name
 
 #### Source
 
-[vm/server/src/BadRequestError.js:9](https://github.com/evmts/tevm-monorepo/blob/main/vm/server/src/BadRequestError.js#L9)
+[core/server/src/BadRequestError.js:9](https://github.com/evmts/tevm-monorepo/blob/main/core/server/src/BadRequestError.js#L9)
 
 ***
 

@@ -62,6 +62,8 @@
 	"devDependencies": {
 		"@ethereumjs/evm": "^2.1.0",
 		"@tevm/actions-spec": "workspace:^",
+		"@tevm/errors": "workspace:^",
+		"@tevm/jsonrpc": "workspace:^",
 		"@tevm/procedures-spec": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",

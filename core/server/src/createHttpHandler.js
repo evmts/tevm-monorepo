@@ -1,9 +1,9 @@
 import { BadRequestError } from './BadRequestError.js'
-import { UnexpectedInternalServerError } from '@tevm/vm'
+import { UnexpectedInternalServerError } from '@tevm/errors'
 import { zJsonRpcRequest } from '@tevm/zod'
 
 /**
- * @typedef {{request: import('@tevm/api').TevmJsonRpcRequestHandler}} CreateHttpHandlerParameters
+ * @typedef {{request: import('@tevm/procedures-spec').TevmJsonRpcRequestHandler}} CreateHttpHandlerParameters
  */
 
 /**
@@ -90,7 +90,7 @@ export const createHttpHandler = (parameters) => {
 
 			if (Array.isArray(parsedRequest.data)) {
 				/**
-				 * @type {ReadonlyArray<import("@tevm/api").JsonRpcRequest<string, object>>}
+				 * @type {ReadonlyArray<import("@tevm/jsonrpc").JsonRpcRequest<string, object>>}
 				 */
 				const requests = parsedRequest.data
 				const responses = await Promise.allSettled(
@@ -100,7 +100,7 @@ export const createHttpHandler = (parameters) => {
 				)
 				responses.map((response, i) => {
 					const request =
-						/** @type {import("@tevm/api").JsonRpcRequest<string, object>} */ (
+						/** @type {import("@tevm/jsonrpc").JsonRpcRequest<string, object>} */ (
 							requests[i]
 						)
 					if (response.status === 'rejected') {
@@ -122,7 +122,7 @@ export const createHttpHandler = (parameters) => {
 				return res.end(JSON.stringify(responses))
 			} else {
 				const request =
-					/**  @type {import("@tevm/api").JsonRpcRequest<string, object>} */ (
+					/**  @type {import("@tevm/jsonrpc").JsonRpcRequest<string, object>} */ (
 						parsedRequest.data
 					)
 				try {
