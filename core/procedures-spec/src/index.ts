@@ -192,4 +192,3 @@ export type {
 	JsonRpcRequestTypeFromMethod,
 	TevmJsonRpcRequestHandler,
 } from './TevmJsonRpcRequestHandler.js'
-export type { Tevm } from './Tevm.js'
