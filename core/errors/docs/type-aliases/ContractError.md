@@ -1,4 +1,4 @@
-**@tevm/api** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/errors** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
@@ -21,7 +21,7 @@ if (errors?.length) {
 
 ## Source
 
-[errors/ContractError.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/errors/ContractError.ts#L21)
+[core/errors/src/ContractError.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/core/errors/src/ContractError.ts#L21)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

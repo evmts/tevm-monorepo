@@ -1,4 +1,4 @@
-**@tevm/api** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/errors** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
@@ -18,7 +18,7 @@ Error type of errors thrown while internally executing a call in the EVM
 
 ## Source
 
-[errors/EvmError.ts:45](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/errors/EvmError.ts#L45)
+[core/errors/src/EvmError.ts:45](https://github.com/evmts/tevm-monorepo/blob/main/core/errors/src/EvmError.ts#L45)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

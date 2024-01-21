@@ -1,4 +1,4 @@
-**@tevm/api** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/errors** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
@@ -21,7 +21,7 @@ if (errors?.length) {
 
 ## Source
 
-[errors/CallError.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/errors/CallError.ts#L14)
+[core/errors/src/CallError.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/core/errors/src/CallError.ts#L14)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

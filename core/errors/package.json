@@ -50,10 +50,7 @@
 	},
 	"devDependencies": {
 		"@tevm/tsconfig": "workspace:^",
-		"@tevm/tsupconfig": "workspace:^",
-		"@tevm/state": "workspace:^",
-		"abitype": "^0.10.3",
-		"viem": "^2.0.0"
+		"@tevm/tsupconfig": "workspace:^"
 	},
 	"publishConfig": {
 		"access": "public"

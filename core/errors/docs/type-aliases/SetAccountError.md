@@ -1,4 +1,4 @@
-**@tevm/api** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/errors** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
@@ -23,7 +23,7 @@ if (errors?.length) {
 
 ## Source
 
-[errors/SetAccountError.ts:19](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/errors/SetAccountError.ts#L19)
+[core/errors/src/SetAccountError.ts:19](https://github.com/evmts/tevm-monorepo/blob/main/core/errors/src/SetAccountError.ts#L19)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
