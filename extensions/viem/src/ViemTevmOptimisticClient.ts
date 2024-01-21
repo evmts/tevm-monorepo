@@ -1,3 +1,4 @@
+import type { OptimisticResult } from './OptimisticResult.js'
 import type { TevmClient } from '@tevm/client-types'
 import type { Abi } from 'abitype'
 import type {
@@ -7,7 +8,6 @@ import type {
 	ContractFunctionName,
 	WriteContractParameters,
 } from 'viem'
-import type { OptimisticResult } from './OptimisticResult.js'
 
 /**
  * @experimental

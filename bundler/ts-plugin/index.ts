@@ -1,2 +1,2 @@
-import tsPlugin = require('@tevm/ts-plugin');
+import tsPlugin = require('@tevm/ts-plugin')
 exports = tsPlugin

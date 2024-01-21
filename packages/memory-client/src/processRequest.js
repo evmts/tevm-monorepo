@@ -1,9 +1,9 @@
+import { proxyRequest } from './proxyRequest.js'
 import {
 	UnexpectedInternalServerError,
 	UnsupportedMethodError,
 } from '@tevm/errors'
 import { requestProcedure } from '@tevm/procedures'
-import { proxyRequest } from './proxyRequest.js'
 
 // TODO let's refactor the JSON-RPC switch statement in vm/vm/src/procedures/somewhere.js to instead grab
 // handlers off of a handler object. Then here we can make this DRY by simply checking to see if the key exists
@@ -57,7 +57,7 @@ export const processRequest = (vm, proxyUrl) => {
 				}
 				return proxyRequest(proxyUrl)(request)
 			}
-			return requestProcedure(vm)(/**@type any*/(request))
+			return requestProcedure(vm)(/**@type any*/ (request))
 		} catch (e) {
 			console.error(e)
 			const err = new UnexpectedInternalServerError(request.method)

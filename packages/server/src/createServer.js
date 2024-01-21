@@ -1,5 +1,5 @@
-import { createServer as httpCreateServer } from 'http'
 import { createHttpHandler } from './createHttpHandler.js'
+import { createServer as httpCreateServer } from 'http'
 
 /**
  * Creates a lightweight http server for handling requests

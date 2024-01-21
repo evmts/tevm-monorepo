@@ -18,7 +18,9 @@
 		"directory": "extensions/viem"
 	},
 	"license": "MIT",
-	"contributors": ["Will Cory <willcory10@gmail.com>"],
+	"contributors": [
+		"Will Cory <willcory10@gmail.com>"
+	],
 	"type": "module",
 	"exports": {
 		"./package.json": "./package.json",
@@ -36,7 +38,12 @@
 	"main": "dist/index.cjs",
 	"module": "dist/index.js",
 	"types": "types/index.d.ts",
-	"files": ["dist", "types", "src", "!src/**/*.spec.ts"],
+	"files": [
+		"dist",
+		"types",
+		"src",
+		"!src/**/*.spec.ts"
+	],
 	"scripts": {
 		"all": "pnpm i  && bun run build && bun lint && bun format && bun test:run && bun generate:docs && bun run lint:deps && bun run lint:package",
 		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/viem",
@@ -59,12 +66,12 @@
 	"devDependencies": {
 		"@ethereumjs/util": "^9.0.1",
 		"@tevm/actions-types": "workspace:^",
-		"@tevm/contract": "workspace:^",
-		"@tevm/memory-client": "workspace:^",
 		"@tevm/client-types": "workspace:^",
+		"@tevm/contract": "workspace:^",
+		"@tevm/jsonrpc": "workspace:^",
+		"@tevm/memory-client": "workspace:^",
 		"@tevm/procedures-types": "workspace:^",
 		"@tevm/server": "workspace:^",
-		"@tevm/jsonrpc": "workspace:^",
 		"@tevm/state": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",

@@ -1,1 +1,1 @@
-export * from '@tevm/ts-plugin';
+export * from '@tevm/ts-plugin'

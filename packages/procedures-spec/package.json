@@ -3,14 +3,22 @@
 	"version": "1.0.0-next.22",
 	"private": false,
 	"description": "A typesafe library for writing forge scripts in typescript",
-	"keywords": ["solidity", "sol", "typescript", "web3", "blockchain"],
+	"keywords": [
+		"solidity",
+		"sol",
+		"typescript",
+		"web3",
+		"blockchain"
+	],
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/evmts/tevm-monorepo.git",
 		"directory": "vm/procedures-types"
 	},
 	"license": "MIT",
-	"contributors": ["Will Cory <willcory10@gmail.com>"],
+	"contributors": [
+		"Will Cory <willcory10@gmail.com>"
+	],
 	"type": "module",
 	"exports": {
 		"./package.json": "./package.json",
@@ -28,7 +36,12 @@
 	"main": "dist/index.cjs",
 	"module": "dist/index.js",
 	"types": "types/index.d.ts",
-	"files": ["dist", "src", "!src/**/*.spec.ts", "types"],
+	"files": [
+		"dist",
+		"src",
+		"!src/**/*.spec.ts",
+		"types"
+	],
 	"scripts": {
 		"all": "pnpm i  && bun run build && bun lint && bun format && bun test:run && bun generate:docs && bun lint:deps && bun lint:package",
 		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/procedures-types",
@@ -37,11 +50,11 @@
 		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
 		"format": "rome format . --write",
 		"format:check": "rome format .",
-		"lint:deps": "bunx depcheck",
-		"lint:package": "bunx publint --strict && attw --pack",
 		"generate:docs": "typedoc",
 		"lint": "rome check . --apply-unsafe",
 		"lint:check": "rome check . --verbose",
+		"lint:deps": "bunx depcheck",
+		"lint:package": "bunx publint --strict && attw --pack",
 		"package:up": "pnpm up --latest",
 		"test": "bun test --watch",
 		"test:coverage": "bun test --coverage",
@@ -49,12 +62,12 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"devDependencies": {
+		"@tevm/actions-types": "workspace:^",
 		"@tevm/errors": "workspace:^",
 		"@tevm/jsonrpc": "workspace:^",
-		"@tevm/actions-types": "workspace:^",
+		"@tevm/state": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",
-		"@tevm/state": "workspace:^",
 		"abitype": "^0.10.3",
 		"viem": "^2.0.0"
 	},

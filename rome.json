@@ -18,12 +18,13 @@
 			"**/.vitepress/dist",
 			"scaffold-tevm",
 			"tevm/**/*",
+			"bundler/**/*",
 			".vscode",
 			".changeset",
 			".devcontainer",
 			"examples/svelte-ethers/.svelte-kit",
-			"packages/viem-effect",
-			"bundler/config/src/fixtures"
+			"experimental/viem-effect",
+			"bundler-packages/config/src/fixtures"
 		]
 	},
 	"formatter": {

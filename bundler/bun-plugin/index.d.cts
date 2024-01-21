@@ -1,1 +1,1 @@
-export { bunPluginTevm } from '@tevm/bun-plugin';
+export { bunPluginTevm } from '@tevm/bun-plugin'
