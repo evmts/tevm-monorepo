@@ -1,6 +1,6 @@
-import type { WrappedEvm } from './WrappedEvm.js'
 import type { VM } from '@ethereumjs/vm'
-import type { TevmClient } from '@tevm/client-spec'
+import type { TevmClient } from '@tevm/client-types'
+import type { WrappedEvm } from './WrappedEvm.js'
 
 /**
  * A local EVM instance running in JavaScript. Similar to Anvil in your browser/node/bun environments

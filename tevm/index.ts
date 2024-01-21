@@ -9,21 +9,28 @@ export type {
 	GetAccountResult,
 	SetAccountResult,
 	ContractResult,
+} from '@tevm/actions-types'
+export type {
 	TevmJsonRpcRequest,
 	TevmJsonRpcRequestHandler,
+	JsonRpcReturnTypeFromMethod,
+	JsonRpcRequestTypeFromMethod,
+} from '@tevm/procedures-types'
+export {
+	JsonRpcRequest,
+	JsonRpcResponse,
+} from '@tevm/jsonrpc'
+export {
+	TevmClient
+} from '@tevm/client-types'
+export type {
+	TevmEVMErrorMessage,
 	SetAccountError,
 	ContractError,
 	ScriptError,
 	CallError,
 	GetAccountError,
-	Tevm,
-	JsonRpcReturnTypeFromMethod,
-	JsonRpcRequestTypeFromMethod,
-	JsonRpcRequest,
-	JsonRpcResponse,
-	TevmEVMErrorMessage,
-} from '@tevm/api'
-
+} from '@tevm/errors'
 export {
 	type Predeploy,
 	type CustomPredeploy,

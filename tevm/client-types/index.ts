@@ -1,3 +1,3 @@
 export type {
 	Tevm,
-} from '@tevm/client-spec'
+} from '@tevm/client-types'

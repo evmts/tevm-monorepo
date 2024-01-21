@@ -1,4 +1,4 @@
-**@tevm/client-spec** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/client-types** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
@@ -370,7 +370,7 @@ await tevm.setAccount({
 
 ## Source
 
-[Tevm.ts:69](https://github.com/evmts/tevm-monorepo/blob/main/core/client-spec/src/Tevm.ts#L69)
+[Tevm.ts:69](https://github.com/evmts/tevm-monorepo/blob/main/core/client-types/src/Tevm.ts#L69)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

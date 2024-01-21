@@ -1048,7 +1048,7 @@ importers:
       '@tevm/actions-types':
         specifier: workspace:^
         version: link:../../packages/actions-types
-      '@tevm/client-spec':
+      '@tevm/client-types':
         specifier: workspace:^
         version: link:../../packages/client-types
       '@tevm/contract':
@@ -1393,7 +1393,7 @@ importers:
       '@ethereumjs/util':
         specifier: ^9.0.1
         version: 9.0.1
-      '@tevm/client-spec':
+      '@tevm/client-types':
         specifier: workspace:^
         version: link:../client-types
       '@tevm/predeploys':
@@ -1525,7 +1525,7 @@ importers:
       '@ethereumjs/util':
         specifier: ^9.0.1
         version: 9.0.1
-      '@tevm/client-spec':
+      '@tevm/client-types':
         specifier: workspace:^
         version: link:../client-types
       '@tevm/memory-client':
@@ -1657,7 +1657,7 @@ importers:
       '@tevm/actions-types':
         specifier: workspace:^
         version: link:../packages/actions-types
-      '@tevm/client-spec':
+      '@tevm/client-types':
         specifier: workspace:^
         version: link:../packages/client-types
       '@tevm/contract':
@@ -1666,6 +1666,9 @@ importers:
       '@tevm/errors':
         specifier: workspace:^
         version: link:../packages/errors
+      '@tevm/jsonrpc':
+        specifier: workspace:^
+        version: link:../packages/jsonrpc
       '@tevm/memory-client':
         specifier: workspace:^
         version: link:../packages/memory-client

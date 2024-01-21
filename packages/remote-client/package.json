@@ -56,7 +56,7 @@
 	"devDependencies": {
 		"@ethereumjs/util": "^9.0.1",
 		"@tevm/memory-client": "workspace:^",
-		"@tevm/client-spec": "workspace:^",
+		"@tevm/client-types": "workspace:^",
 		"@tevm/server": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^"

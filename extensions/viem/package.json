@@ -61,7 +61,7 @@
 		"@tevm/actions-types": "workspace:^",
 		"@tevm/contract": "workspace:^",
 		"@tevm/memory-client": "workspace:^",
-		"@tevm/client-spec": "workspace:^",
+		"@tevm/client-types": "workspace:^",
 		"@tevm/procedures-types": "workspace:^",
 		"@tevm/server": "workspace:^",
 		"@tevm/jsonrpc": "workspace:^",

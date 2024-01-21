@@ -64,7 +64,7 @@
 	},
 	"devDependencies": {
 		"@ethereumjs/util": "^9.0.1",
-		"@tevm/client-spec": "workspace:^",
+		"@tevm/client-types": "workspace:^",
 		"@tevm/predeploys": "workspace:^",
 		"@tevm/procedures-types": "workspace:^",
 		"@tevm/state": "workspace:^",

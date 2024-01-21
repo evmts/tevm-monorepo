@@ -1,6 +1,6 @@
 import { Server, createServer } from 'http'
 import { Address } from '@ethereumjs/util'
-import type { TevmClient } from '@tevm/client-spec'
+import type { TevmClient } from '@tevm/client-types'
 import { type MemoryClient, createMemoryClient } from '@tevm/memory-client'
 import { createHttpHandler } from '@tevm/server'
 import { bytesToHex, keccak256 } from 'viem'

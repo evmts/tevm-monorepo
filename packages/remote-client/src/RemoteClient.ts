@@ -1,4 +1,4 @@
-import type { TevmClient } from '@tevm/client-spec'
+import type { TevmClient } from '@tevm/client-types'
 
 /**
  * A remote Tevm client for talking to a Tevm backend over HTTP JSON-RPC

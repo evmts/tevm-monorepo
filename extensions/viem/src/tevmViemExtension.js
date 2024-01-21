@@ -45,7 +45,7 @@ export const tevmViemExtension = () => {
 		}
 
 		/**
-		 * @type {import('@tevm/client-spec').TevmClient['request']}
+		 * @type {import('@tevm/client-types').TevmClient['request']}
 		 */
 		const request = async (req) => {
 			try {

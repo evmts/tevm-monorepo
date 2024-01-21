@@ -154,10 +154,11 @@
 	"dependencies": {
 		"@tevm/actions-types": "workspace:^",
 		"@tevm/procedures-types": "workspace:^",
-		"@tevm/client-spec": "workspace:^",
+		"@tevm/client-types": "workspace:^",
 		"@tevm/remote-client": "workspace:^",
 		"@tevm/memory-client": "workspace:^",
 		"@tevm/contract": "workspace:^",
+		"@tevm/jsonrpc": "workspace:^",
 		"@tevm/errors": "workspace:^",
 		"@tevm/predeploys": "workspace:^",
 		"@tevm/server": "workspace:^",
