@@ -12,7 +12,7 @@ Zod validator for a valid JsonRpcRequest
 
 ## Source
 
-[vm/zod/src/common/zJsonRpcRequest.js:6](https://github.com/evmts/tevm-monorepo/blob/main/vm/zod/src/common/zJsonRpcRequest.js#L6)
+[core/zod/src/common/zJsonRpcRequest.js:6](https://github.com/evmts/tevm-monorepo/blob/main/core/zod/src/common/zJsonRpcRequest.js#L6)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

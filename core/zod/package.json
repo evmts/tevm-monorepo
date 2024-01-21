@@ -65,8 +65,7 @@
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",
 		"@tevm/errors": "workspace:^",
-		"@tevm/actions-spec": "workspace:^",
-		"@tevm/procedures-spec": "workspace:^"
+		"@tevm/actions-spec": "workspace:^"
 	},
 	"publishConfig": {
 		"access": "public"

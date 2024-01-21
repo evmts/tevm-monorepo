@@ -12,7 +12,7 @@ Zod validator for valid Ethereum bytecode
 
 ## Source
 
-[vm/zod/src/common/zBytecode.js:18](https://github.com/evmts/tevm-monorepo/blob/main/vm/zod/src/common/zBytecode.js#L18)
+[core/zod/src/common/zBytecode.js:18](https://github.com/evmts/tevm-monorepo/blob/main/core/zod/src/common/zBytecode.js#L18)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

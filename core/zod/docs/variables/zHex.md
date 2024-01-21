@@ -12,7 +12,7 @@ Zod validator for a valid hex string
 
 ## Source
 
-[vm/zod/src/common/zHex.js:8](https://github.com/evmts/tevm-monorepo/blob/main/vm/zod/src/common/zHex.js#L8)
+[core/zod/src/common/zHex.js:8](https://github.com/evmts/tevm-monorepo/blob/main/core/zod/src/common/zHex.js#L8)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

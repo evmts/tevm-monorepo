@@ -14,7 +14,7 @@
 
 ## Source
 
-[vm/zod/src/validators/validateBaseCallParams.js:7](https://github.com/evmts/tevm-monorepo/blob/main/vm/zod/src/validators/validateBaseCallParams.js#L7)
+[core/zod/src/validators/validateBaseCallParams.js:7](https://github.com/evmts/tevm-monorepo/blob/main/core/zod/src/validators/validateBaseCallParams.js#L7)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

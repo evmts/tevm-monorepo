@@ -12,7 +12,7 @@ Zod validator for a valid getAccount action
 
 ## Source
 
-[vm/zod/src/params/zGetAccountParams.js:7](https://github.com/evmts/tevm-monorepo/blob/main/vm/zod/src/params/zGetAccountParams.js#L7)
+[core/zod/src/params/zGetAccountParams.js:7](https://github.com/evmts/tevm-monorepo/blob/main/core/zod/src/params/zGetAccountParams.js#L7)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

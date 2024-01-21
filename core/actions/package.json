@@ -61,7 +61,7 @@
 		"@ethereumjs/blockchain": "^7.0.1",
 		"@ethereumjs/util": "^9.0.1",
 		"@ethereumjs/vm": "^7.1.0",
-		"@tevm/jsonrpc": "workspace:1.0.0-next.22",
+		"@tevm/jsonrpc": "workspace:^",
 		"@tevm/zod": "workspace:^",
 		"viem": "^2.0.0"
 	},
