@@ -26,7 +26,7 @@ import {
 export const tevmViemExtension = () => {
 	return (client) => {
 		/**
-		 * @param {import('@tevm/api').JsonRpcResponse<any, any, any>} response
+		 * @param {import('@tevm/jsonrpc').JsonRpcResponse<any, any, any>} response
 		 * @returns {any}
 		 */
 		const formatResult = (response) => {
@@ -45,11 +45,11 @@ export const tevmViemExtension = () => {
 		}
 
 		/**
-		 * @type {import('@tevm/api').Tevm['request']}
+		 * @type {import('@tevm/client-spec').Tevm['request']}
 		 */
 		const request = async (req) => {
 			try {
-				const result = await client.request(/** @type any*/(req))
+				const result = await client.request(/** @type any*/ (req))
 				return /** @type any */ ({
 					jsonrpc: '2.0',
 					method: req.method,
@@ -77,7 +77,7 @@ export const tevmViemExtension = () => {
 		}
 
 		/**
-		 * @type {import('@tevm/api').ScriptHandler}
+		 * @type {import('@tevm/actions-spec').ScriptHandler}
 		 */
 		const script = async (params) => {
 			const out = /** @type {any} */ (
@@ -89,7 +89,7 @@ export const tevmViemExtension = () => {
 							...getCallArgs(params),
 							deployedBytecode: params.deployedBytecode,
 							data: encodeFunctionData(
-								/** @type any*/({
+								/** @type any*/ ({
 									abi: params.abi,
 									functionName: params.functionName,
 									args: params.args,
@@ -100,7 +100,7 @@ export const tevmViemExtension = () => {
 				)
 			)
 			out.data = decodeFunctionResult(
-				/** @type any*/({
+				/** @type any*/ ({
 					data: out.rawData,
 					abi: params.abi,
 					functionName: params.functionName,
@@ -111,7 +111,7 @@ export const tevmViemExtension = () => {
 		}
 
 		/**
-		 * @type {import('@tevm/api').GetAccountHandler}
+		 * @type {import('@tevm/actions-spec').GetAccountHandler}
 		 */
 		const getAccount = async (params) => {
 			return formatResult(
@@ -124,7 +124,7 @@ export const tevmViemExtension = () => {
 		}
 
 		/**
-		 * @type {import('@tevm/api').SetAccountHandler}
+		 * @type {import('@tevm/actions-spec').SetAccountHandler}
 		 */
 		const setAccount = async (params) => {
 			return formatResult(
@@ -145,7 +145,7 @@ export const tevmViemExtension = () => {
 		}
 
 		/**
-		 * @param {import('@tevm/api').CallParams | import('@tevm/api').ScriptParams} params
+		 * @param {import('@tevm/actions-spec').CallParams | import('@tevm/actions-spec').ScriptParams} params
 		 */
 		const getCallArgs = (params) => {
 			return {
@@ -173,31 +173,31 @@ export const tevmViemExtension = () => {
 				...(params.value ? { value: numberToHex(params.value) } : {}),
 				...(params.block
 					? {
-						...(params.block.gasLimit
-							? { gasLimit: numberToHex(params.block.gasLimit) }
-							: {}),
-						...(params.block.baseFeePerGas
-							? { baseFeePerGas: numberToHex(params.block.baseFeePerGas) }
-							: {}),
-						...(params.block.blobGasPrice
-							? { blobGasPrice: numberToHex(params.block.blobGasPrice) }
-							: {}),
-						...(params.block.difficulty
-							? { difficulty: numberToHex(params.block.difficulty) }
-							: {}),
-						...(params.block.number
-							? { number: numberToHex(params.block.number) }
-							: {}),
-						...(params.block.timestamp
-							? { timestamp: numberToHex(params.block.timestamp) }
-							: {}),
-					}
+							...(params.block.gasLimit
+								? { gasLimit: numberToHex(params.block.gasLimit) }
+								: {}),
+							...(params.block.baseFeePerGas
+								? { baseFeePerGas: numberToHex(params.block.baseFeePerGas) }
+								: {}),
+							...(params.block.blobGasPrice
+								? { blobGasPrice: numberToHex(params.block.blobGasPrice) }
+								: {}),
+							...(params.block.difficulty
+								? { difficulty: numberToHex(params.block.difficulty) }
+								: {}),
+							...(params.block.number
+								? { number: numberToHex(params.block.number) }
+								: {}),
+							...(params.block.timestamp
+								? { timestamp: numberToHex(params.block.timestamp) }
+								: {}),
+					  }
 					: {}),
 			}
 		}
 
 		/**
-		 * @type {import('@tevm/api').CallHandler}
+		 * @type {import('@tevm/actions-spec').CallHandler}
 		 */
 		const call = async (params) => {
 			const response = await request({
@@ -221,7 +221,7 @@ export const tevmViemExtension = () => {
 		}
 
 		/**
-		 * @param {import('@tevm/api').CallJsonRpcResponse | import('@tevm/api').ScriptJsonRpcResponse} response
+		 * @param {import('@tevm/procedures-spec').CallJsonRpcResponse | import('@tevm/procedures-spec').ScriptJsonRpcResponse} response
 		 */
 		const parseCallResponse = (response) => {
 			if ('error' in response) {
@@ -252,13 +252,13 @@ export const tevmViemExtension = () => {
 		}
 
 		/**
-		 * @type {import('@tevm/api').ContractHandler}
+		 * @type {import('@tevm/actions-spec').ContractHandler}
 		 */
 		const contract = async (params) => {
 			const out = await call({
 				...params,
 				data: encodeFunctionData(
-					/** @type any*/({
+					/** @type any*/ ({
 						abi: params.abi,
 						functionName: params.functionName,
 						args: params.args,
@@ -267,7 +267,7 @@ export const tevmViemExtension = () => {
 			})
 
 			const data = decodeFunctionResult(
-				/** @type any*/({
+				/** @type any*/ ({
 					data: out.rawData,
 					abi: params.abi,
 					functionName: params.functionName,
@@ -282,7 +282,7 @@ export const tevmViemExtension = () => {
 		}
 
 		/**
-		 * @type {import('@tevm/api').EthBlockNumberHandler}
+		 * @type {import('@tevm/actions-spec').EthBlockNumberHandler}
 		 */
 		const blockNumber = async () => {
 			return hexToBigInt(
@@ -297,7 +297,7 @@ export const tevmViemExtension = () => {
 		}
 
 		/**
-		 * @type {import('@tevm/api').DumpStateHandler}
+		 * @type {import('@tevm/actions-spec').DumpStateHandler}
 		 */
 		const dumpState = async () => {
 			return /** @type {any} */ (
@@ -312,7 +312,7 @@ export const tevmViemExtension = () => {
 		}
 
 		/**
-		 * @type {import('@tevm/api').EthChainIdHandler}
+		 * @type {import('@tevm/actions-spec').EthChainIdHandler}
 		 */
 		const chainId = async () => {
 			return hexToBigInt(
@@ -327,7 +327,7 @@ export const tevmViemExtension = () => {
 		}
 
 		/**
-		 * @type {import('@tevm/api').LoadStateHandler}
+		 * @type {import('@tevm/actions-spec').LoadStateHandler}
 		 */
 		const loadState = async (params) => {
 			/**
@@ -360,7 +360,7 @@ export const tevmViemExtension = () => {
 			)
 		}
 		/**
-		 * @type {import('@tevm/api').EthGasPriceHandler}
+		 * @type {import('@tevm/actions-spec').EthGasPriceHandler}
 		 */
 		const gasPrice = async () => {
 			return hexToBigInt(
@@ -375,7 +375,7 @@ export const tevmViemExtension = () => {
 		}
 
 		/**
-		 * @type {import('@tevm/api').EthGetBalanceHandler}
+		 * @type {import('@tevm/actions-spec').EthGetBalanceHandler}
 		 */
 		const getBalance = async (params) => {
 			return hexToBigInt(
@@ -390,7 +390,7 @@ export const tevmViemExtension = () => {
 		}
 
 		/**
-		 * @type {import('@tevm/api').EthGetCodeHandler}
+		 * @type {import('@tevm/actions-spec').EthGetCodeHandler}
 		 */
 		const getCode = async (params) => {
 			return /** @type {any} */ (
@@ -405,7 +405,7 @@ export const tevmViemExtension = () => {
 		}
 
 		/**
-		 * @type {import('@tevm/api').EthGetStorageAtHandler}
+		 * @type {import('@tevm/actions-spec').EthGetStorageAtHandler}
 		 */
 		const getStorageAt = async (params) => {
 			return /** @type {any} */ (

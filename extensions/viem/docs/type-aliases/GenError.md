@@ -8,6 +8,9 @@
 
 > **GenError**\<`TErrorType`, `TTag`\>: `object`
 
+An error yield of writeContractOptimistic
+Errors are yielded rather than throwing
+
 ## Type parameters
 
 | Parameter |
@@ -35,7 +38,7 @@
 
 ## Source
 
-[GenError.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/GenError.ts#L3)
+[GenError.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/GenError.ts#L7)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

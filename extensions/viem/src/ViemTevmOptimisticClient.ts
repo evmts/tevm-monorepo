@@ -1,5 +1,5 @@
 import type { OptimisticResult } from './OptimisticResult.js'
-import type { Tevm } from '@tevm/api'
+import type { Tevm } from '@tevm/client-spec'
 import type { Abi } from 'abitype'
 import type {
 	Account,

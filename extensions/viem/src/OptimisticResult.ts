@@ -1,6 +1,6 @@
 import type { GenError } from './GenError.js'
 import type { GenResult } from './GenResult.js'
-import type { ContractResult } from '@tevm/api'
+import type { ContractResult } from '@tevm/actions-spec'
 import type { Abi } from 'abitype'
 import type {
 	Chain,
@@ -10,6 +10,7 @@ import type {
 	WriteContractReturnType,
 } from 'viem'
 
+// TODO move this to actions-spec if it becomes a real action
 /**
  * @experimental
  * The result of an optimistic write

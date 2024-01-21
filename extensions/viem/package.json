@@ -63,21 +63,23 @@
 		"test:run": "bun test",
 		"typecheck": "tsc --noEmit"
 	},
-	"dependencies": {},
 	"devDependencies": {
 		"@ethereumjs/util": "^9.0.1",
-		"@tevm/procedures-spec": "workspace:^",
 		"@tevm/actions-spec": "workspace:^",
 		"@tevm/contract": "workspace:^",
+		"@tevm/client-memory": "workspace:^",
+		"@tevm/client-spec": "workspace:^",
+		"@tevm/procedures-spec": "workspace:^",
 		"@tevm/server": "workspace:^",
+		"@tevm/jsonrpc": "workspace:^",
 		"@tevm/state": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",
 		"abitype": "^0.10.3",
-		"viem": "^2.0.0"
+		"viem": "^2.4.0"
 	},
 	"peerDependencies": {
-		"viem": "^2.0.0"
+		"viem": "2.x.x"
 	},
 	"publishConfig": {
 		"access": "public"
