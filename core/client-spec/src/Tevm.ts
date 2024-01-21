@@ -1,4 +1,3 @@
-import type { TevmJsonRpcRequestHandler } from './TevmJsonRpcRequestHandler.js'
 import type {
 	CallHandler,
 	ContractHandler,
@@ -16,7 +15,8 @@ import type {
 	LoadStateHandler,
 	ScriptHandler,
 	SetAccountHandler,
-} from './handlers/index.js'
+} from '@tevm/actions-spec'
+import type { TevmJsonRpcRequestHandler } from '@tevm/procedures-spec'
 
 /**
  * A local EVM instance running in the browser or Node.js. Akin to anvil or ganache
