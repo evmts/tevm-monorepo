@@ -10,7 +10,9 @@
 
 - [HeadersInit](type-aliases/HeadersInit.md)
 - [JsonRpcClient](type-aliases/JsonRpcClient.md)
-- [JsonRpcFetch](type-aliases/JsonRpcFetch.md)
+- [JsonRpcProcedure](type-aliases/JsonRpcProcedure.md)
+- [JsonRpcRequest](type-aliases/JsonRpcRequest.md)
+- [JsonRpcResponse](type-aliases/JsonRpcResponse.md)
 
 ### Functions
 
