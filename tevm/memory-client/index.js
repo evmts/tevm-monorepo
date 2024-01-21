@@ -1,3 +1,3 @@
-export { NoProxyConfiguredError, ProxyFetchError, UnexpectedInternalServerError, UnsupportedMethodError, createMemoryTevm } from '@tevm/vm';
+export { createMemoryTevm } from '@tevm/memory-client';
 //# sourceMappingURL=out.js.map
 //# sourceMappingURL=index.js.map
