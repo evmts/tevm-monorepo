@@ -1,7 +1,7 @@
-import type { LoadStateError } from '../errors/LoadStateError.js'
-import type { LoadStateResult } from '../result/LoadStateResult.js'
 import type { SerializeToJson } from '../utils/SerializeToJson.js'
 import type { JsonRpcResponse } from './JsonRpcResponse.js'
+import type { LoadStateResult } from '@tevm/actions-spec'
+import type { LoadStateError } from '@tevm/errors'
 
 /**
  * Response of the `tevm_loadState` RPC method.

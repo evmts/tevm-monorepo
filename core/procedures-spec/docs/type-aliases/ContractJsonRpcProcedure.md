@@ -1,4 +1,4 @@
-**@tevm/api** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/procedures-spec** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
@@ -14,7 +14,7 @@ Since ContractJsonRpcProcedure is a quality of life wrapper around CallJsonRpcPr
 
 ## Source
 
-[procedure/ContractJsonRpcProcedure.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/procedure/ContractJsonRpcProcedure.ts#L8)
+[procedure/ContractJsonRpcProcedure.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/core/procedures-spec/src/procedure/ContractJsonRpcProcedure.ts#L8)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

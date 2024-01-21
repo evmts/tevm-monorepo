@@ -1,4 +1,4 @@
-**@tevm/api** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/procedures-spec** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
@@ -16,7 +16,7 @@ JSON-RPC procedure for `debug_traceTransaction`
 
 ## Source
 
-[procedure/DebugProcedure.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/procedure/DebugProcedure.ts#L13)
+[procedure/DebugProcedure.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/core/procedures-spec/src/procedure/DebugProcedure.ts#L13)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

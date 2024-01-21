@@ -1,4 +1,4 @@
-**@tevm/api** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/procedures-spec** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
@@ -63,7 +63,7 @@ Will have anvil_* ganache_* and hardhat_* JSON-RPC compatibility in future versi
 
 ### call
 
-> **call**: [`CallHandler`](CallHandler.md)
+> **call**: `CallHandler`
 
 Executes a call against the VM. It is similar to `eth_call` but has more
 options for controlling the execution environment
@@ -86,7 +86,7 @@ skipBalance: true,
 
 ### contract
 
-> **contract**: [`ContractHandler`](ContractHandler.md)
+> **contract**: `ContractHandler`
 
 Executes a contract call against the VM. It is similar to `eth_call` but has more
 options for controlling the execution environment along with a typesafe API
@@ -113,7 +113,7 @@ console.log(res.data) // "hello"
 
 ### dumpState
 
-> **dumpState**: [`DumpStateHandler`](DumpStateHandler.md)
+> **dumpState**: `DumpStateHandler`
 
 Dumps the current state of the VM into a JSON-seralizable object
 
@@ -147,7 +147,7 @@ Standard JSON-RPC methods for interacting with the VM
 
 ### eth.blockNumber
 
-> **eth.blockNumber**: [`EthBlockNumberHandler`](EthBlockNumberHandler.md)
+> **eth.blockNumber**: `EthBlockNumberHandler`
 
 Returns the current block number
 Set the `tag` to a block number or block hash to get the balance at that block
@@ -166,7 +166,7 @@ console.log(blockNumber) // 0n
 
 ### eth.chainId
 
-> **eth.chainId**: [`EthChainIdHandler`](EthChainIdHandler.md)
+> **eth.chainId**: `EthChainIdHandler`
 
 Returns the current chain id
 Set the `tag` to a block number or block hash to get the balance at that block
@@ -185,7 +185,7 @@ console.log(chainId) // 10n
 
 ### eth.gasPrice
 
-> **eth.gasPrice**: [`EthGasPriceHandler`](EthGasPriceHandler.md)
+> **eth.gasPrice**: `EthGasPriceHandler`
 
 Returns the current gas price
 Set the `tag` to a block number or block hash to get the balance at that block
@@ -204,7 +204,7 @@ console.log(gasPrice) // 0n
 
 ### eth.getBalance
 
-> **eth.getBalance**: [`EthGetBalanceHandler`](EthGetBalanceHandler.md)
+> **eth.getBalance**: `EthGetBalanceHandler`
 
 Returns the balance of a given address
 Set the `tag` to a block number or block hash to get the balance at that block
@@ -223,7 +223,7 @@ console.log(gasPrice) // 0n
 
 ### eth.getCode
 
-> **eth.getCode**: [`EthGetCodeHandler`](EthGetCodeHandler.md)
+> **eth.getCode**: `EthGetCodeHandler`
 
 Returns code at a given address
 Set the `tag` to a block number or block hash to get the balance at that block
@@ -241,7 +241,7 @@ const code = await tevm.eth.getCode({address: '0x123...'})
 
 ### eth.getStorageAt
 
-> **eth.getStorageAt**: [`EthGetStorageAtHandler`](EthGetStorageAtHandler.md)
+> **eth.getStorageAt**: `EthGetStorageAtHandler`
 
 Returns storage at a given address and slot
 Set the `tag` to a block number or block hash to get the balance at that block
@@ -259,7 +259,7 @@ const storageValue = await tevm.eth.getStorageAt({address: '0x123...', position:
 
 ### getAccount
 
-> **getAccount**: [`GetAccountHandler`](GetAccountHandler.md)
+> **getAccount**: `GetAccountHandler`
 
 Gets the state of a specific ethereum address
 
@@ -274,7 +274,7 @@ console.log(res.balance)
 
 ### loadState
 
-> **loadState**: [`LoadStateHandler`](LoadStateHandler.md)
+> **loadState**: `LoadStateHandler`
 
 Loads a previously dumped state into the VM
 
@@ -322,7 +322,7 @@ const accountResponse = await tevm.request({
 
 ### script
 
-> **script**: [`ScriptHandler`](ScriptHandler.md)
+> **script**: `ScriptHandler`
 
 Executes scripts against the Tevm EVM. By default the script is sandboxed
 and the state is reset after each execution unless the `persist` option is set
@@ -352,7 +352,7 @@ const res = tevm.script(
 
 ### setAccount
 
-> **setAccount**: [`SetAccountHandler`](SetAccountHandler.md)
+> **setAccount**: `SetAccountHandler`
 
 Sets the state of a specific ethereum address
 
@@ -370,7 +370,7 @@ await tevm.setAccount({
 
 ## Source
 
-[Tevm.ts:69](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/Tevm.ts#L69)
+[Tevm.ts:69](https://github.com/evmts/tevm-monorepo/blob/main/core/procedures-spec/src/Tevm.ts#L69)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

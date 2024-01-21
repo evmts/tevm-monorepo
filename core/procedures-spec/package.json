@@ -51,6 +51,7 @@
 	"devDependencies": {
 		"@tevm/errors": "workspace:^",
 		"@tevm/actions-spec": "workspace:^",
+		"@tevm/errors": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",
 		"@tevm/state": "workspace:^",

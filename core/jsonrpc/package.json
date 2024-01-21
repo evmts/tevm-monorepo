@@ -64,7 +64,6 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"devDependencies": {
-		"@tevm/api": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^"
 	},

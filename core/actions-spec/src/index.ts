@@ -73,6 +73,7 @@ export type {
 	TraceResult,
 	TraceCall,
 	TraceType,
+	FilterParams,
 } from './common/index.js'
 export type {
 	AccountNotFoundError,
@@ -233,4 +234,5 @@ export type {
 	AnvilStopImpersonatingAccountResult,
 	DebugTraceTransactionResult,
 	DumpStateResult,
+	LoadStateResult,
 } from './result/index.js'

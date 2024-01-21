@@ -1,4 +1,4 @@
-**@tevm/api** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/procedures-spec** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
@@ -33,7 +33,7 @@ Helper type for creating JSON-RPC request types
 
 ## Source
 
-[requests/JsonRpcRequest.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/requests/JsonRpcRequest.ts#L4)
+[requests/JsonRpcRequest.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/core/procedures-spec/src/requests/JsonRpcRequest.ts#L4)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

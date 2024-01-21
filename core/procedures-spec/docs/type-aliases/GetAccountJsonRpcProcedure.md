@@ -1,4 +1,4 @@
-**@tevm/api** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/procedures-spec** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
@@ -16,7 +16,7 @@ GetAccount JSON-RPC tevm procedure puts an account or contract into the tevm sta
 
 ## Source
 
-[procedure/GetAccountJsonRpcProcedure.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/procedure/GetAccountJsonRpcProcedure.ts#L9)
+[procedure/GetAccountJsonRpcProcedure.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/core/procedures-spec/src/procedure/GetAccountJsonRpcProcedure.ts#L9)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

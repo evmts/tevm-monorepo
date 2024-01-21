@@ -6,7 +6,7 @@
 
 # Type alias: EthNewFilterParams
 
-> **EthNewFilterParams**: `FilterParams`
+> **EthNewFilterParams**: [`FilterParams`](FilterParams.md)
 
 JSON-RPC request for `eth_newFilter` procedure
 

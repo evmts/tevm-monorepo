@@ -1,6 +1,6 @@
-import type { FilterParams } from '../common/FilterParams.js'
 import type { JsonRpcRequest } from '../requests/index.js'
 import type { SerializeToJson } from '../utils/SerializeToJson.js'
+import type { FilterParams } from '@tevm/actions-spec'
 import type { Address } from 'abitype'
 import type { BlockTag, Hex, Transaction } from 'viem'
 

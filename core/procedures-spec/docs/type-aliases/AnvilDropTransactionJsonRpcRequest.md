@@ -1,4 +1,4 @@
-**@tevm/api** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/procedures-spec** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
@@ -6,13 +6,13 @@
 
 # Type alias: AnvilDropTransactionJsonRpcRequest
 
-> **AnvilDropTransactionJsonRpcRequest**: [`JsonRpcRequest`](JsonRpcRequest.md)\<`"anvil_dropTransaction"`, `SerializeToJson`\<[`AnvilDropTransactionParams`](AnvilDropTransactionParams.md)\>\>
+> **AnvilDropTransactionJsonRpcRequest**: [`JsonRpcRequest`](JsonRpcRequest.md)\<`"anvil_dropTransaction"`, `SerializeToJson`\<`AnvilDropTransactionParams`\>\>
 
 JSON-RPC request for `anvil_dropTransaction` method
 
 ## Source
 
-[requests/AnvilJsonRpcRequest.ts:69](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/requests/AnvilJsonRpcRequest.ts#L69)
+[requests/AnvilJsonRpcRequest.ts:69](https://github.com/evmts/tevm-monorepo/blob/main/core/procedures-spec/src/requests/AnvilJsonRpcRequest.ts#L69)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

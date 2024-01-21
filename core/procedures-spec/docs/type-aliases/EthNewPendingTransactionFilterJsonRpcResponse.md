@@ -1,4 +1,4 @@
-**@tevm/api** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/procedures-spec** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
@@ -12,7 +12,7 @@ JSON-RPC response for `eth_newPendingTransactionFilter` procedure
 
 ## Source
 
-[responses/EthJsonRpcResponse.ts:386](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/responses/EthJsonRpcResponse.ts#L386)
+[responses/EthJsonRpcResponse.ts:386](https://github.com/evmts/tevm-monorepo/blob/main/core/procedures-spec/src/responses/EthJsonRpcResponse.ts#L386)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

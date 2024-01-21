@@ -1,6 +1,6 @@
-import type { SetAccountError, SetAccountResult } from '../index.js'
 import type { SerializeToJson } from '../utils/SerializeToJson.js'
 import type { JsonRpcResponse } from './JsonRpcResponse.js'
+import type { SetAccountError, SetAccountResult } from '@tevm/actions-spec'
 
 /**
  * JSON-RPC response for `tevm_setAccount` method

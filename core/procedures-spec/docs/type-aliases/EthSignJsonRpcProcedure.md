@@ -1,4 +1,4 @@
-**@tevm/api** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/procedures-spec** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
@@ -14,7 +14,7 @@
 
 ## Source
 
-[procedure/EthProcedure.ts:207](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/procedure/EthProcedure.ts#L207)
+[procedure/EthProcedure.ts:207](https://github.com/evmts/tevm-monorepo/blob/main/core/procedures-spec/src/procedure/EthProcedure.ts#L207)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

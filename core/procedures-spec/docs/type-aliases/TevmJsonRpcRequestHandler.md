@@ -1,4 +1,4 @@
-**@tevm/api** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/procedures-spec** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
@@ -91,7 +91,7 @@ response - [EthGetBalanceJsonRpcResponse](EthGetBalanceJsonRpcResponse.md)
 
 ## Type parameters
 
-▪ **TRequest** extends [`TevmJsonRpcRequest`](TevmJsonRpcRequest.md) \| [`EthJsonRpcRequest`](EthJsonRpcRequest.md) \| `AnvilJsonRpcRequest` \| `DebugJsonRpcRequest`
+▪ **TRequest** extends [`TevmJsonRpcRequest`](TevmJsonRpcRequest.md) \| [`EthJsonRpcRequest`](EthJsonRpcRequest.md) \| [`AnvilJsonRpcRequest`](AnvilJsonRpcRequest.md) \| [`DebugJsonRpcRequest`](DebugJsonRpcRequest.md)
 
 ## Parameters
 
@@ -99,7 +99,7 @@ response - [EthGetBalanceJsonRpcResponse](EthGetBalanceJsonRpcResponse.md)
 
 ## Source
 
-[TevmJsonRpcRequestHandler.ts:388](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/TevmJsonRpcRequestHandler.ts#L388)
+[TevmJsonRpcRequestHandler.ts:388](https://github.com/evmts/tevm-monorepo/blob/main/core/procedures-spec/src/TevmJsonRpcRequestHandler.ts#L388)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

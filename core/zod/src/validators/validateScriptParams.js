@@ -3,11 +3,11 @@ import { zScriptParams } from '../params/index.js'
 import { validateBaseCallParams } from './validateBaseCallParams.js'
 
 /**
- * @param {import('@tevm/api').ScriptParams} action
+ * @param {import('@tevm/actions-spec').ScriptParams} action
  */
 export const validateScriptParams = (action) => {
 	/**
-	 * @type {Array<import('@tevm/api').ScriptError>}
+	 * @type {Array<import('@tevm/errors').ScriptError>}
 	 */
 	const errors = validateBaseCallParams(action)
 

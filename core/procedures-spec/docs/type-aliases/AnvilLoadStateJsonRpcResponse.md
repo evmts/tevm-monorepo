@@ -1,4 +1,4 @@
-**@tevm/api** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/procedures-spec** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
@@ -6,13 +6,13 @@
 
 # Type alias: AnvilLoadStateJsonRpcResponse
 
-> **AnvilLoadStateJsonRpcResponse**: [`JsonRpcResponse`](JsonRpcResponse.md)\<`"anvil_loadState"`, `SerializeToJson`\<[`AnvilLoadStateResult`](AnvilLoadStateResult.md)\>, `AnvilError`\>
+> **AnvilLoadStateJsonRpcResponse**: [`JsonRpcResponse`](JsonRpcResponse.md)\<`"anvil_loadState"`, `SerializeToJson`\<`AnvilLoadStateResult`\>, `AnvilError`\>
 
 JSON-RPC response for `anvil_loadState` procedure
 
 ## Source
 
-[responses/AnvilJsonRpcResponse.ts:144](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/responses/AnvilJsonRpcResponse.ts#L144)
+[responses/AnvilJsonRpcResponse.ts:144](https://github.com/evmts/tevm-monorepo/blob/main/core/procedures-spec/src/responses/AnvilJsonRpcResponse.ts#L144)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

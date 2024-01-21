@@ -6,7 +6,7 @@
 
 # Type alias: LoadStateHandler
 
-> **LoadStateHandler**: (`params`) => `Promise`\<`LoadStateResult`\>
+> **LoadStateHandler**: (`params`) => `Promise`\<[`LoadStateResult`](LoadStateResult.md)\>
 
 Loads a previously dumped state into the VM
 

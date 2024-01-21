@@ -1,6 +1,6 @@
-import type { CallResult, ScriptError } from '../index.js'
 import type { SerializeToJson } from '../utils/SerializeToJson.js'
 import type { JsonRpcResponse } from './JsonRpcResponse.js'
+import type { CallResult, ScriptError } from '@tevm/actions-spec'
 
 /**
  * JSON-RPC response for `tevm_script` method

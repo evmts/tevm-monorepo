@@ -1,5 +1,5 @@
 {
-	"name": "@tevm/api",
+	"name": "@tevm/client-spec",
 	"version": "1.0.0-next.22",
 	"private": false,
 	"description": "A typesafe library for writing forge scripts in typescript",
@@ -7,7 +7,7 @@
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/evmts/tevm-monorepo.git",
-		"directory": "vm/api"
+		"directory": "core/client-spec"
 	},
 	"license": "MIT",
 	"contributors": ["Will Cory <willcory10@gmail.com>"],
@@ -31,7 +31,7 @@
 	"files": ["dist", "src", "!src/**/*.spec.ts", "types"],
 	"scripts": {
 		"all": "pnpm i  && bun run build && bun lint && bun format && bun test:run && bun generate:docs && bun lint:deps && bun lint:package",
-		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/api",
+		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/client-spec",
 		"build:dist": "tsup",
 		"build:types": "tsup --dts-only && tsc --emitDeclarationOnly --declaration",
 		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",

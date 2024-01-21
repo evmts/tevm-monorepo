@@ -1,4 +1,4 @@
-**@tevm/api** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/procedures-spec** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
@@ -6,13 +6,13 @@
 
 # Type alias: AnvilGetAutomineJsonRpcResponse
 
-> **AnvilGetAutomineJsonRpcResponse**: [`JsonRpcResponse`](JsonRpcResponse.md)\<`"anvil_getAutomine"`, `SerializeToJson`\<[`AnvilGetAutomineResult`](AnvilGetAutomineResult.md)\>, `AnvilError`\>
+> **AnvilGetAutomineJsonRpcResponse**: [`JsonRpcResponse`](JsonRpcResponse.md)\<`"anvil_getAutomine"`, `SerializeToJson`\<`AnvilGetAutomineResult`\>, `AnvilError`\>
 
 JSON-RPC response for `anvil_getAutomine` procedure
 
 ## Source
 
-[responses/AnvilJsonRpcResponse.ts:52](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/responses/AnvilJsonRpcResponse.ts#L52)
+[responses/AnvilJsonRpcResponse.ts:52](https://github.com/evmts/tevm-monorepo/blob/main/core/procedures-spec/src/responses/AnvilJsonRpcResponse.ts#L52)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

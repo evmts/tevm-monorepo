@@ -1,5 +1,7 @@
 export type {
 	JsonRpcRequest,
+	AnvilJsonRpcRequest,
+	DebugJsonRpcRequest,
 	CallJsonRpcRequest,
 	ScriptJsonRpcRequest,
 	GetAccountJsonRpcRequest,

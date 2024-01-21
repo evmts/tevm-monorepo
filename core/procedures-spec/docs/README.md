@@ -1,4 +1,4 @@
-**@tevm/api** ∙ [README](README.md) ∙ [API](API.md)
+**@tevm/procedures-spec** ∙ [README](README.md) ∙ [API](API.md)
 
 ***
 

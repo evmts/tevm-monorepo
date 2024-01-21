@@ -1,4 +1,4 @@
-**@tevm/api** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/procedures-spec** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
@@ -12,7 +12,7 @@ JSON-RPC request for `eth_sign` procedure
 
 ## Source
 
-[requests/EthJsonRpcRequest.ts:257](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/requests/EthJsonRpcRequest.ts#L257)
+[requests/EthJsonRpcRequest.ts:257](https://github.com/evmts/tevm-monorepo/blob/main/core/procedures-spec/src/requests/EthJsonRpcRequest.ts#L257)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

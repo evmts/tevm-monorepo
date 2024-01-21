@@ -645,9 +645,6 @@ importers:
 
   core/jsonrpc:
     devDependencies:
-      '@tevm/api':
-        specifier: workspace:^
-        version: link:../client-spec
       '@tevm/tsconfig':
         specifier: workspace:^
         version: link:../../configs/tsconfig
@@ -823,9 +820,6 @@ importers:
 
   core/zod:
     dependencies:
-      '@tevm/api':
-        specifier: workspace:^
-        version: link:../client-spec
       abitype:
         specifier: ^0.10.3
         version: 0.10.3(typescript@5.3.3)(zod@3.22.4)
@@ -836,6 +830,15 @@ importers:
         specifier: ^3.22.4
         version: 3.22.4
     devDependencies:
+      '@tevm/actions-spec':
+        specifier: workspace:^
+        version: link:../actions-spec
+      '@tevm/errors':
+        specifier: workspace:^
+        version: link:../errors
+      '@tevm/procedures-spec':
+        specifier: workspace:^
+        version: link:../procedures-spec
       '@tevm/tsconfig':
         specifier: workspace:^
         version: link:../../configs/tsconfig

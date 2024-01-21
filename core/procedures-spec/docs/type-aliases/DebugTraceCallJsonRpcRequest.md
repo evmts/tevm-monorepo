@@ -1,4 +1,4 @@
-**@tevm/api** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/procedures-spec** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
@@ -6,13 +6,13 @@
 
 # Type alias: DebugTraceCallJsonRpcRequest
 
-> **DebugTraceCallJsonRpcRequest**: [`JsonRpcRequest`](JsonRpcRequest.md)\<`"debug_traceCall"`, `SerializeToJson`\<[`DebugTraceCallParams`](DebugTraceCallParams.md)\>\>
+> **DebugTraceCallJsonRpcRequest**: [`JsonRpcRequest`](JsonRpcRequest.md)\<`"debug_traceCall"`, `SerializeToJson`\<`DebugTraceCallParams`\>\>
 
 JSON-RPC request for `debug_traceCall` method
 
 ## Source
 
-[requests/DebugJsonRpcRequest.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/requests/DebugJsonRpcRequest.ts#L20)
+[requests/DebugJsonRpcRequest.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/core/procedures-spec/src/requests/DebugJsonRpcRequest.ts#L20)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

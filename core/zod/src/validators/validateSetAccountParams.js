@@ -2,12 +2,12 @@ import { createError } from '../common/index.js'
 import { zSetAccountParams } from '../params/index.js'
 
 /**
- * @param {import('@tevm/api').SetAccountParams} action
- * @returns {Array<import('@tevm/api').SetAccountError>}
+ * @param {import('@tevm/actions-spec').SetAccountParams} action
+ * @returns {Array<import('@tevm/errors').SetAccountError>}
  */
 export const validateSetAccountParams = (action) => {
 	/**
-	 * @type {Array<import('@tevm/api').SetAccountError>}
+	 * @type {Array<import('@tevm/errors').SetAccountError>}
 	 */
 	const errors = []
 
