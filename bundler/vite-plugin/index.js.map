@@ -1,0 +1,1 @@
+{"version":3,"sources":["index.ts"],"names":[],"mappings":";AAAA,SAAS,sBAAsB","sourcesContent":["export { vitePluginTevm } from '@tevm/vite-plugin'\n"]}

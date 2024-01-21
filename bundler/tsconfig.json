@@ -1,0 +1,26 @@
+{
+  "extends": "@tevm/tsconfig/base.json",
+  "compilerOptions": {
+    "plugins": [
+      {
+        "name": "@evmts/ts-plugin"
+      }
+    ],
+    "module": "NodeNext",
+    "skipLibCheck": true
+  },
+  "include": [
+    "base-bundler/index.ts",
+    "bun-plugin/**/index.ts",
+    "compiler/index.ts",
+    "config/index.ts",
+    "esbuild-plugin/index.ts",
+    "rollup-plugin/index.ts",
+    "rspack-plugin/index.ts",
+    "solc/index.ts",
+    "ts-plugin/index.ts",
+    "vite-plugin/index.ts",
+    "webpack-plugin/index.ts",
+    "index.ts"
+  ]
+}
