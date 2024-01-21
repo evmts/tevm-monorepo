@@ -6,7 +6,7 @@
 
 # Type alias: DebugTraceTransactionJsonRpcResponse
 
-> **DebugTraceTransactionJsonRpcResponse**: [`JsonRpcResponse`](JsonRpcResponse.md)\<`"debug_traceTransaction"`, `SerializeToJson`\<`DebugTraceTransactionResult`\>, `DebugError`\>
+> **DebugTraceTransactionJsonRpcResponse**: `JsonRpcResponse`\<`"debug_traceTransaction"`, `SerializeToJson`\<`DebugTraceTransactionResult`\>, `DebugError`\>
 
 JSON-RPC response for `debug_traceTransaction` procedure
 

@@ -6,7 +6,7 @@
 
 # Type alias: EthUninstallFilterJsonRpcResponse
 
-> **EthUninstallFilterJsonRpcResponse**: [`JsonRpcResponse`](JsonRpcResponse.md)\<`"eth_uninstallFilter"`, `boolean`, `string`\>
+> **EthUninstallFilterJsonRpcResponse**: `JsonRpcResponse`\<`"eth_uninstallFilter"`, `boolean`, `string`\>
 
 JSON-RPC response for `eth_uninstallFilter` procedure
 

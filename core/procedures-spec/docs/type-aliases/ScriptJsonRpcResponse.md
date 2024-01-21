@@ -6,7 +6,7 @@
 
 # Type alias: ScriptJsonRpcResponse
 
-> **ScriptJsonRpcResponse**: [`JsonRpcResponse`](JsonRpcResponse.md)\<`"tevm_script"`, `SerializeToJson`\<`CallResult`\>, `ScriptError`[`"_tag"`]\>
+> **ScriptJsonRpcResponse**: `JsonRpcResponse`\<`"tevm_script"`, `SerializeToJson`\<`CallResult`\>, `ScriptError`[`"_tag"`]\>
 
 JSON-RPC response for `tevm_script` method
 

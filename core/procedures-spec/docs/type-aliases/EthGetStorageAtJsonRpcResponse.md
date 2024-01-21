@@ -6,7 +6,7 @@
 
 # Type alias: EthGetStorageAtJsonRpcResponse
 
-> **EthGetStorageAtJsonRpcResponse**: [`JsonRpcResponse`](JsonRpcResponse.md)\<`"eth_getStorageAt"`, `Hex`, `string`\>
+> **EthGetStorageAtJsonRpcResponse**: `JsonRpcResponse`\<`"eth_getStorageAt"`, `Hex`, `string`\>
 
 JSON-RPC response for `eth_getStorageAt` procedure
 

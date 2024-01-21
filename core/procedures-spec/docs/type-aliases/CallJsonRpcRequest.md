@@ -6,7 +6,7 @@
 
 # Type alias: CallJsonRpcRequest
 
-> **CallJsonRpcRequest**: [`JsonRpcRequest`](JsonRpcRequest.md)\<`"tevm_call"`, `SerializeToJson`\<`CallParams`\>\>
+> **CallJsonRpcRequest**: `JsonRpcRequest`\<`"tevm_call"`, `SerializeToJson`\<`CallParams`\>\>
 
 JSON-RPC request for `tevm_call`
 

@@ -6,7 +6,7 @@
 
 # Type alias: EthGetBlockTransactionCountByHashJsonRpcRequest
 
-> **EthGetBlockTransactionCountByHashJsonRpcRequest**: [`JsonRpcRequest`](JsonRpcRequest.md)\<`"eth_getBlockTransactionCountByHash"`, readonly [`Hex`]\>
+> **EthGetBlockTransactionCountByHashJsonRpcRequest**: `JsonRpcRequest`\<`"eth_getBlockTransactionCountByHash"`, readonly [`Hex`]\>
 
 JSON-RPC request for `eth_getBlockTransactionCountByHash` procedure
 

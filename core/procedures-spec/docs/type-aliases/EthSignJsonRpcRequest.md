@@ -6,7 +6,7 @@
 
 # Type alias: EthSignJsonRpcRequest
 
-> **EthSignJsonRpcRequest**: [`JsonRpcRequest`](JsonRpcRequest.md)\<`"eth_sign"`, [`Address`, `Hex`]\>
+> **EthSignJsonRpcRequest**: `JsonRpcRequest`\<`"eth_sign"`, [`Address`, `Hex`]\>
 
 JSON-RPC request for `eth_sign` procedure
 

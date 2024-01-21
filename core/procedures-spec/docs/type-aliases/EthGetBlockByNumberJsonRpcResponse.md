@@ -6,7 +6,7 @@
 
 # Type alias: EthGetBlockByNumberJsonRpcResponse
 
-> **EthGetBlockByNumberJsonRpcResponse**: [`JsonRpcResponse`](JsonRpcResponse.md)\<`"eth_getBlockByNumber"`, `BlockResult`, `string`\>
+> **EthGetBlockByNumberJsonRpcResponse**: `JsonRpcResponse`\<`"eth_getBlockByNumber"`, `BlockResult`, `string`\>
 
 JSON-RPC response for `eth_getBlockByNumber` procedure
 

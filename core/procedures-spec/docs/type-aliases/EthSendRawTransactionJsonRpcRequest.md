@@ -6,7 +6,7 @@
 
 # Type alias: EthSendRawTransactionJsonRpcRequest
 
-> **EthSendRawTransactionJsonRpcRequest**: [`JsonRpcRequest`](JsonRpcRequest.md)\<`"eth_sendRawTransaction"`, [`Hex`]\>
+> **EthSendRawTransactionJsonRpcRequest**: `JsonRpcRequest`\<`"eth_sendRawTransaction"`, [`Hex`]\>
 
 JSON-RPC request for `eth_sendRawTransaction` procedure
 

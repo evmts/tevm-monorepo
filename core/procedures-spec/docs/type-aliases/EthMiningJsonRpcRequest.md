@@ -6,7 +6,7 @@
 
 # Type alias: EthMiningJsonRpcRequest
 
-> **EthMiningJsonRpcRequest**: [`JsonRpcRequest`](JsonRpcRequest.md)\<`"eth_mining"`, readonly []\>
+> **EthMiningJsonRpcRequest**: `JsonRpcRequest`\<`"eth_mining"`, readonly []\>
 
 JSON-RPC request for `eth_mining` procedure
 

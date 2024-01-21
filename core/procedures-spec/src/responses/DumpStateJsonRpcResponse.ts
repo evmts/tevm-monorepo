@@ -1,6 +1,6 @@
 import type { SerializeToJson } from '../utils/SerializeToJson.js'
-import type { JsonRpcResponse } from '@tevm/jsonrpc'
 import type { DumpStateError } from '@tevm/actions-spec'
+import type { JsonRpcResponse } from '@tevm/jsonrpc'
 import type { ParameterizedTevmState } from '@tevm/state'
 
 /**

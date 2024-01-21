@@ -6,7 +6,7 @@
 
 # Type alias: EthNewBlockFilterJsonRpcRequest
 
-> **EthNewBlockFilterJsonRpcRequest**: [`JsonRpcRequest`](JsonRpcRequest.md)\<`"eth_newBlockFilter"`, readonly []\>
+> **EthNewBlockFilterJsonRpcRequest**: `JsonRpcRequest`\<`"eth_newBlockFilter"`, readonly []\>
 
 JSON-RPC request for `eth_newBlockFilter` procedure
 

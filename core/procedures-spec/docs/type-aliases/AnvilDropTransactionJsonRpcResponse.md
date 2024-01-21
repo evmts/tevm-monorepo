@@ -6,7 +6,7 @@
 
 # Type alias: AnvilDropTransactionJsonRpcResponse
 
-> **AnvilDropTransactionJsonRpcResponse**: [`JsonRpcResponse`](JsonRpcResponse.md)\<`"anvil_dropTransaction"`, `SerializeToJson`\<`AnvilDropTransactionResult`\>, `AnvilError`\>
+> **AnvilDropTransactionJsonRpcResponse**: `JsonRpcResponse`\<`"anvil_dropTransaction"`, `SerializeToJson`\<`AnvilDropTransactionResult`\>, `AnvilError`\>
 
 JSON-RPC response for `anvil_dropTransaction` procedure
 

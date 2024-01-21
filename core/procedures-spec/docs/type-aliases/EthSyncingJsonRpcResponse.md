@@ -6,7 +6,7 @@
 
 # Type alias: EthSyncingJsonRpcResponse
 
-> **EthSyncingJsonRpcResponse**: [`JsonRpcResponse`](JsonRpcResponse.md)\<`"eth_syncing"`, `boolean` \| `object`, `string`\>
+> **EthSyncingJsonRpcResponse**: `JsonRpcResponse`\<`"eth_syncing"`, `boolean` \| `object`, `string`\>
 
 JSON-RPC response for `eth_syncing` procedure
 

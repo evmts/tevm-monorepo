@@ -6,7 +6,7 @@
 
 # Type alias: EthGetUncleCountByBlockHashJsonRpcRequest
 
-> **EthGetUncleCountByBlockHashJsonRpcRequest**: [`JsonRpcRequest`](JsonRpcRequest.md)\<`"eth_getUncleCountByBlockHash"`, readonly [`Hex`]\>
+> **EthGetUncleCountByBlockHashJsonRpcRequest**: `JsonRpcRequest`\<`"eth_getUncleCountByBlockHash"`, readonly [`Hex`]\>
 
 JSON-RPC request for `eth_getUncleCountByBlockHash` procedure
 

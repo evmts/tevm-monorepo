@@ -6,7 +6,7 @@
 
 # Type alias: EthGetTransactionByBlockHashAndIndexJsonRpcResponse
 
-> **EthGetTransactionByBlockHashAndIndexJsonRpcResponse**: [`JsonRpcResponse`](JsonRpcResponse.md)\<`"eth_getTransactionByBlockHashAndIndex"`, `TransactionResult`, `string`\>
+> **EthGetTransactionByBlockHashAndIndexJsonRpcResponse**: `JsonRpcResponse`\<`"eth_getTransactionByBlockHashAndIndex"`, `TransactionResult`, `string`\>
 
 JSON-RPC response for `eth_getTransactionByBlockHashAndIndex` procedure
 

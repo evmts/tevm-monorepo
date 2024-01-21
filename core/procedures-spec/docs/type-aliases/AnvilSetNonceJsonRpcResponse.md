@@ -6,7 +6,7 @@
 
 # Type alias: AnvilSetNonceJsonRpcResponse
 
-> **AnvilSetNonceJsonRpcResponse**: [`JsonRpcResponse`](JsonRpcResponse.md)\<`"anvil_setNonce"`, `SerializeToJson`\<`AnvilSetNonceResult`\>, `AnvilError`\>
+> **AnvilSetNonceJsonRpcResponse**: `JsonRpcResponse`\<`"anvil_setNonce"`, `SerializeToJson`\<`AnvilSetNonceResult`\>, `AnvilError`\>
 
 JSON-RPC response for `anvil_setNonce` procedure
 

@@ -6,7 +6,7 @@
 
 # Type alias: GetAccountJsonRpcResponse
 
-> **GetAccountJsonRpcResponse**: [`JsonRpcResponse`](JsonRpcResponse.md)\<`"tevm_getAccount"`, `SerializeToJson`\<`GetAccountResult`\>, `GetAccountError`[`"_tag"`]\>
+> **GetAccountJsonRpcResponse**: `JsonRpcResponse`\<`"tevm_getAccount"`, `SerializeToJson`\<`GetAccountResult`\>, `GetAccountError`[`"_tag"`]\>
 
 JSON-RPC response for `tevm_getAccount` method
 

@@ -6,7 +6,7 @@
 
 # Type alias: EthGetFilterChangesJsonRpcResponse
 
-> **EthGetFilterChangesJsonRpcResponse**: [`JsonRpcResponse`](JsonRpcResponse.md)\<`"eth_getFilterChanges"`, `FilterLog`[], `string`\>
+> **EthGetFilterChangesJsonRpcResponse**: `JsonRpcResponse`\<`"eth_getFilterChanges"`, `FilterLog`[], `string`\>
 
 JSON-RPC response for `eth_getFilterChanges` procedure
 

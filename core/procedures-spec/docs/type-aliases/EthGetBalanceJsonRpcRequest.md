@@ -6,7 +6,7 @@
 
 # Type alias: EthGetBalanceJsonRpcRequest
 
-> **EthGetBalanceJsonRpcRequest**: [`JsonRpcRequest`](JsonRpcRequest.md)\<`"eth_getBalance"`, [`Address`, `BlockTag` \| `Hex`]\>
+> **EthGetBalanceJsonRpcRequest**: `JsonRpcRequest`\<`"eth_getBalance"`, [`Address`, `BlockTag` \| `Hex`]\>
 
 JSON-RPC request for `eth_getBalance` procedure
 

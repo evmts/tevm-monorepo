@@ -6,7 +6,7 @@
 
 # Type alias: EthEstimateGasJsonRpcResponse
 
-> **EthEstimateGasJsonRpcResponse**: [`JsonRpcResponse`](JsonRpcResponse.md)\<`"eth_estimateGas"`, `Hex`, `string`\>
+> **EthEstimateGasJsonRpcResponse**: `JsonRpcResponse`\<`"eth_estimateGas"`, `Hex`, `string`\>
 
 JSON-RPC response for `eth_estimateGas` procedure
 

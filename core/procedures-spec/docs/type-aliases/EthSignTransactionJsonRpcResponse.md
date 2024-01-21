@@ -6,7 +6,7 @@
 
 # Type alias: EthSignTransactionJsonRpcResponse
 
-> **EthSignTransactionJsonRpcResponse**: [`JsonRpcResponse`](JsonRpcResponse.md)\<`"eth_signTransaction"`, `Hex`, `string`\>
+> **EthSignTransactionJsonRpcResponse**: `JsonRpcResponse`\<`"eth_signTransaction"`, `Hex`, `string`\>
 
 JSON-RPC response for `eth_signTransaction` procedure
 

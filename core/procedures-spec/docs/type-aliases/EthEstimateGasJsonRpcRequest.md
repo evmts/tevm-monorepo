@@ -6,7 +6,7 @@
 
 # Type alias: EthEstimateGasJsonRpcRequest
 
-> **EthEstimateGasJsonRpcRequest**: [`JsonRpcRequest`](JsonRpcRequest.md)\<`"eth_estimateGas"`, readonly [`Transaction`]\>
+> **EthEstimateGasJsonRpcRequest**: `JsonRpcRequest`\<`"eth_estimateGas"`, readonly [`Transaction`]\>
 
 JSON-RPC request for `eth_estimateGas` procedure
 

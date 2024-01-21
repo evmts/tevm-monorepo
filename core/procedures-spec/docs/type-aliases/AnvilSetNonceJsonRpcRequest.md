@@ -6,7 +6,7 @@
 
 # Type alias: AnvilSetNonceJsonRpcRequest
 
-> **AnvilSetNonceJsonRpcRequest**: [`JsonRpcRequest`](JsonRpcRequest.md)\<`"anvil_setNonce"`, `SerializeToJson`\<`AnvilSetNonceParams`\>\>
+> **AnvilSetNonceJsonRpcRequest**: `JsonRpcRequest`\<`"anvil_setNonce"`, `SerializeToJson`\<`AnvilSetNonceParams`\>\>
 
 JSON-RPC request for `anvil_setNonce` method
 

@@ -6,7 +6,7 @@
 
 # Type alias: EthGetFilterChangesJsonRpcRequest
 
-> **EthGetFilterChangesJsonRpcRequest**: [`JsonRpcRequest`](JsonRpcRequest.md)\<`"eth_getFilterChanges"`, [`Hex`]\>
+> **EthGetFilterChangesJsonRpcRequest**: `JsonRpcRequest`\<`"eth_getFilterChanges"`, [`Hex`]\>
 
 JSON-RPC request for `eth_getFilterChanges` procedure
 

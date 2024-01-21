@@ -6,7 +6,7 @@
 
 # Type alias: DumpStateJsonRpcRequest
 
-> **DumpStateJsonRpcRequest**: [`JsonRpcRequest`](JsonRpcRequest.md)\<`"tevm_dumpState"`, `object`\>
+> **DumpStateJsonRpcRequest**: `JsonRpcRequest`\<`"tevm_dumpState"`, `object`\>
 
 The JSON-RPC request for the `tevm_dumpState` method
 

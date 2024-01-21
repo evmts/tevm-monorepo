@@ -6,7 +6,7 @@
 
 # Type alias: EthProtocolVersionJsonRpcResponse
 
-> **EthProtocolVersionJsonRpcResponse**: [`JsonRpcResponse`](JsonRpcResponse.md)\<`"eth_protocolVersion"`, `Hex`, `string`\>
+> **EthProtocolVersionJsonRpcResponse**: `JsonRpcResponse`\<`"eth_protocolVersion"`, `Hex`, `string`\>
 
 JSON-RPC response for `eth_protocolVersion` procedure
 

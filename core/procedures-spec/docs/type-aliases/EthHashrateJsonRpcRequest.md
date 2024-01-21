@@ -6,7 +6,7 @@
 
 # Type alias: EthHashrateJsonRpcRequest
 
-> **EthHashrateJsonRpcRequest**: [`JsonRpcRequest`](JsonRpcRequest.md)\<`"eth_hashrate"`, readonly []\>
+> **EthHashrateJsonRpcRequest**: `JsonRpcRequest`\<`"eth_hashrate"`, readonly []\>
 
 JSON-RPC request for `eth_hashrate` procedure
 

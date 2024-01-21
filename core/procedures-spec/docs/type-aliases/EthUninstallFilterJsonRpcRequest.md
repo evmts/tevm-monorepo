@@ -6,7 +6,7 @@
 
 # Type alias: EthUninstallFilterJsonRpcRequest
 
-> **EthUninstallFilterJsonRpcRequest**: [`JsonRpcRequest`](JsonRpcRequest.md)\<`"eth_uninstallFilter"`, [`Hex`]\>
+> **EthUninstallFilterJsonRpcRequest**: `JsonRpcRequest`\<`"eth_uninstallFilter"`, [`Hex`]\>
 
 JSON-RPC request for `eth_uninstallFilter` procedure
 

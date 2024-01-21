@@ -1,5 +1,4 @@
 import type { SerializeToJson } from '../utils/index.js'
-import type { JsonRpcRequest } from '@tevm/JsonRpcRequest'
 import type {
 	AnvilDropTransactionParams,
 	AnvilDumpStateParams,
@@ -15,6 +14,7 @@ import type {
 	AnvilSetStorageAtParams,
 	AnvilStopImpersonatingAccountParams,
 } from '@tevm/actions-spec'
+import type { JsonRpcRequest } from '@tevm/jsonrpc'
 
 // anvil_impersonateAccount
 /**

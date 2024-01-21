@@ -6,7 +6,7 @@
 
 # Type alias: EthNewBlockFilterJsonRpcResponse
 
-> **EthNewBlockFilterJsonRpcResponse**: [`JsonRpcResponse`](JsonRpcResponse.md)\<`"eth_newBlockFilter"`, `Hex`, `string`\>
+> **EthNewBlockFilterJsonRpcResponse**: `JsonRpcResponse`\<`"eth_newBlockFilter"`, `Hex`, `string`\>
 
 JSON-RPC response for `eth_newBlockFilter` procedure
 

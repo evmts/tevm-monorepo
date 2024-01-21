@@ -6,7 +6,7 @@
 
 # Type alias: EthProtocolVersionJsonRpcRequest
 
-> **EthProtocolVersionJsonRpcRequest**: [`JsonRpcRequest`](JsonRpcRequest.md)\<`"eth_protocolVersion"`, readonly []\>
+> **EthProtocolVersionJsonRpcRequest**: `JsonRpcRequest`\<`"eth_protocolVersion"`, readonly []\>
 
 JSON-RPC request for `eth_protocolVersion` procedure
 

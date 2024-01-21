@@ -6,7 +6,7 @@
 
 # Type alias: EthNewPendingTransactionFilterJsonRpcRequest
 
-> **EthNewPendingTransactionFilterJsonRpcRequest**: [`JsonRpcRequest`](JsonRpcRequest.md)\<`"eth_newPendingTransactionFilter"`, readonly []\>
+> **EthNewPendingTransactionFilterJsonRpcRequest**: `JsonRpcRequest`\<`"eth_newPendingTransactionFilter"`, readonly []\>
 
 JSON-RPC request for `eth_newPendingTransactionFilter` procedure
 

@@ -6,7 +6,7 @@
 
 # Type alias: AnvilLoadStateJsonRpcResponse
 
-> **AnvilLoadStateJsonRpcResponse**: [`JsonRpcResponse`](JsonRpcResponse.md)\<`"anvil_loadState"`, `SerializeToJson`\<`AnvilLoadStateResult`\>, `AnvilError`\>
+> **AnvilLoadStateJsonRpcResponse**: `JsonRpcResponse`\<`"anvil_loadState"`, `SerializeToJson`\<`AnvilLoadStateResult`\>, `AnvilError`\>
 
 JSON-RPC response for `anvil_loadState` procedure
 

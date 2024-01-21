@@ -6,7 +6,7 @@
 
 # Type alias: EthGetTransactionByBlockNumberAndIndexJsonRpcRequest
 
-> **EthGetTransactionByBlockNumberAndIndexJsonRpcRequest**: [`JsonRpcRequest`](JsonRpcRequest.md)\<`"eth_getTransactionByBlockNumberAndIndex"`, readonly [`BlockTag` \| `Hex`, `Hex`]\>
+> **EthGetTransactionByBlockNumberAndIndexJsonRpcRequest**: `JsonRpcRequest`\<`"eth_getTransactionByBlockNumberAndIndex"`, readonly [`BlockTag` \| `Hex`, `Hex`]\>
 
 JSON-RPC request for `eth_getTransactionByBlockNumberAndIndex` procedure
 
