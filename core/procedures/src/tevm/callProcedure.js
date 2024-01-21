@@ -1,11 +1,11 @@
-import { callHandler } from '../index.js'
+import { callHandler } from '@tevm/actions'
 import { bigIntToHex } from '@ethereumjs/util'
 import { hexToBigInt } from 'viem'
 
 /**
  * Creates a Call JSON-RPC Procedure for handling call requests with Ethereumjs EVM
  * @param {import('@ethereumjs/evm').EVM} evm
- * @returns {import('@tevm/api').CallJsonRpcProcedure}
+ * @returns {import('@tevm/procedures-spec').CallJsonRpcProcedure}
  */
 export const callProcedure = (evm) => async (request) => {
 	const { errors = [], ...result } = await callHandler(evm)({
@@ -41,29 +41,29 @@ export const callProcedure = (evm) => async (request) => {
 			: {}),
 		...(request.params.block
 			? {
-					...(request.params.block.gasLimit
-						? { gasLimit: hexToBigInt(request.params.block.gasLimit) }
-						: {}),
-					...(request.params.block.baseFeePerGas
-						? { baseFeePerGas: hexToBigInt(request.params.block.baseFeePerGas) }
-						: {}),
-					...(request.params.block.blobGasPrice
-						? { blobGasPrice: hexToBigInt(request.params.block.blobGasPrice) }
-						: {}),
-					...(request.params.block.difficulty
-						? { difficulty: hexToBigInt(request.params.block.difficulty) }
-						: {}),
-					...(request.params.block.number
-						? { number: hexToBigInt(request.params.block.number) }
-						: {}),
-					...(request.params.block.timestamp
-						? { timestamp: hexToBigInt(request.params.block.timestamp) }
-						: {}),
-			  }
+				...(request.params.block.gasLimit
+					? { gasLimit: hexToBigInt(request.params.block.gasLimit) }
+					: {}),
+				...(request.params.block.baseFeePerGas
+					? { baseFeePerGas: hexToBigInt(request.params.block.baseFeePerGas) }
+					: {}),
+				...(request.params.block.blobGasPrice
+					? { blobGasPrice: hexToBigInt(request.params.block.blobGasPrice) }
+					: {}),
+				...(request.params.block.difficulty
+					? { difficulty: hexToBigInt(request.params.block.difficulty) }
+					: {}),
+				...(request.params.block.number
+					? { number: hexToBigInt(request.params.block.number) }
+					: {}),
+				...(request.params.block.timestamp
+					? { timestamp: hexToBigInt(request.params.block.timestamp) }
+					: {}),
+			}
 			: {}),
 	})
 	if (errors.length > 0) {
-		const error = /** @type {import('@tevm/api').CallError}*/ (errors[0])
+		const error = /** @type {import('@tevm/errors').CallError}*/ (errors[0])
 		return {
 			jsonrpc: '2.0',
 			error: {
@@ -81,7 +81,7 @@ export const callProcedure = (evm) => async (request) => {
 	 * @param {bigint} value
 	 * @returns {import('viem').Hex}
 	 */
-	const toHex = (value) => /**@type {import('viem').Hex}*/ (bigIntToHex(value))
+	const toHex = (value) => /**@type {import('viem').Hex}*/(bigIntToHex(value))
 	return {
 		jsonrpc: '2.0',
 		result: {

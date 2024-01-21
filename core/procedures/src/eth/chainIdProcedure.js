@@ -1,9 +1,9 @@
-import { chainIdHandler } from '../../handlers/index.js'
+import { chainIdHandler } from '@tevm/actions'
 import { numberToHex } from 'viem'
 
 /**
  * @param {bigint} chainId
- * @returns {import('@tevm/api').EthChainIdJsonRpcProcedure}
+ * @returns {import('@tevm/procedures-spec').EthChainIdJsonRpcProcedure}
  */
 export const chainIdProcedure = (chainId) => async (req) => ({
 	...(req.id ? { id: req.id } : {}),

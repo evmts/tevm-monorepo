@@ -1,9 +1,9 @@
-import { blockNumberHandler } from '../../handlers/index.js'
+import { blockNumberHandler } from '@tevm/actions'
 import { numberToHex } from 'viem'
 
 /**
  * @param {import('@ethereumjs/blockchain').BlockchainInterface} blockchain
- * @returns {import('@tevm/api').EthBlockNumberJsonRpcProcedure}
+ * @returns {import('@tevm/procedures-spec').EthBlockNumberJsonRpcProcedure}
  */
 export const blockNumberProcedure = (blockchain) => async (req) => ({
 	...(req.id ? { id: req.id } : {}),

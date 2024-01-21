@@ -1,32 +1,18 @@
 export { requestProcedure } from './requestProcedure.js'
 export {
-	callHandler,
-	scriptHandler,
-	getAccountHandler,
-	setAccountHandler,
-	contractHandler,
-	blockNumberHandler,
-	dumpStateHandler,
-	loadStateHandler,
-	chainIdHandler,
-	getCodeHandler,
-	gasPriceHandler,
-	getBalanceHandler,
-	getStorageAtHandler,
-	NoForkUrlSetError,
-} from './handlers/index.js'
-export {
 	callProcedure,
 	scriptProcedure,
 	getAccountProcedure,
 	setAccountProcedure,
 	contractProcedure,
+	dumpStateProcedure,
+	loadStateProcedure,
+} from './tevm/index.js'
+export {
 	blockNumberProcedure,
 	chainIdProcedure,
 	getCodeProcedure,
 	gasPriceProcedure,
 	getBalanceProcedure,
 	getStorageAtProcedure,
-	dumpStateProcedure,
-	loadStateProcedure,
-} from './jsonrpc/index.js'
+} from './eth/index.js'

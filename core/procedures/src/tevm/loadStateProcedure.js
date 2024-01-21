@@ -1,10 +1,10 @@
-import { loadStateHandler } from '../index.js'
+import { loadStateHandler } from '@tevm/actions'
 import { hexToBigInt } from 'viem'
 
 /**
  * Creates a LoadState JSON-RPC Procedure for handling LoadState requests with Ethereumjs EVM
  * @param {import('@tevm/state').TevmStateManager} stateManager
- * @returns {import('@tevm/api').LoadStateJsonRpcProcedure}
+ * @returns {import('@tevm/procedures-spec').LoadStateJsonRpcProcedure}
  */
 export const loadStateProcedure = (stateManager) => async (request) => {
 	const {
@@ -31,7 +31,7 @@ export const loadStateProcedure = (stateManager) => async (request) => {
 	})
 
 	if (errors.length > 0) {
-		const error = /** @type {import('@tevm/api').LoadStateError}*/ (errors[0])
+		const error = /** @type {import('@tevm/errors').LoadStateError}*/ (errors[0])
 		return {
 			jsonrpc: '2.0',
 			error: {

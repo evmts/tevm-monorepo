@@ -1,10 +1,10 @@
-import { setAccountHandler } from '../index.js'
+import { setAccountHandler } from '@tevm/actions'
 import { hexToBigInt } from 'viem'
 
 /**
  * Creates an SetAccount JSON-RPC Procedure for handling tevm_setAccount requests with Ethereumjs EVM
  * @param {import('@ethereumjs/evm').EVM} evm
- * @returns {import('@tevm/api').SetAccountJsonRpcProcedure}
+ * @returns {import('@tevm/procedures-spec').SetAccountJsonRpcProcedure}
  */
 export const setAccountProcedure = (evm) => async (request) => {
 	request.params
@@ -24,7 +24,7 @@ export const setAccountProcedure = (evm) => async (request) => {
 			: {}),
 	})
 	if (errors.length > 0) {
-		const error = /** @type {import('@tevm/api').SetAccountError}*/ (errors[0])
+		const error = /** @type {import('@tevm/errors').SetAccountError}*/ (errors[0])
 		return {
 			jsonrpc: '2.0',
 			error: {

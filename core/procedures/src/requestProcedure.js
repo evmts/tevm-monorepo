@@ -1,4 +1,3 @@
-import { UnknownMethodError } from './errors/UnknownMethodError.js'
 import {
 	blockNumberProcedure,
 	callProcedure,
@@ -25,7 +24,7 @@ import {
  * bundle size.
  *
  * @param {import('@ethereumjs/vm').VM} vm
- * @returns {import('@tevm/api').TevmJsonRpcRequestHandler}
+ * @returns {import('@tevm/procedures-spec').TevmJsonRpcRequestHandler}
  * @example
  * ```typescript
  * const blockNumberResponse = await tevm.request({
@@ -45,21 +44,25 @@ import {
 export const requestProcedure = (vm) => {
 	// TODO implement chainid
 	const chainId = 10n
-	/**
-	 * @type {import('@tevm/api').Tevm['request']}
-	 */
 	return async (request) => {
 		switch (request.method) {
 			case 'tevm_call':
 				return /**@type any*/ (callProcedure)(vm.evm)(request)
 			case /** @type {any} */ ('tevm_contract'):
+				/**
+				 * @type {import('@tevm/errors').UnsupportedMethodError}
+				 */
+				const err = {
+					_tag: 'UnsupportedMethodError',
+					name: 'UnsupportedMethodError',
+					message: `UnsupportedMethodError: tevm_contract is not supported. Encode the contract arguments and use tevm_call instead.`,
+				}
 				return /**@type any*/ ({
 					id: /** @type any*/ (request).id,
 					jsonrpc: '2.0',
 					error: {
-						code: 'UnknownMethodError',
-						message:
-							'UnknownMethodError: tevm_contract is not supported. Encode the contract arguments and use tevm_call instead.',
+						code: err._tag,
+						message: err.message,
 					},
 				})
 			case 'tevm_getAccount':
@@ -147,7 +150,14 @@ export const requestProcedure = (vm) => {
 			case 'anvil_stopImpersonatingAccount':
 				throw new Error(`Method ${request.method} is not implemented yet`)
 			default: {
-				const err = new UnknownMethodError(request)
+				/**
+				 * @type {import('@tevm/errors').UnsupportedMethodError}
+				 */
+				const err = {
+					_tag: 'UnsupportedMethodError',
+					name: 'UnsupportedMethodError',
+					message: `UnsupportedMethodError: Unknown method ${/**@type any*/(request).method}`,
+				}
 				return /** @type {any}*/ ({
 					id: /** @type any*/ (request).id ?? null,
 					method: /** @type any*/ (request).method,
