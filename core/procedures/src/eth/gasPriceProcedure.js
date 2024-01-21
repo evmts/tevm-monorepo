@@ -7,11 +7,11 @@ import { numberToHex } from 'viem'
  */
 export const gasPriceProcedure =
 	({ blockchain, forkUrl }) =>
-		async (req) => ({
-			...(req.id ? { id: req.id } : {}),
-			jsonrpc: '2.0',
-			method: req.method,
-			result: await gasPriceHandler({ blockchain, forkUrl })({}).then(
-				numberToHex,
-			),
-		})
+	async (req) => ({
+		...(req.id ? { id: req.id } : {}),
+		jsonrpc: '2.0',
+		method: req.method,
+		result: await gasPriceHandler({ blockchain, forkUrl })({}).then(
+			numberToHex,
+		),
+	})

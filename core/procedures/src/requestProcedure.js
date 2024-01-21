@@ -48,14 +48,15 @@ export const requestProcedure = (vm) => {
 		switch (request.method) {
 			case 'tevm_call':
 				return /**@type any*/ (callProcedure)(vm.evm)(request)
-			case /** @type {any} */ ('tevm_contract'):
+			case /** @type {any} */ ('tevm_contract'): {
 				/**
 				 * @type {import('@tevm/errors').UnsupportedMethodError}
 				 */
 				const err = {
 					_tag: 'UnsupportedMethodError',
 					name: 'UnsupportedMethodError',
-					message: `UnsupportedMethodError: tevm_contract is not supported. Encode the contract arguments and use tevm_call instead.`,
+					message:
+						'UnsupportedMethodError: tevm_contract is not supported. Encode the contract arguments and use tevm_call instead.',
 				}
 				return /**@type any*/ ({
 					id: /** @type any*/ (request).id,
@@ -65,6 +66,7 @@ export const requestProcedure = (vm) => {
 						message: err.message,
 					},
 				})
+			}
 			case 'tevm_getAccount':
 				return /**@type any*/ (getAccountProcedure)(vm.evm)(request)
 			case 'tevm_setAccount':
@@ -156,7 +158,9 @@ export const requestProcedure = (vm) => {
 				const err = {
 					_tag: 'UnsupportedMethodError',
 					name: 'UnsupportedMethodError',
-					message: `UnsupportedMethodError: Unknown method ${/**@type any*/(request).method}`,
+					message: `UnsupportedMethodError: Unknown method ${
+						/**@type any*/ (request).method
+					}`,
 				}
 				return /** @type {any}*/ ({
 					id: /** @type any*/ (request).id ?? null,
