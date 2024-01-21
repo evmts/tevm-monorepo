@@ -28,7 +28,7 @@ describe('blockExplorers', () => {
 		expectTypeOf(optimismExplorer.name).toBeString()
 	})
 	it('should have a url property', () => {
-		expect(optimismExplorer.url).toBe('https://explorer.optimism.io')
+		expect(optimismExplorer.url).toMatchInlineSnapshot('"https://optimistic.etherscan.io"')
 		expectTypeOf(optimismExplorer.url).toBeString()
 	})
 
@@ -38,7 +38,7 @@ describe('blockExplorers', () => {
 				'0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef'
 			const res = optimismExplorer.getTxUrl(txHash)
 			expect(res).toMatchInlineSnapshot(
-				'"https://explorer.optimism.io/tx/0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef"',
+				'"https://optimistic.etherscan.io/tx/0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef"',
 			)
 			expectTypeOf(res).toBeString()
 		})
@@ -62,7 +62,7 @@ describe('blockExplorers', () => {
 				'0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef'
 			const res = optimismExplorer.getBlockUrl(blockHash)
 			expect(res).toMatchInlineSnapshot(
-				'"https://explorer.optimism.io/block/0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef"',
+				'"https://optimistic.etherscan.io/block/0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef"',
 			)
 			expectTypeOf(res).toBeString()
 		})
@@ -85,7 +85,7 @@ describe('blockExplorers', () => {
 			const address = '0x1234567890abcdef1234567890abcdef12345678'
 			const res = optimismExplorer.getAddressUrl(address)
 			expect(res).toMatchInlineSnapshot(
-				'"https://explorer.optimism.io/address/0x1234567890abcdef1234567890abcdef12345678"',
+				'"https://optimistic.etherscan.io/address/0x1234567890abcdef1234567890abcdef12345678"',
 			)
 			expectTypeOf(res).toBeString()
 		})
