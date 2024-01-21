@@ -74,8 +74,8 @@
 		"@ethereumjs/evm": "^2.1.0",
 		"@tevm/actions-types": "workspace:^",
 		"@tevm/errors": "workspace:^",
-		"@tevm/state": "workspace:^",
 		"@tevm/procedures-types": "workspace:^",
+		"@tevm/state": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^"
 	},
