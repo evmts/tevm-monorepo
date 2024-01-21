@@ -3,7 +3,6 @@
 	"version": "1.0.0-next.13",
 	"private": false,
 	"description": "A typesafe Ethereum Virtual Machine (EVM) toolkit written in TypeScript",
-	"type": "module",
 	"keywords": [
 		"solidity",
 		"tevm",
@@ -22,6 +21,7 @@
 	"contributors": [
 		"Will Cory <willcory10@gmail.com>"
 	],
+	"type": "module",
 	"exports": {
 		"./package.json": "./package.json",
 		".": {
@@ -134,14 +134,28 @@
 		"build": "nx run-many --targets=build:dist,build:types --projects=tevm",
 		"build:dist": "bun run generate:dist && git status --porcelain",
 		"build:types": "bun run generate:types && git status --porcelain",
+		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
 		"generate": "nx run-many --targets=generate:dist,generate:types --projects=tevm && bun generate:docs",
 		"generate:dist": "tsup",
-		"generate:types": "tsup --dts-only",
-		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
 		"generate:docs": "typedoc",
+		"generate:types": "tsup --dts-only",
 		"lint:deps": "bunx depcheck",
 		"lint:package": "bunx publint --strict && attw --pack",
 		"typecheck": "tsc --noEmit"
+	},
+	"dependencies": {
+		"@tevm/actions-types": "workspace:^",
+		"@tevm/client-types": "workspace:^",
+		"@tevm/contract": "workspace:^",
+		"@tevm/errors": "workspace:^",
+		"@tevm/jsonrpc": "workspace:^",
+		"@tevm/memory-client": "workspace:^",
+		"@tevm/predeploys": "workspace:^",
+		"@tevm/procedures-types": "workspace:^",
+		"@tevm/remote-client": "workspace:^",
+		"@tevm/server": "workspace:^",
+		"abitype": "^1.0.0",
+		"viem": "^2.4.0"
 	},
 	"devDependencies": {
 		"@tevm/solc": "workspace:^",
@@ -150,19 +164,5 @@
 	},
 	"publishConfig": {
 		"access": "public"
-	},
-	"dependencies": {
-		"@tevm/actions-types": "workspace:^",
-		"@tevm/procedures-types": "workspace:^",
-		"@tevm/client-types": "workspace:^",
-		"@tevm/remote-client": "workspace:^",
-		"@tevm/memory-client": "workspace:^",
-		"@tevm/contract": "workspace:^",
-		"@tevm/jsonrpc": "workspace:^",
-		"@tevm/errors": "workspace:^",
-		"@tevm/predeploys": "workspace:^",
-		"@tevm/server": "workspace:^",
-		"abitype": "^1.0.0",
-		"viem": "^2.4.0"
 	}
 }
