@@ -72,6 +72,7 @@
 	},
 	"devDependencies": {
 		"@ethereumjs/evm": "^2.1.0",
+		"@ethereumjs/vm": "^7.1.0",
 		"@tevm/actions-types": "workspace:^",
 		"@tevm/errors": "workspace:^",
 		"@tevm/procedures-types": "workspace:^",
