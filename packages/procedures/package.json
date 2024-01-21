@@ -45,7 +45,7 @@
 		"types"
 	],
 	"scripts": {
-		"all": "pnpm i  && bun run build && bun lint && bun format && bun test:run && bun generate:docs",
+		"all": "pnpm i  && bun run build && bun lint && bun format && bun test:run && bun generate:docs && bun lint:package && bun lint:deps",
 		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/procedures",
 		"build:dist": "tsup",
 		"build:types": "tsup --dts-only && tsc --emitDeclarationOnly --declaration",
@@ -68,16 +68,14 @@
 		"@ethereumjs/blockchain": "^7.0.1",
 		"@ethereumjs/util": "^9.0.1",
 		"@tevm/actions": "workspace:^",
-		"@tevm/errors": "workspace:^",
-		"@tevm/jsonrpc": "workspace:1.0.0-next.22",
-		"@tevm/zod": "workspace:^",
 		"viem": "^2.0.0"
 	},
 	"devDependencies": {
 		"@ethereumjs/evm": "^2.1.0",
 		"@tevm/actions-types": "workspace:^",
-		"@tevm/procedures-types": "workspace:^",
+		"@tevm/errors": "workspace:^",
 		"@tevm/state": "workspace:^",
+		"@tevm/procedures-types": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^"
 	},

@@ -12,7 +12,9 @@ export const getAccountProcedure = (evm) => async (request) => {
 		address: request.params.address,
 	})
 	if (errors.length > 0) {
-		const error = /** @type {import('@tevm/errors').GetAccountError}*/ (errors[0])
+		const error = /** @type {import('@tevm/errors').GetAccountError}*/ (
+			errors[0]
+		)
 		return {
 			jsonrpc: '2.0',
 			error: {

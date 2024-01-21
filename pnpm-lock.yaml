@@ -1451,15 +1451,6 @@ importers:
       '@tevm/actions':
         specifier: workspace:^
         version: link:../actions
-      '@tevm/errors':
-        specifier: workspace:^
-        version: link:../errors
-      '@tevm/jsonrpc':
-        specifier: workspace:1.0.0-next.22
-        version: link:../jsonrpc
-      '@tevm/zod':
-        specifier: workspace:^
-        version: link:../zod
       viem:
         specifier: ^2.0.0
         version: 2.4.0(typescript@5.3.3)(zod@3.22.4)
@@ -1470,6 +1461,9 @@ importers:
       '@tevm/actions-types':
         specifier: workspace:^
         version: link:../actions-types
+      '@tevm/errors':
+        specifier: workspace:^
+        version: link:../errors
       '@tevm/procedures-types':
         specifier: workspace:^
         version: link:../procedures-spec

@@ -31,7 +31,9 @@ export const loadStateProcedure = (stateManager) => async (request) => {
 	})
 
 	if (errors.length > 0) {
-		const error = /** @type {import('@tevm/errors').LoadStateError}*/ (errors[0])
+		const error = /** @type {import('@tevm/errors').LoadStateError}*/ (
+			errors[0]
+		)
 		return {
 			jsonrpc: '2.0',
 			error: {

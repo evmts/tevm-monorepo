@@ -1,5 +1,5 @@
-import { scriptHandler } from '@tevm/actions'
 import { bigIntToHex } from '@ethereumjs/util'
+import { scriptHandler } from '@tevm/actions'
 import { hexToBigInt } from 'viem'
 
 /**
@@ -51,29 +51,29 @@ export const scriptProcedure = (evm) => async (request) => {
 				: {}),
 			...(request.params.block
 				? {
-					...(request.params.block.gasLimit
-						? { gasLimit: hexToBigInt(request.params.block.gasLimit) }
-						: {}),
-					...(request.params.block.baseFeePerGas
-						? {
-							baseFeePerGas: hexToBigInt(
-								request.params.block.baseFeePerGas,
-							),
-						}
-						: {}),
-					...(request.params.block.blobGasPrice
-						? { blobGasPrice: hexToBigInt(request.params.block.blobGasPrice) }
-						: {}),
-					...(request.params.block.difficulty
-						? { difficulty: hexToBigInt(request.params.block.difficulty) }
-						: {}),
-					...(request.params.block.number
-						? { number: hexToBigInt(request.params.block.number) }
-						: {}),
-					...(request.params.block.timestamp
-						? { timestamp: hexToBigInt(request.params.block.timestamp) }
-						: {}),
-				}
+						...(request.params.block.gasLimit
+							? { gasLimit: hexToBigInt(request.params.block.gasLimit) }
+							: {}),
+						...(request.params.block.baseFeePerGas
+							? {
+									baseFeePerGas: hexToBigInt(
+										request.params.block.baseFeePerGas,
+									),
+							  }
+							: {}),
+						...(request.params.block.blobGasPrice
+							? { blobGasPrice: hexToBigInt(request.params.block.blobGasPrice) }
+							: {}),
+						...(request.params.block.difficulty
+							? { difficulty: hexToBigInt(request.params.block.difficulty) }
+							: {}),
+						...(request.params.block.number
+							? { number: hexToBigInt(request.params.block.number) }
+							: {}),
+						...(request.params.block.timestamp
+							? { timestamp: hexToBigInt(request.params.block.timestamp) }
+							: {}),
+				  }
 				: {}),
 		})
 	} catch (e) {
@@ -108,7 +108,7 @@ export const scriptProcedure = (evm) => async (request) => {
 	/**
 	 * @param {bigint} value
 	 */
-	const toHex = (value) => /**@type {import('viem').Hex}*/(bigIntToHex(value))
+	const toHex = (value) => /**@type {import('viem').Hex}*/ (bigIntToHex(value))
 	return {
 		jsonrpc: '2.0',
 		result: {

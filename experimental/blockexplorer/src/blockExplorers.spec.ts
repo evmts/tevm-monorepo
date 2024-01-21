@@ -28,7 +28,9 @@ describe('blockExplorers', () => {
 		expectTypeOf(optimismExplorer.name).toBeString()
 	})
 	it('should have a url property', () => {
-		expect(optimismExplorer.url).toMatchInlineSnapshot('"https://optimistic.etherscan.io"')
+		expect(optimismExplorer.url).toMatchInlineSnapshot(
+			'"https://optimistic.etherscan.io"',
+		)
 		expectTypeOf(optimismExplorer.url).toBeString()
 	})
 

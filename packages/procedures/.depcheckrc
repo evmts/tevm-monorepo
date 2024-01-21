@@ -1,6 +1,9 @@
 ignores: [
   "@ethereumjs/evm",
   "@ethereumjs/block",
-  "@tevm/api"
+  "@tevm/errors",
+  "@tevm/state",
+  "@tevm/actions-types",
+  "@tevm/procedures-types"
 ]
 skip-missing: true
