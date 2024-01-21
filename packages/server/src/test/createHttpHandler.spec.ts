@@ -1,4 +1,4 @@
-import { createMemoryTevm } from '@tevm/memory-client'
+import { createMemoryClient } from '@tevm/memory-client'
 import type { ContractJsonRpcRequest } from '@tevm/procedures-types'
 import supertest from 'supertest'
 import { decodeFunctionResult, encodeFunctionData, hexToBigInt } from 'viem'
@@ -14,7 +14,7 @@ describe('createHttpHandler', () => {
 	// haven't debugged if code is broke or test is broke yet
 	// landing immediately to avoid merge conflicts in other prs but need to circle back
 	it('should create an http handler', async () => {
-		const tevm = await createMemoryTevm({
+		const tevm = await createMemoryClient({
 			fork: {
 				url: optimism.rpcUrls.default.http[0],
 			},

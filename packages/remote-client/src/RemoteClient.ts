@@ -1,4 +1,4 @@
-import type { Tevm } from '@tevm/client-spec'
+import type { TevmClient } from '@tevm/client-spec'
 
 /**
  * A remote Tevm client for talking to a Tevm backend over HTTP JSON-RPC
@@ -9,7 +9,7 @@ import type { Tevm } from '@tevm/client-spec'
  * ```typescript
  * import { TevmClient, createTevmClient } from "tevm/client";
  */
-export type TevmClient = Tevm & {
+export type RemoteClient = TevmClient & {
 	/**
 	 * The url being used to connect to the remote Tevm backend
 	 */

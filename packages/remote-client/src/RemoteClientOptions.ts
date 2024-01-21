@@ -1,7 +1,7 @@
 /**
- * Options for a TevmClient
+ * Options for a RemoteClient
  */
-export type ClientOptions = {
+export type RemoteClientOptions = {
 	/**
 	 * Remote URL to connect to
 	 */

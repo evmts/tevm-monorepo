@@ -1,3 +1,3 @@
-export { createTevmClient } from './createTevmClient.js'
-export type { ClientOptions } from './ClientOptions.js'
-export type { TevmClient } from './TevmClient.js'
+export { createRemoteClient } from './createRemoteClient.js'
+export type { RemoteClientOptions } from './RemoteClientOptions.js'
+export type { RemoteClient } from './RemoteClient.js'

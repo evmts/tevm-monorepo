@@ -1,25 +1,25 @@
 import { Server, createServer } from 'http'
 import { Address } from '@ethereumjs/util'
-import type { Tevm } from '@tevm/client-spec'
-import { type MemoryTevm, createMemoryTevm } from '@tevm/memory-client'
+import type { TevmClient } from '@tevm/client-spec'
+import { type MemoryClient, createMemoryClient } from '@tevm/memory-client'
 import { createHttpHandler } from '@tevm/server'
 import { bytesToHex, keccak256 } from 'viem'
-import { createTevmClient } from './createTevmClient.js'
+import { createRemoteClient } from './createRemoteClient.js'
 import { afterAll, beforeAll, describe, expect, it } from 'bun:test'
 
-describe(createTevmClient.name, () => {
-	let tevm: MemoryTevm
+describe(createRemoteClient.name, () => {
+	let tevm: MemoryClient
 	let server: Server
-	let client: Tevm
+	let client: TevmClient
 
 	beforeAll(async () => {
-		tevm = await createMemoryTevm({
+		tevm = await createMemoryClient({
 			fork: { url: 'https://mainnet.optimism.io' },
 		})
 		server = createServer(createHttpHandler({ request: tevm.request })).listen(
 			6969,
 		)
-		client = createTevmClient({ url: 'http://localhost:6969' })
+		client = createRemoteClient({ url: 'http://localhost:6969' })
 	})
 
 	afterAll(() => {
