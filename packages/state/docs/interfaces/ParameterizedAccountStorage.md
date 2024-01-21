@@ -14,7 +14,7 @@
 
 #### Source
 
-[core/state/src/ParameterizedAccountStorage.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/core/state/src/ParameterizedAccountStorage.ts#L6)
+[packages/state/src/ParameterizedAccountStorage.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ParameterizedAccountStorage.ts#L6)
 
 ***
 
@@ -24,7 +24,7 @@
 
 #### Source
 
-[core/state/src/ParameterizedAccountStorage.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/core/state/src/ParameterizedAccountStorage.ts#L8)
+[packages/state/src/ParameterizedAccountStorage.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ParameterizedAccountStorage.ts#L8)
 
 ***
 
@@ -34,7 +34,7 @@
 
 #### Source
 
-[core/state/src/ParameterizedAccountStorage.ts:5](https://github.com/evmts/tevm-monorepo/blob/main/core/state/src/ParameterizedAccountStorage.ts#L5)
+[packages/state/src/ParameterizedAccountStorage.ts:5](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ParameterizedAccountStorage.ts#L5)
 
 ***
 
@@ -44,7 +44,7 @@
 
 #### Source
 
-[core/state/src/ParameterizedAccountStorage.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/core/state/src/ParameterizedAccountStorage.ts#L9)
+[packages/state/src/ParameterizedAccountStorage.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ParameterizedAccountStorage.ts#L9)
 
 ***
 
@@ -54,7 +54,7 @@
 
 #### Source
 
-[core/state/src/ParameterizedAccountStorage.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/core/state/src/ParameterizedAccountStorage.ts#L7)
+[packages/state/src/ParameterizedAccountStorage.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ParameterizedAccountStorage.ts#L7)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

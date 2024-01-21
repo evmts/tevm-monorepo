@@ -375,7 +375,7 @@ describe('scriptHandler', () => {
 			errors: [
 				{
 					_tag: 'InvalidRequestError',
-					message: 'Address "not valid" is invalid.\n\nVersion: viem@2.0.2',
+					message: 'Address "not valid" is invalid.\n\nVersion: viem@2.4.0',
 					name: 'InvalidRequestError',
 				},
 			],
@@ -411,7 +411,7 @@ describe('scriptHandler', () => {
 				{
 					_tag: 'DecodeFunctionDataError',
 					message:
-						'Data size of 2 bytes is too small for given parameters.\n\nParams: (uint256 balance)\nData:   0x0524 (2 bytes)\n\nVersion: viem@2.0.2',
+						'Data size of 2 bytes is too small for given parameters.\n\nParams: (uint256 balance)\nData:   0x0524 (2 bytes)\n\nVersion: viem@2.4.0',
 					name: 'DecodeFunctionDataError',
 				},
 			],

@@ -13,7 +13,7 @@ The maximum value a [INT64](../type-aliases/INT64.md) can be.
 
 ## Source
 
-[packages/schemas/src/ethereum/SINT/constants.js:41](https://github.com/evmts/tevm-monorepo/blob/main/packages/schemas/src/ethereum/SINT/constants.js#L41)
+[experimental/schemas/src/ethereum/SINT/constants.js:41](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SINT/constants.js#L41)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

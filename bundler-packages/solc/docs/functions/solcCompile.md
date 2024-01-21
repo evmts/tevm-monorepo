@@ -20,7 +20,7 @@ Typesafe wrapper around solc.compile
 
 ## Source
 
-[solc.js:127](https://github.com/evmts/tevm-monorepo/blob/main/bundler/solc/src/solc.js#L127)
+[solc.js:127](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solc.js#L127)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

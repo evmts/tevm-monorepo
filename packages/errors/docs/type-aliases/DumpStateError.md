@@ -23,7 +23,7 @@ if (errors?.length) {
 
 ## Source
 
-[core/errors/src/DumpStateError.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/core/errors/src/DumpStateError.ts#L14)
+[packages/errors/src/DumpStateError.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/DumpStateError.ts#L14)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

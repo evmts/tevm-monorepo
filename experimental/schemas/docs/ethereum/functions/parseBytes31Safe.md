@@ -24,7 +24,7 @@ extends string
 
 ## Source
 
-[packages/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:772](https://github.com/evmts/tevm-monorepo/blob/main/packages/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L772)
+[experimental/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js:772](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SBytesFixed/parseBytesFixedSafe.js#L772)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

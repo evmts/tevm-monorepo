@@ -14,7 +14,7 @@
 
 ## Source
 
-[core/state/src/SerializableTevmState.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/core/state/src/SerializableTevmState.ts#L3)
+[packages/state/src/SerializableTevmState.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/SerializableTevmState.ts#L3)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

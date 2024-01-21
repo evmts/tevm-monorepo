@@ -12,7 +12,7 @@ Errors returned by all call based tevm procedures including call, contract, and 
 
 ## Source
 
-[core/errors/src/BaseCallError.ts:24](https://github.com/evmts/tevm-monorepo/blob/main/core/errors/src/BaseCallError.ts#L24)
+[packages/errors/src/BaseCallError.ts:24](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/BaseCallError.ts#L24)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

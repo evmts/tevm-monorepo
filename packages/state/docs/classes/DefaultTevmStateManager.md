@@ -633,7 +633,7 @@ An array of account addresses.
 
 #### Source
 
-[core/state/src/DefaultTevmStateManager.ts:15](https://github.com/evmts/tevm-monorepo/blob/main/core/state/src/DefaultTevmStateManager.ts#L15)
+[packages/state/src/DefaultTevmStateManager.ts:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/DefaultTevmStateManager.ts#L15)
 
 ***
 

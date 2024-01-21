@@ -12,7 +12,7 @@ Custom precompiles allow you to run arbitrary JavaScript code in the EVM
 
 ## Source
 
-[memory-client/src/CustomPrecompile.ts:19](https://github.com/evmts/tevm-monorepo/blob/main/core/memory-client/src/CustomPrecompile.ts#L19)
+[memory-client/src/CustomPrecompile.ts:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/CustomPrecompile.ts#L19)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

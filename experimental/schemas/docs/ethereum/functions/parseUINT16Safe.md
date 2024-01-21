@@ -22,7 +22,7 @@ Safely parses a UINT16 into an [Effect](https://www.effect.website/docs/essentia
 
 ## Source
 
-[packages/schemas/src/ethereum/SUINT/parseUINTSafe.js:49](https://github.com/evmts/tevm-monorepo/blob/main/packages/schemas/src/ethereum/SUINT/parseUINTSafe.js#L49)
+[experimental/schemas/src/ethereum/SUINT/parseUINTSafe.js:49](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SUINT/parseUINTSafe.js#L49)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

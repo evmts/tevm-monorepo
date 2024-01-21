@@ -6,7 +6,7 @@
 
 # Type alias: ContractParams`<TAbi, TFunctionName>`
 
-> **ContractParams**\<`TAbi`, `TFunctionName`\>: `EncodeFunctionDataParameters`\<`TAbi`, `TFunctionName`\> & [`BaseCallParams`](../../api/type-aliases/BaseCallParams.md) & `object`
+> **ContractParams**\<`TAbi`, `TFunctionName`\>: `EncodeFunctionDataParameters`\<`TAbi`, `TFunctionName`\> & [`BaseCallParams`](../../actions-types/type-aliases/BaseCallParams.md) & `object`
 
 Tevm params to execute a call on a contract
 
@@ -27,7 +27,7 @@ The address to call.
 
 ## Source
 
-vm/api/types/params/ContractParams.d.ts:7
+packages/actions-types/types/params/ContractParams.d.ts:7
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

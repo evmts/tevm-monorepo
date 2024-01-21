@@ -14,7 +14,7 @@ Since ContractJsonRpcProcedure is a quality of life wrapper around CallJsonRpcPr
 
 ## Source
 
-[procedure/ContractJsonRpcProcedure.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/core/procedures-types/src/procedure/ContractJsonRpcProcedure.ts#L8)
+[procedure/ContractJsonRpcProcedure.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-spec/src/procedure/ContractJsonRpcProcedure.ts#L8)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -29,7 +29,7 @@ const parsedBytes = parseBytes('0x1234567890abcdef1234567890abcdef12345678');
 
 ## Source
 
-[packages/schemas/src/ethereum/SBytes/parseBytes.js:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/schemas/src/ethereum/SBytes/parseBytes.js#L20)
+[experimental/schemas/src/ethereum/SBytes/parseBytes.js:20](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SBytes/parseBytes.js#L20)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

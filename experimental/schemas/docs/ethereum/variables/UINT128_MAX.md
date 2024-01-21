@@ -13,7 +13,7 @@ The maximum value a [UINT128](../type-aliases/UINT128.md) can be.
 
 ## Source
 
-[packages/schemas/src/ethereum/SUINT/constants.js:31](https://github.com/evmts/tevm-monorepo/blob/main/packages/schemas/src/ethereum/SUINT/constants.js#L31)
+[experimental/schemas/src/ethereum/SUINT/constants.js:31](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SUINT/constants.js#L31)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

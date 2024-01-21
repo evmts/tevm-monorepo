@@ -15,7 +15,7 @@
 
 ## Source
 
-[moduleFactory.js:9](https://github.com/evmts/tevm-monorepo/blob/main/bundler/resolutions/src/moduleFactory.js#L9)
+[moduleFactory.js:9](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/resolutions/src/moduleFactory.js#L9)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

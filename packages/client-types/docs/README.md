@@ -27,11 +27,11 @@
 # @tevm/spec
 
 `@tevm/spec` is the official tevm spec represented as a typescript object [Tevm](./src/Tevm.ts). This spec is implemented by all tevm clients
-including the
+including the 
 
 ## [Tevm.ts](./src/Tevm.ts)
 
-`Tevm` is the API type of Tevm implemented by
+`Tevm` is the API type of Tevm implemented by 
 
 - `@tevm/vm` package the evm implementation of tevm
 - `@tevm/client` package the remote JSON-RPC client for talking to a remote Tevm EVM
@@ -40,7 +40,7 @@ including the
 
 Tevm core api follows an input/output pattern and is implemented in two ways:
 
-- The ergonomic high level `action` based API
+- The ergonomic high level `action` based API 
 - The lower level JSON-RPC based API used for remote calls
 
 This API is implemented with the following packages

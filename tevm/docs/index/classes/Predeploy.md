@@ -28,7 +28,7 @@ Type of predeploy contract for tevm
 
 #### Source
 
-vm/predeploys/types/Predeploy.d.ts:9
+packages/predeploys/types/Predeploy.d.ts:9
 
 ***
 
@@ -38,7 +38,7 @@ vm/predeploys/types/Predeploy.d.ts:9
 
 #### Source
 
-vm/predeploys/types/Predeploy.d.ts:8
+packages/predeploys/types/Predeploy.d.ts:8
 
 ***
 
@@ -48,7 +48,7 @@ vm/predeploys/types/Predeploy.d.ts:8
 
 #### Source
 
-vm/predeploys/types/Predeploy.d.ts:10
+packages/predeploys/types/Predeploy.d.ts:10
 
 ***
 
@@ -65,7 +65,7 @@ vm/predeploys/types/Predeploy.d.ts:10
 
 #### Source
 
-vm/predeploys/types/Predeploy.d.ts:11
+packages/predeploys/types/Predeploy.d.ts:11
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

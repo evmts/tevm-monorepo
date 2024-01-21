@@ -29,7 +29,7 @@ const parsedUrlEffect = parseUrlSafe('https://tevm.dev');
 
 ## Source
 
-[packages/schemas/src/common/SUrl.js:91](https://github.com/evmts/tevm-monorepo/blob/main/packages/schemas/src/common/SUrl.js#L91)
+[experimental/schemas/src/common/SUrl.js:91](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/common/SUrl.js#L91)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

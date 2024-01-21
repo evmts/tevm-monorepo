@@ -52,7 +52,7 @@
 
 ## Source
 
-[solcTypes.ts:239](https://github.com/evmts/tevm-monorepo/blob/main/bundler/solc/src/solcTypes.ts#L239)
+[solcTypes.ts:239](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L239)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

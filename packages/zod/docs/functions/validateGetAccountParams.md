@@ -16,7 +16,7 @@
 
 ## Source
 
-[core/zod/src/validators/validateGetAccountParams.js:8](https://github.com/evmts/tevm-monorepo/blob/main/core/zod/src/validators/validateGetAccountParams.js#L8)
+[packages/zod/src/validators/validateGetAccountParams.js:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/zod/src/validators/validateGetAccountParams.js#L8)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -20,7 +20,7 @@
 
 ## Source
 
-[packages/viem-effect/src/utils/signature/hashTypedDataEffect.js:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/viem-effect/src/utils/signature/hashTypedDataEffect.js#L8)
+[experimental/viem-effect/src/utils/signature/hashTypedDataEffect.js:8](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/utils/signature/hashTypedDataEffect.js#L8)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

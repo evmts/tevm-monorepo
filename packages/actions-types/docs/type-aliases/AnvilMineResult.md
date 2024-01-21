@@ -10,7 +10,7 @@
 
 ## Source
 
-[result/AnvilResult.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/core/actions-types/src/result/AnvilResult.ts#L13)
+[result/AnvilResult.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/result/AnvilResult.ts#L13)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -12,7 +12,7 @@ JSON-RPC request for `debug_traceCall` method
 
 ## Source
 
-[requests/DebugJsonRpcRequest.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/core/procedures-types/src/requests/DebugJsonRpcRequest.ts#L20)
+[requests/DebugJsonRpcRequest.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-spec/src/requests/DebugJsonRpcRequest.ts#L20)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

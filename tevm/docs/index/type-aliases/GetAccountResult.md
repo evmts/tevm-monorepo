@@ -14,7 +14,7 @@ Result of GetAccount Action
 
 | Parameter | Default |
 | :------ | :------ |
-| `ErrorType` | [`GetAccountError`](GetAccountError.md) |
+| `ErrorType` | [`GetAccountError`](../../actions-types/type-aliases/GetAccountError.md) |
 
 ## Type declaration
 
@@ -32,7 +32,7 @@ Balance to set account to
 
 ### deployedBytecode
 
-> **deployedBytecode**?: `Hex`
+> **deployedBytecode**?: [`Hex`](Hex.md)
 
 Contract bytecode to set account to
 
@@ -50,13 +50,13 @@ Nonce to set account to
 
 ### storageRoot
 
-> **storageRoot**?: `Hex`
+> **storageRoot**?: [`Hex`](Hex.md)
 
 Storage root to set account to
 
 ## Source
 
-vm/api/types/result/GetAccountResult.d.ts:7
+packages/actions-types/types/result/GetAccountResult.d.ts:7
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

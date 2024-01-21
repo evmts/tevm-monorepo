@@ -28,7 +28,7 @@ Error.constructor
 
 #### Source
 
-[core/errors/src/errors/UnsupportedMethodError.js:17](https://github.com/evmts/tevm-monorepo/blob/main/core/errors/src/errors/UnsupportedMethodError.js#L17)
+[packages/errors/src/errors/UnsupportedMethodError.js:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/errors/UnsupportedMethodError.js#L17)
 
 ## Properties
 
@@ -38,7 +38,7 @@ Error.constructor
 
 #### Source
 
-[core/errors/src/errors/UnsupportedMethodError.js:13](https://github.com/evmts/tevm-monorepo/blob/main/core/errors/src/errors/UnsupportedMethodError.js#L13)
+[packages/errors/src/errors/UnsupportedMethodError.js:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/errors/UnsupportedMethodError.js#L13)
 
 ***
 
@@ -80,7 +80,7 @@ Error.name
 
 #### Source
 
-[core/errors/src/errors/UnsupportedMethodError.js:9](https://github.com/evmts/tevm-monorepo/blob/main/core/errors/src/errors/UnsupportedMethodError.js#L9)
+[packages/errors/src/errors/UnsupportedMethodError.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/errors/UnsupportedMethodError.js#L9)
 
 ***
 
@@ -167,26 +167,6 @@ Error.captureStackTrace
 ##### Source
 
 node\_modules/.pnpm/bun-types@1.0.24/node\_modules/bun-types/types.d.ts:2234
-
-#### captureStackTrace(targetObject, constructorOpt)
-
-> **`static`** **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
-
-Create .stack property on a target object
-
-##### Parameters
-
-▪ **targetObject**: `object`
-
-▪ **constructorOpt?**: `Function`
-
-##### Inherited from
-
-Error.captureStackTrace
-
-##### Source
-
-node\_modules/.pnpm/@types+node@20.10.4/node\_modules/@types/node/globals.d.ts:21
 
 #### captureStackTrace(targetObject, constructorOpt)
 

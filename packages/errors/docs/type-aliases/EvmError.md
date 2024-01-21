@@ -18,7 +18,7 @@ Error type of errors thrown while internally executing a call in the EVM
 
 ## Source
 
-[core/errors/src/EvmError.ts:45](https://github.com/evmts/tevm-monorepo/blob/main/core/errors/src/EvmError.ts#L45)
+[packages/errors/src/EvmError.ts:45](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/EvmError.ts#L45)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

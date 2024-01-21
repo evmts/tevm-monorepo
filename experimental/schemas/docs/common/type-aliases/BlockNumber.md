@@ -15,7 +15,7 @@
 
 ## Source
 
-[packages/schemas/src/common/SBlockNumber.js:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/schemas/src/common/SBlockNumber.js#L16)
+[experimental/schemas/src/common/SBlockNumber.js:16](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/common/SBlockNumber.js#L16)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

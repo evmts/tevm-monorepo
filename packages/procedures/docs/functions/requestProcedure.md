@@ -42,7 +42,7 @@ const accountResponse = await tevm.request({
 
 ## Source
 
-[procedures/src/requestProcedure.js:44](https://github.com/evmts/tevm-monorepo/blob/main/core/procedures/src/requestProcedure.js#L44)
+[procedures/src/requestProcedure.js:44](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/requestProcedure.js#L44)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

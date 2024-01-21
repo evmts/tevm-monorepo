@@ -18,7 +18,7 @@
 
 ## Source
 
-[packages/viem-effect/src/utils/unit/formatEtherEffect.js:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/viem-effect/src/utils/unit/formatEtherEffect.js#L7)
+[experimental/viem-effect/src/utils/unit/formatEtherEffect.js:7](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/utils/unit/formatEtherEffect.js#L7)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

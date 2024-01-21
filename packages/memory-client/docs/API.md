@@ -12,11 +12,11 @@
 - [CustomPrecompile](type-aliases/CustomPrecompile.md)
 - [CustomPredeploy](type-aliases/CustomPredeploy.md)
 - [ForkOptions](type-aliases/ForkOptions.md)
-- [MemoryTevm](type-aliases/MemoryTevm.md)
+- [MemoryClient](type-aliases/MemoryClient.md)
 
 ### Functions
 
-- [createMemoryTevm](functions/createMemoryTevm.md)
+- [createMemoryClient](functions/createMemoryClient.md)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

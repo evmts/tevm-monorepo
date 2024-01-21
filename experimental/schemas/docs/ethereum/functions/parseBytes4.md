@@ -29,7 +29,7 @@ const parsedBytes4 = parseBytes4('0xffaabbcc');
 
 ## Source
 
-[packages/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:99](https://github.com/evmts/tevm-monorepo/blob/main/packages/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L99)
+[experimental/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js:99](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SBytesFixed/parseBytesFixed.js#L99)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

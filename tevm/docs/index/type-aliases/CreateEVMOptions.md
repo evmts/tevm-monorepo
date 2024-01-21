@@ -97,7 +97,7 @@ Fork options fork a live network if enabled
 
 ## Source
 
-vm/vm/types/CreateEVMOptions.d.ts:7
+packages/memory-client/types/CreateEVMOptions.d.ts:7
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

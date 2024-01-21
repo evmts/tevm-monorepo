@@ -28,7 +28,7 @@ isINT256(BigInt("-11579208923731619542357098500868790785326998466564056403945758
 
 ## Source
 
-[packages/schemas/src/ethereum/SINT/isINT.js:109](https://github.com/evmts/tevm-monorepo/blob/main/packages/schemas/src/ethereum/SINT/isINT.js#L109)
+[experimental/schemas/src/ethereum/SINT/isINT.js:109](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SINT/isINT.js#L109)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -16,7 +16,7 @@
 
 ## Source
 
-[core/zod/src/validators/validateContractParams.js:9](https://github.com/evmts/tevm-monorepo/blob/main/core/zod/src/validators/validateContractParams.js#L9)
+[packages/zod/src/validators/validateContractParams.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/zod/src/validators/validateContractParams.js#L9)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

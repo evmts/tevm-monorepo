@@ -21,7 +21,7 @@ if (errors?.length) {
 
 ## Source
 
-[core/errors/src/ContractError.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/core/errors/src/ContractError.ts#L21)
+[packages/errors/src/ContractError.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ContractError.ts#L21)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

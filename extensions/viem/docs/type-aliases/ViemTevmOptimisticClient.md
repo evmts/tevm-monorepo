@@ -21,7 +21,7 @@ The decorated methods added to a viem wallet client by `tevmViemExtensionOptimis
 
 ### tevm
 
-> **tevm**: `Omit`\<`Tevm`, `"request"`\> & `object`
+> **tevm**: `Omit`\<`TevmClient`, `"request"`\> & `object`
 
 #### Type declaration
 

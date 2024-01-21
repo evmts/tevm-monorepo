@@ -19,7 +19,7 @@ export const SBlockNumber: Schema<number, BlockNumber>;
 
 ## Source
 
-[packages/schemas/src/common/SBlockNumber.js:33](https://github.com/evmts/tevm-monorepo/blob/main/packages/schemas/src/common/SBlockNumber.js#L33)
+[experimental/schemas/src/common/SBlockNumber.js:33](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/common/SBlockNumber.js#L33)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -16,7 +16,7 @@ Procedure for handling script JSON-RPC requests
 
 ## Source
 
-[procedure/ScriptJsonRpcProcedure.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/core/procedures-types/src/procedure/ScriptJsonRpcProcedure.ts#L6)
+[procedure/ScriptJsonRpcProcedure.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-spec/src/procedure/ScriptJsonRpcProcedure.ts#L6)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

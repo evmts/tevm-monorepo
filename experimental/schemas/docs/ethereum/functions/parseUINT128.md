@@ -29,7 +29,7 @@ const parsedUINT128 = parseUINT128(BigInt("1701411834604692317316873037158841057
 
 ## Source
 
-[packages/schemas/src/ethereum/SUINT/parseUINT.js:84](https://github.com/evmts/tevm-monorepo/blob/main/packages/schemas/src/ethereum/SUINT/parseUINT.js#L84)
+[experimental/schemas/src/ethereum/SUINT/parseUINT.js:84](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SUINT/parseUINT.js#L84)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

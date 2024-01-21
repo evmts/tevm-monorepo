@@ -57,7 +57,7 @@ Storage root to set account to
 
 ## Source
 
-[params/SetAccountParams.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/core/actions-types/src/params/SetAccountParams.ts#L16)
+[params/SetAccountParams.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/SetAccountParams.ts#L16)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

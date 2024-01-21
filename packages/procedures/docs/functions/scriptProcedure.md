@@ -18,7 +18,7 @@ Creates a Script JSON-RPC Procedure for handling script requests with Ethereumjs
 
 ## Source
 
-[procedures/src/tevm/scriptProcedure.js:10](https://github.com/evmts/tevm-monorepo/blob/main/core/procedures/src/tevm/scriptProcedure.js#L10)
+[procedures/src/tevm/scriptProcedure.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/tevm/scriptProcedure.js#L10)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

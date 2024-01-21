@@ -24,7 +24,7 @@ This API should not be used in production and may be trimmed from a public relea
 
 ### tevm
 
-> **tevm**: `Omit`\<[`Tevm`](/generated/tevm/api/type-aliases/tevm/), `"request"`\> & `object`
+> **tevm**: `Omit`\<`TevmClient`, `"request"`\> & `object`
 
 #### Type declaration
 

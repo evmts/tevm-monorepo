@@ -54,7 +54,7 @@ node\_modules/.pnpm/typescript@5.3.3/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Source
 
-[core/actions/src/handlers/eth/getBalanceHandler.js:9](https://github.com/evmts/tevm-monorepo/blob/main/core/actions/src/handlers/eth/getBalanceHandler.js#L9)
+[packages/actions/src/handlers/eth/getBalanceHandler.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/handlers/eth/getBalanceHandler.js#L9)
 
 ***
 
@@ -96,7 +96,7 @@ Error.name
 
 #### Source
 
-[core/actions/src/handlers/eth/getBalanceHandler.js:14](https://github.com/evmts/tevm-monorepo/blob/main/core/actions/src/handlers/eth/getBalanceHandler.js#L14)
+[packages/actions/src/handlers/eth/getBalanceHandler.js:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/handlers/eth/getBalanceHandler.js#L14)
 
 ***
 
@@ -202,7 +202,7 @@ Error.captureStackTrace
 
 ##### Source
 
-node\_modules/.pnpm/@types+node@20.10.4/node\_modules/@types/node/globals.d.ts:21
+node\_modules/.pnpm/@types+node@20.11.5/node\_modules/@types/node/globals.d.ts:21
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

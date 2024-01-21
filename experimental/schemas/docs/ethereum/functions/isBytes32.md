@@ -26,7 +26,7 @@ isBytes22("0xfff"); // false
 
 ## Source
 
-[packages/schemas/src/ethereum/SBytesFixed/isBytesFixed.js:521](https://github.com/evmts/tevm-monorepo/blob/main/packages/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L521)
+[experimental/schemas/src/ethereum/SBytesFixed/isBytesFixed.js:521](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SBytesFixed/isBytesFixed.js#L521)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

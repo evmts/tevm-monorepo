@@ -41,7 +41,7 @@ const {result: block} = await fetchJsonRpc(url, params)
 
 ## Source
 
-[fetchJsonRpc.js:17](https://github.com/evmts/tevm-monorepo/blob/main/core/jsonrpc/src/fetchJsonRpc.js#L17)
+[fetchJsonRpc.js:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/jsonrpc/src/fetchJsonRpc.js#L17)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

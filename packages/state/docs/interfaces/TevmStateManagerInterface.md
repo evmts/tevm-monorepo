@@ -18,7 +18,7 @@
 
 #### Source
 
-[core/state/src/TevmStateManager.ts:36](https://github.com/evmts/tevm-monorepo/blob/main/core/state/src/TevmStateManager.ts#L36)
+[packages/state/src/TevmStateManager.ts:36](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/TevmStateManager.ts#L36)
 
 ***
 

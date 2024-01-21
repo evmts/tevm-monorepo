@@ -42,7 +42,7 @@ for tevm users.
 
 ## Source
 
-[core/errors/src/TypedError.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/core/errors/src/TypedError.ts#L9)
+[packages/errors/src/TypedError.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/TypedError.ts#L9)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

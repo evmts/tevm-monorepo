@@ -63,7 +63,7 @@ console.log(modules.get(pathToSolidity)) // { id: '/path/to/Contract.sol', rawCo
 
 ## Source
 
-[moduleFactory.js:53](https://github.com/evmts/tevm-monorepo/blob/main/bundler/resolutions/src/moduleFactory.js#L53)
+[moduleFactory.js:53](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/resolutions/src/moduleFactory.js#L53)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

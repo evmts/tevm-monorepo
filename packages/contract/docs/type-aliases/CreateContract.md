@@ -57,7 +57,7 @@ const contract = createContract({
 
 ## Source
 
-[core/contract/src/types.ts:41](https://github.com/evmts/tevm-monorepo/blob/main/core/contract/src/types.ts#L41)
+[packages/contract/src/types.ts:41](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/types.ts#L41)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -30,7 +30,7 @@ The address to parse.
 
 ## Source
 
-[packages/schemas/src/ethereum/SAddress/parseAddress.js:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/schemas/src/ethereum/SAddress/parseAddress.js#L17)
+[experimental/schemas/src/ethereum/SAddress/parseAddress.js:17](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SAddress/parseAddress.js#L17)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

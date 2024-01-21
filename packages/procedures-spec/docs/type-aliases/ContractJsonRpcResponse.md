@@ -13,7 +13,7 @@ in favor of overloading tevm_call
 
 ## Source
 
-[responses/ContractJsonRpcResponse.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/core/procedures-types/src/responses/ContractJsonRpcResponse.ts#L7)
+[responses/ContractJsonRpcResponse.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-spec/src/responses/ContractJsonRpcResponse.ts#L7)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

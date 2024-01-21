@@ -29,7 +29,7 @@ const parsedINT32 = parseInt32(BigInt(-2147483648));
 
 ## Source
 
-[packages/schemas/src/ethereum/SINT/parseINT.js:58](https://github.com/evmts/tevm-monorepo/blob/main/packages/schemas/src/ethereum/SINT/parseINT.js#L58)
+[experimental/schemas/src/ethereum/SINT/parseINT.js:58](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SINT/parseINT.js#L58)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -12,7 +12,7 @@ Zod validator for a valid ABI
 
 ## Source
 
-[core/zod/src/common/zAbi.js:6](https://github.com/evmts/tevm-monorepo/blob/main/core/zod/src/common/zAbi.js#L6)
+[packages/zod/src/common/zAbi.js:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/zod/src/common/zAbi.js#L6)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

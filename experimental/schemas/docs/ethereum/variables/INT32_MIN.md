@@ -13,7 +13,7 @@ The minimum value a [INT32](../type-aliases/INT32.md) can be.
 
 ## Source
 
-[packages/schemas/src/ethereum/SINT/constants.js:36](https://github.com/evmts/tevm-monorepo/blob/main/packages/schemas/src/ethereum/SINT/constants.js#L36)
+[experimental/schemas/src/ethereum/SINT/constants.js:36](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SINT/constants.js#L36)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

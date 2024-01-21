@@ -15,7 +15,7 @@
 
 ## Source
 
-[packages/schemas/src/ethereum/SUINT/SUINT.js:79](https://github.com/evmts/tevm-monorepo/blob/main/packages/schemas/src/ethereum/SUINT/SUINT.js#L79)
+[experimental/schemas/src/ethereum/SUINT/SUINT.js:79](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SUINT/SUINT.js#L79)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

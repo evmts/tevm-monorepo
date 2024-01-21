@@ -20,7 +20,7 @@ export const SINT128: Schema<bigint, INT128>;
 
 ## Source
 
-[packages/schemas/src/ethereum/SINT/SINT.js:128](https://github.com/evmts/tevm-monorepo/blob/main/packages/schemas/src/ethereum/SINT/SINT.js#L128)
+[experimental/schemas/src/ethereum/SINT/SINT.js:128](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SINT/SINT.js#L128)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -16,7 +16,7 @@ Call JSON-RPC procedure executes a call against the tevm EVM
 
 ## Source
 
-[procedure/CallJsonRpcProcedure.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/core/procedures-types/src/procedure/CallJsonRpcProcedure.ts#L6)
+[procedure/CallJsonRpcProcedure.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-spec/src/procedure/CallJsonRpcProcedure.ts#L6)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -30,7 +30,7 @@ Error.constructor
 
 #### Source
 
-[bundler/config/src/defineConfig.js:26](https://github.com/evmts/tevm-monorepo/blob/main/bundler/config/src/defineConfig.js#L26)
+[bundler-packages/config/src/defineConfig.js:26](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/config/src/defineConfig.js#L26)
 
 ## Properties
 
@@ -40,7 +40,7 @@ Error.constructor
 
 #### Source
 
-[bundler/config/src/defineConfig.js:21](https://github.com/evmts/tevm-monorepo/blob/main/bundler/config/src/defineConfig.js#L21)
+[bundler-packages/config/src/defineConfig.js:21](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/config/src/defineConfig.js#L21)
 
 ***
 
@@ -82,7 +82,7 @@ Error.name
 
 #### Source
 
-[bundler/config/src/defineConfig.js:17](https://github.com/evmts/tevm-monorepo/blob/main/bundler/config/src/defineConfig.js#L17)
+[bundler-packages/config/src/defineConfig.js:17](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/config/src/defineConfig.js#L17)
 
 ***
 
@@ -130,7 +130,7 @@ Error.prepareStackTrace
 
 #### Source
 
-node\_modules/.pnpm/@types+node@20.9.1/node\_modules/@types/node/globals.d.ts:11
+node\_modules/.pnpm/@types+node@20.11.5/node\_modules/@types/node/globals.d.ts:28
 
 ***
 
@@ -144,7 +144,7 @@ Error.stackTraceLimit
 
 #### Source
 
-node\_modules/.pnpm/@types+node@20.9.1/node\_modules/@types/node/globals.d.ts:13
+node\_modules/.pnpm/@types+node@20.11.5/node\_modules/@types/node/globals.d.ts:30
 
 ## Methods
 
@@ -166,7 +166,7 @@ Error.captureStackTrace
 
 #### Source
 
-node\_modules/.pnpm/@types+node@20.9.1/node\_modules/@types/node/globals.d.ts:4
+node\_modules/.pnpm/@types+node@20.11.5/node\_modules/@types/node/globals.d.ts:21
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

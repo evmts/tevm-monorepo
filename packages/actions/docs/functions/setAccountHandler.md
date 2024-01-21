@@ -18,7 +18,7 @@ Creates an SetAccountHandler for handling account params with Ethereumjs EVM
 
 ## Source
 
-[core/actions/src/handlers/setAccountHandler.js:14](https://github.com/evmts/tevm-monorepo/blob/main/core/actions/src/handlers/setAccountHandler.js#L14)
+[packages/actions/src/handlers/setAccountHandler.js:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/handlers/setAccountHandler.js#L14)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

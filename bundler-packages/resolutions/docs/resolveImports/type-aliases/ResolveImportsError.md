@@ -15,7 +15,7 @@
 
 ## Source
 
-[resolveImports.js:20](https://github.com/evmts/tevm-monorepo/blob/main/bundler/resolutions/src/resolveImports.js#L20)
+[resolveImports.js:20](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/resolutions/src/resolveImports.js#L20)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -29,7 +29,7 @@ const parsedUINT16 = parseUINT16(BigInt(32767));
 
 ## Source
 
-[packages/schemas/src/ethereum/SUINT/parseUINT.js:42](https://github.com/evmts/tevm-monorepo/blob/main/packages/schemas/src/ethereum/SUINT/parseUINT.js#L42)
+[experimental/schemas/src/ethereum/SUINT/parseUINT.js:42](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SUINT/parseUINT.js#L42)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

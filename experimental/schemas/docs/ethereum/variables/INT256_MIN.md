@@ -13,7 +13,7 @@ The minimum value a [INT256](../type-aliases/INT256.md) can be.
 
 ## Source
 
-[packages/schemas/src/ethereum/SINT/constants.js:68](https://github.com/evmts/tevm-monorepo/blob/main/packages/schemas/src/ethereum/SINT/constants.js#L68)
+[experimental/schemas/src/ethereum/SINT/constants.js:68](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SINT/constants.js#L68)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

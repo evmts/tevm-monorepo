@@ -30,7 +30,7 @@ isAddress('0x1234567890123456789012345678901234567890'); // true
 
 ## Source
 
-[packages/schemas/src/ethereum/SAddress/isAddress.js:23](https://github.com/evmts/tevm-monorepo/blob/main/packages/schemas/src/ethereum/SAddress/isAddress.js#L23)
+[experimental/schemas/src/ethereum/SAddress/isAddress.js:23](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SAddress/isAddress.js#L23)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

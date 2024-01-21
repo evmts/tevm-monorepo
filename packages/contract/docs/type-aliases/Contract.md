@@ -210,7 +210,7 @@ tevm.contract(
 
 ## Source
 
-[core/contract/src/Contract.ts:61](https://github.com/evmts/tevm-monorepo/blob/main/core/contract/src/Contract.ts#L61)
+[packages/contract/src/Contract.ts:61](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/Contract.ts#L61)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -30,7 +30,7 @@ const isHex = isBytes(hex);
 
 ## Source
 
-[packages/schemas/src/ethereum/SBytes/isBytes.js:22](https://github.com/evmts/tevm-monorepo/blob/main/packages/schemas/src/ethereum/SBytes/isBytes.js#L22)
+[experimental/schemas/src/ethereum/SBytes/isBytes.js:22](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SBytes/isBytes.js#L22)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

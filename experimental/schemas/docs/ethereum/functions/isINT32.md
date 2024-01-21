@@ -28,7 +28,7 @@ isINT32(BigInt(-2147483649));  // false
 
 ## Source
 
-[packages/schemas/src/ethereum/SINT/isINT.js:58](https://github.com/evmts/tevm-monorepo/blob/main/packages/schemas/src/ethereum/SINT/isINT.js#L58)
+[experimental/schemas/src/ethereum/SINT/isINT.js:58](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SINT/isINT.js#L58)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

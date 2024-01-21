@@ -29,7 +29,7 @@ Error.constructor
 
 #### Source
 
-[core/errors/src/errors/ProxyFetchError.js:18](https://github.com/evmts/tevm-monorepo/blob/main/core/errors/src/errors/ProxyFetchError.js#L18)
+[packages/errors/src/errors/ProxyFetchError.js:18](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/errors/ProxyFetchError.js#L18)
 
 ## Properties
 
@@ -39,7 +39,7 @@ Error.constructor
 
 #### Source
 
-[core/errors/src/errors/ProxyFetchError.js:14](https://github.com/evmts/tevm-monorepo/blob/main/core/errors/src/errors/ProxyFetchError.js#L14)
+[packages/errors/src/errors/ProxyFetchError.js:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/errors/ProxyFetchError.js#L14)
 
 ***
 
@@ -81,7 +81,7 @@ Error.name
 
 #### Source
 
-[core/errors/src/errors/ProxyFetchError.js:10](https://github.com/evmts/tevm-monorepo/blob/main/core/errors/src/errors/ProxyFetchError.js#L10)
+[packages/errors/src/errors/ProxyFetchError.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/errors/ProxyFetchError.js#L10)
 
 ***
 
@@ -168,26 +168,6 @@ Error.captureStackTrace
 ##### Source
 
 node\_modules/.pnpm/bun-types@1.0.24/node\_modules/bun-types/types.d.ts:2234
-
-#### captureStackTrace(targetObject, constructorOpt)
-
-> **`static`** **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
-
-Create .stack property on a target object
-
-##### Parameters
-
-▪ **targetObject**: `object`
-
-▪ **constructorOpt?**: `Function`
-
-##### Inherited from
-
-Error.captureStackTrace
-
-##### Source
-
-node\_modules/.pnpm/@types+node@20.10.4/node\_modules/@types/node/globals.d.ts:21
 
 #### captureStackTrace(targetObject, constructorOpt)
 

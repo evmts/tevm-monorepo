@@ -46,7 +46,7 @@ TypeError.constructor
 
 #### Source
 
-[packages/schemas/src/ethereum/SBytes/Errors.js:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/schemas/src/ethereum/SBytes/Errors.js#L19)
+[experimental/schemas/src/ethereum/SBytes/Errors.js:19](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SBytes/Errors.js#L19)
 
 ## Properties
 
@@ -60,7 +60,7 @@ TypeError.cause
 
 #### Source
 
-[packages/schemas/src/ethereum/SBytes/Errors.js:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/schemas/src/ethereum/SBytes/Errors.js#L26)
+[experimental/schemas/src/ethereum/SBytes/Errors.js:26](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SBytes/Errors.js#L26)
 
 ***
 
@@ -136,7 +136,7 @@ TypeError.prepareStackTrace
 
 #### Source
 
-node\_modules/.pnpm/@types+node@20.10.4/node\_modules/@types/node/globals.d.ts:28
+node\_modules/.pnpm/@types+node@20.11.5/node\_modules/@types/node/globals.d.ts:28
 
 ***
 
@@ -150,49 +150,27 @@ TypeError.stackTraceLimit
 
 #### Source
 
-node\_modules/.pnpm/@types+node@20.10.4/node\_modules/@types/node/globals.d.ts:30
+node\_modules/.pnpm/@types+node@20.11.5/node\_modules/@types/node/globals.d.ts:30
 
 ## Methods
 
 ### captureStackTrace()
 
-#### captureStackTrace(targetObject, constructorOpt)
-
 > **`static`** **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
 
 Create .stack property on a target object
 
-##### Parameters
+#### Parameters
 
 ▪ **targetObject**: `object`
 
 ▪ **constructorOpt?**: `Function`
 
-##### Inherited from
+#### Inherited from
 
 TypeError.captureStackTrace
 
-##### Source
-
-node\_modules/.pnpm/@types+node@20.10.4/node\_modules/@types/node/globals.d.ts:21
-
-#### captureStackTrace(targetObject, constructorOpt)
-
-> **`static`** **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
-
-Create .stack property on a target object
-
-##### Parameters
-
-▪ **targetObject**: `object`
-
-▪ **constructorOpt?**: `Function`
-
-##### Inherited from
-
-TypeError.captureStackTrace
-
-##### Source
+#### Source
 
 node\_modules/.pnpm/@types+node@20.11.5/node\_modules/@types/node/globals.d.ts:21
 

@@ -18,7 +18,7 @@
 
 ## Source
 
-[JsonRpcResponse.ts:1](https://github.com/evmts/tevm-monorepo/blob/main/core/jsonrpc/src/JsonRpcResponse.ts#L1)
+[JsonRpcResponse.ts:1](https://github.com/evmts/tevm-monorepo/blob/main/packages/jsonrpc/src/JsonRpcResponse.ts#L1)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

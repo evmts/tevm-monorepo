@@ -29,7 +29,7 @@ const parsedUINT256 = parseUINT256('0x1234567890abcdef1234567890abcdef12345678')
 
 ## Source
 
-[packages/schemas/src/ethereum/SUINT/parseUINT.js:98](https://github.com/evmts/tevm-monorepo/blob/main/packages/schemas/src/ethereum/SUINT/parseUINT.js#L98)
+[experimental/schemas/src/ethereum/SUINT/parseUINT.js:98](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SUINT/parseUINT.js#L98)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

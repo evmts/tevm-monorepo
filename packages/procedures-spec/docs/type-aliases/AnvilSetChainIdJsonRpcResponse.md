@@ -12,7 +12,7 @@ JSON-RPC response for `anvil_setChainId` procedure
 
 ## Source
 
-[responses/AnvilJsonRpcResponse.ts:124](https://github.com/evmts/tevm-monorepo/blob/main/core/procedures-types/src/responses/AnvilJsonRpcResponse.ts#L124)
+[responses/AnvilJsonRpcResponse.ts:124](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-spec/src/responses/AnvilJsonRpcResponse.ts#L124)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

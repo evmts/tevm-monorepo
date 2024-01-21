@@ -16,7 +16,7 @@ JSON-RPC procedure for `debug_traceTransaction`
 
 ## Source
 
-[procedure/DebugProcedure.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/core/procedures-types/src/procedure/DebugProcedure.ts#L13)
+[procedure/DebugProcedure.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-spec/src/procedure/DebugProcedure.ts#L13)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

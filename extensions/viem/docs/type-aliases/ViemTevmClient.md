@@ -14,7 +14,7 @@ The decorated properties added by the `tevmViemExtension`
 
 ### tevm
 
-> **tevm**: `Tevm`
+> **tevm**: `TevmClient`
 
 ## Source
 

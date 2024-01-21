@@ -13,7 +13,7 @@ The minimum value a [INT128](../type-aliases/INT128.md) can be.
 
 ## Source
 
-[packages/schemas/src/ethereum/SINT/constants.js:56](https://github.com/evmts/tevm-monorepo/blob/main/packages/schemas/src/ethereum/SINT/constants.js#L56)
+[experimental/schemas/src/ethereum/SINT/constants.js:56](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SINT/constants.js#L56)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,12 +1,12 @@
-'use strict'
+'use strict';
 
-const esbuildPlugin = require('@tevm/esbuild-plugin')
+var esbuildPlugin = require('@tevm/esbuild-plugin');
 
-Object.defineProperty(exports, 'esbuildPluginTevm', {
-	enumerable: true,
-	get: function () {
-		return esbuildPlugin.esbuildPluginTevm
-	},
-})
+
+
+Object.defineProperty(exports, "esbuildPluginTevm", {
+  enumerable: true,
+  get: function () { return esbuildPlugin.esbuildPluginTevm; }
+});
 //# sourceMappingURL=out.js.map
 //# sourceMappingURL=index.cjs.map

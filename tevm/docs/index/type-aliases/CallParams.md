@@ -6,7 +6,7 @@
 
 # Type alias: CallParams
 
-> **CallParams**: [`BaseCallParams`](../../api/type-aliases/BaseCallParams.md) & `object`
+> **CallParams**: [`BaseCallParams`](../../actions-types/type-aliases/BaseCallParams.md) & `object`
 
 Tevm params to execute a call on the vm
 Call is the lowest level method to interact with the vm
@@ -27,25 +27,25 @@ const callParams: import('@tevm/api').CallParams = {
 
 ### data
 
-> **data**?: `Hex`
+> **data**?: [`Hex`](Hex.md)
 
 The input data.
 
 ### deployedBytecode
 
-> **deployedBytecode**?: `Hex`
+> **deployedBytecode**?: [`Hex`](Hex.md)
 
 The EVM code to run.
 
 ### salt
 
-> **salt**?: `Hex`
+> **salt**?: [`Hex`](Hex.md)
 
 An optional CREATE2 salt.
 
 ## Source
 
-vm/api/types/params/CallParams.d.ts:15
+packages/actions-types/types/params/CallParams.d.ts:15
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

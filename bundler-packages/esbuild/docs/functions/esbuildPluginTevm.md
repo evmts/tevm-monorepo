@@ -102,7 +102,7 @@ For custom configuration of the Tevm compiler add a [tevm.config.json](https://t
 
 ## Source
 
-[bundler/esbuild/src/esbuildPluginTevm.js:76](https://github.com/evmts/tevm-monorepo/blob/main/bundler/esbuild/src/esbuildPluginTevm.js#L76)
+[bundler-packages/esbuild/src/esbuildPluginTevm.js:76](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/esbuild/src/esbuildPluginTevm.js#L76)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

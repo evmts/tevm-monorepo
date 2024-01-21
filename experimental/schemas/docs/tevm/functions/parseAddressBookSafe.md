@@ -34,7 +34,7 @@ const parsedAddressBookEffect = parseAddressBookSafe({
 
 ## Source
 
-[packages/schemas/src/tevm/SAddressBook.js:90](https://github.com/evmts/tevm-monorepo/blob/main/packages/schemas/src/tevm/SAddressBook.js#L90)
+[experimental/schemas/src/tevm/SAddressBook.js:90](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/tevm/SAddressBook.js#L90)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

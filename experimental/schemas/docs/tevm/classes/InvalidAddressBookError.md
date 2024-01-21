@@ -42,7 +42,7 @@ TypeError.constructor
 
 #### Source
 
-[packages/schemas/src/tevm/SAddressBook.js:64](https://github.com/evmts/tevm-monorepo/blob/main/packages/schemas/src/tevm/SAddressBook.js#L64)
+[experimental/schemas/src/tevm/SAddressBook.js:64](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/tevm/SAddressBook.js#L64)
 
 ## Properties
 
@@ -56,7 +56,7 @@ TypeError.cause
 
 #### Source
 
-[packages/schemas/src/tevm/SAddressBook.js:70](https://github.com/evmts/tevm-monorepo/blob/main/packages/schemas/src/tevm/SAddressBook.js#L70)
+[experimental/schemas/src/tevm/SAddressBook.js:70](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/tevm/SAddressBook.js#L70)
 
 ***
 
@@ -132,7 +132,7 @@ TypeError.prepareStackTrace
 
 #### Source
 
-node\_modules/.pnpm/@types+node@20.10.4/node\_modules/@types/node/globals.d.ts:28
+node\_modules/.pnpm/@types+node@20.11.5/node\_modules/@types/node/globals.d.ts:28
 
 ***
 
@@ -146,49 +146,27 @@ TypeError.stackTraceLimit
 
 #### Source
 
-node\_modules/.pnpm/@types+node@20.10.4/node\_modules/@types/node/globals.d.ts:30
+node\_modules/.pnpm/@types+node@20.11.5/node\_modules/@types/node/globals.d.ts:30
 
 ## Methods
 
 ### captureStackTrace()
 
-#### captureStackTrace(targetObject, constructorOpt)
-
 > **`static`** **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
 
 Create .stack property on a target object
 
-##### Parameters
+#### Parameters
 
 ▪ **targetObject**: `object`
 
 ▪ **constructorOpt?**: `Function`
 
-##### Inherited from
+#### Inherited from
 
 TypeError.captureStackTrace
 
-##### Source
-
-node\_modules/.pnpm/@types+node@20.10.4/node\_modules/@types/node/globals.d.ts:21
-
-#### captureStackTrace(targetObject, constructorOpt)
-
-> **`static`** **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
-
-Create .stack property on a target object
-
-##### Parameters
-
-▪ **targetObject**: `object`
-
-▪ **constructorOpt?**: `Function`
-
-##### Inherited from
-
-TypeError.captureStackTrace
-
-##### Source
+#### Source
 
 node\_modules/.pnpm/@types+node@20.11.5/node\_modules/@types/node/globals.d.ts:21
 

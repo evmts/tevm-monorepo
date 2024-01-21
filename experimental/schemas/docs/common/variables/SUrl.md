@@ -19,7 +19,7 @@ export const SUrl: Schema<string, Url>;
 
 ## Source
 
-[packages/schemas/src/common/SUrl.js:51](https://github.com/evmts/tevm-monorepo/blob/main/packages/schemas/src/common/SUrl.js#L51)
+[experimental/schemas/src/common/SUrl.js:51](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/common/SUrl.js#L51)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

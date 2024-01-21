@@ -37,7 +37,7 @@ const stateManager = new TevmStateManager({
 
 #### Source
 
-[core/state/src/TevmStateManager.ts:63](https://github.com/evmts/tevm-monorepo/blob/main/core/state/src/TevmStateManager.ts#L63)
+[packages/state/src/TevmStateManager.ts:63](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/TevmStateManager.ts#L63)
 
 ## Properties
 
@@ -47,7 +47,7 @@ const stateManager = new TevmStateManager({
 
 #### Source
 
-[core/state/src/TevmStateManager.ts:61](https://github.com/evmts/tevm-monorepo/blob/main/core/state/src/TevmStateManager.ts#L61)
+[packages/state/src/TevmStateManager.ts:61](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/TevmStateManager.ts#L61)
 
 ***
 
@@ -57,7 +57,7 @@ const stateManager = new TevmStateManager({
 
 #### Source
 
-[core/state/src/TevmStateManager.ts:58](https://github.com/evmts/tevm-monorepo/blob/main/core/state/src/TevmStateManager.ts#L58)
+[packages/state/src/TevmStateManager.ts:58](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/TevmStateManager.ts#L58)
 
 ***
 
@@ -67,7 +67,7 @@ const stateManager = new TevmStateManager({
 
 #### Source
 
-[core/state/src/TevmStateManager.ts:57](https://github.com/evmts/tevm-monorepo/blob/main/core/state/src/TevmStateManager.ts#L57)
+[packages/state/src/TevmStateManager.ts:57](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/TevmStateManager.ts#L57)
 
 ***
 
@@ -77,7 +77,7 @@ const stateManager = new TevmStateManager({
 
 #### Source
 
-[core/state/src/TevmStateManager.ts:55](https://github.com/evmts/tevm-monorepo/blob/main/core/state/src/TevmStateManager.ts#L55)
+[packages/state/src/TevmStateManager.ts:55](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/TevmStateManager.ts#L55)
 
 ***
 
@@ -87,7 +87,7 @@ const stateManager = new TevmStateManager({
 
 #### Source
 
-[core/state/src/TevmStateManager.ts:60](https://github.com/evmts/tevm-monorepo/blob/main/core/state/src/TevmStateManager.ts#L60)
+[packages/state/src/TevmStateManager.ts:60](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/TevmStateManager.ts#L60)
 
 ***
 
@@ -97,7 +97,7 @@ const stateManager = new TevmStateManager({
 
 #### Source
 
-[core/state/src/TevmStateManager.ts:56](https://github.com/evmts/tevm-monorepo/blob/main/core/state/src/TevmStateManager.ts#L56)
+[packages/state/src/TevmStateManager.ts:56](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/TevmStateManager.ts#L56)
 
 ***
 
@@ -3547,7 +3547,7 @@ const unwatch = await client.watchPendingTransactions({
 
 #### Source
 
-[core/state/src/TevmStateManager.ts:62](https://github.com/evmts/tevm-monorepo/blob/main/core/state/src/TevmStateManager.ts#L62)
+[packages/state/src/TevmStateManager.ts:62](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/TevmStateManager.ts#L62)
 
 ***
 
@@ -3557,7 +3557,7 @@ const unwatch = await client.watchPendingTransactions({
 
 #### Source
 
-[core/state/src/TevmStateManager.ts:63](https://github.com/evmts/tevm-monorepo/blob/main/core/state/src/TevmStateManager.ts#L63)
+[packages/state/src/TevmStateManager.ts:63](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/TevmStateManager.ts#L63)
 
 ***
 
@@ -3571,7 +3571,7 @@ const unwatch = await client.watchPendingTransactions({
 
 #### Source
 
-[core/state/src/TevmStateManager.ts:59](https://github.com/evmts/tevm-monorepo/blob/main/core/state/src/TevmStateManager.ts#L59)
+[packages/state/src/TevmStateManager.ts:59](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/TevmStateManager.ts#L59)
 
 ## Methods
 
@@ -3589,7 +3589,7 @@ Address of the `account` to check
 
 #### Source
 
-[core/state/src/TevmStateManager.ts:253](https://github.com/evmts/tevm-monorepo/blob/main/core/state/src/TevmStateManager.ts#L253)
+[packages/state/src/TevmStateManager.ts:253](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/TevmStateManager.ts#L253)
 
 ***
 
@@ -3609,7 +3609,7 @@ Partial implementation, called from the subclass.
 
 #### Source
 
-[core/state/src/TevmStateManager.ts:423](https://github.com/evmts/tevm-monorepo/blob/main/core/state/src/TevmStateManager.ts#L423)
+[packages/state/src/TevmStateManager.ts:423](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/TevmStateManager.ts#L423)
 
 ***
 
@@ -3621,7 +3621,7 @@ Resets all internal caches
 
 #### Source
 
-[core/state/src/TevmStateManager.ts:125](https://github.com/evmts/tevm-monorepo/blob/main/core/state/src/TevmStateManager.ts#L125)
+[packages/state/src/TevmStateManager.ts:125](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/TevmStateManager.ts#L125)
 
 ***
 
@@ -3643,7 +3643,7 @@ Address to clear the storage of
 
 #### Source
 
-[core/state/src/TevmStateManager.ts:219](https://github.com/evmts/tevm-monorepo/blob/main/core/state/src/TevmStateManager.ts#L219)
+[packages/state/src/TevmStateManager.ts:219](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/TevmStateManager.ts#L219)
 
 ***
 
@@ -3662,7 +3662,7 @@ Partial implementation, called from the subclass.
 
 #### Source
 
-[core/state/src/TevmStateManager.ts:434](https://github.com/evmts/tevm-monorepo/blob/main/core/state/src/TevmStateManager.ts#L434)
+[packages/state/src/TevmStateManager.ts:434](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/TevmStateManager.ts#L434)
 
 ***
 
@@ -3684,7 +3684,7 @@ Address of the account which should be deleted
 
 #### Source
 
-[core/state/src/TevmStateManager.ts:377](https://github.com/evmts/tevm-monorepo/blob/main/core/state/src/TevmStateManager.ts#L377)
+[packages/state/src/TevmStateManager.ts:377](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/TevmStateManager.ts#L377)
 
 ***
 
@@ -3712,7 +3712,7 @@ Both are represented as `0x` prefixed hex strings.
 
 #### Source
 
-[core/state/src/TevmStateManager.ts:230](https://github.com/evmts/tevm-monorepo/blob/main/core/state/src/TevmStateManager.ts#L230)
+[packages/state/src/TevmStateManager.ts:230](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/TevmStateManager.ts#L230)
 
 ***
 
@@ -3734,7 +3734,7 @@ Both are represented as `0x` prefixed hex strings.
 
 #### Source
 
-[core/state/src/TevmStateManager.ts:241](https://github.com/evmts/tevm-monorepo/blob/main/core/state/src/TevmStateManager.ts#L241)
+[packages/state/src/TevmStateManager.ts:241](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/TevmStateManager.ts#L241)
 
 ***
 
@@ -3744,7 +3744,7 @@ Both are represented as `0x` prefixed hex strings.
 
 #### Source
 
-[core/state/src/TevmStateManager.ts:450](https://github.com/evmts/tevm-monorepo/blob/main/core/state/src/TevmStateManager.ts#L450)
+[packages/state/src/TevmStateManager.ts:450](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/TevmStateManager.ts#L450)
 
 ***
 
@@ -3762,7 +3762,7 @@ Both are represented as `0x` prefixed hex strings.
 
 #### Source
 
-[core/state/src/TevmStateManager.ts:473](https://github.com/evmts/tevm-monorepo/blob/main/core/state/src/TevmStateManager.ts#L473)
+[packages/state/src/TevmStateManager.ts:473](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/TevmStateManager.ts#L473)
 
 ***
 
@@ -3782,7 +3782,7 @@ Gets the code corresponding to the provided `address`.
 
 #### Source
 
-[core/state/src/TevmStateManager.ts:277](https://github.com/evmts/tevm-monorepo/blob/main/core/state/src/TevmStateManager.ts#L277)
+[packages/state/src/TevmStateManager.ts:277](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/TevmStateManager.ts#L277)
 
 ***
 
@@ -3796,7 +3796,7 @@ Gets the code corresponding to the provided `address`.
 
 #### Source
 
-[core/state/src/TevmStateManager.ts:477](https://github.com/evmts/tevm-monorepo/blob/main/core/state/src/TevmStateManager.ts#L477)
+[packages/state/src/TevmStateManager.ts:477](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/TevmStateManager.ts#L477)
 
 ***
 
@@ -3814,7 +3814,7 @@ Address of account to be retrieved from provider
 
 #### Source
 
-[core/state/src/TevmStateManager.ts:296](https://github.com/evmts/tevm-monorepo/blob/main/core/state/src/TevmStateManager.ts#L296)
+[packages/state/src/TevmStateManager.ts:296](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/TevmStateManager.ts#L296)
 
 ***
 
@@ -3841,7 +3841,7 @@ Returns an empty `Uint8Array` if the account has no associated code.
 
 #### Source
 
-[core/state/src/TevmStateManager.ts:137](https://github.com/evmts/tevm-monorepo/blob/main/core/state/src/TevmStateManager.ts#L137)
+[packages/state/src/TevmStateManager.ts:137](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/TevmStateManager.ts#L137)
 
 ***
 
@@ -3874,7 +3874,7 @@ If this does not exist an empty `Uint8Array` is returned.
 
 #### Source
 
-[core/state/src/TevmStateManager.ts:172](https://github.com/evmts/tevm-monorepo/blob/main/core/state/src/TevmStateManager.ts#L172)
+[packages/state/src/TevmStateManager.ts:172](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/TevmStateManager.ts#L172)
 
 ***
 
@@ -3904,7 +3904,7 @@ an EIP-1186 formatted proof
 
 #### Source
 
-[core/state/src/TevmStateManager.ts:390](https://github.com/evmts/tevm-monorepo/blob/main/core/state/src/TevmStateManager.ts#L390)
+[packages/state/src/TevmStateManager.ts:390](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/TevmStateManager.ts#L390)
 
 ***
 
@@ -3924,7 +3924,7 @@ This method is not used by the Tevm State Manager and is a stub required by the 
 
 #### Source
 
-[core/state/src/TevmStateManager.ts:457](https://github.com/evmts/tevm-monorepo/blob/main/core/state/src/TevmStateManager.ts#L457)
+[packages/state/src/TevmStateManager.ts:457](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/TevmStateManager.ts#L457)
 
 ***
 
@@ -3944,7 +3944,7 @@ This method is not used by the Tevm State Manager and is a stub required by the 
 
 #### Source
 
-[core/state/src/TevmStateManager.ts:469](https://github.com/evmts/tevm-monorepo/blob/main/core/state/src/TevmStateManager.ts#L469)
+[packages/state/src/TevmStateManager.ts:469](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/TevmStateManager.ts#L469)
 
 ***
 
@@ -3972,7 +3972,7 @@ Object containing account fields and values to modify
 
 #### Source
 
-[core/state/src/TevmStateManager.ts:345](https://github.com/evmts/tevm-monorepo/blob/main/core/state/src/TevmStateManager.ts#L345)
+[packages/state/src/TevmStateManager.ts:345](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/TevmStateManager.ts#L345)
 
 ***
 
@@ -3994,7 +3994,7 @@ Saves an account into state under the provided `address`.
 
 #### Source
 
-[core/state/src/TevmStateManager.ts:318](https://github.com/evmts/tevm-monorepo/blob/main/core/state/src/TevmStateManager.ts#L318)
+[packages/state/src/TevmStateManager.ts:318](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/TevmStateManager.ts#L318)
 
 ***
 
@@ -4021,7 +4021,7 @@ The value of the `code`
 
 #### Source
 
-[core/state/src/TevmStateManager.ts:155](https://github.com/evmts/tevm-monorepo/blob/main/core/state/src/TevmStateManager.ts#L155)
+[packages/state/src/TevmStateManager.ts:155](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/TevmStateManager.ts#L155)
 
 ***
 
@@ -4054,7 +4054,7 @@ If it is empty or filled with zeros, deletes the value.
 
 #### Source
 
-[core/state/src/TevmStateManager.ts:207](https://github.com/evmts/tevm-monorepo/blob/main/core/state/src/TevmStateManager.ts#L207)
+[packages/state/src/TevmStateManager.ts:207](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/TevmStateManager.ts#L207)
 
 ***
 
@@ -4073,7 +4073,7 @@ Partial implementation , called from the subclass.
 
 #### Source
 
-[core/state/src/TevmStateManager.ts:444](https://github.com/evmts/tevm-monorepo/blob/main/core/state/src/TevmStateManager.ts#L444)
+[packages/state/src/TevmStateManager.ts:444](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/TevmStateManager.ts#L444)
 
 ***
 
@@ -4089,7 +4089,7 @@ Sets the new block tag and clears the internal cache
 
 #### Source
 
-[core/state/src/TevmStateManager.ts:113](https://github.com/evmts/tevm-monorepo/blob/main/core/state/src/TevmStateManager.ts#L113)
+[packages/state/src/TevmStateManager.ts:113](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/TevmStateManager.ts#L113)
 
 ***
 
@@ -4113,7 +4113,7 @@ This method is not used by the Tevm State Manager and is a stub required by the 
 
 #### Source
 
-[core/state/src/TevmStateManager.ts:464](https://github.com/evmts/tevm-monorepo/blob/main/core/state/src/TevmStateManager.ts#L464)
+[packages/state/src/TevmStateManager.ts:464](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/TevmStateManager.ts#L464)
 
 ***
 
@@ -4129,7 +4129,7 @@ Returns a new instance of the TevmStateManager with the same opts
 
 #### Source
 
-[core/state/src/TevmStateManager.ts:93](https://github.com/evmts/tevm-monorepo/blob/main/core/state/src/TevmStateManager.ts#L93)
+[packages/state/src/TevmStateManager.ts:93](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/TevmStateManager.ts#L93)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

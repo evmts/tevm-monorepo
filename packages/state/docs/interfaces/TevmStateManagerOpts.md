@@ -14,7 +14,7 @@
 
 #### Source
 
-[core/state/src/TevmStateManager.ts:32](https://github.com/evmts/tevm-monorepo/blob/main/core/state/src/TevmStateManager.ts#L32)
+[packages/state/src/TevmStateManager.ts:32](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/TevmStateManager.ts#L32)
 
 ***
 
@@ -24,7 +24,7 @@
 
 #### Source
 
-[core/state/src/TevmStateManager.ts:31](https://github.com/evmts/tevm-monorepo/blob/main/core/state/src/TevmStateManager.ts#L31)
+[packages/state/src/TevmStateManager.ts:31](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/TevmStateManager.ts#L31)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

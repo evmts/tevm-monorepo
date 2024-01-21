@@ -12,7 +12,7 @@
 
 ## Source
 
-[packages/schemas/src/ethereum/SBytesFixed/SBytesFixed.js:334](https://github.com/evmts/tevm-monorepo/blob/main/packages/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L334)
+[experimental/schemas/src/ethereum/SBytesFixed/SBytesFixed.js:334](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SBytesFixed/SBytesFixed.js#L334)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

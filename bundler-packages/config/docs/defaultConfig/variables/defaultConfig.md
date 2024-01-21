@@ -34,7 +34,7 @@ The default CompilerConfig
 
 ## Source
 
-[bundler/config/src/config/withDefaults.js:6](https://github.com/evmts/tevm-monorepo/blob/main/bundler/config/src/config/withDefaults.js#L6)
+[bundler-packages/config/src/config/withDefaults.js:6](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/config/src/config/withDefaults.js#L6)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

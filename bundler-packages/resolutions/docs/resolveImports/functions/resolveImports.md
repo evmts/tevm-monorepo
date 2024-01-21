@@ -46,7 +46,7 @@ console.log(imports) // [{ updated: '/path/to/Contract.sol', absolute: '/path/to
 
 ## Source
 
-[resolveImports.js:50](https://github.com/evmts/tevm-monorepo/blob/main/bundler/resolutions/src/resolveImports.js#L50)
+[resolveImports.js:50](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/resolutions/src/resolveImports.js#L50)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

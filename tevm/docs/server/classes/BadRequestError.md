@@ -56,7 +56,7 @@ node\_modules/.pnpm/typescript@5.3.3/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 #### Source
 
-vm/server/types/BadRequestError.d.ts:13
+packages/server/types/BadRequestError.d.ts:13
 
 ***
 
@@ -98,7 +98,7 @@ Error.name
 
 #### Source
 
-vm/server/types/BadRequestError.d.ts:9
+packages/server/types/BadRequestError.d.ts:9
 
 ***
 
@@ -146,7 +146,7 @@ Error.prepareStackTrace
 
 #### Source
 
-node\_modules/.pnpm/@types+node@20.11.5/node\_modules/@types/node/globals.d.ts:28
+node\_modules/.pnpm/bun-types@1.0.24/node\_modules/bun-types/types.d.ts:2241
 
 ***
 
@@ -160,27 +160,49 @@ Error.stackTraceLimit
 
 #### Source
 
-node\_modules/.pnpm/@types+node@20.11.5/node\_modules/@types/node/globals.d.ts:30
+node\_modules/.pnpm/bun-types@1.0.24/node\_modules/bun-types/types.d.ts:2245
 
 ## Methods
 
 ### captureStackTrace()
 
+#### captureStackTrace(targetObject, constructorOpt)
+
 > **`static`** **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
 
 Create .stack property on a target object
 
-#### Parameters
+##### Parameters
 
 ▪ **targetObject**: `object`
 
 ▪ **constructorOpt?**: `Function`
 
-#### Inherited from
+##### Inherited from
 
 Error.captureStackTrace
 
-#### Source
+##### Source
+
+node\_modules/.pnpm/bun-types@1.0.24/node\_modules/bun-types/types.d.ts:2234
+
+#### captureStackTrace(targetObject, constructorOpt)
+
+> **`static`** **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
+
+Create .stack property on a target object
+
+##### Parameters
+
+▪ **targetObject**: `object`
+
+▪ **constructorOpt?**: `Function`
+
+##### Inherited from
+
+Error.captureStackTrace
+
+##### Source
 
 node\_modules/.pnpm/@types+node@20.11.5/node\_modules/@types/node/globals.d.ts:21
 

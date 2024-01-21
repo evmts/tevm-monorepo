@@ -44,7 +44,7 @@
 
 ## Source
 
-[solcTypes.ts:359](https://github.com/evmts/tevm-monorepo/blob/main/bundler/solc/src/solcTypes.ts#L359)
+[solcTypes.ts:359](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L359)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -18,7 +18,7 @@ Creates an ScriptHandler for handling script params with Ethereumjs EVM
 
 ## Source
 
-[core/actions/src/handlers/scriptHandler.js:17](https://github.com/evmts/tevm-monorepo/blob/main/core/actions/src/handlers/scriptHandler.js#L17)
+[packages/actions/src/handlers/scriptHandler.js:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/handlers/scriptHandler.js#L17)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

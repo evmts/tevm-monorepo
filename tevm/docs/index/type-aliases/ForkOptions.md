@@ -30,7 +30,7 @@ fulfill JSON-RPC requests that cannot be fulfilled locally
 
 ## Source
 
-vm/vm/types/ForkOptions.d.ts:4
+packages/memory-client/types/ForkOptions.d.ts:4
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

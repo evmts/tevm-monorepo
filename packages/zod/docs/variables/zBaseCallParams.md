@@ -10,7 +10,7 @@
 
 ## Source
 
-[core/zod/src/params/zBaseCallParams.js:4](https://github.com/evmts/tevm-monorepo/blob/main/core/zod/src/params/zBaseCallParams.js#L4)
+[packages/zod/src/params/zBaseCallParams.js:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/zod/src/params/zBaseCallParams.js#L4)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

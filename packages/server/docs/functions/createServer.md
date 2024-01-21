@@ -52,7 +52,7 @@ const client = createTevmClient()
 
 ## Source
 
-[core/server/src/createServer.js:32](https://github.com/evmts/tevm-monorepo/blob/main/core/server/src/createServer.js#L32)
+[packages/server/src/createServer.js:32](https://github.com/evmts/tevm-monorepo/blob/main/packages/server/src/createServer.js#L32)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -24,7 +24,7 @@ type BlockNumberRequestType = JsonRpcRequestTypeFromMethod<'eth_blockNumber'>
 
 ## Source
 
-vm/api/types/TevmJsonRpcRequestHandler.d.ts:153
+packages/procedures-spec/types/TevmJsonRpcRequestHandler.d.ts:153
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

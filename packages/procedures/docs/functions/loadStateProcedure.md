@@ -18,7 +18,7 @@ Creates a LoadState JSON-RPC Procedure for handling LoadState requests with Ethe
 
 ## Source
 
-[procedures/src/tevm/loadStateProcedure.js:9](https://github.com/evmts/tevm-monorepo/blob/main/core/procedures/src/tevm/loadStateProcedure.js#L9)
+[procedures/src/tevm/loadStateProcedure.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/tevm/loadStateProcedure.js#L9)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

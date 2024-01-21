@@ -22,9 +22,9 @@ describe('resolveImports', () => {
 		expect(normalizeImports(imports)).toMatchInlineSnapshot(`
 			[
 			  {
-			    "absolute": "/bundler/fixtures/basic/Contract.sol",
+			    "absolute": "/bundler-packages/fixtures/basic/Contract.sol",
 			    "original": "../fixtures/basic/Contract.sol",
-			    "updated": "/bundler/fixtures/basic/Contract.sol",
+			    "updated": "/bundler-packages/fixtures/basic/Contract.sol",
 			  },
 			]
 		`)
@@ -37,9 +37,9 @@ describe('resolveImports', () => {
 		expect(normalizeImports(imports)).toMatchInlineSnapshot(`
 			[
 			  {
-			    "absolute": "/bundler/resolutions/node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol",
+			    "absolute": "/bundler-packages/resolutions/node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol",
 			    "original": "@openzeppelin/contracts/token/ERC20/ERC20.sol",
-			    "updated": "/bundler/resolutions/node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol",
+			    "updated": "/bundler-packages/resolutions/node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol",
 			  },
 			]
 		`)
@@ -54,14 +54,14 @@ import { ERC20 } from "@openzeppelin/contracts/token/ERC20/ERC20.sol"
 		expect(normalizeImports(imports)).toMatchInlineSnapshot(`
 			[
 			  {
-			    "absolute": "/bundler/fixtures/basic/Contract.sol",
+			    "absolute": "/bundler-packages/fixtures/basic/Contract.sol",
 			    "original": "../fixtures/basic/Contract.sol",
-			    "updated": "/bundler/fixtures/basic/Contract.sol",
+			    "updated": "/bundler-packages/fixtures/basic/Contract.sol",
 			  },
 			  {
-			    "absolute": "/bundler/resolutions/node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol",
+			    "absolute": "/bundler-packages/resolutions/node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol",
 			    "original": "@openzeppelin/contracts/token/ERC20/ERC20.sol",
-			    "updated": "/bundler/resolutions/node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol",
+			    "updated": "/bundler-packages/resolutions/node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol",
 			  },
 			]
 		`)

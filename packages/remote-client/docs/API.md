@@ -8,12 +8,12 @@
 
 ### Type Aliases
 
-- [ClientOptions](type-aliases/ClientOptions.md)
-- [TevmClient](type-aliases/TevmClient.md)
+- [RemoteClient](type-aliases/RemoteClient.md)
+- [RemoteClientOptions](type-aliases/RemoteClientOptions.md)
 
 ### Functions
 
-- [createTevmClient](functions/createTevmClient.md)
+- [createRemoteClient](functions/createRemoteClient.md)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

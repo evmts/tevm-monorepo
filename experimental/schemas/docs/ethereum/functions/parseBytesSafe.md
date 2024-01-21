@@ -29,7 +29,7 @@ const parsedBytesEffect = parseBytesSafe('0x1234567890abcdef1234567890abcdef1234
 
 ## Source
 
-[packages/schemas/src/ethereum/SBytes/parseBytesSafe.js:23](https://github.com/evmts/tevm-monorepo/blob/main/packages/schemas/src/ethereum/SBytes/parseBytesSafe.js#L23)
+[experimental/schemas/src/ethereum/SBytes/parseBytesSafe.js:23](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SBytes/parseBytesSafe.js#L23)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

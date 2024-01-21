@@ -26,7 +26,7 @@ isBlockNumber('not a blockNumber'); // false
 
 ## Source
 
-[packages/schemas/src/common/SBlockNumber.js:46](https://github.com/evmts/tevm-monorepo/blob/main/packages/schemas/src/common/SBlockNumber.js#L46)
+[experimental/schemas/src/common/SBlockNumber.js:46](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/common/SBlockNumber.js#L46)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

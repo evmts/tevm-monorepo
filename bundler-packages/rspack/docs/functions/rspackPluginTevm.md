@@ -101,7 +101,7 @@ For custom configuration of the Tevm compiler add a [tevm.config.json](https://t
 
 ## Source
 
-[bundler/rspack/src/rspackPluginTevm.js:75](https://github.com/evmts/tevm-monorepo/blob/main/bundler/rspack/src/rspackPluginTevm.js#L75)
+[bundler-packages/rspack/src/rspackPluginTevm.js:75](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/rspack/src/rspackPluginTevm.js#L75)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

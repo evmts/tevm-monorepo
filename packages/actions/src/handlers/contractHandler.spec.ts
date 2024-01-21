@@ -494,7 +494,7 @@ describe('contractHandler', () => {
 				{
 					_tag: 'DecodeFunctionDataError',
 					message:
-						'Data size of 10 bytes is too small for given parameters.\n\nParams: (uint256 balance)\nData:   0x30783432343234323432 (10 bytes)\n\nVersion: viem@2.0.2',
+						'Data size of 10 bytes is too small for given parameters.\n\nParams: (uint256 balance)\nData:   0x30783432343234323432 (10 bytes)\n\nVersion: viem@2.4.0',
 					name: 'DecodeFunctionDataError',
 				},
 			],
@@ -528,7 +528,7 @@ describe('contractHandler', () => {
 				{
 					_tag: 'InvalidRequestError',
 					message:
-						'Address "not correct type" is invalid.\n\nVersion: viem@2.0.2',
+						'Address "not correct type" is invalid.\n\nVersion: viem@2.4.0',
 					name: 'InvalidRequestError',
 				},
 			],

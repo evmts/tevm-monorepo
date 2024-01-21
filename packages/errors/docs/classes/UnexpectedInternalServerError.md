@@ -30,7 +30,7 @@ Error.constructor
 
 #### Source
 
-[core/errors/src/errors/UnexpectedInternalServerError.js:19](https://github.com/evmts/tevm-monorepo/blob/main/core/errors/src/errors/UnexpectedInternalServerError.js#L19)
+[packages/errors/src/errors/UnexpectedInternalServerError.js:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/errors/UnexpectedInternalServerError.js#L19)
 
 ## Properties
 
@@ -40,7 +40,7 @@ Error.constructor
 
 #### Source
 
-[core/errors/src/errors/UnexpectedInternalServerError.js:15](https://github.com/evmts/tevm-monorepo/blob/main/core/errors/src/errors/UnexpectedInternalServerError.js#L15)
+[packages/errors/src/errors/UnexpectedInternalServerError.js:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/errors/UnexpectedInternalServerError.js#L15)
 
 ***
 
@@ -82,7 +82,7 @@ Error.name
 
 #### Source
 
-[core/errors/src/errors/UnexpectedInternalServerError.js:11](https://github.com/evmts/tevm-monorepo/blob/main/core/errors/src/errors/UnexpectedInternalServerError.js#L11)
+[packages/errors/src/errors/UnexpectedInternalServerError.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/errors/UnexpectedInternalServerError.js#L11)
 
 ***
 
@@ -169,26 +169,6 @@ Error.captureStackTrace
 ##### Source
 
 node\_modules/.pnpm/bun-types@1.0.24/node\_modules/bun-types/types.d.ts:2234
-
-#### captureStackTrace(targetObject, constructorOpt)
-
-> **`static`** **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
-
-Create .stack property on a target object
-
-##### Parameters
-
-▪ **targetObject**: `object`
-
-▪ **constructorOpt?**: `Function`
-
-##### Inherited from
-
-Error.captureStackTrace
-
-##### Source
-
-node\_modules/.pnpm/@types+node@20.10.4/node\_modules/@types/node/globals.d.ts:21
 
 #### captureStackTrace(targetObject, constructorOpt)
 

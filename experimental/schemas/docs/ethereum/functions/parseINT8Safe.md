@@ -24,7 +24,7 @@ extends bigint
 
 ## Source
 
-[packages/schemas/src/ethereum/SINT/parseINTSafe.js:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/schemas/src/ethereum/SINT/parseINTSafe.js#L19)
+[experimental/schemas/src/ethereum/SINT/parseINTSafe.js:19](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/ethereum/SINT/parseINTSafe.js#L19)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
