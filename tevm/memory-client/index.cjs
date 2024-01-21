@@ -4,9 +4,9 @@ var memoryClient = require('@tevm/memory-client');
 
 
 
-Object.defineProperty(exports, "createMemoryTevm", {
+Object.defineProperty(exports, "createMemoryClient", {
   enumerable: true,
-  get: function () { return memoryClient.createMemoryTevm; }
+  get: function () { return memoryClient.createMemoryClient; }
 });
 //# sourceMappingURL=out.js.map
 //# sourceMappingURL=index.cjs.map

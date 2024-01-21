@@ -4,9 +4,9 @@ import { defineConfig } from 'tsup'
 const dirs = [
 	'.',
 	'actions-types',
-	'client-types',
 	'contract',
 	'memory-client',
+	'errors',
 	'predeploys',
 	'procedures-types',
 	'remote-client',

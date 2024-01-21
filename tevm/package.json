@@ -44,16 +44,6 @@
 				"default": "./actions-types/index.cjs"
 			}
 		},
-		"./client-types": {
-			"import": {
-				"types": "./client-types/index.d.ts",
-				"default": "./client-types/index.js"
-			},
-			"require": {
-				"types": "./client-types/index.d.cts",
-				"default": "./client-types/index.cjs"
-			}
-		},
 		"./contract": {
 			"import": {
 				"types": "./contract/index.d.ts",
@@ -62,6 +52,16 @@
 			"require": {
 				"types": "./contract/index.d.cts",
 				"default": "./contract/index.cjs"
+			}
+		},
+		"./errors": {
+			"import": {
+				"types": "./errors/index.d.ts",
+				"default": "./errors/index.js"
+			},
+			"require": {
+				"types": "./errors/index.d.cts",
+				"default": "./errors/index.cjs"
 			}
 		},
 		"./memory-client": {
@@ -121,8 +121,8 @@
 	"files": [
 		"index*",
 		"actions-types",
-		"client-types",
 		"contract",
+		"errors",
 		"memory-client",
 		"predeploys",
 		"procedures-types",

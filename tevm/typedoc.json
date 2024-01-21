@@ -4,8 +4,8 @@
 	"entryPoints": [
 		"./index.ts",
 		"./actions-types/index.ts",
-		"./client-types/index.ts",
 		"./contract/index.ts",
+		"./errors/index.ts",
 		"./memory-client/index.ts",
 		"./predeploys/index.ts",
 		"./procedures-types/index.ts",

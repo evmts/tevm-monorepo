@@ -1,5 +1,5 @@
 export {
-	type ClientOptions,
-	type TevmClient,
-	createTevmClient,
+	createRemoteClient,
+	type RemoteClient,
+	type RemoteClientOptions
 } from '@tevm/remote-client'

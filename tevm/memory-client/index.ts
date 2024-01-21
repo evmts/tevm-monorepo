@@ -1,8 +1,8 @@
 export {
-	type MemoryTevm,
+	type MemoryClient,
 	type CustomPrecompile,
 	type CustomPredeploy,
 	type CreateEVMOptions,
 	type ForkOptions,
-	createMemoryTevm,
+	createMemoryClient,
 } from '@tevm/memory-client'

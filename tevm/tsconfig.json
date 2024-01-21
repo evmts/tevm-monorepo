@@ -11,12 +11,12 @@
   },
   "include": [
     "actions-types/index.ts",
-    "client-types/index.ts",
     "contract/index.ts",
     "memory-client/index.ts",
     "predeploys/index.ts",
     "procedures-types/index.ts",
     "remote-client/index.ts",
+    "errors/index.ts",
     "server/index.ts",
     "index.ts"
   ]

@@ -4,9 +4,9 @@ var remoteClient = require('@tevm/remote-client');
 
 
 
-Object.defineProperty(exports, "createTevmClient", {
+Object.defineProperty(exports, "createRemoteClient", {
   enumerable: true,
-  get: function () { return remoteClient.createTevmClient; }
+  get: function () { return remoteClient.createRemoteClient; }
 });
 //# sourceMappingURL=out.js.map
 //# sourceMappingURL=index.cjs.map

@@ -16,32 +16,19 @@ export type {
 	JsonRpcReturnTypeFromMethod,
 	JsonRpcRequestTypeFromMethod,
 } from '@tevm/procedures-types'
-export {
+export type {
 	JsonRpcRequest,
 	JsonRpcResponse,
 } from '@tevm/jsonrpc'
-export {
+export type {
 	TevmClient
 } from '@tevm/client-types'
-export type {
-	TevmEVMErrorMessage,
-	SetAccountError,
-	ContractError,
-	ScriptError,
-	CallError,
-	GetAccountError,
-} from '@tevm/errors'
 export {
 	type Predeploy,
 	type CustomPredeploy,
 	definePredeploy,
 } from '@tevm/predeploys'
 
-export {
-	createTevmClient,
-	type TevmClient,
-	type ClientOptions,
-} from '@tevm/client'
 
 export {
 	type Contract,
@@ -71,16 +58,12 @@ export {
 } from '@tevm/contract'
 
 export {
-	createMemoryTevm,
-	type MemoryTevm,
+	createMemoryClient,
+	type MemoryClient,
 	type CreateEVMOptions,
 	type ForkOptions,
 	type CustomPrecompile,
-	ProxyFetchError,
-	NoProxyConfiguredError,
-	UnsupportedMethodError,
-	UnexpectedInternalServerError
-} from '@tevm/vm'
+} from '@tevm/memory-client'
 
 export type { Abi, Address } from 'abitype'
 export type { Hex, Account } from 'viem'

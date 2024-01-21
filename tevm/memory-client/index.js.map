@@ -1,1 +1,1 @@
-{"version":3,"sources":["index.ts"],"names":[],"mappings":";AAAA;AAAA,EAMC;AAAA,OACM","sourcesContent":["export {\n\ttype MemoryTevm,\n\ttype CustomPrecompile,\n\ttype CustomPredeploy,\n\ttype CreateEVMOptions,\n\ttype ForkOptions,\n\tcreateMemoryTevm,\n} from '@tevm/memory-client'\n"]}
+{"version":3,"sources":["index.ts"],"names":[],"mappings":";AAAA;AAAA,EAMC;AAAA,OACM","sourcesContent":["export {\n\ttype MemoryClient,\n\ttype CustomPrecompile,\n\ttype CustomPredeploy,\n\ttype CreateEVMOptions,\n\ttype ForkOptions,\n\tcreateMemoryClient,\n} from '@tevm/memory-client'\n"]}

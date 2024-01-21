@@ -59,7 +59,6 @@ export type {
 	DebugTraceCallJsonRpcRequest,
 	DebugTraceTransactionJsonRpcRequest,
 	EthJsonRpcRequest,
-	JsonRpcResponse,
 	CallJsonRpcResponse,
 	ContractJsonRpcResponse,
 	ScriptJsonRpcResponse,
