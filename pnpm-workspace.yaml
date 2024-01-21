@@ -1,6 +1,6 @@
 packages:
   - "apps/*"
-  - "bundler/*"
+  - "bundler-packages/*"
   - "bundler"
   - "configs/*"
   - "examples/*"
@@ -8,5 +8,4 @@ packages:
   - "extensions/*"
   - "lsp/*"
   - "packages/*"
-  - "core/*"
   - 'tevm'

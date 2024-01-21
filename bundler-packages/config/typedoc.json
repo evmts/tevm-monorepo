@@ -1,0 +1,12 @@
+{
+	"$schema": "https://typedoc.org/schema.json",
+	"out": "./docs",
+	"entryPoints": [
+		"./src/defaultConfig.js",
+		"./src/defineConfig.js",
+		"./src/types.ts",
+		"./src/loadConfig.js"
+	],
+	"plugin": ["typedoc-plugin-markdown"],
+	"gitRevision": "main"
+}

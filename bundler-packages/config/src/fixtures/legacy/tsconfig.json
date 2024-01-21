@@ -1,0 +1,26 @@
+{
+  "extends": "@tevm/tsconfig/base.json",
+  "compilerOptions": {
+    "composite": true,
+    "outDir": "types",
+    "skipLibCheck": true,
+    "plugins": [
+      {
+        "name": "@tevm/ts-plugin",
+        "cacheDir": ".cache",
+        "libs": [
+          "mylib"
+        ]
+      }
+    ],
+    "paths": {
+      "@/*": [
+        "./*"
+      ]
+    }
+  },
+  "include": [
+    "src",
+    "src/**/*.json"
+  ]
+}

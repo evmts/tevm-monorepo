@@ -1,0 +1,35 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"title": "CompilerConfig",
+	"description": "Configuration of the solidity compiler. When resolved with defaults it is a ResolvedCompilerConfig.",
+	"type": "object",
+	"properties": {
+		"foundryProject": {
+			"description": "If set to true it will resolve forge remappings and libs. Set to 'path/to/forge/executable' to use a custom forge executable.",
+			"oneOf": [{ "type": "boolean" }, { "type": "string" }]
+		},
+		"libs": {
+			"description": "Sets directories to search for solidity imports in. Read automatically for forge projects if forge: true.",
+			"type": "array",
+			"items": {
+				"type": "string"
+			}
+		},
+		"remappings": {
+			"description": "Remap the location of contracts.",
+			"type": "object",
+			"additionalProperties": {
+				"type": "string"
+			}
+		},
+		"debug": {
+			"description": "If debug is true tevm will write the .d.ts files in the ts server and publish extra debug info to a debug file.",
+			"type": "boolean"
+		},
+		"cacheDir": {
+			"description": "Location of the tevm cache folder.",
+			"type": "string"
+		}
+	},
+	"additionalProperties": false
+}

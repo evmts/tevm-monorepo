@@ -125,7 +125,52 @@ importers:
         specifier: workspace:^
         version: link:../../tevm
 
-  bundler/base-bundler:
+  bundler:
+    devDependencies:
+      '@tevm/base-bundler':
+        specifier: workspace:^
+        version: link:../bundler-packages/base-bundler
+      '@tevm/bun-plugin':
+        specifier: workspace:^
+        version: link:../bundler-packages/bun
+      '@tevm/compiler':
+        specifier: workspace:^
+        version: link:../bundler-packages/compiler
+      '@tevm/config':
+        specifier: workspace:^
+        version: link:../bundler-packages/config
+      '@tevm/esbuild-plugin':
+        specifier: workspace:^
+        version: link:../bundler-packages/esbuild
+      '@tevm/rollup-plugin':
+        specifier: workspace:^
+        version: link:../bundler-packages/rollup
+      '@tevm/rspack-plugin':
+        specifier: workspace:^
+        version: link:../bundler-packages/rspack
+      '@tevm/server':
+        specifier: workspace:^
+        version: link:../packages/server
+      '@tevm/solc':
+        specifier: workspace:^
+        version: link:../bundler-packages/solc
+      '@tevm/ts-plugin':
+        specifier: workspace:^
+        version: link:../lsp/ts-plugin
+      '@tevm/tsconfig':
+        specifier: workspace:^
+        version: link:../configs/tsconfig
+      '@tevm/tsupconfig':
+        specifier: workspace:^
+        version: link:../configs/tsupconfig
+      '@tevm/vite-plugin':
+        specifier: workspace:^
+        version: link:../bundler-packages/vite
+      '@tevm/webpack-plugin':
+        specifier: workspace:^
+        version: link:../bundler-packages/webpack
+
+  bundler-packages/base-bundler:
     dependencies:
       '@tevm/bundler-cache':
         specifier: workspace:^
@@ -162,7 +207,7 @@ importers:
         specifier: 0.8.22
         version: 0.8.22
 
-  bundler/bun:
+  bundler-packages/bun:
     dependencies:
       '@tevm/base-bundler':
         specifier: workspace:^
@@ -185,7 +230,7 @@ importers:
     devDependencies:
       '@tevm/contract':
         specifier: workspace:^
-        version: link:../../core/contract
+        version: link:../../packages/contract
       '@tevm/tsconfig':
         specifier: workspace:^
         version: link:../../configs/tsconfig
@@ -196,7 +241,7 @@ importers:
         specifier: ^1.0.24
         version: 1.0.24
 
-  bundler/bundler-cache:
+  bundler-packages/bundler-cache:
     dependencies:
       '@tevm/compiler':
         specifier: workspace:1.0.0-next.21
@@ -209,14 +254,14 @@ importers:
         version: link:../../configs/tsupconfig
       '@types/node':
         specifier: ^20.8.9
-        version: 20.10.4
+        version: 20.11.5
     devDependencies:
       '@vitest/coverage-v8':
         specifier: ^0.34.6
         version: 0.34.6(vitest@0.34.6)
       '@vitest/ui':
         specifier: ^0.34.6
-        version: 0.34.6(vitest@0.34.6)
+        version: 0.34.7(vitest@0.34.6)
       rome:
         specifier: ^12.1.3
         version: 12.1.3
@@ -225,18 +270,18 @@ importers:
         version: 7.3.0(typescript@5.3.3)
       typedoc:
         specifier: ^0.25.3
-        version: 0.25.4(typescript@5.3.3)
+        version: 0.25.7(typescript@5.3.3)
       typedoc-plugin-markdown:
         specifier: ^3.16.0
-        version: 3.17.1(typedoc@0.25.4)
+        version: 3.17.1(typedoc@0.25.7)
       typescript:
         specifier: ^5.2.2
         version: 5.3.3
       vitest:
         specifier: ^0.34.6
-        version: 0.34.6(@vitest/ui@0.34.6)
+        version: 0.34.6(@vitest/ui@0.34.7)
 
-  bundler/compiler:
+  bundler-packages/compiler:
     dependencies:
       '@tevm/config':
         specifier: workspace:^
@@ -249,7 +294,7 @@ importers:
         version: link:../solc
       '@types/node':
         specifier: ^20.8.9
-        version: 20.10.4
+        version: 20.11.5
       effect:
         specifier: 2.0.0-next.54
         version: 2.0.0-next.54
@@ -276,7 +321,7 @@ importers:
         specifier: 0.8.22
         version: 0.8.22
 
-  bundler/config:
+  bundler-packages/config:
     dependencies:
       '@effect/schema':
         specifier: 0.47.7
@@ -286,7 +331,7 @@ importers:
         version: link:../../packages/effect
       '@types/node':
         specifier: ^20.8.9
-        version: 20.9.1
+        version: 20.11.5
       effect:
         specifier: 2.0.0-next.54
         version: 2.0.0-next.54
@@ -301,7 +346,7 @@ importers:
         specifier: workspace:^
         version: link:../../configs/tsupconfig
 
-  bundler/esbuild:
+  bundler-packages/esbuild:
     dependencies:
       '@tevm/unplugin':
         specifier: workspace:^
@@ -314,7 +359,7 @@ importers:
         specifier: workspace:^
         version: link:../../configs/tsupconfig
 
-  bundler/resolutions:
+  bundler-packages/resolutions:
     dependencies:
       '@tevm/tsconfig':
         specifier: workspace:^
@@ -324,7 +369,7 @@ importers:
         version: link:../../configs/tsupconfig
       '@types/node':
         specifier: ^20.8.9
-        version: 20.9.1
+        version: 20.11.5
       effect:
         specifier: 2.0.0-next.54
         version: 2.0.0-next.54
@@ -339,7 +384,7 @@ importers:
         specifier: ^1.20.4
         version: 1.20.5
 
-  bundler/rollup:
+  bundler-packages/rollup:
     dependencies:
       '@tevm/unplugin':
         specifier: workspace:^
@@ -352,7 +397,7 @@ importers:
         specifier: workspace:^
         version: link:../../configs/tsupconfig
 
-  bundler/rspack:
+  bundler-packages/rspack:
     dependencies:
       '@tevm/unplugin':
         specifier: workspace:^
@@ -365,7 +410,7 @@ importers:
         specifier: workspace:^
         version: link:../../configs/tsupconfig
 
-  bundler/runtime:
+  bundler-packages/runtime:
     dependencies:
       '@tevm/tsconfig':
         specifier: workspace:^
@@ -382,9 +427,9 @@ importers:
         version: link:../compiler
       abitype:
         specifier: ^0.10.2
-        version: 0.10.2(typescript@5.3.3)(zod@3.22.4)
+        version: 0.10.3(typescript@5.3.3)(zod@3.22.4)
 
-  bundler/solc:
+  bundler-packages/solc:
     dependencies:
       '@tevm/tsconfig':
         specifier: workspace:^
@@ -395,12 +440,12 @@ importers:
     devDependencies:
       abitype:
         specifier: ^0.10.2
-        version: 0.10.2(typescript@5.3.3)(zod@3.22.4)
+        version: 0.10.3(typescript@5.3.3)(zod@3.22.4)
       solc:
         specifier: 0.8.22
         version: 0.8.22
 
-  bundler/unplugin:
+  bundler-packages/unplugin:
     dependencies:
       '@tevm/base-bundler':
         specifier: workspace:^
@@ -435,9 +480,9 @@ importers:
         version: link:../../configs/tsupconfig
       '@types/node':
         specifier: ^20.8.9
-        version: 20.9.1
+        version: 20.11.5
 
-  bundler/vite:
+  bundler-packages/vite:
     dependencies:
       '@tevm/unplugin':
         specifier: workspace:^
@@ -450,7 +495,7 @@ importers:
         specifier: workspace:^
         version: link:../../configs/tsupconfig
 
-  bundler/webpack:
+  bundler-packages/webpack:
     dependencies:
       '@tevm/unplugin':
         specifier: workspace:^
@@ -477,428 +522,11 @@ importers:
         specifier: ^20.10.6
         version: 20.10.6
 
-  core/actions:
-    dependencies:
-      '@ethereumjs/block':
-        specifier: ^5.0.1
-        version: 5.0.1
-      '@ethereumjs/blockchain':
-        specifier: ^7.0.1
-        version: 7.0.1
-      '@ethereumjs/util':
-        specifier: ^9.0.1
-        version: 9.0.1
-      '@ethereumjs/vm':
-        specifier: ^7.1.0
-        version: 7.1.0
-      '@tevm/jsonrpc':
-        specifier: workspace:^
-        version: link:../jsonrpc
-      '@tevm/zod':
-        specifier: workspace:^
-        version: link:../zod
-      viem:
-        specifier: ^2.0.0
-        version: 2.4.0(typescript@5.3.3)(zod@3.22.4)
-    devDependencies:
-      '@ethereumjs/evm':
-        specifier: ^2.1.0
-        version: 2.1.0
-      '@tevm/actions-spec':
-        specifier: workspace:^
-        version: link:../actions-spec
-      '@tevm/state':
-        specifier: workspace:^
-        version: link:../state
-      '@tevm/tsconfig':
-        specifier: workspace:^
-        version: link:../../configs/tsconfig
-      '@tevm/tsupconfig':
-        specifier: workspace:^
-        version: link:../../configs/tsupconfig
-
-  core/actions-spec:
-    devDependencies:
-      '@tevm/state':
-        specifier: workspace:^
-        version: link:../state
-      '@tevm/tsconfig':
-        specifier: workspace:^
-        version: link:../../configs/tsconfig
-      '@tevm/tsupconfig':
-        specifier: workspace:^
-        version: link:../../configs/tsupconfig
-      abitype:
-        specifier: ^0.10.3
-        version: 0.10.3(typescript@5.3.3)(zod@3.22.4)
-      viem:
-        specifier: ^2.0.0
-        version: 2.4.0(typescript@5.3.3)(zod@3.22.4)
-
-  core/client-memory:
-    dependencies:
-      '@ethereumjs/block':
-        specifier: ^5.0.1
-        version: 5.0.1
-      '@ethereumjs/blockchain':
-        specifier: ^7.0.1
-        version: 7.0.1
-      '@ethereumjs/common':
-        specifier: ^4.1.0
-        version: 4.1.0
-      '@ethereumjs/evm':
-        specifier: ^2.1.0
-        version: 2.1.0
-      '@ethereumjs/trie':
-        specifier: ^6.0.1
-        version: 6.0.1
-      '@ethereumjs/vm':
-        specifier: ^7.1.0
-        version: 7.1.0
-      '@tevm/actions':
-        specifier: workspace:^
-        version: link:../actions
-      '@tevm/contract':
-        specifier: workspace:^
-        version: link:../contract
-      '@tevm/errors':
-        specifier: workspace:^
-        version: link:../errors
-      '@tevm/jsonrpc':
-        specifier: workspace:^
-        version: link:../jsonrpc
-      '@tevm/procedures':
-        specifier: workspace:^
-        version: link:../procedures
-      viem:
-        specifier: ^2.0.0
-        version: 2.4.0(typescript@5.3.3)(zod@3.22.4)
-    devDependencies:
-      '@ethereumjs/util':
-        specifier: ^9.0.1
-        version: 9.0.1
-      '@tevm/client-spec':
-        specifier: workspace:^
-        version: link:../client-spec
-      '@tevm/predeploys':
-        specifier: workspace:^
-        version: link:../predeploys
-      '@tevm/procedures-spec':
-        specifier: workspace:^
-        version: link:../procedures-spec
-      '@tevm/state':
-        specifier: workspace:^
-        version: link:../state
-      '@tevm/tsconfig':
-        specifier: workspace:^
-        version: link:../../configs/tsconfig
-      '@tevm/tsupconfig':
-        specifier: workspace:^
-        version: link:../../configs/tsupconfig
-      abitype:
-        specifier: ^1.0.0
-        version: 1.0.0(typescript@5.3.3)(zod@3.22.4)
-
-  core/client-remote:
-    dependencies:
-      '@tevm/contract':
-        specifier: workspace:^
-        version: link:../contract
-      '@tevm/viem':
-        specifier: workspace:^
-        version: link:../../extensions/viem
-      viem:
-        specifier: ^2.4.0
-        version: 2.4.0(typescript@5.3.3)(zod@3.22.4)
-    devDependencies:
-      '@ethereumjs/util':
-        specifier: ^9.0.1
-        version: 9.0.1
-      '@tevm/client-memory':
-        specifier: workspace:^
-        version: link:../client-memory
-      '@tevm/client-spec':
-        specifier: workspace:^
-        version: link:../client-spec
-      '@tevm/server':
-        specifier: workspace:^
-        version: link:../server
-      '@tevm/tsconfig':
-        specifier: workspace:^
-        version: link:../../configs/tsconfig
-      '@tevm/tsupconfig':
-        specifier: workspace:^
-        version: link:../../configs/tsupconfig
-
-  core/client-spec:
-    devDependencies:
-      '@tevm/actions-spec':
-        specifier: workspace:^
-        version: link:../actions-spec
-      '@tevm/procedures-spec':
-        specifier: workspace:^
-        version: link:../procedures-spec
-      '@tevm/tsconfig':
-        specifier: workspace:^
-        version: link:../../configs/tsconfig
-      '@tevm/tsupconfig':
-        specifier: workspace:^
-        version: link:../../configs/tsupconfig
-
-  core/contract:
-    dependencies:
-      abitype:
-        specifier: ^1.0.0
-        version: 1.0.0(typescript@5.3.3)(zod@3.22.4)
-      viem:
-        specifier: ^2.0.0
-        version: 2.4.0(typescript@5.3.3)(zod@3.22.4)
-    devDependencies:
-      '@evmts/core':
-        specifier: next
-        version: 1.0.0-next.12(viem@2.4.0)
-      '@evmts/ts-plugin':
-        specifier: next
-        version: 1.0.0-next.18(fast-check@3.15.0)(typescript@5.3.3)
-      '@evmts/vite-plugin':
-        specifier: next
-        version: 1.0.0-next.19(esbuild@0.19.5)(fast-check@3.15.0)(typescript@5.3.3)
-      '@tevm/tsconfig':
-        specifier: workspace:^
-        version: link:../../configs/tsconfig
-      '@tevm/tsupconfig':
-        specifier: workspace:^
-        version: link:../../configs/tsupconfig
-
-  core/errors:
-    devDependencies:
-      '@tevm/tsconfig':
-        specifier: workspace:^
-        version: link:../../configs/tsconfig
-      '@tevm/tsupconfig':
-        specifier: workspace:^
-        version: link:../../configs/tsupconfig
-
-  core/jsonrpc:
-    devDependencies:
-      '@tevm/tsconfig':
-        specifier: workspace:^
-        version: link:../../configs/tsconfig
-      '@tevm/tsupconfig':
-        specifier: workspace:^
-        version: link:../../configs/tsupconfig
-
-  core/predeploys:
-    dependencies:
-      '@ethereumjs/util':
-        specifier: ^9.0.1
-        version: 9.0.1
-      '@tevm/contract':
-        specifier: workspace:^
-        version: link:../contract
-      abitype:
-        specifier: ^0.10.3
-        version: 0.10.3(typescript@5.3.3)(zod@3.22.4)
-      viem:
-        specifier: ^2.0.0
-        version: 2.4.0(typescript@5.3.3)(zod@3.22.4)
-    devDependencies:
-      '@tevm/tsconfig':
-        specifier: workspace:^
-        version: link:../../configs/tsconfig
-      '@tevm/tsupconfig':
-        specifier: workspace:^
-        version: link:../../configs/tsupconfig
-
-  core/procedures:
-    dependencies:
-      '@ethereumjs/block':
-        specifier: ^5.0.1
-        version: 5.0.1
-      '@ethereumjs/blockchain':
-        specifier: ^7.0.1
-        version: 7.0.1
-      '@ethereumjs/util':
-        specifier: ^9.0.1
-        version: 9.0.1
-      '@tevm/actions':
-        specifier: workspace:^
-        version: link:../actions
-      '@tevm/errors':
-        specifier: workspace:^
-        version: link:../errors
-      '@tevm/jsonrpc':
-        specifier: workspace:1.0.0-next.22
-        version: link:../jsonrpc
-      '@tevm/zod':
-        specifier: workspace:^
-        version: link:../zod
-      viem:
-        specifier: ^2.0.0
-        version: 2.4.0(typescript@5.3.3)(zod@3.22.4)
-    devDependencies:
-      '@ethereumjs/evm':
-        specifier: ^2.1.0
-        version: 2.1.0
-      '@tevm/actions-spec':
-        specifier: workspace:^
-        version: link:../actions-spec
-      '@tevm/procedures-spec':
-        specifier: workspace:^
-        version: link:../procedures-spec
-      '@tevm/state':
-        specifier: workspace:^
-        version: link:../state
-      '@tevm/tsconfig':
-        specifier: workspace:^
-        version: link:../../configs/tsconfig
-      '@tevm/tsupconfig':
-        specifier: workspace:^
-        version: link:../../configs/tsupconfig
-
-  core/procedures-spec:
-    devDependencies:
-      '@tevm/actions-spec':
-        specifier: workspace:^
-        version: link:../actions-spec
-      '@tevm/errors':
-        specifier: workspace:^
-        version: link:../errors
-      '@tevm/jsonrpc':
-        specifier: workspace:^
-        version: link:../jsonrpc
-      '@tevm/state':
-        specifier: workspace:^
-        version: link:../state
-      '@tevm/tsconfig':
-        specifier: workspace:^
-        version: link:../../configs/tsconfig
-      '@tevm/tsupconfig':
-        specifier: workspace:^
-        version: link:../../configs/tsupconfig
-      abitype:
-        specifier: ^0.10.3
-        version: 0.10.3(typescript@5.3.3)(zod@3.22.4)
-      viem:
-        specifier: ^2.0.0
-        version: 2.4.0(typescript@5.3.3)(zod@3.22.4)
-
-  core/server:
-    dependencies:
-      '@tevm/zod':
-        specifier: workspace:^
-        version: link:../zod
-    devDependencies:
-      '@ethereumjs/evm':
-        specifier: ^2.1.0
-        version: 2.1.0
-      '@tevm/actions-spec':
-        specifier: workspace:^
-        version: link:../actions-spec
-      '@tevm/client-memory':
-        specifier: workspace:^
-        version: link:../client-memory
-      '@tevm/errors':
-        specifier: workspace:^
-        version: link:../errors
-      '@tevm/jsonrpc':
-        specifier: workspace:^
-        version: link:../jsonrpc
-      '@tevm/procedures-spec':
-        specifier: workspace:^
-        version: link:../procedures-spec
-      '@tevm/tsconfig':
-        specifier: workspace:^
-        version: link:../../configs/tsconfig
-      '@tevm/tsupconfig':
-        specifier: workspace:^
-        version: link:../../configs/tsupconfig
-      '@types/express':
-        specifier: ^4.17.21
-        version: 4.17.21
-      '@types/supertest':
-        specifier: ^2.0.16
-        version: 2.0.16
-      express:
-        specifier: ^4.18.2
-        version: 4.18.2
-      next:
-        specifier: ^14.1.0
-        version: 14.1.0(@babel/core@7.23.7)(react-dom@18.2.0)(react@18.2.0)
-      supertest:
-        specifier: ^6.3.3
-        version: 6.3.3
-      viem:
-        specifier: ^2.0.6
-        version: 2.4.0(typescript@5.3.3)(zod@3.22.4)
-
-  core/state:
-    dependencies:
-      '@ethereumjs/common':
-        specifier: ^4.1.0
-        version: 4.1.0
-      '@ethereumjs/statemanager':
-        specifier: ^2.1.0
-        version: 2.1.0
-      '@ethereumjs/trie':
-        specifier: ^6.0.1
-        version: 6.0.1
-      '@ethereumjs/util':
-        specifier: ^9.0.1
-        version: 9.0.1
-      abitype:
-        specifier: ^0.10.3
-        version: 0.10.3(typescript@5.3.3)(zod@3.22.4)
-      debug:
-        specifier: ^4.3.4
-        version: 4.3.4(supports-color@8.1.1)
-      ethereum-cryptography:
-        specifier: ^2.1.2
-        version: 2.1.2
-      viem:
-        specifier: ^2.0.0
-        version: 2.4.0(typescript@5.3.3)(zod@3.22.4)
-    devDependencies:
-      '@tevm/tsconfig':
-        specifier: workspace:^
-        version: link:../../configs/tsconfig
-      '@tevm/tsupconfig':
-        specifier: workspace:^
-        version: link:../../configs/tsupconfig
-      '@types/debug':
-        specifier: ^4.1.12
-        version: 4.1.12
-
-  core/zod:
-    dependencies:
-      abitype:
-        specifier: ^0.10.3
-        version: 0.10.3(typescript@5.3.3)(zod@3.22.4)
-      viem:
-        specifier: ^2.0.0
-        version: 2.4.0(typescript@5.3.3)(zod@3.22.4)
-      zod:
-        specifier: ^3.22.4
-        version: 3.22.4
-    devDependencies:
-      '@tevm/actions-spec':
-        specifier: workspace:^
-        version: link:../actions-spec
-      '@tevm/errors':
-        specifier: workspace:^
-        version: link:../errors
-      '@tevm/tsconfig':
-        specifier: workspace:^
-        version: link:../../configs/tsconfig
-      '@tevm/tsupconfig':
-        specifier: workspace:^
-        version: link:../../configs/tsupconfig
-
   examples/bun:
     dependencies:
       '@tevm/contract':
         specifier: ^1.0.0-next.22
-        version: link:../../core/contract
+        version: link:../../packages/contract
       bun-types:
         specifier: ^1.0.7
         version: 1.0.12
@@ -911,10 +539,10 @@ importers:
         version: 5.0.0
       '@tevm/bun-plugin':
         specifier: workspace:^
-        version: link:../../bundler/bun
+        version: link:../../bundler-packages/bun
       '@tevm/esbuild-plugin':
         specifier: workspace:^
-        version: link:../../bundler/esbuild
+        version: link:../../bundler-packages/esbuild
       '@tevm/ts-plugin':
         specifier: workspace:^
         version: link:../../lsp/ts-plugin
@@ -938,7 +566,7 @@ importers:
     dependencies:
       '@tevm/contract':
         specifier: ^1.0.0-next.22
-        version: link:../../core/contract
+        version: link:../../packages/contract
       viem:
         specifier: ^2.0.0
         version: 2.0.2(typescript@5.2.2)(zod@3.22.4)
@@ -954,16 +582,16 @@ importers:
         version: 4.9.3
       '@tevm/bun-plugin':
         specifier: workspace:^
-        version: link:../../bundler/bun
+        version: link:../../bundler-packages/bun
       '@tevm/esbuild-plugin':
         specifier: workspace:^
-        version: link:../../bundler/esbuild
+        version: link:../../bundler-packages/esbuild
       '@tevm/ts-plugin':
         specifier: workspace:^
         version: link:../../lsp/ts-plugin
       '@tevm/vite-plugin':
         specifier: workspace:^
-        version: link:../../bundler/vite
+        version: link:../../bundler-packages/vite
       '@types/live-server':
         specifier: ^1.2.2
         version: 1.2.3
@@ -993,7 +621,7 @@ importers:
     dependencies:
       '@tevm/contract':
         specifier: workspace:^
-        version: link:../../core/contract
+        version: link:../../packages/contract
       '@tevm/ethers':
         specifier: workspace:^
         version: link:../../extensions/ethers
@@ -1015,7 +643,7 @@ importers:
         version: link:../../lsp/ts-plugin
       '@tevm/vite-plugin':
         specifier: workspace:^
-        version: link:../../bundler/vite
+        version: link:../../bundler-packages/vite
       solc:
         specifier: 0.8.22
         version: 0.8.22
@@ -1045,16 +673,16 @@ importers:
         version: 5.8.4(react-dom@18.2.0)(react@18.2.0)
       '@tevm/config':
         specifier: workspace:^
-        version: link:../../bundler/config
+        version: link:../../bundler-packages/config
       '@tevm/contract':
         specifier: workspace:^
-        version: link:../../core/contract
+        version: link:../../packages/contract
       '@tevm/ethers':
         specifier: workspace:^
         version: link:../../extensions/ethers
       '@tevm/solc':
         specifier: workspace:^
-        version: link:../../bundler/solc
+        version: link:../../bundler-packages/solc
       buffer:
         specifier: ^6.0.3
         version: 6.0.3
@@ -1084,7 +712,7 @@ importers:
         version: 0.12.5
       viem:
         specifier: ~1.19.4
-        version: 1.19.4(typescript@5.2.2)(zod@3.22.4)
+        version: 1.19.4(typescript@5.2.2)
       wagmi:
         specifier: ^1.4.7
         version: 1.4.7(@types/react@18.2.37)(react-dom@18.2.0)(react@18.2.0)(typescript@5.2.2)(viem@1.19.4)
@@ -1100,7 +728,7 @@ importers:
         version: link:../../lsp/ts-plugin
       '@tevm/vite-plugin':
         specifier: workspace:^
-        version: link:../../bundler/vite
+        version: link:../../bundler-packages/vite
       '@types/prismjs':
         specifier: ^1.26.3
         version: 1.26.3
@@ -1147,14 +775,124 @@ importers:
         specifier: ^0.34.6
         version: 0.34.6(@vitest/ui@0.34.7)
 
+  experimental/blockexplorer:
+    dependencies:
+      '@tevm/schemas':
+        specifier: workspace:^
+        version: link:../schemas
+      effect:
+        specifier: 2.0.0-next.54
+        version: 2.0.0-next.54
+    devDependencies:
+      '@tevm/tsconfig':
+        specifier: workspace:^
+        version: link:../../configs/tsconfig
+      '@tevm/tsupconfig':
+        specifier: workspace:^
+        version: link:../../configs/tsupconfig
+      '@vitest/coverage-v8':
+        specifier: ^0.34.6
+        version: 0.34.6(vitest@0.34.6)
+      '@vitest/ui':
+        specifier: ^0.34.6
+        version: 0.34.7(vitest@0.34.6)
+      rome:
+        specifier: ^12.1.3
+        version: 12.1.3
+      tsup:
+        specifier: ^7.2.0
+        version: 7.3.0(typescript@5.3.3)
+      typedoc:
+        specifier: ^0.25.3
+        version: 0.25.7(typescript@5.3.3)
+      typedoc-plugin-markdown:
+        specifier: ^3.16.0
+        version: 3.17.1(typedoc@0.25.7)
+      typescript:
+        specifier: ^5.2.2
+        version: 5.3.3
+      viem:
+        specifier: ^2.0.0
+        version: 2.4.0(typescript@5.3.3)(zod@3.22.4)
+      vitest:
+        specifier: ^0.34.6
+        version: 0.34.6(@vitest/ui@0.34.7)
+
+  experimental/revm:
+    devDependencies:
+      '@tevm/tsconfig':
+        specifier: workspace:^
+        version: link:../../configs/tsconfig
+      '@tevm/tsupconfig':
+        specifier: workspace:^
+        version: link:../../configs/tsupconfig
+      '@vitest/coverage-v8':
+        specifier: ^0.34.6
+        version: 0.34.6(vitest@0.34.6)
+      '@vitest/ui':
+        specifier: ^0.34.6
+        version: 0.34.7(vitest@0.34.6)
+      abitype:
+        specifier: ^0.10.2
+        version: 0.10.3(typescript@5.3.3)(zod@3.22.4)
+      rome:
+        specifier: ^12.1.3
+        version: 12.1.3
+      tsup:
+        specifier: ^7.2.0
+        version: 7.3.0(typescript@5.3.3)
+      typedoc:
+        specifier: ^0.25.3
+        version: 0.25.7(typescript@5.3.3)
+      typedoc-plugin-markdown:
+        specifier: ^3.16.0
+        version: 3.17.1(typedoc@0.25.7)
+      typescript:
+        specifier: ^5.2.2
+        version: 5.3.3
+      viem:
+        specifier: ^2.0.0
+        version: 2.4.0(typescript@5.3.3)(zod@3.22.4)
+      vitest:
+        specifier: ^0.34.6
+        version: 0.34.6(@vitest/ui@0.34.7)
+      wagmi:
+        specifier: ^1.4.5
+        version: 1.4.7(react@18.2.0)(typescript@5.3.3)(viem@2.4.0)(zod@3.22.4)
+      wasm-pack:
+        specifier: ^0.12.1
+        version: 0.12.1
+      zod:
+        specifier: ^3.22.4
+        version: 3.22.4
+
+  experimental/schemas:
+    dependencies:
+      '@effect/schema':
+        specifier: 0.47.7
+        version: 0.47.7(effect@2.0.0-next.54)(fast-check@3.15.0)
+      effect:
+        specifier: 2.0.0-next.54
+        version: 2.0.0-next.54
+    devDependencies:
+      '@tevm/tsconfig':
+        specifier: workspace:^
+        version: link:../../configs/tsconfig
+      '@tevm/tsupconfig':
+        specifier: workspace:^
+        version: link:../../configs/tsupconfig
+      viem:
+        specifier: ^2.0.0
+        version: 2.4.0(typescript@5.3.3)(zod@3.22.4)
+
   experimental/solc:
     dependencies:
       '@tevm/config':
         specifier: workspace:^
-        version: link:../../bundler/config
+        version: link:../../bundler-packages/config
       '@tevm/contract':
         specifier: workspace:^
-        version: link:../../core/contract
+        version: link:../../packages/contract
       '@tevm/tsconfig':
         specifier: workspace:^
         version: link:../../configs/tsconfig
@@ -1199,6 +937,94 @@ importers:
         specifier: ^3.22.4
         version: 3.22.4
 
+  experimental/viem-effect:
+    dependencies:
+      '@adraffy/ens-normalize':
+        specifier: 1.10.0
+        version: 1.10.0
+      '@effect/schema':
+        specifier: 0.47.7
+        version: 0.47.7(effect@2.0.0-next.54)(fast-check@3.15.0)
+      '@noble/curves':
+        specifier: 1.2.0
+        version: 1.2.0
+      '@noble/hashes':
+        specifier: 1.3.2
+        version: 1.3.2
+      '@scure/bip32':
+        specifier: 1.3.2
+        version: 1.3.2
+      '@scure/bip39':
+        specifier: 1.2.1
+        version: 1.2.1
+      '@types/glob':
+        specifier: ^8.1.0
+        version: 8.1.0
+      abitype:
+        specifier: 0.10.2
+        version: 0.10.2(typescript@5.3.3)(zod@3.22.4)
+      effect:
+        specifier: 2.0.0-next.54
+        version: 2.0.0-next.54
+      isows:
+        specifier: 1.0.3
+        version: 1.0.3(ws@8.14.2)
+      ws:
+        specifier: 8.14.2
+        version: 8.14.2(bufferutil@4.0.8)(utf-8-validate@5.0.10)
+    devDependencies:
+      '@babel/core':
+        specifier: ^7.23.2
+        version: 7.23.7
+      '@babel/preset-typescript':
+        specifier: ^7.23.2
+        version: 7.23.3(@babel/core@7.23.7)
+      '@babel/template':
+        specifier: ^7.22.15
+        version: 7.22.15
+      '@babel/traverse':
+        specifier: ^7.23.2
+        version: 7.23.7
+      '@babel/types':
+        specifier: ^7.23.0
+        version: 7.23.6
+      '@tevm/tsconfig':
+        specifier: workspace:^
+        version: link:../../configs/tsconfig
+      '@vitest/coverage-v8':
+        specifier: ^0.34.6
+        version: 0.34.6(vitest@0.34.6)
+      '@vitest/ui':
+        specifier: ^0.34.6
+        version: 0.34.7(vitest@0.34.6)
+      babel-cli:
+        specifier: ^6.26.0
+        version: 6.26.0
+      glob:
+        specifier: ^10.3.10
+        version: 10.3.10
+      rome:
+        specifier: ^12.1.3
+        version: 12.1.3
+      tsup:
+        specifier: ^7.2.0
+        version: 7.3.0(typescript@5.3.3)
+      typescript:
+        specifier: ^5.2.2
+        version: 5.3.3
+      viem:
+        specifier: ^1.x.x
+        version: 1.19.11(typescript@5.3.3)(zod@3.22.4)
+      vitest:
+        specifier: ^0.34.6
+        version: 0.34.6(@vitest/ui@0.34.7)
+      wagmi:
+        specifier: ^1.4.5
+        version: 1.4.7(react@18.2.0)(typescript@5.3.3)(viem@1.19.11)(zod@3.22.4)
+      zod:
+        specifier: ^3.22.4
+        version: 3.22.4
+
   extensions/ethers:
     devDependencies:
       '@tevm/tsconfig':
@@ -1221,28 +1047,28 @@ importers:
         version: 9.0.1
       '@tevm/actions-spec':
         specifier: workspace:^
-        version: link:../../core/actions-spec
+        version: link:../../packages/actions-types
       '@tevm/client-memory':
         specifier: workspace:^
-        version: link:../../core/client-memory
+        version: link:../../packages/memory-client
       '@tevm/client-spec':
         specifier: workspace:^
-        version: link:../../core/client-spec
+        version: link:../../packages/client-types
       '@tevm/contract':
         specifier: workspace:^
-        version: link:../../core/contract
+        version: link:../../packages/contract
       '@tevm/jsonrpc':
         specifier: workspace:^
-        version: link:../../core/jsonrpc
+        version: link:../../packages/jsonrpc
       '@tevm/procedures-spec':
         specifier: workspace:^
-        version: link:../../core/procedures-spec
+        version: link:../../packages/procedures-spec
       '@tevm/server':
         specifier: workspace:^
-        version: link:../../core/server
+        version: link:../../packages/server
       '@tevm/state':
         specifier: workspace:^
-        version: link:../../core/state
+        version: link:../../packages/state
       '@tevm/tsconfig':
         specifier: workspace:^
         version: link:../../configs/tsconfig
@@ -1260,7 +1086,7 @@ importers:
     dependencies:
       '@tevm/config':
         specifier: workspace:^
-        version: link:../../bundler/config
+        version: link:../../bundler-packages/config
       '@tevm/tsconfig':
         specifier: workspace:^
         version: link:../../configs/tsconfig
@@ -1303,7 +1129,7 @@ importers:
     devDependencies:
       '@tevm/base-bundler':
         specifier: workspace:^
-        version: link:../../bundler/base-bundler
+        version: link:../../bundler-packages/base-bundler
       rome:
         specifier: ^12.1.3
         version: 12.1.3
@@ -1327,10 +1153,10 @@ importers:
     dependencies:
       '@tevm/base-bundler':
         specifier: workspace:^
-        version: link:../../bundler/base-bundler
+        version: link:../../bundler-packages/base-bundler
       '@tevm/bundler-cache':
         specifier: workspace:^
-        version: link:../../bundler/bundler-cache
+        version: link:../../bundler-packages/bundler-cache
       effect:
         specifier: 2.0.0-next.54
         version: 2.0.0-next.54
@@ -1346,7 +1172,7 @@ importers:
     devDependencies:
       '@tevm/config':
         specifier: workspace:^
-        version: link:../../bundler/config
+        version: link:../../bundler-packages/config
       '@tevm/tsupconfig':
         specifier: workspace:^
         version: link:../../configs/tsupconfig
@@ -1384,48 +1210,103 @@ importers:
         specifier: ^9.0.1
         version: 9.0.1
 
-  packages/blockexplorer:
+  packages/actions:
     dependencies:
-      '@tevm/schemas':
+      '@ethereumjs/block':
+        specifier: ^5.0.1
+        version: 5.0.1
+      '@ethereumjs/blockchain':
+        specifier: ^7.0.1
+        version: 7.0.1
+      '@ethereumjs/util':
+        specifier: ^9.0.1
+        version: 9.0.1
+      '@ethereumjs/vm':
+        specifier: ^7.1.0
+        version: 7.1.0
+      '@tevm/jsonrpc':
         specifier: workspace:^
-        version: link:../schemas
-      effect:
-        specifier: 2.0.0-next.54
-        version: 2.0.0-next.54
+        version: link:../jsonrpc
+      '@tevm/zod':
+        specifier: workspace:^
+        version: link:../zod
+      viem:
+        specifier: ^2.0.0
+        version: 2.4.0(typescript@5.3.3)(zod@3.22.4)
     devDependencies:
+      '@ethereumjs/evm':
+        specifier: ^2.1.0
+        version: 2.1.0
+      '@tevm/actions-spec':
+        specifier: workspace:^
+        version: link:../actions-types
+      '@tevm/state':
+        specifier: workspace:^
+        version: link:../state
       '@tevm/tsconfig':
         specifier: workspace:^
         version: link:../../configs/tsconfig
       '@tevm/tsupconfig':
         specifier: workspace:^
         version: link:../../configs/tsupconfig
-      '@vitest/coverage-v8':
-        specifier: ^0.34.6
-        version: 0.34.6(vitest@0.34.6)
-      '@vitest/ui':
-        specifier: ^0.34.6
-        version: 0.34.6(vitest@0.34.6)
-      rome:
-        specifier: ^12.1.3
-        version: 12.1.3
-      tsup:
-        specifier: ^7.2.0
-        version: 7.3.0(typescript@5.2.2)
-      typedoc:
-        specifier: ^0.25.3
-        version: 0.25.3(typescript@5.2.2)
-      typedoc-plugin-markdown:
-        specifier: ^3.16.0
-        version: 3.17.1(typedoc@0.25.3)
-      typescript:
-        specifier: ^5.2.2
-        version: 5.2.2
+
+  packages/actions-types:
+    devDependencies:
+      '@tevm/state':
+        specifier: workspace:^
+        version: link:../state
+      '@tevm/tsconfig':
+        specifier: workspace:^
+        version: link:../../configs/tsconfig
+      '@tevm/tsupconfig':
+        specifier: workspace:^
+        version: link:../../configs/tsupconfig
+      abitype:
+        specifier: ^0.10.3
+        version: 0.10.3(typescript@5.3.3)(zod@3.22.4)
       viem:
         specifier: ^2.0.0
-        version: 2.0.2(typescript@5.2.2)(zod@3.22.4)
-      vitest:
-        specifier: ^0.34.6
-        version: 0.34.6(@vitest/ui@0.34.6)
+        version: 2.4.0(typescript@5.3.3)(zod@3.22.4)
+
+  packages/client-types:
+    devDependencies:
+      '@tevm/actions-spec':
+        specifier: workspace:^
+        version: link:../actions-types
+      '@tevm/procedures-spec':
+        specifier: workspace:^
+        version: link:../procedures-spec
+      '@tevm/tsconfig':
+        specifier: workspace:^
+        version: link:../../configs/tsconfig
+      '@tevm/tsupconfig':
+        specifier: workspace:^
+        version: link:../../configs/tsupconfig
+
+  packages/contract:
+    dependencies:
+      abitype:
+        specifier: ^1.0.0
+        version: 1.0.0(typescript@5.3.3)(zod@3.22.4)
+      viem:
+        specifier: ^2.0.0
+        version: 2.4.0(typescript@5.3.3)(zod@3.22.4)
+    devDependencies:
+      '@evmts/core':
+        specifier: next
+        version: 1.0.0-next.12(viem@2.4.0)
+      '@evmts/ts-plugin':
+        specifier: next
+        version: 1.0.0-next.18(fast-check@3.15.0)(typescript@5.3.3)
+      '@evmts/vite-plugin':
+        specifier: next
+        version: 1.0.0-next.19(esbuild@0.19.5)(fast-check@3.15.0)(typescript@5.3.3)
+      '@tevm/tsconfig':
+        specifier: workspace:^
+        version: link:../../configs/tsconfig
+      '@tevm/tsupconfig':
+        specifier: workspace:^
+        version: link:../../configs/tsupconfig
 
   packages/effect:
     dependencies:
@@ -1452,7 +1333,7 @@ importers:
         specifier: ^1.20.4
         version: 1.20.5
 
-  packages/revm:
+  packages/errors:
     devDependencies:
       '@tevm/tsconfig':
         specifier: workspace:^
@@ -1460,54 +1341,8 @@ importers:
       '@tevm/tsupconfig':
         specifier: workspace:^
         version: link:../../configs/tsupconfig
-      '@vitest/coverage-v8':
-        specifier: ^0.34.6
-        version: 0.34.6(vitest@0.34.6)
-      '@vitest/ui':
-        specifier: ^0.34.6
-        version: 0.34.6(vitest@0.34.6)
-      abitype:
-        specifier: ^0.10.2
-        version: 0.10.2(typescript@5.2.2)(zod@3.22.4)
-      rome:
-        specifier: ^12.1.3
-        version: 12.1.3
-      tsup:
-        specifier: ^7.2.0
-        version: 7.3.0(typescript@5.2.2)
-      typedoc:
-        specifier: ^0.25.3
-        version: 0.25.3(typescript@5.2.2)
-      typedoc-plugin-markdown:
-        specifier: ^3.16.0
-        version: 3.17.1(typedoc@0.25.3)
-      typescript:
-        specifier: ^5.2.2
-        version: 5.2.2
-      viem:
-        specifier: ^2.0.0
-        version: 2.0.2(typescript@5.2.2)(zod@3.22.4)
-      vitest:
-        specifier: ^0.34.6
-        version: 0.34.6(@vitest/ui@0.34.6)
-      wagmi:
-        specifier: ^1.4.5
-        version: 1.4.7(react@18.2.0)(typescript@5.2.2)(viem@2.0.2)(zod@3.22.4)
-      wasm-pack:
-        specifier: ^0.12.1
-        version: 0.12.1
-      zod:
-        specifier: ^3.22.4
-        version: 3.22.4
 
-  packages/schemas:
-    dependencies:
-      '@effect/schema':
-        specifier: 0.47.7
-        version: 0.47.7(effect@2.0.0-next.54)(fast-check@3.15.0)
-      effect:
-        specifier: 2.0.0-next.54
-        version: 2.0.0-next.54
+  packages/jsonrpc:
     devDependencies:
       '@tevm/tsconfig':
         specifier: workspace:^
@@ -1515,121 +1350,337 @@ importers:
       '@tevm/tsupconfig':
         specifier: workspace:^
         version: link:../../configs/tsupconfig
+
+  packages/memory-client:
+    dependencies:
+      '@ethereumjs/block':
+        specifier: ^5.0.1
+        version: 5.0.1
+      '@ethereumjs/blockchain':
+        specifier: ^7.0.1
+        version: 7.0.1
+      '@ethereumjs/common':
+        specifier: ^4.1.0
+        version: 4.1.0
+      '@ethereumjs/evm':
+        specifier: ^2.1.0
+        version: 2.1.0
+      '@ethereumjs/trie':
+        specifier: ^6.0.1
+        version: 6.0.1
+      '@ethereumjs/vm':
+        specifier: ^7.1.0
+        version: 7.1.0
+      '@tevm/actions':
+        specifier: workspace:^
+        version: link:../actions
+      '@tevm/contract':
+        specifier: workspace:^
+        version: link:../contract
+      '@tevm/errors':
+        specifier: workspace:^
+        version: link:../errors
+      '@tevm/jsonrpc':
+        specifier: workspace:^
+        version: link:../jsonrpc
+      '@tevm/procedures':
+        specifier: workspace:^
+        version: link:../procedures
       viem:
         specifier: ^2.0.0
-        version: 2.0.2(typescript@5.3.3)
-
-  packages/viem-effect:
-    dependencies:
-      '@adraffy/ens-normalize':
-        specifier: 1.10.0
-        version: 1.10.0
-      '@effect/schema':
-        specifier: 0.47.7
-        version: 0.47.7(effect@2.0.0-next.54)(fast-check@3.15.0)
-      '@noble/curves':
-        specifier: 1.2.0
-        version: 1.2.0
-      '@noble/hashes':
-        specifier: 1.3.2
-        version: 1.3.2
-      '@scure/bip32':
-        specifier: 1.3.2
-        version: 1.3.2
-      '@scure/bip39':
-        specifier: 1.2.1
-        version: 1.2.1
-      '@types/glob':
-        specifier: ^8.1.0
-        version: 8.1.0
-      abitype:
-        specifier: 0.10.2
-        version: 0.10.2(typescript@5.3.3)(zod@3.22.4)
-      effect:
-        specifier: 2.0.0-next.54
-        version: 2.0.0-next.54
-      isows:
-        specifier: 1.0.3
-        version: 1.0.3(ws@8.14.2)
-      ws:
-        specifier: 8.14.2
-        version: 8.14.2
+        version: 2.4.0(typescript@5.3.3)(zod@3.22.4)
     devDependencies:
-      '@babel/core':
-        specifier: ^7.23.2
-        version: 7.23.3
-      '@babel/preset-typescript':
-        specifier: ^7.23.2
-        version: 7.23.3(@babel/core@7.23.3)
-      '@babel/template':
-        specifier: ^7.22.15
-        version: 7.22.15
-      '@babel/traverse':
-        specifier: ^7.23.2
-        version: 7.23.3
-      '@babel/types':
-        specifier: ^7.23.0
-        version: 7.23.3
+      '@ethereumjs/util':
+        specifier: ^9.0.1
+        version: 9.0.1
+      '@tevm/client-spec':
+        specifier: workspace:^
+        version: link:../client-types
+      '@tevm/predeploys':
+        specifier: workspace:^
+        version: link:../predeploys
+      '@tevm/procedures-spec':
+        specifier: workspace:^
+        version: link:../procedures-spec
+      '@tevm/state':
+        specifier: workspace:^
+        version: link:../state
       '@tevm/tsconfig':
         specifier: workspace:^
         version: link:../../configs/tsconfig
-      '@vitest/coverage-v8':
-        specifier: ^0.34.6
-        version: 0.34.6(vitest@0.34.6)
-      '@vitest/ui':
-        specifier: ^0.34.6
-        version: 0.34.6(vitest@0.34.6)
-      babel-cli:
-        specifier: ^6.26.0
-        version: 6.26.0
-      glob:
-        specifier: ^10.3.10
-        version: 10.3.10
-      rome:
-        specifier: ^12.1.3
-        version: 12.1.3
-      tsup:
-        specifier: ^7.2.0
-        version: 7.3.0(typescript@5.3.3)
-      typescript:
-        specifier: ^5.2.2
-        version: 5.3.3
+      '@tevm/tsupconfig':
+        specifier: workspace:^
+        version: link:../../configs/tsupconfig
+      abitype:
+        specifier: ^1.0.0
+        version: 1.0.0(typescript@5.3.3)(zod@3.22.4)
+
+  packages/predeploys:
+    dependencies:
+      '@ethereumjs/util':
+        specifier: ^9.0.1
+        version: 9.0.1
+      '@tevm/contract':
+        specifier: workspace:^
+        version: link:../contract
+      abitype:
+        specifier: ^0.10.3
+        version: 0.10.3(typescript@5.3.3)(zod@3.22.4)
       viem:
-        specifier: ^1.x.x
-        version: 1.19.11(typescript@5.3.3)(zod@3.22.4)
-      vitest:
-        specifier: ^0.34.6
-        version: 0.34.6(@vitest/ui@0.34.6)
-      wagmi:
-        specifier: ^1.4.5
-        version: 1.4.7(react@18.2.0)(typescript@5.3.3)(viem@1.19.11)(zod@3.22.4)
+        specifier: ^2.0.0
+        version: 2.4.0(typescript@5.3.3)(zod@3.22.4)
+    devDependencies:
+      '@tevm/tsconfig':
+        specifier: workspace:^
+        version: link:../../configs/tsconfig
+      '@tevm/tsupconfig':
+        specifier: workspace:^
+        version: link:../../configs/tsupconfig
+
+  packages/procedures:
+    dependencies:
+      '@ethereumjs/block':
+        specifier: ^5.0.1
+        version: 5.0.1
+      '@ethereumjs/blockchain':
+        specifier: ^7.0.1
+        version: 7.0.1
+      '@ethereumjs/util':
+        specifier: ^9.0.1
+        version: 9.0.1
+      '@tevm/actions':
+        specifier: workspace:^
+        version: link:../actions
+      '@tevm/errors':
+        specifier: workspace:^
+        version: link:../errors
+      '@tevm/jsonrpc':
+        specifier: workspace:1.0.0-next.22
+        version: link:../jsonrpc
+      '@tevm/zod':
+        specifier: workspace:^
+        version: link:../zod
+      viem:
+        specifier: ^2.0.0
+        version: 2.4.0(typescript@5.3.3)(zod@3.22.4)
+    devDependencies:
+      '@ethereumjs/evm':
+        specifier: ^2.1.0
+        version: 2.1.0
+      '@tevm/actions-spec':
+        specifier: workspace:^
+        version: link:../actions-types
+      '@tevm/procedures-spec':
+        specifier: workspace:^
+        version: link:../procedures-spec
+      '@tevm/state':
+        specifier: workspace:^
+        version: link:../state
+      '@tevm/tsconfig':
+        specifier: workspace:^
+        version: link:../../configs/tsconfig
+      '@tevm/tsupconfig':
+        specifier: workspace:^
+        version: link:../../configs/tsupconfig
+
+  packages/procedures-spec:
+    devDependencies:
+      '@tevm/actions-spec':
+        specifier: workspace:^
+        version: link:../actions-types
+      '@tevm/errors':
+        specifier: workspace:^
+        version: link:../errors
+      '@tevm/jsonrpc':
+        specifier: workspace:^
+        version: link:../jsonrpc
+      '@tevm/state':
+        specifier: workspace:^
+        version: link:../state
+      '@tevm/tsconfig':
+        specifier: workspace:^
+        version: link:../../configs/tsconfig
+      '@tevm/tsupconfig':
+        specifier: workspace:^
+        version: link:../../configs/tsupconfig
+      abitype:
+        specifier: ^0.10.3
+        version: 0.10.3(typescript@5.3.3)(zod@3.22.4)
+      viem:
+        specifier: ^2.0.0
+        version: 2.4.0(typescript@5.3.3)(zod@3.22.4)
+
+  packages/remote-client:
+    dependencies:
+      '@tevm/contract':
+        specifier: workspace:^
+        version: link:../contract
+      '@tevm/viem':
+        specifier: workspace:^
+        version: link:../../extensions/viem
+      viem:
+        specifier: ^2.4.0
+        version: 2.4.0(typescript@5.3.3)(zod@3.22.4)
+    devDependencies:
+      '@ethereumjs/util':
+        specifier: ^9.0.1
+        version: 9.0.1
+      '@tevm/client-memory':
+        specifier: workspace:^
+        version: link:../memory-client
+      '@tevm/client-spec':
+        specifier: workspace:^
+        version: link:../client-types
+      '@tevm/server':
+        specifier: workspace:^
+        version: link:../server
+      '@tevm/tsconfig':
+        specifier: workspace:^
+        version: link:../../configs/tsconfig
+      '@tevm/tsupconfig':
+        specifier: workspace:^
+        version: link:../../configs/tsupconfig
+
+  packages/server:
+    dependencies:
+      '@tevm/zod':
+        specifier: workspace:^
+        version: link:../zod
+    devDependencies:
+      '@ethereumjs/evm':
+        specifier: ^2.1.0
+        version: 2.1.0
+      '@tevm/actions-spec':
+        specifier: workspace:^
+        version: link:../actions-types
+      '@tevm/client-memory':
+        specifier: workspace:^
+        version: link:../memory-client
+      '@tevm/errors':
+        specifier: workspace:^
+        version: link:../errors
+      '@tevm/jsonrpc':
+        specifier: workspace:^
+        version: link:../jsonrpc
+      '@tevm/procedures-spec':
+        specifier: workspace:^
+        version: link:../procedures-spec
+      '@tevm/tsconfig':
+        specifier: workspace:^
+        version: link:../../configs/tsconfig
+      '@tevm/tsupconfig':
+        specifier: workspace:^
+        version: link:../../configs/tsupconfig
+      '@types/express':
+        specifier: ^4.17.21
+        version: 4.17.21
+      '@types/supertest':
+        specifier: ^2.0.16
+        version: 2.0.16
+      express:
+        specifier: ^4.18.2
+        version: 4.18.2
+      next:
+        specifier: ^14.1.0
+        version: 14.1.0(@babel/core@7.23.7)(react-dom@18.2.0)(react@18.2.0)
+      supertest:
+        specifier: ^6.3.3
+        version: 6.3.3
+      viem:
+        specifier: ^2.0.6
+        version: 2.4.0(typescript@5.3.3)(zod@3.22.4)
+
+  packages/state:
+    dependencies:
+      '@ethereumjs/common':
+        specifier: ^4.1.0
+        version: 4.1.0
+      '@ethereumjs/statemanager':
+        specifier: ^2.1.0
+        version: 2.1.0
+      '@ethereumjs/trie':
+        specifier: ^6.0.1
+        version: 6.0.1
+      '@ethereumjs/util':
+        specifier: ^9.0.1
+        version: 9.0.1
+      abitype:
+        specifier: ^0.10.3
+        version: 0.10.3(typescript@5.3.3)(zod@3.22.4)
+      debug:
+        specifier: ^4.3.4
+        version: 4.3.4(supports-color@8.1.1)
+      ethereum-cryptography:
+        specifier: ^2.1.2
+        version: 2.1.2
+      viem:
+        specifier: ^2.0.0
+        version: 2.4.0(typescript@5.3.3)(zod@3.22.4)
+    devDependencies:
+      '@tevm/tsconfig':
+        specifier: workspace:^
+        version: link:../../configs/tsconfig
+      '@tevm/tsupconfig':
+        specifier: workspace:^
+        version: link:../../configs/tsupconfig
+      '@types/debug':
+        specifier: ^4.1.12
+        version: 4.1.12
+
+  packages/zod:
+    dependencies:
+      abitype:
+        specifier: ^0.10.3
+        version: 0.10.3(typescript@5.3.3)(zod@3.22.4)
+      viem:
+        specifier: ^2.0.0
+        version: 2.4.0(typescript@5.3.3)(zod@3.22.4)
       zod:
         specifier: ^3.22.4
         version: 3.22.4
+    devDependencies:
+      '@tevm/actions-spec':
+        specifier: workspace:^
+        version: link:../actions-types
+      '@tevm/errors':
+        specifier: workspace:^
+        version: link:../errors
+      '@tevm/tsconfig':
+        specifier: workspace:^
+        version: link:../../configs/tsconfig
+      '@tevm/tsupconfig':
+        specifier: workspace:^
+        version: link:../../configs/tsupconfig
 
   tevm:
     dependencies:
       '@tevm/actions-spec':
         specifier: workspace:^
-        version: link:../core/actions-spec
+        version: link:../packages/actions-types
       '@tevm/base-bundler':
         specifier: workspace:1.0.0-next.21
-        version: link:../bundler/base-bundler
+        version: link:../bundler-packages/base-bundler
       '@tevm/client-memory':
         specifier: workspace:^
-        version: link:../core/client-memory
+        version: link:../packages/memory-client
       '@tevm/client-remote':
         specifier: workspace:^
-        version: link:../core/client-remote
+        version: link:../packages/remote-client
+      '@tevm/client-spec':
+        specifier: workspace:^
+        version: link:../packages/client-types
       '@tevm/contract':
         specifier: workspace:^
-        version: link:../core/contract
+        version: link:../packages/contract
+      '@tevm/errors':
+        specifier: workspace:^
+        version: link:../packages/errors
       '@tevm/predeploys':
         specifier: workspace:^
-        version: link:../core/predeploys
+        version: link:../packages/predeploys
       '@tevm/procedures-spec':
         specifier: workspace:^
-        version: link:../core/procedures-spec
+        version: link:../packages/procedures-spec
       abitype:
         specifier: ^1.0.0
         version: 1.0.0(typescript@5.3.3)(zod@3.22.4)
@@ -1639,28 +1690,28 @@ importers:
     devDependencies:
       '@tevm/bun-plugin':
         specifier: workspace:^
-        version: link:../bundler/bun
+        version: link:../bundler-packages/bun
       '@tevm/compiler':
         specifier: workspace:^
-        version: link:../bundler/compiler
+        version: link:../bundler-packages/compiler
       '@tevm/config':
         specifier: workspace:^
-        version: link:../bundler/config
+        version: link:../bundler-packages/config
       '@tevm/esbuild-plugin':
         specifier: workspace:^
-        version: link:../bundler/esbuild
+        version: link:../bundler-packages/esbuild
       '@tevm/rollup-plugin':
         specifier: workspace:^
-        version: link:../bundler/rollup
+        version: link:../bundler-packages/rollup
       '@tevm/rspack-plugin':
         specifier: workspace:^
-        version: link:../bundler/rspack
+        version: link:../bundler-packages/rspack
       '@tevm/server':
         specifier: workspace:^
-        version: link:../core/server
+        version: link:../packages/server
       '@tevm/solc':
         specifier: workspace:^
-        version: link:../bundler/solc
+        version: link:../bundler-packages/solc
       '@tevm/ts-plugin':
         specifier: workspace:^
         version: link:../lsp/ts-plugin
@@ -1672,10 +1723,10 @@ importers:
         version: link:../configs/tsupconfig
       '@tevm/vite-plugin':
         specifier: workspace:^
-        version: link:../bundler/vite
+        version: link:../bundler-packages/vite
       '@tevm/webpack-plugin':
         specifier: workspace:^
-        version: link:../bundler/webpack
+        version: link:../bundler-packages/webpack
       ethers:
         specifier: ^6.10.0
         version: 6.10.0
@@ -2136,6 +2187,7 @@ packages:
     dependencies:
       '@babel/highlight': 7.22.20
       chalk: 2.4.2
+    dev: true
 
   /@babel/code-frame@7.23.5:
     resolution: {integrity: sha512-CgH3s1a96LipHCmSUmYFPwY7MNx8C3avkq7i4Wl3cfa662ldtUe4VM1TPXX70pfmrlWTb6jLqTYrZyT2ZTJBgA==}
@@ -2144,37 +2196,9 @@ packages:
       '@babel/highlight': 7.23.4
       chalk: 2.4.2
 
-  /@babel/compat-data@7.23.3:
-    resolution: {integrity: sha512-BmR4bWbDIoFJmJ9z2cZ8Gmm2MXgEDgjdWgpKmKWUt54UGFJdlj31ECtbaDvCG/qVdG3AQ1SfpZEs01lUFbzLOQ==}
-    engines: {node: '>=6.9.0'}
-    dev: true
-
   /@babel/compat-data@7.23.5:
     resolution: {integrity: sha512-uU27kfDRlhfKl+w1U6vp16IuvSLtjAxdArVXPa9BvLkrr7CYIsxH5adpHObeAGY/41+syctUWOZ140a2Rvkgjw==}
     engines: {node: '>=6.9.0'}
-
-  /@babel/core@7.23.3:
-    resolution: {integrity: sha512-Jg+msLuNuCJDyBvFv5+OKOUjWMZgd85bKjbICd3zWrKAo+bJ49HJufi7CQE0q0uR8NGyO6xkCACScNqyjHSZew==}
-    engines: {node: '>=6.9.0'}
-    dependencies:
-      '@ampproject/remapping': 2.2.1
-      '@babel/code-frame': 7.22.13
-      '@babel/generator': 7.23.3
-      '@babel/helper-compilation-targets': 7.22.15
-      '@babel/helper-module-transforms': 7.23.3(@babel/core@7.23.3)
-      '@babel/helpers': 7.23.2
-      '@babel/parser': 7.23.3
-      '@babel/template': 7.22.15
-      '@babel/traverse': 7.23.3
-      '@babel/types': 7.23.3
-      convert-source-map: 2.0.0
-      debug: 4.3.4(supports-color@8.1.1)
-      gensync: 1.0.0-beta.2
-      json5: 2.2.3
-      semver: 6.3.1
-    transitivePeerDependencies:
-      - supports-color
-    dev: true
 
   /@babel/core@7.23.7:
     resolution: {integrity: sha512-+UpDgowcmqe36d4NwqvKsyPMlOLNGMsfMmQ5WGCu+siCe3t3dfe9njrzGfdN4qq+bcNUt0+Vw6haRxBOycs4dw==}
@@ -2198,16 +2222,6 @@ packages:
     transitivePeerDependencies:
       - supports-color
 
-  /@babel/generator@7.23.3:
-    resolution: {integrity: sha512-keeZWAV4LU3tW0qRi19HRpabC/ilM0HRBBzf9/k8FFiG4KVpiv0FIy4hHfLfFQZNhziCTPTmd59zoyv6DNISzg==}
-    engines: {node: '>=6.9.0'}
-    dependencies:
-      '@babel/types': 7.23.3
-      '@jridgewell/gen-mapping': 0.3.3
-      '@jridgewell/trace-mapping': 0.3.20
-      jsesc: 2.5.2
-    dev: true
-
   /@babel/generator@7.23.6:
     resolution: {integrity: sha512-qrSfCYxYQB5owCmGLbl8XRpX1ytXlpueOb0N0UmQwA073KZxejgQTzAmJezxvpwQD9uGtK2shHdi55QT+MbjIw==}
     engines: {node: '>=6.9.0'}
@@ -2221,18 +2235,7 @@ packages:
     resolution: {integrity: sha512-LvBTxu8bQSQkcyKOU+a1btnNFQ1dMAd0R6PyW3arXes06F6QLWLIrd681bxRPIXlrMGR3XYnW9JyML7dP3qgxg==}
     engines: {node: '>=6.9.0'}
     dependencies:
-      '@babel/types': 7.23.3
-
-  /@babel/helper-compilation-targets@7.22.15:
-    resolution: {integrity: sha512-y6EEzULok0Qvz8yyLkCvVX+02ic+By2UdOhylwUOvOn9dvYc9mKICJuuU1n1XBI02YWsNsnrY1kc6DVbjcXbtw==}
-    engines: {node: '>=6.9.0'}
-    dependencies:
-      '@babel/compat-data': 7.23.3
-      '@babel/helper-validator-option': 7.22.15
-      browserslist: 4.22.1
-      lru-cache: 5.1.1
-      semver: 6.3.1
-    dev: true
+      '@babel/types': 7.23.6
 
   /@babel/helper-compilation-targets@7.23.6:
     resolution: {integrity: sha512-9JB548GZoQVmzrFgp8o7KxdgkTGm6xs9DW0o/Pim72UDjzr5ObUQ6ZzYPqA+g9OTS2bBQoctLJrky0RDCAWRgQ==}
@@ -2244,19 +2247,19 @@ packages:
       lru-cache: 5.1.1
       semver: 6.3.1
 
-  /@babel/helper-create-class-features-plugin@7.22.15(@babel/core@7.23.3):
+  /@babel/helper-create-class-features-plugin@7.22.15(@babel/core@7.23.7):
     resolution: {integrity: sha512-jKkwA59IXcvSaiK2UN45kKwSC9o+KuoXsBDvHvU/7BecYIp8GQ2UwrVvFgJASUT+hBnwJx6MhvMCuMzwZZ7jlg==}
     engines: {node: '>=6.9.0'}
     peerDependencies:
       '@babel/core': ^7.0.0
     dependencies:
-      '@babel/core': 7.23.3
+      '@babel/core': 7.23.7
       '@babel/helper-annotate-as-pure': 7.22.5
       '@babel/helper-environment-visitor': 7.22.20
       '@babel/helper-function-name': 7.23.0
       '@babel/helper-member-expression-to-functions': 7.23.0
       '@babel/helper-optimise-call-expression': 7.22.5
-      '@babel/helper-replace-supers': 7.22.20(@babel/core@7.23.3)
+      '@babel/helper-replace-supers': 7.22.20(@babel/core@7.23.7)
       '@babel/helper-skip-transparent-expression-wrappers': 7.22.5
       '@babel/helper-split-export-declaration': 7.22.6
       semver: 6.3.1
@@ -2271,40 +2274,26 @@ packages:
     engines: {node: '>=6.9.0'}
     dependencies:
       '@babel/template': 7.22.15
-      '@babel/types': 7.23.3
+      '@babel/types': 7.23.6
 
   /@babel/helper-hoist-variables@7.22.5:
     resolution: {integrity: sha512-wGjk9QZVzvknA6yKIUURb8zY3grXCcOZt+/7Wcy8O2uctxhplmUPkOdlgoNhmdVee2c92JXbf1xpMtVNbfoxRw==}
     engines: {node: '>=6.9.0'}
     dependencies:
-      '@babel/types': 7.23.3
+      '@babel/types': 7.23.6
 
   /@babel/helper-member-expression-to-functions@7.23.0:
     resolution: {integrity: sha512-6gfrPwh7OuT6gZyJZvd6WbTfrqAo7vm4xCzAXOusKqq/vWdKXphTpj5klHKNmRUU6/QRGlBsyU9mAIPaWHlqJA==}
     engines: {node: '>=6.9.0'}
     dependencies:
-      '@babel/types': 7.23.3
+      '@babel/types': 7.23.6
     dev: true
 
   /@babel/helper-module-imports@7.22.15:
     resolution: {integrity: sha512-0pYVBnDKZO2fnSPCrgM/6WMc7eS20Fbok+0r88fp+YtWVLZrp4CkafFGIp+W0VKw4a22sgebPT99y+FDNMdP4w==}
     engines: {node: '>=6.9.0'}
     dependencies:
-      '@babel/types': 7.23.3
-
-  /@babel/helper-module-transforms@7.23.3(@babel/core@7.23.3):
-    resolution: {integrity: sha512-7bBs4ED9OmswdfDzpz4MpWgSrV7FXlc3zIagvLFjS5H+Mk7Snr21vQ6QwrsoCGMfNC4e4LQPdoULEt4ykz0SRQ==}
-    engines: {node: '>=6.9.0'}
-    peerDependencies:
-      '@babel/core': ^7.0.0
-    dependencies:
-      '@babel/core': 7.23.3
-      '@babel/helper-environment-visitor': 7.22.20
-      '@babel/helper-module-imports': 7.22.15
-      '@babel/helper-simple-access': 7.22.5
-      '@babel/helper-split-export-declaration': 7.22.6
-      '@babel/helper-validator-identifier': 7.22.20
-    dev: true
+      '@babel/types': 7.23.6
 
   /@babel/helper-module-transforms@7.23.3(@babel/core@7.23.7):
     resolution: {integrity: sha512-7bBs4ED9OmswdfDzpz4MpWgSrV7FXlc3zIagvLFjS5H+Mk7Snr21vQ6QwrsoCGMfNC4e4LQPdoULEt4ykz0SRQ==}
@@ -2323,20 +2312,20 @@ packages:
     resolution: {integrity: sha512-HBwaojN0xFRx4yIvpwGqxiV2tUfl7401jlok564NgB9EHS1y6QT17FmKWm4ztqjeVdXLuC4fSvHc5ePpQjoTbw==}
     engines: {node: '>=6.9.0'}
     dependencies:
-      '@babel/types': 7.23.3
+      '@babel/types': 7.23.6
     dev: true
 
   /@babel/helper-plugin-utils@7.22.5:
     resolution: {integrity: sha512-uLls06UVKgFG9QD4OeFYLEGteMIAa5kpTPcFL28yuCIIzsf6ZyKZMllKVOCZFhiZ5ptnwX4mtKdWCBE/uT4amg==}
     engines: {node: '>=6.9.0'}
 
-  /@babel/helper-replace-supers@7.22.20(@babel/core@7.23.3):
+  /@babel/helper-replace-supers@7.22.20(@babel/core@7.23.7):
     resolution: {integrity: sha512-qsW0In3dbwQUbK8kejJ4R7IHVGwHJlV6lpG6UA7a9hSa2YEiAib+N1T2kr6PEeUT+Fl7najmSOS6SmAwCHK6Tw==}
     engines: {node: '>=6.9.0'}
     peerDependencies:
       '@babel/core': ^7.0.0
     dependencies:
-      '@babel/core': 7.23.3
+      '@babel/core': 7.23.7
       '@babel/helper-environment-visitor': 7.22.20
       '@babel/helper-member-expression-to-functions': 7.23.0
       '@babel/helper-optimise-call-expression': 7.22.5
@@ -2346,24 +2335,20 @@ packages:
     resolution: {integrity: sha512-n0H99E/K+Bika3++WNL17POvo4rKWZ7lZEp1Q+fStVbUi8nxPQEBOlTmCOxW/0JsS56SKKQ+ojAe2pHKJHN35w==}
     engines: {node: '>=6.9.0'}
     dependencies:
-      '@babel/types': 7.23.3
+      '@babel/types': 7.23.6
 
   /@babel/helper-skip-transparent-expression-wrappers@7.22.5:
     resolution: {integrity: sha512-tK14r66JZKiC43p8Ki33yLBVJKlQDFoA8GYN67lWCDCqoL6EMMSuM9b+Iff2jHaM/RRFYl7K+iiru7hbRqNx8Q==}
     engines: {node: '>=6.9.0'}
     dependencies:
-      '@babel/types': 7.23.3
+      '@babel/types': 7.23.6
     dev: true
 
   /@babel/helper-split-export-declaration@7.22.6:
     resolution: {integrity: sha512-AsUnxuLhRYsisFiaJwvp1QF+I3KjD5FOxut14q/GzovUe6orHLesW2C7d754kRm53h5gqrz6sFl6sxc4BVtE/g==}
     engines: {node: '>=6.9.0'}
     dependencies:
-      '@babel/types': 7.23.3
-
-  /@babel/helper-string-parser@7.22.5:
-    resolution: {integrity: sha512-mM4COjgZox8U+JcXQwPijIZLElkgEpO5rsERVDJTc2qfCDfERyob6k5WegS14SX18IIjv+XD+GrqNumY5JRCDw==}
-    engines: {node: '>=6.9.0'}
+      '@babel/types': 7.23.6
 
   /@babel/helper-string-parser@7.23.4:
     resolution: {integrity: sha512-803gmbQdqwdf4olxrX4AJyFBV/RTr3rSmOj0rKwesmzlfhYNDEs+/iOcznzpNWlJlIlTJC2QfPFcHB6DlzdVLQ==}
@@ -2373,25 +2358,9 @@ packages:
     resolution: {integrity: sha512-Y4OZ+ytlatR8AI+8KZfKuL5urKp7qey08ha31L8b3BwewJAoJamTzyvxPR/5D+KkdJCGPq/+8TukHBlY10FX9A==}
     engines: {node: '>=6.9.0'}
 
-  /@babel/helper-validator-option@7.22.15:
-    resolution: {integrity: sha512-bMn7RmyFjY/mdECUbgn9eoSY4vqvacUnS9i9vGAGttgFWesO6B4CYWA7XlpbWgBt71iv/hfbPlynohStqnu5hA==}
-    engines: {node: '>=6.9.0'}
-    dev: true
-
   /@babel/helper-validator-option@7.23.5:
     resolution: {integrity: sha512-85ttAOMLsr53VgXkTbkx8oA6YTfT4q7/HzXSLEYmjcSTJPMPQtvq1BD79Byep5xMUYbGRzEpDsjUf3dyp54IKw==}
     engines: {node: '>=6.9.0'}
-
-  /@babel/helpers@7.23.2:
-    resolution: {integrity: sha512-lzchcp8SjTSVe/fPmLwtWVBFC7+Tbn8LGHDVfDp9JGxpAY5opSaEFgt8UQvrnECWOTdji2mOWMz1rOhkHscmGQ==}
-    engines: {node: '>=6.9.0'}
-    dependencies:
-      '@babel/template': 7.22.15
-      '@babel/traverse': 7.23.3
-      '@babel/types': 7.23.3
-    transitivePeerDependencies:
-      - supports-color
-    dev: true
 
   /@babel/helpers@7.23.8:
     resolution: {integrity: sha512-KDqYz4PiOWvDFrdHLPhKtCThtIcKVy6avWD2oG4GEvyQ+XDZwHD4YQd+H2vNMnq2rkdxsDkU82T+Vk8U/WXHRQ==}
@@ -2410,6 +2379,7 @@ packages:
       '@babel/helper-validator-identifier': 7.22.20
       chalk: 2.4.2
       js-tokens: 4.0.0
+    dev: true
 
   /@babel/highlight@7.23.4:
     resolution: {integrity: sha512-acGdbYSfp2WheJoJm/EBBBLh/ID8KDc64ISZ9DYtBmC8/Q204PZJLHyzeB5qMzJ5trcOkybd78M4x2KWsUq++A==}
@@ -2424,7 +2394,8 @@ packages:
     engines: {node: '>=6.0.0'}
     hasBin: true
     dependencies:
-      '@babel/types': 7.23.3
+      '@babel/types': 7.23.6
+    dev: true
 
   /@babel/parser@7.23.6:
     resolution: {integrity: sha512-Z2uID7YJ7oNvAI20O9X0bblw7Qqs8Q2hFy0R9tAfnfLkp5MW0UH9eUvnDSnFwKZ0AvgS1ucqR4KzvVHgnke1VQ==}
@@ -2432,16 +2403,6 @@ packages:
     hasBin: true
     dependencies:
       '@babel/types': 7.23.6
-
-  /@babel/plugin-syntax-jsx@7.23.3(@babel/core@7.23.3):
-    resolution: {integrity: sha512-EB2MELswq55OHUoRZLGg/zC7QWUKfNLpE57m/S2yr1uEneIgsTgrSzXP3NXEsMkVn76OlaVVnzN+ugObuYGwhg==}
-    engines: {node: '>=6.9.0'}
-    peerDependencies:
-      '@babel/core': ^7.0.0-0
-    dependencies:
-      '@babel/core': 7.23.3
-      '@babel/helper-plugin-utils': 7.22.5
-    dev: true
 
   /@babel/plugin-syntax-jsx@7.23.3(@babel/core@7.23.7):
     resolution: {integrity: sha512-EB2MELswq55OHUoRZLGg/zC7QWUKfNLpE57m/S2yr1uEneIgsTgrSzXP3NXEsMkVn76OlaVVnzN+ugObuYGwhg==}
@@ -2452,45 +2413,45 @@ packages:
       '@babel/core': 7.23.7
       '@babel/helper-plugin-utils': 7.22.5
 
-  /@babel/plugin-syntax-typescript@7.23.3(@babel/core@7.23.3):
+  /@babel/plugin-syntax-typescript@7.23.3(@babel/core@7.23.7):
     resolution: {integrity: sha512-9EiNjVJOMwCO+43TqoTrgQ8jMwcAd0sWyXi9RPfIsLTj4R2MADDDQXELhffaUx/uJv2AYcxBgPwH6j4TIA4ytQ==}
     engines: {node: '>=6.9.0'}
     peerDependencies:
       '@babel/core': ^7.0.0-0
     dependencies:
-      '@babel/core': 7.23.3
+      '@babel/core': 7.23.7
       '@babel/helper-plugin-utils': 7.22.5
     dev: true
 
-  /@babel/plugin-transform-modules-commonjs@7.23.3(@babel/core@7.23.3):
+  /@babel/plugin-transform-modules-commonjs@7.23.3(@babel/core@7.23.7):
     resolution: {integrity: sha512-aVS0F65LKsdNOtcz6FRCpE4OgsP2OFnW46qNxNIX9h3wuzaNcSQsJysuMwqSibC98HPrf2vCgtxKNwS0DAlgcA==}
     engines: {node: '>=6.9.0'}
     peerDependencies:
       '@babel/core': ^7.0.0-0
     dependencies:
-      '@babel/core': 7.23.3
-      '@babel/helper-module-transforms': 7.23.3(@babel/core@7.23.3)
+      '@babel/core': 7.23.7
+      '@babel/helper-module-transforms': 7.23.3(@babel/core@7.23.7)
       '@babel/helper-plugin-utils': 7.22.5
       '@babel/helper-simple-access': 7.22.5
     dev: true
 
-  /@babel/plugin-transform-react-jsx-self@7.23.3(@babel/core@7.23.3):
+  /@babel/plugin-transform-react-jsx-self@7.23.3(@babel/core@7.23.7):
     resolution: {integrity: sha512-qXRvbeKDSfwnlJnanVRp0SfuWE5DQhwQr5xtLBzp56Wabyo+4CMosF6Kfp+eOD/4FYpql64XVJ2W0pVLlJZxOQ==}
     engines: {node: '>=6.9.0'}
     peerDependencies:
       '@babel/core': ^7.0.0-0
     dependencies:
-      '@babel/core': 7.23.3
+      '@babel/core': 7.23.7
       '@babel/helper-plugin-utils': 7.22.5
     dev: true
 
-  /@babel/plugin-transform-react-jsx-source@7.23.3(@babel/core@7.23.3):
+  /@babel/plugin-transform-react-jsx-source@7.23.3(@babel/core@7.23.7):
     resolution: {integrity: sha512-91RS0MDnAWDNvGC6Wio5XYkyWI39FMFO+JK9+4AlgaTH+yWwVTsw7/sn6LK0lH7c5F+TFkpv/3LfCJ1Ydwof/g==}
     engines: {node: '>=6.9.0'}
     peerDependencies:
       '@babel/core': ^7.0.0-0
     dependencies:
-      '@babel/core': 7.23.3
+      '@babel/core': 7.23.7
       '@babel/helper-plugin-utils': 7.22.5
     dev: true
 
@@ -2507,31 +2468,31 @@ packages:
       '@babel/plugin-syntax-jsx': 7.23.3(@babel/core@7.23.7)
       '@babel/types': 7.23.6
 
-  /@babel/plugin-transform-typescript@7.23.3(@babel/core@7.23.3):
+  /@babel/plugin-transform-typescript@7.23.3(@babel/core@7.23.7):
     resolution: {integrity: sha512-ogV0yWnq38CFwH20l2Afz0dfKuZBx9o/Y2Rmh5vuSS0YD1hswgEgTfyTzuSrT2q9btmHRSqYoSfwFUVaC1M1Jw==}
     engines: {node: '>=6.9.0'}
     peerDependencies:
       '@babel/core': ^7.0.0-0
     dependencies:
-      '@babel/core': 7.23.3
+      '@babel/core': 7.23.7
       '@babel/helper-annotate-as-pure': 7.22.5
-      '@babel/helper-create-class-features-plugin': 7.22.15(@babel/core@7.23.3)
+      '@babel/helper-create-class-features-plugin': 7.22.15(@babel/core@7.23.7)
       '@babel/helper-plugin-utils': 7.22.5
-      '@babel/plugin-syntax-typescript': 7.23.3(@babel/core@7.23.3)
+      '@babel/plugin-syntax-typescript': 7.23.3(@babel/core@7.23.7)
     dev: true
 
-  /@babel/preset-typescript@7.23.3(@babel/core@7.23.3):
+  /@babel/preset-typescript@7.23.3(@babel/core@7.23.7):
     resolution: {integrity: sha512-17oIGVlqz6CchO9RFYn5U6ZpWRZIngayYCtrPRSgANSwC2V1Jb+iP74nVxzzXJte8b8BYxrL1yY96xfhTBrNNQ==}
     engines: {node: '>=6.9.0'}
     peerDependencies:
       '@babel/core': ^7.0.0-0
     dependencies:
-      '@babel/core': 7.23.3
+      '@babel/core': 7.23.7
       '@babel/helper-plugin-utils': 7.22.5
-      '@babel/helper-validator-option': 7.22.15
-      '@babel/plugin-syntax-jsx': 7.23.3(@babel/core@7.23.3)
-      '@babel/plugin-transform-modules-commonjs': 7.23.3(@babel/core@7.23.3)
-      '@babel/plugin-transform-typescript': 7.23.3(@babel/core@7.23.3)
+      '@babel/helper-validator-option': 7.23.5
+      '@babel/plugin-syntax-jsx': 7.23.3(@babel/core@7.23.7)
+      '@babel/plugin-transform-modules-commonjs': 7.23.3(@babel/core@7.23.7)
+      '@babel/plugin-transform-typescript': 7.23.3(@babel/core@7.23.7)
     dev: true
 
   /@babel/runtime@7.23.2:
@@ -2551,27 +2512,9 @@ packages:
     resolution: {integrity: sha512-QPErUVm4uyJa60rkI73qneDacvdvzxshT3kksGqlGWYdOTIUOwJ7RDUL8sGqslY1uXWSL6xMFKEXDS3ox2uF0w==}
     engines: {node: '>=6.9.0'}
     dependencies:
-      '@babel/code-frame': 7.22.13
-      '@babel/parser': 7.23.3
-      '@babel/types': 7.23.3
-
-  /@babel/traverse@7.23.3:
-    resolution: {integrity: sha512-+K0yF1/9yR0oHdE0StHuEj3uTPzwwbrLGfNOndVJVV2TqA5+j3oljJUb4nmB954FLGjNem976+B+eDuLIjesiQ==}
-    engines: {node: '>=6.9.0'}
-    dependencies:
-      '@babel/code-frame': 7.22.13
-      '@babel/generator': 7.23.3
-      '@babel/helper-environment-visitor': 7.22.20
-      '@babel/helper-function-name': 7.23.0
-      '@babel/helper-hoist-variables': 7.22.5
-      '@babel/helper-split-export-declaration': 7.22.6
-      '@babel/parser': 7.23.3
-      '@babel/types': 7.23.3
-      debug: 4.3.4(supports-color@8.1.1)
-      globals: 11.12.0
-    transitivePeerDependencies:
-      - supports-color
-    dev: true
+      '@babel/code-frame': 7.23.5
+      '@babel/parser': 7.23.6
+      '@babel/types': 7.23.6
 
   /@babel/traverse@7.23.7:
     resolution: {integrity: sha512-tY3mM8rH9jM0YHFGyfC0/xf+SB5eKUu7HPj7/k3fpi9dAlsMc5YbQvDi0Sh2QTPXqMhyaAtzAr807TIyfQrmyg==}
@@ -2589,14 +2532,6 @@ packages:
       globals: 11.12.0
     transitivePeerDependencies:
       - supports-color
-
-  /@babel/types@7.23.3:
-    resolution: {integrity: sha512-OZnvoH2l8PK5eUvEcUyCt/sXgr/h+UWpVuBbOljwcrAgUl6lpchoQ++PHGyQy1AtYnVA6CEq3y5xeEI10brpXw==}
-    engines: {node: '>=6.9.0'}
-    dependencies:
-      '@babel/helper-string-parser': 7.22.5
-      '@babel/helper-validator-identifier': 7.22.20
-      to-fast-properties: 2.0.0
 
   /@babel/types@7.23.6:
     resolution: {integrity: sha512-+uarb83brBzPKN38NX1MkB6vb6+mwvR6amUulqAE7ccQw1pEl+bCia9TbdG1lsnFP7lZySvUn37CHyXQdfTwzg==}
@@ -2965,15 +2900,6 @@ packages:
     resolution: {integrity: sha512-kBJtf7PH6aWwZ6fka3zQ0p6SBYzx4fl1LoZXE2RrnYST9Xljm7WfKJrU4g/Xr3Beg72MLrp1AWNUmuYJTL7Cow==}
     dev: false
 
-  /@esbuild/aix-ppc64@0.19.10:
-    resolution: {integrity: sha512-Q+mk96KJ+FZ30h9fsJl+67IjNJm3x2eX+GBWGmocAKgzp27cowCOOqSdscX80s0SpdFXZnIv/+1xD1EctFx96Q==}
-    engines: {node: '>=12'}
-    cpu: [ppc64]
-    os: [aix]
-    requiresBuild: true
-    dev: true
-    optional: true
-
   /@esbuild/aix-ppc64@0.19.11:
     resolution: {integrity: sha512-FnzU0LyE3ySQk7UntJO4+qIiQgI7KoODnZg5xzXIrFJlKd2P2gwHsHY4927xj9y5PJmJSzULiUCWmv7iWnNa7g==}
     engines: {node: '>=12'}
@@ -2984,15 +2910,6 @@ packages:
 
   /@esbuild/android-arm64@0.18.20:
     resolution: {integrity: sha512-Nz4rJcchGDtENV0eMKUNa6L12zz2zBDXuhj/Vjh18zGqB44Bi7MBMSXjgunJgjRhCmKOjnPuZp4Mb6OKqtMHLQ==}
-    engines: {node: '>=12'}
-    cpu: [arm64]
-    os: [android]
-    requiresBuild: true
-    dev: true
-    optional: true
-
-  /@esbuild/android-arm64@0.19.10:
-    resolution: {integrity: sha512-1X4CClKhDgC3by7k8aOWZeBXQX8dHT5QAMCAQDArCLaYfkppoARvh0fit3X2Qs+MXDngKcHv6XXyQCpY0hkK1Q==}
     engines: {node: '>=12'}
     cpu: [arm64]
     os: [android]
@@ -3044,15 +2961,6 @@ packages:
     dev: true
     optional: true
 
-  /@esbuild/android-arm@0.19.10:
-    resolution: {integrity: sha512-7W0bK7qfkw1fc2viBfrtAEkDKHatYfHzr/jKAHNr9BvkYDXPcC6bodtm8AyLJNNuqClLNaeTLuwURt4PRT9d7w==}
-    engines: {node: '>=12'}
-    cpu: [arm]
-    os: [android]
-    requiresBuild: true
-    dev: true
-    optional: true
-
   /@esbuild/android-arm@0.19.11:
     resolution: {integrity: sha512-5OVapq0ClabvKvQ58Bws8+wkLCV+Rxg7tUVbo9xu034Nm536QTII4YzhaFriQ7rMrorfnFKUsArD2lqKbFY4vw==}
     engines: {node: '>=12'}
@@ -3090,15 +2998,6 @@ packages:
 
   /@esbuild/android-x64@0.18.20:
     resolution: {integrity: sha512-8GDdlePJA8D6zlZYJV/jnrRAi6rOiNaCC/JclcXpB+KIuvfBN4owLtgzY2bsxnx666XjJx2kDPUmnTtR8qKQUg==}
-    engines: {node: '>=12'}
-    cpu: [x64]
-    os: [android]
-    requiresBuild: true
-    dev: true
-    optional: true
-
-  /@esbuild/android-x64@0.19.10:
-    resolution: {integrity: sha512-O/nO/g+/7NlitUxETkUv/IvADKuZXyH4BHf/g/7laqKC4i/7whLpB0gvpPc2zpF0q9Q6FXS3TS75QHac9MvVWw==}
     engines: {node: '>=12'}
     cpu: [x64]
     os: [android]
@@ -3150,15 +3049,6 @@ packages:
     dev: true
     optional: true
 
-  /@esbuild/darwin-arm64@0.19.10:
-    resolution: {integrity: sha512-YSRRs2zOpwypck+6GL3wGXx2gNP7DXzetmo5pHXLrY/VIMsS59yKfjPizQ4lLt5vEI80M41gjm2BxrGZ5U+VMA==}
-    engines: {node: '>=12'}
-    cpu: [arm64]
-    os: [darwin]
-    requiresBuild: true
-    dev: true
-    optional: true
-
   /@esbuild/darwin-arm64@0.19.11:
     resolution: {integrity: sha512-ETp87DRWuSt9KdDVkqSoKoLFHYTrkyz2+65fj9nfXsaV3bMhTCjtQfw3y+um88vGRKRiF7erPrh/ZuIdLUIVxQ==}
     engines: {node: '>=12'}
@@ -3196,15 +3086,6 @@ packages:
 
   /@esbuild/darwin-x64@0.18.20:
     resolution: {integrity: sha512-pc5gxlMDxzm513qPGbCbDukOdsGtKhfxD1zJKXjCCcU7ju50O7MeAZ8c4krSJcOIJGFR+qx21yMMVYwiQvyTyQ==}
-    engines: {node: '>=12'}
-    cpu: [x64]
-    os: [darwin]
-    requiresBuild: true
-    dev: true
-    optional: true
-
-  /@esbuild/darwin-x64@0.19.10:
-    resolution: {integrity: sha512-alfGtT+IEICKtNE54hbvPg13xGBe4GkVxyGWtzr+yHO7HIiRJppPDhOKq3zstTcVf8msXb/t4eavW3jCDpMSmA==}
     engines: {node: '>=12'}
     cpu: [x64]
     os: [darwin]
@@ -3256,15 +3137,6 @@ packages:
     dev: true
     optional: true
 
-  /@esbuild/freebsd-arm64@0.19.10:
-    resolution: {integrity: sha512-dMtk1wc7FSH8CCkE854GyGuNKCewlh+7heYP/sclpOG6Cectzk14qdUIY5CrKDbkA/OczXq9WesqnPl09mj5dg==}
-    engines: {node: '>=12'}
-    cpu: [arm64]
-    os: [freebsd]
-    requiresBuild: true
-    dev: true
-    optional: true
-
   /@esbuild/freebsd-arm64@0.19.11:
     resolution: {integrity: sha512-lhoSp5K6bxKRNdXUtHoNc5HhbXVCS8V0iZmDvyWvYq9S5WSfTIHU2UGjcGt7UeS6iEYp9eeymIl5mJBn0yiuxA==}
     engines: {node: '>=12'}
@@ -3302,15 +3174,6 @@ packages:
 
   /@esbuild/freebsd-x64@0.18.20:
     resolution: {integrity: sha512-tgWRPPuQsd3RmBZwarGVHZQvtzfEBOreNuxEMKFcd5DaDn2PbBxfwLcj4+aenoh7ctXcbXmOQIn8HI6mCSw5MQ==}
-    engines: {node: '>=12'}
-    cpu: [x64]
-    os: [freebsd]
-    requiresBuild: true
-    dev: true
-    optional: true
-
-  /@esbuild/freebsd-x64@0.19.10:
-    resolution: {integrity: sha512-G5UPPspryHu1T3uX8WiOEUa6q6OlQh6gNl4CO4Iw5PS+Kg5bVggVFehzXBJY6X6RSOMS8iXDv2330VzaObm4Ag==}
     engines: {node: '>=12'}
     cpu: [x64]
     os: [freebsd]
@@ -3362,15 +3225,6 @@ packages:
     dev: true
     optional: true
 
-  /@esbuild/linux-arm64@0.19.10:
-    resolution: {integrity: sha512-QxaouHWZ+2KWEj7cGJmvTIHVALfhpGxo3WLmlYfJ+dA5fJB6lDEIg+oe/0//FuyVHuS3l79/wyBxbHr0NgtxJQ==}
-    engines: {node: '>=12'}
-    cpu: [arm64]
-    os: [linux]
-    requiresBuild: true
-    dev: true
-    optional: true
-
   /@esbuild/linux-arm64@0.19.11:
     resolution: {integrity: sha512-LneLg3ypEeveBSMuoa0kwMpCGmpu8XQUh+mL8XXwoYZ6Be2qBnVtcDI5azSvh7vioMDhoJFZzp9GWp9IWpYoUg==}
     engines: {node: '>=12'}
@@ -3408,15 +3262,6 @@ packages:
 
   /@esbuild/linux-arm@0.18.20:
     resolution: {integrity: sha512-/5bHkMWnq1EgKr1V+Ybz3s1hWXok7mDFUMQ4cG10AfW3wL02PSZi5kFpYKrptDsgb2WAJIvRcDm+qIvXf/apvg==}
-    engines: {node: '>=12'}
-    cpu: [arm]
-    os: [linux]
-    requiresBuild: true
-    dev: true
-    optional: true
-
-  /@esbuild/linux-arm@0.19.10:
-    resolution: {integrity: sha512-j6gUW5aAaPgD416Hk9FHxn27On28H4eVI9rJ4az7oCGTFW48+LcgNDBN+9f8rKZz7EEowo889CPKyeaD0iw9Kg==}
     engines: {node: '>=12'}
     cpu: [arm]
     os: [linux]
@@ -3468,15 +3313,6 @@ packages:
     dev: true
     optional: true
 
-  /@esbuild/linux-ia32@0.19.10:
-    resolution: {integrity: sha512-4ub1YwXxYjj9h1UIZs2hYbnTZBtenPw5NfXCRgEkGb0b6OJ2gpkMvDqRDYIDRjRdWSe/TBiZltm3Y3Q8SN1xNg==}
-    engines: {node: '>=12'}
-    cpu: [ia32]
-    os: [linux]
-    requiresBuild: true
-    dev: true
-    optional: true
-
   /@esbuild/linux-ia32@0.19.11:
     resolution: {integrity: sha512-caHy++CsD8Bgq2V5CodbJjFPEiDPq8JJmBdeyZ8GWVQMjRD0sU548nNdwPNvKjVpamYYVL40AORekgfIubwHoA==}
     engines: {node: '>=12'}
@@ -3514,15 +3350,6 @@ packages:
 
   /@esbuild/linux-loong64@0.18.20:
     resolution: {integrity: sha512-nXW8nqBTrOpDLPgPY9uV+/1DjxoQ7DoB2N8eocyq8I9XuqJ7BiAMDMf9n1xZM9TgW0J8zrquIb/A7s3BJv7rjg==}
-    engines: {node: '>=12'}
-    cpu: [loong64]
-    os: [linux]
-    requiresBuild: true
-    dev: true
-    optional: true
-
-  /@esbuild/linux-loong64@0.19.10:
-    resolution: {integrity: sha512-lo3I9k+mbEKoxtoIbM0yC/MZ1i2wM0cIeOejlVdZ3D86LAcFXFRdeuZmh91QJvUTW51bOK5W2BznGNIl4+mDaA==}
     engines: {node: '>=12'}
     cpu: [loong64]
     os: [linux]
@@ -3574,15 +3401,6 @@ packages:
     dev: true
     optional: true
 
-  /@esbuild/linux-mips64el@0.19.10:
-    resolution: {integrity: sha512-J4gH3zhHNbdZN0Bcr1QUGVNkHTdpijgx5VMxeetSk6ntdt+vR1DqGmHxQYHRmNb77tP6GVvD+K0NyO4xjd7y4A==}
-    engines: {node: '>=12'}
-    cpu: [mips64el]
-    os: [linux]
-    requiresBuild: true
-    dev: true
-    optional: true
-
   /@esbuild/linux-mips64el@0.19.11:
     resolution: {integrity: sha512-B5x9j0OgjG+v1dF2DkH34lr+7Gmv0kzX6/V0afF41FkPMMqaQ77pH7CrhWeR22aEeHKaeZVtZ6yFwlxOKPVFyg==}
     engines: {node: '>=12'}
@@ -3620,15 +3438,6 @@ packages:
 
   /@esbuild/linux-ppc64@0.18.20:
     resolution: {integrity: sha512-WHPyeScRNcmANnLQkq6AfyXRFr5D6N2sKgkFo2FqguP44Nw2eyDlbTdZwd9GYk98DZG9QItIiTlFLHJHjxP3FA==}
-    engines: {node: '>=12'}
-    cpu: [ppc64]
-    os: [linux]
-    requiresBuild: true
-    dev: true
-    optional: true
-
-  /@esbuild/linux-ppc64@0.19.10:
-    resolution: {integrity: sha512-tgT/7u+QhV6ge8wFMzaklOY7KqiyitgT1AUHMApau32ZlvTB/+efeCtMk4eXS+uEymYK249JsoiklZN64xt6oQ==}
     engines: {node: '>=12'}
     cpu: [ppc64]
     os: [linux]
@@ -3680,15 +3489,6 @@ packages:
     dev: true
     optional: true
 
-  /@esbuild/linux-riscv64@0.19.10:
-    resolution: {integrity: sha512-0f/spw0PfBMZBNqtKe5FLzBDGo0SKZKvMl5PHYQr3+eiSscfJ96XEknCe+JoOayybWUFQbcJTrk946i3j9uYZA==}
-    engines: {node: '>=12'}
-    cpu: [riscv64]
-    os: [linux]
-    requiresBuild: true
-    dev: true
-    optional: true
-
   /@esbuild/linux-riscv64@0.19.11:
     resolution: {integrity: sha512-f3DY++t94uVg141dozDu4CCUkYW+09rWtaWfnb3bqe4w5NqmZd6nPVBm+qbz7WaHZCoqXqHz5p6CM6qv3qnSSQ==}
     engines: {node: '>=12'}
@@ -3726,15 +3526,6 @@ packages:
 
   /@esbuild/linux-s390x@0.18.20:
     resolution: {integrity: sha512-+8231GMs3mAEth6Ja1iK0a1sQ3ohfcpzpRLH8uuc5/KVDFneH6jtAJLFGafpzpMRO6DzJ6AvXKze9LfFMrIHVQ==}
-    engines: {node: '>=12'}
-    cpu: [s390x]
-    os: [linux]
-    requiresBuild: true
-    dev: true
-    optional: true
-
-  /@esbuild/linux-s390x@0.19.10:
-    resolution: {integrity: sha512-pZFe0OeskMHzHa9U38g+z8Yx5FNCLFtUnJtQMpwhS+r4S566aK2ci3t4NCP4tjt6d5j5uo4h7tExZMjeKoehAA==}
     engines: {node: '>=12'}
     cpu: [s390x]
     os: [linux]
@@ -3786,15 +3577,6 @@ packages:
     dev: true
     optional: true
 
-  /@esbuild/linux-x64@0.19.10:
-    resolution: {integrity: sha512-SpYNEqg/6pZYoc+1zLCjVOYvxfZVZj6w0KROZ3Fje/QrM3nfvT2llI+wmKSrWuX6wmZeTapbarvuNNK/qepSgA==}
-    engines: {node: '>=12'}
-    cpu: [x64]
-    os: [linux]
-    requiresBuild: true
-    dev: true
-    optional: true
-
   /@esbuild/linux-x64@0.19.11:
     resolution: {integrity: sha512-grbyMlVCvJSfxFQUndw5mCtWs5LO1gUlwP4CDi4iJBbVpZcqLVT29FxgGuBJGSzyOxotFG4LoO5X+M1350zmPA==}
     engines: {node: '>=12'}
@@ -3832,15 +3614,6 @@ packages:
 
   /@esbuild/netbsd-x64@0.18.20:
     resolution: {integrity: sha512-iO1c++VP6xUBUmltHZoMtCUdPlnPGdBom6IrO4gyKPFFVBKioIImVooR5I83nTew5UOYrk3gIJhbZh8X44y06A==}
-    engines: {node: '>=12'}
-    cpu: [x64]
-    os: [netbsd]
-    requiresBuild: true
-    dev: true
-    optional: true
-
-  /@esbuild/netbsd-x64@0.19.10:
-    resolution: {integrity: sha512-ACbZ0vXy9zksNArWlk2c38NdKg25+L9pr/mVaj9SUq6lHZu/35nx2xnQVRGLrC1KKQqJKRIB0q8GspiHI3J80Q==}
     engines: {node: '>=12'}
     cpu: [x64]
     os: [netbsd]
@@ -3892,15 +3665,6 @@ packages:
     dev: true
     optional: true
 
-  /@esbuild/openbsd-x64@0.19.10:
-    resolution: {integrity: sha512-PxcgvjdSjtgPMiPQrM3pwSaG4kGphP+bLSb+cihuP0LYdZv1epbAIecHVl5sD3npkfYBZ0ZnOjR878I7MdJDFg==}
-    engines: {node: '>=12'}
-    cpu: [x64]
-    os: [openbsd]
-    requiresBuild: true
-    dev: true
-    optional: true
-
   /@esbuild/openbsd-x64@0.19.11:
     resolution: {integrity: sha512-ysyOGZuTp6SNKPE11INDUeFVVQFrhcNDVUgSQVDzqsqX38DjhPEPATpid04LCoUr2WXhQTEZ8ct/EgJCUDpyNw==}
     engines: {node: '>=12'}
@@ -3938,15 +3702,6 @@ packages:
 
   /@esbuild/sunos-x64@0.18.20:
     resolution: {integrity: sha512-kDbFRFp0YpTQVVrqUd5FTYmWo45zGaXe0X8E1G/LKFC0v8x0vWrhOWSLITcCn63lmZIxfOMXtCfti/RxN/0wnQ==}
-    engines: {node: '>=12'}
-    cpu: [x64]
-    os: [sunos]
-    requiresBuild: true
-    dev: true
-    optional: true
-
-  /@esbuild/sunos-x64@0.19.10:
-    resolution: {integrity: sha512-ZkIOtrRL8SEJjr+VHjmW0znkPs+oJXhlJbNwfI37rvgeMtk3sxOQevXPXjmAPZPigVTncvFqLMd+uV0IBSEzqA==}
     engines: {node: '>=12'}
     cpu: [x64]
     os: [sunos]
@@ -3998,15 +3753,6 @@ packages:
     dev: true
     optional: true
 
-  /@esbuild/win32-arm64@0.19.10:
-    resolution: {integrity: sha512-+Sa4oTDbpBfGpl3Hn3XiUe4f8TU2JF7aX8cOfqFYMMjXp6ma6NJDztl5FDG8Ezx0OjwGikIHw+iA54YLDNNVfw==}
-    engines: {node: '>=12'}
-    cpu: [arm64]
-    os: [win32]
-    requiresBuild: true
-    dev: true
-    optional: true
-
   /@esbuild/win32-arm64@0.19.11:
     resolution: {integrity: sha512-0P58Sbi0LctOMOQbpEOvOL44Ne0sqbS0XWHMvvrg6NE5jQ1xguCSSw9jQeUk2lfrXYsKDdOe6K+oZiwKPilYPQ==}
     engines: {node: '>=12'}
@@ -4051,15 +3797,6 @@ packages:
     dev: true
     optional: true
 
-  /@esbuild/win32-ia32@0.19.10:
-    resolution: {integrity: sha512-EOGVLK1oWMBXgfttJdPHDTiivYSjX6jDNaATeNOaCOFEVcfMjtbx7WVQwPSE1eIfCp/CaSF2nSrDtzc4I9f8TQ==}
-    engines: {node: '>=12'}
-    cpu: [ia32]
-    os: [win32]
-    requiresBuild: true
-    dev: true
-    optional: true
-
   /@esbuild/win32-ia32@0.19.11:
     resolution: {integrity: sha512-6YOrWS+sDJDmshdBIQU+Uoyh7pQKrdykdefC1avn76ss5c+RN6gut3LZA4E2cH5xUEp5/cA0+YxRaVtRAb0xBg==}
     engines: {node: '>=12'}
@@ -4097,15 +3834,6 @@ packages:
 
   /@esbuild/win32-x64@0.18.20:
     resolution: {integrity: sha512-kTdfRcSiDfQca/y9QIkng02avJ+NCaQvrMejlsB3RRv5sE9rRoeBPISaZpKxHELzRxZyLvNts1P27W3wV+8geQ==}
-    engines: {node: '>=12'}
-    cpu: [x64]
-    os: [win32]
-    requiresBuild: true
-    dev: true
-    optional: true
-
-  /@esbuild/win32-x64@0.19.10:
-    resolution: {integrity: sha512-whqLG6Sc70AbU73fFYvuYzaE4MNMBIlR1Y/IrUeOXFrWHxBEjjbZaQ3IXIQS8wJdAzue2GwYZCjOrgrU1oUHoA==}
     engines: {node: '>=12'}
     cpu: [x64]
     os: [win32]
@@ -4664,7 +4392,7 @@ packages:
       effect: 2.0.0-next.54
       jsonc-parser: 3.2.0
       solc: 0.8.22
-      viem: 1.21.4(typescript@5.3.3)(zod@3.22.4)
+      viem: 1.19.11(typescript@5.3.3)(zod@3.22.4)
     transitivePeerDependencies:
       - bufferutil
       - esbuild
@@ -4686,7 +4414,7 @@ packages:
       effect: 2.0.0-next.54
       jsonc-parser: 3.2.0
       solc: 0.8.23-fixed
-      viem: 1.21.4(typescript@5.3.3)(zod@3.22.4)
+      viem: 1.19.11(typescript@5.3.3)(zod@3.22.4)
     transitivePeerDependencies:
       - bufferutil
       - esbuild
@@ -4715,7 +4443,7 @@ packages:
       jsonc-parser: 3.2.0
       resolve: 1.22.8
       solc: 0.8.22
-      viem: 1.21.4(typescript@5.3.3)(zod@3.22.4)
+      viem: 1.19.11(typescript@5.3.3)(zod@3.22.4)
     transitivePeerDependencies:
       - bufferutil
       - esbuild
@@ -4736,7 +4464,7 @@ packages:
       jsonc-parser: 3.2.0
       resolve: 1.22.8
       solc: 0.8.23-fixed
-      viem: 1.21.4(typescript@5.3.3)(zod@3.22.4)
+      viem: 1.19.11(typescript@5.3.3)(zod@3.22.4)
     transitivePeerDependencies:
       - bufferutil
       - esbuild
@@ -5176,7 +4904,7 @@ packages:
     resolution: {integrity: sha512-UTYAUj/wviwdsMfzoSJspJxbkH5o1snzwX0//0ENX1u/55kkZZkcTZP6u9bwKGkv+dkk9at4m1Cpt0uY80kcpQ==}
     dependencies:
       '@jridgewell/gen-mapping': 0.3.3
-      '@jridgewell/trace-mapping': 0.3.20
+      '@jridgewell/trace-mapping': 0.3.22
     dev: false
 
   /@jridgewell/sourcemap-codec@1.4.15:
@@ -5440,11 +5168,6 @@ packages:
     dependencies:
       '@noble/hashes': 1.3.2
 
-  /@noble/curves@1.3.0:
-    resolution: {integrity: sha512-t01iSXPuN+Eqzb4eBX0S5oubSqXbK/xXa1Ne18Hj8f9pStxztHCE2gfboSp/dZRLSqfuLpRK2nDXDK+W9puocA==}
-    dependencies:
-      '@noble/hashes': 1.3.3
-
   /@noble/hashes@1.2.0:
     resolution: {integrity: sha512-FZfhjEDbT5GRswV3C6uvLPHMiVD6lQBmpoX5+eSiPaMTXte/IKqI5dykDxzZB/WBeK/CDuQRBWarPdi3FNY2zQ==}
     dev: true
@@ -5455,10 +5178,6 @@ packages:
 
   /@noble/hashes@1.3.2:
     resolution: {integrity: sha512-MVC8EAQp7MvEcm30KWENFjgR+Mkmf+D189XJTkFIlwohU5hcBbn1ZkKq7KVTi2Hme3PMGF390DaL52beVrIihQ==}
-    engines: {node: '>= 16'}
-
-  /@noble/hashes@1.3.3:
-    resolution: {integrity: sha512-V7/fPHgl+jsVPXqqeOzT8egNj2iBIVt+ECeMMG8TdcnTikP3oaBtUVqpT/gYCR68aEBJSF+XbYUxStjbFMqIIA==}
     engines: {node: '>= 16'}
 
   /@noble/secp256k1@1.7.1:
@@ -6161,7 +5880,7 @@ packages:
       react-dom: 18.2.0(react@18.2.0)
       react-remove-scroll: 2.5.4(@types/react@18.2.37)(react@18.2.0)
       ua-parser-js: 1.0.37
-      viem: 1.19.4(typescript@5.2.2)(zod@3.22.4)
+      viem: 1.19.4(typescript@5.2.2)
       wagmi: 1.4.7(@types/react@18.2.37)(react-dom@18.2.0)(react@18.2.0)(typescript@5.2.2)(viem@1.19.4)
     transitivePeerDependencies:
       - '@types/react'
@@ -6203,14 +5922,6 @@ packages:
     dev: true
     optional: true
 
-  /@rollup/rollup-android-arm-eabi@4.7.0:
-    resolution: {integrity: sha512-rGku10pL1StFlFvXX5pEv88KdGW6DHUghsxyP/aRYb9eH+74jTGJ3U0S/rtlsQ4yYq1Hcc7AMkoJOb1xu29Fxw==}
-    cpu: [arm]
-    os: [android]
-    requiresBuild: true
-    dev: true
-    optional: true
-
   /@rollup/rollup-android-arm-eabi@4.9.5:
     resolution: {integrity: sha512-idWaG8xeSRCfRq9KpRysDHJ/rEHBEXcHuJ82XY0yYFIWnLMjZv9vF/7DOq8djQ2n3Lk6+3qfSH8AqlmHlmi1MA==}
     cpu: [arm]
@@ -6220,14 +5931,6 @@ packages:
 
   /@rollup/rollup-android-arm64@4.5.0:
     resolution: {integrity: sha512-UdMf1pOQc4ZmUA/NTmKhgJTBimbSKnhPS2zJqucqFyBRFPnPDtwA8MzrGNTjDeQbIAWfpJVAlxejw+/lQyBK/w==}
-    cpu: [arm64]
-    os: [android]
-    requiresBuild: true
-    dev: true
-    optional: true
-
-  /@rollup/rollup-android-arm64@4.7.0:
-    resolution: {integrity: sha512-/EBw0cuJ/KVHiU2qyVYUhogXz7W2vXxBzeE9xtVIMC+RyitlY2vvaoysMUqASpkUtoNIHlnKTu/l7mXOPgnKOA==}
     cpu: [arm64]
     os: [android]
     requiresBuild: true
@@ -6249,14 +5952,6 @@ packages:
     dev: true
     optional: true
 
-  /@rollup/rollup-darwin-arm64@4.7.0:
-    resolution: {integrity: sha512-4VXG1bgvClJdbEYYjQ85RkOtwN8sqI3uCxH0HC5w9fKdqzRzgG39K7GAehATGS8jghA7zNoS5CjSKkDEqWmNZg==}
-    cpu: [arm64]
-    os: [darwin]
-    requiresBuild: true
-    dev: true
-    optional: true
-
   /@rollup/rollup-darwin-arm64@4.9.5:
     resolution: {integrity: sha512-ndoXeLx455FffL68OIUrVr89Xu1WLzAG4n65R8roDlCoYiQcGGg6MALvs2Ap9zs7AHg8mpHtMpwC8jBBjZrT/w==}
     cpu: [arm64]
@@ -6266,14 +5961,6 @@ packages:
 
   /@rollup/rollup-darwin-x64@4.5.0:
     resolution: {integrity: sha512-QZCbVqU26mNlLn8zi/XDDquNmvcr4ON5FYAHQQsyhrHx8q+sQi/6xduoznYXwk/KmKIXG5dLfR0CvY+NAWpFYQ==}
-    cpu: [x64]
-    os: [darwin]
-    requiresBuild: true
-    dev: true
-    optional: true
-
-  /@rollup/rollup-darwin-x64@4.7.0:
-    resolution: {integrity: sha512-/ImhO+T/RWJ96hUbxiCn2yWI0/MeQZV/aeukQQfhxiSXuZJfyqtdHPUPrc84jxCfXTxbJLmg4q+GBETeb61aNw==}
     cpu: [x64]
     os: [darwin]
     requiresBuild: true
@@ -6295,14 +5982,6 @@ packages:
     dev: true
     optional: true
 
-  /@rollup/rollup-linux-arm-gnueabihf@4.7.0:
-    resolution: {integrity: sha512-zhye8POvTyUXlKbfPBVqoHy3t43gIgffY+7qBFqFxNqVtltQLtWeHNAbrMnXiLIfYmxcoL/feuLDote2tx+Qbg==}
-    cpu: [arm]
-    os: [linux]
-    requiresBuild: true
-    dev: true
-    optional: true
-
   /@rollup/rollup-linux-arm-gnueabihf@4.9.5:
     resolution: {integrity: sha512-Q0LcU61v92tQB6ae+udZvOyZ0wfpGojtAKrrpAaIqmJ7+psq4cMIhT/9lfV6UQIpeItnq/2QDROhNLo00lOD1g==}
     cpu: [arm]
@@ -6312,14 +5991,6 @@ packages:
 
   /@rollup/rollup-linux-arm64-gnu@4.5.0:
     resolution: {integrity: sha512-OrEyIfpxSsMal44JpEVx9AEcGpdBQG1ZuWISAanaQTSMeStBW+oHWwOkoqR54bw3x8heP8gBOyoJiGg+fLY8qQ==}
-    cpu: [arm64]
-    os: [linux]
-    requiresBuild: true
-    dev: true
-    optional: true
-
-  /@rollup/rollup-linux-arm64-gnu@4.7.0:
-    resolution: {integrity: sha512-RAdr3OJnUum6Vs83cQmKjxdTg31zJnLLTkjhcFt0auxM6jw00GD6IPFF42uasYPr/wGC6TRm7FsQiJyk0qIEfg==}
     cpu: [arm64]
     os: [linux]
     requiresBuild: true
@@ -6341,27 +6012,11 @@ packages:
     dev: true
     optional: true
 
-  /@rollup/rollup-linux-arm64-musl@4.7.0:
-    resolution: {integrity: sha512-nhWwYsiJwZGq7SyR3afS3EekEOsEAlrNMpPC4ZDKn5ooYSEjDLe9W/xGvoIV8/F/+HNIY6jY8lIdXjjxfxopXw==}
-    cpu: [arm64]
-    os: [linux]
-    requiresBuild: true
-    dev: true
-    optional: true
-
   /@rollup/rollup-linux-arm64-musl@4.9.5:
     resolution: {integrity: sha512-QaKFVOzzST2xzY4MAmiDmURagWLFh+zZtttuEnuNn19AiZ0T3fhPyjPPGwLNdiDT82ZE91hnfJsUiDwF9DClIQ==}
     cpu: [arm64]
     os: [linux]
     requiresBuild: true
-    optional: true
-
-  /@rollup/rollup-linux-riscv64-gnu@4.7.0:
-    resolution: {integrity: sha512-rlfy5RnQG1aop1BL/gjdH42M2geMUyVQqd52GJVirqYc787A/XVvl3kQ5NG/43KXgOgE9HXgCaEH05kzQ+hLoA==}
-    cpu: [riscv64]
-    os: [linux]
-    requiresBuild: true
-    dev: true
     optional: true
 
   /@rollup/rollup-linux-riscv64-gnu@4.9.5:
@@ -6373,14 +6028,6 @@ packages:
 
   /@rollup/rollup-linux-x64-gnu@4.5.0:
     resolution: {integrity: sha512-FVyFI13tXw5aE65sZdBpNjPVIi4Q5mARnL/39UIkxvSgRAIqCo5sCpCELk0JtXHGee2owZz5aNLbWNfBHzr71Q==}
-    cpu: [x64]
-    os: [linux]
-    requiresBuild: true
-    dev: true
-    optional: true
-
-  /@rollup/rollup-linux-x64-gnu@4.7.0:
-    resolution: {integrity: sha512-cCkoGlGWfBobdDtiiypxf79q6k3/iRVGu1HVLbD92gWV5WZbmuWJCgRM4x2N6i7ljGn1cGytPn9ZAfS8UwF6vg==}
     cpu: [x64]
     os: [linux]
     requiresBuild: true
@@ -6402,14 +6049,6 @@ packages:
     dev: true
     optional: true
 
-  /@rollup/rollup-linux-x64-musl@4.7.0:
-    resolution: {integrity: sha512-R2oBf2p/Arc1m+tWmiWbpHBjEcJnHVnv6bsypu4tcKdrYTpDfl1UT9qTyfkIL1iiii5D4WHxUHCg5X0pzqmxFg==}
-    cpu: [x64]
-    os: [linux]
-    requiresBuild: true
-    dev: true
-    optional: true
-
   /@rollup/rollup-linux-x64-musl@4.9.5:
     resolution: {integrity: sha512-ezyFUOwldYpj7AbkwyW9AJ203peub81CaAIVvckdkyH8EvhEIoKzaMFJj0G4qYJ5sw3BpqhFrsCc30t54HV8vg==}
     cpu: [x64]
@@ -6419,14 +6058,6 @@ packages:
 
   /@rollup/rollup-win32-arm64-msvc@4.5.0:
     resolution: {integrity: sha512-xaOHIfLOZypoQ5U2I6rEaugS4IYtTgP030xzvrBf5js7p9WI9wik07iHmsKaej8Z83ZDxN5GyypfoyKV5O5TJA==}
-    cpu: [arm64]
-    os: [win32]
-    requiresBuild: true
-    dev: true
-    optional: true
-
-  /@rollup/rollup-win32-arm64-msvc@4.7.0:
-    resolution: {integrity: sha512-CPtgaQL1aaPc80m8SCVEoxFGHxKYIt3zQYC3AccL/SqqiWXblo3pgToHuBwR8eCP2Toa+X1WmTR/QKFMykws7g==}
     cpu: [arm64]
     os: [win32]
     requiresBuild: true
@@ -6448,14 +6079,6 @@ packages:
     dev: true
     optional: true
 
-  /@rollup/rollup-win32-ia32-msvc@4.7.0:
-    resolution: {integrity: sha512-pmioUlttNh9GXF5x2CzNa7Z8kmRTyhEzzAC+2WOOapjewMbl+3tGuAnxbwc5JyG8Jsz2+hf/QD/n5VjimOZ63g==}
-    cpu: [ia32]
-    os: [win32]
-    requiresBuild: true
-    dev: true
-    optional: true
-
   /@rollup/rollup-win32-ia32-msvc@4.9.5:
     resolution: {integrity: sha512-AiqiLkb9KSf7Lj/o1U3SEP9Zn+5NuVKgFdRIZkvd4N0+bYrTOovVd0+LmYCPQGbocT4kvFyK+LXCDiXPBF3fyA==}
     cpu: [ia32]
@@ -6465,14 +6088,6 @@ packages:
 
   /@rollup/rollup-win32-x64-msvc@4.5.0:
     resolution: {integrity: sha512-8kdW+brNhI/NzJ4fxDufuJUjepzINqJKLGHuxyAtpPG9bMbn8P5mtaCcbOm0EzLJ+atg+kF9dwg8jpclkVqx5w==}
-    cpu: [x64]
-    os: [win32]
-    requiresBuild: true
-    dev: true
-    optional: true
-
-  /@rollup/rollup-win32-x64-msvc@4.7.0:
-    resolution: {integrity: sha512-SeZzC2QhhdBQUm3U0c8+c/P6UlRyBcLL2Xp5KX7z46WXZxzR8RJSIWL9wSUeBTgxog5LTPJuPj0WOT9lvrtP7Q==}
     cpu: [x64]
     os: [win32]
     requiresBuild: true
@@ -6534,18 +6149,6 @@ packages:
     dev: true
     optional: true
 
-  /@safe-global/safe-apps-provider@0.17.1(typescript@5.2.2):
-    resolution: {integrity: sha512-lYfRqrbbK1aKU1/UGkYWc/X7PgySYcumXKc5FB2uuwAs2Ghj8uETuW5BrwPqyjBknRxutFbTv+gth/JzjxAhdQ==}
-    dependencies:
-      '@safe-global/safe-apps-sdk': 8.0.0(typescript@5.2.2)
-      events: 3.3.0
-    transitivePeerDependencies:
-      - bufferutil
-      - typescript
-      - utf-8-validate
-      - zod
-    dev: false
-
   /@safe-global/safe-apps-provider@0.17.1(typescript@5.2.2)(zod@3.22.4):
     resolution: {integrity: sha512-lYfRqrbbK1aKU1/UGkYWc/X7PgySYcumXKc5FB2uuwAs2Ghj8uETuW5BrwPqyjBknRxutFbTv+gth/JzjxAhdQ==}
     dependencies:
@@ -6556,7 +6159,6 @@ packages:
       - typescript
       - utf-8-validate
       - zod
-    dev: true
 
   /@safe-global/safe-apps-provider@0.17.1(typescript@5.3.3)(zod@3.22.4):
     resolution: {integrity: sha512-lYfRqrbbK1aKU1/UGkYWc/X7PgySYcumXKc5FB2uuwAs2Ghj8uETuW5BrwPqyjBknRxutFbTv+gth/JzjxAhdQ==}
@@ -6570,18 +6172,6 @@ packages:
       - zod
     dev: true
 
-  /@safe-global/safe-apps-sdk@8.0.0(typescript@5.2.2):
-    resolution: {integrity: sha512-gYw0ki/EAuV1oSyMxpqandHjnthZjYYy+YWpTAzf8BqfXM3ItcZLpjxfg+3+mXW8HIO+3jw6T9iiqEXsqHaMMw==}
-    dependencies:
-      '@safe-global/safe-gateway-typescript-sdk': 3.13.2
-      viem: 1.19.4(typescript@5.2.2)(zod@3.22.4)
-    transitivePeerDependencies:
-      - bufferutil
-      - typescript
-      - utf-8-validate
-      - zod
-    dev: false
-
   /@safe-global/safe-apps-sdk@8.0.0(typescript@5.2.2)(zod@3.22.4):
     resolution: {integrity: sha512-gYw0ki/EAuV1oSyMxpqandHjnthZjYYy+YWpTAzf8BqfXM3ItcZLpjxfg+3+mXW8HIO+3jw6T9iiqEXsqHaMMw==}
     dependencies:
@@ -6592,13 +6182,12 @@ packages:
       - typescript
       - utf-8-validate
       - zod
-    dev: true
 
   /@safe-global/safe-apps-sdk@8.0.0(typescript@5.3.3)(zod@3.22.4):
     resolution: {integrity: sha512-gYw0ki/EAuV1oSyMxpqandHjnthZjYYy+YWpTAzf8BqfXM3ItcZLpjxfg+3+mXW8HIO+3jw6T9iiqEXsqHaMMw==}
     dependencies:
       '@safe-global/safe-gateway-typescript-sdk': 3.13.2
-      viem: 1.19.4(typescript@5.3.3)(zod@3.22.4)
+      viem: 1.19.11(typescript@5.3.3)(zod@3.22.4)
     transitivePeerDependencies:
       - bufferutil
       - typescript
@@ -6610,7 +6199,7 @@ packages:
     resolution: {integrity: sha512-XJbEPuaVc7b9n23MqlF6c+ToYIS3f7P2Sel8f3cSBQ9WORE4xrSuvhMpK9fDSFqJ7by/brc+rmJR/5HViRr0/w==}
     dependencies:
       '@safe-global/safe-gateway-typescript-sdk': 3.13.2
-      viem: 1.21.4(typescript@5.2.2)(zod@3.22.4)
+      viem: 1.19.11(typescript@5.2.2)(zod@3.22.4)
     transitivePeerDependencies:
       - bufferutil
       - typescript
@@ -6621,7 +6210,7 @@ packages:
     resolution: {integrity: sha512-XJbEPuaVc7b9n23MqlF6c+ToYIS3f7P2Sel8f3cSBQ9WORE4xrSuvhMpK9fDSFqJ7by/brc+rmJR/5HViRr0/w==}
     dependencies:
       '@safe-global/safe-gateway-typescript-sdk': 3.13.2
-      viem: 1.21.4(typescript@5.3.3)(zod@3.22.4)
+      viem: 1.19.11(typescript@5.3.3)(zod@3.22.4)
     transitivePeerDependencies:
       - bufferutil
       - typescript
@@ -6632,9 +6221,6 @@ packages:
   /@safe-global/safe-gateway-typescript-sdk@3.13.2:
     resolution: {integrity: sha512-kGlJecJHBzGrGTq/yhLANh56t+Zur6Ubpt+/w03ARX1poDb4TM8vKU3iV8tuYpk359PPWp+Qvjnqb9oW2YQcYw==}
     engines: {node: '>=16'}
-
-  /@scure/base@1.1.3:
-    resolution: {integrity: sha512-/+SgoRjLq7Xlf0CWuLHq2LUZeL/w65kfzAPG5NH9pcmBhs+nunQTn4gvdwgMTIXnt9b2C/1SeL2XiysZEyIC9Q==}
 
   /@scure/base@1.1.5:
     resolution: {integrity: sha512-Brj9FiG2W1MRQSTB212YVPRrcbjkv48FoZi/u4l/zds/ieRrqsh7aUf6CLwkAq61oKXr/ZlTzlY66gLIj3TFTQ==}
@@ -6651,7 +6237,7 @@ packages:
     resolution: {integrity: sha512-osvveYtyzdEVbt3OfwwXFr4P2iVBL5u1Q3q4ONBfDY/UpOuXmOlbgwc1xECEboY8wIays8Yt6onaWMUdUbfl0A==}
     dependencies:
       '@noble/curves': 1.1.0
-      '@noble/hashes': 1.3.1
+      '@noble/hashes': 1.3.2
       '@scure/base': 1.1.5
 
   /@scure/bip32@1.3.2:
@@ -6659,7 +6245,7 @@ packages:
     dependencies:
       '@noble/curves': 1.2.0
       '@noble/hashes': 1.3.2
-      '@scure/base': 1.1.3
+      '@scure/base': 1.1.5
 
   /@scure/bip39@1.1.1:
     resolution: {integrity: sha512-t+wDck2rVkh65Hmv280fYdVdY25J9YeEUIgn2LG1WM6gxFkGzcksoDiUkWVpVp3Oex9xGC68JU2dSbUfwZ2jPg==}
@@ -6672,7 +6258,7 @@ packages:
     resolution: {integrity: sha512-Z3/Fsz1yr904dduJD0NpiyRHhRYHdcnyh73FZWiV+/qhWi83wNJ3NWolYqCEN+ZWsUz2TWwajJggcRE9r1zUYg==}
     dependencies:
       '@noble/hashes': 1.3.2
-      '@scure/base': 1.1.3
+      '@scure/base': 1.1.5
 
   /@sentry/core@5.30.0:
     resolution: {integrity: sha512-TmfrII8w1PQZSZgPpUESqjB+jC6MvZJZdLtE/0hZ+SrnKhW3x5WlYLvTXZpcWePYBku7rl2wn1RZu6uT0qCTeg==}
@@ -6768,8 +6354,8 @@ packages:
     resolution: {integrity: sha512-LkqsEBgTZztFiccZZXnawWa8qNCATEqE97/d0vIwjTclmVlc8pBpD1DmjfVHtZ1HS5fZorFlVhXfpwnCNDZfyg==}
     dependencies:
       '@babel/runtime': 7.23.8
-      '@noble/curves': 1.3.0
-      '@noble/hashes': 1.3.3
+      '@noble/curves': 1.2.0
+      '@noble/hashes': 1.3.2
       '@solana/buffer-layout': 4.0.1
       agentkeepalive: 4.5.0
       bigint-buffer: 1.1.5
@@ -7074,8 +6660,8 @@ packages:
   /@types/babel__core@7.20.4:
     resolution: {integrity: sha512-mLnSC22IC4vcWiuObSRjrLd9XcBTGf59vUSoq2jkQDJ/QQ8PMI9rSuzE+aEV8karUMbskw07bKYoUJCKTUaygg==}
     dependencies:
-      '@babel/parser': 7.23.3
-      '@babel/types': 7.23.3
+      '@babel/parser': 7.23.6
+      '@babel/types': 7.23.6
       '@types/babel__generator': 7.6.7
       '@types/babel__template': 7.4.4
       '@types/babel__traverse': 7.20.4
@@ -7093,7 +6679,7 @@ packages:
   /@types/babel__generator@7.6.7:
     resolution: {integrity: sha512-6Sfsq+EaaLrw4RmdFWE9Onp63TOUue71AWb4Gpa6JxzgTYtimbM086WnYTy2U67AofR++QKCo08ZP6pwx8YFHQ==}
     dependencies:
-      '@babel/types': 7.23.3
+      '@babel/types': 7.23.6
     dev: true
 
   /@types/babel__generator@7.6.8:
@@ -7104,13 +6690,13 @@ packages:
   /@types/babel__template@7.4.4:
     resolution: {integrity: sha512-h/NUaSyG5EyxBIp8YRxo4RMe2/qQgvyowRwVMzhYhBCONbW8PUsg4lkFMrhgZhUe5z3L3MiLDuvyJ/CaPa2A8A==}
     dependencies:
-      '@babel/parser': 7.23.3
-      '@babel/types': 7.23.3
+      '@babel/parser': 7.23.6
+      '@babel/types': 7.23.6
 
   /@types/babel__traverse@7.20.4:
     resolution: {integrity: sha512-mSM/iKUk5fDDrEV/e83qY+Cr3I1+Q3qqTuEn++HAWYjEa1+NxZr6CNrcJGf2ZTnq4HoFGC3zaTPZTobCzCFukA==}
     dependencies:
-      '@babel/types': 7.23.3
+      '@babel/types': 7.23.6
     dev: true
 
   /@types/babel__traverse@7.20.5:
@@ -7310,12 +6896,6 @@ packages:
   /@types/node@18.15.13:
     resolution: {integrity: sha512-N+0kuo9KgrUQ1Sn/ifDXsvg0TTleP7rIy4zOBGECxAljqvqfqpTfzx0Q1NUedOixRMBfe2Whhb056a42cWs26Q==}
 
-  /@types/node@20.10.4:
-    resolution: {integrity: sha512-D08YG6rr8X90YB56tSIuBaddy/UXAA9RKJoFvrsnogAum/0pmjkgi4+2nx96A330FmioegBWmEYQ+syqCFaveg==}
-    dependencies:
-      undici-types: 5.26.5
-    dev: false
-
   /@types/node@20.10.6:
     resolution: {integrity: sha512-Vac8H+NlRNNlAmDfGUP7b5h/KA+AtWIzuXy0E6OyP8f1tCLYAtPvKRRDJjAPqhpCb0t6U2j7/xqAuLEebW2kiw==}
     dependencies:
@@ -7331,6 +6911,7 @@ packages:
     resolution: {integrity: sha512-HhmzZh5LSJNS5O8jQKpJ/3ZcrrlG6L70hpGqMIAoM9YVD0YBRNWYsfwcXq8VnSjlNpCpgLzMXdiPo+dxcvSmiA==}
     dependencies:
       undici-types: 5.26.5
+    dev: true
 
   /@types/normalize-package-data@2.4.4:
     resolution: {integrity: sha512-37i+OaWTh9qeK4LSHPsyRC7NahnGotNuZvjLSgcPzblpHB3rrCJxAOgI5gCdKm7coonsaX1Of0ILiTcnZjbfxA==}
@@ -7393,7 +6974,7 @@ packages:
   /@types/sax@1.2.7:
     resolution: {integrity: sha512-rO73L89PJxeYM3s3pPPjiPgVVcymqU490g0YO5n5By0k2Erzj6tay/4lr1CHAAU4JyOWd1rpQ8bCf6cZfHU96A==}
     dependencies:
-      '@types/node': 17.0.45
+      '@types/node': 20.11.5
 
   /@types/scheduler@0.16.6:
     resolution: {integrity: sha512-Vlktnchmkylvc9SnwwwozTv04L/e1NykF5vgoQ0XTmI8DD+wxfjQuHuvHS3p0r2jz2x2ghPs2h1FVeDirIteWA==}
@@ -7513,9 +7094,9 @@ packages:
     peerDependencies:
       vite: ^4.2.0 || ^5.0.0
     dependencies:
-      '@babel/core': 7.23.3
-      '@babel/plugin-transform-react-jsx-self': 7.23.3(@babel/core@7.23.3)
-      '@babel/plugin-transform-react-jsx-source': 7.23.3(@babel/core@7.23.3)
+      '@babel/core': 7.23.7
+      '@babel/plugin-transform-react-jsx-self': 7.23.3(@babel/core@7.23.7)
+      '@babel/plugin-transform-react-jsx-source': 7.23.3(@babel/core@7.23.7)
       '@types/babel__core': 7.20.4
       react-refresh: 0.14.0
       vite: 5.0.0
@@ -7583,21 +7164,6 @@ packages:
     resolution: {integrity: sha512-xaCvneSaeBw/cz8ySmF7ZwGvL0lBjfvqc1LpQ/vcdHEvpLn3Ff1vAvjw+CoGn0802l++5L/pxb7whwcWAw+DUQ==}
     dependencies:
       tinyspy: 2.2.0
-    dev: true
-
-  /@vitest/ui@0.34.6(vitest@0.34.6):
-    resolution: {integrity: sha512-/fxnCwGC0Txmr3tF3BwAbo3v6U2SkBTGR9UB8zo0Ztlx0BTOXHucE0gDHY7SjwEktCOHatiGmli9kZD6gYSoWQ==}
-    peerDependencies:
-      vitest: '>=0.30.1 <1'
-    dependencies:
-      '@vitest/utils': 0.34.6
-      fast-glob: 3.3.2
-      fflate: 0.8.1
-      flatted: 3.2.9
-      pathe: 1.1.1
-      picocolors: 1.0.0
-      sirv: 2.0.3
-      vitest: 0.34.6(@vitest/ui@0.34.6)
     dev: true
 
   /@vitest/ui@0.34.7(vitest@0.34.6):
@@ -7968,7 +7534,7 @@ packages:
     dependencies:
       '@coinbase/wallet-sdk': 3.7.2
       '@ledgerhq/connect-kit-loader': 1.1.2
-      '@safe-global/safe-apps-provider': 0.17.1(typescript@5.2.2)
+      '@safe-global/safe-apps-provider': 0.17.1(typescript@5.2.2)(zod@3.22.4)
       '@safe-global/safe-apps-sdk': 8.1.0(typescript@5.2.2)(zod@3.22.4)
       '@walletconnect/ethereum-provider': 2.10.2(@walletconnect/modal@2.6.2)
       '@walletconnect/legacy-provider': 2.0.0
@@ -7977,7 +7543,7 @@ packages:
       abitype: 0.8.7(typescript@5.2.2)(zod@3.22.4)
       eventemitter3: 4.0.7
       typescript: 5.2.2
-      viem: 1.19.4(typescript@5.2.2)(zod@3.22.4)
+      viem: 1.19.4(typescript@5.2.2)
     transitivePeerDependencies:
       - '@azure/app-configuration'
       - '@azure/cosmos'
@@ -7999,49 +7565,6 @@ packages:
       - utf-8-validate
       - zod
     dev: false
-
-  /@wagmi/connectors@3.1.5(react@18.2.0)(typescript@5.2.2)(viem@2.0.2)(zod@3.22.4):
-    resolution: {integrity: sha512-aE4rWZbivqWa9HqjiLDPtwROH2b1Az+lBVMeZ3o/aFxGNGNEkdrSAMOUG15/UFy3VnN6HqGOtTobOBZ10JhfNQ==}
-    peerDependencies:
-      typescript: '>=5.0.4'
-      viem: '>=0.3.35'
-    peerDependenciesMeta:
-      typescript:
-        optional: true
-    dependencies:
-      '@coinbase/wallet-sdk': 3.7.2
-      '@ledgerhq/connect-kit-loader': 1.1.2
-      '@safe-global/safe-apps-provider': 0.17.1(typescript@5.2.2)(zod@3.22.4)
-      '@safe-global/safe-apps-sdk': 8.1.0(typescript@5.2.2)(zod@3.22.4)
-      '@walletconnect/ethereum-provider': 2.10.2(@walletconnect/modal@2.6.2)
-      '@walletconnect/legacy-provider': 2.0.0
-      '@walletconnect/modal': 2.6.2(@types/react@18.2.37)(react@18.2.0)
-      '@walletconnect/utils': 2.10.2
-      abitype: 0.8.7(typescript@5.2.2)(zod@3.22.4)
-      eventemitter3: 4.0.7
-      typescript: 5.2.2
-      viem: 2.0.2(typescript@5.2.2)(zod@3.22.4)
-    transitivePeerDependencies:
-      - '@azure/app-configuration'
-      - '@azure/cosmos'
-      - '@azure/data-tables'
-      - '@azure/identity'
-      - '@azure/keyvault-secrets'
-      - '@azure/storage-blob'
-      - '@capacitor/preferences'
-      - '@netlify/blobs'
-      - '@planetscale/database'
-      - '@react-native-async-storage/async-storage'
-      - '@types/react'
-      - '@upstash/redis'
-      - '@vercel/kv'
-      - bufferutil
-      - encoding
-      - react
-      - supports-color
-      - utf-8-validate
-      - zod
-    dev: true
 
   /@wagmi/connectors@3.1.5(react@18.2.0)(typescript@5.2.2)(viem@2.4.0)(zod@3.22.4):
     resolution: {integrity: sha512-aE4rWZbivqWa9HqjiLDPtwROH2b1Az+lBVMeZ3o/aFxGNGNEkdrSAMOUG15/UFy3VnN6HqGOtTobOBZ10JhfNQ==}
@@ -8129,6 +7652,49 @@ packages:
       - zod
     dev: true
 
+  /@wagmi/connectors@3.1.5(react@18.2.0)(typescript@5.3.3)(viem@2.4.0)(zod@3.22.4):
+    resolution: {integrity: sha512-aE4rWZbivqWa9HqjiLDPtwROH2b1Az+lBVMeZ3o/aFxGNGNEkdrSAMOUG15/UFy3VnN6HqGOtTobOBZ10JhfNQ==}
+    peerDependencies:
+      typescript: '>=5.0.4'
+      viem: '>=0.3.35'
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+    dependencies:
+      '@coinbase/wallet-sdk': 3.7.2
+      '@ledgerhq/connect-kit-loader': 1.1.2
+      '@safe-global/safe-apps-provider': 0.17.1(typescript@5.3.3)(zod@3.22.4)
+      '@safe-global/safe-apps-sdk': 8.1.0(typescript@5.3.3)(zod@3.22.4)
+      '@walletconnect/ethereum-provider': 2.10.2(@walletconnect/modal@2.6.2)
+      '@walletconnect/legacy-provider': 2.0.0
+      '@walletconnect/modal': 2.6.2(@types/react@18.2.37)(react@18.2.0)
+      '@walletconnect/utils': 2.10.2
+      abitype: 0.8.7(typescript@5.3.3)(zod@3.22.4)
+      eventemitter3: 4.0.7
+      typescript: 5.3.3
+      viem: 2.4.0(typescript@5.3.3)(zod@3.22.4)
+    transitivePeerDependencies:
+      - '@azure/app-configuration'
+      - '@azure/cosmos'
+      - '@azure/data-tables'
+      - '@azure/identity'
+      - '@azure/keyvault-secrets'
+      - '@azure/storage-blob'
+      - '@capacitor/preferences'
+      - '@netlify/blobs'
+      - '@planetscale/database'
+      - '@react-native-async-storage/async-storage'
+      - '@types/react'
+      - '@upstash/redis'
+      - '@vercel/kv'
+      - bufferutil
+      - encoding
+      - react
+      - supports-color
+      - utf-8-validate
+      - zod
+    dev: true
+
   /@wagmi/core@1.4.7(@types/react@18.2.37)(react@18.2.0)(typescript@5.2.2)(viem@1.19.4):
     resolution: {integrity: sha512-PiOIGni8ArQoPmuDylHX38zMt2nPnTYRIluIqiduKyGCM61X/tf10a0rafUMOOphDPudZu1TacNDhCSeoh/LEA==}
     peerDependencies:
@@ -8142,7 +7708,7 @@ packages:
       abitype: 0.8.7(typescript@5.2.2)(zod@3.22.4)
       eventemitter3: 4.0.7
       typescript: 5.2.2
-      viem: 1.19.4(typescript@5.2.2)(zod@3.22.4)
+      viem: 1.19.4(typescript@5.2.2)
       zustand: 4.4.6(@types/react@18.2.37)(react@18.2.0)
     transitivePeerDependencies:
       - '@azure/app-configuration'
@@ -8166,44 +7732,6 @@ packages:
       - utf-8-validate
       - zod
     dev: false
-
-  /@wagmi/core@1.4.7(react@18.2.0)(typescript@5.2.2)(viem@2.0.2)(zod@3.22.4):
-    resolution: {integrity: sha512-PiOIGni8ArQoPmuDylHX38zMt2nPnTYRIluIqiduKyGCM61X/tf10a0rafUMOOphDPudZu1TacNDhCSeoh/LEA==}
-    peerDependencies:
-      typescript: '>=5.0.4'
-      viem: '>=0.3.35'
-    peerDependenciesMeta:
-      typescript:
-        optional: true
-    dependencies:
-      '@wagmi/connectors': 3.1.5(react@18.2.0)(typescript@5.2.2)(viem@2.0.2)(zod@3.22.4)
-      abitype: 0.8.7(typescript@5.2.2)(zod@3.22.4)
-      eventemitter3: 4.0.7
-      typescript: 5.2.2
-      viem: 2.0.2(typescript@5.2.2)(zod@3.22.4)
-      zustand: 4.4.6(@types/react@18.2.37)(react@18.2.0)
-    transitivePeerDependencies:
-      - '@azure/app-configuration'
-      - '@azure/cosmos'
-      - '@azure/data-tables'
-      - '@azure/identity'
-      - '@azure/keyvault-secrets'
-      - '@azure/storage-blob'
-      - '@capacitor/preferences'
-      - '@netlify/blobs'
-      - '@planetscale/database'
-      - '@react-native-async-storage/async-storage'
-      - '@types/react'
-      - '@upstash/redis'
-      - '@vercel/kv'
-      - bufferutil
-      - encoding
-      - immer
-      - react
-      - supports-color
-      - utf-8-validate
-      - zod
-    dev: true
 
   /@wagmi/core@1.4.7(react@18.2.0)(typescript@5.2.2)(viem@2.4.0)(zod@3.22.4):
     resolution: {integrity: sha512-PiOIGni8ArQoPmuDylHX38zMt2nPnTYRIluIqiduKyGCM61X/tf10a0rafUMOOphDPudZu1TacNDhCSeoh/LEA==}
@@ -8257,6 +7785,44 @@ packages:
       eventemitter3: 4.0.7
       typescript: 5.3.3
       viem: 1.19.11(typescript@5.3.3)(zod@3.22.4)
+      zustand: 4.4.6(@types/react@18.2.37)(react@18.2.0)
+    transitivePeerDependencies:
+      - '@azure/app-configuration'
+      - '@azure/cosmos'
+      - '@azure/data-tables'
+      - '@azure/identity'
+      - '@azure/keyvault-secrets'
+      - '@azure/storage-blob'
+      - '@capacitor/preferences'
+      - '@netlify/blobs'
+      - '@planetscale/database'
+      - '@react-native-async-storage/async-storage'
+      - '@types/react'
+      - '@upstash/redis'
+      - '@vercel/kv'
+      - bufferutil
+      - encoding
+      - immer
+      - react
+      - supports-color
+      - utf-8-validate
+      - zod
+    dev: true
+
+  /@wagmi/core@1.4.7(react@18.2.0)(typescript@5.3.3)(viem@2.4.0)(zod@3.22.4):
+    resolution: {integrity: sha512-PiOIGni8ArQoPmuDylHX38zMt2nPnTYRIluIqiduKyGCM61X/tf10a0rafUMOOphDPudZu1TacNDhCSeoh/LEA==}
+    peerDependencies:
+      typescript: '>=5.0.4'
+      viem: '>=0.3.35'
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+    dependencies:
+      '@wagmi/connectors': 3.1.5(react@18.2.0)(typescript@5.3.3)(viem@2.4.0)(zod@3.22.4)
+      abitype: 0.8.7(typescript@5.3.3)(zod@3.22.4)
+      eventemitter3: 4.0.7
+      typescript: 5.3.3
+      viem: 2.4.0(typescript@5.3.3)(zod@3.22.4)
       zustand: 4.4.6(@types/react@18.2.37)(react@18.2.0)
     transitivePeerDependencies:
       - '@azure/app-configuration'
@@ -8858,20 +8424,7 @@ packages:
     dependencies:
       typescript: 5.2.2
       zod: 3.22.4
-
-  /abitype@0.10.0(typescript@5.3.3):
-    resolution: {integrity: sha512-QvMHEUzgI9nPj9TWtUGnS2scas80/qaL5PBxGdwWhhvzqXfOph+IEiiiWrzuisu3U3JgDQVruW9oLbJoQ3oZ3A==}
-    peerDependencies:
-      typescript: '>=5.0.4'
-      zod: ^3 >=3.22.0
-    peerDependenciesMeta:
-      typescript:
-        optional: true
-      zod:
-        optional: true
-    dependencies:
-      typescript: 5.3.3
-    dev: true
+    dev: false
 
   /abitype@0.10.2(typescript@5.2.2)(zod@3.22.4):
     resolution: {integrity: sha512-1XndI+RKFWK4+TXCNv1683MRyX5NGmlHXCvqzjOqhSS3PQrxT2QYRZq1bMPPRNjn89B3eVaM2w7y3jVj/OIUzA==}
@@ -8901,6 +8454,7 @@ packages:
     dependencies:
       typescript: 5.3.3
       zod: 3.22.4
+    dev: false
 
   /abitype@0.10.3(typescript@5.3.3)(zod@3.22.4):
     resolution: {integrity: sha512-tRN+7XIa7J9xugdbRzFv/95ka5ivR/sRe01eiWvM0HWWjHuigSZEACgKa0sj4wGuekTDtghCx+5Izk/cOi78pQ==}
@@ -9020,12 +8574,12 @@ packages:
       negotiator: 0.6.3
     dev: true
 
-  /acorn-import-assertions@1.9.0(acorn@8.11.2):
+  /acorn-import-assertions@1.9.0(acorn@8.11.3):
     resolution: {integrity: sha512-cmMwop9x+8KFhxvKrKfPYmN6/pKTYYHBqLa0DfvVZcKMJWNyWLnaqND7dx/qn66R7ewM1UX5XMaDVP5wlVTaVA==}
     peerDependencies:
       acorn: ^8
     dependencies:
-      acorn: 8.11.2
+      acorn: 8.11.3
     dev: false
 
   /acorn-jsx@5.3.2(acorn@8.11.3):
@@ -9044,6 +8598,7 @@ packages:
     resolution: {integrity: sha512-nc0Axzp/0FILLEVsm4fNwLCwMttvhEI263QtVPQcbpfZZ3ts0hLsZGOpE6czNlid7CJ9MlyH8reXkpsf3YUY4w==}
     engines: {node: '>=0.4.0'}
     hasBin: true
+    dev: true
 
   /acorn@8.11.3:
     resolution: {integrity: sha512-Y9rRfJG5jcKOE0CLisYbojUjIrIEE7AGMzA/Sm4BslANhbS+cDMpgBdcPT91oJ7OuJ9hYJBx59RjbhxVnrF8Xg==}
@@ -10231,6 +9786,7 @@ packages:
       electron-to-chromium: 1.4.588
       node-releases: 2.0.13
       update-browserslist-db: 1.0.13(browserslist@4.22.1)
+    dev: true
 
   /browserslist@4.22.2:
     resolution: {integrity: sha512-0UgcrvQmBDvZHFGdYUehrCNIazki7/lUP3kkoi/r3YB2amZbFM9J43ZRkJTXBUZK4gmx56+Sqk9+Vs9mwZx9+A==}
@@ -10320,16 +9876,6 @@ packages:
       '@oven/bun-linux-aarch64': 1.0.24
       '@oven/bun-linux-x64': 1.0.24
       '@oven/bun-linux-x64-baseline': 1.0.24
-    dev: true
-
-  /bundle-require@4.0.2(esbuild@0.19.10):
-    resolution: {integrity: sha512-jwzPOChofl67PSTW2SGubV9HBQAhhR2i6nskiOThauo9dzwDUgOWQScFVaJkjEfYX+UXiD+LEx8EblQMc2wIag==}
-    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
-    peerDependencies:
-      esbuild: '>=0.17'
-    dependencies:
-      esbuild: 0.19.10
-      load-tsconfig: 0.2.5
     dev: true
 
   /bundle-require@4.0.2(esbuild@0.19.11):
@@ -10453,6 +9999,7 @@ packages:
 
   /caniuse-lite@1.0.30001563:
     resolution: {integrity: sha512-na2WUmOxnwIZtwnFI2CZ/3er0wdNzU7hN+cPYz/z2ajHThnkWjNBOpEPP4n+4r2WPM847JaMotaJE3bnfzjyKw==}
+    dev: true
 
   /caniuse-lite@1.0.30001579:
     resolution: {integrity: sha512-u5AUVkixruKHJjw/pj9wISlcMpgFWzSrczLZbrqBSxukQixmg0SJ5sZTpvaFvxU0HoQKd4yoyAogyrAz9pzJnA==}
@@ -11750,6 +11297,7 @@ packages:
 
   /electron-to-chromium@1.4.588:
     resolution: {integrity: sha512-soytjxwbgcCu7nh5Pf4S2/4wa6UIu+A3p03U2yVr53qGxi1/VTR3ENI+p50v+UxqqZAfl48j3z55ud7VHIOr9w==}
+    dev: true
 
   /electron-to-chromium@1.4.633:
     resolution: {integrity: sha512-7BvxzXrHFliyQ1oZc6NRMjyEaKOO1Ma1NY98sFZofogWlm+klLWSgrDw7EhatiMgi4R4NV+iWxDdxuIKXtPbOw==}
@@ -11968,37 +11516,6 @@ packages:
       '@esbuild/win32-arm64': 0.18.20
       '@esbuild/win32-ia32': 0.18.20
       '@esbuild/win32-x64': 0.18.20
-    dev: true
-
-  /esbuild@0.19.10:
-    resolution: {integrity: sha512-S1Y27QGt/snkNYrRcswgRFqZjaTG5a5xM3EQo97uNBnH505pdzSNe/HLBq1v0RO7iK/ngdbhJB6mDAp0OK+iUA==}
-    engines: {node: '>=12'}
-    hasBin: true
-    requiresBuild: true
-    optionalDependencies:
-      '@esbuild/aix-ppc64': 0.19.10
-      '@esbuild/android-arm': 0.19.10
-      '@esbuild/android-arm64': 0.19.10
-      '@esbuild/android-x64': 0.19.10
-      '@esbuild/darwin-arm64': 0.19.10
-      '@esbuild/darwin-x64': 0.19.10
-      '@esbuild/freebsd-arm64': 0.19.10
-      '@esbuild/freebsd-x64': 0.19.10
-      '@esbuild/linux-arm': 0.19.10
-      '@esbuild/linux-arm64': 0.19.10
-      '@esbuild/linux-ia32': 0.19.10
-      '@esbuild/linux-loong64': 0.19.10
-      '@esbuild/linux-mips64el': 0.19.10
-      '@esbuild/linux-ppc64': 0.19.10
-      '@esbuild/linux-riscv64': 0.19.10
-      '@esbuild/linux-s390x': 0.19.10
-      '@esbuild/linux-x64': 0.19.10
-      '@esbuild/netbsd-x64': 0.19.10
-      '@esbuild/openbsd-x64': 0.19.10
-      '@esbuild/sunos-x64': 0.19.10
-      '@esbuild/win32-arm64': 0.19.10
-      '@esbuild/win32-ia32': 0.19.10
-      '@esbuild/win32-x64': 0.19.10
     dev: true
 
   /esbuild@0.19.11:
@@ -12846,15 +12363,6 @@ packages:
       tabbable: 6.2.0
     dev: true
 
-  /follow-redirects@1.15.3:
-    resolution: {integrity: sha512-1VzOtuEM8pC9SFU1E+8KfTjZyMztRsgEfwQl44z8A25uy13jSzTj6dyK2Df52iV0vgHCfBwLhDWevLn95w5v6Q==}
-    engines: {node: '>=4.0'}
-    peerDependencies:
-      debug: '*'
-    peerDependenciesMeta:
-      debug:
-        optional: true
-
   /follow-redirects@1.15.5(debug@4.3.4):
     resolution: {integrity: sha512-vSFWUON1B+yAw1VN4xMfxgn5fTUiaOzAJCKBwIIgT/+7CuGy9+r+5gITvP62j3RmaD5Ph65UaERdOSRGUzZtgw==}
     engines: {node: '>=4.0'}
@@ -13230,7 +12738,7 @@ packages:
       fs.realpath: 1.0.0
       inflight: 1.0.6
       inherits: 2.0.4
-      minimatch: 3.0.5
+      minimatch: 3.1.2
       once: 1.4.0
       path-is-absolute: 1.0.1
     dev: true
@@ -14676,7 +14184,7 @@ packages:
     peerDependencies:
       ws: '*'
     dependencies:
-      ws: 8.14.2
+      ws: 8.14.2(bufferutil@4.0.8)(utf-8-validate@5.0.10)
     dev: false
 
   /istanbul-lib-coverage@3.2.2:
@@ -15026,7 +14534,7 @@ packages:
       h3: 1.8.2
       http-shutdown: 1.2.2
       jiti: 1.21.0
-      mlly: 1.4.2
+      mlly: 1.5.0
       node-forge: 1.3.1
       pathe: 1.1.2
       std-env: 3.7.0
@@ -16167,14 +15675,6 @@ packages:
     hasBin: true
     dev: true
 
-  /mlly@1.4.2:
-    resolution: {integrity: sha512-i/Ykufi2t1EZ6NaPLdfnZk2AX8cs0d+mTzVKuPfqPKPatxLApaBoxJQ9x1/uckXtrS/U5oisPMDkNs0yQTaBRg==}
-    dependencies:
-      acorn: 8.11.3
-      pathe: 1.1.1
-      pkg-types: 1.0.3
-      ufo: 1.3.2
-
   /mlly@1.5.0:
     resolution: {integrity: sha512-NPVQvAY1xr1QoVeG0cy8yUYC7FQcOx6evl/RjT1wL5FvzPnzOysoqB/jmx/DhssT2dYa8nxECLAaFI/+gVLhDQ==}
     dependencies:
@@ -16182,7 +15682,6 @@ packages:
       pathe: 1.1.2
       pkg-types: 1.0.3
       ufo: 1.3.2
-    dev: true
 
   /mnemonist@0.38.5:
     resolution: {integrity: sha512-bZTFT5rrPKtPJxj8KSV0WkPyNxl72vQepqqVUAW2ARUpUSF2qXMB6jZj7hW5/k7C1rtpzqbD/IIbJwLXUjCHeg==}
@@ -16501,6 +16000,7 @@ packages:
 
   /node-releases@2.0.13:
     resolution: {integrity: sha512-uYr7J37ae/ORWdZeQ1xxMJe3NtdmqMC/JZK+geofDrkLUApKRHPd18/TxtBOJ4A0/+uUIliorNrfYV6s1b02eQ==}
+    dev: true
 
   /node-releases@2.0.14:
     resolution: {integrity: sha512-y10wOWt8yZpqXmOgRo77WaHEmhYQYGNA6y421PKsKYWEK8aW+cqAphborZDhqfyKrbZEN92CN1X2KbafY2s7Yw==}
@@ -17173,6 +16673,7 @@ packages:
 
   /pathe@1.1.1:
     resolution: {integrity: sha512-d+RQGp0MAYTIaDBIMmOfMwz3E+LOZnxx1HZd5R18mmCZY0QBlK0LDZfPc8FW8Ed2DlvsuE6PRjroDY+wg4+j/Q==}
+    dev: true
 
   /pathe@1.1.2:
     resolution: {integrity: sha512-whLdWMYL2TwI08hn8/ZqAbrVemu0LNaNNJZX73O6qaIdCTfXutsLhMkjdENX0qhsQ9uIimo4/aQOmXkoon2nDQ==}
@@ -17280,8 +16781,8 @@ packages:
     resolution: {integrity: sha512-nN7pYi0AQqJnoLPC9eHFQ8AcyaixBUOwvqc5TDnIKCMEE6I0y8P7OKA7fPexsXGCGxQDl/cmrLAp26LhcwxZ4A==}
     dependencies:
       jsonc-parser: 3.2.0
-      mlly: 1.4.2
-      pathe: 1.1.1
+      mlly: 1.5.0
+      pathe: 1.1.2
 
   /please-upgrade-node@3.2.0:
     resolution: {integrity: sha512-gQR3WpIgNIKwBMVLkpMUeR3e1/E1y42bqDQZfql+kDeXd8COYfM8PQA4X6y7a8u9Ua9FHmsrrmirW2vHs45hWg==}
@@ -18345,27 +17846,6 @@ packages:
       fsevents: 2.3.3
     dev: true
 
-  /rollup@4.7.0:
-    resolution: {integrity: sha512-7Kw0dUP4BWH78zaZCqF1rPyQ8D5DSU6URG45v1dqS/faNsx9WXyess00uTOZxKr7oR/4TOjO1CPudT8L1UsEgw==}
-    engines: {node: '>=18.0.0', npm: '>=8.0.0'}
-    hasBin: true
-    optionalDependencies:
-      '@rollup/rollup-android-arm-eabi': 4.7.0
-      '@rollup/rollup-android-arm64': 4.7.0
-      '@rollup/rollup-darwin-arm64': 4.7.0
-      '@rollup/rollup-darwin-x64': 4.7.0
-      '@rollup/rollup-linux-arm-gnueabihf': 4.7.0
-      '@rollup/rollup-linux-arm64-gnu': 4.7.0
-      '@rollup/rollup-linux-arm64-musl': 4.7.0
-      '@rollup/rollup-linux-riscv64-gnu': 4.7.0
-      '@rollup/rollup-linux-x64-gnu': 4.7.0
-      '@rollup/rollup-linux-x64-musl': 4.7.0
-      '@rollup/rollup-win32-arm64-msvc': 4.7.0
-      '@rollup/rollup-win32-ia32-msvc': 4.7.0
-      '@rollup/rollup-win32-x64-msvc': 4.7.0
-      fsevents: 2.3.3
-    dev: true
-
   /rollup@4.9.5:
     resolution: {integrity: sha512-E4vQW0H/mbNMw2yLSqJyjtkHY9dslf/p0zuT1xehNRqUTBOFMqEjguDvqhXr7N7r/4ttb2jr4T41d3dncmIgbQ==}
     engines: {node: '>=18.0.0', npm: '>=8.0.0'}
@@ -18408,7 +17888,7 @@ packages:
       '@babel/runtime': 7.23.8
       eventemitter3: 4.0.7
       uuid: 8.3.2
-      ws: 8.16.0(bufferutil@4.0.8)(utf-8-validate@5.0.10)
+      ws: 8.14.2(bufferutil@4.0.8)(utf-8-validate@5.0.10)
     optionalDependencies:
       bufferutil: 4.0.8
       utf-8-validate: 5.0.10
@@ -18817,15 +18297,6 @@ packages:
       vscode-textmate: 8.0.0
     dev: true
 
-  /shiki@0.14.6:
-    resolution: {integrity: sha512-R4koBBlQP33cC8cpzX0hAoOURBHJILp4Aaduh2eYi+Vj8ZBqtK/5SWNEHBS3qwUMu8dqOtI/ftno3ESfNeVW9g==}
-    dependencies:
-      ansi-sequence-parser: 1.1.1
-      jsonc-parser: 3.2.0
-      vscode-oniguruma: 1.7.0
-      vscode-textmate: 8.0.0
-    dev: true
-
   /shiki@0.14.7:
     resolution: {integrity: sha512-dNPAPrxSc87ua2sKJ3H5dQ/6ZaY8RNnaAqK+t0eG7p0Soi2ydiqbGOTaZCqaYvA/uZYfS1LJnemt3Q+mSfcPCg==}
     dependencies:
@@ -19051,7 +18522,7 @@ packages:
     dependencies:
       command-exists: 1.2.9
       commander: 8.3.0
-      follow-redirects: 1.15.3
+      follow-redirects: 1.15.5(debug@4.3.4)
       js-sha3: 0.8.0
       memorystream: 0.3.1
       semver: 5.7.2
@@ -19619,8 +19090,8 @@ packages:
       picocolors: 1.0.0
       sade: 1.8.1
       svelte: 4.2.5
-      svelte-preprocess: 5.1.0(@babel/core@7.23.7)(svelte@4.2.5)(typescript@5.2.2)
-      typescript: 5.2.2
+      svelte-preprocess: 5.1.0(@babel/core@7.23.7)(svelte@4.2.5)(typescript@5.3.3)
+      typescript: 5.3.3
     transitivePeerDependencies:
       - '@babel/core'
       - coffeescript
@@ -19642,7 +19113,7 @@ packages:
       svelte: 4.2.5
     dev: true
 
-  /svelte-preprocess@5.1.0(@babel/core@7.23.7)(svelte@4.2.5)(typescript@5.2.2):
+  /svelte-preprocess@5.1.0(@babel/core@7.23.7)(svelte@4.2.5)(typescript@5.3.3):
     resolution: {integrity: sha512-EkErPiDzHAc0k2MF5m6vBNmRUh338h2myhinUw/xaqsLs7/ZvsgREiLGj03VrSzbY/TB5ZXgBOsKraFee5yceA==}
     engines: {node: '>= 14.10.0'}
     requiresBuild: true
@@ -19687,7 +19158,7 @@ packages:
       sorcery: 0.11.0
       strip-indent: 3.0.0
       svelte: 4.2.5
-      typescript: 5.2.2
+      typescript: 5.3.3
     dev: true
 
   /svelte@4.2.5:
@@ -19818,7 +19289,7 @@ packages:
       uglify-js:
         optional: true
     dependencies:
-      '@jridgewell/trace-mapping': 0.3.20
+      '@jridgewell/trace-mapping': 0.3.22
       esbuild: 0.19.11
       jest-worker: 27.5.1
       schema-utils: 3.3.0
@@ -20057,19 +19528,19 @@ packages:
       typescript:
         optional: true
     dependencies:
-      bundle-require: 4.0.2(esbuild@0.19.10)
+      bundle-require: 4.0.2(esbuild@0.19.11)
       cac: 6.7.14
       chokidar: 3.5.3
       debug: 4.3.4(supports-color@8.1.1)
-      esbuild: 0.19.10
+      esbuild: 0.19.11
       execa: 5.1.1
       globby: 11.1.0
       joycon: 3.1.1
       postcss-load-config: 4.0.2
       resolve-from: 5.0.0
-      rollup: 4.7.0
+      rollup: 4.9.5
       source-map: 0.8.0-beta.0
-      sucrase: 3.34.0
+      sucrase: 3.35.0
       tree-kill: 1.2.2
       typescript: 5.2.2
     transitivePeerDependencies:
@@ -20094,19 +19565,19 @@ packages:
       typescript:
         optional: true
     dependencies:
-      bundle-require: 4.0.2(esbuild@0.19.10)
+      bundle-require: 4.0.2(esbuild@0.19.11)
       cac: 6.7.14
       chokidar: 3.5.3
       debug: 4.3.4(supports-color@8.1.1)
-      esbuild: 0.19.10
+      esbuild: 0.19.11
       execa: 5.1.1
       globby: 11.1.0
       joycon: 3.1.1
       postcss-load-config: 4.0.2
       resolve-from: 5.0.0
-      rollup: 4.7.0
+      rollup: 4.9.5
       source-map: 0.8.0-beta.0
-      sucrase: 3.34.0
+      sucrase: 3.35.0
       tree-kill: 1.2.2
       typescript: 5.3.3
     transitivePeerDependencies:
@@ -20308,13 +19779,13 @@ packages:
       typedoc: 0.25.3(typescript@5.2.2)
     dev: true
 
-  /typedoc-plugin-markdown@3.17.1(typedoc@0.25.4):
+  /typedoc-plugin-markdown@3.17.1(typedoc@0.25.7):
     resolution: {integrity: sha512-QzdU3fj0Kzw2XSdoL15ExLASt2WPqD7FbLeaqwT70+XjKyTshBnUlQA5nNREO1C2P8Uen0CDjsBLMsCQ+zd0lw==}
     peerDependencies:
       typedoc: '>=0.24.0'
     dependencies:
       handlebars: 4.7.8
-      typedoc: 0.25.4(typescript@5.3.3)
+      typedoc: 0.25.7(typescript@5.3.3)
     dev: true
 
   /typedoc-plugin-markdown@4.0.0-next.21(typedoc@0.25.7):
@@ -20337,20 +19808,6 @@ packages:
       minimatch: 9.0.3
       shiki: 0.14.5
       typescript: 5.2.2
-    dev: true
-
-  /typedoc@0.25.4(typescript@5.3.3):
-    resolution: {integrity: sha512-Du9ImmpBCw54bX275yJrxPVnjdIyJO/84co0/L9mwe0R3G4FSR6rQ09AlXVRvZEGMUg09+z/usc8mgygQ1aidA==}
-    engines: {node: '>= 16'}
-    hasBin: true
-    peerDependencies:
-      typescript: 4.6.x || 4.7.x || 4.8.x || 4.9.x || 5.0.x || 5.1.x || 5.2.x || 5.3.x
-    dependencies:
-      lunr: 2.3.9
-      marked: 4.3.0
-      minimatch: 9.0.3
-      shiki: 0.14.6
-      typescript: 5.3.3
     dev: true
 
   /typedoc@0.25.7(typescript@5.3.3):
@@ -20703,6 +20160,7 @@ packages:
       browserslist: 4.22.1
       escalade: 3.1.1
       picocolors: 1.0.0
+    dev: true
 
   /update-browserslist-db@1.0.13(browserslist@4.22.2):
     resolution: {integrity: sha512-xebP81SNcPuNpPP3uzeW1NYXxI3rxyJzF3pD6sH4jE7o/IX+WtSpwnVU+qIsDPyk0d3hmFQ7mjqc6AtV604hbg==}
@@ -20967,7 +20425,6 @@ packages:
       - bufferutil
       - utf-8-validate
       - zod
-    dev: true
 
   /viem@1.19.11(typescript@5.3.3)(zod@3.22.4):
     resolution: {integrity: sha512-dbsXEWDBZkByuzJXAs/e01j7dpUJ5ICF5WcyntFwf8Y97n5vnC/91lAleSa6DA5V4WJvYZbhDpYeTctsMAQnhA==}
@@ -20992,7 +20449,7 @@ packages:
       - zod
     dev: true
 
-  /viem@1.19.4(typescript@5.2.2)(zod@3.22.4):
+  /viem@1.19.4(typescript@5.2.2):
     resolution: {integrity: sha512-CvAVaOzxlu3Q/cpfrYvTRMBIPDMAkLu8aFmHLqU1Bg25DyUxp9xwoF1Ljp38q7/Rosm1OPFQ4y6K64v/VwoumQ==}
     peerDependencies:
       typescript: '>=5.0.4'
@@ -21015,74 +20472,6 @@ packages:
       - zod
     dev: false
 
-  /viem@1.19.4(typescript@5.3.3)(zod@3.22.4):
-    resolution: {integrity: sha512-CvAVaOzxlu3Q/cpfrYvTRMBIPDMAkLu8aFmHLqU1Bg25DyUxp9xwoF1Ljp38q7/Rosm1OPFQ4y6K64v/VwoumQ==}
-    peerDependencies:
-      typescript: '>=5.0.4'
-    peerDependenciesMeta:
-      typescript:
-        optional: true
-    dependencies:
-      '@adraffy/ens-normalize': 1.10.0
-      '@noble/curves': 1.2.0
-      '@noble/hashes': 1.3.2
-      '@scure/bip32': 1.3.2
-      '@scure/bip39': 1.2.1
-      abitype: 0.9.8(typescript@5.3.3)(zod@3.22.4)
-      isows: 1.0.3(ws@8.13.0)
-      typescript: 5.3.3
-      ws: 8.13.0
-    transitivePeerDependencies:
-      - bufferutil
-      - utf-8-validate
-      - zod
-    dev: true
-
-  /viem@1.21.4(typescript@5.2.2)(zod@3.22.4):
-    resolution: {integrity: sha512-BNVYdSaUjeS2zKQgPs+49e5JKocfo60Ib2yiXOWBT6LuVxY1I/6fFX3waEtpXvL1Xn4qu+BVitVtMh9lyThyhQ==}
-    peerDependencies:
-      typescript: '>=5.0.4'
-    peerDependenciesMeta:
-      typescript:
-        optional: true
-    dependencies:
-      '@adraffy/ens-normalize': 1.10.0
-      '@noble/curves': 1.2.0
-      '@noble/hashes': 1.3.2
-      '@scure/bip32': 1.3.2
-      '@scure/bip39': 1.2.1
-      abitype: 0.9.8(typescript@5.2.2)(zod@3.22.4)
-      isows: 1.0.3(ws@8.13.0)
-      typescript: 5.2.2
-      ws: 8.13.0
-    transitivePeerDependencies:
-      - bufferutil
-      - utf-8-validate
-      - zod
-
-  /viem@1.21.4(typescript@5.3.3)(zod@3.22.4):
-    resolution: {integrity: sha512-BNVYdSaUjeS2zKQgPs+49e5JKocfo60Ib2yiXOWBT6LuVxY1I/6fFX3waEtpXvL1Xn4qu+BVitVtMh9lyThyhQ==}
-    peerDependencies:
-      typescript: '>=5.0.4'
-    peerDependenciesMeta:
-      typescript:
-        optional: true
-    dependencies:
-      '@adraffy/ens-normalize': 1.10.0
-      '@noble/curves': 1.2.0
-      '@noble/hashes': 1.3.2
-      '@scure/bip32': 1.3.2
-      '@scure/bip39': 1.2.1
-      abitype: 0.9.8(typescript@5.3.3)(zod@3.22.4)
-      isows: 1.0.3(ws@8.13.0)
-      typescript: 5.3.3
-      ws: 8.13.0
-    transitivePeerDependencies:
-      - bufferutil
-      - utf-8-validate
-      - zod
-    dev: true
-
   /viem@2.0.2(typescript@5.2.2)(zod@3.22.4):
     resolution: {integrity: sha512-vi0mDURG7MVKohXb5dCFAu1kDrNzoNsALfnMKUapyfK30HnXI77hiL5KxTM+Nao8UfYsgSHNZ/0lakC9yo1t2A==}
     peerDependencies:
@@ -21104,29 +20493,7 @@ packages:
       - bufferutil
       - utf-8-validate
       - zod
-
-  /viem@2.0.2(typescript@5.3.3):
-    resolution: {integrity: sha512-vi0mDURG7MVKohXb5dCFAu1kDrNzoNsALfnMKUapyfK30HnXI77hiL5KxTM+Nao8UfYsgSHNZ/0lakC9yo1t2A==}
-    peerDependencies:
-      typescript: '>=5.0.4'
-    peerDependenciesMeta:
-      typescript:
-        optional: true
-    dependencies:
-      '@adraffy/ens-normalize': 1.10.0
-      '@noble/curves': 1.2.0
-      '@noble/hashes': 1.3.2
-      '@scure/bip32': 1.3.2
-      '@scure/bip39': 1.2.1
-      abitype: 0.10.0(typescript@5.3.3)
-      isows: 1.0.3(ws@8.13.0)
-      typescript: 5.3.3
-      ws: 8.13.0
-    transitivePeerDependencies:
-      - bufferutil
-      - utf-8-validate
-      - zod
-    dev: true
+    dev: false
 
   /viem@2.4.0(typescript@5.2.2)(zod@3.22.4):
     resolution: {integrity: sha512-CPP4ZBy0vKqJE1L2Dzrw/am3vD9p42H3nQwqNBk3o3R8jnM4vwncHjdu+V8tWdk3ZyM8now6Bdlqv76WPpZQhg==}
@@ -21422,72 +20789,6 @@ packages:
       - terser
       - typescript
       - universal-cookie
-    dev: true
-
-  /vitest@0.34.6(@vitest/ui@0.34.6):
-    resolution: {integrity: sha512-+5CALsOvbNKnS+ZHMXtuUC7nL8/7F1F2DnHGjSsszX8zCjWSSviphCb/NuS9Nzf4Q03KyyDRBAXhF/8lffME4Q==}
-    engines: {node: '>=v14.18.0'}
-    hasBin: true
-    peerDependencies:
-      '@edge-runtime/vm': '*'
-      '@vitest/browser': '*'
-      '@vitest/ui': '*'
-      happy-dom: '*'
-      jsdom: '*'
-      playwright: '*'
-      safaridriver: '*'
-      webdriverio: '*'
-    peerDependenciesMeta:
-      '@edge-runtime/vm':
-        optional: true
-      '@vitest/browser':
-        optional: true
-      '@vitest/ui':
-        optional: true
-      happy-dom:
-        optional: true
-      jsdom:
-        optional: true
-      playwright:
-        optional: true
-      safaridriver:
-        optional: true
-      webdriverio:
-        optional: true
-    dependencies:
-      '@types/chai': 4.3.11
-      '@types/chai-subset': 1.3.5
-      '@types/node': 20.11.5
-      '@vitest/expect': 0.34.6
-      '@vitest/runner': 0.34.6
-      '@vitest/snapshot': 0.34.6
-      '@vitest/spy': 0.34.6
-      '@vitest/ui': 0.34.6(vitest@0.34.6)
-      '@vitest/utils': 0.34.6
-      acorn: 8.11.3
-      acorn-walk: 8.3.2
-      cac: 6.7.14
-      chai: 4.4.1
-      debug: 4.3.4(supports-color@8.1.1)
-      local-pkg: 0.4.3
-      magic-string: 0.30.5
-      pathe: 1.1.2
-      picocolors: 1.0.0
-      std-env: 3.7.0
-      strip-literal: 1.3.0
-      tinybench: 2.6.0
-      tinypool: 0.7.0
-      vite: 5.0.12(@types/node@20.11.5)
-      vite-node: 0.34.6(@types/node@20.11.5)
-      why-is-node-running: 2.2.2
-    transitivePeerDependencies:
-      - less
-      - lightningcss
-      - sass
-      - stylus
-      - sugarss
-      - supports-color
-      - terser
     dev: true
 
   /vitest@0.34.6(@vitest/ui@0.34.7):
@@ -21854,7 +21155,7 @@ packages:
       react: 18.2.0
       typescript: 5.2.2
       use-sync-external-store: 1.2.0(react@18.2.0)
-      viem: 1.19.4(typescript@5.2.2)(zod@3.22.4)
+      viem: 1.19.4(typescript@5.2.2)
     transitivePeerDependencies:
       - '@azure/app-configuration'
       - '@azure/cosmos'
@@ -21878,49 +21179,6 @@ packages:
       - utf-8-validate
       - zod
     dev: false
-
-  /wagmi@1.4.7(react@18.2.0)(typescript@5.2.2)(viem@2.0.2)(zod@3.22.4):
-    resolution: {integrity: sha512-/k8gA9S6RnwU6Qroxs630jAFvRIx+DSKpCP1owgAEGWc7D2bAJHljwRSCRTGENz48HyJ4V3R7KYV1yImxPvM3A==}
-    peerDependencies:
-      react: '>=17.0.0'
-      typescript: '>=5.0.4'
-      viem: '>=0.3.35'
-    peerDependenciesMeta:
-      typescript:
-        optional: true
-    dependencies:
-      '@tanstack/query-sync-storage-persister': 4.36.1
-      '@tanstack/react-query': 4.36.1(react-dom@18.2.0)(react@18.2.0)
-      '@tanstack/react-query-persist-client': 4.36.1(@tanstack/react-query@4.36.1)
-      '@wagmi/core': 1.4.7(react@18.2.0)(typescript@5.2.2)(viem@2.0.2)(zod@3.22.4)
-      abitype: 0.8.7(typescript@5.2.2)(zod@3.22.4)
-      react: 18.2.0
-      typescript: 5.2.2
-      use-sync-external-store: 1.2.0(react@18.2.0)
-      viem: 2.0.2(typescript@5.2.2)(zod@3.22.4)
-    transitivePeerDependencies:
-      - '@azure/app-configuration'
-      - '@azure/cosmos'
-      - '@azure/data-tables'
-      - '@azure/identity'
-      - '@azure/keyvault-secrets'
-      - '@azure/storage-blob'
-      - '@capacitor/preferences'
-      - '@netlify/blobs'
-      - '@planetscale/database'
-      - '@react-native-async-storage/async-storage'
-      - '@types/react'
-      - '@upstash/redis'
-      - '@vercel/kv'
-      - bufferutil
-      - encoding
-      - immer
-      - react-dom
-      - react-native
-      - supports-color
-      - utf-8-validate
-      - zod
-    dev: true
 
   /wagmi@1.4.7(react@18.2.0)(typescript@5.2.2)(viem@2.4.0)(zod@3.22.4):
     resolution: {integrity: sha512-/k8gA9S6RnwU6Qroxs630jAFvRIx+DSKpCP1owgAEGWc7D2bAJHljwRSCRTGENz48HyJ4V3R7KYV1yImxPvM3A==}
@@ -22008,6 +21266,49 @@ packages:
       - zod
     dev: true
 
+  /wagmi@1.4.7(react@18.2.0)(typescript@5.3.3)(viem@2.4.0)(zod@3.22.4):
+    resolution: {integrity: sha512-/k8gA9S6RnwU6Qroxs630jAFvRIx+DSKpCP1owgAEGWc7D2bAJHljwRSCRTGENz48HyJ4V3R7KYV1yImxPvM3A==}
+    peerDependencies:
+      react: '>=17.0.0'
+      typescript: '>=5.0.4'
+      viem: '>=0.3.35'
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+    dependencies:
+      '@tanstack/query-sync-storage-persister': 4.36.1
+      '@tanstack/react-query': 4.36.1(react-dom@18.2.0)(react@18.2.0)
+      '@tanstack/react-query-persist-client': 4.36.1(@tanstack/react-query@4.36.1)
+      '@wagmi/core': 1.4.7(react@18.2.0)(typescript@5.3.3)(viem@2.4.0)(zod@3.22.4)
+      abitype: 0.8.7(typescript@5.3.3)(zod@3.22.4)
+      react: 18.2.0
+      typescript: 5.3.3
+      use-sync-external-store: 1.2.0(react@18.2.0)
+      viem: 2.4.0(typescript@5.3.3)(zod@3.22.4)
+    transitivePeerDependencies:
+      - '@azure/app-configuration'
+      - '@azure/cosmos'
+      - '@azure/data-tables'
+      - '@azure/identity'
+      - '@azure/keyvault-secrets'
+      - '@azure/storage-blob'
+      - '@capacitor/preferences'
+      - '@netlify/blobs'
+      - '@planetscale/database'
+      - '@react-native-async-storage/async-storage'
+      - '@types/react'
+      - '@upstash/redis'
+      - '@vercel/kv'
+      - bufferutil
+      - encoding
+      - immer
+      - react-dom
+      - react-native
+      - supports-color
+      - utf-8-validate
+      - zod
+    dev: true
+
   /wasm-pack@0.12.1:
     resolution: {integrity: sha512-dIyKWUumPFsGohdndZjDXRFaokUT/kQS+SavbbiXVAvA/eN4riX5QNdB6AhXQx37zNxluxQkuixZUgJ8adKjOg==}
     hasBin: true
@@ -22069,9 +21370,9 @@ packages:
       '@webassemblyjs/ast': 1.11.6
       '@webassemblyjs/wasm-edit': 1.11.6
       '@webassemblyjs/wasm-parser': 1.11.6
-      acorn: 8.11.2
-      acorn-import-assertions: 1.9.0(acorn@8.11.2)
-      browserslist: 4.22.1
+      acorn: 8.11.3
+      acorn-import-assertions: 1.9.0(acorn@8.11.3)
+      browserslist: 4.22.2
       chrome-trace-event: 1.0.3
       enhanced-resolve: 5.15.0
       es-module-lexer: 1.4.1
@@ -22289,21 +21590,8 @@ packages:
       utf-8-validate:
         optional: true
 
-  /ws@8.14.2:
+  /ws@8.14.2(bufferutil@4.0.8)(utf-8-validate@5.0.10):
     resolution: {integrity: sha512-wEBG1ftX4jcglPxgFCMJmZ2PLtSbJ2Peg6TmpJFTbe9GZYOQCDPdMYu/Tm0/bGZkw8paZnJY45J4K2PZrLYq8g==}
-    engines: {node: '>=10.0.0'}
-    peerDependencies:
-      bufferutil: ^4.0.1
-      utf-8-validate: '>=5.0.2'
-    peerDependenciesMeta:
-      bufferutil:
-        optional: true
-      utf-8-validate:
-        optional: true
-    dev: false
-
-  /ws@8.16.0(bufferutil@4.0.8)(utf-8-validate@5.0.10):
-    resolution: {integrity: sha512-HS0c//TP7Ina87TfiPUz1rQzMhHrl/SG2guqRcTOIUYD2q8uhUdNHZYJUaQ8aTGPzCh+c6oawMKW35nFl1dxyQ==}
     engines: {node: '>=10.0.0'}
     peerDependencies:
       bufferutil: ^4.0.1

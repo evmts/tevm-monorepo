@@ -1,0 +1,6 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`loadConfig > should throw an error if tsconfig.json does not exist 1`] = `
+"FailedToReadConfigError: Unable load config from nonexistentpath
+Failed to find nonexistentpath/tsconfig.json"
+`;

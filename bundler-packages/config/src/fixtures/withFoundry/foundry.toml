@@ -1,0 +1,7 @@
+[profile.default]
+optimizer = true
+optimizer_runs = 20_000
+
+remappings = [
+    "@solmate-utils/=lib/solmate/src/utils/",
+]

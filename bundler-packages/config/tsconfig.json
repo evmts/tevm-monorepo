@@ -1,0 +1,15 @@
+{
+  "extends": "@tevm/tsconfig/base.json",
+  "compilerOptions": {
+    "outDir": "types",
+    "skipLibCheck": true,
+    "resolveJsonModule": true
+  },
+  "include": [
+    "src",
+    "src/**/*.json"
+  ],
+  "exclude": [
+    "src/fixtures/invalidJson"
+  ]
+}

@@ -310,18 +310,24 @@
 		"@tevm/actions-spec": "workspace:^",
 		"@tevm/procedures-spec": "workspace:^",
 		"@tevm/base-bundler": "workspace:1.0.0-next.21",
+		"@tevm/client-spec": "workspace:^",
 		"@tevm/client-remote": "workspace:^",
 		"@tevm/client-memory": "workspace:^",
 		"@tevm/contract": "workspace:^",
+		"@tevm/errors": "workspace:^",
 		"@tevm/predeploys": "workspace:^",
 		"abitype": "^1.0.0",
 		"viem": "^2.4.0"
 	},
 	"peerDependencies": {
-		"ethers": "6.x.x"
+		"ethers": "6.x.x",
+		"viem": "2.x.x"
 	},
 	"peerDependenciesMeta": {
 		"ethers": {
+			"optional": true
+		},
+		"viem": {
 			"optional": true
 		}
 	}

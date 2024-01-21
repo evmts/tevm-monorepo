@@ -1,0 +1,11 @@
+{
+  "extends": "@tevm/tsconfig/base.json",
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "types",
+    "skipLibCheck": true
+  },
+  "include": [
+    "src"
+  ]
+}
