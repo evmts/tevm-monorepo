@@ -1,4 +1,4 @@
-import { NoProxyConfiguredError, ProxyFetchError } from './errors/index.js'
+import { NoProxyConfiguredError, ProxyFetchError } from '@tevm/errors'
 import { createJsonRpcFetcher } from '@tevm/jsonrpc'
 
 /**
@@ -20,8 +20,8 @@ import { createJsonRpcFetcher } from '@tevm/jsonrpc'
  */
 export const proxyRequest = (url) => {
 	/**
-	 * @param {import('@tevm/api').TevmJsonRpcRequest | import('@tevm/api').JsonRpcRequest<string, unknown> | import('@tevm/api').JsonRpcRequest<string, readonly []>} request
-	 * @returns {Promise<import('@tevm/api').JsonRpcResponse<any, any, any>>}
+	 * @param {import('@tevm/procedures-spec').TevmJsonRpcRequest | import('@tevm/jsonrpc').JsonRpcRequest<string, unknown> | import('@tevm/jsonrpc').JsonRpcRequest<string, readonly []>} request
+	 * @returns {Promise<import('@tevm/jsonrpc').JsonRpcResponse<any, any, any>>}
 	 */
 	return async (request) => {
 		if (!url) {
@@ -38,7 +38,11 @@ export const proxyRequest = (url) => {
 			}
 		}
 		return createJsonRpcFetcher(url)
-			.request(request)
+			.request(
+				/**@type {import('@tevm/jsonrpc').JsonRpcRequest<string, unknown>}*/ (
+					request
+				),
+			)
 			.catch((e) => {
 				console.error('\n\n\n\n', 'error is here', e, '\n\n\n\n')
 				const err = new ProxyFetchError(request.method)

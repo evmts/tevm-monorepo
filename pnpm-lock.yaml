@@ -537,9 +537,39 @@ importers:
 
   core/client-memory:
     dependencies:
+      '@ethereumjs/block':
+        specifier: ^5.0.1
+        version: 5.0.1
+      '@ethereumjs/blockchain':
+        specifier: ^7.0.1
+        version: 7.0.1
+      '@ethereumjs/common':
+        specifier: ^4.1.0
+        version: 4.1.0
+      '@ethereumjs/evm':
+        specifier: ^2.1.0
+        version: 2.1.0
+      '@ethereumjs/trie':
+        specifier: ^6.0.1
+        version: 6.0.1
+      '@ethereumjs/vm':
+        specifier: ^7.1.0
+        version: 7.1.0
+      '@tevm/actions':
+        specifier: workspace:^
+        version: link:../actions
       '@tevm/contract':
         specifier: workspace:^
         version: link:../contract
+      '@tevm/errors':
+        specifier: workspace:^
+        version: link:../errors
+      '@tevm/jsonrpc':
+        specifier: workspace:^
+        version: link:../jsonrpc
+      '@tevm/procedures':
+        specifier: workspace:^
+        version: link:../procedures
       viem:
         specifier: ^2.0.0
         version: 2.4.0(typescript@5.3.3)(zod@3.22.4)
@@ -547,12 +577,27 @@ importers:
       '@ethereumjs/util':
         specifier: ^9.0.1
         version: 9.0.1
+      '@tevm/client-spec':
+        specifier: workspace:^
+        version: link:../client-spec
+      '@tevm/predeploys':
+        specifier: workspace:^
+        version: link:../predeploys
+      '@tevm/procedures-spec':
+        specifier: workspace:^
+        version: link:../procedures-spec
+      '@tevm/state':
+        specifier: workspace:^
+        version: link:../state
       '@tevm/tsconfig':
         specifier: workspace:^
         version: link:../../configs/tsconfig
       '@tevm/tsupconfig':
         specifier: workspace:^
         version: link:../../configs/tsupconfig
+      abitype:
+        specifier: ^1.0.0
+        version: 1.0.0(typescript@5.3.3)(zod@3.22.4)
 
   core/client-remote:
     dependencies:
@@ -584,21 +629,18 @@ importers:
 
   core/client-spec:
     devDependencies:
-      '@tevm/state':
+      '@tevm/actions-spec':
         specifier: workspace:^
-        version: link:../state
+        version: link:../actions-spec
+      '@tevm/procedures-spec':
+        specifier: workspace:^
+        version: link:../procedures-spec
       '@tevm/tsconfig':
         specifier: workspace:^
         version: link:../../configs/tsconfig
       '@tevm/tsupconfig':
         specifier: workspace:^
         version: link:../../configs/tsupconfig
-      abitype:
-        specifier: ^0.10.3
-        version: 0.10.3(typescript@5.3.3)(zod@3.22.4)
-      viem:
-        specifier: ^2.0.0
-        version: 2.4.0(typescript@5.3.3)(zod@3.22.4)
 
   core/contract:
     dependencies:
@@ -627,21 +669,12 @@ importers:
 
   core/errors:
     devDependencies:
-      '@tevm/state':
-        specifier: workspace:^
-        version: link:../state
       '@tevm/tsconfig':
         specifier: workspace:^
         version: link:../../configs/tsconfig
       '@tevm/tsupconfig':
         specifier: workspace:^
         version: link:../../configs/tsupconfig
-      abitype:
-        specifier: ^0.10.3
-        version: 0.10.3(typescript@5.3.3)(zod@3.22.4)
-      viem:
-        specifier: ^2.0.0
-        version: 2.4.0(typescript@5.3.3)(zod@3.22.4)
 
   core/jsonrpc:
     devDependencies:
@@ -685,6 +718,12 @@ importers:
       '@ethereumjs/util':
         specifier: ^9.0.1
         version: 9.0.1
+      '@tevm/actions':
+        specifier: workspace:^
+        version: link:../actions
+      '@tevm/errors':
+        specifier: workspace:^
+        version: link:../errors
       '@tevm/jsonrpc':
         specifier: workspace:1.0.0-next.22
         version: link:../jsonrpc

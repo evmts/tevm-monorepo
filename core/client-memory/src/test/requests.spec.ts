@@ -1,8 +1,11 @@
 import { createMemoryTevm } from '../createMemoryTevm.js'
-import { UnsupportedMethodError } from '../index.js'
 import { DaiContract } from './DaiContract.sol.js'
 import { Address, bigIntToHex } from '@ethereumjs/util'
-import type { ContractJsonRpcRequest, ScriptJsonRpcRequest } from '@tevm/api'
+import { UnsupportedMethodError } from '@tevm/errors'
+import type {
+	ContractJsonRpcRequest,
+	ScriptJsonRpcRequest,
+} from '@tevm/procedures-spec'
 import { describe, expect, it } from 'bun:test'
 import {
 	decodeFunctionResult,

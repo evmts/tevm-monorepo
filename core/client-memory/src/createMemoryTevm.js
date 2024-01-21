@@ -20,7 +20,7 @@ import {
 	loadStateHandler,
 	scriptHandler,
 	setAccountHandler,
-} from '@tevm/procedures'
+} from '@tevm/actions'
 import { DefaultTevmStateManager, TevmStateManager } from '@tevm/state'
 import { createPublicClient, http } from 'viem'
 
