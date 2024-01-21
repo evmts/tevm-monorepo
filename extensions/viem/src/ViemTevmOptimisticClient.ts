@@ -9,6 +9,10 @@ import type {
 	WriteContractParameters,
 } from 'viem'
 
+/**
+ * @experimental
+ * The decorated methods added to a viem wallet client by `tevmViemExtensionOptimistic`
+ */
 export type ViemTevmOptimisticClient<
 	TChain extends Chain | undefined = Chain,
 	TAccount extends Account | undefined = Account | undefined,
