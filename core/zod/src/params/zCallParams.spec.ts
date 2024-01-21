@@ -1,5 +1,5 @@
 import { zCallParams } from './zCallParams.js'
-import type { CallParams } from '@tevm/api'
+import type { CallParams } from '@tevm/actions-spec'
 import { expect, test } from 'bun:test'
 import type { z } from 'zod'
 

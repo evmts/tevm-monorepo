@@ -1,5 +1,5 @@
 import { zScriptParams } from './zScriptParams.js'
-import type { ScriptParams } from '@tevm/api'
+import type { ScriptParams } from '@tevm/actions-spec'
 import { expect, test } from 'bun:test'
 import type { z } from 'zod'
 

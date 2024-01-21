@@ -1,5 +1,5 @@
 import { zSetAccountParams } from './zSetAccountParams.js'
-import type { SetAccountParams } from '@tevm/api'
+import type { SetAccountParams } from '@tevm/actions-spec'
 import { expect, test } from 'bun:test'
 import type { z } from 'zod'
 

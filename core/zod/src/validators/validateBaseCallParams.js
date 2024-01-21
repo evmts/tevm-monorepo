@@ -2,11 +2,11 @@ import { createError } from '../common/index.js'
 import { zBaseCallParams } from '../params/index.js'
 
 /**
- * @param {import('@tevm/api').BaseCallParams} action
+ * @param {import('@tevm/actions-spec').BaseCallParams} action
  */
 export const validateBaseCallParams = (action) => {
 	/**
-	 * @type {Array<import('@tevm/api').BaseCallError>}
+	 * @type {Array<import('@tevm/errors').BaseCallError>}
 	 */
 	const errors = []
 

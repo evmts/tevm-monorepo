@@ -2,11 +2,11 @@ import { createError } from '../common/index.js'
 import { zLoadStateParams } from '../params/zLoadStateParams.js'
 
 /**
- * @param {import('@tevm/api').LoadStateParams} action
+ * @param {import('@tevm/actions-spec').LoadStateParams} action
  */
 export const validateLoadStateParams = (action) => {
 	/**
-	 * @type {Array<import('@tevm/api').LoadStateError>}
+	 * @type {Array<import('@tevm/errors').LoadStateError>}
 	 */
 	const errors = []
 

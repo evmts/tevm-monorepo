@@ -1,5 +1,5 @@
 import { zContractParams } from './zContractParams.js'
-import type { ContractParams } from '@tevm/api'
+import type { ContractParams } from '@tevm/actions-spec'
 import { expect, test } from 'bun:test'
 import type { z } from 'zod'
 

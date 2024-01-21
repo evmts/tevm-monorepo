@@ -3,12 +3,12 @@ import { zContractParams } from '../params/index.js'
 import { validateBaseCallParams } from './validateBaseCallParams.js'
 
 /**
- * @param {import('@tevm/api').ContractParams} action
- * @returns {Array<import('@tevm/api').ContractError>}
+ * @param {import('@tevm/actions-spec').ContractParams} action
+ * @returns {Array<import('@tevm/actions-spec').ContractError>}
  */
 export const validateContractParams = (action) => {
 	/**
-	 * @type {Array<import('@tevm/api').ContractError>}
+	 * @type {Array<import('@tevm/actions-spec').ContractError>}
 	 */
 	const errors = validateBaseCallParams(action)
 

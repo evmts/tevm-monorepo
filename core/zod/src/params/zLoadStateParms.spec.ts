@@ -1,5 +1,5 @@
 import { zLoadStateParams } from './zLoadStateParams.js'
-import type { LoadStateParams } from '@tevm/api'
+import type { LoadStateParams } from '@tevm/actions-spec'
 import { expect, test } from 'bun:test'
 import { stringToHex } from 'viem'
 import type { z } from 'zod'
