@@ -9,7 +9,7 @@ const dirs = [
 	'errors',
 	'predeploys',
 	'procedures-types',
-	'remote-client',
+	'http-client',
 	'server',
 ]
 

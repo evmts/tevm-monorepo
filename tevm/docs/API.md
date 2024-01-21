@@ -9,11 +9,11 @@
 - [actions-types](actions-types/README.md)
 - [contract](contract/README.md)
 - [errors](errors/README.md)
+- [http-client](http-client/README.md)
 - [index](index/README.md)
 - [memory-client](memory-client/README.md)
 - [predeploys](predeploys/README.md)
 - [procedures-types](procedures-types/README.md)
-- [remote-client](remote-client/README.md)
 - [server](server/README.md)
 
 ***

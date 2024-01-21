@@ -94,14 +94,14 @@
 				"default": "./procedures-types/index.cjs"
 			}
 		},
-		"./remote-client": {
+		"./http-client": {
 			"import": {
-				"types": "./remote-client/index.d.ts",
-				"default": "./remote-client/index.js"
+				"types": "./http-client/index.d.ts",
+				"default": "./http-client/index.js"
 			},
 			"require": {
-				"types": "./remote-client/index.d.cts",
-				"default": "./remote-client/index.cjs"
+				"types": "./http-client/index.d.cts",
+				"default": "./http-client/index.cjs"
 			}
 		},
 		"./server": {
@@ -126,7 +126,7 @@
 		"memory-client",
 		"predeploys",
 		"procedures-types",
-		"remote-client",
+		"http-client",
 		"server"
 	],
 	"scripts": {
@@ -148,11 +148,11 @@
 		"@tevm/client-types": "workspace:^",
 		"@tevm/contract": "workspace:^",
 		"@tevm/errors": "workspace:^",
+		"@tevm/http-client": "workspace:^",
 		"@tevm/jsonrpc": "workspace:^",
 		"@tevm/memory-client": "workspace:^",
 		"@tevm/predeploys": "workspace:^",
 		"@tevm/procedures-types": "workspace:^",
-		"@tevm/remote-client": "workspace:^",
 		"@tevm/server": "workspace:^",
 		"abitype": "^1.0.0",
 		"viem": "^2.4.0"

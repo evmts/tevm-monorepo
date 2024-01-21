@@ -1,1 +1,0 @@
-{"version":3,"sources":["index.ts"],"names":[],"mappings":";AAAA;AAAA,EACC;AAAA,OAGM","sourcesContent":["export {\n\tcreateRemoteClient,\n\ttype RemoteClient,\n\ttype RemoteClientOptions\n} from '@tevm/remote-client'\n"]}

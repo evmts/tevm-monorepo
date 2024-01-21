@@ -18,7 +18,6 @@ title: "Documentation"
 - [@tevm/procedures](/generated/tevm/procedures/readme/)
 - [@tevm/procedures-types](/generated/tevm/procedures-types/readme/)
 - [@tevm/predeploys](/generated/tevm/predeploys/readme/)
-- [@tevm/remote-client](/generated/tevm/remote-client/readme/)
 - [@tevm/server](/generated/tevm/server/readme/)
 - [@tevm/viem](/generated/tevm/viem/readme/)
 - [@tevm/ethers](/generated/tevm/ethers/readme/)

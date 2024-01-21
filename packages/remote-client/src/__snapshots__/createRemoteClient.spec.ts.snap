@@ -1,3 +1,0 @@
-// Bun Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`createRemoteClient implements a tevm client tevm.setAccount and tevm.getAccount 1`] = `{}`;

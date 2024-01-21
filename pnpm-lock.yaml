@@ -1504,7 +1504,7 @@ importers:
         specifier: ^2.0.0
         version: 2.4.0(typescript@5.3.3)(zod@3.22.4)
 
-  packages/remote-client:
+  packages/http-client:
     dependencies:
       '@tevm/contract':
         specifier: workspace:^
@@ -1672,9 +1672,9 @@ importers:
       '@tevm/procedures-types':
         specifier: workspace:^
         version: link:../packages/procedures-spec
-      '@tevm/remote-client':
+      '@tevm/http-client':
         specifier: workspace:^
-        version: link:../packages/remote-client
+        version: link:../packages/http-client
       '@tevm/server':
         specifier: workspace:^
         version: link:../packages/server

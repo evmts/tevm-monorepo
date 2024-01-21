@@ -9,9 +9,11 @@
 		"./memory-client/index.ts",
 		"./predeploys/index.ts",
 		"./procedures-types/index.ts",
-		"./remote-client/index.ts",
+		"./http-client/index.ts",
 		"./server/index.ts"
 	],
-	"plugin": ["typedoc-plugin-markdown"],
+	"plugin": [
+		"typedoc-plugin-markdown"
+	],
 	"gitRevision": "main"
 }
