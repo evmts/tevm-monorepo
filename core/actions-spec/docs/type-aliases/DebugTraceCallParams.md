@@ -1,4 +1,4 @@
-**@tevm/api** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/actions-spec** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
@@ -32,7 +32,7 @@ The transaction to debug
 
 ## Source
 
-[params/DebugParams.ts:55](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/DebugParams.ts#L55)
+[params/DebugParams.ts:55](https://github.com/evmts/tevm-monorepo/blob/main/core/actions-spec/src/params/DebugParams.ts#L55)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

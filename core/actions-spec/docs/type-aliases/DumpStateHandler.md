@@ -1,4 +1,4 @@
-**@tevm/api** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/actions-spec** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
@@ -30,7 +30,7 @@ await tevm.loadState({state})
 
 ## Source
 
-[handlers/DumpStateHandler.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/handlers/DumpStateHandler.ts#L20)
+[handlers/DumpStateHandler.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/core/actions-spec/src/handlers/DumpStateHandler.ts#L20)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

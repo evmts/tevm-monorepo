@@ -1,4 +1,4 @@
-**@tevm/api** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/actions-spec** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
@@ -95,7 +95,7 @@ The hex stringhash of the uncles of the block.
 
 ## Source
 
-[common/BlockResult.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/common/BlockResult.ts#L7)
+[common/BlockResult.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/core/actions-spec/src/common/BlockResult.ts#L7)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

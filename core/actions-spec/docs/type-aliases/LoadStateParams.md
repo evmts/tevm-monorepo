@@ -1,4 +1,4 @@
-**@tevm/api** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/actions-spec** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
@@ -18,7 +18,7 @@ params for `tevm_loadState` method. Takes a [SerializableTevmState]([object Obje
 
 ## Source
 
-[params/LoadStateParams.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/LoadStateParams.ts#L6)
+[params/LoadStateParams.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/core/actions-spec/src/params/LoadStateParams.ts#L6)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,4 +1,4 @@
-**@tevm/api** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/actions-spec** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
@@ -71,7 +71,7 @@ json rpc procedures
 
 ## Source
 
-[common/TransactionResult.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/common/TransactionResult.ts#L7)
+[common/TransactionResult.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/core/actions-spec/src/common/TransactionResult.ts#L7)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

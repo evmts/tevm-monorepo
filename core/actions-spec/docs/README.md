@@ -1,16 +1,8 @@
-**@tevm/api** ∙ [README](README.md) ∙ [API](API.md)
+**@tevm/actions-spec** ∙ [README](README.md) ∙ [API](API.md)
 
 ***
 
-# @tevm/api/src
-
-## Tevm.ts
-
-The main tevm interface implemented both by the `@tevm/vm` vm and `@tevm/client` client
-
-## TevmJsonRpcRequestHandler.ts
-
-The JSON-RPC `request` type definition
+# @tevm/spec/src
 
 ## common
 
@@ -27,18 +19,6 @@ Specification of tevm method handlers
 ## params
 
 Specification of tevm method handler and json-rpc params
-
-## procedure
-
-Specification of tevm json-rpc procedures for fulfilling json-rpc requests
-
-## requests
-
-JSON-rpc Request type for tevm procedures
-
-## responses
-
-JSON-rpc response type for tevm procedures
 
 ## results
 

@@ -1,4 +1,4 @@
-**@tevm/api** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/actions-spec** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
@@ -23,7 +23,7 @@ It's API resuses the viem `contractRead`/`contractWrite` API to encode abi, func
 
 ## Source
 
-[handlers/ContractHandler.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/handlers/ContractHandler.ts#L11)
+[handlers/ContractHandler.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/core/actions-spec/src/handlers/ContractHandler.ts#L11)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

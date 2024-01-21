@@ -1,4 +1,4 @@
-**@tevm/api** ∙ [README](../README.md) ∙ [API](../API.md)
+**@tevm/actions-spec** ∙ [README](../README.md) ∙ [API](../API.md)
 
 ***
 
@@ -20,7 +20,7 @@ The transaction hash
 
 ## Source
 
-[params/DebugParams.ts:44](https://github.com/evmts/tevm-monorepo/blob/main/vm/api/src/params/DebugParams.ts#L44)
+[params/DebugParams.ts:44](https://github.com/evmts/tevm-monorepo/blob/main/core/actions-spec/src/params/DebugParams.ts#L44)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
