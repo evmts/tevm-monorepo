@@ -5,11 +5,11 @@ description: A quick introduction to Tevm
 
 # Tevm Quick Start Guide
 
-This guide uses the basic functionality of Tevm
+After going through this guide you will understand the basic functionality of Tevm.
 
 ## Quickest start
 
-If you prefer to dive in to a batteries included project use the Tevm cli to initialize a project
+If you already have used Tevm and prefer to dive in to a batteries included project use the [Tevm cli](./cli.md) to initialize a project
 
 ```bash
 npx tevm create my-app
@@ -19,17 +19,19 @@ npx tevm create my-app
 
 This guide will get you familiar with the most essential features of Tevm and start interacting with the Ethereum Virtual Machine (EVM) in Node.js or browser environments with `Tevm`. By the end of this guide you will understand:
 
-1. How to create a forked EVM in JavaScript using `createMemoryTevm`
-2. How to write ,build, and execute solidity scripts with `tevm`
-3. How to streamline your workflow using `tevm contract imports` with the tevm bundler
+1. How to create a forked EVM in JavaScript using [`createMemoryTevm`](../generated/@tevm/vm/functions/createMemoryTevm.md)
+2. How to write ,build, and execute solidity scripts with [`Tevm`](../generated/@tevm/api/type-aliases/Tevm.md)
+3. How to streamline your workflow using [`tevm contract imports`](https://todo.todo.tod) with the tevm bundler
 
 ## Prerequisites
 
-- Node.js (version 18 or above) or Bun.
+You need a compatabile environment
+- Node.js [(version 18 or above)](https://nodejs.org) 
+- [Bun](https://bun.sh/).
 
-This tutorial uses Bun. You can install Bun globally with Node.js
+This tutorial uses Bun but you can follow along in Node.js as well
 
-```
+```bash
 npm install --global bun
 ```
 
@@ -43,7 +45,7 @@ For more details visit the [Bun Installation Guide](https://bun.sh/docs/installa
 mkdir tevm-app && cd tevm-app
 ```
 
-2. Initialize your project with Bun:
+2. Initialize your project with [bun init](https://bun.sh/docs/cli/init):
 
 ```bash
 bun init
@@ -62,115 +64,289 @@ Now let's create a Tevm VM to execute Ethereum bytecode in our JavaScript
 1. Create a JavaScript file:
 
 ```bash
-touch vm.js
+touch index.ts
 ```
 
-
-2. Now initialize the Tevm vm forking optimism
+2. Now initialize a [MemoryTevm](../generated/@tevm/vm/type-aliases/MemoryTevm.md) with [createMemoryTevm](../generated/@tevm/vm/functions/createMemoryTevm.md)
 
 ```typescript
 import { createMemoryTevm } from 'tevm';
 
-export const vm = await createMemoryTevm({
-  fork: { url: 'https://mainnet.optimism.io' }
-});
+const tevm = await createMemoryTevm();
 ```
 
-This initializes an in memory instance of Tevm. It is similar to starting anvil but in memory in JavaScript. It will read from local state if it exists otherwise fetch and cache it from the forked url.
+This initializes an an ethereum VM instance akin to starting anvil but in memory.
 
-3. Create a new JavaScript file:
+## Using ethereum JSON-RPC
+
+The entrypoint to using Tevm is [`Tevm.request`](../generated/@tevm/api/type-aliases/TevmJsonRpcRequestHandler.md). It implements the 
+
+- much of the [ethereum JSON-RPC](https://ethereum.org/en/developers/docs/apis/json-rpc) 
+- custom [tevm_*](../generated/@tevm/api/type-aliases/TevmJsonRpcRequest.md) requests
+- will support anvil_* and ganache_* in future versions
+
+Let's use [eth_getBalance](https://ethereum.org/en/developers/docs/apis/json-rpc#eth_getbalance)
+
+1. Create a [eth_getBalance](../generated/@tevm/api/type-aliases/EthGetBalanceJsonRpcRequest.md)
+
+```typescript
+import { createMemoryTevm } from 'tevm';
+import { EthGetBalanceRequest } from 'tevm'
+
+const tevm = await createMemoryTevm();
+
+const request: EthGetBalanceRequest = {
+  jsonrpc: '2.0',
+  id: 1,
+  method: 'eth_getBalance',
+  params: ["0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"]
+}
+```
+
+2. Now pass our request into [`@tevm/request`](../generated/@tevm/api/type-aliases/Tevm.md#request)
+
+```typescript
+import { createMemoryTevm } from 'tevm';
+import { EthGetBalanceRequest } from 'tevm'
+
+const tevm = await createMemoryTevm();
+
+const request: EthGetBalanceRequest = {
+  jsonrpc: '2.0',
+  id: 1,
+  method: 'eth_getBalance',
+  params: ["0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"]
+}
+
+const response = await tevm.request(request)
+
+console.log(response)
+```
+
+3. Now run it
 
 ```bash
-touch action.js
-```
-4. Use ethereum actions
-
-The Tevm instance provides `action handlers` similar to that of [viem public actions](https://viem.sh/docs/actions/public/introduction).
-
-The most familiar ones will be on the `eth` namspace and map directly to the [ethereum JSON-rpc interface](https://ethereum.org/en/developers/docs/apis/json-rpc). Let's use `eth.getBalance` which is a equivelent to the `eth_getBalance` JSON-rpc request
-
-```typescript
-import { vm } from './vm.js';
-
-const address = `0x${'1'.repeat(40)}` as const;
-
-// eth action
-const balance = await vm.eth.getBalance({ address });
-
-console.log(balance) // 0n
+bun run index.ts
 ```
 
-4. Use tevm actions
+This address has 0 eth because we have a brand new vm. Let's make our VM fork ethereum now.
 
-Tevm also provides special tevm action handlers that give you additional power to work with Tevm. Let's add a `setAccount` action to give ourselves some eth and the `getAccount` action
+## Forking a live network
+
+Similar to anvil or ganache `Tevm` has the ability to fork a live network.
+
+1. Update [createMemoryTevm](../generated/@tevm/vm/functions/createMemoryTevm.md) to fork ethereum using [forkUrl](../generated/@tevm/vm/type-aliases/CreateEVMOptions.md)
+
+Add any ethereum RPC url to the [`options.fork.url`](../generated/@tevm/vm/type-aliases/CreateEVMOptions.md)
 
 ```typescript
-import { vm } from './vm.js';
+import { createMemoryTevm } from 'tevm';
+import { EthGetBalanceRequest } from 'tevm'
 
-const address = `0x${'1'.repeat(40)}` as const;
-
-await vm.setAccount({
-  address,
-  balance: parseEth('1')
+const tevm = await createMemoryTevm({
+  fork: {
+    url: 'https://mainnet.optimism.io'
+  }
 });
 
-const account = await vm.getBalance({ address });
+const request: EthGetBalanceRequest = {
+  jsonrpc: '2.0',
+  id: 1,
+  method: 'eth_getBalance',
+  params: ["0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"]
+}
 
-console.log('balance', account.balance); // 100000000000000000000n
-console.log('nonce', account.nonce); // 1n
-console.log('deployedBytecode', account.deployedBytecode); // 0x0
+const response = await tevm.request(request)
+
+console.log(response)
 ```
 
-`setAccount` can also be used to set contract bytecode and nonce for an account
+Tevm will fork latest block by default.
 
-Now save and run the script
+Now run script again vs the forked network
 
 ```bash
-bun run script.js
+bun run index.js
 ```
 
-5. Run a transaction
-
-Now let's run a transaction on the VM using the special `tevm.contract` method. This method will execute any contract call against the local vm and update the state. It does not require a signer.
+This is equivelent to issuing a JSON-RPC request directly to the RPC
 
 ```typescript
-import { Tevm, parseEth } from 'tevm';
-
-const vm = await createMemoryTevm({
-  fork: { url: 'https://mainnet.optimism.io' }
-});
-
-const address = `0x${'1'.repeat(40)}` as const;
-
-await vm.setAccount({
-  address,
-  balance: parseEth('1')
-});
-
-const contractResult = await vm.contract({
-  address: '0xCONTRACT_ADDRESS_HERE',
-  method: 'mint',
-  args: [address, 1],
-  abi: [{todo: 'put abi here'}]
-});
-
-console.log('Gas used', contractResult.gas); //  TODO put expected amount
-console.log('Events', contractResult.events); // Put events here
+fetch("https://mainnet.optimism.io", { 
+  method: 'POST', 
+  headers: { 
+    'Content-Type': 'application/json' 
+  }, 
+  body: JSON.stringify({ 
+    jsonrpc: '2.0', 
+    id: 1, 
+    method: 'eth_getBalance', 
+    params: ["0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"] 
+  }) 
+})
+  .then(response => response.json())
+  .then(console.log);
 ```
 
-Now run script again to see the expected result of running the contract call.
+But with [`MemoryTevm`](../generated/@tevm/vm/type-aliases/MemoryTevm.md) all requests will be issued to the same block number we forked and cached in memory once made.
 
+## Using `Actions` API to execute a contract
+
+Tevm exposes a [viem-like](https://viem.sh) `actions api` to provide a higher level of abstraction than the JSON-RPC interface.
+
+1. Replace [`tevm_getAccount` JSON-RPC procedure](../generated/@tevm/api/type-aliases/GetAccountJsonRpcProcedure.md) with the [getAccount action](../generated/@tevm/api/type-aliases/GetAccountHandler.md)
+
+```typescript
+import { createMemoryTevm } from 'tevm';
+- import { EthGetBalanceRequest } from 'tevm'
+
+const tevm = await createMemoryTevm({
+  fork: {
+    url: 'https://mainnet.optimism.io'
+  }
+});
+
+- const request: EthGetBalanceParams = {
+-   jsonrpc: '2.0',
+-   id: 1,
+-   method: 'eth_getBalance',
+-   params: ["0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"]
+- }
++ const address = "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+
+- const response = await tevm.request(request)
++ const result = await tevm.eth.getBalance({address})
+
+- console.log(response)
++ console.log(result)
 ```
+
+2. Run a transaction
+
+Now send a transaction using [Tevm.call](../generated/@tevm/api/type-aliases/Tevm.md#call). This is equivelent to using [`eth_call`](../generated/@tevm/api/type-aliases/EthCallJsonRpcProcedure.md). 
+
+`Tevm.call` wraps `tevm_call` which is similar to `eth_call` or `Tevm.eth.call` but has extra parameters for modifying the VM.
+
+```typescript
+import { createMemoryTevm } from 'tevm';
+
+const tevm = await createMemoryTevm({
+  fork: {
+    url: 'https://mainnet.optimism.io'
+  }
+});
+
+const fromAddress = `0x${'01'.repeat(20)}` as const
+const toAddress = `0x${'02'.repeat(20)}` as const
+
+// fromAddress should have 0 balance
+console.log(
+  await tevm.eth.balance({address: fromAddress})
+)
+
+// send entire balance
+await tevm.call({
+  from: fromAddress,
+  to: toAddress,
+  value: balance,
+  skipBalanceCheck: true
+})
+
+const balance = await tevm.eth.balanceOf({address: toAddress})
+console.log(balance)
+```
+
+3. Now run script again to see the expected result of running the contract call.
+
+```bash
 bun run vm.js
+```
+
+The `skipbalanceCheck` option will automatically mint whatever the msg.value is. To see more options check out [CallParams](../generated/@tevm/api/type-aliases/CallParams.md) docs
+
+## Executing contract calls
+
+We can execute a contract call by sending encoded contract data just like [`eth_call`](../generated/@tevm/api/type-aliases/EthCallJsonRpcProcedure.md)
+
+1. Use [`encodeFunctionData`](../generated/@tevm/contract/functions/encodeFunctionData.md) to pass in a contract call to [`tevm.call`](../generated/@tevm/api/type-aliases/Tevm.md#call)
+
+```typescript
+import { createMemoryTevm, encodeFunctionData, parseAbi } from 'tevm';
+
+const tevm = await createMemoryTevm({
+  fork: {
+    url: 'https://mainnet.optimism.io'
+  }
+});
+
+const fromAddress = `0x${'01'.repeat(20)}` as const
+const contractAddress = `0x${'02'.repeat(20)}` as const
+
+// fromAddress should have 0 balance
+console.log(
+  await tevm.eth.balance({address: fromAddress})
+)
+
+// send entire balance
+await tevm.call({
+  data: encodeFunctionData({
+    args: [fromAddress]
+    functionName: 'balanceOf',
+    abi: parseAbi(['function balanceOf(address owner) returns (uint256 balance)']),
+  })
+})
+
+const balance = await tevm.eth.balanceOf({address: toAddress})
+console.log(balance)
+```
+
+2. Use `Tevm.contract`
+
+Rather than encoding data to `Tevm.call` we can instead use the [`Tevm.contract`](../generated/@tevm/api/type-aliases/Tevm.md#contract) method
+
+Refactor our call to use `Tevm.contract`
+
+```typescript
+import { createMemoryTevm, encodeFunctionData, parseAbi } from 'tevm';
+
+const tevm = await createMemoryTevm({
+  fork: {
+    url: 'https://mainnet.optimism.io'
+  }
+});
+
+const fromAddress = `0x${'01'.repeat(20)}` as const
+const contractAddress = `0x${'02'.repeat(20)}` as const
+
+// fromAddress should have 0 balance
+console.log(
+  await tevm.eth.balance({address: fromAddress})
+)
+
+// send entire balance
+await tevm.contract({
+  args: [fromAddress]
+  functionName: 'balanceOf',
+  abi: parseAbi(['function balanceOf(address owner) returns (uint256 balance)']),
+})
+
+const balance = await tevm.eth.balanceOf({address: toAddress})
+console.log(balance)
 ```
 
 ## Scripting with Tevm
 
-Tevm is a powerful scripting environment for running arbitrary Solidity code. This provides powerful functionality such as:
+In the previous section we called the [`Dai`](https://optimistic.etherscan.io/token/0xda10009cbd5d07dd0cecc66161fc93d7c9000da1) which is deployed to optimism. But Tevm can also execute arbitrary contracts that are not deployed.
 
-- Ability to write your own function if the view function you wish existed doesn't exist on a particular contract
-- Powerful code reuse between your solidity and javascript applications
-- Ability to run arbitrary javascript precompiles in your solidity scripts
+We could use the `tevm.setAccount` feature to deploy bytecode
+
+```typescript
+await tevm.setAccount({address: `0x${'42'.repeat(20)}`, deployedBytecode: '0x000'})
+```
+
+And then use `tevm.contract` as we did in last section.
+
+But Tevm provides a convenient [`tevm_script`](../generated/@tevm/api/type-aliases/ScriptJsonRpcProcedure.md) JSON-RPC request and matching [Tevm.script action](../generated/@tevm/api/type-aliases/Tevm.md#script)
 
 1. First let's make a new solidity file
 
@@ -191,31 +367,29 @@ contract HelloWorld {
 }
 ```
 
+We now need a way of turning our contract into bytecode.
+
 3. Use Tevm to compile the contract into bytecode and abi
 
 ```bash
-bunx tevm compile HelloWorld.s.sol
+bunx tevm compile HelloWorld.s.sol 
 ```
 
 You should see a `.js` file get generated with the JavaScript version of your contract. Inspect the file. We will talk more about this later.
 
-4. Create javascript file to run script
-
-Let's use typescript this time.
-
-Create a `script.ts` file
-
-```bash
-touch script.ts
-```
-
-5. Initialize the tevm vm and use your script in the `script` action-handler
+4. Import contract and use it in a [`Tevm.script`](../generated/@tevm/api/type-aliases/Tevm.md#script) action.
 
 ```typescript
-import { vm } from './vm.js';
 import { HelloWorld } from './HelloWorld.s.sol.js';
+import { createMemoryTevm, encodeFunctionData, parseAbi } from 'tevm';
 
-const scriptResult = await vm.script({
+const tevm = await createMemoryTevm({
+  fork: {
+    url: 'https://mainnet.optimism.io'
+  }
+});
+
+const scriptResult = await tevm.script({
   abi: HelloWorld.abi,
   deployedBytecode: HelloWorld.deployedBytecode,
   functionName: 'greet',
@@ -240,13 +414,13 @@ Tevm offers an streamlined typesafe dev experience for working with solidity scr
 Let's refactor our script code to take advantage of tevm contracts `actionCreators`.
 
 ```typescript
-- const scriptResult = await vm.script({
+- const scriptResult = await tevm.script({
 -   abi: HelloWorld.abi,
 -   functionName: 'greet',
 -   args: ['Vitalik'],
 -   deployedBytecode: HelloWorld.deployedBytecode
 - });
-+ const scriptResult = await vm.script(
++ const scriptResult = await tevm.script(
 +   HelloWorld.read.greet('Vitalik')
 + );
 ```
@@ -345,5 +519,5 @@ console.log(result)
 
 Congrats. You now have learned all the basics you need to start building with `Tevm`. Consider [joining the telegram](https://todo.todo.todo) to discuss Tevm. If you build anything big or small show it off in the [tevm show and tell](https://todo.todo.todo) discussion
 
-To dive deeper into tevm simply explore the actions api. More actions are being added all of the time.
+To dive deeper into more advanced concepts continue to [advanced tevm usage](./advanced.md)
 

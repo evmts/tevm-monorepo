@@ -7,6 +7,12 @@ title: "ViemTevmOptimisticClient"
 
 > **ViemTevmOptimisticClient**\<`TChain`, `TAccount`\>: `object`
 
+The decorated methods added to a viem wallet client by `tevmViemExtensionOptimistic`
+
+:::caution[Experimental]
+This API should not be used in production and may be trimmed from a public release.
+:::
+
 ## Type parameters
 
 | Parameter | Default |
@@ -40,7 +46,7 @@ title: "ViemTevmOptimisticClient"
 
 ## Source
 
-[ViemTevmOptimisticClient.ts:12](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/ViemTevmOptimisticClient.ts#L12)
+[ViemTevmOptimisticClient.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/ViemTevmOptimisticClient.ts#L16)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
