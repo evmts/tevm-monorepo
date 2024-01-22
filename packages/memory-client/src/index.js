@@ -1,1 +1,1 @@
-export { createMemoryTevm } from './createMemoryTevm.js'
+export { createMemoryClient } from './createMemoryClient.js'

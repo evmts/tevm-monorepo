@@ -13,7 +13,7 @@ future requests. Used internally in `MemoryTevm`
 
 ```ts
 import { TevmStateManager } from '@tevm/state'
-import { createMemoryTevm } from 'tevm/vm'
+import { createMemoryClient } from 'tevm/vm'
 
 const stateManager = new TevmStateManager({
   rpcUrl: 'https://mainnet.optimism.io',

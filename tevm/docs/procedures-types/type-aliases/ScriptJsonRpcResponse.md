@@ -13,9 +13,9 @@ JSON-RPC response for `tevm_script` method
 ## Example
 
 ```ts
-import { createMemoryTevm } from 'tevm'
+import { createMemoryClient } from 'tevm'
 
-const tevm = createMemoryTevm()
+const tevm = createMemoryClient()
 
 const respose: ScriptJsonRpcResponse = await tevm.request({
   method: 'tevm_script',

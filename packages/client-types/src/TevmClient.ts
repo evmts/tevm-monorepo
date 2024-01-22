@@ -25,7 +25,7 @@ import type { TevmJsonRpcRequestHandler } from '@tevm/procedures-types'
  * - Network forking to fork any EVM compatible network
  * - Supports most ethereum JSON-RPC methods
  *
- * @see {@link https://todo.todo | createMemoryTevm} for documentation on creating an in memory Tevm instance
+ * @see {@link https://todo.todo | createMemoryClient} for documentation on creating an in memory Tevm instance
  * @see {@link https://todo.todo | createTevmClient} for documentation on creating an client for talking to a remote Tevm instance over HTTP
  *
  * #### JSON-RPC
@@ -34,9 +34,9 @@ import type { TevmJsonRpcRequestHandler } from '@tevm/procedures-types'
  *
  * @example
  * ```typescript
- * import {createMemoryTevm, type Tevm} from 'tevm'
+ * import {createMemoryClient, type Tevm} from 'tevm'
  *
- * const tevm: Tevm = createMemoryTevm()
+ * const tevm: Tevm = createMemoryClient()
  *
  * await tevm.request({
  *   method: 'eth_blockNumber',

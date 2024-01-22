@@ -29,10 +29,10 @@ Optional options to pass to the http server
 ## Example
 
 ```typescript
-import { createMemoryTevm } from 'tevm'
+import { createMemoryClient } from 'tevm'
 import { createServer } from 'tevm/server'
 
-const tevm = createMemoryTevm()
+const tevm = createMemoryClient()
 
 const server = createServer({
   request: tevm.request,

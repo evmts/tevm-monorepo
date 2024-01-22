@@ -1,36 +1,33 @@
 ---
-title: Welcome to Starlight
-description: Get started building your docs site with Starlight.
+title: Tevm -
+description: Build applications powered by the EVM, simplified
 template: splash
 hero:
-  tagline: Congrats on setting up a new Starlight project!
+  tagline: Build applications powered by the EVM, simplified
   image:
-    file: ../../assets/houston.webp
+    file: ../../assets/tevm.webp
   actions:
-    - text: Example Guide
-      link: /guides/example/
+    - text: Get started
+      link: /getting-started/example/
       icon: right-arrow
       variant: primary
-    - text: Read the Starlight docs
-      link: https://starlight.astro.build
-      icon: external
 ---
 
 import { Card, CardGrid } from '@astrojs/starlight/components';
 
-## Next steps
+## Features
 
-<CardGrid stagger>
-	<Card title="Update content" icon="pencil">
-		Edit `src/content/docs/index.mdx` to see this page change.
+<CardGrid>
+	<Card title="Tevm memory devnet" icon="pencil">
+		EVM execution and forking akin to [anvil](https://github.com/foundry-rs/foundry/tree/master/crates/anvil)
 	</Card>
-	<Card title="Add new content" icon="add-document">
-		Add Markdown or MDX files to `src/content/docs` to create new pages.
+	<Card title="Solidity scripting" icon="add-document">
+		A powerful solidity scripting environment akin to [foundry scripts](https://book.getfoundry.sh/tutorials/solidity-scripting)
 	</Card>
-	<Card title="Configure your site" icon="setting">
-		Edit your `sidebar` and other config in `astro.config.mjs`.
+	<Card title="Solidity imports" icon="setting">
+		Tevm supports importing solidity files directly into TypeScript. Never juggle an ABI again!
 	</Card>
-	<Card title="Read the docs" icon="open-book">
-		Learn more in [the Starlight Docs](https://starlight.astro.build/).
+	<Card title="Runs in all environments" icon="open-book">
+		Tevm runs in the browser, node.js, and bun
 	</Card>
 </CardGrid>

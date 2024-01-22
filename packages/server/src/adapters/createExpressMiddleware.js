@@ -9,9 +9,9 @@ import { createHttpHandler } from '../createHttpHandler.js'
  * ```typescript
  * import express from 'express'
  * import { createExpressMiddleware } from 'tevm/server'
- * import { createMemoryTevm } from 'tevm'
+ * import { createMemoryClient } from 'tevm'
  *
- * const tevm = createMemoryTevm()
+ * const tevm = createMemoryClient()
  *
  * const app = express()
  * app.use(express.json())

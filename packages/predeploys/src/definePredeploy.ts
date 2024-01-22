@@ -1,12 +1,12 @@
-import { Predeploy } from './Predeploy.js'
 import { getAddress } from 'viem'
+import { Predeploy } from './Predeploy.js'
 
 /**
  * Defines a predeploy contract to use in the tevm vm
  * @example
  * ```ts
  * import { definePredeploy } from 'tevm/predeploys'
- * import { createMemoryTevm } from 'tevm/vm'
+ * import { createMemoryClient } from 'tevm/vm'
  * import { createScript } from 'tevm/contract'
  *
  * const predeploy = definePredeploy({
@@ -19,7 +19,7 @@ import { getAddress } from 'viem'
  *   })
  * })
  *
- * const vm = createMemoryTevm({
+ * const vm = createMemoryClient({
  *  predeploys: [predeploy.predeploy()],
  * })
  * ```

@@ -15,7 +15,7 @@ A local EVM instance running in the browser or Node.js. Akin to anvil or ganache
 
 ## See
 
- - [createMemoryTevm](https://todo.todo) for documentation on creating an in memory Tevm instance
+ - [createMemoryClient](https://todo.todo) for documentation on creating an in memory Tevm instance
  - [createTevmClient](https://todo.todo) for documentation on creating an client for talking to a remote Tevm instance over HTTP
 
 #### JSON-RPC
@@ -25,9 +25,9 @@ Tevm exposes a JSON-RPC interface for interacting with the EVM via the [TevmClie
 ## Example
 
 ```typescript
-import {createMemoryTevm, type Tevm} from 'tevm'
+import {createMemoryClient, type Tevm} from 'tevm'
 
-const tevm: Tevm = createMemoryTevm()
+const tevm: Tevm = createMemoryClient()
 
 await tevm.request({
   method: 'eth_blockNumber',

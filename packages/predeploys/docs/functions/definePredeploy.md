@@ -26,7 +26,7 @@ Defines a predeploy contract to use in the tevm vm
 
 ```ts
 import { definePredeploy } from 'tevm/predeploys'
-import { createMemoryTevm } from 'tevm/vm'
+import { createMemoryClient } from 'tevm/vm'
 import { createScript } from 'tevm/contract'
 
 const predeploy = definePredeploy({
@@ -39,7 +39,7 @@ const predeploy = definePredeploy({
   })
 })
 
-const vm = createMemoryTevm({
+const vm = createMemoryClient({
  predeploys: [predeploy.predeploy()],
 })
 ```

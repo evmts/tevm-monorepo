@@ -1,6 +1,6 @@
+import type { CustomPredeploy } from '@tevm/predeploys'
 import type { CustomPrecompile } from './CustomPrecompile.js'
 import type { ForkOptions } from './ForkOptions.js'
-import type { CustomPredeploy } from '@tevm/predeploys'
 
 /**
  * Ethereum hardfork option
@@ -58,7 +58,7 @@ export type CreateEVMOptions = {
 	 * For security precompiles can only be added statically when the vm is created.
 	 * @example
 	 * ```ts
-	 * import { createMemoryTevm, defineCall, definePrecompile } from 'tevm'
+	 * import { createMemoryClient, defineCall, definePrecompile } from 'tevm'
 	 * import { createScript } from '@tevm/contract'
 	 * import fs from 'fs/promises'
 	 *
@@ -87,7 +87,7 @@ export type CreateEVMOptions = {
 	 * 	}),
 	 * })
 	 *
-	 * const tevm = createMemoryTevm({ customPrecompiles: [fsPrecompile] })
+	 * const tevm = createMemoryClient({ customPrecompiles: [fsPrecompile] })
 	 */
 	customPrecompiles?: CustomPrecompile[]
 	/**
@@ -95,7 +95,7 @@ export type CreateEVMOptions = {
 	 * This is a convenience method and equivalent to calling tevm.setAccount() manually
 	 * to set the contract code.
 	 * ```typescript
-	 * const tevm = createMemoryTevm({
+	 * const tevm = createMemoryClient({
 	 *   customPredeploys: [
 	 *     // can pass a `tevm Script` here as well
 	 *     {
