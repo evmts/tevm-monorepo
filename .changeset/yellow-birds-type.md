@@ -1,5 +1,5 @@
 ---
-"@tevm/vm": patch
+"@tevm/memory-client": patch
 ---
 
-Fixed bug with types missing from @tevm/vm package
+Fixed bug with types missing from @tevm/memory-client package

@@ -31,7 +31,7 @@
     "@tevm/revm": "0.11.2",
     "@tevm/schemas": "0.11.2",
     "@tevm/state": "0.11.2",
-    "@tevm/vm": "0.0.1",
+    "@tevm/memory-client": "0.0.1",
     "@tevm/lsp": "0.0.1",
     "@tevm/vscode": "0.0.1",
     "@tevm/server": "0.0.1",

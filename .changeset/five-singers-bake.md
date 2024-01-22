@@ -4,7 +4,7 @@
 "@tevm/contract": minor
 "@tevm/base": minor
 "@tevm/solc": minor
-"@tevm/vm": minor
+"@tevm/memory-client": minor
 ---
 
 Added deployedBytecode to tevm contract instances

@@ -1,5 +1,5 @@
 ---
-"@tevm/vm": patch
+"@tevm/memory-client": patch
 ---
 
 Renamed createTevm createMemoryTevm
