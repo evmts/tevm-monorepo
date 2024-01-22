@@ -1,6 +1,6 @@
 export type { Contract } from './Contract.js'
 export type { Script } from './Script.js'
-export type { EventActionCreator } from './event/EventActionCreator.js'
+export type { EventActionCreator, MaybeExtractEventArgsFromAbi, ValueOf } from './event/EventActionCreator.js'
 export type { ReadActionCreator } from './read/ReadActionCreator.js'
 export type { WriteActionCreator } from './write/WriteActionCreator.js'
 export type {

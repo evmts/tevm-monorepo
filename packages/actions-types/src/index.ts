@@ -64,6 +64,7 @@ export type {
 } from './params/index.js'
 export type {
 	Log,
+	EmptyParams,
 	Block,
 	FilterLog,
 	BlockResult,
@@ -138,6 +139,7 @@ export type {
 	LoadStateHandler,
 } from './handlers/index.js'
 export type {
+	StructLog,
 	GetAccountResult,
 	SetAccountResult,
 	CallResult,

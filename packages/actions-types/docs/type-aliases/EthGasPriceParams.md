@@ -6,13 +6,13 @@
 
 # Type alias: EthGasPriceParams
 
-> **EthGasPriceParams**: `EmptyParams`
+> **EthGasPriceParams**: [`EmptyParams`](EmptyParams.md)
 
 JSON-RPC request for `eth_gasPrice` procedure
 
 ## Source
 
-[params/EthParams.ts:59](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L59)
+[params/EthParams.ts:58](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L58)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

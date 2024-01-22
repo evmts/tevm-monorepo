@@ -1,4 +1,5 @@
 export type * from './Block.js'
+export type * from './EmptyParams.js'
 export type * from './Log.js'
 export type * from './BlockResult.js'
 export type * from './FilterLog.js'

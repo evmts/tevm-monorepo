@@ -14,8 +14,7 @@ import type {
 	SendTransactionParameters,
 	SignMessageParameters,
 } from 'viem'
-
-type EmptyParams = readonly [] | {} | undefined | never
+import type { EmptyParams } from '../common/EmptyParams.js'
 
 // eth_accounts
 /**
