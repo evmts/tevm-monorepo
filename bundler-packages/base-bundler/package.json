@@ -10,7 +10,7 @@
 		"web3",
 		"blockchain"
 	],
-	"homepage": "https://evmts.dev",
+	"homepage": "https://tevm.sh",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/evmts/tevm-monorepo.git",

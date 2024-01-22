@@ -26,7 +26,7 @@ export class InvalidAddressError extends TypeError {
 		address,
 		cause,
 		message = `Provided value ${address} is not a valid Address`,
-		docs = 'https://tevm.dev/reference/errors',
+		docs = 'https://tevm.sh/reference/errors',
 	}) {
 		super(`${InvalidAddressError.name}: ${message}\n${docs}`)
 		this.cause = cause && formatErrors(cause)

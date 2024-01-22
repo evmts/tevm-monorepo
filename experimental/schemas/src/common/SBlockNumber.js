@@ -63,7 +63,7 @@ export class InvalidBlockNumberError extends TypeError {
 		blockNumber,
 		message = `Value ${blockNumber} is not a valid BlockNumber. BlockNumbers must be an integer >= 0`,
 		cause,
-		docs = 'https://tevm.dev/reference/errors',
+		docs = 'https://tevm.sh/reference/errors',
 	} = {}) {
 		super(`${InvalidBlockNumberError.name}: ${message}\n${docs}`)
 		this.cause = cause && formatErrors(cause)

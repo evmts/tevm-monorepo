@@ -19,7 +19,7 @@ export class InvalidBytesError extends TypeError {
 	constructor({
 		value,
 		message = `Provided value ${value} is not a valid Bytes`,
-		docs = 'https://tevm.dev/reference/errors',
+		docs = 'https://tevm.sh/reference/errors',
 		cause,
 	} = {}) {
 		super(`${InvalidBytesError.name}: ${message}\n${docs}`)

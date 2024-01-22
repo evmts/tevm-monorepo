@@ -15,7 +15,7 @@ import { mapError, runSync } from 'effect/Effect'
  * @example
  * ```javascript
  * import { Url } from '@tevm/schemas';
- * const url = 'https://tevm.dev'; // satisfies Url
+ * const url = 'https://tevm.sh'; // satisfies Url
  * ```
  */
 
@@ -26,7 +26,7 @@ import { mapError, runSync } from 'effect/Effect'
  * @example
  * ```javascript
  * import { isUrl } from '@tevm/schemas';
- * isUrl('https://tevm.dev');  // true
+ * isUrl('https://tevm.sh');  // true
  * isUrl('not a url'); // false
  * ````
  */
@@ -51,7 +51,7 @@ export const isUrl = (value) => {
 export const SUrl = string.pipe(
 	filter(isUrl, {
 		message: (url) => `Invalid URL value: ${url}
-See https://tevm.dev/reference/errors for more information.`,
+See https://tevm.sh/reference/errors for more information.`,
 	}),
 )
 /**
@@ -69,7 +69,7 @@ export class InvalidUrlError extends TypeError {
 	constructor({
 		url,
 		message = `Provided value ${url} is not a valid URL`,
-		docs = 'https://tevm.dev/reference/errors',
+		docs = 'https://tevm.sh/reference/errors',
 		cause,
 	} = {}) {
 		super(`${InvalidUrlError.name}: ${message}\n${docs}`)
@@ -85,7 +85,7 @@ export class InvalidUrlError extends TypeError {
  * @example
  * ```javascript
  * import { parseUrlSafe } from '@tevm/schemas';
- * const parsedUrlEffect = parseUrlSafe('https://tevm.dev');
+ * const parsedUrlEffect = parseUrlSafe('https://tevm.sh');
  * ```
  */
 export const parseUrlSafe = (url) => {
@@ -107,7 +107,7 @@ export const parseUrlSafe = (url) => {
  * @example
  * ```javascript
  * import { parseUrl } from '@tevm/schemas';
- * const parsedUrl = parseUrl('https://tevm.dev');
+ * const parsedUrl = parseUrl('https://tevm.sh');
  * ```
  */
 export const parseUrl = (url) => {

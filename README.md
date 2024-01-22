@@ -29,7 +29,7 @@ Try out our [online frontend example on stackblitz](https://stackblitz.com/~/git
 Try cloning our [minimal bun example on github](https://github.com/evmts/bun-starterkit)
 
 
-## Visit [Docs (under construction)](https://tevm.dev/) for docs, guides, API and more! 📄
+## Visit [Docs (under construction)](https://tevm.sh/) for docs, guides, API and more! 📄
 
 ## Contributing 💻
 

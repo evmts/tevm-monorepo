@@ -20,7 +20,7 @@ Type guard that returns true if the provided string is a valid URL.
 
 ```javascript
 import { isUrl } from '@tevm/schemas';
-isUrl('https://tevm.dev');  // true
+isUrl('https://tevm.sh');  // true
 isUrl('not a url'); // false
 ````
 

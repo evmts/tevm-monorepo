@@ -30,7 +30,7 @@ export class InvalidINTError extends TypeError {
 		size,
 		message,
 		cause,
-		docs = 'https://tevm.dev/reference/errors',
+		docs = 'https://tevm.sh/reference/errors',
 	}) {
 		if (!message) {
 			const min = BigInt(1) << BigInt(size - 1)
