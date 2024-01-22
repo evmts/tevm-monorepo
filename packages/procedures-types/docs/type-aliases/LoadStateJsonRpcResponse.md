@@ -6,7 +6,7 @@
 
 # Type alias: LoadStateJsonRpcResponse
 
-> **LoadStateJsonRpcResponse**: `JsonRpcResponse`\<`"tevm_loadState"`, `SerializeToJson`\<`LoadStateResult`\>, `LoadStateError`[`"_tag"`]\>
+> **LoadStateJsonRpcResponse**: `JsonRpcResponse`\<`"tevm_loadState"`, [`SerializeToJson`](SerializeToJson.md)\<`LoadStateResult`\>, `LoadStateError`[`"_tag"`]\>
 
 Response of the `tevm_loadState` RPC method.
 

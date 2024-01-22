@@ -6,7 +6,7 @@
 
 # Type alias: AnvilStopImpersonatingAccountJsonRpcResponse
 
-> **AnvilStopImpersonatingAccountJsonRpcResponse**: `JsonRpcResponse`\<`"anvil_stopImpersonatingAccount"`, `SerializeToJson`\<`AnvilStopImpersonatingAccountResult`\>, `AnvilError`\>
+> **AnvilStopImpersonatingAccountJsonRpcResponse**: `JsonRpcResponse`\<`"anvil_stopImpersonatingAccount"`, [`SerializeToJson`](SerializeToJson.md)\<`AnvilStopImpersonatingAccountResult`\>, `AnvilError`\>
 
 JSON-RPC response for `anvil_stopImpersonatingAccount` procedure
 

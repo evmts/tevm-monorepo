@@ -6,7 +6,7 @@
 
 # Type alias: AnvilMineJsonRpcRequest
 
-> **AnvilMineJsonRpcRequest**: `JsonRpcRequest`\<`"anvil_mine"`, `SerializeToJson`\<`AnvilMineParams`\>\>
+> **AnvilMineJsonRpcRequest**: `JsonRpcRequest`\<`"anvil_mine"`, [`SerializeToJson`](SerializeToJson.md)\<`AnvilMineParams`\>\>
 
 JSON-RPC request for `anvil_mine` method
 

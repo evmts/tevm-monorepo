@@ -8,6 +8,7 @@ export type {
 	ContractJsonRpcRequest,
 	DumpStateJsonRpcRequest,
 	LoadStateJsonRpcRequest,
+	SerializedParams,
 	TevmJsonRpcRequest,
 	EthCallJsonRpcRequest,
 	EthSignJsonRpcRequest,
@@ -65,6 +66,7 @@ export type {
 	EthJsonRpcRequest,
 } from './requests/index.js'
 export type {
+	DumpStateJsonRpcResponse,
 	CallJsonRpcResponse,
 	ContractJsonRpcResponse,
 	ScriptJsonRpcResponse,
@@ -188,7 +190,24 @@ export type {
 	DumpStateJsonRpcProcedure,
 } from './procedure/index.js'
 export type {
+	EthReturnType,
+	EthRequestType,
+	TevmReturnType,
+	AnvilReturnType,
+	DebugReturnType,
+	TevmRequestType,
+	AnvilRequestType,
+	DebugRequestType,
 	JsonRpcReturnTypeFromMethod,
 	JsonRpcRequestTypeFromMethod,
 	TevmJsonRpcRequestHandler,
 } from './TevmJsonRpcRequestHandler.js'
+export type {
+	SetToHex,
+	BigIntToHex,
+	SerializeToJson,
+	JsonSerializable,
+	JsonSerializableSet,
+	JsonSerializableArray,
+	JsonSerializableObject,
+} from './utils/index.js'

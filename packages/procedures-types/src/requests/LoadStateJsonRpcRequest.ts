@@ -5,7 +5,7 @@ import type { ParameterizedTevmState } from '@tevm/state'
 /**
  * The parameters for the `tevm_loadState` method
  */
-type SerializedParams = {
+export type SerializedParams = {
 	state: SerializeToJson<ParameterizedTevmState>
 }
 

@@ -7,8 +7,13 @@ title: "@tevm/memory-client"
 
 ## Exports
 
+### Classes
+
+- [WrappedEvm](/reference/tevm/memory-client/classes/wrappedevm/)
+
 ### Type Aliases
 
+- [ConstructorArgument](/reference/tevm/memory-client/type-aliases/constructorargument/)
 - [CreateEVMOptions](/reference/tevm/memory-client/type-aliases/createevmoptions/)
 - [CustomPrecompile](/reference/tevm/memory-client/type-aliases/customprecompile/)
 - [CustomPredeploy](/reference/tevm/memory-client/type-aliases/custompredeploy/)

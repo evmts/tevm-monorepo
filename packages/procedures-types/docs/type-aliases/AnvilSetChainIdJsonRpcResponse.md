@@ -6,7 +6,7 @@
 
 # Type alias: AnvilSetChainIdJsonRpcResponse
 
-> **AnvilSetChainIdJsonRpcResponse**: `JsonRpcResponse`\<`"anvil_setChainId"`, `SerializeToJson`\<`AnvilSetChainIdResult`\>, `AnvilError`\>
+> **AnvilSetChainIdJsonRpcResponse**: `JsonRpcResponse`\<`"anvil_setChainId"`, [`SerializeToJson`](SerializeToJson.md)\<`AnvilSetChainIdResult`\>, `AnvilError`\>
 
 JSON-RPC response for `anvil_setChainId` procedure
 

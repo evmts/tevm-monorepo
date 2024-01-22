@@ -14,7 +14,7 @@ as interacting with a `MemoryTevm` instance directly
 
 ## See
 
-Tevm
+[TevmClient](../../index/type-aliases/TevmClient.md)
 
 ## Example
 

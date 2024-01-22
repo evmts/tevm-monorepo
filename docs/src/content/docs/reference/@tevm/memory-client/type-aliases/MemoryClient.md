@@ -8,11 +8,12 @@ title: "MemoryClient"
 > **MemoryClient**: [`TevmClient`](/reference/tevm/client-types/type-aliases/tevmclient/) & `object`
 
 A local EVM instance running in JavaScript. Similar to Anvil in your browser/node/bun environments
-Implements the Tevm interface with an in memory EVM instance.
+Implements the [TevmClient](/reference/tevm/client-types/type-aliases/tevmclient/) interface with an in memory EVM instance.
 
 ## See
 
-[WrappedEvm](https://todo.todo) for an remote client
+ - [TevmClient](../../client-types/type-aliases/TevmClient.md)
+ - [WrappedEvm](../classes/WrappedEvm.md) for an remote client
 
 ## Example
 
@@ -47,7 +48,7 @@ const balance = await tevm.runContractCall(
 
 ### \_evm
 
-> **`readonly`** **\_evm**: `WrappedEvm`
+> **`readonly`** **\_evm**: [`WrappedEvm`](/reference/tevm/memory-client/classes/wrappedevm/)
 
 Internal instance of the EVM. Can be used for lower level operations
 but is not guaranteed to stay stable between versions
@@ -67,7 +68,7 @@ Fork url if the EVM is forked
 
 ## Source
 
-[memory-client/src/MemoryClient.ts:38](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/MemoryClient.ts#L38)
+[packages/memory-client/src/MemoryClient.ts:39](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/MemoryClient.ts#L39)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

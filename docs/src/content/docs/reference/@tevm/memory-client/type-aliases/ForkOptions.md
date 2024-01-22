@@ -29,7 +29,7 @@ fulfill JSON-RPC requests that cannot be fulfilled locally
 
 ## Source
 
-[memory-client/src/ForkOptions.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/ForkOptions.ts#L4)
+[packages/memory-client/src/ForkOptions.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/ForkOptions.ts#L4)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

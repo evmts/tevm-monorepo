@@ -6,7 +6,7 @@
 
 # Type alias: LoadStateJsonRpcRequest
 
-> **LoadStateJsonRpcRequest**: `JsonRpcRequest`\<`"tevm_loadState"`, `SerializedParams`\>
+> **LoadStateJsonRpcRequest**: `JsonRpcRequest`\<`"tevm_loadState"`, [`SerializedParams`](SerializedParams.md)\>
 
 The JSON-RPC request for the `tevm_loadState` method
 

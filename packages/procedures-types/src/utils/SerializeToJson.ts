@@ -1,6 +1,6 @@
 import type { Hex } from 'viem'
 
-type JsonSerializable =
+export type JsonSerializable =
 	| bigint
 	| string
 	| number
@@ -9,9 +9,9 @@ type JsonSerializable =
 	| JsonSerializableArray
 	| JsonSerializableObject
 	| JsonSerializableSet
-type JsonSerializableArray = ReadonlyArray<JsonSerializable>
-type JsonSerializableObject = { [key: string]: JsonSerializable }
-type JsonSerializableSet<
+export type JsonSerializableArray = ReadonlyArray<JsonSerializable>
+export type JsonSerializableObject = { [key: string]: JsonSerializable }
+export type JsonSerializableSet<
 	T extends bigint | string | number | boolean =
 		| bigint
 		| string
@@ -19,8 +19,8 @@ type JsonSerializableSet<
 		| boolean,
 > = Set<T>
 
-type BigIntToHex<T> = T extends bigint ? Hex : T
-type SetToHex<T> = T extends Set<any> ? Hex : T
+export type BigIntToHex<T> = T extends bigint ? Hex : T
+export type SetToHex<T> = T extends Set<any> ? Hex : T
 
 export type SerializeToJson<T> = T extends JsonSerializableSet<infer S>
 	? ReadonlyArray<S>

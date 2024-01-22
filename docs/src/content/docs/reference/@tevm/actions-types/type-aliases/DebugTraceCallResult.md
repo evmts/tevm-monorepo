@@ -23,7 +23,7 @@ title: "DebugTraceCallResult"
 
 ### structLogs
 
-> **`readonly`** **structLogs**: `ReadonlyArray`\<`StructLog`\>
+> **`readonly`** **structLogs**: `ReadonlyArray`\<[`StructLog`](/reference/tevm/actions-types/type-aliases/structlog/)\>
 
 ## Source
 

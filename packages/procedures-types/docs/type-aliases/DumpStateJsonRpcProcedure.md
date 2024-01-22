@@ -6,7 +6,7 @@
 
 # Type alias: DumpStateJsonRpcProcedure
 
-> **DumpStateJsonRpcProcedure**: (`request`) => `Promise`\<`DumpStateJsonRpcResponse`\>
+> **DumpStateJsonRpcProcedure**: (`request`) => `Promise`\<[`DumpStateJsonRpcResponse`](DumpStateJsonRpcResponse.md)\>
 
 Procedure for handling tevm_dumpState JSON-RPC requests
 

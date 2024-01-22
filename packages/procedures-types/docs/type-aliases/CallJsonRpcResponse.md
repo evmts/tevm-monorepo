@@ -6,7 +6,7 @@
 
 # Type alias: CallJsonRpcResponse
 
-> **CallJsonRpcResponse**: `JsonRpcResponse`\<`"tevm_call"`, `SerializeToJson`\<`CallResult`\>, `CallError`[`"_tag"`]\>
+> **CallJsonRpcResponse**: `JsonRpcResponse`\<`"tevm_call"`, [`SerializeToJson`](SerializeToJson.md)\<`CallResult`\>, `CallError`[`"_tag"`]\>
 
 JSON-RPC response for `tevm_call` procedure
 

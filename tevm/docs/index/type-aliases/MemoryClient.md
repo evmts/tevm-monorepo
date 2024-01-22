@@ -9,11 +9,12 @@
 > **MemoryClient**: [`TevmClient`](TevmClient.md) & `object`
 
 A local EVM instance running in JavaScript. Similar to Anvil in your browser/node/bun environments
-Implements the Tevm interface with an in memory EVM instance.
+Implements the [TevmClient](TevmClient.md) interface with an in memory EVM instance.
 
 ## See
 
-[WrappedEvm](https://todo.todo) for an remote client
+ - [TevmClient](TevmClient.md)
+ - [WrappedEvm](https://todo.todo) for an remote client
 
 ## Example
 
@@ -68,7 +69,7 @@ Fork url if the EVM is forked
 
 ## Source
 
-packages/memory-client/types/MemoryClient.d.ts:37
+packages/memory-client/types/MemoryClient.d.ts:38
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

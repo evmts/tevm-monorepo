@@ -99,7 +99,7 @@ response - [EthGetBalanceJsonRpcResponse](../../procedures-types/type-aliases/Et
 
 ## Source
 
-packages/procedures-types/types/TevmJsonRpcRequestHandler.d.ts:234
+packages/procedures-types/types/TevmJsonRpcRequestHandler.d.ts:258
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

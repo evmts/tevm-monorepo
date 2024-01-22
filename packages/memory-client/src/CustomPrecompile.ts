@@ -1,7 +1,7 @@
 /**
  * Infers the the first argument of a class
  */
-type ConstructorArgument<T> = T extends new (
+export type ConstructorArgument<T> = T extends new (
 	...args: infer P
 ) => any
 	? P[0]

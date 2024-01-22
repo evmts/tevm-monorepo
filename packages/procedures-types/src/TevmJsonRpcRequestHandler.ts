@@ -125,17 +125,26 @@ import type {
 } from './requests/index.js'
 import type { DumpStateJsonRpcResponse } from './responses/DumpStateJsonRpcResponse.js'
 
-type DebugReturnType = {
+/**
+ * A mapping of `debug_*` method names to their return type
+ */
+export type DebugReturnType = {
 	debug_traceTransaction: DebugTraceTransactionJsonRpcResponse
 	debug_traceCall: DebugTraceCallJsonRpcResponse
 }
 
-type DebugRequestType = {
+/**
+ * A mapping of `debug_*` method names to their request type
+ */
+export type DebugRequestType = {
 	debug_traceTransaction: DebugTraceTransactionJsonRpcRequest
 	debug_traceCall: DebugTraceCallJsonRpcRequest
 }
 
-type AnvilReturnType = {
+/**
+ * A mapping of `anvil_*` method names to their return type
+ */
+export type AnvilReturnType = {
 	anvil_impersonateAccount: AnvilImpersonateAccountJsonRpcResponse
 	anvil_stopImpersonatingAccount: AnvilStopImpersonatingAccountJsonRpcResponse
 	// anvil_autoImpersonateAccount: AnvilAutoImpersonateAccountJsonRpcResponse,
@@ -152,7 +161,10 @@ type AnvilReturnType = {
 	anvil_loadState: AnvilLoadStateJsonRpcResponse
 }
 
-type AnvilRequestType = {
+/**
+ * A mapping of `anvil_*` method names to their request type
+ */
+export type AnvilRequestType = {
 	anvil_impersonateAccount: AnvilImpersonateAccountJsonRpcRequest
 	anvil_stopImpersonatingAccount: AnvilStopImpersonatingAccountJsonRpcRequest
 	// anvil_autoImpersonateAccount: AnviAnvilImpersonateAccountJsonRpcRequest,
@@ -169,7 +181,10 @@ type AnvilRequestType = {
 	anvil_loadState: AnvilLoadStateJsonRpcRequest
 }
 
-type EthReturnType = {
+/**
+ * A mapping of `eth_*` method names to their return type
+ */
+export type EthReturnType = {
 	eth_call: EthCallJsonRpcResponse
 	eth_gasPrice: EthGasPriceJsonRpcResponse
 	eth_sign: EthSignJsonRpcResponse
@@ -210,7 +225,10 @@ type EthReturnType = {
 	eth_getTransactionByBlockNumberAndIndex: EthGetTransactionByBlockNumberAndIndexJsonRpcResponse
 }
 
-type EthRequestType = {
+/**
+ * A mapping of `eth_*` method names to their request type
+ */
+export type EthRequestType = {
 	eth_call: EthCallJsonRpcRequest
 	eth_gasPrice: EthGasPriceJsonRpcRequest
 	eth_sign: EthSignJsonRpcRequest
@@ -251,7 +269,10 @@ type EthRequestType = {
 	eth_getTransactionByBlockNumberAndIndex: EthGetTransactionByBlockNumberAndIndexJsonRpcRequest
 }
 
-type TevmReturnType = {
+/**
+ * A mapping of `tevm_*` method names to their return type
+ */
+export type TevmReturnType = {
 	tevm_call: CallJsonRpcResponse
 	tevm_script: ScriptJsonRpcResponse
 	tevm_loadState: LoadStateJsonRpcResponse
@@ -260,7 +281,10 @@ type TevmReturnType = {
 	tevm_setAccount: SetAccountJsonRpcResponse
 }
 
-type TevmRequestType = {
+/**
+ * A mapping of `tevm_*` method names to their request type
+ */
+export type TevmRequestType = {
 	tevm_call: CallJsonRpcRequest
 	tevm_script: ScriptJsonRpcRequest
 	tevm_loadState: LoadStateJsonRpcRequest
