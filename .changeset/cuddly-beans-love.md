@@ -2,4 +2,4 @@
 "@tevm/memory-client": patch
 ---
 
-Renamed createTevm createMemoryTevm
+Renamed createTevm createMemoryClient

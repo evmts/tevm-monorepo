@@ -1,14 +1,14 @@
-import type { SerializeToJson } from '../utils/SerializeToJson.js'
 import type { CallResult } from '@tevm/actions-types'
 import type { ScriptError } from '@tevm/errors'
 import type { JsonRpcResponse } from '@tevm/jsonrpc'
+import type { SerializeToJson } from '../utils/SerializeToJson.js'
 
 /**
  * JSON-RPC response for `tevm_script` method
  * @example
- * import { createMemoryTevm } from 'tevm'
+ * import { createMemoryClient } from 'tevm'
  *
- * const tevm = createMemoryTevm()
+ * const tevm = createMemoryClient()
  *
  * const respose: ScriptJsonRpcResponse = await tevm.request({
  *   method: 'tevm_script',

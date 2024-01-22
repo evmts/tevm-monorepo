@@ -1,5 +1,5 @@
-import { createHttpHandler } from './createHttpHandler.js'
 import { createServer as httpCreateServer } from 'http'
+import { createHttpHandler } from './createHttpHandler.js'
 
 /**
  * Creates a lightweight http server for handling requests
@@ -10,10 +10,10 @@ import { createServer as httpCreateServer } from 'http'
  * To use pass in the Tevm['request'] request handler
  * @example
  * ```typescript
- * import { createMemoryTevm } from 'tevm'
+ * import { createMemoryClient } from 'tevm'
  * import { createServer } from 'tevm/server'
  *
- * const tevm = createMemoryTevm()
+ * const tevm = createMemoryClient()
  *
  * const server = createServer({
  *   request: tevm.request,

@@ -10,7 +10,7 @@
 
 ### Patch Changes
 
-- [#837](https://github.com/evmts/tevm-monorepo/pull/837) [`fd6d6aee21b8d72ab37d7b9117231f68812e2256`](https://github.com/evmts/tevm-monorepo/commit/fd6d6aee21b8d72ab37d7b9117231f68812e2256) Thanks [@roninjin10](https://github.com/roninjin10)! - Renamed createTevm createMemoryTevm
+- [#837](https://github.com/evmts/tevm-monorepo/pull/837) [`fd6d6aee21b8d72ab37d7b9117231f68812e2256`](https://github.com/evmts/tevm-monorepo/commit/fd6d6aee21b8d72ab37d7b9117231f68812e2256) Thanks [@roninjin10](https://github.com/roninjin10)! - Renamed createTevm createMemoryClient
 
 - [#837](https://github.com/evmts/tevm-monorepo/pull/837) [`fd6d6aee21b8d72ab37d7b9117231f68812e2256`](https://github.com/evmts/tevm-monorepo/commit/fd6d6aee21b8d72ab37d7b9117231f68812e2256) Thanks [@roninjin10](https://github.com/roninjin10)! - Changed the name of import('@tevm/memory-client').Tevm to MemoryTevm. This disambigouates it from the import('@tevm/actions-types').Tevm type that it extends.
 

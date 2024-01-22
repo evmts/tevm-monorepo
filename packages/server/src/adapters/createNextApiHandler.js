@@ -7,9 +7,9 @@ import { createHttpHandler } from '../createHttpHandler.js'
  * @example
  * ```typescript
  * import { createNextApiHandler } from 'tevm/server'
- * import { createMemoryTevm } from 'tevm'
+ * import { createMemoryClient } from 'tevm'
  *
- * const tevm = createMemoryTevm()
+ * const tevm = createMemoryClient()
  * export default createNextApiHandler({ request: tevm.request })
  * ```
  */

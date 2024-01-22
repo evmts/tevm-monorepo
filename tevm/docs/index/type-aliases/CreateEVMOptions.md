@@ -38,7 +38,7 @@ For security precompiles can only be added statically when the vm is created.
 #### Example
 
 ```ts
-import { createMemoryTevm, defineCall, definePrecompile } from 'tevm'
+import { createMemoryClient, defineCall, definePrecompile } from 'tevm'
 import { createScript } from '@tevm/contract'
 import fs from 'fs/promises'
 
@@ -67,7 +67,7 @@ const fsPrecompile = definePrecompile({
 	}),
 })
 
-const tevm = createMemoryTevm({ customPrecompiles: [fsPrecompile] })
+const tevm = createMemoryClient({ customPrecompiles: [fsPrecompile] })
 
 ### customPredeploys
 
@@ -77,7 +77,7 @@ Custom predeploys allow you to deploy arbitrary EVM bytecode to an address.
 This is a convenience method and equivalent to calling tevm.setAccount() manually
 to set the contract code.
 ```typescript
-const tevm = createMemoryTevm({
+const tevm = createMemoryClient({
   customPredeploys: [
     // can pass a `tevm Script` here as well
     {

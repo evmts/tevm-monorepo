@@ -7,7 +7,7 @@ title: "CreateEVMOptions"
 
 > **CreateEVMOptions**: `object`
 
-Options for creating an Tevm instance
+Options for creating an Tevm MemoryClient instance
 
 ## Type declaration
 
@@ -37,7 +37,7 @@ For security precompiles can only be added statically when the vm is created.
 #### Example
 
 ```ts
-import { createMemoryTevm, defineCall, definePrecompile } from 'tevm'
+import { createMemoryClient, defineCall, definePrecompile } from 'tevm'
 import { createScript } from '@tevm/contract'
 import fs from 'fs/promises'
 
@@ -66,7 +66,7 @@ const fsPrecompile = definePrecompile({
 	}),
 })
 
-const tevm = createMemoryTevm({ customPrecompiles: [fsPrecompile] })
+const tevm = createMemoryClient({ customPrecompiles: [fsPrecompile] })
 
 ### customPredeploys
 
@@ -76,7 +76,7 @@ Custom predeploys allow you to deploy arbitrary EVM bytecode to an address.
 This is a convenience method and equivalent to calling tevm.setAccount() manually
 to set the contract code.
 ```typescript
-const tevm = createMemoryTevm({
+const tevm = createMemoryClient({
   customPredeploys: [
     // can pass a `tevm Script` here as well
     {
@@ -88,15 +88,33 @@ const tevm = createMemoryTevm({
 })
 ```
 
+### eips
+
+> **eips**?: `ReadonlyArray`\<`number`\>
+
+Eips to enable. Defaults to `[1559, 4895]`
+
 ### fork
 
 > **fork**?: [`ForkOptions`](/reference/tevm/memory-client/type-aliases/forkoptions/)
 
 Fork options fork a live network if enabled
 
+### hardfork
+
+> **hardfork**?: `Hardfork`
+
+Hardfork to use. Defaults to `shanghai`
+
+### profiler
+
+> **profiler**?: `boolean`
+
+Enable profiler. Defaults to false.
+
 ## Source
 
-[packages/memory-client/src/CreateEVMOptions.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/CreateEVMOptions.ts#L8)
+[packages/memory-client/src/CreateEVMOptions.ts:31](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/CreateEVMOptions.ts#L31)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

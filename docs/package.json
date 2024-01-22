@@ -14,10 +14,10 @@
   "dependencies": {
     "@astrojs/check": "^0.4.1",
     "@astrojs/starlight": "^0.15.4",
-    "astro": "^4.2.0",
-    "sharp": "^0.33.2"
+    "astro": "^4.2.0"
   },
   "devDependencies": {
+    "sharp": "^0.33.2",
     "tevm": "workspace:^"
   }
 }
