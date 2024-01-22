@@ -21,10 +21,6 @@ Tevm is an ethereum development toolkit that offers
 - A powerful solidity scripting environment akin to [foundry scripts](https://book.getfoundry.sh/tutorials/solidity-scripting)
 - Build tooling to create a smooth interface between your Solidity scripts and TypeScript code
 
-```typescript
-
-```
-
 Tevm runs in all environments
 
 - [All modern browsers](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API#browser_compatibility)
