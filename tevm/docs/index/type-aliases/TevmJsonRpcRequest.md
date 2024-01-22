@@ -13,7 +13,7 @@ A Tevm JSON-RPC request
 
 ## Source
 
-packages/procedures-spec/types/requests/TevmJsonRpcRequest.d.ts:12
+packages/procedures-types/types/requests/TevmJsonRpcRequest.d.ts:12
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

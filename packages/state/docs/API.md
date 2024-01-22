@@ -8,6 +8,7 @@
 
 ### Classes
 
+- [Cache](classes/Cache.md)
 - [DefaultTevmStateManager](classes/DefaultTevmStateManager.md)
 - [TevmStateManager](classes/TevmStateManager.md)
 
@@ -20,6 +21,7 @@
 
 ### Type Aliases
 
+- [GetContractStorage](type-aliases/GetContractStorage.md)
 - [ParameterizedTevmState](type-aliases/ParameterizedTevmState.md)
 - [SerializableTevmState](type-aliases/SerializableTevmState.md)
 

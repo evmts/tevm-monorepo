@@ -12,7 +12,7 @@ JSON-RPC response for `anvil_dumpState` procedure
 
 ## Source
 
-packages/procedures-spec/types/responses/AnvilJsonRpcResponse.d.ts:56
+packages/procedures-types/types/responses/AnvilJsonRpcResponse.d.ts:56
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -3563,7 +3563,7 @@ const unwatch = await client.watchPendingTransactions({
 
 ### originalStorageCache
 
-> **originalStorageCache**: `Cache`
+> **originalStorageCache**: [`Cache`](Cache.md)
 
 #### Implementation of
 

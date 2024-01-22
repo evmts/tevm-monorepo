@@ -6,7 +6,7 @@
 
 # Type alias: ContractError
 
-> **ContractError**: [`BaseCallError`](BaseCallError.md) \| [`InvalidAddressError`](InvalidAddressError.md) \| [`EvmError`](EvmError.md) \| [`InvalidRequestError`](InvalidRequestError.md) \| [`UnexpectedError`](UnexpectedError.md) \| `InvalidAbiError` \| [`InvalidDataError`](InvalidDataError.md) \| [`InvalidFunctionNameError`](InvalidFunctionNameError.md) \| `InvalidArgsError` \| `DecodeFunctionDataError` \| `EncodeFunctionReturnDataError`
+> **ContractError**: [`BaseCallError`](BaseCallError.md) \| [`InvalidAddressError`](InvalidAddressError.md) \| [`EvmError`](EvmError.md) \| [`InvalidRequestError`](InvalidRequestError.md) \| [`UnexpectedError`](UnexpectedError.md) \| [`InvalidAbiError`](InvalidAbiError.md) \| [`InvalidDataError`](InvalidDataError.md) \| [`InvalidFunctionNameError`](InvalidFunctionNameError.md) \| [`InvalidArgsError`](InvalidArgsError.md) \| [`DecodeFunctionDataError`](DecodeFunctionDataError.md) \| [`EncodeFunctionReturnDataError`](EncodeFunctionReturnDataError.md)
 
 Errors returned by contract tevm procedure
 
@@ -21,7 +21,7 @@ if (errors?.length) {
 
 ## Source
 
-[packages/errors/src/ContractError.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ContractError.ts#L21)
+[packages/errors/src/actions/ContractError.ts:25](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/actions/ContractError.ts#L25)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -14,7 +14,7 @@ Result of SetAccount Action
 
 | Parameter | Default |
 | :------ | :------ |
-| `ErrorType` | [`SetAccountError`](SetAccountError.md) |
+| `ErrorType` | `SetAccountError` |
 
 ## Type declaration
 

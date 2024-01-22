@@ -14,8 +14,9 @@ import type {
 	Hex,
 } from 'viem'
 
-// Adapted from viem
-
+/**
+ * Adapted from viem. This is a helper type to extract the event args from an abi
+ */
 export type MaybeExtractEventArgsFromAbi<
 	TAbi extends Abi | readonly unknown[] | undefined,
 	TEventName extends string | undefined,

@@ -7,7 +7,7 @@ import { validateBaseCallParams } from './validateBaseCallParams.js'
  */
 export const validateCallParams = (action) => {
 	/**
-	 * @type {Array<import('@tevm/actions-types').CallError>}
+	 * @type {Array<import('@tevm/errors').CallError>}
 	 */
 	const errors = validateBaseCallParams(action)
 

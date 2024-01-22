@@ -28,7 +28,7 @@ Error.constructor
 
 #### Source
 
-packages/errors/types/errors/UnsupportedMethodError.d.ts:8
+packages/errors/types/client/UnsupportedMethodError.d.ts:8
 
 ## Properties
 
@@ -38,7 +38,7 @@ packages/errors/types/errors/UnsupportedMethodError.d.ts:8
 
 #### Source
 
-packages/errors/types/errors/UnsupportedMethodError.d.ts:17
+packages/errors/types/client/UnsupportedMethodError.d.ts:17
 
 ***
 
@@ -80,7 +80,7 @@ Error.name
 
 #### Source
 
-packages/errors/types/errors/UnsupportedMethodError.d.ts:13
+packages/errors/types/client/UnsupportedMethodError.d.ts:13
 
 ***
 

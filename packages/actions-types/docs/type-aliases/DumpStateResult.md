@@ -14,7 +14,7 @@ Result of the dumpState method
 
 | Parameter | Default |
 | :------ | :------ |
-| `ErrorType` | [`DumpStateError`](DumpStateError.md) |
+| `ErrorType` | `DumpStateError` |
 
 ## Type declaration
 

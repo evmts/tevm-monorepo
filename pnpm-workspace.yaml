@@ -1,8 +1,8 @@
 packages:
-  - "apps/*"
   - "bundler-packages/*"
   - "bundler"
   - "configs/*"
+  - "docs"
   - "examples/*"
   - "experimental/*"
   - "extensions/*"

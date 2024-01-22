@@ -1,4 +1,4 @@
-import type { LoadStateError } from '../errors/LoadStateError.js'
+import type { LoadStateError } from '@tevm/errors'
 
 /**
  * Result of LoadState Method

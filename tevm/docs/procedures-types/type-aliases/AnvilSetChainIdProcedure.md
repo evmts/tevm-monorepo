@@ -16,7 +16,7 @@ JSON-RPC procedure for `anvil_setChainId`
 
 ## Source
 
-packages/procedures-spec/types/procedure/AnvilProcedure.d.ts:50
+packages/procedures-types/types/procedure/AnvilProcedure.d.ts:50
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,7 +1,7 @@
 import type { TraceResult } from '../common/TraceResult.js'
 import type { Hex } from 'viem'
 
-type StructLog = {
+export type StructLog = {
 	readonly depth: number
 	readonly gas: bigint
 	readonly gasCost: bigint

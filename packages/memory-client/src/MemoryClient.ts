@@ -4,8 +4,9 @@ import type { TevmClient } from '@tevm/client-types'
 
 /**
  * A local EVM instance running in JavaScript. Similar to Anvil in your browser/node/bun environments
- * Implements the {@link Tevm} interface with an in memory EVM instance.
+ * Implements the {@link TevmClient} interface with an in memory EVM instance.
  *
+ * @see {@link TevmClient}
  * @see {@link https://todo.todo WrappedEvm} for an remote client
  * @example
  * ```ts

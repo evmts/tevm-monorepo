@@ -12,7 +12,7 @@ Error thrown when `to` parameter is invalid
 
 ## Source
 
-packages/errors/types/InvalidToError.d.ts:5
+packages/errors/types/input/InvalidToError.d.ts:5
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

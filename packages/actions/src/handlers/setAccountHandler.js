@@ -13,7 +13,7 @@ import { hexToBytes, keccak256 } from 'viem'
  */
 export const setAccountHandler = (evm) => async (params) => {
 	/**
-	 * @type {Array<import('@tevm/actions-types').SetAccountError>}
+	 * @type {Array<import('@tevm/errors').SetAccountError>}
 	 */
 	const errors = validateSetAccountParams(params)
 	if (errors.length > 0) {

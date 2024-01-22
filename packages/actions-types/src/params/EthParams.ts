@@ -1,3 +1,4 @@
+import type { EmptyParams } from '../common/EmptyParams.js'
 /***
  * TODO I didn't update any of these jsdocs
  */
@@ -14,8 +15,6 @@ import type {
 	SendTransactionParameters,
 	SignMessageParameters,
 } from 'viem'
-
-type EmptyParams = readonly [] | {} | undefined | never
 
 // eth_accounts
 /**

@@ -3,11 +3,11 @@ import { zGetAccountParams } from '../params/index.js'
 
 /**
  * @param {import('@tevm/actions-types').GetAccountParams} action
- * @returns {Array<import('@tevm/actions-types').GetAccountError>}
+ * @returns {Array<import('@tevm/errors').GetAccountError>}
  */
 export const validateGetAccountParams = (action) => {
 	/**
-	 * @type {Array<import('@tevm/actions-types').GetAccountError>}
+	 * @type {Array<import('@tevm/errors').GetAccountError>}
 	 */
 	const errors = []
 

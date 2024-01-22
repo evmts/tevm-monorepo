@@ -30,7 +30,7 @@ tevm.eth.getLog(
 
 ## Source
 
-packages/contract/types/event/EventActionCreator.d.ts:14
+packages/contract/types/event/EventActionCreator.d.ts:17
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

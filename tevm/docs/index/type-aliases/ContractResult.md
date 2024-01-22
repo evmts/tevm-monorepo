@@ -14,7 +14,7 @@
 | :------ | :------ |
 | `TAbi` extends `Abi` \| readonly `unknown`[] | `Abi` |
 | `TFunctionName` extends `ContractFunctionName`\<`TAbi`\> | `ContractFunctionName`\<`TAbi`\> |
-| `ErrorType` | [`ContractError`](../../actions-types/type-aliases/ContractError.md) |
+| `ErrorType` | [`ContractError`](../../errors/type-aliases/ContractError.md) |
 
 ## Source
 

@@ -1,7 +1,7 @@
 import type { Address as EthjsAddress } from '@ethereumjs/util'
 import { toHex } from 'viem'
 
-type getContractStorage = (
+export type GetContractStorage = (
 	address: EthjsAddress,
 	key: Uint8Array,
 ) => Promise<Uint8Array>
@@ -12,8 +12,8 @@ const toUnprefixedHex = (...params: Parameters<typeof toHex>) => {
 
 export class Cache {
 	private map: Map<string, Map<string, Uint8Array>>
-	private getContractStorage: getContractStorage
-	constructor(getContractStorage: getContractStorage) {
+	private getContractStorage: GetContractStorage
+	constructor(getContractStorage: GetContractStorage) {
 		this.map = new Map()
 		this.getContractStorage = getContractStorage
 	}

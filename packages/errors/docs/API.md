@@ -11,6 +11,7 @@
 - [NoProxyConfiguredError](classes/NoProxyConfiguredError.md)
 - [ProxyFetchError](classes/ProxyFetchError.md)
 - [UnexpectedInternalServerError](classes/UnexpectedInternalServerError.md)
+- [UnknownMethodError](classes/UnknownMethodError.md)
 - [UnsupportedMethodError](classes/UnsupportedMethodError.md)
 
 ### Type Aliases
@@ -19,10 +20,14 @@
 - [BaseCallError](type-aliases/BaseCallError.md)
 - [CallError](type-aliases/CallError.md)
 - [ContractError](type-aliases/ContractError.md)
+- [DecodeFunctionDataError](type-aliases/DecodeFunctionDataError.md)
 - [DumpStateError](type-aliases/DumpStateError.md)
+- [EncodeFunctionReturnDataError](type-aliases/EncodeFunctionReturnDataError.md)
 - [EvmError](type-aliases/EvmError.md)
 - [GetAccountError](type-aliases/GetAccountError.md)
+- [InvalidAbiError](type-aliases/InvalidAbiError.md)
 - [InvalidAddressError](type-aliases/InvalidAddressError.md)
+- [InvalidArgsError](type-aliases/InvalidArgsError.md)
 - [InvalidBalanceError](type-aliases/InvalidBalanceError.md)
 - [InvalidBlobVersionedHashesError](type-aliases/InvalidBlobVersionedHashesError.md)
 - [InvalidBlockError](type-aliases/InvalidBlockError.md)

@@ -1,5 +1,5 @@
-import type { ScriptError } from '../errors/ScriptError.js'
 import type { ContractResult } from './ContractResult.js'
+import type { ScriptError } from '@tevm/errors'
 import type { Abi } from 'abitype'
 import type { ContractFunctionName } from 'viem'
 

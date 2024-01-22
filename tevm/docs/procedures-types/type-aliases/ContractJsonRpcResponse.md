@@ -13,7 +13,7 @@ in favor of overloading tevm_call
 
 ## Source
 
-packages/procedures-spec/types/responses/ContractJsonRpcResponse.d.ts:6
+packages/procedures-types/types/responses/ContractJsonRpcResponse.d.ts:6
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

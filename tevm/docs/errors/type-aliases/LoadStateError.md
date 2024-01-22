@@ -23,7 +23,7 @@ if (errors?.length) {
 
 ## Source
 
-packages/errors/types/LoadStateError.d.ts:13
+packages/errors/types/actions/LoadStateError.d.ts:13
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -12,7 +12,7 @@ JSON-RPC request for `tevm_call`
 
 ## Source
 
-packages/procedures-spec/types/requests/CallJsonRpcRequest.d.ts:7
+packages/procedures-types/types/requests/CallJsonRpcRequest.d.ts:7
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

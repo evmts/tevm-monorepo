@@ -1,5 +1,5 @@
-import type { ContractError } from '../errors/ContractError.js'
 import type { CallResult } from './CallResult.js'
+import type { ContractError } from '@tevm/errors'
 import type { Abi } from 'abitype'
 import {
 	type ContractFunctionName,
