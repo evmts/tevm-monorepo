@@ -1,6 +1,6 @@
 {
 	"name": "@tevm/revm",
-	"version": "1.0.0-next.5",
+	"version": "1.0.0-next.23",
 	"private": false,
 	"description": "WASM JS bindings for REVM for use in Tevm",
 	"keywords": [
