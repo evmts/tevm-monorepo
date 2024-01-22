@@ -1,5 +1,23 @@
 # @tevm/contract
 
+## 1.0.0-next.23
+
+### Minor Changes
+
+- [#821](https://github.com/evmts/tevm-monorepo/pull/821) [`f2707baa92220f7848912037638ebad125dee539`](https://github.com/evmts/tevm-monorepo/commit/f2707baa92220f7848912037638ebad125dee539) Thanks [@0xNonCents](https://github.com/0xNonCents)! - Added Load State and Dump State to the API.
+
+  These handlers allow one to read and write the entire tevm state similar to [load state and dump state in anvil](https://book.getfoundry.sh/reference/cli/anvil). This can be used to persist the state on disk or browser cache
+
+### Patch Changes
+
+- [#862](https://github.com/evmts/tevm-monorepo/pull/862) [`f217fa4dc2f730cc109940ef36872229ae9f26d3`](https://github.com/evmts/tevm-monorepo/commit/f217fa4dc2f730cc109940ef36872229ae9f26d3) Thanks [@roninjin10](https://github.com/roninjin10)! - - Renamed MemoryTevm MemoryClient
+  - Renamed TevmClient HttpClient
+  - Replaced @tevm/actions-types package with @tevm/actions-types, @tevm/client-types, and @tevm/procedures-types packages
+  - Moved errors to @tevm/errors
+  - Moved bundler packages out of tevm and to @tevm/bundler package
+  - Minimized packages exposed in tevm package
+  - Fixed bug with missing types exports
+
 ## 1.0.0-next.22
 
 ### Patch Changes

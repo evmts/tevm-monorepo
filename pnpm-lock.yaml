@@ -169,7 +169,7 @@ importers:
         specifier: workspace:^
         version: link:../config
       '@tevm/solc':
-        specifier: workspace:1.0.0-next.21
+        specifier: workspace:1.0.0-next.23
         version: link:../solc
       effect:
         specifier: 2.0.0-next.54
@@ -194,7 +194,7 @@ importers:
   bundler-packages/bundler-cache:
     dependencies:
       '@tevm/compiler':
-        specifier: workspace:1.0.0-next.21
+        specifier: workspace:1.0.0-next.23
         version: link:../compiler
       '@tevm/tsconfig':
         specifier: workspace:^
@@ -494,7 +494,7 @@ importers:
   examples/bun:
     dependencies:
       '@tevm/contract':
-        specifier: ^1.0.0-next.22
+        specifier: ^1.0.0-next.23
         version: link:../../packages/contract
       bun-types:
         specifier: ^1.0.7
@@ -534,7 +534,7 @@ importers:
   examples/esbuild:
     dependencies:
       '@tevm/contract':
-        specifier: ^1.0.0-next.22
+        specifier: ^1.0.0-next.23
         version: link:../../packages/contract
       viem:
         specifier: ^2.0.0

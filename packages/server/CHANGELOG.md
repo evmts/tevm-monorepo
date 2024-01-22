@@ -1,5 +1,23 @@
 # @tevm/server
 
+## 1.0.0-next.23
+
+### Minor Changes
+
+- [#844](https://github.com/evmts/tevm-monorepo/pull/844) [`f857279f82aed79be8785fc02b5871fd52659b85`](https://github.com/evmts/tevm-monorepo/commit/f857279f82aed79be8785fc02b5871fd52659b85) Thanks [@roninjin10](https://github.com/roninjin10)! - Added Next.js and Express handlers to @tevm/server
+
+### Patch Changes
+
+- [#862](https://github.com/evmts/tevm-monorepo/pull/862) [`f217fa4dc2f730cc109940ef36872229ae9f26d3`](https://github.com/evmts/tevm-monorepo/commit/f217fa4dc2f730cc109940ef36872229ae9f26d3) Thanks [@roninjin10](https://github.com/roninjin10)! - - Renamed MemoryTevm MemoryClient
+  - Renamed TevmClient HttpClient
+  - Replaced @tevm/actions-types package with @tevm/actions-types, @tevm/client-types, and @tevm/procedures-types packages
+  - Moved errors to @tevm/errors
+  - Moved bundler packages out of tevm and to @tevm/bundler package
+  - Minimized packages exposed in tevm package
+  - Fixed bug with missing types exports
+- Updated dependencies [[`f217fa4dc2f730cc109940ef36872229ae9f26d3`](https://github.com/evmts/tevm-monorepo/commit/f217fa4dc2f730cc109940ef36872229ae9f26d3), [`f2707baa92220f7848912037638ebad125dee539`](https://github.com/evmts/tevm-monorepo/commit/f2707baa92220f7848912037638ebad125dee539)]:
+  - @tevm/zod@1.0.0-next.23
+
 ## 1.0.0-next.22
 
 ### Patch Changes

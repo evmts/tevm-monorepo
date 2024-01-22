@@ -1,10 +1,28 @@
 # @tevm/contract
 
+## 1.0.0-next.23
+
+### Minor Changes
+
+- [#821](https://github.com/evmts/tevm-monorepo/pull/821) [`f2707baa92220f7848912037638ebad125dee539`](https://github.com/evmts/tevm-monorepo/commit/f2707baa92220f7848912037638ebad125dee539) Thanks [@0xNonCents](https://github.com/0xNonCents)! - Added Load State and Dump State to the API.
+
+  These handlers allow one to read and write the entire tevm state similar to [load state and dump state in anvil](https://book.getfoundry.sh/reference/cli/anvil). This can be used to persist the state on disk or browser cache
+
+### Patch Changes
+
+- [#862](https://github.com/evmts/tevm-monorepo/pull/862) [`f217fa4dc2f730cc109940ef36872229ae9f26d3`](https://github.com/evmts/tevm-monorepo/commit/f217fa4dc2f730cc109940ef36872229ae9f26d3) Thanks [@roninjin10](https://github.com/roninjin10)! - - Renamed MemoryTevm MemoryClient
+  - Renamed TevmClient HttpClient
+  - Replaced @tevm/actions-types package with @tevm/actions-types, @tevm/client-types, and @tevm/procedures-types packages
+  - Moved errors to @tevm/errors
+  - Moved bundler packages out of tevm and to @tevm/bundler package
+  - Minimized packages exposed in tevm package
+  - Fixed bug with missing types exports
+
 ## 1.0.0-next.22
 
 ### Minor Changes
 
-- [#820](https://github.com/evmts/tevm-monorepo/pull/820) [`cae17b7d`](https://github.com/evmts/tevm-monorepo/commit/cae17b7d9e4c65a28649a37fcf541d400c951127) Thanks [@roninjin10](https://github.com/roninjin10)! - Added all eth*\* debug*_ and anvil\__ JSON-rpc methods and handlers to API.
+- [#820](https://github.com/evmts/tevm-monorepo/pull/820) [`cae17b7d`](https://github.com/evmts/tevm-monorepo/commit/cae17b7d9e4c65a28649a37fcf541d400c951127) Thanks [@roninjin10](https://github.com/roninjin10)! - Added all eth*\* debug*\_ and anvil\_\_ JSON-rpc methods and handlers to API.
 
 - [#822](https://github.com/evmts/tevm-monorepo/pull/822) [`39a5b5e5`](https://github.com/evmts/tevm-monorepo/commit/39a5b5e52c704d1661b235b271e68129e7dc2a80) Thanks [@roninjin10](https://github.com/roninjin10)! - Added eth methods such as chainId getCode and getStorageAt to Tevm.eth.
 
