@@ -24,7 +24,7 @@ Safely parses a Url into an [Effect](https://www.effect.website/docs/essentials/
 
 ```javascript
 import { parseUrlSafe } from '@tevm/schemas';
-const parsedUrlEffect = parseUrlSafe('https://tevm.dev');
+const parsedUrlEffect = parseUrlSafe('https://tevm.sh');
 ```
 
 ## Source

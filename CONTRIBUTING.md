@@ -65,7 +65,7 @@ The main ones to start with are the following.
 
 #### Docs
 
-- [@tevm/docs](./docs) is the [vitepress docs site](https://tevm.dev). It's reference docs are generated via `bun generate:docs`
+- [@tevm/docs](./docs) is the [vitepress docs site](https://tevm.sh). It's reference docs are generated via `bun generate:docs`
 
 #### Example apps
 

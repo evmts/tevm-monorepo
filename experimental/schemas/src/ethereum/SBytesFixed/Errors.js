@@ -30,7 +30,7 @@ export class InvalidBytesFixedError extends TypeError {
 		size,
 		message,
 		cause,
-		docs = 'https://tevm.dev/reference/errors',
+		docs = 'https://tevm.sh/reference/errors',
 	}) {
 		if (!message) {
 			const expectedLength = 2 + size * 2 // "0x" prefix + two characters for each byte

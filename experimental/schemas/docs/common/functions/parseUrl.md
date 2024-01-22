@@ -24,7 +24,7 @@ Parses a Url and returns the value if no errors.
 
 ```javascript
 import { parseUrl } from '@tevm/schemas';
-const parsedUrl = parseUrl('https://tevm.dev');
+const parsedUrl = parseUrl('https://tevm.sh');
 ```
 
 ## Source

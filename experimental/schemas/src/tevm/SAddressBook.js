@@ -63,7 +63,7 @@ export class InvalidAddressBookError extends TypeError {
 	 */
 	constructor({
 		message = 'Address book is invalid',
-		docs = 'https://tevm.dev/reference/errors',
+		docs = 'https://tevm.sh/reference/errors',
 		cause,
 	} = {}) {
 		super(`${InvalidAddressBookError.name}: ${message}\n${docs}`)

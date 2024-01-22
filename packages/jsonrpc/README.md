@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://tevm.dev/">
+  <a href="https://tevm.sh/">
     <picture>
       <source media="(prefers-color-scheme: dark)" srcset="https://user-images.githubusercontent.com/35039927/218812217-92f0f784-cb85-43b9-9ca6-e2b9effd9eb2.png">
       <img alt="wagmi logo" src="https://user-images.githubusercontent.com/35039927/218812217-92f0f784-cb85-43b9-9ca6-e2b9effd9eb2.png" width="auto" height="300">
@@ -24,7 +24,7 @@
 
 [Simple lightweight client](./src/jsonrpc.js) for interacting with a jsonrpc api
 
-## Visit [Docs](https://tevm.dev/) for docs, guides, API and more!
+## Visit [Docs](https://tevm.sh/) for docs, guides, API and more!
 
 ## See [Tevm Beta project board](https://github.com/orgs/tevm/projects/1) for progress on the upcoming beta release
 

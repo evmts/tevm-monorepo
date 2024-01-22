@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://tevm.dev/">
+  <a href="https://tevm.sh/">
     <picture>
       <source media="(prefers-color-scheme: dark)" srcset="https://user-images.githubusercontent.com/35039927/218812217-92f0f784-cb85-43b9-9ca6-e2b9effd9eb2.png">
       <img alt="wagmi logo" src="https://user-images.githubusercontent.com/35039927/218812217-92f0f784-cb85-43b9-9ca6-e2b9effd9eb2.png" width="auto" height="300">
@@ -17,7 +17,7 @@ For instructions, see: [Using the workspace version of TypeScript](https://code.
 
 ## ✨ What is this?
 
-This is a [Tevm](https://tevm.dev) + [viem](https://viem.sh) ! [esbuild](https://esbuild.github.io/api/) boilerplate to get started using Tevm quickly
+This is a [Tevm](https://tevm.sh) + [viem](https://viem.sh) ! [esbuild](https://esbuild.github.io/api/) boilerplate to get started using Tevm quickly
 
 Tevm allows you to import Solidity directly into your NEXT.js typescript files with great editor support and minimal boilerplate.  Features include
 
@@ -47,7 +47,7 @@ Tevm allows you to import Solidity directly into your NEXT.js typescript files w
 
 # 📜 Docs
 
-Tevm docs exist at [tevm.dev](https://tevm.dev). As Tevm is currently still in Alpha and following [documentation driven development](https://gist.github.com/zsup/9434452) much of the documented behavior may not be implemented yet.
+Tevm docs exist at [tevm.sh](https://tevm.sh). As Tevm is currently still in Alpha and following [documentation driven development](https://gist.github.com/zsup/9434452) much of the documented behavior may not be implemented yet.
 
 # 🤝 Getting Started
 

@@ -31,6 +31,6 @@ import { filter, string } from '@effect/schema/Schema'
 export const SAddress = string.pipe(
 	filter(isAddress, {
 		message: (address) => `Invalid address value: ${address}
-See https://tevm.dev/reference/errors for more information.`,
+See https://tevm.sh/reference/errors for more information.`,
 	}),
 )

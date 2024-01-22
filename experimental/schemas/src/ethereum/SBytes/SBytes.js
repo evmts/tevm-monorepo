@@ -31,7 +31,7 @@ export const SBytes =
 		string.pipe(
 			filter(isHex, {
 				message: (value) => `Invalid hex value: ${value}
-See https://tevm.dev/reference/errors for more information.`,
+See https://tevm.sh/reference/errors for more information.`,
 			}),
 		)
 	)

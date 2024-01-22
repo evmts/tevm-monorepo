@@ -32,7 +32,7 @@ export class InvalidUINTError extends TypeError {
 			? `Recieved ${uint} is too small to be a ${size}. Must be >= 0.`
 			: `Value uint${size} is too big to be a UINT${size}`,
 		cause,
-		docs = 'https://tevm.dev/reference/errors',
+		docs = 'https://tevm.sh/reference/errors',
 	}) {
 		super(`${InvalidUINTError.name}: ${message}\n${docs}`)
 		this.cause = cause && formatErrors(cause)

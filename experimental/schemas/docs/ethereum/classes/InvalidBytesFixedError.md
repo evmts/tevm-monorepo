@@ -33,7 +33,7 @@ The invalid bytes string.
 
 The cause of the error.
 
-▪ **options.docs**: `undefined` \| `string`= `'https://tevm.dev/reference/errors'`
+▪ **options.docs**: `undefined` \| `string`= `'https://tevm.sh/reference/errors'`
 
 The documentation URL.
 
