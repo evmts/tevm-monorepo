@@ -1,5 +1,5 @@
 <p align="center">
-  Build powerful TypeScript applications with a modular EVM toolkit
+  Tevm: Build applications powered by the EVM, simplified
 <p>
 
 [![CI](https://github.com/evmts/tevm-monorepo/actions/workflows/nx.yml/badge.svg)](https://github.com/evmts/tevm-monorepo/actions/workflows/nx.yml)
