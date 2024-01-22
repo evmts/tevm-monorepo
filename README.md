@@ -1,5 +1,5 @@
 <p align="center">
-  Build powerful TypeScript applications with a modular EVM toolkit
+  Tevm: Build applications powered by the EVM, simplified
 <p>
 
 [![CI](https://github.com/evmts/tevm-monorepo/actions/workflows/nx.yml/badge.svg)](https://github.com/evmts/tevm-monorepo/actions/workflows/nx.yml)
@@ -15,7 +15,7 @@
 
 # tevm-monorepo
 
-Tevm is an ethereum development toolkit that offers
+Tevm is a powerful development toolkit to simplify your Ethereum development and provide functionality previously only available outside of the browser and Node.js. Tevm features:
 
 - Arbitrary EVM execution and forking akin to [anvil](https://github.com/foundry-rs/foundry/tree/master/crates/anvil)
 - A powerful solidity scripting environment akin to [foundry scripts](https://book.getfoundry.sh/tutorials/solidity-scripting)
