@@ -23,7 +23,7 @@
 "@tevm/revm": patch
 "@tevm/schemas": patch
 "@tevm/state": patch
-"@tevm/vm": patch
+"@tevm/memory-client": patch
 ---
 
 Fixed issue with npm publishing

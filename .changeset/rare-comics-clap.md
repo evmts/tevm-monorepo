@@ -46,7 +46,7 @@
 
 - Renamed MemoryTevm MemoryClient
 - Renamed TevmClient HttpClient
-- Replaced @tevm/api package with @tevm/actions-types, @tevm/client-types, and @tevm/procedures-types packages
+- Replaced @tevm/actions-types package with @tevm/actions-types, @tevm/client-types, and @tevm/procedures-types packages
 - Moved errors to @tevm/errors
 - Moved bundler packages out of tevm and to @tevm/bundler package
 - Minimized packages exposed in tevm package
