@@ -1,8 +1,8 @@
-import { setAccountHandler } from '../setAccountHandler.js'
 import { traceCallHandler } from './traceCallHandler.js'
 import { EVM } from '@ethereumjs/evm'
 import { describe, expect, it } from 'bun:test'
 import { encodeFunctionData, parseEther } from 'viem'
+import { setAccountHandler } from '../index.js'
 
 const ERC20_ADDRESS = `0x${'3'.repeat(40)}` as const
 const ERC20_BYTECODE =
