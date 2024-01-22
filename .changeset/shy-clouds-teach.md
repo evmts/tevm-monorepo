@@ -1,5 +1,5 @@
 ---
-"@tevm/api": patch
+"@tevm/actions-types": patch
 ---
 
-Added JSDOC to @tevm/api
+Added JSDOC to @tevm/actions-types

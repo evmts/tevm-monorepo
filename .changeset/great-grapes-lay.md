@@ -1,7 +1,7 @@
 ---
 "@tevm/viem": minor
 "@tevm/procedures": minor
-"@tevm/api": minor
+"@tevm/actions-types": minor
 "@tevm/memory-client": minor
 "tevm": minor
 ---
