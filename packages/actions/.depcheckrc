@@ -3,6 +3,7 @@ ignores: [
   "@ethereumjs/block",
   "@ethereumjs/blockchain",
   "@ethereumjs/vm",
-  "@tevm/actions-types"
+  "@tevm/actions-types",
+  "@tevm/errors"
 ]
 skip-missing: true
