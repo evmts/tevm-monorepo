@@ -1,19 +1,19 @@
 import { ERC20 } from './tests/ERC20.sol.js'
 import { tevmViemExtension } from './tevmViemExtension.js'
 import { Address } from '@ethereumjs/util'
+import { type MemoryClient, createMemoryClient } from '@tevm/memory-client'
 import { createHttpHandler } from '@tevm/server'
-import { type MemoryTevm, createMemoryTevm } from '@tevm/vm'
 import { afterAll, beforeAll, describe, expect, it } from 'bun:test'
 import { Server, createServer } from 'http'
 import { type PublicClient, createPublicClient, http } from 'viem'
 
 describe('tevmViemExtension', () => {
-	let tevm: MemoryTevm
+	let tevm: MemoryClient
 	let server: Server
 	let client: PublicClient
 
 	beforeAll(async () => {
-		tevm = await createMemoryTevm({
+		tevm = await createMemoryClient({
 			fork: { url: 'https://mainnet.optimism.io' },
 		})
 		server = createServer(createHttpHandler(tevm)).listen(6969)

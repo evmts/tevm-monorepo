@@ -46,7 +46,7 @@ const vm = createMemoryTevm({
 
 ## Source
 
-vm/predeploys/types/definePredeploy.d.ts:25
+packages/predeploys/types/definePredeploy.d.ts:25
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

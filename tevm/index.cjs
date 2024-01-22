@@ -1,19 +1,14 @@
 'use strict';
 
 var predeploys = require('@tevm/predeploys');
-var client = require('@tevm/client');
 var contract = require('@tevm/contract');
-var vm = require('@tevm/vm');
+var memoryClient = require('@tevm/memory-client');
 
 
 
 Object.defineProperty(exports, "definePredeploy", {
   enumerable: true,
   get: function () { return predeploys.definePredeploy; }
-});
-Object.defineProperty(exports, "createTevmClient", {
-  enumerable: true,
-  get: function () { return client.createTevmClient; }
 });
 Object.defineProperty(exports, "createContract", {
   enumerable: true,
@@ -75,25 +70,9 @@ Object.defineProperty(exports, "toHex", {
   enumerable: true,
   get: function () { return contract.toHex; }
 });
-Object.defineProperty(exports, "NoProxyConfiguredError", {
+Object.defineProperty(exports, "createMemoryClient", {
   enumerable: true,
-  get: function () { return vm.NoProxyConfiguredError; }
-});
-Object.defineProperty(exports, "ProxyFetchError", {
-  enumerable: true,
-  get: function () { return vm.ProxyFetchError; }
-});
-Object.defineProperty(exports, "UnexpectedInternalServerError", {
-  enumerable: true,
-  get: function () { return vm.UnexpectedInternalServerError; }
-});
-Object.defineProperty(exports, "UnsupportedMethodError", {
-  enumerable: true,
-  get: function () { return vm.UnsupportedMethodError; }
-});
-Object.defineProperty(exports, "createMemoryTevm", {
-  enumerable: true,
-  get: function () { return vm.createMemoryTevm; }
+  get: function () { return memoryClient.createMemoryClient; }
 });
 //# sourceMappingURL=out.js.map
 //# sourceMappingURL=index.cjs.map

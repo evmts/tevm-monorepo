@@ -1,8 +1,8 @@
-import type { Tevm } from '@tevm/api'
+import type { TevmClient } from '@tevm/client-types'
 
 /**
- * The decorated properties added by the `tevmViemExtension` 
+ * The decorated properties added by the `tevmViemExtension`
  */
 export type ViemTevmClient = {
-	tevm: Tevm
+	tevm: TevmClient
 }

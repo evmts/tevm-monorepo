@@ -1,0 +1,1 @@
+{"version":3,"sources":["index.ts"],"names":[],"mappings":";;;;;;;;;AAAA,IAAO,WAAW,UAAQ;AAC1B,UAAU","sourcesContent":["import tsPlugin = require('@tevm/ts-plugin')\nexports = tsPlugin\n"]}

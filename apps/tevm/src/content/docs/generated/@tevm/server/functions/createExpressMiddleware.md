@@ -13,7 +13,7 @@ Creates express middleware for a Tevm JSON-RPC server
 
 ▪ **options**: `object`
 
-▪ **options.request**: [`TevmJsonRpcRequestHandler`](/generated/tevm/api/type-aliases/tevmjsonrpcrequesthandler/)
+▪ **options.request**: [`TevmJsonRpcRequestHandler`](/generated/tevm/procedures-types/type-aliases/tevmjsonrpcrequesthandler/)
 
 A request handler for the JSON-RPC requests
 
@@ -49,7 +49,7 @@ const client = createClient({
 
 ## Source
 
-[vm/server/src/adapters/createExpressMiddleware.js:35](https://github.com/evmts/tevm-monorepo/blob/main/vm/server/src/adapters/createExpressMiddleware.js#L35)
+[packages/server/src/adapters/createExpressMiddleware.js:35](https://github.com/evmts/tevm-monorepo/blob/main/packages/server/src/adapters/createExpressMiddleware.js#L35)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

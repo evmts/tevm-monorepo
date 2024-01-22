@@ -1,0 +1,20 @@
+{
+	"$schema": "https://typedoc.org/schema.json",
+	"out": "./docs",
+	"entryPoints": [
+		"./index.ts",
+		"./base-bundler/index.ts",
+		"./bun-plugin/index.d.ts",
+		"./esbuild-plugin/index.ts",
+		"./rollup-plugin/index.ts",
+		"./rspack-plugin/index.ts",
+		"./ts-plugin/index.ts",
+		"./vite-plugin/index.ts",
+		"./webpack-plugin/index.ts",
+		"./solc/index.ts",
+		"./config/index.ts",
+		"./compiler/index.ts"
+	],
+	"plugin": ["typedoc-plugin-markdown"],
+	"gitRevision": "main"
+}

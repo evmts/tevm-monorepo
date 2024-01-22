@@ -71,14 +71,14 @@ export const tevmViemExtensionOptimistic = () => {
 		/**
 		 * @type {import("./ViemTevmOptimisticClient.js").ViemTevmOptimisticClient['tevm']['writeContractOptimistic']}
 		 */
-		const writeContractOptimistic = async function*(action) {
+		const writeContractOptimistic = async function* (action) {
 			/**
 			 * @type {Array<import('./TypedError.js').TypedError<string>>}
 			 */
 			const errors = []
 			const getErrorsIfExist = () => (errors.length > 0 ? { errors } : {})
 
-			const writeContractResult = client.writeContract(/** @type any*/(action))
+			const writeContractResult = client.writeContract(/** @type any*/ (action))
 			const optimisticResult = client.request({
 				jsonrpc: '2.0',
 				method: /** @type {any}*/ ('tevm_contract'),
@@ -93,7 +93,7 @@ export const tevmViemExtensionOptimistic = () => {
 					...getErrorsIfExist(),
 				}
 			} catch (error) {
-				errors.push(/** @type {any}*/(error))
+				errors.push(/** @type {any}*/ (error))
 				yield {
 					success: false,
 					tag: 'OPTIMISTIC_RESULT',
@@ -115,7 +115,7 @@ export const tevmViemExtensionOptimistic = () => {
 					...getErrorsIfExist(),
 				}
 			} catch (error) {
-				errors.push(/** @type {any}*/(error))
+				errors.push(/** @type {any}*/ (error))
 				yield {
 					success: false,
 					tag: 'HASH',
@@ -127,7 +127,7 @@ export const tevmViemExtensionOptimistic = () => {
 			if (hash) {
 				try {
 					const receipt = await waitForTransactionReceipt(
-						/** @type{any}*/(client),
+						/** @type{any}*/ (client),
 						{ hash },
 					)
 					yield {
@@ -137,7 +137,7 @@ export const tevmViemExtensionOptimistic = () => {
 						...getErrorsIfExist(),
 					}
 				} catch (error) {
-					errors.push(/** @type {any}*/(error))
+					errors.push(/** @type {any}*/ (error))
 					yield {
 						success: false,
 						tag: 'RECEIPT',

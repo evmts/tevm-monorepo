@@ -5,7 +5,7 @@ prev: false
 title: "getAccountProcedure"
 ---
 
-> **getAccountProcedure**(`evm`): [`GetAccountJsonRpcProcedure`](/generated/tevm/api/type-aliases/getaccountjsonrpcprocedure/)
+> **getAccountProcedure**(`evm`): [`GetAccountJsonRpcProcedure`](/generated/tevm/procedures-types/type-aliases/getaccountjsonrpcprocedure/)
 
 Creates an GetAccount JSON-RPC Procedure for handling account requests with Ethereumjs EVM
 
@@ -17,7 +17,7 @@ Creates an GetAccount JSON-RPC Procedure for handling account requests with Ethe
 
 ## Source
 
-[vm/procedures/src/jsonrpc/getAccountProcedure.js:9](https://github.com/evmts/tevm-monorepo/blob/main/vm/procedures/src/jsonrpc/getAccountProcedure.js#L9)
+[procedures/src/tevm/getAccountProcedure.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/tevm/getAccountProcedure.js#L9)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

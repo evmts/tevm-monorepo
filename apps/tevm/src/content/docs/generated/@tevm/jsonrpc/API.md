@@ -11,7 +11,9 @@ title: "@tevm/jsonrpc"
 
 - [HeadersInit](/generated/tevm/jsonrpc/type-aliases/headersinit/)
 - [JsonRpcClient](/generated/tevm/jsonrpc/type-aliases/jsonrpcclient/)
-- [JsonRpcFetch](/generated/tevm/jsonrpc/type-aliases/jsonrpcfetch/)
+- [JsonRpcProcedure](/generated/tevm/jsonrpc/type-aliases/jsonrpcprocedure/)
+- [JsonRpcRequest](/generated/tevm/jsonrpc/type-aliases/jsonrpcrequest/)
+- [JsonRpcResponse](/generated/tevm/jsonrpc/type-aliases/jsonrpcresponse/)
 
 ### Functions
 

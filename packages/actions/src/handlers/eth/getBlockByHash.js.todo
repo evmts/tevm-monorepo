@@ -1,0 +1,53 @@
+import { hexToBytes } from 'viem'
+
+/**
+ * @param {import('@ethereumjs/blockchain').BlockchainInterface} blockchain
+ * @returns {import('@tevm/actions-types').EthGetBlockByHashHandler}
+ */
+export const getBlockByHashHandler = (blockchain) => async (params) => {
+	const block = await blockchain.getBlock(hexToBytes(params.blockHash))
+	try {
+		const block = await blockchain.getBlock(hexToBytes(params.blockHash))
+		return await jsonRpcBlock(block, this._chain, includeTransactions)
+	} catch (error) {
+		throw {
+			code: INVALID_PARAMS,
+			message: 'Unknown block',
+		}
+	}
+	const {
+		difficulty,
+		extraData,
+		gasLimit,
+		gasUsed,
+		hash,
+		nonce,
+		number,
+		parentHash,
+		stateRoot,
+		timestamp,
+		logsBloom,
+	} = block.header
+	return {
+		difficulty,
+		extraData,
+		gasLimit,
+		gasUsed,
+		hash,
+		logsBloom,
+		transactions: block.transactions,
+		nonce,
+		number,
+		timestamp,
+		parentHash,
+		stateRoot,
+		uncles: block.uncleHeaders,
+		// TODO fill these in
+		// totalDifficulty,
+		// sha3Uncles,
+		size: block.,
+		transactionsRoot,
+		miner
+
+	}
+}

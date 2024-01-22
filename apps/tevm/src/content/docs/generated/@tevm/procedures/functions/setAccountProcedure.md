@@ -5,7 +5,7 @@ prev: false
 title: "setAccountProcedure"
 ---
 
-> **setAccountProcedure**(`evm`): [`SetAccountJsonRpcProcedure`](/generated/tevm/api/type-aliases/setaccountjsonrpcprocedure/)
+> **setAccountProcedure**(`evm`): [`SetAccountJsonRpcProcedure`](/generated/tevm/procedures-types/type-aliases/setaccountjsonrpcprocedure/)
 
 Creates an SetAccount JSON-RPC Procedure for handling tevm_setAccount requests with Ethereumjs EVM
 
@@ -17,7 +17,7 @@ Creates an SetAccount JSON-RPC Procedure for handling tevm_setAccount requests w
 
 ## Source
 
-[vm/procedures/src/jsonrpc/setAccountProcedure.js:9](https://github.com/evmts/tevm-monorepo/blob/main/vm/procedures/src/jsonrpc/setAccountProcedure.js#L9)
+[procedures/src/tevm/setAccountProcedure.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/tevm/setAccountProcedure.js#L9)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

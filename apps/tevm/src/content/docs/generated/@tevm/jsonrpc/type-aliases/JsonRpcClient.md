@@ -7,15 +7,13 @@ title: "JsonRpcClient"
 
 > **JsonRpcClient**: `object`
 
+A client for making JsonRpc requests over http
+
 ## Type declaration
 
 ### request
 
-> **request**: (`request`) => `Promise`\<[`JsonRpcResponse`](/generated/tevm/api/type-aliases/jsonrpcresponse/)\<`any`, `any`, `any`\>\>
-
-#### Parameters
-
-▪ **request**: [`JsonRpcRequest`](/generated/tevm/api/type-aliases/jsonrpcrequest/)\<`any`, `any`\>
+> **request**: [`JsonRpcProcedure`](/generated/tevm/jsonrpc/type-aliases/jsonrpcprocedure/)\<`string`, `unknown`, `unknown`, `string`\>
 
 ### url
 
@@ -23,7 +21,7 @@ title: "JsonRpcClient"
 
 ## Source
 
-[JsonRpcClient.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/packages/jsonrpc/src/JsonRpcClient.ts#L3)
+[JsonRpcClient.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/jsonrpc/src/JsonRpcClient.ts#L6)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

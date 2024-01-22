@@ -1,8 +1,0 @@
-ignores: [
-  "@ethereumjs/evm",
-  "@tevm/api",
-  "next",
-  "express",
-  "@types/express"
-]
-skip-missing: true

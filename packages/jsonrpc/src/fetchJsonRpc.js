@@ -1,15 +1,8 @@
 /**
- * @typedef {(request: import("@tevm/api").JsonRpcRequest<any, any>) => Promise<import("@tevm/api").JsonRpcResponse<any, any, any>>} JsonRpcFetch
- */
-
-/**
- * @typedef {string[][] | Record<string, string | ReadonlyArray<string>> | Headers} HeadersInit
- */
-/**
  * Makes a JSON-RPC request to a url
  * @see https://ethereum.org/en/developers/docs/apis/json-rpc/
  * @param {string} url to JSON RPC backend
- * @param {HeadersInit} headers to send with the request
+ * @param {import("./HeadersInit.js").HeadersInit} headers to send with the request
  * @returns {import("./JsonRpcClient.js").JsonRpcClient} the `result` field from the JSON-RPC response
  * @example
  * ```typescript

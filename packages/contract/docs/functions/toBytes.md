@@ -10,8 +10,8 @@
 
 Encodes a UTF-8 string, hex value, bigint, number or boolean to a byte array.
 
-- Docs: https://viem.sh/docs/utilities/toBytes.html
-- Example: https://viem.sh/docs/utilities/toBytes.html#usage
+- Docs: https://viem.sh/docs/utilities/toBytes
+- Example: https://viem.sh/docs/utilities/toBytes#usage
 
 ## Parameters
 
@@ -53,7 +53,7 @@ const data = toBytes(420, { size: 4 })
 
 ## Source
 
-node\_modules/.pnpm/viem@2.0.2\_typescript@5.3.3\_zod@3.22.4/node\_modules/viem/\_types/utils/encoding/toBytes.d.ts:37
+node\_modules/.pnpm/viem@2.4.0\_typescript@5.3.3\_zod@3.22.4/node\_modules/viem/\_types/utils/encoding/toBytes.d.ts:37
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

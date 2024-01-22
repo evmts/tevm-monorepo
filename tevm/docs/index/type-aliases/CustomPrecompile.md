@@ -12,7 +12,7 @@ Custom precompiles allow you to run arbitrary JavaScript code in the EVM
 
 ## Source
 
-vm/vm/types/CustomPrecompile.d.ts:14
+packages/memory-client/types/CustomPrecompile.d.ts:14
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

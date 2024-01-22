@@ -18,7 +18,7 @@
 
 ## Source
 
-vm/server/types/createServer.d.ts:2
+packages/server/types/createServer.d.ts:2
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

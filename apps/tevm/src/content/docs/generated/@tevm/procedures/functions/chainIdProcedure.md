@@ -5,7 +5,7 @@ prev: false
 title: "chainIdProcedure"
 ---
 
-> **chainIdProcedure**(`chainId`): [`EthChainIdJsonRpcProcedure`](/generated/tevm/api/type-aliases/ethchainidjsonrpcprocedure/)
+> **chainIdProcedure**(`chainId`): [`EthChainIdJsonRpcProcedure`](/generated/tevm/procedures-types/type-aliases/ethchainidjsonrpcprocedure/)
 
 ## Parameters
 
@@ -15,7 +15,7 @@ title: "chainIdProcedure"
 
 ## Source
 
-[vm/procedures/src/jsonrpc/eth/chainIdProcedure.js:8](https://github.com/evmts/tevm-monorepo/blob/main/vm/procedures/src/jsonrpc/eth/chainIdProcedure.js#L8)
+[procedures/src/eth/chainIdProcedure.js:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/chainIdProcedure.js#L8)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

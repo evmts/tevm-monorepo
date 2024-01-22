@@ -1,0 +1,9 @@
+ignores: [
+  "@ethereumjs/evm",
+  "@tevm/actions-types",
+  "@tevm/jsonrpc",
+  "next",
+  "express",
+  "@types/express"
+]
+skip-missing: true

@@ -1,0 +1,56 @@
+import { bytesToHex } from "viem"
+
+const ethjsTxToTevmTx = (tx) => {
+
+}
+
+/**
+ * Transoforms an ethjs block to a tevm Block
+ * @param {import("@ethereumjs/block").Block} block
+ * @param {boolean} includeTransactions
+ * @returns {Promise<import("@tevm/actions-types").Block>}
+ */
+const ethjsToTevmBlock = async (
+  block,
+  includeTransactions,
+) => {
+  const transactions = block.transactions.map((tx, txIndex) =>
+    includeTransactions ? ethjsTxToTevmTx(tx, block, txIndex) : bytesToHex(tx.hash())
+  )
+  const withdrawalsAttr =
+    block.header.withdrawalsRoot !== undefined
+      ? {
+        withdrawalsRoot: bytesToHex(block.header.withdrawalsRoot),
+        withdrawals: block.toJSON().withdrawals,
+      }
+      : {}
+  const td = await chain.getTd(block.hash(), block.header.number)
+  return {
+    coinbase: block.toJSON().header?.coinbase
+    number: block.toJSON().header.number,
+    hash: bytesToHex(block.hash()),
+    parentHash: block.toJSON().header.parentHash,
+    mixHash: block.toJSON().header.mixHash,
+    nonce: block.toJSON().header.nonce,
+    sha3Uncles: block.toJSON().header.uncleHash,
+    logsBloom: block.toJSON().header.logsBloom,
+    transactionsRoot: block.toJSON().header.transactionsTrie,
+    stateRoot: block.toJSON().header.stateRoot,
+    receiptsRoot: block.toJSON().header.receiptTrie,
+    miner: block.toJSON().header.coinbase,
+    difficulty: block.toJSON().header.difficulty,
+    totalDifficulty: bigIntToHex(td),
+    extraData: block.toJSON().header.extraData,
+    size: intToHex(utf8ToBytes(JSON.stringify(block.toJSON())).byteLength),
+    gasLimit: block.toJSON().header.gasLimit,
+    gasUsed: block.toJSON().header.gasUsed,
+    timestamp: block.toJSON().header.timestamp,
+    transactions,
+    uncles: block.uncleHeaders.map((uh) => bytesToHex(uh.hash())),
+    baseFeePerGas: block.toJSON().header.baseFeePerGas,
+    ...withdrawalsAttr,
+    blobGasUsed: block.toJSON().header.blobGasUsed,
+    excessBlobGas: block.toJSON().header.excessBlobGas,
+    parentBeaconBlockRoot: block.toJSON().header.parentBeaconBlockRoot,
+  }
+}

@@ -4,18 +4,15 @@
 
 [API](../API.md) > HeadersInit
 
-# Type alias: HeadersInit`<>`
+# Type alias: HeadersInit
 
-> **HeadersInit**\<\>: `string`[][] \| `Record`\<`string`, `string` \| `ReadonlyArray`\<`string`\>\> \| `Headers`
+> **HeadersInit**: `string`[][] \| `Record`\<`string`, `string` \| `ReadonlyArray`\<`string`\>\> \| `Headers`
 
-## Type parameters
-
-| Parameter |
-| :------ |
+The headers interface of the Fetch API
 
 ## Source
 
-[fetchJsonRpc.js:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/jsonrpc/src/fetchJsonRpc.js#L6)
+[HeadersInit.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/jsonrpc/src/HeadersInit.ts#L4)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

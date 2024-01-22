@@ -1,5 +1,5 @@
 import type { OptimisticResult } from './OptimisticResult.js'
-import type { Tevm } from '@tevm/api'
+import type { TevmClient } from '@tevm/client-types'
 import type { Abi } from 'abitype'
 import type {
 	Account,
@@ -17,7 +17,7 @@ export type ViemTevmOptimisticClient<
 	TChain extends Chain | undefined = Chain,
 	TAccount extends Account | undefined = Account | undefined,
 > = {
-	tevm: Omit<Tevm, 'request'> & {
+	tevm: Omit<TevmClient, 'request'> & {
 		writeContractOptimistic<
 			TAbi extends Abi | readonly unknown[] = Abi,
 			TFunctionName extends ContractFunctionName<TAbi> = ContractFunctionName<TAbi>,

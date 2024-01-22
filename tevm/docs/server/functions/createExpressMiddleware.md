@@ -50,7 +50,7 @@ const client = createClient({
 
 ## Source
 
-vm/server/types/adapters/createExpressMiddleware.d.ts:33
+packages/server/types/adapters/createExpressMiddleware.d.ts:33
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

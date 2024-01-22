@@ -5,7 +5,7 @@ prev: false
 title: "requestProcedure"
 ---
 
-> **requestProcedure**(`vm`): [`TevmJsonRpcRequestHandler`](/generated/tevm/api/type-aliases/tevmjsonrpcrequesthandler/)
+> **requestProcedure**(`vm`): [`TevmJsonRpcRequestHandler`](/generated/tevm/procedures-types/type-aliases/tevmjsonrpcrequesthandler/)
 
 Request handler for JSON-RPC requests.
 
@@ -41,7 +41,7 @@ const accountResponse = await tevm.request({
 
 ## Source
 
-[vm/procedures/src/requestProcedure.js:45](https://github.com/evmts/tevm-monorepo/blob/main/vm/procedures/src/requestProcedure.js#L45)
+[procedures/src/requestProcedure.js:44](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/requestProcedure.js#L44)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

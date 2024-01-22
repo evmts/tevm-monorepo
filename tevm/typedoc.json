@@ -3,29 +3,17 @@
 	"out": "./docs",
 	"entryPoints": [
 		"./index.ts",
-		"./api/index.ts",
-		"./bundler/index.ts",
-		"./client/index.ts",
+		"./actions-types/index.ts",
 		"./contract/index.ts",
-		"./ethers/index.ts",
-		"./jsonrpc/index.ts",
-		"./server/index.ts",
-		"./viem/index.ts",
+		"./errors/index.ts",
+		"./memory-client/index.ts",
 		"./predeploys/index.ts",
-		"./state/index.ts",
-		"./vm/index.ts",
-		"./bundler/base-bundler/index.ts",
-		"./bundler/bun-plugin/index.d.ts",
-		"./bundler/esbuild-plugin/index.ts",
-		"./bundler/rollup-plugin/index.ts",
-		"./bundler/rspack-plugin/index.ts",
-		"./bundler/ts-plugin/index.ts",
-		"./bundler/vite-plugin/index.ts",
-		"./bundler/webpack-plugin/index.ts",
-		"./bundler/solc/index.ts",
-		"./bundler/config/index.ts",
-		"./bundler/compiler/index.ts"
+		"./procedures-types/index.ts",
+		"./http-client/index.ts",
+		"./server/index.ts"
 	],
-	"plugin": ["typedoc-plugin-markdown"],
+	"plugin": [
+		"typedoc-plugin-markdown"
+	],
 	"gitRevision": "main"
 }

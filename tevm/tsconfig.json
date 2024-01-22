@@ -10,17 +10,14 @@
     "skipLibCheck": true
   },
   "include": [
-    "api/index.ts",
-    "bundler/**/index.ts",
-    "client/index.ts",
+    "actions-types/index.ts",
     "contract/index.ts",
-    "server/index.ts",
-    "viem/index.ts",
-    "ethers/index.ts",
-    "jsonrpc/index.ts",
-    "vm/index.ts",
+    "memory-client/index.ts",
     "predeploys/index.ts",
-    "state/index.ts",
+    "procedures-types/index.ts",
+    "http-client/index.ts",
+    "errors/index.ts",
+    "server/index.ts",
     "index.ts"
   ]
 }

@@ -13,7 +13,7 @@ Creates a lightweight http server for handling requests
 
 ▪ **options**: `object`
 
-▪ **options.request**: [`TevmJsonRpcRequestHandler`](/generated/tevm/api/type-aliases/tevmjsonrpcrequesthandler/)
+▪ **options.request**: [`TevmJsonRpcRequestHandler`](/generated/tevm/procedures-types/type-aliases/tevmjsonrpcrequesthandler/)
 
 A request handler for the JSON-RPC requests
 
@@ -51,7 +51,7 @@ const client = createTevmClient()
 
 ## Source
 
-[vm/server/src/createServer.js:32](https://github.com/evmts/tevm-monorepo/blob/main/vm/server/src/createServer.js#L32)
+[packages/server/src/createServer.js:32](https://github.com/evmts/tevm-monorepo/blob/main/packages/server/src/createServer.js#L32)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

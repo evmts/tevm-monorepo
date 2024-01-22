@@ -1,8 +1,9 @@
-import type { JsonRpcRequest, JsonRpcResponse } from '@tevm/api'
+import type { JsonRpcProcedure } from './JsonRpcProcedure.js'
 
+/**
+ * A client for making JsonRpc requests over http
+ */
 export type JsonRpcClient = {
 	url: string
-	request: (
-		request: JsonRpcRequest<any, any>,
-	) => Promise<JsonRpcResponse<any, any, any>>
+	request: JsonRpcProcedure<string, unknown, unknown, string>
 }

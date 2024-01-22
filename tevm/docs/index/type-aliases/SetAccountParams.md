@@ -39,7 +39,7 @@ Balance to set account to
 
 ### deployedBytecode
 
-> **deployedBytecode**?: `Hex`
+> **deployedBytecode**?: [`Hex`](Hex.md)
 
 Contract bytecode to set account to
 
@@ -51,13 +51,13 @@ Nonce to set account to
 
 ### storageRoot
 
-> **storageRoot**?: `Hex`
+> **storageRoot**?: [`Hex`](Hex.md)
 
 Storage root to set account to
 
 ## Source
 
-vm/api/types/params/SetAccountParams.d.ts:15
+packages/actions-types/types/params/SetAccountParams.d.ts:15
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

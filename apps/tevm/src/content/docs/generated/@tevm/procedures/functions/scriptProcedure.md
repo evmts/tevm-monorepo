@@ -5,7 +5,7 @@ prev: false
 title: "scriptProcedure"
 ---
 
-> **scriptProcedure**(`evm`): [`ScriptJsonRpcProcedure`](/generated/tevm/api/type-aliases/scriptjsonrpcprocedure/)
+> **scriptProcedure**(`evm`): [`ScriptJsonRpcProcedure`](/generated/tevm/procedures-types/type-aliases/scriptjsonrpcprocedure/)
 
 Creates a Script JSON-RPC Procedure for handling script requests with Ethereumjs EVM
 
@@ -17,7 +17,7 @@ Creates a Script JSON-RPC Procedure for handling script requests with Ethereumjs
 
 ## Source
 
-[vm/procedures/src/jsonrpc/scriptProcedure.js:10](https://github.com/evmts/tevm-monorepo/blob/main/vm/procedures/src/jsonrpc/scriptProcedure.js#L10)
+[procedures/src/tevm/scriptProcedure.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/tevm/scriptProcedure.js#L10)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

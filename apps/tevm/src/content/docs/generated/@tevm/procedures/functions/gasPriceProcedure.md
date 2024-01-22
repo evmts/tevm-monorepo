@@ -5,7 +5,7 @@ prev: false
 title: "gasPriceProcedure"
 ---
 
-> **gasPriceProcedure**(`options`): [`EthGasPriceJsonRpcProcedure`](/generated/tevm/api/type-aliases/ethgaspricejsonrpcprocedure/)
+> **gasPriceProcedure**(`options`): [`EthGasPriceJsonRpcProcedure`](/generated/tevm/procedures-types/type-aliases/ethgaspricejsonrpcprocedure/)
 
 ## Parameters
 
@@ -13,13 +13,13 @@ title: "gasPriceProcedure"
 
 ▪ **options.blockchain**: `Blockchain`
 
-▪ **options.forkUrl**: `undefined` \| `string`
+▪ **options.forkUrl?**: `string`
 
 ## Returns
 
 ## Source
 
-[vm/procedures/src/jsonrpc/eth/gasPriceProcedure.js:9](https://github.com/evmts/tevm-monorepo/blob/main/vm/procedures/src/jsonrpc/eth/gasPriceProcedure.js#L9)
+[procedures/src/eth/gasPriceProcedure.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/eth/gasPriceProcedure.js#L9)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

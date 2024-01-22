@@ -16,7 +16,7 @@ To configure add this plugin to your rspack config and add the ts-plugin to your
 
 ▪ **options?**: `object`
 
-▪ **options.solc?**: [`SolcVersions`](/generated/tevm/solc/type-aliases/solcversions/)
+▪ **options.solc?**: `SolcVersions`
 
 ## Returns
 
@@ -100,7 +100,7 @@ For custom configuration of the Tevm compiler add a [tevm.config.json](https://t
 
 ## Source
 
-[bundler/rspack/src/rspackPluginTevm.js:75](https://github.com/evmts/tevm-monorepo/blob/main/bundler/rspack/src/rspackPluginTevm.js#L75)
+[bundler-packages/rspack/src/rspackPluginTevm.js:75](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/rspack/src/rspackPluginTevm.js#L75)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

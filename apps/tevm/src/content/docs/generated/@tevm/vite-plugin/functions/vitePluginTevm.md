@@ -16,7 +16,7 @@ To configure add this plugin to your vite config and add the ts-plugin to your t
 
 ▪ **options?**: `object`
 
-▪ **options.solc?**: [`SolcVersions`](/generated/tevm/solc/type-aliases/solcversions/)
+▪ **options.solc?**: `SolcVersions`
 
 ## Returns
 
@@ -96,7 +96,7 @@ For custom configuration of the Tevm compiler add a [tevm.config.json](https://t
 
 ## Source
 
-[bundler/vite/src/vitePluginTevm.js:73](https://github.com/evmts/tevm-monorepo/blob/main/bundler/vite/src/vitePluginTevm.js#L73)
+[bundler-packages/vite/src/vitePluginTevm.js:73](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/vite/src/vitePluginTevm.js#L73)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

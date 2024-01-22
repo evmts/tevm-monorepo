@@ -8,6 +8,8 @@
 
 > **TypedError**\<`T`\>: `Error` & `object`
 
+An error with a tag
+
 ## Type declaration
 
 ### tag
@@ -22,7 +24,7 @@
 
 ## Source
 
-[TypedError.ts:1](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/TypedError.ts#L1)
+[TypedError.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/TypedError.ts#L4)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

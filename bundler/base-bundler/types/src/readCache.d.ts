@@ -1,2 +1,0 @@
-export function readCache(logger: import('@tevm/compiler').Logger, cache: import('@tevm/bundler-cache').Cache, modulePath: string, includeAst: boolean, includeBytecode: boolean): ReturnType<import('@tevm/bundler-cache').Cache['readArtifacts']>;
-//# sourceMappingURL=readCache.d.ts.map
