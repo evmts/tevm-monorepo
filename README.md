@@ -1,5 +1,5 @@
 <p align="center">
-  TypeScript programming with the full power of the Ethereum Virtual Machine
+  Build powerful TypeScript applications with a modular EVM toolkit
 <p>
 
 [![CI](https://github.com/evmts/tevm-monorepo/actions/workflows/nx.yml/badge.svg)](https://github.com/evmts/tevm-monorepo/actions/workflows/nx.yml)
