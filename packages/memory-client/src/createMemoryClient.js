@@ -63,8 +63,8 @@ export const createMemoryClient = async (options = {}) => {
 	let stateManager
 	const common = new Common({
 		chain: 1,
-		hardfork: Hardfork.Shanghai,
-		eips: [1559, 4895],
+		hardfork: options.hardfork ?? Hardfork.Shanghai,
+		eips: /**@type number[]*/(options.eips ?? [1559, 4895]),
 	})
 
 	let chainId = 420n
@@ -99,9 +99,9 @@ export const createMemoryClient = async (options = {}) => {
 			header: common.genesis(),
 			...(common.isActivatedEIP(4895)
 				? {
-						withdrawals:
+					withdrawals:
 							/** @type {Array<import('@ethereumjs/util').WithdrawalData>}*/ ([]),
-				  }
+				}
 				: {}),
 		},
 		{ common, setHardfork: false, skipConsensusFormatValidation: true },
@@ -139,7 +139,7 @@ export const createMemoryClient = async (options = {}) => {
 		// TODO uncomment the mapping once we make the api correct
 		customPrecompiles: options.customPrecompiles ?? [], // : customPrecompiles.map(p => ({ ...p, address: new EthjsAddress(hexToBytes(p.address)) })),
 		profiler: {
-			enabled: true,
+			enabled: options.profiler ?? false,
 		},
 	})
 

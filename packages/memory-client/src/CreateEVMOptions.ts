@@ -3,9 +3,45 @@ import type { ForkOptions } from './ForkOptions.js'
 import type { CustomPredeploy } from '@tevm/predeploys'
 
 /**
- * Options for creating an Tevm instance
+ * Ethereum hardfork option
+ */
+export type Hardfork =
+	| 'chainstart'
+	| 'homestead'
+	| 'dao'
+	| 'tangerineWhistle'
+	| 'spuriousDragon'
+	| 'byzantium'
+	| 'constantinople'
+	| 'petersburg'
+	| 'istanbul'
+	| 'muirGlacier'
+	| 'berlin'
+	| 'london'
+	| 'arrowGlacier'
+	| 'grayGlacier'
+	| 'mergeForkIdTransition'
+	| 'paris'
+	| 'shanghai'
+	| 'cancun'
+
+/**
+ * Options for creating an Tevm MemoryClient instance
  */
 export type CreateEVMOptions = {
+	/**
+	 * Enable profiler. Defaults to false.
+	 */
+	profiler?: boolean
+	/**
+	 * Hardfork to use. Defaults to `shanghai`
+	 */
+	hardfork?: Hardfork
+	// TODO type this more strongly
+	/**
+	 * Eips to enable. Defaults to `[1559, 4895]`
+	 */
+	eips?: ReadonlyArray<number>
 	/**
 	 * Fork options fork a live network if enabled
 	 */
