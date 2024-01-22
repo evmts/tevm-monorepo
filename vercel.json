@@ -2,5 +2,5 @@
 	"buildCommand": "bun run build",
 	"framework": "astro",
 	"installCommand": "pnpm install",
-	"outputDirectory": "apps/tevm/dist"
+	"outputDirectory": "docs/dist"
 }
