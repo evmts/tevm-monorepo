@@ -106,7 +106,7 @@ export const bunPluginTevm = ({ solc = defaultSolc.version }) => {
 			 * or in a different package in a monorepo. We need to resolve it correctly
 			 * in all cases so we always resolve to the current package's @tevm/contract
 			 */
-			build.onResolve({ filter: /^@tevm\/core/ }, ({ path, importer }) => {
+			build.onResolve({ filter: /^@tevm\/contract/ }, ({ path, importer }) => {
 				if (
 					path.startsWith('@tevm/contract') &&
 					!importer.startsWith(process.cwd()) &&
