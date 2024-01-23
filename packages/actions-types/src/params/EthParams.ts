@@ -1,12 +1,10 @@
 import type { EmptyParams } from '../common/EmptyParams.js'
-/***
- * TODO I didn't update any of these jsdocs
- */
 import type { FilterParams } from '../common/FilterParams.js'
 import type { Address } from 'abitype'
 import type {
 	BlockTag,
 	CallParameters,
+	Chain,
 	EstimateGasParameters,
 	GetBalanceParameters,
 	GetTransactionParameters,
@@ -18,19 +16,19 @@ import type {
 
 // eth_accounts
 /**
- * Params taken by `eth_accounts` handler
+ * Params taken by `eth_accounts` handler (no params)
  */
 export type EthAccountsParams = EmptyParams
 // eth_blockNumber
 /**
- * JSON-RPC request for `eth_blockNumber` procedure
+ * JSON-RPC request for `eth_blockNumber` procedure (no params)
  */
 export type EthBlockNumberParams = EmptyParams
 // eth_call
 /**
  * JSON-RPC request for `eth_call` procedure
  */
-export type EthCallParams = CallParameters
+export type EthCallParams<TChain extends Chain | undefined = Chain | undefined> = Omit<CallParameters<TChain>, 'account'> & { to: Address }
 // eth_chainId
 /**
  * JSON-RPC request for `eth_chainId` procedure
@@ -45,7 +43,9 @@ export type EthCoinbaseParams = EmptyParams
 /**
  * JSON-RPC request for `eth_estimateGas` procedure
  */
-export type EthEstimateGasParams = EstimateGasParameters
+export type EthEstimateGasParams<TChain extends Chain | undefined = Chain | undefined> = Omit<EstimateGasParameters<TChain>, 'account'> & {
+	to: Address
+}
 // eth_hashrate
 /**
  * JSON-RPC request for `eth_hashrate` procedure
@@ -195,7 +195,7 @@ export type EthSendRawTransactionParams = SendRawTransactionParameters
 /**
  * JSON-RPC request for `eth_sendTransaction` procedure
  */
-export type EthSendTransactionParams = SendTransactionParameters
+export type EthSendTransactionParams<TChain extends Chain | undefined = Chain | undefined> = Omit<SendTransactionParameters<TChain>, 'account'> & { from: Address }
 // eth_sign
 /**
  * JSON-RPC request for `eth_sign` procedure
@@ -208,7 +208,7 @@ export type EthSignParams = SignMessageParameters
 export type EthSignTransactionParams = SignMessageParameters
 // eth_syncing
 /**
- * JSON-RPC request for `eth_syncing` procedure
+ * JSON-RPC request for `eth_syncing` procedure (no params)
  */
 export type EthSyncingParams = EmptyParams
 // eth_newFilter
@@ -218,7 +218,7 @@ export type EthSyncingParams = EmptyParams
 export type EthNewFilterParams = FilterParams
 // eth_newBlockFilter
 /**
- * JSON-RPC request for `eth_newBlockFilter` procedure
+ * JSON-RPC request for `eth_newBlockFilter` procedure (no params)
  */
 export type EthNewBlockFilterParams = EmptyParams
 // eth_newPendingTransactionFilter

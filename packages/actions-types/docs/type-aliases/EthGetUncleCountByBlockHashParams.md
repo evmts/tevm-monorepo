@@ -18,7 +18,7 @@ JSON-RPC request for `eth_getUncleCountByBlockHash` procedure
 
 ## Source
 
-[params/EthParams.ts:131](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L131)
+[params/EthParams.ts:133](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L133)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

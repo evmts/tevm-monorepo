@@ -6,9 +6,15 @@
 
 # Type alias: EthCallParams
 
-> **EthCallParams**: `CallParameters`
+> **EthCallParams**: `Omit`\<`CallParameters`, `"account"`\> & `object`
 
 JSON-RPC request for `eth_call` procedure
+
+## Type declaration
+
+### to
+
+> **to**: `Address`
 
 ## Source
 
