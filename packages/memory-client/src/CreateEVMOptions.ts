@@ -1,6 +1,6 @@
-import type { CustomPredeploy } from '@tevm/predeploys'
 import type { CustomPrecompile } from './CustomPrecompile.js'
 import type { ForkOptions } from './ForkOptions.js'
+import type { CustomPredeploy } from '@tevm/predeploys'
 
 /**
  * Ethereum hardfork option

@@ -16,6 +16,4 @@ export {
 	dumpStateHandler,
 	loadStateHandler,
 } from './tevm/index.js'
-export {
-	traceCallHandler
-} from './debug/index.js'
+export { traceCallHandler } from './debug/index.js'

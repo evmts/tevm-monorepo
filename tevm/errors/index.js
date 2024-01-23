@@ -1,3 +1,3 @@
-export { NoProxyConfiguredError, ProxyFetchError, UnexpectedInternalServerError, UnsupportedMethodError } from '@tevm/errors';
+export { NoProxyConfiguredError, ProxyFetchError, UnexpectedInternalServerError, UnknownMethodError, UnsupportedMethodError } from '@tevm/errors';
 //# sourceMappingURL=out.js.map
 //# sourceMappingURL=index.js.map

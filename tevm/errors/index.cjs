@@ -16,6 +16,10 @@ Object.defineProperty(exports, "UnexpectedInternalServerError", {
   enumerable: true,
   get: function () { return errors.UnexpectedInternalServerError; }
 });
+Object.defineProperty(exports, "UnknownMethodError", {
+  enumerable: true,
+  get: function () { return errors.UnknownMethodError; }
+});
 Object.defineProperty(exports, "UnsupportedMethodError", {
   enumerable: true,
   get: function () { return errors.UnsupportedMethodError; }
