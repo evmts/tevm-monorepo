@@ -6,9 +6,15 @@
 
 # Type alias: EthEstimateGasParams
 
-> **EthEstimateGasParams**: `EstimateGasParameters`
+> **EthEstimateGasParams**: `Omit`\<`EstimateGasParameters`, `"account"`\> & `object`
 
 JSON-RPC request for `eth_estimateGas` procedure
+
+## Type declaration
+
+### to
+
+> **to**: `Address`
 
 ## Source
 
