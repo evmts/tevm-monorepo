@@ -26,6 +26,7 @@ title: "@tevm/actions"
 - [loadStateHandler](/reference/tevm/actions/functions/loadstatehandler/)
 - [scriptHandler](/reference/tevm/actions/functions/scripthandler/)
 - [setAccountHandler](/reference/tevm/actions/functions/setaccounthandler/)
+- [traceCallHandler](/reference/tevm/actions/functions/tracecallhandler/)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

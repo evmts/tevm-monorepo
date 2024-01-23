@@ -8,7 +8,7 @@
 
 > **CreateEVMOptions**: `object`
 
-Options for creating an Tevm instance
+Options for creating an Tevm MemoryClient instance
 
 ## Type declaration
 
@@ -89,15 +89,33 @@ const tevm = createMemoryClient({
 })
 ```
 
+### eips
+
+> **eips**?: `ReadonlyArray`\<`number`\>
+
+Eips to enable. Defaults to `[1559, 4895]`
+
 ### fork
 
 > **fork**?: [`ForkOptions`](ForkOptions.md)
 
 Fork options fork a live network if enabled
 
+### hardfork
+
+> **hardfork**?: `Hardfork`
+
+Hardfork to use. Defaults to `shanghai`
+
+### profiler
+
+> **profiler**?: `boolean`
+
+Enable profiler. Defaults to false.
+
 ## Source
 
-packages/memory-client/types/CreateEVMOptions.d.ts:7
+packages/memory-client/types/CreateEVMOptions.d.ts:11
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

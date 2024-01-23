@@ -9,7 +9,7 @@ title: "HttpClient"
 
 A remote Tevm client for talking to a Tevm backend over HTTP JSON-RPC
 Implements the tevm interface so interacting with it is the same api
-as interacting with a `MemoryClient` instance directly
+as interacting with a `MemoryTevm` instance directly
 
 ## See
 

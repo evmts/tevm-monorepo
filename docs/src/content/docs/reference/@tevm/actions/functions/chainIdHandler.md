@@ -17,7 +17,7 @@ Handler for the `eth_chainId` RPC call.
 
 ## Source
 
-[packages/actions/src/handlers/eth/chainIdHandler.js:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/handlers/eth/chainIdHandler.js#L6)
+[packages/actions/src/eth/chainIdHandler.js:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/chainIdHandler.js#L6)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

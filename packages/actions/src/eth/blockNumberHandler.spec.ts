@@ -1,4 +1,4 @@
-import { blockNumberHandler } from '../../index.js'
+import { blockNumberHandler } from '../index.js'
 import { describe, expect, it } from 'bun:test'
 
 describe(blockNumberHandler.name, () => {

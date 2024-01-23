@@ -1,4 +1,4 @@
-import { setAccountHandler } from '../setAccountHandler.js'
+import { setAccountHandler } from '../index.js'
 import { traceCallHandler } from './traceCallHandler.js'
 import { EVM } from '@ethereumjs/evm'
 import { describe, expect, it } from 'bun:test'
