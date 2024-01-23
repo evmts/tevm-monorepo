@@ -27,9 +27,7 @@ Tevm runs in all environments
 - [Node.js >=18](https://nodejs.org/en)
 - [Bun](https://bun.sh)
 
-## Try it out
-
-Try out our [online frontend example on stackblitz](https://stackblitz.com/~/github.com/evmts/tevm-vite-wagmi-example)
+## [Join Telegram](https://t.me/+ANThR9bHDLAwMjUx)
 
 ## Visit [Docs](https://tevm.sh/) for docs, guides, API and more! 📄
 
