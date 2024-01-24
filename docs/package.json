@@ -13,11 +13,12 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.4.1",
-    "@astrojs/starlight": "^0.15.4",
-    "astro": "^4.2.0"
+    "@astrojs/starlight": "^0.16.0",
+    "astro": "^4.2.4",
+    "sharp": "^0.33.2",
+    "starlight-links-validator": "^0.5.2"
   },
   "devDependencies": {
-    "sharp": "^0.33.2",
     "tevm": "workspace:^"
   }
 }
