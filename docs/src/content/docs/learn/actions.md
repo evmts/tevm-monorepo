@@ -3,88 +3,84 @@ title: JSON-RPC
 description: JSON Remote Procedure Calls
 ---
 
-## JSON-RPC Requests
+## Overview
 
-All [clients](./clients.md) implement a [`tevm.request()`](../reference/@tevm/procedures-types/type-aliases/TevmJsonRpcRequestHandler.md) method for handling JSON-RPC requests.
-
-```typescript
-const {result, errors, id, method, jsonrpc} = await client.request({
- method: 'eth_blockNumber',
- params: [],
- id: 1,
- jsonrpc: '2.0',
-})
-```
+Tevm has an [actions based api](../reference/@tevm/actions-types/API.md) similar to [viem's actions api](https://viem.sh/docs/actions/public/getBalance) and following similar patterns. This is a higher level of abstraction than the lower level [JSON-RPC api](./json-rpc.md)
 
 ## Tevm actions
 
 Tevm methods are the main recomended way to interact with Tevm. 🚧 means the procedure is still under construction
 
-- [`Tevm.call`](../reference/@tevm/procedures-types/type-aliases/CallJsonRpcProcedure.md) - Similar to eth call but with additional properties to control the VM execution
-- [`Tevm.getAccount`](../reference/@tevm/procedures-types/type-aliases/GetAccountJsonRpcProcedure.md) - gets account information such as balances contract information nonces and state roots.
-- [`Tevm.setAccount`](../reference/@tevm/procedures-types/type-aliases/SetAccountJsonRpcProcedure.md) - directly modifies the state of an account
-- [`Tevm.contract`](../reference/@tevm/procedures-types/type-aliases/CallJsonRpcProcedure.md) - Similar to eth call but with additional properties to control the VM execution
-- [`Tevm.script`](../reference/@tevm/procedures-types/type-aliases/ScriptJsonRpcProcedure.md) - Runs the provided bytecode against the EVM state
-- 🚧 [`Tevm.traceContractCall`](../reference/@tevm/procedures-types/type-aliases/TraceContractCallJsonRpcProcedure.md) 
-- 🚧 [`Tevm.traceScript`](../reference/@tevm/procedures-types/type-aliases/TraceScriptJsonRpcProcedure.md) 
-- [`Tevm.dumpState`](../reference/@tevm/procedures-types/type-aliases/DumpStateJsonRpcProcedure.md) - Returns the state of the VM
-- [`Tevm.loadState`](../reference/@tevm/procedures-types/type-aliases/LoadStateJsonRpcProcedure.md) - Initializes the state of the VM
+- [`Tevm.call`](../reference/@tevm/actions-types/type-aliases/CallHandler.md) - Similar to eth call but with additional properties to control the VM execution
+- [`Tevm.getAccount`](../reference/@tevm/actions-types/type-aliases/GetAccountHandler.md) - gets account information such as balances contract information nonces and state roots.
+- [`Tevm.setAccount`](../reference/@tevm/actions-types/type-aliases/SetAccountHandler.md) - directly modifies the state of an account
+- [`Tevm.contract`](../reference/@tevm/actions-types/type-aliases/CallHandler.md) - Similar to eth call but with additional properties to control the VM execution
+- [`Tevm.script`](../reference/@tevm/actions-types/type-aliases/ScriptHandler.md) - Runs the provided bytecode against the EVM state
+- 🚧 [`Tevm.traceContractCall`](../reference/@tevm/actions-types/type-aliases/TraceContractCallHandler.md) 
+- 🚧 [`Tevm.traceScript`](../reference/@tevm/actions-types/type-aliases/TraceScriptHandler.md) 
+- [`Tevm.dumpState`](../reference/@tevm/actions-types/type-aliases/DumpStateHandler.md) - Returns the state of the VM
+- [`Tevm.loadState`](../reference/@tevm/actions-types/type-aliases/LoadStateHandler.md) - Initializes the state of the VM
 
 ## Eth methods
 
 Tevm plans on implementing most of the [ethereum JSON-RPC](https://ethereum.org/developers/docs/apis/json-rpc) spec
 
-- [`Tevm.eth.chainId'](../reference/@tevm/procedures-types/type-aliases/EthChainIdJsonRpcProcedure.md)
-- [`Tevm.eth.call'](../reference/@tevm/procedures-types/type-aliases/EthCallJsonRpcProcedure.md)
-- [`Tevm.eth.getCode'](../reference/@tevm/procedures-types/type-aliases/EthGetCodeJsonRpcProcedure.md)
-- [`Tevm.eth.getStorageAt'](../reference/@tevm/procedures-types/type-aliases/EthGetCodeJsonRpcProcedure.md)
-- [`Tevm.eth.gasPrice'](../reference/@tevm/procedures-types/type-aliases/EthGasPriceJsonRpcProcedure.md)
-- [`Tevm.eth.getBalance'](../reference/@tevm/procedures-types/type-aliases/EthGetBalanceJsonRpcProcedure.md)
-- [`Tevm.eth.estimateGas'](../reference/@tevm/procedures-types/type-aliases/EthEstimateGasJsonRpcProcedure.md)
-- 🚧 [`Tevm.eth.sign'](../reference/@tevm/procedures-types/type-aliases/EthSignProcedure.md)
-- 🚧 [`Tevm.eth.getLogs'](../reference/@tevm/procedures-types/type-aliases/EthGetLogsJsonRpcProcedure.md)
-- 🚧 [`Tevm.eth.accounts'](../reference/@tevm/procedures-types/type-aliases/EthAccountsJsonRpcProcedure.md)
-- 🚧 [`Tevm.eth.coinbase'](../reference/@tevm/procedures-types/type-aliases/EthCoinbaseJsonRpcProcedure.md)
-- 🚧 [`Tevm.eth.hashrate'](../reference/@tevm/procedures-types/type-aliases/EthHashRateJsonRpcProcedure.md)
-- 🚧 [`Tevm.eth.newFilter'](../reference/@tevm/procedures-types/type-aliases/EthNewFilterJsonRpcProcedure.md)
-- 🚧 [`Tevm.eth.getFilterLogs'](../reference/@tevm/procedures-types/type-aliases/EthGetFilterLogsJsonRpcProcedure.md)
-- 🚧 [`Tevm.eth.getBlockByHash'](../reference/@tevm/procedures-types/type-aliases/EthGetBlockByHashJsonRpcProcedure.md)
-- 🚧 [`Tevm.eth.newBlockFilter'](../reference/@tevm/procedures-types/type-aliases/EthNewBlockFilterJsonRpcProcedure.md)
-- 🚧 [`Tevm.eth.protocolVersion'](../reference/@tevm/procedures-types/type-aliases/EthProtocolVersionJsonRpcProcedure.md)
-- 🚧 [`Tevm.eth.sendTransaction'](../reference/@tevm/procedures-types/type-aliases/EthSendTransactionJsonRpcProcedure.md)
-- 🚧 [`Tevm.eth.signTransaction'](../reference/@tevm/procedures-types/type-aliases/EthSignTransactionJsonRpcProcedure.md)
-- 🚧 [`Tevm.eth.uninstallFilter'](../reference/@tevm/procedures-types/type-aliases/EthUninstallFilterJsonRpcProcedure.md)
-- 🚧 [`Tevm.eth.getBlockByNumber'](../reference/@tevm/procedures-types/type-aliases/EthGetBlockByNumberJsonRpcProcedure.md)
-- 🚧 [`Tevm.eth.getFilterChanges'](../reference/@tevm/procedures-types/type-aliases/EthGetFilterChangesJsonRpcProcedure.md)
-- 🚧 [`Tevm.eth.sendRawTransaction'](../reference/@tevm/procedures-types/type-aliases/EthSendRawTransactionJsonRpcProcedure.md)
-- 🚧 [`Tevm.eth.getTransactionCount'](../reference/@tevm/procedures-types/type-aliases/EthGetTransactionCountJsonRpcProcedure.md)
-- 🚧 [`Tevm.eth.getTransactionByHash'](../reference/@tevm/procedures-types/type-aliases/EthGetTransactionByHashJsonRpcProcedure.md)
-- 🚧 [`Tevm.eth.getTransactionReceipt'](../reference/@tevm/procedures-types/type-aliases/EthGetTransactionReceiptJsonRpcProcedure.md)
-- 🚧 [`Tevm.eth.newPendingTransactionFilter'](../reference/@tevm/procedures-types/type-aliases/EthNewPendingTransactionFilterJsonRpcResponse.md)
-- 🚧 [`Tevm.eth.getBlockTransactionCountByHash'](../reference/@tevm/procedures-types/type-aliases/EthGetBlockTransactionCountByHashJsonRpcProcedure.md)
-- 🚧 [`Tevm.eth.getBlockTransactionCountByNumber'](../reference/@tevm/procedures-types/type-aliases/Tevm.eth.getBlockTransactionCountByNumber.md)
-- 🚧 [`Tevm.eth.getTransactionByBlockHashAndIndex'](../reference/@tevm/procedures-types/type-aliases/EthGetTransactionByBlockHashAndIndexJsonRpcProcedure.md)
-- 🚧 [`Tevm.eth.getTransactionByBlockNumberAndIndex'](../reference/@tevm/procedures-types/type-aliases/EthTransactionByBlockNumberAndIndexJsonRpcProcedure.md)
+- [`Tevm.eth.chainId'](../reference/@tevm/actions-types/type-aliases/EthChainIdHandler.md)
+- [`Tevm.eth.call'](../reference/@tevm/actions-types/type-aliases/EthCallHandler.md)
+- [`Tevm.eth.getCode'](../reference/@tevm/actions-types/type-aliases/EthGetCodeHandler.md)
+- [`Tevm.eth.getStorageAt'](../reference/@tevm/actions-types/type-aliases/EthGetCodeHandler.md)
+- [`Tevm.eth.gasPrice'](../reference/@tevm/actions-types/type-aliases/EthGasPriceHandler.md)
+- [`Tevm.eth.getBalance'](../reference/@tevm/actions-types/type-aliases/EthGetBalanceHandler.md)
+- [`Tevm.eth.estimateGas'](../reference/@tevm/actions-types/type-aliases/EthEstimateGasHandler.md)
+- 🚧 [`Tevm.eth.sign'](../reference/@tevm/actions-types/type-aliases/EthSignProcedure.md)
+- 🚧 [`Tevm.eth.getLogs'](../reference/@tevm/actions-types/type-aliases/EthGetLogsHandler.md)
+- 🚧 [`Tevm.eth.accounts'](../reference/@tevm/actions-types/type-aliases/EthAccountsHandler.md)
+- 🚧 [`Tevm.eth.coinbase'](../reference/@tevm/actions-types/type-aliases/EthCoinbaseHandler.md)
+- 🚧 [`Tevm.eth.hashrate'](../reference/@tevm/actions-types/type-aliases/EthHashRateHandler.md)
+- 🚧 [`Tevm.eth.newFilter'](../reference/@tevm/actions-types/type-aliases/EthNewFilterHandler.md)
+- 🚧 [`Tevm.eth.getFilterLogs'](../reference/@tevm/actions-types/type-aliases/EthGetFilterLogsHandler.md)
+- 🚧 [`Tevm.eth.getBlockByHash'](../reference/@tevm/actions-types/type-aliases/EthGetBlockByHashHandler.md)
+- 🚧 [`Tevm.eth.newBlockFilter'](../reference/@tevm/actions-types/type-aliases/EthNewBlockFilterHandler.md)
+- 🚧 [`Tevm.eth.protocolVersion'](../reference/@tevm/actions-types/type-aliases/EthProtocolVersionHandler.md)
+- 🚧 [`Tevm.eth.sendTransaction'](../reference/@tevm/actions-types/type-aliases/EthSendTransactionHandler.md)
+- 🚧 [`Tevm.eth.signTransaction'](../reference/@tevm/actions-types/type-aliases/EthSignTransactionHandler.md)
+- 🚧 [`Tevm.eth.uninstallFilter'](../reference/@tevm/actions-types/type-aliases/EthUninstallFilterHandler.md)
+- 🚧 [`Tevm.eth.getBlockByNumber'](../reference/@tevm/actions-types/type-aliases/EthGetBlockByNumberHandler.md)
+- 🚧 [`Tevm.eth.getFilterChanges'](../reference/@tevm/actions-types/type-aliases/EthGetFilterChangesHandler.md)
+- 🚧 [`Tevm.eth.sendRawTransaction'](../reference/@tevm/actions-types/type-aliases/EthSendRawTransactionHandler.md)
+- 🚧 [`Tevm.eth.getTransactionCount'](../reference/@tevm/actions-types/type-aliases/EthGetTransactionCountHandler.md)
+- 🚧 [`Tevm.eth.getTransactionByHash'](../reference/@tevm/actions-types/type-aliases/EthGetTransactionByHashHandler.md)
+- 🚧 [`Tevm.eth.getTransactionReceipt'](../reference/@tevm/actions-types/type-aliases/EthGetTransactionReceiptHandler.md)
+- 🚧 [`Tevm.eth.newPendingTransactionFilter'](../reference/@tevm/actions-types/type-aliases/EthNewPendingTransactionFilterJsonRpcResponse.md)
+- 🚧 [`Tevm.eth.getBlockTransactionCountByHash'](../reference/@tevm/actions-types/type-aliases/EthGetBlockTransactionCountByHashHandler.md)
+- 🚧 [`Tevm.eth.getBlockTransactionCountByNumber'](../reference/@tevm/actions-types/type-aliases/Tevm.eth.getBlockTransactionCountByNumber.md)
+- 🚧 [`Tevm.eth.getTransactionByBlockHashAndIndex'](../reference/@tevm/actions-types/type-aliases/EthGetTransactionByBlockHashAndIndexHandler.md)
+- 🚧 [`Tevm.eth.getTransactionByBlockNumberAndIndex'](../reference/@tevm/actions-types/type-aliases/EthTransactionByBlockNumberAndIndexHandler.md)
 
 ## Debug methods
 
-- 🚧 [`Tevm.debug.traceTransaction`](../reference/@tevm/procedures-types/type-aliases/DebugTraceTransactionProcedure.md)
-- 🚧 [`Tevm.debug.traceCall`](../reference/@tevm/procedures-types/type-aliases/DebugTraceCallProcedure.md)
+- 🚧 [`Tevm.debug.traceTransaction`](../reference/@tevm/actions-types/type-aliases/DebugTraceTransactionHandler.md)
+- 🚧 [`Tevm.debug.traceCall`](../reference/@tevm/actions-types/type-aliases/DebugTraceCallHandler.md)
 
 ## Anvil/Hardhat methods
 
 Anvil/hardhat methods are provided for compatability
 
-- 🚧 [`Tevm.anvil.mine'](../reference/@tevm/procedures-types/type-aliases/AnvilMineProcedure.md)
-- 🚧 [`Tevm.anvil.reset'](../reference/@tevm/procedures-types/type-aliases/AnvilResetProcedure.md)
-- 🚧 [`Tevm.anvil.setCode'](../reference/@tevm/procedures-types/type-aliases/AnvilSetCodeProcedure.md)
-- 🚧 [`Tevm.anvil.setNonce'](../reference/@tevm/procedures-types/type-aliases/AnvilSetNonceProcedure.md)
-- 🚧 [`Tevm.anvil.dumpState'](../reference/@tevm/procedures-types/type-aliases/AnvilDumpStateProcedure.md)
-- 🚧 [`Tevm.anvil.loadState'](../reference/@tevm/procedures-types/type-aliases/AnvilLoadStateProcedure.md)
-- 🚧 [`Tevm.anvil.setBalance'](../reference/@tevm/procedures-types/type-aliases/AnvilSetBalanceProcedure.md)
-- 🚧 [`Tevm.anvil.setChainId'](../reference/@tevm/procedures-types/type-aliases/AnvilSetChainIdProcedure.md)
-- 🚧 [`Tevm.anvil.getAutomine'](../reference/@tevm/procedures-types/type-aliases/AnvilGetAutomineProcedure.md)
-- 🚧 [`Tevm.anvil.setStorageAt'](../reference/@tevm/procedures-types/type-aliases/AnvilSetStorageAtProcedure.md)
-- 🚧 [`Tevm.anvil.dropTransaction'](../reference/@tevm/procedures-types/type-aliases/AnvilDropTransactionProcedure.md)
-- 🚧 [`Tevm.anvil.impersonateAccount'](../reference/@tevm/procedures-types/type-aliases/AnvilImpersonateAccountProcedure.md)
-- 🚧 [`Tevm.anvil.stopImpersonatingAccount'](../reference/@tevm/procedures-types/type-aliases/AnvilStopImpersonatingAccountProcedure.md)
+- 🚧 [`Tevm.anvil.mine'](../reference/@tevm/actions-types/type-aliases/AnvilMineHandler.md)
+- 🚧 [`Tevm.anvil.reset'](../reference/@tevm/actions-types/type-aliases/AnvilResetHandler.md)
+- 🚧 [`Tevm.anvil.setCode'](../reference/@tevm/actions-types/type-aliases/AnvilSetCodeHandler.md)
+- 🚧 [`Tevm.anvil.setNonce'](../reference/@tevm/actions-types/type-aliases/AnvilSetNonceHandler.md)
+- 🚧 [`Tevm.anvil.dumpState'](../reference/@tevm/actions-types/type-aliases/AnvilDumpStateHandler.md)
+- 🚧 [`Tevm.anvil.loadState'](../reference/@tevm/actions-types/type-aliases/AnvilLoadStateHandler.md)
+- 🚧 [`Tevm.anvil.setBalance'](../reference/@tevm/actions-types/type-aliases/AnvilSetBalanceHandler.md)
+- 🚧 [`Tevm.anvil.setChainId'](../reference/@tevm/actions-types/type-aliases/AnvilSetChainIdHandler.md)
+- 🚧 [`Tevm.anvil.getAutomine'](../reference/@tevm/actions-types/type-aliases/AnvilGetAutomineHandler.md)
+- 🚧 [`Tevm.anvil.setStorageAt'](../reference/@tevm/actions-types/type-aliases/AnvilSetStorageAtHandler.md)
+- 🚧 [`Tevm.anvil.dropTransaction'](../reference/@tevm/actions-types/type-aliases/AnvilDropTransactionHandler.md)
+- 🚧 [`Tevm.anvil.impersonateAccount'](../reference/@tevm/actions-types/type-aliases/AnvilImpersonateAccountHandler.md)
+- 🚧 [`Tevm.anvil.stopImpersonatingAccount'](../reference/@tevm/actions-types/type-aliases/AnvilStopImpersonatingAccountHandler.md)
+
+## Tree shakeable actions
+
+Like viem, Tevm provides tree shakable versions of the actions in the [tevm/procedures](../reference/@tevm/procedures/) package. But for Tevm it is recomended you use the higher level [client apis](./clients.md). If bundle size is a concern a more effective way of reducing bundle size is using a [remote http client](../reference/@tevm/http-client/API.md) and running the EVM on a [backend server](../reference/@tevm/server/API.md)
+
