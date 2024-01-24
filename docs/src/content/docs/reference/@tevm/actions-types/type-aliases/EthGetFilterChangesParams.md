@@ -17,7 +17,7 @@ JSON-RPC request for `eth_getFilterChanges` procedure
 
 ## Source
 
-[params/EthParams.ts:99](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L99)
+[params/EthParams.ts:103](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L103)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

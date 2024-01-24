@@ -5,9 +5,21 @@ prev: false
 title: "EthEstimateGasParams"
 ---
 
-> **EthEstimateGasParams**: `EstimateGasParameters`
+> **EthEstimateGasParams**\<`TChain`\>: `Omit`\<`EstimateGasParameters`\<`TChain`\>, `"account"`\> & `object`
 
 JSON-RPC request for `eth_estimateGas` procedure
+
+## Type declaration
+
+### to
+
+> **to**: `Address`
+
+## Type parameters
+
+| Parameter | Default |
+| :------ | :------ |
+| `TChain` extends `Chain` \| `undefined` | `Chain` \| `undefined` |
 
 ## Source
 

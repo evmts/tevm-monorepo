@@ -22,7 +22,7 @@ export default defineConfig({
 						'../packages/memory-client',
 						'../packages/predeploys',
 						'../packages/procedures',
-						'../packages/procedures-spec',
+						'../packages/procedures-types',
 						'../packages/predeploys',
 						'../packages/http-client',
 						'../packages/server',

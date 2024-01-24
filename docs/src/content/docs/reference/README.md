@@ -16,6 +16,7 @@ title: "Documentation"
 - [@tevm/memory-client](/reference/tevm/memory-client/readme/)
 - [@tevm/predeploys](/reference/tevm/predeploys/readme/)
 - [@tevm/procedures](/reference/tevm/procedures/readme/)
+- [@tevm/procedures-types](/reference/tevm/procedures-types/readme/)
 - [@tevm/predeploys](/reference/tevm/predeploys/readme/)
 - [@tevm/http-client](/reference/tevm/http-client/readme/)
 - [@tevm/server](/reference/tevm/server/readme/)

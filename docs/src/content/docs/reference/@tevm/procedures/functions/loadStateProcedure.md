@@ -5,7 +5,7 @@ prev: false
 title: "loadStateProcedure"
 ---
 
-> **loadStateProcedure**(`stateManager`): `LoadStateJsonRpcProcedure`
+> **loadStateProcedure**(`stateManager`): [`LoadStateJsonRpcProcedure`](/reference/tevm/procedures-types/type-aliases/loadstatejsonrpcprocedure/)
 
 Creates a LoadState JSON-RPC Procedure for handling LoadState requests with Ethereumjs EVM
 

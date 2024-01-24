@@ -28,7 +28,9 @@ export type EthBlockNumberParams = EmptyParams
 /**
  * JSON-RPC request for `eth_call` procedure
  */
-export type EthCallParams<TChain extends Chain | undefined = Chain | undefined> = Omit<CallParameters<TChain>, 'account'> & { to: Address }
+export type EthCallParams<
+	TChain extends Chain | undefined = Chain | undefined,
+> = Omit<CallParameters<TChain>, 'account'> & { to: Address }
 // eth_chainId
 /**
  * JSON-RPC request for `eth_chainId` procedure
@@ -43,7 +45,9 @@ export type EthCoinbaseParams = EmptyParams
 /**
  * JSON-RPC request for `eth_estimateGas` procedure
  */
-export type EthEstimateGasParams<TChain extends Chain | undefined = Chain | undefined> = Omit<EstimateGasParameters<TChain>, 'account'> & {
+export type EthEstimateGasParams<
+	TChain extends Chain | undefined = Chain | undefined,
+> = Omit<EstimateGasParameters<TChain>, 'account'> & {
 	to: Address
 }
 // eth_hashrate
@@ -195,7 +199,9 @@ export type EthSendRawTransactionParams = SendRawTransactionParameters
 /**
  * JSON-RPC request for `eth_sendTransaction` procedure
  */
-export type EthSendTransactionParams<TChain extends Chain | undefined = Chain | undefined> = Omit<SendTransactionParameters<TChain>, 'account'> & { from: Address }
+export type EthSendTransactionParams<
+	TChain extends Chain | undefined = Chain | undefined,
+> = Omit<SendTransactionParameters<TChain>, 'account'> & { from: Address }
 // eth_sign
 /**
  * JSON-RPC request for `eth_sign` procedure

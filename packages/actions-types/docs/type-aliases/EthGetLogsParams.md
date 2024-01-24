@@ -18,7 +18,7 @@ JSON-RPC request for `eth_getLogs` procedure
 
 ## Source
 
-[params/EthParams.ts:111](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L111)
+[params/EthParams.ts:113](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L113)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

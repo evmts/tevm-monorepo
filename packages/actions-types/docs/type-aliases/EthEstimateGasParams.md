@@ -4,9 +4,9 @@
 
 [API](../API.md) > EthEstimateGasParams
 
-# Type alias: EthEstimateGasParams
+# Type alias: EthEstimateGasParams`<TChain>`
 
-> **EthEstimateGasParams**: `Omit`\<`EstimateGasParameters`, `"account"`\> & `object`
+> **EthEstimateGasParams**\<`TChain`\>: `Omit`\<`EstimateGasParameters`\<`TChain`\>, `"account"`\> & `object`
 
 JSON-RPC request for `eth_estimateGas` procedure
 
@@ -15,6 +15,12 @@ JSON-RPC request for `eth_estimateGas` procedure
 ### to
 
 > **to**: `Address`
+
+## Type parameters
+
+| Parameter | Default |
+| :------ | :------ |
+| `TChain` extends `Chain` \| `undefined` | `Chain` \| `undefined` |
 
 ## Source
 

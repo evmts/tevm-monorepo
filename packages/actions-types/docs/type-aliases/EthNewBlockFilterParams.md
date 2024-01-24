@@ -8,11 +8,11 @@
 
 > **EthNewBlockFilterParams**: [`EmptyParams`](EmptyParams.md)
 
-JSON-RPC request for `eth_newBlockFilter` procedure
+JSON-RPC request for `eth_newBlockFilter` procedure (no params)
 
 ## Source
 
-[params/EthParams.ts:225](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L225)
+[params/EthParams.ts:229](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L229)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

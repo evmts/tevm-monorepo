@@ -22,7 +22,7 @@ JSON-RPC request for `eth_getTransactionByBlockHashAndIndex` procedure
 
 ## Source
 
-packages/actions-types/types/params/EthParams.d.ts:131
+packages/actions-types/types/params/EthParams.d.ts:132
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
