@@ -346,7 +346,7 @@ contract HelloWorld {
 
 We now need a way of turning our contract into bytecode.
 
-3. Use Tevm to compile the contract into bytecode and abi
+3. 🚧 Use Tevm to compile the contract into bytecode and abi (not yet implemented but will be soon)
 
 ```bash
 bunx tevm compile HelloWorld.s.sol

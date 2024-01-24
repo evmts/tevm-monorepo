@@ -23,6 +23,7 @@ title: "Documentation"
 - [@tevm/viem](/reference/tevm/viem/readme/)
 - [@tevm/ethers](/reference/tevm/ethers/readme/)
 - [@tevm/bun-plugin](/reference/tevm/bun-plugin/readme/)
+- [@tevm/config](/reference/tevm/config/readme/)
 - [@tevm/esbuild-plugin](/reference/tevm/esbuild-plugin/readme/)
 - [@tevm/rollup-plugin](/reference/tevm/rollup-plugin/readme/)
 - [@tevm/rspack-plugin](/reference/tevm/rspack-plugin/readme/)

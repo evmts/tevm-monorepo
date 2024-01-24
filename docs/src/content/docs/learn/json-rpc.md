@@ -16,9 +16,11 @@ const {result, errors, id, method, jsonrpc} = await client.request({
 })
 ```
 
+Below are all procedures implemented or planned to be implemented. 🚧 means the procedure is still under construction
+
 ## Tevm methods
 
-Tevm methods are the main recomended way to interact with Tevm. 🚧 means the procedure is still under construction
+Tevm methods are feature-rich methods that provide a high level of control over the VM.
 
 - [`tevm_call`](../reference/@tevm/procedures-types/type-aliases/CallJsonRpcProcedure.md) - Similar to eth call but with additional properties to control the VM execution
 - [`tevm_getAccount`](../reference/@tevm/procedures-types/type-aliases/GetAccountJsonRpcProcedure.md) - gets account information such as balances contract information nonces and state roots.
