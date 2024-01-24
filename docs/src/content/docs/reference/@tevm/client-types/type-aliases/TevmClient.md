@@ -297,7 +297,7 @@ await tevm.loadState({state})
 
 ### request
 
-> **request**: `TevmJsonRpcRequestHandler`
+> **request**: [`TevmJsonRpcRequestHandler`](/reference/tevm/procedures-types/type-aliases/tevmjsonrpcrequesthandler/)
 
 Request handler for JSON-RPC requests. Most users will want to use the `actions` api
 instead of this method directly

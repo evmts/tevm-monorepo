@@ -12,7 +12,7 @@ JSON-RPC request for `eth_mining` procedure
 
 ## Source
 
-[params/EthParams.ts:185](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L185)
+[params/EthParams.ts:187](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L187)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

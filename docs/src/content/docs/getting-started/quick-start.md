@@ -7,29 +7,20 @@ description: Tevm introduction
 
 After going through this guide you will understand the basic functionality of Tevm.
 
-## Quickest start (coming soon!)
-
-If you already have used Tevm and prefer to dive in to a batteries included project use the [Tevm cli](./cli.md) to initialize a project (coming soon)
-
-```bash
-npx tevm create my-app
-```
-
 ## Introduction
 
 This guide will get you familiar with the most essential features of Tevm and start interacting with the Ethereum Virtual Machine (EVM) in Node.js or browser environments with `Tevm`. By the end of this guide you will understand:
 
 1. How to create a forked EVM in JavaScript using [`createMemoryClient`](../reference/@tevm/memory-client/functions/createMemoryClient.md)
-2. How to write ,build, and execute solidity scripts with a [`TevmClient`](../reference/@tevm/client-types/type-aliases/TevmClient.md)
+2. How to write, build, and execute solidity scripts with a [`TevmClient`](../reference/@tevm/client-types/type-aliases/TevmClient.md)
 3. How to streamline your workflow using [`tevm contract imports`](../reference/@tevm/bun-plugin/functions/bunPluginTevm.md) with the tevm bundler
+4. How to write solidity scripts with the [`tevm script action`](../reference/@tevm/client-types/type-aliases/TevmClient.md#script)
 
 ## Prerequisites
 
-You need a compatabile environment
-- Node.js [(version 18 or above)](https://nodejs.org)
 - [Bun](https://bun.sh/).
 
-This tutorial uses Bun but you can follow along in Node.js as well
+This tutorial uses Bun but you can follow along in [Node.js >18.0](https://nodejs.org/en) as well. Bun can be installed with NPM.
 
 ```bash
 npm install --global bun
@@ -61,11 +52,7 @@ bun install tevm
 
 Now let's create a Tevm VM to execute Ethereum bytecode in our JavaScript
 
-1. Create a JavaScript file:
-
-```bash
-touch index.ts
-```
+1. Open the index.ts file
 
 2. Now initialize a [MemoryClient](../reference/@tevm/memory-client/type-aliases/MemoryClient.md) with [createMemoryClient](../reference/@tevm/memory-client/functions/createMemoryClient.md)
 
@@ -87,7 +74,7 @@ The entrypoint to using Tevm is [`TevmClient.request`](../reference/@tevm/proced
 
 Let's use [eth_getBalance](https://ethereum.org/en/developers/docs/apis/json-rpc#eth_getbalance)
 
-1. Create a [eth_getBalance](../reference/@tevm/procedures-types/type-aliases/EthGetBalanceJsonRpcRequest.md)
+1. Create a [eth_getBalance](../reference/@tevm/procedures-types/type-aliases/EthGetBalanceRequest.md)
 
 ```typescript
 import { createMemoryClient } from 'tevm';
@@ -206,7 +193,7 @@ const tevm = await createMemoryClient({
   }
 });
 
-- const request: EthGetBalanceParams = {
+- const request: EthGetBalanceRequest = {
 -   jsonrpc: '2.0',
 -   id: 1,
 -   method: 'eth_getBalance',
@@ -228,7 +215,7 @@ Now send a transaction using [TevmClient.call](../reference/@tevm/client-types/t
 `Tevm.call` wraps `tevm_call` which is similar to `eth_call` or `Tevm.eth.call` but has extra parameters for modifying the VM.
 
 ```typescript
-import { createMemoryClient } from 'tevm';
+import { createMemoryClient, parseEth } from 'tevm';
 
 const tevm = await createMemoryClient({
   fork: {
@@ -239,16 +226,11 @@ const tevm = await createMemoryClient({
 const fromAddress = `0x${'01'.repeat(20)}` as const
 const toAddress = `0x${'02'.repeat(20)}` as const
 
-// fromAddress should have 0 balance
-console.log(
-  await tevm.eth.balance({address: fromAddress})
-)
-
-// send entire balance
+// skipBalanceCheck will mint any eth if account has less than 0
 await tevm.call({
   from: fromAddress,
   to: toAddress,
-  value: balance,
+  value: parseEth('1'),
   skipBalanceCheck: true
 })
 
@@ -262,7 +244,7 @@ console.log(balance)
 bun run vm.js
 ```
 
-The `skipbalanceCheck` option will automatically mint whatever the msg.value is. To see more options check out [CallParams](../reference/@tevm/actions-types/type-aliases/CallParams.md) docs
+To see more options check out [CallParams](../reference/@tevm/actions-types/type-aliases/CallParams.md) docs
 
 ## Executing contract calls
 
@@ -271,7 +253,7 @@ We can execute a contract call by sending encoded contract data just like [`eth_
 1. Use [`encodeFunctionData`](../reference/@tevm/contract/functions/encodeFunctionData.md) to pass in a contract call to [`tevm.call`](../reference/@tevm/api/type-aliases/TevmClient.md#call)
 
 ```typescript
-import { createMemoryClient, encodeFunctionData, parseAbi } from 'tevm';
+import { createMemoryClient, encodeFunctionData, decodeFunctionData, parseAbi } from 'tevm';
 
 const tevm = await createMemoryClient({
   fork: {
@@ -279,35 +261,36 @@ const tevm = await createMemoryClient({
   }
 });
 
-const fromAddress = `0x${'01'.repeat(20)}` as const
+const abi = parseAbi(['function balanceOf(address owner) returns (uint256 balance)'])
+
+const owner = `0x${'01'.repeat(20)}` as const
 const contractAddress = `0x${'02'.repeat(20)}` as const
 
-// fromAddress should have 0 balance
-console.log(
-  await tevm.eth.balance({address: fromAddress})
-)
-
-// send entire balance
-await tevm.call({
+const {rawData} = await tevm.call({
+  to: contractAddress,
   data: encodeFunctionData({
-    args: [fromAddress]
+    args: [owner]
     functionName: 'balanceOf',
-    abi: parseAbi(['function balanceOf(address owner) returns (uint256 balance)']),
+    abi,
   })
 })
 
-const balance = await tevm.eth.balanceOf({address: toAddress})
+const balance = decodeFunctionData({
+  functionName: 'balanceOf',
+  abi,
+  data: rawData
+})
 console.log(balance)
 ```
 
 2. Use `TevmClient.contract`
 
-Rather than encoding data to `TevmClient.call` we can instead use the [`TevmClient.contract`](../reference/@tevm/client-types/type-aliases/TevmClient.md#contract) method
+Rather than encoding and decoding data with `TevmClient.call` we can instead use the [`TevmClient.contract`](../reference/@tevm/client-types/type-aliases/TevmClient.md#contract) method. It wraps the `eth_call` JSON-rpc method and matches much of [viems readContract](https://viem.sh/docs/contract/readContract.html) API but with some extra VM control. 
 
 Refactor our call to use `Tevm.contract`
 
 ```typescript
-import { createMemoryClient, encodeFunctionData, parseAbi } from 'tevm';
+import { createMemoryClient, parseAbi } from 'tevm';
 
 const tevm = await createMemoryClient({
   fork: {
@@ -315,22 +298,16 @@ const tevm = await createMemoryClient({
   }
 });
 
-const fromAddress = `0x${'01'.repeat(20)}` as const
+const owner = `0x${'01'.repeat(20)}` as const
 const contractAddress = `0x${'02'.repeat(20)}` as const
 
-// fromAddress should have 0 balance
-console.log(
-  await tevm.eth.balance({address: fromAddress})
-)
-
-// send entire balance
-await tevm.contract({
-  args: [fromAddress]
+const {data: balance} = await tevm.contract({
+  to: contractAddress,
+  args: [owner],
   functionName: 'balanceOf',
   abi: parseAbi(['function balanceOf(address owner) returns (uint256 balance)']),
 })
 
-const balance = await tevm.eth.balanceOf({address: toAddress})
 console.log(balance)
 ```
 
@@ -396,7 +373,7 @@ const scriptResult = await tevm.script({
   args: ['Vitalik'],
 });
 
-console.log('Script result:', scriptResult.data); // HelloWorld
+console.log(scriptResult.data); // Hello Vitalik!
 ```
 
 Now run the script
@@ -442,16 +419,28 @@ This direct solidity import will be recognized by Bun and Tevm at build time and
 
 First let's configure Bun to recognize solidity files
 
-1. Create a `plugin.js` file to install the `Tevm bun plugin` into Bun
+1. Install the `@tevm/bundler` package
+
+```bash
+bun install @tevm/bundler
+```
+
+This package installs two tools we need:
+
+- Bundler support to bundle our solidity contracts. Plugins exist for webpack, vite, rollup, esbuild and more. We will use the [bun plugin](../reference/@tevm/bun-plugin/functions/bunPluginTevm.md).
+- [LSP](https://microsoft.github.io/language-server-protocol/) support for TypeScript via a [typescript language service plugin](https://github.com/microsoft/TypeScript/wiki/Writing-a-Language-Service-Plugin)
+
+
+2. Create a `plugin.js` file to install the `Tevm bun plugin` into Bun
 
 ```typescript
-import { tevmBunPlugin } from '@evmts/bun-plugin';
+import { tevmBunPlugin } from '@tevm/bundler/bun-plugin';
 import { plugin } from 'bun';
 
 plugin(tevmBunPlugin({}));
 ```
 
-2. Now add the `plugin.js` file to the `bunfig.toml` to tell bun to load our plugin in normal mode and dev mode
+3. Now add the `plugin.js` file to the `bunfig.toml` to tell bun to load our plugin in normal mode and dev mode
 
 ```toml
 preload = ["./plugins.js"]
@@ -459,13 +448,13 @@ preload = ["./plugins.js"]
 preload = ["./plugins.js"]
 ```
 
-3. Remove the generated files from before
+4. Remove the generated files from before
 
 ```bash
 rm -rf HelloWorld.sol.js HelloWorld.sol.d.ts
 ```
 
-4. Now rerun bun
+5. Now rerun bun
 
 ```bash
 bun run script.ts
@@ -473,23 +462,23 @@ bun run script.ts
 
 You will see bun still generated the same files and cached them in the `.tevm` folder this time. The plugin is taking care of this generation for you whenever you run bun.
 
-5. Configure the TypeScript LSP
+6. Configure the TypeScript LSP
 
 Though bun is working you may notice your editor is not recognizing the solidity import. We need to also configure the TypeScript language server protocol that your editor such as `VIM` or `VSCode` uses.
 
-Add `{"name": "tevm/ts-plugin"}` to `compilerOptions.plugins` array to enable tevm in typescript language server.
+Add `{"name": "@tevm/bundler/ts-plugin"}` to `compilerOptions.plugins` array to enable tevm in typescript language server.
 
 ```json
 {
   "compilerOptions": {
     "plugins": [
-      {"name": "tevm/ts-plugin"}
+      {"name": "@tevm/plugin/ts-plugin"}
     ]
   }
 }
 ```
 
-Note: ts-plugins only operate on the language server. Running `tsc` from command line will still trigger errors on solidity imports. To get around this use the `tevm tsc` instead.
+Note: ts-plugins only operate on the language server. Running `tsc` from command line will still trigger errors on solidity imports. A command line tool for this is coming soon. 
 
 ## Use external contracts
 
@@ -507,6 +496,7 @@ The following executes a ERC721 balanceOf call against a forked contract on main
 import { ERC721 } from '@openzeppelin/contracts/tokens/ERC721/ERC721.sol'
 import { createMemoryClient } from './vm.js'
 
+// Note it is recomended to use a more reliable rpc provider than the free tier cloudflare rpc
 const result = await createMemoryClient({fork: {url: 'https://cloudflare-eth.com'}}).contract(
   ERC721
     .withAddress('0x5180db8F5c931aaE63c74266b211F580155ecac8')

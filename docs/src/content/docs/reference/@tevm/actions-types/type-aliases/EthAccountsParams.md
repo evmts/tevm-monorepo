@@ -7,11 +7,11 @@ title: "EthAccountsParams"
 
 > **EthAccountsParams**: [`EmptyParams`](/reference/tevm/actions-types/type-aliases/emptyparams/)
 
-Params taken by `eth_accounts` handler
+Params taken by `eth_accounts` handler (no params)
 
 ## Source
 
-[params/EthParams.ts:23](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L23)
+[params/EthParams.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L21)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

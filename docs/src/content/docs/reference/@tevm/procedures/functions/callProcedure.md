@@ -5,7 +5,7 @@ prev: false
 title: "callProcedure"
 ---
 
-> **callProcedure**(`evm`): `CallJsonRpcProcedure`
+> **callProcedure**(`evm`): [`CallJsonRpcProcedure`](/reference/tevm/procedures-types/type-aliases/calljsonrpcprocedure/)
 
 Creates a Call JSON-RPC Procedure for handling call requests with Ethereumjs EVM
 

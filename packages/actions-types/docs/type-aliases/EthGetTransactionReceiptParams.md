@@ -12,7 +12,7 @@ JSON-RPC request for `eth_getTransactionReceipt` procedure
 
 ## Source
 
-[params/EthParams.ts:164](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L164)
+[params/EthParams.ts:166](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L166)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

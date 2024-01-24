@@ -5,7 +5,7 @@ prev: false
 title: "gasPriceProcedure"
 ---
 
-> **gasPriceProcedure**(`options`): `EthGasPriceJsonRpcProcedure`
+> **gasPriceProcedure**(`options`): [`EthGasPriceJsonRpcProcedure`](/reference/tevm/procedures-types/type-aliases/ethgaspricejsonrpcprocedure/)
 
 ## Parameters
 

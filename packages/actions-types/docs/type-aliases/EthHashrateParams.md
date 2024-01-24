@@ -12,7 +12,7 @@ JSON-RPC request for `eth_hashrate` procedure
 
 ## Source
 
-[params/EthParams.ts:55](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L55)
+[params/EthParams.ts:57](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L57)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

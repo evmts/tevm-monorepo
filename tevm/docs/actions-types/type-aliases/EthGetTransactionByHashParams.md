@@ -18,7 +18,7 @@ JSON-RPC request for `eth_getTransactionByHash` procedure
 
 ## Source
 
-packages/actions-types/types/params/EthParams.d.ts:125
+packages/actions-types/types/params/EthParams.d.ts:126
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
