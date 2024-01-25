@@ -1,16 +1,22 @@
 import starlight from '@astrojs/starlight'
 import { defineConfig } from 'astro/config'
+// import starlightLinksValidatorPlugin from 'starlight-links-validator'
 import starlightTypeDoc, { typeDocSidebarGroup } from 'starlight-typedoc'
 
 // https://astro.build/config
 export default defineConfig({
 	integrations: [
 		starlight({
+			lastUpdated: true,
+			customCss: ['./src/styles/custom.css'],
 			editLink: {
 				baseUrl: 'https://github.com/evmts/tevm-monorepo/edit/main/apps/tevm',
 			},
 			tableOfContents: true,
 			plugins: [
+				// starlightLinksValidatorPlugin({
+				// 	errorOnRelativeLinks: false,
+				// }),
 				starlightTypeDoc({
 					entryPoints: [
 						'../packages/actions',
@@ -51,6 +57,8 @@ export default defineConfig({
 			title: 'Tevm Docs',
 			social: {
 				github: 'https://github.com/evmts/tevm-monorepo',
+				twitter: 'https://twitter.com/FUCORY',
+				telegram: 'https://t.me/+ANThR9bHDLAwMjUx',
 			},
 			sidebar: [
 				{

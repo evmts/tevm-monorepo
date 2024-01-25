@@ -19,14 +19,11 @@ import type {
 import type { TevmJsonRpcRequestHandler } from '@tevm/procedures-types'
 
 /**
- * A local EVM instance running in the browser or Node.js. Akin to anvil or ganache
+ * A local EVM instance running in the browser, Bun, or Node.js. Akin to anvil or ganache. The TevmClient interface
+ * is a unified interface that all Clients implement. This provides a consistent developer experience no matter how you are
+ * using Tevm.
  *
- * - Runs in browser bun and node.js environments
- * - Network forking to fork any EVM compatible network
- * - Supports most ethereum JSON-RPC methods
- *
- * @see {@link https://todo.todo | createMemoryClient} for documentation on creating an in memory Tevm instance
- * @see {@link https://todo.todo | createTevmClient} for documentation on creating an client for talking to a remote Tevm instance over HTTP
+ * @see {@link https://tevm.sh/learn/clients/ | TevmClient guide} for more documentation on clients
  *
  * #### JSON-RPC
  *
@@ -40,10 +37,10 @@ import type { TevmJsonRpcRequestHandler } from '@tevm/procedures-types'
  *
  * await tevm.request({
  *   method: 'eth_blockNumber',
- *   params: []
- *   id: 1
- *   jsonrpc: '2.0'
- * }) // 2323409234999n
+ *   params: [],
+ *   id: 1,
+ *   jsonrpc: '2.0',
+ * }) // 0n
  * ```
  *
  * #### Actions
@@ -54,13 +51,19 @@ import type { TevmJsonRpcRequestHandler } from '@tevm/procedures-types'
  * @example
  * ```typescript
  * // same as eth_blockNumber example
- * const blockNumber = await tevm.eth.blockNumber()
- * console.log(blockNumber) // 0n
+ * const account = await tevm.account({address: `0x${'0'.repeat(40)}`})
+ * console.log(account.balance) // 0n
  * ```
  *
  * #### Ethereum actions
  *
  * Ethereum actions are namespaced under {@link TevmClient.eth}
+ *
+ * @example
+ * ```typescript
+ * const blockNumber = await tevm.eth.blockNumber()
+ * console.log(blockNumber) // 0n
+ * ```
  *
  * #### Anvil hardhat and ganache compatibility
  *
@@ -68,21 +71,21 @@ import type { TevmJsonRpcRequestHandler } from '@tevm/procedures-types'
  */
 export type TevmClient = {
 	/**
-	 * Request handler for JSON-RPC requests. Most users will want to use the `actions` api
+	 * Request handler for JSON-RPC requests. Most users will want to use the [`actions` api](https://tevm.sh/learn/actions/)
 	 * instead of this method directly
 	 * @example
 	 * ```typescript
 	 * const blockNumberResponse = await tevm.request({
-	 *  method: 'eth_blockNumber',
-	 *  params: []
-	 *  id: 1
-	 *  jsonrpc: '2.0'
+	 *   method: 'eth_blockNumber',
+	 *   params: []
+	 *   id: 1
+	 *   jsonrpc: '2.0'
 	 * })
 	 * const accountResponse = await tevm.request({
-	 *  method: 'tevm_getAccount',
-	 *  params: [{address: '0x123...'}]
-	 *  id: 1
-	 *  jsonrpc: '2.0'
+	 *   method: 'tevm_getAccount',
+	 *   params: [{address: '0x123...'}],
+	 *   id: 1,
+	 *   jsonrpc: '2.0',
 	 * })
 	 * ```
 	 */
@@ -137,16 +140,15 @@ export type TevmClient = {
 	 * Executes a call against the VM. It is similar to `eth_call` but has more
 	 * options for controlling the execution environment
 	 *
-	 * See `contract` and `script` which executes calls specifically against deployed contracts
-	 * or undeployed scripts
+	 * By default it does not modify the state after the call is complete but this can be configured.
 	 * @example
 	 * const res = tevm.call({
-	 * to: '0x123...',
-	 * data: '0x123...',
-	 * from: '0x123...',
-	 * gas: 1000000,
-	 * gasPrice: 1n,
-	 * skipBalance: true,
+	 *   to: '0x123...',
+	 *   data: '0x123...',
+	 *   from: '0x123...',
+	 *   gas: 1000000,
+	 *   gasPrice: 1n,
+	 *   skipBalance: true,
 	 * }
 	 *
 	 */

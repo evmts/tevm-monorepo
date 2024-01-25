@@ -7,16 +7,13 @@ title: "TevmClient"
 
 > **TevmClient**: `object`
 
-A local EVM instance running in the browser or Node.js. Akin to anvil or ganache
-
-- Runs in browser bun and node.js environments
-- Network forking to fork any EVM compatible network
-- Supports most ethereum JSON-RPC methods
+A local EVM instance running in the browser, Bun, or Node.js. Akin to anvil or ganache. The TevmClient interface
+is a unified interface that all Clients implement. This provides a consistent developer experience no matter how you are
+using Tevm.
 
 ## See
 
- - [createMemoryClient](https://todo.todo) for documentation on creating an in memory Tevm instance
- - [createTevmClient](https://todo.todo) for documentation on creating an client for talking to a remote Tevm instance over HTTP
+[guide](TevmClient.md) for more documentation on clients
 
 #### JSON-RPC
 
@@ -31,10 +28,10 @@ const tevm: Tevm = createMemoryClient()
 
 await tevm.request({
   method: 'eth_blockNumber',
-  params: []
-  id: 1
-  jsonrpc: '2.0'
-}) // 2323409234999n
+  params: [],
+  id: 1,
+  jsonrpc: '2.0',
+}) // 0n
 ```
 
 #### Actions
@@ -46,13 +43,20 @@ ergonomic way.
 
 ```typescript
 // same as eth_blockNumber example
-const blockNumber = await tevm.eth.blockNumber()
-console.log(blockNumber) // 0n
+const account = await tevm.account({address: `0x${'0'.repeat(40)}`})
+console.log(account.balance) // 0n
 ```
 
 #### Ethereum actions
 
 Ethereum actions are namespaced under [TevmClient.eth](Property eth: Object)
+
+## Example
+
+```typescript
+const blockNumber = await tevm.eth.blockNumber()
+console.log(blockNumber) // 0n
+```
 
 #### Anvil hardhat and ganache compatibility
 
@@ -67,19 +71,18 @@ Will have anvil_* ganache_* and hardhat_* JSON-RPC compatibility in future versi
 Executes a call against the VM. It is similar to `eth_call` but has more
 options for controlling the execution environment
 
-See `contract` and `script` which executes calls specifically against deployed contracts
-or undeployed scripts
+By default it does not modify the state after the call is complete but this can be configured.
 
 #### Example
 
 ```ts
 const res = tevm.call({
-to: '0x123...',
-data: '0x123...',
-from: '0x123...',
-gas: 1000000,
-gasPrice: 1n,
-skipBalance: true,
+  to: '0x123...',
+  data: '0x123...',
+  from: '0x123...',
+  gas: 1000000,
+  gasPrice: 1n,
+  skipBalance: true,
 }
 ```
 
@@ -299,23 +302,23 @@ await tevm.loadState({state})
 
 > **request**: [`TevmJsonRpcRequestHandler`](/reference/tevm/procedures-types/type-aliases/tevmjsonrpcrequesthandler/)
 
-Request handler for JSON-RPC requests. Most users will want to use the `actions` api
+Request handler for JSON-RPC requests. Most users will want to use the [`actions` api](https://tevm.sh/learn/actions/)
 instead of this method directly
 
 #### Example
 
 ```typescript
 const blockNumberResponse = await tevm.request({
- method: 'eth_blockNumber',
- params: []
- id: 1
- jsonrpc: '2.0'
+  method: 'eth_blockNumber',
+  params: []
+  id: 1
+  jsonrpc: '2.0'
 })
 const accountResponse = await tevm.request({
- method: 'tevm_getAccount',
- params: [{address: '0x123...'}]
- id: 1
- jsonrpc: '2.0'
+  method: 'tevm_getAccount',
+  params: [{address: '0x123...'}],
+  id: 1,
+  jsonrpc: '2.0',
 })
 ```
 
@@ -369,7 +372,7 @@ await tevm.setAccount({
 
 ## Source
 
-[TevmClient.ts:69](https://github.com/evmts/tevm-monorepo/blob/main/packages/client-types/src/TevmClient.ts#L69)
+[TevmClient.ts:72](https://github.com/evmts/tevm-monorepo/blob/main/packages/client-types/src/TevmClient.ts#L72)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

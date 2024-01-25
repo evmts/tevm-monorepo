@@ -7,6 +7,14 @@ description: Tevm introduction
 
 After going through this guide you will understand the basic functionality of Tevm.
 
+:::tip
+If you are already familiar with how Tevm works you can bootstrap a project with the tevm cli
+
+```bash
+npm create tevm my-app
+```
+:::
+
 ## Introduction
 
 This guide will get you familiar with the most essential features of Tevm and start interacting with the Ethereum Virtual Machine (EVM) in Node.js or browser environments with `Tevm`. By the end of this guide you will understand:

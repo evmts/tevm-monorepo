@@ -9,7 +9,7 @@ Solidity imports simplify your tevm code via compiling contracts to ABI and byte
 
 To support solidity imports the following steps must be taken:
 
-1. Configure a [bundler](https://dev.to/sayanide/the-what-why-and-how-of-javascript-bundlers-4po9) to turn your solidity imports into [tevm scripts](../reference/@tevm/contract/type-aliases/Script.md).
+1. Configure a [bundler](https://dev.to/sayanide/the-what-why-and-how-of-javascript-bundlers-4po9) to turn your solidity imports into [tevm scripts](../reference/@tevm/contract/type-aliases/script.md).
 2. Configure your [TypeScript LSP](https://microsoft.github.io/language-server-protocol/) to recognize solidity imports correctly as well
 3. Optionally Configure your `tevm.config.json`
 4. Some may need to configure their editor
@@ -38,9 +38,9 @@ npm install @tevm/rollup-plugin
 
 #### Core bundler
 
-A JavaScript bundler is code that runs at buildtime to turn an import graph into a single file or multiple files. [@tevm/base-bundler](https://github.com/evmts/tevm-monorepo/tree/main/bundler-packages/base-bundler) turns Solidity imports into [tevm script instances](../reference/@tevm/contract/type-aliases/Script.md). The core Tevm bundler code is reused to build every bundler integration.
+A JavaScript bundler is code that runs at buildtime to turn an import graph into a single file or multiple files. [@tevm/base-bundler](https://github.com/evmts/tevm-monorepo/tree/main/bundler-packages/base-bundler) turns Solidity imports into [tevm script instances](../reference/@tevm/contract/type-aliases/script.md). The core Tevm bundler code is reused to build every bundler integration.
 
-1. On initialization tevm bundler and LSP will load your tsconfig (to read baseDir and paths), foundry remappings (if configured), and `tevm.config.json` if present
+1. On initialization tevm bundler and LSP will load your tsconfig (to read basedir and paths), foundry remappings (if configured), and `tevm.config.json` if present
 
 2. Next it will look for import paths ending in `.sol`. When it sees one it will use [node resolution](https://medium.com/outbrain-engineering/node-js-module-resolution-af46715784ef) to find the file. If a JavaScript file e.g. `.sol.js` file already exists it will immediately resolve that. Otherwise it kicks off the process of resolving the contract into it's ABI and bytecode.
 
@@ -76,7 +76,7 @@ const _ERC20 = {
 		'function safeTransferFrom(address from, address to, uint256 tokenId)',
 		'function safeTransferFrom(address from, address to, uint256 tokenId, bytes data)',
 		'function setApprovalForAll(address operator, bool approved)',
-		'function supportsInterface(bytes4 interfaceId) view returns (bool)',
+		'function supportsInterface(bytes4 interfaceid) view returns (bool)',
 		'function symbol() view returns (string)',
 		'function tokenURI(uint256 tokenId) pure returns (string)',
 		'function totalSupply() view returns (uint256)',
@@ -87,7 +87,7 @@ const _ERC20 = {
  * Jsdoc comments will be included
  * @property mint() Allows an address to mint
  */
-export const ERC20 = createContract(_WagmiMintExample)
+export const ERC20 = createContract(_wagmimintexample)
 ```
 
 The TypeScript plugin generates a similar dts file.
@@ -96,12 +96,12 @@ The TypeScript plugin generates a similar dts file.
 
 The [@tevm/base-bundler](https://github.com/evmts/tevm-monorepo/tree/main/bundler-packages/base-bundler) is used to create the following bundler integrations. Click on your bundler of choice to see the reference docs for your bundler.
 
-- [bun](../reference/@tevm/bun-plugin/functions/bunPluginTevm.md) 
-- [esbuild](../reference/@tevm/esbuild-plugin/functions/bunPluginTevm.md) 
-- [rollup](../reference/@tevm/rollup-plugin/functions/bunPluginTevm.md) 
-- [vite](../reference/@tevm/vite-plugin/functions/bunPluginTevm.md) 
-- [rspack](../reference/@tevm/rspack-plugin/functions/bunPluginTevm.md) 
-- [webpack](../reference/@tevm/esbuild-plugin/functions/bunPluginTevm.md) 
+- [bun](../reference/@tevm/bun-plugin/functions/bunplugintevm.md) 
+- [esbuild](../reference/@tevm/esbuild-plugin/functions/bunplugintevm.md) 
+- [rollup](../reference/@tevm/rollup-plugin/functions/bunplugintevm.md) 
+- [vite](../reference/@tevm/vite-plugin/functions/bunplugintevm.md) 
+- [rspack](../reference/@tevm/rspack-plugin/functions/bunplugintevm.md) 
+- [webpack](../reference/@tevm/esbuild-plugin/functions/bunplugintevm.md) 
 
 If your bundler is not supported consider [opening an issue](https://github.com/evmts/tevm-monorepo/issues/new) as it is likely a small lift to add support.
 
