@@ -79,7 +79,7 @@ importers:
         version: 0.34.6(@vitest/ui@0.34.7)
 
   bundler:
-    devDependencies:
+    dependencies:
       '@tevm/base-bundler':
         specifier: workspace:^
         version: link:../bundler-packages/base-bundler

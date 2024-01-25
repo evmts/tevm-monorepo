@@ -176,7 +176,7 @@
 		"lint:package": "bunx publint --strict && attw --pack",
 		"typecheck": "tsc --noEmit"
 	},
-	"devDependencies": {
+	"dependencies": {
 		"@tevm/base-bundler": "workspace:^",
 		"@tevm/bun-plugin": "workspace:^",
 		"@tevm/compiler": "workspace:^",
