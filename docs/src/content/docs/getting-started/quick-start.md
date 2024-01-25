@@ -19,10 +19,10 @@ npm create tevm my-app
 
 This guide will get you familiar with the most essential features of Tevm and start interacting with the Ethereum Virtual Machine (EVM) in Node.js or browser environments with `Tevm`. By the end of this guide you will understand:
 
-1. How to create a forked EVM in JavaScript using [`createMemoryClient`](../reference/@tevm/memory-client/functions/createMemoryClient.md)
-2. How to write, build, and execute solidity scripts with a [`TevmClient`](../reference/@tevm/client-types/type-aliases/TevmClient.md)
-3. How to streamline your workflow using [`tevm contract imports`](../reference/@tevm/bun-plugin/functions/bunPluginTevm.md) with the tevm bundler
-4. How to write solidity scripts with the [`tevm script action`](../reference/@tevm/client-types/type-aliases/TevmClient.md#script)
+1. How to create a forked EVM in JavaScript using [`createMemoryClient`](/reference/tevm/memory-client/functions/creatememoryclient)
+2. How to write, build, and execute solidity scripts with a [`TevmClient`](/reference/tevm/client-types/type-aliases/tevmclient)
+3. How to streamline your workflow using [`tevm contract imports`](/reference/tevm/bun-plugin/functions/bunplugintevm) with the tevm bundler
+4. How to write solidity scripts with the [`tevm script action`](/reference/tevm/client-types/type-aliases/tevmclient#script)
 
 ## Prerequisites
 
@@ -62,7 +62,7 @@ Now let's create a Tevm VM to execute Ethereum bytecode in our JavaScript
 
 1. Open the index.ts file
 
-2. Now initialize a [MemoryClient](../reference/@tevm/memory-client/type-aliases/MemoryClient.md) with [createMemoryClient](../reference/@tevm/memory-client/functions/createMemoryClient.md)
+2. Now initialize a [MemoryClient](/reference/tevm/memory-client/type-aliases/memoryclient) with [createMemoryClient](/reference/tevm/memory-client/functions/creatememoryclient)
 
 ```typescript
 import { createMemoryClient } from 'tevm';
@@ -74,15 +74,15 @@ This initializes an an ethereum VM instance akin to starting anvil but in memory
 
 ## Using ethereum JSON-RPC
 
-The entrypoint to using Tevm is [`TevmClient.request`](../reference/@tevm/procedures-types/type-aliases/TevmJsonRpcRequestHandler.md). It implements the
+The entrypoint to using Tevm is [`TevmClient.request`](/reference/tevm/procedures-types/type-aliases/tevmjsonrpcrequesthandler). It implements the
 
 - much of the [ethereum JSON-RPC](https://ethereum.org/en/developers/docs/apis/json-rpc)
-- custom [tevm_*](../reference/@tevm/procedures-types/type-aliases/TevmJsonRpcRequest.md) requests
+- custom [tevm_*](/reference/tevm/procedures-types/type-aliases/tevmjsonrpcrequest) requests
 - will support anvil_* and ganache_* in future versions
 
 Let's use [eth_getBalance](https://ethereum.org/en/developers/docs/apis/json-rpc#eth_getbalance)
 
-1. Create a [eth_getBalance](../reference/@tevm/procedures-types/type-aliases/EthGetBalanceRequest.md)
+1. Create a [eth_getBalance](/reference/tevm/procedures-types/type-aliases/ethgetbalancejsonrpcrequest)
 
 ```typescript
 import { createMemoryClient } from 'tevm';
@@ -98,7 +98,7 @@ const request: EthGetBalanceRequest = {
 }
 ```
 
-2. Now pass our request into [`@tevm/request`](../reference/@tevm/client-types/type-aliases/TevmClient.md#request)
+2. Now pass our request into [`@tevm/request`](/reference/tevm/client-types/type-aliases/tevmclient#request)
 
 ```typescript
 import { createMemoryClient } from 'tevm';
@@ -130,9 +130,9 @@ This address has 0 eth because we have a brand new vm. Let's make our VM fork et
 
 Similar to anvil or ganache `Tevm` has the ability to fork a live network.
 
-1. Update [createMemoryClient](../reference/@tevm/memory-client/functions/createMemoryClient.md) to fork ethereum using [forkUrl](../reference/@tevm/memory-client/type-aliases/CreateEVMOptions.md)
+1. Update [createMemoryClient](/reference/tevm/memory-client/functions/creatememoryclient) to fork ethereum using [forkUrl](/reference/tevm/memory-client/type-aliases/createevmoptions)
 
-Add any ethereum RPC url to the [`options.fork.url`](../reference/@tevm/memory-client/type-aliases/CreateEVMOptions.md)
+Add any ethereum RPC url to the [`options.fork.url`](/reference/tevm/memory-client/type-aliases/createevmoptions)
 
 ```typescript
 import { createMemoryClient } from 'tevm';
@@ -183,13 +183,13 @@ fetch("https://mainnet.optimism.io", {
   .then(console.log);
 ```
 
-But with [`MemoryClient`](../reference/@tevm/memory-client/type-aliases/MemoryClient.md) all requests will be issued to the same block number we forked and cached in memory once made.
+But with [`MemoryClient`](/reference/tevm/memory-client/type-aliases/memoryclient) all requests will be issued to the same block number we forked and cached in memory once made.
 
 ## Using `Actions` API to execute a contract
 
 Tevm exposes a [viem-like](https://viem.sh) `actions api` to provide a higher level of abstraction than the JSON-RPC interface.
 
-1. Replace [`tevm_getAccount` JSON-RPC procedure](../reference/@tevm/api/type-aliases/GetAccountJsonRpcProcedure.md) with the [getAccount action](../reference/@tevm/api/type-aliases/GetAccountHandler.md)
+1. Replace [`tevm_getAccount` JSON-RPC procedure](/reference/tevm/procedures-types/type-aliases/getaccountjsonrpcprocedure) with the [getAccount action](/reference/tevm/actions-types/type-aliases/getaccounthandler)
 
 ```typescript
 import { createMemoryClient } from 'tevm';
@@ -218,7 +218,7 @@ const tevm = await createMemoryClient({
 
 2. Run a transaction
 
-Now send a transaction using [TevmClient.call](../reference/@tevm/client-types/type-aliases/TevmClient.md#call). This is equivelent to using [`eth_call`](../reference/@tevm/procedures-types/type-aliases/EthCallJsonRpcProcedure.md).
+Now send a transaction using [TevmClient.call](/reference/tevm/client-types/type-aliases/tevmclient#call). This is equivelent to using [`eth_call`](/reference/tevm/procedures-types/type-aliases/ethcalljsonrpcprocedure).
 
 `Tevm.call` wraps `tevm_call` which is similar to `eth_call` or `Tevm.eth.call` but has extra parameters for modifying the VM.
 
@@ -252,13 +252,13 @@ console.log(balance)
 bun run vm.js
 ```
 
-To see more options check out [CallParams](../reference/@tevm/actions-types/type-aliases/CallParams.md) docs
+To see more options check out [CallParams](/reference/tevm/actions-types/type-aliases/callparams) docs
 
 ## Executing contract calls
 
-We can execute a contract call by sending encoded contract data just like [`eth_call`](../reference/@tevm/procedures-types/type-aliases/EthCallJsonRpcProcedure.md)
+We can execute a contract call by sending encoded contract data just like [`eth_call`](/reference/tevm/procedures-types/type-aliases/ethcalljsonrpcprocedure)
 
-1. Use [`encodeFunctionData`](../reference/@tevm/contract/functions/encodeFunctionData.md) to pass in a contract call to [`tevm.call`](../reference/@tevm/api/type-aliases/TevmClient.md#call)
+1. Use [`encodeFunctionData`](/reference/tevm/contract/functions/encodefunctiondata) to pass in a contract call to [`tevm.call`](/reference/tevm/client-types/type-aliases/tevmclient#call)
 
 ```typescript
 import { createMemoryClient, encodeFunctionData, decodeFunctionData, parseAbi } from 'tevm';
@@ -293,7 +293,7 @@ console.log(balance)
 
 2. Use `TevmClient.contract`
 
-Rather than encoding and decoding data with `TevmClient.call` we can instead use the [`TevmClient.contract`](../reference/@tevm/client-types/type-aliases/TevmClient.md#contract) method. It wraps the `eth_call` JSON-rpc method and matches much of [viems readContract](https://viem.sh/docs/contract/readContract.html) API but with some extra VM control. 
+Rather than encoding and decoding data with `TevmClient.call` we can instead use the [`TevmClient.contract`](/reference/tevm/client-types/type-aliases/tevmclient#contract) method. It wraps the `eth_call` JSON-rpc method and matches much of [viems readContract](https://viem.sh/docs/contract/readContract.html) API but with some extra VM control. 
 
 Refactor our call to use `Tevm.contract`
 
@@ -331,7 +331,7 @@ await tevm.setAccount({address: `0x${'42'.repeat(20)}`, deployedBytecode: '0x000
 
 And then use `tevm.contract` as we did in last section.
 
-But Tevm provides a convenient [`tevm_script`](../reference/@tevm/procedures-types/type-aliases/ScriptJsonRpcProcedure.md) JSON-RPC request and matching [TevmClient.script action](../reference/@tevm/client-types/type-aliases/TevmClient.md#script)
+But Tevm provides a convenient [`tevm_script`](/reference/tevm/procedures-types/type-aliases/scriptjsonrpcprocedure) JSON-RPC request and matching [TevmClient.script action](/reference/tevm/client-types/type-aliases/tevmclient#script)
 
 1. First let's make a new solidity file
 
@@ -362,7 +362,7 @@ bunx tevm compile HelloWorld.s.sol
 
 You should see a `.js` file get generated with the JavaScript version of your contract. Inspect the file. We will talk more about this later.
 
-4. Import contract and use it in a [`Tevm.script`](../reference/@tevm/api/type-aliases/TevmClient.md#script) action.
+4. Import contract and use it in a [`Tevm.script`](/reference/tevm/client-types/type-aliases/tevmclient#script) action.
 
 ```typescript
 import { HelloWorld } from './HelloWorld.s.sol.js';
@@ -435,7 +435,7 @@ bun install @tevm/bundler
 
 This package installs two tools we need:
 
-- Bundler support to bundle our solidity contracts. Plugins exist for webpack, vite, rollup, esbuild and more. We will use the [bun plugin](../reference/@tevm/bun-plugin/functions/bunPluginTevm.md).
+- Bundler support to bundle our solidity contracts. Plugins exist for webpack, vite, rollup, esbuild and more. We will use the [bun plugin](/reference/tevm/bun-plugin/functions/bunplugintevm).
 - [LSP](https://microsoft.github.io/language-server-protocol/) support for TypeScript via a [typescript language service plugin](https://github.com/microsoft/TypeScript/wiki/Writing-a-Language-Service-Plugin)
 
 
