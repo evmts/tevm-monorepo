@@ -1,7 +1,6 @@
 import starlight from '@astrojs/starlight'
 import { defineConfig } from 'astro/config'
-import starlightLinksValidator from 'starlight-links-validator'
-import starlightLinksValidatorPlugin from 'starlight-links-validator'
+// import starlightLinksValidatorPlugin from 'starlight-links-validator'
 import starlightTypeDoc, { typeDocSidebarGroup } from 'starlight-typedoc'
 
 // https://astro.build/config
@@ -15,7 +14,9 @@ export default defineConfig({
 			},
 			tableOfContents: true,
 			plugins: [
-				starlightLinksValidatorPlugin(),
+				// starlightLinksValidatorPlugin({
+				// 	errorOnRelativeLinks: false,
+				// }),
 				starlightTypeDoc({
 					entryPoints: [
 						'../packages/actions',

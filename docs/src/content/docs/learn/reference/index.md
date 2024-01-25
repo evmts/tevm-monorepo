@@ -14,57 +14,57 @@ All buildtime packages like the typescript or webpack plugin are similarly avail
 
 All clients share the `TevmClient` api which is how you interact with the EVM. The following reference docs contain it's api.
 
-- [@tevm/client-types](/reference/tevm/client-types/readme/) - Contains the [TevmClient](../../reference/@tevm/client-types/type-aliases/tevmclient) all `Clients` share. This is usually the best place to start.
-- [@tevm/actions-types](/reference/tevm/actions-types/readme/) - Contains the [actions api](../actions) definitions
-- [@tevm/procedures-types](/reference/tevm/procedures-types/readme/) - Contains the [JSON-RPC](../json-rpc/) definitions
+- [@tevm/client-types](/reference/tevm/client-types/api/) - Contains the [TevmClient](../../reference/@tevm/client-types/type-aliases/tevmclient) all `Clients` share. This is usually the best place to start.
+- [@tevm/actions-types](/reference/tevm/actions-types/api/) - Contains the [actions api](../actions) definitions
+- [@tevm/procedures-types](/reference/tevm/procedures-types/api/) - Contains the [JSON-RPC](../json-rpc/) definitions
 
 ## Clients
 
 In addition to the `TevmClient` api above documentation about specific clients exists in following packages:A
 
-- [@tevm/memory-client](/reference/tevm/memory-client/readme/) - The main in memory EVM client
-- [@tevm/http-client](/reference/tevm/http-client/readme/) - A client that executes via a remote MemoryClient over (http)[#Server]
+- [@tevm/memory-client](/reference/tevm/memory-client/api/) - The main in memory EVM client
+- [@tevm/http-client](/reference/tevm/http-client/api/) - A client that executes via a remote MemoryClient over (http)[#Server]
 
 There are also extension clients for [viem](https://viem.sh) and [ethers](https://docs.ethers.org/v5/)
 
-- [@tevm/viem](/reference/tevm/viem/readme/)
-- [@tevm/ethers](/reference/tevm/ethers/readme/)
+- [@tevm/viem](/reference/tevm/viem/api/)
+- [@tevm/ethers](/reference/tevm/ethers/api/)
 
 ## Contracts
 
 A common way of using `contract action` with tevm is Tevm [`Contracts` and `Scripts`](../contracts/). They are defined in the `@tevm/contracts` package
 
-- [@tevm/contract](/reference/tevm/contract/readme/)
+- [@tevm/contract](/reference/tevm/contract/api/)
 
 ## Server
 
-- [@tevm/server](/reference/tevm/server/readme/) - Contains utilities to run Tevm as an JSON-RPC http server in Node, Bun, express, and Next.js.
+- [@tevm/server](/reference/tevm/server/api/) - Contains utilities to run Tevm as an JSON-RPC http server in Node, Bun, express, and Next.js.
 
 ## Implementation
 
-The following internal packages contain the majority of the implementation code. All the packages above so far are sufficient for exploring the API. But if you want to dive deeper into implementation source code the following packages can be useful.
+The following internal packages contain the majority of the implementation code. All the packages above so far are sufficient for exploring the api. But if you want to dive deeper into implementation source code the following packages can be useful.
 
-- [@tevm/actions](/reference/tevm/actions/readme/) - Contains decorators that decorate [ethereumjs](https://github.com/ethereumjs/ethereumjs-monorepo) with the Tevm api.
-- [@tevm/procedures](/reference/tevm/procedures/readme/) - Contains decorators that decorate [ethereumjs](https://github.com/ethereumjs/ethereumjs-monorepo) with the Tevm JSON-rpc api.
+- [@tevm/actions](/reference/tevm/actions/api/) - Contains decorators that decorate [ethereumjs](https://github.com/ethereumjs/ethereumjs-monorepo) with the Tevm api.
+- [@tevm/procedures](/reference/tevm/procedures/api/) - Contains decorators that decorate [ethereumjs](https://github.com/ethereumjs/ethereumjs-monorepo) with the Tevm JSON-rpc api.
 
 ## @tevm/bundler
 
 To configure your bundler setup navigate to your bundler's plugins docs [`@tevm/*-plugin`](../../reference/@tevm/vite-plugin/api)
 
-- [@tevm/bun-plugin](/reference/tevm/bun-plugin/readme/)
-- [@tevm/esbuild-plugin](/reference/tevm/esbuild-plugin/readme/)
-- [@tevm/rollup-plugin](/reference/tevm/rollup-plugin/readme/)
-- [@tevm/rspack-plugin](/reference/tevm/rspack-plugin/readme/)
-- [@tevm/vite-plugin](/reference/tevm/vite-plugin/readme/)
-- [@tevm/webpack-plugin](/reference/tevm/webpack-plugin/readme/)
+- [@tevm/bun-plugin](/reference/tevm/bun-plugin/api/)
+- [@tevm/esbuild-plugin](/reference/tevm/esbuild-plugin/api/)
+- [@tevm/rollup-plugin](/reference/tevm/rollup-plugin/api/)
+- [@tevm/rspack-plugin](/reference/tevm/rspack-plugin/api/)
+- [@tevm/vite-plugin](/reference/tevm/vite-plugin/api/)
+- [@tevm/webpack-plugin](/reference/tevm/webpack-plugin/api/)
 
 There is also config documentation below but you are most likely only interested in the [CompilerConfig](../../reference/@tevm/config/types/type-aliases/CompilerConfig.md) docs.
 
-- [@tevm/config](/reference/tevm/config/readme/)
+- [@tevm/config](/reference/tevm/config/api/)
 
 Bundlers bundle solidity via turning their imports into `Contract` and `Script` instances. We already listed this package but for convenience it is below:
 
-- [@tevm/contract](/reference/tevm/contract/readme/)
+- [@tevm/contract](/reference/tevm/contract/api/)
 
 ## Internal packages
 
