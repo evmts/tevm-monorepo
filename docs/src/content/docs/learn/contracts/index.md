@@ -5,9 +5,9 @@ description: Guide on using contract action creators
 
 ## Contract action creators
 
-The [`@tevm/contracts`](../reference/@tevm/contract/API.md) package is an optional module in `tevm` for cleaning up your contract code. It represents a contract or script and provides a typesafe api for creating [actions](./actions.md)
+The [`@tevm/contracts`](/reference/tevm/contract/api) package is an optional module in `tevm` for cleaning up your contract code. It represents a contract or script and provides a typesafe api for creating [actions](/learn/actions)
 
-In the following diff the added code shows how to dispatch a [`script`](../reference/@tevm/actions-types/type-aliases/ScriptHandler.md) action with a contract action creator. The removed code is both how you would do it without an action creator and also the returned value of the action creator.
+In the following diff the added code shows how to dispatch a [`script`](/reference/tevm/actions-types/type-aliases/scripthandler) action with a contract action creator. The removed code is both how you would do it without an action creator and also the returned value of the action creator.
 
 ```typescript
 - const scriptResult = await tevm.script({
@@ -25,8 +25,8 @@ In the following diff the added code shows how to dispatch a [`script`](../refer
 
 There are two ways to create a contract.
 
-1. Using the [`createScript`](../reference/@tevm/contract/functions/createScript.md) or [createContract](../reference/@tevm/contract/functions/createContract.md) utils.
-2. Automatically [generating scripts with the tevm bundler](./solidity-imports.md)
+1. Using the [`createScript`](/reference/tevm/contract/functions/createscript) or [createContract](/reference/tevm/contract/functions/createcontract) utils.
+2. Automatically [generating scripts with the tevm bundler](/learn/solidity-imports)
 
 To create a contract instance pass in it's human readable ABI and name into `createContract`. If creating a script you will also need to pass `bytecode` and `deployedBytecode`
 
@@ -41,7 +41,7 @@ const script = createScript({
 })
 ```
 
-Contracts and scripts are created with humanReadableAbi but you can also use a JSON abi via the [`formatAbi` utility](../reference/@tevm/contract/functions/formatAbi.md).
+Contracts and scripts are created with humanReadableAbi but you can also use a JSON abi via the [`formatAbi` utility](/reference/tevm/contract/functions/formatabi).
 
 ```typescript
 import { createScript, formatAbi } from 'tevm/contract'
@@ -62,14 +62,14 @@ const script = createScript({
 Because of how TypeScript processes JSON files you will lose typesafety if you import your ABI from a json file or don't use `as const`. A solution to the JSON import problem will exist in a future version.
 :::
 
-See the [contract reference docs](../reference/@tevm/contract/API.md) for more information on creating contracts.
+See the [contract reference docs](/reference/tevm/contract/api) for more information on creating contracts.
 
 ## Contracts vs scripts
 
 There are two types of contracts.  
 
-1. [Contracts](../reference/@tevm/contract/type-aliases/Contract.md) which are created with [createContract](../reference/@tevm/contract/functions/createContract.md)
-2. [Scripts](../reference/@tevm/contract/type-aliases/Script.md) which are created with [createScript](../reference/@tevm/contract/functions/createScript.md)
+1. [Contracts](/reference/tevm/contract/type-aliases/contract) which are created with [createContract](/reference/tevm/contract/functions/createcontract)
+2. [Scripts](/reference/tevm/contract/type-aliases/script) which are created with [createScript](/reference/tevm/contract/functions/createscript)
 
 The only difference between the two is `Scripts` have bytecode and can run without being deployed first. Contracts can only run with the bytecode already deployed to the chain. Contract actions require a `to` address that is used by the EVM to fetch the bytecode from storage.
 

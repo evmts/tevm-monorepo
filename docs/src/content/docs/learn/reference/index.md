@@ -14,9 +14,9 @@ All buildtime packages like the typescript or webpack plugin are similarly avail
 
 All clients share the `TevmClient` api which is how you interact with the EVM. The following reference docs contain it's api.
 
-- [@tevm/client-types](/reference/tevm/client-types/api/) - Contains the [TevmClient](../../reference/@tevm/client-types/type-aliases/tevmclient) all `Clients` share. This is usually the best place to start.
-- [@tevm/actions-types](/reference/tevm/actions-types/api/) - Contains the [actions api](../actions) definitions
-- [@tevm/procedures-types](/reference/tevm/procedures-types/api/) - Contains the [JSON-RPC](../json-rpc/) definitions
+- [@tevm/client-types](/reference/tevm/client-types/api/) - Contains the [TevmClient](/reference/tevm/client-types/type-aliases/tevmclient) all `Clients` share. This is usually the best place to start.
+- [@tevm/actions-types](/reference/tevm/actions-types/api/) - Contains the [actions api](/learn/actions) definitions
+- [@tevm/procedures-types](/reference/tevm/procedures-types/api/) - Contains the [JSON-RPC](/learn/json-rpc/) definitions
 
 ## Clients
 
@@ -32,7 +32,7 @@ There are also extension clients for [viem](https://viem.sh) and [ethers](https:
 
 ## Contracts
 
-A common way of using `contract action` with tevm is Tevm [`Contracts` and `Scripts`](../contracts/). They are defined in the `@tevm/contracts` package
+A common way of using `contract action` with tevm is Tevm [`Contracts` and `Scripts`](/learn/contracts/). They are defined in the `@tevm/contracts` package
 
 - [@tevm/contract](/reference/tevm/contract/api/)
 
@@ -49,7 +49,7 @@ The following internal packages contain the majority of the implementation code.
 
 ## @tevm/bundler
 
-To configure your bundler setup navigate to your bundler's plugins docs [`@tevm/*-plugin`](../../reference/@tevm/vite-plugin/api)
+To configure your bundler setup navigate to your bundler's plugins docs [`@tevm/*-plugin`](/reference/tevm/vite-plugin/api)
 
 - [@tevm/bun-plugin](/reference/tevm/bun-plugin/api/)
 - [@tevm/esbuild-plugin](/reference/tevm/esbuild-plugin/api/)
@@ -58,7 +58,7 @@ To configure your bundler setup navigate to your bundler's plugins docs [`@tevm/
 - [@tevm/vite-plugin](/reference/tevm/vite-plugin/api/)
 - [@tevm/webpack-plugin](/reference/tevm/webpack-plugin/api/)
 
-There is also config documentation below but you are most likely only interested in the [CompilerConfig](../../reference/@tevm/config/types/type-aliases/CompilerConfig.md) docs.
+There is also config documentation below but you are most likely only interested in the [CompilerConfig](/reference/tevm/config/types/type-aliases/compilerconfig) docs.
 
 - [@tevm/config](/reference/tevm/config/api/)
 
