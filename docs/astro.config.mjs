@@ -12,16 +12,16 @@ export default defineConfig({
 			lastUpdated: true,
 			customCss: ['./src/styles/custom.css'],
 			editLink: {
-				baseUrl: 'https://github.com/evmts/tevm-monorepo/edit/main/apps/tevm',
+				baseUrl: 'https://github.com/evmts/tevm-monorepo/edit/main/docs',
 			},
 			tableOfContents: true,
 			plugins: [
 				...(ENABLE_LINK_CHECKER
 					? [
-							starlightLinksValidatorPlugin({
-								errorOnRelativeLinks: true,
-							}),
-					  ]
+						starlightLinksValidatorPlugin({
+							errorOnRelativeLinks: true,
+						}),
+					]
 					: []),
 				starlightTypeDoc({
 					entryPoints: [
