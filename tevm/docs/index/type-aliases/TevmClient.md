@@ -167,6 +167,25 @@ const blockNumber = await tevm.eth.blockNumber()
 console.log(blockNumber) // 0n
 ```
 
+### eth.call
+
+> **eth.call**: [`EthCallHandler`](../../actions-types/type-aliases/EthCallHandler.md)
+
+Executes a call without modifying the state
+Set the `tag` to a block number or block hash to get the balance at that block
+Block tag defaults to 'pending' tag which is the optimistic state of the VM
+
+#### See
+
+[JSON-RPC](https://ethereum.github.io/execution-apis/api-documentation/)
+
+#### Example
+
+```ts
+const res = await tevm.eth.call({to: '0x123...', data: '0x123...'})
+console.log(res) // "0x..."
+```
+
 ### eth.chainId
 
 > **eth.chainId**: [`EthChainIdHandler`](../../actions-types/type-aliases/EthChainIdHandler.md)

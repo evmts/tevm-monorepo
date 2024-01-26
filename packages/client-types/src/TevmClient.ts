@@ -5,6 +5,7 @@ import type {
 	// DebugTraceCallHandler,
 	// DebugTraceTransactionHandler,
 	EthBlockNumberHandler,
+	EthCallHandler,
 	// EthCallHandler,
 	EthChainIdHandler,
 	EthGasPriceHandler,
@@ -226,6 +227,16 @@ export type TevmClient = {
 		 * console.log(blockNumber) // 0n
 		 */
 		blockNumber: EthBlockNumberHandler
+		/**
+		 * Executes a call without modifying the state
+		 * Set the `tag` to a block number or block hash to get the balance at that block
+		 * Block tag defaults to 'pending' tag which is the optimistic state of the VM
+		 * @see {@link https://ethereum.github.io/execution-apis/api-documentation/ | JSON-RPC}
+		 * @example
+		 * const res = await tevm.eth.call({to: '0x123...', data: '0x123...'})
+		 * console.log(res) // "0x..."
+		 */
+		call: EthCallHandler
 		/**
 		 * Returns the current chain id
 		 * Set the `tag` to a block number or block hash to get the balance at that block

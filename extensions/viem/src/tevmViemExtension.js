@@ -63,7 +63,7 @@ export const tevmViemExtension = () => {
 		 */
 		const request = async (req) => {
 			try {
-				const result = await client.request(/** @type any*/ (req))
+				const result = await client.request(/** @type any*/(req))
 				return /** @type any */ ({
 					jsonrpc: '2.0',
 					method: req.method,
@@ -103,7 +103,7 @@ export const tevmViemExtension = () => {
 							...getCallArgs(params),
 							deployedBytecode: params.deployedBytecode,
 							data: encodeFunctionData(
-								/** @type any*/ ({
+								/** @type any*/({
 									abi: params.abi,
 									functionName: params.functionName,
 									args: params.args,
@@ -114,7 +114,7 @@ export const tevmViemExtension = () => {
 				)
 			)
 			out.data = decodeFunctionResult(
-				/** @type any*/ ({
+				/** @type any*/({
 					data: out.rawData,
 					abi: params.abi,
 					functionName: params.functionName,
@@ -253,7 +253,7 @@ export const tevmViemExtension = () => {
 			const out = await call({
 				...params,
 				data: encodeFunctionData(
-					/** @type any*/ ({
+					/** @type any*/({
 						abi: params.abi,
 						functionName: params.functionName,
 						args: params.args,
@@ -262,7 +262,7 @@ export const tevmViemExtension = () => {
 			})
 
 			const data = decodeFunctionResult(
-				/** @type any*/ ({
+				/** @type any*/({
 					data: out.rawData,
 					abi: params.abi,
 					functionName: params.functionName,
@@ -288,6 +288,39 @@ export const tevmViemExtension = () => {
 						params: [],
 					}),
 				),
+			)
+		}
+
+		/**
+		 * @type {import('@tevm/actions-types').EthCallHandler}
+		 */
+		const ethCall = async ({
+			blockTag = 'latest',
+			to,
+			gas,
+			data,
+			from = `0x${'0'.repeat(40)}`,
+			value,
+			gasPrice
+		}) => {
+			return /** @type {any} */ (
+				formatResult(
+					await request({
+						method: 'eth_call',
+						jsonrpc: '2.0',
+						params: [
+							{
+								from,
+								...(gas ? { gas: numberToHex(gas) } : {}),
+								...(gasPrice ? { gasPrice: numberToHex(gasPrice) } : {}),
+								...(to ? { to } : {}),
+								...(value ? { value: numberToHex(value) } : {}),
+								...(data ? { data } : {})
+							},
+							formatBlockTag(blockTag)
+						],
+					}),
+				)
 			)
 		}
 
@@ -421,6 +454,7 @@ export const tevmViemExtension = () => {
 		return {
 			tevm: {
 				eth: {
+					call: ethCall,
 					blockNumber,
 					chainId,
 					gasPrice,
