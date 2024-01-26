@@ -14,13 +14,13 @@ Params for `anvil_stopImpersonatingAccount` handler
 
 ### address
 
-> **address**: `Address`
+> **address**: [`Address`](../../index/type-aliases/Address.md)
 
 The address to stop impersonating
 
 ## Source
 
-packages/actions-types/types/params/AnvilParams.d.ts:18
+packages/actions-types/types/params/AnvilParams.d.ts:17
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -12,7 +12,7 @@ Based on the JSON-RPC request for `eth_newFilter` procedure
 
 ## Source
 
-[params/EthParams.ts:253](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L253)
+[params/EthParams.ts:249](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L249)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

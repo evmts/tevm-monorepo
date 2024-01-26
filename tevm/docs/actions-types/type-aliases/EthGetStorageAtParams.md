@@ -14,15 +14,15 @@ Based on the JSON-RPC request for `eth_getStorageAt` procedure
 
 ### address
 
-> **address**: `Address`
+> **address**: [`Address`](../../index/type-aliases/Address.md)
+
+### blockTag
+
+> **blockTag**?: [`BlockParam`](../../index/type-aliases/BlockParam.md)
 
 ### position
 
 > **position**: [`Hex`](../../index/type-aliases/Hex.md)
-
-### tag
-
-> **tag**?: `BlockTag` \| [`Hex`](../../index/type-aliases/Hex.md)
 
 ## Source
 

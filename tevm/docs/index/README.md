@@ -15,8 +15,8 @@
 ### Type Aliases
 
 - [Abi](type-aliases/Abi.md)
-- [Account](type-aliases/Account.md)
 - [Address](type-aliases/Address.md)
+- [BlockParam](type-aliases/BlockParam.md)
 - [CallParams](type-aliases/CallParams.md)
 - [CallResult](type-aliases/CallResult.md)
 - [Contract](type-aliases/Contract.md)

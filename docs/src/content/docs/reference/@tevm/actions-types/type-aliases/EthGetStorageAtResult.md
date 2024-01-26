@@ -5,7 +5,7 @@ prev: false
 title: "EthGetStorageAtResult"
 ---
 
-> **EthGetStorageAtResult**: `Hex`
+> **EthGetStorageAtResult**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
 
 JSON-RPC response for `eth_getStorageAt` procedure
 

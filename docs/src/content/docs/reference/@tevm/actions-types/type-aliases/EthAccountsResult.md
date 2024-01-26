@@ -5,7 +5,7 @@ prev: false
 title: "EthAccountsResult"
 ---
 
-> **EthAccountsResult**: `Address`[]
+> **EthAccountsResult**: [`Address`](/reference/tevm/actions-types/type-aliases/address/)[]
 
 ## Source
 

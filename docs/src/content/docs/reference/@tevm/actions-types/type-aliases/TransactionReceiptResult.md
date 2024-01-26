@@ -13,27 +13,27 @@ Transaction receipt result type for eth JSON-RPC procedures
 
 ### blockHash
 
-> **`readonly`** **blockHash**: `Hex`
+> **`readonly`** **blockHash**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
 
 ### blockNumber
 
-> **`readonly`** **blockNumber**: `Hex`
+> **`readonly`** **blockNumber**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
 
 ### contractAddress
 
-> **`readonly`** **contractAddress**: `Hex`
+> **`readonly`** **contractAddress**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
 
 ### cumulativeGasUsed
 
-> **`readonly`** **cumulativeGasUsed**: `Hex`
+> **`readonly`** **cumulativeGasUsed**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
 
 ### from
 
-> **`readonly`** **from**: `Hex`
+> **`readonly`** **from**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
 
 ### gasUsed
 
-> **`readonly`** **gasUsed**: `Hex`
+> **`readonly`** **gasUsed**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
 
 ### logs
 
@@ -41,23 +41,23 @@ Transaction receipt result type for eth JSON-RPC procedures
 
 ### logsBloom
 
-> **`readonly`** **logsBloom**: `Hex`
+> **`readonly`** **logsBloom**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
 
 ### status
 
-> **`readonly`** **status**: `Hex`
+> **`readonly`** **status**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
 
 ### to
 
-> **`readonly`** **to**: `Hex`
+> **`readonly`** **to**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
 
 ### transactionHash
 
-> **`readonly`** **transactionHash**: `Hex`
+> **`readonly`** **transactionHash**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
 
 ### transactionIndex
 
-> **`readonly`** **transactionIndex**: `Hex`
+> **`readonly`** **transactionIndex**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
 
 ## Source
 

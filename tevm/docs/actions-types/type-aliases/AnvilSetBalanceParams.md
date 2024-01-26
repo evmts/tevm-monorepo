@@ -14,7 +14,7 @@ Params for `anvil_setBalance` handler
 
 ### address
 
-> **address**: `Address`
+> **address**: [`Address`](../../index/type-aliases/Address.md)
 
 The address to set the balance for
 
@@ -26,7 +26,7 @@ The balance to set
 
 ## Source
 
-packages/actions-types/types/params/AnvilParams.d.ts:72
+packages/actions-types/types/params/AnvilParams.d.ts:71
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

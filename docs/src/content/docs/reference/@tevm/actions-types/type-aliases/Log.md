@@ -13,15 +13,15 @@ Generic log information
 
 ### address
 
-> **`readonly`** **address**: `Address`
+> **`readonly`** **address**: [`Address`](/reference/tevm/actions-types/type-aliases/address/)
 
 ### data
 
-> **`readonly`** **data**: `Hex`
+> **`readonly`** **data**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
 
 ### topics
 
-> **`readonly`** **topics**: `Hex`[]
+> **`readonly`** **topics**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)[]
 
 ## Source
 

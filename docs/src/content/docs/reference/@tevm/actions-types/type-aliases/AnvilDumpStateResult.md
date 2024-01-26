@@ -5,7 +5,7 @@ prev: false
 title: "AnvilDumpStateResult"
 ---
 
-> **AnvilDumpStateResult**: `Hex`
+> **AnvilDumpStateResult**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
 
 ## Source
 

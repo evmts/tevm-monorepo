@@ -14,13 +14,13 @@ Params fro `anvil_impersonateAccount` handler
 
 ### address
 
-> **address**: `Address`
+> **address**: [`Address`](../../index/type-aliases/Address.md)
 
 The address to impersonate
 
 ## Source
 
-packages/actions-types/types/params/AnvilParams.d.ts:9
+packages/actions-types/types/params/AnvilParams.d.ts:8
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

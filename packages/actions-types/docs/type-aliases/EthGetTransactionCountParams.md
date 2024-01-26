@@ -14,15 +14,15 @@ Based on the JSON-RPC request for `eth_getTransactionCount` procedure
 
 ### address
 
-> **address**: `Address`
+> **address**: [`Address`](Address.md)
 
-### tag
+### blockTag
 
-> **tag**?: `BlockTag` \| `Hex`
+> **blockTag**?: [`BlockParam`](BlockParam.md)
 
 ## Source
 
-[params/EthParams.ts:156](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L156)
+[params/EthParams.ts:149](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L149)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

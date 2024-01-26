@@ -6,7 +6,7 @@
 
 # Type alias: DumpStateHandler
 
-> **DumpStateHandler**: () => `Promise`\<`DumpStateResult`\>
+> **DumpStateHandler**: () => `Promise`\<[`DumpStateResult`](DumpStateResult.md)\>
 
 Dumps the current state of the VM into a JSON-seralizable object
 

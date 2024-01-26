@@ -12,13 +12,13 @@ Based on the JSON-RPC request for `eth_getTransactionByBlockHashAndIndex` proced
 
 ## Type declaration
 
+### blockTag
+
+> **blockTag**?: [`Hex`](../../index/type-aliases/Hex.md)
+
 ### index
 
 > **index**: [`Hex`](../../index/type-aliases/Hex.md)
-
-### tag
-
-> **tag**?: [`Hex`](../../index/type-aliases/Hex.md)
 
 ## Source
 

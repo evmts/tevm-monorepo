@@ -20,7 +20,7 @@ The transaction hash
 
 ## Source
 
-packages/actions-types/types/params/AnvilParams.d.ts:63
+packages/actions-types/types/params/AnvilParams.d.ts:62
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

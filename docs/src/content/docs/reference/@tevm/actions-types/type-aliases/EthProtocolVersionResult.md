@@ -5,7 +5,7 @@ prev: false
 title: "EthProtocolVersionResult"
 ---
 
-> **EthProtocolVersionResult**: `Hex`
+> **EthProtocolVersionResult**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
 
 JSON-RPC response for `eth_protocolVersion` procedure
 

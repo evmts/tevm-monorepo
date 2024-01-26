@@ -5,7 +5,7 @@ prev: false
 title: "EthGetCodeResult"
 ---
 
-> **EthGetCodeResult**: `Hex`
+> **EthGetCodeResult**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
 
 JSON-RPC response for `eth_getCode` procedure
 

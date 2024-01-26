@@ -62,7 +62,7 @@ describe(getBalanceHandler.name, () => {
 				await getBalanceHandler({
 					stateManager: stateManager as any,
 					forkUrl: 'https://mainnet.optimism.io',
-				})({ address, blockNumber }),
+				})({ address, blockTag: blockNumber }),
 			).toEqual(5536669375141759n)
 		},
 	)

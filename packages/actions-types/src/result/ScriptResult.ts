@@ -1,6 +1,6 @@
+import type { Abi } from '../common/index.js'
 import type { ContractResult } from './ContractResult.js'
 import type { ScriptError } from '@tevm/errors'
-import type { Abi } from '../common/index.js'
 import type { ContractFunctionName } from 'viem'
 
 export type ScriptResult<

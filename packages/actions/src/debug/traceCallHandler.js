@@ -14,14 +14,7 @@ export const traceCallHandler =
 		const evm = /** @type {import('@ethereumjs/evm').EVMInterface}*/ (
 			_evm.shallowCopy()
 		)
-		const {
-			account,
-			to,
-			gas: gasLimit,
-			gasPrice,
-			value,
-			data,
-		} = params.transaction
+		const { from, to, gas: gasLimit, gasPrice, value, data } = params
 
 		const trace = {
 			gas: 0n,
@@ -66,14 +59,10 @@ export const traceCallHandler =
 		})
 
 		const res = await evm.runCall({
-			...(account !== undefined
+			...(from !== undefined
 				? {
-						origin: Address.fromString(
-							typeof account === 'string' ? account : account.address,
-						),
-						caller: Address.fromString(
-							typeof account === 'string' ? account : account.address,
-						),
+						origin: Address.fromString(from),
+						caller: Address.fromString(from),
 				  }
 				: {}),
 			...(data !== undefined ? { data: hexToBytes(data) } : {}),

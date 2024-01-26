@@ -6,7 +6,7 @@
 
 # Type alias: EthNewPendingTransactionFilterJsonRpcResponse
 
-> **EthNewPendingTransactionFilterJsonRpcResponse**: [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"eth_newPendingTransactionFilter"`, [`Hex`](../../index/type-aliases/Hex.md), `string`\>
+> **EthNewPendingTransactionFilterJsonRpcResponse**: [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"eth_newPendingTransactionFilter"`, `Hex`, `string`\>
 
 JSON-RPC response for `eth_newPendingTransactionFilter` procedure
 

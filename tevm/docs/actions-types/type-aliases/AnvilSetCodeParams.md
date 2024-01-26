@@ -14,7 +14,7 @@ Params for `anvil_setCode` handler
 
 ### address
 
-> **address**: `Address`
+> **address**: [`Address`](../../index/type-aliases/Address.md)
 
 The address to set the code for
 
@@ -26,7 +26,7 @@ The code to set
 
 ## Source
 
-packages/actions-types/types/params/AnvilParams.d.ts:85
+packages/actions-types/types/params/AnvilParams.d.ts:84
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

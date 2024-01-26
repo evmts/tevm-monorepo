@@ -19,7 +19,7 @@ title: "DebugTraceCallResult"
 
 ### returnValue
 
-> **`readonly`** **returnValue**: `Hex`
+> **`readonly`** **returnValue**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
 
 ### structLogs
 

@@ -9,18 +9,17 @@ export const ethCallProcedure = (evm) => async (req) => {
 	const [tx, blockTag] = req.params
 	const { data, from, to, gas, gasPrice, value } = tx
 	const response = await callProcedure(evm)({
+		...(req.id !== undefined ? { id: req.id } : {}),
 		jsonrpc: req.jsonrpc,
-		id: req.id,
 		method: 'tevm_call',
 		params: {
-			data,
-			from,
-			gas,
-			gasPrice,
-			value,
-			to,
-			// @ts-ignore TODO we need to change the call type to take a blockTag instead of a block
-			blockTag,
+			...(gasPrice !== undefined ? { gasPrice } : {}),
+			...(data !== undefined ? { data } : {}),
+			...(gas !== undefined ? { gas } : {}),
+			...(value !== undefined ? { value } : {}),
+			...(to !== undefined ? { to } : {}),
+			...(from !== undefined ? { from } : {}),
+			...(blockTag !== undefined ? { blockTag } : {}),
 		},
 	})
 	if (!response.result) {

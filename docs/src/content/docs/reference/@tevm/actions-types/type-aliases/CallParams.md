@@ -26,19 +26,19 @@ const callParams: import('@tevm/api').CallParams = {
 
 ### data
 
-> **data**?: `Hex`
+> **data**?: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
 
 The input data.
 
 ### deployedBytecode
 
-> **deployedBytecode**?: `Hex`
+> **deployedBytecode**?: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
 
 The EVM code to run.
 
 ### salt
 
-> **salt**?: `Hex`
+> **salt**?: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
 
 An optional CREATE2 salt.
 

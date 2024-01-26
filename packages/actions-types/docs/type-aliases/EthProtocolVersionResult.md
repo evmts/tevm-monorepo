@@ -6,7 +6,7 @@
 
 # Type alias: EthProtocolVersionResult
 
-> **EthProtocolVersionResult**: `Hex`
+> **EthProtocolVersionResult**: [`Hex`](Hex.md)
 
 JSON-RPC response for `eth_protocolVersion` procedure
 

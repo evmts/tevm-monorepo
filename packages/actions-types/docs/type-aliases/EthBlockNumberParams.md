@@ -12,7 +12,7 @@ Based on the JSON-RPC request for `eth_blockNumber` procedure (no params)
 
 ## Source
 
-[params/EthParams.ts:25](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L25)
+[params/EthParams.ts:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L19)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

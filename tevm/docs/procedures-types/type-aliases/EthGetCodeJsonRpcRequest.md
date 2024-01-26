@@ -6,7 +6,7 @@
 
 # Type alias: EthGetCodeJsonRpcRequest
 
-> **EthGetCodeJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"eth_getCode"`, readonly [`Address`, `BlockTag` \| [`Hex`](../../index/type-aliases/Hex.md)]\>
+> **EthGetCodeJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"eth_getCode"`, readonly [`Address`, `BlockTag` \| `Hex`]\>
 
 JSON-RPC request for `eth_getCode` procedure
 

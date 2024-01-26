@@ -308,16 +308,14 @@ describe('traceCallHandler', () => {
 		expect(
 			await traceCallHandler({ evm })({
 				tracer: 'callTracer',
-				transaction: {
-					data: encodeFunctionData({
-						abi: ERC20_ABI,
-						functionName: 'transferFrom',
-						args: [ERC20_ADDRESS, ERC20_ADDRESS, 0n],
-					}),
-					to: ERC20_ADDRESS,
-					account: ERC20_ADDRESS,
-					gas: 16784800n,
-				},
+				data: encodeFunctionData({
+					abi: ERC20_ABI,
+					functionName: 'transferFrom',
+					args: [ERC20_ADDRESS, ERC20_ADDRESS, 0n],
+				}),
+				to: ERC20_ADDRESS,
+				from: ERC20_ADDRESS,
+				gas: 16784800n,
 			}),
 		).toMatchSnapshot()
 	})

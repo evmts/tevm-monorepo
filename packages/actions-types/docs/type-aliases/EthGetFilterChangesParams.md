@@ -14,11 +14,11 @@ Based on the JSON-RPC request for `eth_getFilterChanges` procedure
 
 ### filterId
 
-> **filterId**: `Hex`
+> **filterId**: [`Hex`](Hex.md)
 
 ## Source
 
-[params/EthParams.ts:132](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L132)
+[params/EthParams.ts:125](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L125)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

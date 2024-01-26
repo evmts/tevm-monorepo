@@ -14,7 +14,7 @@ A transaction request object
 
 ### from
 
-> **`readonly`** **from**: `Address`
+> **`readonly`** **from**: [`Address`](../../index/type-aliases/Address.md)
 
 ### gas
 
@@ -34,7 +34,7 @@ A transaction request object
 
 ### to
 
-> **`readonly`** **to**?: `Address`
+> **`readonly`** **to**?: [`Address`](../../index/type-aliases/Address.md)
 
 ### value
 

@@ -12,17 +12,17 @@ Based on the JSON-RPC request for `eth_getTransactionByBlockNumberAndIndex` proc
 
 ## Type declaration
 
+### blockTag
+
+> **blockTag**?: [`BlockParam`](BlockParam.md)
+
 ### index
 
-> **index**: `Hex`
-
-### tag
-
-> **tag**?: `BlockTag` \| `Hex`
+> **index**: [`Hex`](Hex.md)
 
 ## Source
 
-[params/EthParams.ts:187](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L187)
+[params/EthParams.ts:180](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L180)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -18,17 +18,16 @@ Properties shared accross call-like params
 
 Versioned hashes for each blob in a blob transaction
 
-### block
+### blockTag
 
-> **block**?: `Partial`\<[`Block`](Block.md)\>
-
-The `block` the `tx` belongs to. If omitted a default blank block will be used.
+> **blockTag**?: [`BlockParam`](../../index/type-aliases/BlockParam.md)
 
 ### caller
 
 > **caller**?: [`Address`](../../index/type-aliases/Address.md)
 
 The address that ran this code (`msg.sender`). Defaults to the zero address.
+This defaults to `from` address if set otherwise it defaults to the zero address
 
 ### depth
 
@@ -36,17 +35,25 @@ The address that ran this code (`msg.sender`). Defaults to the zero address.
 
 The call depth. Defaults to `0`
 
+### from
+
+> **from**?: [`Address`](../../index/type-aliases/Address.md)
+
+The from address for the call. Defaults to the zero address.
+It is also possible to set the `origin` and `caller` addresses seperately using
+those options. Otherwise both are set to the `from` address
+
 ### gas
 
 > **gas**?: `bigint`
 
 The gas price for the call. Defaults to `0`
 
-### gasLimit
+### gasPrice
 
-> **gasLimit**?: `bigint`
+> **gasPrice**?: `bigint`
 
-The gas limit for the call. Defaults to `16777215` (`0xffffff`)
+The gas price for the call. Defaults to `0`
 
 ### gasRefund
 
@@ -59,6 +66,7 @@ Refund counter. Defaults to `0`
 > **origin**?: [`Address`](../../index/type-aliases/Address.md)
 
 The address where the call originated from. Defaults to the zero address.
+This defaults to `from` address if set otherwise it defaults to the zero address
 
 ### selfdestruct
 
@@ -88,7 +96,7 @@ The value in ether that is being sent to `opts.address`. Defaults to `0`
 
 ## Source
 
-packages/actions-types/types/params/BaseCallParams.d.ts:6
+packages/actions-types/types/params/BaseCallParams.d.ts:5
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

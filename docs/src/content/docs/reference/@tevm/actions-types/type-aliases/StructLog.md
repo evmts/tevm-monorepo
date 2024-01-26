@@ -31,7 +31,7 @@ title: "StructLog"
 
 ### stack
 
-> **`readonly`** **stack**: `ReadonlyArray`\<`Hex`\>
+> **`readonly`** **stack**: `ReadonlyArray`\<[`Hex`](/reference/tevm/actions-types/type-aliases/hex/)\>
 
 ## Source
 

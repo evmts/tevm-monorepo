@@ -6,7 +6,7 @@
 
 # Type alias: EthGetLogsJsonRpcRequest
 
-> **EthGetLogsJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"eth_getLogs"`, [`FilterParams`]\>
+> **EthGetLogsJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"eth_getLogs"`, [[`FilterParams`](../../actions-types/type-aliases/FilterParams.md)]\>
 
 JSON-RPC request for `eth_getLogs` procedure
 

@@ -6,7 +6,7 @@
 
 # Type alias: EthSendTransactionResult
 
-> **EthSendTransactionResult**: `Hex`
+> **EthSendTransactionResult**: [`Hex`](Hex.md)
 
 JSON-RPC response for `eth_sendTransaction` procedure
 

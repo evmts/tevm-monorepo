@@ -13,23 +13,23 @@ FilterLog type for eth JSON-RPC procedures
 
 ### address
 
-> **`readonly`** **address**: `Hex`
+> **`readonly`** **address**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
 
 ### blockHash
 
-> **`readonly`** **blockHash**: `Hex`
+> **`readonly`** **blockHash**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
 
 ### blockNumber
 
-> **`readonly`** **blockNumber**: `Hex`
+> **`readonly`** **blockNumber**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
 
 ### data
 
-> **`readonly`** **data**: `Hex`
+> **`readonly`** **data**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
 
 ### logIndex
 
-> **`readonly`** **logIndex**: `Hex`
+> **`readonly`** **logIndex**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
 
 ### removed
 
@@ -37,15 +37,15 @@ FilterLog type for eth JSON-RPC procedures
 
 ### topics
 
-> **`readonly`** **topics**: readonly `Hex`[]
+> **`readonly`** **topics**: readonly [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)[]
 
 ### transactionHash
 
-> **`readonly`** **transactionHash**: `Hex`
+> **`readonly`** **transactionHash**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
 
 ### transactionIndex
 
-> **`readonly`** **transactionIndex**: `Hex`
+> **`readonly`** **transactionIndex**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
 
 ## Source
 

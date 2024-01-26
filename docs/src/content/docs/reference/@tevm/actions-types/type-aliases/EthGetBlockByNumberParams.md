@@ -7,21 +7,21 @@ title: "EthGetBlockByNumberParams"
 
 > **EthGetBlockByNumberParams**: `object`
 
-JSON-RPC request for `eth_getBlockByNumber` procedure
+Based on the JSON-RPC request for `eth_getBlockByNumber` procedure
 
 ## Type declaration
+
+### blockTag
+
+> **blockTag**?: [`BlockParam`](/reference/tevm/actions-types/type-aliases/blockparam/)
 
 ### fullTransactionObjects
 
 > **fullTransactionObjects**: `boolean`
 
-### tag
-
-> **tag**?: `BlockTag` \| `Hex`
-
 ## Source
 
-[params/EthParams.ts:80](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L80)
+[params/EthParams.ts:100](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L100)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

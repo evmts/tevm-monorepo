@@ -6,7 +6,7 @@
 
 # Type alias: EthGetBlockTransactionCountByNumberJsonRpcResponse
 
-> **EthGetBlockTransactionCountByNumberJsonRpcResponse**: [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"eth_getBlockTransactionCountByNumber"`, [`Hex`](../../index/type-aliases/Hex.md), `string`\>
+> **EthGetBlockTransactionCountByNumberJsonRpcResponse**: [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"eth_getBlockTransactionCountByNumber"`, `Hex`, `string`\>
 
 JSON-RPC response for `eth_getBlockTransactionCountByNumber` procedure
 

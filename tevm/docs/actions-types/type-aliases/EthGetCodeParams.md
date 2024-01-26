@@ -14,11 +14,11 @@ Based on the JSON-RPC request for `eth_getCode` procedure
 
 ### address
 
-> **address**: `Address`
+> **address**: [`Address`](../../index/type-aliases/Address.md)
 
-### tag
+### blockTag
 
-> **tag**?: `BlockTag` \| [`Hex`](../../index/type-aliases/Hex.md)
+> **blockTag**?: [`BlockParam`](../../index/type-aliases/BlockParam.md)
 
 ## Source
 

@@ -4,27 +4,16 @@
 
 [API](../API.md) > EthSendTransactionParams
 
-# Type alias: EthSendTransactionParams`<TChain>`
+# Type alias: EthSendTransactionParams
 
-> **EthSendTransactionParams**\<`TChain`\>: `Omit`\<`SendTransactionParameters`\<`TChain`\>, `"account"`\> & `object`
+> **EthSendTransactionParams**: [`CallParams`](CallParams.md)
 
 Based on the JSON-RPC request for `eth_sendTransaction` procedure
-
-## Type declaration
-
-### from
-
-> **from**: `Address`
-
-## Type parameters
-
-| Parameter | Default |
-| :------ | :------ |
-| `TChain` extends `Chain` \| `undefined` | `Chain` \| `undefined` |
+This type is a placeholder
 
 ## Source
 
-[params/EthParams.ts:231](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L231)
+[params/EthParams.ts:227](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L227)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

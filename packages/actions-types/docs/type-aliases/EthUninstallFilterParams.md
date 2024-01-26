@@ -14,11 +14,11 @@ Based on the JSON-RPC request for `eth_uninstallFilter` procedure
 
 ### filterId
 
-> **filterId**: `Hex`
+> **filterId**: [`Hex`](Hex.md)
 
 ## Source
 
-[params/EthParams.ts:268](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L268)
+[params/EthParams.ts:264](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L264)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

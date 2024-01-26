@@ -12,9 +12,9 @@ Based on the JSON-RPC request for `eth_getUncleCountByBlockNumber` procedure
 
 ## Type declaration
 
-### tag
+### blockTag
 
-> **tag**?: `BlockTag` \| [`Hex`](../../index/type-aliases/Hex.md)
+> **blockTag**?: [`BlockParam`](../../index/type-aliases/BlockParam.md)
 
 ## Source
 

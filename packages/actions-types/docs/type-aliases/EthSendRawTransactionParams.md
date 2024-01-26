@@ -6,13 +6,14 @@
 
 # Type alias: EthSendRawTransactionParams
 
-> **EthSendRawTransactionParams**: `SendRawTransactionParameters`
+> **EthSendRawTransactionParams**: [`CallParams`](CallParams.md)
 
 Based on the JSON-RPC request for `eth_sendRawTransaction` procedure
+This type is a placeholder
 
 ## Source
 
-[params/EthParams.ts:226](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L226)
+[params/EthParams.ts:220](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L220)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

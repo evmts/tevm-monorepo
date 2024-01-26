@@ -46,7 +46,11 @@ export const validateBaseCallParams = (action) => {
 		if (formattedErrors.blockTag) {
 			formattedErrors.blockTag._errors.forEach((error) => {
 				errors.push(
-					createError('InvalidBlockError', error, action.block?.toString() ?? 'undefined'),
+					createError(
+						'InvalidBlockError',
+						error,
+						action.blockTag?.toString() ?? 'undefined',
+					),
 				)
 			})
 		}

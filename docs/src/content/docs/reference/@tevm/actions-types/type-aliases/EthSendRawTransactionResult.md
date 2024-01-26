@@ -5,7 +5,7 @@ prev: false
 title: "EthSendRawTransactionResult"
 ---
 
-> **EthSendRawTransactionResult**: `Hex`
+> **EthSendRawTransactionResult**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
 
 JSON-RPC response for `eth_sendRawTransaction` procedure
 

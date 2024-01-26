@@ -9,6 +9,8 @@ title: "@tevm/actions-types"
 
 ### Type Aliases
 
+- [Abi](/reference/tevm/actions-types/type-aliases/abi/)
+- [Address](/reference/tevm/actions-types/type-aliases/address/)
 - [AnvilDropTransactionHandler](/reference/tevm/actions-types/type-aliases/anvildroptransactionhandler/)
 - [AnvilDropTransactionParams](/reference/tevm/actions-types/type-aliases/anvildroptransactionparams/)
 - [AnvilDropTransactionResult](/reference/tevm/actions-types/type-aliases/anvildroptransactionresult/)
@@ -50,7 +52,9 @@ title: "@tevm/actions-types"
 - [AnvilStopImpersonatingAccountResult](/reference/tevm/actions-types/type-aliases/anvilstopimpersonatingaccountresult/)
 - [BaseCallParams](/reference/tevm/actions-types/type-aliases/basecallparams/)
 - [Block](/reference/tevm/actions-types/type-aliases/block/)
+- [BlockParam](/reference/tevm/actions-types/type-aliases/blockparam/)
 - [BlockResult](/reference/tevm/actions-types/type-aliases/blockresult/)
+- [BlockTag](/reference/tevm/actions-types/type-aliases/blocktag/)
 - [CallHandler](/reference/tevm/actions-types/type-aliases/callhandler/)
 - [CallParams](/reference/tevm/actions-types/type-aliases/callparams/)
 - [CallResult](/reference/tevm/actions-types/type-aliases/callresult/)
@@ -186,6 +190,7 @@ title: "@tevm/actions-types"
 - [GetAccountHandler](/reference/tevm/actions-types/type-aliases/getaccounthandler/)
 - [GetAccountParams](/reference/tevm/actions-types/type-aliases/getaccountparams/)
 - [GetAccountResult](/reference/tevm/actions-types/type-aliases/getaccountresult/)
+- [Hex](/reference/tevm/actions-types/type-aliases/hex/)
 - [LoadStateHandler](/reference/tevm/actions-types/type-aliases/loadstatehandler/)
 - [LoadStateParams](/reference/tevm/actions-types/type-aliases/loadstateparams/)
 - [LoadStateResult](/reference/tevm/actions-types/type-aliases/loadstateresult/)

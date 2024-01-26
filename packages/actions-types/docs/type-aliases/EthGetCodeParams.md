@@ -14,15 +14,15 @@ Based on the JSON-RPC request for `eth_getCode` procedure
 
 ### address
 
-> **address**: `Address`
+> **address**: [`Address`](Address.md)
 
-### tag
+### blockTag
 
-> **tag**?: `BlockTag` \| `Hex`
+> **blockTag**?: [`BlockParam`](BlockParam.md)
 
 ## Source
 
-[params/EthParams.ts:127](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L127)
+[params/EthParams.ts:120](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L120)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

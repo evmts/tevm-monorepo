@@ -188,4 +188,15 @@ export type {
 	AnvilDropTransactionResult,
 	AnvilStopImpersonatingAccountResult,
 	DebugTraceTransactionResult,
+	Abi,
+	Hex,
+	Address,
+	BlockTag,
+	StructLog,
+	BlockParam,
+	EmptyParams,
+	FilterParams,
+	DumpStateResult,
+	LoadStateParams,
+	LoadStateResult
 } from '@tevm/actions-types'

@@ -12,16 +12,22 @@ Based on the JSON-RPC request for `eth_call` procedure
 
 ## Type declaration
 
+### blockTag
+
+> **blockTag**?: [`BlockParam`](BlockParam.md)
+
+The block number hash or block tag
+
 ### data
 
-> **data**?: `Hex`
+> **data**?: [`Hex`](Hex.md)
 
 The hash of the method signature and encoded parameters. For more information, see the Contract ABI description in the Solidity documentation
 Defaults to zero data
 
 ### from
 
-> **from**?: `Address`
+> **from**?: [`Address`](Address.md)
 
 The address from which the transaction is sent. Defaults to zero address
 
@@ -37,15 +43,9 @@ The integer of gas provided for the transaction execution
 
 The integer of gasPrice used for each paid gas
 
-### tag
-
-> **tag**?: `BlockTag` \| `Hex`
-
-The block number hash or block tag
-
 ### to
 
-> **to**?: `Address`
+> **to**?: [`Address`](Address.md)
 
 The address to which the transaction is addressed. Defaults to zero address
 
@@ -57,7 +57,7 @@ The integer of value sent with this transaction
 
 ## Source
 
-[params/EthParams.ts:30](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L30)
+[params/EthParams.ts:24](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L24)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

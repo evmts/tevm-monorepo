@@ -39,27 +39,8 @@ export const callProcedure = (evm) => async (request) => {
 		...(request.params.value
 			? { value: hexToBigInt(request.params.value) }
 			: {}),
-		...(request.params.block
-			? {
-				...(request.params.block.gasLimit
-					? { gasLimit: hexToBigInt(request.params.block.gasLimit) }
-					: {}),
-				...(request.params.block.baseFeePerGas
-					? { baseFeePerGas: hexToBigInt(request.params.block.baseFeePerGas) }
-					: {}),
-				...(request.params.block.blobGasPrice
-					? { blobGasPrice: hexToBigInt(request.params.block.blobGasPrice) }
-					: {}),
-				...(request.params.block.difficulty
-					? { difficulty: hexToBigInt(request.params.block.difficulty) }
-					: {}),
-				...(request.params.block.number
-					? { number: hexToBigInt(request.params.block.number) }
-					: {}),
-				...(request.params.block.timestamp
-					? { timestamp: hexToBigInt(request.params.block.timestamp) }
-					: {}),
-			}
+		...(request.params.blockTag
+			? { blockTag: (request.params.blockTag) }
 			: {}),
 	})
 	if (errors.length > 0) {

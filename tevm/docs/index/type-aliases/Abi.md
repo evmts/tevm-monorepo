@@ -6,13 +6,13 @@
 
 # Type alias: Abi
 
-> **Abi**: readonly (`AbiConstructor` \| `AbiError` \| `AbiEvent` \| `AbiFallback` \| `AbiFunction` \| `AbiReceive`)[]
+> **Abi**: `_Abi`
 
-Contract [ABI Specification](https://docs.soliditylang.org/en/latest/abi-spec.html#json)
+A valid [Ethereum JSON ABI](https://docs.soliditylang.org/en/latest/abi-spec.html#json)
 
 ## Source
 
-node\_modules/.pnpm/abitype@1.0.0\_typescript@5.3.3\_zod@3.22.4/node\_modules/abitype/dist/types/abi.d.ts:118
+packages/actions-types/types/common/Abi.d.ts:5
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

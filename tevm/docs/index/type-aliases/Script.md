@@ -99,7 +99,7 @@ console.log(MyScript.abi) // [{name: 'balanceOf', inputs: [...], outputs: [...],
 
 ### bytecode
 
-> **bytecode**: [`Hex`](Hex.md)
+> **bytecode**: `Hex`
 
 The contract bytecode. This can be used for deploying the contract
 bytecode is different from deployedBytecode in that the bytecode
@@ -108,7 +108,7 @@ bytecode is the code that is deployed
 
 ### deployedBytecode
 
-> **deployedBytecode**: [`Hex`](Hex.md)
+> **deployedBytecode**: `Hex`
 
 The deployed contract bytecode. TThis can be used with the `script` tevm method
 to execute arbitrary solidity code that isn't necessarily deployed to the chain
@@ -117,7 +117,7 @@ to deploy the contract whereas the deployed bytecode is the code that is deploye
 
 ### events
 
-> **events**: [`EventActionCreator`](EventActionCreator.md)\<`THumanReadableAbi`, [`Hex`](Hex.md), [`Hex`](Hex.md), `undefined`\>
+> **events**: [`EventActionCreator`](EventActionCreator.md)\<`THumanReadableAbi`, `Hex`, `Hex`, `undefined`\>
 
 Action creators for events. Can be used to create event filters in a typesafe way
 
@@ -151,7 +151,7 @@ The name of the contract. If imported this will match the name of the contract i
 
 ### read
 
-> **read**: [`ReadActionCreator`](ReadActionCreator.md)\<`THumanReadableAbi`, [`Hex`](Hex.md), [`Hex`](Hex.md), `undefined`\>
+> **read**: [`ReadActionCreator`](ReadActionCreator.md)\<`THumanReadableAbi`, `Hex`, `Hex`, `undefined`\>
 
 Action creators for contract view and pure functions
 
@@ -184,7 +184,7 @@ the address property if added.
 
 #### Type parameters
 
-▪ **TAddress** extends [`Address`](Address.md)
+▪ **TAddress** extends `Address`
 
 #### Parameters
 
@@ -203,7 +203,7 @@ a contract address to execute
 
 ### write
 
-> **write**: [`WriteActionCreator`](WriteActionCreator.md)\<`THumanReadableAbi`, [`Hex`](Hex.md), [`Hex`](Hex.md), `undefined`\>
+> **write**: [`WriteActionCreator`](WriteActionCreator.md)\<`THumanReadableAbi`, `Hex`, `Hex`, `undefined`\>
 
 Action creators for contract payable and nonpayable functions
 

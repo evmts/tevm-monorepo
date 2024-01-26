@@ -6,6 +6,20 @@ import {
 } from 'viem'
 
 /**
+ * @param {import('@tevm/actions-types').BlockParam|undefined} blockTag
+ * @returns {import('@tevm/actions-types').BlockTag | import('@tevm/actions-types').Hex}
+ */
+const formatBlockTag = (blockTag) => {
+	if (blockTag === undefined) {
+		return 'pending'
+	}
+	if (typeof blockTag === 'bigint') {
+		return numberToHex(blockTag)
+	}
+	return blockTag
+}
+
+/**
  * Decorates a viem [public client](https://viem.sh/) with the [tevm api](https://tevm.sh/generated/tevm/api/type-aliases/tevm/)
  * @type {import('./ViemTevmExtension.js').ViemTevmExtension}
  * @example
@@ -158,7 +172,7 @@ export const tevmViemExtension = () => {
 				...(params.caller ? { caller: params.caller } : {}),
 				...('data' in params && params.data ? { data: params.data } : {}),
 				...(params.depth ? { depth: params.depth } : {}),
-				...(params.gasLimit ? { gasLimit: numberToHex(params.gasLimit) } : {}),
+				...(params.gas ? { gas: numberToHex(params.gas) } : {}),
 				...(params.gas ? { gas: numberToHex(params.gas) } : {}),
 				...(params.gasRefund
 					? { gasRefund: numberToHex(params.gasRefund) }
@@ -169,30 +183,11 @@ export const tevmViemExtension = () => {
 					? { selfdestruct: [...params.selfdestruct] }
 					: {}),
 				...(params.skipBalance ? { skipBalance: params.skipBalance } : {}),
+				...(params.blockTag
+					? { blockTag: formatBlockTag(params.blockTag) }
+					: {}),
 				...(params.to ? { to: params.to } : {}),
 				...(params.value ? { value: numberToHex(params.value) } : {}),
-				...(params.block
-					? {
-							...(params.block.gasLimit
-								? { gasLimit: numberToHex(params.block.gasLimit) }
-								: {}),
-							...(params.block.baseFeePerGas
-								? { baseFeePerGas: numberToHex(params.block.baseFeePerGas) }
-								: {}),
-							...(params.block.blobGasPrice
-								? { blobGasPrice: numberToHex(params.block.blobGasPrice) }
-								: {}),
-							...(params.block.difficulty
-								? { difficulty: numberToHex(params.block.difficulty) }
-								: {}),
-							...(params.block.number
-								? { number: numberToHex(params.block.number) }
-								: {}),
-							...(params.block.timestamp
-								? { timestamp: numberToHex(params.block.timestamp) }
-								: {}),
-					  }
-					: {}),
 			}
 		}
 
@@ -383,7 +378,7 @@ export const tevmViemExtension = () => {
 					await request({
 						method: 'eth_getBalance',
 						jsonrpc: '2.0',
-						params: [params.address, params.blockTag ?? 'pending'],
+						params: [params.address, formatBlockTag(params.blockTag)],
 					}),
 				),
 			)
@@ -398,7 +393,7 @@ export const tevmViemExtension = () => {
 					await request({
 						method: 'eth_getCode',
 						jsonrpc: '2.0',
-						params: [params.address, params.tag ?? 'pending'],
+						params: [params.address, formatBlockTag(params.blockTag)],
 					}),
 				)
 			)
@@ -413,7 +408,11 @@ export const tevmViemExtension = () => {
 					await request({
 						method: 'eth_getStorageAt',
 						jsonrpc: '2.0',
-						params: [params.address, params.position, params.tag ?? 'pending'],
+						params: [
+							params.address,
+							params.position,
+							formatBlockTag(params.blockTag),
+						],
 					}),
 				)
 			)

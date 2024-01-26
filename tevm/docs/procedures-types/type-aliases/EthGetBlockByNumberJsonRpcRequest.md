@@ -6,7 +6,7 @@
 
 # Type alias: EthGetBlockByNumberJsonRpcRequest
 
-> **EthGetBlockByNumberJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"eth_getBlockByNumber"`, readonly [`BlockTag` \| [`Hex`](../../index/type-aliases/Hex.md), `boolean`]\>
+> **EthGetBlockByNumberJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"eth_getBlockByNumber"`, readonly [`BlockTag` \| `Hex`, `boolean`]\>
 
 JSON-RPC request for `eth_getBlockByNumber` procedure
 

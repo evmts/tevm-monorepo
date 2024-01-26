@@ -6,9 +6,15 @@
 
 # Type alias: EthGetTransactionReceiptParams
 
-> **EthGetTransactionReceiptParams**: `GetTransactionParameters`
+> **EthGetTransactionReceiptParams**: `object`
 
 Based on the JSON-RPC request for `eth_getTransactionReceipt` procedure
+
+## Type declaration
+
+### hash
+
+> **hash**: [`Hex`](../../index/type-aliases/Hex.md)
 
 ## Source
 

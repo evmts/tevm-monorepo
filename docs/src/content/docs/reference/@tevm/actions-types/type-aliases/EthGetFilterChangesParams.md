@@ -7,17 +7,17 @@ title: "EthGetFilterChangesParams"
 
 > **EthGetFilterChangesParams**: `object`
 
-JSON-RPC request for `eth_getFilterChanges` procedure
+Based on the JSON-RPC request for `eth_getFilterChanges` procedure
 
 ## Type declaration
 
 ### filterId
 
-> **filterId**: `Hex`
+> **filterId**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
 
 ## Source
 
-[params/EthParams.ts:103](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L103)
+[params/EthParams.ts:125](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L125)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -6,7 +6,7 @@
 
 # Function: toHex()
 
-> **toHex**(`value`, `opts`?): [`Hex`](../type-aliases/Hex.md)
+> **toHex**(`value`, `opts`?): `Hex`
 
 Encodes a string, number, bigint, or ByteArray into a hex string
 

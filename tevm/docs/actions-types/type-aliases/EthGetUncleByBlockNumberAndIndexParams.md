@@ -12,9 +12,9 @@ Based on the JSON-RPC request for `eth_getUncleByBlockNumberAndIndex` procedure
 
 ## Type declaration
 
-### tag
+### blockTag
 
-> **tag**?: `BlockTag` \| [`Hex`](../../index/type-aliases/Hex.md)
+> **blockTag**?: [`BlockParam`](../../index/type-aliases/BlockParam.md)
 
 ### uncleIndex
 
@@ -22,7 +22,7 @@ Based on the JSON-RPC request for `eth_getUncleByBlockNumberAndIndex` procedure
 
 ## Source
 
-packages/actions-types/types/params/EthParams.d.ts:185
+packages/actions-types/types/params/EthParams.d.ts:187
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

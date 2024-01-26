@@ -12,9 +12,9 @@ Based on the JSON-RPC request for `eth_getBlockTransactionCountByNumber` procedu
 
 ## Type declaration
 
-### tag
+### blockTag
 
-> **tag**?: `BlockTag` \| [`Hex`](../../index/type-aliases/Hex.md)
+> **blockTag**?: [`BlockParam`](../../index/type-aliases/BlockParam.md)
 
 ## Source
 

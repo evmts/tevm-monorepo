@@ -14,19 +14,19 @@ Params for `anvil_setBalance` handler
 
 ### address
 
-> **address**: `Address`
+> **address**: [`Address`](Address.md)
 
 The address to set the balance for
 
 ### balance
 
-> **balance**: `Hex` \| `BigInt`
+> **balance**: [`Hex`](Hex.md) \| `BigInt`
 
 The balance to set
 
 ## Source
 
-[params/AnvilParams.ts:89](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/AnvilParams.ts#L89)
+[params/AnvilParams.ts:88](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/AnvilParams.ts#L88)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

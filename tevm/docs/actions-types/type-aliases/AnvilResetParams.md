@@ -18,7 +18,7 @@ Params for `anvil_reset` handler
 
 ### fork.block
 
-> **fork.block**?: `BlockTag` \| [`Hex`](../../index/type-aliases/Hex.md) \| `BigInt`
+> **fork.block**?: [`BlockTag`](BlockTag.md) \| [`Hex`](../../index/type-aliases/Hex.md) \| `BigInt`
 
 The block number
 
@@ -30,7 +30,7 @@ The url to fork if forking
 
 ## Source
 
-packages/actions-types/types/params/AnvilParams.d.ts:48
+packages/actions-types/types/params/AnvilParams.d.ts:47
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

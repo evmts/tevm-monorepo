@@ -5,7 +5,7 @@ prev: false
 title: "EthGetUncleByBlockHashAndIndexResult"
 ---
 
-> **EthGetUncleByBlockHashAndIndexResult**: `Hex`
+> **EthGetUncleByBlockHashAndIndexResult**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
 
 JSON-RPC response for `eth_getUncleByBlockHashAndIndex` procedure
 

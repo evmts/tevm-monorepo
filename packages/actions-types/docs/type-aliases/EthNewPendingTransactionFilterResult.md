@@ -6,7 +6,7 @@
 
 # Type alias: EthNewPendingTransactionFilterResult
 
-> **EthNewPendingTransactionFilterResult**: `Hex`
+> **EthNewPendingTransactionFilterResult**: [`Hex`](Hex.md)
 
 JSON-RPC response for `eth_newPendingTransactionFilter` procedure
 

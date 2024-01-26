@@ -17,7 +17,7 @@ Params for `anvil_reset` handler
 
 ### fork.block
 
-> **fork.block**?: `BlockTag` \| `Hex` \| `BigInt`
+> **fork.block**?: [`BlockTag`](/reference/tevm/actions-types/type-aliases/blocktag/) \| [`Hex`](/reference/tevm/actions-types/type-aliases/hex/) \| `BigInt`
 
 The block number
 
@@ -29,7 +29,7 @@ The url to fork if forking
 
 ## Source
 
-[params/AnvilParams.ts:61](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/AnvilParams.ts#L61)
+[params/AnvilParams.ts:60](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/AnvilParams.ts#L60)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

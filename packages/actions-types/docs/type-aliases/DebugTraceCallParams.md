@@ -4,35 +4,15 @@
 
 [API](../API.md) > DebugTraceCallParams
 
-# Type alias: DebugTraceCallParams`<TChain>`
+# Type alias: DebugTraceCallParams
 
-> **DebugTraceCallParams**\<`TChain`\>: [`TraceParams`](TraceParams.md) & `object`
+> **DebugTraceCallParams**: [`TraceParams`](TraceParams.md) & [`EthCallParams`](EthCallParams.md)
 
 Params taken by `debug_traceCall` handler
 
-## Type declaration
-
-### block
-
-> **block**?: `BlockTag` \| `Hex` \| `BigInt`
-
-Block information
-
-### transaction
-
-> **transaction**: `CallParameters`\<`TChain`\>
-
-The transaction to debug
-
-## Type parameters
-
-| Parameter | Default |
-| :------ | :------ |
-| `TChain` extends `Chain` \| `undefined` | `Chain` \| `undefined` |
-
 ## Source
 
-[params/DebugParams.ts:55](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/DebugParams.ts#L55)
+[params/DebugParams.ts:56](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/DebugParams.ts#L56)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

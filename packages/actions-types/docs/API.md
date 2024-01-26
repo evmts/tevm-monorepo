@@ -8,6 +8,8 @@
 
 ### Type Aliases
 
+- [Abi](type-aliases/Abi.md)
+- [Address](type-aliases/Address.md)
 - [AnvilDropTransactionHandler](type-aliases/AnvilDropTransactionHandler.md)
 - [AnvilDropTransactionParams](type-aliases/AnvilDropTransactionParams.md)
 - [AnvilDropTransactionResult](type-aliases/AnvilDropTransactionResult.md)
@@ -49,7 +51,9 @@
 - [AnvilStopImpersonatingAccountResult](type-aliases/AnvilStopImpersonatingAccountResult.md)
 - [BaseCallParams](type-aliases/BaseCallParams.md)
 - [Block](type-aliases/Block.md)
+- [BlockParam](type-aliases/BlockParam.md)
 - [BlockResult](type-aliases/BlockResult.md)
+- [BlockTag](type-aliases/BlockTag.md)
 - [CallHandler](type-aliases/CallHandler.md)
 - [CallParams](type-aliases/CallParams.md)
 - [CallResult](type-aliases/CallResult.md)
@@ -185,6 +189,7 @@
 - [GetAccountHandler](type-aliases/GetAccountHandler.md)
 - [GetAccountParams](type-aliases/GetAccountParams.md)
 - [GetAccountResult](type-aliases/GetAccountResult.md)
+- [Hex](type-aliases/Hex.md)
 - [LoadStateHandler](type-aliases/LoadStateHandler.md)
 - [LoadStateParams](type-aliases/LoadStateParams.md)
 - [LoadStateResult](type-aliases/LoadStateResult.md)

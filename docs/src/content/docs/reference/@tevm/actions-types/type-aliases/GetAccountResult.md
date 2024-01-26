@@ -19,7 +19,7 @@ Result of GetAccount Action
 
 ### address
 
-> **address**: `Address`
+> **address**: [`Address`](/reference/tevm/actions-types/type-aliases/address/)
 
 Address of account
 
@@ -31,7 +31,7 @@ Balance to set account to
 
 ### deployedBytecode
 
-> **deployedBytecode**?: `Hex`
+> **deployedBytecode**?: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
 
 Contract bytecode to set account to
 
@@ -49,13 +49,13 @@ Nonce to set account to
 
 ### storageRoot
 
-> **storageRoot**?: `Hex`
+> **storageRoot**?: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
 
 Storage root to set account to
 
 ## Source
 
-[result/GetAccountResult.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/result/GetAccountResult.ts#L8)
+[result/GetAccountResult.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/result/GetAccountResult.ts#L7)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

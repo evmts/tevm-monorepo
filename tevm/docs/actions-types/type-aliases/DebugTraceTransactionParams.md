@@ -20,7 +20,7 @@ The transaction hash
 
 ## Source
 
-packages/actions-types/types/params/DebugParams.d.ts:24
+packages/actions-types/types/params/DebugParams.d.ts:25
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

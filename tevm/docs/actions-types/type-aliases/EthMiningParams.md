@@ -6,13 +6,13 @@
 
 # Type alias: EthMiningParams
 
-> **EthMiningParams**: `EmptyParams`
+> **EthMiningParams**: [`EmptyParams`](EmptyParams.md)
 
 Based on the JSON-RPC request for `eth_mining` procedure
 
 ## Source
 
-packages/actions-types/types/params/EthParams.d.ts:192
+packages/actions-types/types/params/EthParams.d.ts:194
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

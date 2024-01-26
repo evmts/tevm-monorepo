@@ -6,7 +6,7 @@
 
 # Type alias: EthGetTransactionCountJsonRpcRequest
 
-> **EthGetTransactionCountJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"eth_getTransactionCount"`, readonly [`Address`, `BlockTag` \| [`Hex`](../../index/type-aliases/Hex.md)]\>
+> **EthGetTransactionCountJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"eth_getTransactionCount"`, readonly [`Address`, `BlockTag` \| `Hex`]\>
 
 JSON-RPC request for `eth_getTransactionCount` procedure
 

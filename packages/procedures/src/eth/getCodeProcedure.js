@@ -12,6 +12,6 @@ export const getCodeProcedure =
 		method: req.method,
 		result: await getCodeHandler({ stateManager, forkUrl })({
 			address: req.params[0],
-			tag: req.params[1],
+			blockTag: req.params[1],
 		}),
 	})

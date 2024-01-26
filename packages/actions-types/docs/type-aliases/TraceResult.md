@@ -16,7 +16,7 @@
 
 ### from
 
-> **from**: `Address`
+> **from**: [`Address`](Address.md)
 
 ### gas
 
@@ -28,15 +28,15 @@
 
 ### input
 
-> **input**: `Hex`
+> **input**: [`Hex`](Hex.md)
 
 ### output
 
-> **output**: `Hex`
+> **output**: [`Hex`](Hex.md)
 
 ### to
 
-> **to**: `Address`
+> **to**: [`Address`](Address.md)
 
 ### type
 

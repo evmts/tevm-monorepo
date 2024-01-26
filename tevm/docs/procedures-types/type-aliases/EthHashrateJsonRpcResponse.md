@@ -6,7 +6,7 @@
 
 # Type alias: EthHashrateJsonRpcResponse
 
-> **EthHashrateJsonRpcResponse**: [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"eth_hashrate"`, [`Hex`](../../index/type-aliases/Hex.md), `string`\>
+> **EthHashrateJsonRpcResponse**: [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"eth_hashrate"`, `Hex`, `string`\>
 
 JSON-RPC response for `eth_hashrate` procedure
 

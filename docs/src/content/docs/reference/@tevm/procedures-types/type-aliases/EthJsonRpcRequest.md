@@ -9,7 +9,7 @@ title: "EthJsonRpcRequest"
 
 ## Source
 
-[requests/EthJsonRpcRequest.ts:321](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L321)
+[requests/EthJsonRpcRequest.ts:351](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L351)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

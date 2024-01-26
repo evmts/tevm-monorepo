@@ -12,13 +12,13 @@ Based on the JSON-RPC request for `eth_getBlockByNumber` procedure
 
 ## Type declaration
 
+### blockTag
+
+> **blockTag**?: [`BlockParam`](../../index/type-aliases/BlockParam.md)
+
 ### fullTransactionObjects
 
 > **fullTransactionObjects**: `boolean`
-
-### tag
-
-> **tag**?: `BlockTag` \| [`Hex`](../../index/type-aliases/Hex.md)
 
 ## Source
 

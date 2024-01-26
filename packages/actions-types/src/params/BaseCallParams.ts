@@ -1,4 +1,4 @@
-import type { BlockParam, Address, Hex } from '../common/index.js'
+import type { Address, BlockParam, Hex } from '../common/index.js'
 
 /**
  * Properties shared accross call-like params

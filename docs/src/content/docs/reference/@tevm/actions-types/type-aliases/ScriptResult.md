@@ -11,7 +11,7 @@ title: "ScriptResult"
 
 | Parameter | Default |
 | :------ | :------ |
-| `TAbi` extends `Abi` \| readonly `unknown`[] | `Abi` |
+| `TAbi` extends [`Abi`](/reference/tevm/actions-types/type-aliases/abi/) \| readonly `unknown`[] | [`Abi`](/reference/tevm/actions-types/type-aliases/abi/) |
 | `TFunctionName` extends `ContractFunctionName`\<`TAbi`\> | `ContractFunctionName`\<`TAbi`\> |
 | `TErrorType` | [`ScriptError`](/reference/tevm/errors/type-aliases/scripterror/) |
 

@@ -116,7 +116,7 @@ describe(createHttpClient.name, () => {
 				await client.eth.getStorageAt({
 					address: '0x0',
 					position: '0x0',
-					tag: 'pending',
+					blockTag: 'pending',
 				}),
 			).toEqual('0x69')
 		})

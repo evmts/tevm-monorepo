@@ -29,43 +29,6 @@ describe('callHandlerOpts', () => {
 		expect(result.origin).toEqual(EthjsAddress.fromString(params.origin))
 	})
 
-	it('should handle block parameters', () => {
-		const block = {
-			coinbase: `0x${'0'.repeat(40)}` as const,
-			number: 420n,
-			difficulty: 1n,
-			gasLimit: 10000n,
-			timestamp: 1625097600n,
-			baseFeePerGas: 100n,
-			blobGasPrice: 200n,
-		} as const satisfies import('@tevm/actions-types').Block
-		const result = callHandlerOpts({
-			block,
-		})
-		expect(result.block?.header.coinbase.toString()).toBe(block.coinbase)
-		expect(result.block?.header.number).toBe(block.number)
-		expect(result.block?.header.difficulty).toBe(block.difficulty)
-		expect(result.block?.header.gasLimit).toBe(block.gasLimit)
-		expect(result.block?.header.timestamp).toBe(block.timestamp)
-		expect(result.block?.header.baseFeePerGas).toBe(block.baseFeePerGas)
-		expect(result.block?.header.getBlobGasPrice()).toBe(block.blobGasPrice)
-	})
-
-	it('should handle default block parameters', () => {
-		expect(callHandlerOpts({}).block).toBeUndefined()
-		const result = callHandlerOpts({
-			block: {},
-		})
-		expect(result.block?.header.coinbase).toEqual(EthjsAddress.zero())
-		expect(result.block?.header.cliqueSigner()).toEqual(EthjsAddress.zero())
-		expect(result.block?.header.number).toBe(0n)
-		expect(result.block?.header.difficulty).toBe(0n)
-		expect(result.block?.header.gasLimit).toBe(0n)
-		expect(result.block?.header.timestamp).toBe(0n)
-		expect(result.block?.header.baseFeePerGas).toBe(undefined as any)
-		expect(result.block?.header.getBlobGasPrice()).toBe(undefined as any)
-	})
-
 	it('should parse transaction to address', () => {
 		const to = `0x${'3'.repeat(40)}` as const
 		const result = callHandlerOpts({

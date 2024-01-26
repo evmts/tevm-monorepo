@@ -1,5 +1,5 @@
+import type { Address, Hex, Log } from '../common/index.js'
 import type { CallError } from '@tevm/errors'
-import type { Log, Hex, Address } from '../common/index.js'
 
 /**
  * Result of a Tevm VM Call method

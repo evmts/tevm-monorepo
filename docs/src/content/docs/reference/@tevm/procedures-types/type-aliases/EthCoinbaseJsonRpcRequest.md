@@ -11,7 +11,7 @@ JSON-RPC request for `eth_coinbase` procedure
 
 ## Source
 
-[requests/EthJsonRpcRequest.ts:43](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L43)
+[requests/EthJsonRpcRequest.ts:73](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L73)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

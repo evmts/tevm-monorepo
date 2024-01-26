@@ -14,11 +14,11 @@ Based on the JSON-RPC request for `eth_getUncleCountByBlockHash` procedure
 
 ### hash
 
-> **hash**: `Hex`
+> **hash**: [`Hex`](Hex.md)
 
 ## Source
 
-[params/EthParams.ts:164](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L164)
+[params/EthParams.ts:157](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L157)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -15,7 +15,7 @@ title: "TraceCall"
 
 ### from
 
-> **from**: `Address`
+> **from**: [`Address`](/reference/tevm/actions-types/type-aliases/address/)
 
 ### gas
 
@@ -27,15 +27,15 @@ title: "TraceCall"
 
 ### input
 
-> **input**: `Hex`
+> **input**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
 
 ### output
 
-> **output**: `Hex`
+> **output**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
 
 ### to
 
-> **to**: `Address`
+> **to**: [`Address`](/reference/tevm/actions-types/type-aliases/address/)
 
 ### type
 
