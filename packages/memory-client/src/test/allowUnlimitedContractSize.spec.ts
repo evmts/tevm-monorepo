@@ -22,7 +22,7 @@ describe('allowUnlimitedContractSize option', () => {
 				caller: address1,
 				data,
 				value: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffff',
-				gasLimit: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffff',
+				gas: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffff',
 				skipBalance: true,
 			},
 		})
@@ -47,7 +47,7 @@ describe('allowUnlimitedContractSize option', () => {
 				caller: address1,
 				data,
 				value: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffff',
-				gasLimit: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffff',
+				gas: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffff',
 				skipBalance: true,
 			},
 		})
