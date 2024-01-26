@@ -2,27 +2,44 @@
 
 ## Quick start
 
-1. Install bun
+1. Install pnpm for installing node_modules
+
+```bash
+npm i pnpm --global && pnpm --version
+```
+
+2. Install bun
 
 ```bash
 npm i bun --global && bun --version
 ```
-2. Update submodules
+
+or run bun update if already installed
+
+```bash
+bun update
+```
+
+3. Update submodules
 
 ```bash
 git submodule update --init --recursive
 ```
 
-3. Run everything
+4. Run everything
 
-`bun all` will run everything
+`bun allz` will run everything
 
-```
-bun all
+`bun all` will run a smaller subset of everything
+
+```bash
+bun allz
 ```
 
 This includes
 - linting package.json
+- linting npm build
+- linting unused deps
 - linting source code
 - generated docs
 - building all .d.ts types for all packages
@@ -50,7 +67,7 @@ Tevm is heavily broken up into small packages. To see the entire package graph u
 bun run nx graph
 ```
 
-The main ones to start with are the following.
+For more information the [reference docs](https://tevm.sh) are a useful resource. They are generated from the source code and link back to it
 
 #### Build packages
 
@@ -148,7 +165,7 @@ The linter used is rome not prettier or eslint
 
 #### Generating docs
 
-Docs are generated at [../docs/reference/config/](../docs/reference/config/). To generate them run the generate command:
+Docs are generated in the `docs` folder of every package as well as the [main docs site](./docs)
 
 ```
 bun generate:docs
@@ -156,171 +173,21 @@ bun generate:docs
 
 Docs are generated based on the jsdoc and type errors
 
-## Code style
+#### Barrel files
 
-#### Effect
+Whenever a new api is added you will need to update a lot of barrel files. Though tedious this helps keep the packages stable from accidental breaking changes or exporting something that should be private. You will need to update the following places:
 
-Effect is used to provide strongly typed error handling and robust functional code. Before getting started it is recomended to spend 5 minutes reviewing what an effect is.
+- All the `index.js` in your package
+- Possibly the top level `src/index.ts` to update the types too if
+- Update the [tevm](./tevm) package (unless it's a build tool change)
+- Update the [@tevm/bundler](./bundler/) package if it's a build tool api
 
-All functions return a type `Effect<never, ErrorType, ValueType>`. You can think of this as a promise but with strongly typed errors.
+If you add a lot of files there is a tool to automatically generate a barrel file in your folder in [`scripts`](./scripts/createBarrelFiles.ts)
 
-- See [Why Effect](https://effect.website/docs/why-effect) docs for advantages of effect
-- Learn [the basics of the effect type](https://effect.website/docs/essentials/effect-type)
-- Learn [how to run an effect](https://effect.website/docs/essentials/effect-type)
+## Clean build
 
-Once you understand the basics you should be sufficient to trying to modify or read the code. Extensive jsdoc comments are provided.
-
-#### Logging
-
-All functions use extensive logging with debug mode. As a best practice it's best to always log the return value of an effect. For examples look at other functions
-
-- [Effect logging](https://effect.website/docs/observability/logging)
-
-#### Error handling
-
-All functions export an error type for myFunctionName of of type MyFunctionNameError. This may be a union of many errors.
-
-If a function never returns (is type `never`) there is no interface.
-
-All functions return a type `Effect<never, MyFunctionNameError | never, ReturnType>` giving them strongly typed errors. Effect makes these typesafe so the types will not compile if the error types aren't correct.
-
-#### Return Types
-
-Most apps rely on type infering return types. Because it's important for library code like Tevm to stay stable as a best practice return types of functions are always explicitly typed
-
-#### JavaScript with JSDOC
-
-Typescript is used in Tevm for test code and dev scripts. But any source code is written with JavaScript with 0 build transpilation steps. Sometimes types will also be imported from [src/types.ts](./src/types.ts) which is where types can be placed if they are too tedious to write in jsdoc.
-
-For examples of how to use jsdoc it is recomended to look at other examples.  Ai tools are very good at jsdoc. But here are some basics to get you started
-
-- **Casting a type**
-
-```typescript
-const foo = 'foo' as 'foo' | 'bar'
-```
-
-With jsdoc you wrap the symbol in `()` and then add `@type {}` syntax
-
-```javascript
-const foo = (/** @type {'foo'|'bar'}*/)
-```
-
-- **Typing a function**
-
-```typescript
-export const isTrue = (foo: unknown) => boolean {
-    ...
-}
-```
-
-With jsdoc use `@param` and `@returns` with an optional description
-
-```javascript
-/**
- * @param {unknown} foo - the foo we are testing
- * @returns {boolean} - whether isTrue is true
- */
-export const isTrue = foo => {
-  ...
-}
-```
-
-- **Exporting a type**
-
-```typescript
-export type Foo = {bar: string}
-```
-
-To export a type use `@typedef` syntax
-
-```javascript
-/**
- * @typedef {{bar: string}} Foo
- */
-```
-
-- **Importing a type**
-
-```typescript
-export type SomeType = import("npmlib").SomeType
-```
-
-To import a type use the same import syntax used here. Generally types are imported inline. Imports can be from npm libraries or relative files
-
-```javascript
-/**
- * {import("npmlib").SomeType} SomeType
- */
-```
-
-## Examples and descriptions
-
-Since documentation is generated from jsdoc it is recomended to add jsdoc documentation to all functions. Here is an example of what a function may look like.
-
-
-```typescript
-/**
- * Loads an Tevm config from the given path
- * @param {string} configFilePath
- * @returns {import("effect/Effect").Effect<never, LoadConfigError, import("./types.js").ResolvedCompilerConfig>}
- * @example
- * import {tap} from 'effect/Effect'
- * import {loadConfig} from '@tevm/config'
- *
- * runPromise(loadConfig('./tsconfig.json')).pipe(
- *   tap(config => console.log(config))
- * )
- */
-export const loadConfig = (configFilePath) => {
-  ...
-}
-```
-
-## Generated docs
-
-Docs are generated via the [typedoc.json](./typedoc.json)
+If you ever have a `wtf` moment consider doing a clean build. It will remove node_modules and then rebuild repo from scratch
 
 ```
-bun generate:docs
+pnpm all:clean
 ```
-
-## Doing everything
-
-To run everything including linter and tests run `bun all`
-
-```
-pnpm i  && bun build && bun all
-```
-
-Running bun all from context of repo will run all checks. It is recomended to run this before pushing your changes
-
-1. CD to root of repo if not there already
-
-```
-cd ..
-```
-
-2. Run install and bun all
-
-```
-pnpm i  && bun all
-```
-
-## Bun Clean
-
-If things are wierd try running bun clean and rebuilding the repo fresh
-
-1. Cd to root of repo if not there already
-
-```
-cd ..
-```
-
-2. Run bun clean and then fresh build and upgraded bun
-
-```
-bun upgrade && bun clean && pnpm i  && bun all
-```
-
-If it's still broken for you consider opening an issue.
