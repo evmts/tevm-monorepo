@@ -12,7 +12,7 @@
 
 | Parameter | Default |
 | :------ | :------ |
-| `TAbi` extends `Abi` \| readonly `unknown`[] | `Abi` |
+| `TAbi` extends [`Abi`](Abi.md) \| readonly `unknown`[] | [`Abi`](Abi.md) |
 | `TFunctionName` extends `ContractFunctionName`\<`TAbi`\> | `ContractFunctionName`\<`TAbi`\> |
 | `TErrorType` | `ScriptError` |
 

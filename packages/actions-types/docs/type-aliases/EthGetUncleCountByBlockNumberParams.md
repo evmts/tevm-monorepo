@@ -8,17 +8,17 @@
 
 > **EthGetUncleCountByBlockNumberParams**: `object`
 
-JSON-RPC request for `eth_getUncleCountByBlockNumber` procedure
+Based on the JSON-RPC request for `eth_getUncleCountByBlockNumber` procedure
 
 ## Type declaration
 
-### tag
+### blockTag
 
-> **tag**?: `BlockTag` \| `Hex`
+> **blockTag**?: [`BlockParam`](BlockParam.md)
 
 ## Source
 
-[params/EthParams.ts:140](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L140)
+[params/EthParams.ts:162](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L162)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

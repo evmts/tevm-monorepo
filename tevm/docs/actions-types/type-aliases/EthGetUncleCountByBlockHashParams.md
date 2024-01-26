@@ -8,7 +8,7 @@
 
 > **EthGetUncleCountByBlockHashParams**: `object`
 
-JSON-RPC request for `eth_getUncleCountByBlockHash` procedure
+Based on the JSON-RPC request for `eth_getUncleCountByBlockHash` procedure
 
 ## Type declaration
 
@@ -18,7 +18,7 @@ JSON-RPC request for `eth_getUncleCountByBlockHash` procedure
 
 ## Source
 
-packages/actions-types/types/params/EthParams.d.ts:114
+packages/actions-types/types/params/EthParams.d.ts:142
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

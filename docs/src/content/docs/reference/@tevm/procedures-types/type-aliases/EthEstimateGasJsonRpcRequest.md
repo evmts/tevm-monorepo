@@ -5,13 +5,13 @@ prev: false
 title: "EthEstimateGasJsonRpcRequest"
 ---
 
-> **EthEstimateGasJsonRpcRequest**: [`JsonRpcRequest`](/reference/tevm/jsonrpc/type-aliases/jsonrpcrequest/)\<`"eth_estimateGas"`, readonly [`Transaction`]\>
+> **EthEstimateGasJsonRpcRequest**: [`JsonRpcRequest`](/reference/tevm/jsonrpc/type-aliases/jsonrpcrequest/)\<`"eth_estimateGas"`, readonly [`JsonRpcTransaction`]\>
 
 JSON-RPC request for `eth_estimateGas` procedure
 
 ## Source
 
-[requests/EthJsonRpcRequest.ts:51](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L51)
+[requests/EthJsonRpcRequest.ts:81](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L81)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

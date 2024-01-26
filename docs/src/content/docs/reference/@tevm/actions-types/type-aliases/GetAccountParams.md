@@ -21,7 +21,7 @@ const getAccountParams: import('@tevm/api').GetAccountParams = {
 
 ### address
 
-> **address**: `Address`
+> **address**: [`Address`](/reference/tevm/actions-types/type-aliases/address/)
 
 Address of account
 

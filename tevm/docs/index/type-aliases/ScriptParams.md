@@ -14,7 +14,7 @@ Tevm params for deploying and running a script
 
 ### deployedBytecode
 
-> **deployedBytecode**: [`Hex`](Hex.md)
+> **deployedBytecode**: `Hex`
 
 The EVM code to run.
 

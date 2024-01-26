@@ -5,25 +5,18 @@ prev: false
 title: "EthSendTransactionParams"
 ---
 
-> **EthSendTransactionParams**\<`TChain`\>: `Omit`\<`SendTransactionParameters`\<`TChain`\>, `"account"`\> & `object`
+> **EthSendTransactionParams**: [`CallParams`](/reference/tevm/actions-types/type-aliases/callparams/)
 
-JSON-RPC request for `eth_sendTransaction` procedure
+Based on the JSON-RPC request for `eth_sendTransaction` procedure
+This type is a placeholder
 
-## Type declaration
-
-### from
-
-> **from**: `Address`
-
-## Type parameters
-
-| Parameter | Default |
-| :------ | :------ |
-| `TChain` extends `Chain` \| `undefined` | `Chain` \| `undefined` |
+:::caution[Experimental]
+This API should not be used in production and may be trimmed from a public release.
+:::
 
 ## Source
 
-[params/EthParams.ts:202](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L202)
+[params/EthParams.ts:227](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L227)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -6,13 +6,13 @@
 
 # Type alias: EthSignTransactionParams
 
-> **EthSignTransactionParams**: `SignMessageParameters`
+> **EthSignTransactionParams**: `any`
 
-JSON-RPC request for `eth_signTransaction` procedure
+Based on the JSON-RPC request for `eth_signTransaction` procedure
 
 ## Source
 
-packages/actions-types/types/params/EthParams.d.ts:186
+packages/actions-types/types/params/EthParams.d.ts:219
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

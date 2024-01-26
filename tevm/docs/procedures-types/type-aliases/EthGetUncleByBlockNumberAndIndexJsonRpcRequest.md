@@ -6,13 +6,13 @@
 
 # Type alias: EthGetUncleByBlockNumberAndIndexJsonRpcRequest
 
-> **EthGetUncleByBlockNumberAndIndexJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"eth_getUncleByBlockNumberAndIndex"`, readonly [`BlockTag` \| [`Hex`](../../index/type-aliases/Hex.md), [`Hex`](../../index/type-aliases/Hex.md)]\>
+> **EthGetUncleByBlockNumberAndIndexJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"eth_getUncleByBlockNumberAndIndex"`, readonly [`BlockTag` \| `Hex`, `Hex`]\>
 
 JSON-RPC request for `eth_getUncleByBlockNumberAndIndex` procedure
 
 ## Source
 
-packages/procedures-types/types/requests/EthJsonRpcRequest.d.ts:124
+packages/procedures-types/types/requests/EthJsonRpcRequest.d.ts:153
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

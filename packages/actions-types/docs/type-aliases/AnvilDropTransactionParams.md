@@ -14,13 +14,13 @@ Params for `anvil_dropTransaction` handler
 
 ### transactionHash
 
-> **transactionHash**: `Hex`
+> **transactionHash**: [`Hex`](Hex.md)
 
 The transaction hash
 
 ## Source
 
-[params/AnvilParams.ts:78](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/AnvilParams.ts#L78)
+[params/AnvilParams.ts:77](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/AnvilParams.ts#L77)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

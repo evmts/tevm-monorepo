@@ -6,13 +6,13 @@
 
 # Type alias: EthGetTransactionCountJsonRpcRequest
 
-> **EthGetTransactionCountJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"eth_getTransactionCount"`, readonly [`Address`, `BlockTag` \| [`Hex`](../../index/type-aliases/Hex.md)]\>
+> **EthGetTransactionCountJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"eth_getTransactionCount"`, readonly [`Address`, `BlockTag` \| `Hex`]\>
 
 JSON-RPC request for `eth_getTransactionCount` procedure
 
 ## Source
 
-packages/procedures-types/types/requests/EthJsonRpcRequest.d.ts:90
+packages/procedures-types/types/requests/EthJsonRpcRequest.d.ts:119
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

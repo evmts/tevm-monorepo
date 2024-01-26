@@ -1,10 +1,10 @@
-import type { Block } from '../common/Block.js'
-import { type Address, type Hex } from 'viem'
+import type { Address, BlockParam, Hex } from '../common/index.js'
 
 /**
  * Properties shared accross call-like params
  */
 export type BaseCallParams = {
+	blockTag?: BlockParam
 	/**
 	 * Set caller to msg.value of less than msg.value
 	 * Defaults to false exceipt for when running scripts
@@ -16,25 +16,29 @@ export type BaseCallParams = {
 	 */
 	gasRefund?: bigint
 	/**
-	 * The `block` the `tx` belongs to. If omitted a default blank block will be used.
-	 */
-	block?: Partial<Block>
-	/**
 	 * The gas price for the call. Defaults to `0`
 	 */
 	gasPrice?: bigint
 	/**
+	 * The gas price for the call. Defaults to `0`
+	 */
+	gas?: bigint
+	/**
+	 * The from address for the call. Defaults to the zero address.
+	 * It is also possible to set the `origin` and `caller` addresses seperately using
+	 * those options. Otherwise both are set to the `from` address
+	 */
+	from?: Address
+	/**
 	 * The address where the call originated from. Defaults to the zero address.
+	 * This defaults to `from` address if set otherwise it defaults to the zero address
 	 */
 	origin?: Address
 	/**
 	 * The address that ran this code (`msg.sender`). Defaults to the zero address.
+	 * This defaults to `from` address if set otherwise it defaults to the zero address
 	 */
 	caller?: Address
-	/**
-	 * The gas limit for the call. Defaults to `16777215` (`0xffffff`)
-	 */
-	gasLimit?: bigint
 	/**
 	 * The value in ether that is being sent to `opts.address`. Defaults to `0`
 	 */

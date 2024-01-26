@@ -18,6 +18,7 @@ title: "@tevm/actions"
 - [chainIdHandler](/reference/tevm/actions/functions/chainidhandler/)
 - [contractHandler](/reference/tevm/actions/functions/contracthandler/)
 - [dumpStateHandler](/reference/tevm/actions/functions/dumpstatehandler/)
+- [ethCallHandler](/reference/tevm/actions/functions/ethcallhandler/)
 - [gasPriceHandler](/reference/tevm/actions/functions/gaspricehandler/)
 - [getAccountHandler](/reference/tevm/actions/functions/getaccounthandler/)
 - [getBalanceHandler](/reference/tevm/actions/functions/getbalancehandler/)

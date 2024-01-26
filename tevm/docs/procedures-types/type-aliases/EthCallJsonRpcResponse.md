@@ -6,7 +6,7 @@
 
 # Type alias: EthCallJsonRpcResponse
 
-> **EthCallJsonRpcResponse**: [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"eth_call"`, [`Hex`](../../index/type-aliases/Hex.md), `string`\>
+> **EthCallJsonRpcResponse**: [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"eth_call"`, `Hex`, `string`\>
 
 JSON-RPC response for `eth_call` procedure
 

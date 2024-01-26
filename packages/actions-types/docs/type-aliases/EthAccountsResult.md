@@ -6,7 +6,7 @@
 
 # Type alias: EthAccountsResult
 
-> **EthAccountsResult**: `Address`[]
+> **EthAccountsResult**: [`Address`](Address.md)[]
 
 ## Source
 

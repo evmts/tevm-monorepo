@@ -12,7 +12,7 @@ import { bytesToHex } from 'viem'
 export const getCodeHandler =
 	({ stateManager, forkUrl }) =>
 	async (params) => {
-		const tag = params.tag || 'pending'
+		const tag = params.blockTag ?? 'pending'
 		if (tag === 'pending') {
 			return bytesToHex(
 				await stateManager.getContractCode(Address.fromString(params.address)),

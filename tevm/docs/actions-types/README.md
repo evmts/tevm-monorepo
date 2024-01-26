@@ -52,6 +52,7 @@
 - [BaseCallParams](type-aliases/BaseCallParams.md)
 - [Block](type-aliases/Block.md)
 - [BlockResult](type-aliases/BlockResult.md)
+- [BlockTag](type-aliases/BlockTag.md)
 - [CallHandler](type-aliases/CallHandler.md)
 - [ContractHandler](type-aliases/ContractHandler.md)
 - [DebugTraceCallHandler](type-aliases/DebugTraceCallHandler.md)
@@ -61,6 +62,8 @@
 - [DebugTraceTransactionParams](type-aliases/DebugTraceTransactionParams.md)
 - [DebugTraceTransactionResult](type-aliases/DebugTraceTransactionResult.md)
 - [DumpStateHandler](type-aliases/DumpStateHandler.md)
+- [DumpStateResult](type-aliases/DumpStateResult.md)
+- [EmptyParams](type-aliases/EmptyParams.md)
 - [EthAccountsHandler](type-aliases/EthAccountsHandler.md)
 - [EthAccountsParams](type-aliases/EthAccountsParams.md)
 - [EthAccountsResult](type-aliases/EthAccountsResult.md)
@@ -177,11 +180,15 @@
 - [EthUninstallFilterParams](type-aliases/EthUninstallFilterParams.md)
 - [EthUninstallFilterResult](type-aliases/EthUninstallFilterResult.md)
 - [FilterLog](type-aliases/FilterLog.md)
+- [FilterParams](type-aliases/FilterParams.md)
 - [GetAccountHandler](type-aliases/GetAccountHandler.md)
 - [LoadStateHandler](type-aliases/LoadStateHandler.md)
+- [LoadStateParams](type-aliases/LoadStateParams.md)
+- [LoadStateResult](type-aliases/LoadStateResult.md)
 - [Log](type-aliases/Log.md)
 - [ScriptHandler](type-aliases/ScriptHandler.md)
 - [SetAccountHandler](type-aliases/SetAccountHandler.md)
+- [StructLog](type-aliases/StructLog.md)
 - [TraceCall](type-aliases/TraceCall.md)
 - [TraceParams](type-aliases/TraceParams.md)
 - [TraceResult](type-aliases/TraceResult.md)
@@ -194,18 +201,40 @@
 
 ### References
 
+- [Abi](README.md#abi)
+- [Address](README.md#address)
+- [BlockParam](README.md#blockparam)
 - [CallParams](README.md#callparams)
 - [CallResult](README.md#callresult)
 - [ContractParams](README.md#contractparams)
 - [ContractResult](README.md#contractresult)
 - [GetAccountParams](README.md#getaccountparams)
 - [GetAccountResult](README.md#getaccountresult)
+- [Hex](README.md#hex)
 - [ScriptParams](README.md#scriptparams)
 - [ScriptResult](README.md#scriptresult)
 - [SetAccountParams](README.md#setaccountparams)
 - [SetAccountResult](README.md#setaccountresult)
 
 ## References
+
+### Abi
+
+Re-exports [Abi](../index/type-aliases/Abi.md)
+
+***
+
+### Address
+
+Re-exports [Address](../index/type-aliases/Address.md)
+
+***
+
+### BlockParam
+
+Re-exports [BlockParam](../index/type-aliases/BlockParam.md)
+
+***
 
 ### CallParams
 
@@ -240,6 +269,12 @@ Re-exports [GetAccountParams](../index/type-aliases/GetAccountParams.md)
 ### GetAccountResult
 
 Re-exports [GetAccountResult](../index/type-aliases/GetAccountResult.md)
+
+***
+
+### Hex
+
+Re-exports [Hex](../index/type-aliases/Hex.md)
 
 ***
 

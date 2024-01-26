@@ -26,13 +26,13 @@ Amount of blob gas consumed by the transaction
 
 ### createdAddress
 
-> **createdAddress**?: `Address`
+> **createdAddress**?: [`Address`](Address.md)
 
 Address of created account during transaction, if any
 
 ### createdAddresses
 
-> **createdAddresses**?: `Set`\<`Address`\>
+> **createdAddresses**?: `Set`\<[`Address`](Address.md)\>
 
 Map of addresses which were created (used in EIP 6780)
 
@@ -68,19 +68,19 @@ Array of logs that the contract emitted
 
 ### rawData
 
-> **rawData**: `Hex`
+> **rawData**: [`Hex`](Hex.md)
 
 Encoded return value from the contract as hex string
 
 ### selfdestruct
 
-> **selfdestruct**?: `Set`\<`Address`\>
+> **selfdestruct**?: `Set`\<[`Address`](Address.md)\>
 
 A set of accounts to selfdestruct
 
 ## Source
 
-[result/CallResult.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/result/CallResult.ts#L9)
+[result/CallResult.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/result/CallResult.ts#L7)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

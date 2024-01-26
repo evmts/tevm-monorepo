@@ -17,6 +17,7 @@
 - [chainIdHandler](functions/chainIdHandler.md)
 - [contractHandler](functions/contractHandler.md)
 - [dumpStateHandler](functions/dumpStateHandler.md)
+- [ethCallHandler](functions/ethCallHandler.md)
 - [gasPriceHandler](functions/gasPriceHandler.md)
 - [getAccountHandler](functions/getAccountHandler.md)
 - [getBalanceHandler](functions/getBalanceHandler.md)

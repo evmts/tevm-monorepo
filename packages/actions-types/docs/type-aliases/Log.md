@@ -14,15 +14,15 @@ Generic log information
 
 ### address
 
-> **`readonly`** **address**: `Address`
+> **`readonly`** **address**: [`Address`](Address.md)
 
 ### data
 
-> **`readonly`** **data**: `Hex`
+> **`readonly`** **data**: [`Hex`](Hex.md)
 
 ### topics
 
-> **`readonly`** **topics**: `Hex`[]
+> **`readonly`** **topics**: [`Hex`](Hex.md)[]
 
 ## Source
 

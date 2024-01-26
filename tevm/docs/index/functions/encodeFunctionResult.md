@@ -10,13 +10,13 @@
 
 ## Type parameters
 
-▪ **abi** extends [`Abi`](../type-aliases/Abi.md) \| readonly `unknown`[]
+▪ **abi** extends `Abi` \| readonly `unknown`[]
 
 ▪ **functionName** extends `undefined` \| `string` = `undefined`
 
 ## Parameters
 
-▪ **parameters**: `EncodeFunctionResultParameters`\<`abi`, `functionName`, `abi` extends [`Abi`](../type-aliases/Abi.md) ? [`Abi`](../type-aliases/Abi.md) extends `abi` ? `true` : [`Extract`\<`abi`[`number`], `object`\>] extends [`never`] ? `false` : `true` : `true`, `ContractFunctionName`\<`abi`, `AbiStateMutability`\>\>
+▪ **parameters**: `EncodeFunctionResultParameters`\<`abi`, `functionName`, `abi` extends `Abi` ? `Abi` extends `abi` ? `true` : [`Extract`\<`abi`[`number`], `object`\>] extends [`never`] ? `false` : `true` : `true`, `ContractFunctionName`\<`abi`, `AbiStateMutability`\>\>
 
 ## Source
 

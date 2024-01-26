@@ -31,7 +31,7 @@ describe('precompiles option', () => {
 		)
 		const result = await tevm.call({
 			to: address,
-			gasLimit: BigInt(30000),
+			gas: BigInt(30000),
 			data: '0x0',
 			caller: sender,
 		})

@@ -5,7 +5,7 @@ prev: false
 title: "EthGetTransactionCountResult"
 ---
 
-> **EthGetTransactionCountResult**: `Hex`
+> **EthGetTransactionCountResult**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
 
 JSON-RPC response for `eth_getTransactionCount` procedure
 

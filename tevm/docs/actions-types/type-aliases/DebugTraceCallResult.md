@@ -24,7 +24,7 @@
 
 ### structLogs
 
-> **`readonly`** **structLogs**: `ReadonlyArray`\<`StructLog`\>
+> **`readonly`** **structLogs**: `ReadonlyArray`\<[`StructLog`](StructLog.md)\>
 
 ## Source
 

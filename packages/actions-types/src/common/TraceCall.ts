@@ -1,6 +1,6 @@
+import type { Address } from './Address.js'
+import type { Hex } from './Hex.js'
 import type { TraceType } from './TraceType.js'
-import type { Address } from 'abitype'
-import type { Hex } from 'viem'
 
 export type TraceCall = {
 	type: TraceType

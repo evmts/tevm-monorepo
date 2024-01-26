@@ -14,59 +14,59 @@ json rpc procedures
 
 ### blockHash
 
-> **`readonly`** **blockHash**: `Hex`
+> **`readonly`** **blockHash**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
 
 ### blockNumber
 
-> **`readonly`** **blockNumber**: `Hex`
+> **`readonly`** **blockNumber**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
 
 ### from
 
-> **`readonly`** **from**: `Hex`
+> **`readonly`** **from**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
 
 ### gas
 
-> **`readonly`** **gas**: `Hex`
+> **`readonly`** **gas**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
 
 ### gasPrice
 
-> **`readonly`** **gasPrice**: `Hex`
+> **`readonly`** **gasPrice**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
 
 ### hash
 
-> **`readonly`** **hash**: `Hex`
+> **`readonly`** **hash**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
 
 ### input
 
-> **`readonly`** **input**: `Hex`
+> **`readonly`** **input**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
 
 ### nonce
 
-> **`readonly`** **nonce**: `Hex`
+> **`readonly`** **nonce**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
 
 ### r
 
-> **`readonly`** **r**: `Hex`
+> **`readonly`** **r**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
 
 ### s
 
-> **`readonly`** **s**: `Hex`
+> **`readonly`** **s**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
 
 ### to
 
-> **`readonly`** **to**: `Hex`
+> **`readonly`** **to**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
 
 ### transactionIndex
 
-> **`readonly`** **transactionIndex**: `Hex`
+> **`readonly`** **transactionIndex**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
 
 ### v
 
-> **`readonly`** **v**: `Hex`
+> **`readonly`** **v**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
 
 ### value
 
-> **`readonly`** **value**: `Hex`
+> **`readonly`** **value**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
 
 ## Source
 

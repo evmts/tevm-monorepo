@@ -5,7 +5,7 @@ prev: false
 title: "EthNewPendingTransactionFilterResult"
 ---
 
-> **EthNewPendingTransactionFilterResult**: `Hex`
+> **EthNewPendingTransactionFilterResult**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
 
 JSON-RPC response for `eth_newPendingTransactionFilter` procedure
 

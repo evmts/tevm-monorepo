@@ -1,5 +1,5 @@
-import type { Address } from 'abitype'
-import type { Hex } from 'viem'
+import type { Address } from './Address.js'
+import type { Hex } from './Hex.js'
 
 /**
  * Generic log information

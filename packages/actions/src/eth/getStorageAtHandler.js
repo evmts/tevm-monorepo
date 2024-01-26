@@ -12,7 +12,7 @@ import { bytesToHex, hexToBytes } from 'viem'
 export const getStorageAtHandler =
 	({ forkUrl, stateManager }) =>
 	async (params) => {
-		const tag = params.tag ?? 'pending'
+		const tag = params.blockTag ?? 'pending'
 		if (tag === 'pending' || tag === 'latest') {
 			return bytesToHex(
 				await stateManager.getContractStorage(
@@ -31,7 +31,7 @@ export const getStorageAtHandler =
 			.request({
 				jsonrpc: '2.0',
 				method: 'eth_getStorageAt',
-				params: [params.address, params.position, params.tag],
+				params: [params.address, params.position, tag],
 				id: 1,
 			})
 			.then((res) => {

@@ -26,7 +26,7 @@ The gas price for the block; may be undefined in blocks after EIP-1559.
 
 ### coinbase
 
-> **`readonly`** **coinbase**: `Address`
+> **`readonly`** **coinbase**: [`Address`](../../index/type-aliases/Address.md)
 
 The address of the miner or validator who mined or validated the block.
 

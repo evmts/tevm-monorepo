@@ -8,25 +8,25 @@
 
 > **EthGetStorageAtParams**: `object`
 
-JSON-RPC request for `eth_getStorageAt` procedure
+Based on the JSON-RPC request for `eth_getStorageAt` procedure
 
 ## Type declaration
 
 ### address
 
-> **address**: `Address`
+> **address**: [`Address`](Address.md)
+
+### blockTag
+
+> **blockTag**?: [`BlockParam`](BlockParam.md)
 
 ### position
 
-> **position**: `Hex`
-
-### tag
-
-> **tag**?: `BlockTag` \| `Hex`
+> **position**: [`Hex`](Hex.md)
 
 ## Source
 
-[params/EthParams.ts:118](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L118)
+[params/EthParams.ts:140](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L140)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

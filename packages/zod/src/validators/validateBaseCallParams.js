@@ -43,10 +43,14 @@ export const validateBaseCallParams = (action) => {
 			})
 		}
 
-		if (formattedErrors.block) {
-			formattedErrors.block._errors.forEach((error) => {
+		if (formattedErrors.blockTag) {
+			formattedErrors.blockTag._errors.forEach((error) => {
 				errors.push(
-					createError('InvalidBlockError', error, JSON.stringify(action.block)),
+					createError(
+						'InvalidBlockError',
+						error,
+						action.blockTag?.toString() ?? 'undefined',
+					),
 				)
 			})
 		}
@@ -75,10 +79,10 @@ export const validateBaseCallParams = (action) => {
 			})
 		}
 
-		if (formattedErrors.gasLimit) {
-			formattedErrors.gasLimit._errors.forEach((error) => {
+		if (formattedErrors.gas) {
+			formattedErrors.gas._errors.forEach((error) => {
 				errors.push(
-					createError('InvalidGasLimitError', error, String(action.gasLimit)),
+					createError('InvalidGasLimitError', error, String(action.gas)),
 				)
 			})
 		}

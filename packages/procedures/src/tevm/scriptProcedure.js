@@ -29,11 +29,11 @@ export const scriptProcedure = (evm) => async (request) => {
 			...(request.params.caller ? { caller: request.params.caller } : {}),
 			...(request.params.data ? { data: request.params.data } : {}),
 			...(request.params.depth ? { depth: request.params.depth } : {}),
-			...(request.params.gasLimit
-				? { gasLimit: hexToBigInt(request.params.gasLimit) }
-				: {}),
 			...(request.params.gasPrice
 				? { gasPrice: hexToBigInt(request.params.gasPrice) }
+				: {}),
+			...(request.params.gas
+				? { gas: hexToBigInt(request.params.gas) }
 				: {}),
 			...(request.params.gasRefund
 				? { gasRefund: hexToBigInt(request.params.gasRefund) }
@@ -49,31 +49,8 @@ export const scriptProcedure = (evm) => async (request) => {
 			...(request.params.value
 				? { value: hexToBigInt(request.params.value) }
 				: {}),
-			...(request.params.block
-				? {
-						...(request.params.block.gasLimit
-							? { gasLimit: hexToBigInt(request.params.block.gasLimit) }
-							: {}),
-						...(request.params.block.baseFeePerGas
-							? {
-									baseFeePerGas: hexToBigInt(
-										request.params.block.baseFeePerGas,
-									),
-							  }
-							: {}),
-						...(request.params.block.blobGasPrice
-							? { blobGasPrice: hexToBigInt(request.params.block.blobGasPrice) }
-							: {}),
-						...(request.params.block.difficulty
-							? { difficulty: hexToBigInt(request.params.block.difficulty) }
-							: {}),
-						...(request.params.block.number
-							? { number: hexToBigInt(request.params.block.number) }
-							: {}),
-						...(request.params.block.timestamp
-							? { timestamp: hexToBigInt(request.params.block.timestamp) }
-							: {}),
-				  }
+			...(request.params.blockTag
+				? { blockTag: (request.params.blockTag) }
 				: {}),
 		})
 	} catch (e) {
@@ -108,7 +85,7 @@ export const scriptProcedure = (evm) => async (request) => {
 	/**
 	 * @param {bigint} value
 	 */
-	const toHex = (value) => /**@type {import('viem').Hex}*/ (bigIntToHex(value))
+	const toHex = (value) => /**@type {import('viem').Hex}*/(bigIntToHex(value))
 	return {
 		jsonrpc: '2.0',
 		result: {

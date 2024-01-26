@@ -10,7 +10,7 @@
 
 ## Type parameters
 
-▪ **abi** extends [`Abi`](../type-aliases/Abi.md) \| readonly `unknown`[]
+▪ **abi** extends `Abi` \| readonly `unknown`[]
 
 ## Parameters
 

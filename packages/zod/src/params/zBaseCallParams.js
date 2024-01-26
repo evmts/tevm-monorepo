@@ -1,4 +1,5 @@
-import { zAddress, zBlock, zHex } from '../common/index.js'
+import { zAddress, zHex } from '../common/index.js'
+import { zBlockParam } from './zBlockParam.js'
 import { z } from 'zod'
 
 export const zBaseCallParams = z
@@ -10,11 +11,10 @@ export const zBaseCallParams = z
 				'Set caller to msg.value of less than msg.value Defaults to false exceipt for when running scripts where it is set to true',
 			),
 		gasRefund: z.bigint().optional().describe('Refund counter. Defaults to 0'),
-		block: zBlock
-			.partial()
+		blockTag: zBlockParam
 			.optional()
 			.describe(
-				'The `block` the `tx` belongs to. If omitted a default blank block will be used.',
+				'The block tag as a block number, block hash or one of "latest", "earliest", "pending" or "safe"',
 			),
 		gasPrice: z
 			.bigint()
@@ -30,7 +30,7 @@ export const zBaseCallParams = z
 			.describe(
 				'The address that ran this code (`msg.sender`). Defaults to the zero address.',
 			),
-		gasLimit: z
+		gas: z
 			.bigint()
 			.optional()
 			.describe(

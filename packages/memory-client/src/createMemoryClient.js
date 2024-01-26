@@ -12,6 +12,7 @@ import {
 	chainIdHandler,
 	contractHandler,
 	dumpStateHandler,
+	ethCallHandler,
 	gasPriceHandler,
 	getAccountHandler,
 	getBalanceHandler,
@@ -99,9 +100,9 @@ export const createMemoryClient = async (options = {}) => {
 			header: common.genesis(),
 			...(common.isActivatedEIP(4895)
 				? {
-						withdrawals:
+					withdrawals:
 							/** @type {Array<import('@ethereumjs/util').WithdrawalData>}*/ ([]),
-				  }
+				}
 				: {}),
 		},
 		{ common, setHardfork: false, skipConsensusFormatValidation: true },
@@ -178,6 +179,7 @@ export const createMemoryClient = async (options = {}) => {
 		loadState: loadStateHandler(evm.stateManager),
 		eth: {
 			blockNumber: blockNumberHandler(blockchain),
+			call: ethCallHandler(evm),
 			chainId: chainIdHandler(chainId),
 			gasPrice: gasPriceHandler({
 				forkUrl: options.fork?.url,

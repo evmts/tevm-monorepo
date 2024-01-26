@@ -14,23 +14,23 @@ FilterLog type for eth JSON-RPC procedures
 
 ### address
 
-> **`readonly`** **address**: `Hex`
+> **`readonly`** **address**: [`Hex`](Hex.md)
 
 ### blockHash
 
-> **`readonly`** **blockHash**: `Hex`
+> **`readonly`** **blockHash**: [`Hex`](Hex.md)
 
 ### blockNumber
 
-> **`readonly`** **blockNumber**: `Hex`
+> **`readonly`** **blockNumber**: [`Hex`](Hex.md)
 
 ### data
 
-> **`readonly`** **data**: `Hex`
+> **`readonly`** **data**: [`Hex`](Hex.md)
 
 ### logIndex
 
-> **`readonly`** **logIndex**: `Hex`
+> **`readonly`** **logIndex**: [`Hex`](Hex.md)
 
 ### removed
 
@@ -38,15 +38,15 @@ FilterLog type for eth JSON-RPC procedures
 
 ### topics
 
-> **`readonly`** **topics**: readonly `Hex`[]
+> **`readonly`** **topics**: readonly [`Hex`](Hex.md)[]
 
 ### transactionHash
 
-> **`readonly`** **transactionHash**: `Hex`
+> **`readonly`** **transactionHash**: [`Hex`](Hex.md)
 
 ### transactionIndex
 
-> **`readonly`** **transactionIndex**: `Hex`
+> **`readonly`** **transactionIndex**: [`Hex`](Hex.md)
 
 ## Source
 

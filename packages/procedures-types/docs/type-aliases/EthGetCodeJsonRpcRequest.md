@@ -12,7 +12,7 @@ JSON-RPC request for `eth_getCode` procedure
 
 ## Source
 
-[requests/EthJsonRpcRequest.ts:115](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L115)
+[requests/EthJsonRpcRequest.ts:145](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L145)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

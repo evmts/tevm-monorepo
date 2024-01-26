@@ -1,4 +1,4 @@
-import type { Address } from 'abitype'
+import type { Address } from './Address.js'
 
 /**
  * Header information of an ethereum block

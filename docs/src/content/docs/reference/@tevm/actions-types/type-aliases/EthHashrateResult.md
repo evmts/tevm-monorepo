@@ -5,7 +5,7 @@ prev: false
 title: "EthHashrateResult"
 ---
 
-> **EthHashrateResult**: `Hex`
+> **EthHashrateResult**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
 
 JSON-RPC response for `eth_hashrate` procedure
 

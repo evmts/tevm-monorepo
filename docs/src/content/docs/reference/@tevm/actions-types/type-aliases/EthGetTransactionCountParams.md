@@ -7,21 +7,21 @@ title: "EthGetTransactionCountParams"
 
 > **EthGetTransactionCountParams**: `object`
 
-JSON-RPC request for `eth_getTransactionCount` procedure
+Based on the JSON-RPC request for `eth_getTransactionCount` procedure
 
 ## Type declaration
 
 ### address
 
-> **address**: `Address`
+> **address**: [`Address`](/reference/tevm/actions-types/type-aliases/address/)
 
-### tag
+### blockTag
 
-> **tag**?: `BlockTag` \| `Hex`
+> **blockTag**?: [`BlockParam`](/reference/tevm/actions-types/type-aliases/blockparam/)
 
 ## Source
 
-[params/EthParams.ts:127](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L127)
+[params/EthParams.ts:149](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L149)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

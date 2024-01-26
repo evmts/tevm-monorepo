@@ -8,11 +8,11 @@
 
 > **EthGasPriceParams**: [`EmptyParams`](EmptyParams.md)
 
-JSON-RPC request for `eth_gasPrice` procedure
+Based on the JSON-RPC request for `eth_gasPrice` procedure
 
 ## Source
 
-[params/EthParams.ts:62](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L62)
+[params/EthParams.ts:82](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L82)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

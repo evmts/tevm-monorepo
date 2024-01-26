@@ -14,7 +14,7 @@ Params for `anvil_setNonce` handler
 
 ### address
 
-> **address**: `Address`
+> **address**: [`Address`](../../index/type-aliases/Address.md)
 
 The address to set the nonce for
 
@@ -26,7 +26,7 @@ The nonce to set
 
 ## Source
 
-packages/actions-types/types/params/AnvilParams.d.ts:98
+packages/actions-types/types/params/AnvilParams.d.ts:97
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

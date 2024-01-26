@@ -6,13 +6,13 @@
 
 # Type alias: EthNewFilterJsonRpcRequest
 
-> **EthNewFilterJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"eth_newFilter"`, `SerializeToJson`\<`FilterParams`\>\>
+> **EthNewFilterJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"eth_newFilter"`, `SerializeToJson`\<[`FilterParams`](../../actions-types/type-aliases/FilterParams.md)\>\>
 
 JSON-RPC request for `eth_newFilter` procedure
 
 ## Source
 
-packages/procedures-types/types/requests/EthJsonRpcRequest.d.ts:174
+packages/procedures-types/types/requests/EthJsonRpcRequest.d.ts:203
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

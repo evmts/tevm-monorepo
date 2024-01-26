@@ -8,21 +8,21 @@
 
 > **EthGetTransactionByBlockHashAndIndexParams**: `object`
 
-JSON-RPC request for `eth_getTransactionByBlockHashAndIndex` procedure
+Based on the JSON-RPC request for `eth_getTransactionByBlockHashAndIndex` procedure
 
 ## Type declaration
+
+### blockTag
+
+> **blockTag**?: [`Hex`](../../index/type-aliases/Hex.md)
 
 ### index
 
 > **index**: [`Hex`](../../index/type-aliases/Hex.md)
 
-### tag
-
-> **tag**?: [`Hex`](../../index/type-aliases/Hex.md)
-
 ## Source
 
-packages/actions-types/types/params/EthParams.d.ts:132
+packages/actions-types/types/params/EthParams.d.ts:160
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

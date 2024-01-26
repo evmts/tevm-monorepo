@@ -26,13 +26,13 @@ Amount of blob gas consumed by the transaction
 
 ### createdAddress
 
-> **createdAddress**?: `Address`
+> **createdAddress**?: [`Address`](Address.md)
 
 Address of created account during transaction, if any
 
 ### createdAddresses
 
-> **createdAddresses**?: `Set`\<`Address`\>
+> **createdAddresses**?: `Set`\<[`Address`](Address.md)\>
 
 Map of addresses which were created (used in EIP 6780)
 
@@ -74,13 +74,13 @@ Encoded return value from the contract as hex string
 
 ### selfdestruct
 
-> **selfdestruct**?: `Set`\<`Address`\>
+> **selfdestruct**?: `Set`\<[`Address`](Address.md)\>
 
 A set of accounts to selfdestruct
 
 ## Source
 
-packages/actions-types/types/result/CallResult.d.ts:8
+packages/actions-types/types/result/CallResult.d.ts:6
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

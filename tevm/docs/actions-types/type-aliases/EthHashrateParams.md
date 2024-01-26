@@ -6,13 +6,13 @@
 
 # Type alias: EthHashrateParams
 
-> **EthHashrateParams**: `EmptyParams`
+> **EthHashrateParams**: [`EmptyParams`](EmptyParams.md)
 
-JSON-RPC request for `eth_hashrate` procedure
+Based on the JSON-RPC request for `eth_hashrate` procedure
 
 ## Source
 
-packages/actions-types/types/params/EthParams.d.ts:36
+packages/actions-types/types/params/EthParams.d.ts:61
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

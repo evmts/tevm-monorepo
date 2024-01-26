@@ -1,4 +1,5 @@
-import type { BlockTag, CallParameters, Chain, Hex } from 'viem'
+import type { Hex } from '../common/index.js'
+import type { EthCallParams } from './EthParams.js'
 
 /**
  * Config params for trace calls
@@ -52,15 +53,4 @@ export type DebugTraceTransactionParams = TraceParams & {
 /**
  * Params taken by `debug_traceCall` handler
  */
-export type DebugTraceCallParams<
-	TChain extends Chain | undefined = Chain | undefined,
-> = TraceParams & {
-	/**
-	 * The transaction to debug
-	 */
-	transaction: CallParameters<TChain>
-	/**
-	 * Block information
-	 */
-	block?: BlockTag | Hex | BigInt
-}
+export type DebugTraceCallParams = TraceParams & EthCallParams

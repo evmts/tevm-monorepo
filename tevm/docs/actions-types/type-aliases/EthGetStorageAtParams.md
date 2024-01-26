@@ -8,25 +8,25 @@
 
 > **EthGetStorageAtParams**: `object`
 
-JSON-RPC request for `eth_getStorageAt` procedure
+Based on the JSON-RPC request for `eth_getStorageAt` procedure
 
 ## Type declaration
 
 ### address
 
-> **address**: `Address`
+> **address**: [`Address`](../../index/type-aliases/Address.md)
+
+### blockTag
+
+> **blockTag**?: [`BlockParam`](../../index/type-aliases/BlockParam.md)
 
 ### position
 
 > **position**: [`Hex`](../../index/type-aliases/Hex.md)
 
-### tag
-
-> **tag**?: `BlockTag` \| [`Hex`](../../index/type-aliases/Hex.md)
-
 ## Source
 
-packages/actions-types/types/params/EthParams.d.ts:99
+packages/actions-types/types/params/EthParams.d.ts:127
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

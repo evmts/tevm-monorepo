@@ -6,13 +6,13 @@
 
 # Type alias: EthNewBlockFilterParams
 
-> **EthNewBlockFilterParams**: `EmptyParams`
+> **EthNewBlockFilterParams**: [`EmptyParams`](EmptyParams.md)
 
-JSON-RPC request for `eth_newBlockFilter` procedure (no params)
+Based on the JSON-RPC request for `eth_newBlockFilter` procedure (no params)
 
 ## Source
 
-packages/actions-types/types/params/EthParams.d.ts:198
+packages/actions-types/types/params/EthParams.d.ts:231
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

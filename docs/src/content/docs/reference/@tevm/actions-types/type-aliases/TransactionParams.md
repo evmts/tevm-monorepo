@@ -13,31 +13,31 @@ A transaction request object
 
 ### from
 
-> **`readonly`** **from**: `Address`
+> **`readonly`** **from**: [`Address`](/reference/tevm/actions-types/type-aliases/address/)
 
 ### gas
 
-> **`readonly`** **gas**?: `Hex`
+> **`readonly`** **gas**?: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
 
 ### gasPrice
 
-> **`readonly`** **gasPrice**?: `Hex`
+> **`readonly`** **gasPrice**?: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
 
 ### input
 
-> **`readonly`** **input**: `Hex`
+> **`readonly`** **input**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
 
 ### nonce
 
-> **`readonly`** **nonce**?: `Hex`
+> **`readonly`** **nonce**?: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
 
 ### to
 
-> **`readonly`** **to**?: `Address`
+> **`readonly`** **to**?: [`Address`](/reference/tevm/actions-types/type-aliases/address/)
 
 ### value
 
-> **`readonly`** **value**?: `Hex`
+> **`readonly`** **value**?: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
 
 ## Source
 

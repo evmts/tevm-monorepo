@@ -1,6 +1,7 @@
 export {
 	blockNumberHandler,
 	chainIdHandler,
+	ethCallHandler,
 	getCodeHandler,
 	gasPriceHandler,
 	getBalanceHandler,

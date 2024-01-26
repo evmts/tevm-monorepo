@@ -26,7 +26,7 @@ mineing interval
 
 ## Source
 
-packages/actions-types/types/params/AnvilParams.d.ts:35
+packages/actions-types/types/params/AnvilParams.d.ts:34
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

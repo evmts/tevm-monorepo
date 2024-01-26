@@ -6,7 +6,7 @@
 
 # Type alias: EthGetUncleCountByBlockHashResult
 
-> **EthGetUncleCountByBlockHashResult**: `Hex`
+> **EthGetUncleCountByBlockHashResult**: [`Hex`](Hex.md)
 
 JSON-RPC response for `eth_getUncleCountByBlockHash` procedure
 

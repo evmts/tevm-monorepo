@@ -39,7 +39,7 @@ Balance to set account to
 
 ### deployedBytecode
 
-> **deployedBytecode**?: [`Hex`](Hex.md)
+> **deployedBytecode**?: `Hex`
 
 Contract bytecode to set account to
 
@@ -51,7 +51,7 @@ Nonce to set account to
 
 ### storageRoot
 
-> **storageRoot**?: [`Hex`](Hex.md)
+> **storageRoot**?: `Hex`
 
 Storage root to set account to
 

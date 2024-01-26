@@ -12,6 +12,7 @@
 - [zAddress](variables/zAddress.md)
 - [zBaseCallParams](variables/zBaseCallParams.md)
 - [zBlock](variables/zBlock.md)
+- [zBlockParam](variables/zBlockParam.md)
 - [zBytecode](variables/zBytecode.md)
 - [zCallParams](variables/zCallParams.md)
 - [zContractParams](variables/zContractParams.md)

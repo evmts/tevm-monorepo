@@ -6,7 +6,7 @@
 
 # Type alias: EthCallResult
 
-> **EthCallResult**: `Hex`
+> **EthCallResult**: [`Hex`](Hex.md)
 
 JSON-RPC response for `eth_call` procedure
 

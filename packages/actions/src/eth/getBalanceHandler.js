@@ -22,13 +22,8 @@ export class NoForkUrlSetError extends Error {
  */
 export const getBalanceHandler =
 	({ stateManager, forkUrl }) =>
-	async ({ address, blockTag, blockNumber }) => {
-		/**
-		 * @type {import('viem').BlockTag | bigint}
-		 */
-		const tag = blockNumber ?? blockTag ?? 'pending'
-
-		if (tag === 'pending') {
+	async ({ address, blockTag = 'pending' }) => {
+		if (blockTag === 'pending') {
 			return stateManager
 				.getAccount(Address.fromString(address))
 				.then((account) => account?.balance ?? 0n)
@@ -43,7 +38,10 @@ export const getBalanceHandler =
 				jsonrpc: '2.0',
 				id: 1,
 				method: 'eth_getBalance',
-				params: [address, typeof tag === 'bigint' ? numberToHex(tag) : tag],
+				params: [
+					address,
+					typeof blockTag === 'bigint' ? numberToHex(blockTag) : blockTag,
+				],
 			})
 			.then((balance) =>
 				hexToBigInt(/** @type {import('viem').Hex}*/ (balance.result)),

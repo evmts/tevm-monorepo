@@ -14,7 +14,7 @@ Params for `anvil_setStorageAt` handler
 
 ### address
 
-> **address**: `Address`
+> **address**: [`Address`](../../index/type-aliases/Address.md)
 
 The address to set the storage for
 
@@ -32,7 +32,7 @@ The value to set
 
 ## Source
 
-packages/actions-types/types/params/AnvilParams.d.ts:111
+packages/actions-types/types/params/AnvilParams.d.ts:110
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

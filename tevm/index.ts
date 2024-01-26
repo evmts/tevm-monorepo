@@ -9,6 +9,10 @@ export type {
 	GetAccountResult,
 	SetAccountResult,
 	ContractResult,
+	Abi,
+	Address,
+	Hex,
+	BlockParam,
 } from '@tevm/actions-types'
 export type {
 	TevmJsonRpcRequest,
@@ -65,5 +69,3 @@ export {
 	type CustomPrecompile,
 } from '@tevm/memory-client'
 
-export type { Abi, Address } from 'abitype'
-export type { Hex, Account } from 'viem'

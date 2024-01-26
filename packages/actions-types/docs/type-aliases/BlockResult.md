@@ -15,83 +15,83 @@ json rpc procedures
 
 ### difficulty
 
-> **`readonly`** **difficulty**: `Hex`
+> **`readonly`** **difficulty**: [`Hex`](Hex.md)
 
 ### extraData
 
-> **`readonly`** **extraData**: `Hex`
+> **`readonly`** **extraData**: [`Hex`](Hex.md)
 
 ### gasLimit
 
-> **`readonly`** **gasLimit**: `Hex`
+> **`readonly`** **gasLimit**: [`Hex`](Hex.md)
 
 ### gasUsed
 
-> **`readonly`** **gasUsed**: `Hex`
+> **`readonly`** **gasUsed**: [`Hex`](Hex.md)
 
 ### hash
 
-> **`readonly`** **hash**: `Hex`
+> **`readonly`** **hash**: [`Hex`](Hex.md)
 
 The hex stringhash of the block.
 
 ### logsBloom
 
-> **`readonly`** **logsBloom**: `Hex`
+> **`readonly`** **logsBloom**: [`Hex`](Hex.md)
 
 ### miner
 
-> **`readonly`** **miner**: `Hex`
+> **`readonly`** **miner**: [`Hex`](Hex.md)
 
 ### nonce
 
-> **`readonly`** **nonce**: `Hex`
+> **`readonly`** **nonce**: [`Hex`](Hex.md)
 
 ### number
 
-> **`readonly`** **number**: `Hex`
+> **`readonly`** **number**: [`Hex`](Hex.md)
 
 The block number (height) in the blockchain.
 
 ### parentHash
 
-> **`readonly`** **parentHash**: `Hex`
+> **`readonly`** **parentHash**: [`Hex`](Hex.md)
 
 The hex stringhash of the parent block.
 
 ### sha3Uncles
 
-> **`readonly`** **sha3Uncles**: `Hex`
+> **`readonly`** **sha3Uncles**: [`Hex`](Hex.md)
 
 The hex stringhash of the uncles of the block.
 
 ### size
 
-> **`readonly`** **size**: `Hex`
+> **`readonly`** **size**: [`Hex`](Hex.md)
 
 ### stateRoot
 
-> **`readonly`** **stateRoot**: `Hex`
+> **`readonly`** **stateRoot**: [`Hex`](Hex.md)
 
 ### timestamp
 
-> **`readonly`** **timestamp**: `Hex`
+> **`readonly`** **timestamp**: [`Hex`](Hex.md)
 
 ### totalDifficulty
 
-> **`readonly`** **totalDifficulty**: `Hex`
+> **`readonly`** **totalDifficulty**: [`Hex`](Hex.md)
 
 ### transactions
 
-> **`readonly`** **transactions**: `Hex`[]
+> **`readonly`** **transactions**: [`Hex`](Hex.md)[]
 
 ### transactionsRoot
 
-> **`readonly`** **transactionsRoot**: `Hex`
+> **`readonly`** **transactionsRoot**: [`Hex`](Hex.md)
 
 ### uncles
 
-> **`readonly`** **uncles**: `Hex`[]
+> **`readonly`** **uncles**: [`Hex`](Hex.md)[]
 
 ## Source
 

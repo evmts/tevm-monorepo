@@ -5,7 +5,7 @@ prev: false
 title: "EthCoinbaseResult"
 ---
 
-> **EthCoinbaseResult**: `Address`
+> **EthCoinbaseResult**: [`Address`](/reference/tevm/actions-types/type-aliases/address/)
 
 JSON-RPC response for `eth_coinbase` procedure
 

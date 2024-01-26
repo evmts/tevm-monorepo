@@ -8,21 +8,21 @@
 
 > **EthGetBlockByNumberParams**: `object`
 
-JSON-RPC request for `eth_getBlockByNumber` procedure
+Based on the JSON-RPC request for `eth_getBlockByNumber` procedure
 
 ## Type declaration
+
+### blockTag
+
+> **blockTag**?: [`BlockParam`](../../index/type-aliases/BlockParam.md)
 
 ### fullTransactionObjects
 
 > **fullTransactionObjects**: `boolean`
 
-### tag
-
-> **tag**?: `BlockTag` \| [`Hex`](../../index/type-aliases/Hex.md)
-
 ## Source
 
-packages/actions-types/types/params/EthParams.d.ts:55
+packages/actions-types/types/params/EthParams.d.ts:83
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

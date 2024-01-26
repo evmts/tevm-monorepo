@@ -1,4 +1,4 @@
-import type { Hex } from 'viem'
+import type { Hex } from '../common/index.js'
 
 // anvil_impersonateAccount
 export type AnvilImpersonateAccountResult = null

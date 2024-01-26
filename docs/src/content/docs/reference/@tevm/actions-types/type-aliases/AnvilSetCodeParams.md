@@ -13,19 +13,19 @@ Params for `anvil_setCode` handler
 
 ### address
 
-> **address**: `Address`
+> **address**: [`Address`](/reference/tevm/actions-types/type-aliases/address/)
 
 The address to set the code for
 
 ### code
 
-> **code**: `Hex`
+> **code**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
 
 The code to set
 
 ## Source
 
-[params/AnvilParams.ts:104](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/AnvilParams.ts#L104)
+[params/AnvilParams.ts:103](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/AnvilParams.ts#L103)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

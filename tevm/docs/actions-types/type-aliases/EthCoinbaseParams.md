@@ -6,13 +6,13 @@
 
 # Type alias: EthCoinbaseParams
 
-> **EthCoinbaseParams**: `EmptyParams`
+> **EthCoinbaseParams**: [`EmptyParams`](EmptyParams.md)
 
-JSON-RPC request for `eth_coinbase` procedure
+Based on the JSON-RPC request for `eth_coinbase` procedure
 
 ## Source
 
-packages/actions-types/types/params/EthParams.d.ts:26
+packages/actions-types/types/params/EthParams.d.ts:52
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

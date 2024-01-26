@@ -14,13 +14,13 @@ Params fro `anvil_impersonateAccount` handler
 
 ### address
 
-> **address**: `Address`
+> **address**: [`Address`](Address.md)
 
 The address to impersonate
 
 ## Source
 
-[params/AnvilParams.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/AnvilParams.ts#L11)
+[params/AnvilParams.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/AnvilParams.ts#L10)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

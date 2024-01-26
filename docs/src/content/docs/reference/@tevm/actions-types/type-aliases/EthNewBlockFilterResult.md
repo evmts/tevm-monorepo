@@ -5,7 +5,7 @@ prev: false
 title: "EthNewBlockFilterResult"
 ---
 
-> **EthNewBlockFilterResult**: `Hex`
+> **EthNewBlockFilterResult**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
 
 JSON-RPC response for `eth_newBlockFilter` procedure
 

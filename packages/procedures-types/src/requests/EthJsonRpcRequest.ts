@@ -2,7 +2,37 @@ import type { SerializeToJson } from '../utils/SerializeToJson.js'
 import type { FilterParams } from '@tevm/actions-types'
 import type { JsonRpcRequest } from '@tevm/jsonrpc'
 import type { Address } from 'abitype'
-import type { BlockTag, Hex, Transaction } from 'viem'
+import type { BlockTag, Hex } from 'viem'
+
+/**
+ * the transaction call object for methods like `eth_call`
+ */
+export type JsonRpcTransaction = {
+	/**
+	 * The address from which the transaction is sent
+	 */
+	from: Address
+	/**
+	 * The address to which the transaction is addressed
+	 */
+	to?: Address
+	/**
+	 * The integer of gas provided for the transaction execution
+	 */
+	gas?: Hex
+	/**
+	 * The integer of gasPrice used for each paid gas encoded as hexadecimal
+	 */
+	gasPrice?: Hex
+	/**
+	 * The integer of value sent with this transaction encoded as hexadecimal
+	 */
+	value?: Hex
+	/**
+	 * The hash of the method signature and encoded parameters. For more information, see the Contract ABI description in the Solidity documentation
+	 */
+	data?: Hex
+}
 
 // eth_accounts
 /**
@@ -26,7 +56,7 @@ export type EthBlockNumberJsonRpcRequest = JsonRpcRequest<
  */
 export type EthCallJsonRpcRequest = JsonRpcRequest<
 	'eth_call',
-	readonly [tx: Transaction, tag: BlockTag | Hex]
+	readonly [tx: JsonRpcTransaction, tag: BlockTag | Hex]
 >
 // eth_chainId
 /**
@@ -50,7 +80,7 @@ export type EthCoinbaseJsonRpcRequest = JsonRpcRequest<
  */
 export type EthEstimateGasJsonRpcRequest = JsonRpcRequest<
 	'eth_estimateGas',
-	readonly [tx: Transaction]
+	readonly [tx: JsonRpcTransaction]
 >
 // eth_hashrate
 /**
@@ -248,7 +278,7 @@ export type EthSendRawTransactionJsonRpcRequest = JsonRpcRequest<
  */
 export type EthSendTransactionJsonRpcRequest = JsonRpcRequest<
 	'eth_sendTransaction',
-	[tx: Transaction]
+	[tx: JsonRpcTransaction]
 >
 // eth_sign
 /**

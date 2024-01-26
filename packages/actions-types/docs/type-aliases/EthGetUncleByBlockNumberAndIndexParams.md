@@ -8,21 +8,21 @@
 
 > **EthGetUncleByBlockNumberAndIndexParams**: `object`
 
-JSON-RPC request for `eth_getUncleByBlockNumberAndIndex` procedure
+Based on the JSON-RPC request for `eth_getUncleByBlockNumberAndIndex` procedure
 
 ## Type declaration
 
-### tag
+### blockTag
 
-> **tag**?: `BlockTag` \| `Hex`
+> **blockTag**?: [`BlockParam`](BlockParam.md)
 
 ### uncleIndex
 
-> **uncleIndex**: `Hex`
+> **uncleIndex**: [`Hex`](Hex.md)
 
 ## Source
 
-[params/EthParams.ts:179](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L179)
+[params/EthParams.ts:201](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L201)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

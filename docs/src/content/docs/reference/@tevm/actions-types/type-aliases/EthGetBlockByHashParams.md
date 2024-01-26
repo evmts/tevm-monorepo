@@ -7,13 +7,13 @@ title: "EthGetBlockByHashParams"
 
 > **EthGetBlockByHashParams**: `object`
 
-JSON-RPC request for `eth_getBlockByHash` procedure
+Based on the JSON-RPC request for `eth_getBlockByHash` procedure
 
 ## Type declaration
 
 ### blockHash
 
-> **blockHash**: `Hex`
+> **blockHash**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
 
 ### fullTransactionObjects
 
@@ -21,7 +21,7 @@ JSON-RPC request for `eth_getBlockByHash` procedure
 
 ## Source
 
-[params/EthParams.ts:72](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L72)
+[params/EthParams.ts:92](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L92)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

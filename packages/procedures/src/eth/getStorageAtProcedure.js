@@ -12,7 +12,7 @@ export const getStorageAtProcedure =
 		method: req.method,
 		result: await getStorageAtHandler({ stateManager, forkUrl })({
 			address: req.params[0],
-			tag: req.params[2],
 			position: req.params[1],
+			blockTag: req.params[2],
 		}),
 	})

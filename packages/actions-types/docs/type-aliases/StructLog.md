@@ -32,7 +32,7 @@
 
 ### stack
 
-> **`readonly`** **stack**: `ReadonlyArray`\<`Hex`\>
+> **`readonly`** **stack**: `ReadonlyArray`\<[`Hex`](Hex.md)\>
 
 ## Source
 

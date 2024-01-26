@@ -4,27 +4,16 @@
 
 [API](../API.md) > EthEstimateGasParams
 
-# Type alias: EthEstimateGasParams`<TChain>`
+# Type alias: EthEstimateGasParams
 
-> **EthEstimateGasParams**\<`TChain`\>: `Omit`\<`EstimateGasParameters`\<`TChain`\>, `"account"`\> & `object`
+> **EthEstimateGasParams**: [`CallParams`](CallParams.md)
 
-JSON-RPC request for `eth_estimateGas` procedure
-
-## Type declaration
-
-### to
-
-> **to**: `Address`
-
-## Type parameters
-
-| Parameter | Default |
-| :------ | :------ |
-| `TChain` extends `Chain` \| `undefined` | `Chain` \| `undefined` |
+Based on the JSON-RPC request for `eth_estimateGas` procedure
+This type is a placeholder
 
 ## Source
 
-[params/EthParams.ts:48](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L48)
+[params/EthParams.ts:72](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L72)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
