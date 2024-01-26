@@ -51,10 +51,10 @@ export const validateBaseCallParams = (action) => {
 			})
 		}
 
-		if (formattedErrors.gas) {
-			formattedErrors.gas._errors.forEach((error) => {
+		if (formattedErrors.gasPrice) {
+			formattedErrors.gasPrice._errors.forEach((error) => {
 				errors.push(
-					createError('InvalidGasPriceError', error, String(action.gas)),
+					createError('InvalidGasPriceError', error, String(action.gasPrice)),
 				)
 			})
 		}
@@ -75,10 +75,10 @@ export const validateBaseCallParams = (action) => {
 			})
 		}
 
-		if (formattedErrors.gasLimit) {
-			formattedErrors.gasLimit._errors.forEach((error) => {
+		if (formattedErrors.gas) {
+			formattedErrors.gas._errors.forEach((error) => {
 				errors.push(
-					createError('InvalidGasLimitError', error, String(action.gasLimit)),
+					createError('InvalidGasLimitError', error, String(action.gas)),
 				)
 			})
 		}

@@ -308,7 +308,7 @@ describe('contractHandler', () => {
 				functionName: 'balanceOf',
 				args: [ERC20_ADDRESS],
 				to: ERC20_ADDRESS,
-				gasLimit: 16784800n,
+				gas: 16784800n,
 			}),
 		).toEqual({
 			data: 0n,
@@ -465,7 +465,7 @@ describe('contractHandler', () => {
 	it('Handles the unlikely event the function data cannot be decoded', async () => {
 		const evm = new EVM({})
 		const originalRunCall = evm.runCall.bind(evm)
-		evm.runCall = function (args) {
+		evm.runCall = function(args) {
 			return {
 				...originalRunCall(args),
 				execResult: { returnValue: '0x42424242' },
@@ -487,7 +487,7 @@ describe('contractHandler', () => {
 				functionName: 'balanceOf',
 				args: [ERC20_ADDRESS],
 				to: ERC20_ADDRESS,
-				gasLimit: 16784800n,
+				gas: 16784800n,
 			}),
 		).toEqual({
 			errors: [
@@ -521,7 +521,7 @@ describe('contractHandler', () => {
 				functionName: 'balanceOf',
 				args: ['not correct type' as any],
 				to: ERC20_ADDRESS,
-				gasLimit: 16784800n,
+				gas: 16784800n,
 			}),
 		).toEqual({
 			errors: [

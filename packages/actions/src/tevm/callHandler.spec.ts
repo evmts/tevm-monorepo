@@ -312,7 +312,7 @@ describe('callHandler', () => {
 					args: [ERC20_ADDRESS],
 				}),
 				to: ERC20_ADDRESS,
-				gasLimit: 16784800n,
+				gas: 16784800n,
 			}),
 		).toEqual({
 			rawData:

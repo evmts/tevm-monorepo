@@ -157,10 +157,10 @@ describe('callHandlerOpts', () => {
 	})
 
 	it('should handle gasLimit', () => {
-		const gasLimit = 100n
+		const gas = 100n
 		const result = callHandlerOpts({
-			gasLimit,
+			gas,
 		})
-		expect(result.gasLimit).toEqual(gasLimit)
+		expect(result.gasLimit).toEqual(gas)
 	})
 })

@@ -29,12 +29,21 @@ The `block` the `tx` belongs to. If omitted a default blank block will be used.
 > **caller**?: `Address`
 
 The address that ran this code (`msg.sender`). Defaults to the zero address.
+This defaults to `from` address if set otherwise it defaults to the zero address
 
 ### depth
 
 > **depth**?: `number`
 
 The call depth. Defaults to `0`
+
+### from
+
+> **from**?: `Address`
+
+The from address for the call. Defaults to the zero address.
+It is also possible to set the `origin` and `caller` addresses seperately using
+those options. Otherwise both are set to the `from` address
 
 ### gas
 
@@ -59,6 +68,7 @@ Refund counter. Defaults to `0`
 > **origin**?: `Address`
 
 The address where the call originated from. Defaults to the zero address.
+This defaults to `from` address if set otherwise it defaults to the zero address
 
 ### selfdestruct
 

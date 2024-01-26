@@ -16,7 +16,7 @@ export const zBaseCallParams = z
 			.describe(
 				'The `block` the `tx` belongs to. If omitted a default blank block will be used.',
 			),
-		gas: z
+		gasPrice: z
 			.bigint()
 			.optional()
 			.describe('The gas price for the call. Defaults to `0`'),
@@ -30,7 +30,7 @@ export const zBaseCallParams = z
 			.describe(
 				'The address that ran this code (`msg.sender`). Defaults to the zero address.',
 			),
-		gasLimit: z
+		gas: z
 			.bigint()
 			.optional()
 			.describe(

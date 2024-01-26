@@ -6,6 +6,10 @@ import { type Address, type Hex } from 'viem'
  */
 export type BaseCallParams = {
 	/**
+	 * The `block` the `tx` belongs to. If omitted a default blank block will be used.
+	 */
+	block?: Partial<Block>
+	/**
 	 * Set caller to msg.value of less than msg.value
 	 * Defaults to false exceipt for when running scripts
 	 * where it is set to true
@@ -16,9 +20,9 @@ export type BaseCallParams = {
 	 */
 	gasRefund?: bigint
 	/**
-	 * The `block` the `tx` belongs to. If omitted a default blank block will be used.
+	 * The gas price for the call. Defaults to `0`
 	 */
-	block?: Partial<Block>
+	gasPrice?: bigint
 	/**
 	 * The gas price for the call. Defaults to `0`
 	 */
@@ -39,10 +43,6 @@ export type BaseCallParams = {
 	 * This defaults to `from` address if set otherwise it defaults to the zero address
 	 */
 	caller?: Address
-	/**
-	 * The gas limit for the call. Defaults to `16777215` (`0xffffff`)
-	 */
-	gasLimit?: bigint
 	/**
 	 * The value in ether that is being sent to `opts.address`. Defaults to `0`
 	 */

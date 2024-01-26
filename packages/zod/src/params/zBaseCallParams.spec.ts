@@ -8,7 +8,8 @@ test('zBaseCallParams', () => {
 		block: {
 			number: 0x420n,
 		},
-		gasLimit: 0x420n,
+		gas: 0x420n,
+		gasPrice: 0x4420n,
 		caller: `0x${'69'.repeat(20)}`,
 	} as const satisfies z.infer<typeof zBaseCallParams>
 	expect(zBaseCallParams.parse(callParams)).toEqual(callParams)

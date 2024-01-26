@@ -84,20 +84,22 @@ export const callHandlerOpts = (params) => {
 	if (params.gasRefund) {
 		opts.gasRefund = BigInt(params.gasRefund)
 	}
-	if (params.gas) {
-		opts.gasPrice = BigInt(params.gas)
+	if (params.gasPrice) {
+		opts.gasPrice = BigInt(params.gasPrice)
 	}
 	if (params.value) {
 		opts.value = BigInt(params.value)
 	}
-	if (params.caller || params.from) {
-		opts.caller = EthjsAddress.fromString(params.caller || params.from)
+	const caller = params.caller || params.from
+	if (caller) {
+		opts.caller = EthjsAddress.fromString(caller)
 	}
-	if (params.origin || params.from) {
-		opts.origin = EthjsAddress.fromString(params.origin || params.from)
+	const origin = params.origin || params.from
+	if (origin) {
+		opts.origin = EthjsAddress.fromString(origin)
 	}
-	if (params.gasLimit) {
-		opts.gasLimit = BigInt(params.gasLimit)
+	if (params.gas) {
+		opts.gasLimit = BigInt(params.gas)
 	}
 
 	return opts
