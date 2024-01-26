@@ -22,7 +22,7 @@ export type BaseCallParams = {
 	/**
 	 * The gas price for the call. Defaults to `0`
 	 */
-	gasPrice?: bigint
+	gas?: bigint
 	/**
 	 * The address where the call originated from. Defaults to the zero address.
 	 */

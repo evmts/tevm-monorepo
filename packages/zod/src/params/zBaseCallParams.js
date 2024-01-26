@@ -1,5 +1,5 @@
-import { zAddress, zBlock, zHex } from '../common/index.js'
 import { z } from 'zod'
+import { zAddress, zBlock, zHex } from '../common/index.js'
 
 export const zBaseCallParams = z
 	.object({
@@ -16,7 +16,7 @@ export const zBaseCallParams = z
 			.describe(
 				'The `block` the `tx` belongs to. If omitted a default blank block will be used.',
 			),
-		gasPrice: z
+		gas: z
 			.bigint()
 			.optional()
 			.describe('The gas price for the call. Defaults to `0`'),

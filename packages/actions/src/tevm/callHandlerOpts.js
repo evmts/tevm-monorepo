@@ -87,8 +87,8 @@ export const callHandlerOpts = (params) => {
 	if (params.gasRefund) {
 		opts.gasRefund = BigInt(params.gasRefund)
 	}
-	if (params.gasPrice) {
-		opts.gasPrice = BigInt(params.gasPrice)
+	if (params.gas) {
+		opts.gasPrice = BigInt(params.gas)
 	}
 	if (params.value) {
 		opts.value = BigInt(params.value)

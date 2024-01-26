@@ -21,8 +21,8 @@ export const callProcedure = (evm) => async (request) => {
 		...(request.params.gasLimit
 			? { gasLimit: hexToBigInt(request.params.gasLimit) }
 			: {}),
-		...(request.params.gasPrice
-			? { gasPrice: hexToBigInt(request.params.gasPrice) }
+		...(request.params.gas
+			? { gas: hexToBigInt(request.params.gas) }
 			: {}),
 		...(request.params.gasRefund
 			? { gasRefund: hexToBigInt(request.params.gasRefund) }

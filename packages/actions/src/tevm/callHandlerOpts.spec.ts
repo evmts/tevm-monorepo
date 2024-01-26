@@ -119,11 +119,11 @@ describe('callHandlerOpts', () => {
 	})
 
 	it('should handle gasPrice', () => {
-		const gasPrice = 100n
+		const gas = 100n
 		const result = callHandlerOpts({
-			gasPrice,
+			gas,
 		})
-		expect(result.gasPrice).toEqual(gasPrice)
+		expect(result.gasPrice).toEqual(gas)
 	})
 
 	it('should handle value', () => {
