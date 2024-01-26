@@ -15,6 +15,7 @@ describe('callHandlerOpts', () => {
 		const params = { caller: `0x${'4'.repeat(40)}` } as const
 		const result = callHandlerOpts(params)
 		expect(result.caller).toEqual(EthjsAddress.fromString(params.caller))
+		expect(result.skipBalance).toBeFalse()
 	})
 
 	it('should set both origin and caller to from address if provided', () => {
@@ -22,6 +23,7 @@ describe('callHandlerOpts', () => {
 		const result = callHandlerOpts(params)
 		expect(result.caller).toEqual(EthjsAddress.fromString(params.from))
 		expect(result.origin).toEqual(EthjsAddress.fromString(params.from))
+		expect(result.skipBalance).toBeFalse()
 	})
 
 	it('origin and caller take presidence over from', () => {
@@ -33,6 +35,7 @@ describe('callHandlerOpts', () => {
 		const result = callHandlerOpts(params)
 		expect(result.caller).toEqual(EthjsAddress.fromString(params.caller))
 		expect(result.origin).toEqual(EthjsAddress.fromString(params.origin))
+		expect(result.skipBalance).toBeFalse()
 	})
 
 	it('origin and caller take presidence over from', () => {
@@ -108,7 +111,7 @@ describe('callHandlerOpts', () => {
 	})
 
 	it('should handle skipBalance', () => {
-		const skipBalance = true
+		const skipBalance = false
 		const result = callHandlerOpts({
 			skipBalance,
 		})

@@ -1,7 +1,8 @@
 import type { TevmStateManagerInterface } from './TevmStateManagerInterface.js'
 import { CacheType, DefaultStateManager } from '@ethereumjs/statemanager'
 import { Account, Address as EthjsAddress } from '@ethereumjs/util'
-import type { Address } from 'viem'
+import { hexToBytes, type Address, isHex, fromRlp, bytesToHex } from 'viem'
+import type { SerializableTevmState } from './SerializableTevmState.js'
 
 /**
  * The ethereum state manager implementation for running Tevm in `normal` mode.
@@ -12,8 +13,7 @@ import type { Address } from 'viem'
  */
 export class NormalStateManager
 	extends DefaultStateManager
-	implements TevmStateManagerInterface
-{
+	implements TevmStateManagerInterface {
 	/**
 	 * Retrieves the addresses of all the accounts in the state.
 	 * @returns An array of account addresses.
@@ -76,5 +76,73 @@ export class NormalStateManager
 		}
 
 		return out
+	}
+
+	/**
+	 * Loads a {@link SerializableTevmState} into the state manager
+	 */
+	override generateCanonicalGenesis = async (state: SerializableTevmState): Promise<void> => {
+		for (const [k, v] of Object.entries(state)) {
+			const { nonce, balance, storageRoot, codeHash, storage } = v
+			const account = new Account(
+				// replace with just the var
+				nonce,
+				balance,
+				hexToBytes(storageRoot, { size: 32 }),
+				hexToBytes(codeHash, { size: 32 }),
+			)
+			const address = EthjsAddress.fromString(k)
+			this.putAccount(address, account)
+			if (storage !== undefined) {
+				for (const [storageKey, storageData] of Object.entries(storage)) {
+					const key = hexToBytes(
+						isHex(storageKey) ? storageKey : `0x${storageKey}`,
+					)
+					const encodedStorageData = fromRlp(
+						isHex(storageData) ? storageData : `0x${storageData}`,
+					)
+					const data = hexToBytes(
+						isHex(encodedStorageData)
+							? encodedStorageData
+							: `0x${encodedStorageData}`,
+					)
+					this.putContractStorage(address, key, data)
+				}
+			}
+		}
+	}
+
+	/**
+	 * Dumps the state of the state manager as a {@link SerializableTevmState}
+	 */
+	dumpCanonicalGenesis = async (): Promise<SerializableTevmState> => {
+		const accountAddresses: string[] = []
+		this._accountCache?._orderedMapCache?.forEach((e) => {
+			accountAddresses.push(e[0])
+		})
+
+		const state: SerializableTevmState = {}
+
+		for (const address of accountAddresses) {
+			const hexAddress = `0x${address}`
+			const account = await this.getAccount(
+				EthjsAddress.fromString(hexAddress),
+			)
+
+			if (account !== undefined) {
+				const storage = await this.dumpStorage(
+					EthjsAddress.fromString(hexAddress),
+				)
+
+				state[hexAddress] = {
+					...account,
+					storageRoot: bytesToHex(account.storageRoot),
+					codeHash: bytesToHex(account.codeHash),
+					storage,
+				}
+			}
+		}
+
+		return state
 	}
 }

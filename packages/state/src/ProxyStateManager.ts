@@ -10,7 +10,7 @@ import type { TevmStateManagerInterface } from './TevmStateManagerInterface.js'
 import type { AccountFields, StorageDump } from '@ethereumjs/common'
 import type { StorageRange } from '@ethereumjs/common'
 import type { Proof } from '@ethereumjs/statemanager'
-import type { Address as EthjsAddress } from '@ethereumjs/util'
+import { Address as EthjsAddress } from '@ethereumjs/util'
 import type { Address } from 'abitype'
 import type { Debugger } from 'debug'
 import {
@@ -22,7 +22,10 @@ import {
 	http,
 	toBytes,
 	toHex,
+	isHex,
+	fromRlp,
 } from 'viem'
+import type { SerializableTevmState } from './SerializableTevmState.js'
 
 export interface ProxyStateManagerOpts {
 	/**
@@ -362,10 +365,8 @@ export class ProxyStateManager implements TevmStateManagerInterface {
 	): Promise<void> {
 		if (this.DEBUG) {
 			this._debug(
-				`Save account address=${address} nonce=${account?.nonce} balance=${
-					account?.balance
-				} contract=${account?.isContract() ? 'yes' : 'no'} empty=${
-					account?.isEmpty() ? 'yes' : 'no'
+				`Save account address=${address} nonce=${account?.nonce} balance=${account?.balance
+				} contract=${account?.isContract() ? 'yes' : 'no'} empty=${account?.isEmpty() ? 'yes' : 'no'
 				}`,
 			)
 		}
@@ -502,17 +503,13 @@ export class ProxyStateManager implements TevmStateManagerInterface {
 	/**
 	 * @deprecated This method is not used by the Tevm State Manager and is a stub required by the State Manager interface
 	 */
-	setStateRoot = async (_root: Uint8Array) => {}
+	setStateRoot = async (_root: Uint8Array) => { }
 
 	/**
 	 * @deprecated This method is not used by the Tevm State Manager and is a stub required by the State Manager interface
 	 */
 	hasStateRoot = () => {
 		throw new Error('function not implemented')
-	}
-
-	generateCanonicalGenesis(_initState: any): Promise<void> {
-		return Promise.resolve()
 	}
 
 	getAccountAddresses = () => {
@@ -523,5 +520,73 @@ export class ProxyStateManager implements TevmStateManagerInterface {
 		})
 
 		return accountAddresses as Address[]
+	}
+
+	/**
+	 * Loads a {@link SerializableTevmState} into the state manager
+	 */
+	generateCanonicalGenesis = async (state: SerializableTevmState): Promise<void> => {
+		for (const [k, v] of Object.entries(state)) {
+			const { nonce, balance, storageRoot, codeHash, storage } = v
+			const account = new Account(
+				// replace with just the var
+				nonce,
+				balance,
+				hexToBytes(storageRoot, { size: 32 }),
+				hexToBytes(codeHash, { size: 32 }),
+			)
+			const address = EthjsAddress.fromString(k)
+			this.putAccount(address, account)
+			if (storage !== undefined) {
+				for (const [storageKey, storageData] of Object.entries(storage)) {
+					const key = hexToBytes(
+						isHex(storageKey) ? storageKey : `0x${storageKey}`,
+					)
+					const encodedStorageData = fromRlp(
+						isHex(storageData) ? storageData : `0x${storageData}`,
+					)
+					const data = hexToBytes(
+						isHex(encodedStorageData)
+							? encodedStorageData
+							: `0x${encodedStorageData}`,
+					)
+					this.putContractStorage(address, key, data)
+				}
+			}
+		}
+	}
+
+	/**
+	 * Dumps the state of the state manager as a {@link SerializableTevmState}
+	 */
+	dumpCanonicalGenesis = async (): Promise<SerializableTevmState> => {
+		const accountAddresses: string[] = []
+		this._accountCache?._orderedMapCache?.forEach((e) => {
+			accountAddresses.push(e[0])
+		})
+
+		const state: SerializableTevmState = {}
+
+		for (const address of accountAddresses) {
+			const hexAddress = `0x${address}`
+			const account = await this.getAccount(
+				EthjsAddress.fromString(hexAddress),
+			)
+
+			if (account !== undefined) {
+				const storage = await this.dumpStorage(
+					EthjsAddress.fromString(hexAddress),
+				)
+
+				state[hexAddress] = {
+					...account,
+					storageRoot: bytesToHex(account.storageRoot),
+					codeHash: bytesToHex(account.codeHash),
+					storage,
+				}
+			}
+		}
+
+		return state
 	}
 }
