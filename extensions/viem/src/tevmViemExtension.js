@@ -63,7 +63,7 @@ export const tevmViemExtension = () => {
 		 */
 		const request = async (req) => {
 			try {
-				const result = await client.request(/** @type any*/(req))
+				const result = await client.request(/** @type any*/ (req))
 				return /** @type any */ ({
 					jsonrpc: '2.0',
 					method: req.method,
@@ -103,7 +103,7 @@ export const tevmViemExtension = () => {
 							...getCallArgs(params),
 							deployedBytecode: params.deployedBytecode,
 							data: encodeFunctionData(
-								/** @type any*/({
+								/** @type any*/ ({
 									abi: params.abi,
 									functionName: params.functionName,
 									args: params.args,
@@ -114,7 +114,7 @@ export const tevmViemExtension = () => {
 				)
 			)
 			out.data = decodeFunctionResult(
-				/** @type any*/({
+				/** @type any*/ ({
 					data: out.rawData,
 					abi: params.abi,
 					functionName: params.functionName,
@@ -253,7 +253,7 @@ export const tevmViemExtension = () => {
 			const out = await call({
 				...params,
 				data: encodeFunctionData(
-					/** @type any*/({
+					/** @type any*/ ({
 						abi: params.abi,
 						functionName: params.functionName,
 						args: params.args,
@@ -262,7 +262,7 @@ export const tevmViemExtension = () => {
 			})
 
 			const data = decodeFunctionResult(
-				/** @type any*/({
+				/** @type any*/ ({
 					data: out.rawData,
 					abi: params.abi,
 					functionName: params.functionName,
@@ -301,7 +301,7 @@ export const tevmViemExtension = () => {
 			data,
 			from = `0x${'0'.repeat(40)}`,
 			value,
-			gasPrice
+			gasPrice,
 		}) => {
 			return /** @type {any} */ (
 				formatResult(
@@ -315,9 +315,9 @@ export const tevmViemExtension = () => {
 								...(gasPrice ? { gasPrice: numberToHex(gasPrice) } : {}),
 								...(to ? { to } : {}),
 								...(value ? { value: numberToHex(value) } : {}),
-								...(data ? { data } : {})
+								...(data ? { data } : {}),
 							},
-							formatBlockTag(blockTag)
+							formatBlockTag(blockTag),
 						],
 					}),
 				)
