@@ -1,8 +1,7 @@
 /***
  * TODO I didn't update any of these jsdocs
  */
-import type { Address } from 'abitype'
-import type { BlockTag, Hex } from 'viem'
+import type { Address, BlockTag, Hex } from '../common/index.js'
 
 // anvil_impersonateAccount
 /**

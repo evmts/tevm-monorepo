@@ -1,5 +1,5 @@
 import type { FilterLog } from './FilterLog.js'
-import type { Hex } from 'viem'
+import type { Hex } from './Hex.js'
 
 /**
  * Transaction receipt result type for eth JSON-RPC procedures

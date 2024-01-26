@@ -1,5 +1,5 @@
 import type { BaseCallParams } from './BaseCallParams.js'
-import type { Abi, Address } from 'abitype'
+import type { Abi, Address } from '../common/index.js'
 import {
 	type ContractFunctionName,
 	type EncodeFunctionDataParameters,

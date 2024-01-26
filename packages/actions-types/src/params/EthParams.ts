@@ -1,17 +1,5 @@
-import type { EmptyParams } from '../common/EmptyParams.js'
-import type { FilterParams } from '../common/FilterParams.js'
-import type { Address } from 'abitype'
-import type {
-	BlockTag,
-	Chain,
-	EstimateGasParameters,
-	GetBalanceParameters,
-	GetTransactionParameters,
-	Hex,
-	SendRawTransactionParameters,
-	SendTransactionParameters,
-	SignMessageParameters,
-} from 'viem'
+import type { Hex, BlockParam, EmptyParams, FilterParams, Address } from '../common/index.js'
+import type { CallParams } from './CallParams.js'
 
 // eth_accounts
 /**
@@ -57,7 +45,7 @@ export type EthCallParams = {
 	/**
 	 * The block number hash or block tag
 	 */
-	tag?: BlockTag | Hex
+	tag?: BlockParam
 }
 
 // eth_chainId
@@ -73,12 +61,9 @@ export type EthCoinbaseParams = EmptyParams
 // eth_estimateGas
 /**
  * Based on the JSON-RPC request for `eth_estimateGas` procedure
+ * This type is a placeholder
  */
-export type EthEstimateGasParams<
-	TChain extends Chain | undefined = Chain | undefined,
-> = Omit<EstimateGasParameters<TChain>, 'account'> & {
-	to: Address
-}
+export type EthEstimateGasParams = CallParams
 // eth_hashrate
 /**
  * Based on the JSON-RPC request for `eth_hashrate` procedure
@@ -93,7 +78,7 @@ export type EthGasPriceParams = EmptyParams
 /**
  *Based on the  JSON-RPC request for `eth_getBalance` procedure
  */
-export type EthGetBalanceParams = GetBalanceParameters
+export type EthGetBalanceParams = { address: Address; tag?: BlockParam }
 // eth_getBlockByHash
 /**
  * Based on the JSON-RPC request for `eth_getBlockByHash` procedure
@@ -107,7 +92,7 @@ export type EthGetBlockByHashParams = {
  * Based on the JSON-RPC request for `eth_getBlockByNumber` procedure
  */
 export type EthGetBlockByNumberParams = {
-	tag?: BlockTag | Hex
+	tag?: BlockParam
 	fullTransactionObjects: boolean
 }
 // eth_getBlockTransactionCountByHash
@@ -119,12 +104,12 @@ export type EthGetBlockTransactionCountByHashParams = { hash: Hex }
 /**
  * Based on the JSON-RPC request for `eth_getBlockTransactionCountByNumber` procedure
  */
-export type EthGetBlockTransactionCountByNumberParams = { tag?: BlockTag | Hex }
+export type EthGetBlockTransactionCountByNumberParams = { tag?: BlockParam }
 // eth_getCode
 /**
  * Based on the JSON-RPC request for `eth_getCode` procedure
  */
-export type EthGetCodeParams = { address: Address; tag?: BlockTag | Hex }
+export type EthGetCodeParams = { address: Address; tag?: BlockParam }
 // eth_getFilterChanges
 /**
  * Based on the JSON-RPC request for `eth_getFilterChanges` procedure
@@ -147,7 +132,7 @@ export type EthGetLogsParams = { filterParams: FilterParams }
 export type EthGetStorageAtParams = {
 	address: Address
 	position: Hex
-	tag?: BlockTag | Hex
+	tag?: BlockParam
 }
 // eth_getTransactionCount
 /**
@@ -155,7 +140,7 @@ export type EthGetStorageAtParams = {
  */
 export type EthGetTransactionCountParams = {
 	address: Address
-	tag?: BlockTag | Hex
+	tag?: BlockParam
 }
 // eth_getUncleCountByBlockHash
 /**
@@ -166,7 +151,7 @@ export type EthGetUncleCountByBlockHashParams = { hash: Hex }
 /**
  * Based on the JSON-RPC request for `eth_getUncleCountByBlockNumber` procedure
  */
-export type EthGetUncleCountByBlockNumberParams = { tag?: BlockTag | Hex }
+export type EthGetUncleCountByBlockNumberParams = { tag?: BlockParam }
 // eth_getTransactionByHash
 /**
  * Based on the JSON-RPC request for `eth_getTransactionByHash` procedure
@@ -185,14 +170,14 @@ export type EthGetTransactionByBlockHashAndIndexParams = {
  * Based on the JSON-RPC request for `eth_getTransactionByBlockNumberAndIndex` procedure
  */
 export type EthGetTransactionByBlockNumberAndIndexParams = {
-	tag?: BlockTag | Hex
+	tag?: BlockParam
 	index: Hex
 }
 // eth_getTransactionReceipt
 /**
  * Based on the JSON-RPC request for `eth_getTransactionReceipt` procedure
  */
-export type EthGetTransactionReceiptParams = GetTransactionParameters
+export type EthGetTransactionReceiptParams = { hash: Hex }
 // eth_getUncleByBlockHashAndIndex
 /**
  * Based on the JSON-RPC request for `eth_getUncleByBlockHashAndIndex` procedure
@@ -206,7 +191,7 @@ export type EthGetUncleByBlockHashAndIndexParams = {
  * Based on the JSON-RPC request for `eth_getUncleByBlockNumberAndIndex` procedure
  */
 export type EthGetUncleByBlockNumberAndIndexParams = {
-	tag?: BlockTag | Hex
+	tag?: BlockParam
 	uncleIndex: Hex
 }
 // eth_mining
@@ -222,25 +207,28 @@ export type EthProtocolVersionParams = EmptyParams
 // eth_sendRawTransaction
 /**
  * Based on the JSON-RPC request for `eth_sendRawTransaction` procedure
+ * This type is a placeholder
  */
-export type EthSendRawTransactionParams = SendRawTransactionParameters
+export type EthSendRawTransactionParams = CallParams
 // eth_sendTransaction
 /**
  * Based on the JSON-RPC request for `eth_sendTransaction` procedure
+ * This type is a placeholder
+ * @experimental
  */
-export type EthSendTransactionParams<
-	TChain extends Chain | undefined = Chain | undefined,
-> = Omit<SendTransactionParameters<TChain>, 'account'> & { from: Address }
+export type EthSendTransactionParams = CallParams
 // eth_sign
 /**
  * Based on the JSON-RPC request for `eth_sign` procedure
+ * @experimental
  */
-export type EthSignParams = SignMessageParameters
+export type EthSignParams = any
 // eth_signTransaction
 /**
  * Based on the JSON-RPC request for `eth_signTransaction` procedure
+ * @experimental
  */
-export type EthSignTransactionParams = SignMessageParameters
+export type EthSignTransactionParams = any
 // eth_syncing
 /**
  * Based on the JSON-RPC request for `eth_syncing` procedure (no params)

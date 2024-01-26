@@ -5,9 +5,7 @@ import type { z } from 'zod'
 test('zBaseCallParams', () => {
 	const callParams = {
 		blobVersionedHashes: ['0x0000000'],
-		block: {
-			number: 0x420n,
-		},
+		blockTag: 'latest',
 		gas: 0x420n,
 		gasPrice: 0x4420n,
 		caller: `0x${'69'.repeat(20)}`,

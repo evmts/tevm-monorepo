@@ -1,6 +1,6 @@
 import type { CallResult } from './CallResult.js'
 import type { ContractError } from '@tevm/errors'
-import type { Abi } from 'abitype'
+import type { Abi } from '../common/index.js'
 import {
 	type ContractFunctionName,
 	type DecodeFunctionResultReturnType,
@@ -12,12 +12,12 @@ export type ContractResult<
 	ErrorType = ContractError,
 > =
 	| (Omit<CallResult, 'errors'> & {
-			errors?: never
-			/**
-			 * The parsed data
-			 */
-			data: DecodeFunctionResultReturnType<TAbi, TFunctionName>
-	  })
+		errors?: never
+		/**
+		 * The parsed data
+		 */
+		data: DecodeFunctionResultReturnType<TAbi, TFunctionName>
+	})
 	| (CallResult<ErrorType> & {
-			data?: never
-	  })
+		data?: never
+	})

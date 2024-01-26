@@ -1,4 +1,4 @@
-import type { Address } from 'abitype'
+import type { Address } from '../common/index.js'
 
 /**
  * Tevm params to get an account

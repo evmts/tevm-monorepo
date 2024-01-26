@@ -9,6 +9,7 @@ export {
 	zJsonRpcRequest,
 } from './common/index.js'
 export {
+	zBlockParam,
 	zScriptParams,
 	zContractParams,
 	zCallParams,

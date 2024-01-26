@@ -1,4 +1,4 @@
-import type { Hex } from 'viem'
+import type { Hex } from './Hex.js'
 
 /**
  * The type returned by transaction related

@@ -1,5 +1,5 @@
 import type { BaseCallParams } from './BaseCallParams.js'
-import { type Hex } from 'viem'
+import { type Hex } from '../common/index.js'
 
 /**
  * Tevm params to execute a call on the vm

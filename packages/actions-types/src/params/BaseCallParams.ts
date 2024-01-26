@@ -1,14 +1,10 @@
-import type { Block } from '../common/Block.js'
-import { type Address, type Hex } from 'viem'
+import type { BlockParam, Address, Hex } from '../common/index.js'
 
 /**
  * Properties shared accross call-like params
  */
 export type BaseCallParams = {
-	/**
-	 * The `block` the `tx` belongs to. If omitted a default blank block will be used.
-	 */
-	block?: Partial<Block>
+	blockTag?: BlockParam
 	/**
 	 * Set caller to msg.value of less than msg.value
 	 * Defaults to false exceipt for when running scripts

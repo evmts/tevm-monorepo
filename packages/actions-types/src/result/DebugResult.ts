@@ -1,5 +1,5 @@
 import type { TraceResult } from '../common/TraceResult.js'
-import type { Hex } from 'viem'
+import type { Hex } from '../common/index.js'
 
 export type StructLog = {
 	readonly depth: number

@@ -7,7 +7,7 @@ import type { BlockResult } from '../common/BlockResult.js'
 import type { FilterLog } from '../common/FilterLog.js'
 import type { TransactionReceiptResult } from '../common/TransactionReceiptResult.js'
 import type { TransactionResult } from '../common/TransactionResult.js'
-import type { Address, Hex } from 'viem'
+import type { Address, Hex } from '../common/index.js'
 
 // eth_account
 export type EthAccountsResult = Array<Address>
@@ -209,24 +209,24 @@ export type EthSignTransactionResult = Hex
 export type EthSyncingResult =
 	| boolean
 	| {
-			startingBlock: Hex
-			currentBlock: Hex
-			highestBlock: Hex
-			// some clients return these
-			// geth
-			headedBytecodebytes?: Hex
-			healedBytecodes?: Hex
-			healedTrienodes?: Hex
-			healingBytecode?: Hex
-			healingTrienodes?: Hex
-			syncedBytecodeBytes?: Hex
-			syncedBytecodes?: Hex
-			syncedStorage?: Hex
-			syncedStorageBytes?: Hex
-			// besu
-			pulledStates: Hex
-			knownStates: Hex
-	  }
+		startingBlock: Hex
+		currentBlock: Hex
+		highestBlock: Hex
+		// some clients return these
+		// geth
+		headedBytecodebytes?: Hex
+		healedBytecodes?: Hex
+		healedTrienodes?: Hex
+		healingBytecode?: Hex
+		healingTrienodes?: Hex
+		syncedBytecodeBytes?: Hex
+		syncedBytecodes?: Hex
+		syncedStorage?: Hex
+		syncedStorageBytes?: Hex
+		// besu
+		pulledStates: Hex
+		knownStates: Hex
+	}
 
 // eth_newFilter
 /**

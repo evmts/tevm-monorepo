@@ -63,6 +63,11 @@ export type {
 	LoadStateParams,
 } from './params/index.js'
 export type {
+	Abi,
+	BlockParam,
+	Address,
+	Hex,
+	BlockTag,
 	Log,
 	EmptyParams,
 	Block,
