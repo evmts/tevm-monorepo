@@ -8,11 +8,11 @@
 
 > **EthSendRawTransactionParams**: `SendRawTransactionParameters`
 
-JSON-RPC request for `eth_sendRawTransaction` procedure
+Based on the JSON-RPC request for `eth_sendRawTransaction` procedure
 
 ## Source
 
-packages/actions-types/types/params/EthParams.d.ts:172
+packages/actions-types/types/params/EthParams.d.ts:200
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

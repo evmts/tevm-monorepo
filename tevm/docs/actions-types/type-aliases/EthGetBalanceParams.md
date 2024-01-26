@@ -8,11 +8,11 @@
 
 > **EthGetBalanceParams**: `GetBalanceParameters`
 
-JSON-RPC request for `eth_getBalance` procedure
+Based on the  JSON-RPC request for `eth_getBalance` procedure
 
 ## Source
 
-packages/actions-types/types/params/EthParams.d.ts:44
+packages/actions-types/types/params/EthParams.d.ts:72
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

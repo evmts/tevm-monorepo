@@ -8,7 +8,7 @@
 
 > **EthGetTransactionByBlockHashAndIndexParams**: `object`
 
-JSON-RPC request for `eth_getTransactionByBlockHashAndIndex` procedure
+Based on the JSON-RPC request for `eth_getTransactionByBlockHashAndIndex` procedure
 
 ## Type declaration
 
@@ -22,7 +22,7 @@ JSON-RPC request for `eth_getTransactionByBlockHashAndIndex` procedure
 
 ## Source
 
-packages/actions-types/types/params/EthParams.d.ts:132
+packages/actions-types/types/params/EthParams.d.ts:160
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

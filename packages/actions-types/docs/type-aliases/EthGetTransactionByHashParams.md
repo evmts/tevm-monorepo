@@ -8,7 +8,7 @@
 
 > **EthGetTransactionByHashParams**: `object`
 
-JSON-RPC request for `eth_getTransactionByHash` procedure
+Based on the JSON-RPC request for `eth_getTransactionByHash` procedure
 
 ## Type declaration
 
@@ -18,7 +18,7 @@ JSON-RPC request for `eth_getTransactionByHash` procedure
 
 ## Source
 
-[params/EthParams.ts:145](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L145)
+[params/EthParams.ts:174](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L174)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

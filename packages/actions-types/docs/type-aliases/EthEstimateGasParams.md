@@ -8,7 +8,7 @@
 
 > **EthEstimateGasParams**\<`TChain`\>: `Omit`\<`EstimateGasParameters`\<`TChain`\>, `"account"`\> & `object`
 
-JSON-RPC request for `eth_estimateGas` procedure
+Based on the JSON-RPC request for `eth_estimateGas` procedure
 
 ## Type declaration
 
@@ -24,7 +24,7 @@ JSON-RPC request for `eth_estimateGas` procedure
 
 ## Source
 
-[params/EthParams.ts:48](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L48)
+[params/EthParams.ts:77](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L77)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

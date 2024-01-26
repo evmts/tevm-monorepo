@@ -8,7 +8,7 @@
 
 > **EthGetFilterChangesParams**: `object`
 
-JSON-RPC request for `eth_getFilterChanges` procedure
+Based on the JSON-RPC request for `eth_getFilterChanges` procedure
 
 ## Type declaration
 
@@ -18,7 +18,7 @@ JSON-RPC request for `eth_getFilterChanges` procedure
 
 ## Source
 
-packages/actions-types/types/params/EthParams.d.ts:81
+packages/actions-types/types/params/EthParams.d.ts:109
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

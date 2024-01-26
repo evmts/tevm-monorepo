@@ -8,7 +8,7 @@
 
 > **EthGetUncleByBlockNumberAndIndexParams**: `object`
 
-JSON-RPC request for `eth_getUncleByBlockNumberAndIndex` procedure
+Based on the JSON-RPC request for `eth_getUncleByBlockNumberAndIndex` procedure
 
 ## Type declaration
 
@@ -22,7 +22,7 @@ JSON-RPC request for `eth_getUncleByBlockNumberAndIndex` procedure
 
 ## Source
 
-[params/EthParams.ts:179](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L179)
+[params/EthParams.ts:208](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L208)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

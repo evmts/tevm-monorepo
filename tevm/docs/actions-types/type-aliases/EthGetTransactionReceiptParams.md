@@ -8,11 +8,11 @@
 
 > **EthGetTransactionReceiptParams**: `GetTransactionParameters`
 
-JSON-RPC request for `eth_getTransactionReceipt` procedure
+Based on the JSON-RPC request for `eth_getTransactionReceipt` procedure
 
 ## Source
 
-packages/actions-types/types/params/EthParams.d.ts:146
+packages/actions-types/types/params/EthParams.d.ts:174
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

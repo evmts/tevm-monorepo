@@ -8,11 +8,11 @@
 
 > **EthCoinbaseParams**: [`EmptyParams`](EmptyParams.md)
 
-JSON-RPC request for `eth_coinbase` procedure
+Based on the JSON-RPC request for `eth_coinbase` procedure
 
 ## Source
 
-[params/EthParams.ts:43](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L43)
+[params/EthParams.ts:72](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L72)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

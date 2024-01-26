@@ -12,7 +12,7 @@ JSON-RPC request for `eth_protocolVersion` procedure
 
 ## Source
 
-packages/procedures-types/types/requests/EthJsonRpcRequest.d.ts:132
+packages/procedures-types/types/requests/EthJsonRpcRequest.d.ts:161
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,5 +1,5 @@
-import { z } from 'zod'
 import { zAddress, zBlock, zHex } from '../common/index.js'
+import { z } from 'zod'
 
 export const zBaseCallParams = z
 	.object({

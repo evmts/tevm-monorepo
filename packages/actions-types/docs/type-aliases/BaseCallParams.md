@@ -36,17 +36,17 @@ The address that ran this code (`msg.sender`). Defaults to the zero address.
 
 The call depth. Defaults to `0`
 
+### gas
+
+> **gas**?: `bigint`
+
+The gas price for the call. Defaults to `0`
+
 ### gasLimit
 
 > **gasLimit**?: `bigint`
 
 The gas limit for the call. Defaults to `16777215` (`0xffffff`)
-
-### gasPrice
-
-> **gasPrice**?: `bigint`
-
-The gas price for the call. Defaults to `0`
 
 ### gasRefund
 

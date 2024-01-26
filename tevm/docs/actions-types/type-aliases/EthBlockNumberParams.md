@@ -8,7 +8,7 @@
 
 > **EthBlockNumberParams**: `EmptyParams`
 
-JSON-RPC request for `eth_blockNumber` procedure (no params)
+Based on the JSON-RPC request for `eth_blockNumber` procedure (no params)
 
 ## Source
 

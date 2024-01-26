@@ -8,11 +8,11 @@
 
 > **EthSyncingParams**: `EmptyParams`
 
-JSON-RPC request for `eth_syncing` procedure (no params)
+Based on the JSON-RPC request for `eth_syncing` procedure (no params)
 
 ## Source
 
-packages/actions-types/types/params/EthParams.d.ts:190
+packages/actions-types/types/params/EthParams.d.ts:218
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

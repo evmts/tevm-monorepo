@@ -8,7 +8,7 @@
 
 > **EthGetBlockTransactionCountByNumberParams**: `object`
 
-JSON-RPC request for `eth_getBlockTransactionCountByNumber` procedure
+Based on the JSON-RPC request for `eth_getBlockTransactionCountByNumber` procedure
 
 ## Type declaration
 
@@ -18,7 +18,7 @@ JSON-RPC request for `eth_getBlockTransactionCountByNumber` procedure
 
 ## Source
 
-[params/EthParams.ts:93](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L93)
+[params/EthParams.ts:122](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L122)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -8,11 +8,11 @@
 
 > **EthSignParams**: `SignMessageParameters`
 
-JSON-RPC request for `eth_sign` procedure
+Based on the JSON-RPC request for `eth_sign` procedure
 
 ## Source
 
-packages/actions-types/types/params/EthParams.d.ts:182
+packages/actions-types/types/params/EthParams.d.ts:210
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -8,11 +8,11 @@
 
 > **EthChainIdParams**: `EmptyParams`
 
-JSON-RPC request for `eth_chainId` procedure
+Based on the JSON-RPC request for `eth_chainId` procedure
 
 ## Source
 
-packages/actions-types/types/params/EthParams.d.ts:22
+packages/actions-types/types/params/EthParams.d.ts:50
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

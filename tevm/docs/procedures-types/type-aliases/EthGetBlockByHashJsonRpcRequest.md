@@ -12,7 +12,7 @@ JSON-RPC request for `eth_getBlockByHash` procedure
 
 ## Source
 
-packages/procedures-types/types/requests/EthJsonRpcRequest.d.ts:48
+packages/procedures-types/types/requests/EthJsonRpcRequest.d.ts:77
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

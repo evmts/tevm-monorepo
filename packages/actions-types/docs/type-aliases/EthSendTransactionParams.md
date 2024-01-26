@@ -8,7 +8,7 @@
 
 > **EthSendTransactionParams**\<`TChain`\>: `Omit`\<`SendTransactionParameters`\<`TChain`\>, `"account"`\> & `object`
 
-JSON-RPC request for `eth_sendTransaction` procedure
+Based on the JSON-RPC request for `eth_sendTransaction` procedure
 
 ## Type declaration
 
@@ -24,7 +24,7 @@ JSON-RPC request for `eth_sendTransaction` procedure
 
 ## Source
 
-[params/EthParams.ts:202](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L202)
+[params/EthParams.ts:231](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L231)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

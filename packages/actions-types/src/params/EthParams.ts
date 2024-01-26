@@ -41,11 +41,11 @@ export type EthCallParams = {
 	 */
 	gas?: bigint
 	/**
-	 * The integer of gasPrice used for each paid gas 
+	 * The integer of gasPrice used for each paid gas
 	 */
 	gasPrice?: bigint
 	/**
-	 * The integer of value sent with this transaction 
+	 * The integer of value sent with this transaction
 	 */
 	value?: bigint
 	/**

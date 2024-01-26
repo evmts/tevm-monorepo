@@ -8,7 +8,7 @@
 
 > **EthGetStorageAtParams**: `object`
 
-JSON-RPC request for `eth_getStorageAt` procedure
+Based on the JSON-RPC request for `eth_getStorageAt` procedure
 
 ## Type declaration
 
@@ -26,7 +26,7 @@ JSON-RPC request for `eth_getStorageAt` procedure
 
 ## Source
 
-packages/actions-types/types/params/EthParams.d.ts:99
+packages/actions-types/types/params/EthParams.d.ts:127
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

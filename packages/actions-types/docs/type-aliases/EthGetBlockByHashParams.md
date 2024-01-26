@@ -8,7 +8,7 @@
 
 > **EthGetBlockByHashParams**: `object`
 
-JSON-RPC request for `eth_getBlockByHash` procedure
+Based on the JSON-RPC request for `eth_getBlockByHash` procedure
 
 ## Type declaration
 
@@ -22,7 +22,7 @@ JSON-RPC request for `eth_getBlockByHash` procedure
 
 ## Source
 
-[params/EthParams.ts:72](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L72)
+[params/EthParams.ts:101](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L101)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

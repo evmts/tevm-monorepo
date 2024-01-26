@@ -8,7 +8,7 @@
 
 > **EthGetLogsParams**: `object`
 
-JSON-RPC request for `eth_getLogs` procedure
+Based on the JSON-RPC request for `eth_getLogs` procedure
 
 ## Type declaration
 
@@ -18,7 +18,7 @@ JSON-RPC request for `eth_getLogs` procedure
 
 ## Source
 
-packages/actions-types/types/params/EthParams.d.ts:93
+packages/actions-types/types/params/EthParams.d.ts:121
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
