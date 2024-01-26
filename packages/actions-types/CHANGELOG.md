@@ -1,5 +1,27 @@
 # @tevm/contract
 
+## 1.0.0-next.24
+
+### Minor Changes
+
+- [#882](https://github.com/evmts/tevm-monorepo/pull/882) [`47d7399f4e5cab5bd2e09cd08fe359bcfb7d6a8d`](https://github.com/evmts/tevm-monorepo/commit/47d7399f4e5cab5bd2e09cd08fe359bcfb7d6a8d) Thanks [@roninjin10](https://github.com/roninjin10)! - Changed gasLimit to gas in all params to be more consistent with ethereum spec
+
+- [#882](https://github.com/evmts/tevm-monorepo/pull/882) [`47d7399f4e5cab5bd2e09cd08fe359bcfb7d6a8d`](https://github.com/evmts/tevm-monorepo/commit/47d7399f4e5cab5bd2e09cd08fe359bcfb7d6a8d) Thanks [@roninjin10](https://github.com/roninjin10)! - Updated traceCall params to be more flat
+
+- [#882](https://github.com/evmts/tevm-monorepo/pull/882) [`47d7399f4e5cab5bd2e09cd08fe359bcfb7d6a8d`](https://github.com/evmts/tevm-monorepo/commit/47d7399f4e5cab5bd2e09cd08fe359bcfb7d6a8d) Thanks [@roninjin10](https://github.com/roninjin10)! - Updated the eth_call type to take more simple type than the viem type
+
+### Patch Changes
+
+- [#882](https://github.com/evmts/tevm-monorepo/pull/882) [`47d7399f4e5cab5bd2e09cd08fe359bcfb7d6a8d`](https://github.com/evmts/tevm-monorepo/commit/47d7399f4e5cab5bd2e09cd08fe359bcfb7d6a8d) Thanks [@roninjin10](https://github.com/roninjin10)! - Added following types:
+
+  - Abi
+  - Address
+  - Hex
+  - BlockParam
+  - BlockResult
+
+- [#871](https://github.com/evmts/tevm-monorepo/pull/871) [`212ce6dc0269af79c5ecf68d9f509a093a98867e`](https://github.com/evmts/tevm-monorepo/commit/212ce6dc0269af79c5ecf68d9f509a093a98867e) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug with typescript type including Viem accounts
+
 ## 1.0.0-next.23
 
 ### Minor Changes
