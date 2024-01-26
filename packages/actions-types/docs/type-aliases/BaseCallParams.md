@@ -51,11 +51,11 @@ those options. Otherwise both are set to the `from` address
 
 The gas price for the call. Defaults to `0`
 
-### gasLimit
+### gasPrice
 
-> **gasLimit**?: `bigint`
+> **gasPrice**?: `bigint`
 
-The gas limit for the call. Defaults to `16777215` (`0xffffff`)
+The gas price for the call. Defaults to `0`
 
 ### gasRefund
 
