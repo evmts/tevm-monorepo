@@ -30,7 +30,7 @@ export type EthBlockNumberParams = EmptyParams
  */
 export type EthCallParams<
 	TChain extends Chain | undefined = Chain | undefined,
-> = Omit<CallParameters<TChain>, 'account'> & { to: Address }
+> = Omit<CallParameters<TChain>, 'account' | 'gas'> & { to: Address, gasLimit?: bigint }
 // eth_chainId
 /**
  * JSON-RPC request for `eth_chainId` procedure
