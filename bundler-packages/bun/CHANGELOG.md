@@ -1,5 +1,11 @@
 # @tevm/bun-plugin
 
+## 1.0.0-next.24
+
+### Patch Changes
+
+- [#869](https://github.com/evmts/tevm-monorepo/pull/869) [`7059ebbe3f33fc36070b0cc16358dfeec452de0b`](https://github.com/evmts/tevm-monorepo/commit/7059ebbe3f33fc36070b0cc16358dfeec452de0b) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug with resolving external modules correctly with bun plugin in pnpm repo
+
 ## 1.0.0-next.23
 
 ### Major Changes
