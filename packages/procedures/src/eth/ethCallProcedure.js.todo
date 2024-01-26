@@ -1,0 +1,57 @@
+import { Address } from '@ethereumjs/util'
+import { ethCallHandler } from '@tevm/actions'
+import { hexToBigInt, hexToBytes } from 'viem'
+
+/**
+ * Executes a message call without creating a transaction on the block chain.
+ * @param {import('@ethereumjs/vm').VM} vm
+ * @returns {import('@tevm/procedures-types').EthCallJsonRpcProcedure}
+ */
+export const ethCallProcedure =
+  (vm) =>
+    async (req) => {
+      const [tx, blockTag] = req.params
+      const simulationVm = await vm.shallowCopy()
+      const {
+        // todo why does data not exist?
+        data,
+        from,
+        to,
+        gas: gasLimit,
+        gasPrice,
+        value,
+        r,
+        s,
+        v,
+        input,
+        hash,
+        type,
+        nonce,
+        typeHex,
+        blockHash,
+        blockNumber,
+        transactionIndex,
+        chainId,
+        yParity,
+        accessList,
+        maxFeePerGas,
+        maxPriorityFeePerGas
+      } = tx
+      simulationVm.evm.runCall({
+        caller: from !== undefined ? Address.fromString(from) : undefined,
+        to: to !== undefined && to !== null ? Address.fromString(to) : undefined,
+        gasLimit: hexToBigInt(gasLimit),
+        gasPrice: hexToBigInt(gasPrice),
+        value: hexToBigInt(value),
+        data: hexToBytes(data),
+      })
+      return ({
+        ...(req.id ? { id: req.id } : {}),
+        jsonrpc: '2.0',
+        method: req.method,
+        result: await ethCallHandler({ blockchain, forkUrl })({
+          asd: req.params[0]
+        }),
+      })
+    }
+
