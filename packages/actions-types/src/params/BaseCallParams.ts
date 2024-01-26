@@ -12,17 +12,17 @@ export type BaseCallParams = {
 	 */
 	skipBalance?: boolean
 	/**
-	 * Refund counter. Defaults to `0`
+	 * The gas limit for the call.
 	 */
-	gasRefund?: bigint
+	gas?: bigint
 	/**
 	 * The gas price for the call. Defaults to `0`
 	 */
 	gasPrice?: bigint
 	/**
-	 * The gas price for the call. Defaults to `0`
+	 * Refund counter. Defaults to `0`
 	 */
-	gas?: bigint
+	gasRefund?: bigint
 	/**
 	 * The from address for the call. Defaults to the zero address.
 	 * It is also possible to set the `origin` and `caller` addresses seperately using
