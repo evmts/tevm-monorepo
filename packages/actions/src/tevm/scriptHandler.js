@@ -11,10 +11,11 @@ import {
 
 /**
  * Creates an ScriptHandler for handling script params with Ethereumjs EVM
- * @param {import('@ethereumjs/evm').EVM} evm
+ * @param {import('@ethereumjs/vm').VM} vm
  * @returns {import("@tevm/actions-types").ScriptHandler}
  */
-export const scriptHandler = (evm) => async (params) => {
+export const scriptHandler = (vm) => async (params) => {
+	const clonedVm = await vm.shallowCopy()
 	/**
 	 * @type {import('viem').Hex}
 	 */
@@ -65,7 +66,9 @@ export const scriptHandler = (evm) => async (params) => {
 		).toString()
 	)
 
-	const accountRes = await setAccountHandler(evm)({
+	const accountRes = await setAccountHandler(
+		/** @type {import('@ethereumjs/evm').EVM}*/ (clonedVm.evm),
+	)({
 		deployedBytecode: params.deployedBytecode,
 		address: scriptAddress,
 	})
@@ -86,7 +89,10 @@ export const scriptHandler = (evm) => async (params) => {
 		return accountRes
 	}
 
-	const result = await callHandler(evm)(callParams)
+	const result = await callHandler(clonedVm)({
+		...callParams,
+		skipBalance: callParams.skipBalance ?? true,
+	})
 
 	if (result.errors && result.errors.length > 0) {
 		result.errors = result.errors.map((err) => {

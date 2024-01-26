@@ -6,7 +6,7 @@
 
 # Function: contractProcedure()
 
-> **contractProcedure**(`evm`): `CallJsonRpcProcedure`
+> **contractProcedure**(`vm`): `CallJsonRpcProcedure`
 
 Creates a Contract JSON-RPC Procedure for handling contract requests with Ethereumjs EVM
 Because the Contract handler is a quality of life wrapper around a call for the JSON rpc interface
@@ -14,7 +14,7 @@ we simply overload call instead of creating a seperate tevm_contract method
 
 ## Parameters
 
-▪ **evm**: `EVM`
+▪ **vm**: `VM`
 
 ## Source
 

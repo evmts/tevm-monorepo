@@ -4,11 +4,11 @@ import { hexToBigInt } from 'viem'
 
 /**
  * Creates a Call JSON-RPC Procedure for handling call requests with Ethereumjs EVM
- * @param {import('@ethereumjs/evm').EVM} evm
+ * @param {import('@ethereumjs/vm').VM} vm
  * @returns {import('@tevm/procedures-types').CallJsonRpcProcedure}
  */
-export const callProcedure = (evm) => async (request) => {
-	const { errors = [], ...result } = await callHandler(evm)({
+export const callProcedure = (vm) => async (request) => {
+	const { errors = [], ...result } = await callHandler(vm)({
 		...(request.params.deployedBytecode
 			? { deployedBytecode: request.params.deployedBytecode }
 			: {}),

@@ -5,13 +5,13 @@ prev: false
 title: "scriptHandler"
 ---
 
-> **scriptHandler**(`evm`): [`ScriptHandler`](/reference/tevm/actions-types/type-aliases/scripthandler/)
+> **scriptHandler**(`vm`): [`ScriptHandler`](/reference/tevm/actions-types/type-aliases/scripthandler/)
 
 Creates an ScriptHandler for handling script params with Ethereumjs EVM
 
 ## Parameters
 
-▪ **evm**: `EVM`
+▪ **vm**: `VM`
 
 ## Returns
 

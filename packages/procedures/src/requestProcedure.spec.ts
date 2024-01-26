@@ -406,7 +406,7 @@ describe('requestProcedure', () => {
 			const to = `0x${'69'.repeat(20)}` as const
 			// send value
 			expect(
-				await callProcedure(evm)({
+				await callProcedure(await VM.create({ evm }))({
 					jsonrpc: '2.0',
 					method: 'tevm_call',
 					id: 1,
@@ -450,7 +450,7 @@ describe('requestProcedure', () => {
 			const to = `0x${'69'.repeat(20)}` as const
 			// send value
 			expect(
-				await callProcedure(evm)({
+				await callProcedure(await VM.create({ evm }))({
 					jsonrpc: '2.0',
 					method: 'tevm_call',
 					id: 1,
@@ -480,7 +480,7 @@ describe('requestProcedure', () => {
 	describe('tevm_script', async () => {
 		it('should work', async () => {
 			expect(
-				await scriptProcedure(new EVM({}))({
+				await scriptProcedure(await VM.create())({
 					jsonrpc: '2.0',
 					method: 'tevm_script',
 					id: 1,
@@ -511,10 +511,9 @@ describe('requestProcedure', () => {
 		})
 
 		it('should handle the evm throwing an error', async () => {
-			const evm = new EVM({})
 			const caller = `0x${'69'.repeat(20)}` as const
 			expect(
-				await scriptProcedure(evm)({
+				await scriptProcedure(await VM.create({}))({
 					jsonrpc: '2.0',
 					method: 'tevm_script',
 					id: 1,
@@ -549,8 +548,9 @@ describe('requestProcedure', () => {
 			evm.runCall = async () => {
 				throw new Error('unexpected error')
 			}
+			const vm = await VM.create({ evm })
 			expect(
-				await scriptProcedure(evm)({
+				await scriptProcedure(vm)({
 					jsonrpc: '2.0',
 					method: 'tevm_script',
 					id: 1,

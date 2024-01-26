@@ -4,6 +4,13 @@ import type { Address, BlockParam, Hex } from '../common/index.js'
  * Properties shared accross call-like params
  */
 export type BaseCallParams = {
+	/**
+	 * Whether or not to update the state or run call in a dry-run. Defaults to `false`
+	 */
+	createTransaction?: boolean
+	/**
+	 * The block number or block tag to execute the call at. Defaults to `latest`
+	 */
 	blockTag?: BlockParam
 	/**
 	 * Set caller to msg.value of less than msg.value

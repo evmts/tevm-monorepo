@@ -111,9 +111,9 @@ export const createMemoryClient = async (options = {}) => {
 			header: common.genesis(),
 			...(common.isActivatedEIP(4895)
 				? {
-						withdrawals:
+					withdrawals:
 							/** @type {Array<import('@ethereumjs/util').WithdrawalData>}*/ ([]),
-				  }
+				}
 				: {}),
 		},
 		{ common, setHardfork: false, skipConsensusFormatValidation: true },
@@ -204,17 +204,17 @@ export const createMemoryClient = async (options = {}) => {
 		// requests
 		request: requestProcedure(vm),
 		requestBulk: requestBulkProcedure(vm),
-		script: scriptHandler(evm),
+		script: scriptHandler(vm),
 		getAccount: getAccountHandler(evm),
 		setAccount: setAccountHandler(evm),
-		call: callHandler(evm),
-		contract: contractHandler(evm),
+		call: callHandler(vm),
+		contract: contractHandler(vm),
 		dumpState: dumpStateHandler(evm.stateManager),
 		loadState: loadStateHandler(evm.stateManager),
 		accounts: testAccounts,
 		eth: {
 			blockNumber: blockNumberHandler(blockchain),
-			call: ethCallHandler(evm),
+			call: ethCallHandler(vm),
 			chainId: chainIdHandler(chainId),
 			gasPrice: gasPriceHandler({
 				forkUrl: options.fork?.url,

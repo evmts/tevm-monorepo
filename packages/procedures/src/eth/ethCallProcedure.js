@@ -2,13 +2,13 @@ import { callProcedure } from '../index.js'
 
 /**
  * Executes a message call without creating a transaction on the block chain.
- * @param {import('@ethereumjs/evm').EVM} evm
+ * @param {import('@ethereumjs/vm').VM} vm
  * @returns {import('@tevm/procedures-types').EthCallJsonRpcProcedure}
  */
-export const ethCallProcedure = (evm) => async (req) => {
+export const ethCallProcedure = (vm) => async (req) => {
 	const [tx, blockTag] = req.params
 	const { data, from, to, gas, gasPrice, value } = tx
-	const response = await callProcedure(evm)({
+	const response = await callProcedure(vm)({
 		...(req.id !== undefined ? { id: req.id } : {}),
 		jsonrpc: req.jsonrpc,
 		method: 'tevm_call',

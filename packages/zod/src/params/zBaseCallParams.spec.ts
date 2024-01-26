@@ -9,6 +9,8 @@ test('zBaseCallParams', () => {
 		gas: 0x420n,
 		gasPrice: 0x4420n,
 		caller: `0x${'69'.repeat(20)}`,
+		skipBalance: true,
+		createTransaction: false,
 	} as const satisfies z.infer<typeof zBaseCallParams>
 	expect(zBaseCallParams.parse(callParams)).toEqual(callParams)
 })

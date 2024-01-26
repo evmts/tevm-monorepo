@@ -1,6 +1,7 @@
 import { contractHandler } from './contractHandler.js'
 import { setAccountHandler } from './setAccountHandler.js'
 import { EVM, EVMErrorMessage } from '@ethereumjs/evm'
+import { VM } from '@ethereumjs/vm'
 import { describe, expect, it } from 'bun:test'
 
 const ERC20_ADDRESS = `0x${'3'.repeat(40)}` as const
@@ -292,6 +293,7 @@ const ERC20_ABI = [
 describe('contractHandler', () => {
 	it('should execute a contract call', async () => {
 		const evm = new EVM({})
+		const vm = await VM.create({ evm })
 		// deploy contract
 		expect(
 			(
@@ -303,7 +305,7 @@ describe('contractHandler', () => {
 		).toBeUndefined()
 		// test contract call
 		expect(
-			await contractHandler(evm)({
+			await contractHandler(vm)({
 				abi: ERC20_ABI,
 				functionName: 'balanceOf',
 				args: [ERC20_ADDRESS],
@@ -324,6 +326,7 @@ describe('contractHandler', () => {
 
 	it('should handle errors returned during contract call', async () => {
 		const evm = new EVM({})
+		const vm = await VM.create({ evm })
 		// deploy contract
 		expect(
 			(
@@ -336,7 +339,7 @@ describe('contractHandler', () => {
 		// test contract call that should fail from lack of owning any tokens
 		const caller = `0x${'23'.repeat(20)}` as const
 		expect(
-			await contractHandler(evm)({
+			await contractHandler(vm)({
 				abi: ERC20_ABI,
 				functionName: 'transferFrom',
 				args: [caller, caller, 1n],
@@ -363,9 +366,10 @@ describe('contractHandler', () => {
 
 	it('should handle a contract not existing', async () => {
 		const evm = new EVM({})
+		const vm = await VM.create({ evm })
 		const caller = `0x${'23'.repeat(20)}` as const
 		expect(
-			await contractHandler(evm)({
+			await contractHandler(vm)({
 				abi: ERC20_ABI,
 				functionName: 'transferFrom',
 				args: [caller, caller, 1n],
@@ -389,6 +393,7 @@ describe('contractHandler', () => {
 
 	it('should handle the EVM unexpectedly throwing', async () => {
 		const evm = new EVM({})
+		const vm = await VM.create({ evm })
 		// deploy contract
 		expect(
 			(
@@ -403,7 +408,7 @@ describe('contractHandler', () => {
 		}
 		const caller = `0x${'23'.repeat(20)}` as const
 		expect(
-			await contractHandler(evm)({
+			await contractHandler(vm)({
 				abi: ERC20_ABI,
 				functionName: 'transferFrom',
 				args: [caller, caller, 1n],
@@ -426,6 +431,7 @@ describe('contractHandler', () => {
 
 	it('should handle the invalid contract params', async () => {
 		const evm = new EVM({})
+		const vm = await VM.create({ evm })
 		// deploy contract
 		expect(
 			(
@@ -436,7 +442,7 @@ describe('contractHandler', () => {
 			).errors,
 		).toBeUndefined()
 
-		expect(await contractHandler(evm)({} as any)).toEqual({
+		expect(await contractHandler(vm)({} as any)).toEqual({
 			...({} as { data: never }),
 			errors: [
 				{
@@ -464,8 +470,9 @@ describe('contractHandler', () => {
 
 	it('Handles the unlikely event the function data cannot be decoded', async () => {
 		const evm = new EVM({})
+		const vm = await VM.create({ evm })
 		const originalRunCall = evm.runCall.bind(evm)
-		evm.runCall = function(args) {
+		evm.runCall = function (args) {
 			return {
 				...originalRunCall(args),
 				execResult: { returnValue: '0x42424242' },
@@ -482,7 +489,7 @@ describe('contractHandler', () => {
 		).toBeUndefined()
 		// test contract call
 		expect(
-			await contractHandler(evm)({
+			await contractHandler(vm)({
 				abi: ERC20_ABI,
 				functionName: 'balanceOf',
 				args: [ERC20_ADDRESS],
@@ -494,6 +501,7 @@ describe('contractHandler', () => {
 
 	it('Handls function data not being encodable', async () => {
 		const evm = new EVM({})
+		const vm = await VM.create({ evm })
 		// deploy contract
 		expect(
 			(
@@ -505,7 +513,7 @@ describe('contractHandler', () => {
 		).toBeUndefined()
 		// test contract call
 		expect(
-			await contractHandler(evm)({
+			await contractHandler(vm)({
 				abi: ERC20_ABI,
 				functionName: 'balanceOf',
 				args: ['not correct type' as any],

@@ -6,13 +6,13 @@
 
 # Function: callHandler()
 
-> **callHandler**(`evm`): `CallHandler`
+> **callHandler**(`vm`): `CallHandler`
 
 Creates an CallHandler for handling call params with Ethereumjs EVM
 
 ## Parameters
 
-▪ **evm**: `EVM`
+▪ **vm**: `VM`
 
 ## Returns
 

@@ -5,13 +5,13 @@ prev: false
 title: "contractHandler"
 ---
 
-> **contractHandler**(`evm`): [`ContractHandler`](/reference/tevm/actions-types/type-aliases/contracthandler/)
+> **contractHandler**(`vm`): [`ContractHandler`](/reference/tevm/actions-types/type-aliases/contracthandler/)
 
 Creates an ContractHandler for handling contract params with Ethereumjs EVM
 
 ## Parameters
 
-▪ **evm**: `EVM`
+▪ **vm**: `VM`
 
 ## Returns
 

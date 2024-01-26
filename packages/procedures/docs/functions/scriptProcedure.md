@@ -6,13 +6,13 @@
 
 # Function: scriptProcedure()
 
-> **scriptProcedure**(`evm`): `ScriptJsonRpcProcedure`
+> **scriptProcedure**(`vm`): `ScriptJsonRpcProcedure`
 
-Creates a Script JSON-RPC Procedure for handling script requests with Ethereumjs EVM
+Creates a Script JSON-RPC Procedure for handling script requests with Ethereumjs VM
 
 ## Parameters
 
-▪ **evm**: `EVM`
+▪ **vm**: `VM`
 
 ## Returns
 

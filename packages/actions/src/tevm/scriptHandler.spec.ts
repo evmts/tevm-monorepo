@@ -1,5 +1,6 @@
 import { scriptHandler } from './scriptHandler.js'
 import { EVM } from '@ethereumjs/evm'
+import { VM } from '@ethereumjs/vm'
 import { describe, expect, it } from 'bun:test'
 import { encodeFunctionData, hexToBytes } from 'viem'
 
@@ -292,7 +293,7 @@ const ERC20_ABI = [
 describe('scriptHandler', () => {
 	it('should execute a script', async () => {
 		expect(
-			await scriptHandler(new EVM({}))({
+			await scriptHandler(await VM.create())({
 				deployedBytecode: ERC20_BYTECODE,
 				abi: ERC20_ABI,
 				functionName: 'balanceOf',
@@ -313,7 +314,7 @@ describe('scriptHandler', () => {
 	})
 
 	it('should validate params', async () => {
-		expect(await scriptHandler(new EVM({}))({} as any)).toEqual({
+		expect(await scriptHandler(await VM.create())({} as any)).toEqual({
 			errors: [
 				{
 					_tag: 'InvalidDeployedBytecodeError',
@@ -340,7 +341,7 @@ describe('scriptHandler', () => {
 
 	it('should handle passing in data', async () => {
 		expect(
-			await scriptHandler(new EVM({}))({
+			await scriptHandler(await VM.create())({
 				deployedBytecode: ERC20_BYTECODE,
 				...{
 					data: encodeFunctionData({
@@ -364,7 +365,7 @@ describe('scriptHandler', () => {
 
 	it('should handle invalid function data', async () => {
 		expect(
-			await scriptHandler(new EVM({}))({
+			await scriptHandler(await VM.create())({
 				deployedBytecode: ERC20_BYTECODE,
 				abi: ERC20_ABI,
 				functionName: 'balanceOf',
@@ -387,8 +388,9 @@ describe('scriptHandler', () => {
 				},
 			}
 		}
+		const vm = await VM.create({ evm })
 		expect(
-			await scriptHandler(evm)({
+			await scriptHandler(vm)({
 				deployedBytecode: ERC20_BYTECODE,
 				abi: ERC20_ABI,
 				functionName: 'balanceOf',
@@ -399,10 +401,10 @@ describe('scriptHandler', () => {
 	})
 
 	it('should handle a call that reverts', async () => {
-		const evm = new EVM({})
+		const vm = await VM.create()
 		const caller = `0x${'1'.repeat(40)}` as const
 		expect(
-			await scriptHandler(evm)({
+			await scriptHandler(vm)({
 				deployedBytecode: ERC20_BYTECODE,
 				abi: ERC20_ABI,
 				functionName: 'transferFrom',

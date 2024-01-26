@@ -1,11 +1,15 @@
 import { callHandler } from '../index.js'
 
 /**
- * @param {import('@ethereumjs/evm').EVM} evm
+ * @param {import('@ethereumjs/vm').VM} vm
  * @returns {import('@tevm/actions-types').EthCallHandler}
  */
-export const ethCallHandler = (evm) => async (params) => {
-	return callHandler(evm)({ skipBalance: true, ...params }).then((res) => {
+export const ethCallHandler = (vm) => async (params) => {
+	return callHandler(vm)({
+		...params,
+		createTransaction: false,
+		skipBalance: true,
+	}).then((res) => {
 		if (res.errors?.length) {
 			throw res.errors?.[0]
 		}

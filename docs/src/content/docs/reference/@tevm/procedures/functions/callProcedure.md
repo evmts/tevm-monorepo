@@ -5,13 +5,17 @@ prev: false
 title: "callProcedure"
 ---
 
+<<<<<<< HEAD
 > **callProcedure**(`evm`): `CallJsonRpcProcedure`
+=======
+> **callProcedure**(`vm`): [`CallJsonRpcProcedure`](/reference/tevm/procedures-types/type-aliases/calljsonrpcprocedure/)
+>>>>>>> a129fd9c (:sparkles: Implement block tags and correct skipBalance)
 
 Creates a Call JSON-RPC Procedure for handling call requests with Ethereumjs EVM
 
 ## Parameters
 
-▪ **evm**: `EVM`
+▪ **vm**: `VM`
 
 ## Returns
 
