@@ -47,6 +47,8 @@ describe('createHttpHandler', () => {
 			.expect(200)
 			.expect('Content-Type', /json/)
 
+		console.log(res.body)
+
 		expect(
 			decodeFunctionResult({
 				data: res.body.result.rawData,

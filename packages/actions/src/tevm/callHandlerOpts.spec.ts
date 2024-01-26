@@ -107,7 +107,7 @@ describe('callHandlerOpts', () => {
 		const result = callHandlerOpts({
 			gasPrice,
 		})
-		expect(result).toEqual({ gasPrice })
+		expect(result).toEqual({ gasPrice: gasPrice })
 	})
 
 	it('should handle value', () => {

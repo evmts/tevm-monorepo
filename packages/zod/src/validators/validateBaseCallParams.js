@@ -55,10 +55,10 @@ export const validateBaseCallParams = (action) => {
 			})
 		}
 
-		if (formattedErrors.gasPrice) {
-			formattedErrors.gasPrice._errors.forEach((error) => {
+		if (formattedErrors.gas) {
+			formattedErrors.gas._errors.forEach((error) => {
 				errors.push(
-					createError('InvalidGasPriceError', error, String(action.gasPrice)),
+					createError('InvalidGasPriceError', error, String(action.gas)),
 				)
 			})
 		}
