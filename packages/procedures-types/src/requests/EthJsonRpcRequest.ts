@@ -26,7 +26,7 @@ export type EthBlockNumberJsonRpcRequest = JsonRpcRequest<
  */
 export type EthCallJsonRpcRequest = JsonRpcRequest<
 	'eth_call',
-	readonly [tx: Transaction, tag: BlockTag | Hex]
+	readonly [tx: SerializeToJson<Transaction>, tag: BlockTag | Hex]
 >
 // eth_chainId
 /**
