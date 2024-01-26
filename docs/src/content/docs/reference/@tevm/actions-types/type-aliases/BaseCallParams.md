@@ -46,7 +46,7 @@ those options. Otherwise both are set to the `from` address
 
 > **gas**?: `bigint`
 
-The gas price for the call. Defaults to `0`
+The gas limit for the call.
 
 ### gasPrice
 

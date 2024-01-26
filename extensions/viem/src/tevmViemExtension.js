@@ -173,7 +173,7 @@ export const tevmViemExtension = () => {
 				...('data' in params && params.data ? { data: params.data } : {}),
 				...(params.depth ? { depth: params.depth } : {}),
 				...(params.gas ? { gas: numberToHex(params.gas) } : {}),
-				...(params.gas ? { gas: numberToHex(params.gas) } : {}),
+				...(params.gasPrice ? { gasPrice: numberToHex(params.gasPrice) } : {}),
 				...(params.gasRefund
 					? { gasRefund: numberToHex(params.gasRefund) }
 					: {}),
