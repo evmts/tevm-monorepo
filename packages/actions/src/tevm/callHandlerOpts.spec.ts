@@ -15,6 +15,20 @@ describe('callHandlerOpts', () => {
 		expect(result.caller).toEqual(EthjsAddress.fromString(params.caller))
 	})
 
+	it('should set both origin and caller to from address if provided', () => {
+		const params = { from: `0x${'4'.repeat(40)}` } as const
+		const result = callHandlerOpts(params)
+		expect(result.caller).toEqual(EthjsAddress.fromString(params.from))
+		expect(result.origin).toEqual(EthjsAddress.fromString(params.from))
+	})
+
+	it('origin and caller take presidence over from', () => {
+		const params = { from: `0x${'4'.repeat(40)}`, origin: `0x${'5'.repeat(40)}`, caller: `0x${'6'.repeat(40)}` } as const
+		const result = callHandlerOpts(params)
+		expect(result.caller).toEqual(EthjsAddress.fromString(params.caller))
+		expect(result.origin).toEqual(EthjsAddress.fromString(params.origin))
+	})
+
 	it('should handle block parameters', () => {
 		const block = {
 			coinbase: `0x${'0'.repeat(40)}` as const,

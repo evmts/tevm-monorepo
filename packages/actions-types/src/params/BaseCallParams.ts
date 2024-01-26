@@ -24,11 +24,19 @@ export type BaseCallParams = {
 	 */
 	gas?: bigint
 	/**
+	 * The from address for the call. Defaults to the zero address.
+	 * It is also possible to set the `origin` and `caller` addresses seperately using
+	 * those options. Otherwise both are set to the `from` address
+	 */
+	from?: Address
+	/**
 	 * The address where the call originated from. Defaults to the zero address.
+	 * This defaults to `from` address if set otherwise it defaults to the zero address
 	 */
 	origin?: Address
 	/**
 	 * The address that ran this code (`msg.sender`). Defaults to the zero address.
+	 * This defaults to `from` address if set otherwise it defaults to the zero address
 	 */
 	caller?: Address
 	/**

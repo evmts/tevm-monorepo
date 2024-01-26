@@ -26,9 +26,6 @@ export const callHandlerOpts = (params) => {
 	 */
 	const opts = {}
 
-	if (params.caller) {
-		opts.caller = EthjsAddress.fromString(params.caller)
-	}
 	if (params.block) {
 		opts.block = {
 			header: {
@@ -93,8 +90,11 @@ export const callHandlerOpts = (params) => {
 	if (params.value) {
 		opts.value = BigInt(params.value)
 	}
-	if (params.origin) {
-		opts.origin = EthjsAddress.fromString(params.origin)
+	if (params.caller || params.from) {
+		opts.caller = EthjsAddress.fromString(params.caller || params.from)
+	}
+	if (params.origin || params.from) {
+		opts.origin = EthjsAddress.fromString(params.origin || params.from)
 	}
 	if (params.gasLimit) {
 		opts.gasLimit = BigInt(params.gasLimit)
