@@ -198,5 +198,5 @@ export type {
 	FilterParams,
 	DumpStateResult,
 	LoadStateParams,
-	LoadStateResult
+	LoadStateResult,
 } from '@tevm/actions-types'

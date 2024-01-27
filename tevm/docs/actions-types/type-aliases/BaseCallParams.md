@@ -53,7 +53,7 @@ The gas price for the call. Defaults to `0`
 
 > **gasPrice**?: `bigint`
 
-The gas price for the call. Defaults to `0`
+The gas price for the call.
 
 ### gasRefund
 

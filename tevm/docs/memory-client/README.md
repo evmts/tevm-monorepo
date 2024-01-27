@@ -6,6 +6,16 @@
 
 # Module: memory-client
 
+## Index
+
+### Classes
+
+- [WrappedEvm](classes/WrappedEvm.md)
+
+### Type Aliases
+
+- [ConstructorArgument](type-aliases/ConstructorArgument.md)
+
 ## Table of contents
 
 ### References

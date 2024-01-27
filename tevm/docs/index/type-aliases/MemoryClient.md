@@ -49,7 +49,7 @@ const balance = await tevm.runContractCall(
 
 ### \_evm
 
-> **`readonly`** **\_evm**: `WrappedEvm`
+> **`readonly`** **\_evm**: [`WrappedEvm`](../../memory-client/classes/WrappedEvm.md)
 
 Internal instance of the EVM. Can be used for lower level operations
 but is not guaranteed to stay stable between versions
