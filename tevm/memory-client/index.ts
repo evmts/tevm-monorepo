@@ -4,5 +4,7 @@ export {
 	type CustomPredeploy,
 	type CreateEVMOptions,
 	type ForkOptions,
+	type WrappedEvm,
+	type ConstructorArgument,
 	createMemoryClient,
 } from '@tevm/memory-client'

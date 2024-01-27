@@ -6,7 +6,7 @@
 
 # Type alias: CustomPrecompile
 
-> **CustomPrecompile**: `Exclude`\<`Exclude`\<`ConstructorArgument`\<`EVM`\>, `undefined`\>[`"customPrecompiles"`], `undefined`\>[`number`]
+> **CustomPrecompile**: `Exclude`\<`Exclude`\<[`ConstructorArgument`](../../memory-client/type-aliases/ConstructorArgument.md)\<`EVM`\>, `undefined`\>[`"customPrecompiles"`], `undefined`\>[`number`]
 
 Custom precompiles allow you to run arbitrary JavaScript code in the EVM
 
