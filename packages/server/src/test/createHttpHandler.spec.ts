@@ -17,6 +17,7 @@ describe('createHttpHandler', () => {
 		const tevm = await createMemoryClient({
 			fork: {
 				url: optimism.rpcUrls.default.http[0],
+				blockTag: 115325880n,
 			},
 		})
 
