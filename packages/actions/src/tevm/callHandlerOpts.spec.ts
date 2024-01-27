@@ -29,6 +29,13 @@ describe('callHandlerOpts', () => {
 		expect(result.origin).toEqual(EthjsAddress.fromString(params.origin))
 	})
 
+	it('origin and caller take presidence over from', () => {
+		const params = { from: `0x${'4'.repeat(40)}`, origin: `0x${'5'.repeat(40)}`, caller: `0x${'6'.repeat(40)}` } as const
+		const result = callHandlerOpts(params)
+		expect(result.caller).toEqual(EthjsAddress.fromString(params.caller))
+		expect(result.origin).toEqual(EthjsAddress.fromString(params.origin))
+	})
+
 	it('should parse transaction to address', () => {
 		const to = `0x${'3'.repeat(40)}` as const
 		const result = callHandlerOpts({
