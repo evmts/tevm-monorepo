@@ -7,5 +7,9 @@ export type * from './EthResult.js'
 export type * from './AnvilResult.js'
 export type { DumpStateResult } from './DumpStateResult.js'
 export type { LoadStateResult } from './LoadStateResult.js'
-export type { StructLog, DebugTraceCallResult, DebugTraceTransactionResult } from './DebugResult.js'
+export type {
+	StructLog,
+	DebugTraceCallResult,
+	DebugTraceTransactionResult,
+} from './DebugResult.js'
 export type { ForkResult } from './ForkResult.js'

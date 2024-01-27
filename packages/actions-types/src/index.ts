@@ -61,7 +61,7 @@ export type {
 	EthGetTransactionByBlockHashAndIndexParams,
 	EthGetTransactionByBlockNumberAndIndexParams,
 	LoadStateParams,
-	ForkParams
+	ForkParams,
 } from './params/index.js'
 export type {
 	Abi,
@@ -81,7 +81,7 @@ export type {
 	TraceCall,
 	TraceType,
 	FilterParams,
-	NetworkConfig
+	NetworkConfig,
 } from './common/index.js'
 export type {
 	CallHandler,
@@ -144,7 +144,7 @@ export type {
 	AnvilStopImpersonatingAccountHandler,
 	DumpStateHandler,
 	LoadStateHandler,
-	ForkHandler
+	ForkHandler,
 } from './handlers/index.js'
 export type {
 	StructLog,

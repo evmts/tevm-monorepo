@@ -42,6 +42,9 @@ export {
   type InvalidFunctionNameError,
   type InvalidSelfdestructError,
   type InvalidDeployedBytecodeError,
-  type InvalidBlobVersionedHashesError
+  type InvalidBlobVersionedHashesError,
+  type ForkError,
+  type InvalidUrlError,
+  type FailedToForkError
 } from '@tevm/errors'
 
