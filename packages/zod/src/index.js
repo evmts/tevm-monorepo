@@ -7,6 +7,7 @@ export {
 	zBytecode,
 	zStorageRoot,
 	zJsonRpcRequest,
+	zStrictHex
 } from './common/index.js'
 export {
 	zBlockParam,
