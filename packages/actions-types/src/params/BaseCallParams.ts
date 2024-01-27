@@ -16,7 +16,7 @@ export type BaseCallParams = {
 	 */
 	gas?: bigint
 	/**
-	 * The gas price for the call. Defaults to `0`
+	 * The gas price for the call.
 	 */
 	gasPrice?: bigint
 	/**

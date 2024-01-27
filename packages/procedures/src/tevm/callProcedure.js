@@ -18,11 +18,11 @@ export const callProcedure = (evm) => async (request) => {
 		...(request.params.caller ? { caller: request.params.caller } : {}),
 		...(request.params.data ? { data: request.params.data } : {}),
 		...(request.params.depth ? { depth: request.params.depth } : {}),
-		...(request.params.gas
-			? { gas: hexToBigInt(request.params.gas) }
-			: {}),
 		...(request.params.gasPrice
 			? { gasPrice: hexToBigInt(request.params.gasPrice) }
+			: {}),
+		...(request.params.gas
+			? { gas: hexToBigInt(request.params.gas) }
 			: {}),
 		...(request.params.gasRefund
 			? { gasRefund: hexToBigInt(request.params.gasRefund) }
