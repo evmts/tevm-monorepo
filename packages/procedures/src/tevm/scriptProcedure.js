@@ -32,6 +32,9 @@ export const scriptProcedure = (evm) => async (request) => {
 			...(request.params.gasPrice
 				? { gasPrice: hexToBigInt(request.params.gasPrice) }
 				: {}),
+			...(request.params.gasPrice
+				? { gasPrice: hexToBigInt(request.params.gasPrice) }
+				: {}),
 			...(request.params.gas
 				? { gas: hexToBigInt(request.params.gas) }
 				: {}),
