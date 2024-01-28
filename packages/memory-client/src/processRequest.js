@@ -35,10 +35,11 @@ const throwOnUnsupportedMethods = true
  * JSON-RPC requests. It will process requests tevm supports locally using
  * `requestProcedure` and proxy all other requests to the given proxyUrl
  * @param {import('@ethereumjs/vm').VM} vm
+ * @param {import('@tevm/actions').ForkOptions} forkOptions
  * @param {string} [proxyUrl] Optional url to proxy requests to
  * @returns {import('@tevm/procedures-types').TevmJsonRpcRequestHandler}
  */
-export const processRequest = (vm, proxyUrl) => {
+export const processRequest = (vm, forkOptions, proxyUrl) => {
 	return (request) => {
 		try {
 			if (!supportedMethods.has(request.method)) {
@@ -57,7 +58,7 @@ export const processRequest = (vm, proxyUrl) => {
 				}
 				return proxyRequest(proxyUrl)(request)
 			}
-			return requestProcedure(vm)(/**@type any*/ (request))
+			return requestProcedure(vm, forkOptions)(/**@type any*/(request))
 		} catch (e) {
 			console.error(e)
 			const err = new UnexpectedInternalServerError(request.method)
