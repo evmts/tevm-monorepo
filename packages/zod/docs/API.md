@@ -22,6 +22,7 @@
 - [zScriptParams](variables/zScriptParams.md)
 - [zSetAccountParams](variables/zSetAccountParams.md)
 - [zStorageRoot](variables/zStorageRoot.md)
+- [zStrictHex](variables/zStrictHex.md)
 
 ### Functions
 

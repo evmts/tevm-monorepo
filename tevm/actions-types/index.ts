@@ -199,4 +199,8 @@ export type {
 	DumpStateResult,
 	LoadStateParams,
 	LoadStateResult,
+	ForkParams,
+	ForkResult,
+	ForkHandler,
+	NetworkConfig,
 } from '@tevm/actions-types'

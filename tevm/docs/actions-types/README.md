@@ -186,6 +186,7 @@
 - [LoadStateParams](type-aliases/LoadStateParams.md)
 - [LoadStateResult](type-aliases/LoadStateResult.md)
 - [Log](type-aliases/Log.md)
+- [NetworkConfig](type-aliases/NetworkConfig.md)
 - [ScriptHandler](type-aliases/ScriptHandler.md)
 - [SetAccountHandler](type-aliases/SetAccountHandler.md)
 - [StructLog](type-aliases/StructLog.md)
@@ -208,6 +209,9 @@
 - [CallResult](README.md#callresult)
 - [ContractParams](README.md#contractparams)
 - [ContractResult](README.md#contractresult)
+- [ForkHandler](README.md#forkhandler)
+- [ForkParams](README.md#forkparams)
+- [ForkResult](README.md#forkresult)
 - [GetAccountParams](README.md#getaccountparams)
 - [GetAccountResult](README.md#getaccountresult)
 - [Hex](README.md#hex)
@@ -257,6 +261,24 @@ Re-exports [ContractParams](../index/type-aliases/ContractParams.md)
 ### ContractResult
 
 Re-exports [ContractResult](../index/type-aliases/ContractResult.md)
+
+***
+
+### ForkHandler
+
+Re-exports [ForkHandler](../index/type-aliases/ForkHandler.md)
+
+***
+
+### ForkParams
+
+Re-exports [ForkParams](../index/type-aliases/ForkParams.md)
+
+***
+
+### ForkResult
+
+Re-exports [ForkResult](../index/type-aliases/ForkResult.md)
 
 ***
 

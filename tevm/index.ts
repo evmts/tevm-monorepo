@@ -13,6 +13,9 @@ export type {
 	Address,
 	Hex,
 	BlockParam,
+	ForkParams,
+	ForkResult,
+	ForkHandler
 } from '@tevm/actions-types'
 export type {
 	TevmJsonRpcRequest,

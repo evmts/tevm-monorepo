@@ -1,10 +1,14 @@
-export type * from './GetAccountHandler.js'
-export type * from './SetAccountHandler.js'
-export type * from './CallHandler.js'
-export type * from './ContractHandler.js'
-export type * from './ScriptHandler.js'
+export type { GetAccountHandler } from './GetAccountHandler.js'
+export type { SetAccountHandler } from './SetAccountHandler.js'
+export type { CallHandler } from './CallHandler.js'
+export type { ContractHandler } from './ContractHandler.js'
+export type { ScriptHandler } from './ScriptHandler.js'
 export type * from './AnvilHandler.js'
-export type * from './DebugHandler.js'
+export type {
+	DebugTraceCallHandler,
+	DebugTraceTransactionHandler,
+} from './DebugHandler.js'
 export type * from './EthHandler.js'
-export type * from './DumpStateHandler.js'
-export type * from './LoadStateHandler.js'
+export type { DumpStateHandler } from './DumpStateHandler.js'
+export type { LoadStateHandler } from './LoadStateHandler.js'
+export type { ForkHandler } from './ForkHandler.js'
