@@ -1,3 +1,6 @@
-import { js } from '@tevm/tsupconfig'
+import { createTsUpOptions } from '@tevm/tsupconfig'
 
-export default js
+export default createTsUpOptions({
+	target: 'js',
+	entry: ['src/index.ts'],
+})
