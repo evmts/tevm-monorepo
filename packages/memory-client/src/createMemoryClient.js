@@ -161,14 +161,6 @@ export const createMemoryClient = async (options = {}) => {
 	})
 
 	/**
-	 * @type {import('@tevm/actions').ForkOptions['register']}
-	 */
-	const registerFork = (forkParams) => {
-		console.log(forkParams)
-		throw new Error('not implemented')
-	}
-
-	/**
 	 * @type {import('./MemoryClient.js').MemoryClient}
 	 */
 	const tevm = {
@@ -179,7 +171,7 @@ export const createMemoryClient = async (options = {}) => {
 		// that we want to avoid or abstract away before enabling
 		// This means tevm will throw an error on all non natively supported
 		// requests
-		request: processRequest(vm, { register: registerFork }),
+		request: processRequest(vm),
 		script: scriptHandler(evm),
 		getAccount: getAccountHandler(evm),
 		setAccount: setAccountHandler(evm),
