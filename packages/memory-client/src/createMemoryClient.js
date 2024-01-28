@@ -12,6 +12,7 @@ import {
 	contractHandler,
 	dumpStateHandler,
 	ethCallHandler,
+	forkHandler,
 	gasPriceHandler,
 	getAccountHandler,
 	getBalanceHandler,
@@ -111,9 +112,9 @@ export const createMemoryClient = async (options = {}) => {
 			header: common.genesis(),
 			...(common.isActivatedEIP(4895)
 				? {
-						withdrawals:
+					withdrawals:
 							/** @type {Array<import('@ethereumjs/util').WithdrawalData>}*/ ([]),
-				  }
+				}
 				: {}),
 		},
 		{ common, setHardfork: false, skipConsensusFormatValidation: true },
@@ -190,6 +191,14 @@ export const createMemoryClient = async (options = {}) => {
 	})
 
 	/**
+	 * @type {import('@tevm/actions').ForkOptions['register']}
+	 */
+	const registerFork = (forkParams) => {
+		console.log(forkParams)
+		throw new Error('not implemented')
+	}
+
+	/**
 	 * @type {import('./MemoryClient.js').MemoryClient}
 	 */
 	const tevm = {
@@ -212,6 +221,7 @@ export const createMemoryClient = async (options = {}) => {
 		dumpState: dumpStateHandler(evm.stateManager),
 		loadState: loadStateHandler(evm.stateManager),
 		accounts: testAccounts,
+		fork: forkHandler({ register: registerFork }),
 		eth: {
 			blockNumber: blockNumberHandler(blockchain),
 			call: ethCallHandler(evm),
