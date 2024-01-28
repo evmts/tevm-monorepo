@@ -191,14 +191,6 @@ export const createMemoryClient = async (options = {}) => {
 	})
 
 	/**
-	 * @type {import('@tevm/actions').ForkOptions['register']}
-	 */
-	const registerFork = (forkParams) => {
-		console.log(forkParams)
-		throw new Error('not implemented')
-	}
-
-	/**
 	 * @type {import('./MemoryClient.js').MemoryClient}
 	 */
 	const tevm = {
