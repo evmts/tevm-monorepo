@@ -12,7 +12,7 @@ JSON-RPC request for `tevm_getAccount` method
 
 ## Source
 
-packages/procedures-types/types/requests/GetAccountJsonRpcRequest.d.ts:7
+packages/procedures-types/dist/index.d.ts:321
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

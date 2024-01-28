@@ -16,7 +16,7 @@ JSON-RPC procedure for `anvil_setBalance`
 
 ## Source
 
-packages/procedures-types/types/procedure/AnvilProcedure.d.ts:34
+packages/procedures-types/dist/index.d.ts:693
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

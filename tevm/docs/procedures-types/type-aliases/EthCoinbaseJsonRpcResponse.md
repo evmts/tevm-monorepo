@@ -12,7 +12,7 @@ JSON-RPC response for `eth_coinbase` procedure
 
 ## Source
 
-packages/procedures-types/types/responses/EthJsonRpcResponse.d.ts:29
+packages/procedures-types/dist/index.d.ts:476
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

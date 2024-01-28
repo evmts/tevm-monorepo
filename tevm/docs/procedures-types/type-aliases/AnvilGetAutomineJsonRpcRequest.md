@@ -12,7 +12,7 @@ JSON-RPC request for `anvil_getAutomine` method
 
 ## Source
 
-packages/procedures-types/types/requests/AnvilJsonRpcRequest.d.ts:19
+packages/procedures-types/dist/index.d.ts:35
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

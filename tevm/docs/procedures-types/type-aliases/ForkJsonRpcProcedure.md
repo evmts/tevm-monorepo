@@ -16,7 +16,7 @@ Fork JSON-RPC procedure executes a call against the tevm EVM
 
 ## Source
 
-packages/procedures-types/types/procedure/ForkJsonRpcProcedure.d.ts:5
+packages/procedures-types/dist/index.d.ts:826
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

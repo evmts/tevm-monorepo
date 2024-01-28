@@ -42,7 +42,7 @@ A mapping of `tevm_*` method names to their return type
 
 ## Source
 
-packages/procedures-types/types/tevm-request-handler/TevmReturnType.d.ts:6
+packages/procedures-types/dist/index.d.ts:995
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

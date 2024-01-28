@@ -166,7 +166,7 @@ A mapping of `eth_*` method names to their return type
 
 ## Source
 
-packages/procedures-types/types/tevm-request-handler/EthReturnType.d.ts:5
+packages/procedures-types/dist/index.d.ts:929
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

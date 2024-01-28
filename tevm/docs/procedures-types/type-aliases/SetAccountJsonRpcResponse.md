@@ -12,7 +12,7 @@ JSON-RPC response for `tevm_setAccount` method
 
 ## Source
 
-packages/procedures-types/types/responses/SetAccountJsonRpcResponse.d.ts:8
+packages/procedures-types/dist/index.d.ts:655
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -12,7 +12,7 @@ JSON-RPC request for `anvil_dropTransaction` method
 
 ## Source
 
-packages/procedures-types/types/requests/AnvilJsonRpcRequest.d.ts:31
+packages/procedures-types/dist/index.d.ts:47
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
