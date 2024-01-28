@@ -5,7 +5,7 @@ prev: false
 title: "dumpStateProcedure"
 ---
 
-> **dumpStateProcedure**(`stateManager`): [`DumpStateJsonRpcProcedure`](/reference/tevm/procedures-types/type-aliases/dumpstatejsonrpcprocedure/)
+> **dumpStateProcedure**(`stateManager`): `DumpStateJsonRpcProcedure`
 
 Creates a DumpState JSON-RPC Procedure for handling dumpState requests with Ethereumjs EVM
 

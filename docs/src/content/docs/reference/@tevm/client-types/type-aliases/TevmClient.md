@@ -319,7 +319,7 @@ await tevm.loadState({state})
 
 ### request
 
-> **request**: [`TevmJsonRpcRequestHandler`](/reference/tevm/procedures-types/type-aliases/tevmjsonrpcrequesthandler/)
+> **request**: `TevmJsonRpcRequestHandler`
 
 Request handler for JSON-RPC requests. Most users will want to use the [`actions` api](https://tevm.sh/learn/actions/)
 instead of this method directly
