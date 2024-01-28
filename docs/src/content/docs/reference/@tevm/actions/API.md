@@ -11,6 +11,11 @@ title: "@tevm/actions"
 
 - [NoForkUrlSetError](/reference/tevm/actions/classes/noforkurlseterror/)
 
+### Type Aliases
+
+- [ForkOptions](/reference/tevm/actions/type-aliases/forkoptions/)
+- [RegisterFunction](/reference/tevm/actions/type-aliases/registerfunction/)
+
 ### Functions
 
 - [blockNumberHandler](/reference/tevm/actions/functions/blocknumberhandler/)
@@ -19,6 +24,7 @@ title: "@tevm/actions"
 - [contractHandler](/reference/tevm/actions/functions/contracthandler/)
 - [dumpStateHandler](/reference/tevm/actions/functions/dumpstatehandler/)
 - [ethCallHandler](/reference/tevm/actions/functions/ethcallhandler/)
+- [forkHandler](/reference/tevm/actions/functions/forkhandler/)
 - [gasPriceHandler](/reference/tevm/actions/functions/gaspricehandler/)
 - [getAccountHandler](/reference/tevm/actions/functions/getaccounthandler/)
 - [getBalanceHandler](/reference/tevm/actions/functions/getbalancehandler/)

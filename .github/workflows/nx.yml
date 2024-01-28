@@ -17,7 +17,7 @@ jobs:
   agents:
     name: Nx Cloud Agents
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     strategy:
       matrix:
         agent: [1, 2, 3, 4, 5, 6, 7, 8]
@@ -64,13 +64,12 @@ jobs:
           cmd2: bunx nx affected --target build:types
           cmd3: bunx nx affected --target typecheck
           cmd4: bunx nx affected --target test:coverage
-          cmd5: bunx nx affected --target lint:check
+          cmd5: bunx nx affected --target lint:check && bun sort-package-json:check
           cmd6: bunx nx affected --target lint:deps
           cmd7: bunx nx run-many --target lint:package --skip-nx-cache
           cmd8: bunx nx affected --target dev:run
-          cmd9: bun sort-package-json:check
-          cmd10: bunx nx affected --target generate:docs
-          cmd11: bunx nx affected --target build:app
+          cmd9: bunx nx affected --target generate:docs
+          cmd10: bunx nx affected --target build:app
 
       - name: Stop agents
         run: bunx nx-cloud stop-all-agents

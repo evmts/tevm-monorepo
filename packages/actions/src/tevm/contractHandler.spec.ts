@@ -465,7 +465,7 @@ describe('contractHandler', () => {
 	it('Handles the unlikely event the function data cannot be decoded', async () => {
 		const evm = new EVM({})
 		const originalRunCall = evm.runCall.bind(evm)
-		evm.runCall = function(args) {
+		evm.runCall = function (args) {
 			return {
 				...originalRunCall(args),
 				execResult: { returnValue: '0x42424242' },
