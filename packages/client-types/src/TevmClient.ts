@@ -2,6 +2,7 @@ import type {
 	CallHandler,
 	ContractHandler,
 	DumpStateHandler,
+	ForkHandler,
 	// DebugTraceCallHandler,
 	// DebugTraceTransactionHandler,
 	EthBlockNumberHandler,
@@ -261,6 +262,21 @@ export type TevmClient = {
 	 * ```
 	 */
 	loadState: LoadStateHandler
+	/**
+	 * Triggers a fork against the given fork config. If no config is provided it will fork the current state
+	 * If the current state is not proxying to an RPC and is just a vanilla VM it will throw
+	 *
+	 * Block tag is optional and defaults to 'latest'
+	 * @throws {@link import('@tevm/errors').ForkError}
+	 * @example
+	 * ```typescript
+	 * const {errors} = await tevm.fork({
+	 *   url: 'https://mainnet.infura.io/v3',
+	 *   blockTag: 'earliest',
+	 * })
+	 * ```
+	 */
+	fork: ForkHandler
 	/**
 	 * Standard JSON-RPC methods for interacting with the VM
 	 * @see {@link https://ethereum.github.io/execution-apis/api-documentation/ | JSON-RPC}
