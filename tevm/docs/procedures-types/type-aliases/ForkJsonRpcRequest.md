@@ -12,7 +12,7 @@ The JSON-RPC request for the `tevm_fork` method
 
 ## Source
 
-packages/procedures-types/types/requests/ForkJsonRpcRequest.d.ts:7
+packages/procedures-types/dist/index.d.ts:369
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

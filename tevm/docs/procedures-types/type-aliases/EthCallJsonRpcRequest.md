@@ -12,7 +12,7 @@ JSON-RPC request for `eth_call` procedure
 
 ## Source
 
-packages/procedures-types/types/requests/EthJsonRpcRequest.d.ts:46
+packages/procedures-types/dist/index.d.ts:144
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

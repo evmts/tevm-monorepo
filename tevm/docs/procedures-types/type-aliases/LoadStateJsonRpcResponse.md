@@ -12,7 +12,7 @@ Response of the `tevm_loadState` RPC method.
 
 ## Source
 
-packages/procedures-types/types/responses/LoadStateJsonRpcResponse.d.ts:8
+packages/procedures-types/dist/index.d.ts:633
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

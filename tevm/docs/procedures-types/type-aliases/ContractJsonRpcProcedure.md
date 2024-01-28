@@ -14,7 +14,7 @@ Since ContractJsonRpcProcedure is a quality of life wrapper around CallJsonRpcPr
 
 ## Source
 
-packages/procedures-types/types/procedure/ContractJsonRpcProcedure.d.ts:7
+packages/procedures-types/dist/index.d.ts:729
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

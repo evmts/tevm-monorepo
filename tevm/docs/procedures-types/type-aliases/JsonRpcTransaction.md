@@ -50,7 +50,7 @@ The integer of value sent with this transaction encoded as hexadecimal
 
 ## Source
 
-packages/procedures-types/types/requests/EthJsonRpcRequest.d.ts:9
+packages/procedures-types/dist/index.d.ts:107
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -16,7 +16,7 @@ JSON-RPC procedure for `debug_traceCall`
 
 ## Source
 
-packages/procedures-types/types/procedure/DebugProcedure.d.ts:10
+packages/procedures-types/dist/index.d.ts:738
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

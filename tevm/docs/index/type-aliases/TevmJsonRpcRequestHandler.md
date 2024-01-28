@@ -32,67 +32,67 @@ const accountResponse = await tevm.request({
 
 #### tevm_call
 
-request - CallJsonRpcRequest
-response - CallJsonRpcResponse
+request - [CallJsonRpcRequest](../../procedures-types/type-aliases/CallJsonRpcRequest.md)
+response - [CallJsonRpcResponse](../../procedures-types/type-aliases/CallJsonRpcResponse.md)
 
 #### tevm_script
 
-request - ScriptJsonRpcRequest
-response - ScriptJsonRpcResponse
+request - [ScriptJsonRpcRequest](../../procedures-types/type-aliases/ScriptJsonRpcRequest.md)
+response - [ScriptJsonRpcResponse](../../procedures-types/type-aliases/ScriptJsonRpcResponse.md)
 
 #### tevm_getAccount
 
-request - GetAccountJsonRpcRequest
-response - GetAccountJsonRpcResponse
+request - [GetAccountJsonRpcRequest](../../procedures-types/type-aliases/GetAccountJsonRpcRequest.md)
+response - [GetAccountJsonRpcResponse](../../procedures-types/type-aliases/GetAccountJsonRpcResponse.md)
 
 #### tevm_setAccount
 
-request - SetAccountJsonRpcRequest
-response - SetAccountJsonRpcResponse
+request - [SetAccountJsonRpcRequest](../../procedures-types/type-aliases/SetAccountJsonRpcRequest.md)
+response - [SetAccountJsonRpcResponse](../../procedures-types/type-aliases/SetAccountJsonRpcResponse.md)
 
 #### tevm_fork
 
-request - ForkJsonRpcRequest
-response - ForkJsonRpcResponse
+request - [ForkJsonRpcRequest](../../procedures-types/type-aliases/ForkJsonRpcRequest.md)
+response - [ForkJsonRpcResponse](../../procedures-types/type-aliases/ForkJsonRpcResponse.md)
 
 ### debug_* methods
 
 #### debug_traceCall
 
-request - DebugTraceCallJsonRpcRequest
-response - DebugTraceCallJsonRpcResponse
+request - [DebugTraceCallJsonRpcRequest](../../procedures-types/type-aliases/DebugTraceCallJsonRpcRequest.md)
+response - [DebugTraceCallJsonRpcResponse](../../procedures-types/type-aliases/DebugTraceCallJsonRpcResponse.md)
 
 ### eth_* methods
 
 #### eth_blockNumber
 
-request - EthBlockNumberJsonRpcRequest
-response - EthBlockNumberJsonRpcResponse
+request - [EthBlockNumberJsonRpcRequest](../../procedures-types/type-aliases/EthBlockNumberJsonRpcRequest.md)
+response - [EthBlockNumberJsonRpcResponse](../../procedures-types/type-aliases/EthBlockNumberJsonRpcResponse.md)
 
 #### eth_chainId
 
-request - EthChainIdJsonRpcRequest
-response - EthChainIdJsonRpcResponse
+request - [EthChainIdJsonRpcRequest](../../procedures-types/type-aliases/EthChainIdJsonRpcRequest.md)
+response - [EthChainIdJsonRpcResponse](../../procedures-types/type-aliases/EthChainIdJsonRpcResponse.md)
 
 #### eth_getCode
 
-request - EthGetCodeJsonRpcRequest
-response - EthGetCodeJsonRpcResponse
+request - [EthGetCodeJsonRpcRequest](../../procedures-types/type-aliases/EthGetCodeJsonRpcRequest.md)
+response - [EthGetCodeJsonRpcResponse](../../procedures-types/type-aliases/EthGetCodeJsonRpcResponse.md)
 
 #### eth_getStorageAt
 
-request - EthGetStorageAtJsonRpcRequest
-response - EthGetStorageAtJsonRpcResponse
+request - [EthGetStorageAtJsonRpcRequest](../../procedures-types/type-aliases/EthGetStorageAtJsonRpcRequest.md)
+response - [EthGetStorageAtJsonRpcResponse](../../procedures-types/type-aliases/EthGetStorageAtJsonRpcResponse.md)
 
 #### eth_gasPrice
 
-request - EthGasPriceJsonRpcRequest
-response - EthGasPriceJsonRpcResponse
+request - [EthGasPriceJsonRpcRequest](../../procedures-types/type-aliases/EthGasPriceJsonRpcRequest.md)
+response - [EthGasPriceJsonRpcResponse](../../procedures-types/type-aliases/EthGasPriceJsonRpcResponse.md)
 
 #### eth_getBalance
 
-request - EthGetBalanceJsonRpcRequest
-response - EthGetBalanceJsonRpcResponse
+request - [EthGetBalanceJsonRpcRequest](../../procedures-types/type-aliases/EthGetBalanceJsonRpcRequest.md)
+response - [EthGetBalanceJsonRpcResponse](../../procedures-types/type-aliases/EthGetBalanceJsonRpcResponse.md)
 
 ## Type parameters
 
@@ -104,7 +104,7 @@ response - EthGetBalanceJsonRpcResponse
 
 ## Source
 
-packages/procedures-types/types/tevm-request-handler/TevmJsonRpcRequestHandler.d.ts:89
+packages/procedures-types/dist/index.d.ts:1099
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

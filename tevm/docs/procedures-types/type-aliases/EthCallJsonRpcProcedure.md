@@ -14,7 +14,7 @@
 
 ## Source
 
-packages/procedures-types/types/procedure/EthProcedure.d.ts:5
+packages/procedures-types/dist/index.d.ts:756
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

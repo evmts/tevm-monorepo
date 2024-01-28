@@ -12,7 +12,7 @@ JSON-RPC response for `eth_getFilterChanges` procedure
 
 ## Source
 
-packages/procedures-types/types/responses/EthJsonRpcResponse.d.ts:69
+packages/procedures-types/dist/index.d.ts:516
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

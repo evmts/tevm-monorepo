@@ -1,0 +1,14 @@
+{
+	"extends": "@tevm/tsconfig/base",
+	"compilerOptions": {
+		"moduleResolution": "NodeNext",
+		"module": "NodeNext",
+		"outDir": "dist",
+		"jsx": "react",
+		"skipLibCheck": true,
+		"paths": {
+      "react": [ "./node_modules/@types/react" ]
+    }
+	},
+	"include": ["src"]
+}

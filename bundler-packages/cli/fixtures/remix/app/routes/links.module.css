@@ -1,0 +1,33 @@
+.container {
+    background-color: #222;
+    padding: 20px;
+    color: #EEE;
+    font-family: Arial, sans-serif;
+}
+
+.header {
+    margin-bottom: 20px;
+    color: #FFD700; /* Gold color for the header */
+}
+
+.linkStyle {
+    display: inline-block;
+    margin-right: 15px;
+    padding: 5px 15px;
+    color: #50E3C2; /* A teal color */
+    text-decoration: none;
+    border-radius: 5px;
+    background-color: #333;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.linkStyle:hover {
+    background-color: #444;
+    color: #FFD700;
+}
+
+.connectButtonStyle {
+    display: inline-block;
+    margin-top: 20px;
+    /* Further styles for the ConnectButton if needed */
+}

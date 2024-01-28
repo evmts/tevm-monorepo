@@ -29,7 +29,7 @@ console.log(result) // { jsonrpc: '2.0', id: 1, method: 'tevm_loadState', result
 
 ## Source
 
-packages/procedures-types/types/procedure/LoadStateJsonRpcProcedure.d.ts:16
+packages/procedures-types/dist/index.d.ts:811
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -12,7 +12,7 @@ JSON-RPC request for `eth_blockNumber` procedure
 
 ## Source
 
-packages/procedures-types/types/requests/EthJsonRpcRequest.d.ts:42
+packages/procedures-types/dist/index.d.ts:140
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,0 +1,43 @@
+import { getDefaultWallets } from '@rainbow-me/rainbowkit'
+import { configureChains, createConfig } from 'wagmi'
+import { mainnet, optimismGoerli } from 'wagmi/chains'
+import { jsonRpcProvider } from 'wagmi/providers/jsonRpc'
+
+const walletConnectProjectId = '898f836c53a18d0661340823973f0cb4'
+
+const { chains, publicClient, webSocketPublicClient } = configureChains(
+	[mainnet, optimismGoerli],
+	[
+		jsonRpcProvider({
+			rpc: (chain) => {
+				const urls = {
+					1: {
+						http:
+							import.meta.env.VITE_RPC_URL_1 ??
+							'https://mainnet.infura.io/v3/691ae42a41be4704bad107119262f807',
+					},
+					420: {
+						http:
+							import.meta.env.VITE_RPC_URL_420 ?? 'https://goerli.optimism.io',
+					},
+				}
+				return [1, 420].includes(chain.id) ? urls[chain.id as 1 | 420] : null
+			},
+		}),
+	],
+)
+
+const { connectors } = getDefaultWallets({
+	appName: 'My wagmi + RainbowKit App',
+	chains,
+	projectId: walletConnectProjectId,
+})
+
+export const config = createConfig({
+	autoConnect: true,
+	connectors,
+	publicClient,
+	webSocketPublicClient,
+})
+
+export { chains }

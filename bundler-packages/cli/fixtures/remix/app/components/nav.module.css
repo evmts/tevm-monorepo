@@ -1,0 +1,29 @@
+.navContainer {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #111;
+}
+
+.homeStyle {
+    margin: 0 10px;
+    padding: 5px 15px;
+    color: #FF0420;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.linkStyle {
+    margin: 0 10px;
+    padding: 5px 15px;
+    color: rgb(160, 174, 192);
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.linkStyle:hover {
+    color: #fff;
+}

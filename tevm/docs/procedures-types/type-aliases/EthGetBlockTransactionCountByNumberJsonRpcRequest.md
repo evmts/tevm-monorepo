@@ -12,7 +12,7 @@ JSON-RPC request for `eth_getBlockTransactionCountByNumber` procedure
 
 ## Source
 
-packages/procedures-types/types/requests/EthJsonRpcRequest.d.ts:89
+packages/procedures-types/dist/index.d.ts:187
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

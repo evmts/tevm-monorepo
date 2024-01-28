@@ -16,7 +16,7 @@
 
 ## Source
 
-packages/procedures-types/types/utils/SerializeToJson.d.ts:7
+packages/procedures-types/dist/index.d.ts:13
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
