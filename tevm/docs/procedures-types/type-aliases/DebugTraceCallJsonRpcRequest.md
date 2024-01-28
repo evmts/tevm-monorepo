@@ -6,7 +6,7 @@
 
 # Type alias: DebugTraceCallJsonRpcRequest
 
-> **DebugTraceCallJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"debug_traceCall"`, `SerializeToJson`\<[`DebugTraceCallParams`](../../actions-types/type-aliases/DebugTraceCallParams.md)\>\>
+> **DebugTraceCallJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"debug_traceCall"`, [`SerializeToJson`](SerializeToJson.md)\<[`DebugTraceCallParams`](../../actions-types/type-aliases/DebugTraceCallParams.md)\>\>
 
 JSON-RPC request for `debug_traceCall` method
 

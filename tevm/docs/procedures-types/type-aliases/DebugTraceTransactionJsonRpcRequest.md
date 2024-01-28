@@ -6,7 +6,7 @@
 
 # Type alias: DebugTraceTransactionJsonRpcRequest
 
-> **DebugTraceTransactionJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"debug_traceTransaction"`, `SerializeToJson`\<[`DebugTraceTransactionParams`](../../actions-types/type-aliases/DebugTraceTransactionParams.md)\>\>
+> **DebugTraceTransactionJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"debug_traceTransaction"`, [`SerializeToJson`](SerializeToJson.md)\<[`DebugTraceTransactionParams`](../../actions-types/type-aliases/DebugTraceTransactionParams.md)\>\>
 
 JSON-RPC request for `debug_traceTransaction` method
 

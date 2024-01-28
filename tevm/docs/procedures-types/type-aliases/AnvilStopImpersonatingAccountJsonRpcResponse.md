@@ -6,7 +6,7 @@
 
 # Type alias: AnvilStopImpersonatingAccountJsonRpcResponse
 
-> **AnvilStopImpersonatingAccountJsonRpcResponse**: [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"anvil_stopImpersonatingAccount"`, `SerializeToJson`\<[`AnvilStopImpersonatingAccountResult`](../../actions-types/type-aliases/AnvilStopImpersonatingAccountResult.md)\>, `AnvilError`\>
+> **AnvilStopImpersonatingAccountJsonRpcResponse**: [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"anvil_stopImpersonatingAccount"`, [`SerializeToJson`](SerializeToJson.md)\<[`AnvilStopImpersonatingAccountResult`](../../actions-types/type-aliases/AnvilStopImpersonatingAccountResult.md)\>, `AnvilError`\>
 
 JSON-RPC response for `anvil_stopImpersonatingAccount` procedure
 

@@ -6,7 +6,7 @@
 
 # Type alias: EthBlockNumberJsonRpcResponse
 
-> **EthBlockNumberJsonRpcResponse**: [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"eth_blockNumber"`, `SerializeToJson`\<[`EthBlockNumberResult`](../../actions-types/type-aliases/EthBlockNumberResult.md)\>, `string`\>
+> **EthBlockNumberJsonRpcResponse**: [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"eth_blockNumber"`, [`SerializeToJson`](SerializeToJson.md)\<[`EthBlockNumberResult`](../../actions-types/type-aliases/EthBlockNumberResult.md)\>, `string`\>
 
 JSON-RPC response for `eth_blockNumber` procedure
 
