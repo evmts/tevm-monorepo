@@ -20,4 +20,3 @@ export type TevmReturnType = {
 	tevm_setAccount: SetAccountJsonRpcResponse
 	tevm_fork: ForkJsonRpcResponse
 }
-

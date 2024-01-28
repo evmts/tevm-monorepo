@@ -50,6 +50,11 @@ response - [GetAccountJsonRpcResponse](GetAccountJsonRpcResponse.md)
 request - [SetAccountJsonRpcRequest](SetAccountJsonRpcRequest.md)
 response - [SetAccountJsonRpcResponse](SetAccountJsonRpcResponse.md)
 
+#### tevm_fork
+
+request - [ForkJsonRpcRequest](ForkJsonRpcRequest.md)
+response - [ForkJsonRpcResponse](ForkJsonRpcResponse.md)
+
 ### debug_* methods
 
 #### debug_traceCall
@@ -99,7 +104,7 @@ response - [EthGetBalanceJsonRpcResponse](EthGetBalanceJsonRpcResponse.md)
 
 ## Source
 
-[TevmJsonRpcRequestHandler.ts:412](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/TevmJsonRpcRequestHandler.ts#L412)
+[tevm-request-handler/TevmJsonRpcRequestHandler.ts:119](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/tevm-request-handler/TevmJsonRpcRequestHandler.ts#L119)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

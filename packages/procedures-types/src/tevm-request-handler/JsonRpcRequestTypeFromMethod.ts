@@ -1,7 +1,7 @@
-import type { AnvilRequestType } from "./AnvilRequestType.js";
-import type { DebugRequestType } from "./DebugRequestType.js";
-import type { EthRequestType } from "./EthRequestType.js";
-import type { TevmRequestType } from "./TevmRequestType.js";
+import type { AnvilRequestType } from './AnvilRequestType.js'
+import type { DebugRequestType } from './DebugRequestType.js'
+import type { EthRequestType } from './EthRequestType.js'
+import type { TevmRequestType } from './TevmRequestType.js'
 
 /**
  * Utility type to get the request type given a method name
@@ -12,10 +12,10 @@ import type { TevmRequestType } from "./TevmRequestType.js";
  */
 export type JsonRpcRequestTypeFromMethod<
 	TMethod extends
-	| keyof EthRequestType
-	| keyof TevmRequestType
-	| keyof AnvilRequestType
-	| keyof DebugRequestType,
+		| keyof EthRequestType
+		| keyof TevmRequestType
+		| keyof AnvilRequestType
+		| keyof DebugRequestType,
 > = (EthRequestType &
 	TevmRequestType &
 	AnvilRequestType &

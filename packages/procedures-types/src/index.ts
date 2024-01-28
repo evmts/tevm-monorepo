@@ -191,7 +191,7 @@ export type {
 	DebugTraceTransactionProcedure,
 	LoadStateJsonRpcProcedure,
 	DumpStateJsonRpcProcedure,
-	ForkJsonRpcProcedure
+	ForkJsonRpcProcedure,
 } from './procedure/index.js'
 export type {
 	EthReturnType,

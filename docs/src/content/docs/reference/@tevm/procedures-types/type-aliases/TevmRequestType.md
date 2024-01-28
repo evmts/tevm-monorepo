@@ -19,6 +19,10 @@ A mapping of `tevm_*` method names to their request type
 
 > **tevm\_dumpState**: [`DumpStateJsonRpcRequest`](/reference/tevm/procedures-types/type-aliases/dumpstatejsonrpcrequest/)
 
+### tevm\_fork
+
+> **tevm\_fork**: [`ForkJsonRpcRequest`](/reference/tevm/procedures-types/type-aliases/forkjsonrpcrequest/)
+
 ### tevm\_getAccount
 
 > **tevm\_getAccount**: [`GetAccountJsonRpcRequest`](/reference/tevm/procedures-types/type-aliases/getaccountjsonrpcrequest/)
@@ -37,7 +41,7 @@ A mapping of `tevm_*` method names to their request type
 
 ## Source
 
-[TevmJsonRpcRequestHandler.ts:287](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/TevmJsonRpcRequestHandler.ts#L287)
+[tevm-request-handler/TevmRequestType.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/tevm-request-handler/TevmRequestType.ts#L14)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

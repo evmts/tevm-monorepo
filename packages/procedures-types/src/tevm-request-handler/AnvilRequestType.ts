@@ -32,4 +32,3 @@ export type AnvilRequestType = {
 	anvil_dumpState: AnvilDumpStateJsonRpcRequest
 	anvil_loadState: AnvilLoadStateJsonRpcRequest
 }
-

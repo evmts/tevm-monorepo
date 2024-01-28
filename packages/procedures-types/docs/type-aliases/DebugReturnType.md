@@ -22,7 +22,7 @@ A mapping of `debug_*` method names to their return type
 
 ## Source
 
-[TevmJsonRpcRequestHandler.ts:131](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/TevmJsonRpcRequestHandler.ts#L131)
+[tevm-request-handler/DebugReturnType.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/tevm-request-handler/DebugReturnType.ts#L9)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

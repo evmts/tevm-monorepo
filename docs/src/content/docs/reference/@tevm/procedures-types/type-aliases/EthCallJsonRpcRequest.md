@@ -5,7 +5,7 @@ prev: false
 title: "EthCallJsonRpcRequest"
 ---
 
-> **EthCallJsonRpcRequest**: [`JsonRpcRequest`](/reference/tevm/jsonrpc/type-aliases/jsonrpcrequest/)\<`"eth_call"`, readonly [`JsonRpcTransaction`, `BlockTag` \| `Hex`]\>
+> **EthCallJsonRpcRequest**: [`JsonRpcRequest`](/reference/tevm/jsonrpc/type-aliases/jsonrpcrequest/)\<`"eth_call"`, readonly [[`JsonRpcTransaction`](/reference/tevm/procedures-types/type-aliases/jsonrpctransaction/), `BlockTag` \| `Hex`]\>
 
 JSON-RPC request for `eth_call` procedure
 
