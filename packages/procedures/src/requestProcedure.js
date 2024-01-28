@@ -28,6 +28,7 @@ import { testAccounts } from '@tevm/actions'
  * bundle size.
  *
  * @param {import('@ethereumjs/vm').VM} vm
+ * @param {import('@tevm/actions').ForkOptions} forkOptions
  * @returns {import('@tevm/procedures-types').TevmJsonRpcRequestHandler}
  * @example
  * ```typescript
@@ -45,7 +46,7 @@ import { testAccounts } from '@tevm/actions'
  * })
  * ```
  */
-export const requestProcedure = (vm) => {
+export const requestProcedure = (vm, forkOptions) => {
 	// TODO implement chainid
 	const chainId = 10n
 	return async (request) => {
@@ -171,7 +172,7 @@ export const requestProcedure = (vm) => {
 					name: 'UnsupportedMethodError',
 					message: `UnsupportedMethodError: Unknown method ${
 						/**@type any*/ (request).method
-					}`,
+						}`,
 				}
 				return /** @type {any}*/ ({
 					id: /** @type any*/ (request).id ?? null,
