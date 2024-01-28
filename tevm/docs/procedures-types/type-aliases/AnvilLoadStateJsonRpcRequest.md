@@ -6,7 +6,7 @@
 
 # Type alias: AnvilLoadStateJsonRpcRequest
 
-> **AnvilLoadStateJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"anvil_loadState"`, `SerializeToJson`\<[`AnvilLoadStateParams`](../../actions-types/type-aliases/AnvilLoadStateParams.md)\>\>
+> **AnvilLoadStateJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"anvil_loadState"`, [`SerializeToJson`](SerializeToJson.md)\<[`AnvilLoadStateParams`](../../actions-types/type-aliases/AnvilLoadStateParams.md)\>\>
 
 JSON-RPC request for `anvil_loadState` method
 

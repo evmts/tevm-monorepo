@@ -6,7 +6,7 @@
 
 # Type alias: AnvilSetStorageAtJsonRpcResponse
 
-> **AnvilSetStorageAtJsonRpcResponse**: [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"anvil_setStorageAt"`, `SerializeToJson`\<[`AnvilSetStorageAtResult`](../../actions-types/type-aliases/AnvilSetStorageAtResult.md)\>, `AnvilError`\>
+> **AnvilSetStorageAtJsonRpcResponse**: [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"anvil_setStorageAt"`, [`SerializeToJson`](SerializeToJson.md)\<[`AnvilSetStorageAtResult`](../../actions-types/type-aliases/AnvilSetStorageAtResult.md)\>, `AnvilError`\>
 
 JSON-RPC response for `anvil_setStorageAt` procedure
 

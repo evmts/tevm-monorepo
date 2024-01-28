@@ -6,7 +6,7 @@
 
 # Type alias: JsonRpcRequestTypeFromMethod`<TMethod>`
 
-> **JsonRpcRequestTypeFromMethod**\<`TMethod`\>: `EthRequestType` & `TevmRequestType` & `AnvilRequestType` & `DebugRequestType`[`TMethod`]
+> **JsonRpcRequestTypeFromMethod**\<`TMethod`\>: [`EthRequestType`](../../procedures-types/type-aliases/EthRequestType.md) & [`TevmRequestType`](../../procedures-types/type-aliases/TevmRequestType.md) & [`AnvilRequestType`](../../procedures-types/type-aliases/AnvilRequestType.md) & [`DebugRequestType`](../../procedures-types/type-aliases/DebugRequestType.md)[`TMethod`]
 
 Utility type to get the request type given a method name
 
@@ -20,7 +20,7 @@ type BlockNumberRequestType = JsonRpcRequestTypeFromMethod<'eth_blockNumber'>
 
 | Parameter |
 | :------ |
-| `TMethod` extends keyof `EthRequestType` \| keyof `TevmRequestType` \| keyof `AnvilRequestType` \| keyof `DebugRequestType` |
+| `TMethod` extends keyof [`EthRequestType`](../../procedures-types/type-aliases/EthRequestType.md) \| keyof [`TevmRequestType`](../../procedures-types/type-aliases/TevmRequestType.md) \| keyof [`AnvilRequestType`](../../procedures-types/type-aliases/AnvilRequestType.md) \| keyof [`DebugRequestType`](../../procedures-types/type-aliases/DebugRequestType.md) |
 
 ## Source
 

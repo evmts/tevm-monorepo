@@ -6,7 +6,7 @@
 
 # Type alias: AnvilStopImpersonatingAccountJsonRpcRequest
 
-> **AnvilStopImpersonatingAccountJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"anvil_stopImpersonatingAccount"`, `SerializeToJson`\<[`AnvilStopImpersonatingAccountParams`](../../actions-types/type-aliases/AnvilStopImpersonatingAccountParams.md)\>\>
+> **AnvilStopImpersonatingAccountJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"anvil_stopImpersonatingAccount"`, [`SerializeToJson`](SerializeToJson.md)\<[`AnvilStopImpersonatingAccountParams`](../../actions-types/type-aliases/AnvilStopImpersonatingAccountParams.md)\>\>
 
 JSON-RPC request for `anvil_stopImpersonatingAccount` method
 

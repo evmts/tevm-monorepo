@@ -6,7 +6,7 @@
 
 # Type alias: LoadStateJsonRpcProcedure
 
-> **LoadStateJsonRpcProcedure**: (`request`) => `Promise`\<`LoadStateJsonRpcResponse`\>
+> **LoadStateJsonRpcProcedure**: (`request`) => `Promise`\<[`LoadStateJsonRpcResponse`](LoadStateJsonRpcResponse.md)\>
 
 Procedure for handling script JSON-RPC requests
 Procedure for handling tevm_loadState JSON-RPC requests
@@ -25,7 +25,7 @@ console.log(result) // { jsonrpc: '2.0', id: 1, method: 'tevm_loadState', result
 
 ## Parameters
 
-▪ **request**: `LoadStateJsonRpcRequest`
+▪ **request**: [`LoadStateJsonRpcRequest`](LoadStateJsonRpcRequest.md)
 
 ## Source
 

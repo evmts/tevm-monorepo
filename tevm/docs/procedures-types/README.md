@@ -22,15 +22,18 @@
 - [AnvilImpersonateAccountJsonRpcRequest](type-aliases/AnvilImpersonateAccountJsonRpcRequest.md)
 - [AnvilImpersonateAccountJsonRpcResponse](type-aliases/AnvilImpersonateAccountJsonRpcResponse.md)
 - [AnvilImpersonateAccountProcedure](type-aliases/AnvilImpersonateAccountProcedure.md)
+- [AnvilJsonRpcRequest](type-aliases/AnvilJsonRpcRequest.md)
 - [AnvilLoadStateJsonRpcRequest](type-aliases/AnvilLoadStateJsonRpcRequest.md)
 - [AnvilLoadStateJsonRpcResponse](type-aliases/AnvilLoadStateJsonRpcResponse.md)
 - [AnvilLoadStateProcedure](type-aliases/AnvilLoadStateProcedure.md)
 - [AnvilMineJsonRpcRequest](type-aliases/AnvilMineJsonRpcRequest.md)
 - [AnvilMineJsonRpcResponse](type-aliases/AnvilMineJsonRpcResponse.md)
 - [AnvilMineProcedure](type-aliases/AnvilMineProcedure.md)
+- [AnvilRequestType](type-aliases/AnvilRequestType.md)
 - [AnvilResetJsonRpcRequest](type-aliases/AnvilResetJsonRpcRequest.md)
 - [AnvilResetJsonRpcResponse](type-aliases/AnvilResetJsonRpcResponse.md)
 - [AnvilResetProcedure](type-aliases/AnvilResetProcedure.md)
+- [AnvilReturnType](type-aliases/AnvilReturnType.md)
 - [AnvilSetBalanceJsonRpcRequest](type-aliases/AnvilSetBalanceJsonRpcRequest.md)
 - [AnvilSetBalanceJsonRpcResponse](type-aliases/AnvilSetBalanceJsonRpcResponse.md)
 - [AnvilSetBalanceProcedure](type-aliases/AnvilSetBalanceProcedure.md)
@@ -49,12 +52,16 @@
 - [AnvilStopImpersonatingAccountJsonRpcRequest](type-aliases/AnvilStopImpersonatingAccountJsonRpcRequest.md)
 - [AnvilStopImpersonatingAccountJsonRpcResponse](type-aliases/AnvilStopImpersonatingAccountJsonRpcResponse.md)
 - [AnvilStopImpersonatingAccountProcedure](type-aliases/AnvilStopImpersonatingAccountProcedure.md)
+- [BigIntToHex](type-aliases/BigIntToHex.md)
 - [CallJsonRpcProcedure](type-aliases/CallJsonRpcProcedure.md)
 - [CallJsonRpcRequest](type-aliases/CallJsonRpcRequest.md)
 - [CallJsonRpcResponse](type-aliases/CallJsonRpcResponse.md)
 - [ContractJsonRpcProcedure](type-aliases/ContractJsonRpcProcedure.md)
 - [ContractJsonRpcRequest](type-aliases/ContractJsonRpcRequest.md)
 - [ContractJsonRpcResponse](type-aliases/ContractJsonRpcResponse.md)
+- [DebugJsonRpcRequest](type-aliases/DebugJsonRpcRequest.md)
+- [DebugRequestType](type-aliases/DebugRequestType.md)
+- [DebugReturnType](type-aliases/DebugReturnType.md)
 - [DebugTraceCallJsonRpcRequest](type-aliases/DebugTraceCallJsonRpcRequest.md)
 - [DebugTraceCallJsonRpcResponse](type-aliases/DebugTraceCallJsonRpcResponse.md)
 - [DebugTraceCallProcedure](type-aliases/DebugTraceCallProcedure.md)
@@ -62,6 +69,8 @@
 - [DebugTraceTransactionJsonRpcResponse](type-aliases/DebugTraceTransactionJsonRpcResponse.md)
 - [DebugTraceTransactionProcedure](type-aliases/DebugTraceTransactionProcedure.md)
 - [DumpStateJsonRpcProcedure](type-aliases/DumpStateJsonRpcProcedure.md)
+- [DumpStateJsonRpcRequest](type-aliases/DumpStateJsonRpcRequest.md)
+- [DumpStateJsonRpcResponse](type-aliases/DumpStateJsonRpcResponse.md)
 - [EthAccountsJsonRpcProcedure](type-aliases/EthAccountsJsonRpcProcedure.md)
 - [EthAccountsJsonRpcRequest](type-aliases/EthAccountsJsonRpcRequest.md)
 - [EthAccountsJsonRpcResponse](type-aliases/EthAccountsJsonRpcResponse.md)
@@ -159,6 +168,8 @@
 - [EthProtocolVersionJsonRpcProcedure](type-aliases/EthProtocolVersionJsonRpcProcedure.md)
 - [EthProtocolVersionJsonRpcRequest](type-aliases/EthProtocolVersionJsonRpcRequest.md)
 - [EthProtocolVersionJsonRpcResponse](type-aliases/EthProtocolVersionJsonRpcResponse.md)
+- [EthRequestType](type-aliases/EthRequestType.md)
+- [EthReturnType](type-aliases/EthReturnType.md)
 - [EthSendRawTransactionJsonRpcProcedure](type-aliases/EthSendRawTransactionJsonRpcProcedure.md)
 - [EthSendRawTransactionJsonRpcRequest](type-aliases/EthSendRawTransactionJsonRpcRequest.md)
 - [EthSendRawTransactionJsonRpcResponse](type-aliases/EthSendRawTransactionJsonRpcResponse.md)
@@ -177,25 +188,54 @@
 - [EthUninstallFilterJsonRpcProcedure](type-aliases/EthUninstallFilterJsonRpcProcedure.md)
 - [EthUninstallFilterJsonRpcRequest](type-aliases/EthUninstallFilterJsonRpcRequest.md)
 - [EthUninstallFilterJsonRpcResponse](type-aliases/EthUninstallFilterJsonRpcResponse.md)
+- [ForkJsonRpcProcedure](type-aliases/ForkJsonRpcProcedure.md)
+- [ForkJsonRpcRequest](type-aliases/ForkJsonRpcRequest.md)
+- [ForkJsonRpcResponse](type-aliases/ForkJsonRpcResponse.md)
 - [GetAccountJsonRpcProcedure](type-aliases/GetAccountJsonRpcProcedure.md)
 - [GetAccountJsonRpcRequest](type-aliases/GetAccountJsonRpcRequest.md)
 - [GetAccountJsonRpcResponse](type-aliases/GetAccountJsonRpcResponse.md)
+- [JsonRpcTransaction](type-aliases/JsonRpcTransaction.md)
+- [JsonSerializable](type-aliases/JsonSerializable.md)
+- [JsonSerializableArray](type-aliases/JsonSerializableArray.md)
+- [JsonSerializableObject](type-aliases/JsonSerializableObject.md)
+- [JsonSerializableSet](type-aliases/JsonSerializableSet.md)
 - [LoadStateJsonRpcProcedure](type-aliases/LoadStateJsonRpcProcedure.md)
+- [LoadStateJsonRpcRequest](type-aliases/LoadStateJsonRpcRequest.md)
+- [LoadStateJsonRpcResponse](type-aliases/LoadStateJsonRpcResponse.md)
 - [ScriptJsonRpcProcedure](type-aliases/ScriptJsonRpcProcedure.md)
 - [ScriptJsonRpcRequest](type-aliases/ScriptJsonRpcRequest.md)
 - [ScriptJsonRpcResponse](type-aliases/ScriptJsonRpcResponse.md)
+- [SerializeToJson](type-aliases/SerializeToJson.md)
+- [SerializedParams](type-aliases/SerializedParams.md)
 - [SetAccountJsonRpcProcedure](type-aliases/SetAccountJsonRpcProcedure.md)
 - [SetAccountJsonRpcRequest](type-aliases/SetAccountJsonRpcRequest.md)
 - [SetAccountJsonRpcResponse](type-aliases/SetAccountJsonRpcResponse.md)
+- [SetToHex](type-aliases/SetToHex.md)
+- [TevmRequestType](type-aliases/TevmRequestType.md)
+- [TevmReturnType](type-aliases/TevmReturnType.md)
 
 ## Table of contents
 
 ### References
 
+- [JsonRpcRequestTypeFromMethod](README.md#jsonrpcrequesttypefrommethod)
+- [JsonRpcReturnTypeFromMethod](README.md#jsonrpcreturntypefrommethod)
 - [TevmJsonRpcRequest](README.md#tevmjsonrpcrequest)
 - [TevmJsonRpcRequestHandler](README.md#tevmjsonrpcrequesthandler)
 
 ## References
+
+### JsonRpcRequestTypeFromMethod
+
+Re-exports [JsonRpcRequestTypeFromMethod](../index/type-aliases/JsonRpcRequestTypeFromMethod.md)
+
+***
+
+### JsonRpcReturnTypeFromMethod
+
+Re-exports [JsonRpcReturnTypeFromMethod](../index/type-aliases/JsonRpcReturnTypeFromMethod.md)
+
+***
 
 ### TevmJsonRpcRequest
 

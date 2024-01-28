@@ -6,7 +6,7 @@
 
 # Type alias: EthNewFilterJsonRpcRequest
 
-> **EthNewFilterJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"eth_newFilter"`, `SerializeToJson`\<[`FilterParams`](../../actions-types/type-aliases/FilterParams.md)\>\>
+> **EthNewFilterJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"eth_newFilter"`, [`SerializeToJson`](SerializeToJson.md)\<[`FilterParams`](../../actions-types/type-aliases/FilterParams.md)\>\>
 
 JSON-RPC request for `eth_newFilter` procedure
 
