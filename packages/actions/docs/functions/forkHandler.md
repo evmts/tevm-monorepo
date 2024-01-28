@@ -18,7 +18,7 @@ Creates an import('@tevm/actions-types').ForkHandler for creating new forks
 
 ## Source
 
-[packages/actions/src/tevm/forkHandler.js:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm/forkHandler.js#L8)
+[packages/actions/src/tevm/forkHandler.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm/forkHandler.js#L9)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
