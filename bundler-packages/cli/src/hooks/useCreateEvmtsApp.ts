@@ -13,7 +13,7 @@ const __dirname = dirname(__filename)
 
 const fixturesDir = join(__dirname, '..', '..', 'fixtures')
 
-export const useCreateEvmtsApp = (state: Store) => {
+export const useCreateEvmtsApp = (state: Store): any => {
 	const appPath = join(process.cwd(), basename(state.name))
 	const fixturePath = join(fixturesDir, `${state.framework}/`)
 

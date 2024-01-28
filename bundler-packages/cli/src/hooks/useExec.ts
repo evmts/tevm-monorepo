@@ -5,7 +5,7 @@ import { useEffect, useReducer, useState } from 'react'
 export const useExec = (
 	command: string,
 	cwd: string,
-	args,
+	args: any,
 	onSuccess: () => void,
 	withWait = 0,
 ) => {

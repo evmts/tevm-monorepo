@@ -25,7 +25,8 @@
 			".devcontainer",
 			"examples/svelte-ethers/.svelte-kit",
 			"experimental/viem-effect",
-			"bundler-packages/config/src/fixtures"
+			"bundler-packages/config/src/fixtures",
+			"bundler-packages/cli/fixtures"
 		]
 	},
 	"formatter": {

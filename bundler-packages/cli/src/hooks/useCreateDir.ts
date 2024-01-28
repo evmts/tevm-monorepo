@@ -1,12 +1,12 @@
 import { wait } from '../utils/wait.js'
-import { useMutation } from '@tanstack/react-query'
+import { type UseMutationResult, useMutation } from '@tanstack/react-query'
 import fs from 'fs-extra'
 
 export const useCreateDir = (
 	appPath: string,
 	onSuccess: () => void,
 	withWait = 0,
-) => {
+): UseMutationResult<void, Error, void, unknown> => {
 	return useMutation({
 		onSuccess,
 		mutationFn: async () => {

@@ -24,11 +24,17 @@ type Props<V> = {
 	onSelect: (item: Item<V>) => void
 }
 
+// rome fails if we don't do this
+type AnyItem = any
+
 /**
  * Create EVMts app step to select the use case
  * Uses a MultiSelect
  */
-export const SelectInput = <T>({ items, onSelect }: Props<T>) => {
+export const SelectInput = <T extends AnyItem>({
+	items,
+	onSelect,
+}: Props<T>) => {
 	const initialIndex = items.findIndex((item) =>
 		item.label.includes('(recommended)'),
 	)
