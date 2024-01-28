@@ -64,6 +64,8 @@ export type {
 	DebugTraceCallJsonRpcRequest,
 	DebugTraceTransactionJsonRpcRequest,
 	EthJsonRpcRequest,
+	ForkJsonRpcRequest,
+	JsonRpcTransaction,
 } from './requests/index.js'
 export type {
 	DumpStateJsonRpcResponse,
@@ -126,6 +128,7 @@ export type {
 	DebugTraceCallJsonRpcResponse,
 	DebugTraceTransactionJsonRpcResponse,
 	LoadStateJsonRpcResponse,
+	ForkJsonRpcResponse,
 } from './responses/index.js'
 export type {
 	CallJsonRpcProcedure,
@@ -188,6 +191,7 @@ export type {
 	DebugTraceTransactionProcedure,
 	LoadStateJsonRpcProcedure,
 	DumpStateJsonRpcProcedure,
+	ForkJsonRpcProcedure
 } from './procedure/index.js'
 export type {
 	EthReturnType,
@@ -201,7 +205,7 @@ export type {
 	JsonRpcReturnTypeFromMethod,
 	JsonRpcRequestTypeFromMethod,
 	TevmJsonRpcRequestHandler,
-} from './TevmJsonRpcRequestHandler.js'
+} from './tevm-request-handler/index.js'
 export type {
 	SetToHex,
 	BigIntToHex,
