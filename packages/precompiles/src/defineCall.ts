@@ -1,3 +1,4 @@
+import { EVMErrorMessage, EvmError } from '@ethereumjs/evm'
 import type {
 	Abi,
 	AbiParametersToPrimitiveTypes,
@@ -54,12 +55,23 @@ export const defineCall = <TAbi extends Abi>(
 						abi: abi,
 						functionName: d.functionName as any,
 						result: returnValue as any,
-					}),
+					} as any),
 				),
 			}
 		} catch (e) {
-			// TODO return an error instead of throwing
-			throw e
+			return {
+				executionGasUsed: BigInt(0),
+				returnValue: Buffer.alloc(0),
+				exeptionEror: {
+					...new EvmError(EVMErrorMessage.REVERT),
+					message:
+						typeof e === 'string'
+							? e
+							: e instanceof Error
+							? e.message
+							: 'unknown error',
+				},
+			}
 		}
 	}
 }
