@@ -10,6 +10,11 @@
 
 - [NoForkUrlSetError](classes/NoForkUrlSetError.md)
 
+### Type Aliases
+
+- [ForkOptions](type-aliases/ForkOptions.md)
+- [RegisterFunction](type-aliases/RegisterFunction.md)
+
 ### Functions
 
 - [blockNumberHandler](functions/blockNumberHandler.md)
@@ -18,6 +23,7 @@
 - [contractHandler](functions/contractHandler.md)
 - [dumpStateHandler](functions/dumpStateHandler.md)
 - [ethCallHandler](functions/ethCallHandler.md)
+- [forkHandler](functions/forkHandler.md)
 - [gasPriceHandler](functions/gasPriceHandler.md)
 - [getAccountHandler](functions/getAccountHandler.md)
 - [getBalanceHandler](functions/getBalanceHandler.md)
