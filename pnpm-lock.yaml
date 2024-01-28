@@ -490,6 +490,12 @@ importers:
         specifier: ^0.5.2
         version: 0.5.2(@astrojs/starlight@0.16.0)(astro@4.2.4)
     devDependencies:
+      '@tevm/memory-client':
+        specifier: workspace:^
+        version: link:../packages/memory-client
+      '@tevm/viem':
+        specifier: workspace:^
+        version: link:../extensions/viem
       tevm:
         specifier: workspace:^
         version: link:../tevm
