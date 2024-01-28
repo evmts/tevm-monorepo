@@ -21,6 +21,7 @@
   "devDependencies": {
     "tevm": "workspace:^",
     "@tevm/memory-client": "workspace:^",
-    "@tevm/viem": "workspace:^"
+    "@tevm/viem": "workspace:^",
+    "@tevm/bundler": "workspace:^"
   }
 }

@@ -5,7 +5,7 @@ prev: false
 title: "blockNumberProcedure"
 ---
 
-> **blockNumberProcedure**(`blockchain`): [`EthBlockNumberJsonRpcProcedure`](/reference/tevm/procedures-types/type-aliases/ethblocknumberjsonrpcprocedure/)
+> **blockNumberProcedure**(`blockchain`): `EthBlockNumberJsonRpcProcedure`
 
 ## Parameters
 

@@ -5,7 +5,7 @@ prev: false
 title: "EthEstimateGasJsonRpcRequest"
 ---
 
-> **EthEstimateGasJsonRpcRequest**: [`JsonRpcRequest`](/reference/tevm/jsonrpc/type-aliases/jsonrpcrequest/)\<`"eth_estimateGas"`, readonly [`JsonRpcTransaction`]\>
+> **EthEstimateGasJsonRpcRequest**: [`JsonRpcRequest`](/reference/tevm/jsonrpc/type-aliases/jsonrpcrequest/)\<`"eth_estimateGas"`, readonly [[`JsonRpcTransaction`](/reference/tevm/procedures-types/type-aliases/jsonrpctransaction/)]\>
 
 JSON-RPC request for `eth_estimateGas` procedure
 

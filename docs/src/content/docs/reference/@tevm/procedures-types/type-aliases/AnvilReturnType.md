@@ -65,7 +65,7 @@ A mapping of `anvil_*` method names to their return type
 
 ## Source
 
-[TevmJsonRpcRequestHandler.ts:147](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/TevmJsonRpcRequestHandler.ts#L147)
+[tevm-request-handler/AnvilReturnType.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/tevm-request-handler/AnvilReturnType.ts#L20)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

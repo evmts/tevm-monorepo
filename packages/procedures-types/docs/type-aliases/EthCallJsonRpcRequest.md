@@ -6,7 +6,7 @@
 
 # Type alias: EthCallJsonRpcRequest
 
-> **EthCallJsonRpcRequest**: `JsonRpcRequest`\<`"eth_call"`, readonly [`JsonRpcTransaction`, `BlockTag` \| `Hex`]\>
+> **EthCallJsonRpcRequest**: `JsonRpcRequest`\<`"eth_call"`, readonly [[`JsonRpcTransaction`](JsonRpcTransaction.md), `BlockTag` \| `Hex`]\>
 
 JSON-RPC request for `eth_call` procedure
 

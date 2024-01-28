@@ -165,7 +165,7 @@ A mapping of `eth_*` method names to their request type
 
 ## Source
 
-[TevmJsonRpcRequestHandler.ts:231](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/TevmJsonRpcRequestHandler.ts#L231)
+[tevm-request-handler/EthRequestType.ts:45](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/tevm-request-handler/EthRequestType.ts#L45)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
