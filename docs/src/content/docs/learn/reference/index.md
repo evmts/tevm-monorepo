@@ -36,6 +36,12 @@ A common way of using `contract action` with tevm is Tevm [`Contracts` and `Scri
 
 - [@tevm/contract](/reference/tevm/contract/api/)
 
+## Scripting
+
+Package for creating [precompiles for scripting](../scripting/) enables JavaScript precompiles to be added to the VM.
+
+- [@tevm/precompiles](/reference/tevm/precompiles/api)
+
 ## Server
 
 - [@tevm/server](/reference/tevm/server/api/) - Contains utilities to run Tevm as an JSON-RPC http server in Node, Bun, express, and Next.js.
