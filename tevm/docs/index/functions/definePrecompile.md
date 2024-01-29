@@ -20,7 +20,7 @@
 
 ## Source
 
-packages/precompiles/types/src/definePrecompile.d.ts:3
+packages/precompiles/dist/index.d.ts:98
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

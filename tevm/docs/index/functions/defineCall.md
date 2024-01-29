@@ -6,7 +6,7 @@
 
 # Function: defineCall()
 
-> **defineCall**\<`TAbi`\>(`abi`, `handlers`): (`__namedParameters`) => `Promise`\<`object` \| `object`\>
+> **defineCall**\<`TAbi`\>(`abi`, `handlers`): (`__namedParameters`) => `Promise`\<`ExecResult`\>
 
 ## Type parameters
 
@@ -20,7 +20,7 @@
 
 ## Returns
 
-> > (`__namedParameters`): `Promise`\<`object` \| `object`\>
+> > (`__namedParameters`): `Promise`\<`ExecResult`\>
 >
 > ### Parameters
 >
@@ -32,12 +32,12 @@
 >
 > ### Source
 >
-> packages/precompiles/types/src/defineCall.d.ts:11
+> packages/precompiles/dist/index.d.ts:114
 >
 
 ## Source
 
-packages/precompiles/types/src/defineCall.d.ts:11
+packages/precompiles/dist/index.d.ts:114
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

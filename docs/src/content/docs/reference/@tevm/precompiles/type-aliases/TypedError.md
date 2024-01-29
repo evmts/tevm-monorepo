@@ -29,7 +29,7 @@ title: "TypedError"
 
 ## Source
 
-precompiles/src/TypedError.ts:1
+[precompiles/src/TypedError.ts:1](https://github.com/evmts/tevm-monorepo/blob/main/packages/precompiles/src/TypedError.ts#L1)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

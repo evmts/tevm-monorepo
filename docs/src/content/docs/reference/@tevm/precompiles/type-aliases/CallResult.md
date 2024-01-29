@@ -57,7 +57,7 @@ A set of accounts to selfdestruct
 
 ## Source
 
-precompiles/src/CallResult.ts:13
+[precompiles/src/CallResult.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/precompiles/src/CallResult.ts#L13)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
