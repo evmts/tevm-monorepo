@@ -1,5 +1,5 @@
 ---
-"@evmts/precompiles": patch
+"@tevm/precompiles": patch
 "tevm": patch
 ---
 
