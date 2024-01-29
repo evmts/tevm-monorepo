@@ -1,5 +1,12 @@
 # @tevm/base
 
+## 1.0.0-next.25
+
+### Patch Changes
+
+- Updated dependencies [[`31fad1501a19c0e6682531fa2f8d181908a4bb48`](https://github.com/evmts/tevm-monorepo/commit/31fad1501a19c0e6682531fa2f8d181908a4bb48)]:
+  - @tevm/runtime@1.0.0-next.25
+
 ## 1.0.0-next.23
 
 ### Major Changes

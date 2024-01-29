@@ -52,7 +52,9 @@
     "@tevm/client-types": "1.0.0-next.22",
     "@tevm/errors": "1.0.0-next.22",
     "@tevm/http-client": "1.0.0-next.22",
-    "@tevm/procedures-types": "1.0.0-next.22"
+    "@tevm/procedures-types": "1.0.0-next.22",
+    "@tevm/cli": "0.0.0",
+    "@tevm/precompiles": "1.0.0-next.24"
   },
   "changesets": [
     "afraid-crabs-exist",
@@ -105,6 +107,7 @@
     "honest-goats-count",
     "honest-humans-guess",
     "hungry-llamas-kiss",
+    "large-mice-invite",
     "large-tips-dance",
     "lemon-worms-bathe",
     "lovely-carrots-tie",
@@ -143,6 +146,7 @@
     "serious-peaches-jump",
     "seven-bees-film",
     "shaggy-shoes-attend",
+    "shaggy-tigers-smile",
     "shiny-jokes-agree",
     "shy-clouds-teach",
     "silver-queens-juggle",
@@ -178,6 +182,7 @@
     "wicked-ravens-bow",
     "wild-bears-look",
     "yellow-birds-type",
+    "yellow-pugs-buy",
     "yellow-weeks-provide"
   ]
 }

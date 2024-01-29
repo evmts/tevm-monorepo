@@ -1,5 +1,11 @@
 # @tevm/runtime
 
+## 1.0.0-next.25
+
+### Patch Changes
+
+- [#901](https://github.com/evmts/tevm-monorepo/pull/901) [`31fad1501a19c0e6682531fa2f8d181908a4bb48`](https://github.com/evmts/tevm-monorepo/commit/31fad1501a19c0e6682531fa2f8d181908a4bb48) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug with MJS files incorrectly resolving contracts with bytecode
+
 ## 1.0.0-next.23
 
 ### Patch Changes
