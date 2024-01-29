@@ -51,14 +51,18 @@ export const generateTevmBody = (artifacts, moduleType, includeBytecode) => {
 					return [
 						`const _${contractName} = ${contract} as const`,
 						...natspec,
-						`export const ${contractName} = createContract(_${contractName})`,
+						`export const ${contractName} = ${
+							includeBytecode ? 'createScript' : 'createContract'
+						}(_${contractName})`,
 					]
 				}
 
 				return [
 					`const _${contractName} = ${contract}`,
 					...natspec,
-					`export const ${contractName} = createContract(_${contractName})`,
+					`export const ${contractName} = ${
+						includeBytecode ? 'createScript' : 'createContract'
+					}(_${contractName})`,
 				]
 			})
 			.join('\n'),
