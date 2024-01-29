@@ -1,28 +1,28 @@
 import { createMemoryClient } from '@tevm/memory-client'
 import { expect, test } from 'bun:test'
 
-import { fsPrecompile } from './FsPrecompile.js'
 import { existsSync, rmSync } from 'fs'
+import { fsPrecompile } from './FsPrecompile.js'
 
 test('Call precompile from TypeScript', async () => {
 	const client = await createMemoryClient({
 		customPrecompiles: [fsPrecompile.precompile()],
 	})
 
-	await client.contract({
-		...fsPrecompile.contract.write.writeFile('test.txt', 'hello world'),
-	})
+	await client.contract(
+		fsPrecompile.contract.write.writeFile('./test1.txt', 'hello world'),
+	)
 
-	expect(existsSync('test.txt')).toBe(true)
+	expect(existsSync('./test1.txt')).toBe(true)
 	expect(
 		(
 			await client.contract({
-				...fsPrecompile.contract.read.readFile('test.txt'),
+				...fsPrecompile.contract.read.readFile('./test1.txt'),
 			})
 		).data,
 	).toBe('hello world')
 
-	rmSync('test.txt')
+	rmSync('./test1.txt')
 })
 
 test('Call precompile from solidity script', async () => {
@@ -34,7 +34,7 @@ test('Call precompile from solidity script', async () => {
 
 	await vm.script(WriteHelloWorld.write.write(fsPrecompile.contract.address))
 
-	expect(existsSync('test.txt')).toBe(true)
+	expect(existsSync('./test.txt')).toBe(true)
 
-	rmSync('test.txt')
+	rmSync('./test.txt')
 })

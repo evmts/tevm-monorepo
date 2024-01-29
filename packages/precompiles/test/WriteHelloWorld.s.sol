@@ -5,6 +5,6 @@ import {Fs} from "./Fs.s.sol";
 
 contract WriteHelloWorld {
     function write(Fs fs) public {
-        fs.writeFile("test.txt", "Hello world");
+        fs.writeFile("./test.txt", "Hello world");
     }
 }

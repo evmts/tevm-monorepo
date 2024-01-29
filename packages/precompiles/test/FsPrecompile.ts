@@ -1,6 +1,6 @@
+import fs from 'fs/promises'
 import { defineCall, definePrecompile } from '../src/index.js'
 import { Fs } from './Fs.s.sol'
-import fs from 'fs/promises'
 
 export const fsPrecompile = definePrecompile({
 	contract: Fs.withAddress('0xf2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2'),
@@ -13,6 +13,7 @@ export const fsPrecompile = definePrecompile({
 		},
 		writeFile: async ({ args }) => {
 			await fs.writeFile(...args)
+			console.log('success!', args)
 			return { returnValue: true, executionGasUsed: 0n }
 		},
 	}),
