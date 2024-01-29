@@ -3,20 +3,28 @@
 	"version": "1.0.0-next.24",
 	"private": false,
 	"description": "Precompile definition for Tevm",
-	"keywords": ["solidity", "sol", "typescript", "web3", "blockchain"],
+	"keywords": [
+		"solidity",
+		"sol",
+		"typescript",
+		"web3",
+		"blockchain"
+	],
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/evmts/tevm-monorepo.git",
 		"directory": "core/precompiles"
 	},
 	"license": "MIT",
-	"contributors": ["Will Cory <willcory10@gmail.com>"],
+	"contributors": [
+		"Will Cory <willcory10@gmail.com>"
+	],
 	"type": "module",
 	"exports": {
 		"./package.json": "./package.json",
 		".": {
 			"import": {
-				"types": "./types/src/index.d.ts",
+				"types": "./dist/index.d.ts",
 				"default": "./dist/index.js"
 			},
 			"require": {
@@ -27,13 +35,17 @@
 	},
 	"main": "dist/index.cjs",
 	"module": "dist/index.js",
-	"types": "types/src/index.d.ts",
-	"files": ["dist", "src", "!src/**/*.spec.ts", "types"],
+	"types": "dist/index.d.ts",
+	"files": [
+		"dist",
+		"src",
+		"!src/**/*.spec.ts"
+	],
 	"scripts": {
 		"all": "pnpm i  && bun run build && bun lint && bun format && bun test:run && bun generate:docs && bun lint:deps && bun lint:package",
 		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/precompiles",
 		"build:dist": "tsup",
-		"build:types": "tsup --dts-only && tsc --emitDeclarationOnly --declaration --project tsconfig.build.json",
+		"build:types": "tsup --dts-only",
 		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
 		"format": "rome format . --write",
 		"format:check": "rome format .",
@@ -54,10 +66,10 @@
 	},
 	"devDependencies": {
 		"@ethereumjs/util": "^9.0.1",
-		"@tevm/memory-client": "workspace:^",
-		"@tevm/tsconfig": "workspace:^",
-		"@tevm/ts-plugin": "workspace:^",
 		"@tevm/bun-plugin": "workspace:^",
+		"@tevm/memory-client": "workspace:^",
+		"@tevm/ts-plugin": "workspace:^",
+		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",
 		"abitype": "^1.0.0"
 	},

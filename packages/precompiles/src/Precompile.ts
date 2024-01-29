@@ -1,3 +1,4 @@
+import type { ExecResult } from '@ethereumjs/evm'
 import { Address } from '@ethereumjs/util'
 import { type Script } from '@tevm/contract'
 import { type Hex, toHex } from 'viem'
@@ -45,5 +46,5 @@ export abstract class Precompile<
 	public abstract readonly call: (context: {
 		data: Hex
 		gasLimit: bigint
-	}) => Promise<{ returnValue: Uint8Array; executionGasUsed: bigint }>
+	}) => Promise<ExecResult>
 }

@@ -1,9 +1,9 @@
-import fs from 'fs/promises'
 import { defineCall, definePrecompile } from '../src/index.js'
-import { Fs } from './Fs.s.sol'
-
+import { Fs } from './Fs.sol'
+import fs from 'fs/promises'
+const contract = Fs.withAddress('0xf2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2')
 export const fsPrecompile = definePrecompile({
-	contract: Fs.withAddress('0xf2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2'),
+	contract,
 	call: defineCall(Fs.abi, {
 		readFile: async ({ args }) => {
 			return {

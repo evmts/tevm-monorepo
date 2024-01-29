@@ -3,6 +3,7 @@
 var predeploys = require('@tevm/predeploys');
 var contract = require('@tevm/contract');
 var memoryClient = require('@tevm/memory-client');
+var precompiles = require('@tevm/precompiles');
 
 
 
@@ -73,6 +74,14 @@ Object.defineProperty(exports, "toHex", {
 Object.defineProperty(exports, "createMemoryClient", {
   enumerable: true,
   get: function () { return memoryClient.createMemoryClient; }
+});
+Object.defineProperty(exports, "defineCall", {
+  enumerable: true,
+  get: function () { return precompiles.defineCall; }
+});
+Object.defineProperty(exports, "definePrecompile", {
+  enumerable: true,
+  get: function () { return precompiles.definePrecompile; }
 });
 //# sourceMappingURL=out.js.map
 //# sourceMappingURL=index.cjs.map

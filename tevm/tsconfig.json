@@ -14,6 +14,7 @@
     "contract/index.ts",
     "memory-client/index.ts",
     "predeploys/index.ts",
+    "precompiles/index.ts",
     "procedures-types/index.ts",
     "http-client/index.ts",
     "errors/index.ts",

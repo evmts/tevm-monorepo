@@ -19,9 +19,10 @@ export const definePrecompile = <
 	THumanReadableAbi,
 	ReturnType<Script<TName, THumanReadableAbi>['withAddress']>
 > => {
+	const wrappedCall = call
 	class PrecompileImplementation extends Precompile<TName, THumanReadableAbi> {
 		contract = contract
-		call = call
+		call = wrappedCall
 	}
 	return new PrecompileImplementation()
 }

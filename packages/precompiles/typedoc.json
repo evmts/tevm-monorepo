@@ -3,5 +3,6 @@
 	"out": "./docs",
 	"entryPoints": ["./src/index.ts"],
 	"plugin": ["typedoc-plugin-markdown"],
-	"gitRevision": "main"
+	"gitRevision": "main",
+	"tsconfig": "./tsconfig.build.json"
 }

@@ -14,6 +14,7 @@ title: "Documentation"
 - [@tevm/errors](/reference/tevm/errors/readme/)
 - [@tevm/jsonrpc](/reference/tevm/jsonrpc/readme/)
 - [@tevm/memory-client](/reference/tevm/memory-client/readme/)
+- [@tevm/precompiles](/reference/tevm/precompiles/readme/)
 - [@tevm/predeploys](/reference/tevm/predeploys/readme/)
 - [@tevm/procedures](/reference/tevm/procedures/readme/)
 - [@tevm/procedures-types](/reference/tevm/procedures-types/readme/)

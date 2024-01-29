@@ -151,6 +151,7 @@
 		"@tevm/http-client": "workspace:^",
 		"@tevm/jsonrpc": "workspace:^",
 		"@tevm/memory-client": "workspace:^",
+		"@tevm/precompiles": "workspace:^",
 		"@tevm/predeploys": "workspace:^",
 		"@tevm/procedures-types": "workspace:^",
 		"@tevm/server": "workspace:^",

@@ -32,6 +32,7 @@ export default defineConfig({
 						'../packages/errors',
 						'../packages/jsonrpc',
 						'../packages/memory-client',
+						'../packages/precompiles/',
 						'../packages/predeploys',
 						'../packages/procedures',
 						'../packages/procedures-types',
