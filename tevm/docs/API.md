@@ -12,6 +12,7 @@
 - [http-client](http-client/README.md)
 - [index](index/README.md)
 - [memory-client](memory-client/README.md)
+- [precompiles](precompiles/README.md)
 - [predeploys](predeploys/README.md)
 - [procedures-types](procedures-types/README.md)
 - [server](server/README.md)

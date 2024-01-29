@@ -7,6 +7,7 @@
 		"./contract/index.ts",
 		"./errors/index.ts",
 		"./memory-client/index.ts",
+		"./precompiles/index.ts",
 		"./predeploys/index.ts",
 		"./procedures-types/index.ts",
 		"./http-client/index.ts",

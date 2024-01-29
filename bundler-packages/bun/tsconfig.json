@@ -1,6 +1,11 @@
 {
   "extends": "@tevm/tsconfig/base.json",
   "compilerOptions": {
+    "plugins": [
+      {
+        "name": "@evmts/ts-plugin"
+      }
+    ],
     "rootDir": "src",
     "outDir": "types",
     "skipLibCheck": true,
@@ -10,6 +15,7 @@
   },
   "include": [
     "src",
-    "src/**/*.json"
+    "src/**/*.json",
+    "src/**/*.sol"
   ]
 }

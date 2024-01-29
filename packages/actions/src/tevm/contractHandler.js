@@ -1,10 +1,11 @@
 import { callHandler } from './callHandler.js'
-import { Address } from '@ethereumjs/util'
+import { Address, bytesToUnprefixedHex } from '@ethereumjs/util'
 import { validateContractParams } from '@tevm/zod'
 import {
 	decodeErrorResult,
 	decodeFunctionResult,
 	encodeFunctionData,
+	hexToBytes,
 	isHex,
 } from 'viem'
 
@@ -14,7 +15,7 @@ import {
  * @returns {import("@tevm/actions-types").ContractHandler}
  */
 export const contractHandler = (evm) => async (params) => {
-	const errors = validateContractParams(/** @type any*/ (params))
+	const errors = validateContractParams(/** @type any*/(params))
 	if (errors.length > 0) {
 		return { errors, executionGasUsed: 0n, rawData: '0x' }
 	}
@@ -22,7 +23,8 @@ export const contractHandler = (evm) => async (params) => {
 	const contract = await evm.stateManager.getContractCode(
 		Address.fromString(params.to),
 	)
-	if (contract.length === 0 && typeof contract !== 'function') {
+	const precompile = evm.precompiles.get(bytesToUnprefixedHex(hexToBytes(params.to)))
+	if (contract.length === 0 && !precompile) {
 		return {
 			rawData: '0x',
 			executionGasUsed: 0n,
@@ -39,7 +41,7 @@ export const contractHandler = (evm) => async (params) => {
 	let functionData
 	try {
 		functionData = encodeFunctionData(
-			/** @type {any} */ ({
+			/** @type {any} */({
 				abi: params.abi,
 				functionName: params.functionName,
 				args: params.args,
@@ -70,7 +72,7 @@ export const contractHandler = (evm) => async (params) => {
 		result.errors = result.errors.map((err) => {
 			if (isHex(err.message) && err._tag === 'revert') {
 				const decodedError = decodeErrorResult(
-					/** @type {any} */ ({
+					/** @type {any} */({
 						abi: params.abi,
 						data: err.message,
 						functionName: params.functionName,
@@ -91,7 +93,7 @@ export const contractHandler = (evm) => async (params) => {
 	let decodedResult
 	try {
 		decodedResult = decodeFunctionResult(
-			/** @type {any} */ ({
+			/** @type {any} */({
 				abi: params.abi,
 				data: result.rawData,
 				functionName: params.functionName,

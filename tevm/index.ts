@@ -47,14 +47,12 @@ export {
 	type EventActionCreator,
 	type WriteActionCreator,
 	type CreateContractParams,
-	parseAbi,
 	decodeFunctionData,
 	decodeFunctionResult,
 	encodeFunctionData,
 	encodeFunctionResult,
 	createContract,
 	createScript,
-	toHex,
 	fromHex,
 	toBytes,
 	formatAbi,
@@ -62,13 +60,21 @@ export {
 	fromBytes,
 	formatGwei,
 	formatEther,
+	parseAbi,
+	toHex,
 } from '@tevm/contract'
 
 export {
-	createMemoryClient,
-	type MemoryClient,
 	type CreateEVMOptions,
-	type ForkOptions,
 	type CustomPrecompile,
+	type ForkOptions,
+	type MemoryClient,
+	createMemoryClient,
 } from '@tevm/memory-client'
+
+export {
+	type ConstructorArgument,
+	defineCall,
+	definePrecompile
+} from '@tevm/precompiles'
 
