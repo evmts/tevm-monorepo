@@ -1,5 +1,19 @@
 # @tevm/bundler
 
+## 1.0.0-next.25
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @tevm/base-bundler@1.0.0-next.25
+  - @tevm/bun-plugin@1.0.0-next.25
+  - @tevm/ts-plugin@1.0.0-next.25
+  - @tevm/esbuild-plugin@1.0.0-next.25
+  - @tevm/rollup-plugin@1.0.0-next.25
+  - @tevm/rspack-plugin@1.0.0-next.25
+  - @tevm/vite-plugin@1.0.0-next.25
+  - @tevm/webpack-plugin@1.0.0-next.25
+
 ## 1.0.0-next.24
 
 ### Patch Changes

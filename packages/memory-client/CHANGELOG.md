@@ -1,5 +1,17 @@
 # @tevm/client
 
+## 1.0.0-next.25
+
+### Minor Changes
+
+- [#888](https://github.com/evmts/tevm-monorepo/pull/888) [`2bd52ba53367bd0ee5280aab21f9308fd0368116`](https://github.com/evmts/tevm-monorepo/commit/2bd52ba53367bd0ee5280aab21f9308fd0368116) Thanks [@roninjin10](https://github.com/roninjin10)! - Added support for eth_call JSON-RPC and the matching client.eth.call action
+
+### Patch Changes
+
+- Updated dependencies [[`2bd52ba53367bd0ee5280aab21f9308fd0368116`](https://github.com/evmts/tevm-monorepo/commit/2bd52ba53367bd0ee5280aab21f9308fd0368116)]:
+  - @tevm/procedures@1.0.0-next.25
+  - @tevm/actions@1.0.0-next.25
+
 ## 1.0.0-next.24
 
 ### Minor Changes

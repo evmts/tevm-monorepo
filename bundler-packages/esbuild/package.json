@@ -1,6 +1,6 @@
 {
 	"name": "@tevm/esbuild-plugin",
-	"version": "1.0.0-next.23",
+	"version": "1.0.0-next.25",
 	"private": false,
 	"description": "A esbuild plugin for tevm",
 	"keywords": [
