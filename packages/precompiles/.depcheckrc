@@ -1,0 +1,4 @@
+ignores: [
+  "@tevm/ts-plugin"
+]
+skip-missing: true
