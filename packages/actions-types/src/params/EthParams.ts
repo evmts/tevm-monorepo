@@ -259,11 +259,12 @@ export type EthSignTransactionParams = {
 	/**
 	 * Integer of the value sent with this transaction, in Wei.
 	 */
-	value: bigint
+	value?: bigint
 	/**
 	 * The compiled code of a contract OR the hash of the invoked method signature and encoded parameters.
+	 * Optional if creating a contract. 
 	 */
-	data: Hex,
+	data?: Hex,
 	/**
 	 * Integer of a nonce. This allows to overwrite your own pending transactions that use the same nonce.
 	 */

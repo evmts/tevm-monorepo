@@ -9,6 +9,7 @@ export {
 	ethSignHandler,
 	ethAccountsHandler,
 	ethSignTransactionHandler,
+	testAccounts,
 	MissingAccountError,
 	NoForkUrlSetError,
 } from './eth/index.js'

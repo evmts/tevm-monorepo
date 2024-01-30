@@ -21,9 +21,7 @@ export const callProcedure = (evm) => async (request) => {
 		...(request.params.gasPrice
 			? { gasPrice: hexToBigInt(request.params.gasPrice) }
 			: {}),
-		...(request.params.gas
-			? { gas: hexToBigInt(request.params.gas) }
-			: {}),
+		...(request.params.gas ? { gas: hexToBigInt(request.params.gas) } : {}),
 		...(request.params.gasRefund
 			? { gasRefund: hexToBigInt(request.params.gasRefund) }
 			: {}),
@@ -39,9 +37,7 @@ export const callProcedure = (evm) => async (request) => {
 		...(request.params.value
 			? { value: hexToBigInt(request.params.value) }
 			: {}),
-		...(request.params.blockTag
-			? { blockTag: (request.params.blockTag) }
-			: {}),
+		...(request.params.blockTag ? { blockTag: request.params.blockTag } : {}),
 	})
 	if (errors.length > 0) {
 		const error = /** @type {import('@tevm/errors').CallError}*/ (errors[0])
@@ -62,7 +58,7 @@ export const callProcedure = (evm) => async (request) => {
 	 * @param {bigint} value
 	 * @returns {import('viem').Hex}
 	 */
-	const toHex = (value) => /**@type {import('viem').Hex}*/(bigIntToHex(value))
+	const toHex = (value) => /**@type {import('viem').Hex}*/ (bigIntToHex(value))
 	return {
 		jsonrpc: '2.0',
 		result: {
