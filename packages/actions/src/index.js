@@ -6,6 +6,10 @@ export {
 	gasPriceHandler,
 	getBalanceHandler,
 	getStorageAtHandler,
+	ethSignHandler,
+	ethAccountsHandler,
+	ethSignTransactionHandler,
+	MissingAccountError,
 	NoForkUrlSetError,
 } from './eth/index.js'
 export {
@@ -16,5 +20,6 @@ export {
 	contractHandler,
 	dumpStateHandler,
 	loadStateHandler,
+	forkHandler,
 } from './tevm/index.js'
 export { traceCallHandler } from './debug/index.js'

@@ -267,7 +267,7 @@ export type EthSignTransactionParams = {
 	/**
 	 * Integer of a nonce. This allows to overwrite your own pending transactions that use the same nonce.
 	 */
-	nonce: bigint
+	nonce?: bigint
 }
 
 // eth_syncing

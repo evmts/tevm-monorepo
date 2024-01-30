@@ -6,6 +6,10 @@ export {
 	gasPriceHandler,
 	getBalanceHandler,
 	getStorageAtHandler,
+	ethSignTransactionHandler,
+	ethAccountsHandler,
+	ethSignHandler,
+	MissingAccountError,
 	NoForkUrlSetError,
 } from './eth/index.js'
 export {
