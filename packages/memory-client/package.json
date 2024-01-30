@@ -73,7 +73,7 @@
 		"@tevm/errors": "workspace:^",
 		"@tevm/jsonrpc": "workspace:^",
 		"@tevm/procedures": "workspace:^",
-		"viem": "^2.0.0"
+		"viem": "^2.6.1"
 	},
 	"devDependencies": {
 		"@ethereumjs/util": "^9.0.1",

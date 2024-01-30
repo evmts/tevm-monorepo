@@ -5,13 +5,23 @@ prev: false
 title: "EthSignParams"
 ---
 
-> **EthSignParams**: `any`
+> **EthSignParams**: `object`
 
 Based on the JSON-RPC request for `eth_sign` procedure
 
 :::caution[Experimental]
 This API should not be used in production and may be trimmed from a public release.
 :::
+
+## Type declaration
+
+### address
+
+> **address**: [`Address`](/reference/tevm/actions-types/type-aliases/address/)
+
+### data
+
+> **data**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
 
 ## Source
 

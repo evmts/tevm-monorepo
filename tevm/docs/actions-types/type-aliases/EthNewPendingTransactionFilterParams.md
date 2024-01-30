@@ -12,7 +12,7 @@ Based on the JSON-RPC request for `eth_newPendingTransactionFilter` procedure
 
 ## Source
 
-packages/actions-types/types/params/EthParams.d.ts:235
+packages/actions-types/types/params/EthParams.d.ts:271
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

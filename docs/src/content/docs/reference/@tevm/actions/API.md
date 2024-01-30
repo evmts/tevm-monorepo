@@ -9,12 +9,17 @@ title: "@tevm/actions"
 
 ### Classes
 
+- [MissingAccountError](/reference/tevm/actions/classes/missingaccounterror/)
 - [NoForkUrlSetError](/reference/tevm/actions/classes/noforkurlseterror/)
 
 ### Type Aliases
 
 - [ForkOptions](/reference/tevm/actions/type-aliases/forkoptions/)
 - [RegisterFunction](/reference/tevm/actions/type-aliases/registerfunction/)
+
+### Variables
+
+- [testAccounts](/reference/tevm/actions/variables/testaccounts/)
 
 ### Functions
 
@@ -23,7 +28,10 @@ title: "@tevm/actions"
 - [chainIdHandler](/reference/tevm/actions/functions/chainidhandler/)
 - [contractHandler](/reference/tevm/actions/functions/contracthandler/)
 - [dumpStateHandler](/reference/tevm/actions/functions/dumpstatehandler/)
+- [ethAccountsHandler](/reference/tevm/actions/functions/ethaccountshandler/)
 - [ethCallHandler](/reference/tevm/actions/functions/ethcallhandler/)
+- [ethSignHandler](/reference/tevm/actions/functions/ethsignhandler/)
+- [ethSignTransactionHandler](/reference/tevm/actions/functions/ethsigntransactionhandler/)
 - [forkHandler](/reference/tevm/actions/functions/forkhandler/)
 - [gasPriceHandler](/reference/tevm/actions/functions/gaspricehandler/)
 - [getAccountHandler](/reference/tevm/actions/functions/getaccounthandler/)

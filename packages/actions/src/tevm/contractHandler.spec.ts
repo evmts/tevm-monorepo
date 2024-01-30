@@ -465,7 +465,7 @@ describe('contractHandler', () => {
 	it('Handles the unlikely event the function data cannot be decoded', async () => {
 		const evm = new EVM({})
 		const originalRunCall = evm.runCall.bind(evm)
-		evm.runCall = function (args) {
+		evm.runCall = function(args) {
 			return {
 				...originalRunCall(args),
 				execResult: { returnValue: '0x42424242' },
@@ -489,18 +489,7 @@ describe('contractHandler', () => {
 				to: ERC20_ADDRESS,
 				gas: 16784800n,
 			}),
-		).toEqual({
-			errors: [
-				{
-					_tag: 'DecodeFunctionDataError',
-					message:
-						'Data size of 10 bytes is too small for given parameters.\n\nParams: (uint256 balance)\nData:   0x30783432343234323432 (10 bytes)\n\nVersion: viem@2.4.0',
-					name: 'DecodeFunctionDataError',
-				},
-			],
-			executionGasUsed: 0n,
-			rawData: '0x',
-		})
+		).toMatchSnapshot()
 	})
 
 	it('Handls function data not being encodable', async () => {
@@ -523,17 +512,6 @@ describe('contractHandler', () => {
 				to: ERC20_ADDRESS,
 				gas: 16784800n,
 			}),
-		).toEqual({
-			errors: [
-				{
-					_tag: 'InvalidRequestError',
-					message:
-						'Address "not correct type" is invalid.\n\nVersion: viem@2.4.0',
-					name: 'InvalidRequestError',
-				},
-			],
-			executionGasUsed: 0n,
-			rawData: '0x',
-		})
+		).toMatchSnapshot()
 	})
 })

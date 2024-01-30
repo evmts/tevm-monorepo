@@ -68,7 +68,7 @@
 		"@ethereumjs/blockchain": "^7.0.1",
 		"@ethereumjs/util": "^9.0.1",
 		"@tevm/actions": "workspace:^",
-		"viem": "^2.0.0"
+		"viem": "^2.6.1"
 	},
 	"devDependencies": {
 		"@ethereumjs/evm": "^2.1.0",

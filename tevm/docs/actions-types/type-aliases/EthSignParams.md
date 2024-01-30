@@ -6,9 +6,19 @@
 
 # Type alias: EthSignParams
 
-> **EthSignParams**: `any`
+> **EthSignParams**: `object`
 
 Based on the JSON-RPC request for `eth_sign` procedure
+
+## Type declaration
+
+### address
+
+> **address**: [`Address`](../../index/type-aliases/Address.md)
+
+### data
+
+> **data**: [`Hex`](../../index/type-aliases/Hex.md)
 
 ## Source
 

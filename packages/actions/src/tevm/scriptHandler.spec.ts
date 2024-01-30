@@ -371,23 +371,13 @@ describe('scriptHandler', () => {
 				to: ERC20_ADDRESS,
 				args: ['not valid' as any],
 			}),
-		).toEqual({
-			errors: [
-				{
-					_tag: 'InvalidRequestError',
-					message: 'Address "not valid" is invalid.\n\nVersion: viem@2.4.0',
-					name: 'InvalidRequestError',
-				},
-			],
-			executionGasUsed: 0n,
-			rawData: '0x',
-		})
+		).toMatchSnapshot()
 	})
 
 	it('should handle unlikely event decoding data fails', async () => {
 		const evm = new EVM({})
 		const originalRunCall = evm.runCall.bind(evm)
-		evm.runCall = async function (args) {
+		evm.runCall = async function(args) {
 			const realResult = await originalRunCall(args)
 			return {
 				...realResult,
@@ -405,22 +395,7 @@ describe('scriptHandler', () => {
 				to: ERC20_ADDRESS,
 				args: [ERC20_ADDRESS],
 			}),
-		).toEqual({
-			createdAddresses: new Set(),
-			errors: [
-				{
-					_tag: 'DecodeFunctionDataError',
-					message:
-						'Data size of 2 bytes is too small for given parameters.\n\nParams: (uint256 balance)\nData:   0x0524 (2 bytes)\n\nVersion: viem@2.4.0',
-					name: 'DecodeFunctionDataError',
-				},
-			],
-			executionGasUsed: 2447n,
-			gas: 16774768n,
-			logs: [],
-			rawData: '0x0524',
-			selfdestruct: new Set(),
-		})
+		).toMatchSnapshot()
 	})
 
 	it('should handle a call that reverts', async () => {

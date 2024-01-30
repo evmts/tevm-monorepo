@@ -1,0 +1,44 @@
+// Bun Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`scriptHandler should handle invalid function data 1`] = `
+{
+  "errors": [
+    {
+      "_tag": "InvalidRequestError",
+      "message": 
+"Address "not valid" is invalid.
+
+Version: viem@2.6.1"
+,
+      "name": "InvalidRequestError",
+    },
+  ],
+  "executionGasUsed": 0n,
+  "rawData": "0x",
+}
+`;
+
+exports[`scriptHandler should handle unlikely event decoding data fails 1`] = `
+{
+  "createdAddresses":   Set {},
+  "errors": [
+    {
+      "_tag": "DecodeFunctionDataError",
+      "message": 
+"Data size of 2 bytes is too small for given parameters.
+
+Params: (uint256 balance)
+Data:   0x0524 (2 bytes)
+
+Version: viem@2.6.1"
+,
+      "name": "DecodeFunctionDataError",
+    },
+  ],
+  "executionGasUsed": 2447n,
+  "gas": 16774768n,
+  "logs": [],
+  "rawData": "0x0524",
+  "selfdestruct":   Set {},
+}
+`;

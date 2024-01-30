@@ -67,7 +67,7 @@
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",
 		"abitype": "^0.10.3",
-		"viem": "^2.0.0"
+		"viem": "^2.6.1"
 	},
 	"publishConfig": {
 		"access": "public"

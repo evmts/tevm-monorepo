@@ -25,16 +25,17 @@ Tevm methods are the main recomended way to interact with Tevm. 🚧 means the p
 
 Tevm plans on implementing most of the [ethereum JSON-RPC](https://ethereum.org/developers/docs/apis/json-rpc) spec
 
-- [`Tevm.eth.chainId'](/reference/tevm/actions-types/type-aliases/ethchainidhandler)
+- [`Tevm.eth.accounts'](/reference/tevm/actions-types/type-aliases/ethaccountshandler) - Uses the same test accounts ganache anvil and hardhat uses. Mnemonic:          test test test test test test test test test test test junk
 - [`Tevm.eth.call'](/reference/tevm/actions-types/type-aliases/ethcallhandler)
-- [`Tevm.eth.getCode'](/reference/tevm/actions-types/type-aliases/ethgetcodehandler)
-- [`Tevm.eth.getStorageAt'](/reference/tevm/actions-types/type-aliases/ethgetcodehandler)
+- [`Tevm.eth.chainId'](/reference/tevm/actions-types/type-aliases/ethchainidhandler)
+- [`Tevm.eth.estimateGas'](/reference/tevm/actions-types/type-aliases/ethestimategashandler)
 - [`Tevm.eth.gasPrice'](/reference/tevm/actions-types/type-aliases/ethgaspricehandler)
 - [`Tevm.eth.getBalance'](/reference/tevm/actions-types/type-aliases/ethgetbalancehandler)
-- [`Tevm.eth.estimateGas'](/reference/tevm/actions-types/type-aliases/ethestimategashandler)
-- 🚧 `Tevm.eth.sign'
+- [`Tevm.eth.getCode'](/reference/tevm/actions-types/type-aliases/ethgetcodehandler)
+- [`Tevm.eth.getStorageAt'](/reference/tevm/actions-types/type-aliases/ethgetcodehandler)
+- [`Tevm.eth.sign'](/reference/tevm/actions-types/type-aliases/ethsignhandler)
+- [`Tevm.eth.signTransaction'](/reference/tevm/actions-types/type-aliases/ethsigntransactionhandler)
 - 🚧 [`Tevm.eth.getLogs'](/reference/tevm/actions-types/type-aliases/ethgetlogshandler)
-- 🚧 [`Tevm.eth.accounts'](/reference/tevm/actions-types/type-aliases/ethaccountshandler)
 - 🚧 [`Tevm.eth.coinbase'](/reference/tevm/actions-types/type-aliases/ethcoinbasehandler)
 - 🚧 [`Tevm.eth.hashrate'](/reference/tevm/actions-types/type-aliases/ethhashratehandler)
 - 🚧 [`Tevm.eth.newFilter'](/reference/tevm/actions-types/type-aliases/ethnewfilterhandler)
@@ -43,7 +44,6 @@ Tevm plans on implementing most of the [ethereum JSON-RPC](https://ethereum.org/
 - 🚧 [`Tevm.eth.newBlockFilter'](/reference/tevm/actions-types/type-aliases/ethnewblockfilterhandler)
 - 🚧 [`Tevm.eth.protocolVersion'](/reference/tevm/actions-types/type-aliases/ethprotocolversionhandler)
 - 🚧 [`Tevm.eth.sendTransaction'](/reference/tevm/actions-types/type-aliases/ethsendtransactionhandler)
-- 🚧 [`Tevm.eth.signTransaction'](/reference/tevm/actions-types/type-aliases/ethsigntransactionhandler)
 - 🚧 [`Tevm.eth.uninstallFilter'](/reference/tevm/actions-types/type-aliases/ethuninstallfilterhandler)
 - 🚧 [`Tevm.eth.getBlockByNumber'](/reference/tevm/actions-types/type-aliases/ethgetblockbynumberhandler)
 - 🚧 [`Tevm.eth.getFilterChanges'](/reference/tevm/actions-types/type-aliases/ethgetfilterchangeshandler)
