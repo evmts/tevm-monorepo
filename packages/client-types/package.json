@@ -65,7 +65,8 @@
 		"@tevm/actions-types": "workspace:^",
 		"@tevm/procedures-types": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
-		"@tevm/tsupconfig": "workspace:^"
+		"@tevm/tsupconfig": "workspace:^",
+		"viem": "^2.6.1"
 	},
 	"publishConfig": {
 		"access": "public"

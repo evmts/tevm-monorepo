@@ -16,6 +16,10 @@
 - [ForkOptions](type-aliases/ForkOptions.md)
 - [RegisterFunction](type-aliases/RegisterFunction.md)
 
+### Variables
+
+- [testAccounts](variables/testAccounts.md)
+
 ### Functions
 
 - [blockNumberHandler](functions/blockNumberHandler.md)

@@ -255,16 +255,16 @@ export type EthSignTransactionParams = {
 	 * Integer of the gasPrice used for each paid gas, in Wei.
 	 * If not provided tevm will default to the eth_gasPrice value
 	 */
-	gasPrice?: bigint,
+	gasPrice?: bigint
 	/**
 	 * Integer of the value sent with this transaction, in Wei.
 	 */
 	value?: bigint
 	/**
 	 * The compiled code of a contract OR the hash of the invoked method signature and encoded parameters.
-	 * Optional if creating a contract. 
+	 * Optional if creating a contract.
 	 */
-	data?: Hex,
+	data?: Hex
 	/**
 	 * Integer of a nonce. This allows to overwrite your own pending transactions that use the same nonce.
 	 */

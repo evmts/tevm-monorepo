@@ -21,6 +21,7 @@ import {
 	loadStateHandler,
 	scriptHandler,
 	setAccountHandler,
+	testAccounts,
 } from '@tevm/actions'
 import { DefaultTevmStateManager, TevmStateManager } from '@tevm/state'
 import { createPublicClient, http } from 'viem'
@@ -100,9 +101,9 @@ export const createMemoryClient = async (options = {}) => {
 			header: common.genesis(),
 			...(common.isActivatedEIP(4895)
 				? {
-						withdrawals:
+					withdrawals:
 							/** @type {Array<import('@ethereumjs/util').WithdrawalData>}*/ ([]),
-				  }
+				}
 				: {}),
 		},
 		{ common, setHardfork: false, skipConsensusFormatValidation: true },
@@ -177,6 +178,7 @@ export const createMemoryClient = async (options = {}) => {
 		contract: contractHandler(evm),
 		dumpState: dumpStateHandler(evm.stateManager),
 		loadState: loadStateHandler(evm.stateManager),
+		accounts: testAccounts,
 		eth: {
 			blockNumber: blockNumberHandler(blockchain),
 			call: ethCallHandler(evm),
