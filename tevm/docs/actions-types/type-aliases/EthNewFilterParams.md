@@ -12,7 +12,7 @@ Based on the JSON-RPC request for `eth_newFilter` procedure
 
 ## Source
 
-packages/actions-types/types/params/EthParams.d.ts:227
+packages/actions-types/types/params/EthParams.d.ts:263
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

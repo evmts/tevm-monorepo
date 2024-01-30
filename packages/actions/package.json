@@ -70,7 +70,7 @@
 		"@ethereumjs/vm": "^7.1.0",
 		"@tevm/jsonrpc": "workspace:^",
 		"@tevm/zod": "workspace:^",
-		"viem": "^2.0.0"
+		"viem": "^2.6.1"
 	},
 	"devDependencies": {
 		"@ethereumjs/evm": "^2.1.0",

@@ -230,13 +230,47 @@ export type EthSendTransactionParams = CallParams
  * Based on the JSON-RPC request for `eth_sign` procedure
  * @experimental
  */
-export type EthSignParams = any
+export type EthSignParams = { address: Address; data: Hex }
 // eth_signTransaction
 /**
  * Based on the JSON-RPC request for `eth_signTransaction` procedure
  * @experimental
  */
-export type EthSignTransactionParams = any
+export type EthSignTransactionParams = {
+	/**
+	 * The address from which the transaction is sent from
+	 */
+	from: Address
+	/**
+	 * The address the transaction is directed to. Optional if
+	 * creating a contract
+	 */
+	to?: Address
+	/**
+	 * The gas provded for transaction execution. It will return unused gas.
+	 * Default value is 90000
+	 */
+	gas?: bigint
+	/**
+	 * Integer of the gasPrice used for each paid gas, in Wei.
+	 * If not provided tevm will default to the eth_gasPrice value
+	 */
+	gasPrice?: bigint
+	/**
+	 * Integer of the value sent with this transaction, in Wei.
+	 */
+	value?: bigint
+	/**
+	 * The compiled code of a contract OR the hash of the invoked method signature and encoded parameters.
+	 * Optional if creating a contract.
+	 */
+	data?: Hex
+	/**
+	 * Integer of a nonce. This allows to overwrite your own pending transactions that use the same nonce.
+	 */
+	nonce?: bigint
+}
+
 // eth_syncing
 /**
  * Based on the JSON-RPC request for `eth_syncing` procedure (no params)

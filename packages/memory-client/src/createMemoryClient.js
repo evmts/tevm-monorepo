@@ -21,9 +21,10 @@ import {
 	loadStateHandler,
 	scriptHandler,
 	setAccountHandler,
+	testAccounts,
 } from '@tevm/actions'
 import { DefaultTevmStateManager, TevmStateManager } from '@tevm/state'
-import { createPublicClient, http } from 'viem'
+import { createPublicClient, http, parseEther } from 'viem'
 
 /**
  * A local EVM instance running in JavaScript. Similar to Anvil in your browser
@@ -100,9 +101,9 @@ export const createMemoryClient = async (options = {}) => {
 			header: common.genesis(),
 			...(common.isActivatedEIP(4895)
 				? {
-						withdrawals:
+					withdrawals:
 							/** @type {Array<import('@ethereumjs/util').WithdrawalData>}*/ ([]),
-				  }
+				}
 				: {}),
 		},
 		{ common, setHardfork: false, skipConsensusFormatValidation: true },
@@ -177,6 +178,7 @@ export const createMemoryClient = async (options = {}) => {
 		contract: contractHandler(evm),
 		dumpState: dumpStateHandler(evm.stateManager),
 		loadState: loadStateHandler(evm.stateManager),
+		accounts: testAccounts,
 		eth: {
 			blockNumber: blockNumberHandler(blockchain),
 			call: ethCallHandler(evm),
@@ -203,6 +205,7 @@ export const createMemoryClient = async (options = {}) => {
 			: { forkUrl: options.fork?.url }),
 	}
 
+	// add custom predeploys
 	await Promise.all(
 		options.customPredeploys?.map((predeploy) => {
 			tevm.setAccount({
@@ -210,6 +213,16 @@ export const createMemoryClient = async (options = {}) => {
 				deployedBytecode: predeploy.contract.deployedBytecode,
 			})
 		}) || [],
+	)
+
+	// add test accounts
+	await Promise.all(
+		testAccounts.map(account => {
+			return tevm.setAccount({
+				balance: parseEther('1000'),
+				address: account.address,
+			})
+		})
 	)
 
 	return tevm

@@ -35,16 +35,17 @@ Tevm methods are feature-rich methods that provide a high level of control over 
 
 Tevm plans on implementing most of the [ethereum JSON-RPC](https://ethereum.org/developers/docs/apis/json-rpc) spec
 
-- [`eth_chainId'](/reference/tevm/procedures-types/type-aliases/ethchainidjsonrpcprocedure)
+- [`eth_accounts'](/reference/tevm/procedures-types/type-aliases/ethaccountsjsonrpcprocedure) - Uses the same test accounts ganache anvil and hardhat uses. Mnemonic:          test test test test test test test test test test test junk
 - [`eth_call'](/reference/tevm/procedures-types/type-aliases/ethcalljsonrpcprocedure)
-- [`eth_getCode'](/reference/tevm/procedures-types/type-aliases/ethgetcodejsonrpcprocedure)
-- [`eth_getStorageAt'](/reference/tevm/procedures-types/type-aliases/ethgetcodejsonrpcprocedure)
+- [`eth_chainId'](/reference/tevm/procedures-types/type-aliases/ethchainidjsonrpcprocedure)
+- [`eth_estimateGas'](/reference/tevm/procedures-types/type-aliases/ethestimategasjsonrpcprocedure)
 - [`eth_gasPrice'](/reference/tevm/procedures-types/type-aliases/ethgaspricejsonrpcprocedure)
 - [`eth_getBalance'](/reference/tevm/procedures-types/type-aliases/ethgetbalancejsonrpcprocedure)
-- [`eth_estimateGas'](/reference/tevm/procedures-types/type-aliases/ethestimategasjsonrpcprocedure)
-- 🚧 `eth_sign'
+- [`eth_getCode'](/reference/tevm/procedures-types/type-aliases/ethgetcodejsonrpcprocedure)
+- [`eth_getStorageAt'](/reference/tevm/procedures-types/type-aliases/ethgetcodejsonrpcprocedure)
+- [`eth_sign'](/reference/tevm/procedures-types/type-aliases/ethsignjsonrpcprocedure)
+- [`eth_signTransaction'](/reference/tevm/procedures-types/type-aliases/ethsigntransactionjsonrpcprocedure)
 - 🚧 [`eth_getLogs'](/reference/tevm/procedures-types/type-aliases/ethgetlogsjsonrpcprocedure)
-- 🚧 [`eth_accounts'](/reference/tevm/procedures-types/type-aliases/ethaccountsjsonrpcprocedure)
 - 🚧 [`eth_coinbase'](/reference/tevm/procedures-types/type-aliases/ethcoinbasejsonrpcprocedure)
 - 🚧 [`eth_hashrate'](/reference/tevm/procedures-types/type-aliases/ethhashratejsonrpcprocedure)
 - 🚧 [`eth_newFilter'](/reference/tevm/procedures-types/type-aliases/ethnewfilterjsonrpcprocedure)
@@ -53,7 +54,6 @@ Tevm plans on implementing most of the [ethereum JSON-RPC](https://ethereum.org/
 - 🚧 [`eth_newBlockFilter'](/reference/tevm/procedures-types/type-aliases/ethnewblockfilterjsonrpcprocedure)
 - 🚧 [`eth_protocolVersion'](/reference/tevm/procedures-types/type-aliases/ethprotocolversionjsonrpcprocedure)
 - 🚧 [`eth_sendTransaction'](/reference/tevm/procedures-types/type-aliases/ethsendtransactionjsonrpcprocedure)
-- 🚧 [`eth_signTransaction'](/reference/tevm/procedures-types/type-aliases/ethsigntransactionjsonrpcprocedure)
 - 🚧 [`eth_uninstallFilter'](/reference/tevm/procedures-types/type-aliases/ethuninstallfilterjsonrpcprocedure)
 - 🚧 [`eth_getBlockByNumber'](/reference/tevm/procedures-types/type-aliases/ethgetblockbynumberjsonrpcprocedure)
 - 🚧 [`eth_getFilterChanges'](/reference/tevm/procedures-types/type-aliases/ethgetfilterchangesjsonrpcprocedure)

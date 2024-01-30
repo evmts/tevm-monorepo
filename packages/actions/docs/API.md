@@ -8,12 +8,17 @@
 
 ### Classes
 
+- [MissingAccountError](classes/MissingAccountError.md)
 - [NoForkUrlSetError](classes/NoForkUrlSetError.md)
 
 ### Type Aliases
 
 - [ForkOptions](type-aliases/ForkOptions.md)
 - [RegisterFunction](type-aliases/RegisterFunction.md)
+
+### Variables
+
+- [testAccounts](variables/testAccounts.md)
 
 ### Functions
 
@@ -22,7 +27,10 @@
 - [chainIdHandler](functions/chainIdHandler.md)
 - [contractHandler](functions/contractHandler.md)
 - [dumpStateHandler](functions/dumpStateHandler.md)
+- [ethAccountsHandler](functions/ethAccountsHandler.md)
 - [ethCallHandler](functions/ethCallHandler.md)
+- [ethSignHandler](functions/ethSignHandler.md)
+- [ethSignTransactionHandler](functions/ethSignTransactionHandler.md)
 - [forkHandler](functions/forkHandler.md)
 - [gasPriceHandler](functions/gasPriceHandler.md)
 - [getAccountHandler](functions/getAccountHandler.md)

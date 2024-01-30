@@ -1,0 +1,40 @@
+// Bun Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`contractHandler Handles the unlikely event the function data cannot be decoded 1`] = `
+{
+  "errors": [
+    {
+      "_tag": "DecodeFunctionDataError",
+      "message": 
+"Data size of 10 bytes is too small for given parameters.
+
+Params: (uint256 balance)
+Data:   0x30783432343234323432 (10 bytes)
+
+Version: viem@2.6.1"
+,
+      "name": "DecodeFunctionDataError",
+    },
+  ],
+  "executionGasUsed": 0n,
+  "rawData": "0x",
+}
+`;
+
+exports[`contractHandler Handls function data not being encodable 1`] = `
+{
+  "errors": [
+    {
+      "_tag": "InvalidRequestError",
+      "message": 
+"Address "not correct type" is invalid.
+
+Version: viem@2.6.1"
+,
+      "name": "InvalidRequestError",
+    },
+  ],
+  "executionGasUsed": 0n,
+  "rawData": "0x",
+}
+`;

@@ -1,3 +1,4 @@
+import { testAccounts } from './testAccounts.js'
 import {
 	decodeFunctionResult,
 	encodeFunctionData,
@@ -462,6 +463,7 @@ export const tevmViemExtension = () => {
 					getCode,
 					getStorageAt,
 				},
+				accounts: testAccounts,
 				request,
 				script,
 				getAccount,

@@ -1,3 +1,6 @@
+import { ethAccountsProcedure } from './eth/ethAccountsProcedure.js'
+import { ethSignProcedure } from './eth/ethSignProcedure.js'
+import { ethSignTransactionProcedure } from './eth/ethSignTransactionProcedure.js'
 import {
 	blockNumberProcedure,
 	callProcedure,
@@ -12,6 +15,7 @@ import {
 	scriptProcedure,
 	setAccountProcedure,
 } from './index.js'
+import { testAccounts } from '@tevm/actions'
 
 /**
  * Request handler for JSON-RPC requests.
@@ -105,10 +109,16 @@ export const requestProcedure = (vm) => {
 					getBalanceProcedure({ stateManager: vm.evm.stateManager })(request)
 				)
 			case 'eth_sign':
+				return ethSignProcedure(testAccounts)(request)
+			case 'eth_signTransaction':
+				return ethSignTransactionProcedure({ accounts: testAccounts, chainId })(
+					request,
+				)
+			case 'eth_accounts':
+				return ethAccountsProcedure(testAccounts)(request)
 			case 'eth_mining':
 			case 'eth_getLogs':
 			case 'eth_syncing':
-			case 'eth_accounts':
 			case 'eth_coinbase':
 			case 'eth_hashrate':
 			case 'eth_newFilter':
@@ -118,7 +128,6 @@ export const requestProcedure = (vm) => {
 			case 'eth_newBlockFilter':
 			case 'eth_protocolVersion':
 			case 'eth_sendTransaction':
-			case 'eth_signTransaction':
 			case 'eth_uninstallFilter':
 			case 'eth_getBlockByNumber':
 			case 'eth_getFilterChanges':

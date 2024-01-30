@@ -76,7 +76,7 @@
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",
 		"abitype": "^0.10.3",
-		"viem": "^2.4.0"
+		"viem": "^2.6.1"
 	},
 	"peerDependencies": {
 		"viem": "2.x.x"

@@ -1,3 +1,6 @@
+import { ethAccountsProcedure } from './eth/ethAccountsProcedure.js'
+import { ethSignProcedure } from './eth/ethSignProcedure.js'
+import { ethSignTransactionProcedure } from './eth/ethSignTransactionProcedure.js'
 import {
 	blockNumberProcedure,
 	callProcedure,
@@ -8,8 +11,16 @@ import { Blockchain } from '@ethereumjs/blockchain'
 import { EVM } from '@ethereumjs/evm'
 import { Account, Address } from '@ethereumjs/util'
 import { VM } from '@ethereumjs/vm'
+import { testAccounts } from '@tevm/actions'
+import type { EthSignTransactionJsonRpcRequest } from '@tevm/procedures-types'
 import { describe, expect, it } from 'bun:test'
-import { bytesToHex, encodeFunctionData, keccak256, numberToHex } from 'viem'
+import {
+	bytesToHex,
+	encodeFunctionData,
+	keccak256,
+	numberToHex,
+	parseGwei,
+} from 'viem'
 
 const ERC20_ADDRESS = `0x${'3'.repeat(40)}` as const
 const ERC20_BYTECODE =
@@ -586,6 +597,69 @@ describe('requestProcedure', () => {
 				jsonrpc: '2.0',
 				result: '0x0',
 			})
+		})
+	})
+
+	describe('eth_accounts', () => {
+		it('should return the accounts', async () => {
+			expect(
+				await ethAccountsProcedure(testAccounts)({
+					jsonrpc: '2.0',
+					method: 'eth_accounts',
+					id: 1,
+				}),
+			).toEqual({
+				jsonrpc: '2.0',
+				method: 'eth_accounts',
+				id: 1,
+				result: testAccounts.map((account) => account.address),
+			})
+		})
+	})
+
+	describe('ethSignHandler', () => {
+		it('should sign a message', async () => {
+			const data = '0x42069'
+			expect(
+				await ethSignProcedure(testAccounts)({
+					jsonrpc: '2.0',
+					method: 'eth_sign',
+					id: 1,
+					params: [testAccounts[0].address, data],
+				}),
+			).toEqual({
+				jsonrpc: '2.0',
+				method: 'eth_sign',
+				id: 1,
+				result: await testAccounts[0].signMessage({ message: data }),
+			})
+		})
+	})
+
+	describe('ethSignTransactionHandler', () => {
+		const transaction: EthSignTransactionJsonRpcRequest['params'] = [
+			{
+				data: '0x0',
+				from: testAccounts[0].address,
+				to: `0x${'69'.repeat(20)}`,
+				value: numberToHex(420n),
+				gas: numberToHex(23n),
+				gasPrice: numberToHex(parseGwei('1')),
+				nonce: numberToHex(1n),
+			},
+		]
+		it('should sign a message', async () => {
+			expect(
+				await ethSignTransactionProcedure({
+					accounts: testAccounts,
+					chainId: 10n,
+				})({
+					jsonrpc: '2.0',
+					method: 'eth_signTransaction',
+					id: 1,
+					params: transaction,
+				}),
+			).toMatchSnapshot()
 		})
 	})
 })
