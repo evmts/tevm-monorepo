@@ -101,9 +101,9 @@ export const createMemoryClient = async (options = {}) => {
 			header: common.genesis(),
 			...(common.isActivatedEIP(4895)
 				? {
-					withdrawals:
+						withdrawals:
 							/** @type {Array<import('@ethereumjs/util').WithdrawalData>}*/ ([]),
-				}
+				  }
 				: {}),
 		},
 		{ common, setHardfork: false, skipConsensusFormatValidation: true },
@@ -217,12 +217,12 @@ export const createMemoryClient = async (options = {}) => {
 
 	// add test accounts
 	await Promise.all(
-		testAccounts.map(account => {
+		testAccounts.map((account) => {
 			return tevm.setAccount({
 				balance: parseEther('1000'),
 				address: account.address,
 			})
-		})
+		}),
 	)
 
 	return tevm
