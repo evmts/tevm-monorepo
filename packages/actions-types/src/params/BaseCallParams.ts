@@ -13,6 +13,7 @@ export type BaseCallParams = {
 	skipBalance?: boolean
 	/**
 	 * The gas limit for the call.
+	 * Defaults to 0xffffff (16_777_215n)
 	 */
 	gas?: bigint
 	/**

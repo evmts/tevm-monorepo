@@ -48,6 +48,7 @@ those options. Otherwise both are set to the `from` address
 > **gas**?: `bigint`
 
 The gas limit for the call.
+Defaults to 0xffffff (16_777_215n)
 
 ### gasPrice
 
