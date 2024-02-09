@@ -1,1 +1,1 @@
-export { ClientOptions, TevmClient, createTevmClient } from '@tevm/client';
+export { HttpClient, HttpClientOptions, createHttpClient } from '@tevm/http-client';

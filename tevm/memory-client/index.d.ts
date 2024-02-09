@@ -1,1 +1,1 @@
-export { CreateEVMOptions, CustomPrecompile, CustomPredeploy, ForkOptions, MemoryTevm, NoProxyConfiguredError, ProxyFetchError, UnexpectedInternalServerError, UnsupportedMethodError, createMemoryClient } from '@tevm/vm';
+export { ConstructorArgument, CreateEVMOptions, CustomPrecompile, CustomPredeploy, ForkOptions, MemoryClient, WrappedEvm, createMemoryClient } from '@tevm/memory-client';
