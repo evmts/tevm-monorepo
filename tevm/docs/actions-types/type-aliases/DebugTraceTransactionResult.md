@@ -6,7 +6,7 @@
 
 # Type alias: DebugTraceTransactionResult
 
-> **DebugTraceTransactionResult**: [`TraceResult`](TraceResult.md)
+> **DebugTraceTransactionResult**: [`TraceResult`](../../index/type-aliases/TraceResult.md)
 
 ## Source
 

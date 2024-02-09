@@ -190,9 +190,6 @@
 - [ScriptHandler](type-aliases/ScriptHandler.md)
 - [SetAccountHandler](type-aliases/SetAccountHandler.md)
 - [StructLog](type-aliases/StructLog.md)
-- [TraceCall](type-aliases/TraceCall.md)
-- [TraceParams](type-aliases/TraceParams.md)
-- [TraceResult](type-aliases/TraceResult.md)
 - [TraceType](type-aliases/TraceType.md)
 - [TransactionParams](type-aliases/TransactionParams.md)
 - [TransactionReceiptResult](type-aliases/TransactionReceiptResult.md)
@@ -219,6 +216,9 @@
 - [ScriptResult](README.md#scriptresult)
 - [SetAccountParams](README.md#setaccountparams)
 - [SetAccountResult](README.md#setaccountresult)
+- [TraceCall](README.md#tracecall)
+- [TraceParams](README.md#traceparams)
+- [TraceResult](README.md#traceresult)
 
 ## References
 
@@ -321,6 +321,24 @@ Re-exports [SetAccountParams](../index/type-aliases/SetAccountParams.md)
 ### SetAccountResult
 
 Re-exports [SetAccountResult](../index/type-aliases/SetAccountResult.md)
+
+***
+
+### TraceCall
+
+Re-exports [TraceCall](../index/type-aliases/TraceCall.md)
+
+***
+
+### TraceParams
+
+Re-exports [TraceParams](../index/type-aliases/TraceParams.md)
+
+***
+
+### TraceResult
+
+Re-exports [TraceResult](../index/type-aliases/TraceResult.md)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

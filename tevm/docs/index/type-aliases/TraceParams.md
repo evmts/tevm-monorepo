@@ -2,7 +2,7 @@
 
 ***
 
-[API](../../API.md) > [actions-types](../README.md) > TraceParams
+[API](../../API.md) > [index](../README.md) > TraceParams
 
 # Type alias: TraceParams
 

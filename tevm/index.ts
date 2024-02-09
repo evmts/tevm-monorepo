@@ -15,7 +15,10 @@ export type {
 	BlockParam,
 	ForkParams,
 	ForkResult,
-	ForkHandler
+	ForkHandler,
+	TraceCall,
+	TraceParams,
+	TraceResult,
 } from '@tevm/actions-types'
 export type {
 	TevmJsonRpcRequest,
