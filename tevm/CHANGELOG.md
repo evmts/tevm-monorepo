@@ -1,5 +1,11 @@
 # @tevm/contract
 
+## 1.0.0-next.18
+
+### Minor Changes
+
+- [#911](https://github.com/evmts/tevm-monorepo/pull/911) [`44ea5267367336649a2c59de068d60939d68e978`](https://github.com/evmts/tevm-monorepo/commit/44ea5267367336649a2c59de068d60939d68e978) Thanks [@roninjin10](https://github.com/roninjin10)! - Bump barrel package version
+
 ## 1.0.0-next.17
 
 ### Patch Changes
