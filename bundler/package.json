@@ -1,6 +1,6 @@
 {
 	"name": "@tevm/bundler",
-	"version": "1.0.0-next.27",
+	"version": "1.0.0-next.28",
 	"private": false,
 	"description": "Buildtime tooling for importing solidity contracts into TypeScript and JavaScript projects",
 	"keywords": [

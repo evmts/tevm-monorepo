@@ -15,7 +15,7 @@
 		"test:run": "bun test"
 	},
 	"dependencies": {
-		"@tevm/contract": "^1.0.0-next.23",
+		"@tevm/contract": "^1.0.0-next.28",
 		"viem": "^2.0.0",
 		"zod": "^3.22.4"
 	},
