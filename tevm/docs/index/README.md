@@ -52,6 +52,9 @@
 - [TevmClient](type-aliases/TevmClient.md)
 - [TevmJsonRpcRequest](type-aliases/TevmJsonRpcRequest.md)
 - [TevmJsonRpcRequestHandler](type-aliases/TevmJsonRpcRequestHandler.md)
+- [TraceCall](type-aliases/TraceCall.md)
+- [TraceParams](type-aliases/TraceParams.md)
+- [TraceResult](type-aliases/TraceResult.md)
 - [WriteActionCreator](type-aliases/WriteActionCreator.md)
 
 ### Functions

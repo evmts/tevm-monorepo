@@ -6,7 +6,7 @@
 
 # Type alias: DebugTraceTransactionParams
 
-> **DebugTraceTransactionParams**: [`TraceParams`](TraceParams.md) & `object`
+> **DebugTraceTransactionParams**: [`TraceParams`](../../index/type-aliases/TraceParams.md) & `object`
 
 Params taken by `debug_traceTransaction` handler
 

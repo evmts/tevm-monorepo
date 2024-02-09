@@ -6,7 +6,7 @@
 
 # Type alias: DebugTraceCallParams
 
-> **DebugTraceCallParams**: [`TraceParams`](TraceParams.md) & [`EthCallParams`](EthCallParams.md)
+> **DebugTraceCallParams**: [`TraceParams`](../../index/type-aliases/TraceParams.md) & [`EthCallParams`](EthCallParams.md)
 
 Params taken by `debug_traceCall` handler
 

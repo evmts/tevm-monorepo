@@ -2,7 +2,7 @@
 
 ***
 
-[API](../../API.md) > [actions-types](../README.md) > TraceCall
+[API](../../API.md) > [index](../README.md) > TraceCall
 
 # Type alias: TraceCall
 
@@ -16,7 +16,7 @@
 
 ### from
 
-> **from**: [`Address`](../../index/type-aliases/Address.md)
+> **from**: [`Address`](Address.md)
 
 ### gas
 
@@ -28,19 +28,19 @@
 
 ### input
 
-> **input**: [`Hex`](../../index/type-aliases/Hex.md)
+> **input**: [`Hex`](Hex.md)
 
 ### output
 
-> **output**: [`Hex`](../../index/type-aliases/Hex.md)
+> **output**: [`Hex`](Hex.md)
 
 ### to
 
-> **to**: [`Address`](../../index/type-aliases/Address.md)
+> **to**: [`Address`](Address.md)
 
 ### type
 
-> **type**: [`TraceType`](TraceType.md)
+> **type**: [`TraceType`](../../actions-types/type-aliases/TraceType.md)
 
 ### value
 

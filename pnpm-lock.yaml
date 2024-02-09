@@ -1799,12 +1799,6 @@ importers:
       '@tevm/server':
         specifier: workspace:^
         version: link:../packages/server
-      abitype:
-        specifier: ^1.0.0
-        version: 1.0.0(typescript@5.3.3)(zod@3.22.4)
-      viem:
-        specifier: ^2.4.0
-        version: 2.4.0(typescript@5.3.3)(zod@3.22.4)
     devDependencies:
       '@tevm/tsconfig':
         specifier: workspace:^
