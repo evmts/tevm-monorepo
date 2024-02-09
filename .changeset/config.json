@@ -6,7 +6,7 @@
 	],
 	"commit": false,
 	"fixed": [],
-	"linked": [["@tevm/*"]],
+	"linked": [["@tevm/*", "tevm"]],
 	"access": "public",
 	"baseBranch": "main",
 	"updateInternalDependencies": "patch",
