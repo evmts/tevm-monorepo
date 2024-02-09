@@ -1,5 +1,11 @@
 # @tevm/contract
 
+## 1.0.0-next.29
+
+### Patch Changes
+
+- [#915](https://github.com/evmts/tevm-monorepo/pull/915) [`ab2f3b3234a5b9633830aa4bf21f13fb4a787420`](https://github.com/evmts/tevm-monorepo/commit/ab2f3b3234a5b9633830aa4bf21f13fb4a787420) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug in tevm package with types not correctly building leading to stale types
+
 ## 1.0.0-next.28
 
 ### Patch Changes
