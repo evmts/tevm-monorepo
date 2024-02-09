@@ -46,4 +46,4 @@
 "tevm": patch
 ---
 
-Bump every version
+Fixed bug with packages linking to older versions of tevm
