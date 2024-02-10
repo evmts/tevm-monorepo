@@ -16,7 +16,6 @@ import {
 	setAccountProcedure,
 } from './index.js'
 import { testAccounts } from '@tevm/actions'
-import { forkProcedure } from './tevm/forkProcedure.js'
 
 /**
  * Request handler for JSON-RPC requests.
@@ -29,7 +28,6 @@ import { forkProcedure } from './tevm/forkProcedure.js'
  * bundle size.
  *
  * @param {import('@ethereumjs/vm').VM} vm
- * @param {import('@tevm/actions').ForkOptions} forkOptions
  * @returns {import('@tevm/procedures-types').TevmJsonRpcRequestHandler}
  * @example
  * ```typescript
@@ -47,7 +45,7 @@ import { forkProcedure } from './tevm/forkProcedure.js'
  * })
  * ```
  */
-export const requestProcedure = (vm, forkOptions) => {
+export const requestProcedure = (vm) => {
 	// TODO implement chainid
 	const chainId = 10n
 	return async (request) => {
@@ -84,7 +82,7 @@ export const requestProcedure = (vm, forkOptions) => {
 			case 'tevm_dumpState':
 				return /** @type any */ (dumpStateProcedure)(vm.stateManager)(request)
 			case 'tevm_fork':
-				return /** @type any */ (forkProcedure)(forkOptions)(request)
+				throw new Error('not implemented!')
 			case 'tevm_loadState': {
 				const stateManager = vm.stateManager
 				return /** @type any */ (loadStateProcedure)(stateManager)(request)

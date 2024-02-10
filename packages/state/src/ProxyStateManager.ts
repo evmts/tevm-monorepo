@@ -31,7 +31,7 @@ export interface ProxyStateManagerOpts {
 	/**
 	 * Url to a JSON-RPC provider to proxy state from
 	 */
-	rpcUrl: string,
+	url: string,
 	/**
 	 * The expected time between blocks in milliseconds
 	 * This is used to avoid fetching blockNumber if the blockNumber is not expected to have changed
@@ -50,7 +50,7 @@ export interface ProxyStateManagerOpts {
  * import { createMemoryClient } from 'tevm/vm'
  *
  * const stateManager = new TevmStateManager({
- *   rpcUrl: 'https://mainnet.optimism.io',
+ *   url: 'https://mainnet.optimism.io',
  *   blockTag: 'latest'
  * })
  * ```
@@ -88,7 +88,7 @@ export class ProxyStateManager implements TevmStateManagerInterface {
 
 		// TODO this should be using @tevm/jsonrpc package instead of viem
 		this.client = createPublicClient({
-			transport: http(opts.rpcUrl),
+			transport: http(opts.url),
 			name: 'tevm-state-manager-viem-client',
 		})
 		this._debug = createDebugLogger('statemanager:viemStateManager')
@@ -145,7 +145,7 @@ export class ProxyStateManager implements TevmStateManagerInterface {
 	 */
 	shallowCopy(): ProxyStateManager {
 		const newState = new ProxyStateManager({
-			rpcUrl: this.opts.rpcUrl,
+			url: this.opts.url,
 		})
 		newState._contractCache = new Map(this._contractCache)
 		newState._storageCache = new StorageCache({

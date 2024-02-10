@@ -67,10 +67,15 @@ export {
 	toHex,
 } from '@tevm/contract'
 
+export type {
+	SerializableTevmState,
+	ForkStateManagerOpts,
+	ProxyStateManagerOpts,
+} from '@tevm/state'
+
 export {
 	type CreateEVMOptions,
 	type CustomPrecompile,
-	type ForkOptions,
 	type MemoryClient,
 	createMemoryClient,
 } from '@tevm/memory-client'

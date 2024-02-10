@@ -1,5 +1,6 @@
 import type { ForkParams, ForkResult } from '../index.js'
 /**
+ * @experimental This is an unimplemented experimental feature
  * Triggers a fork against the given fork config. If no config is provided it will fork the current state
  * If the current state is not proxying to an RPC and is just a vanilla VM it will throw
  *

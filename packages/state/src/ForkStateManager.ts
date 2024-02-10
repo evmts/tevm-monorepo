@@ -28,8 +28,8 @@ import {
 import type { TevmStateManagerInterface } from './TevmStateManagerInterface.js'
 
 export interface ForkStateManagerOpts {
-	rpcUrl: string
-	blockTag: bigint | 'earliest'
+	url: string
+	blockTag: BlockTag | bigint
 }
 
 /**
@@ -43,7 +43,7 @@ export interface ForkStateManagerOpts {
  * import { createMemoryClient } from 'tevm/vm'
  *
  * const stateManager = new ForkStateManager({
- *   rpcUrl: 'https://mainnet.optimism.io',
+ *   url: 'https://mainnet.optimism.io',
  *   blockTag: 'latest'
  * })
  * ```
@@ -65,14 +65,14 @@ export class ForkStateManager implements TevmStateManagerInterface {
 
 		// TODO this should be using @tevm/jsonrpc package instead of viem
 		this.client = createPublicClient({
-			transport: http(opts.rpcUrl),
+			transport: http(opts.url),
 			name: 'tevm-state-manager-viem-client',
 		})
 		this._debug = createDebugLogger('statemanager:viemStateManager')
 		this._blockTag =
-			opts.blockTag === 'earliest'
-				? { blockTag: opts.blockTag }
-				: { blockNumber: opts.blockTag }
+			typeof opts.blockTag === 'bigint'
+				? { blockNumber: opts.blockTag }
+				: { blockTag: opts.blockTag }
 
 		this._contractCache = new Map()
 		this._storageCache = new StorageCache({
@@ -92,7 +92,7 @@ export class ForkStateManager implements TevmStateManagerInterface {
 	 */
 	shallowCopy(): ForkStateManager {
 		const newState = new ForkStateManager({
-			rpcUrl: this.opts.rpcUrl,
+			url: this.opts.url,
 			blockTag: Object.values(this._blockTag)[0],
 		})
 		newState._contractCache = new Map(this._contractCache)

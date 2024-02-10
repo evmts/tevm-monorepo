@@ -20,7 +20,7 @@ import {
 	numberToHex,
 	parseGwei,
 } from 'viem'
-import { describe, expect, it, jest } from 'bun:test'
+import { describe, expect, it } from 'bun:test'
 
 const ERC20_ADDRESS = `0x${'3'.repeat(40)}` as const
 const ERC20_BYTECODE =
@@ -313,8 +313,7 @@ describe('requestProcedure', () => {
 		it('should work', async () => {
 			const evm = new EVM({})
 			const vm = await VM.create({ evm })
-			const registerFork = jest.fn()
-			await requestProcedure(vm, { register: registerFork })({
+			await requestProcedure(vm)({
 				jsonrpc: '2.0',
 				method: 'tevm_setAccount',
 				id: 1,
@@ -325,7 +324,7 @@ describe('requestProcedure', () => {
 					nonce: numberToHex(69n),
 				},
 			})
-			const res = await requestProcedure(vm, { register: registerFork })({
+			const res = await requestProcedure(vm)({
 				jsonrpc: '2.0',
 				method: 'tevm_getAccount',
 				id: 1,
@@ -348,8 +347,7 @@ describe('requestProcedure', () => {
 		it('should work', async () => {
 			const evm = new EVM({})
 			const vm = await VM.create({ evm })
-			const registerFork = jest.fn()
-			const res = await requestProcedure(vm, { register: registerFork })({
+			const res = await requestProcedure(vm)({
 				jsonrpc: '2.0',
 				method: 'tevm_setAccount',
 				id: 1,
@@ -374,8 +372,7 @@ describe('requestProcedure', () => {
 			evm.stateManager.putAccount = () => {
 				throw new Error('unexpected error')
 			}
-			const registerFork = jest.fn()
-			const res = await requestProcedure(vm, { register: registerFork })({
+			const res = await requestProcedure(vm)({
 				jsonrpc: '2.0',
 				method: 'tevm_setAccount',
 				id: 1,

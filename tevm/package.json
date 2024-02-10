@@ -113,6 +113,16 @@
 				"types": "./server/index.d.cts",
 				"default": "./server/index.cjs"
 			}
+		},
+		"./state": {
+			"import": {
+				"types": "./state/index.d.ts",
+				"default": "./state/index.js"
+			},
+			"require": {
+				"types": "./state/index.d.cts",
+				"default": "./state/index.cjs"
+			}
 		}
 	},
 	"main": "index.cjs",
@@ -154,7 +164,8 @@
 		"@tevm/precompiles": "workspace:^",
 		"@tevm/predeploys": "workspace:^",
 		"@tevm/procedures-types": "workspace:^",
-		"@tevm/server": "workspace:^"
+		"@tevm/server": "workspace:^",
+		"@tevm/state": "workspace:^"
 	},
 	"devDependencies": {
 		"@tevm/tsconfig": "workspace:^",

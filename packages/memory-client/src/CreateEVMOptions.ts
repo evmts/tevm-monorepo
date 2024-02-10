@@ -1,5 +1,5 @@
+import type { ForkStateManagerOpts, ProxyStateManagerOpts } from '@tevm/state'
 import type { CustomPrecompile } from './CustomPrecompile.js'
-import type { ForkOptions } from './ForkOptions.js'
 import type { CustomPredeploy } from '@tevm/predeploys'
 
 /**
@@ -43,9 +43,17 @@ export type CreateEVMOptions = {
 	 */
 	eips?: ReadonlyArray<number>
 	/**
-	 * Fork options fork a live network if enabled
+	 * Options to initialize the client in `proxy` mode
+	 * When in proxy mode Tevm will fetch all state from the latest block of the provided proxy URL
+	 * Cannot be set if `fork` is also set
 	 */
-	fork?: ForkOptions
+	proxy?: ProxyStateManagerOpts
+	/**
+	 * Fork options fork a live network if enabled.
+	 * When in fork mode Tevm will fetch and cache all state from the block forked from the provided URL
+	 * Cannot be set if `proxy` is also set
+	 */
+	fork?: ForkStateManagerOpts
 	/**
 	 * Custom precompiles allow you to run arbitrary JavaScript code in the EVM.
 	 * See the [Precompile guide](https://todo.todo) documentation for a deeper dive

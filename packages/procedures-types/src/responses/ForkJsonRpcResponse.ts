@@ -4,6 +4,7 @@ import type { ForkError } from '@tevm/errors'
 import type { JsonRpcResponse } from '@tevm/jsonrpc'
 
 /**
+ * @experimental This is an unimplemented experimental feature
  * Response of the `tevm_fork` RPC method.
  */
 export type ForkJsonRpcResponse = JsonRpcResponse<

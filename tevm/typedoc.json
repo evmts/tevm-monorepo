@@ -11,7 +11,8 @@
 		"./predeploys/index.ts",
 		"./procedures-types/index.ts",
 		"./http-client/index.ts",
-		"./server/index.ts"
+		"./server/index.ts",
+		"./state/index.ts"
 	],
 	"plugin": [
 		"typedoc-plugin-markdown"
