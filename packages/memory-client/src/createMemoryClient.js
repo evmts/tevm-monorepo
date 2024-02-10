@@ -213,7 +213,6 @@ export const createMemoryClient = async (options = {}) => {
 		dumpState: dumpStateHandler(evm.stateManager),
 		loadState: loadStateHandler(evm.stateManager),
 		accounts: testAccounts,
-		fork: forkHandler({ register: registerFork }),
 		eth: {
 			blockNumber: blockNumberHandler(blockchain),
 			call: ethCallHandler(evm),
