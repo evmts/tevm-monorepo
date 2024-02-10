@@ -12,7 +12,6 @@ import {
 	contractHandler,
 	dumpStateHandler,
 	ethCallHandler,
-	forkHandler,
 	gasPriceHandler,
 	getAccountHandler,
 	getBalanceHandler,

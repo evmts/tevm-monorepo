@@ -28,7 +28,6 @@ import { testAccounts } from '@tevm/actions'
  * bundle size.
  *
  * @param {import('@ethereumjs/vm').VM} vm
- * @param {import('@tevm/actions').ForkOptions} forkOptions
  * @returns {import('@tevm/procedures-types').TevmJsonRpcRequestHandler}
  * @example
  * ```typescript
@@ -46,7 +45,7 @@ import { testAccounts } from '@tevm/actions'
  * })
  * ```
  */
-export const requestProcedure = (vm, forkOptions) => {
+export const requestProcedure = (vm) => {
 	// TODO implement chainid
 	const chainId = 10n
 	return async (request) => {
