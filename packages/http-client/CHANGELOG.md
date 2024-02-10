@@ -1,5 +1,12 @@
 # @tevm/client
 
+## 1.0.0-next.30
+
+### Patch Changes
+
+- Updated dependencies [[`d3d2f0f3322ac476347151840cd0ee42a5a18c56`](https://github.com/evmts/tevm-monorepo/commit/d3d2f0f3322ac476347151840cd0ee42a5a18c56)]:
+  - @tevm/viem@1.0.0-next.30
+
 ## 1.0.0-next.28
 
 ### Patch Changes
