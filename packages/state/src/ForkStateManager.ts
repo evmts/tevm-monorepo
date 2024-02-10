@@ -8,7 +8,6 @@ import { AccountCache, CacheType, StorageCache } from '@ethereumjs/statemanager'
 import { Cache } from './Cache.js'
 import type {
 	AccountFields,
-	EVMStateManagerInterface,
 	StorageDump,
 } from '@ethereumjs/common'
 import type { StorageRange } from '@ethereumjs/common'
@@ -26,32 +25,33 @@ import {
 	toBytes,
 	toHex,
 } from 'viem'
+import type { TevmStateManagerInterface } from './TevmStateManagerInterface.js'
 
-export interface TevmStateManagerOpts {
+export interface ForkStateManagerOpts {
 	rpcUrl: string
 	blockTag: bigint | 'earliest'
 }
 
-export interface TevmStateManagerInterface extends EVMStateManagerInterface {
-	getAccountAddresses: () => string[]
-}
-
-// TODO this should be using @tevm/jsonrpc package instead of viem
 /**
- * A state manager that will fetch state from a remote rpc provider
- * future requests. Used internally in `MemoryTevm`
+ * State manager that forks state from an external provider.
+ * Any state fetched from external provider is cached locally.
+ * The block number is held constant at the block number provided in the constructor.
+ * The state manager can be reset by providing a new block number.
  * @example
  * ```ts
- * import { TevmStateManager } from '@tevm/state'
+ * import { ForkStateManager } from '@tevm/state'
  * import { createMemoryClient } from 'tevm/vm'
  *
- * const stateManager = new TevmStateManager({
+ * const stateManager = new ForkStateManager({
  *   rpcUrl: 'https://mainnet.optimism.io',
  *   blockTag: 'latest'
  * })
  * ```
+ * @see {@link ForkStateManagerOpts} for configuration options
+ * @see NormalStateManager for a state manager that does not fork state
+ * @see ProxyStateManager for a provider that uses latest state rather than creating a fork
  */
-export class TevmStateManager implements TevmStateManagerInterface {
+export class ForkStateManager implements TevmStateManagerInterface {
 	protected _contractCache: Map<string, Uint8Array>
 	protected _storageCache: StorageCache
 	protected _blockTag: { blockTag: BlockTag } | { blockNumber: bigint }
@@ -60,7 +60,7 @@ export class TevmStateManager implements TevmStateManagerInterface {
 	protected _debug: Debugger
 	protected DEBUG: boolean
 	protected client: PublicClient
-	constructor(public readonly opts: TevmStateManagerOpts) {
+	constructor(public readonly opts: ForkStateManagerOpts) {
 		this.DEBUG = false
 
 		// TODO this should be using @tevm/jsonrpc package instead of viem
@@ -88,10 +88,10 @@ export class TevmStateManager implements TevmStateManagerInterface {
 	}
 
 	/**
-	 * Returns a new instance of the TevmStateManager with the same opts
+	 * Returns a new instance of the ForkStateManager with the same opts
 	 */
-	shallowCopy(): TevmStateManager {
-		const newState = new TevmStateManager({
+	shallowCopy(): ForkStateManager {
+		const newState = new ForkStateManager({
 			rpcUrl: this.opts.rpcUrl,
 			blockTag: Object.values(this._blockTag)[0],
 		})
@@ -321,10 +321,8 @@ export class TevmStateManager implements TevmStateManagerInterface {
 	): Promise<void> {
 		if (this.DEBUG) {
 			this._debug(
-				`Save account address=${address} nonce=${account?.nonce} balance=${
-					account?.balance
-				} contract=${account?.isContract() ? 'yes' : 'no'} empty=${
-					account?.isEmpty() ? 'yes' : 'no'
+				`Save account address=${address} nonce=${account?.nonce} balance=${account?.balance
+				} contract=${account?.isContract() ? 'yes' : 'no'} empty=${account?.isEmpty() ? 'yes' : 'no'
 				}`,
 			)
 		}
@@ -452,19 +450,19 @@ export class TevmStateManager implements TevmStateManagerInterface {
 	}
 
 	/**
-	 * @deprecated This method is not used by the Tevm State Manager and is a stub required by the State Manager interface
+	 * @deprecated This method is not used by the Fork State Manager and is a stub required by the State Manager interface
 	 */
 	getStateRoot = async () => {
 		return new Uint8Array(32)
 	}
 
 	/**
-	 * @deprecated This method is not used by the Tevm State Manager and is a stub required by the State Manager interface
+	 * @deprecated This method is not used by the Fork State Manager and is a stub required by the State Manager interface
 	 */
-	setStateRoot = async (_root: Uint8Array) => {}
+	setStateRoot = async (_root: Uint8Array) => { }
 
 	/**
-	 * @deprecated This method is not used by the Tevm State Manager and is a stub required by the State Manager interface
+	 * @deprecated This method is not used by the Fork State Manager and is a stub required by the State Manager interface
 	 */
 	hasStateRoot = () => {
 		throw new Error('function not implemented')

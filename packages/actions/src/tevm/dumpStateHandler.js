@@ -1,9 +1,8 @@
 import { createError } from './createError.js'
 import { Address } from '@ethereumjs/util'
-import { DefaultTevmStateManager, TevmStateManager } from '@tevm/state'
 import { bytesToHex } from 'viem'
 /**
- * @param {TevmStateManager | DefaultTevmStateManager} stateManager
+ * @param {import("@tevm/state").NormalStateManager | import("@tevm/state").ForkStateManager | import("@tevm/state").ProxyStateManager} stateManager
  * @returns {import('@tevm/actions-types').DumpStateHandler}
  */
 export const dumpStateHandler = (stateManager) => async () => {
@@ -43,8 +42,8 @@ export const dumpStateHandler = (stateManager) => async () => {
 					typeof e === 'string'
 						? e
 						: e instanceof Error
-						? e.message
-						: 'unknown error',
+							? e.message
+							: 'unknown error',
 				),
 			],
 		}

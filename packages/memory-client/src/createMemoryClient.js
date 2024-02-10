@@ -24,7 +24,7 @@ import {
 	setAccountHandler,
 	testAccounts,
 } from '@tevm/actions'
-import { DefaultTevmStateManager, TevmStateManager } from '@tevm/state'
+import { NormalStateManager } from '@tevm/state'
 import { createPublicClient, http, parseEther } from 'viem'
 
 /**
@@ -171,7 +171,7 @@ export const createMemoryClient = async (options = {}) => {
 		// that we want to avoid or abstract away before enabling
 		// This means tevm will throw an error on all non natively supported
 		// requests
-		request: processRequest(vm),
+		request: processRequest(vm, {}, forkUrl),
 		script: scriptHandler(evm),
 		getAccount: getAccountHandler(evm),
 		setAccount: setAccountHandler(evm),
