@@ -9,15 +9,17 @@
 ### Classes
 
 - [Cache](classes/Cache.md)
-- [DefaultTevmStateManager](classes/DefaultTevmStateManager.md)
-- [TevmStateManager](classes/TevmStateManager.md)
+- [ForkStateManager](classes/ForkStateManager.md)
+- [NormalStateManager](classes/NormalStateManager.md)
+- [ProxyStateManager](classes/ProxyStateManager.md)
 
 ### Interfaces
 
 - [AccountStorage](interfaces/AccountStorage.md)
+- [ForkStateManagerOpts](interfaces/ForkStateManagerOpts.md)
 - [ParameterizedAccountStorage](interfaces/ParameterizedAccountStorage.md)
+- [ProxyStateManagerOpts](interfaces/ProxyStateManagerOpts.md)
 - [TevmStateManagerInterface](interfaces/TevmStateManagerInterface.md)
-- [TevmStateManagerOpts](interfaces/TevmStateManagerOpts.md)
 
 ### Type Aliases
 

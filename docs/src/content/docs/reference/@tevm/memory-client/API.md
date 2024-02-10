@@ -17,7 +17,6 @@ title: "@tevm/memory-client"
 - [CreateEVMOptions](/reference/tevm/memory-client/type-aliases/createevmoptions/)
 - [CustomPrecompile](/reference/tevm/memory-client/type-aliases/customprecompile/)
 - [CustomPredeploy](/reference/tevm/memory-client/type-aliases/custompredeploy/)
-- [ForkOptions](/reference/tevm/memory-client/type-aliases/forkoptions/)
 - [MemoryClient](/reference/tevm/memory-client/type-aliases/memoryclient/)
 
 ### Functions

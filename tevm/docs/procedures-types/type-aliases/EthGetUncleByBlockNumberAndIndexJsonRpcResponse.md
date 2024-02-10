@@ -12,7 +12,7 @@ JSON-RPC response for `eth_getUncleByBlockNumberAndIndex` procedure
 
 ## Source
 
-packages/procedures-types/dist/index.d.ts:564
+packages/procedures-types/dist/index.d.ts:565
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

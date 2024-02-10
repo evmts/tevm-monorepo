@@ -431,7 +431,7 @@ await tevm.setAccount({
 
 ## Source
 
-[TevmClient.ts:74](https://github.com/evmts/tevm-monorepo/blob/main/packages/client-types/src/TevmClient.ts#L74)
+[TevmClient.ts:75](https://github.com/evmts/tevm-monorepo/blob/main/packages/client-types/src/TevmClient.ts#L75)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

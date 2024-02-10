@@ -3,7 +3,6 @@ export {
 	type CustomPrecompile,
 	type CustomPredeploy,
 	type CreateEVMOptions,
-	type ForkOptions,
 	type WrappedEvm,
 	type ConstructorArgument,
 	createMemoryClient,

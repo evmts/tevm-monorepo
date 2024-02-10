@@ -1,12 +1,12 @@
 import { dumpStateHandler } from './dumpStateHandler.js'
 import { loadStateHandler } from './loadStateHandler.js'
 import { Account, Address } from '@ethereumjs/util'
-import { DefaultTevmStateManager } from '@tevm/state'
+import { NormalStateManager } from '@tevm/state'
 import { expect, test } from 'bun:test'
 import { hexToBytes, keccak256, toRlp } from 'viem'
 
 test('should dump important account info and storage', async () => {
-	const stateManager = new DefaultTevmStateManager()
+	const stateManager = new NormalStateManager()
 
 	const accountAddress = '0x0420042004200420042004200420042004200420'
 	const account = Address.fromString(accountAddress)
@@ -32,7 +32,7 @@ test('should dump important account info and storage', async () => {
 
 	expect(Object.keys(storage).length).toBe(1)
 
-	const stateManager2 = new DefaultTevmStateManager()
+	const stateManager2 = new NormalStateManager()
 
 	await loadStateHandler(stateManager2)({
 		state: dumpedState,

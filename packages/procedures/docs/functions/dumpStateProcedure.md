@@ -12,7 +12,7 @@ Creates a DumpState JSON-RPC Procedure for handling dumpState requests with Ethe
 
 ## Parameters
 
-▪ **stateManager**: `TevmStateManager`
+▪ **stateManager**: `NormalStateManager` \| `ProxyStateManager` \| `ForkStateManager`
 
 ## Returns
 

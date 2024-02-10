@@ -8,11 +8,13 @@ description: Tevm introduction
 After going through this guide you will understand the basic functionality of Tevm.
 
 :::tip
-If you are already familiar with how Tevm works you can bootstrap a project with the tevm cli
+🚧 If you are already familiar with how Tevm works you can bootstrap a project with the tevm cli (Coming soon)
 
 ```bash
 npm create tevm my-app
 ```
+
+If you are not familiar with Tevm we recomend you go through the tutorial to set up a new project from scratch
 :::
 
 ## Introduction

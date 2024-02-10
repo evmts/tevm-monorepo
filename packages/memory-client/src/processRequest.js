@@ -61,7 +61,6 @@ export const processRequest = (vm, proxyUrl) => {
 		} catch (e) {
 			console.error(e)
 			const err = new UnexpectedInternalServerError(request.method)
-			console.error(err)
 			return Promise.resolve({
 				id: request.id ?? null,
 				method: request.method,

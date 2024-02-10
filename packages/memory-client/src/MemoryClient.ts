@@ -51,4 +51,11 @@ export type MemoryClient = TevmClient & {
 	 * but is not guaranteed to stay stable between versions
 	 */
 	readonly _vm: VM
+	/**
+	 * The mode the current client is running in
+	 * `fork` mode will fetch and cache all state from the block forked from the provided URL
+	 * `proxy` mode will fetch all state from the latest block of the provided proxy URL
+	 * `normal` mode will not fetch any state and will only run the EVM in memory
+	 */
+	readonly mode: 'fork' | 'proxy' | 'normal'
 }

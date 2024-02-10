@@ -23,7 +23,11 @@ import {
 	setAccountHandler,
 	testAccounts,
 } from '@tevm/actions'
-import { DefaultTevmStateManager, TevmStateManager } from '@tevm/state'
+import {
+	ForkStateManager,
+	NormalStateManager,
+	ProxyStateManager,
+} from '@tevm/state'
 import { createPublicClient, http, parseEther } from 'viem'
 
 /**
@@ -59,8 +63,14 @@ import { createPublicClient, http, parseEther } from 'viem'
  *  ```
  */
 export const createMemoryClient = async (options = {}) => {
+	if (options.fork?.url && options.proxy?.url) {
+		throw new Error(
+			'Unable to initialize MemoryClient. Cannot use both fork and proxy options at the same time!',
+		)
+	}
+
 	/**
-	 * @type {TevmStateManager | DefaultTevmStateManager}
+	 * @type {NormalStateManager | ForkStateManager | ProxyStateManager}
 	 */
 	let stateManager
 	const common = new Common({
@@ -86,9 +96,9 @@ export const createMemoryClient = async (options = {}) => {
 			chainIdPromise,
 		])
 		chainId = BigInt(_chainId)
-		stateManager = new TevmStateManager({ rpcUrl: options.fork.url, blockTag })
+		stateManager = new ForkStateManager({ url: options.fork.url, blockTag })
 	} else {
-		stateManager = new DefaultTevmStateManager()
+		stateManager = new NormalStateManager()
 	}
 
 	/**
@@ -145,6 +155,26 @@ export const createMemoryClient = async (options = {}) => {
 		},
 	})
 
+	// We need to make sure that we lock the state manager when a call is ran
+	// Ideally we move and unit test logic like this to a new @tevm/evm package in future
+	const originalRunCall = evm.runCall.bind(evm)
+	evm.runCall = async (...args) => {
+		if (
+			stateManager instanceof NormalStateManager ||
+			stateManager instanceof ForkStateManager
+		) {
+			return originalRunCall(...args)
+		}
+		const proxyStateManager = stateManager
+		proxyStateManager.lock()
+		try {
+			const res = await originalRunCall(...args)
+			return res
+		} finally {
+			proxyStateManager.unlock()
+		}
+	}
+
 	const vm = await VM.create({
 		stateManager,
 		evm,
@@ -163,6 +193,8 @@ export const createMemoryClient = async (options = {}) => {
 	 * @type {import('./MemoryClient.js').MemoryClient}
 	 */
 	const tevm = {
+		mode: options.fork?.url ? 'fork' : options.proxy?.url ? 'proxy' : 'normal',
+
 		_evm: evm,
 		_vm: vm,
 		// we currently don't want to proxy any requests
@@ -170,7 +202,7 @@ export const createMemoryClient = async (options = {}) => {
 		// that we want to avoid or abstract away before enabling
 		// This means tevm will throw an error on all non natively supported
 		// requests
-		request: processRequest(vm /*, options.fork?.url*/),
+		request: processRequest(vm),
 		script: scriptHandler(evm),
 		getAccount: getAccountHandler(evm),
 		setAccount: setAccountHandler(evm),

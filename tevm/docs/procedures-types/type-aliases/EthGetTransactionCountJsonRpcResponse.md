@@ -12,7 +12,7 @@ JSON-RPC response for `eth_getTransactionCount` procedure
 
 ## Source
 
-packages/procedures-types/dist/index.d.ts:532
+packages/procedures-types/dist/index.d.ts:533
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

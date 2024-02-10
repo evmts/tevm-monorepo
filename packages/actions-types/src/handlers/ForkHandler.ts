@@ -1,13 +1,17 @@
 import type { ForkParams, ForkResult } from '../index.js'
 /**
- * Forks the network with the given config.
- * If no config is provided it will fork the network that is currently connected.
- * If there is no config and no connected network, it will throw an error.
+ * @experimental This is an unimplemented experimental feature
+ * Triggers a fork against the given fork config. If no config is provided it will fork the current state
+ * If the current state is not proxying to an RPC and is just a vanilla VM it will throw
+ *
+ * Block tag is optional and defaults to 'latest'
  * @throws {@link import('@tevm/errors').ForkError}
  * @example
- * const res = tevm.getAccount({address: '0x123...'})
- * console.log(res.deployedBytecode)
- * console.log(res.nonce)
- * console.log(res.balance)
+ * ```typescript
+ * const {errors} = await tevm.fork({
+ *   url: 'https://mainnet.infura.io/v3',
+ *   blockTag: 'earliest',
+ * })
+ * ```
  */
 export type ForkHandler = (params: ForkParams) => Promise<ForkResult>

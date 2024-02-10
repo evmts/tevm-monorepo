@@ -1,6 +1,5 @@
 export { createMemoryClient } from './createMemoryClient.js'
 export type { MemoryClient } from './MemoryClient.js'
-export type { ForkOptions } from './ForkOptions.js'
 export type { WrappedEvm } from './WrappedEvm.js'
 export type { CreateEVMOptions } from './CreateEVMOptions.js'
 export type {

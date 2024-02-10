@@ -8,13 +8,13 @@
 
 > **LoadStateParams**: `object`
 
-params for `tevm_loadState` method. Takes a [SerializableTevmState]([object Object]) to load into state.
+params for `tevm_loadState` method. Takes a [SerializableTevmState](../../index/type-aliases/SerializableTevmState.md) to load into state.
 
 ## Type declaration
 
 ### state
 
-> **state**: `SerializableTevmState`
+> **state**: [`SerializableTevmState`](../../index/type-aliases/SerializableTevmState.md)
 
 ## Source
 

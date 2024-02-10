@@ -113,6 +113,16 @@
 				"types": "./server/index.d.cts",
 				"default": "./server/index.cjs"
 			}
+		},
+		"./state": {
+			"import": {
+				"types": "./state/index.d.ts",
+				"default": "./state/index.js"
+			},
+			"require": {
+				"types": "./state/index.d.cts",
+				"default": "./state/index.cjs"
+			}
 		}
 	},
 	"main": "index.cjs",
@@ -127,7 +137,8 @@
 		"predeploys",
 		"procedures-types",
 		"http-client",
-		"server"
+		"server",
+		"state"
 	],
 	"scripts": {
 		"all": "bun run generate && bun run generate:docs && bun run lint:deps && bun run lint:package",
@@ -154,7 +165,8 @@
 		"@tevm/precompiles": "workspace:^",
 		"@tevm/predeploys": "workspace:^",
 		"@tevm/procedures-types": "workspace:^",
-		"@tevm/server": "workspace:^"
+		"@tevm/server": "workspace:^",
+		"@tevm/state": "workspace:^"
 	},
 	"devDependencies": {
 		"@tevm/tsconfig": "workspace:^",

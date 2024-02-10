@@ -2,6 +2,7 @@ import type {
 	CallHandler,
 	ContractHandler,
 	DumpStateHandler,
+	// ForkHandler,
 	// DebugTraceCallHandler,
 	// DebugTraceTransactionHandler,
 	EthBlockNumberHandler,
@@ -261,6 +262,25 @@ export type TevmClient = {
 	 * ```
 	 */
 	loadState: LoadStateHandler
+	/**
+	 * @experimental This is an unimplemented experimental feature
+	 * Triggers a fork against the given fork config. If no config is provided it will fork the current state
+	 * If the current state is not proxying to an RPC and is just a vanilla VM it will throw
+	 *
+	 * Block tag is optional and defaults to 'latest'
+	 * @throws {@link import('@tevm/errors').ForkError}
+	 * @example
+	 * ```typescript
+	 * const {errors} = await tevm.fork({
+	 *   url: 'https://mainnet.infura.io/v3',
+	 *   blockTag: 'earliest',
+	 * })
+	 * ```
+	 */
+	// Don't include this feature util someone asks for it with a reasonable use case!!!
+	// For now we expect users to start cliets in fork or proxy mode in constructor and never change back and forth
+	// In fugure we may implement ability to switch between fork and proxy
+	// fork: ForkHandler
 	/**
 	 * Standard JSON-RPC methods for interacting with the VM
 	 * @see {@link https://ethereum.github.io/execution-apis/api-documentation/ | JSON-RPC}

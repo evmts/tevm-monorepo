@@ -1,5 +1,7 @@
 import type { ForkError } from '@tevm/errors'
-
+/**
+ * @experimental This is an unimplemented experimental feature
+ */
 export type ForkResult<ErrorType extends ForkError = ForkError> =
 	| {
 			/**

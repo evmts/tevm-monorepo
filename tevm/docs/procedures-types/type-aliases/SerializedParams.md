@@ -14,7 +14,7 @@ The parameters for the `tevm_loadState` method
 
 ### state
 
-> **state**: [`SerializeToJson`](SerializeToJson.md)\<`ParameterizedTevmState`\>
+> **state**: [`SerializeToJson`](SerializeToJson.md)\<[`ParameterizedTevmState`](../../state/type-aliases/ParameterizedTevmState.md)\>
 
 ## Source
 

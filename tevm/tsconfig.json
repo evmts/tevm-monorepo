@@ -19,6 +19,7 @@
     "http-client/index.ts",
     "errors/index.ts",
     "server/index.ts",
+    "state/index.ts",
     "index.ts"
   ]
 }

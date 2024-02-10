@@ -26,7 +26,7 @@ Description of the exception, if any occurred
 
 ### state
 
-> **state**: `SerializableTevmState`
+> **state**: [`SerializableTevmState`](../../index/type-aliases/SerializableTevmState.md)
 
 The serialized tevm state
 

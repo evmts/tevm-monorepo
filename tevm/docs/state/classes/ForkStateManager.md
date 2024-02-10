@@ -1,25 +1,33 @@
-**@tevm/state** ∙ [README](../README.md) ∙ [API](../API.md)
+**tevm** ∙ [README](../../README.md) ∙ [API](../../API.md)
 
 ***
 
-[API](../API.md) > TevmStateManager
+[API](../../API.md) > [state](../README.md) > ForkStateManager
 
-# Class: TevmStateManager
+# Class: ForkStateManager
 
-A state manager that will fetch state from a remote rpc provider
-future requests. Used internally in `MemoryTevm`
+State manager that forks state from an external provider.
+Any state fetched from external provider is cached locally.
+The block number is held constant at the block number provided in the constructor.
+The state manager can be reset by providing a new block number.
 
 ## Example
 
 ```ts
-import { TevmStateManager } from '@tevm/state'
+import { ForkStateManager } from '@tevm/state'
 import { createMemoryClient } from 'tevm/vm'
 
-const stateManager = new TevmStateManager({
-  rpcUrl: 'https://mainnet.optimism.io',
+const stateManager = new ForkStateManager({
+  url: 'https://mainnet.optimism.io',
   blockTag: 'latest'
 })
 ```
+
+## See
+
+ - [ForkStateManagerOpts](../../index/interfaces/ForkStateManagerOpts.md) for configuration options
+ - NormalStateManager for a state manager that does not fork state
+ - ProxyStateManager for a provider that uses latest state rather than creating a fork
 
 ## Implements
 
@@ -27,17 +35,17 @@ const stateManager = new TevmStateManager({
 
 ## Constructors
 
-### new TevmStateManager(opts)
+### new ForkStateManager(opts)
 
-> **new TevmStateManager**(`opts`): [`TevmStateManager`](TevmStateManager.md)
+> **new ForkStateManager**(`opts`): [`ForkStateManager`](ForkStateManager.md)
 
 #### Parameters
 
-▪ **opts**: [`TevmStateManagerOpts`](../interfaces/TevmStateManagerOpts.md)
+▪ **opts**: [`ForkStateManagerOpts`](../../index/interfaces/ForkStateManagerOpts.md)
 
 #### Source
 
-[packages/state/src/TevmStateManager.ts:63](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/TevmStateManager.ts#L63)
+packages/state/types/ForkStateManager.d.ts:48
 
 ## Properties
 
@@ -47,7 +55,7 @@ const stateManager = new TevmStateManager({
 
 #### Source
 
-[packages/state/src/TevmStateManager.ts:61](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/TevmStateManager.ts#L61)
+packages/state/types/ForkStateManager.d.ts:46
 
 ***
 
@@ -57,7 +65,7 @@ const stateManager = new TevmStateManager({
 
 #### Source
 
-[packages/state/src/TevmStateManager.ts:58](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/TevmStateManager.ts#L58)
+packages/state/types/ForkStateManager.d.ts:43
 
 ***
 
@@ -67,7 +75,7 @@ const stateManager = new TevmStateManager({
 
 #### Source
 
-[packages/state/src/TevmStateManager.ts:57](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/TevmStateManager.ts#L57)
+packages/state/types/ForkStateManager.d.ts:38
 
 ***
 
@@ -77,7 +85,7 @@ const stateManager = new TevmStateManager({
 
 #### Source
 
-[packages/state/src/TevmStateManager.ts:55](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/TevmStateManager.ts#L55)
+packages/state/types/ForkStateManager.d.ts:36
 
 ***
 
@@ -87,7 +95,7 @@ const stateManager = new TevmStateManager({
 
 #### Source
 
-[packages/state/src/TevmStateManager.ts:60](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/TevmStateManager.ts#L60)
+packages/state/types/ForkStateManager.d.ts:45
 
 ***
 
@@ -97,7 +105,7 @@ const stateManager = new TevmStateManager({
 
 #### Source
 
-[packages/state/src/TevmStateManager.ts:56](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/TevmStateManager.ts#L56)
+packages/state/types/ForkStateManager.d.ts:37
 
 ***
 
@@ -3547,17 +3555,79 @@ const unwatch = await client.watchPendingTransactions({
 
 #### Source
 
-[packages/state/src/TevmStateManager.ts:62](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/TevmStateManager.ts#L62)
+packages/state/types/ForkStateManager.d.ts:47
+
+***
+
+### getAccountAddresses
+
+> **getAccountAddresses**: () => `string`[]
+
+#### Implementation of
+
+[`TevmStateManagerInterface`](../interfaces/TevmStateManagerInterface.md).[`getAccountAddresses`](../interfaces/TevmStateManagerInterface.md#getaccountaddresses)
+
+#### Source
+
+packages/state/types/ForkStateManager.d.ts:184
+
+***
+
+### getStateRoot
+
+> **getStateRoot**: () => `Promise`\<`Uint8Array`\>
+
+#### Deprecated
+
+This method is not used by the Fork State Manager and is a stub required by the State Manager interface
+
+#### Returns
+
+#### Deprecated
+
+This method is not used by the Fork State Manager and is a stub required by the State Manager interface
+
+#### Implementation of
+
+[`TevmStateManagerInterface`](../interfaces/TevmStateManagerInterface.md).[`getStateRoot`](../interfaces/TevmStateManagerInterface.md#getstateroot)
+
+#### Source
+
+packages/state/types/ForkStateManager.d.ts:174
+
+***
+
+### hasStateRoot
+
+> **hasStateRoot**: () => `never`
+
+#### Deprecated
+
+This method is not used by the Fork State Manager and is a stub required by the State Manager interface
+
+#### Returns
+
+#### Deprecated
+
+This method is not used by the Fork State Manager and is a stub required by the State Manager interface
+
+#### Implementation of
+
+[`TevmStateManagerInterface`](../interfaces/TevmStateManagerInterface.md).[`hasStateRoot`](../interfaces/TevmStateManagerInterface.md#hasstateroot)
+
+#### Source
+
+packages/state/types/ForkStateManager.d.ts:182
 
 ***
 
 ### opts
 
-> **`readonly`** **opts**: [`TevmStateManagerOpts`](../interfaces/TevmStateManagerOpts.md)
+> **`readonly`** **opts**: [`ForkStateManagerOpts`](../../index/interfaces/ForkStateManagerOpts.md)
 
 #### Source
 
-[packages/state/src/TevmStateManager.ts:63](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/TevmStateManager.ts#L63)
+packages/state/types/ForkStateManager.d.ts:35
 
 ***
 
@@ -3571,7 +3641,35 @@ const unwatch = await client.watchPendingTransactions({
 
 #### Source
 
-[packages/state/src/TevmStateManager.ts:59](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/TevmStateManager.ts#L59)
+packages/state/types/ForkStateManager.d.ts:44
+
+***
+
+### setStateRoot
+
+> **setStateRoot**: (`_root`) => `Promise`\<`void`\>
+
+#### Deprecated
+
+This method is not used by the Fork State Manager and is a stub required by the State Manager interface
+
+#### Parameters
+
+▪ **\_root**: `Uint8Array`
+
+#### Returns
+
+#### Deprecated
+
+This method is not used by the Fork State Manager and is a stub required by the State Manager interface
+
+#### Implementation of
+
+[`TevmStateManagerInterface`](../interfaces/TevmStateManagerInterface.md).[`setStateRoot`](../interfaces/TevmStateManagerInterface.md#setstateroot)
+
+#### Source
+
+packages/state/types/ForkStateManager.d.ts:178
 
 ## Methods
 
@@ -3589,7 +3687,7 @@ Address of the `account` to check
 
 #### Source
 
-[packages/state/src/TevmStateManager.ts:253](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/TevmStateManager.ts#L253)
+packages/state/types/ForkStateManager.d.ts:113
 
 ***
 
@@ -3609,7 +3707,7 @@ Partial implementation, called from the subclass.
 
 #### Source
 
-[packages/state/src/TevmStateManager.ts:423](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/TevmStateManager.ts#L423)
+packages/state/types/ForkStateManager.d.ts:155
 
 ***
 
@@ -3621,7 +3719,7 @@ Resets all internal caches
 
 #### Source
 
-[packages/state/src/TevmStateManager.ts:125](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/TevmStateManager.ts#L125)
+packages/state/types/ForkStateManager.d.ts:60
 
 ***
 
@@ -3643,7 +3741,7 @@ Address to clear the storage of
 
 #### Source
 
-[packages/state/src/TevmStateManager.ts:219](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/TevmStateManager.ts#L219)
+packages/state/types/ForkStateManager.d.ts:99
 
 ***
 
@@ -3662,7 +3760,7 @@ Partial implementation, called from the subclass.
 
 #### Source
 
-[packages/state/src/TevmStateManager.ts:434](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/TevmStateManager.ts#L434)
+packages/state/types/ForkStateManager.d.ts:162
 
 ***
 
@@ -3684,7 +3782,7 @@ Address of the account which should be deleted
 
 #### Source
 
-[packages/state/src/TevmStateManager.ts:377](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/TevmStateManager.ts#L377)
+packages/state/types/ForkStateManager.d.ts:140
 
 ***
 
@@ -3712,7 +3810,7 @@ Both are represented as `0x` prefixed hex strings.
 
 #### Source
 
-[packages/state/src/TevmStateManager.ts:230](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/TevmStateManager.ts#L230)
+packages/state/types/ForkStateManager.d.ts:107
 
 ***
 
@@ -3734,7 +3832,7 @@ Both are represented as `0x` prefixed hex strings.
 
 #### Source
 
-[packages/state/src/TevmStateManager.ts:241](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/TevmStateManager.ts#L241)
+packages/state/types/ForkStateManager.d.ts:108
 
 ***
 
@@ -3744,7 +3842,7 @@ Both are represented as `0x` prefixed hex strings.
 
 #### Source
 
-[packages/state/src/TevmStateManager.ts:450](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/TevmStateManager.ts#L450)
+packages/state/types/ForkStateManager.d.ts:170
 
 ***
 
@@ -3762,7 +3860,7 @@ Both are represented as `0x` prefixed hex strings.
 
 #### Source
 
-[packages/state/src/TevmStateManager.ts:473](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/TevmStateManager.ts#L473)
+packages/state/types/ForkStateManager.d.ts:183
 
 ***
 
@@ -3782,21 +3880,7 @@ Gets the code corresponding to the provided `address`.
 
 #### Source
 
-[packages/state/src/TevmStateManager.ts:277](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/TevmStateManager.ts#L277)
-
-***
-
-### getAccountAddresses()
-
-> **getAccountAddresses**(): `string`[]
-
-#### Implementation of
-
-[`TevmStateManagerInterface`](../interfaces/TevmStateManagerInterface.md).[`getAccountAddresses`](../interfaces/TevmStateManagerInterface.md#getaccountaddresses)
-
-#### Source
-
-[packages/state/src/TevmStateManager.ts:477](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/TevmStateManager.ts#L477)
+packages/state/types/ForkStateManager.d.ts:117
 
 ***
 
@@ -3814,7 +3898,7 @@ Address of account to be retrieved from provider
 
 #### Source
 
-[packages/state/src/TevmStateManager.ts:296](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/TevmStateManager.ts#L296)
+packages/state/types/ForkStateManager.d.ts:123
 
 ***
 
@@ -3841,7 +3925,7 @@ Returns an empty `Uint8Array` if the account has no associated code.
 
 #### Source
 
-[packages/state/src/TevmStateManager.ts:137](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/TevmStateManager.ts#L137)
+packages/state/types/ForkStateManager.d.ts:67
 
 ***
 
@@ -3874,13 +3958,13 @@ If this does not exist an empty `Uint8Array` is returned.
 
 #### Source
 
-[packages/state/src/TevmStateManager.ts:172](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/TevmStateManager.ts#L172)
+packages/state/types/ForkStateManager.d.ts:84
 
 ***
 
 ### getProof()
 
-> **getProof**(`address`, `storageSlots`): `Promise`\<`Proof`\>
+> **getProof**(`address`, `storageSlots`?): `Promise`\<`Proof`\>
 
 Get an EIP-1186 proof from the provider
 
@@ -3890,7 +3974,7 @@ Get an EIP-1186 proof from the provider
 
 address to get proof of
 
-▪ **storageSlots**: `Uint8Array`[]= `[]`
+▪ **storageSlots?**: `Uint8Array`[]
 
 storage slots to get proof of
 
@@ -3904,47 +3988,7 @@ an EIP-1186 formatted proof
 
 #### Source
 
-[packages/state/src/TevmStateManager.ts:390](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/TevmStateManager.ts#L390)
-
-***
-
-### getStateRoot()
-
-> **getStateRoot**(): `Promise`\<`Uint8Array`\>
-
-#### Returns
-
-#### Implementation of
-
-[`TevmStateManagerInterface`](../interfaces/TevmStateManagerInterface.md).[`getStateRoot`](../interfaces/TevmStateManagerInterface.md#getstateroot)
-
-#### Deprecated
-
-This method is not used by the Tevm State Manager and is a stub required by the State Manager interface
-
-#### Source
-
-[packages/state/src/TevmStateManager.ts:457](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/TevmStateManager.ts#L457)
-
-***
-
-### hasStateRoot()
-
-> **hasStateRoot**(): `never`
-
-#### Returns
-
-#### Implementation of
-
-[`TevmStateManagerInterface`](../interfaces/TevmStateManagerInterface.md).[`hasStateRoot`](../interfaces/TevmStateManagerInterface.md#hasstateroot)
-
-#### Deprecated
-
-This method is not used by the Tevm State Manager and is a stub required by the State Manager interface
-
-#### Source
-
-[packages/state/src/TevmStateManager.ts:469](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/TevmStateManager.ts#L469)
+packages/state/types/ForkStateManager.d.ts:147
 
 ***
 
@@ -3972,7 +4016,7 @@ Object containing account fields and values to modify
 
 #### Source
 
-[packages/state/src/TevmStateManager.ts:345](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/TevmStateManager.ts#L345)
+packages/state/types/ForkStateManager.d.ts:135
 
 ***
 
@@ -3994,7 +4038,7 @@ Saves an account into state under the provided `address`.
 
 #### Source
 
-[packages/state/src/TevmStateManager.ts:318](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/TevmStateManager.ts#L318)
+packages/state/types/ForkStateManager.d.ts:127
 
 ***
 
@@ -4021,7 +4065,7 @@ The value of the `code`
 
 #### Source
 
-[packages/state/src/TevmStateManager.ts:155](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/TevmStateManager.ts#L155)
+packages/state/types/ForkStateManager.d.ts:74
 
 ***
 
@@ -4054,7 +4098,7 @@ If it is empty or filled with zeros, deletes the value.
 
 #### Source
 
-[packages/state/src/TevmStateManager.ts:207](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/TevmStateManager.ts#L207)
+packages/state/types/ForkStateManager.d.ts:94
 
 ***
 
@@ -4073,7 +4117,7 @@ Partial implementation , called from the subclass.
 
 #### Source
 
-[packages/state/src/TevmStateManager.ts:444](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/TevmStateManager.ts#L444)
+packages/state/types/ForkStateManager.d.ts:169
 
 ***
 
@@ -4089,39 +4133,15 @@ Sets the new block tag and clears the internal cache
 
 #### Source
 
-[packages/state/src/TevmStateManager.ts:113](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/TevmStateManager.ts#L113)
-
-***
-
-### setStateRoot()
-
-> **setStateRoot**(`_root`): `Promise`\<`void`\>
-
-#### Parameters
-
-▪ **\_root**: `Uint8Array`
-
-#### Returns
-
-#### Implementation of
-
-[`TevmStateManagerInterface`](../interfaces/TevmStateManagerInterface.md).[`setStateRoot`](../interfaces/TevmStateManagerInterface.md#setstateroot)
-
-#### Deprecated
-
-This method is not used by the Tevm State Manager and is a stub required by the State Manager interface
-
-#### Source
-
-[packages/state/src/TevmStateManager.ts:464](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/TevmStateManager.ts#L464)
+packages/state/types/ForkStateManager.d.ts:56
 
 ***
 
 ### shallowCopy()
 
-> **shallowCopy**(): [`TevmStateManager`](TevmStateManager.md)
+> **shallowCopy**(): [`ForkStateManager`](ForkStateManager.md)
 
-Returns a new instance of the TevmStateManager with the same opts
+Returns a new instance of the ForkStateManager with the same opts
 
 #### Implementation of
 
@@ -4129,7 +4149,7 @@ Returns a new instance of the TevmStateManager with the same opts
 
 #### Source
 
-[packages/state/src/TevmStateManager.ts:93](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/TevmStateManager.ts#L93)
+packages/state/types/ForkStateManager.d.ts:52
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

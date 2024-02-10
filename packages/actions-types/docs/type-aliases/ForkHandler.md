@@ -8,9 +8,11 @@
 
 > **ForkHandler**: (`params`) => `Promise`\<[`ForkResult`](ForkResult.md)\>
 
-Forks the network with the given config.
-If no config is provided it will fork the network that is currently connected.
-If there is no config and no connected network, it will throw an error.
+This is an unimplemented experimental feature
+Triggers a fork against the given fork config. If no config is provided it will fork the current state
+If the current state is not proxying to an RPC and is just a vanilla VM it will throw
+
+Block tag is optional and defaults to 'latest'
 
 ## Throws
 
@@ -18,11 +20,11 @@ import('@tevm/errors').ForkError
 
 ## Example
 
-```ts
-const res = tevm.getAccount({address: '0x123...'})
-console.log(res.deployedBytecode)
-console.log(res.nonce)
-console.log(res.balance)
+```typescript
+const {errors} = await tevm.fork({
+  url: 'https://mainnet.infura.io/v3',
+  blockTag: 'earliest',
+})
 ```
 
 ## Parameters
@@ -31,7 +33,7 @@ console.log(res.balance)
 
 ## Source
 
-[handlers/ForkHandler.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/handlers/ForkHandler.ts#L13)
+[handlers/ForkHandler.ts:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/handlers/ForkHandler.ts#L17)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

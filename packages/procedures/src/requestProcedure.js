@@ -81,6 +81,8 @@ export const requestProcedure = (vm) => {
 				return /** @type any */ (blockNumberProcedure(vm.blockchain)(request))
 			case 'tevm_dumpState':
 				return /** @type any */ (dumpStateProcedure)(vm.stateManager)(request)
+			case 'tevm_fork':
+				throw new Error('not implemented!')
 			case 'tevm_loadState': {
 				const stateManager = vm.stateManager
 				return /** @type any */ (loadStateProcedure)(stateManager)(request)

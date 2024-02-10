@@ -1,11 +1,11 @@
 import { loadStateHandler } from './loadStateHandler.js'
 import { Address } from '@ethereumjs/util'
-import { DefaultTevmStateManager } from '@tevm/state'
+import { NormalStateManager } from '@tevm/state'
 import { expect, test } from 'bun:test'
 import { bytesToHex, hexToBytes, toRlp } from 'viem'
 
 test('should load state into the state manager', async () => {
-	const stateManager = new DefaultTevmStateManager()
+	const stateManager = new NormalStateManager()
 
 	const account = Address.fromString(
 		'0x0420042004200420042004200420042004200420',

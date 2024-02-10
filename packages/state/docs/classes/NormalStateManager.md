@@ -2,11 +2,18 @@
 
 ***
 
-[API](../API.md) > DefaultTevmStateManager
+[API](../API.md) > NormalStateManager
 
-# Class: DefaultTevmStateManager
+# Class: NormalStateManager
 
-Custom implementation of the TevmStateManagerInterface that extends the DefaultStateManager class.
+The ethereum state manager implementation for running Tevm in `normal` mode.
+Normal mode does not fork/proxy to a external RPC url and has no unique features
+Internally this state manager gets used when no proxy or fork url is passed into Tevm client
+
+## See
+
+ - ForkStateManager for a provider that uses forks state rather than always using latest state
+ - ProxyStateManager for a provider that uses latest state rather than creating a fork
 
 ## Extends
 
@@ -18,9 +25,9 @@ Custom implementation of the TevmStateManagerInterface that extends the DefaultS
 
 ## Constructors
 
-### new DefaultTevmStateManager(opts)
+### new NormalStateManager(opts)
 
-> **new DefaultTevmStateManager**(`opts`?): [`DefaultTevmStateManager`](DefaultTevmStateManager.md)
+> **new NormalStateManager**(`opts`?): [`NormalStateManager`](NormalStateManager.md)
 
 Instantiate the StateManager interface.
 
@@ -633,7 +640,7 @@ An array of account addresses.
 
 #### Source
 
-[packages/state/src/DefaultTevmStateManager.ts:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/DefaultTevmStateManager.ts#L15)
+[packages/state/src/NormalStateManager.ts:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/NormalStateManager.ts#L19)
 
 ***
 

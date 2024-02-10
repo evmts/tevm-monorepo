@@ -12,7 +12,7 @@ JSON-RPC response for `eth_hashrate` procedure
 
 ## Source
 
-packages/procedures-types/dist/index.d.ts:484
+packages/procedures-types/dist/index.d.ts:485
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
