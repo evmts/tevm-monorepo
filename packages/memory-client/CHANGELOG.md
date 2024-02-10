@@ -1,5 +1,17 @@
 # @tevm/client
 
+## 1.0.0-next.30
+
+### Minor Changes
+
+- [#900](https://github.com/evmts/tevm-monorepo/pull/900) [`d3d2f0f3322ac476347151840cd0ee42a5a18c56`](https://github.com/evmts/tevm-monorepo/commit/d3d2f0f3322ac476347151840cd0ee42a5a18c56) Thanks [@roninjin10](https://github.com/roninjin10)! - Added new `proxy mode` to tevm. Proxy mode is similar to forked mode but will track the latest block
+
+### Patch Changes
+
+- Updated dependencies [[`d3d2f0f3322ac476347151840cd0ee42a5a18c56`](https://github.com/evmts/tevm-monorepo/commit/d3d2f0f3322ac476347151840cd0ee42a5a18c56)]:
+  - @tevm/procedures@1.0.0-next.30
+  - @tevm/actions@1.0.0-next.30
+
 ## 1.0.0-next.28
 
 ### Patch Changes
