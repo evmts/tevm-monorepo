@@ -1,6 +1,6 @@
-import type { ForkStateManagerOpts, ProxyStateManagerOpts } from '@tevm/state'
 import type { CustomPrecompile } from './CustomPrecompile.js'
 import type { CustomPredeploy } from '@tevm/predeploys'
+import type { ForkStateManagerOpts, ProxyStateManagerOpts } from '@tevm/state'
 
 /**
  * Ethereum hardfork option

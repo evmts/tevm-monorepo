@@ -6,10 +6,8 @@ import { keccak256 } from 'ethereum-cryptography/keccak.js'
 import { AccountCache, CacheType, StorageCache } from '@ethereumjs/statemanager'
 
 import { Cache } from './Cache.js'
-import type {
-	AccountFields,
-	StorageDump,
-} from '@ethereumjs/common'
+import type { TevmStateManagerInterface } from './TevmStateManagerInterface.js'
+import type { AccountFields, StorageDump } from '@ethereumjs/common'
 import type { StorageRange } from '@ethereumjs/common'
 import type { Proof } from '@ethereumjs/statemanager'
 import type { Address as EthjsAddress } from '@ethereumjs/util'
@@ -25,11 +23,10 @@ import {
 	toBytes,
 	toHex,
 } from 'viem'
-import type { TevmStateManagerInterface } from './TevmStateManagerInterface.js'
 
 export interface ForkStateManagerOpts {
 	url: string
-	blockTag: BlockTag | bigint
+	blockTag?: BlockTag | bigint
 }
 
 /**
@@ -72,7 +69,7 @@ export class ForkStateManager implements TevmStateManagerInterface {
 		this._blockTag =
 			typeof opts.blockTag === 'bigint'
 				? { blockNumber: opts.blockTag }
-				: { blockTag: opts.blockTag }
+				: { blockTag: opts.blockTag ?? 'latest' }
 
 		this._contractCache = new Map()
 		this._storageCache = new StorageCache({
@@ -321,8 +318,10 @@ export class ForkStateManager implements TevmStateManagerInterface {
 	): Promise<void> {
 		if (this.DEBUG) {
 			this._debug(
-				`Save account address=${address} nonce=${account?.nonce} balance=${account?.balance
-				} contract=${account?.isContract() ? 'yes' : 'no'} empty=${account?.isEmpty() ? 'yes' : 'no'
+				`Save account address=${address} nonce=${account?.nonce} balance=${
+					account?.balance
+				} contract=${account?.isContract() ? 'yes' : 'no'} empty=${
+					account?.isEmpty() ? 'yes' : 'no'
 				}`,
 			)
 		}
@@ -459,7 +458,7 @@ export class ForkStateManager implements TevmStateManagerInterface {
 	/**
 	 * @deprecated This method is not used by the Fork State Manager and is a stub required by the State Manager interface
 	 */
-	setStateRoot = async (_root: Uint8Array) => { }
+	setStateRoot = async (_root: Uint8Array) => {}
 
 	/**
 	 * @deprecated This method is not used by the Fork State Manager and is a stub required by the State Manager interface

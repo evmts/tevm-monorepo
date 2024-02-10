@@ -97,9 +97,11 @@ Eips to enable. Defaults to `[1559, 4895]`
 
 ### fork
 
-> **fork**?: [`ForkOptions`](ForkOptions.md)
+> **fork**?: `ForkStateManagerOpts`
 
-Fork options fork a live network if enabled
+Fork options fork a live network if enabled.
+When in fork mode Tevm will fetch and cache all state from the block forked from the provided URL
+Cannot be set if `proxy` is also set
 
 ### hardfork
 
@@ -112,6 +114,14 @@ Hardfork to use. Defaults to `shanghai`
 > **profiler**?: `boolean`
 
 Enable profiler. Defaults to false.
+
+### proxy
+
+> **proxy**?: `ProxyStateManagerOpts`
+
+Options to initialize the client in `proxy` mode
+When in proxy mode Tevm will fetch all state from the latest block of the provided proxy URL
+Cannot be set if `fork` is also set
 
 ## Source
 

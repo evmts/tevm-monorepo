@@ -8,6 +8,8 @@
 
 > **ForkResult**\<`ErrorType`\>: `object` \| `object`
 
+This is an unimplemented experimental feature
+
 ## Type parameters
 
 | Parameter | Default |
@@ -16,7 +18,7 @@
 
 ## Source
 
-packages/actions-types/types/result/ForkResult.d.ts:2
+packages/actions-types/types/result/ForkResult.d.ts:5
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

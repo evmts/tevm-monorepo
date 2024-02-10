@@ -13,6 +13,7 @@ import { Account, Address } from '@ethereumjs/util'
 import { VM } from '@ethereumjs/vm'
 import { testAccounts } from '@tevm/actions'
 import type { EthSignTransactionJsonRpcRequest } from '@tevm/procedures-types'
+import { describe, expect, it } from 'bun:test'
 import {
 	bytesToHex,
 	encodeFunctionData,
@@ -20,7 +21,6 @@ import {
 	numberToHex,
 	parseGwei,
 } from 'viem'
-import { describe, expect, it } from 'bun:test'
 
 const ERC20_ADDRESS = `0x${'3'.repeat(40)}` as const
 const ERC20_BYTECODE =

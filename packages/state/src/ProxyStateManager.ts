@@ -6,10 +6,8 @@ import { keccak256 } from 'ethereum-cryptography/keccak.js'
 import { AccountCache, CacheType, StorageCache } from '@ethereumjs/statemanager'
 
 import { Cache } from './Cache.js'
-import type {
-	AccountFields,
-	StorageDump,
-} from '@ethereumjs/common'
+import type { TevmStateManagerInterface } from './TevmStateManagerInterface.js'
+import type { AccountFields, StorageDump } from '@ethereumjs/common'
 import type { StorageRange } from '@ethereumjs/common'
 import type { Proof } from '@ethereumjs/statemanager'
 import type { Address as EthjsAddress } from '@ethereumjs/util'
@@ -25,19 +23,18 @@ import {
 	toBytes,
 	toHex,
 } from 'viem'
-import type { TevmStateManagerInterface } from './TevmStateManagerInterface.js'
 
 export interface ProxyStateManagerOpts {
 	/**
 	 * Url to a JSON-RPC provider to proxy state from
 	 */
-	url: string,
+	url: string
 	/**
 	 * The expected time between blocks in milliseconds
 	 * This is used to avoid fetching blockNumber if the blockNumber is not expected to have changed
 	 * Defaults to 2000ms (2s)
 	 */
-	expectedBlockTime?: number,
+	expectedBlockTime?: number
 }
 
 // TODO this should be using @tevm/jsonrpc package instead of viem
@@ -63,15 +60,18 @@ export class ProxyStateManager implements TevmStateManagerInterface {
 	 * To prevent bugs this block tag must be locked to a specific number while a call is being executed in the EVM
 	 * When a call is not currently executed this blocktag is unlocked and set back to 'latest'
 	 */
-	protected _currentBlockTag: { blockTag: BlockTag } | { blockNumber: bigint } = { blockTag: 'latest' }
+	protected _currentBlockTag: { blockTag: BlockTag } | { blockNumber: bigint } =
+		{ blockTag: 'latest' }
 	/**
 	 * We track the block tag the cache was using so we can invalidate it whenever it changes
 	 */
-	protected _cachedBlockTag: { blockNumber: bigint | undefined } = { blockNumber: undefined }
+	protected _cachedBlockTag: { blockNumber: bigint | undefined } = {
+		blockNumber: undefined,
+	}
 	/**
 	 * Cache the last time we fetched a block to avoid fetching it too often
 	 */
-	protected _lastBlockFetchTime: number = -Infinity
+	protected _lastBlockFetchTime = -Infinity
 	/**
 	 * How often we expect the block number to change
 	 */
@@ -111,7 +111,8 @@ export class ProxyStateManager implements TevmStateManagerInterface {
 	 * If the block number has changed the cache will be invalidated
 	 */
 	async lock(): Promise<void> {
-		const shouldCheckBlock = Date.now() - this._lastBlockFetchTime > this._expectedBlockTime
+		const shouldCheckBlock =
+			Date.now() - this._lastBlockFetchTime > this._expectedBlockTime
 		if (!shouldCheckBlock) {
 			return
 		}
@@ -361,8 +362,10 @@ export class ProxyStateManager implements TevmStateManagerInterface {
 	): Promise<void> {
 		if (this.DEBUG) {
 			this._debug(
-				`Save account address=${address} nonce=${account?.nonce} balance=${account?.balance
-				} contract=${account?.isContract() ? 'yes' : 'no'} empty=${account?.isEmpty() ? 'yes' : 'no'
+				`Save account address=${address} nonce=${account?.nonce} balance=${
+					account?.balance
+				} contract=${account?.isContract() ? 'yes' : 'no'} empty=${
+					account?.isEmpty() ? 'yes' : 'no'
 				}`,
 			)
 		}
@@ -499,7 +502,7 @@ export class ProxyStateManager implements TevmStateManagerInterface {
 	/**
 	 * @deprecated This method is not used by the Tevm State Manager and is a stub required by the State Manager interface
 	 */
-	setStateRoot = async (_root: Uint8Array) => { }
+	setStateRoot = async (_root: Uint8Array) => {}
 
 	/**
 	 * @deprecated This method is not used by the Tevm State Manager and is a stub required by the State Manager interface

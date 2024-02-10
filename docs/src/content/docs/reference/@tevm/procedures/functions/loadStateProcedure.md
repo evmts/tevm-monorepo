@@ -11,7 +11,7 @@ Creates a LoadState JSON-RPC Procedure for handling LoadState requests with Ethe
 
 ## Parameters
 
-▪ **stateManager**: `TevmStateManager`
+▪ **stateManager**: `NormalStateManager` \| `ProxyStateManager` \| `ForkStateManager`
 
 ## Returns
 

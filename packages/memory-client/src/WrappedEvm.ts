@@ -1,5 +1,9 @@
 import { EVM } from '@ethereumjs/evm'
-import type { NormalStateManager, ForkStateManager, ProxyStateManager } from '@tevm/state'
+import type {
+	ForkStateManager,
+	NormalStateManager,
+	ProxyStateManager,
+} from '@tevm/state'
 
 /**
  * A wrapper around the EVM to expose some protected functionality of the EVMStateManger
@@ -7,5 +11,8 @@ import type { NormalStateManager, ForkStateManager, ProxyStateManager } from '@t
  * @internal
  */
 export class WrappedEvm extends EVM {
-	public declare stateManager: NormalStateManager | ForkStateManager | ProxyStateManager
+	public declare stateManager:
+		| NormalStateManager
+		| ForkStateManager
+		| ProxyStateManager
 }

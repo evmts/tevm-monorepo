@@ -302,7 +302,7 @@ node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm
 
 ### stateManager
 
-> **stateManager**: `TevmStateManager`
+> **stateManager**: `NormalStateManager` \| `ForkStateManager` \| `ProxyStateManager`
 
 #### Overrides
 
@@ -310,7 +310,7 @@ EVM.stateManager
 
 #### Source
 
-[packages/memory-client/src/WrappedEvm.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/WrappedEvm.ts#L10)
+[packages/memory-client/src/WrappedEvm.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/WrappedEvm.ts#L14)
 
 ***
 

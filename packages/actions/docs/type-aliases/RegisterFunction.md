@@ -8,6 +8,7 @@
 
 > **RegisterFunction**: (`params`) => `Promise`\<`bigint`\>
 
+This is an unimplemented experimental feature
 Register function takes ForkParams and returns an id forkId
 
 ## Parameters
@@ -16,7 +17,7 @@ Register function takes ForkParams and returns an id forkId
 
 ## Source
 
-[packages/actions/src/tevm/ForkOptions.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm/ForkOptions.ts#L6)
+[packages/actions/src/tevm/ForkOptions.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm/ForkOptions.ts#L7)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

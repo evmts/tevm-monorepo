@@ -4,7 +4,7 @@ export {
 } from './ForkStateManager.js'
 export {
 	ProxyStateManager,
-	type ProxyStateManagerOpts
+	type ProxyStateManagerOpts,
 } from './ProxyStateManager.js'
 export { type TevmStateManagerInterface } from './TevmStateManagerInterface.js'
 export { NormalStateManager } from './NormalStateManager.js'

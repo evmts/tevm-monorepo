@@ -8,6 +8,8 @@
 
 > **ForkResult**\<`ErrorType`\>: `object` \| `object`
 
+This is an unimplemented experimental feature
+
 ## Type parameters
 
 | Parameter | Default |
@@ -16,7 +18,7 @@
 
 ## Source
 
-[result/ForkResult.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/result/ForkResult.ts#L3)
+[result/ForkResult.ts:5](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/result/ForkResult.ts#L5)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

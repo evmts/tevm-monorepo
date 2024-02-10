@@ -137,7 +137,8 @@
 		"predeploys",
 		"procedures-types",
 		"http-client",
-		"server"
+		"server",
+		"state"
 	],
 	"scripts": {
 		"all": "bun run generate && bun run generate:docs && bun run lint:deps && bun run lint:package",

@@ -16,7 +16,6 @@
 - [CreateEVMOptions](type-aliases/CreateEVMOptions.md)
 - [CustomPrecompile](type-aliases/CustomPrecompile.md)
 - [CustomPredeploy](type-aliases/CustomPredeploy.md)
-- [ForkOptions](type-aliases/ForkOptions.md)
 - [MemoryClient](type-aliases/MemoryClient.md)
 
 ### Functions

@@ -23,7 +23,6 @@
 - [CreateEVMOptions](README.md#createevmoptions)
 - [CustomPrecompile](README.md#customprecompile)
 - [CustomPredeploy](README.md#custompredeploy)
-- [ForkOptions](README.md#forkoptions)
 - [MemoryClient](README.md#memoryclient)
 - [createMemoryClient](README.md#creatememoryclient)
 
@@ -44,12 +43,6 @@ Re-exports [CustomPrecompile](../index/type-aliases/CustomPrecompile.md)
 ### CustomPredeploy
 
 Re-exports [CustomPredeploy](../index/type-aliases/CustomPredeploy.md)
-
-***
-
-### ForkOptions
-
-Re-exports [ForkOptions](../index/type-aliases/ForkOptions.md)
 
 ***
 

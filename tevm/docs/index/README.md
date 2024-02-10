@@ -12,6 +12,11 @@
 
 - [Predeploy](classes/Predeploy.md)
 
+### Interfaces
+
+- [ForkStateManagerOpts](interfaces/ForkStateManagerOpts.md)
+- [ProxyStateManagerOpts](interfaces/ProxyStateManagerOpts.md)
+
 ### Type Aliases
 
 - [Abi](type-aliases/Abi.md)
@@ -32,7 +37,6 @@
 - [CustomPredeploy](type-aliases/CustomPredeploy.md)
 - [EventActionCreator](type-aliases/EventActionCreator.md)
 - [ForkHandler](type-aliases/ForkHandler.md)
-- [ForkOptions](type-aliases/ForkOptions.md)
 - [ForkParams](type-aliases/ForkParams.md)
 - [ForkResult](type-aliases/ForkResult.md)
 - [GetAccountParams](type-aliases/GetAccountParams.md)
@@ -47,6 +51,7 @@
 - [Script](type-aliases/Script.md)
 - [ScriptParams](type-aliases/ScriptParams.md)
 - [ScriptResult](type-aliases/ScriptResult.md)
+- [SerializableTevmState](type-aliases/SerializableTevmState.md)
 - [SetAccountParams](type-aliases/SetAccountParams.md)
 - [SetAccountResult](type-aliases/SetAccountResult.md)
 - [TevmClient](type-aliases/TevmClient.md)

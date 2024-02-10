@@ -303,7 +303,7 @@ node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm
 
 ### stateManager
 
-> **stateManager**: `TevmStateManager`
+> **stateManager**: [`NormalStateManager`](../../state/classes/NormalStateManager.md) \| [`ForkStateManager`](../../state/classes/ForkStateManager.md) \| [`ProxyStateManager`](../../state/classes/ProxyStateManager.md)
 
 #### Overrides
 

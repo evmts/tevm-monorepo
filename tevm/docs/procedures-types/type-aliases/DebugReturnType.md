@@ -22,7 +22,7 @@ A mapping of `debug_*` method names to their return type
 
 ## Source
 
-packages/procedures-types/dist/index.d.ts:877
+packages/procedures-types/dist/index.d.ts:880
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
