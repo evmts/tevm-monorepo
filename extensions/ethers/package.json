@@ -1,6 +1,6 @@
 {
 	"name": "@tevm/ethers",
-	"version": "1.0.0-next.28",
+	"version": "1.0.0-next.5",
 	"private": false,
 	"description": "A collection of ethers.js utilities for working with Tevm",
 	"keywords": [
@@ -27,7 +27,7 @@
 		"./package.json": "./package.json",
 		".": {
 			"import": {
-				"types": "./src/index.d.ts",
+				"types": "./dist/index.d.ts",
 				"default": "./dist/index.js"
 			},
 			"require": {
@@ -38,16 +38,16 @@
 	},
 	"main": "dist/index.cjs",
 	"module": "dist/index.js",
-	"types": "src/index.d.ts",
+	"types": "dist/index.d.ts",
 	"files": [
 		"dist",
-		"src",
-		"types"
+		"src"
 	],
 	"scripts": {
+		"all": "bun run format && bun run lint && bun run build && bun run test:run && bun run generate:docs && bun run lint:deps && bun run lint:package",
 		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/ethers ",
 		"build:dist": "tsup",
-		"build:types": "tsup --dts-only && tsc --emitDeclarationOnly --declaration",
+		"build:types": "tsup --dts-only",
 		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
 		"format": "rome format . --write",
 		"format:check": "rome format .",
@@ -61,11 +61,16 @@
 		"test:run": "vitest run",
 		"test:ui": "vitest --ui"
 	},
+	"dependencies": {
+		"@tevm/client-types": "workspace:^",
+		"@tevm/memory-client": "workspace:^"
+	},
 	"devDependencies": {
+		"@tevm/contract": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",
-		"abitype": "^1.0.0",
-		"ethers": "^6.10.0"
+		"abitype": "^0.10.2",
+		"ethers": "^6.8.0"
 	},
 	"peerDependencies": {
 		"ethers": ">6.0.0"
