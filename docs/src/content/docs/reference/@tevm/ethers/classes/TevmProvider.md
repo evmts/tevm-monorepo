@@ -1,10 +1,9 @@
-**@tevm/ethers** ∙ [README](../README.md) ∙ [API](../API.md)
-
-***
-
-[API](../API.md) > TevmProvider
-
-# Class: TevmProvider
+---
+editUrl: false
+next: false
+prev: false
+title: "TevmProvider"
+---
 
 An instance of the Tevm interface.
 
@@ -32,13 +31,13 @@ const blockNumber = await provider.getBlockNumber()
 
 ### new TevmProvider(tevm)
 
-> **new TevmProvider**(`tevm`): [`TevmProvider`](TevmProvider.md)
+> **new TevmProvider**(`tevm`): [`TevmProvider`](/reference/tevm/ethers/classes/tevmprovider/)
 
 An instance of the Tevm interface.
 
 #### Parameters
 
-▪ **tevm**: `TevmClient`
+▪ **tevm**: [`TevmClient`](/reference/tevm/client-types/type-aliases/tevmclient/)
 
 An instance of the Tevm interface.
 
@@ -100,7 +99,7 @@ node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstrac
 
 ### tevm
 
-> **tevm**: `TevmClient`
+> **tevm**: [`TevmClient`](/reference/tevm/client-types/type-aliases/tevmclient/)
 
 #### Source
 
@@ -677,7 +676,7 @@ node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstrac
 
 ### addListener()
 
-> **addListener**(`event`, `listener`): `Promise`\<[`TevmProvider`](TevmProvider.md)\>
+> **addListener**(`event`, `listener`): `Promise`\<[`TevmProvider`](/reference/tevm/ethers/classes/tevmprovider/)\>
 
 #### Parameters
 
@@ -1270,7 +1269,7 @@ node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstrac
 
 ### off()
 
-> **off**(`event`, `listener`?): `Promise`\<[`TevmProvider`](TevmProvider.md)\>
+> **off**(`event`, `listener`?): `Promise`\<[`TevmProvider`](/reference/tevm/ethers/classes/tevmprovider/)\>
 
 #### Parameters
 
@@ -1290,7 +1289,7 @@ node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstrac
 
 ### on()
 
-> **on**(`event`, `listener`): `Promise`\<[`TevmProvider`](TevmProvider.md)\>
+> **on**(`event`, `listener`): `Promise`\<[`TevmProvider`](/reference/tevm/ethers/classes/tevmprovider/)\>
 
 #### Parameters
 
@@ -1310,7 +1309,7 @@ node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstrac
 
 ### once()
 
-> **once**(`event`, `listener`): `Promise`\<[`TevmProvider`](TevmProvider.md)\>
+> **once**(`event`, `listener`): `Promise`\<[`TevmProvider`](/reference/tevm/ethers/classes/tevmprovider/)\>
 
 #### Parameters
 
@@ -1352,7 +1351,7 @@ node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstrac
 
 ### removeAllListeners()
 
-> **removeAllListeners**(`event`?): `Promise`\<[`TevmProvider`](TevmProvider.md)\>
+> **removeAllListeners**(`event`?): `Promise`\<[`TevmProvider`](/reference/tevm/ethers/classes/tevmprovider/)\>
 
 #### Parameters
 
@@ -1370,7 +1369,7 @@ node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstrac
 
 ### removeListener()
 
-> **removeListener**(`event`, `listener`): `Promise`\<[`TevmProvider`](TevmProvider.md)\>
+> **removeListener**(`event`, `listener`): `Promise`\<[`TevmProvider`](/reference/tevm/ethers/classes/tevmprovider/)\>
 
 #### Parameters
 
@@ -1496,13 +1495,13 @@ node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstrac
 
 ### createMemoryProvider()
 
-> **`static`** **`readonly`** **createMemoryProvider**(`options`): `Promise`\<[`TevmProvider`](TevmProvider.md)\>
+> **`static`** **`readonly`** **createMemoryProvider**(`options`): `Promise`\<[`TevmProvider`](/reference/tevm/ethers/classes/tevmprovider/)\>
 
 Creates a new TevmProvider instance with a TevmMemoryClient.
 
 #### Parameters
 
-▪ **options**: `CreateEVMOptions`
+▪ **options**: [`CreateEVMOptions`](/reference/tevm/memory-client/type-aliases/createevmoptions/)
 
 Options to create a new TevmProvider.
 

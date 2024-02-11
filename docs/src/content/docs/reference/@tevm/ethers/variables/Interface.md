@@ -5,7 +5,7 @@ prev: false
 title: "Interface"
 ---
 
-> **`const`** **Interface**: [`TypesafeEthersInterfaceConstructor`](/reference/tevm/ethers/type-aliases/typesafeethersinterfaceconstructor/)
+> **`const`** **Interface**: `TypesafeEthersInterfaceConstructor`
 
 ## Source
 
