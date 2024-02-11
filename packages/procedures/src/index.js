@@ -1,4 +1,5 @@
 export { requestProcedure } from './requestProcedure.js'
+export { requestBulkProcedure } from './requestBulkProcedure.js'
 export {
 	callProcedure,
 	scriptProcedure,
