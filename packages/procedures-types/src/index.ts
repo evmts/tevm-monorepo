@@ -205,6 +205,7 @@ export type {
 	JsonRpcReturnTypeFromMethod,
 	JsonRpcRequestTypeFromMethod,
 	TevmJsonRpcRequestHandler,
+	TevmJsonRpcBulkRequestHandler,
 } from './tevm-request-handler/index.js'
 export type {
 	SetToHex,
