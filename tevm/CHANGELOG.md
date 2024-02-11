@@ -1,5 +1,17 @@
 # @tevm/contract
 
+## 1.0.0-next.31
+
+### Patch Changes
+
+- [#919](https://github.com/evmts/tevm-monorepo/pull/919) [`ea49d992970dada46c66a590109b31a7119cc426`](https://github.com/evmts/tevm-monorepo/commit/ea49d992970dada46c66a590109b31a7119cc426) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug with positive inputs not passing validation
+
+- Updated dependencies []:
+  - @tevm/server@1.0.0-next.31
+  - @tevm/memory-client@1.0.0-next.31
+  - @tevm/http-client@1.0.0-next.30
+  - @tevm/precompiles@1.0.0-next.28
+
 ## 1.0.0-next.30
 
 ### Minor Changes

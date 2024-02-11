@@ -1,5 +1,12 @@
 # @tevm/contract
 
+## 1.0.0-next.31
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @tevm/actions@1.0.0-next.31
+
 ## 1.0.0-next.30
 
 ### Minor Changes
