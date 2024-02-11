@@ -20,6 +20,7 @@ title: "@tevm/procedures"
 - [getCodeProcedure](/reference/tevm/procedures/functions/getcodeprocedure/)
 - [getStorageAtProcedure](/reference/tevm/procedures/functions/getstorageatprocedure/)
 - [loadStateProcedure](/reference/tevm/procedures/functions/loadstateprocedure/)
+- [requestBulkProcedure](/reference/tevm/procedures/functions/requestbulkprocedure/)
 - [requestProcedure](/reference/tevm/procedures/functions/requestprocedure/)
 - [scriptProcedure](/reference/tevm/procedures/functions/scriptprocedure/)
 - [setAccountProcedure](/reference/tevm/procedures/functions/setaccountprocedure/)
