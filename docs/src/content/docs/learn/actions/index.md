@@ -7,6 +7,20 @@ description: Tevm actions api
 
 Tevm has an [actions based api](/reference/tevm/actions-types/api) similar to [viem's actions api](https://viem.sh/docs/actions/public/getbalance) and following similar patterns. This is a higher level of abstraction than the lower level [JSON-RPC api](/learn/json-rpc)
 
+## Errors
+
+All actions return errors as values
+
+```typescript
+const {errors} = client.setAccount({})
+if (errors?.length) {
+  console.log(errors[0]).name // AddressRequiredError
+  console.log(errors[0].message) // AddressRequiredError: `address` is a required property
+}
+```
+
+As a best practice you should always check the errors property for errors. In future versions of tevm we may expose the ability to throw instead as a configuration option to the client. Consider joining the telegram if you would like this feature.
+
 ## Tevm actions
 
 Tevm methods are the main recomended way to interact with Tevm. 🚧 means the procedure is still under construction
@@ -20,6 +34,8 @@ Tevm methods are the main recomended way to interact with Tevm. 🚧 means the p
 - 🚧 `Tevm.traceScript`
 - [`Tevm.dumpState`](/reference/tevm/actions-types/type-aliases/dumpstatehandler) - Returns the state of the VM
 - [`Tevm.loadState`](/reference/tevm/actions-types/type-aliases/loadstatehandler) - Initializes the state of the VM
+
+
 
 ## Eth methods
 
