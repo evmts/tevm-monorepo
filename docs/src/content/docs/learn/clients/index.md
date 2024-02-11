@@ -15,6 +15,12 @@ The following clients are available
 - 🚧 Under construction [Ethers extensions](/reference/tevm/ethers/api) - An ethers based memory client and http client
 - 🚧 Under construction `WebsocketClient` - A web socket based TevmClient similar to the `HttpClient`
 
+## Browser usage
+
+The `MemoryClient` runs in the browser but may require [top-level-await](https://github.com/Menci/vite-plugin-top-level-await) support to be added to your JavaScript build tool. It's also possible you need some node-polyfills.
+
+If using vite see [the vite example](https://github.com/evmts/tevm-monorepo/blob/main/examples/vite/vite.config.ts) for reference. Examples for other bundlers are coming soon.
+
 ## Actions
 
 The main interface for interacting with any Tevm client is it's `actions api`. See [actions api](/learn/actions) guide or the [TevmClient reference](/reference/tevm/client-types/type-aliases/tevmclient) for more information.

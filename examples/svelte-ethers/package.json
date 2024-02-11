@@ -28,6 +28,7 @@
 		"svelte-check": "^3.5.2",
 		"typescript": "^5.2.2",
 		"vite": "^4.5.0",
+		"vite-plugin-top-level-await": "^1.4.1",
 		"vitest": "^0.34.6"
 	}
 }
