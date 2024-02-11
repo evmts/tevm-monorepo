@@ -1,5 +1,4 @@
 import { WrappedEvm } from './WrappedEvm.js'
-import { processRequest } from './processRequest.js'
 import { Block } from '@ethereumjs/block'
 import { Blockchain } from '@ethereumjs/blockchain'
 import { Common, Hardfork } from '@ethereumjs/common'
@@ -23,6 +22,7 @@ import {
 	setAccountHandler,
 	testAccounts,
 } from '@tevm/actions'
+import { requestBulkProcedure, requestProcedure } from '@tevm/procedures'
 import {
 	ForkStateManager,
 	NormalStateManager,
@@ -202,7 +202,8 @@ export const createMemoryClient = async (options = {}) => {
 		// that we want to avoid or abstract away before enabling
 		// This means tevm will throw an error on all non natively supported
 		// requests
-		request: processRequest(vm),
+		request: requestProcedure(vm),
+		requestBulk: requestBulkProcedure(vm),
 		script: scriptHandler(evm),
 		getAccount: getAccountHandler(evm),
 		setAccount: setAccountHandler(evm),

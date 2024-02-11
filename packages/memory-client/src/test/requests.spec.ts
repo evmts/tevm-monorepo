@@ -1,7 +1,6 @@
 import { createMemoryClient } from '../createMemoryClient.js'
 import { DaiContract } from './DaiContract.sol.js'
 import { Address, bigIntToHex } from '@ethereumjs/util'
-import { UnsupportedMethodError } from '@tevm/errors'
 import type {
 	ContractJsonRpcRequest,
 	ScriptJsonRpcRequest,
@@ -74,12 +73,8 @@ describe('Tevm.request', async () => {
 			id: 1,
 		} as const satisfies ContractJsonRpcRequest
 		const res = await tevm.request(req)
-		expect(res.error.code).toMatch(
-			new UnsupportedMethodError('tevm_NotARequest')._tag,
-		)
-		expect(res.error.message).toMatch(
-			new UnsupportedMethodError('tevm_NotARequest').message,
-		)
+		expect(res.error.code).toMatchSnapshot()
+		expect(res.error.message).toMatchSnapshot()
 	})
 
 	it('should execute a contractCall request via using tevm_call', async () => {

@@ -2,6 +2,7 @@ ignores: [
   "@ethereumjs/evm",
   "@ethereumjs/vm",
   "@ethereumjs/block",
+  "@tevm/jsonrpc",
   "@tevm/errors",
   "@tevm/state",
   "@tevm/actions-types",

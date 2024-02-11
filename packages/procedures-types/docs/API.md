@@ -211,6 +211,7 @@
 - [SetAccountJsonRpcRequest](type-aliases/SetAccountJsonRpcRequest.md)
 - [SetAccountJsonRpcResponse](type-aliases/SetAccountJsonRpcResponse.md)
 - [SetToHex](type-aliases/SetToHex.md)
+- [TevmJsonRpcBulkRequestHandler](type-aliases/TevmJsonRpcBulkRequestHandler.md)
 - [TevmJsonRpcRequest](type-aliases/TevmJsonRpcRequest.md)
 - [TevmJsonRpcRequestHandler](type-aliases/TevmJsonRpcRequestHandler.md)
 - [TevmRequestType](type-aliases/TevmRequestType.md)

@@ -220,6 +220,7 @@
 
 - [JsonRpcRequestTypeFromMethod](README.md#jsonrpcrequesttypefrommethod)
 - [JsonRpcReturnTypeFromMethod](README.md#jsonrpcreturntypefrommethod)
+- [TevmJsonRpcBulkRequestHandler](README.md#tevmjsonrpcbulkrequesthandler)
 - [TevmJsonRpcRequest](README.md#tevmjsonrpcrequest)
 - [TevmJsonRpcRequestHandler](README.md#tevmjsonrpcrequesthandler)
 
@@ -234,6 +235,12 @@ Re-exports [JsonRpcRequestTypeFromMethod](../index/type-aliases/JsonRpcRequestTy
 ### JsonRpcReturnTypeFromMethod
 
 Re-exports [JsonRpcReturnTypeFromMethod](../index/type-aliases/JsonRpcReturnTypeFromMethod.md)
+
+***
+
+### TevmJsonRpcBulkRequestHandler
+
+Re-exports [TevmJsonRpcBulkRequestHandler](../index/type-aliases/TevmJsonRpcBulkRequestHandler.md)
 
 ***
 

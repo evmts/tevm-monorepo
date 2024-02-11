@@ -206,4 +206,5 @@ export type {
 	LoadStateJsonRpcResponse,
 	JsonRpcReturnTypeFromMethod,
 	JsonRpcRequestTypeFromMethod,
+	TevmJsonRpcBulkRequestHandler,
 } from '@tevm/procedures-types'

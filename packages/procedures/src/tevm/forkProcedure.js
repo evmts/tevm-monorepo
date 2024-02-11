@@ -13,7 +13,7 @@ export const forkProcedure = (forkOptions) => async (request) => {
 		// turn to blockNumber big int if it doesn't have the same length as a block hash
 		blockTag:
 			request.params.blockTag.startsWith('0x') &&
-				request.params.blockTag.length !== 66
+			request.params.blockTag.length !== 66
 				? BigInt(request.params.blockTag)
 				: request.params.blockTag,
 	})

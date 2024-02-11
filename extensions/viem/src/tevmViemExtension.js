@@ -92,6 +92,14 @@ export const tevmViemExtension = () => {
 		}
 
 		/**
+		 * @type {import('@tevm/client-types').TevmClient['requestBulk']}
+		 */
+		const requestBulk = async () => {
+			// TODO implement this when we refactor the tevm client to using fetch instead of viem
+			throw new Error('Bulk json rpc requests are not yet implemented')
+		}
+
+		/**
 		 * @type {import('@tevm/actions-types').ScriptHandler}
 		 */
 		const script = async (params) => {
@@ -483,6 +491,7 @@ export const tevmViemExtension = () => {
 				},
 				accounts: testAccounts,
 				request,
+				requestBulk,
 				script,
 				fork,
 				getAccount,

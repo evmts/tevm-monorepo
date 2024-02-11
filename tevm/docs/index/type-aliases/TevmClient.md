@@ -381,6 +381,99 @@ const accountResponse = await tevm.request({
 })
 ```
 
+### requestBulk
+
+> **requestBulk**: [`TevmJsonRpcBulkRequestHandler`](TevmJsonRpcBulkRequestHandler.md)
+
+Bulk request handler for JSON-RPC requests. Takes an array of requests and returns an array of results.
+Bulk requests are currently handled in parallel which can cause issues if the requests are expected to run
+sequentially or interphere with each other. An option for configuring requests sequentially or in parallel
+will be added in the future.
+
+Currently is not very generic with regard to input and output types.
+
+#### Example
+
+```typescript
+const [blockNumberResponse, gasPriceResponse] = await tevm.requestBulk([{
+ method: 'eth_blockNumber',
+ params: []
+ id: 1
+ jsonrpc: '2.0'
+}, {
+ method: 'eth_gasPrice',
+ params: []
+ id: 1
+ jsonrpc: '2.0'
+}])
+```
+
+### tevm_* methods
+
+#### tevm_call
+
+request - CallJsonRpcRequest
+response - CallJsonRpcResponse
+
+#### tevm_script
+
+request - ScriptJsonRpcRequest
+response - ScriptJsonRpcResponse
+
+#### tevm_getAccount
+
+request - GetAccountJsonRpcRequest
+response - GetAccountJsonRpcResponse
+
+#### tevm_setAccount
+
+request - SetAccountJsonRpcRequest
+response - SetAccountJsonRpcResponse
+
+#### tevm_fork
+
+request - ForkJsonRpcRequest
+response - ForkJsonRpcResponse
+
+### debug_* methods
+
+#### debug_traceCall
+
+request - DebugTraceCallJsonRpcRequest
+response - DebugTraceCallJsonRpcResponse
+
+### eth_* methods
+
+#### eth_blockNumber
+
+request - EthBlockNumberJsonRpcRequest
+response - EthBlockNumberJsonRpcResponse
+
+#### eth_chainId
+
+request - EthChainIdJsonRpcRequest
+response - EthChainIdJsonRpcResponse
+
+#### eth_getCode
+
+request - EthGetCodeJsonRpcRequest
+response - EthGetCodeJsonRpcResponse
+
+#### eth_getStorageAt
+
+request - EthGetStorageAtJsonRpcRequest
+response - EthGetStorageAtJsonRpcResponse
+
+#### eth_gasPrice
+
+request - EthGasPriceJsonRpcRequest
+response - EthGasPriceJsonRpcResponse
+
+#### eth_getBalance
+
+request - EthGetBalanceJsonRpcRequest
+response - EthGetBalanceJsonRpcResponse
+
 ### script
 
 > **script**: [`ScriptHandler`](../../actions-types/type-aliases/ScriptHandler.md)

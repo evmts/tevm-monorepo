@@ -70,8 +70,6 @@
 		"@ethereumjs/vm": "^7.1.0",
 		"@tevm/actions": "workspace:^",
 		"@tevm/contract": "workspace:^",
-		"@tevm/errors": "workspace:^",
-		"@tevm/jsonrpc": "workspace:^",
 		"@tevm/procedures": "workspace:^",
 		"viem": "^2.6.1"
 	},

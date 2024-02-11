@@ -19,6 +19,7 @@
 - [getCodeProcedure](functions/getCodeProcedure.md)
 - [getStorageAtProcedure](functions/getStorageAtProcedure.md)
 - [loadStateProcedure](functions/loadStateProcedure.md)
+- [requestBulkProcedure](functions/requestBulkProcedure.md)
 - [requestProcedure](functions/requestProcedure.md)
 - [scriptProcedure](functions/scriptProcedure.md)
 - [setAccountProcedure](functions/setAccountProcedure.md)
