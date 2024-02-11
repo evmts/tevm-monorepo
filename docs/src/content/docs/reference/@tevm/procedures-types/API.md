@@ -212,6 +212,7 @@ title: "@tevm/procedures-types"
 - [SetAccountJsonRpcRequest](/reference/tevm/procedures-types/type-aliases/setaccountjsonrpcrequest/)
 - [SetAccountJsonRpcResponse](/reference/tevm/procedures-types/type-aliases/setaccountjsonrpcresponse/)
 - [SetToHex](/reference/tevm/procedures-types/type-aliases/settohex/)
+- [TevmJsonRpcBulkRequestHandler](/reference/tevm/procedures-types/type-aliases/tevmjsonrpcbulkrequesthandler/)
 - [TevmJsonRpcRequest](/reference/tevm/procedures-types/type-aliases/tevmjsonrpcrequest/)
 - [TevmJsonRpcRequestHandler](/reference/tevm/procedures-types/type-aliases/tevmjsonrpcrequesthandler/)
 - [TevmRequestType](/reference/tevm/procedures-types/type-aliases/tevmrequesttype/)
