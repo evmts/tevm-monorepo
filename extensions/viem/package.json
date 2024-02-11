@@ -63,6 +63,9 @@
 		"test:run": "bun test",
 		"typecheck": "tsc --noEmit"
 	},
+	"dependencies": {
+		"@tevm/jsonrpc": "workspace:1.0.0-next.28"
+	},
 	"devDependencies": {
 		"@ethereumjs/util": "^9.0.1",
 		"@tevm/actions-types": "workspace:^",

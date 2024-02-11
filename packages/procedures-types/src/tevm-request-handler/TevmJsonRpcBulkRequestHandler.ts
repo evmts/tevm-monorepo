@@ -1,34 +1,33 @@
-
 import type {
-  CallJsonRpcResponse,
-  DebugTraceCallJsonRpcResponse,
-  EthBlockNumberJsonRpcResponse,
-  EthChainIdJsonRpcResponse,
-  EthGasPriceJsonRpcResponse,
-  EthGetBalanceJsonRpcResponse,
-  EthGetCodeJsonRpcResponse,
-  EthGetStorageAtJsonRpcResponse,
-  GetAccountJsonRpcResponse,
-  ScriptJsonRpcResponse,
-  SetAccountJsonRpcResponse,
-  TevmJsonRpcRequest,
+	CallJsonRpcResponse,
+	DebugTraceCallJsonRpcResponse,
+	EthBlockNumberJsonRpcResponse,
+	EthChainIdJsonRpcResponse,
+	EthGasPriceJsonRpcResponse,
+	EthGetBalanceJsonRpcResponse,
+	EthGetCodeJsonRpcResponse,
+	EthGetStorageAtJsonRpcResponse,
+	GetAccountJsonRpcResponse,
+	ScriptJsonRpcResponse,
+	SetAccountJsonRpcResponse,
+	TevmJsonRpcRequest,
 } from '../index.js'
 import type {
-  AnvilJsonRpcRequest,
-  CallJsonRpcRequest,
-  DebugJsonRpcRequest,
-  DebugTraceCallJsonRpcRequest,
-  EthBlockNumberJsonRpcRequest,
-  EthChainIdJsonRpcRequest,
-  EthGasPriceJsonRpcRequest,
-  EthGetBalanceJsonRpcRequest,
-  EthGetCodeJsonRpcRequest,
-  EthGetStorageAtJsonRpcRequest,
-  EthJsonRpcRequest,
-  ForkJsonRpcRequest,
-  GetAccountJsonRpcRequest,
-  ScriptJsonRpcRequest,
-  SetAccountJsonRpcRequest,
+	AnvilJsonRpcRequest,
+	CallJsonRpcRequest,
+	DebugJsonRpcRequest,
+	DebugTraceCallJsonRpcRequest,
+	EthBlockNumberJsonRpcRequest,
+	EthChainIdJsonRpcRequest,
+	EthGasPriceJsonRpcRequest,
+	EthGetBalanceJsonRpcRequest,
+	EthGetCodeJsonRpcRequest,
+	EthGetStorageAtJsonRpcRequest,
+	EthJsonRpcRequest,
+	ForkJsonRpcRequest,
+	GetAccountJsonRpcRequest,
+	ScriptJsonRpcRequest,
+	SetAccountJsonRpcRequest,
 } from '../requests/index.js'
 import type { JsonRpcReturnTypeFromMethod } from './JsonRpcReturnTypeFromMethod.js'
 
@@ -122,5 +121,10 @@ import type { JsonRpcReturnTypeFromMethod } from './JsonRpcReturnTypeFromMethod.
  * response - {@link EthGetBalanceJsonRpcResponse}
  */
 export type TevmJsonRpcBulkRequestHandler = (
-  requests: ReadonlyArray<TevmJsonRpcRequest | EthJsonRpcRequest | AnvilJsonRpcRequest | DebugJsonRpcRequest>,
+	requests: ReadonlyArray<
+		| TevmJsonRpcRequest
+		| EthJsonRpcRequest
+		| AnvilJsonRpcRequest
+		| DebugJsonRpcRequest
+	>,
 ) => Promise<Array<JsonRpcReturnTypeFromMethod<any>>>

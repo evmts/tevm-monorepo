@@ -55,6 +55,7 @@
 - [SetAccountParams](type-aliases/SetAccountParams.md)
 - [SetAccountResult](type-aliases/SetAccountResult.md)
 - [TevmClient](type-aliases/TevmClient.md)
+- [TevmJsonRpcBulkRequestHandler](type-aliases/TevmJsonRpcBulkRequestHandler.md)
 - [TevmJsonRpcRequest](type-aliases/TevmJsonRpcRequest.md)
 - [TevmJsonRpcRequestHandler](type-aliases/TevmJsonRpcRequestHandler.md)
 - [TraceCall](type-aliases/TraceCall.md)
