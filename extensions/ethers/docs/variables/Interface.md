@@ -6,7 +6,7 @@
 
 # Variable: Interface
 
-> **`const`** **Interface**: [`TypesafeEthersInterfaceConstructor`](../type-aliases/TypesafeEthersInterfaceConstructor.md)
+> **`const`** **Interface**: `TypesafeEthersInterfaceConstructor`
 
 ## Source
 

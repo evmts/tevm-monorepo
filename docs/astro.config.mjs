@@ -18,10 +18,10 @@ export default defineConfig({
 			plugins: [
 				...(ENABLE_LINK_CHECKER
 					? [
-						starlightLinksValidatorPlugin({
-							errorOnRelativeLinks: true,
-						}),
-					]
+							starlightLinksValidatorPlugin({
+								errorOnRelativeLinks: true,
+							}),
+					  ]
 					: []),
 				starlightTypeDoc({
 					entryPoints: [

@@ -1,5 +1,5 @@
-import { Interface } from './Contract.js'
 import { TevmProvider } from './TevmProvider.js'
+import { Interface } from './contract/index.js'
 import { createContract, createScript, toHex } from '@tevm/contract'
 import { beforeEach, describe, expect, it } from 'vitest'
 
