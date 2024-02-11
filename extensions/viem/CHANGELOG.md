@@ -1,5 +1,11 @@
 # @tevm/viem
 
+## 1.0.0-next.32
+
+### Patch Changes
+
+- [#817](https://github.com/evmts/tevm-monorepo/pull/817) [`0ea92a4a50e5daa90a26a5b168a0b75926103360`](https://github.com/evmts/tevm-monorepo/commit/0ea92a4a50e5daa90a26a5b168a0b75926103360) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug where some supported methods such as eth_signTransaction were falsely being filtered as unsupported methods by some tevm clients
+
 ## 1.0.0-next.30
 
 ### Minor Changes
