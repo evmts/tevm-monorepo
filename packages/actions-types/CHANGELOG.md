@@ -1,5 +1,11 @@
 # @tevm/contract
 
+## 1.0.0-next.32
+
+### Patch Changes
+
+- [#924](https://github.com/evmts/tevm-monorepo/pull/924) [`c92636108f86eb8e0c9c67e40efb6782d7b5f18b`](https://github.com/evmts/tevm-monorepo/commit/c92636108f86eb8e0c9c67e40efb6782d7b5f18b) Thanks [@roninjin10](https://github.com/roninjin10)! - Documented that errors are returned as values from tevm actions
+
 ## 1.0.0-next.30
 
 ### Minor Changes

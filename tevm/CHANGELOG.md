@@ -1,5 +1,24 @@
 # @tevm/contract
 
+## 1.0.0-next.32
+
+### Minor Changes
+
+- [#921](https://github.com/evmts/tevm-monorepo/pull/921) [`08790e044ebbe72f128c0094bd3c21539f88e880`](https://github.com/evmts/tevm-monorepo/commit/08790e044ebbe72f128c0094bd3c21539f88e880) Thanks [@roninjin10](https://github.com/roninjin10)! - Added requestBulk action to execute an array of requests
+
+### Patch Changes
+
+- [#817](https://github.com/evmts/tevm-monorepo/pull/817) [`0ea92a4a50e5daa90a26a5b168a0b75926103360`](https://github.com/evmts/tevm-monorepo/commit/0ea92a4a50e5daa90a26a5b168a0b75926103360) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug where some supported methods such as eth_signTransaction were falsely being filtered as unsupported methods by some tevm clients
+
+- Updated dependencies [[`0ea92a4a50e5daa90a26a5b168a0b75926103360`](https://github.com/evmts/tevm-monorepo/commit/0ea92a4a50e5daa90a26a5b168a0b75926103360), [`08790e044ebbe72f128c0094bd3c21539f88e880`](https://github.com/evmts/tevm-monorepo/commit/08790e044ebbe72f128c0094bd3c21539f88e880), [`c92636108f86eb8e0c9c67e40efb6782d7b5f18b`](https://github.com/evmts/tevm-monorepo/commit/c92636108f86eb8e0c9c67e40efb6782d7b5f18b)]:
+  - @tevm/procedures-types@1.0.0-next.32
+  - @tevm/memory-client@1.0.0-next.32
+  - @tevm/client-types@1.0.0-next.32
+  - @tevm/server@1.0.0-next.32
+  - @tevm/actions-types@1.0.0-next.32
+  - @tevm/http-client@1.0.0-next.32
+  - @tevm/precompiles@1.0.0-next.28
+
 ## 1.0.0-next.31
 
 ### Patch Changes
