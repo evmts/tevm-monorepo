@@ -87,7 +87,7 @@ title: "BaseContractMethod"
 
 ## Source
 
-[extensions/ethers/src/BaseContractMethod.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/extensions/ethers/src/BaseContractMethod.ts#L10)
+[extensions/ethers/src/contract/BaseContractMethod.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/extensions/ethers/src/contract/BaseContractMethod.ts#L10)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

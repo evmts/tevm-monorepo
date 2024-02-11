@@ -1,8 +1,17 @@
 import type { TevmClient } from '@tevm/client-types'
-import { JsonRpcApiProvider } from 'ethers'
-import type { BigNumberish, BytesLike, JsonRpcPayload, Numeric } from 'ethers'
-import type { Networkish } from 'ethers'
-import type { JsonRpcApiProviderOptions } from 'ethers'
+import { type CreateEVMOptions, createMemoryClient } from '@tevm/memory-client'
+import type {
+	EthJsonRpcRequest,
+	TevmJsonRpcRequest,
+} from '@tevm/procedures-types'
+import {
+	type BigNumberish,
+	type BytesLike,
+	JsonRpcApiProvider,
+	type JsonRpcError,
+	type JsonRpcResult,
+	type Numeric,
+} from 'ethers'
 
 export interface AccountState {
 	balance?: BigNumberish
@@ -10,52 +19,59 @@ export interface AccountState {
 	nonce?: Numeric
 }
 
-let hasWarned = false
-
+/**
+ * An instance of the Tevm interface.
+ * @see {@link https://tevm.sh/learn/clients/ | Tevm Clients Docs}
+ * @example
+ * ```ts
+ * import { createHttpClient } from '@tevm/http-client''
+ *
+ * const tevm = await createHttpClient({ url: 'http://localhost:8545' })
+ *
+ * const provider = new TevmProvider(tevm)
+ *
+ * const blockNumber = await provider.getBlockNumber()
+ * ```
+ */
 export class TevmProvider extends JsonRpcApiProvider {
+	static readonly createMemoryProvider = async (options: CreateEVMOptions) => {
+		return new TevmProvider(await createMemoryClient(options))
+	}
 
 	constructor(
 		/**
-		 * An isntance of the Tevm VM (or interface that implements the same API)
+		 * An instance of the Tevm interface.
+		 * @see {@link https://tevm.sh/learn/clients/ | Tevm Clients Docs}
+		 * @example
+		 * ```ts
+		 * import { createHttpClient } from '@tevm/http-client''
+		 *
+		 * const tevm = await createHttpClient({ url: 'http://localhost:8545' })
+		 *
+		 * const provider = new TevmProvider(tevm)
+		 *
+		 * const blockNumber = await provider.getBlockNumber()
+		 * ```
 		 */
 		public readonly tevm: TevmClient,
-		network?: Networkish,
-		options?: JsonRpcApiProviderOptions,
 	) {
-		super(network, options)
+		super()
 	}
 
 	/**
-	 *  Sends a JSON-RPC %%payload%% (or a batch) to the underlying channel.
-	 *
-	 *  Sub-classes **MUST** override this.
+	 *  Sends a JSON-RPC %%payload%% (or a batch) to the underlying tevm instance.
 	 */
 	public readonly _send: JsonRpcApiProvider['_send'] = async (payload) => {
 		if (Array.isArray(payload)) {
-			const results = await this.tevm.requestBulk(payload)
-			return results.map((res, i) => {
-				const req = payload[i]
-				if (!req) {
-					// just making strict typescript happy this will never happen
-					throw new Error('Unexpected missing response')
-				}
-				return {
-					...res,
-					result: req.method === 'eth_call' ? (res.result as CallResult).rawData : res.result,
-					// Make sure method always matches if we modified it with tevm_* in `prepareRequest`
-					method: req.method,
-					id: req.id,
-				}
-			})
+			return this.tevm.requestBulk(
+				payload as Array<TevmJsonRpcRequest | EthJsonRpcRequest>,
+			) as Promise<Array<JsonRpcResult | JsonRpcError>>
 		} else {
-			const res = await this.tevm.request(this.prepareRequest(payload) as any)
-			return [{
-				...res,
-				result: payload.method === 'eth_call' ? (res.result as CallResult).rawData : res.result,
-				// Make sure method always matches if we modified it with tevm_* in `prepareRequest`
-				method: payload.method,
-				id: payload.id,
-			}]
+			return [
+				await this.tevm.request(
+					payload as TevmJsonRpcRequest | EthJsonRpcRequest,
+				),
+			] as [JsonRpcResult | JsonRpcError]
 		}
 	}
 }

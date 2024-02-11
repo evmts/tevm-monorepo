@@ -1111,6 +1111,9 @@ importers:
       '@tevm/memory-client':
         specifier: workspace:^
         version: link:../../packages/memory-client
+      '@tevm/procedures-types':
+        specifier: workspace:^
+        version: link:../../packages/procedures-types
     devDependencies:
       '@tevm/contract':
         specifier: workspace:^
