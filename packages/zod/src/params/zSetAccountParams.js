@@ -9,12 +9,12 @@ export const zSetAccountParams = z
 		address: zAddress.describe('The ethereum address of the account'),
 		balance: z
 			.bigint()
-			.positive()
+			.nonnegative()
 			.optional()
 			.describe('The balance to give the account'),
 		nonce: z
 			.bigint()
-			.positive()
+			.nonnegative()
 			.optional()
 			.describe('The nonce to give the account'),
 		deployedBytecode: zBytecode
