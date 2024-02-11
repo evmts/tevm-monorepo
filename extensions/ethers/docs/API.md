@@ -6,13 +6,9 @@
 
 ## Exports
 
-### Type Aliases
+### Classes
 
-- [BaseContractMethod](type-aliases/BaseContractMethod.md)
-- [ContractMethodArgs](type-aliases/ContractMethodArgs.md)
-- [TypesafeEthersContract](type-aliases/TypesafeEthersContract.md)
-- [TypesafeEthersContractConstructor](type-aliases/TypesafeEthersContractConstructor.md)
-- [TypesafeEthersInterfaceConstructor](type-aliases/TypesafeEthersInterfaceConstructor.md)
+- [TevmProvider](classes/TevmProvider.md)
 
 ### Variables
 

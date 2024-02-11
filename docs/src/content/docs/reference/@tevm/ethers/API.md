@@ -7,13 +7,9 @@ title: "@tevm/ethers"
 
 ## Exports
 
-### Type Aliases
+### Classes
 
-- [BaseContractMethod](/reference/tevm/ethers/type-aliases/basecontractmethod/)
-- [ContractMethodArgs](/reference/tevm/ethers/type-aliases/contractmethodargs/)
-- [TypesafeEthersContract](/reference/tevm/ethers/type-aliases/typesafeetherscontract/)
-- [TypesafeEthersContractConstructor](/reference/tevm/ethers/type-aliases/typesafeetherscontractconstructor/)
-- [TypesafeEthersInterfaceConstructor](/reference/tevm/ethers/type-aliases/typesafeethersinterfaceconstructor/)
+- [TevmProvider](/reference/tevm/ethers/classes/tevmprovider/)
 
 ### Variables
 

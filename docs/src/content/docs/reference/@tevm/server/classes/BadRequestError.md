@@ -205,5 +205,25 @@ Error.captureStackTrace
 
 node\_modules/.pnpm/@types+node@20.11.5/node\_modules/@types/node/globals.d.ts:21
 
+#### captureStackTrace(targetObject, constructorOpt)
+
+> **`static`** **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
+
+Create .stack property on a target object
+
+##### Parameters
+
+▪ **targetObject**: `object`
+
+▪ **constructorOpt?**: `Function`
+
+##### Inherited from
+
+Error.captureStackTrace
+
+##### Source
+
+node\_modules/.pnpm/@types+node@20.11.10/node\_modules/@types/node/globals.d.ts:21
+
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

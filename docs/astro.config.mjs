@@ -84,6 +84,7 @@ export default defineConfig({
 						{ label: 'Bundler', link: '/learn/solidity-imports/' },
 						{ label: 'Advanced Scripting', link: '/learn/scripting/' },
 						{ label: 'CLI', link: '/learn/cli/' },
+						{ label: 'Ethers extension', link: '/learn/ethers/' },
 					],
 				},
 				typeDocSidebarGroup,
