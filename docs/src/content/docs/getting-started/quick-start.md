@@ -117,7 +117,8 @@ const request: EthGetBalanceRequest = {
 
 const response = await tevm.request(request)
 
-console.log(response)
+console.log(response.error)
+console.log(response.result)
 ```
 
 3. Now run it
@@ -218,7 +219,22 @@ const tevm = await createMemoryClient({
 + console.log(result)
 ```
 
-2. Run a transaction
+2. Handle errors
+
+Let's see what happens when we throw an error
+
+```typescript
+const {errors} = await tevm.setAccount({address: '0xnot a valid address', balance: BigInt(0)})
+console.log(errors)
+```
+
+All tevm actions return errors as values. They do not every throw. This is consistent with the JSON-RPC api.
+
+:::tip
+All error types are available in the `tevm/errors` subpackage. Errors are strongly typed with a `name` property.
+:::
+
+3. Run a transaction
 
 Now send a transaction using [TevmClient.call](/reference/tevm/client-types/type-aliases/tevmclient#call). This is equivelent to using [`eth_call`](/reference/tevm/procedures-types/type-aliases/ethcalljsonrpcprocedure).
 
@@ -248,7 +264,7 @@ const balance = await tevm.eth.balanceOf({address: toAddress})
 console.log(balance)
 ```
 
-3. Now run script again to see the expected result of running the contract call.
+4. Now run script again to see the expected result of running the contract call.
 
 ```bash
 bun run vm.js
