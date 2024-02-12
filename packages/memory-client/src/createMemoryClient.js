@@ -111,9 +111,9 @@ export const createMemoryClient = async (options = {}) => {
 			header: common.genesis(),
 			...(common.isActivatedEIP(4895)
 				? {
-						withdrawals:
+					withdrawals:
 							/** @type {Array<import('@ethereumjs/util').WithdrawalData>}*/ ([]),
-				  }
+				}
 				: {}),
 		},
 		{ common, setHardfork: false, skipConsensusFormatValidation: true },
@@ -205,8 +205,8 @@ export const createMemoryClient = async (options = {}) => {
 		request: requestProcedure(vm),
 		requestBulk: requestBulkProcedure(vm),
 		script: scriptHandler(vm),
-		getAccount: getAccountHandler(evm),
-		setAccount: setAccountHandler(evm),
+		getAccount: getAccountHandler(vm),
+		setAccount: setAccountHandler(vm),
 		call: callHandler(vm),
 		contract: contractHandler(vm),
 		dumpState: dumpStateHandler(evm.stateManager),

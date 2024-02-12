@@ -65,7 +65,6 @@
 	},
 	"dependencies": {
 		"@ethereumjs/block": "^5.0.1",
-		"@ethereumjs/blockchain": "^7.0.1",
 		"@ethereumjs/util": "^9.0.1",
 		"@tevm/actions": "workspace:^",
 		"viem": "^2.6.1"

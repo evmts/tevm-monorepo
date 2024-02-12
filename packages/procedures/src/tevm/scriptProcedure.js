@@ -52,6 +52,9 @@ export const scriptProcedure = (vm) => async (request) => {
 				? { value: hexToBigInt(request.params.value) }
 				: {}),
 			...(request.params.blockTag ? { blockTag: request.params.blockTag } : {}),
+			...(request.params.createTransaction !== undefined
+				? { createTransaction: request.params.createTransaction }
+				: {}),
 		})
 	} catch (e) {
 		const tevmError = /** @type {import('@tevm/errors').ScriptError} */ (e)

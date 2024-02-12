@@ -38,6 +38,9 @@ export const callProcedure = (vm) => async (request) => {
 			? { value: hexToBigInt(request.params.value) }
 			: {}),
 		...(request.params.blockTag ? { blockTag: request.params.blockTag } : {}),
+		...(request.params.createTransaction
+			? { createTransaction: request.params.createTransaction }
+			: {}),
 	})
 	if (errors.length > 0) {
 		const error = /** @type {import('@tevm/errors').CallError}*/ (errors[0])

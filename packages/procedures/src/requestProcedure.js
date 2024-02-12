@@ -72,44 +72,33 @@ export const requestProcedure = (vm) => {
 				})
 			}
 			case 'tevm_getAccount':
-				return /**@type any*/ (getAccountProcedure)(vm.evm)(request)
+				return /**@type any*/ (getAccountProcedure)(vm)(request)
 			case 'tevm_setAccount':
-				return /**@type any*/ (setAccountProcedure)(vm.evm)(request)
+				return /**@type any*/ (setAccountProcedure)(vm)(request)
 			case 'tevm_script':
-				return /**@type any*/ (scriptProcedure)(vm.evm)(request)
+				return /**@type any*/ (scriptProcedure)(vm)(request)
 			case 'eth_blockNumber':
-				return /** @type any */ (blockNumberProcedure(vm.blockchain)(request))
+				return /** @type any */ (blockNumberProcedure(vm)(request))
 			case 'tevm_dumpState':
-				return /** @type any */ (dumpStateProcedure)(vm.stateManager)(request)
+				return /** @type any */ (dumpStateProcedure)(vm)(request)
 			case 'tevm_fork':
 				throw new Error('not implemented!')
 			case 'tevm_loadState': {
-				const stateManager = vm.stateManager
-				return /** @type any */ (loadStateProcedure)(stateManager)(request)
+				return /** @type any */ (loadStateProcedure)(vm)(request)
 			}
 			case 'eth_chainId':
 				return /** @type any */ (chainIdProcedure(chainId)(request))
 			case 'eth_call':
 				return /** @type any */ (callProcedure)(vm)(request.params[0])
 			case 'eth_getCode':
-				return /** @type any */ (
-					getCodeProcedure({ stateManager: vm.evm.stateManager })(request)
-				)
+				return /** @type any */ (getCodeProcedure({ vm })(request))
 			case 'eth_getStorageAt':
-				return /** @type any */ (
-					getStorageAtProcedure({ stateManager: vm.evm.stateManager })(request)
-				)
+				return /** @type any */ (getStorageAtProcedure({ vm })(request))
 			case 'eth_gasPrice':
 				// TODO this vm.blockchain should not be type any
-				return /** @type any */ (
-					gasPriceProcedure({ blockchain: /** @type any*/ (vm.blockchain) })(
-						request,
-					)
-				)
+				return /** @type any */ (gasPriceProcedure({ vm })(request))
 			case 'eth_getBalance':
-				return /** @type any */ (
-					getBalanceProcedure({ stateManager: vm.evm.stateManager })(request)
-				)
+				return /** @type any */ (getBalanceProcedure({ vm })(request))
 			case 'eth_sign':
 				return ethSignProcedure(testAccounts)(request)
 			case 'eth_signTransaction':

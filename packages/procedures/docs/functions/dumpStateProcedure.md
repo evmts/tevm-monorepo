@@ -6,13 +6,13 @@
 
 # Function: dumpStateProcedure()
 
-> **dumpStateProcedure**(`stateManager`): `DumpStateJsonRpcProcedure`
+> **dumpStateProcedure**(`vm`): `DumpStateJsonRpcProcedure`
 
 Creates a DumpState JSON-RPC Procedure for handling dumpState requests with Ethereumjs EVM
 
 ## Parameters
 
-▪ **stateManager**: `NormalStateManager` \| `ProxyStateManager` \| `ForkStateManager`
+▪ **vm**: `VM`
 
 ## Returns
 

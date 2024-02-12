@@ -3,11 +3,11 @@ import { toHex } from 'viem'
 
 /**
  * Creates a DumpState JSON-RPC Procedure for handling dumpState requests with Ethereumjs EVM
- * @param {import('@tevm/state').NormalStateManager | import('@tevm/state').ProxyStateManager | import('@tevm/state').ForkStateManager  } stateManager
+ * @param {import('@ethereumjs/vm').VM } vm
  * @returns {import('@tevm/procedures-types').DumpStateJsonRpcProcedure}
  */
-export const dumpStateProcedure = (stateManager) => async (request) => {
-	const { errors = [], ...result } = await dumpStateHandler(stateManager)()
+export const dumpStateProcedure = (vm) => async (request) => {
+	const { errors = [], ...result } = await dumpStateHandler(vm)()
 
 	/**
 	 * @type {import('@tevm/state').ParameterizedTevmState}

@@ -6,13 +6,13 @@
 
 # Function: loadStateProcedure()
 
-> **loadStateProcedure**(`stateManager`): `LoadStateJsonRpcProcedure`
+> **loadStateProcedure**(`vm`): `LoadStateJsonRpcProcedure`
 
 Creates a LoadState JSON-RPC Procedure for handling LoadState requests with Ethereumjs EVM
 
 ## Parameters
 
-▪ **stateManager**: `NormalStateManager` \| `ProxyStateManager` \| `ForkStateManager`
+▪ **vm**: `VM`
 
 ## Returns
 
