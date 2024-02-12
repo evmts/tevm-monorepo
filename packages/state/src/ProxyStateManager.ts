@@ -186,9 +186,11 @@ export class ProxyStateManager implements TevmStateManagerInterface {
 			address: address.toString() as Address,
 			...this._currentBlockTag,
 		})
-		codeBytes = hexToBytes(code ?? '0x0')
-		this._contractCache.set(address.toString(), codeBytes)
-		return codeBytes
+		if (code !== undefined) {
+			codeBytes = hexToBytes(code)
+			this._contractCache.set(address.toString(), codeBytes)
+		}
+		return codeBytes ?? new Uint8Array(0)
 	}
 
 	/**
@@ -222,6 +224,10 @@ export class ProxyStateManager implements TevmStateManagerInterface {
 		if (key.length !== 32) {
 			throw new Error('Storage key must be 32 bytes long')
 		}
+		const account = await this.getAccount(address)
+		if (!account) {
+			throw new Error('getContractStorage() called on non-existing account')
+		}
 
 		const cachedValue = this._storageCache?.get(address, key)
 		if (cachedValue !== undefined) {
@@ -233,7 +239,10 @@ export class ProxyStateManager implements TevmStateManagerInterface {
 			slot: bytesToHex(key),
 			...this._currentBlockTag,
 		})
-		const value = hexToBytes(storage ?? '0x0')
+		if (storage === undefined) {
+			throw new Error('getContractStorage() called on non-existing account')
+		}
+		const value = hexToBytes(storage)
 
 		await this.putContractStorage(address, key, value)
 
@@ -329,7 +338,9 @@ export class ProxyStateManager implements TevmStateManagerInterface {
 		const rlp = (await this.getAccountFromProvider(address)).serialize()
 		const account =
 			rlp !== null ? Account.fromRlpSerializedAccount(rlp) : undefined
-		this._accountCache?.put(address, account)
+		if (account) {
+			this._accountCache.put(address, account)
+		}
 		return account
 	}
 
