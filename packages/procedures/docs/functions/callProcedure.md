@@ -12,7 +12,7 @@ Creates a Call JSON-RPC Procedure for handling call requests with Ethereumjs EVM
 
 ## Parameters
 
-▪ **vm**: `VM`
+▪ **vm**: `TevmVm`
 
 ## Returns
 

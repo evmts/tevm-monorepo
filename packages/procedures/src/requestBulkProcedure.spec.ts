@@ -1,6 +1,6 @@
-import { NormalStateManager } from '@tevm/state'
 import { requestBulkProcedure } from './requestBulkProcedure.js'
 import { EVM } from '@ethereumjs/evm'
+import { NormalStateManager } from '@tevm/state'
 import { TevmVm } from '@tevm/vm'
 import { describe, expect, it } from 'bun:test'
 import { numberToHex } from 'viem'

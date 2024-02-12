@@ -3674,6 +3674,18 @@ Partial implementation, called from the subclass.
 
 ***
 
+### deepCopy()
+
+> **deepCopy**(): `Promise`\<[`ForkStateManager`](ForkStateManager.md)\>
+
+Returns a new instance of the ForkStateManager with the same opts and all storage copied over
+
+#### Source
+
+[packages/state/src/ForkStateManager.ts:95](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L95)
+
+***
+
 ### deleteAccount()
 
 > **deleteAccount**(`address`): `Promise`\<`void`\>
@@ -4135,7 +4147,7 @@ Returns a new instance of the ForkStateManager with the same opts
 
 #### Source
 
-[packages/state/src/ForkStateManager.ts:95](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L95)
+[packages/state/src/ForkStateManager.ts:107](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L107)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

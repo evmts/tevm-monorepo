@@ -71,14 +71,14 @@
 	},
 	"devDependencies": {
 		"@ethereumjs/evm": "^2.1.0",
-		"@tevm/vm": "workspace:^",
 		"@tevm/actions-types": "workspace:^",
 		"@tevm/errors": "workspace:^",
 		"@tevm/jsonrpc": "workspace:1.0.0-next.28",
 		"@tevm/procedures-types": "workspace:^",
 		"@tevm/state": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
-		"@tevm/tsupconfig": "workspace:^"
+		"@tevm/tsupconfig": "workspace:^",
+		"@tevm/vm": "workspace:^"
 	},
 	"publishConfig": {
 		"access": "public"

@@ -12,7 +12,7 @@ Creates a LoadState JSON-RPC Procedure for handling LoadState requests with Ethe
 
 ## Parameters
 
-▪ **vm**: `VM`
+▪ **vm**: `TevmVm`
 
 ## Returns
 

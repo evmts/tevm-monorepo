@@ -3569,7 +3569,7 @@ Dumps the state of the state manager as a [SerializableTevmState](../../index/ty
 
 #### Source
 
-packages/state/types/ForkStateManager.d.ts:188
+packages/state/types/ForkStateManager.d.ts:192
 
 ***
 
@@ -3591,7 +3591,7 @@ Loads a [SerializableTevmState](../../index/type-aliases/SerializableTevmState.m
 
 #### Source
 
-packages/state/types/ForkStateManager.d.ts:184
+packages/state/types/ForkStateManager.d.ts:188
 
 ***
 
@@ -3605,7 +3605,7 @@ packages/state/types/ForkStateManager.d.ts:184
 
 #### Source
 
-packages/state/types/ForkStateManager.d.ts:180
+packages/state/types/ForkStateManager.d.ts:184
 
 ***
 
@@ -3629,7 +3629,7 @@ This method is not used by the Fork State Manager and is a stub required by the 
 
 #### Source
 
-packages/state/types/ForkStateManager.d.ts:171
+packages/state/types/ForkStateManager.d.ts:175
 
 ***
 
@@ -3653,7 +3653,7 @@ This method is not used by the Fork State Manager and is a stub required by the 
 
 #### Source
 
-packages/state/types/ForkStateManager.d.ts:179
+packages/state/types/ForkStateManager.d.ts:183
 
 ***
 
@@ -3705,7 +3705,7 @@ This method is not used by the Fork State Manager and is a stub required by the 
 
 #### Source
 
-packages/state/types/ForkStateManager.d.ts:175
+packages/state/types/ForkStateManager.d.ts:179
 
 ## Methods
 
@@ -3723,7 +3723,7 @@ Address of the `account` to check
 
 #### Source
 
-packages/state/types/ForkStateManager.d.ts:110
+packages/state/types/ForkStateManager.d.ts:114
 
 ***
 
@@ -3743,7 +3743,7 @@ Partial implementation, called from the subclass.
 
 #### Source
 
-packages/state/types/ForkStateManager.d.ts:152
+packages/state/types/ForkStateManager.d.ts:156
 
 ***
 
@@ -3755,7 +3755,7 @@ Resets all internal caches
 
 #### Source
 
-packages/state/types/ForkStateManager.d.ts:57
+packages/state/types/ForkStateManager.d.ts:61
 
 ***
 
@@ -3777,7 +3777,7 @@ Address to clear the storage of
 
 #### Source
 
-packages/state/types/ForkStateManager.d.ts:96
+packages/state/types/ForkStateManager.d.ts:100
 
 ***
 
@@ -3796,7 +3796,19 @@ Partial implementation, called from the subclass.
 
 #### Source
 
-packages/state/types/ForkStateManager.d.ts:159
+packages/state/types/ForkStateManager.d.ts:163
+
+***
+
+### deepCopy()
+
+> **deepCopy**(): `Promise`\<[`ForkStateManager`](ForkStateManager.md)\>
+
+Returns a new instance of the ForkStateManager with the same opts and all storage copied over
+
+#### Source
+
+packages/state/types/ForkStateManager.d.ts:53
 
 ***
 
@@ -3818,7 +3830,7 @@ Address of the account which should be deleted
 
 #### Source
 
-packages/state/types/ForkStateManager.d.ts:137
+packages/state/types/ForkStateManager.d.ts:141
 
 ***
 
@@ -3846,7 +3858,7 @@ Both are represented as `0x` prefixed hex strings.
 
 #### Source
 
-packages/state/types/ForkStateManager.d.ts:104
+packages/state/types/ForkStateManager.d.ts:108
 
 ***
 
@@ -3868,7 +3880,7 @@ packages/state/types/ForkStateManager.d.ts:104
 
 #### Source
 
-packages/state/types/ForkStateManager.d.ts:105
+packages/state/types/ForkStateManager.d.ts:109
 
 ***
 
@@ -3878,7 +3890,7 @@ packages/state/types/ForkStateManager.d.ts:105
 
 #### Source
 
-packages/state/types/ForkStateManager.d.ts:167
+packages/state/types/ForkStateManager.d.ts:171
 
 ***
 
@@ -3898,7 +3910,7 @@ Gets the code corresponding to the provided `address`.
 
 #### Source
 
-packages/state/types/ForkStateManager.d.ts:114
+packages/state/types/ForkStateManager.d.ts:118
 
 ***
 
@@ -3916,7 +3928,7 @@ Address of account to be retrieved from provider
 
 #### Source
 
-packages/state/types/ForkStateManager.d.ts:120
+packages/state/types/ForkStateManager.d.ts:124
 
 ***
 
@@ -3943,7 +3955,7 @@ Returns an empty `Uint8Array` if the account has no associated code.
 
 #### Source
 
-packages/state/types/ForkStateManager.d.ts:64
+packages/state/types/ForkStateManager.d.ts:68
 
 ***
 
@@ -3976,7 +3988,7 @@ If this does not exist an empty `Uint8Array` is returned.
 
 #### Source
 
-packages/state/types/ForkStateManager.d.ts:81
+packages/state/types/ForkStateManager.d.ts:85
 
 ***
 
@@ -4006,7 +4018,7 @@ an EIP-1186 formatted proof
 
 #### Source
 
-packages/state/types/ForkStateManager.d.ts:144
+packages/state/types/ForkStateManager.d.ts:148
 
 ***
 
@@ -4034,7 +4046,7 @@ Object containing account fields and values to modify
 
 #### Source
 
-packages/state/types/ForkStateManager.d.ts:132
+packages/state/types/ForkStateManager.d.ts:136
 
 ***
 
@@ -4056,7 +4068,7 @@ Saves an account into state under the provided `address`.
 
 #### Source
 
-packages/state/types/ForkStateManager.d.ts:124
+packages/state/types/ForkStateManager.d.ts:128
 
 ***
 
@@ -4083,7 +4095,7 @@ The value of the `code`
 
 #### Source
 
-packages/state/types/ForkStateManager.d.ts:71
+packages/state/types/ForkStateManager.d.ts:75
 
 ***
 
@@ -4116,7 +4128,7 @@ If it is empty or filled with zeros, deletes the value.
 
 #### Source
 
-packages/state/types/ForkStateManager.d.ts:91
+packages/state/types/ForkStateManager.d.ts:95
 
 ***
 
@@ -4135,7 +4147,7 @@ Partial implementation , called from the subclass.
 
 #### Source
 
-packages/state/types/ForkStateManager.d.ts:166
+packages/state/types/ForkStateManager.d.ts:170
 
 ***
 
@@ -4151,7 +4163,7 @@ Returns a new instance of the ForkStateManager with the same opts
 
 #### Source
 
-packages/state/types/ForkStateManager.d.ts:53
+packages/state/types/ForkStateManager.d.ts:57
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

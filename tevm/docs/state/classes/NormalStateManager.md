@@ -255,7 +255,7 @@ Dumps the state of the state manager as a [SerializableTevmState](../../index/ty
 
 #### Source
 
-packages/state/types/NormalStateManager.d.ts:29
+packages/state/types/NormalStateManager.d.ts:33
 
 ***
 
@@ -281,7 +281,7 @@ DefaultStateManager.generateCanonicalGenesis
 
 #### Source
 
-packages/state/types/NormalStateManager.d.ts:25
+packages/state/types/NormalStateManager.d.ts:29
 
 ***
 
@@ -516,6 +516,18 @@ DefaultStateManager.commit
 #### Source
 
 node\_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node\_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:246
+
+***
+
+### deepCopy()
+
+> **deepCopy**(): `Promise`\<[`NormalStateManager`](NormalStateManager.md)\>
+
+Returns a new instance of the ForkStateManager with the same opts and all storage copied over
+
+#### Source
+
+packages/state/types/NormalStateManager.d.ts:21
 
 ***
 
@@ -1009,7 +1021,7 @@ DefaultStateManager.shallowCopy
 
 #### Source
 
-packages/state/types/NormalStateManager.d.ts:21
+packages/state/types/NormalStateManager.d.ts:25
 
 ***
 

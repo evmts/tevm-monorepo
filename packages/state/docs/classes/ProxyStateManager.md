@@ -3717,6 +3717,18 @@ Partial implementation, called from the subclass.
 
 ***
 
+### deepCopy()
+
+> **deepCopy**(): `Promise`\<[`ProxyStateManager`](ProxyStateManager.md)\>
+
+Returns a new instance of the ForkStateManager with the same opts and all storage copied over
+
+#### Source
+
+[packages/state/src/ProxyStateManager.ts:170](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L170)
+
+***
+
 ### deleteAccount()
 
 > **deleteAccount**(`address`): `Promise`\<`void`\>

@@ -3612,7 +3612,7 @@ Dumps the state of the state manager as a [SerializableTevmState](../../index/ty
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:224
+packages/state/types/ProxyStateManager.d.ts:228
 
 ***
 
@@ -3634,7 +3634,7 @@ Loads a [SerializableTevmState](../../index/type-aliases/SerializableTevmState.m
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:220
+packages/state/types/ProxyStateManager.d.ts:224
 
 ***
 
@@ -3648,7 +3648,7 @@ packages/state/types/ProxyStateManager.d.ts:220
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:216
+packages/state/types/ProxyStateManager.d.ts:220
 
 ***
 
@@ -3672,7 +3672,7 @@ This method is not used by the Tevm State Manager and is a stub required by the 
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:207
+packages/state/types/ProxyStateManager.d.ts:211
 
 ***
 
@@ -3696,7 +3696,7 @@ This method is not used by the Tevm State Manager and is a stub required by the 
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:215
+packages/state/types/ProxyStateManager.d.ts:219
 
 ***
 
@@ -3748,7 +3748,7 @@ This method is not used by the Tevm State Manager and is a stub required by the 
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:211
+packages/state/types/ProxyStateManager.d.ts:215
 
 ## Methods
 
@@ -3766,7 +3766,7 @@ Address of the `account` to check
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:146
+packages/state/types/ProxyStateManager.d.ts:150
 
 ***
 
@@ -3786,7 +3786,7 @@ Partial implementation, called from the subclass.
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:188
+packages/state/types/ProxyStateManager.d.ts:192
 
 ***
 
@@ -3798,7 +3798,7 @@ Resets all internal caches
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:93
+packages/state/types/ProxyStateManager.d.ts:97
 
 ***
 
@@ -3820,7 +3820,7 @@ Address to clear the storage of
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:132
+packages/state/types/ProxyStateManager.d.ts:136
 
 ***
 
@@ -3839,7 +3839,19 @@ Partial implementation, called from the subclass.
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:195
+packages/state/types/ProxyStateManager.d.ts:199
+
+***
+
+### deepCopy()
+
+> **deepCopy**(): `Promise`\<[`ProxyStateManager`](ProxyStateManager.md)\>
+
+Returns a new instance of the ForkStateManager with the same opts and all storage copied over
+
+#### Source
+
+packages/state/types/ProxyStateManager.d.ts:93
 
 ***
 
@@ -3861,7 +3873,7 @@ Address of the account which should be deleted
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:173
+packages/state/types/ProxyStateManager.d.ts:177
 
 ***
 
@@ -3889,7 +3901,7 @@ Both are represented as `0x` prefixed hex strings.
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:140
+packages/state/types/ProxyStateManager.d.ts:144
 
 ***
 
@@ -3911,7 +3923,7 @@ packages/state/types/ProxyStateManager.d.ts:140
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:141
+packages/state/types/ProxyStateManager.d.ts:145
 
 ***
 
@@ -3921,7 +3933,7 @@ packages/state/types/ProxyStateManager.d.ts:141
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:203
+packages/state/types/ProxyStateManager.d.ts:207
 
 ***
 
@@ -3941,7 +3953,7 @@ Gets the code corresponding to the provided `address`.
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:150
+packages/state/types/ProxyStateManager.d.ts:154
 
 ***
 
@@ -3959,7 +3971,7 @@ Address of account to be retrieved from provider
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:156
+packages/state/types/ProxyStateManager.d.ts:160
 
 ***
 
@@ -3986,7 +3998,7 @@ Returns an empty `Uint8Array` if the account has no associated code.
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:100
+packages/state/types/ProxyStateManager.d.ts:104
 
 ***
 
@@ -4019,7 +4031,7 @@ If this does not exist an empty `Uint8Array` is returned.
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:117
+packages/state/types/ProxyStateManager.d.ts:121
 
 ***
 
@@ -4049,7 +4061,7 @@ an EIP-1186 formatted proof
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:180
+packages/state/types/ProxyStateManager.d.ts:184
 
 ***
 
@@ -4090,7 +4102,7 @@ Object containing account fields and values to modify
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:168
+packages/state/types/ProxyStateManager.d.ts:172
 
 ***
 
@@ -4112,7 +4124,7 @@ Saves an account into state under the provided `address`.
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:160
+packages/state/types/ProxyStateManager.d.ts:164
 
 ***
 
@@ -4139,7 +4151,7 @@ The value of the `code`
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:107
+packages/state/types/ProxyStateManager.d.ts:111
 
 ***
 
@@ -4172,7 +4184,7 @@ If it is empty or filled with zeros, deletes the value.
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:127
+packages/state/types/ProxyStateManager.d.ts:131
 
 ***
 
@@ -4191,7 +4203,7 @@ Partial implementation , called from the subclass.
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:202
+packages/state/types/ProxyStateManager.d.ts:206
 
 ***
 

@@ -1,5 +1,5 @@
-import { EVMErrorMessage } from '@ethereumjs/evm'
 import { createMemoryClient } from '../createMemoryClient.js'
+import { EVMErrorMessage } from '@ethereumjs/evm'
 import { describe, expect, test } from 'bun:test'
 
 describe('allowUnlimitedContractSize option', () => {

@@ -12,7 +12,7 @@ Handler for the `eth_blockNumber` RPC call
 
 ## Parameters
 
-▪ **vm**: `VM`
+▪ **vm**: `TevmVm`
 
 ## Returns
 

@@ -32,7 +32,7 @@ VM.constructor
 
 The direct usage of this constructor is discouraged since
 non-finalized async initialization might lead to side effects. Please
-use the async [VM.create](TevmVm.md#create) constructor instead (same API).
+use the async [VM.create]([object Object]) constructor instead (same API).
 
 #### Source
 
@@ -192,11 +192,11 @@ node\_modules/.pnpm/@ethereumjs+vm@7.1.0/node\_modules/@ethereumjs/vm/dist/esm/v
 
 ### deepCopy()
 
-> **`readonly`** **deepCopy**(): `Promise`\<`VM`\>
+> **deepCopy**(): `Promise`\<[`TevmVm`](TevmVm.md)\>
 
 #### Source
 
-packages/vm/src/TevmVm.ts:15
+[packages/vm/src/TevmVm.ts:32](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/TevmVm.ts#L32)
 
 ***
 
@@ -319,23 +319,23 @@ node\_modules/.pnpm/@ethereumjs+vm@7.1.0/node\_modules/@ethereumjs/vm/dist/esm/v
 
 ### create()
 
-> **`static`** **create**(`opts`?): `Promise`\<`VM`\>
+> **`static`** **create**(`opts`): `Promise`\<[`TevmVm`](TevmVm.md)\>
 
 VM async constructor. Creates engine instance and initializes it.
 
 #### Parameters
 
-▪ **opts?**: `VMOpts`
+▪ **opts**: `undefined` \| `VMOpts`= `{}`
 
 VM engine constructor options
 
-#### Inherited from
+#### Overrides
 
 VM.create
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+vm@7.1.0/node\_modules/@ethereumjs/vm/dist/esm/vm.d.ts:54
+[packages/vm/src/TevmVm.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/TevmVm.ts#L20)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

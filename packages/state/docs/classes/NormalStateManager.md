@@ -457,6 +457,18 @@ node\_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node\_modules/@ethereumjs/sta
 
 ***
 
+### deepCopy()
+
+> **deepCopy**(): `Promise`\<[`NormalStateManager`](NormalStateManager.md)\>
+
+Returns a new instance of the ForkStateManager with the same opts and all storage copied over
+
+#### Source
+
+[packages/state/src/NormalStateManager.ts:36](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/NormalStateManager.ts#L36)
+
+***
+
 ### deleteAccount()
 
 > **deleteAccount**(`address`): `Promise`\<`void`\>
@@ -491,7 +503,7 @@ Dumps the state of the state manager as a [SerializableTevmState](../type-aliase
 
 #### Source
 
-[packages/state/src/NormalStateManager.ts:122](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/NormalStateManager.ts#L122)
+[packages/state/src/NormalStateManager.ts:117](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/NormalStateManager.ts#L117)
 
 ***
 
@@ -603,7 +615,7 @@ DefaultStateManager.generateCanonicalGenesis
 
 #### Source
 
-[packages/state/src/NormalStateManager.ts:86](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/NormalStateManager.ts#L86)
+[packages/state/src/NormalStateManager.ts:81](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/NormalStateManager.ts#L81)
 
 ***
 
@@ -1003,7 +1015,7 @@ DefaultStateManager.shallowCopy
 
 #### Source
 
-[packages/state/src/NormalStateManager.ts:36](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/NormalStateManager.ts#L36)
+[packages/state/src/NormalStateManager.ts:45](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/NormalStateManager.ts#L45)
 
 ***
 

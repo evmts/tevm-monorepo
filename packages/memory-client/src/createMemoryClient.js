@@ -113,9 +113,9 @@ export const createMemoryClient = async (options = {}) => {
 			header: common.genesis(),
 			...(common.isActivatedEIP(4895)
 				? {
-					withdrawals:
+						withdrawals:
 							/** @type {Array<import('@ethereumjs/util').WithdrawalData>}*/ ([]),
-				}
+				  }
 				: {}),
 		},
 		{ common, setHardfork: false, skipConsensusFormatValidation: true },

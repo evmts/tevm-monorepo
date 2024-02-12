@@ -9,10 +9,10 @@ import {
 import { requestProcedure } from './requestProcedure.js'
 import { EVM } from '@ethereumjs/evm'
 import { Account, Address } from '@ethereumjs/util'
-import { TevmVm } from '@tevm/vm'
 import { testAccounts } from '@tevm/actions'
 import type { EthSignTransactionJsonRpcRequest } from '@tevm/procedures-types'
 import { NormalStateManager } from '@tevm/state'
+import { TevmVm } from '@tevm/vm'
 import { describe, expect, it } from 'bun:test'
 import {
 	bytesToHex,

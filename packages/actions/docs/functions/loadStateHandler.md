@@ -10,7 +10,7 @@
 
 ## Parameters
 
-▪ **vm**: `VM`
+▪ **vm**: `TevmVm`
 
 ## Returns
 

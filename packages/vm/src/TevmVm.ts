@@ -17,7 +17,9 @@ export class TevmVm extends VM {
 	 *
 	 * @param opts VM engine constructor options
 	 */
-	static override async create(opts: Parameters<typeof VM.create>[0] = {}): Promise<TevmVm> {
+	static override async create(
+		opts: Parameters<typeof VM.create>[0] = {},
+	): Promise<TevmVm> {
 		const vm = new TevmVm(opts)
 		const genesisStateOpts =
 			opts.stateManager === undefined && opts.genesisState === undefined
