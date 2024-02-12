@@ -1,3 +1,4 @@
+// [mozilla public license 2.0](https://github.com/ethereumjs/ethereumjs-monorepo/blob/master/packages/statemanager/LICENSE)
 import type { SerializableTevmState } from './SerializableTevmState.js'
 import type { TevmStateManagerInterface } from './TevmStateManagerInterface.js'
 import { CacheType, DefaultStateManager } from '@ethereumjs/statemanager'
@@ -13,8 +14,7 @@ import { type Address, bytesToHex, fromRlp, hexToBytes, isHex } from 'viem'
  */
 export class NormalStateManager
 	extends DefaultStateManager
-	implements TevmStateManagerInterface
-{
+	implements TevmStateManagerInterface {
 	/**
 	 * Retrieves the addresses of all the accounts in the state.
 	 * @returns An array of account addresses.
