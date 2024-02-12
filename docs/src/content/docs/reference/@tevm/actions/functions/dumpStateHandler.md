@@ -5,11 +5,11 @@ prev: false
 title: "dumpStateHandler"
 ---
 
-> **dumpStateHandler**(`stateManager`): [`DumpStateHandler`](/reference/tevm/actions-types/type-aliases/dumpstatehandler/)
+> **dumpStateHandler**(`vm`): [`DumpStateHandler`](/reference/tevm/actions-types/type-aliases/dumpstatehandler/)
 
 ## Parameters
 
-▪ **stateManager**: `NormalStateManager` \| `ForkStateManager` \| `ProxyStateManager`
+▪ **vm**: `VM`
 
 ## Returns
 

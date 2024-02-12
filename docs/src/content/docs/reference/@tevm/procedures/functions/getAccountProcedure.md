@@ -5,13 +5,13 @@ prev: false
 title: "getAccountProcedure"
 ---
 
-> **getAccountProcedure**(`evm`): `GetAccountJsonRpcProcedure`
+> **getAccountProcedure**(`vm`): `GetAccountJsonRpcProcedure`
 
-Creates an GetAccount JSON-RPC Procedure for handling account requests with Ethereumjs EVM
+Creates an GetAccount JSON-RPC Procedure for handling account requests with Ethereumjs VM
 
 ## Parameters
 
-▪ **evm**: `EVM`
+▪ **vm**: `VM`
 
 ## Returns
 

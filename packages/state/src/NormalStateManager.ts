@@ -1,7 +1,7 @@
-import type { Address } from 'viem'
 import type { TevmStateManagerInterface } from './TevmStateManagerInterface.js'
 import { CacheType, DefaultStateManager } from '@ethereumjs/statemanager'
 import { Account, Address as EthjsAddress } from '@ethereumjs/util'
+import type { Address } from 'viem'
 
 /**
  * The ethereum state manager implementation for running Tevm in `normal` mode.
@@ -12,7 +12,8 @@ import { Account, Address as EthjsAddress } from '@ethereumjs/util'
  */
 export class NormalStateManager
 	extends DefaultStateManager
-	implements TevmStateManagerInterface {
+	implements TevmStateManagerInterface
+{
 	/**
 	 * Retrieves the addresses of all the accounts in the state.
 	 * @returns An array of account addresses.
@@ -62,13 +63,14 @@ export class NormalStateManager
 		})
 
 		for (const address of this.getAccountAddresses()) {
-			const ethjsAddress = EthjsAddress.fromString('0x' + address)
-			const elem = this._accountCache!.get(ethjsAddress)
+			const ethjsAddress = EthjsAddress.fromString(`0x${address}`)
+			const elem = this._accountCache?.get(ethjsAddress)
 			// elem should never be undefined
 			if (elem !== undefined) {
-				const account = elem.accountRLP !== undefined
-					? Account.fromRlpSerializedAccount(elem.accountRLP)
-					: undefined
+				const account =
+					elem.accountRLP !== undefined
+						? Account.fromRlpSerializedAccount(elem.accountRLP)
+						: undefined
 				out.putAccount(ethjsAddress, account)
 			}
 		}

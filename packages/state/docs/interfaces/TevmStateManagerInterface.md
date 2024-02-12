@@ -14,11 +14,11 @@
 
 ### getAccountAddresses
 
-> **getAccountAddresses**: () => `string`[]
+> **getAccountAddresses**: () => \`0x${string}\`[]
 
 #### Source
 
-[packages/state/src/TevmStateManagerInterface.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/TevmStateManagerInterface.ts#L4)
+[packages/state/src/TevmStateManagerInterface.ts:5](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/TevmStateManagerInterface.ts#L5)
 
 ***
 

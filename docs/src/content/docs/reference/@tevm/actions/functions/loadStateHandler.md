@@ -5,11 +5,11 @@ prev: false
 title: "loadStateHandler"
 ---
 
-> **loadStateHandler**(`stateManager`): [`LoadStateHandler`](/reference/tevm/actions-types/type-aliases/loadstatehandler/)
+> **loadStateHandler**(`vm`): [`LoadStateHandler`](/reference/tevm/actions-types/type-aliases/loadstatehandler/)
 
 ## Parameters
 
-▪ **stateManager**: `NormalStateManager` \| `ForkStateManager` \| `ProxyStateManager`
+▪ **vm**: `VM`
 
 ## Returns
 
