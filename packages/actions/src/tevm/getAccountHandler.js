@@ -5,7 +5,7 @@ import { bytesToHex, hexToBytes } from 'viem'
 
 /**
  * Creates an GetAccountHandler for handling account params with Ethereumjs VM
- * @param {import('@ethereumjs/vm').VM} vm
+ * @param {import('@tevm/vm').TevmVm} vm
  * @returns {import('@tevm/actions-types').GetAccountHandler}
  */
 export const getAccountHandler = (vm) => async (params) => {

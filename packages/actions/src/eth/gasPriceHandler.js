@@ -5,7 +5,7 @@ import { hexToBigInt, parseGwei } from 'viem'
 /**
  * @param {object} options
  * @param {string} [options.forkUrl]
- * @param {import('@ethereumjs/vm').VM} options.vm
+ * @param {import('@tevm/vm').TevmVm} options.vm
  * @returns {import('@tevm/actions-types').EthGasPriceHandler}
  */
 export const gasPriceHandler = ({ forkUrl, vm }) => {

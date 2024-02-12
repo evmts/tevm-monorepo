@@ -1,6 +1,8 @@
 import { setAccountHandler } from '../index.js'
 import { traceCallHandler } from './traceCallHandler.js'
-import { VM } from '@ethereumjs/vm'
+import { EVM } from '@ethereumjs/evm'
+import { NormalStateManager } from '@tevm/state'
+import { TevmVm } from '@tevm/vm'
 import { describe, expect, it } from 'bun:test'
 import { encodeFunctionData, parseEther } from 'viem'
 
@@ -292,7 +294,9 @@ const ERC20_ABI = [
 
 describe('traceCallHandler', () => {
 	it('should execute a contract call', async () => {
-		const vm = await VM.create()
+		const stateManager = new NormalStateManager()
+		const evm = new EVM({ stateManager })
+		const vm = await TevmVm.create({ evm, stateManager })
 		// deploy contract
 		expect(
 			(

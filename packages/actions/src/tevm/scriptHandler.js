@@ -11,11 +11,11 @@ import {
 
 /**
  * Creates an ScriptHandler for handling script params with Ethereumjs EVM
- * @param {import('@ethereumjs/vm').VM} vm
+ * @param {import('@tevm/vm').TevmVm} vm
  * @returns {import("@tevm/actions-types").ScriptHandler}
  */
 export const scriptHandler = (vm) => async (params) => {
-	const clonedVm = params.createTransaction ? vm : await vm.shallowCopy()
+	const clonedVm = params.createTransaction ? vm : await vm.deepCopy()
 	/**
 	 * @type {import('viem').Hex}
 	 */
@@ -67,7 +67,7 @@ export const scriptHandler = (vm) => async (params) => {
 	)
 
 	const accountRes = await setAccountHandler(
-		/** @type {import('@ethereumjs/vm').VM}*/ (clonedVm),
+		/** @type {import('@tevm/vm').TevmVm}*/ (clonedVm),
 	)({
 		deployedBytecode: params.deployedBytecode,
 		address: scriptAddress,

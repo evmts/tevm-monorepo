@@ -1,5 +1,5 @@
-import { createMemoryClient } from '../createMemoryClient.js'
 import { EVMErrorMessage } from '@ethereumjs/evm'
+import { createMemoryClient } from '../createMemoryClient.js'
 import { describe, expect, test } from 'bun:test'
 
 describe('allowUnlimitedContractSize option', () => {
@@ -26,7 +26,6 @@ describe('allowUnlimitedContractSize option', () => {
 				skipBalance: true,
 			},
 		})
-		console.log(res)
 		expect('error' in res && res.error.code).toBe(
 			EVMErrorMessage.CODESIZE_EXCEEDS_MAXIMUM,
 		)

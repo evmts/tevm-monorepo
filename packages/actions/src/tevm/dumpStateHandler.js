@@ -6,7 +6,7 @@ import {
 } from '@tevm/state'
 
 /**
- * @param {import("@ethereumjs/vm").VM} vm
+ * @param {import("@tevm/vm").TevmVm} vm
  * @returns {import('@tevm/actions-types').DumpStateHandler}
  */
 export const dumpStateHandler = (vm) => async () => {

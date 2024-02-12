@@ -78,7 +78,8 @@
 		"@tevm/errors": "workspace:^",
 		"@tevm/state": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
-		"@tevm/tsupconfig": "workspace:^"
+		"@tevm/tsupconfig": "workspace:^",
+		"@tevm/vm": "workspace:^"
 	},
 	"publishConfig": {
 		"access": "public"

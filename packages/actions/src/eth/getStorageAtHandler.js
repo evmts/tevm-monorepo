@@ -5,7 +5,7 @@ import { bytesToHex, hexToBytes } from 'viem'
 
 /**
  * @param {object} options
- * @param {import('@ethereumjs/vm').VM} options.vm
+ * @param {import('@tevm/vm').TevmVm} options.vm
  * @param {string} [options.forkUrl]
  * @returns {import('@tevm/actions-types').EthGetStorageAtHandler}
  */

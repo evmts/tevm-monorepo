@@ -82,6 +82,18 @@ export class ForkStateManager implements TevmStateManagerInterface {
 	}
 
 	/**
+	 * Returns a new instance of the ForkStateManager with the same opts and all storage copied over
+	 */
+	async deepCopy(): Promise<ForkStateManager> {
+		const newState = new ForkStateManager({
+			url: this.opts.url,
+			blockTag: Object.values(this._blockTag)[0],
+		})
+		await newState.generateCanonicalGenesis(await this.dumpCanonicalGenesis())
+		return newState
+	}
+
+	/**
 	 * Returns a new instance of the ForkStateManager with the same opts
 	 */
 	shallowCopy(): ForkStateManager {
@@ -411,7 +423,7 @@ export class ForkStateManager implements TevmStateManagerInterface {
 	/**
 	 * @deprecated This method is not used by the Fork State Manager and is a stub required by the State Manager interface
 	 */
-	setStateRoot = async (_root: Uint8Array) => {}
+	setStateRoot = async (_root: Uint8Array) => { }
 
 	/**
 	 * @deprecated This method is not used by the Fork State Manager and is a stub required by the State Manager interface

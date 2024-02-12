@@ -14,8 +14,7 @@ import { type Address, bytesToHex, fromRlp, hexToBytes, isHex } from 'viem'
  */
 export class NormalStateManager
 	extends DefaultStateManager
-	implements TevmStateManagerInterface
-{
+	implements TevmStateManagerInterface {
 	/**
 	 * Retrieves the addresses of all the accounts in the state.
 	 * @returns An array of account addresses.
@@ -28,6 +27,15 @@ export class NormalStateManager
 		})
 
 		return accountAddresses
+	}
+
+	/**
+	 * Returns a new instance of the ForkStateManager with the same opts and all storage copied over
+	 */
+	async deepCopy(): Promise<NormalStateManager> {
+		const newState = new NormalStateManager()
+		await newState.generateCanonicalGenesis(await this.dumpCanonicalGenesis())
+		return newState
 	}
 
 	/**
@@ -63,20 +71,6 @@ export class NormalStateManager
 			storageCacheOpts,
 			codeCacheOpts,
 		})
-
-		for (const address of this.getAccountAddresses()) {
-			const ethjsAddress = EthjsAddress.fromString(`0x${address}`)
-			const elem = this._accountCache?.get(ethjsAddress)
-			// elem should never be undefined
-			if (elem !== undefined) {
-				const account =
-					elem.accountRLP !== undefined
-						? Account.fromRlpSerializedAccount(elem.accountRLP)
-						: undefined
-				out.putAccount(ethjsAddress, account)
-			}
-		}
-
 		return out
 	}
 

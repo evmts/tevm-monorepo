@@ -71,6 +71,7 @@
 		"@tevm/actions": "workspace:^",
 		"@tevm/contract": "workspace:^",
 		"@tevm/procedures": "workspace:^",
+		"@tevm/vm": "workspace:^",
 		"viem": "^2.6.1"
 	},
 	"devDependencies": {

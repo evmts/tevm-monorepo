@@ -11,7 +11,7 @@ import {
 
 /**
  * Creates an ContractHandler for handling contract params with Ethereumjs EVM
- * @param {import('@ethereumjs/vm').VM} vm
+ * @param {import('@tevm/vm').TevmVm} vm
  * @returns {import("@tevm/actions-types").ContractHandler}
  */
 export const contractHandler = (vm) => async (params) => {

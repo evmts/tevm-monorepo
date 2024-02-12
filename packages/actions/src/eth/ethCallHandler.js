@@ -1,7 +1,7 @@
 import { callHandler } from '../index.js'
 
 /**
- * @param {import('@ethereumjs/vm').VM} vm
+ * @param {import('@tevm/vm').TevmVm} vm
  * @returns {import('@tevm/actions-types').EthCallHandler}
  */
 export const ethCallHandler = (vm) => async (params) => {

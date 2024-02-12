@@ -1,6 +1,6 @@
 /**
  * Handler for the `eth_blockNumber` RPC call
- * @param {import('@ethereumjs/vm').VM} vm
+ * @param {import('@tevm/vm').TevmVm} vm
  * @returns {import('@tevm/actions-types').EthBlockNumberHandler}
  */
 export const blockNumberHandler = (vm) => async () => {

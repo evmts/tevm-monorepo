@@ -4,16 +4,14 @@ import { bytesToHex, hexToBytes, numberToHex } from 'viem'
 /**
  * Returns a trace of an eth_call within the context of the given block execution using the final state of the parent block
  * @param {object} options
- * @param {import('@ethereumjs/vm').VM} options.vm
+ * @param {import('@tevm/vm').TevmVm} options.vm
  * @returns {import('@tevm/actions-types').DebugTraceCallHandler} an execution trace of an {@link eth_call} in the context of a given block execution
  * mirroring the output from {@link traceTransaction}
  */
 export const traceCallHandler =
 	({ vm: _vm }) =>
 	async (params) => {
-		const vm = /** @type {import('@ethereumjs/vm').VM}*/ (
-			await _vm.shallowCopy()
-		)
+		const vm = /** @type {import('@tevm/vm').TevmVm}*/ (await _vm.deepCopy())
 		const { from, to, gas: gasLimit, gasPrice, value, data } = params
 
 		const trace = {

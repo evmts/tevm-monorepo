@@ -158,6 +158,18 @@ export class ProxyStateManager implements TevmStateManagerInterface {
 	}
 
 	/**
+	 * Returns a new instance of the ForkStateManager with the same opts and all storage copied over
+	 */
+	async deepCopy(): Promise<ProxyStateManager> {
+		const newState = new ProxyStateManager({
+			url: this.opts.url,
+			expectedBlockTime: this._expectedBlockTime,
+		})
+		await newState.generateCanonicalGenesis(await this.dumpCanonicalGenesis())
+		return newState
+	}
+
+	/**
 	 * Resets all internal caches
 	 */
 	clearCaches(): void {
@@ -478,7 +490,7 @@ export class ProxyStateManager implements TevmStateManagerInterface {
 	/**
 	 * @deprecated This method is not used by the Tevm State Manager and is a stub required by the State Manager interface
 	 */
-	setStateRoot = async (_root: Uint8Array) => {}
+	setStateRoot = async (_root: Uint8Array) => { }
 
 	/**
 	 * @deprecated This method is not used by the Tevm State Manager and is a stub required by the State Manager interface
