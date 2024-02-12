@@ -18,7 +18,7 @@ Defaults to 2000ms (2s)
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:21
+packages/state/types/ProxyStateManager.d.ts:22
 
 ***
 
@@ -30,7 +30,7 @@ Url to a JSON-RPC provider to proxy state from
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:15
+packages/state/types/ProxyStateManager.d.ts:16
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

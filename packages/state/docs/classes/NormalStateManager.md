@@ -483,6 +483,18 @@ node\_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node\_modules/@ethereumjs/sta
 
 ***
 
+### dumpCanonicalGenesis()
+
+> **dumpCanonicalGenesis**(): `Promise`\<[`SerializableTevmState`](../type-aliases/SerializableTevmState.md)\>
+
+Dumps the state of the state manager as a [SerializableTevmState](../type-aliases/SerializableTevmState.md)
+
+#### Source
+
+[packages/state/src/NormalStateManager.ts:121](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/NormalStateManager.ts#L121)
+
+***
+
 ### dumpStorage()
 
 > **dumpStorage**(`address`): `Promise`\<`StorageDump`\>
@@ -573,28 +585,25 @@ node\_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node\_modules/@ethereumjs/sta
 
 ### generateCanonicalGenesis()
 
-> **generateCanonicalGenesis**(`initState`): `Promise`\<`void`\>
+> **generateCanonicalGenesis**(`state`): `Promise`\<`void`\>
 
-Initializes the provided genesis state into the state trie.
-Will error if there are uncommitted checkpoints on the instance.
+Loads a [SerializableTevmState](../type-aliases/SerializableTevmState.md) into the state manager
 
 #### Parameters
 
-▪ **initState**: `any`
-
-address -> balance | [balance, code, storage]
+▪ **state**: [`SerializableTevmState`](../type-aliases/SerializableTevmState.md)
 
 #### Implementation of
 
 [`TevmStateManagerInterface`](../interfaces/TevmStateManagerInterface.md).[`generateCanonicalGenesis`](../interfaces/TevmStateManagerInterface.md#generatecanonicalgenesis)
 
-#### Inherited from
+#### Overrides
 
 DefaultStateManager.generateCanonicalGenesis
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node\_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:305
+[packages/state/src/NormalStateManager.ts:85](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/NormalStateManager.ts#L85)
 
 ***
 
@@ -640,7 +649,7 @@ An array of account addresses.
 
 #### Source
 
-[packages/state/src/NormalStateManager.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/NormalStateManager.ts#L21)
+[packages/state/src/NormalStateManager.ts:22](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/NormalStateManager.ts#L22)
 
 ***
 
@@ -994,7 +1003,7 @@ DefaultStateManager.shallowCopy
 
 #### Source
 
-[packages/state/src/NormalStateManager.ts:34](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/NormalStateManager.ts#L34)
+[packages/state/src/NormalStateManager.ts:35](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/NormalStateManager.ts#L35)
 
 ***
 

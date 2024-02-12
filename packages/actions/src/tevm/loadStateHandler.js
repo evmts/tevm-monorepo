@@ -1,7 +1,10 @@
 import { createError } from './createError.js'
-import { Account, Address } from '@ethereumjs/util'
+import {
+	ForkStateManager,
+	NormalStateManager,
+	ProxyStateManager,
+} from '@tevm/state'
 import { validateLoadStateParams } from '@tevm/zod'
-import { fromRlp, hexToBytes, isHex } from 'viem'
 
 /**
  * @param {import("@ethereumjs/vm").VM} vm
@@ -12,38 +15,17 @@ export const loadStateHandler = (vm) => async (params) => {
 	if (errors.length > 0) {
 		return { errors }
 	}
-
-	const tevmState = params.state
 	try {
-		for (const [k, v] of Object.entries(tevmState)) {
-			const { nonce, balance, storageRoot, codeHash, storage } = v
-			const account = new Account(
-				// replace with just the var
-				nonce,
-				balance,
-				hexToBytes(storageRoot, { size: 32 }),
-				hexToBytes(codeHash, { size: 32 }),
+		if (
+			vm.stateManager instanceof NormalStateManager ||
+			vm.stateManager instanceof ProxyStateManager ||
+			vm.stateManager instanceof ForkStateManager
+		) {
+			await vm.stateManager.generateCanonicalGenesis(params.state)
+		} else {
+			throw new Error(
+				'Unsupported state manager. Must use a NormalStateManager, ProxyStateManager, or ForkStateManager. This indicates a bug in tevm internal code.',
 			)
-			const address = Address.fromString(k)
-			vm.stateManager.putAccount(address, account)
-			if (storage !== undefined) {
-				for (const [storageKey, storageData] of Object.entries(storage)) {
-					const key = hexToBytes(
-						isHex(storageKey) ? storageKey : `0x${storageKey}`,
-					)
-					const encodedStorageData = fromRlp(
-						isHex(storageData) ? storageData : `0x${storageData}`,
-					)
-					const data = hexToBytes(
-						isHex(encodedStorageData)
-							? encodedStorageData
-							: `0x${encodedStorageData}`,
-					)
-					vm.stateManager.putContractStorage(address, key, data)
-				}
-			}
-			await vm.stateManager.checkpoint()
-			await vm.stateManager.commit()
 		}
 		return {}
 	} catch (e) {

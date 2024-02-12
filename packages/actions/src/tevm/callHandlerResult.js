@@ -6,6 +6,7 @@ import { bytesToHex, getAddress, isBytes, toHex } from 'viem'
  * @returns {import('@tevm/actions-types').CallResult}
  */
 export const callHandlerResult = (evmResult) => {
+	console.log({ evmResult })
 	/**
 	 * @type {import('@tevm/actions-types').CallResult}
 	 */

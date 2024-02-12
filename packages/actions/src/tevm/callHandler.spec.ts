@@ -305,7 +305,10 @@ describe('callHandler', () => {
 				})
 			).errors,
 		).toBeUndefined()
-		// test contract call
+
+		await vm.stateManager.checkpoint()
+		await vm.stateManager.commit()
+
 		expect(
 			await callHandler(vm)({
 				data: encodeFunctionData({
@@ -361,7 +364,8 @@ describe('callHandler', () => {
 				})
 			).errors,
 		).toBeUndefined()
-		// test contract call that should fail from lack of owning any tokens
+		await vm.evm.stateManager.checkpoint()
+		await vm.evm.stateManager.commit()
 		const caller = `0x${'23'.repeat(20)}` as const
 		expect(
 			await callHandler(vm)({
@@ -370,6 +374,7 @@ describe('callHandler', () => {
 					functionName: 'transferFrom',
 					args: [caller, caller, 1n],
 				}),
+				from: caller,
 				to: ERC20_ADDRESS,
 			}),
 		).toEqual({
@@ -402,6 +407,7 @@ describe('callHandler', () => {
 				data: '0x0',
 				to: ERC20_ADDRESS,
 				value: 420n,
+				// we need to createTransaction because or else the evm will be reinitialized and erase our mock
 				createTransaction: true,
 			}),
 		).toEqual({
