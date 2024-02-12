@@ -1,8 +1,8 @@
+import type { SerializableTevmState } from './SerializableTevmState.js'
 import type { TevmStateManagerInterface } from './TevmStateManagerInterface.js'
 import { CacheType, DefaultStateManager } from '@ethereumjs/statemanager'
 import { Account, Address as EthjsAddress } from '@ethereumjs/util'
-import { hexToBytes, type Address, isHex, fromRlp, bytesToHex } from 'viem'
-import type { SerializableTevmState } from './SerializableTevmState.js'
+import { type Address, bytesToHex, fromRlp, hexToBytes, isHex } from 'viem'
 
 /**
  * The ethereum state manager implementation for running Tevm in `normal` mode.
@@ -13,7 +13,8 @@ import type { SerializableTevmState } from './SerializableTevmState.js'
  */
 export class NormalStateManager
 	extends DefaultStateManager
-	implements TevmStateManagerInterface {
+	implements TevmStateManagerInterface
+{
 	/**
 	 * Retrieves the addresses of all the accounts in the state.
 	 * @returns An array of account addresses.
@@ -81,7 +82,9 @@ export class NormalStateManager
 	/**
 	 * Loads a {@link SerializableTevmState} into the state manager
 	 */
-	override generateCanonicalGenesis = async (state: SerializableTevmState): Promise<void> => {
+	override generateCanonicalGenesis = async (
+		state: SerializableTevmState,
+	): Promise<void> => {
 		for (const [k, v] of Object.entries(state)) {
 			const { nonce, balance, storageRoot, codeHash, storage } = v
 			const account = new Account(
@@ -125,9 +128,7 @@ export class NormalStateManager
 
 		for (const address of accountAddresses) {
 			const hexAddress = `0x${address}`
-			const account = await this.getAccount(
-				EthjsAddress.fromString(hexAddress),
-			)
+			const account = await this.getAccount(EthjsAddress.fromString(hexAddress))
 
 			if (account !== undefined) {
 				const storage = await this.dumpStorage(

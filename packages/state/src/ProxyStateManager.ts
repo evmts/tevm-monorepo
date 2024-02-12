@@ -6,6 +6,7 @@ import { keccak256 } from 'ethereum-cryptography/keccak.js'
 import { AccountCache, CacheType, StorageCache } from '@ethereumjs/statemanager'
 
 import { Cache } from './Cache.js'
+import type { SerializableTevmState } from './SerializableTevmState.js'
 import type { TevmStateManagerInterface } from './TevmStateManagerInterface.js'
 import type { AccountFields, StorageDump } from '@ethereumjs/common'
 import type { StorageRange } from '@ethereumjs/common'
@@ -18,14 +19,13 @@ import {
 	type PublicClient,
 	bytesToHex,
 	createPublicClient,
+	fromRlp,
 	hexToBytes,
 	http,
+	isHex,
 	toBytes,
 	toHex,
-	isHex,
-	fromRlp,
 } from 'viem'
-import type { SerializableTevmState } from './SerializableTevmState.js'
 
 export interface ProxyStateManagerOpts {
 	/**
@@ -365,8 +365,10 @@ export class ProxyStateManager implements TevmStateManagerInterface {
 	): Promise<void> {
 		if (this.DEBUG) {
 			this._debug(
-				`Save account address=${address} nonce=${account?.nonce} balance=${account?.balance
-				} contract=${account?.isContract() ? 'yes' : 'no'} empty=${account?.isEmpty() ? 'yes' : 'no'
+				`Save account address=${address} nonce=${account?.nonce} balance=${
+					account?.balance
+				} contract=${account?.isContract() ? 'yes' : 'no'} empty=${
+					account?.isEmpty() ? 'yes' : 'no'
 				}`,
 			)
 		}
@@ -503,7 +505,7 @@ export class ProxyStateManager implements TevmStateManagerInterface {
 	/**
 	 * @deprecated This method is not used by the Tevm State Manager and is a stub required by the State Manager interface
 	 */
-	setStateRoot = async (_root: Uint8Array) => { }
+	setStateRoot = async (_root: Uint8Array) => {}
 
 	/**
 	 * @deprecated This method is not used by the Tevm State Manager and is a stub required by the State Manager interface
@@ -525,7 +527,9 @@ export class ProxyStateManager implements TevmStateManagerInterface {
 	/**
 	 * Loads a {@link SerializableTevmState} into the state manager
 	 */
-	generateCanonicalGenesis = async (state: SerializableTevmState): Promise<void> => {
+	generateCanonicalGenesis = async (
+		state: SerializableTevmState,
+	): Promise<void> => {
 		for (const [k, v] of Object.entries(state)) {
 			const { nonce, balance, storageRoot, codeHash, storage } = v
 			const account = new Account(
@@ -569,9 +573,7 @@ export class ProxyStateManager implements TevmStateManagerInterface {
 
 		for (const address of accountAddresses) {
 			const hexAddress = `0x${address}`
-			const account = await this.getAccount(
-				EthjsAddress.fromString(hexAddress),
-			)
+			const account = await this.getAccount(EthjsAddress.fromString(hexAddress))
 
 			if (account !== undefined) {
 				const storage = await this.dumpStorage(

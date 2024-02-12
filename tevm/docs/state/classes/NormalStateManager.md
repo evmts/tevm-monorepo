@@ -245,6 +245,46 @@ node\_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node\_modules/@ethereumjs/sta
 
 ***
 
+### dumpCanonicalGenesis
+
+> **dumpCanonicalGenesis**: () => `Promise`\<[`SerializableTevmState`](../../index/type-aliases/SerializableTevmState.md)\>
+
+Dumps the state of the state manager as a [SerializableTevmState](../../index/type-aliases/SerializableTevmState.md)
+
+Dumps the state of the state manager as a [SerializableTevmState](../../index/type-aliases/SerializableTevmState.md)
+
+#### Source
+
+packages/state/types/NormalStateManager.d.ts:29
+
+***
+
+### generateCanonicalGenesis
+
+> **generateCanonicalGenesis**: (`state`) => `Promise`\<`void`\>
+
+Loads a [SerializableTevmState](../../index/type-aliases/SerializableTevmState.md) into the state manager
+
+Loads a [SerializableTevmState](../../index/type-aliases/SerializableTevmState.md) into the state manager
+
+#### Parameters
+
+▪ **state**: [`SerializableTevmState`](../../index/type-aliases/SerializableTevmState.md)
+
+#### Implementation of
+
+[`TevmStateManagerInterface`](../interfaces/TevmStateManagerInterface.md).[`generateCanonicalGenesis`](../interfaces/TevmStateManagerInterface.md#generatecanonicalgenesis)
+
+#### Overrides
+
+DefaultStateManager.generateCanonicalGenesis
+
+#### Source
+
+packages/state/types/NormalStateManager.d.ts:25
+
+***
+
 ### getAccountAddresses
 
 > **getAccountAddresses**: () => \`0x${string}\`[]
@@ -263,7 +303,7 @@ An array of account addresses.
 
 #### Source
 
-packages/state/types/NormalStateManager.d.ts:16
+packages/state/types/NormalStateManager.d.ts:17
 
 ***
 
@@ -590,33 +630,6 @@ DefaultStateManager.flush
 #### Source
 
 node\_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node\_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:255
-
-***
-
-### generateCanonicalGenesis()
-
-> **generateCanonicalGenesis**(`initState`): `Promise`\<`void`\>
-
-Initializes the provided genesis state into the state trie.
-Will error if there are uncommitted checkpoints on the instance.
-
-#### Parameters
-
-▪ **initState**: `any`
-
-address -> balance | [balance, code, storage]
-
-#### Implementation of
-
-[`TevmStateManagerInterface`](../interfaces/TevmStateManagerInterface.md).[`generateCanonicalGenesis`](../interfaces/TevmStateManagerInterface.md#generatecanonicalgenesis)
-
-#### Inherited from
-
-DefaultStateManager.generateCanonicalGenesis
-
-#### Source
-
-node\_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node\_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:305
 
 ***
 
@@ -996,7 +1009,7 @@ DefaultStateManager.shallowCopy
 
 #### Source
 
-packages/state/types/NormalStateManager.d.ts:20
+packages/state/types/NormalStateManager.d.ts:21
 
 ***
 

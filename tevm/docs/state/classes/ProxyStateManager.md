@@ -42,7 +42,7 @@ const stateManager = new TevmStateManager({
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:72
+packages/state/types/ProxyStateManager.d.ts:73
 
 ## Properties
 
@@ -52,7 +52,7 @@ packages/state/types/ProxyStateManager.d.ts:72
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:70
+packages/state/types/ProxyStateManager.d.ts:71
 
 ***
 
@@ -62,7 +62,7 @@ packages/state/types/ProxyStateManager.d.ts:70
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:67
+packages/state/types/ProxyStateManager.d.ts:68
 
 ***
 
@@ -80,7 +80,7 @@ We track the block tag the cache was using so we can invalidate it whenever it c
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:54
+packages/state/types/ProxyStateManager.d.ts:55
 
 ***
 
@@ -90,7 +90,7 @@ packages/state/types/ProxyStateManager.d.ts:54
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:65
+packages/state/types/ProxyStateManager.d.ts:66
 
 ***
 
@@ -104,7 +104,7 @@ When a call is not currently executed this blocktag is unlocked and set back to 
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:46
+packages/state/types/ProxyStateManager.d.ts:47
 
 ***
 
@@ -114,7 +114,7 @@ packages/state/types/ProxyStateManager.d.ts:46
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:69
+packages/state/types/ProxyStateManager.d.ts:70
 
 ***
 
@@ -126,7 +126,7 @@ How often we expect the block number to change
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:64
+packages/state/types/ProxyStateManager.d.ts:65
 
 ***
 
@@ -138,7 +138,7 @@ Cache the last time we fetched a block to avoid fetching it too often
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:60
+packages/state/types/ProxyStateManager.d.ts:61
 
 ***
 
@@ -148,7 +148,7 @@ packages/state/types/ProxyStateManager.d.ts:60
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:66
+packages/state/types/ProxyStateManager.d.ts:67
 
 ***
 
@@ -3598,7 +3598,43 @@ const unwatch = await client.watchPendingTransactions({
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:71
+packages/state/types/ProxyStateManager.d.ts:72
+
+***
+
+### dumpCanonicalGenesis
+
+> **dumpCanonicalGenesis**: () => `Promise`\<[`SerializableTevmState`](../../index/type-aliases/SerializableTevmState.md)\>
+
+Dumps the state of the state manager as a [SerializableTevmState](../../index/type-aliases/SerializableTevmState.md)
+
+Dumps the state of the state manager as a [SerializableTevmState](../../index/type-aliases/SerializableTevmState.md)
+
+#### Source
+
+packages/state/types/ProxyStateManager.d.ts:224
+
+***
+
+### generateCanonicalGenesis
+
+> **generateCanonicalGenesis**: (`state`) => `Promise`\<`void`\>
+
+Loads a [SerializableTevmState](../../index/type-aliases/SerializableTevmState.md) into the state manager
+
+Loads a [SerializableTevmState](../../index/type-aliases/SerializableTevmState.md) into the state manager
+
+#### Parameters
+
+▪ **state**: [`SerializableTevmState`](../../index/type-aliases/SerializableTevmState.md)
+
+#### Implementation of
+
+[`TevmStateManagerInterface`](../interfaces/TevmStateManagerInterface.md).[`generateCanonicalGenesis`](../interfaces/TevmStateManagerInterface.md#generatecanonicalgenesis)
+
+#### Source
+
+packages/state/types/ProxyStateManager.d.ts:220
 
 ***
 
@@ -3636,7 +3672,7 @@ This method is not used by the Tevm State Manager and is a stub required by the 
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:206
+packages/state/types/ProxyStateManager.d.ts:207
 
 ***
 
@@ -3660,7 +3696,7 @@ This method is not used by the Tevm State Manager and is a stub required by the 
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:214
+packages/state/types/ProxyStateManager.d.ts:215
 
 ***
 
@@ -3670,7 +3706,7 @@ packages/state/types/ProxyStateManager.d.ts:214
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:40
+packages/state/types/ProxyStateManager.d.ts:41
 
 ***
 
@@ -3684,7 +3720,7 @@ packages/state/types/ProxyStateManager.d.ts:40
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:68
+packages/state/types/ProxyStateManager.d.ts:69
 
 ***
 
@@ -3712,7 +3748,7 @@ This method is not used by the Tevm State Manager and is a stub required by the 
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:210
+packages/state/types/ProxyStateManager.d.ts:211
 
 ## Methods
 
@@ -3730,7 +3766,7 @@ Address of the `account` to check
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:145
+packages/state/types/ProxyStateManager.d.ts:146
 
 ***
 
@@ -3750,7 +3786,7 @@ Partial implementation, called from the subclass.
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:187
+packages/state/types/ProxyStateManager.d.ts:188
 
 ***
 
@@ -3762,7 +3798,7 @@ Resets all internal caches
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:92
+packages/state/types/ProxyStateManager.d.ts:93
 
 ***
 
@@ -3784,7 +3820,7 @@ Address to clear the storage of
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:131
+packages/state/types/ProxyStateManager.d.ts:132
 
 ***
 
@@ -3803,7 +3839,7 @@ Partial implementation, called from the subclass.
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:194
+packages/state/types/ProxyStateManager.d.ts:195
 
 ***
 
@@ -3825,7 +3861,7 @@ Address of the account which should be deleted
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:172
+packages/state/types/ProxyStateManager.d.ts:173
 
 ***
 
@@ -3853,7 +3889,7 @@ Both are represented as `0x` prefixed hex strings.
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:139
+packages/state/types/ProxyStateManager.d.ts:140
 
 ***
 
@@ -3875,7 +3911,7 @@ packages/state/types/ProxyStateManager.d.ts:139
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:140
+packages/state/types/ProxyStateManager.d.ts:141
 
 ***
 
@@ -3885,25 +3921,7 @@ packages/state/types/ProxyStateManager.d.ts:140
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:202
-
-***
-
-### generateCanonicalGenesis()
-
-> **generateCanonicalGenesis**(`_initState`): `Promise`\<`void`\>
-
-#### Parameters
-
-▪ **\_initState**: `any`
-
-#### Implementation of
-
-[`TevmStateManagerInterface`](../interfaces/TevmStateManagerInterface.md).[`generateCanonicalGenesis`](../interfaces/TevmStateManagerInterface.md#generatecanonicalgenesis)
-
-#### Source
-
-packages/state/types/ProxyStateManager.d.ts:215
+packages/state/types/ProxyStateManager.d.ts:203
 
 ***
 
@@ -3923,7 +3941,7 @@ Gets the code corresponding to the provided `address`.
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:149
+packages/state/types/ProxyStateManager.d.ts:150
 
 ***
 
@@ -3941,7 +3959,7 @@ Address of account to be retrieved from provider
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:155
+packages/state/types/ProxyStateManager.d.ts:156
 
 ***
 
@@ -3968,7 +3986,7 @@ Returns an empty `Uint8Array` if the account has no associated code.
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:99
+packages/state/types/ProxyStateManager.d.ts:100
 
 ***
 
@@ -4001,7 +4019,7 @@ If this does not exist an empty `Uint8Array` is returned.
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:116
+packages/state/types/ProxyStateManager.d.ts:117
 
 ***
 
@@ -4031,7 +4049,7 @@ an EIP-1186 formatted proof
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:179
+packages/state/types/ProxyStateManager.d.ts:180
 
 ***
 
@@ -4044,7 +4062,7 @@ If the block number has changed the cache will be invalidated
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:77
+packages/state/types/ProxyStateManager.d.ts:78
 
 ***
 
@@ -4072,7 +4090,7 @@ Object containing account fields and values to modify
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:167
+packages/state/types/ProxyStateManager.d.ts:168
 
 ***
 
@@ -4094,7 +4112,7 @@ Saves an account into state under the provided `address`.
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:159
+packages/state/types/ProxyStateManager.d.ts:160
 
 ***
 
@@ -4121,7 +4139,7 @@ The value of the `code`
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:106
+packages/state/types/ProxyStateManager.d.ts:107
 
 ***
 
@@ -4154,7 +4172,7 @@ If it is empty or filled with zeros, deletes the value.
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:126
+packages/state/types/ProxyStateManager.d.ts:127
 
 ***
 
@@ -4173,7 +4191,7 @@ Partial implementation , called from the subclass.
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:201
+packages/state/types/ProxyStateManager.d.ts:202
 
 ***
 
@@ -4189,7 +4207,7 @@ Returns a new instance of the TevmStateManager with the same opts
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:88
+packages/state/types/ProxyStateManager.d.ts:89
 
 ***
 
@@ -4204,7 +4222,7 @@ directly in unlocked mode. Most transactions should lock
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:84
+packages/state/types/ProxyStateManager.d.ts:85
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

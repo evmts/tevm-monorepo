@@ -45,7 +45,7 @@ const stateManager = new ForkStateManager({
 
 #### Source
 
-packages/state/types/ForkStateManager.d.ts:48
+packages/state/types/ForkStateManager.d.ts:49
 
 ## Properties
 
@@ -55,7 +55,7 @@ packages/state/types/ForkStateManager.d.ts:48
 
 #### Source
 
-packages/state/types/ForkStateManager.d.ts:46
+packages/state/types/ForkStateManager.d.ts:47
 
 ***
 
@@ -65,7 +65,7 @@ packages/state/types/ForkStateManager.d.ts:46
 
 #### Source
 
-packages/state/types/ForkStateManager.d.ts:43
+packages/state/types/ForkStateManager.d.ts:39
 
 ***
 
@@ -75,7 +75,7 @@ packages/state/types/ForkStateManager.d.ts:43
 
 #### Source
 
-packages/state/types/ForkStateManager.d.ts:38
+packages/state/types/ForkStateManager.d.ts:40
 
 ***
 
@@ -85,7 +85,7 @@ packages/state/types/ForkStateManager.d.ts:38
 
 #### Source
 
-packages/state/types/ForkStateManager.d.ts:36
+packages/state/types/ForkStateManager.d.ts:37
 
 ***
 
@@ -95,7 +95,7 @@ packages/state/types/ForkStateManager.d.ts:36
 
 #### Source
 
-packages/state/types/ForkStateManager.d.ts:45
+packages/state/types/ForkStateManager.d.ts:46
 
 ***
 
@@ -105,7 +105,7 @@ packages/state/types/ForkStateManager.d.ts:45
 
 #### Source
 
-packages/state/types/ForkStateManager.d.ts:37
+packages/state/types/ForkStateManager.d.ts:38
 
 ***
 
@@ -3555,7 +3555,43 @@ const unwatch = await client.watchPendingTransactions({
 
 #### Source
 
-packages/state/types/ForkStateManager.d.ts:47
+packages/state/types/ForkStateManager.d.ts:48
+
+***
+
+### dumpCanonicalGenesis
+
+> **dumpCanonicalGenesis**: () => `Promise`\<[`SerializableTevmState`](../../index/type-aliases/SerializableTevmState.md)\>
+
+Dumps the state of the state manager as a [SerializableTevmState](../../index/type-aliases/SerializableTevmState.md)
+
+Dumps the state of the state manager as a [SerializableTevmState](../../index/type-aliases/SerializableTevmState.md)
+
+#### Source
+
+packages/state/types/ForkStateManager.d.ts:188
+
+***
+
+### generateCanonicalGenesis
+
+> **generateCanonicalGenesis**: (`state`) => `Promise`\<`void`\>
+
+Loads a [SerializableTevmState](../../index/type-aliases/SerializableTevmState.md) into the state manager
+
+Loads a [SerializableTevmState](../../index/type-aliases/SerializableTevmState.md) into the state manager
+
+#### Parameters
+
+▪ **state**: [`SerializableTevmState`](../../index/type-aliases/SerializableTevmState.md)
+
+#### Implementation of
+
+[`TevmStateManagerInterface`](../interfaces/TevmStateManagerInterface.md).[`generateCanonicalGenesis`](../interfaces/TevmStateManagerInterface.md#generatecanonicalgenesis)
+
+#### Source
+
+packages/state/types/ForkStateManager.d.ts:184
 
 ***
 
@@ -3569,7 +3605,7 @@ packages/state/types/ForkStateManager.d.ts:47
 
 #### Source
 
-packages/state/types/ForkStateManager.d.ts:184
+packages/state/types/ForkStateManager.d.ts:180
 
 ***
 
@@ -3593,7 +3629,7 @@ This method is not used by the Fork State Manager and is a stub required by the 
 
 #### Source
 
-packages/state/types/ForkStateManager.d.ts:174
+packages/state/types/ForkStateManager.d.ts:171
 
 ***
 
@@ -3617,7 +3653,7 @@ This method is not used by the Fork State Manager and is a stub required by the 
 
 #### Source
 
-packages/state/types/ForkStateManager.d.ts:182
+packages/state/types/ForkStateManager.d.ts:179
 
 ***
 
@@ -3627,7 +3663,7 @@ packages/state/types/ForkStateManager.d.ts:182
 
 #### Source
 
-packages/state/types/ForkStateManager.d.ts:35
+packages/state/types/ForkStateManager.d.ts:36
 
 ***
 
@@ -3641,7 +3677,7 @@ packages/state/types/ForkStateManager.d.ts:35
 
 #### Source
 
-packages/state/types/ForkStateManager.d.ts:44
+packages/state/types/ForkStateManager.d.ts:45
 
 ***
 
@@ -3669,7 +3705,7 @@ This method is not used by the Fork State Manager and is a stub required by the 
 
 #### Source
 
-packages/state/types/ForkStateManager.d.ts:178
+packages/state/types/ForkStateManager.d.ts:175
 
 ## Methods
 
@@ -3687,7 +3723,7 @@ Address of the `account` to check
 
 #### Source
 
-packages/state/types/ForkStateManager.d.ts:113
+packages/state/types/ForkStateManager.d.ts:110
 
 ***
 
@@ -3707,7 +3743,7 @@ Partial implementation, called from the subclass.
 
 #### Source
 
-packages/state/types/ForkStateManager.d.ts:155
+packages/state/types/ForkStateManager.d.ts:152
 
 ***
 
@@ -3719,7 +3755,7 @@ Resets all internal caches
 
 #### Source
 
-packages/state/types/ForkStateManager.d.ts:60
+packages/state/types/ForkStateManager.d.ts:57
 
 ***
 
@@ -3741,7 +3777,7 @@ Address to clear the storage of
 
 #### Source
 
-packages/state/types/ForkStateManager.d.ts:99
+packages/state/types/ForkStateManager.d.ts:96
 
 ***
 
@@ -3760,7 +3796,7 @@ Partial implementation, called from the subclass.
 
 #### Source
 
-packages/state/types/ForkStateManager.d.ts:162
+packages/state/types/ForkStateManager.d.ts:159
 
 ***
 
@@ -3782,7 +3818,7 @@ Address of the account which should be deleted
 
 #### Source
 
-packages/state/types/ForkStateManager.d.ts:140
+packages/state/types/ForkStateManager.d.ts:137
 
 ***
 
@@ -3810,7 +3846,7 @@ Both are represented as `0x` prefixed hex strings.
 
 #### Source
 
-packages/state/types/ForkStateManager.d.ts:107
+packages/state/types/ForkStateManager.d.ts:104
 
 ***
 
@@ -3832,7 +3868,7 @@ packages/state/types/ForkStateManager.d.ts:107
 
 #### Source
 
-packages/state/types/ForkStateManager.d.ts:108
+packages/state/types/ForkStateManager.d.ts:105
 
 ***
 
@@ -3842,25 +3878,7 @@ packages/state/types/ForkStateManager.d.ts:108
 
 #### Source
 
-packages/state/types/ForkStateManager.d.ts:170
-
-***
-
-### generateCanonicalGenesis()
-
-> **generateCanonicalGenesis**(`_initState`): `Promise`\<`void`\>
-
-#### Parameters
-
-▪ **\_initState**: `any`
-
-#### Implementation of
-
-[`TevmStateManagerInterface`](../interfaces/TevmStateManagerInterface.md).[`generateCanonicalGenesis`](../interfaces/TevmStateManagerInterface.md#generatecanonicalgenesis)
-
-#### Source
-
-packages/state/types/ForkStateManager.d.ts:183
+packages/state/types/ForkStateManager.d.ts:167
 
 ***
 
@@ -3880,7 +3898,7 @@ Gets the code corresponding to the provided `address`.
 
 #### Source
 
-packages/state/types/ForkStateManager.d.ts:117
+packages/state/types/ForkStateManager.d.ts:114
 
 ***
 
@@ -3898,7 +3916,7 @@ Address of account to be retrieved from provider
 
 #### Source
 
-packages/state/types/ForkStateManager.d.ts:123
+packages/state/types/ForkStateManager.d.ts:120
 
 ***
 
@@ -3925,7 +3943,7 @@ Returns an empty `Uint8Array` if the account has no associated code.
 
 #### Source
 
-packages/state/types/ForkStateManager.d.ts:67
+packages/state/types/ForkStateManager.d.ts:64
 
 ***
 
@@ -3958,7 +3976,7 @@ If this does not exist an empty `Uint8Array` is returned.
 
 #### Source
 
-packages/state/types/ForkStateManager.d.ts:84
+packages/state/types/ForkStateManager.d.ts:81
 
 ***
 
@@ -3988,7 +4006,7 @@ an EIP-1186 formatted proof
 
 #### Source
 
-packages/state/types/ForkStateManager.d.ts:147
+packages/state/types/ForkStateManager.d.ts:144
 
 ***
 
@@ -4016,7 +4034,7 @@ Object containing account fields and values to modify
 
 #### Source
 
-packages/state/types/ForkStateManager.d.ts:135
+packages/state/types/ForkStateManager.d.ts:132
 
 ***
 
@@ -4038,7 +4056,7 @@ Saves an account into state under the provided `address`.
 
 #### Source
 
-packages/state/types/ForkStateManager.d.ts:127
+packages/state/types/ForkStateManager.d.ts:124
 
 ***
 
@@ -4065,7 +4083,7 @@ The value of the `code`
 
 #### Source
 
-packages/state/types/ForkStateManager.d.ts:74
+packages/state/types/ForkStateManager.d.ts:71
 
 ***
 
@@ -4098,7 +4116,7 @@ If it is empty or filled with zeros, deletes the value.
 
 #### Source
 
-packages/state/types/ForkStateManager.d.ts:94
+packages/state/types/ForkStateManager.d.ts:91
 
 ***
 
@@ -4117,23 +4135,7 @@ Partial implementation , called from the subclass.
 
 #### Source
 
-packages/state/types/ForkStateManager.d.ts:169
-
-***
-
-### setBlockTag()
-
-> **setBlockTag**(`blockTag`): `void`
-
-Sets the new block tag and clears the internal cache
-
-#### Parameters
-
-▪ **blockTag**: `bigint` \| `"earliest"`
-
-#### Source
-
-packages/state/types/ForkStateManager.d.ts:56
+packages/state/types/ForkStateManager.d.ts:166
 
 ***
 
@@ -4149,7 +4151,7 @@ Returns a new instance of the ForkStateManager with the same opts
 
 #### Source
 
-packages/state/types/ForkStateManager.d.ts:52
+packages/state/types/ForkStateManager.d.ts:53
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

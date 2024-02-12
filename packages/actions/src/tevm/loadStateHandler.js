@@ -1,5 +1,9 @@
-import { ForkStateManager, NormalStateManager, ProxyStateManager } from '@tevm/state'
 import { createError } from './createError.js'
+import {
+	ForkStateManager,
+	NormalStateManager,
+	ProxyStateManager,
+} from '@tevm/state'
 import { validateLoadStateParams } from '@tevm/zod'
 
 /**
@@ -12,10 +16,16 @@ export const loadStateHandler = (vm) => async (params) => {
 		return { errors }
 	}
 	try {
-		if (vm.stateManager instanceof NormalStateManager || vm.stateManager instanceof ProxyStateManager || vm.stateManager instanceof ForkStateManager) {
+		if (
+			vm.stateManager instanceof NormalStateManager ||
+			vm.stateManager instanceof ProxyStateManager ||
+			vm.stateManager instanceof ForkStateManager
+		) {
 			await vm.stateManager.generateCanonicalGenesis(params.state)
 		} else {
-			throw new Error('Unsupported state manager. Must use a NormalStateManager, ProxyStateManager, or ForkStateManager. This indicates a bug in tevm internal code.')
+			throw new Error(
+				'Unsupported state manager. Must use a NormalStateManager, ProxyStateManager, or ForkStateManager. This indicates a bug in tevm internal code.',
+			)
 		}
 		return {}
 	} catch (e) {
@@ -26,8 +36,8 @@ export const loadStateHandler = (vm) => async (params) => {
 					typeof e === 'string'
 						? e
 						: e instanceof Error
-							? e.message
-							: 'unknown error',
+						? e.message
+						: 'unknown error',
 				),
 			],
 		}
