@@ -522,6 +522,6 @@ export class ProxyStateManager implements TevmStateManagerInterface {
 			accountAddresses.push(e[0])
 		})
 
-		return accountAddresses
+		return accountAddresses as Address[]
 	}
 }

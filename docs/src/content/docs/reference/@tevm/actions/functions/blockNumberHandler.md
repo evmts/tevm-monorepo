@@ -5,13 +5,13 @@ prev: false
 title: "blockNumberHandler"
 ---
 
-> **blockNumberHandler**(`blockchain`): [`EthBlockNumberHandler`](/reference/tevm/actions-types/type-aliases/ethblocknumberhandler/)
+> **blockNumberHandler**(`vm`): [`EthBlockNumberHandler`](/reference/tevm/actions-types/type-aliases/ethblocknumberhandler/)
 
 Handler for the `eth_blockNumber` RPC call
 
 ## Parameters
 
-▪ **blockchain**: `BlockchainInterface`
+▪ **vm**: `VM`
 
 ## Returns
 

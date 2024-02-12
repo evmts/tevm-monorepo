@@ -3796,7 +3796,7 @@ Gets the code corresponding to the provided `address`.
 
 ### getAccountAddresses()
 
-> **getAccountAddresses**(): `string`[]
+> **getAccountAddresses**(): \`0x${string}\`[]
 
 #### Implementation of
 

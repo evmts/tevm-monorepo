@@ -46,13 +46,6 @@ const balance = await tevm.runContractCall(
 
 ## Type declaration
 
-### \_evm
-
-> **`readonly`** **\_evm**: [`WrappedEvm`](/reference/tevm/memory-client/classes/wrappedevm/)
-
-Internal instance of the EVM. Can be used for lower level operations
-but is not guaranteed to stay stable between versions
-
 ### \_vm
 
 > **`readonly`** **\_vm**: `VM`
@@ -77,7 +70,7 @@ The mode the current client is running in
 
 ## Source
 
-[packages/memory-client/src/MemoryClient.ts:39](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/MemoryClient.ts#L39)
+[packages/memory-client/src/MemoryClient.ts:38](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/MemoryClient.ts#L38)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

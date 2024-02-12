@@ -4,11 +4,11 @@ import { validateGetAccountParams } from '@tevm/zod'
 import { bytesToHex, hexToBytes } from 'viem'
 
 /**
- * Creates an GetAccountHandler for handling account params with Ethereumjs EVM
- * @param {import('@ethereumjs/evm').EVM} evm
+ * Creates an GetAccountHandler for handling account params with Ethereumjs VM
+ * @param {import('@ethereumjs/vm').VM} vm
  * @returns {import('@tevm/actions-types').GetAccountHandler}
  */
-export const getAccountHandler = (evm) => async (params) => {
+export const getAccountHandler = (vm) => async (params) => {
 	/**
 	 * @type {Array<import('@tevm/errors').GetAccountError>}
 	 */
@@ -26,7 +26,7 @@ export const getAccountHandler = (evm) => async (params) => {
 
 	const address = new EthjsAddress(hexToBytes(params.address))
 	try {
-		const res = await evm.stateManager.getAccount(address)
+		const res = await vm.stateManager.getAccount(address)
 		if (!res) {
 			return {
 				address: params.address,
@@ -44,7 +44,7 @@ export const getAccountHandler = (evm) => async (params) => {
 		}
 		const code =
 			res?.codeHash !== undefined
-				? bytesToHex(await evm.stateManager.getContractCode(address))
+				? bytesToHex(await vm.stateManager.getContractCode(address))
 				: '0x'
 		return {
 			// TODO some of these fields are not in the api and should be added to @tevm/actions-types

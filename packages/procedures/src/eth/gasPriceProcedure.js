@@ -6,12 +6,10 @@ import { numberToHex } from 'viem'
  * @returns {import('@tevm/procedures-types').EthGasPriceJsonRpcProcedure}
  */
 export const gasPriceProcedure =
-	({ blockchain, forkUrl }) =>
+	({ vm, forkUrl }) =>
 	async (req) => ({
 		...(req.id ? { id: req.id } : {}),
 		jsonrpc: '2.0',
 		method: req.method,
-		result: await gasPriceHandler({ blockchain, forkUrl })({}).then(
-			numberToHex,
-		),
+		result: await gasPriceHandler({ vm, forkUrl })({}).then(numberToHex),
 	})

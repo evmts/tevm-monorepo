@@ -6,13 +6,13 @@
 
 # Function: callProcedure()
 
-> **callProcedure**(`evm`): `CallJsonRpcProcedure`
+> **callProcedure**(`vm`): `CallJsonRpcProcedure`
 
 Creates a Call JSON-RPC Procedure for handling call requests with Ethereumjs EVM
 
 ## Parameters
 
-▪ **evm**: `EVM`
+▪ **vm**: `VM`
 
 ## Returns
 

@@ -5,11 +5,11 @@ prev: false
 title: "ethCallHandler"
 ---
 
-> **ethCallHandler**(`evm`): [`EthCallHandler`](/reference/tevm/actions-types/type-aliases/ethcallhandler/)
+> **ethCallHandler**(`vm`): [`EthCallHandler`](/reference/tevm/actions-types/type-aliases/ethcallhandler/)
 
 ## Parameters
 
-▪ **evm**: `EVM`
+▪ **vm**: `VM`
 
 ## Returns
 

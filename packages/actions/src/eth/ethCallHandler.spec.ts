@@ -2,6 +2,7 @@ import { setAccountHandler } from '../tevm/index.js'
 import { ethCallHandler } from './ethCallHandler.js'
 import { EVM } from '@ethereumjs/evm'
 import { Address } from '@ethereumjs/util'
+import { VM } from '@ethereumjs/vm'
 import { describe, expect, it } from 'bun:test'
 import { encodeFunctionData } from 'viem'
 
@@ -294,10 +295,11 @@ const ERC20_ABI = [
 describe('callHandler', () => {
 	it('should execute a contract call', async () => {
 		const evm = new EVM({})
+		const vm = await VM.create({ evm })
 		// deploy contract
 		expect(
 			(
-				await setAccountHandler(evm)({
+				await setAccountHandler(vm)({
 					address: ERC20_ADDRESS,
 					deployedBytecode: ERC20_BYTECODE,
 				})
@@ -305,7 +307,7 @@ describe('callHandler', () => {
 		).toBeUndefined()
 		// test contract call
 		expect(
-			await ethCallHandler(evm)({
+			await ethCallHandler(vm)({
 				data: encodeFunctionData({
 					abi: ERC20_ABI,
 					functionName: 'balanceOf',
@@ -319,18 +321,19 @@ describe('callHandler', () => {
 		)
 	})
 
-	it('should be able to send value', async () => {
+	it('should not modify state', async () => {
 		const evm = new EVM({})
+		const vm = await VM.create({ evm })
 		const to = `0x${'69'.repeat(20)}` as const
 		// send value
 		expect(
-			await ethCallHandler(evm)({
+			await ethCallHandler(vm)({
 				to,
 				value: 420n,
 			}),
 		).toEqual('0x')
 		expect(
-			(await evm.stateManager.getAccount(Address.fromString(to)))?.balance,
-		).toEqual(420n)
+			(await vm.evm.stateManager.getAccount(Address.fromString(to)))?.balance,
+		).not.toEqual(420n)
 	})
 })

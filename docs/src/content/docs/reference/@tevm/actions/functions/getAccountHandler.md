@@ -5,13 +5,13 @@ prev: false
 title: "getAccountHandler"
 ---
 
-> **getAccountHandler**(`evm`): [`GetAccountHandler`](/reference/tevm/actions-types/type-aliases/getaccounthandler/)
+> **getAccountHandler**(`vm`): [`GetAccountHandler`](/reference/tevm/actions-types/type-aliases/getaccounthandler/)
 
-Creates an GetAccountHandler for handling account params with Ethereumjs EVM
+Creates an GetAccountHandler for handling account params with Ethereumjs VM
 
 ## Parameters
 
-▪ **evm**: `EVM`
+▪ **vm**: `VM`
 
 ## Returns
 

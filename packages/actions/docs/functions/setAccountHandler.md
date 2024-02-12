@@ -6,13 +6,13 @@
 
 # Function: setAccountHandler()
 
-> **setAccountHandler**(`evm`): `SetAccountHandler`
+> **setAccountHandler**(`vm`): `SetAccountHandler`
 
 Creates an SetAccountHandler for handling account params with Ethereumjs EVM
 
 ## Parameters
 
-▪ **evm**: `EVM`
+▪ **vm**: `VM`
 
 ## Returns
 

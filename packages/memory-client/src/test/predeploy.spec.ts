@@ -16,7 +16,7 @@ test('Call predeploy from TypeScript', async () => {
 		deployedBytecode: deployedBytecode,
 	} as const)
 
-	const predeployAddress = '0x0420042004200420042004200420042004200420'
+	const predeployAddress = `0x${'12'.repeat(20)}` as const
 	const predeploy = definePredeploy({
 		address: predeployAddress,
 		contract,
@@ -28,7 +28,7 @@ test('Call predeploy from TypeScript', async () => {
 
 	// Predeploy Contract exists in vm
 	expect(
-		await tevm._evm.stateManager.getContractCode(
+		await tevm._vm.stateManager.getContractCode(
 			new Address(hexToBytes(predeployAddress)),
 		),
 	).toEqual(toBytes(deployedBytecode))
@@ -37,7 +37,7 @@ test('Call predeploy from TypeScript', async () => {
 	const res = await tevm.contract(
 		predeploy.contract
 			.withAddress(predeploy.address)
-			.read.balanceOf('0xf0d4c12a5768d806021f80a262b4d39d26c58b8d'),
+			.read.balanceOf(predeploy.address),
 	)
 
 	expect(res.errors).toEqual(undefined as any)

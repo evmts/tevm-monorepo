@@ -6,13 +6,13 @@
 
 # Function: getAccountHandler()
 
-> **getAccountHandler**(`evm`): `GetAccountHandler`
+> **getAccountHandler**(`vm`): `GetAccountHandler`
 
-Creates an GetAccountHandler for handling account params with Ethereumjs EVM
+Creates an GetAccountHandler for handling account params with Ethereumjs VM
 
 ## Parameters
 
-▪ **evm**: `EVM`
+▪ **vm**: `VM`
 
 ## Returns
 

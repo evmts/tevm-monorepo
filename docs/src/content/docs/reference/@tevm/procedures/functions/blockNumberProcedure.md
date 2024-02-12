@@ -5,11 +5,11 @@ prev: false
 title: "blockNumberProcedure"
 ---
 
-> **blockNumberProcedure**(`blockchain`): `EthBlockNumberJsonRpcProcedure`
+> **blockNumberProcedure**(`vm`): `EthBlockNumberJsonRpcProcedure`
 
 ## Parameters
 
-▪ **blockchain**: `BlockchainInterface`
+▪ **vm**: `VM`
 
 ## Returns
 

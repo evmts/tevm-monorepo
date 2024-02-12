@@ -6,11 +6,11 @@
 
 # Function: loadStateHandler()
 
-> **loadStateHandler**(`stateManager`): `LoadStateHandler`
+> **loadStateHandler**(`vm`): `LoadStateHandler`
 
 ## Parameters
 
-▪ **stateManager**: `NormalStateManager` \| `ForkStateManager` \| `ProxyStateManager`
+▪ **vm**: `VM`
 
 ## Returns
 

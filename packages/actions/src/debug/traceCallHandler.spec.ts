@@ -1,6 +1,6 @@
 import { setAccountHandler } from '../index.js'
 import { traceCallHandler } from './traceCallHandler.js'
-import { EVM } from '@ethereumjs/evm'
+import { VM } from '@ethereumjs/vm'
 import { describe, expect, it } from 'bun:test'
 import { encodeFunctionData, parseEther } from 'viem'
 
@@ -292,21 +292,19 @@ const ERC20_ABI = [
 
 describe('traceCallHandler', () => {
 	it('should execute a contract call', async () => {
-		const evm = new EVM({})
+		const vm = await VM.create()
 		// deploy contract
 		expect(
 			(
-				await setAccountHandler(evm)({
+				await setAccountHandler(vm)({
 					address: ERC20_ADDRESS,
 					deployedBytecode: ERC20_BYTECODE,
 					nonce: parseEther('1000'),
 				})
 			).errors,
 		).toBeUndefined()
-		await evm.journal.checkpoint()
-		await evm.journal.commit()
 		expect(
-			await traceCallHandler({ evm })({
+			await traceCallHandler({ vm })({
 				tracer: 'callTracer',
 				data: encodeFunctionData({
 					abi: ERC20_ABI,

@@ -12,9 +12,9 @@
 
 ▪ **options**: `object`
 
-▪ **options.blockchain**: `Blockchain`
-
 ▪ **options.forkUrl**: `undefined` \| `string`
+
+▪ **options.vm**: `VM`
 
 ## Returns
 

@@ -4,11 +4,17 @@ import { z } from 'zod'
 
 export const zBaseCallParams = z
 	.object({
+		createTransaction: z
+			.boolean()
+			.optional()
+			.describe(
+				'If true, this call is a create transaction. Defaults to false.',
+			),
 		skipBalance: z
 			.boolean()
 			.optional()
 			.describe(
-				'Set caller to msg.value of less than msg.value Defaults to false exceipt for when running scripts where it is set to true',
+				'Set caller to msg.value of less than msg.value Defaults to false.',
 			),
 		gasRefund: z.bigint().optional().describe('Refund counter. Defaults to 0'),
 		blockTag: zBlockParam

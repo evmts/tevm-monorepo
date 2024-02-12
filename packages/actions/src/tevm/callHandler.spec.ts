@@ -2,6 +2,7 @@ import { callHandler } from './callHandler.js'
 import { setAccountHandler } from './setAccountHandler.js'
 import { EVM, EVMErrorMessage } from '@ethereumjs/evm'
 import { Address } from '@ethereumjs/util'
+import { VM } from '@ethereumjs/vm'
 import { describe, expect, it } from 'bun:test'
 import { encodeFunctionData } from 'viem'
 
@@ -294,10 +295,11 @@ const ERC20_ABI = [
 describe('callHandler', () => {
 	it('should execute a contract call', async () => {
 		const evm = new EVM({})
+		const vm = await VM.create({ evm })
 		// deploy contract
 		expect(
 			(
-				await setAccountHandler(evm)({
+				await setAccountHandler(vm)({
 					address: ERC20_ADDRESS,
 					deployedBytecode: ERC20_BYTECODE,
 				})
@@ -305,7 +307,7 @@ describe('callHandler', () => {
 		).toBeUndefined()
 		// test contract call
 		expect(
-			await callHandler(evm)({
+			await callHandler(vm)({
 				data: encodeFunctionData({
 					abi: ERC20_ABI,
 					functionName: 'balanceOf',
@@ -327,10 +329,12 @@ describe('callHandler', () => {
 
 	it('should be able to send value', async () => {
 		const evm = new EVM({})
+		const vm = await VM.create({ evm })
 		const to = `0x${'69'.repeat(20)}` as const
 		// send value
 		expect(
-			await callHandler(evm)({
+			await callHandler(vm)({
+				createTransaction: true,
 				to,
 				value: 420n,
 				skipBalance: true,
@@ -347,10 +351,11 @@ describe('callHandler', () => {
 
 	it('should handle errors returned during contract call', async () => {
 		const evm = new EVM({})
+		const vm = await VM.create({ evm })
 		// deploy contract
 		expect(
 			(
-				await setAccountHandler(evm)({
+				await setAccountHandler(vm)({
 					address: ERC20_ADDRESS,
 					deployedBytecode: ERC20_BYTECODE,
 				})
@@ -359,7 +364,7 @@ describe('callHandler', () => {
 		// test contract call that should fail from lack of owning any tokens
 		const caller = `0x${'23'.repeat(20)}` as const
 		expect(
-			await callHandler(evm)({
+			await callHandler(vm)({
 				data: encodeFunctionData({
 					abi: ERC20_ABI,
 					functionName: 'transferFrom',
@@ -388,14 +393,16 @@ describe('callHandler', () => {
 
 	it('should handle the EVM unexpectedly throwing', async () => {
 		const evm = new EVM({})
-		evm.runCall = () => {
+		const vm = await VM.create({ evm })
+		vm.evm.runCall = () => {
 			throw new Error('Unexpected error')
 		}
 		expect(
-			await callHandler(evm)({
+			await callHandler(vm)({
 				data: '0x0',
 				to: ERC20_ADDRESS,
 				value: 420n,
+				createTransaction: true,
 			}),
 		).toEqual({
 			errors: [

@@ -13,7 +13,7 @@ title: "getCodeProcedure"
 
 ▪ **options.forkUrl?**: `string`
 
-▪ **options.stateManager**: `EVMStateManagerInterface`
+▪ **options.vm**: `VM`
 
 ## Returns
 

@@ -5,17 +5,17 @@ import { bytesToHex, hexToBytes } from 'viem'
 
 /**
  * @param {object} options
- * @param {import('@ethereumjs/evm').EVM['stateManager']} options.stateManager
+ * @param {import('@ethereumjs/vm').VM} options.vm
  * @param {string} [options.forkUrl]
  * @returns {import('@tevm/actions-types').EthGetStorageAtHandler}
  */
 export const getStorageAtHandler =
-	({ forkUrl, stateManager }) =>
+	({ forkUrl, vm }) =>
 	async (params) => {
 		const tag = params.blockTag ?? 'pending'
 		if (tag === 'pending' || tag === 'latest') {
 			return bytesToHex(
-				await stateManager.getContractStorage(
+				await vm.stateManager.getContractStorage(
 					EthjsAddress.fromString(params.address),
 					hexToBytes(params.position),
 				),

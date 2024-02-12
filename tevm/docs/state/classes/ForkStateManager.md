@@ -3561,7 +3561,7 @@ packages/state/types/ForkStateManager.d.ts:47
 
 ### getAccountAddresses
 
-> **getAccountAddresses**: () => `string`[]
+> **getAccountAddresses**: () => \`0x${string}\`[]
 
 #### Implementation of
 

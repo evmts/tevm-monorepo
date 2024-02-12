@@ -14,7 +14,7 @@
 
 ▪ **options.forkUrl**: `undefined` \| `string`
 
-▪ **options.stateManager**: `EVMStateManagerInterface`
+▪ **options.vm**: `VM`
 
 ## Returns
 

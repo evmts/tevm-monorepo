@@ -6,13 +6,13 @@ import { numberToHex } from 'viem'
  * @returns {import('@tevm/procedures-types').EthGetBalanceJsonRpcProcedure}
  */
 export const getBalanceProcedure =
-	({ stateManager, forkUrl }) =>
+	({ vm, forkUrl }) =>
 	async (req) => ({
 		...(req.id ? { id: req.id } : {}),
 		jsonrpc: '2.0',
 		method: req.method,
 		result: numberToHex(
-			await getBalanceHandler({ stateManager, forkUrl })({
+			await getBalanceHandler({ vm, forkUrl })({
 				address: req.params[0],
 				...(req.params[1].startsWith('0x')
 					? { blockNumber: BigInt(req.params[1]) }

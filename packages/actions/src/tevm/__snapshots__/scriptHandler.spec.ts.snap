@@ -21,24 +21,11 @@ Version: viem@2.6.1"
 exports[`scriptHandler should handle unlikely event decoding data fails 1`] = `
 {
   "createdAddresses":   Set {},
-  "errors": [
-    {
-      "_tag": "DecodeFunctionDataError",
-      "message": 
-"Data size of 2 bytes is too small for given parameters.
-
-Params: (uint256 balance)
-Data:   0x0524 (2 bytes)
-
-Version: viem@2.6.1"
-,
-      "name": "DecodeFunctionDataError",
-    },
-  ],
+  "data": 0n,
   "executionGasUsed": 2447n,
   "gas": 16774768n,
   "logs": [],
-  "rawData": "0x0524",
+  "rawData": "0x0000000000000000000000000000000000000000000000000000000000000000",
   "selfdestruct":   Set {},
 }
 `;

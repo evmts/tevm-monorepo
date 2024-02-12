@@ -14,7 +14,7 @@ describe(gasPriceHandler.name, () => {
 		}
 		expect(
 			await gasPriceHandler({
-				blockchain: blockchain as any,
+				vm: { blockchain } as any,
 			})({}),
 		).toBe(parseGwei('1'))
 	})
@@ -39,7 +39,7 @@ describe(gasPriceHandler.name, () => {
 				}),
 		}
 		const handler = gasPriceHandler({
-			blockchain: blockchain as any,
+			vm: { blockchain } as any,
 			forkUrl: 'https://mainnet.optimism.io',
 		})
 		expect(await handler({})).toBe(6n)
@@ -73,13 +73,13 @@ describe(gasPriceHandler.name, () => {
 		}
 		expect(
 			await gasPriceHandler({
-				blockchain: blockchain as any,
+				vm: { blockchain } as any,
 				forkUrl: 'https://mainnet.optimism.io',
 			})({}),
 		).toBe(7n)
 		expect(
 			await gasPriceHandler({
-				blockchain: blockchain as any,
+				vm: { blockchain } as any,
 				forkUrl: 'https://mainnet.optimism.io',
 			})({}),
 		).toBe(8n)

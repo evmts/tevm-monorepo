@@ -21,12 +21,20 @@ Versioned hashes for each blob in a blob transaction
 
 > **blockTag**?: [`BlockParam`](/reference/tevm/actions-types/type-aliases/blockparam/)
 
+The block number or block tag to execute the call at. Defaults to `latest`
+
 ### caller
 
 > **caller**?: [`Address`](/reference/tevm/actions-types/type-aliases/address/)
 
 The address that ran this code (`msg.sender`). Defaults to the zero address.
 This defaults to `from` address if set otherwise it defaults to the zero address
+
+### createTransaction
+
+> **createTransaction**?: `boolean`
+
+Whether or not to update the state or run call in a dry-run. Defaults to `false`
 
 ### depth
 

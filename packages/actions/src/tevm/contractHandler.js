@@ -11,19 +11,19 @@ import {
 
 /**
  * Creates an ContractHandler for handling contract params with Ethereumjs EVM
- * @param {import('@ethereumjs/evm').EVM} evm
+ * @param {import('@ethereumjs/vm').VM} vm
  * @returns {import("@tevm/actions-types").ContractHandler}
  */
-export const contractHandler = (evm) => async (params) => {
+export const contractHandler = (vm) => async (params) => {
 	const errors = validateContractParams(/** @type any*/ (params))
 	if (errors.length > 0) {
 		return { errors, executionGasUsed: 0n, rawData: '0x' }
 	}
 
-	const contract = await evm.stateManager.getContractCode(
+	const contract = await vm.evm.stateManager.getContractCode(
 		Address.fromString(params.to),
 	)
-	const precompile = evm.precompiles.get(
+	const precompile = vm.evm.precompiles.get(
 		bytesToUnprefixedHex(hexToBytes(params.to)),
 	)
 	if (contract.length === 0 && !precompile) {
@@ -65,7 +65,7 @@ export const contractHandler = (evm) => async (params) => {
 		}
 	}
 
-	const result = await callHandler(evm)({
+	const result = await callHandler(vm)({
 		...params,
 		data: functionData,
 	})

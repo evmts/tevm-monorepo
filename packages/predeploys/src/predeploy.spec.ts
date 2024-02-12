@@ -23,7 +23,8 @@ test('definePredeploy should define a predeploy', async () => {
 	})
 
 	expect(predeploy.address).toEqual(predeployAddress)
-	expect(predeploy.contract).toEqual(contract)
+	const expectedContract = contract.withAddress(predeployAddress)
+	expect(predeploy.contract).toMatchObject(expectedContract)
 	expect(predeploy.predeploy().address).toEqual(
 		Address.fromString(predeployAddress),
 	)

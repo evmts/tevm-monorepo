@@ -7,12 +7,12 @@ import {
 	scriptProcedure,
 } from './index.js'
 import { requestProcedure } from './requestProcedure.js'
-import { Blockchain } from '@ethereumjs/blockchain'
 import { EVM } from '@ethereumjs/evm'
 import { Account, Address } from '@ethereumjs/util'
 import { VM } from '@ethereumjs/vm'
 import { testAccounts } from '@tevm/actions'
 import type { EthSignTransactionJsonRpcRequest } from '@tevm/procedures-types'
+import { NormalStateManager } from '@tevm/state'
 import { describe, expect, it } from 'bun:test'
 import {
 	bytesToHex,
@@ -359,7 +359,7 @@ describe('requestProcedure', () => {
 				},
 			})
 			expect(res.error).toBeUndefined()
-			const account = (await evm.stateManager.getAccount(
+			const account = (await vm.stateManager.getAccount(
 				Address.fromString(ERC20_ADDRESS),
 			)) as Account
 			expect(account?.balance).toBe(420n)
@@ -369,7 +369,7 @@ describe('requestProcedure', () => {
 		it('should handle account throwing an unexpected error', async () => {
 			const evm = new EVM({})
 			const vm = await VM.create({ evm })
-			evm.stateManager.putAccount = () => {
+			vm.stateManager.putAccount = () => {
 				throw new Error('unexpected error')
 			}
 			const res = await requestProcedure(vm)({
@@ -402,15 +402,18 @@ describe('requestProcedure', () => {
 
 	describe('tevm_call', async () => {
 		it('should work', async () => {
-			const evm = new EVM({})
+			const stateManager = new NormalStateManager()
+			const evm = new EVM({ stateManager })
 			const to = `0x${'69'.repeat(20)}` as const
 			// send value
+			const vm = await VM.create({ evm, stateManager })
 			expect(
-				await callProcedure(evm)({
+				await callProcedure(vm)({
 					jsonrpc: '2.0',
 					method: 'tevm_call',
 					id: 1,
 					params: {
+						createTransaction: true,
 						to,
 						value: numberToHex(420n),
 						skipBalance: true,
@@ -427,14 +430,16 @@ describe('requestProcedure', () => {
 			})
 
 			expect(
-				(await evm.stateManager.getAccount(Address.fromString(to)))?.balance,
+				(await vm.stateManager.getAccount(Address.fromString(to)))?.balance,
 			).toEqual(420n)
 		})
 
 		it('should handle an error', async () => {
 			const evm = new EVM({})
-			const originalRunCall = evm.runCall.bind(evm)
-			evm.runCall = async (args) => {
+			const to = `0x${'69'.repeat(20)}` as const
+			const vm = await VM.create({ evm })
+			const originalRunCall = vm.evm.runCall.bind(evm)
+			vm.evm.runCall = async (args) => {
 				const res = await originalRunCall(args)
 				return {
 					...res,
@@ -447,14 +452,14 @@ describe('requestProcedure', () => {
 					},
 				}
 			}
-			const to = `0x${'69'.repeat(20)}` as const
 			// send value
 			expect(
-				await callProcedure(evm)({
+				await callProcedure(vm)({
 					jsonrpc: '2.0',
 					method: 'tevm_call',
 					id: 1,
 					params: {
+						createTransaction: true,
 						to,
 						value: numberToHex(420n),
 						skipBalance: true,
@@ -480,7 +485,7 @@ describe('requestProcedure', () => {
 	describe('tevm_script', async () => {
 		it('should work', async () => {
 			expect(
-				await scriptProcedure(new EVM({}))({
+				await scriptProcedure(await VM.create())({
 					jsonrpc: '2.0',
 					method: 'tevm_script',
 					id: 1,
@@ -511,10 +516,9 @@ describe('requestProcedure', () => {
 		})
 
 		it('should handle the evm throwing an error', async () => {
-			const evm = new EVM({})
 			const caller = `0x${'69'.repeat(20)}` as const
 			expect(
-				await scriptProcedure(evm)({
+				await scriptProcedure(await VM.create({}))({
 					jsonrpc: '2.0',
 					method: 'tevm_script',
 					id: 1,
@@ -546,15 +550,17 @@ describe('requestProcedure', () => {
 
 		it('should handle the handler function unexpectedly throwing', async () => {
 			const evm = new EVM({})
-			evm.runCall = async () => {
+			const vm = await VM.create({ evm })
+			vm.evm.runCall = async () => {
 				throw new Error('unexpected error')
 			}
 			expect(
-				await scriptProcedure(evm)({
+				await scriptProcedure(vm)({
 					jsonrpc: '2.0',
 					method: 'tevm_script',
 					id: 1,
 					params: {
+						createTransaction: true,
 						deployedBytecode: ERC20_BYTECODE,
 						data: encodeFunctionData({
 							abi: ERC20_ABI,
@@ -583,10 +589,10 @@ describe('requestProcedure', () => {
 
 	describe('eth_blockNumber', async () => {
 		it('should work', async () => {
-			const blockchain = await Blockchain.create()
+			const vm = await VM.create()
 			// send value
 			expect(
-				await blockNumberProcedure(blockchain)({
+				await blockNumberProcedure(vm)({
 					jsonrpc: '2.0',
 					method: 'eth_blockNumber',
 					id: 1,

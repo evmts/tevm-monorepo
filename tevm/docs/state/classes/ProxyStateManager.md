@@ -3604,7 +3604,7 @@ packages/state/types/ProxyStateManager.d.ts:71
 
 ### getAccountAddresses
 
-> **getAccountAddresses**: () => `string`[]
+> **getAccountAddresses**: () => \`0x${string}\`[]
 
 #### Implementation of
 

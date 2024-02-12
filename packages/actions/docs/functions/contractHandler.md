@@ -6,13 +6,13 @@
 
 # Function: contractHandler()
 
-> **contractHandler**(`evm`): `ContractHandler`
+> **contractHandler**(`vm`): `ContractHandler`
 
 Creates an ContractHandler for handling contract params with Ethereumjs EVM
 
 ## Parameters
 
-▪ **evm**: `EVM`
+▪ **vm**: `VM`
 
 ## Returns
 

@@ -2,9 +2,13 @@ import { Address as EthjsAddress } from '@ethereumjs/util'
 import { hexToBytes } from 'viem'
 
 /**
+ * @typedef {Parameters<import('@ethereumjs/evm').EVM['runCall']>[0]} EthRunCallParams
+ */
+
+/**
  * Parses user provided params into ethereumjs options to pass into the EVM
  * @param {import('@tevm/actions-types').CallParams} params
- * @returns {Parameters<import('@ethereumjs/evm').EVM['runCall']>[0]}
+ * @returns {EthRunCallParams}
  */
 export const callHandlerOpts = (params) => {
 	/**
@@ -39,6 +43,9 @@ export const callHandlerOpts = (params) => {
 	}
 	if (params.skipBalance) {
 		opts.skipBalance = Boolean(params.skipBalance)
+	} else if (!params.from && !params.caller) {
+		// skip balance if no caller provided and just using the 0 address
+		opts.skipBalance = true
 	}
 	if (params.gasRefund) {
 		opts.gasRefund = BigInt(params.gasRefund)

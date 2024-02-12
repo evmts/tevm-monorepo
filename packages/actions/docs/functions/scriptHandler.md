@@ -6,13 +6,13 @@
 
 # Function: scriptHandler()
 
-> **scriptHandler**(`evm`): `ScriptHandler`
+> **scriptHandler**(`vm`): `ScriptHandler`
 
 Creates an ScriptHandler for handling script params with Ethereumjs EVM
 
 ## Parameters
 
-▪ **evm**: `EVM`
+▪ **vm**: `VM`
 
 ## Returns
 

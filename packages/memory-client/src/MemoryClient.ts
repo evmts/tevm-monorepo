@@ -1,4 +1,3 @@
-import type { WrappedEvm } from './WrappedEvm.js'
 import type { VM } from '@ethereumjs/vm'
 import type { TevmClient } from '@tevm/client-types'
 
@@ -41,11 +40,6 @@ export type MemoryClient = TevmClient & {
 	 * Fork url if the EVM is forked
 	 */
 	readonly forkUrl?: string | undefined
-	/**
-	 * Internal instance of the EVM. Can be used for lower level operations
-	 * but is not guaranteed to stay stable between versions
-	 */
-	readonly _evm: WrappedEvm
 	/**
 	 * Internal instance of the VM. Can be used for lower level operations
 	 * but is not guaranteed to stay stable between versions

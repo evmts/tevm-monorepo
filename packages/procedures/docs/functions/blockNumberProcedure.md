@@ -6,11 +6,11 @@
 
 # Function: blockNumberProcedure()
 
-> **blockNumberProcedure**(`blockchain`): `EthBlockNumberJsonRpcProcedure`
+> **blockNumberProcedure**(`vm`): `EthBlockNumberJsonRpcProcedure`
 
 ## Parameters
 
-▪ **blockchain**: `BlockchainInterface`
+▪ **vm**: `VM`
 
 ## Returns
 

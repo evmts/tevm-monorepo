@@ -11,9 +11,9 @@ title: "gasPriceProcedure"
 
 ▪ **options**: `object`
 
-▪ **options.blockchain**: `Blockchain`
-
 ▪ **options.forkUrl?**: `string`
+
+▪ **options.vm**: `VM`
 
 ## Returns
 

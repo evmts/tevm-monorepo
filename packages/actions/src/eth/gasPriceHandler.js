@@ -5,10 +5,10 @@ import { hexToBigInt, parseGwei } from 'viem'
 /**
  * @param {object} options
  * @param {string} [options.forkUrl]
- * @param {import('@ethereumjs/blockchain').Blockchain} options.blockchain
+ * @param {import('@ethereumjs/vm').VM} options.vm
  * @returns {import('@tevm/actions-types').EthGasPriceHandler}
  */
-export const gasPriceHandler = ({ forkUrl, blockchain }) => {
+export const gasPriceHandler = ({ forkUrl, vm }) => {
 	/**
 	 * @type {bigint}
 	 */
@@ -21,7 +21,7 @@ export const gasPriceHandler = ({ forkUrl, blockchain }) => {
 		if (!forkUrl) {
 			return parseGwei('1')
 		}
-		const newBlockNumber = await blockNumberHandler(blockchain)({})
+		const newBlockNumber = await blockNumberHandler(vm)({})
 		if (!gasPrice || blockNumber !== newBlockNumber) {
 			blockNumber = newBlockNumber
 			gasPrice = await fetchFromProvider(forkUrl, {

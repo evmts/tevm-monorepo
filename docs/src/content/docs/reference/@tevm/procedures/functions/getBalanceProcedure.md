@@ -13,7 +13,7 @@ title: "getBalanceProcedure"
 
 ▪ **options.forkUrl?**: `string`
 
-▪ **options.stateManager**: `EVMStateManagerInterface`
+▪ **options.vm**: `VM`
 
 ## Returns
 

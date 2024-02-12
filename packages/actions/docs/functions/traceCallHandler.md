@@ -14,7 +14,7 @@ Returns a trace of an eth_call within the context of the given block execution u
 
 ▪ **options**: `object`
 
-▪ **options.evm**: `EVM`
+▪ **options.vm**: `VM`
 
 ## Returns
 

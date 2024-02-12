@@ -5,13 +5,13 @@ prev: false
 title: "callHandler"
 ---
 
-> **callHandler**(`evm`): [`CallHandler`](/reference/tevm/actions-types/type-aliases/callhandler/)
+> **callHandler**(`vm`): [`CallHandler`](/reference/tevm/actions-types/type-aliases/callhandler/)
 
 Creates an CallHandler for handling call params with Ethereumjs EVM
 
 ## Parameters
 
-▪ **evm**: `EVM`
+▪ **vm**: `VM`
 
 ## Returns
 

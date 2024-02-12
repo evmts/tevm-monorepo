@@ -66,7 +66,7 @@ describe(createHttpClient.name, () => {
 
 			expect(errors).toBeUndefined()
 
-			const resultAccount = await tevm._evm.stateManager.getAccount(
+			const resultAccount = await tevm._vm.stateManager.getAccount(
 				Address.fromString(account.address),
 			)
 			if (!resultAccount) throw new Error('Account not found')

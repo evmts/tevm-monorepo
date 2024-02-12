@@ -34,7 +34,7 @@ describe('tevmViemExtension', () => {
 		expect(response.errors).toBe(undefined as any)
 		expect(
 			(
-				await tevm._evm.stateManager.getAccount(
+				await tevm._vm.stateManager.getAccount(
 					Address.fromString(params.address),
 				)
 			)?.balance,
@@ -63,7 +63,7 @@ describe('tevmViemExtension', () => {
 
 		expect(response).not.toHaveProperty('errors')
 
-		const account = await tevm._evm.stateManager.getAccount(
+		const account = await tevm._vm.stateManager.getAccount(
 			Address.fromString(params.address),
 		)
 

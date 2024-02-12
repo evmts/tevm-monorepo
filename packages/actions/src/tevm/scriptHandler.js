@@ -11,10 +11,11 @@ import {
 
 /**
  * Creates an ScriptHandler for handling script params with Ethereumjs EVM
- * @param {import('@ethereumjs/evm').EVM} evm
+ * @param {import('@ethereumjs/vm').VM} vm
  * @returns {import("@tevm/actions-types").ScriptHandler}
  */
-export const scriptHandler = (evm) => async (params) => {
+export const scriptHandler = (vm) => async (params) => {
+	const clonedVm = params.createTransaction ? vm : await vm.shallowCopy()
 	/**
 	 * @type {import('viem').Hex}
 	 */
@@ -24,7 +25,7 @@ export const scriptHandler = (evm) => async (params) => {
 	if (/** @type any*/ (params).data) {
 		functionData = /** @type any*/ (params).data
 	} else {
-		const errors = validateScriptParams(/** @type any*/ (params))
+		const errors = validateScriptParams(/** @type any*/(params))
 		if (errors.length > 0) {
 			return { errors, executionGasUsed: 0n, rawData: '0x' }
 		}
@@ -34,12 +35,12 @@ export const scriptHandler = (evm) => async (params) => {
 		functionData =
 			functionData === '0x'
 				? encodeFunctionData(
-						/** @type {any} */ ({
-							abi: params.abi,
-							functionName: params.functionName,
-							args: params.args,
-						}),
-				  )
+						/** @type {any} */({
+						abi: params.abi,
+						functionName: params.functionName,
+						args: params.args,
+					}),
+				)
 				: functionData
 	} catch (e) {
 		/**
@@ -65,7 +66,9 @@ export const scriptHandler = (evm) => async (params) => {
 		).toString()
 	)
 
-	const accountRes = await setAccountHandler(evm)({
+	const accountRes = await setAccountHandler(
+		/** @type {import('@ethereumjs/vm').VM}*/(clonedVm),
+	)({
 		deployedBytecode: params.deployedBytecode,
 		address: scriptAddress,
 	})
@@ -86,13 +89,16 @@ export const scriptHandler = (evm) => async (params) => {
 		return accountRes
 	}
 
-	const result = await callHandler(evm)(callParams)
+	const result = await callHandler(clonedVm)({
+		...callParams,
+		skipBalance: callParams.skipBalance ?? true,
+	})
 
 	if (result.errors && result.errors.length > 0) {
 		result.errors = result.errors.map((err) => {
 			if (isHex(err.message) && err._tag === 'revert') {
 				const decodedError = decodeErrorResult(
-					/** @type {any} */ ({
+					/** @type {any} */({
 						abi: params.abi,
 						data: err.message,
 						functionName: params.functionName,
@@ -118,7 +124,7 @@ export const scriptHandler = (evm) => async (params) => {
 	let decodedResult
 	try {
 		decodedResult = decodeFunctionResult(
-			/** @type {any} */ ({
+			/** @type {any} */({
 				abi: params.abi,
 				data: result.rawData,
 				functionName: params.functionName,

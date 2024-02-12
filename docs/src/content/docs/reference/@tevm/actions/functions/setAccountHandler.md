@@ -5,13 +5,13 @@ prev: false
 title: "setAccountHandler"
 ---
 
-> **setAccountHandler**(`evm`): [`SetAccountHandler`](/reference/tevm/actions-types/type-aliases/setaccounthandler/)
+> **setAccountHandler**(`vm`): [`SetAccountHandler`](/reference/tevm/actions-types/type-aliases/setaccounthandler/)
 
 Creates an SetAccountHandler for handling account params with Ethereumjs EVM
 
 ## Parameters
 
-▪ **evm**: `EVM`
+▪ **vm**: `VM`
 
 ## Returns
 

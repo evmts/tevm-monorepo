@@ -35,7 +35,12 @@ export const definePredeploy = <
 	'contract' | 'address'
 >): Predeploy<TName, THumanReadableAbi> => {
 	class PredeployImplementation extends Predeploy<TName, THumanReadableAbi> {
-		contract = contract
+		// the exta withAddress is a hack. The type for Predeploy is not correctly including a contract with an address
+		// TODO we should export contract with address as a type from @tevm/contract
+		contract = {
+			...contract.withAddress(address),
+			withAddress: contract.withAddress,
+		}
 		address = getAddress(address)
 	}
 	return new PredeployImplementation()

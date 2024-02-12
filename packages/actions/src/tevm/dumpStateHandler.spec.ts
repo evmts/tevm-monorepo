@@ -19,7 +19,9 @@ test('should dump important account info and storage', async () => {
 	const storageValue = hexToBytes('0x1', { size: 32 })
 	stateManager.putContractStorage(account, storageKey, storageValue)
 
-	const { state: dumpedState } = await dumpStateHandler(stateManager)()
+	const { state: dumpedState } = await dumpStateHandler({
+		stateManager,
+	} as any)()
 
 	const accountData = dumpedState[accountAddress]
 
@@ -34,7 +36,7 @@ test('should dump important account info and storage', async () => {
 
 	const stateManager2 = new NormalStateManager()
 
-	await loadStateHandler(stateManager2)({
+	await loadStateHandler({ stateManager: stateManager2 } as any)({
 		state: dumpedState,
 	})
 	const accountStorage = await stateManager2.getContractStorage(

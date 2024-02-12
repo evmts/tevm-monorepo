@@ -6,13 +6,13 @@
 
 # Function: blockNumberHandler()
 
-> **blockNumberHandler**(`blockchain`): `EthBlockNumberHandler`
+> **blockNumberHandler**(`vm`): `EthBlockNumberHandler`
 
 Handler for the `eth_blockNumber` RPC call
 
 ## Parameters
 
-▪ **blockchain**: `BlockchainInterface`
+▪ **vm**: `VM`
 
 ## Returns
 

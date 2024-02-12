@@ -3,17 +3,17 @@ import { scriptHandler } from '@tevm/actions'
 import { hexToBigInt } from 'viem'
 
 /**
- * Creates a Script JSON-RPC Procedure for handling script requests with Ethereumjs EVM
- * @param {import('@ethereumjs/evm').EVM} evm
+ * Creates a Script JSON-RPC Procedure for handling script requests with Ethereumjs VM
+ * @param {import('@ethereumjs/vm').VM} vm
  * @returns {import('@tevm/procedures-types').ScriptJsonRpcProcedure}
  */
-export const scriptProcedure = (evm) => async (request) => {
+export const scriptProcedure = (vm) => async (request) => {
 	/**
 	 * @type {import('@tevm/actions-types').ScriptResult}
 	 */
 	let res
 	try {
-		res = await scriptHandler(evm)({
+		res = await scriptHandler(vm)({
 			deployedBytecode: request.params.deployedBytecode,
 			// internally we pass data directly in which works but typescript interface doesn't support publically
 			abi: /** @type any*/ (undefined),
@@ -52,6 +52,9 @@ export const scriptProcedure = (evm) => async (request) => {
 				? { value: hexToBigInt(request.params.value) }
 				: {}),
 			...(request.params.blockTag ? { blockTag: request.params.blockTag } : {}),
+			...(request.params.createTransaction !== undefined
+				? { createTransaction: request.params.createTransaction }
+				: {}),
 		})
 	} catch (e) {
 		const tevmError = /** @type {import('@tevm/errors').ScriptError} */ (e)

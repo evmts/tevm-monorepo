@@ -93,17 +93,18 @@ describe('Tevm should create a local vm in JavaScript', () => {
 				to: address2,
 				value: transferAmount,
 				origin: address1,
+				createTransaction: true,
 			})
 			expect(
 				(
-					await tevm._evm.stateManager.getAccount(
+					await tevm._vm.stateManager.getAccount(
 						new Address(hexToBytes(address2)),
 					)
 				)?.balance,
 			).toBe(transferAmount)
 			expect(
 				(
-					await tevm._evm.stateManager.getAccount(
+					await tevm._vm.stateManager.getAccount(
 						new Address(hexToBytes(address1)),
 					)
 				)?.balance,

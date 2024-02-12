@@ -247,7 +247,7 @@ node\_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node\_modules/@ethereumjs/sta
 
 ### getAccountAddresses
 
-> **getAccountAddresses**: () => `string`[]
+> **getAccountAddresses**: () => \`0x${string}\`[]
 
 Retrieves the addresses of all the accounts in the state.
 
@@ -263,7 +263,7 @@ An array of account addresses.
 
 #### Source
 
-packages/state/types/NormalStateManager.d.ts:15
+packages/state/types/NormalStateManager.d.ts:16
 
 ***
 
@@ -978,44 +978,25 @@ node\_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node\_modules/@ethereumjs/sta
 
 ### shallowCopy()
 
-> **shallowCopy**(`downlevelCaches`?): `DefaultStateManager`
+> **shallowCopy**(`downlevelCaches`): [`NormalStateManager`](NormalStateManager.md)
 
-Copies the current instance of the `StateManager`
-at the last fully committed point, i.e. as if all current
-checkpoints were reverted.
-
-Caches are downleveled (so: adopted for short-term usage)
-by default.
-
-This means in particular:
-1. For caches instantiated as an LRU cache type
-the copy() method will instantiate with an ORDERED_MAP cache
-instead, since copied instantances are mostly used in
-short-term usage contexts and LRU cache instantation would create
-a large overhead here.
-2. The underlying trie object is initialized with 0 cache size
-
-Both adoptions can be deactivated by setting `downlevelCaches` to
-`false`.
-
-Cache values are generally not copied along regardless of the
-`downlevelCaches` setting.
+Returns a new instance of the ForkStateManager with the same opts
 
 #### Parameters
 
-▪ **downlevelCaches?**: `boolean`
+▪ **downlevelCaches**: `boolean`
 
 #### Implementation of
 
 [`TevmStateManagerInterface`](../interfaces/TevmStateManagerInterface.md).[`shallowCopy`](../interfaces/TevmStateManagerInterface.md#shallowcopy)
 
-#### Inherited from
+#### Overrides
 
 DefaultStateManager.shallowCopy
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node\_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:332
+packages/state/types/NormalStateManager.d.ts:20
 
 ***
 
