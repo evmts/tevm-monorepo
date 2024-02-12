@@ -11,6 +11,6 @@ describe(blockNumberHandler.name, () => {
 					},
 				}),
 		}
-		expect(await blockNumberHandler(blockchain as any)()).toBe(420n)
+		expect(await blockNumberHandler({ blockchain } as any)()).toBe(420n)
 	})
 })

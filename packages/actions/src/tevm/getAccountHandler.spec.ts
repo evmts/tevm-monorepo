@@ -1,6 +1,6 @@
 import { getAccountHandler } from './getAccountHandler.js'
 import { setAccountHandler } from './setAccountHandler.js'
-import { EVM } from '@ethereumjs/evm'
+import { VM } from '@ethereumjs/vm'
 import { describe, expect, it } from 'bun:test'
 
 const ERC20_ADDRESS = `0x${'3'.repeat(40)}` as const
@@ -9,23 +9,23 @@ const ERC20_BYTECODE =
 
 describe('getAccount', () => {
 	it('should get an account from evm', async () => {
-		const evm = new EVM({})
-		const res = await setAccountHandler(evm)({
+		const vm = await VM.create()
+		const res = await setAccountHandler(vm)({
 			address: ERC20_ADDRESS,
 			deployedBytecode: ERC20_BYTECODE,
 			balance: 420n,
 			nonce: 69n,
 		})
 		expect(res.errors).toBeUndefined()
-		const account = await getAccountHandler(evm)({ address: ERC20_ADDRESS })
+		const account = await getAccountHandler(vm)({ address: ERC20_ADDRESS })
 		expect(account?.balance).toBe(420n)
 		expect(account?.nonce).toBe(69n)
 		expect(account.deployedBytecode).toBe(ERC20_BYTECODE)
 	})
 
 	it('should validate params', async () => {
-		const evm = new EVM({})
-		const res = await setAccountHandler(evm)({
+		const vm = await VM.create()
+		const res = await setAccountHandler(vm)({
 			// @ts-expect-error
 			address: 'not an address',
 		})

@@ -5,17 +5,19 @@ import { bytesToHex } from 'viem'
 
 /**
  * @param {object} options
- * @param {import('@ethereumjs/evm').EVM['stateManager']} options.stateManager
+ * @param {import('@ethereumjs/vm').VM} options.vm
  * @param {string}  [options.forkUrl]
  * @returns {import('@tevm/actions-types').EthGetCodeHandler}
  */
 export const getCodeHandler =
-	({ stateManager, forkUrl }) =>
+	({ vm, forkUrl }) =>
 	async (params) => {
 		const tag = params.blockTag ?? 'pending'
 		if (tag === 'pending') {
 			return bytesToHex(
-				await stateManager.getContractCode(Address.fromString(params.address)),
+				await vm.stateManager.getContractCode(
+					Address.fromString(params.address),
+				),
 			)
 		}
 		if (!forkUrl) {

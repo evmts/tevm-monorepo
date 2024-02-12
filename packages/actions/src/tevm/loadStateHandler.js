@@ -4,10 +4,10 @@ import { validateLoadStateParams } from '@tevm/zod'
 import { fromRlp, hexToBytes, isHex } from 'viem'
 
 /**
- * @param {import("@tevm/state").NormalStateManager | import("@tevm/state").ForkStateManager | import("@tevm/state").ProxyStateManager} stateManager
+ * @param {import("@ethereumjs/vm").VM} vm
  * @returns {import('@tevm/actions-types').LoadStateHandler}
  */
-export const loadStateHandler = (stateManager) => async (params) => {
+export const loadStateHandler = (vm) => async (params) => {
 	const errors = validateLoadStateParams(params)
 	if (errors.length > 0) {
 		return { errors }
@@ -25,7 +25,7 @@ export const loadStateHandler = (stateManager) => async (params) => {
 				hexToBytes(codeHash, { size: 32 }),
 			)
 			const address = Address.fromString(k)
-			stateManager.putAccount(address, account)
+			vm.stateManager.putAccount(address, account)
 			if (storage !== undefined) {
 				for (const [storageKey, storageData] of Object.entries(storage)) {
 					const key = hexToBytes(
@@ -39,9 +39,11 @@ export const loadStateHandler = (stateManager) => async (params) => {
 							? encodedStorageData
 							: `0x${encodedStorageData}`,
 					)
-					stateManager.putContractStorage(address, key, data)
+					vm.stateManager.putContractStorage(address, key, data)
 				}
 			}
+			await vm.stateManager.checkpoint()
+			await vm.stateManager.commit()
 		}
 		return {}
 	} catch (e) {
@@ -52,8 +54,8 @@ export const loadStateHandler = (stateManager) => async (params) => {
 					typeof e === 'string'
 						? e
 						: e instanceof Error
-							? e.message
-							: 'unknown error',
+						? e.message
+						: 'unknown error',
 				),
 			],
 		}

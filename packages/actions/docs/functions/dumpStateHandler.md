@@ -6,11 +6,11 @@
 
 # Function: dumpStateHandler()
 
-> **dumpStateHandler**(`stateManager`): `DumpStateHandler`
+> **dumpStateHandler**(`vm`): `DumpStateHandler`
 
 ## Parameters
 
-▪ **stateManager**: `NormalStateManager` \| `ForkStateManager` \| `ProxyStateManager`
+▪ **vm**: `VM`
 
 ## Returns
 

@@ -67,7 +67,7 @@ export const scriptHandler = (vm) => async (params) => {
 	)
 
 	const accountRes = await setAccountHandler(
-		/** @type {import('@ethereumjs/evm').EVM}*/ (clonedVm.evm),
+		/** @type {import('@ethereumjs/vm').VM}*/ (clonedVm),
 	)({
 		deployedBytecode: params.deployedBytecode,
 		address: scriptAddress,

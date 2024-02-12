@@ -4,15 +4,15 @@ import { bytesToHex, hexToBytes, numberToHex } from 'viem'
 /**
  * Returns a trace of an eth_call within the context of the given block execution using the final state of the parent block
  * @param {object} options
- * @param {import('@ethereumjs/evm').EVM} options.evm
+ * @param {import('@ethereumjs/vm').VM} options.vm
  * @returns {import('@tevm/actions-types').DebugTraceCallHandler} an execution trace of an {@link eth_call} in the context of a given block execution
  * mirroring the output from {@link traceTransaction}
  */
 export const traceCallHandler =
-	({ evm: _evm }) =>
+	({ vm: _vm }) =>
 	async (params) => {
-		const evm = /** @type {import('@ethereumjs/evm').EVMInterface}*/ (
-			_evm.shallowCopy()
+		const vm = /** @type {import('@ethereumjs/vm').VM}*/ (
+			await _vm.shallowCopy()
 		)
 		const { from, to, gas: gasLimit, gasPrice, value, data } = params
 
@@ -28,7 +28,7 @@ export const traceCallHandler =
 			 */
 			structLogs: [],
 		}
-		evm.events?.on('step', async (step, next) => {
+		vm.evm.events?.on('step', async (step, next) => {
 			trace.structLogs.push({
 				pc: step.pc,
 				op: step.opcode.name,
@@ -40,7 +40,7 @@ export const traceCallHandler =
 			next?.()
 		})
 
-		evm.events?.on('afterMessage', (data, next) => {
+		vm.evm.events?.on('afterMessage', (data, next) => {
 			if (
 				data.execResult.exceptionError !== undefined &&
 				trace.structLogs.length > 0
@@ -58,7 +58,7 @@ export const traceCallHandler =
 			next?.()
 		})
 
-		const res = await evm.runCall({
+		const res = await vm.evm.runCall({
 			...(from !== undefined
 				? {
 						origin: Address.fromString(from),

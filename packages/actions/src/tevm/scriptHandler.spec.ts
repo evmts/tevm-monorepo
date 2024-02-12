@@ -292,8 +292,9 @@ const ERC20_ABI = [
 
 describe('scriptHandler', () => {
 	it('should execute a script', async () => {
+		const evm = new EVM({})
 		expect(
-			await scriptHandler(await VM.create())({
+			await scriptHandler(await VM.create({ evm }))({
 				deployedBytecode: ERC20_BYTECODE,
 				abi: ERC20_ABI,
 				functionName: 'balanceOf',
@@ -378,7 +379,8 @@ describe('scriptHandler', () => {
 	it('should handle unlikely event decoding data fails', async () => {
 		const evm = new EVM({})
 		const originalRunCall = evm.runCall.bind(evm)
-		evm.runCall = async function(args) {
+		const vm = await VM.create({ evm })
+		vm.evm.runCall = async function (args) {
 			const realResult = await originalRunCall(args)
 			return {
 				...realResult,
@@ -388,7 +390,6 @@ describe('scriptHandler', () => {
 				},
 			}
 		}
-		const vm = await VM.create({ evm })
 		expect(
 			await scriptHandler(vm)({
 				deployedBytecode: ERC20_BYTECODE,

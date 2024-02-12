@@ -16,15 +16,15 @@ export class NoForkUrlSetError extends Error {
 
 /**
  * @param {object} options
- * @param {import('@ethereumjs/evm').EVM['stateManager']} options.stateManager
+ * @param {import('@ethereumjs/vm').VM} options.vm
  * @param {string} [options.forkUrl]
  * @returns {import('@tevm/actions-types').EthGetBalanceHandler}
  */
 export const getBalanceHandler =
-	({ stateManager, forkUrl }) =>
+	({ vm, forkUrl }) =>
 	async ({ address, blockTag = 'pending' }) => {
 		if (blockTag === 'pending') {
-			return stateManager
+			return vm.stateManager
 				.getAccount(Address.fromString(address))
 				.then((account) => account?.balance ?? 0n)
 		}

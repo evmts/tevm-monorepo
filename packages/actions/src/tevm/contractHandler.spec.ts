@@ -2,6 +2,7 @@ import { contractHandler } from './contractHandler.js'
 import { setAccountHandler } from './setAccountHandler.js'
 import { EVM, EVMErrorMessage } from '@ethereumjs/evm'
 import { VM } from '@ethereumjs/vm'
+import { NormalStateManager } from '@tevm/state'
 import { describe, expect, it } from 'bun:test'
 
 const ERC20_ADDRESS = `0x${'3'.repeat(40)}` as const
@@ -292,12 +293,13 @@ const ERC20_ABI = [
 
 describe('contractHandler', () => {
 	it('should execute a contract call', async () => {
-		const evm = new EVM({})
-		const vm = await VM.create({ evm })
+		const stateManager = new NormalStateManager()
+		const evm = new EVM({ stateManager })
+		const vm = await VM.create({ evm, stateManager })
 		// deploy contract
 		expect(
 			(
-				await setAccountHandler(evm)({
+				await setAccountHandler(vm)({
 					address: ERC20_ADDRESS,
 					deployedBytecode: ERC20_BYTECODE,
 				})
@@ -325,12 +327,13 @@ describe('contractHandler', () => {
 	})
 
 	it('should handle errors returned during contract call', async () => {
-		const evm = new EVM({})
-		const vm = await VM.create({ evm })
+		const stateManager = new NormalStateManager()
+		const evm = new EVM({ stateManager })
+		const vm = await VM.create({ evm, stateManager })
 		// deploy contract
 		expect(
 			(
-				await setAccountHandler(evm)({
+				await setAccountHandler(vm)({
 					address: ERC20_ADDRESS,
 					deployedBytecode: ERC20_BYTECODE,
 				})
@@ -365,8 +368,9 @@ describe('contractHandler', () => {
 	})
 
 	it('should handle a contract not existing', async () => {
-		const evm = new EVM({})
-		const vm = await VM.create({ evm })
+		const stateManager = new NormalStateManager()
+		const evm = new EVM({ stateManager })
+		const vm = await VM.create({ evm, stateManager })
 		const caller = `0x${'23'.repeat(20)}` as const
 		expect(
 			await contractHandler(vm)({
@@ -392,12 +396,13 @@ describe('contractHandler', () => {
 	})
 
 	it('should handle the EVM unexpectedly throwing', async () => {
-		const evm = new EVM({})
-		const vm = await VM.create({ evm })
+		const stateManager = new NormalStateManager()
+		const evm = new EVM({ stateManager })
+		const vm = await VM.create({ evm, stateManager })
 		// deploy contract
 		expect(
 			(
-				await setAccountHandler(evm)({
+				await setAccountHandler(vm)({
 					address: ERC20_ADDRESS,
 					deployedBytecode: ERC20_BYTECODE,
 				})
@@ -414,6 +419,7 @@ describe('contractHandler', () => {
 				args: [caller, caller, 1n],
 				to: ERC20_ADDRESS,
 				value: 420n,
+				createTransaction: true,
 			}),
 		).toEqual({
 			...({} as { data: never }),
@@ -430,12 +436,13 @@ describe('contractHandler', () => {
 	})
 
 	it('should handle the invalid contract params', async () => {
-		const evm = new EVM({})
-		const vm = await VM.create({ evm })
+		const stateManager = new NormalStateManager()
+		const evm = new EVM({ stateManager })
+		const vm = await VM.create({ evm, stateManager })
 		// deploy contract
 		expect(
 			(
-				await setAccountHandler(evm)({
+				await setAccountHandler(vm)({
 					address: ERC20_ADDRESS,
 					deployedBytecode: ERC20_BYTECODE,
 				})
@@ -469,10 +476,11 @@ describe('contractHandler', () => {
 	})
 
 	it('Handles the unlikely event the function data cannot be decoded', async () => {
-		const evm = new EVM({})
-		const vm = await VM.create({ evm })
+		const stateManager = new NormalStateManager()
+		const evm = new EVM({ stateManager })
+		const vm = await VM.create({ evm, stateManager })
 		const originalRunCall = evm.runCall.bind(evm)
-		evm.runCall = function (args) {
+		vm.evm.runCall = function (args) {
 			return {
 				...originalRunCall(args),
 				execResult: { returnValue: '0x42424242' },
@@ -481,7 +489,7 @@ describe('contractHandler', () => {
 		// deploy contract
 		expect(
 			(
-				await setAccountHandler(evm)({
+				await setAccountHandler(vm)({
 					address: ERC20_ADDRESS,
 					deployedBytecode: ERC20_BYTECODE,
 				})
@@ -495,17 +503,19 @@ describe('contractHandler', () => {
 				args: [ERC20_ADDRESS],
 				to: ERC20_ADDRESS,
 				gas: 16784800n,
+				createTransaction: true,
 			}),
 		).toMatchSnapshot()
 	})
 
 	it('Handls function data not being encodable', async () => {
-		const evm = new EVM({})
-		const vm = await VM.create({ evm })
+		const stateManager = new NormalStateManager()
+		const evm = new EVM({ stateManager })
+		const vm = await VM.create({ evm, stateManager })
 		// deploy contract
 		expect(
 			(
-				await setAccountHandler(evm)({
+				await setAccountHandler(vm)({
 					address: ERC20_ADDRESS,
 					deployedBytecode: ERC20_BYTECODE,
 				})

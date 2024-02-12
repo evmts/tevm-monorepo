@@ -299,7 +299,7 @@ describe('callHandler', () => {
 		// deploy contract
 		expect(
 			(
-				await setAccountHandler(evm)({
+				await setAccountHandler(vm)({
 					address: ERC20_ADDRESS,
 					deployedBytecode: ERC20_BYTECODE,
 				})
@@ -321,7 +321,7 @@ describe('callHandler', () => {
 		)
 	})
 
-	it('should be able to send value', async () => {
+	it('should not modify state', async () => {
 		const evm = new EVM({})
 		const vm = await VM.create({ evm })
 		const to = `0x${'69'.repeat(20)}` as const
@@ -333,7 +333,7 @@ describe('callHandler', () => {
 			}),
 		).toEqual('0x')
 		expect(
-			(await evm.stateManager.getAccount(Address.fromString(to)))?.balance,
-		).toEqual(420n)
+			(await vm.evm.stateManager.getAccount(Address.fromString(to)))?.balance,
+		).not.toEqual(420n)
 	})
 })

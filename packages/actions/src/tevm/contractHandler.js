@@ -15,7 +15,7 @@ import {
  * @returns {import("@tevm/actions-types").ContractHandler}
  */
 export const contractHandler = (vm) => async (params) => {
-	const errors = validateContractParams(/** @type any*/(params))
+	const errors = validateContractParams(/** @type any*/ (params))
 	if (errors.length > 0) {
 		return { errors, executionGasUsed: 0n, rawData: '0x' }
 	}
@@ -43,7 +43,7 @@ export const contractHandler = (vm) => async (params) => {
 	let functionData
 	try {
 		functionData = encodeFunctionData(
-			/** @type {any} */({
+			/** @type {any} */ ({
 				abi: params.abi,
 				functionName: params.functionName,
 				args: params.args,
@@ -74,7 +74,7 @@ export const contractHandler = (vm) => async (params) => {
 		result.errors = result.errors.map((err) => {
 			if (isHex(err.message) && err._tag === 'revert') {
 				const decodedError = decodeErrorResult(
-					/** @type {any} */({
+					/** @type {any} */ ({
 						abi: params.abi,
 						data: err.message,
 						functionName: params.functionName,
@@ -95,7 +95,7 @@ export const contractHandler = (vm) => async (params) => {
 	let decodedResult
 	try {
 		decodedResult = decodeFunctionResult(
-			/** @type {any} */({
+			/** @type {any} */ ({
 				abi: params.abi,
 				data: result.rawData,
 				functionName: params.functionName,

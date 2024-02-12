@@ -299,7 +299,7 @@ describe('callHandler', () => {
 		// deploy contract
 		expect(
 			(
-				await setAccountHandler(evm)({
+				await setAccountHandler(vm)({
 					address: ERC20_ADDRESS,
 					deployedBytecode: ERC20_BYTECODE,
 				})
@@ -355,7 +355,7 @@ describe('callHandler', () => {
 		// deploy contract
 		expect(
 			(
-				await setAccountHandler(evm)({
+				await setAccountHandler(vm)({
 					address: ERC20_ADDRESS,
 					deployedBytecode: ERC20_BYTECODE,
 				})
@@ -394,7 +394,7 @@ describe('callHandler', () => {
 	it('should handle the EVM unexpectedly throwing', async () => {
 		const evm = new EVM({})
 		const vm = await VM.create({ evm })
-		evm.runCall = () => {
+		vm.evm.runCall = () => {
 			throw new Error('Unexpected error')
 		}
 		expect(
@@ -402,6 +402,7 @@ describe('callHandler', () => {
 				data: '0x0',
 				to: ERC20_ADDRESS,
 				value: 420n,
+				createTransaction: true,
 			}),
 		).toEqual({
 			errors: [

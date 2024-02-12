@@ -6,7 +6,9 @@ import { hexToBytes } from 'viem'
 describe('callHandlerOpts', () => {
 	it('should handle empty params', () => {
 		const result = callHandlerOpts({})
-		expect(result).toEqual({})
+		expect(result).toEqual({
+			skipBalance: true,
+		})
 	})
 
 	it('should parse caller address correctly', () => {
@@ -126,7 +128,10 @@ describe('callHandlerOpts', () => {
 		const result = callHandlerOpts({
 			gasPrice,
 		})
-		expect(result).toEqual({ gasPrice })
+		expect(result).toEqual({
+			gasPrice,
+			skipBalance: true,
+		})
 	})
 
 	it('should handle value', () => {
@@ -150,6 +155,6 @@ describe('callHandlerOpts', () => {
 		const result = callHandlerOpts({
 			gas,
 		})
-		expect(result).toEqual({ gasLimit: gas })
+		expect(result).toEqual({ gasLimit: gas, skipBalance: true })
 	})
 })
