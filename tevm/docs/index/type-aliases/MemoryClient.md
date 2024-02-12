@@ -60,6 +60,12 @@ but is not guaranteed to stay stable between versions
 
 Fork url if the EVM is forked
 
+### forkedBlock
+
+> **`readonly`** **forkedBlock**?: `Block`
+
+Forked block
+
 ### mode
 
 > **`readonly`** **mode**: `"fork"` \| `"proxy"` \| `"normal"`
@@ -69,9 +75,15 @@ The mode the current client is running in
 `proxy` mode will fetch all state from the latest block of the provided proxy URL
 `normal` mode will not fetch any state and will only run the EVM in memory
 
+### name
+
+> **`readonly`** **name**: `string`
+
+Optional name to give the client
+
 ## Source
 
-packages/memory-client/types/MemoryClient.d.ts:37
+packages/memory-client/types/MemoryClient.d.ts:38
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

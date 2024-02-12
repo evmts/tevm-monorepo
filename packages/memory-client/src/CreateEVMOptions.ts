@@ -30,6 +30,15 @@ export type Hardfork =
  */
 export type CreateEVMOptions = {
 	/**
+	 * Optional name to give the client
+	 */
+	name?: string
+	/**
+	 * Set the chainId. Defaults to 1.
+	 * @throws if forkUrl is also set
+	 */
+	chainId?: number
+	/**
 	 * Enable profiler. Defaults to false.
 	 */
 	profiler?: boolean

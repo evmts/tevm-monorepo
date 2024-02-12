@@ -232,15 +232,15 @@ node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm
 
 ### blockchain
 
-> **blockchain**: `Blockchain`
+> **blockchain**: `TevmBlockchain`
 
-#### Inherited from
+#### Overrides
 
 EVM.blockchain
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:31
+[packages/memory-client/src/WrappedEvm.ts:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/WrappedEvm.ts#L15)
 
 ***
 
@@ -310,7 +310,7 @@ EVM.stateManager
 
 #### Source
 
-[packages/memory-client/src/WrappedEvm.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/WrappedEvm.ts#L14)
+[packages/memory-client/src/WrappedEvm.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/WrappedEvm.ts#L16)
 
 ***
 

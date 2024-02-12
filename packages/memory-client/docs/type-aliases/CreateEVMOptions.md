@@ -18,6 +18,16 @@ Options for creating an Tevm MemoryClient instance
 
 Enable/disable unlimited contract size. Defaults to false.
 
+### chainId
+
+> **chainId**?: `number`
+
+Set the chainId. Defaults to 1.
+
+#### Throws
+
+if forkUrl is also set
+
 ### customPrecompiles
 
 > **customPrecompiles**?: [`CustomPrecompile`](CustomPrecompile.md)[]
@@ -108,6 +118,12 @@ Cannot be set if `proxy` is also set
 > **hardfork**?: `Hardfork`
 
 Hardfork to use. Defaults to `shanghai`
+
+### name
+
+> **name**?: `string`
+
+Optional name to give the client
 
 ### profiler
 

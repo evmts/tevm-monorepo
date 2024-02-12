@@ -1,4 +1,5 @@
 import { EVM } from '@ethereumjs/evm'
+import type { TevmBlockchain } from '@tevm/blockchain'
 import type {
 	ForkStateManager,
 	NormalStateManager,
@@ -11,6 +12,7 @@ import type {
  * @internal
  */
 export class WrappedEvm extends EVM {
+	public declare blockchain: TevmBlockchain
 	public declare stateManager:
 		| NormalStateManager
 		| ForkStateManager

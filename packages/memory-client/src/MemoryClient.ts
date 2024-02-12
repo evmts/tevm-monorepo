@@ -1,5 +1,6 @@
 import type { VM } from '@ethereumjs/vm'
 import type { TevmClient } from '@tevm/client-types'
+import { type Block } from 'viem'
 
 /**
  * A local EVM instance running in JavaScript. Similar to Anvil in your browser/node/bun environments
@@ -37,9 +38,17 @@ import type { TevmClient } from '@tevm/client-types'
  */
 export type MemoryClient = TevmClient & {
 	/**
+	 * Optional name to give the client
+	 */
+	readonly name: string
+	/**
 	 * Fork url if the EVM is forked
 	 */
 	readonly forkUrl?: string | undefined
+	/**
+	 * Forked block
+	 */
+	readonly forkedBlock?: Block | undefined
 	/**
 	 * Internal instance of the VM. Can be used for lower level operations
 	 * but is not guaranteed to stay stable between versions

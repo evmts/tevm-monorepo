@@ -1,6 +1,5 @@
 import { WrappedEvm } from './WrappedEvm.js'
-import { Block } from '@ethereumjs/block'
-import { Blockchain } from '@ethereumjs/blockchain'
+import { ethjsBlockToViemBlock } from './ethjsBlockToViemBlock.js'
 import { Common, Hardfork } from '@ethereumjs/common'
 import { genesisStateRoot } from '@ethereumjs/trie'
 import { MapDB } from '@ethereumjs/util'
@@ -22,6 +21,7 @@ import {
 	setAccountHandler,
 	testAccounts,
 } from '@tevm/actions'
+import { TevmBlockchain } from '@tevm/blockchain'
 import { requestBulkProcedure, requestProcedure } from '@tevm/procedures'
 import {
 	ForkStateManager,
@@ -63,6 +63,10 @@ import { createPublicClient, http, parseEther } from 'viem'
  *  ```
  */
 export const createMemoryClient = async (options = {}) => {
+	if (options.fork?.url && options.chainId) {
+		throw new Error('Cannot specify both fork.url and chainId')
+	}
+	const name = options.fork?.url ? 'Tevm' : 'Tevm (no fork)'
 	if (options.fork?.url && options.proxy?.url) {
 		throw new Error(
 			'Unable to initialize MemoryClient. Cannot use both fork and proxy options at the same time!',
@@ -73,20 +77,45 @@ export const createMemoryClient = async (options = {}) => {
 	 * @type {NormalStateManager | ForkStateManager | ProxyStateManager}
 	 */
 	let stateManager
-	const common = new Common({
-		chain: 1,
-		hardfork: options.hardfork ?? Hardfork.Shanghai,
-		eips: /**@type number[]*/ (options.eips ?? [1559, 4895]),
-	})
 
-	let chainId = 420n
+	/**
+	 * @type {Common}
+	 */
+	let common
+	/**
+	 * @type {bigint}
+	 */
+	let chainId
+	/**
+	 * @type {import('viem').Block | undefined}
+	 */
+	let forkedBlock
+
+	/**
+	 * @type {TevmBlockchain}
+	 */
+	let blockchain
 
 	// ethereumjs throws an error for most chain ids
 	if (options.fork?.url) {
+		const db = new MapDB(new Map())
 		// TODO we should be using tevm/jsonrpc package instead of viem
 		const client = createPublicClient({
 			transport: http(options.fork.url),
 		})
+		chainId = BigInt(await client.getChainId())
+		common = Common.custom(
+			{
+				chainId,
+				name,
+				url: options.fork.url,
+			},
+			{
+				hardfork: options.hardfork ?? Hardfork.Shanghai,
+				baseChain: 'mainnet',
+				eips: /**@type number[]*/ (options.eips ?? [1559, 4895]),
+			},
+		)
 		const blockTagPromise = options.fork.blockTag
 			? Promise.resolve(options.fork.blockTag)
 			: client.getBlockNumber()
@@ -96,52 +125,103 @@ export const createMemoryClient = async (options = {}) => {
 			chainIdPromise,
 		])
 		chainId = BigInt(_chainId)
+		blockchain = await TevmBlockchain.createFromForkUrl({
+			url: options.fork.url,
+			// for now we skip fetching forking uncle headers to speed up the process and reduce rpc load
+			tag: options.fork.blockTag,
+			blockchainOptions: {
+				db,
+				common,
+				validateBlocks: false,
+				validateConsensus: false,
+				hardforkByHeadBlockNumber: false,
+			},
+		}).catch((e) => {
+			console.error(e)
+			throw new Error(
+				'An error forking blockchain caused client to fail to initialize',
+			)
+		})
+		forkedBlock = await blockchain
+			.getCanonicalHeadBlock()
+			.then((block) => ethjsBlockToViemBlock(block, chainId))
 		stateManager = new ForkStateManager({ url: options.fork.url, blockTag })
 	} else if (options.proxy?.url) {
+		const db = new MapDB(new Map())
+		const client = createPublicClient({
+			transport: http(options.proxy.url),
+		})
+		chainId = BigInt(await client.getChainId())
+		common = Common.custom(
+			{
+				chainId,
+				name,
+				url: options.proxy.url,
+			},
+			{
+				hardfork: options.hardfork ?? Hardfork.Shanghai,
+				baseChain: 'mainnet',
+				eips: /**@type number[]*/ (options.eips ?? [1559, 4895]),
+			},
+		)
+		blockchain = await TevmBlockchain.createFromForkUrl({
+			url: options.proxy.url,
+			// for now we skip fetching forking uncle headers to speed up the process and reduce rpc load
+			tag: 'latest',
+			blockchainOptions: {
+				db,
+				common,
+				validateBlocks: false,
+				validateConsensus: false,
+				hardforkByHeadBlockNumber: false,
+			},
+		}).catch((e) => {
+			console.error(e)
+			throw new Error(
+				'An error forking blockchain caused client to fail to initialize',
+			)
+		})
+		forkedBlock = await blockchain
+			.getCanonicalHeadBlock()
+			.then((block) => ethjsBlockToViemBlock(block, chainId))
 		stateManager = new ProxyStateManager({ url: options.proxy.url })
 	} else {
 		stateManager = new NormalStateManager()
+		forkedBlock = undefined
+		chainId = 420n
+		/**
+		 * @type {Map<string | number | Uint8Array, string | Uint8Array | import('@ethereumjs/util').DBObject>}
+		 */
+		const mapDb = new Map()
+		const db = new MapDB(mapDb)
+		/**
+		 * @type {import('@ethereumjs/util').GenesisState}
+		 */
+		const genesisState = {}
+		const stateRoot = await genesisStateRoot(genesisState)
+		common = new Common({
+			chain: 1,
+			hardfork: options.hardfork ?? Hardfork.Shanghai,
+			eips: /**@type number[]*/ (options.eips ?? [1559, 4895]),
+		})
+		blockchain = await TevmBlockchain.create({
+			genesisState,
+			hardforkByHeadBlockNumber: false,
+			db,
+			common,
+			validateBlocks: false,
+			validateConsensus: false,
+			// genesisBlock,
+			genesisStateRoot: stateRoot,
+			// using ethereumjs defaults for this and disabling it
+			// consensus,
+		})
 	}
 
 	/**
 	 * @type {import('@ethereumjs/util').GenesisState}
 	 */
 	const genesisState = {}
-
-	const genesisBlock = Block.fromBlockData(
-		{
-			header: common.genesis(),
-			...(common.isActivatedEIP(4895)
-				? {
-						withdrawals:
-							/** @type {Array<import('@ethereumjs/util').WithdrawalData>}*/ ([]),
-				  }
-				: {}),
-		},
-		{ common, setHardfork: false, skipConsensusFormatValidation: true },
-	)
-
-	/**
-	 * @type {Map<string | number | Uint8Array, string | Uint8Array | import('@ethereumjs/util').DBObject>}
-	 */
-	const mapDb = new Map()
-	const db = new MapDB(mapDb)
-
-	const stateRoot = await genesisStateRoot(genesisState)
-
-	// We might need to update this instead of naively using a blank blockchain
-	const blockchain = await Blockchain.create({
-		genesisState,
-		hardforkByHeadBlockNumber: false,
-		db,
-		common,
-		validateBlocks: false,
-		validateConsensus: false,
-		genesisBlock,
-		genesisStateRoot: stateRoot,
-		// using ethereumjs defaults for this and disabling it
-		// consensus,
-	})
 
 	const evm = new WrappedEvm({
 		common,
@@ -222,8 +302,10 @@ export const createMemoryClient = async (options = {}) => {
 	 * @type {import('./MemoryClient.js').MemoryClient}
 	 */
 	const tevm = {
+		name,
 		mode: options.fork?.url ? 'fork' : options.proxy?.url ? 'proxy' : 'normal',
 		_vm: vm,
+		forkedBlock,
 		// we currently don't want to proxy any requests
 		// because this causes confusing behavior with tevm
 		// that we want to avoid or abstract away before enabling
