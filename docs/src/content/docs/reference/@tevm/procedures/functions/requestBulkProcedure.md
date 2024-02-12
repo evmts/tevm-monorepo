@@ -9,7 +9,7 @@ title: "requestBulkProcedure"
 
 ## Parameters
 
-▪ **vm**: `VM`
+▪ **vm**: `TevmVm`
 
 ## Returns
 

@@ -11,7 +11,7 @@ Creates an ContractHandler for handling contract params with Ethereumjs EVM
 
 ## Parameters
 
-▪ **vm**: `VM`
+▪ **vm**: `TevmVm`
 
 ## Returns
 

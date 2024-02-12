@@ -9,7 +9,7 @@ title: "loadStateHandler"
 
 ## Parameters
 
-▪ **vm**: `VM`
+▪ **vm**: `TevmVm`
 
 ## Returns
 

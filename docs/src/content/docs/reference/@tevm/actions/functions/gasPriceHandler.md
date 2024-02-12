@@ -13,7 +13,7 @@ title: "gasPriceHandler"
 
 ▪ **options.forkUrl**: `undefined` \| `string`
 
-▪ **options.vm**: `VM`
+▪ **options.vm**: `TevmVm`
 
 ## Returns
 

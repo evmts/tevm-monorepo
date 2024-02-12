@@ -1,6 +1,7 @@
+import { NormalStateManager } from '@tevm/state'
 import { requestBulkProcedure } from './requestBulkProcedure.js'
 import { EVM } from '@ethereumjs/evm'
-import { VM } from '@ethereumjs/vm'
+import { TevmVm } from '@tevm/vm'
 import { describe, expect, it } from 'bun:test'
 import { numberToHex } from 'viem'
 
@@ -10,8 +11,9 @@ const ERC20_BYTECODE =
 
 describe('requestBulkProcedure', () => {
 	it('should work', async () => {
-		const evm = new EVM({})
-		const vm = await VM.create({ evm })
+		const stateManager = new NormalStateManager()
+		const evm = new EVM({ stateManager })
+		const vm = await TevmVm.create({ evm, stateManager })
 		await requestBulkProcedure(vm)([
 			{
 				jsonrpc: '2.0',

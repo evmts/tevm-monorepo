@@ -11,7 +11,7 @@ Creates an CallHandler for handling call params with Ethereumjs EVM
 
 ## Parameters
 
-▪ **vm**: `VM`
+▪ **vm**: `TevmVm`
 
 ## Returns
 

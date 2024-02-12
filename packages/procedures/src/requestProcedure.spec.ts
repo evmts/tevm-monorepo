@@ -9,7 +9,7 @@ import {
 import { requestProcedure } from './requestProcedure.js'
 import { EVM } from '@ethereumjs/evm'
 import { Account, Address } from '@ethereumjs/util'
-import { VM } from '@ethereumjs/vm'
+import { TevmVm } from '@tevm/vm'
 import { testAccounts } from '@tevm/actions'
 import type { EthSignTransactionJsonRpcRequest } from '@tevm/procedures-types'
 import { NormalStateManager } from '@tevm/state'
@@ -311,8 +311,9 @@ const ERC20_ABI = [
 describe('requestProcedure', () => {
 	describe('tevm_getAccount', () => {
 		it('should work', async () => {
-			const evm = new EVM({})
-			const vm = await VM.create({ evm })
+			const stateManager = new NormalStateManager()
+			const evm = new EVM({ stateManager })
+			const vm = await TevmVm.create({ evm, stateManager })
 			await requestProcedure(vm)({
 				jsonrpc: '2.0',
 				method: 'tevm_setAccount',
@@ -345,8 +346,9 @@ describe('requestProcedure', () => {
 	})
 	describe('tevm_setAccount', () => {
 		it('should work', async () => {
-			const evm = new EVM({})
-			const vm = await VM.create({ evm })
+			const stateManager = new NormalStateManager()
+			const evm = new EVM({ stateManager })
+			const vm = await TevmVm.create({ evm, stateManager })
 			const res = await requestProcedure(vm)({
 				jsonrpc: '2.0',
 				method: 'tevm_setAccount',
@@ -367,8 +369,9 @@ describe('requestProcedure', () => {
 			expect(bytesToHex(account.codeHash)).toBe(keccak256(ERC20_BYTECODE))
 		})
 		it('should handle account throwing an unexpected error', async () => {
-			const evm = new EVM({})
-			const vm = await VM.create({ evm })
+			const stateManager = new NormalStateManager()
+			const evm = new EVM({ stateManager })
+			const vm = await TevmVm.create({ evm, stateManager })
 			vm.stateManager.putAccount = () => {
 				throw new Error('unexpected error')
 			}
@@ -402,11 +405,10 @@ describe('requestProcedure', () => {
 
 	describe('tevm_call', async () => {
 		it('should work', async () => {
+			const to = `0x${'69'.repeat(20)}` as const
 			const stateManager = new NormalStateManager()
 			const evm = new EVM({ stateManager })
-			const to = `0x${'69'.repeat(20)}` as const
-			// send value
-			const vm = await VM.create({ evm, stateManager })
+			const vm = await TevmVm.create({ evm, stateManager })
 			expect(
 				await callProcedure(vm)({
 					jsonrpc: '2.0',
@@ -435,9 +437,10 @@ describe('requestProcedure', () => {
 		})
 
 		it('should handle an error', async () => {
-			const evm = new EVM({})
 			const to = `0x${'69'.repeat(20)}` as const
-			const vm = await VM.create({ evm })
+			const stateManager = new NormalStateManager()
+			const evm = new EVM({ stateManager })
+			const vm = await TevmVm.create({ evm, stateManager })
 			const originalRunCall = vm.evm.runCall.bind(evm)
 			vm.evm.runCall = async (args) => {
 				const res = await originalRunCall(args)
@@ -484,8 +487,11 @@ describe('requestProcedure', () => {
 
 	describe('tevm_script', async () => {
 		it('should work', async () => {
+			const stateManager = new NormalStateManager()
+			const evm = new EVM({ stateManager })
+			const vm = await TevmVm.create({ evm, stateManager })
 			expect(
-				await scriptProcedure(await VM.create())({
+				await scriptProcedure(vm)({
 					jsonrpc: '2.0',
 					method: 'tevm_script',
 					id: 1,
@@ -517,8 +523,11 @@ describe('requestProcedure', () => {
 
 		it('should handle the evm throwing an error', async () => {
 			const caller = `0x${'69'.repeat(20)}` as const
+			const stateManager = new NormalStateManager()
+			const evm = new EVM({ stateManager })
+			const vm = await TevmVm.create({ evm, stateManager })
 			expect(
-				await scriptProcedure(await VM.create({}))({
+				await scriptProcedure(vm)({
 					jsonrpc: '2.0',
 					method: 'tevm_script',
 					id: 1,
@@ -549,8 +558,9 @@ describe('requestProcedure', () => {
 		})
 
 		it('should handle the handler function unexpectedly throwing', async () => {
-			const evm = new EVM({})
-			const vm = await VM.create({ evm })
+			const stateManager = new NormalStateManager()
+			const evm = new EVM({ stateManager })
+			const vm = await TevmVm.create({ evm, stateManager })
 			vm.evm.runCall = async () => {
 				throw new Error('unexpected error')
 			}
@@ -589,7 +599,9 @@ describe('requestProcedure', () => {
 
 	describe('eth_blockNumber', async () => {
 		it('should work', async () => {
-			const vm = await VM.create()
+			const stateManager = new NormalStateManager()
+			const evm = new EVM({ stateManager })
+			const vm = await TevmVm.create({ evm, stateManager })
 			// send value
 			expect(
 				await blockNumberProcedure(vm)({
