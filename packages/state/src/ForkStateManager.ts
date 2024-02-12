@@ -1,3 +1,4 @@
+// [mozilla public license 2.0](https://github.com/ethereumjs/ethereumjs-monorepo/blob/master/packages/statemanager/LICENSE)
 import { Trie } from '@ethereumjs/trie'
 import { Account } from '@ethereumjs/util'
 import { debug as createDebugLogger } from 'debug'
@@ -310,10 +311,8 @@ export class ForkStateManager implements TevmStateManagerInterface {
 	): Promise<void> {
 		if (this.DEBUG) {
 			this._debug(
-				`Save account address=${address} nonce=${account?.nonce} balance=${
-					account?.balance
-				} contract=${account?.isContract() ? 'yes' : 'no'} empty=${
-					account?.isEmpty() ? 'yes' : 'no'
+				`Save account address=${address} nonce=${account?.nonce} balance=${account?.balance
+				} contract=${account?.isContract() ? 'yes' : 'no'} empty=${account?.isEmpty() ? 'yes' : 'no'
 				}`,
 			)
 		}
@@ -450,7 +449,7 @@ export class ForkStateManager implements TevmStateManagerInterface {
 	/**
 	 * @deprecated This method is not used by the Fork State Manager and is a stub required by the State Manager interface
 	 */
-	setStateRoot = async (_root: Uint8Array) => {}
+	setStateRoot = async (_root: Uint8Array) => { }
 
 	/**
 	 * @deprecated This method is not used by the Fork State Manager and is a stub required by the State Manager interface
