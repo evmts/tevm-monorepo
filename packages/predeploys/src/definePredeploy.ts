@@ -35,7 +35,7 @@ export const definePredeploy = <
 	'contract' | 'address'
 >): Predeploy<TName, THumanReadableAbi> => {
 	class PredeployImplementation extends Predeploy<TName, THumanReadableAbi> {
-		contract = contract
+		contract = contract.withAddress(address)
 		address = getAddress(address)
 	}
 	return new PredeployImplementation()

@@ -97,6 +97,8 @@ export const createMemoryClient = async (options = {}) => {
 		])
 		chainId = BigInt(_chainId)
 		stateManager = new ForkStateManager({ url: options.fork.url, blockTag })
+	} else if (options.proxy?.url) {
+		stateManager = new ProxyStateManager({ url: options.proxy.url })
 	} else {
 		stateManager = new NormalStateManager()
 	}
@@ -155,26 +157,6 @@ export const createMemoryClient = async (options = {}) => {
 		},
 	})
 
-	// We need to make sure that we lock the state manager when a call is ran
-	// Ideally we move and unit test logic like this to a new @tevm/evm package in future
-	const originalRunCall = evm.runCall.bind(evm)
-	evm.runCall = async (...args) => {
-		if (
-			stateManager instanceof NormalStateManager ||
-			stateManager instanceof ForkStateManager
-		) {
-			return originalRunCall(...args)
-		}
-		const proxyStateManager = stateManager
-		proxyStateManager.lock()
-		try {
-			const res = await originalRunCall(...args)
-			return res
-		} finally {
-			proxyStateManager.unlock()
-		}
-	}
-
 	const vm = await VM.create({
 		stateManager,
 		evm,
@@ -189,13 +171,58 @@ export const createMemoryClient = async (options = {}) => {
 		},
 	})
 
+	// We need to make sure that we lock the state manager when a call is ran
+	// Ideally we move and unit test logic like this to a new @tevm/evm package in future
+	const originalRunCall = vm.evm.runCall.bind(vm.evm)
+	vm.evm.runCall = async (...args) => {
+		if (
+			vm.stateManager instanceof NormalStateManager ||
+			vm.stateManager instanceof ForkStateManager
+		) {
+			return originalRunCall(...args)
+		}
+		if (!(vm.stateManager instanceof ProxyStateManager)) {
+			throw new Error('Unknown state manager')
+		}
+		await vm.stateManager.lock()
+		try {
+			const res = await originalRunCall(...args)
+			return res
+		} finally {
+			await vm.stateManager.unlock()
+		}
+	}
+
+	const originalShallowCopy = vm.shallowCopy.bind(vm)
+	vm.shallowCopy = async (...args) => {
+		const newVm = await originalShallowCopy(...args)
+		const originalRunCall = newVm.evm.runCall.bind(newVm.evm)
+		newVm.evm.runCall = async (...args) => {
+			if (
+				newVm.evm.stateManager instanceof NormalStateManager ||
+				newVm.evm.stateManager instanceof ForkStateManager
+			) {
+				return originalRunCall(...args)
+			}
+			if (!(newVm.evm.stateManager instanceof ProxyStateManager)) {
+				throw new Error('Unknown state manager in shallow copy')
+			}
+			await newVm.evm.stateManager.lock()
+			try {
+				const res = await originalRunCall(...args)
+				return res
+			} finally {
+				await newVm.evm.stateManager.unlock()
+			}
+		}
+		return newVm
+	}
+
 	/**
 	 * @type {import('./MemoryClient.js').MemoryClient}
 	 */
 	const tevm = {
 		mode: options.fork?.url ? 'fork' : options.proxy?.url ? 'proxy' : 'normal',
-
-		_evm: evm,
 		_vm: vm,
 		// we currently don't want to proxy any requests
 		// because this causes confusing behavior with tevm
@@ -209,27 +236,27 @@ export const createMemoryClient = async (options = {}) => {
 		setAccount: setAccountHandler(vm),
 		call: callHandler(vm),
 		contract: contractHandler(vm),
-		dumpState: dumpStateHandler(evm.stateManager),
-		loadState: loadStateHandler(evm.stateManager),
+		dumpState: dumpStateHandler(vm),
+		loadState: loadStateHandler(vm),
 		accounts: testAccounts,
 		eth: {
-			blockNumber: blockNumberHandler(blockchain),
+			blockNumber: blockNumberHandler(vm),
 			call: ethCallHandler(vm),
 			chainId: chainIdHandler(chainId),
 			gasPrice: gasPriceHandler({
 				forkUrl: options.fork?.url,
-				blockchain,
+				vm,
 			}),
 			getBalance: getBalanceHandler({
 				forkUrl: options.fork?.url,
-				stateManager,
+				vm,
 			}),
 			getCode: getCodeHandler({
-				stateManager,
+				vm,
 				forkUrl: options.fork?.url,
 			}),
 			getStorageAt: getStorageAtHandler({
-				stateManager,
+				vm,
 				forkUrl: options.fork?.url,
 			}),
 		},

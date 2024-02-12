@@ -51,7 +51,7 @@ export const requestProcedure = (vm) => {
 	return async (request) => {
 		switch (request.method) {
 			case 'tevm_call':
-				return /**@type any*/ (callProcedure)(vm.evm)(request)
+				return /**@type any*/ (callProcedure)(vm)(request)
 			case /** @type {any} */ ('tevm_contract'): {
 				/**
 				 * @type {import('@tevm/errors').UnsupportedMethodError}
@@ -160,7 +160,7 @@ export const requestProcedure = (vm) => {
 					name: 'UnsupportedMethodError',
 					message: `UnsupportedMethodError: Unknown method ${
 						/**@type any*/ (request).method
-					}`,
+						}`,
 				}
 				return /** @type {any}*/ ({
 					id: /** @type any*/ (request).id ?? null,
