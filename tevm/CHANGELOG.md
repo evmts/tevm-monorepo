@@ -1,5 +1,24 @@
 # @tevm/contract
 
+## 1.0.0-next.33
+
+### Minor Changes
+
+- [#890](https://github.com/evmts/tevm-monorepo/pull/890) [`64db695b4bf00b1e06909b960e9a498e520f1d73`](https://github.com/evmts/tevm-monorepo/commit/64db695b4bf00b1e06909b960e9a498e520f1d73) Thanks [@roninjin10](https://github.com/roninjin10)! - Updated tevm call actions to not modify the state by default unless createTransaction: true is set
+
+### Patch Changes
+
+- Updated dependencies [[`64db695b4bf00b1e06909b960e9a498e520f1d73`](https://github.com/evmts/tevm-monorepo/commit/64db695b4bf00b1e06909b960e9a498e520f1d73), [`7453edc4231d597179cc9bb117bc5df488b99c51`](https://github.com/evmts/tevm-monorepo/commit/7453edc4231d597179cc9bb117bc5df488b99c51), [`64db695b4bf00b1e06909b960e9a498e520f1d73`](https://github.com/evmts/tevm-monorepo/commit/64db695b4bf00b1e06909b960e9a498e520f1d73)]:
+  - @tevm/actions-types@1.0.0-next.33
+  - @tevm/memory-client@1.0.0-next.33
+  - @tevm/http-client@1.0.0-next.33
+  - @tevm/predeploys@1.0.0-next.33
+  - @tevm/state@1.0.0-next.33
+  - @tevm/client-types@1.0.0-next.32
+  - @tevm/procedures-types@1.0.0-next.32
+  - @tevm/server@1.0.0-next.33
+  - @tevm/precompiles@1.0.0-next.28
+
 ## 1.0.0-next.32
 
 ### Minor Changes

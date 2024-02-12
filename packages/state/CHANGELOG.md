@@ -1,5 +1,17 @@
 # @tevm/state
 
+## 1.0.0-next.33
+
+### Minor Changes
+
+- [#890](https://github.com/evmts/tevm-monorepo/pull/890) [`64db695b4bf00b1e06909b960e9a498e520f1d73`](https://github.com/evmts/tevm-monorepo/commit/64db695b4bf00b1e06909b960e9a498e520f1d73) Thanks [@roninjin10](https://github.com/roninjin10)! - Updated tevm call actions to not modify the state by default unless createTransaction: true is set
+
+- [#891](https://github.com/evmts/tevm-monorepo/pull/891) [`7453edc4231d597179cc9bb117bc5df488b99c51`](https://github.com/evmts/tevm-monorepo/commit/7453edc4231d597179cc9bb117bc5df488b99c51) Thanks [@roninjin10](https://github.com/roninjin10)! - Moved state dump and state load to generateCannonicalGenesis and dumpCanonicalGenesis methods on state classes
+
+### Patch Changes
+
+- [#890](https://github.com/evmts/tevm-monorepo/pull/890) [`64db695b4bf00b1e06909b960e9a498e520f1d73`](https://github.com/evmts/tevm-monorepo/commit/64db695b4bf00b1e06909b960e9a498e520f1d73) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug with state normal mode not shallow copying correctly
+
 ## 1.0.0-next.30
 
 ### Minor Changes

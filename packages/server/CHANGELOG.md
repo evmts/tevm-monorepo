@@ -1,5 +1,12 @@
 # @tevm/server
 
+## 1.0.0-next.33
+
+### Patch Changes
+
+- Updated dependencies [[`64db695b4bf00b1e06909b960e9a498e520f1d73`](https://github.com/evmts/tevm-monorepo/commit/64db695b4bf00b1e06909b960e9a498e520f1d73)]:
+  - @tevm/zod@1.0.0-next.33
+
 ## 1.0.0-next.32
 
 ### Patch Changes
