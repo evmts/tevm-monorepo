@@ -5,11 +5,7 @@ prev: false
 title: "scriptProcedure"
 ---
 
-<<<<<<< HEAD
-> **scriptProcedure**(`evm`): `ScriptJsonRpcProcedure`
-=======
-> **scriptProcedure**(`vm`): [`ScriptJsonRpcProcedure`](/reference/tevm/procedures-types/type-aliases/scriptjsonrpcprocedure/)
->>>>>>> a129fd9c (:sparkles: Implement block tags and correct skipBalance)
+> **scriptProcedure**(`vm`): `ScriptJsonRpcProcedure`
 
 Creates a Script JSON-RPC Procedure for handling script requests with Ethereumjs VM
 

@@ -5,11 +5,7 @@ prev: false
 title: "contractProcedure"
 ---
 
-<<<<<<< HEAD
-> **contractProcedure**(`evm`): `CallJsonRpcProcedure`
-=======
-> **contractProcedure**(`vm`): [`CallJsonRpcProcedure`](/reference/tevm/procedures-types/type-aliases/calljsonrpcprocedure/)
->>>>>>> a129fd9c (:sparkles: Implement block tags and correct skipBalance)
+> **contractProcedure**(`vm`): `CallJsonRpcProcedure`
 
 Creates a Contract JSON-RPC Procedure for handling contract requests with Ethereumjs EVM
 Because the Contract handler is a quality of life wrapper around a call for the JSON rpc interface
