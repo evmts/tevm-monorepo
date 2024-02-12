@@ -14,7 +14,8 @@ import { type Address, bytesToHex, fromRlp, hexToBytes, isHex } from 'viem'
  */
 export class NormalStateManager
 	extends DefaultStateManager
-	implements TevmStateManagerInterface {
+	implements TevmStateManagerInterface
+{
 	/**
 	 * Retrieves the addresses of all the accounts in the state.
 	 * @returns An array of account addresses.

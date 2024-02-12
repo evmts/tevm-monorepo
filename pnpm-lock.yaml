@@ -27,11 +27,11 @@ importers:
         specifier: ^0.34.6
         version: 0.34.7(vitest@0.34.6)
       bun:
-        specifier: ^1.0.24
-        version: 1.0.24
+        specifier: ^1.0.26
+        version: 1.0.26
       bun-types:
-        specifier: ^1.0.24
-        version: 1.0.24
+        specifier: ^1.0.26
+        version: 1.0.26
       concurrently:
         specifier: ^8.2.2
         version: 8.2.2
@@ -853,49 +853,6 @@ importers:
         specifier: ^0.34.6
         version: 0.34.6(@vitest/ui@0.34.7)
 
-  experimental/blockexplorer:
-    dependencies:
-      '@tevm/schemas':
-        specifier: workspace:^
-        version: link:../schemas
-      effect:
-        specifier: 2.0.0-next.54
-        version: 2.0.0-next.54
-    devDependencies:
-      '@tevm/tsconfig':
-        specifier: workspace:^
-        version: link:../../configs/tsconfig
-      '@tevm/tsupconfig':
-        specifier: workspace:^
-        version: link:../../configs/tsupconfig
-      '@vitest/coverage-v8':
-        specifier: ^0.34.6
-        version: 0.34.6(vitest@0.34.6)
-      '@vitest/ui':
-        specifier: ^0.34.6
-        version: 0.34.7(vitest@0.34.6)
-      rome:
-        specifier: ^12.1.3
-        version: 12.1.3
-      tsup:
-        specifier: ^7.2.0
-        version: 7.3.0(typescript@5.3.3)
-      typedoc:
-        specifier: ^0.25.3
-        version: 0.25.7(typescript@5.3.3)
-      typedoc-plugin-markdown:
-        specifier: ^3.16.0
-        version: 3.17.1(typedoc@0.25.7)
-      typescript:
-        specifier: ^5.2.2
-        version: 5.3.3
-      viem:
-        specifier: ^2.0.0
-        version: 2.4.0(typescript@5.3.3)(zod@3.22.4)
-      vitest:
-        specifier: ^0.34.6
-        version: 0.34.6(@vitest/ui@0.34.7)
-
   experimental/revm:
     devDependencies:
       '@tevm/tsconfig':
@@ -1401,7 +1358,7 @@ importers:
         version: 1.0.0-next.18(fast-check@3.15.0)(typescript@5.3.3)
       '@evmts/vite-plugin':
         specifier: next
-        version: 1.0.0-next.19(esbuild@0.19.12)(fast-check@3.15.0)(typescript@5.3.3)
+        version: 1.0.0-next.19(esbuild@0.19.5)(fast-check@3.15.0)(typescript@5.3.3)
       '@tevm/tsconfig':
         specifier: workspace:^
         version: link:../../configs/tsconfig
@@ -4528,15 +4485,15 @@ packages:
       - zod
     dev: true
 
-  /@evmts/config@1.0.0-next.17(esbuild@0.19.12)(fast-check@3.15.0)(solc@0.8.22)(typescript@5.3.3):
+  /@evmts/config@1.0.0-next.17(esbuild@0.19.5)(fast-check@3.15.0)(solc@0.8.22)(typescript@5.3.3):
     resolution: {integrity: sha512-rxyLCYOROZ7rDGYrcKpnK0ulXTWJwAyyqKbbogAikLZkUh2VSH8GVpYzNpHj2Uy2ZMiNHlYrpEMbWRt53rCsgg==}
     peerDependencies:
       solc: '*'
     dependencies:
       '@effect/schema': 0.47.7(effect@2.0.0-next.54)(fast-check@3.15.0)
-      '@evmts/effect': 1.0.0-next.9(esbuild@0.19.12)(fast-check@3.15.0)(solc@0.8.22)(typescript@5.3.3)
+      '@evmts/effect': 1.0.0-next.9(esbuild@0.19.5)(fast-check@3.15.0)(solc@0.8.22)(typescript@5.3.3)
       '@types/node': 20.11.10
-      bundle-require: 4.0.2(esbuild@0.19.12)
+      bundle-require: 4.0.2(esbuild@0.19.5)
       effect: 2.0.0-next.54
       jsonc-parser: 3.2.0
       solc: 0.8.22
@@ -4580,13 +4537,13 @@ packages:
       viem: 2.4.0(typescript@5.3.3)(zod@3.22.4)
     dev: true
 
-  /@evmts/effect@1.0.0-next.9(esbuild@0.19.12)(fast-check@3.15.0)(solc@0.8.22)(typescript@5.3.3):
+  /@evmts/effect@1.0.0-next.9(esbuild@0.19.5)(fast-check@3.15.0)(solc@0.8.22)(typescript@5.3.3):
     resolution: {integrity: sha512-EDhjN26goPELm2XjxBcY3/8xx7J3HTGdOqgKQoolWt/5eghyxXcvcFFnynN3KSd6mSciozBWGuOFms8HEi4QTg==}
     peerDependencies:
       solc: '*'
     dependencies:
       '@effect/schema': 0.47.7(effect@2.0.0-next.54)(fast-check@3.15.0)
-      bundle-require: 4.0.2(esbuild@0.19.12)
+      bundle-require: 4.0.2(esbuild@0.19.5)
       effect: 2.0.0-next.54
       jsonc-parser: 3.2.0
       resolve: 1.22.8
@@ -4622,11 +4579,11 @@ packages:
       - zod
     dev: true
 
-  /@evmts/resolutions@1.0.0-next.18(esbuild@0.19.12)(fast-check@3.15.0)(solc@0.8.22)(typescript@5.3.3):
+  /@evmts/resolutions@1.0.0-next.18(esbuild@0.19.5)(fast-check@3.15.0)(solc@0.8.22)(typescript@5.3.3):
     resolution: {integrity: sha512-+VB+sh5IF1KtuXuyDHH5KOJjNEJs/REtVz0yzht/RaEOql+cOqtprVivemzzTwPT04bzNhilykas5EfKU08PNw==}
     dependencies:
-      '@evmts/config': 1.0.0-next.17(esbuild@0.19.12)(fast-check@3.15.0)(solc@0.8.22)(typescript@5.3.3)
-      '@evmts/effect': 1.0.0-next.9(esbuild@0.19.12)(fast-check@3.15.0)(solc@0.8.22)(typescript@5.3.3)
+      '@evmts/config': 1.0.0-next.17(esbuild@0.19.5)(fast-check@3.15.0)(solc@0.8.22)(typescript@5.3.3)
+      '@evmts/effect': 1.0.0-next.9(esbuild@0.19.5)(fast-check@3.15.0)(solc@0.8.22)(typescript@5.3.3)
       '@evmts/tsconfig': 1.0.0-next.5
       '@types/node': 20.11.10
       '@types/resolve': 1.20.5
@@ -4675,11 +4632,11 @@ packages:
       effect: 2.0.0-next.54
     dev: true
 
-  /@evmts/solc@1.0.0-next.18(esbuild@0.19.12)(fast-check@3.15.0)(solc@0.8.22)(typescript@5.3.3):
+  /@evmts/solc@1.0.0-next.18(esbuild@0.19.5)(fast-check@3.15.0)(solc@0.8.22)(typescript@5.3.3):
     resolution: {integrity: sha512-MGGIz+a8ZKtkmh2z8tmjfJ+DRSLdJV7lSBge0a0sIEhtUFSfc24MVEvHt4KOPms5bNc0OI6BLMM1j72xj4/UDw==}
     dependencies:
-      '@evmts/config': 1.0.0-next.17(esbuild@0.19.12)(fast-check@3.15.0)(solc@0.8.22)(typescript@5.3.3)
-      '@evmts/resolutions': 1.0.0-next.18(esbuild@0.19.12)(fast-check@3.15.0)(solc@0.8.22)(typescript@5.3.3)
+      '@evmts/config': 1.0.0-next.17(esbuild@0.19.5)(fast-check@3.15.0)(solc@0.8.22)(typescript@5.3.3)
+      '@evmts/resolutions': 1.0.0-next.18(esbuild@0.19.5)(fast-check@3.15.0)(solc@0.8.22)(typescript@5.3.3)
       '@evmts/tsconfig': 1.0.0-next.5
       '@types/node': 20.11.10
       '@types/resolve': 1.20.5
@@ -4746,12 +4703,12 @@ packages:
     resolution: {integrity: sha512-GWguzA58Ry2CPQhvNAH0x2Au0Bdm+MsBORWHF9usCVD44yC++joPHaIWBSbe3SrF0BccLEf5yIfOKgS5XIEecQ==}
     dev: true
 
-  /@evmts/unplugin@1.0.0-next.19(esbuild@0.19.12)(fast-check@3.15.0)(typescript@5.3.3):
+  /@evmts/unplugin@1.0.0-next.19(esbuild@0.19.5)(fast-check@3.15.0)(typescript@5.3.3):
     resolution: {integrity: sha512-NgIXsZ5IEliByfgM/TBhyibLTawCipZs6oIGe7XIehGAVBADOBEWaT7QgIjGQkS5dEyE0OMTEAmgRQhbYhUIog==}
     dependencies:
-      '@evmts/config': 1.0.0-next.17(esbuild@0.19.12)(fast-check@3.15.0)(solc@0.8.22)(typescript@5.3.3)
+      '@evmts/config': 1.0.0-next.17(esbuild@0.19.5)(fast-check@3.15.0)(solc@0.8.22)(typescript@5.3.3)
       '@evmts/runtime': 1.0.0-next.13
-      '@evmts/solc': 1.0.0-next.18(esbuild@0.19.12)(fast-check@3.15.0)(solc@0.8.22)(typescript@5.3.3)
+      '@evmts/solc': 1.0.0-next.18(esbuild@0.19.5)(fast-check@3.15.0)(solc@0.8.22)(typescript@5.3.3)
       '@evmts/tsconfig': 1.0.0-next.5
       '@types/node': 20.11.10
       '@types/resolve': 1.20.5
@@ -4771,10 +4728,10 @@ packages:
       - zod
     dev: true
 
-  /@evmts/vite-plugin@1.0.0-next.19(esbuild@0.19.12)(fast-check@3.15.0)(typescript@5.3.3):
+  /@evmts/vite-plugin@1.0.0-next.19(esbuild@0.19.5)(fast-check@3.15.0)(typescript@5.3.3):
     resolution: {integrity: sha512-rZ3cMVskpkeiHr5N4HtN2tVLm2PJtSyoWMZqFnEPGsbH3nK7FEh8ZX9134kbCuk7SFM/S49GgNqPEoRb2OzkLg==}
     dependencies:
-      '@evmts/unplugin': 1.0.0-next.19(esbuild@0.19.12)(fast-check@3.15.0)(typescript@5.3.3)
+      '@evmts/unplugin': 1.0.0-next.19(esbuild@0.19.5)(fast-check@3.15.0)(typescript@5.3.3)
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -5767,48 +5724,48 @@ packages:
     resolution: {integrity: sha512-yQJaT5HDp9hYOOp4jTYxMsR02gdFZFXhewX5HW9Jo4fsqSVqqyIO/xTHdWDaKX5a3pv1txmf076Lziz+sO7L1w==}
     dev: true
 
-  /@oven/bun-darwin-aarch64@1.0.24:
-    resolution: {integrity: sha512-Vg2sLbVsBPZWKwhDvZUQlclGK7YpJYqCroM5c3jHvZDouuKwm0IXIKTNmfOQGQkbevJkQJzoNUnsNg8bwFNcMg==}
+  /@oven/bun-darwin-aarch64@1.0.26:
+    resolution: {integrity: sha512-7FgUZz2EpMgFdEI9sA68bnHhrnrDBmCwcewpm6641HK0x2RIO1EcFl/7GKSGsD1JmbNfGqxYU16Sc+rgKFtXAg==}
     cpu: [arm64]
     os: [darwin]
     requiresBuild: true
     dev: true
     optional: true
 
-  /@oven/bun-darwin-x64-baseline@1.0.24:
-    resolution: {integrity: sha512-7VSsFYoqc1A8axS7deETsYXCSGi9HLZgaM+7zGuoKYyMGzpxrxkf2q7PBFnPlvvjcT7sCHriOB79VKTr+aHKcg==}
+  /@oven/bun-darwin-x64-baseline@1.0.26:
+    resolution: {integrity: sha512-ssVJJs6tAvVZKnCx5bXAXZ05nSbfLHJ4qD/XFlVYb+3aue81YhXzQpbsOr9DShv209rBp9756SqHs9KZH66cbQ==}
     cpu: [x64]
     os: [darwin]
     requiresBuild: true
     dev: true
     optional: true
 
-  /@oven/bun-darwin-x64@1.0.24:
-    resolution: {integrity: sha512-r718f9kzJKeJhhNlK3CBjPjh9xzImvF2UizD1P+HxRh3qT8mqmsF+rdFb0o5fqJP0V3VUUSq1zrGZ+RZfZ701g==}
+  /@oven/bun-darwin-x64@1.0.26:
+    resolution: {integrity: sha512-kWO6ThQEMm4OPfqlhFlWrDRiIFtaUl//bRJfomOHE4BABaP9bdgHjDsaxt0pUWiKP9j9YnPFXtMw91iUbTbCWg==}
     cpu: [x64]
     os: [darwin]
     requiresBuild: true
     dev: true
     optional: true
 
-  /@oven/bun-linux-aarch64@1.0.24:
-    resolution: {integrity: sha512-yz+fDGDvfjq8QnAWc2zSkB6xdc9Pez2kMLLMVYB4uDxG7ZM5k0ClvubFPyFoPBzue+/Tt0qYbrN61u5oTDA5sQ==}
+  /@oven/bun-linux-aarch64@1.0.26:
+    resolution: {integrity: sha512-YSG6pOFMpXquGf3i4/Ta05NAlsSkiZVk5P5EAlfO1fnJANlkcu1QfD/IYvddQ5YY4aOTwlQFqA29pYxYj+2A/A==}
     cpu: [arm64]
     os: [linux]
     requiresBuild: true
     dev: true
     optional: true
 
-  /@oven/bun-linux-x64-baseline@1.0.24:
-    resolution: {integrity: sha512-rixKQfzx0j5JoCJe5HDvFcRv24ad2IPHB0YKXnYVhUQIJ0yf25y2ofiT42Nus5JE6r91bLTXyLyWlSFGaXaebQ==}
+  /@oven/bun-linux-x64-baseline@1.0.26:
+    resolution: {integrity: sha512-1EjD6t6BFkspGqTRqYGVSQw5eIktDsappweG+1yh/QpmhV95/vDKKoPGXCwoyeSoJIjJMl9VaApX8Fr1vpnUfA==}
     cpu: [x64]
     os: [linux]
     requiresBuild: true
     dev: true
     optional: true
 
-  /@oven/bun-linux-x64@1.0.24:
-    resolution: {integrity: sha512-2TtGHxNCMATJMdtDNbQ1jCwAO5QrCiCrkDXzG2xm8aYf8RWm2WREg0kY1ovvOz5JLYvmrSx1RQxum9W/u+Q8Bg==}
+  /@oven/bun-linux-x64@1.0.26:
+    resolution: {integrity: sha512-ErEH7yBkWIt01qROMysM6ZQqz8epY+2DtQW0rfjKbaPm8JuEdZVyeA5zoKES3e2J37FUY073MdbwdzE5KPX2cQ==}
     cpu: [x64]
     os: [linux]
     requiresBuild: true
@@ -9975,19 +9932,26 @@ packages:
       undici-types: 5.28.2
     dev: true
 
-  /bun@1.0.24:
-    resolution: {integrity: sha512-nbjulEGanq5q6F4KsB5SFQJgB79ccrOkQoo/n28kZQCRA7F7fydIUUA3Ib62yT+NYw5rVcMTAEMkVX7IdU3yfQ==}
+  /bun-types@1.0.26:
+    resolution: {integrity: sha512-VcSj+SCaWIcMb0uSGIAtr8P92zq9q+unavcQmx27fk6HulCthXHBVrdGuXxAZbFtv7bHVjizRzR2mk9r/U8Nkg==}
+    dependencies:
+      '@types/node': 20.11.10
+      '@types/ws': 8.5.10
+    dev: true
+
+  /bun@1.0.26:
+    resolution: {integrity: sha512-+aSzKvGLE9hWwCRDwvnhoMTDntCYEk5bKn16L0QGD0v630WJMPhazAMxaSJmfq6dSAtiqPpauPpmHbzwoGPjlQ==}
     cpu: [arm64, x64]
     os: [darwin, linux]
     hasBin: true
     requiresBuild: true
     optionalDependencies:
-      '@oven/bun-darwin-aarch64': 1.0.24
-      '@oven/bun-darwin-x64': 1.0.24
-      '@oven/bun-darwin-x64-baseline': 1.0.24
-      '@oven/bun-linux-aarch64': 1.0.24
-      '@oven/bun-linux-x64': 1.0.24
-      '@oven/bun-linux-x64-baseline': 1.0.24
+      '@oven/bun-darwin-aarch64': 1.0.26
+      '@oven/bun-darwin-x64': 1.0.26
+      '@oven/bun-darwin-x64-baseline': 1.0.26
+      '@oven/bun-linux-aarch64': 1.0.26
+      '@oven/bun-linux-x64': 1.0.26
+      '@oven/bun-linux-x64-baseline': 1.0.26
     dev: true
 
   /bundle-require@4.0.2(esbuild@0.19.11):
@@ -9998,16 +9962,6 @@ packages:
     dependencies:
       esbuild: 0.19.11
       load-tsconfig: 0.2.5
-
-  /bundle-require@4.0.2(esbuild@0.19.12):
-    resolution: {integrity: sha512-jwzPOChofl67PSTW2SGubV9HBQAhhR2i6nskiOThauo9dzwDUgOWQScFVaJkjEfYX+UXiD+LEx8EblQMc2wIag==}
-    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
-    peerDependencies:
-      esbuild: '>=0.17'
-    dependencies:
-      esbuild: 0.19.12
-      load-tsconfig: 0.2.5
-    dev: true
 
   /bundle-require@4.0.2(esbuild@0.19.5):
     resolution: {integrity: sha512-jwzPOChofl67PSTW2SGubV9HBQAhhR2i6nskiOThauo9dzwDUgOWQScFVaJkjEfYX+UXiD+LEx8EblQMc2wIag==}

@@ -30,10 +30,10 @@ export const createJsonRpcFetcher = (
 				id: 1,
 			})
 			const res = await fetch(url, {
-				headers: {
+				headers: /** @type any*/ ({
 					'content-type': 'application/json',
 					...headers,
-				},
+				}),
 				method: 'POST',
 				body: data,
 			})

@@ -11,8 +11,8 @@
 		"build:app": "NODE_ENV=production bun ./build.js",
 		"dev": "bun run build && node ./dist/index.js",
 		"test": "bun test",
-		"test:coverage": "echo 'no coverage implemented' && bun test",
-		"test:run": "bun test"
+		"//test:coverage": "echo 'no coverage implemented' && bun test",
+		"//test:run": "bun test"
 	},
 	"dependencies": {
 		"@tevm/contract": "^1.0.0-next.28",
