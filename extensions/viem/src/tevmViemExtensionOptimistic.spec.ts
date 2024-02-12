@@ -72,12 +72,12 @@ describe('tevmViemExtension', () => {
 					success: true,
 					tag: 'OPTIMISTIC_RESULT',
 				})
-				expect((client.request as jest.Mock).mock.lastCall[0]).toEqual({
+				expect((client.request as jest.Mock).mock.lastCall?.[0]).toEqual({
 					method: 'tevm_contract',
 					params: params,
 					jsonrpc: '2.0',
 				})
-				expect((client.writeContract as jest.Mock).mock.lastCall[0]).toEqual({
+				expect((client.writeContract as jest.Mock).mock.lastCall?.[0]).toEqual({
 					abi: params.abi,
 					functionName: params.functionName,
 					args: params.args,
@@ -98,8 +98,8 @@ describe('tevmViemExtension', () => {
 					success: true,
 					tag: 'RECEIPT',
 				})
-				expect(mockWaitForTransactionReceipt.mock.lastCall[0]).toEqual(client)
-				expect(mockWaitForTransactionReceipt.mock.lastCall[1]).toEqual({
+				expect(mockWaitForTransactionReceipt.mock.lastCall?.[0]).toEqual(client)
+				expect(mockWaitForTransactionReceipt.mock.lastCall?.[1]).toEqual({
 					hash: mockWriteContractResponse,
 				})
 			}

@@ -42,7 +42,7 @@ const stateManager = new TevmStateManager({
 
 #### Source
 
-[packages/state/src/ProxyStateManager.ts:89](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L89)
+[packages/state/src/ProxyStateManager.ts:90](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L90)
 
 ## Properties
 
@@ -52,7 +52,7 @@ const stateManager = new TevmStateManager({
 
 #### Source
 
-[packages/state/src/ProxyStateManager.ts:87](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L87)
+[packages/state/src/ProxyStateManager.ts:88](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L88)
 
 ***
 
@@ -62,7 +62,7 @@ const stateManager = new TevmStateManager({
 
 #### Source
 
-[packages/state/src/ProxyStateManager.ts:84](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L84)
+[packages/state/src/ProxyStateManager.ts:85](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L85)
 
 ***
 
@@ -80,7 +80,7 @@ We track the block tag the cache was using so we can invalidate it whenever it c
 
 #### Source
 
-[packages/state/src/ProxyStateManager.ts:71](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L71)
+[packages/state/src/ProxyStateManager.ts:72](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L72)
 
 ***
 
@@ -90,7 +90,7 @@ We track the block tag the cache was using so we can invalidate it whenever it c
 
 #### Source
 
-[packages/state/src/ProxyStateManager.ts:82](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L82)
+[packages/state/src/ProxyStateManager.ts:83](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L83)
 
 ***
 
@@ -104,7 +104,7 @@ When a call is not currently executed this blocktag is unlocked and set back to 
 
 #### Source
 
-[packages/state/src/ProxyStateManager.ts:66](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L66)
+[packages/state/src/ProxyStateManager.ts:67](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L67)
 
 ***
 
@@ -114,7 +114,7 @@ When a call is not currently executed this blocktag is unlocked and set back to 
 
 #### Source
 
-[packages/state/src/ProxyStateManager.ts:86](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L86)
+[packages/state/src/ProxyStateManager.ts:87](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L87)
 
 ***
 
@@ -126,7 +126,7 @@ How often we expect the block number to change
 
 #### Source
 
-[packages/state/src/ProxyStateManager.ts:81](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L81)
+[packages/state/src/ProxyStateManager.ts:82](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L82)
 
 ***
 
@@ -138,7 +138,7 @@ Cache the last time we fetched a block to avoid fetching it too often
 
 #### Source
 
-[packages/state/src/ProxyStateManager.ts:77](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L77)
+[packages/state/src/ProxyStateManager.ts:78](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L78)
 
 ***
 
@@ -148,7 +148,7 @@ Cache the last time we fetched a block to avoid fetching it too often
 
 #### Source
 
-[packages/state/src/ProxyStateManager.ts:83](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L83)
+[packages/state/src/ProxyStateManager.ts:84](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L84)
 
 ***
 
@@ -3598,7 +3598,7 @@ const unwatch = await client.watchPendingTransactions({
 
 #### Source
 
-[packages/state/src/ProxyStateManager.ts:88](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L88)
+[packages/state/src/ProxyStateManager.ts:89](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L89)
 
 ***
 
@@ -3608,7 +3608,7 @@ const unwatch = await client.watchPendingTransactions({
 
 #### Source
 
-[packages/state/src/ProxyStateManager.ts:89](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L89)
+[packages/state/src/ProxyStateManager.ts:90](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L90)
 
 ***
 
@@ -3622,7 +3622,7 @@ const unwatch = await client.watchPendingTransactions({
 
 #### Source
 
-[packages/state/src/ProxyStateManager.ts:85](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L85)
+[packages/state/src/ProxyStateManager.ts:86](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L86)
 
 ## Methods
 
@@ -3640,7 +3640,7 @@ Address of the `account` to check
 
 #### Source
 
-[packages/state/src/ProxyStateManager.ts:297](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L297)
+[packages/state/src/ProxyStateManager.ts:307](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L307)
 
 ***
 
@@ -3660,7 +3660,7 @@ Partial implementation, called from the subclass.
 
 #### Source
 
-[packages/state/src/ProxyStateManager.ts:467](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L467)
+[packages/state/src/ProxyStateManager.ts:479](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L479)
 
 ***
 
@@ -3672,7 +3672,7 @@ Resets all internal caches
 
 #### Source
 
-[packages/state/src/ProxyStateManager.ts:169](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L169)
+[packages/state/src/ProxyStateManager.ts:170](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L170)
 
 ***
 
@@ -3694,7 +3694,7 @@ Address to clear the storage of
 
 #### Source
 
-[packages/state/src/ProxyStateManager.ts:263](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L263)
+[packages/state/src/ProxyStateManager.ts:273](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L273)
 
 ***
 
@@ -3713,7 +3713,7 @@ Partial implementation, called from the subclass.
 
 #### Source
 
-[packages/state/src/ProxyStateManager.ts:478](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L478)
+[packages/state/src/ProxyStateManager.ts:490](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L490)
 
 ***
 
@@ -3735,7 +3735,7 @@ Address of the account which should be deleted
 
 #### Source
 
-[packages/state/src/ProxyStateManager.ts:421](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L421)
+[packages/state/src/ProxyStateManager.ts:433](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L433)
 
 ***
 
@@ -3747,7 +3747,7 @@ Dumps the state of the state manager as a [SerializableTevmState](../type-aliase
 
 #### Source
 
-[packages/state/src/ProxyStateManager.ts:566](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L566)
+[packages/state/src/ProxyStateManager.ts:578](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L578)
 
 ***
 
@@ -3775,7 +3775,7 @@ Both are represented as `0x` prefixed hex strings.
 
 #### Source
 
-[packages/state/src/ProxyStateManager.ts:274](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L274)
+[packages/state/src/ProxyStateManager.ts:284](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L284)
 
 ***
 
@@ -3797,7 +3797,7 @@ Both are represented as `0x` prefixed hex strings.
 
 #### Source
 
-[packages/state/src/ProxyStateManager.ts:285](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L285)
+[packages/state/src/ProxyStateManager.ts:295](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L295)
 
 ***
 
@@ -3807,7 +3807,7 @@ Both are represented as `0x` prefixed hex strings.
 
 #### Source
 
-[packages/state/src/ProxyStateManager.ts:494](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L494)
+[packages/state/src/ProxyStateManager.ts:506](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L506)
 
 ***
 
@@ -3827,7 +3827,7 @@ Loads a [SerializableTevmState](../type-aliases/SerializableTevmState.md) into t
 
 #### Source
 
-[packages/state/src/ProxyStateManager.ts:530](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L530)
+[packages/state/src/ProxyStateManager.ts:542](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L542)
 
 ***
 
@@ -3847,7 +3847,7 @@ Gets the code corresponding to the provided `address`.
 
 #### Source
 
-[packages/state/src/ProxyStateManager.ts:321](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L321)
+[packages/state/src/ProxyStateManager.ts:331](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L331)
 
 ***
 
@@ -3861,7 +3861,7 @@ Gets the code corresponding to the provided `address`.
 
 #### Source
 
-[packages/state/src/ProxyStateManager.ts:517](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L517)
+[packages/state/src/ProxyStateManager.ts:529](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L529)
 
 ***
 
@@ -3879,7 +3879,7 @@ Address of account to be retrieved from provider
 
 #### Source
 
-[packages/state/src/ProxyStateManager.ts:340](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L340)
+[packages/state/src/ProxyStateManager.ts:352](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L352)
 
 ***
 
@@ -3906,7 +3906,7 @@ Returns an empty `Uint8Array` if the account has no associated code.
 
 #### Source
 
-[packages/state/src/ProxyStateManager.ts:181](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L181)
+[packages/state/src/ProxyStateManager.ts:182](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L182)
 
 ***
 
@@ -3939,7 +3939,7 @@ If this does not exist an empty `Uint8Array` is returned.
 
 #### Source
 
-[packages/state/src/ProxyStateManager.ts:216](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L216)
+[packages/state/src/ProxyStateManager.ts:219](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L219)
 
 ***
 
@@ -3969,7 +3969,7 @@ an EIP-1186 formatted proof
 
 #### Source
 
-[packages/state/src/ProxyStateManager.ts:434](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L434)
+[packages/state/src/ProxyStateManager.ts:446](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L446)
 
 ***
 
@@ -3989,7 +3989,7 @@ This method is not used by the Tevm State Manager and is a stub required by the 
 
 #### Source
 
-[packages/state/src/ProxyStateManager.ts:501](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L501)
+[packages/state/src/ProxyStateManager.ts:513](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L513)
 
 ***
 
@@ -4009,7 +4009,7 @@ This method is not used by the Tevm State Manager and is a stub required by the 
 
 #### Source
 
-[packages/state/src/ProxyStateManager.ts:513](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L513)
+[packages/state/src/ProxyStateManager.ts:525](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L525)
 
 ***
 
@@ -4022,7 +4022,7 @@ If the block number has changed the cache will be invalidated
 
 #### Source
 
-[packages/state/src/ProxyStateManager.ts:116](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L116)
+[packages/state/src/ProxyStateManager.ts:117](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L117)
 
 ***
 
@@ -4050,7 +4050,7 @@ Object containing account fields and values to modify
 
 #### Source
 
-[packages/state/src/ProxyStateManager.ts:389](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L389)
+[packages/state/src/ProxyStateManager.ts:401](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L401)
 
 ***
 
@@ -4072,7 +4072,7 @@ Saves an account into state under the provided `address`.
 
 #### Source
 
-[packages/state/src/ProxyStateManager.ts:362](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L362)
+[packages/state/src/ProxyStateManager.ts:374](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L374)
 
 ***
 
@@ -4099,7 +4099,7 @@ The value of the `code`
 
 #### Source
 
-[packages/state/src/ProxyStateManager.ts:199](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L199)
+[packages/state/src/ProxyStateManager.ts:202](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L202)
 
 ***
 
@@ -4132,7 +4132,7 @@ If it is empty or filled with zeros, deletes the value.
 
 #### Source
 
-[packages/state/src/ProxyStateManager.ts:251](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L251)
+[packages/state/src/ProxyStateManager.ts:261](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L261)
 
 ***
 
@@ -4151,7 +4151,7 @@ Partial implementation , called from the subclass.
 
 #### Source
 
-[packages/state/src/ProxyStateManager.ts:488](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L488)
+[packages/state/src/ProxyStateManager.ts:500](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L500)
 
 ***
 
@@ -4175,7 +4175,7 @@ This method is not used by the Tevm State Manager and is a stub required by the 
 
 #### Source
 
-[packages/state/src/ProxyStateManager.ts:508](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L508)
+[packages/state/src/ProxyStateManager.ts:520](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L520)
 
 ***
 
@@ -4191,7 +4191,7 @@ Returns a new instance of the TevmStateManager with the same opts
 
 #### Source
 
-[packages/state/src/ProxyStateManager.ts:150](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L150)
+[packages/state/src/ProxyStateManager.ts:151](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L151)
 
 ***
 
@@ -4206,7 +4206,7 @@ directly in unlocked mode. Most transactions should lock
 
 #### Source
 
-[packages/state/src/ProxyStateManager.ts:141](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L141)
+[packages/state/src/ProxyStateManager.ts:142](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L142)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

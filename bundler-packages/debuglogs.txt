@@ -2,3 +2,4 @@ Error: ENOENT: no such file or directory, lstat '/Users/willcory/evmts-monorepo/
 Error: ENOENT: no such file or directory, lstat '/Users/willcory/evmts-monorepo/bundler-packages/my-app'
 Error: ENOENT: no such file or directory, lstat '/Users/willcory/evmts-monorepo/bundler-packages/my-app'
 Error: ENOENT: no such file or directory, lstat '/Users/willcory/evmts-monorepo/bundler-packages/my-app'
+Error: ENOENT: no such file or directory, lstat '/Users/willcory/evmts-monorepo/bundler-packages/my-app'

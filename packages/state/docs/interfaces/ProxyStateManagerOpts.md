@@ -18,7 +18,7 @@ Defaults to 2000ms (2s)
 
 #### Source
 
-[packages/state/src/ProxyStateManager.ts:40](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L40)
+[packages/state/src/ProxyStateManager.ts:41](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L41)
 
 ***
 
@@ -30,7 +30,7 @@ Url to a JSON-RPC provider to proxy state from
 
 #### Source
 
-[packages/state/src/ProxyStateManager.ts:34](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L34)
+[packages/state/src/ProxyStateManager.ts:35](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L35)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

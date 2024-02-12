@@ -18,7 +18,7 @@
 
 #### Source
 
-[packages/state/src/Cache.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/Cache.ts#L16)
+[packages/state/src/Cache.ts:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/Cache.ts#L17)
 
 ## Properties
 
@@ -28,7 +28,7 @@
 
 #### Source
 
-[packages/state/src/Cache.ts:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/Cache.ts#L15)
+[packages/state/src/Cache.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/Cache.ts#L16)
 
 ***
 
@@ -38,7 +38,7 @@
 
 #### Source
 
-[packages/state/src/Cache.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/Cache.ts#L14)
+[packages/state/src/Cache.ts:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/Cache.ts#L15)
 
 ## Methods
 
@@ -48,7 +48,7 @@
 
 #### Source
 
-[packages/state/src/Cache.ts:46](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/Cache.ts#L46)
+[packages/state/src/Cache.ts:47](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/Cache.ts#L47)
 
 ***
 
@@ -64,7 +64,7 @@
 
 #### Source
 
-[packages/state/src/Cache.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/Cache.ts#L21)
+[packages/state/src/Cache.ts:22](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/Cache.ts#L22)
 
 ***
 
@@ -82,7 +82,7 @@
 
 #### Source
 
-[packages/state/src/Cache.ts:33](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/Cache.ts#L33)
+[packages/state/src/Cache.ts:34](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/Cache.ts#L34)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
