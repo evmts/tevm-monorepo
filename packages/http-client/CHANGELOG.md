@@ -1,5 +1,16 @@
 # @tevm/client
 
+## 1.0.0-next.33
+
+### Minor Changes
+
+- [#890](https://github.com/evmts/tevm-monorepo/pull/890) [`64db695b4bf00b1e06909b960e9a498e520f1d73`](https://github.com/evmts/tevm-monorepo/commit/64db695b4bf00b1e06909b960e9a498e520f1d73) Thanks [@roninjin10](https://github.com/roninjin10)! - Updated tevm call actions to not modify the state by default unless createTransaction: true is set
+
+### Patch Changes
+
+- Updated dependencies [[`64db695b4bf00b1e06909b960e9a498e520f1d73`](https://github.com/evmts/tevm-monorepo/commit/64db695b4bf00b1e06909b960e9a498e520f1d73)]:
+  - @tevm/viem@1.0.0-next.33
+
 ## 1.0.0-next.32
 
 ### Patch Changes
