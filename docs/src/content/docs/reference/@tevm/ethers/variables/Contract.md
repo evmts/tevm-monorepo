@@ -5,7 +5,7 @@ prev: false
 title: "Contract"
 ---
 
-> **`const`** **Contract**: `TypesafeEthersContractConstructor`
+> **`const`** **Contract**: [`TypesafeEthersContractConstructor`](/reference/tevm/ethers/type-aliases/typesafeetherscontractconstructor/)
 
 ## Source
 
