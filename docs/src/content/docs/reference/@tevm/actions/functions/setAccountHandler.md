@@ -11,7 +11,7 @@ Creates an SetAccountHandler for handling account params with Ethereumjs EVM
 
 ## Parameters
 
-▪ **vm**: `VM`
+▪ **vm**: `TevmVm`
 
 ## Returns
 

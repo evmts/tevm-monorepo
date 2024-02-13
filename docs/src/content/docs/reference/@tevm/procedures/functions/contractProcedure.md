@@ -13,7 +13,7 @@ we simply overload call instead of creating a seperate tevm_contract method
 
 ## Parameters
 
-▪ **vm**: `VM`
+▪ **vm**: `TevmVm`
 
 ## Source
 

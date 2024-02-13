@@ -3,7 +3,7 @@ import { hexToBigInt } from 'viem'
 
 /**
  * Creates an SetAccount JSON-RPC Procedure for handling tevm_setAccount requests with Ethereumjs VM
- * @param {import('@ethereumjs/vm').VM} vm
+ * @param {import('@tevm/vm').TevmVm} vm
  * @returns {import('@tevm/procedures-types').SetAccountJsonRpcProcedure}
  */
 export const setAccountProcedure = (vm) => async (request) => {

@@ -42,19 +42,9 @@ const stateManager = new TevmStateManager({
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:73
+packages/state/types/ProxyStateManager.d.ts:70
 
 ## Properties
-
-### DEBUG
-
-> **`protected`** **DEBUG**: `boolean`
-
-#### Source
-
-packages/state/types/ProxyStateManager.d.ts:71
-
-***
 
 ### \_accountCache
 
@@ -62,7 +52,7 @@ packages/state/types/ProxyStateManager.d.ts:71
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:68
+packages/state/types/ProxyStateManager.d.ts:67
 
 ***
 
@@ -80,7 +70,7 @@ We track the block tag the cache was using so we can invalidate it whenever it c
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:55
+packages/state/types/ProxyStateManager.d.ts:54
 
 ***
 
@@ -90,7 +80,7 @@ packages/state/types/ProxyStateManager.d.ts:55
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:66
+packages/state/types/ProxyStateManager.d.ts:65
 
 ***
 
@@ -104,17 +94,7 @@ When a call is not currently executed this blocktag is unlocked and set back to 
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:47
-
-***
-
-### \_debug
-
-> **`protected`** **\_debug**: `Debugger`
-
-#### Source
-
-packages/state/types/ProxyStateManager.d.ts:70
+packages/state/types/ProxyStateManager.d.ts:46
 
 ***
 
@@ -126,7 +106,7 @@ How often we expect the block number to change
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:65
+packages/state/types/ProxyStateManager.d.ts:64
 
 ***
 
@@ -138,7 +118,7 @@ Cache the last time we fetched a block to avoid fetching it too often
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:61
+packages/state/types/ProxyStateManager.d.ts:60
 
 ***
 
@@ -148,7 +128,7 @@ packages/state/types/ProxyStateManager.d.ts:61
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:67
+packages/state/types/ProxyStateManager.d.ts:66
 
 ***
 
@@ -3598,7 +3578,7 @@ const unwatch = await client.watchPendingTransactions({
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:72
+packages/state/types/ProxyStateManager.d.ts:69
 
 ***
 
@@ -3612,7 +3592,7 @@ Dumps the state of the state manager as a [SerializableTevmState](../../index/ty
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:224
+packages/state/types/ProxyStateManager.d.ts:225
 
 ***
 
@@ -3634,7 +3614,7 @@ Loads a [SerializableTevmState](../../index/type-aliases/SerializableTevmState.m
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:220
+packages/state/types/ProxyStateManager.d.ts:221
 
 ***
 
@@ -3648,7 +3628,7 @@ packages/state/types/ProxyStateManager.d.ts:220
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:216
+packages/state/types/ProxyStateManager.d.ts:217
 
 ***
 
@@ -3672,7 +3652,7 @@ This method is not used by the Tevm State Manager and is a stub required by the 
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:207
+packages/state/types/ProxyStateManager.d.ts:208
 
 ***
 
@@ -3696,7 +3676,7 @@ This method is not used by the Tevm State Manager and is a stub required by the 
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:215
+packages/state/types/ProxyStateManager.d.ts:216
 
 ***
 
@@ -3706,7 +3686,7 @@ packages/state/types/ProxyStateManager.d.ts:215
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:41
+packages/state/types/ProxyStateManager.d.ts:40
 
 ***
 
@@ -3720,7 +3700,7 @@ packages/state/types/ProxyStateManager.d.ts:41
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:69
+packages/state/types/ProxyStateManager.d.ts:68
 
 ***
 
@@ -3748,7 +3728,7 @@ This method is not used by the Tevm State Manager and is a stub required by the 
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:211
+packages/state/types/ProxyStateManager.d.ts:212
 
 ## Methods
 
@@ -3766,7 +3746,7 @@ Address of the `account` to check
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:146
+packages/state/types/ProxyStateManager.d.ts:147
 
 ***
 
@@ -3786,7 +3766,7 @@ Partial implementation, called from the subclass.
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:188
+packages/state/types/ProxyStateManager.d.ts:189
 
 ***
 
@@ -3798,7 +3778,7 @@ Resets all internal caches
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:93
+packages/state/types/ProxyStateManager.d.ts:94
 
 ***
 
@@ -3820,7 +3800,7 @@ Address to clear the storage of
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:132
+packages/state/types/ProxyStateManager.d.ts:133
 
 ***
 
@@ -3839,7 +3819,19 @@ Partial implementation, called from the subclass.
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:195
+packages/state/types/ProxyStateManager.d.ts:196
+
+***
+
+### deepCopy()
+
+> **deepCopy**(): `Promise`\<[`ProxyStateManager`](ProxyStateManager.md)\>
+
+Returns a new instance of the ForkStateManager with the same opts and all storage copied over
+
+#### Source
+
+packages/state/types/ProxyStateManager.d.ts:90
 
 ***
 
@@ -3861,7 +3853,7 @@ Address of the account which should be deleted
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:173
+packages/state/types/ProxyStateManager.d.ts:174
 
 ***
 
@@ -3889,7 +3881,7 @@ Both are represented as `0x` prefixed hex strings.
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:140
+packages/state/types/ProxyStateManager.d.ts:141
 
 ***
 
@@ -3911,7 +3903,7 @@ packages/state/types/ProxyStateManager.d.ts:140
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:141
+packages/state/types/ProxyStateManager.d.ts:142
 
 ***
 
@@ -3921,7 +3913,7 @@ packages/state/types/ProxyStateManager.d.ts:141
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:203
+packages/state/types/ProxyStateManager.d.ts:204
 
 ***
 
@@ -3941,7 +3933,7 @@ Gets the code corresponding to the provided `address`.
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:150
+packages/state/types/ProxyStateManager.d.ts:151
 
 ***
 
@@ -3959,7 +3951,7 @@ Address of account to be retrieved from provider
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:156
+packages/state/types/ProxyStateManager.d.ts:157
 
 ***
 
@@ -3986,7 +3978,7 @@ Returns an empty `Uint8Array` if the account has no associated code.
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:100
+packages/state/types/ProxyStateManager.d.ts:101
 
 ***
 
@@ -4019,7 +4011,7 @@ If this does not exist an empty `Uint8Array` is returned.
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:117
+packages/state/types/ProxyStateManager.d.ts:118
 
 ***
 
@@ -4049,7 +4041,7 @@ an EIP-1186 formatted proof
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:180
+packages/state/types/ProxyStateManager.d.ts:181
 
 ***
 
@@ -4062,7 +4054,7 @@ If the block number has changed the cache will be invalidated
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:78
+packages/state/types/ProxyStateManager.d.ts:75
 
 ***
 
@@ -4090,7 +4082,7 @@ Object containing account fields and values to modify
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:168
+packages/state/types/ProxyStateManager.d.ts:169
 
 ***
 
@@ -4112,7 +4104,7 @@ Saves an account into state under the provided `address`.
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:160
+packages/state/types/ProxyStateManager.d.ts:161
 
 ***
 
@@ -4139,7 +4131,7 @@ The value of the `code`
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:107
+packages/state/types/ProxyStateManager.d.ts:108
 
 ***
 
@@ -4172,7 +4164,7 @@ If it is empty or filled with zeros, deletes the value.
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:127
+packages/state/types/ProxyStateManager.d.ts:128
 
 ***
 
@@ -4191,7 +4183,7 @@ Partial implementation , called from the subclass.
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:202
+packages/state/types/ProxyStateManager.d.ts:203
 
 ***
 
@@ -4207,7 +4199,7 @@ Returns a new instance of the TevmStateManager with the same opts
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:89
+packages/state/types/ProxyStateManager.d.ts:86
 
 ***
 
@@ -4222,7 +4214,7 @@ directly in unlocked mode. Most transactions should lock
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:85
+packages/state/types/ProxyStateManager.d.ts:82
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

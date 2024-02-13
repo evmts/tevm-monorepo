@@ -457,6 +457,18 @@ node\_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node\_modules/@ethereumjs/sta
 
 ***
 
+### deepCopy()
+
+> **deepCopy**(): `Promise`\<[`NormalStateManager`](NormalStateManager.md)\>
+
+Returns a new instance of the ForkStateManager with the same opts and all storage copied over
+
+#### Source
+
+[packages/state/src/NormalStateManager.ts:43](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/NormalStateManager.ts#L43)
+
+***
+
 ### deleteAccount()
 
 > **deleteAccount**(`address`): `Promise`\<`void`\>
@@ -491,7 +503,7 @@ Dumps the state of the state manager as a [SerializableTevmState](../type-aliase
 
 #### Source
 
-[packages/state/src/NormalStateManager.ts:122](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/NormalStateManager.ts#L122)
+[packages/state/src/NormalStateManager.ts:169](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/NormalStateManager.ts#L169)
 
 ***
 
@@ -603,7 +615,7 @@ DefaultStateManager.generateCanonicalGenesis
 
 #### Source
 
-[packages/state/src/NormalStateManager.ts:86](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/NormalStateManager.ts#L86)
+[packages/state/src/NormalStateManager.ts:133](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/NormalStateManager.ts#L133)
 
 ***
 
@@ -649,7 +661,7 @@ An array of account addresses.
 
 #### Source
 
-[packages/state/src/NormalStateManager.ts:23](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/NormalStateManager.ts#L23)
+[packages/state/src/NormalStateManager.ts:30](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/NormalStateManager.ts#L30)
 
 ***
 
@@ -1003,7 +1015,7 @@ DefaultStateManager.shallowCopy
 
 #### Source
 
-[packages/state/src/NormalStateManager.ts:36](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/NormalStateManager.ts#L36)
+[packages/state/src/NormalStateManager.ts:97](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/NormalStateManager.ts#L97)
 
 ***
 

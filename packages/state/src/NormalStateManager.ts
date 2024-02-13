@@ -3,7 +3,14 @@ import type { SerializableTevmState } from './SerializableTevmState.js'
 import type { TevmStateManagerInterface } from './TevmStateManagerInterface.js'
 import { CacheType, DefaultStateManager } from '@ethereumjs/statemanager'
 import { Account, Address as EthjsAddress } from '@ethereumjs/util'
-import { type Address, bytesToHex, fromRlp, hexToBytes, isHex } from 'viem'
+import {
+	type Address,
+	type Hex,
+	bytesToHex,
+	fromRlp,
+	hexToBytes,
+	isHex,
+} from 'viem'
 
 /**
  * The ethereum state manager implementation for running Tevm in `normal` mode.
@@ -28,6 +35,60 @@ export class NormalStateManager
 		})
 
 		return accountAddresses
+	}
+
+	/**
+	 * Returns a new instance of the ForkStateManager with the same opts and all storage copied over
+	 */
+	async deepCopy(): Promise<NormalStateManager> {
+		const newState = new NormalStateManager({
+			codeCacheOpts: { type: CacheType.ORDERED_MAP },
+			accountCacheOpts: { type: CacheType.ORDERED_MAP },
+			storageCacheOpts: { type: CacheType.ORDERED_MAP },
+			common: this.common,
+			trie: this._trie.shallowCopy(false, { cacheSize: 0 }),
+			prefixStorageTrieKeys: this._prefixStorageTrieKeys,
+			prefixCodeHashes: this._prefixCodeHashes,
+		})
+
+		await Promise.all(
+			this.getAccountAddresses().map(async (address) => {
+				const ethjsAddress = EthjsAddress.fromString(`0x${address}`)
+
+				const [account, code] = await Promise.all([
+					this.getAccount(ethjsAddress),
+					this.getContractCode(ethjsAddress),
+				])
+
+				if (account === undefined) {
+					return
+				}
+
+				await newState.putAccount(ethjsAddress, account)
+
+				if (code.length === 0) {
+					return
+				}
+				await newState.putContractCode(ethjsAddress, code)
+
+				const storage = await this.dumpStorage(ethjsAddress)
+
+				await Promise.all(
+					Object.entries(storage).map(async ([key, value]) => {
+						await newState.putContractStorage(
+							ethjsAddress,
+							hexToBytes(key as Hex),
+							hexToBytes(value as Hex),
+						)
+					}),
+				)
+			}),
+		)
+
+		await newState.checkpoint()
+		await newState.commit()
+
+		return newState
 	}
 
 	/**
@@ -63,20 +124,6 @@ export class NormalStateManager
 			storageCacheOpts,
 			codeCacheOpts,
 		})
-
-		for (const address of this.getAccountAddresses()) {
-			const ethjsAddress = EthjsAddress.fromString(`0x${address}`)
-			const elem = this._accountCache?.get(ethjsAddress)
-			// elem should never be undefined
-			if (elem !== undefined) {
-				const account =
-					elem.accountRLP !== undefined
-						? Account.fromRlpSerializedAccount(elem.accountRLP)
-						: undefined
-				out.putAccount(ethjsAddress, account)
-			}
-		}
-
 		return out
 	}
 

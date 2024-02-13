@@ -2,7 +2,8 @@ import { setAccountHandler } from '../tevm/index.js'
 import { ethCallHandler } from './ethCallHandler.js'
 import { EVM } from '@ethereumjs/evm'
 import { Address } from '@ethereumjs/util'
-import { VM } from '@ethereumjs/vm'
+import { NormalStateManager } from '@tevm/state'
+import { TevmVm } from '@tevm/vm'
 import { describe, expect, it } from 'bun:test'
 import { encodeFunctionData } from 'viem'
 
@@ -294,8 +295,9 @@ const ERC20_ABI = [
 
 describe('callHandler', () => {
 	it('should execute a contract call', async () => {
-		const evm = new EVM({})
-		const vm = await VM.create({ evm })
+		const stateManager = new NormalStateManager()
+		const evm = new EVM({ stateManager })
+		const vm = await TevmVm.create({ evm, stateManager })
 		// deploy contract
 		expect(
 			(
@@ -322,8 +324,9 @@ describe('callHandler', () => {
 	})
 
 	it('should not modify state', async () => {
+		const stateManager = new NormalStateManager()
 		const evm = new EVM({})
-		const vm = await VM.create({ evm })
+		const vm = await TevmVm.create({ evm, stateManager })
 		const to = `0x${'69'.repeat(20)}` as const
 		// send value
 		expect(

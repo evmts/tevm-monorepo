@@ -2,7 +2,7 @@ import { blockNumberHandler } from '@tevm/actions'
 import { numberToHex } from 'viem'
 
 /**
- * @param {import('@ethereumjs/vm').VM} vm
+ * @param {import('@tevm/vm').TevmVm} vm
  * @returns {import('@tevm/procedures-types').EthBlockNumberJsonRpcProcedure}
  */
 export const blockNumberProcedure = (vm) => async (req) => ({

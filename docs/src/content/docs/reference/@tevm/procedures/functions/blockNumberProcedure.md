@@ -9,7 +9,7 @@ title: "blockNumberProcedure"
 
 ## Parameters
 
-▪ **vm**: `VM`
+▪ **vm**: `TevmVm`
 
 ## Returns
 

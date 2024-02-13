@@ -12,7 +12,7 @@ Creates an SetAccount JSON-RPC Procedure for handling tevm_setAccount requests w
 
 ## Parameters
 
-▪ **vm**: `VM`
+▪ **vm**: `TevmVm`
 
 ## Returns
 

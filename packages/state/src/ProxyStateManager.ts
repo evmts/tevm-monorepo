@@ -18,7 +18,6 @@ import {
 	type PublicClient,
 	bytesToHex,
 	createPublicClient,
-	fromRlp,
 	hexToBytes,
 	http,
 	isHex,
@@ -121,8 +120,12 @@ export class ProxyStateManager implements TevmStateManagerInterface {
 		this._currentBlockTag = {
 			blockNumber,
 		}
-		if (this._cachedBlockTag.blockNumber !== blockNumber) {
-			this.clearCaches()
+		if (
+			this._cachedBlockTag.blockNumber &&
+			this._cachedBlockTag.blockNumber !== blockNumber
+		) {
+			this._storageCache.clear()
+			this._accountCache.clear()
 		}
 	}
 
@@ -154,6 +157,25 @@ export class ProxyStateManager implements TevmStateManagerInterface {
 			size: 100000,
 			type: CacheType.ORDERED_MAP,
 		})
+		return newState
+	}
+
+	// TODO this is gonna be too slow eventually for large state
+	/**
+	 * Returns a new instance of the ForkStateManager with the same opts and all storage copied over
+	 */
+	async deepCopy(): Promise<ProxyStateManager> {
+		const newState = new ProxyStateManager({
+			url: this.opts.url,
+			expectedBlockTime: this._expectedBlockTime,
+		})
+		newState._contractCache = new Map(this._contractCache)
+
+		await newState.generateCanonicalGenesis(await this.dumpCanonicalGenesis())
+
+		await newState.checkpoint()
+		await newState.commit()
+
 		return newState
 	}
 
@@ -450,6 +472,7 @@ export class ProxyStateManager implements TevmStateManagerInterface {
 	 */
 	async commit(): Promise<void> {
 		this._accountCache.commit()
+		this._storageCache.commit()
 	}
 
 	/**
@@ -519,13 +542,8 @@ export class ProxyStateManager implements TevmStateManagerInterface {
 					const key = hexToBytes(
 						isHex(storageKey) ? storageKey : `0x${storageKey}`,
 					)
-					const encodedStorageData = fromRlp(
-						isHex(storageData) ? storageData : `0x${storageData}`,
-					)
 					const data = hexToBytes(
-						isHex(encodedStorageData)
-							? encodedStorageData
-							: `0x${encodedStorageData}`,
+						isHex(storageData) ? storageData : `0x${storageData}`,
 					)
 					this.putContractStorage(address, key, data)
 				}

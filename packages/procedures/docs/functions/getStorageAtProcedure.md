@@ -14,7 +14,7 @@
 
 ▪ **options.forkUrl?**: `string`
 
-▪ **options.vm**: `VM`
+▪ **options.vm**: `TevmVm`
 
 ## Returns
 

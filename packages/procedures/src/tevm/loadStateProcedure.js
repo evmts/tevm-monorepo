@@ -3,7 +3,7 @@ import { hexToBigInt } from 'viem'
 
 /**
  * Creates a LoadState JSON-RPC Procedure for handling LoadState requests with Ethereumjs EVM
- * @param {import('@ethereumjs/vm').VM   } vm
+ * @param {import('@tevm/vm').TevmVm   } vm
  * @returns {import('@tevm/procedures-types').LoadStateJsonRpcProcedure}
  */
 export const loadStateProcedure = (vm) => async (request) => {

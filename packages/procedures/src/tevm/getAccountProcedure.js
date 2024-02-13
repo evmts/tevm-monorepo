@@ -3,7 +3,7 @@ import { numberToHex } from 'viem'
 
 /**
  * Creates an GetAccount JSON-RPC Procedure for handling account requests with Ethereumjs VM
- * @param {import('@ethereumjs/vm').VM} vm
+ * @param {import('@tevm/vm').TevmVm} vm
  * @returns {import('@tevm/procedures-types').GetAccountJsonRpcProcedure}
  */
 export const getAccountProcedure = (vm) => async (request) => {

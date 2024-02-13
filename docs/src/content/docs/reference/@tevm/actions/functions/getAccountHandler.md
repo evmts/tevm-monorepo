@@ -11,7 +11,7 @@ Creates an GetAccountHandler for handling account params with Ethereumjs VM
 
 ## Parameters
 
-▪ **vm**: `VM`
+▪ **vm**: `TevmVm`
 
 ## Returns
 

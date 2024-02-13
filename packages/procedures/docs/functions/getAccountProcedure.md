@@ -12,7 +12,7 @@ Creates an GetAccount JSON-RPC Procedure for handling account requests with Ethe
 
 ## Parameters
 
-▪ **vm**: `VM`
+▪ **vm**: `TevmVm`
 
 ## Returns
 

@@ -8,7 +8,7 @@ import { hexToBytes, keccak256 } from 'viem'
 
 /**
  * Creates an SetAccountHandler for handling account params with Ethereumjs EVM
- * @param {import('@ethereumjs/vm').VM} vm
+ * @param {import('@tevm/vm').TevmVm} vm
  * @returns {import('@tevm/actions-types').SetAccountHandler}
  */
 export const setAccountHandler = (vm) => async (params) => {

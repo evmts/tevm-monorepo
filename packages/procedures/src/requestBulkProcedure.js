@@ -1,7 +1,7 @@
 import { requestProcedure } from './requestProcedure.js'
 
 /**
- * @param {import('@ethereumjs/vm').VM} vm
+ * @param {import('@tevm/vm').TevmVm} vm
  * @returns {import('@tevm/procedures-types').TevmJsonRpcBulkRequestHandler}
  */
 export const requestBulkProcedure = (vm) => async (requests) => {

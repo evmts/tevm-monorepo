@@ -11,7 +11,7 @@ Creates an ScriptHandler for handling script params with Ethereumjs EVM
 
 ## Parameters
 
-▪ **vm**: `VM`
+▪ **vm**: `TevmVm`
 
 ## Returns
 

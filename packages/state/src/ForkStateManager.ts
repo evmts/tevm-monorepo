@@ -18,7 +18,6 @@ import {
 	type PublicClient,
 	bytesToHex,
 	createPublicClient,
-	fromRlp,
 	hexToBytes,
 	http,
 	isHex,
@@ -81,6 +80,25 @@ export class ForkStateManager implements TevmStateManagerInterface {
 		this.originalStorageCache = new Cache(this.getContractStorage.bind(this))
 	}
 
+	// TODO this is gonna be too slow eventually for large state
+	/**
+	 * Returns a new instance of the ForkStateManager with the same opts and all storage copied over
+	 */
+	async deepCopy(): Promise<ForkStateManager> {
+		const newState = new ForkStateManager({
+			url: this.opts.url,
+			blockTag: Object.values(this._blockTag)[0],
+		})
+		newState._contractCache = new Map(this._contractCache)
+
+		await newState.generateCanonicalGenesis(await this.dumpCanonicalGenesis())
+
+		await newState.checkpoint()
+		await newState.commit()
+
+		return newState
+	}
+
 	/**
 	 * Returns a new instance of the ForkStateManager with the same opts
 	 */
@@ -123,7 +141,10 @@ export class ForkStateManager implements TevmStateManagerInterface {
 			address: address.toString() as Address,
 			...this._blockTag,
 		})
-		codeBytes = hexToBytes(code ?? '0x0')
+		if (!code) {
+			return new Uint8Array(0)
+		}
+		codeBytes = hexToBytes(code)
 		this._contractCache.set(address.toString(), codeBytes)
 		return codeBytes
 	}
@@ -383,6 +404,7 @@ export class ForkStateManager implements TevmStateManagerInterface {
 	 */
 	async commit(): Promise<void> {
 		this._accountCache.commit()
+		this._storageCache.commit()
 	}
 
 	/**
@@ -452,13 +474,8 @@ export class ForkStateManager implements TevmStateManagerInterface {
 					const key = hexToBytes(
 						isHex(storageKey) ? storageKey : `0x${storageKey}`,
 					)
-					const encodedStorageData = fromRlp(
-						isHex(storageData) ? storageData : `0x${storageData}`,
-					)
 					const data = hexToBytes(
-						isHex(encodedStorageData)
-							? encodedStorageData
-							: `0x${encodedStorageData}`,
+						isHex(storageData) ? storageData : `0x${storageData}`,
 					)
 					this.putContractStorage(address, key, data)
 				}

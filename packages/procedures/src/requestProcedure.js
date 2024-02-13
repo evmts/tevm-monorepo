@@ -27,7 +27,7 @@ import { testAccounts } from '@tevm/actions'
  * this method but this method may be desired if hyper optimizing
  * bundle size.
  *
- * @param {import('@ethereumjs/vm').VM} vm
+ * @param {import('@tevm/vm').TevmVm} vm
  * @returns {import('@tevm/procedures-types').TevmJsonRpcRequestHandler}
  * @example
  * ```typescript

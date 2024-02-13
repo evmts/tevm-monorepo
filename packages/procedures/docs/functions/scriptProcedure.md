@@ -12,7 +12,7 @@ Creates a Script JSON-RPC Procedure for handling script requests with Ethereumjs
 
 ## Parameters
 
-▪ **vm**: `VM`
+▪ **vm**: `TevmVm`
 
 ## Returns
 

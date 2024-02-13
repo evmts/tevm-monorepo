@@ -4,7 +4,7 @@ import { validateCallParams } from '@tevm/zod'
 
 /**
  * Creates an CallHandler for handling call params with Ethereumjs EVM
- * @param {import('@ethereumjs/vm').VM} vm
+ * @param {import('@tevm/vm').TevmVm} vm
  * @returns {import('@tevm/actions-types').CallHandler}
  */
 export const callHandler = (vm) => async (params) => {
@@ -13,7 +13,7 @@ export const callHandler = (vm) => async (params) => {
 	 */
 	let copiedVm
 	try {
-		copiedVm = params.createTransaction ? vm : await vm.shallowCopy()
+		copiedVm = params.createTransaction ? vm : await vm.deepCopy()
 	} catch (e) {
 		return {
 			errors: [
@@ -40,6 +40,10 @@ export const callHandler = (vm) => async (params) => {
 
 	try {
 		const evmResult = await copiedVm.evm.runCall(callHandlerOpts(params))
+		if (params.createTransaction && !evmResult.execResult.exceptionError) {
+			copiedVm.stateManager.checkpoint()
+			copiedVm.stateManager.commit()
+		}
 		return callHandlerResult(evmResult)
 	} catch (e) {
 		return {

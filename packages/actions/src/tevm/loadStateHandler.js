@@ -7,7 +7,7 @@ import {
 import { validateLoadStateParams } from '@tevm/zod'
 
 /**
- * @param {import("@ethereumjs/vm").VM} vm
+ * @param {import("@tevm/vm").TevmVm} vm
  * @returns {import('@tevm/actions-types').LoadStateHandler}
  */
 export const loadStateHandler = (vm) => async (params) => {

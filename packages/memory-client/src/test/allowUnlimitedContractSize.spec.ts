@@ -26,7 +26,6 @@ describe('allowUnlimitedContractSize option', () => {
 				skipBalance: true,
 			},
 		})
-		console.log(res)
 		expect('error' in res && res.error.code).toBe(
 			EVMErrorMessage.CODESIZE_EXCEEDS_MAXIMUM,
 		)

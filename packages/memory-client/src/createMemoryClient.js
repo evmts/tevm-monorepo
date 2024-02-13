@@ -4,7 +4,6 @@ import { Blockchain } from '@ethereumjs/blockchain'
 import { Common, Hardfork } from '@ethereumjs/common'
 import { genesisStateRoot } from '@ethereumjs/trie'
 import { MapDB } from '@ethereumjs/util'
-import { VM } from '@ethereumjs/vm'
 import {
 	blockNumberHandler,
 	callHandler,
@@ -28,6 +27,7 @@ import {
 	NormalStateManager,
 	ProxyStateManager,
 } from '@tevm/state'
+import { TevmVm } from '@tevm/vm'
 import { createPublicClient, http, parseEther } from 'viem'
 
 /**
@@ -157,7 +157,7 @@ export const createMemoryClient = async (options = {}) => {
 		},
 	})
 
-	const vm = await VM.create({
+	const vm = await TevmVm.create({
 		stateManager,
 		evm,
 		activatePrecompiles: true,
@@ -171,6 +171,7 @@ export const createMemoryClient = async (options = {}) => {
 		},
 	})
 
+	// TODO move me to the @tevm/evm package
 	// We need to make sure that we lock the state manager when a call is ran
 	// Ideally we move and unit test logic like this to a new @tevm/evm package in future
 	const originalRunCall = vm.evm.runCall.bind(vm.evm)
@@ -193,9 +194,10 @@ export const createMemoryClient = async (options = {}) => {
 		}
 	}
 
-	const originalShallowCopy = vm.shallowCopy.bind(vm)
-	vm.shallowCopy = async (...args) => {
-		const newVm = await originalShallowCopy(...args)
+	// TODO move me to the @tevm/vm package
+	const originalDeepCopy = vm.deepCopy.bind(vm)
+	vm.deepCopy = async (...args) => {
+		const newVm = await originalDeepCopy(...args)
 		const originalRunCall = newVm.evm.runCall.bind(newVm.evm)
 		newVm.evm.runCall = async (...args) => {
 			if (

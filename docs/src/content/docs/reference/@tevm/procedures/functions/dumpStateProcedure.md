@@ -11,7 +11,7 @@ Creates a DumpState JSON-RPC Procedure for handling dumpState requests with Ethe
 
 ## Parameters
 
-▪ **vm**: `VM`
+▪ **vm**: `TevmVm`
 
 ## Returns
 
