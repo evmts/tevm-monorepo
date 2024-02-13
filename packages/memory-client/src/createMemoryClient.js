@@ -246,25 +246,28 @@ export const createMemoryClient = async (options = {}) => {
 			call: ethCallHandler(vm),
 			chainId: chainIdHandler(chainId),
 			gasPrice: gasPriceHandler({
-				forkUrl: options.fork?.url,
+				forkUrl: options.fork?.url ?? options.proxy?.url,
 				vm,
 			}),
 			getBalance: getBalanceHandler({
-				forkUrl: options.fork?.url,
+				forkUrl: options.fork?.url ?? options.proxy?.url,
 				vm,
 			}),
 			getCode: getCodeHandler({
 				vm,
-				forkUrl: options.fork?.url,
+				forkUrl: options.fork?.url ?? options.proxy?.url,
 			}),
 			getStorageAt: getStorageAtHandler({
 				vm,
-				forkUrl: options.fork?.url,
+				forkUrl: options.fork?.url ?? options.proxy?.url,
 			}),
 		},
 		...(options.fork?.url
 			? { forkUrl: options.fork.url }
 			: { forkUrl: options.fork?.url }),
+		...(options.proxy?.url
+			? { proxyUrl: options.proxy.url }
+			: { proxyUrl: options.proxy?.url }),
 	}
 
 	// add custom predeploys
