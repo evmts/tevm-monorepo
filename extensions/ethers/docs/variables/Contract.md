@@ -6,7 +6,7 @@
 
 # Variable: Contract
 
-> **`const`** **Contract**: `TypesafeEthersContractConstructor`
+> **`const`** **Contract**: [`TypesafeEthersContractConstructor`](../type-aliases/TypesafeEthersContractConstructor.md)
 
 ## Source
 

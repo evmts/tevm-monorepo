@@ -170,7 +170,12 @@ export class TevmProvider extends JsonRpcApiProvider {
 	 * @param {import('@tevm/client-types').TevmClient} tevm An instance of the Tevm interface.
 	 */
 	constructor(tevm) {
-		super()
+		super(undefined, {
+			staticNetwork: true,
+			batchMaxCount: 1,
+			batchStallTime: 0,
+			cacheTimeout: -1,
+		})
 		this.tevm = tevm
 	}
 
