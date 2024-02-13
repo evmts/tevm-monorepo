@@ -1,5 +1,11 @@
 # @tevm/contract
 
+## 1.0.0-next.34
+
+### Patch Changes
+
+- [#932](https://github.com/evmts/tevm-monorepo/pull/932) [`3827743abb060538b5688706de6954410c16ca6d`](https://github.com/evmts/tevm-monorepo/commit/3827743abb060538b5688706de6954410c16ca6d) Thanks [@roninjin10](https://github.com/roninjin10)! - Remove console.log
+
 ## 1.0.0-next.33
 
 ### Minor Changes
