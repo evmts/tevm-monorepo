@@ -1,7 +1,6 @@
 // [mozilla public license 2.0](https://github.com/ethereumjs/ethereumjs-monorepo/blob/master/packages/statemanager/LICENSE)
 import { Trie } from '@ethereumjs/trie'
 import { Account } from '@ethereumjs/util'
-import { debug as createDebugLogger } from 'debug'
 import { keccak256 } from 'ethereum-cryptography/keccak.js'
 
 import { AccountCache, CacheType, StorageCache } from '@ethereumjs/statemanager'
@@ -14,7 +13,6 @@ import type { StorageRange } from '@ethereumjs/common'
 import type { Proof } from '@ethereumjs/statemanager'
 import { Address as EthjsAddress } from '@ethereumjs/util'
 import type { Address } from 'abitype'
-import type { Debugger } from 'debug'
 import {
 	type BlockTag,
 	type PublicClient,
@@ -84,18 +82,13 @@ export class ProxyStateManager implements TevmStateManagerInterface {
 	protected _storageCache: StorageCache
 	protected _accountCache: AccountCache
 	originalStorageCache: Cache
-	protected _debug: Debugger
-	protected DEBUG: boolean
 	protected client: PublicClient
 	constructor(public readonly opts: ProxyStateManagerOpts) {
-		this.DEBUG = false
-
 		// TODO this should be using @tevm/jsonrpc package instead of viem
 		this.client = createPublicClient({
 			transport: http(opts.url),
 			name: 'tevm-state-manager-viem-client',
 		})
-		this._debug = createDebugLogger('statemanager:viemStateManager')
 		this._contractCache = new Map()
 		this._storageCache = new StorageCache({
 			size: 100000,
@@ -305,7 +298,6 @@ export class ProxyStateManager implements TevmStateManagerInterface {
 	 * @param address - Address of the `account` to check
 	 */
 	async accountExists(address: EthjsAddress): Promise<boolean> {
-		if (this.DEBUG) this._debug?.(`verify if ${address.toString()} exists`)
 		const localAccount = this._accountCache.get(address)
 		if (localAccount !== undefined) return true
 		const proof = await this.client.getProof({
@@ -350,10 +342,6 @@ export class ProxyStateManager implements TevmStateManagerInterface {
 	 * @private
 	 */
 	async getAccountFromProvider(address: EthjsAddress): Promise<Account> {
-		if (this.DEBUG)
-			this._debug(
-				`retrieving account data from ${address.toString()} from provider`,
-			)
 		const accountData = await this.client.getProof({
 			address: address.toString() as Address,
 			storageKeys: [],
@@ -375,15 +363,6 @@ export class ProxyStateManager implements TevmStateManagerInterface {
 		address: EthjsAddress,
 		account: Account | undefined,
 	): Promise<void> {
-		if (this.DEBUG) {
-			this._debug(
-				`Save account address=${address} nonce=${account?.nonce} balance=${
-					account?.balance
-				} contract=${account?.isContract() ? 'yes' : 'no'} empty=${
-					account?.isEmpty() ? 'yes' : 'no'
-				}`,
-			)
-		}
 		if (account !== undefined) {
 			this._accountCache?.put(address, account)
 		} else {
@@ -402,19 +381,6 @@ export class ProxyStateManager implements TevmStateManagerInterface {
 		address: EthjsAddress,
 		accountFields: AccountFields,
 	): Promise<void> {
-		if (this.DEBUG) {
-			this._debug(`modifying account fields for ${address.toString()}`)
-			this._debug(
-				JSON.stringify(
-					accountFields,
-					(k, v) => {
-						if (k === 'nonce') return v.toString()
-						return v
-					},
-					2,
-				),
-			)
-		}
 		let account = await this.getAccount(address)
 		if (!account) {
 			account = new Account()
@@ -431,9 +397,6 @@ export class ProxyStateManager implements TevmStateManagerInterface {
 	 * @param address - Address of the account which should be deleted
 	 */
 	async deleteAccount(address: EthjsAddress) {
-		if (this.DEBUG) {
-			this._debug(`deleting account corresponding to ${address.toString()}`)
-		}
 		this._accountCache.del(address)
 	}
 
@@ -447,8 +410,6 @@ export class ProxyStateManager implements TevmStateManagerInterface {
 		address: EthjsAddress,
 		storageSlots: Uint8Array[] = [],
 	): Promise<Proof> {
-		if (this.DEBUG)
-			this._debug(`retrieving proof from provider for ${address.toString()}`)
 		const proof = await this.client.getProof({
 			address: address.toString() as Address,
 			storageKeys: storageSlots.map((slot) => bytesToHex(slot)),
