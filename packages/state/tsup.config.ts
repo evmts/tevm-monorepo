@@ -1,4 +1,9 @@
 import { createTsUpOptions } from '@tevm/tsupconfig'
-export default createTsUpOptions({
+import { defineConfig } from 'tsup'
+const baseOptions = createTsUpOptions({
 	entry: ['./src/index.ts'],
+})
+export default defineConfig({
+	...baseOptions,
+	noExternal: ['debug', 'ms', ...(baseOptions?.noExternal ?? [])],
 })

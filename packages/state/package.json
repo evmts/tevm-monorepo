@@ -67,7 +67,6 @@
 		"@ethereumjs/trie": "^6.0.1",
 		"@ethereumjs/util": "^9.0.1",
 		"abitype": "^0.10.3",
-		"debug": "^4.3.4",
 		"ethereum-cryptography": "^2.1.2",
 		"viem": "^2.0.0"
 	},
@@ -75,6 +74,8 @@
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",
 		"@types/debug": "^4.1.12",
+		"debug": "^4.3.4",
+		"ms": "2.1.2",
 		"viem": "^2.0.0"
 	},
 	"publishConfig": {
