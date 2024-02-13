@@ -1,5 +1,13 @@
 # @tevm/ethers
 
+## 1.0.0-next.37
+
+### Patch Changes
+
+- Updated dependencies [[`e83ef5bea0f79def27d59115719427aea3c91888`](https://github.com/evmts/tevm-monorepo/commit/e83ef5bea0f79def27d59115719427aea3c91888), [`e83ef5bea0f79def27d59115719427aea3c91888`](https://github.com/evmts/tevm-monorepo/commit/e83ef5bea0f79def27d59115719427aea3c91888)]:
+  - @tevm/memory-client@1.0.0-next.37
+  - @tevm/procedures-types@1.0.0-next.32
+
 ## 1.0.0-next.34
 
 ### Patch Changes

@@ -54,7 +54,8 @@
     "@tevm/http-client": "1.0.0-next.22",
     "@tevm/procedures-types": "1.0.0-next.22",
     "@tevm/cli": "0.0.0",
-    "@tevm/precompiles": "1.0.0-next.24"
+    "@tevm/precompiles": "1.0.0-next.24",
+    "@tevm/vm": "1.0.0-next.30"
   },
   "changesets": [
     "afraid-crabs-exist",
@@ -73,6 +74,7 @@
     "chilly-trees-explain",
     "clean-jobs-work",
     "clean-tomatoes-thank",
+    "clever-moles-float",
     "cold-masks-itch",
     "cuddly-beans-love",
     "curly-bats-decide",
@@ -89,6 +91,7 @@
     "famous-bats-exist",
     "famous-masks-compete",
     "fast-ants-run",
+    "fast-coins-dress",
     "fast-maps-arrive",
     "fast-socks-ring",
     "few-bears-lick",
@@ -199,6 +202,7 @@
     "warm-swans-explode",
     "wicked-ravens-bow",
     "wild-bears-look",
+    "wild-pugs-cheat",
     "yellow-birds-type",
     "yellow-pugs-buy",
     "yellow-weeks-provide"
