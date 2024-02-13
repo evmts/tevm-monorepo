@@ -86,10 +86,12 @@ describe('Testing tevm state managers with mix of createTransaction: true and fa
 			it(`Should properly track state with a ${clientName}`, async () => {
 				// Set the token contract
 				const token = '0x1823FbFF49f731061E8216ad2467112C0469cBFD'
-				await client.setAccount({
-					address: token,
-					deployedBytecode: MOCKERC20_BYTECODE,
-				})
+				expect(
+					await client.setAccount({
+						address: token,
+						deployedBytecode: MOCKERC20_BYTECODE,
+					}),
+				).toEqual({})
 
 				const amount = BigInt(1e18)
 				// Mint tokens

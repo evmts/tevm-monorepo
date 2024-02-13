@@ -44,16 +44,24 @@ export class TevmVm extends VM {
 			this.stateManager as TevmStateManager
 		).deepCopy()
 		const evmOpts = {
-			...(this.evm as any)._optsCached,
 			common,
-			blockchain,
 			stateManager,
+			blockchain,
+			allowUnlimitedContractSize:
+				(this.evm as any).allowUnlimitedContractSize ?? false,
+			allowUnlimitedInitCodeSize: false,
+			customOpcodes: [],
+			customPrecompiles: (this.evm as any)._customPrecompiles,
+			profiler: {
+				enabled:
+					Boolean((this.evm as any).optsCached?.profiler?.enabled) ?? false,
+			},
 		}
-		// TODO use TevmEvm
 		const evmCopy = new EVM(evmOpts)
 		return TevmVm.create({
 			stateManager,
 			blockchain: this.blockchain,
+			activatePrecompiles: true,
 			common,
 			evm: evmCopy,
 			setHardfork: this._setHardfork,

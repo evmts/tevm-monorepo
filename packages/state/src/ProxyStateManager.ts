@@ -120,8 +120,12 @@ export class ProxyStateManager implements TevmStateManagerInterface {
 		this._currentBlockTag = {
 			blockNumber,
 		}
-		if (this._cachedBlockTag.blockNumber !== blockNumber) {
-			this.clearCaches()
+		if (
+			this._cachedBlockTag.blockNumber &&
+			this._cachedBlockTag.blockNumber !== blockNumber
+		) {
+			this._storageCache.clear()
+			this._accountCache.clear()
 		}
 	}
 

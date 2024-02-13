@@ -36,7 +36,7 @@ describe(TevmProvider.name, () => {
 			).toEqual({
 				address: '0x6969696969696969696969696969696969696969',
 				balance: toHex(420n),
-				deployedBytecode: '0x00',
+				deployedBytecode: '0x',
 				nonce: toHex(1n),
 				storageRoot:
 					'0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
