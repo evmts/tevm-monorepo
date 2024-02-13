@@ -14,7 +14,7 @@
 
 #### Source
 
-[packages/state/src/ForkStateManager.ts:31](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L31)
+[packages/state/src/ForkStateManager.ts:30](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L30)
 
 ***
 
@@ -24,7 +24,7 @@
 
 #### Source
 
-[packages/state/src/ForkStateManager.ts:30](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L30)
+[packages/state/src/ForkStateManager.ts:29](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L29)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -18,13 +18,11 @@ import {
 	type PublicClient,
 	bytesToHex,
 	createPublicClient,
-	fromRlp,
 	hexToBytes,
 	http,
 	isHex,
 	toBytes,
 	toHex,
-	type Hex,
 } from 'viem'
 
 export interface ForkStateManagerOpts {
@@ -91,36 +89,12 @@ export class ForkStateManager implements TevmStateManagerInterface {
 			url: this.opts.url,
 			blockTag: Object.values(this._blockTag)[0],
 		})
+		newState._contractCache = new Map(this._contractCache)
 
-		await Promise.all(this.getAccountAddresses().map(async (address) => {
-			const account = await this.getAccount(EthjsAddress.fromString(address))
+		await newState.generateCanonicalGenesis(await this.dumpCanonicalGenesis())
 
-			if (account === undefined) {
-				return
-			}
-
-			await newState.putAccount(EthjsAddress.fromString(address), account)
-
-			const bytecodePromise = this.getContractCode(EthjsAddress.fromString(address)).then(code => {
-				newState.putContractCode(EthjsAddress.fromString(address), code)
-			})
-
-			const storagePromise = this.dumpStorage(EthjsAddress.fromString(address)).then(storage => {
-				return Promise.all(Object.entries(storage).map(async ([key, value]) => {
-					await newState.putContractStorage(
-						EthjsAddress.fromString(address),
-						hexToBytes(key as Hex),
-						hexToBytes(value as Hex),
-					)
-				}
-				))
-			})
-
-			return Promise.all([
-				bytecodePromise,
-				storagePromise
-			])
-		}))
+		await newState.checkpoint()
+		await newState.commit()
 
 		return newState
 	}
@@ -167,7 +141,10 @@ export class ForkStateManager implements TevmStateManagerInterface {
 			address: address.toString() as Address,
 			...this._blockTag,
 		})
-		codeBytes = hexToBytes(code ?? '0x0')
+		if (!code) {
+			return new Uint8Array(0)
+		}
+		codeBytes = hexToBytes(code)
 		this._contractCache.set(address.toString(), codeBytes)
 		return codeBytes
 	}
@@ -427,6 +404,7 @@ export class ForkStateManager implements TevmStateManagerInterface {
 	 */
 	async commit(): Promise<void> {
 		this._accountCache.commit()
+		this._storageCache.commit()
 	}
 
 	/**
@@ -455,7 +433,7 @@ export class ForkStateManager implements TevmStateManagerInterface {
 	/**
 	 * @deprecated This method is not used by the Fork State Manager and is a stub required by the State Manager interface
 	 */
-	setStateRoot = async (_root: Uint8Array) => { }
+	setStateRoot = async (_root: Uint8Array) => {}
 
 	/**
 	 * @deprecated This method is not used by the Fork State Manager and is a stub required by the State Manager interface
@@ -496,13 +474,8 @@ export class ForkStateManager implements TevmStateManagerInterface {
 					const key = hexToBytes(
 						isHex(storageKey) ? storageKey : `0x${storageKey}`,
 					)
-					const encodedStorageData = fromRlp(
-						isHex(storageData) ? storageData : `0x${storageData}`,
-					)
 					const data = hexToBytes(
-						isHex(encodedStorageData)
-							? encodedStorageData
-							: `0x${encodedStorageData}`,
+						isHex(storageData) ? storageData : `0x${storageData}`,
 					)
 					this.putContractStorage(address, key, data)
 				}

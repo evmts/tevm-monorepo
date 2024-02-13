@@ -465,7 +465,7 @@ Returns a new instance of the ForkStateManager with the same opts and all storag
 
 #### Source
 
-[packages/state/src/NormalStateManager.ts:36](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/NormalStateManager.ts#L36)
+[packages/state/src/NormalStateManager.ts:43](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/NormalStateManager.ts#L43)
 
 ***
 
@@ -503,7 +503,7 @@ Dumps the state of the state manager as a [SerializableTevmState](../type-aliase
 
 #### Source
 
-[packages/state/src/NormalStateManager.ts:117](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/NormalStateManager.ts#L117)
+[packages/state/src/NormalStateManager.ts:169](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/NormalStateManager.ts#L169)
 
 ***
 
@@ -615,7 +615,7 @@ DefaultStateManager.generateCanonicalGenesis
 
 #### Source
 
-[packages/state/src/NormalStateManager.ts:81](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/NormalStateManager.ts#L81)
+[packages/state/src/NormalStateManager.ts:133](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/NormalStateManager.ts#L133)
 
 ***
 
@@ -661,7 +661,7 @@ An array of account addresses.
 
 #### Source
 
-[packages/state/src/NormalStateManager.ts:23](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/NormalStateManager.ts#L23)
+[packages/state/src/NormalStateManager.ts:30](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/NormalStateManager.ts#L30)
 
 ***
 
@@ -1015,7 +1015,7 @@ DefaultStateManager.shallowCopy
 
 #### Source
 
-[packages/state/src/NormalStateManager.ts:45](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/NormalStateManager.ts#L45)
+[packages/state/src/NormalStateManager.ts:97](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/NormalStateManager.ts#L97)
 
 ***
 

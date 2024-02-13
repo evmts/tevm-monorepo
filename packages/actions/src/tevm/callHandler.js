@@ -24,8 +24,8 @@ export const callHandler = (vm) => async (params) => {
 						typeof e === 'string'
 							? e
 							: e instanceof Error
-							? e.message
-							: 'unknown error',
+								? e.message
+								: 'unknown error',
 				},
 			],
 			executionGasUsed: 0n,
@@ -51,8 +51,8 @@ export const callHandler = (vm) => async (params) => {
 						typeof e === 'string'
 							? e
 							: e instanceof Error
-							? e.message
-							: 'unknown error',
+								? e.message
+								: 'unknown error',
 				},
 			],
 			executionGasUsed: 0n,

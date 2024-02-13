@@ -14,7 +14,7 @@
 
 #### Source
 
-packages/state/types/ForkStateManager.d.ts:14
+packages/state/types/ForkStateManager.d.ts:13
 
 ***
 
@@ -24,7 +24,7 @@ packages/state/types/ForkStateManager.d.ts:14
 
 #### Source
 
-packages/state/types/ForkStateManager.d.ts:13
+packages/state/types/ForkStateManager.d.ts:12
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
