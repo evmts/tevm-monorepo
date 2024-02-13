@@ -1,6 +1,7 @@
 import type { ViemTevmClientDecorator } from './ViemTevmClientDecorator.js'
 
 /**
+ * @deprecated in favor of the viem transport
  * @experimental
  * This extension is highly experimental and should not be used in production.
  *

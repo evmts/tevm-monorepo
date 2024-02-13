@@ -231,7 +231,7 @@ export const createMemoryClient = async (options = {}) => {
 		// that we want to avoid or abstract away before enabling
 		// This means tevm will throw an error on all non natively supported
 		// requests
-		request: requestProcedure(vm),
+		request: requestProcedure(vm, options.fork?.url ?? options.proxy?.url),
 		requestBulk: requestBulkProcedure(vm),
 		script: scriptHandler(vm),
 		getAccount: getAccountHandler(vm),
@@ -246,25 +246,28 @@ export const createMemoryClient = async (options = {}) => {
 			call: ethCallHandler(vm),
 			chainId: chainIdHandler(chainId),
 			gasPrice: gasPriceHandler({
-				forkUrl: options.fork?.url,
+				forkUrl: options.fork?.url ?? options.proxy?.url,
 				vm,
 			}),
 			getBalance: getBalanceHandler({
-				forkUrl: options.fork?.url,
+				forkUrl: options.fork?.url ?? options.proxy?.url,
 				vm,
 			}),
 			getCode: getCodeHandler({
 				vm,
-				forkUrl: options.fork?.url,
+				forkUrl: options.fork?.url ?? options.proxy?.url,
 			}),
 			getStorageAt: getStorageAtHandler({
 				vm,
-				forkUrl: options.fork?.url,
+				forkUrl: options.fork?.url ?? options.proxy?.url,
 			}),
 		},
 		...(options.fork?.url
 			? { forkUrl: options.fork.url }
 			: { forkUrl: options.fork?.url }),
+		...(options.proxy?.url
+			? { proxyUrl: options.proxy.url }
+			: { proxyUrl: options.proxy?.url }),
 	}
 
 	// add custom predeploys

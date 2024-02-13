@@ -8,6 +8,10 @@
 
 > **ViemTevmOptimisticClientDecorator**: \<`TTransport`, `TChain`, `TAccount`\>(`client`) => [`ViemTevmOptimisticClient`](ViemTevmOptimisticClient.md)\<`TChain`, `TAccount`\>
 
+## Deprecated
+
+in favor of the viem transport
+
 A viem decorator for `tevmViemExtension`
 
 ## Type parameters
@@ -24,7 +28,7 @@ A viem decorator for `tevmViemExtension`
 
 ## Source
 
-[ViemTevmOptimisticClientDecorator.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/ViemTevmOptimisticClientDecorator.ts#L8)
+[ViemTevmOptimisticClientDecorator.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/ViemTevmOptimisticClientDecorator.ts#L9)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

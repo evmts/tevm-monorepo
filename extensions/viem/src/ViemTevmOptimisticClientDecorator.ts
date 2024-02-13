@@ -2,6 +2,7 @@ import type { ViemTevmOptimisticClient } from './ViemTevmOptimisticClient.js'
 import type { Account, Chain, Transport } from 'viem'
 
 /**
+ * @deprecated in favor of the viem transport
  * @experimental
  * A viem decorator for `tevmViemExtension`
  */

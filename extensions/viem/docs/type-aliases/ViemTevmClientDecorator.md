@@ -8,6 +8,9 @@
 
 > **ViemTevmClientDecorator**: (`client`) => [`ViemTevmClient`](ViemTevmClient.md)
 
+## Deprecated
+
+in favor of the viem transport
 A viem decorator for `tevmViemExtension`
 
 ## Parameters
@@ -16,7 +19,7 @@ A viem decorator for `tevmViemExtension`
 
 ## Source
 
-[ViemTevmClientDecorator.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/ViemTevmClientDecorator.ts#L6)
+[ViemTevmClientDecorator.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/ViemTevmClientDecorator.ts#L7)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

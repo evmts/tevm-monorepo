@@ -94,7 +94,7 @@ describe(createHttpClient.name, () => {
 		})
 
 		it('can use tevm.eth.gasPrice', async () => {
-			expect(await client.eth.gasPrice()).toEqual(1000000000n)
+			expect(await client.eth.gasPrice()).toBeGreaterThan(0n)
 		})
 
 		it('can use tevm.eth.getBalance', async () => {

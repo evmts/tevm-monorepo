@@ -12,11 +12,6 @@ export const callHandlerOpts = (params) => {
 	 */
 	const opts = {}
 
-	if (params.blockTag) {
-		console.error(
-			'blockTag is not currently implemented and thats not intentional!!!',
-		)
-	}
 	if (params.to) {
 		opts.to = EthjsAddress.fromString(params.to)
 	}

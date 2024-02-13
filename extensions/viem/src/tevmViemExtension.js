@@ -21,6 +21,7 @@ const formatBlockTag = (blockTag) => {
 }
 
 /**
+ * @deprecated in favor of the viem transport
  * Decorates a viem [public client](https://viem.sh/) with the [tevm api](https://tevm.sh/generated/tevm/api/type-aliases/tevm/)
  * @type {import('./ViemTevmExtension.js').ViemTevmExtension}
  * @example

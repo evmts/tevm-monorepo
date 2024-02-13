@@ -12,6 +12,7 @@ export const callHandler = (vm) => async (params) => {
 	 * @type {import('@ethereumjs/vm').VM}
 	 */
 	let copiedVm
+
 	try {
 		copiedVm = params.createTransaction ? vm : await vm.deepCopy()
 	} catch (e) {
