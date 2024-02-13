@@ -1,6 +1,7 @@
 import type { ViemTevmOptimisticClientDecorator } from './ViemTevmOptimisticClientDecorator.js'
 
 /**
+ * @deprecated in favor of the viem transport
  * @experimental
  * Decorates a viem [public client](https://viem.sh/) with the [tevm api](https://tevm.sh/generated/tevm/api/type-aliases/tevm/)
  * @example

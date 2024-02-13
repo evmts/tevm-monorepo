@@ -10,6 +10,7 @@ import type {
 } from 'viem'
 
 /**
+ * @deprecated in favor of the viem transport
  * @experimental
  * The decorated methods added to a viem wallet client by `tevmViemExtensionOptimistic`
  */

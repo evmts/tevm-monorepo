@@ -7,7 +7,11 @@ title: "ViemTevmOptimisticClientDecorator"
 
 > **ViemTevmOptimisticClientDecorator**: \<`TTransport`, `TChain`, `TAccount`\>(`client`) => [`ViemTevmOptimisticClient`](/reference/tevm/viem/type-aliases/viemtevmoptimisticclient/)\<`TChain`, `TAccount`\>
 
+:::caution[Deprecated]
+in favor of the viem transport
+
 A viem decorator for `tevmViemExtension`
+:::
 
 :::caution[Experimental]
 This API should not be used in production and may be trimmed from a public release.
@@ -27,7 +31,7 @@ This API should not be used in production and may be trimmed from a public relea
 
 ## Source
 
-[ViemTevmOptimisticClientDecorator.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/ViemTevmOptimisticClientDecorator.ts#L8)
+[ViemTevmOptimisticClientDecorator.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/ViemTevmOptimisticClientDecorator.ts#L9)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

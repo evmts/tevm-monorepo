@@ -5,7 +5,7 @@ prev: false
 title: "requestProcedure"
 ---
 
-> **requestProcedure**(`vm`): `TevmJsonRpcRequestHandler`
+> **requestProcedure**(`vm`, `forkUrl`?): `TevmJsonRpcRequestHandler`
 
 Request handler for JSON-RPC requests.
 
@@ -19,6 +19,8 @@ bundle size.
 ## Parameters
 
 ▪ **vm**: `TevmVm`
+
+▪ **forkUrl?**: `string`
 
 ## Returns
 
@@ -41,7 +43,7 @@ const accountResponse = await tevm.request({
 
 ## Source
 
-[procedures/src/requestProcedure.js:48](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/requestProcedure.js#L48)
+[procedures/src/requestProcedure.js:50](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/requestProcedure.js#L50)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -21,6 +21,7 @@
 
 ### Functions
 
+- [tevmTransport](functions/tevmTransport.md)
 - [tevmViemExtension](functions/tevmViemExtension.md)
 - [tevmViemExtensionOptimistic](functions/tevmViemExtensionOptimistic.md)
 

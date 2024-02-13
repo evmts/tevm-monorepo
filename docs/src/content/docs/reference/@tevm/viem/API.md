@@ -22,6 +22,7 @@ title: "@tevm/viem"
 
 ### Functions
 
+- [tevmTransport](/reference/tevm/viem/functions/tevmtransport/)
 - [tevmViemExtension](/reference/tevm/viem/functions/tevmviemextension/)
 - [tevmViemExtensionOptimistic](/reference/tevm/viem/functions/tevmviemextensionoptimistic/)
 

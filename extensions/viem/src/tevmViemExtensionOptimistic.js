@@ -3,6 +3,7 @@ import { waitForTransactionReceipt } from 'viem/actions'
 
 // TODO handle the transaction reverting
 /**
+ * @deprecated in favor of the viem transport
  * @experimental
  * This extension is highly experimental and should not be used in production.
  *
