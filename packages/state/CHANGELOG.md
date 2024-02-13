@@ -1,5 +1,11 @@
 # @tevm/state
 
+## 1.0.0-next.35
+
+### Patch Changes
+
+- [#934](https://github.com/evmts/tevm-monorepo/pull/934) [`aa6b7a03f0490809e15176c832b48495921913c9`](https://github.com/evmts/tevm-monorepo/commit/aa6b7a03f0490809e15176c832b48495921913c9) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug with debug being an ESM only package via bundling it.
+
 ## 1.0.0-next.33
 
 ### Minor Changes
