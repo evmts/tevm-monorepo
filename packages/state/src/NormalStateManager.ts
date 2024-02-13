@@ -3,7 +3,7 @@ import type { SerializableTevmState } from './SerializableTevmState.js'
 import type { TevmStateManagerInterface } from './TevmStateManagerInterface.js'
 import { CacheType, DefaultStateManager } from '@ethereumjs/statemanager'
 import { Account, Address as EthjsAddress } from '@ethereumjs/util'
-import { type Address, bytesToHex, fromRlp, hexToBytes, isHex } from 'viem'
+import { type Address, bytesToHex, fromRlp, hexToBytes, isHex, type Hex } from 'viem'
 
 /**
  * The ethereum state manager implementation for running Tevm in `normal` mode.
@@ -14,8 +14,7 @@ import { type Address, bytesToHex, fromRlp, hexToBytes, isHex } from 'viem'
  */
 export class NormalStateManager
 	extends DefaultStateManager
-	implements TevmStateManagerInterface
-{
+	implements TevmStateManagerInterface {
 	/**
 	 * Retrieves the addresses of all the accounts in the state.
 	 * @returns An array of account addresses.
@@ -35,7 +34,45 @@ export class NormalStateManager
 	 */
 	async deepCopy(): Promise<NormalStateManager> {
 		const newState = new NormalStateManager()
-		await newState.generateCanonicalGenesis(await this.dumpCanonicalGenesis())
+
+		await Promise.all(this.getAccountAddresses().map(async (address) => {
+			const ethjsAddress = EthjsAddress.fromString(`0x${address}`)
+
+			const [account, code] = await Promise.all([
+				this.getAccount(ethjsAddress),
+				this.getContractCode(ethjsAddress),
+			])
+
+			if (account === undefined) {
+				throw new Error(`Account not found for address ${address}`)
+			}
+
+			console.log('putting account', address)
+			await newState.putAccount(ethjsAddress, account)
+
+			if (code.length === 0) {
+				console.log('no code found for', address)
+				return
+			}
+			console.log('handling code for', address, bytesToHex(code))
+			await newState.putContractCode(ethjsAddress, code)
+
+			const storage = await this.dumpStorage(ethjsAddress)
+			console.log('handling storage for', address, storage)
+
+			await Promise.all(Object.entries(storage).map(async ([key, value]) => {
+				console.log({ key, value })
+				await newState.putContractStorage(
+					ethjsAddress,
+					hexToBytes(key as Hex),
+					hexToBytes(value as Hex),
+				)
+			}))
+		}))
+
+		newState.checkpoint()
+		newState.commit()
+
 		return newState
 	}
 

@@ -45,19 +45,9 @@ const stateManager = new ForkStateManager({
 
 #### Source
 
-[packages/state/src/ForkStateManager.ts:64](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L64)
+[packages/state/src/ForkStateManager.ts:60](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L60)
 
 ## Properties
-
-### DEBUG
-
-> **`protected`** **DEBUG**: `boolean`
-
-#### Source
-
-[packages/state/src/ForkStateManager.ts:62](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L62)
-
-***
 
 ### \_accountCache
 
@@ -65,7 +55,7 @@ const stateManager = new ForkStateManager({
 
 #### Source
 
-[packages/state/src/ForkStateManager.ts:58](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L58)
+[packages/state/src/ForkStateManager.ts:56](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L56)
 
 ***
 
@@ -75,7 +65,7 @@ const stateManager = new ForkStateManager({
 
 #### Source
 
-[packages/state/src/ForkStateManager.ts:59](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L59)
+[packages/state/src/ForkStateManager.ts:57](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L57)
 
 ***
 
@@ -85,17 +75,7 @@ const stateManager = new ForkStateManager({
 
 #### Source
 
-[packages/state/src/ForkStateManager.ts:56](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L56)
-
-***
-
-### \_debug
-
-> **`protected`** **\_debug**: `Debugger`
-
-#### Source
-
-[packages/state/src/ForkStateManager.ts:61](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L61)
+[packages/state/src/ForkStateManager.ts:54](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L54)
 
 ***
 
@@ -105,7 +85,7 @@ const stateManager = new ForkStateManager({
 
 #### Source
 
-[packages/state/src/ForkStateManager.ts:57](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L57)
+[packages/state/src/ForkStateManager.ts:55](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L55)
 
 ***
 
@@ -3555,7 +3535,7 @@ const unwatch = await client.watchPendingTransactions({
 
 #### Source
 
-[packages/state/src/ForkStateManager.ts:63](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L63)
+[packages/state/src/ForkStateManager.ts:59](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L59)
 
 ***
 
@@ -3565,7 +3545,7 @@ const unwatch = await client.watchPendingTransactions({
 
 #### Source
 
-[packages/state/src/ForkStateManager.ts:64](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L64)
+[packages/state/src/ForkStateManager.ts:60](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L60)
 
 ***
 
@@ -3579,7 +3559,7 @@ const unwatch = await client.watchPendingTransactions({
 
 #### Source
 
-[packages/state/src/ForkStateManager.ts:60](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L60)
+[packages/state/src/ForkStateManager.ts:58](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L58)
 
 ## Methods
 
@@ -3597,7 +3577,7 @@ Address of the `account` to check
 
 #### Source
 
-[packages/state/src/ForkStateManager.ts:255](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L255)
+[packages/state/src/ForkStateManager.ts:247](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L247)
 
 ***
 
@@ -3617,7 +3597,7 @@ Partial implementation, called from the subclass.
 
 #### Source
 
-[packages/state/src/ForkStateManager.ts:425](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L425)
+[packages/state/src/ForkStateManager.ts:385](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L385)
 
 ***
 
@@ -3629,7 +3609,7 @@ Resets all internal caches
 
 #### Source
 
-[packages/state/src/ForkStateManager.ts:127](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L127)
+[packages/state/src/ForkStateManager.ts:119](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L119)
 
 ***
 
@@ -3651,7 +3631,7 @@ Address to clear the storage of
 
 #### Source
 
-[packages/state/src/ForkStateManager.ts:221](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L221)
+[packages/state/src/ForkStateManager.ts:213](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L213)
 
 ***
 
@@ -3670,7 +3650,7 @@ Partial implementation, called from the subclass.
 
 #### Source
 
-[packages/state/src/ForkStateManager.ts:436](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L436)
+[packages/state/src/ForkStateManager.ts:396](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L396)
 
 ***
 
@@ -3682,7 +3662,7 @@ Returns a new instance of the ForkStateManager with the same opts and all storag
 
 #### Source
 
-[packages/state/src/ForkStateManager.ts:95](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L95)
+[packages/state/src/ForkStateManager.ts:87](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L87)
 
 ***
 
@@ -3704,7 +3684,7 @@ Address of the account which should be deleted
 
 #### Source
 
-[packages/state/src/ForkStateManager.ts:379](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L379)
+[packages/state/src/ForkStateManager.ts:344](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L344)
 
 ***
 
@@ -3716,7 +3696,7 @@ Dumps the state of the state manager as a [SerializableTevmState](../type-aliase
 
 #### Source
 
-[packages/state/src/ForkStateManager.ts:524](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L524)
+[packages/state/src/ForkStateManager.ts:484](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L484)
 
 ***
 
@@ -3744,7 +3724,7 @@ Both are represented as `0x` prefixed hex strings.
 
 #### Source
 
-[packages/state/src/ForkStateManager.ts:232](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L232)
+[packages/state/src/ForkStateManager.ts:224](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L224)
 
 ***
 
@@ -3766,7 +3746,7 @@ Both are represented as `0x` prefixed hex strings.
 
 #### Source
 
-[packages/state/src/ForkStateManager.ts:243](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L243)
+[packages/state/src/ForkStateManager.ts:235](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L235)
 
 ***
 
@@ -3776,7 +3756,7 @@ Both are represented as `0x` prefixed hex strings.
 
 #### Source
 
-[packages/state/src/ForkStateManager.ts:452](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L452)
+[packages/state/src/ForkStateManager.ts:412](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L412)
 
 ***
 
@@ -3796,7 +3776,7 @@ Loads a [SerializableTevmState](../type-aliases/SerializableTevmState.md) into t
 
 #### Source
 
-[packages/state/src/ForkStateManager.ts:488](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L488)
+[packages/state/src/ForkStateManager.ts:448](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L448)
 
 ***
 
@@ -3816,7 +3796,7 @@ Gets the code corresponding to the provided `address`.
 
 #### Source
 
-[packages/state/src/ForkStateManager.ts:279](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L279)
+[packages/state/src/ForkStateManager.ts:270](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L270)
 
 ***
 
@@ -3830,7 +3810,7 @@ Gets the code corresponding to the provided `address`.
 
 #### Source
 
-[packages/state/src/ForkStateManager.ts:475](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L475)
+[packages/state/src/ForkStateManager.ts:435](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L435)
 
 ***
 
@@ -3848,7 +3828,7 @@ Address of account to be retrieved from provider
 
 #### Source
 
-[packages/state/src/ForkStateManager.ts:298](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L298)
+[packages/state/src/ForkStateManager.ts:289](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L289)
 
 ***
 
@@ -3875,7 +3855,7 @@ Returns an empty `Uint8Array` if the account has no associated code.
 
 #### Source
 
-[packages/state/src/ForkStateManager.ts:139](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L139)
+[packages/state/src/ForkStateManager.ts:131](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L131)
 
 ***
 
@@ -3908,7 +3888,7 @@ If this does not exist an empty `Uint8Array` is returned.
 
 #### Source
 
-[packages/state/src/ForkStateManager.ts:174](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L174)
+[packages/state/src/ForkStateManager.ts:166](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L166)
 
 ***
 
@@ -3938,7 +3918,7 @@ an EIP-1186 formatted proof
 
 #### Source
 
-[packages/state/src/ForkStateManager.ts:392](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L392)
+[packages/state/src/ForkStateManager.ts:354](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L354)
 
 ***
 
@@ -3958,7 +3938,7 @@ This method is not used by the Fork State Manager and is a stub required by the 
 
 #### Source
 
-[packages/state/src/ForkStateManager.ts:459](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L459)
+[packages/state/src/ForkStateManager.ts:419](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L419)
 
 ***
 
@@ -3978,7 +3958,7 @@ This method is not used by the Fork State Manager and is a stub required by the 
 
 #### Source
 
-[packages/state/src/ForkStateManager.ts:471](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L471)
+[packages/state/src/ForkStateManager.ts:431](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L431)
 
 ***
 
@@ -4006,7 +3986,7 @@ Object containing account fields and values to modify
 
 #### Source
 
-[packages/state/src/ForkStateManager.ts:347](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L347)
+[packages/state/src/ForkStateManager.ts:325](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L325)
 
 ***
 
@@ -4028,7 +4008,7 @@ Saves an account into state under the provided `address`.
 
 #### Source
 
-[packages/state/src/ForkStateManager.ts:320](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L320)
+[packages/state/src/ForkStateManager.ts:307](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L307)
 
 ***
 
@@ -4055,7 +4035,7 @@ The value of the `code`
 
 #### Source
 
-[packages/state/src/ForkStateManager.ts:157](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L157)
+[packages/state/src/ForkStateManager.ts:149](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L149)
 
 ***
 
@@ -4088,7 +4068,7 @@ If it is empty or filled with zeros, deletes the value.
 
 #### Source
 
-[packages/state/src/ForkStateManager.ts:209](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L209)
+[packages/state/src/ForkStateManager.ts:201](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L201)
 
 ***
 
@@ -4107,7 +4087,7 @@ Partial implementation , called from the subclass.
 
 #### Source
 
-[packages/state/src/ForkStateManager.ts:446](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L446)
+[packages/state/src/ForkStateManager.ts:406](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L406)
 
 ***
 
@@ -4131,7 +4111,7 @@ This method is not used by the Fork State Manager and is a stub required by the 
 
 #### Source
 
-[packages/state/src/ForkStateManager.ts:466](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L466)
+[packages/state/src/ForkStateManager.ts:426](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L426)
 
 ***
 
@@ -4147,7 +4127,7 @@ Returns a new instance of the ForkStateManager with the same opts
 
 #### Source
 
-[packages/state/src/ForkStateManager.ts:107](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L107)
+[packages/state/src/ForkStateManager.ts:99](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L99)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

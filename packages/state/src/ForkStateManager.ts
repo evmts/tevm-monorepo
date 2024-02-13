@@ -24,6 +24,7 @@ import {
 	isHex,
 	toBytes,
 	toHex,
+	type Hex,
 } from 'viem'
 
 export interface ForkStateManagerOpts {
@@ -81,6 +82,7 @@ export class ForkStateManager implements TevmStateManagerInterface {
 		this.originalStorageCache = new Cache(this.getContractStorage.bind(this))
 	}
 
+	// TODO this is gonna be too slow eventually for large state
 	/**
 	 * Returns a new instance of the ForkStateManager with the same opts and all storage copied over
 	 */
@@ -89,7 +91,37 @@ export class ForkStateManager implements TevmStateManagerInterface {
 			url: this.opts.url,
 			blockTag: Object.values(this._blockTag)[0],
 		})
-		await newState.generateCanonicalGenesis(await this.dumpCanonicalGenesis())
+
+		await Promise.all(this.getAccountAddresses().map(async (address) => {
+			const account = await this.getAccount(EthjsAddress.fromString(address))
+
+			if (account === undefined) {
+				return
+			}
+
+			await newState.putAccount(EthjsAddress.fromString(address), account)
+
+			const bytecodePromise = this.getContractCode(EthjsAddress.fromString(address)).then(code => {
+				newState.putContractCode(EthjsAddress.fromString(address), code)
+			})
+
+			const storagePromise = this.dumpStorage(EthjsAddress.fromString(address)).then(storage => {
+				return Promise.all(Object.entries(storage).map(async ([key, value]) => {
+					await newState.putContractStorage(
+						EthjsAddress.fromString(address),
+						hexToBytes(key as Hex),
+						hexToBytes(value as Hex),
+					)
+				}
+				))
+			})
+
+			return Promise.all([
+				bytecodePromise,
+				storagePromise
+			])
+		}))
+
 		return newState
 	}
 
