@@ -1,5 +1,11 @@
 # @tevm/state
 
+## 1.0.0-next.36
+
+### Patch Changes
+
+- [#936](https://github.com/evmts/tevm-monorepo/pull/936) [`4e1c6af34b2262fc56a68528f435958e62b0a947`](https://github.com/evmts/tevm-monorepo/commit/4e1c6af34b2262fc56a68528f435958e62b0a947) Thanks [@roninjin10](https://github.com/roninjin10)! - Fix bug with debug module by removing it completely
+
 ## 1.0.0-next.35
 
 ### Patch Changes
