@@ -91,7 +91,7 @@ export const requestProcedure = (vm, forkUrl) => {
 			case 'eth_chainId':
 				return /** @type any */ (chainIdProcedure(chainId)(request))
 			case 'eth_call':
-				return /** @type any */ (ethCallProcedure)(vm)(request.params[0])
+				return /** @type any */ ((ethCallProcedure)(vm)(request))
 			case 'eth_getCode':
 				return /** @type any */ (getCodeProcedure({ vm, forkUrl })(request))
 			case 'eth_getStorageAt':
