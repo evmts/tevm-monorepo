@@ -1,5 +1,12 @@
 # @tevm/precompiles
 
+## 1.0.0-next.34
+
+### Patch Changes
+
+- Updated dependencies [[`3827743abb060538b5688706de6954410c16ca6d`](https://github.com/evmts/tevm-monorepo/commit/3827743abb060538b5688706de6954410c16ca6d)]:
+  - @tevm/contract@1.0.0-next.34
+
 ## 1.0.0-next.28
 
 ### Patch Changes
