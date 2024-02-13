@@ -28,6 +28,7 @@ import { testAccounts } from '@tevm/actions'
  * bundle size.
  *
  * @param {import('@tevm/vm').TevmVm} vm
+ * @param {string} [forkUrl]
  * @returns {import('@tevm/procedures-types').TevmJsonRpcRequestHandler}
  * @example
  * ```typescript
@@ -45,7 +46,7 @@ import { testAccounts } from '@tevm/actions'
  * })
  * ```
  */
-export const requestProcedure = (vm) => {
+export const requestProcedure = (vm, forkUrl) => {
 	// TODO implement chainid
 	const chainId = 10n
 	return async (request) => {
@@ -91,14 +92,14 @@ export const requestProcedure = (vm) => {
 			case 'eth_call':
 				return /** @type any */ (callProcedure)(vm)(request.params[0])
 			case 'eth_getCode':
-				return /** @type any */ (getCodeProcedure({ vm })(request))
+				return /** @type any */ (getCodeProcedure({ vm, forkUrl })(request))
 			case 'eth_getStorageAt':
-				return /** @type any */ (getStorageAtProcedure({ vm })(request))
+				return /** @type any */ (getStorageAtProcedure({ vm, forkUrl })(request))
 			case 'eth_gasPrice':
 				// TODO this vm.blockchain should not be type any
-				return /** @type any */ (gasPriceProcedure({ vm })(request))
+				return /** @type any */ (gasPriceProcedure({ vm, forkUrl })(request))
 			case 'eth_getBalance':
-				return /** @type any */ (getBalanceProcedure({ vm })(request))
+				return /** @type any */ (getBalanceProcedure({ vm, forkUrl })(request))
 			case 'eth_sign':
 				return ethSignProcedure(testAccounts)(request)
 			case 'eth_signTransaction':
@@ -160,7 +161,7 @@ export const requestProcedure = (vm) => {
 					name: 'UnsupportedMethodError',
 					message: `UnsupportedMethodError: Unknown method ${
 						/**@type any*/ (request).method
-					}`,
+						}`,
 				}
 				return /** @type {any}*/ ({
 					id: /** @type any*/ (request).id ?? null,

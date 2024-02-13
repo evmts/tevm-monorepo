@@ -231,7 +231,7 @@ export const createMemoryClient = async (options = {}) => {
 		// that we want to avoid or abstract away before enabling
 		// This means tevm will throw an error on all non natively supported
 		// requests
-		request: requestProcedure(vm),
+		request: requestProcedure(vm, options.fork?.url ?? options.proxy?.url),
 		requestBulk: requestBulkProcedure(vm),
 		script: scriptHandler(vm),
 		getAccount: getAccountHandler(vm),
