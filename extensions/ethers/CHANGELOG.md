@@ -1,5 +1,12 @@
 # @tevm/ethers
 
+## 1.0.0-next.38
+
+### Patch Changes
+
+- Updated dependencies [[`5968a2439309bc93d01472b729809d9508c838bc`](https://github.com/evmts/tevm-monorepo/commit/5968a2439309bc93d01472b729809d9508c838bc), [`5968a2439309bc93d01472b729809d9508c838bc`](https://github.com/evmts/tevm-monorepo/commit/5968a2439309bc93d01472b729809d9508c838bc), [`5968a2439309bc93d01472b729809d9508c838bc`](https://github.com/evmts/tevm-monorepo/commit/5968a2439309bc93d01472b729809d9508c838bc)]:
+  - @tevm/memory-client@1.0.0-next.38
+
 ## 1.0.0-next.37
 
 ### Patch Changes

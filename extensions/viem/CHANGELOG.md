@@ -1,5 +1,11 @@
 # @tevm/viem
 
+## 1.0.0-next.38
+
+### Minor Changes
+
+- [#940](https://github.com/evmts/tevm-monorepo/pull/940) [`5968a2439309bc93d01472b729809d9508c838bc`](https://github.com/evmts/tevm-monorepo/commit/5968a2439309bc93d01472b729809d9508c838bc) Thanks [@roninjin10](https://github.com/roninjin10)! - Added tevm transport that uses a Tevm instance as a viem backend
+
 ## 1.0.0-next.33
 
 ### Minor Changes
