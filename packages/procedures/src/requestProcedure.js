@@ -1,4 +1,5 @@
 import { ethAccountsProcedure } from './eth/ethAccountsProcedure.js'
+import { ethCallProcedure } from './eth/ethCallProcedure.js'
 import { ethSignProcedure } from './eth/ethSignProcedure.js'
 import { ethSignTransactionProcedure } from './eth/ethSignTransactionProcedure.js'
 import {
@@ -90,7 +91,7 @@ export const requestProcedure = (vm, forkUrl) => {
 			case 'eth_chainId':
 				return /** @type any */ (chainIdProcedure(chainId)(request))
 			case 'eth_call':
-				return /** @type any */ (callProcedure)(vm)(request.params[0])
+				return /** @type any */ (ethCallProcedure)(vm)(request.params[0])
 			case 'eth_getCode':
 				return /** @type any */ (getCodeProcedure({ vm, forkUrl })(request))
 			case 'eth_getStorageAt':
