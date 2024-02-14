@@ -65,7 +65,7 @@ import { createMemoryClient } from 'tevm'
 
 const client = createMemoryClient()
 
-const result = await tevm.script(
+const result = await client.script(
   HelloWorld.read.greate('World')
 )
 
