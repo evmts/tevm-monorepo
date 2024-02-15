@@ -22,8 +22,6 @@ Gets the chainId of the current EVM
 
 ▪ **client.extend**: \<`TExtension`\>(`decorator`) => `BaseClient`\<`"fork"` \| `"proxy"` \| `"normal"`, `object` & `TExtension`\>
 
-Extends the base client with additional functionality
-
 ▪ **client.forkUrl?**: `string`
 
 Fork url if the EVM is forked
@@ -41,7 +39,7 @@ Internal instance of the VM. Can be used for lower level operations
 
 ## Source
 
-[procedures/src/tevm/contractProcedure.js:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/tevm/contractProcedure.js#L8)
+[procedures/src/tevm/callProcedure.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/tevm/callProcedure.js#L9)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

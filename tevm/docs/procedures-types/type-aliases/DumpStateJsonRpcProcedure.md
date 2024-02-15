@@ -10,6 +10,14 @@
 
 Procedure for handling tevm_dumpState JSON-RPC requests
 
+## Parameters
+
+▪ **request**: [`DumpStateJsonRpcRequest`](DumpStateJsonRpcRequest.md)
+
+## Returns
+
+the state as a JSON-RPC successful result
+
 ## Example
 
 ```ts
@@ -21,10 +29,6 @@ const result = await tevm.request({
 . }
 console.log(result) // { jsonrpc: '2.0', id: 1, method: 'tevm_dumpState', result: {'0x...': '0x....', ...}}
 ```
-
-## Parameters
-
-▪ **request**: [`DumpStateJsonRpcRequest`](DumpStateJsonRpcRequest.md)
 
 ## Source
 

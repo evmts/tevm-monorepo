@@ -14,19 +14,19 @@ Creates tsup options from params
 
 ▪ **options**: `object`
 
-▪ **options.entry**: `undefined` \| `string`[]= `undefined`
+▪ **options.entry**: `undefined` \| `string`[]
 
 entry points Defaults to src/index.js
 
-▪ **options.format**: `undefined` \| (`"cjs"` \| `"esm"`)[]= `undefined`
+▪ **options.format**: `undefined` \| (`"cjs"` \| `"esm"`)[]
 
 module format Defaults to cjs and esm
 
-▪ **options.outDir**: `undefined` \| `string`= `'dist'`
+▪ **options.outDir**: `undefined` \| `string`
 
 output directory Defaults to dist
 
-▪ **options.target**: `undefined` \| `Target`= `'js'`
+▪ **options.target**: `undefined` \| `Target`
 
 environment to target Defaults to js
 

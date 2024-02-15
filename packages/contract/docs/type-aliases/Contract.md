@@ -167,16 +167,6 @@ tevm.contract(
 Adds an address to the contract. All action creators will return
 the address property if added.
 
-#### Example
-
-```typescript
-import { MyContract } from './MyContract.sol'
-const MyContractOptimism = MyContract.withAddress('0x420...')
-```
-
-Adds an address to the contract. All action creators will return
-the address property if added.
-
 #### Type parameters
 
 ▪ **TAddress** extends `Address`

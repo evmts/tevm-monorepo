@@ -33,11 +33,11 @@ The invalid block number.
 
 The cause of the error.
 
-▪ **options.docs**: `undefined` \| `string`= `'https://tevm.sh/reference/errors'`
+▪ **options.docs**: `undefined` \| `string`
 
 The documentation URL.
 
-▪ **options.message**: `undefined` \| `string`= `undefined`
+▪ **options.message**: `undefined` \| `string`
 
 The error message.
 
@@ -113,12 +113,6 @@ node\_modules/.pnpm/typescript@5.3.3/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 Optional override for formatting stack traces
 
-#### See
-
-https://v8.dev/docs/stack-trace-api#customizing-stack-traces
-
-Optional override for formatting stack traces
-
 #### Parameters
 
 ▪ **err**: `Error`
@@ -137,7 +131,7 @@ TypeError.prepareStackTrace
 
 #### Source
 
-node\_modules/@types/node/globals.d.ts:28
+node\_modules/.pnpm/@types+node@20.11.5/node\_modules/@types/node/globals.d.ts:28
 
 ***
 
@@ -151,7 +145,7 @@ TypeError.stackTraceLimit
 
 #### Source
 
-node\_modules/@types/node/globals.d.ts:30
+node\_modules/.pnpm/@types+node@20.11.5/node\_modules/@types/node/globals.d.ts:30
 
 ## Methods
 
@@ -173,7 +167,7 @@ TypeError.captureStackTrace
 
 #### Source
 
-node\_modules/@types/node/globals.d.ts:21
+node\_modules/.pnpm/@types+node@20.11.5/node\_modules/@types/node/globals.d.ts:21
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -92,7 +92,7 @@ describe('resolveArtifacts', () => {
 				fao,
 				require('solc'),
 			),
-		).rejects.toThrowErrorMatchingInlineSnapshot('"Not a solidity file"')
+		).rejects.toThrowErrorMatchingInlineSnapshot('[Error: Not a solidity file]')
 	})
 
 	it('should throw an error if no artifacts are returned by the compiler', () => {
@@ -111,7 +111,7 @@ describe('resolveArtifacts', () => {
 				fao,
 				require('solc'),
 			),
-		).rejects.toThrowErrorMatchingInlineSnapshot('"Compilation failed"')
+		).rejects.toThrowErrorMatchingInlineSnapshot('[Error: Compilation failed]')
 	})
 })
 

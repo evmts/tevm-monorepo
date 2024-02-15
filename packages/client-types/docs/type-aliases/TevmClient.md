@@ -18,7 +18,7 @@ using Tevm.
 
 #### JSON-RPC
 
-Tevm exposes a JSON-RPC interface for interacting with the EVM via the [TevmClient.request](Property request: TevmJsonRpcRequestHandler)
+Tevm exposes a JSON-RPC interface for interacting with the EVM via the [TevmClient.request](Property request:TevmJsonRpcRequestHandler)
 
 ## Example
 
@@ -50,7 +50,7 @@ console.log(account.balance) // 0n
 
 #### Ethereum actions
 
-Ethereum actions are namespaced under [TevmClient.eth](Property eth: Object)
+Ethereum actions are namespaced under [TevmClient.eth](Property eth:Object)
 
 ## Example
 

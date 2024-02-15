@@ -11,6 +11,14 @@
 Procedure for handling script JSON-RPC requests
 Procedure for handling tevm_loadState JSON-RPC requests
 
+## Parameters
+
+▪ **request**: [`LoadStateJsonRpcRequest`](LoadStateJsonRpcRequest.md)
+
+## Returns
+
+jsonrpc error response if there are errors otherwise it returns a successful empty object result
+
 ## Example
 
 ```ts
@@ -22,10 +30,6 @@ const result = await tevm.request({
 . }
 console.log(result) // { jsonrpc: '2.0', id: 1, method: 'tevm_loadState', result: {}}
 ```
-
-## Parameters
-
-▪ **request**: [`LoadStateJsonRpcRequest`](LoadStateJsonRpcRequest.md)
 
 ## Source
 

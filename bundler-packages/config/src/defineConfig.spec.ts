@@ -138,7 +138,7 @@ describe(defineConfig.name, () => {
 		expect(e.name).toBe('FoundryNotFoundError')
 		expect(e.message).toMatchInlineSnapshot(`
 			"FoundryNotFoundError: Unable to resolve Tevm CompilerConfig at ./
-			Failed to resolve forge config using \\"forge config --json\\" command. Make sure forge is installed and accessible and forge config --json works.
+			Failed to resolve forge config using "forge config --json" command. Make sure forge is installed and accessible and forge config --json works.
 			note: forge is used to fetch remappings only if forgeConfig is set. If you would prefer to not use forge you can set remappings
 			or lib directly in your Tevm compiler config and then Tevm will run without forge"
 		`)

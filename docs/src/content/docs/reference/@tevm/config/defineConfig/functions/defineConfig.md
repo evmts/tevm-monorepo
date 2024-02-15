@@ -39,7 +39,7 @@ export default defineConfig(() => ({
 
 ## Source
 
-[bundler-packages/config/src/defineConfig.js:52](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/config/src/defineConfig.js#L52)
+[bundler-packages/config/src/types.ts:84](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/config/src/types.ts#L84)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

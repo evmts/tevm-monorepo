@@ -31,14 +31,14 @@
 		"src"
 	],
 	"scripts": {
-		"//build:types": "tsc --emitDeclarationOnly --declaration --declarationMap",
+		"//build:types": "bunx tsc --emitDeclarationOnly --declaration --declarationMap",
 		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/experimental-solc ",
-		"build:dist": "tsup",
+		"build:dist": "bunx tsup",
 		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
-		"format": "rome format . --write",
-		"format:check": "rome format .",
-		"lint": "rome check . --apply-unsafe",
-		"lint:check": "rome check . --verbose",
+		"format": "bunx rome format . --write",
+		"format:check": "bunx rome format .",
+		"lint": "bunx rome check . --apply-unsafe",
+		"lint:check": "bunx rome check . --verbose",
 		"test": "NODE_OPTIONS='--experimental-loader=./scripts/http-loader.mjs --experimental-network-imports --no-warnings --loader=tsx' node --test ./src/compiler/loadSolidityCompiler.spec.ts ./src/compiler/loadSolidityCompilerSync.spec.ts"
 	},
 	"dependencies": {

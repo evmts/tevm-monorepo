@@ -11,6 +11,12 @@ Loads a previously dumped state into the VM
 
 State can be dumped as follows
 
+## Parameters
+
+▪ **params**: [`LoadStateParams`](/reference/tevm/actions-types/type-aliases/loadstateparams/)
+
+## Returns
+
 ## Example
 
 ```typescript
@@ -26,10 +32,6 @@ And then loaded as follows
 const state = JSON.parse(fs.readFileSync('state.json'))
 await tevm.loadState({state})
 ```
-
-## Parameters
-
-▪ **params**: [`LoadStateParams`](/reference/tevm/actions-types/type-aliases/loadstateparams/)
 
 ## Source
 

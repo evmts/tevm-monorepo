@@ -133,7 +133,7 @@ const { abi, bytecode } = await b.resolveTs(path, __dirname, true, true)
 
 ## Source
 
-bundler-packages/base-bundler/types/src/bundler.d.ts:41
+bundler-packages/base-bundler/types/src/types.d.ts:36
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

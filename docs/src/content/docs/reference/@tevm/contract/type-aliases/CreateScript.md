@@ -15,6 +15,23 @@ title: "CreateScript"
 Type of `createScript` factory function
 Creates a tevm Script instance from human readable abi
 
+## Type parameters
+
+▪ **TName** extends `string`
+
+▪ **THumanReadableAbi** extends readonly `string`[]
+
+## Parameters
+
+▪ **\{
+	name,
+	humanReadableAbi,
+	bytecode,
+	deployedBytecode,
+}**: [`CreateScriptParams`](/reference/tevm/contract/type-aliases/createscriptparams/)\<`TName`, `THumanReadableAbi`\>
+
+## Returns
+
 ## Example
 
 ```typescript
@@ -57,21 +74,6 @@ const script = createScript({
   }
   ]),
  })
-
-## Type parameters
-
-▪ **TName** extends `string`
-
-▪ **THumanReadableAbi** extends readonly `string`[]
-
-## Parameters
-
-▪ **\{
-	name,
-	humanReadableAbi,
-	bytecode,
-	deployedBytecode,
-}**: [`CreateScriptParams`](/reference/tevm/contract/type-aliases/createscriptparams/)\<`TName`, `THumanReadableAbi`\>
 
 ## Source
 

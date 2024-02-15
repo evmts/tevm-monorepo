@@ -12,6 +12,18 @@ Executes scripts against the Tevm EVM. By default the script is sandboxed
 and the state is reset after each execution unless the `persist` option is set
 to true.
 
+## Type parameters
+
+▪ **TAbi** extends [`Abi`](../../index/type-aliases/Abi.md) \| readonly `unknown`[] = [`Abi`](../../index/type-aliases/Abi.md)
+
+▪ **TFunctionName** extends [`ContractFunctionName`](../../index/type-aliases/ContractFunctionName.md)\<`TAbi`\> = [`ContractFunctionName`](../../index/type-aliases/ContractFunctionName.md)\<`TAbi`\>
+
+## Parameters
+
+▪ **params**: [`ScriptParams`](../../index/type-aliases/ScriptParams.md)\<`TAbi`, `TFunctionName`\>
+
+## Returns
+
 ## Example
 
 ```typescript
@@ -33,16 +45,6 @@ const res = tevm.script(
    MyScript.read.run('hello world')
 )
 ```
-
-## Type parameters
-
-▪ **TAbi** extends [`Abi`](../../index/type-aliases/Abi.md) \| readonly `unknown`[] = [`Abi`](../../index/type-aliases/Abi.md)
-
-▪ **TFunctionName** extends [`ContractFunctionName`](../../index/type-aliases/ContractFunctionName.md)\<`TAbi`\> = [`ContractFunctionName`](../../index/type-aliases/ContractFunctionName.md)\<`TAbi`\>
-
-## Parameters
-
-▪ **params**: [`ScriptParams`](../../index/type-aliases/ScriptParams.md)\<`TAbi`, `TFunctionName`\>
 
 ## Source
 

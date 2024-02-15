@@ -16,7 +16,7 @@ will transform solidity contract imports into Tevm `Contract` instances.
 
 Which solc version to use
 
-▪ **SolcVersions.solc?**: `SolcVersions`= `defaultSolc.version`
+▪ **SolcVersions.solc?**: `SolcVersions`
 
 ## Returns
 

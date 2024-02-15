@@ -13,6 +13,16 @@ If the current state is not proxying to an RPC and is just a vanilla VM it will 
 
 Block tag is optional and defaults to 'latest'
 
+:::caution[Experimental]
+This API should not be used in production and may be trimmed from a public release.
+:::
+
+## Parameters
+
+▪ **params**: [`ForkParams`](/reference/tevm/actions-types/type-aliases/forkparams/)
+
+## Returns
+
 ## Throws
 
 import('@tevm/errors').ForkError
@@ -25,14 +35,6 @@ const {errors} = await tevm.fork({
   blockTag: 'earliest',
 })
 ```
-
-:::caution[Experimental]
-This API should not be used in production and may be trimmed from a public release.
-:::
-
-## Parameters
-
-▪ **params**: [`ForkParams`](/reference/tevm/actions-types/type-aliases/forkparams/)
 
 ## Source
 

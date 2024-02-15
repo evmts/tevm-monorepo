@@ -3,22 +3,14 @@
 	"version": "1.0.0-next.28",
 	"private": false,
 	"description": "A typescript plugin for tevm",
-	"keywords": [
-		"typescript",
-		"plugin",
-		"solidity",
-		"sol",
-		"tevm"
-	],
+	"keywords": ["typescript", "plugin", "solidity", "sol", "tevm"],
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/evmts/tevm-monorepo.git",
 		"directory": "lsp/ts-plugin"
 	},
 	"license": "MIT",
-	"contributors": [
-		"Will Cory <willcory10@gmail.com>"
-	],
+	"contributors": ["Will Cory <willcory10@gmail.com>"],
 	"type": "module",
 	"exports": {
 		"./package.json": "./package.json",
@@ -39,28 +31,24 @@
 	"bin": {
 		"tevm-gen": "./dist/bin/tevm-gen.js"
 	},
-	"files": [
-		"dist",
-		"src",
-		"types"
-	],
+	"files": ["dist", "src", "types"],
 	"scripts": {
 		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/ts-plugin ",
-		"build:dist": "tsup",
-		"build:types": "tsup --dts-only && tsc --emitDeclarationOnly --declaration",
+		"build:dist": "bunx tsup",
+		"build:types": "bunx tsup --dts-only && bunx tsc --emitDeclarationOnly --declaration",
 		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
 		"dev": "TSS_DEBUG_BRK=9559 code ../../examples/forge-foundry",
-		"format": "rome format . --write",
-		"format:check": "rome format .",
+		"format": "bunx rome format . --write",
+		"format:check": "bunx rome format .",
 		"lint:deps": "bunx depcheck",
-		"// lint:package": "bunx publint --strict && attw --pack",
-		"generate:docs": "typedoc",
-		"lint": "rome check . --apply-unsafe",
-		"lint:check": "rome check . --verbose",
-		"typecheck": "tsc --noEmit",
-		"test": "vitest --coverage",
-		"test:coverage": "vitest run --coverage",
-		"test:run": "vitest --run"
+		"// lint:package": "bunx publint --strict && bunx attw --pack",
+		"generate:docs": "bunx typedoc",
+		"lint": "bunx rome check . --apply-unsafe",
+		"lint:check": "bunx rome check . --verbose",
+		"typecheck": "bunx tsc --noEmit",
+		"test": "bunx vitest --coverage",
+		"test:coverage": "bunx vitest run --coverage",
+		"test:run": "bunx vitest --run"
 	},
 	"dependencies": {
 		"@tevm/base-bundler": "workspace:^",

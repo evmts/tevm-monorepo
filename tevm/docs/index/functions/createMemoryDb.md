@@ -17,7 +17,7 @@ Pass in an initial DB optionally to prepoulate the DB.
 
 ## Source
 
-packages/utils/types/createMemoryDb.d.ts:7
+packages/utils/types/CreateMemoryDbFn.d.ts:3
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

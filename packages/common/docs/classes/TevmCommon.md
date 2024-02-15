@@ -1151,14 +1151,14 @@ node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/di
 Creates a [Common]([object Object]) object for a custom chain, based on a standard one.
 
 It uses all the [Chain]([object Object]) parameters from the baseChain option except the ones overridden
-in a provided [chainParamsOrName](Parameter chainParamsOrName: Partial`<ChainConfig>`  | CustomChain) dictionary. Some usage example:
+in a provided [chainParamsOrName](Parameter chainParamsOrName:Partial`<ChainConfig>`  | CustomChain) dictionary. Some usage example:
 
 ```javascript
 Common.custom({chainId: 123})
 ```
 
 There are also selected supported custom chains which can be initialized by using one of the
-CustomChains for [chainParamsOrName](Parameter chainParamsOrName: Partial`<ChainConfig>`  | CustomChain), e.g.:
+CustomChains for [chainParamsOrName](Parameter chainParamsOrName:Partial`<ChainConfig>`  | CustomChain), e.g.:
 
 ```javascript
 Common.custom(CustomChains.MaticMumbai)
@@ -1240,7 +1240,7 @@ node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/di
 
 > **`static`** **isSupportedChainId**(`chainId`): `boolean`
 
-Static method to determine if a [chainId](Parameter chainId: bigint) is supported as a standard chain
+Static method to determine if a [chainId](Parameter chainId:bigint) is supported as a standard chain
 
 #### Parameters
 

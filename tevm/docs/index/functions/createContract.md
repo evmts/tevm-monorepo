@@ -52,7 +52,7 @@ const contract = createContract({
 
 ## Source
 
-packages/contract/types/createContract.d.ts:29
+packages/contract/types/types.d.ts:36
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

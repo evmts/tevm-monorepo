@@ -169,12 +169,12 @@
 		"build:types": "bun run generate:types && git status --porcelain",
 		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
 		"generate": "nx run-many --targets=generate:dist,generate:types --projects=tevm && bun generate:docs",
-		"generate:dist": "tsup",
-		"generate:docs": "typedoc",
-		"generate:types": "tsup --dts-only",
+		"generate:dist": "bunx tsup",
+		"generate:docs": "bunx typedoc",
+		"generate:types": "bunx tsup --dts-only",
 		"lint:deps": "bunx depcheck",
-		"lint:package": "bunx publint --strict && attw --pack",
-		"typecheck": "tsc --noEmit"
+		"lint:package": "bunx publint --strict && bunx attw --pack",
+		"typecheck": "bunx tsc --noEmit"
 	},
 	"dependencies": {
 		"@tevm/base-bundler": "workspace:^",

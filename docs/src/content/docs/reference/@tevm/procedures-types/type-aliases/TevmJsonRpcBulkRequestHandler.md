@@ -14,6 +14,16 @@ will be added in the future.
 
 Currently is not very generic with regard to input and output types.
 
+:::caution[Experimental]
+This API should not be used in production and may be trimmed from a public release.
+:::
+
+## Parameters
+
+▪ **requests**: `ReadonlyArray`\<[`TevmJsonRpcRequest`](/reference/tevm/procedures-types/type-aliases/tevmjsonrpcrequest/) \| [`EthJsonRpcRequest`](/reference/tevm/procedures-types/type-aliases/ethjsonrpcrequest/) \| [`AnvilJsonRpcRequest`](/reference/tevm/procedures-types/type-aliases/anviljsonrpcrequest/) \| [`DebugJsonRpcRequest`](/reference/tevm/procedures-types/type-aliases/debugjsonrpcrequest/)\>
+
+## Returns
+
 ## Example
 
 ```typescript
@@ -95,14 +105,6 @@ response - [EthGasPriceJsonRpcResponse](EthGasPriceJsonRpcResponse.md)
 
 request - [EthGetBalanceJsonRpcRequest](EthGetBalanceJsonRpcRequest.md)
 response - [EthGetBalanceJsonRpcResponse](EthGetBalanceJsonRpcResponse.md)
-
-:::caution[Experimental]
-This API should not be used in production and may be trimmed from a public release.
-:::
-
-## Parameters
-
-▪ **requests**: `ReadonlyArray`\<[`TevmJsonRpcRequest`](/reference/tevm/procedures-types/type-aliases/tevmjsonrpcrequest/) \| [`EthJsonRpcRequest`](/reference/tevm/procedures-types/type-aliases/ethjsonrpcrequest/) \| [`AnvilJsonRpcRequest`](/reference/tevm/procedures-types/type-aliases/anviljsonrpcrequest/) \| [`DebugJsonRpcRequest`](/reference/tevm/procedures-types/type-aliases/debugjsonrpcrequest/)\>
 
 ## Source
 

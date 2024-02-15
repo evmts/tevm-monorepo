@@ -8,6 +8,8 @@
 
 > **ViemTevmExtension**: () => [`ViemTevmClientDecorator`](ViemTevmClientDecorator.md)
 
+## Returns
+
 ## Deprecated
 
 in favor of the viem transport

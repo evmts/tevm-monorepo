@@ -16,6 +16,8 @@ A viem decorator for `tevmViemExtension`
 
 ▪ **client**: `Pick`\<`Client`, `"request"`\>
 
+## Returns
+
 ## Source
 
 [ViemTevmClientDecorator.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/ViemTevmClientDecorator.ts#L7)

@@ -11,6 +11,18 @@
 Type of `createContract` factory function
 Creates a tevm Contract instance from human readable abi
 
+## Type parameters
+
+▪ **TName** extends `string`
+
+▪ **THumanReadableAbi** extends readonly `string`[]
+
+## Parameters
+
+▪ **\{ name, humanReadableAbi, }**: [`CreateContractParams`](CreateContractParams.md)\<`TName`, `THumanReadableAbi`\>
+
+## Returns
+
 ## Example
 
 ```typescript
@@ -38,16 +50,6 @@ const contract = createContract({
  	],
 })
 ```
-
-## Type parameters
-
-▪ **TName** extends `string`
-
-▪ **THumanReadableAbi** extends readonly `string`[]
-
-## Parameters
-
-▪ **\{ name, humanReadableAbi, }**: [`CreateContractParams`](CreateContractParams.md)\<`TName`, `THumanReadableAbi`\>
 
 ## Source
 

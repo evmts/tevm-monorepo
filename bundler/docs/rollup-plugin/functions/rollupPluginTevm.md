@@ -6,7 +6,7 @@
 
 # Function: rollupPluginTevm()
 
-> **rollupPluginTevm**(`options`?): `Plugin`\<`any`\>
+> **rollupPluginTevm**(`options`?): `any`
 
 Rollup plugin for tevm. Enables Solidity imports in JavaScript. Once enabled the code
 will transform solidity contract imports into Tevm `Contract` instances.

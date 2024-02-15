@@ -14,16 +14,16 @@
 		"deploy-contracts": "source .env && forge script script/Deploy.s.sol:Deploy --broadcast --verify -vvvv",
 		"deploy-contracts:anvil": "bun deploy-contracts --fork-url http://localhost:8545",
 		"dev": "vite",
-		"format": "rome format . --write",
-		"format:check": "rome format .",
+		"format": "bunx rome format . --write",
+		"format:check": "bunx rome format .",
 		"generate": "tevm generate",
-		"lint": "rome check . --apply-unsafe",
-		"lint:check": "rome check . --verbose",
+		"lint": "bunx rome check . --apply-unsafe",
+		"lint:check": "bunx rome check . --verbose",
 		"preview": "vite preview",
 		"rome": "^12.1.2",
 		"serve": "serve -s -l tcp://0.0.0.0:5173 dist",
 		"serve:test": "source .env & anvil --fork-url https://eth-mainnet.g.alchemy.com/v2/$VITE_ALCHEMY_API_KEY & vite",
-		"test": "vitest"
+		"test": "bunx vitest"
 	},
 	"dependencies": {
 		"@rainbow-me/rainbowkit": "^1.2.0",

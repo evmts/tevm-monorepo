@@ -100,20 +100,20 @@
     "!src/**/*.spec.js"
   ],
   "scripts": {
-    "//format": "rome format . --write",
-    "//format:check": "rome format .",
-    "//lint": "rome check . --apply-unsafe",
-    "//lint:check": "rome check . --verbose",
-    "//test": "vitest --coverage",
-    "//test:coverage": "vitest run --coverage",
-    "//test:run": "vitest run",
-    "//test:ui": "vitest --ui",
+    "//format": "bunx rome format . --write",
+    "//format:check": "bunx rome format .",
+    "//lint": "bunx rome check . --apply-unsafe",
+    "//lint:check": "bunx rome check . --verbose",
+    "//test": "bunx vitest --coverage",
+    "//test:coverage": "bunx vitest run --coverage",
+    "//test:run": "bunx vitest run",
+    "//test:ui": "bunx vitest --ui",
     "build": "nx run-many --targets=build:dist --projects=@tevm/viem-effect ",
-    "build:dist": "tsup",
+    "build:dist": "bunx tsup",
     "clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
-    "generate:docs": "typedoc",
+    "generate:docs": "bunx typedoc",
     "generate:src": "bun run generateSrc.ts",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "bunx tsc --noEmit"
   },
   "dependencies": {
     "@adraffy/ens-normalize": "1.10.0",

@@ -8,14 +8,16 @@
 
 > **ViemTevmClientDecorator**: (`client`) => [`ViemTevmClient`](ViemTevmClient.md)
 
+## Parameters
+
+▪ **client**: `Pick`\<`Client`, `"request"`\>
+
+## Returns
+
 ## Deprecated
 
 in favor of the viem transport
 A viem decorator for `tevmViemExtension`
-
-## Parameters
-
-▪ **client**: `Pick`\<`Client`, `"request"`\>
 
 ## Source
 

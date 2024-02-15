@@ -18,7 +18,7 @@
 
 ## Source
 
-[experimental/viem-effect/src/utils/abi/encodeFunctionResultEffect.js:7](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/utils/abi/encodeFunctionResultEffect.js#L7)
+[experimental/viem-effect/src/wrapInEffect.d.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/wrapInEffect.d.ts#L14)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -15,6 +15,12 @@ will be added in the future.
 
 Currently is not very generic with regard to input and output types.
 
+## Parameters
+
+▪ **requests**: `ReadonlyArray`\<[`TevmJsonRpcRequest`](TevmJsonRpcRequest.md) \| [`EthJsonRpcRequest`](../../procedures-types/type-aliases/EthJsonRpcRequest.md) \| [`AnvilJsonRpcRequest`](../../procedures-types/type-aliases/AnvilJsonRpcRequest.md) \| [`DebugJsonRpcRequest`](../../procedures-types/type-aliases/DebugJsonRpcRequest.md)\>
+
+## Returns
+
 ## Example
 
 ```typescript
@@ -96,10 +102,6 @@ response - [EthGasPriceJsonRpcResponse](../../procedures-types/type-aliases/EthG
 
 request - [EthGetBalanceJsonRpcRequest](../../procedures-types/type-aliases/EthGetBalanceJsonRpcRequest.md)
 response - [EthGetBalanceJsonRpcResponse](../../procedures-types/type-aliases/EthGetBalanceJsonRpcResponse.md)
-
-## Parameters
-
-▪ **requests**: `ReadonlyArray`\<[`TevmJsonRpcRequest`](TevmJsonRpcRequest.md) \| [`EthJsonRpcRequest`](../../procedures-types/type-aliases/EthJsonRpcRequest.md) \| [`AnvilJsonRpcRequest`](../../procedures-types/type-aliases/AnvilJsonRpcRequest.md) \| [`DebugJsonRpcRequest`](../../procedures-types/type-aliases/DebugJsonRpcRequest.md)\>
 
 ## Source
 

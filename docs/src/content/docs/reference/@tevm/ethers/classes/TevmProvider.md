@@ -807,7 +807,7 @@ node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstrac
 
 ### attachPlugin()
 
-> **attachPlugin**(`plugin`): `this`
+> **attachPlugin**(`plugin`): [`TevmProvider`](/reference/tevm/ethers/classes/tevmprovider/)
 
 Attach a new plug-in.
 

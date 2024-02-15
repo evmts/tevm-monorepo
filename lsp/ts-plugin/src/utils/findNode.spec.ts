@@ -50,7 +50,7 @@ describe('findNode', () => {
 		)
 
 		expect(() => findNode(sourceFile, -1)).toThrowErrorMatchingInlineSnapshot(
-			'"Position must be non-negative"',
+			'[Error: Position must be non-negative]',
 		)
 	})
 
@@ -69,7 +69,7 @@ describe('findNode', () => {
 			ts.ScriptKind.TS,
 		)
 		expect(() => findNode(sourceFile, 1.5)).toThrowErrorMatchingInlineSnapshot(
-			'"Position must be an integer"',
+			'[Error: Position must be an integer]',
 		)
 	})
 })

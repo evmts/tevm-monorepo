@@ -10,6 +10,12 @@
 
 Gets the state of a specific ethereum address
 
+## Parameters
+
+▪ **params**: [`GetAccountParams`](../../index/type-aliases/GetAccountParams.md)
+
+## Returns
+
 ## Example
 
 ```ts
@@ -18,10 +24,6 @@ console.log(res.deployedBytecode)
 console.log(res.nonce)
 console.log(res.balance)
 ```
-
-## Parameters
-
-▪ **params**: [`GetAccountParams`](../../index/type-aliases/GetAccountParams.md)
 
 ## Source
 

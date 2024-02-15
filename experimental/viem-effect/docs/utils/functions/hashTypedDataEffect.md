@@ -20,7 +20,7 @@
 
 ## Source
 
-[experimental/viem-effect/src/utils/signature/hashTypedDataEffect.js:8](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/utils/signature/hashTypedDataEffect.js#L8)
+[experimental/viem-effect/src/wrapInEffect.d.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/experimental/viem-effect/src/wrapInEffect.d.ts#L14)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

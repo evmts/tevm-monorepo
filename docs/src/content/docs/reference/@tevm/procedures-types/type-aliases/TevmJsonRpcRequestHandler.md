@@ -10,6 +10,16 @@ title: "TevmJsonRpcRequestHandler"
 Typesafe request handler for JSON-RPC requests. Most users will want to use the higher level
 and more feature-rich `actions` api
 
+## Type parameters
+
+▪ **TRequest** extends [`TevmJsonRpcRequest`](/reference/tevm/procedures-types/type-aliases/tevmjsonrpcrequest/) \| [`EthJsonRpcRequest`](/reference/tevm/procedures-types/type-aliases/ethjsonrpcrequest/) \| [`AnvilJsonRpcRequest`](/reference/tevm/procedures-types/type-aliases/anviljsonrpcrequest/) \| [`DebugJsonRpcRequest`](/reference/tevm/procedures-types/type-aliases/debugjsonrpcrequest/)
+
+## Parameters
+
+▪ **request**: `TRequest`
+
+## Returns
+
 ## Example
 
 ```typescript
@@ -92,14 +102,6 @@ response - [EthGasPriceJsonRpcResponse](EthGasPriceJsonRpcResponse.md)
 
 request - [EthGetBalanceJsonRpcRequest](EthGetBalanceJsonRpcRequest.md)
 response - [EthGetBalanceJsonRpcResponse](EthGetBalanceJsonRpcResponse.md)
-
-## Type parameters
-
-▪ **TRequest** extends [`TevmJsonRpcRequest`](/reference/tevm/procedures-types/type-aliases/tevmjsonrpcrequest/) \| [`EthJsonRpcRequest`](/reference/tevm/procedures-types/type-aliases/ethjsonrpcrequest/) \| [`AnvilJsonRpcRequest`](/reference/tevm/procedures-types/type-aliases/anviljsonrpcrequest/) \| [`DebugJsonRpcRequest`](/reference/tevm/procedures-types/type-aliases/debugjsonrpcrequest/)
-
-## Parameters
-
-▪ **request**: `TRequest`
 
 ## Source
 

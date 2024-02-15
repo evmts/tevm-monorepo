@@ -108,12 +108,6 @@ node\_modules/.pnpm/typescript@5.3.3/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 Optional override for formatting stack traces
 
-#### See
-
-https://v8.dev/docs/stack-trace-api#customizing-stack-traces
-
-Optional override for formatting stack traces
-
 #### Parameters
 
 ▪ **err**: `Error`

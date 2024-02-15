@@ -24,8 +24,6 @@ Gets the chainId of the current EVM
 
 Extends the base client with additional functionality
 
-Extends the base client with additional functionality
-
 #### Type parameters
 
 ▪ **TExtension** extends `Record`\<`string`, `any`\>

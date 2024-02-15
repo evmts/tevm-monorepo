@@ -41,20 +41,20 @@
 		"types"
 	],
 	"scripts": {
-		"//test": "vitest --coverage",
-		"//test:coverage": "vitest run --coverage",
-		"//test:run": "vitest run",
-		"//test:ui": "vitest --ui",
+		"//test": "bunx vitest --coverage",
+		"//test:coverage": "bunx vitest run --coverage",
+		"//test:run": "bunx vitest run",
+		"//test:ui": "bunx vitest --ui",
 		"build:wasm": "bun run build:esm && bun run build:cjs",
 		"build:wasm:cjs": "wasm-pack build --target nodejs --out-dir ./dist/cjs --no-pack .",
 		"build:wasm:dist": "echo 'building wasm with wasm-pack' && bun run build",
 		"build:wasm:esm": "wasm-pack build --out-dir ./dist/esm --no-pack .",
 		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
-		"format": "rome format . --write",
-		"format:check": "rome format .",
+		"format": "bunx rome format . --write",
+		"format:check": "bunx rome format .",
 		"generate:wasm:docs": "bun nx build:esm && typedoc",
-		"lint": "rome check . --apply-unsafe",
-		"lint:check": "rome check . --verbose"
+		"lint": "bunx rome check . --apply-unsafe",
+		"lint:check": "bunx rome check . --verbose"
 	},
 	"devDependencies": {
 		"@tevm/tsconfig": "workspace:^",

@@ -46,7 +46,7 @@ Error.constructor
 
 #### Source
 
-node\_modules/.pnpm/typescript@5.3.3/node\_modules/typescript/lib/lib.es5.d.ts:1081
+node\_modules/.pnpm/typescript@5.3.3/node\_modules/typescript/lib/lib.es2022.error.d.ts:28
 
 ## Properties
 
@@ -122,12 +122,6 @@ node\_modules/.pnpm/typescript@5.3.3/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 Optional override for formatting stack traces
 
-#### See
-
-https://v8.dev/docs/stack-trace-api#customizing-stack-traces
-
-Optional override for formatting stack traces
-
 #### Parameters
 
 ▪ **err**: `Error`
@@ -146,7 +140,7 @@ Error.prepareStackTrace
 
 #### Source
 
-node\_modules/@types/node/globals.d.ts:28
+node\_modules/.pnpm/@types+node@20.11.5/node\_modules/@types/node/globals.d.ts:28
 
 ***
 
@@ -160,7 +154,7 @@ Error.stackTraceLimit
 
 #### Source
 
-node\_modules/@types/node/globals.d.ts:30
+node\_modules/.pnpm/@types+node@20.11.5/node\_modules/@types/node/globals.d.ts:30
 
 ## Methods
 
@@ -184,7 +178,7 @@ Error.captureStackTrace
 
 ##### Source
 
-node\_modules/@types/node/globals.d.ts:21
+node\_modules/.pnpm/@types+node@20.11.5/node\_modules/@types/node/globals.d.ts:21
 
 #### captureStackTrace(targetObject, constructorOpt)
 

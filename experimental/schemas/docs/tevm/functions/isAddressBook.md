@@ -20,7 +20,7 @@ Type guard that returns true if an address book is a valid address
 
 ## Source
 
-[experimental/schemas/src/tevm/SAddressBook.js:38](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/tevm/SAddressBook.js#L38)
+[experimental/schemas/src/types.d.ts:27](https://github.com/evmts/tevm-monorepo/blob/main/experimental/schemas/src/types.d.ts#L27)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

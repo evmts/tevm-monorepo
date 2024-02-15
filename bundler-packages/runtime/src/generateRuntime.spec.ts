@@ -25,7 +25,7 @@ describe('generateRuntime', () => {
 		expect(() =>
 			runSync(generateRuntime(artifacts, 'invalidType' as any, false)),
 		).toThrowErrorMatchingInlineSnapshot(
-			'"Unknown module type: invalidType. Valid module types include contract, script"',
+			'[Error: Unknown module type: invalidType. Valid module types include contract, script]',
 		)
 	})
 
@@ -33,7 +33,7 @@ describe('generateRuntime', () => {
 		expect(() =>
 			runSync(generateRuntime({}, 'cjs', false)),
 		).toThrowErrorMatchingInlineSnapshot(
-			'"No artifacts provided to generateRuntime"',
+			'[Error: No artifacts provided to generateRuntime]',
 		)
 	})
 
@@ -41,7 +41,7 @@ describe('generateRuntime', () => {
 		expect(() =>
 			runSync(generateRuntime(null as any, 'dts', false)),
 		).toThrowErrorMatchingInlineSnapshot(
-			'"No artifacts provided to generateRuntime"',
+			'[Error: No artifacts provided to generateRuntime]',
 		)
 	})
 
@@ -49,7 +49,7 @@ describe('generateRuntime', () => {
 		const result = runSync(generateRuntime(artifacts, 'cjs', false))
 		expect(result).toMatchInlineSnapshot(`
 			"const { createContract } = require('@tevm/contract')
-			const _MyContract = {\\"name\\":\\"MyContract\\",\\"humanReadableAbi\\":[\\"constructor() payable\\"]}
+			const _MyContract = {"name":"MyContract","humanReadableAbi":["constructor() payable"]}
 			/**
 			 * MyContract
 			 * @property balanceOf(address) Returns the amount of tokens owned by account
@@ -62,8 +62,8 @@ describe('generateRuntime', () => {
 		const result = runSync(generateRuntime(artifacts, 'dts', false))
 		expect(result).toMatchInlineSnapshot(`
 			"import { Contract } from '@tevm/contract'
-			const _abiMyContract = [\\"constructor() payable\\"] as const;
-			const _nameMyContract = \\"MyContract\\" as const;
+			const _abiMyContract = ["constructor() payable"] as const;
+			const _nameMyContract = "MyContract" as const;
 			/**
 			 * MyContract Contract
 			 * @notice MyContract
@@ -77,7 +77,7 @@ describe('generateRuntime', () => {
 		const result = runSync(generateRuntime(artifacts, 'ts', false))
 		expect(result).toMatchInlineSnapshot(`
 			"import { createContract } from '@tevm/contract'
-			const _MyContract = {\\"name\\":\\"MyContract\\",\\"humanReadableAbi\\":[\\"constructor() payable\\"]} as const
+			const _MyContract = {"name":"MyContract","humanReadableAbi":["constructor() payable"]} as const
 			/**
 			 * MyContract
 			 * @property balanceOf(address) Returns the amount of tokens owned by account
@@ -90,7 +90,7 @@ describe('generateRuntime', () => {
 		const result = runSync(generateRuntime(artifacts, 'mjs', false))
 		expect(result).toMatchInlineSnapshot(`
 			"import { createContract } from '@tevm/contract'
-			const _MyContract = {\\"name\\":\\"MyContract\\",\\"humanReadableAbi\\":[\\"constructor() payable\\"]}
+			const _MyContract = {"name":"MyContract","humanReadableAbi":["constructor() payable"]}
 			/**
 			 * MyContract
 			 * @property balanceOf(address) Returns the amount of tokens owned by account

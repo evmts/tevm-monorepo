@@ -28,7 +28,7 @@
 
 ## Source
 
-bundler-packages/compiler/types/src/resolveArtifactsSync.d.ts:4
+bundler-packages/compiler/types/src/types.d.ts:14
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

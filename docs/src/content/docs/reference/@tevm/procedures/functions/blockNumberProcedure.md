@@ -17,8 +17,6 @@ Gets the chainId of the current EVM
 
 ▪ **client.extend**: \<`TExtension`\>(`decorator`) => `BaseClient`\<`"fork"` \| `"proxy"` \| `"normal"`, `object` & `TExtension`\>
 
-Extends the base client with additional functionality
-
 ▪ **client.forkUrl?**: `string`
 
 Fork url if the EVM is forked

@@ -17,7 +17,7 @@ Pass in an initial DB optionally to prepoulate the DB.
 
 ## Source
 
-[packages/utils/src/createMemoryDb.js:28](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/createMemoryDb.js#L28)
+[packages/utils/src/CreateMemoryDbFn.ts:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/CreateMemoryDbFn.ts#L12)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

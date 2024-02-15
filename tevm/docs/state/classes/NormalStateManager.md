@@ -251,8 +251,6 @@ node\_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node\_modules/@ethereumjs/sta
 
 Dumps the state of the state manager as a [SerializableTevmState](../../index/type-aliases/SerializableTevmState.md)
 
-Dumps the state of the state manager as a [SerializableTevmState](../../index/type-aliases/SerializableTevmState.md)
-
 #### Source
 
 packages/state/types/NormalStateManager.d.ts:33
@@ -262,8 +260,6 @@ packages/state/types/NormalStateManager.d.ts:33
 ### generateCanonicalGenesis
 
 > **generateCanonicalGenesis**: (`state`) => `Promise`\<`void`\>
-
-Loads a [SerializableTevmState](../../index/type-aliases/SerializableTevmState.md) into the state manager
 
 Loads a [SerializableTevmState](../../index/type-aliases/SerializableTevmState.md) into the state manager
 
@@ -288,8 +284,6 @@ packages/state/types/NormalStateManager.d.ts:29
 ### getAccountAddresses
 
 > **getAccountAddresses**: () => \`0x${string}\`[]
-
-Retrieves the addresses of all the accounts in the state.
 
 Retrieves the addresses of all the accounts in the state.
 

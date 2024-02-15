@@ -8,12 +8,6 @@
 
 > **ViemTevmOptimisticClientDecorator**: \<`TTransport`, `TChain`, `TAccount`\>(`client`) => [`ViemTevmOptimisticClient`](ViemTevmOptimisticClient.md)\<`TChain`, `TAccount`\>
 
-## Deprecated
-
-in favor of the viem transport
-
-A viem decorator for `tevmViemExtension`
-
 ## Type parameters
 
 ▪ **TTransport** extends `Transport` = `Transport`
@@ -25,6 +19,14 @@ A viem decorator for `tevmViemExtension`
 ## Parameters
 
 ▪ **client**: `Pick`\<`WalletClient`, `"request"` \| `"writeContract"`\>
+
+## Returns
+
+## Deprecated
+
+in favor of the viem transport
+
+A viem decorator for `tevmViemExtension`
 
 ## Source
 

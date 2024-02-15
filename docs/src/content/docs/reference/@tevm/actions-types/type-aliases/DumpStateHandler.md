@@ -11,6 +11,8 @@ Dumps the current state of the VM into a JSON-seralizable object
 
 State can be dumped as follows
 
+## Returns
+
 ## Example
 
 ```typescript

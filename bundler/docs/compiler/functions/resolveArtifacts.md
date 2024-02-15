@@ -30,7 +30,7 @@ Resolves artifacts with solc asyncronously
 
 ## Source
 
-bundler-packages/compiler/types/src/resolveArtifacts.d.ts:5
+bundler-packages/compiler/types/src/types.d.ts:13
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

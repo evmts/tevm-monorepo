@@ -7,7 +7,7 @@
     "build": "vite build && vite build --ssr",
     "dev": "vite dev",
     "start": "remix-serve ./build/index.js",
-    "typecheck": "tsc"
+    "typecheck": "bunx tsc"
   },
   "dependencies": {
     "@evmts/core": "^0.11.2",
