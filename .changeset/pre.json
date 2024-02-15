@@ -55,7 +55,13 @@
     "@tevm/procedures-types": "1.0.0-next.22",
     "@tevm/cli": "0.0.0",
     "@tevm/precompiles": "1.0.0-next.24",
-    "@tevm/vm": "1.0.0-next.30"
+    "@tevm/vm": "1.0.0-next.30",
+    "@tevm/base-client": "1.0.0-next.38",
+    "@tevm/blockchain": "1.0.0-next.37",
+    "@tevm/common": "1.0.0-next.37",
+    "@tevm/decorators": "1.0.0-next.38",
+    "@tevm/evm": "1.0.0-next.37",
+    "@tevm/utils": "1.0.0-next.37"
   },
   "changesets": [
     "afraid-crabs-exist",
@@ -80,6 +86,7 @@
     "cuddly-beans-love",
     "curly-bats-decide",
     "curly-singers-sing",
+    "dull-jeans-work",
     "dull-pumpkins-breathe",
     "early-bugs-rush",
     "early-pears-exist",

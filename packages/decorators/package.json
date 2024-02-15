@@ -1,6 +1,6 @@
 {
 	"name": "@tevm/decorators",
-	"version": "1.0.0-next.38",
+	"version": "1.0.0-next.39",
 	"private": false,
 	"description": "Client implementations of Tevm",
 	"keywords": [
@@ -63,12 +63,12 @@
 	},
 	"dependencies": {
 		"@tevm/actions": "workspace:^",
-		"@tevm/actions-types": "workspace:1.0.0-next.33",
+		"@tevm/actions-types": "workspace:1.0.0-next.39",
 		"@tevm/procedures": "workspace:^"
 	},
 	"devDependencies": {
-		"@tevm/base-client": "workspace:1.0.0-next.38",
-		"@tevm/client-types": "workspace:1.0.0-next.32",
+		"@tevm/base-client": "workspace:1.0.0-next.39",
+		"@tevm/client-types": "workspace:1.0.0-next.39",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^"
 	},
