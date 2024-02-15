@@ -3,15 +3,9 @@
 <p>
 
 [![CI](https://github.com/evmts/tevm-monorepo/actions/workflows/nx.yml/badge.svg)](https://github.com/evmts/tevm-monorepo/actions/workflows/nx.yml)
-<a href="https://www.npmjs.com/package/tevm">
-<img src="https://img.shields.io/npm/v/tevm?style=flat" alt="Version">
-</a>
-<a href="https://www.npmjs.com/package/tevm" target="\_parent">
-<img alt="" src="https://img.shields.io/npm/dm/tevm.svg" />
-</a>
-<a href="https://bundlephobia.com/package/tevm@latest" target="\_parent">
-<img alt="" src="https://badgen.net/bundlephobia/minzip/tevm" />
-</a><a href="#badge">
+[![NPM Version](https://img.shields.io/npm/v/tevm)](https://www.npmjs.com/package/tevm)
+[![NPM Downloads](https://img.shields.io/npm/dm/tevm.svg)](https://www.npmjs.com/package/tevm)
+[![Minzipped Size](https://badgen.net/bundlephobia/minzip/tevm)](https://bundlephobia.com/package/tevm@latest)
 
 # tevm-monorepo
 
@@ -66,7 +60,7 @@ import { createMemoryClient } from 'tevm'
 const client = createMemoryClient()
 
 const result = await client.script(
-  HelloWorld.read.greate('World')
+  HelloWorld.read.greet('World')
 )
 
 console.log(result.data) // Hello world!
