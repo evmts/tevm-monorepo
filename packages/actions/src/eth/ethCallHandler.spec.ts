@@ -1,11 +1,11 @@
 import { setAccountHandler } from '../tevm/index.js'
 import { ethCallHandler } from './ethCallHandler.js'
-import { EVM } from '@ethereumjs/evm'
-import { Address } from '@ethereumjs/util'
+import { Evm } from '@tevm/evm'
 import { NormalStateManager } from '@tevm/state'
+import { EthjsAddress } from '@tevm/utils'
+import { encodeFunctionData } from '@tevm/utils'
 import { TevmVm } from '@tevm/vm'
 import { describe, expect, it } from 'bun:test'
-import { encodeFunctionData } from 'viem'
 
 const ERC20_ADDRESS = `0x${'3'.repeat(40)}` as const
 const ERC20_BYTECODE =
@@ -296,12 +296,12 @@ const ERC20_ABI = [
 describe('callHandler', () => {
 	it('should execute a contract call', async () => {
 		const stateManager = new NormalStateManager()
-		const evm = new EVM({ stateManager })
+		const evm = new Evm({ stateManager })
 		const vm = await TevmVm.create({ evm, stateManager })
 		// deploy contract
 		expect(
 			(
-				await setAccountHandler(vm)({
+				await setAccountHandler({ vm })({
 					address: ERC20_ADDRESS,
 					deployedBytecode: ERC20_BYTECODE,
 				})
@@ -309,7 +309,7 @@ describe('callHandler', () => {
 		).toBeUndefined()
 		// test contract call
 		expect(
-			await ethCallHandler(vm)({
+			await ethCallHandler({ vm })({
 				data: encodeFunctionData({
 					abi: ERC20_ABI,
 					functionName: 'balanceOf',
@@ -325,18 +325,19 @@ describe('callHandler', () => {
 
 	it('should not modify state', async () => {
 		const stateManager = new NormalStateManager()
-		const evm = new EVM({})
+		const evm = new Evm({})
 		const vm = await TevmVm.create({ evm, stateManager })
 		const to = `0x${'69'.repeat(20)}` as const
 		// send value
 		expect(
-			await ethCallHandler(vm)({
+			await ethCallHandler({ vm })({
 				to,
 				value: 420n,
 			}),
 		).toEqual('0x')
 		expect(
-			(await vm.evm.stateManager.getAccount(Address.fromString(to)))?.balance,
+			(await vm.evm.stateManager.getAccount(EthjsAddress.fromString(to)))
+				?.balance,
 		).not.toEqual(420n)
 	})
 })

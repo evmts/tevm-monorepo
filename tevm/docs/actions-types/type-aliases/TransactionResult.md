@@ -15,59 +15,59 @@ json rpc procedures
 
 ### blockHash
 
-> **`readonly`** **blockHash**: [`Hex`](../../index/type-aliases/Hex.md)
+> **`readonly`** **blockHash**: [`Hex`](Hex.md)
 
 ### blockNumber
 
-> **`readonly`** **blockNumber**: [`Hex`](../../index/type-aliases/Hex.md)
+> **`readonly`** **blockNumber**: [`Hex`](Hex.md)
 
 ### from
 
-> **`readonly`** **from**: [`Hex`](../../index/type-aliases/Hex.md)
+> **`readonly`** **from**: [`Hex`](Hex.md)
 
 ### gas
 
-> **`readonly`** **gas**: [`Hex`](../../index/type-aliases/Hex.md)
+> **`readonly`** **gas**: [`Hex`](Hex.md)
 
 ### gasPrice
 
-> **`readonly`** **gasPrice**: [`Hex`](../../index/type-aliases/Hex.md)
+> **`readonly`** **gasPrice**: [`Hex`](Hex.md)
 
 ### hash
 
-> **`readonly`** **hash**: [`Hex`](../../index/type-aliases/Hex.md)
+> **`readonly`** **hash**: [`Hex`](Hex.md)
 
 ### input
 
-> **`readonly`** **input**: [`Hex`](../../index/type-aliases/Hex.md)
+> **`readonly`** **input**: [`Hex`](Hex.md)
 
 ### nonce
 
-> **`readonly`** **nonce**: [`Hex`](../../index/type-aliases/Hex.md)
+> **`readonly`** **nonce**: [`Hex`](Hex.md)
 
 ### r
 
-> **`readonly`** **r**: [`Hex`](../../index/type-aliases/Hex.md)
+> **`readonly`** **r**: [`Hex`](Hex.md)
 
 ### s
 
-> **`readonly`** **s**: [`Hex`](../../index/type-aliases/Hex.md)
+> **`readonly`** **s**: [`Hex`](Hex.md)
 
 ### to
 
-> **`readonly`** **to**: [`Hex`](../../index/type-aliases/Hex.md)
+> **`readonly`** **to**: [`Hex`](Hex.md)
 
 ### transactionIndex
 
-> **`readonly`** **transactionIndex**: [`Hex`](../../index/type-aliases/Hex.md)
+> **`readonly`** **transactionIndex**: [`Hex`](Hex.md)
 
 ### v
 
-> **`readonly`** **v**: [`Hex`](../../index/type-aliases/Hex.md)
+> **`readonly`** **v**: [`Hex`](Hex.md)
 
 ### value
 
-> **`readonly`** **value**: [`Hex`](../../index/type-aliases/Hex.md)
+> **`readonly`** **value**: [`Hex`](Hex.md)
 
 ## Source
 

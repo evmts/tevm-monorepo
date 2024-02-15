@@ -1,13 +1,13 @@
-import { formatAbi } from 'abitype'
+import { formatAbi } from '@tevm/utils'
 
 /**
  * Creates the event action creators from parameters
  * @internal
  * @param {object} params
- * @param {import('abitype').Abi} params.abi
- * @param {import('viem').Hex} [params.bytecode]
- * @param {import('viem').Hex} [params.deployedBytecode]
- * @param {import('abitype').Address} [params.address]
+ * @param {import('@tevm/utils').Abi} params.abi
+ * @param {import('@tevm/utils').Hex} [params.bytecode]
+ * @param {import('@tevm/utils').Hex} [params.deployedBytecode]
+ * @param {import('@tevm/utils').Address} [params.address]
  * @returns {import('./EventActionCreator.js').EventActionCreator<any, any, any, any>}
  */
 export const eventsFactory = ({ abi, bytecode, deployedBytecode, address }) =>

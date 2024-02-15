@@ -10,7 +10,7 @@
 
 ## Source
 
-packages/procedures-types/dist/index.d.ts:97
+packages/procedures-types/dist/index.d.ts:128
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

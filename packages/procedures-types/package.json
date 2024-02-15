@@ -61,15 +61,16 @@
 		"test:run": "bun test",
 		"typecheck": "tsc --noEmit"
 	},
+	"dependencies": {
+		"@tevm/utils": "workspace:1.0.0-next.37"
+	},
 	"devDependencies": {
 		"@tevm/actions-types": "workspace:^",
 		"@tevm/errors": "workspace:^",
 		"@tevm/jsonrpc": "workspace:^",
 		"@tevm/state": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
-		"@tevm/tsupconfig": "workspace:^",
-		"abitype": "^0.10.3",
-		"viem": "^2.0.0"
+		"@tevm/tsupconfig": "workspace:^"
 	},
 	"publishConfig": {
 		"access": "public"

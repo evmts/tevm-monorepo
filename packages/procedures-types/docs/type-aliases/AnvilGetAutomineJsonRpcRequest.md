@@ -6,7 +6,7 @@
 
 # Type alias: AnvilGetAutomineJsonRpcRequest
 
-> **AnvilGetAutomineJsonRpcRequest**: `JsonRpcRequest`\<`"anvil_getAutomine"`, [`SerializeToJson`](SerializeToJson.md)\<`AnvilGetAutomineParams`\>\>
+> **AnvilGetAutomineJsonRpcRequest**: `JsonRpcRequest`\<`"anvil_getAutomine"`, [[`SerializeToJson`](SerializeToJson.md)\<`AnvilGetAutomineParams`\>]\>
 
 JSON-RPC request for `anvil_getAutomine` method
 

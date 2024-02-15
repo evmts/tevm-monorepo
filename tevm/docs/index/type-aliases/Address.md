@@ -6,17 +6,11 @@
 
 # Type alias: Address
 
-> **Address**: `_Address`
-
-An ethereum address represented as a hex string
-
-## See
-
-https://abitype.dev/config#addresstype for configuration options to change type to being a string if preferred
+> **Address**: `ResolvedRegister`[`"AddressType"`]
 
 ## Source
 
-packages/actions-types/types/common/Address.d.ts:6
+node\_modules/.pnpm/abitype@1.0.0\_typescript@5.3.3\_zod@3.22.4/node\_modules/abitype/dist/types/abi.d.ts:3
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

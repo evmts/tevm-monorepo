@@ -10,7 +10,7 @@
 
 ## Type parameters
 
-▪ **TAbi** extends `Abi`
+▪ **TAbi** extends [`Abi`](../type-aliases/Abi.md)
 
 ## Parameters
 
@@ -32,12 +32,12 @@
 >
 > ### Source
 >
-> packages/precompiles/dist/index.d.ts:114
+> packages/precompiles/dist/index.d.ts:113
 >
 
 ## Source
 
-packages/precompiles/dist/index.d.ts:114
+packages/precompiles/dist/index.d.ts:113
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

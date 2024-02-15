@@ -5,7 +5,6 @@ import type {
 	ContractJsonRpcRequest,
 	ScriptJsonRpcRequest,
 } from '@tevm/procedures-types'
-import { describe, expect, it } from 'bun:test'
 import {
 	decodeFunctionResult,
 	encodeFunctionData,
@@ -13,7 +12,8 @@ import {
 	hexToBytes,
 	keccak256,
 	toHex,
-} from 'viem'
+} from '@tevm/utils'
+import { describe, expect, it } from 'bun:test'
 
 const contractAddress = '0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1'
 
@@ -27,14 +27,16 @@ describe('Tevm.request', async () => {
 
 	it('should execute a script request', async () => {
 		const req = {
-			params: {
-				data: encodeFunctionData(
-					DaiContract.read.balanceOf(contractAddress, {
-						contractAddress,
-					}),
-				),
-				deployedBytecode: DaiContract.deployedBytecode,
-			},
+			params: [
+				{
+					data: encodeFunctionData(
+						DaiContract.read.balanceOf(contractAddress, {
+							contractAddress,
+						}),
+					),
+					deployedBytecode: DaiContract.deployedBytecode,
+				},
+			],
 			jsonrpc: '2.0',
 			method: 'tevm_script',
 			id: 1,
@@ -60,14 +62,16 @@ describe('Tevm.request', async () => {
 	it('should throw an error if attempting a tevm_contractCall request', async () => {
 		const tevm = await createMemoryClient()
 		const req = {
-			params: {
-				data: encodeFunctionData(
-					DaiContract.read.balanceOf(contractAddress, {
-						contractAddress,
-					}),
-				),
-				to: contractAddress,
-			},
+			params: [
+				{
+					data: encodeFunctionData(
+						DaiContract.read.balanceOf(contractAddress, {
+							contractAddress,
+						}),
+					),
+					to: contractAddress,
+				},
+			],
 			jsonrpc: '2.0',
 			method: 'tevm_NotARequest' as any,
 			id: 1,
@@ -82,17 +86,19 @@ describe('Tevm.request', async () => {
 			fork: forkConfig,
 		})
 		const req = {
-			params: {
-				data: encodeFunctionData(
-					DaiContract.read.balanceOf(
-						'0xf0d4c12a5768d806021f80a262b4d39d26c58b8d',
-						{
-							contractAddress,
-						},
+			params: [
+				{
+					data: encodeFunctionData(
+						DaiContract.read.balanceOf(
+							'0xf0d4c12a5768d806021f80a262b4d39d26c58b8d',
+							{
+								contractAddress,
+							},
+						),
 					),
-				),
-				to: contractAddress,
-			},
+					to: contractAddress,
+				},
+			],
 			jsonrpc: '2.0',
 			method: 'tevm_call',
 			id: 1,
@@ -126,14 +132,16 @@ describe('Tevm.request', async () => {
 		})
 		const transferAmount = 0x420n
 		const res = await tevm.request({
-			params: {
-				caller: address1,
-				data: '0x0',
-				to: address2,
-				value: toHex(transferAmount),
-				origin: address1,
-				createTransaction: true,
-			},
+			params: [
+				{
+					caller: address1,
+					data: '0x0',
+					to: address2,
+					value: toHex(transferAmount),
+					origin: address1,
+					createTransaction: true,
+				},
+			],
 			jsonrpc: '2.0',
 			method: 'tevm_call',
 			id: 1,
@@ -145,18 +153,12 @@ describe('Tevm.request', async () => {
 		expect(res.result.errors).toBeUndefined()
 		expect(res.result.rawData).toEqual('0x')
 		expect(
-			(
-				await tevm._vm.stateManager.getAccount(
-					new Address(hexToBytes(address2)),
-				)
-			)?.balance,
+			(await tevm.vm.stateManager.getAccount(new Address(hexToBytes(address2))))
+				?.balance,
 		).toBe(transferAmount)
 		expect(
-			(
-				await tevm._vm.stateManager.getAccount(
-					new Address(hexToBytes(address1)),
-				)
-			)?.balance,
+			(await tevm.vm.stateManager.getAccount(new Address(hexToBytes(address1))))
+				?.balance,
 		).toBe(balance - transferAmount)
 	})
 
@@ -167,14 +169,16 @@ describe('Tevm.request', async () => {
 			jsonrpc: '2.0',
 			method: 'tevm_setAccount',
 			id: 1,
-			params: {
-				address: '0xff420000000000000000000000000000000000ff',
-				balance: toHex(balance),
-				deployedBytecode: DaiContract.deployedBytecode,
-			},
+			params: [
+				{
+					address: '0xff420000000000000000000000000000000000ff',
+					balance: toHex(balance),
+					deployedBytecode: DaiContract.deployedBytecode,
+				},
+			],
 		})
 		expect(res).not.toHaveProperty('error')
-		const account = await tevm._vm.stateManager.getAccount(
+		const account = await tevm.vm.stateManager.getAccount(
 			Address.fromString('0xff420000000000000000000000000000000000ff'),
 		)
 		expect(account?.balance).toEqual(balance)

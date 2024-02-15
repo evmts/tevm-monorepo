@@ -1,6 +1,5 @@
 // [mozilla public license 2.0](https://github.com/ethereumjs/ethereumjs-monorepo/blob/master/packages/statemanager/LICENSE)
 import { Trie } from '@ethereumjs/trie'
-import { Account } from '@ethereumjs/util'
 import { keccak256 } from 'ethereum-cryptography/keccak.js'
 
 import { AccountCache, CacheType, StorageCache } from '@ethereumjs/statemanager'
@@ -11,19 +10,19 @@ import type { TevmStateManagerInterface } from './TevmStateManagerInterface.js'
 import type { AccountFields, StorageDump } from '@ethereumjs/common'
 import type { StorageRange } from '@ethereumjs/common'
 import type { Proof } from '@ethereumjs/statemanager'
-import { Address as EthjsAddress } from '@ethereumjs/util'
-import type { Address } from 'abitype'
 import {
+	type Address,
 	type BlockTag,
-	type PublicClient,
+	EthjsAccount,
+	EthjsAddress,
 	bytesToHex,
-	createPublicClient,
 	hexToBytes,
-	http,
 	isHex,
 	toBytes,
 	toHex,
-} from 'viem'
+} from '@tevm/utils'
+// TODO remove me for using `@tevm/jsonrpc` package
+import { type PublicClient, createPublicClient, http } from 'viem'
 
 export interface ForkStateManagerOpts {
 	url: string
@@ -276,16 +275,16 @@ export class ForkStateManager implements TevmStateManagerInterface {
 	/**
 	 * Gets the code corresponding to the provided `address`.
 	 */
-	async getAccount(address: EthjsAddress): Promise<Account | undefined> {
+	async getAccount(address: EthjsAddress): Promise<EthjsAccount | undefined> {
 		const elem = this._accountCache?.get(address)
 		if (elem !== undefined) {
 			return elem.accountRLP !== undefined
-				? Account.fromRlpSerializedAccount(elem.accountRLP)
+				? EthjsAccount.fromRlpSerializedAccount(elem.accountRLP)
 				: undefined
 		}
 		const rlp = (await this.getAccountFromProvider(address)).serialize()
 		const account =
-			rlp !== null ? Account.fromRlpSerializedAccount(rlp) : undefined
+			rlp !== null ? EthjsAccount.fromRlpSerializedAccount(rlp) : undefined
 		this._accountCache?.put(address, account)
 		return account
 	}
@@ -295,13 +294,13 @@ export class ForkStateManager implements TevmStateManagerInterface {
 	 * @param address Address of account to be retrieved from provider
 	 * @private
 	 */
-	async getAccountFromProvider(address: EthjsAddress): Promise<Account> {
+	async getAccountFromProvider(address: EthjsAddress): Promise<EthjsAccount> {
 		const accountData = await this.client.getProof({
 			address: address.toString() as Address,
 			storageKeys: [],
 			...this._blockTag,
 		})
-		const account = Account.fromAccountData({
+		const account = EthjsAccount.fromAccountData({
 			balance: BigInt(accountData.balance),
 			nonce: BigInt(accountData.nonce),
 			codeHash: toBytes(accountData.codeHash),
@@ -315,7 +314,7 @@ export class ForkStateManager implements TevmStateManagerInterface {
 	 */
 	async putAccount(
 		address: EthjsAddress,
-		account: Account | undefined,
+		account: EthjsAccount | undefined,
 	): Promise<void> {
 		if (account !== undefined) {
 			this._accountCache?.put(address, account)
@@ -337,7 +336,7 @@ export class ForkStateManager implements TevmStateManagerInterface {
 	): Promise<void> {
 		let account = await this.getAccount(address)
 		if (!account) {
-			account = new Account()
+			account = new EthjsAccount()
 		}
 		account.nonce = accountFields.nonce ?? account.nonce
 		account.balance = accountFields.balance ?? account.balance
@@ -460,7 +459,7 @@ export class ForkStateManager implements TevmStateManagerInterface {
 	): Promise<void> => {
 		for (const [k, v] of Object.entries(state)) {
 			const { nonce, balance, storageRoot, codeHash, storage } = v
-			const account = new Account(
+			const account = new EthjsAccount(
 				// replace with just the var
 				nonce,
 				balance,

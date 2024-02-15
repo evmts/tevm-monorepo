@@ -6,13 +6,13 @@
 
 # Function: chainIdHandler()
 
-> **chainIdHandler**(`chainId`): `EthChainIdHandler`
+> **chainIdHandler**(`client`): `EthChainIdHandler`
 
 Handler for the `eth_chainId` RPC call.
 
 ## Parameters
 
-▪ **chainId**: `bigint`
+▪ **client**: `Pick`\<`object`, `"chainId"`\>
 
 ## Returns
 

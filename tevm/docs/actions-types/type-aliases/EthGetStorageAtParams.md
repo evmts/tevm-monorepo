@@ -14,7 +14,7 @@ Based on the JSON-RPC request for `eth_getStorageAt` procedure
 
 ### address
 
-> **address**: [`Address`](../../index/type-aliases/Address.md)
+> **address**: [`Address`](Address.md)
 
 ### blockTag
 
@@ -22,7 +22,7 @@ Based on the JSON-RPC request for `eth_getStorageAt` procedure
 
 ### position
 
-> **position**: [`Hex`](../../index/type-aliases/Hex.md)
+> **position**: [`Hex`](Hex.md)
 
 ## Source
 

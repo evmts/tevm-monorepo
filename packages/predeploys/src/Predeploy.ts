@@ -1,6 +1,6 @@
 import { Address as EthjsAddress } from '@ethereumjs/util'
 import { type Script } from '@tevm/contract'
-import { type Address } from 'abitype'
+import { type Address } from '@tevm/utils'
 
 /**
  * Type of predeploy contract for tevm

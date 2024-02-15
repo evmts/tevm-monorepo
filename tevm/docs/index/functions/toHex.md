@@ -6,7 +6,7 @@
 
 # Function: toHex()
 
-> **toHex**(`value`, `opts`?): `Hex`
+> **toHex**(`value`, `opts`?): [`Hex`](../type-aliases/Hex.md)
 
 Encodes a string, number, bigint, or ByteArray into a hex string
 
@@ -53,7 +53,7 @@ const data = toHex('Hello world', { size: 32 })
 
 ## Source
 
-node\_modules/.pnpm/viem@2.4.0\_typescript@5.3.3\_zod@3.22.4/node\_modules/viem/\_types/utils/encoding/toHex.d.ts:36
+node\_modules/.pnpm/viem@2.7.9\_typescript@5.3.3\_zod@3.22.4/node\_modules/viem/\_types/utils/encoding/toHex.d.ts:36
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

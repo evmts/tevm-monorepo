@@ -1,9 +1,9 @@
 import { setAccountHandler } from './setAccountHandler.js'
-import { EVM } from '@ethereumjs/evm'
-import { Account, Address } from '@ethereumjs/util'
+import { Evm } from '@tevm/evm'
+import { EthjsAccount, EthjsAddress } from '@tevm/utils'
+import { bytesToHex, keccak256 } from '@tevm/utils'
 import { TevmVm } from '@tevm/vm'
 import { describe, expect, it } from 'bun:test'
-import { bytesToHex, keccak256 } from 'viem'
 
 const ERC20_ADDRESS = `0x${'3'.repeat(40)}` as const
 const ERC20_BYTECODE =
@@ -11,9 +11,9 @@ const ERC20_BYTECODE =
 
 describe('setAccountHandler', () => {
 	it('should put an account and contract bytecode into state', async () => {
-		const evm = new EVM({})
+		const evm = new Evm({})
 		const vm = await TevmVm.create({ evm })
-		const res = await setAccountHandler(vm)({
+		const res = await setAccountHandler({ vm })({
 			address: ERC20_ADDRESS,
 			deployedBytecode: ERC20_BYTECODE,
 			balance: 420n,
@@ -21,18 +21,18 @@ describe('setAccountHandler', () => {
 		})
 		expect(res.errors).toBeUndefined()
 		const account = (await vm.stateManager.getAccount(
-			Address.fromString(ERC20_ADDRESS),
-		)) as Account
+			EthjsAddress.fromString(ERC20_ADDRESS),
+		)) as EthjsAccount
 		expect(account?.balance).toBe(420n)
 		expect(account?.nonce).toBe(69n)
 		expect(bytesToHex(account.codeHash)).toBe(keccak256(ERC20_BYTECODE))
 	})
 
 	it('should validate params', async () => {
-		const evm = new EVM({})
+		const evm = new Evm({})
 		const vm = await TevmVm.create({ evm })
 		// @ts-expect-error
-		const res = await setAccountHandler(vm)({
+		const res = await setAccountHandler({ vm })({
 			// address: ERC20_ADDRESS,
 			deployedBytecode: ERC20_BYTECODE,
 			balance: 420n,
@@ -54,11 +54,11 @@ describe('setAccountHandler', () => {
 				throw new Error('test')
 			},
 		}
-		const evm = new EVM({
+		const evm = new Evm({
 			stateManager: stateManager as any,
 		})
 		const vm = await TevmVm.create({ evm, stateManager: stateManager as any })
-		const res = await setAccountHandler(vm)({
+		const res = await setAccountHandler({ vm })({
 			address: ERC20_ADDRESS,
 			deployedBytecode: ERC20_BYTECODE,
 			balance: 420n,

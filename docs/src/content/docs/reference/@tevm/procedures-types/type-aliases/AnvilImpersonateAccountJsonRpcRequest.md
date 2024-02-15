@@ -5,7 +5,7 @@ prev: false
 title: "AnvilImpersonateAccountJsonRpcRequest"
 ---
 
-> **AnvilImpersonateAccountJsonRpcRequest**: [`JsonRpcRequest`](/reference/tevm/jsonrpc/type-aliases/jsonrpcrequest/)\<`"anvil_impersonateAccount"`, [`SerializeToJson`](/reference/tevm/procedures-types/type-aliases/serializetojson/)\<[`AnvilImpersonateAccountParams`](/reference/tevm/actions-types/type-aliases/anvilimpersonateaccountparams/)\>\>
+> **AnvilImpersonateAccountJsonRpcRequest**: [`JsonRpcRequest`](/reference/tevm/jsonrpc/type-aliases/jsonrpcrequest/)\<`"anvil_impersonateAccount"`, [[`SerializeToJson`](/reference/tevm/procedures-types/type-aliases/serializetojson/)\<[`AnvilImpersonateAccountParams`](/reference/tevm/actions-types/type-aliases/anvilimpersonateaccountparams/)\>]\>
 
 JSON-RPC request for `anvil_impersonateAccount` method
 

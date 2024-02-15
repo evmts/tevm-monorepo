@@ -14,7 +14,7 @@ Based on the JSON-RPC request for `eth_getBlockByHash` procedure
 
 ### blockHash
 
-> **blockHash**: [`Hex`](../../index/type-aliases/Hex.md)
+> **blockHash**: [`Hex`](Hex.md)
 
 ### fullTransactionObjects
 

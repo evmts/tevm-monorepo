@@ -83,7 +83,7 @@ const result = await client.readContract(
 
 ### abi
 
-> **abi**: `ParseAbi`\<`THumanReadableAbi`\>
+> **abi**: [`ParseAbi`](ParseAbi.md)\<`THumanReadableAbi`\>
 
 The json abi of the contract
 
@@ -179,7 +179,7 @@ the address property if added.
 
 #### Type parameters
 
-▪ **TAddress** extends `Address`
+▪ **TAddress** extends [`Address`](Address.md)
 
 #### Parameters
 

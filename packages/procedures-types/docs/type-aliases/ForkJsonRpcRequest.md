@@ -6,7 +6,7 @@
 
 # Type alias: ForkJsonRpcRequest
 
-> **ForkJsonRpcRequest**: `JsonRpcRequest`\<`"tevm_fork"`, [`SerializeToJson`](SerializeToJson.md)\<`ForkParams`\>\>
+> **ForkJsonRpcRequest**: `JsonRpcRequest`\<`"tevm_fork"`, [[`SerializeToJson`](SerializeToJson.md)\<`ForkParams`\>]\>
 
 This is an unimplemented experimental feature
 The JSON-RPC request for the `tevm_fork` method

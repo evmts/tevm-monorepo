@@ -6,13 +6,13 @@
 
 # Type alias: EthGetTransactionByHashJsonRpcRequest
 
-> **EthGetTransactionByHashJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"eth_getTransactionByHash"`, readonly [`Hex`]\>
+> **EthGetTransactionByHashJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"eth_getTransactionByHash"`, readonly [[`Hex`](../../index/type-aliases/Hex.md)]\>
 
 JSON-RPC request for `eth_getTransactionByHash` procedure
 
 ## Source
 
-packages/procedures-types/dist/index.d.ts:229
+packages/procedures-types/dist/index.d.ts:260
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

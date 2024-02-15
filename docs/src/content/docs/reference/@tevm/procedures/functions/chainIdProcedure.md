@@ -9,7 +9,7 @@ title: "chainIdProcedure"
 
 ## Parameters
 
-▪ **chainId**: `bigint`
+▪ **chainId**: `number`
 
 ## Returns
 

@@ -4,6 +4,6 @@ import { describe, expect, it } from 'bun:test'
 
 describe(blockNumberHandler.name, () => {
 	it('should return the block number', async () => {
-		expect(await chainIdHandler(420n)({})).toBe(420n)
+		expect(await chainIdHandler({ chainId: 420 })({})).toBe(420n)
 	})
 })

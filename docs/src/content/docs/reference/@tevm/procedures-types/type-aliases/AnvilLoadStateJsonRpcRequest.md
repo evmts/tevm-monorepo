@@ -5,7 +5,7 @@ prev: false
 title: "AnvilLoadStateJsonRpcRequest"
 ---
 
-> **AnvilLoadStateJsonRpcRequest**: [`JsonRpcRequest`](/reference/tevm/jsonrpc/type-aliases/jsonrpcrequest/)\<`"anvil_loadState"`, [`SerializeToJson`](/reference/tevm/procedures-types/type-aliases/serializetojson/)\<[`AnvilLoadStateParams`](/reference/tevm/actions-types/type-aliases/anvilloadstateparams/)\>\>
+> **AnvilLoadStateJsonRpcRequest**: [`JsonRpcRequest`](/reference/tevm/jsonrpc/type-aliases/jsonrpcrequest/)\<`"anvil_loadState"`, [[`SerializeToJson`](/reference/tevm/procedures-types/type-aliases/serializetojson/)\<[`AnvilLoadStateParams`](/reference/tevm/actions-types/type-aliases/anvilloadstateparams/)\>]\>
 
 JSON-RPC request for `anvil_loadState` method
 

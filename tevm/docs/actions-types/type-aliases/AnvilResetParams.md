@@ -18,7 +18,7 @@ Params for `anvil_reset` handler
 
 ### fork.block
 
-> **fork.block**?: [`BlockTag`](BlockTag.md) \| [`Hex`](../../index/type-aliases/Hex.md) \| `BigInt`
+> **fork.block**?: [`BlockTag`](BlockTag.md) \| [`Hex`](Hex.md) \| `BigInt`
 
 The block number
 

@@ -12,7 +12,7 @@ JSON-RPC request for `eth_getUncleCountByBlockNumber` procedure
 
 ## Source
 
-[requests/EthJsonRpcRequest.ts:201](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L201)
+[requests/EthJsonRpcRequest.ts:200](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L200)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

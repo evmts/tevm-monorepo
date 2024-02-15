@@ -11,7 +11,7 @@ A local EVM instance running in JavaScript. Similar to Anvil in your browser
 
 ## Parameters
 
-▪ **options?**: [`CreateEVMOptions`](/reference/tevm/memory-client/type-aliases/createevmoptions/)= `{}`
+▪ **options?**: `BaseClientOptions`= `{}`
 
 ## Returns
 
@@ -19,7 +19,6 @@ A local EVM instance running in JavaScript. Similar to Anvil in your browser
 
 ```ts
 import { createMemoryClient } from "tevm"
-import { createPublicClient, http } from "viem"
 import { MyERC721 } from './MyERC721.sol'
 
 const tevm = createMemoryClient({
@@ -46,7 +45,7 @@ const balance = await tevm.runContractCall(
 
 ## Source
 
-[packages/memory-client/src/createMemoryClient.js:65](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/createMemoryClient.js#L65)
+[createMemoryClient.js:35](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/createMemoryClient.js#L35)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

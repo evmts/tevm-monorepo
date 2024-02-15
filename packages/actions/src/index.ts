@@ -21,8 +21,5 @@ export {
 	contractHandler,
 	dumpStateHandler,
 	loadStateHandler,
-	forkHandler,
-	type ForkOptions,
-	type RegisterFunction,
 } from './tevm/index.js'
 export { traceCallHandler } from './debug/index.js'

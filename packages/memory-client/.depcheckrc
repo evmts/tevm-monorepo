@@ -1,0 +1,10 @@
+ignores: [
+  "@ethereumjs/evm",
+  "@ethereumjs/util",
+  "@ethereumjs/block",
+  "@ethereumjs/blockchain",
+  "@ethereumjs/vm",
+  "@tevm/actions-types",
+  "@tevm/errors"
+]
+skip-missing: true

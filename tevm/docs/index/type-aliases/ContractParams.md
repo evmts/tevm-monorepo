@@ -6,7 +6,7 @@
 
 # Type alias: ContractParams`<TAbi, TFunctionName>`
 
-> **ContractParams**\<`TAbi`, `TFunctionName`\>: `EncodeFunctionDataParameters`\<`TAbi`, `TFunctionName`\> & [`BaseCallParams`](../../actions-types/type-aliases/BaseCallParams.md) & `object`
+> **ContractParams**\<`TAbi`, `TFunctionName`\>: [`EncodeFunctionDataParameters`](EncodeFunctionDataParameters.md)\<`TAbi`, `TFunctionName`\> & [`BaseCallParams`](../../actions-types/type-aliases/BaseCallParams.md) & `object`
 
 Tevm params to execute a call on a contract
 
@@ -14,7 +14,7 @@ Tevm params to execute a call on a contract
 
 ### to
 
-> **to**: [`Address`](Address.md)
+> **to**: [`Address`](../../actions-types/type-aliases/Address.md)
 
 The address to call.
 
@@ -22,8 +22,8 @@ The address to call.
 
 | Parameter | Default |
 | :------ | :------ |
-| `TAbi` extends [`Abi`](Abi.md) \| readonly `unknown`[] | [`Abi`](Abi.md) |
-| `TFunctionName` extends `ContractFunctionName`\<`TAbi`\> | `ContractFunctionName`\<`TAbi`\> |
+| `TAbi` extends [`Abi`](../../actions-types/type-aliases/Abi.md) \| readonly `unknown`[] | [`Abi`](../../actions-types/type-aliases/Abi.md) |
+| `TFunctionName` extends [`ContractFunctionName`](ContractFunctionName.md)\<`TAbi`\> | [`ContractFunctionName`](ContractFunctionName.md)\<`TAbi`\> |
 
 ## Source
 

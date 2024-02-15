@@ -14,7 +14,7 @@ Params for `anvil_stopImpersonatingAccount` handler
 
 ### address
 
-> **address**: [`Address`](../../index/type-aliases/Address.md)
+> **address**: [`Address`](Address.md)
 
 The address to stop impersonating
 

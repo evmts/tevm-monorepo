@@ -1,5 +1,5 @@
 import { gasPriceHandler } from '@tevm/actions'
-import { numberToHex } from 'viem'
+import { numberToHex } from '@tevm/utils'
 
 /**
  * @param {Parameters<typeof gasPriceHandler>[0]} options

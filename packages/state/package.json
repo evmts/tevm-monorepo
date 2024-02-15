@@ -65,15 +65,13 @@
 		"@ethereumjs/common": "^4.1.0",
 		"@ethereumjs/statemanager": "^2.1.0",
 		"@ethereumjs/trie": "^6.0.1",
-		"@ethereumjs/util": "^9.0.1",
-		"abitype": "^0.10.3",
+		"@tevm/utils": "workspace:^",
 		"ethereum-cryptography": "^2.1.2",
-		"viem": "^2.0.0"
+		"viem": "^2.7.9"
 	},
 	"devDependencies": {
 		"@tevm/tsconfig": "workspace:^",
-		"@tevm/tsupconfig": "workspace:^",
-		"viem": "^2.0.0"
+		"@tevm/tsupconfig": "workspace:^"
 	},
 	"publishConfig": {
 		"access": "public"

@@ -1,6 +1,7 @@
 import { TevmProvider } from './TevmProvider.js'
 import { Interface } from './contract/index.js'
-import { createContract, createScript, toHex } from '@tevm/contract'
+import { createContract, createScript } from '@tevm/contract'
+import { toHex } from '@tevm/utils'
 import { beforeEach, describe, expect, it } from 'vitest'
 
 const FORK_URL = 'https://mainnet.optimism.io'
@@ -17,22 +18,26 @@ describe(TevmProvider.name, () => {
 	})
 
 	it('should be able to use like a normal JsonRpcProvider', async () => {
-		expect(await provider.send('eth_chainId', [])).toBe('0xa')
+		expect(await provider.send('eth_chainId', [])).toBe('0x384')
 	})
 
 	describe('should be able to do tevm specific requests', async () => {
 		it('provider.send', async () => {
 			expect(
-				await provider.send('tevm_setAccount', {
-					address: `0x${'69'.repeat(20)}`,
-					nonce: toHex(1n),
-					balance: toHex(420n),
-				}),
+				await provider.send('tevm_setAccount', [
+					{
+						address: `0x${'69'.repeat(20)}`,
+						nonce: toHex(1n),
+						balance: toHex(420n),
+					},
+				]),
 			).toEqual({})
 			expect(
-				await provider.send('tevm_getAccount', {
-					address: `0x${'69'.repeat(20)}`,
-				}),
+				await provider.send('tevm_getAccount', [
+					{
+						address: `0x${'69'.repeat(20)}`,
+					},
+				]),
 			).toEqual({
 				address: '0x6969696969696969696969696969696969696969',
 				balance: toHex(420n),

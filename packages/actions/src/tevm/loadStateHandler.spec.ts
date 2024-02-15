@@ -1,13 +1,13 @@
 import { loadStateHandler } from './loadStateHandler.js'
-import { Address } from '@ethereumjs/util'
 import { NormalStateManager } from '@tevm/state'
+import { EthjsAddress } from '@tevm/utils'
+import { bytesToHex, hexToBytes, toRlp } from '@tevm/utils'
 import { expect, test } from 'bun:test'
-import { bytesToHex, hexToBytes, toRlp } from 'viem'
 
 test('should load state into the state manager', async () => {
 	const stateManager = new NormalStateManager()
 
-	const account = Address.fromString(
+	const account = EthjsAddress.fromString(
 		'0x0420042004200420042004200420042004200420',
 	)
 
@@ -39,7 +39,7 @@ test('should load state into the state manager', async () => {
 		},
 	}
 
-	await loadStateHandler({ stateManager } as any)({ state })
+	await loadStateHandler({ vm: { stateManager } } as any)({ state })
 
 	accountData = await stateManager.getAccount(account)
 

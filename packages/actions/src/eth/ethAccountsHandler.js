@@ -1,7 +1,9 @@
 /**
- * @param {ReadonlyArray<import('viem').Account>} accounts
+ * @param {{accounts: ReadonlyArray<import('@tevm/utils').Account>}} params
  * @returns {import('@tevm/actions-types').EthAccountsHandler}
  */
-export const ethAccountsHandler = (accounts) => async () => {
-	return accounts.map((account) => account.address)
-}
+export const ethAccountsHandler =
+	({ accounts }) =>
+	async () => {
+		return accounts.map((account) => account.address)
+	}

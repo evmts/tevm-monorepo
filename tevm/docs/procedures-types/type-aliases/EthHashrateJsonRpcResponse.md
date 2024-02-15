@@ -6,13 +6,13 @@
 
 # Type alias: EthHashrateJsonRpcResponse
 
-> **EthHashrateJsonRpcResponse**: [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"eth_hashrate"`, `Hex`, `string`\>
+> **EthHashrateJsonRpcResponse**: [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"eth_hashrate"`, [`Hex`](../../index/type-aliases/Hex.md), `string`\>
 
 JSON-RPC response for `eth_hashrate` procedure
 
 ## Source
 
-packages/procedures-types/dist/index.d.ts:485
+packages/procedures-types/dist/index.d.ts:526
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

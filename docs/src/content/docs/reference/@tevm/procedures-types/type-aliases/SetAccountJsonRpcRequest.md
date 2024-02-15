@@ -5,7 +5,7 @@ prev: false
 title: "SetAccountJsonRpcRequest"
 ---
 
-> **SetAccountJsonRpcRequest**: [`JsonRpcRequest`](/reference/tevm/jsonrpc/type-aliases/jsonrpcrequest/)\<`"tevm_setAccount"`, [`SerializeToJson`](/reference/tevm/procedures-types/type-aliases/serializetojson/)\<[`SetAccountParams`](/reference/tevm/actions-types/type-aliases/setaccountparams/)\>\>
+> **SetAccountJsonRpcRequest**: [`JsonRpcRequest`](/reference/tevm/jsonrpc/type-aliases/jsonrpcrequest/)\<`"tevm_setAccount"`, [[`SerializeToJson`](/reference/tevm/procedures-types/type-aliases/serializetojson/)\<[`SetAccountParams`](/reference/tevm/actions-types/type-aliases/setaccountparams/)\>]\>
 
 JSON-RPC request for `tevm_setAccount` method
 

@@ -14,11 +14,11 @@ Based on the JSON-RPC request for `eth_getUncleByBlockHashAndIndex` procedure
 
 ### blockHash
 
-> **blockHash**: [`Hex`](../../index/type-aliases/Hex.md)
+> **blockHash**: [`Hex`](Hex.md)
 
 ### uncleIndex
 
-> **uncleIndex**: [`Hex`](../../index/type-aliases/Hex.md)
+> **uncleIndex**: [`Hex`](Hex.md)
 
 ## Source
 

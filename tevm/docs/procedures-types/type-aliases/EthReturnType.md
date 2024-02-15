@@ -166,7 +166,7 @@ A mapping of `eth_*` method names to their return type
 
 ## Source
 
-packages/procedures-types/dist/index.d.ts:932
+packages/procedures-types/dist/index.d.ts:973
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

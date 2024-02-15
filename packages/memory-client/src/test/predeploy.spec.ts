@@ -3,7 +3,7 @@ import { DaiContract } from '../test/DaiContract.sol.js'
 import { Address, hexToBytes, toBytes } from '@ethereumjs/util'
 import { createScript } from '@tevm/contract'
 import { definePredeploy } from '@tevm/predeploys'
-import { formatAbi } from 'abitype'
+import { formatAbi } from '@tevm/utils'
 import { expect, test } from 'bun:test'
 
 test('Call predeploy from TypeScript', async () => {
@@ -28,7 +28,7 @@ test('Call predeploy from TypeScript', async () => {
 
 	// Predeploy Contract exists in vm
 	expect(
-		await tevm._vm.stateManager.getContractCode(
+		await tevm.vm.stateManager.getContractCode(
 			new Address(hexToBytes(predeployAddress)),
 		),
 	).toEqual(toBytes(deployedBytecode))

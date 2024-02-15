@@ -1,5 +1,5 @@
 import { getBalanceHandler } from '@tevm/actions'
-import { numberToHex } from 'viem'
+import { numberToHex } from '@tevm/utils'
 
 /**
  * @param {Parameters<typeof getBalanceHandler>[0]} options
@@ -17,7 +17,9 @@ export const getBalanceProcedure =
 				...(req.params[1].startsWith('0x')
 					? { blockNumber: BigInt(req.params[1]) }
 					: {
-							blockTag: /** @type {import('viem').BlockTag}*/ (req.params[1]),
+							blockTag: /** @type {import('@tevm/utils').BlockTag}*/ (
+								req.params[1]
+							),
 					  }),
 			}),
 		),

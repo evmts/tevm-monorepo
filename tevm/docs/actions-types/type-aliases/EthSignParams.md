@@ -14,11 +14,11 @@ Based on the JSON-RPC request for `eth_sign` procedure
 
 ### address
 
-> **address**: [`Address`](../../index/type-aliases/Address.md)
+> **address**: [`Address`](Address.md)
 
 ### data
 
-> **data**: [`Hex`](../../index/type-aliases/Hex.md)
+> **data**: [`Hex`](Hex.md)
 
 ## Source
 

@@ -5,7 +5,7 @@ prev: false
 title: "AnvilGetAutomineJsonRpcRequest"
 ---
 
-> **AnvilGetAutomineJsonRpcRequest**: [`JsonRpcRequest`](/reference/tevm/jsonrpc/type-aliases/jsonrpcrequest/)\<`"anvil_getAutomine"`, [`SerializeToJson`](/reference/tevm/procedures-types/type-aliases/serializetojson/)\<[`AnvilGetAutomineParams`](/reference/tevm/actions-types/type-aliases/anvilgetautomineparams/)\>\>
+> **AnvilGetAutomineJsonRpcRequest**: [`JsonRpcRequest`](/reference/tevm/jsonrpc/type-aliases/jsonrpcrequest/)\<`"anvil_getAutomine"`, [[`SerializeToJson`](/reference/tevm/procedures-types/type-aliases/serializetojson/)\<[`AnvilGetAutomineParams`](/reference/tevm/actions-types/type-aliases/anvilgetautomineparams/)\>]\>
 
 JSON-RPC request for `anvil_getAutomine` method
 

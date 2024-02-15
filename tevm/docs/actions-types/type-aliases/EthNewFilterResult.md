@@ -6,7 +6,7 @@
 
 # Type alias: EthNewFilterResult
 
-> **EthNewFilterResult**: [`Hex`](../../index/type-aliases/Hex.md)
+> **EthNewFilterResult**: [`Hex`](Hex.md)
 
 JSON-RPC response for `eth_newFilter` procedure
 

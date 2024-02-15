@@ -6,17 +6,17 @@ import {
 } from '@tevm/state'
 
 /**
- * @param {import("@tevm/vm").TevmVm} vm
+ * @param {Pick<import("@tevm/base-client").BaseClient, 'vm'>} client
  * @returns {import('@tevm/actions-types').DumpStateHandler}
  */
-export const dumpStateHandler = (vm) => async () => {
+export const dumpStateHandler = (client) => async () => {
 	try {
 		if (
-			vm.stateManager instanceof NormalStateManager ||
-			vm.stateManager instanceof ProxyStateManager ||
-			vm.stateManager instanceof ForkStateManager
+			client.vm.stateManager instanceof NormalStateManager ||
+			client.vm.stateManager instanceof ProxyStateManager ||
+			client.vm.stateManager instanceof ForkStateManager
 		) {
-			return { state: await vm.stateManager.dumpCanonicalGenesis() }
+			return { state: await client.vm.stateManager.dumpCanonicalGenesis() }
 		} else {
 			throw new Error(
 				'Unsupported state manager. Must use a NormalStateManager, ProxyStateManager, or ForkStateManager. This indicates a bug in tevm internal code.',

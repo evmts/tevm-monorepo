@@ -10,7 +10,7 @@
 
 ## Parameters
 
-▪ **address**: `EthjsAddress`
+▪ **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 
 ▪ **key**: `Uint8Array`
 

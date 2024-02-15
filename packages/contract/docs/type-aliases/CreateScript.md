@@ -76,7 +76,7 @@ const script = createScript({
 
 ## Source
 
-[packages/contract/src/types.ts:107](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/types.ts#L107)
+[types.ts:107](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/types.ts#L107)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

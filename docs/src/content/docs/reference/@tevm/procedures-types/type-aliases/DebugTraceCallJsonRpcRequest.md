@@ -5,7 +5,7 @@ prev: false
 title: "DebugTraceCallJsonRpcRequest"
 ---
 
-> **DebugTraceCallJsonRpcRequest**: [`JsonRpcRequest`](/reference/tevm/jsonrpc/type-aliases/jsonrpcrequest/)\<`"debug_traceCall"`, [`SerializeToJson`](/reference/tevm/procedures-types/type-aliases/serializetojson/)\<[`DebugTraceCallParams`](/reference/tevm/actions-types/type-aliases/debugtracecallparams/)\>\>
+> **DebugTraceCallJsonRpcRequest**: [`JsonRpcRequest`](/reference/tevm/jsonrpc/type-aliases/jsonrpcrequest/)\<`"debug_traceCall"`, [[`SerializeToJson`](/reference/tevm/procedures-types/type-aliases/serializetojson/)\<[`DebugTraceCallParams`](/reference/tevm/actions-types/type-aliases/debugtracecallparams/)\>]\>
 
 JSON-RPC request for `debug_traceCall` method
 

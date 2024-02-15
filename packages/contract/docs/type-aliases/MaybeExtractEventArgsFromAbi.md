@@ -19,7 +19,7 @@ Adapted from viem. This is a helper type to extract the event args from an abi
 
 ## Source
 
-[packages/contract/src/event/EventActionCreator.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/event/EventActionCreator.ts#L20)
+[event/EventActionCreator.ts:18](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/event/EventActionCreator.ts#L18)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

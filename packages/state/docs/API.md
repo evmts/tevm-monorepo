@@ -26,6 +26,12 @@
 - [GetContractStorage](type-aliases/GetContractStorage.md)
 - [ParameterizedTevmState](type-aliases/ParameterizedTevmState.md)
 - [SerializableTevmState](type-aliases/SerializableTevmState.md)
+- [TevmStateManager](type-aliases/TevmStateManager.md)
+- [TevmStateManagerOptions](type-aliases/TevmStateManagerOptions.md)
+
+### Functions
+
+- [createTevmStateManager](functions/createTevmStateManager.md)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

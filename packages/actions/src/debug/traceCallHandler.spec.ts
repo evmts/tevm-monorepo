@@ -1,10 +1,10 @@
 import { setAccountHandler } from '../index.js'
 import { traceCallHandler } from './traceCallHandler.js'
-import { EVM } from '@ethereumjs/evm'
+import { Evm } from '@tevm/evm'
 import { NormalStateManager } from '@tevm/state'
+import { encodeFunctionData, parseEther } from '@tevm/utils'
 import { TevmVm } from '@tevm/vm'
 import { describe, expect, it } from 'bun:test'
-import { encodeFunctionData, parseEther } from 'viem'
 
 const ERC20_ADDRESS = `0x${'3'.repeat(40)}` as const
 const ERC20_BYTECODE =
@@ -295,12 +295,12 @@ const ERC20_ABI = [
 describe('traceCallHandler', () => {
 	it('should execute a contract call', async () => {
 		const stateManager = new NormalStateManager()
-		const evm = new EVM({ stateManager })
+		const evm = new Evm({ stateManager })
 		const vm = await TevmVm.create({ evm, stateManager })
 		// deploy contract
 		expect(
 			(
-				await setAccountHandler(vm)({
+				await setAccountHandler({ vm })({
 					address: ERC20_ADDRESS,
 					deployedBytecode: ERC20_BYTECODE,
 					nonce: parseEther('1000'),

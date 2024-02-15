@@ -1,4 +1,5 @@
 ignores: [
+  "@tevm/utils",
   "@tevm/errors"
 ]
 skip-missing: true

@@ -6,7 +6,7 @@
 
 # Type alias: EthGetUncleByBlockHashAndIndexResult
 
-> **EthGetUncleByBlockHashAndIndexResult**: [`Hex`](../../index/type-aliases/Hex.md)
+> **EthGetUncleByBlockHashAndIndexResult**: [`Hex`](Hex.md)
 
 JSON-RPC response for `eth_getUncleByBlockHashAndIndex` procedure
 

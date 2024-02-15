@@ -21,7 +21,7 @@ Params taken by the definePredeploy function
 
 ### address
 
-> **address**: `Address`
+> **address**: [`Address`](Address.md)
 
 ### contract
 

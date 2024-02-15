@@ -11,7 +11,7 @@ import type { JsonRpcRequest } from '@tevm/jsonrpc'
  */
 export type DebugTraceTransactionJsonRpcRequest = JsonRpcRequest<
 	'debug_traceTransaction',
-	SerializeToJson<DebugTraceTransactionParams>
+	[SerializeToJson<DebugTraceTransactionParams>]
 >
 // debug_traceCall
 /**
@@ -19,7 +19,7 @@ export type DebugTraceTransactionJsonRpcRequest = JsonRpcRequest<
  */
 export type DebugTraceCallJsonRpcRequest = JsonRpcRequest<
 	'debug_traceCall',
-	SerializeToJson<DebugTraceCallParams>
+	[SerializeToJson<DebugTraceCallParams>]
 >
 
 export type DebugJsonRpcRequest =

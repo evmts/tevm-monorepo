@@ -18,13 +18,15 @@ describe('allowUnlimitedContractSize option', () => {
 			id: 1,
 			method: 'tevm_call',
 			jsonrpc: '2.0',
-			params: {
-				caller: address1,
-				data,
-				value: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffff',
-				gas: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffff',
-				skipBalance: true,
-			},
+			params: [
+				{
+					caller: address1,
+					data,
+					value: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffff',
+					gas: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffff',
+					skipBalance: true,
+				},
+			],
 		})
 		expect('error' in res && res.error.code).toBe(
 			EVMErrorMessage.CODESIZE_EXCEEDS_MAXIMUM,
@@ -42,13 +44,15 @@ describe('allowUnlimitedContractSize option', () => {
 			id: 1,
 			method: 'tevm_call',
 			jsonrpc: '2.0',
-			params: {
-				caller: address1,
-				data,
-				value: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffff',
-				gas: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffff',
-				skipBalance: true,
-			},
+			params: [
+				{
+					caller: address1,
+					data,
+					value: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffff',
+					gas: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffff',
+					skipBalance: true,
+				},
+			],
 		})
 		expect(res.jsonrpc).toBe('2.0')
 		expect(res.id).toBe(1)

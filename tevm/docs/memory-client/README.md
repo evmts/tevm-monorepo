@@ -6,45 +6,14 @@
 
 # Module: memory-client
 
-## Index
-
-### Classes
-
-- [WrappedEvm](classes/WrappedEvm.md)
-
-### Type Aliases
-
-- [ConstructorArgument](type-aliases/ConstructorArgument.md)
-
 ## Table of contents
 
 ### References
 
-- [CreateEVMOptions](README.md#createevmoptions)
-- [CustomPrecompile](README.md#customprecompile)
-- [CustomPredeploy](README.md#custompredeploy)
 - [MemoryClient](README.md#memoryclient)
 - [createMemoryClient](README.md#creatememoryclient)
 
 ## References
-
-### CreateEVMOptions
-
-Re-exports [CreateEVMOptions](../index/type-aliases/CreateEVMOptions.md)
-
-***
-
-### CustomPrecompile
-
-Re-exports [CustomPrecompile](../index/type-aliases/CustomPrecompile.md)
-
-***
-
-### CustomPredeploy
-
-Re-exports [CustomPredeploy](../index/type-aliases/CustomPredeploy.md)
-
-***
 
 ### MemoryClient
 

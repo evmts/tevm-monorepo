@@ -30,11 +30,11 @@ test('Call precompile from TypeScript', async () => {
 test('Call precompile from solidity script', async () => {
 	const { WriteHelloWorld } = await import('./WriteHelloWorld.s.sol')
 
-	const vm = await createMemoryClient({
+	const client = await createMemoryClient({
 		customPrecompiles: [fsPrecompile.precompile()],
 	})
 
-	const result = await vm.script(
+	const result = await client.script(
 		WriteHelloWorld.write.write(fsPrecompile.contract.address),
 	)
 

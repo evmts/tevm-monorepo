@@ -5,11 +5,11 @@ prev: false
 title: "ethCallHandler"
 ---
 
-> **ethCallHandler**(`vm`): [`EthCallHandler`](/reference/tevm/actions-types/type-aliases/ethcallhandler/)
+> **ethCallHandler**(`client`): [`EthCallHandler`](/reference/tevm/actions-types/type-aliases/ethcallhandler/)
 
 ## Parameters
 
-▪ **vm**: `TevmVm`
+▪ **client**: `Pick`\<`object`, `"vm"`\>
 
 ## Returns
 

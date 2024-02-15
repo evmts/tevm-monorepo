@@ -6,7 +6,7 @@
 
 # Type alias: EthHashrateResult
 
-> **EthHashrateResult**: [`Hex`](../../index/type-aliases/Hex.md)
+> **EthHashrateResult**: [`Hex`](Hex.md)
 
 JSON-RPC response for `eth_hashrate` procedure
 

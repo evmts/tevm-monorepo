@@ -1,13 +1,13 @@
-import { formatAbi } from 'abitype'
+import { formatAbi } from '@tevm/utils'
 
 /**
  * Creates read action creators from parameters
  * @internal
  * @param {object} params
- * @param {import('abitype').Abi} params.methods
- * @param {import('viem').Hex} [params.bytecode]
- * @param {import('viem').Hex} [params.deployedBytecode]
- * @param {import('abitype').Address} [params.address]
+ * @param {import('@tevm/utils').Abi} params.methods
+ * @param {import('@tevm/utils').Hex} [params.bytecode]
+ * @param {import('@tevm/utils').Hex} [params.deployedBytecode]
+ * @param {import('@tevm/utils').Address} [params.address]
  * @returns {import('./ReadActionCreator.js').ReadActionCreator<any, any, any, any>} A mapping of method names to action creators
  */
 export const readFactory = ({ methods, bytecode, deployedBytecode, address }) =>
@@ -23,15 +23,16 @@ export const readFactory = ({ methods, bytecode, deployedBytecode, address }) =>
 					// TODO make this more efficient
 					const methodAbi = methods.filter(
 						(m) =>
-							/**@type {import('abitype').AbiFunction}*/ (m).name ===
-							/**@type {import('abitype').AbiFunction}*/ (method)?.name,
+							/**@type {import('@tevm/utils').AbiFunction}*/ (m).name ===
+							/**@type {import('@tevm/utils').AbiFunction}*/ (method)?.name,
 					)
 					const maybeArgs = args.length > 0 ? { args } : {}
 					return {
 						abi: methodAbi,
 						humanReadableAbi: formatAbi([method]),
-						functionName: /**@type {import('abitype').AbiFunction}*/ (method)
-							.name,
+						functionName: /**@type {import('@tevm/utils').AbiFunction}*/ (
+							method
+						).name,
 						bytecode,
 						deployedBytecode,
 						address,
@@ -46,7 +47,7 @@ export const readFactory = ({ methods, bytecode, deployedBytecode, address }) =>
 				creator.address = address
 				creator.to = address
 				return [
-					/**@type {import('abitype').AbiFunction}*/ (method).name,
+					/**@type {import('@tevm/utils').AbiFunction}*/ (method).name,
 					creator,
 				]
 			}),

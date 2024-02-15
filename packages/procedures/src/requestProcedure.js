@@ -28,8 +28,7 @@ import { testAccounts } from '@tevm/actions'
  * this method but this method may be desired if hyper optimizing
  * bundle size.
  *
- * @param {import('@tevm/vm').TevmVm} vm
- * @param {string} [forkUrl]
+ * @param {import('@tevm/base-client').BaseClient} client
  * @returns {import('@tevm/procedures-types').TevmJsonRpcRequestHandler}
  * @example
  * ```typescript
@@ -47,13 +46,13 @@ import { testAccounts } from '@tevm/actions'
  * })
  * ```
  */
-export const requestProcedure = (vm, forkUrl) => {
+export const requestProcedure = (client) => {
 	// TODO implement chainid
-	const chainId = 10n
+	const chainId = 900
 	return async (request) => {
 		switch (request.method) {
 			case 'tevm_call':
-				return /**@type any*/ (callProcedure)(vm)(request)
+				return /**@type any*/ (callProcedure(client)(request))
 			case /** @type {any} */ ('tevm_contract'): {
 				/**
 				 * @type {import('@tevm/errors').UnsupportedMethodError}
@@ -74,41 +73,40 @@ export const requestProcedure = (vm, forkUrl) => {
 				})
 			}
 			case 'tevm_getAccount':
-				return /**@type any*/ (getAccountProcedure)(vm)(request)
+				return /**@type any*/ (getAccountProcedure)(client)(request)
 			case 'tevm_setAccount':
-				return /**@type any*/ (setAccountProcedure)(vm)(request)
+				return /**@type any*/ (setAccountProcedure)(client)(request)
 			case 'tevm_script':
-				return /**@type any*/ (scriptProcedure)(vm)(request)
+				return /**@type any*/ (scriptProcedure)(client)(request)
 			case 'eth_blockNumber':
-				return /** @type any */ (blockNumberProcedure(vm)(request))
+				return /** @type any */ (blockNumberProcedure(client)(request))
 			case 'tevm_dumpState':
-				return /** @type any */ (dumpStateProcedure)(vm)(request)
+				return /** @type any */ (dumpStateProcedure)(client)(request)
 			case 'tevm_fork':
 				throw new Error('not implemented!')
 			case 'tevm_loadState': {
-				return /** @type any */ (loadStateProcedure)(vm)(request)
+				return /** @type any */ (loadStateProcedure)(client)(request)
 			}
 			case 'eth_chainId':
 				return /** @type any */ (chainIdProcedure(chainId)(request))
 			case 'eth_call':
-				return /** @type any */ (ethCallProcedure(vm)(request))
+				return /** @type any */ (ethCallProcedure(client)(request))
 			case 'eth_getCode':
-				return /** @type any */ (getCodeProcedure({ vm, forkUrl })(request))
+				return /** @type any */ (getCodeProcedure(client)(request))
 			case 'eth_getStorageAt':
-				return /** @type any */ (
-					getStorageAtProcedure({ vm, forkUrl })(request)
-				)
+				return /** @type any */ (getStorageAtProcedure(client)(request))
 			case 'eth_gasPrice':
 				// TODO this vm.blockchain should not be type any
-				return /** @type any */ (gasPriceProcedure({ vm, forkUrl })(request))
+				return /** @type any */ (gasPriceProcedure(client)(request))
 			case 'eth_getBalance':
-				return /** @type any */ (getBalanceProcedure({ vm, forkUrl })(request))
+				return /** @type any */ (getBalanceProcedure(client)(request))
 			case 'eth_sign':
 				return ethSignProcedure(testAccounts)(request)
 			case 'eth_signTransaction':
-				return ethSignTransactionProcedure({ accounts: testAccounts, chainId })(
-					request,
-				)
+				return ethSignTransactionProcedure({
+					accounts: testAccounts,
+					chainId: BigInt(chainId),
+				})(request)
 			case 'eth_accounts':
 				return ethAccountsProcedure(testAccounts)(request)
 			case 'eth_mining':

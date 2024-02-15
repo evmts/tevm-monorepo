@@ -1,8 +1,8 @@
 import { createMemoryClient } from '../createMemoryClient.js'
 import { DaiContract } from './DaiContract.sol.js'
 import { Address } from '@ethereumjs/util'
+import { hexToBytes } from '@tevm/utils'
 import { describe, expect, it } from 'bun:test'
-import { hexToBytes } from 'viem'
 
 const contractAddress = '0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1'
 
@@ -97,14 +97,14 @@ describe('Tevm should create a local vm in JavaScript', () => {
 			})
 			expect(
 				(
-					await tevm._vm.stateManager.getAccount(
+					await tevm.vm.stateManager.getAccount(
 						new Address(hexToBytes(address2)),
 					)
 				)?.balance,
 			).toBe(transferAmount)
 			expect(
 				(
-					await tevm._vm.stateManager.getAccount(
+					await tevm.vm.stateManager.getAccount(
 						new Address(hexToBytes(address1)),
 					)
 				)?.balance,

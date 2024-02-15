@@ -7,20 +7,18 @@ import {
 	scriptProcedure,
 } from './index.js'
 import { requestProcedure } from './requestProcedure.js'
-import { EVM } from '@ethereumjs/evm'
 import { Account, Address } from '@ethereumjs/util'
 import { testAccounts } from '@tevm/actions'
+import { type BaseClient, createBaseClient } from '@tevm/base-client'
 import type { EthSignTransactionJsonRpcRequest } from '@tevm/procedures-types'
-import { NormalStateManager } from '@tevm/state'
-import { TevmVm } from '@tevm/vm'
-import { describe, expect, it } from 'bun:test'
 import {
 	bytesToHex,
 	encodeFunctionData,
 	keccak256,
 	numberToHex,
 	parseGwei,
-} from 'viem'
+} from '@tevm/utils'
+import { beforeEach, describe, expect, it } from 'bun:test'
 
 const ERC20_ADDRESS = `0x${'3'.repeat(40)}` as const
 const ERC20_BYTECODE =
@@ -308,30 +306,36 @@ const ERC20_ABI = [
 	},
 ] as const
 
+let client: BaseClient
+beforeEach(async () => {
+	client = await createBaseClient()
+})
+
 describe('requestProcedure', () => {
 	describe('tevm_getAccount', () => {
 		it('should work', async () => {
-			const stateManager = new NormalStateManager()
-			const evm = new EVM({ stateManager })
-			const vm = await TevmVm.create({ evm, stateManager })
-			await requestProcedure(vm)({
+			await requestProcedure(client)({
 				jsonrpc: '2.0',
 				method: 'tevm_setAccount',
 				id: 1,
-				params: {
-					address: ERC20_ADDRESS,
-					deployedBytecode: ERC20_BYTECODE,
-					balance: numberToHex(420n),
-					nonce: numberToHex(69n),
-				},
+				params: [
+					{
+						address: ERC20_ADDRESS,
+						deployedBytecode: ERC20_BYTECODE,
+						balance: numberToHex(420n),
+						nonce: numberToHex(69n),
+					},
+				],
 			})
-			const res = await requestProcedure(vm)({
+			const res = await requestProcedure(client)({
 				jsonrpc: '2.0',
 				method: 'tevm_getAccount',
 				id: 1,
-				params: {
-					address: ERC20_ADDRESS,
-				},
+				params: [
+					{
+						address: ERC20_ADDRESS,
+					},
+				],
 			})
 			expect(res.error).toBeUndefined()
 			expect(res.result).toEqual({
@@ -346,22 +350,21 @@ describe('requestProcedure', () => {
 	})
 	describe('tevm_setAccount', () => {
 		it('should work', async () => {
-			const stateManager = new NormalStateManager()
-			const evm = new EVM({ stateManager })
-			const vm = await TevmVm.create({ evm, stateManager })
-			const res = await requestProcedure(vm)({
+			const res = await requestProcedure(client)({
 				jsonrpc: '2.0',
 				method: 'tevm_setAccount',
 				id: 1,
-				params: {
-					address: ERC20_ADDRESS,
-					deployedBytecode: ERC20_BYTECODE,
-					balance: numberToHex(420n),
-					nonce: numberToHex(69n),
-				},
+				params: [
+					{
+						address: ERC20_ADDRESS,
+						deployedBytecode: ERC20_BYTECODE,
+						balance: numberToHex(420n),
+						nonce: numberToHex(69n),
+					},
+				],
 			})
 			expect(res.error).toBeUndefined()
-			const account = (await vm.stateManager.getAccount(
+			const account = (await client.vm.stateManager.getAccount(
 				Address.fromString(ERC20_ADDRESS),
 			)) as Account
 			expect(account?.balance).toBe(420n)
@@ -369,22 +372,21 @@ describe('requestProcedure', () => {
 			expect(bytesToHex(account.codeHash)).toBe(keccak256(ERC20_BYTECODE))
 		})
 		it('should handle account throwing an unexpected error', async () => {
-			const stateManager = new NormalStateManager()
-			const evm = new EVM({ stateManager })
-			const vm = await TevmVm.create({ evm, stateManager })
-			vm.stateManager.putAccount = () => {
+			client.vm.stateManager.putAccount = () => {
 				throw new Error('unexpected error')
 			}
-			const res = await requestProcedure(vm)({
+			const res = await requestProcedure(client)({
 				jsonrpc: '2.0',
 				method: 'tevm_setAccount',
 				id: 1,
-				params: {
-					address: ERC20_ADDRESS,
-					deployedBytecode: ERC20_BYTECODE,
-					balance: numberToHex(420n),
-					nonce: numberToHex(69n),
-				},
+				params: [
+					{
+						address: ERC20_ADDRESS,
+						deployedBytecode: ERC20_BYTECODE,
+						balance: numberToHex(420n),
+						nonce: numberToHex(69n),
+					},
+				],
 			})
 			expect(res).toEqual({
 				error: {
@@ -406,20 +408,19 @@ describe('requestProcedure', () => {
 	describe('tevm_call', async () => {
 		it('should work', async () => {
 			const to = `0x${'69'.repeat(20)}` as const
-			const stateManager = new NormalStateManager()
-			const evm = new EVM({ stateManager })
-			const vm = await TevmVm.create({ evm, stateManager })
 			expect(
-				await callProcedure(vm)({
+				await callProcedure(client)({
 					jsonrpc: '2.0',
 					method: 'tevm_call',
 					id: 1,
-					params: {
-						createTransaction: true,
-						to,
-						value: numberToHex(420n),
-						skipBalance: true,
-					},
+					params: [
+						{
+							createTransaction: true,
+							to,
+							value: numberToHex(420n),
+							skipBalance: true,
+						},
+					],
 				}),
 			).toEqual({
 				id: 1,
@@ -432,17 +433,15 @@ describe('requestProcedure', () => {
 			})
 
 			expect(
-				(await vm.stateManager.getAccount(Address.fromString(to)))?.balance,
+				(await client.vm.stateManager.getAccount(Address.fromString(to)))
+					?.balance,
 			).toEqual(420n)
 		})
 
 		it('should handle an error', async () => {
 			const to = `0x${'69'.repeat(20)}` as const
-			const stateManager = new NormalStateManager()
-			const evm = new EVM({ stateManager })
-			const vm = await TevmVm.create({ evm, stateManager })
-			const originalRunCall = vm.evm.runCall.bind(evm)
-			vm.evm.runCall = async (args) => {
+			const originalRunCall = client.vm.evm.runCall.bind(client.vm.evm)
+			client.vm.evm.runCall = async (args) => {
 				const res = await originalRunCall(args)
 				return {
 					...res,
@@ -457,16 +456,18 @@ describe('requestProcedure', () => {
 			}
 			// send value
 			expect(
-				await callProcedure(vm)({
+				await callProcedure(client)({
 					jsonrpc: '2.0',
 					method: 'tevm_call',
 					id: 1,
-					params: {
-						createTransaction: true,
-						to,
-						value: numberToHex(420n),
-						skipBalance: true,
-					},
+					params: [
+						{
+							createTransaction: true,
+							to,
+							value: numberToHex(420n),
+							skipBalance: true,
+						},
+					],
 				}),
 			).toEqual({
 				error: {
@@ -487,23 +488,22 @@ describe('requestProcedure', () => {
 
 	describe('tevm_script', async () => {
 		it('should work', async () => {
-			const stateManager = new NormalStateManager()
-			const evm = new EVM({ stateManager })
-			const vm = await TevmVm.create({ evm, stateManager })
 			expect(
-				await scriptProcedure(vm)({
+				await scriptProcedure(client)({
 					jsonrpc: '2.0',
 					method: 'tevm_script',
 					id: 1,
-					params: {
-						deployedBytecode: ERC20_BYTECODE,
-						data: encodeFunctionData({
-							abi: ERC20_ABI,
-							functionName: 'balanceOf',
-							args: [ERC20_ADDRESS],
-						}),
-						to: ERC20_ADDRESS,
-					},
+					params: [
+						{
+							deployedBytecode: ERC20_BYTECODE,
+							data: encodeFunctionData({
+								abi: ERC20_ABI,
+								functionName: 'balanceOf',
+								args: [ERC20_ADDRESS],
+							}),
+							to: ERC20_ADDRESS,
+						},
+					],
 				}),
 			).toEqual({
 				method: 'tevm_script',
@@ -523,23 +523,22 @@ describe('requestProcedure', () => {
 
 		it('should handle the evm throwing an error', async () => {
 			const caller = `0x${'69'.repeat(20)}` as const
-			const stateManager = new NormalStateManager()
-			const evm = new EVM({ stateManager })
-			const vm = await TevmVm.create({ evm, stateManager })
 			expect(
-				await scriptProcedure(vm)({
+				await scriptProcedure(client)({
 					jsonrpc: '2.0',
 					method: 'tevm_script',
 					id: 1,
-					params: {
-						deployedBytecode: ERC20_BYTECODE,
-						data: encodeFunctionData({
-							abi: ERC20_ABI,
-							functionName: 'transferFrom',
-							args: [caller, caller, 420n],
-						}),
-						to: ERC20_ADDRESS,
-					},
+					params: [
+						{
+							deployedBytecode: ERC20_BYTECODE,
+							data: encodeFunctionData({
+								abi: ERC20_ABI,
+								functionName: 'transferFrom',
+								args: [caller, caller, 420n],
+							}),
+							to: ERC20_ADDRESS,
+						},
+					],
 				}),
 			).toEqual({
 				error: {
@@ -558,27 +557,26 @@ describe('requestProcedure', () => {
 		})
 
 		it('should handle the handler function unexpectedly throwing', async () => {
-			const stateManager = new NormalStateManager()
-			const evm = new EVM({ stateManager })
-			const vm = await TevmVm.create({ evm, stateManager })
-			vm.evm.runCall = async () => {
+			client.vm.evm.runCall = async () => {
 				throw new Error('unexpected error')
 			}
 			expect(
-				await scriptProcedure(vm)({
+				await scriptProcedure(client)({
 					jsonrpc: '2.0',
 					method: 'tevm_script',
 					id: 1,
-					params: {
-						createTransaction: true,
-						deployedBytecode: ERC20_BYTECODE,
-						data: encodeFunctionData({
-							abi: ERC20_ABI,
-							functionName: 'balanceOf',
-							args: [ERC20_ADDRESS],
-						}),
-						to: ERC20_ADDRESS,
-					},
+					params: [
+						{
+							createTransaction: true,
+							deployedBytecode: ERC20_BYTECODE,
+							data: encodeFunctionData({
+								abi: ERC20_ABI,
+								functionName: 'balanceOf',
+								args: [ERC20_ADDRESS],
+							}),
+							to: ERC20_ADDRESS,
+						},
+					],
 				}),
 			).toEqual({
 				error: {
@@ -599,12 +597,9 @@ describe('requestProcedure', () => {
 
 	describe('eth_blockNumber', async () => {
 		it('should work', async () => {
-			const stateManager = new NormalStateManager()
-			const evm = new EVM({ stateManager })
-			const vm = await TevmVm.create({ evm, stateManager })
 			// send value
 			expect(
-				await blockNumberProcedure(vm)({
+				await blockNumberProcedure(client)({
 					jsonrpc: '2.0',
 					method: 'eth_blockNumber',
 					id: 1,

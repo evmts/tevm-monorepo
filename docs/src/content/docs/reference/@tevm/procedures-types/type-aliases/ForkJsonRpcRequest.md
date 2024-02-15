@@ -5,7 +5,7 @@ prev: false
 title: "ForkJsonRpcRequest"
 ---
 
-> **ForkJsonRpcRequest**: [`JsonRpcRequest`](/reference/tevm/jsonrpc/type-aliases/jsonrpcrequest/)\<`"tevm_fork"`, [`SerializeToJson`](/reference/tevm/procedures-types/type-aliases/serializetojson/)\<[`ForkParams`](/reference/tevm/actions-types/type-aliases/forkparams/)\>\>
+> **ForkJsonRpcRequest**: [`JsonRpcRequest`](/reference/tevm/jsonrpc/type-aliases/jsonrpcrequest/)\<`"tevm_fork"`, [[`SerializeToJson`](/reference/tevm/procedures-types/type-aliases/serializetojson/)\<[`ForkParams`](/reference/tevm/actions-types/type-aliases/forkparams/)\>]\>
 
 This is an unimplemented experimental feature
 The JSON-RPC request for the `tevm_fork` method

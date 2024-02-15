@@ -16,7 +16,7 @@ JSON-RPC procedure for `anvil_reset`
 
 ## Source
 
-packages/procedures-types/dist/index.d.ts:687
+packages/procedures-types/dist/index.d.ts:728
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

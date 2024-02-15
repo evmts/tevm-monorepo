@@ -41,7 +41,7 @@ To use a json abi first pass it into `formatAbi` to turn it into human readable
 
 ```typescript
 import { type Script, createScript, formatAbi} from 'tevm/contract'
-import { formatAbi } from 'tevm/abi'
+import { formatAbi } from 'tevm/utils'
 
 const script = createScript({
  name: 'MyScript',

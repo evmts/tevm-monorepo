@@ -1,7 +1,7 @@
 import { zHex } from './zHex.js'
 
 /**
- * @param {import('viem').Hex} bytecode
+ * @param {import('@tevm/utils').Hex} bytecode
  * @returns {boolean}
  */
 const isValidEthereumBytecode = (bytecode) => {

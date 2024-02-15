@@ -20,7 +20,7 @@ Result of GetAccount Action
 
 ### address
 
-> **address**: [`Address`](Address.md)
+> **address**: [`Address`](../../actions-types/type-aliases/Address.md)
 
 Address of account
 
@@ -30,9 +30,15 @@ Address of account
 
 Balance to set account to
 
+### codeHash
+
+> **codeHash**?: [`Hex`](../../actions-types/type-aliases/Hex.md)
+
+Code hash to set account to
+
 ### deployedBytecode
 
-> **deployedBytecode**?: [`Hex`](Hex.md)
+> **deployedBytecode**?: [`Hex`](../../actions-types/type-aliases/Hex.md)
 
 Contract bytecode to set account to
 
@@ -42,6 +48,18 @@ Contract bytecode to set account to
 
 Description of the exception, if any occurred
 
+### isContract
+
+> **isContract**?: `boolean`
+
+True if account is a contract
+
+### isEmpty
+
+> **isEmpty**?: `boolean`
+
+True if account is empty
+
 ### nonce
 
 > **nonce**?: `bigint`
@@ -50,7 +68,7 @@ Nonce to set account to
 
 ### storageRoot
 
-> **storageRoot**?: [`Hex`](Hex.md)
+> **storageRoot**?: [`Hex`](../../actions-types/type-aliases/Hex.md)
 
 Storage root to set account to
 

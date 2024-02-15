@@ -1,8 +1,7 @@
 import type { EventActionCreator } from './event/EventActionCreator.js'
 import type { ReadActionCreator } from './read/ReadActionCreator.js'
 import type { WriteActionCreator } from './write/WriteActionCreator.js'
-import type { Address, ParseAbi } from 'abitype'
-import type { Hex } from 'viem'
+import type { Address, Hex, ParseAbi } from '@tevm/utils'
 
 /**
  * An action creator for `Tevm.script`, `Tevm.contract` and more

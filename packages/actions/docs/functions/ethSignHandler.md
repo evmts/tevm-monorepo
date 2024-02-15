@@ -6,11 +6,13 @@
 
 # Function: ethSignHandler()
 
-> **ethSignHandler**(`accounts`): `EthSignHandler`
+> **ethSignHandler**(`params`): `EthSignHandler`
 
 ## Parameters
 
-▪ **accounts**: readonly `HDAccount`[]
+▪ **params**: `object`
+
+▪ **params.accounts**: readonly `HDAccount`[]
 
 ## Returns
 

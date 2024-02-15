@@ -20,7 +20,7 @@
 
 ### returnValue
 
-> **`readonly`** **returnValue**: [`Hex`](../../index/type-aliases/Hex.md)
+> **`readonly`** **returnValue**: [`Hex`](Hex.md)
 
 ### structLogs
 

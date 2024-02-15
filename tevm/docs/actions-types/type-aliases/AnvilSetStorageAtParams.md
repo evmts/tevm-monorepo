@@ -14,19 +14,19 @@ Params for `anvil_setStorageAt` handler
 
 ### address
 
-> **address**: [`Address`](../../index/type-aliases/Address.md)
+> **address**: [`Address`](Address.md)
 
 The address to set the storage for
 
 ### position
 
-> **position**: [`Hex`](../../index/type-aliases/Hex.md) \| `BigInt`
+> **position**: [`Hex`](Hex.md) \| `BigInt`
 
 The position in storage to set
 
 ### value
 
-> **value**: [`Hex`](../../index/type-aliases/Hex.md) \| `BigInt`
+> **value**: [`Hex`](Hex.md) \| `BigInt`
 
 The value to set
 

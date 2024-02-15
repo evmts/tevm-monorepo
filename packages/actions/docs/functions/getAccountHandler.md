@@ -6,13 +6,13 @@
 
 # Function: getAccountHandler()
 
-> **getAccountHandler**(`vm`): `GetAccountHandler`
+> **getAccountHandler**(`client`): `GetAccountHandler`
 
 Creates an GetAccountHandler for handling account params with Ethereumjs VM
 
 ## Parameters
 
-▪ **vm**: `TevmVm`
+▪ **client**: `Pick`\<`object`, `"vm"`\>
 
 ## Returns
 

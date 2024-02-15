@@ -18,7 +18,7 @@ Based on the JSON-RPC request for `eth_getTransactionByBlockNumberAndIndex` proc
 
 ### index
 
-> **index**: [`Hex`](../../index/type-aliases/Hex.md)
+> **index**: [`Hex`](Hex.md)
 
 ## Source
 

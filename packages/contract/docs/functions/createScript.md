@@ -41,7 +41,7 @@ To use a json abi first pass it into `formatAbi` to turn it into human readable
 
 ```typescript
 import { type Script, createScript, formatAbi} from 'tevm/contract'
-import { formatAbi } from 'tevm/abi'
+import { formatAbi } from 'tevm/utils'
 
 const script = createScript({
  name: 'MyScript',
@@ -68,7 +68,7 @@ const script = createScript({
 
 ## Source
 
-[packages/contract/src/createScript.js:51](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/createScript.js#L51)
+[createScript.js:50](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/createScript.js#L50)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

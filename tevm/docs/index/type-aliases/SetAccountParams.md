@@ -27,7 +27,7 @@ const accountParams: import('tevm/api').SetAccountParams = {
 
 ### address
 
-> **address**: `Address`
+> **address**: [`Address`](Address.md)
 
 Address of account
 
@@ -39,7 +39,7 @@ Balance to set account to
 
 ### deployedBytecode
 
-> **deployedBytecode**?: `Hex`
+> **deployedBytecode**?: [`Hex`](Hex.md)
 
 Contract bytecode to set account to
 
@@ -51,7 +51,7 @@ Nonce to set account to
 
 ### storageRoot
 
-> **storageRoot**?: `Hex`
+> **storageRoot**?: [`Hex`](Hex.md)
 
 Storage root to set account to
 

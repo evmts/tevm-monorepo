@@ -1,8 +1,8 @@
-import { bytesToHex, getAddress, isBytes, toHex } from 'viem'
+import { bytesToHex, getAddress, isBytes, toHex } from '@tevm/utils'
 
 /**
  * Creates an CallHandler for handling call params with Ethereumjs EVM
- * @param {import('@ethereumjs/evm').EVMResult} evmResult
+ * @param {import('@tevm/evm').EvmResult} evmResult
  * @returns {import('@tevm/actions-types').CallResult}
  */
 export const callHandlerResult = (evmResult) => {

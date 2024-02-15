@@ -1,8 +1,8 @@
 /**
  * Handler for the `eth_chainId` RPC call.
- * @param {bigint} chainId
+ * @param {Pick<import('@tevm/base-client').BaseClient,'chainId'>} client
  * @returns {import('@tevm/actions-types').EthChainIdHandler}
  */
-export const chainIdHandler = (chainId) => async () => {
-	return chainId
+export const chainIdHandler = (client) => async () => {
+	return BigInt(client.chainId)
 }

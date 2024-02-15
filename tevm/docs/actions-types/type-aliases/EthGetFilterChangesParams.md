@@ -14,7 +14,7 @@ Based on the JSON-RPC request for `eth_getFilterChanges` procedure
 
 ### filterId
 
-> **filterId**: [`Hex`](../../index/type-aliases/Hex.md)
+> **filterId**: [`Hex`](Hex.md)
 
 ## Source
 

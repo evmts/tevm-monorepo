@@ -5,11 +5,11 @@ prev: false
 title: "loadStateHandler"
 ---
 
-> **loadStateHandler**(`vm`): [`LoadStateHandler`](/reference/tevm/actions-types/type-aliases/loadstatehandler/)
+> **loadStateHandler**(`client`): [`LoadStateHandler`](/reference/tevm/actions-types/type-aliases/loadstatehandler/)
 
 ## Parameters
 
-▪ **vm**: `TevmVm`
+▪ **client**: `Pick`\<`object`, `"vm"`\>
 
 ## Returns
 

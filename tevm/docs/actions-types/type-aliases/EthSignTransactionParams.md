@@ -14,14 +14,14 @@ Based on the JSON-RPC request for `eth_signTransaction` procedure
 
 ### data
 
-> **data**?: [`Hex`](../../index/type-aliases/Hex.md)
+> **data**?: [`Hex`](Hex.md)
 
 The compiled code of a contract OR the hash of the invoked method signature and encoded parameters.
 Optional if creating a contract.
 
 ### from
 
-> **from**: [`Address`](../../index/type-aliases/Address.md)
+> **from**: [`Address`](Address.md)
 
 The address from which the transaction is sent from
 
@@ -47,7 +47,7 @@ Integer of a nonce. This allows to overwrite your own pending transactions that 
 
 ### to
 
-> **to**?: [`Address`](../../index/type-aliases/Address.md)
+> **to**?: [`Address`](Address.md)
 
 The address the transaction is directed to. Optional if
 creating a contract

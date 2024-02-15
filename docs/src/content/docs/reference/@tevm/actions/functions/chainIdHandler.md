@@ -5,13 +5,13 @@ prev: false
 title: "chainIdHandler"
 ---
 
-> **chainIdHandler**(`chainId`): [`EthChainIdHandler`](/reference/tevm/actions-types/type-aliases/ethchainidhandler/)
+> **chainIdHandler**(`client`): [`EthChainIdHandler`](/reference/tevm/actions-types/type-aliases/ethchainidhandler/)
 
 Handler for the `eth_chainId` RPC call.
 
 ## Parameters
 
-▪ **chainId**: `bigint`
+▪ **client**: `Pick`\<`object`, `"chainId"`\>
 
 ## Returns
 

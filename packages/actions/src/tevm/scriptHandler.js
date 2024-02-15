@@ -1,23 +1,25 @@
 import { callHandler } from './callHandler.js'
 import { setAccountHandler } from './setAccountHandler.js'
-import { Address } from '@ethereumjs/util'
-import { validateScriptParams } from '@tevm/zod'
+import { EthjsAddress } from '@tevm/utils'
 import {
 	decodeErrorResult,
 	decodeFunctionResult,
 	encodeFunctionData,
 	isHex,
-} from 'viem'
+} from '@tevm/utils'
+import { validateScriptParams } from '@tevm/zod'
 
 /**
  * Creates an ScriptHandler for handling script params with Ethereumjs EVM
- * @param {import('@tevm/vm').TevmVm} vm
+ * @param {Pick<import('@tevm/base-client').BaseClient, 'vm'>} client
  * @returns {import("@tevm/actions-types").ScriptHandler}
  */
-export const scriptHandler = (vm) => async (params) => {
-	const clonedVm = params.createTransaction ? vm : await vm.deepCopy()
+export const scriptHandler = (client) => async (params) => {
+	const clonedVm = params.createTransaction
+		? client.vm
+		: await client.vm.deepCopy()
 	/**
-	 * @type {import('viem').Hex}
+	 * @type {import('@tevm/utils').Hex}
 	 */
 	let functionData = '0x'
 	// Internally we overload this function to take raw data too for the jsonrpc handler
@@ -59,16 +61,16 @@ export const scriptHandler = (vm) => async (params) => {
 	}
 
 	const randomBigInt = BigInt(Math.floor(Math.random() * 1_000_000_000_000_000))
-	const scriptAddress = /** @type {import('viem').Address}*/ (
-		Address.generate(
-			Address.fromString(`0x${'6969'.repeat(10)}`),
+	const scriptAddress = /** @type {import('@tevm/utils').Address}*/ (
+		EthjsAddress.generate(
+			EthjsAddress.fromString(`0x${'6969'.repeat(10)}`),
 			randomBigInt,
 		).toString()
 	)
 
-	const accountRes = await setAccountHandler(
-		/** @type {import('@tevm/vm').TevmVm}*/ (clonedVm),
-	)({
+	const accountRes = await setAccountHandler({
+		vm: clonedVm,
+	})({
 		deployedBytecode: params.deployedBytecode,
 		address: scriptAddress,
 	})
@@ -89,7 +91,7 @@ export const scriptHandler = (vm) => async (params) => {
 		return accountRes
 	}
 
-	const result = await callHandler(clonedVm)({
+	const result = await callHandler({ vm: clonedVm })({
 		...callParams,
 		skipBalance: callParams.skipBalance ?? true,
 	})

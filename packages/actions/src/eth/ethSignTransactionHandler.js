@@ -2,7 +2,7 @@ import { MissingAccountError } from './ethSignHandler.js'
 
 /**
  * @param {object} options
- * @param {ReadonlyArray<import('viem').HDAccount>} options.accounts
+ * @param {ReadonlyArray<import('@tevm/utils').HDAccount>} options.accounts
  * @param {bigint} options.chainId
  * @returns {import('@tevm/actions-types').EthSignTransactionHandler}
  */

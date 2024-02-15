@@ -18,7 +18,7 @@ Based on the JSON-RPC request for `eth_getUncleByBlockNumberAndIndex` procedure
 
 ### uncleIndex
 
-> **uncleIndex**: [`Hex`](../../index/type-aliases/Hex.md)
+> **uncleIndex**: [`Hex`](Hex.md)
 
 ## Source
 

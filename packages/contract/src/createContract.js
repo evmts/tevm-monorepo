@@ -1,8 +1,7 @@
 import { eventsFactory } from './event/eventFactory.js'
 import { readFactory } from './read/readFactory.js'
 import { writeFactory } from './write/writeFactory.js'
-import { parseAbi } from 'abitype'
-import { getAddress } from 'viem'
+import { getAddress, parseAbi } from '@tevm/utils'
 
 /**
  * Creates a tevm Contract instance from human readable abi
@@ -51,7 +50,7 @@ export const createContract = ({ name, humanReadableAbi }) => {
 	return /**@type any*/ ({
 		...baseContract,
 		/**
-		 * @param {import('abitype').Address} address
+		 * @param {import('@tevm/utils').Address} address
 		 */
 		withAddress: (address) => {
 			const formattedAddress = getAddress(address)

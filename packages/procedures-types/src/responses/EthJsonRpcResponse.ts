@@ -5,8 +5,7 @@ import type { TransactionReceiptResult } from '@tevm/actions-types'
 import type { TransactionResult } from '@tevm/actions-types'
 import type { EthBlockNumberResult } from '@tevm/actions-types'
 import type { JsonRpcResponse } from '@tevm/jsonrpc'
-import type { Address } from 'abitype'
-import type { Hex } from 'viem'
+import type { Address, Hex } from '@tevm/utils'
 
 // eth_accounts
 /**

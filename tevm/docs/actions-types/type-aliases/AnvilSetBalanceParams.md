@@ -14,13 +14,13 @@ Params for `anvil_setBalance` handler
 
 ### address
 
-> **address**: [`Address`](../../index/type-aliases/Address.md)
+> **address**: [`Address`](Address.md)
 
 The address to set the balance for
 
 ### balance
 
-> **balance**: [`Hex`](../../index/type-aliases/Hex.md) \| `BigInt`
+> **balance**: [`Hex`](Hex.md) \| `BigInt`
 
 The balance to set
 

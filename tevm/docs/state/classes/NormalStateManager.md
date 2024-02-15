@@ -368,9 +368,9 @@ cache or does a lookup.
 
 #### Parameters
 
-▪ **addressOrHash**: `Address` \| `Uint8Array`
+▪ **addressOrHash**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md) \| `Uint8Array`
 
-▪ **account?**: `Account`
+▪ **account?**: [`EthjsAccount`](../../utils/classes/EthjsAccount.md)
 
 #### Inherited from
 
@@ -390,11 +390,11 @@ Modifies the storage trie of an account.
 
 #### Parameters
 
-▪ **address**: `Address`
+▪ **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 
 Address of the account whose storage is to be modified
 
-▪ **account**: `Account`
+▪ **account**: [`EthjsAccount`](../../utils/classes/EthjsAccount.md)
 
 ▪ **modifyTrie**: (`storageTrie`, `done`) => `void`
 
@@ -416,9 +416,9 @@ node\_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node\_modules/@ethereumjs/sta
 
 #### Parameters
 
-▪ **address**: `Address`
+▪ **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 
-▪ **account**: `Account`
+▪ **account**: [`EthjsAccount`](../../utils/classes/EthjsAccount.md)
 
 ▪ **key**: `Uint8Array`
 
@@ -480,7 +480,7 @@ Clears all storage entries for the account corresponding to `address`.
 
 #### Parameters
 
-▪ **address**: `Address`
+▪ **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 
 Address to clear the storage of
 
@@ -539,7 +539,7 @@ Deletes an account from state under the provided `address`.
 
 #### Parameters
 
-▪ **address**: `Address`
+▪ **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 
 Address of the account which should be deleted
 
@@ -565,7 +565,7 @@ Dumps the RLP-encoded storage values for an `account` specified by `address`.
 
 #### Parameters
 
-▪ **address**: `Address`
+▪ **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 
 The address of the `account` to return storage for
 
@@ -598,7 +598,7 @@ starting from `startKey` or greater.
 
 #### Parameters
 
-▪ **address**: `Address`
+▪ **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 
 The address of the `account` to return storage for.
 
@@ -647,13 +647,13 @@ node\_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node\_modules/@ethereumjs/sta
 
 ### getAccount()
 
-> **getAccount**(`address`): `Promise`\<`undefined` \| `Account`\>
+> **getAccount**(`address`): `Promise`\<`undefined` \| [`EthjsAccount`](../../utils/classes/EthjsAccount.md)\>
 
 Gets the account associated with `address` or `undefined` if account does not exist
 
 #### Parameters
 
-▪ **address**: `Address`
+▪ **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 
 Address of the `account` to get
 
@@ -679,7 +679,7 @@ Gets the code corresponding to the provided `address`.
 
 #### Parameters
 
-▪ **address**: `Address`
+▪ **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 
 Address to get the `code` for
 
@@ -711,7 +711,7 @@ the shortest representation of the stored value.
 
 #### Parameters
 
-▪ **address**: `Address`
+▪ **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 
 Address of the account to get the storage for
 
@@ -747,7 +747,7 @@ Get an EIP-1186 proof
 
 #### Parameters
 
-▪ **address**: `Address`
+▪ **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 
 address to get proof of
 
@@ -829,11 +829,11 @@ fields, then saves the account into state. Account fields can include
 
 #### Parameters
 
-▪ **address**: `Address`
+▪ **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 
 Address of the account to modify
 
-▪ **accountFields**: `Partial`\<`Pick`\<`Account`, `"nonce"` \| `"balance"` \| `"storageRoot"` \| `"codeHash"`\>\>
+▪ **accountFields**: `Partial`\<`Pick`\<[`EthjsAccount`](../../utils/classes/EthjsAccount.md), `"nonce"` \| `"balance"` \| `"storageRoot"` \| `"codeHash"`\>\>
 
 Object containing account fields and values to modify
 
@@ -859,11 +859,11 @@ Saves an account into state under the provided `address`.
 
 #### Parameters
 
-▪ **address**: `Address`
+▪ **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 
 Address under which to store `account`
 
-▪ **account**: `undefined` \| `Account`
+▪ **account**: `undefined` \| [`EthjsAccount`](../../utils/classes/EthjsAccount.md)
 
 The account to store or undefined if to be deleted
 
@@ -890,7 +890,7 @@ corresponding to `address` to reference this.
 
 #### Parameters
 
-▪ **address**: `Address`
+▪ **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 
 Address of the `account` to add the `code` for
 
@@ -921,7 +921,7 @@ corresponding to `address` at the provided `key`.
 
 #### Parameters
 
-▪ **address**: `Address`
+▪ **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 
 Address to set a storage value for
 

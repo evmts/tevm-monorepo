@@ -5,7 +5,7 @@ prev: false
 title: "AnvilSetBalanceJsonRpcRequest"
 ---
 
-> **AnvilSetBalanceJsonRpcRequest**: [`JsonRpcRequest`](/reference/tevm/jsonrpc/type-aliases/jsonrpcrequest/)\<`"anvil_setBalance"`, [`SerializeToJson`](/reference/tevm/procedures-types/type-aliases/serializetojson/)\<[`AnvilSetBalanceParams`](/reference/tevm/actions-types/type-aliases/anvilsetbalanceparams/)\>\>
+> **AnvilSetBalanceJsonRpcRequest**: [`JsonRpcRequest`](/reference/tevm/jsonrpc/type-aliases/jsonrpcrequest/)\<`"anvil_setBalance"`, [[`SerializeToJson`](/reference/tevm/procedures-types/type-aliases/serializetojson/)\<[`AnvilSetBalanceParams`](/reference/tevm/actions-types/type-aliases/anvilsetbalanceparams/)\>]\>
 
 JSON-RPC request for `anvil_setBalance` method
 

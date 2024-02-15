@@ -14,7 +14,7 @@
 
 ## Source
 
-packages/procedures-types/dist/index.d.ts:791
+packages/procedures-types/dist/index.d.ts:832
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

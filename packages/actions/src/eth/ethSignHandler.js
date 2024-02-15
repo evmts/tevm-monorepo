@@ -12,10 +12,10 @@ export class MissingAccountError extends Error {
 }
 
 /**
- * @param {ReadonlyArray<import('viem').HDAccount>} accounts
+ * @param {{accounts: ReadonlyArray<import('@tevm/utils').HDAccount>}} params
  * @returns {import('@tevm/actions-types').EthSignHandler}
  */
-export const ethSignHandler = (accounts) => {
+export const ethSignHandler = ({ accounts }) => {
 	const accountsByAddress = Object.fromEntries(
 		accounts.map((account) => [account.address, account]),
 	)

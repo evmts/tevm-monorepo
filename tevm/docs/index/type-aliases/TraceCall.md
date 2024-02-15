@@ -16,7 +16,7 @@
 
 ### from
 
-> **from**: [`Address`](Address.md)
+> **from**: [`Address`](../../actions-types/type-aliases/Address.md)
 
 ### gas
 
@@ -28,15 +28,15 @@
 
 ### input
 
-> **input**: [`Hex`](Hex.md)
+> **input**: [`Hex`](../../actions-types/type-aliases/Hex.md)
 
 ### output
 
-> **output**: [`Hex`](Hex.md)
+> **output**: [`Hex`](../../actions-types/type-aliases/Hex.md)
 
 ### to
 
-> **to**: [`Address`](Address.md)
+> **to**: [`Address`](../../actions-types/type-aliases/Address.md)
 
 ### type
 

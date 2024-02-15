@@ -36,9 +36,9 @@ const res = tevm.script(
 
 ## Type parameters
 
-▪ **TAbi** extends `Abi` \| readonly `unknown`[] = `Abi`
+▪ **TAbi** extends [`Abi`](../../index/type-aliases/Abi.md) \| readonly `unknown`[] = [`Abi`](../../index/type-aliases/Abi.md)
 
-▪ **TFunctionName** extends `ContractFunctionName`\<`TAbi`\> = `ContractFunctionName`\<`TAbi`\>
+▪ **TFunctionName** extends [`ContractFunctionName`](../../index/type-aliases/ContractFunctionName.md)\<`TAbi`\> = [`ContractFunctionName`](../../index/type-aliases/ContractFunctionName.md)\<`TAbi`\>
 
 ## Parameters
 

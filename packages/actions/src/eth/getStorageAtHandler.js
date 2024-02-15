@@ -1,7 +1,7 @@
 import { NoForkUrlSetError } from './getBalanceHandler.js'
-import { Address as EthjsAddress } from '@ethereumjs/util'
 import { createJsonRpcFetcher } from '@tevm/jsonrpc'
-import { bytesToHex, hexToBytes } from 'viem'
+import { EthjsAddress } from '@tevm/utils'
+import { bytesToHex, hexToBytes } from '@tevm/utils'
 
 /**
  * @param {object} options
@@ -42,6 +42,6 @@ export const getStorageAtHandler =
 					err['_tag'] = res.error.code
 					throw err
 				}
-				return /**@type {import('viem').Address}*/ (res.result)
+				return /**@type {import('@tevm/utils').Address}*/ (res.result)
 			})
 	}

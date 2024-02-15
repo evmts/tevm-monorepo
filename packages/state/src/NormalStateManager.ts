@@ -2,7 +2,7 @@
 import type { SerializableTevmState } from './SerializableTevmState.js'
 import type { TevmStateManagerInterface } from './TevmStateManagerInterface.js'
 import { CacheType, DefaultStateManager } from '@ethereumjs/statemanager'
-import { Account, Address as EthjsAddress } from '@ethereumjs/util'
+import { EthjsAccount, EthjsAddress } from '@tevm/utils'
 import {
 	type Address,
 	type Hex,
@@ -135,7 +135,7 @@ export class NormalStateManager
 	): Promise<void> => {
 		for (const [k, v] of Object.entries(state)) {
 			const { nonce, balance, storageRoot, codeHash, storage } = v
-			const account = new Account(
+			const account = new EthjsAccount(
 				// replace with just the var
 				nonce,
 				balance,

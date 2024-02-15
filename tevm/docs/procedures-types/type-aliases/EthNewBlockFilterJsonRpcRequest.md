@@ -12,7 +12,7 @@ JSON-RPC request for `eth_newBlockFilter` procedure
 
 ## Source
 
-packages/procedures-types/dist/index.d.ts:305
+packages/procedures-types/dist/index.d.ts:336
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

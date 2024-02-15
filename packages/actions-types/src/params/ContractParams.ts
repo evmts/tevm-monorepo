@@ -3,7 +3,7 @@ import type { BaseCallParams } from './BaseCallParams.js'
 import {
 	type ContractFunctionName,
 	type EncodeFunctionDataParameters,
-} from 'viem'
+} from '@tevm/utils'
 
 /**
  * Tevm params to execute a call on a contract

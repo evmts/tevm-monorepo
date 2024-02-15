@@ -6,7 +6,7 @@
 
 # Type alias: AnvilDumpStateResult
 
-> **AnvilDumpStateResult**: [`Hex`](../../index/type-aliases/Hex.md)
+> **AnvilDumpStateResult**: [`Hex`](Hex.md)
 
 ## Source
 

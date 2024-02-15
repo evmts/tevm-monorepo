@@ -7,5 +7,5 @@ import type { JsonRpcRequest } from '@tevm/jsonrpc'
  */
 export type SetAccountJsonRpcRequest = JsonRpcRequest<
 	'tevm_setAccount',
-	SerializeToJson<SetAccountParams>
+	[SerializeToJson<SetAccountParams>]
 >

@@ -14,7 +14,7 @@ export const zHex = z
 				message: 'value must be a hex string',
 			})
 		}
-		return /** @type {import('viem').Hex}*/ (value)
+		return /** @type {import('@tevm/utils').Hex}*/ (value)
 	})
 	.describe('A hex string')
 
@@ -33,5 +33,5 @@ export const zStrictHex = z.string().transform((value, ctx) => {
 			message: 'value must be a hex string',
 		})
 	}
-	return /** @type {import('viem').Hex}*/ (value)
+	return /** @type {import('@tevm/utils').Hex}*/ (value)
 })

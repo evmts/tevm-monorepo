@@ -14,7 +14,7 @@ Params for `anvil_dropTransaction` handler
 
 ### transactionHash
 
-> **transactionHash**: [`Hex`](../../index/type-aliases/Hex.md)
+> **transactionHash**: [`Hex`](Hex.md)
 
 The transaction hash
 

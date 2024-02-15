@@ -7,21 +7,21 @@ import {
 import { validateLoadStateParams } from '@tevm/zod'
 
 /**
- * @param {import("@tevm/vm").TevmVm} vm
+ * @param {Pick<import("@tevm/base-client").BaseClient, 'vm'>} client
  * @returns {import('@tevm/actions-types').LoadStateHandler}
  */
-export const loadStateHandler = (vm) => async (params) => {
+export const loadStateHandler = (client) => async (params) => {
 	const errors = validateLoadStateParams(params)
 	if (errors.length > 0) {
 		return { errors }
 	}
 	try {
 		if (
-			vm.stateManager instanceof NormalStateManager ||
-			vm.stateManager instanceof ProxyStateManager ||
-			vm.stateManager instanceof ForkStateManager
+			client.vm.stateManager instanceof NormalStateManager ||
+			client.vm.stateManager instanceof ProxyStateManager ||
+			client.vm.stateManager instanceof ForkStateManager
 		) {
-			await vm.stateManager.generateCanonicalGenesis(params.state)
+			await client.vm.stateManager.generateCanonicalGenesis(params.state)
 		} else {
 			throw new Error(
 				'Unsupported state manager. Must use a NormalStateManager, ProxyStateManager, or ForkStateManager. This indicates a bug in tevm internal code.',

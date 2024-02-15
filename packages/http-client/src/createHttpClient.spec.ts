@@ -66,7 +66,7 @@ describe(createHttpClient.name, () => {
 
 			expect(errors).toBeUndefined()
 
-			const resultAccount = await tevm._vm.stateManager.getAccount(
+			const resultAccount = await tevm.vm.stateManager.getAccount(
 				Address.fromString(account.address),
 			)
 			if (!resultAccount) throw new Error('Account not found')
@@ -81,7 +81,7 @@ describe(createHttpClient.name, () => {
 		})
 
 		it('can use tevm.eth.chainId', async () => {
-			expect(await client.eth.chainId()).toEqual(10n)
+			expect(await client.eth.chainId()).toEqual(900n)
 		})
 
 		it('can use tevm.eth.getCode', async () => {

@@ -44,7 +44,7 @@ packages/predeploys/types/Predeploy.d.ts:8
 
 ### ethjsAddress
 
-> **`protected`** **`readonly`** **ethjsAddress**: () => `Address`
+> **`protected`** **`readonly`** **ethjsAddress**: () => [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 
 #### Source
 
@@ -60,7 +60,7 @@ packages/predeploys/types/Predeploy.d.ts:10
 
 > ##### address
 >
-> > **address**: `Address`
+> > **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 >
 
 #### Source

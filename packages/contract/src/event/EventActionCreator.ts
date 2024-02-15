@@ -1,18 +1,16 @@
 import type {
 	Abi,
 	Address,
-	ExtractAbiEvent,
-	ExtractAbiEventNames,
-	FormatAbi,
-	ParseAbi,
-} from 'abitype'
-import type {
 	BlockNumber,
 	BlockTag,
 	CreateEventFilterParameters,
+	ExtractAbiEvent,
+	ExtractAbiEventNames,
+	FormatAbi,
 	GetEventArgs,
 	Hex,
-} from 'viem'
+	ParseAbi,
+} from '@tevm/utils'
 
 /**
  * Adapted from viem. This is a helper type to extract the event args from an abi

@@ -6,7 +6,7 @@
 
 # Type alias: AnvilSetCodeJsonRpcRequest
 
-> **AnvilSetCodeJsonRpcRequest**: `JsonRpcRequest`\<`"anvil_setCode"`, [`SerializeToJson`](SerializeToJson.md)\<`AnvilSetCodeParams`\>\>
+> **AnvilSetCodeJsonRpcRequest**: `JsonRpcRequest`\<`"anvil_setCode"`, [[`SerializeToJson`](SerializeToJson.md)\<`AnvilSetCodeParams`\>]\>
 
 JSON-RPC request for `anvil_setCode` method
 

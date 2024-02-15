@@ -1,8 +1,7 @@
 import { eventsFactory } from './event/eventFactory.js'
 import { readFactory } from './read/readFactory.js'
 import { writeFactory } from './write/writeFactory.js'
-import { parseAbi } from 'abitype'
-import { getAddress } from 'viem'
+import { getAddress, parseAbi } from '@tevm/utils'
 
 /**
  * Creates a Tevm `Script` instance from humanReadableAbi and bytecode
@@ -23,7 +22,7 @@ import { getAddress } from 'viem'
  * @example
  * ```typescript
  * import { type Script, createScript, formatAbi} from 'tevm/contract'
- * import { formatAbi } from 'tevm/abi'
+ * import { formatAbi } from 'tevm/utils'
  *
  * const script = createScript({
  *  name: 'MyScript',
@@ -74,7 +73,7 @@ export const createScript = ({
 	return /**@type any*/ ({
 		...baseScript,
 		/**
-		 * @param {import('abitype').Address} address
+		 * @param {import('@tevm/utils').Address} address
 		 */
 		withAddress: (address) => {
 			const formattedAddress = getAddress(address)
