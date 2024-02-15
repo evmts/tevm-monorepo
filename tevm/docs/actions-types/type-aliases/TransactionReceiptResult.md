@@ -14,27 +14,27 @@ Transaction receipt result type for eth JSON-RPC procedures
 
 ### blockHash
 
-> **`readonly`** **blockHash**: [`Hex`](../../index/type-aliases/Hex.md)
+> **`readonly`** **blockHash**: [`Hex`](Hex.md)
 
 ### blockNumber
 
-> **`readonly`** **blockNumber**: [`Hex`](../../index/type-aliases/Hex.md)
+> **`readonly`** **blockNumber**: [`Hex`](Hex.md)
 
 ### contractAddress
 
-> **`readonly`** **contractAddress**: [`Hex`](../../index/type-aliases/Hex.md)
+> **`readonly`** **contractAddress**: [`Hex`](Hex.md)
 
 ### cumulativeGasUsed
 
-> **`readonly`** **cumulativeGasUsed**: [`Hex`](../../index/type-aliases/Hex.md)
+> **`readonly`** **cumulativeGasUsed**: [`Hex`](Hex.md)
 
 ### from
 
-> **`readonly`** **from**: [`Hex`](../../index/type-aliases/Hex.md)
+> **`readonly`** **from**: [`Hex`](Hex.md)
 
 ### gasUsed
 
-> **`readonly`** **gasUsed**: [`Hex`](../../index/type-aliases/Hex.md)
+> **`readonly`** **gasUsed**: [`Hex`](Hex.md)
 
 ### logs
 
@@ -42,23 +42,23 @@ Transaction receipt result type for eth JSON-RPC procedures
 
 ### logsBloom
 
-> **`readonly`** **logsBloom**: [`Hex`](../../index/type-aliases/Hex.md)
+> **`readonly`** **logsBloom**: [`Hex`](Hex.md)
 
 ### status
 
-> **`readonly`** **status**: [`Hex`](../../index/type-aliases/Hex.md)
+> **`readonly`** **status**: [`Hex`](Hex.md)
 
 ### to
 
-> **`readonly`** **to**: [`Hex`](../../index/type-aliases/Hex.md)
+> **`readonly`** **to**: [`Hex`](Hex.md)
 
 ### transactionHash
 
-> **`readonly`** **transactionHash**: [`Hex`](../../index/type-aliases/Hex.md)
+> **`readonly`** **transactionHash**: [`Hex`](Hex.md)
 
 ### transactionIndex
 
-> **`readonly`** **transactionIndex**: [`Hex`](../../index/type-aliases/Hex.md)
+> **`readonly`** **transactionIndex**: [`Hex`](Hex.md)
 
 ## Source
 

@@ -4,9 +4,9 @@ import type {
 	ExtractAbiFunction,
 	ExtractAbiFunctionNames,
 	FormatAbi,
+	Hex,
 	ParseAbi,
-} from 'abitype'
-import type { Hex } from 'viem'
+} from '@tevm/utils'
 export type ValueOf<T> = T[keyof T]
 
 // Adapted from viem

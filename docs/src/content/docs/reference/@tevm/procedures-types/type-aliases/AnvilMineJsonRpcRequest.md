@@ -5,7 +5,7 @@ prev: false
 title: "AnvilMineJsonRpcRequest"
 ---
 
-> **AnvilMineJsonRpcRequest**: [`JsonRpcRequest`](/reference/tevm/jsonrpc/type-aliases/jsonrpcrequest/)\<`"anvil_mine"`, [`SerializeToJson`](/reference/tevm/procedures-types/type-aliases/serializetojson/)\<[`AnvilMineParams`](/reference/tevm/actions-types/type-aliases/anvilmineparams/)\>\>
+> **AnvilMineJsonRpcRequest**: [`JsonRpcRequest`](/reference/tevm/jsonrpc/type-aliases/jsonrpcrequest/)\<`"anvil_mine"`, [[`SerializeToJson`](/reference/tevm/procedures-types/type-aliases/serializetojson/)\<[`AnvilMineParams`](/reference/tevm/actions-types/type-aliases/anvilmineparams/)\>]\>
 
 JSON-RPC request for `anvil_mine` method
 

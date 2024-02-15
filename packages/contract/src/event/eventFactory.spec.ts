@@ -1,7 +1,7 @@
 import { createContract } from '../createContract.js'
 import { dummyAbi } from '../test/fixtures.js'
 import { eventsFactory } from './eventFactory.js'
-import { formatAbi } from 'abitype'
+import { formatAbi } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 
 const contract = createContract({

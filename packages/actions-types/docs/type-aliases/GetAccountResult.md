@@ -30,6 +30,12 @@ Address of account
 
 Balance to set account to
 
+### codeHash
+
+> **codeHash**?: [`Hex`](Hex.md)
+
+Code hash to set account to
+
 ### deployedBytecode
 
 > **deployedBytecode**?: [`Hex`](Hex.md)
@@ -41,6 +47,18 @@ Contract bytecode to set account to
 > **errors**?: `ErrorType`[]
 
 Description of the exception, if any occurred
+
+### isContract
+
+> **isContract**?: `boolean`
+
+True if account is a contract
+
+### isEmpty
+
+> **isEmpty**?: `boolean`
+
+True if account is empty
 
 ### nonce
 

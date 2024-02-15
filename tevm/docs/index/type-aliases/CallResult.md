@@ -26,13 +26,13 @@ Amount of blob gas consumed by the transaction
 
 ### createdAddress
 
-> **createdAddress**?: [`Address`](Address.md)
+> **createdAddress**?: [`Address`](../../actions-types/type-aliases/Address.md)
 
 Address of created account during transaction, if any
 
 ### createdAddresses
 
-> **createdAddresses**?: `Set`\<[`Address`](Address.md)\>
+> **createdAddresses**?: `Set`\<[`Address`](../../actions-types/type-aliases/Address.md)\>
 
 Map of addresses which were created (used in EIP 6780)
 
@@ -68,13 +68,13 @@ Array of logs that the contract emitted
 
 ### rawData
 
-> **rawData**: [`Hex`](Hex.md)
+> **rawData**: [`Hex`](../../actions-types/type-aliases/Hex.md)
 
 Encoded return value from the contract as hex string
 
 ### selfdestruct
 
-> **selfdestruct**?: `Set`\<[`Address`](Address.md)\>
+> **selfdestruct**?: `Set`\<[`Address`](../../actions-types/type-aliases/Address.md)\>
 
 A set of accounts to selfdestruct
 

@@ -5,7 +5,7 @@ prev: false
 title: "AnvilResetJsonRpcRequest"
 ---
 
-> **AnvilResetJsonRpcRequest**: [`JsonRpcRequest`](/reference/tevm/jsonrpc/type-aliases/jsonrpcrequest/)\<`"anvil_reset"`, [`SerializeToJson`](/reference/tevm/procedures-types/type-aliases/serializetojson/)\<[`AnvilResetParams`](/reference/tevm/actions-types/type-aliases/anvilresetparams/)\>\>
+> **AnvilResetJsonRpcRequest**: [`JsonRpcRequest`](/reference/tevm/jsonrpc/type-aliases/jsonrpcrequest/)\<`"anvil_reset"`, [[`SerializeToJson`](/reference/tevm/procedures-types/type-aliases/serializetojson/)\<[`AnvilResetParams`](/reference/tevm/actions-types/type-aliases/anvilresetparams/)\>]\>
 
 JSON-RPC request for `anvil_reset` method
 

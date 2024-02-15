@@ -14,7 +14,7 @@ Params for `anvil_loadState` handler
 
 ### state
 
-> **state**: `Record`\<[`Hex`](../../index/type-aliases/Hex.md), [`Hex`](../../index/type-aliases/Hex.md)\>
+> **state**: `Record`\<[`Hex`](Hex.md), [`Hex`](Hex.md)\>
 
 The state to load
 

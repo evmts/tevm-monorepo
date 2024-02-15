@@ -6,7 +6,7 @@
 
 # Type alias: ScriptJsonRpcRequest
 
-> **ScriptJsonRpcRequest**: `JsonRpcRequest`\<`"tevm_script"`, [`SerializeToJson`](SerializeToJson.md)\<`BaseCallParams`\> & `object`\>
+> **ScriptJsonRpcRequest**: `JsonRpcRequest`\<`"tevm_script"`, [[`SerializeToJson`](SerializeToJson.md)\<`BaseCallParams`\> & `object`]\>
 
 The JSON-RPC request for the `tevm_script` method
 

@@ -1,14 +1,14 @@
-import { Address as EthjsAddress } from '@ethereumjs/util'
-import { hexToBytes } from 'viem'
+import { EthjsAddress } from '@tevm/utils'
+import { hexToBytes } from '@tevm/utils'
 
 /**
  * Parses user provided params into ethereumjs options to pass into the EVM
  * @param {import('@tevm/actions-types').CallParams} params
- * @returns {Parameters<import('@ethereumjs/evm').EVM['runCall']>[0]}
+ * @returns {Parameters<import('@tevm/evm').Evm['runCall']>[0]}
  */
 export const callHandlerOpts = (params) => {
 	/**
-	 * @type {Parameters<import('@ethereumjs/evm').EVM['runCall']>[0]}
+	 * @type {Parameters<import('@tevm/evm').Evm['runCall']>[0]}
 	 */
 	const opts = {}
 

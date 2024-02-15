@@ -6,16 +6,8 @@
 
 ## Exports
 
-### Classes
-
-- [WrappedEvm](classes/WrappedEvm.md)
-
 ### Type Aliases
 
-- [ConstructorArgument](type-aliases/ConstructorArgument.md)
-- [CreateEVMOptions](type-aliases/CreateEVMOptions.md)
-- [CustomPrecompile](type-aliases/CustomPrecompile.md)
-- [CustomPredeploy](type-aliases/CustomPredeploy.md)
 - [MemoryClient](type-aliases/MemoryClient.md)
 
 ### Functions

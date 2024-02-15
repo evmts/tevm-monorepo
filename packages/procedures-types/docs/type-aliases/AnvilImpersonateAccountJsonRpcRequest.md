@@ -6,7 +6,7 @@
 
 # Type alias: AnvilImpersonateAccountJsonRpcRequest
 
-> **AnvilImpersonateAccountJsonRpcRequest**: `JsonRpcRequest`\<`"anvil_impersonateAccount"`, [`SerializeToJson`](SerializeToJson.md)\<`AnvilImpersonateAccountParams`\>\>
+> **AnvilImpersonateAccountJsonRpcRequest**: `JsonRpcRequest`\<`"anvil_impersonateAccount"`, [[`SerializeToJson`](SerializeToJson.md)\<`AnvilImpersonateAccountParams`\>]\>
 
 JSON-RPC request for `anvil_impersonateAccount` method
 

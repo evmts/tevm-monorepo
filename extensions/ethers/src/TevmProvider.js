@@ -107,7 +107,7 @@ import { JsonRpcApiProvider } from 'ethers'
 export class TevmProvider extends JsonRpcApiProvider {
 	/**
 	 * Creates a new TevmProvider instance with a TevmMemoryClient.
-	 * @param {import('@tevm/memory-client').CreateEVMOptions} options - Options to create a new TevmProvider.
+	 * @param {import('@tevm/base-client').BaseClientOptions} options - Options to create a new TevmProvider.
 	 * @returns {Promise<TevmProvider>} A new TevmProvider instance.
 	 * @readonly
 	 * @see {@link https://tevm.sh/learn/clients/ | Tevm Clients Docs}

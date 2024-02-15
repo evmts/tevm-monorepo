@@ -6,7 +6,7 @@
 
 # Type alias: EthSendRawTransactionResult
 
-> **EthSendRawTransactionResult**: [`Hex`](../../index/type-aliases/Hex.md)
+> **EthSendRawTransactionResult**: [`Hex`](Hex.md)
 
 JSON-RPC response for `eth_sendRawTransaction` procedure
 

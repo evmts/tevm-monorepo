@@ -22,7 +22,7 @@ Params for creating a [Script](/reference/tevm/contract/type-aliases/script/) in
 
 ## Source
 
-[packages/contract/src/types.ts:56](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/types.ts#L56)
+[types.ts:56](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/types.ts#L56)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

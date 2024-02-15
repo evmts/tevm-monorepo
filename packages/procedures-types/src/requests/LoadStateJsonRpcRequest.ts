@@ -14,5 +14,5 @@ export type SerializedParams = {
  */
 export type LoadStateJsonRpcRequest = JsonRpcRequest<
 	'tevm_loadState',
-	SerializedParams
+	[SerializedParams]
 >

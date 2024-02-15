@@ -2,7 +2,7 @@ import { definePredeploy } from './definePredeploy.js'
 import { DaiContract } from './test/DaiContract.sol.js'
 import { Address } from '@ethereumjs/util'
 import { createScript } from '@tevm/contract'
-import { formatAbi } from 'abitype'
+import { formatAbi } from '@tevm/utils'
 import { expect, test } from 'bun:test'
 
 // There is a more complete usage example in the @tevm/vm package

@@ -29,4 +29,16 @@ export type GetAccountResult<ErrorType = GetAccountError> = {
 	 * Storage root to set account to
 	 */
 	storageRoot?: Hex
+	/**
+	 * Code hash to set account to
+	 */
+	codeHash?: Hex
+	/**
+	 * True if account is a contract
+	 */
+	isContract?: boolean
+	/**
+	 * True if account is empty
+	 */
+	isEmpty?: boolean
 }

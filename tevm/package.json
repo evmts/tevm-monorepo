@@ -74,6 +74,26 @@
 				"default": "./memory-client/index.cjs"
 			}
 		},
+		"./decorators": {
+			"import": {
+				"types": "./decorators/index.d.ts",
+				"default": "./decorators/index.js"
+			},
+			"require": {
+				"types": "./decorators/index.d.cts",
+				"default": "./decorators/index.cjs"
+			}
+		},
+		"./base-client": {
+			"import": {
+				"types": "./base-client/index.d.ts",
+				"default": "./base-client/index.js"
+			},
+			"require": {
+				"types": "./base-client/index.d.cts",
+				"default": "./base-client/index.cjs"
+			}
+		},
 		"./predeploys": {
 			"import": {
 				"types": "./predeploys/index.d.ts",
@@ -104,6 +124,16 @@
 				"default": "./http-client/index.cjs"
 			}
 		},
+		"./utils": {
+			"import": {
+				"types": "./utils/index.d.ts",
+				"default": "./utils/index.js"
+			},
+			"require": {
+				"types": "./utils/index.d.cts",
+				"default": "./utils/index.cjs"
+			}
+		},
 		"./server": {
 			"import": {
 				"types": "./server/index.d.ts",
@@ -131,13 +161,16 @@
 	"files": [
 		"index*",
 		"actions-types",
+		"base-client",
 		"contract",
+		"decorators",
 		"errors",
 		"memory-client",
 		"predeploys",
 		"procedures-types",
 		"http-client",
 		"server",
+		"utils",
 		"state"
 	],
 	"scripts": {
@@ -156,8 +189,10 @@
 	},
 	"dependencies": {
 		"@tevm/actions-types": "workspace:^",
+		"@tevm/base-client": "workspace:^",
 		"@tevm/client-types": "workspace:^",
 		"@tevm/contract": "workspace:^",
+		"@tevm/decorators": "workspace:^",
 		"@tevm/errors": "workspace:^",
 		"@tevm/http-client": "workspace:^",
 		"@tevm/jsonrpc": "workspace:^",
@@ -166,7 +201,8 @@
 		"@tevm/predeploys": "workspace:^",
 		"@tevm/procedures-types": "workspace:^",
 		"@tevm/server": "workspace:^",
-		"@tevm/state": "workspace:^"
+		"@tevm/state": "workspace:^",
+		"@tevm/utils": "workspace:^"
 	},
 	"devDependencies": {
 		"@tevm/tsconfig": "workspace:^",

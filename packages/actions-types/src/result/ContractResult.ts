@@ -4,7 +4,7 @@ import type { ContractError } from '@tevm/errors'
 import {
 	type ContractFunctionName,
 	type DecodeFunctionResultReturnType,
-} from 'viem'
+} from '@tevm/utils'
 
 export type ContractResult<
 	TAbi extends Abi | readonly unknown[] = Abi,

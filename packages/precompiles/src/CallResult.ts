@@ -5,7 +5,7 @@ import type {
 	Address,
 	ExtractAbiEvents,
 	ExtractAbiFunction,
-} from 'abitype'
+} from '@tevm/utils'
 
 /**
  * A result of a precompile javascript call

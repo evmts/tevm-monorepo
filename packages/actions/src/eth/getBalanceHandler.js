@@ -1,6 +1,6 @@
-import { Address } from '@ethereumjs/util'
 import { createJsonRpcFetcher } from '@tevm/jsonrpc'
-import { hexToBigInt, numberToHex } from 'viem'
+import { EthjsAddress } from '@tevm/utils'
+import { hexToBigInt, numberToHex } from '@tevm/utils'
 
 export class NoForkUrlSetError extends Error {
 	/**
@@ -25,7 +25,7 @@ export const getBalanceHandler =
 	async ({ address, blockTag = 'pending' }) => {
 		if (blockTag === 'pending') {
 			return vm.stateManager
-				.getAccount(Address.fromString(address))
+				.getAccount(EthjsAddress.fromString(address))
 				.then((account) => account?.balance ?? 0n)
 		}
 		if (!forkUrl) {
@@ -44,6 +44,6 @@ export const getBalanceHandler =
 				],
 			})
 			.then((balance) =>
-				hexToBigInt(/** @type {import('viem').Hex}*/ (balance.result)),
+				hexToBigInt(/** @type {import('@tevm/utils').Hex}*/ (balance.result)),
 			)
 	}

@@ -1,7 +1,7 @@
 import type { EventActionCreator } from './event/EventActionCreator.js'
 import type { ReadActionCreator } from './read/ReadActionCreator.js'
 import type { WriteActionCreator } from './write/WriteActionCreator.js'
-import type { Address, ParseAbi } from 'abitype'
+import type { Address, ParseAbi } from '@tevm/utils'
 
 /**
  * An action creator for `Tevm.contract`, `Tevm.eth.getEvents` and more

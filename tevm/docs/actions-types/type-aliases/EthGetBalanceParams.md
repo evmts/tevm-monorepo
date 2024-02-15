@@ -14,7 +14,7 @@ Based on the  JSON-RPC request for `eth_getBalance` procedure
 
 ### address
 
-> **address**: [`Address`](../../index/type-aliases/Address.md)
+> **address**: [`Address`](Address.md)
 
 ### blockTag
 

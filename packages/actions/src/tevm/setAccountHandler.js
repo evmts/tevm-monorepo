@@ -1,17 +1,14 @@
 import { createError } from './createError.js'
-import {
-	Account as EthjsAccount,
-	Address as EthjsAddress,
-} from '@ethereumjs/util'
+import { EthjsAccount, EthjsAddress } from '@tevm/utils'
+import { hexToBytes, keccak256 } from '@tevm/utils'
 import { validateSetAccountParams } from '@tevm/zod'
-import { hexToBytes, keccak256 } from 'viem'
 
 /**
  * Creates an SetAccountHandler for handling account params with Ethereumjs EVM
- * @param {import('@tevm/vm').TevmVm} vm
+ * @param {Pick<import('@tevm/base-client').BaseClient, 'vm'>} client
  * @returns {import('@tevm/actions-types').SetAccountHandler}
  */
-export const setAccountHandler = (vm) => async (params) => {
+export const setAccountHandler = (client) => async (params) => {
 	/**
 	 * @type {Array<import('@tevm/errors').SetAccountError>}
 	 */
@@ -22,7 +19,7 @@ export const setAccountHandler = (vm) => async (params) => {
 
 	const address = new EthjsAddress(hexToBytes(params.address))
 	try {
-		await vm.stateManager.putAccount(
+		await client.vm.stateManager.putAccount(
 			address,
 			new EthjsAccount(
 				params.nonce,
@@ -33,13 +30,13 @@ export const setAccountHandler = (vm) => async (params) => {
 			),
 		)
 		if (params.deployedBytecode) {
-			await vm.stateManager.putContractCode(
+			await client.vm.stateManager.putContractCode(
 				address,
 				hexToBytes(params.deployedBytecode),
 			)
 		}
-		await vm.stateManager.checkpoint()
-		await vm.stateManager.commit()
+		await client.vm.stateManager.checkpoint()
+		await client.vm.stateManager.commit()
 		// TODO offer way of setting contract storage with evm.stateManager.putContractStorage
 		return {}
 	} catch (e) {

@@ -1,5 +1,5 @@
 import type { TypesafeEthersContract } from './TypesafeEthersContract.js'
-import type { Abi } from 'abitype'
+import type { Abi } from '@tevm/utils'
 import {
 	type Addressable,
 	type Contract as EthersContract,

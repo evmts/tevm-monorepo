@@ -6,11 +6,11 @@
 
 # Function: loadStateHandler()
 
-> **loadStateHandler**(`vm`): `LoadStateHandler`
+> **loadStateHandler**(`client`): `LoadStateHandler`
 
 ## Parameters
 
-▪ **vm**: `TevmVm`
+▪ **client**: `Pick`\<`object`, `"vm"`\>
 
 ## Returns
 

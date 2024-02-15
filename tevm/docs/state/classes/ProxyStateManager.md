@@ -42,7 +42,7 @@ const stateManager = new TevmStateManager({
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:70
+packages/state/types/ProxyStateManager.d.ts:69
 
 ## Properties
 
@@ -52,7 +52,7 @@ packages/state/types/ProxyStateManager.d.ts:70
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:67
+packages/state/types/ProxyStateManager.d.ts:66
 
 ***
 
@@ -70,7 +70,7 @@ We track the block tag the cache was using so we can invalidate it whenever it c
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:54
+packages/state/types/ProxyStateManager.d.ts:53
 
 ***
 
@@ -80,7 +80,7 @@ packages/state/types/ProxyStateManager.d.ts:54
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:65
+packages/state/types/ProxyStateManager.d.ts:64
 
 ***
 
@@ -94,7 +94,7 @@ When a call is not currently executed this blocktag is unlocked and set back to 
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:46
+packages/state/types/ProxyStateManager.d.ts:45
 
 ***
 
@@ -106,7 +106,7 @@ How often we expect the block number to change
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:64
+packages/state/types/ProxyStateManager.d.ts:63
 
 ***
 
@@ -118,7 +118,7 @@ Cache the last time we fetched a block to avoid fetching it too often
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:60
+packages/state/types/ProxyStateManager.d.ts:59
 
 ***
 
@@ -128,7 +128,7 @@ packages/state/types/ProxyStateManager.d.ts:60
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:66
+packages/state/types/ProxyStateManager.d.ts:65
 
 ***
 
@@ -307,7 +307,7 @@ Creates a Filter to retrieve event logs that can be used with [`getFilterChanges
 
 ###### Type parameters
 
-▪ **TAbi** extends `Abi` \| readonly `unknown`[]
+▪ **TAbi** extends [`Abi`](../../index/type-aliases/Abi.md) \| readonly `unknown`[]
 
 ▪ **TEventName** extends `undefined` \| `string`
 
@@ -315,9 +315,9 @@ Creates a Filter to retrieve event logs that can be used with [`getFilterChanges
 
 ▪ **TStrict** extends `undefined` \| `boolean` = `undefined`
 
-▪ **TFromBlock** extends `undefined` \| `bigint` \| `BlockTag` = `undefined`
+▪ **TFromBlock** extends `undefined` \| `bigint` \| [`BlockTag`](../../index/type-aliases/BlockTag.md) = `undefined`
 
-▪ **TToBlock** extends `undefined` \| `bigint` \| `BlockTag` = `undefined`
+▪ **TToBlock** extends `undefined` \| `bigint` \| [`BlockTag`](../../index/type-aliases/BlockTag.md) = `undefined`
 
 ###### Parameters
 
@@ -355,7 +355,7 @@ Creates a [`Filter`](https://viem.sh/docs/glossary/types#filter) to listen for n
 
 ###### Param
 
-[CreateEventFilterParameters]([object Object])
+[CreateEventFilterParameters](../../index/type-aliases/CreateEventFilterParameters.md)
 
 ###### Example
 
@@ -379,15 +379,15 @@ Creates a [`Filter`](https://viem.sh/docs/glossary/types#filter) to listen for n
 
 ###### Type parameters
 
-▪ **TAbiEvent** extends `undefined` \| `AbiEvent` = `undefined`
+▪ **TAbiEvent** extends `undefined` \| [`AbiEvent`](../../index/type-aliases/AbiEvent.md) = `undefined`
 
-▪ **TAbiEvents** extends `undefined` \| readonly `unknown`[] \| readonly `AbiEvent`[] = `TAbiEvent` extends `AbiEvent` ? [`TAbiEvent`] : `undefined`
+▪ **TAbiEvents** extends `undefined` \| readonly `unknown`[] \| readonly [`AbiEvent`](../../index/type-aliases/AbiEvent.md)[] = `TAbiEvent` extends [`AbiEvent`](../../index/type-aliases/AbiEvent.md) ? [`TAbiEvent`] : `undefined`
 
 ▪ **TStrict** extends `undefined` \| `boolean` = `undefined`
 
-▪ **TFromBlock** extends `undefined` \| `bigint` \| `BlockTag` = `undefined`
+▪ **TFromBlock** extends `undefined` \| `bigint` \| [`BlockTag`](../../index/type-aliases/BlockTag.md) = `undefined`
 
-▪ **TToBlock** extends `undefined` \| `bigint` \| `BlockTag` = `undefined`
+▪ **TToBlock** extends `undefined` \| `bigint` \| [`BlockTag`](../../index/type-aliases/BlockTag.md) = `undefined`
 
 ▪ **_EventName** extends `undefined` \| `string` = `MaybeAbiEventName`\<`TAbiEvent`\>
 
@@ -395,9 +395,9 @@ Creates a [`Filter`](https://viem.sh/docs/glossary/types#filter) to listen for n
 
 ###### Parameters
 
-▪ **args?**: `CreateEventFilterParameters`\<`TAbiEvent`, `TAbiEvents`, `TStrict`, `TFromBlock`, `TToBlock`, `_EventName`, `_Args`\>
+▪ **args?**: [`CreateEventFilterParameters`](../../index/type-aliases/CreateEventFilterParameters.md)\<`TAbiEvent`, `TAbiEvents`, `TStrict`, `TFromBlock`, `TToBlock`, `_EventName`, `_Args`\>
 
-[CreateEventFilterParameters]([object Object])
+[CreateEventFilterParameters](../../index/type-aliases/CreateEventFilterParameters.md)
 
 ###### Returns
 
@@ -506,7 +506,7 @@ Estimates the gas required to successfully execute a contract write function cal
 
 ▪ **TChain** extends `undefined` \| `Chain`
 
-▪ **abi** extends `Abi` \| readonly `unknown`[]
+▪ **abi** extends [`Abi`](../../index/type-aliases/Abi.md) \| readonly `unknown`[]
 
 ▪ **functionName** extends `string`
 
@@ -736,7 +736,7 @@ const maxPriorityFeePerGas = await client.estimateMaxPriorityFeePerGas()
 
 ###### Type parameters
 
-▪ **client** extends `object` & `Partial`\<`ExtendableProtectedActions`\>
+▪ **client** extends `object` & `Partial`\<`ExtendableProtectedActions`\<`Transport`, `undefined` \| `Chain`, `undefined`\>\>
 
 ###### Parameters
 
@@ -830,7 +830,7 @@ const balance = await client.getBalance({
 
 ##### getBlock
 
-> **getBlock**: \<`TIncludeTransactions`, `TBlockTag`\>(`args`?) => `Promise`\<`GetBlockReturnType`\<`undefined` \| `Chain`, `TIncludeTransactions`, `TBlockTag`\>\>
+> **getBlock**: \<`TIncludeTransactions`, `TBlockTag`\>(`args`?) => `Promise`\<`object`\>
 
 Returns information about a block at a block number, hash, or tag.
 
@@ -869,7 +869,7 @@ Returns information about a block at a block number, hash, or tag.
 
 ▪ **TIncludeTransactions** extends `boolean` = `false`
 
-▪ **TBlockTag** extends `BlockTag` = `"latest"`
+▪ **TBlockTag** extends [`BlockTag`](../../index/type-aliases/BlockTag.md) = `"latest"`
 
 ###### Parameters
 
@@ -1156,15 +1156,15 @@ Returns a list of event logs emitted by a contract.
 
 ###### Type parameters
 
-▪ **abi** extends `Abi` \| readonly `unknown`[]
+▪ **abi** extends [`Abi`](../../index/type-aliases/Abi.md) \| readonly `unknown`[]
 
 ▪ **eventName** extends `undefined` \| `string` = `undefined`
 
 ▪ **strict** extends `undefined` \| `boolean` = `undefined`
 
-▪ **fromBlock** extends `undefined` \| `bigint` \| `BlockTag` = `undefined`
+▪ **fromBlock** extends `undefined` \| `bigint` \| [`BlockTag`](../../index/type-aliases/BlockTag.md) = `undefined`
 
-▪ **toBlock** extends `undefined` \| `bigint` \| `BlockTag` = `undefined`
+▪ **toBlock** extends `undefined` \| `bigint` \| [`BlockTag`](../../index/type-aliases/BlockTag.md) = `undefined`
 
 ###### Parameters
 
@@ -1243,7 +1243,7 @@ Gets address for ENS name.
 
 The balance of the account at a block number.
 
-▪ **args.blockTag?**: `BlockTag`
+▪ **args.blockTag?**: [`BlockTag`](../../index/type-aliases/BlockTag.md)
 
 The balance of the account at a block tag.
 
@@ -1355,7 +1355,7 @@ Gateway urls to resolve IPFS and/or Arweave assets.
 
 The balance of the account at a block number.
 
-▪ **args.blockTag?**: `BlockTag`
+▪ **args.blockTag?**: [`BlockTag`](../../index/type-aliases/BlockTag.md)
 
 The balance of the account at a block tag.
 
@@ -1460,7 +1460,7 @@ Address to get ENS name for.
 
 The balance of the account at a block number.
 
-▪ **args.blockTag?**: `BlockTag`
+▪ **args.blockTag?**: [`BlockTag`](../../index/type-aliases/BlockTag.md)
 
 The balance of the account at a block tag.
 
@@ -1557,7 +1557,7 @@ Gets resolver for ENS name.
 
 The balance of the account at a block number.
 
-▪ **args.blockTag?**: `BlockTag`
+▪ **args.blockTag?**: [`BlockTag`](../../index/type-aliases/BlockTag.md)
 
 The balance of the account at a block tag.
 
@@ -1654,7 +1654,7 @@ Gets a text record for specified ENS name.
 
 The balance of the account at a block number.
 
-▪ **args.blockTag?**: `BlockTag`
+▪ **args.blockTag?**: [`BlockTag`](../../index/type-aliases/BlockTag.md)
 
 The balance of the account at a block tag.
 
@@ -1876,15 +1876,15 @@ Returns a list of logs or hashes based on a [Filter](/docs/glossary/terms#filter
 
 ▪ **TFilterType** extends `FilterType`
 
-▪ **TAbi** extends `undefined` \| `Abi` \| readonly `unknown`[]
+▪ **TAbi** extends `undefined` \| [`Abi`](../../index/type-aliases/Abi.md) \| readonly `unknown`[]
 
 ▪ **TEventName** extends `undefined` \| `string`
 
 ▪ **TStrict** extends `undefined` \| `boolean` = `undefined`
 
-▪ **TFromBlock** extends `undefined` \| `bigint` \| `BlockTag` = `undefined`
+▪ **TFromBlock** extends `undefined` \| `bigint` \| [`BlockTag`](../../index/type-aliases/BlockTag.md) = `undefined`
 
-▪ **TToBlock** extends `undefined` \| `bigint` \| `BlockTag` = `undefined`
+▪ **TToBlock** extends `undefined` \| `bigint` \| [`BlockTag`](../../index/type-aliases/BlockTag.md) = `undefined`
 
 ###### Parameters
 
@@ -2019,15 +2019,15 @@ Returns a list of event logs since the filter was created.
 
 ###### Type parameters
 
-▪ **TAbi** extends `undefined` \| `Abi` \| readonly `unknown`[]
+▪ **TAbi** extends `undefined` \| [`Abi`](../../index/type-aliases/Abi.md) \| readonly `unknown`[]
 
 ▪ **TEventName** extends `undefined` \| `string`
 
 ▪ **TStrict** extends `undefined` \| `boolean` = `undefined`
 
-▪ **TFromBlock** extends `undefined` \| `bigint` \| `BlockTag` = `undefined`
+▪ **TFromBlock** extends `undefined` \| `bigint` \| [`BlockTag`](../../index/type-aliases/BlockTag.md) = `undefined`
 
-▪ **TToBlock** extends `undefined` \| `bigint` \| `BlockTag` = `undefined`
+▪ **TToBlock** extends `undefined` \| `bigint` \| [`BlockTag`](../../index/type-aliases/BlockTag.md) = `undefined`
 
 ###### Parameters
 
@@ -2139,15 +2139,15 @@ Returns a list of event logs matching the provided parameters.
 
 ###### Type parameters
 
-▪ **TAbiEvent** extends `undefined` \| `AbiEvent` = `undefined`
+▪ **TAbiEvent** extends `undefined` \| [`AbiEvent`](../../index/type-aliases/AbiEvent.md) = `undefined`
 
-▪ **TAbiEvents** extends `undefined` \| readonly `unknown`[] \| readonly `AbiEvent`[] = `TAbiEvent` extends `AbiEvent` ? [`TAbiEvent`] : `undefined`
+▪ **TAbiEvents** extends `undefined` \| readonly `unknown`[] \| readonly [`AbiEvent`](../../index/type-aliases/AbiEvent.md)[] = `TAbiEvent` extends [`AbiEvent`](../../index/type-aliases/AbiEvent.md) ? [`TAbiEvent`] : `undefined`
 
 ▪ **TStrict** extends `undefined` \| `boolean` = `undefined`
 
-▪ **TFromBlock** extends `undefined` \| `bigint` \| `BlockTag` = `undefined`
+▪ **TFromBlock** extends `undefined` \| `bigint` \| [`BlockTag`](../../index/type-aliases/BlockTag.md) = `undefined`
 
-▪ **TToBlock** extends `undefined` \| `bigint` \| `BlockTag` = `undefined`
+▪ **TToBlock** extends `undefined` \| `bigint` \| [`BlockTag`](../../index/type-aliases/BlockTag.md) = `undefined`
 
 ###### Parameters
 
@@ -2300,7 +2300,7 @@ const code = await client.getStorageAt({
 
 ##### getTransaction
 
-> **getTransaction**: \<`TBlockTag`\>(`args`) => `Promise`\<`GetTransactionReturnType`\<`undefined` \| `Chain`, `TBlockTag`\>\>
+> **getTransaction**: \<`TBlockTag`\>(`args`) => `Promise`\<`object` \| `object` \| `object` \| `object`\>
 
 Returns information about a [Transaction](https://viem.sh/docs/glossary/terms#transaction) given a hash or block identifier.
 
@@ -2335,7 +2335,7 @@ Returns information about a [Transaction](https://viem.sh/docs/glossary/terms#tr
 
 ###### Type parameters
 
-▪ **TBlockTag** extends `BlockTag` = `"latest"`
+▪ **TBlockTag** extends [`BlockTag`](../../index/type-aliases/BlockTag.md) = `"latest"`
 
 ###### Parameters
 
@@ -2656,7 +2656,7 @@ Frequency (in ms) for polling enabled actions & events. Defaults to 4_000 millis
 
 ##### prepareTransactionRequest
 
-> **prepareTransactionRequest**: \<`TParameterType`, `TChainOverride`, `TAccountOverride`\>(`args`) => `Promise`\<`PrepareTransactionRequestReturnType`\<`Chain`, `undefined` \| `Account`, `TChainOverride`, `TAccountOverride`, `TParameterType`\>\>
+> **prepareTransactionRequest**: \<`TParameterType`, `TChainOverride`, `TAccountOverride`\>(`args`) => `Promise`\<`PrepareTransactionRequestReturnType`\<`Chain`, `undefined` \| [`Account`](../../index/type-aliases/Account.md), `TChainOverride`, `TAccountOverride`, `TParameterType`\>\>
 
 Prepares a transaction request for signing.
 
@@ -2712,11 +2712,11 @@ Prepares a transaction request for signing.
 
 ▪ **TChainOverride** extends `undefined` \| `Chain` = `undefined`
 
-▪ **TAccountOverride** extends `undefined` \| \`0x${string}\` \| `Account` = `undefined`
+▪ **TAccountOverride** extends `undefined` \| \`0x${string}\` \| [`Account`](../../index/type-aliases/Account.md) = `undefined`
 
 ###### Parameters
 
-▪ **args**: `PrepareTransactionRequestParameters`\<`undefined` \| `Chain`, `undefined` \| `Account`, `TChainOverride`, `TAccountOverride`, `TParameterType`\>
+▪ **args**: `PrepareTransactionRequestParameters`\<`undefined` \| `Chain`, `undefined` \| [`Account`](../../index/type-aliases/Account.md), `TChainOverride`, `TAccountOverride`, `TParameterType`\>
 
 [PrepareTransactionRequestParameters]([object Object])
 
@@ -2806,7 +2806,7 @@ Calls a read-only function on a contract, and returns the response.
 
 ###### Type parameters
 
-▪ **abi** extends `Abi` \| readonly `unknown`[]
+▪ **abi** extends [`Abi`](../../index/type-aliases/Abi.md) \| readonly `unknown`[]
 
 ▪ **functionName** extends `string`
 
@@ -2920,7 +2920,7 @@ const hash = await client.sendRawTransaction({
 
 ##### simulateContract
 
-> **simulateContract**: \<`abi`, `functionName`, `args`, `chainOverride`, `accountOverride`\>(`args`) => `Promise`\<`SimulateContractReturnType`\<`abi`, `functionName`, `args`, `undefined` \| `Chain`, `undefined` \| `Account`, `chainOverride`, `accountOverride`\>\>
+> **simulateContract**: \<`abi`, `functionName`, `args`, `chainOverride`, `accountOverride`\>(`args`) => `Promise`\<`SimulateContractReturnType`\<`abi`, `functionName`, `args`, `undefined` \| `Chain`, `undefined` \| [`Account`](../../index/type-aliases/Account.md), `chainOverride`, `accountOverride`\>\>
 
 Simulates/validates a contract interaction. This is useful for retrieving **return data** and **revert reasons** of contract write functions.
 
@@ -2963,7 +2963,7 @@ Simulates/validates a contract interaction. This is useful for retrieving **retu
 
 ###### Type parameters
 
-▪ **abi** extends `Abi` \| readonly `unknown`[]
+▪ **abi** extends [`Abi`](../../index/type-aliases/Abi.md) \| readonly `unknown`[]
 
 ▪ **functionName** extends `string`
 
@@ -2971,7 +2971,7 @@ Simulates/validates a contract interaction. This is useful for retrieving **retu
 
 ▪ **chainOverride** extends `undefined` \| `Chain`
 
-▪ **accountOverride** extends `undefined` \| \`0x${string}\` \| `Account` = `undefined`
+▪ **accountOverride** extends `undefined` \| \`0x${string}\` \| [`Account`](../../index/type-aliases/Account.md) = `undefined`
 
 ###### Parameters
 
@@ -3303,7 +3303,7 @@ Watches and returns information for incoming blocks.
 
 ▪ **TIncludeTransactions** extends `boolean` = `false`
 
-▪ **TBlockTag** extends `BlockTag` = `"latest"`
+▪ **TBlockTag** extends [`BlockTag`](../../index/type-aliases/BlockTag.md) = `"latest"`
 
 ###### Parameters
 
@@ -3373,7 +3373,7 @@ Watches and returns emitted contract event logs.
 
 ###### Type parameters
 
-▪ **TAbi** extends `Abi` \| readonly `unknown`[]
+▪ **TAbi** extends [`Abi`](../../index/type-aliases/Abi.md) \| readonly `unknown`[]
 
 ▪ **TEventName** extends `string`
 
@@ -3465,9 +3465,9 @@ Watches and returns emitted [Event Logs](https://viem.sh/docs/glossary/terms#eve
 
 ###### Type parameters
 
-▪ **TAbiEvent** extends `undefined` \| `AbiEvent` = `undefined`
+▪ **TAbiEvent** extends `undefined` \| [`AbiEvent`](../../index/type-aliases/AbiEvent.md) = `undefined`
 
-▪ **TAbiEvents** extends `undefined` \| readonly `unknown`[] \| readonly `AbiEvent`[] = `TAbiEvent` extends `AbiEvent` ? [`TAbiEvent`] : `undefined`
+▪ **TAbiEvents** extends `undefined` \| readonly `unknown`[] \| readonly [`AbiEvent`](../../index/type-aliases/AbiEvent.md)[] = `TAbiEvent` extends [`AbiEvent`](../../index/type-aliases/AbiEvent.md) ? [`TAbiEvent`] : `undefined`
 
 ▪ **TStrict** extends `undefined` \| `boolean` = `undefined`
 
@@ -3578,7 +3578,7 @@ const unwatch = await client.watchPendingTransactions({
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:69
+packages/state/types/ProxyStateManager.d.ts:68
 
 ***
 
@@ -3592,7 +3592,7 @@ Dumps the state of the state manager as a [SerializableTevmState](../../index/ty
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:225
+packages/state/types/ProxyStateManager.d.ts:224
 
 ***
 
@@ -3614,7 +3614,7 @@ Loads a [SerializableTevmState](../../index/type-aliases/SerializableTevmState.m
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:221
+packages/state/types/ProxyStateManager.d.ts:220
 
 ***
 
@@ -3628,7 +3628,7 @@ packages/state/types/ProxyStateManager.d.ts:221
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:217
+packages/state/types/ProxyStateManager.d.ts:216
 
 ***
 
@@ -3652,7 +3652,7 @@ This method is not used by the Tevm State Manager and is a stub required by the 
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:208
+packages/state/types/ProxyStateManager.d.ts:207
 
 ***
 
@@ -3676,7 +3676,7 @@ This method is not used by the Tevm State Manager and is a stub required by the 
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:216
+packages/state/types/ProxyStateManager.d.ts:215
 
 ***
 
@@ -3686,7 +3686,7 @@ packages/state/types/ProxyStateManager.d.ts:216
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:40
+packages/state/types/ProxyStateManager.d.ts:39
 
 ***
 
@@ -3700,7 +3700,7 @@ packages/state/types/ProxyStateManager.d.ts:40
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:68
+packages/state/types/ProxyStateManager.d.ts:67
 
 ***
 
@@ -3728,7 +3728,7 @@ This method is not used by the Tevm State Manager and is a stub required by the 
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:212
+packages/state/types/ProxyStateManager.d.ts:211
 
 ## Methods
 
@@ -3740,13 +3740,13 @@ Checks if an `account` exists at `address`
 
 #### Parameters
 
-▪ **address**: `Address`
+▪ **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 
 Address of the `account` to check
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:147
+packages/state/types/ProxyStateManager.d.ts:146
 
 ***
 
@@ -3766,7 +3766,7 @@ Partial implementation, called from the subclass.
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:189
+packages/state/types/ProxyStateManager.d.ts:188
 
 ***
 
@@ -3778,7 +3778,7 @@ Resets all internal caches
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:94
+packages/state/types/ProxyStateManager.d.ts:93
 
 ***
 
@@ -3790,7 +3790,7 @@ Clears all storage entries for the account corresponding to `address`.
 
 #### Parameters
 
-▪ **address**: `Address`
+▪ **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 
 Address to clear the storage of
 
@@ -3800,7 +3800,7 @@ Address to clear the storage of
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:133
+packages/state/types/ProxyStateManager.d.ts:132
 
 ***
 
@@ -3819,7 +3819,7 @@ Partial implementation, called from the subclass.
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:196
+packages/state/types/ProxyStateManager.d.ts:195
 
 ***
 
@@ -3831,7 +3831,7 @@ Returns a new instance of the ForkStateManager with the same opts and all storag
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:90
+packages/state/types/ProxyStateManager.d.ts:89
 
 ***
 
@@ -3843,7 +3843,7 @@ Deletes an account from state under the provided `address`.
 
 #### Parameters
 
-▪ **address**: `Address`
+▪ **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 
 Address of the account which should be deleted
 
@@ -3853,7 +3853,7 @@ Address of the account which should be deleted
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:174
+packages/state/types/ProxyStateManager.d.ts:173
 
 ***
 
@@ -3865,7 +3865,7 @@ Dumps the RLP-encoded storage values for an `account` specified by `address`.
 
 #### Parameters
 
-▪ **address**: `Address`
+▪ **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 
 The address of the `account` to return storage for
 
@@ -3881,7 +3881,7 @@ Both are represented as `0x` prefixed hex strings.
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:141
+packages/state/types/ProxyStateManager.d.ts:140
 
 ***
 
@@ -3891,7 +3891,7 @@ packages/state/types/ProxyStateManager.d.ts:141
 
 #### Parameters
 
-▪ **\_address**: `Address`
+▪ **\_address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 
 ▪ **\_startKey**: `bigint`
 
@@ -3903,7 +3903,7 @@ packages/state/types/ProxyStateManager.d.ts:141
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:142
+packages/state/types/ProxyStateManager.d.ts:141
 
 ***
 
@@ -3913,19 +3913,19 @@ packages/state/types/ProxyStateManager.d.ts:142
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:204
+packages/state/types/ProxyStateManager.d.ts:203
 
 ***
 
 ### getAccount()
 
-> **getAccount**(`address`): `Promise`\<`undefined` \| `Account`\>
+> **getAccount**(`address`): `Promise`\<`undefined` \| [`EthjsAccount`](../../utils/classes/EthjsAccount.md)\>
 
 Gets the code corresponding to the provided `address`.
 
 #### Parameters
 
-▪ **address**: `Address`
+▪ **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 
 #### Implementation of
 
@@ -3933,25 +3933,25 @@ Gets the code corresponding to the provided `address`.
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:151
+packages/state/types/ProxyStateManager.d.ts:150
 
 ***
 
 ### getAccountFromProvider()
 
-> **`private`** **getAccountFromProvider**(`address`): `Promise`\<`Account`\>
+> **`private`** **getAccountFromProvider**(`address`): `Promise`\<[`EthjsAccount`](../../utils/classes/EthjsAccount.md)\>
 
 Retrieves an account from the provider and stores in the local trie
 
 #### Parameters
 
-▪ **address**: `Address`
+▪ **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 
 Address of account to be retrieved from provider
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:157
+packages/state/types/ProxyStateManager.d.ts:156
 
 ***
 
@@ -3963,7 +3963,7 @@ Gets the code corresponding to the provided `address`.
 
 #### Parameters
 
-▪ **address**: `Address`
+▪ **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 
 Address to get the `code` for
 
@@ -3978,7 +3978,7 @@ Returns an empty `Uint8Array` if the account has no associated code.
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:101
+packages/state/types/ProxyStateManager.d.ts:100
 
 ***
 
@@ -3991,7 +3991,7 @@ the shortest representation of the stored value.
 
 #### Parameters
 
-▪ **address**: `Address`
+▪ **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 
 Address of the account to get the storage for
 
@@ -4011,7 +4011,7 @@ If this does not exist an empty `Uint8Array` is returned.
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:118
+packages/state/types/ProxyStateManager.d.ts:117
 
 ***
 
@@ -4023,7 +4023,7 @@ Get an EIP-1186 proof from the provider
 
 #### Parameters
 
-▪ **address**: `Address`
+▪ **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 
 address to get proof of
 
@@ -4041,7 +4041,7 @@ an EIP-1186 formatted proof
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:181
+packages/state/types/ProxyStateManager.d.ts:180
 
 ***
 
@@ -4054,7 +4054,7 @@ If the block number has changed the cache will be invalidated
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:75
+packages/state/types/ProxyStateManager.d.ts:74
 
 ***
 
@@ -4068,11 +4068,11 @@ fields, then saves the account into state. Account fields can include
 
 #### Parameters
 
-▪ **address**: `Address`
+▪ **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 
 Address of the account to modify
 
-▪ **accountFields**: `Partial`\<`Pick`\<`Account`, `"nonce"` \| `"balance"` \| `"storageRoot"` \| `"codeHash"`\>\>
+▪ **accountFields**: `Partial`\<`Pick`\<[`EthjsAccount`](../../utils/classes/EthjsAccount.md), `"nonce"` \| `"balance"` \| `"storageRoot"` \| `"codeHash"`\>\>
 
 Object containing account fields and values to modify
 
@@ -4082,7 +4082,7 @@ Object containing account fields and values to modify
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:169
+packages/state/types/ProxyStateManager.d.ts:168
 
 ***
 
@@ -4094,9 +4094,9 @@ Saves an account into state under the provided `address`.
 
 #### Parameters
 
-▪ **address**: `Address`
+▪ **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 
-▪ **account**: `undefined` \| `Account`
+▪ **account**: `undefined` \| [`EthjsAccount`](../../utils/classes/EthjsAccount.md)
 
 #### Implementation of
 
@@ -4104,7 +4104,7 @@ Saves an account into state under the provided `address`.
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:161
+packages/state/types/ProxyStateManager.d.ts:160
 
 ***
 
@@ -4117,7 +4117,7 @@ corresponding to `address` to reference this.
 
 #### Parameters
 
-▪ **address**: `Address`
+▪ **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 
 Address of the `account` to add the `code` for
 
@@ -4131,7 +4131,7 @@ The value of the `code`
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:108
+packages/state/types/ProxyStateManager.d.ts:107
 
 ***
 
@@ -4144,7 +4144,7 @@ corresponding to `address` at the provided `key`.
 
 #### Parameters
 
-▪ **address**: `Address`
+▪ **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 
 Address to set a storage value for
 
@@ -4164,7 +4164,7 @@ If it is empty or filled with zeros, deletes the value.
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:128
+packages/state/types/ProxyStateManager.d.ts:127
 
 ***
 
@@ -4183,7 +4183,7 @@ Partial implementation , called from the subclass.
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:203
+packages/state/types/ProxyStateManager.d.ts:202
 
 ***
 
@@ -4199,7 +4199,7 @@ Returns a new instance of the TevmStateManager with the same opts
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:86
+packages/state/types/ProxyStateManager.d.ts:85
 
 ***
 
@@ -4214,7 +4214,7 @@ directly in unlocked mode. Most transactions should lock
 
 #### Source
 
-packages/state/types/ProxyStateManager.d.ts:82
+packages/state/types/ProxyStateManager.d.ts:81
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

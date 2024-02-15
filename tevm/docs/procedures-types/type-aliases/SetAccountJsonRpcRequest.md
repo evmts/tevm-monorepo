@@ -6,13 +6,13 @@
 
 # Type alias: SetAccountJsonRpcRequest
 
-> **SetAccountJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"tevm_setAccount"`, [`SerializeToJson`](SerializeToJson.md)\<[`SetAccountParams`](../../index/type-aliases/SetAccountParams.md)\>\>
+> **SetAccountJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"tevm_setAccount"`, [[`SerializeToJson`](SerializeToJson.md)\<[`SetAccountParams`](../../index/type-aliases/SetAccountParams.md)\>]\>
 
 JSON-RPC request for `tevm_setAccount` method
 
 ## Source
 
-packages/procedures-types/dist/index.d.ts:358
+packages/procedures-types/dist/index.d.ts:395
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

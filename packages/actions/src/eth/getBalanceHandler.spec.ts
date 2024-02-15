@@ -1,5 +1,5 @@
 import { getBalanceHandler } from './getBalanceHandler.js'
-import { Address } from '@ethereumjs/util'
+import { EthjsAddress } from '@tevm/utils'
 import { describe, expect, it, jest } from 'bun:test'
 
 describe(getBalanceHandler.name, () => {
@@ -8,14 +8,14 @@ describe(getBalanceHandler.name, () => {
 			getAccount: jest.fn(),
 		}
 		stateManager.getAccount.mockResolvedValueOnce({ balance: 420n })
-		const address = Address.zero().toString() as `0x${string}`
+		const address = EthjsAddress.zero().toString() as `0x${string}`
 		expect(
 			await getBalanceHandler({
 				vm: { stateManager } as any,
 			})({ address }),
 		).toEqual(420n)
 		expect(stateManager.getAccount).toHaveBeenCalledWith(
-			Address.fromString(address),
+			EthjsAddress.fromString(address),
 		)
 	})
 
@@ -24,14 +24,14 @@ describe(getBalanceHandler.name, () => {
 			getAccount: jest.fn(),
 		}
 		stateManager.getAccount.mockResolvedValueOnce({ balance: 420n })
-		const address = Address.zero().toString() as `0x${string}`
+		const address = EthjsAddress.zero().toString() as `0x${string}`
 		expect(
 			await getBalanceHandler({
 				vm: { stateManager } as any,
 			})({ address, blockTag: 'pending' }),
 		).toEqual(420n)
 		expect(stateManager.getAccount).toHaveBeenCalledWith(
-			Address.fromString(address),
+			EthjsAddress.fromString(address),
 		)
 	})
 
@@ -40,7 +40,7 @@ describe(getBalanceHandler.name, () => {
 			getAccount: jest.fn(),
 		}
 		stateManager.getAccount.mockResolvedValueOnce({ balance: 420n })
-		const address = Address.zero().toString() as `0x${string}`
+		const address = EthjsAddress.zero().toString() as `0x${string}`
 		expect(
 			await getBalanceHandler({
 				vm: { stateManager } as any,

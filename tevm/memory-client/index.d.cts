@@ -1,1 +1,1 @@
-export { ConstructorArgument, CreateEVMOptions, CustomPrecompile, CustomPredeploy, MemoryClient, WrappedEvm, createMemoryClient } from '@tevm/memory-client';
+export { MemoryClient, createMemoryClient } from '@tevm/memory-client';

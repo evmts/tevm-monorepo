@@ -1,10 +1,10 @@
 /**
  * Handler for the `eth_blockNumber` RPC call
- * @param {import('@tevm/vm').TevmVm} vm
+ * @param {Pick<import('@tevm/base-client').BaseClient, 'vm'>} client
  * @returns {import('@tevm/actions-types').EthBlockNumberHandler}
  */
-export const blockNumberHandler = (vm) => async () => {
-	return vm.blockchain
+export const blockNumberHandler = (client) => async () => {
+	return client.vm.blockchain
 		.getCanonicalHeadBlock()
 		.then((block) => block.header.number)
 }

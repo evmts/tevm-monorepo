@@ -12,7 +12,10 @@ const dirs = [
 	'procedures-types',
 	'http-client',
 	'server',
+	'base-client',
+	'decorators',
 	'state',
+	'utils',
 ]
 
 export default defineConfig(

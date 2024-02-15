@@ -1,11 +1,11 @@
 import { requestProcedure } from './requestProcedure.js'
 
 /**
- * @param {import('@tevm/vm').TevmVm} vm
+ * @param {import('@tevm/base-client').BaseClient} client
  * @returns {import('@tevm/procedures-types').TevmJsonRpcBulkRequestHandler}
  */
-export const requestBulkProcedure = (vm) => async (requests) => {
-	const handleRequest = requestProcedure(vm)
+export const requestBulkProcedure = (client) => async (requests) => {
+	const handleRequest = requestProcedure(client)
 	const responses = await Promise.allSettled(
 		requests.map((request) => handleRequest(/** @type any*/ (request))),
 	)

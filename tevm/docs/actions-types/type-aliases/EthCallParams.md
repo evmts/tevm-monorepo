@@ -20,14 +20,14 @@ The block number hash or block tag
 
 ### data
 
-> **data**?: [`Hex`](../../index/type-aliases/Hex.md)
+> **data**?: [`Hex`](Hex.md)
 
 The hash of the method signature and encoded parameters. For more information, see the Contract ABI description in the Solidity documentation
 Defaults to zero data
 
 ### from
 
-> **from**?: [`Address`](../../index/type-aliases/Address.md)
+> **from**?: [`Address`](Address.md)
 
 The address from which the transaction is sent. Defaults to zero address
 
@@ -45,7 +45,7 @@ The integer of gasPrice used for each paid gas
 
 ### to
 
-> **to**?: [`Address`](../../index/type-aliases/Address.md)
+> **to**?: [`Address`](Address.md)
 
 The address to which the transaction is addressed. Defaults to zero address
 

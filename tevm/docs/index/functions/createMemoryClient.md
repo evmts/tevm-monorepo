@@ -10,7 +10,7 @@
 
 ## Parameters
 
-▪ **options?**: [`CreateEVMOptions`](../type-aliases/CreateEVMOptions.md)
+▪ **options?**: [`BaseClientOptions`](../type-aliases/BaseClientOptions.md)
 
 ## Source
 

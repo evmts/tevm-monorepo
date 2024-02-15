@@ -12,7 +12,7 @@ JSON-RPC request for `eth_mining` procedure
 
 ## Source
 
-packages/procedures-types/dist/index.d.ts:255
+packages/procedures-types/dist/index.d.ts:286
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

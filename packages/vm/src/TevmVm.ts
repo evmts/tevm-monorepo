@@ -1,17 +1,13 @@
-import { EVM } from '@ethereumjs/evm'
 import { VM } from '@ethereumjs/vm'
-import {
-	ForkStateManager,
-	NormalStateManager,
-	ProxyStateManager,
-} from '@tevm/state'
-
-type TevmStateManager =
-	| NormalStateManager
-	| ForkStateManager
-	| ProxyStateManager
+import type { TevmBlockchain } from '@tevm/blockchain'
+import type { TevmCommon } from '@tevm/common'
+import { Evm, createEvm } from '@tevm/evm'
+import { type TevmStateManager } from '@tevm/state'
 
 export class TevmVm extends VM {
+	declare evm: Evm
+	declare blockchain: TevmBlockchain
+	declare common: TevmCommon
 	/**
 	 * VM async constructor. Creates engine instance and initializes it.
 	 *
@@ -29,6 +25,8 @@ export class TevmVm extends VM {
 		return vm
 	}
 
+	declare stateManager: TevmStateManager
+
 	public deepCopy = async (): Promise<TevmVm> => {
 		const common = this.common.copy()
 		common.setHardfork(this.common.hardfork())
@@ -43,21 +41,18 @@ export class TevmVm extends VM {
 		const stateManager = await (
 			this.stateManager as TevmStateManager
 		).deepCopy()
-		const evmOpts = {
+
+		const evmCopy = createEvm({
+			blockchain,
 			common,
 			stateManager,
-			blockchain,
-			allowUnlimitedContractSize:
-				(this.evm as any).allowUnlimitedContractSize ?? false,
-			allowUnlimitedInitCodeSize: false,
-			customOpcodes: [],
+			allowUnlimitedContractSize: this.evm.allowUnlimitedContractSize ?? false,
 			customPrecompiles: (this.evm as any)._customPrecompiles,
-			profiler: {
-				enabled:
-					Boolean((this.evm as any).optsCached?.profiler?.enabled) ?? false,
-			},
-		}
-		const evmCopy = new EVM(evmOpts)
+			// customPredeploys isn't needed because it will be copied along in stateManager.deepCopy
+			// customPredeploys,
+			profiler:
+				Boolean((this.evm as any).optsCached?.profiler?.enabled) ?? false,
+		})
 		return TevmVm.create({
 			stateManager,
 			blockchain: this.blockchain,

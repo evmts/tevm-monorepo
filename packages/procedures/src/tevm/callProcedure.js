@@ -1,45 +1,48 @@
-import { bigIntToHex } from '@ethereumjs/util'
 import { callHandler } from '@tevm/actions'
-import { hexToBigInt } from 'viem'
+import { hexToBigInt, numberToHex } from '@tevm/utils'
 
 /**
  * Creates a Call JSON-RPC Procedure for handling call requests with Ethereumjs EVM
- * @param {import('@tevm/vm').TevmVm} vm
+ * @param {import('@tevm/base-client').BaseClient} client
  * @returns {import('@tevm/procedures-types').CallJsonRpcProcedure}
  */
-export const callProcedure = (vm) => async (request) => {
-	const { errors = [], ...result } = await callHandler(vm)({
-		...(request.params.deployedBytecode
-			? { deployedBytecode: request.params.deployedBytecode }
+export const callProcedure = (client) => async (request) => {
+	const { errors = [], ...result } = await callHandler(client)({
+		...(request.params[0].deployedBytecode
+			? { deployedBytecode: request.params[0].deployedBytecode }
 			: {}),
-		...(request.params.blobVersionedHashes
-			? { blobVersionedHashes: request.params.blobVersionedHashes }
+		...(request.params[0].blobVersionedHashes
+			? { blobVersionedHashes: request.params[0].blobVersionedHashes }
 			: {}),
-		...(request.params.caller ? { caller: request.params.caller } : {}),
-		...(request.params.data ? { data: request.params.data } : {}),
-		...(request.params.depth ? { depth: request.params.depth } : {}),
-		...(request.params.gasPrice
-			? { gasPrice: hexToBigInt(request.params.gasPrice) }
+		...(request.params[0].caller ? { caller: request.params[0].caller } : {}),
+		...(request.params[0].data ? { data: request.params[0].data } : {}),
+		...(request.params[0].depth ? { depth: request.params[0].depth } : {}),
+		...(request.params[0].gasPrice
+			? { gasPrice: hexToBigInt(request.params[0].gasPrice) }
 			: {}),
-		...(request.params.gas ? { gas: hexToBigInt(request.params.gas) } : {}),
-		...(request.params.gasRefund
-			? { gasRefund: hexToBigInt(request.params.gasRefund) }
+		...(request.params[0].gas
+			? { gas: hexToBigInt(request.params[0].gas) }
 			: {}),
-		...(request.params.origin ? { origin: request.params.origin } : {}),
-		...(request.params.salt ? { salt: request.params.salt } : {}),
-		...(request.params.selfdestruct
-			? { selfdestruct: new Set(request.params.selfdestruct) }
+		...(request.params[0].gasRefund
+			? { gasRefund: hexToBigInt(request.params[0].gasRefund) }
 			: {}),
-		...(request.params.skipBalance
-			? { skipBalance: request.params.skipBalance }
+		...(request.params[0].origin ? { origin: request.params[0].origin } : {}),
+		...(request.params[0].salt ? { salt: request.params[0].salt } : {}),
+		...(request.params[0].selfdestruct
+			? { selfdestruct: new Set(request.params[0].selfdestruct) }
 			: {}),
-		...(request.params.to ? { to: request.params.to } : {}),
-		...(request.params.value
-			? { value: hexToBigInt(request.params.value) }
+		...(request.params[0].skipBalance
+			? { skipBalance: request.params[0].skipBalance }
 			: {}),
-		...(request.params.blockTag ? { blockTag: request.params.blockTag } : {}),
-		...(request.params.createTransaction
-			? { createTransaction: request.params.createTransaction }
+		...(request.params[0].to ? { to: request.params[0].to } : {}),
+		...(request.params[0].value
+			? { value: hexToBigInt(request.params[0].value) }
+			: {}),
+		...(request.params[0].blockTag
+			? { blockTag: request.params[0].blockTag }
+			: {}),
+		...(request.params[0].createTransaction
+			? { createTransaction: request.params[0].createTransaction }
 			: {}),
 	})
 	if (errors.length > 0) {
@@ -59,9 +62,10 @@ export const callProcedure = (vm) => async (request) => {
 	}
 	/**
 	 * @param {bigint} value
-	 * @returns {import('viem').Hex}
+	 * @returns {import('@tevm/utils').Hex}
 	 */
-	const toHex = (value) => /**@type {import('viem').Hex}*/ (bigIntToHex(value))
+	const toHex = (value) =>
+		/**@type {import('@tevm/utils').Hex}*/ (numberToHex(value))
 	return {
 		jsonrpc: '2.0',
 		result: {

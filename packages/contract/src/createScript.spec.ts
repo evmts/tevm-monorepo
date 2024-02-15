@@ -1,6 +1,6 @@
 import { createScript } from './createScript.js'
 import { dummyAbi } from './test/fixtures.js'
-import { formatAbi, parseAbi } from 'abitype'
+import { formatAbi, parseAbi } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 
 describe(createScript.name, () => {

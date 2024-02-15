@@ -1,31 +1,29 @@
 import { callHandler } from './callHandler.js'
-import { Address, bytesToUnprefixedHex } from '@ethereumjs/util'
-import { validateContractParams } from '@tevm/zod'
+import { EthjsAddress } from '@tevm/utils'
 import {
 	decodeErrorResult,
 	decodeFunctionResult,
 	encodeFunctionData,
-	hexToBytes,
 	isHex,
-} from 'viem'
+} from '@tevm/utils'
+import { validateContractParams } from '@tevm/zod'
 
 /**
  * Creates an ContractHandler for handling contract params with Ethereumjs EVM
- * @param {import('@tevm/vm').TevmVm} vm
+ * @param {Pick<import('@tevm/base-client').BaseClient, 'vm'>} client
  * @returns {import("@tevm/actions-types").ContractHandler}
  */
-export const contractHandler = (vm) => async (params) => {
+export const contractHandler = (client) => async (params) => {
 	const errors = validateContractParams(/** @type any*/ (params))
 	if (errors.length > 0) {
 		return { errors, executionGasUsed: 0n, rawData: '0x' }
 	}
 
-	const contract = await vm.evm.stateManager.getContractCode(
-		Address.fromString(params.to),
+	const contract = await client.vm.evm.stateManager.getContractCode(
+		EthjsAddress.fromString(params.to),
 	)
-	const precompile = vm.evm.precompiles.get(
-		bytesToUnprefixedHex(hexToBytes(params.to)),
-	)
+	const precompile =
+		params.to && client.vm.evm.getPrecompile(EthjsAddress.fromString(params.to))
 	if (contract.length === 0 && !precompile) {
 		return {
 			rawData: '0x',
@@ -65,7 +63,7 @@ export const contractHandler = (vm) => async (params) => {
 		}
 	}
 
-	const result = await callHandler(vm)({
+	const result = await callHandler(client)({
 		...params,
 		data: functionData,
 	})

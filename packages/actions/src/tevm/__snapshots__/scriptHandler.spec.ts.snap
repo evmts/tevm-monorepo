@@ -8,7 +8,7 @@ exports[`scriptHandler should handle invalid function data 1`] = `
       "message": 
 "Address "not valid" is invalid.
 
-Version: viem@2.6.1"
+Version: viem@2.7.9"
 ,
       "name": "InvalidRequestError",
     },

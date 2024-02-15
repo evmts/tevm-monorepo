@@ -1,9 +1,7 @@
 import { requestBulkProcedure } from './requestBulkProcedure.js'
-import { EVM } from '@ethereumjs/evm'
-import { NormalStateManager } from '@tevm/state'
-import { TevmVm } from '@tevm/vm'
+import { createBaseClient } from '@tevm/base-client'
+import { numberToHex } from '@tevm/utils'
 import { describe, expect, it } from 'bun:test'
-import { numberToHex } from 'viem'
 
 const ERC20_ADDRESS = `0x${'3'.repeat(40)}` as const
 const ERC20_BYTECODE =
@@ -11,49 +9,55 @@ const ERC20_BYTECODE =
 
 describe('requestBulkProcedure', () => {
 	it('should work', async () => {
-		const stateManager = new NormalStateManager()
-		const evm = new EVM({ stateManager })
-		const vm = await TevmVm.create({ evm, stateManager })
-		await requestBulkProcedure(vm)([
+		const client = await createBaseClient()
+		await requestBulkProcedure(client)([
 			{
 				jsonrpc: '2.0',
 				method: 'tevm_setAccount',
 				id: 1,
-				params: {
-					address: ERC20_ADDRESS,
-					deployedBytecode: ERC20_BYTECODE,
-					balance: numberToHex(420n),
-					nonce: numberToHex(69n),
-				},
+				params: [
+					{
+						address: ERC20_ADDRESS,
+						deployedBytecode: ERC20_BYTECODE,
+						balance: numberToHex(420n),
+						nonce: numberToHex(69n),
+					},
+				],
 			},
 			{
 				jsonrpc: '2.0',
 				method: 'tevm_setAccount',
 				id: 1,
-				params: {
-					address: `0x${'69'.repeat(20)}` as const,
-					deployedBytecode: ERC20_BYTECODE,
-					balance: numberToHex(420n),
-					nonce: numberToHex(69n),
-				},
+				params: [
+					{
+						address: `0x${'69'.repeat(20)}` as const,
+						deployedBytecode: ERC20_BYTECODE,
+						balance: numberToHex(420n),
+						nonce: numberToHex(69n),
+					},
+				],
 			},
 		])
-		const res = await requestBulkProcedure(vm)([
+		const res = await requestBulkProcedure(client)([
 			{
 				jsonrpc: '2.0',
 				method: 'tevm_getAccount',
 				id: 1,
-				params: {
-					address: ERC20_ADDRESS,
-				},
+				params: [
+					{
+						address: ERC20_ADDRESS,
+					},
+				],
 			},
 			{
 				jsonrpc: '2.0',
 				method: 'tevm_getAccount',
 				id: 1,
-				params: {
-					address: `0x${'69'.repeat(20)}` as const,
-				},
+				params: [
+					{
+						address: `0x${'69'.repeat(20)}` as const,
+					},
+				],
 			},
 		])
 		expect(res[0].error).toBeUndefined()

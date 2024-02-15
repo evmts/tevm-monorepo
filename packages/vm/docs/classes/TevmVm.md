@@ -84,31 +84,29 @@ node\_modules/.pnpm/@ethereumjs+vm@7.1.0/node\_modules/@ethereumjs/vm/dist/esm/v
 
 ### blockchain
 
-> **`readonly`** **blockchain**: `BlockchainInterface`
+> **blockchain**: `TevmBlockchain`
 
-The blockchain the VM operates on
-
-#### Inherited from
+#### Overrides
 
 VM.blockchain
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+vm@7.1.0/node\_modules/@ethereumjs/vm/dist/esm/vm.d.ts:24
+[packages/vm/src/TevmVm.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/TevmVm.ts#L9)
 
 ***
 
 ### common
 
-> **`readonly`** **common**: `Common`
+> **common**: `TevmCommon`
 
-#### Inherited from
+#### Overrides
 
 VM.common
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+vm@7.1.0/node\_modules/@ethereumjs/vm/dist/esm/vm.d.ts:25
+[packages/vm/src/TevmVm.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/TevmVm.ts#L10)
 
 ***
 
@@ -128,33 +126,29 @@ node\_modules/.pnpm/@ethereumjs+vm@7.1.0/node\_modules/@ethereumjs/vm/dist/esm/v
 
 ### evm
 
-> **`readonly`** **evm**: `EVMInterface`
+> **evm**: `Evm`
 
-The EVM used for bytecode execution
-
-#### Inherited from
+#### Overrides
 
 VM.evm
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+vm@7.1.0/node\_modules/@ethereumjs/vm/dist/esm/vm.d.ts:30
+[packages/vm/src/TevmVm.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/TevmVm.ts#L8)
 
 ***
 
 ### stateManager
 
-> **`readonly`** **stateManager**: `EVMStateManagerInterface`
+> **stateManager**: `TevmStateManager`
 
-The StateManager used by the VM
-
-#### Inherited from
+#### Overrides
 
 VM.stateManager
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+vm@7.1.0/node\_modules/@ethereumjs/vm/dist/esm/vm.d.ts:20
+[packages/vm/src/TevmVm.ts:28](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/TevmVm.ts#L28)
 
 ## Methods
 
@@ -196,7 +190,7 @@ node\_modules/.pnpm/@ethereumjs+vm@7.1.0/node\_modules/@ethereumjs/vm/dist/esm/v
 
 #### Source
 
-[packages/vm/src/TevmVm.ts:32](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/TevmVm.ts#L32)
+[packages/vm/src/TevmVm.ts:30](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/TevmVm.ts#L30)
 
 ***
 
@@ -335,7 +329,7 @@ VM.create
 
 #### Source
 
-[packages/vm/src/TevmVm.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/TevmVm.ts#L20)
+[packages/vm/src/TevmVm.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/TevmVm.ts#L16)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

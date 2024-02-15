@@ -66,8 +66,7 @@
 	"dependencies": {
 		"@ethereumjs/util": "^9.0.1",
 		"@tevm/contract": "workspace:^",
-		"abitype": "^0.10.3",
-		"viem": "^2.0.0"
+		"@tevm/utils": "workspace:^"
 	},
 	"devDependencies": {
 		"@tevm/tsconfig": "workspace:^",

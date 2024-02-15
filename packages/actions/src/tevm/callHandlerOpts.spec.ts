@@ -1,7 +1,7 @@
 import { callHandlerOpts } from './callHandlerOpts.js'
-import { Address as EthjsAddress } from '@ethereumjs/util'
+import { EthjsAddress } from '@tevm/utils'
+import { hexToBytes } from '@tevm/utils'
 import { describe, expect, it } from 'bun:test'
-import { hexToBytes } from 'viem'
 
 describe('callHandlerOpts', () => {
 	it('should handle empty params', () => {

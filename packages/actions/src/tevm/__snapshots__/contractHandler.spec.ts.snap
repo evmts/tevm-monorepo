@@ -11,7 +11,7 @@ exports[`contractHandler Handles the unlikely event the function data cannot be 
 Params: (uint256 balance)
 Data:   0x30783432343234323432 (10 bytes)
 
-Version: viem@2.6.1"
+Version: viem@2.7.9"
 ,
       "name": "DecodeFunctionDataError",
     },
@@ -29,7 +29,7 @@ exports[`contractHandler Handls function data not being encodable 1`] = `
       "message": 
 "Address "not correct type" is invalid.
 
-Version: viem@2.6.1"
+Version: viem@2.7.9"
 ,
       "name": "InvalidRequestError",
     },

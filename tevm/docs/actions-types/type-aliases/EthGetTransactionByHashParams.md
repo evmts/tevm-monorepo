@@ -14,7 +14,7 @@ Based on the JSON-RPC request for `eth_getTransactionByHash` procedure
 
 ### data
 
-> **data**: [`Hex`](../../index/type-aliases/Hex.md)
+> **data**: [`Hex`](Hex.md)
 
 ## Source
 

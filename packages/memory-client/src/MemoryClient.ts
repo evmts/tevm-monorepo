@@ -1,4 +1,4 @@
-import type { VM } from '@ethereumjs/vm'
+import type { BaseClient } from '@tevm/base-client'
 import type { TevmClient } from '@tevm/client-types'
 
 /**
@@ -10,7 +10,7 @@ import type { TevmClient } from '@tevm/client-types'
  * @example
  * ```ts
  * import { createMemoryClient } from "tevm"
- * import { createPublicClient, http } from "viem"
+ * import { createPublicClient, http } from "@tevm/utils"
  * import { MyERC721 } from './MyERC721.sol'
  *
  * const tevm = createMemoryClient({
@@ -35,21 +35,4 @@ import type { TevmClient } from '@tevm/client-types'
  *  console.log(balance) // 1n
  *  ```
  */
-export type MemoryClient = TevmClient & {
-	/**
-	 * Fork url if the EVM is forked
-	 */
-	readonly forkUrl?: string | undefined
-	/**
-	 * Internal instance of the VM. Can be used for lower level operations
-	 * but is not guaranteed to stay stable between versions
-	 */
-	readonly _vm: VM
-	/**
-	 * The mode the current client is running in
-	 * `fork` mode will fetch and cache all state from the block forked from the provided URL
-	 * `proxy` mode will fetch all state from the latest block of the provided proxy URL
-	 * `normal` mode will not fetch any state and will only run the EVM in memory
-	 */
-	readonly mode: 'fork' | 'proxy' | 'normal'
-}
+export type MemoryClient = TevmClient & BaseClient

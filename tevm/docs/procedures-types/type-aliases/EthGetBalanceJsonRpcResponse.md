@@ -6,13 +6,13 @@
 
 # Type alias: EthGetBalanceJsonRpcResponse
 
-> **EthGetBalanceJsonRpcResponse**: [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"eth_getBalance"`, `Hex`, `string`\>
+> **EthGetBalanceJsonRpcResponse**: [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"eth_getBalance"`, [`Hex`](../../index/type-aliases/Hex.md), `string`\>
 
 JSON-RPC response for `eth_getBalance` procedure
 
 ## Source
 
-packages/procedures-types/dist/index.d.ts:493
+packages/procedures-types/dist/index.d.ts:534
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

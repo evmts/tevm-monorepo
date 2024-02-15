@@ -7,5 +7,5 @@ import type { JsonRpcRequest } from '@tevm/jsonrpc'
  */
 export type CallJsonRpcRequest = JsonRpcRequest<
 	'tevm_call',
-	SerializeToJson<CallParams>
+	[SerializeToJson<CallParams>]
 >

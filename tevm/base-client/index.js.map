@@ -1,0 +1,1 @@
+{"version":3,"sources":["index.ts"],"names":[],"mappings":";AAAA;AAAA,EACE;AAAA,OAMK","sourcesContent":["export {\n  createBaseClient,\n  type Hardfork,\n  type Extension,\n  type BaseClient,\n  type CustomPrecompile,\n  type BaseClientOptions\n} from '@tevm/base-client'\n"]}

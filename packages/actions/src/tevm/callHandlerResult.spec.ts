@@ -1,11 +1,11 @@
 import { callHandlerResult } from './callHandlerResult.js'
-import type { EVMResult, Log } from '@ethereumjs/evm'
+import type { EthjsLog, EvmResult } from '@tevm/evm'
+import { bytesToHex, getAddress, toHex } from '@tevm/utils'
 import { describe, expect, it } from 'bun:test'
-import { bytesToHex, getAddress, toHex } from 'viem'
 
 describe('callHandlerResult', () => {
 	const dummyAddress = `0x${'1'.repeat(40)}` as const
-	const mockLog: Log = [
+	const mockLog: EthjsLog = [
 		new Uint8Array(20), // Address
 		[new Uint8Array(32), new Uint8Array(32)], // Topics (an array of two Uint8Array elements)
 		new Uint8Array(64), // Data
@@ -21,7 +21,7 @@ describe('callHandlerResult', () => {
 			blobGasUsed: 3000n,
 			createdAddresses: new Set([dummyAddress]),
 		},
-	} as const satisfies EVMResult
+	} as const satisfies EvmResult
 
 	it('should handle EVMResult correctly', () => {
 		const result = callHandlerResult(dummyEVMResult)

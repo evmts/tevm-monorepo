@@ -5,7 +5,7 @@ prev: false
 title: "DumpStateJsonRpcRequest"
 ---
 
-> **DumpStateJsonRpcRequest**: [`JsonRpcRequest`](/reference/tevm/jsonrpc/type-aliases/jsonrpcrequest/)\<`"tevm_dumpState"`, `object`\>
+> **DumpStateJsonRpcRequest**: [`JsonRpcRequest`](/reference/tevm/jsonrpc/type-aliases/jsonrpcrequest/)\<`"tevm_dumpState"`, []\>
 
 The JSON-RPC request for the `tevm_dumpState` method
 

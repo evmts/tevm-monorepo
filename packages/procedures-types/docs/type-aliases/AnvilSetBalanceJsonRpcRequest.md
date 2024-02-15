@@ -6,7 +6,7 @@
 
 # Type alias: AnvilSetBalanceJsonRpcRequest
 
-> **AnvilSetBalanceJsonRpcRequest**: `JsonRpcRequest`\<`"anvil_setBalance"`, [`SerializeToJson`](SerializeToJson.md)\<`AnvilSetBalanceParams`\>\>
+> **AnvilSetBalanceJsonRpcRequest**: `JsonRpcRequest`\<`"anvil_setBalance"`, [[`SerializeToJson`](SerializeToJson.md)\<`AnvilSetBalanceParams`\>]\>
 
 JSON-RPC request for `anvil_setBalance` method
 

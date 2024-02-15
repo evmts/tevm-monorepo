@@ -1613,7 +1613,7 @@ Creates a new TevmProvider instance with a TevmMemoryClient.
 
 #### Parameters
 
-▪ **options**: `CreateEVMOptions`
+▪ **options**: `BaseClientOptions`
 
 Options to create a new TevmProvider.
 

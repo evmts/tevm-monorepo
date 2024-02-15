@@ -6,13 +6,13 @@
 
 # Type alias: EthNewBlockFilterJsonRpcResponse
 
-> **EthNewBlockFilterJsonRpcResponse**: [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"eth_newBlockFilter"`, `Hex`, `string`\>
+> **EthNewBlockFilterJsonRpcResponse**: [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"eth_newBlockFilter"`, [`Hex`](../../index/type-aliases/Hex.md), `string`\>
 
 JSON-RPC response for `eth_newBlockFilter` procedure
 
 ## Source
 
-packages/procedures-types/dist/index.d.ts:616
+packages/procedures-types/dist/index.d.ts:657
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

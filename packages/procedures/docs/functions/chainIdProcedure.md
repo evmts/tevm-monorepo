@@ -10,7 +10,7 @@
 
 ## Parameters
 
-▪ **chainId**: `bigint`
+▪ **chainId**: `number`
 
 ## Returns
 

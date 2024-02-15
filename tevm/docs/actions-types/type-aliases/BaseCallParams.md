@@ -14,7 +14,7 @@ Properties shared accross call-like params
 
 ### blobVersionedHashes
 
-> **blobVersionedHashes**?: [`Hex`](../../index/type-aliases/Hex.md)[]
+> **blobVersionedHashes**?: [`Hex`](Hex.md)[]
 
 Versioned hashes for each blob in a blob transaction
 
@@ -26,7 +26,7 @@ The block number or block tag to execute the call at. Defaults to `latest`
 
 ### caller
 
-> **caller**?: [`Address`](../../index/type-aliases/Address.md)
+> **caller**?: [`Address`](Address.md)
 
 The address that ran this code (`msg.sender`). Defaults to the zero address.
 This defaults to `from` address if set otherwise it defaults to the zero address
@@ -45,7 +45,7 @@ The call depth. Defaults to `0`
 
 ### from
 
-> **from**?: [`Address`](../../index/type-aliases/Address.md)
+> **from**?: [`Address`](Address.md)
 
 The from address for the call. Defaults to the zero address.
 It is also possible to set the `origin` and `caller` addresses seperately using
@@ -72,14 +72,14 @@ Refund counter. Defaults to `0`
 
 ### origin
 
-> **origin**?: [`Address`](../../index/type-aliases/Address.md)
+> **origin**?: [`Address`](Address.md)
 
 The address where the call originated from. Defaults to the zero address.
 This defaults to `from` address if set otherwise it defaults to the zero address
 
 ### selfdestruct
 
-> **selfdestruct**?: `Set`\<[`Address`](../../index/type-aliases/Address.md)\>
+> **selfdestruct**?: `Set`\<[`Address`](Address.md)\>
 
 Addresses to selfdestruct. Defaults to the empty set.
 
@@ -93,7 +93,7 @@ where it is set to true
 
 ### to
 
-> **to**?: [`Address`](../../index/type-aliases/Address.md)
+> **to**?: [`Address`](Address.md)
 
 The address of the account that is executing this code (`address(this)`). Defaults to the zero address.
 

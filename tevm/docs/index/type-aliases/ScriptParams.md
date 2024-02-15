@@ -6,7 +6,7 @@
 
 # Type alias: ScriptParams`<TAbi, TFunctionName>`
 
-> **ScriptParams**\<`TAbi`, `TFunctionName`\>: `EncodeFunctionDataParameters`\<`TAbi`, `TFunctionName`\> & [`BaseCallParams`](../../actions-types/type-aliases/BaseCallParams.md) & `object`
+> **ScriptParams**\<`TAbi`, `TFunctionName`\>: [`EncodeFunctionDataParameters`](EncodeFunctionDataParameters.md)\<`TAbi`, `TFunctionName`\> & [`BaseCallParams`](../../actions-types/type-aliases/BaseCallParams.md) & `object`
 
 Tevm params for deploying and running a script
 
@@ -14,7 +14,7 @@ Tevm params for deploying and running a script
 
 ### deployedBytecode
 
-> **deployedBytecode**: `Hex`
+> **deployedBytecode**: [`Hex`](Hex.md)
 
 The EVM code to run.
 
@@ -22,8 +22,8 @@ The EVM code to run.
 
 | Parameter | Default |
 | :------ | :------ |
-| `TAbi` extends `Abi` \| readonly `unknown`[] | `Abi` |
-| `TFunctionName` extends `ContractFunctionName`\<`TAbi`\> | `ContractFunctionName`\<`TAbi`\> |
+| `TAbi` extends [`Abi`](Abi.md) \| readonly `unknown`[] | [`Abi`](Abi.md) |
+| `TFunctionName` extends [`ContractFunctionName`](ContractFunctionName.md)\<`TAbi`\> | [`ContractFunctionName`](ContractFunctionName.md)\<`TAbi`\> |
 
 ## Source
 

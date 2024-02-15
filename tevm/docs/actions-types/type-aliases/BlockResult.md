@@ -15,83 +15,83 @@ json rpc procedures
 
 ### difficulty
 
-> **`readonly`** **difficulty**: [`Hex`](../../index/type-aliases/Hex.md)
+> **`readonly`** **difficulty**: [`Hex`](Hex.md)
 
 ### extraData
 
-> **`readonly`** **extraData**: [`Hex`](../../index/type-aliases/Hex.md)
+> **`readonly`** **extraData**: [`Hex`](Hex.md)
 
 ### gasLimit
 
-> **`readonly`** **gasLimit**: [`Hex`](../../index/type-aliases/Hex.md)
+> **`readonly`** **gasLimit**: [`Hex`](Hex.md)
 
 ### gasUsed
 
-> **`readonly`** **gasUsed**: [`Hex`](../../index/type-aliases/Hex.md)
+> **`readonly`** **gasUsed**: [`Hex`](Hex.md)
 
 ### hash
 
-> **`readonly`** **hash**: [`Hex`](../../index/type-aliases/Hex.md)
+> **`readonly`** **hash**: [`Hex`](Hex.md)
 
 The hex stringhash of the block.
 
 ### logsBloom
 
-> **`readonly`** **logsBloom**: [`Hex`](../../index/type-aliases/Hex.md)
+> **`readonly`** **logsBloom**: [`Hex`](Hex.md)
 
 ### miner
 
-> **`readonly`** **miner**: [`Hex`](../../index/type-aliases/Hex.md)
+> **`readonly`** **miner**: [`Hex`](Hex.md)
 
 ### nonce
 
-> **`readonly`** **nonce**: [`Hex`](../../index/type-aliases/Hex.md)
+> **`readonly`** **nonce**: [`Hex`](Hex.md)
 
 ### number
 
-> **`readonly`** **number**: [`Hex`](../../index/type-aliases/Hex.md)
+> **`readonly`** **number**: [`Hex`](Hex.md)
 
 The block number (height) in the blockchain.
 
 ### parentHash
 
-> **`readonly`** **parentHash**: [`Hex`](../../index/type-aliases/Hex.md)
+> **`readonly`** **parentHash**: [`Hex`](Hex.md)
 
 The hex stringhash of the parent block.
 
 ### sha3Uncles
 
-> **`readonly`** **sha3Uncles**: [`Hex`](../../index/type-aliases/Hex.md)
+> **`readonly`** **sha3Uncles**: [`Hex`](Hex.md)
 
 The hex stringhash of the uncles of the block.
 
 ### size
 
-> **`readonly`** **size**: [`Hex`](../../index/type-aliases/Hex.md)
+> **`readonly`** **size**: [`Hex`](Hex.md)
 
 ### stateRoot
 
-> **`readonly`** **stateRoot**: [`Hex`](../../index/type-aliases/Hex.md)
+> **`readonly`** **stateRoot**: [`Hex`](Hex.md)
 
 ### timestamp
 
-> **`readonly`** **timestamp**: [`Hex`](../../index/type-aliases/Hex.md)
+> **`readonly`** **timestamp**: [`Hex`](Hex.md)
 
 ### totalDifficulty
 
-> **`readonly`** **totalDifficulty**: [`Hex`](../../index/type-aliases/Hex.md)
+> **`readonly`** **totalDifficulty**: [`Hex`](Hex.md)
 
 ### transactions
 
-> **`readonly`** **transactions**: [`Hex`](../../index/type-aliases/Hex.md)[]
+> **`readonly`** **transactions**: [`Hex`](Hex.md)[]
 
 ### transactionsRoot
 
-> **`readonly`** **transactionsRoot**: [`Hex`](../../index/type-aliases/Hex.md)
+> **`readonly`** **transactionsRoot**: [`Hex`](Hex.md)
 
 ### uncles
 
-> **`readonly`** **uncles**: [`Hex`](../../index/type-aliases/Hex.md)[]
+> **`readonly`** **uncles**: [`Hex`](Hex.md)[]
 
 ## Source
 

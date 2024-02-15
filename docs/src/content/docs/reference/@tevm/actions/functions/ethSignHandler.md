@@ -5,11 +5,13 @@ prev: false
 title: "ethSignHandler"
 ---
 
-> **ethSignHandler**(`accounts`): [`EthSignHandler`](/reference/tevm/actions-types/type-aliases/ethsignhandler/)
+> **ethSignHandler**(`params`): [`EthSignHandler`](/reference/tevm/actions-types/type-aliases/ethsignhandler/)
 
 ## Parameters
 
-▪ **accounts**: readonly `HDAccount`[]
+▪ **params**: `object`
+
+▪ **params.accounts**: readonly `HDAccount`[]
 
 ## Returns
 

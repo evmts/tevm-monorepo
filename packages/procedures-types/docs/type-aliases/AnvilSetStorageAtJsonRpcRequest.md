@@ -6,7 +6,7 @@
 
 # Type alias: AnvilSetStorageAtJsonRpcRequest
 
-> **AnvilSetStorageAtJsonRpcRequest**: `JsonRpcRequest`\<`"anvil_setStorageAt"`, [`SerializeToJson`](SerializeToJson.md)\<`AnvilSetStorageAtParams`\>\>
+> **AnvilSetStorageAtJsonRpcRequest**: `JsonRpcRequest`\<`"anvil_setStorageAt"`, [[`SerializeToJson`](SerializeToJson.md)\<`AnvilSetStorageAtParams`\>]\>
 
 JSON-RPC request for `anvil_setStorageAt` method
 

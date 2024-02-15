@@ -14,7 +14,7 @@ Params fro `anvil_impersonateAccount` handler
 
 ### address
 
-> **address**: [`Address`](../../index/type-aliases/Address.md)
+> **address**: [`Address`](Address.md)
 
 The address to impersonate
 

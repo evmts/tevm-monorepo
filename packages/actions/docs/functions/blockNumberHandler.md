@@ -6,13 +6,13 @@
 
 # Function: blockNumberHandler()
 
-> **blockNumberHandler**(`vm`): `EthBlockNumberHandler`
+> **blockNumberHandler**(`client`): `EthBlockNumberHandler`
 
 Handler for the `eth_blockNumber` RPC call
 
 ## Parameters
 
-▪ **vm**: `TevmVm`
+▪ **client**: `Pick`\<`object`, `"vm"`\>
 
 ## Returns
 

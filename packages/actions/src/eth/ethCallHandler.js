@@ -1,11 +1,11 @@
 import { callHandler } from '../index.js'
 
 /**
- * @param {import('@tevm/vm').TevmVm} vm
+ * @param {Pick<import('@tevm/base-client').BaseClient, 'vm'>} client
  * @returns {import('@tevm/actions-types').EthCallHandler}
  */
-export const ethCallHandler = (vm) => async (params) => {
-	return callHandler(vm)({
+export const ethCallHandler = (client) => async (params) => {
+	return callHandler(client)({
 		...params,
 		createTransaction: false,
 		skipBalance: true,

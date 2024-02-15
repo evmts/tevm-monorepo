@@ -6,13 +6,13 @@
 
 # Type alias: AnvilStopImpersonatingAccountJsonRpcRequest
 
-> **AnvilStopImpersonatingAccountJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"anvil_stopImpersonatingAccount"`, [`SerializeToJson`](SerializeToJson.md)\<[`AnvilStopImpersonatingAccountParams`](../../actions-types/type-aliases/AnvilStopImpersonatingAccountParams.md)\>\>
+> **AnvilStopImpersonatingAccountJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"anvil_stopImpersonatingAccount"`, [[`SerializeToJson`](SerializeToJson.md)\<[`AnvilStopImpersonatingAccountParams`](../../actions-types/type-aliases/AnvilStopImpersonatingAccountParams.md)\>]\>
 
 JSON-RPC request for `anvil_stopImpersonatingAccount` method
 
 ## Source
 
-packages/procedures-types/dist/index.d.ts:27
+packages/procedures-types/dist/index.d.ts:28
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

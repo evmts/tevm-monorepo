@@ -64,18 +64,16 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
-		"@ethereumjs/block": "^5.0.1",
-		"@ethereumjs/blockchain": "^7.0.1",
-		"@ethereumjs/util": "^9.0.1",
-		"@ethereumjs/vm": "^7.1.0",
 		"@tevm/jsonrpc": "workspace:^",
-		"@tevm/zod": "workspace:^",
-		"viem": "^2.6.1"
+		"@tevm/utils": "workspace:^",
+		"@tevm/vm": "workspace:^",
+		"@tevm/zod": "workspace:^"
 	},
 	"devDependencies": {
-		"@ethereumjs/evm": "^2.1.0",
 		"@tevm/actions-types": "workspace:^",
+		"@tevm/base-client": "workspace:^",
 		"@tevm/errors": "workspace:^",
+		"@tevm/evm": "workspace:^",
 		"@tevm/state": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",

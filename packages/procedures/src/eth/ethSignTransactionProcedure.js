@@ -1,5 +1,5 @@
 import { ethSignTransactionHandler } from '@tevm/actions'
-import { hexToBigInt } from 'viem'
+import { hexToBigInt } from '@tevm/utils'
 
 /**
  * @param {Parameters<typeof ethSignTransactionHandler>[0]} options

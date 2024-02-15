@@ -6,6 +6,8 @@
 # Tevm cache
 **/.tevm
 
+**/debuglogs.txt
+
 cache
 forge-artifacts
 broadcast

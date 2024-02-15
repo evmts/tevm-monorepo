@@ -1,5 +1,5 @@
 import { Predeploy } from './Predeploy.js'
-import { getAddress } from 'viem'
+import { getAddress } from '@tevm/utils'
 
 /**
  * Defines a predeploy contract to use in the tevm vm

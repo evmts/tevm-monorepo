@@ -6,13 +6,13 @@
 
 # Type alias: EthSendRawTransactionJsonRpcRequest
 
-> **EthSendRawTransactionJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"eth_sendRawTransaction"`, [`Hex`]\>
+> **EthSendRawTransactionJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"eth_sendRawTransaction"`, [[`Hex`](../../index/type-aliases/Hex.md)]\>
 
 JSON-RPC request for `eth_sendRawTransaction` procedure
 
 ## Source
 
-packages/procedures-types/dist/index.d.ts:263
+packages/procedures-types/dist/index.d.ts:294
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

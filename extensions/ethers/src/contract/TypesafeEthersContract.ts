@@ -6,7 +6,7 @@ import type {
 	ExtractAbiEventNames,
 	ExtractAbiFunction,
 	ExtractAbiFunctionNames,
-} from 'abitype'
+} from '@tevm/utils'
 import type { Log } from 'ethers'
 import type { EventLog } from 'ethers'
 import type { BlockTag } from 'ethers'

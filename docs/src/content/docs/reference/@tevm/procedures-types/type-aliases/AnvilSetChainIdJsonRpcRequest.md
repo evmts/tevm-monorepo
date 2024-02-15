@@ -5,7 +5,7 @@ prev: false
 title: "AnvilSetChainIdJsonRpcRequest"
 ---
 
-> **AnvilSetChainIdJsonRpcRequest**: [`JsonRpcRequest`](/reference/tevm/jsonrpc/type-aliases/jsonrpcrequest/)\<`"anvil_setChainId"`, [`SerializeToJson`](/reference/tevm/procedures-types/type-aliases/serializetojson/)\<[`AnvilSetChainIdParams`](/reference/tevm/actions-types/type-aliases/anvilsetchainidparams/)\>\>
+> **AnvilSetChainIdJsonRpcRequest**: [`JsonRpcRequest`](/reference/tevm/jsonrpc/type-aliases/jsonrpcrequest/)\<`"anvil_setChainId"`, [[`SerializeToJson`](/reference/tevm/procedures-types/type-aliases/serializetojson/)\<[`AnvilSetChainIdParams`](/reference/tevm/actions-types/type-aliases/anvilsetchainidparams/)\>]\>
 
 JSON-RPC request for `anvil_setChainId` method
 

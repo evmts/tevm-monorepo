@@ -8,5 +8,5 @@ import type { JsonRpcRequest } from '@tevm/jsonrpc'
  */
 export type ForkJsonRpcRequest = JsonRpcRequest<
 	'tevm_fork',
-	SerializeToJson<ForkParams>
+	[SerializeToJson<ForkParams>]
 >

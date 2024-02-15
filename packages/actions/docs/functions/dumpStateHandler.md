@@ -6,11 +6,11 @@
 
 # Function: dumpStateHandler()
 
-> **dumpStateHandler**(`vm`): `DumpStateHandler`
+> **dumpStateHandler**(`client`): `DumpStateHandler`
 
 ## Parameters
 
-▪ **vm**: `TevmVm`
+▪ **client**: `Pick`\<`object`, `"vm"`\>
 
 ## Returns
 

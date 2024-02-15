@@ -23,14 +23,14 @@ tevm.eth.getLog(
 | Parameter | Default |
 | :------ | :------ |
 | `THumanReadableAbi` extends readonly `string`[] | - |
-| `TBytecode` extends `Hex` \| `undefined` | - |
-| `TDeployedBytecode` extends `Hex` \| `undefined` | - |
-| `TAddress` extends `Address` \| `undefined` | - |
+| `TBytecode` extends [`Hex`](Hex.md) \| `undefined` | - |
+| `TDeployedBytecode` extends [`Hex`](Hex.md) \| `undefined` | - |
+| `TAddress` extends [`Address`](Address.md) \| `undefined` | - |
 | `TAddressArgs` | `TAddress` extends `undefined` ? `object` : `object` |
 
 ## Source
 
-packages/contract/types/event/EventActionCreator.d.ts:17
+packages/contract/types/event/EventActionCreator.d.ts:16
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

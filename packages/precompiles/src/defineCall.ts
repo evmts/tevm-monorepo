@@ -1,19 +1,17 @@
 import type { CallResult } from './CallResult.js'
 import { EVMErrorMessage, EvmError, type ExecResult } from '@ethereumjs/evm'
-import type {
-	Abi,
-	AbiEvent,
-	AbiParametersToPrimitiveTypes,
-	ExtractAbiFunction,
-	ExtractAbiFunctionNames,
-} from 'abitype'
 import {
+	type Abi,
+	type AbiEvent,
+	type AbiParametersToPrimitiveTypes,
+	type ExtractAbiFunction,
+	type ExtractAbiFunctionNames,
 	decodeFunctionData,
 	encodeAbiParameters,
 	encodeEventTopics,
 	encodeFunctionResult,
 	hexToBytes,
-} from 'viem'
+} from '@tevm/utils'
 
 type Handler<
 	TAbi extends Abi,

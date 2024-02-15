@@ -14,7 +14,7 @@ Based on the JSON-RPC request for `eth_getUncleCountByBlockHash` procedure
 
 ### hash
 
-> **hash**: [`Hex`](../../index/type-aliases/Hex.md)
+> **hash**: [`Hex`](Hex.md)
 
 ## Source
 

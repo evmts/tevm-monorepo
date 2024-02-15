@@ -6,7 +6,7 @@ describe('ethSignHandler', () => {
 	it('should sign a message', async () => {
 		const data = '0x42069'
 		expect(
-			await ethSignHandler(testAccounts)({
+			await ethSignHandler({ accounts: testAccounts })({
 				data,
 				address: testAccounts[0].address,
 			}),
@@ -15,7 +15,10 @@ describe('ethSignHandler', () => {
 	it("should throw an error if account doesn't exist", async () => {
 		const data = '0x42069'
 		expect(
-			ethSignHandler(testAccounts)({ data, address: `0x${'69'.repeat(20)}` }),
+			ethSignHandler({ accounts: testAccounts })({
+				data,
+				address: `0x${'69'.repeat(20)}`,
+			}),
 		).rejects.toThrow()
 	})
 })

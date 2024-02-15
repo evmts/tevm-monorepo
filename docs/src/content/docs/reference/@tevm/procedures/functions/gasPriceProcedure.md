@@ -9,11 +9,7 @@ title: "gasPriceProcedure"
 
 ## Parameters
 
-▪ **options**: `object`
-
-▪ **options.forkUrl?**: `string`
-
-▪ **options.vm**: `TevmVm`
+▪ **options**: `Pick`\<`object`, `"vm"` \| `"forkUrl"`\>
 
 ## Returns
 

@@ -1,5 +1,5 @@
 import { type Script } from '@tevm/contract'
-import { type Address } from 'abitype'
+import { type Address } from '@tevm/utils'
 
 /**
  * Params taken by the definePredeploy function

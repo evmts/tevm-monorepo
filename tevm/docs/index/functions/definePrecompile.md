@@ -20,7 +20,7 @@
 
 ## Source
 
-packages/precompiles/dist/index.d.ts:98
+packages/precompiles/dist/index.d.ts:97
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

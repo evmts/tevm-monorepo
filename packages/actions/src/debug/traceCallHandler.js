@@ -1,5 +1,4 @@
-import { Address } from '@ethereumjs/util'
-import { bytesToHex, hexToBytes, numberToHex } from 'viem'
+import { EthjsAddress, bytesToHex, hexToBytes, numberToHex } from '@tevm/utils'
 
 /**
  * Returns a trace of an eth_call within the context of the given block execution using the final state of the parent block
@@ -17,7 +16,7 @@ export const traceCallHandler =
 		const trace = {
 			gas: 0n,
 			/**
-			 * @type {import('viem').Hex}
+			 * @type {import('@tevm/utils').Hex}
 			 */
 			returnValue: '0x0',
 			failed: false,
@@ -59,12 +58,12 @@ export const traceCallHandler =
 		const res = await vm.evm.runCall({
 			...(from !== undefined
 				? {
-						origin: Address.fromString(from),
-						caller: Address.fromString(from),
+						origin: EthjsAddress.fromString(from),
+						caller: EthjsAddress.fromString(from),
 				  }
 				: {}),
 			...(data !== undefined ? { data: hexToBytes(data) } : {}),
-			...(to ? { to: Address.fromString(to) } : {}),
+			...(to ? { to: EthjsAddress.fromString(to) } : {}),
 			...(gasPrice ? { gasPrice } : {}),
 			...(gasLimit ? { gasLimit } : {}),
 			...(value ? { value } : {}),

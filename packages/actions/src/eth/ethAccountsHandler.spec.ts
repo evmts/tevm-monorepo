@@ -4,7 +4,7 @@ import { describe, expect, it } from 'bun:test'
 
 describe('ethAccountsHandler', () => {
 	it('should return the accounts', async () => {
-		expect(await ethAccountsHandler(testAccounts)()).toEqual(
+		expect(await ethAccountsHandler({ accounts: testAccounts })()).toEqual(
 			testAccounts.map((account) => account.address),
 		)
 	})

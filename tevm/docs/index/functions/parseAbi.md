@@ -6,7 +6,7 @@
 
 # Function: parseAbi()
 
-> **parseAbi**\<`TSignatures`\>(`signatures`): `ParseAbi`\<`TSignatures`\>
+> **parseAbi**\<`TSignatures`\>(`signatures`): [`ParseAbi`](../type-aliases/ParseAbi.md)\<`TSignatures`\>
 
 Parses human-readable ABI into JSON [Abi](../type-aliases/Abi.md)
 

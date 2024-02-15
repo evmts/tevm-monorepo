@@ -58,7 +58,7 @@ packages/state/types/Cache.d.ts:9
 
 #### Parameters
 
-▪ **address**: `Address`
+▪ **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 
 ▪ **key**: `Uint8Array`
 
@@ -74,7 +74,7 @@ packages/state/types/Cache.d.ts:7
 
 #### Parameters
 
-▪ **address**: `Address`
+▪ **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 
 ▪ **key**: `Uint8Array`
 

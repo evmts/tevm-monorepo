@@ -6,7 +6,7 @@
 
 # Type alias: EthCoinbaseResult
 
-> **EthCoinbaseResult**: [`Address`](../../index/type-aliases/Address.md)
+> **EthCoinbaseResult**: [`Address`](Address.md)
 
 JSON-RPC response for `eth_coinbase` procedure
 

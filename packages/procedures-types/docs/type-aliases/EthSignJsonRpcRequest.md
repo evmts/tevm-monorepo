@@ -12,7 +12,7 @@ JSON-RPC request for `eth_sign` procedure
 
 ## Source
 
-[requests/EthJsonRpcRequest.ts:287](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L287)
+[requests/EthJsonRpcRequest.ts:286](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L286)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

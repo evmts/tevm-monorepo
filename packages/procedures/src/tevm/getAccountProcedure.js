@@ -1,15 +1,15 @@
 import { getAccountHandler } from '@tevm/actions'
-import { numberToHex } from 'viem'
+import { numberToHex } from '@tevm/utils'
 
 /**
  * Creates an GetAccount JSON-RPC Procedure for handling account requests with Ethereumjs VM
- * @param {import('@tevm/vm').TevmVm} vm
+ * @param {import('@tevm/base-client').BaseClient} client
  * @returns {import('@tevm/procedures-types').GetAccountJsonRpcProcedure}
  */
-export const getAccountProcedure = (vm) => async (request) => {
+export const getAccountProcedure = (client) => async (request) => {
 	request.params
-	const { errors = [], ...result } = await getAccountHandler(vm)({
-		address: request.params.address,
+	const { errors = [], ...result } = await getAccountHandler(client)({
+		address: request.params[0].address,
 	})
 	if (errors.length > 0) {
 		const error = /** @type {import('@tevm/errors').GetAccountError}*/ (

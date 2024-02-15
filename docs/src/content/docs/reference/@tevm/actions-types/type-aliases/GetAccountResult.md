@@ -29,6 +29,12 @@ Address of account
 
 Balance to set account to
 
+### codeHash
+
+> **codeHash**?: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
+
+Code hash to set account to
+
 ### deployedBytecode
 
 > **deployedBytecode**?: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
@@ -40,6 +46,18 @@ Contract bytecode to set account to
 > **errors**?: `ErrorType`[]
 
 Description of the exception, if any occurred
+
+### isContract
+
+> **isContract**?: `boolean`
+
+True if account is a contract
+
+### isEmpty
+
+> **isEmpty**?: `boolean`
+
+True if account is empty
 
 ### nonce
 

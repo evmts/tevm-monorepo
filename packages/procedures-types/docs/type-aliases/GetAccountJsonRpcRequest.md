@@ -6,7 +6,7 @@
 
 # Type alias: GetAccountJsonRpcRequest
 
-> **GetAccountJsonRpcRequest**: `JsonRpcRequest`\<`"tevm_getAccount"`, [`SerializeToJson`](SerializeToJson.md)\<`GetAccountParams`\>\>
+> **GetAccountJsonRpcRequest**: `JsonRpcRequest`\<`"tevm_getAccount"`, [[`SerializeToJson`](SerializeToJson.md)\<`GetAccountParams`\>]\>
 
 JSON-RPC request for `tevm_getAccount` method
 

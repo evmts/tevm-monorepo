@@ -1,4 +1,4 @@
-import type { Address as _Address } from 'abitype'
+import type { Address as _Address } from '@tevm/utils'
 
 /**
  * An ethereum address represented as a hex string

@@ -6,13 +6,13 @@
 
 # Type alias: EthUninstallFilterJsonRpcRequest
 
-> **EthUninstallFilterJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"eth_uninstallFilter"`, [`Hex`]\>
+> **EthUninstallFilterJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"eth_uninstallFilter"`, [[`Hex`](../../index/type-aliases/Hex.md)]\>
 
 JSON-RPC request for `eth_uninstallFilter` procedure
 
 ## Source
 
-packages/procedures-types/dist/index.d.ts:313
+packages/procedures-types/dist/index.d.ts:344
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

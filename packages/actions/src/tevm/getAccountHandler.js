@@ -1,14 +1,14 @@
 import { createError } from './createError.js'
-import { Address as EthjsAddress } from '@ethereumjs/util'
+import { EthjsAddress } from '@tevm/utils'
+import { bytesToHex, hexToBytes } from '@tevm/utils'
 import { validateGetAccountParams } from '@tevm/zod'
-import { bytesToHex, hexToBytes } from 'viem'
 
 /**
  * Creates an GetAccountHandler for handling account params with Ethereumjs VM
- * @param {import('@tevm/vm').TevmVm} vm
+ * @param {Pick<import('@tevm/base-client').BaseClient, 'vm'>} client
  * @returns {import('@tevm/actions-types').GetAccountHandler}
  */
-export const getAccountHandler = (vm) => async (params) => {
+export const getAccountHandler = (client) => async (params) => {
 	/**
 	 * @type {Array<import('@tevm/errors').GetAccountError>}
 	 */
@@ -26,7 +26,7 @@ export const getAccountHandler = (vm) => async (params) => {
 
 	const address = new EthjsAddress(hexToBytes(params.address))
 	try {
-		const res = await vm.stateManager.getAccount(address)
+		const res = await client.vm.stateManager.getAccount(address)
 		if (!res) {
 			return {
 				address: params.address,
@@ -44,14 +44,14 @@ export const getAccountHandler = (vm) => async (params) => {
 		}
 		const code =
 			res?.codeHash !== undefined
-				? bytesToHex(await vm.stateManager.getContractCode(address))
+				? bytesToHex(await client.vm.stateManager.getContractCode(address))
 				: '0x'
 		return {
 			// TODO some of these fields are not in the api and should be added to @tevm/actions-types
 			address: params.address,
 			balance: res.balance,
-			codeHash: res.codeHash,
-			isContract: res.isContract,
+			codeHash: bytesToHex(res.codeHash),
+			isContract: res.isContract(),
 			isEmpty: res.isEmpty(),
 			deployedBytecode: code,
 			nonce: res.nonce,

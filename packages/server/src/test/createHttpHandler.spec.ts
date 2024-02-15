@@ -2,10 +2,13 @@ import { createHttpHandler } from '../createHttpHandler.js'
 import { DaiContract } from './DaiContract.sol.js'
 import { createMemoryClient } from '@tevm/memory-client'
 import type { ContractJsonRpcRequest } from '@tevm/procedures-types'
+import {
+	decodeFunctionResult,
+	encodeFunctionData,
+	hexToBigInt,
+} from '@tevm/utils'
 import { describe, expect, it } from 'bun:test'
 import supertest from 'supertest'
-import { decodeFunctionResult, encodeFunctionData, hexToBigInt } from 'viem'
-import { optimism } from 'viem/chains'
 
 const contractAddress = '0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1'
 
@@ -16,7 +19,7 @@ describe('createHttpHandler', () => {
 	it('should create an http handler', async () => {
 		const tevm = await createMemoryClient({
 			fork: {
-				url: optimism.rpcUrls.default.http[0],
+				url: 'https://mainnet.optimism.io',
 				blockTag: 115325880n,
 			},
 		})
@@ -24,18 +27,20 @@ describe('createHttpHandler', () => {
 		const server = require('http').createServer(createHttpHandler(tevm))
 
 		const req = {
-			params: {
-				to: contractAddress,
-				data: encodeFunctionData(
-					DaiContract.read.balanceOf(
-						'0xf0d4c12a5768d806021f80a262b4d39d26c58b8d',
-						// this stubbed api is not the correct api atm
-						{
-							contractAddress,
-						},
+			params: [
+				{
+					to: contractAddress,
+					data: encodeFunctionData(
+						DaiContract.read.balanceOf(
+							'0xf0d4c12a5768d806021f80a262b4d39d26c58b8d',
+							// this stubbed api is not the correct api atm
+							{
+								contractAddress,
+							},
+						),
 					),
-				),
-			},
+				},
+			],
 			jsonrpc: '2.0',
 			method: 'tevm_call',
 			id: 1,

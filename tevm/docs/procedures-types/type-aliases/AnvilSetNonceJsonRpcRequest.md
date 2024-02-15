@@ -6,13 +6,13 @@
 
 # Type alias: AnvilSetNonceJsonRpcRequest
 
-> **AnvilSetNonceJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"anvil_setNonce"`, [`SerializeToJson`](SerializeToJson.md)\<[`AnvilSetNonceParams`](../../actions-types/type-aliases/AnvilSetNonceParams.md)\>\>
+> **AnvilSetNonceJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"anvil_setNonce"`, [[`SerializeToJson`](SerializeToJson.md)\<[`AnvilSetNonceParams`](../../actions-types/type-aliases/AnvilSetNonceParams.md)\>]\>
 
 JSON-RPC request for `anvil_setNonce` method
 
 ## Source
 
-packages/procedures-types/dist/index.d.ts:59
+packages/procedures-types/dist/index.d.ts:74
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

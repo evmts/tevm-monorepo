@@ -5,11 +5,11 @@ prev: false
 title: "dumpStateHandler"
 ---
 
-> **dumpStateHandler**(`vm`): [`DumpStateHandler`](/reference/tevm/actions-types/type-aliases/dumpstatehandler/)
+> **dumpStateHandler**(`client`): [`DumpStateHandler`](/reference/tevm/actions-types/type-aliases/dumpstatehandler/)
 
 ## Parameters
 
-▪ **vm**: `TevmVm`
+▪ **client**: `Pick`\<`object`, `"vm"`\>
 
 ## Returns
 

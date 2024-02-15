@@ -6,13 +6,13 @@
 
 # Function: formatAbi()
 
-> **formatAbi**\<`TAbi`\>(`abi`): `FormatAbi`\<`TAbi`\>
+> **formatAbi**\<`TAbi`\>(`abi`): [`FormatAbi`](../type-aliases/FormatAbi.md)\<`TAbi`\>
 
 Parses JSON ABI into human-readable ABI
 
 ## Type parameters
 
-▪ **TAbi** extends `Abi` \| readonly `unknown`[]
+▪ **TAbi** extends [`Abi`](../type-aliases/Abi.md) \| readonly `unknown`[]
 
 ## Parameters
 

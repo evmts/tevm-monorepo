@@ -6,13 +6,13 @@
 
 # Type alias: EthGasPriceJsonRpcResponse
 
-> **EthGasPriceJsonRpcResponse**: [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"eth_gasPrice"`, `Hex`, `string`\>
+> **EthGasPriceJsonRpcResponse**: [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"eth_gasPrice"`, [`Hex`](../../index/type-aliases/Hex.md), `string`\>
 
 JSON-RPC response for `eth_gasPrice` procedure
 
 ## Source
 
-packages/procedures-types/dist/index.d.ts:489
+packages/procedures-types/dist/index.d.ts:530
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

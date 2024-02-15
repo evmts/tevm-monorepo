@@ -34,7 +34,7 @@ packages/state/types/TevmStateManagerInterface.d.ts:4
 
 ###### Parameters
 
-▪ **address**: `Address`
+▪ **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 
 ▪ **key**: `Uint8Array`
 
@@ -68,7 +68,7 @@ node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/di
 
 #### Parameters
 
-▪ **address**: `Address`
+▪ **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 
 #### Inherited from
 
@@ -100,7 +100,7 @@ node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/di
 
 #### Parameters
 
-▪ **address**: `Address`
+▪ **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 
 #### Inherited from
 
@@ -118,7 +118,7 @@ node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/di
 
 #### Parameters
 
-▪ **address**: `Address`
+▪ **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 
 #### Inherited from
 
@@ -136,7 +136,7 @@ node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/di
 
 #### Parameters
 
-▪ **address**: `Address`
+▪ **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 
 ▪ **startKey**: `bigint`
 
@@ -172,11 +172,11 @@ node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/di
 
 ### getAccount()
 
-> **getAccount**(`address`): `Promise`\<`undefined` \| `Account`\>
+> **getAccount**(`address`): `Promise`\<`undefined` \| [`EthjsAccount`](../../utils/classes/EthjsAccount.md)\>
 
 #### Parameters
 
-▪ **address**: `Address`
+▪ **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 
 #### Inherited from
 
@@ -194,7 +194,7 @@ node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/di
 
 #### Parameters
 
-▪ **address**: `Address`
+▪ **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 
 #### Inherited from
 
@@ -212,7 +212,7 @@ node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/di
 
 #### Parameters
 
-▪ **address**: `Address`
+▪ **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 
 ▪ **key**: `Uint8Array`
 
@@ -232,7 +232,7 @@ node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/di
 
 #### Parameters
 
-▪ **address**: `Address`
+▪ **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 
 ▪ **storageSlots?**: `Uint8Array`[]
 
@@ -284,9 +284,9 @@ node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/di
 
 #### Parameters
 
-▪ **address**: `Address`
+▪ **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 
-▪ **accountFields**: `Partial`\<`Pick`\<`Account`, `"nonce"` \| `"balance"` \| `"storageRoot"` \| `"codeHash"`\>\>
+▪ **accountFields**: `Partial`\<`Pick`\<[`EthjsAccount`](../../utils/classes/EthjsAccount.md), `"nonce"` \| `"balance"` \| `"storageRoot"` \| `"codeHash"`\>\>
 
 #### Inherited from
 
@@ -304,9 +304,9 @@ node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/di
 
 #### Parameters
 
-▪ **address**: `Address`
+▪ **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 
-▪ **account?**: `Account`
+▪ **account?**: [`EthjsAccount`](../../utils/classes/EthjsAccount.md)
 
 #### Inherited from
 
@@ -324,7 +324,7 @@ node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/di
 
 #### Parameters
 
-▪ **address**: `Address`
+▪ **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 
 ▪ **value**: `Uint8Array`
 
@@ -344,7 +344,7 @@ node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/di
 
 #### Parameters
 
-▪ **address**: `Address`
+▪ **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 
 ▪ **key**: `Uint8Array`
 

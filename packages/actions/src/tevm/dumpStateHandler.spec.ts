@@ -1,27 +1,25 @@
 import { dumpStateHandler } from './dumpStateHandler.js'
 import { loadStateHandler } from './loadStateHandler.js'
-import { Account, Address } from '@ethereumjs/util'
-import { NormalStateManager } from '@tevm/state'
+import { createBaseClient } from '@tevm/base-client'
+import { EthjsAccount, EthjsAddress } from '@tevm/utils'
+import { hexToBytes, keccak256, toRlp } from '@tevm/utils'
 import { expect, test } from 'bun:test'
-import { hexToBytes, keccak256, toRlp } from 'viem'
 
 test('should dump important account info and storage', async () => {
-	const stateManager = new NormalStateManager()
-
 	const accountAddress = '0x0420042004200420042004200420042004200420'
-	const account = Address.fromString(accountAddress)
+	const account = EthjsAddress.fromString(accountAddress)
 
-	const accountInstance = new Account(0n, 100n)
+	const accountInstance = new EthjsAccount(0n, 100n)
 
-	stateManager.putAccount(account, accountInstance)
+	const client = await createBaseClient()
+
+	client.vm.stateManager.putAccount(account, accountInstance)
 
 	const storageKey = hexToBytes('0x1', { size: 32 })
 	const storageValue = hexToBytes('0x1', { size: 32 })
-	stateManager.putContractStorage(account, storageKey, storageValue)
+	client.vm.stateManager.putContractStorage(account, storageKey, storageValue)
 
-	const { state: dumpedState } = await dumpStateHandler({
-		stateManager,
-	} as any)()
+	const { state: dumpedState } = await dumpStateHandler(client)()
 
 	const accountData = dumpedState[accountAddress]
 
@@ -34,12 +32,12 @@ test('should dump important account info and storage', async () => {
 
 	expect(Object.keys(storage).length).toBe(1)
 
-	const stateManager2 = new NormalStateManager()
+	const client2 = await createBaseClient()
 
-	await loadStateHandler({ stateManager: stateManager2 } as any)({
+	await loadStateHandler(client2)({
 		state: dumpedState,
 	})
-	const accountStorage = await stateManager2.getContractStorage(
+	const accountStorage = await client2.vm.stateManager.getContractStorage(
 		account,
 		hexToBytes(keccak256(storageKey, 'hex')),
 	)

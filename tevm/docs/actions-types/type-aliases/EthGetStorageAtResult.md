@@ -6,7 +6,7 @@
 
 # Type alias: EthGetStorageAtResult
 
-> **EthGetStorageAtResult**: [`Hex`](../../index/type-aliases/Hex.md)
+> **EthGetStorageAtResult**: [`Hex`](Hex.md)
 
 JSON-RPC response for `eth_getStorageAt` procedure
 

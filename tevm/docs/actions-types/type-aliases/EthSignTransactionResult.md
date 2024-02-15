@@ -6,7 +6,7 @@
 
 # Type alias: EthSignTransactionResult
 
-> **EthSignTransactionResult**: [`Hex`](../../index/type-aliases/Hex.md)
+> **EthSignTransactionResult**: [`Hex`](Hex.md)
 
 JSON-RPC response for `eth_signTransaction` procedure
 

@@ -1,5 +1,5 @@
-import type { Address } from 'abitype'
-import type { Hex } from 'viem'
+import type { Address } from '@tevm/utils'
+import type { Hex } from '@tevm/utils'
 
 /**
  * Tevm params to set an account in the vm state

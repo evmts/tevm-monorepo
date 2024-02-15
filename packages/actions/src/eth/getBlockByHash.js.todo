@@ -1,4 +1,4 @@
-import { hexToBytes } from 'viem'
+import { hexToBytes } from '@tevm/utils'
 
 /**
  * @param {import('@ethereumjs/blockchain').BlockchainInterface} blockchain

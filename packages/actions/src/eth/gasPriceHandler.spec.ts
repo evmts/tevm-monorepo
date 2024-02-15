@@ -1,6 +1,6 @@
 import { gasPriceHandler } from './gasPriceHandler.js'
+import { parseGwei } from '@tevm/utils'
 import { describe, expect, it, jest } from 'bun:test'
-import { parseGwei } from 'viem'
 
 describe(gasPriceHandler.name, () => {
 	it('should default to 1 gwei if no forkUrl', async () => {
@@ -22,6 +22,8 @@ describe(gasPriceHandler.name, () => {
 	it('should fetch gas price from forkUrl and cache it', async () => {
 		global.fetch = jest.fn(() =>
 			Promise.resolve({
+				ok: true,
+				status: 200,
 				json: () =>
 					Promise.resolve({
 						method: 'eth_gasPrice',
@@ -52,6 +54,8 @@ describe(gasPriceHandler.name, () => {
 		global.fetch = jest.fn(() => {
 			gasPrice = gasPrice + 1
 			return Promise.resolve({
+				ok: true,
+				status: 200,
 				json: () =>
 					Promise.resolve({
 						method: 'eth_gasPrice',

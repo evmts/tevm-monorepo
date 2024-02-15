@@ -6,13 +6,13 @@
 
 # Type alias: EthProtocolVersionJsonRpcResponse
 
-> **EthProtocolVersionJsonRpcResponse**: [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"eth_protocolVersion"`, `Hex`, `string`\>
+> **EthProtocolVersionJsonRpcResponse**: [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"eth_protocolVersion"`, [`Hex`](../../index/type-aliases/Hex.md), `string`\>
 
 JSON-RPC response for `eth_protocolVersion` procedure
 
 ## Source
 
-packages/procedures-types/dist/index.d.ts:573
+packages/procedures-types/dist/index.d.ts:614
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

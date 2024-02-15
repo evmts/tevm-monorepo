@@ -22,7 +22,7 @@ import type { JsonRpcRequest } from '@tevm/jsonrpc'
  */
 export type AnvilImpersonateAccountJsonRpcRequest = JsonRpcRequest<
 	'anvil_impersonateAccount',
-	SerializeToJson<AnvilImpersonateAccountParams>
+	[SerializeToJson<AnvilImpersonateAccountParams>]
 >
 // anvil_stopImpersonatingAccount
 /**
@@ -30,7 +30,7 @@ export type AnvilImpersonateAccountJsonRpcRequest = JsonRpcRequest<
  */
 export type AnvilStopImpersonatingAccountJsonRpcRequest = JsonRpcRequest<
 	'anvil_stopImpersonatingAccount',
-	SerializeToJson<AnvilStopImpersonatingAccountParams>
+	[SerializeToJson<AnvilStopImpersonatingAccountParams>]
 >
 // anvil_autoImpersonateAccount
 /**
@@ -44,7 +44,7 @@ export type AnvilStopImpersonatingAccountJsonRpcRequest = JsonRpcRequest<
  */
 export type AnvilGetAutomineJsonRpcRequest = JsonRpcRequest<
 	'anvil_getAutomine',
-	SerializeToJson<AnvilGetAutomineParams>
+	[SerializeToJson<AnvilGetAutomineParams>]
 >
 // anvil_mine
 /**
@@ -52,7 +52,7 @@ export type AnvilGetAutomineJsonRpcRequest = JsonRpcRequest<
  */
 export type AnvilMineJsonRpcRequest = JsonRpcRequest<
 	'anvil_mine',
-	SerializeToJson<AnvilMineParams>
+	[SerializeToJson<AnvilMineParams>]
 >
 // anvil_reset
 /**
@@ -60,7 +60,7 @@ export type AnvilMineJsonRpcRequest = JsonRpcRequest<
  */
 export type AnvilResetJsonRpcRequest = JsonRpcRequest<
 	'anvil_reset',
-	SerializeToJson<AnvilResetParams>
+	[SerializeToJson<AnvilResetParams>]
 >
 // anvil_dropTransaction
 /**
@@ -68,7 +68,7 @@ export type AnvilResetJsonRpcRequest = JsonRpcRequest<
  */
 export type AnvilDropTransactionJsonRpcRequest = JsonRpcRequest<
 	'anvil_dropTransaction',
-	SerializeToJson<AnvilDropTransactionParams>
+	[SerializeToJson<AnvilDropTransactionParams>]
 >
 // anvil_setBalance
 /**
@@ -76,7 +76,7 @@ export type AnvilDropTransactionJsonRpcRequest = JsonRpcRequest<
  */
 export type AnvilSetBalanceJsonRpcRequest = JsonRpcRequest<
 	'anvil_setBalance',
-	SerializeToJson<AnvilSetBalanceParams>
+	[SerializeToJson<AnvilSetBalanceParams>]
 >
 // anvil_setCode
 /**
@@ -84,7 +84,7 @@ export type AnvilSetBalanceJsonRpcRequest = JsonRpcRequest<
  */
 export type AnvilSetCodeJsonRpcRequest = JsonRpcRequest<
 	'anvil_setCode',
-	SerializeToJson<AnvilSetCodeParams>
+	[SerializeToJson<AnvilSetCodeParams>]
 >
 // anvil_setNonce
 /**
@@ -92,7 +92,7 @@ export type AnvilSetCodeJsonRpcRequest = JsonRpcRequest<
  */
 export type AnvilSetNonceJsonRpcRequest = JsonRpcRequest<
 	'anvil_setNonce',
-	SerializeToJson<AnvilSetNonceParams>
+	[SerializeToJson<AnvilSetNonceParams>]
 >
 // anvil_setStorageAt
 /**
@@ -100,7 +100,7 @@ export type AnvilSetNonceJsonRpcRequest = JsonRpcRequest<
  */
 export type AnvilSetStorageAtJsonRpcRequest = JsonRpcRequest<
 	'anvil_setStorageAt',
-	SerializeToJson<AnvilSetStorageAtParams>
+	[SerializeToJson<AnvilSetStorageAtParams>]
 >
 // anvil_setChainId
 /**
@@ -108,7 +108,7 @@ export type AnvilSetStorageAtJsonRpcRequest = JsonRpcRequest<
  */
 export type AnvilSetChainIdJsonRpcRequest = JsonRpcRequest<
 	'anvil_setChainId',
-	SerializeToJson<AnvilSetChainIdParams>
+	[SerializeToJson<AnvilSetChainIdParams>]
 >
 // TODO make this the same as our dump state
 // anvil_dumpState
@@ -117,7 +117,7 @@ export type AnvilSetChainIdJsonRpcRequest = JsonRpcRequest<
  */
 export type AnvilDumpStateJsonRpcRequest = JsonRpcRequest<
 	'anvil_dumpState',
-	SerializeToJson<AnvilDumpStateParams>
+	[SerializeToJson<AnvilDumpStateParams>]
 >
 // TODO make this the same as our load state
 // anvil_loadState
@@ -126,7 +126,7 @@ export type AnvilDumpStateJsonRpcRequest = JsonRpcRequest<
  */
 export type AnvilLoadStateJsonRpcRequest = JsonRpcRequest<
 	'anvil_loadState',
-	SerializeToJson<AnvilLoadStateParams>
+	[SerializeToJson<AnvilLoadStateParams>]
 >
 
 export type AnvilJsonRpcRequest =

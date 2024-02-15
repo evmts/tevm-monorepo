@@ -5,7 +5,7 @@ prev: false
 title: "AnvilSetNonceJsonRpcRequest"
 ---
 
-> **AnvilSetNonceJsonRpcRequest**: [`JsonRpcRequest`](/reference/tevm/jsonrpc/type-aliases/jsonrpcrequest/)\<`"anvil_setNonce"`, [`SerializeToJson`](/reference/tevm/procedures-types/type-aliases/serializetojson/)\<[`AnvilSetNonceParams`](/reference/tevm/actions-types/type-aliases/anvilsetnonceparams/)\>\>
+> **AnvilSetNonceJsonRpcRequest**: [`JsonRpcRequest`](/reference/tevm/jsonrpc/type-aliases/jsonrpcrequest/)\<`"anvil_setNonce"`, [[`SerializeToJson`](/reference/tevm/procedures-types/type-aliases/serializetojson/)\<[`AnvilSetNonceParams`](/reference/tevm/actions-types/type-aliases/anvilsetnonceparams/)\>]\>
 
 JSON-RPC request for `anvil_setNonce` method
 

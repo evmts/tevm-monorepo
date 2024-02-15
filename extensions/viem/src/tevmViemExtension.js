@@ -109,17 +109,19 @@ export const tevmViemExtension = () => {
 					await request({
 						method: 'tevm_script',
 						jsonrpc: '2.0',
-						params: {
-							...getCallArgs(params),
-							deployedBytecode: params.deployedBytecode,
-							data: encodeFunctionData(
-								/** @type any*/ ({
-									abi: params.abi,
-									functionName: params.functionName,
-									args: params.args,
-								}),
-							),
-						},
+						params: [
+							{
+								...getCallArgs(params),
+								deployedBytecode: params.deployedBytecode,
+								data: encodeFunctionData(
+									/** @type any*/ ({
+										abi: params.abi,
+										functionName: params.functionName,
+										args: params.args,
+									}),
+								),
+							},
+						],
 					}),
 				)
 			)
@@ -142,7 +144,7 @@ export const tevmViemExtension = () => {
 				await request({
 					method: 'tevm_setAccount',
 					jsonrpc: '2.0',
-					params,
+					params: [params],
 				}),
 			)
 		}
@@ -155,15 +157,21 @@ export const tevmViemExtension = () => {
 				await request({
 					method: 'tevm_setAccount',
 					jsonrpc: '2.0',
-					params: {
-						address: params.address,
-						...(params.balance ? { balance: numberToHex(params.balance) } : {}),
-						...(params.nonce ? { nonce: numberToHex(params.nonce) } : {}),
-						...(params.storageRoot ? { storageRoot: params.storageRoot } : {}),
-						...(params.deployedBytecode
-							? { deployedBytecode: params.deployedBytecode }
-							: {}),
-					},
+					params: [
+						{
+							address: params.address,
+							...(params.balance
+								? { balance: numberToHex(params.balance) }
+								: {}),
+							...(params.nonce ? { nonce: numberToHex(params.nonce) } : {}),
+							...(params.storageRoot
+								? { storageRoot: params.storageRoot }
+								: {}),
+							...(params.deployedBytecode
+								? { deployedBytecode: params.deployedBytecode }
+								: {}),
+						},
+					],
 				}),
 			)
 		}
@@ -208,7 +216,7 @@ export const tevmViemExtension = () => {
 			const response = await request({
 				method: 'tevm_call',
 				jsonrpc: '2.0',
-				params: getCallArgs(params),
+				params: [getCallArgs(params)],
 			})
 			if ('error' in response) {
 				// TODO make this type match
@@ -343,7 +351,7 @@ export const tevmViemExtension = () => {
 					await request({
 						method: 'tevm_dumpState',
 						jsonrpc: '2.0',
-						params: {},
+						params: [],
 					}),
 				)
 			)
@@ -392,7 +400,7 @@ export const tevmViemExtension = () => {
 					await request({
 						method: 'tevm_loadState',
 						jsonrpc: '2.0',
-						params: { state: encodedState },
+						params: [{ state: encodedState }],
 					}),
 				)
 			)
@@ -470,10 +478,12 @@ export const tevmViemExtension = () => {
 					await request({
 						method: 'tevm_fork',
 						jsonrpc: '2.0',
-						params: {
-							url: params.url,
-							blockTag: formatBlockTag(params.blockTag),
-						},
+						params: [
+							{
+								url: params.url,
+								blockTag: formatBlockTag(params.blockTag),
+							},
+						],
 					}),
 				)
 			)

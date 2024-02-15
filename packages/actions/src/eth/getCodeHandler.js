@@ -1,7 +1,7 @@
 import { NoForkUrlSetError } from './getBalanceHandler.js'
-import { Address } from '@ethereumjs/util'
 import { createJsonRpcFetcher } from '@tevm/jsonrpc'
-import { bytesToHex } from 'viem'
+import { EthjsAddress } from '@tevm/utils'
+import { bytesToHex } from '@tevm/utils'
 
 /**
  * @param {object} options
@@ -16,7 +16,7 @@ export const getCodeHandler =
 		if (tag === 'pending') {
 			return bytesToHex(
 				await vm.stateManager.getContractCode(
-					Address.fromString(params.address),
+					EthjsAddress.fromString(params.address),
 				),
 			)
 		}
@@ -43,7 +43,7 @@ export const getCodeHandler =
 					err.name = res.error.code
 					throw err
 				}
-				return /** @type {import('viem').Hex}*/ (res.result)
+				return /** @type {import('@tevm/utils').Hex}*/ (res.result)
 			})
 			.catch((err) => {
 				// TODO handle this in a strongly typed way

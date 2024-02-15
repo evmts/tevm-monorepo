@@ -10,6 +10,8 @@
 
 ### Type Aliases
 
+- [Abi](type-aliases/Abi.md)
+- [Address](type-aliases/Address.md)
 - [AnvilDropTransactionHandler](type-aliases/AnvilDropTransactionHandler.md)
 - [AnvilDropTransactionParams](type-aliases/AnvilDropTransactionParams.md)
 - [AnvilDropTransactionResult](type-aliases/AnvilDropTransactionResult.md)
@@ -182,6 +184,7 @@
 - [FilterLog](type-aliases/FilterLog.md)
 - [FilterParams](type-aliases/FilterParams.md)
 - [GetAccountHandler](type-aliases/GetAccountHandler.md)
+- [Hex](type-aliases/Hex.md)
 - [LoadStateHandler](type-aliases/LoadStateHandler.md)
 - [LoadStateParams](type-aliases/LoadStateParams.md)
 - [LoadStateResult](type-aliases/LoadStateResult.md)
@@ -199,8 +202,6 @@
 
 ### References
 
-- [Abi](README.md#abi)
-- [Address](README.md#address)
 - [BlockParam](README.md#blockparam)
 - [CallParams](README.md#callparams)
 - [CallResult](README.md#callresult)
@@ -211,7 +212,6 @@
 - [ForkResult](README.md#forkresult)
 - [GetAccountParams](README.md#getaccountparams)
 - [GetAccountResult](README.md#getaccountresult)
-- [Hex](README.md#hex)
 - [ScriptParams](README.md#scriptparams)
 - [ScriptResult](README.md#scriptresult)
 - [SetAccountParams](README.md#setaccountparams)
@@ -221,18 +221,6 @@
 - [TraceResult](README.md#traceresult)
 
 ## References
-
-### Abi
-
-Re-exports [Abi](../index/type-aliases/Abi.md)
-
-***
-
-### Address
-
-Re-exports [Address](../index/type-aliases/Address.md)
-
-***
 
 ### BlockParam
 
@@ -291,12 +279,6 @@ Re-exports [GetAccountParams](../index/type-aliases/GetAccountParams.md)
 ### GetAccountResult
 
 Re-exports [GetAccountResult](../index/type-aliases/GetAccountResult.md)
-
-***
-
-### Hex
-
-Re-exports [Hex](../index/type-aliases/Hex.md)
 
 ***
 

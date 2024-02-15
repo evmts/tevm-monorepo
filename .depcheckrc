@@ -12,6 +12,7 @@ ignores: [
   "typedoc",
   "typedoc-plugin-markdown",
   "typescript",
+  "starlight-typedoc",
   "vite",
   "vitest"
 ]

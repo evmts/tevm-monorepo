@@ -6,7 +6,7 @@
 
 # Type alias: EthGetCodeResult
 
-> **EthGetCodeResult**: [`Hex`](../../index/type-aliases/Hex.md)
+> **EthGetCodeResult**: [`Hex`](Hex.md)
 
 JSON-RPC response for `eth_getCode` procedure
 

@@ -6,7 +6,7 @@
 
 # Type alias: EthAccountsResult
 
-> **EthAccountsResult**: [`Address`](../../index/type-aliases/Address.md)[]
+> **EthAccountsResult**: [`Address`](Address.md)[]
 
 ## Source
 

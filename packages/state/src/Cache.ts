@@ -1,5 +1,5 @@
 // [mozilla public license 2.0](https://github.com/ethereumjs/ethereumjs-monorepo/blob/master/packages/statemanager/LICENSE)
-import type { Address as EthjsAddress } from '@ethereumjs/util'
+import type { EthjsAddress } from '@tevm/utils'
 import { toHex } from 'viem'
 
 export type GetContractStorage = (

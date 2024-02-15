@@ -1,26 +1,26 @@
 import { setAccountHandler } from '@tevm/actions'
-import { hexToBigInt } from 'viem'
+import { hexToBigInt } from '@tevm/utils'
 
 /**
  * Creates an SetAccount JSON-RPC Procedure for handling tevm_setAccount requests with Ethereumjs VM
- * @param {import('@tevm/vm').TevmVm} vm
+ * @param {import('@tevm/base-client').BaseClient} client
  * @returns {import('@tevm/procedures-types').SetAccountJsonRpcProcedure}
  */
-export const setAccountProcedure = (vm) => async (request) => {
+export const setAccountProcedure = (client) => async (request) => {
 	request.params
-	const { errors = [], ...result } = await setAccountHandler(vm)({
-		address: request.params.address,
-		...(request.params.nonce
-			? { nonce: hexToBigInt(request.params.nonce) }
+	const { errors = [], ...result } = await setAccountHandler(client)({
+		address: request.params[0].address,
+		...(request.params[0].nonce
+			? { nonce: hexToBigInt(request.params[0].nonce) }
 			: {}),
-		...(request.params.balance
-			? { balance: hexToBigInt(request.params.balance) }
+		...(request.params[0].balance
+			? { balance: hexToBigInt(request.params[0].balance) }
 			: {}),
-		...(request.params.deployedBytecode
-			? { deployedBytecode: request.params.deployedBytecode }
+		...(request.params[0].deployedBytecode
+			? { deployedBytecode: request.params[0].deployedBytecode }
 			: {}),
-		...(request.params.storageRoot
-			? { storageRoot: request.params.storageRoot }
+		...(request.params[0].storageRoot
+			? { storageRoot: request.params[0].storageRoot }
 			: {}),
 	})
 	if (errors.length > 0) {

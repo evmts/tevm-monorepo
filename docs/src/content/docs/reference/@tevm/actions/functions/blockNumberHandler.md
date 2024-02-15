@@ -5,13 +5,13 @@ prev: false
 title: "blockNumberHandler"
 ---
 
-> **blockNumberHandler**(`vm`): [`EthBlockNumberHandler`](/reference/tevm/actions-types/type-aliases/ethblocknumberhandler/)
+> **blockNumberHandler**(`client`): [`EthBlockNumberHandler`](/reference/tevm/actions-types/type-aliases/ethblocknumberhandler/)
 
 Handler for the `eth_blockNumber` RPC call
 
 ## Parameters
 
-▪ **vm**: `TevmVm`
+▪ **client**: `Pick`\<`object`, `"vm"`\>
 
 ## Returns
 

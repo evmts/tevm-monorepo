@@ -6,11 +6,11 @@
 
 # Function: ethCallHandler()
 
-> **ethCallHandler**(`vm`): `EthCallHandler`
+> **ethCallHandler**(`client`): `EthCallHandler`
 
 ## Parameters
 
-▪ **vm**: `TevmVm`
+▪ **client**: `Pick`\<`object`, `"vm"`\>
 
 ## Returns
 

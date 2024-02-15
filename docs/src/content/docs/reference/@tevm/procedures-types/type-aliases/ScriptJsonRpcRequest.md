@@ -5,7 +5,7 @@ prev: false
 title: "ScriptJsonRpcRequest"
 ---
 
-> **ScriptJsonRpcRequest**: [`JsonRpcRequest`](/reference/tevm/jsonrpc/type-aliases/jsonrpcrequest/)\<`"tevm_script"`, [`SerializeToJson`](/reference/tevm/procedures-types/type-aliases/serializetojson/)\<[`BaseCallParams`](/reference/tevm/actions-types/type-aliases/basecallparams/)\> & `object`\>
+> **ScriptJsonRpcRequest**: [`JsonRpcRequest`](/reference/tevm/jsonrpc/type-aliases/jsonrpcrequest/)\<`"tevm_script"`, [[`SerializeToJson`](/reference/tevm/procedures-types/type-aliases/serializetojson/)\<[`BaseCallParams`](/reference/tevm/actions-types/type-aliases/basecallparams/)\> & `object`]\>
 
 The JSON-RPC request for the `tevm_script` method
 

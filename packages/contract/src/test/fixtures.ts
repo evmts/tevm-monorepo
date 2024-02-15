@@ -1,4 +1,4 @@
-import type { Abi } from 'abitype'
+import type { Abi } from '@tevm/utils'
 
 export const dummyAbi = [
 	{
