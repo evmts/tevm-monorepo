@@ -1,5 +1,16 @@
 # @tevm/bundler
 
+## 1.0.0-next.39
+
+### Minor Changes
+
+- [#943](https://github.com/evmts/tevm-monorepo/pull/943) [`fd87149043176fb085cd2b162531c1692c46eb8f`](https://github.com/evmts/tevm-monorepo/commit/fd87149043176fb085cd2b162531c1692c46eb8f) Thanks [@roninjin10](https://github.com/roninjin10)! - Added new @tevm/utils package @tevm/decorators package and @tevm/base-client package. The @tevm/utils package has utils used throughout all of tevm. @tevm/base-client has a base client that can be decorated with actions like a viem client. The @tevm/decorators has decorators that can be added to @tevm/base
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @tevm/bun-plugin@1.0.0-next.28
+
 ## 1.0.0-next.28
 
 ### Patch Changes

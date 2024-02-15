@@ -1,6 +1,6 @@
 {
 	"name": "@tevm/evm",
-	"version": "1.0.0-next.37",
+	"version": "1.0.0-next.39",
 	"private": false,
 	"description": "A custom implementation of ethereumjs evm",
 	"keywords": [
@@ -68,7 +68,7 @@
 		"@tevm/predeploys": "workspace:^"
 	},
 	"devDependencies": {
-		"@tevm/state": "workspace:1.0.0-next.37",
+		"@tevm/state": "workspace:1.0.0-next.39",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^"
 	},
