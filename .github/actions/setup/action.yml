@@ -15,7 +15,7 @@ runs:
     - uses: pnpm/action-setup@v2
       name: Install pnpm
       with:
-        version: 8.10.2
+        version: 8.15.3
         run_install: false
 
     - name: Install Foundry
