@@ -23,7 +23,14 @@ describe('generateRuntime', () => {
 
 	it('should throw an error for unknown module types', () => {
 		expect(() =>
-			runSync(generateRuntime(artifacts, 'invalidType' as any, false)),
+			runSync(
+				generateRuntime(
+					artifacts,
+					'invalidType' as any,
+					false,
+					'@tevm/contract',
+				),
+			),
 		).toThrowErrorMatchingInlineSnapshot(
 			'"Unknown module type: invalidType. Valid module types include contract, script"',
 		)
@@ -31,7 +38,7 @@ describe('generateRuntime', () => {
 
 	it('should handle no artifacts found case', () => {
 		expect(() =>
-			runSync(generateRuntime({}, 'cjs', false)),
+			runSync(generateRuntime({}, 'cjs', false, '@tevm/contract')),
 		).toThrowErrorMatchingInlineSnapshot(
 			'"No artifacts provided to generateRuntime"',
 		)
@@ -39,14 +46,16 @@ describe('generateRuntime', () => {
 
 	it('should handle artifacts being null', () => {
 		expect(() =>
-			runSync(generateRuntime(null as any, 'dts', false)),
+			runSync(generateRuntime(null as any, 'dts', false, '@tevm/contract')),
 		).toThrowErrorMatchingInlineSnapshot(
 			'"No artifacts provided to generateRuntime"',
 		)
 	})
 
 	it('should handle commonjs module type', () => {
-		const result = runSync(generateRuntime(artifacts, 'cjs', false))
+		const result = runSync(
+			generateRuntime(artifacts, 'cjs', false, '@tevm/contract'),
+		)
 		expect(result).toMatchInlineSnapshot(`
 			"const { createContract } = require('@tevm/contract')
 			const _MyContract = {\\"name\\":\\"MyContract\\",\\"humanReadableAbi\\":[\\"constructor() payable\\"]}
@@ -59,7 +68,9 @@ describe('generateRuntime', () => {
 	})
 
 	it('should handle dts module type', () => {
-		const result = runSync(generateRuntime(artifacts, 'dts', false))
+		const result = runSync(
+			generateRuntime(artifacts, 'dts', false, '@tevm/contract'),
+		)
 		expect(result).toMatchInlineSnapshot(`
 			"import { Contract } from '@tevm/contract'
 			const _abiMyContract = [\\"constructor() payable\\"] as const;
@@ -74,7 +85,9 @@ describe('generateRuntime', () => {
 	})
 
 	it('should handle ts module type', () => {
-		const result = runSync(generateRuntime(artifacts, 'ts', false))
+		const result = runSync(
+			generateRuntime(artifacts, 'ts', false, '@tevm/contract'),
+		)
 		expect(result).toMatchInlineSnapshot(`
 			"import { createContract } from '@tevm/contract'
 			const _MyContract = {\\"name\\":\\"MyContract\\",\\"humanReadableAbi\\":[\\"constructor() payable\\"]} as const
@@ -87,7 +100,9 @@ describe('generateRuntime', () => {
 	})
 
 	it('should handle mjs module type', () => {
-		const result = runSync(generateRuntime(artifacts, 'mjs', false))
+		const result = runSync(
+			generateRuntime(artifacts, 'mjs', false, '@tevm/contract'),
+		)
 		expect(result).toMatchInlineSnapshot(`
 			"import { createContract } from '@tevm/contract'
 			const _MyContract = {\\"name\\":\\"MyContract\\",\\"humanReadableAbi\\":[\\"constructor() payable\\"]}

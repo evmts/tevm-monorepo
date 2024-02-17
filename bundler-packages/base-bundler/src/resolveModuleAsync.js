@@ -1,8 +1,15 @@
+import { getContractPath } from './getContractPath.js'
 import { readCache } from './readCache.js'
 import { writeCache } from './writeCache.js'
 import { resolveArtifacts } from '@tevm/compiler'
 import { generateRuntime } from '@tevm/runtime'
 import { runPromise } from 'effect/Effect'
+
+/**
+ * Caches the contract package resolution to avoid redundant require.resolve calls
+ * @type {Record<string, 'tevm/contract' | '@tevm/contract'>}
+ */
+const contractPackageMap = {}
 
 /**
  * @param {import('@tevm/compiler').Logger} logger
@@ -52,8 +59,16 @@ export const resolveModuleAsync = async (
 		let code = ''
 		const artifactsExist = artifacts && Object.keys(artifacts).length > 0
 		if (artifactsExist) {
+			const contractPackage =
+				contractPackageMap[modulePath] ?? getContractPath(basedir)
+			contractPackageMap[modulePath] = contractPackage
 			code = await runPromise(
-				generateRuntime(artifacts, moduleType, includeBytecode),
+				generateRuntime(
+					artifacts,
+					moduleType,
+					includeBytecode,
+					contractPackage,
+				),
 			)
 		} else {
 			const message = `there were no artifacts for ${modulePath}. This is likely a bug in tevm`
