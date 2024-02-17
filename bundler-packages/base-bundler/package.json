@@ -1,82 +1,82 @@
 {
-	"name": "@tevm/base-bundler",
-	"version": "1.0.0-next.28",
-	"private": false,
-	"description": "Internal bundler for Tevm",
-	"keywords": [
-		"tevm",
-		"solidity",
-		"typescript",
-		"web3",
-		"blockchain"
-	],
-	"homepage": "https://tevm.sh",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/evmts/tevm-monorepo.git",
-		"directory": "bundler/base-bundler"
-	},
-	"license": "MIT",
-	"author": "roninjin10",
-	"contributors": [
-		"Will Cory <willcory10@gmail.com>"
-	],
-	"type": "module",
-	"exports": {
-		"./package.json": "./package.json",
-		".": {
-			"import": {
-				"types": "./types/src/index.d.ts",
-				"default": "./dist/index.js"
-			},
-			"require": {
-				"types": "./dist/index.d.cts",
-				"default": "./dist/index.cjs"
-			}
-		}
-	},
-	"main": "dist/index.cjs",
-	"module": "dist/index.js",
-	"types": "types/src/index.d.ts",
-	"files": [
-		"dist",
-		"src",
-		"types"
-	],
-	"scripts": {
-		"all": "bun run build && bun run format && bun run lint && bun run test:coverage && bun run generate:docs && bun lint:deps && bun lint:package",
-		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/base-bundler ",
-		"build:dist": "tsup",
-		"build:types": "tsup --dts-only && tsc --emitDeclarationOnly --declaration",
-		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
-		"format": "rome format . --write",
-		"format:check": "rome format .",
-		"generate:docs": "typedoc --plugin typedoc-plugin-markdown",
-		"lint": "rome check . --apply-unsafe",
-		"lint:check": "rome check . --verbose",
-		"lint:deps": "bunx depcheck",
-		"lint:package": "bunx publint --strict && attw --pack",
-		"test": "vitest --coverage",
-		"test:coverage": "vitest run --coverage",
-		"test:run": "vitest run",
-		"test:ui": "vitest --ui"
-	},
-	"dependencies": {
-		"@tevm/bundler-cache": "workspace:^",
-		"@tevm/compiler": "workspace:^",
-		"@tevm/config": "workspace:^",
-		"@tevm/runtime": "workspace:^",
-		"effect": "2.0.0-next.54",
-		"solidity-ast": "^0.4.52"
-	},
-	"devDependencies": {
-		"@tevm/solc": "workspace:^",
-		"@tevm/tsconfig": "workspace:^",
-		"@tevm/tsupconfig": "workspace:^",
-		"@types/node": "^20.8.9",
-		"solc": "0.8.22"
-	},
-	"publishConfig": {
-		"access": "public"
-	}
+  "name": "@tevm/base-bundler",
+  "version": "1.0.0-next.28",
+  "private": false,
+  "description": "Internal bundler for Tevm",
+  "keywords": [
+    "tevm",
+    "solidity",
+    "typescript",
+    "web3",
+    "blockchain"
+  ],
+  "homepage": "https://tevm.sh",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/evmts/tevm-monorepo.git",
+    "directory": "bundler/base-bundler"
+  },
+  "license": "MIT",
+  "author": "roninjin10",
+  "contributors": [
+    "Will Cory <willcory10@gmail.com>"
+  ],
+  "type": "module",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "import": {
+        "types": "./types/src/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    }
+  },
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "types/src/index.d.ts",
+  "files": [
+    "dist",
+    "src",
+    "types"
+  ],
+  "scripts": {
+    "all": "bun run build && bun run format && bun run lint && bun run test:coverage && bun run generate:docs && bun lint:deps && bun lint:package",
+    "build": "nx run-many --targets=build:dist,build:types --projects=@tevm/base-bundler ",
+    "build:dist": "tsup",
+    "build:types": "tsup --dts-only && tsc --emitDeclarationOnly --declaration",
+    "clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
+    "format": "rome format . --write",
+    "format:check": "rome format .",
+    "generate:docs": "typedoc --plugin typedoc-plugin-markdown",
+    "lint": "rome check . --apply-unsafe",
+    "lint:check": "rome check . --verbose",
+    "lint:deps": "bunx depcheck",
+    "lint:package": "bunx publint --strict && attw --pack",
+    "test": "vitest --coverage",
+    "test:coverage": "vitest run --coverage",
+    "test:run": "vitest run",
+    "test:ui": "vitest --ui"
+  },
+  "dependencies": {
+    "@tevm/bundler-cache": "workspace:^",
+    "@tevm/compiler": "workspace:^",
+    "@tevm/config": "workspace:^",
+    "@tevm/runtime": "workspace:^",
+    "effect": "2.0.0-next.54",
+    "solidity-ast": "^0.4.52"
+  },
+  "devDependencies": {
+    "@tevm/solc": "workspace:^",
+    "@tevm/tsconfig": "workspace:^",
+    "@tevm/tsupconfig": "workspace:^",
+    "@types/node": "^20.8.9",
+    "solc": "0.8.22"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
 }

@@ -1,78 +1,78 @@
 {
-	"name": "@tevm/evm",
-	"version": "1.0.0-next.39",
-	"private": false,
-	"description": "A custom implementation of ethereumjs evm",
-	"keywords": [
-		"solidity",
-		"ethereumjs",
-		"typescript",
-		"web3",
-		"evm"
-	],
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/evmts/tevm-monorepo.git",
-		"directory": "packages/evm"
-	},
-	"license": "MIT",
-	"contributors": [
-		"Will Cory <willcory10@gmail.com>"
-	],
-	"type": "module",
-	"exports": {
-		"./package.json": "./package.json",
-		".": {
-			"import": {
-				"types": "./types/index.d.ts",
-				"default": "./dist/index.js"
-			},
-			"require": {
-				"types": "./dist/index.d.cts",
-				"default": "./dist/index.cjs"
-			}
-		}
-	},
-	"main": "dist/index.cjs",
-	"module": "dist/index.js",
-	"types": "types/index.d.ts",
-	"files": [
-		"dist",
-		"types",
-		"src",
-		"!src/**/*.spec.ts"
-	],
-	"scripts": {
-		"all": "pnpm i  && bun run build && bun lint && bun format && bun test:run && bun generate:docs",
-		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/evm",
-		"build:dist": "tsup",
-		"build:types": "tsup --dts-only && tsc --emitDeclarationOnly --declaration",
-		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
-		"format": "rome format . --write",
-		"format:check": "rome format .",
-		"generate:docs": "typedoc",
-		"lint": "rome check . --apply-unsafe",
-		"lint:check": "rome check . --verbose",
-		"lint:deps": "bunx depcheck",
-		"lint:package": "bunx publint --strict && attw --pack",
-		"package:up": "pnpm up --latest",
-		"test": "bun test --watch",
-		"test:coverage": "bun test --coverage",
-		"test:run": "bun test",
-		"typecheck": "tsc --noEmit"
-	},
-	"dependencies": {
-		"@ethereumjs/evm": "^2.1.0",
-		"@tevm/blockchain": "workspace:^",
-		"@tevm/common": "workspace:^",
-		"@tevm/predeploys": "workspace:^"
-	},
-	"devDependencies": {
-		"@tevm/state": "workspace:1.0.0-next.39",
-		"@tevm/tsconfig": "workspace:^",
-		"@tevm/tsupconfig": "workspace:^"
-	},
-	"publishConfig": {
-		"access": "public"
-	}
+  "name": "@tevm/evm",
+  "version": "1.0.0-next.39",
+  "private": false,
+  "description": "A custom implementation of ethereumjs evm",
+  "keywords": [
+    "solidity",
+    "ethereumjs",
+    "typescript",
+    "web3",
+    "evm"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/evmts/tevm-monorepo.git",
+    "directory": "packages/evm"
+  },
+  "license": "MIT",
+  "contributors": [
+    "Will Cory <willcory10@gmail.com>"
+  ],
+  "type": "module",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "import": {
+        "types": "./types/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    }
+  },
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "types/index.d.ts",
+  "files": [
+    "dist",
+    "types",
+    "src",
+    "!src/**/*.spec.ts"
+  ],
+  "scripts": {
+    "all": "pnpm i  && bun run build && bun lint && bun format && bun test:run && bun generate:docs",
+    "build": "nx run-many --targets=build:dist,build:types --projects=@tevm/evm",
+    "build:dist": "tsup",
+    "build:types": "tsup --dts-only && tsc --emitDeclarationOnly --declaration",
+    "clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
+    "format": "rome format . --write",
+    "format:check": "rome format .",
+    "generate:docs": "typedoc",
+    "lint": "rome check . --apply-unsafe",
+    "lint:check": "rome check . --verbose",
+    "lint:deps": "bunx depcheck",
+    "lint:package": "bunx publint --strict && attw --pack",
+    "package:up": "pnpm up --latest",
+    "test": "bun test --watch",
+    "test:coverage": "bun test --coverage",
+    "test:run": "bun test",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@ethereumjs/evm": "^2.1.0",
+    "@tevm/blockchain": "workspace:^",
+    "@tevm/common": "workspace:^",
+    "@tevm/predeploys": "workspace:^"
+  },
+  "devDependencies": {
+    "@tevm/state": "workspace:1.0.0-next.39",
+    "@tevm/tsconfig": "workspace:^",
+    "@tevm/tsupconfig": "workspace:^"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
 }

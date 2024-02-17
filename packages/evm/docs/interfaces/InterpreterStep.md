@@ -1,158 +1,160 @@
-**@tevm/evm** ∙ [README](../README.md) ∙ [API](../API.md)
-
-***
-
-[API](../API.md) > InterpreterStep
+[@tevm/evm](../README.md) / [Exports](../modules.md) / InterpreterStep
 
 # Interface: InterpreterStep
+
+## Table of contents
+
+### Properties
+
+- [account](InterpreterStep.md#account)
+- [address](InterpreterStep.md#address)
+- [codeAddress](InterpreterStep.md#codeaddress)
+- [depth](InterpreterStep.md#depth)
+- [gasLeft](InterpreterStep.md#gasleft)
+- [gasRefund](InterpreterStep.md#gasrefund)
+- [memory](InterpreterStep.md#memory)
+- [memoryWordCount](InterpreterStep.md#memorywordcount)
+- [opcode](InterpreterStep.md#opcode)
+- [pc](InterpreterStep.md#pc)
+- [returnStack](InterpreterStep.md#returnstack)
+- [stack](InterpreterStep.md#stack)
+- [stateManager](InterpreterStep.md#statemanager)
 
 ## Properties
 
 ### account
 
-> **account**: `Account`
+• **account**: `Account`
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:91
+node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:91
 
-***
+___
 
 ### address
 
-> **address**: `Address`
+• **address**: `Address`
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:92
+node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:92
 
-***
+___
 
 ### codeAddress
 
-> **codeAddress**: `Address`
+• **codeAddress**: `Address`
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:95
+node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:95
 
-***
+___
 
 ### depth
 
-> **depth**: `number`
+• **depth**: `number`
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:84
+node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:84
 
-***
+___
 
 ### gasLeft
 
-> **gasLeft**: `bigint`
+• **gasLeft**: `bigint`
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:78
+node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:78
 
-***
+___
 
 ### gasRefund
 
-> **gasRefund**: `bigint`
+• **gasRefund**: `bigint`
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:79
+node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:79
 
-***
+___
 
 ### memory
 
-> **memory**: `Uint8Array`
+• **memory**: `Uint8Array`
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:93
+node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:93
 
-***
+___
 
 ### memoryWordCount
 
-> **memoryWordCount**: `bigint`
+• **memoryWordCount**: `bigint`
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:94
+node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:94
 
-***
+___
 
 ### opcode
 
-> **opcode**: `object`
+• **opcode**: `Object`
 
 #### Type declaration
 
-##### dynamicFee
+| Name | Type |
+| :------ | :------ |
+| `dynamicFee?` | `bigint` |
+| `fee` | `number` |
+| `isAsync` | `boolean` |
+| `name` | `string` |
 
-> **dynamicFee**?: `bigint`
+#### Defined in
 
-##### fee
+node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:85
 
-> **fee**: `number`
-
-##### isAsync
-
-> **isAsync**: `boolean`
-
-##### name
-
-> **name**: `string`
-
-#### Source
-
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:85
-
-***
+___
 
 ### pc
 
-> **pc**: `number`
+• **pc**: `number`
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:83
+node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:83
 
-***
+___
 
 ### returnStack
 
-> **returnStack**: `bigint`[]
+• **returnStack**: `bigint`[]
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:82
+node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:82
 
-***
+___
 
 ### stack
 
-> **stack**: `bigint`[]
+• **stack**: `bigint`[]
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:81
+node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:81
 
-***
+___
 
 ### stateManager
 
-> **stateManager**: `EVMStateManagerInterface`
+• **stateManager**: `EVMStateManagerInterface`
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:80
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
+node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:80

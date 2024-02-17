@@ -1,130 +1,138 @@
-**@tevm/evm** ∙ [README](../README.md) ∙ [API](../API.md)
-
-***
-
-[API](../API.md) > ExecResult
+[@tevm/evm](../README.md) / [Exports](../modules.md) / ExecResult
 
 # Interface: ExecResult
 
 Result of executing a call via the EVM.
 
+## Table of contents
+
+### Properties
+
+- [blobGasUsed](ExecResult.md#blobgasused)
+- [createdAddresses](ExecResult.md#createdaddresses)
+- [exceptionError](ExecResult.md#exceptionerror)
+- [executionGasUsed](ExecResult.md#executiongasused)
+- [gas](ExecResult.md#gas)
+- [gasRefund](ExecResult.md#gasrefund)
+- [logs](ExecResult.md#logs)
+- [returnValue](ExecResult.md#returnvalue)
+- [runState](ExecResult.md#runstate)
+- [selfdestruct](ExecResult.md#selfdestruct)
+
 ## Properties
 
 ### blobGasUsed
 
-> **blobGasUsed**?: `bigint`
+• `Optional` **blobGasUsed**: `bigint`
 
 Amount of blob gas consumed by the transaction
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:289
+node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/types.d.ts:289
 
-***
+___
 
 ### createdAddresses
 
-> **createdAddresses**?: `Set`\<`string`\>
+• `Optional` **createdAddresses**: `Set`\<`string`\>
 
 Map of addresses which were created (used in EIP 6780)
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:281
+node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/types.d.ts:281
 
-***
+___
 
 ### exceptionError
 
-> **exceptionError**?: `EvmError`
+• `Optional` **exceptionError**: `EvmError`
 
 Description of the exception, if any occurred
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:257
+node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/types.d.ts:257
 
-***
+___
 
 ### executionGasUsed
 
-> **executionGasUsed**: `bigint`
+• **executionGasUsed**: `bigint`
 
 Amount of gas the code used to run
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:265
+node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/types.d.ts:265
 
-***
+___
 
 ### gas
 
-> **gas**?: `bigint`
+• `Optional` **gas**: `bigint`
 
 Amount of gas left
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:261
+node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/types.d.ts:261
 
-***
+___
 
 ### gasRefund
 
-> **gasRefund**?: `bigint`
+• `Optional` **gasRefund**: `bigint`
 
 The gas refund counter
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:285
+node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/types.d.ts:285
 
-***
+___
 
 ### logs
 
-> **logs**?: [`EthjsLog`](../type-aliases/EthjsLog.md)[]
+• `Optional` **logs**: [`EthjsLog`](../modules.md#ethjslog)[]
 
 Array of logs that the contract emitted
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:273
+node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/types.d.ts:273
 
-***
+___
 
 ### returnValue
 
-> **returnValue**: `Uint8Array`
+• **returnValue**: `Uint8Array`
 
 Return value from the contract
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:269
+node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/types.d.ts:269
 
-***
+___
 
 ### runState
 
-> **runState**?: `RunState`
+• `Optional` **runState**: `RunState`
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:253
+node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/types.d.ts:253
 
-***
+___
 
 ### selfdestruct
 
-> **selfdestruct**?: `Set`\<`string`\>
+• `Optional` **selfdestruct**: `Set`\<`string`\>
 
 A set of accounts to selfdestruct
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:277
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
+node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/types.d.ts:277
