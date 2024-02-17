@@ -1,13 +1,5 @@
 {
 	"defaultProject": "@tevm/example-vite",
-	"tasksRunnerOptions": {
-		"default": {
-			"runner": "nx-cloud",
-			"options": {
-				"accessToken": "MDdkNmQwZWEtOGYwNy00ZjhkLWI5NGMtNjBiNGExY2Q5MzI2fHJlYWQ="
-			}
-		}
-	},
 	"targetDefaults": {
 		"lint:check": {
 			"inputs": ["default"],
@@ -117,6 +109,7 @@
 		],
 		"productionContracts": ["{projectRoot}/contracts/**/*"],
 		"production": [
+			"default",
 			"buildConfigs",
 			"sharedGlobals",
 			"productionSrc",
@@ -135,5 +128,6 @@
 			}
 		],
 		"testing": ["configsWorkspace", "default"]
-	}
+	},
+	"nxCloudAccessToken": "MDdkNmQwZWEtOGYwNy00ZjhkLWI5NGMtNjBiNGExY2Q5MzI2fHJlYWQ="
 }

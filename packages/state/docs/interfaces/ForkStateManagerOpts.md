@@ -1,30 +1,30 @@
-**@tevm/state** ∙ [README](../README.md) ∙ [API](../API.md)
-
-***
-
-[API](../API.md) > ForkStateManagerOpts
+[@tevm/state](../README.md) / [Exports](../modules.md) / ForkStateManagerOpts
 
 # Interface: ForkStateManagerOpts
+
+## Table of contents
+
+### Properties
+
+- [blockTag](ForkStateManagerOpts.md#blocktag)
+- [url](ForkStateManagerOpts.md#url)
 
 ## Properties
 
 ### blockTag
 
-> **blockTag**?: `bigint` \| `BlockTag`
+• `Optional` **blockTag**: `bigint` \| `BlockTag`
 
-#### Source
+#### Defined in
 
 [packages/state/src/ForkStateManager.ts:29](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L29)
 
-***
+___
 
 ### url
 
-> **url**: `string`
+• **url**: `string`
 
-#### Source
+#### Defined in
 
 [packages/state/src/ForkStateManager.ts:28](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L28)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

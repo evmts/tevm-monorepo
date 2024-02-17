@@ -1,71 +1,97 @@
-**@tevm/predeploys** ∙ [README](../README.md) ∙ [API](../API.md)
+[@tevm/predeploys](../README.md) / [Exports](../modules.md) / Predeploy
 
-***
-
-[API](../API.md) > Predeploy
-
-# Class: `abstract` Predeploy`<TName, THumanReadableAbi>`
+# Class: Predeploy\<TName, THumanReadableAbi\>
 
 Type of predeploy contract for tevm
 
 ## Type parameters
 
-▪ **TName** extends `string`
+| Name | Type |
+| :------ | :------ |
+| `TName` | extends `string` |
+| `THumanReadableAbi` | extends readonly `string`[] |
 
-▪ **THumanReadableAbi** extends readonly `string`[]
+## Table of contents
+
+### Constructors
+
+- [constructor](Predeploy.md#constructor)
+
+### Properties
+
+- [address](Predeploy.md#address)
+- [contract](Predeploy.md#contract)
+
+### Methods
+
+- [ethjsAddress](Predeploy.md#ethjsaddress)
+- [predeploy](Predeploy.md#predeploy)
 
 ## Constructors
 
-### new Predeploy()
+### constructor
 
-> **new Predeploy**\<`TName`, `THumanReadableAbi`\>(): [`Predeploy`](Predeploy.md)\<`TName`, `THumanReadableAbi`\>
+• **new Predeploy**\<`TName`, `THumanReadableAbi`\>(): [`Predeploy`](Predeploy.md)\<`TName`, `THumanReadableAbi`\>
+
+#### Type parameters
+
+| Name | Type |
+| :------ | :------ |
+| `TName` | extends `string` |
+| `THumanReadableAbi` | extends readonly `string`[] |
+
+#### Returns
+
+[`Predeploy`](Predeploy.md)\<`TName`, `THumanReadableAbi`\>
 
 ## Properties
 
-### `abstract` address
+### address
 
-> **`readonly`** **`abstract`** **address**: \`0x${string}\`
+• `Readonly` `Abstract` **address**: \`0x$\{string}\`
 
-#### Source
+#### Defined in
 
 [Predeploy.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/predeploys/src/Predeploy.ts#L13)
 
-***
+___
 
-### `abstract` contract
+### contract
 
-> **`readonly`** **`abstract`** **contract**: `Script`\<`TName`, `THumanReadableAbi`\>
+• `Readonly` `Abstract` **contract**: `Script`\<`TName`, `THumanReadableAbi`\>
 
-#### Source
+#### Defined in
 
 [Predeploy.ts:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/predeploys/src/Predeploy.ts#L12)
 
 ## Methods
 
-### ethjsAddress()
+### ethjsAddress
 
-> **`protected`** **`readonly`** **ethjsAddress**(): `Address`
-
-#### Source
-
-[Predeploy.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/predeploys/src/Predeploy.ts#L14)
-
-***
-
-### predeploy()
-
-> **`readonly`** **predeploy**(): `object`
+▸ **ethjsAddress**(): `Address`
 
 #### Returns
 
-> ##### address
->
-> > **address**: `Address`
->
+`Address`
 
-#### Source
+#### Defined in
+
+[Predeploy.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/predeploys/src/Predeploy.ts#L14)
+
+___
+
+### predeploy
+
+▸ **predeploy**(): `Object`
+
+#### Returns
+
+`Object`
+
+| Name | Type |
+| :------ | :------ |
+| `address` | `Address` |
+
+#### Defined in
 
 [Predeploy.ts:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/predeploys/src/Predeploy.ts#L15)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

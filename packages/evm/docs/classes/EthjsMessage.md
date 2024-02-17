@@ -1,225 +1,259 @@
-**@tevm/evm** ∙ [README](../README.md) ∙ [API](../API.md)
-
-***
-
-[API](../API.md) > EthjsMessage
+[@tevm/evm](../README.md) / [Exports](../modules.md) / EthjsMessage
 
 # Class: EthjsMessage
 
+## Table of contents
+
+### Constructors
+
+- [constructor](EthjsMessage.md#constructor)
+
+### Properties
+
+- [\_codeAddress](EthjsMessage.md#_codeaddress)
+- [authcallOrigin](EthjsMessage.md#authcallorigin)
+- [blobVersionedHashes](EthjsMessage.md#blobversionedhashes)
+- [caller](EthjsMessage.md#caller)
+- [code](EthjsMessage.md#code)
+- [containerCode](EthjsMessage.md#containercode)
+- [createdAddresses](EthjsMessage.md#createdaddresses)
+- [data](EthjsMessage.md#data)
+- [delegatecall](EthjsMessage.md#delegatecall)
+- [depth](EthjsMessage.md#depth)
+- [gasLimit](EthjsMessage.md#gaslimit)
+- [gasRefund](EthjsMessage.md#gasrefund)
+- [isCompiled](EthjsMessage.md#iscompiled)
+- [isStatic](EthjsMessage.md#isstatic)
+- [salt](EthjsMessage.md#salt)
+- [selfdestruct](EthjsMessage.md#selfdestruct)
+- [to](EthjsMessage.md#to)
+- [value](EthjsMessage.md#value)
+
+### Accessors
+
+- [codeAddress](EthjsMessage.md#codeaddress)
+
 ## Constructors
 
-### new EthjsMessage(opts)
+### constructor
 
-> **new EthjsMessage**(`opts`): [`EthjsMessage`](EthjsMessage.md)
+• **new EthjsMessage**(`opts`): [`EthjsMessage`](EthjsMessage.md)
 
 #### Parameters
 
-▪ **opts**: `MessageOpts`
+| Name | Type |
+| :------ | :------ |
+| `opts` | `MessageOpts` |
 
-#### Source
+#### Returns
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/message.d.ts:60
+[`EthjsMessage`](EthjsMessage.md)
+
+#### Defined in
+
+node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/message.d.ts:60
 
 ## Properties
 
 ### \_codeAddress
 
-> **\_codeAddress**?: `Address`
+• `Optional` **\_codeAddress**: `Address`
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/message.d.ts:36
+node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/message.d.ts:36
 
-***
+___
 
 ### authcallOrigin
 
-> **authcallOrigin**?: `Address`
+• `Optional` **authcallOrigin**: `Address`
 
 This is used to store the origin of the AUTHCALL,
 the purpose is to figure out where `value` should be taken from (not from `caller`)
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/message.d.ts:54
+node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/message.d.ts:54
 
-***
+___
 
 ### blobVersionedHashes
 
-> **blobVersionedHashes**?: `Uint8Array`[]
+• `Optional` **blobVersionedHashes**: `Uint8Array`[]
 
 List of versioned hashes if message is a blob transaction in the outer VM
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/message.d.ts:59
+node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/message.d.ts:59
 
-***
+___
 
 ### caller
 
-> **caller**: `Address`
+• **caller**: `Address`
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/message.d.ts:31
+node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/message.d.ts:31
 
-***
+___
 
 ### code
 
-> **code**?: `Uint8Array` \| `PrecompileFunc`
+• `Optional` **code**: `Uint8Array` \| `PrecompileFunc`
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/message.d.ts:35
+node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/message.d.ts:35
 
-***
+___
 
 ### containerCode
 
-> **containerCode**?: `Uint8Array`
+• `Optional` **containerCode**: `Uint8Array`
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/message.d.ts:40
+node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/message.d.ts:40
 
-***
+___
 
 ### createdAddresses
 
-> **createdAddresses**?: `Set`\<`string`\>
+• `Optional` **createdAddresses**: `Set`\<`string`\>
 
 Map of addresses which were created (used in EIP 6780)
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/message.d.ts:48
+node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/message.d.ts:48
 
-***
+___
 
 ### data
 
-> **data**: `Uint8Array`
+• **data**: `Uint8Array`
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/message.d.ts:33
+node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/message.d.ts:33
 
-***
+___
 
 ### delegatecall
 
-> **delegatecall**: `boolean`
+• **delegatecall**: `boolean`
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/message.d.ts:49
+node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/message.d.ts:49
 
-***
+___
 
 ### depth
 
-> **depth**: `number`
+• **depth**: `number`
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/message.d.ts:34
+node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/message.d.ts:34
 
-***
+___
 
 ### gasLimit
 
-> **gasLimit**: `bigint`
+• **gasLimit**: `bigint`
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/message.d.ts:32
+node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/message.d.ts:32
 
-***
+___
 
 ### gasRefund
 
-> **gasRefund**: `bigint`
+• **gasRefund**: `bigint`
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/message.d.ts:55
+node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/message.d.ts:55
 
-***
+___
 
 ### isCompiled
 
-> **isCompiled**: `boolean`
+• **isCompiled**: `boolean`
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/message.d.ts:38
+node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/message.d.ts:38
 
-***
+___
 
 ### isStatic
 
-> **isStatic**: `boolean`
+• **isStatic**: `boolean`
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/message.d.ts:37
+node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/message.d.ts:37
 
-***
+___
 
 ### salt
 
-> **salt**?: `Uint8Array`
+• `Optional` **salt**: `Uint8Array`
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/message.d.ts:39
+node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/message.d.ts:39
 
-***
+___
 
 ### selfdestruct
 
-> **selfdestruct**?: `Set`\<`string`\>
+• `Optional` **selfdestruct**: `Set`\<`string`\>
 
 Set of addresses to selfdestruct. Key is the unprefixed address.
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/message.d.ts:44
+node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/message.d.ts:44
 
-***
+___
 
 ### to
 
-> **to**?: `Address`
+• `Optional` **to**: `Address`
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/message.d.ts:29
+node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/message.d.ts:29
 
-***
+___
 
 ### value
 
-> **value**: `bigint`
+• **value**: `bigint`
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/message.d.ts:30
+node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/message.d.ts:30
 
 ## Accessors
 
 ### codeAddress
 
-> **`get`** **codeAddress**(): `Address`
+• `get` **codeAddress**(): `Address`
 
 Note: should only be called in instances where `_codeAddress` or `to` is defined.
 
-#### Source
+#### Returns
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/message.d.ts:64
+`Address`
 
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
+#### Defined in
+
+node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/message.d.ts:64

@@ -1,6 +1,4 @@
-**@tevm/actions-types** ∙ [README](README.md) ∙ [API](API.md)
-
-***
+@tevm/actions-types / [Exports](modules.md)
 
 # @tevm/spec/src
 
@@ -27,6 +25,3 @@ The result type for Tevm JSON-rpc responses and tevm handlers
 ## utils
 
 Internal type utils
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

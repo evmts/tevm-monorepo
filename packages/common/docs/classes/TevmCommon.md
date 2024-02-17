@@ -1,208 +1,285 @@
-**@tevm/common** ∙ [README](../README.md) ∙ [API](../API.md)
-
-***
-
-[API](../API.md) > TevmCommon
+[@tevm/common](../README.md) / [Exports](../modules.md) / TevmCommon
 
 # Class: TevmCommon
 
-## Extends
+## Hierarchy
 
 - `Common`
 
+  ↳ **`TevmCommon`**
+
+## Table of contents
+
+### Constructors
+
+- [constructor](TevmCommon.md#constructor)
+
+### Properties
+
+- [DEFAULT\_HARDFORK](TevmCommon.md#default_hardfork)
+- [HARDFORK\_CHANGES](TevmCommon.md#hardfork_changes)
+- [\_activatedEIPsCache](TevmCommon.md#_activatedeipscache)
+- [\_chainParams](TevmCommon.md#_chainparams)
+- [\_customChains](TevmCommon.md#_customchains)
+- [\_eips](TevmCommon.md#_eips)
+- [\_hardfork](TevmCommon.md#_hardfork)
+- [\_paramsCache](TevmCommon.md#_paramscache)
+- [events](TevmCommon.md#events)
+
+### Methods
+
+- [\_buildActivatedEIPsCache](TevmCommon.md#_buildactivatedeipscache)
+- [\_buildParamsCache](TevmCommon.md#_buildparamscache)
+- [\_calcForkHash](TevmCommon.md#_calcforkhash)
+- [\_getHardfork](TevmCommon.md#_gethardfork)
+- [\_mergeWithParamsCache](TevmCommon.md#_mergewithparamscache)
+- [activeOnBlock](TevmCommon.md#activeonblock)
+- [bootstrapNodes](TevmCommon.md#bootstrapnodes)
+- [chainId](TevmCommon.md#chainid)
+- [chainName](TevmCommon.md#chainname)
+- [consensusAlgorithm](TevmCommon.md#consensusalgorithm)
+- [consensusConfig](TevmCommon.md#consensusconfig)
+- [consensusType](TevmCommon.md#consensustype)
+- [copy](TevmCommon.md#copy)
+- [dnsNetworks](TevmCommon.md#dnsnetworks)
+- [eipBlock](TevmCommon.md#eipblock)
+- [eips](TevmCommon.md#eips)
+- [forkHash](TevmCommon.md#forkhash)
+- [genesis](TevmCommon.md#genesis)
+- [getHardforkBy](TevmCommon.md#gethardforkby)
+- [gteHardfork](TevmCommon.md#gtehardfork)
+- [hardfork](TevmCommon.md#hardfork)
+- [hardforkBlock](TevmCommon.md#hardforkblock)
+- [hardforkForForkHash](TevmCommon.md#hardforkforforkhash)
+- [hardforkGteHardfork](TevmCommon.md#hardforkgtehardfork)
+- [hardforkIsActiveOnBlock](TevmCommon.md#hardforkisactiveonblock)
+- [hardforkTTD](TevmCommon.md#hardforkttd)
+- [hardforkTimestamp](TevmCommon.md#hardforktimestamp)
+- [hardforks](TevmCommon.md#hardforks)
+- [isActivatedEIP](TevmCommon.md#isactivatedeip)
+- [networkId](TevmCommon.md#networkid)
+- [nextHardforkBlockOrTimestamp](TevmCommon.md#nexthardforkblockortimestamp)
+- [param](TevmCommon.md#param)
+- [paramByBlock](TevmCommon.md#parambyblock)
+- [paramByEIP](TevmCommon.md#parambyeip)
+- [paramByHardfork](TevmCommon.md#parambyhardfork)
+- [setChain](TevmCommon.md#setchain)
+- [setEIPs](TevmCommon.md#seteips)
+- [setForkHashes](TevmCommon.md#setforkhashes)
+- [setHardfork](TevmCommon.md#sethardfork)
+- [setHardforkBy](TevmCommon.md#sethardforkby)
+- [\_getChainParams](TevmCommon.md#_getchainparams)
+- [custom](TevmCommon.md#custom)
+- [fromGethGenesis](TevmCommon.md#fromgethgenesis)
+- [getInitializedChains](TevmCommon.md#getinitializedchains)
+- [isSupportedChainId](TevmCommon.md#issupportedchainid)
+
 ## Constructors
 
-### new TevmCommon(opts)
+### constructor
 
-> **new TevmCommon**(`opts`): [`TevmCommon`](TevmCommon.md)
+• **new TevmCommon**(`opts`): [`TevmCommon`](TevmCommon.md)
 
 #### Parameters
 
-▪ **opts**: `CommonOpts`
+| Name | Type |
+| :------ | :------ |
+| `opts` | `CommonOpts` |
+
+#### Returns
+
+[`TevmCommon`](TevmCommon.md)
 
 #### Inherited from
 
 Common.constructor
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:68
+node_modules/.pnpm/@ethereumjs+common@4.1.0/node_modules/@ethereumjs/common/dist/esm/common.d.ts:68
 
 ## Properties
 
 ### DEFAULT\_HARDFORK
 
-> **`readonly`** **DEFAULT\_HARDFORK**: `string`
+• `Readonly` **DEFAULT\_HARDFORK**: `string`
 
 #### Inherited from
 
 Common.DEFAULT\_HARDFORK
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:20
+node_modules/.pnpm/@ethereumjs+common@4.1.0/node_modules/@ethereumjs/common/dist/esm/common.d.ts:20
 
-***
+___
 
 ### HARDFORK\_CHANGES
 
-> **`protected`** **HARDFORK\_CHANGES**: [`string`, `HardforkConfig`][]
+• `Protected` **HARDFORK\_CHANGES**: [`string`, `HardforkConfig`][]
 
 #### Inherited from
 
 Common.HARDFORK\_CHANGES
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:27
+node_modules/.pnpm/@ethereumjs+common@4.1.0/node_modules/@ethereumjs/common/dist/esm/common.d.ts:27
 
-***
+___
 
 ### \_activatedEIPsCache
 
-> **`protected`** **\_activatedEIPsCache**: `number`[]
+• `Protected` **\_activatedEIPsCache**: `number`[]
 
 #### Inherited from
 
 Common.\_activatedEIPsCache
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:26
+node_modules/.pnpm/@ethereumjs+common@4.1.0/node_modules/@ethereumjs/common/dist/esm/common.d.ts:26
 
-***
+___
 
 ### \_chainParams
 
-> **`protected`** **\_chainParams**: `ChainConfig`
+• `Protected` **\_chainParams**: `ChainConfig`
 
 #### Inherited from
 
 Common.\_chainParams
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:21
+node_modules/.pnpm/@ethereumjs+common@4.1.0/node_modules/@ethereumjs/common/dist/esm/common.d.ts:21
 
-***
+___
 
 ### \_customChains
 
-> **`protected`** **\_customChains**: `ChainConfig`[]
+• `Protected` **\_customChains**: `ChainConfig`[]
 
 #### Inherited from
 
 Common.\_customChains
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:24
+node_modules/.pnpm/@ethereumjs+common@4.1.0/node_modules/@ethereumjs/common/dist/esm/common.d.ts:24
 
-***
+___
 
 ### \_eips
 
-> **`protected`** **\_eips**: `number`[]
+• `Protected` **\_eips**: `number`[]
 
 #### Inherited from
 
 Common.\_eips
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:23
+node_modules/.pnpm/@ethereumjs+common@4.1.0/node_modules/@ethereumjs/common/dist/esm/common.d.ts:23
 
-***
+___
 
 ### \_hardfork
 
-> **`protected`** **\_hardfork**: `string`
+• `Protected` **\_hardfork**: `string`
 
 #### Inherited from
 
 Common.\_hardfork
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:22
+node_modules/.pnpm/@ethereumjs+common@4.1.0/node_modules/@ethereumjs/common/dist/esm/common.d.ts:22
 
-***
+___
 
 ### \_paramsCache
 
-> **`protected`** **\_paramsCache**: `ParamsCacheConfig`
+• `Protected` **\_paramsCache**: `ParamsCacheConfig`
 
 #### Inherited from
 
 Common.\_paramsCache
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:25
+node_modules/.pnpm/@ethereumjs+common@4.1.0/node_modules/@ethereumjs/common/dist/esm/common.d.ts:25
 
-***
+___
 
 ### events
 
-> **events**: `EventEmitter`
+• **events**: `EventEmitter`
 
 #### Inherited from
 
 Common.events
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:28
+node_modules/.pnpm/@ethereumjs+common@4.1.0/node_modules/@ethereumjs/common/dist/esm/common.d.ts:28
 
 ## Methods
 
-### \_buildActivatedEIPsCache()
+### \_buildActivatedEIPsCache
 
-> **`protected`** **\_buildActivatedEIPsCache**(): `void`
+▸ **_buildActivatedEIPsCache**(): `void`
+
+#### Returns
+
+`void`
 
 #### Inherited from
 
 Common.\_buildActivatedEIPsCache
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:124
+node_modules/.pnpm/@ethereumjs+common@4.1.0/node_modules/@ethereumjs/common/dist/esm/common.d.ts:124
 
-***
+___
 
-### \_buildParamsCache()
+### \_buildParamsCache
 
-> **`protected`** **\_buildParamsCache**(): `void`
+▸ **_buildParamsCache**(): `void`
 
 Build up a cache for all parameter values for the current HF and all activated EIPs
+
+#### Returns
+
+`void`
 
 #### Inherited from
 
 Common.\_buildParamsCache
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:123
+node_modules/.pnpm/@ethereumjs+common@4.1.0/node_modules/@ethereumjs/common/dist/esm/common.d.ts:123
 
-***
+___
 
-### \_calcForkHash()
+### \_calcForkHash
 
-> **`protected`** **\_calcForkHash**(`hardfork`, `genesisHash`): `string`
+▸ **_calcForkHash**(`hardfork`, `genesisHash`): `string`
 
 Internal helper function to calculate a fork hash
 
 #### Parameters
 
-▪ **hardfork**: `string`
-
-Hardfork name
-
-▪ **genesisHash**: `Uint8Array`
-
-Genesis block hash of the chain
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `hardfork` | `string` | Hardfork name |
+| `genesisHash` | `Uint8Array` | Genesis block hash of the chain |
 
 #### Returns
+
+`string`
 
 Fork hash as hex string
 
@@ -210,25 +287,27 @@ Fork hash as hex string
 
 Common.\_calcForkHash
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:231
+node_modules/.pnpm/@ethereumjs+common@4.1.0/node_modules/@ethereumjs/common/dist/esm/common.d.ts:231
 
-***
+___
 
-### \_getHardfork()
+### \_getHardfork
 
-> **`protected`** **\_getHardfork**(`hardfork`): `null` \| `HardforkTransitionConfig`
+▸ **_getHardfork**(`hardfork`): ``null`` \| `HardforkTransitionConfig`
 
 Internal helper function, returns the params for the given hardfork for the chain set
 
 #### Parameters
 
-▪ **hardfork**: `string`
-
-Hardfork name
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `hardfork` | `string` | Hardfork name |
 
 #### Returns
+
+``null`` \| `HardforkTransitionConfig`
 
 Dictionary with hardfork params or null if hardfork not on chain
 
@@ -236,43 +315,53 @@ Dictionary with hardfork params or null if hardfork not on chain
 
 Common.\_getHardfork
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:110
+node_modules/.pnpm/@ethereumjs+common@4.1.0/node_modules/@ethereumjs/common/dist/esm/common.d.ts:110
 
-***
+___
 
-### \_mergeWithParamsCache()
+### \_mergeWithParamsCache
 
-> **`protected`** **\_mergeWithParamsCache**(`params`): `void`
+▸ **_mergeWithParamsCache**(`params`): `void`
 
 Internal helper for _buildParamsCache()
 
 #### Parameters
 
-▪ **params**: `HardforkConfig` \| `EIPConfig`
+| Name | Type |
+| :------ | :------ |
+| `params` | `HardforkConfig` \| `EIPConfig` |
+
+#### Returns
+
+`void`
 
 #### Inherited from
 
 Common.\_mergeWithParamsCache
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:119
+node_modules/.pnpm/@ethereumjs+common@4.1.0/node_modules/@ethereumjs/common/dist/esm/common.d.ts:119
 
-***
+___
 
-### activeOnBlock()
+### activeOnBlock
 
-> **activeOnBlock**(`blockNumber`): `boolean`
+▸ **activeOnBlock**(`blockNumber`): `boolean`
 
 Alias to hardforkIsActiveOnBlock when hardfork is set
 
 #### Parameters
 
-▪ **blockNumber**: `BigIntLike`
+| Name | Type |
+| :------ | :------ |
+| `blockNumber` | `BigIntLike` |
 
 #### Returns
+
+`boolean`
 
 True if HF is active on block number
 
@@ -280,19 +369,21 @@ True if HF is active on block number
 
 Common.activeOnBlock
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:185
+node_modules/.pnpm/@ethereumjs+common@4.1.0/node_modules/@ethereumjs/common/dist/esm/common.d.ts:185
 
-***
+___
 
-### bootstrapNodes()
+### bootstrapNodes
 
-> **bootstrapNodes**(): `BootstrapNodeConfig`[]
+▸ **bootstrapNodes**(): `BootstrapNodeConfig`[]
 
 Returns bootstrap nodes for the current chain
 
 #### Returns
+
+`BootstrapNodeConfig`[]
 
 Dict with bootstrap nodes
 
@@ -300,19 +391,21 @@ Dict with bootstrap nodes
 
 Common.bootstrapNodes
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:264
+node_modules/.pnpm/@ethereumjs+common@4.1.0/node_modules/@ethereumjs/common/dist/esm/common.d.ts:264
 
-***
+___
 
-### chainId()
+### chainId
 
-> **chainId**(): `bigint`
+▸ **chainId**(): `bigint`
 
 Returns the Id of current chain
 
 #### Returns
+
+`bigint`
 
 chain Id
 
@@ -320,19 +413,21 @@ chain Id
 
 Common.chainId
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:279
+node_modules/.pnpm/@ethereumjs+common@4.1.0/node_modules/@ethereumjs/common/dist/esm/common.d.ts:279
 
-***
+___
 
-### chainName()
+### chainName
 
-> **chainName**(): `string`
+▸ **chainName**(): `string`
 
 Returns the name of current chain
 
 #### Returns
+
+`string`
 
 chain name (lower case)
 
@@ -340,15 +435,15 @@ chain name (lower case)
 
 Common.chainName
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:284
+node_modules/.pnpm/@ethereumjs+common@4.1.0/node_modules/@ethereumjs/common/dist/esm/common.d.ts:284
 
-***
+___
 
-### consensusAlgorithm()
+### consensusAlgorithm
 
-> **consensusAlgorithm**(): `string`
+▸ **consensusAlgorithm**(): `string`
 
 Returns the concrete consensus implementation
 algorithm or protocol for the network
@@ -358,19 +453,23 @@ e.g. "ethash" for "pow" consensus type,
 
 Note: This value can update along a Hardfork.
 
+#### Returns
+
+`string`
+
 #### Inherited from
 
 Common.consensusAlgorithm
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:312
+node_modules/.pnpm/@ethereumjs+common@4.1.0/node_modules/@ethereumjs/common/dist/esm/common.d.ts:312
 
-***
+___
 
-### consensusConfig()
+### consensusConfig
 
-> **consensusConfig**(): `object`
+▸ **consensusConfig**(): `Object`
 
 Returns a dictionary with consensus configuration
 parameters based on the consensus algorithm
@@ -384,58 +483,72 @@ casper: empty object
 
 Note: This value can update along a Hardfork.
 
+#### Returns
+
+`Object`
+
 #### Inherited from
 
 Common.consensusConfig
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:326
+node_modules/.pnpm/@ethereumjs+common@4.1.0/node_modules/@ethereumjs/common/dist/esm/common.d.ts:326
 
-***
+___
 
-### consensusType()
+### consensusType
 
-> **consensusType**(): `string`
+▸ **consensusType**(): `string`
 
 Returns the consensus type of the network
 Possible values: "pow"|"poa"|"pos"
 
 Note: This value can update along a Hardfork.
 
+#### Returns
+
+`string`
+
 #### Inherited from
 
 Common.consensusType
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:302
+node_modules/.pnpm/@ethereumjs+common@4.1.0/node_modules/@ethereumjs/common/dist/esm/common.d.ts:302
 
-***
+___
 
-### copy()
+### copy
 
-> **copy**(): `Common`
+▸ **copy**(): `Common`
 
-Returns a deep copy of this [Common]([object Object]) instance.
+Returns a deep copy of this Common instance.
+
+#### Returns
+
+`Common`
 
 #### Inherited from
 
 Common.copy
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:332
+node_modules/.pnpm/@ethereumjs+common@4.1.0/node_modules/@ethereumjs/common/dist/esm/common.d.ts:332
 
-***
+___
 
-### dnsNetworks()
+### dnsNetworks
 
-> **dnsNetworks**(): `string`[]
+▸ **dnsNetworks**(): `string`[]
 
 Returns DNS networks for the current chain
 
 #### Returns
+
+`string`[]
 
 Array of DNS ENR urls
 
@@ -443,25 +556,27 @@ Array of DNS ENR urls
 
 Common.dnsNetworks
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:269
+node_modules/.pnpm/@ethereumjs+common@4.1.0/node_modules/@ethereumjs/common/dist/esm/common.d.ts:269
 
-***
+___
 
-### eipBlock()
+### eipBlock
 
-> **eipBlock**(`eip`): `null` \| `bigint`
+▸ **eipBlock**(`eip`): ``null`` \| `bigint`
 
 Returns the hardfork change block for eip
 
 #### Parameters
 
-▪ **eip**: `number`
-
-EIP number
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `eip` | `number` | EIP number |
 
 #### Returns
+
+``null`` \| `bigint`
 
 Block number or null if unscheduled
 
@@ -469,20 +584,22 @@ Block number or null if unscheduled
 
 Common.eipBlock
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:212
+node_modules/.pnpm/@ethereumjs+common@4.1.0/node_modules/@ethereumjs/common/dist/esm/common.d.ts:212
 
-***
+___
 
-### eips()
+### eips
 
-> **eips**(): `number`[]
+▸ **eips**(): `number`[]
 
 Returns the additionally activated EIPs
 (by using the `eips` constructor option)
 
 #### Returns
+
+`number`[]
 
 List of EIPs
 
@@ -490,45 +607,48 @@ List of EIPs
 
 Common.eips
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:295
+node_modules/.pnpm/@ethereumjs+common@4.1.0/node_modules/@ethereumjs/common/dist/esm/common.d.ts:295
 
-***
+___
 
-### forkHash()
+### forkHash
 
-> **forkHash**(`hardfork`?, `genesisHash`?): `string`
+▸ **forkHash**(`hardfork?`, `genesisHash?`): `string`
 
 Returns an eth/64 compliant fork hash (EIP-2124)
 
 #### Parameters
 
-▪ **hardfork?**: `string`
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `hardfork?` | `string` | Hardfork name, optional if HF set |
+| `genesisHash?` | `Uint8Array` | Genesis block hash of the chain, optional if already defined and not needed to be calculated |
 
-Hardfork name, optional if HF set
+#### Returns
 
-▪ **genesisHash?**: `Uint8Array`
-
-Genesis block hash of the chain, optional if already defined and not needed to be calculated
+`string`
 
 #### Inherited from
 
 Common.forkHash
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:237
+node_modules/.pnpm/@ethereumjs+common@4.1.0/node_modules/@ethereumjs/common/dist/esm/common.d.ts:237
 
-***
+___
 
-### genesis()
+### genesis
 
-> **genesis**(): `GenesisBlockConfig`
+▸ **genesis**(): `GenesisBlockConfig`
 
 Returns the Genesis parameters of the current chain
 
 #### Returns
+
+`GenesisBlockConfig`
 
 Genesis dictionary
 
@@ -536,15 +656,15 @@ Genesis dictionary
 
 Common.genesis
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:254
+node_modules/.pnpm/@ethereumjs+common@4.1.0/node_modules/@ethereumjs/common/dist/esm/common.d.ts:254
 
-***
+___
 
-### getHardforkBy()
+### getHardforkBy
 
-> **getHardforkBy**(`opts`): `string`
+▸ **getHardforkBy**(`opts`): `string`
 
 Returns the hardfork either based on block numer (older HFs) or
 timestamp (Shanghai upwards).
@@ -555,9 +675,13 @@ will be thrown).
 
 #### Parameters
 
-▪ **opts**: `HardforkByOpts`
+| Name | Type |
+| :------ | :------ |
+| `opts` | `HardforkByOpts` |
 
 #### Returns
+
+`string`
 
 The name of the HF
 
@@ -565,25 +689,27 @@ The name of the HF
 
 Common.getHardforkBy
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:92
+node_modules/.pnpm/@ethereumjs+common@4.1.0/node_modules/@ethereumjs/common/dist/esm/common.d.ts:92
 
-***
+___
 
-### gteHardfork()
+### gteHardfork
 
-> **gteHardfork**(`hardfork`): `boolean`
+▸ **gteHardfork**(`hardfork`): `boolean`
 
 Alias to hardforkGteHardfork when hardfork is set
 
 #### Parameters
 
-▪ **hardfork**: `string`
-
-Hardfork name
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `hardfork` | `string` | Hardfork name |
 
 #### Returns
+
+`boolean`
 
 True if hardfork set is greater than hardfork provided
 
@@ -591,19 +717,21 @@ True if hardfork set is greater than hardfork provided
 
 Common.gteHardfork
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:199
+node_modules/.pnpm/@ethereumjs+common@4.1.0/node_modules/@ethereumjs/common/dist/esm/common.d.ts:199
 
-***
+___
 
-### hardfork()
+### hardfork
 
-> **hardfork**(): `string`
+▸ **hardfork**(): `string`
 
 Returns the hardfork set
 
 #### Returns
+
+`string`
 
 Hardfork name
 
@@ -611,25 +739,27 @@ Hardfork name
 
 Common.hardfork
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:274
+node_modules/.pnpm/@ethereumjs+common@4.1.0/node_modules/@ethereumjs/common/dist/esm/common.d.ts:274
 
-***
+___
 
-### hardforkBlock()
+### hardforkBlock
 
-> **hardforkBlock**(`hardfork`?): `null` \| `bigint`
+▸ **hardforkBlock**(`hardfork?`): ``null`` \| `bigint`
 
 Returns the hardfork change block for hardfork provided or set
 
 #### Parameters
 
-▪ **hardfork?**: `string`
-
-Hardfork name, optional if HF set
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `hardfork?` | `string` | Hardfork name, optional if HF set |
 
 #### Returns
+
+``null`` \| `bigint`
 
 Block number or null if unscheduled
 
@@ -637,23 +767,25 @@ Block number or null if unscheduled
 
 Common.hardforkBlock
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:205
+node_modules/.pnpm/@ethereumjs+common@4.1.0/node_modules/@ethereumjs/common/dist/esm/common.d.ts:205
 
-***
+___
 
-### hardforkForForkHash()
+### hardforkForForkHash
 
-> **hardforkForForkHash**(`forkHash`): `null` \| `HardforkTransitionConfig`
+▸ **hardforkForForkHash**(`forkHash`): ``null`` \| `HardforkTransitionConfig`
 
 #### Parameters
 
-▪ **forkHash**: `string`
-
-Fork hash as a hex string
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `forkHash` | `string` | Fork hash as a hex string |
 
 #### Returns
+
+``null`` \| `HardforkTransitionConfig`
 
 Array with hardfork data (name, block, forkHash)
 
@@ -661,29 +793,28 @@ Array with hardfork data (name, block, forkHash)
 
 Common.hardforkForForkHash
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:243
+node_modules/.pnpm/@ethereumjs+common@4.1.0/node_modules/@ethereumjs/common/dist/esm/common.d.ts:243
 
-***
+___
 
-### hardforkGteHardfork()
+### hardforkGteHardfork
 
-> **hardforkGteHardfork**(`hardfork1`, `hardfork2`): `boolean`
+▸ **hardforkGteHardfork**(`hardfork1`, `hardfork2`): `boolean`
 
 Sequence based check if given or set HF1 is greater than or equal HF2
 
 #### Parameters
 
-▪ **hardfork1**: `null` \| `string`
-
-Hardfork name or null (if set)
-
-▪ **hardfork2**: `string`
-
-Hardfork name
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `hardfork1` | ``null`` \| `string` | Hardfork name or null (if set) |
+| `hardfork2` | `string` | Hardfork name |
 
 #### Returns
+
+`boolean`
 
 True if HF1 gte HF2
 
@@ -691,27 +822,28 @@ True if HF1 gte HF2
 
 Common.hardforkGteHardfork
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:193
+node_modules/.pnpm/@ethereumjs+common@4.1.0/node_modules/@ethereumjs/common/dist/esm/common.d.ts:193
 
-***
+___
 
-### hardforkIsActiveOnBlock()
+### hardforkIsActiveOnBlock
 
-> **hardforkIsActiveOnBlock**(`hardfork`, `blockNumber`): `boolean`
+▸ **hardforkIsActiveOnBlock**(`hardfork`, `blockNumber`): `boolean`
 
 Checks if set or provided hardfork is active on block number
 
 #### Parameters
 
-▪ **hardfork**: `null` \| `string`
-
-Hardfork name or null (for HF set)
-
-▪ **blockNumber**: `BigIntLike`
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `hardfork` | ``null`` \| `string` | Hardfork name or null (for HF set) |
+| `blockNumber` | `BigIntLike` |  |
 
 #### Returns
+
+`boolean`
 
 True if HF is active on block number
 
@@ -719,25 +851,27 @@ True if HF is active on block number
 
 Common.hardforkIsActiveOnBlock
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:179
+node_modules/.pnpm/@ethereumjs+common@4.1.0/node_modules/@ethereumjs/common/dist/esm/common.d.ts:179
 
-***
+___
 
-### hardforkTTD()
+### hardforkTTD
 
-> **hardforkTTD**(`hardfork`?): `null` \| `bigint`
+▸ **hardforkTTD**(`hardfork?`): ``null`` \| `bigint`
 
 Returns the hardfork change total difficulty (Merge HF) for hardfork provided or set
 
 #### Parameters
 
-▪ **hardfork?**: `string`
-
-Hardfork name, optional if HF set
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `hardfork?` | `string` | Hardfork name, optional if HF set |
 
 #### Returns
+
+``null`` \| `bigint`
 
 Total difficulty or null if no set
 
@@ -745,37 +879,45 @@ Total difficulty or null if no set
 
 Common.hardforkTTD
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:218
+node_modules/.pnpm/@ethereumjs+common@4.1.0/node_modules/@ethereumjs/common/dist/esm/common.d.ts:218
 
-***
+___
 
-### hardforkTimestamp()
+### hardforkTimestamp
 
-> **hardforkTimestamp**(`hardfork`?): `null` \| `bigint`
+▸ **hardforkTimestamp**(`hardfork?`): ``null`` \| `bigint`
 
 #### Parameters
 
-▪ **hardfork?**: `string`
+| Name | Type |
+| :------ | :------ |
+| `hardfork?` | `string` |
+
+#### Returns
+
+``null`` \| `bigint`
 
 #### Inherited from
 
 Common.hardforkTimestamp
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:206
+node_modules/.pnpm/@ethereumjs+common@4.1.0/node_modules/@ethereumjs/common/dist/esm/common.d.ts:206
 
-***
+___
 
-### hardforks()
+### hardforks
 
-> **hardforks**(): `HardforkTransitionConfig`[]
+▸ **hardforks**(): `HardforkTransitionConfig`[]
 
 Returns the hardforks for current chain
 
 #### Returns
+
+`HardforkTransitionConfig`[]
 
 Array with arrays of hardforks
 
@@ -783,44 +925,52 @@ Array with arrays of hardforks
 
 Common.hardforks
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:259
+node_modules/.pnpm/@ethereumjs+common@4.1.0/node_modules/@ethereumjs/common/dist/esm/common.d.ts:259
 
-***
+___
 
-### isActivatedEIP()
+### isActivatedEIP
 
-> **isActivatedEIP**(`eip`): `boolean`
+▸ **isActivatedEIP**(`eip`): `boolean`
 
 Checks if an EIP is activated by either being included in the EIPs
-manually passed in with the [CommonOpts.eips]([object Object]) or in a
+manually passed in with the CommonOpts.eips or in a
 hardfork currently being active
 
 Note: this method only works for EIPs being supported
-by the [CommonOpts.eips]([object Object]) constructor option
+by the CommonOpts.eips constructor option
 
 #### Parameters
 
-▪ **eip**: `number`
+| Name | Type |
+| :------ | :------ |
+| `eip` | `number` |
+
+#### Returns
+
+`boolean`
 
 #### Inherited from
 
 Common.isActivatedEIP
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:172
+node_modules/.pnpm/@ethereumjs+common@4.1.0/node_modules/@ethereumjs/common/dist/esm/common.d.ts:172
 
-***
+___
 
-### networkId()
+### networkId
 
-> **networkId**(): `bigint`
+▸ **networkId**(): `bigint`
 
 Returns the Id of current network
 
 #### Returns
+
+`bigint`
 
 network Id
 
@@ -828,25 +978,27 @@ network Id
 
 Common.networkId
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:289
+node_modules/.pnpm/@ethereumjs+common@4.1.0/node_modules/@ethereumjs/common/dist/esm/common.d.ts:289
 
-***
+___
 
-### nextHardforkBlockOrTimestamp()
+### nextHardforkBlockOrTimestamp
 
-> **nextHardforkBlockOrTimestamp**(`hardfork`?): `null` \| `bigint`
+▸ **nextHardforkBlockOrTimestamp**(`hardfork?`): ``null`` \| `bigint`
 
 Returns the change block for the next hardfork after the hardfork provided or set
 
 #### Parameters
 
-▪ **hardfork?**: `string`
-
-Hardfork name, optional if HF set
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `hardfork?` | `string` | Hardfork name, optional if HF set |
 
 #### Returns
+
+``null`` \| `bigint`
 
 Block timestamp, number or null if not available
 
@@ -854,15 +1006,15 @@ Block timestamp, number or null if not available
 
 Common.nextHardforkBlockOrTimestamp
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:224
+node_modules/.pnpm/@ethereumjs+common@4.1.0/node_modules/@ethereumjs/common/dist/esm/common.d.ts:224
 
-***
+___
 
-### param()
+### param
 
-> **param**(`topic`, `name`): `bigint`
+▸ **param**(`topic`, `name`): `bigint`
 
 Returns a parameter for the current chain setup
 
@@ -872,15 +1024,14 @@ a change on the respective parameter.
 
 #### Parameters
 
-▪ **topic**: `string`
-
-Parameter topic ('gasConfig', 'gasPrices', 'vm', 'pow')
-
-▪ **name**: `string`
-
-Parameter name (e.g. 'minGasLimit' for 'gasConfig' topic)
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `topic` | `string` | Parameter topic ('gasConfig', 'gasPrices', 'vm', 'pow') |
+| `name` | `string` | Parameter name (e.g. 'minGasLimit' for 'gasConfig' topic) |
 
 #### Returns
+
+`bigint`
 
 The value requested or `BigInt(0)` if not found
 
@@ -888,41 +1039,32 @@ The value requested or `BigInt(0)` if not found
 
 Common.param
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:136
+node_modules/.pnpm/@ethereumjs+common@4.1.0/node_modules/@ethereumjs/common/dist/esm/common.d.ts:136
 
-***
+___
 
-### paramByBlock()
+### paramByBlock
 
-> **paramByBlock**(`topic`, `name`, `blockNumber`, `td`?, `timestamp`?): `bigint`
+▸ **paramByBlock**(`topic`, `name`, `blockNumber`, `td?`, `timestamp?`): `bigint`
 
 Returns a parameter for the hardfork active on block number or
 optional provided total difficulty (Merge HF)
 
 #### Parameters
 
-▪ **topic**: `string`
-
-Parameter topic
-
-▪ **name**: `string`
-
-Parameter name
-
-▪ **blockNumber**: `BigIntLike`
-
-Block number
-
-▪ **td?**: `BigIntLike`
-
-Total difficulty
-   *
-
-▪ **timestamp?**: `BigIntLike`
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `topic` | `string` | Parameter topic |
+| `name` | `string` | Parameter name |
+| `blockNumber` | `BigIntLike` | Block number |
+| `td?` | `BigIntLike` | Total difficulty * |
+| `timestamp?` | `BigIntLike` | - |
 
 #### Returns
+
+`bigint`
 
 The value requested or `BigInt(0)` if not found
 
@@ -930,33 +1072,29 @@ The value requested or `BigInt(0)` if not found
 
 Common.paramByBlock
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:162
+node_modules/.pnpm/@ethereumjs+common@4.1.0/node_modules/@ethereumjs/common/dist/esm/common.d.ts:162
 
-***
+___
 
-### paramByEIP()
+### paramByEIP
 
-> **paramByEIP**(`topic`, `name`, `eip`): `undefined` \| `bigint`
+▸ **paramByEIP**(`topic`, `name`, `eip`): `undefined` \| `bigint`
 
 Returns a parameter corresponding to an EIP
 
 #### Parameters
 
-▪ **topic**: `string`
-
-Parameter topic ('gasConfig', 'gasPrices', 'vm', 'pow')
-
-▪ **name**: `string`
-
-Parameter name (e.g. 'minGasLimit' for 'gasConfig' topic)
-
-▪ **eip**: `number`
-
-Number of the EIP
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `topic` | `string` | Parameter topic ('gasConfig', 'gasPrices', 'vm', 'pow') |
+| `name` | `string` | Parameter name (e.g. 'minGasLimit' for 'gasConfig' topic) |
+| `eip` | `number` | Number of the EIP |
 
 #### Returns
+
+`undefined` \| `bigint`
 
 The value requested or `undefined` if not found
 
@@ -964,33 +1102,29 @@ The value requested or `undefined` if not found
 
 Common.paramByEIP
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:152
+node_modules/.pnpm/@ethereumjs+common@4.1.0/node_modules/@ethereumjs/common/dist/esm/common.d.ts:152
 
-***
+___
 
-### paramByHardfork()
+### paramByHardfork
 
-> **paramByHardfork**(`topic`, `name`, `hardfork`): `bigint`
+▸ **paramByHardfork**(`topic`, `name`, `hardfork`): `bigint`
 
 Returns the parameter corresponding to a hardfork
 
 #### Parameters
 
-▪ **topic**: `string`
-
-Parameter topic ('gasConfig', 'gasPrices', 'vm', 'pow')
-
-▪ **name**: `string`
-
-Parameter name (e.g. 'minGasLimit' for 'gasConfig' topic)
-
-▪ **hardfork**: `string`
-
-Hardfork name
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `topic` | `string` | Parameter topic ('gasConfig', 'gasPrices', 'vm', 'pow') |
+| `name` | `string` | Parameter name (e.g. 'minGasLimit' for 'gasConfig' topic) |
+| `hardfork` | `string` | Hardfork name |
 
 #### Returns
+
+`bigint`
 
 The value requested or `BigInt(0)` if not found
 
@@ -998,26 +1132,27 @@ The value requested or `BigInt(0)` if not found
 
 Common.paramByHardfork
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:144
+node_modules/.pnpm/@ethereumjs+common@4.1.0/node_modules/@ethereumjs/common/dist/esm/common.d.ts:144
 
-***
+___
 
-### setChain()
+### setChain
 
-> **setChain**(`chain`): `ChainConfig`
+▸ **setChain**(`chain`): `ChainConfig`
 
 Sets the chain
 
 #### Parameters
 
-▪ **chain**: `string` \| `number` \| `bigint` \| `object`
-
-String ('mainnet') or Number (1) chain representation.
-             Or, a Dictionary of chain parameters for a private network.
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `chain` | `string` \| `number` \| `bigint` \| `object` | String ('mainnet') or Number (1) chain representation. Or, a Dictionary of chain parameters for a private network. |
 
 #### Returns
+
+`ChainConfig`
 
 The dictionary with parameters set as chain
 
@@ -1025,79 +1160,93 @@ The dictionary with parameters set as chain
 
 Common.setChain
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:75
+node_modules/.pnpm/@ethereumjs+common@4.1.0/node_modules/@ethereumjs/common/dist/esm/common.d.ts:75
 
-***
+___
 
-### setEIPs()
+### setEIPs
 
-> **setEIPs**(`eips`?): `void`
+▸ **setEIPs**(`eips?`): `void`
 
 Sets the active EIPs
 
 #### Parameters
 
-▪ **eips?**: `number`[]
+| Name | Type |
+| :------ | :------ |
+| `eips?` | `number`[] |
+
+#### Returns
+
+`void`
 
 #### Inherited from
 
 Common.setEIPs
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:115
+node_modules/.pnpm/@ethereumjs+common@4.1.0/node_modules/@ethereumjs/common/dist/esm/common.d.ts:115
 
-***
+___
 
-### setForkHashes()
+### setForkHashes
 
-> **setForkHashes**(`genesisHash`): `void`
+▸ **setForkHashes**(`genesisHash`): `void`
 
-Sets any missing forkHashes on the passed-in [Common]([object Object]) instance
+Sets any missing forkHashes on the passed-in Common instance
 
 #### Parameters
 
-▪ **genesisHash**: `Uint8Array`
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `genesisHash` | `Uint8Array` | The genesis block hash |
 
-The genesis block hash
+#### Returns
+
+`void`
 
 #### Inherited from
 
 Common.setForkHashes
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:249
+node_modules/.pnpm/@ethereumjs+common@4.1.0/node_modules/@ethereumjs/common/dist/esm/common.d.ts:249
 
-***
+___
 
-### setHardfork()
+### setHardfork
 
-> **setHardfork**(`hardfork`): `void`
+▸ **setHardfork**(`hardfork`): `void`
 
 Sets the hardfork to get params for
 
 #### Parameters
 
-▪ **hardfork**: `string`
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `hardfork` | `string` | String identifier (e.g. 'byzantium') or [Hardfork](../modules.md#hardfork) enum |
 
-String identifier (e.g. 'byzantium') or [Hardfork](../type-aliases/Hardfork.md) enum
+#### Returns
+
+`void`
 
 #### Inherited from
 
 Common.setHardfork
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:80
+node_modules/.pnpm/@ethereumjs+common@4.1.0/node_modules/@ethereumjs/common/dist/esm/common.d.ts:80
 
-***
+___
 
-### setHardforkBy()
+### setHardforkBy
 
-> **setHardforkBy**(`opts`): `string`
+▸ **setHardforkBy**(`opts`): `string`
 
 Sets a new hardfork either based on block numer (older HFs) or
 timestamp (Shanghai upwards).
@@ -1108,9 +1257,13 @@ will be thrown).
 
 #### Parameters
 
-▪ **opts**: `HardforkByOpts`
+| Name | Type |
+| :------ | :------ |
+| `opts` | `HardforkByOpts` |
 
 #### Returns
+
+`string`
 
 The name of the HF set
 
@@ -1118,47 +1271,52 @@ The name of the HF set
 
 Common.setHardforkBy
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:104
+node_modules/.pnpm/@ethereumjs+common@4.1.0/node_modules/@ethereumjs/common/dist/esm/common.d.ts:104
 
-***
+___
 
-### \_getChainParams()
+### \_getChainParams
 
-> **`static`** **`protected`** **\_getChainParams**(`chain`, `customChains`?): `ChainConfig`
+▸ **_getChainParams**(`chain`, `customChains?`): `ChainConfig`
 
 #### Parameters
 
-▪ **chain**: `string` \| `number` \| `bigint`
+| Name | Type |
+| :------ | :------ |
+| `chain` | `string` \| `number` \| `bigint` |
+| `customChains?` | `ChainConfig`[] |
 
-▪ **customChains?**: `ChainConfig`[]
+#### Returns
+
+`ChainConfig`
 
 #### Inherited from
 
 Common.\_getChainParams
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:67
+node_modules/.pnpm/@ethereumjs+common@4.1.0/node_modules/@ethereumjs/common/dist/esm/common.d.ts:67
 
-***
+___
 
-### custom()
+### custom
 
-> **`static`** **custom**(`chainParamsOrName`, `opts`?): `Common`
+▸ **custom**(`chainParamsOrName`, `opts?`): `Common`
 
-Creates a [Common]([object Object]) object for a custom chain, based on a standard one.
+Creates a Common object for a custom chain, based on a standard one.
 
-It uses all the [Chain]([object Object]) parameters from the baseChain option except the ones overridden
-in a provided [chainParamsOrName](Parameter chainParamsOrName: Partial`<ChainConfig>`  | CustomChain) dictionary. Some usage example:
+It uses all the Chain parameters from the baseChain option except the ones overridden
+in a provided chainParamsOrName dictionary. Some usage example:
 
 ```javascript
 Common.custom({chainId: 123})
 ```
 
 There are also selected supported custom chains which can be initialized by using one of the
-CustomChains for [chainParamsOrName](Parameter chainParamsOrName: Partial`<ChainConfig>`  | CustomChain), e.g.:
+CustomChains for chainParamsOrName, e.g.:
 
 ```javascript
 Common.custom(CustomChains.MaticMumbai)
@@ -1170,41 +1328,41 @@ the `@ethereumjs/tx` library to a Layer-2 chain).
 
 #### Parameters
 
-▪ **chainParamsOrName**: `Partial`\<`ChainConfig`\> \| `CustomChain`
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `chainParamsOrName` | `Partial`\<`ChainConfig`\> \| `CustomChain` | Custom parameter dict (`name` will default to `custom-chain`) or string with name of a supported custom chain |
+| `opts?` | `CustomCommonOpts` | Custom chain options to set the CustomCommonOpts.baseChain, selected CustomCommonOpts.hardfork and others |
 
-Custom parameter dict (`name` will default to `custom-chain`) or string with name of a supported custom chain
+#### Returns
 
-▪ **opts?**: `CustomCommonOpts`
-
-Custom chain options to set the [CustomCommonOpts.baseChain]([object Object]), selected [CustomCommonOpts.hardfork]([object Object]) and others
+`Common`
 
 #### Inherited from
 
 Common.custom
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:53
+node_modules/.pnpm/@ethereumjs+common@4.1.0/node_modules/@ethereumjs/common/dist/esm/common.d.ts:53
 
-***
+___
 
-### fromGethGenesis()
+### fromGethGenesis
 
-> **`static`** **fromGethGenesis**(`genesisJson`, `to`): `Common`
+▸ **fromGethGenesis**(`genesisJson`, `to`): `Common`
 
 Static method to load and set common from a geth genesis json
 
 #### Parameters
 
-▪ **genesisJson**: `any`
-
-json of geth configuration
-
-▪ **to**: `GethConfigOpts`
-
-further configure the common instance
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `genesisJson` | `any` | json of geth configuration |
+| `to` | `GethConfigOpts` | further configure the common instance |
 
 #### Returns
+
+`Common`
 
 Common
 
@@ -1212,43 +1370,51 @@ Common
 
 Common.fromGethGenesis
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:60
+node_modules/.pnpm/@ethereumjs+common@4.1.0/node_modules/@ethereumjs/common/dist/esm/common.d.ts:60
 
-***
+___
 
-### getInitializedChains()
+### getInitializedChains
 
-> **`static`** **getInitializedChains**(`customChains`?): `ChainsConfig`
+▸ **getInitializedChains**(`customChains?`): `ChainsConfig`
 
 #### Parameters
 
-▪ **customChains?**: `ChainConfig`[]
+| Name | Type |
+| :------ | :------ |
+| `customChains?` | `ChainConfig`[] |
+
+#### Returns
+
+`ChainsConfig`
 
 #### Inherited from
 
 Common.getInitializedChains
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:333
+node_modules/.pnpm/@ethereumjs+common@4.1.0/node_modules/@ethereumjs/common/dist/esm/common.d.ts:333
 
-***
+___
 
-### isSupportedChainId()
+### isSupportedChainId
 
-> **`static`** **isSupportedChainId**(`chainId`): `boolean`
+▸ **isSupportedChainId**(`chainId`): `boolean`
 
-Static method to determine if a [chainId](Parameter chainId: bigint) is supported as a standard chain
+Static method to determine if a chainId is supported as a standard chain
 
 #### Parameters
 
-▪ **chainId**: `bigint`
-
-bigint id (`1`) of a standard chain
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `chainId` | `bigint` | bigint id (`1`) of a standard chain |
 
 #### Returns
+
+`boolean`
 
 boolean
 
@@ -1256,9 +1422,6 @@ boolean
 
 Common.isSupportedChainId
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:66
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
+node_modules/.pnpm/@ethereumjs+common@4.1.0/node_modules/@ethereumjs/common/dist/esm/common.d.ts:66
