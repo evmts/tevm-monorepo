@@ -13,7 +13,7 @@ import type { Hex } from '@tevm/utils'
  *   deployedBytecode: '0x....'
  * }
  */
-export type SetAccountParams = {
+export type SetAccountParams<TThrowOnFail extends boolean = boolean> = {
 	/**
 	 * Address of account
 	 */
@@ -34,4 +34,9 @@ export type SetAccountParams = {
 	 * Storage root to set account to
 	 */
 	storageRoot?: Hex
+	/**
+	 * Whether to throw on errors or return errors as value on the 'errors' property
+	 * Defaults to `true`
+	 */
+	throwOnFail?: TThrowOnFail
 }

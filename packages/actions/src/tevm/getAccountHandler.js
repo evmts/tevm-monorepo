@@ -2,13 +2,14 @@ import { createError } from './createError.js'
 import { EthjsAddress } from '@tevm/utils'
 import { bytesToHex, hexToBytes } from '@tevm/utils'
 import { validateGetAccountParams } from '@tevm/zod'
+import { throwOnErrorProxy } from './throwOnErrorProxy.js'
 
 /**
  * Creates an GetAccountHandler for handling account params with Ethereumjs VM
  * @param {Pick<import('@tevm/base-client').BaseClient, 'vm'>} client
  * @returns {import('@tevm/actions-types').GetAccountHandler}
  */
-export const getAccountHandler = (client) => async (params) => {
+export const getAccountHandler = (client) => throwOnErrorProxy(async (params) => {
 	/**
 	 * @type {Array<import('@tevm/errors').GetAccountError>}
 	 */
@@ -64,8 +65,8 @@ export const getAccountHandler = (client) => async (params) => {
 				typeof e === 'string'
 					? e
 					: e instanceof Error
-					? e.message
-					: 'unknown error',
+						? e.message
+						: 'unknown error',
 			),
 		)
 		return {
@@ -75,4 +76,4 @@ export const getAccountHandler = (client) => async (params) => {
 			storageRoot: '0x',
 		}
 	}
-}
+})

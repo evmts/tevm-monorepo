@@ -11,4 +11,3 @@ export type {
 export type * from './EthHandler.js'
 export type { DumpStateHandler } from './DumpStateHandler.js'
 export type { LoadStateHandler } from './LoadStateHandler.js'
-export type { ForkHandler } from './ForkHandler.js'

@@ -7,14 +7,15 @@ import {
 	isHex,
 } from '@tevm/utils'
 import { validateContractParams } from '@tevm/zod'
+import { throwOnErrorProxy } from './throwOnErrorProxy.js'
 
 /**
  * Creates an ContractHandler for handling contract params with Ethereumjs EVM
  * @param {Pick<import('@tevm/base-client').BaseClient, 'vm'>} client
  * @returns {import("@tevm/actions-types").ContractHandler}
  */
-export const contractHandler = (client) => async (params) => {
-	const errors = validateContractParams(/** @type any*/ (params))
+export const contractHandler = (client) => throwOnErrorProxy(async (params) => {
+	const errors = validateContractParams(/** @type any*/(params))
 	if (errors.length > 0) {
 		return { errors, executionGasUsed: 0n, rawData: '0x' }
 	}
@@ -41,7 +42,7 @@ export const contractHandler = (client) => async (params) => {
 	let functionData
 	try {
 		functionData = encodeFunctionData(
-			/** @type {any} */ ({
+			/** @type {any} */({
 				abi: params.abi,
 				functionName: params.functionName,
 				args: params.args,
@@ -65,6 +66,7 @@ export const contractHandler = (client) => async (params) => {
 
 	const result = await callHandler(client)({
 		...params,
+		throwOnFail: false,
 		data: functionData,
 	})
 
@@ -72,7 +74,7 @@ export const contractHandler = (client) => async (params) => {
 		result.errors = result.errors.map((err) => {
 			if (isHex(err.message) && err._tag === 'revert') {
 				const decodedError = decodeErrorResult(
-					/** @type {any} */ ({
+					/** @type {any} */({
 						abi: params.abi,
 						data: err.message,
 						functionName: params.functionName,
@@ -93,7 +95,7 @@ export const contractHandler = (client) => async (params) => {
 	let decodedResult
 	try {
 		decodedResult = decodeFunctionResult(
-			/** @type {any} */ ({
+			/** @type {any} */({
 				abi: params.abi,
 				data: result.rawData,
 				functionName: params.functionName,
@@ -119,4 +121,4 @@ export const contractHandler = (client) => async (params) => {
 		.../** @type any */ (result),
 		data: decodedResult,
 	}
-}
+})

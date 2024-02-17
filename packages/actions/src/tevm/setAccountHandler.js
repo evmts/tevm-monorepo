@@ -2,13 +2,14 @@ import { createError } from './createError.js'
 import { EthjsAccount, EthjsAddress } from '@tevm/utils'
 import { hexToBytes, keccak256 } from '@tevm/utils'
 import { validateSetAccountParams } from '@tevm/zod'
+import { throwOnErrorProxy } from './throwOnErrorProxy.js'
 
 /**
  * Creates an SetAccountHandler for handling account params with Ethereumjs EVM
  * @param {Pick<import('@tevm/base-client').BaseClient, 'vm'>} client
  * @returns {import('@tevm/actions-types').SetAccountHandler}
  */
-export const setAccountHandler = (client) => async (params) => {
+export const setAccountHandler = (client) => throwOnErrorProxy(async (params) => {
 	/**
 	 * @type {Array<import('@tevm/errors').SetAccountError>}
 	 */
@@ -26,7 +27,7 @@ export const setAccountHandler = (client) => async (params) => {
 				params.balance,
 				params.storageRoot && hexToBytes(params.storageRoot),
 				params.deployedBytecode &&
-					hexToBytes(keccak256(params.deployedBytecode)),
+				hexToBytes(keccak256(params.deployedBytecode)),
 			),
 		)
 		if (params.deployedBytecode) {
@@ -46,10 +47,10 @@ export const setAccountHandler = (client) => async (params) => {
 				typeof e === 'string'
 					? e
 					: e instanceof Error
-					? e.message
-					: 'unknown error',
+						? e.message
+						: 'unknown error',
 			),
 		)
 		return { errors }
 	}
-}
+})

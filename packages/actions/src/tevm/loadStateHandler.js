@@ -5,12 +5,13 @@ import {
 	ProxyStateManager,
 } from '@tevm/state'
 import { validateLoadStateParams } from '@tevm/zod'
+import { throwOnErrorProxy } from './throwOnErrorProxy.js'
 
 /**
  * @param {Pick<import("@tevm/base-client").BaseClient, 'vm'>} client
  * @returns {import('@tevm/actions-types').LoadStateHandler}
  */
-export const loadStateHandler = (client) => async (params) => {
+export const loadStateHandler = (client) => throwOnErrorProxy(async (params) => {
 	const errors = validateLoadStateParams(params)
 	if (errors.length > 0) {
 		return { errors }
@@ -36,10 +37,10 @@ export const loadStateHandler = (client) => async (params) => {
 					typeof e === 'string'
 						? e
 						: e instanceof Error
-						? e.message
-						: 'unknown error',
+							? e.message
+							: 'unknown error',
 				),
 			],
 		}
 	}
-}
+})

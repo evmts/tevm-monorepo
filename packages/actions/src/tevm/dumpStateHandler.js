@@ -4,12 +4,13 @@ import {
 	NormalStateManager,
 	ProxyStateManager,
 } from '@tevm/state'
+import { throwOnErrorProxy } from './throwOnErrorProxy.js'
 
 /**
  * @param {Pick<import("@tevm/base-client").BaseClient, 'vm'>} client
  * @returns {import('@tevm/actions-types').DumpStateHandler}
  */
-export const dumpStateHandler = (client) => async () => {
+export const dumpStateHandler = (client) => throwOnErrorProxy(async () => {
 	try {
 		if (
 			client.vm.stateManager instanceof NormalStateManager ||
@@ -31,10 +32,10 @@ export const dumpStateHandler = (client) => async () => {
 					typeof e === 'string'
 						? e
 						: e instanceof Error
-						? e.message
-						: 'unknown error',
+							? e.message
+							: 'unknown error',
 				),
 			],
 		}
 	}
-}
+})

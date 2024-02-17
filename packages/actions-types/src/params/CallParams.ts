@@ -13,7 +13,7 @@ import type { BaseCallParams } from './BaseCallParams.js'
  *   gasLimit: 420n,
  * }
  */
-export type CallParams = BaseCallParams & {
+export type CallParams<TThrowOnFail extends boolean = boolean> = BaseCallParams<TThrowOnFail> & {
 	/**
 	 * An optional CREATE2 salt.
 	 */

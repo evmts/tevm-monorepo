@@ -27,7 +27,7 @@ export const scriptHandler = (client) => async (params) => {
 	if (/** @type any*/ (params).data) {
 		functionData = /** @type any*/ (params).data
 	} else {
-		const errors = validateScriptParams(/** @type any*/ (params))
+		const errors = validateScriptParams(/** @type any*/(params))
 		if (errors.length > 0) {
 			return { errors, executionGasUsed: 0n, rawData: '0x' }
 		}
@@ -37,12 +37,12 @@ export const scriptHandler = (client) => async (params) => {
 		functionData =
 			functionData === '0x'
 				? encodeFunctionData(
-						/** @type {any} */ ({
-							abi: params.abi,
-							functionName: params.functionName,
-							args: params.args,
-						}),
-				  )
+						/** @type {any} */({
+						abi: params.abi,
+						functionName: params.functionName,
+						args: params.args,
+					}),
+				)
 				: functionData
 	} catch (e) {
 		/**
@@ -73,6 +73,7 @@ export const scriptHandler = (client) => async (params) => {
 	})({
 		deployedBytecode: params.deployedBytecode,
 		address: scriptAddress,
+		throwOnFail: false,
 	})
 
 	/**
@@ -83,6 +84,7 @@ export const scriptHandler = (client) => async (params) => {
 		to: scriptAddress,
 		skipBalance: params.skipBalance === undefined ? true : params.skipBalance,
 		data: functionData,
+		throwOnFail: false,
 	}
 	delete callParams.deployedBytecode
 
@@ -100,7 +102,7 @@ export const scriptHandler = (client) => async (params) => {
 		result.errors = result.errors.map((err) => {
 			if (isHex(err.message) && err._tag === 'revert') {
 				const decodedError = decodeErrorResult(
-					/** @type {any} */ ({
+					/** @type {any} */({
 						abi: params.abi,
 						data: err.message,
 						functionName: params.functionName,
@@ -126,7 +128,7 @@ export const scriptHandler = (client) => async (params) => {
 	let decodedResult
 	try {
 		decodedResult = decodeFunctionResult(
-			/** @type {any} */ ({
+			/** @type {any} */({
 				abi: params.abi,
 				data: result.rawData,
 				functionName: params.functionName,
