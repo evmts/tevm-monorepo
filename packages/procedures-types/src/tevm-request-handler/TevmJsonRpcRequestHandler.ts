@@ -24,7 +24,6 @@ import type {
 	EthGetCodeJsonRpcRequest,
 	EthGetStorageAtJsonRpcRequest,
 	EthJsonRpcRequest,
-	ForkJsonRpcRequest,
 	GetAccountJsonRpcRequest,
 	ScriptJsonRpcRequest,
 	SetAccountJsonRpcRequest,
@@ -72,11 +71,6 @@ import type { JsonRpcReturnTypeFromMethod } from './JsonRpcReturnTypeFromMethod.
  * request - {@link SetAccountJsonRpcRequest}
  * response - {@link SetAccountJsonRpcResponse}
  *
- * #### tevm_fork
- *
- * request - {@link ForkJsonRpcRequest}
- * response - {@link ForkJsonRpcResponse}
- *
  * ### debug_* methods
  *
  * #### debug_traceCall
@@ -118,10 +112,10 @@ import type { JsonRpcReturnTypeFromMethod } from './JsonRpcReturnTypeFromMethod.
  */
 export type TevmJsonRpcRequestHandler = <
 	TRequest extends
-		| TevmJsonRpcRequest
-		| EthJsonRpcRequest
-		| AnvilJsonRpcRequest
-		| DebugJsonRpcRequest,
+	| TevmJsonRpcRequest
+	| EthJsonRpcRequest
+	| AnvilJsonRpcRequest
+	| DebugJsonRpcRequest,
 >(
 	request: TRequest,
 ) => Promise<JsonRpcReturnTypeFromMethod<TRequest['method']>>

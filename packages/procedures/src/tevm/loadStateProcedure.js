@@ -28,6 +28,7 @@ export const loadStateProcedure = (client) => async (request) => {
 	}
 	const { errors = [] } = await loadStateHandler(client)({
 		state: parsedState,
+		throwOnFail: false,
 	})
 
 	if (errors.length > 0) {

@@ -9,6 +9,7 @@ import { hexToBigInt } from '@tevm/utils'
 export const setAccountProcedure = (client) => async (request) => {
 	request.params
 	const { errors = [], ...result } = await setAccountHandler(client)({
+		throwOnFail: false,
 		address: request.params[0].address,
 		...(request.params[0].nonce
 			? { nonce: hexToBigInt(request.params[0].nonce) }

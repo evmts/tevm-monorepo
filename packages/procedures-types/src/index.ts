@@ -64,7 +64,6 @@ export type {
 	DebugTraceCallJsonRpcRequest,
 	DebugTraceTransactionJsonRpcRequest,
 	EthJsonRpcRequest,
-	ForkJsonRpcRequest,
 	JsonRpcTransaction,
 } from './requests/index.js'
 export type {
@@ -128,7 +127,6 @@ export type {
 	DebugTraceCallJsonRpcResponse,
 	DebugTraceTransactionJsonRpcResponse,
 	LoadStateJsonRpcResponse,
-	ForkJsonRpcResponse,
 } from './responses/index.js'
 export type {
 	CallJsonRpcProcedure,
@@ -191,7 +189,6 @@ export type {
 	DebugTraceTransactionProcedure,
 	LoadStateJsonRpcProcedure,
 	DumpStateJsonRpcProcedure,
-	ForkJsonRpcProcedure,
 } from './procedure/index.js'
 export type {
 	EthReturnType,

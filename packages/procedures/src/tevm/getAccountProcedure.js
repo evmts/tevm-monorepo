@@ -10,6 +10,7 @@ export const getAccountProcedure = (client) => async (request) => {
 	request.params
 	const { errors = [], ...result } = await getAccountHandler(client)({
 		address: request.params[0].address,
+		throwOnFail: false,
 	})
 	if (errors.length > 0) {
 		const error = /** @type {import('@tevm/errors').GetAccountError}*/ (

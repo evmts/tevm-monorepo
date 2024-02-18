@@ -8,6 +8,7 @@ import { hexToBigInt, numberToHex } from '@tevm/utils'
  */
 export const callProcedure = (client) => async (request) => {
 	const { errors = [], ...result } = await callHandler(client)({
+		throwOnFail: false,
 		...(request.params[0].deployedBytecode
 			? { deployedBytecode: request.params[0].deployedBytecode }
 			: {}),
@@ -65,7 +66,7 @@ export const callProcedure = (client) => async (request) => {
 	 * @returns {import('@tevm/utils').Hex}
 	 */
 	const toHex = (value) =>
-		/**@type {import('@tevm/utils').Hex}*/ (numberToHex(value))
+		/**@type {import('@tevm/utils').Hex}*/(numberToHex(value))
 	return {
 		jsonrpc: '2.0',
 		result: {

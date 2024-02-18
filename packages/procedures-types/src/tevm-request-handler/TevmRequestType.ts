@@ -1,7 +1,6 @@
 import type {
 	CallJsonRpcRequest,
 	DumpStateJsonRpcRequest,
-	ForkJsonRpcRequest,
 	GetAccountJsonRpcRequest,
 	LoadStateJsonRpcRequest,
 	ScriptJsonRpcRequest,
@@ -18,5 +17,4 @@ export type TevmRequestType = {
 	tevm_dumpState: DumpStateJsonRpcRequest
 	tevm_getAccount: GetAccountJsonRpcRequest
 	tevm_setAccount: SetAccountJsonRpcRequest
-	tevm_fork: ForkJsonRpcRequest
 }

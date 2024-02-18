@@ -7,9 +7,10 @@ import type {
 	DebugTraceTransactionResult,
 } from '../result/index.js'
 
+// TODO we should make throwOnFail get handled generically here
 // debug_traceTransaction
 export type DebugTraceTransactionHandler = (
-	params: DebugTraceTransactionParams,
+	params: DebugTraceTransactionParams<boolean>,
 ) => Promise<DebugTraceTransactionResult>
 // debug_traceCall
 export type DebugTraceCallHandler = (

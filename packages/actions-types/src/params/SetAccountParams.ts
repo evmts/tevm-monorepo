@@ -1,5 +1,6 @@
 import type { Address } from '@tevm/utils'
 import type { Hex } from '@tevm/utils'
+import type { BaseParams } from './BaseParams.js'
 
 /**
  * Tevm params to set an account in the vm state
@@ -13,7 +14,7 @@ import type { Hex } from '@tevm/utils'
  *   deployedBytecode: '0x....'
  * }
  */
-export type SetAccountParams<TThrowOnFail extends boolean = boolean> = {
+export type SetAccountParams<TThrowOnFail extends boolean = boolean> = BaseParams<TThrowOnFail> & {
 	/**
 	 * Address of account
 	 */
@@ -34,9 +35,4 @@ export type SetAccountParams<TThrowOnFail extends boolean = boolean> = {
 	 * Storage root to set account to
 	 */
 	storageRoot?: Hex
-	/**
-	 * Whether to throw on errors or return errors as value on the 'errors' property
-	 * Defaults to `true`
-	 */
-	throwOnFail?: TThrowOnFail
 }

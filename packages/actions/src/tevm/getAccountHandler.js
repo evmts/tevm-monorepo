@@ -2,38 +2,52 @@ import { createError } from './createError.js'
 import { EthjsAddress } from '@tevm/utils'
 import { bytesToHex, hexToBytes } from '@tevm/utils'
 import { validateGetAccountParams } from '@tevm/zod'
-import { throwOnErrorProxy } from './throwOnErrorProxy.js'
+import { maybeThrowOnFail } from './maybeThrowOnFail.js'
 
 /**
  * Creates an GetAccountHandler for handling account params with Ethereumjs VM
  * @param {Pick<import('@tevm/base-client').BaseClient, 'vm'>} client
+ * @param {object} [options]
+ * @param {boolean} [options.throwOnFail] whether to default to throwing or not when errors occur
  * @returns {import('@tevm/actions-types').GetAccountHandler}
  */
-export const getAccountHandler = (client) => throwOnErrorProxy(async (params) => {
+export const getAccountHandler = (client, options = {}) => async ({ throwOnFail = options.throwOnFail ?? true, ...params }) => {
 	/**
 	 * @type {Array<import('@tevm/errors').GetAccountError>}
 	 */
 	const errors = validateGetAccountParams(params)
 	if (errors.length > 0) {
-		return {
+		return maybeThrowOnFail(throwOnFail, {
 			errors,
 			address: params.address,
 			balance: 0n,
+			/**
+			 * @type {`0x${string}`}
+			 */
 			storageRoot: '0x',
 			nonce: 0n,
+			/**
+			 * @type {`0x${string}`}
+			 */
 			deployedBytecode: '0x',
-		}
+		})
 	}
 
 	const address = new EthjsAddress(hexToBytes(params.address))
 	try {
 		const res = await client.vm.stateManager.getAccount(address)
 		if (!res) {
-			return {
+			return maybeThrowOnFail(throwOnFail, {
 				address: params.address,
 				balance: 0n,
+				/**
+				 * @type {`0x${string}`}
+				 */
 				storageRoot: '0x',
 				nonce: 0n,
+				/**
+				 * @type {`0x${string}`}
+				 */
 				deployedBytecode: '0x',
 				errors: [
 					createError(
@@ -41,7 +55,7 @@ export const getAccountHandler = (client) => throwOnErrorProxy(async (params) =>
 						`account ${params.address} not found`,
 					),
 				],
-			}
+			})
 		}
 		const code =
 			res?.codeHash !== undefined
@@ -69,11 +83,14 @@ export const getAccountHandler = (client) => throwOnErrorProxy(async (params) =>
 						: 'unknown error',
 			),
 		)
-		return {
+		return maybeThrowOnFail(throwOnFail, {
 			errors,
 			address: params.address,
 			balance: 0n,
+			/**
+			 * @type {`0x${string}`}
+			 */
 			storageRoot: '0x',
-		}
+		})
 	}
-})
+}

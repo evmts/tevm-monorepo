@@ -2,20 +2,23 @@ import { createError } from './createError.js'
 import { EthjsAccount, EthjsAddress } from '@tevm/utils'
 import { hexToBytes, keccak256 } from '@tevm/utils'
 import { validateSetAccountParams } from '@tevm/zod'
-import { throwOnErrorProxy } from './throwOnErrorProxy.js'
+import { maybeThrowOnFail } from './maybeThrowOnFail.js'
 
 /**
  * Creates an SetAccountHandler for handling account params with Ethereumjs EVM
  * @param {Pick<import('@tevm/base-client').BaseClient, 'vm'>} client
+ * @param {object} [options]
+ * @param {boolean} [options.throwOnFail] whether to default to throwing or not when errors occur
  * @returns {import('@tevm/actions-types').SetAccountHandler}
  */
-export const setAccountHandler = (client) => throwOnErrorProxy(async (params) => {
+export const setAccountHandler = (client, options = {}) => async (params) => {
+	const { throwOnFail = options.throwOnFail ?? true } = params
 	/**
 	 * @type {Array<import('@tevm/errors').SetAccountError>}
 	 */
 	const errors = validateSetAccountParams(params)
 	if (errors.length > 0) {
-		return { errors }
+		return maybeThrowOnFail(throwOnFail, { errors })
 	}
 
 	const address = new EthjsAddress(hexToBytes(params.address))
@@ -51,6 +54,6 @@ export const setAccountHandler = (client) => throwOnErrorProxy(async (params) =>
 						: 'unknown error',
 			),
 		)
-		return { errors }
+		return maybeThrowOnFail(throwOnFail, { errors })
 	}
-})
+}

@@ -1,14 +1,10 @@
 import type { Address, BlockParam, Hex } from '../common/index.js'
+import type { BaseParams } from './BaseParams.js'
 
 /**
  * Properties shared accross call-like params
  */
-export type BaseCallParams<TThrowOnFail extends boolean = boolean> = {
-	/**
-	 * Whether to throw on errors or return errors as value on the 'errors' property
-	 * Defaults to `true`
-	 */
-	throwOnFail?: TThrowOnFail
+export type BaseCallParams<TThrowOnFail extends boolean = boolean> = BaseParams<TThrowOnFail> & {
 	/**
 	 * Whether or not to update the state or run call in a dry-run. Defaults to `false`
 	 */

@@ -5,7 +5,7 @@ prev: false
 title: "CallParams"
 ---
 
-> **CallParams**: [`BaseCallParams`](/reference/tevm/actions-types/type-aliases/basecallparams/) & `object`
+> **CallParams**\<`TThrowOnFail`\>: [`BaseCallParams`](/reference/tevm/actions-types/type-aliases/basecallparams/)\<`TThrowOnFail`\> & `object`
 
 Tevm params to execute a call on the vm
 Call is the lowest level method to interact with the vm
@@ -41,6 +41,12 @@ The EVM code to run.
 > **salt**?: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
 
 An optional CREATE2 salt.
+
+## Type parameters
+
+| Parameter | Default |
+| :------ | :------ |
+| `TThrowOnFail` extends `boolean` | `boolean` |
 
 ## Source
 

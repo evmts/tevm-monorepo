@@ -5,16 +5,18 @@ import {
 	ProxyStateManager,
 } from '@tevm/state'
 import { validateLoadStateParams } from '@tevm/zod'
-import { throwOnErrorProxy } from './throwOnErrorProxy.js'
+import { maybeThrowOnFail } from './maybeThrowOnFail.js'
 
 /**
  * @param {Pick<import("@tevm/base-client").BaseClient, 'vm'>} client
+ * @param {object} [options]
+ * @param {boolean} [options.throwOnFail] whether to default to throwing or not when errors occur
  * @returns {import('@tevm/actions-types').LoadStateHandler}
  */
-export const loadStateHandler = (client) => throwOnErrorProxy(async (params) => {
+export const loadStateHandler = (client, options = {}) => async ({ throwOnFail = options.throwOnFail ?? true, ...params }) => {
 	const errors = validateLoadStateParams(params)
 	if (errors.length > 0) {
-		return { errors }
+		return maybeThrowOnFail(throwOnFail, { errors })
 	}
 	try {
 		if (
@@ -30,7 +32,7 @@ export const loadStateHandler = (client) => throwOnErrorProxy(async (params) => 
 		}
 		return {}
 	} catch (e) {
-		return {
+		return maybeThrowOnFail(throwOnFail, {
 			errors: [
 				createError(
 					'UnexpectedError',
@@ -41,6 +43,6 @@ export const loadStateHandler = (client) => throwOnErrorProxy(async (params) => 
 							: 'unknown error',
 				),
 			],
-		}
+		})
 	}
-})
+}

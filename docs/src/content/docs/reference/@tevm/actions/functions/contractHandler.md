@@ -5,7 +5,7 @@ prev: false
 title: "contractHandler"
 ---
 
-> **contractHandler**(`client`): [`ContractHandler`](/reference/tevm/actions-types/type-aliases/contracthandler/)
+> **contractHandler**(`client`, `options`?): [`ContractHandler`](/reference/tevm/actions-types/type-aliases/contracthandler/)
 
 Creates an ContractHandler for handling contract params with Ethereumjs EVM
 
@@ -13,11 +13,17 @@ Creates an ContractHandler for handling contract params with Ethereumjs EVM
 
 ▪ **client**: `Pick`\<`object`, `"vm"`\>
 
+▪ **options?**: `object`= `{}`
+
+▪ **options.throwOnFail?**: `undefined` \| `boolean`= `true`
+
+whether to default to throwing or not when errors occur
+
 ## Returns
 
 ## Source
 
-[packages/actions/src/tevm/contractHandler.js:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm/contractHandler.js#L16)
+[packages/actions/src/tevm/contractHandler.js:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm/contractHandler.js#L19)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

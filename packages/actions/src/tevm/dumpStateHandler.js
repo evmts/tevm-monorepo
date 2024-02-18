@@ -4,13 +4,15 @@ import {
 	NormalStateManager,
 	ProxyStateManager,
 } from '@tevm/state'
-import { throwOnErrorProxy } from './throwOnErrorProxy.js'
+import { maybeThrowOnFail } from './maybeThrowOnFail.js'
 
 /**
  * @param {Pick<import("@tevm/base-client").BaseClient, 'vm'>} client
+ * @param {object} [options]
+ * @param {boolean} [options.throwOnFail] whether to default to throwing or not when errors occur
  * @returns {import('@tevm/actions-types').DumpStateHandler}
  */
-export const dumpStateHandler = (client) => throwOnErrorProxy(async () => {
+export const dumpStateHandler = (client, options = {}) => async ({ throwOnFail = options.throwOnFail } = {}) => {
 	try {
 		if (
 			client.vm.stateManager instanceof NormalStateManager ||
@@ -24,7 +26,7 @@ export const dumpStateHandler = (client) => throwOnErrorProxy(async () => {
 			)
 		}
 	} catch (e) {
-		return {
+		return maybeThrowOnFail(throwOnFail ?? true, {
 			state: {},
 			errors: [
 				createError(
@@ -36,6 +38,6 @@ export const dumpStateHandler = (client) => throwOnErrorProxy(async () => {
 							: 'unknown error',
 				),
 			],
-		}
+		})
 	}
-})
+}

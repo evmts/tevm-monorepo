@@ -5,7 +5,7 @@ prev: false
 title: "BaseCallParams"
 ---
 
-> **BaseCallParams**: `object`
+> **BaseCallParams**\<`TThrowOnFail`\>: `BaseParams`\<`TThrowOnFail`\> & `object`
 
 Properties shared accross call-like params
 
@@ -102,9 +102,15 @@ The address of the account that is executing this code (`address(this)`). Defaul
 
 The value in ether that is being sent to `opts.address`. Defaults to `0`
 
+## Type parameters
+
+| Parameter | Default |
+| :------ | :------ |
+| `TThrowOnFail` extends `boolean` | `boolean` |
+
 ## Source
 
-[params/BaseCallParams.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/BaseCallParams.ts#L6)
+[params/BaseCallParams.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/BaseCallParams.ts#L7)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -7,17 +7,19 @@ import {
 	isHex,
 } from '@tevm/utils'
 import { validateContractParams } from '@tevm/zod'
-import { throwOnErrorProxy } from './throwOnErrorProxy.js'
+import { maybeThrowOnFail } from './maybeThrowOnFail.js'
 
 /**
  * Creates an ContractHandler for handling contract params with Ethereumjs EVM
  * @param {Pick<import('@tevm/base-client').BaseClient, 'vm'>} client
+ * @param {object} [options]
+ * @param {boolean} [options.throwOnFail] whether to default to throwing or not when errors occur
  * @returns {import("@tevm/actions-types").ContractHandler}
  */
-export const contractHandler = (client) => throwOnErrorProxy(async (params) => {
+export const contractHandler = (client, { throwOnFail: throwOnFailDefault = true } = {}) => async (params) => {
 	const errors = validateContractParams(/** @type any*/(params))
 	if (errors.length > 0) {
-		return { errors, executionGasUsed: 0n, rawData: '0x' }
+		return maybeThrowOnFail(params.throwOnFail ?? throwOnFailDefault, { errors, executionGasUsed: 0n, rawData: '0x' })
 	}
 
 	const contract = await client.vm.evm.stateManager.getContractCode(
@@ -26,7 +28,7 @@ export const contractHandler = (client) => throwOnErrorProxy(async (params) => {
 	const precompile =
 		params.to && client.vm.evm.getPrecompile(EthjsAddress.fromString(params.to))
 	if (contract.length === 0 && !precompile) {
-		return {
+		return maybeThrowOnFail(params.throwOnFail ?? throwOnFailDefault, {
 			rawData: '0x',
 			executionGasUsed: 0n,
 			errors: [
@@ -36,7 +38,7 @@ export const contractHandler = (client) => throwOnErrorProxy(async (params) => {
 					message: `Contract at address ${params.to} does not exist`,
 				},
 			],
-		}
+		})
 	}
 
 	let functionData
@@ -57,14 +59,14 @@ export const contractHandler = (client) => throwOnErrorProxy(async (params) => {
 			_tag: 'InvalidRequestError',
 			message: /** @type {Error}*/ (e).message,
 		}
-		return {
+		return maybeThrowOnFail(params.throwOnFail ?? throwOnFailDefault, {
 			rawData: '0x',
 			executionGasUsed: 0n,
 			errors: [err],
-		}
+		})
 	}
 
-	const result = await callHandler(client)({
+	const result = await callHandler(client, { throwOnFail: throwOnFailDefault })({
 		...params,
 		throwOnFail: false,
 		data: functionData,
@@ -89,7 +91,7 @@ export const contractHandler = (client) => throwOnErrorProxy(async (params) => {
 			}
 			return err
 		})
-		return result
+		return maybeThrowOnFail(params.throwOnFail ?? throwOnFailDefault, result)
 	}
 
 	let decodedResult
@@ -110,15 +112,15 @@ export const contractHandler = (client) => throwOnErrorProxy(async (params) => {
 			_tag: 'DecodeFunctionDataError',
 			message: /** @type {Error}*/ (e).message,
 		}
-		return {
+		return maybeThrowOnFail(params.throwOnFail ?? throwOnFailDefault, {
 			rawData: '0x',
 			executionGasUsed: 0n,
 			errors: [err],
-		}
+		})
 	}
 
-	return {
+	return maybeThrowOnFail(params.throwOnFail ?? throwOnFailDefault, {
 		.../** @type any */ (result),
 		data: decodedResult,
-	}
-})
+	})
+}

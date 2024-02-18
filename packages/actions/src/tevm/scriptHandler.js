@@ -8,13 +8,17 @@ import {
 	isHex,
 } from '@tevm/utils'
 import { validateScriptParams } from '@tevm/zod'
+import { maybeThrowOnFail } from './maybeThrowOnFail.js'
 
 /**
  * Creates an ScriptHandler for handling script params with Ethereumjs EVM
  * @param {Pick<import('@tevm/base-client').BaseClient, 'vm'>} client
+ * @param {object} [options]
+ * @param {boolean} [options.throwOnFail] whether to default to throwing or not when errors occur
  * @returns {import("@tevm/actions-types").ScriptHandler}
  */
-export const scriptHandler = (client) => async (params) => {
+export const scriptHandler = (client, options = {}) => async (params) => {
+	const { throwOnFail = options.throwOnFail ?? true } = params
 	const clonedVm = params.createTransaction
 		? client.vm
 		: await client.vm.deepCopy()
@@ -29,7 +33,7 @@ export const scriptHandler = (client) => async (params) => {
 	} else {
 		const errors = validateScriptParams(/** @type any*/(params))
 		if (errors.length > 0) {
-			return { errors, executionGasUsed: 0n, rawData: '0x' }
+			return maybeThrowOnFail(throwOnFail, { errors, executionGasUsed: 0n, rawData: '0x' })
 		}
 	}
 
@@ -53,11 +57,11 @@ export const scriptHandler = (client) => async (params) => {
 			_tag: 'InvalidRequestError',
 			message: /** @type {Error}*/ (e).message,
 		}
-		return {
+		return maybeThrowOnFail(throwOnFail, {
 			rawData: '0x',
 			executionGasUsed: 0n,
 			errors: [err],
-		}
+		})
 	}
 
 	const randomBigInt = BigInt(Math.floor(Math.random() * 1_000_000_000_000_000))
@@ -70,7 +74,7 @@ export const scriptHandler = (client) => async (params) => {
 
 	const accountRes = await setAccountHandler({
 		vm: clonedVm,
-	})({
+	}, options)({
 		deployedBytecode: params.deployedBytecode,
 		address: scriptAddress,
 		throwOnFail: false,
@@ -90,10 +94,10 @@ export const scriptHandler = (client) => async (params) => {
 
 	if ((accountRes.errors ?? []).length > 0) {
 		// this should only fail if deployedBytecode is not formatted correctly
-		return accountRes
+		return maybeThrowOnFail(throwOnFail, accountRes)
 	}
 
-	const result = await callHandler({ vm: clonedVm })({
+	const result = await callHandler({ vm: clonedVm }, options)({
 		...callParams,
 		skipBalance: callParams.skipBalance ?? true,
 	})
@@ -117,12 +121,12 @@ export const scriptHandler = (client) => async (params) => {
 			}
 			return err
 		})
-		return result
+		return maybeThrowOnFail(throwOnFail, result)
 	}
 
 	// Internally we use runScript without encoding/decoding
 	if (/** @type any*/ (params).data) {
-		return result
+		return maybeThrowOnFail(throwOnFail, result)
 	}
 
 	let decodedResult
@@ -143,14 +147,14 @@ export const scriptHandler = (client) => async (params) => {
 			_tag: 'DecodeFunctionDataError',
 			message: /** @type {Error}*/ (e).message,
 		}
-		return {
+		return maybeThrowOnFail(throwOnFail, {
 			...result,
 			errors: [err],
-		}
+		})
 	}
 
-	return {
+	return maybeThrowOnFail(throwOnFail, {
 		.../** @type any */ (result),
 		data: decodedResult,
-	}
+	})
 }

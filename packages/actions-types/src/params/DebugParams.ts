@@ -1,4 +1,5 @@
 import type { Hex } from '../common/index.js'
+import type { BaseParams } from './BaseParams.js'
 import type { EthCallParams } from './EthParams.js'
 
 /**
@@ -42,7 +43,7 @@ export type TraceParams = {
 /**
  * Params taken by `debug_traceTransaction` handler
  */
-export type DebugTraceTransactionParams = TraceParams & {
+export type DebugTraceTransactionParams<TThrowOnError extends boolean = boolean> = BaseParams<TThrowOnError> & TraceParams & {
 	/**
 	 * The transaction hash
 	 */
