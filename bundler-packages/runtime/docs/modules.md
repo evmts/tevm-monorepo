@@ -26,15 +26,16 @@
 
 ### generateRuntime
 
-▸ **generateRuntime**(`artifacts`, `moduleType`, `includeBytecode`): `Effect`\<`never`, `never`, `string`\>
+▸ **generateRuntime**(`artifacts`, `moduleType`, `includeBytecode`, `tevmPackage`): `Effect`\<`never`, `never`, `string`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `artifacts` | `Artifacts` |
-| `moduleType` | [`ModuleType`](modules.md#moduletype) |
-| `includeBytecode` | `boolean` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `artifacts` | `Artifacts` |  |
+| `moduleType` | [`ModuleType`](modules.md#moduletype) |  |
+| `includeBytecode` | `boolean` |  |
+| `tevmPackage` | ``"tevm/contract"`` \| ``"@tevm/contract"`` | Package to import contracts from |
 
 #### Returns
 
@@ -42,4 +43,4 @@
 
 #### Defined in
 
-[generateRuntime.js:25](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/runtime/src/generateRuntime.js#L25)
+[generateRuntime.js:28](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/runtime/src/generateRuntime.js#L28)

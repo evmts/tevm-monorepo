@@ -163,7 +163,9 @@ Error.prepareStackTrace
 
 #### Defined in
 
-evmts-monorepo/node_modules/@types/node/globals.d.ts:28
+evmts-monorepo/node_modules/.pnpm/@types+node@20.11.5/node_modules/@types/node/globals.d.ts:28
+
+evmts-monorepo/node_modules/.pnpm/@types+node@20.11.19/node_modules/@types/node/globals.d.ts:28
 
 ___
 
@@ -177,7 +179,9 @@ Error.stackTraceLimit
 
 #### Defined in
 
-evmts-monorepo/node_modules/@types/node/globals.d.ts:30
+evmts-monorepo/node_modules/.pnpm/@types+node@20.11.5/node_modules/@types/node/globals.d.ts:30
+
+evmts-monorepo/node_modules/.pnpm/@types+node@20.11.19/node_modules/@types/node/globals.d.ts:30
 
 ## Methods
 
@@ -204,4 +208,27 @@ Error.captureStackTrace
 
 #### Defined in
 
-evmts-monorepo/node_modules/@types/node/globals.d.ts:21
+evmts-monorepo/node_modules/.pnpm/@types+node@20.11.5/node_modules/@types/node/globals.d.ts:21
+
+▸ **captureStackTrace**(`targetObject`, `constructorOpt?`): `void`
+
+Create .stack property on a target object
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `targetObject` | `object` |
+| `constructorOpt?` | `Function` |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Error.captureStackTrace
+
+#### Defined in
+
+evmts-monorepo/node_modules/.pnpm/@types+node@20.11.19/node_modules/@types/node/globals.d.ts:21
