@@ -1,3 +1,4 @@
+import { getContractPath } from './getContractPath.js'
 import { resolveModuleAsync } from './resolveModuleAsync.js'
 import { resolveModuleSync } from './resolveModuleSync.js'
 
@@ -41,7 +42,8 @@ import { resolveModuleSync } from './resolveModuleSync.js'
  * const { abi, bytecode } = await b.resolveTs(path, __dirname, true, true)
  * ```
  */
-export const bundler = (config, logger, fao, solc, cache) => {
+export const bundler = (config, logger, fao, solc, cache, contractPackage) => {
+	const _contractPackage = typeof contractPackage === 'string' ? contractPackage : getContractPath(process.cwd())
 	return {
 		name: bundler.name,
 		config,
@@ -57,6 +59,7 @@ export const bundler = (config, logger, fao, solc, cache) => {
 				includeBytecode,
 				'dts',
 				cache,
+				_contractPackage,
 			),
 		resolveDtsSync: (modulePath, basedir, includeAst, includeBytecode) =>
 			resolveModuleSync(
@@ -70,6 +73,7 @@ export const bundler = (config, logger, fao, solc, cache) => {
 				includeBytecode,
 				'dts',
 				cache,
+				_contractPackage,
 			),
 		resolveTsModuleSync: (modulePath, basedir, includeAst, includeBytecode) =>
 			resolveModuleSync(
@@ -83,6 +87,7 @@ export const bundler = (config, logger, fao, solc, cache) => {
 				includeBytecode,
 				'ts',
 				cache,
+				_contractPackage,
 			),
 		resolveTsModule: (modulePath, basedir, includeAst, includeBytecode) =>
 			resolveModuleAsync(
@@ -96,6 +101,7 @@ export const bundler = (config, logger, fao, solc, cache) => {
 				includeBytecode,
 				'ts',
 				cache,
+				_contractPackage,
 			),
 		resolveCjsModuleSync: (modulePath, basedir, includeAst, includeBytecode) =>
 			resolveModuleSync(
@@ -109,6 +115,7 @@ export const bundler = (config, logger, fao, solc, cache) => {
 				includeBytecode,
 				'cjs',
 				cache,
+				_contractPackage,
 			),
 		resolveCjsModule: (modulePath, basedir, includeAst, includeBytecode) =>
 			resolveModuleAsync(
@@ -122,6 +129,7 @@ export const bundler = (config, logger, fao, solc, cache) => {
 				includeBytecode,
 				'cjs',
 				cache,
+				_contractPackage,
 			),
 		resolveEsmModuleSync: (modulePath, basedir, includeAst, includeBytecode) =>
 			resolveModuleSync(
@@ -135,6 +143,7 @@ export const bundler = (config, logger, fao, solc, cache) => {
 				includeBytecode,
 				'mjs',
 				cache,
+				_contractPackage,
 			),
 		resolveEsmModule: (modulePath, basedir, includeAst, includeBytecode) =>
 			resolveModuleAsync(
@@ -148,6 +157,7 @@ export const bundler = (config, logger, fao, solc, cache) => {
 				includeBytecode,
 				'mjs',
 				cache,
+				_contractPackage,
 			),
 	}
 }

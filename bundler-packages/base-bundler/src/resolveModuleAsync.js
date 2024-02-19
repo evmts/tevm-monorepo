@@ -1,15 +1,8 @@
-import { getContractPath } from './getContractPath.js'
 import { readCache } from './readCache.js'
 import { writeCache } from './writeCache.js'
 import { resolveArtifacts } from '@tevm/compiler'
 import { generateRuntime } from '@tevm/runtime'
 import { runPromise } from 'effect/Effect'
-
-/**
- * Caches the contract package resolution to avoid redundant require.resolve calls
- * @type {Record<string, 'tevm/contract' | '@tevm/contract'>}
- */
-const contractPackageMap = {}
 
 /**
  * @param {import('@tevm/compiler').Logger} logger
@@ -22,6 +15,7 @@ const contractPackageMap = {}
  * @param {boolean} includeBytecode
  * @param {import('@tevm/runtime').ModuleType} moduleType
  * @param {import('@tevm/bundler-cache').Cache} cache
+ * @param {'tevm/contract' | '@tevm/contract'} contractPackage
  * @returns {Promise<import('./types.js').BundlerResult>} a promise that resolves to a bundler result object
  */
 export const resolveModuleAsync = async (
@@ -35,6 +29,7 @@ export const resolveModuleAsync = async (
 	includeBytecode,
 	moduleType,
 	cache,
+	contractPackage,
 ) => {
 	const cachedResult = await readCache(
 		logger,
@@ -59,9 +54,6 @@ export const resolveModuleAsync = async (
 		let code = ''
 		const artifactsExist = artifacts && Object.keys(artifacts).length > 0
 		if (artifactsExist) {
-			const contractPackage =
-				contractPackageMap[modulePath] ?? getContractPath(basedir)
-			contractPackageMap[modulePath] = contractPackage
 			code = await runPromise(
 				generateRuntime(
 					artifacts,
@@ -100,7 +92,7 @@ export const resolveModuleAsync = async (
 		return { solcInput, solcOutput, asts, modules, code }
 	} catch (e) {
 		logger.error(`there was an error in tevm plugin resolving .${moduleType}`)
-		logger.error(/** @type any */ (e))
+		logger.error(/** @type any */(e))
 		throw e
 	}
 }

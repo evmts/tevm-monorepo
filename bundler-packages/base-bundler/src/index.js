@@ -9,3 +9,4 @@
  * @typedef {import('./types.js').SyncBundlerResult} SyncBundlerResult
  */
 export { bundler } from './bundler.js'
+export { getContractPath } from './getContractPath.js'

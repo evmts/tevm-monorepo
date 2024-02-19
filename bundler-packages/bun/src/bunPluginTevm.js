@@ -140,7 +140,7 @@ export const bunPluginTevm = ({ solc = defaultSolc.version }) => {
 					if (exists) {
 						return {
 							contents: await bunFileAccesObject.readFile(
-								/** @type {any} */ (filePaths[i]),
+								/** @type {any} */(filePaths[i]),
 								'utf8',
 							),
 							watchFiles: [filePaths[i]],

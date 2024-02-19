@@ -43,6 +43,8 @@ contract TestContract {}`,
 	},
 }
 
+const contractPackage = '@tevm/contract'
+
 describe(bundler.name, () => {
 	let resolver: ReturnType<Bundler>
 	let logger: Logger
@@ -66,6 +68,7 @@ describe(bundler.name, () => {
 			fao,
 			require('solc'),
 			createCache(tmpdir(), fao, tmpdir()),
+			contractPackage,
 		)
 		vi.mock('@tevm/compiler', () => {
 			return {
@@ -445,25 +448,25 @@ describe(bundler.name, () => {
 			const artifacts = {
 				TestContract: { contractName: 'TestContract', abi: [] },
 			}
-			;(resolveArtifactsSync as Mock).mockReturnValueOnce({
-				artifacts,
-				modules: mockModules,
-				asts: {
-					'TestContract.sol': {
-						absolutePath: '/absolute/path',
-						evmVersion: 'homestead',
+				; (resolveArtifactsSync as Mock).mockReturnValueOnce({
+					artifacts,
+					modules: mockModules,
+					asts: {
+						'TestContract.sol': {
+							absolutePath: '/absolute/path',
+							evmVersion: 'homestead',
+						},
 					},
-				},
-				solcInput: {
-					language: 'Solidity',
-					settings: { outputSelection: { sources: {} } },
-					sources: {},
-				} satisfies SolcInputDescription,
-				solcOutput: {
-					contracts: {},
-					sources: {},
-				} satisfies SolcOutput,
-			})
+					solcInput: {
+						language: 'Solidity',
+						settings: { outputSelection: { sources: {} } },
+						sources: {},
+					} satisfies SolcInputDescription,
+					solcOutput: {
+						contracts: {},
+						sources: {},
+					} satisfies SolcOutput,
+				})
 			const result = resolver.resolveTsModuleSync(
 				'module',
 				'basedir',
