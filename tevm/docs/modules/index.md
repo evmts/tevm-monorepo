@@ -57,9 +57,6 @@
 - [ExtractAbiFunction](index.md#extractabifunction)
 - [ExtractAbiFunctionNames](index.md#extractabifunctionnames)
 - [Filter](index.md#filter)
-- [ForkHandler](index.md#forkhandler)
-- [ForkParams](index.md#forkparams)
-- [ForkResult](index.md#forkresult)
 - [FormatAbi](index.md#formatabi)
 - [GetAccountParams](index.md#getaccountparams)
 - [GetAccountResult](index.md#getaccountresult)
@@ -372,7 +369,7 @@ ___
 
 ### CallParams
 
-Ƭ **CallParams**: [`BaseCallParams`](actions_types.md#basecallparams) & \{ `data?`: [`Hex`](actions_types.md#hex) ; `deployedBytecode?`: [`Hex`](actions_types.md#hex) ; `salt?`: [`Hex`](actions_types.md#hex)  }
+Ƭ **CallParams**\<`TThrowOnFail`\>: [`BaseCallParams`](actions_types.md#basecallparams)\<`TThrowOnFail`\> & \{ `data?`: [`Hex`](actions_types.md#hex) ; `deployedBytecode?`: [`Hex`](actions_types.md#hex) ; `salt?`: [`Hex`](actions_types.md#hex)  }
 
 Tevm params to execute a call on the vm
 Call is the lowest level method to interact with the vm
@@ -388,6 +385,12 @@ const callParams: import('@tevm/api').CallParams = {
   gasLimit: 420n,
 }
 ```
+
+#### Type parameters
+
+| Name | Type |
+| :------ | :------ |
+| `TThrowOnFail` | extends `boolean` = `boolean` |
 
 #### Defined in
 
@@ -560,7 +563,7 @@ ___
 
 ### ContractParams
 
-Ƭ **ContractParams**\<`TAbi`, `TFunctionName`\>: [`EncodeFunctionDataParameters`](index.md#encodefunctiondataparameters)\<`TAbi`, `TFunctionName`\> & [`BaseCallParams`](actions_types.md#basecallparams) & \{ `to`: [`Address`](actions_types.md#address)  }
+Ƭ **ContractParams**\<`TAbi`, `TFunctionName`, `TThrowOnFail`\>: [`EncodeFunctionDataParameters`](index.md#encodefunctiondataparameters)\<`TAbi`, `TFunctionName`\> & [`BaseCallParams`](actions_types.md#basecallparams)\<`TThrowOnFail`\> & \{ `to`: [`Address`](actions_types.md#address)  }
 
 Tevm params to execute a call on a contract
 
@@ -570,6 +573,7 @@ Tevm params to execute a call on a contract
 | :------ | :------ |
 | `TAbi` | extends [`Abi`](actions_types.md#abi) \| readonly `unknown`[] = [`Abi`](actions_types.md#abi) |
 | `TFunctionName` | extends [`ContractFunctionName`](index.md#contractfunctionname)\<`TAbi`\> = [`ContractFunctionName`](index.md#contractfunctionname)\<`TAbi`\> |
+| `TThrowOnFail` | extends `boolean` = `boolean` |
 
 #### Defined in
 
@@ -1085,80 +1089,6 @@ evmts-monorepo/node_modules/.pnpm/viem@2.7.9_typescript@5.3.3_zod@3.22.4/node_mo
 
 ___
 
-### ForkHandler
-
-Ƭ **ForkHandler**: (`params`: [`ForkParams`](index.md#forkparams)) => `Promise`\<[`ForkResult`](index.md#forkresult)\>
-
-This is an unimplemented experimental feature
-Triggers a fork against the given fork config. If no config is provided it will fork the current state
-If the current state is not proxying to an RPC and is just a vanilla VM it will throw
-
-Block tag is optional and defaults to 'latest'
-
-**`Throws`**
-
-import('@tevm/errors').ForkError
-
-**`Example`**
-
-```typescript
-const {errors} = await tevm.fork({
-  url: 'https://mainnet.infura.io/v3',
-  blockTag: 'earliest',
-})
-```
-
-#### Type declaration
-
-▸ (`params`): `Promise`\<[`ForkResult`](index.md#forkresult)\>
-
-##### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `params` | [`ForkParams`](index.md#forkparams) |
-
-##### Returns
-
-`Promise`\<[`ForkResult`](index.md#forkresult)\>
-
-#### Defined in
-
-evmts-monorepo/packages/actions-types/types/handlers/ForkHandler.d.ts:17
-
-___
-
-### ForkParams
-
-Ƭ **ForkParams**: [`NetworkConfig`](actions_types.md#networkconfig)
-
-This is an unimplemented experimental feature
-Params for the `tevm_fork` method
-
-#### Defined in
-
-evmts-monorepo/packages/actions-types/types/params/ForkParams.d.ts:6
-
-___
-
-### ForkResult
-
-Ƭ **ForkResult**\<`ErrorType`\>: \{ `errors?`: `never` ; `forkId`: `bigint`  } \| \{ `errors`: `ErrorType`[] ; `forkId?`: `never`  }
-
-This is an unimplemented experimental feature
-
-#### Type parameters
-
-| Name | Type |
-| :------ | :------ |
-| `ErrorType` | extends [`ForkError`](errors.md#forkerror) = [`ForkError`](errors.md#forkerror) |
-
-#### Defined in
-
-evmts-monorepo/packages/actions-types/types/result/ForkResult.d.ts:5
-
-___
-
 ### FormatAbi
 
 Ƭ **FormatAbi**\<`TAbi`\>: [`Abi`](index.md#abi) extends `TAbi` ? readonly `string`[] : `TAbi` extends readonly [] ? `never` : `TAbi` extends [`Abi`](index.md#abi) ? \{ [K in keyof TAbi]: FormatAbiItem\<TAbi[K]\> } : readonly `string`[]
@@ -1179,7 +1109,7 @@ ___
 
 ### GetAccountParams
 
-Ƭ **GetAccountParams**: `Object`
+Ƭ **GetAccountParams**\<`TThrowOnFail`\>: `BaseParams`\<`TThrowOnFail`\> & \{ `address`: [`Address`](actions_types.md#address)  }
 
 Tevm params to get an account
 
@@ -1191,15 +1121,15 @@ const getAccountParams: import('@tevm/api').GetAccountParams = {
 }
 ```
 
-#### Type declaration
+#### Type parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `address` | [`Address`](actions_types.md#address) | Address of account |
+| Name | Type |
+| :------ | :------ |
+| `TThrowOnFail` | extends `boolean` = `boolean` |
 
 #### Defined in
 
-evmts-monorepo/packages/actions-types/types/params/GetAccountParams.d.ts:9
+evmts-monorepo/packages/actions-types/types/params/GetAccountParams.d.ts:10
 
 ___
 
@@ -1327,7 +1257,7 @@ type BlockNumberRequestType = JsonRpcRequestTypeFromMethod<'eth_blockNumber'>
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:1034
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:1013
 
 ___
 
@@ -1369,7 +1299,7 @@ type BlockNumberReturnType = JsonRpcReturnTypeFromMethod<'eth_blockNumber'>
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:1056
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:1034
 
 ___
 
@@ -1597,7 +1527,7 @@ ___
 
 ### ScriptParams
 
-Ƭ **ScriptParams**\<`TAbi`, `TFunctionName`\>: [`EncodeFunctionDataParameters`](index.md#encodefunctiondataparameters)\<`TAbi`, `TFunctionName`\> & [`BaseCallParams`](actions_types.md#basecallparams) & \{ `deployedBytecode`: [`Hex`](index.md#hex)  }
+Ƭ **ScriptParams**\<`TAbi`, `TFunctionName`, `TThrowOnFail`\>: [`EncodeFunctionDataParameters`](index.md#encodefunctiondataparameters)\<`TAbi`, `TFunctionName`\> & [`BaseCallParams`](actions_types.md#basecallparams)\<`TThrowOnFail`\> & \{ `deployedBytecode`: [`Hex`](index.md#hex)  }
 
 Tevm params for deploying and running a script
 
@@ -1607,6 +1537,7 @@ Tevm params for deploying and running a script
 | :------ | :------ |
 | `TAbi` | extends [`Abi`](index.md#abi) \| readonly `unknown`[] = [`Abi`](index.md#abi) |
 | `TFunctionName` | extends [`ContractFunctionName`](index.md#contractfunctionname)\<`TAbi`\> = [`ContractFunctionName`](index.md#contractfunctionname)\<`TAbi`\> |
+| `TThrowOnFail` | extends `boolean` = `boolean` |
 
 #### Defined in
 
@@ -1648,7 +1579,7 @@ ___
 
 ### SetAccountParams
 
-Ƭ **SetAccountParams**: `Object`
+Ƭ **SetAccountParams**\<`TThrowOnFail`\>: `BaseParams`\<`TThrowOnFail`\> & \{ `address`: [`Address`](index.md#address) ; `balance?`: `bigint` ; `deployedBytecode?`: [`Hex`](index.md#hex) ; `nonce?`: `bigint` ; `storageRoot?`: [`Hex`](index.md#hex)  }
 
 Tevm params to set an account in the vm state
 all fields are optional except address
@@ -1665,19 +1596,15 @@ const accountParams: import('tevm/api').SetAccountParams = {
 }
 ```
 
-#### Type declaration
+#### Type parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `address` | [`Address`](index.md#address) | Address of account |
-| `balance?` | `bigint` | Balance to set account to |
-| `deployedBytecode?` | [`Hex`](index.md#hex) | Contract bytecode to set account to |
-| `nonce?` | `bigint` | Nonce to set account to |
-| `storageRoot?` | [`Hex`](index.md#hex) | Storage root to set account to |
+| Name | Type |
+| :------ | :------ |
+| `TThrowOnFail` | extends `boolean` = `boolean` |
 
 #### Defined in
 
-evmts-monorepo/packages/actions-types/types/params/SetAccountParams.d.ts:15
+evmts-monorepo/packages/actions-types/types/params/SetAccountParams.d.ts:16
 
 ___
 
@@ -1841,11 +1768,6 @@ response - [GetAccountJsonRpcResponse](procedures_types.md#getaccountjsonrpcresp
 request - [SetAccountJsonRpcRequest](procedures_types.md#setaccountjsonrpcrequest)
 response - [SetAccountJsonRpcResponse](procedures_types.md#setaccountjsonrpcresponse)
 
-#### tevm_fork
-
-request - [ForkJsonRpcRequest](procedures_types.md#forkjsonrpcrequest)
-response - [ForkJsonRpcResponse](procedures_types.md#forkjsonrpcresponse)
-
 ### debug_* methods
 
 #### debug_traceCall
@@ -1901,20 +1823,20 @@ response - [EthGetBalanceJsonRpcResponse](procedures_types.md#ethgetbalancejsonr
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:1234
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:1202
 
 ___
 
 ### TevmJsonRpcRequest
 
-Ƭ **TevmJsonRpcRequest**: [`GetAccountJsonRpcRequest`](procedures_types.md#getaccountjsonrpcrequest) \| [`SetAccountJsonRpcRequest`](procedures_types.md#setaccountjsonrpcrequest) \| [`CallJsonRpcRequest`](procedures_types.md#calljsonrpcrequest) \| [`ContractJsonRpcRequest`](procedures_types.md#contractjsonrpcrequest) \| [`ScriptJsonRpcRequest`](procedures_types.md#scriptjsonrpcrequest) \| [`LoadStateJsonRpcRequest`](procedures_types.md#loadstatejsonrpcrequest) \| [`DumpStateJsonRpcRequest`](procedures_types.md#dumpstatejsonrpcrequest) \| [`ForkJsonRpcRequest`](procedures_types.md#forkjsonrpcrequest)
+Ƭ **TevmJsonRpcRequest**: [`GetAccountJsonRpcRequest`](procedures_types.md#getaccountjsonrpcrequest) \| [`SetAccountJsonRpcRequest`](procedures_types.md#setaccountjsonrpcrequest) \| [`CallJsonRpcRequest`](procedures_types.md#calljsonrpcrequest) \| [`ContractJsonRpcRequest`](procedures_types.md#contractjsonrpcrequest) \| [`ScriptJsonRpcRequest`](procedures_types.md#scriptjsonrpcrequest) \| [`LoadStateJsonRpcRequest`](procedures_types.md#loadstatejsonrpcrequest) \| [`DumpStateJsonRpcRequest`](procedures_types.md#dumpstatejsonrpcrequest)
 
 A Tevm JSON-RPC request
 `tevm_account`, `tevm_call`, `tevm_contract`, `tevm_script`
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:411
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:403
 
 ___
 
@@ -1963,11 +1885,6 @@ response - [GetAccountJsonRpcResponse](procedures_types.md#getaccountjsonrpcresp
 
 request - [SetAccountJsonRpcRequest](procedures_types.md#setaccountjsonrpcrequest)
 response - [SetAccountJsonRpcResponse](procedures_types.md#setaccountjsonrpcresponse)
-
-#### tevm_fork
-
-request - [ForkJsonRpcRequest](procedures_types.md#forkjsonrpcrequest)
-response - [ForkJsonRpcResponse](procedures_types.md#forkjsonrpcresponse)
 
 ### debug_* methods
 
@@ -2030,7 +1947,7 @@ response - [EthGetBalanceJsonRpcResponse](procedures_types.md#ethgetbalancejsonr
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:1143
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:1116
 
 ___
 
@@ -2074,7 +1991,7 @@ Config params for trace calls
 
 #### Defined in
 
-evmts-monorepo/packages/actions-types/types/params/DebugParams.d.ts:6
+evmts-monorepo/packages/actions-types/types/params/DebugParams.d.ts:7
 
 ___
 

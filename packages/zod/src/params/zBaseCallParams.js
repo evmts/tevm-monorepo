@@ -1,9 +1,10 @@
 import { zAddress, zHex } from '../common/index.js'
+import { zBaseParams } from './zBaseParams.js'
 import { zBlockParam } from './zBlockParam.js'
 import { z } from 'zod'
 
-export const zBaseCallParams = z
-	.object({
+export const zBaseCallParams = zBaseParams
+	.extend({
 		createTransaction: z
 			.boolean()
 			.optional()

@@ -66,7 +66,7 @@ export const callProcedure = (client) => async (request) => {
 	 * @returns {import('@tevm/utils').Hex}
 	 */
 	const toHex = (value) =>
-		/**@type {import('@tevm/utils').Hex}*/(numberToHex(value))
+		/**@type {import('@tevm/utils').Hex}*/ (numberToHex(value))
 	return {
 		jsonrpc: '2.0',
 		result: {

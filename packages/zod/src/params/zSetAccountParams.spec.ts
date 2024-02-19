@@ -29,6 +29,7 @@ test('zSetAccountParams works for 0', () => {
 		balance: 0x0n,
 		deployedBytecode: `0x${'69'.repeat(32)}`,
 		storageRoot: `0x${'69'.repeat(32)}`,
+		throwOnFail: true,
 	} as const satisfies z.infer<
 		typeof zSetAccountParams
 	> satisfies SetAccountParams

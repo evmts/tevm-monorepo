@@ -11,9 +11,6 @@
 - [CallResult](actions_types.md#callresult)
 - [ContractParams](actions_types.md#contractparams)
 - [ContractResult](actions_types.md#contractresult)
-- [ForkHandler](actions_types.md#forkhandler)
-- [ForkParams](actions_types.md#forkparams)
-- [ForkResult](actions_types.md#forkresult)
 - [GetAccountParams](actions_types.md#getaccountparams)
 - [GetAccountResult](actions_types.md#getaccountresult)
 - [ScriptParams](actions_types.md#scriptparams)
@@ -243,24 +240,6 @@ ___
 ### ContractResult
 
 Re-exports [ContractResult](index.md#contractresult)
-
-___
-
-### ForkHandler
-
-Re-exports [ForkHandler](index.md#forkhandler)
-
-___
-
-### ForkParams
-
-Re-exports [ForkParams](index.md#forkparams)
-
-___
-
-### ForkResult
-
-Re-exports [ForkResult](index.md#forkresult)
 
 ___
 
@@ -1020,32 +999,19 @@ ___
 
 ### BaseCallParams
 
-Ƭ **BaseCallParams**: `Object`
+Ƭ **BaseCallParams**\<`TThrowOnFail`\>: `BaseParams`\<`TThrowOnFail`\> & \{ `blobVersionedHashes?`: [`Hex`](actions_types.md#hex)[] ; `blockTag?`: [`BlockParam`](index.md#blockparam) ; `caller?`: [`Address`](actions_types.md#address) ; `createTransaction?`: `boolean` ; `depth?`: `number` ; `from?`: [`Address`](actions_types.md#address) ; `gas?`: `bigint` ; `gasPrice?`: `bigint` ; `gasRefund?`: `bigint` ; `origin?`: [`Address`](actions_types.md#address) ; `selfdestruct?`: `Set`\<[`Address`](actions_types.md#address)\> ; `skipBalance?`: `boolean` ; `to?`: [`Address`](actions_types.md#address) ; `value?`: `bigint`  }
 
 Properties shared accross call-like params
 
-#### Type declaration
+#### Type parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `blobVersionedHashes?` | [`Hex`](actions_types.md#hex)[] | Versioned hashes for each blob in a blob transaction |
-| `blockTag?` | [`BlockParam`](index.md#blockparam) | The block number or block tag to execute the call at. Defaults to `latest` |
-| `caller?` | [`Address`](actions_types.md#address) | The address that ran this code (`msg.sender`). Defaults to the zero address. This defaults to `from` address if set otherwise it defaults to the zero address |
-| `createTransaction?` | `boolean` | Whether or not to update the state or run call in a dry-run. Defaults to `false` |
-| `depth?` | `number` | The call depth. Defaults to `0` |
-| `from?` | [`Address`](actions_types.md#address) | The from address for the call. Defaults to the zero address. It is also possible to set the `origin` and `caller` addresses seperately using those options. Otherwise both are set to the `from` address |
-| `gas?` | `bigint` | The gas limit for the call. Defaults to 0xffffff (16_777_215n) |
-| `gasPrice?` | `bigint` | The gas price for the call. |
-| `gasRefund?` | `bigint` | Refund counter. Defaults to `0` |
-| `origin?` | [`Address`](actions_types.md#address) | The address where the call originated from. Defaults to the zero address. This defaults to `from` address if set otherwise it defaults to the zero address |
-| `selfdestruct?` | `Set`\<[`Address`](actions_types.md#address)\> | Addresses to selfdestruct. Defaults to the empty set. |
-| `skipBalance?` | `boolean` | Set caller to msg.value of less than msg.value Defaults to false exceipt for when running scripts where it is set to true |
-| `to?` | [`Address`](actions_types.md#address) | The address of the account that is executing this code (`address(this)`). Defaults to the zero address. |
-| `value?` | `bigint` | The value in ether that is being sent to `opts.address`. Defaults to `0` |
+| Name | Type |
+| :------ | :------ |
+| `TThrowOnFail` | extends `boolean` = `boolean` |
 
 #### Defined in
 
-evmts-monorepo/packages/actions-types/types/params/BaseCallParams.d.ts:5
+evmts-monorepo/packages/actions-types/types/params/BaseCallParams.d.ts:6
 
 ___
 
@@ -1228,7 +1194,7 @@ Params taken by `debug_traceCall` handler
 
 #### Defined in
 
-evmts-monorepo/packages/actions-types/types/params/DebugParams.d.ts:34
+evmts-monorepo/packages/actions-types/types/params/DebugParams.d.ts:35
 
 ___
 
@@ -1253,7 +1219,7 @@ ___
 
 ### DebugTraceTransactionHandler
 
-Ƭ **DebugTraceTransactionHandler**: (`params`: [`DebugTraceTransactionParams`](actions_types.md#debugtracetransactionparams)) => `Promise`\<[`DebugTraceTransactionResult`](actions_types.md#debugtracetransactionresult)\>
+Ƭ **DebugTraceTransactionHandler**: (`params`: [`DebugTraceTransactionParams`](actions_types.md#debugtracetransactionparams)\<`boolean`\>) => `Promise`\<[`DebugTraceTransactionResult`](actions_types.md#debugtracetransactionresult)\>
 
 #### Type declaration
 
@@ -1263,7 +1229,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `params` | [`DebugTraceTransactionParams`](actions_types.md#debugtracetransactionparams) |
+| `params` | [`DebugTraceTransactionParams`](actions_types.md#debugtracetransactionparams)\<`boolean`\> |
 
 ##### Returns
 
@@ -1277,13 +1243,19 @@ ___
 
 ### DebugTraceTransactionParams
 
-Ƭ **DebugTraceTransactionParams**: [`TraceParams`](index.md#traceparams) & \{ `transactionHash`: [`Hex`](actions_types.md#hex)  }
+Ƭ **DebugTraceTransactionParams**\<`TThrowOnError`\>: `BaseParams`\<`TThrowOnError`\> & [`TraceParams`](index.md#traceparams) & \{ `transactionHash`: [`Hex`](actions_types.md#hex)  }
 
 Params taken by `debug_traceTransaction` handler
 
+#### Type parameters
+
+| Name | Type |
+| :------ | :------ |
+| `TThrowOnError` | extends `boolean` = `boolean` |
+
 #### Defined in
 
-evmts-monorepo/packages/actions-types/types/params/DebugParams.d.ts:25
+evmts-monorepo/packages/actions-types/types/params/DebugParams.d.ts:26
 
 ___
 
@@ -1299,7 +1271,7 @@ ___
 
 ### DumpStateHandler
 
-Ƭ **DumpStateHandler**: () => `Promise`\<[`DumpStateResult`](actions_types.md#dumpstateresult)\>
+Ƭ **DumpStateHandler**: (`params?`: `BaseParams`) => `Promise`\<[`DumpStateResult`](actions_types.md#dumpstateresult)\>
 
 Dumps the current state of the VM into a JSON-seralizable object
 
@@ -1323,7 +1295,13 @@ await tevm.loadState({state})
 
 #### Type declaration
 
-▸ (): `Promise`\<[`DumpStateResult`](actions_types.md#dumpstateresult)\>
+▸ (`params?`): `Promise`\<[`DumpStateResult`](actions_types.md#dumpstateresult)\>
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `params?` | `BaseParams` |
 
 ##### Returns
 
@@ -1331,7 +1309,7 @@ await tevm.loadState({state})
 
 #### Defined in
 
-evmts-monorepo/packages/actions-types/types/handlers/DumpStateHandler.d.ts:19
+evmts-monorepo/packages/actions-types/types/handlers/DumpStateHandler.d.ts:20
 
 ___
 
@@ -3513,19 +3491,19 @@ ___
 
 ### LoadStateParams
 
-Ƭ **LoadStateParams**: `Object`
+Ƭ **LoadStateParams**\<`TThrowOnFail`\>: `BaseParams`\<`TThrowOnFail`\> & \{ `state`: [`SerializableTevmState`](index.md#serializabletevmstate)  }
 
 params for `tevm_loadState` method. Takes a [SerializableTevmState](index.md#serializabletevmstate) to load into state.
 
-#### Type declaration
+#### Type parameters
 
 | Name | Type |
 | :------ | :------ |
-| `state` | [`SerializableTevmState`](index.md#serializabletevmstate) |
+| `TThrowOnFail` | extends `boolean` = `boolean` |
 
 #### Defined in
 
-evmts-monorepo/packages/actions-types/types/params/LoadStateParams.d.ts:5
+evmts-monorepo/packages/actions-types/types/params/LoadStateParams.d.ts:6
 
 ___
 

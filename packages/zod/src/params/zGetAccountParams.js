@@ -1,9 +1,9 @@
 import { zAddress } from '../index.js'
-import { z } from 'zod'
+import { zBaseParams } from './zBaseParams.js'
 
 /**
  * Zod validator for a valid getAccount action
  */
-export const zGetAccountParams = z
-	.strictObject({ address: zAddress })
+export const zGetAccountParams = zBaseParams
+	.extend({ address: zAddress })
 	.describe('Params to create an account or contract')

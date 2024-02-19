@@ -1,4 +1,5 @@
 import { callHandler } from './callHandler.js'
+import { maybeThrowOnFail } from './maybeThrowOnFail.js'
 import { setAccountHandler } from './setAccountHandler.js'
 import { EthjsAddress } from '@tevm/utils'
 import {
@@ -8,7 +9,6 @@ import {
 	isHex,
 } from '@tevm/utils'
 import { validateScriptParams } from '@tevm/zod'
-import { maybeThrowOnFail } from './maybeThrowOnFail.js'
 
 /**
  * Creates an ScriptHandler for handling script params with Ethereumjs EVM
@@ -31,9 +31,13 @@ export const scriptHandler = (client, options = {}) => async (params) => {
 	if (/** @type any*/ (params).data) {
 		functionData = /** @type any*/ (params).data
 	} else {
-		const errors = validateScriptParams(/** @type any*/(params))
+		const errors = validateScriptParams(/** @type any*/ (params))
 		if (errors.length > 0) {
-			return maybeThrowOnFail(throwOnFail, { errors, executionGasUsed: 0n, rawData: '0x' })
+			return maybeThrowOnFail(throwOnFail, {
+				errors,
+				executionGasUsed: 0n,
+				rawData: '0x',
+			})
 		}
 	}
 
@@ -41,12 +45,12 @@ export const scriptHandler = (client, options = {}) => async (params) => {
 		functionData =
 			functionData === '0x'
 				? encodeFunctionData(
-						/** @type {any} */({
-						abi: params.abi,
-						functionName: params.functionName,
-						args: params.args,
-					}),
-				)
+						/** @type {any} */ ({
+							abi: params.abi,
+							functionName: params.functionName,
+							args: params.args,
+						}),
+				  )
 				: functionData
 	} catch (e) {
 		/**
@@ -72,9 +76,12 @@ export const scriptHandler = (client, options = {}) => async (params) => {
 		).toString()
 	)
 
-	const accountRes = await setAccountHandler({
-		vm: clonedVm,
-	}, options)({
+	const accountRes = await setAccountHandler(
+		{
+			vm: clonedVm,
+		},
+		options,
+	)({
 		deployedBytecode: params.deployedBytecode,
 		address: scriptAddress,
 		throwOnFail: false,
@@ -97,7 +104,10 @@ export const scriptHandler = (client, options = {}) => async (params) => {
 		return maybeThrowOnFail(throwOnFail, accountRes)
 	}
 
-	const result = await callHandler({ vm: clonedVm }, options)({
+	const result = await callHandler(
+		{ vm: clonedVm },
+		options,
+	)({
 		...callParams,
 		skipBalance: callParams.skipBalance ?? true,
 	})
@@ -106,7 +116,7 @@ export const scriptHandler = (client, options = {}) => async (params) => {
 		result.errors = result.errors.map((err) => {
 			if (isHex(err.message) && err._tag === 'revert') {
 				const decodedError = decodeErrorResult(
-					/** @type {any} */({
+					/** @type {any} */ ({
 						abi: params.abi,
 						data: err.message,
 						functionName: params.functionName,
@@ -132,7 +142,7 @@ export const scriptHandler = (client, options = {}) => async (params) => {
 	let decodedResult
 	try {
 		decodedResult = decodeFunctionResult(
-			/** @type {any} */({
+			/** @type {any} */ ({
 				abi: params.abi,
 				data: result.rawData,
 				functionName: params.functionName,

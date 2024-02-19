@@ -7,11 +7,9 @@ import { toHex } from '@tevm/utils'
  * @returns {import('@tevm/procedures-types').DumpStateJsonRpcProcedure}
  */
 export const dumpStateProcedure = (client) => async (request) => {
-	const { errors = [], ...result } = await dumpStateHandler(client)(
-		{
-			throwOnFail: false,
-		}
-	)
+	const { errors = [], ...result } = await dumpStateHandler(client)({
+		throwOnFail: false,
+	})
 
 	/**
 	 * @type {import('@tevm/state').ParameterizedTevmState}

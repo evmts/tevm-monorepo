@@ -23,7 +23,7 @@ whether to default to throwing or not when errors occur
 
 ## Source
 
-[packages/actions/src/tevm/getAccountHandler.js:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm/getAccountHandler.js#L14)
+[packages/actions/src/tevm/getAccountHandler.js:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm/getAccountHandler.js#L15)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

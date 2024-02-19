@@ -11,7 +11,7 @@ import {
 export type ContractParams<
 	TAbi extends Abi | readonly unknown[] = Abi,
 	TFunctionName extends ContractFunctionName<TAbi> = ContractFunctionName<TAbi>,
-	TThrowOnFail extends boolean = boolean
+	TThrowOnFail extends boolean = boolean,
 > = EncodeFunctionDataParameters<TAbi, TFunctionName> &
 	BaseCallParams<TThrowOnFail> & {
 		/**

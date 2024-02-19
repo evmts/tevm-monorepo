@@ -95,7 +95,7 @@ export const scriptProcedure = (client) => async (request) => {
 	 * @param {bigint} value
 	 */
 	const toHex = (value) =>
-		/**@type {import('@tevm/utils').Hex}*/(numberToHex(value))
+		/**@type {import('@tevm/utils').Hex}*/ (numberToHex(value))
 	return {
 		jsonrpc: '2.0',
 		result: {

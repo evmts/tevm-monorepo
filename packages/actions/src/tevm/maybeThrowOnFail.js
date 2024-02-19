@@ -8,14 +8,14 @@
  * @returns {TResult extends {throwOnError: true} ? Omit<TResult, 'errors'> : TResult}
  */
 export const maybeThrowOnFail = (throwOnFail, result) => {
-  if (!throwOnFail) {
-    return /** @type {any}*/(result);
-  }
-  if ((result?.errors?.length ?? 0) === 1) {
-    throw result.errors?.[0];
-  }
-  if ((result?.errors?.length ?? 0) > 1) {
-    throw new AggregateError(result?.errors ?? []);
-  }
-  return /** @type {any}*/(result);
+	if (!throwOnFail) {
+		return /** @type {any}*/ (result)
+	}
+	if ((result?.errors?.length ?? 0) === 1) {
+		throw result.errors?.[0]
+	}
+	if ((result?.errors?.length ?? 0) > 1) {
+		throw new AggregateError(result?.errors ?? [])
+	}
+	return /** @type {any}*/ (result)
 }

@@ -24,6 +24,7 @@ test('zContractParams', () => {
 		functionName: 'name',
 		args: [],
 		to: `0x${'0'.repeat(40)}`,
+		throwOnFail: false,
 	} as const satisfies z.infer<typeof zContractParams> satisfies ContractParams
 	expect(zContractParams.parse(contractParams)).toEqual(contractParams)
 	expect(() => zContractParams.parse('0x4')).toThrow()

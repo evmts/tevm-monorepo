@@ -321,7 +321,9 @@ describe('scriptHandler', () => {
 		const evm = new Evm({ stateManager })
 		expect(
 			await scriptHandler({ vm: await TevmVm.create({ evm, stateManager }) })(
-				{} as any,
+				{
+					throwOnFail: false,
+				} as any,
 			),
 		).toEqual({
 			errors: [
@@ -384,6 +386,7 @@ describe('scriptHandler', () => {
 				functionName: 'balanceOf',
 				to: ERC20_ADDRESS,
 				args: ['not valid' as any],
+				throwOnFail: false,
 			}),
 		).toMatchSnapshot()
 	})
@@ -393,7 +396,7 @@ describe('scriptHandler', () => {
 		const evm = new Evm({ stateManager })
 		const originalRunCall = evm.runCall.bind(evm)
 		const vm = await TevmVm.create({ evm, stateManager })
-		vm.evm.runCall = async function (args) {
+		vm.evm.runCall = async function(args) {
 			const realResult = await originalRunCall(args)
 			return {
 				...realResult,
@@ -410,6 +413,7 @@ describe('scriptHandler', () => {
 				functionName: 'balanceOf',
 				to: ERC20_ADDRESS,
 				args: [ERC20_ADDRESS],
+				throwOnFail: false,
 			}),
 		).toMatchSnapshot()
 	})
@@ -426,6 +430,7 @@ describe('scriptHandler', () => {
 				functionName: 'transferFrom',
 				to: ERC20_ADDRESS,
 				args: [caller, caller, 1n],
+				throwOnFail: false,
 			}),
 		).toEqual({
 			createdAddresses: new Set(),

@@ -13,17 +13,18 @@ import type { BaseCallParams } from './BaseCallParams.js'
  *   gasLimit: 420n,
  * }
  */
-export type CallParams<TThrowOnFail extends boolean = boolean> = BaseCallParams<TThrowOnFail> & {
-	/**
-	 * An optional CREATE2 salt.
-	 */
-	salt?: Hex
-	/**
-	 * The input data.
-	 */
-	data?: Hex
-	/**
-	 * The EVM code to run.
-	 */
-	deployedBytecode?: Hex
-}
+export type CallParams<TThrowOnFail extends boolean = boolean> =
+	BaseCallParams<TThrowOnFail> & {
+		/**
+		 * An optional CREATE2 salt.
+		 */
+		salt?: Hex
+		/**
+		 * The input data.
+		 */
+		data?: Hex
+		/**
+		 * The EVM code to run.
+		 */
+		deployedBytecode?: Hex
+	}

@@ -28,6 +28,7 @@ describe('getAccount', () => {
 		const res = await setAccountHandler({ vm })({
 			// @ts-expect-error
 			address: 'not an address',
+			throwOnFail: false,
 		})
 		expect(res.errors).toEqual([
 			{

@@ -8,9 +8,10 @@ import type { BaseParams } from './BaseParams.js'
  *   address: '0x...',
  * }
  */
-export type GetAccountParams<TThrowOnFail extends boolean = boolean> = BaseParams<TThrowOnFail> & {
-	/**
-	 * Address of account
-	 */
-	address: Address
-}
+export type GetAccountParams<TThrowOnFail extends boolean = boolean> =
+	BaseParams<TThrowOnFail> & {
+		/**
+		 * Address of account
+		 */
+		address: Address
+	}
