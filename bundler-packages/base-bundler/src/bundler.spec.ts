@@ -43,6 +43,8 @@ contract TestContract {}`,
 	},
 }
 
+const contractPackage = '@tevm/contract'
+
 describe(bundler.name, () => {
 	let resolver: ReturnType<Bundler>
 	let logger: Logger
@@ -66,6 +68,7 @@ describe(bundler.name, () => {
 			fao,
 			require('solc'),
 			createCache(tmpdir(), fao, tmpdir()),
+			contractPackage,
 		)
 		vi.mock('@tevm/compiler', () => {
 			return {

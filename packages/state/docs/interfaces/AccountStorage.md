@@ -1,60 +1,63 @@
-**@tevm/state** ∙ [README](../README.md) ∙ [API](../API.md)
-
-***
-
-[API](../API.md) > AccountStorage
+[@tevm/state](../README.md) / [Exports](../modules.md) / AccountStorage
 
 # Interface: AccountStorage
+
+## Table of contents
+
+### Properties
+
+- [balance](AccountStorage.md#balance)
+- [codeHash](AccountStorage.md#codehash)
+- [nonce](AccountStorage.md#nonce)
+- [storage](AccountStorage.md#storage)
+- [storageRoot](AccountStorage.md#storageroot)
 
 ## Properties
 
 ### balance
 
-> **balance**: `bigint`
+• **balance**: `bigint`
 
-#### Source
+#### Defined in
 
 [packages/state/src/AccountStorage.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/AccountStorage.ts#L6)
 
-***
+___
 
 ### codeHash
 
-> **codeHash**: \`0x${string}\`
+• **codeHash**: \`0x$\{string}\`
 
-#### Source
+#### Defined in
 
 [packages/state/src/AccountStorage.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/AccountStorage.ts#L8)
 
-***
+___
 
 ### nonce
 
-> **nonce**: `bigint`
+• **nonce**: `bigint`
 
-#### Source
+#### Defined in
 
 [packages/state/src/AccountStorage.ts:5](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/AccountStorage.ts#L5)
 
-***
+___
 
 ### storage
 
-> **storage**?: `StorageDump`
+• `Optional` **storage**: `StorageDump`
 
-#### Source
+#### Defined in
 
 [packages/state/src/AccountStorage.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/AccountStorage.ts#L9)
 
-***
+___
 
 ### storageRoot
 
-> **storageRoot**: \`0x${string}\`
+• **storageRoot**: \`0x$\{string}\`
 
-#### Source
+#### Defined in
 
 [packages/state/src/AccountStorage.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/AccountStorage.ts#L7)
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

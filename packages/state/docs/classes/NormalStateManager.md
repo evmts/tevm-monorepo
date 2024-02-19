@@ -1,8 +1,4 @@
-**@tevm/state** ∙ [README](../README.md) ∙ [API](../API.md)
-
-***
-
-[API](../API.md) > NormalStateManager
+[@tevm/state](../README.md) / [Exports](../modules.md) / NormalStateManager
 
 # Class: NormalStateManager
 
@@ -10,516 +6,628 @@ The ethereum state manager implementation for running Tevm in `normal` mode.
 Normal mode does not fork/proxy to a external RPC url and has no unique features
 Internally this state manager gets used when no proxy or fork url is passed into Tevm client
 
-## See
+**`See`**
 
  - ForkStateManager for a provider that uses forks state rather than always using latest state
  - ProxyStateManager for a provider that uses latest state rather than creating a fork
 
-## Extends
+## Hierarchy
 
 - `DefaultStateManager`
+
+  ↳ **`NormalStateManager`**
 
 ## Implements
 
 - [`TevmStateManagerInterface`](../interfaces/TevmStateManagerInterface.md)
 
+## Table of contents
+
+### Constructors
+
+- [constructor](NormalStateManager.md#constructor)
+
+### Properties
+
+- [\_accountCache](NormalStateManager.md#_accountcache)
+- [\_accountCacheSettings](NormalStateManager.md#_accountcachesettings)
+- [\_checkpointCount](NormalStateManager.md#_checkpointcount)
+- [\_codeCache](NormalStateManager.md#_codecache)
+- [\_codeCacheSettings](NormalStateManager.md#_codecachesettings)
+- [\_debug](NormalStateManager.md#_debug)
+- [\_prefixCodeHashes](NormalStateManager.md#_prefixcodehashes)
+- [\_prefixStorageTrieKeys](NormalStateManager.md#_prefixstoragetriekeys)
+- [\_proofTrie](NormalStateManager.md#_prooftrie)
+- [\_storageCache](NormalStateManager.md#_storagecache)
+- [\_storageCacheSettings](NormalStateManager.md#_storagecachesettings)
+- [\_storageTries](NormalStateManager.md#_storagetries)
+- [\_trie](NormalStateManager.md#_trie)
+- [common](NormalStateManager.md#common)
+- [originalStorageCache](NormalStateManager.md#originalstoragecache)
+
+### Methods
+
+- [\_getAccountTrie](NormalStateManager.md#_getaccounttrie)
+- [\_getCodeDB](NormalStateManager.md#_getcodedb)
+- [\_getStorageTrie](NormalStateManager.md#_getstoragetrie)
+- [\_modifyContractStorage](NormalStateManager.md#_modifycontractstorage)
+- [\_writeContractStorage](NormalStateManager.md#_writecontractstorage)
+- [checkpoint](NormalStateManager.md#checkpoint)
+- [clearCaches](NormalStateManager.md#clearcaches)
+- [clearContractStorage](NormalStateManager.md#clearcontractstorage)
+- [commit](NormalStateManager.md#commit)
+- [deepCopy](NormalStateManager.md#deepcopy)
+- [deleteAccount](NormalStateManager.md#deleteaccount)
+- [dumpCanonicalGenesis](NormalStateManager.md#dumpcanonicalgenesis)
+- [dumpStorage](NormalStateManager.md#dumpstorage)
+- [dumpStorageRange](NormalStateManager.md#dumpstoragerange)
+- [flush](NormalStateManager.md#flush)
+- [generateCanonicalGenesis](NormalStateManager.md#generatecanonicalgenesis)
+- [getAccount](NormalStateManager.md#getaccount)
+- [getAccountAddresses](NormalStateManager.md#getaccountaddresses)
+- [getContractCode](NormalStateManager.md#getcontractcode)
+- [getContractStorage](NormalStateManager.md#getcontractstorage)
+- [getProof](NormalStateManager.md#getproof)
+- [getStateRoot](NormalStateManager.md#getstateroot)
+- [hasStateRoot](NormalStateManager.md#hasstateroot)
+- [modifyAccountFields](NormalStateManager.md#modifyaccountfields)
+- [putAccount](NormalStateManager.md#putaccount)
+- [putContractCode](NormalStateManager.md#putcontractcode)
+- [putContractStorage](NormalStateManager.md#putcontractstorage)
+- [revert](NormalStateManager.md#revert)
+- [setStateRoot](NormalStateManager.md#setstateroot)
+- [shallowCopy](NormalStateManager.md#shallowcopy)
+- [verifyProof](NormalStateManager.md#verifyproof)
+
 ## Constructors
 
-### new NormalStateManager(opts)
+### constructor
 
-> **new NormalStateManager**(`opts`?): [`NormalStateManager`](NormalStateManager.md)
+• **new NormalStateManager**(`opts?`): [`NormalStateManager`](NormalStateManager.md)
 
 Instantiate the StateManager interface.
 
 #### Parameters
 
-▪ **opts?**: `DefaultStateManagerOpts`
+| Name | Type |
+| :------ | :------ |
+| `opts?` | `DefaultStateManagerOpts` |
+
+#### Returns
+
+[`NormalStateManager`](NormalStateManager.md)
 
 #### Inherited from
 
 DefaultStateManager.constructor
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node\_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:146
+node_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:146
 
 ## Properties
 
 ### \_accountCache
 
-> **`protected`** **\_accountCache**?: `AccountCache`
+• `Protected` `Optional` **\_accountCache**: `AccountCache`
 
 #### Inherited from
 
 DefaultStateManager.\_accountCache
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node\_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:118
+node_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:118
 
-***
+___
 
 ### \_accountCacheSettings
 
-> **`protected`** **`readonly`** **\_accountCacheSettings**: `CacheSettings`
+• `Protected` `Readonly` **\_accountCacheSettings**: `CacheSettings`
 
 #### Inherited from
 
 DefaultStateManager.\_accountCacheSettings
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node\_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:128
+node_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:128
 
-***
+___
 
 ### \_checkpointCount
 
-> **`protected`** **\_checkpointCount**: `number`
+• `Protected` **\_checkpointCount**: `number`
 
 #### Inherited from
 
 DefaultStateManager.\_checkpointCount
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node\_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:132
+node_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:132
 
-***
+___
 
 ### \_codeCache
 
-> **`protected`** **\_codeCache**?: `CodeCache`
+• `Protected` `Optional` **\_codeCache**: `CodeCache`
 
 #### Inherited from
 
 DefaultStateManager.\_codeCache
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node\_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:120
+node_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:120
 
-***
+___
 
 ### \_codeCacheSettings
 
-> **`protected`** **`readonly`** **\_codeCacheSettings**: `CacheSettings`
+• `Protected` `Readonly` **\_codeCacheSettings**: `CacheSettings`
 
 #### Inherited from
 
 DefaultStateManager.\_codeCacheSettings
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node\_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:130
+node_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:130
 
-***
+___
 
 ### \_debug
 
-> **`protected`** **\_debug**: `Debugger`
+• `Protected` **\_debug**: `Debugger`
 
 #### Inherited from
 
 DefaultStateManager.\_debug
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node\_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:117
+node_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:117
 
-***
+___
 
 ### \_prefixCodeHashes
 
-> **`protected`** **`readonly`** **\_prefixCodeHashes**: `boolean`
+• `Protected` `Readonly` **\_prefixCodeHashes**: `boolean`
 
 #### Inherited from
 
 DefaultStateManager.\_prefixCodeHashes
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node\_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:126
+node_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:126
 
-***
+___
 
 ### \_prefixStorageTrieKeys
 
-> **`protected`** **`readonly`** **\_prefixStorageTrieKeys**: `boolean`
+• `Protected` `Readonly` **\_prefixStorageTrieKeys**: `boolean`
 
 #### Inherited from
 
 DefaultStateManager.\_prefixStorageTrieKeys
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node\_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:127
+node_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:127
 
-***
+___
 
 ### \_proofTrie
 
-> **`protected`** **\_proofTrie**: `Trie`
+• `Protected` **\_proofTrie**: `Trie`
 
 #### Inherited from
 
 DefaultStateManager.\_proofTrie
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node\_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:133
+node_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:133
 
-***
+___
 
 ### \_storageCache
 
-> **`protected`** **\_storageCache**?: `StorageCache`
+• `Protected` `Optional` **\_storageCache**: `StorageCache`
 
 #### Inherited from
 
 DefaultStateManager.\_storageCache
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node\_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:119
+node_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:119
 
-***
+___
 
 ### \_storageCacheSettings
 
-> **`protected`** **`readonly`** **\_storageCacheSettings**: `CacheSettings`
+• `Protected` `Readonly` **\_storageCacheSettings**: `CacheSettings`
 
 #### Inherited from
 
 DefaultStateManager.\_storageCacheSettings
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node\_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:129
+node_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:129
 
-***
+___
 
 ### \_storageTries
 
-> **`protected`** **\_storageTries**: `object`
+• `Protected` **\_storageTries**: `Object`
 
 #### Index signature
 
- \[`key`: `string`\]: `Trie`
+▪ [key: `string`]: `Trie`
 
 #### Inherited from
 
 DefaultStateManager.\_storageTries
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node\_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:123
+node_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:123
 
-***
+___
 
 ### \_trie
 
-> **`protected`** **\_trie**: `Trie`
+• `Protected` **\_trie**: `Trie`
 
 #### Inherited from
 
 DefaultStateManager.\_trie
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node\_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:122
+node_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:122
 
-***
+___
 
 ### common
 
-> **`readonly`** **common**: `Common`
+• `Readonly` **common**: `Common`
 
 #### Inherited from
 
 DefaultStateManager.common
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node\_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:131
+node_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:131
 
-***
+___
 
 ### originalStorageCache
 
-> **originalStorageCache**: `OriginalStorageCache`
+• **originalStorageCache**: `OriginalStorageCache`
 
 #### Implementation of
 
-[`TevmStateManagerInterface`](../interfaces/TevmStateManagerInterface.md).[`originalStorageCache`](../interfaces/TevmStateManagerInterface.md#originalstoragecache)
+[TevmStateManagerInterface](../interfaces/TevmStateManagerInterface.md).[originalStorageCache](../interfaces/TevmStateManagerInterface.md#originalstoragecache)
 
 #### Inherited from
 
 DefaultStateManager.originalStorageCache
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node\_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:121
+node_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:121
 
 ## Methods
 
-### \_getAccountTrie()
+### \_getAccountTrie
 
-> **`private`** **\_getAccountTrie**(): `Trie`
+▸ **_getAccountTrie**(): `Trie`
 
 Gets the storage trie for an account from the storage
 cache or does a lookup.
+
+#### Returns
+
+`Trie`
 
 #### Inherited from
 
 DefaultStateManager.\_getAccountTrie
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node\_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:196
+node_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:196
 
-***
+___
 
-### \_getCodeDB()
+### \_getCodeDB
 
-> **`private`** **\_getCodeDB**(): `DB`\<`Uint8Array`, `Uint8Array`\>
+▸ **_getCodeDB**(): `DB`\<`Uint8Array`, `Uint8Array`\>
 
 Gets the storage trie for an account from the storage
 cache or does a lookup.
+
+#### Returns
+
+`DB`\<`Uint8Array`, `Uint8Array`\>
 
 #### Inherited from
 
 DefaultStateManager.\_getCodeDB
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node\_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:202
+node_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:202
 
-***
+___
 
-### \_getStorageTrie()
+### \_getStorageTrie
 
-> **`private`** **\_getStorageTrie**(`addressOrHash`, `account`?): `Trie`
+▸ **_getStorageTrie**(`addressOrHash`, `account?`): `Trie`
 
 Gets the storage trie for an account from the storage
 cache or does a lookup.
 
 #### Parameters
 
-▪ **addressOrHash**: `Address` \| `Uint8Array`
+| Name | Type |
+| :------ | :------ |
+| `addressOrHash` | `Address` \| `Uint8Array` |
+| `account?` | `Account` |
 
-▪ **account?**: `Account`
+#### Returns
+
+`Trie`
 
 #### Inherited from
 
 DefaultStateManager.\_getStorageTrie
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node\_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:190
+node_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:190
 
-***
+___
 
-### \_modifyContractStorage()
+### \_modifyContractStorage
 
-> **`private`** **\_modifyContractStorage**(`address`, `account`, `modifyTrie`): `Promise`\<`void`\>
+▸ **_modifyContractStorage**(`address`, `account`, `modifyTrie`): `Promise`\<`void`\>
 
 Modifies the storage trie of an account.
 
 #### Parameters
 
-▪ **address**: `Address`
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `address` | `Address` | Address of the account whose storage is to be modified |
+| `account` | `Account` | - |
+| `modifyTrie` | (`storageTrie`: `Trie`, `done`: `Function`) => `void` | Function to modify the storage trie of the account |
 
-Address of the account whose storage is to be modified
+#### Returns
 
-▪ **account**: `Account`
-
-▪ **modifyTrie**: (`storageTrie`, `done`) => `void`
-
-Function to modify the storage trie of the account
+`Promise`\<`void`\>
 
 #### Inherited from
 
 DefaultStateManager.\_modifyContractStorage
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node\_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:219
+node_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:219
 
-***
+___
 
-### \_writeContractStorage()
+### \_writeContractStorage
 
-> **`protected`** **\_writeContractStorage**(`address`, `account`, `key`, `value`): `Promise`\<`void`\>
+▸ **_writeContractStorage**(`address`, `account`, `key`, `value`): `Promise`\<`void`\>
 
 #### Parameters
 
-▪ **address**: `Address`
+| Name | Type |
+| :------ | :------ |
+| `address` | `Address` |
+| `account` | `Account` |
+| `key` | `Uint8Array` |
+| `value` | `Uint8Array` |
 
-▪ **account**: `Account`
+#### Returns
 
-▪ **key**: `Uint8Array`
-
-▪ **value**: `Uint8Array`
+`Promise`\<`void`\>
 
 #### Inherited from
 
 DefaultStateManager.\_writeContractStorage
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node\_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:220
+node_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:220
 
-***
+___
 
-### checkpoint()
+### checkpoint
 
-> **checkpoint**(): `Promise`\<`void`\>
+▸ **checkpoint**(): `Promise`\<`void`\>
 
 Checkpoints the current state of the StateManager instance.
 State changes that follow can then be committed by calling
 `commit` or `reverted` by calling rollback.
 
+#### Returns
+
+`Promise`\<`void`\>
+
 #### Implementation of
 
-[`TevmStateManagerInterface`](../interfaces/TevmStateManagerInterface.md).[`checkpoint`](../interfaces/TevmStateManagerInterface.md#checkpoint)
+[TevmStateManagerInterface](../interfaces/TevmStateManagerInterface.md).[checkpoint](../interfaces/TevmStateManagerInterface.md#checkpoint)
 
 #### Inherited from
 
 DefaultStateManager.checkpoint
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node\_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:241
+node_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:241
 
-***
+___
 
-### clearCaches()
+### clearCaches
 
-> **clearCaches**(): `void`
+▸ **clearCaches**(): `void`
 
 Clears all underlying caches
+
+#### Returns
+
+`void`
 
 #### Inherited from
 
 DefaultStateManager.clearCaches
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node\_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:336
+node_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:336
 
-***
+___
 
-### clearContractStorage()
+### clearContractStorage
 
-> **clearContractStorage**(`address`): `Promise`\<`void`\>
+▸ **clearContractStorage**(`address`): `Promise`\<`void`\>
 
 Clears all storage entries for the account corresponding to `address`.
 
 #### Parameters
 
-▪ **address**: `Address`
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `address` | `Address` | Address to clear the storage of |
 
-Address to clear the storage of
+#### Returns
+
+`Promise`\<`void`\>
 
 #### Implementation of
 
-[`TevmStateManagerInterface`](../interfaces/TevmStateManagerInterface.md).[`clearContractStorage`](../interfaces/TevmStateManagerInterface.md#clearcontractstorage)
+[TevmStateManagerInterface](../interfaces/TevmStateManagerInterface.md).[clearContractStorage](../interfaces/TevmStateManagerInterface.md#clearcontractstorage)
 
 #### Inherited from
 
 DefaultStateManager.clearContractStorage
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node\_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:235
+node_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:235
 
-***
+___
 
-### commit()
+### commit
 
-> **commit**(): `Promise`\<`void`\>
+▸ **commit**(): `Promise`\<`void`\>
 
 Commits the current change-set to the instance since the
 last call to checkpoint.
 
+#### Returns
+
+`Promise`\<`void`\>
+
 #### Implementation of
 
-[`TevmStateManagerInterface`](../interfaces/TevmStateManagerInterface.md).[`commit`](../interfaces/TevmStateManagerInterface.md#commit)
+[TevmStateManagerInterface](../interfaces/TevmStateManagerInterface.md).[commit](../interfaces/TevmStateManagerInterface.md#commit)
 
 #### Inherited from
 
 DefaultStateManager.commit
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node\_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:246
+node_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:246
 
-***
+___
 
-### deepCopy()
+### deepCopy
 
-> **deepCopy**(): `Promise`\<[`NormalStateManager`](NormalStateManager.md)\>
+▸ **deepCopy**(): `Promise`\<[`NormalStateManager`](NormalStateManager.md)\>
 
 Returns a new instance of the ForkStateManager with the same opts and all storage copied over
 
-#### Source
+#### Returns
+
+`Promise`\<[`NormalStateManager`](NormalStateManager.md)\>
+
+#### Defined in
 
 [packages/state/src/NormalStateManager.ts:43](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/NormalStateManager.ts#L43)
 
-***
+___
 
-### deleteAccount()
+### deleteAccount
 
-> **deleteAccount**(`address`): `Promise`\<`void`\>
+▸ **deleteAccount**(`address`): `Promise`\<`void`\>
 
 Deletes an account from state under the provided `address`.
 
 #### Parameters
 
-▪ **address**: `Address`
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `address` | `Address` | Address of the account which should be deleted |
 
-Address of the account which should be deleted
+#### Returns
+
+`Promise`\<`void`\>
 
 #### Implementation of
 
-[`TevmStateManagerInterface`](../interfaces/TevmStateManagerInterface.md).[`deleteAccount`](../interfaces/TevmStateManagerInterface.md#deleteaccount)
+[TevmStateManagerInterface](../interfaces/TevmStateManagerInterface.md).[deleteAccount](../interfaces/TevmStateManagerInterface.md#deleteaccount)
 
 #### Inherited from
 
 DefaultStateManager.deleteAccount
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node\_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:170
+node_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:170
 
-***
+___
 
-### dumpCanonicalGenesis()
+### dumpCanonicalGenesis
 
-> **dumpCanonicalGenesis**(): `Promise`\<[`SerializableTevmState`](../type-aliases/SerializableTevmState.md)\>
+▸ **dumpCanonicalGenesis**(): `Promise`\<[`SerializableTevmState`](../modules.md#serializabletevmstate)\>
 
-Dumps the state of the state manager as a [SerializableTevmState](../type-aliases/SerializableTevmState.md)
+Dumps the state of the state manager as a [SerializableTevmState](../modules.md#serializabletevmstate)
 
-#### Source
+#### Returns
+
+`Promise`\<[`SerializableTevmState`](../modules.md#serializabletevmstate)\>
+
+#### Defined in
 
 [packages/state/src/NormalStateManager.ts:169](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/NormalStateManager.ts#L169)
 
-***
+___
 
-### dumpStorage()
+### dumpStorage
 
-> **dumpStorage**(`address`): `Promise`\<`StorageDump`\>
+▸ **dumpStorage**(`address`): `Promise`\<`StorageDump`\>
 
 Dumps the RLP-encoded storage values for an `account` specified by `address`.
 
 #### Parameters
 
-▪ **address**: `Address`
-
-The address of the `account` to return storage for
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `address` | `Address` | The address of the `account` to return storage for |
 
 #### Returns
+
+`Promise`\<`StorageDump`\>
 
 - The state of the account as an `Object` map.
 Keys are are the storage keys, values are the storage values as strings.
@@ -527,193 +635,206 @@ Both are represented as hex strings without the `0x` prefix.
 
 #### Implementation of
 
-[`TevmStateManagerInterface`](../interfaces/TevmStateManagerInterface.md).[`dumpStorage`](../interfaces/TevmStateManagerInterface.md#dumpstorage)
+[TevmStateManagerInterface](../interfaces/TevmStateManagerInterface.md).[dumpStorage](../interfaces/TevmStateManagerInterface.md#dumpstorage)
 
 #### Inherited from
 
 DefaultStateManager.dumpStorage
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node\_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:289
+node_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:289
 
-***
+___
 
-### dumpStorageRange()
+### dumpStorageRange
 
-> **dumpStorageRange**(`address`, `startKey`, `limit`): `Promise`\<`StorageRange`\>
+▸ **dumpStorageRange**(`address`, `startKey`, `limit`): `Promise`\<`StorageRange`\>
 
 Dumps a limited number of RLP-encoded storage values for an account specified by `address`,
 starting from `startKey` or greater.
 
 #### Parameters
 
-▪ **address**: `Address`
-
-The address of the `account` to return storage for.
-
-▪ **startKey**: `bigint`
-
-The bigint representation of the smallest storage key that will be returned.
-
-▪ **limit**: `number`
-
-The maximum number of storage values that will be returned.
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `address` | `Address` | The address of the `account` to return storage for. |
+| `startKey` | `bigint` | The bigint representation of the smallest storage key that will be returned. |
+| `limit` | `number` | The maximum number of storage values that will be returned. |
 
 #### Returns
 
-- A [StorageRange]([object Object]) object that will contain at most `limit` entries in its `storage` field.
+`Promise`\<`StorageRange`\>
+
+- A StorageRange object that will contain at most `limit` entries in its `storage` field.
 The object will also contain `nextKey`, the next (hashed) storage key after the range included in `storage`.
 
 #### Implementation of
 
-[`TevmStateManagerInterface`](../interfaces/TevmStateManagerInterface.md).[`dumpStorageRange`](../interfaces/TevmStateManagerInterface.md#dumpstoragerange)
+[TevmStateManagerInterface](../interfaces/TevmStateManagerInterface.md).[dumpStorageRange](../interfaces/TevmStateManagerInterface.md#dumpstoragerange)
 
 #### Inherited from
 
 DefaultStateManager.dumpStorageRange
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node\_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:299
+node_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:299
 
-***
+___
 
-### flush()
+### flush
 
-> **flush**(): `Promise`\<`void`\>
+▸ **flush**(): `Promise`\<`void`\>
 
 Writes all cache items to the trie
+
+#### Returns
+
+`Promise`\<`void`\>
 
 #### Inherited from
 
 DefaultStateManager.flush
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node\_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:255
+node_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:255
 
-***
+___
 
-### generateCanonicalGenesis()
+### generateCanonicalGenesis
 
-> **generateCanonicalGenesis**(`state`): `Promise`\<`void`\>
+▸ **generateCanonicalGenesis**(`state`): `Promise`\<`void`\>
 
-Loads a [SerializableTevmState](../type-aliases/SerializableTevmState.md) into the state manager
+Loads a [SerializableTevmState](../modules.md#serializabletevmstate) into the state manager
 
 #### Parameters
 
-▪ **state**: [`SerializableTevmState`](../type-aliases/SerializableTevmState.md)
+| Name | Type |
+| :------ | :------ |
+| `state` | [`SerializableTevmState`](../modules.md#serializabletevmstate) |
+
+#### Returns
+
+`Promise`\<`void`\>
 
 #### Implementation of
 
-[`TevmStateManagerInterface`](../interfaces/TevmStateManagerInterface.md).[`generateCanonicalGenesis`](../interfaces/TevmStateManagerInterface.md#generatecanonicalgenesis)
+[TevmStateManagerInterface](../interfaces/TevmStateManagerInterface.md).[generateCanonicalGenesis](../interfaces/TevmStateManagerInterface.md#generatecanonicalgenesis)
 
 #### Overrides
 
 DefaultStateManager.generateCanonicalGenesis
 
-#### Source
+#### Defined in
 
 [packages/state/src/NormalStateManager.ts:133](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/NormalStateManager.ts#L133)
 
-***
+___
 
-### getAccount()
+### getAccount
 
-> **getAccount**(`address`): `Promise`\<`undefined` \| `Account`\>
+▸ **getAccount**(`address`): `Promise`\<`undefined` \| `Account`\>
 
 Gets the account associated with `address` or `undefined` if account does not exist
 
 #### Parameters
 
-▪ **address**: `Address`
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `address` | `Address` | Address of the `account` to get |
 
-Address of the `account` to get
+#### Returns
+
+`Promise`\<`undefined` \| `Account`\>
 
 #### Implementation of
 
-[`TevmStateManagerInterface`](../interfaces/TevmStateManagerInterface.md).[`getAccount`](../interfaces/TevmStateManagerInterface.md#getaccount)
+[TevmStateManagerInterface](../interfaces/TevmStateManagerInterface.md).[getAccount](../interfaces/TevmStateManagerInterface.md#getaccount)
 
 #### Inherited from
 
 DefaultStateManager.getAccount
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node\_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:151
+node_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:151
 
-***
+___
 
-### getAccountAddresses()
+### getAccountAddresses
 
-> **getAccountAddresses**(): \`0x${string}\`[]
+▸ **getAccountAddresses**(): \`0x$\{string}\`[]
 
 Retrieves the addresses of all the accounts in the state.
 
 #### Returns
 
+\`0x$\{string}\`[]
+
 An array of account addresses.
 
 #### Implementation of
 
-[`TevmStateManagerInterface`](../interfaces/TevmStateManagerInterface.md).[`getAccountAddresses`](../interfaces/TevmStateManagerInterface.md#getaccountaddresses)
+[TevmStateManagerInterface](../interfaces/TevmStateManagerInterface.md).[getAccountAddresses](../interfaces/TevmStateManagerInterface.md#getaccountaddresses)
 
-#### Source
+#### Defined in
 
 [packages/state/src/NormalStateManager.ts:30](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/NormalStateManager.ts#L30)
 
-***
+___
 
-### getContractCode()
+### getContractCode
 
-> **getContractCode**(`address`): `Promise`\<`Uint8Array`\>
+▸ **getContractCode**(`address`): `Promise`\<`Uint8Array`\>
 
 Gets the code corresponding to the provided `address`.
 
 #### Parameters
 
-▪ **address**: `Address`
-
-Address to get the `code` for
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `address` | `Address` | Address to get the `code` for |
 
 #### Returns
+
+`Promise`\<`Uint8Array`\>
 
 -  Resolves with the code corresponding to the provided address.
 Returns an empty `Uint8Array` if the account has no associated code.
 
 #### Implementation of
 
-[`TevmStateManagerInterface`](../interfaces/TevmStateManagerInterface.md).[`getContractCode`](../interfaces/TevmStateManagerInterface.md#getcontractcode)
+[TevmStateManagerInterface](../interfaces/TevmStateManagerInterface.md).[getContractCode](../interfaces/TevmStateManagerInterface.md#getcontractcode)
 
 #### Inherited from
 
 DefaultStateManager.getContractCode
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node\_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:184
+node_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:184
 
-***
+___
 
-### getContractStorage()
+### getContractStorage
 
-> **getContractStorage**(`address`, `key`): `Promise`\<`Uint8Array`\>
+▸ **getContractStorage**(`address`, `key`): `Promise`\<`Uint8Array`\>
 
 Gets the storage value associated with the provided `address` and `key`. This method returns
 the shortest representation of the stored value.
 
 #### Parameters
 
-▪ **address**: `Address`
-
-Address of the account to get the storage for
-
-▪ **key**: `Uint8Array`
-
-Key in the account's storage to get the value for. Must be 32 bytes long.
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `address` | `Address` | Address of the account to get the storage for |
+| `key` | `Uint8Array` | Key in the account's storage to get the value for. Must be 32 bytes long. |
 
 #### Returns
+
+`Promise`\<`Uint8Array`\>
 
 - The storage value for the account
 corresponding to the provided address at the provided key.
@@ -721,51 +842,52 @@ If this does not exist an empty `Uint8Array` is returned.
 
 #### Implementation of
 
-[`TevmStateManagerInterface`](../interfaces/TevmStateManagerInterface.md).[`getContractStorage`](../interfaces/TevmStateManagerInterface.md#getcontractstorage)
+[TevmStateManagerInterface](../interfaces/TevmStateManagerInterface.md).[getContractStorage](../interfaces/TevmStateManagerInterface.md#getcontractstorage)
 
 #### Inherited from
 
 DefaultStateManager.getContractStorage
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node\_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:212
+node_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:212
 
-***
+___
 
-### getProof()
+### getProof
 
-> **getProof**(`address`, `storageSlots`?): `Promise`\<`Proof`\>
+▸ **getProof**(`address`, `storageSlots?`): `Promise`\<`Proof`\>
 
 Get an EIP-1186 proof
 
 #### Parameters
 
-▪ **address**: `Address`
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `address` | `Address` | address to get proof of |
+| `storageSlots?` | `Uint8Array`[] | storage slots to get proof of |
 
-address to get proof of
+#### Returns
 
-▪ **storageSlots?**: `Uint8Array`[]
-
-storage slots to get proof of
+`Promise`\<`Proof`\>
 
 #### Implementation of
 
-[`TevmStateManagerInterface`](../interfaces/TevmStateManagerInterface.md).[`getProof`](../interfaces/TevmStateManagerInterface.md#getproof)
+[TevmStateManagerInterface](../interfaces/TevmStateManagerInterface.md).[getProof](../interfaces/TevmStateManagerInterface.md#getproof)
 
 #### Inherited from
 
 DefaultStateManager.getProof
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node\_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:261
+node_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:261
 
-***
+___
 
-### getStateRoot()
+### getStateRoot
 
-> **getStateRoot**(): `Promise`\<`Uint8Array`\>
+▸ **getStateRoot**(): `Promise`\<`Uint8Array`\>
 
 Gets the state-root of the Merkle-Patricia trie representation
 of the state of this StateManager. Will error if there are uncommitted
@@ -773,49 +895,57 @@ checkpoints on the instance.
 
 #### Returns
 
+`Promise`\<`Uint8Array`\>
+
 - Returns the state-root of the `StateManager`
 
 #### Implementation of
 
-[`TevmStateManagerInterface`](../interfaces/TevmStateManagerInterface.md).[`getStateRoot`](../interfaces/TevmStateManagerInterface.md#getstateroot)
+[TevmStateManagerInterface](../interfaces/TevmStateManagerInterface.md).[getStateRoot](../interfaces/TevmStateManagerInterface.md#getstateroot)
 
 #### Inherited from
 
 DefaultStateManager.getStateRoot
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node\_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:273
+node_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:273
 
-***
+___
 
-### hasStateRoot()
+### hasStateRoot
 
-> **hasStateRoot**(`root`): `Promise`\<`boolean`\>
+▸ **hasStateRoot**(`root`): `Promise`\<`boolean`\>
 
 Checks whether there is a state corresponding to a stateRoot
 
 #### Parameters
 
-▪ **root**: `Uint8Array`
+| Name | Type |
+| :------ | :------ |
+| `root` | `Uint8Array` |
+
+#### Returns
+
+`Promise`\<`boolean`\>
 
 #### Implementation of
 
-[`TevmStateManagerInterface`](../interfaces/TevmStateManagerInterface.md).[`hasStateRoot`](../interfaces/TevmStateManagerInterface.md#hasstateroot)
+[TevmStateManagerInterface](../interfaces/TevmStateManagerInterface.md).[hasStateRoot](../interfaces/TevmStateManagerInterface.md#hasstateroot)
 
 #### Inherited from
 
 DefaultStateManager.hasStateRoot
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node\_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:309
+node_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:309
 
-***
+___
 
-### modifyAccountFields()
+### modifyAccountFields
 
-> **modifyAccountFields**(`address`, `accountFields`): `Promise`\<`void`\>
+▸ **modifyAccountFields**(`address`, `accountFields`): `Promise`\<`void`\>
 
 Gets the account associated with `address`, modifies the given account
 fields, then saves the account into state. Account fields can include
@@ -823,150 +953,153 @@ fields, then saves the account into state. Account fields can include
 
 #### Parameters
 
-▪ **address**: `Address`
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `address` | `Address` | Address of the account to modify |
+| `accountFields` | `Partial`\<`Pick`\<`Account`, ``"nonce"`` \| ``"balance"`` \| ``"storageRoot"`` \| ``"codeHash"``\>\> | Object containing account fields and values to modify |
 
-Address of the account to modify
+#### Returns
 
-▪ **accountFields**: `Partial`\<`Pick`\<`Account`, `"nonce"` \| `"balance"` \| `"storageRoot"` \| `"codeHash"`\>\>
-
-Object containing account fields and values to modify
+`Promise`\<`void`\>
 
 #### Implementation of
 
-[`TevmStateManagerInterface`](../interfaces/TevmStateManagerInterface.md).[`modifyAccountFields`](../interfaces/TevmStateManagerInterface.md#modifyaccountfields)
+[TevmStateManagerInterface](../interfaces/TevmStateManagerInterface.md).[modifyAccountFields](../interfaces/TevmStateManagerInterface.md#modifyaccountfields)
 
 #### Inherited from
 
 DefaultStateManager.modifyAccountFields
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node\_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:165
+node_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:165
 
-***
+___
 
-### putAccount()
+### putAccount
 
-> **putAccount**(`address`, `account`): `Promise`\<`void`\>
+▸ **putAccount**(`address`, `account`): `Promise`\<`void`\>
 
 Saves an account into state under the provided `address`.
 
 #### Parameters
 
-▪ **address**: `Address`
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `address` | `Address` | Address under which to store `account` |
+| `account` | `undefined` \| `Account` | The account to store or undefined if to be deleted |
 
-Address under which to store `account`
+#### Returns
 
-▪ **account**: `undefined` \| `Account`
-
-The account to store or undefined if to be deleted
+`Promise`\<`void`\>
 
 #### Implementation of
 
-[`TevmStateManagerInterface`](../interfaces/TevmStateManagerInterface.md).[`putAccount`](../interfaces/TevmStateManagerInterface.md#putaccount)
+[TevmStateManagerInterface](../interfaces/TevmStateManagerInterface.md).[putAccount](../interfaces/TevmStateManagerInterface.md#putaccount)
 
 #### Inherited from
 
 DefaultStateManager.putAccount
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node\_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:157
+node_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:157
 
-***
+___
 
-### putContractCode()
+### putContractCode
 
-> **putContractCode**(`address`, `value`): `Promise`\<`void`\>
+▸ **putContractCode**(`address`, `value`): `Promise`\<`void`\>
 
 Adds `value` to the state trie as code, and sets `codeHash` on the account
 corresponding to `address` to reference this.
 
 #### Parameters
 
-▪ **address**: `Address`
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `address` | `Address` | Address of the `account` to add the `code` for |
+| `value` | `Uint8Array` | The value of the `code` |
 
-Address of the `account` to add the `code` for
+#### Returns
 
-▪ **value**: `Uint8Array`
-
-The value of the `code`
+`Promise`\<`void`\>
 
 #### Implementation of
 
-[`TevmStateManagerInterface`](../interfaces/TevmStateManagerInterface.md).[`putContractCode`](../interfaces/TevmStateManagerInterface.md#putcontractcode)
+[TevmStateManagerInterface](../interfaces/TevmStateManagerInterface.md).[putContractCode](../interfaces/TevmStateManagerInterface.md#putcontractcode)
 
 #### Inherited from
 
 DefaultStateManager.putContractCode
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node\_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:177
+node_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:177
 
-***
+___
 
-### putContractStorage()
+### putContractStorage
 
-> **putContractStorage**(`address`, `key`, `value`): `Promise`\<`void`\>
+▸ **putContractStorage**(`address`, `key`, `value`): `Promise`\<`void`\>
 
 Adds value to the state trie for the `account`
 corresponding to `address` at the provided `key`.
 
 #### Parameters
 
-▪ **address**: `Address`
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `address` | `Address` | Address to set a storage value for |
+| `key` | `Uint8Array` | Key to set the value at. Must be 32 bytes long. |
+| `value` | `Uint8Array` | Value to set at `key` for account corresponding to `address`. Cannot be more than 32 bytes. Leading zeros are stripped. If it is a empty or filled with zeros, deletes the value. |
 
-Address to set a storage value for
+#### Returns
 
-▪ **key**: `Uint8Array`
-
-Key to set the value at. Must be 32 bytes long.
-
-▪ **value**: `Uint8Array`
-
-Value to set at `key` for account corresponding to `address`.
-Cannot be more than 32 bytes. Leading zeros are stripped.
-If it is a empty or filled with zeros, deletes the value.
+`Promise`\<`void`\>
 
 #### Implementation of
 
-[`TevmStateManagerInterface`](../interfaces/TevmStateManagerInterface.md).[`putContractStorage`](../interfaces/TevmStateManagerInterface.md#putcontractstorage)
+[TevmStateManagerInterface](../interfaces/TevmStateManagerInterface.md).[putContractStorage](../interfaces/TevmStateManagerInterface.md#putcontractstorage)
 
 #### Inherited from
 
 DefaultStateManager.putContractStorage
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node\_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:230
+node_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:230
 
-***
+___
 
-### revert()
+### revert
 
-> **revert**(): `Promise`\<`void`\>
+▸ **revert**(): `Promise`\<`void`\>
 
 Reverts the current change-set to the instance since the
 last call to checkpoint.
 
+#### Returns
+
+`Promise`\<`void`\>
+
 #### Implementation of
 
-[`TevmStateManagerInterface`](../interfaces/TevmStateManagerInterface.md).[`revert`](../interfaces/TevmStateManagerInterface.md#revert)
+[TevmStateManagerInterface](../interfaces/TevmStateManagerInterface.md).[revert](../interfaces/TevmStateManagerInterface.md#revert)
 
 #### Inherited from
 
 DefaultStateManager.revert
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node\_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:251
+node_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:251
 
-***
+___
 
-### setStateRoot()
+### setStateRoot
 
-> **setStateRoot**(`stateRoot`, `clearCache`?): `Promise`\<`void`\>
+▸ **setStateRoot**(`stateRoot`, `clearCache?`): `Promise`\<`void`\>
 
 Sets the state of the instance to that represented
 by the provided `stateRoot`. Will error if there are uncommitted
@@ -975,69 +1108,79 @@ the state trie.
 
 #### Parameters
 
-▪ **stateRoot**: `Uint8Array`
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `stateRoot` | `Uint8Array` | The state-root to reset the instance to |
+| `clearCache?` | `boolean` | - |
 
-The state-root to reset the instance to
+#### Returns
 
-▪ **clearCache?**: `boolean`
+`Promise`\<`void`\>
 
 #### Implementation of
 
-[`TevmStateManagerInterface`](../interfaces/TevmStateManagerInterface.md).[`setStateRoot`](../interfaces/TevmStateManagerInterface.md#setstateroot)
+[TevmStateManagerInterface](../interfaces/TevmStateManagerInterface.md).[setStateRoot](../interfaces/TevmStateManagerInterface.md#setstateroot)
 
 #### Inherited from
 
 DefaultStateManager.setStateRoot
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node\_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:281
+node_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:281
 
-***
+___
 
-### shallowCopy()
+### shallowCopy
 
-> **shallowCopy**(`downlevelCaches`): [`NormalStateManager`](NormalStateManager.md)
+▸ **shallowCopy**(`downlevelCaches`): [`NormalStateManager`](NormalStateManager.md)
 
 Returns a new instance of the ForkStateManager with the same opts
 
 #### Parameters
 
-▪ **downlevelCaches**: `boolean`
+| Name | Type |
+| :------ | :------ |
+| `downlevelCaches` | `boolean` |
+
+#### Returns
+
+[`NormalStateManager`](NormalStateManager.md)
 
 #### Implementation of
 
-[`TevmStateManagerInterface`](../interfaces/TevmStateManagerInterface.md).[`shallowCopy`](../interfaces/TevmStateManagerInterface.md#shallowcopy)
+[TevmStateManagerInterface](../interfaces/TevmStateManagerInterface.md).[shallowCopy](../interfaces/TevmStateManagerInterface.md#shallowcopy)
 
 #### Overrides
 
 DefaultStateManager.shallowCopy
 
-#### Source
+#### Defined in
 
 [packages/state/src/NormalStateManager.ts:97](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/NormalStateManager.ts#L97)
 
-***
+___
 
-### verifyProof()
+### verifyProof
 
-> **verifyProof**(`proof`): `Promise`\<`boolean`\>
+▸ **verifyProof**(`proof`): `Promise`\<`boolean`\>
 
 Verify an EIP-1186 proof. Throws if proof is invalid, otherwise returns true.
 
 #### Parameters
 
-▪ **proof**: `Proof`
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `proof` | `Proof` | the proof to prove |
 
-the proof to prove
+#### Returns
+
+`Promise`\<`boolean`\>
 
 #### Inherited from
 
 DefaultStateManager.verifyProof
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node\_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:266
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
+node_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:266

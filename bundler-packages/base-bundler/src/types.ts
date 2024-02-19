@@ -51,6 +51,11 @@ export type Bundler = (
 	fao: FileAccessObject,
 	solc: any,
 	cache: Cache,
+	/**
+	 * The name of the package that contains the contract package
+	 * If not included the bundler will attempt to autodetect the package
+	 */
+	contractPackage?: '@tevm/contract' | 'tevm/contract',
 ) => {
 	/**
 	 * The name of the plugin.

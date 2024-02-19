@@ -1,0 +1,77 @@
+{
+  "name": "@tevm/bench",
+  "version": "1.0.0-next.39",
+  "private": true,
+  "description": "A typesafe library for writing forge scripts in typescript",
+  "keywords": [
+    "solidity",
+    "forge",
+    "foundry",
+    "sol",
+    "typescript",
+    "web3",
+    "blockchain"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/evmts/tevm-monorepo.git",
+    "directory": "packages/bench"
+  },
+  "license": "MIT",
+  "contributors": [
+    "Will Cory <willcory10@gmail.com>"
+  ],
+  "type": "module",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "import": {
+        "types": "./types/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    }
+  },
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src",
+    "!src/**/*.spec.ts",
+    "types"
+  ],
+  "scripts": {
+    "all": "bun run build && bun run bench:run && bun run lint && bun run format && bun run generate:docs && bun lint:package && bun lint:deps",
+    "build": "nx run-many --targets=build:dist,build:types --projects=@tevm/bench ",
+    "build:dist": "tsup",
+    "build:types": "tsup --dts-only && tsc --emitDeclarationOnly --declaration",
+    "clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
+    "format": "rome format . --write",
+    "format:check": "rome format .",
+    "generate:docs": "typedoc",
+    "lint": "rome check . --apply-unsafe",
+    "lint:check": "rome check . --verbose",
+    "lint:deps": "bunx depcheck",
+    "lint:package": "bunx publint --strict && attw --pack",
+    "bench": "vitest bench",
+    "bench:run": "vitest bench run",
+    "bench:ui": "vitest bench --ui",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "tevm": "workspace:^"
+  },
+  "devDependencies": {
+    "@tevm/bundler": "workspace:1.0.0-next.39",
+    "@tevm/tsconfig": "workspace:^",
+    "@tevm/tsupconfig": "workspace:^",
+    "@types/node": "^20.11.19"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

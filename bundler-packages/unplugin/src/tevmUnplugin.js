@@ -1,9 +1,9 @@
 import { fao } from './fao.js'
-import { bundler } from '@tevm/base-bundler'
+import { bundler, getContractPath } from '@tevm/base-bundler'
 import { createCache } from '@tevm/bundler-cache'
-import { loadConfig } from '@tevm/config'
+import { defaultConfig, loadConfig } from '@tevm/config'
 import { createSolc, releases } from '@tevm/solc'
-import { runSync } from 'effect/Effect'
+import { catchTag, logWarning, map, runPromise } from 'effect/Effect'
 import { createRequire } from 'module'
 // @ts-expect-error
 import defaultSolc from 'solc'
@@ -64,13 +64,30 @@ export const tevmUnplugin = (options = {}) => {
 		 */
 		enforce: 'pre',
 		async buildStart() {
-			config = runSync(loadConfig(process.cwd()))
+			config = await runPromise(
+				loadConfig(process.cwd()).pipe(
+					catchTag('FailedToReadConfigError', () =>
+						logWarning(
+							'Unable to find tevm.config.json. Using default config.',
+						).pipe(map(() => defaultConfig)),
+					),
+				),
+			)
 			const solcCache = createCache(config.cacheDir, fao, process.cwd())
+			console.log('proces.cwd()', process.cwd())
+			const contractPackage = getContractPath(process.cwd())
 			const versionedSolc =
 				parsedSolcVersion.data === defaultVersion
 					? defaultSolc
 					: await createSolc(parsedSolcVersion.data)
-			moduleResolver = bundler(config, console, fao, versionedSolc, solcCache)
+			moduleResolver = bundler(
+				config,
+				console,
+				fao,
+				versionedSolc,
+				solcCache,
+				contractPackage,
+			)
 			this.addWatchFile('./tsconfig.json')
 		},
 		loadInclude: (id) => {

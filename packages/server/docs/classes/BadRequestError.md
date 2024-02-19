@@ -1,142 +1,176 @@
-**@tevm/server** ∙ [README](../README.md) ∙ [API](../API.md)
-
-***
-
-[API](../API.md) > BadRequestError
+[@tevm/server](../README.md) / [Exports](../modules.md) / BadRequestError
 
 # Class: BadRequestError
 
 Error thrown when request is malformed
 
-## Extends
+## Hierarchy
 
 - `Error`
 
+  ↳ **`BadRequestError`**
+
+## Table of contents
+
+### Constructors
+
+- [constructor](BadRequestError.md#constructor)
+
+### Properties
+
+- [\_tag](BadRequestError.md#_tag)
+- [cause](BadRequestError.md#cause)
+- [message](BadRequestError.md#message)
+- [name](BadRequestError.md#name)
+- [stack](BadRequestError.md#stack)
+- [prepareStackTrace](BadRequestError.md#preparestacktrace)
+- [stackTraceLimit](BadRequestError.md#stacktracelimit)
+
+### Methods
+
+- [captureStackTrace](BadRequestError.md#capturestacktrace)
+
 ## Constructors
 
-### new BadRequestError(message)
+### constructor
 
-> **new BadRequestError**(`message`?): [`BadRequestError`](BadRequestError.md)
+• **new BadRequestError**(`message?`): [`BadRequestError`](BadRequestError.md)
 
 #### Parameters
 
-▪ **message?**: `string`
+| Name | Type |
+| :------ | :------ |
+| `message?` | `string` |
+
+#### Returns
+
+[`BadRequestError`](BadRequestError.md)
 
 #### Inherited from
 
 Error.constructor
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/typescript@5.3.3/node\_modules/typescript/lib/lib.es5.d.ts:1081
+.nvm/versions/node/v20.9.0/lib/node_modules/typescript/lib/lib.es5.d.ts:1081
 
-### new BadRequestError(message, options)
-
-> **new BadRequestError**(`message`?, `options`?): [`BadRequestError`](BadRequestError.md)
+• **new BadRequestError**(`message?`, `options?`): [`BadRequestError`](BadRequestError.md)
 
 #### Parameters
 
-▪ **message?**: `string`
+| Name | Type |
+| :------ | :------ |
+| `message?` | `string` |
+| `options?` | `ErrorOptions` |
 
-▪ **options?**: `ErrorOptions`
+#### Returns
+
+[`BadRequestError`](BadRequestError.md)
 
 #### Inherited from
 
 Error.constructor
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/typescript@5.3.3/node\_modules/typescript/lib/lib.es5.d.ts:1081
+.nvm/versions/node/v20.9.0/lib/node_modules/typescript/lib/lib.es5.d.ts:1081
 
 ## Properties
 
 ### \_tag
 
-> **\_tag**: `"BadRequestError"` = `'BadRequestError'`
+• **\_tag**: ``"BadRequestError"``
 
-#### Source
+#### Defined in
 
-[packages/server/src/BadRequestError.js:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/server/src/BadRequestError.js#L13)
+[evmts-monorepo/packages/server/src/BadRequestError.js:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/server/src/BadRequestError.js#L13)
 
-***
+___
 
 ### cause
 
-> **cause**?: `unknown`
+• `Optional` **cause**: `unknown`
 
 #### Inherited from
 
 Error.cause
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/typescript@5.3.3/node\_modules/typescript/lib/lib.es2022.error.d.ts:24
+.nvm/versions/node/v20.9.0/lib/node_modules/typescript/lib/lib.es2022.error.d.ts:24
 
-***
+___
 
 ### message
 
-> **message**: `string`
+• **message**: `string`
 
 #### Inherited from
 
 Error.message
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/typescript@5.3.3/node\_modules/typescript/lib/lib.es5.d.ts:1076
+.nvm/versions/node/v20.9.0/lib/node_modules/typescript/lib/lib.es5.d.ts:1076
 
-***
+___
 
 ### name
 
-> **name**: `"BadRequestError"` = `'BadRequestError'`
+• **name**: ``"BadRequestError"``
 
 #### Overrides
 
 Error.name
 
-#### Source
+#### Defined in
 
-[packages/server/src/BadRequestError.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/server/src/BadRequestError.js#L9)
+[evmts-monorepo/packages/server/src/BadRequestError.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/server/src/BadRequestError.js#L9)
 
-***
+___
 
 ### stack
 
-> **stack**?: `string`
+• `Optional` **stack**: `string`
 
 #### Inherited from
 
 Error.stack
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/typescript@5.3.3/node\_modules/typescript/lib/lib.es5.d.ts:1077
+.nvm/versions/node/v20.9.0/lib/node_modules/typescript/lib/lib.es5.d.ts:1077
 
-***
+___
 
 ### prepareStackTrace
 
-> **`static`** **prepareStackTrace**?: (`err`, `stackTraces`) => `any`
+▪ `Static` `Optional` **prepareStackTrace**: (`err`: `Error`, `stackTraces`: `CallSite`[]) => `any`
 
 Optional override for formatting stack traces
 
-#### See
+**`See`**
 
 https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
+#### Type declaration
+
+▸ (`err`, `stackTraces`): `any`
+
 Optional override for formatting stack traces
 
-#### Parameters
+##### Parameters
 
-▪ **err**: `Error`
+| Name | Type |
+| :------ | :------ |
+| `err` | `Error` |
+| `stackTraces` | `CallSite`[] |
 
-▪ **stackTraces**: `CallSite`[]
+##### Returns
 
-#### Returns
+`any`
 
-#### See
+**`See`**
 
 https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
@@ -144,67 +178,74 @@ https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
 Error.prepareStackTrace
 
-#### Source
+#### Defined in
 
-node\_modules/@types/node/globals.d.ts:28
+evmts-monorepo/node_modules/.pnpm/@types+node@20.11.5/node_modules/@types/node/globals.d.ts:28
 
-***
+evmts-monorepo/node_modules/.pnpm/bun-types@1.0.26/node_modules/bun-types/globals.d.ts:1532
+
+___
 
 ### stackTraceLimit
 
-> **`static`** **stackTraceLimit**: `number`
+▪ `Static` **stackTraceLimit**: `number`
 
 #### Inherited from
 
 Error.stackTraceLimit
 
-#### Source
+#### Defined in
 
-node\_modules/@types/node/globals.d.ts:30
+evmts-monorepo/node_modules/.pnpm/@types+node@20.11.5/node_modules/@types/node/globals.d.ts:30
+
+evmts-monorepo/node_modules/.pnpm/bun-types@1.0.26/node_modules/bun-types/globals.d.ts:1534
 
 ## Methods
 
-### captureStackTrace()
+### captureStackTrace
 
-#### captureStackTrace(targetObject, constructorOpt)
-
-> **`static`** **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
+▸ **captureStackTrace**(`targetObject`, `constructorOpt?`): `void`
 
 Create .stack property on a target object
 
-##### Parameters
+#### Parameters
 
-▪ **targetObject**: `object`
+| Name | Type |
+| :------ | :------ |
+| `targetObject` | `object` |
+| `constructorOpt?` | `Function` |
 
-▪ **constructorOpt?**: `Function`
+#### Returns
 
-##### Inherited from
+`void`
+
+#### Inherited from
 
 Error.captureStackTrace
 
-##### Source
+#### Defined in
 
-node\_modules/@types/node/globals.d.ts:21
+evmts-monorepo/node_modules/.pnpm/@types+node@20.11.5/node_modules/@types/node/globals.d.ts:21
 
-#### captureStackTrace(targetObject, constructorOpt)
-
-> **`static`** **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
+▸ **captureStackTrace**(`targetObject`, `constructorOpt?`): `void`
 
 Create .stack property on a target object
 
-##### Parameters
+#### Parameters
 
-▪ **targetObject**: `object`
+| Name | Type |
+| :------ | :------ |
+| `targetObject` | `object` |
+| `constructorOpt?` | `Function` |
 
-▪ **constructorOpt?**: `Function`
+#### Returns
 
-##### Inherited from
+`void`
+
+#### Inherited from
 
 Error.captureStackTrace
 
-##### Source
+#### Defined in
 
-node\_modules/.pnpm/bun-types@1.0.26/node\_modules/bun-types/globals.d.ts:1525
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
+evmts-monorepo/node_modules/.pnpm/bun-types@1.0.26/node_modules/bun-types/globals.d.ts:1525

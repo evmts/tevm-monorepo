@@ -1,560 +1,685 @@
-**@tevm/evm** ∙ [README](../README.md) ∙ [API](../API.md)
-
-***
-
-[API](../API.md) > Evm
+[@tevm/evm](../README.md) / [Exports](../modules.md) / Evm
 
 # Class: Evm
 
 A wrapper around the EVM to expose some protected functionality of the EVMStateManger
 Ideally we find a way to remove this complexity and replace with a normal `action`
 
-## Extends
+## Hierarchy
 
 - `EVM`
 
+  ↳ **`Evm`**
+
+## Table of contents
+
+### Constructors
+
+- [constructor](Evm.md#constructor)
+
+### Properties
+
+- [\_block](Evm.md#_block)
+- [\_customOpcodes](Evm.md#_customopcodes)
+- [\_customPrecompiles](Evm.md#_customprecompiles)
+- [\_dynamicGasHandlers](Evm.md#_dynamicgashandlers)
+- [\_emit](Evm.md#_emit)
+- [\_handlers](Evm.md#_handlers)
+- [\_opcodeMap](Evm.md#_opcodemap)
+- [\_opcodes](Evm.md#_opcodes)
+- [\_optsCached](Evm.md#_optscached)
+- [\_precompiles](Evm.md#_precompiles)
+- [\_tx](Evm.md#_tx)
+- [allowUnlimitedContractSize](Evm.md#allowunlimitedcontractsize)
+- [allowUnlimitedInitCodeSize](Evm.md#allowunlimitedinitcodesize)
+- [blockchain](Evm.md#blockchain)
+- [common](Evm.md#common)
+- [events](Evm.md#events)
+- [journal](Evm.md#journal)
+- [performanceLogger](Evm.md#performancelogger)
+- [stateManager](Evm.md#statemanager)
+- [transientStorage](Evm.md#transientstorage)
+- [supportedHardforks](Evm.md#supportedhardforks)
+
+### Accessors
+
+- [opcodes](Evm.md#opcodes)
+- [precompiles](Evm.md#precompiles)
+
+### Methods
+
+- [\_addToBalance](Evm.md#_addtobalance)
+- [\_executeCall](Evm.md#_executecall)
+- [\_executeCreate](Evm.md#_executecreate)
+- [\_generateAddress](Evm.md#_generateaddress)
+- [\_loadCode](Evm.md#_loadcode)
+- [\_reduceSenderBalance](Evm.md#_reducesenderbalance)
+- [clearPerformanceLogs](Evm.md#clearperformancelogs)
+- [getActiveOpcodes](Evm.md#getactiveopcodes)
+- [getPerformanceLogs](Evm.md#getperformancelogs)
+- [getPrecompile](Evm.md#getprecompile)
+- [runCall](Evm.md#runcall)
+- [runCode](Evm.md#runcode)
+- [runInterpreter](Evm.md#runinterpreter)
+- [runPrecompile](Evm.md#runprecompile)
+- [shallowCopy](Evm.md#shallowcopy)
+
 ## Constructors
 
-### new Evm(opts)
+### constructor
 
-> **new Evm**(`opts`?): [`Evm`](Evm.md)
+• **new Evm**(`opts?`): [`Evm`](Evm.md)
 
 #### Parameters
 
-▪ **opts?**: `EVMOpts`
+| Name | Type |
+| :------ | :------ |
+| `opts?` | `EVMOpts` |
+
+#### Returns
+
+[`Evm`](Evm.md)
 
 #### Inherited from
 
 EVM.constructor
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:57
+node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/evm.d.ts:57
 
 ## Properties
 
 ### \_block
 
-> **`protected`** **\_block**?: `Block`
+• `Protected` `Optional` **\_block**: `Block`
 
 #### Inherited from
 
 EVM.\_block
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:27
+node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/evm.d.ts:27
 
-***
+___
 
 ### \_customOpcodes
 
-> **`protected`** **`readonly`** **\_customOpcodes**?: `CustomOpcode`[]
+• `Protected` `Optional` `Readonly` **\_customOpcodes**: `CustomOpcode`[]
 
 #### Inherited from
 
 EVM.\_customOpcodes
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:37
+node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/evm.d.ts:37
 
-***
+___
 
 ### \_customPrecompiles
 
-> **`protected`** **`readonly`** **\_customPrecompiles**?: `CustomPrecompile`[]
+• `Protected` `Optional` `Readonly` **\_customPrecompiles**: `CustomPrecompile`[]
 
 #### Inherited from
 
 EVM.\_customPrecompiles
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:38
+node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/evm.d.ts:38
 
-***
+___
 
 ### \_dynamicGasHandlers
 
-> **`protected`** **\_dynamicGasHandlers**: `Map`\<`number`, `AsyncDynamicGasHandler` \| `SyncDynamicGasHandler`\>
+• `Protected` **\_dynamicGasHandlers**: `Map`\<`number`, `AsyncDynamicGasHandler` \| `SyncDynamicGasHandler`\>
 
 #### Inherited from
 
 EVM.\_dynamicGasHandlers
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:40
+node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/evm.d.ts:40
 
-***
+___
 
 ### \_emit
 
-> **`protected`** **`readonly`** **\_emit**: (`topic`, `data`) => `Promise`\<`void`\>
+• `Protected` `Readonly` **\_emit**: (`topic`: `string`, `data`: `any`) => `Promise`\<`void`\>
 
-#### Parameters
+#### Type declaration
 
-▪ **topic**: `string`
+▸ (`topic`, `data`): `Promise`\<`void`\>
 
-▪ **data**: `any`
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `topic` | `string` |
+| `data` | `any` |
+
+##### Returns
+
+`Promise`\<`void`\>
 
 #### Inherited from
 
 EVM.\_emit
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:56
+node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/evm.d.ts:56
 
-***
+___
 
 ### \_handlers
 
-> **`protected`** **\_handlers**: `Map`\<`number`, `OpHandler`\>
+• `Protected` **\_handlers**: `Map`\<`number`, `OpHandler`\>
 
 #### Inherited from
 
 EVM.\_handlers
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:39
+node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/evm.d.ts:39
 
-***
+___
 
 ### \_opcodeMap
 
-> **`protected`** **\_opcodeMap**: `OpcodeMap`
+• `Protected` **\_opcodeMap**: `OpcodeMap`
 
 #### Inherited from
 
 EVM.\_opcodeMap
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:41
+node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/evm.d.ts:41
 
-***
+___
 
 ### \_opcodes
 
-> **`protected`** **\_opcodes**: `OpcodeList`
+• `Protected` **\_opcodes**: `OpcodeList`
 
 #### Inherited from
 
 EVM.\_opcodes
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:34
+node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/evm.d.ts:34
 
-***
+___
 
 ### \_optsCached
 
-> **`protected`** **`readonly`** **\_optsCached**: `EVMOpts`
+• `Protected` `Readonly` **\_optsCached**: `EVMOpts`
 
 #### Inherited from
 
 EVM.\_optsCached
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:43
+node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/evm.d.ts:43
 
-***
+___
 
 ### \_precompiles
 
-> **`protected`** **\_precompiles**: `Map`\<`string`, `PrecompileFunc`\>
+• `Protected` **\_precompiles**: `Map`\<`string`, `PrecompileFunc`\>
 
 #### Inherited from
 
 EVM.\_precompiles
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:42
+node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/evm.d.ts:42
 
-***
+___
 
 ### \_tx
 
-> **`protected`** **\_tx**?: `object`
+• `Protected` `Optional` **\_tx**: `Object`
 
 #### Type declaration
 
-##### gasPrice
-
-> **gasPrice**: `bigint`
-
-##### origin
-
-> **origin**: `Address`
+| Name | Type |
+| :------ | :------ |
+| `gasPrice` | `bigint` |
+| `origin` | `Address` |
 
 #### Inherited from
 
 EVM.\_tx
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:23
+node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/evm.d.ts:23
 
-***
+___
 
 ### allowUnlimitedContractSize
 
-> **`readonly`** **allowUnlimitedContractSize**: `boolean`
+• `Readonly` **allowUnlimitedContractSize**: `boolean`
 
 #### Inherited from
 
 EVM.allowUnlimitedContractSize
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:35
+node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/evm.d.ts:35
 
-***
+___
 
 ### allowUnlimitedInitCodeSize
 
-> **`readonly`** **allowUnlimitedInitCodeSize**: `boolean`
+• `Readonly` **allowUnlimitedInitCodeSize**: `boolean`
 
 #### Inherited from
 
 EVM.allowUnlimitedInitCodeSize
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:36
+node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/evm.d.ts:36
 
-***
+___
 
 ### blockchain
 
-> **blockchain**: `Blockchain`
+• **blockchain**: `Blockchain`
 
 #### Inherited from
 
 EVM.blockchain
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:31
+node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/evm.d.ts:31
 
-***
+___
 
 ### common
 
-> **`readonly`** **common**: `Common`
+• `Readonly` **common**: `Common`
 
 #### Inherited from
 
 EVM.common
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:28
+node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/evm.d.ts:28
 
-***
+___
 
 ### events
 
-> **`readonly`** **events**: `AsyncEventEmitter`\<`EVMEvents`\>
+• `Readonly` **events**: `AsyncEventEmitter`\<`EVMEvents`\>
 
 #### Inherited from
 
 EVM.events
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:29
+node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/evm.d.ts:29
 
-***
+___
 
 ### journal
 
-> **journal**: `Journal`
+• **journal**: `Journal`
 
 #### Inherited from
 
 EVM.journal
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:32
+node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/evm.d.ts:32
 
-***
+___
 
 ### performanceLogger
 
-> **`protected`** **performanceLogger**: `EVMPerformanceLogger`
+• `Protected` **performanceLogger**: `EVMPerformanceLogger`
 
 #### Inherited from
 
 EVM.performanceLogger
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:44
+node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/evm.d.ts:44
 
-***
+___
 
 ### stateManager
 
-> **stateManager**: `TevmStateManager`
+• **stateManager**: `TevmStateManager`
 
 #### Overrides
 
 EVM.stateManager
 
-#### Source
+#### Defined in
 
 [packages/evm/src/Evm.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/src/Evm.ts#L10)
 
-***
+___
 
 ### transientStorage
 
-> **`readonly`** **transientStorage**: `TransientStorage`
+• `Readonly` **transientStorage**: `TransientStorage`
 
 #### Inherited from
 
 EVM.transientStorage
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:33
+node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/evm.d.ts:33
 
-***
+___
 
 ### supportedHardforks
 
-> **`static`** **`protected`** **supportedHardforks**: `Hardfork`[]
+▪ `Static` `Protected` **supportedHardforks**: `Hardfork`[]
 
 #### Inherited from
 
 EVM.supportedHardforks
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:22
+node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/evm.d.ts:22
 
 ## Accessors
 
 ### opcodes
 
-> **`get`** **opcodes**(): `OpcodeList`
+• `get` **opcodes**(): `OpcodeList`
 
-#### Source
+#### Returns
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:46
+`OpcodeList`
 
-***
+#### Inherited from
+
+EVM.opcodes
+
+#### Defined in
+
+node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/evm.d.ts:46
+
+___
 
 ### precompiles
 
-> **`get`** **precompiles**(): `Map`\<`string`, `PrecompileFunc`\>
+• `get` **precompiles**(): `Map`\<`string`, `PrecompileFunc`\>
 
-#### Source
+#### Returns
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:45
+`Map`\<`string`, `PrecompileFunc`\>
+
+#### Inherited from
+
+EVM.precompiles
+
+#### Defined in
+
+node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/evm.d.ts:45
 
 ## Methods
 
-### \_addToBalance()
+### \_addToBalance
 
-> **`protected`** **\_addToBalance**(`toAccount`, `message`): `Promise`\<`void`\>
+▸ **_addToBalance**(`toAccount`, `message`): `Promise`\<`void`\>
 
 #### Parameters
 
-▪ **toAccount**: `Account`
+| Name | Type |
+| :------ | :------ |
+| `toAccount` | `Account` |
+| `message` | `MessageWithTo` |
 
-▪ **message**: `MessageWithTo`
+#### Returns
+
+`Promise`\<`void`\>
 
 #### Inherited from
 
 EVM.\_addToBalance
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:92
+node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/evm.d.ts:92
 
-***
+___
 
-### \_executeCall()
+### \_executeCall
 
-> **`protected`** **\_executeCall**(`message`): `Promise`\<[`EvmResult`](../interfaces/EvmResult.md)\>
+▸ **_executeCall**(`message`): `Promise`\<[`EvmResult`](../interfaces/EvmResult.md)\>
 
 #### Parameters
 
-▪ **message**: `MessageWithTo`
+| Name | Type |
+| :------ | :------ |
+| `message` | `MessageWithTo` |
+
+#### Returns
+
+`Promise`\<[`EvmResult`](../interfaces/EvmResult.md)\>
 
 #### Inherited from
 
 EVM.\_executeCall
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:63
+node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/evm.d.ts:63
 
-***
+___
 
-### \_executeCreate()
+### \_executeCreate
 
-> **`protected`** **\_executeCreate**(`message`): `Promise`\<[`EvmResult`](../interfaces/EvmResult.md)\>
+▸ **_executeCreate**(`message`): `Promise`\<[`EvmResult`](../interfaces/EvmResult.md)\>
 
 #### Parameters
 
-▪ **message**: [`EthjsMessage`](EthjsMessage.md)
+| Name | Type |
+| :------ | :------ |
+| `message` | [`EthjsMessage`](EthjsMessage.md) |
+
+#### Returns
+
+`Promise`\<[`EvmResult`](../interfaces/EvmResult.md)\>
 
 #### Inherited from
 
 EVM.\_executeCreate
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:64
+node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/evm.d.ts:64
 
-***
+___
 
-### \_generateAddress()
+### \_generateAddress
 
-> **`protected`** **\_generateAddress**(`message`): `Promise`\<`Address`\>
+▸ **_generateAddress**(`message`): `Promise`\<`Address`\>
 
 #### Parameters
 
-▪ **message**: [`EthjsMessage`](EthjsMessage.md)
+| Name | Type |
+| :------ | :------ |
+| `message` | [`EthjsMessage`](EthjsMessage.md) |
+
+#### Returns
+
+`Promise`\<`Address`\>
 
 #### Inherited from
 
 EVM.\_generateAddress
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:90
+node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/evm.d.ts:90
 
-***
+___
 
-### \_loadCode()
+### \_loadCode
 
-> **`protected`** **\_loadCode**(`message`): `Promise`\<`void`\>
+▸ **_loadCode**(`message`): `Promise`\<`void`\>
 
 #### Parameters
 
-▪ **message**: [`EthjsMessage`](EthjsMessage.md)
+| Name | Type |
+| :------ | :------ |
+| `message` | [`EthjsMessage`](EthjsMessage.md) |
+
+#### Returns
+
+`Promise`\<`void`\>
 
 #### Inherited from
 
 EVM.\_loadCode
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:89
+node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/evm.d.ts:89
 
-***
+___
 
-### \_reduceSenderBalance()
+### \_reduceSenderBalance
 
-> **`protected`** **\_reduceSenderBalance**(`account`, `message`): `Promise`\<`void`\>
+▸ **_reduceSenderBalance**(`account`, `message`): `Promise`\<`void`\>
 
 #### Parameters
 
-▪ **account**: `Account`
+| Name | Type |
+| :------ | :------ |
+| `account` | `Account` |
+| `message` | [`EthjsMessage`](EthjsMessage.md) |
 
-▪ **message**: [`EthjsMessage`](EthjsMessage.md)
+#### Returns
+
+`Promise`\<`void`\>
 
 #### Inherited from
 
 EVM.\_reduceSenderBalance
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:91
+node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/evm.d.ts:91
 
-***
+___
 
-### clearPerformanceLogs()
+### clearPerformanceLogs
 
-> **clearPerformanceLogs**(): `void`
+▸ **clearPerformanceLogs**(): `void`
+
+#### Returns
+
+`void`
 
 #### Inherited from
 
 EVM.clearPerformanceLogs
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:111
+node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/evm.d.ts:111
 
-***
+___
 
-### getActiveOpcodes()
+### getActiveOpcodes
 
-> **getActiveOpcodes**(): `OpcodeList`
+▸ **getActiveOpcodes**(): `OpcodeList`
 
 Returns a list with the currently activated opcodes
 available for EVM execution
+
+#### Returns
+
+`OpcodeList`
 
 #### Inherited from
 
 EVM.getActiveOpcodes
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:62
+node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/evm.d.ts:62
 
-***
+___
 
-### getPerformanceLogs()
+### getPerformanceLogs
 
-> **getPerformanceLogs**(): `object`
+▸ **getPerformanceLogs**(): `Object`
 
 #### Returns
 
-> ##### opcodes
->
-> > **opcodes**: `EVMPerformanceLogOutput`[]
->
-> ##### precompiles
->
-> > **precompiles**: `EVMPerformanceLogOutput`[]
->
+`Object`
+
+| Name | Type |
+| :------ | :------ |
+| `opcodes` | `EVMPerformanceLogOutput`[] |
+| `precompiles` | `EVMPerformanceLogOutput`[] |
 
 #### Inherited from
 
 EVM.getPerformanceLogs
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:107
+node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/evm.d.ts:107
 
-***
+___
 
-### getPrecompile()
+### getPrecompile
 
-> **getPrecompile**(`address`): `undefined` \| `PrecompileFunc`
+▸ **getPrecompile**(`address`): `undefined` \| `PrecompileFunc`
 
 Returns code for precompile at the given address, or undefined
 if no such precompile exists.
 
 #### Parameters
 
-▪ **address**: `Address`
+| Name | Type |
+| :------ | :------ |
+| `address` | `Address` |
+
+#### Returns
+
+`undefined` \| `PrecompileFunc`
 
 #### Inherited from
 
 EVM.getPrecompile
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:84
+node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/evm.d.ts:84
 
-***
+___
 
-### runCall()
+### runCall
 
-> **runCall**(`opts`): `Promise`\<[`EvmResult`](../interfaces/EvmResult.md)\>
+▸ **runCall**(`opts`): `Promise`\<[`EvmResult`](../interfaces/EvmResult.md)\>
 
 Executes an EVM message, determining whether it's a call or create
 based on the `to` address. It checkpoints the state and reverts changes
@@ -562,88 +687,109 @@ if an exception happens during the message execution.
 
 #### Parameters
 
-▪ **opts**: `EVMRunCallOpts`
+| Name | Type |
+| :------ | :------ |
+| `opts` | `EVMRunCallOpts` |
+
+#### Returns
+
+`Promise`\<[`EvmResult`](../interfaces/EvmResult.md)\>
 
 #### Inherited from
 
 EVM.runCall
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:74
+node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/evm.d.ts:74
 
-***
+___
 
-### runCode()
+### runCode
 
-> **runCode**(`opts`): `Promise`\<[`ExecResult`](../interfaces/ExecResult.md)\>
+▸ **runCode**(`opts`): `Promise`\<[`ExecResult`](../interfaces/ExecResult.md)\>
 
 Bound to the global VM and therefore
 shouldn't be used directly from the evm class
 
 #### Parameters
 
-▪ **opts**: `EVMRunCodeOpts`
+| Name | Type |
+| :------ | :------ |
+| `opts` | `EVMRunCodeOpts` |
+
+#### Returns
+
+`Promise`\<[`ExecResult`](../interfaces/ExecResult.md)\>
 
 #### Inherited from
 
 EVM.runCode
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:79
+node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/evm.d.ts:79
 
-***
+___
 
-### runInterpreter()
+### runInterpreter
 
-> **`protected`** **runInterpreter**(`message`, `opts`?): `Promise`\<[`ExecResult`](../interfaces/ExecResult.md)\>
+▸ **runInterpreter**(`message`, `opts?`): `Promise`\<[`ExecResult`](../interfaces/ExecResult.md)\>
 
 Starts the actual bytecode processing for a CALL or CREATE
 
 #### Parameters
 
-▪ **message**: [`EthjsMessage`](EthjsMessage.md)
+| Name | Type |
+| :------ | :------ |
+| `message` | [`EthjsMessage`](EthjsMessage.md) |
+| `opts?` | `InterpreterOpts` |
 
-▪ **opts?**: `InterpreterOpts`
+#### Returns
+
+`Promise`\<[`ExecResult`](../interfaces/ExecResult.md)\>
 
 #### Inherited from
 
 EVM.runInterpreter
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:68
+node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/evm.d.ts:68
 
-***
+___
 
-### runPrecompile()
+### runPrecompile
 
-> **`protected`** **runPrecompile**(`code`, `data`, `gasLimit`): [`ExecResult`](../interfaces/ExecResult.md) \| `Promise`\<[`ExecResult`](../interfaces/ExecResult.md)\>
+▸ **runPrecompile**(`code`, `data`, `gasLimit`): [`ExecResult`](../interfaces/ExecResult.md) \| `Promise`\<[`ExecResult`](../interfaces/ExecResult.md)\>
 
 Executes a precompiled contract with given data and gas limit.
 
 #### Parameters
 
-▪ **code**: `PrecompileFunc`
+| Name | Type |
+| :------ | :------ |
+| `code` | `PrecompileFunc` |
+| `data` | `Uint8Array` |
+| `gasLimit` | `bigint` |
 
-▪ **data**: `Uint8Array`
+#### Returns
 
-▪ **gasLimit**: `bigint`
+[`ExecResult`](../interfaces/ExecResult.md) \| `Promise`\<[`ExecResult`](../interfaces/ExecResult.md)\>
 
 #### Inherited from
 
 EVM.runPrecompile
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:88
+node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/evm.d.ts:88
 
-***
+___
 
-### shallowCopy()
+### shallowCopy
 
-> **shallowCopy**(): `EVM`
+▸ **shallowCopy**(): `EVM`
 
 This method copies the EVM, current HF and EIP settings
 and returns a new EVM instance.
@@ -653,15 +799,14 @@ will point to the same underlying state DB.
 
 #### Returns
 
+`EVM`
+
 EVM
 
 #### Inherited from
 
 EVM.shallowCopy
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:106
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
+node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/evm.d.ts:106

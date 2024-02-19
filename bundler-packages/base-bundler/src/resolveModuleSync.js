@@ -15,6 +15,7 @@ import { runSync } from 'effect/Effect'
  * @param {boolean} includeBytecode
  * @param {import('@tevm/runtime').ModuleType} moduleType
  * @param {import('@tevm/bundler-cache').Cache} cache
+ * @param {'tevm/contract' | '@tevm/contract'} contractPackage
  * @returns {import('./types.js').BundlerResult} a bundler result object
  */
 export const resolveModuleSync = (
@@ -28,6 +29,7 @@ export const resolveModuleSync = (
 	includeBytecode,
 	moduleType,
 	cache,
+	contractPackage,
 ) => {
 	const cachedResult = readCacheSync(
 		logger,
@@ -52,7 +54,14 @@ export const resolveModuleSync = (
 		let code = ''
 		const artifactsExist = artifacts && Object.keys(artifacts).length > 0
 		if (artifactsExist) {
-			code = runSync(generateRuntime(artifacts, moduleType, includeBytecode))
+			code = runSync(
+				generateRuntime(
+					artifacts,
+					moduleType,
+					includeBytecode,
+					contractPackage,
+				),
+			)
 		} else {
 			const message = `there were no artifacts for ${modulePath}. This is likely a bug in tevm`
 			code = `// ${message}`

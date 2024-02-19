@@ -1,125 +1,156 @@
-**@tevm/errors** ∙ [README](../README.md) ∙ [API](../API.md)
-
-***
-
-[API](../API.md) > ProxyFetchError
+[@tevm/errors](../README.md) / [Exports](../modules.md) / ProxyFetchError
 
 # Class: ProxyFetchError
 
 Error when there is a problem with the underlying forked provider
 Potentially could be network issues
 
-## Extends
+## Hierarchy
 
 - `Error`
 
+  ↳ **`ProxyFetchError`**
+
+## Table of contents
+
+### Constructors
+
+- [constructor](ProxyFetchError.md#constructor)
+
+### Properties
+
+- [\_tag](ProxyFetchError.md#_tag)
+- [cause](ProxyFetchError.md#cause)
+- [message](ProxyFetchError.md#message)
+- [name](ProxyFetchError.md#name)
+- [stack](ProxyFetchError.md#stack)
+- [prepareStackTrace](ProxyFetchError.md#preparestacktrace)
+- [stackTraceLimit](ProxyFetchError.md#stacktracelimit)
+
+### Methods
+
+- [captureStackTrace](ProxyFetchError.md#capturestacktrace)
+
 ## Constructors
 
-### new ProxyFetchError(method)
+### constructor
 
-> **new ProxyFetchError**(`method`): [`ProxyFetchError`](ProxyFetchError.md)
+• **new ProxyFetchError**(`method`): [`ProxyFetchError`](ProxyFetchError.md)
 
 #### Parameters
 
-▪ **method**: `string`
+| Name | Type |
+| :------ | :------ |
+| `method` | `string` |
+
+#### Returns
+
+[`ProxyFetchError`](ProxyFetchError.md)
 
 #### Overrides
 
 Error.constructor
 
-#### Source
+#### Defined in
 
-[packages/errors/src/client/ProxyFetchError.js:18](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/client/ProxyFetchError.js#L18)
+[evmts-monorepo/packages/errors/src/client/ProxyFetchError.js:18](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/client/ProxyFetchError.js#L18)
 
 ## Properties
 
 ### \_tag
 
-> **\_tag**: `"ProxyFetchError"` = `'ProxyFetchError'`
+• **\_tag**: ``"ProxyFetchError"``
 
-#### Source
+#### Defined in
 
-[packages/errors/src/client/ProxyFetchError.js:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/client/ProxyFetchError.js#L14)
+[evmts-monorepo/packages/errors/src/client/ProxyFetchError.js:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/client/ProxyFetchError.js#L14)
 
-***
+___
 
 ### cause
 
-> **cause**?: `unknown`
+• `Optional` **cause**: `unknown`
 
 #### Inherited from
 
 Error.cause
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/typescript@5.3.3/node\_modules/typescript/lib/lib.es2022.error.d.ts:24
+.nvm/versions/node/v20.9.0/lib/node_modules/typescript/lib/lib.es2022.error.d.ts:24
 
-***
+___
 
 ### message
 
-> **message**: `string`
+• **message**: `string`
 
 #### Inherited from
 
 Error.message
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/typescript@5.3.3/node\_modules/typescript/lib/lib.es5.d.ts:1076
+.nvm/versions/node/v20.9.0/lib/node_modules/typescript/lib/lib.es5.d.ts:1076
 
-***
+___
 
 ### name
 
-> **name**: `"ProxyFetchError"` = `'ProxyFetchError'`
+• **name**: ``"ProxyFetchError"``
 
 #### Overrides
 
 Error.name
 
-#### Source
+#### Defined in
 
-[packages/errors/src/client/ProxyFetchError.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/client/ProxyFetchError.js#L10)
+[evmts-monorepo/packages/errors/src/client/ProxyFetchError.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/client/ProxyFetchError.js#L10)
 
-***
+___
 
 ### stack
 
-> **stack**?: `string`
+• `Optional` **stack**: `string`
 
 #### Inherited from
 
 Error.stack
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/typescript@5.3.3/node\_modules/typescript/lib/lib.es5.d.ts:1077
+.nvm/versions/node/v20.9.0/lib/node_modules/typescript/lib/lib.es5.d.ts:1077
 
-***
+___
 
 ### prepareStackTrace
 
-> **`static`** **prepareStackTrace**?: (`err`, `stackTraces`) => `any`
+▪ `Static` `Optional` **prepareStackTrace**: (`err`: `Error`, `stackTraces`: `CallSite`[]) => `any`
 
 Optional override for formatting stack traces
 
-#### See
+**`See`**
 
 https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
+#### Type declaration
+
+▸ (`err`, `stackTraces`): `any`
+
 Optional override for formatting stack traces
 
-#### Parameters
+##### Parameters
 
-▪ **err**: `Error`
+| Name | Type |
+| :------ | :------ |
+| `err` | `Error` |
+| `stackTraces` | `CallSite`[] |
 
-▪ **stackTraces**: `CallSite`[]
+##### Returns
 
-#### Returns
+`any`
 
-#### See
+**`See`**
 
 https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
@@ -127,67 +158,101 @@ https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
 Error.prepareStackTrace
 
-#### Source
+#### Defined in
 
-node\_modules/@types/node/globals.d.ts:28
+evmts-monorepo/node_modules/.pnpm/@types+node@20.11.5/node_modules/@types/node/globals.d.ts:28
 
-***
+evmts-monorepo/node_modules/.pnpm/@types+node@20.11.19/node_modules/@types/node/globals.d.ts:28
+
+evmts-monorepo/node_modules/.pnpm/bun-types@1.0.26/node_modules/bun-types/globals.d.ts:1532
+
+___
 
 ### stackTraceLimit
 
-> **`static`** **stackTraceLimit**: `number`
+▪ `Static` **stackTraceLimit**: `number`
 
 #### Inherited from
 
 Error.stackTraceLimit
 
-#### Source
+#### Defined in
 
-node\_modules/@types/node/globals.d.ts:30
+evmts-monorepo/node_modules/.pnpm/@types+node@20.11.5/node_modules/@types/node/globals.d.ts:30
+
+evmts-monorepo/node_modules/.pnpm/@types+node@20.11.19/node_modules/@types/node/globals.d.ts:30
+
+evmts-monorepo/node_modules/.pnpm/bun-types@1.0.26/node_modules/bun-types/globals.d.ts:1534
 
 ## Methods
 
-### captureStackTrace()
+### captureStackTrace
 
-#### captureStackTrace(targetObject, constructorOpt)
-
-> **`static`** **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
+▸ **captureStackTrace**(`targetObject`, `constructorOpt?`): `void`
 
 Create .stack property on a target object
 
-##### Parameters
+#### Parameters
 
-▪ **targetObject**: `object`
+| Name | Type |
+| :------ | :------ |
+| `targetObject` | `object` |
+| `constructorOpt?` | `Function` |
 
-▪ **constructorOpt?**: `Function`
+#### Returns
 
-##### Inherited from
+`void`
+
+#### Inherited from
 
 Error.captureStackTrace
 
-##### Source
+#### Defined in
 
-node\_modules/@types/node/globals.d.ts:21
+evmts-monorepo/node_modules/.pnpm/@types+node@20.11.5/node_modules/@types/node/globals.d.ts:21
 
-#### captureStackTrace(targetObject, constructorOpt)
-
-> **`static`** **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
+▸ **captureStackTrace**(`targetObject`, `constructorOpt?`): `void`
 
 Create .stack property on a target object
 
-##### Parameters
+#### Parameters
 
-▪ **targetObject**: `object`
+| Name | Type |
+| :------ | :------ |
+| `targetObject` | `object` |
+| `constructorOpt?` | `Function` |
 
-▪ **constructorOpt?**: `Function`
+#### Returns
 
-##### Inherited from
+`void`
+
+#### Inherited from
 
 Error.captureStackTrace
 
-##### Source
+#### Defined in
 
-node\_modules/.pnpm/bun-types@1.0.26/node\_modules/bun-types/globals.d.ts:1525
+evmts-monorepo/node_modules/.pnpm/@types+node@20.11.19/node_modules/@types/node/globals.d.ts:21
 
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
+▸ **captureStackTrace**(`targetObject`, `constructorOpt?`): `void`
+
+Create .stack property on a target object
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `targetObject` | `object` |
+| `constructorOpt?` | `Function` |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Error.captureStackTrace
+
+#### Defined in
+
+evmts-monorepo/node_modules/.pnpm/bun-types@1.0.26/node_modules/bun-types/globals.d.ts:1525

@@ -1,0 +1,23 @@
+{
+  "extends": "@tevm/tsconfig/base.json",
+  "compilerOptions": {
+    "plugins": [
+      {
+        "name": "@tevm/bundler/ts-plugin"
+      }
+    ],
+    "outDir": "types",
+    "skipLibCheck": true,
+    // this should be "Bundler" but don't want to fight a broken type
+    "moduleResolution": "NodeNext",
+    "module": "NodeNext"
+  },
+  "include": [
+    "src",
+    "src/**/*.json",
+    "**/*.sol"
+  ],
+  "exclude": [
+    "src/common/**/*"
+  ]
+}

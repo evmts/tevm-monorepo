@@ -15,6 +15,7 @@ import { runPromise } from 'effect/Effect'
  * @param {boolean} includeBytecode
  * @param {import('@tevm/runtime').ModuleType} moduleType
  * @param {import('@tevm/bundler-cache').Cache} cache
+ * @param {'tevm/contract' | '@tevm/contract'} contractPackage
  * @returns {Promise<import('./types.js').BundlerResult>} a promise that resolves to a bundler result object
  */
 export const resolveModuleAsync = async (
@@ -28,6 +29,7 @@ export const resolveModuleAsync = async (
 	includeBytecode,
 	moduleType,
 	cache,
+	contractPackage,
 ) => {
 	const cachedResult = await readCache(
 		logger,
@@ -53,7 +55,12 @@ export const resolveModuleAsync = async (
 		const artifactsExist = artifacts && Object.keys(artifacts).length > 0
 		if (artifactsExist) {
 			code = await runPromise(
-				generateRuntime(artifacts, moduleType, includeBytecode),
+				generateRuntime(
+					artifacts,
+					moduleType,
+					includeBytecode,
+					contractPackage,
+				),
 			)
 		} else {
 			const message = `there were no artifacts for ${modulePath}. This is likely a bug in tevm`

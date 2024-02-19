@@ -1,9 +1,9 @@
 import { bunFileAccesObject } from './bunFileAccessObject.js'
 import { bundler } from '@tevm/base-bundler'
 import { createCache } from '@tevm/bundler-cache'
-import { loadConfig } from '@tevm/config'
+import { defaultConfig, loadConfig } from '@tevm/config'
 import { createSolc } from '@tevm/solc'
-import { runSync } from 'effect/Effect'
+import { catchTag, logWarning, map, runSync } from 'effect/Effect'
 // @ts-expect-error
 import defaultSolc from 'solc'
 
@@ -87,7 +87,15 @@ export const bunPluginTevm = ({ solc = defaultSolc.version }) => {
 	return {
 		name: '@tevm/esbuild-plugin',
 		async setup(build) {
-			const config = runSync(loadConfig(process.cwd()))
+			const config = runSync(
+				loadConfig(process.cwd()).pipe(
+					catchTag('FailedToReadConfigError', () =>
+						logWarning(
+							'Unable to find tevm.config.json. Using default config.',
+						).pipe(map(() => defaultConfig)),
+					),
+				),
+			)
 			const solcCache = createCache(
 				config.cacheDir,
 				bunFileAccesObject,

@@ -9,3 +9,4 @@ packages:
   - "lsp/*"
   - "packages/*"
   - 'tevm'
+  - "test/*"

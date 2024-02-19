@@ -1,42 +1,42 @@
 {
-	"private": true,
-	"name": "@tevm/vscode",
-	"version": "1.0.0-next.28",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/evmts/tevm-monorepo.git",
-		"directory": "lsp/vscode"
-	},
-	"categories": [
-		"Programming Languages"
-	],
-	"displayName": "Tevm Language Features",
-	"description": "Tevm Language Features",
-	"author": "tevm",
-	"publisher": "tevm",
-	"engines": {
-		"vscode": "^1.82.0"
-	},
-	"activationEvents": [
-		"onLanguage:javascript",
-		"onLanguage:typescript"
-	],
-	"main": "./dist/client.js",
-	"scripts": {
-		"build": "node scripts/build -- --minify",
-		"watch": "npm run build -- --watch",
-		"pack": "npm run build && vsce package --pre-release",
-		"release": "npm run build && vsce publish --pre-release"
-	},
-	"devDependencies": {
-		"@tevm/tsconfig": "workspace:^",
-		"@tevm/tsupconfig": "workspace:^",
-		"@tevm/lsp": "workspace:^",
-		"@types/vscode": "^1.82.0",
-		"@volar/language-server": "~1.10.5",
-		"@volar/vscode": "~1.10.5",
-		"esbuild": "latest",
-		"vsce": "latest",
-		"vscode-languageclient": "^9.0.1"
-	}
+  "private": true,
+  "name": "@tevm/vscode",
+  "version": "1.0.0-next.28",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/evmts/tevm-monorepo.git",
+    "directory": "lsp/vscode"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "displayName": "Tevm Language Features",
+  "description": "Tevm Language Features",
+  "author": "tevm",
+  "publisher": "tevm",
+  "engines": {
+    "vscode": "^1.82.0"
+  },
+  "activationEvents": [
+    "onLanguage:javascript",
+    "onLanguage:typescript"
+  ],
+  "main": "./dist/client.js",
+  "scripts": {
+    "build": "node scripts/build -- --minify",
+    "watch": "npm run build -- --watch",
+    "pack": "npm run build && vsce package --pre-release",
+    "release": "npm run build && vsce publish --pre-release"
+  },
+  "devDependencies": {
+    "@tevm/tsconfig": "workspace:^",
+    "@tevm/tsupconfig": "workspace:^",
+    "@tevm/lsp": "workspace:^",
+    "@types/vscode": "^1.82.0",
+    "@volar/language-server": "~1.10.5",
+    "@volar/vscode": "~1.10.5",
+    "esbuild": "latest",
+    "vsce": "latest",
+    "vscode-languageclient": "^9.0.1"
+  }
 }
