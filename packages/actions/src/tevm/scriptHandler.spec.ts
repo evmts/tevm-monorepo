@@ -320,11 +320,9 @@ describe('scriptHandler', () => {
 		const stateManager = new NormalStateManager()
 		const evm = new Evm({ stateManager })
 		expect(
-			await scriptHandler({ vm: await TevmVm.create({ evm, stateManager }) })(
-				{
-					throwOnFail: false,
-				} as any,
-			),
+			await scriptHandler({ vm: await TevmVm.create({ evm, stateManager }) })({
+				throwOnFail: false,
+			} as any),
 		).toEqual({
 			errors: [
 				{
@@ -396,7 +394,7 @@ describe('scriptHandler', () => {
 		const evm = new Evm({ stateManager })
 		const originalRunCall = evm.runCall.bind(evm)
 		const vm = await TevmVm.create({ evm, stateManager })
-		vm.evm.runCall = async function(args) {
+		vm.evm.runCall = async function (args) {
 			const realResult = await originalRunCall(args)
 			return {
 				...realResult,
