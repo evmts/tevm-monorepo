@@ -1863,15 +1863,12 @@ importers:
 
   test/bench:
     dependencies:
-      '@tevm/utils':
-        specifier: workspace:^
-        version: link:../../packages/utils
       tevm:
         specifier: workspace:^
         version: link:../../tevm
     devDependencies:
       '@tevm/bundler':
-        specifier: workspace:^
+        specifier: workspace:1.0.0-next.39
         version: link:../../bundler
       '@tevm/tsconfig':
         specifier: workspace:^

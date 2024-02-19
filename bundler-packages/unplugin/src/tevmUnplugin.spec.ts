@@ -20,7 +20,7 @@ import {
 vi.mock('module', async () => ({
 	...((await vi.importActual('module')) as {}),
 	createRequire: vi.fn(() => ({
-		resolve: () => ({} as any),
+		resolve: () => ({}) as any,
 	})),
 }))
 vi.mock('@tevm/config', async () => ({

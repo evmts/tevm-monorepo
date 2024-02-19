@@ -16,7 +16,7 @@ export const getContractPath = (basePath) => {
 		try {
 			require.resolve(contractPackage)
 			return contractPackage
-		} catch (e) { }
+		} catch (e) {}
 	}
 	// @ts-expect-error checking for global existence of bun
 	const isBun = typeof Bun !== 'undefined'

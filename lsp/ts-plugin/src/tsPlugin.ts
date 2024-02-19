@@ -11,8 +11,8 @@ import {
 import { createLogger, decorateHost } from './factories/index.js'
 import { isSolidity } from './utils/index.js'
 import { createCache } from '@tevm/bundler-cache'
-import { loadConfig } from '@tevm/config'
-import { runSync } from 'effect/Effect'
+import { defaultConfig, loadConfig } from '@tevm/config'
+import { catchTag, logWarning, map, runSync } from 'effect/Effect'
 import typescript from 'typescript/lib/tsserverlibrary.js'
 
 /**
@@ -28,8 +28,15 @@ export const tsPlugin: typescript.server.PluginModuleFactory = (modules) => {
 	return {
 		create: (createInfo) => {
 			const logger = createLogger(createInfo)
+
 			const config = runSync(
-				loadConfig(createInfo.project.getCurrentDirectory()),
+				loadConfig(createInfo.project.getCurrentDirectory()).pipe(
+					catchTag('FailedToReadConfigError', () =>
+						logWarning(
+							'Unable to find tevm.config.json. Using default config.',
+						).pipe(map(() => defaultConfig)),
+					),
+				),
 			)
 			// this fao uses the lsp not the real file system
 			const fao = createFileAccessObject(createInfo.languageServiceHost)

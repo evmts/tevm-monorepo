@@ -63,11 +63,10 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@tevm/utils": "workspace:^",
     "tevm": "workspace:^"
   },
   "devDependencies": {
-    "@tevm/bundler": "workspace:^",
+    "@tevm/bundler": "workspace:1.0.0-next.39",
     "@tevm/tsconfig": "workspace:^",
     "@tevm/tsupconfig": "workspace:^",
     "@types/node": "^20.11.19"
