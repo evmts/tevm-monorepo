@@ -5,7 +5,7 @@ prev: false
 title: "GetAccountParams"
 ---
 
-> **GetAccountParams**: `object`
+> **GetAccountParams**\<`TThrowOnFail`\>: `BaseParams`\<`TThrowOnFail`\> & `object`
 
 Tevm params to get an account
 
@@ -25,9 +25,15 @@ const getAccountParams: import('@tevm/api').GetAccountParams = {
 
 Address of account
 
+## Type parameters
+
+| Parameter | Default |
+| :------ | :------ |
+| `TThrowOnFail` extends `boolean` | `boolean` |
+
 ## Source
 
-[params/GetAccountParams.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/GetAccountParams.ts#L10)
+[params/GetAccountParams.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/GetAccountParams.ts#L11)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

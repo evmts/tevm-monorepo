@@ -12,4 +12,3 @@ export type {
 	DebugTraceCallResult,
 	DebugTraceTransactionResult,
 } from './DebugResult.js'
-export type { ForkResult } from './ForkResult.js'

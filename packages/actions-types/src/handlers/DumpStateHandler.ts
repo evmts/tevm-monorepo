@@ -1,4 +1,5 @@
 import type { DumpStateResult } from '../index.js'
+import type { BaseParams } from '../params/BaseParams.js'
 
 /**
  * Dumps the current state of the VM into a JSON-seralizable object
@@ -17,4 +18,4 @@ import type { DumpStateResult } from '../index.js'
  * await tevm.loadState({state})
  * ```
  */
-export type DumpStateHandler = () => Promise<DumpStateResult>
+export type DumpStateHandler = (params?: BaseParams) => Promise<DumpStateResult>

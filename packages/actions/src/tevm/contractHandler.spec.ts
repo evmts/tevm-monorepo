@@ -347,6 +347,7 @@ describe('contractHandler', () => {
 				functionName: 'transferFrom',
 				args: [caller, caller, 1n],
 				to: ERC20_ADDRESS,
+				throwOnFail: false,
 			}),
 		).toEqual({
 			...({} as { data: never }),
@@ -379,6 +380,7 @@ describe('contractHandler', () => {
 				args: [caller, caller, 1n],
 				to: ERC20_ADDRESS,
 				value: 420n,
+				throwOnFail: false,
 			}),
 		).toEqual({
 			...({} as { data: never }),
@@ -420,6 +422,7 @@ describe('contractHandler', () => {
 				to: ERC20_ADDRESS,
 				value: 420n,
 				createTransaction: true,
+				throwOnFail: false,
 			}),
 		).toEqual({
 			...({} as { data: never }),
@@ -445,11 +448,14 @@ describe('contractHandler', () => {
 				await setAccountHandler({ vm })({
 					address: ERC20_ADDRESS,
 					deployedBytecode: ERC20_BYTECODE,
+					throwOnFail: false,
 				})
 			).errors,
 		).toBeUndefined()
 
-		expect(await contractHandler({ vm })({} as any)).toEqual({
+		expect(
+			await contractHandler({ vm })({ throwOnFail: false } as any),
+		).toEqual({
 			...({} as { data: never }),
 			errors: [
 				{
@@ -504,6 +510,7 @@ describe('contractHandler', () => {
 				to: ERC20_ADDRESS,
 				gas: 16784800n,
 				createTransaction: true,
+				throwOnFail: false,
 			}),
 		).toMatchSnapshot()
 	})
@@ -518,6 +525,7 @@ describe('contractHandler', () => {
 				await setAccountHandler({ vm })({
 					address: ERC20_ADDRESS,
 					deployedBytecode: ERC20_BYTECODE,
+					throwOnFail: false,
 				})
 			).errors,
 		).toBeUndefined()
@@ -529,6 +537,7 @@ describe('contractHandler', () => {
 				args: ['not correct type' as any],
 				to: ERC20_ADDRESS,
 				gas: 16784800n,
+				throwOnFail: false,
 			}),
 		).toMatchSnapshot()
 	})

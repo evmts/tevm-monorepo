@@ -82,8 +82,6 @@ export const requestProcedure = (client) => {
 				return /** @type any */ (blockNumberProcedure(client)(request))
 			case 'tevm_dumpState':
 				return /** @type any */ (dumpStateProcedure)(client)(request)
-			case 'tevm_fork':
-				throw new Error('not implemented!')
 			case 'tevm_loadState': {
 				return /** @type any */ (loadStateProcedure)(client)(request)
 			}

@@ -1,6 +1,5 @@
 import type {
 	CallJsonRpcResponse,
-	ForkJsonRpcResponse,
 	GetAccountJsonRpcResponse,
 	LoadStateJsonRpcResponse,
 	ScriptJsonRpcResponse,
@@ -18,5 +17,4 @@ export type TevmReturnType = {
 	tevm_dumpState: DumpStateJsonRpcResponse
 	tevm_getAccount: GetAccountJsonRpcResponse
 	tevm_setAccount: SetAccountJsonRpcResponse
-	tevm_fork: ForkJsonRpcResponse
 }

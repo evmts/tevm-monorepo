@@ -24,7 +24,6 @@ import type {
 	EthGetCodeJsonRpcRequest,
 	EthGetStorageAtJsonRpcRequest,
 	EthJsonRpcRequest,
-	ForkJsonRpcRequest,
 	GetAccountJsonRpcRequest,
 	ScriptJsonRpcRequest,
 	SetAccountJsonRpcRequest,
@@ -71,11 +70,6 @@ import type { JsonRpcReturnTypeFromMethod } from './JsonRpcReturnTypeFromMethod.
  *
  * request - {@link SetAccountJsonRpcRequest}
  * response - {@link SetAccountJsonRpcResponse}
- *
- * #### tevm_fork
- *
- * request - {@link ForkJsonRpcRequest}
- * response - {@link ForkJsonRpcResponse}
  *
  * ### debug_* methods
  *

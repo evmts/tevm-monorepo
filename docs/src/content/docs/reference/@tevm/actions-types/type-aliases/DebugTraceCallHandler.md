@@ -13,7 +13,7 @@ title: "DebugTraceCallHandler"
 
 ## Source
 
-[handlers/DebugHandler.ts:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/handlers/DebugHandler.ts#L15)
+[handlers/DebugHandler.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/handlers/DebugHandler.ts#L16)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,4 +1,5 @@
 import type { Address } from '../common/index.js'
+import type { BaseParams } from './BaseParams.js'
 
 /**
  * Tevm params to get an account
@@ -7,9 +8,10 @@ import type { Address } from '../common/index.js'
  *   address: '0x...',
  * }
  */
-export type GetAccountParams = {
-	/**
-	 * Address of account
-	 */
-	address: Address
-}
+export type GetAccountParams<TThrowOnFail extends boolean = boolean> =
+	BaseParams<TThrowOnFail> & {
+		/**
+		 * Address of account
+		 */
+		address: Address
+	}

@@ -37,6 +37,7 @@ describe('setAccountHandler', () => {
 			deployedBytecode: ERC20_BYTECODE,
 			balance: 420n,
 			nonce: 69n,
+			throwOnFail: false,
 		})
 		expect(res.errors).toEqual([
 			{
@@ -63,6 +64,7 @@ describe('setAccountHandler', () => {
 			deployedBytecode: ERC20_BYTECODE,
 			balance: 420n,
 			nonce: 69n,
+			throwOnFail: false,
 		})
 		expect(res.errors).toEqual([
 			{

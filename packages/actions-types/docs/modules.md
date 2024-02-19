@@ -184,9 +184,6 @@
 - [EthUninstallFilterResult](modules.md#ethuninstallfilterresult)
 - [FilterLog](modules.md#filterlog)
 - [FilterParams](modules.md#filterparams)
-- [ForkHandler](modules.md#forkhandler)
-- [ForkParams](modules.md#forkparams)
-- [ForkResult](modules.md#forkresult)
 - [GetAccountHandler](modules.md#getaccounthandler)
 - [GetAccountParams](modules.md#getaccountparams)
 - [GetAccountResult](modules.md#getaccountresult)
@@ -915,32 +912,19 @@ ___
 
 ### BaseCallParams
 
-Ƭ **BaseCallParams**: `Object`
+Ƭ **BaseCallParams**\<`TThrowOnFail`\>: `BaseParams`\<`TThrowOnFail`\> & \{ `blobVersionedHashes?`: [`Hex`](modules.md#hex)[] ; `blockTag?`: [`BlockParam`](modules.md#blockparam) ; `caller?`: [`Address`](modules.md#address) ; `createTransaction?`: `boolean` ; `depth?`: `number` ; `from?`: [`Address`](modules.md#address) ; `gas?`: `bigint` ; `gasPrice?`: `bigint` ; `gasRefund?`: `bigint` ; `origin?`: [`Address`](modules.md#address) ; `selfdestruct?`: `Set`\<[`Address`](modules.md#address)\> ; `skipBalance?`: `boolean` ; `to?`: [`Address`](modules.md#address) ; `value?`: `bigint`  }
 
 Properties shared accross call-like params
 
-#### Type declaration
+#### Type parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `blobVersionedHashes?` | [`Hex`](modules.md#hex)[] | Versioned hashes for each blob in a blob transaction |
-| `blockTag?` | [`BlockParam`](modules.md#blockparam) | The block number or block tag to execute the call at. Defaults to `latest` |
-| `caller?` | [`Address`](modules.md#address) | The address that ran this code (`msg.sender`). Defaults to the zero address. This defaults to `from` address if set otherwise it defaults to the zero address |
-| `createTransaction?` | `boolean` | Whether or not to update the state or run call in a dry-run. Defaults to `false` |
-| `depth?` | `number` | The call depth. Defaults to `0` |
-| `from?` | [`Address`](modules.md#address) | The from address for the call. Defaults to the zero address. It is also possible to set the `origin` and `caller` addresses seperately using those options. Otherwise both are set to the `from` address |
-| `gas?` | `bigint` | The gas limit for the call. Defaults to 0xffffff (16_777_215n) |
-| `gasPrice?` | `bigint` | The gas price for the call. |
-| `gasRefund?` | `bigint` | Refund counter. Defaults to `0` |
-| `origin?` | [`Address`](modules.md#address) | The address where the call originated from. Defaults to the zero address. This defaults to `from` address if set otherwise it defaults to the zero address |
-| `selfdestruct?` | `Set`\<[`Address`](modules.md#address)\> | Addresses to selfdestruct. Defaults to the empty set. |
-| `skipBalance?` | `boolean` | Set caller to msg.value of less than msg.value Defaults to false exceipt for when running scripts where it is set to true |
-| `to?` | [`Address`](modules.md#address) | The address of the account that is executing this code (`address(this)`). Defaults to the zero address. |
-| `value?` | `bigint` | The value in ether that is being sent to `opts.address`. Defaults to `0` |
+| Name | Type |
+| :------ | :------ |
+| `TThrowOnFail` | extends `boolean` = `boolean` |
 
 #### Defined in
 
-[params/BaseCallParams.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/BaseCallParams.ts#L6)
+[params/BaseCallParams.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/BaseCallParams.ts#L7)
 
 ___
 
@@ -1069,7 +1053,7 @@ ___
 
 ### CallParams
 
-Ƭ **CallParams**: [`BaseCallParams`](modules.md#basecallparams) & \{ `data?`: [`Hex`](modules.md#hex) ; `deployedBytecode?`: [`Hex`](modules.md#hex) ; `salt?`: [`Hex`](modules.md#hex)  }
+Ƭ **CallParams**\<`TThrowOnFail`\>: [`BaseCallParams`](modules.md#basecallparams)\<`TThrowOnFail`\> & \{ `data?`: [`Hex`](modules.md#hex) ; `deployedBytecode?`: [`Hex`](modules.md#hex) ; `salt?`: [`Hex`](modules.md#hex)  }
 
 Tevm params to execute a call on the vm
 Call is the lowest level method to interact with the vm
@@ -1085,6 +1069,12 @@ const callParams: import('@tevm/api').CallParams = {
   gasLimit: 420n,
 }
 ```
+
+#### Type parameters
+
+| Name | Type |
+| :------ | :------ |
+| `TThrowOnFail` | extends `boolean` = `boolean` |
 
 #### Defined in
 
@@ -1161,7 +1151,7 @@ ___
 
 ### ContractParams
 
-Ƭ **ContractParams**\<`TAbi`, `TFunctionName`\>: `EncodeFunctionDataParameters`\<`TAbi`, `TFunctionName`\> & [`BaseCallParams`](modules.md#basecallparams) & \{ `to`: [`Address`](modules.md#address)  }
+Ƭ **ContractParams**\<`TAbi`, `TFunctionName`, `TThrowOnFail`\>: `EncodeFunctionDataParameters`\<`TAbi`, `TFunctionName`\> & [`BaseCallParams`](modules.md#basecallparams)\<`TThrowOnFail`\> & \{ `to`: [`Address`](modules.md#address)  }
 
 Tevm params to execute a call on a contract
 
@@ -1171,6 +1161,7 @@ Tevm params to execute a call on a contract
 | :------ | :------ |
 | `TAbi` | extends [`Abi`](modules.md#abi) \| readonly `unknown`[] = [`Abi`](modules.md#abi) |
 | `TFunctionName` | extends `ContractFunctionName`\<`TAbi`\> = `ContractFunctionName`\<`TAbi`\> |
+| `TThrowOnFail` | extends `boolean` = `boolean` |
 
 #### Defined in
 
@@ -1216,7 +1207,7 @@ ___
 
 #### Defined in
 
-[handlers/DebugHandler.ts:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/handlers/DebugHandler.ts#L15)
+[handlers/DebugHandler.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/handlers/DebugHandler.ts#L16)
 
 ___
 
@@ -1228,7 +1219,7 @@ Params taken by `debug_traceCall` handler
 
 #### Defined in
 
-[params/DebugParams.ts:56](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/DebugParams.ts#L56)
+[params/DebugParams.ts:60](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/DebugParams.ts#L60)
 
 ___
 
@@ -1253,7 +1244,7 @@ ___
 
 ### DebugTraceTransactionHandler
 
-Ƭ **DebugTraceTransactionHandler**: (`params`: [`DebugTraceTransactionParams`](modules.md#debugtracetransactionparams)) => `Promise`\<[`DebugTraceTransactionResult`](modules.md#debugtracetransactionresult)\>
+Ƭ **DebugTraceTransactionHandler**: (`params`: [`DebugTraceTransactionParams`](modules.md#debugtracetransactionparams)\<`boolean`\>) => `Promise`\<[`DebugTraceTransactionResult`](modules.md#debugtracetransactionresult)\>
 
 #### Type declaration
 
@@ -1263,7 +1254,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `params` | [`DebugTraceTransactionParams`](modules.md#debugtracetransactionparams) |
+| `params` | [`DebugTraceTransactionParams`](modules.md#debugtracetransactionparams)\<`boolean`\> |
 
 ##### Returns
 
@@ -1271,19 +1262,25 @@ ___
 
 #### Defined in
 
-[handlers/DebugHandler.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/handlers/DebugHandler.ts#L11)
+[handlers/DebugHandler.ts:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/handlers/DebugHandler.ts#L12)
 
 ___
 
 ### DebugTraceTransactionParams
 
-Ƭ **DebugTraceTransactionParams**: [`TraceParams`](modules.md#traceparams) & \{ `transactionHash`: [`Hex`](modules.md#hex)  }
+Ƭ **DebugTraceTransactionParams**\<`TThrowOnError`\>: `BaseParams`\<`TThrowOnError`\> & [`TraceParams`](modules.md#traceparams) & \{ `transactionHash`: [`Hex`](modules.md#hex)  }
 
 Params taken by `debug_traceTransaction` handler
 
+#### Type parameters
+
+| Name | Type |
+| :------ | :------ |
+| `TThrowOnError` | extends `boolean` = `boolean` |
+
 #### Defined in
 
-[params/DebugParams.ts:45](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/DebugParams.ts#L45)
+[params/DebugParams.ts:46](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/DebugParams.ts#L46)
 
 ___
 
@@ -1299,7 +1296,7 @@ ___
 
 ### DumpStateHandler
 
-Ƭ **DumpStateHandler**: () => `Promise`\<[`DumpStateResult`](modules.md#dumpstateresult)\>
+Ƭ **DumpStateHandler**: (`params?`: `BaseParams`) => `Promise`\<[`DumpStateResult`](modules.md#dumpstateresult)\>
 
 Dumps the current state of the VM into a JSON-seralizable object
 
@@ -1323,7 +1320,13 @@ await tevm.loadState({state})
 
 #### Type declaration
 
-▸ (): `Promise`\<[`DumpStateResult`](modules.md#dumpstateresult)\>
+▸ (`params?`): `Promise`\<[`DumpStateResult`](modules.md#dumpstateresult)\>
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `params?` | `BaseParams` |
 
 ##### Returns
 
@@ -1331,7 +1334,7 @@ await tevm.loadState({state})
 
 #### Defined in
 
-[handlers/DumpStateHandler.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/handlers/DumpStateHandler.ts#L20)
+[handlers/DumpStateHandler.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/handlers/DumpStateHandler.ts#L21)
 
 ___
 
@@ -3414,80 +3417,6 @@ An event filter optionsobject
 
 ___
 
-### ForkHandler
-
-Ƭ **ForkHandler**: (`params`: [`ForkParams`](modules.md#forkparams)) => `Promise`\<[`ForkResult`](modules.md#forkresult)\>
-
-This is an unimplemented experimental feature
-Triggers a fork against the given fork config. If no config is provided it will fork the current state
-If the current state is not proxying to an RPC and is just a vanilla VM it will throw
-
-Block tag is optional and defaults to 'latest'
-
-**`Throws`**
-
-import('@tevm/errors').ForkError
-
-**`Example`**
-
-```typescript
-const {errors} = await tevm.fork({
-  url: 'https://mainnet.infura.io/v3',
-  blockTag: 'earliest',
-})
-```
-
-#### Type declaration
-
-▸ (`params`): `Promise`\<[`ForkResult`](modules.md#forkresult)\>
-
-##### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `params` | [`ForkParams`](modules.md#forkparams) |
-
-##### Returns
-
-`Promise`\<[`ForkResult`](modules.md#forkresult)\>
-
-#### Defined in
-
-[handlers/ForkHandler.ts:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/handlers/ForkHandler.ts#L17)
-
-___
-
-### ForkParams
-
-Ƭ **ForkParams**: [`NetworkConfig`](modules.md#networkconfig)
-
-This is an unimplemented experimental feature
-Params for the `tevm_fork` method
-
-#### Defined in
-
-[params/ForkParams.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/ForkParams.ts#L7)
-
-___
-
-### ForkResult
-
-Ƭ **ForkResult**\<`ErrorType`\>: \{ `errors?`: `never` ; `forkId`: `bigint`  } \| \{ `errors`: `ErrorType`[] ; `forkId?`: `never`  }
-
-This is an unimplemented experimental feature
-
-#### Type parameters
-
-| Name | Type |
-| :------ | :------ |
-| `ErrorType` | extends `ForkError` = `ForkError` |
-
-#### Defined in
-
-[result/ForkResult.ts:5](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/result/ForkResult.ts#L5)
-
-___
-
 ### GetAccountHandler
 
 Ƭ **GetAccountHandler**: (`params`: [`GetAccountParams`](modules.md#getaccountparams)) => `Promise`\<[`GetAccountResult`](modules.md#getaccountresult)\>
@@ -3525,7 +3454,7 @@ ___
 
 ### GetAccountParams
 
-Ƭ **GetAccountParams**: `Object`
+Ƭ **GetAccountParams**\<`TThrowOnFail`\>: `BaseParams`\<`TThrowOnFail`\> & \{ `address`: [`Address`](modules.md#address)  }
 
 Tevm params to get an account
 
@@ -3537,15 +3466,15 @@ const getAccountParams: import('@tevm/api').GetAccountParams = {
 }
 ```
 
-#### Type declaration
+#### Type parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `address` | [`Address`](modules.md#address) | Address of account |
+| Name | Type |
+| :------ | :------ |
+| `TThrowOnFail` | extends `boolean` = `boolean` |
 
 #### Defined in
 
-[params/GetAccountParams.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/GetAccountParams.ts#L10)
+[params/GetAccountParams.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/GetAccountParams.ts#L11)
 
 ___
 
@@ -3645,19 +3574,19 @@ ___
 
 ### LoadStateParams
 
-Ƭ **LoadStateParams**: `Object`
+Ƭ **LoadStateParams**\<`TThrowOnFail`\>: `BaseParams`\<`TThrowOnFail`\> & \{ `state`: `SerializableTevmState`  }
 
 params for `tevm_loadState` method. Takes a SerializableTevmState to load into state.
 
-#### Type declaration
+#### Type parameters
 
 | Name | Type |
 | :------ | :------ |
-| `state` | `SerializableTevmState` |
+| `TThrowOnFail` | extends `boolean` = `boolean` |
 
 #### Defined in
 
-[params/LoadStateParams.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/LoadStateParams.ts#L6)
+[params/LoadStateParams.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/LoadStateParams.ts#L7)
 
 ___
 
@@ -3783,7 +3712,7 @@ ___
 
 ### ScriptParams
 
-Ƭ **ScriptParams**\<`TAbi`, `TFunctionName`\>: `EncodeFunctionDataParameters`\<`TAbi`, `TFunctionName`\> & [`BaseCallParams`](modules.md#basecallparams) & \{ `deployedBytecode`: `Hex`  }
+Ƭ **ScriptParams**\<`TAbi`, `TFunctionName`, `TThrowOnFail`\>: `EncodeFunctionDataParameters`\<`TAbi`, `TFunctionName`\> & [`BaseCallParams`](modules.md#basecallparams)\<`TThrowOnFail`\> & \{ `deployedBytecode`: `Hex`  }
 
 Tevm params for deploying and running a script
 
@@ -3793,6 +3722,7 @@ Tevm params for deploying and running a script
 | :------ | :------ |
 | `TAbi` | extends `Abi` \| readonly `unknown`[] = `Abi` |
 | `TFunctionName` | extends `ContractFunctionName`\<`TAbi`\> = `ContractFunctionName`\<`TAbi`\> |
+| `TThrowOnFail` | extends `boolean` = `boolean` |
 
 #### Defined in
 
@@ -3858,7 +3788,7 @@ ___
 
 ### SetAccountParams
 
-Ƭ **SetAccountParams**: `Object`
+Ƭ **SetAccountParams**\<`TThrowOnFail`\>: `BaseParams`\<`TThrowOnFail`\> & \{ `address`: `Address` ; `balance?`: `bigint` ; `deployedBytecode?`: `Hex` ; `nonce?`: `bigint` ; `storageRoot?`: `Hex`  }
 
 Tevm params to set an account in the vm state
 all fields are optional except address
@@ -3875,19 +3805,15 @@ const accountParams: import('tevm/api').SetAccountParams = {
 }
 ```
 
-#### Type declaration
+#### Type parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `address` | `Address` | Address of account |
-| `balance?` | `bigint` | Balance to set account to |
-| `deployedBytecode?` | `Hex` | Contract bytecode to set account to |
-| `nonce?` | `bigint` | Nonce to set account to |
-| `storageRoot?` | `Hex` | Storage root to set account to |
+| Name | Type |
+| :------ | :------ |
+| `TThrowOnFail` | extends `boolean` = `boolean` |
 
 #### Defined in
 
-[params/SetAccountParams.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/SetAccountParams.ts#L16)
+[params/SetAccountParams.ts:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/SetAccountParams.ts#L17)
 
 ___
 
@@ -3976,7 +3902,7 @@ Config params for trace calls
 
 #### Defined in
 
-[params/DebugParams.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/DebugParams.ts#L7)
+[params/DebugParams.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/DebugParams.ts#L8)
 
 ___
 

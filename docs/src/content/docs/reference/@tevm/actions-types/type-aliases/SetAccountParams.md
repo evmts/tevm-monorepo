@@ -5,7 +5,7 @@ prev: false
 title: "SetAccountParams"
 ---
 
-> **SetAccountParams**: `object`
+> **SetAccountParams**\<`TThrowOnFail`\>: `BaseParams`\<`TThrowOnFail`\> & `object`
 
 Tevm params to set an account in the vm state
 all fields are optional except address
@@ -54,9 +54,15 @@ Nonce to set account to
 
 Storage root to set account to
 
+## Type parameters
+
+| Parameter | Default |
+| :------ | :------ |
+| `TThrowOnFail` extends `boolean` | `boolean` |
+
 ## Source
 
-[params/SetAccountParams.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/SetAccountParams.ts#L16)
+[params/SetAccountParams.ts:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/SetAccountParams.ts#L17)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

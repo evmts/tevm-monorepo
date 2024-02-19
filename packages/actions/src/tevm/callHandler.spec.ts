@@ -377,6 +377,7 @@ describe('callHandler', () => {
 				}),
 				from: caller,
 				to: ERC20_ADDRESS,
+				throwOnFail: false,
 			}),
 		).toEqual({
 			logs: [],
@@ -411,6 +412,7 @@ describe('callHandler', () => {
 				value: 420n,
 				// we need to createTransaction because or else the evm will be reinitialized and erase our mock
 				createTransaction: true,
+				throwOnFail: false,
 			}),
 		).toEqual({
 			errors: [

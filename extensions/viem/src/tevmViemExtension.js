@@ -469,26 +469,6 @@ export const tevmViemExtension = () => {
 			)
 		}
 
-		/**
-		 * @type {import('@tevm/actions-types').ForkHandler}
-		 */
-		const fork = async (params) => {
-			return /** @type {any} */ (
-				formatResult(
-					await request({
-						method: 'tevm_fork',
-						jsonrpc: '2.0',
-						params: [
-							{
-								url: params.url,
-								blockTag: formatBlockTag(params.blockTag),
-							},
-						],
-					}),
-				)
-			)
-		}
-
 		return {
 			tevm: {
 				eth: {
@@ -504,7 +484,6 @@ export const tevmViemExtension = () => {
 				request,
 				requestBulk,
 				script,
-				fork,
 				getAccount,
 				setAccount,
 				call,

@@ -184,9 +184,6 @@
 - [EthUninstallFilterJsonRpcProcedure](modules.md#ethuninstallfilterjsonrpcprocedure)
 - [EthUninstallFilterJsonRpcRequest](modules.md#ethuninstallfilterjsonrpcrequest)
 - [EthUninstallFilterJsonRpcResponse](modules.md#ethuninstallfilterjsonrpcresponse)
-- [ForkJsonRpcProcedure](modules.md#forkjsonrpcprocedure)
-- [ForkJsonRpcRequest](modules.md#forkjsonrpcrequest)
-- [ForkJsonRpcResponse](modules.md#forkjsonrpcresponse)
 - [GetAccountJsonRpcProcedure](modules.md#getaccountjsonrpcprocedure)
 - [GetAccountJsonRpcRequest](modules.md#getaccountjsonrpcrequest)
 - [GetAccountJsonRpcResponse](modules.md#getaccountjsonrpcresponse)
@@ -3197,59 +3194,6 @@ JSON-RPC response for `eth_uninstallFilter` procedure
 
 ___
 
-### ForkJsonRpcProcedure
-
-Ƭ **ForkJsonRpcProcedure**: (`request`: [`ForkJsonRpcRequest`](modules.md#forkjsonrpcrequest)) => `Promise`\<[`ForkJsonRpcResponse`](modules.md#forkjsonrpcresponse)\>
-
-This is an unimplemented experimental feature
-Fork JSON-RPC procedure executes a call against the tevm EVM
-
-#### Type declaration
-
-▸ (`request`): `Promise`\<[`ForkJsonRpcResponse`](modules.md#forkjsonrpcresponse)\>
-
-##### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `request` | [`ForkJsonRpcRequest`](modules.md#forkjsonrpcrequest) |
-
-##### Returns
-
-`Promise`\<[`ForkJsonRpcResponse`](modules.md#forkjsonrpcresponse)\>
-
-#### Defined in
-
-[procedure/ForkJsonRpcProcedure.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/procedure/ForkJsonRpcProcedure.ts#L7)
-
-___
-
-### ForkJsonRpcRequest
-
-Ƭ **ForkJsonRpcRequest**: `JsonRpcRequest`\<``"tevm_fork"``, [[`SerializeToJson`](modules.md#serializetojson)\<`ForkParams`\>]\>
-
-This is an unimplemented experimental feature
-The JSON-RPC request for the `tevm_fork` method
-
-#### Defined in
-
-[requests/ForkJsonRpcRequest.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/ForkJsonRpcRequest.ts#L9)
-
-___
-
-### ForkJsonRpcResponse
-
-Ƭ **ForkJsonRpcResponse**: `JsonRpcResponse`\<``"tevm_fork"``, [`SerializeToJson`](modules.md#serializetojson)\<`ForkResult`\>, `ForkError`[``"_tag"``]\>
-
-This is an unimplemented experimental feature
-Response of the `tevm_fork` RPC method.
-
-#### Defined in
-
-[responses/ForkJsonRpcResponse.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/ForkJsonRpcResponse.ts#L10)
-
-___
-
 ### GetAccountJsonRpcProcedure
 
 Ƭ **GetAccountJsonRpcProcedure**: (`request`: [`GetAccountJsonRpcRequest`](modules.md#getaccountjsonrpcrequest)) => `Promise`\<[`GetAccountJsonRpcResponse`](modules.md#getaccountjsonrpcresponse)\>
@@ -3699,11 +3643,6 @@ response - [GetAccountJsonRpcResponse](modules.md#getaccountjsonrpcresponse)
 request - [SetAccountJsonRpcRequest](modules.md#setaccountjsonrpcrequest)
 response - [SetAccountJsonRpcResponse](modules.md#setaccountjsonrpcresponse)
 
-#### tevm_fork
-
-request - [ForkJsonRpcRequest](modules.md#forkjsonrpcrequest)
-response - [ForkJsonRpcResponse](modules.md#forkjsonrpcresponse)
-
 ### debug_* methods
 
 #### debug_traceCall
@@ -3759,20 +3698,20 @@ response - [EthGetBalanceJsonRpcResponse](modules.md#ethgetbalancejsonrpcrespons
 
 #### Defined in
 
-[tevm-request-handler/TevmJsonRpcBulkRequestHandler.ts:123](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/tevm-request-handler/TevmJsonRpcBulkRequestHandler.ts#L123)
+[tevm-request-handler/TevmJsonRpcBulkRequestHandler.ts:117](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/tevm-request-handler/TevmJsonRpcBulkRequestHandler.ts#L117)
 
 ___
 
 ### TevmJsonRpcRequest
 
-Ƭ **TevmJsonRpcRequest**: [`GetAccountJsonRpcRequest`](modules.md#getaccountjsonrpcrequest) \| [`SetAccountJsonRpcRequest`](modules.md#setaccountjsonrpcrequest) \| [`CallJsonRpcRequest`](modules.md#calljsonrpcrequest) \| [`ContractJsonRpcRequest`](modules.md#contractjsonrpcrequest) \| [`ScriptJsonRpcRequest`](modules.md#scriptjsonrpcrequest) \| [`LoadStateJsonRpcRequest`](modules.md#loadstatejsonrpcrequest) \| [`DumpStateJsonRpcRequest`](modules.md#dumpstatejsonrpcrequest) \| [`ForkJsonRpcRequest`](modules.md#forkjsonrpcrequest)
+Ƭ **TevmJsonRpcRequest**: [`GetAccountJsonRpcRequest`](modules.md#getaccountjsonrpcrequest) \| [`SetAccountJsonRpcRequest`](modules.md#setaccountjsonrpcrequest) \| [`CallJsonRpcRequest`](modules.md#calljsonrpcrequest) \| [`ContractJsonRpcRequest`](modules.md#contractjsonrpcrequest) \| [`ScriptJsonRpcRequest`](modules.md#scriptjsonrpcrequest) \| [`LoadStateJsonRpcRequest`](modules.md#loadstatejsonrpcrequest) \| [`DumpStateJsonRpcRequest`](modules.md#dumpstatejsonrpcrequest)
 
 A Tevm JSON-RPC request
 `tevm_account`, `tevm_call`, `tevm_contract`, `tevm_script`
 
 #### Defined in
 
-[requests/TevmJsonRpcRequest.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/TevmJsonRpcRequest.ts#L14)
+[requests/TevmJsonRpcRequest.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/TevmJsonRpcRequest.ts#L13)
 
 ___
 
@@ -3821,11 +3760,6 @@ response - [GetAccountJsonRpcResponse](modules.md#getaccountjsonrpcresponse)
 
 request - [SetAccountJsonRpcRequest](modules.md#setaccountjsonrpcrequest)
 response - [SetAccountJsonRpcResponse](modules.md#setaccountjsonrpcresponse)
-
-#### tevm_fork
-
-request - [ForkJsonRpcRequest](modules.md#forkjsonrpcrequest)
-response - [ForkJsonRpcResponse](modules.md#forkjsonrpcresponse)
 
 ### debug_* methods
 
@@ -3888,7 +3822,7 @@ response - [EthGetBalanceJsonRpcResponse](modules.md#ethgetbalancejsonrpcrespons
 
 #### Defined in
 
-[tevm-request-handler/TevmJsonRpcRequestHandler.ts:119](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/tevm-request-handler/TevmJsonRpcRequestHandler.ts#L119)
+[tevm-request-handler/TevmJsonRpcRequestHandler.ts:113](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/tevm-request-handler/TevmJsonRpcRequestHandler.ts#L113)
 
 ___
 
@@ -3904,7 +3838,6 @@ A mapping of `tevm_*` method names to their request type
 | :------ | :------ |
 | `tevm_call` | [`CallJsonRpcRequest`](modules.md#calljsonrpcrequest) |
 | `tevm_dumpState` | [`DumpStateJsonRpcRequest`](modules.md#dumpstatejsonrpcrequest) |
-| `tevm_fork` | [`ForkJsonRpcRequest`](modules.md#forkjsonrpcrequest) |
 | `tevm_getAccount` | [`GetAccountJsonRpcRequest`](modules.md#getaccountjsonrpcrequest) |
 | `tevm_loadState` | [`LoadStateJsonRpcRequest`](modules.md#loadstatejsonrpcrequest) |
 | `tevm_script` | [`ScriptJsonRpcRequest`](modules.md#scriptjsonrpcrequest) |
@@ -3912,7 +3845,7 @@ A mapping of `tevm_*` method names to their request type
 
 #### Defined in
 
-[tevm-request-handler/TevmRequestType.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/tevm-request-handler/TevmRequestType.ts#L14)
+[tevm-request-handler/TevmRequestType.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/tevm-request-handler/TevmRequestType.ts#L13)
 
 ___
 
@@ -3928,7 +3861,6 @@ A mapping of `tevm_*` method names to their return type
 | :------ | :------ |
 | `tevm_call` | [`CallJsonRpcResponse`](modules.md#calljsonrpcresponse) |
 | `tevm_dumpState` | [`DumpStateJsonRpcResponse`](modules.md#dumpstatejsonrpcresponse) |
-| `tevm_fork` | [`ForkJsonRpcResponse`](modules.md#forkjsonrpcresponse) |
 | `tevm_getAccount` | [`GetAccountJsonRpcResponse`](modules.md#getaccountjsonrpcresponse) |
 | `tevm_loadState` | [`LoadStateJsonRpcResponse`](modules.md#loadstatejsonrpcresponse) |
 | `tevm_script` | [`ScriptJsonRpcResponse`](modules.md#scriptjsonrpcresponse) |
@@ -3936,4 +3868,4 @@ A mapping of `tevm_*` method names to their return type
 
 #### Defined in
 
-[tevm-request-handler/TevmReturnType.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/tevm-request-handler/TevmReturnType.ts#L14)
+[tevm-request-handler/TevmReturnType.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/tevm-request-handler/TevmReturnType.ts#L13)

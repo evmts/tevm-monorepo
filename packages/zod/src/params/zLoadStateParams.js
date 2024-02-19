@@ -1,9 +1,10 @@
 import { zHex } from '../common/index.js'
+import { zBaseParams } from './zBaseParams.js'
 import { z } from 'zod'
 /**
  * Zod validator for a valid load state action
  */
-const AccountStorage = z.object({
+const AccountStorage = zBaseParams.extend({
 	nonce: z.bigint().describe('The nonce of the account'),
 	balance: z.bigint().describe('The balance of the account'),
 	storageRoot: zHex.describe('The storage root of the account'),

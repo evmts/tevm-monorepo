@@ -8,6 +8,7 @@ import { hexToBigInt, numberToHex } from '@tevm/utils'
  */
 export const callProcedure = (client) => async (request) => {
 	const { errors = [], ...result } = await callHandler(client)({
+		throwOnFail: false,
 		...(request.params[0].deployedBytecode
 			? { deployedBytecode: request.params[0].deployedBytecode }
 			: {}),

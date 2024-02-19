@@ -13,6 +13,7 @@ export const scriptProcedure = (client) => async (request) => {
 	let res
 	try {
 		res = await scriptHandler(client)({
+			throwOnFail: false,
 			deployedBytecode: request.params[0].deployedBytecode,
 			// internally we pass data directly in which works but typescript interface doesn't support publically
 			abi: /** @type any*/ (undefined),
