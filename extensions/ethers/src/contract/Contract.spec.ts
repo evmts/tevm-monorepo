@@ -261,7 +261,7 @@ describe('ethers.Contract', () => {
 		expectTypeOf(await c.name()).toBeString()
 		expectTypeOf(await c.symbol()).toBeString()
 		expectTypeOf(await c.decimals()).toBeNumber()
-		assertType<BigInt>(await c.totalSupply())
+		assertType<BigInt>(await c.totalSupply({ blockTag: 4061226 }))
 	})
 
 	test('Should be typesafe with arguments', async () => {
@@ -301,8 +301,8 @@ describe('ethers.Contract', () => {
 		expect(await c.name()).toMatchInlineSnapshot('"Dai Stablecoin"')
 		expect(await c.symbol()).toMatchInlineSnapshot('"DAI"')
 		expect(await c.decimals()).toMatchInlineSnapshot('18n')
-		expect(await c.totalSupply()).toMatchInlineSnapshot(
-			'25693386146653526111209591n',
+		expect(await c.totalSupply({ blockTag: 4061226 })).toMatchInlineSnapshot(
+			'17275834779199905882210256n',
 		)
 		expect(
 			await c.balanceOf('0x32307adfFE088e383AFAa721b06436aDaBA47DBE'),
@@ -316,7 +316,7 @@ describe('ethers.Contract', () => {
 		expect(await c.symbol()).toMatchInlineSnapshot('"DAI"')
 		expect(await c.decimals()).toMatchInlineSnapshot('18n')
 		expect(await c.totalSupply()).toMatchInlineSnapshot(
-			'25693386146653526111209591n',
+			'25806858761345420755837246n',
 		)
 		expect(
 			await c.balanceOf('0x32307adfFE088e383AFAa721b06436aDaBA47DBE'),

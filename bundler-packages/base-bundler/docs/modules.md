@@ -12,7 +12,7 @@
 
 ### bundler
 
-▸ **bundler**(`config`, `logger`, `fao`, `solc`, `cache`): `Object`
+▸ **bundler**(`config`, `logger`, `fao`, `solc`, `cache`, `contractPackage?`): `Object`
 
 The base bundler instance used within tevm to generate JavaScript and TypeScript files
 from solidity files. This is used internally by all other tevm build tooling including
@@ -27,6 +27,7 @@ the ts-plugin, the webpack plugin, the bun plugin, the vite plugin, and more.
 | `fao` | `FileAccessObject` | The file access object to use for reading and writing files. Can use fs to fill this out |
 | `solc` | `any` | The solc compiler to use. Can be loaded with `createSolc()` |
 | `cache` | `Cache` | The cache to use. Can be created with `createCache()` |
+| `contractPackage?` | ``"tevm/contract"`` \| ``"@tevm/contract"`` | The name of the package that contains the contract package If not included the bundler will attempt to autodetect the package |
 
 #### Returns
 
@@ -75,4 +76,4 @@ const { abi, bytecode } = await b.resolveTs(path, __dirname, true, true)
 
 #### Defined in
 
-[bundler.js:44](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/base-bundler/src/bundler.js#L44)
+[bundler.js:45](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/base-bundler/src/bundler.js#L45)

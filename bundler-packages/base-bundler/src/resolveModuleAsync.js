@@ -92,7 +92,7 @@ export const resolveModuleAsync = async (
 		return { solcInput, solcOutput, asts, modules, code }
 	} catch (e) {
 		logger.error(`there was an error in tevm plugin resolving .${moduleType}`)
-		logger.error(/** @type any */(e))
+		logger.error(/** @type any */ (e))
 		throw e
 	}
 }

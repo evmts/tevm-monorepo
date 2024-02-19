@@ -9,7 +9,9 @@ const contractPackages = ['tevm/contract', '@tevm/contract']
  * @returns {'tevm/contract' | '@tevm/contract'}
  */
 export const getContractPath = (basePath) => {
-	const require = createRequire(basePath.endsWith('/') ? basePath : `${basePath}/`)
+	const require = createRequire(
+		basePath.endsWith('/') ? basePath : `${basePath}/`,
+	)
 	for (const contractPackage of contractPackages) {
 		try {
 			require.resolve(contractPackage)
@@ -25,6 +27,6 @@ see https://github.com/oven-sh/bun/issues/8974`)
 		return '@tevm/contract'
 	}
 	throw new Error(
-		'Could not find tevm/contract or @tevm/contract!. Please install it with `npm i @tevm/contract` `pnpm i @tevm/contract` or `yarn add tevm/contract`',
+		`Could not find tevm/contract or @tevm/contract in ${basePath}!. Please install it with \`npm i @tevm/contract\` \`pnpm i @tevm/contract\` or \`yarn add tevm/contract\``,
 	)
 }

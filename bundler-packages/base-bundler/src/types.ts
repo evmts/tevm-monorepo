@@ -55,7 +55,7 @@ export type Bundler = (
 	 * The name of the package that contains the contract package
 	 * If not included the bundler will attempt to autodetect the package
 	 */
-	contractPackage?: '@tevm/contract' | 'tevm/contract'
+	contractPackage?: '@tevm/contract' | 'tevm/contract',
 ) => {
 	/**
 	 * The name of the plugin.

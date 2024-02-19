@@ -28,7 +28,7 @@
 
 #### Defined in
 
-bundler-packages/base-bundler/types/src/index.d.ts:5
+bundler-packages/base-bundler/types/src/index.d.ts:6
 
 ___
 
@@ -40,7 +40,7 @@ ___
 
 #### Defined in
 
-bundler-packages/base-bundler/types/src/index.d.ts:9
+bundler-packages/base-bundler/types/src/index.d.ts:10
 
 ___
 
@@ -52,7 +52,7 @@ ___
 
 #### Defined in
 
-bundler-packages/base-bundler/types/src/index.d.ts:13
+bundler-packages/base-bundler/types/src/index.d.ts:14
 
 ___
 
@@ -64,7 +64,7 @@ ___
 
 #### Defined in
 
-bundler-packages/base-bundler/types/src/index.d.ts:17
+bundler-packages/base-bundler/types/src/index.d.ts:18
 
 ___
 
@@ -76,7 +76,7 @@ ___
 
 #### Defined in
 
-bundler-packages/base-bundler/types/src/index.d.ts:21
+bundler-packages/base-bundler/types/src/index.d.ts:22
 
 ___
 
@@ -88,7 +88,7 @@ ___
 
 #### Defined in
 
-bundler-packages/base-bundler/types/src/index.d.ts:25
+bundler-packages/base-bundler/types/src/index.d.ts:26
 
 ___
 
@@ -100,13 +100,13 @@ ___
 
 #### Defined in
 
-bundler-packages/base-bundler/types/src/index.d.ts:29
+bundler-packages/base-bundler/types/src/index.d.ts:30
 
 ## Functions
 
 ### bundler
 
-▸ **bundler**(`config`, `logger`, `fao`, `solc`, `cache`): `Object`
+▸ **bundler**(`config`, `logger`, `fao`, `solc`, `cache`, `contractPackage?`): `Object`
 
 The base bundler instance used within tevm to generate JavaScript and TypeScript files
 from solidity files. This is used internally by all other tevm build tooling including
@@ -121,6 +121,7 @@ the ts-plugin, the webpack plugin, the bun plugin, the vite plugin, and more.
 | `fao` | `FileAccessObject` | The file access object to use for reading and writing files. Can use fs to fill this out |
 | `solc` | `any` | The solc compiler to use. Can be loaded with `createSolc()` |
 | `cache` | `Cache` | The cache to use. Can be created with `createCache()` |
+| `contractPackage?` | ``"@tevm/contract"`` \| ``"tevm/contract"`` | The name of the package that contains the contract package If not included the bundler will attempt to autodetect the package |
 
 #### Returns
 

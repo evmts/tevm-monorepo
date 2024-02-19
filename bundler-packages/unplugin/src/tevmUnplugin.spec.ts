@@ -19,9 +19,10 @@ import {
 
 vi.mock('module', async () => ({
 	...((await vi.importActual('module')) as {}),
-	createRequire: vi.fn(),
+	createRequire: vi.fn(() => ({
+		resolve: () => ({} as any),
+	})),
 }))
-
 vi.mock('@tevm/config', async () => ({
 	...((await vi.importActual('@tevm/config')) as {}),
 	loadConfig: vi.fn(),
@@ -156,6 +157,7 @@ describe('unpluginFn', () => {
 			    "writeMjs": [Function],
 			    "writeMjsSync": [Function],
 			  },
+			  "tevm/contract",
 			]
 		`)
 

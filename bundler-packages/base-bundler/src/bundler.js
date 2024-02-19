@@ -43,7 +43,10 @@ import { resolveModuleSync } from './resolveModuleSync.js'
  * ```
  */
 export const bundler = (config, logger, fao, solc, cache, contractPackage) => {
-	const _contractPackage = typeof contractPackage === 'string' ? contractPackage : getContractPath(process.cwd())
+	const _contractPackage =
+		typeof contractPackage === 'string'
+			? contractPackage
+			: getContractPath(process.cwd())
 	return {
 		name: bundler.name,
 		config,

@@ -72,7 +72,14 @@ export const tevmUnplugin = (options = {}) => {
 				parsedSolcVersion.data === defaultVersion
 					? defaultSolc
 					: await createSolc(parsedSolcVersion.data)
-			moduleResolver = bundler(config, console, fao, versionedSolc, solcCache, contractPackage)
+			moduleResolver = bundler(
+				config,
+				console,
+				fao,
+				versionedSolc,
+				solcCache,
+				contractPackage,
+			)
 			this.addWatchFile('./tsconfig.json')
 		},
 		loadInclude: (id) => {
