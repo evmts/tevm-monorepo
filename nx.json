@@ -1,5 +1,6 @@
 {
 	"defaultProject": "@tevm/example-vite",
+	"cacheDirectory": ".nx",
 	"targetDefaults": {
 		"lint:check": {
 			"inputs": ["default"],

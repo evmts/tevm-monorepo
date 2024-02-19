@@ -5,6 +5,7 @@
 
 # Tevm cache
 **/.tevm
+.nx
 
 **/debuglogs.txt
 
