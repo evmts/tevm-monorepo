@@ -103,6 +103,7 @@ export default defineConfig({
 						{ label: 'Advanced Scripting', link: '/learn/scripting/' },
 						{ label: 'CLI', link: '/learn/cli/' },
 						{ label: 'Ethers extension', link: '/learn/ethers/' },
+						{ label: 'Reference', link: '/learn/reference/' },
 					],
 				},
 				typeDocSidebarGroup,
