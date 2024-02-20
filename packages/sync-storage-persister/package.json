@@ -1,8 +1,8 @@
 {
-  "name": "@tevm/base-client",
+  "name": "@tevm/sync-storage-persister",
   "version": "1.0.0-next.39",
   "private": false,
-  "description": "Client implementations of Tevm",
+  "description": "A package for persisting the state of the EVM to a sync storage",
   "keywords": [
     "solidity",
     "sol",
@@ -13,7 +13,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/evmts/tevm-monorepo.git",
-    "directory": "core/base-client"
+    "directory": "packages/sync-storage-persister"
   },
   "license": "MIT",
   "contributors": [
@@ -43,14 +43,14 @@
     "types"
   ],
   "scripts": {
-    "all": "pnpm i  && bun run build && bun lint && bun format && bun test:run && bun generate:docs && bun lint:deps && bun lint:package",
-    "build": "nx run-many --targets=build:dist,build:types --projects=@tevm/base-client",
+    "all": "pnpm i  && bun run build && bun lint && bun format && bun test:run && bun generate:docs",
+    "build": "nx run-many --targets=build:dist,build:types --projects=@tevm/sync-storage-persister",
     "build:dist": "tsup",
     "build:types": "tsup --dts-only && tsc --emitDeclarationOnly --declaration",
     "clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
     "format": "rome format . --write",
     "format:check": "rome format .",
-    "generate:docs": "typedoc",
+    "generate:docs": "bun run typedoc",
     "lint": "rome check . --apply-unsafe",
     "lint:check": "rome check . --verbose",
     "lint:deps": "bunx depcheck",
@@ -61,23 +61,14 @@
     "test:run": "bun test",
     "typecheck": "tsc --noEmit"
   },
-  "dependencies": {
-    "@tevm/blockchain": "workspace:^",
-    "@tevm/common": "workspace:^",
-    "@tevm/evm": "workspace:^",
-    "@tevm/jsonrpc": "workspace:^",
-    "@tevm/predeploys": "workspace:^",
-    "@tevm/state": "workspace:^",
-    "@tevm/sync-storage-persister": "workspace:1.0.0-next.39",
-    "@tevm/utils": "workspace:^",
-    "@tevm/vm": "workspace:^"
-  },
   "devDependencies": {
-    "@ethereumjs/evm": "^2.1.0",
     "@tevm/tsconfig": "workspace:^",
     "@tevm/tsupconfig": "workspace:^"
   },
   "publishConfig": {
     "access": "public"
+  },
+  "dependencies": {
+    "@tevm/state": "workspace:1.0.0-next.39"
   }
 }

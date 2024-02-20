@@ -1,7 +1,4 @@
-// [mozilla public license 2.0](https://github.com/ethereumjs/ethereumjs-monorepo/blob/master/packages/statemanager/LICENSE)
-import type { SerializableTevmState } from './SerializableTevmState.js'
-import type { TevmStateManagerInterface } from './TevmStateManagerInterface.js'
-import { CacheType, DefaultStateManager } from '@ethereumjs/statemanager'
+import { CacheType, DefaultStateManager, type DefaultStateManagerOpts } from '@ethereumjs/statemanager'
 import { EthjsAccount, EthjsAddress } from '@tevm/utils'
 import {
 	type Address,
@@ -11,6 +8,16 @@ import {
 	hexToBytes,
 	isHex,
 } from 'viem'
+// [mozilla public license 2.0](https://github.com/ethereumjs/ethereumjs-monorepo/blob/master/packages/statemanager/LICENSE)
+import type { TevmState } from './TevmState.js'
+import type { TevmStateManagerInterface } from './TevmStateManagerInterface.js'
+
+export type NormalStateManagerOpts = DefaultStateManagerOpts & {
+	/**
+	 * Called when state manager commits state
+	 */
+	onCommit?: (stateManager: NormalStateManager) => void
+}
 
 /**
  * The ethereum state manager implementation for running Tevm in `normal` mode.
@@ -21,8 +28,11 @@ import {
  */
 export class NormalStateManager
 	extends DefaultStateManager
-	implements TevmStateManagerInterface
-{
+	implements TevmStateManagerInterface {
+	constructor(protected readonly opts?: NormalStateManagerOpts) {
+		super(opts)
+	}
+
 	/**
 	 * Retrieves the addresses of all the accounts in the state.
 	 * @returns An array of account addresses.
@@ -128,10 +138,10 @@ export class NormalStateManager
 	}
 
 	/**
-	 * Loads a {@link SerializableTevmState} into the state manager
+	 * Loads a {@link TevmState} into the state manager
 	 */
 	override generateCanonicalGenesis = async (
-		state: SerializableTevmState,
+		state: TevmState,
 	): Promise<void> => {
 		for (const [k, v] of Object.entries(state)) {
 			const { nonce, balance, storageRoot, codeHash, storage } = v
@@ -164,15 +174,15 @@ export class NormalStateManager
 	}
 
 	/**
-	 * Dumps the state of the state manager as a {@link SerializableTevmState}
+	 * Dumps the state of the state manager as a {@link TevmState}
 	 */
-	dumpCanonicalGenesis = async (): Promise<SerializableTevmState> => {
+	dumpCanonicalGenesis = async (): Promise<TevmState> => {
 		const accountAddresses: string[] = []
 		this._accountCache?._orderedMapCache?.forEach((e) => {
 			accountAddresses.push(e[0])
 		})
 
-		const state: SerializableTevmState = {}
+		const state: TevmState = {}
 
 		for (const address of accountAddresses) {
 			const hexAddress = `0x${address}`

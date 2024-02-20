@@ -125,7 +125,7 @@ export {
 } from '@tevm/utils'
 
 export type {
-	SerializableTevmState,
+	TevmState,
 	ForkStateManagerOpts,
 	ProxyStateManagerOpts,
 } from '@tevm/state'

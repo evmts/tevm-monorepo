@@ -1,5 +1,5 @@
 export type {
-  SerializableTevmState,
+  TevmState,
   ForkStateManagerOpts,
   ProxyStateManagerOpts,
   NormalStateManager,

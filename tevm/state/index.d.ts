@@ -1,1 +1,1 @@
-export { AccountStorage, Cache, ForkStateManager, ForkStateManagerOpts, GetContractStorage, NormalStateManager, ParameterizedAccountStorage, ParameterizedTevmState, ProxyStateManager, ProxyStateManagerOpts, SerializableTevmState, TevmStateManagerInterface } from '@tevm/state';
+export { AccountStorage, Cache, ForkStateManager, ForkStateManagerOpts, GetContractStorage, NormalStateManager, ParameterizedAccountStorage, ParameterizedTevmState, ProxyStateManager, ProxyStateManagerOpts, TevmState, TevmStateManagerInterface } from '@tevm/state';
