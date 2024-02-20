@@ -1,11 +1,11 @@
+import { MOCKERC20_ABI, MOCKERC20_BYTECODE } from '../test/contractConstants.js'
 import { contractHandler } from './contractHandler.js'
 import { setAccountHandler } from './setAccountHandler.js'
+import type { ContractError } from '@tevm/errors'
 import { Evm } from '@tevm/evm'
 import { NormalStateManager } from '@tevm/state'
 import { TevmVm } from '@tevm/vm'
 import { describe, expect, it } from 'bun:test'
-import { MOCKERC20_ABI, MOCKERC20_BYTECODE } from '../test/contractConstants.js'
-import type { ContractError } from '@tevm/errors'
 
 const ERC20_ADDRESS = `0x${'3'.repeat(40)}` as const
 const ERC20_BYTECODE =
@@ -472,7 +472,7 @@ describe('contractHandler', () => {
 		const evm = new Evm({ stateManager })
 		const vm = await TevmVm.create({ evm, stateManager })
 		const originalRunCall = evm.runCall.bind(evm)
-		vm.evm.runCall = function(args) {
+		vm.evm.runCall = function (args) {
 			return {
 				...originalRunCall(args),
 				execResult: { returnValue: '0x42424242' },
