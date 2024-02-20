@@ -7,13 +7,13 @@ title: "LoadStateParams"
 
 > **LoadStateParams**\<`TThrowOnFail`\>: `BaseParams`\<`TThrowOnFail`\> & `object`
 
-params for `tevm_loadState` method. Takes a [TevmState]([object Object]) to load into state.
+params for `tevm_loadState` method. Takes a [TevmState](/reference/tevm/state/type-aliases/tevmstate/) to load into state.
 
 ## Type declaration
 
 ### state
 
-> **state**: `TevmState`
+> **state**: [`TevmState`](/reference/tevm/state/type-aliases/tevmstate/)
 
 ## Type parameters
 

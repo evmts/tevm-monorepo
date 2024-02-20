@@ -11,11 +11,11 @@ title: "TypesafeEthersContract"
 
 ### queryFilter
 
-> **queryFilter**: \<`TContractEventName`\>(`event`, `fromBlock`?, `toBlock`?) => `Promise`\<`TContractEventName` extends `ExtractAbiEventNames`\<`TAbi`\> ? `ExtractAbiEvent`\<`TAbi`, `TContractEventName`\> : `EventLog` \| `Log`[]\>
+> **queryFilter**: \<`TContractEventName`\>(`event`, `fromBlock`?, `toBlock`?) => `Promise`\<`TContractEventName` extends [`ExtractAbiEventNames`](/reference/tevm/utils/type-aliases/extractabieventnames/)\<`TAbi`\> ? [`ExtractAbiEvent`](/reference/tevm/utils/type-aliases/extractabievent/)\<`TAbi`, `TContractEventName`\> : `EventLog` \| `Log`[]\>
 
 #### Type parameters
 
-▪ **TContractEventName** extends `Omit`\<`ContractEventName`, `ExtractAbiEventNames`\<`TAbi`\>\> \| `ExtractAbiEventNames`\<`TAbi`\>
+▪ **TContractEventName** extends `Omit`\<`ContractEventName`, [`ExtractAbiEventNames`](/reference/tevm/utils/type-aliases/extractabieventnames/)\<`TAbi`\>\> \| [`ExtractAbiEventNames`](/reference/tevm/utils/type-aliases/extractabieventnames/)\<`TAbi`\>
 
 #### Parameters
 
@@ -29,7 +29,7 @@ title: "TypesafeEthersContract"
 
 | Parameter |
 | :------ |
-| `TAbi` extends `Abi` |
+| `TAbi` extends [`Abi`](/reference/tevm/utils/type-aliases/abi/) |
 
 ## Source
 

@@ -20,7 +20,7 @@ Params taken by the definePredeploy function
 
 ### address
 
-> **address**: `Address`
+> **address**: [`Address`](/reference/tevm/utils/type-aliases/address/)
 
 ### contract
 

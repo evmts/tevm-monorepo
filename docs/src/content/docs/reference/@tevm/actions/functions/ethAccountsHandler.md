@@ -11,7 +11,7 @@ title: "ethAccountsHandler"
 
 ▪ **params**: `object`
 
-▪ **params.accounts**: readonly `Account`\<\`0x${string}\`\>[]
+▪ **params.accounts**: readonly [`Account`](/reference/tevm/utils/type-aliases/account/)\<\`0x${string}\`\>[]
 
 ## Returns
 

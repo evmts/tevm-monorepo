@@ -5,7 +5,7 @@ prev: false
 title: "EthGetBalanceJsonRpcResponse"
 ---
 
-> **EthGetBalanceJsonRpcResponse**: [`JsonRpcResponse`](/reference/tevm/jsonrpc/type-aliases/jsonrpcresponse/)\<`"eth_getBalance"`, `Hex`, `string`\>
+> **EthGetBalanceJsonRpcResponse**: [`JsonRpcResponse`](/reference/tevm/jsonrpc/type-aliases/jsonrpcresponse/)\<`"eth_getBalance"`, [`Hex`](/reference/tevm/utils/type-aliases/hex/), `string`\>
 
 JSON-RPC response for `eth_getBalance` procedure
 

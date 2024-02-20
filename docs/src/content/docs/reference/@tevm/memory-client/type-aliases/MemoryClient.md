@@ -5,7 +5,7 @@ prev: false
 title: "MemoryClient"
 ---
 
-> **MemoryClient**: [`TevmClient`](/reference/tevm/client-types/type-aliases/tevmclient/) & `BaseClient`
+> **MemoryClient**: [`TevmClient`](/reference/tevm/client-types/type-aliases/tevmclient/) & [`BaseClient`](/reference/tevm/base-client/type-aliases/baseclient/)
 
 A local EVM instance running in JavaScript. Similar to Anvil in your browser/node/bun environments
 Implements the [TevmClient](/reference/tevm/client-types/type-aliases/tevmclient/) interface with an in memory EVM instance.

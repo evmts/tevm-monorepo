@@ -43,7 +43,7 @@ Type of predeploy contract for tevm
 
 ### ethjsAddress()
 
-> **`protected`** **`readonly`** **ethjsAddress**(): `Address`
+> **`protected`** **`readonly`** **ethjsAddress**(): [`EthjsAddress`](/reference/tevm/utils/classes/ethjsaddress/)
 
 #### Source
 
@@ -59,7 +59,7 @@ Type of predeploy contract for tevm
 
 > ##### address
 >
-> > **address**: `Address`
+> > **address**: [`EthjsAddress`](/reference/tevm/utils/classes/ethjsaddress/)
 >
 
 #### Source

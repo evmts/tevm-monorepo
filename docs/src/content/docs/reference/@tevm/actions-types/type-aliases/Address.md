@@ -5,7 +5,7 @@ prev: false
 title: "Address"
 ---
 
-> **Address**: `_Address`
+> **Address**: [`Address`](/reference/tevm/utils/type-aliases/address/)
 
 An ethereum address represented as a hex string
 

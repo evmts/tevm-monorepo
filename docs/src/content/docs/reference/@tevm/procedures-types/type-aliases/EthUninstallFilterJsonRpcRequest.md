@@ -5,7 +5,7 @@ prev: false
 title: "EthUninstallFilterJsonRpcRequest"
 ---
 
-> **EthUninstallFilterJsonRpcRequest**: [`JsonRpcRequest`](/reference/tevm/jsonrpc/type-aliases/jsonrpcrequest/)\<`"eth_uninstallFilter"`, [`Hex`]\>
+> **EthUninstallFilterJsonRpcRequest**: [`JsonRpcRequest`](/reference/tevm/jsonrpc/type-aliases/jsonrpcrequest/)\<`"eth_uninstallFilter"`, [[`Hex`](/reference/tevm/utils/type-aliases/hex/)]\>
 
 JSON-RPC request for `eth_uninstallFilter` procedure
 

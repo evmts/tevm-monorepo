@@ -17,7 +17,7 @@ Creates a LoadState JSON-RPC Procedure for handling LoadState requests with Ethe
 
 Gets the chainId of the current EVM
 
-▪ **client.extend**: \<`TExtension`\>(`decorator`) => `BaseClient`\<`"fork"` \| `"proxy"` \| `"normal"`, `object` & `TExtension`\>
+▪ **client.extend**: \<`TExtension`\>(`decorator`) => [`BaseClient`](/reference/tevm/base-client/type-aliases/baseclient/)\<`"fork"` \| `"proxy"` \| `"normal"`, `object` & `TExtension`\>
 
 Extends the base client with additional functionality
 
@@ -32,7 +32,7 @@ The mode the current client is running in
 `proxy` mode will fetch all state from the latest block of the provided proxy URL
 `normal` mode will not fetch any state and will only run the EVM in memory
 
-▪ **client.vm**: `TevmVm`
+▪ **client.vm**: [`TevmVm`](/reference/tevm/vm/classes/tevmvm/)
 
 Internal instance of the VM. Can be used for lower level operations
 

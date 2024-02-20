@@ -5,7 +5,7 @@ prev: false
 title: "EthAccountsJsonRpcResponse"
 ---
 
-> **EthAccountsJsonRpcResponse**: [`JsonRpcResponse`](/reference/tevm/jsonrpc/type-aliases/jsonrpcresponse/)\<`"eth_accounts"`, `Address`[], `string`\>
+> **EthAccountsJsonRpcResponse**: [`JsonRpcResponse`](/reference/tevm/jsonrpc/type-aliases/jsonrpcresponse/)\<`"eth_accounts"`, [`Address`](/reference/tevm/utils/type-aliases/address/)[], `string`\>
 
 JSON-RPC response for `eth_accounts` procedure
 

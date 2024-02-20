@@ -82,7 +82,7 @@ const result = await client.readContract(
 
 ### abi
 
-> **abi**: `ParseAbi`\<`THumanReadableAbi`\>
+> **abi**: [`ParseAbi`](/reference/tevm/utils/type-aliases/parseabi/)\<`THumanReadableAbi`\>
 
 The json abi of the contract
 
@@ -178,7 +178,7 @@ the address property if added.
 
 #### Type parameters
 
-▪ **TAddress** extends `Address`
+▪ **TAddress** extends [`Address`](/reference/tevm/utils/type-aliases/address/)
 
 #### Parameters
 

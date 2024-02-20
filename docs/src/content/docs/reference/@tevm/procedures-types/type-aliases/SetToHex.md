@@ -5,7 +5,7 @@ prev: false
 title: "SetToHex"
 ---
 
-> **SetToHex**\<`T`\>: `T` extends `Set`\<`any`\> ? `Hex` : `T`
+> **SetToHex**\<`T`\>: `T` extends `Set`\<`any`\> ? [`Hex`](/reference/tevm/utils/type-aliases/hex/) : `T`
 
 ## Type parameters
 

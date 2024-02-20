@@ -5,7 +5,7 @@ prev: false
 title: "Abi"
 ---
 
-> **Abi**: `_Abi`
+> **Abi**: [`Abi`](/reference/tevm/utils/type-aliases/abi/)
 
 A valid [Ethereum JSON ABI](https://docs.soliditylang.org/en/latest/abi-spec.html#json)
 

@@ -5,7 +5,7 @@ prev: false
 title: "EthNewPendingTransactionFilterJsonRpcResponse"
 ---
 
-> **EthNewPendingTransactionFilterJsonRpcResponse**: [`JsonRpcResponse`](/reference/tevm/jsonrpc/type-aliases/jsonrpcresponse/)\<`"eth_newPendingTransactionFilter"`, `Hex`, `string`\>
+> **EthNewPendingTransactionFilterJsonRpcResponse**: [`JsonRpcResponse`](/reference/tevm/jsonrpc/type-aliases/jsonrpcresponse/)\<`"eth_newPendingTransactionFilter"`, [`Hex`](/reference/tevm/utils/type-aliases/hex/), `string`\>
 
 JSON-RPC response for `eth_newPendingTransactionFilter` procedure
 

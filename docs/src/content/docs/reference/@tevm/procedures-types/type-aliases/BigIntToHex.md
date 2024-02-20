@@ -5,7 +5,7 @@ prev: false
 title: "BigIntToHex"
 ---
 
-> **BigIntToHex**\<`T`\>: `T` extends `bigint` ? `Hex` : `T`
+> **BigIntToHex**\<`T`\>: `T` extends `bigint` ? [`Hex`](/reference/tevm/utils/type-aliases/hex/) : `T`
 
 ## Type parameters
 

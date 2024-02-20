@@ -5,7 +5,7 @@ prev: false
 title: "EthSendRawTransactionJsonRpcRequest"
 ---
 
-> **EthSendRawTransactionJsonRpcRequest**: [`JsonRpcRequest`](/reference/tevm/jsonrpc/type-aliases/jsonrpcrequest/)\<`"eth_sendRawTransaction"`, [`Hex`]\>
+> **EthSendRawTransactionJsonRpcRequest**: [`JsonRpcRequest`](/reference/tevm/jsonrpc/type-aliases/jsonrpcrequest/)\<`"eth_sendRawTransaction"`, [[`Hex`](/reference/tevm/utils/type-aliases/hex/)]\>
 
 JSON-RPC request for `eth_sendRawTransaction` procedure
 

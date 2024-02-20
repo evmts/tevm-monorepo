@@ -11,7 +11,7 @@ A local EVM instance running in JavaScript. Similar to Anvil in your browser
 
 ## Parameters
 
-▪ **options?**: `BaseClientOptions`= `{}`
+▪ **options?**: [`BaseClientOptions`](/reference/tevm/base-client/type-aliases/baseclientoptions/)= `{}`
 
 ## Returns
 

@@ -13,7 +13,7 @@ The parameters for the `tevm_loadState` method
 
 ### state
 
-> **state**: [`SerializeToJson`](/reference/tevm/procedures-types/type-aliases/serializetojson/)\<`ParameterizedTevmState`\>
+> **state**: [`SerializeToJson`](/reference/tevm/procedures-types/type-aliases/serializetojson/)\<[`ParameterizedTevmState`](/reference/tevm/state/type-aliases/parameterizedtevmstate/)\>
 
 ## Source
 
