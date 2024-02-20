@@ -1355,7 +1355,7 @@ Result of the dumpState method
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `errors?` | `ErrorType`[] | Description of the exception, if any occurred |
-| `state` | `SerializableTevmState` | The serialized tevm state |
+| `state` | `TevmState` | The serialized tevm state |
 
 #### Defined in
 
@@ -3574,9 +3574,9 @@ ___
 
 ### LoadStateParams
 
-Ƭ **LoadStateParams**\<`TThrowOnFail`\>: `BaseParams`\<`TThrowOnFail`\> & \{ `state`: `SerializableTevmState`  }
+Ƭ **LoadStateParams**\<`TThrowOnFail`\>: `BaseParams`\<`TThrowOnFail`\> & \{ `state`: `TevmState`  }
 
-params for `tevm_loadState` method. Takes a SerializableTevmState to load into state.
+params for `tevm_loadState` method. Takes a TevmState to load into state.
 
 #### Type parameters
 

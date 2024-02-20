@@ -8,7 +8,7 @@
 
 - [ForkStateManagerOpts](state.md#forkstatemanageropts)
 - [ProxyStateManagerOpts](state.md#proxystatemanageropts)
-- [SerializableTevmState](state.md#serializabletevmstate)
+- [TevmState](state.md#tevmstate)
 
 ### Classes
 
@@ -42,9 +42,9 @@ Re-exports [ProxyStateManagerOpts](../interfaces/index.ProxyStateManagerOpts.md)
 
 ___
 
-### SerializableTevmState
+### TevmState
 
-Re-exports [SerializableTevmState](index.md#serializabletevmstate)
+Re-exports [TevmState](index.md#tevmstate)
 
 ## Type Aliases
 

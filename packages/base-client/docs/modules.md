@@ -54,12 +54,13 @@ Options for creating an Tevm MemoryClient instance
 | `eips?` | `ReadonlyArray`\<`number`\> | Eips to enable. Defaults to `[1559, 4895]` |
 | `fork?` | `ForkStateManagerOpts` | Fork options fork a live network if enabled. When in fork mode Tevm will fetch and cache all state from the block forked from the provided URL Cannot be set if `proxy` is also set |
 | `hardfork?` | [`Hardfork`](modules.md#hardfork) | Hardfork to use. Defaults to `shanghai` |
+| `persister?` | `SyncStoragePersister` | The memory client can optionally initialize and persist it's state to an external source like local storage using `createSyncPersister` **`Example`** ```typescript import { createMemoryClient, createSyncPersister } from 'tevm' const persister = createSyncPersister({ storage: { getItem: (key: string) => localStorage.getItem(key), setItem: (key: string, value: string) => localStorage.setItem(key, value), } }) const memoryClient = await createMemoryClient({ persister }) ``` |
 | `profiler?` | `boolean` | Enable profiler. Defaults to false. |
 | `proxy?` | `ProxyStateManagerOpts` | Options to initialize the client in `proxy` mode When in proxy mode Tevm will fetch all state from the latest block of the provided proxy URL Cannot be set if `fork` is also set |
 
 #### Defined in
 
-[BaseClientOptions.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/BaseClientOptions.ts#L9)
+[BaseClientOptions.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/BaseClientOptions.ts#L10)
 
 ___
 
@@ -140,4 +141,4 @@ Creates the base instance of a memory client
 
 #### Defined in
 
-[createBaseClient.js:18](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/createBaseClient.js#L18)
+[createBaseClient.js:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/createBaseClient.js#L19)

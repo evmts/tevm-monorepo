@@ -1,4 +1,4 @@
-**@tevm/actions** ∙ [README](README.md) ∙ [API](API.md)
+**@tevm/sync-storage-persister** ∙ [README](README.md) ∙ [API](API.md)
 
 ***
 
@@ -17,30 +17,16 @@
 
 [![CI](https://github.com/evmts/tevm-monorepo/actions/workflows/e2e.yml/badge.svg)](https://github.com/evmts/tevm-monorepo/actions/workflows/e2e.yml)
 [![CI](https://github.com/evmts/tevm-monorepo/actions/workflows/unit.yml/badge.svg)](https://github.com/evmts/tevm-monorepo/actions/workflows/unit.yml)
-<a href="https://www.npmjs.com/package/@tevm/actions" target="\_parent">
-<img alt="" src="https://img.shields.io/npm/dm/@tevm/actions.svg" />
+<a href="https://www.npmjs.com/package/@tevm/sync-storage-persister" target="\_parent">
+<img alt="" src="https://img.shields.io/npm/dm/@tevm/sync-storage-persister.svg" />
 </a>
-<a href="https://bundlephobia.com/package/@tevm/actions@latest" target="\_parent">
-<img alt="" src="https://badgen.net/bundlephobia/minzip/@tevm/actions" />
+<a href="https://bundlephobia.com/package/@tevm/sync-storage-persister@latest" target="\_parent">
+<img alt="" src="https://badgen.net/bundlephobia/minzip/@tevm/sync-storage-persister" />
 </a>
 
-# @tevm/actions
+# @tevm/sync-storage-persister
 
-Ethereumjs implementation of the [@tevm/actions-types](../actions-types)
-
-## Installation
-
-Tevm actions is available in the main `tevm` package
-
-```typescript
-import * as actions from 'tevm/actions'
-```
-
-Or it can be installed as a standalone package
-
-```bash
-npm install @tevm/actions
-```
+A package for creating syncronous storage persisters for tevm clients
 
 ## License 📄
 

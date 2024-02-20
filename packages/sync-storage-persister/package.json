@@ -61,14 +61,14 @@
     "test:run": "bun test",
     "typecheck": "tsc --noEmit"
   },
+  "dependencies": {
+    "@tevm/state": "workspace:1.0.0-next.39"
+  },
   "devDependencies": {
     "@tevm/tsconfig": "workspace:^",
     "@tevm/tsupconfig": "workspace:^"
   },
   "publishConfig": {
     "access": "public"
-  },
-  "dependencies": {
-    "@tevm/state": "workspace:1.0.0-next.39"
   }
 }

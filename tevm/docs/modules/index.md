@@ -75,13 +75,13 @@
 - [Script](index.md#script)
 - [ScriptParams](index.md#scriptparams)
 - [ScriptResult](index.md#scriptresult)
-- [SerializableTevmState](index.md#serializabletevmstate)
 - [SetAccountParams](index.md#setaccountparams)
 - [SetAccountResult](index.md#setaccountresult)
 - [TevmClient](index.md#tevmclient)
 - [TevmJsonRpcBulkRequestHandler](index.md#tevmjsonrpcbulkrequesthandler)
 - [TevmJsonRpcRequest](index.md#tevmjsonrpcrequest)
 - [TevmJsonRpcRequestHandler](index.md#tevmjsonrpcrequesthandler)
+- [TevmState](index.md#tevmstate)
 - [TraceCall](index.md#tracecall)
 - [TraceParams](index.md#traceparams)
 - [TraceResult](index.md#traceresult)
@@ -322,12 +322,13 @@ Options for creating an Tevm MemoryClient instance
 | `eips?` | `ReadonlyArray`\<`number`\> | Eips to enable. Defaults to `[1559, 4895]` |
 | `fork?` | [`ForkStateManagerOpts`](../interfaces/index.ForkStateManagerOpts.md) | Fork options fork a live network if enabled. When in fork mode Tevm will fetch and cache all state from the block forked from the provided URL Cannot be set if `proxy` is also set |
 | `hardfork?` | [`Hardfork`](index.md#hardfork) | Hardfork to use. Defaults to `shanghai` |
+| `persister?` | `SyncStoragePersister` | The memory client can optionally initialize and persist it's state to an external source like local storage using `createSyncPersister` **`Example`** ```typescript import { createMemoryClient, createSyncPersister } from 'tevm' const persister = createSyncPersister({ storage: { getItem: (key: string) => localStorage.getItem(key), setItem: (key: string, value: string) => localStorage.setItem(key, value), } }) const memoryClient = await createMemoryClient({ persister }) ``` |
 | `profiler?` | `boolean` | Enable profiler. Defaults to false. |
 | `proxy?` | [`ProxyStateManagerOpts`](../interfaces/index.ProxyStateManagerOpts.md) | Options to initialize the client in `proxy` mode When in proxy mode Tevm will fetch all state from the latest block of the provided proxy URL Cannot be set if `fork` is also set |
 
 #### Defined in
 
-evmts-monorepo/packages/base-client/types/BaseClientOptions.d.ts:8
+evmts-monorepo/packages/base-client/types/BaseClientOptions.d.ts:9
 
 ___
 
@@ -1563,20 +1564,6 @@ evmts-monorepo/packages/actions-types/types/result/ScriptResult.d.ts:5
 
 ___
 
-### SerializableTevmState
-
-Ƭ **SerializableTevmState**: `Object`
-
-#### Index signature
-
-▪ [key: `string`]: [`AccountStorage`](../interfaces/state.AccountStorage.md)
-
-#### Defined in
-
-evmts-monorepo/packages/state/types/SerializableTevmState.d.ts:2
-
-___
-
 ### SetAccountParams
 
 Ƭ **SetAccountParams**\<`TThrowOnFail`\>: `BaseParams`\<`TThrowOnFail`\> & \{ `address`: [`Address`](index.md#address) ; `balance?`: `bigint` ; `deployedBytecode?`: [`Hex`](index.md#hex) ; `nonce?`: `bigint` ; `storageRoot?`: [`Hex`](index.md#hex)  }
@@ -1948,6 +1935,20 @@ response - [EthGetBalanceJsonRpcResponse](procedures_types.md#ethgetbalancejsonr
 #### Defined in
 
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:1116
+
+___
+
+### TevmState
+
+Ƭ **TevmState**: `Object`
+
+#### Index signature
+
+▪ [key: `string`]: [`AccountStorage`](../interfaces/state.AccountStorage.md)
+
+#### Defined in
+
+evmts-monorepo/packages/state/types/TevmState.d.ts:2
 
 ___
 

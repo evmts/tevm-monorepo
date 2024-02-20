@@ -23,6 +23,7 @@
 - [AbiParametersToPrimitiveTypes](modules.md#abiparameterstoprimitivetypes)
 - [Account](modules.md#account)
 - [Address](modules.md#address)
+- [BigIntToHex](modules.md#biginttohex)
 - [BlockNumber](modules.md#blocknumber)
 - [BlockTag](modules.md#blocktag)
 - [ContractFunctionName](modules.md#contractfunctionname)
@@ -40,8 +41,14 @@
 - [GetEventArgs](modules.md#geteventargs)
 - [HDAccount](modules.md#hdaccount)
 - [Hex](modules.md#hex)
+- [JsonSerializable](modules.md#jsonserializable)
+- [JsonSerializableArray](modules.md#jsonserializablearray)
+- [JsonSerializableObject](modules.md#jsonserializableobject)
+- [JsonSerializableSet](modules.md#jsonserializableset)
 - [MemoryDb](modules.md#memorydb)
 - [ParseAbi](modules.md#parseabi)
+- [SerializeToJson](modules.md#serializetojson)
+- [SetToHex](modules.md#settohex)
 
 ### Functions
 
@@ -232,6 +239,24 @@ ___
 #### Defined in
 
 node_modules/.pnpm/abitype@1.0.0_typescript@5.3.3_zod@3.22.4/node_modules/abitype/dist/types/abi.d.ts:3
+
+___
+
+### BigIntToHex
+
+Ƭ **BigIntToHex**\<`T`\>: `T` extends `bigint` ? [`Hex`](modules.md#hex) : `T`
+
+A helper type that converts a bigint to a hex string.
+
+#### Type parameters
+
+| Name |
+| :------ |
+| `T` |
+
+#### Defined in
+
+[packages/utils/src/SerializeToJson.ts:38](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/SerializeToJson.ts#L38)
 
 ___
 
@@ -544,6 +569,64 @@ node_modules/.pnpm/viem@2.7.9_typescript@5.3.3_zod@3.22.4/node_modules/viem/_typ
 
 ___
 
+### JsonSerializable
+
+Ƭ **JsonSerializable**: `bigint` \| `string` \| `number` \| `boolean` \| ``null`` \| [`JsonSerializableArray`](modules.md#jsonserializablearray) \| [`JsonSerializableObject`](modules.md#jsonserializableobject) \| [`JsonSerializableSet`](modules.md#jsonserializableset)
+
+A type that represents a JSON-serializable value.
+
+#### Defined in
+
+[packages/utils/src/SerializeToJson.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/SerializeToJson.ts#L6)
+
+___
+
+### JsonSerializableArray
+
+Ƭ **JsonSerializableArray**: `ReadonlyArray`\<[`JsonSerializable`](modules.md#jsonserializable)\>
+
+A type that represents a JSON-serializable array.
+
+#### Defined in
+
+[packages/utils/src/SerializeToJson.ts:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/SerializeToJson.ts#L19)
+
+___
+
+### JsonSerializableObject
+
+Ƭ **JsonSerializableObject**: `Object`
+
+A type that represents a JSON-serializable object.
+
+#### Index signature
+
+▪ [key: `string`]: [`JsonSerializable`](modules.md#jsonserializable)
+
+#### Defined in
+
+[packages/utils/src/SerializeToJson.ts:23](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/SerializeToJson.ts#L23)
+
+___
+
+### JsonSerializableSet
+
+Ƭ **JsonSerializableSet**\<`T`\>: `Set`\<`T`\>
+
+A type that represents a JSON-serializable set.
+
+#### Type parameters
+
+| Name | Type |
+| :------ | :------ |
+| `T` | extends `bigint` \| `string` \| `number` \| `boolean` = `bigint` \| `string` \| `number` \| `boolean` |
+
+#### Defined in
+
+[packages/utils/src/SerializeToJson.ts:27](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/SerializeToJson.ts#L27)
+
+___
+
 ### MemoryDb
 
 Ƭ **MemoryDb**\<`TKey`, `TValue`\>: `DB`\<`TKey`, `TValue`\>
@@ -588,6 +671,43 @@ type Result = ParseAbi<
 #### Defined in
 
 node_modules/.pnpm/abitype@1.0.0_typescript@5.3.3_zod@3.22.4/node_modules/abitype/dist/types/human-readable/parseAbi.d.ts:21
+
+___
+
+### SerializeToJson
+
+Ƭ **SerializeToJson**\<`T`\>: `T` extends [`JsonSerializableSet`](modules.md#jsonserializableset)\<infer S\> ? `ReadonlyArray`\<`S`\> : `T` extends [`JsonSerializableObject`](modules.md#jsonserializableobject) ? \{ [P in keyof T]: SerializeToJson\<T[P]\> } : `T` extends [`JsonSerializableArray`](modules.md#jsonserializablearray) ? [`SerializeToJson`](modules.md#serializetojson)\<`T`[`number`]\>[] : [`BigIntToHex`](modules.md#biginttohex)\<[`SetToHex`](modules.md#settohex)\<`T`\>\>
+
+A helper type that converts a widened JSON-serializable value to a JSON-serializable value.
+It replaces bigint with hex strings and sets with arrays.
+
+#### Type parameters
+
+| Name |
+| :------ |
+| `T` |
+
+#### Defined in
+
+[packages/utils/src/SerializeToJson.ts:48](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/SerializeToJson.ts#L48)
+
+___
+
+### SetToHex
+
+Ƭ **SetToHex**\<`T`\>: `T` extends `Set`\<`any`\> ? [`Hex`](modules.md#hex) : `T`
+
+A helper type that converts a set to a hex string.
+
+#### Type parameters
+
+| Name |
+| :------ |
+| `T` |
+
+#### Defined in
+
+[packages/utils/src/SerializeToJson.ts:42](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/SerializeToJson.ts#L42)
 
 ## Functions
 

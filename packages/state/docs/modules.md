@@ -24,6 +24,7 @@
 - [GetContractStorage](modules.md#getcontractstorage)
 - [ParameterizedTevmState](modules.md#parameterizedtevmstate)
 - [SerializableTevmState](modules.md#serializabletevmstate)
+- [TevmState](modules.md#tevmstate)
 - [TevmStateManager](modules.md#tevmstatemanager)
 - [TevmStateManagerOptions](modules.md#tevmstatemanageroptions)
 
@@ -78,11 +79,25 @@ ___
 
 #### Index signature
 
+▪ [key: `string`]: \{ `balance`: `Hex` ; `codeHash`: `Hex` ; `nonce`: `Hex` ; `storage?`: `StorageDump` ; `storageRoot`: `Hex`  }
+
+#### Defined in
+
+[packages/state/src/SerializableTevmState.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/SerializableTevmState.ts#L4)
+
+___
+
+### TevmState
+
+Ƭ **TevmState**: `Object`
+
+#### Index signature
+
 ▪ [key: `string`]: [`AccountStorage`](interfaces/AccountStorage.md)
 
 #### Defined in
 
-[packages/state/src/SerializableTevmState.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/SerializableTevmState.ts#L3)
+[packages/state/src/TevmState.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/TevmState.ts#L3)
 
 ___
 
@@ -92,17 +107,17 @@ ___
 
 #### Defined in
 
-[packages/state/src/TevmStateManager.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/TevmStateManager.ts#L11)
+[packages/state/src/TevmStateManager.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/TevmStateManager.ts#L14)
 
 ___
 
 ### TevmStateManagerOptions
 
-Ƭ **TevmStateManagerOptions**: \{ `fork`: [`ForkStateManagerOpts`](interfaces/ForkStateManagerOpts.md)  } \| \{ `proxy`: [`ProxyStateManagerOpts`](interfaces/ProxyStateManagerOpts.md)  } \| {}
+Ƭ **TevmStateManagerOptions**: \{ `fork`: [`ForkStateManagerOpts`](interfaces/ForkStateManagerOpts.md)  } \| \{ `proxy`: [`ProxyStateManagerOpts`](interfaces/ProxyStateManagerOpts.md)  } \| \{ `normal`: `NormalStateManagerOpts`  } \| {}
 
 #### Defined in
 
-[packages/state/src/TevmStateManager.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/TevmStateManager.ts#L16)
+[packages/state/src/TevmStateManager.ts:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/TevmStateManager.ts#L19)
 
 ## Functions
 
@@ -122,4 +137,4 @@ ___
 
 #### Defined in
 
-[packages/state/src/TevmStateManager.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/TevmStateManager.ts#L21)
+[packages/state/src/TevmStateManager.ts:25](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/TevmStateManager.ts#L25)
