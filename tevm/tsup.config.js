@@ -15,6 +15,7 @@ const dirs = [
 	'base-client',
 	'decorators',
 	'state',
+	'sync-storage-persister',
 	'utils',
 ]
 

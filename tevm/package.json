@@ -153,6 +153,16 @@
 				"types": "./state/index.d.cts",
 				"default": "./state/index.cjs"
 			}
+		},
+		"./sync-storage-persister": {
+			"import": {
+				"types": "./sync-storage-persister/index.d.ts",
+				"default": "./sync-storage-persister/index.js"
+			},
+			"require": {
+				"types": "./sync-storage-persister/index.d.cts",
+				"default": "./sync-storage-persister/index.cjs"
+			}
 		}
 	},
 	"main": "index.cjs",
@@ -171,7 +181,8 @@
 		"http-client",
 		"server",
 		"utils",
-		"state"
+		"state",
+		"sync-storage-persister"
 	],
 	"scripts": {
 		"all": "bun run generate && bun run generate:docs && bun run lint:deps && bun run lint:package",
@@ -202,6 +213,7 @@
 		"@tevm/procedures-types": "workspace:^",
 		"@tevm/server": "workspace:^",
 		"@tevm/state": "workspace:^",
+		"@tevm/sync-storage-persister": "workspace:^",
 		"@tevm/utils": "workspace:^"
 	},
 	"devDependencies": {

@@ -15,7 +15,8 @@
 		"./base-client/index.ts",
 		"./decorators/index.ts",
 		"./utils/index.ts",
-		"./state/index.ts"
+		"./state/index.ts",
+		"./sync-storage-persister/index.ts"
 	],
 	"plugin": [
 		"typedoc-plugin-markdown"

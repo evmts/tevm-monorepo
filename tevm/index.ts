@@ -150,3 +150,9 @@ export {
 	definePrecompile
 } from '@tevm/precompiles'
 
+export {
+	createSyncStoragePersister,
+	type SyncStoragePersister,
+	type CreateSyncStoragePersisterOptions,
+	type Storage,
+} from '@tevm/sync-storage-persister'

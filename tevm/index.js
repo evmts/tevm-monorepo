@@ -4,5 +4,6 @@ export { boolToBytes, boolToHex, bytesToBigInt, bytesToBigint, bytesToBool, byte
 export { createBaseClient } from '@tevm/base-client';
 export { createMemoryClient } from '@tevm/memory-client';
 export { defineCall, definePrecompile } from '@tevm/precompiles';
+export { createSyncStoragePersister } from '@tevm/sync-storage-persister';
 //# sourceMappingURL=out.js.map
 //# sourceMappingURL=index.js.map

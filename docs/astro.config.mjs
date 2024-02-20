@@ -18,19 +18,29 @@ export default defineConfig({
 			plugins: [
 				...(ENABLE_LINK_CHECKER
 					? [
-							starlightLinksValidatorPlugin({
-								errorOnRelativeLinks: true,
-							}),
-					  ]
+						starlightLinksValidatorPlugin({
+							errorOnRelativeLinks: true,
+						}),
+					]
 					: []),
 				starlightTypeDoc({
 					entryPoints: [
 						'../packages/actions',
+						'../packages/base-client',
+						'../packages/blockchain',
+						'../packages/evm',
 						'../packages/actions-types',
 						'../packages/client-types',
 						'../packages/contract',
+						'../packages/common',
 						'../packages/errors',
 						'../packages/jsonrpc',
+						'../packages/vm',
+						'../packages/decorators',
+						'../packages/utils',
+						'../packages/evm',
+						'../packages/state',
+						'../packages/zod',
 						'../packages/memory-client',
 						'../packages/precompiles/',
 						'../packages/predeploys',
@@ -39,13 +49,21 @@ export default defineConfig({
 						'../packages/predeploys',
 						'../packages/http-client',
 						'../packages/server',
+						'../packages/sync-storage-persister',
 						'../extensions/viem',
 						'../extensions/ethers',
+						'../bundler-packages/base-bundler',
 						'../bundler-packages/bun',
+						'../bundler-packages/bundler-cache',
+						'../bundler-packages/unplugin',
+						'../bundler-packages/runtime',
+						'../bundler-packages/compiler',
+						'../bundler-packages/solc',
 						'../bundler-packages/config',
 						'../bundler-packages/esbuild',
 						'../bundler-packages/rollup',
 						'../bundler-packages/rspack',
+						'../bundler-packages/ts-plugin',
 						'../bundler-packages/vite',
 						'../bundler-packages/webpack',
 					],
