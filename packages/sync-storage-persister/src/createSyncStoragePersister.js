@@ -21,7 +21,9 @@ export const createSyncStoragePersister = ({
 			const serializedState = serialize(state)
 			storage.setItem(key, serializedState)
 			if (storage.getItem(key) !== serializedState) {
-				throw new Error('Detected a failure to save state. There appears to be a problem with the provided state persister')
+				throw new Error(
+					'Detected a failure to save state. There appears to be a problem with the provided state persister',
+				)
 			}
 			return undefined
 		} catch (error) {
@@ -35,13 +37,13 @@ export const createSyncStoragePersister = ({
 			}
 			// TODO make this configurable
 			const retries = 3
-			const error = trySave(persistedState)
+			let error = trySave(persistedState)
 			let errorCount = 0
 			while (error && errorCount < retries) {
 				errorCount++
-				trySave(persistedState)
+				error = trySave(persistedState)
 			}
-			return
+			return error
 		}, throttleTime),
 		restoreState: () => {
 			const cacheString = storage.getItem(key)
