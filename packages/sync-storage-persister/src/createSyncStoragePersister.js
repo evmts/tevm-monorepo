@@ -21,7 +21,7 @@ export const createSyncStoragePersister = ({
 			const serializedState = serialize(state)
 			storage.setItem(key, serializedState)
 			if (storage.getItem(key) !== serializedState) {
-				throw new Error('wtf')
+				throw new Error('Detected a failure to save state. There appears to be a problem with the provided state persister')
 			}
 			return undefined
 		} catch (error) {
