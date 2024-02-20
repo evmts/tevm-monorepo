@@ -18,10 +18,10 @@ export default defineConfig({
 			plugins: [
 				...(ENABLE_LINK_CHECKER
 					? [
-							starlightLinksValidatorPlugin({
-								errorOnRelativeLinks: true,
-							}),
-					  ]
+						starlightLinksValidatorPlugin({
+							errorOnRelativeLinks: true,
+						}),
+					]
 					: []),
 				starlightTypeDoc({
 					entryPoints: [
@@ -103,6 +103,7 @@ export default defineConfig({
 						{ label: 'Advanced Scripting', link: '/learn/scripting/' },
 						{ label: 'CLI', link: '/learn/cli/' },
 						{ label: 'Ethers extension', link: '/learn/ethers/' },
+						{ label: 'Reference', link: '/learn/reference/' },
 					],
 				},
 				typeDocSidebarGroup,
