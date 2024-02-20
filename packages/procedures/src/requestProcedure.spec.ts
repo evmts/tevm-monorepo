@@ -545,10 +545,13 @@ describe('requestProcedure', () => {
 					code: 'revert',
 					...{
 						data: {
-							errors: ['Revert: Error: Dai/insufficient-balance'],
+							errors: [
+								'Revert: Error: {"abiItem":{"inputs":[{"name":"message","type":"string"}],"name":"Error","type":"error"},"args":["Dai/insufficient-balance"],"errorName":"Error"}',
+							],
 						},
 					},
-					message: 'Revert: Error: Dai/insufficient-balance',
+					message:
+						'Revert: Error: {"abiItem":{"inputs":[{"name":"message","type":"string"}],"name":"Error","type":"error"},"args":["Dai/insufficient-balance"],"errorName":"Error"}',
 				},
 				id: 1,
 				jsonrpc: '2.0',
