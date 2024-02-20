@@ -97,7 +97,7 @@ const stateManager = new TevmStateManager({
 
 #### Defined in
 
-evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:69
+evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:73
 
 ## Properties
 
@@ -107,7 +107,7 @@ evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:69
 
 #### Defined in
 
-evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:66
+evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:70
 
 ___
 
@@ -125,7 +125,7 @@ We track the block tag the cache was using so we can invalidate it whenever it c
 
 #### Defined in
 
-evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:53
+evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:57
 
 ___
 
@@ -135,7 +135,7 @@ ___
 
 #### Defined in
 
-evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:64
+evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:68
 
 ___
 
@@ -149,7 +149,7 @@ When a call is not currently executed this blocktag is unlocked and set back to 
 
 #### Defined in
 
-evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:45
+evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:49
 
 ___
 
@@ -161,7 +161,7 @@ How often we expect the block number to change
 
 #### Defined in
 
-evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:63
+evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:67
 
 ___
 
@@ -173,7 +173,7 @@ Cache the last time we fetched a block to avoid fetching it too often
 
 #### Defined in
 
-evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:59
+evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:63
 
 ___
 
@@ -183,7 +183,7 @@ ___
 
 #### Defined in
 
-evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:65
+evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:69
 
 ___
 
@@ -257,49 +257,49 @@ ___
 
 #### Defined in
 
-evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:68
+evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:72
 
 ___
 
 ### dumpCanonicalGenesis
 
-• **dumpCanonicalGenesis**: () => `Promise`\<[`SerializableTevmState`](../modules/index.md#serializabletevmstate)\>
+• **dumpCanonicalGenesis**: () => `Promise`\<[`TevmState`](../modules/index.md#tevmstate)\>
 
-Dumps the state of the state manager as a [SerializableTevmState](../modules/index.md#serializabletevmstate)
+Dumps the state of the state manager as a [TevmState](../modules/index.md#tevmstate)
 
 #### Type declaration
 
-▸ (): `Promise`\<[`SerializableTevmState`](../modules/index.md#serializabletevmstate)\>
+▸ (): `Promise`\<[`TevmState`](../modules/index.md#tevmstate)\>
 
-Dumps the state of the state manager as a [SerializableTevmState](../modules/index.md#serializabletevmstate)
+Dumps the state of the state manager as a [TevmState](../modules/index.md#tevmstate)
 
 ##### Returns
 
-`Promise`\<[`SerializableTevmState`](../modules/index.md#serializabletevmstate)\>
+`Promise`\<[`TevmState`](../modules/index.md#tevmstate)\>
 
 #### Defined in
 
-evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:224
+evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:228
 
 ___
 
 ### generateCanonicalGenesis
 
-• **generateCanonicalGenesis**: (`state`: [`SerializableTevmState`](../modules/index.md#serializabletevmstate)) => `Promise`\<`void`\>
+• **generateCanonicalGenesis**: (`state`: [`TevmState`](../modules/index.md#tevmstate)) => `Promise`\<`void`\>
 
-Loads a [SerializableTevmState](../modules/index.md#serializabletevmstate) into the state manager
+Loads a [TevmState](../modules/index.md#tevmstate) into the state manager
 
 #### Type declaration
 
 ▸ (`state`): `Promise`\<`void`\>
 
-Loads a [SerializableTevmState](../modules/index.md#serializabletevmstate) into the state manager
+Loads a [TevmState](../modules/index.md#tevmstate) into the state manager
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `state` | [`SerializableTevmState`](../modules/index.md#serializabletevmstate) |
+| `state` | [`TevmState`](../modules/index.md#tevmstate) |
 
 ##### Returns
 
@@ -311,7 +311,7 @@ Loads a [SerializableTevmState](../modules/index.md#serializabletevmstate) into 
 
 #### Defined in
 
-evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:220
+evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:224
 
 ___
 
@@ -333,7 +333,7 @@ ___
 
 #### Defined in
 
-evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:216
+evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:220
 
 ___
 
@@ -363,7 +363,7 @@ This method is not used by the Tevm State Manager and is a stub required by the 
 
 #### Defined in
 
-evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:207
+evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:211
 
 ___
 
@@ -393,7 +393,7 @@ This method is not used by the Tevm State Manager and is a stub required by the 
 
 #### Defined in
 
-evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:215
+evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:219
 
 ___
 
@@ -403,7 +403,7 @@ ___
 
 #### Defined in
 
-evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:39
+evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:43
 
 ___
 
@@ -417,7 +417,7 @@ ___
 
 #### Defined in
 
-evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:67
+evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:71
 
 ___
 
@@ -453,7 +453,7 @@ This method is not used by the Tevm State Manager and is a stub required by the 
 
 #### Defined in
 
-evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:211
+evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:215
 
 ## Methods
 
@@ -475,7 +475,7 @@ Checks if an `account` exists at `address`
 
 #### Defined in
 
-evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:146
+evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:150
 
 ___
 
@@ -499,7 +499,7 @@ Partial implementation, called from the subclass.
 
 #### Defined in
 
-evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:188
+evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:192
 
 ___
 
@@ -515,7 +515,7 @@ Resets all internal caches
 
 #### Defined in
 
-evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:93
+evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:97
 
 ___
 
@@ -541,7 +541,7 @@ Clears all storage entries for the account corresponding to `address`.
 
 #### Defined in
 
-evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:132
+evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:136
 
 ___
 
@@ -564,7 +564,7 @@ Partial implementation, called from the subclass.
 
 #### Defined in
 
-evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:195
+evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:199
 
 ___
 
@@ -580,7 +580,7 @@ Returns a new instance of the ForkStateManager with the same opts and all storag
 
 #### Defined in
 
-evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:89
+evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:93
 
 ___
 
@@ -606,7 +606,7 @@ Deletes an account from state under the provided `address`.
 
 #### Defined in
 
-evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:173
+evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:177
 
 ___
 
@@ -636,7 +636,7 @@ Both are represented as `0x` prefixed hex strings.
 
 #### Defined in
 
-evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:140
+evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:144
 
 ___
 
@@ -662,7 +662,7 @@ ___
 
 #### Defined in
 
-evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:141
+evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:145
 
 ___
 
@@ -676,7 +676,7 @@ ___
 
 #### Defined in
 
-evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:203
+evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:207
 
 ___
 
@@ -702,7 +702,7 @@ Gets the code corresponding to the provided `address`.
 
 #### Defined in
 
-evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:150
+evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:154
 
 ___
 
@@ -724,7 +724,7 @@ Retrieves an account from the provider and stores in the local trie
 
 #### Defined in
 
-evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:156
+evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:160
 
 ___
 
@@ -753,7 +753,7 @@ Returns an empty `Uint8Array` if the account has no associated code.
 
 #### Defined in
 
-evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:100
+evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:104
 
 ___
 
@@ -785,7 +785,7 @@ If this does not exist an empty `Uint8Array` is returned.
 
 #### Defined in
 
-evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:117
+evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:121
 
 ___
 
@@ -814,7 +814,7 @@ an EIP-1186 formatted proof
 
 #### Defined in
 
-evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:180
+evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:184
 
 ___
 
@@ -831,7 +831,7 @@ If the block number has changed the cache will be invalidated
 
 #### Defined in
 
-evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:74
+evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:78
 
 ___
 
@@ -860,7 +860,7 @@ fields, then saves the account into state. Account fields can include
 
 #### Defined in
 
-evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:168
+evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:172
 
 ___
 
@@ -887,7 +887,7 @@ Saves an account into state under the provided `address`.
 
 #### Defined in
 
-evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:160
+evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:164
 
 ___
 
@@ -915,7 +915,7 @@ corresponding to `address` to reference this.
 
 #### Defined in
 
-evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:107
+evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:111
 
 ___
 
@@ -944,7 +944,7 @@ corresponding to `address` at the provided `key`.
 
 #### Defined in
 
-evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:127
+evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:131
 
 ___
 
@@ -967,7 +967,7 @@ Partial implementation , called from the subclass.
 
 #### Defined in
 
-evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:202
+evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:206
 
 ___
 
@@ -987,7 +987,7 @@ Returns a new instance of the TevmStateManager with the same opts
 
 #### Defined in
 
-evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:85
+evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:89
 
 ___
 
@@ -1006,4 +1006,4 @@ directly in unlocked mode. Most transactions should lock
 
 #### Defined in
 
-evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:81
+evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:85

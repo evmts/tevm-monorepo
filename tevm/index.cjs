@@ -6,6 +6,7 @@ var utils = require('@tevm/utils');
 var baseClient = require('@tevm/base-client');
 var memoryClient = require('@tevm/memory-client');
 var precompiles = require('@tevm/precompiles');
+var syncStoragePersister = require('@tevm/sync-storage-persister');
 
 
 
@@ -220,6 +221,10 @@ Object.defineProperty(exports, "defineCall", {
 Object.defineProperty(exports, "definePrecompile", {
   enumerable: true,
   get: function () { return precompiles.definePrecompile; }
+});
+Object.defineProperty(exports, "createSyncStoragePersister", {
+  enumerable: true,
+  get: function () { return syncStoragePersister.createSyncStoragePersister; }
 });
 //# sourceMappingURL=out.js.map
 //# sourceMappingURL=index.cjs.map

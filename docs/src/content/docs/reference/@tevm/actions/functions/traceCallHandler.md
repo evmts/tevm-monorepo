@@ -13,7 +13,7 @@ Returns a trace of an eth_call within the context of the given block execution u
 
 ▪ **options**: `object`
 
-▪ **options.vm**: `TevmVm`
+▪ **options.vm**: [`TevmVm`](/reference/tevm/vm/classes/tevmvm/)
 
 ## Returns
 

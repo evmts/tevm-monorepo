@@ -5,7 +5,7 @@ prev: false
 title: "ScriptParams"
 ---
 
-> **ScriptParams**\<`TAbi`, `TFunctionName`, `TThrowOnFail`\>: `EncodeFunctionDataParameters`\<`TAbi`, `TFunctionName`\> & [`BaseCallParams`](/reference/tevm/actions-types/type-aliases/basecallparams/)\<`TThrowOnFail`\> & `object`
+> **ScriptParams**\<`TAbi`, `TFunctionName`, `TThrowOnFail`\>: [`EncodeFunctionDataParameters`](/reference/tevm/utils/type-aliases/encodefunctiondataparameters/)\<`TAbi`, `TFunctionName`\> & [`BaseCallParams`](/reference/tevm/actions-types/type-aliases/basecallparams/)\<`TThrowOnFail`\> & `object`
 
 Tevm params for deploying and running a script
 
@@ -13,7 +13,7 @@ Tevm params for deploying and running a script
 
 ### deployedBytecode
 
-> **deployedBytecode**: `Hex`
+> **deployedBytecode**: [`Hex`](/reference/tevm/utils/type-aliases/hex/)
 
 The EVM code to run.
 
@@ -21,8 +21,8 @@ The EVM code to run.
 
 | Parameter | Default |
 | :------ | :------ |
-| `TAbi` extends `Abi` \| readonly `unknown`[] | `Abi` |
-| `TFunctionName` extends `ContractFunctionName`\<`TAbi`\> | `ContractFunctionName`\<`TAbi`\> |
+| `TAbi` extends [`Abi`](/reference/tevm/utils/type-aliases/abi/) \| readonly `unknown`[] | [`Abi`](/reference/tevm/utils/type-aliases/abi/) |
+| `TFunctionName` extends [`ContractFunctionName`](/reference/tevm/utils/type-aliases/contractfunctionname/)\<`TAbi`\> | [`ContractFunctionName`](/reference/tevm/utils/type-aliases/contractfunctionname/)\<`TAbi`\> |
 | `TThrowOnFail` extends `boolean` | `boolean` |
 
 ## Source

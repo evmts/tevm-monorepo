@@ -5,7 +5,7 @@ prev: false
 title: "EthGetTransactionByBlockHashAndIndexJsonRpcRequest"
 ---
 
-> **EthGetTransactionByBlockHashAndIndexJsonRpcRequest**: [`JsonRpcRequest`](/reference/tevm/jsonrpc/type-aliases/jsonrpcrequest/)\<`"eth_getTransactionByBlockHashAndIndex"`, readonly [`Hex`, `Hex`]\>
+> **EthGetTransactionByBlockHashAndIndexJsonRpcRequest**: [`JsonRpcRequest`](/reference/tevm/jsonrpc/type-aliases/jsonrpcrequest/)\<`"eth_getTransactionByBlockHashAndIndex"`, readonly [[`Hex`](/reference/tevm/utils/type-aliases/hex/), [`Hex`](/reference/tevm/utils/type-aliases/hex/)]\>
 
 JSON-RPC request for `eth_getTransactionByBlockHashAndIndex` procedure
 

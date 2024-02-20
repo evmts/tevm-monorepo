@@ -5,7 +5,7 @@ import { keccak256 } from 'ethereum-cryptography/keccak.js'
 import { AccountCache, CacheType, StorageCache } from '@ethereumjs/statemanager'
 
 import { Cache } from './Cache.js'
-import type { SerializableTevmState } from './SerializableTevmState.js'
+import type { TevmState } from './TevmState.js'
 import type { TevmStateManagerInterface } from './TevmStateManagerInterface.js'
 import type { AccountFields, StorageDump } from '@ethereumjs/common'
 import type { StorageRange } from '@ethereumjs/common'
@@ -35,6 +35,10 @@ export interface ProxyStateManagerOpts {
 	 * Defaults to 2000ms (2s)
 	 */
 	expectedBlockTime?: number
+	/**
+	 * Called when state manager commits state
+	 */
+	onCommit?: (stateManager: ProxyStateManager) => void
 }
 
 // TODO this should be using @tevm/jsonrpc package instead of viem
@@ -472,6 +476,7 @@ export class ProxyStateManager implements TevmStateManagerInterface {
 	async commit(): Promise<void> {
 		this._accountCache.commit()
 		this._storageCache.commit()
+		this.opts.onCommit?.(this)
 	}
 
 	/**
@@ -520,11 +525,9 @@ export class ProxyStateManager implements TevmStateManagerInterface {
 	}
 
 	/**
-	 * Loads a {@link SerializableTevmState} into the state manager
+	 * Loads a {@link TevmState} into the state manager
 	 */
-	generateCanonicalGenesis = async (
-		state: SerializableTevmState,
-	): Promise<void> => {
+	generateCanonicalGenesis = async (state: TevmState): Promise<void> => {
 		for (const [k, v] of Object.entries(state)) {
 			const { nonce, balance, storageRoot, codeHash, storage } = v
 			const account = new EthjsAccount(
@@ -551,15 +554,15 @@ export class ProxyStateManager implements TevmStateManagerInterface {
 	}
 
 	/**
-	 * Dumps the state of the state manager as a {@link SerializableTevmState}
+	 * Dumps the state of the state manager as a {@link TevmState}
 	 */
-	dumpCanonicalGenesis = async (): Promise<SerializableTevmState> => {
+	dumpCanonicalGenesis = async (): Promise<TevmState> => {
 		const accountAddresses: string[] = []
 		this._accountCache?._orderedMapCache?.forEach((e) => {
 			accountAddresses.push(e[0])
 		})
 
-		const state: SerializableTevmState = {}
+		const state: TevmState = {}
 
 		for (const address of accountAddresses) {
 			const hexAddress = `0x${address}`

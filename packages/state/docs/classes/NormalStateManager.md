@@ -43,6 +43,7 @@ Internally this state manager gets used when no proxy or fork url is passed into
 - [\_storageTries](NormalStateManager.md#_storagetries)
 - [\_trie](NormalStateManager.md#_trie)
 - [common](NormalStateManager.md#common)
+- [opts](NormalStateManager.md#opts)
 - [originalStorageCache](NormalStateManager.md#originalstoragecache)
 
 ### Methods
@@ -85,25 +86,23 @@ Internally this state manager gets used when no proxy or fork url is passed into
 
 • **new NormalStateManager**(`opts?`): [`NormalStateManager`](NormalStateManager.md)
 
-Instantiate the StateManager interface.
-
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `opts?` | `DefaultStateManagerOpts` |
+| `opts?` | `NormalStateManagerOpts` |
 
 #### Returns
 
 [`NormalStateManager`](NormalStateManager.md)
 
-#### Inherited from
+#### Overrides
 
 DefaultStateManager.constructor
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:146
+[packages/state/src/NormalStateManager.ts:37](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/NormalStateManager.ts#L37)
 
 ## Properties
 
@@ -304,6 +303,16 @@ DefaultStateManager.common
 #### Defined in
 
 node_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:131
+
+___
+
+### opts
+
+• `Protected` `Optional` `Readonly` **opts**: `NormalStateManagerOpts`
+
+#### Defined in
+
+[packages/state/src/NormalStateManager.ts:37](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/NormalStateManager.ts#L37)
 
 ___
 
@@ -563,7 +572,7 @@ Returns a new instance of the ForkStateManager with the same opts and all storag
 
 #### Defined in
 
-[packages/state/src/NormalStateManager.ts:43](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/NormalStateManager.ts#L43)
+[packages/state/src/NormalStateManager.ts:58](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/NormalStateManager.ts#L58)
 
 ___
 
@@ -599,17 +608,17 @@ ___
 
 ### dumpCanonicalGenesis
 
-▸ **dumpCanonicalGenesis**(): `Promise`\<[`SerializableTevmState`](../modules.md#serializabletevmstate)\>
+▸ **dumpCanonicalGenesis**(): `Promise`\<[`TevmState`](../modules.md#tevmstate)\>
 
-Dumps the state of the state manager as a [SerializableTevmState](../modules.md#serializabletevmstate)
+Dumps the state of the state manager as a [TevmState](../modules.md#tevmstate)
 
 #### Returns
 
-`Promise`\<[`SerializableTevmState`](../modules.md#serializabletevmstate)\>
+`Promise`\<[`TevmState`](../modules.md#tevmstate)\>
 
 #### Defined in
 
-[packages/state/src/NormalStateManager.ts:169](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/NormalStateManager.ts#L169)
+[packages/state/src/NormalStateManager.ts:184](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/NormalStateManager.ts#L184)
 
 ___
 
@@ -707,13 +716,13 @@ ___
 
 ▸ **generateCanonicalGenesis**(`state`): `Promise`\<`void`\>
 
-Loads a [SerializableTevmState](../modules.md#serializabletevmstate) into the state manager
+Loads a [TevmState](../modules.md#tevmstate) into the state manager
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `state` | [`SerializableTevmState`](../modules.md#serializabletevmstate) |
+| `state` | [`TevmState`](../modules.md#tevmstate) |
 
 #### Returns
 
@@ -729,7 +738,7 @@ DefaultStateManager.generateCanonicalGenesis
 
 #### Defined in
 
-[packages/state/src/NormalStateManager.ts:133](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/NormalStateManager.ts#L133)
+[packages/state/src/NormalStateManager.ts:148](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/NormalStateManager.ts#L148)
 
 ___
 
@@ -781,7 +790,7 @@ An array of account addresses.
 
 #### Defined in
 
-[packages/state/src/NormalStateManager.ts:30](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/NormalStateManager.ts#L30)
+[packages/state/src/NormalStateManager.ts:45](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/NormalStateManager.ts#L45)
 
 ___
 
@@ -1157,7 +1166,7 @@ DefaultStateManager.shallowCopy
 
 #### Defined in
 
-[packages/state/src/NormalStateManager.ts:97](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/NormalStateManager.ts#L97)
+[packages/state/src/NormalStateManager.ts:112](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/NormalStateManager.ts#L112)
 
 ___
 

@@ -5,7 +5,7 @@ prev: false
 title: "EthEstimateGasJsonRpcResponse"
 ---
 
-> **EthEstimateGasJsonRpcResponse**: [`JsonRpcResponse`](/reference/tevm/jsonrpc/type-aliases/jsonrpcresponse/)\<`"eth_estimateGas"`, `Hex`, `string`\>
+> **EthEstimateGasJsonRpcResponse**: [`JsonRpcResponse`](/reference/tevm/jsonrpc/type-aliases/jsonrpcresponse/)\<`"eth_estimateGas"`, [`Hex`](/reference/tevm/utils/type-aliases/hex/), `string`\>
 
 JSON-RPC response for `eth_estimateGas` procedure
 

@@ -85,7 +85,7 @@ const result = await client.readContract(
 
 ### abi
 
-> **abi**: `ParseAbi`\<`THumanReadableAbi`\>
+> **abi**: [`ParseAbi`](/reference/tevm/utils/type-aliases/parseabi/)\<`THumanReadableAbi`\>
 
 The json abi of the contract
 
@@ -98,7 +98,7 @@ console.log(MyScript.abi) // [{name: 'balanceOf', inputs: [...], outputs: [...],
 
 ### bytecode
 
-> **bytecode**: `Hex`
+> **bytecode**: [`Hex`](/reference/tevm/utils/type-aliases/hex/)
 
 The contract bytecode. This can be used for deploying the contract
 bytecode is different from deployedBytecode in that the bytecode
@@ -107,7 +107,7 @@ bytecode is the code that is deployed
 
 ### deployedBytecode
 
-> **deployedBytecode**: `Hex`
+> **deployedBytecode**: [`Hex`](/reference/tevm/utils/type-aliases/hex/)
 
 The deployed contract bytecode. TThis can be used with the `script` tevm method
 to execute arbitrary solidity code that isn't necessarily deployed to the chain
@@ -116,7 +116,7 @@ to deploy the contract whereas the deployed bytecode is the code that is deploye
 
 ### events
 
-> **events**: [`EventActionCreator`](/reference/tevm/contract/type-aliases/eventactioncreator/)\<`THumanReadableAbi`, `Hex`, `Hex`, `undefined`\>
+> **events**: [`EventActionCreator`](/reference/tevm/contract/type-aliases/eventactioncreator/)\<`THumanReadableAbi`, [`Hex`](/reference/tevm/utils/type-aliases/hex/), [`Hex`](/reference/tevm/utils/type-aliases/hex/), `undefined`\>
 
 Action creators for events. Can be used to create event filters in a typesafe way
 
@@ -150,7 +150,7 @@ The name of the contract. If imported this will match the name of the contract i
 
 ### read
 
-> **read**: [`ReadActionCreator`](/reference/tevm/contract/type-aliases/readactioncreator/)\<`THumanReadableAbi`, `Hex`, `Hex`, `undefined`\>
+> **read**: [`ReadActionCreator`](/reference/tevm/contract/type-aliases/readactioncreator/)\<`THumanReadableAbi`, [`Hex`](/reference/tevm/utils/type-aliases/hex/), [`Hex`](/reference/tevm/utils/type-aliases/hex/), `undefined`\>
 
 Action creators for contract view and pure functions
 
@@ -183,7 +183,7 @@ the address property if added.
 
 #### Type parameters
 
-▪ **TAddress** extends `Address`
+▪ **TAddress** extends [`Address`](/reference/tevm/utils/type-aliases/address/)
 
 #### Parameters
 
@@ -202,7 +202,7 @@ a contract address to execute
 
 ### write
 
-> **write**: [`WriteActionCreator`](/reference/tevm/contract/type-aliases/writeactioncreator/)\<`THumanReadableAbi`, `Hex`, `Hex`, `undefined`\>
+> **write**: [`WriteActionCreator`](/reference/tevm/contract/type-aliases/writeactioncreator/)\<`THumanReadableAbi`, [`Hex`](/reference/tevm/utils/type-aliases/hex/), [`Hex`](/reference/tevm/utils/type-aliases/hex/), `undefined`\>
 
 Action creators for contract payable and nonpayable functions
 

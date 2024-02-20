@@ -5,7 +5,7 @@ prev: false
 title: "BlockParam"
 ---
 
-> **BlockParam**: [`BlockTag`](/reference/tevm/actions-types/type-aliases/blocktag/) \| `Hex` \| `bigint`
+> **BlockParam**: [`BlockTag`](/reference/tevm/actions-types/type-aliases/blocktag/) \| [`Hex`](/reference/tevm/utils/type-aliases/hex/) \| `bigint`
 
 ## Source
 

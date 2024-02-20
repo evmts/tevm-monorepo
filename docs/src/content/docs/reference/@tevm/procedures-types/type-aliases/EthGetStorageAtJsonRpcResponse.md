@@ -5,7 +5,7 @@ prev: false
 title: "EthGetStorageAtJsonRpcResponse"
 ---
 
-> **EthGetStorageAtJsonRpcResponse**: [`JsonRpcResponse`](/reference/tevm/jsonrpc/type-aliases/jsonrpcresponse/)\<`"eth_getStorageAt"`, `Hex`, `string`\>
+> **EthGetStorageAtJsonRpcResponse**: [`JsonRpcResponse`](/reference/tevm/jsonrpc/type-aliases/jsonrpcresponse/)\<`"eth_getStorageAt"`, [`Hex`](/reference/tevm/utils/type-aliases/hex/), `string`\>
 
 JSON-RPC response for `eth_getStorageAt` procedure
 

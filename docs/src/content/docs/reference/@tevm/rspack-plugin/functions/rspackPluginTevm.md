@@ -16,7 +16,7 @@ To configure add this plugin to your rspack config and add the ts-plugin to your
 
 ▪ **options?**: `object`
 
-▪ **options.solc?**: `SolcVersions`
+▪ **options.solc?**: [`SolcVersions`](/reference/tevm/solc/type-aliases/solcversions/)
 
 ## Returns
 

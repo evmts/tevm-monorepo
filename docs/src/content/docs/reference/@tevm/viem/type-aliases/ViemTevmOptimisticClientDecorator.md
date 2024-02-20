@@ -23,7 +23,7 @@ This API should not be used in production and may be trimmed from a public relea
 
 ▪ **TChain** extends `Chain` \| `undefined` = `Chain` \| `undefined`
 
-▪ **TAccount** extends `Account` \| `undefined` = `Account` \| `undefined`
+▪ **TAccount** extends [`Account`](/reference/tevm/utils/type-aliases/account/) \| `undefined` = [`Account`](/reference/tevm/utils/type-aliases/account/) \| `undefined`
 
 ## Parameters
 

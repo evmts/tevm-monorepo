@@ -2,7 +2,10 @@ import {
 	ForkStateManager,
 	type ForkStateManagerOpts,
 } from './ForkStateManager.js'
-import { NormalStateManager } from './NormalStateManager.js'
+import {
+	NormalStateManager,
+	type NormalStateManagerOpts,
+} from './NormalStateManager.js'
 import {
 	ProxyStateManager,
 	type ProxyStateManagerOpts,
@@ -16,6 +19,7 @@ export type TevmStateManager =
 export type TevmStateManagerOptions =
 	| { fork: ForkStateManagerOpts }
 	| { proxy: ProxyStateManagerOpts }
+	| { normal: NormalStateManagerOpts }
 	| {}
 
 export const createTevmStateManager = (options: TevmStateManagerOptions) => {
@@ -25,5 +29,5 @@ export const createTevmStateManager = (options: TevmStateManagerOptions) => {
 	if ('proxy' in options && options.proxy) {
 		return new ProxyStateManager(options.proxy)
 	}
-	return new NormalStateManager()
+	return new NormalStateManager('normal' in options ? options.normal : {})
 }

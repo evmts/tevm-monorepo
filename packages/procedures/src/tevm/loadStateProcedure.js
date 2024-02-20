@@ -12,7 +12,7 @@ export const loadStateProcedure = (client) => async (request) => {
 	} = request
 
 	/**
-	 * @type {import('@tevm/state').SerializableTevmState}
+	 * @type {import('@tevm/state').TevmState}
 	 */
 	const parsedState = {}
 

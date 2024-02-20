@@ -5,7 +5,7 @@ prev: false
 title: "EthCoinbaseJsonRpcResponse"
 ---
 
-> **EthCoinbaseJsonRpcResponse**: [`JsonRpcResponse`](/reference/tevm/jsonrpc/type-aliases/jsonrpcresponse/)\<`"eth_coinbase"`, `Hex`, `string`\>
+> **EthCoinbaseJsonRpcResponse**: [`JsonRpcResponse`](/reference/tevm/jsonrpc/type-aliases/jsonrpcresponse/)\<`"eth_coinbase"`, [`Hex`](/reference/tevm/utils/type-aliases/hex/), `string`\>
 
 JSON-RPC response for `eth_coinbase` procedure
 

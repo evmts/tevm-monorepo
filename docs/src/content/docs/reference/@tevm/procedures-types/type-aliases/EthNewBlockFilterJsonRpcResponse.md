@@ -5,7 +5,7 @@ prev: false
 title: "EthNewBlockFilterJsonRpcResponse"
 ---
 
-> **EthNewBlockFilterJsonRpcResponse**: [`JsonRpcResponse`](/reference/tevm/jsonrpc/type-aliases/jsonrpcresponse/)\<`"eth_newBlockFilter"`, `Hex`, `string`\>
+> **EthNewBlockFilterJsonRpcResponse**: [`JsonRpcResponse`](/reference/tevm/jsonrpc/type-aliases/jsonrpcresponse/)\<`"eth_newBlockFilter"`, [`Hex`](/reference/tevm/utils/type-aliases/hex/), `string`\>
 
 JSON-RPC response for `eth_newBlockFilter` procedure
 

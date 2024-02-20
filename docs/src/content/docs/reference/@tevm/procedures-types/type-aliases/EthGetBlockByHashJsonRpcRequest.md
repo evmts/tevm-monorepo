@@ -5,7 +5,7 @@ prev: false
 title: "EthGetBlockByHashJsonRpcRequest"
 ---
 
-> **EthGetBlockByHashJsonRpcRequest**: [`JsonRpcRequest`](/reference/tevm/jsonrpc/type-aliases/jsonrpcrequest/)\<`"eth_getBlockByHash"`, readonly [`Hex`, `boolean`]\>
+> **EthGetBlockByHashJsonRpcRequest**: [`JsonRpcRequest`](/reference/tevm/jsonrpc/type-aliases/jsonrpcrequest/)\<`"eth_getBlockByHash"`, readonly [[`Hex`](/reference/tevm/utils/type-aliases/hex/), `boolean`]\>
 
 JSON-RPC request for `eth_getBlockByHash` procedure
 

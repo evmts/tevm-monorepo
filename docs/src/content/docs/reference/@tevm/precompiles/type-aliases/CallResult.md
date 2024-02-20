@@ -13,7 +13,7 @@ A result of a precompile javascript call
 
 | Parameter |
 | :------ |
-| `TAbi` extends `Abi` |
+| `TAbi` extends [`Abi`](/reference/tevm/utils/type-aliases/abi/) |
 | `TFunctionName` extends `string` |
 
 ## Type declaration
@@ -38,20 +38,20 @@ The amount of gas used during execution.
 
 ### logs
 
-> **logs**?: `ReadonlyArray`\<`ExtractAbiEvents`\<`TAbi`\> & `object`\>
+> **logs**?: `ReadonlyArray`\<[`ExtractAbiEvents`](/reference/tevm/utils/type-aliases/extractabievents/)\<`TAbi`\> & `object`\>
 
 Logs emitted during contract execution.
 Logs must match the interface of the ABI
 
 ### returnValue
 
-> **returnValue**: `AbiParametersToPrimitiveTypes`\<`ExtractAbiFunction`\<`TAbi`, `TFunctionName`\>[`"outputs"`]\>[`0`]
+> **returnValue**: [`AbiParametersToPrimitiveTypes`](/reference/tevm/utils/type-aliases/abiparameterstoprimitivetypes/)\<[`ExtractAbiFunction`](/reference/tevm/utils/type-aliases/extractabifunction/)\<`TAbi`, `TFunctionName`\>[`"outputs"`]\>[`0`]
 
 The return value of the call. Required even on exceptions
 
 ### selfdestruct
 
-> **selfdestruct**?: `Set`\<`Address`\>
+> **selfdestruct**?: `Set`\<[`Address`](/reference/tevm/utils/type-aliases/address/)\>
 
 A set of accounts to selfdestruct
 

@@ -5,7 +5,7 @@ prev: false
 title: "EthGetTransactionByHashJsonRpcRequest"
 ---
 
-> **EthGetTransactionByHashJsonRpcRequest**: [`JsonRpcRequest`](/reference/tevm/jsonrpc/type-aliases/jsonrpcrequest/)\<`"eth_getTransactionByHash"`, readonly [`Hex`]\>
+> **EthGetTransactionByHashJsonRpcRequest**: [`JsonRpcRequest`](/reference/tevm/jsonrpc/type-aliases/jsonrpcrequest/)\<`"eth_getTransactionByHash"`, readonly [[`Hex`](/reference/tevm/utils/type-aliases/hex/)]\>
 
 JSON-RPC request for `eth_getTransactionByHash` procedure
 

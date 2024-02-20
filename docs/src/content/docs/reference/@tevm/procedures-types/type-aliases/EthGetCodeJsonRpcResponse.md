@@ -5,7 +5,7 @@ prev: false
 title: "EthGetCodeJsonRpcResponse"
 ---
 
-> **EthGetCodeJsonRpcResponse**: [`JsonRpcResponse`](/reference/tevm/jsonrpc/type-aliases/jsonrpcresponse/)\<`"eth_getCode"`, `Hex`, `string`\>
+> **EthGetCodeJsonRpcResponse**: [`JsonRpcResponse`](/reference/tevm/jsonrpc/type-aliases/jsonrpcresponse/)\<`"eth_getCode"`, [`Hex`](/reference/tevm/utils/type-aliases/hex/), `string`\>
 
 JSON-RPC response for `eth_getCode` procedure
 

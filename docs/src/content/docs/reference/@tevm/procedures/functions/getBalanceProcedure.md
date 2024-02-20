@@ -13,7 +13,7 @@ title: "getBalanceProcedure"
 
 ▪ **options.forkUrl?**: `string`
 
-▪ **options.vm**: `TevmVm`
+▪ **options.vm**: [`TevmVm`](/reference/tevm/vm/classes/tevmvm/)
 
 ## Returns
 

@@ -125,7 +125,7 @@ export {
 } from '@tevm/utils'
 
 export type {
-	SerializableTevmState,
+	TevmState,
 	ForkStateManagerOpts,
 	ProxyStateManagerOpts,
 } from '@tevm/state'
@@ -150,3 +150,9 @@ export {
 	definePrecompile
 } from '@tevm/precompiles'
 
+export {
+	createSyncStoragePersister,
+	type SyncStoragePersister,
+	type CreateSyncStoragePersisterOptions,
+	type Storage,
+} from '@tevm/sync-storage-persister'

@@ -5,7 +5,7 @@ prev: false
 title: "EthGetTransactionCountJsonRpcResponse"
 ---
 
-> **EthGetTransactionCountJsonRpcResponse**: [`JsonRpcResponse`](/reference/tevm/jsonrpc/type-aliases/jsonrpcresponse/)\<`"eth_getTransactionCount"`, `Hex`, `string`\>
+> **EthGetTransactionCountJsonRpcResponse**: [`JsonRpcResponse`](/reference/tevm/jsonrpc/type-aliases/jsonrpcresponse/)\<`"eth_getTransactionCount"`, [`Hex`](/reference/tevm/utils/type-aliases/hex/), `string`\>
 
 JSON-RPC response for `eth_getTransactionCount` procedure
 

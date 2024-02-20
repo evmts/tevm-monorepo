@@ -12,9 +12,9 @@ It's API resuses the viem `contractRead`/`contractWrite` API to encode abi, func
 
 ## Type parameters
 
-▪ **TAbi** extends `Abi` \| readonly `unknown`[] = `Abi`
+▪ **TAbi** extends [`Abi`](/reference/tevm/utils/type-aliases/abi/) \| readonly `unknown`[] = [`Abi`](/reference/tevm/utils/type-aliases/abi/)
 
-▪ **TFunctionName** extends `ContractFunctionName`\<`TAbi`\> = `ContractFunctionName`\<`TAbi`\>
+▪ **TFunctionName** extends [`ContractFunctionName`](/reference/tevm/utils/type-aliases/contractfunctionname/)\<`TAbi`\> = [`ContractFunctionName`](/reference/tevm/utils/type-aliases/contractfunctionname/)\<`TAbi`\>
 
 ## Parameters
 

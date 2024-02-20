@@ -77,3 +77,12 @@ export {
 	toRlp,
 } from './viem.js'
 export { EthjsAccount, EthjsAddress } from './ethereumjs.js'
+export type {
+	SetToHex,
+	BigIntToHex,
+	SerializeToJson,
+	JsonSerializable,
+	JsonSerializableSet,
+	JsonSerializableArray,
+	JsonSerializableObject,
+} from './SerializeToJson.js'

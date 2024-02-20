@@ -5,7 +5,7 @@ prev: false
 title: "EthGetFilterLogsJsonRpcRequest"
 ---
 
-> **EthGetFilterLogsJsonRpcRequest**: [`JsonRpcRequest`](/reference/tevm/jsonrpc/type-aliases/jsonrpcrequest/)\<`"eth_getFilterLogs"`, [`Hex`]\>
+> **EthGetFilterLogsJsonRpcRequest**: [`JsonRpcRequest`](/reference/tevm/jsonrpc/type-aliases/jsonrpcrequest/)\<`"eth_getFilterLogs"`, [[`Hex`](/reference/tevm/utils/type-aliases/hex/)]\>
 
 JSON-RPC request for `eth_getFilterLogs` procedure
 

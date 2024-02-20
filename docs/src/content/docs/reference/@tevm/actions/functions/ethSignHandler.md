@@ -11,7 +11,7 @@ title: "ethSignHandler"
 
 ▪ **params**: `object`
 
-▪ **params.accounts**: readonly `HDAccount`[]
+▪ **params.accounts**: readonly [`HDAccount`](/reference/tevm/utils/type-aliases/hdaccount/)[]
 
 ## Returns
 

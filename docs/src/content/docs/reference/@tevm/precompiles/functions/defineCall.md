@@ -5,11 +5,11 @@ prev: false
 title: "defineCall"
 ---
 
-> **defineCall**\<`TAbi`\>(`abi`, `handlers`): (`__namedParameters`) => `Promise`\<`ExecResult`\>
+> **defineCall**\<`TAbi`\>(`abi`, `handlers`): (`__namedParameters`) => `Promise`\<[`ExecResult`](/reference/tevm/evm/interfaces/execresult/)\>
 
 ## Type parameters
 
-▪ **TAbi** extends `Abi`
+▪ **TAbi** extends [`Abi`](/reference/tevm/utils/type-aliases/abi/)
 
 ## Parameters
 
@@ -19,7 +19,7 @@ title: "defineCall"
 
 ## Returns
 
-> > (`__namedParameters`): `Promise`\<`ExecResult`\>
+> > (`__namedParameters`): `Promise`\<[`ExecResult`](/reference/tevm/evm/interfaces/execresult/)\>
 >
 > ### Parameters
 >

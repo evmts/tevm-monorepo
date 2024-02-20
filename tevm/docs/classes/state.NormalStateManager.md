@@ -48,6 +48,7 @@ Internally this state manager gets used when no proxy or fork url is passed into
 - [dumpCanonicalGenesis](state.NormalStateManager.md#dumpcanonicalgenesis)
 - [generateCanonicalGenesis](state.NormalStateManager.md#generatecanonicalgenesis)
 - [getAccountAddresses](state.NormalStateManager.md#getaccountaddresses)
+- [opts](state.NormalStateManager.md#opts)
 - [originalStorageCache](state.NormalStateManager.md#originalstoragecache)
 
 ### Methods
@@ -87,25 +88,23 @@ Internally this state manager gets used when no proxy or fork url is passed into
 
 • **new NormalStateManager**(`opts?`): [`NormalStateManager`](state.NormalStateManager.md)
 
-Instantiate the StateManager interface.
-
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `opts?` | `DefaultStateManagerOpts` |
+| `opts?` | `NormalStateManagerOpts` |
 
 #### Returns
 
 [`NormalStateManager`](state.NormalStateManager.md)
 
-#### Inherited from
+#### Overrides
 
 DefaultStateManager.constructor
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/@ethereumjs+statemanager@2.1.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:146
+evmts-monorepo/packages/state/types/NormalStateManager.d.ts:20
 
 ## Properties
 
@@ -311,43 +310,43 @@ ___
 
 ### dumpCanonicalGenesis
 
-• **dumpCanonicalGenesis**: () => `Promise`\<[`SerializableTevmState`](../modules/index.md#serializabletevmstate)\>
+• **dumpCanonicalGenesis**: () => `Promise`\<[`TevmState`](../modules/index.md#tevmstate)\>
 
-Dumps the state of the state manager as a [SerializableTevmState](../modules/index.md#serializabletevmstate)
+Dumps the state of the state manager as a [TevmState](../modules/index.md#tevmstate)
 
 #### Type declaration
 
-▸ (): `Promise`\<[`SerializableTevmState`](../modules/index.md#serializabletevmstate)\>
+▸ (): `Promise`\<[`TevmState`](../modules/index.md#tevmstate)\>
 
-Dumps the state of the state manager as a [SerializableTevmState](../modules/index.md#serializabletevmstate)
+Dumps the state of the state manager as a [TevmState](../modules/index.md#tevmstate)
 
 ##### Returns
 
-`Promise`\<[`SerializableTevmState`](../modules/index.md#serializabletevmstate)\>
+`Promise`\<[`TevmState`](../modules/index.md#tevmstate)\>
 
 #### Defined in
 
-evmts-monorepo/packages/state/types/NormalStateManager.d.ts:33
+evmts-monorepo/packages/state/types/NormalStateManager.d.ts:41
 
 ___
 
 ### generateCanonicalGenesis
 
-• **generateCanonicalGenesis**: (`state`: [`SerializableTevmState`](../modules/index.md#serializabletevmstate)) => `Promise`\<`void`\>
+• **generateCanonicalGenesis**: (`state`: [`TevmState`](../modules/index.md#tevmstate)) => `Promise`\<`void`\>
 
-Loads a [SerializableTevmState](../modules/index.md#serializabletevmstate) into the state manager
+Loads a [TevmState](../modules/index.md#tevmstate) into the state manager
 
 #### Type declaration
 
 ▸ (`state`): `Promise`\<`void`\>
 
-Loads a [SerializableTevmState](../modules/index.md#serializabletevmstate) into the state manager
+Loads a [TevmState](../modules/index.md#tevmstate) into the state manager
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `state` | [`SerializableTevmState`](../modules/index.md#serializabletevmstate) |
+| `state` | [`TevmState`](../modules/index.md#tevmstate) |
 
 ##### Returns
 
@@ -363,7 +362,7 @@ DefaultStateManager.generateCanonicalGenesis
 
 #### Defined in
 
-evmts-monorepo/packages/state/types/NormalStateManager.d.ts:29
+evmts-monorepo/packages/state/types/NormalStateManager.d.ts:37
 
 ___
 
@@ -391,7 +390,17 @@ An array of account addresses.
 
 #### Defined in
 
-evmts-monorepo/packages/state/types/NormalStateManager.d.ts:17
+evmts-monorepo/packages/state/types/NormalStateManager.d.ts:25
+
+___
+
+### opts
+
+• `Protected` `Optional` `Readonly` **opts**: `NormalStateManagerOpts`
+
+#### Defined in
+
+evmts-monorepo/packages/state/types/NormalStateManager.d.ts:19
 
 ___
 
@@ -651,7 +660,7 @@ Returns a new instance of the ForkStateManager with the same opts and all storag
 
 #### Defined in
 
-evmts-monorepo/packages/state/types/NormalStateManager.d.ts:21
+evmts-monorepo/packages/state/types/NormalStateManager.d.ts:29
 
 ___
 
@@ -1177,7 +1186,7 @@ DefaultStateManager.shallowCopy
 
 #### Defined in
 
-evmts-monorepo/packages/state/types/NormalStateManager.d.ts:25
+evmts-monorepo/packages/state/types/NormalStateManager.d.ts:33
 
 ___
 

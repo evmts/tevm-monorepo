@@ -5,7 +5,7 @@ prev: false
 title: "EthGetUncleCountByBlockHashJsonRpcResponse"
 ---
 
-> **EthGetUncleCountByBlockHashJsonRpcResponse**: [`JsonRpcResponse`](/reference/tevm/jsonrpc/type-aliases/jsonrpcresponse/)\<`"eth_getUncleCountByBlockHash"`, `Hex`, `string`\>
+> **EthGetUncleCountByBlockHashJsonRpcResponse**: [`JsonRpcResponse`](/reference/tevm/jsonrpc/type-aliases/jsonrpcresponse/)\<`"eth_getUncleCountByBlockHash"`, [`Hex`](/reference/tevm/utils/type-aliases/hex/), `string`\>
 
 JSON-RPC response for `eth_getUncleCountByBlockHash` procedure
 

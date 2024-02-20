@@ -5,8 +5,6 @@ description: Tevm introduction
 
 # Tevm Quick Start Guide
 
-After going through this guide you will understand the basic functionality of Tevm.
-
 :::tip
 🚧 If you are already familiar with how Tevm works you can bootstrap a project with the tevm cli (Coming soon)
 
@@ -19,7 +17,7 @@ If you are not familiar with Tevm we recomend you go through the tutorial to set
 
 ## Introduction
 
-This guide will get you familiar with the most essential features of Tevm and start interacting with the Ethereum Virtual Machine (EVM) in Node.js or browser environments with `Tevm`. By the end of this guide you will understand:
+This guide will get you familiar with the most essential features of Tevm and start interacting with the Ethereum Virtual Machine (EVM) in Node.js or browser environments. By the end of this guide you will understand:
 
 1. How to create a forked EVM in JavaScript using [`createMemoryClient`](/reference/tevm/memory-client/functions/creatememoryclient)
 2. How to write, build, and execute solidity scripts with a [`TevmClient`](/reference/tevm/client-types/type-aliases/tevmclient)

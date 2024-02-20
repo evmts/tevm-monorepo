@@ -7,6 +7,7 @@
 ### Properties
 
 - [expectedBlockTime](ProxyStateManagerOpts.md#expectedblocktime)
+- [onCommit](ProxyStateManagerOpts.md#oncommit)
 - [url](ProxyStateManagerOpts.md#url)
 
 ## Properties
@@ -22,6 +23,34 @@ Defaults to 2000ms (2s)
 #### Defined in
 
 [packages/state/src/ProxyStateManager.ts:37](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L37)
+
+___
+
+### onCommit
+
+• `Optional` **onCommit**: (`stateManager`: [`ProxyStateManager`](../classes/ProxyStateManager.md)) => `void`
+
+Called when state manager commits state
+
+#### Type declaration
+
+▸ (`stateManager`): `void`
+
+Called when state manager commits state
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `stateManager` | [`ProxyStateManager`](../classes/ProxyStateManager.md) |
+
+##### Returns
+
+`void`
+
+#### Defined in
+
+[packages/state/src/ProxyStateManager.ts:41](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L41)
 
 ___
 

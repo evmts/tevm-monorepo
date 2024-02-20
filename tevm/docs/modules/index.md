@@ -16,6 +16,7 @@
 
 - [ForkStateManagerOpts](../interfaces/index.ForkStateManagerOpts.md)
 - [ProxyStateManagerOpts](../interfaces/index.ProxyStateManagerOpts.md)
+- [Storage](../interfaces/index.Storage.md)
 
 ### Type Aliases
 
@@ -45,6 +46,7 @@
 - [CreateMemoryDbFn](index.md#creatememorydbfn)
 - [CreateScript](index.md#createscript)
 - [CreateScriptParams](index.md#createscriptparams)
+- [CreateSyncStoragePersisterOptions](index.md#createsyncstoragepersisteroptions)
 - [CustomPrecompile](index.md#customprecompile)
 - [CustomPredeploy](index.md#custompredeploy)
 - [DecodeFunctionResultReturnType](index.md#decodefunctionresultreturntype)
@@ -75,13 +77,14 @@
 - [Script](index.md#script)
 - [ScriptParams](index.md#scriptparams)
 - [ScriptResult](index.md#scriptresult)
-- [SerializableTevmState](index.md#serializabletevmstate)
 - [SetAccountParams](index.md#setaccountparams)
 - [SetAccountResult](index.md#setaccountresult)
+- [SyncStoragePersister](index.md#syncstoragepersister)
 - [TevmClient](index.md#tevmclient)
 - [TevmJsonRpcBulkRequestHandler](index.md#tevmjsonrpcbulkrequesthandler)
 - [TevmJsonRpcRequest](index.md#tevmjsonrpcrequest)
 - [TevmJsonRpcRequestHandler](index.md#tevmjsonrpcrequesthandler)
+- [TevmState](index.md#tevmstate)
 - [TraceCall](index.md#tracecall)
 - [TraceParams](index.md#traceparams)
 - [TraceResult](index.md#traceresult)
@@ -100,6 +103,7 @@
 - [createMemoryClient](index.md#creatememoryclient)
 - [createMemoryDb](index.md#creatememorydb)
 - [createScript](index.md#createscript-1)
+- [createSyncStoragePersister](index.md#createsyncstoragepersister)
 - [decodeAbiParameters](index.md#decodeabiparameters)
 - [decodeErrorResult](index.md#decodeerrorresult)
 - [decodeEventLog](index.md#decodeeventlog)
@@ -322,12 +326,13 @@ Options for creating an Tevm MemoryClient instance
 | `eips?` | `ReadonlyArray`\<`number`\> | Eips to enable. Defaults to `[1559, 4895]` |
 | `fork?` | [`ForkStateManagerOpts`](../interfaces/index.ForkStateManagerOpts.md) | Fork options fork a live network if enabled. When in fork mode Tevm will fetch and cache all state from the block forked from the provided URL Cannot be set if `proxy` is also set |
 | `hardfork?` | [`Hardfork`](index.md#hardfork) | Hardfork to use. Defaults to `shanghai` |
+| `persister?` | [`SyncStoragePersister`](index.md#syncstoragepersister) | The memory client can optionally initialize and persist it's state to an external source like local storage using `createSyncPersister` **`Example`** ```typescript import { createMemoryClient, createSyncPersister } from 'tevm' const persister = createSyncPersister({ storage: { getItem: (key: string) => localStorage.getItem(key), setItem: (key: string, value: string) => localStorage.setItem(key, value), } }) const memoryClient = await createMemoryClient({ persister }) ``` |
 | `profiler?` | `boolean` | Enable profiler. Defaults to false. |
 | `proxy?` | [`ProxyStateManagerOpts`](../interfaces/index.ProxyStateManagerOpts.md) | Options to initialize the client in `proxy` mode When in proxy mode Tevm will fetch all state from the latest block of the provided proxy URL Cannot be set if `fork` is also set |
 
 #### Defined in
 
-evmts-monorepo/packages/base-client/types/BaseClientOptions.d.ts:8
+evmts-monorepo/packages/base-client/types/BaseClientOptions.d.ts:9
 
 ___
 
@@ -834,6 +839,28 @@ Params for creating a [Script](index.md#script) instance
 #### Defined in
 
 evmts-monorepo/packages/contract/types/types.d.ts:41
+
+___
+
+### CreateSyncStoragePersisterOptions
+
+Ƭ **CreateSyncStoragePersisterOptions**: `Object`
+
+Options for creating a sync storage persister.
+
+#### Type declaration
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `deserialize?` | (`cachedString`: `string`) => `SerializableTevmState` | How to deserialize the data from storage. **`Default`** `JSON.parse` |
+| `key?` | `string` | The key to use when storing the cache |
+| `serialize?` | (`client`: `SerializableTevmState`) => `string` | How to serialize the data to storage. **`Default`** `JSON.stringify` |
+| `storage` | [`Storage`](../interfaces/index.Storage.md) | The storage client used for setting and retrieving items from cache. For SSR pass in `undefined`. Note that window.localStorage can be `null` in Android WebViews depending on how they are configured. |
+| `throttleTime?` | `number` | To avoid spamming, pass a time in ms to throttle saving the cache to disk |
+
+#### Defined in
+
+evmts-monorepo/packages/sync-storage-persister/types/CreateSyncStoragePersisterOptions.d.ts:6
 
 ___
 
@@ -1563,20 +1590,6 @@ evmts-monorepo/packages/actions-types/types/result/ScriptResult.d.ts:5
 
 ___
 
-### SerializableTevmState
-
-Ƭ **SerializableTevmState**: `Object`
-
-#### Index signature
-
-▪ [key: `string`]: [`AccountStorage`](../interfaces/state.AccountStorage.md)
-
-#### Defined in
-
-evmts-monorepo/packages/state/types/SerializableTevmState.d.ts:2
-
-___
-
 ### SetAccountParams
 
 Ƭ **SetAccountParams**\<`TThrowOnFail`\>: `BaseParams`\<`TThrowOnFail`\> & \{ `address`: [`Address`](index.md#address) ; `balance?`: `bigint` ; `deployedBytecode?`: [`Hex`](index.md#hex) ; `nonce?`: `bigint` ; `storageRoot?`: [`Hex`](index.md#hex)  }
@@ -1629,6 +1642,24 @@ Result of SetAccount Action
 #### Defined in
 
 evmts-monorepo/packages/actions-types/types/result/SetAccountResult.d.ts:5
+
+___
+
+### SyncStoragePersister
+
+Ƭ **SyncStoragePersister**: `Object`
+
+#### Type declaration
+
+| Name | Type |
+| :------ | :------ |
+| `persistTevmState` | (`state`: `SerializableTevmState`) => `void` |
+| `removePersistedState` | () => `void` |
+| `restoreState` | () => `SerializableTevmState` \| `undefined` |
+
+#### Defined in
+
+evmts-monorepo/packages/sync-storage-persister/types/SyncStoragePersister.d.ts:2
 
 ___
 
@@ -1948,6 +1979,20 @@ response - [EthGetBalanceJsonRpcResponse](procedures_types.md#ethgetbalancejsonr
 #### Defined in
 
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:1116
+
+___
+
+### TevmState
+
+Ƭ **TevmState**: `Object`
+
+#### Index signature
+
+▪ [key: `string`]: [`AccountStorage`](../interfaces/state.AccountStorage.md)
+
+#### Defined in
+
+evmts-monorepo/packages/state/types/TevmState.d.ts:2
 
 ___
 
@@ -2481,6 +2526,26 @@ const script = createScript({
 #### Defined in
 
 evmts-monorepo/packages/contract/types/createScript.d.ts:45
+
+___
+
+### createSyncStoragePersister
+
+▸ **createSyncStoragePersister**(`«destructured»`): `SyncStoragePersister`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `«destructured»` | [`CreateSyncStoragePersisterOptions`](index.md#createsyncstoragepersisteroptions) |
+
+#### Returns
+
+`SyncStoragePersister`
+
+#### Defined in
+
+evmts-monorepo/packages/sync-storage-persister/types/createSyncStoragePersister.d.ts:1
 
 ___
 

@@ -95,7 +95,7 @@ const stateManager = new ForkStateManager({
 
 #### Defined in
 
-evmts-monorepo/packages/state/types/ForkStateManager.d.ts:45
+evmts-monorepo/packages/state/types/ForkStateManager.d.ts:49
 
 ## Properties
 
@@ -105,7 +105,7 @@ evmts-monorepo/packages/state/types/ForkStateManager.d.ts:45
 
 #### Defined in
 
-evmts-monorepo/packages/state/types/ForkStateManager.d.ts:37
+evmts-monorepo/packages/state/types/ForkStateManager.d.ts:41
 
 ___
 
@@ -115,7 +115,7 @@ ___
 
 #### Defined in
 
-evmts-monorepo/packages/state/types/ForkStateManager.d.ts:38
+evmts-monorepo/packages/state/types/ForkStateManager.d.ts:42
 
 ___
 
@@ -125,7 +125,7 @@ ___
 
 #### Defined in
 
-evmts-monorepo/packages/state/types/ForkStateManager.d.ts:35
+evmts-monorepo/packages/state/types/ForkStateManager.d.ts:39
 
 ___
 
@@ -135,7 +135,7 @@ ___
 
 #### Defined in
 
-evmts-monorepo/packages/state/types/ForkStateManager.d.ts:36
+evmts-monorepo/packages/state/types/ForkStateManager.d.ts:40
 
 ___
 
@@ -209,49 +209,49 @@ ___
 
 #### Defined in
 
-evmts-monorepo/packages/state/types/ForkStateManager.d.ts:44
+evmts-monorepo/packages/state/types/ForkStateManager.d.ts:48
 
 ___
 
 ### dumpCanonicalGenesis
 
-• **dumpCanonicalGenesis**: () => `Promise`\<[`SerializableTevmState`](../modules/index.md#serializabletevmstate)\>
+• **dumpCanonicalGenesis**: () => `Promise`\<[`TevmState`](../modules/index.md#tevmstate)\>
 
-Dumps the state of the state manager as a [SerializableTevmState](../modules/index.md#serializabletevmstate)
+Dumps the state of the state manager as a [TevmState](../modules/index.md#tevmstate)
 
 #### Type declaration
 
-▸ (): `Promise`\<[`SerializableTevmState`](../modules/index.md#serializabletevmstate)\>
+▸ (): `Promise`\<[`TevmState`](../modules/index.md#tevmstate)\>
 
-Dumps the state of the state manager as a [SerializableTevmState](../modules/index.md#serializabletevmstate)
+Dumps the state of the state manager as a [TevmState](../modules/index.md#tevmstate)
 
 ##### Returns
 
-`Promise`\<[`SerializableTevmState`](../modules/index.md#serializabletevmstate)\>
+`Promise`\<[`TevmState`](../modules/index.md#tevmstate)\>
 
 #### Defined in
 
-evmts-monorepo/packages/state/types/ForkStateManager.d.ts:188
+evmts-monorepo/packages/state/types/ForkStateManager.d.ts:192
 
 ___
 
 ### generateCanonicalGenesis
 
-• **generateCanonicalGenesis**: (`state`: [`SerializableTevmState`](../modules/index.md#serializabletevmstate)) => `Promise`\<`void`\>
+• **generateCanonicalGenesis**: (`state`: [`TevmState`](../modules/index.md#tevmstate)) => `Promise`\<`void`\>
 
-Loads a [SerializableTevmState](../modules/index.md#serializabletevmstate) into the state manager
+Loads a [TevmState](../modules/index.md#tevmstate) into the state manager
 
 #### Type declaration
 
 ▸ (`state`): `Promise`\<`void`\>
 
-Loads a [SerializableTevmState](../modules/index.md#serializabletevmstate) into the state manager
+Loads a [TevmState](../modules/index.md#tevmstate) into the state manager
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `state` | [`SerializableTevmState`](../modules/index.md#serializabletevmstate) |
+| `state` | [`TevmState`](../modules/index.md#tevmstate) |
 
 ##### Returns
 
@@ -263,7 +263,7 @@ Loads a [SerializableTevmState](../modules/index.md#serializabletevmstate) into 
 
 #### Defined in
 
-evmts-monorepo/packages/state/types/ForkStateManager.d.ts:184
+evmts-monorepo/packages/state/types/ForkStateManager.d.ts:188
 
 ___
 
@@ -285,7 +285,7 @@ ___
 
 #### Defined in
 
-evmts-monorepo/packages/state/types/ForkStateManager.d.ts:180
+evmts-monorepo/packages/state/types/ForkStateManager.d.ts:184
 
 ___
 
@@ -315,7 +315,7 @@ This method is not used by the Fork State Manager and is a stub required by the 
 
 #### Defined in
 
-evmts-monorepo/packages/state/types/ForkStateManager.d.ts:171
+evmts-monorepo/packages/state/types/ForkStateManager.d.ts:175
 
 ___
 
@@ -345,7 +345,7 @@ This method is not used by the Fork State Manager and is a stub required by the 
 
 #### Defined in
 
-evmts-monorepo/packages/state/types/ForkStateManager.d.ts:179
+evmts-monorepo/packages/state/types/ForkStateManager.d.ts:183
 
 ___
 
@@ -355,7 +355,7 @@ ___
 
 #### Defined in
 
-evmts-monorepo/packages/state/types/ForkStateManager.d.ts:34
+evmts-monorepo/packages/state/types/ForkStateManager.d.ts:38
 
 ___
 
@@ -369,7 +369,7 @@ ___
 
 #### Defined in
 
-evmts-monorepo/packages/state/types/ForkStateManager.d.ts:43
+evmts-monorepo/packages/state/types/ForkStateManager.d.ts:47
 
 ___
 
@@ -405,7 +405,7 @@ This method is not used by the Fork State Manager and is a stub required by the 
 
 #### Defined in
 
-evmts-monorepo/packages/state/types/ForkStateManager.d.ts:175
+evmts-monorepo/packages/state/types/ForkStateManager.d.ts:179
 
 ## Methods
 
@@ -427,7 +427,7 @@ Checks if an `account` exists at `address`
 
 #### Defined in
 
-evmts-monorepo/packages/state/types/ForkStateManager.d.ts:110
+evmts-monorepo/packages/state/types/ForkStateManager.d.ts:114
 
 ___
 
@@ -451,7 +451,7 @@ Partial implementation, called from the subclass.
 
 #### Defined in
 
-evmts-monorepo/packages/state/types/ForkStateManager.d.ts:152
+evmts-monorepo/packages/state/types/ForkStateManager.d.ts:156
 
 ___
 
@@ -467,7 +467,7 @@ Resets all internal caches
 
 #### Defined in
 
-evmts-monorepo/packages/state/types/ForkStateManager.d.ts:57
+evmts-monorepo/packages/state/types/ForkStateManager.d.ts:61
 
 ___
 
@@ -493,7 +493,7 @@ Clears all storage entries for the account corresponding to `address`.
 
 #### Defined in
 
-evmts-monorepo/packages/state/types/ForkStateManager.d.ts:96
+evmts-monorepo/packages/state/types/ForkStateManager.d.ts:100
 
 ___
 
@@ -516,7 +516,7 @@ Partial implementation, called from the subclass.
 
 #### Defined in
 
-evmts-monorepo/packages/state/types/ForkStateManager.d.ts:159
+evmts-monorepo/packages/state/types/ForkStateManager.d.ts:163
 
 ___
 
@@ -532,7 +532,7 @@ Returns a new instance of the ForkStateManager with the same opts and all storag
 
 #### Defined in
 
-evmts-monorepo/packages/state/types/ForkStateManager.d.ts:49
+evmts-monorepo/packages/state/types/ForkStateManager.d.ts:53
 
 ___
 
@@ -558,7 +558,7 @@ Deletes an account from state under the provided `address`.
 
 #### Defined in
 
-evmts-monorepo/packages/state/types/ForkStateManager.d.ts:137
+evmts-monorepo/packages/state/types/ForkStateManager.d.ts:141
 
 ___
 
@@ -588,7 +588,7 @@ Both are represented as `0x` prefixed hex strings.
 
 #### Defined in
 
-evmts-monorepo/packages/state/types/ForkStateManager.d.ts:104
+evmts-monorepo/packages/state/types/ForkStateManager.d.ts:108
 
 ___
 
@@ -614,7 +614,7 @@ ___
 
 #### Defined in
 
-evmts-monorepo/packages/state/types/ForkStateManager.d.ts:105
+evmts-monorepo/packages/state/types/ForkStateManager.d.ts:109
 
 ___
 
@@ -628,7 +628,7 @@ ___
 
 #### Defined in
 
-evmts-monorepo/packages/state/types/ForkStateManager.d.ts:167
+evmts-monorepo/packages/state/types/ForkStateManager.d.ts:171
 
 ___
 
@@ -654,7 +654,7 @@ Gets the code corresponding to the provided `address`.
 
 #### Defined in
 
-evmts-monorepo/packages/state/types/ForkStateManager.d.ts:114
+evmts-monorepo/packages/state/types/ForkStateManager.d.ts:118
 
 ___
 
@@ -676,7 +676,7 @@ Retrieves an account from the provider and stores in the local trie
 
 #### Defined in
 
-evmts-monorepo/packages/state/types/ForkStateManager.d.ts:120
+evmts-monorepo/packages/state/types/ForkStateManager.d.ts:124
 
 ___
 
@@ -705,7 +705,7 @@ Returns an empty `Uint8Array` if the account has no associated code.
 
 #### Defined in
 
-evmts-monorepo/packages/state/types/ForkStateManager.d.ts:64
+evmts-monorepo/packages/state/types/ForkStateManager.d.ts:68
 
 ___
 
@@ -737,7 +737,7 @@ If this does not exist an empty `Uint8Array` is returned.
 
 #### Defined in
 
-evmts-monorepo/packages/state/types/ForkStateManager.d.ts:81
+evmts-monorepo/packages/state/types/ForkStateManager.d.ts:85
 
 ___
 
@@ -766,7 +766,7 @@ an EIP-1186 formatted proof
 
 #### Defined in
 
-evmts-monorepo/packages/state/types/ForkStateManager.d.ts:144
+evmts-monorepo/packages/state/types/ForkStateManager.d.ts:148
 
 ___
 
@@ -795,7 +795,7 @@ fields, then saves the account into state. Account fields can include
 
 #### Defined in
 
-evmts-monorepo/packages/state/types/ForkStateManager.d.ts:132
+evmts-monorepo/packages/state/types/ForkStateManager.d.ts:136
 
 ___
 
@@ -822,7 +822,7 @@ Saves an account into state under the provided `address`.
 
 #### Defined in
 
-evmts-monorepo/packages/state/types/ForkStateManager.d.ts:124
+evmts-monorepo/packages/state/types/ForkStateManager.d.ts:128
 
 ___
 
@@ -850,7 +850,7 @@ corresponding to `address` to reference this.
 
 #### Defined in
 
-evmts-monorepo/packages/state/types/ForkStateManager.d.ts:71
+evmts-monorepo/packages/state/types/ForkStateManager.d.ts:75
 
 ___
 
@@ -879,7 +879,7 @@ corresponding to `address` at the provided `key`.
 
 #### Defined in
 
-evmts-monorepo/packages/state/types/ForkStateManager.d.ts:91
+evmts-monorepo/packages/state/types/ForkStateManager.d.ts:95
 
 ___
 
@@ -902,7 +902,7 @@ Partial implementation , called from the subclass.
 
 #### Defined in
 
-evmts-monorepo/packages/state/types/ForkStateManager.d.ts:166
+evmts-monorepo/packages/state/types/ForkStateManager.d.ts:170
 
 ___
 
@@ -922,4 +922,4 @@ Returns a new instance of the ForkStateManager with the same opts
 
 #### Defined in
 
-evmts-monorepo/packages/state/types/ForkStateManager.d.ts:53
+evmts-monorepo/packages/state/types/ForkStateManager.d.ts:57

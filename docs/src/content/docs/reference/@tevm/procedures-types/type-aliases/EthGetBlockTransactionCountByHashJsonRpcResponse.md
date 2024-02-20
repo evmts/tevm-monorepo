@@ -5,7 +5,7 @@ prev: false
 title: "EthGetBlockTransactionCountByHashJsonRpcResponse"
 ---
 
-> **EthGetBlockTransactionCountByHashJsonRpcResponse**: [`JsonRpcResponse`](/reference/tevm/jsonrpc/type-aliases/jsonrpcresponse/)\<`"eth_getBlockTransactionCountByHash"`, `Hex`, `string`\>
+> **EthGetBlockTransactionCountByHashJsonRpcResponse**: [`JsonRpcResponse`](/reference/tevm/jsonrpc/type-aliases/jsonrpcresponse/)\<`"eth_getBlockTransactionCountByHash"`, [`Hex`](/reference/tevm/utils/type-aliases/hex/), `string`\>
 
 JSON-RPC response for `eth_getBlockTransactionCountByHash` procedure
 

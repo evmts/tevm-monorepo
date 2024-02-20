@@ -2,6 +2,7 @@ import type { CustomPrecompile } from './CustomPrecompile.js'
 import type { Hardfork } from './Hardfork.js'
 import type { CustomPredeploy } from '@tevm/predeploys'
 import type { ForkStateManagerOpts, ProxyStateManagerOpts } from '@tevm/state'
+import type { SyncStoragePersister } from '@tevm/sync-storage-persister'
 
 /**
  * Options for creating an Tevm MemoryClient instance
@@ -102,4 +103,22 @@ export type BaseClientOptions = {
 	 * Enable/disable unlimited contract size. Defaults to false.
 	 */
 	allowUnlimitedContractSize?: boolean
+	/**
+	 * The memory client can optionally initialize and persist it's state to an external source like local storage
+	 * using `createSyncPersister`
+	 * @example
+	 * ```typescript
+	 * import { createMemoryClient, createSyncPersister } from 'tevm'
+	 *
+	 * const persister = createSyncPersister({
+	 *   storage: {
+	 *     getItem: (key: string) => localStorage.getItem(key),
+	 *     setItem: (key: string, value: string) => localStorage.setItem(key, value),
+	 *   }
+	 * })
+	 *
+	 * const memoryClient = await createMemoryClient({ persister })
+	 * ```
+	 */
+	persister?: SyncStoragePersister
 }

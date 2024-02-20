@@ -5,6 +5,7 @@ import { createBlockchain } from '@tevm/blockchain'
 import { TevmCommon } from '@tevm/common'
 import { createEvm } from '@tevm/evm'
 import { createTevmStateManager } from '@tevm/state'
+import { hexToBigInt, toHex } from '@tevm/utils'
 import { createVm } from '@tevm/vm'
 
 /**
@@ -41,7 +42,91 @@ export const createBaseClient = async (options = {}) => {
 		hardfork: options.hardfork ?? 'shanghai',
 		eips: /**@type number[]*/ (options.eips ?? [1559, 4895]),
 	})
-	const stateManager = createTevmStateManager(options)
+
+	/**
+	 * @returns {import('@tevm/state').TevmStateManagerOptions }
+	 */
+	const getStateManagerOpts = () => {
+		/**
+		 * @type {import('@tevm/state').ForkStateManagerOpts['onCommit']}
+		 */
+		const onCommit = (stateManager) => {
+			if (!options.persister) {
+				throw new Error('No persister provided')
+			}
+			stateManager.dumpCanonicalGenesis().then((state) => {
+				/**
+				 * @type {import('@tevm/state').ParameterizedTevmState}
+				 */
+				const parsedState = {}
+
+				for (const [k, v] of Object.entries(state)) {
+					const { nonce, balance, storageRoot, codeHash } = v
+					parsedState[k] = {
+						...v,
+						nonce: toHex(nonce),
+						balance: toHex(balance),
+						storageRoot: storageRoot,
+						codeHash: codeHash,
+					}
+				}
+				options.persister?.persistTevmState(parsedState)
+			})
+		}
+		if (options.fork?.url) {
+			return {
+				fork: {
+					...options.fork,
+					...(options.persister ? { onCommit } : {}),
+				},
+			}
+		}
+		if (options.proxy?.url) {
+			return {
+				proxy: {
+					...options.proxy,
+					...(options.persister
+						? { onCommit: /** @type any*/ (onCommit) }
+						: {}),
+				},
+			}
+		}
+		// handle normal mode
+		if (options.persister) {
+			return {
+				normal: { onCommit: /** @type any*/ (onCommit) },
+			}
+		}
+		return {}
+	}
+	const stateManager = createTevmStateManager(getStateManagerOpts())
+
+	// Handle initializing the state from the persisted state
+	/**
+	 * @type {Promise<any>}
+	 */
+	let statePromise = Promise.resolve()
+	if (options.persister) {
+		const restoredState = options.persister.restoreState()
+		if (restoredState) {
+			/**
+			 * @type {import('@tevm/state').TevmState}
+			 */
+			const parsedState = {}
+			for (const [k, v] of Object.entries(restoredState)) {
+				const { nonce, balance, storageRoot, codeHash } = v
+				parsedState[k] = {
+					...v,
+					nonce: hexToBigInt(nonce),
+					balance: hexToBigInt(balance),
+					storageRoot: storageRoot,
+					codeHash: codeHash,
+				}
+			}
+			statePromise = stateManager.generateCanonicalGenesis(parsedState)
+		}
+	}
+
 	const blockchain = await createBlockchain({ common })
 	const evm = createEvm({
 		common,
@@ -105,6 +190,8 @@ export const createBaseClient = async (options = {}) => {
 			: { proxyUrl: options.proxy?.url }),
 		extend: (extension) => extend(baseClient)(extension),
 	}
+
+	await statePromise
 
 	return baseClient
 }

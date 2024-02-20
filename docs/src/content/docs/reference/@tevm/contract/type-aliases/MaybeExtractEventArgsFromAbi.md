@@ -5,7 +5,7 @@ prev: false
 title: "MaybeExtractEventArgsFromAbi"
 ---
 
-> **MaybeExtractEventArgsFromAbi**\<`TAbi`, `TEventName`\>: `TAbi` extends `Abi` \| readonly `unknown`[] ? `TEventName` extends `string` ? `GetEventArgs`\<`TAbi`, `TEventName`\> : `undefined` : `undefined`
+> **MaybeExtractEventArgsFromAbi**\<`TAbi`, `TEventName`\>: `TAbi` extends [`Abi`](/reference/tevm/utils/type-aliases/abi/) \| readonly `unknown`[] ? `TEventName` extends `string` ? [`GetEventArgs`](/reference/tevm/utils/type-aliases/geteventargs/)\<`TAbi`, `TEventName`\> : `undefined` : `undefined`
 
 Adapted from viem. This is a helper type to extract the event args from an abi
 
@@ -13,7 +13,7 @@ Adapted from viem. This is a helper type to extract the event args from an abi
 
 | Parameter |
 | :------ |
-| `TAbi` extends `Abi` \| readonly `unknown`[] \| `undefined` |
+| `TAbi` extends [`Abi`](/reference/tevm/utils/type-aliases/abi/) \| readonly `unknown`[] \| `undefined` |
 | `TEventName` extends `string` \| `undefined` |
 
 ## Source
