@@ -38,3 +38,21 @@ Version: viem@2.7.9"
   "rawData": "0x",
 }
 `;
+
+exports[`contractHandler should handle errors returned during contract call 1`] = `
+{
+  "createdAddresses":   Set {},
+  "errors": [
+    {
+      "_tag": "revert",
+      "message": "Revert: Error {"abiItem":{"inputs":[{"name":"message","type":"string"}],"name":"Error","type":"error"},"args":["Dai/insufficient-balance"],"errorName":"Error"}",
+      "name": "revert",
+    },
+  ],
+  "executionGasUsed": 2754n,
+  "gas": 16774461n,
+  "logs": [],
+  "rawData": "0x08c379a0000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000184461692f696e73756666696369656e742d62616c616e63650000000000000000",
+  "selfdestruct":   Set {},
+}
+`;
