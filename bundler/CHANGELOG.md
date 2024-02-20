@@ -1,5 +1,26 @@
 # @tevm/bundler
 
+## 1.0.0-next.40
+
+### Patch Changes
+
+- [#962](https://github.com/evmts/tevm-monorepo/pull/962) [`64c3c6dd09c236c516b117a506380028c3154c4a`](https://github.com/evmts/tevm-monorepo/commit/64c3c6dd09c236c516b117a506380028c3154c4a) Thanks [@roninjin10](https://github.com/roninjin10)! - Added docs for all packages to https://tevm.sh
+
+- Updated dependencies [[`a381b8a09b9164ada4ef03d7375a7c2e754eb6d9`](https://github.com/evmts/tevm-monorepo/commit/a381b8a09b9164ada4ef03d7375a7c2e754eb6d9), [`64c3c6dd09c236c516b117a506380028c3154c4a`](https://github.com/evmts/tevm-monorepo/commit/64c3c6dd09c236c516b117a506380028c3154c4a), [`a381b8a09b9164ada4ef03d7375a7c2e754eb6d9`](https://github.com/evmts/tevm-monorepo/commit/a381b8a09b9164ada4ef03d7375a7c2e754eb6d9)]:
+  - @tevm/base-bundler@1.0.0-next.40
+  - @tevm/bun-plugin@1.0.0-next.40
+  - @tevm/compiler@1.0.0-next.40
+  - @tevm/config@1.0.0-next.40
+  - @tevm/esbuild-plugin@1.0.0-next.40
+  - @tevm/rollup-plugin@1.0.0-next.40
+  - @tevm/rspack-plugin@1.0.0-next.40
+  - @tevm/solc@1.0.0-next.40
+  - @tevm/vite-plugin@1.0.0-next.40
+  - @tevm/webpack-plugin@1.0.0-next.40
+  - @tevm/tsconfig@1.0.0-next.40
+  - @tevm/tsupconfig@1.0.0-next.40
+  - @tevm/ts-plugin@1.0.0-next.40
+
 ## 1.0.0-next.39
 
 ### Minor Changes

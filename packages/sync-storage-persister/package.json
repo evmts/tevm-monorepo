@@ -1,6 +1,6 @@
 {
   "name": "@tevm/sync-storage-persister",
-  "version": "1.0.0-next.39",
+  "version": "1.0.0-next.40",
   "private": false,
   "description": "A package for persisting the state of the EVM to a sync storage",
   "keywords": [
@@ -62,7 +62,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@tevm/state": "workspace:1.0.0-next.39"
+    "@tevm/state": "workspace:1.0.0-next.40"
   },
   "devDependencies": {
     "@tevm/tsconfig": "workspace:^",

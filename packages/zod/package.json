@@ -1,6 +1,6 @@
 {
   "name": "@tevm/zod",
-  "version": "1.0.0-next.39",
+  "version": "1.0.0-next.40",
   "private": false,
   "description": "Zod validators for Tevm",
   "keywords": [
