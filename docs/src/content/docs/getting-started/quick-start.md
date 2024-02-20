@@ -276,7 +276,7 @@ To see more options check out [CallParams](/reference/tevm/actions-types/type-al
 
 We can execute a contract call by sending encoded contract data just like [`eth_call`](/reference/tevm/procedures-types/type-aliases/ethcalljsonrpcprocedure)
 
-1. Use [`encodeFunctionData`](/reference/tevm/contract/functions/encodefunctiondata) to pass in a contract call to [`tevm.call`](/reference/tevm/client-types/type-aliases/tevmclient#call)
+1. Use [`encodeFunctionData`](/reference/tevm/utils/functions/encodefunctiondata) to pass in a contract call to [`tevm.call`](/reference/tevm/client-types/type-aliases/tevmclient#call)
 
 ```typescript
 import { createMemoryClient, encodeFunctionData, decodeFunctionData, parseAbi } from 'tevm';
@@ -311,7 +311,7 @@ console.log(balance)
 
 2. Use `TevmClient.contract`
 
-Rather than encoding and decoding data with `TevmClient.call` we can instead use the [`TevmClient.contract`](/reference/tevm/client-types/type-aliases/tevmclient#contract) method. It wraps the `eth_call` JSON-rpc method and matches much of [viems readContract](https://viem.sh/docs/contract/readContract.html) API but with some extra VM control. 
+Rather than encoding and decoding data with `TevmClient.call` we can instead use the [`TevmClient.contract`](/reference/tevm/client-types/type-aliases/tevmclient#contract) method. It wraps the `eth_call` JSON-rpc method and matches much of [viems readContract](https://viem.sh/docs/contract/readContract.html) API but with some extra VM control.
 
 Refactor our call to use `Tevm.contract`
 
@@ -504,7 +504,7 @@ Add `{"name": "@tevm/bundler/ts-plugin"}` to `compilerOptions.plugins` array to 
 }
 ```
 
-Note: ts-plugins only operate on the language server. Running `tsc` from command line will still trigger errors on solidity imports. A command line tool for this is coming soon. 
+Note: ts-plugins only operate on the language server. Running `tsc` from command line will still trigger errors on solidity imports. A command line tool for this is coming soon.
 
 ## Use external contracts
 
