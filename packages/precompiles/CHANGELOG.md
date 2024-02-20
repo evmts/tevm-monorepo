@@ -1,5 +1,15 @@
 # @tevm/precompiles
 
+## 1.0.0-next.40
+
+### Patch Changes
+
+- [#962](https://github.com/evmts/tevm-monorepo/pull/962) [`64c3c6dd09c236c516b117a506380028c3154c4a`](https://github.com/evmts/tevm-monorepo/commit/64c3c6dd09c236c516b117a506380028c3154c4a) Thanks [@roninjin10](https://github.com/roninjin10)! - Added docs for all packages to https://tevm.sh
+
+- Updated dependencies [[`64c3c6dd09c236c516b117a506380028c3154c4a`](https://github.com/evmts/tevm-monorepo/commit/64c3c6dd09c236c516b117a506380028c3154c4a)]:
+  - @tevm/utils@1.0.0-next.40
+  - @tevm/contract@1.0.0-next.40
+
 ## 1.0.0-next.39
 
 ### Minor Changes

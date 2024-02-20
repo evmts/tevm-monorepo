@@ -1,6 +1,6 @@
 {
   "name": "@tevm/ts-plugin",
-  "version": "1.0.0-next.28",
+  "version": "1.0.0-next.40",
   "private": false,
   "description": "A typescript plugin for tevm",
   "keywords": [
@@ -72,7 +72,7 @@
   },
   "devDependencies": {
     "@tevm/config": "workspace:^",
-    "@tevm/contract": "workspace:1.0.0-next.39",
+    "@tevm/contract": "workspace:1.0.0-next.40",
     "@tevm/tsupconfig": "workspace:^",
     "typescript": "^5.2.2"
   },

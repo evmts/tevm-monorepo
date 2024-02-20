@@ -166,7 +166,7 @@ importers:
         specifier: workspace:^
         version: link:../config
       '@tevm/solc':
-        specifier: workspace:1.0.0-next.28
+        specifier: workspace:1.0.0-next.40
         version: link:../solc
       effect:
         specifier: 2.0.0-next.54
@@ -191,7 +191,7 @@ importers:
   bundler-packages/bundler-cache:
     dependencies:
       '@tevm/compiler':
-        specifier: workspace:1.0.0-next.28
+        specifier: workspace:1.0.0-next.40
         version: link:../compiler
       '@tevm/tsconfig':
         specifier: workspace:^
@@ -496,7 +496,7 @@ importers:
         version: 3.22.4
     devDependencies:
       '@tevm/contract':
-        specifier: workspace:1.0.0-next.39
+        specifier: workspace:1.0.0-next.40
         version: link:../../packages/contract
       '@tevm/tsconfig':
         specifier: workspace:^
@@ -582,7 +582,7 @@ importers:
   examples/bun:
     dependencies:
       '@tevm/contract':
-        specifier: ^1.0.0-next.39
+        specifier: ^1.0.0-next.40
         version: link:../../packages/contract
       bun-types:
         specifier: ^1.0.7
@@ -1057,11 +1057,11 @@ importers:
         specifier: workspace:^
         version: link:../../packages/procedures-types
       '@tevm/utils':
-        specifier: workspace:1.0.0-next.39
+        specifier: workspace:1.0.0-next.40
         version: link:../../packages/utils
     devDependencies:
       '@tevm/base-client':
-        specifier: workspace:1.0.0-next.39
+        specifier: workspace:1.0.0-next.40
         version: link:../../packages/base-client
       '@tevm/contract':
         specifier: workspace:^
@@ -1079,7 +1079,7 @@ importers:
   extensions/viem:
     dependencies:
       '@tevm/jsonrpc':
-        specifier: workspace:1.0.0-next.28
+        specifier: workspace:1.0.0-next.40
         version: link:../../packages/jsonrpc
     devDependencies:
       '@ethereumjs/util':
@@ -1113,7 +1113,7 @@ importers:
         specifier: workspace:^
         version: link:../../configs/tsupconfig
       '@tevm/utils':
-        specifier: workspace:1.0.0-next.39
+        specifier: workspace:1.0.0-next.40
         version: link:../../packages/utils
       abitype:
         specifier: ^0.10.3
@@ -1214,7 +1214,7 @@ importers:
         specifier: workspace:^
         version: link:../../bundler-packages/config
       '@tevm/contract':
-        specifier: workspace:1.0.0-next.39
+        specifier: workspace:1.0.0-next.40
         version: link:../../packages/contract
       '@tevm/tsupconfig':
         specifier: workspace:^
@@ -1293,7 +1293,7 @@ importers:
   packages/actions-types:
     devDependencies:
       '@tevm/base-client':
-        specifier: workspace:1.0.0-next.39
+        specifier: workspace:1.0.0-next.40
         version: link:../base-client
       '@tevm/errors':
         specifier: workspace:^
@@ -1332,7 +1332,7 @@ importers:
         specifier: workspace:^
         version: link:../state
       '@tevm/sync-storage-persister':
-        specifier: workspace:1.0.0-next.39
+        specifier: workspace:1.0.0-next.40
         version: link:../sync-storage-persister
       '@tevm/utils':
         specifier: workspace:^
@@ -1382,7 +1382,7 @@ importers:
   packages/client-types:
     dependencies:
       '@tevm/utils':
-        specifier: workspace:1.0.0-next.39
+        specifier: workspace:1.0.0-next.40
         version: link:../utils
     devDependencies:
       '@tevm/actions-types':
@@ -1414,7 +1414,7 @@ importers:
   packages/contract:
     dependencies:
       '@tevm/utils':
-        specifier: workspace:1.0.0-next.39
+        specifier: workspace:1.0.0-next.40
         version: link:../utils
     devDependencies:
       '@evmts/core':
@@ -1439,17 +1439,17 @@ importers:
         specifier: workspace:^
         version: link:../actions
       '@tevm/actions-types':
-        specifier: workspace:1.0.0-next.39
+        specifier: workspace:1.0.0-next.40
         version: link:../actions-types
       '@tevm/procedures':
         specifier: workspace:^
         version: link:../procedures
     devDependencies:
       '@tevm/base-client':
-        specifier: workspace:1.0.0-next.39
+        specifier: workspace:1.0.0-next.40
         version: link:../base-client
       '@tevm/client-types':
-        specifier: workspace:1.0.0-next.39
+        specifier: workspace:1.0.0-next.40
         version: link:../client-types
       '@tevm/tsconfig':
         specifier: workspace:^
@@ -1508,7 +1508,7 @@ importers:
         version: link:../predeploys
     devDependencies:
       '@tevm/state':
-        specifier: workspace:1.0.0-next.39
+        specifier: workspace:1.0.0-next.40
         version: link:../state
       '@tevm/tsconfig':
         specifier: workspace:^
@@ -1548,7 +1548,7 @@ importers:
         specifier: workspace:^
         version: link:../../configs/tsupconfig
       '@tevm/utils':
-        specifier: workspace:1.0.0-next.39
+        specifier: workspace:1.0.0-next.40
         version: link:../utils
 
   packages/jsonrpc:
@@ -1578,7 +1578,7 @@ importers:
         specifier: workspace:^
         version: link:../decorators
       '@tevm/utils':
-        specifier: workspace:1.0.0-next.39
+        specifier: workspace:1.0.0-next.40
         version: link:../utils
     devDependencies:
       '@tevm/client-types':
@@ -1606,14 +1606,14 @@ importers:
         specifier: workspace:^
         version: link:../contract
       '@tevm/utils':
-        specifier: workspace:1.0.0-next.39
+        specifier: workspace:1.0.0-next.40
         version: link:../utils
     devDependencies:
       '@tevm/bun-plugin':
         specifier: workspace:^
         version: link:../../bundler-packages/bun
       '@tevm/evm':
-        specifier: workspace:1.0.0-next.39
+        specifier: workspace:1.0.0-next.40
         version: link:../evm
       '@tevm/memory-client':
         specifier: workspace:^
@@ -1693,7 +1693,7 @@ importers:
   packages/procedures-types:
     dependencies:
       '@tevm/utils':
-        specifier: workspace:1.0.0-next.39
+        specifier: workspace:1.0.0-next.40
         version: link:../utils
     devDependencies:
       '@tevm/actions-types':
@@ -1718,7 +1718,7 @@ importers:
   packages/server:
     dependencies:
       '@tevm/utils':
-        specifier: workspace:1.0.0-next.39
+        specifier: workspace:1.0.0-next.40
         version: link:../utils
       '@tevm/zod':
         specifier: workspace:^
@@ -1795,7 +1795,7 @@ importers:
   packages/sync-storage-persister:
     dependencies:
       '@tevm/state':
-        specifier: workspace:1.0.0-next.39
+        specifier: workspace:1.0.0-next.40
         version: link:../state
     devDependencies:
       '@tevm/tsconfig':
@@ -1884,7 +1884,7 @@ importers:
         version: link:../../tevm
     devDependencies:
       '@tevm/bundler':
-        specifier: workspace:1.0.0-next.39
+        specifier: workspace:1.0.0-next.40
         version: link:../../bundler
       '@tevm/tsconfig':
         specifier: workspace:^

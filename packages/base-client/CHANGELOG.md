@@ -1,5 +1,26 @@
 # @tevm/client
 
+## 1.0.0-next.40
+
+### Minor Changes
+
+- [#962](https://github.com/evmts/tevm-monorepo/pull/962) [`64c3c6dd09c236c516b117a506380028c3154c4a`](https://github.com/evmts/tevm-monorepo/commit/64c3c6dd09c236c516b117a506380028c3154c4a) Thanks [@roninjin10](https://github.com/roninjin10)! - Added persistence option that enables the base client to persist state changes to a syncronous source such as local storage. Async sources can be supported in future
+
+### Patch Changes
+
+- [#962](https://github.com/evmts/tevm-monorepo/pull/962) [`64c3c6dd09c236c516b117a506380028c3154c4a`](https://github.com/evmts/tevm-monorepo/commit/64c3c6dd09c236c516b117a506380028c3154c4a) Thanks [@roninjin10](https://github.com/roninjin10)! - Added docs for all packages to https://tevm.sh
+
+- Updated dependencies [[`64c3c6dd09c236c516b117a506380028c3154c4a`](https://github.com/evmts/tevm-monorepo/commit/64c3c6dd09c236c516b117a506380028c3154c4a), [`64c3c6dd09c236c516b117a506380028c3154c4a`](https://github.com/evmts/tevm-monorepo/commit/64c3c6dd09c236c516b117a506380028c3154c4a)]:
+  - @tevm/state@1.0.0-next.40
+  - @tevm/sync-storage-persister@1.0.0-next.40
+  - @tevm/utils@1.0.0-next.40
+  - @tevm/blockchain@1.0.0-next.40
+  - @tevm/common@1.0.0-next.40
+  - @tevm/evm@1.0.0-next.40
+  - @tevm/jsonrpc@1.0.0-next.40
+  - @tevm/predeploys@1.0.0-next.40
+  - @tevm/vm@1.0.0-next.40
+
 ## 1.0.0-next.39
 
 ### Minor Changes
