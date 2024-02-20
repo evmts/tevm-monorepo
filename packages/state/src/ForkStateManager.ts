@@ -4,6 +4,9 @@ import { keccak256 } from 'ethereum-cryptography/keccak.js'
 
 import { AccountCache, CacheType, StorageCache } from '@ethereumjs/statemanager'
 
+import { Cache } from './Cache.js'
+import type { TevmState } from './TevmState.js'
+import type { TevmStateManagerInterface } from './TevmStateManagerInterface.js'
 import type { AccountFields, StorageDump } from '@ethereumjs/common'
 import type { StorageRange } from '@ethereumjs/common'
 import type { Proof } from '@ethereumjs/statemanager'
@@ -19,10 +22,7 @@ import {
 	toHex,
 } from '@tevm/utils'
 // TODO remove me for using `@tevm/jsonrpc` package
-import { http, type PublicClient, createPublicClient } from 'viem'
-import { Cache } from './Cache.js'
-import type { TevmState } from './TevmState.js'
-import type { TevmStateManagerInterface } from './TevmStateManagerInterface.js'
+import { type PublicClient, createPublicClient, http } from 'viem'
 
 export interface ForkStateManagerOpts {
 	url: string
@@ -437,7 +437,7 @@ export class ForkStateManager implements TevmStateManagerInterface {
 	/**
 	 * @deprecated This method is not used by the Fork State Manager and is a stub required by the State Manager interface
 	 */
-	setStateRoot = async (_root: Uint8Array) => { }
+	setStateRoot = async (_root: Uint8Array) => {}
 
 	/**
 	 * @deprecated This method is not used by the Fork State Manager and is a stub required by the State Manager interface

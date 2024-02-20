@@ -2,7 +2,10 @@ import {
 	ForkStateManager,
 	type ForkStateManagerOpts,
 } from './ForkStateManager.js'
-import { NormalStateManager, type NormalStateManagerOpts } from './NormalStateManager.js'
+import {
+	NormalStateManager,
+	type NormalStateManagerOpts,
+} from './NormalStateManager.js'
 import {
 	ProxyStateManager,
 	type ProxyStateManagerOpts,

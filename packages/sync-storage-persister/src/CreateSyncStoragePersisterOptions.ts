@@ -1,5 +1,5 @@
-import { type SerializableTevmState } from '@tevm/state'
 import type { Storage } from './Storage.js'
+import { type SerializableTevmState } from '@tevm/state'
 // Adapted from tanstack query
 /**
  * Options for creating a sync storage persister.

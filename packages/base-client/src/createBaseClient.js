@@ -48,13 +48,13 @@ export const createBaseClient = async (options = {}) => {
 	 */
 	const getStateManagerOpts = () => {
 		/**
-		 * @type {import('@tevm/state').ForkStateManagerOpts['onCommit']} 
+		 * @type {import('@tevm/state').ForkStateManagerOpts['onCommit']}
 		 */
 		const onCommit = (stateManager) => {
 			if (!options.persister) {
 				throw new Error('No persister provided')
 			}
-			stateManager.dumpCanonicalGenesis().then(state => {
+			stateManager.dumpCanonicalGenesis().then((state) => {
 				/**
 				 * @type {import('@tevm/state').ParameterizedTevmState}
 				 */
@@ -77,22 +77,24 @@ export const createBaseClient = async (options = {}) => {
 			return {
 				fork: {
 					...options.fork,
-					...(options.persister ? { onCommit } : {})
-				}
+					...(options.persister ? { onCommit } : {}),
+				},
 			}
 		}
 		if (options.proxy?.url) {
 			return {
 				proxy: {
 					...options.proxy,
-					...(options.persister ? { onCommit: /** @type any*/(onCommit) } : {})
-				}
+					...(options.persister
+						? { onCommit: /** @type any*/ (onCommit) }
+						: {}),
+				},
 			}
 		}
 		// handle normal mode
 		if (options.persister) {
 			return {
-				normal: { onCommit: /** @type any*/(onCommit) }
+				normal: { onCommit: /** @type any*/ (onCommit) },
 			}
 		}
 		return {}

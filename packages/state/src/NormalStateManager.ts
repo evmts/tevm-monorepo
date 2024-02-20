@@ -1,4 +1,11 @@
-import { CacheType, DefaultStateManager, type DefaultStateManagerOpts } from '@ethereumjs/statemanager'
+// [mozilla public license 2.0](https://github.com/ethereumjs/ethereumjs-monorepo/blob/master/packages/statemanager/LICENSE)
+import type { TevmState } from './TevmState.js'
+import type { TevmStateManagerInterface } from './TevmStateManagerInterface.js'
+import {
+	CacheType,
+	DefaultStateManager,
+	type DefaultStateManagerOpts,
+} from '@ethereumjs/statemanager'
 import { EthjsAccount, EthjsAddress } from '@tevm/utils'
 import {
 	type Address,
@@ -8,9 +15,6 @@ import {
 	hexToBytes,
 	isHex,
 } from 'viem'
-// [mozilla public license 2.0](https://github.com/ethereumjs/ethereumjs-monorepo/blob/master/packages/statemanager/LICENSE)
-import type { TevmState } from './TevmState.js'
-import type { TevmStateManagerInterface } from './TevmStateManagerInterface.js'
 
 export type NormalStateManagerOpts = DefaultStateManagerOpts & {
 	/**
@@ -28,7 +32,8 @@ export type NormalStateManagerOpts = DefaultStateManagerOpts & {
  */
 export class NormalStateManager
 	extends DefaultStateManager
-	implements TevmStateManagerInterface {
+	implements TevmStateManagerInterface
+{
 	constructor(protected readonly opts?: NormalStateManagerOpts) {
 		super(opts)
 	}

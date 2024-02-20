@@ -1,7 +1,7 @@
 import type { Storage } from './Storage.js'
 import { createSyncStoragePersister } from './createSyncStoragePersister.js'
-import { describe, expect, it } from 'bun:test'
 import type { SerializableTevmState } from '@tevm/state'
+import { describe, expect, it } from 'bun:test'
 
 describe(createSyncStoragePersister.name, () => {
 	// TODO we should test the async behavior of the throttle
@@ -33,16 +33,10 @@ describe(createSyncStoragePersister.name, () => {
 		persister.persistTevmState(state)
 		// wait for the next async tick
 		await new Promise((resolve) => setTimeout(resolve, 0))
-		expect(
-			map.get('test-key')
-		).toEqual(JSON.stringify(state))
-		expect(
-			persister.restoreState()
-		).toEqual(state)
+		expect(map.get('test-key')).toEqual(JSON.stringify(state))
+		expect(persister.restoreState()).toEqual(state)
 
 		persister.removePersistedState()
-		expect(
-			persister.restoreState()
-		).toBeUndefined()
+		expect(persister.restoreState()).toBeUndefined()
 	})
 })

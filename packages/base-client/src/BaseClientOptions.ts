@@ -105,7 +105,7 @@ export type BaseClientOptions = {
 	allowUnlimitedContractSize?: boolean
 	/**
 	 * The memory client can optionally initialize and persist it's state to an external source like local storage
-	 * using `createSyncPersister` 
+	 * using `createSyncPersister`
 	 * @example
 	 * ```typescript
 	 * import { createMemoryClient, createSyncPersister } from 'tevm'

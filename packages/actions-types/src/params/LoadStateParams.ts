@@ -1,5 +1,5 @@
-import type { TevmState } from '@tevm/state'
 import type { BaseParams } from './BaseParams.js'
+import type { TevmState } from '@tevm/state'
 
 /**
  * params for `tevm_loadState` method. Takes a {@link TevmState} to load into state.

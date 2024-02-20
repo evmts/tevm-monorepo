@@ -6,58 +6,57 @@ import { throttle } from './throttle.js'
  * @returns {import('./SyncStoragePersister.js').SyncStoragePersister}
  */
 export const createSyncStoragePersister = ({
-  storage,
-  key = `REACT_QUERY_OFFLINE_CACHE`,
-  throttleTime = 1000,
-  serialize = JSON.stringify,
-  deserialize = JSON.parse,
+	storage,
+	key = 'REACT_QUERY_OFFLINE_CACHE',
+	throttleTime = 1000,
+	serialize = JSON.stringify,
+	deserialize = JSON.parse,
 }) => {
-  /**
-   * @param {import('@tevm/state').SerializableTevmState} state
-   * @returns {Error | undefined}
-   */
-  const trySave = (state) => {
-    try {
-      const serializedState = serialize(state)
-      storage.setItem(key, serializedState)
-      if (storage.getItem(key) !== serializedState) {
-        throw new Error('wtf')
-      }
-      return undefined
-    } catch (error) {
-      return /** @type {Error}*/(error)
-    }
-  }
-  return {
-    persistTevmState: throttle((persistedState) => {
-      if (!persistedState) {
-        return
-      }
-      // TODO make this configurable
-      let retries = 3
-      let error = trySave(persistedState)
-      let errorCount = 0
-      while (error && errorCount < retries) {
-        errorCount++
-        trySave(persistedState)
-      }
-      return
-    }, throttleTime),
-    restoreState: () => {
-      const cacheString = storage.getItem(key)
-      if (!cacheString) {
-        return
-      }
-      return deserialize(cacheString)
-    },
-    removePersistedState: () => {
-      try {
-        storage.removeItem(key)
-        return undefined
-      } catch (e) {
-        return e
-      }
-    },
-  }
+	/**
+	 * @param {import('@tevm/state').SerializableTevmState} state
+	 * @returns {Error | undefined}
+	 */
+	const trySave = (state) => {
+		try {
+			const serializedState = serialize(state)
+			storage.setItem(key, serializedState)
+			if (storage.getItem(key) !== serializedState) {
+				throw new Error('wtf')
+			}
+			return undefined
+		} catch (error) {
+			return /** @type {Error}*/ (error)
+		}
+	}
+	return {
+		persistTevmState: throttle((persistedState) => {
+			if (!persistedState) {
+				return
+			}
+			// TODO make this configurable
+			const retries = 3
+			const error = trySave(persistedState)
+			let errorCount = 0
+			while (error && errorCount < retries) {
+				errorCount++
+				trySave(persistedState)
+			}
+			return
+		}, throttleTime),
+		restoreState: () => {
+			const cacheString = storage.getItem(key)
+			if (!cacheString) {
+				return
+			}
+			return deserialize(cacheString)
+		},
+		removePersistedState: () => {
+			try {
+				storage.removeItem(key)
+				return undefined
+			} catch (e) {
+				return e
+			}
+		},
+	}
 }
-
