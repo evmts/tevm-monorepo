@@ -1,6 +1,8 @@
+import { MOCKERC20_ABI, MOCKERC20_BYTECODE } from '../test/contractConstants.js'
 import { contractHandler } from './contractHandler.js'
 import { setAccountHandler } from './setAccountHandler.js'
-import { Evm, EvmErrorMessage } from '@tevm/evm'
+import type { ContractError } from '@tevm/errors'
+import { Evm } from '@tevm/evm'
 import { NormalStateManager } from '@tevm/state'
 import { TevmVm } from '@tevm/vm'
 import { describe, expect, it } from 'bun:test'
@@ -349,23 +351,7 @@ describe('contractHandler', () => {
 				to: ERC20_ADDRESS,
 				throwOnFail: false,
 			}),
-		).toEqual({
-			...({} as { data: never }),
-			logs: [],
-			createdAddresses: new Set(),
-			errors: [
-				{
-					_tag: EvmErrorMessage.REVERT,
-					message: 'Revert: Error Dai/insufficient-balance',
-					name: EvmErrorMessage.REVERT,
-				},
-			],
-			executionGasUsed: 2754n,
-			gas: 16774461n,
-			rawData:
-				'0x08c379a0000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000184461692f696e73756666696369656e742d62616c616e63650000000000000000',
-			selfdestruct: new Set(),
-		})
+		).toMatchSnapshot()
 	})
 
 	it('should handle a contract not existing', async () => {
@@ -540,5 +526,44 @@ describe('contractHandler', () => {
 				throwOnFail: false,
 			}),
 		).toMatchSnapshot()
+	})
+	it('should handle a rever with a helpful revert message', async () => {
+		const caller = `0x${'1'.repeat(40)}` as const
+		const recipient = `0x${'2'.repeat(40)}` as const
+		const amount = BigInt(1e18)
+		const token = `0x${'3'.repeat(40)}` as const
+		const stateManager = new NormalStateManager()
+		const evm = new Evm({ stateManager })
+		const vm = await TevmVm.create({ evm, stateManager })
+
+		// Set the token contract
+		await setAccountHandler({ vm })({
+			address: token,
+			deployedBytecode: MOCKERC20_BYTECODE,
+		})
+
+		// No matter if the transaction should succeed or fail, it will throw the same error:
+		// `TypeError: Cannot read properties of undefined (reading 'join')`
+		// at `@tevm/actions/src/tevm/contractHandler.js:37`
+		const { errors } = await contractHandler({ vm })({
+			caller,
+			to: token,
+			abi: MOCKERC20_ABI,
+			// Replace this:
+			functionName: 'transfer',
+			// ...  with one of these and it should work:
+			// functionName: 'mint',
+			// functionName: 'approve',
+			args: [recipient, amount],
+			throwOnFail: false,
+		})
+
+		expect(errors).toHaveLength(1)
+		const [error] = errors as [ContractError]
+		expect(error._tag).toBe('revert')
+		expect(error.name).toBe('revert')
+		expect(error.message).toBe(
+			'Revert: InsufficientBalance {"abiItem":{"inputs":[],"name":"InsufficientBalance","type":"error"},"errorName":"InsufficientBalance"}',
+		)
 	})
 })

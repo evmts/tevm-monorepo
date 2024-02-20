@@ -124,8 +124,8 @@ export const scriptHandler = (client, options = {}) => async (params) => {
 				)
 				return {
 					...err,
-					message: `Revert: ${decodedError.errorName}: ${decodedError.args.join(
-						', ',
+					message: `Revert: ${decodedError.errorName}: ${JSON.stringify(
+						decodedError,
 					)}`,
 				}
 			}

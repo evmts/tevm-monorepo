@@ -430,21 +430,6 @@ describe('scriptHandler', () => {
 				args: [caller, caller, 1n],
 				throwOnFail: false,
 			}),
-		).toEqual({
-			createdAddresses: new Set(),
-			errors: [
-				{
-					_tag: 'revert',
-					message: 'Revert: Error: Dai/insufficient-balance',
-					name: 'revert',
-				},
-			],
-			executionGasUsed: 2754n,
-			gas: 16774461n,
-			logs: [],
-			rawData:
-				'0x08c379a0000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000184461692f696e73756666696369656e742d62616c616e63650000000000000000',
-			selfdestruct: new Set(),
-		})
+		).toMatchSnapshot()
 	})
 })
