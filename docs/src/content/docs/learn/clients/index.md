@@ -99,26 +99,13 @@ It is always suggested to use forked mode if you can get away with it.
 - Proxy mode works best if you expect external changes to the chain to potentially change the expected results of your contract calls
 - If you want a bit of both you can use proxy mode with a large expectedBlockTime to invalidate the cache infrequently
 
-### Error handling
-
-By default Tevm clients will return a rejected promise when actions fail. Clients can optionally also return errors as values. This is very useful for handling errors in a typesafe way. All actions have a matching error in the `tevm/error` package.
-
-To return errors as values pass in a `throwOnFail: false` option to the tevm action. Currently on tevm actions are supported and not other actions such as `eth` actions.
-
-```typescript
-const {errors, data} = client.readContract({
-  ...ERC20.read.balanceOf(address),
-  throwOnFail: false,
-})
-  // the `name` property on errors is typesafe and can be used to determine the type of error
-if (errors?.[0].name === 'FailedToEncodeArgs') {
-  ...
-}
-```
-
 ### State persistence
 
-It is possible to persist the tevm client to a syncronous source using the `persister` option.
+It is possible to persist the tevm client to a syncronous source using the `persister` option. This will initialize the state with with the persisted storage if it exists and back up the state to this storage after state updates happen.
+
+- Note that `proxy mode` invalidates the cache every block so there isn't much gained from persisting state in proxy mode
+- There is currently a known bug where `fork mode` will not persist the block tag and thus will be fetching state from a newer block when reinitialized.
+- The memory client still keeps the state in memory as source of truth even with state persistence. It is simply backing up the state to storage so it can rehydrate itself on future initializations
 
 ```typescript
 import {createMemoryClient, createSyncPersister} from 'tevm'

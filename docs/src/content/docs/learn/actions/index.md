@@ -7,19 +7,22 @@ description: Tevm actions api
 
 Tevm has an [actions based api](/reference/tevm/actions-types/api) similar to [viem's actions api](https://viem.sh/docs/actions/public/getbalance) and following similar patterns. This is a higher level of abstraction than the lower level [JSON-RPC api](/learn/json-rpc)
 
-## Errors
+### Error handling
 
-All actions return errors as values
+By default Tevm clients will return a rejected promise when actions fail. Clients can optionally also return errors as values. This is very useful for handling errors in a typesafe way. All actions have a matching error in the `tevm/error` package.
+
+To return errors as values pass in a `throwOnFail: false` option to the tevm action. Currently on tevm actions are supported and not other actions such as `eth` actions.
 
 ```typescript
-const {errors} = client.setAccount({})
-if (errors?.length) {
-  console.log(errors[0]).name // AddressRequiredError
-  console.log(errors[0].message) // AddressRequiredError: `address` is a required property
+const {errors, data} = client.readContract({
+  ...ERC20.read.balanceOf(address),
+  throwOnFail: false,
+})
+  // the `name` property on errors is typesafe and can be used to determine the type of error
+if (errors?.[0].name === 'FailedToEncodeArgs') {
+  ...
 }
 ```
-
-As a best practice you should always check the errors property for errors. In future versions of tevm we may expose the ability to throw instead as a configuration option to the client. Consider joining the telegram if you would like this feature.
 
 ## TevmClient actions
 
