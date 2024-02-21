@@ -109,6 +109,7 @@ It is possible to persist the tevm client to a syncronous source using the `pers
 
 ```typescript
 import {createMemoryClient, createSyncPersister} from 'tevm'
+import {createMemoryClient} from 'tevm/sync-storage-persister'
 
 // Client state will be hydrated and persisted from/to local storage
 const clientWithLocalStoragePersistence = await createMemoryClient({
