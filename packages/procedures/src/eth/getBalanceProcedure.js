@@ -9,7 +9,7 @@ export const getBalanceProcedure =
 	({ vm, forkUrl }) =>
 		async (req) => {
 			if (!req.params[1]) {
-				throw new Error('getBalanceProcedure recieved invalid parameters. Block parameter is required!')
+				throw new Error('getBalanceProcedure received invalid parameters: Block parameter (req.params[1]) is missing or invalid. Expected a hex string or block tag (e.g., "latest", "earliest").')
 			}
 			return ({
 				...(req.id ? { id: req.id } : {}),
