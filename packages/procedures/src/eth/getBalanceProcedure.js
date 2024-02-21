@@ -7,20 +7,25 @@ import { numberToHex } from '@tevm/utils'
  */
 export const getBalanceProcedure =
 	({ vm, forkUrl }) =>
-	async (req) => ({
-		...(req.id ? { id: req.id } : {}),
-		jsonrpc: '2.0',
-		method: req.method,
-		result: numberToHex(
-			await getBalanceHandler({ vm, forkUrl })({
-				address: req.params[0],
-				...(req.params[1].startsWith('0x')
-					? { blockNumber: BigInt(req.params[1]) }
-					: {
-							blockTag: /** @type {import('@tevm/utils').BlockTag}*/ (
-								req.params[1]
-							),
-					  }),
-			}),
-		),
-	})
+		async (req) => {
+			if (!req.params[1]) {
+				throw new Error('getBalanceProcedure recieved invalid parameters. Block parameter is required!')
+			}
+			return ({
+				...(req.id ? { id: req.id } : {}),
+				jsonrpc: '2.0',
+				method: req.method,
+				result: numberToHex(
+					await getBalanceHandler({ vm, forkUrl })({
+						address: req.params[0],
+						...(req.params[1].startsWith('0x')
+							? { blockNumber: BigInt(req.params[1]) }
+							: {
+								blockTag: /** @type {import('@tevm/utils').BlockTag}*/ (
+									req.params[1]
+								),
+							}),
+					}),
+				),
+			})
+		}

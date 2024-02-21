@@ -86,11 +86,11 @@ Let's use [eth_getBalance](https://ethereum.org/en/developers/docs/apis/json-rpc
 
 ```typescript
 import { createMemoryClient } from 'tevm';
-import { EthGetBalanceRequest } from 'tevm'
+import { EthGetBalanceJsonRpcRequest } from 'tevm/procedures-types'
 
 const tevm = await createMemoryClient();
 
-const request: EthGetBalanceRequest = {
+const request: EthGetBalanceJsonRpcRequest = {
   jsonrpc: '2.0',
   id: 1,
   method: 'eth_getBalance',
@@ -102,15 +102,15 @@ const request: EthGetBalanceRequest = {
 
 ```typescript
 import { createMemoryClient } from 'tevm';
-import { EthGetBalanceRequest } from 'tevm'
+import { EthGetBalanceJsonRpcRequest } from 'tevm/procedures-types'
 
 const tevm = await createMemoryClient();
 
-const request: EthGetBalanceRequest = {
+const request: EthGetBalanceJsonRpcRequest = {
   jsonrpc: '2.0',
   id: 1,
-  method: 'eth_getBalance',
-  params: ["0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"]
+  method: 'eth_getBalance'
+  params: ["0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045", "latest"]
 }
 
 const response = await tevm.request(request)
@@ -137,7 +137,7 @@ Add any ethereum RPC url to the [`options.fork.url`](/reference/tevm/memory-clie
 
 ```typescript
 import { createMemoryClient } from 'tevm';
-import { EthGetBalanceRequest } from 'tevm'
+import { EthGetBalanceJsonRpcRequest } from 'tevm/procedures-types'
 
 const tevm = await createMemoryClient({
   fork: {
@@ -145,7 +145,7 @@ const tevm = await createMemoryClient({
   }
 });
 
-const request: EthGetBalanceRequest = {
+const request: EthGetBalanceJsonRpcRequest = {
   jsonrpc: '2.0',
   id: 1,
   method: 'eth_getBalance',
@@ -194,7 +194,7 @@ Tevm exposes a [viem-like](https://viem.sh) `actions api` to provide a higher le
 
 ```typescript
 import { createMemoryClient } from 'tevm';
-- import { EthGetBalanceRequest } from 'tevm'
+- import { EthGetBalanceJsonRpcRequest } from 'tevm/procedures-types'
 
 const tevm = await createMemoryClient({
   fork: {
@@ -202,7 +202,7 @@ const tevm = await createMemoryClient({
   }
 });
 
-- const request: EthGetBalanceRequest = {
+- const request: EthGetBalanceJsonRpcRequest = {
 -   jsonrpc: '2.0',
 -   id: 1,
 -   method: 'eth_getBalance',
