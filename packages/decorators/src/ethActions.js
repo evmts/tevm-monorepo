@@ -7,11 +7,13 @@ import {
 	getCodeHandler,
 	getStorageAtHandler,
 } from '@tevm/actions'
+import { eip1993Actions } from './eip1193Actions.js'
 
 /**
- * @returns {import('@tevm/base-client').Extension<import('./EthActionsApi.js').EthActionsApi>}
+ * @returns {import('@tevm/base-client').Extension<import('./providers/EthProvider.js').EthereumProvider>}
  */
 export const ethActions = () => (client) => {
+	const eip1993 = client.extend(eip1993Actions)
 	return {
 		eth: {
 			blockNumber: blockNumberHandler(client),
