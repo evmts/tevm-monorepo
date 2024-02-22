@@ -26,7 +26,7 @@ export class FailedToReadConfigError extends Error {
 	 * @param {unknown} [options.cause]
 	 */
 	constructor(configFilePath, options) {
-		super(`Failed to find ${configFilePath}/tevm.json`, options)
+		super(`Failed to find tevm.config.json ${configFilePath}`, options)
 	}
 }
 
@@ -65,11 +65,20 @@ export class InvalidJsonConfigError extends TypeError {
  * @internal
  */
 export const loadJsonConfig = (configFilePath) => {
-	const tevmConfigPath = path.join(configFilePath, 'tevm.json')
-	return tryEffect({
-		try: () => readFileSync(tevmConfigPath, 'utf8'),
-		catch: (cause) => new FailedToReadConfigError(configFilePath, { cause }),
-	}).pipe(
+	const tevmConfigPath0 = path.join(configFilePath, 'tevm.config.json')
+	const tevmConfigPath1 = path.join(configFilePath, 'tevm.json')
+	/**
+	 * @param {string} configPath
+	 */
+	const readConfig = (configPath) =>
+		tryEffect({
+			try: () => readFileSync(configPath, 'utf8'),
+			catch: (cause) => new FailedToReadConfigError(configFilePath, { cause }),
+		})
+	return readConfig(tevmConfigPath0).pipe(
+		catchTag('FailedToReadConfigError', () => {
+			return readConfig(tevmConfigPath1)
+		}),
 		flatMap(parseJson),
 		catchTag('ParseJsonError', (cause) =>
 			fail(new InvalidJsonConfigError({ cause })),
