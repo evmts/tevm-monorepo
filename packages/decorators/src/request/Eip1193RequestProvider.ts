@@ -24,6 +24,7 @@ export type Eip1193RequestProvider = {
 
     /// Public methods
 
+    JsonRpcSchemaPublic['eth_blockNumber'],
     JsonRpcSchemaPublic['eth_call'],
     JsonRpcSchemaPublic['eth_chainId'],
     JsonRpcSchemaPublic['eth_getCode'],

@@ -339,6 +339,9 @@ describe('requestProcedure', () => {
 			})
 			expect(res.error).toBeUndefined()
 			expect(res.result).toEqual({
+				codeHash: keccak256(ERC20_BYTECODE),
+				isContract: true,
+				isEmpty: false,
 				balance: numberToHex(420n),
 				nonce: numberToHex(69n),
 				deployedBytecode: ERC20_BYTECODE,

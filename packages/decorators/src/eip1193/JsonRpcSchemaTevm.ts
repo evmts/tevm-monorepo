@@ -1,9 +1,7 @@
-// this file is adapted from viem
-// see it here https://github.com/wevm/viem/blob/main/src/types/eip1193.ts
-// Copied from viem commit a098c98231d47ccac9bda1a944880b034020a1b5
-// We copy it here for easier developer experience internally and also
-// to lock in these types independent of viem potentially making changes 
-import type { CallJsonRpcRequest, CallJsonRpcResponse, DumpStateJsonRpcRequest, DumpStateJsonRpcResponse, GetAccountJsonRpcRequest, GetAccountJsonRpcResponse, LoadStateJsonRpcRequest, LoadStateJsonRpcResponse, ScriptJsonRpcRequest, ScriptJsonRpcResponse, SetAccountJsonRpcRequest, SetAccountJsonRpcResponse } from '@tevm/procedures-types'
+import type { CallResult, GetAccountResult, SetAccountResult } from '@tevm/actions-types'
+import type { SerializeToJson } from '@tevm/utils'
+import type { DumpStateResult, LoadStateResult } from '../../../actions-types/dist/index.cjs'
+import type { CallJsonRpcRequest, DumpStateJsonRpcRequest, GetAccountJsonRpcRequest, LoadStateJsonRpcRequest, ScriptJsonRpcRequest, SetAccountJsonRpcRequest } from '@tevm/procedures-types'
 
 export type JsonRpcSchemaTevm = {
   /**
@@ -15,8 +13,8 @@ export type JsonRpcSchemaTevm = {
    */
   tevm_call: {
     Method: 'tevm_call'
-    Parameters: CallJsonRpcRequest
-    ReturnType: CallJsonRpcResponse
+    Parameters: CallJsonRpcRequest['params']
+    ReturnType: SerializeToJson<CallResult<never>>
   },
   /**
    * @description Execute supplied contract bytecode on the EVM
@@ -27,8 +25,8 @@ export type JsonRpcSchemaTevm = {
    */
   tevm_script: {
     Method: 'tevm_script',
-    Parameters: ScriptJsonRpcRequest,
-    ReturnType: ScriptJsonRpcResponse
+    Parameters: ScriptJsonRpcRequest['params']
+    ReturnType: SerializeToJson<CallResult<never>>
   },
   /**
    * @description Loads the provided state into the EVM
@@ -39,8 +37,8 @@ export type JsonRpcSchemaTevm = {
    */
   tevm_loadState: {
     Method: 'tevm_loadState',
-    Parameters: LoadStateJsonRpcRequest,
-    ReturnType: LoadStateJsonRpcResponse
+    Parameters: LoadStateJsonRpcRequest['params']
+    ReturnType: SerializeToJson<LoadStateResult<never>>
   },
   /**
    * @description Dumps the current cached state of the EVM.
@@ -50,8 +48,8 @@ export type JsonRpcSchemaTevm = {
    */
   tevm_dumpState: {
     Method: 'tevm_dumpState',
-    Parameters?: DumpStateJsonRpcRequest,
-    ReturnType: DumpStateJsonRpcResponse
+    Parameters?: DumpStateJsonRpcRequest['params']
+    ReturnType: SerializeToJson<DumpStateResult<never>>
   },
   /**
    * @description Returns the account state of the given address
@@ -61,19 +59,19 @@ export type JsonRpcSchemaTevm = {
    */
   tevm_getAccount: {
     Method: 'tevm_getAccount',
-    Parameters: GetAccountJsonRpcRequest,
-    ReturnType: GetAccountJsonRpcResponse
+    Parameters: GetAccountJsonRpcRequest['params']
+    ReturnType: SerializeToJson<GetAccountResult<never>>
   },
   /**
    * @description Sets the account state of the given address
    * @link https://tevm.sh/learn/json-rpc/#tevm-methods
    * @example
    * provider.request({ method: 'tevm_setAccount', params: [{address: '0x...', value: '0x42' }])})
-   */
+r  */
   tevm_setAccount: {
     Method: 'tevm_setAccount',
-    Parameters: SetAccountJsonRpcRequest,
-    ReturnType: SetAccountJsonRpcResponse
+    Parameters: SetAccountJsonRpcRequest['params']
+    ReturnType: SerializeToJson<SetAccountResult<never>>
   }
 }
 

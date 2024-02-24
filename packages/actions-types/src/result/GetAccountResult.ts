@@ -16,29 +16,29 @@ export type GetAccountResult<ErrorType = GetAccountError> = {
 	/**
 	 * Nonce to set account to
 	 */
-	nonce?: bigint
+	nonce: bigint
 	/**
 	 * Balance to set account to
 	 */
-	balance?: bigint
+	balance: bigint
 	/**
 	 * Contract bytecode to set account to
 	 */
-	deployedBytecode?: Hex
+	deployedBytecode: Hex
 	/**
 	 * Storage root to set account to
 	 */
-	storageRoot?: Hex
+	storageRoot: Hex
 	/**
 	 * Code hash to set account to
 	 */
-	codeHash?: Hex
+	codeHash: Hex
 	/**
 	 * True if account is a contract
 	 */
-	isContract?: boolean
+	isContract: boolean
 	/**
 	 * True if account is empty
 	 */
-	isEmpty?: boolean
+	isEmpty: boolean
 }
