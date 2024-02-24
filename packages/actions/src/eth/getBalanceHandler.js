@@ -16,34 +16,35 @@ export class NoForkUrlSetError extends Error {
 
 /**
  * @param {object} options
- * @param {import('@tevm/vm').TevmVm} options.vm
+ * @param {import('@tevm/base-client').BaseClient['getVm']} options.getVm
  * @param {string} [options.forkUrl]
  * @returns {import('@tevm/actions-types').EthGetBalanceHandler}
  */
 export const getBalanceHandler =
-	({ vm, forkUrl }) =>
-	async ({ address, blockTag = 'pending' }) => {
-		if (blockTag === 'pending') {
-			return vm.stateManager
-				.getAccount(EthjsAddress.fromString(address))
-				.then((account) => account?.balance ?? 0n)
+	({ getVm, forkUrl }) =>
+		async ({ address, blockTag = 'pending' }) => {
+			const vm = await getVm()
+			if (blockTag === 'pending') {
+				return vm.stateManager
+					.getAccount(EthjsAddress.fromString(address))
+					.then((account) => account?.balance ?? 0n)
+			}
+			if (!forkUrl) {
+				throw new NoForkUrlSetError(
+					'eth_getBalance with blockTag !== "pending" is only supported when forking',
+				)
+			}
+			return createJsonRpcFetcher(forkUrl)
+				.request({
+					jsonrpc: '2.0',
+					id: 1,
+					method: 'eth_getBalance',
+					params: [
+						address,
+						typeof blockTag === 'bigint' ? numberToHex(blockTag) : blockTag,
+					],
+				})
+				.then((balance) =>
+					hexToBigInt(/** @type {import('@tevm/utils').Hex}*/(balance.result)),
+				)
 		}
-		if (!forkUrl) {
-			throw new NoForkUrlSetError(
-				'eth_getBalance with blockTag !== "pending" is only supported when forking',
-			)
-		}
-		return createJsonRpcFetcher(forkUrl)
-			.request({
-				jsonrpc: '2.0',
-				id: 1,
-				method: 'eth_getBalance',
-				params: [
-					address,
-					typeof blockTag === 'bigint' ? numberToHex(blockTag) : blockTag,
-				],
-			})
-			.then((balance) =>
-				hexToBigInt(/** @type {import('@tevm/utils').Hex}*/ (balance.result)),
-			)
-	}

@@ -367,7 +367,7 @@ describe('requestProcedure', () => {
 				],
 			})
 			expect(res.error).toBeUndefined()
-			const account = (await client.vm.stateManager.getAccount(
+			const account = (await (await client.getVm()).stateManager.getAccount(
 				Address.fromString(ERC20_ADDRESS),
 			)) as Account
 			expect(account?.balance).toBe(420n)
@@ -375,7 +375,8 @@ describe('requestProcedure', () => {
 			expect(bytesToHex(account.codeHash)).toBe(keccak256(ERC20_BYTECODE))
 		})
 		it('should handle account throwing an unexpected error', async () => {
-			client.vm.stateManager.putAccount = () => {
+			const vm = await client.getVm()
+			vm.stateManager.putAccount = () => {
 				throw new Error('unexpected error')
 			}
 			const res = await requestProcedure(client)({
@@ -436,15 +437,16 @@ describe('requestProcedure', () => {
 			})
 
 			expect(
-				(await client.vm.stateManager.getAccount(Address.fromString(to)))
+				(await (await client.getVm()).stateManager.getAccount(Address.fromString(to)))
 					?.balance,
 			).toEqual(420n)
 		})
 
 		it('should handle an error', async () => {
 			const to = `0x${'69'.repeat(20)}` as const
-			const originalRunCall = client.vm.evm.runCall.bind(client.vm.evm)
-			client.vm.evm.runCall = async (args) => {
+			const vm = await client.getVm()
+			const originalRunCall = vm.evm.runCall.bind(vm.evm)
+			vm.evm.runCall = async (args) => {
 				const res = await originalRunCall(args)
 				return {
 					...res,
@@ -563,7 +565,8 @@ describe('requestProcedure', () => {
 		})
 
 		it('should handle the handler function unexpectedly throwing', async () => {
-			client.vm.evm.runCall = async () => {
+			const vm = await client.getVm()
+			vm.evm.runCall = async () => {
 				throw new Error('unexpected error')
 			}
 			expect(
@@ -671,7 +674,7 @@ describe('requestProcedure', () => {
 			expect(
 				await ethSignTransactionProcedure({
 					accounts: testAccounts,
-					chainId: 10n,
+					getChainId: async () => 10,
 				})({
 					jsonrpc: '2.0',
 					method: 'eth_signTransaction',

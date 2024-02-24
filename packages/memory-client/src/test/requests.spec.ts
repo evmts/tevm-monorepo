@@ -138,11 +138,11 @@ describe('Tevm.request', async () => {
 		})
 		expect(res.rawData).toEqual('0x')
 		expect(
-			(await tevm.vm.stateManager.getAccount(new Address(hexToBytes(address2))))
+			(await (await tevm.getVm()).stateManager.getAccount(new Address(hexToBytes(address2))))
 				?.balance,
 		).toBe(transferAmount)
 		expect(
-			(await tevm.vm.stateManager.getAccount(new Address(hexToBytes(address1))))
+			(await (await tevm.getVm()).stateManager.getAccount(new Address(hexToBytes(address1))))
 				?.balance,
 		).toBe(balance - transferAmount)
 	})
@@ -163,7 +163,7 @@ describe('Tevm.request', async () => {
 			],
 		})
 		expect(res).not.toHaveProperty('error')
-		const account = await tevm.vm.stateManager.getAccount(
+		const account = await (await tevm.getVm()).stateManager.getAccount(
 			Address.fromString('0xff420000000000000000000000000000000000ff'),
 		)
 		expect(account?.balance).toEqual(balance)

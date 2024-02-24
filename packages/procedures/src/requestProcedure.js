@@ -49,8 +49,6 @@ import { testAccounts } from '@tevm/actions'
  * ```
  */
 export const requestProcedure = (client) => {
-	// TODO implement chainid
-	const chainId = 900
 	return async (request) => {
 		switch (request.method) {
 			case 'tevm_call':
@@ -88,7 +86,7 @@ export const requestProcedure = (client) => {
 				return /** @type any */ (loadStateProcedure)(client)(request)
 			}
 			case 'eth_chainId':
-				return /** @type any */ (chainIdProcedure(chainId)(request))
+				return /** @type any */ (chainIdProcedure(client.getChainId)(request))
 			case 'eth_call':
 				return /** @type any */ (ethCallProcedure(client)(request))
 			case 'eth_getCode':
@@ -106,7 +104,7 @@ export const requestProcedure = (client) => {
 			case 'eth_signTransaction':
 				return ethSignTransactionProcedure({
 					accounts: testAccounts,
-					chainId: BigInt(chainId),
+					getChainId: client.getChainId,
 				})(request)
 			case 'eth_accounts':
 				return ethAccountsProcedure(testAccounts)(request)
@@ -163,7 +161,7 @@ export const requestProcedure = (client) => {
 					name: 'UnsupportedMethodError',
 					message: `UnsupportedMethodError: Unknown method ${
 						/**@type any*/ (request).method
-					}`,
+						}`,
 				}
 				return /** @type {any}*/ ({
 					id: /** @type any*/ (request).id ?? null,
