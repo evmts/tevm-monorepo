@@ -23,13 +23,7 @@
 
 ### CreateHttpHandlerParameters
 
-Ƭ **CreateHttpHandlerParameters**: `Object`
-
-#### Type declaration
-
-| Name | Type |
-| :------ | :------ |
-| `request` | `TevmJsonRpcRequestHandler` |
+Ƭ **CreateHttpHandlerParameters**: `Pick`\<`MemoryClient`, ``"send"``\>
 
 #### Defined in
 
@@ -39,16 +33,15 @@ evmts-monorepo/packages/server/types/createHttpHandler.d.ts:2
 
 ### createExpressMiddleware
 
-▸ **createExpressMiddleware**(`options`): `RequestHandler`
+▸ **createExpressMiddleware**(`client`): `RequestHandler`
 
 Creates express middleware for a Tevm JSON-RPC server
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `options` | `Object` |  |
-| `options.request` | [`TevmJsonRpcRequestHandler`](index.md#tevmjsonrpcrequesthandler) | A request handler for the JSON-RPC requests |
+| Name | Type |
+| :------ | :------ |
+| `client` | `Pick`\<[`MemoryClient`](index.md#memoryclient), ``"send"``\> |
 
 #### Returns
 
@@ -84,7 +77,7 @@ const client = createClient({
 
 #### Defined in
 
-evmts-monorepo/packages/server/types/adapters/createExpressMiddleware.d.ts:33
+evmts-monorepo/packages/server/types/adapters/createExpressMiddleware.d.ts:32
 
 ___
 
@@ -110,14 +103,13 @@ ___
 
 ### createNextApiHandler
 
-▸ **createNextApiHandler**(`«destructured»`): `NextApiHandler`
+▸ **createNextApiHandler**(`client`): `NextApiHandler`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `«destructured»` | `Object` |
-| › `request` | [`TevmJsonRpcRequestHandler`](index.md#tevmjsonrpcrequesthandler) |
+| `client` | `Pick`\<[`MemoryClient`](index.md#memoryclient), ``"send"``\> |
 
 #### Returns
 
@@ -131,15 +123,14 @@ ___
 
 ### createServer
 
-▸ **createServer**(`«destructured»`): `Promise`\<`Server`\>
+▸ **createServer**(`«destructured»`, `serverOptions?`): `Promise`\<`Server`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `«destructured»` | `Object` |
-| › `request` | [`TevmJsonRpcRequestHandler`](index.md#tevmjsonrpcrequesthandler) |
-| › `serverOptions?` | `ServerOptions`\<typeof `IncomingMessage`, typeof `ServerResponse`\> |
+| `«destructured»` | `Pick`\<[`MemoryClient`](index.md#memoryclient), ``"send"``\> |
+| `serverOptions?` | `ServerOptions`\<typeof `IncomingMessage`, typeof `ServerResponse`\> |
 
 #### Returns
 

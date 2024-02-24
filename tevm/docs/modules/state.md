@@ -27,6 +27,13 @@
 
 - [GetContractStorage](state.md#getcontractstorage)
 - [ParameterizedTevmState](state.md#parameterizedtevmstate)
+- [SerializableTevmState](state.md#serializabletevmstate)
+- [TevmStateManager](state.md#tevmstatemanager)
+- [TevmStateManagerOptions](state.md#tevmstatemanageroptions)
+
+### Functions
+
+- [createTevmStateManager](state.md#createtevmstatemanager)
 
 ## References
 
@@ -84,3 +91,57 @@ ___
 #### Defined in
 
 evmts-monorepo/packages/state/types/ParameterizedTevmState.d.ts:2
+
+___
+
+### SerializableTevmState
+
+Ƭ **SerializableTevmState**: `Object`
+
+#### Index signature
+
+▪ [key: `string`]: \{ `balance`: [`Hex`](index.md#hex) ; `codeHash`: [`Hex`](index.md#hex) ; `nonce`: [`Hex`](index.md#hex) ; `storage?`: `StorageDump` ; `storageRoot`: [`Hex`](index.md#hex)  }
+
+#### Defined in
+
+evmts-monorepo/packages/state/types/SerializableTevmState.d.ts:3
+
+___
+
+### TevmStateManager
+
+Ƭ **TevmStateManager**: [`NormalStateManager`](../classes/state.NormalStateManager.md) \| [`ForkStateManager`](../classes/state.ForkStateManager.md) \| [`ProxyStateManager`](../classes/state.ProxyStateManager.md)
+
+#### Defined in
+
+evmts-monorepo/packages/state/types/TevmStateManager.d.ts:4
+
+___
+
+### TevmStateManagerOptions
+
+Ƭ **TevmStateManagerOptions**: \{ `fork`: [`ForkStateManagerOpts`](../interfaces/index.ForkStateManagerOpts.md)  } \| \{ `proxy`: [`ProxyStateManagerOpts`](../interfaces/index.ProxyStateManagerOpts.md)  } \| \{ `normal`: `NormalStateManagerOpts`  } \| {}
+
+#### Defined in
+
+evmts-monorepo/packages/state/types/TevmStateManager.d.ts:5
+
+## Functions
+
+### createTevmStateManager
+
+▸ **createTevmStateManager**(`options`): [`ForkStateManager`](../classes/state.ForkStateManager.md) \| [`ProxyStateManager`](../classes/state.ProxyStateManager.md) \| [`NormalStateManager`](../classes/state.NormalStateManager.md)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `options` | [`TevmStateManagerOptions`](state.md#tevmstatemanageroptions) |
+
+#### Returns
+
+[`ForkStateManager`](../classes/state.ForkStateManager.md) \| [`ProxyStateManager`](../classes/state.ProxyStateManager.md) \| [`NormalStateManager`](../classes/state.NormalStateManager.md)
+
+#### Defined in
+
+evmts-monorepo/packages/state/types/TevmStateManager.d.ts:12
