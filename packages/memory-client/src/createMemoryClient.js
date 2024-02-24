@@ -39,8 +39,7 @@ import {
  *  ```
  */
 export const createMemoryClient = (options) => {
-	const c = createBaseClient(options)
-	return c
+	return createBaseClient(options)
 		.extend(tevmSend())
 		.extend(createEventEmitter())
 		.extend(requestEip1193())

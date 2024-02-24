@@ -95,14 +95,8 @@ export const createBaseClient = (options = {}) => {
 	 * @returns {import('./BaseClient.js').BaseClient['extend']}
 	 */
 	const extend = (client) => (extension) => {
-		const newClient = {
-			...client,
-			...extension(client),
-		}
-		return /** @type {any}*/ ({
-			...newClient,
-			extend: extend(client),
-		})
+		Object.assign(client, extension(client))
+		return /** @type {any}*/ (client)
 	}
 
 	const initChainId = async () => {
