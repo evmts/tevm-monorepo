@@ -1,3 +1,3 @@
-export { callAction, contractAction, dumpStateAction, ethActions, getAccountAction, loadStateAction, request, requestActions, requestBulk, scriptAction, setAccountAction, tevmActions } from '@tevm/decorators';
+export { createEventEmitter, ethActions, requestEip1193, tevmActions, tevmSend } from '@tevm/decorators';
 //# sourceMappingURL=out.js.map
 //# sourceMappingURL=index.js.map

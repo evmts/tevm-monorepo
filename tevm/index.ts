@@ -130,13 +130,21 @@ export type {
 	ProxyStateManagerOpts,
 } from '@tevm/state'
 
+export type {
+	EIP1193Events,
+	EthActionsApi,
+	TevmActionsApi,
+	EIP1193RequestFn,
+	Eip1193RequestProvider,
+} from '@tevm/decorators'
+
 export {
 	createBaseClient,
 	type Hardfork,
 	type Extension,
 	type BaseClient,
 	type CustomPrecompile,
-	type BaseClientOptions
+	type BaseClientOptions,
 } from '@tevm/base-client'
 
 export {
