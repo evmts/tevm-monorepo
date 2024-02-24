@@ -67,6 +67,7 @@
     "@tevm/base-client": "workspace:^",
     "@tevm/contract": "workspace:^",
     "@tevm/decorators": "workspace:^",
+    "@tevm/procedures": "workspace:1.0.0-next.40",
     "@tevm/utils": "workspace:1.0.0-next.40"
   },
   "devDependencies": {

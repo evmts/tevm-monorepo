@@ -36,6 +36,5 @@ export {
 export {
 	type Eip1193RequestProvider,
 	requestEip1193,
-	requestBulk,
+	tevmSend
 } from './request/index.js'
-

@@ -1,4 +1,4 @@
-import { requestBulkProcedure, requestProcedure } from '@tevm/procedures'
+import { requestProcedure } from '@tevm/procedures'
 // TODO this is too simple of a function to be using from an external library
 // Write this internally in @tevm/utils
 import { withRetry } from 'viem'
@@ -12,6 +12,7 @@ import { withRetry } from 'viem'
 // Probabally a v 2.0 thing though
 
 /**
+ * A decorator that adds the EIP-1193 request method to the client
  * @returns {import('@tevm/base-client').Extension<import('./Eip1193RequestProvider.js').Eip1193RequestProvider>}
  */
 export const requestEip1193 = () => (client) => {
@@ -32,14 +33,3 @@ export const requestEip1193 = () => (client) => {
 		},
 	}
 }
-
-/**
- * @experimental this api is likely to change
- * @returns {import('@tevm/base-client').Extension<Pick<import('@tevm/client-types').TevmClient, 'requestBulk'>>}
- */
-export const requestBulk = () => (client) => {
-	return {
-		requestBulk: requestBulkProcedure(client),
-	}
-}
-

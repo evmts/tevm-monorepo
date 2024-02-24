@@ -3,7 +3,7 @@ import { UnexpectedInternalServerError } from '@tevm/errors'
 import { zJsonRpcRequest } from '@tevm/zod'
 
 /**
- * @typedef {{request: import('@tevm/procedures-types').TevmJsonRpcRequestHandler}} CreateHttpHandlerParameters
+ * @typedef {Pick<import('@tevm/memory-client').MemoryClient, 'send'>} CreateHttpHandlerParameters
  */
 
 /**
@@ -95,7 +95,7 @@ export const createHttpHandler = (parameters) => {
 				const requests = parsedRequest.data
 				const responses = await Promise.allSettled(
 					requests.map((request) =>
-						parameters.request(/** @type any*/ (request)),
+						parameters.send(/** @type any*/(request)),
 					),
 				)
 				responses.map((response, i) => {
@@ -129,7 +129,7 @@ export const createHttpHandler = (parameters) => {
 					// TODO update this type to accept any jsonrpc request if a fork url pass through exists
 					// We don't officially support it until we explicitly implement all the endpoints instead of
 					// blindly passing through
-					const response = await parameters.request(/** @type any*/ (request))
+					const response = await parameters.send(/** @type any*/(request))
 					res.writeHead(200, { 'Content-Type': 'application/json' })
 					return res.end(JSON.stringify(response))
 				} catch (e) {

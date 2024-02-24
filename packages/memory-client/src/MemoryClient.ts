@@ -5,6 +5,7 @@ import type {
   EIP1193EventEmitter,
   Eip1193RequestProvider
 } from "@tevm/decorators";
+import type { TevmJsonRpcBulkRequestHandler, TevmJsonRpcRequestHandler } from '@tevm/procedures-types';
 
 /**
  * A local EVM instance running in JavaScript. Similar to Anvil in your browser/node/bun environments
@@ -45,4 +46,6 @@ export type MemoryClient =
   & EthActionsApi
   & TevmActionsApi
   & EIP1193EventEmitter
-  & Eip1193RequestProvider 
+  & Eip1193RequestProvider
+  & { send: TevmJsonRpcRequestHandler }
+  & { sendBulk: TevmJsonRpcBulkRequestHandler }

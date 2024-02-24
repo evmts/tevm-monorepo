@@ -1,5 +1,5 @@
 import { createBaseClient } from '@tevm/base-client'
-import { createEventEmitter, ethActions, requestEip1193, requestBulk, tevmActions } from '@tevm/decorators'
+import { createEventEmitter, ethActions, requestEip1193, tevmActions, tevmSend } from '@tevm/decorators'
 
 /**
  * A local EVM instance running in JavaScript. Similar to Anvil in your browser
@@ -35,9 +35,9 @@ import { createEventEmitter, ethActions, requestEip1193, requestBulk, tevmAction
 export const createMemoryClient = async (options) => {
 	const c = await createBaseClient(options)
 	return c
-		.extend(ethActions())
-		.extend(tevmActions())
+		.extend(tevmSend())
 		.extend(createEventEmitter())
 		.extend(requestEip1193())
-		.extend(requestBulk())
+		.extend(ethActions())
+		.extend(tevmActions())
 }
