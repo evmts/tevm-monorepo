@@ -10,7 +10,7 @@ import {
 /**
  * A local EVM instance running in JavaScript. Similar to Anvil in your browser
  * @param {import('@tevm/base-client').BaseClientOptions} [options]
- * @returns {Promise<import('./MemoryClient.js').MemoryClient>}
+ * @returns {import('./MemoryClient.js').MemoryClient}
  * @example
  * ```ts
  * import { createMemoryClient } from "tevm"
@@ -38,8 +38,8 @@ import {
  *  console.log(balance) // 1n
  *  ```
  */
-export const createMemoryClient = async (options) => {
-	const c = await createBaseClient(options)
+export const createMemoryClient = (options) => {
+	const c = createBaseClient(options)
 	return c
 		.extend(tevmSend())
 		.extend(createEventEmitter())
