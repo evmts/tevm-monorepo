@@ -105,7 +105,8 @@ export const createBaseClient = (options = {}) => {
 		}
 		const url = options.fork?.url ?? options.proxy?.url
 		if (url) {
-			return getChainId(url)
+			const id = await getChainId(url)
+			return id
 		}
 		return DEFAULT_CHAIN_ID
 	}
