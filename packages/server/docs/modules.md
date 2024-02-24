@@ -23,13 +23,7 @@
 
 ### CreateHttpHandlerParameters
 
-Ƭ **CreateHttpHandlerParameters**\<\>: `Object`
-
-#### Type declaration
-
-| Name | Type |
-| :------ | :------ |
-| `request` | `TevmJsonRpcRequestHandler` |
+Ƭ **CreateHttpHandlerParameters**\<\>: `Pick`\<`MemoryClient`, ``"send"``\>
 
 #### Defined in
 
@@ -39,16 +33,15 @@
 
 ### createExpressMiddleware
 
-▸ **createExpressMiddleware**(`options`): `RequestHandler`\<`ParamsDictionary`, `any`, `any`, `ParsedQs`, `Record`\<`string`, `any`\>\>
+▸ **createExpressMiddleware**(`client`): `RequestHandler`\<`ParamsDictionary`, `any`, `any`, `ParsedQs`, `Record`\<`string`, `any`\>\>
 
 Creates express middleware for a Tevm JSON-RPC server
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `options` | `Object` |  |
-| `options.request` | `TevmJsonRpcRequestHandler` | A request handler for the JSON-RPC requests |
+| Name | Type |
+| :------ | :------ |
+| `client` | `Pick`\<`MemoryClient`, ``"send"``\> |
 
 #### Returns
 
@@ -84,7 +77,7 @@ const client = createClient({
 
 #### Defined in
 
-[evmts-monorepo/packages/server/src/adapters/createExpressMiddleware.js:35](https://github.com/evmts/tevm-monorepo/blob/main/packages/server/src/adapters/createExpressMiddleware.js#L35)
+[evmts-monorepo/packages/server/src/adapters/createExpressMiddleware.js:34](https://github.com/evmts/tevm-monorepo/blob/main/packages/server/src/adapters/createExpressMiddleware.js#L34)
 
 ___
 
@@ -135,7 +128,7 @@ ___
 
 ### createNextApiHandler
 
-▸ **createNextApiHandler**(`options`): `NextApiHandler`\<`any`\>
+▸ **createNextApiHandler**(`client`): `NextApiHandler`\<`any`\>
 
 Creates a Next.js API handler for a Tevm JSON-RPC server
 
@@ -143,8 +136,7 @@ Creates a Next.js API handler for a Tevm JSON-RPC server
 
 | Name | Type |
 | :------ | :------ |
-| `options` | `Object` |
-| `options.request` | `TevmJsonRpcRequestHandler` |
+| `client` | `Pick`\<`MemoryClient`, ``"send"``\> |
 
 #### Returns
 
@@ -168,7 +160,7 @@ ___
 
 ### createServer
 
-▸ **createServer**(`options`): `Promise`\<`Server`\<typeof `IncomingMessage`, typeof `ServerResponse`\>\>
+▸ **createServer**(`client`, `serverOptions?`): `Promise`\<`Server`\<typeof `IncomingMessage`, typeof `ServerResponse`\>\>
 
 Creates a lightweight http server for handling requests
 
@@ -176,9 +168,8 @@ Creates a lightweight http server for handling requests
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `options` | `Object` |  |
-| `options.request` | `TevmJsonRpcRequestHandler` | A request handler for the JSON-RPC requests To use pass in the Tevm['request'] request handler |
-| `options.serverOptions` | `undefined` \| `ServerOptions`\<typeof `IncomingMessage`, typeof `ServerResponse`\> | Optional options to pass to the http server |
+| `client` | `Pick`\<`MemoryClient`, ``"send"``\> |  |
+| `serverOptions?` | `ServerOptions`\<typeof `IncomingMessage`, typeof `ServerResponse`\> | Optional options to pass to the http server To use pass in the Tevm['request'] request handler |
 
 #### Returns
 
@@ -210,4 +201,4 @@ const client = createTevmClient()
 
 #### Defined in
 
-[evmts-monorepo/packages/server/src/createServer.js:32](https://github.com/evmts/tevm-monorepo/blob/main/packages/server/src/createServer.js#L32)
+[evmts-monorepo/packages/server/src/createServer.js:31](https://github.com/evmts/tevm-monorepo/blob/main/packages/server/src/createServer.js#L31)

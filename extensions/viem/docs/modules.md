@@ -369,8 +369,7 @@ await client.tevm.account({
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `tevm` | `Object` | The Tevm instance |
-| `tevm.request` | `TevmJsonRpcRequestHandler` | - |
+| `tevm` | `Pick`\<`MemoryClient`, ``"request"``\> | The Tevm instance |
 | `options?` | `Pick`\<`TransportConfig`\<`string`, `EIP1193RequestFn`\>, ``"name"`` \| ``"key"``\> |  |
 
 #### Returns

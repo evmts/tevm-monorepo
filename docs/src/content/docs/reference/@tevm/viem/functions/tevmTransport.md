@@ -9,11 +9,9 @@ title: "tevmTransport"
 
 ## Parameters
 
-▪ **tevm**: `object`
+▪ **tevm**: `Pick`\<[`MemoryClient`](/reference/tevm/memory-client/type-aliases/memoryclient/), `"request"`\>
 
 The Tevm instance
-
-▪ **tevm.request**: `TevmJsonRpcRequestHandler`
 
 ▪ **options?**: `Pick`\<`TransportConfig`\<`string`, `EIP1193RequestFn`\>, `"name"` \| `"key"`\>
 

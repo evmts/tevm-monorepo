@@ -127,7 +127,7 @@ console.log(await provider.send('tevm_getAccount', {
 
 #### Parameters
 
-▪ **tevm**: [`TevmClient`](/reference/tevm/client-types/type-aliases/tevmclient/)
+▪ **tevm**: [`MemoryClient`](/reference/tevm/memory-client/type-aliases/memoryclient/)
 
 An instance of the Tevm interface.
 
@@ -171,7 +171,7 @@ node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstrac
 
 ### tevm
 
-> **tevm**: [`TevmClient`](/reference/tevm/client-types/type-aliases/tevmclient/)
+> **tevm**: [`MemoryClient`](/reference/tevm/memory-client/type-aliases/memoryclient/)
 
 An instance of the TevmClient interface.
 

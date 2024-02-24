@@ -5,14 +5,14 @@ prev: false
 title: "MemoryClient"
 ---
 
-> **MemoryClient**: [`TevmClient`](/reference/tevm/client-types/type-aliases/tevmclient/) & [`BaseClient`](/reference/tevm/base-client/type-aliases/baseclient/)
+> **MemoryClient**: [`BaseClient`](/reference/tevm/base-client/type-aliases/baseclient/) & [`EthActionsApi`](/reference/tevm/decorators/type-aliases/ethactionsapi/) & [`TevmActionsApi`](/reference/tevm/decorators/type-aliases/tevmactionsapi/) & [`EIP1193EventEmitter`](/reference/tevm/decorators/type-aliases/eip1193eventemitter/) & [`Eip1193RequestProvider`](/reference/tevm/decorators/type-aliases/eip1193requestprovider/) & `object` & `object`
 
 A local EVM instance running in JavaScript. Similar to Anvil in your browser/node/bun environments
-Implements the [TevmClient](/reference/tevm/client-types/type-aliases/tevmclient/) interface with an in memory EVM instance.
+Implements the TevmClient interface with an in memory EVM instance.
 
 ## See
 
- - [TevmClient](../../client-types/type-aliases/TevmClient.md)
+ - TevmClient
  - [WrappedEvm](https://todo.todo) for an remote client
 
 ## Example
@@ -44,9 +44,21 @@ const balance = await tevm.runContractCall(
  console.log(balance) // 1n
  ```
 
+## Type declaration
+
+### send
+
+> **send**: `TevmJsonRpcRequestHandler`
+
+## Type declaration
+
+### sendBulk
+
+> **sendBulk**: `TevmJsonRpcBulkRequestHandler`
+
 ## Source
 
-[MemoryClient.ts:38](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/MemoryClient.ts#L38)
+[MemoryClient.ts:47](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/MemoryClient.ts#L47)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
