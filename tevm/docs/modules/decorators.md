@@ -42,7 +42,7 @@
 
 ### Functions
 
-- [eip1993EventEmitter](decorators.md#createeventemitter)
+- [eip1993EventEmitter](decorators.md#eip1993eventemitter)
 - [ethActions](decorators.md#ethactions)
 - [requestEip1193](decorators.md#requesteip1193)
 - [tevmActions](decorators.md#tevmactions)

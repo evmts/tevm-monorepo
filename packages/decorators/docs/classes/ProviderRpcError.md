@@ -1,134 +1,165 @@
-**@tevm/decorators** ∙ [README](../README.md) ∙ [API](../API.md)
-
-***
-
-[API](../API.md) > ProviderRpcError
+[@tevm/decorators](../README.md) / [Exports](../modules.md) / ProviderRpcError
 
 # Class: ProviderRpcError
 
-## Extends
+## Hierarchy
 
 - `Error`
 
+  ↳ **`ProviderRpcError`**
+
+## Table of contents
+
+### Constructors
+
+- [constructor](ProviderRpcError.md#constructor)
+
+### Properties
+
+- [cause](ProviderRpcError.md#cause)
+- [code](ProviderRpcError.md#code)
+- [details](ProviderRpcError.md#details)
+- [message](ProviderRpcError.md#message)
+- [name](ProviderRpcError.md#name)
+- [stack](ProviderRpcError.md#stack)
+- [prepareStackTrace](ProviderRpcError.md#preparestacktrace)
+- [stackTraceLimit](ProviderRpcError.md#stacktracelimit)
+
+### Methods
+
+- [captureStackTrace](ProviderRpcError.md#capturestacktrace)
+
 ## Constructors
 
-### new ProviderRpcError(code, message)
+### constructor
 
-> **new ProviderRpcError**(`code`, `message`): [`ProviderRpcError`](ProviderRpcError.md)
+• **new ProviderRpcError**(`code`, `message`): [`ProviderRpcError`](ProviderRpcError.md)
 
 #### Parameters
 
-▪ **code**: `number`
+| Name | Type |
+| :------ | :------ |
+| `code` | `number` |
+| `message` | `string` |
 
-▪ **message**: `string`
+#### Returns
+
+[`ProviderRpcError`](ProviderRpcError.md)
 
 #### Overrides
 
 Error.constructor
 
-#### Source
+#### Defined in
 
-[packages/decorators/src/eip1193/EIP1193Events.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/EIP1193Events.ts#L21)
+[evmts-monorepo/packages/decorators/src/eip1193/EIP1193Events.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/EIP1193Events.ts#L21)
 
 ## Properties
 
 ### cause
 
-> **cause**?: `unknown`
+• `Optional` **cause**: `unknown`
 
 #### Inherited from
 
 Error.cause
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/typescript@5.3.3/node\_modules/typescript/lib/lib.es2022.error.d.ts:24
+.nvm/versions/node/v20.9.0/lib/node_modules/typescript/lib/lib.es2022.error.d.ts:24
 
-***
+___
 
 ### code
 
-> **code**: `number`
+• **code**: `number`
 
-#### Source
+#### Defined in
 
-[packages/decorators/src/eip1193/EIP1193Events.ts:18](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/EIP1193Events.ts#L18)
+[evmts-monorepo/packages/decorators/src/eip1193/EIP1193Events.ts:18](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/EIP1193Events.ts#L18)
 
-***
+___
 
 ### details
 
-> **details**: `string`
+• **details**: `string`
 
-#### Source
+#### Defined in
 
-[packages/decorators/src/eip1193/EIP1193Events.ts:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/EIP1193Events.ts#L19)
+[evmts-monorepo/packages/decorators/src/eip1193/EIP1193Events.ts:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/EIP1193Events.ts#L19)
 
-***
+___
 
 ### message
 
-> **message**: `string`
+• **message**: `string`
 
 #### Inherited from
 
 Error.message
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/typescript@5.3.3/node\_modules/typescript/lib/lib.es5.d.ts:1076
+.nvm/versions/node/v20.9.0/lib/node_modules/typescript/lib/lib.es5.d.ts:1076
 
-***
+___
 
 ### name
 
-> **name**: `string`
+• **name**: `string`
 
 #### Inherited from
 
 Error.name
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/typescript@5.3.3/node\_modules/typescript/lib/lib.es5.d.ts:1075
+.nvm/versions/node/v20.9.0/lib/node_modules/typescript/lib/lib.es5.d.ts:1075
 
-***
+___
 
 ### stack
 
-> **stack**?: `string`
+• `Optional` **stack**: `string`
 
 #### Inherited from
 
 Error.stack
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/typescript@5.3.3/node\_modules/typescript/lib/lib.es5.d.ts:1077
+.nvm/versions/node/v20.9.0/lib/node_modules/typescript/lib/lib.es5.d.ts:1077
 
-***
+___
 
 ### prepareStackTrace
 
-> **`static`** **prepareStackTrace**?: (`err`, `stackTraces`) => `any`
+▪ `Static` `Optional` **prepareStackTrace**: (`err`: `Error`, `stackTraces`: `CallSite`[]) => `any`
 
 Optional override for formatting stack traces
 
-#### See
+**`See`**
 
 https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
+#### Type declaration
+
+▸ (`err`, `stackTraces`): `any`
+
 Optional override for formatting stack traces
 
-#### Parameters
+##### Parameters
 
-▪ **err**: `Error`
+| Name | Type |
+| :------ | :------ |
+| `err` | `Error` |
+| `stackTraces` | `CallSite`[] |
 
-▪ **stackTraces**: `CallSite`[]
+##### Returns
 
-#### Returns
+`any`
 
-#### See
+**`See`**
 
 https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
@@ -136,67 +167,74 @@ https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
 Error.prepareStackTrace
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@types+node@20.11.5/node\_modules/@types/node/globals.d.ts:28
+evmts-monorepo/node_modules/.pnpm/@types+node@20.11.5/node_modules/@types/node/globals.d.ts:28
 
-***
+evmts-monorepo/node_modules/.pnpm/bun-types@1.0.26/node_modules/bun-types/globals.d.ts:1532
+
+___
 
 ### stackTraceLimit
 
-> **`static`** **stackTraceLimit**: `number`
+▪ `Static` **stackTraceLimit**: `number`
 
 #### Inherited from
 
 Error.stackTraceLimit
 
-#### Source
+#### Defined in
 
-node\_modules/.pnpm/@types+node@20.11.5/node\_modules/@types/node/globals.d.ts:30
+evmts-monorepo/node_modules/.pnpm/@types+node@20.11.5/node_modules/@types/node/globals.d.ts:30
+
+evmts-monorepo/node_modules/.pnpm/bun-types@1.0.26/node_modules/bun-types/globals.d.ts:1534
 
 ## Methods
 
-### captureStackTrace()
+### captureStackTrace
 
-#### captureStackTrace(targetObject, constructorOpt)
-
-> **`static`** **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
+▸ **captureStackTrace**(`targetObject`, `constructorOpt?`): `void`
 
 Create .stack property on a target object
 
-##### Parameters
+#### Parameters
 
-▪ **targetObject**: `object`
+| Name | Type |
+| :------ | :------ |
+| `targetObject` | `object` |
+| `constructorOpt?` | `Function` |
 
-▪ **constructorOpt?**: `Function`
+#### Returns
 
-##### Inherited from
+`void`
+
+#### Inherited from
 
 Error.captureStackTrace
 
-##### Source
+#### Defined in
 
-node\_modules/.pnpm/@types+node@20.11.5/node\_modules/@types/node/globals.d.ts:21
+evmts-monorepo/node_modules/.pnpm/@types+node@20.11.5/node_modules/@types/node/globals.d.ts:21
 
-#### captureStackTrace(targetObject, constructorOpt)
-
-> **`static`** **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
+▸ **captureStackTrace**(`targetObject`, `constructorOpt?`): `void`
 
 Create .stack property on a target object
 
-##### Parameters
+#### Parameters
 
-▪ **targetObject**: `object`
+| Name | Type |
+| :------ | :------ |
+| `targetObject` | `object` |
+| `constructorOpt?` | `Function` |
 
-▪ **constructorOpt?**: `Function`
+#### Returns
 
-##### Inherited from
+`void`
+
+#### Inherited from
 
 Error.captureStackTrace
 
-##### Source
+#### Defined in
 
-node\_modules/.pnpm/bun-types@1.0.26/node\_modules/bun-types/globals.d.ts:1525
-
-***
-Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
+evmts-monorepo/node_modules/.pnpm/bun-types@1.0.26/node_modules/bun-types/globals.d.ts:1525
