@@ -35,7 +35,7 @@ test('should dump important account info and storage', async () => {
 
 	expect(Object.keys(storage).length).toBe(1)
 
-	const client2 = await createBaseClient()
+	const client2 = createBaseClient()
 
 	await loadStateHandler(client2)({
 		state: dumpedState,

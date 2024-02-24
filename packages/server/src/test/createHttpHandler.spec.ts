@@ -17,7 +17,7 @@ describe('createHttpHandler', () => {
 	// haven't debugged if code is broke or test is broke yet
 	// landing immediately to avoid merge conflicts in other prs but need to circle back
 	it('should create an http handler', async () => {
-		const tevm = await createMemoryClient({
+		const tevm = createMemoryClient({
 			fork: {
 				url: 'https://mainnet.optimism.io',
 				blockTag: 115325880n,

@@ -64,14 +64,14 @@ describe('Testing tevm state managers with mix of createTransaction: true and fa
 	describe('SHould be able to run some calls using createTransaction: true and then run a createTransaction: false', async () => {
 		const caller = `0x${'1'.repeat(40)}` as const
 		// Create client
-		const forkClient = await createMemoryClient({
+		const forkClient = createMemoryClient({
 			fork: {
 				url: 'https://mainnet.optimism.io',
 			},
 		})
 
-		const normalClient = await createMemoryClient()
-		const proxyClient = await createMemoryClient({
+		const normalClient = createMemoryClient()
+		const proxyClient = createMemoryClient({
 			proxy: { url: 'https://mainnet.optimism.io' },
 		})
 		const clients = {

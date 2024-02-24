@@ -121,7 +121,7 @@ export class TevmProvider extends JsonRpcApiProvider {
 	 * ```
 	 */
 	static createMemoryProvider = async (options) => {
-		return new TevmProvider(await createMemoryClient(options))
+		return new TevmProvider(createMemoryClient(options))
 	}
 
 	/**

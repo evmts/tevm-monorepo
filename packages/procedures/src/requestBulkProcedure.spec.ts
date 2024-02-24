@@ -9,7 +9,7 @@ const ERC20_BYTECODE =
 
 describe('requestBulkProcedure', () => {
 	it('should work', async () => {
-		const client = await createBaseClient()
+		const client = createBaseClient()
 		await requestBulkProcedure(client)([
 			{
 				jsonrpc: '2.0',

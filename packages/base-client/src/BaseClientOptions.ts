@@ -117,7 +117,7 @@ export type BaseClientOptions = {
 	 *   }
 	 * })
 	 *
-	 * const memoryClient = await createMemoryClient({ persister })
+	 * const memoryClient = createMemoryClient({ persister })
 	 * ```
 	 */
 	persister?: SyncStoragePersister

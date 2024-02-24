@@ -67,7 +67,7 @@ Now let's create a Tevm VM to execute Ethereum bytecode in our JavaScript
 ```typescript
 import { createMemoryClient } from 'tevm';
 
-const tevm = await createMemoryClient();
+const tevm = createMemoryClient();
 ```
 
 This initializes an an ethereum VM instance akin to starting anvil but in memory.
@@ -88,7 +88,7 @@ Let's use [eth_getBalance](https://ethereum.org/en/developers/docs/apis/json-rpc
 import { createMemoryClient } from 'tevm';
 import { EthGetBalanceJsonRpcRequest } from 'tevm/procedures-types'
 
-const tevm = await createMemoryClient();
+const tevm = createMemoryClient();
 
 const request: EthGetBalanceJsonRpcRequest = {
   jsonrpc: '2.0',
@@ -104,7 +104,7 @@ const request: EthGetBalanceJsonRpcRequest = {
 import { createMemoryClient } from 'tevm';
 import { EthGetBalanceJsonRpcRequest } from 'tevm/procedures-types'
 
-const tevm = await createMemoryClient();
+const tevm = createMemoryClient();
 
 const request: EthGetBalanceJsonRpcRequest = {
   jsonrpc: '2.0',
@@ -139,7 +139,7 @@ Add any ethereum RPC url to the [`options.fork.url`](/reference/tevm/memory-clie
 import { createMemoryClient } from 'tevm';
 import { EthGetBalanceJsonRpcRequest } from 'tevm/procedures-types'
 
-const tevm = await createMemoryClient({
+const tevm = createMemoryClient({
   fork: {
     url: 'https://mainnet.optimism.io'
   }
@@ -196,7 +196,7 @@ Tevm exposes a [viem-like](https://viem.sh) `actions api` to provide a higher le
 import { createMemoryClient } from 'tevm';
 - import { EthGetBalanceJsonRpcRequest } from 'tevm/procedures-types'
 
-const tevm = await createMemoryClient({
+const tevm = createMemoryClient({
   fork: {
     url: 'https://mainnet.optimism.io'
   }
@@ -241,7 +241,7 @@ Now send a transaction using [TevmClient.call](/reference/tevm/client-types/type
 ```typescript
 import { createMemoryClient, parseEth } from 'tevm';
 
-const tevm = await createMemoryClient({
+const tevm = createMemoryClient({
   fork: {
     url: 'https://mainnet.optimism.io'
   }
@@ -279,7 +279,7 @@ We can execute a contract call by sending encoded contract data just like [`eth_
 ```typescript
 import { createMemoryClient, encodeFunctionData, decodeFunctionData, parseAbi } from 'tevm';
 
-const tevm = await createMemoryClient({
+const tevm = createMemoryClient({
   fork: {
     url: 'https://mainnet.optimism.io'
   }
@@ -316,7 +316,7 @@ Refactor our call to use `Tevm.contract`
 ```typescript
 import { createMemoryClient, parseAbi } from 'tevm';
 
-const tevm = await createMemoryClient({
+const tevm = createMemoryClient({
   fork: {
     url: 'https://mainnet.optimism.io'
   }
@@ -384,7 +384,7 @@ You should see a `.js` file get generated with the JavaScript version of your co
 import { HelloWorld } from './HelloWorld.s.sol.js';
 import { createMemoryClient, encodeFunctionData, parseAbi } from 'tevm';
 
-const tevm = await createMemoryClient({
+const tevm = createMemoryClient({
   fork: {
     url: 'https://mainnet.optimism.io'
   }
@@ -521,7 +521,7 @@ import { ERC721 } from '@openzeppelin/contracts/tokens/ERC721/ERC721.sol'
 import { createMemoryClient } from './vm.js'
 
 // Note it is recomended to use a more reliable rpc provider than the free tier cloudflare rpc
-const result = await createMemoryClient({fork: {url: 'https://cloudflare-eth.com'}}).contract(
+const result = createMemoryClient({fork: {url: 'https://cloudflare-eth.com'}}).contract(
   ERC721
     .withAddress('0x5180db8F5c931aaE63c74266b211F580155ecac8')
     .balanceOf(' 0xB72900a2e885dF6A2824969B6e40B969C8ae3CB7')

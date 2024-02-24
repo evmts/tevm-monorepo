@@ -30,7 +30,7 @@ export type {
 	AddEthereumChainParameter,
 } from './eip1193/index.js'
 export {
-	createEip1993EventEmitter,
+	eip1993EventEmitter,
 	type EIP1193EventEmitter,
 } from './events/index.js'
 export {

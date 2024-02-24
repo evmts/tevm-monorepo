@@ -22,7 +22,7 @@ test('Call predeploy from TypeScript', async () => {
 		contract,
 	})
 
-	const tevm = await createMemoryClient({
+	const tevm = createMemoryClient({
 		customPredeploys: [predeploy],
 	})
 

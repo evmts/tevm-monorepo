@@ -5,7 +5,7 @@ import { fsPrecompile } from './FsPrecompile.js'
 import { existsSync, rmSync } from 'fs'
 
 test('Call precompile from TypeScript', async () => {
-	const client = await createMemoryClient({
+	const client = createMemoryClient({
 		customPrecompiles: [fsPrecompile.precompile()],
 	})
 
@@ -30,7 +30,7 @@ test('Call precompile from TypeScript', async () => {
 test('Call precompile from solidity script', async () => {
 	const { WriteHelloWorld } = await import('./WriteHelloWorld.s.sol')
 
-	const client = await createMemoryClient({
+	const client = createMemoryClient({
 		customPrecompiles: [fsPrecompile.precompile()],
 	})
 

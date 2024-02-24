@@ -25,7 +25,7 @@ describe('precompiles option', () => {
 			},
 		}
 
-		const tevm = await createMemoryClient({ customPrecompiles: [precompile] })
+		const tevm = createMemoryClient({ customPrecompiles: [precompile] })
 		expect(
 			((await tevm.getVm()).evm as any).getPrecompile(
 				new Address(hexToBytes(address)),

@@ -13,7 +13,7 @@ describe(createHttpClient.name, () => {
 	let client: TevmClient
 
 	beforeAll(async () => {
-		tevm = await createMemoryClient({
+		tevm = createMemoryClient({
 			fork: { url: 'https://mainnet.optimism.io' },
 		})
 		server = createServer(createHttpHandler(tevm)).listen(6969)

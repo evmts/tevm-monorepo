@@ -23,7 +23,7 @@ const forkConfig = {
 }
 
 describe('Tevm.request', async () => {
-	const tevm = await createMemoryClient()
+	const tevm = createMemoryClient()
 
 	it('should execute a script request', async () => {
 		const req = {
@@ -54,7 +54,7 @@ describe('Tevm.request', async () => {
 	})
 
 	it('should throw an error if attempting a tevm_contractCall request', async () => {
-		const tevm = await createMemoryClient()
+		const tevm = createMemoryClient()
 		const req = {
 			params: [
 				{
@@ -76,7 +76,7 @@ describe('Tevm.request', async () => {
 	})
 
 	it('should execute a contractCall request via using tevm_call', async () => {
-		const tevm = await createMemoryClient({
+		const tevm = createMemoryClient({
 			fork: forkConfig,
 		})
 		const req = {
@@ -112,7 +112,7 @@ describe('Tevm.request', async () => {
 	})
 
 	it('should execute a call request', async () => {
-		const tevm = await createMemoryClient()
+		const tevm = createMemoryClient()
 		const balance = 0x11111111n
 		const address1 = '0x1f420000000000000000000000000000000000ff'
 		const address2 = '0x2f420000000000000000000000000000000000ff'

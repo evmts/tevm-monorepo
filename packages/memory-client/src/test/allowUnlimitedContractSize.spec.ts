@@ -5,7 +5,7 @@ import { describe, expect, test } from 'bun:test'
 
 describe('allowUnlimitedContractSize option', () => {
 	test('Should fail a evm call request if the file is too large', async () => {
-		const tevm = await createMemoryClient()
+		const tevm = createMemoryClient()
 		const address1 = '0x1f420000000000000000000000000000000000ff'
 
 		/*
@@ -31,7 +31,7 @@ describe('allowUnlimitedContractSize option', () => {
 	})
 
 	test('Should deploy large files if allowUnlimitedContractSize option is true', async () => {
-		const tevm = await createMemoryClient({
+		const tevm = createMemoryClient({
 			allowUnlimitedContractSize: true,
 		})
 		const address1 = '0x1f420000000000000000000000000000000000ff'
