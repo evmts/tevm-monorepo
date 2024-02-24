@@ -16,9 +16,7 @@ describe(createHttpClient.name, () => {
 		tevm = await createMemoryClient({
 			fork: { url: 'https://mainnet.optimism.io' },
 		})
-		server = createServer(createHttpHandler(tevm)).listen(
-			6969,
-		)
+		server = createServer(createHttpHandler(tevm)).listen(6969)
 		client = createHttpClient({ url: 'http://localhost:6969' })
 	})
 

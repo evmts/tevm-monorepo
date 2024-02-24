@@ -11,32 +11,20 @@ import { createVm } from '@tevm/vm'
 /**
  * Creates the base instance of a memory client
  * @param {import('./BaseClientOptions.js').BaseClientOptions} [options]
- * @returns {Promise<import('./BaseClient.js').BaseClient>}
+ * @returns {import('./BaseClient.js').BaseClient}
  * @example
  * ```ts
  *  ```
  */
-export const createBaseClient = async (options = {}) => {
+export const createBaseClient = (options = {}) => {
+	// First do everything that is not async
+	// Eagerly do async integration
+	// Return proxies that will block on initialization if not yet initialized
 	if (options.fork?.url && options.proxy?.url) {
 		throw new Error(
 			'Unable to initialize BaseClient. Cannot use both fork and proxy options at the same time!',
 		)
 	}
-
-	/**
-	 * @type {number}
-	 */
-	const chainId = await (async () => {
-		if (options.chainId) {
-			return options.chainId
-		}
-		const url = options.fork?.url ?? options.proxy?.url
-		if (url) {
-			return getChainId(url)
-		}
-		return DEFAULT_CHAIN_ID
-	})()
-
 	const common = new TevmCommon({
 		chain: 1,
 		hardfork: options.hardfork ?? 'shanghai',
@@ -101,63 +89,6 @@ export const createBaseClient = async (options = {}) => {
 	}
 	const stateManager = createTevmStateManager(getStateManagerOpts())
 
-	// Handle initializing the state from the persisted state
-	/**
-	 * @type {Promise<any>}
-	 */
-	let statePromise = Promise.resolve()
-	if (options.persister) {
-		const restoredState = options.persister.restoreState()
-		if (restoredState) {
-			/**
-			 * @type {import('@tevm/state').TevmState}
-			 */
-			const parsedState = {}
-			for (const [k, v] of Object.entries(restoredState)) {
-				const { nonce, balance, storageRoot, codeHash } = v
-				parsedState[k] = {
-					...v,
-					nonce: hexToBigInt(nonce),
-					balance: hexToBigInt(balance),
-					storageRoot: storageRoot,
-					codeHash: codeHash,
-				}
-			}
-			statePromise = stateManager.generateCanonicalGenesis(parsedState)
-		}
-	}
-
-	const blockchain = await createBlockchain({ common })
-	const evm = createEvm({
-		common,
-		stateManager,
-		blockchain,
-		allowUnlimitedContractSize: options.allowUnlimitedContractSize ?? false,
-		customPrecompiles: options.customPrecompiles ?? [],
-		profiler: options.profiler ?? false,
-	})
-	const vm = await createVm({
-		stateManager,
-		evm,
-		blockchain,
-		common,
-	})
-
-	/**
-	 * Add custom predeploys
-	 */
-	if (options.customPredeploys) {
-		await Promise.all(
-			options.customPredeploys.map((predeploy) => {
-				addPredeploy({
-					vm,
-					address: predeploy.address,
-					deployedBytecode: predeploy.contract.deployedBytecode,
-				})
-			}),
-		)
-	}
-
 	/**
 	 * Create the extend function in a generic way
 	 * @param {import('./BaseClient.js').BaseClient} client
@@ -166,22 +97,101 @@ export const createBaseClient = async (options = {}) => {
 	const extend = (client) => (extension) => {
 		const newClient = {
 			...client,
-			...extension(baseClient),
+			...extension(client),
 		}
 		return /** @type {any}*/ ({
 			...newClient,
-			extend: extend(newClient),
+			extend: extend(client),
 		})
 	}
 
+	const initChainId = async () => {
+		if (options.chainId) {
+			return options.chainId
+		}
+		const url = options.fork?.url ?? options.proxy?.url
+		if (url) {
+			return getChainId(url)
+		}
+		return DEFAULT_CHAIN_ID
+	}
+	const initVm = async () => {
+
+		// Handle initializing the state from the persisted state
+		/**
+		 * @type {Promise<any>}
+		 */
+		let statePromise = Promise.resolve()
+		if (options.persister) {
+			const restoredState = options.persister.restoreState()
+			if (restoredState) {
+				/**
+				 * @type {import('@tevm/state').TevmState}
+				 */
+				const parsedState = {}
+				for (const [k, v] of Object.entries(restoredState)) {
+					const { nonce, balance, storageRoot, codeHash } = v
+					parsedState[k] = {
+						...v,
+						nonce: hexToBigInt(nonce),
+						balance: hexToBigInt(balance),
+						storageRoot: storageRoot,
+						codeHash: codeHash,
+					}
+				}
+				statePromise = stateManager.generateCanonicalGenesis(parsedState)
+			}
+		}
+
+		const blockchain = await createBlockchain({ common })
+		const evm = createEvm({
+			common,
+			stateManager,
+			blockchain,
+			allowUnlimitedContractSize: options.allowUnlimitedContractSize ?? false,
+			customPrecompiles: options.customPrecompiles ?? [],
+			profiler: options.profiler ?? false,
+		})
+		const vm = await createVm({
+			stateManager,
+			evm,
+			blockchain,
+			common,
+		})
+
+		/**
+		 * Add custom predeploys
+		 */
+		if (options.customPredeploys) {
+			await Promise.all(
+				options.customPredeploys.map((predeploy) => {
+					addPredeploy({
+						vm,
+						address: predeploy.address,
+						deployedBytecode: predeploy.contract.deployedBytecode,
+					})
+				}),
+			)
+		}
+
+		await statePromise
+
+		return vm
+	}
+
+	const vmPromise = initVm()
+	const chainIdPromise = initChainId()
+
 	/**
 	 * Create and return the baseClient
+	 * It will be syncronously created but some functionality
+	 * will be asyncronously blocked by initialization of vm and chainId
 	 * @type {import('./BaseClient.js').BaseClient}
 	 */
 	const baseClient = {
-		chainId,
+		getChainId: () => chainIdPromise,
+		getVm: () => vmPromise,
 		mode: options.fork?.url ? 'fork' : options.proxy?.url ? 'proxy' : 'normal',
-		vm,
 		...(options.fork?.url
 			? { forkUrl: options.fork.url }
 			: { forkUrl: options.fork?.url }),
@@ -189,9 +199,24 @@ export const createBaseClient = async (options = {}) => {
 			? { proxyUrl: options.proxy.url }
 			: { proxyUrl: options.proxy?.url }),
 		extend: (extension) => extend(baseClient)(extension),
+		ready: async () => {
+			const [chainId, vm] = await Promise.allSettled([chainIdPromise, vmPromise])
+			const errors = []
+			if (chainId.status === 'rejected') {
+				errors.push(chainId.reason)
+			}
+			if (vm.status === 'rejected') {
+				errors.push(vm.reason)
+			}
+			if (errors.length > 1) {
+				throw new AggregateError(errors)
+			}
+			if (errors.length === 1) {
+				throw errors[0]
+			}
+			return true
+		}
 	}
-
-	await statePromise
 
 	return baseClient
 }

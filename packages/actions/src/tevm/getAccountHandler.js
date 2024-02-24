@@ -1,12 +1,12 @@
+import { createError } from './createError.js'
+import { maybeThrowOnFail } from './maybeThrowOnFail.js'
 import { EthjsAddress } from '@tevm/utils'
 import { bytesToHex, hexToBytes } from '@tevm/utils'
 import { validateGetAccountParams } from '@tevm/zod'
-import { createError } from './createError.js'
-import { maybeThrowOnFail } from './maybeThrowOnFail.js'
 
 /**
  * Creates an GetAccountHandler for handling account params with Ethereumjs VM
- * @param {Pick<import('@tevm/base-client').BaseClient, 'vm'>} client
+ * @param {Pick<import('@tevm/base-client').BaseClient, 'getVm'>} client
  * @param {object} [options]
  * @param {boolean} [options.throwOnFail] whether to default to throwing or not when errors occur
  * @returns {import('@tevm/actions-types').GetAccountHandler}
@@ -14,6 +14,7 @@ import { maybeThrowOnFail } from './maybeThrowOnFail.js'
 export const getAccountHandler =
 	(client, options = {}) =>
 		async ({ throwOnFail = options.throwOnFail ?? true, ...params }) => {
+			const vm = await client.getVm()
 			/**
 			 * @type {Array<import('@tevm/errors').GetAccountError>}
 			 */
@@ -43,7 +44,7 @@ export const getAccountHandler =
 
 			const address = new EthjsAddress(hexToBytes(params.address))
 			try {
-				const res = await client.vm.stateManager.getAccount(address)
+				const res = await vm.stateManager.getAccount(address)
 				if (!res) {
 					return maybeThrowOnFail(throwOnFail, {
 						address: params.address,
@@ -73,7 +74,7 @@ export const getAccountHandler =
 				}
 				const code =
 					res?.codeHash !== undefined
-						? bytesToHex(await client.vm.stateManager.getContractCode(address))
+						? bytesToHex(await vm.stateManager.getContractCode(address))
 						: '0x'
 				return {
 					// TODO some of these fields are not in the api and should be added to @tevm/actions-types

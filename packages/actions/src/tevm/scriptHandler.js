@@ -12,16 +12,17 @@ import { validateScriptParams } from '@tevm/zod'
 
 /**
  * Creates an ScriptHandler for handling script params with Ethereumjs EVM
- * @param {Pick<import('@tevm/base-client').BaseClient, 'vm'>} client
+ * @param {Pick<import('@tevm/base-client').BaseClient, 'getVm'>} client
  * @param {object} [options]
  * @param {boolean} [options.throwOnFail] whether to default to throwing or not when errors occur
  * @returns {import("@tevm/actions-types").ScriptHandler}
  */
 export const scriptHandler = (client, options = {}) => async (params) => {
+	const vm = await client.getVm()
 	const { throwOnFail = options.throwOnFail ?? true } = params
 	const clonedVm = params.createTransaction
-		? client.vm
-		: await client.vm.deepCopy()
+		? vm
+		: await vm.deepCopy()
 	/**
 	 * @type {import('@tevm/utils').Hex}
 	 */
@@ -31,7 +32,7 @@ export const scriptHandler = (client, options = {}) => async (params) => {
 	if (/** @type any*/ (params).data) {
 		functionData = /** @type any*/ (params).data
 	} else {
-		const errors = validateScriptParams(/** @type any*/ (params))
+		const errors = validateScriptParams(/** @type any*/(params))
 		if (errors.length > 0) {
 			return maybeThrowOnFail(throwOnFail, {
 				errors,
@@ -45,12 +46,12 @@ export const scriptHandler = (client, options = {}) => async (params) => {
 		functionData =
 			functionData === '0x'
 				? encodeFunctionData(
-						/** @type {any} */ ({
-							abi: params.abi,
-							functionName: params.functionName,
-							args: params.args,
-						}),
-				  )
+						/** @type {any} */({
+						abi: params.abi,
+						functionName: params.functionName,
+						args: params.args,
+					}),
+				)
 				: functionData
 	} catch (e) {
 		/**
@@ -76,9 +77,11 @@ export const scriptHandler = (client, options = {}) => async (params) => {
 		).toString()
 	)
 
+	const clonedVmPromise = Promise.resolve(clonedVm)
+
 	const accountRes = await setAccountHandler(
 		{
-			vm: clonedVm,
+			getVm: () => clonedVmPromise,
 		},
 		options,
 	)({
@@ -105,7 +108,7 @@ export const scriptHandler = (client, options = {}) => async (params) => {
 	}
 
 	const result = await callHandler(
-		{ vm: clonedVm },
+		{ getVm: () => clonedVmPromise },
 		options,
 	)({
 		...callParams,
@@ -116,7 +119,7 @@ export const scriptHandler = (client, options = {}) => async (params) => {
 		result.errors = result.errors.map((err) => {
 			if (isHex(err.message) && err._tag === 'revert') {
 				const decodedError = decodeErrorResult(
-					/** @type {any} */ ({
+					/** @type {any} */({
 						abi: params.abi,
 						data: err.message,
 						functionName: params.functionName,
@@ -142,7 +145,7 @@ export const scriptHandler = (client, options = {}) => async (params) => {
 	let decodedResult
 	try {
 		decodedResult = decodeFunctionResult(
-			/** @type {any} */ ({
+			/** @type {any} */({
 				abi: params.abi,
 				data: result.rawData,
 				functionName: params.functionName,
