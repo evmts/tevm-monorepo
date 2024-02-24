@@ -1,6 +1,6 @@
 import { createBaseClient } from '@tevm/base-client'
 import {
-	createEventEmitter,
+	createEip1993EventEmitter,
 	ethActions,
 	requestEip1193,
 	tevmActions,
@@ -41,7 +41,7 @@ import {
 export const createMemoryClient = (options) => {
 	return createBaseClient(options)
 		.extend(tevmSend())
-		.extend(createEventEmitter())
+		.extend(createEip1993EventEmitter())
 		.extend(requestEip1193())
 		.extend(ethActions())
 		.extend(tevmActions())

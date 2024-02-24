@@ -1,11 +1,12 @@
----
-editUrl: false
-next: false
-prev: false
-title: "eip1993EventEmitter"
----
+**@tevm/decorators** ∙ [README](../README.md) ∙ [API](../API.md)
 
-> **eip1993EventEmitter**(): [`Extension`](/reference/tevm/base-client/type-aliases/extension/)\<[`EIP1193EventEmitter`](/reference/tevm/decorators/type-aliases/eip1193eventemitter/)\>
+***
+
+[API](../API.md) > createEip1993EventEmitter
+
+# Function: createEip1993EventEmitter()
+
+> **createEip1993EventEmitter**(): `Extension`\<[`EIP1193EventEmitter`](../type-aliases/EIP1193EventEmitter.md)\>
 
 Factory function to create an event emitter.
 

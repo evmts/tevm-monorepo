@@ -42,7 +42,7 @@
 
 ### Functions
 
-- [createEventEmitter](decorators.md#createeventemitter)
+- [eip1993EventEmitter](decorators.md#createeventemitter)
 - [ethActions](decorators.md#ethactions)
 - [requestEip1193](decorators.md#requesteip1193)
 - [tevmActions](decorators.md#tevmactions)
@@ -658,9 +658,9 @@ evmts-monorepo/packages/decorators/types/eip1193/WatchAssetParams.d.ts:4
 
 ## Functions
 
-### createEventEmitter
+### eip1993EventEmitter
 
-▸ **createEventEmitter**(): `Extension`
+▸ **eip1993EventEmitter**(): `Extension`
 
 #### Returns
 
@@ -668,7 +668,7 @@ evmts-monorepo/packages/decorators/types/eip1193/WatchAssetParams.d.ts:4
 
 #### Defined in
 
-evmts-monorepo/packages/decorators/types/events/createEventEmitter.d.ts:1
+evmts-monorepo/packages/decorators/types/events/eip1993EventEmitter.d.ts:1
 
 ___
 

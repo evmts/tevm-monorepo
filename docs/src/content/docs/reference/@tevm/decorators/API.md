@@ -42,7 +42,7 @@ title: "@tevm/decorators"
 
 ### Functions
 
-- [createEventEmitter](/reference/tevm/decorators/functions/createeventemitter/)
+- [eip1993EventEmitter](/reference/tevm/decorators/functions/createeventemitter/)
 - [ethActions](/reference/tevm/decorators/functions/ethactions/)
 - [requestEip1193](/reference/tevm/decorators/functions/requesteip1193/)
 - [tevmActions](/reference/tevm/decorators/functions/tevmactions/)

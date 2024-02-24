@@ -4,9 +4,9 @@ var decorators = require('@tevm/decorators');
 
 
 
-Object.defineProperty(exports, "createEventEmitter", {
+Object.defineProperty(exports, "eip1993EventEmitter", {
   enumerable: true,
-  get: function () { return decorators.createEventEmitter; }
+  get: function () { return decorators.eip1993EventEmitter; }
 });
 Object.defineProperty(exports, "ethActions", {
   enumerable: true,

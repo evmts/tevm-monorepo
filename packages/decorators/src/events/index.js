@@ -1,1 +1,1 @@
-export { createEventEmitter } from './createEventEmitter.js'
+export { createEip1993EventEmitter } from './eip1993EventEmitter.js'

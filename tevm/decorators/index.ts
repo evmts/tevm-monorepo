@@ -3,7 +3,7 @@ export {
   ethActions,
   tevmActions,
   requestEip1193,
-  createEventEmitter,
+  createEip1993EventEmitter,
 } from '@tevm/decorators'
 export type {
   WalletPermissionCaveat,
