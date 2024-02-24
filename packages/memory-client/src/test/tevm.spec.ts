@@ -97,16 +97,16 @@ describe('Tevm should create a local vm in JavaScript', () => {
 			})
 			expect(
 				(
-					await (await tevm.getVm()).stateManager.getAccount(
-						new Address(hexToBytes(address2)),
-					)
+					await (
+						await tevm.getVm()
+					).stateManager.getAccount(new Address(hexToBytes(address2)))
 				)?.balance,
 			).toBe(transferAmount)
 			expect(
 				(
-					await (await tevm.getVm()).stateManager.getAccount(
-						new Address(hexToBytes(address1)),
-					)
+					await (
+						await tevm.getVm()
+					).stateManager.getAccount(new Address(hexToBytes(address1)))
 				)?.balance,
 			).toBe(balance - transferAmount)
 			// TODO test other return properties

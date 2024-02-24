@@ -59,7 +59,7 @@ export type BaseClient<
 	readonly getVm: () => Promise<TevmVm>
 	/**
 	 * Extends the base client with additional functionality. This enables optimal code splitting
-	 * and extensibility 
+	 * and extensibility
 	 */
 	readonly extend: <TExtension extends Record<string, any>>(
 		decorator: (client: BaseClient<TMode, TExtended>) => TExtension,

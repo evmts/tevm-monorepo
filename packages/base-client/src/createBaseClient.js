@@ -116,7 +116,6 @@ export const createBaseClient = (options = {}) => {
 		return DEFAULT_CHAIN_ID
 	}
 	const initVm = async () => {
-
 		// Handle initializing the state from the persisted state
 		/**
 		 * @type {Promise<any>}
@@ -200,7 +199,10 @@ export const createBaseClient = (options = {}) => {
 			: { proxyUrl: options.proxy?.url }),
 		extend: (extension) => extend(baseClient)(extension),
 		ready: async () => {
-			const [chainId, vm] = await Promise.allSettled([chainIdPromise, vmPromise])
+			const [chainId, vm] = await Promise.allSettled([
+				chainIdPromise,
+				vmPromise,
+			])
 			const errors = []
 			if (chainId.status === 'rejected') {
 				errors.push(chainId.reason)
@@ -215,7 +217,7 @@ export const createBaseClient = (options = {}) => {
 				throw errors[0]
 			}
 			return true
-		}
+		},
 	}
 
 	return baseClient

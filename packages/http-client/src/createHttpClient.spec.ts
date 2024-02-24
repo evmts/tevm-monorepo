@@ -64,9 +64,9 @@ describe(createHttpClient.name, () => {
 
 			expect(errors).toBeUndefined()
 
-			const resultAccount = await (await tevm.getVm()).stateManager.getAccount(
-				Address.fromString(account.address),
-			)
+			const resultAccount = await (
+				await tevm.getVm()
+			).stateManager.getAccount(Address.fromString(account.address))
 			if (!resultAccount) throw new Error('Account not found')
 			expect(bytesToHex(resultAccount.codeHash)).toEqual(
 				keccak256(account.deployedBytecode),

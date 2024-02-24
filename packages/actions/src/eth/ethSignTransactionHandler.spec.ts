@@ -17,14 +17,18 @@ const transaction: EthSignTransactionParams = {
 describe('ethSignTransactionHandler', () => {
 	it('should sign a message', async () => {
 		expect(
-			await ethSignTransactionHandler({ accounts: testAccounts, getChainId: async () => 10 })(
-				transaction,
-			),
+			await ethSignTransactionHandler({
+				accounts: testAccounts,
+				getChainId: async () => 10,
+			})(transaction),
 		).toMatchSnapshot()
 	})
 	it("should throw an error if account doesn't exist", async () => {
 		expect(
-			ethSignTransactionHandler({ accounts: testAccounts, getChainId: async () => 10 })({
+			ethSignTransactionHandler({
+				accounts: testAccounts,
+				getChainId: async () => 10,
+			})({
 				...transaction,
 				from: `0x${'69'.repeat(20)}`,
 			}),

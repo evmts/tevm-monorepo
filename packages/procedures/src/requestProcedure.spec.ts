@@ -367,9 +367,9 @@ describe('requestProcedure', () => {
 				],
 			})
 			expect(res.error).toBeUndefined()
-			const account = (await (await client.getVm()).stateManager.getAccount(
-				Address.fromString(ERC20_ADDRESS),
-			)) as Account
+			const account = (await (
+				await client.getVm()
+			).stateManager.getAccount(Address.fromString(ERC20_ADDRESS))) as Account
 			expect(account?.balance).toBe(420n)
 			expect(account?.nonce).toBe(69n)
 			expect(bytesToHex(account.codeHash)).toBe(keccak256(ERC20_BYTECODE))
@@ -437,8 +437,11 @@ describe('requestProcedure', () => {
 			})
 
 			expect(
-				(await (await client.getVm()).stateManager.getAccount(Address.fromString(to)))
-					?.balance,
+				(
+					await (
+						await client.getVm()
+					).stateManager.getAccount(Address.fromString(to))
+				)?.balance,
 			).toEqual(420n)
 		})
 

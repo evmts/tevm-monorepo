@@ -7,9 +7,9 @@ import { numberToHex } from '@tevm/utils'
  */
 export const gasPriceProcedure =
 	({ getVm, forkUrl }) =>
-		async (req) => ({
-			...(req.id ? { id: req.id } : {}),
-			jsonrpc: '2.0',
-			method: req.method,
-			result: await gasPriceHandler({ getVm, forkUrl })({}).then(numberToHex),
-		})
+	async (req) => ({
+		...(req.id ? { id: req.id } : {}),
+		jsonrpc: '2.0',
+		method: req.method,
+		result: await gasPriceHandler({ getVm, forkUrl })({}).then(numberToHex),
+	})

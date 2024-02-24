@@ -28,9 +28,9 @@ test('Call predeploy from TypeScript', async () => {
 
 	// Predeploy Contract exists in vm
 	expect(
-		await (await tevm.getVm()).stateManager.getContractCode(
-			new Address(hexToBytes(predeployAddress)),
-		),
+		await (
+			await tevm.getVm()
+		).stateManager.getContractCode(new Address(hexToBytes(predeployAddress))),
 	).toEqual(toBytes(deployedBytecode))
 
 	// Test predeploy contract call

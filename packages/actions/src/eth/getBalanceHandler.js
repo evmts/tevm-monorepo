@@ -22,29 +22,29 @@ export class NoForkUrlSetError extends Error {
  */
 export const getBalanceHandler =
 	({ getVm, forkUrl }) =>
-		async ({ address, blockTag = 'pending' }) => {
-			const vm = await getVm()
-			if (blockTag === 'pending') {
-				return vm.stateManager
-					.getAccount(EthjsAddress.fromString(address))
-					.then((account) => account?.balance ?? 0n)
-			}
-			if (!forkUrl) {
-				throw new NoForkUrlSetError(
-					'eth_getBalance with blockTag !== "pending" is only supported when forking',
-				)
-			}
-			return createJsonRpcFetcher(forkUrl)
-				.request({
-					jsonrpc: '2.0',
-					id: 1,
-					method: 'eth_getBalance',
-					params: [
-						address,
-						typeof blockTag === 'bigint' ? numberToHex(blockTag) : blockTag,
-					],
-				})
-				.then((balance) =>
-					hexToBigInt(/** @type {import('@tevm/utils').Hex}*/(balance.result)),
-				)
+	async ({ address, blockTag = 'pending' }) => {
+		const vm = await getVm()
+		if (blockTag === 'pending') {
+			return vm.stateManager
+				.getAccount(EthjsAddress.fromString(address))
+				.then((account) => account?.balance ?? 0n)
 		}
+		if (!forkUrl) {
+			throw new NoForkUrlSetError(
+				'eth_getBalance with blockTag !== "pending" is only supported when forking',
+			)
+		}
+		return createJsonRpcFetcher(forkUrl)
+			.request({
+				jsonrpc: '2.0',
+				id: 1,
+				method: 'eth_getBalance',
+				params: [
+					address,
+					typeof blockTag === 'bigint' ? numberToHex(blockTag) : blockTag,
+				],
+			})
+			.then((balance) =>
+				hexToBigInt(/** @type {import('@tevm/utils').Hex}*/ (balance.result)),
+			)
+	}
