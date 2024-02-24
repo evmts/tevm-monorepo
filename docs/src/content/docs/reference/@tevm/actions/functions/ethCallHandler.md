@@ -9,7 +9,7 @@ title: "ethCallHandler"
 
 ## Parameters
 
-▪ **client**: `Pick`\<`object`, `"vm"`\>
+▪ **client**: `Pick`\<`object`, `"getVm"`\>
 
 ## Returns
 

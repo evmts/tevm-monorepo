@@ -13,7 +13,7 @@ title: "getCodeHandler"
 
 ▪ **options.forkUrl**: `undefined` \| `string`
 
-▪ **options.vm**: [`TevmVm`](/reference/tevm/vm/classes/tevmvm/)
+▪ **options.getVm**: () => `Promise`\<[`TevmVm`](/reference/tevm/vm/classes/tevmvm/)\>
 
 ## Returns
 
