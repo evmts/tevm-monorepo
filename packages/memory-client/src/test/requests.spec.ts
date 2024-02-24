@@ -70,7 +70,7 @@ describe('Tevm.request', async () => {
 			method: 'tevm_NotARequest' as any,
 			id: 1,
 		} as const satisfies ContractJsonRpcRequest
-		const error = await tevm.request(req).catch(e => e)
+		const error = await tevm.request(req).catch((e) => e)
 		expect(error.code).toMatchSnapshot()
 		expect(error.message).toMatchSnapshot()
 	})

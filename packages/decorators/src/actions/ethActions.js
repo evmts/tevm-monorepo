@@ -17,7 +17,9 @@ export const ethActions = () => (client) => {
 			return {}
 		}
 		if (typeof client.eth !== 'object') {
-			throw new Error('Cannot extend eth with ethActions decorator. detected a client.eth property that is not an object')
+			throw new Error(
+				'Cannot extend eth with ethActions decorator. detected a client.eth property that is not an object',
+			)
 		}
 		return client.eth ?? {}
 	})()

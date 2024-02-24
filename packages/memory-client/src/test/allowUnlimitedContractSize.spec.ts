@@ -18,14 +18,16 @@ describe('allowUnlimitedContractSize option', () => {
 		const res = await tevm.call({
 			caller: address1,
 			data,
-			value: hexToBigInt('0xffffffffffffffffffffffffffffffffffffffffffffffffffffff'),
-			gas: hexToBigInt('0xffffffffffffffffffffffffffffffffffffffffffffffffffffff'),
+			value: hexToBigInt(
+				'0xffffffffffffffffffffffffffffffffffffffffffffffffffffff',
+			),
+			gas: hexToBigInt(
+				'0xffffffffffffffffffffffffffffffffffffffffffffffffffffff',
+			),
 			skipBalance: true,
 			throwOnFail: false,
 		})
-		expect(res.errors?.[0]?.name).toBe(
-			EVMErrorMessage.CODESIZE_EXCEEDS_MAXIMUM,
-		)
+		expect(res.errors?.[0]?.name).toBe(EVMErrorMessage.CODESIZE_EXCEEDS_MAXIMUM)
 	})
 
 	test('Should deploy large files if allowUnlimitedContractSize option is true', async () => {
@@ -38,8 +40,12 @@ describe('allowUnlimitedContractSize option', () => {
 		const res = await tevm.call({
 			caller: address1,
 			data,
-			value: hexToBigInt('0xffffffffffffffffffffffffffffffffffffffffffffffffffffff'),
-			gas: hexToBigInt('0xffffffffffffffffffffffffffffffffffffffffffffffffffffff'),
+			value: hexToBigInt(
+				'0xffffffffffffffffffffffffffffffffffffffffffffffffffffff',
+			),
+			gas: hexToBigInt(
+				'0xffffffffffffffffffffffffffffffffffffffffffffffffffffff',
+			),
 			skipBalance: true,
 			throwOnFail: false,
 		})

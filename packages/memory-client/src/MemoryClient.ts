@@ -1,11 +1,14 @@
 import type { BaseClient } from '@tevm/base-client'
 import type {
-  EthActionsApi,
-  TevmActionsApi,
-  EIP1193EventEmitter,
-  Eip1193RequestProvider
-} from "@tevm/decorators";
-import type { TevmJsonRpcBulkRequestHandler, TevmJsonRpcRequestHandler } from '@tevm/procedures-types';
+	EIP1193EventEmitter,
+	Eip1193RequestProvider,
+	EthActionsApi,
+	TevmActionsApi,
+} from '@tevm/decorators'
+import type {
+	TevmJsonRpcBulkRequestHandler,
+	TevmJsonRpcRequestHandler,
+} from '@tevm/procedures-types'
 
 /**
  * A local EVM instance running in JavaScript. Similar to Anvil in your browser/node/bun environments
@@ -41,11 +44,10 @@ import type { TevmJsonRpcBulkRequestHandler, TevmJsonRpcRequestHandler } from '@
  *  console.log(balance) // 1n
  *  ```
  */
-export type MemoryClient =
-  BaseClient
-  & EthActionsApi
-  & TevmActionsApi
-  & EIP1193EventEmitter
-  & Eip1193RequestProvider
-  & { send: TevmJsonRpcRequestHandler }
-  & { sendBulk: TevmJsonRpcBulkRequestHandler }
+export type MemoryClient = BaseClient &
+	EthActionsApi &
+	TevmActionsApi &
+	EIP1193EventEmitter &
+	Eip1193RequestProvider & { send: TevmJsonRpcRequestHandler } & {
+		sendBulk: TevmJsonRpcBulkRequestHandler
+	}

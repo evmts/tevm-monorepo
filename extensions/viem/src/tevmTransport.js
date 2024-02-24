@@ -8,7 +8,7 @@ import { createTransport } from 'viem'
 export const tevmTransport = ({ request }, options) => {
 	return () => {
 		return createTransport({
-			request: /** @type any*/(request),
+			request: /** @type any*/ (request),
 			type: 'tevm',
 			name: options?.name ?? 'Tevm transport',
 			key: options?.key ?? 'tevm',

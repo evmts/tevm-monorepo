@@ -3,7 +3,7 @@ import { requestProcedure } from '@tevm/procedures'
 // Write this internally in @tevm/utils
 import { withRetry } from 'viem'
 
-// TODO we want to split up these requests into seperate decorators and 
+// TODO we want to split up these requests into seperate decorators and
 // have typescript correctly merge the schemas as they go
 // Skipping for now because it isn't necessary for the current use case
 // of `memoryClient` and `httpClient` being the only provider implementations used
@@ -19,16 +19,18 @@ export const requestEip1193 = () => (client) => {
 	return {
 		request: async (args, options) => {
 			return withRetry(async () => {
-				const result = await requestProcedure(client)(/** @type any*/({
-					jsonrpc: '2.0',
-					id: 1,
-					method: args.method,
-					...(args.params ? { params: args.params } : {}),
-				}))
+				const result = await requestProcedure(client)(
+					/** @type any*/ ({
+						jsonrpc: '2.0',
+						id: 1,
+						method: args.method,
+						...(args.params ? { params: args.params } : {}),
+					}),
+				)
 				if (result.error) {
 					throw result.error
 				}
-				return /** @type {any}*/(result.result)
+				return /** @type {any}*/ (result.result)
 			}, options)
 		},
 	}

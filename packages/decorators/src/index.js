@@ -2,10 +2,8 @@ export {
 	ethActions,
 	tevmActions,
 } from './actions/index.js'
-export {
-	createEventEmitter,
-} from './events/index.js'
+export { createEventEmitter } from './events/index.js'
 export {
 	requestEip1193,
-	tevmSend
+	tevmSend,
 } from './request/index.js'

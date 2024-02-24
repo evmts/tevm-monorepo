@@ -31,10 +31,10 @@ export type {
 } from './eip1193/index.js'
 export {
 	createEventEmitter,
-	type EIP1193EventEmitter
+	type EIP1193EventEmitter,
 } from './events/index.js'
 export {
 	type Eip1193RequestProvider,
 	requestEip1193,
-	tevmSend
+	tevmSend,
 } from './request/index.js'
