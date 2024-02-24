@@ -12,7 +12,7 @@ Handler for the `eth_chainId` RPC call.
 
 ## Parameters
 
-▪ **client**: `Pick`\<`object`, `"chainId"`\>
+▪ **client**: `Pick`\<`object`, `"getChainId"`\>
 
 ## Returns
 

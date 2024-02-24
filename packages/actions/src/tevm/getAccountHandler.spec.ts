@@ -17,7 +17,9 @@ describe('getAccount', () => {
 			nonce: 69n,
 		})
 		expect(res.errors).toBeUndefined()
-		const account = await getAccountHandler({ getVm: async () => vm })({ address: ERC20_ADDRESS })
+		const account = await getAccountHandler({ getVm: async () => vm })({
+			address: ERC20_ADDRESS,
+		})
 		expect(account?.balance).toBe(420n)
 		expect(account?.nonce).toBe(69n)
 		expect(account.deployedBytecode).toBe(ERC20_BYTECODE)

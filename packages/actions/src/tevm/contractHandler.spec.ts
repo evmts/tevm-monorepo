@@ -440,7 +440,9 @@ describe('contractHandler', () => {
 		).toBeUndefined()
 
 		expect(
-			await contractHandler({ getVm: async () => vm })({ throwOnFail: false } as any),
+			await contractHandler({ getVm: async () => vm })({
+				throwOnFail: false,
+			} as any),
 		).toEqual({
 			...({} as { data: never }),
 			errors: [
@@ -472,7 +474,7 @@ describe('contractHandler', () => {
 		const evm = new Evm({ stateManager })
 		const vm = await TevmVm.create({ evm, stateManager })
 		const originalRunCall = evm.runCall.bind(evm)
-		vm.evm.runCall = function(args) {
+		vm.evm.runCall = function (args) {
 			return {
 				...originalRunCall(args),
 				execResult: { returnValue: '0x42424242' },

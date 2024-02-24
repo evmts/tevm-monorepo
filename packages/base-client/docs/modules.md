@@ -20,7 +20,7 @@
 
 ### BaseClient
 
-Ƭ **BaseClient**\<`TMode`, `TExtended`\>: \{ `chainId`: `number` ; `extend`: \<TExtension\>(`decorator`: (`client`: [`BaseClient`](modules.md#baseclient)\<`TMode`, `TExtended`\>) => `TExtension`) => [`BaseClient`](modules.md#baseclient)\<`TMode`, `TExtended` & `TExtension`\> ; `forkUrl?`: `string` ; `mode`: `TMode` ; `vm`: `TevmVm`  } & `TExtended`
+Ƭ **BaseClient**\<`TMode`, `TExtended`\>: \{ `extend`: \<TExtension\>(`decorator`: (`client`: [`BaseClient`](modules.md#baseclient)\<`TMode`, `TExtended`\>) => `TExtension`) => [`BaseClient`](modules.md#baseclient)\<`TMode`, `TExtended` & `TExtension`\> ; `forkUrl?`: `string` ; `getChainId`: () => `Promise`\<`number`\> ; `getVm`: () => `Promise`\<`TevmVm`\> ; `mode`: `TMode` ; `ready`: () => `Promise`\<``true``\>  } & `TExtended`
 
 The base client used by Tevm. Add extensions to add additional functionality
 
@@ -120,7 +120,7 @@ Ethereum hardfork option
 
 ### createBaseClient
 
-▸ **createBaseClient**(`options?`): `Promise`\<\{ `chainId`: `number` ; `extend`: \<TExtension\>(`decorator`: (`client`: \{ readonly chainId: number; readonly forkUrl?: string \| undefined; readonly mode: "fork" \| "proxy" \| "normal"; readonly vm: TevmVm; readonly extend: \<TExtension extends Record\<string, any\>\>(decorator: (client: ...) =\> TExtension) =\> BaseClient\<...\>; }) => `TExtension`) => [`BaseClient`](modules.md#baseclient)\<``"fork"`` \| ``"proxy"`` \| ``"normal"``, {} & `TExtension`\> ; `forkUrl?`: `string` ; `mode`: ``"fork"`` \| ``"proxy"`` \| ``"normal"`` ; `vm`: `TevmVm`  }\>
+▸ **createBaseClient**(`options?`): `Object`
 
 Creates the base instance of a memory client
 
@@ -132,7 +132,16 @@ Creates the base instance of a memory client
 
 #### Returns
 
-`Promise`\<\{ `chainId`: `number` ; `extend`: \<TExtension\>(`decorator`: (`client`: \{ readonly chainId: number; readonly forkUrl?: string \| undefined; readonly mode: "fork" \| "proxy" \| "normal"; readonly vm: TevmVm; readonly extend: \<TExtension extends Record\<string, any\>\>(decorator: (client: ...) =\> TExtension) =\> BaseClient\<...\>; }) => `TExtension`) => [`BaseClient`](modules.md#baseclient)\<``"fork"`` \| ``"proxy"`` \| ``"normal"``, {} & `TExtension`\> ; `forkUrl?`: `string` ; `mode`: ``"fork"`` \| ``"proxy"`` \| ``"normal"`` ; `vm`: `TevmVm`  }\>
+`Object`
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `extend` | \<TExtension\>(`decorator`: (`client`: \{ readonly getChainId: () =\> Promise\<number\>; readonly forkUrl?: string \| undefined; readonly mode: "fork" \| "proxy" \| "normal"; readonly ready: () =\> Promise\<true\>; readonly getVm: () =\> Promise\<...\>; readonly extend: \<TExtension extends Record\<...\>\>(decorator: (client: ...) =\> TExtension) =\> BaseClient\<...\>; }) => `TExtension`) => [`BaseClient`](modules.md#baseclient)\<``"fork"`` \| ``"proxy"`` \| ``"normal"``, {} & `TExtension`\> | Extends the base client with additional functionality. This enables optimal code splitting and extensibility |
+| `forkUrl?` | `string` | Fork url if the EVM is forked **`Example`** ```ts const client = createMemoryClient({ forkUrl: 'https://mainnet.infura.io/v3/your-api-key' }) console.log(client.forkUrl) ``` |
+| `getChainId` | () => `Promise`\<`number`\> | Gets the chainId of the current EVM **`Example`** ```ts const client = createMemoryClient() const chainId = await client.getChainId() console.log(chainId) ``` |
+| `getVm` | () => `Promise`\<`TevmVm`\> | Internal instance of the VM. Can be used for lower level operations. Normally not recomended to use unless building libraries or extensions on top of Tevm. |
+| `mode` | ``"fork"`` \| ``"proxy"`` \| ``"normal"`` | The mode the current client is running in `fork` mode will fetch and cache all state from the block forked from the provided URL `proxy` mode will fetch all state from the latest block of the provided proxy URL `normal` mode will not fetch any state and will only run the EVM in memory **`Example`** ```ts let client = createMemoryClient() console.log(client.mode) // 'normal' client = createMemoryClient({ forkUrl: 'https://mainnet.infura.io/v3/your-api-key' }) console.log(client.mode) // 'fork' ``` |
+| `ready` | () => `Promise`\<``true``\> | Returns promise that resulves when the client is ready The client is usable without calling this method but may have extra latency on the first call from initialization **`Example`** ```ts const client = createMemoryClient() await client.ready() ``` |
 
 **`Example`**
 

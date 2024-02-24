@@ -39,7 +39,7 @@ test('should load state into the state manager', async () => {
 		},
 	}
 
-	await loadStateHandler({ vm: { stateManager } } as any)({ state })
+	await loadStateHandler({ getVm: () => ({ stateManager }) } as any)({ state })
 
 	accountData = await stateManager.getAccount(account)
 

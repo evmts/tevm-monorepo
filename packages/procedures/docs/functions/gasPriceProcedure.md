@@ -10,7 +10,7 @@
 
 ## Parameters
 
-▪ **options**: `Pick`\<`object`, `"vm"` \| `"forkUrl"`\>
+▪ **options**: `Pick`\<`object`, `"getVm"` \| `"forkUrl"`\>
 
 ## Returns
 

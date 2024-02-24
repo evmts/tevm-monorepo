@@ -307,8 +307,8 @@ const ERC20_ABI = [
 ] as const
 
 let client: BaseClient
-beforeEach(async () => {
-	client = await createBaseClient()
+beforeEach(() => {
+	client = createBaseClient()
 })
 
 describe('requestProcedure', () => {

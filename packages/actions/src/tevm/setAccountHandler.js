@@ -31,7 +31,7 @@ export const setAccountHandler = (client, options = {}) => async (params) => {
 				params.balance,
 				params.storageRoot && hexToBytes(params.storageRoot),
 				params.deployedBytecode &&
-				hexToBytes(keccak256(params.deployedBytecode)),
+					hexToBytes(keccak256(params.deployedBytecode)),
 			),
 		)
 		if (params.deployedBytecode) {
@@ -51,8 +51,8 @@ export const setAccountHandler = (client, options = {}) => async (params) => {
 				typeof e === 'string'
 					? e
 					: e instanceof Error
-						? e.message
-						: 'unknown error',
+					? e.message
+					: 'unknown error',
 			),
 		)
 		return maybeThrowOnFail(throwOnFail, { errors })

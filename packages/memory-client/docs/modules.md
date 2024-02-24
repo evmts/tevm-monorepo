@@ -63,7 +63,7 @@ const balance = await tevm.runContractCall(
 
 ### createMemoryClient
 
-▸ **createMemoryClient**(`options?`): `Promise`\<[`MemoryClient`](modules.md#memoryclient)\>
+▸ **createMemoryClient**(`options?`): [`MemoryClient`](modules.md#memoryclient)
 
 A local EVM instance running in JavaScript. Similar to Anvil in your browser
 
@@ -75,7 +75,7 @@ A local EVM instance running in JavaScript. Similar to Anvil in your browser
 
 #### Returns
 
-`Promise`\<[`MemoryClient`](modules.md#memoryclient)\>
+[`MemoryClient`](modules.md#memoryclient)
 
 **`Example`**
 

@@ -14,7 +14,7 @@
 
 ▪ **options.accounts**: readonly `HDAccount`[]
 
-▪ **options.chainId**: `bigint`
+▪ **options.getChainId**: () => `Promise`\<`number`\>
 
 ## Returns
 
