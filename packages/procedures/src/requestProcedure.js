@@ -18,6 +18,8 @@ import {
 } from './index.js'
 import { testAccounts } from '@tevm/actions'
 
+// Keep this in sync with TevmProvider.ts
+
 /**
  * Request handler for JSON-RPC requests.
  *
@@ -98,6 +100,7 @@ export const requestProcedure = (client) => {
 				return /** @type any */ (gasPriceProcedure(client)(request))
 			case 'eth_getBalance':
 				return /** @type any */ (getBalanceProcedure(client)(request))
+			// TODO move all wallet methods to seperate decorator
 			case 'eth_sign':
 				return ethSignProcedure(testAccounts)(request)
 			case 'eth_signTransaction':
@@ -160,7 +163,7 @@ export const requestProcedure = (client) => {
 					name: 'UnsupportedMethodError',
 					message: `UnsupportedMethodError: Unknown method ${
 						/**@type any*/ (request).method
-					}`,
+						}`,
 				}
 				return /** @type {any}*/ ({
 					id: /** @type any*/ (request).id ?? null,

@@ -7,15 +7,23 @@ import {
 	getCodeHandler,
 	getStorageAtHandler,
 } from '@tevm/actions'
-import { eip1993Actions } from './eip1193Actions.js'
 
 /**
- * @returns {import('@tevm/base-client').Extension<import('./providers/EthProvider.js').EthereumProvider>}
+ * @returns {import('@tevm/base-client').Extension<import('./EthActionsApi.js').EthActionsApi>}
  */
 export const ethActions = () => (client) => {
-	const eip1993 = client.extend(eip1993Actions)
+	const wrappedEth = (() => {
+		if (!('eth' in client)) {
+			return {}
+		}
+		if (typeof client.eth !== 'object') {
+			throw new Error('Cannot extend eth with ethActions decorator. detected a client.eth property that is not an object')
+		}
+		return client.eth ?? {}
+	})()
 	return {
 		eth: {
+			...wrappedEth,
 			blockNumber: blockNumberHandler(client),
 			call: ethCallHandler(client),
 			chainId: chainIdHandler(client),

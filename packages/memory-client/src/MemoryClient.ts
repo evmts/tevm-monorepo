@@ -1,5 +1,10 @@
 import type { BaseClient } from '@tevm/base-client'
-import type { TevmClient } from '@tevm/client-types'
+import type {
+  EthActionsApi,
+  TevmActionsApi,
+  EIP1193EventEmitter,
+  Eip1193RequestProvider
+} from "@tevm/decorators";
 
 /**
  * A local EVM instance running in JavaScript. Similar to Anvil in your browser/node/bun environments
@@ -35,4 +40,9 @@ import type { TevmClient } from '@tevm/client-types'
  *  console.log(balance) // 1n
  *  ```
  */
-export type MemoryClient = TevmClient & BaseClient
+export type MemoryClient =
+  BaseClient
+  & EthActionsApi
+  & TevmActionsApi
+  & EIP1193EventEmitter
+  & Eip1193RequestProvider 
