@@ -5,7 +5,7 @@ import { validateCallParams } from '@tevm/zod'
 
 /**
  * Creates an CallHandler for handling call params with Ethereumjs EVM
- * @param {Pick<import('@tevm/base-client').BaseClient, 'vm'>} client
+ * @param {Pick<import('@tevm/base-client').BaseClient, 'getVm'>} client
  * @param {object} [options]
  * @param {boolean} [options.throwOnFail]
  * @returns {import('@tevm/actions-types').CallHandler}
@@ -18,10 +18,10 @@ export const callHandler =
 		 */
 		let copiedVm
 
+		const vm = await client.getVm()
+
 		try {
-			copiedVm = params.createTransaction
-				? client.vm
-				: await client.vm.deepCopy()
+			copiedVm = params.createTransaction ? vm : await vm.deepCopy()
 		} catch (e) {
 			return maybeThrowOnFail(params.throwOnFail ?? defaultThrowOnFail, {
 				errors: [

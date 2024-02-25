@@ -5,15 +5,13 @@ prev: false
 title: "createNextApiHandler"
 ---
 
-> **createNextApiHandler**(`options`): `NextApiHandler`\<`any`\>
+> **createNextApiHandler**(`client`): `NextApiHandler`\<`any`\>
 
 Creates a Next.js API handler for a Tevm JSON-RPC server
 
 ## Parameters
 
-▪ **options**: `object`
-
-▪ **options.request**: `TevmJsonRpcRequestHandler`
+▪ **client**: `Pick`\<[`MemoryClient`](/reference/tevm/memory-client/type-aliases/memoryclient/), `"send"`\>
 
 ## Returns
 

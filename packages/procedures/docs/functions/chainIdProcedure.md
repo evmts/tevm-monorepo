@@ -6,11 +6,11 @@
 
 # Function: chainIdProcedure()
 
-> **chainIdProcedure**(`chainId`): `EthChainIdJsonRpcProcedure`
+> **chainIdProcedure**(`getChainId`): `EthChainIdJsonRpcProcedure`
 
 ## Parameters
 
-▪ **chainId**: `number`
+▪ **getChainId**: () => `Promise`\<`number`\>
 
 ## Returns
 

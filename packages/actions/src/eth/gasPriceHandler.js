@@ -3,10 +3,10 @@ import { createJsonRpcFetcher } from '@tevm/jsonrpc'
 import { hexToBigInt, parseGwei } from '@tevm/utils'
 
 /**
- * @param {Pick<import('@tevm/base-client').BaseClient, 'forkUrl' | 'vm'>} options
+ * @param {Pick<import('@tevm/base-client').BaseClient, 'forkUrl' | 'getVm'>} options
  * @returns {import('@tevm/actions-types').EthGasPriceHandler}
  */
-export const gasPriceHandler = ({ forkUrl, vm }) => {
+export const gasPriceHandler = ({ forkUrl, getVm }) => {
 	/**
 	 * @type {bigint}
 	 */
@@ -21,7 +21,7 @@ export const gasPriceHandler = ({ forkUrl, vm }) => {
 		if (!forkUrl) {
 			return parseGwei('1')
 		}
-		const newBlockNumber = await blockNumberHandler({ vm })({})
+		const newBlockNumber = await blockNumberHandler({ getVm })({})
 		if (!gasPrice || blockNumber !== newBlockNumber) {
 			blockNumber = newBlockNumber
 			gasPrice = await fetcher

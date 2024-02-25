@@ -50,7 +50,11 @@
 - [CustomPrecompile](index.md#customprecompile)
 - [CustomPredeploy](index.md#custompredeploy)
 - [DecodeFunctionResultReturnType](index.md#decodefunctionresultreturntype)
+- [EIP1193Events](index.md#eip1193events)
+- [EIP1193RequestFn](index.md#eip1193requestfn)
+- [Eip1193RequestProvider](index.md#eip1193requestprovider)
 - [EncodeFunctionDataParameters](index.md#encodefunctiondataparameters)
+- [EthActionsApi](index.md#ethactionsapi)
 - [EventActionCreator](index.md#eventactioncreator)
 - [Extension](index.md#extension)
 - [ExtractAbiEvent](index.md#extractabievent)
@@ -80,6 +84,7 @@
 - [SetAccountParams](index.md#setaccountparams)
 - [SetAccountResult](index.md#setaccountresult)
 - [SyncStoragePersister](index.md#syncstoragepersister)
+- [TevmActionsApi](index.md#tevmactionsapi)
 - [TevmClient](index.md#tevmclient)
 - [TevmJsonRpcBulkRequestHandler](index.md#tevmjsonrpcbulkrequesthandler)
 - [TevmJsonRpcRequest](index.md#tevmjsonrpcrequest)
@@ -292,7 +297,7 @@ ___
 
 ### BaseClient
 
-Ƭ **BaseClient**\<`TMode`, `TExtended`\>: \{ `chainId`: `number` ; `extend`: \<TExtension\>(`decorator`: (`client`: [`BaseClient`](index.md#baseclient)\<`TMode`, `TExtended`\>) => `TExtension`) => [`BaseClient`](index.md#baseclient)\<`TMode`, `TExtended` & `TExtension`\> ; `forkUrl?`: `string` ; `mode`: `TMode` ; `vm`: `TevmVm`  } & `TExtended`
+Ƭ **BaseClient**\<`TMode`, `TExtended`\>: \{ `extend`: \<TExtension\>(`decorator`: (`client`: [`BaseClient`](index.md#baseclient)\<`TMode`, `TExtended`\>) => `TExtension`) => [`BaseClient`](index.md#baseclient)\<`TMode`, `TExtended` & `TExtension`\> ; `forkUrl?`: `string` ; `getChainId`: () => `Promise`\<`number`\> ; `getVm`: () => `Promise`\<`TevmVm`\> ; `mode`: `TMode` ; `ready`: () => `Promise`\<``true``\>  } & `TExtended`
 
 The base client used by Tevm. Add extensions to add additional functionality
 
@@ -326,7 +331,7 @@ Options for creating an Tevm MemoryClient instance
 | `eips?` | `ReadonlyArray`\<`number`\> | Eips to enable. Defaults to `[1559, 4895]` |
 | `fork?` | [`ForkStateManagerOpts`](../interfaces/index.ForkStateManagerOpts.md) | Fork options fork a live network if enabled. When in fork mode Tevm will fetch and cache all state from the block forked from the provided URL Cannot be set if `proxy` is also set |
 | `hardfork?` | [`Hardfork`](index.md#hardfork) | Hardfork to use. Defaults to `shanghai` |
-| `persister?` | [`SyncStoragePersister`](index.md#syncstoragepersister) | The memory client can optionally initialize and persist it's state to an external source like local storage using `createSyncPersister` **`Example`** ```typescript import { createMemoryClient, createSyncPersister } from 'tevm' const persister = createSyncPersister({ storage: { getItem: (key: string) => localStorage.getItem(key), setItem: (key: string, value: string) => localStorage.setItem(key, value), } }) const memoryClient = await createMemoryClient({ persister }) ``` |
+| `persister?` | [`SyncStoragePersister`](index.md#syncstoragepersister) | The memory client can optionally initialize and persist it's state to an external source like local storage using `createSyncPersister` **`Example`** ```typescript import { createMemoryClient, createSyncPersister } from 'tevm' const persister = createSyncPersister({ storage: { getItem: (key: string) => localStorage.getItem(key), setItem: (key: string, value: string) => localStorage.setItem(key, value), } }) const memoryClient = createMemoryClient({ persister }) ``` |
 | `profiler?` | `boolean` | Enable profiler. Defaults to false. |
 | `proxy?` | [`ProxyStateManagerOpts`](../interfaces/index.ProxyStateManagerOpts.md) | Options to initialize the client in `proxy` mode When in proxy mode Tevm will fetch all state from the latest block of the provided proxy URL Cannot be set if `fork` is also set |
 
@@ -852,9 +857,9 @@ Options for creating a sync storage persister.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `deserialize?` | (`cachedString`: `string`) => `SerializableTevmState` | How to deserialize the data from storage. **`Default`** `JSON.parse` |
+| `deserialize?` | (`cachedString`: `string`) => [`SerializableTevmState`](state.md#serializabletevmstate) | How to deserialize the data from storage. **`Default`** `JSON.parse` |
 | `key?` | `string` | The key to use when storing the cache |
-| `serialize?` | (`client`: `SerializableTevmState`) => `string` | How to serialize the data to storage. **`Default`** `JSON.stringify` |
+| `serialize?` | (`client`: [`SerializableTevmState`](state.md#serializabletevmstate)) => `string` | How to serialize the data to storage. **`Default`** `JSON.stringify` |
 | `storage` | [`Storage`](../interfaces/index.Storage.md) | The storage client used for setting and retrieving items from cache. For SSR pass in `undefined`. Note that window.localStorage can be `null` in Android WebViews depending on how they are configured. |
 | `throttleTime?` | `number` | To avoid spamming, pass a time in ms to throttle saving the cache to disk |
 
@@ -920,6 +925,80 @@ evmts-monorepo/node_modules/.pnpm/viem@2.7.9_typescript@5.3.3_zod@3.22.4/node_mo
 
 ___
 
+### EIP1193Events
+
+Ƭ **EIP1193Events**: `Object`
+
+#### Type declaration
+
+| Name | Type |
+| :------ | :------ |
+| `on` | \<TEvent\>(`event`: `TEvent`, `listener`: [`EIP1193EventMap`](decorators.md#eip1193eventmap)[`TEvent`]) => `void` |
+| `removeListener` | \<TEvent\>(`event`: `TEvent`, `listener`: [`EIP1193EventMap`](decorators.md#eip1193eventmap)[`TEvent`]) => `void` |
+
+#### Defined in
+
+evmts-monorepo/packages/decorators/types/eip1193/EIP1193Events.d.ts:21
+
+___
+
+### EIP1193RequestFn
+
+Ƭ **EIP1193RequestFn**\<`TRpcSchema`\>: \<TRpcSchemaOverride, TParameters, _ReturnType\>(`args`: `TParameters`, `options?`: [`EIP1193RequestOptions`](decorators.md#eip1193requestoptions)) => `Promise`\<`_ReturnType`\>
+
+#### Type parameters
+
+| Name | Type |
+| :------ | :------ |
+| `TRpcSchema` | extends [`RpcSchema`](decorators.md#rpcschema) \| `undefined` = `undefined` |
+
+#### Type declaration
+
+▸ \<`TRpcSchemaOverride`, `TParameters`, `_ReturnType`\>(`args`, `options?`): `Promise`\<`_ReturnType`\>
+
+##### Type parameters
+
+| Name | Type |
+| :------ | :------ |
+| `TRpcSchemaOverride` | extends [`RpcSchemaOverride`](decorators.md#rpcschemaoverride) \| `undefined` = `undefined` |
+| `TParameters` | extends [`EIP1193Parameters`](decorators.md#eip1193parameters)\<[`DerivedRpcSchema`](decorators.md#derivedrpcschema)\<`TRpcSchema`, `TRpcSchemaOverride`\>\> = [`EIP1193Parameters`](decorators.md#eip1193parameters)\<[`DerivedRpcSchema`](decorators.md#derivedrpcschema)\<`TRpcSchema`, `TRpcSchemaOverride`\>\> |
+| `_ReturnType` | [`DerivedRpcSchema`](decorators.md#derivedrpcschema)\<`TRpcSchema`, `TRpcSchemaOverride`\> extends [`RpcSchema`](decorators.md#rpcschema) ? `Extract`\<[`DerivedRpcSchema`](decorators.md#derivedrpcschema)\<`TRpcSchema`, `TRpcSchemaOverride`\>[`number`], \{ `Method`: `TParameters`[``"method"``]  }\>[``"ReturnType"``] : `unknown` |
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `args` | `TParameters` |
+| `options?` | [`EIP1193RequestOptions`](decorators.md#eip1193requestoptions) |
+
+##### Returns
+
+`Promise`\<`_ReturnType`\>
+
+#### Defined in
+
+evmts-monorepo/packages/decorators/types/eip1193/EIP1993RequestFn.d.ts:6
+
+___
+
+### Eip1193RequestProvider
+
+Ƭ **Eip1193RequestProvider**: `Object`
+
+The default EIP1193 compatable provider request method with enabled tevm methods.
+
+#### Type declaration
+
+| Name | Type |
+| :------ | :------ |
+| `request` | [`EIP1193RequestFn`](index.md#eip1193requestfn)\<[[`JsonRpcSchemaTevm`](decorators.md#jsonrpcschematevm)[``"tevm_call"``], [`JsonRpcSchemaTevm`](decorators.md#jsonrpcschematevm)[``"tevm_script"``], [`JsonRpcSchemaTevm`](decorators.md#jsonrpcschematevm)[``"tevm_dumpState"``], [`JsonRpcSchemaTevm`](decorators.md#jsonrpcschematevm)[``"tevm_loadState"``], [`JsonRpcSchemaTevm`](decorators.md#jsonrpcschematevm)[``"tevm_getAccount"``], [`JsonRpcSchemaTevm`](decorators.md#jsonrpcschematevm)[``"tevm_setAccount"``], [`JsonRpcSchemaPublic`](decorators.md#jsonrpcschemapublic)[``"eth_blockNumber"``], [`JsonRpcSchemaPublic`](decorators.md#jsonrpcschemapublic)[``"eth_call"``], [`JsonRpcSchemaPublic`](decorators.md#jsonrpcschemapublic)[``"eth_chainId"``], [`JsonRpcSchemaPublic`](decorators.md#jsonrpcschemapublic)[``"eth_getCode"``], [`JsonRpcSchemaPublic`](decorators.md#jsonrpcschemapublic)[``"eth_getStorageAt"``], [`JsonRpcSchemaPublic`](decorators.md#jsonrpcschemapublic)[``"eth_gasPrice"``], [`JsonRpcSchemaPublic`](decorators.md#jsonrpcschemapublic)[``"eth_getBalance"``], [`JsonRpcSchemaPublic`](decorators.md#jsonrpcschemapublic)[``"eth_call"``], [`JsonRpcSchemaPublic`](decorators.md#jsonrpcschemapublic)[``"eth_call"``]]\> |
+
+#### Defined in
+
+evmts-monorepo/packages/decorators/types/request/Eip1193RequestProvider.d.ts:8
+
+___
+
 ### EncodeFunctionDataParameters
 
 Ƭ **EncodeFunctionDataParameters**\<`abi`, `functionName`, `hasFunctions`, `allArgs`, `allFunctionNames`\>: \{ `abi`: `abi`  } & `UnionEvaluate`\<`IsNarrowable`\<`abi`, [`Abi`](index.md#abi)\> extends ``true`` ? `abi`[``"length"``] extends ``1`` ? \{ `functionName?`: `functionName` \| `allFunctionNames`  } : \{ `functionName`: `functionName` \| `allFunctionNames`  } : \{ `functionName?`: `functionName` \| `allFunctionNames`  }\> & `UnionEvaluate`\<readonly [] extends `allArgs` ? \{ `args?`: `allArgs`  } : \{ `args`: `allArgs`  }\> & `hasFunctions` extends ``true`` ? `unknown` : `never`
@@ -937,6 +1016,36 @@ ___
 #### Defined in
 
 evmts-monorepo/node_modules/.pnpm/viem@2.7.9_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/encodeFunctionData.d.ts:12
+
+___
+
+### EthActionsApi
+
+Ƭ **EthActionsApi**: `Object`
+
+The actions api is the high level API for interacting with a Tevm client similar to [viem actions](https://viem.sh/learn/actions/)
+These actions correspond 1:1 eith the public ethereum JSON-RPC api
+
+**`See`**
+
+[https://tevm.sh/learn/actions/](https://tevm.sh/learn/actions/)
+
+#### Type declaration
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `eth` | \{ `blockNumber`: [`EthBlockNumberHandler`](actions_types.md#ethblocknumberhandler) ; `call`: [`EthCallHandler`](actions_types.md#ethcallhandler) ; `chainId`: [`EthChainIdHandler`](actions_types.md#ethchainidhandler) ; `gasPrice`: [`EthGasPriceHandler`](actions_types.md#ethgaspricehandler) ; `getBalance`: [`EthGetBalanceHandler`](actions_types.md#ethgetbalancehandler) ; `getCode`: [`EthGetCodeHandler`](actions_types.md#ethgetcodehandler) ; `getStorageAt`: [`EthGetStorageAtHandler`](actions_types.md#ethgetstorageathandler)  } | Standard JSON-RPC methods for interacting with the VM **`See`** [JSON-RPC](https://ethereum.github.io/execution-apis/api-documentation/) |
+| `eth.blockNumber` | [`EthBlockNumberHandler`](actions_types.md#ethblocknumberhandler) | Returns the current block number Set the `tag` to a block number or block hash to get the balance at that block Block tag defaults to 'pending' tag which is the optimistic state of the VM **`See`** [JSON-RPC](https://ethereum.github.io/execution-apis/api-documentation/) **`Example`** ```ts const blockNumber = await tevm.eth.blockNumber() console.log(blockNumber) // 0n ``` |
+| `eth.call` | [`EthCallHandler`](actions_types.md#ethcallhandler) | Executes a call without modifying the state Set the `tag` to a block number or block hash to get the balance at that block Block tag defaults to 'pending' tag which is the optimistic state of the VM **`See`** [JSON-RPC](https://ethereum.github.io/execution-apis/api-documentation/) **`Example`** ```ts const res = await tevm.eth.call({to: '0x123...', data: '0x123...'}) console.log(res) // "0x..." ``` |
+| `eth.chainId` | [`EthChainIdHandler`](actions_types.md#ethchainidhandler) | Returns the current chain id Set the `tag` to a block number or block hash to get the balance at that block Block tag defaults to 'pending' tag which is the optimistic state of the VM **`See`** [JSON-RPC](https://ethereum.github.io/execution-apis/api-documentation/) **`Example`** ```ts const chainId = await tevm.eth.chainId() console.log(chainId) // 10n ``` |
+| `eth.gasPrice` | [`EthGasPriceHandler`](actions_types.md#ethgaspricehandler) | Returns the current gas price Set the `tag` to a block number or block hash to get the balance at that block Block tag defaults to 'pending' tag which is the optimistic state of the VM **`See`** [JSON-RPC](https://ethereum.github.io/execution-apis/api-documentation/) **`Example`** ```ts const gasPrice = await tevm.eth.gasPrice() console.log(gasPrice) // 0n ``` |
+| `eth.getBalance` | [`EthGetBalanceHandler`](actions_types.md#ethgetbalancehandler) | Returns the balance of a given address Set the `tag` to a block number or block hash to get the balance at that block Block tag defaults to 'pending' tag which is the optimistic state of the VM **`See`** [JSON-RPC](https://ethereum.github.io/execution-apis/api-documentation/) **`Example`** ```ts const balance = await tevm.eth.getBalance({address: '0x123...', tag: 'pending'}) console.log(gasPrice) // 0n ``` |
+| `eth.getCode` | [`EthGetCodeHandler`](actions_types.md#ethgetcodehandler) | Returns code at a given address Set the `tag` to a block number or block hash to get the balance at that block Block tag defaults to 'pending' tag which is the optimistic state of the VM **`See`** [JSON-RPC](https://ethereum.github.io/execution-apis/api-documentation/) **`Example`** ```ts const code = await tevm.eth.getCode({address: '0x123...'}) ``` |
+| `eth.getStorageAt` | [`EthGetStorageAtHandler`](actions_types.md#ethgetstorageathandler) | Returns storage at a given address and slot Set the `tag` to a block number or block hash to get the balance at that block Block tag defaults to 'pending' tag which is the optimistic state of the VM **`See`** [JSON-RPC](https://ethereum.github.io/execution-apis/api-documentation/) **`Example`** ```ts const storageValue = await tevm.eth.getStorageAt({address: '0x123...', position: 0}) ``` |
+
+#### Defined in
+
+evmts-monorepo/packages/decorators/types/actions/EthActionsApi.d.ts:7
 
 ___
 
@@ -1177,14 +1286,14 @@ Result of GetAccount Action
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `address` | [`Address`](actions_types.md#address) | Address of account |
-| `balance?` | `bigint` | Balance to set account to |
-| `codeHash?` | [`Hex`](actions_types.md#hex) | Code hash to set account to |
-| `deployedBytecode?` | [`Hex`](actions_types.md#hex) | Contract bytecode to set account to |
+| `balance` | `bigint` | Balance to set account to |
+| `codeHash` | [`Hex`](actions_types.md#hex) | Code hash to set account to |
+| `deployedBytecode` | [`Hex`](actions_types.md#hex) | Contract bytecode to set account to |
 | `errors?` | `ErrorType`[] | Description of the exception, if any occurred |
-| `isContract?` | `boolean` | True if account is a contract |
-| `isEmpty?` | `boolean` | True if account is empty |
-| `nonce?` | `bigint` | Nonce to set account to |
-| `storageRoot?` | [`Hex`](actions_types.md#hex) | Storage root to set account to |
+| `isContract` | `boolean` | True if account is a contract |
+| `isEmpty` | `boolean` | True if account is empty |
+| `nonce` | `bigint` | Nonce to set account to |
+| `storageRoot` | [`Hex`](actions_types.md#hex) | Storage root to set account to |
 
 #### Defined in
 
@@ -1332,7 +1441,7 @@ ___
 
 ### MemoryClient
 
-Ƭ **MemoryClient**: [`TevmClient`](index.md#tevmclient) & [`BaseClient`](index.md#baseclient)
+Ƭ **MemoryClient**: [`BaseClient`](index.md#baseclient) & [`EthActionsApi`](index.md#ethactionsapi) & [`TevmActionsApi`](index.md#tevmactionsapi) & [`EIP1193EventEmitter`](decorators.md#eip1193eventemitter) & [`Eip1193RequestProvider`](index.md#eip1193requestprovider) & \{ `send`: [`TevmJsonRpcRequestHandler`](index.md#tevmjsonrpcrequesthandler)  } & \{ `sendBulk`: [`TevmJsonRpcBulkRequestHandler`](index.md#tevmjsonrpcbulkrequesthandler)  }
 
 A local EVM instance running in JavaScript. Similar to Anvil in your browser/node/bun environments
 Implements the [TevmClient](index.md#tevmclient) interface with an in memory EVM instance.
@@ -1373,7 +1482,7 @@ const balance = await tevm.runContractCall(
 
 #### Defined in
 
-evmts-monorepo/packages/memory-client/types/MemoryClient.d.ts:37
+evmts-monorepo/packages/memory-client/types/MemoryClient.d.ts:38
 
 ___
 
@@ -1653,9 +1762,9 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `persistTevmState` | (`state`: `SerializableTevmState`) => `void` |
+| `persistTevmState` | (`state`: [`SerializableTevmState`](state.md#serializabletevmstate)) => `void` |
 | `removePersistedState` | () => `void` |
-| `restoreState` | () => `SerializableTevmState` \| `undefined` |
+| `restoreState` | () => [`SerializableTevmState`](state.md#serializabletevmstate) \| `undefined` |
 
 #### Defined in
 
@@ -1663,9 +1772,42 @@ evmts-monorepo/packages/sync-storage-persister/types/SyncStoragePersister.d.ts:2
 
 ___
 
+### TevmActionsApi
+
+Ƭ **TevmActionsApi**: `Object`
+
+The actions api is the high level API for interacting with a Tevm client similar to [viem actions](https://viem.sh/learn/actions/)
+
+**`See`**
+
+[https://tevm.sh/learn/actions/](https://tevm.sh/learn/actions/)
+
+#### Type declaration
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `call` | [`CallHandler`](actions_types.md#callhandler) | Executes a call against the VM. It is similar to `eth_call` but has more options for controlling the execution environment By default it does not modify the state after the call is complete but this can be configured. **`Example`** ```ts const res = tevm.call({ to: '0x123...', data: '0x123...', from: '0x123...', gas: 1000000, gasPrice: 1n, skipBalance: true, } ``` |
+| `contract` | [`ContractHandler`](actions_types.md#contracthandler) | Executes a contract call against the VM. It is similar to `eth_call` but has more options for controlling the execution environment along with a typesafe API for creating the call via the contract abi. The contract must already be deployed. Otherwise see `script` which executes calls against undeployed contracts **`Example`** ```ts const res = await tevm.contract({ to: '0x123...', abi: [...], function: 'run', args: ['world'] from: '0x123...', gas: 1000000, gasPrice: 1n, skipBalance: true, } console.log(res.data) // "hello" ``` |
+| `dumpState` | [`DumpStateHandler`](actions_types.md#dumpstatehandler) | Dumps the current state of the VM into a JSON-seralizable object State can be dumped as follows **`Example`** ```typescript const {state} = await tevm.dumpState() fs.writeFileSync('state.json', JSON.stringify(state)) ``` And then loaded as follows **`Example`** ```typescript const state = JSON.parse(fs.readFileSync('state.json')) await tevm.loadState({state}) ``` |
+| `getAccount` | [`GetAccountHandler`](actions_types.md#getaccounthandler) | Gets the state of a specific ethereum address **`Example`** ```ts const res = tevm.getAccount({address: '0x123...'}) console.log(res.deployedBytecode) console.log(res.nonce) console.log(res.balance) ``` |
+| `loadState` | [`LoadStateHandler`](actions_types.md#loadstatehandler) | Loads a previously dumped state into the VM State can be dumped as follows **`Example`** ```typescript const {state} = await tevm.dumpState() fs.writeFileSync('state.json', JSON.stringify(state)) ``` And then loaded as follows **`Example`** ```typescript const state = JSON.parse(fs.readFileSync('state.json')) await tevm.loadState({state}) ``` |
+| `script` | [`ScriptHandler`](actions_types.md#scripthandler) | Executes scripts against the Tevm EVM. By default the script is sandboxed and the state is reset after each execution unless the `persist` option is set to true. **`Example`** ```typescript const res = tevm.script({ deployedBytecode: '0x6080604...', abi: [...], function: 'run', args: ['hello world'] }) ``` Contract handlers provide a more ergonomic way to execute scripts **`Example`** ```typescript ipmort {MyScript} from './MyScript.s.sol' const res = tevm.script( MyScript.read.run('hello world') ) ``` |
+| `setAccount` | [`SetAccountHandler`](actions_types.md#setaccounthandler) | Sets the state of a specific ethereum address **`Example`** ```ts import {parseEther} from 'tevm' await tevm.setAccount({ address: '0x123...', deployedBytecode: '0x6080604...', balance: parseEther('1.0') }) ``` |
+
+#### Defined in
+
+evmts-monorepo/packages/decorators/types/actions/TevmActionsApi.d.ts:6
+
+___
+
 ### TevmClient
 
 Ƭ **TevmClient**: `Object`
+
+**`Deprecated`**
+
+This type has been superseded by Provider types from `@tevm/decorators` package
+The docs have not been updated to reflect this change if you are looking at this
 
 A local EVM instance running in the browser, Bun, or Node.js. Akin to anvil or ganache. The TevmClient interface
 is a unified interface that all Clients implement. This provides a consistent developer experience no matter how you are
@@ -1746,7 +1888,7 @@ Will have anvil_* ganache_* and hardhat_* JSON-RPC compatibility in future versi
 
 #### Defined in
 
-evmts-monorepo/packages/client-types/types/TevmClient.d.ts:105
+evmts-monorepo/packages/client-types/types/TevmClient.d.ts:111
 
 ___
 
@@ -2338,7 +2480,7 @@ ___
 
 ### createBaseClient
 
-▸ **createBaseClient**(`options?`): `Promise`\<`BaseClient`\>
+▸ **createBaseClient**(`options?`): `BaseClient`
 
 #### Parameters
 
@@ -2348,7 +2490,7 @@ ___
 
 #### Returns
 
-`Promise`\<`BaseClient`\>
+`BaseClient`
 
 #### Defined in
 
@@ -2415,7 +2557,7 @@ ___
 
 ### createMemoryClient
 
-▸ **createMemoryClient**(`options?`): `Promise`\<`MemoryClient`\>
+▸ **createMemoryClient**(`options?`): `MemoryClient`
 
 #### Parameters
 
@@ -2425,7 +2567,7 @@ ___
 
 #### Returns
 
-`Promise`\<`MemoryClient`\>
+`MemoryClient`
 
 #### Defined in
 

@@ -18,6 +18,11 @@
 - [createContract](contract.md#createcontract-1)
 - [createScript](contract.md#createscript-1)
 
+### Type Aliases
+
+- [MaybeExtractEventArgsFromAbi](contract.md#maybeextracteventargsfromabi)
+- [ValueOf](contract.md#valueof)
+
 ## References
 
 ### Contract
@@ -83,3 +88,38 @@ ___
 ### createScript
 
 Re-exports [createScript](index.md#createscript-1)
+
+## Type Aliases
+
+### MaybeExtractEventArgsFromAbi
+
+Ƭ **MaybeExtractEventArgsFromAbi**\<`TAbi`, `TEventName`\>: `TAbi` extends [`Abi`](index.md#abi) \| readonly `unknown`[] ? `TEventName` extends `string` ? [`GetEventArgs`](index.md#geteventargs)\<`TAbi`, `TEventName`\> : `undefined` : `undefined`
+
+Adapted from viem. This is a helper type to extract the event args from an abi
+
+#### Type parameters
+
+| Name | Type |
+| :------ | :------ |
+| `TAbi` | extends [`Abi`](index.md#abi) \| readonly `unknown`[] \| `undefined` |
+| `TEventName` | extends `string` \| `undefined` |
+
+#### Defined in
+
+evmts-monorepo/packages/contract/types/event/EventActionCreator.d.ts:5
+
+___
+
+### ValueOf
+
+Ƭ **ValueOf**\<`T`\>: `T`[keyof `T`]
+
+#### Type parameters
+
+| Name |
+| :------ |
+| `T` |
+
+#### Defined in
+
+evmts-monorepo/packages/contract/types/event/EventActionCreator.d.ts:6

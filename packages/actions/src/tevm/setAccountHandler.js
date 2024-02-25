@@ -6,7 +6,7 @@ import { validateSetAccountParams } from '@tevm/zod'
 
 /**
  * Creates an SetAccountHandler for handling account params with Ethereumjs EVM
- * @param {Pick<import('@tevm/base-client').BaseClient, 'vm'>} client
+ * @param {Pick<import('@tevm/base-client').BaseClient, 'getVm'>} client
  * @param {object} [options]
  * @param {boolean} [options.throwOnFail] whether to default to throwing or not when errors occur
  * @returns {import('@tevm/actions-types').SetAccountHandler}
@@ -23,7 +23,8 @@ export const setAccountHandler = (client, options = {}) => async (params) => {
 
 	const address = new EthjsAddress(hexToBytes(params.address))
 	try {
-		await client.vm.stateManager.putAccount(
+		const vm = await client.getVm()
+		await vm.stateManager.putAccount(
 			address,
 			new EthjsAccount(
 				params.nonce,
@@ -34,13 +35,13 @@ export const setAccountHandler = (client, options = {}) => async (params) => {
 			),
 		)
 		if (params.deployedBytecode) {
-			await client.vm.stateManager.putContractCode(
+			await vm.stateManager.putContractCode(
 				address,
 				hexToBytes(params.deployedBytecode),
 			)
 		}
-		await client.vm.stateManager.checkpoint()
-		await client.vm.stateManager.commit()
+		await vm.stateManager.checkpoint()
+		await vm.stateManager.commit()
 		// TODO offer way of setting contract storage with evm.stateManager.putContractStorage
 		return {}
 	} catch (e) {

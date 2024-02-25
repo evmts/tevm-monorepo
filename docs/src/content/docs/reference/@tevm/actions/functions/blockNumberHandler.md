@@ -11,7 +11,7 @@ Handler for the `eth_blockNumber` RPC call
 
 ## Parameters
 
-▪ **client**: `Pick`\<`object`, `"vm"`\>
+▪ **client**: `Pick`\<`object`, `"getVm"`\>
 
 ## Returns
 

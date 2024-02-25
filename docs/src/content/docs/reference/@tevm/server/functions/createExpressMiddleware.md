@@ -5,17 +5,13 @@ prev: false
 title: "createExpressMiddleware"
 ---
 
-> **createExpressMiddleware**(`options`): `RequestHandler`\<`ParamsDictionary`, `any`, `any`, `ParsedQs`, `Record`\<`string`, `any`\>\>
+> **createExpressMiddleware**(`client`): `RequestHandler`\<`ParamsDictionary`, `any`, `any`, `ParsedQs`, `Record`\<`string`, `any`\>\>
 
 Creates express middleware for a Tevm JSON-RPC server
 
 ## Parameters
 
-▪ **options**: `object`
-
-▪ **options.request**: `TevmJsonRpcRequestHandler`
-
-A request handler for the JSON-RPC requests
+▪ **client**: `Pick`\<[`MemoryClient`](/reference/tevm/memory-client/type-aliases/memoryclient/), `"send"`\>
 
 ## Returns
 
@@ -49,7 +45,7 @@ const client = createClient({
 
 ## Source
 
-[packages/server/src/adapters/createExpressMiddleware.js:35](https://github.com/evmts/tevm-monorepo/blob/main/packages/server/src/adapters/createExpressMiddleware.js#L35)
+[packages/server/src/adapters/createExpressMiddleware.js:34](https://github.com/evmts/tevm-monorepo/blob/main/packages/server/src/adapters/createExpressMiddleware.js#L34)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

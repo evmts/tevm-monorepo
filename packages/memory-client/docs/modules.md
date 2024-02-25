@@ -16,7 +16,7 @@
 
 ### MemoryClient
 
-Ƭ **MemoryClient**: `TevmClient` & `BaseClient`
+Ƭ **MemoryClient**: `BaseClient` & `EthActionsApi` & `TevmActionsApi` & `EIP1193EventEmitter` & `Eip1193RequestProvider` & \{ `send`: `TevmJsonRpcRequestHandler`  } & \{ `sendBulk`: `TevmJsonRpcBulkRequestHandler`  }
 
 A local EVM instance running in JavaScript. Similar to Anvil in your browser/node/bun environments
 Implements the TevmClient interface with an in memory EVM instance.
@@ -57,13 +57,13 @@ const balance = await tevm.runContractCall(
 
 #### Defined in
 
-[MemoryClient.ts:38](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/MemoryClient.ts#L38)
+[MemoryClient.ts:47](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/MemoryClient.ts#L47)
 
 ## Functions
 
 ### createMemoryClient
 
-▸ **createMemoryClient**(`options?`): `Promise`\<[`MemoryClient`](modules.md#memoryclient)\>
+▸ **createMemoryClient**(`options?`): [`MemoryClient`](modules.md#memoryclient)
 
 A local EVM instance running in JavaScript. Similar to Anvil in your browser
 
@@ -75,7 +75,7 @@ A local EVM instance running in JavaScript. Similar to Anvil in your browser
 
 #### Returns
 
-`Promise`\<[`MemoryClient`](modules.md#memoryclient)\>
+[`MemoryClient`](modules.md#memoryclient)
 
 **`Example`**
 
@@ -107,4 +107,4 @@ const balance = await tevm.runContractCall(
 
 #### Defined in
 
-[createMemoryClient.js:35](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/createMemoryClient.js#L35)
+[createMemoryClient.js:41](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/createMemoryClient.js#L41)

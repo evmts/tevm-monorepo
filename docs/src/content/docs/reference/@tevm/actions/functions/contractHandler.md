@@ -11,7 +11,7 @@ Creates an ContractHandler for handling contract params with Ethereumjs EVM
 
 ## Parameters
 
-▪ **client**: `Pick`\<`object`, `"vm"`\>
+▪ **client**: `Pick`\<`object`, `"getVm"`\>
 
 ▪ **options?**: `object`= `{}`
 

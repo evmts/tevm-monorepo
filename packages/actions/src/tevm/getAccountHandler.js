@@ -6,7 +6,7 @@ import { validateGetAccountParams } from '@tevm/zod'
 
 /**
  * Creates an GetAccountHandler for handling account params with Ethereumjs VM
- * @param {Pick<import('@tevm/base-client').BaseClient, 'vm'>} client
+ * @param {Pick<import('@tevm/base-client').BaseClient, 'getVm'>} client
  * @param {object} [options]
  * @param {boolean} [options.throwOnFail] whether to default to throwing or not when errors occur
  * @returns {import('@tevm/actions-types').GetAccountHandler}
@@ -14,6 +14,7 @@ import { validateGetAccountParams } from '@tevm/zod'
 export const getAccountHandler =
 	(client, options = {}) =>
 	async ({ throwOnFail = options.throwOnFail ?? true, ...params }) => {
+		const vm = await client.getVm()
 		/**
 		 * @type {Array<import('@tevm/errors').GetAccountError>}
 		 */
@@ -32,12 +33,18 @@ export const getAccountHandler =
 				 * @type {`0x${string}`}
 				 */
 				deployedBytecode: '0x',
+				/**
+				 * @type {`0x${string}`}
+				 */
+				codeHash: '0x',
+				isContract: false,
+				isEmpty: true,
 			})
 		}
 
 		const address = new EthjsAddress(hexToBytes(params.address))
 		try {
-			const res = await client.vm.stateManager.getAccount(address)
+			const res = await vm.stateManager.getAccount(address)
 			if (!res) {
 				return maybeThrowOnFail(throwOnFail, {
 					address: params.address,
@@ -57,11 +64,17 @@ export const getAccountHandler =
 							`account ${params.address} not found`,
 						),
 					],
+					/**
+					 * @type {`0x${string}`}
+					 */
+					codeHash: '0x',
+					isContract: false,
+					isEmpty: true,
 				})
 			}
 			const code =
 				res?.codeHash !== undefined
-					? bytesToHex(await client.vm.stateManager.getContractCode(address))
+					? bytesToHex(await vm.stateManager.getContractCode(address))
 					: '0x'
 			return {
 				// TODO some of these fields are not in the api and should be added to @tevm/actions-types
@@ -93,6 +106,17 @@ export const getAccountHandler =
 				 * @type {`0x${string}`}
 				 */
 				storageRoot: '0x',
+				/**
+				 * @type {`0x${string}`}
+				 */
+				codeHash: '0x',
+				nonce: 0n,
+				/**
+				 * @type {`0x${string}`}
+				 */
+				deployedBytecode: '0x',
+				isContract: false,
+				isEmpty: true,
 			})
 		}
 	}

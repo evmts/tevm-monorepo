@@ -3,10 +3,10 @@ import { MissingAccountError } from './ethSignHandler.js'
 /**
  * @param {object} options
  * @param {ReadonlyArray<import('@tevm/utils').HDAccount>} options.accounts
- * @param {bigint} options.chainId
+ * @param {() => Promise<number>} options.getChainId
  * @returns {import('@tevm/actions-types').EthSignTransactionHandler}
  */
-export const ethSignTransactionHandler = ({ chainId, accounts }) => {
+export const ethSignTransactionHandler = ({ getChainId, accounts }) => {
 	const accountsByAddress = Object.fromEntries(
 		accounts.map((account) => [account.address, account]),
 	)
@@ -20,7 +20,7 @@ export const ethSignTransactionHandler = ({ chainId, accounts }) => {
 		return account.signTransaction({
 			...params,
 			type: 'eip2930',
-			chainId: Number(chainId),
+			chainId: Number(await getChainId()),
 			...(typeof nonce === 'bigint' ? { nonce: Number(nonce) } : {}),
 		})
 	}

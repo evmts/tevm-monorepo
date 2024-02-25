@@ -13,7 +13,7 @@ title: "ethSignTransactionHandler"
 
 ▪ **options.accounts**: readonly [`HDAccount`](/reference/tevm/utils/type-aliases/hdaccount/)[]
 
-▪ **options.chainId**: `bigint`
+▪ **options.getChainId**: () => `Promise`\<`number`\>
 
 ## Returns
 

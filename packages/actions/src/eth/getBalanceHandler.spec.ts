@@ -11,7 +11,7 @@ describe(getBalanceHandler.name, () => {
 		const address = EthjsAddress.zero().toString() as `0x${string}`
 		expect(
 			await getBalanceHandler({
-				vm: { stateManager } as any,
+				getVm: async () => ({ stateManager }) as any,
 			})({ address }),
 		).toEqual(420n)
 		expect(stateManager.getAccount).toHaveBeenCalledWith(
@@ -27,7 +27,7 @@ describe(getBalanceHandler.name, () => {
 		const address = EthjsAddress.zero().toString() as `0x${string}`
 		expect(
 			await getBalanceHandler({
-				vm: { stateManager } as any,
+				getVm: () => ({ stateManager }) as any,
 			})({ address, blockTag: 'pending' }),
 		).toEqual(420n)
 		expect(stateManager.getAccount).toHaveBeenCalledWith(
@@ -43,7 +43,7 @@ describe(getBalanceHandler.name, () => {
 		const address = EthjsAddress.zero().toString() as `0x${string}`
 		expect(
 			await getBalanceHandler({
-				vm: { stateManager } as any,
+				getVm: () => ({ stateManager }) as any,
 			})({ address, blockTag: 'latest' }).catch((e) => (e as any)._tag),
 		).toEqual('NoForkUrlSetError')
 	})
@@ -60,7 +60,7 @@ describe(getBalanceHandler.name, () => {
 			const blockNumber = 114830382n
 			expect(
 				await getBalanceHandler({
-					vm: { stateManager } as any,
+					getVm: async () => ({ stateManager }) as any,
 					forkUrl: 'https://mainnet.optimism.io',
 				})({ address, blockTag: blockNumber }),
 			).toEqual(5536669375141759n)

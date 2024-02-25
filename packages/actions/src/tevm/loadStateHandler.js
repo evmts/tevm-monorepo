@@ -8,7 +8,7 @@ import {
 import { validateLoadStateParams } from '@tevm/zod'
 
 /**
- * @param {Pick<import("@tevm/base-client").BaseClient, 'vm'>} client
+ * @param {Pick<import("@tevm/base-client").BaseClient, 'getVm'>} client
  * @param {object} [options]
  * @param {boolean} [options.throwOnFail] whether to default to throwing or not when errors occur
  * @returns {import('@tevm/actions-types').LoadStateHandler}
@@ -21,12 +21,13 @@ export const loadStateHandler =
 			return maybeThrowOnFail(throwOnFail, { errors })
 		}
 		try {
+			const vm = await client.getVm()
 			if (
-				client.vm.stateManager instanceof NormalStateManager ||
-				client.vm.stateManager instanceof ProxyStateManager ||
-				client.vm.stateManager instanceof ForkStateManager
+				vm.stateManager instanceof NormalStateManager ||
+				vm.stateManager instanceof ProxyStateManager ||
+				vm.stateManager instanceof ForkStateManager
 			) {
-				await client.vm.stateManager.generateCanonicalGenesis(params.state)
+				await vm.stateManager.generateCanonicalGenesis(params.state)
 			} else {
 				throw new Error(
 					'Unsupported state manager. Must use a NormalStateManager, ProxyStateManager, or ForkStateManager. This indicates a bug in tevm internal code.',

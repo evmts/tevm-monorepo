@@ -8,6 +8,8 @@ export {
 	type EventActionCreator,
 	type ReadActionCreator,
 	type WriteActionCreator,
+	type ValueOf,
+	type MaybeExtractEventArgsFromAbi,
 	createContract,
 	createScript,
 } from '@tevm/contract'

@@ -133,7 +133,7 @@ const persister = createSyncPersister({
   }
 })
 
-const memoryClient = await createMemoryClient({ persister })
+const memoryClient = createMemoryClient({ persister })
 ```
 
 ### profiler

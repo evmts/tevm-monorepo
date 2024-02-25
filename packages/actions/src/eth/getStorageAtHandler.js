@@ -5,13 +5,14 @@ import { bytesToHex, hexToBytes } from '@tevm/utils'
 
 /**
  * @param {object} options
- * @param {import('@tevm/vm').TevmVm} options.vm
+ * @param {import('@tevm/base-client').BaseClient['getVm']} options.getVm
  * @param {string} [options.forkUrl]
  * @returns {import('@tevm/actions-types').EthGetStorageAtHandler}
  */
 export const getStorageAtHandler =
-	({ forkUrl, vm }) =>
+	({ forkUrl, getVm }) =>
 	async (params) => {
+		const vm = await getVm()
 		const tag = params.blockTag ?? 'pending'
 		if (tag === 'pending' || tag === 'latest') {
 			return bytesToHex(

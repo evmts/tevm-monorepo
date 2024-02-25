@@ -12,16 +12,15 @@ import { validateScriptParams } from '@tevm/zod'
 
 /**
  * Creates an ScriptHandler for handling script params with Ethereumjs EVM
- * @param {Pick<import('@tevm/base-client').BaseClient, 'vm'>} client
+ * @param {Pick<import('@tevm/base-client').BaseClient, 'getVm'>} client
  * @param {object} [options]
  * @param {boolean} [options.throwOnFail] whether to default to throwing or not when errors occur
  * @returns {import("@tevm/actions-types").ScriptHandler}
  */
 export const scriptHandler = (client, options = {}) => async (params) => {
+	const vm = await client.getVm()
 	const { throwOnFail = options.throwOnFail ?? true } = params
-	const clonedVm = params.createTransaction
-		? client.vm
-		: await client.vm.deepCopy()
+	const clonedVm = params.createTransaction ? vm : await vm.deepCopy()
 	/**
 	 * @type {import('@tevm/utils').Hex}
 	 */
@@ -76,9 +75,11 @@ export const scriptHandler = (client, options = {}) => async (params) => {
 		).toString()
 	)
 
+	const clonedVmPromise = Promise.resolve(clonedVm)
+
 	const accountRes = await setAccountHandler(
 		{
-			vm: clonedVm,
+			getVm: () => clonedVmPromise,
 		},
 		options,
 	)({
@@ -105,7 +106,7 @@ export const scriptHandler = (client, options = {}) => async (params) => {
 	}
 
 	const result = await callHandler(
-		{ vm: clonedVm },
+		{ getVm: () => clonedVmPromise },
 		options,
 	)({
 		...callParams,

@@ -11,19 +11,15 @@ The base client used by Tevm. Add extensions to add additional functionality
 
 ## Type declaration
 
-### chainId
-
-> **`readonly`** **chainId**: `number`
-
-Gets the chainId of the current EVM
-
 ### extend
 
 > **`readonly`** **extend**: \<`TExtension`\>(`decorator`) => [`BaseClient`](/reference/tevm/base-client/type-aliases/baseclient/)\<`TMode`, `TExtended` & `TExtension`\>
 
-Extends the base client with additional functionality
+Extends the base client with additional functionality. This enables optimal code splitting
+and extensibility
 
-Extends the base client with additional functionality
+Extends the base client with additional functionality. This enables optimal code splitting
+and extensibility
 
 #### Type parameters
 
@@ -39,6 +35,51 @@ Extends the base client with additional functionality
 
 Fork url if the EVM is forked
 
+#### Example
+
+```ts
+const client = createMemoryClient({ forkUrl: 'https://mainnet.infura.io/v3/your-api-key' })
+console.log(client.forkUrl)
+```
+
+### getChainId
+
+> **`readonly`** **getChainId**: () => `Promise`\<`number`\>
+
+Gets the chainId of the current EVM
+
+#### Example
+
+```ts
+const client = createMemoryClient()
+const chainId = await client.getChainId()
+console.log(chainId)
+```
+
+Gets the chainId of the current EVM
+
+#### Returns
+
+#### Example
+
+```ts
+const client = createMemoryClient()
+const chainId = await client.getChainId()
+console.log(chainId)
+```
+
+### getVm
+
+> **`readonly`** **getVm**: () => `Promise`\<[`TevmVm`](/reference/tevm/vm/classes/tevmvm/)\>
+
+Internal instance of the VM. Can be used for lower level operations.
+Normally not recomended to use unless building libraries or extensions
+on top of Tevm.
+
+Internal instance of the VM. Can be used for lower level operations.
+Normally not recomended to use unless building libraries or extensions
+on top of Tevm.
+
 ### mode
 
 > **`readonly`** **mode**: `TMode`
@@ -48,11 +89,42 @@ The mode the current client is running in
 `proxy` mode will fetch all state from the latest block of the provided proxy URL
 `normal` mode will not fetch any state and will only run the EVM in memory
 
-### vm
+#### Example
 
-> **`readonly`** **vm**: [`TevmVm`](/reference/tevm/vm/classes/tevmvm/)
+```ts
+let client = createMemoryClient()
+console.log(client.mode) // 'normal'
+client = createMemoryClient({ forkUrl: 'https://mainnet.infura.io/v3/your-api-key' })
+console.log(client.mode) // 'fork'
+```
 
-Internal instance of the VM. Can be used for lower level operations
+### ready
+
+> **`readonly`** **ready**: () => `Promise`\<`true`\>
+
+Returns promise that resulves when the client is ready
+The client is usable without calling this method but may
+have extra latency on the first call from initialization
+
+#### Example
+
+```ts
+const client = createMemoryClient()
+await client.ready()
+```
+
+Returns promise that resulves when the client is ready
+The client is usable without calling this method but may
+have extra latency on the first call from initialization
+
+#### Returns
+
+#### Example
+
+```ts
+const client = createMemoryClient()
+await client.ready()
+```
 
 ## Type parameters
 

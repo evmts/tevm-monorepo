@@ -25,19 +25,19 @@ Address of account
 
 ### balance
 
-> **balance**?: `bigint`
+> **balance**: `bigint`
 
 Balance to set account to
 
 ### codeHash
 
-> **codeHash**?: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
+> **codeHash**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
 
 Code hash to set account to
 
 ### deployedBytecode
 
-> **deployedBytecode**?: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
+> **deployedBytecode**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
 
 Contract bytecode to set account to
 
@@ -49,25 +49,25 @@ Description of the exception, if any occurred
 
 ### isContract
 
-> **isContract**?: `boolean`
+> **isContract**: `boolean`
 
 True if account is a contract
 
 ### isEmpty
 
-> **isEmpty**?: `boolean`
+> **isEmpty**: `boolean`
 
 True if account is empty
 
 ### nonce
 
-> **nonce**?: `bigint`
+> **nonce**: `bigint`
 
 Nonce to set account to
 
 ### storageRoot
 
-> **storageRoot**?: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
+> **storageRoot**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
 
 Storage root to set account to
 

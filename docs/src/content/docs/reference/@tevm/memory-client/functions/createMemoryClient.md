@@ -5,13 +5,13 @@ prev: false
 title: "createMemoryClient"
 ---
 
-> **createMemoryClient**(`options`?): `Promise`\<[`MemoryClient`](/reference/tevm/memory-client/type-aliases/memoryclient/)\>
+> **createMemoryClient**(`options`?): [`MemoryClient`](/reference/tevm/memory-client/type-aliases/memoryclient/)
 
 A local EVM instance running in JavaScript. Similar to Anvil in your browser
 
 ## Parameters
 
-▪ **options?**: [`BaseClientOptions`](/reference/tevm/base-client/type-aliases/baseclientoptions/)= `{}`
+▪ **options?**: [`BaseClientOptions`](/reference/tevm/base-client/type-aliases/baseclientoptions/)
 
 ## Returns
 
@@ -45,7 +45,7 @@ const balance = await tevm.runContractCall(
 
 ## Source
 
-[createMemoryClient.js:35](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/createMemoryClient.js#L35)
+[createMemoryClient.js:41](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/createMemoryClient.js#L41)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

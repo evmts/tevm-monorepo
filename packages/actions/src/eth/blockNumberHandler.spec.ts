@@ -11,6 +11,8 @@ describe(blockNumberHandler.name, () => {
 					},
 				}),
 		}
-		expect(await blockNumberHandler({ vm: { blockchain } } as any)()).toBe(420n)
+		expect(
+			await blockNumberHandler({ getVm: () => ({ blockchain }) } as any)(),
+		).toBe(420n)
 	})
 })

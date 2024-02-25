@@ -11,13 +11,16 @@ test('should dump important account info and storage', async () => {
 
 	const accountInstance = new EthjsAccount(0n, 100n)
 
-	const client = await createBaseClient()
-
-	client.vm.stateManager.putAccount(account, accountInstance)
+	const client = createBaseClient()
+	;(await client.getVm()).stateManager.putAccount(account, accountInstance)
 
 	const storageKey = hexToBytes('0x1', { size: 32 })
 	const storageValue = hexToBytes('0x1', { size: 32 })
-	client.vm.stateManager.putContractStorage(account, storageKey, storageValue)
+	;(await client.getVm()).stateManager.putContractStorage(
+		account,
+		storageKey,
+		storageValue,
+	)
 
 	const { state: dumpedState } = await dumpStateHandler(client)()
 
@@ -32,12 +35,14 @@ test('should dump important account info and storage', async () => {
 
 	expect(Object.keys(storage).length).toBe(1)
 
-	const client2 = await createBaseClient()
+	const client2 = createBaseClient()
 
 	await loadStateHandler(client2)({
 		state: dumpedState,
 	})
-	const accountStorage = await client2.vm.stateManager.getContractStorage(
+	const accountStorage = await (
+		await client2.getVm()
+	).stateManager.getContractStorage(
 		account,
 		hexToBytes(keccak256(storageKey, 'hex')),
 	)

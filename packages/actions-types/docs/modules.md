@@ -3495,14 +3495,14 @@ Result of GetAccount Action
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `address` | [`Address`](modules.md#address) | Address of account |
-| `balance?` | `bigint` | Balance to set account to |
-| `codeHash?` | [`Hex`](modules.md#hex) | Code hash to set account to |
-| `deployedBytecode?` | [`Hex`](modules.md#hex) | Contract bytecode to set account to |
+| `balance` | `bigint` | Balance to set account to |
+| `codeHash` | [`Hex`](modules.md#hex) | Code hash to set account to |
+| `deployedBytecode` | [`Hex`](modules.md#hex) | Contract bytecode to set account to |
 | `errors?` | `ErrorType`[] | Description of the exception, if any occurred |
-| `isContract?` | `boolean` | True if account is a contract |
-| `isEmpty?` | `boolean` | True if account is empty |
-| `nonce?` | `bigint` | Nonce to set account to |
-| `storageRoot?` | [`Hex`](modules.md#hex) | Storage root to set account to |
+| `isContract` | `boolean` | True if account is a contract |
+| `isEmpty` | `boolean` | True if account is empty |
+| `nonce` | `bigint` | Nonce to set account to |
+| `storageRoot` | [`Hex`](modules.md#hex) | Storage root to set account to |
 
 #### Defined in
 

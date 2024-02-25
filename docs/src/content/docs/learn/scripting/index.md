@@ -11,7 +11,7 @@ Scripting is a powerful unlock for JavaScript applications. When used well you w
 
 With `tevm.script` you can run solidity in TypeScript. But what if you want to run TypeScript in your solidity? For example you may want to call `fs.readFile` directly in your solidity script. To do this you can use the `tevm/precompiles` package.
 
-Precompiles are simply contracts deployed to an address that execute a JavaScript function you define instead of solidity. 
+Precompiles are simply contracts deployed to an address that execute a JavaScript function you define instead of solidity.
 
 In this tutorial we will create a precompile with the [tevm bundler](../solidity-imports/) enabled which allows us to import solidity into TypeScript files. This can be done using [`import { createScript } from 'tevm/contract`](../contracts/) if the tevm bundler is not available in your project. The steps remain the same just write the solidity interface with human readable abi rather than importing it if not using a bundler.
 
@@ -53,7 +53,7 @@ interface Fs {
 
 A precompile is defined with following
 
-1. A [`Script` contract](/reference/tevm/contract/typedefs/script) with `withAddress` called 
+1. A [`Script` contract](/reference/tevm/contract/typedefs/script) with `withAddress` called
 2. The call function that returns an [CallResult](/reference/tevm/precompiles/typedefs/CallResult)
 
 You can define the call function from scratch. It is passed the raw data and you can use `decodeFunctionData` to decode it. You can use `encodeFunctionResult` to encode the return type
@@ -74,9 +74,9 @@ const call = defineCall(Fs.abi, {
 	// the abi will typecheck that we are implementing every method with the correct returnValue
 	writeFile: async ({ args }) => {
 		await fs.writeFile(...args)
-		return { 
-			returnValue: true, 
-			executionGasUsed: 0n, 
+		return {
+			returnValue: true,
+			executionGasUsed: 0n,
 			logs: [contract.events.FileWrite(...args)]
 		}
 	},
@@ -103,8 +103,8 @@ We can use our precompile just like any other solidity contract.
 ```typescript example.ts
 import {createMemoryClient} from '@tevm/memory-client'
 import {fsPrecompile} from './fsPrecompile.js'
-	
-const client = await createMemoryClient({
+
+const client = createMemoryClient({
 	customPrecompiles: [fsPrecompile.precompile()],
 })
 
@@ -141,8 +141,8 @@ We can now call our contract in TypeScript
 import {createMemoryClient} from '@tevm/memory-client'
 import {fsPrecompile} from './fsPrecompile.js'
 import {ReadHelloWorld} from './ReadHelloWorld.sol'
-	
-const client = await createMemoryClient({
+
+const client = createMemoryClient({
 	customPrecompiles: [fsPrecompile.precompile()],
 })
 

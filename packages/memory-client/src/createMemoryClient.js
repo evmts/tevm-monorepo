@@ -1,10 +1,16 @@
 import { createBaseClient } from '@tevm/base-client'
-import { ethActions, requestActions, tevmActions } from '@tevm/decorators'
+import {
+	eip1993EventEmitter,
+	ethActions,
+	requestEip1193,
+	tevmActions,
+	tevmSend,
+} from '@tevm/decorators'
 
 /**
  * A local EVM instance running in JavaScript. Similar to Anvil in your browser
  * @param {import('@tevm/base-client').BaseClientOptions} [options]
- * @returns {Promise<import('./MemoryClient.js').MemoryClient>}
+ * @returns {import('./MemoryClient.js').MemoryClient}
  * @example
  * ```ts
  * import { createMemoryClient } from "tevm"
@@ -32,7 +38,11 @@ import { ethActions, requestActions, tevmActions } from '@tevm/decorators'
  *  console.log(balance) // 1n
  *  ```
  */
-export const createMemoryClient = async (options = {}) => {
-	const c = await createBaseClient(options)
-	return c.extend(tevmActions()).extend(requestActions()).extend(ethActions())
+export const createMemoryClient = (options) => {
+	return createBaseClient(options)
+		.extend(tevmSend())
+		.extend(eip1993EventEmitter())
+		.extend(requestEip1193())
+		.extend(ethActions())
+		.extend(tevmActions())
 }

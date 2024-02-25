@@ -5,13 +5,7 @@ prev: false
 title: "CreateHttpHandlerParameters"
 ---
 
-> **CreateHttpHandlerParameters**: `object`
-
-## Type declaration
-
-### request
-
-> **request**: `TevmJsonRpcRequestHandler`
+> **CreateHttpHandlerParameters**: `Pick`\<[`@tevm/memory-client`](/reference/tevm/memory-client/api/), `"send"`\>
 
 ## Source
 

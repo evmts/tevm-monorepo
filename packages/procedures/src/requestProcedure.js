@@ -18,6 +18,8 @@ import {
 } from './index.js'
 import { testAccounts } from '@tevm/actions'
 
+// Keep this in sync with TevmProvider.ts
+
 /**
  * Request handler for JSON-RPC requests.
  *
@@ -47,8 +49,6 @@ import { testAccounts } from '@tevm/actions'
  * ```
  */
 export const requestProcedure = (client) => {
-	// TODO implement chainid
-	const chainId = 900
 	return async (request) => {
 		switch (request.method) {
 			case 'tevm_call':
@@ -86,7 +86,7 @@ export const requestProcedure = (client) => {
 				return /** @type any */ (loadStateProcedure)(client)(request)
 			}
 			case 'eth_chainId':
-				return /** @type any */ (chainIdProcedure(chainId)(request))
+				return /** @type any */ (chainIdProcedure(client.getChainId)(request))
 			case 'eth_call':
 				return /** @type any */ (ethCallProcedure(client)(request))
 			case 'eth_getCode':
@@ -98,12 +98,13 @@ export const requestProcedure = (client) => {
 				return /** @type any */ (gasPriceProcedure(client)(request))
 			case 'eth_getBalance':
 				return /** @type any */ (getBalanceProcedure(client)(request))
+			// TODO move all wallet methods to seperate decorator
 			case 'eth_sign':
 				return ethSignProcedure(testAccounts)(request)
 			case 'eth_signTransaction':
 				return ethSignTransactionProcedure({
 					accounts: testAccounts,
-					chainId: BigInt(chainId),
+					getChainId: client.getChainId,
 				})(request)
 			case 'eth_accounts':
 				return ethAccountsProcedure(testAccounts)(request)

@@ -7,10 +7,6 @@ title: "TevmClient"
 
 > **TevmClient**: `object`
 
-A local EVM instance running in the browser, Bun, or Node.js. Akin to anvil or ganache. The TevmClient interface
-is a unified interface that all Clients implement. This provides a consistent developer experience no matter how you are
-using Tevm.
-
 ## See
 
 [guide](TevmClient.md) for more documentation on clients
@@ -61,6 +57,15 @@ console.log(blockNumber) // 0n
 #### Anvil hardhat and ganache compatibility
 
 Will have anvil_* ganache_* and hardhat_* JSON-RPC compatibility in future versions
+
+:::caution[Deprecated]
+This type has been superseded by Provider types from `@tevm/decorators` package
+The docs have not been updated to reflect this change if you are looking at this
+
+A local EVM instance running in the browser, Bun, or Node.js. Akin to anvil or ganache. The TevmClient interface
+is a unified interface that all Clients implement. This provides a consistent developer experience no matter how you are
+using Tevm.
+:::
 
 ## Type declaration
 
@@ -488,7 +493,7 @@ await tevm.setAccount({
 
 ## Source
 
-[TevmClient.ts:129](https://github.com/evmts/tevm-monorepo/blob/main/packages/client-types/src/TevmClient.ts#L129)
+[TevmClient.ts:135](https://github.com/evmts/tevm-monorepo/blob/main/packages/client-types/src/TevmClient.ts#L135)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

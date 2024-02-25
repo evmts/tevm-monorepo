@@ -5,23 +5,19 @@ prev: false
 title: "createServer"
 ---
 
-> **createServer**(`options`): `Promise`\<`Server`\<*typeof* `IncomingMessage`, *typeof* `ServerResponse`\>\>
+> **createServer**(`client`, `serverOptions`?): `Promise`\<`Server`\<*typeof* `IncomingMessage`, *typeof* `ServerResponse`\>\>
 
 Creates a lightweight http server for handling requests
 
 ## Parameters
 
-▪ **options**: `object`
+▪ **client**: `Pick`\<[`MemoryClient`](/reference/tevm/memory-client/type-aliases/memoryclient/), `"send"`\>
 
-▪ **options.request**: `TevmJsonRpcRequestHandler`
-
-A request handler for the JSON-RPC requests
-
-To use pass in the Tevm['request'] request handler
-
-▪ **options.serverOptions**: `undefined` \| `ServerOptions`\<*typeof* `IncomingMessage`, *typeof* `ServerResponse`\>
+▪ **serverOptions?**: `ServerOptions`\<*typeof* `IncomingMessage`, *typeof* `ServerResponse`\>
 
 Optional options to pass to the http server
+
+To use pass in the Tevm['request'] request handler
 
 ## Returns
 
@@ -51,7 +47,7 @@ const client = createTevmClient()
 
 ## Source
 
-[packages/server/src/createServer.js:32](https://github.com/evmts/tevm-monorepo/blob/main/packages/server/src/createServer.js#L32)
+[packages/server/src/createServer.js:31](https://github.com/evmts/tevm-monorepo/blob/main/packages/server/src/createServer.js#L31)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

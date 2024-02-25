@@ -7,11 +7,12 @@ title: "EthActionsApi"
 
 > **EthActionsApi**: `object`
 
-Standard JSON-RPC methods for interacting with the VM
+The actions api is the high level API for interacting with a Tevm client similar to [viem actions](https://viem.sh/learn/actions/)
+These actions correspond 1:1 eith the public ethereum JSON-RPC api
 
 ## See
 
-[JSON-RPC](https://ethereum.github.io/execution-apis/api-documentation/)
+[https://tevm.sh/learn/actions/](https://tevm.sh/learn/actions/)
 
 ## Type declaration
 
@@ -158,7 +159,7 @@ const storageValue = await tevm.eth.getStorageAt({address: '0x123...', position:
 
 ## Source
 
-[EthActionsApi.ts:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/EthActionsApi.ts#L15)
+[packages/decorators/src/actions/EthActionsApi.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/actions/EthActionsApi.ts#L16)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

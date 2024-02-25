@@ -6,7 +6,7 @@ import { numberToHex } from '@tevm/utils'
  * @returns {import('@tevm/procedures-types').EthGetBalanceJsonRpcProcedure}
  */
 export const getBalanceProcedure =
-	({ vm, forkUrl }) =>
+	({ getVm, forkUrl }) =>
 	async (req) => {
 		if (!req.params[1]) {
 			throw new Error(
@@ -18,7 +18,7 @@ export const getBalanceProcedure =
 			jsonrpc: '2.0',
 			method: req.method,
 			result: numberToHex(
-				await getBalanceHandler({ vm, forkUrl })({
+				await getBalanceHandler({ getVm, forkUrl })({
 					address: req.params[0],
 					...(req.params[1].startsWith('0x')
 						? { blockNumber: BigInt(req.params[1]) }

@@ -85,6 +85,16 @@
 - [EthjsAccount](../classes/utils.EthjsAccount.md)
 - [EthjsAddress](../classes/utils.EthjsAddress.md)
 
+### Type Aliases
+
+- [BigIntToHex](utils.md#biginttohex)
+- [JsonSerializable](utils.md#jsonserializable)
+- [JsonSerializableArray](utils.md#jsonserializablearray)
+- [JsonSerializableObject](utils.md#jsonserializableobject)
+- [JsonSerializableSet](utils.md#jsonserializableset)
+- [SerializeToJson](utils.md#serializetojson)
+- [SetToHex](utils.md#settohex)
+
 ## References
 
 ### Abi
@@ -522,3 +532,116 @@ ___
 ### toRlp
 
 Re-exports [toRlp](index.md#torlp)
+
+## Type Aliases
+
+### BigIntToHex
+
+Ƭ **BigIntToHex**\<`T`\>: `T` extends `bigint` ? [`Hex`](index.md#hex) : `T`
+
+A helper type that converts a bigint to a hex string.
+
+#### Type parameters
+
+| Name |
+| :------ |
+| `T` |
+
+#### Defined in
+
+evmts-monorepo/packages/utils/types/SerializeToJson.d.ts:23
+
+___
+
+### JsonSerializable
+
+Ƭ **JsonSerializable**: `bigint` \| `string` \| `number` \| `boolean` \| ``null`` \| [`JsonSerializableArray`](utils.md#jsonserializablearray) \| [`JsonSerializableObject`](utils.md#jsonserializableobject) \| [`JsonSerializableSet`](utils.md#jsonserializableset)
+
+A type that represents a JSON-serializable value.
+
+#### Defined in
+
+evmts-monorepo/packages/utils/types/SerializeToJson.d.ts:5
+
+___
+
+### JsonSerializableArray
+
+Ƭ **JsonSerializableArray**: `ReadonlyArray`\<[`JsonSerializable`](utils.md#jsonserializable)\>
+
+A type that represents a JSON-serializable array.
+
+#### Defined in
+
+evmts-monorepo/packages/utils/types/SerializeToJson.d.ts:9
+
+___
+
+### JsonSerializableObject
+
+Ƭ **JsonSerializableObject**: `Object`
+
+A type that represents a JSON-serializable object.
+
+#### Index signature
+
+▪ [key: `string`]: [`JsonSerializable`](utils.md#jsonserializable)
+
+#### Defined in
+
+evmts-monorepo/packages/utils/types/SerializeToJson.d.ts:13
+
+___
+
+### JsonSerializableSet
+
+Ƭ **JsonSerializableSet**\<`T`\>: `Set`\<`T`\>
+
+A type that represents a JSON-serializable set.
+
+#### Type parameters
+
+| Name | Type |
+| :------ | :------ |
+| `T` | extends `bigint` \| `string` \| `number` \| `boolean` = `bigint` \| `string` \| `number` \| `boolean` |
+
+#### Defined in
+
+evmts-monorepo/packages/utils/types/SerializeToJson.d.ts:19
+
+___
+
+### SerializeToJson
+
+Ƭ **SerializeToJson**\<`T`\>: `T` extends [`JsonSerializableSet`](utils.md#jsonserializableset)\<infer S\> ? `ReadonlyArray`\<`S`\> : `T` extends [`JsonSerializableObject`](utils.md#jsonserializableobject) ? \{ [P in keyof T]: SerializeToJson\<T[P]\> } : `T` extends [`JsonSerializableArray`](utils.md#jsonserializablearray) ? [`SerializeToJson`](utils.md#serializetojson)\<`T`[`number`]\>[] : [`BigIntToHex`](utils.md#biginttohex)\<[`SetToHex`](utils.md#settohex)\<`T`\>\>
+
+A helper type that converts a widened JSON-serializable value to a JSON-serializable value.
+It replaces bigint with hex strings and sets with arrays.
+
+#### Type parameters
+
+| Name |
+| :------ |
+| `T` |
+
+#### Defined in
+
+evmts-monorepo/packages/utils/types/SerializeToJson.d.ts:32
+
+___
+
+### SetToHex
+
+Ƭ **SetToHex**\<`T`\>: `T` extends `Set`\<`any`\> ? [`Hex`](index.md#hex) : `T`
+
+A helper type that converts a set to a hex string.
+
+#### Type parameters
+
+| Name |
+| :------ |
+| `T` |
+
+#### Defined in
+
+evmts-monorepo/packages/utils/types/SerializeToJson.d.ts:27

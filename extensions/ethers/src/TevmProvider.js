@@ -121,13 +121,13 @@ export class TevmProvider extends JsonRpcApiProvider {
 	 * ```
 	 */
 	static createMemoryProvider = async (options) => {
-		return new TevmProvider(await createMemoryClient(options))
+		return new TevmProvider(createMemoryClient(options))
 	}
 
 	/**
 	 * An instance of the TevmClient interface.
 	 * @see [Tevm Client reference](https://tevm.sh/reference/tevm/client-types/type-aliases/tevmclient/)
-	 * @type {import('@tevm/client-types').TevmClient}
+	 * @type {import('@tevm/memory-client').MemoryClient}
 	 * ## Tevm actions support
 	 *
 	 * The entire [tevm api](../clients/) exists on the `tevm` property. For example the `tevm.script` method can be used to run an arbitrary script.
@@ -167,7 +167,7 @@ export class TevmProvider extends JsonRpcApiProvider {
 	tevm
 
 	/**
-	 * @param {import('@tevm/client-types').TevmClient} tevm An instance of the Tevm interface.
+	 * @param {import('@tevm/memory-client').MemoryClient} tevm An instance of the Tevm interface.
 	 */
 	constructor(tevm) {
 		super(undefined, {
@@ -186,7 +186,7 @@ export class TevmProvider extends JsonRpcApiProvider {
 	_send = async (payload) => {
 		if (Array.isArray(payload)) {
 			return /** @type {Promise<Array<import('ethers').JsonRpcResult | import('ethers').JsonRpcError>>}*/ (
-				this.tevm.requestBulk(
+				this.tevm.sendBulk(
 					/** @type {Array<import('@tevm/procedures-types').TevmJsonRpcRequest | import('@tevm/procedures-types').EthJsonRpcRequest>}*/ (
 						payload
 					),
@@ -194,7 +194,7 @@ export class TevmProvider extends JsonRpcApiProvider {
 			)
 		} else {
 			return /** @type {[import('ethers').JsonRpcResult | import('ethers').JsonRpcError]}*/ ([
-				await this.tevm.request(
+				await this.tevm.send(
 					/** @type {import('@tevm/procedures-types').TevmJsonRpcRequest | import('@tevm/procedures-types').EthJsonRpcRequest}*/ (
 						payload
 					),

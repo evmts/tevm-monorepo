@@ -13,7 +13,7 @@ describe('tevmViemExtension', () => {
 	let client: PublicClient
 
 	beforeAll(async () => {
-		tevm = await createMemoryClient({
+		tevm = createMemoryClient({
 			fork: { url: 'https://mainnet.optimism.io' },
 		})
 		server = createServer(createHttpHandler(tevm)).listen(6969)
@@ -34,9 +34,9 @@ describe('tevmViemExtension', () => {
 		expect(response.errors).toBe(undefined as any)
 		expect(
 			(
-				await tevm.vm.stateManager.getAccount(
-					Address.fromString(params.address),
-				)
+				await (
+					await tevm.getVm()
+				).stateManager.getAccount(Address.fromString(params.address))
 			)?.balance,
 		).toBe(420n)
 	})
@@ -63,9 +63,9 @@ describe('tevmViemExtension', () => {
 
 		expect(response).not.toHaveProperty('errors')
 
-		const account = await tevm.vm.stateManager.getAccount(
-			Address.fromString(params.address),
-		)
+		const account = await (
+			await tevm.getVm()
+		).stateManager.getAccount(Address.fromString(params.address))
 
 		expect(account?.balance).toBe(420n)
 	})

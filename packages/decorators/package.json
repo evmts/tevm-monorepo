@@ -24,7 +24,7 @@
     "./package.json": "./package.json",
     ".": {
       "import": {
-        "types": "./types/index.d.ts",
+        "types": "./dist/index.d.ts",
         "default": "./dist/index.js"
       },
       "require": {
@@ -35,7 +35,7 @@
   },
   "main": "dist/index.cjs",
   "module": "dist/index.js",
-  "types": "types/index.d.ts",
+  "types": "dist/index.d.ts",
   "files": [
     "dist",
     "src",
@@ -64,7 +64,10 @@
   "dependencies": {
     "@tevm/actions": "workspace:^",
     "@tevm/actions-types": "workspace:1.0.0-next.40",
-    "@tevm/procedures": "workspace:^"
+    "@tevm/procedures": "workspace:^",
+    "@tevm/procedures-types": "workspace:1.0.0-next.40",
+    "@tevm/utils": "workspace:1.0.0-next.40",
+    "viem": "^2.7.13"
   },
   "devDependencies": {
     "@tevm/base-client": "workspace:1.0.0-next.40",

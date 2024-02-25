@@ -9,10 +9,21 @@ export type BaseClient<
 > = {
 	/**
 	 * Gets the chainId of the current EVM
+	 * @example
+	 * ```ts
+	 * const client = createMemoryClient()
+	 * const chainId = await client.getChainId()
+	 * console.log(chainId)
+	 * ```
 	 */
-	readonly chainId: number
+	readonly getChainId: () => Promise<number>
 	/**
 	 * Fork url if the EVM is forked
+	 * @example
+	 * ```ts
+	 * const client = createMemoryClient({ forkUrl: 'https://mainnet.infura.io/v3/your-api-key' })
+	 * console.log(client.forkUrl)
+	 * ```
 	 */
 	readonly forkUrl?: string | undefined
 	/**
@@ -20,14 +31,35 @@ export type BaseClient<
 	 * `fork` mode will fetch and cache all state from the block forked from the provided URL
 	 * `proxy` mode will fetch all state from the latest block of the provided proxy URL
 	 * `normal` mode will not fetch any state and will only run the EVM in memory
+	 * @example
+	 * ```ts
+	 * let client = createMemoryClient()
+	 * console.log(client.mode) // 'normal'
+	 * client = createMemoryClient({ forkUrl: 'https://mainnet.infura.io/v3/your-api-key' })
+	 * console.log(client.mode) // 'fork'
+	 * ```
 	 */
 	readonly mode: TMode
 	/**
-	 * Internal instance of the VM. Can be used for lower level operations
+	 * Returns promise that resulves when the client is ready
+	 * The client is usable without calling this method but may
+	 * have extra latency on the first call from initialization
+	 * @example
+	 * ```ts
+	 * const client = createMemoryClient()
+	 * await client.ready()
+	 * ```
 	 */
-	readonly vm: TevmVm
+	readonly ready: () => Promise<true>
 	/**
-	 * Extends the base client with additional functionality
+	 * Internal instance of the VM. Can be used for lower level operations.
+	 * Normally not recomended to use unless building libraries or extensions
+	 * on top of Tevm.
+	 */
+	readonly getVm: () => Promise<TevmVm>
+	/**
+	 * Extends the base client with additional functionality. This enables optimal code splitting
+	 * and extensibility
 	 */
 	readonly extend: <TExtension extends Record<string, any>>(
 		decorator: (client: BaseClient<TMode, TExtended>) => TExtension,

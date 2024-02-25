@@ -12,7 +12,7 @@ Creates an CallHandler for handling call params with Ethereumjs EVM
 
 ## Parameters
 
-▪ **client**: `Pick`\<`object`, `"vm"`\>
+▪ **client**: `Pick`\<`object`, `"getVm"`\>
 
 ▪ **options?**: `object`= `{}`
 

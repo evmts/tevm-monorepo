@@ -217,7 +217,7 @@ console.log(await provider.send('tevm_getAccount', {
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `tevm` | `TevmClient` | An instance of the Tevm interface. |
+| `tevm` | `MemoryClient` | An instance of the Tevm interface. |
 
 #### Returns
 
@@ -263,7 +263,7 @@ ___
 
 ### tevm
 
-• **tevm**: `TevmClient`
+• **tevm**: `MemoryClient`
 
 An instance of the TevmClient interface.
 

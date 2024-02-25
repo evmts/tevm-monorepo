@@ -9,7 +9,7 @@ const ERC20_BYTECODE =
 
 describe('requestBulkProcedure', () => {
 	it('should work', async () => {
-		const client = await createBaseClient()
+		const client = createBaseClient()
 		await requestBulkProcedure(client)([
 			{
 				jsonrpc: '2.0',
@@ -63,6 +63,10 @@ describe('requestBulkProcedure', () => {
 		expect(res[0].error).toBeUndefined()
 		expect(res[1].error).toBeUndefined()
 		expect(res[0].result).toEqual({
+			codeHash:
+				'0xca9376ed6e671b854e850e75f09de4db0b6c8bfd17265c8cf3f14d3f7e9c88bd',
+			isContract: true,
+			isEmpty: false,
 			balance: numberToHex(420n),
 			nonce: numberToHex(69n),
 			deployedBytecode: ERC20_BYTECODE,
@@ -71,6 +75,10 @@ describe('requestBulkProcedure', () => {
 				'0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
 		})
 		expect(res[1].result).toEqual({
+			codeHash:
+				'0xca9376ed6e671b854e850e75f09de4db0b6c8bfd17265c8cf3f14d3f7e9c88bd',
+			isContract: true,
+			isEmpty: false,
 			balance: numberToHex(420n),
 			nonce: numberToHex(69n),
 			deployedBytecode: ERC20_BYTECODE,

@@ -11,7 +11,7 @@ import { validateContractParams } from '@tevm/zod'
 
 /**
  * Creates an ContractHandler for handling contract params with Ethereumjs EVM
- * @param {Pick<import('@tevm/base-client').BaseClient, 'vm'>} client
+ * @param {Pick<import('@tevm/base-client').BaseClient, 'getVm'>} client
  * @param {object} [options]
  * @param {boolean} [options.throwOnFail] whether to default to throwing or not when errors occur
  * @returns {import("@tevm/actions-types").ContractHandler}
@@ -28,12 +28,13 @@ export const contractHandler =
 			})
 		}
 
-		const contract = await client.vm.evm.stateManager.getContractCode(
+		const vm = await client.getVm()
+
+		const contract = await vm.evm.stateManager.getContractCode(
 			EthjsAddress.fromString(params.to),
 		)
 		const precompile =
-			params.to &&
-			client.vm.evm.getPrecompile(EthjsAddress.fromString(params.to))
+			params.to && vm.evm.getPrecompile(EthjsAddress.fromString(params.to))
 		if (contract.length === 0 && !precompile) {
 			return maybeThrowOnFail(params.throwOnFail ?? throwOnFailDefault, {
 				rawData: '0x',

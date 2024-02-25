@@ -3,9 +3,8 @@ import { createServer as httpCreateServer } from 'http'
 
 /**
  * Creates a lightweight http server for handling requests
- * @param {Object} options
- * @param {import('http').ServerOptions} [options.serverOptions] - Optional options to pass to the http server
- * @param {import('@tevm/procedures-types').TevmJsonRpcRequestHandler} options.request - A request handler for the JSON-RPC requests
+ * @param {Pick<import('@tevm/memory-client').MemoryClient, 'send'>} client
+ * @param {import('http').ServerOptions} [serverOptions] - Optional options to pass to the http server
  *
  * To use pass in the Tevm['request'] request handler
  * @example
@@ -29,9 +28,9 @@ import { createServer as httpCreateServer } from 'http'
  * const client = createTevmClient()
  * ```
  */
-export const createServer = async ({ request, serverOptions }) => {
+export const createServer = async ({ send }, serverOptions) => {
 	if (serverOptions === undefined) {
-		return httpCreateServer(createHttpHandler({ request }))
+		return httpCreateServer(createHttpHandler({ send }))
 	}
-	return httpCreateServer(serverOptions, createHttpHandler({ request }))
+	return httpCreateServer(serverOptions, createHttpHandler({ send }))
 }

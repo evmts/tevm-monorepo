@@ -11,7 +11,7 @@ Creates an GetAccountHandler for handling account params with Ethereumjs VM
 
 ## Parameters
 
-▪ **client**: `Pick`\<`object`, `"vm"`\>
+▪ **client**: `Pick`\<`object`, `"getVm"`\>
 
 ▪ **options?**: `object`= `{}`
 

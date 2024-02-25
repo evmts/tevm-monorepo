@@ -24,6 +24,9 @@ import type {
 } from '@tevm/procedures-types'
 import type { HDAccount } from '@tevm/utils'
 
+/**
+ * @deprecated
+ */
 export type WalletTevmClient = {
 	/**
 	 * A list of viem accounts available to use on the vm. These are the same accounts `anvil` `ganache` and `hardhat` use
@@ -76,6 +79,9 @@ export type WalletTevmClient = {
 }
 
 /**
+ * @deprecated This type has been superseded by Provider types from `@tevm/decorators` package
+ * The docs have not been updated to reflect this change if you are looking at this
+ *
  * A local EVM instance running in the browser, Bun, or Node.js. Akin to anvil or ganache. The TevmClient interface
  * is a unified interface that all Clients implement. This provides a consistent developer experience no matter how you are
  * using Tevm.

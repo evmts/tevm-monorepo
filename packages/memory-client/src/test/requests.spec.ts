@@ -23,7 +23,7 @@ const forkConfig = {
 }
 
 describe('Tevm.request', async () => {
-	const tevm = await createMemoryClient()
+	const tevm = createMemoryClient()
 
 	it('should execute a script request', async () => {
 		const req = {
@@ -42,25 +42,19 @@ describe('Tevm.request', async () => {
 			id: 1,
 		} as const satisfies ScriptJsonRpcRequest
 		const res = await tevm.request(req)
-		if ('error' in res) {
-			throw new Error(res.error.message)
-		}
 		expect(
 			decodeFunctionResult({
 				abi: DaiContract.abi,
-				data: res.result.rawData,
+				data: res.rawData,
 				functionName: 'balanceOf',
 			}) satisfies bigint,
 		).toBe(0n)
-		expect(res.result.executionGasUsed).toBe(bigIntToHex(2447n) as any)
-		expect(res.result.logs).toEqual([])
-		expect(res.method).toBe(req.method)
-		expect(res.id).toBe(req.id)
-		expect(res.jsonrpc).toBe(req.jsonrpc)
+		expect(res.executionGasUsed).toBe(bigIntToHex(2447n) as any)
+		expect(res.logs).toEqual([])
 	})
 
 	it('should throw an error if attempting a tevm_contractCall request', async () => {
-		const tevm = await createMemoryClient()
+		const tevm = createMemoryClient()
 		const req = {
 			params: [
 				{
@@ -76,13 +70,13 @@ describe('Tevm.request', async () => {
 			method: 'tevm_NotARequest' as any,
 			id: 1,
 		} as const satisfies ContractJsonRpcRequest
-		const res = await tevm.request(req)
-		expect(res.error.code).toMatchSnapshot()
-		expect(res.error.message).toMatchSnapshot()
+		const error = await tevm.request(req).catch((e) => e)
+		expect(error.code).toMatchSnapshot()
+		expect(error.message).toMatchSnapshot()
 	})
 
 	it('should execute a contractCall request via using tevm_call', async () => {
-		const tevm = await createMemoryClient({
+		const tevm = createMemoryClient({
 			fork: forkConfig,
 		})
 		const req = {
@@ -106,25 +100,19 @@ describe('Tevm.request', async () => {
 			id: 1,
 		} as const satisfies ContractJsonRpcRequest
 		const res = await tevm.request(req)
-		if ('error' in res) {
-			throw new Error(res.error.message)
-		}
 		expect(
 			decodeFunctionResult({
-				data: res.result.rawData,
+				data: res.rawData,
 				abi: DaiContract.abi,
 				functionName: 'balanceOf',
 			}) satisfies bigint,
 		).toBe(1n)
-		expect(hexToBigInt(res.result.executionGasUsed)).toBe(2447n)
-		expect(res.result.logs).toEqual([])
-		expect(res.method).toBe(req.method)
-		expect(res.id).toBe(req.id)
-		expect(res.jsonrpc).toBe(req.jsonrpc)
+		expect(hexToBigInt(res.executionGasUsed)).toBe(2447n)
+		expect(res.logs).toEqual([])
 	})
 
 	it('should execute a call request', async () => {
-		const tevm = await createMemoryClient()
+		const tevm = createMemoryClient()
 		const balance = 0x11111111n
 		const address1 = '0x1f420000000000000000000000000000000000ff'
 		const address2 = '0x2f420000000000000000000000000000000000ff'
@@ -148,29 +136,28 @@ describe('Tevm.request', async () => {
 			method: 'tevm_call',
 			id: 1,
 		})
-		expect(res.jsonrpc).toBe('2.0')
-		expect(res.id).toBe(1)
-		expect(res.method).toBe('tevm_call')
-		if ('error' in res) throw new Error(res.error.message)
-		expect(res.result.errors).toBeUndefined()
-		expect(res.result.rawData).toEqual('0x')
+		expect(res.rawData).toEqual('0x')
 		expect(
-			(await tevm.vm.stateManager.getAccount(new Address(hexToBytes(address2))))
-				?.balance,
+			(
+				await (
+					await tevm.getVm()
+				).stateManager.getAccount(new Address(hexToBytes(address2)))
+			)?.balance,
 		).toBe(transferAmount)
 		expect(
-			(await tevm.vm.stateManager.getAccount(new Address(hexToBytes(address1))))
-				?.balance,
+			(
+				await (
+					await tevm.getVm()
+				).stateManager.getAccount(new Address(hexToBytes(address1)))
+			)?.balance,
 		).toBe(balance - transferAmount)
 	})
 
 	it('Should execute a putAccount request', async () => {
-		const tevm = await createMemoryClient()
+		const tevm = createMemoryClient()
 		const balance = 0x11111111n
 		const res = await tevm.request({
-			jsonrpc: '2.0',
 			method: 'tevm_setAccount',
-			id: 1,
 			params: [
 				{
 					address: '0xff420000000000000000000000000000000000ff',
@@ -180,7 +167,9 @@ describe('Tevm.request', async () => {
 			],
 		})
 		expect(res).not.toHaveProperty('error')
-		const account = await tevm.vm.stateManager.getAccount(
+		const account = await (
+			await tevm.getVm()
+		).stateManager.getAccount(
 			Address.fromString('0xff420000000000000000000000000000000000ff'),
 		)
 		expect(account?.balance).toEqual(balance)

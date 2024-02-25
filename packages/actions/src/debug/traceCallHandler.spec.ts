@@ -300,7 +300,7 @@ describe('traceCallHandler', () => {
 		// deploy contract
 		expect(
 			(
-				await setAccountHandler({ vm })({
+				await setAccountHandler({ getVm: async () => vm })({
 					address: ERC20_ADDRESS,
 					deployedBytecode: ERC20_BYTECODE,
 					nonce: parseEther('1000'),

@@ -13,12 +13,10 @@ describe(createHttpClient.name, () => {
 	let client: TevmClient
 
 	beforeAll(async () => {
-		tevm = await createMemoryClient({
+		tevm = createMemoryClient({
 			fork: { url: 'https://mainnet.optimism.io' },
 		})
-		server = createServer(createHttpHandler({ request: tevm.request })).listen(
-			6969,
-		)
+		server = createServer(createHttpHandler(tevm)).listen(6969)
 		client = createHttpClient({ url: 'http://localhost:6969' })
 	})
 
@@ -66,9 +64,9 @@ describe(createHttpClient.name, () => {
 
 			expect(errors).toBeUndefined()
 
-			const resultAccount = await tevm.vm.stateManager.getAccount(
-				Address.fromString(account.address),
-			)
+			const resultAccount = await (
+				await tevm.getVm()
+			).stateManager.getAccount(Address.fromString(account.address))
 			if (!resultAccount) throw new Error('Account not found')
 			expect(bytesToHex(resultAccount.codeHash)).toEqual(
 				keccak256(account.deployedBytecode),
@@ -81,7 +79,7 @@ describe(createHttpClient.name, () => {
 		})
 
 		it('can use tevm.eth.chainId', async () => {
-			expect(await client.eth.chainId()).toEqual(900n)
+			expect(await client.eth.chainId()).toEqual(10n)
 		})
 
 		it('can use tevm.eth.getCode', async () => {

@@ -1,10 +1,11 @@
 import { createMemoryClient } from '../createMemoryClient.js'
 import { EVMErrorMessage } from '@ethereumjs/evm'
+import { hexToBigInt } from '@tevm/utils'
 import { describe, expect, test } from 'bun:test'
 
 describe('allowUnlimitedContractSize option', () => {
 	test('Should fail a evm call request if the file is too large', async () => {
-		const tevm = await createMemoryClient()
+		const tevm = createMemoryClient()
 		const address1 = '0x1f420000000000000000000000000000000000ff'
 
 		/*
@@ -14,49 +15,40 @@ describe('allowUnlimitedContractSize option', () => {
 		*/
 		const data = '0x62FFFFFF6000F3'
 
-		const res = await tevm.request({
-			id: 1,
-			method: 'tevm_call',
-			jsonrpc: '2.0',
-			params: [
-				{
-					caller: address1,
-					data,
-					value: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffff',
-					gas: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffff',
-					skipBalance: true,
-				},
-			],
+		const res = await tevm.call({
+			caller: address1,
+			data,
+			value: hexToBigInt(
+				'0xffffffffffffffffffffffffffffffffffffffffffffffffffffff',
+			),
+			gas: hexToBigInt(
+				'0xffffffffffffffffffffffffffffffffffffffffffffffffffffff',
+			),
+			skipBalance: true,
+			throwOnFail: false,
 		})
-		expect('error' in res && res.error.code).toBe(
-			EVMErrorMessage.CODESIZE_EXCEEDS_MAXIMUM,
-		)
+		expect(res.errors?.[0]?.name).toBe(EVMErrorMessage.CODESIZE_EXCEEDS_MAXIMUM)
 	})
 
 	test('Should deploy large files if allowUnlimitedContractSize option is true', async () => {
-		const tevm = await createMemoryClient({
+		const tevm = createMemoryClient({
 			allowUnlimitedContractSize: true,
 		})
 		const address1 = '0x1f420000000000000000000000000000000000ff'
 
 		const data = '0x62FFFFFF6000F3'
-		const res = await tevm.request({
-			id: 1,
-			method: 'tevm_call',
-			jsonrpc: '2.0',
-			params: [
-				{
-					caller: address1,
-					data,
-					value: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffff',
-					gas: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffff',
-					skipBalance: true,
-				},
-			],
+		const res = await tevm.call({
+			caller: address1,
+			data,
+			value: hexToBigInt(
+				'0xffffffffffffffffffffffffffffffffffffffffffffffffffffff',
+			),
+			gas: hexToBigInt(
+				'0xffffffffffffffffffffffffffffffffffffffffffffffffffffff',
+			),
+			skipBalance: true,
+			throwOnFail: false,
 		})
-		expect(res.jsonrpc).toBe('2.0')
-		expect(res.id).toBe(1)
-		expect(res.method).toBe('tevm_call')
-		expect(res).not.toHaveProperty('error')
+		expect(res).not.toHaveProperty('errors')
 	})
 })

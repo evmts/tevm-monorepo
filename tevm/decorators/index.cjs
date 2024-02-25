@@ -4,53 +4,25 @@ var decorators = require('@tevm/decorators');
 
 
 
-Object.defineProperty(exports, "callAction", {
+Object.defineProperty(exports, "eip1993EventEmitter", {
   enumerable: true,
-  get: function () { return decorators.callAction; }
-});
-Object.defineProperty(exports, "contractAction", {
-  enumerable: true,
-  get: function () { return decorators.contractAction; }
-});
-Object.defineProperty(exports, "dumpStateAction", {
-  enumerable: true,
-  get: function () { return decorators.dumpStateAction; }
+  get: function () { return decorators.eip1993EventEmitter; }
 });
 Object.defineProperty(exports, "ethActions", {
   enumerable: true,
   get: function () { return decorators.ethActions; }
 });
-Object.defineProperty(exports, "getAccountAction", {
+Object.defineProperty(exports, "requestEip1193", {
   enumerable: true,
-  get: function () { return decorators.getAccountAction; }
-});
-Object.defineProperty(exports, "loadStateAction", {
-  enumerable: true,
-  get: function () { return decorators.loadStateAction; }
-});
-Object.defineProperty(exports, "request", {
-  enumerable: true,
-  get: function () { return decorators.request; }
-});
-Object.defineProperty(exports, "requestActions", {
-  enumerable: true,
-  get: function () { return decorators.requestActions; }
-});
-Object.defineProperty(exports, "requestBulk", {
-  enumerable: true,
-  get: function () { return decorators.requestBulk; }
-});
-Object.defineProperty(exports, "scriptAction", {
-  enumerable: true,
-  get: function () { return decorators.scriptAction; }
-});
-Object.defineProperty(exports, "setAccountAction", {
-  enumerable: true,
-  get: function () { return decorators.setAccountAction; }
+  get: function () { return decorators.requestEip1193; }
 });
 Object.defineProperty(exports, "tevmActions", {
   enumerable: true,
   get: function () { return decorators.tevmActions; }
+});
+Object.defineProperty(exports, "tevmSend", {
+  enumerable: true,
+  get: function () { return decorators.tevmSend; }
 });
 //# sourceMappingURL=out.js.map
 //# sourceMappingURL=index.cjs.map
