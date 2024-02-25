@@ -267,7 +267,7 @@ JSON-RPC response for `anvil_dropTransaction` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:433
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:439
 
 ___
 
@@ -293,7 +293,7 @@ JSON-RPC procedure for `anvil_dropTransaction`
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:718
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:724
 
 ___
 
@@ -305,7 +305,7 @@ JSON-RPC request for `anvil_dumpState` method
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:92
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:98
 
 ___
 
@@ -317,7 +317,7 @@ JSON-RPC response for `anvil_dumpState` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:457
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:463
 
 ___
 
@@ -343,7 +343,7 @@ JSON-RPC procedure for `anvil_dumpState`
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:742
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:748
 
 ___
 
@@ -367,7 +367,7 @@ JSON-RPC response for `anvil_getAutomine` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:421
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:427
 
 ___
 
@@ -393,7 +393,7 @@ JSON-RPC procedure for `anvil_getAutomine`
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:706
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:712
 
 ___
 
@@ -417,7 +417,7 @@ JSON-RPC response for `anvil_impersonateAccount` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:409
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:415
 
 ___
 
@@ -443,7 +443,7 @@ JSON-RPC procedure for `anvil_impersonateAccount`
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:694
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:700
 
 ___
 
@@ -453,7 +453,7 @@ ___
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:101
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:107
 
 ___
 
@@ -465,7 +465,7 @@ JSON-RPC request for `anvil_loadState` method
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:98
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:104
 
 ___
 
@@ -477,7 +477,7 @@ JSON-RPC response for `anvil_loadState` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:461
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:467
 
 ___
 
@@ -503,7 +503,7 @@ JSON-RPC procedure for `anvil_loadState`
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:746
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:752
 
 ___
 
@@ -527,7 +527,7 @@ JSON-RPC response for `anvil_mine` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:425
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:431
 
 ___
 
@@ -553,7 +553,7 @@ JSON-RPC procedure for `anvil_mine`
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:710
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:716
 
 ___
 
@@ -583,7 +583,7 @@ A mapping of `anvil_*` method names to their request type
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:855
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:861
 
 ___
 
@@ -607,7 +607,7 @@ JSON-RPC response for `anvil_reset` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:429
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:435
 
 ___
 
@@ -633,7 +633,7 @@ JSON-RPC procedure for `anvil_reset`
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:714
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:720
 
 ___
 
@@ -663,13 +663,13 @@ A mapping of `anvil_*` method names to their return type
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:874
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:880
 
 ___
 
 ### AnvilSetBalanceJsonRpcRequest
 
-Ƭ **AnvilSetBalanceJsonRpcRequest**: [`JsonRpcRequest`](index.md#jsonrpcrequest)\<``"anvil_setBalance"``, [[`SerializeToJson`](procedures_types.md#serializetojson)\<[`AnvilSetBalanceParams`](actions_types.md#anvilsetbalanceparams)\>]\>
+Ƭ **AnvilSetBalanceJsonRpcRequest**: [`JsonRpcRequest`](index.md#jsonrpcrequest)\<``"anvil_setBalance"``, [\{ `address`: [`Address`](index.md#address) ; `balance`: [`Hex`](index.md#hex)  }]\>
 
 JSON-RPC request for `anvil_setBalance` method
 
@@ -687,7 +687,7 @@ JSON-RPC response for `anvil_setBalance` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:437
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:443
 
 ___
 
@@ -713,7 +713,7 @@ JSON-RPC procedure for `anvil_setBalance`
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:722
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:728
 
 ___
 
@@ -725,7 +725,7 @@ JSON-RPC request for `anvil_setChainId` method
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:86
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:92
 
 ___
 
@@ -737,7 +737,7 @@ JSON-RPC response for `anvil_setChainId` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:453
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:459
 
 ___
 
@@ -763,7 +763,7 @@ JSON-RPC procedure for `anvil_setChainId`
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:738
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:744
 
 ___
 
@@ -775,7 +775,7 @@ JSON-RPC request for `anvil_setCode` method
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:68
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:71
 
 ___
 
@@ -787,7 +787,7 @@ JSON-RPC response for `anvil_setCode` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:441
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:447
 
 ___
 
@@ -813,19 +813,19 @@ JSON-RPC procedure for `anvil_setCode`
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:726
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:732
 
 ___
 
 ### AnvilSetNonceJsonRpcRequest
 
-Ƭ **AnvilSetNonceJsonRpcRequest**: [`JsonRpcRequest`](index.md#jsonrpcrequest)\<``"anvil_setNonce"``, [[`SerializeToJson`](procedures_types.md#serializetojson)\<[`AnvilSetNonceParams`](actions_types.md#anvilsetnonceparams)\>]\>
+Ƭ **AnvilSetNonceJsonRpcRequest**: [`JsonRpcRequest`](index.md#jsonrpcrequest)\<``"anvil_setNonce"``, [\{ `address`: [`Address`](index.md#address) ; `nonce`: [`Hex`](index.md#hex)  }]\>
 
 JSON-RPC request for `anvil_setNonce` method
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:74
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:77
 
 ___
 
@@ -837,7 +837,7 @@ JSON-RPC response for `anvil_setNonce` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:445
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:451
 
 ___
 
@@ -863,7 +863,7 @@ JSON-RPC procedure for `anvil_setNonce`
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:730
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:736
 
 ___
 
@@ -875,7 +875,7 @@ JSON-RPC request for `anvil_setStorageAt` method
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:80
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:86
 
 ___
 
@@ -887,7 +887,7 @@ JSON-RPC response for `anvil_setStorageAt` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:449
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:455
 
 ___
 
@@ -913,7 +913,7 @@ JSON-RPC procedure for `anvil_setStorageAt`
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:734
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:740
 
 ___
 
@@ -937,7 +937,7 @@ JSON-RPC response for `anvil_stopImpersonatingAccount` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:413
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:419
 
 ___
 
@@ -963,7 +963,7 @@ JSON-RPC procedure for `anvil_stopImpersonatingAccount`
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:698
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:704
 
 ___
 
@@ -1005,7 +1005,7 @@ Call JSON-RPC procedure executes a call against the tevm EVM
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:751
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:757
 
 ___
 
@@ -1017,7 +1017,7 @@ JSON-RPC request for `tevm_call`
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:106
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:112
 
 ___
 
@@ -1029,7 +1029,7 @@ JSON-RPC response for `tevm_call` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:466
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:472
 
 ___
 
@@ -1043,7 +1043,7 @@ Since ContractJsonRpcProcedure is a quality of life wrapper around CallJsonRpcPr
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:758
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:764
 
 ___
 
@@ -1056,7 +1056,7 @@ in favor of overloading tevm_call
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:114
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:120
 
 ___
 
@@ -1069,7 +1069,7 @@ in favor of overloading tevm_call
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:472
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:478
 
 ___
 
@@ -1079,7 +1079,7 @@ ___
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:128
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:134
 
 ___
 
@@ -1098,7 +1098,7 @@ A mapping of `debug_*` method names to their request type
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:893
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:899
 
 ___
 
@@ -1117,7 +1117,7 @@ A mapping of `debug_*` method names to their return type
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:901
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:907
 
 ___
 
@@ -1129,7 +1129,7 @@ JSON-RPC request for `debug_traceCall` method
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:125
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:131
 
 ___
 
@@ -1141,7 +1141,7 @@ JSON-RPC response for `debug_traceCall` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:482
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:488
 
 ___
 
@@ -1167,7 +1167,7 @@ JSON-RPC procedure for `debug_traceCall`
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:767
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:773
 
 ___
 
@@ -1179,7 +1179,7 @@ JSON-RPC request for `debug_traceTransaction` method
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:119
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:125
 
 ___
 
@@ -1191,7 +1191,7 @@ JSON-RPC response for `debug_traceTransaction` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:478
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:484
 
 ___
 
@@ -1217,7 +1217,7 @@ JSON-RPC procedure for `debug_traceTransaction`
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:763
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:769
 
 ___
 
@@ -1255,7 +1255,7 @@ console.log(result) // { jsonrpc: '2.0', id: 1, method: 'tevm_dumpState', result
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:781
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:787
 
 ___
 
@@ -1267,7 +1267,7 @@ The JSON-RPC request for the `tevm_dumpState` method
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:133
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:139
 
 ___
 
@@ -1279,7 +1279,7 @@ The response to the `tevm_dumpState` JSON-RPC request.
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:487
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:493
 
 ___
 
@@ -1303,7 +1303,7 @@ ___
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:783
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:789
 
 ___
 
@@ -1315,7 +1315,7 @@ JSON-RPC request for `eth_accounts` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:167
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:173
 
 ___
 
@@ -1327,7 +1327,7 @@ JSON-RPC response for `eth_accounts` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:494
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:500
 
 ___
 
@@ -1351,7 +1351,7 @@ ___
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:784
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:790
 
 ___
 
@@ -1363,7 +1363,7 @@ JSON-RPC request for `eth_blockNumber` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:171
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:177
 
 ___
 
@@ -1375,7 +1375,7 @@ JSON-RPC response for `eth_blockNumber` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:498
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:504
 
 ___
 
@@ -1399,7 +1399,7 @@ ___
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:785
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:791
 
 ___
 
@@ -1411,7 +1411,7 @@ JSON-RPC request for `eth_call` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:175
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:181
 
 ___
 
@@ -1423,7 +1423,7 @@ JSON-RPC response for `eth_call` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:502
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:508
 
 ___
 
@@ -1447,7 +1447,7 @@ ___
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:786
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:792
 
 ___
 
@@ -1459,7 +1459,7 @@ JSON-RPC request for `eth_chainId` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:179
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:185
 
 ___
 
@@ -1471,7 +1471,7 @@ JSON-RPC response for `eth_chainId` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:506
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:512
 
 ___
 
@@ -1495,7 +1495,7 @@ ___
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:787
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:793
 
 ___
 
@@ -1507,7 +1507,7 @@ JSON-RPC request for `eth_coinbase` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:183
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:189
 
 ___
 
@@ -1519,7 +1519,7 @@ JSON-RPC response for `eth_coinbase` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:510
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:516
 
 ___
 
@@ -1543,7 +1543,7 @@ ___
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:788
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:794
 
 ___
 
@@ -1555,7 +1555,7 @@ JSON-RPC request for `eth_estimateGas` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:187
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:193
 
 ___
 
@@ -1567,7 +1567,7 @@ JSON-RPC response for `eth_estimateGas` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:514
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:520
 
 ___
 
@@ -1591,7 +1591,7 @@ ___
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:790
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:796
 
 ___
 
@@ -1603,7 +1603,7 @@ JSON-RPC request for `eth_gasPrice` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:195
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:201
 
 ___
 
@@ -1615,7 +1615,7 @@ JSON-RPC response for `eth_gasPrice` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:522
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:528
 
 ___
 
@@ -1639,7 +1639,7 @@ ___
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:791
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:797
 
 ___
 
@@ -1651,7 +1651,7 @@ JSON-RPC request for `eth_getBalance` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:199
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:205
 
 ___
 
@@ -1663,7 +1663,7 @@ JSON-RPC response for `eth_getBalance` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:526
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:532
 
 ___
 
@@ -1687,7 +1687,7 @@ ___
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:792
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:798
 
 ___
 
@@ -1699,7 +1699,7 @@ JSON-RPC request for `eth_getBlockByHash` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:206
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:212
 
 ___
 
@@ -1711,7 +1711,7 @@ JSON-RPC response for `eth_getBlockByHash` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:530
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:536
 
 ___
 
@@ -1735,7 +1735,7 @@ ___
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:793
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:799
 
 ___
 
@@ -1747,7 +1747,7 @@ JSON-RPC request for `eth_getBlockByNumber` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:210
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:216
 
 ___
 
@@ -1759,7 +1759,7 @@ JSON-RPC response for `eth_getBlockByNumber` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:534
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:540
 
 ___
 
@@ -1783,7 +1783,7 @@ ___
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:794
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:800
 
 ___
 
@@ -1795,7 +1795,7 @@ JSON-RPC request for `eth_getBlockTransactionCountByHash` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:214
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:220
 
 ___
 
@@ -1807,7 +1807,7 @@ JSON-RPC response for `eth_getBlockTransactionCountByHash` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:538
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:544
 
 ___
 
@@ -1831,7 +1831,7 @@ ___
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:795
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:801
 
 ___
 
@@ -1843,7 +1843,7 @@ JSON-RPC request for `eth_getBlockTransactionCountByNumber` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:218
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:224
 
 ___
 
@@ -1855,7 +1855,7 @@ JSON-RPC response for `eth_getBlockTransactionCountByNumber` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:542
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:548
 
 ___
 
@@ -1879,7 +1879,7 @@ ___
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:796
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:802
 
 ___
 
@@ -1891,7 +1891,7 @@ JSON-RPC request for `eth_getCode` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:222
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:228
 
 ___
 
@@ -1903,7 +1903,7 @@ JSON-RPC response for `eth_getCode` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:546
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:552
 
 ___
 
@@ -1927,7 +1927,7 @@ ___
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:797
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:803
 
 ___
 
@@ -1939,7 +1939,7 @@ JSON-RPC request for `eth_getFilterChanges` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:226
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:232
 
 ___
 
@@ -1951,7 +1951,7 @@ JSON-RPC response for `eth_getFilterChanges` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:550
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:556
 
 ___
 
@@ -1975,7 +1975,7 @@ ___
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:798
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:804
 
 ___
 
@@ -1987,7 +1987,7 @@ JSON-RPC request for `eth_getFilterLogs` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:232
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:238
 
 ___
 
@@ -1999,7 +1999,7 @@ JSON-RPC response for `eth_getFilterLogs` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:554
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:560
 
 ___
 
@@ -2023,7 +2023,7 @@ ___
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:799
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:805
 
 ___
 
@@ -2035,7 +2035,7 @@ JSON-RPC request for `eth_getLogs` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:238
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:244
 
 ___
 
@@ -2047,7 +2047,7 @@ JSON-RPC response for `eth_getLogs` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:558
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:564
 
 ___
 
@@ -2071,7 +2071,7 @@ ___
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:800
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:806
 
 ___
 
@@ -2083,7 +2083,7 @@ JSON-RPC request for `eth_getStorageAt` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:244
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:250
 
 ___
 
@@ -2095,7 +2095,7 @@ JSON-RPC response for `eth_getStorageAt` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:562
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:568
 
 ___
 
@@ -2119,7 +2119,7 @@ ___
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:805
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:811
 
 ___
 
@@ -2131,7 +2131,7 @@ JSON-RPC request for `eth_getTransactionByBlockHashAndIndex` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:264
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:270
 
 ___
 
@@ -2143,7 +2143,7 @@ JSON-RPC response for `eth_getTransactionByBlockHashAndIndex` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:582
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:588
 
 ___
 
@@ -2167,7 +2167,7 @@ ___
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:806
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:812
 
 ___
 
@@ -2179,7 +2179,7 @@ JSON-RPC request for `eth_getTransactionByBlockNumberAndIndex` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:268
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:274
 
 ___
 
@@ -2191,7 +2191,7 @@ JSON-RPC response for `eth_getTransactionByBlockNumberAndIndex` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:586
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:592
 
 ___
 
@@ -2215,7 +2215,7 @@ ___
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:804
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:810
 
 ___
 
@@ -2227,7 +2227,7 @@ JSON-RPC request for `eth_getTransactionByHash` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:260
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:266
 
 ___
 
@@ -2239,7 +2239,7 @@ JSON-RPC response for `eth_getTransactionByHash` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:578
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:584
 
 ___
 
@@ -2263,7 +2263,7 @@ ___
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:801
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:807
 
 ___
 
@@ -2275,7 +2275,7 @@ JSON-RPC request for `eth_getTransactionCount` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:248
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:254
 
 ___
 
@@ -2287,7 +2287,7 @@ JSON-RPC response for `eth_getTransactionCount` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:566
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:572
 
 ___
 
@@ -2311,7 +2311,7 @@ ___
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:807
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:813
 
 ___
 
@@ -2323,7 +2323,7 @@ JSON-RPC request for `eth_getTransactionReceipt` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:272
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:278
 
 ___
 
@@ -2335,7 +2335,7 @@ JSON-RPC response for `eth_getTransactionReceipt` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:590
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:596
 
 ___
 
@@ -2359,7 +2359,7 @@ ___
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:808
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:814
 
 ___
 
@@ -2371,7 +2371,7 @@ JSON-RPC request for `eth_getUncleByBlockHashAndIndex` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:278
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:284
 
 ___
 
@@ -2383,7 +2383,7 @@ JSON-RPC response for `eth_getUncleByBlockHashAndIndex` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:594
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:600
 
 ___
 
@@ -2407,7 +2407,7 @@ ___
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:809
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:815
 
 ___
 
@@ -2419,7 +2419,7 @@ JSON-RPC request for `eth_getUncleByBlockNumberAndIndex` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:282
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:288
 
 ___
 
@@ -2431,7 +2431,7 @@ JSON-RPC response for `eth_getUncleByBlockNumberAndIndex` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:598
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:604
 
 ___
 
@@ -2455,7 +2455,7 @@ ___
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:802
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:808
 
 ___
 
@@ -2467,7 +2467,7 @@ JSON-RPC request for `eth_getUncleCountByBlockHash` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:252
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:258
 
 ___
 
@@ -2479,7 +2479,7 @@ JSON-RPC response for `eth_getUncleCountByBlockHash` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:570
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:576
 
 ___
 
@@ -2503,7 +2503,7 @@ ___
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:803
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:809
 
 ___
 
@@ -2515,7 +2515,7 @@ JSON-RPC request for `eth_getUncleCountByBlockNumber` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:256
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:262
 
 ___
 
@@ -2527,7 +2527,7 @@ JSON-RPC response for `eth_getUncleCountByBlockNumber` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:574
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:580
 
 ___
 
@@ -2551,7 +2551,7 @@ ___
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:789
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:795
 
 ___
 
@@ -2563,7 +2563,7 @@ JSON-RPC request for `eth_hashrate` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:191
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:197
 
 ___
 
@@ -2575,7 +2575,7 @@ JSON-RPC response for `eth_hashrate` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:518
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:524
 
 ___
 
@@ -2585,7 +2585,7 @@ ___
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:347
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:353
 
 ___
 
@@ -2609,7 +2609,7 @@ ___
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:810
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:816
 
 ___
 
@@ -2621,7 +2621,7 @@ JSON-RPC request for `eth_mining` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:286
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:292
 
 ___
 
@@ -2633,7 +2633,7 @@ JSON-RPC response for `eth_mining` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:602
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:608
 
 ___
 
@@ -2657,7 +2657,7 @@ ___
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:818
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:824
 
 ___
 
@@ -2669,7 +2669,7 @@ JSON-RPC request for `eth_newBlockFilter` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:336
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:342
 
 ___
 
@@ -2681,7 +2681,7 @@ JSON-RPC response for `eth_newBlockFilter` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:649
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:655
 
 ___
 
@@ -2705,7 +2705,7 @@ ___
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:817
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:823
 
 ___
 
@@ -2717,7 +2717,7 @@ JSON-RPC request for `eth_newFilter` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:332
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:338
 
 ___
 
@@ -2729,7 +2729,7 @@ JSON-RPC response for `eth_newFilter` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:645
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:651
 
 ___
 
@@ -2753,7 +2753,7 @@ ___
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:819
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:825
 
 ___
 
@@ -2765,7 +2765,7 @@ JSON-RPC request for `eth_newPendingTransactionFilter` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:340
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:346
 
 ___
 
@@ -2777,7 +2777,7 @@ JSON-RPC response for `eth_newPendingTransactionFilter` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:653
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:659
 
 ___
 
@@ -2801,7 +2801,7 @@ ___
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:811
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:817
 
 ___
 
@@ -2813,7 +2813,7 @@ JSON-RPC request for `eth_protocolVersion` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:290
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:296
 
 ___
 
@@ -2825,7 +2825,7 @@ JSON-RPC response for `eth_protocolVersion` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:606
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:612
 
 ___
 
@@ -2880,7 +2880,7 @@ A mapping of `eth_*` method names to their request type
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:909
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:915
 
 ___
 
@@ -2935,7 +2935,7 @@ A mapping of `eth_*` method names to their return type
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:953
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:959
 
 ___
 
@@ -2959,7 +2959,7 @@ ___
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:812
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:818
 
 ___
 
@@ -2971,7 +2971,7 @@ JSON-RPC request for `eth_sendRawTransaction` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:294
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:300
 
 ___
 
@@ -2983,7 +2983,7 @@ JSON-RPC response for `eth_sendRawTransaction` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:610
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:616
 
 ___
 
@@ -3007,7 +3007,7 @@ ___
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:813
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:819
 
 ___
 
@@ -3019,7 +3019,7 @@ JSON-RPC request for `eth_sendTransaction` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:300
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:306
 
 ___
 
@@ -3031,7 +3031,7 @@ JSON-RPC response for `eth_sendTransaction` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:614
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:620
 
 ___
 
@@ -3055,7 +3055,7 @@ ___
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:814
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:820
 
 ___
 
@@ -3067,7 +3067,7 @@ JSON-RPC request for `eth_sign` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:306
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:312
 
 ___
 
@@ -3079,7 +3079,7 @@ JSON-RPC response for `eth_sign` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:618
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:624
 
 ___
 
@@ -3103,7 +3103,7 @@ ___
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:815
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:821
 
 ___
 
@@ -3115,7 +3115,7 @@ JSON-RPC request for `eth_signTransaction` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:313
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:319
 
 ___
 
@@ -3127,7 +3127,7 @@ JSON-RPC response for `eth_signTransaction` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:622
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:628
 
 ___
 
@@ -3151,7 +3151,7 @@ ___
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:816
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:822
 
 ___
 
@@ -3163,7 +3163,7 @@ JSON-RPC request for `eth_syncing` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:328
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:334
 
 ___
 
@@ -3175,7 +3175,7 @@ JSON-RPC response for `eth_syncing` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:626
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:632
 
 ___
 
@@ -3199,7 +3199,7 @@ ___
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:820
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:826
 
 ___
 
@@ -3211,7 +3211,7 @@ JSON-RPC request for `eth_uninstallFilter` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:344
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:350
 
 ___
 
@@ -3223,7 +3223,7 @@ JSON-RPC response for `eth_uninstallFilter` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:657
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:663
 
 ___
 
@@ -3249,7 +3249,7 @@ GetAccount JSON-RPC tevm procedure puts an account or contract into the tevm sta
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:825
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:831
 
 ___
 
@@ -3261,7 +3261,7 @@ JSON-RPC request for `tevm_getAccount` method
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:352
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:358
 
 ___
 
@@ -3273,7 +3273,7 @@ JSON-RPC response for `tevm_getAccount` method
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:662
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:668
 
 ___
 
@@ -3296,7 +3296,7 @@ the transaction call object for methods like `eth_call`
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:138
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:144
 
 ___
 
@@ -3385,7 +3385,7 @@ console.log(result) // { jsonrpc: '2.0', id: 1, method: 'tevm_loadState', result
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:840
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:846
 
 ___
 
@@ -3397,7 +3397,7 @@ The JSON-RPC request for the `tevm_loadState` method
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:365
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:371
 
 ___
 
@@ -3409,7 +3409,7 @@ Response of the `tevm_loadState` RPC method.
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:667
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:673
 
 ___
 
@@ -3435,7 +3435,7 @@ Procedure for handling script JSON-RPC requests
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:850
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:856
 
 ___
 
@@ -3447,7 +3447,7 @@ The JSON-RPC request for the `tevm_script` method
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:372
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:378
 
 ___
 
@@ -3475,7 +3475,7 @@ const respose: ScriptJsonRpcResponse = await tevm.request({
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:684
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:690
 
 ___
 
@@ -3509,7 +3509,7 @@ The parameters for the `tevm_loadState` method
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:359
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:365
 
 ___
 
@@ -3535,7 +3535,7 @@ SetAccount JSON-RPC tevm procedure sets an account into the tevm state
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:845
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:851
 
 ___
 
@@ -3547,7 +3547,7 @@ JSON-RPC request for `tevm_setAccount` method
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:395
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:401
 
 ___
 
@@ -3559,7 +3559,7 @@ JSON-RPC response for `tevm_setAccount` method
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:689
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:695
 
 ___
 
@@ -3598,7 +3598,7 @@ A mapping of `tevm_*` method names to their request type
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:997
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:1003
 
 ___
 
@@ -3621,4 +3621,4 @@ A mapping of `tevm_*` method names to their return type
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:1018
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:1024

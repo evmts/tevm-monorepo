@@ -297,7 +297,7 @@ ___
 
 ### BaseClient
 
-Ƭ **BaseClient**\<`TMode`, `TExtended`\>: \{ `extend`: \<TExtension\>(`decorator`: (`client`: [`BaseClient`](index.md#baseclient)\<`TMode`, `TExtended`\>) => `TExtension`) => [`BaseClient`](index.md#baseclient)\<`TMode`, `TExtended` & `TExtension`\> ; `forkUrl?`: `string` ; `getChainId`: () => `Promise`\<`number`\> ; `getVm`: () => `Promise`\<`TevmVm`\> ; `mode`: `TMode` ; `ready`: () => `Promise`\<``true``\>  } & `TExtended`
+Ƭ **BaseClient**\<`TMode`, `TExtended`\>: \{ `extend`: \<TExtension\>(`decorator`: (`client`: [`BaseClient`](index.md#baseclient)\<`TMode`, `TExtended`\>) => `TExtension`) => [`BaseClient`](index.md#baseclient)\<`TMode`, `TExtended` & `TExtension`\> ; `forkUrl?`: `string` ; `getChainId`: () => `Promise`\<`number`\> ; `getVm`: () => `Promise`\<`TevmVm`\> ; `mode`: `TMode` ; `ready`: () => `Promise`\<``true``\> ; `setChainId`: (`chainId`: `number`) => `void`  } & `TExtended`
 
 The base client used by Tevm. Add extensions to add additional functionality
 
@@ -1393,7 +1393,7 @@ type BlockNumberRequestType = JsonRpcRequestTypeFromMethod<'eth_blockNumber'>
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:1013
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:1019
 
 ___
 
@@ -1435,7 +1435,7 @@ type BlockNumberReturnType = JsonRpcReturnTypeFromMethod<'eth_blockNumber'>
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:1034
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:1040
 
 ___
 
@@ -1996,7 +1996,7 @@ response - [EthGetBalanceJsonRpcResponse](procedures_types.md#ethgetbalancejsonr
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:1202
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:1208
 
 ___
 
@@ -2009,7 +2009,7 @@ A Tevm JSON-RPC request
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:403
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:409
 
 ___
 
@@ -2120,7 +2120,7 @@ response - [EthGetBalanceJsonRpcResponse](procedures_types.md#ethgetbalancejsonr
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:1116
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:1122
 
 ___
 

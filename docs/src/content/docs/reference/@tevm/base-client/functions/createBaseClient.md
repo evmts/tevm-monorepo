@@ -130,6 +130,18 @@ Creates the base instance of a memory client
 > await client.ready()
 > ```
 >
+> ### setChainId
+>
+> > **`readonly`** **setChainId**: (`chainId`) => `void`
+>
+> Sets the chain id of the current EVM
+>
+> Sets the chain id of the current EVM
+>
+> #### Parameters
+>
+> ▪ **chainId**: `number`
+>
 
 ## Example
 
