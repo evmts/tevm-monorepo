@@ -9,7 +9,6 @@ import type {
 	AnvilResetParams,
 	AnvilSetChainIdParams,
 	AnvilSetCodeParams,
-	AnvilSetNonceParams,
 	AnvilSetStorageAtParams,
 	AnvilStopImpersonatingAccountParams,
 } from '@tevm/actions-types'
