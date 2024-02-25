@@ -1,4 +1,10 @@
-import type { Address, BlockOverrideSet, StateOverrideSet, BlockParam, Hex } from '../common/index.js'
+import type {
+	Address,
+	BlockOverrideSet,
+	BlockParam,
+	Hex,
+	StateOverrideSet,
+} from '../common/index.js'
 import type { BaseParams } from './BaseParams.js'
 
 /**
@@ -94,11 +100,11 @@ export type BaseCallParams<TThrowOnFail extends boolean = boolean> =
 		 * }
 		 * ```
 		 */
-		stateOverrideSet?: StateOverrideSet,
+		stateOverrideSet?: StateOverrideSet
 		/**
 		 * The fields of this optional object customize the block as part of which the call is simulated. The object contains the following fields:
 		 * This option cannot be used when `createTransaction` is set to `true`
 		 * Setting the block number to past block will not run in the context of that blocks state. To do that fork that block number first.
 		 */
-		blockOverrideSet?: BlockOverrideSet,
+		blockOverrideSet?: BlockOverrideSet
 	}

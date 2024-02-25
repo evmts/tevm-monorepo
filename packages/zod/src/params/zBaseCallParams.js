@@ -1,4 +1,9 @@
-import { zAddress, zBlockOverrideSet, zHex, zStateOverrideSet } from '../common/index.js'
+import {
+	zAddress,
+	zBlockOverrideSet,
+	zHex,
+	zStateOverrideSet,
+} from '../common/index.js'
 import { zBaseParams } from './zBaseParams.js'
 import { zBlockParam } from './zBlockParam.js'
 import { z } from 'zod'
@@ -70,13 +75,19 @@ export const zBaseCallParams = zBaseParams
 			.optional()
 			.describe('Block override set for the call'),
 	})
-	.refine(params => {
-		if (params.createTransaction && params.stateOverrideSet) {
-			return false
-		}
-		if (params.createTransaction && params.blockOverrideSet) {
-			return false
-		}
-		return true
-	}, { message: 'Cannot have stateOverrideSet or blockOverrideSet for createTransaction' })
+	.refine(
+		(params) => {
+			if (params.createTransaction && params.stateOverrideSet) {
+				return false
+			}
+			if (params.createTransaction && params.blockOverrideSet) {
+				return false
+			}
+			return true
+		},
+		{
+			message:
+				'Cannot have stateOverrideSet or blockOverrideSet for createTransaction',
+		},
+	)
 	.describe('Properties shared across call-like actions')

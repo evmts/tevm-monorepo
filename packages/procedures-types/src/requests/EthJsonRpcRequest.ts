@@ -59,7 +59,7 @@ export type EthCallJsonRpcRequest = JsonRpcRequest<
 		tx: JsonRpcTransaction,
 		tag: BlockTag | Hex,
 		stateOverrideSet?: SerializeToJson<BaseCallParams['stateOverrideSet']>,
-		blockOverrideSet?: SerializeToJson<BaseCallParams['blockOverrideSet']>
+		blockOverrideSet?: SerializeToJson<BaseCallParams['blockOverrideSet']>,
 	]
 >
 // eth_chainId

@@ -8,8 +8,10 @@ import type { JsonRpcRequest } from '@tevm/jsonrpc'
 export type CallJsonRpcRequest = JsonRpcRequest<
 	'tevm_call',
 	[
-		params: SerializeToJson<Omit<CallParams, 'stateOverrideSet' | 'blockOverrideSet'>>,
+		params: SerializeToJson<
+			Omit<CallParams, 'stateOverrideSet' | 'blockOverrideSet'>
+		>,
 		stateOverrideSet?: SerializeToJson<CallParams['stateOverrideSet']>,
-		blockOverrideSet?: SerializeToJson<CallParams['blockOverrideSet']>
+		blockOverrideSet?: SerializeToJson<CallParams['blockOverrideSet']>,
 	]
 >

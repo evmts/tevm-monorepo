@@ -54,8 +54,8 @@ export type EthCallParams = {
 	 * The block number hash or block tag
 	 */
 	blockTag?: BlockParam
-	stateOverrideSet?: StateOverrideSet,
-	blockOverride?: BlockOverrideSet,
+	stateOverrideSet?: StateOverrideSet
+	blockOverride?: BlockOverrideSet
 }
 
 // eth_chainId

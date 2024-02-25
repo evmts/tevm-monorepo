@@ -31,18 +31,19 @@ export const zSetAccountParams = zBaseParams
 		state: z
 			.record(zHex, zHex)
 			.optional()
-			.describe(
-				'Overrides entire state with provided state'
-			),
+			.describe('Overrides entire state with provided state'),
 		stateDiff: z
 			.record(zHex, zHex)
 			.optional()
 			.describe('Patches the state with the provided state'),
 	})
-	.refine(data => {
-		if (data.state && data.stateDiff) {
-			return false
-		}
-		return true
-	}, { message: 'Cannot have both state and stateDiff' })
+	.refine(
+		(data) => {
+			if (data.state && data.stateDiff) {
+				return false
+			}
+			return true
+		},
+		{ message: 'Cannot have both state and stateDiff' },
+	)
 	.describe('Params to create an account or contract')

@@ -1,6 +1,6 @@
 // state override description and api is adapted from geth https://geth.ethereum.org/docs/interacting-with-geth/rpc/ns-eth
 
-import type { Address, Hex } from "@tevm/utils"
+import type { Address, Hex } from '@tevm/utils'
 
 /**
  * The state override set is an optional address-to-state mapping, where each entry specifies some state to be ephemerally overridden prior to executing the call. Each address maps to an object containing:
@@ -27,30 +27,26 @@ import type { Address, Hex } from "@tevm/utils"
  * ```
  */
 export type StateOverrideSet = {
-  [address: Address]: {
-    /**
-     * Fake balance to set for the account before executing the call.
-     */
-    balance?: bigint
-    /**
-     * Fake nonce to set for the account before executing the call.
-     */
-    nonce?: bigint
-    /**
-     * Fake code to set for the account before executing the call.
-     */
-    code?: Hex
-    /**
-     * Fake key-value mapping to override all slots in the account storage before executing the calls
-     */
-    state?: {
-      [key: Hex]: Hex
-    }
-    /**
-     * Fake key-value mapping to override individual slots in the account storage before executing the calls
-     */
-    stateDiff?: {
-      [key: Hex]: Hex
-    }
-  }
+	[address: Address]: {
+		/**
+		 * Fake balance to set for the account before executing the call.
+		 */
+		balance?: bigint
+		/**
+		 * Fake nonce to set for the account before executing the call.
+		 */
+		nonce?: bigint
+		/**
+		 * Fake code to set for the account before executing the call.
+		 */
+		code?: Hex
+		/**
+		 * Fake key-value mapping to override all slots in the account storage before executing the calls
+		 */
+		state?: Record<Hex, Hex>
+		/**
+		 * Fake key-value mapping to override individual slots in the account storage before executing the calls
+		 */
+		stateDiff?: Record<Hex, Hex>
+	}
 }
