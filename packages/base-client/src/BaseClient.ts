@@ -18,6 +18,10 @@ export type BaseClient<
 	 */
 	readonly getChainId: () => Promise<number>
 	/**
+	 * Sets the chain id of the current EVM
+	 */
+	readonly setChainId: (chainId: number) => void
+	/**
 	 * Fork url if the EVM is forked
 	 * @example
 	 * ```ts

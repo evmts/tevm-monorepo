@@ -938,7 +938,7 @@ ___
 
 #### Defined in
 
-evmts-monorepo/packages/decorators/types/eip1193/EIP1193Events.d.ts:21
+evmts-monorepo/packages/decorators/dist/index.d.ts:274
 
 ___
 
@@ -977,7 +977,7 @@ ___
 
 #### Defined in
 
-evmts-monorepo/packages/decorators/types/eip1193/EIP1993RequestFn.d.ts:6
+evmts-monorepo/packages/decorators/dist/index.d.ts:297
 
 ___
 
@@ -995,7 +995,7 @@ The default EIP1193 compatable provider request method with enabled tevm methods
 
 #### Defined in
 
-evmts-monorepo/packages/decorators/types/request/Eip1193RequestProvider.d.ts:8
+evmts-monorepo/packages/decorators/dist/index.d.ts:1637
 
 ___
 
@@ -1045,7 +1045,7 @@ These actions correspond 1:1 eith the public ethereum JSON-RPC api
 
 #### Defined in
 
-evmts-monorepo/packages/decorators/types/actions/EthActionsApi.d.ts:7
+evmts-monorepo/packages/decorators/dist/index.d.ts:15
 
 ___
 
@@ -1796,7 +1796,7 @@ The actions api is the high level API for interacting with a Tevm client similar
 
 #### Defined in
 
-evmts-monorepo/packages/decorators/types/actions/TevmActionsApi.d.ts:6
+evmts-monorepo/packages/decorators/dist/index.d.ts:98
 
 ___
 

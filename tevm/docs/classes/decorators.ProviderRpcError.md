@@ -54,7 +54,7 @@ Error.constructor
 
 #### Defined in
 
-evmts-monorepo/packages/decorators/types/eip1193/EIP1193Events.d.ts:12
+evmts-monorepo/packages/decorators/dist/index.d.ts:265
 
 ## Properties
 
@@ -78,7 +78,7 @@ ___
 
 #### Defined in
 
-evmts-monorepo/packages/decorators/types/eip1193/EIP1193Events.d.ts:10
+evmts-monorepo/packages/decorators/dist/index.d.ts:263
 
 ___
 
@@ -88,7 +88,7 @@ ___
 
 #### Defined in
 
-evmts-monorepo/packages/decorators/types/eip1193/EIP1193Events.d.ts:11
+evmts-monorepo/packages/decorators/dist/index.d.ts:264
 
 ___
 
