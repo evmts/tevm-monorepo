@@ -84,6 +84,10 @@ const client = createMemoryClient()
 await client.ready()
 ```
 
+▪ **client.setChainId**: (`chainId`) => `void`
+
+Sets the chain id of the current EVM
+
 ## Returns
 
 ## Example
@@ -105,7 +109,7 @@ const accountResponse = await tevm.request({
 
 ## Source
 
-[procedures/src/requestProcedure.js:51](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/requestProcedure.js#L51)
+[procedures/src/requestProcedure.js:52](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures/src/requestProcedure.js#L52)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

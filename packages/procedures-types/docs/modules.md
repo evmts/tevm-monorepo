@@ -222,7 +222,7 @@ JSON-RPC request for `anvil_dropTransaction` method
 
 #### Defined in
 
-[requests/AnvilJsonRpcRequest.ts:69](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/AnvilJsonRpcRequest.ts#L69)
+[requests/AnvilJsonRpcRequest.ts:68](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/AnvilJsonRpcRequest.ts#L68)
 
 ___
 
@@ -272,7 +272,7 @@ JSON-RPC request for `anvil_dumpState` method
 
 #### Defined in
 
-[requests/AnvilJsonRpcRequest.ts:118](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/AnvilJsonRpcRequest.ts#L118)
+[requests/AnvilJsonRpcRequest.ts:117](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/AnvilJsonRpcRequest.ts#L117)
 
 ___
 
@@ -322,7 +322,7 @@ JSON-RPC request for `anvil_getAutomine` method
 
 #### Defined in
 
-[requests/AnvilJsonRpcRequest.ts:45](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/AnvilJsonRpcRequest.ts#L45)
+[requests/AnvilJsonRpcRequest.ts:44](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/AnvilJsonRpcRequest.ts#L44)
 
 ___
 
@@ -372,7 +372,7 @@ JSON-RPC request for `anvil_impersonateAccount` method
 
 #### Defined in
 
-[requests/AnvilJsonRpcRequest.ts:23](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/AnvilJsonRpcRequest.ts#L23)
+[requests/AnvilJsonRpcRequest.ts:22](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/AnvilJsonRpcRequest.ts#L22)
 
 ___
 
@@ -420,7 +420,7 @@ ___
 
 #### Defined in
 
-[requests/AnvilJsonRpcRequest.ts:132](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/AnvilJsonRpcRequest.ts#L132)
+[requests/AnvilJsonRpcRequest.ts:131](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/AnvilJsonRpcRequest.ts#L131)
 
 ___
 
@@ -432,7 +432,7 @@ JSON-RPC request for `anvil_loadState` method
 
 #### Defined in
 
-[requests/AnvilJsonRpcRequest.ts:127](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/AnvilJsonRpcRequest.ts#L127)
+[requests/AnvilJsonRpcRequest.ts:126](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/AnvilJsonRpcRequest.ts#L126)
 
 ___
 
@@ -482,7 +482,7 @@ JSON-RPC request for `anvil_mine` method
 
 #### Defined in
 
-[requests/AnvilJsonRpcRequest.ts:53](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/AnvilJsonRpcRequest.ts#L53)
+[requests/AnvilJsonRpcRequest.ts:52](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/AnvilJsonRpcRequest.ts#L52)
 
 ___
 
@@ -562,7 +562,7 @@ JSON-RPC request for `anvil_reset` method
 
 #### Defined in
 
-[requests/AnvilJsonRpcRequest.ts:61](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/AnvilJsonRpcRequest.ts#L61)
+[requests/AnvilJsonRpcRequest.ts:60](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/AnvilJsonRpcRequest.ts#L60)
 
 ___
 
@@ -636,13 +636,13 @@ ___
 
 ### AnvilSetBalanceJsonRpcRequest
 
-Ƭ **AnvilSetBalanceJsonRpcRequest**: `JsonRpcRequest`\<``"anvil_setBalance"``, [[`SerializeToJson`](modules.md#serializetojson)\<`AnvilSetBalanceParams`\>]\>
+Ƭ **AnvilSetBalanceJsonRpcRequest**: `JsonRpcRequest`\<``"anvil_setBalance"``, [\{ `address`: `Address` ; `balance`: `Hex`  }]\>
 
 JSON-RPC request for `anvil_setBalance` method
 
 #### Defined in
 
-[requests/AnvilJsonRpcRequest.ts:77](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/AnvilJsonRpcRequest.ts#L77)
+[requests/AnvilJsonRpcRequest.ts:76](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/AnvilJsonRpcRequest.ts#L76)
 
 ___
 
@@ -692,7 +692,7 @@ JSON-RPC request for `anvil_setChainId` method
 
 #### Defined in
 
-[requests/AnvilJsonRpcRequest.ts:109](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/AnvilJsonRpcRequest.ts#L109)
+[requests/AnvilJsonRpcRequest.ts:108](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/AnvilJsonRpcRequest.ts#L108)
 
 ___
 
@@ -742,7 +742,7 @@ JSON-RPC request for `anvil_setCode` method
 
 #### Defined in
 
-[requests/AnvilJsonRpcRequest.ts:85](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/AnvilJsonRpcRequest.ts#L85)
+[requests/AnvilJsonRpcRequest.ts:84](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/AnvilJsonRpcRequest.ts#L84)
 
 ___
 
@@ -786,13 +786,13 @@ ___
 
 ### AnvilSetNonceJsonRpcRequest
 
-Ƭ **AnvilSetNonceJsonRpcRequest**: `JsonRpcRequest`\<``"anvil_setNonce"``, [[`SerializeToJson`](modules.md#serializetojson)\<`AnvilSetNonceParams`\>]\>
+Ƭ **AnvilSetNonceJsonRpcRequest**: `JsonRpcRequest`\<``"anvil_setNonce"``, [\{ `address`: `Address` ; `nonce`: `Hex`  }]\>
 
 JSON-RPC request for `anvil_setNonce` method
 
 #### Defined in
 
-[requests/AnvilJsonRpcRequest.ts:93](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/AnvilJsonRpcRequest.ts#L93)
+[requests/AnvilJsonRpcRequest.ts:92](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/AnvilJsonRpcRequest.ts#L92)
 
 ___
 
@@ -842,7 +842,7 @@ JSON-RPC request for `anvil_setStorageAt` method
 
 #### Defined in
 
-[requests/AnvilJsonRpcRequest.ts:101](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/AnvilJsonRpcRequest.ts#L101)
+[requests/AnvilJsonRpcRequest.ts:100](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/AnvilJsonRpcRequest.ts#L100)
 
 ___
 
@@ -892,7 +892,7 @@ JSON-RPC request for `anvil_stopImpersonatingAccount` method
 
 #### Defined in
 
-[requests/AnvilJsonRpcRequest.ts:31](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/AnvilJsonRpcRequest.ts#L31)
+[requests/AnvilJsonRpcRequest.ts:30](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/AnvilJsonRpcRequest.ts#L30)
 
 ___
 

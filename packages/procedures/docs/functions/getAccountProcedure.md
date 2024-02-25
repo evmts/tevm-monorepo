@@ -77,6 +77,10 @@ const client = createMemoryClient()
 await client.ready()
 ```
 
+▪ **client.setChainId**: (`chainId`) => `void`
+
+Sets the chain id of the current EVM
+
 ## Returns
 
 ## Source
