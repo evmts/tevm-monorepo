@@ -9,11 +9,31 @@
 
 # tevm-monorepo
 
-Tevm is an ethereum development toolkit that offers
+Tevm is an ethereum development toolkit that enables solidity compilation and EVM execution directly in your JavaScript environments
 
-- Arbitrary EVM execution and forking akin to [anvil](https://github.com/foundry-rs/foundry/tree/master/crates/anvil)
-- A powerful solidity scripting environment akin to [foundry scripts](https://book.getfoundry.sh/tutorials/solidity-scripting)
-- Build tooling to create a smooth interface between your Solidity scripts and TypeScript code
+## Features
+
+✅ EVM simulations
+
+✅ forking akin to [anvil --fork-url](https://github.com/foundry-rs/foundry/tree/master/crates/anvil)
+
+✅ Solidity scripting akin to [foundry scripts](https://book.getfoundry.sh/tutorials/solidity-scripting)
+
+✅ Compiles contracts in JavaScript via importing solidity files
+
+✅ Runs in browser, Bun, and Node.js
+
+✅ Extensions for usage with Viem, Ethers.js, Next.js, and Express.
+
+✅ Compiles contracts in JavaScript via importing solidity files
+
+✅ Compiles contracts in JavaScript via importing solidity files
+
+🏗️ EVM Tracing (coming in upcoming release)
+
+🏗️ React hook library
+
+🏗️ First class vue and svelte support
 
 Tevm runs in all environments
 
