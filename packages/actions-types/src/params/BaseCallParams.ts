@@ -100,5 +100,5 @@ export type BaseCallParams<TThrowOnFail extends boolean = boolean> =
 		 * This option cannot be used when `createTransaction` is set to `true`
 		 * Setting the block number to past block will not run in the context of that blocks state. To do that fork that block number first.
 		 */
-		blockOverride?: BlockOverrideSet,
+		blockOverrideSet?: BlockOverrideSet,
 	}
