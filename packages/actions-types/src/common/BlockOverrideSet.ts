@@ -11,7 +11,6 @@ export type BlockOverrideSet = {
   */
   number?: bigint
   /**
-   * @deprecated
    * Fake difficulty. Note post-merge difficulty should be 0.
    * not included as an option atm
    */
