@@ -45,5 +45,5 @@ export type GetAccountResult<ErrorType = GetAccountError> = {
 	 * Contract storage for the account
 	 * only included if `returnStorage` is set to true in the request
 	 */
-	storage: { [key: Hex]: Hex }
+	storage?: { [key: Hex]: Hex }
 }
