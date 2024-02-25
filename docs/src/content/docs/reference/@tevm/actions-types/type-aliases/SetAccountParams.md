@@ -48,6 +48,18 @@ Contract bytecode to set account to
 
 Nonce to set account to
 
+### state
+
+> **state**?: `Record`\<[`Hex`](/reference/tevm/utils/type-aliases/hex/), [`Hex`](/reference/tevm/utils/type-aliases/hex/)\>
+
+key-value mapping to override all slots in the account storage before executing the calls
+
+### stateDiff
+
+> **stateDiff**?: `Record`\<[`Hex`](/reference/tevm/utils/type-aliases/hex/), [`Hex`](/reference/tevm/utils/type-aliases/hex/)\>
+
+key-value mapping to override individual slots in the account storage before executing the calls
+
 ### storageRoot
 
 > **storageRoot**?: [`Hex`](/reference/tevm/utils/type-aliases/hex/)

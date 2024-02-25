@@ -11,6 +11,10 @@ Based on the JSON-RPC request for `eth_call` procedure
 
 ## Type declaration
 
+### blockOverride
+
+> **blockOverride**?: [`BlockOverrideSet`](/reference/tevm/actions-types/type-aliases/blockoverrideset/)
+
 ### blockTag
 
 > **blockTag**?: [`BlockParam`](/reference/tevm/actions-types/type-aliases/blockparam/)
@@ -42,6 +46,10 @@ The integer of gas provided for the transaction execution
 
 The integer of gasPrice used for each paid gas
 
+### stateOverrideSet
+
+> **stateOverrideSet**?: [`StateOverrideSet`](/reference/tevm/actions-types/type-aliases/stateoverrideset/)
+
 ### to
 
 > **to**?: [`Address`](/reference/tevm/actions-types/type-aliases/address/)
@@ -56,7 +64,7 @@ The integer of value sent with this transaction
 
 ## Source
 
-[params/EthParams.ts:24](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L24)
+[params/EthParams.ts:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L26)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

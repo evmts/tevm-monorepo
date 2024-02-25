@@ -1,5 +1,5 @@
-import { createBaseClient } from '@tevm/base-client'
 import { callHandlerOpts } from './callHandlerOpts.js'
+import { createBaseClient } from '@tevm/base-client'
 import { EthjsAddress } from '@tevm/utils'
 import { hexToBytes } from '@tevm/utils'
 import { describe, expect, it } from 'bun:test'
@@ -94,7 +94,9 @@ describe('callHandlerOpts', () => {
 		const result = await callHandlerOpts(client, {
 			blobVersionedHashes: [versionedHash],
 		})
-		expect(result.data?.blobVersionedHashes?.[0]).toEqual(hexToBytes(versionedHash))
+		expect(result.data?.blobVersionedHashes?.[0]).toEqual(
+			hexToBytes(versionedHash),
+		)
 	})
 
 	it('should handle selfdestruct', async () => {

@@ -21,7 +21,7 @@ Based on the JSON-RPC request for `eth_getUncleByBlockNumberAndIndex` procedure
 
 ## Source
 
-[params/EthParams.ts:201](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L201)
+[params/EthParams.ts:205](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L205)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

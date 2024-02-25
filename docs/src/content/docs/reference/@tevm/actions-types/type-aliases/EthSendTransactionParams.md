@@ -16,7 +16,7 @@ This API should not be used in production and may be trimmed from a public relea
 
 ## Source
 
-[params/EthParams.ts:227](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L227)
+[params/EthParams.ts:231](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L231)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

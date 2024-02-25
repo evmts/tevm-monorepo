@@ -978,7 +978,7 @@ ___
 
 ### CallJsonRpcRequest
 
-Ƭ **CallJsonRpcRequest**: `JsonRpcRequest`\<``"tevm_call"``, [[`SerializeToJson`](modules.md#serializetojson)\<`CallParams`\>]\>
+Ƭ **CallJsonRpcRequest**: `JsonRpcRequest`\<``"tevm_call"``, [params: SerializeToJson\<Omit\<CallParams, "stateOverrideSet" \| "blockOverrideSet"\>\>, stateOverrideSet?: SerializeToJson\<CallParams["stateOverrideSet"]\>, blockOverrideSet?: SerializeToJson\<CallParams["blockOverrideSet"]\>]\>
 
 JSON-RPC request for `tevm_call`
 
@@ -1372,7 +1372,7 @@ ___
 
 ### EthCallJsonRpcRequest
 
-Ƭ **EthCallJsonRpcRequest**: `JsonRpcRequest`\<``"eth_call"``, readonly [tx: JsonRpcTransaction, tag: BlockTag \| Hex]\>
+Ƭ **EthCallJsonRpcRequest**: `JsonRpcRequest`\<``"eth_call"``, readonly [tx: JsonRpcTransaction, tag: BlockTag \| Hex, stateOverrideSet?: SerializeToJson\<BaseCallParams["stateOverrideSet"]\>, blockOverrideSet?: SerializeToJson\<BaseCallParams["blockOverrideSet"]\>]\>
 
 JSON-RPC request for `eth_call` procedure
 
@@ -1426,7 +1426,7 @@ JSON-RPC request for `eth_chainId` procedure
 
 #### Defined in
 
-[requests/EthJsonRpcRequest.ts:64](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L64)
+[requests/EthJsonRpcRequest.ts:69](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L69)
 
 ___
 
@@ -1474,7 +1474,7 @@ JSON-RPC request for `eth_coinbase` procedure
 
 #### Defined in
 
-[requests/EthJsonRpcRequest.ts:72](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L72)
+[requests/EthJsonRpcRequest.ts:77](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L77)
 
 ___
 
@@ -1522,7 +1522,7 @@ JSON-RPC request for `eth_estimateGas` procedure
 
 #### Defined in
 
-[requests/EthJsonRpcRequest.ts:80](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L80)
+[requests/EthJsonRpcRequest.ts:85](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L85)
 
 ___
 
@@ -1570,7 +1570,7 @@ JSON-RPC request for `eth_gasPrice` procedure
 
 #### Defined in
 
-[requests/EthJsonRpcRequest.ts:96](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L96)
+[requests/EthJsonRpcRequest.ts:101](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L101)
 
 ___
 
@@ -1618,7 +1618,7 @@ JSON-RPC request for `eth_getBalance` procedure
 
 #### Defined in
 
-[requests/EthJsonRpcRequest.ts:104](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L104)
+[requests/EthJsonRpcRequest.ts:109](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L109)
 
 ___
 
@@ -1666,7 +1666,7 @@ JSON-RPC request for `eth_getBlockByHash` procedure
 
 #### Defined in
 
-[requests/EthJsonRpcRequest.ts:112](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L112)
+[requests/EthJsonRpcRequest.ts:117](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L117)
 
 ___
 
@@ -1714,7 +1714,7 @@ JSON-RPC request for `eth_getBlockByNumber` procedure
 
 #### Defined in
 
-[requests/EthJsonRpcRequest.ts:120](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L120)
+[requests/EthJsonRpcRequest.ts:125](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L125)
 
 ___
 
@@ -1762,7 +1762,7 @@ JSON-RPC request for `eth_getBlockTransactionCountByHash` procedure
 
 #### Defined in
 
-[requests/EthJsonRpcRequest.ts:128](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L128)
+[requests/EthJsonRpcRequest.ts:133](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L133)
 
 ___
 
@@ -1810,7 +1810,7 @@ JSON-RPC request for `eth_getBlockTransactionCountByNumber` procedure
 
 #### Defined in
 
-[requests/EthJsonRpcRequest.ts:136](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L136)
+[requests/EthJsonRpcRequest.ts:141](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L141)
 
 ___
 
@@ -1858,7 +1858,7 @@ JSON-RPC request for `eth_getCode` procedure
 
 #### Defined in
 
-[requests/EthJsonRpcRequest.ts:144](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L144)
+[requests/EthJsonRpcRequest.ts:149](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L149)
 
 ___
 
@@ -1906,7 +1906,7 @@ JSON-RPC request for `eth_getFilterChanges` procedure
 
 #### Defined in
 
-[requests/EthJsonRpcRequest.ts:152](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L152)
+[requests/EthJsonRpcRequest.ts:157](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L157)
 
 ___
 
@@ -1954,7 +1954,7 @@ JSON-RPC request for `eth_getFilterLogs` procedure
 
 #### Defined in
 
-[requests/EthJsonRpcRequest.ts:160](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L160)
+[requests/EthJsonRpcRequest.ts:165](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L165)
 
 ___
 
@@ -2002,7 +2002,7 @@ JSON-RPC request for `eth_getLogs` procedure
 
 #### Defined in
 
-[requests/EthJsonRpcRequest.ts:168](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L168)
+[requests/EthJsonRpcRequest.ts:173](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L173)
 
 ___
 
@@ -2050,7 +2050,7 @@ JSON-RPC request for `eth_getStorageAt` procedure
 
 #### Defined in
 
-[requests/EthJsonRpcRequest.ts:176](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L176)
+[requests/EthJsonRpcRequest.ts:181](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L181)
 
 ___
 
@@ -2098,7 +2098,7 @@ JSON-RPC request for `eth_getTransactionByBlockHashAndIndex` procedure
 
 #### Defined in
 
-[requests/EthJsonRpcRequest.ts:216](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L216)
+[requests/EthJsonRpcRequest.ts:221](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L221)
 
 ___
 
@@ -2146,7 +2146,7 @@ JSON-RPC request for `eth_getTransactionByBlockNumberAndIndex` procedure
 
 #### Defined in
 
-[requests/EthJsonRpcRequest.ts:224](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L224)
+[requests/EthJsonRpcRequest.ts:229](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L229)
 
 ___
 
@@ -2194,7 +2194,7 @@ JSON-RPC request for `eth_getTransactionByHash` procedure
 
 #### Defined in
 
-[requests/EthJsonRpcRequest.ts:208](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L208)
+[requests/EthJsonRpcRequest.ts:213](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L213)
 
 ___
 
@@ -2242,7 +2242,7 @@ JSON-RPC request for `eth_getTransactionCount` procedure
 
 #### Defined in
 
-[requests/EthJsonRpcRequest.ts:184](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L184)
+[requests/EthJsonRpcRequest.ts:189](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L189)
 
 ___
 
@@ -2290,7 +2290,7 @@ JSON-RPC request for `eth_getTransactionReceipt` procedure
 
 #### Defined in
 
-[requests/EthJsonRpcRequest.ts:233](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L233)
+[requests/EthJsonRpcRequest.ts:238](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L238)
 
 ___
 
@@ -2338,7 +2338,7 @@ JSON-RPC request for `eth_getUncleByBlockHashAndIndex` procedure
 
 #### Defined in
 
-[requests/EthJsonRpcRequest.ts:241](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L241)
+[requests/EthJsonRpcRequest.ts:246](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L246)
 
 ___
 
@@ -2386,7 +2386,7 @@ JSON-RPC request for `eth_getUncleByBlockNumberAndIndex` procedure
 
 #### Defined in
 
-[requests/EthJsonRpcRequest.ts:249](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L249)
+[requests/EthJsonRpcRequest.ts:254](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L254)
 
 ___
 
@@ -2434,7 +2434,7 @@ JSON-RPC request for `eth_getUncleCountByBlockHash` procedure
 
 #### Defined in
 
-[requests/EthJsonRpcRequest.ts:192](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L192)
+[requests/EthJsonRpcRequest.ts:197](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L197)
 
 ___
 
@@ -2482,7 +2482,7 @@ JSON-RPC request for `eth_getUncleCountByBlockNumber` procedure
 
 #### Defined in
 
-[requests/EthJsonRpcRequest.ts:200](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L200)
+[requests/EthJsonRpcRequest.ts:205](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L205)
 
 ___
 
@@ -2530,7 +2530,7 @@ JSON-RPC request for `eth_hashrate` procedure
 
 #### Defined in
 
-[requests/EthJsonRpcRequest.ts:88](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L88)
+[requests/EthJsonRpcRequest.ts:93](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L93)
 
 ___
 
@@ -2552,7 +2552,7 @@ ___
 
 #### Defined in
 
-[requests/EthJsonRpcRequest.ts:350](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L350)
+[requests/EthJsonRpcRequest.ts:355](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L355)
 
 ___
 
@@ -2588,7 +2588,7 @@ JSON-RPC request for `eth_mining` procedure
 
 #### Defined in
 
-[requests/EthJsonRpcRequest.ts:257](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L257)
+[requests/EthJsonRpcRequest.ts:262](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L262)
 
 ___
 
@@ -2636,7 +2636,7 @@ JSON-RPC request for `eth_newBlockFilter` procedure
 
 #### Defined in
 
-[requests/EthJsonRpcRequest.ts:329](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L329)
+[requests/EthJsonRpcRequest.ts:334](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L334)
 
 ___
 
@@ -2684,7 +2684,7 @@ JSON-RPC request for `eth_newFilter` procedure
 
 #### Defined in
 
-[requests/EthJsonRpcRequest.ts:321](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L321)
+[requests/EthJsonRpcRequest.ts:326](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L326)
 
 ___
 
@@ -2732,7 +2732,7 @@ JSON-RPC request for `eth_newPendingTransactionFilter` procedure
 
 #### Defined in
 
-[requests/EthJsonRpcRequest.ts:337](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L337)
+[requests/EthJsonRpcRequest.ts:342](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L342)
 
 ___
 
@@ -2780,7 +2780,7 @@ JSON-RPC request for `eth_protocolVersion` procedure
 
 #### Defined in
 
-[requests/EthJsonRpcRequest.ts:262](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L262)
+[requests/EthJsonRpcRequest.ts:267](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L267)
 
 ___
 
@@ -2938,7 +2938,7 @@ JSON-RPC request for `eth_sendRawTransaction` procedure
 
 #### Defined in
 
-[requests/EthJsonRpcRequest.ts:270](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L270)
+[requests/EthJsonRpcRequest.ts:275](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L275)
 
 ___
 
@@ -2986,7 +2986,7 @@ JSON-RPC request for `eth_sendTransaction` procedure
 
 #### Defined in
 
-[requests/EthJsonRpcRequest.ts:278](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L278)
+[requests/EthJsonRpcRequest.ts:283](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L283)
 
 ___
 
@@ -3034,7 +3034,7 @@ JSON-RPC request for `eth_sign` procedure
 
 #### Defined in
 
-[requests/EthJsonRpcRequest.ts:286](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L286)
+[requests/EthJsonRpcRequest.ts:291](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L291)
 
 ___
 
@@ -3082,7 +3082,7 @@ JSON-RPC request for `eth_signTransaction` procedure
 
 #### Defined in
 
-[requests/EthJsonRpcRequest.ts:294](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L294)
+[requests/EthJsonRpcRequest.ts:299](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L299)
 
 ___
 
@@ -3130,7 +3130,7 @@ JSON-RPC request for `eth_syncing` procedure
 
 #### Defined in
 
-[requests/EthJsonRpcRequest.ts:313](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L313)
+[requests/EthJsonRpcRequest.ts:318](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L318)
 
 ___
 
@@ -3178,7 +3178,7 @@ JSON-RPC request for `eth_uninstallFilter` procedure
 
 #### Defined in
 
-[requests/EthJsonRpcRequest.ts:345](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L345)
+[requests/EthJsonRpcRequest.ts:350](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L350)
 
 ___
 
@@ -3456,7 +3456,7 @@ ___
 
 ### ScriptJsonRpcRequest
 
-Ƭ **ScriptJsonRpcRequest**: `JsonRpcRequest`\<``"tevm_script"``, [[`SerializeToJson`](modules.md#serializetojson)\<`BaseCallParams`\> & \{ `data`: `Hex` ; `deployedBytecode`: `Hex`  }]\>
+Ƭ **ScriptJsonRpcRequest**: `JsonRpcRequest`\<``"tevm_script"``, [params: SerializeToJson\<Omit\<BaseCallParams, "stateOverrideSet" \| "blockOverrideSet"\>\> & Object, stateOverrideSet?: SerializeToJson\<BaseCallParams["stateOverrideSet"]\>, blockOverrideSet?: SerializeToJson\<BaseCallParams["blockOverrideSet"]\>]\>
 
 The JSON-RPC request for the `tevm_script` method
 
