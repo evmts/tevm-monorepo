@@ -15,7 +15,9 @@ export type ScriptJsonRpcRequest = JsonRpcRequest<
 	 * the same way normal contract calls are serialized into functionData
 	 */
 	[
-		SerializeToJson<BaseCallParams> & {
+		params: SerializeToJson<
+			Omit<BaseCallParams, 'stateOverrideSet' | 'blockOverrideSet'>
+		> & {
 			/**
 			 * The raw call data
 			 */
@@ -25,5 +27,7 @@ export type ScriptJsonRpcRequest = JsonRpcRequest<
 			 */
 			deployedBytecode: Hex
 		},
+		stateOverrideSet?: SerializeToJson<BaseCallParams['stateOverrideSet']>,
+		blockOverrideSet?: SerializeToJson<BaseCallParams['blockOverrideSet']>,
 	]
 >

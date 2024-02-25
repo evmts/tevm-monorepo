@@ -1,9 +1,11 @@
 import type {
 	Address,
+	BlockOverrideSet,
 	BlockParam,
 	EmptyParams,
 	FilterParams,
 	Hex,
+	StateOverrideSet,
 } from '../common/index.js'
 import type { CallParams } from './CallParams.js'
 
@@ -52,6 +54,8 @@ export type EthCallParams = {
 	 * The block number hash or block tag
 	 */
 	blockTag?: BlockParam
+	stateOverrideSet?: StateOverrideSet
+	blockOverride?: BlockOverrideSet
 }
 
 // eth_chainId

@@ -1,4 +1,4 @@
-import { zAddress, zBytecode, zStorageRoot } from '../common/index.js'
+import { zAddress, zBytecode, zHex, zStorageRoot } from '../common/index.js'
 import { zBaseParams } from './zBaseParams.js'
 import { z } from 'zod'
 
@@ -28,5 +28,22 @@ export const zSetAccountParams = zBaseParams
 			.describe(
 				'The storage root to set at the account address as a 32 byte hex strign',
 			),
+		state: z
+			.record(zHex, zHex)
+			.optional()
+			.describe('Overrides entire state with provided state'),
+		stateDiff: z
+			.record(zHex, zHex)
+			.optional()
+			.describe('Patches the state with the provided state'),
 	})
+	.refine(
+		(data) => {
+			if (data.state && data.stateDiff) {
+				return false
+			}
+			return true
+		},
+		{ message: 'Cannot have both state and stateDiff' },
+	)
 	.describe('Params to create an account or contract')

@@ -9,6 +9,48 @@ import { hexToBigInt, numberToHex } from '@tevm/utils'
 export const callProcedure = (client) => async (request) => {
 	const { errors = [], ...result } = await callHandler(client)({
 		throwOnFail: false,
+		...(request.params[1]
+			? {
+					stateOverrideSet: Object.fromEntries(
+						Object.entries(request.params[1]).map(([address, state]) => [
+							address,
+							{
+								...(state.code ? { code: state.code } : {}),
+								...(state.balance
+									? { balance: hexToBigInt(state.balance) }
+									: {}),
+								...(state.nonce ? { nonce: hexToBigInt(state.nonce) } : {}),
+								...(state.state ? { state: state.state } : {}),
+								...(state.stateDiff ? { stateDiff: state.stateDiff } : {}),
+							},
+						]),
+					),
+			  }
+			: {}),
+		...(request.params[2]
+			? {
+					blockOverrideSet: {
+						...(request.params[2].blobBaseFee
+							? { blobBaseFee: hexToBigInt(request.params[2].blobBaseFee) }
+							: {}),
+						...(request.params[2].baseFee
+							? { baseFee: hexToBigInt(request.params[2].baseFee) }
+							: {}),
+						...(request.params[2].gasLimit
+							? { gasLimit: hexToBigInt(request.params[2].gasLimit) }
+							: {}),
+						...(request.params[2].coinbase
+							? { coinbase: request.params[2].coinbase }
+							: {}),
+						...(request.params[2].time
+							? { time: hexToBigInt(request.params[2].time) }
+							: {}),
+						...(request.params[2].number
+							? { number: hexToBigInt(request.params[2].number) }
+							: {}),
+					},
+			  }
+			: {}),
 		...(request.params[0].deployedBytecode
 			? { deployedBytecode: request.params[0].deployedBytecode }
 			: {}),

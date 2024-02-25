@@ -15,4 +15,19 @@ export const zContractParams = zBaseCallParams
 			.describe('The arguments to pass to the function'),
 		functionName: z.string().describe('The name of the function to call'),
 	})
+	.refine(
+		(params) => {
+			if (params.createTransaction && params.stateOverrideSet) {
+				return false
+			}
+			if (params.createTransaction && params.blockOverrideSet) {
+				return false
+			}
+			return true
+		},
+		{
+			message:
+				'Cannot have stateOverrideSet or blockOverrideSet for createTransaction',
+		},
+	)
 	.describe('Params to execute a contract method in the tevm EVM')

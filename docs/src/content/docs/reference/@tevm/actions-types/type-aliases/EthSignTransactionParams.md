@@ -63,7 +63,7 @@ Integer of the value sent with this transaction, in Wei.
 
 ## Source
 
-[params/EthParams.ts:239](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L239)
+[params/EthParams.ts:243](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L243)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

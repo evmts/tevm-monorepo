@@ -5,7 +5,7 @@ prev: false
 title: "zContractParams"
 ---
 
-> **`const`** **zContractParams**: `ZodObject`\<`object`, `"strip"`, `ZodTypeAny`, `object`, `object`\>
+> **`const`** **zContractParams**: `ZodEffects`\<`ZodObject`\<`object`, `"strip"`, `ZodTypeAny`, `object`, `object`\>, `object`, `object`\>
 
 Zod validator for a valid contract action
 

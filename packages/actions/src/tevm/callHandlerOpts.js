@@ -1,16 +1,86 @@
+import { setAccountHandler } from '../index.js'
 import { EthjsAddress } from '@tevm/utils'
 import { hexToBytes } from '@tevm/utils'
 
 /**
  * Parses user provided params into ethereumjs options to pass into the EVM
+ * @param {Pick<import('@tevm/base-client').BaseClient, 'getVm'>} client
  * @param {import('@tevm/actions-types').CallParams} params
- * @returns {Parameters<import('@tevm/evm').Evm['runCall']>[0]}
+ * @returns {Promise<{data?: Parameters<import('@tevm/evm').Evm['runCall']>[0], errors?: Array<Error>}>}
  */
-export const callHandlerOpts = (params) => {
+export const callHandlerOpts = async (client, params) => {
 	/**
 	 * @type {Parameters<import('@tevm/evm').Evm['runCall']>[0]}
 	 */
 	const opts = {}
+
+	// handle block overrides
+	if (params.blockOverrideSet) {
+		const vm = await client.getVm()
+		// TODO this is a known bug we need to implement better support for block tags
+		// We are purposefully ignoring this until the block creation is implemented
+		const header = await vm.blockchain.getCanonicalHeadHeader()
+		opts.block = {
+			header: {
+				coinbase:
+					params.blockOverrideSet.coinbase !== undefined
+						? EthjsAddress.fromString(params.blockOverrideSet.coinbase)
+						: header.coinbase,
+				number:
+					params.blockOverrideSet.number !== undefined
+						? BigInt(params.blockOverrideSet.number)
+						: header.number,
+				difficulty: header.difficulty,
+				prevRandao: header.prevRandao,
+				gasLimit:
+					params.blockOverrideSet.gasLimit !== undefined
+						? BigInt(params.blockOverrideSet.gasLimit)
+						: header.gasLimit,
+				timestamp:
+					params.blockOverrideSet.time !== undefined
+						? BigInt(params.blockOverrideSet.time)
+						: header.timestamp,
+				baseFeePerGas:
+					params.blockOverrideSet.baseFee !== undefined
+						? BigInt(params.blockOverrideSet.baseFee)
+						: header.baseFeePerGas ?? BigInt(0),
+				cliqueSigner() {
+					return EthjsAddress.fromString(`0x${'00'.repeat(20)}`)
+				},
+				getBlobGasPrice() {
+					if (params.blockOverrideSet?.blobBaseFee !== undefined) {
+						return BigInt(params.blockOverrideSet.blobBaseFee)
+					}
+					return header.getBlobGasPrice()
+				},
+			},
+		}
+	}
+
+	/**
+	 * @type {Array<Error>}
+	 */
+	const errors = []
+
+	// handle state overrides
+	if (params.stateOverrideSet) {
+		for (const [address, state] of Object.entries(params.stateOverrideSet)) {
+			const res = await setAccountHandler(client)({
+				address: /** @type import('@tevm/utils').Address*/ (address),
+				...(state.nonce !== undefined ? { nonce: state.nonce } : {}),
+				...(state.balance !== undefined ? { balance: state.balance } : {}),
+				...(state.code !== undefined ? { code: state.code } : {}),
+				...(state.state !== undefined ? { state: state.state } : {}),
+				...(state.stateDiff !== undefined
+					? { stateDiff: state.stateDiff }
+					: {}),
+				throwOnFail: false,
+			})
+			if (res.errors?.length) {
+				errors.push(...res.errors)
+			}
+		}
+	}
 
 	if (params.to) {
 		opts.to = EthjsAddress.fromString(params.to)
@@ -56,5 +126,5 @@ export const callHandlerOpts = (params) => {
 		opts.gasLimit = BigInt(params.gas)
 	}
 
-	return opts
+	return { data: opts, errors }
 }

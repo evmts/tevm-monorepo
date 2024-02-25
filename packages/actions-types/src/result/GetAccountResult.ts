@@ -41,4 +41,9 @@ export type GetAccountResult<ErrorType = GetAccountError> = {
 	 * True if account is empty
 	 */
 	isEmpty: boolean
+	/**
+	 * Contract storage for the account
+	 * only included if `returnStorage` is set to true in the request
+	 */
+	storage?: { [key: Hex]: Hex }
 }

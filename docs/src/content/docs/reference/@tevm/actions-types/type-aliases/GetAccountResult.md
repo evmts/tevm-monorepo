@@ -65,6 +65,17 @@ True if account is empty
 
 Nonce to set account to
 
+### storage
+
+> **storage**?: `object`
+
+Contract storage for the account
+only included if `returnStorage` is set to true in the request
+
+#### Index signature
+
+ \[`key`: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)\]: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
+
 ### storageRoot
 
 > **storageRoot**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
