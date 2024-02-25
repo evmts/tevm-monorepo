@@ -76,6 +76,7 @@ export const getAccountHandler =
 				res?.codeHash !== undefined
 					? bytesToHex(await vm.stateManager.getContractCode(address))
 					: '0x'
+
 			return {
 				// TODO some of these fields are not in the api and should be added to @tevm/actions-types
 				address: params.address,
@@ -86,6 +87,13 @@ export const getAccountHandler =
 				deployedBytecode: code,
 				nonce: res.nonce,
 				storageRoot: bytesToHex(res.storageRoot),
+				...(params.returnStorage
+					? {
+							storage: /** @type any*/ (
+								await vm.stateManager.dumpStorage(address)
+							),
+					  }
+					: {}),
 			}
 		} catch (e) {
 			errors.push(

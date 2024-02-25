@@ -65,6 +65,8 @@ export type {
 export type {
 	Abi,
 	BlockParam,
+	BlockOverrideSet,
+	StateOverrideSet,
 	Address,
 	Hex,
 	BlockTag,

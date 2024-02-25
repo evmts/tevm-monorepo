@@ -1,5 +1,5 @@
 import type { SerializeToJson } from '../utils/SerializeToJson.js'
-import type { FilterParams } from '@tevm/actions-types'
+import type { BaseCallParams, FilterParams } from '@tevm/actions-types'
 import type { JsonRpcRequest } from '@tevm/jsonrpc'
 import type { Address, BlockTag, Hex } from '@tevm/utils'
 
@@ -55,7 +55,12 @@ export type EthBlockNumberJsonRpcRequest = JsonRpcRequest<
  */
 export type EthCallJsonRpcRequest = JsonRpcRequest<
 	'eth_call',
-	readonly [tx: JsonRpcTransaction, tag: BlockTag | Hex]
+	readonly [
+		tx: JsonRpcTransaction,
+		tag: BlockTag | Hex,
+		stateOverrideSet?: SerializeToJson<BaseCallParams['stateOverrideSet']>,
+		blockOverrideSet?: SerializeToJson<BaseCallParams['blockOverrideSet']>,
+	]
 >
 // eth_chainId
 /**

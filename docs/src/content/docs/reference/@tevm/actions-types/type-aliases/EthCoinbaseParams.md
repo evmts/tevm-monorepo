@@ -11,7 +11,7 @@ Based on the JSON-RPC request for `eth_coinbase` procedure
 
 ## Source
 
-[params/EthParams.ts:66](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L66)
+[params/EthParams.ts:70](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L70)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

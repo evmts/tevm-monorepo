@@ -269,7 +269,11 @@ JSON-RPC response for `anvil_dropTransaction` procedure
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:450
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:448
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -295,7 +299,11 @@ JSON-RPC procedure for `anvil_dropTransaction`
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:735
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:733
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -319,7 +327,11 @@ JSON-RPC response for `anvil_dumpState` procedure
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:474
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:472
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -345,7 +357,11 @@ JSON-RPC procedure for `anvil_dumpState`
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:759
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:757
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -369,7 +385,11 @@ JSON-RPC response for `anvil_getAutomine` procedure
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:438
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:436
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -395,7 +415,11 @@ JSON-RPC procedure for `anvil_getAutomine`
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:723
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:721
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -419,7 +443,11 @@ JSON-RPC response for `anvil_impersonateAccount` procedure
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:422
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:424
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -445,7 +473,11 @@ JSON-RPC procedure for `anvil_impersonateAccount`
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:711
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:709
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -479,7 +511,11 @@ JSON-RPC response for `anvil_loadState` procedure
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:478
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:476
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -505,7 +541,11 @@ JSON-RPC procedure for `anvil_loadState`
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:763
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:761
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -529,7 +569,11 @@ JSON-RPC response for `anvil_mine` procedure
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:442
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:440
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -555,7 +599,11 @@ JSON-RPC procedure for `anvil_mine`
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:727
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:725
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -585,7 +633,11 @@ A mapping of `anvil_*` method names to their request type
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:872
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:870
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -609,7 +661,11 @@ JSON-RPC response for `anvil_reset` procedure
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:446
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:444
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -635,7 +691,11 @@ JSON-RPC procedure for `anvil_reset`
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:731
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:729
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -666,7 +726,11 @@ A mapping of `anvil_*` method names to their return type
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:891
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:889
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -690,7 +754,11 @@ JSON-RPC response for `anvil_setBalance` procedure
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:454
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:452
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -716,7 +784,11 @@ JSON-RPC procedure for `anvil_setBalance`
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:739
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:737
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -740,7 +812,11 @@ JSON-RPC response for `anvil_setChainId` procedure
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:470
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:468
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -766,7 +842,11 @@ JSON-RPC procedure for `anvil_setChainId`
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:755
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:753
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -790,7 +870,11 @@ JSON-RPC response for `anvil_setCode` procedure
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:458
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:456
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -816,6 +900,7 @@ JSON-RPC procedure for `anvil_setCode`
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:743
 
 ___
@@ -842,6 +927,9 @@ JSON-RPC response for `anvil_setCoinbase` procedure
 #### Defined in
 
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:430
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:741
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -865,7 +953,11 @@ JSON-RPC response for `anvil_setNonce` procedure
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:462
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:460
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -891,7 +983,11 @@ JSON-RPC procedure for `anvil_setNonce`
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:747
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:745
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -915,7 +1011,11 @@ JSON-RPC response for `anvil_setStorageAt` procedure
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:466
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:464
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -941,7 +1041,11 @@ JSON-RPC procedure for `anvil_setStorageAt`
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:751
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:749
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -965,7 +1069,11 @@ JSON-RPC response for `anvil_stopImpersonatingAccount` procedure
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:426
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:428
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -991,7 +1099,11 @@ JSON-RPC procedure for `anvil_stopImpersonatingAccount`
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:715
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:713
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -1033,13 +1145,17 @@ Call JSON-RPC procedure executes a call against the tevm EVM
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:768
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:766
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
 ### CallJsonRpcRequest
 
-Ƭ **CallJsonRpcRequest**: [`JsonRpcRequest`](index.md#jsonrpcrequest)\<``"tevm_call"``, [[`SerializeToJson`](procedures_types.md#serializetojson)\<[`CallParams`](index.md#callparams)\>]\>
+Ƭ **CallJsonRpcRequest**: [`JsonRpcRequest`](index.md#jsonrpcrequest)\<``"tevm_call"``, [params: SerializeToJson\<Omit\<CallParams, "stateOverrideSet" \| "blockOverrideSet"\>\>, stateOverrideSet?: SerializeToJson\<CallParams["stateOverrideSet"]\>, blockOverrideSet?: SerializeToJson\<CallParams["blockOverrideSet"]\>]\>
 
 JSON-RPC request for `tevm_call`
 
@@ -1057,7 +1173,11 @@ JSON-RPC response for `tevm_call` procedure
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:483
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:481
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -1071,7 +1191,11 @@ Since ContractJsonRpcProcedure is a quality of life wrapper around CallJsonRpcPr
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:775
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:773
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -1084,7 +1208,11 @@ in favor of overloading tevm_call
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:127
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:122
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -1097,7 +1225,11 @@ in favor of overloading tevm_call
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:489
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:487
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -1107,7 +1239,11 @@ ___
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:141
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:136
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -1126,7 +1262,11 @@ A mapping of `debug_*` method names to their request type
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:911
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:908
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -1145,7 +1285,11 @@ A mapping of `debug_*` method names to their return type
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:919
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:916
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -1157,7 +1301,11 @@ JSON-RPC request for `debug_traceCall` method
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:138
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:133
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -1169,7 +1317,11 @@ JSON-RPC response for `debug_traceCall` procedure
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:499
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:497
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -1195,7 +1347,11 @@ JSON-RPC procedure for `debug_traceCall`
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:784
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:782
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -1207,7 +1363,11 @@ JSON-RPC request for `debug_traceTransaction` method
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:132
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:127
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -1219,7 +1379,11 @@ JSON-RPC response for `debug_traceTransaction` procedure
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:495
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:493
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -1245,7 +1409,11 @@ JSON-RPC procedure for `debug_traceTransaction`
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:780
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:778
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -1283,7 +1451,11 @@ console.log(result) // { jsonrpc: '2.0', id: 1, method: 'tevm_dumpState', result
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:798
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:796
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -1295,7 +1467,11 @@ The JSON-RPC request for the `tevm_dumpState` method
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:146
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:141
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -1307,7 +1483,11 @@ The response to the `tevm_dumpState` JSON-RPC request.
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:504
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:502
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -1331,7 +1511,11 @@ ___
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:800
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:798
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -1343,7 +1527,11 @@ JSON-RPC request for `eth_accounts` procedure
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:180
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:175
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -1355,7 +1543,11 @@ JSON-RPC response for `eth_accounts` procedure
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:511
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:509
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -1379,7 +1571,11 @@ ___
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:801
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:799
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -1391,7 +1587,11 @@ JSON-RPC request for `eth_blockNumber` procedure
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:184
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:179
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -1403,7 +1603,11 @@ JSON-RPC response for `eth_blockNumber` procedure
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:515
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:513
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -1427,19 +1631,27 @@ ___
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:802
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:800
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
 ### EthCallJsonRpcRequest
 
-Ƭ **EthCallJsonRpcRequest**: [`JsonRpcRequest`](index.md#jsonrpcrequest)\<``"eth_call"``, readonly [tx: JsonRpcTransaction, tag: BlockTag \| Hex]\>
+Ƭ **EthCallJsonRpcRequest**: [`JsonRpcRequest`](index.md#jsonrpcrequest)\<``"eth_call"``, readonly [tx: JsonRpcTransaction, tag: BlockTag \| Hex, stateOverrideSet?: SerializeToJson\<BaseCallParams["stateOverrideSet"]\>, blockOverrideSet?: SerializeToJson\<BaseCallParams["blockOverrideSet"]\>]\>
 
 JSON-RPC request for `eth_call` procedure
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:188
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:183
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -1451,7 +1663,11 @@ JSON-RPC response for `eth_call` procedure
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:519
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:517
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -1475,7 +1691,11 @@ ___
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:803
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:801
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -1499,7 +1719,11 @@ JSON-RPC response for `eth_chainId` procedure
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:523
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:521
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -1523,7 +1747,11 @@ ___
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:804
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:802
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -1547,7 +1775,11 @@ JSON-RPC response for `eth_coinbase` procedure
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:527
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:525
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -1571,7 +1803,11 @@ ___
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:805
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:803
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -1595,7 +1831,11 @@ JSON-RPC response for `eth_estimateGas` procedure
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:531
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:529
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -1619,7 +1859,11 @@ ___
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:807
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:805
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -1643,7 +1887,11 @@ JSON-RPC response for `eth_gasPrice` procedure
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:539
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:537
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -1667,7 +1915,11 @@ ___
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:808
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:806
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -1691,7 +1943,11 @@ JSON-RPC response for `eth_getBalance` procedure
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:543
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:541
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -1715,7 +1971,11 @@ ___
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:809
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:807
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -1739,7 +1999,11 @@ JSON-RPC response for `eth_getBlockByHash` procedure
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:547
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:545
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -1763,7 +2027,11 @@ ___
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:810
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:808
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -1787,7 +2055,11 @@ JSON-RPC response for `eth_getBlockByNumber` procedure
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:551
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:549
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -1811,7 +2083,11 @@ ___
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:811
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:809
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -1835,7 +2111,11 @@ JSON-RPC response for `eth_getBlockTransactionCountByHash` procedure
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:555
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:553
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -1859,7 +2139,11 @@ ___
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:812
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:810
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -1883,7 +2167,11 @@ JSON-RPC response for `eth_getBlockTransactionCountByNumber` procedure
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:559
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:557
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -1907,7 +2195,11 @@ ___
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:813
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:811
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -1931,7 +2223,11 @@ JSON-RPC response for `eth_getCode` procedure
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:563
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:561
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -1955,7 +2251,11 @@ ___
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:814
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:812
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -1979,7 +2279,11 @@ JSON-RPC response for `eth_getFilterChanges` procedure
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:567
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:565
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -2003,7 +2307,11 @@ ___
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:815
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:813
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -2027,7 +2335,11 @@ JSON-RPC response for `eth_getFilterLogs` procedure
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:571
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:569
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -2051,7 +2363,11 @@ ___
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:816
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:814
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -2075,7 +2391,11 @@ JSON-RPC response for `eth_getLogs` procedure
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:575
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:573
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -2099,7 +2419,11 @@ ___
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:817
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:815
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -2123,7 +2447,11 @@ JSON-RPC response for `eth_getStorageAt` procedure
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:579
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:577
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -2147,7 +2475,11 @@ ___
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:822
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:820
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -2171,7 +2503,11 @@ JSON-RPC response for `eth_getTransactionByBlockHashAndIndex` procedure
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:599
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:597
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -2195,7 +2531,11 @@ ___
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:823
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:821
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -2219,7 +2559,11 @@ JSON-RPC response for `eth_getTransactionByBlockNumberAndIndex` procedure
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:603
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:601
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -2243,7 +2587,11 @@ ___
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:821
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:819
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -2267,7 +2615,11 @@ JSON-RPC response for `eth_getTransactionByHash` procedure
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:595
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:593
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -2291,7 +2643,11 @@ ___
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:818
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:816
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -2315,7 +2671,11 @@ JSON-RPC response for `eth_getTransactionCount` procedure
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:583
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:581
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -2339,7 +2699,11 @@ ___
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:824
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:822
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -2363,7 +2727,11 @@ JSON-RPC response for `eth_getTransactionReceipt` procedure
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:607
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:605
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -2387,7 +2755,11 @@ ___
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:825
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:823
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -2411,7 +2783,11 @@ JSON-RPC response for `eth_getUncleByBlockHashAndIndex` procedure
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:611
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:609
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -2435,7 +2811,11 @@ ___
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:826
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:824
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -2459,7 +2839,11 @@ JSON-RPC response for `eth_getUncleByBlockNumberAndIndex` procedure
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:615
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:613
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -2483,7 +2867,11 @@ ___
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:819
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:817
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -2507,7 +2895,11 @@ JSON-RPC response for `eth_getUncleCountByBlockHash` procedure
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:587
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:585
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -2531,7 +2923,11 @@ ___
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:820
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:818
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -2555,7 +2951,11 @@ JSON-RPC response for `eth_getUncleCountByBlockNumber` procedure
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:591
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:589
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -2579,7 +2979,11 @@ ___
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:806
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:804
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -2603,7 +3007,11 @@ JSON-RPC response for `eth_hashrate` procedure
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:535
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:533
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -2637,7 +3045,11 @@ ___
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:827
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:825
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -2661,7 +3073,11 @@ JSON-RPC response for `eth_mining` procedure
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:619
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:617
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -2685,7 +3101,11 @@ ___
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:835
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:833
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -2709,7 +3129,11 @@ JSON-RPC response for `eth_newBlockFilter` procedure
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:666
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:664
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -2733,7 +3157,11 @@ ___
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:834
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:832
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -2757,7 +3185,11 @@ JSON-RPC response for `eth_newFilter` procedure
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:662
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:660
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -2781,7 +3213,11 @@ ___
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:836
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:834
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -2805,7 +3241,11 @@ JSON-RPC response for `eth_newPendingTransactionFilter` procedure
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:670
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:668
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -2829,7 +3269,11 @@ ___
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:828
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:826
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -2853,7 +3297,11 @@ JSON-RPC response for `eth_protocolVersion` procedure
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:623
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:621
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -2908,7 +3356,11 @@ A mapping of `eth_*` method names to their request type
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:927
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:924
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -2963,7 +3415,11 @@ A mapping of `eth_*` method names to their return type
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:971
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:968
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -2987,7 +3443,11 @@ ___
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:829
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:827
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -3011,7 +3471,11 @@ JSON-RPC response for `eth_sendRawTransaction` procedure
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:627
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:625
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -3035,7 +3499,11 @@ ___
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:830
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:828
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -3059,7 +3527,11 @@ JSON-RPC response for `eth_sendTransaction` procedure
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:631
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:629
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -3083,7 +3555,11 @@ ___
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:831
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:829
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -3107,7 +3583,11 @@ JSON-RPC response for `eth_sign` procedure
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:635
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:633
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -3131,7 +3611,11 @@ ___
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:832
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:830
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -3155,7 +3639,11 @@ JSON-RPC response for `eth_signTransaction` procedure
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:639
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:637
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -3179,7 +3667,11 @@ ___
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:833
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:831
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -3203,7 +3695,11 @@ JSON-RPC response for `eth_syncing` procedure
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:643
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:641
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -3227,7 +3723,11 @@ ___
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:837
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:835
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -3251,7 +3751,11 @@ JSON-RPC response for `eth_uninstallFilter` procedure
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:674
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:672
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -3277,7 +3781,11 @@ GetAccount JSON-RPC tevm procedure puts an account or contract into the tevm sta
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:842
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:840
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -3301,7 +3809,11 @@ JSON-RPC response for `tevm_getAccount` method
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:679
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:677
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -3324,7 +3836,11 @@ the transaction call object for methods like `eth_call`
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:151
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:146
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -3413,7 +3929,11 @@ console.log(result) // { jsonrpc: '2.0', id: 1, method: 'tevm_loadState', result
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:857
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:855
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -3437,7 +3957,11 @@ Response of the `tevm_loadState` RPC method.
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:684
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:682
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -3463,13 +3987,17 @@ Procedure for handling script JSON-RPC requests
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:867
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:865
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
 ### ScriptJsonRpcRequest
 
-Ƭ **ScriptJsonRpcRequest**: [`JsonRpcRequest`](index.md#jsonrpcrequest)\<``"tevm_script"``, [[`SerializeToJson`](procedures_types.md#serializetojson)\<[`BaseCallParams`](actions_types.md#basecallparams)\> & \{ `data`: [`Hex`](index.md#hex) ; `deployedBytecode`: [`Hex`](index.md#hex)  }]\>
+Ƭ **ScriptJsonRpcRequest**: [`JsonRpcRequest`](index.md#jsonrpcrequest)\<``"tevm_script"``, [params: SerializeToJson\<Omit\<BaseCallParams, "stateOverrideSet" \| "blockOverrideSet"\>\> & Object, stateOverrideSet?: SerializeToJson\<BaseCallParams["stateOverrideSet"]\>, blockOverrideSet?: SerializeToJson\<BaseCallParams["blockOverrideSet"]\>]\>
 
 The JSON-RPC request for the `tevm_script` method
 
@@ -3503,7 +4031,11 @@ const respose: ScriptJsonRpcResponse = await tevm.request({
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:701
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:699
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -3563,7 +4095,11 @@ SetAccount JSON-RPC tevm procedure sets an account into the tevm state
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:862
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:860
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -3575,7 +4111,11 @@ JSON-RPC request for `tevm_setAccount` method
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:408
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:410
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -3587,7 +4127,11 @@ JSON-RPC response for `tevm_setAccount` method
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:706
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:704
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -3626,7 +4170,11 @@ A mapping of `tevm_*` method names to their request type
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:1015
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:1012
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
 
 ___
 
@@ -3649,4 +4197,8 @@ A mapping of `tevm_*` method names to their return type
 
 #### Defined in
 
+<<<<<<< HEAD
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:1036
+=======
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:1033
+>>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)

@@ -11,7 +11,7 @@ JSON-RPC request for `eth_sendRawTransaction` procedure
 
 ## Source
 
-[requests/EthJsonRpcRequest.ts:270](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L270)
+[requests/EthJsonRpcRequest.ts:275](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/requests/EthJsonRpcRequest.ts#L275)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

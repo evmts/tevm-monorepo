@@ -1,4 +1,9 @@
-import { zAddress, zHex } from '../common/index.js'
+import {
+	zAddress,
+	zBlockOverrideSet,
+	zHex,
+	zStateOverrideSet,
+} from '../common/index.js'
 import { zBaseParams } from './zBaseParams.js'
 import { zBlockParam } from './zBlockParam.js'
 import { z } from 'zod'
@@ -63,5 +68,11 @@ export const zBaseCallParams = zBaseParams
 			.array(zHex)
 			.optional()
 			.describe('Versioned hashes for each blob in a blob transaction'),
+		stateOverrideSet: zStateOverrideSet
+			.optional()
+			.describe('State override set for the call'),
+		blockOverrideSet: zBlockOverrideSet
+			.optional()
+			.describe('Block override set for the call'),
 	})
 	.describe('Properties shared across call-like actions')
