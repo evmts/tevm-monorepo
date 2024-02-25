@@ -39,4 +39,10 @@ export const zSetAccountParams = zBaseParams
 			.optional()
 			.describe('Patches the state with the provided state'),
 	})
+	.refine(data => {
+		if (data.state && data.stateDiff) {
+			return false
+		}
+		return true
+	}, { message: 'Cannot have both state and stateDiff' })
 	.describe('Params to create an account or contract')
