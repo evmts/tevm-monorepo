@@ -4,7 +4,7 @@ import { setAccountHandler } from '../index.js'
 
 /**
  * Parses user provided params into ethereumjs options to pass into the EVM
- * @param {import('@tevm/base-client').BaseClient} client
+ * @param {Pick<import('@tevm/base-client').BaseClient, 'getVm'>} client
  * @param {import('@tevm/actions-types').CallParams} params
  * @returns {Promise<{data?: Parameters<import('@tevm/evm').Evm['runCall']>[0], errors?: Array<Error>}>}
  */
@@ -65,6 +65,8 @@ export const callHandlerOpts = async (client, params) => {
 				...(state.nonce !== undefined ? { nonce: state.nonce } : {}),
 				...(state.balance !== undefined ? { balance: state.balance } : {}),
 				...(state.code !== undefined ? { code: state.code } : {}),
+				...(state.state !== undefined ? { state: state.state } : {}),
+				...(state.stateDiff !== undefined ? { stateDiff: state.stateDiff } : {}),
 				throwOnFail: false,
 			})
 			if (res.errors?.length) {

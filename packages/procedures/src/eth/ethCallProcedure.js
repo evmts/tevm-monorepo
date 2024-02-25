@@ -6,7 +6,7 @@ import { callProcedure } from '../index.js'
  * @returns {import('@tevm/procedures-types').EthCallJsonRpcProcedure}
  */
 export const ethCallProcedure = (client) => async (req) => {
-	const [tx, blockTag] = req.params
+	const [tx, blockTag, stateOverrideSet, blockOverrideSet] = req.params
 	const { data, from, to, gas, gasPrice, value } = tx
 	const response = await callProcedure(client)({
 		...(req.id !== undefined ? { id: req.id } : {}),
@@ -22,6 +22,8 @@ export const ethCallProcedure = (client) => async (req) => {
 				...(from !== undefined ? { from } : {}),
 				...(blockTag !== undefined ? { blockTag } : {}),
 			},
+			stateOverrideSet,
+			blockOverrideSet,
 		],
 	})
 	if (!response.result) {
