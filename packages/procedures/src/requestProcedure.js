@@ -17,6 +17,7 @@ import {
 	setAccountProcedure,
 } from './index.js'
 import { testAccounts } from '@tevm/actions'
+import { createJsonRpcFetcher } from '@tevm/jsonrpc'
 
 // Keep this in sync with TevmProvider.ts
 
@@ -109,17 +110,170 @@ export const requestProcedure = (client) => {
 			case 'eth_accounts':
 				return ethAccountsProcedure(testAccounts)(request)
 			case 'eth_mining':
-			case 'eth_getLogs':
+				return Promise.resolve(false)
 			case 'eth_syncing':
-			case 'eth_coinbase':
+				return Promise.resolve(false)
+			case 'anvil_setCode':
+			case /** @type {'anvil_setCode'}*/ ('ganache_setCode'):
+			case /** @type {'anvil_setCode'}*/ ('hardhat_setCode'): {
+				/**
+				 * @type {import('@tevm/procedures-types').AnvilSetCodeJsonRpcRequest}
+				 */
+				const codeRequest = request
+				const result = setAccountProcedure(client)({
+					jsonrpc: codeRequest.jsonrpc,
+					method: 'tevm_setAccount',
+					params: codeRequest.params,
+					...(codeRequest.id ? { id: codeRequest.id } : {}),
+				})
+				return {
+					...result,
+					method: codeRequest.method,
+				}
+			}
+			case 'anvil_setBalance':
+			case /** @type {'anvil_setBalance'}*/ ('ganache_setBalance'):
+			case /** @type {'anvil_setBalance'}*/ ('hardhat_setBalance'): {
+				/**
+				 * @type {import('@tevm/procedures-types').AnvilSetBalanceJsonRpcRequest}
+				 */
+				const balanceRequest = request
+				const balanceResult = setAccountProcedure(client)({
+					jsonrpc: balanceRequest.jsonrpc,
+					method: 'tevm_setAccount',
+					params: [
+						{
+							address: balanceRequest.params[0].address,
+							balance: balanceRequest.params[0].balance,
+						},
+					],
+					...(balanceRequest.id ? { id: balanceRequest.id } : {}),
+				})
+				return {
+					...balanceResult,
+					method: balanceRequest.method,
+				}
+			}
+			case 'anvil_setNonce':
+			case /** @type {'anvil_setNonce'}*/ ('ganache_setNonce'):
+			case /** @type {'anvil_setNonce'}*/ ('hardhat_setNonce'): {
+				/**
+				 * @type {import('@tevm/procedures-types').AnvilSetNonceJsonRpcRequest}
+				 **/
+				const nonceRequest = request
+				const nonceResult = setAccountProcedure(client)({
+					jsonrpc: nonceRequest.jsonrpc,
+					method: 'tevm_setAccount',
+					params: [
+						{
+							address: nonceRequest.params[0].address,
+							nonce: nonceRequest.params[0].nonce,
+						},
+					],
+					...(nonceRequest.id ? { id: nonceRequest.id } : {}),
+				})
+				return {
+					...nonceResult,
+					method: nonceRequest.method,
+				}
+			}
+			case 'anvil_setChainId':
+			case /** @type {'anvil_setChainId'}*/ ('hardhat_setChainId'):
+			case /** @type {'anvil_setChainId'}*/ ('ganache_setChainId'): {
+				const chainId =
+					/** @type {import('@tevm/procedures-types').AnvilSetChainIdJsonRpcRequest}*/ (
+						request
+					).params[0].chainId
+				if (!Number.isInteger(chainId) || chainId <= 0) {
+					return {
+						...(request.id ? { id: request.id } : {}),
+						method: request.method,
+						jsonrpc: request.jsonrpc,
+						error: {
+							code: -32602,
+							message: `Invalid id ${chainId}. Must be a positive integer.`,
+						},
+					}
+				}
+				client.setChainId(chainId)
+				return {
+					...(request.id ? { id: request.id } : {}),
+					method: request.method,
+					jsonrpc: request.jsonrpc,
+					result: true,
+				}
+			}
+			case 'eth_coinbase': {
+				if (client.mode === 'normal') {
+					return {
+						...(request.id ? { id: request.id } : {}),
+						method: request.method,
+						jsonrpc: request.jsonrpc,
+						result: `0x${'69'.repeat(20)}`,
+					}
+				}
+				if (!client.forkUrl) {
+					throw new Error(
+						'Fatal error! Client is in mode fork or proxy but no forkUrl is set! This indicates a bug in the client.',
+					)
+				}
+				const fetcher = createJsonRpcFetcher(client.forkUrl)
+				return fetcher.request(/** @type any*/ (request))
+			}
+			case 'eth_sendTransaction': {
+				const sendTransactionRequest =
+					/** @type {import('@tevm/procedures-types').EthSendTransactionJsonRpcRequest}*/ (
+						request
+					)
+				const sendTransactionResult = await callProcedure(client)({
+					jsonrpc: sendTransactionRequest.jsonrpc,
+					method: 'tevm_call',
+					...(sendTransactionRequest.id
+						? { id: sendTransactionRequest.id }
+						: {}),
+					params: [
+						{
+							createTransaction: true,
+							skipBalance: false,
+							...(sendTransactionRequest.params[0].from
+								? { from: sendTransactionRequest.params[0].from }
+								: {}),
+							...(sendTransactionRequest.params[0].to
+								? { to: sendTransactionRequest.params[0].to }
+								: {}),
+							...(sendTransactionRequest.params[0].gas
+								? { gas: sendTransactionRequest.params[0].gas }
+								: {}),
+							...(sendTransactionRequest.params[0].gasPrice
+								? { gasPrice: sendTransactionRequest.params[0].gasPrice }
+								: {}),
+							...(sendTransactionRequest.params[0].value
+								? { value: sendTransactionRequest.params[0].value }
+								: {}),
+							...(sendTransactionRequest.params[0].data
+								? { data: sendTransactionRequest.params[0].data }
+								: {}),
+						},
+					],
+				})
+				return {
+					...sendTransactionResult,
+					method: sendTransactionRequest.method,
+					// make a random tx hash
+					//TODO: make this deterministic
+					result: `0x${Math.random().toString(16).slice(2)}`,
+					warning:
+						'this is a mock randomly generated tx hash, eth_sendTransaction should work as expected but it will not actually be producing a block until later version of tevm',
+				}
+			}
+			case 'eth_estimateGas':
+			case 'eth_getLogs':
 			case 'eth_hashrate':
 			case 'eth_newFilter':
-			case 'eth_estimateGas':
 			case 'eth_getFilterLogs':
 			case 'eth_getBlockByHash':
 			case 'eth_newBlockFilter':
 			case 'eth_protocolVersion':
-			case 'eth_sendTransaction':
 			case 'eth_uninstallFilter':
 			case 'eth_getBlockByNumber':
 			case 'eth_getFilterChanges':
@@ -140,12 +294,8 @@ export const requestProcedure = (client) => {
 			case 'debug_traceTransaction':
 			case 'anvil_mine':
 			case 'anvil_reset':
-			case 'anvil_setCode':
-			case 'anvil_setNonce':
 			case 'anvil_dumpState':
 			case 'anvil_loadState':
-			case 'anvil_setBalance':
-			case 'anvil_setChainId':
 			case 'anvil_getAutomine':
 			case 'anvil_setStorageAt':
 			case 'anvil_dropTransaction':

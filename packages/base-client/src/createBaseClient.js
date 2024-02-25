@@ -17,6 +17,16 @@ import { createVm } from '@tevm/vm'
  *  ```
  */
 export const createBaseClient = (options = {}) => {
+	/**
+	 * @type {number|undefined}
+	 */
+	let overrideChainId = undefined
+	/**
+	 * @param {number} id
+	 */
+	const setChainId = (id) => {
+		overrideChainId = id
+	}
 	// First do everything that is not async
 	// Eagerly do async integration
 	// Return proxies that will block on initialization if not yet initialized
@@ -183,7 +193,13 @@ export const createBaseClient = (options = {}) => {
 	 * @type {import('./BaseClient.js').BaseClient}
 	 */
 	const baseClient = {
-		getChainId: () => chainIdPromise,
+		getChainId: () => {
+			if (overrideChainId) {
+				return Promise.resolve(overrideChainId)
+			}
+			return chainIdPromise
+		},
+		setChainId,
 		getVm: () => vmPromise,
 		mode: options.fork?.url ? 'fork' : options.proxy?.url ? 'proxy' : 'normal',
 		...(options.fork?.url

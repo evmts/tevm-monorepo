@@ -7,7 +7,6 @@ import type {
 	AnvilLoadStateParams,
 	AnvilMineParams,
 	AnvilResetParams,
-	AnvilSetBalanceParams,
 	AnvilSetChainIdParams,
 	AnvilSetCodeParams,
 	AnvilSetNonceParams,
@@ -15,6 +14,7 @@ import type {
 	AnvilStopImpersonatingAccountParams,
 } from '@tevm/actions-types'
 import type { JsonRpcRequest } from '@tevm/jsonrpc'
+import type { Address, Hex } from '@tevm/utils'
 
 // anvil_impersonateAccount
 /**
@@ -76,7 +76,7 @@ export type AnvilDropTransactionJsonRpcRequest = JsonRpcRequest<
  */
 export type AnvilSetBalanceJsonRpcRequest = JsonRpcRequest<
 	'anvil_setBalance',
-	[SerializeToJson<AnvilSetBalanceParams>]
+	[{ address: Address; balance: Hex }]
 >
 // anvil_setCode
 /**
@@ -92,7 +92,7 @@ export type AnvilSetCodeJsonRpcRequest = JsonRpcRequest<
  */
 export type AnvilSetNonceJsonRpcRequest = JsonRpcRequest<
 	'anvil_setNonce',
-	[SerializeToJson<AnvilSetNonceParams>]
+	[{ address: Address; nonce: Hex }]
 >
 // anvil_setStorageAt
 /**
