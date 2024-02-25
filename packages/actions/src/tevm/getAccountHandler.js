@@ -87,7 +87,7 @@ export const getAccountHandler =
 					deployedBytecode: code,
 					nonce: res.nonce,
 					storageRoot: bytesToHex(res.storageRoot),
-					...(params.returnStorage ? { storage: await vm.stateManager.dumpStorage(address) } : {})
+					...(params.returnStorage ? { storage: /** @type any*/(await vm.stateManager.dumpStorage(address)) } : {})
 				}
 			} catch (e) {
 				errors.push(
