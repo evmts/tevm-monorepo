@@ -1,5 +1,11 @@
 # @tevm/contract
 
+## 1.0.0-next.41
+
+### Minor Changes
+
+- [#970](https://github.com/evmts/tevm-monorepo/pull/970) [`7c976f0895ca102e42d784475fd72de6cc4a6bc0`](https://github.com/evmts/tevm-monorepo/commit/7c976f0895ca102e42d784475fd72de6cc4a6bc0) Thanks [@roninjin10](https://github.com/roninjin10)! - Added ability to read tevm.config.json as well as tevm.json files
+
 ## 1.0.0-next.40
 
 ### Patch Changes
