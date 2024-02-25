@@ -4,16 +4,25 @@
 
 [![CI](https://github.com/evmts/tevm-monorepo/actions/workflows/nx.yml/badge.svg)](https://github.com/evmts/tevm-monorepo/actions/workflows/nx.yml)
 [![NPM Version](https://img.shields.io/npm/v/tevm)](https://www.npmjs.com/package/tevm)
-[![NPM Downloads](https://img.shields.io/npm/dm/tevm.svg)](https://www.npmjs.com/package/tevm)
+[![Tevm Downloads](https://img.shields.io/npm/dm/tevm.svg)](https://www.npmjs.com/package/tevm)
+[![EVMts (0.x.x) Downloads](https://img.shields.io/npm/dm/@evmts/core.svg)](https://www.npmjs.com/package/@evmts/core)
 [![Minzipped Size](https://badgen.net/bundlephobia/minzip/tevm)](https://bundlephobia.com/package/tevm@latest)
 
 # tevm-monorepo
 
-Tevm is an ethereum development toolkit that offers
+Tevm is a JavaScript EVM client and a Solidity-to-TypeScript compiler.
 
-- Arbitrary EVM execution and forking akin to [anvil](https://github.com/foundry-rs/foundry/tree/master/crates/anvil)
-- A powerful solidity scripting environment akin to [foundry scripts](https://book.getfoundry.sh/tutorials/solidity-scripting)
-- Build tooling to create a smooth interface between your Solidity scripts and TypeScript code
+## Features
+
+✅ &nbsp;EVM simulations<br/>
+✅ &nbsp;forking akin to [anvil --fork-url](https://github.com/foundry-rs/foundry/tree/master/crates/anvil)<br/>
+✅ &nbsp;Solidity scripting akin to [foundry scripts](https://book.getfoundry.sh/tutorials/solidity-scripting)<br/>
+✅ &nbsp;Compiles contracts in JavaScript via importing solidity files<br/>
+✅ &nbsp;Extensions for usage with Viem, Ethers.js, Next.js, and Express.<br/>
+✅ &nbsp;Compiles contracts in JavaScript via importing solidity files<br/>
+🏗️ &nbsp;EVM Tracing (coming in upcoming release)<br/>
+🏗️ &nbsp;React hook library<br/>
+🏗️ &nbsp;First class vue and svelte support<br/>
 
 Tevm runs in all environments
 
@@ -23,11 +32,9 @@ Tevm runs in all environments
 
 ## [Join Telegram](https://t.me/+ANThR9bHDLAwMjUx)
 
-## Visit [Docs](https://tevm.sh/) for docs, guides, API and more! 📄
+## Visit [Docs (under construction)](https://tevm.sh/) for docs, guides, API and more! 📄
 
 ## Code example
-
-Tevm scripting is a simple yet powerful way to program.
 
 1. Write a solidity script `HelloWorld.s.sol`
 
