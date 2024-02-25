@@ -79,7 +79,7 @@ describe(createHttpClient.name, () => {
 		})
 
 		it('can use tevm.eth.chainId', async () => {
-			expect(await client.eth.chainId()).toEqual(900n)
+			expect(await client.eth.chainId()).toEqual(10n)
 		})
 
 		it('can use tevm.eth.getCode', async () => {
