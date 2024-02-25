@@ -16,4 +16,19 @@ export const zScriptParams = zBaseCallParams
 		functionName: z.string().describe('The name of the function to call'),
 		deployedBytecode: zHex.describe('The deployed bytecode of the contract'),
 	})
+	.refine(
+		(params) => {
+			if (params.createTransaction && params.stateOverrideSet) {
+				return false
+			}
+			if (params.createTransaction && params.blockOverrideSet) {
+				return false
+			}
+			return true
+		},
+		{
+			message:
+				'Cannot have stateOverrideSet or blockOverrideSet for createTransaction',
+		},
+	)
 	.describe('Params to run a script or contract')

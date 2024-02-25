@@ -12,4 +12,19 @@ export const zCallParams = zBaseCallParams
 			.optional()
 			.describe('the deployed bytecode to use for the call'),
 	})
+	.refine(
+		(params) => {
+			if (params.createTransaction && params.stateOverrideSet) {
+				return false
+			}
+			if (params.createTransaction && params.blockOverrideSet) {
+				return false
+			}
+			return true
+		},
+		{
+			message:
+				'Cannot have stateOverrideSet or blockOverrideSet for createTransaction',
+		},
+	)
 	.describe('Params to make a call to the tevm EVM')
