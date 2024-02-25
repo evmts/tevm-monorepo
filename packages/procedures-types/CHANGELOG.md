@@ -1,5 +1,20 @@
 # @tevm/contract
 
+## 1.0.0-next.41
+
+### Minor Changes
+
+- [#973](https://github.com/evmts/tevm-monorepo/pull/973) [`e4aad5e157b2452833c6f88afd29ac3b219719c7`](https://github.com/evmts/tevm-monorepo/commit/e4aad5e157b2452833c6f88afd29ac3b219719c7) Thanks [@roninjin10](https://github.com/roninjin10)! - Added new JSON-RPC support
+
+  - eth_coinbase
+  - eth_sendTransaction
+  - eth_mining (always false for now)
+  - eth_syncing (always false for now)
+  - anvil_setCode hardhat_setCode ganache_setCode
+  - anvil_setBalance hardhat_setBalance ganache_setBalance
+  - anvil_setChainId hardhat_setChainId ganache_setChainId
+  - anvil_setNonce hardhat_setNonce ganache_setNonce
+
 ## 1.0.0-next.40
 
 ### Patch Changes

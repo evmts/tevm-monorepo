@@ -1,5 +1,13 @@
 # @tevm/ts-plugin
 
+## 1.0.0-next.41
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @tevm/base-bundler@1.0.0-next.41
+  - @tevm/bundler-cache@1.0.0-next.41
+
 ## 1.0.0-next.40
 
 ### Patch Changes

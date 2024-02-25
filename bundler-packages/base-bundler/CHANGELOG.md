@@ -1,5 +1,15 @@
 # @tevm/base
 
+## 1.0.0-next.41
+
+### Patch Changes
+
+- Updated dependencies [[`7c976f0895ca102e42d784475fd72de6cc4a6bc0`](https://github.com/evmts/tevm-monorepo/commit/7c976f0895ca102e42d784475fd72de6cc4a6bc0)]:
+  - @tevm/config@1.0.0-next.41
+  - @tevm/compiler@1.0.0-next.41
+  - @tevm/bundler-cache@1.0.0-next.41
+  - @tevm/runtime@1.0.0-next.40
+
 ## 1.0.0-next.40
 
 ### Patch Changes

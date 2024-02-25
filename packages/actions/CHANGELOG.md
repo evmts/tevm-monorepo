@@ -1,5 +1,18 @@
 # @tevm/contract
 
+## 1.0.0-next.41
+
+### Minor Changes
+
+- [#971](https://github.com/evmts/tevm-monorepo/pull/971) [`80e199cff2c2cf0125f1ed62262ca32502f7c619`](https://github.com/evmts/tevm-monorepo/commit/80e199cff2c2cf0125f1ed62262ca32502f7c619) Thanks [@roninjin10](https://github.com/roninjin10)! - [Breaking] The action and procedure factory functions now take the new client type
+
+### Patch Changes
+
+- [#971](https://github.com/evmts/tevm-monorepo/pull/971) [`80e199cff2c2cf0125f1ed62262ca32502f7c619`](https://github.com/evmts/tevm-monorepo/commit/80e199cff2c2cf0125f1ed62262ca32502f7c619) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug with getAccount type returning optional properties that are not optional
+
+- Updated dependencies []:
+  - @tevm/zod@1.0.0-next.40
+
 ## 1.0.0-next.40
 
 ### Minor Changes
