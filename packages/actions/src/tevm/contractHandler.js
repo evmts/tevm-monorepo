@@ -123,6 +123,11 @@ export const contractHandler =
 				message: /** @type {Error}*/ (e).message,
 			}
 			return maybeThrowOnFail(params.throwOnFail ?? throwOnFailDefault, {
+				debugContext: {
+					abi: params.abi,
+					rawData: result.rawData,
+					functionName: params.functionName,
+				},
 				rawData: '0x',
 				executionGasUsed: 0n,
 				errors: [err],
