@@ -1,7 +1,311 @@
 // Bun Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`contractHandler should handle errors returned during contract call 1`] = `
+{
+  "createdAddresses":   Set {},
+  "errors": [
+    {
+      "_tag": "revert",
+      "message": "Revert: Error {"abiItem":{"inputs":[{"name":"message","type":"string"}],"name":"Error","type":"error"},"args":["Dai/insufficient-balance"],"errorName":"Error"}",
+      "name": "revert",
+    },
+  ],
+  "executionGasUsed": 2754n,
+  "gas": 16774461n,
+  "logs": [],
+  "rawData": "0x08c379a0000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000184461692f696e73756666696369656e742d62616c616e63650000000000000000",
+  "selfdestruct":   Set {},
+}
+`;
+
 exports[`contractHandler Handles the unlikely event the function data cannot be decoded 1`] = `
 {
+  "debugContext": {
+    "abi": [
+      {
+        "constant": true,
+        "inputs": [],
+        "name": "name",
+        "outputs": [
+          {
+            "name": "",
+            "type": "string",
+          },
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+      },
+      {
+        "constant": false,
+        "inputs": [
+          {
+            "name": "_spender",
+            "type": "address",
+          },
+          {
+            "name": "_value",
+            "type": "uint256",
+          },
+        ],
+        "name": "approve",
+        "outputs": [
+          {
+            "name": "success",
+            "type": "bool",
+          },
+        ],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      {
+        "constant": true,
+        "inputs": [],
+        "name": "totalSupply",
+        "outputs": [
+          {
+            "name": "",
+            "type": "uint256",
+          },
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+      },
+      {
+        "constant": false,
+        "inputs": [
+          {
+            "name": "_from",
+            "type": "address",
+          },
+          {
+            "name": "_to",
+            "type": "address",
+          },
+          {
+            "name": "_value",
+            "type": "uint256",
+          },
+        ],
+        "name": "transferFrom",
+        "outputs": [
+          {
+            "name": "success",
+            "type": "bool",
+          },
+        ],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      {
+        "constant": true,
+        "inputs": [
+          {
+            "name": "",
+            "type": "address",
+          },
+        ],
+        "name": "balances",
+        "outputs": [
+          {
+            "name": "",
+            "type": "uint256",
+          },
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+      },
+      {
+        "constant": true,
+        "inputs": [],
+        "name": "decimals",
+        "outputs": [
+          {
+            "name": "",
+            "type": "uint8",
+          },
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+      },
+      {
+        "constant": true,
+        "inputs": [
+          {
+            "name": "",
+            "type": "address",
+          },
+          {
+            "name": "",
+            "type": "address",
+          },
+        ],
+        "name": "allowed",
+        "outputs": [
+          {
+            "name": "",
+            "type": "uint256",
+          },
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+      },
+      {
+        "constant": true,
+        "inputs": [
+          {
+            "name": "_owner",
+            "type": "address",
+          },
+        ],
+        "name": "balanceOf",
+        "outputs": [
+          {
+            "name": "balance",
+            "type": "uint256",
+          },
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+      },
+      {
+        "constant": true,
+        "inputs": [],
+        "name": "symbol",
+        "outputs": [
+          {
+            "name": "",
+            "type": "string",
+          },
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+      },
+      {
+        "constant": false,
+        "inputs": [
+          {
+            "name": "_to",
+            "type": "address",
+          },
+          {
+            "name": "_value",
+            "type": "uint256",
+          },
+        ],
+        "name": "transfer",
+        "outputs": [
+          {
+            "name": "success",
+            "type": "bool",
+          },
+        ],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      {
+        "constant": true,
+        "inputs": [
+          {
+            "name": "_owner",
+            "type": "address",
+          },
+          {
+            "name": "_spender",
+            "type": "address",
+          },
+        ],
+        "name": "allowance",
+        "outputs": [
+          {
+            "name": "remaining",
+            "type": "uint256",
+          },
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+      },
+      {
+        "inputs": [
+          {
+            "name": "_initialAmount",
+            "type": "uint256",
+          },
+          {
+            "name": "_tokenName",
+            "type": "string",
+          },
+          {
+            "name": "_decimalUnits",
+            "type": "uint8",
+          },
+          {
+            "name": "_tokenSymbol",
+            "type": "string",
+          },
+        ],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "constructor",
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": true,
+            "name": "_from",
+            "type": "address",
+          },
+          {
+            "indexed": true,
+            "name": "_to",
+            "type": "address",
+          },
+          {
+            "indexed": false,
+            "name": "_value",
+            "type": "uint256",
+          },
+        ],
+        "name": "Transfer",
+        "type": "event",
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": true,
+            "name": "_owner",
+            "type": "address",
+          },
+          {
+            "indexed": true,
+            "name": "_spender",
+            "type": "address",
+          },
+          {
+            "indexed": false,
+            "name": "_value",
+            "type": "uint256",
+          },
+        ],
+        "name": "Approval",
+        "type": "event",
+      },
+    ],
+    "functionName": "balanceOf",
+    "rawData": "0x30783432343234323432",
+  },
   "errors": [
     {
       "_tag": "DecodeFunctionDataError",
@@ -36,23 +340,5 @@ Version: viem@2.7.9"
   ],
   "executionGasUsed": 0n,
   "rawData": "0x",
-}
-`;
-
-exports[`contractHandler should handle errors returned during contract call 1`] = `
-{
-  "createdAddresses":   Set {},
-  "errors": [
-    {
-      "_tag": "revert",
-      "message": "Revert: Error {"abiItem":{"inputs":[{"name":"message","type":"string"}],"name":"Error","type":"error"},"args":["Dai/insufficient-balance"],"errorName":"Error"}",
-      "name": "revert",
-    },
-  ],
-  "executionGasUsed": 2754n,
-  "gas": 16774461n,
-  "logs": [],
-  "rawData": "0x08c379a0000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000184461692f696e73756666696369656e742d62616c616e63650000000000000000",
-  "selfdestruct":   Set {},
 }
 `;

@@ -1,0 +1,155 @@
+// Bun Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SystemConfig should initialize contract correctly 1`] = `
+{
+  "createdAddresses":   Set {},
+  "data": "0x9BA6e03D8B90dE867373Db8cF1A58d2F7F006b3A",
+  "executionGasUsed": 2418n,
+  "gas": 16774797n,
+  "logs": [],
+  "rawData": "0x0000000000000000000000009ba6e03d8b90de867373db8cf1a58d2f7f006b3a",
+  "selfdestruct":   Set {},
+}
+`;
+
+exports[`SystemConfig should initialize contract correctly 2`] = `
+{
+  "createdAddresses":   Set {},
+  "data": 684000n,
+  "executionGasUsed": 2351n,
+  "gas": 16774864n,
+  "logs": [],
+  "rawData": "0x00000000000000000000000000000000000000000000000000000000000a6fe0",
+  "selfdestruct":   Set {},
+}
+`;
+
+exports[`SystemConfig should initialize contract correctly 3`] = `
+{
+  "createdAddresses":   Set {},
+  "data": "1.12.0",
+  "executionGasUsed": 604n,
+  "gas": 16776611n,
+  "logs": [],
+  "rawData": "0x00000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000006312e31322e300000000000000000000000000000000000000000000000000000",
+  "selfdestruct":   Set {},
+}
+`;
+
+exports[`SystemConfig should initialize contract correctly 4`] = `
+{
+  "createdAddresses":   Set {},
+  "data": 188n,
+  "executionGasUsed": 2330n,
+  "gas": 16774885n,
+  "logs": [],
+  "rawData": "0x00000000000000000000000000000000000000000000000000000000000000bc",
+  "selfdestruct":   Set {},
+}
+`;
+
+exports[`SystemConfig should initialize contract correctly 5`] = `
+{
+  "createdAddresses":   Set {},
+  "data": "0x75505a97BD334E7BD3C476893285569C4136Fa0F",
+  "executionGasUsed": 2471n,
+  "gas": 16774744n,
+  "logs": [],
+  "rawData": "0x00000000000000000000000075505a97bd334e7bd3c476893285569c4136fa0f",
+  "selfdestruct":   Set {},
+}
+`;
+
+exports[`SystemConfig should initialize contract correctly 6`] = `
+{
+  "createdAddresses":   Set {},
+  "data": 21000000n,
+  "executionGasUsed": 2521n,
+  "gas": 16774694n,
+  "logs": [],
+  "rawData": "0x0000000000000000000000000000000000000000000000000000000001406f40",
+  "selfdestruct":   Set {},
+}
+`;
+
+exports[`SystemConfig should initialize contract correctly 7`] = `
+{
+  "createdAddresses":   Set {},
+  "data": "0x99C9fc46f92E8a1c0deC1b1747d010903E884bE1",
+  "executionGasUsed": 2472n,
+  "gas": 16774743n,
+  "logs": [],
+  "rawData": "0x00000000000000000000000099c9fc46f92e8a1c0dec1b1747d010903e884be1",
+  "selfdestruct":   Set {},
+}
+`;
+
+exports[`SystemConfig should initialize contract correctly 8`] = `
+{
+  "createdAddresses":   Set {},
+  "data": "0xff00000000000000000000000000000011155420",
+  "executionGasUsed": 2448n,
+  "gas": 16774767n,
+  "logs": [],
+  "rawData": "0x000000000000000000000000ff00000000000000000000000000000011155420",
+  "selfdestruct":   Set {},
+}
+`;
+
+exports[`SystemConfig should initialize contract correctly 9`] = `
+{
+  "createdAddresses":   Set {},
+  "data": 0n,
+  "executionGasUsed": 2429n,
+  "gas": 16774786n,
+  "logs": [],
+  "rawData": "0x0000000000000000000000000000000000000000000000000000000000000000",
+  "selfdestruct":   Set {},
+}
+`;
+
+exports[`SystemConfig should initialize contract correctly 10`] = `
+{
+  "createdAddresses":   Set {},
+  "data": "0x0000000000000000000000006887246668a3b87f54deb3b94ba47a6f63f32985",
+  "executionGasUsed": 2373n,
+  "gas": 16774842n,
+  "logs": [],
+  "rawData": "0x0000000000000000000000006887246668a3b87f54deb3b94ba47a6f63f32985",
+  "selfdestruct":   Set {},
+}
+`;
+
+exports[`SystemConfig should initialize contract correctly 11`] = `
+{
+  "createdAddresses":   Set {},
+  "data": "0xbEb5Fc579115071764c7423A4f12eDde41f106Ed",
+  "executionGasUsed": 2494n,
+  "gas": 16774721n,
+  "logs": [],
+  "rawData": "0x000000000000000000000000beb5fc579115071764c7423a4f12edde41f106ed",
+  "selfdestruct":   Set {},
+}
+`;
+
+exports[`SystemConfig can interact with the contract as the owner to change the l2 gas limit 1`] = `
+{
+  "createdAddresses":   Set {},
+  "data": undefined,
+  "executionGasUsed": 6619n,
+  "gas": 16770596n,
+  "logs": [
+    {
+      "address": "0x229047fed2591dbec1eF1118d64F7aF3dB9EB290",
+      "data": "0x0000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000190f1b44",
+      "topics": [
+        "0x1d2b0bda21d56b8bd12d4f94ebacffdfb35f5e226f84b461103bb8beab6353be",
+        "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "0x0000000000000000000000000000000000000000000000000000000000000002",
+      ],
+    },
+  ],
+  "rawData": "0x",
+  "selfdestruct":   Set {},
+}
+`;
