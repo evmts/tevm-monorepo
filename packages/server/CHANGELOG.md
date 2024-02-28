@@ -1,5 +1,11 @@
 # @tevm/server
 
+## 1.0.0-next.44
+
+### Patch Changes
+
+- [#983](https://github.com/evmts/tevm-monorepo/pull/983) [`5aff45bd3023ac87d562f9e9004e11af157882e6`](https://github.com/evmts/tevm-monorepo/commit/5aff45bd3023ac87d562f9e9004e11af157882e6) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug with dep that shouldn't be a dev dep
+
 ## 1.0.0-next.40
 
 ### Patch Changes
