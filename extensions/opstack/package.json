@@ -66,11 +66,10 @@
   "dependencies": {
     "@eth-optimism/contracts-bedrock": "^0.17.1",
     "@tevm/contract": "workspace:^",
+    "@tevm/memory-client": "workspace:^",
     "@tevm/utils": "workspace:^"
   },
   "devDependencies": {
-    "@tevm/contract": "workspace:^",
-    "@tevm/memory-client": "workspace:^",
     "@tevm/tsconfig": "workspace:^",
     "@tevm/tsupconfig": "workspace:^",
     "@types/node": "^20.11.20"
