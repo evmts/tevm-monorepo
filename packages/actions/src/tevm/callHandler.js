@@ -54,7 +54,10 @@ export const callHandler =
 		}
 
 		try {
-			const evmResult = await copiedVm.evm.runCall(callHandlerOpts(params))
+			const evmResult = await copiedVm.evm.runCall({
+				...callHandlerOpts(params),
+				block: await copiedVm.blockchain.getCanonicalHeadBlock(),
+			})
 			if (params.createTransaction && !evmResult.execResult.exceptionError) {
 				copiedVm.stateManager.checkpoint()
 				copiedVm.stateManager.commit()
@@ -66,6 +69,7 @@ export const callHandler =
 				)
 			)
 		} catch (e) {
+			console.error('not good', e)
 			return maybeThrowOnFail(params.throwOnFail ?? defaultThrowOnFail, {
 				errors: [
 					{
