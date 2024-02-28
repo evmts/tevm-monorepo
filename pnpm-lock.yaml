@@ -1084,6 +1084,9 @@ importers:
       '@tevm/contract':
         specifier: workspace:^
         version: link:../../packages/contract
+      '@tevm/memory-client':
+        specifier: workspace:^
+        version: link:../../packages/memory-client
       '@tevm/utils':
         specifier: workspace:^
         version: link:../../packages/utils
@@ -1091,9 +1094,6 @@ importers:
         specifier: 2.x.x
         version: 2.7.13(typescript@5.3.3)
     devDependencies:
-      '@tevm/memory-client':
-        specifier: workspace:^
-        version: link:../../packages/memory-client
       '@tevm/tsconfig':
         specifier: workspace:^
         version: link:../../configs/tsconfig
