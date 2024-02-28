@@ -13,3 +13,6 @@
 [submodule "lib/mud"]
 	path = lib/mud
 	url = https://github.com/latticexyz/mud.git
+[submodule "lib/viem"]
+	path = lib/viem
+	url = git@github.com:wevm/viem.git
