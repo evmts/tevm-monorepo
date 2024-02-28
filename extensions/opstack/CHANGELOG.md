@@ -1,5 +1,11 @@
 # @tevm/viem
 
+## 1.0.0-next.43
+
+### Patch Changes
+
+- [#981](https://github.com/evmts/tevm-monorepo/pull/981) [`6b9f547c1f1d5471d4f63d8fa41d5f1b794ac049`](https://github.com/evmts/tevm-monorepo/commit/6b9f547c1f1d5471d4f63d8fa41d5f1b794ac049) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug with deps being listed as dev deps
+
 ## 1.0.0-next.41
 
 ### Patch Changes
