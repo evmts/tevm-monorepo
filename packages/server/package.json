@@ -64,13 +64,13 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@tevm/utils": "workspace:1.0.0-next.40",
+    "@tevm/errors": "workspace:^",
+    "@tevm/utils": "workspace:^",
     "@tevm/zod": "workspace:^"
   },
   "devDependencies": {
     "@ethereumjs/evm": "^2.1.0",
     "@tevm/actions-types": "workspace:^",
-    "@tevm/errors": "workspace:^",
     "@tevm/jsonrpc": "workspace:^",
     "@tevm/memory-client": "workspace:^",
     "@tevm/procedures-types": "workspace:^",

@@ -1751,8 +1751,11 @@ importers:
 
   packages/server:
     dependencies:
+      '@tevm/errors':
+        specifier: workspace:^
+        version: link:../errors
       '@tevm/utils':
-        specifier: workspace:1.0.0-next.40
+        specifier: workspace:^
         version: link:../utils
       '@tevm/zod':
         specifier: workspace:^
@@ -1764,9 +1767,6 @@ importers:
       '@tevm/actions-types':
         specifier: workspace:^
         version: link:../actions-types
-      '@tevm/errors':
-        specifier: workspace:^
-        version: link:../errors
       '@tevm/jsonrpc':
         specifier: workspace:^
         version: link:../jsonrpc
