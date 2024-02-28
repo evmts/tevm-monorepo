@@ -1,6 +1,6 @@
 {
   "name": "@tevm/ethers",
-  "version": "1.0.0-next.41",
+  "version": "1.0.0-next.42",
   "private": false,
   "description": "A collection of ethers.js utilities for working with Tevm",
   "keywords": [
@@ -69,7 +69,7 @@
     "@tevm/utils": "workspace:1.0.0-next.40"
   },
   "devDependencies": {
-    "@tevm/base-client": "workspace:1.0.0-next.41",
+    "@tevm/base-client": "workspace:1.0.0-next.42",
     "@tevm/contract": "workspace:^",
     "@tevm/tsconfig": "workspace:^",
     "@tevm/tsupconfig": "workspace:^",

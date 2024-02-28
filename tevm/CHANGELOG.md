@@ -1,5 +1,18 @@
 # @tevm/contract
 
+## 1.0.0-next.42
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @tevm/base-client@1.0.0-next.42
+  - @tevm/decorators@1.0.0-next.42
+  - @tevm/actions-types@1.0.0-next.41
+  - @tevm/memory-client@1.0.0-next.42
+  - @tevm/precompiles@1.0.0-next.40
+  - @tevm/http-client@1.0.0-next.41
+  - @tevm/server@1.0.0-next.40
+
 ## 1.0.0-next.41
 
 ### Patch Changes

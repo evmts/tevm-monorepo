@@ -63,7 +63,8 @@
     "@tevm/evm": "1.0.0-next.37",
     "@tevm/utils": "1.0.0-next.37",
     "@tevm/sync-storage-persister": "1.0.0-next.39",
-    "@tevm/bench": "1.0.0-next.39"
+    "@tevm/bench": "1.0.0-next.39",
+    "@tevm/opstack": "1.0.0-next.41"
   },
   "changesets": [
     "afraid-crabs-exist",
@@ -225,6 +226,7 @@
     "thin-ligers-complain",
     "thirty-drinks-tease",
     "thirty-pears-battle",
+    "tiny-scissors-battle",
     "tricky-dryers-teach",
     "tricky-walls-nail",
     "twelve-rockets-know",

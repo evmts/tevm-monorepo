@@ -1,5 +1,14 @@
 # @tevm/contract
 
+## 1.0.0-next.42
+
+### Patch Changes
+
+- [#977](https://github.com/evmts/tevm-monorepo/pull/977) [`0f4bcdb340b86deb5523ba3b63f03df8d2a134f6`](https://github.com/evmts/tevm-monorepo/commit/0f4bcdb340b86deb5523ba3b63f03df8d2a134f6) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed bug where cannonical block header was not being passed into EVM
+
+- Updated dependencies []:
+  - @tevm/vm@1.0.0-next.42
+
 ## 1.0.0-next.41
 
 ### Minor Changes
