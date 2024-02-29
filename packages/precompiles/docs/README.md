@@ -1,4 +1,4 @@
-@tevm/txpool / [Exports](modules.md)
+@tevm/precompiles / [Exports](modules.md)
 
 <p align="center">
   <a href="https://tevm.sh/">
@@ -15,20 +15,24 @@
 
 [![CI](https://github.com/evmts/tevm-monorepo/actions/workflows/e2e.yml/badge.svg)](https://github.com/evmts/tevm-monorepo/actions/workflows/e2e.yml)
 [![CI](https://github.com/evmts/tevm-monorepo/actions/workflows/unit.yml/badge.svg)](https://github.com/evmts/tevm-monorepo/actions/workflows/unit.yml)
-<a href="https://www.npmjs.com/package/@tevm/state" target="\_parent">
-<img alt="" src="https://img.shields.io/npm/dm/@tevm/txpool.svg" />
+<a href="https://www.npmjs.com/package/@tevm/remote-tevm" target="\_parent">
+<img alt="" src="https://img.shields.io/npm/dm/@tevm/remote-tevm.svg" />
 </a>
-<a href="https://bundlephobia.com/package/@tevm/txpool@latest" target="\_parent">
-<img alt="" src="https://badgen.net/bundlephobia/minzip/@tevm/txpool" />
+<a href="https://bundlephobia.com/package/@tevm/remote-tevm@latest" target="\_parent">
+<img alt="" src="https://badgen.net/bundlephobia/minzip/@tevm/remote-tevm" />
 </a>
 
-# @tevm/txpool
+# @tevm/remote-tevm
 
-Manages a pool of pending tx within tevm
+`@tevm/remote-tevm` is a Tevm instance that talks to Tevm server over JSON-RPC http. It shares the same tevm api an in memory tevm instance has.
 
-## Visit [Docs](https://tevm.sh/) for docs, guides, API and more!
+## Installation
 
-## See [Tevm Beta project board](https://github.com/orgs/tevm/projects/1) for progress on the upcoming beta release
+`tevm/remote-tevm` is available for import in the main tevm package or it can be installed as a standalone package
+
+```bash
+npm install @tevm/remote-tevm
+```
 
 ## License 📄
 
