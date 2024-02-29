@@ -8,7 +8,10 @@ exports[`scriptHandler should handle invalid function data 1`] = `
       "message": 
 "Address "not valid" is invalid.
 
-Version: viem@2.7.9"
+- Address must be a hex value of 20 bytes (40 hex characters).
+- Address must match its checksum counterpart.
+
+Version: viem@2.7.16"
 ,
       "name": "InvalidRequestError",
     },
