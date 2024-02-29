@@ -26,7 +26,7 @@ Use the static factory methods to assist in creating an Account from varying dat
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+util@9.0.1/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:21
+node\_modules/.pnpm/@ethereumjs+util@9.0.2/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:21
 
 ## Properties
 
@@ -36,7 +36,7 @@ node\_modules/.pnpm/@ethereumjs+util@9.0.1/node\_modules/@ethereumjs/util/dist/e
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+util@9.0.1/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:22
+node\_modules/.pnpm/@ethereumjs+util@9.0.2/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:22
 
 ***
 
@@ -46,7 +46,7 @@ node\_modules/.pnpm/@ethereumjs+util@9.0.1/node\_modules/@ethereumjs/util/dist/e
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+util@9.0.1/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:11
+node\_modules/.pnpm/@ethereumjs+util@9.0.2/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:11
 
 ***
 
@@ -56,7 +56,7 @@ node\_modules/.pnpm/@ethereumjs+util@9.0.1/node\_modules/@ethereumjs/util/dist/e
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+util@9.0.1/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:13
+node\_modules/.pnpm/@ethereumjs+util@9.0.2/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:13
 
 ***
 
@@ -66,7 +66,7 @@ node\_modules/.pnpm/@ethereumjs+util@9.0.1/node\_modules/@ethereumjs/util/dist/e
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+util@9.0.1/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:10
+node\_modules/.pnpm/@ethereumjs+util@9.0.2/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:10
 
 ***
 
@@ -76,7 +76,7 @@ node\_modules/.pnpm/@ethereumjs+util@9.0.1/node\_modules/@ethereumjs/util/dist/e
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+util@9.0.1/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:12
+node\_modules/.pnpm/@ethereumjs+util@9.0.2/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:12
 
 ## Methods
 
@@ -88,7 +88,7 @@ Returns a `Boolean` determining if the account is a contract.
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+util@9.0.1/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:34
+node\_modules/.pnpm/@ethereumjs+util@9.0.2/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:34
 
 ***
 
@@ -102,7 +102,7 @@ account emptiness in [EIP-161](https://eips.ethereum.org/EIPS/eip-161):
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+util@9.0.1/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:40
+node\_modules/.pnpm/@ethereumjs+util@9.0.2/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:40
 
 ***
 
@@ -114,7 +114,7 @@ Returns an array of Uint8Arrays of the raw bytes for the account, in order.
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+util@9.0.1/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:26
+node\_modules/.pnpm/@ethereumjs+util@9.0.2/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:26
 
 ***
 
@@ -126,7 +126,7 @@ Returns the RLP serialization of the account as a `Uint8Array`.
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+util@9.0.1/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:30
+node\_modules/.pnpm/@ethereumjs+util@9.0.2/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:30
 
 ***
 
@@ -140,7 +140,7 @@ node\_modules/.pnpm/@ethereumjs+util@9.0.1/node\_modules/@ethereumjs/util/dist/e
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+util@9.0.1/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:14
+node\_modules/.pnpm/@ethereumjs+util@9.0.2/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:14
 
 ***
 
@@ -154,7 +154,7 @@ node\_modules/.pnpm/@ethereumjs+util@9.0.1/node\_modules/@ethereumjs/util/dist/e
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+util@9.0.1/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:15
+node\_modules/.pnpm/@ethereumjs+util@9.0.2/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:15
 
 ***
 
@@ -168,7 +168,7 @@ node\_modules/.pnpm/@ethereumjs+util@9.0.1/node\_modules/@ethereumjs/util/dist/e
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+util@9.0.1/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:16
+node\_modules/.pnpm/@ethereumjs+util@9.0.2/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:16
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

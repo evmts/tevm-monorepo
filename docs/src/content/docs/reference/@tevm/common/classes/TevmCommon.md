@@ -25,7 +25,7 @@ Common.constructor
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:68
+node\_modules/.pnpm/@ethereumjs+common@4.2.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:69
 
 ## Properties
 
@@ -39,7 +39,7 @@ Common.DEFAULT\_HARDFORK
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:20
+node\_modules/.pnpm/@ethereumjs+common@4.2.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:20
 
 ***
 
@@ -53,7 +53,7 @@ Common.HARDFORK\_CHANGES
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:27
+node\_modules/.pnpm/@ethereumjs+common@4.2.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:28
 
 ***
 
@@ -67,7 +67,7 @@ Common.\_activatedEIPsCache
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:26
+node\_modules/.pnpm/@ethereumjs+common@4.2.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:27
 
 ***
 
@@ -81,7 +81,7 @@ Common.\_chainParams
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:21
+node\_modules/.pnpm/@ethereumjs+common@4.2.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:21
 
 ***
 
@@ -95,7 +95,7 @@ Common.\_customChains
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:24
+node\_modules/.pnpm/@ethereumjs+common@4.2.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:24
 
 ***
 
@@ -109,7 +109,7 @@ Common.\_eips
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:23
+node\_modules/.pnpm/@ethereumjs+common@4.2.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:23
 
 ***
 
@@ -123,7 +123,7 @@ Common.\_hardfork
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:22
+node\_modules/.pnpm/@ethereumjs+common@4.2.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:22
 
 ***
 
@@ -137,7 +137,21 @@ Common.\_paramsCache
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:25
+node\_modules/.pnpm/@ethereumjs+common@4.2.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:26
+
+***
+
+### customCrypto
+
+> **`readonly`** **customCrypto**: `CustomCrypto`
+
+#### Inherited from
+
+Common.customCrypto
+
+#### Source
+
+node\_modules/.pnpm/@ethereumjs+common@4.2.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:25
 
 ***
 
@@ -151,7 +165,7 @@ Common.events
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:28
+node\_modules/.pnpm/@ethereumjs+common@4.2.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:29
 
 ## Methods
 
@@ -165,7 +179,7 @@ Common.\_buildActivatedEIPsCache
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:124
+node\_modules/.pnpm/@ethereumjs+common@4.2.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:125
 
 ***
 
@@ -181,7 +195,7 @@ Common.\_buildParamsCache
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:123
+node\_modules/.pnpm/@ethereumjs+common@4.2.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:124
 
 ***
 
@@ -211,7 +225,7 @@ Common.\_calcForkHash
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:231
+node\_modules/.pnpm/@ethereumjs+common@4.2.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:232
 
 ***
 
@@ -237,7 +251,7 @@ Common.\_getHardfork
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:110
+node\_modules/.pnpm/@ethereumjs+common@4.2.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:111
 
 ***
 
@@ -257,7 +271,7 @@ Common.\_mergeWithParamsCache
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:119
+node\_modules/.pnpm/@ethereumjs+common@4.2.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:120
 
 ***
 
@@ -281,7 +295,7 @@ Common.activeOnBlock
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:185
+node\_modules/.pnpm/@ethereumjs+common@4.2.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:186
 
 ***
 
@@ -301,7 +315,7 @@ Common.bootstrapNodes
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:264
+node\_modules/.pnpm/@ethereumjs+common@4.2.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:265
 
 ***
 
@@ -321,7 +335,7 @@ Common.chainId
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:279
+node\_modules/.pnpm/@ethereumjs+common@4.2.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:280
 
 ***
 
@@ -341,7 +355,7 @@ Common.chainName
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:284
+node\_modules/.pnpm/@ethereumjs+common@4.2.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:285
 
 ***
 
@@ -363,7 +377,7 @@ Common.consensusAlgorithm
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:312
+node\_modules/.pnpm/@ethereumjs+common@4.2.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:313
 
 ***
 
@@ -389,7 +403,7 @@ Common.consensusConfig
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:326
+node\_modules/.pnpm/@ethereumjs+common@4.2.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:327
 
 ***
 
@@ -408,7 +422,7 @@ Common.consensusType
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:302
+node\_modules/.pnpm/@ethereumjs+common@4.2.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:303
 
 ***
 
@@ -424,7 +438,7 @@ Common.copy
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:332
+node\_modules/.pnpm/@ethereumjs+common@4.2.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:333
 
 ***
 
@@ -444,7 +458,7 @@ Common.dnsNetworks
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:269
+node\_modules/.pnpm/@ethereumjs+common@4.2.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:270
 
 ***
 
@@ -470,7 +484,7 @@ Common.eipBlock
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:212
+node\_modules/.pnpm/@ethereumjs+common@4.2.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:213
 
 ***
 
@@ -491,7 +505,7 @@ Common.eips
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:295
+node\_modules/.pnpm/@ethereumjs+common@4.2.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:296
 
 ***
 
@@ -517,7 +531,7 @@ Common.forkHash
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:237
+node\_modules/.pnpm/@ethereumjs+common@4.2.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:238
 
 ***
 
@@ -537,7 +551,7 @@ Common.genesis
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:254
+node\_modules/.pnpm/@ethereumjs+common@4.2.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:255
 
 ***
 
@@ -566,7 +580,7 @@ Common.getHardforkBy
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:92
+node\_modules/.pnpm/@ethereumjs+common@4.2.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:93
 
 ***
 
@@ -592,7 +606,7 @@ Common.gteHardfork
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:199
+node\_modules/.pnpm/@ethereumjs+common@4.2.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:200
 
 ***
 
@@ -612,7 +626,7 @@ Common.hardfork
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:274
+node\_modules/.pnpm/@ethereumjs+common@4.2.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:275
 
 ***
 
@@ -638,7 +652,7 @@ Common.hardforkBlock
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:205
+node\_modules/.pnpm/@ethereumjs+common@4.2.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:206
 
 ***
 
@@ -662,7 +676,7 @@ Common.hardforkForForkHash
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:243
+node\_modules/.pnpm/@ethereumjs+common@4.2.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:244
 
 ***
 
@@ -692,7 +706,7 @@ Common.hardforkGteHardfork
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:193
+node\_modules/.pnpm/@ethereumjs+common@4.2.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:194
 
 ***
 
@@ -720,7 +734,7 @@ Common.hardforkIsActiveOnBlock
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:179
+node\_modules/.pnpm/@ethereumjs+common@4.2.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:180
 
 ***
 
@@ -746,7 +760,7 @@ Common.hardforkTTD
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:218
+node\_modules/.pnpm/@ethereumjs+common@4.2.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:219
 
 ***
 
@@ -764,7 +778,7 @@ Common.hardforkTimestamp
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:206
+node\_modules/.pnpm/@ethereumjs+common@4.2.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:207
 
 ***
 
@@ -784,7 +798,7 @@ Common.hardforks
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:259
+node\_modules/.pnpm/@ethereumjs+common@4.2.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:260
 
 ***
 
@@ -809,7 +823,7 @@ Common.isActivatedEIP
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:172
+node\_modules/.pnpm/@ethereumjs+common@4.2.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:173
 
 ***
 
@@ -829,7 +843,7 @@ Common.networkId
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:289
+node\_modules/.pnpm/@ethereumjs+common@4.2.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:290
 
 ***
 
@@ -855,7 +869,7 @@ Common.nextHardforkBlockOrTimestamp
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:224
+node\_modules/.pnpm/@ethereumjs+common@4.2.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:225
 
 ***
 
@@ -889,7 +903,7 @@ Common.param
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:136
+node\_modules/.pnpm/@ethereumjs+common@4.2.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:137
 
 ***
 
@@ -931,7 +945,7 @@ Common.paramByBlock
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:162
+node\_modules/.pnpm/@ethereumjs+common@4.2.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:163
 
 ***
 
@@ -965,7 +979,7 @@ Common.paramByEIP
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:152
+node\_modules/.pnpm/@ethereumjs+common@4.2.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:153
 
 ***
 
@@ -999,7 +1013,7 @@ Common.paramByHardfork
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:144
+node\_modules/.pnpm/@ethereumjs+common@4.2.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:145
 
 ***
 
@@ -1026,7 +1040,7 @@ Common.setChain
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:75
+node\_modules/.pnpm/@ethereumjs+common@4.2.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:76
 
 ***
 
@@ -1046,7 +1060,7 @@ Common.setEIPs
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:115
+node\_modules/.pnpm/@ethereumjs+common@4.2.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:116
 
 ***
 
@@ -1068,7 +1082,7 @@ Common.setForkHashes
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:249
+node\_modules/.pnpm/@ethereumjs+common@4.2.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:250
 
 ***
 
@@ -1090,7 +1104,7 @@ Common.setHardfork
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:80
+node\_modules/.pnpm/@ethereumjs+common@4.2.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:81
 
 ***
 
@@ -1119,7 +1133,7 @@ Common.setHardforkBy
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:104
+node\_modules/.pnpm/@ethereumjs+common@4.2.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:105
 
 ***
 
@@ -1139,7 +1153,7 @@ Common.\_getChainParams
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:67
+node\_modules/.pnpm/@ethereumjs+common@4.2.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:68
 
 ***
 
@@ -1183,7 +1197,7 @@ Common.custom
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:53
+node\_modules/.pnpm/@ethereumjs+common@4.2.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:54
 
 ***
 
@@ -1213,7 +1227,7 @@ Common.fromGethGenesis
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:60
+node\_modules/.pnpm/@ethereumjs+common@4.2.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:61
 
 ***
 
@@ -1231,7 +1245,7 @@ Common.getInitializedChains
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:333
+node\_modules/.pnpm/@ethereumjs+common@4.2.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:334
 
 ***
 
@@ -1257,7 +1271,7 @@ Common.isSupportedChainId
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:66
+node\_modules/.pnpm/@ethereumjs+common@4.2.0/node\_modules/@ethereumjs/common/dist/esm/common.d.ts:67
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

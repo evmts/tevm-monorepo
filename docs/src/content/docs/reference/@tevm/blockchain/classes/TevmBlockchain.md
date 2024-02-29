@@ -41,7 +41,7 @@ Blockchain.constructor
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+blockchain@7.0.1/node\_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:63
+node\_modules/.pnpm/@ethereumjs+blockchain@7.1.0/node\_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:71
 
 ## Properties
 
@@ -55,7 +55,7 @@ Blockchain.\_isInitialized
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+blockchain@7.0.1/node\_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:32
+node\_modules/.pnpm/@ethereumjs+blockchain@7.1.0/node\_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:34
 
 ***
 
@@ -69,7 +69,7 @@ Blockchain.common
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+blockchain@7.0.1/node\_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:34
+node\_modules/.pnpm/@ethereumjs+blockchain@7.1.0/node\_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:36
 
 ***
 
@@ -83,7 +83,7 @@ Blockchain.consensus
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+blockchain@7.0.1/node\_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:11
+node\_modules/.pnpm/@ethereumjs+blockchain@7.1.0/node\_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:12
 
 ***
 
@@ -97,7 +97,7 @@ Blockchain.db
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+blockchain@7.0.1/node\_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:12
+node\_modules/.pnpm/@ethereumjs+blockchain@7.1.0/node\_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:13
 
 ***
 
@@ -111,7 +111,21 @@ Blockchain.dbManager
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+blockchain@7.0.1/node\_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:13
+node\_modules/.pnpm/@ethereumjs+blockchain@7.1.0/node\_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:14
+
+***
+
+### events
+
+> **events**: `AsyncEventEmitter`\<`BlockchainEvents`\>
+
+#### Inherited from
+
+Blockchain.events
+
+#### Source
+
+node\_modules/.pnpm/@ethereumjs+blockchain@7.1.0/node\_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:15
 
 ## Accessors
 
@@ -123,7 +137,7 @@ The genesis [Block](/reference/tevm/blockchain/classes/block/) for the blockchai
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+blockchain@7.0.1/node\_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:365
+node\_modules/.pnpm/@ethereumjs+blockchain@7.1.0/node\_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:373
 
 ## Methods
 
@@ -145,7 +159,7 @@ Blockchain.checkAndTransitionHardForkByNumber
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+blockchain@7.0.1/node\_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:350
+node\_modules/.pnpm/@ethereumjs+blockchain@7.1.0/node\_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:358
 
 ***
 
@@ -167,7 +181,7 @@ Blockchain.createGenesisBlock
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+blockchain@7.0.1/node\_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:370
+node\_modules/.pnpm/@ethereumjs+blockchain@7.1.0/node\_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:378
 
 ***
 
@@ -196,7 +210,7 @@ Blockchain.delBlock
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+blockchain@7.0.1/node\_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:256
+node\_modules/.pnpm/@ethereumjs+blockchain@7.1.0/node\_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:264
 
 ***
 
@@ -221,7 +235,7 @@ Blockchain.getBlock
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+blockchain@7.0.1/node\_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:219
+node\_modules/.pnpm/@ethereumjs+blockchain@7.1.0/node\_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:227
 
 ***
 
@@ -256,7 +270,7 @@ Blockchain.getBlocks
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+blockchain@7.0.1/node\_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:237
+node\_modules/.pnpm/@ethereumjs+blockchain@7.1.0/node\_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:245
 
 ***
 
@@ -272,7 +286,7 @@ Blockchain.getCanonicalHeadBlock
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+blockchain@7.0.1/node\_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:119
+node\_modules/.pnpm/@ethereumjs+blockchain@7.1.0/node\_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:127
 
 ***
 
@@ -288,7 +302,7 @@ Blockchain.getCanonicalHeadHeader
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+blockchain@7.0.1/node\_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:115
+node\_modules/.pnpm/@ethereumjs+blockchain@7.1.0/node\_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:123
 
 ***
 
@@ -308,7 +322,7 @@ Blockchain.getCanonicalHeader
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+blockchain@7.0.1/node\_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:354
+node\_modules/.pnpm/@ethereumjs+blockchain@7.1.0/node\_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:362
 
 ***
 
@@ -335,7 +349,7 @@ Blockchain.getIteratorHead
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+blockchain@7.0.1/node\_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:104
+node\_modules/.pnpm/@ethereumjs+blockchain@7.1.0/node\_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:112
 
 ***
 
@@ -359,7 +373,7 @@ Blockchain.getIteratorHeadSafe
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+blockchain@7.0.1/node\_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:110
+node\_modules/.pnpm/@ethereumjs+blockchain@7.1.0/node\_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:118
 
 ***
 
@@ -381,7 +395,7 @@ Blockchain.getParentTD
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+blockchain@7.0.1/node\_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:228
+node\_modules/.pnpm/@ethereumjs+blockchain@7.1.0/node\_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:236
 
 ***
 
@@ -403,7 +417,7 @@ Blockchain.getTotalDifficulty
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+blockchain@7.0.1/node\_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:223
+node\_modules/.pnpm/@ethereumjs+blockchain@7.1.0/node\_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:231
 
 ***
 
@@ -443,7 +457,7 @@ Blockchain.iterator
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+blockchain@7.0.1/node\_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:288
+node\_modules/.pnpm/@ethereumjs+blockchain@7.1.0/node\_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:296
 
 ***
 
@@ -469,7 +483,7 @@ Blockchain.putBlock
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+blockchain@7.0.1/node\_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:138
+node\_modules/.pnpm/@ethereumjs+blockchain@7.1.0/node\_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:146
 
 ***
 
@@ -496,7 +510,7 @@ Blockchain.putBlocks
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+blockchain@7.0.1/node\_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:129
+node\_modules/.pnpm/@ethereumjs+blockchain@7.1.0/node\_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:137
 
 ***
 
@@ -522,7 +536,7 @@ Blockchain.putHeader
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+blockchain@7.0.1/node\_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:157
+node\_modules/.pnpm/@ethereumjs+blockchain@7.1.0/node\_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:165
 
 ***
 
@@ -549,7 +563,7 @@ Blockchain.putHeaders
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+blockchain@7.0.1/node\_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:148
+node\_modules/.pnpm/@ethereumjs+blockchain@7.1.0/node\_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:156
 
 ***
 
@@ -574,7 +588,7 @@ Blockchain.resetCanonicalHead
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+blockchain@7.0.1/node\_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:165
+node\_modules/.pnpm/@ethereumjs+blockchain@7.1.0/node\_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:173
 
 ***
 
@@ -596,7 +610,7 @@ Blockchain.safeNumberToHash
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+blockchain@7.0.1/node\_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:361
+node\_modules/.pnpm/@ethereumjs+blockchain@7.1.0/node\_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:369
 
 ***
 
@@ -620,7 +634,7 @@ Blockchain.selectNeededHashes
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+blockchain@7.0.1/node\_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:244
+node\_modules/.pnpm/@ethereumjs+blockchain@7.1.0/node\_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:252
 
 ***
 
@@ -647,7 +661,7 @@ Blockchain.setIteratorHead
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+blockchain@7.0.1/node\_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:295
+node\_modules/.pnpm/@ethereumjs+blockchain@7.1.0/node\_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:303
 
 ***
 
@@ -671,7 +685,7 @@ Blockchain.shallowCopy
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+blockchain@7.0.1/node\_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:75
+node\_modules/.pnpm/@ethereumjs+blockchain@7.1.0/node\_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:83
 
 ***
 
@@ -694,7 +708,7 @@ Blockchain.validateBlock
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+blockchain@7.0.1/node\_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:201
+node\_modules/.pnpm/@ethereumjs+blockchain@7.1.0/node\_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:209
 
 ***
 
@@ -731,7 +745,7 @@ Blockchain.validateHeader
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+blockchain@7.0.1/node\_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:195
+node\_modules/.pnpm/@ethereumjs+blockchain@7.1.0/node\_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:203
 
 ***
 
@@ -754,7 +768,7 @@ Blockchain.create
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+blockchain@7.0.1/node\_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:44
+node\_modules/.pnpm/@ethereumjs+blockchain@7.1.0/node\_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:52
 
 ***
 
@@ -779,7 +793,7 @@ Blockchain.fromBlocksData
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+blockchain@7.0.1/node\_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:52
+node\_modules/.pnpm/@ethereumjs+blockchain@7.1.0/node\_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:60
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

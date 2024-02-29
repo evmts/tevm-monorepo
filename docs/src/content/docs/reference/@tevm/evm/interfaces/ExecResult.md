@@ -17,7 +17,7 @@ Amount of blob gas consumed by the transaction
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:289
+node\_modules/.pnpm/@ethereumjs+evm@2.2.1/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:291
 
 ***
 
@@ -29,7 +29,7 @@ Map of addresses which were created (used in EIP 6780)
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:281
+node\_modules/.pnpm/@ethereumjs+evm@2.2.1/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:283
 
 ***
 
@@ -41,7 +41,7 @@ Description of the exception, if any occurred
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:257
+node\_modules/.pnpm/@ethereumjs+evm@2.2.1/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:259
 
 ***
 
@@ -53,7 +53,7 @@ Amount of gas the code used to run
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:265
+node\_modules/.pnpm/@ethereumjs+evm@2.2.1/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:267
 
 ***
 
@@ -65,7 +65,7 @@ Amount of gas left
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:261
+node\_modules/.pnpm/@ethereumjs+evm@2.2.1/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:263
 
 ***
 
@@ -77,7 +77,7 @@ The gas refund counter
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:285
+node\_modules/.pnpm/@ethereumjs+evm@2.2.1/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:287
 
 ***
 
@@ -89,7 +89,7 @@ Array of logs that the contract emitted
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:273
+node\_modules/.pnpm/@ethereumjs+evm@2.2.1/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:275
 
 ***
 
@@ -101,7 +101,7 @@ Return value from the contract
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:269
+node\_modules/.pnpm/@ethereumjs+evm@2.2.1/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:271
 
 ***
 
@@ -111,7 +111,7 @@ node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:253
+node\_modules/.pnpm/@ethereumjs+evm@2.2.1/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:255
 
 ***
 
@@ -123,7 +123,7 @@ A set of accounts to selfdestruct
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:277
+node\_modules/.pnpm/@ethereumjs+evm@2.2.1/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:279
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

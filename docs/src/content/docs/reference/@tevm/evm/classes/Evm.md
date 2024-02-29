@@ -28,7 +28,7 @@ EVM.constructor
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:57
+node\_modules/.pnpm/@ethereumjs+evm@2.2.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:57
 
 ## Properties
 
@@ -42,7 +42,7 @@ EVM.\_block
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:27
+node\_modules/.pnpm/@ethereumjs+evm@2.2.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:27
 
 ***
 
@@ -56,7 +56,7 @@ EVM.\_customOpcodes
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:37
+node\_modules/.pnpm/@ethereumjs+evm@2.2.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:37
 
 ***
 
@@ -70,7 +70,7 @@ EVM.\_customPrecompiles
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:38
+node\_modules/.pnpm/@ethereumjs+evm@2.2.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:38
 
 ***
 
@@ -84,7 +84,7 @@ EVM.\_dynamicGasHandlers
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:40
+node\_modules/.pnpm/@ethereumjs+evm@2.2.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:40
 
 ***
 
@@ -104,7 +104,7 @@ EVM.\_emit
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:56
+node\_modules/.pnpm/@ethereumjs+evm@2.2.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:56
 
 ***
 
@@ -118,7 +118,7 @@ EVM.\_handlers
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:39
+node\_modules/.pnpm/@ethereumjs+evm@2.2.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:39
 
 ***
 
@@ -132,7 +132,7 @@ EVM.\_opcodeMap
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:41
+node\_modules/.pnpm/@ethereumjs+evm@2.2.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:41
 
 ***
 
@@ -146,7 +146,7 @@ EVM.\_opcodes
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:34
+node\_modules/.pnpm/@ethereumjs+evm@2.2.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:34
 
 ***
 
@@ -160,7 +160,7 @@ EVM.\_optsCached
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:43
+node\_modules/.pnpm/@ethereumjs+evm@2.2.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:43
 
 ***
 
@@ -174,7 +174,7 @@ EVM.\_precompiles
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:42
+node\_modules/.pnpm/@ethereumjs+evm@2.2.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:42
 
 ***
 
@@ -198,7 +198,7 @@ EVM.\_tx
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:23
+node\_modules/.pnpm/@ethereumjs+evm@2.2.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:23
 
 ***
 
@@ -212,7 +212,7 @@ EVM.allowUnlimitedContractSize
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:35
+node\_modules/.pnpm/@ethereumjs+evm@2.2.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:35
 
 ***
 
@@ -226,7 +226,7 @@ EVM.allowUnlimitedInitCodeSize
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:36
+node\_modules/.pnpm/@ethereumjs+evm@2.2.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:36
 
 ***
 
@@ -240,7 +240,7 @@ EVM.blockchain
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:31
+node\_modules/.pnpm/@ethereumjs+evm@2.2.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:31
 
 ***
 
@@ -254,7 +254,7 @@ EVM.common
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:28
+node\_modules/.pnpm/@ethereumjs+evm@2.2.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:28
 
 ***
 
@@ -268,7 +268,7 @@ EVM.events
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:29
+node\_modules/.pnpm/@ethereumjs+evm@2.2.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:29
 
 ***
 
@@ -282,7 +282,7 @@ EVM.journal
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:32
+node\_modules/.pnpm/@ethereumjs+evm@2.2.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:32
 
 ***
 
@@ -296,7 +296,7 @@ EVM.performanceLogger
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:44
+node\_modules/.pnpm/@ethereumjs+evm@2.2.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:44
 
 ***
 
@@ -324,7 +324,7 @@ EVM.transientStorage
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:33
+node\_modules/.pnpm/@ethereumjs+evm@2.2.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:33
 
 ***
 
@@ -338,7 +338,7 @@ EVM.supportedHardforks
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:22
+node\_modules/.pnpm/@ethereumjs+evm@2.2.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:22
 
 ## Accessors
 
@@ -348,7 +348,7 @@ node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:46
+node\_modules/.pnpm/@ethereumjs+evm@2.2.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:46
 
 ***
 
@@ -358,7 +358,7 @@ node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:45
+node\_modules/.pnpm/@ethereumjs+evm@2.2.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:45
 
 ## Methods
 
@@ -378,7 +378,7 @@ EVM.\_addToBalance
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:92
+node\_modules/.pnpm/@ethereumjs+evm@2.2.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:92
 
 ***
 
@@ -396,7 +396,7 @@ EVM.\_executeCall
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:63
+node\_modules/.pnpm/@ethereumjs+evm@2.2.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:63
 
 ***
 
@@ -414,7 +414,7 @@ EVM.\_executeCreate
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:64
+node\_modules/.pnpm/@ethereumjs+evm@2.2.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:64
 
 ***
 
@@ -432,7 +432,7 @@ EVM.\_generateAddress
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:90
+node\_modules/.pnpm/@ethereumjs+evm@2.2.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:90
 
 ***
 
@@ -450,7 +450,7 @@ EVM.\_loadCode
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:89
+node\_modules/.pnpm/@ethereumjs+evm@2.2.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:89
 
 ***
 
@@ -470,7 +470,7 @@ EVM.\_reduceSenderBalance
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:91
+node\_modules/.pnpm/@ethereumjs+evm@2.2.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:91
 
 ***
 
@@ -484,7 +484,7 @@ EVM.clearPerformanceLogs
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:111
+node\_modules/.pnpm/@ethereumjs+evm@2.2.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:111
 
 ***
 
@@ -501,7 +501,7 @@ EVM.getActiveOpcodes
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:62
+node\_modules/.pnpm/@ethereumjs+evm@2.2.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:62
 
 ***
 
@@ -526,7 +526,7 @@ EVM.getPerformanceLogs
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:107
+node\_modules/.pnpm/@ethereumjs+evm@2.2.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:107
 
 ***
 
@@ -547,7 +547,7 @@ EVM.getPrecompile
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:84
+node\_modules/.pnpm/@ethereumjs+evm@2.2.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:84
 
 ***
 
@@ -569,7 +569,7 @@ EVM.runCall
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:74
+node\_modules/.pnpm/@ethereumjs+evm@2.2.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:74
 
 ***
 
@@ -590,7 +590,7 @@ EVM.runCode
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:79
+node\_modules/.pnpm/@ethereumjs+evm@2.2.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:79
 
 ***
 
@@ -612,7 +612,7 @@ EVM.runInterpreter
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:68
+node\_modules/.pnpm/@ethereumjs+evm@2.2.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:68
 
 ***
 
@@ -636,7 +636,7 @@ EVM.runPrecompile
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:88
+node\_modules/.pnpm/@ethereumjs+evm@2.2.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:88
 
 ***
 
@@ -660,7 +660,7 @@ EVM.shallowCopy
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:106
+node\_modules/.pnpm/@ethereumjs+evm@2.2.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:106
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
