@@ -67,7 +67,7 @@
     "@tevm/procedures": "workspace:^",
     "@tevm/procedures-types": "workspace:1.0.0-next.41",
     "@tevm/utils": "workspace:1.0.0-next.40",
-    "viem": "^2.7.13"
+    "viem": "^2.7.16"
   },
   "devDependencies": {
     "@tevm/base-client": "workspace:1.0.0-next.42",

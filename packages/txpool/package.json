@@ -62,20 +62,15 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@ethereumjs/block": "^5.0.1",
+    "@ethereumjs/block": "^5.1.1",
     "@ethereumjs/tx": "^5.2.1",
-    "@ethereumjs/util": "^9.0.1",
-    "@ethereumjs/vm": "^7.1.0",
-    "@tevm/blockchain": "workspace:^",
-    "@tevm/common": "workspace:^",
-    "@tevm/evm": "workspace:^",
+    "@ethereumjs/util": "^9.0.2",
     "qheap": "^1.4.0"
   },
   "devDependencies": {
-    "@tevm/state": "workspace:^",
     "@tevm/tsconfig": "workspace:^",
     "@tevm/tsupconfig": "workspace:^",
-    "@tevm/vm": "workspace:1.0.0-next.42"
+    "@tevm/vm": "workspace:^"
   },
   "publishConfig": {
     "access": "public"
