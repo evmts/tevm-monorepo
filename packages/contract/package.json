@@ -67,9 +67,9 @@
     "@tevm/utils": "workspace:1.0.0-next.40"
   },
   "devDependencies": {
-    "@evmts/core": "next",
-    "@evmts/ts-plugin": "next",
-    "@evmts/vite-plugin": "next",
+    "@evmts/core": "1.0.0-next.12",
+    "@evmts/ts-plugin": "1.0.0-next.18",
+    "@evmts/vite-plugin": "1.0.0-next.19",
     "@tevm/tsconfig": "workspace:^",
     "@tevm/tsupconfig": "workspace:^"
   },

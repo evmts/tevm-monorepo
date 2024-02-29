@@ -83,7 +83,7 @@ EVMStateManagerInterface.originalStorageCache
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/@ethereumjs+common@4.1.0/node_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:72
+evmts-monorepo/node_modules/.pnpm/@ethereumjs+common@4.2.0/node_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:72
 
 ## Methods
 
@@ -101,7 +101,7 @@ EVMStateManagerInterface.checkpoint
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/@ethereumjs+common@4.1.0/node_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:62
+evmts-monorepo/node_modules/.pnpm/@ethereumjs+common@4.2.0/node_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:62
 
 ___
 
@@ -125,7 +125,7 @@ EVMStateManagerInterface.clearContractStorage
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/@ethereumjs+common@4.1.0/node_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:61
+evmts-monorepo/node_modules/.pnpm/@ethereumjs+common@4.2.0/node_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:61
 
 ___
 
@@ -143,7 +143,7 @@ EVMStateManagerInterface.commit
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/@ethereumjs+common@4.1.0/node_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:63
+evmts-monorepo/node_modules/.pnpm/@ethereumjs+common@4.2.0/node_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:63
 
 ___
 
@@ -167,7 +167,7 @@ EVMStateManagerInterface.deleteAccount
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/@ethereumjs+common@4.1.0/node_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:55
+evmts-monorepo/node_modules/.pnpm/@ethereumjs+common@4.2.0/node_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:55
 
 ___
 
@@ -191,7 +191,7 @@ EVMStateManagerInterface.dumpStorage
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/@ethereumjs+common@4.1.0/node_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:76
+evmts-monorepo/node_modules/.pnpm/@ethereumjs+common@4.2.0/node_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:76
 
 ___
 
@@ -217,7 +217,7 @@ EVMStateManagerInterface.dumpStorageRange
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/@ethereumjs+common@4.1.0/node_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:77
+evmts-monorepo/node_modules/.pnpm/@ethereumjs+common@4.2.0/node_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:77
 
 ___
 
@@ -241,7 +241,7 @@ EVMStateManagerInterface.generateCanonicalGenesis
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/@ethereumjs+common@4.1.0/node_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:78
+evmts-monorepo/node_modules/.pnpm/@ethereumjs+common@4.2.0/node_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:78
 
 ___
 
@@ -265,7 +265,7 @@ EVMStateManagerInterface.getAccount
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/@ethereumjs+common@4.1.0/node_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:53
+evmts-monorepo/node_modules/.pnpm/@ethereumjs+common@4.2.0/node_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:53
 
 ___
 
@@ -289,7 +289,7 @@ EVMStateManagerInterface.getContractCode
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/@ethereumjs+common@4.1.0/node_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:58
+evmts-monorepo/node_modules/.pnpm/@ethereumjs+common@4.2.0/node_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:58
 
 ___
 
@@ -314,7 +314,7 @@ EVMStateManagerInterface.getContractStorage
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/@ethereumjs+common@4.1.0/node_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:59
+evmts-monorepo/node_modules/.pnpm/@ethereumjs+common@4.2.0/node_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:59
 
 ___
 
@@ -339,7 +339,7 @@ EVMStateManagerInterface.getProof
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/@ethereumjs+common@4.1.0/node_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:79
+evmts-monorepo/node_modules/.pnpm/@ethereumjs+common@4.2.0/node_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:79
 
 ___
 
@@ -357,7 +357,7 @@ EVMStateManagerInterface.getStateRoot
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/@ethereumjs+common@4.1.0/node_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:65
+evmts-monorepo/node_modules/.pnpm/@ethereumjs+common@4.2.0/node_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:65
 
 ___
 
@@ -381,7 +381,7 @@ EVMStateManagerInterface.hasStateRoot
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/@ethereumjs+common@4.1.0/node_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:68
+evmts-monorepo/node_modules/.pnpm/@ethereumjs+common@4.2.0/node_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:68
 
 ___
 
@@ -406,7 +406,7 @@ EVMStateManagerInterface.modifyAccountFields
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/@ethereumjs+common@4.1.0/node_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:56
+evmts-monorepo/node_modules/.pnpm/@ethereumjs+common@4.2.0/node_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:56
 
 ___
 
@@ -431,7 +431,7 @@ EVMStateManagerInterface.putAccount
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/@ethereumjs+common@4.1.0/node_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:54
+evmts-monorepo/node_modules/.pnpm/@ethereumjs+common@4.2.0/node_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:54
 
 ___
 
@@ -456,7 +456,7 @@ EVMStateManagerInterface.putContractCode
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/@ethereumjs+common@4.1.0/node_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:57
+evmts-monorepo/node_modules/.pnpm/@ethereumjs+common@4.2.0/node_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:57
 
 ___
 
@@ -482,7 +482,7 @@ EVMStateManagerInterface.putContractStorage
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/@ethereumjs+common@4.1.0/node_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:60
+evmts-monorepo/node_modules/.pnpm/@ethereumjs+common@4.2.0/node_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:60
 
 ___
 
@@ -500,7 +500,7 @@ EVMStateManagerInterface.revert
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/@ethereumjs+common@4.1.0/node_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:64
+evmts-monorepo/node_modules/.pnpm/@ethereumjs+common@4.2.0/node_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:64
 
 ___
 
@@ -525,7 +525,7 @@ EVMStateManagerInterface.setStateRoot
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/@ethereumjs+common@4.1.0/node_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:66
+evmts-monorepo/node_modules/.pnpm/@ethereumjs+common@4.2.0/node_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:66
 
 ___
 
@@ -549,4 +549,4 @@ EVMStateManagerInterface.shallowCopy
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/@ethereumjs+common@4.1.0/node_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:80
+evmts-monorepo/node_modules/.pnpm/@ethereumjs+common@4.2.0/node_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:80

@@ -43,7 +43,7 @@ EVMStateManagerInterface.originalStorageCache
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:72
+node\_modules/.pnpm/@ethereumjs+common@4.2.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:72
 
 ## Methods
 
@@ -57,7 +57,7 @@ EVMStateManagerInterface.checkpoint
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:62
+node\_modules/.pnpm/@ethereumjs+common@4.2.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:62
 
 ***
 
@@ -75,7 +75,7 @@ EVMStateManagerInterface.clearContractStorage
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:61
+node\_modules/.pnpm/@ethereumjs+common@4.2.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:61
 
 ***
 
@@ -89,7 +89,7 @@ EVMStateManagerInterface.commit
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:63
+node\_modules/.pnpm/@ethereumjs+common@4.2.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:63
 
 ***
 
@@ -107,7 +107,7 @@ EVMStateManagerInterface.deleteAccount
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:55
+node\_modules/.pnpm/@ethereumjs+common@4.2.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:55
 
 ***
 
@@ -125,7 +125,7 @@ EVMStateManagerInterface.dumpStorage
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:76
+node\_modules/.pnpm/@ethereumjs+common@4.2.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:76
 
 ***
 
@@ -147,7 +147,7 @@ EVMStateManagerInterface.dumpStorageRange
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:77
+node\_modules/.pnpm/@ethereumjs+common@4.2.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:77
 
 ***
 
@@ -165,7 +165,7 @@ EVMStateManagerInterface.generateCanonicalGenesis
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:78
+node\_modules/.pnpm/@ethereumjs+common@4.2.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:78
 
 ***
 
@@ -183,7 +183,7 @@ EVMStateManagerInterface.getAccount
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:53
+node\_modules/.pnpm/@ethereumjs+common@4.2.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:53
 
 ***
 
@@ -201,7 +201,7 @@ EVMStateManagerInterface.getContractCode
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:58
+node\_modules/.pnpm/@ethereumjs+common@4.2.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:58
 
 ***
 
@@ -221,7 +221,7 @@ EVMStateManagerInterface.getContractStorage
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:59
+node\_modules/.pnpm/@ethereumjs+common@4.2.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:59
 
 ***
 
@@ -241,7 +241,7 @@ EVMStateManagerInterface.getProof
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:79
+node\_modules/.pnpm/@ethereumjs+common@4.2.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:79
 
 ***
 
@@ -255,7 +255,7 @@ EVMStateManagerInterface.getStateRoot
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:65
+node\_modules/.pnpm/@ethereumjs+common@4.2.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:65
 
 ***
 
@@ -273,7 +273,7 @@ EVMStateManagerInterface.hasStateRoot
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:68
+node\_modules/.pnpm/@ethereumjs+common@4.2.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:68
 
 ***
 
@@ -293,7 +293,7 @@ EVMStateManagerInterface.modifyAccountFields
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:56
+node\_modules/.pnpm/@ethereumjs+common@4.2.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:56
 
 ***
 
@@ -313,7 +313,7 @@ EVMStateManagerInterface.putAccount
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:54
+node\_modules/.pnpm/@ethereumjs+common@4.2.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:54
 
 ***
 
@@ -333,7 +333,7 @@ EVMStateManagerInterface.putContractCode
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:57
+node\_modules/.pnpm/@ethereumjs+common@4.2.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:57
 
 ***
 
@@ -355,7 +355,7 @@ EVMStateManagerInterface.putContractStorage
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:60
+node\_modules/.pnpm/@ethereumjs+common@4.2.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:60
 
 ***
 
@@ -369,7 +369,7 @@ EVMStateManagerInterface.revert
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:64
+node\_modules/.pnpm/@ethereumjs+common@4.2.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:64
 
 ***
 
@@ -389,7 +389,7 @@ EVMStateManagerInterface.setStateRoot
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:66
+node\_modules/.pnpm/@ethereumjs+common@4.2.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:66
 
 ***
 
@@ -407,7 +407,7 @@ EVMStateManagerInterface.shallowCopy
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+common@4.1.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:80
+node\_modules/.pnpm/@ethereumjs+common@4.2.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:80
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

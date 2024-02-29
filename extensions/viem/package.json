@@ -67,7 +67,7 @@
     "@tevm/jsonrpc": "workspace:1.0.0-next.40"
   },
   "devDependencies": {
-    "@ethereumjs/util": "^9.0.1",
+    "@ethereumjs/util": "^9.0.2",
     "@tevm/actions-types": "workspace:^",
     "@tevm/client-types": "workspace:^",
     "@tevm/contract": "workspace:^",
@@ -78,8 +78,8 @@
     "@tevm/tsconfig": "workspace:^",
     "@tevm/tsupconfig": "workspace:^",
     "@tevm/utils": "workspace:1.0.0-next.40",
-    "abitype": "^0.10.3",
-    "viem": "^2.7.9"
+    "abitype": "^1.0.0",
+    "viem": "^2.7.16"
   },
   "peerDependencies": {
     "viem": "2.x.x"

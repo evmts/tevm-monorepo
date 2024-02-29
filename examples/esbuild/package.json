@@ -9,8 +9,8 @@
   "scripts": {
     "//test:coverage": "echo 'no coverage implemented' && bun test",
     "//test:run": "bun test",
-    "build": "bun run build:app",
-    "build:app": "NODE_ENV=production bun ./build.js",
+    "//build": "bun run build:app",
+    "//build:app": "NODE_ENV=production bun ./build.js",
     "dev": "bun run build && node ./dist/index.js",
     "test": "bun test"
   },

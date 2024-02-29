@@ -19,7 +19,7 @@ Handling and generating Ethereum addresses
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+util@9.0.1/node\_modules/@ethereumjs/util/dist/esm/address.d.ts:6
+node\_modules/.pnpm/@ethereumjs+util@9.0.2/node\_modules/@ethereumjs/util/dist/esm/address.d.ts:6
 
 ## Properties
 
@@ -29,7 +29,7 @@ node\_modules/.pnpm/@ethereumjs+util@9.0.1/node\_modules/@ethereumjs/util/dist/e
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+util@9.0.1/node\_modules/@ethereumjs/util/dist/esm/address.d.ts:5
+node\_modules/.pnpm/@ethereumjs+util@9.0.2/node\_modules/@ethereumjs/util/dist/esm/address.d.ts:5
 
 ## Methods
 
@@ -45,7 +45,7 @@ Is address equal to another.
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+util@9.0.1/node\_modules/@ethereumjs/util/dist/esm/address.d.ts:42
+node\_modules/.pnpm/@ethereumjs+util@9.0.2/node\_modules/@ethereumjs/util/dist/esm/address.d.ts:42
 
 ***
 
@@ -58,7 +58,7 @@ by EIP-1352
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+util@9.0.1/node\_modules/@ethereumjs/util/dist/esm/address.d.ts:51
+node\_modules/.pnpm/@ethereumjs+util@9.0.2/node\_modules/@ethereumjs/util/dist/esm/address.d.ts:51
 
 ***
 
@@ -70,7 +70,7 @@ Is address zero.
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+util@9.0.1/node\_modules/@ethereumjs/util/dist/esm/address.d.ts:46
+node\_modules/.pnpm/@ethereumjs+util@9.0.2/node\_modules/@ethereumjs/util/dist/esm/address.d.ts:46
 
 ***
 
@@ -82,7 +82,7 @@ Returns a new Uint8Array representation of address.
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+util@9.0.1/node\_modules/@ethereumjs/util/dist/esm/address.d.ts:59
+node\_modules/.pnpm/@ethereumjs+util@9.0.2/node\_modules/@ethereumjs/util/dist/esm/address.d.ts:59
 
 ***
 
@@ -94,7 +94,7 @@ Returns hex encoding of address.
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+util@9.0.1/node\_modules/@ethereumjs/util/dist/esm/address.d.ts:55
+node\_modules/.pnpm/@ethereumjs+util@9.0.2/node\_modules/@ethereumjs/util/dist/esm/address.d.ts:55
 
 ***
 
@@ -112,7 +112,7 @@ A private key must be 256 bits wide
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+util@9.0.1/node\_modules/@ethereumjs/util/dist/esm/address.d.ts:25
+node\_modules/.pnpm/@ethereumjs+util@9.0.2/node\_modules/@ethereumjs/util/dist/esm/address.d.ts:25
 
 ***
 
@@ -130,7 +130,7 @@ The two points of an uncompressed key
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+util@9.0.1/node\_modules/@ethereumjs/util/dist/esm/address.d.ts:20
+node\_modules/.pnpm/@ethereumjs+util@9.0.2/node\_modules/@ethereumjs/util/dist/esm/address.d.ts:20
 
 ***
 
@@ -148,7 +148,7 @@ Hex-encoded address
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+util@9.0.1/node\_modules/@ethereumjs/util/dist/esm/address.d.ts:15
+node\_modules/.pnpm/@ethereumjs+util@9.0.2/node\_modules/@ethereumjs/util/dist/esm/address.d.ts:15
 
 ***
 
@@ -170,7 +170,7 @@ The nonce of the from account
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+util@9.0.1/node\_modules/@ethereumjs/util/dist/esm/address.d.ts:31
+node\_modules/.pnpm/@ethereumjs+util@9.0.2/node\_modules/@ethereumjs/util/dist/esm/address.d.ts:31
 
 ***
 
@@ -196,7 +196,7 @@ The init code of the contract being created
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+util@9.0.1/node\_modules/@ethereumjs/util/dist/esm/address.d.ts:38
+node\_modules/.pnpm/@ethereumjs+util@9.0.2/node\_modules/@ethereumjs/util/dist/esm/address.d.ts:38
 
 ***
 
@@ -208,7 +208,7 @@ Returns the zero address.
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+util@9.0.1/node\_modules/@ethereumjs/util/dist/esm/address.d.ts:10
+node\_modules/.pnpm/@ethereumjs+util@9.0.2/node\_modules/@ethereumjs/util/dist/esm/address.d.ts:10
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

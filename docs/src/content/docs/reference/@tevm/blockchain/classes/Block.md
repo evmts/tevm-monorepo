@@ -9,9 +9,9 @@ An object that represents the block.
 
 ## Constructors
 
-### new Block(header, transactions, uncleHeaders, withdrawals, opts)
+### new Block(header, transactions, uncleHeaders, withdrawals, opts, executionWitness)
 
-> **new Block**(`header`?, `transactions`?, `uncleHeaders`?, `withdrawals`?, `opts`?): [`Block`](/reference/tevm/blockchain/classes/block/)
+> **new Block**(`header`?, `transactions`?, `uncleHeaders`?, `withdrawals`?, `opts`?, `executionWitness`?): [`Block`](/reference/tevm/blockchain/classes/block/)
 
 This constructor takes the values, validates them, assigns them and freezes the object.
 Use the static factory methods to assist in creating a Block object from varying data types and options.
@@ -28,19 +28,27 @@ Use the static factory methods to assist in creating a Block object from varying
 
 ▪ **opts?**: `BlockOptions`
 
+▪ **executionWitness?**: `null` \| `VerkleExecutionWitness`
+
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.0.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:86
+node\_modules/.pnpm/@ethereumjs+block@5.1.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:95
 
 ## Properties
 
 ### cache
 
-> **`private`** **cache**: `any`
+> **`protected`** **cache**: `object`
+
+#### Type declaration
+
+##### txTrieRoot
+
+> **txTrieRoot**?: `Uint8Array`
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.0.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:18
+node\_modules/.pnpm/@ethereumjs+block@5.1.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:25
 
 ***
 
@@ -50,7 +58,21 @@ node\_modules/.pnpm/@ethereumjs+block@5.0.1/node\_modules/@ethereumjs/block/dist
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.0.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:17
+node\_modules/.pnpm/@ethereumjs+block@5.1.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:17
+
+***
+
+### executionWitness
+
+> **`readonly`** **executionWitness**?: `null` \| `VerkleExecutionWitness`
+
+EIP-6800: Verkle Proof Data (experimental)
+null implies that the non default executionWitness might exist but not available
+and will not lead to execution of the block via vm with verkle stateless manager
+
+#### Source
+
+node\_modules/.pnpm/@ethereumjs+block@5.1.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:24
 
 ***
 
@@ -60,7 +82,21 @@ node\_modules/.pnpm/@ethereumjs+block@5.0.1/node\_modules/@ethereumjs/block/dist
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.0.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:13
+node\_modules/.pnpm/@ethereumjs+block@5.1.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:13
+
+***
+
+### keccakFunction
+
+> **`protected`** **keccakFunction**: (`msg`) => `Uint8Array`
+
+#### Parameters
+
+▪ **msg**: `Uint8Array`
+
+#### Source
+
+node\_modules/.pnpm/@ethereumjs+block@5.1.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:18
 
 ***
 
@@ -70,7 +106,7 @@ node\_modules/.pnpm/@ethereumjs+block@5.0.1/node\_modules/@ethereumjs/block/dist
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.0.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:14
+node\_modules/.pnpm/@ethereumjs+block@5.1.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:14
 
 ***
 
@@ -80,7 +116,7 @@ node\_modules/.pnpm/@ethereumjs+block@5.0.1/node\_modules/@ethereumjs/block/dist
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.0.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:15
+node\_modules/.pnpm/@ethereumjs+block@5.1.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:15
 
 ***
 
@@ -90,7 +126,7 @@ node\_modules/.pnpm/@ethereumjs+block@5.0.1/node\_modules/@ethereumjs/block/dist
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.0.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:16
+node\_modules/.pnpm/@ethereumjs+block@5.1.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:16
 
 ***
 
@@ -134,7 +170,7 @@ the block specified by `blockTag`
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.0.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:67
+node\_modules/.pnpm/@ethereumjs+block@5.1.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:76
 
 ## Methods
 
@@ -146,7 +182,7 @@ Return a compact error string representation of the object
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.0.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:180
+node\_modules/.pnpm/@ethereumjs+block@5.1.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:190
 
 ***
 
@@ -164,7 +200,7 @@ the parent of this `Block`
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.0.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:165
+node\_modules/.pnpm/@ethereumjs+block@5.1.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:175
 
 ***
 
@@ -176,7 +212,7 @@ Generates transaction trie for validation.
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.0.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:106
+node\_modules/.pnpm/@ethereumjs+block@5.1.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:115
 
 ***
 
@@ -192,7 +228,7 @@ an array of error strings
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.0.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:117
+node\_modules/.pnpm/@ethereumjs+block@5.1.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:126
 
 ***
 
@@ -204,7 +240,7 @@ Returns the hash of the block.
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.0.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:94
+node\_modules/.pnpm/@ethereumjs+block@5.1.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:103
 
 ***
 
@@ -216,7 +252,7 @@ Determines if this block is the genesis block.
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.0.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:98
+node\_modules/.pnpm/@ethereumjs+block@5.1.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:107
 
 ***
 
@@ -224,11 +260,11 @@ node\_modules/.pnpm/@ethereumjs+block@5.0.1/node\_modules/@ethereumjs/block/dist
 
 > **raw**(): `BlockBytes`
 
-Returns a Array of the raw Bytes Arays of this block, in order.
+Returns a Array of the raw Bytes Arrays of this block, in order.
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.0.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:90
+node\_modules/.pnpm/@ethereumjs+block@5.1.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:99
 
 ***
 
@@ -240,7 +276,7 @@ Returns the rlp encoding of the block.
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.0.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:102
+node\_modules/.pnpm/@ethereumjs+block@5.1.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:111
 
 ***
 
@@ -252,7 +288,7 @@ Returns the block in JSON format.
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.0.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:176
+node\_modules/.pnpm/@ethereumjs+block@5.1.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:186
 
 ***
 
@@ -268,7 +304,7 @@ True if all transactions are valid, false otherwise
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.0.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:122
+node\_modules/.pnpm/@ethereumjs+block@5.1.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:131
 
 ***
 
@@ -285,7 +321,7 @@ True if the transaction trie is valid, false otherwise
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.0.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:112
+node\_modules/.pnpm/@ethereumjs+block@5.1.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:121
 
 ***
 
@@ -301,7 +337,7 @@ true if the uncle's hash is valid, false otherwise.
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.0.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:144
+node\_modules/.pnpm/@ethereumjs+block@5.1.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:154
 
 ***
 
@@ -321,13 +357,13 @@ header of parent block
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.0.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:139
+node\_modules/.pnpm/@ethereumjs+block@5.1.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:149
 
 ***
 
 ### validateData()
 
-> **validateData**(`onlyHeader`?): `Promise`\<`void`\>
+> **validateData**(`onlyHeader`?, `verifyTxs`?): `Promise`\<`void`\>
 
 Validates the block data, throwing if invalid.
 This can be checked on the Block itself without needing access to any parent block
@@ -342,9 +378,13 @@ It checks:
 
 if only passed the header, skip validating txTrie and unclesHash (default: false)
 
+▪ **verifyTxs?**: `boolean`
+
+if set to `false`, will not check for transaction validation errors (default: true)
+
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.0.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:132
+node\_modules/.pnpm/@ethereumjs+block@5.1.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:142
 
 ***
 
@@ -363,7 +403,7 @@ the parent of this `Block`
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.0.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:172
+node\_modules/.pnpm/@ethereumjs+block@5.1.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:182
 
 ***
 
@@ -381,7 +421,7 @@ Header does not count an uncle twice.
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.0.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:159
+node\_modules/.pnpm/@ethereumjs+block@5.1.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:169
 
 ***
 
@@ -397,13 +437,13 @@ true if the withdrawals trie root is valid, false otherwise
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.0.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:149
+node\_modules/.pnpm/@ethereumjs+block@5.1.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:159
 
 ***
 
 ### fromBeaconPayloadJson()
 
-> **`static`** **fromBeaconPayloadJson**(`payload`, `options`?): `Promise`\<[`Block`](/reference/tevm/blockchain/classes/block/)\>
+> **`static`** **fromBeaconPayloadJson**(`payload`, `opts`?): `Promise`\<[`Block`](/reference/tevm/blockchain/classes/block/)\>
 
 Method to retrieve a block from a beacon payload json
 
@@ -413,7 +453,9 @@ Method to retrieve a block from a beacon payload json
 
 json of a beacon beacon fetched from beacon apis
 
-▪ **options?**: `BlockOptions`
+▪ **opts?**: `BlockOptions`
+
+[BlockOptions]([object Object])
 
 #### Returns
 
@@ -421,7 +463,7 @@ the block constructed block
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.0.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:81
+node\_modules/.pnpm/@ethereumjs+block@5.1.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:90
 
 ***
 
@@ -439,13 +481,13 @@ Static constructor to create a block from a block data dictionary
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.0.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:37
+node\_modules/.pnpm/@ethereumjs+block@5.1.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:46
 
 ***
 
 ### fromExecutionPayload()
 
-> **`static`** **fromExecutionPayload**(`payload`, `options`?): `Promise`\<[`Block`](/reference/tevm/blockchain/classes/block/)\>
+> **`static`** **fromExecutionPayload**(`payload`, `opts`?): `Promise`\<[`Block`](/reference/tevm/blockchain/classes/block/)\>
 
 Method to retrieve a block from an execution payload
 
@@ -453,7 +495,9 @@ Method to retrieve a block from an execution payload
 
 ▪ **payload**: `ExecutionPayload`
 
-▪ **options?**: `BlockOptions`
+▪ **opts?**: `BlockOptions`
+
+[BlockOptions]([object Object])
 
 #### Returns
 
@@ -461,7 +505,7 @@ the block constructed block
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.0.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:74
+node\_modules/.pnpm/@ethereumjs+block@5.1.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:83
 
 ***
 
@@ -479,7 +523,7 @@ Static constructor to create a block from a RLP-serialized block
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.0.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:44
+node\_modules/.pnpm/@ethereumjs+block@5.1.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:53
 
 ***
 
@@ -499,9 +543,11 @@ Optional list of Ethereum JSON RPC of uncles (eth_getUncleByBlockHashAndIndex)
 
 ▪ **opts?**: `BlockOptions`
 
+An object describing the blockchain
+
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.0.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:59
+node\_modules/.pnpm/@ethereumjs+block@5.1.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:68
 
 ***
 
@@ -519,7 +565,7 @@ Static constructor to create a block from an array of Bytes values
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.0.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:51
+node\_modules/.pnpm/@ethereumjs+block@5.1.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:60
 
 ***
 
@@ -539,7 +585,7 @@ array of TypedTransaction to compute the root of
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.0.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:30
+node\_modules/.pnpm/@ethereumjs+block@5.1.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:39
 
 ***
 
@@ -559,7 +605,7 @@ array of Withdrawal to compute the root of
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+block@5.0.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:24
+node\_modules/.pnpm/@ethereumjs+block@5.1.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:33
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

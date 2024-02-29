@@ -35,7 +35,7 @@ VM.constructor
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+vm@7.1.0/node\_modules/@ethereumjs/vm/dist/esm/vm.d.ts:63
+node\_modules/.pnpm/@ethereumjs+vm@7.2.1/node\_modules/@ethereumjs/vm/dist/esm/vm.d.ts:63
 
 ## Properties
 
@@ -49,7 +49,7 @@ VM.\_isInitialized
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+vm@7.1.0/node\_modules/@ethereumjs/vm/dist/esm/vm.d.ts:32
+node\_modules/.pnpm/@ethereumjs+vm@7.2.1/node\_modules/@ethereumjs/vm/dist/esm/vm.d.ts:32
 
 ***
 
@@ -63,7 +63,7 @@ VM.\_opts
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+vm@7.1.0/node\_modules/@ethereumjs/vm/dist/esm/vm.d.ts:31
+node\_modules/.pnpm/@ethereumjs+vm@7.2.1/node\_modules/@ethereumjs/vm/dist/esm/vm.d.ts:31
 
 ***
 
@@ -77,7 +77,7 @@ VM.\_setHardfork
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+vm@7.1.0/node\_modules/@ethereumjs/vm/dist/esm/vm.d.ts:33
+node\_modules/.pnpm/@ethereumjs+vm@7.2.1/node\_modules/@ethereumjs/vm/dist/esm/vm.d.ts:33
 
 ***
 
@@ -119,7 +119,7 @@ VM.events
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+vm@7.1.0/node\_modules/@ethereumjs/vm/dist/esm/vm.d.ts:26
+node\_modules/.pnpm/@ethereumjs+vm@7.2.1/node\_modules/@ethereumjs/vm/dist/esm/vm.d.ts:26
 
 ***
 
@@ -179,7 +179,7 @@ VM.buildBlock
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+vm@7.1.0/node\_modules/@ethereumjs/vm/dist/esm/vm.d.ts:102
+node\_modules/.pnpm/@ethereumjs+vm@7.2.1/node\_modules/@ethereumjs/vm/dist/esm/vm.d.ts:102
 
 ***
 
@@ -205,7 +205,7 @@ VM.errorStr
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+vm@7.1.0/node\_modules/@ethereumjs/vm/dist/esm/vm.d.ts:120
+node\_modules/.pnpm/@ethereumjs+vm@7.2.1/node\_modules/@ethereumjs/vm/dist/esm/vm.d.ts:120
 
 ***
 
@@ -225,7 +225,7 @@ VM.init
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+vm@7.1.0/node\_modules/@ethereumjs/vm/dist/esm/vm.d.ts:64
+node\_modules/.pnpm/@ethereumjs+vm@7.2.1/node\_modules/@ethereumjs/vm/dist/esm/vm.d.ts:64
 
 ***
 
@@ -252,7 +252,7 @@ VM.runBlock
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+vm@7.1.0/node\_modules/@ethereumjs/vm/dist/esm/vm.d.ts:77
+node\_modules/.pnpm/@ethereumjs+vm@7.2.1/node\_modules/@ethereumjs/vm/dist/esm/vm.d.ts:77
 
 ***
 
@@ -276,7 +276,7 @@ VM.runTx
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+vm@7.1.0/node\_modules/@ethereumjs/vm/dist/esm/vm.d.ts:87
+node\_modules/.pnpm/@ethereumjs+vm@7.2.1/node\_modules/@ethereumjs/vm/dist/esm/vm.d.ts:87
 
 ***
 
@@ -306,7 +306,7 @@ VM.shallowCopy
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+vm@7.1.0/node\_modules/@ethereumjs/vm/dist/esm/vm.d.ts:116
+node\_modules/.pnpm/@ethereumjs+vm@7.2.1/node\_modules/@ethereumjs/vm/dist/esm/vm.d.ts:116
 
 ***
 

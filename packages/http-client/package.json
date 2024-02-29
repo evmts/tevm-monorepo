@@ -64,10 +64,10 @@
   "dependencies": {
     "@tevm/contract": "workspace:^",
     "@tevm/viem": "workspace:^",
-    "viem": "^2.7.9"
+    "viem": "^2.7.16"
   },
   "devDependencies": {
-    "@ethereumjs/util": "^9.0.1",
+    "@ethereumjs/util": "^9.0.2",
     "@tevm/client-types": "workspace:^",
     "@tevm/memory-client": "workspace:^",
     "@tevm/server": "workspace:^",

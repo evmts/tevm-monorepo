@@ -46,7 +46,7 @@ Handling and generating Ethereum addresses
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+util@9.0.1/node_modules/@ethereumjs/util/dist/esm/address.d.ts:6
+node_modules/.pnpm/@ethereumjs+util@9.0.2/node_modules/@ethereumjs/util/dist/esm/address.d.ts:6
 
 ## Properties
 
@@ -56,7 +56,7 @@ node_modules/.pnpm/@ethereumjs+util@9.0.1/node_modules/@ethereumjs/util/dist/esm
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+util@9.0.1/node_modules/@ethereumjs/util/dist/esm/address.d.ts:5
+node_modules/.pnpm/@ethereumjs+util@9.0.2/node_modules/@ethereumjs/util/dist/esm/address.d.ts:5
 
 ## Methods
 
@@ -78,7 +78,7 @@ Is address equal to another.
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+util@9.0.1/node_modules/@ethereumjs/util/dist/esm/address.d.ts:42
+node_modules/.pnpm/@ethereumjs+util@9.0.2/node_modules/@ethereumjs/util/dist/esm/address.d.ts:42
 
 ___
 
@@ -95,7 +95,7 @@ by EIP-1352
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+util@9.0.1/node_modules/@ethereumjs/util/dist/esm/address.d.ts:51
+node_modules/.pnpm/@ethereumjs+util@9.0.2/node_modules/@ethereumjs/util/dist/esm/address.d.ts:51
 
 ___
 
@@ -111,7 +111,7 @@ Is address zero.
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+util@9.0.1/node_modules/@ethereumjs/util/dist/esm/address.d.ts:46
+node_modules/.pnpm/@ethereumjs+util@9.0.2/node_modules/@ethereumjs/util/dist/esm/address.d.ts:46
 
 ___
 
@@ -127,7 +127,7 @@ Returns a new Uint8Array representation of address.
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+util@9.0.1/node_modules/@ethereumjs/util/dist/esm/address.d.ts:59
+node_modules/.pnpm/@ethereumjs+util@9.0.2/node_modules/@ethereumjs/util/dist/esm/address.d.ts:59
 
 ___
 
@@ -143,7 +143,7 @@ Returns hex encoding of address.
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+util@9.0.1/node_modules/@ethereumjs/util/dist/esm/address.d.ts:55
+node_modules/.pnpm/@ethereumjs+util@9.0.2/node_modules/@ethereumjs/util/dist/esm/address.d.ts:55
 
 ___
 
@@ -165,7 +165,7 @@ Returns an address for a given private key.
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+util@9.0.1/node_modules/@ethereumjs/util/dist/esm/address.d.ts:25
+node_modules/.pnpm/@ethereumjs+util@9.0.2/node_modules/@ethereumjs/util/dist/esm/address.d.ts:25
 
 ___
 
@@ -187,7 +187,7 @@ Returns an address for a given public key.
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+util@9.0.1/node_modules/@ethereumjs/util/dist/esm/address.d.ts:20
+node_modules/.pnpm/@ethereumjs+util@9.0.2/node_modules/@ethereumjs/util/dist/esm/address.d.ts:20
 
 ___
 
@@ -209,7 +209,7 @@ Returns an Address object from a hex-encoded string.
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+util@9.0.1/node_modules/@ethereumjs/util/dist/esm/address.d.ts:15
+node_modules/.pnpm/@ethereumjs+util@9.0.2/node_modules/@ethereumjs/util/dist/esm/address.d.ts:15
 
 ___
 
@@ -232,7 +232,7 @@ Generates an address for a newly created contract.
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+util@9.0.1/node_modules/@ethereumjs/util/dist/esm/address.d.ts:31
+node_modules/.pnpm/@ethereumjs+util@9.0.2/node_modules/@ethereumjs/util/dist/esm/address.d.ts:31
 
 ___
 
@@ -256,7 +256,7 @@ Generates an address for a contract created using CREATE2.
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+util@9.0.1/node_modules/@ethereumjs/util/dist/esm/address.d.ts:38
+node_modules/.pnpm/@ethereumjs+util@9.0.2/node_modules/@ethereumjs/util/dist/esm/address.d.ts:38
 
 ___
 
@@ -272,4 +272,4 @@ Returns the zero address.
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+util@9.0.1/node_modules/@ethereumjs/util/dist/esm/address.d.ts:10
+node_modules/.pnpm/@ethereumjs+util@9.0.2/node_modules/@ethereumjs/util/dist/esm/address.d.ts:10

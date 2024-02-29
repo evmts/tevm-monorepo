@@ -60,7 +60,7 @@
     "test:run": "bun test"
   },
   "dependencies": {
-    "@ethereumjs/evm": "^2.1.0",
+    "@ethereumjs/evm": "^2.2.1",
     "@tevm/contract": "workspace:^",
     "@tevm/utils": "workspace:1.0.0-next.40"
   },

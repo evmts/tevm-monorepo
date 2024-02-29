@@ -62,7 +62,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@ethereumjs/vm": "^7.1.0",
+    "@ethereumjs/vm": "^7.2.1",
     "@tevm/blockchain": "workspace:^",
     "@tevm/common": "workspace:^",
     "@tevm/evm": "workspace:^"

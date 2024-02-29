@@ -20,7 +20,7 @@
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/precompiles/types.d.ts:11
+node_modules/.pnpm/@ethereumjs+evm@2.2.1/node_modules/@ethereumjs/evm/dist/esm/precompiles/types.d.ts:11
 
 ___
 
@@ -30,7 +30,7 @@ ___
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/precompiles/types.d.ts:12
+node_modules/.pnpm/@ethereumjs+evm@2.2.1/node_modules/@ethereumjs/evm/dist/esm/precompiles/types.d.ts:12
 
 ___
 
@@ -40,7 +40,7 @@ ___
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/precompiles/types.d.ts:10
+node_modules/.pnpm/@ethereumjs+evm@2.2.1/node_modules/@ethereumjs/evm/dist/esm/precompiles/types.d.ts:10
 
 ___
 
@@ -50,7 +50,7 @@ ___
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/precompiles/types.d.ts:8
+node_modules/.pnpm/@ethereumjs+evm@2.2.1/node_modules/@ethereumjs/evm/dist/esm/precompiles/types.d.ts:8
 
 ___
 
@@ -60,4 +60,4 @@ ___
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/precompiles/types.d.ts:9
+node_modules/.pnpm/@ethereumjs+evm@2.2.1/node_modules/@ethereumjs/evm/dist/esm/precompiles/types.d.ts:9

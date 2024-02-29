@@ -4,13 +4,80 @@ lib/
 .devcontainer
 .github
 .vscode
-bundler/*/docs
-configs/*/docs
-examples/*/docs
-experimental/*/docs
-extensions/*/docs
+.experimental
+.devcontainer
+.nx
+.vscode
+lib/**/*
+**/.svelte-kit
+**/.tevm/
+**/artifacts/
+**/cache/
+docs/src/content/docs/reference/
+**/docs
 lsp/*/docs
-packages/*/docs
 vm/*/docs
 tevm/docs
 **/generated/**/*
+
+**/dist/
+**/types/
+
+.env
+
+/target/
+**/*.rs.bk
+
+# Tevm cache
+**/.tevm
+.nx
+
+**/debuglogs.txt
+
+cache
+forge-artifacts
+broadcast
+**/output
+
+# compiled output
+tmp
+/out-tsc
+**/tsconfig.tsbuildinfo
+
+# dependencies
+node_modules
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+**/lcov.info
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# misc
+/.sass-cache
+/connect.lock
+/coverage
+/libpeerconnection.log
+npm-debug.log
+testem.log
+/typings
+
+# System Files
+.DS_Store
+Thumbs.db
+
+# My personal files
+.zshrc
+/target

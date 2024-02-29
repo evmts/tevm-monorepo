@@ -13,7 +13,7 @@ title: "PrecompileInput"
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/precompiles/types.d.ts:11
+node\_modules/.pnpm/@ethereumjs+evm@2.2.1/node\_modules/@ethereumjs/evm/dist/esm/precompiles/types.d.ts:11
 
 ***
 
@@ -23,7 +23,7 @@ node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/precompiles/types.d.ts:12
+node\_modules/.pnpm/@ethereumjs+evm@2.2.1/node\_modules/@ethereumjs/evm/dist/esm/precompiles/types.d.ts:12
 
 ***
 
@@ -33,7 +33,7 @@ node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/precompiles/types.d.ts:10
+node\_modules/.pnpm/@ethereumjs+evm@2.2.1/node\_modules/@ethereumjs/evm/dist/esm/precompiles/types.d.ts:10
 
 ***
 
@@ -43,7 +43,7 @@ node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/precompiles/types.d.ts:8
+node\_modules/.pnpm/@ethereumjs+evm@2.2.1/node\_modules/@ethereumjs/evm/dist/esm/precompiles/types.d.ts:8
 
 ***
 
@@ -53,7 +53,7 @@ node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+evm@2.1.0/node\_modules/@ethereumjs/evm/dist/esm/precompiles/types.d.ts:9
+node\_modules/.pnpm/@ethereumjs+evm@2.2.1/node\_modules/@ethereumjs/evm/dist/esm/precompiles/types.d.ts:9
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
