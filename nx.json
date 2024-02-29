@@ -96,7 +96,7 @@
 			"{projectRoot}/tsconfig.*?.json",
 			"{projectRoot}/tsup.config.ts"
 		],
-		"default": ["{projectRoot}/**/*", "sharedGlobals"],
+		"default": ["{projectRoot}/*.json", "{projectRoot}/*.js", "{projectRoot}/*.ts", "{projectRoot}/src/**/*","sharedGlobals"],
 		"testFiles": ["{projectRoot}/src/**/*", "{projectRoot}/vitest.config.ts"],
 		"sharedGlobals": [
 			"{workspaceRoot}/nx.json",
@@ -118,14 +118,12 @@
 		],
 		"outputsDist": [
 			{
-				"dependentTasksOutputFiles": "**/*",
-				"transitive": true
+				"dependentTasksOutputFiles": "**/*"
 			}
 		],
 		"outputsDts": [
 			{
-				"dependentTasksOutputFiles": "**/*",
-				"transitive": true
+				"dependentTasksOutputFiles": "**/*"
 			}
 		],
 		"testing": ["configsWorkspace", "default"]
