@@ -228,7 +228,7 @@ ___
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.9_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/accounts/types.d.ts:9
+node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/accounts/types.d.ts:9
 
 ___
 
@@ -272,7 +272,7 @@ ___
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.9_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/types/block.d.ts:68
+node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/types/block.d.ts:68
 
 ___
 
@@ -282,7 +282,7 @@ ___
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.9_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/types/block.d.ts:69
+node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/types/block.d.ts:69
 
 ___
 
@@ -299,7 +299,7 @@ ___
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.9_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/types/contract.d.ts:5
+node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/types/contract.d.ts:5
 
 ___
 
@@ -321,7 +321,7 @@ ___
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.9_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/actions/public/createEventFilter.d.ts:13
+node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/actions/public/createEventFilter.d.ts:13
 
 ___
 
@@ -370,7 +370,7 @@ ___
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.9_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/decodeFunctionResult.d.ts:23
+node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/decodeFunctionResult.d.ts:23
 
 ___
 
@@ -390,7 +390,7 @@ ___
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.9_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/encodeFunctionData.d.ts:12
+node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/encodeFunctionData.d.ts:12
 
 ___
 
@@ -506,7 +506,7 @@ ___
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.9_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/types/filter.d.ts:11
+node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/types/filter.d.ts:11
 
 ___
 
@@ -545,7 +545,7 @@ ___
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.9_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/types/contract.d.ts:68
+node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/types/contract.d.ts:68
 
 ___
 
@@ -555,7 +555,7 @@ ___
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.9_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/accounts/types.d.ts:31
+node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/accounts/types.d.ts:31
 
 ___
 
@@ -565,7 +565,7 @@ ___
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.9_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/types/misc.d.ts:2
+node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/types/misc.d.ts:2
 
 ___
 
@@ -750,7 +750,7 @@ const data = boolToBytes(true, { size: 32 })
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.9_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/toBytes.d.ts:62
+node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/toBytes.d.ts:62
 
 ___
 
@@ -801,7 +801,7 @@ const data = boolToHex(true, { size: 32 })
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.9_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/toHex.d.ts:66
+node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/toHex.d.ts:66
 
 ___
 
@@ -836,7 +836,7 @@ const data = bytesToBigInt(new Uint8Array([1, 164]))
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.9_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/fromBytes.d.ts:59
+node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/fromBytes.d.ts:59
 
 ___
 
@@ -871,7 +871,7 @@ const data = bytesToBool(new Uint8Array([1]))
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.9_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/fromBytes.d.ts:79
+node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/fromBytes.d.ts:79
 
 ___
 
@@ -914,7 +914,7 @@ const data = bytesToHex(Uint8Array.from([72, 101, 108, 108, 111, 32, 87, 111, 11
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.9_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/toHex.d.ts:91
+node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/toHex.d.ts:91
 
 ___
 
@@ -949,7 +949,7 @@ const data = bytesToNumber(new Uint8Array([1, 164]))
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.9_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/fromBytes.d.ts:96
+node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/fromBytes.d.ts:96
 
 ___
 
@@ -999,7 +999,7 @@ ___
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.9_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/decodeAbiParameters.d.ts:14
+node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/decodeAbiParameters.d.ts:14
 
 ___
 
@@ -1025,7 +1025,7 @@ ___
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.9_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/decodeErrorResult.d.ts:26
+node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/decodeErrorResult.d.ts:26
 
 ___
 
@@ -1055,7 +1055,7 @@ ___
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.9_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/decodeEventLog.d.ts:32
+node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/decodeEventLog.d.ts:32
 
 ___
 
@@ -1081,7 +1081,7 @@ ___
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.9_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/decodeFunctionData.d.ts:25
+node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/decodeFunctionData.d.ts:25
 
 ___
 
@@ -1109,7 +1109,7 @@ ___
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.9_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/decodeFunctionResult.d.ts:25
+node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/decodeFunctionResult.d.ts:25
 
 ___
 
@@ -1140,7 +1140,7 @@ Encodes a list of primitive values into an ABI-encoded hex value.
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.9_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/encodeAbiParameters.d.ts:17
+node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/encodeAbiParameters.d.ts:17
 
 ___
 
@@ -1166,7 +1166,7 @@ ___
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.9_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/encodeDeployData.d.ts:21
+node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/encodeDeployData.d.ts:21
 
 ___
 
@@ -1193,7 +1193,7 @@ ___
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.9_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/encodeErrorResult.d.ts:23
+node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/encodeErrorResult.d.ts:23
 
 ___
 
@@ -1220,7 +1220,7 @@ ___
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.9_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/encodeEventTopics.d.ts:24
+node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/encodeEventTopics.d.ts:24
 
 ___
 
@@ -1247,7 +1247,7 @@ ___
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.9_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/encodeFunctionData.d.ts:27
+node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/encodeFunctionData.d.ts:27
 
 ___
 
@@ -1274,7 +1274,7 @@ ___
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.9_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/encodeFunctionResult.d.ts:21
+node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/encodeFunctionResult.d.ts:21
 
 ___
 
@@ -1301,7 +1301,7 @@ ___
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.9_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/encodePacked.d.ts:17
+node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/encodePacked.d.ts:17
 
 ___
 
@@ -1365,7 +1365,7 @@ formatEther(1000000000000000000n)
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.9_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/unit/formatEther.d.ts:14
+node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/unit/formatEther.d.ts:14
 
 ___
 
@@ -1399,7 +1399,7 @@ formatGwei(1000000000n)
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.9_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/unit/formatGwei.d.ts:14
+node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/unit/formatGwei.d.ts:14
 
 ___
 
@@ -1422,7 +1422,7 @@ ___
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.9_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/formatters/log.d.ts:5
+node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/formatters/log.d.ts:5
 
 ___
 
@@ -1475,7 +1475,7 @@ const data = fromBytes(
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.9_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/fromBytes.d.ts:37
+node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/fromBytes.d.ts:37
 
 ___
 
@@ -1536,7 +1536,7 @@ const data = fromHex('0x48656c6c6f20576f726c642100000000000000000000000000000000
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.9_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/fromHex.d.ts:47
+node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/fromHex.d.ts:47
 
 ___
 
@@ -1563,7 +1563,7 @@ ___
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.9_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/fromRlp.d.ts:12
+node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/fromRlp.d.ts:12
 
 ___
 
@@ -1584,7 +1584,7 @@ ___
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.9_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/address/getAddress.d.ts:9
+node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/address/getAddress.d.ts:9
 
 ___
 
@@ -1627,7 +1627,7 @@ const data = hexToBigInt('0x0000000000000000000000000000000000000000000000000000
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.9_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/fromHex.d.ts:74
+node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/fromHex.d.ts:74
 
 ___
 
@@ -1670,7 +1670,7 @@ const data = hexToBool('0x000000000000000000000000000000000000000000000000000000
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.9_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/fromHex.d.ts:99
+node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/fromHex.d.ts:99
 
 ___
 
@@ -1713,7 +1713,7 @@ const data = hexToBytes('0x48656c6c6f20776f726c6421', { size: 32 })
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.9_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/toBytes.d.ts:87
+node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/toBytes.d.ts:87
 
 ___
 
@@ -1756,7 +1756,7 @@ const data = hexToBigInt('0x0000000000000000000000000000000000000000000000000000
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.9_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/fromHex.d.ts:121
+node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/fromHex.d.ts:121
 
 ___
 
@@ -1801,19 +1801,20 @@ const data = hexToString('0x48656c6c6f20576f726c64210000000000000000000000000000
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.9_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/fromHex.d.ts:148
+node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/fromHex.d.ts:148
 
 ___
 
 ### isAddress
 
-▸ **isAddress**(`address`): address is \`0x$\{string}\`
+▸ **isAddress**(`address`, `«destructured»?`): address is \`0x$\{string}\`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `address` | `string` |
+| `«destructured»` | `IsAddressOptions` |
 
 #### Returns
 
@@ -1821,7 +1822,7 @@ address is \`0x$\{string}\`
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.9_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/address/isAddress.d.ts:4
+node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/address/isAddress.d.ts:14
 
 ___
 
@@ -1841,7 +1842,7 @@ value is Uint8Array
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.9_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/data/isBytes.d.ts:4
+node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/data/isBytes.d.ts:4
 
 ___
 
@@ -1863,7 +1864,7 @@ value is \`0x$\{string}\`
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.9_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/data/isHex.d.ts:4
+node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/data/isHex.d.ts:4
 
 ___
 
@@ -1890,7 +1891,7 @@ ___
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.9_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/hash/keccak256.d.ts:9
+node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/hash/keccak256.d.ts:9
 
 ___
 
@@ -1917,7 +1918,7 @@ Creates an Account from a mnemonic phrase.
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.9_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/accounts/mnemonicToAccount.d.ts:10
+node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/accounts/mnemonicToAccount.d.ts:10
 
 ___
 
@@ -1960,7 +1961,7 @@ const data = numberToHex(420, { size: 32 })
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.9_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/toHex.d.ts:122
+node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/toHex.d.ts:122
 
 ___
 
@@ -2034,7 +2035,7 @@ parseEther('420')
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.9_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/unit/parseEther.d.ts:15
+node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/unit/parseEther.d.ts:15
 
 ___
 
@@ -2068,7 +2069,7 @@ parseGwei('420')
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.9_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/unit/parseGwei.d.ts:15
+node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/unit/parseGwei.d.ts:15
 
 ___
 
@@ -2111,7 +2112,7 @@ const data = stringToHex('Hello World!', { size: 32 })
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.9_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/toHex.d.ts:147
+node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/toHex.d.ts:147
 
 ___
 
@@ -2163,7 +2164,7 @@ const data = toBytes(420, { size: 4 })
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.9_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/toBytes.d.ts:37
+node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/toBytes.d.ts:37
 
 ___
 
@@ -2215,7 +2216,7 @@ const data = toHex('Hello world', { size: 32 })
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.9_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/toHex.d.ts:36
+node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/toHex.d.ts:36
 
 ___
 
@@ -2242,4 +2243,4 @@ ___
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.9_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/toRlp.d.ts:10
+node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/toRlp.d.ts:10
