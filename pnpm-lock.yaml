@@ -1839,6 +1839,46 @@ importers:
         specifier: workspace:^
         version: link:../../configs/tsupconfig
 
+  packages/txpool:
+    dependencies:
+      '@ethereumjs/block':
+        specifier: ^5.0.1
+        version: 5.0.1
+      '@ethereumjs/tx':
+        specifier: ^5.2.1
+        version: 5.2.1
+      '@ethereumjs/util':
+        specifier: ^9.0.1
+        version: 9.0.2
+      '@ethereumjs/vm':
+        specifier: ^7.1.0
+        version: 7.1.0
+      '@tevm/blockchain':
+        specifier: workspace:^
+        version: link:../blockchain
+      '@tevm/common':
+        specifier: workspace:^
+        version: link:../common
+      '@tevm/evm':
+        specifier: workspace:^
+        version: link:../evm
+      qheap:
+        specifier: ^1.4.0
+        version: 1.4.0
+    devDependencies:
+      '@tevm/state':
+        specifier: workspace:^
+        version: link:../state
+      '@tevm/tsconfig':
+        specifier: workspace:^
+        version: link:../../configs/tsconfig
+      '@tevm/tsupconfig':
+        specifier: workspace:^
+        version: link:../../configs/tsupconfig
+      '@tevm/vm':
+        specifier: workspace:1.0.0-next.42
+        version: link:../vm
+
   packages/utils:
     dependencies:
       '@ethereumjs/util':
@@ -4200,7 +4240,7 @@ packages:
       '@ethereumjs/rlp': 5.0.1
       '@ethereumjs/trie': 6.0.1
       '@ethereumjs/tx': 5.1.0
-      '@ethereumjs/util': 9.0.1
+      '@ethereumjs/util': 9.0.2
       ethereum-cryptography: 2.1.2
     transitivePeerDependencies:
       - buffer
@@ -4217,7 +4257,7 @@ packages:
       '@ethereumjs/rlp': 5.0.1
       '@ethereumjs/trie': 6.0.1
       '@ethereumjs/tx': 5.1.0
-      '@ethereumjs/util': 9.0.1
+      '@ethereumjs/util': 9.0.2
       debug: 4.3.4(supports-color@8.1.1)
       ethereum-cryptography: 2.1.2
       lru-cache: 10.1.0
@@ -4230,10 +4270,17 @@ packages:
   /@ethereumjs/common@4.1.0:
     resolution: {integrity: sha512-XWdQvUjlQHVwh4uGEPFKHpsic69GOsMXEhlHrggS5ju/+2zAmmlz6B25TkCCymeElC9DUp13tH5Tc25Iuvtlcg==}
     dependencies:
-      '@ethereumjs/util': 9.0.1
+      '@ethereumjs/util': 9.0.2
       crc: 4.3.2
     transitivePeerDependencies:
       - buffer
+      - c-kzg
+
+  /@ethereumjs/common@4.2.0:
+    resolution: {integrity: sha512-UWqovZQksxEY9cU+s1cF3JwFyJdKrJsURM+ORHpZZLQfsqQf+1uGbD3N0AvQ7M+Jz/LxkiVY98+Cd3OMzsrOcA==}
+    dependencies:
+      '@ethereumjs/util': 9.0.2
+    transitivePeerDependencies:
       - c-kzg
 
   /@ethereumjs/ethash@3.0.1:
@@ -4241,10 +4288,10 @@ packages:
     engines: {node: '>=18'}
     dependencies:
       '@ethereumjs/block': 5.0.1
-      '@ethereumjs/rlp': 5.0.1
-      '@ethereumjs/util': 9.0.1
+      '@ethereumjs/rlp': 5.0.2
+      '@ethereumjs/util': 9.0.2
       bigint-crypto-utils: 3.3.0
-      ethereum-cryptography: 2.1.2
+      ethereum-cryptography: 2.1.3
     transitivePeerDependencies:
       - buffer
       - c-kzg
@@ -4257,7 +4304,7 @@ packages:
       '@ethereumjs/common': 4.1.0
       '@ethereumjs/statemanager': 2.1.0
       '@ethereumjs/tx': 5.1.0
-      '@ethereumjs/util': 9.0.1
+      '@ethereumjs/util': 9.0.2
       '@types/debug': 4.1.12
       debug: 4.3.4(supports-color@8.1.1)
       ethereum-cryptography: 2.1.2
@@ -4274,13 +4321,18 @@ packages:
     engines: {node: '>=18'}
     hasBin: true
 
+  /@ethereumjs/rlp@5.0.2:
+    resolution: {integrity: sha512-DziebCdg4JpGlEqEdGgXmjqcFoJi+JGulUXwEjsZGAscAQ7MyD/7LE/GVCP29vEQxKc7AAwjT3A2ywHp2xfoCA==}
+    engines: {node: '>=18'}
+    hasBin: true
+
   /@ethereumjs/statemanager@2.1.0:
     resolution: {integrity: sha512-1wcaZJZq/TqnWWkdwNHOMt27M7SJQKa6J2XZ2hf8ivyPg+3kuf2FoZHCTha1JKPCGJtAttBLgklFnQ/S4sAgPg==}
     dependencies:
       '@ethereumjs/common': 4.1.0
       '@ethereumjs/rlp': 5.0.1
       '@ethereumjs/trie': 6.0.1
-      '@ethereumjs/util': 9.0.1
+      '@ethereumjs/util': 9.0.2
       debug: 4.3.4(supports-color@8.1.1)
       ethereum-cryptography: 2.1.2
       ethers: 6.10.0
@@ -4297,11 +4349,11 @@ packages:
     resolution: {integrity: sha512-fPdiTaT2aZ2b3LUdBAZVLKnlHz9CV3dR8zdBEX7eDWLOuQ2E9rM2smk2sGdyzXPr9Sf2gmeE1od+CjY0ea8ICg==}
     engines: {node: '>=18'}
     dependencies:
-      '@ethereumjs/rlp': 5.0.1
-      '@ethereumjs/util': 9.0.1
+      '@ethereumjs/rlp': 5.0.2
+      '@ethereumjs/util': 9.0.2
       '@types/readable-stream': 2.3.15
-      ethereum-cryptography: 2.1.2
-      lru-cache: 10.1.0
+      ethereum-cryptography: 2.1.3
+      lru-cache: 10.2.0
       readable-stream: 3.6.2
     transitivePeerDependencies:
       - c-kzg
@@ -4315,12 +4367,25 @@ packages:
       c-kzg:
         optional: true
     dependencies:
-      '@ethereumjs/common': 4.1.0
-      '@ethereumjs/rlp': 5.0.1
-      '@ethereumjs/util': 9.0.1
-      ethereum-cryptography: 2.1.2
-    transitivePeerDependencies:
-      - buffer
+      '@ethereumjs/common': 4.2.0
+      '@ethereumjs/rlp': 5.0.2
+      '@ethereumjs/util': 9.0.2
+      ethereum-cryptography: 2.1.3
+
+  /@ethereumjs/tx@5.2.1:
+    resolution: {integrity: sha512-BzdtUaa7KtP8T5NxJWRxo/RBoJzxYeCdx2n2C4zZLuWJBYVccfcyMiyDgr6W78Utmu/jIfGXknfh2t06+rTkiw==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      c-kzg: ^2.1.2
+    peerDependenciesMeta:
+      c-kzg:
+        optional: true
+    dependencies:
+      '@ethereumjs/common': 4.2.0
+      '@ethereumjs/rlp': 5.0.2
+      '@ethereumjs/util': 9.0.2
+      ethereum-cryptography: 2.1.3
+    dev: false
 
   /@ethereumjs/util@9.0.1:
     resolution: {integrity: sha512-NdFFEzCc3H1sYkNnnySwLg6owdQMhjUc2jfuDyx8Xv162WSluCnnSKouKOSG3njGNEyy2I9NmF8zTRDwuqpZWA==}
@@ -4334,6 +4399,18 @@ packages:
       '@ethereumjs/rlp': 5.0.1
       ethereum-cryptography: 2.1.2
 
+  /@ethereumjs/util@9.0.2:
+    resolution: {integrity: sha512-dasKCj6Vb5spVPnNmRDFHmbfBySvokE440F0RDroPLzO4Mb4hyDqeoOMUxlbLz/BscK2pOpWUendGA+AOvGpNQ==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      c-kzg: ^2.1.2
+    peerDependenciesMeta:
+      c-kzg:
+        optional: true
+    dependencies:
+      '@ethereumjs/rlp': 5.0.2
+      ethereum-cryptography: 2.1.3
+
   /@ethereumjs/vm@7.1.0:
     resolution: {integrity: sha512-AWLsz6GFWR8aRDHFjrLXsBVJ6qjP6jVJiuQeGY8JYbzwGIrKjgN/xxFtZwzyIpXgAXsX+WZYp8omRmkBlPA3zg==}
     engines: {node: '>=18'}
@@ -4345,8 +4422,8 @@ packages:
       '@ethereumjs/rlp': 5.0.1
       '@ethereumjs/statemanager': 2.1.0
       '@ethereumjs/trie': 6.0.1
-      '@ethereumjs/tx': 5.1.0
-      '@ethereumjs/util': 9.0.1
+      '@ethereumjs/tx': 5.2.1
+      '@ethereumjs/util': 9.0.2
       debug: 4.3.4(supports-color@8.1.1)
       ethereum-cryptography: 2.1.2
     transitivePeerDependencies:
@@ -4640,7 +4717,7 @@ packages:
       '@evmts/config': 1.0.0-next.17(esbuild@0.19.5)(fast-check@3.15.1)(solc@0.8.22)(typescript@5.3.3)
       '@evmts/effect': 1.0.0-next.9(esbuild@0.19.5)(fast-check@3.15.1)(solc@0.8.22)(typescript@5.3.3)
       '@evmts/tsconfig': 1.0.0-next.5
-      '@types/node': 20.11.19
+      '@types/node': 20.11.20
       '@types/resolve': 1.20.5
       effect: 2.0.0-next.54
       glob: 10.3.10
@@ -4663,7 +4740,7 @@ packages:
       '@evmts/config': 1.0.0-next.17(esbuild@0.19.5)(fast-check@3.15.1)(solc@0.8.23-fixed)(typescript@5.3.3)(zod@3.22.4)
       '@evmts/effect': 1.0.0-next.9(esbuild@0.19.5)(fast-check@3.15.1)(solc@0.8.23-fixed)(typescript@5.3.3)(zod@3.22.4)
       '@evmts/tsconfig': 1.0.0-next.5
-      '@types/node': 20.11.19
+      '@types/node': 20.11.20
       '@types/resolve': 1.20.5
       effect: 2.0.0-next.54
       glob: 10.3.10
@@ -5339,6 +5416,11 @@ packages:
     dependencies:
       '@noble/hashes': 1.3.2
 
+  /@noble/curves@1.3.0:
+    resolution: {integrity: sha512-t01iSXPuN+Eqzb4eBX0S5oubSqXbK/xXa1Ne18Hj8f9pStxztHCE2gfboSp/dZRLSqfuLpRK2nDXDK+W9puocA==}
+    dependencies:
+      '@noble/hashes': 1.3.3
+
   /@noble/hashes@1.2.0:
     resolution: {integrity: sha512-FZfhjEDbT5GRswV3C6uvLPHMiVD6lQBmpoX5+eSiPaMTXte/IKqI5dykDxzZB/WBeK/CDuQRBWarPdi3FNY2zQ==}
     dev: true
@@ -5349,6 +5431,10 @@ packages:
 
   /@noble/hashes@1.3.2:
     resolution: {integrity: sha512-MVC8EAQp7MvEcm30KWENFjgR+Mkmf+D189XJTkFIlwohU5hcBbn1ZkKq7KVTi2Hme3PMGF390DaL52beVrIihQ==}
+    engines: {node: '>= 16'}
+
+  /@noble/hashes@1.3.3:
+    resolution: {integrity: sha512-V7/fPHgl+jsVPXqqeOzT8egNj2iBIVt+ECeMMG8TdcnTikP3oaBtUVqpT/gYCR68aEBJSF+XbYUxStjbFMqIIA==}
     engines: {node: '>= 16'}
 
   /@noble/secp256k1@1.7.1:
@@ -6526,6 +6612,13 @@ packages:
       '@noble/hashes': 1.3.2
       '@scure/base': 1.1.5
 
+  /@scure/bip32@1.3.3:
+    resolution: {integrity: sha512-LJaN3HwRbfQK0X1xFSi0Q9amqOgzQnnDngIt+ZlsBC3Bm7/nE7K0kwshZHyaru79yIVRv/e1mQAjZyuZG6jOFQ==}
+    dependencies:
+      '@noble/curves': 1.3.0
+      '@noble/hashes': 1.3.2
+      '@scure/base': 1.1.5
+
   /@scure/bip39@1.1.1:
     resolution: {integrity: sha512-t+wDck2rVkh65Hmv280fYdVdY25J9YeEUIgn2LG1WM6gxFkGzcksoDiUkWVpVp3Oex9xGC68JU2dSbUfwZ2jPg==}
     dependencies:
@@ -6535,6 +6628,12 @@ packages:
 
   /@scure/bip39@1.2.1:
     resolution: {integrity: sha512-Z3/Fsz1yr904dduJD0NpiyRHhRYHdcnyh73FZWiV+/qhWi83wNJ3NWolYqCEN+ZWsUz2TWwajJggcRE9r1zUYg==}
+    dependencies:
+      '@noble/hashes': 1.3.2
+      '@scure/base': 1.1.5
+
+  /@scure/bip39@1.2.2:
+    resolution: {integrity: sha512-HYf9TUXG80beW+hGAt3TRM8wU6pQoYur9iNypTROm42dorCGmLnFe3eWjz3gOq6G62H2WRh0FCzAR1PI+29zIA==}
     dependencies:
       '@noble/hashes': 1.3.2
       '@scure/base': 1.1.5
@@ -7336,7 +7435,6 @@ packages:
     resolution: {integrity: sha512-7/rR21OS+fq8IyHTgtLkDK949uzsa6n8BkziAKtPVpugIkO6D+/ooXMvzXxDnZrmtXVfjb1bKQafYpb8s89LOg==}
     dependencies:
       undici-types: 5.26.5
-    dev: true
 
   /@types/node@20.11.5:
     resolution: {integrity: sha512-g557vgQjUUfN76MZAN/dt1z3dzcUsimuysco0KeluHgrPdJXkP/XdAURgyO2W9fZWHRtRBiVKzKn8vyOAwlG+w==}
@@ -7404,7 +7502,7 @@ packages:
   /@types/readable-stream@2.3.15:
     resolution: {integrity: sha512-oM5JSKQCcICF1wvGgmecmHldZ48OZamtMxcGGVICOJA8o8cahXC1zEVAif8iwoc5j8etxFaRFnf095+CDsuoFQ==}
     dependencies:
-      '@types/node': 20.11.19
+      '@types/node': 20.11.20
       safe-buffer: 5.1.2
 
   /@types/resolve@1.20.5:
@@ -7476,7 +7574,7 @@ packages:
   /@types/ws@7.4.7:
     resolution: {integrity: sha512-JQbbmxZTZehdc2iszGKs5oC3NFnjeay7mtAWrdt7qNtAVK0g19muApzAy4bm9byz79xa2ZnO/BOBC2R8RC5Lww==}
     dependencies:
-      '@types/node': 20.11.19
+      '@types/node': 20.11.20
 
   /@types/ws@8.5.10:
     resolution: {integrity: sha512-vmQSUcfalpIq0R9q7uTo2lXs6eGIpt9wtnLdMv9LVpIjCA/+ufZRozlVoVelIYixx1ugCBKDhn89vnsEGOCx9A==}
@@ -12078,6 +12176,14 @@ packages:
       '@noble/hashes': 1.3.1
       '@scure/bip32': 1.3.1
       '@scure/bip39': 1.2.1
+
+  /ethereum-cryptography@2.1.3:
+    resolution: {integrity: sha512-BlwbIL7/P45W8FGW2r7LGuvoEZ+7PWsniMvQ4p5s2xCyw9tmaDlpfsN9HjAucbF+t/qpVHwZUisgfK24TCW8aA==}
+    dependencies:
+      '@noble/curves': 1.3.0
+      '@noble/hashes': 1.3.3
+      '@scure/bip32': 1.3.3
+      '@scure/bip39': 1.2.2
 
   /ethereumjs-abi@0.6.8:
     resolution: {integrity: sha512-Tx0r/iXI6r+lRsdvkFDlut0N08jWMnKRZ6Gkq+Nmw75lZe4e6o3EkSnkaBP5NF6+m5PTGAr9JP43N3LyeoglsA==}
@@ -17373,6 +17479,10 @@ packages:
 
   /pure-rand@6.0.4:
     resolution: {integrity: sha512-LA0Y9kxMYv47GIPJy6MI84fqTd2HmYZI83W/kM/SkKfDlajnZYfmXFTxkbY+xSBPkLJxltMa9hIkmdc29eguMA==}
+
+  /qheap@1.4.0:
+    resolution: {integrity: sha512-yb0qWRi8rOXCehqmxxp7gM/x/5GqYYpRsvZ9wvbcOSVD0nrmi6BIVO+DpGstSDsDPYbW54lppA7GoNeMpv6q0w==}
+    dev: false
 
   /qrcode@1.5.0:
     resolution: {integrity: sha512-9MgRpgVc+/+47dFvQeD6U2s0Z92EsKzcHogtum4QB+UNd025WOJSHvn/hjk9xmzj7Stj95CyUAs31mrjxliEsQ==}
