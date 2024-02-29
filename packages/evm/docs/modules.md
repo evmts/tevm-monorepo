@@ -97,7 +97,7 @@ Log that the contract emits.
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/types.d.ts:294
+node_modules/.pnpm/@ethereumjs+evm@2.2.1/node_modules/@ethereumjs/evm/dist/esm/types.d.ts:296
 
 ## Variables
 
@@ -117,7 +117,7 @@ node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/t
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/eof.d.ts:18
+node_modules/.pnpm/@ethereumjs+evm@2.2.1/node_modules/@ethereumjs/evm/dist/esm/eof.d.ts:18
 
 ## Functions
 

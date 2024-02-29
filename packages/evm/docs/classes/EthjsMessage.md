@@ -11,9 +11,11 @@
 ### Properties
 
 - [\_codeAddress](EthjsMessage.md#_codeaddress)
+- [accessWitness](EthjsMessage.md#accesswitness)
 - [authcallOrigin](EthjsMessage.md#authcallorigin)
 - [blobVersionedHashes](EthjsMessage.md#blobversionedhashes)
 - [caller](EthjsMessage.md#caller)
+- [chargeCodeAccesses](EthjsMessage.md#chargecodeaccesses)
 - [code](EthjsMessage.md#code)
 - [containerCode](EthjsMessage.md#containercode)
 - [createdAddresses](EthjsMessage.md#createdaddresses)
@@ -51,7 +53,7 @@
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/message.d.ts:60
+node_modules/.pnpm/@ethereumjs+evm@2.2.1/node_modules/@ethereumjs/evm/dist/esm/message.d.ts:64
 
 ## Properties
 
@@ -61,7 +63,17 @@ node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/m
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/message.d.ts:36
+node_modules/.pnpm/@ethereumjs+evm@2.2.1/node_modules/@ethereumjs/evm/dist/esm/message.d.ts:38
+
+___
+
+### accessWitness
+
+• `Optional` **accessWitness**: `AccessWitness`
+
+#### Defined in
+
+node_modules/.pnpm/@ethereumjs+evm@2.2.1/node_modules/@ethereumjs/evm/dist/esm/message.d.ts:63
 
 ___
 
@@ -74,7 +86,7 @@ the purpose is to figure out where `value` should be taken from (not from `calle
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/message.d.ts:54
+node_modules/.pnpm/@ethereumjs+evm@2.2.1/node_modules/@ethereumjs/evm/dist/esm/message.d.ts:57
 
 ___
 
@@ -86,7 +98,7 @@ List of versioned hashes if message is a blob transaction in the outer VM
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/message.d.ts:59
+node_modules/.pnpm/@ethereumjs+evm@2.2.1/node_modules/@ethereumjs/evm/dist/esm/message.d.ts:62
 
 ___
 
@@ -96,7 +108,17 @@ ___
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/message.d.ts:31
+node_modules/.pnpm/@ethereumjs+evm@2.2.1/node_modules/@ethereumjs/evm/dist/esm/message.d.ts:33
+
+___
+
+### chargeCodeAccesses
+
+• `Optional` **chargeCodeAccesses**: `boolean`
+
+#### Defined in
+
+node_modules/.pnpm/@ethereumjs+evm@2.2.1/node_modules/@ethereumjs/evm/dist/esm/message.d.ts:43
 
 ___
 
@@ -106,7 +128,7 @@ ___
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/message.d.ts:35
+node_modules/.pnpm/@ethereumjs+evm@2.2.1/node_modules/@ethereumjs/evm/dist/esm/message.d.ts:37
 
 ___
 
@@ -116,7 +138,7 @@ ___
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/message.d.ts:40
+node_modules/.pnpm/@ethereumjs+evm@2.2.1/node_modules/@ethereumjs/evm/dist/esm/message.d.ts:42
 
 ___
 
@@ -128,7 +150,7 @@ Map of addresses which were created (used in EIP 6780)
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/message.d.ts:48
+node_modules/.pnpm/@ethereumjs+evm@2.2.1/node_modules/@ethereumjs/evm/dist/esm/message.d.ts:51
 
 ___
 
@@ -138,7 +160,7 @@ ___
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/message.d.ts:33
+node_modules/.pnpm/@ethereumjs+evm@2.2.1/node_modules/@ethereumjs/evm/dist/esm/message.d.ts:35
 
 ___
 
@@ -148,7 +170,7 @@ ___
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/message.d.ts:49
+node_modules/.pnpm/@ethereumjs+evm@2.2.1/node_modules/@ethereumjs/evm/dist/esm/message.d.ts:52
 
 ___
 
@@ -158,7 +180,7 @@ ___
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/message.d.ts:34
+node_modules/.pnpm/@ethereumjs+evm@2.2.1/node_modules/@ethereumjs/evm/dist/esm/message.d.ts:36
 
 ___
 
@@ -168,7 +190,7 @@ ___
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/message.d.ts:32
+node_modules/.pnpm/@ethereumjs+evm@2.2.1/node_modules/@ethereumjs/evm/dist/esm/message.d.ts:34
 
 ___
 
@@ -178,7 +200,7 @@ ___
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/message.d.ts:55
+node_modules/.pnpm/@ethereumjs+evm@2.2.1/node_modules/@ethereumjs/evm/dist/esm/message.d.ts:58
 
 ___
 
@@ -188,7 +210,7 @@ ___
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/message.d.ts:38
+node_modules/.pnpm/@ethereumjs+evm@2.2.1/node_modules/@ethereumjs/evm/dist/esm/message.d.ts:40
 
 ___
 
@@ -198,7 +220,7 @@ ___
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/message.d.ts:37
+node_modules/.pnpm/@ethereumjs+evm@2.2.1/node_modules/@ethereumjs/evm/dist/esm/message.d.ts:39
 
 ___
 
@@ -208,7 +230,7 @@ ___
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/message.d.ts:39
+node_modules/.pnpm/@ethereumjs+evm@2.2.1/node_modules/@ethereumjs/evm/dist/esm/message.d.ts:41
 
 ___
 
@@ -220,7 +242,7 @@ Set of addresses to selfdestruct. Key is the unprefixed address.
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/message.d.ts:44
+node_modules/.pnpm/@ethereumjs+evm@2.2.1/node_modules/@ethereumjs/evm/dist/esm/message.d.ts:47
 
 ___
 
@@ -230,7 +252,7 @@ ___
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/message.d.ts:29
+node_modules/.pnpm/@ethereumjs+evm@2.2.1/node_modules/@ethereumjs/evm/dist/esm/message.d.ts:31
 
 ___
 
@@ -240,7 +262,7 @@ ___
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/message.d.ts:30
+node_modules/.pnpm/@ethereumjs+evm@2.2.1/node_modules/@ethereumjs/evm/dist/esm/message.d.ts:32
 
 ## Accessors
 
@@ -256,4 +278,4 @@ Note: should only be called in instances where `_codeAddress` or `to` is defined
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+evm@2.1.0/node_modules/@ethereumjs/evm/dist/esm/message.d.ts:64
+node_modules/.pnpm/@ethereumjs+evm@2.2.1/node_modules/@ethereumjs/evm/dist/esm/message.d.ts:68
