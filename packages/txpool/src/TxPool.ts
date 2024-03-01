@@ -170,12 +170,12 @@ export class TxPool {
 		const minTipCap =
 			existingTxGasPrice.tip +
 			(existingTxGasPrice.tip * BigInt(MIN_GAS_PRICE_BUMP_PERCENT)) /
-				BigInt(100)
+			BigInt(100)
 
 		const minFeeCap =
 			existingTxGasPrice.maxFee +
 			(existingTxGasPrice.maxFee * BigInt(MIN_GAS_PRICE_BUMP_PERCENT)) /
-				BigInt(100)
+			BigInt(100)
 		if (newGasPrice.tip < minTipCap || newGasPrice.maxFee < minFeeCap) {
 			throw new Error(
 				`replacement gas too low, got tip ${newGasPrice.tip}, min: ${minTipCap}, got fee ${newGasPrice.maxFee}, min: ${minFeeCap}`,
@@ -189,7 +189,7 @@ export class TxPool {
 			const minblobGasFee =
 				existingTx.maxFeePerBlobGas +
 				(existingTx.maxFeePerBlobGas * BigInt(MIN_GAS_PRICE_BUMP_PERCENT)) /
-					BigInt(100)
+				BigInt(100)
 			if (addedTx.maxFeePerBlobGas < minblobGasFee) {
 				throw new Error(
 					`replacement blob gas too low, got: ${addedTx.maxFeePerBlobGas}, min: ${minblobGasFee}`,
@@ -294,7 +294,7 @@ export class TxPool {
 	}
 
 	/**
-	 * Adds a tx to the pool.
+	 * Adds a tx to the pool without validating it.
 	 *
 	 * If there is a tx in the pool with the same address and
 	 * nonce it will be replaced by the new tx, if it has a sufficient gas bump.
@@ -302,12 +302,11 @@ export class TxPool {
 	 * @param tx Transaction
 	 * @param isLocalTransaction if this is a local transaction (loosens some constraints) (default: false)
 	 */
-	async add(tx: TypedTransaction, isLocalTransaction = false) {
+	async addUnverified(tx: TypedTransaction) {
 		const hash: UnprefixedHash = bytesToUnprefixedHex(tx.hash())
 		const added = Date.now()
 		const address: UnprefixedAddress = tx.getSenderAddress().toString().slice(2)
 		try {
-			await this.validate(tx, isLocalTransaction)
 			let add: TxPoolObject[] = this.pool.get(address) ?? []
 			const inPool = this.pool.get(address)
 			if (inPool) {
@@ -322,6 +321,20 @@ export class TxPool {
 			this.handled.set(hash, { address, added, error: e as Error })
 			throw e
 		}
+	}
+
+	/**
+	 * Adds a tx to the pool.
+	 *
+	 * If there is a tx in the pool with the same address and
+	 * nonce it will be replaced by the new tx, if it has a sufficient gas bump.
+	 * This also verifies certain constraints, if these are not met, tx will not be added to the pool.
+	 * @param tx Transaction
+	 * @param isLocalTransaction if this is a local transaction (loosens some constraints) (default: false)
+	 */
+	async add(tx: TypedTransaction) {
+		await this.validate(tx, true)
+		return this.addUnverified(tx)
 	}
 
 	/**
@@ -526,7 +539,7 @@ export class TxPool {
 		const byPrice = new Heap({
 			comparBefore: (a: TypedTransaction, b: TypedTransaction) =>
 				this.normalizedGasPrice(b, baseFee) -
-					this.normalizedGasPrice(a, baseFee) <
+				this.normalizedGasPrice(a, baseFee) <
 				BIGINT_0,
 		}) as QHeap<TypedTransaction>
 		for (const [address, txs] of byNonce) {
@@ -559,7 +572,7 @@ export class TxPool {
 				!(best instanceof BlobEIP4844Transaction) ||
 				allowedBlobs === undefined ||
 				((best as BlobEIP4844Transaction).blobs ?? []).length + blobsCount <=
-					allowedBlobs
+				allowedBlobs
 			) {
 				if (accTxs.length > 0) {
 					if (!accTxs[0]) {
