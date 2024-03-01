@@ -1,4 +1,4 @@
-import { hexToBigInt } from '@tevm/utils'
+import { hexToBigInt, numberToHex } from '@tevm/utils'
 import { ethAccountsProcedure } from './eth/ethAccountsProcedure.js'
 import { ethCallProcedure } from './eth/ethCallProcedure.js'
 import { ethSignProcedure } from './eth/ethSignProcedure.js'
@@ -17,8 +17,9 @@ import {
 	scriptProcedure,
 	setAccountProcedure,
 } from './index.js'
-import { ethSendTransactionHandler, testAccounts } from '@tevm/actions'
+import { ethSendTransactionHandler, testAccounts, traceCallHandler } from '@tevm/actions'
 import { createJsonRpcFetcher } from '@tevm/jsonrpc'
+import { BlockHeader } from '@ethereumjs/block'
 
 // Keep this in sync with TevmProvider.ts
 
@@ -210,7 +211,8 @@ export const requestProcedure = (client) => {
 						...(request.id ? { id: request.id } : {}),
 						method: request.method,
 						jsonrpc: request.jsonrpc,
-						result: `0x${'69'.repeat(20)}`,
+						// same default as hardhat
+						result: await client.getVm().then(vm => vm.blockchain.getCanonicalHeadHeader()).then(header => header.coinbase),
 					}
 				}
 				if (!client.forkUrl) {
@@ -275,9 +277,69 @@ export const requestProcedure = (client) => {
 					...(estimateGasRequest.id ? { id: estimateGasRequest.id } : {}),
 				}
 			case 'anvil_getAutomine':
+			case /** @type {'anvil_getAutomine'}*/ ('hardhat_getAutomine'):
+			case /** @type {'anvil_getAutomine'}*/ ('ganache_getAutomine'):
 				return client.miningConfig.type === 'auto'
+			case 'anvil_setCoinbase':
+			case /** @type {'anvil_setCoinbase'}*/ ('hardhat_setCoinbase'):
+			case /** @type {'anvil_setCoinbase'}*/ ('ganache_setCoinbase'):
+				const vm = await client.getVm()
+				const header = await vm.blockchain.getCanonicalHeadHeader()
+				const newHeader = BlockHeader.fromHeaderData({
+					...header.raw(),
+					coinbase: request.params[0],
+				})
+				vm.blockchain.putHeader(newHeader)
+			case 'debug_traceCall':
+				const debugTraceCallRequest =
+					/** @type {import('@tevm/procedures-types').DebugTraceCallJsonRpcRequest}*/
+					(request)
+				const {
+					blockTag,
+					tracer,
+					to,
+					gas,
+					data,
+					from,
+					value,
+					timeout,
+					gasPrice,
+					tracerConfig,
+				} = debugTraceCallRequest.params[0]
+				const traceResult = await traceCallHandler(client)({
+					tracer,
+					...(to !== undefined ? { to } : {}),
+					...(from !== undefined ? { from } : {}),
+					...(gas !== undefined ? { gas: hexToBigInt(gas) } : {}),
+					...(gasPrice !== undefined ? { gasPrice: hexToBigInt(gasPrice) } : {}),
+					...(value !== undefined ? { value: hexToBigInt(value) } : {}),
+					...(data !== undefined ? { data } : {}),
+					...(blockTag !== undefined ? { blockTag } : {}),
+					...(timeout !== undefined ? { timeout } : {}),
+					...(tracerConfig !== undefined ? { tracerConfig } : {}),
+				})
+				return {
+					method: debugTraceCallRequest.method,
+					result: {
+						gas: numberToHex(traceResult.gas),
+						failed: traceResult.failed,
+						returnValue: traceResult.returnValue,
+						structLogs: traceResult.structLogs.map((log) => {
+							return {
+								gas: numberToHex(log.gas),
+								gasCost: numberToHex(log.gasCost),
+								op: log.op,
+								pc: log.pc,
+								stack: log.stack,
+								depth: log.depth,
+							}
+
+						}),
+					},
+					jsonrpc: '2.0',
+					...(debugTraceCallRequest.id ? { id: debugTraceCallRequest.id } : {}),
+				}
 			case 'eth_getLogs':
-			case 'eth_hashrate':
 			case 'eth_newFilter':
 			case 'eth_getFilterLogs':
 			case 'eth_getBlockByHash':
@@ -298,7 +360,6 @@ export const requestProcedure = (client) => {
 			case 'eth_getBlockTransactionCountByNumber':
 			case 'eth_getTransactionByBlockHashAndIndex':
 			case 'eth_getTransactionByBlockNumberAndIndex':
-			case 'debug_traceCall':
 			case 'debug_traceTransaction':
 			case 'anvil_mine':
 			case 'anvil_reset':
@@ -308,7 +369,8 @@ export const requestProcedure = (client) => {
 			case 'anvil_dropTransaction':
 			case 'anvil_impersonateAccount':
 			case 'anvil_stopImpersonatingAccount':
-				throw new Error(`Method ${request.method} is not implemented yet`)
+				throw new Error(`Method ${request.method} is not implemented yet. Currently tevm is always on auto-impersonate`)
+			case 'eth_hashrate':
 			default: {
 				/**
 				 * @type {import('@tevm/errors').UnsupportedMethodError}
@@ -325,7 +387,7 @@ export const requestProcedure = (client) => {
 					method: /** @type any*/ (request).method,
 					jsonrpc: '2.0',
 					error: {
-						code: err._tag,
+						code: -32601,
 						message: err.message,
 					},
 				})
