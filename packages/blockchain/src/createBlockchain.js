@@ -17,12 +17,12 @@ export const createBlockchain = async ({ common }) => {
 
 	const genesisBlock = Block.fromBlockData(
 		{
-			header: { ...common.genesis(), baseFeePerGas: parseGwei('1') },
+			header: { ...common.genesis(), baseFeePerGas: parseGwei('1'), coinbase: '0xc014ba5ec014ba5ec014ba5ec014ba5ec014ba5e' },
 			...(common.isActivatedEIP(4895)
 				? {
-						withdrawals:
+					withdrawals:
 							/** @type {Array<import('@ethereumjs/util').WithdrawalData>}*/ ([]),
-				  }
+				}
 				: {}),
 		},
 		{ common, setHardfork: false, skipConsensusFormatValidation: true },
