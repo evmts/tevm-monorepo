@@ -308,7 +308,7 @@ describe('traceCallHandler', () => {
 			).errors,
 		).toBeUndefined()
 		expect(
-			await traceCallHandler({ vm })({
+			await traceCallHandler({ getVm: () => Promise.resolve(vm) })({
 				tracer: 'callTracer',
 				data: encodeFunctionData({
 					abi: ERC20_ABI,
