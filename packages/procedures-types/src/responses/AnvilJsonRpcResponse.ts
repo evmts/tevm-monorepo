@@ -17,6 +17,7 @@ import type {
 	AnvilStopImpersonatingAccountResult,
 } from '@tevm/actions-types'
 import type { JsonRpcResponse } from '@tevm/jsonrpc'
+import type { Address } from '@tevm/utils'
 
 // TODO type the errors strongly
 type AnvilError = string
@@ -37,6 +38,15 @@ export type AnvilImpersonateAccountJsonRpcResponse = JsonRpcResponse<
 export type AnvilStopImpersonatingAccountJsonRpcResponse = JsonRpcResponse<
 	'anvil_stopImpersonatingAccount',
 	SerializeToJson<AnvilStopImpersonatingAccountResult>,
+	AnvilError
+>
+// anvil_setCoinbase
+/**
+ * JSON-RPC response for `anvil_setCoinbase` procedure
+ */
+export type AnvilSetCoinbaseJsonRpcResponse = JsonRpcResponse<
+	'anvil_setCoinbase',
+	Address,
 	AnvilError
 >
 // anvil_autoImpersonateAccount

@@ -45,6 +45,15 @@ export type AnvilGetAutomineJsonRpcRequest = JsonRpcRequest<
 	'anvil_getAutomine',
 	[SerializeToJson<AnvilGetAutomineParams>]
 >
+// anvil_setCoinbase
+/**
+ * JSON-RPC request for `anvil_setCoinbase` method
+ * Not included atm because tevm_call supports it and i was getting methodNotFound errors trying it in anvil
+ */
+export type AnvilSetCoinbaseJsonRpcRequest = JsonRpcRequest<
+	'anvil_setCoinbase',
+	[Address]
+>
 // anvil_mine
 /**
  * JSON-RPC request for `anvil_mine` method
@@ -142,3 +151,4 @@ export type AnvilJsonRpcRequest =
 	| AnvilSetChainIdJsonRpcRequest
 	| AnvilDumpStateJsonRpcRequest
 	| AnvilLoadStateJsonRpcRequest
+	| AnvilSetCoinbaseJsonRpcRequest
