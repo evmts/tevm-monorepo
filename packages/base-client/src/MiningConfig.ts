@@ -8,4 +8,8 @@ export type ManualMining = {
 export type AutoMining = {
   type: 'auto'
 }
-export type MiningConfig = IntervalMining | ManualMining | AutoMining
+export type GasMining = {
+  type: 'gas'
+  limit: BigInt
+}
+export type MiningConfig = IntervalMining | ManualMining | AutoMining | GasMining
