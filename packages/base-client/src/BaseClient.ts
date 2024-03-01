@@ -1,5 +1,6 @@
 import type { TxPool } from '@tevm/txpool'
 import type { TevmVm } from '@tevm/vm'
+import type { MiningConfig } from './MiningConfig.js'
 
 /**
  * The base client used by Tevm. Add extensions to add additional functionality
@@ -8,6 +9,13 @@ export type BaseClient<
 	TMode extends 'fork' | 'proxy' | 'normal' = 'fork' | 'proxy' | 'normal',
 	TExtended = {},
 > = {
+	/**
+	 * The configuration for mining. Defaults to 'auto'
+	 * - 'auto' will mine a block on every transaction
+	 * - 'interval' will mine a block every `interval` milliseconds
+	 * - 'manual' will not mine a block automatically and requires a manual call to `mineBlock`
+	 */
+	readonly miningConfig: MiningConfig
 	/**
 	 * Gets the chainId of the current EVM
 	 * @example

@@ -3,40 +3,48 @@ import type { Hardfork } from './Hardfork.js'
 import type { CustomPredeploy } from '@tevm/predeploys'
 import type { ForkStateManagerOpts, ProxyStateManagerOpts } from '@tevm/state'
 import type { SyncStoragePersister } from '@tevm/sync-storage-persister'
+import type { MiningConfig } from './MiningConfig.js'
 
 /**
  * Options for creating an Tevm MemoryClient instance
  */
 export type BaseClientOptions = {
 	/**
+	 * The configuration for mining. Defaults to 'auto'
+	 * - 'auto' will mine a block on every transaction
+	 * - 'interval' will mine a block every `interval` milliseconds
+	 * - 'manual' will not mine a block automatically and requires a manual call to `mineBlock`
+	 */
+	readonly miningConfig?: MiningConfig
+	/**
 	 * Optionally set the chainId. Defaults to chainId of fokred/proxied chain or 900
 	 */
-	chainId?: number
+	readonly chainId?: number
 	/**
 	 * Enable profiler. Defaults to false.
 	 */
-	profiler?: boolean
+	readonly profiler?: boolean
 	/**
 	 * Hardfork to use. Defaults to `shanghai`
 	 */
-	hardfork?: Hardfork
+	readonly hardfork?: Hardfork
 	// TODO type this more strongly
 	/**
 	 * Eips to enable. Defaults to `[1559, 4895]`
 	 */
-	eips?: ReadonlyArray<number>
+	readonly eips?: ReadonlyArray<number>
 	/**
 	 * Options to initialize the client in `proxy` mode
 	 * When in proxy mode Tevm will fetch all state from the latest block of the provided proxy URL
 	 * Cannot be set if `fork` is also set
 	 */
-	proxy?: ProxyStateManagerOpts
+	readonly proxy?: ProxyStateManagerOpts
 	/**
 	 * Fork options fork a live network if enabled.
 	 * When in fork mode Tevm will fetch and cache all state from the block forked from the provided URL
 	 * Cannot be set if `proxy` is also set
 	 */
-	fork?: ForkStateManagerOpts
+	readonly fork?: ForkStateManagerOpts
 	/**
 	 * Custom precompiles allow you to run arbitrary JavaScript code in the EVM.
 	 * See the [Precompile guide](https://todo.todo) documentation for a deeper dive
@@ -80,7 +88,7 @@ export type BaseClientOptions = {
 	 *
 	 * const tevm = createMemoryClient({ customPrecompiles: [fsPrecompile] })
 	 */
-	customPrecompiles?: CustomPrecompile[]
+	readonly customPrecompiles?: CustomPrecompile[]
 	/**
 	 * Custom predeploys allow you to deploy arbitrary EVM bytecode to an address.
 	 * This is a convenience method and equivalent to calling tevm.setAccount() manually
@@ -98,11 +106,11 @@ export type BaseClientOptions = {
 	 * })
 	 * ```
 	 */
-	customPredeploys?: ReadonlyArray<CustomPredeploy<any, any>>
+	readonly customPredeploys?: ReadonlyArray<CustomPredeploy<any, any>>
 	/**
 	 * Enable/disable unlimited contract size. Defaults to false.
 	 */
-	allowUnlimitedContractSize?: boolean
+	readonly allowUnlimitedContractSize?: boolean
 	/**
 	 * The memory client can optionally initialize and persist it's state to an external source like local storage
 	 * using `createSyncPersister`
@@ -120,5 +128,5 @@ export type BaseClientOptions = {
 	 * const memoryClient = createMemoryClient({ persister })
 	 * ```
 	 */
-	persister?: SyncStoragePersister
+	readonly persister?: SyncStoragePersister
 }

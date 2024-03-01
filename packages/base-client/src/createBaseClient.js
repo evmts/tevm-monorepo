@@ -206,6 +206,7 @@ export const createBaseClient = (options = {}) => {
 		},
 		setChainId,
 		getVm: () => vmPromise,
+		miningConfig: options.miningConfig ?? { type: 'auto' },
 		mode: options.fork?.url ? 'fork' : options.proxy?.url ? 'proxy' : 'normal',
 		...(options.fork?.url
 			? { forkUrl: options.fork.url }
