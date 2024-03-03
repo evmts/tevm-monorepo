@@ -3,9 +3,10 @@ import { contractHandler } from './contractHandler.js'
 import { setAccountHandler } from './setAccountHandler.js'
 import type { ContractError } from '@tevm/errors'
 import { Evm } from '@tevm/evm'
-import { NormalStateManager } from '@tevm/state'
+import { ForkStateManager, NormalStateManager } from '@tevm/state'
 import { TevmVm } from '@tevm/vm'
 import { describe, expect, it } from 'bun:test'
+import { getAccountHandler } from './getAccountHandler.js'
 
 const ERC20_ADDRESS = `0x${'3'.repeat(40)}` as const
 const ERC20_BYTECODE =
@@ -474,7 +475,7 @@ describe('contractHandler', () => {
 		const evm = new Evm({ stateManager })
 		const vm = await TevmVm.create({ evm, stateManager })
 		const originalRunCall = evm.runCall.bind(evm)
-		vm.evm.runCall = function (args) {
+		vm.evm.runCall = function(args) {
 			return {
 				...originalRunCall(args),
 				execResult: { returnValue: '0x42424242' },
@@ -567,5 +568,93 @@ describe('contractHandler', () => {
 		expect(error.message).toBe(
 			'Revert: InsufficientBalance {"abiItem":{"inputs":[],"name":"InsufficientBalance","type":"error"},"errorName":"InsufficientBalance"}',
 		)
+	})
+
+	it('should revert when contract doesnt exist with fork state manager', async () => {
+		const GASLITEDROP_ADDRESS = '0x09350F89e2D7B6e96bA730783c2d76137B045FEF';
+		const GASLITEDROP_ABI = [
+			{
+				inputs: [
+					{ internalType: 'address', name: '_token', type: 'address' },
+					{
+						internalType: 'address[]',
+						name: '_addresses',
+						type: 'address[]',
+					},
+					{ internalType: 'uint256[]', name: '_amounts', type: 'uint256[]' },
+					{ internalType: 'uint256', name: '_totalAmount', type: 'uint256' },
+				],
+				name: 'airdropERC20',
+				outputs: [],
+				stateMutability: 'payable',
+				type: 'function',
+			},
+		] as const;
+		const stateManager = new ForkStateManager({ url: 'https://polygon.rpc.blxrbdn.com' })
+		const evm = new Evm({ stateManager })
+		const vm = await TevmVm.create({ evm, stateManager })
+
+		const caller = `0x${'1'.repeat(40)}` as const;
+		const recipient = `0x${'2'.repeat(40)}` as const;
+		const amount = BigInt(1e18);
+		const token = `0x${'3'.repeat(40)}` as const;
+
+		const { isContract } = await getAccountHandler({ getVm: async () => vm })({ address: GASLITEDROP_ADDRESS })
+		expect(isContract).toBe(true)
+
+		const { errors } = await contractHandler({ getVm: () => Promise.resolve(vm) })({
+			caller,
+			to: GASLITEDROP_ADDRESS,
+			abi: GASLITEDROP_ABI,
+			functionName: 'airdropERC20',
+			throwOnFail: false,
+			args: [token, [recipient], [amount], amount],
+		});
+
+		expect(errors).toBeDefined()
+	})
+	// from reproducable bug here https://github.com/0xpolarzero/tevm-minimal-repro/blob/main/bug-no-revert/index.ts
+	it('should revert when contract doesnt exist with normal state manager', async () => {
+		const GASLITEDROP_ADDRESS = '0x09350F89e2D7B6e96bA730783c2d76137B045FEF';
+		const GASLITEDROP_ABI = [
+			{
+				inputs: [
+					{ internalType: 'address', name: '_token', type: 'address' },
+					{
+						internalType: 'address[]',
+						name: '_addresses',
+						type: 'address[]',
+					},
+					{ internalType: 'uint256[]', name: '_amounts', type: 'uint256[]' },
+					{ internalType: 'uint256', name: '_totalAmount', type: 'uint256' },
+				],
+				name: 'airdropERC20',
+				outputs: [],
+				stateMutability: 'payable',
+				type: 'function',
+			},
+		] as const;
+		const stateManager = new NormalStateManager()
+		const evm = new Evm({ stateManager })
+		const vm = await TevmVm.create({ evm, stateManager })
+
+		const caller = `0x${'1'.repeat(40)}` as const;
+		const recipient = `0x${'2'.repeat(40)}` as const;
+		const amount = BigInt(1e18);
+		const token = `0x${'3'.repeat(40)}` as const;
+
+		const { isContract } = await getAccountHandler({ getVm: async () => vm })({ address: GASLITEDROP_ADDRESS })
+		expect(isContract).toBe(true)
+
+		const { errors } = await contractHandler({ getVm: () => Promise.resolve(vm) })({
+			caller,
+			to: GASLITEDROP_ADDRESS,
+			abi: GASLITEDROP_ABI,
+			functionName: 'airdropERC20',
+			throwOnFail: false,
+			args: [token, [recipient], [amount], amount],
+		});
+
+		expect(errors).toBeDefined()
 	})
 })
