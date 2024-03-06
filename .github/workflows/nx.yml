@@ -58,7 +58,7 @@ jobs:
         run: bunx nx-cloud start-ci-run --stop-agents-after=build:app
 
       - name: Run verification
-        uses: JamesHenry/parallel-bash-commands@v0.1
+        uses: JamesHenry/parallel-bash-commands@v1.0
         with:
           cmd1: bunx nx affected --target build:dist
           cmd2: bunx nx affected --target build:types
