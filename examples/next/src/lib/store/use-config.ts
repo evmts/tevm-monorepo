@@ -1,0 +1,133 @@
+import { ABI } from '@shazow/whatsabi/lib.types/abi';
+import { create } from 'zustand';
+import { createJSONStorage, persist } from 'zustand/middleware';
+
+import { Account, Address, UpdateAccountOptions } from '@/lib/types/config';
+import { DEFAULT_CALLER } from '@/lib/constants/defaults';
+import { TEVM_PREFIX } from '@/lib/local-storage';
+import { getAccount } from '@/lib/tevm';
+import { toastProgress } from '@/lib/toast';
+import { fetchAbi } from '@/lib/whatsabi';
+
+const { onStart, onProgress, onError, onSuccess } = toastProgress;
+
+/* ---------------------------------- TYPES --------------------------------- */
+type ConfigInitialState = {
+  account: Account | null;
+  abi: ABI | null;
+  fetchingAccount: boolean;
+  caller: Address;
+  skipBalance: boolean;
+
+  isHydrated: boolean;
+};
+
+type ConfigSetState = {
+  updateAccount: (
+    address: Address,
+    options: UpdateAccountOptions,
+  ) => Promise<Account>;
+  setAccount: (account: Account | null) => void;
+  setAbi: (abi: ABI | null) => void;
+  setFetchingAccount: (fetching: boolean) => void;
+  setCaller: (address: Address) => void;
+  resetCaller: () => void;
+  setSkipBalance: (skip: boolean) => void;
+
+  hydrate: () => void;
+};
+
+type ConfigStore = ConfigInitialState & ConfigSetState;
+
+/* ---------------------------------- STORE --------------------------------- */
+/**
+ * @notice A store to manage the current contract selection and its methods
+ */
+export const useConfigStore = create<ConfigStore>()(
+  persist(
+    (set) => ({
+      // A valid Ethereum account (either a contract or an EOA)
+      account: null,
+      // The contract's abi after it's been fetched with WhatsABI
+      abi: null,
+      // Whether the account is currently being fetched (also valid for fetching the abi)
+      fetchingAccount: false,
+      // The current address to impersonate as the caller
+      caller: DEFAULT_CALLER,
+      // Whether to skip native balance checks during calls
+      skipBalance: true,
+
+      // The hydratation status to prevent displaying default values on first mount
+      // when the local storage is not yet rehydrated
+      isHydrated: false,
+
+      // Update the account with its latest state, and fetch the abi if it's a contract
+      // This will be called upon search, chain change/reset, and after making a call
+      updateAccount: async (address, { updateAbi, chain, client }) => {
+        set({ fetchingAccount: true });
+        const account = await getAccount(client, address);
+
+        // If we can't be sure if it's a contract, we can attempt to fetch the abi anyway
+        if (
+          updateAbi &&
+          (account.isContract || account.isContract === undefined) &&
+          account.deployedBytecode !== '0x'
+        ) {
+          // TODO maybe it's bad practice to manage the toast here—i.e. in a zuistand store?
+          const toastId = onStart('Fetching ABI', 'Please wait...');
+
+          const { success, data: abi } = await fetchAbi(
+            account.address,
+            chain,
+            (title: string, description: string) =>
+              onProgress(toastId, title, description),
+          );
+
+          // Set the abi in the store if it's successful
+          if (success && abi && abi.length > 0) {
+            set({ abi });
+            onSuccess(toastId, 'Success', 'The ABI has been fetched');
+          } else {
+            set({ abi: null });
+            onError(
+              toastId,
+              'No ABI found',
+              'Please make sure this contract is deployed on the selected chain.',
+            );
+          }
+        } else {
+          if (updateAbi) set({ abi: null });
+        }
+
+        // Set the new account in any case
+        set({ account, fetchingAccount: false });
+
+        return account;
+      },
+
+      setAccount: (account) => set({ account }),
+      setAbi: (abi) => set({ abi }),
+      setFetchingAccount: (fetching) => set({ fetchingAccount: fetching }),
+      setCaller: (address) => set({ caller: address }),
+      resetCaller: () => set({ caller: DEFAULT_CALLER }),
+      setSkipBalance: (skip) => set({ skipBalance: skip }),
+
+      hydrate: () => set({ isHydrated: true }),
+    }),
+    {
+      name: `${TEVM_PREFIX}config`,
+      storage: createJSONStorage(() => localStorage),
+      partialize: (state: ConfigStore) => ({
+        caller: state.caller,
+        skipBalance: state.skipBalance,
+      }),
+      onRehydrateStorage: () => async (state, error) => {
+        if (error) console.error('Failed to rehydrate config store:', error);
+        if (!state) return;
+
+        const { hydrate } = state;
+        hydrate();
+      },
+    },
+  ),
+);
