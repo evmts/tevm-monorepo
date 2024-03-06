@@ -26,6 +26,7 @@ export const METADATA_BASE: Metadata = {
     siteName: title,
     title: title,
     description: description,
+    images: 'og-image.png',
   },
 };
 
