@@ -21,14 +21,7 @@ export const formatTx: FormatTx = (tx, context) => {
     : data.toString();
 
   return {
-    context: {
-      ...context,
-      target: {
-        ...context.target,
-        balance: context.target.balance?.toString(),
-        nonce: context.target.nonce?.toString(),
-      },
-    },
+    context,
     data: dataSerializable,
     decoded: tx.couldDecodeOutput,
     status:

@@ -1,8 +1,10 @@
 import { ABI } from '@shazow/whatsabi/lib.types/abi';
+import { GetAccountResult } from 'tevm';
+import { Address } from 'tevm/utils';
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 
-import { Account, Address, UpdateAccountOptions } from '@/lib/types/config';
+import { UpdateAccountOptions } from '@/lib/types/config';
 import { DEFAULT_CALLER } from '@/lib/constants/defaults';
 import { TEVM_PREFIX } from '@/lib/local-storage';
 import { getAccount } from '@/lib/tevm';
@@ -13,7 +15,7 @@ const { onStart, onProgress, onError, onSuccess } = toastProgress;
 
 /* ---------------------------------- TYPES --------------------------------- */
 type ConfigInitialState = {
-  account: Account | null;
+  account: GetAccountResult | null;
   abi: ABI | null;
   fetchingAccount: boolean;
   caller: Address;
@@ -26,10 +28,9 @@ type ConfigSetState = {
   updateAccount: (
     address: Address,
     options: UpdateAccountOptions,
-  ) => Promise<Account>;
-  setAccount: (account: Account | null) => void;
-  setAbi: (abi: ABI | null) => void;
+  ) => Promise<GetAccountResult>;
   setFetchingAccount: (fetching: boolean) => void;
+  setAbi: (abi: ABI | null) => void;
   setCaller: (address: Address) => void;
   resetCaller: () => void;
   setSkipBalance: (skip: boolean) => void;
@@ -68,11 +69,7 @@ export const useConfigStore = create<ConfigStore>()(
         const account = await getAccount(client, address);
 
         // If we can't be sure if it's a contract, we can attempt to fetch the abi anyway
-        if (
-          updateAbi &&
-          (account.isContract || account.isContract === undefined) &&
-          account.deployedBytecode !== '0x'
-        ) {
+        if (updateAbi && account.isContract) {
           // TODO maybe it's bad practice to manage the toast here—i.e. in a zuistand store?
           const toastId = onStart('Fetching ABI', 'Please wait...');
 
@@ -105,9 +102,8 @@ export const useConfigStore = create<ConfigStore>()(
         return account;
       },
 
-      setAccount: (account) => set({ account }),
-      setAbi: (abi) => set({ abi }),
       setFetchingAccount: (fetching) => set({ fetchingAccount: fetching }),
+      setAbi: (abi) => set({ abi }),
       setCaller: (address) => set({ caller: address }),
       resetCaller: () => set({ caller: DEFAULT_CALLER }),
       setSkipBalance: (skip) => set({ skipBalance: skip }),

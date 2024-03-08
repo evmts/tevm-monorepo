@@ -1,13 +1,11 @@
 import { autoload, loaders } from '@shazow/whatsabi';
 import { ABI } from '@shazow/whatsabi/lib.types/abi';
+import { Address } from 'tevm/utils';
 
-import { Address } from '@/lib/types/config';
 import { CHAINS } from '@/lib/constants/providers';
 import { getFunctionName } from '@/lib/utils';
 
 const { EtherscanABILoader, MultiABILoader, SourcifyABILoader } = loaders;
-
-const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY || '';
 
 /* ---------------------------------- TYPES --------------------------------- */
 /**
@@ -55,18 +53,26 @@ export const fetchAbi: FetchAbi = async (
   chain,
   onProgress,
 ) => {
+  // We can't use the default ABI loader as it doesn't specify the chain id to the loaders
+  const loaders = [
+    new EtherscanABILoader({
+      baseURL: chain.blockExplorers?.default.apiUrl,
+      // If the key is there, there is an Etherscan-compatible explorer
+      // Whether an api key was fed to the environment or not (default ''), it will
+      // still work, in the worst case with a rate limit
+      apiKey: chain.custom.explorerApiKey,
+    }),
+    new SourcifyABILoader({ chainId: chain.id }),
+  ];
+
   try {
     const res = await autoload(contractAddress, {
       provider: chain.custom.provider,
-      // We can't use the default ABI loader as it doesn't specify the chain id to Sourcify
-      // Same for Etherscan
-      abiLoader: new MultiABILoader([
-        new EtherscanABILoader({
-          baseURL: chain.blockExplorers?.default.apiUrl,
-          apiKey: ETHERSCAN_API_KEY,
-        }),
-        new SourcifyABILoader({ chainId: chain.id }),
-      ]),
+      // If there is no explorerApiKey property, don't even attempt to use the Etherscan loader
+      abiLoader:
+        chain.custom.explorerApiKey !== undefined
+          ? new MultiABILoader(loaders)
+          : loaders[1],
       // Wrap the onProgress function to just resolve the phase into a message
       onProgress: (phase) => {
         onProgress('Fetching ABI', phaseToMessage[phase]);

@@ -1,7 +1,6 @@
-import { CallResult, ContractResult } from 'tevm';
+import { CallResult, ContractResult, GetAccountResult } from 'tevm';
 import { Log } from 'tevm/actions-types';
-
-import { Account, Address } from '@/lib/types/config';
+import { Address } from 'tevm/utils';
 
 /* ---------------------------------- UTILS --------------------------------- */
 // A type expected either as returned data by Tevm, or to be passed as input data
@@ -67,7 +66,7 @@ export type TxResponse = {
  * @type {Object} TxContext
  * @notice The context of a transaction (for the local storage)
  * @property {number} chainId The id of the chain the transaction was made on
- * @property {Account} target The account targeted by the transaction (contract or EOA)
+ * @property {GetAccountResult} target The account targeted by the transaction (contract or EOA)
  * @property {Address} caller The address of the impersonated caller
  * @property {string} functionName The name of the function called; undefined if low level call
  * @property {InputStringified[]} inputValues The input values passed to the function (as strings)
@@ -75,7 +74,7 @@ export type TxResponse = {
  */
 type TxContext = {
   chainId: number;
-  target: Account;
+  target: GetAccountResult;
   caller: Address;
   functionName: string | undefined;
   inputValues: InputStringified[];

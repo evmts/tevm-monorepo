@@ -27,13 +27,6 @@ const AccountState = () => {
 
   const loading = initializing || fetchingAccount;
 
-  // TODO TEMP fix until RPC providers fix their eth_getProof method
-  // (some returning address(0), some returning keccak256("no data")...)
-  const isNotInitialized =
-    account?.balance === BigInt(0) &&
-    account?.nonce === BigInt(0) &&
-    account?.deployedBytecode === '0x';
-
   /* --------------------------------- RENDER --------------------------------- */
   if (!account && !fetchingAccount) return null;
 
@@ -43,9 +36,7 @@ const AccountState = () => {
     <div className="grid grid-cols-[min-content_min-content] items-center gap-x-8 gap-y-2 text-sm sm:text-base">
       <div className="flex items-center gap-2">
         <span className="text-sm text-gray-500">
-          {!account ||
-          (!account.isContract && account.isEmpty) ||
-          isNotInitialized
+          {!account || account.isEmpty
             ? 'Account'
             : account.isContract
               ? 'Contract'
@@ -66,7 +57,7 @@ const AccountState = () => {
             address={account.address}
             explorer={chain.blockExplorers?.default.url}
           />
-          {account.isEmpty || isNotInitialized ? (
+          {account.isEmpty ? (
             <TooltipResponsive
               trigger={
                 <Badge variant="secondary" className="whitespace-nowrap">
@@ -89,7 +80,7 @@ const AccountState = () => {
           decimals={chain.nativeCurrency.decimals}
         />
       )}
-      {!account?.isContract ? (
+      {!account?.isContract && !account?.isEmpty ? (
         <>
           <span className="flex items-center gap-2 whitespace-nowrap text-sm text-gray-500">
             Transactions

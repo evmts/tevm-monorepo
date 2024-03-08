@@ -1,15 +1,7 @@
 'use client';
 
-import {
-  FC,
-  Fragment,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
-import { ABI } from '@shazow/whatsabi/lib.types/abi';
+import { FC, Fragment, useCallback, useMemo, useRef, useState } from 'react';
+import { ABI, ABIFunction } from '@shazow/whatsabi/lib.types/abi';
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -22,7 +14,6 @@ import {
 } from '@tanstack/react-table';
 import { toast } from 'sonner';
 
-import { FunctionAbi } from '@/lib/types/config';
 import { ExpectedType, Input as InputType } from '@/lib/types/tx';
 import { useMediaQuery } from '@/lib/hooks/use-media-query';
 import { formatTx as formatTxForLocalStorage } from '@/lib/local-storage';
@@ -30,7 +21,7 @@ import { useConfigStore } from '@/lib/store/use-config';
 import { useProviderStore } from '@/lib/store/use-provider';
 import { useTxStore } from '@/lib/store/use-tx';
 import { callContract } from '@/lib/tevm';
-import { formatInputValue } from '@/lib/utils';
+import { formatInputValue, getFunctionId } from '@/lib/utils';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -63,9 +54,6 @@ const InterfaceTable: FC<InterfaceTableProps> = ({ data, loading }) => {
   /* ---------------------------------- STATE --------------------------------- */
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-
-  // Whether a function is ready to be called (all inputs are filled); by function id
-  const [isCallReady, setIsCallReady] = useState<Record<string, boolean>>({});
 
   // Expand the table from tablet
   const isTablet = useMediaQuery('(min-width: 640px)'); // sm
@@ -106,6 +94,20 @@ const InterfaceTable: FC<InterfaceTableProps> = ({ data, loading }) => {
   // This is necessary because editable cells will make the whole table re-render
   // on change and the focus will be lost
   const focusedInputRef = useRef<string | null>(null);
+
+  // Whether a function is ready to be called (all inputs are filled); by function id
+  const isCallReady = useMemo(
+    () =>
+      Object.fromEntries(
+        Object.keys(inputValues).map((id) => [
+          id,
+          Object.values(inputValues[id]['args']).every(
+            (value) => value !== undefined && value !== '',
+          ),
+        ]),
+      ),
+    [inputValues],
+  );
 
   /* -------------------------------- HANDLERS -------------------------------- */
   // Call a function with the given input values
@@ -239,26 +241,8 @@ const InterfaceTable: FC<InterfaceTableProps> = ({ data, loading }) => {
     ],
   );
 
-  /* ------------------------------ STATE EFFECTS ----------------------------- */
-  // Update isCallReady when inputValues change (true for a function if all inputs are filled)
-  useEffect(() => {
-    const isFilled = (id: string) => {
-      const values = inputValues[id]['args'];
-      if (!values) return false;
-      return Object.values(values).every(
-        (value) => value !== undefined && value !== '',
-      );
-    };
-
-    setIsCallReady(
-      Object.fromEntries(
-        Object.keys(inputValues).map((id) => [id, isFilled(id)]),
-      ),
-    );
-  }, [inputValues, focusedInputRef]);
-
   /* --------------------------------- COLUMNS -------------------------------- */
-  const columns: ColumnDef<FunctionAbi>[] = useMemo(
+  const columns: ColumnDef<ABIFunction>[] = useMemo(
     () => [
       {
         accessorKey: 'name',
@@ -303,20 +287,23 @@ const InterfaceTable: FC<InterfaceTableProps> = ({ data, loading }) => {
           </div>
         ),
         cell: ({ row }) => {
-          if (loading) return <SkeletonCell />;
           const payable = row.original.stateMutability === 'payable';
+          // Find a unique id for the input for refocusing on rerender
+          const id = getFunctionId(abi || [], row.original);
+
+          if (loading || !inputValues[id]) return <SkeletonCell />;
           if (
             (!row.original.inputs || row.original.inputs.length === 0) &&
             !payable
           )
-            return <Icons.close className="size-4 opacity-50" />;
+            return <Icons.close className="size-4 opacity-50" />; // no inputs
 
           return (
             <div className="grid items-center gap-x-4 gap-y-2 lg:grid-cols-[auto_1fr]">
               {payable ? (
                 <>
                   <Label
-                    htmlFor={`${row.original.id}-value`}
+                    htmlFor={`${id}-value`}
                     className="flex min-w-[100px] items-center gap-2 whitespace-nowrap text-xs text-secondary-foreground sm:text-sm"
                   >
                     value ({chain.nativeCurrency.symbol})
@@ -326,51 +313,40 @@ const InterfaceTable: FC<InterfaceTableProps> = ({ data, loading }) => {
                     />
                   </Label>
                   <Input
-                    id={`${row.original.id}-value`}
+                    id={`${id}-value`}
                     type="text"
                     placeholder="0"
                     className="h-7 w-full max-w-xs text-xs sm:h-9 sm:text-sm"
-                    value={inputValues[row.original.id]['value'] as string}
-                    onFocus={() =>
-                      (focusedInputRef.current = `${row.original.id}-value`)
-                    }
+                    value={inputValues[id]['value'] as string}
+                    onFocus={() => (focusedInputRef.current = `${id}-value`)}
                     onBlur={() => (focusedInputRef.current = null)}
-                    autoFocus={
-                      focusedInputRef.current === `${row.original.id}-value`
-                    }
-                    onChange={(e) =>
-                      updateInputValue(row.original.id, -1, e.target.value)
-                    }
+                    autoFocus={focusedInputRef.current === `${id}-value`}
+                    onChange={(e) => updateInputValue(id, -1, e.target.value)}
                   />
                 </>
               ) : null}
               {row.original.inputs?.map((input, index) => (
                 <Fragment key={index}>
                   <Label
-                    htmlFor={`${row.original.id}-args-${index}`}
+                    htmlFor={`${id}-args-${index}`}
                     className="min-w-[100px] whitespace-nowrap text-xs text-secondary-foreground sm:text-sm"
                   >
                     {input.name || `arg ${index + 1}`}
                   </Label>
                   <Input
-                    id={`${row.original.id}-args-${index}`}
+                    id={`${id}-args-${index}`}
                     placeholder={input.type}
                     className="h-7 w-full max-w-xs text-xs sm:h-9 sm:text-sm"
-                    value={
-                      inputValues[row.original.id]['args'][index] as
-                        | string
-                        | number
-                    }
+                    value={inputValues[id]['args'][index] as string | number}
                     onFocus={() =>
-                      (focusedInputRef.current = `${row.original.id}-args-${index}`)
+                      (focusedInputRef.current = `${id}-args-${index}`)
                     }
                     onBlur={() => (focusedInputRef.current = null)}
                     autoFocus={
-                      focusedInputRef.current ===
-                      `${row.original.id}-args-${index}`
+                      focusedInputRef.current === `${id}-args-${index}`
                     }
                     onChange={(e) =>
-                      updateInputValue(row.original.id, index, e.target.value)
+                      updateInputValue(id, index, e.target.value)
                     }
                   />
                 </Fragment>
@@ -391,31 +367,32 @@ const InterfaceTable: FC<InterfaceTableProps> = ({ data, loading }) => {
           </div>
         ),
         cell: ({ row }) => {
-          if (loading) return <SkeletonCell />;
+          // Find a unique id for the input for refocusing on rerender
+          const id = getFunctionId(abi || [], row.original);
+
+          if (loading || !inputValues[id]) return <SkeletonCell />;
           return (
             <Button
               variant="secondary"
               size="sm"
-              disabled={!isCallReady[row.original.id] || processing !== ''}
+              disabled={!isCallReady[id] || processing !== ''}
               onClick={() =>
                 call(
-                  row.original.name,
+                  row.original.name || '', // we're actually confident this is not undefined
                   row.original.inputs?.length
                     ? row.original.inputs.map((input, index) => ({
                         type: input.type,
                         name: input.name,
-                        value: inputValues[row.original.id]['args'][index] as
+                        value: inputValues[id]['args'][index] as
                           | string
                           | number,
                       }))
                     : [],
-                  inputValues[row.original.id]['value'],
+                  inputValues[id]['value'],
                 )
               }
             >
-              {processing === row.original.id ? (
-                <Icons.loading className="mr-2" />
-              ) : null}
+              {processing === id ? <Icons.loading className="mr-2" /> : null}
               <span className="hidden sm:inline-block">Call</span>
               <Icons.right className="inline-block size-4 sm:hidden" />
             </Button>
@@ -424,6 +401,7 @@ const InterfaceTable: FC<InterfaceTableProps> = ({ data, loading }) => {
       },
     ],
     [
+      abi,
       loading,
       inputValues,
       processing,
@@ -435,29 +413,24 @@ const InterfaceTable: FC<InterfaceTableProps> = ({ data, loading }) => {
   );
 
   /* ---------------------------------- DATA ---------------------------------- */
-  const dataMemoized: FunctionAbi[] = useMemo(() => {
+  const dataMemoized: ABIFunction[] = useMemo(() => {
     if (loading) return Array(5).fill({});
     if (!data) return [];
 
     // Filter out events
-    const filtered = data.filter((func) => func.type === 'function');
-    // Add a unique id to each function
-    const withId = filtered.map((func) => ({
-      ...func,
-      id: `${filtered.indexOf(func)}-${func.name}`,
-    })) as FunctionAbi[];
-    // Sort functions by name (ascending)
-    const sorted = withId.sort((a, b) =>
+    const filtered = data.filter(
+      (func) => func.type === 'function',
+    ) as ABIFunction[];
+    // Initialize the input values for each function
+    initializeInputs(filtered);
+
+    // Return the functions sorted by name (ascending)
+    return filtered.sort((a, b) =>
       (a.name?.toLowerCase() || '') > (b.name?.toLowerCase() || '') ? 1 : -1,
     );
-
-    // Initialize the input values for each function
-    initializeInputs(sorted);
-
-    return sorted;
   }, [data, loading, initializeInputs]);
 
-  const table = useReactTable<FunctionAbi>({
+  const table = useReactTable<ABIFunction>({
     data: dataMemoized,
     // Below tabled (640px), aggregate the name & details columns into one
     columns: isTablet
@@ -509,7 +482,7 @@ const InterfaceTable: FC<InterfaceTableProps> = ({ data, loading }) => {
 
   /* --------------------------------- RENDER --------------------------------- */
   return (
-    <DataTable<FunctionAbi>
+    <DataTable<ABIFunction>
       table={table}
       pagination={dataMemoized.length > 10}
       className="rounded-none border-x border-secondary px-2"

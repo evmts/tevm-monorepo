@@ -1,9 +1,8 @@
-import { ABI } from '@shazow/whatsabi/lib.types/abi';
+import { ABI, ABIFunction } from '@shazow/whatsabi/lib.types/abi';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
-import { isAddress, isHex } from 'viem';
+import { getAddress, Hex, isHex } from 'tevm/utils';
 
-import { Address, Hex } from '@/lib/types/config';
 import { ExpectedType } from '@/lib/types/tx';
 
 /* -------------------------------------------------------------------------- */
@@ -36,8 +35,8 @@ export const formatInputValue = (
   // Format each input (which will validate it)
   const formatted = array.map((input) => {
     if (isUint) return formatUint(input);
-    if (isBytes) return formatBytes(input);
-    if (isAddress) return formatAddress(input);
+    if (isBytes) return getHex(input);
+    if (isAddress) return getAddress(input.toString());
     if (isBool) return formatBool(input);
     // Let Tevm handle the error if the type is not recognized
     return input;
@@ -51,17 +50,11 @@ const formatUint = (value: string | number): bigint => {
   return BigInt(value.toString()); // this will throw an error if the value is not a valid bigint
 };
 
-// Format a string into valid bytes
-const formatBytes = (value: string | number): Hex => {
+// Verify an hexadecimal valud and type it correctly
+const getHex = (value: string | number): Hex => {
   // Just check if it's a valid hex value and let Tevm handle the rest
   if (!isHex(value.toString())) throw new Error('Invalid bytes');
   return value as Hex;
-};
-
-// Format a string into a valid address
-const formatAddress = (value: string | number): Address => {
-  if (!isAddress(value.toString())) throw new Error('Invalid address');
-  return value as Address;
 };
 
 // Format a string into a valid boolean
@@ -84,4 +77,13 @@ export const getFunctionName = (funcOrEvent: ABI[number], index: number) => {
         funcOrEvent.sig ||
         funcOrEvent.selector ||
         `function-${index.toString()}`;
+};
+
+// Get a unique id for each function in the abi
+export const getFunctionId = (abi: ABI, func: ABIFunction) => {
+  // We have this function from the abi so it will always be there
+  return abi
+    .filter((funcOrEvent) => funcOrEvent.type === 'function')
+    .indexOf(func)
+    .toString();
 };

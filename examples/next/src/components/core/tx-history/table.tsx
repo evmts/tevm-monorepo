@@ -43,9 +43,11 @@ const getLoadingRow = (id: number): TxEntry => ({
     chainId: 0,
     target: {
       address: '0x',
-      balance: '0',
+      balance: BigInt(0),
       deployedBytecode: '0x',
-      nonce: '0',
+      nonce: BigInt(0),
+      storageRoot: '0x',
+      codeHash: '0x',
       isContract: false,
       isEmpty: true,
     },

@@ -1,27 +1,33 @@
+import { MemoryClient } from 'tevm';
+import { Address, getAddress } from 'tevm/utils';
 import { extractChain } from 'viem';
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 
-import { Chain, Client } from '@/lib/types/providers';
+import { Chain } from '@/lib/types/providers';
 import { DEFAULT_CHAIN } from '@/lib/constants/defaults';
 import { CHAINS } from '@/lib/constants/providers';
 import { TEVM_PREFIX } from '@/lib/local-storage';
+import { useConfigStore } from '@/lib/store/use-config';
 import { initializeClient } from '@/lib/tevm';
 
 /* ---------------------------------- TYPES --------------------------------- */
 type ProviderInitialState = {
   chain: Chain;
   chainId: Chain['id']; // synced with local storage
-  client: Client | null;
+  client: MemoryClient | null;
   forkTime: Record<Chain['id'], number>; // synced with local storage
-  initializedClients: Client[] | [];
+  initializedClients: MemoryClient[] | [];
   initializing: boolean;
 
   isHydrated: boolean;
 };
 
 type ProviderSetState = {
-  setProvider: (chain: Chain) => Promise<Client | null>;
+  setProvider: (
+    chain: Chain,
+    address: Address | undefined,
+  ) => Promise<MemoryClient | null>;
   setForkTime: (chainId: Chain['id'], status?: 'loading' | 'update') => void;
 
   hydrate: () => void;
@@ -56,23 +62,38 @@ export const useProviderStore = create<ProviderStore>()(
       initializing: false,
 
       // Set the selected chain and its client on user selection (or on first mount)
-      setProvider: async (chain) => {
-        const { initializing, initializedClients, forkTime, setForkTime } =
-          get();
+      // Fetch the state of the account if there is one
+      setProvider: async (chain, address) => {
+        const {
+          client: currentClient,
+          initializing,
+          initializedClients,
+          forkTime,
+          setForkTime,
+        } = get();
         // The user should not be able to change the chain while a client is being initialized
         if (initializing) return null;
 
         set({ initializing: true });
 
-        // Try to find the client for the selected chain if it was already initialized
-        let client: Client | undefined = undefined;
-        for (const c of initializedClients) {
-          if ((await c.getChainId()) === chain.id) {
-            client = c;
+        // 1. Check if we already have the appropriate client for the selected chain
+        // e.g. when searching a different account on the same chain
+        let client =
+          (await currentClient?.getChainId()) === chain.id
+            ? currentClient
+            : null;
+
+        // 2. If not found, try to find the client for the selected chain if it was
+        // already initialized earlier
+        if (!client) {
+          for (const c of initializedClients) {
+            if ((await c.getChainId()) === chain.id) {
+              client = c;
+            }
           }
         }
 
-        // If not found, initialize a new client
+        // 3. If not found, initialize a new client
         if (!client) {
           // TODO TEMP await because of lazy import
           client = await initializeClient(chain);
@@ -88,6 +109,16 @@ export const useProviderStore = create<ProviderStore>()(
         }
 
         set({ chain, client, initializing: false });
+
+        // 4. If an address is provided, update the state of the account on this chain
+        if (address && client) {
+          useConfigStore.getState().updateAccount(address, {
+            updateAbi: true,
+            chain,
+            client,
+          });
+        }
+
         return client;
       },
 
@@ -120,7 +151,13 @@ export const useProviderStore = create<ProviderStore>()(
         const { chainId, setProvider, hydrate } = state;
         const chain = extractChain({ chains: CHAINS, id: chainId });
 
-        setProvider(chain);
+        // In case the user is directly landing on an address page (or refreshing)
+        const addressInSearch = window.location.pathname.split('/').pop();
+        const address = addressInSearch
+          ? getAddress(addressInSearch)
+          : undefined;
+
+        setProvider(chain, address);
         hydrate();
       },
     },

@@ -1,3 +1,22 @@
+// Api keys
+const env = {
+  ALCHEMY_API_KEY: process.env.ALCHEMY_API_KEY,
+  ETHERSCAN_API_KEY: process.env.ETHERSCAN_API_KEY,
+  ARBISCAN_API_KEY: process.env.ARBISCAN_API_KEY,
+  BASESCAN_API_KEY: process.env.BASESCAN_API_KEY,
+  OPTIMISTIC_ETHERSCAN_API_KEY: process.env.OPTIMISTIC_ETHERSCAN_API_KEY,
+  POLYGONSCAN_API_KEY: process.env.POLYGONSCAN_API_KEY,
+  ZORA_SUPERSCAN_API_KEY: process.env.ZORA_SUPERSCAN_API_KEY,
+};
+
+Object.keys(env).forEach((key) => {
+  if (!env[key]) {
+    console.warn(
+      `No ${key} environment variable set. You may face throttling.`,
+    );
+  }
+});
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -15,13 +34,10 @@ const nextConfig = {
 
     return config;
   },
-  env: {
-    // These will get exposed to the browser
-    // If you would like to keep this key private, use an API route/server components to
-    // access it and return the data instead
-    ALCHEMY_API_KEY: process.env.ALCHEMY_API_KEY,
-    ETHERSCAN_API_KEY: process.env.ETHERSCAN_API_KEY,
-  },
+  // These will get exposed to the browser
+  // If you would like to keep this key private, use an API route/server components to
+  // access it and return the data instead
+  env,
 };
 
 export default nextConfig;

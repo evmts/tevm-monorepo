@@ -1,10 +1,9 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { toast } from 'sonner';
-import { isHex } from 'viem';
+import { Hex, isHex } from 'tevm/utils';
 
-import { Hex } from '@/lib/types/config';
 import { ExpectedType } from '@/lib/types/tx';
 import { useMediaQuery } from '@/lib/hooks/use-media-query';
 import { formatTx as formatTxForLocalStorage } from '@/lib/local-storage';
@@ -32,11 +31,6 @@ const ArbitraryCall = () => {
   // The current inputs: "data", and "value"
   const [dataInput, setDataInput] = useState<string>('');
   const [valueInput, setValueInput] = useState<string>('');
-  // Whether each argument is valid
-  const [isValid, setIsValid] = useState<Record<string, boolean>>({
-    data: true,
-    value: true,
-  });
   // Whether the call is being processed
   const [calling, setCalling] = useState<boolean>(false);
 
@@ -68,6 +62,14 @@ const ArbitraryCall = () => {
     saveTx: state.saveTx,
     setProcessing: state.setProcessing,
   }));
+
+  // Whether each argument is valid
+  const isValid = useMemo(() => {
+    return {
+      data: isHex(dataInput) || dataInput === '',
+      value: !isNaN(Number(valueInput)),
+    };
+  }, [dataInput, valueInput]);
 
   /* -------------------------------- HANDLERS -------------------------------- */
   // Perform the arbitrary call with the specified parameters
@@ -158,14 +160,6 @@ const ArbitraryCall = () => {
     );
   };
 
-  // Update the validity of inputs whenever they change
-  useEffect(() => {
-    setIsValid({
-      data: isHex(dataInput) || dataInput === '',
-      value: !isNaN(Number(valueInput)),
-    });
-  }, [dataInput, valueInput]);
-
   /* --------------------------------- RENDER --------------------------------- */
   if (!account) return null;
 
@@ -174,7 +168,7 @@ const ArbitraryCall = () => {
       <div className="flex items-center gap-2">
         <Separator orientation="vertical" className="mr-2 h-4" />
         <Label htmlFor="caller" className="text-base font-medium">
-          Low level call
+          Low-level call
         </Label>
         <TooltipResponsive
           content="Call the current account with arbitrary encoded data and/or value"
