@@ -18,14 +18,14 @@
 
 **Think ~ Etherscan + Remix**
 
-Basically, it's a way to interact with contracts and EOAs **in a simulated environment, from a forked chain**, with [a comprehensive set of actions](https://tevm.sh/learn/actions/) exposed by [a Tevm memory client](https://tevm.sh/learn/clients/).
+Basically, it's a way to interact with contracts and externally owned accounts (EOAs) **in a simulated environment, from a forked chain**, with [a comprehensive set of actions](https://tevm.sh/learn/actions/) exposed by [a Tevm memory client](https://tevm.sh/learn/clients/).
 
 As you interact with accounts, all [transactions are processed](https://tevm.sh/reference/tevm/actions-types/type-aliases/callhandler) and recorded by the client, which always considers the latest state of the chain; i.e. the initial state at the time of the fork, plus all the local transactions.
 
 When you search for a contract, it will attempt to retrieve its
 ABI with [WhatsABI](https://github.com/shazow/whatsabi). You can then interact with it using the interface, or perform any arbitrary call with encoded data.
 
-The clients for each chain are synced with the local storage, as well as the transactions history. When the chain is reset, the client forks the chain again at the latest block, which incidentally resets the local transactions history.
+The clients for each chain are synced with the local storage, as well as the transaction history. When the chain is reset, the client forks the chain again at the latest block, which incidentally resets the local transactions history.
 
 ## About the project
 
@@ -35,9 +35,9 @@ The clients for each chain are synced with the local storage, as well as the tra
   - Select a chain and paste the address of a contract, or click `Try with an example`.
   - Click `Fork chain` to fork the chain again at the latest block.
 - **Caller**
-  - Enter an address to impersonate during calls; you can click `owner` to impersonate the owner of the contract, if it found an appropriate method.
+  - Enter an address to impersonate during calls; you can click `owner` to impersonate the owner of the contract if it found an appropriate method.
   - Toggle `skip balance` to [ignore or not the native tokens balance](https://tevm.sh/reference/tevm/actions-types/type-aliases/basecallparams/#skipbalance) during calls.
-- **Low level call**
+- **Low-level call**
   - Call the current account with an arbitrary amount of native tokens and/or arbitrary encoded data.
 - **Contract interface**
   - The ABI is displayed inside a table you can navigate through; fill the inputs if relevant, and click `Call` to send a transaction.
@@ -52,7 +52,7 @@ There are a few issues/pitfalls to be aware of:
 
 - Obviously, there might (will probably) be some unhandled errors, rejections, or bugs. Please report them so we can fix them and improve either Tevm or this example!
 - WhatsABI might struggle with proxies, currently the app doesn't support redirecting to the implementation contract.
-- Currently, to use Tevm on the browser we need to expose the API keys to the browser (for RPC queries). This is definitely not ideal, but the only way to be able to use Tevm clients synced with local storage.
+- Currently, to use Tevm on the browser, we need to expose the API keys to the browser (for RPC queries). This is definitely not ideal, but the only way to be able to use Tevm clients synced with local storage.
 
 ## Architecture
 
@@ -126,14 +126,20 @@ The minimal steps to get started are:
    # Then edit .env.local
    # ALCHEMY_API_KEY
    # ETHERSCAN_API_KEY
+   # ARBISCAN_API_KEY
+   # BASESCAN_API_KEY
+   # OPTIMISTIC_ETHERSCAN_API_KEY
+   # POLYGONSCAN_API_KEY
+   # ZORA_SUPERSCAN_API_KEY
    ```
 
 We're using Alchemy for better modularity [when creating providers](./src/lib/constants/providers.ts#L66) and [Tevm clients](./src/lib/tevm.ts#L322), but you can replace it with any other provider, and update the way urls are created in the two aforementioned files.
 
 4. Run the development server
-   ```bash
-   pnpm dev
-   ```
+
+```bash
+pnpm dev
+```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 

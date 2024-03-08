@@ -2,9 +2,8 @@
 
 import { useMemo, useState } from 'react';
 import { toast } from 'sonner';
-import { isAddress } from 'viem';
+import { Hex, isAddress } from 'tevm/utils';
 
-import { Hex } from '@/lib/types/config';
 import { DEFAULT_CALLER } from '@/lib/constants/defaults';
 import { useMediaQuery } from '@/lib/hooks/use-media-query';
 import { useConfigStore } from '@/lib/store/use-config';

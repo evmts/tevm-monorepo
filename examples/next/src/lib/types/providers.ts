@@ -1,4 +1,3 @@
-import { MemoryClient } from 'tevm';
 import { Chain as BaseChain, PublicClient } from 'viem';
 
 /**
@@ -11,12 +10,6 @@ export type Chain = BaseChain & {
   custom: {
     rpcUrl: string;
     provider: PublicClient;
+    explorerApiKey?: string;
   };
 };
-
-/**
- * @type {Client}
- * @notice A Tevm memory client
- * @dev This will be used to write/read to/from the chain's state.
- */
-export type Client = MemoryClient;

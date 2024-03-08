@@ -119,15 +119,8 @@ const ChainSelection: FC<ChainSelectionProps> = ({ hydrating = false }) => {
               chains: CHAINS,
               id: Number(chainOption.value),
             });
-            const associatedClient = await setProvider(selectedChain);
-
-            // Same here, update the account state if the chain actually changed
-            if (account && selectedChain.id !== chain.id && associatedClient)
-              updateAccount(account.address, {
-                updateAbi: true,
-                chain: selectedChain,
-                client: associatedClient,
-              });
+            // Change the chain (and update the account)
+            await setProvider(selectedChain, account?.address);
           }}
           header="Select a chain"
           className="w-[200px] sm:w-[250px]"

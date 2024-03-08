@@ -7,11 +7,32 @@ import {
   optimism,
   polygon,
   sepolia,
+  zora,
 } from 'viem/chains';
 
 import { Chain } from '@/lib/types/providers';
+import { DEFAULT_ALCHEMY_API_KEY } from '@/lib/constants/defaults';
 
-const alchemyApiKey = process.env.ALCHEMY_API_KEY || '';
+// Api keys
+const alchemyApiKey = process.env.ALCHEMY_API_KEY || DEFAULT_ALCHEMY_API_KEY;
+// Any Etherscan compatible API key
+// See `Chain.blockExplorers.default.apiUrl` for the base URL
+const explorerApiKey = {
+  mainnet: process.env.ETHERSCAN_API_KEY || '',
+  arbitrum: process.env.ARBISCAN_API_KEY || '',
+  base: process.env.BASESCAN_API_KEY || '',
+  optimism: process.env.OPTIMISTIC_ETHERSCAN_API_KEY || '',
+  polygon: process.env.POLYGONSCAN_API_KEY || '',
+  zora: process.env.ZORA_SUPERSCAN_API_KEY || '',
+};
+
+// Chains that don't need an API key
+export const STANDALONE_RPC_CHAINS = [
+  // Foundry/Hardhat
+  31337,
+  // Zora
+  7777777,
+];
 
 /* ------------------------------- CONSTANTS ------------------------------- */
 const CHAINS_DATA = {
@@ -19,42 +40,55 @@ const CHAINS_DATA = {
     ...arbitrum,
     custom: {
       rpcUrl: 'https://arb-mainnet.g.alchemy.com/v2/',
+      explorerApiKey: explorerApiKey.arbitrum,
     },
   },
   base: {
     ...base,
     custom: {
       rpcUrl: 'https://base-mainnet.g.alchemy.com/v2/',
+      explorerApiKey: explorerApiKey.base,
+    },
+  },
+  foundry: {
+    ...foundry,
+    custom: {
+      rpcUrl: 'http://localhost:8545',
     },
   },
   mainnet: {
     ...mainnet,
     custom: {
       rpcUrl: 'https://eth-mainnet.g.alchemy.com/v2/',
+      explorerApiKey: explorerApiKey.mainnet,
     },
   },
   optimism: {
     ...optimism,
     custom: {
       rpcUrl: 'https://opt-mainnet.g.alchemy.com/v2/',
+      explorerApiKey: explorerApiKey.optimism,
     },
   },
   polygon: {
     ...polygon,
     custom: {
       rpcUrl: 'https://polygon-mainnet.g.alchemy.com/v2/',
+      explorerApiKey: explorerApiKey.polygon,
     },
   },
   sepolia: {
     ...sepolia,
     custom: {
       rpcUrl: 'https://eth-sepolia.g.alchemy.com/v2/',
+      explorerApiKey: explorerApiKey.mainnet,
     },
   },
-  hardhat: {
-    ...foundry,
+  zora: {
+    ...zora,
     custom: {
-      rpcUrl: 'http://localhost:8545',
+      rpcUrl: 'https://rpc.zora.energy/',
+      explorerApiKey: explorerApiKey.zora,
     },
   },
 };
@@ -62,8 +96,9 @@ const CHAINS_DATA = {
 const createProvider = (chain: Omit<Chain, 'custom'>, rpcUrl: string) => {
   return createPublicClient({
     chain,
-    transport:
-      chain.id === 31337 ? http(rpcUrl) : http(`${rpcUrl}${alchemyApiKey}`),
+    transport: STANDALONE_RPC_CHAINS.includes(chain.id)
+      ? http(rpcUrl)
+      : http(`${rpcUrl}${alchemyApiKey}`),
   });
 };
 

@@ -2,9 +2,8 @@
 
 import { FC, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { isAddress } from 'viem';
+import { Address, isAddress } from 'tevm/utils';
 
-import { Address } from '@/lib/types/config';
 import { Chain } from '@/lib/types/providers';
 import { useMediaQuery } from '@/lib/hooks/use-media-query';
 import { useConfigStore } from '@/lib/store/use-config';
@@ -43,21 +42,15 @@ const SearchBar: FC<SearchBarProps> = ({
   // Expand from tablet breakpoint
   const isTablet = useMediaQuery('(min-width: 640px)'); // sm
 
-  // Get the current chain & client from the store and the initialization status
-  const { chain, client, initializing, setProvider } = useProviderStore(
-    (state) => ({
-      chain: state.chain,
-      client: state.client,
-      initializing: state.initializing,
-      setProvider: state.setProvider,
-    }),
-  );
-
-  // Get the method to update the account and the fetching status from the store
-  const { fetchingAccount, updateAccount } = useConfigStore((state) => ({
-    fetchingAccount: state.fetchingAccount,
-    updateAccount: state.updateAccount,
+  // Get the chain, client initialization status
+  const { chain, initializing, setProvider } = useProviderStore((state) => ({
+    chain: state.chain,
+    initializing: state.initializing,
+    setProvider: state.setProvider,
   }));
+
+  // Get the fetching status from the store
+  const fetchingAccount = useConfigStore((state) => state.fetchingAccount);
 
   // Navigate to a specific address' page on search
   const { push } = useRouter();
@@ -76,40 +69,17 @@ const SearchBar: FC<SearchBarProps> = ({
     setInputValue(e.target.value);
   };
 
-  // Retrieve the state of an account. If it's a contract, fetch its abi on the current chain
-  // This will make a request through WhatsABI using the provided Alchemy API key
-  // The abi will be set in the store upon successful retrieval, otherwise it will display an error
-  // inside a toast
+  // Retrieve the state of an account; if called from the example button, this will
+  // update the chain and client first, then fetch the account's data
   const handleAccountSearch = async (address?: string, targetChain?: Chain) => {
-    // If it's triggered from the example button, update the chain and client first
-    const targetClient = targetChain ? await setProvider(targetChain) : client;
+    // If we're clicking search again on the same address, bail out
+    if (initialAddress === inputValue && !address) return;
+    // targetChain means it's called from the example button
+    // No need to wait for completion, the loading state will be explicit enough
+    setProvider(targetChain ?? chain, (address ?? inputValue) as Address);
     // Don't push the prefix if we're already on the address page
     push(`${initialAddress ? '' : 'address/'}${address ?? inputValue}`);
-
-    // Usually the page mount will handle updating the account (including fetching the abi if relevant)
-    // The only exception being when the user clicks on the example button from the very page of the
-    // example contract, but while being on another chain; this would obviously not trigger any state update
-    if (
-      // If the address is the same as the initial one (meaning already on the page of the example contract)
-      address &&
-      initialAddress &&
-      address === initialAddress &&
-      // If we're switching to another chain
-      targetChain &&
-      targetChain.id !== chain.id &&
-      targetClient
-    ) {
-      // Update the account (and find the abi) with the new chain and client
-      updateAccount(address as Address, {
-        updateAbi: true,
-        chain: targetChain,
-        client: targetClient,
-      });
-    }
   };
-
-  // go to account page (with wrong chain) => updateClient + doesn't find abi
-  // update provider
 
   /* --------------------------------- RENDER --------------------------------- */
   return (
@@ -160,9 +130,6 @@ const SearchBar: FC<SearchBarProps> = ({
               disabled={!isValidAddress || fetchingAccount}
               onClick={() => handleAccountSearch()}
             >
-              {fetchingAccount ? (
-                <Icons.loading className="mr-2 size-6" />
-              ) : null}
               Search
             </Button>
           </>
