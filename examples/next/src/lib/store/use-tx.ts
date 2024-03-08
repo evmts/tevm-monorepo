@@ -1,9 +1,11 @@
+import { ABIFunction } from '@shazow/whatsabi/lib.types/abi';
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 
-import { FunctionAbi } from '@/lib/types/config';
 import { TxEntry } from '@/lib/types/tx';
 import { TEVM_PREFIX } from '@/lib/local-storage';
+
+import { getFunctionId } from '../utils';
 
 /* ---------------------------------- TYPES --------------------------------- */
 // Input values
@@ -32,7 +34,7 @@ type TxSetState = {
   setProcessing: (value: string) => void;
   // Handling inputs
   updateInputValue: (id: string, index: number, value: unknown) => void;
-  initializeInputs: (abi: FunctionAbi[]) => void;
+  initializeInputs: (abi: ABIFunction[]) => void; // we eliminated events
   resetInputs: () => void;
 
   hydrate: () => void;
@@ -111,16 +113,19 @@ export const useTxStore = create<TxStore>()(
       // filling validation; this will be called on loading the abi
       initializeInputs: (abi) => {
         set({
-          inputValues: abi.reduce(
-            (acc, { id, inputs }) => ({
+          inputValues: abi.reduce((acc, func) => {
+            const id = getFunctionId(abi, func);
+
+            return {
               ...acc,
               [id]: {
-                args: Object.fromEntries(inputs?.map((_, i) => [i, '']) ?? []),
+                args: Object.fromEntries(
+                  func.inputs?.map((_, i) => [i, '']) ?? [],
+                ),
                 value: '',
               },
-            }),
-            {},
-          ),
+            };
+          }, {}),
         });
       },
       // Reset all inputs (when loading a new contract)
@@ -136,7 +141,23 @@ export const useTxStore = create<TxStore>()(
       storage: createJSONStorage(() => localStorage),
       // We only keep the tx history
       partialize: (state: TxStore) => ({
-        txHistory: state.txHistory,
+        // Replace any bigint with a string for serialization
+        txHistory: Object.fromEntries(
+          Object.entries(state.txHistory).map(([chainId, txs]) => [
+            chainId,
+            txs.map((tx) => ({
+              ...tx,
+              context: {
+                ...tx.context,
+                target: {
+                  ...tx.context.target,
+                  balance: tx.context.target.balance.toString(),
+                  nonce: tx.context.target.nonce.toString(),
+                },
+              },
+            })),
+          ]),
+        ),
       }),
       onRehydrateStorage: () => async (state, error) => {
         if (error) console.error('Failed to rehydrate tx store:', error);

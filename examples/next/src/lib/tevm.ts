@@ -1,14 +1,21 @@
 'use client';
 
 import { ABI, ABIFunction } from '@shazow/whatsabi/lib.types/abi';
-import { Abi, CallParams, ContractParams } from 'tevm';
-import { encodeFunctionData, isAddress } from 'viem';
+import {
+  Abi,
+  CallParams,
+  ContractParams,
+  GetAccountResult,
+  MemoryClient,
+} from 'tevm';
+import { Address, encodeFunctionData, Hex, isAddress } from 'tevm/utils';
 
-import { Account, Address, Hex } from '@/lib/types/config';
-import { Chain, Client } from '@/lib/types/providers';
+import { Chain } from '@/lib/types/providers';
 import { ExpectedType, TxResponse } from '@/lib/types/tx';
+import { DEFAULT_ALCHEMY_API_KEY } from '@/lib/constants/defaults';
+import { STANDALONE_RPC_CHAINS } from '@/lib/constants/providers';
 
-const alchemyApiKey = process.env.ALCHEMY_API_KEY || '';
+const alchemyApiKey = process.env.ALCHEMY_API_KEY || DEFAULT_ALCHEMY_API_KEY;
 
 /* -------------------------------------------------------------------------- */
 /*                                    TYPES                                   */
@@ -17,16 +24,19 @@ const alchemyApiKey = process.env.ALCHEMY_API_KEY || '';
 /* -------------------------------- ACCOUNTS -------------------------------- */
 /**
  * @type {Function} GetAccount
- * @param {Client} client The client to get the account from
+ * @param {MemoryClient} client The client to get the account from
  * @param {Address} address The address of the account
- * @returns {Promise<Account>} The account object
+ * @returns {Promise<GetAccountResult>} The account object
  */
-type GetAccount = (client: Client, address: Address) => Promise<Account>;
+type GetAccount = (
+  client: MemoryClient,
+  address: Address,
+) => Promise<GetAccountResult>;
 
 /* ---------------------------------- CALLS --------------------------------- */
 /**
  * @type {Function} CallContract
- * @param {Client} client The client to call the function on
+ * @param {MemoryClient} client The client to call the function on
  * @param {Address} caller The address of the caller to impersonate
  * @param {Address} contract The address of the target contract
  * @param {string} functionName The name of the function
@@ -38,7 +48,7 @@ type GetAccount = (client: Client, address: Address) => Promise<Account>;
  * or an unexpected error (caught in the catch block)
  */
 type CallContract = (
-  client: Client,
+  client: MemoryClient,
   caller: Address,
   contract: Address,
   functionName: string,
@@ -50,7 +60,7 @@ type CallContract = (
 
 /**
  * @type {Function} CallWithArbitraryData
- * @param {Client} client The client to execute the call on
+ * @param {MemoryClient} client The client to execute the call on
  * @param {Address} caller The address of the caller to impersonate
  * @param {Address} target The address of the target contract or account
  * @param {Hex} data The encoded hex data
@@ -58,7 +68,7 @@ type CallContract = (
  * @param {boolean} skipBalance Whether to skip the balance check
  */
 type CallWithArbitraryData = (
-  client: Client,
+  client: MemoryClient,
   caller: Address,
   target: Address,
   data: Hex,
@@ -68,14 +78,14 @@ type CallWithArbitraryData = (
 
 /**
  * @type {Function} HandleCall
- * @param {Client} client The client to execute the call on
+ * @param {MemoryClient} client The client to execute the call on
  * @param {CallParams | ContractParams} params The parameters to pass for the call
  * @param {string} value The value to send with the transaction
  * @param {boolean} lowLevel Whether to use the low level call method (`Client.call`)
  * @returns {Promise<TxResponse>} The result of the transaction
  */
 type HandleCall = (
-  client: Client,
+  client: MemoryClient,
   params: CallParams | ContractParams,
   value: string,
   lowLevel: boolean,
@@ -86,16 +96,16 @@ type HandleCall = (
  * @type {Function} CreateClient
  * @param {number} chainId The id of the chain to create the client for
  * @param {string} forkUrl The url of the fork to use
- * @returns {Promise<Client>}
+ * @returns {Promise<MemoryClient>}
  */
-type CreateClient = (chainId: number, forkUrl: string) => Promise<Client>;
+type CreateClient = (chainId: number, forkUrl: string) => Promise<MemoryClient>;
 
 /**
  * @type {Function} ResetClient
- * @param {Client} client The client to reset
+ * @param {MemoryClient} client The client to reset
  * @returns {Promise<{ success: boolean, error?: string }>}
  */
-type ResetClient = (client: Client) => Promise<{
+type ResetClient = (client: MemoryClient) => Promise<{
   success: boolean;
   error?: string;
 }>;
@@ -103,9 +113,9 @@ type ResetClient = (client: Client) => Promise<{
 /**
  * @type {Function} InitializeClient
  * @param {Chain} chain The chain to initialize a client for (using the custom fork url)
- * @returns {Promise<Client>}
+ * @returns {Promise<MemoryClient>}
  */
-type InitializeClient = (chain: Chain) => Promise<Client>;
+type InitializeClient = (chain: Chain) => Promise<MemoryClient>;
 
 /* -------------------------------------------------------------------------- */
 /*                                  FUNCTIONS                                 */
@@ -119,11 +129,13 @@ type InitializeClient = (chain: Chain) => Promise<Client>;
  * account object with the address and an error message.
  */
 export const getAccount: GetAccount = async (client, address) => {
-  const emptyAccount: Account = {
+  const emptyAccount: GetAccountResult = {
     address: address ?? '0x',
     balance: BigInt(0),
     deployedBytecode: '0x',
     nonce: BigInt(0),
+    storageRoot: '0x',
+    codeHash: '0x',
     isContract: false,
     isEmpty: false,
     errors: [],
@@ -145,15 +157,16 @@ export const getAccount: GetAccount = async (client, address) => {
   try {
     const accountResult = await client.getAccount({ address });
     return {
+      ...accountResult,
       // This is a safeguard against an account being mislabeled as invalid
       // although very unlikely to happen
       address,
-      balance: accountResult.balance,
-      deployedBytecode: accountResult.deployedBytecode,
-      nonce: accountResult.nonce,
-      isContract: accountResult.isContract,
-      isEmpty: accountResult.isEmpty,
-      errors: accountResult.errors,
+      // TODO TEMP fix until RPC providers fix their eth_getProof method
+      // (some returning address(0), some returning keccak256("no data")...)
+      isContract: accountResult.deployedBytecode !== '0x',
+      isEmpty:
+        accountResult.codeHash ===
+        '0x0000000000000000000000000000000000000000000000000000000000000000',
     };
   } catch (err) {
     console.error(err);
@@ -319,7 +332,11 @@ export const createClient: CreateClient = async (chainId, forkUrl) => {
       storage: localStorage,
       key: `TEVM_CLIENT_${chainId.toString()}`,
     }),
-    fork: { url: chainId === 31337 ? forkUrl : `${forkUrl}${alchemyApiKey}` },
+    fork: {
+      url: STANDALONE_RPC_CHAINS.includes(chainId)
+        ? forkUrl
+        : `${forkUrl}${alchemyApiKey}`,
+    },
   });
 };
 

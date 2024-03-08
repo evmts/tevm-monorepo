@@ -1,9 +1,9 @@
 'use client';
 
-import { FC, useEffect, useMemo, useState } from 'react';
+import { FC, useMemo, useState } from 'react';
 import Link from 'next/link';
+import { Address } from 'tevm/utils';
 
-import { Address } from '@/lib/types/config';
 import { useMediaQuery } from '@/lib/hooks/use-media-query';
 import { Icons } from '@/components/common/icons';
 
@@ -28,9 +28,15 @@ const ShrinkedAddress: FC<ShrinkedAddressProps> = ({
   adapt = true,
 }) => {
   const isLargeScreen = useMediaQuery('(min-width: 1280px)'); // xl
-  const [fullAddress, setFullAddress] = useState(false);
   const [copy, setCopy] = useState(false);
 
+  // Display the full address only on large screens (if adapt is true)
+  const fullAddress = useMemo(() => {
+    if (isLargeScreen && adapt) return true;
+    return false;
+  }, [isLargeScreen, adapt]);
+
+  // Open the address in the explorer for this chain
   const openExplorerTab = () => {
     if (!explorer) return;
     window.open(
@@ -39,6 +45,7 @@ const ShrinkedAddress: FC<ShrinkedAddressProps> = ({
     );
   };
 
+  // Copy the address to the clipboard (and update the icon)
   const CopyButton = useMemo(() => {
     const copyToClipboard = () => {
       navigator.clipboard.writeText(address);
@@ -58,10 +65,6 @@ const ShrinkedAddress: FC<ShrinkedAddressProps> = ({
       />
     );
   }, [address, copy]);
-
-  useEffect(() => {
-    setFullAddress(isLargeScreen && adapt);
-  }, [isLargeScreen, adapt]);
 
   if (explorer)
     return (

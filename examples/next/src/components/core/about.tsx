@@ -68,7 +68,7 @@ const About = () => {
             </P>
             <P>
               The clients for each chain are synced with the local storage, as
-              well as the transactions history. When the chain is reset, the
+              well as the transaction history. When the chain is reset, the
               client forks the chain again at the latest block, which
               incidentally resets the local transactions history.
             </P>
@@ -103,7 +103,7 @@ const About = () => {
                 <>
                   Enter an address to impersonate during calls; you can click{' '}
                   <InlineCode>owner</InlineCode> to impersonate the owner of the
-                  contract, if it found an appropriate method.
+                  contract if it found an appropriate method.
                 </>,
                 <>
                   Toggle <InlineCode>skip balance</InlineCode> to{' '}
@@ -115,7 +115,7 @@ const About = () => {
               ]}
             />
             {/* ----------------------------- LOW LEVEL CALL ----------------------------- */}
-            <span className="font-semibold">Low level call</span>
+            <span className="font-semibold">Low-level call</span>
             <List
               items={[
                 <>

@@ -65,9 +65,3 @@
     @apply bg-background text-foreground;
   }
 }
-
-/* sonner */
-/* TODO this will break the closing animation but should be fixed */
-/* .toaster.group li[data-removed='true'] {
-      display: none;
-} */
