@@ -76,50 +76,57 @@ export const useProviderStore = create<ProviderStore>()(
 
         set({ initializing: true });
 
-        // 1. Check if we already have the appropriate client for the selected chain
-        // e.g. when searching a different account on the same chain
-        let client =
-          (await currentClient?.getChainId()) === chain.id
-            ? currentClient
-            : null;
+        // An error might occur, e.g. if trying to connect to a local chain when it's not running
+        try {
+          // 1. Check if we already have the appropriate client for the selected chain
+          // e.g. when searching a different account on the same chain
+          let client =
+            (await currentClient?.getChainId()) === chain.id
+              ? currentClient
+              : null;
 
-        // 2. If not found, try to find the client for the selected chain if it was
-        // already initialized earlier
-        if (!client) {
-          for (const c of initializedClients) {
-            if ((await c.getChainId()) === chain.id) {
-              client = c;
+          // 2. If not found, try to find the client for the selected chain if it was
+          // already initialized earlier
+          if (!client) {
+            for (const c of initializedClients) {
+              if ((await c.getChainId()) === chain.id) {
+                client = c;
+              }
             }
           }
+
+          // 3. If not found, initialize a new client
+          if (!client) {
+            // TODO TEMP await because of lazy import
+            client = await initializeClient(chain);
+            await client.ready();
+
+            // Set its fork time if it's never been initialized
+            // This is aligned with the client being completely new, or already used
+            // before (synced with local storage)
+            if (forkTime[chain.id] === undefined) setForkTime(chain.id);
+
+            // Add the client to the list of initialized clients
+            set({ initializedClients: [...initializedClients, client] });
+          }
+
+          set({ chain, client, initializing: false });
+
+          // 4. If an address is provided, update the state of the account on this chain
+          if (address && client) {
+            useConfigStore.getState().updateAccount(address, {
+              updateAbi: true,
+              chain,
+              client,
+            });
+          }
+
+          return client;
+        } catch (err) {
+          console.error('Failed to set provider:', err);
+          set({ initializing: false });
+          return null;
         }
-
-        // 3. If not found, initialize a new client
-        if (!client) {
-          // TODO TEMP await because of lazy import
-          client = await initializeClient(chain);
-          await client.ready();
-
-          // Set its fork time if it's never been initialized
-          // This is aligned with the client being completely new, or already used
-          // before (synced with local storage)
-          if (forkTime[chain.id] === undefined) setForkTime(chain.id);
-
-          // Add the client to the list of initialized clients
-          set({ initializedClients: [...initializedClients, client] });
-        }
-
-        set({ chain, client, initializing: false });
-
-        // 4. If an address is provided, update the state of the account on this chain
-        if (address && client) {
-          useConfigStore.getState().updateAccount(address, {
-            updateAbi: true,
-            chain,
-            client,
-          });
-        }
-
-        return client;
       },
 
       // Set the fork time for a given chain

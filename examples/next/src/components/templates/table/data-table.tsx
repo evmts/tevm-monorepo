@@ -3,6 +3,7 @@
 import { ReactNode } from 'react';
 import { flexRender, Table as TableInterface } from '@tanstack/react-table';
 
+import { PaginationOptions } from '@/lib/types/templates';
 import { cn } from '@/lib/utils';
 import {
   Table,
@@ -18,7 +19,7 @@ type DataTableProps<TData> = {
   table: TableInterface<TData>;
   header: ReactNode;
   noDataLabel?: string;
-  pagination?: boolean;
+  pagination?: PaginationOptions;
   className?: string;
 };
 
@@ -28,7 +29,7 @@ type DataTableProps<TData> = {
  * @param table The table instance from tanstack react-table
  * @param header A header displayed above the table
  * @param noDataLabel A label to display when there is no data (default: 'No results.')
- * @param pagination Whether to display pagination (default: false)
+ * @param pagination Options for pagination
  * @param className Additional classes to apply to the wrapper
  * @dev Modified from shadcn/ui
  * @see https://ui.shadcn.com/docs/components/data-table
@@ -37,7 +38,7 @@ const DataTable = <TData,>({
   table,
   header,
   noDataLabel = 'No results.',
-  pagination = false,
+  pagination,
   className,
 }: DataTableProps<TData>) => {
   return (
@@ -92,7 +93,9 @@ const DataTable = <TData,>({
           )}
         </TableBody>
       </Table>
-      {pagination ? <DataTablePagination table={table} /> : null}
+      {pagination ? (
+        <DataTablePagination table={table} options={pagination} />
+      ) : null}
     </div>
   );
 };

@@ -758,8 +758,8 @@ importers:
         specifier: ^1.0.7
         version: 1.0.7(tailwindcss@3.4.1)
       tevm:
-        specifier: 1.0.0-next.41
-        version: 1.0.0-next.41(typescript@5.4.3)(zod@3.22.4)
+        specifier: workspace:^
+        version: link:../../tevm
       vaul:
         specifier: ^0.9.0
         version: 0.9.0(@types/react-dom@18.2.15)(@types/react@18.2.37)(react-dom@18.2.0)(react@18.2.0)
@@ -806,9 +806,6 @@ importers:
       eslint-plugin-prettier:
         specifier: ^5.1.3
         version: 5.1.3(eslint-config-prettier@9.1.0)(eslint@8.57.0)(prettier@3.2.5)
-      eslint-plugin-react:
-        specifier: ^7.33.2
-        version: 7.34.1(eslint@8.57.0)
       eslint-plugin-tailwindcss:
         specifier: ^3.14.2
         version: 3.15.1(tailwindcss@3.4.1)
@@ -4750,22 +4747,6 @@ packages:
       - supports-color
     dev: false
 
-  /@ethereumjs/evm@2.2.1:
-    resolution: {integrity: sha512-equF3QqssDgfZyVDEoMqJUsMCjO9SwgFdpUTc7yHFOU74X43l/MHM+Cqdey+wcBhdU2yOwD9S2AbW6wh7tDYfQ==}
-    engines: {node: '>=18'}
-    dependencies:
-      '@ethereumjs/common': 4.3.0
-      '@ethereumjs/statemanager': 2.3.0
-      '@ethereumjs/tx': 5.3.0
-      '@ethereumjs/util': 9.0.3
-      '@types/debug': 4.1.12
-      debug: 4.3.4(supports-color@8.1.1)
-      ethereum-cryptography: 2.1.3
-      rustbn-wasm: 0.2.0
-    transitivePeerDependencies:
-      - supports-color
-    dev: false
-
   /@ethereumjs/evm@3.0.0:
     resolution: {integrity: sha512-hG5VajXG28UWab0LkptDun8ZnUnB1y2cZeNTjrmnz9Q0+UZxFJaU8RaFqaIoOOOoAt3vqMI7tXvnc+VPdNnhLg==}
     engines: {node: '>=18'}
@@ -4857,25 +4838,6 @@ packages:
       '@ethereumjs/util': 9.0.3
       lru-cache: 10.2.0
       rust-verkle-wasm: 0.0.1
-    dev: false
-
-  /@ethereumjs/vm@7.2.1:
-    resolution: {integrity: sha512-exmyhDPlfiBtV/nIPY7gE5iu3QC62F7hf/fALLgQaUS8ezxmJQG2MRaFI1eqYwvsAhfNBfst7K6KcCE4jbGbhw==}
-    engines: {node: '>=18'}
-    dependencies:
-      '@ethereumjs/block': 5.2.0
-      '@ethereumjs/blockchain': 7.2.0
-      '@ethereumjs/common': 4.3.0
-      '@ethereumjs/evm': 2.2.1
-      '@ethereumjs/rlp': 5.0.2
-      '@ethereumjs/statemanager': 2.3.0
-      '@ethereumjs/trie': 6.2.0
-      '@ethereumjs/tx': 5.3.0
-      '@ethereumjs/util': 9.0.3
-      debug: 4.3.4(supports-color@8.1.1)
-      ethereum-cryptography: 2.1.3
-    transitivePeerDependencies:
-      - supports-color
     dev: false
 
   /@ethereumjs/vm@8.0.0:
@@ -8693,297 +8655,6 @@ packages:
       react-dom: 18.2.0(react@18.2.0)
     dev: true
 
-  /@tevm/actions-types@1.0.0-next.41:
-    resolution: {integrity: sha512-22pyjsFLBNEOMLbqEHC6H/BMNYOJ1ko6y42L/jWa76OplfLILRCWGG1XQKwFHXffSd6s26IoCx31GYagdYkCNA==}
-    dev: false
-
-  /@tevm/actions@1.0.0-next.42(typescript@5.4.3)(zod@3.22.4):
-    resolution: {integrity: sha512-NyfXDveBQNC9jdO9u4Ac6JRrHugoj7t/sgTTGEiFGCSnLJ87b/pffDRjLbJwqExOEAB0R4OB1maHMqGiHSeCew==}
-    dependencies:
-      '@tevm/jsonrpc': 1.0.0-next.40
-      '@tevm/utils': 1.0.0-next.40(typescript@5.4.3)(zod@3.22.4)
-      '@tevm/vm': 1.0.0-next.42(typescript@5.4.3)(zod@3.22.4)
-      '@tevm/zod': 1.0.0-next.40(typescript@5.4.3)
-    transitivePeerDependencies:
-      - bufferutil
-      - supports-color
-      - typescript
-      - utf-8-validate
-      - zod
-    dev: false
-
-  /@tevm/base-client@1.0.0-next.42(typescript@5.4.3)(zod@3.22.4):
-    resolution: {integrity: sha512-RKQZlPin1X7CG2kBaZcQ4qti3B8gsJYE2tDu7AdsY2hJd0jgtkd4OFyYJmvyG7h1GR9IOSHJiLBuq6ysmdj/tA==}
-    dependencies:
-      '@tevm/blockchain': 1.0.0-next.42
-      '@tevm/common': 1.0.0-next.40
-      '@tevm/evm': 1.0.0-next.42(typescript@5.4.3)(zod@3.22.4)
-      '@tevm/jsonrpc': 1.0.0-next.40
-      '@tevm/predeploys': 1.0.0-next.40(typescript@5.4.3)(zod@3.22.4)
-      '@tevm/state': 1.0.0-next.40(typescript@5.4.3)(zod@3.22.4)
-      '@tevm/sync-storage-persister': 1.0.0-next.40(typescript@5.4.3)(zod@3.22.4)
-      '@tevm/utils': 1.0.0-next.40(typescript@5.4.3)(zod@3.22.4)
-      '@tevm/vm': 1.0.0-next.42(typescript@5.4.3)(zod@3.22.4)
-    transitivePeerDependencies:
-      - bufferutil
-      - supports-color
-      - typescript
-      - utf-8-validate
-      - zod
-    dev: false
-
-  /@tevm/blockchain@1.0.0-next.42:
-    resolution: {integrity: sha512-nkFzmr7IReDMcJNJvjWmzNyvPUGkretzXkEVoG3FQo0ZtRNP12alQf3vMvRQn6yrS5UWlm6mdyZyJxdymLlwhg==}
-    dependencies:
-      '@ethereumjs/block': 5.2.0
-      '@ethereumjs/blockchain': 7.2.0
-      '@ethereumjs/common': 4.3.0
-      '@ethereumjs/trie': 6.2.0
-      '@ethereumjs/util': 9.0.3
-    transitivePeerDependencies:
-      - supports-color
-    dev: false
-
-  /@tevm/client-types@1.0.0-next.40(typescript@5.4.3)(zod@3.22.4):
-    resolution: {integrity: sha512-XztzKAvhGYUs7YAfiSmpREzwkPzKE6mBnU+yHPXjt/zGp9sOmP6zr4f1TUrGczJ9CP/1WGDkCW3MHG36rOWCZg==}
-    dependencies:
-      '@tevm/utils': 1.0.0-next.40(typescript@5.4.3)(zod@3.22.4)
-    transitivePeerDependencies:
-      - bufferutil
-      - typescript
-      - utf-8-validate
-      - zod
-    dev: false
-
-  /@tevm/common@1.0.0-next.40:
-    resolution: {integrity: sha512-iB+3NUR0eJ8SFekT64Wg5ANt0fBsjbgaB0i3jG0VbrgldbnyATq/xChLDt3k56Xi8loHc6Gxt3JQUvvF9OQ7iQ==}
-    dependencies:
-      '@ethereumjs/common': 4.3.0
-    dev: false
-
-  /@tevm/contract@1.0.0-next.40(typescript@5.4.3)(zod@3.22.4):
-    resolution: {integrity: sha512-wwPI5QhBUm/c+5CqVPmwDLloCl+acMUl+jkOwIV78PAgszcKSMsrcZPRvZ7/OjxdGCKp5CIqJ0ekvrKp6FHJPA==}
-    dependencies:
-      '@tevm/utils': 1.0.0-next.40(typescript@5.4.3)(zod@3.22.4)
-    transitivePeerDependencies:
-      - bufferutil
-      - typescript
-      - utf-8-validate
-      - zod
-    dev: false
-
-  /@tevm/decorators@1.0.0-next.42(typescript@5.4.3)(zod@3.22.4):
-    resolution: {integrity: sha512-wacxjNggXExgU4ZVoLNWhv7NFWib7eR8YmtkOlDxEmjZ3bai9GABGTyhxVlwM7nr+qlaYTJ9eV+XuXZMC99EZg==}
-    dependencies:
-      '@tevm/actions': 1.0.0-next.42(typescript@5.4.3)(zod@3.22.4)
-      '@tevm/actions-types': 1.0.0-next.41
-      '@tevm/procedures': 1.0.0-next.42(typescript@5.4.3)(zod@3.22.4)
-      '@tevm/procedures-types': 1.0.0-next.41(typescript@5.4.3)(zod@3.22.4)
-      '@tevm/utils': 1.0.0-next.40(typescript@5.4.3)(zod@3.22.4)
-      viem: 2.8.18(typescript@5.4.3)(zod@3.22.4)
-    transitivePeerDependencies:
-      - bufferutil
-      - supports-color
-      - typescript
-      - utf-8-validate
-      - zod
-    dev: false
-
-  /@tevm/errors@1.0.0-next.40:
-    resolution: {integrity: sha512-u6zV4gZBXUS6iobuUNUEdwdHTJjqDIs2J+nF2rKXup0aKohasgJ5NDuC5SvtSsfBzvxv0s19vJ+UZY8qJ8cVLw==}
-    dev: false
-
-  /@tevm/evm@1.0.0-next.42(typescript@5.4.3)(zod@3.22.4):
-    resolution: {integrity: sha512-HACyzCkP4IBZ/pOthymsyQ/umuCsmYRKg85BPfzhvRszTtey9RgDP+zM9jksuAo4kHrBQjFPv3vV+aRc4WTTAA==}
-    dependencies:
-      '@ethereumjs/evm': 2.2.1
-      '@tevm/blockchain': 1.0.0-next.42
-      '@tevm/common': 1.0.0-next.40
-      '@tevm/predeploys': 1.0.0-next.40(typescript@5.4.3)(zod@3.22.4)
-    transitivePeerDependencies:
-      - bufferutil
-      - supports-color
-      - typescript
-      - utf-8-validate
-      - zod
-    dev: false
-
-  /@tevm/http-client@1.0.0-next.41(typescript@5.4.3)(zod@3.22.4):
-    resolution: {integrity: sha512-N1zvVe1O8+i3EiZynd36GhmrO/n0/XElPc374hAS7DK8eM3SD0uCvMLXsetalycc6usFDMT8J+f/sDaPK8AtsQ==}
-    dependencies:
-      '@tevm/contract': 1.0.0-next.40(typescript@5.4.3)(zod@3.22.4)
-      '@tevm/viem': 1.0.0-next.41(viem@2.8.18)
-      viem: 2.8.18(typescript@5.4.3)(zod@3.22.4)
-    transitivePeerDependencies:
-      - bufferutil
-      - typescript
-      - utf-8-validate
-      - zod
-    dev: false
-
-  /@tevm/jsonrpc@1.0.0-next.40:
-    resolution: {integrity: sha512-skYRmHS7o0by7zAFU+XY8NBSWiObeg8LrrmLcC3GndbGSxcppLbuRiLRs5hPmcMK96l2zQdVK5BR8EJCKqh4Ig==}
-    dev: false
-
-  /@tevm/memory-client@1.0.0-next.42(typescript@5.4.3)(zod@3.22.4):
-    resolution: {integrity: sha512-W5Bdl69VX0T8eHbFYTNI4bDEGCc1VaOXT7i1QizFokR7qeykPNWU6+Gh09UB0Vinv8Y1T98ckaNEcwpjGQx7/g==}
-    dependencies:
-      '@ethereumjs/evm': 2.2.1
-      '@ethereumjs/util': 9.0.3
-      '@tevm/base-client': 1.0.0-next.42(typescript@5.4.3)(zod@3.22.4)
-      '@tevm/contract': 1.0.0-next.40(typescript@5.4.3)(zod@3.22.4)
-      '@tevm/decorators': 1.0.0-next.42(typescript@5.4.3)(zod@3.22.4)
-      '@tevm/utils': 1.0.0-next.40(typescript@5.4.3)(zod@3.22.4)
-    transitivePeerDependencies:
-      - bufferutil
-      - supports-color
-      - typescript
-      - utf-8-validate
-      - zod
-    dev: false
-
-  /@tevm/precompiles@1.0.0-next.40(typescript@5.4.3)(zod@3.22.4):
-    resolution: {integrity: sha512-ZT0qEK2s3yT2b8vs3OrrzFAlpKWkG3zeZgQ43WMOpeq5OqYqysrRcm0TFJCbH8s2fawMkRt9Nf4HQb88BsXTxg==}
-    dependencies:
-      '@ethereumjs/evm': 2.2.1
-      '@tevm/contract': 1.0.0-next.40(typescript@5.4.3)(zod@3.22.4)
-      '@tevm/utils': 1.0.0-next.40(typescript@5.4.3)(zod@3.22.4)
-    transitivePeerDependencies:
-      - bufferutil
-      - supports-color
-      - typescript
-      - utf-8-validate
-      - zod
-    dev: false
-
-  /@tevm/predeploys@1.0.0-next.40(typescript@5.4.3)(zod@3.22.4):
-    resolution: {integrity: sha512-zyaR5W07KhDiF+0MO/sm5O5Ce1bCE9g5Kuj9ZdcQc/he8+4wq2oOL+tHs+dIjFjDIIDm4Jpmj3WDBwlAOfMEOw==}
-    dependencies:
-      '@ethereumjs/util': 9.0.3
-      '@tevm/contract': 1.0.0-next.40(typescript@5.4.3)(zod@3.22.4)
-      '@tevm/utils': 1.0.0-next.40(typescript@5.4.3)(zod@3.22.4)
-    transitivePeerDependencies:
-      - bufferutil
-      - typescript
-      - utf-8-validate
-      - zod
-    dev: false
-
-  /@tevm/procedures-types@1.0.0-next.41(typescript@5.4.3)(zod@3.22.4):
-    resolution: {integrity: sha512-anX5cCtOdwwFmkQbFB4HmvYglHU3M9NjADB206aAzm/7CzyNKpIitXkSlbJV0dieH9bX++04qiBrJrvp3yJ8tA==}
-    dependencies:
-      '@tevm/utils': 1.0.0-next.40(typescript@5.4.3)(zod@3.22.4)
-    transitivePeerDependencies:
-      - bufferutil
-      - typescript
-      - utf-8-validate
-      - zod
-    dev: false
-
-  /@tevm/procedures@1.0.0-next.42(typescript@5.4.3)(zod@3.22.4):
-    resolution: {integrity: sha512-08mJn5HQTqjwjHHBCjcdqQdTO0RiLxS/LaS76dy72fQGQwcVXO03CLixZkZuuq6dB+i5yJs2ZzUkwYxDJXmlqA==}
-    dependencies:
-      '@ethereumjs/util': 9.0.3
-      '@tevm/actions': 1.0.0-next.42(typescript@5.4.3)(zod@3.22.4)
-    transitivePeerDependencies:
-      - bufferutil
-      - supports-color
-      - typescript
-      - utf-8-validate
-      - zod
-    dev: false
-
-  /@tevm/server@1.0.0-next.44(typescript@5.4.3)(zod@3.22.4):
-    resolution: {integrity: sha512-qcXaNyHvHHC7H8y+gO9TLhjSEBo/EGAJxOCaV9He8JSTjN1SGi7Ci5re/iKRkDSe4wmQ0xfGu+lmdH2KjF/Qog==}
-    dependencies:
-      '@tevm/errors': 1.0.0-next.40
-      '@tevm/utils': 1.0.0-next.40(typescript@5.4.3)(zod@3.22.4)
-      '@tevm/zod': 1.0.0-next.40(typescript@5.4.3)
-    transitivePeerDependencies:
-      - bufferutil
-      - typescript
-      - utf-8-validate
-      - zod
-    dev: false
-
-  /@tevm/state@1.0.0-next.40(typescript@5.4.3)(zod@3.22.4):
-    resolution: {integrity: sha512-b143Zkr/r32fQYIj9k3QLn40z0y94s63Zrp3aMA49D+LPpC9W4vQKInjnu1bNriALG8tt5lZNVfebDUYqD7B4g==}
-    dependencies:
-      '@ethereumjs/common': 4.3.0
-      '@ethereumjs/statemanager': 2.3.0
-      '@ethereumjs/trie': 6.2.0
-      '@tevm/utils': 1.0.0-next.40(typescript@5.4.3)(zod@3.22.4)
-      ethereum-cryptography: 2.1.3
-      viem: 2.8.18(typescript@5.4.3)(zod@3.22.4)
-    transitivePeerDependencies:
-      - bufferutil
-      - supports-color
-      - typescript
-      - utf-8-validate
-      - zod
-    dev: false
-
-  /@tevm/sync-storage-persister@1.0.0-next.40(typescript@5.4.3)(zod@3.22.4):
-    resolution: {integrity: sha512-V43pgLVhOX9FFt9gnqc0gCcD2UFa+eJbxh8YL1PqFPWSv0zrgGwpzej3MeIFTaSzrR5bY/OdA3jtPCQonFNnGQ==}
-    dependencies:
-      '@tevm/state': 1.0.0-next.40(typescript@5.4.3)(zod@3.22.4)
-    transitivePeerDependencies:
-      - bufferutil
-      - supports-color
-      - typescript
-      - utf-8-validate
-      - zod
-    dev: false
-
-  /@tevm/utils@1.0.0-next.40(typescript@5.4.3)(zod@3.22.4):
-    resolution: {integrity: sha512-2vv7OiNMNxcZa6eeJz9ok/lUxeHZZYHQMX8vdzk1j0vhcWr3lqA3fV2o/2aeEKHwWvIOGDrs9QUwRs+/raM6ng==}
-    dependencies:
-      '@ethereumjs/util': 9.0.3
-      abitype: 1.0.2(typescript@5.4.3)(zod@3.22.4)
-      viem: 2.8.18(typescript@5.4.3)(zod@3.22.4)
-    transitivePeerDependencies:
-      - bufferutil
-      - typescript
-      - utf-8-validate
-      - zod
-    dev: false
-
-  /@tevm/viem@1.0.0-next.41(viem@2.8.18):
-    resolution: {integrity: sha512-EJqE3EOVRFAkiB9AwyyhzHtF/rpEp2+is1f33j4sFKsb6f/sZ4S7z4QbLPbc+3UdbL2nDhMkpmvNWeIZQkMTdw==}
-    peerDependencies:
-      viem: 2.x.x
-    dependencies:
-      '@tevm/jsonrpc': 1.0.0-next.40
-      viem: 2.8.18(typescript@5.4.3)(zod@3.22.4)
-    dev: false
-
-  /@tevm/vm@1.0.0-next.42(typescript@5.4.3)(zod@3.22.4):
-    resolution: {integrity: sha512-hTXJ8jDkHlHfgj90Zs2zZBNEYRp3mBhfkocGLzT7b2qPAWtoatgrnKNIRVwNf4+V6RT0iCPnM4MmNi2Y52QVLA==}
-    dependencies:
-      '@ethereumjs/vm': 7.2.1
-      '@tevm/blockchain': 1.0.0-next.42
-      '@tevm/common': 1.0.0-next.40
-      '@tevm/evm': 1.0.0-next.42(typescript@5.4.3)(zod@3.22.4)
-    transitivePeerDependencies:
-      - bufferutil
-      - supports-color
-      - typescript
-      - utf-8-validate
-      - zod
-    dev: false
-
-  /@tevm/zod@1.0.0-next.40(typescript@5.4.3):
-    resolution: {integrity: sha512-7J/oafqRDYOB7S+zC0vRJF47O3YutfGQNw288LVondVQVCOP8+qI/AyCIufyFsiKQjg8OgJlUMyoGI0B9vjW0Q==}
-    dependencies:
-      abitype: 1.0.2(typescript@5.4.3)(zod@3.22.4)
-      viem: 2.8.18(typescript@5.4.3)(zod@3.22.4)
-      zod: 3.22.4
-    transitivePeerDependencies:
-      - bufferutil
-      - typescript
-      - utf-8-validate
-    dev: false
-
   /@tootallnate/quickjs-emscripten@0.23.0:
     resolution: {integrity: sha512-C5Mc6rdnsaJDjO3UpGW/CQTHtCKaYlScZTly4JIu97Jxo/odCiH0ITnDXSJPTOrEKk/ycSZ0AOgTmkDtkOsvIA==}
     dev: true
@@ -11000,21 +10671,6 @@ packages:
         optional: true
     dependencies:
       typescript: 5.3.3
-      zod: 3.22.4
-    dev: false
-
-  /abitype@1.0.2(typescript@5.4.3)(zod@3.22.4):
-    resolution: {integrity: sha512-aFt4k2H+eiAKy/zxtnORa9iIb10BMBeWL18l8v4+QuwYEBXPxxjSB1bFZCzQmKPoj8m7j68K705l3uY+E2gAjg==}
-    peerDependencies:
-      typescript: '>=5.0.4'
-      zod: ^3 >=3.22.0
-    peerDependenciesMeta:
-      typescript:
-        optional: true
-      zod:
-        optional: true
-    dependencies:
-      typescript: 5.4.3
       zod: 3.22.4
     dev: false
 
@@ -21619,12 +21275,6 @@ packages:
     resolution: {integrity: sha512-BN6fiTsxcd2dCECz/cHtGTt9cdLJR925nh7iAuRcj8ymKw7OOaPmCneQZ7JePOJ/ia27TjEL91VdOi88Yf+mcA==}
     dev: false
 
-  /rustbn-wasm@0.2.0:
-    resolution: {integrity: sha512-FThvYFNTqrEKGqXuseeg0zR7yROh/6U1617mCHF68OVqrN1tNKRN7Tdwy4WayPVsCmmK+eMxtIZX1qL6JxTkMg==}
-    dependencies:
-      '@scure/base': 1.1.6
-    dev: false
-
   /rustbn-wasm@0.4.0:
     resolution: {integrity: sha512-C2ujvPv05hXC69MD7YwSsoUEsT/X/dKHkkgwN9B0ZTgb0OXDC9yaHhE6Pq+uaRAzMyW0Y97bwc4JO4cqPDzVuQ==}
     dependencies:
@@ -23174,33 +22824,6 @@ packages:
       glob: 7.2.3
       minimatch: 3.1.2
     dev: true
-
-  /tevm@1.0.0-next.41(typescript@5.4.3)(zod@3.22.4):
-    resolution: {integrity: sha512-FirySIDhlzudcRaMMzclhJiEDzzN4pWqDNrnCXGdaFGnd+wSk9KEL0YPrjenhlwBazrfky7HMWdFR/eVpAOlLg==}
-    dependencies:
-      '@tevm/actions-types': 1.0.0-next.41
-      '@tevm/base-client': 1.0.0-next.42(typescript@5.4.3)(zod@3.22.4)
-      '@tevm/client-types': 1.0.0-next.40(typescript@5.4.3)(zod@3.22.4)
-      '@tevm/contract': 1.0.0-next.40(typescript@5.4.3)(zod@3.22.4)
-      '@tevm/decorators': 1.0.0-next.42(typescript@5.4.3)(zod@3.22.4)
-      '@tevm/errors': 1.0.0-next.40
-      '@tevm/http-client': 1.0.0-next.41(typescript@5.4.3)(zod@3.22.4)
-      '@tevm/jsonrpc': 1.0.0-next.40
-      '@tevm/memory-client': 1.0.0-next.42(typescript@5.4.3)(zod@3.22.4)
-      '@tevm/precompiles': 1.0.0-next.40(typescript@5.4.3)(zod@3.22.4)
-      '@tevm/predeploys': 1.0.0-next.40(typescript@5.4.3)(zod@3.22.4)
-      '@tevm/procedures-types': 1.0.0-next.41(typescript@5.4.3)(zod@3.22.4)
-      '@tevm/server': 1.0.0-next.44(typescript@5.4.3)(zod@3.22.4)
-      '@tevm/state': 1.0.0-next.40(typescript@5.4.3)(zod@3.22.4)
-      '@tevm/sync-storage-persister': 1.0.0-next.40(typescript@5.4.3)(zod@3.22.4)
-      '@tevm/utils': 1.0.0-next.40(typescript@5.4.3)(zod@3.22.4)
-    transitivePeerDependencies:
-      - bufferutil
-      - supports-color
-      - typescript
-      - utf-8-validate
-      - zod
-    dev: false
 
   /text-encoding-utf-8@1.0.2:
     resolution: {integrity: sha512-8bw4MY9WjdsD2aMtO0OzOCY3pXGYNx2d2FfHRVUKkiCPDWjKuOlhLVASS+pD7VkLTVjW268LYJHwsnPFlBpbAg==}
@@ -25114,7 +24737,7 @@ packages:
       '@volar/language-service': 1.11.1
       '@volar/typescript': 1.11.1
       path-browserify: 1.0.1
-      semver: 7.6.0
+      semver: 7.5.4
       typescript-auto-import-cache: 0.3.0
       vscode-languageserver-textdocument: 1.0.11
       vscode-nls: 5.2.0

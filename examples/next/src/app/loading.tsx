@@ -5,7 +5,7 @@ import { Skeleton } from '@/components/ui/skeleton';
  * @dev This will be rendered if there is no specific loading component
  * on a page.
  * @dev We're using roughly the layout of the home page for this, especially the header
- * @see page components/core/header.tsx
+ * @see Header components/core/header.tsx
  */
 const Loading = () => {
   return (

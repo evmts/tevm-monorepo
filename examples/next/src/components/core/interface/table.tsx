@@ -90,6 +90,7 @@ const InterfaceTable: FC<InterfaceTableProps> = ({ data, loading }) => {
     saveTx: state.saveTx,
   }));
 
+  /* ------------------------------- REFERENCES ------------------------------- */
   // Ref to track the currently focused input's identifier
   // This is necessary because editable cells will make the whole table re-render
   // on change and the focus will be lost
@@ -468,6 +469,9 @@ const InterfaceTable: FC<InterfaceTableProps> = ({ data, loading }) => {
         pageSize: 5,
       },
     },
+    // Prevent resetting the page on call
+    autoResetPageIndex: false,
+
     // Sorting
     onSortingChange: setSorting,
     getSortedRowModel: getSortedRowModel(),
@@ -484,7 +488,9 @@ const InterfaceTable: FC<InterfaceTableProps> = ({ data, loading }) => {
   return (
     <DataTable<ABIFunction>
       table={table}
-      pagination={dataMemoized.length > 10}
+      pagination={{
+        enabled: dataMemoized.length > 10,
+      }}
       className="rounded-none border-x border-secondary px-2"
       header={
         <div className="flex w-full items-center justify-between gap-4">

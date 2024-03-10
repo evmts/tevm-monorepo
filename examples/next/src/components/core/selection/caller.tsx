@@ -21,8 +21,8 @@ import SkipBalanceCheck from '@/components/core/selection/skip-balance';
 
 /**
  * @notice Choose an address to impersonate as the caller during function calls
- * @dev The user can paste any address; if a `owner` method is found in the ABI, they can impersonate them
- * quickly
+ * @dev The user can paste any address; if a `owner`/`getOwner`/`admin`/`getAdmin` method is found in the ABI,
+ * they can impersonate them quickly
  */
 const CallerSelection = () => {
   /* ---------------------------------- STATE --------------------------------- */
@@ -55,7 +55,7 @@ const CallerSelection = () => {
       resetCaller: state.resetCaller,
     }));
 
-  // Whether the current contract (if the account is a contract) has an `owner` or `getOwner` method
+  // Whether the current contract (if the account is a contract) has a known owner method
   // If it's the case and it returns an address, it will return its name,
   // otherwise, it will return undefined
   const ownerMethod = useMemo(() => {
@@ -64,7 +64,10 @@ const CallerSelection = () => {
       return abi.find(
         (method) =>
           method.type === 'function' &&
-          (method.name === 'owner' || method.name === 'getOwner') &&
+          (method.name === 'owner' ||
+            method.name === 'getOwner' ||
+            method.name === 'admin' ||
+            method.name === 'getAdmin') &&
           method.outputs?.length &&
           method.outputs.some((output) => output.type === 'address'),
       )?.name;
