@@ -120,7 +120,13 @@ const ChainSelection: FC<ChainSelectionProps> = ({ hydrating = false }) => {
               id: Number(chainOption.value),
             });
             // Change the chain (and update the account)
-            await setProvider(selectedChain, account?.address);
+            const client = await setProvider(selectedChain, account?.address);
+            // Catch any issue if the client could not be set
+            if (!client) {
+              toast.error('Failed to set provider', {
+                description: `The provider for ${selectedChain.name} could not be retrieved`,
+              });
+            }
           }}
           header="Select a chain"
           className="w-[200px] sm:w-[250px]"

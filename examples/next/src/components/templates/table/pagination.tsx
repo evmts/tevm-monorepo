@@ -6,6 +6,7 @@ import {
 } from '@radix-ui/react-icons';
 import { Table } from '@tanstack/react-table';
 
+import { PaginationOptions } from '@/lib/types/templates';
 import { useMediaQuery } from '@/lib/hooks/use-media-query';
 import { Button } from '@/components/ui/button';
 import {
@@ -18,7 +19,15 @@ import {
 
 interface DataTablePaginationProps<TData> {
   table: Table<TData>;
+  options?: PaginationOptions;
 }
+
+/* -------------------------------- CONSTANTS ------------------------------- */
+const DEFAULT_OPTIONS: PaginationOptions = {
+  enabled: false,
+};
+
+const PAGE_SIZES = [5, 10, 20, 30, 40, 50];
 
 /* --------------------------------- PARENT --------------------------------- */
 /**
@@ -26,11 +35,13 @@ interface DataTablePaginationProps<TData> {
  * @dev This component is meant to be displayed alongside the DataTable with the same
  * table instance
  * @param table The table instance from tanstack react-table
+ * @param options Options for pagination (default: { enabled: false })
  * @dev Modified from shadcn/ui
  * @see https://ui.shadcn.com/docs/components/data-table
  */
 const DataTablePagination = <TData,>({
   table,
+  options = DEFAULT_OPTIONS,
 }: DataTablePaginationProps<TData>) => {
   const isDesktop = useMediaQuery('(min-width: 768px)'); // md
 
@@ -38,13 +49,13 @@ const DataTablePagination = <TData,>({
     <div className="flex flex-col items-center gap-2 md:flex-row md:justify-between md:gap-6 lg:gap-8">
       {isDesktop ? (
         <>
-          <RowsPerPageControls table={table} />
-          <NavigationControls table={table} />
+          <RowsPerPageControls table={table} options={options} />
+          <NavigationControls table={table} options={options} />
         </>
       ) : (
         <>
-          <NavigationControls table={table} />
-          <RowsPerPageControls table={table} />
+          <NavigationControls table={table} options={options} />
+          <RowsPerPageControls table={table} options={options} />
         </>
       )}
     </div>
@@ -62,15 +73,13 @@ const RowsPerPageControls = <TData,>({
       </p>
       <Select
         value={`${table.getState().pagination.pageSize}`}
-        onValueChange={(value) => {
-          table.setPageSize(Number(value));
-        }}
+        onValueChange={(value) => table.setPageSize(Number(value))}
       >
         <SelectTrigger className="h-8 w-[70px]">
           <SelectValue placeholder={table.getState().pagination.pageSize} />
         </SelectTrigger>
         <SelectContent side="top">
-          {[5, 10, 20, 30, 40, 50].map((pageSize) => (
+          {PAGE_SIZES.map((pageSize) => (
             <SelectItem key={pageSize} value={`${pageSize}`}>
               {pageSize}
             </SelectItem>
@@ -85,6 +94,11 @@ const RowsPerPageControls = <TData,>({
 const NavigationControls = <TData,>({
   table,
 }: DataTablePaginationProps<TData>) => {
+  const toFirstPage = () => table.setPageIndex(0);
+  const toLastPage = () => table.setPageIndex(table.getPageCount() - 1);
+  const toPreviousPage = () => table.previousPage();
+  const toNextPage = () => table.nextPage();
+
   return (
     <div className="flex w-full items-center justify-between gap-4">
       <div className="flex items-center justify-center text-sm font-medium text-secondary-foreground">
@@ -95,7 +109,7 @@ const NavigationControls = <TData,>({
         <Button
           variant="outline"
           className="hidden size-8 p-0 lg:flex"
-          onClick={() => table.setPageIndex(0)}
+          onClick={toFirstPage}
           disabled={!table.getCanPreviousPage()}
         >
           <span className="sr-only">Go to first page</span>
@@ -104,7 +118,7 @@ const NavigationControls = <TData,>({
         <Button
           variant="outline"
           className="size-8 p-0"
-          onClick={() => table.previousPage()}
+          onClick={toPreviousPage}
           disabled={!table.getCanPreviousPage()}
         >
           <span className="sr-only">Go to previous page</span>
@@ -113,7 +127,7 @@ const NavigationControls = <TData,>({
         <Button
           variant="outline"
           className="size-8 p-0"
-          onClick={() => table.nextPage()}
+          onClick={toNextPage}
           disabled={!table.getCanNextPage()}
         >
           <span className="sr-only">Go to next page</span>
@@ -122,7 +136,7 @@ const NavigationControls = <TData,>({
         <Button
           variant="outline"
           className="hidden size-8 p-0 lg:flex"
-          onClick={() => table.setPageIndex(table.getPageCount() - 1)}
+          onClick={toLastPage}
           disabled={!table.getCanNextPage()}
         >
           <span className="sr-only">Go to last page</span>
