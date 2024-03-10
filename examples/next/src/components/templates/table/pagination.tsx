@@ -6,7 +6,6 @@ import {
 } from '@radix-ui/react-icons';
 import { Table } from '@tanstack/react-table';
 
-import { PaginationOptions } from '@/lib/types/templates';
 import { useMediaQuery } from '@/lib/hooks/use-media-query';
 import { Button } from '@/components/ui/button';
 import {
@@ -19,14 +18,9 @@ import {
 
 interface DataTablePaginationProps<TData> {
   table: Table<TData>;
-  options?: PaginationOptions;
 }
 
 /* -------------------------------- CONSTANTS ------------------------------- */
-const DEFAULT_OPTIONS: PaginationOptions = {
-  enabled: false,
-};
-
 const PAGE_SIZES = [5, 10, 20, 30, 40, 50];
 
 /* --------------------------------- PARENT --------------------------------- */
@@ -35,13 +29,11 @@ const PAGE_SIZES = [5, 10, 20, 30, 40, 50];
  * @dev This component is meant to be displayed alongside the DataTable with the same
  * table instance
  * @param table The table instance from tanstack react-table
- * @param options Options for pagination (default: { enabled: false })
  * @dev Modified from shadcn/ui
  * @see https://ui.shadcn.com/docs/components/data-table
  */
 const DataTablePagination = <TData,>({
   table,
-  options = DEFAULT_OPTIONS,
 }: DataTablePaginationProps<TData>) => {
   const isDesktop = useMediaQuery('(min-width: 768px)'); // md
 
@@ -49,13 +41,13 @@ const DataTablePagination = <TData,>({
     <div className="flex flex-col items-center gap-2 md:flex-row md:justify-between md:gap-6 lg:gap-8">
       {isDesktop ? (
         <>
-          <RowsPerPageControls table={table} options={options} />
-          <NavigationControls table={table} options={options} />
+          <RowsPerPageControls table={table} />
+          <NavigationControls table={table} />
         </>
       ) : (
         <>
-          <NavigationControls table={table} options={options} />
-          <RowsPerPageControls table={table} options={options} />
+          <NavigationControls table={table} />
+          <RowsPerPageControls table={table} />
         </>
       )}
     </div>
