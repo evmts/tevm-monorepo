@@ -112,10 +112,10 @@ import type { JsonRpcReturnTypeFromMethod } from './JsonRpcReturnTypeFromMethod.
  */
 export type TevmJsonRpcRequestHandler = <
 	TRequest extends
-		| TevmJsonRpcRequest
-		| EthJsonRpcRequest
-		| AnvilJsonRpcRequest
-		| DebugJsonRpcRequest,
+	| TevmJsonRpcRequest
+	| EthJsonRpcRequest
+	| AnvilJsonRpcRequest
+	| DebugJsonRpcRequest,
 >(
 	request: TRequest,
 ) => Promise<JsonRpcReturnTypeFromMethod<TRequest['method']>>

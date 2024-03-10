@@ -12,6 +12,7 @@ import type {
 	AnvilSetNonceJsonRpcResponse,
 	AnvilSetStorageAtJsonRpcResponse,
 	AnvilStopImpersonatingAccountJsonRpcResponse,
+	AnvilSetCoinbaseJsonRpcResponse,
 } from '../index.js'
 
 /**
@@ -32,4 +33,5 @@ export type AnvilReturnType = {
 	anvil_setChainId: AnvilSetChainIdJsonRpcResponse
 	anvil_dumpState: AnvilDumpStateJsonRpcResponse
 	anvil_loadState: AnvilLoadStateJsonRpcResponse
+	anvil_setCoinbase: AnvilSetCoinbaseJsonRpcResponse
 }

@@ -1,1 +1,1 @@
-export { ConstructorArgument, CustomPrecompile, defineCall, definePrecompile } from '@tevm/precompiles';
+export { CallResult, ConstructorArgument, CustomPrecompile, TypedError, defineCall, definePrecompile } from '@tevm/precompiles';
