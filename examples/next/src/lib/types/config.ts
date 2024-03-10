@@ -2,12 +2,6 @@ import { MemoryClient } from 'tevm';
 
 import { Chain } from '@/lib/types/providers';
 
-// type
-// inputs
-// outputs
-// name
-// stateMutability
-
 /**
  * @type {Object} UpdateAccountOptions
  * @notice Options for updating the account state (optional)

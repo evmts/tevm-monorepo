@@ -1,18 +1,17 @@
+import { Viewport } from 'next';
+import { Fira_Code as FontMono, Inter as FontSans } from 'next/font/google';
+
 import { METADATA_BASE } from '@/lib/constants/site';
 import { cn } from '@/lib/utils';
 import { Toaster } from '@/components/ui/sonner';
 import { TooltipProvider } from '@/components/ui/tooltip';
+import { Icons } from '@/components/common/icons';
 import { ThemeProvider } from '@/components/config/theme-provider';
 import { ThemeSwitcher } from '@/components/config/theme-switcher';
 import BaseLayout from '@/components/layouts/base';
 import ContainerLayout from '@/components/layouts/container';
 
 import '@/styles/globals.css';
-
-import { Viewport } from 'next';
-import { Fira_Code as FontMono, Inter as FontSans } from 'next/font/google';
-
-import { Icons } from '@/components/common/icons';
 
 /* -------------------------------- METADATA -------------------------------- */
 export const metadata = METADATA_BASE;

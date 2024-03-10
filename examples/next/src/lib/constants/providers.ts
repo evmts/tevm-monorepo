@@ -55,6 +55,7 @@ const CHAINS_DATA = {
     custom: {
       rpcUrl: 'http://localhost:8545',
     },
+    name: 'Local (Foundry/Hardhat)',
   },
   mainnet: {
     ...mainnet,
