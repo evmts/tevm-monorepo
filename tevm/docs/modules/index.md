@@ -297,7 +297,7 @@ ___
 
 ### BaseClient
 
-Ƭ **BaseClient**\<`TMode`, `TExtended`\>: \{ `extend`: \<TExtension\>(`decorator`: (`client`: [`BaseClient`](index.md#baseclient)\<`TMode`, `TExtended`\>) => `TExtension`) => [`BaseClient`](index.md#baseclient)\<`TMode`, `TExtended` & `TExtension`\> ; `forkUrl?`: `string` ; `getChainId`: () => `Promise`\<`number`\> ; `getVm`: () => `Promise`\<`TevmVm`\> ; `mode`: `TMode` ; `ready`: () => `Promise`\<``true``\> ; `setChainId`: (`chainId`: `number`) => `void`  } & `TExtended`
+Ƭ **BaseClient**\<`TMode`, `TExtended`\>: \{ `extend`: \<TExtension\>(`decorator`: (`client`: [`BaseClient`](index.md#baseclient)\<`TMode`, `TExtended`\>) => `TExtension`) => [`BaseClient`](index.md#baseclient)\<`TMode`, `TExtended` & `TExtension`\> ; `forkUrl?`: `string` ; `getChainId`: () => `Promise`\<`number`\> ; `getTxPool`: () => `Promise`\<`TxPool`\> ; `getVm`: () => `Promise`\<`TevmVm`\> ; `miningConfig`: `MiningConfig` ; `mode`: `TMode` ; `ready`: () => `Promise`\<``true``\> ; `setChainId`: (`chainId`: `number`) => `void`  } & `TExtended`
 
 The base client used by Tevm. Add extensions to add additional functionality
 
@@ -310,7 +310,7 @@ The base client used by Tevm. Add extensions to add additional functionality
 
 #### Defined in
 
-evmts-monorepo/packages/base-client/types/BaseClient.d.ts:5
+evmts-monorepo/packages/base-client/types/BaseClient.d.ts:7
 
 ___
 
@@ -331,13 +331,14 @@ Options for creating an Tevm MemoryClient instance
 | `eips?` | `ReadonlyArray`\<`number`\> | Eips to enable. Defaults to `[1559, 4895]` |
 | `fork?` | [`ForkStateManagerOpts`](../interfaces/index.ForkStateManagerOpts.md) | Fork options fork a live network if enabled. When in fork mode Tevm will fetch and cache all state from the block forked from the provided URL Cannot be set if `proxy` is also set |
 | `hardfork?` | [`Hardfork`](index.md#hardfork) | Hardfork to use. Defaults to `shanghai` |
+| `miningConfig?` | `MiningConfig` | The configuration for mining. Defaults to 'auto' - 'auto' will mine a block on every transaction - 'interval' will mine a block every `interval` milliseconds - 'manual' will not mine a block automatically and requires a manual call to `mineBlock` |
 | `persister?` | [`SyncStoragePersister`](index.md#syncstoragepersister) | The memory client can optionally initialize and persist it's state to an external source like local storage using `createSyncPersister` **`Example`** ```typescript import { createMemoryClient, createSyncPersister } from 'tevm' const persister = createSyncPersister({ storage: { getItem: (key: string) => localStorage.getItem(key), setItem: (key: string, value: string) => localStorage.setItem(key, value), } }) const memoryClient = createMemoryClient({ persister }) ``` |
 | `profiler?` | `boolean` | Enable profiler. Defaults to false. |
 | `proxy?` | [`ProxyStateManagerOpts`](../interfaces/index.ProxyStateManagerOpts.md) | Options to initialize the client in `proxy` mode When in proxy mode Tevm will fetch all state from the latest block of the provided proxy URL Cannot be set if `fork` is also set |
 
 #### Defined in
 
-evmts-monorepo/packages/base-client/types/BaseClientOptions.d.ts:9
+evmts-monorepo/packages/base-client/types/BaseClientOptions.d.ts:10
 
 ___
 
@@ -1393,7 +1394,7 @@ type BlockNumberRequestType = JsonRpcRequestTypeFromMethod<'eth_blockNumber'>
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:1019
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:1031
 
 ___
 
@@ -1435,7 +1436,7 @@ type BlockNumberReturnType = JsonRpcReturnTypeFromMethod<'eth_blockNumber'>
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:1040
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:1052
 
 ___
 
@@ -1996,7 +1997,7 @@ response - [EthGetBalanceJsonRpcResponse](procedures_types.md#ethgetbalancejsonr
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:1208
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:1220
 
 ___
 
@@ -2009,7 +2010,7 @@ A Tevm JSON-RPC request
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:409
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:416
 
 ___
 
@@ -2120,7 +2121,7 @@ response - [EthGetBalanceJsonRpcResponse](procedures_types.md#ethgetbalancejsonr
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:1122
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:1134
 
 ___
 

@@ -217,7 +217,7 @@ export type EthProtocolVersionParams = EmptyParams
  * Based on the JSON-RPC request for `eth_sendRawTransaction` procedure
  * This type is a placeholder
  */
-export type EthSendRawTransactionParams = CallParams
+export type EthSendRawTransactionParams = { data: Hex }
 // eth_sendTransaction
 /**
  * Based on the JSON-RPC request for `eth_sendTransaction` procedure

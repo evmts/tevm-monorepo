@@ -65,9 +65,11 @@ export type {
 	DebugTraceTransactionJsonRpcRequest,
 	EthJsonRpcRequest,
 	JsonRpcTransaction,
+	AnvilSetCoinbaseJsonRpcRequest,
 } from './requests/index.js'
 export type {
 	DumpStateJsonRpcResponse,
+	AnvilSetCoinbaseJsonRpcResponse,
 	CallJsonRpcResponse,
 	ContractJsonRpcResponse,
 	ScriptJsonRpcResponse,

@@ -9,6 +9,7 @@ import type {
 	AnvilSetBalanceJsonRpcResponse,
 	AnvilSetChainIdJsonRpcResponse,
 	AnvilSetCodeJsonRpcResponse,
+	AnvilSetCoinbaseJsonRpcResponse,
 	AnvilSetNonceJsonRpcResponse,
 	AnvilSetStorageAtJsonRpcResponse,
 	AnvilStopImpersonatingAccountJsonRpcResponse,
@@ -32,4 +33,5 @@ export type AnvilReturnType = {
 	anvil_setChainId: AnvilSetChainIdJsonRpcResponse
 	anvil_dumpState: AnvilDumpStateJsonRpcResponse
 	anvil_loadState: AnvilLoadStateJsonRpcResponse
+	anvil_setCoinbase: AnvilSetCoinbaseJsonRpcResponse
 }

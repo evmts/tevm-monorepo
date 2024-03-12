@@ -2,15 +2,16 @@ import { EthjsAddress, bytesToHex, hexToBytes, numberToHex } from '@tevm/utils'
 
 /**
  * Returns a trace of an eth_call within the context of the given block execution using the final state of the parent block
- * @param {object} options
- * @param {import('@tevm/vm').TevmVm} options.vm
+ * @param {Pick<import('@tevm/base-client').BaseClient, 'getVm'>} client
  * @returns {import('@tevm/actions-types').DebugTraceCallHandler} an execution trace of an {@link eth_call} in the context of a given block execution
  * mirroring the output from {@link traceTransaction}
  */
 export const traceCallHandler =
-	({ vm: _vm }) =>
+	({ getVm }) =>
 	async (params) => {
-		const vm = /** @type {import('@tevm/vm').TevmVm}*/ (await _vm.deepCopy())
+		let vm = await getVm()
+		vm = /** @type {import('@tevm/vm').TevmVm}*/ (await vm.deepCopy())
+		// TODO validate these params
 		const { from, to, gas: gasLimit, gasPrice, value, data } = params
 
 		const trace = {
@@ -25,6 +26,7 @@ export const traceCallHandler =
 			 */
 			structLogs: [],
 		}
+
 		vm.evm.events?.on('step', async (step, next) => {
 			trace.structLogs.push({
 				pc: step.pc,

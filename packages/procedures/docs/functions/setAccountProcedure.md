@@ -42,11 +42,22 @@ const chainId = await client.getChainId()
 console.log(chainId)
 ```
 
+▪ **client.getTxPool**: () => `Promise`\<`TxPool`\>
+
+Gets the pool of pending transactions to be included in next block
+
 ▪ **client.getVm**: () => `Promise`\<`TevmVm`\>
 
 Internal instance of the VM. Can be used for lower level operations.
 Normally not recomended to use unless building libraries or extensions
 on top of Tevm.
+
+▪ **client.miningConfig**: `MiningConfig`
+
+The configuration for mining. Defaults to 'auto'
+- 'auto' will mine a block on every transaction
+- 'interval' will mine a block every `interval` milliseconds
+- 'manual' will not mine a block automatically and requires a manual call to `mineBlock`
 
 ▪ **client.mode**: `"fork"` \| `"proxy"` \| `"normal"`
 

@@ -294,7 +294,7 @@ export class TxPool {
 	}
 
 	/**
-	 * Adds a tx to the pool.
+	 * Adds a tx to the pool without validating it.
 	 *
 	 * If there is a tx in the pool with the same address and
 	 * nonce it will be replaced by the new tx, if it has a sufficient gas bump.
@@ -302,12 +302,11 @@ export class TxPool {
 	 * @param tx Transaction
 	 * @param isLocalTransaction if this is a local transaction (loosens some constraints) (default: false)
 	 */
-	async add(tx: TypedTransaction, isLocalTransaction = false) {
+	async addUnverified(tx: TypedTransaction) {
 		const hash: UnprefixedHash = bytesToUnprefixedHex(tx.hash())
 		const added = Date.now()
 		const address: UnprefixedAddress = tx.getSenderAddress().toString().slice(2)
 		try {
-			await this.validate(tx, isLocalTransaction)
 			let add: TxPoolObject[] = this.pool.get(address) ?? []
 			const inPool = this.pool.get(address)
 			if (inPool) {
@@ -322,6 +321,20 @@ export class TxPool {
 			this.handled.set(hash, { address, added, error: e as Error })
 			throw e
 		}
+	}
+
+	/**
+	 * Adds a tx to the pool.
+	 *
+	 * If there is a tx in the pool with the same address and
+	 * nonce it will be replaced by the new tx, if it has a sufficient gas bump.
+	 * This also verifies certain constraints, if these are not met, tx will not be added to the pool.
+	 * @param tx Transaction
+	 * @param isLocalTransaction if this is a local transaction (loosens some constraints) (default: false)
+	 */
+	async add(tx: TypedTransaction) {
+		await this.validate(tx, true)
+		return this.addUnverified(tx)
 	}
 
 	/**

@@ -5,6 +5,7 @@ import { createBlockchain } from '@tevm/blockchain'
 import { TevmCommon } from '@tevm/common'
 import { createEvm } from '@tevm/evm'
 import { createTevmStateManager } from '@tevm/state'
+import { TxPool } from '@tevm/txpool'
 import { hexToBigInt, toHex } from '@tevm/utils'
 import { createVm } from '@tevm/vm'
 
@@ -184,6 +185,7 @@ export const createBaseClient = (options = {}) => {
 	}
 
 	const vmPromise = initVm()
+	const txPoolPromise = vmPromise.then((vm) => new TxPool({ vm }))
 	const chainIdPromise = initChainId()
 
 	/**
@@ -193,6 +195,9 @@ export const createBaseClient = (options = {}) => {
 	 * @type {import('./BaseClient.js').BaseClient}
 	 */
 	const baseClient = {
+		getTxPool: () => {
+			return txPoolPromise
+		},
 		getChainId: () => {
 			if (overrideChainId) {
 				return Promise.resolve(overrideChainId)
@@ -201,6 +206,7 @@ export const createBaseClient = (options = {}) => {
 		},
 		setChainId,
 		getVm: () => vmPromise,
+		miningConfig: options.miningConfig ?? { type: 'auto' },
 		mode: options.fork?.url ? 'fork' : options.proxy?.url ? 'proxy' : 'normal',
 		...(options.fork?.url
 			? { forkUrl: options.fork.url }

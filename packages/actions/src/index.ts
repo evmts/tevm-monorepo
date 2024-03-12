@@ -10,6 +10,9 @@ export {
 	ethAccountsHandler,
 	ethSignHandler,
 	testAccounts,
+	ethSendRawTransactionHandler,
+	ethSendTransactionHandler,
+	BlobGasLimitExceededError,
 	MissingAccountError,
 	NoForkUrlSetError,
 } from './eth/index.js'
