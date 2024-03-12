@@ -8,6 +8,7 @@
 
 ### Classes
 
+- [BlobGasLimitExceededError](classes/BlobGasLimitExceededError.md)
 - [MissingAccountError](classes/MissingAccountError.md)
 - [NoForkUrlSetError](classes/NoForkUrlSetError.md)
 
@@ -24,6 +25,8 @@
 - [dumpStateHandler](functions/dumpStateHandler.md)
 - [ethAccountsHandler](functions/ethAccountsHandler.md)
 - [ethCallHandler](functions/ethCallHandler.md)
+- [ethSendRawTransactionHandler](functions/ethSendRawTransactionHandler.md)
+- [ethSendTransactionHandler](functions/ethSendTransactionHandler.md)
 - [ethSignHandler](functions/ethSignHandler.md)
 - [ethSignTransactionHandler](functions/ethSignTransactionHandler.md)
 - [gasPriceHandler](functions/gasPriceHandler.md)

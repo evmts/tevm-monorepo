@@ -6,7 +6,7 @@
 
 ### Classes
 
-- [Block](classes/Block.md)
+- [TevmBlock](classes/TevmBlock.md)
 - [TevmBlockchain](classes/TevmBlockchain.md)
 
 ### Functions

@@ -170,12 +170,12 @@ export class TxPool {
 		const minTipCap =
 			existingTxGasPrice.tip +
 			(existingTxGasPrice.tip * BigInt(MIN_GAS_PRICE_BUMP_PERCENT)) /
-			BigInt(100)
+				BigInt(100)
 
 		const minFeeCap =
 			existingTxGasPrice.maxFee +
 			(existingTxGasPrice.maxFee * BigInt(MIN_GAS_PRICE_BUMP_PERCENT)) /
-			BigInt(100)
+				BigInt(100)
 		if (newGasPrice.tip < minTipCap || newGasPrice.maxFee < minFeeCap) {
 			throw new Error(
 				`replacement gas too low, got tip ${newGasPrice.tip}, min: ${minTipCap}, got fee ${newGasPrice.maxFee}, min: ${minFeeCap}`,
@@ -189,7 +189,7 @@ export class TxPool {
 			const minblobGasFee =
 				existingTx.maxFeePerBlobGas +
 				(existingTx.maxFeePerBlobGas * BigInt(MIN_GAS_PRICE_BUMP_PERCENT)) /
-				BigInt(100)
+					BigInt(100)
 			if (addedTx.maxFeePerBlobGas < minblobGasFee) {
 				throw new Error(
 					`replacement blob gas too low, got: ${addedTx.maxFeePerBlobGas}, min: ${minblobGasFee}`,
@@ -539,7 +539,7 @@ export class TxPool {
 		const byPrice = new Heap({
 			comparBefore: (a: TypedTransaction, b: TypedTransaction) =>
 				this.normalizedGasPrice(b, baseFee) -
-				this.normalizedGasPrice(a, baseFee) <
+					this.normalizedGasPrice(a, baseFee) <
 				BIGINT_0,
 		}) as QHeap<TypedTransaction>
 		for (const [address, txs] of byNonce) {
@@ -572,7 +572,7 @@ export class TxPool {
 				!(best instanceof BlobEIP4844Transaction) ||
 				allowedBlobs === undefined ||
 				((best as BlobEIP4844Transaction).blobs ?? []).length + blobsCount <=
-				allowedBlobs
+					allowedBlobs
 			) {
 				if (accTxs.length > 0) {
 					if (!accTxs[0]) {

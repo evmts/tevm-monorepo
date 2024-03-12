@@ -9,10 +9,10 @@ import type {
 	AnvilSetBalanceJsonRpcResponse,
 	AnvilSetChainIdJsonRpcResponse,
 	AnvilSetCodeJsonRpcResponse,
+	AnvilSetCoinbaseJsonRpcResponse,
 	AnvilSetNonceJsonRpcResponse,
 	AnvilSetStorageAtJsonRpcResponse,
 	AnvilStopImpersonatingAccountJsonRpcResponse,
-	AnvilSetCoinbaseJsonRpcResponse,
 } from '../index.js'
 
 /**

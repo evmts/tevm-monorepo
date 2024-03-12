@@ -1,15 +1,19 @@
 export type IntervalMining = {
-  type: 'interval'
-  interval: number
+	type: 'interval'
+	interval: number
 }
 export type ManualMining = {
-  type: 'manual',
+	type: 'manual'
 }
 export type AutoMining = {
-  type: 'auto'
+	type: 'auto'
 }
 export type GasMining = {
-  type: 'gas'
-  limit: BigInt
+	type: 'gas'
+	limit: BigInt
 }
-export type MiningConfig = IntervalMining | ManualMining | AutoMining | GasMining
+export type MiningConfig =
+	| IntervalMining
+	| ManualMining
+	| AutoMining
+	| GasMining

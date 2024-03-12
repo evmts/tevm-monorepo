@@ -1289,9 +1289,6 @@ importers:
       '@tevm/jsonrpc':
         specifier: workspace:^
         version: link:../jsonrpc
-      '@tevm/txpool':
-        specifier: workspace:1.0.0-next.42
-        version: link:../txpool
       '@tevm/utils':
         specifier: workspace:^
         version: link:../utils
