@@ -6,6 +6,8 @@
 
 # Class: BlobGasLimitExceededError
 
+Error thrown when blob gas limit is exceeded
+
 ## Extends
 
 - `Error`
@@ -22,7 +24,7 @@ Error.constructor
 
 #### Source
 
-[packages/actions/src/eth/ethSendRawTransactionHandler.js:24](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/ethSendRawTransactionHandler.js#L24)
+[packages/actions/src/eth/ethSendRawTransactionHandler.js:28](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/ethSendRawTransactionHandler.js#L28)
 
 ## Properties
 
@@ -32,7 +34,7 @@ Error.constructor
 
 #### Source
 
-[packages/actions/src/eth/ethSendRawTransactionHandler.js:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/ethSendRawTransactionHandler.js#L16)
+[packages/actions/src/eth/ethSendRawTransactionHandler.js:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/ethSendRawTransactionHandler.js#L20)
 
 ***
 
@@ -74,7 +76,7 @@ Error.name
 
 #### Source
 
-[packages/actions/src/eth/ethSendRawTransactionHandler.js:22](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/ethSendRawTransactionHandler.js#L22)
+[packages/actions/src/eth/ethSendRawTransactionHandler.js:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/ethSendRawTransactionHandler.js#L26)
 
 ***
 

@@ -9,6 +9,10 @@ const txType = {
 	OPTIMISM_DEPOSIT: 0x7e,
 }
 
+// TODO move this to @tevm/errors
+/**
+ * Error thrown when blob gas limit is exceeded
+ */
 export class BlobGasLimitExceededError extends Error {
 	/**
 	 * @type {'BlobGasLimitExceededError'}

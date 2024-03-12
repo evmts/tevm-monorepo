@@ -16,7 +16,7 @@
 
 ## Source
 
-[packages/actions/src/eth/ethSendRawTransactionHandler.js:66](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/ethSendRawTransactionHandler.js#L66)
+[packages/actions/src/eth/ethSendRawTransactionHandler.js:70](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/ethSendRawTransactionHandler.js#L70)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
