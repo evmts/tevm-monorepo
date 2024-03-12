@@ -179,13 +179,13 @@ node_modules/.pnpm/@ethereumjs+blockchain@7.1.0/node_modules/@ethereumjs/blockch
 
 ### genesisBlock
 
-• `get` **genesisBlock**(): [`Block`](Block.md)
+• `get` **genesisBlock**(): `Block`
 
-The genesis [Block](Block.md) for the blockchain.
+The genesis Block for the blockchain.
 
 #### Returns
 
-[`Block`](Block.md)
+`Block`
 
 #### Inherited from
 
@@ -225,9 +225,9 @@ ___
 
 ### createGenesisBlock
 
-▸ **createGenesisBlock**(`stateRoot`): [`Block`](Block.md)
+▸ **createGenesisBlock**(`stateRoot`): `Block`
 
-Creates a genesis [Block](Block.md) for the blockchain with params from Common.genesis
+Creates a genesis Block for the blockchain with params from Common.genesis
 
 #### Parameters
 
@@ -237,7 +237,7 @@ Creates a genesis [Block](Block.md) for the blockchain with params from Common.g
 
 #### Returns
 
-[`Block`](Block.md)
+`Block`
 
 #### Inherited from
 
@@ -284,7 +284,7 @@ ___
 
 ### getBlock
 
-▸ **getBlock**(`blockId`): `Promise`\<[`Block`](Block.md)\>
+▸ **getBlock**(`blockId`): `Promise`\<`Block`\>
 
 Gets a block by its hash or number.  If a number is provided, the returned
 block will be the canonical block at that number in the chain
@@ -297,7 +297,7 @@ block will be the canonical block at that number in the chain
 
 #### Returns
 
-`Promise`\<[`Block`](Block.md)\>
+`Promise`\<`Block`\>
 
 #### Inherited from
 
@@ -311,7 +311,7 @@ ___
 
 ### getBlocks
 
-▸ **getBlocks**(`blockId`, `maxBlocks`, `skip`, `reverse`): `Promise`\<[`Block`](Block.md)[]\>
+▸ **getBlocks**(`blockId`, `maxBlocks`, `skip`, `reverse`): `Promise`\<`Block`[]\>
 
 Looks up many blocks relative to blockId Note: due to `GetBlockHeaders
 (0x03)` (ETH wire protocol) we have to support skip/reverse as well.
@@ -327,7 +327,7 @@ Looks up many blocks relative to blockId Note: due to `GetBlockHeaders
 
 #### Returns
 
-`Promise`\<[`Block`](Block.md)[]\>
+`Promise`\<`Block`[]\>
 
 #### Inherited from
 
@@ -341,13 +341,13 @@ ___
 
 ### getCanonicalHeadBlock
 
-▸ **getCanonicalHeadBlock**(): `Promise`\<[`Block`](Block.md)\>
+▸ **getCanonicalHeadBlock**(): `Promise`\<`Block`\>
 
 Returns the latest full block in the canonical chain.
 
 #### Returns
 
-`Promise`\<[`Block`](Block.md)\>
+`Promise`\<`Block`\>
 
 #### Inherited from
 
@@ -407,7 +407,7 @@ ___
 
 ### getIteratorHead
 
-▸ **getIteratorHead**(`name?`): `Promise`\<[`Block`](Block.md)\>
+▸ **getIteratorHead**(`name?`): `Promise`\<`Block`\>
 
 Returns the specified iterator head.
 
@@ -424,7 +424,7 @@ has not been run. This matches the behavior of [Blockchain.iterator](TevmBlockch
 
 #### Returns
 
-`Promise`\<[`Block`](Block.md)\>
+`Promise`\<`Block`\>
 
 #### Inherited from
 
@@ -438,7 +438,7 @@ ___
 
 ### getIteratorHeadSafe
 
-▸ **getIteratorHeadSafe**(`name?`): `Promise`\<`undefined` \| [`Block`](Block.md)\>
+▸ **getIteratorHeadSafe**(`name?`): `Promise`\<`undefined` \| `Block`\>
 
 This method differs from `getIteratorHead`. If the head is not found, it returns `undefined`.
 
@@ -450,7 +450,7 @@ This method differs from `getIteratorHead`. If the head is not found, it returns
 
 #### Returns
 
-`Promise`\<`undefined` \| [`Block`](Block.md)\>
+`Promise`\<`undefined` \| `Block`\>
 
 #### Inherited from
 
@@ -562,7 +562,7 @@ heads/hashes are overwritten.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `block` | [`Block`](Block.md) | The block to be added to the blockchain |
+| `block` | `Block` | The block to be added to the blockchain |
 
 #### Returns
 
@@ -593,7 +593,7 @@ chain is rebuilt and any stale heads/hashes are overwritten.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `blocks` | [`Block`](Block.md)[] | The blocks to be added to the blockchain |
+| `blocks` | `Block`[] | The blocks to be added to the blockchain |
 
 #### Returns
 
@@ -822,7 +822,7 @@ whether the block is internally consistent
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `block` | [`Block`](Block.md) | block to be validated |
+| `block` | `Block` | block to be validated |
 
 #### Returns
 
@@ -908,7 +908,7 @@ ___
 ▸ **fromBlocksData**(`blocksData`, `opts?`): `Promise`\<`Blockchain`\>
 
 Creates a blockchain from a list of block objects,
-objects must be readable by [Block.fromBlockData](Block.md#fromblockdata)
+objects must be readable by [Block.fromBlockData](TevmBlock.md#fromblockdata)
 
 #### Parameters
 

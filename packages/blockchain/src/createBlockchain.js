@@ -1,4 +1,4 @@
-import { Block } from './Block.js'
+import { TevmBlock } from './TevmBlock.js'
 import { TevmBlockchain } from './TevmBlockchain.js'
 import { genesisStateRoot } from '@ethereumjs/trie'
 import { createMemoryDb, parseGwei } from '@tevm/utils'
@@ -15,14 +15,18 @@ export const createBlockchain = async ({ common }) => {
 	 */
 	const genesisState = {}
 
-	const genesisBlock = Block.fromBlockData(
+	const genesisBlock = TevmBlock.fromBlockData(
 		{
-			header: { ...common.genesis(), baseFeePerGas: parseGwei('1'), coinbase: '0xc014ba5ec014ba5ec014ba5ec014ba5ec014ba5e' },
+			header: {
+				...common.genesis(),
+				baseFeePerGas: parseGwei('1'),
+				coinbase: '0xc014ba5ec014ba5ec014ba5ec014ba5ec014ba5e',
+			},
 			...(common.isActivatedEIP(4895)
 				? {
-					withdrawals:
+						withdrawals:
 							/** @type {Array<import('@ethereumjs/util').WithdrawalData>}*/ ([]),
-				}
+				  }
 				: {}),
 		},
 		{ common, setHardfork: false, skipConsensusFormatValidation: true },

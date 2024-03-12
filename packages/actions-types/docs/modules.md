@@ -3081,10 +3081,16 @@ ___
 
 ### EthSendRawTransactionParams
 
-Ƭ **EthSendRawTransactionParams**: [`CallParams`](modules.md#callparams)
+Ƭ **EthSendRawTransactionParams**: `Object`
 
 Based on the JSON-RPC request for `eth_sendRawTransaction` procedure
 This type is a placeholder
+
+#### Type declaration
+
+| Name | Type |
+| :------ | :------ |
+| `data` | [`Hex`](modules.md#hex) |
 
 #### Defined in
 

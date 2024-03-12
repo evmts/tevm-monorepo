@@ -32,6 +32,7 @@ module:service
 
 - [\_logPoolStats](TxPool.md#_logpoolstats)
 - [add](TxPool.md#add)
+- [addUnverified](TxPool.md#addunverified)
 - [cleanup](TxPool.md#cleanup)
 - [close](TxPool.md#close)
 - [getByHash](TxPool.md#getbyhash)
@@ -211,13 +212,13 @@ ___
 
 #### Defined in
 
-[TxPool.ts:607](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L607)
+[TxPool.ts:620](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L620)
 
 ___
 
 ### add
 
-▸ **add**(`tx`, `isLocalTransaction?`): `Promise`\<`void`\>
+▸ **add**(`tx`): `Promise`\<`void`\>
 
 Adds a tx to the pool.
 
@@ -227,10 +228,35 @@ This also verifies certain constraints, if these are not met, tx will not be add
 
 #### Parameters
 
-| Name | Type | Default value | Description |
-| :------ | :------ | :------ | :------ |
-| `tx` | `TypedTransaction` | `undefined` | Transaction |
-| `isLocalTransaction` | `boolean` | `false` | if this is a local transaction (loosens some constraints) (default: false) |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `tx` | `TypedTransaction` | Transaction |
+
+#### Returns
+
+`Promise`\<`void`\>
+
+#### Defined in
+
+[TxPool.ts:335](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L335)
+
+___
+
+### addUnverified
+
+▸ **addUnverified**(`tx`): `Promise`\<`void`\>
+
+Adds a tx to the pool without validating it.
+
+If there is a tx in the pool with the same address and
+nonce it will be replaced by the new tx, if it has a sufficient gas bump.
+This also verifies certain constraints, if these are not met, tx will not be added to the pool.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `tx` | `TypedTransaction` | Transaction |
 
 #### Returns
 
@@ -254,7 +280,7 @@ Regular tx pool cleanup
 
 #### Defined in
 
-[TxPool.ts:390](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L390)
+[TxPool.ts:403](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L403)
 
 ___
 
@@ -270,7 +296,7 @@ Close pool
 
 #### Defined in
 
-[TxPool.ts:600](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L600)
+[TxPool.ts:613](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L613)
 
 ___
 
@@ -294,7 +320,7 @@ Array with tx objects
 
 #### Defined in
 
-[TxPool.ts:332](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L332)
+[TxPool.ts:345](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L345)
 
 ___
 
@@ -319,7 +345,7 @@ priority tip, and omitting it returns the max total fee.
 
 #### Defined in
 
-[TxPool.ts:424](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L424)
+[TxPool.ts:437](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L437)
 
 ___
 
@@ -357,7 +383,7 @@ Removes the given tx from the pool
 
 #### Defined in
 
-[TxPool.ts:355](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L355)
+[TxPool.ts:368](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L368)
 
 ___
 
@@ -379,7 +405,7 @@ Remove txs included in the latest blocks from the tx pool
 
 #### Defined in
 
-[TxPool.ts:377](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L377)
+[TxPool.ts:390](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L390)
 
 ___
 
@@ -411,7 +437,7 @@ Stop pool execution
 
 #### Defined in
 
-[TxPool.ts:589](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L589)
+[TxPool.ts:602](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L602)
 
 ___
 
@@ -435,7 +461,7 @@ Gas price (both tip and max fee)
 
 #### Defined in
 
-[TxPool.ts:445](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L445)
+[TxPool.ts:458](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L458)
 
 ___
 
@@ -471,7 +497,7 @@ the head transaction from each account. This is done via a heap to keep it fast.
 
 #### Defined in
 
-[TxPool.ts:486](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L486)
+[TxPool.ts:499](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L499)
 
 ___
 

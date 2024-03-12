@@ -6,11 +6,15 @@
 
 ### Type Aliases
 
+- [AutoMining](modules.md#automining)
 - [BaseClient](modules.md#baseclient)
 - [BaseClientOptions](modules.md#baseclientoptions)
 - [CustomPrecompile](modules.md#customprecompile)
 - [Extension](modules.md#extension)
 - [Hardfork](modules.md#hardfork)
+- [IntervalMining](modules.md#intervalmining)
+- [ManualMining](modules.md#manualmining)
+- [MiningConfig](modules.md#miningconfig)
 
 ### Functions
 
@@ -18,9 +22,25 @@
 
 ## Type Aliases
 
+### AutoMining
+
+Ƭ **AutoMining**: `Object`
+
+#### Type declaration
+
+| Name | Type |
+| :------ | :------ |
+| `type` | ``"auto"`` |
+
+#### Defined in
+
+[MiningConfig.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/MiningConfig.ts#L8)
+
+___
+
 ### BaseClient
 
-Ƭ **BaseClient**\<`TMode`, `TExtended`\>: \{ `extend`: \<TExtension\>(`decorator`: (`client`: [`BaseClient`](modules.md#baseclient)\<`TMode`, `TExtended`\>) => `TExtension`) => [`BaseClient`](modules.md#baseclient)\<`TMode`, `TExtended` & `TExtension`\> ; `forkUrl?`: `string` ; `getChainId`: () => `Promise`\<`number`\> ; `getVm`: () => `Promise`\<`TevmVm`\> ; `mode`: `TMode` ; `ready`: () => `Promise`\<``true``\> ; `setChainId`: (`chainId`: `number`) => `void`  } & `TExtended`
+Ƭ **BaseClient**\<`TMode`, `TExtended`\>: \{ `extend`: \<TExtension\>(`decorator`: (`client`: [`BaseClient`](modules.md#baseclient)\<`TMode`, `TExtended`\>) => `TExtension`) => [`BaseClient`](modules.md#baseclient)\<`TMode`, `TExtended` & `TExtension`\> ; `forkUrl?`: `string` ; `getChainId`: () => `Promise`\<`number`\> ; `getTxPool`: () => `Promise`\<`TxPool`\> ; `getVm`: () => `Promise`\<`TevmVm`\> ; `miningConfig`: [`MiningConfig`](modules.md#miningconfig) ; `mode`: `TMode` ; `ready`: () => `Promise`\<``true``\> ; `setChainId`: (`chainId`: `number`) => `void`  } & `TExtended`
 
 The base client used by Tevm. Add extensions to add additional functionality
 
@@ -33,7 +53,7 @@ The base client used by Tevm. Add extensions to add additional functionality
 
 #### Defined in
 
-[BaseClient.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/BaseClient.ts#L6)
+[BaseClient.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/BaseClient.ts#L8)
 
 ___
 
@@ -54,13 +74,14 @@ Options for creating an Tevm MemoryClient instance
 | `eips?` | `ReadonlyArray`\<`number`\> | Eips to enable. Defaults to `[1559, 4895]` |
 | `fork?` | `ForkStateManagerOpts` | Fork options fork a live network if enabled. When in fork mode Tevm will fetch and cache all state from the block forked from the provided URL Cannot be set if `proxy` is also set |
 | `hardfork?` | [`Hardfork`](modules.md#hardfork) | Hardfork to use. Defaults to `shanghai` |
+| `miningConfig?` | [`MiningConfig`](modules.md#miningconfig) | The configuration for mining. Defaults to 'auto' - 'auto' will mine a block on every transaction - 'interval' will mine a block every `interval` milliseconds - 'manual' will not mine a block automatically and requires a manual call to `mineBlock` |
 | `persister?` | `SyncStoragePersister` | The memory client can optionally initialize and persist it's state to an external source like local storage using `createSyncPersister` **`Example`** ```typescript import { createMemoryClient, createSyncPersister } from 'tevm' const persister = createSyncPersister({ storage: { getItem: (key: string) => localStorage.getItem(key), setItem: (key: string, value: string) => localStorage.setItem(key, value), } }) const memoryClient = createMemoryClient({ persister }) ``` |
 | `profiler?` | `boolean` | Enable profiler. Defaults to false. |
 | `proxy?` | `ProxyStateManagerOpts` | Options to initialize the client in `proxy` mode When in proxy mode Tevm will fetch all state from the latest block of the provided proxy URL Cannot be set if `fork` is also set |
 
 #### Defined in
 
-[BaseClientOptions.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/BaseClientOptions.ts#L10)
+[BaseClientOptions.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/BaseClientOptions.ts#L11)
 
 ___
 
@@ -116,6 +137,49 @@ Ethereum hardfork option
 
 [Hardfork.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/Hardfork.ts#L4)
 
+___
+
+### IntervalMining
+
+Ƭ **IntervalMining**: `Object`
+
+#### Type declaration
+
+| Name | Type |
+| :------ | :------ |
+| `interval` | `number` |
+| `type` | ``"interval"`` |
+
+#### Defined in
+
+[MiningConfig.ts:1](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/MiningConfig.ts#L1)
+
+___
+
+### ManualMining
+
+Ƭ **ManualMining**: `Object`
+
+#### Type declaration
+
+| Name | Type |
+| :------ | :------ |
+| `type` | ``"manual"`` |
+
+#### Defined in
+
+[MiningConfig.ts:5](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/MiningConfig.ts#L5)
+
+___
+
+### MiningConfig
+
+Ƭ **MiningConfig**: [`IntervalMining`](modules.md#intervalmining) \| [`ManualMining`](modules.md#manualmining) \| [`AutoMining`](modules.md#automining) \| `GasMining`
+
+#### Defined in
+
+[MiningConfig.ts:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/MiningConfig.ts#L15)
+
 ## Functions
 
 ### createBaseClient
@@ -136,10 +200,12 @@ Creates the base instance of a memory client
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `extend` | \<TExtension\>(`decorator`: (`client`: \{ readonly getChainId: () =\> Promise\<number\>; readonly setChainId: (chainId: number) =\> void; readonly forkUrl?: string \| undefined; readonly mode: "fork" \| "proxy" \| "normal"; readonly ready: () =\> Promise\<...\>; readonly getVm: () =\> Promise\<...\>; readonly extend: \<TExtension extends Record\<...\>\>(decorator: (client...) => `TExtension`) => [`BaseClient`](modules.md#baseclient)\<``"fork"`` \| ``"proxy"`` \| ``"normal"``, {} & `TExtension`\> | Extends the base client with additional functionality. This enables optimal code splitting and extensibility |
+| `extend` | \<TExtension\>(`decorator`: (`client`: \{ readonly miningConfig: MiningConfig; readonly getChainId: () =\> Promise\<number\>; readonly setChainId: (chainId: number) =\> void; readonly forkUrl?: string \| undefined; ... 4 more ...; readonly extend: \<TExtension extends Record\<...\>\>(decorator: (client: ...) =\> TExtension) =\> BaseClient\<...\>; }) => `TExtension`) => [`BaseClient`](modules.md#baseclient)\<``"fork"`` \| ``"proxy"`` \| ``"normal"``, {} & `TExtension`\> | Extends the base client with additional functionality. This enables optimal code splitting and extensibility |
 | `forkUrl?` | `string` | Fork url if the EVM is forked **`Example`** ```ts const client = createMemoryClient({ forkUrl: 'https://mainnet.infura.io/v3/your-api-key' }) console.log(client.forkUrl) ``` |
 | `getChainId` | () => `Promise`\<`number`\> | Gets the chainId of the current EVM **`Example`** ```ts const client = createMemoryClient() const chainId = await client.getChainId() console.log(chainId) ``` |
+| `getTxPool` | () => `Promise`\<`TxPool`\> | Gets the pool of pending transactions to be included in next block |
 | `getVm` | () => `Promise`\<`TevmVm`\> | Internal instance of the VM. Can be used for lower level operations. Normally not recomended to use unless building libraries or extensions on top of Tevm. |
+| `miningConfig` | [`MiningConfig`](modules.md#miningconfig) | The configuration for mining. Defaults to 'auto' - 'auto' will mine a block on every transaction - 'interval' will mine a block every `interval` milliseconds - 'manual' will not mine a block automatically and requires a manual call to `mineBlock` |
 | `mode` | ``"fork"`` \| ``"proxy"`` \| ``"normal"`` | The mode the current client is running in `fork` mode will fetch and cache all state from the block forked from the provided URL `proxy` mode will fetch all state from the latest block of the provided proxy URL `normal` mode will not fetch any state and will only run the EVM in memory **`Example`** ```ts let client = createMemoryClient() console.log(client.mode) // 'normal' client = createMemoryClient({ forkUrl: 'https://mainnet.infura.io/v3/your-api-key' }) console.log(client.mode) // 'fork' ``` |
 | `ready` | () => `Promise`\<``true``\> | Returns promise that resulves when the client is ready The client is usable without calling this method but may have extra latency on the first call from initialization **`Example`** ```ts const client = createMemoryClient() await client.ready() ``` |
 | `setChainId` | (`chainId`: `number`) => `void` | Sets the chain id of the current EVM |
@@ -151,4 +217,4 @@ Creates the base instance of a memory client
 
 #### Defined in
 
-[createBaseClient.js:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/createBaseClient.js#L19)
+[createBaseClient.js:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/createBaseClient.js#L20)

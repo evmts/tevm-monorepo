@@ -2860,7 +2860,7 @@ Based on the JSON-RPC request for `eth_newBlockFilter` procedure (no params)
 
 #### Defined in
 
-evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:267
+evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:269
 
 ___
 
@@ -2908,7 +2908,7 @@ Based on the JSON-RPC request for `eth_newFilter` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:263
+evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:265
 
 ___
 
@@ -2956,7 +2956,7 @@ Based on the JSON-RPC request for `eth_newPendingTransactionFilter` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:271
+evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:273
 
 ___
 
@@ -2978,7 +2978,7 @@ ___
 
 #### Defined in
 
-evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:278
+evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:280
 
 ___
 
@@ -3056,10 +3056,16 @@ ___
 
 ### EthSendRawTransactionParams
 
-Ƭ **EthSendRawTransactionParams**: [`CallParams`](index.md#callparams)
+Ƭ **EthSendRawTransactionParams**: `Object`
 
 Based on the JSON-RPC request for `eth_sendRawTransaction` procedure
 This type is a placeholder
+
+#### Type declaration
+
+| Name | Type |
+| :------ | :------ |
+| `data` | [`Hex`](actions_types.md#hex) |
 
 #### Defined in
 
@@ -3112,7 +3118,7 @@ This type is a placeholder
 
 #### Defined in
 
-evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:209
+evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:211
 
 ___
 
@@ -3167,7 +3173,7 @@ Based on the JSON-RPC request for `eth_sign` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:214
+evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:216
 
 ___
 
@@ -3227,7 +3233,7 @@ Based on the JSON-RPC request for `eth_signTransaction` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:222
+evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:224
 
 ___
 
@@ -3275,7 +3281,7 @@ Based on the JSON-RPC request for `eth_syncing` procedure (no params)
 
 #### Defined in
 
-evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:259
+evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:261
 
 ___
 
@@ -3329,7 +3335,7 @@ Based on the JSON-RPC request for `eth_uninstallFilter` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:275
+evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:277
 
 ___
 

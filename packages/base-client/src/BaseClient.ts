@@ -1,6 +1,6 @@
+import type { MiningConfig } from './MiningConfig.js'
 import type { TxPool } from '@tevm/txpool'
 import type { TevmVm } from '@tevm/vm'
-import type { MiningConfig } from './MiningConfig.js'
 
 /**
  * The base client used by Tevm. Add extensions to add additional functionality
