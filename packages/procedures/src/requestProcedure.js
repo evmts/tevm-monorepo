@@ -1,5 +1,6 @@
 import { ethAccountsProcedure } from './eth/ethAccountsProcedure.js'
 import { ethCallProcedure } from './eth/ethCallProcedure.js'
+import { ethGetTransactionReceiptJsonRpcProcedure } from './eth/ethGetTransactionReceiptProcedure.js'
 import { ethSignProcedure } from './eth/ethSignProcedure.js'
 import { ethSignTransactionProcedure } from './eth/ethSignTransactionProcedure.js'
 import {
@@ -367,6 +368,14 @@ export const requestProcedure = (client) => {
 					...(debugTraceCallRequest.id ? { id: debugTraceCallRequest.id } : {}),
 				}
 			}
+			case 'eth_getTransactionReceipt': {
+				const getTransactionReceiptRequest =
+					/** @type {import('@tevm/procedures-types').EthGetTransactionReceiptJsonRpcRequest}*/
+					(request)
+				return ethGetTransactionReceiptJsonRpcProcedure(client)(
+					getTransactionReceiptRequest,
+				)
+			}
 			case 'eth_getLogs':
 			case 'eth_newFilter':
 			case 'eth_getFilterLogs':
@@ -378,7 +387,6 @@ export const requestProcedure = (client) => {
 			case 'eth_getFilterChanges':
 			case 'eth_getTransactionCount':
 			case 'eth_getTransactionByHash':
-			case 'eth_getTransactionReceipt':
 			case 'eth_getUncleCountByBlockHash':
 			case 'eth_getUncleCountByBlockNumber':
 			case 'eth_getUncleByBlockHashAndIndex':

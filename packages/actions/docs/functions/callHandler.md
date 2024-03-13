@@ -12,6 +12,7 @@ Creates an CallHandler for handling call params with Ethereumjs EVM
 
 ## Parameters
 
+<<<<<<< HEAD
 ▪ **client**: `object`
 
 ▪ **client.extend**: \<`TExtension`\>(`decorator`) => `BaseClient`\<`"fork"` \| `"proxy"` \| `"normal"`, `object` & `TExtension`\>
@@ -91,6 +92,9 @@ await client.ready()
 ▪ **client.setChainId?**: (`chainId`) => `void`
 
 Sets the chain id of the current EVM
+=======
+▪ **client**: `Pick`\<`object`, `"mode"` \| `"getVm"` \| `"getTxPool"`\>
+>>>>>>> 86ee7f7d4 (:sparkles: Feat: Add getReceipt and logs to tevm)
 
 ▪ **options?**: `object`= `{}`
 
@@ -100,7 +104,7 @@ Sets the chain id of the current EVM
 
 ## Source
 
-[packages/actions/src/tevm/callHandler.js:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm/callHandler.js#L14)
+[packages/actions/src/tevm/callHandler.js:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm/callHandler.js#L19)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -6,6 +6,13 @@ import type { CallError } from '@tevm/errors'
  */
 export type CallResult<ErrorType = CallError> = {
 	/**
+	 * The returned tx hash if the call was included in the chain
+	 * Will not be defined if the call was not included in the chain
+	 * Whether a call is included in the chain depends on if the
+	 * `createTransaction` option and the result of the call
+	 */
+	txHash?: Hex
+	/**
 	 * Amount of gas left
 	 */
 	gas?: bigint

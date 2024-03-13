@@ -12,6 +12,7 @@ Creates an ContractHandler for handling contract params with Ethereumjs EVM
 
 ## Parameters
 
+<<<<<<< HEAD
 ▪ **client**: `object`
 
 ▪ **client.extend**: \<`TExtension`\>(`decorator`) => `BaseClient`\<`"fork"` \| `"proxy"` \| `"normal"`, `object` & `TExtension`\>
@@ -91,6 +92,9 @@ await client.ready()
 ▪ **client.setChainId?**: (`chainId`) => `void`
 
 Sets the chain id of the current EVM
+=======
+▪ **client**: `Pick`\<`object`, `"mode"` \| `"getVm"` \| `"getTxPool"`\>
+>>>>>>> 86ee7f7d4 (:sparkles: Feat: Add getReceipt and logs to tevm)
 
 ▪ **options?**: `object`= `{}`
 

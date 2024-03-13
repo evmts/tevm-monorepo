@@ -304,16 +304,16 @@ exports[`contractHandler Handles the unlikely event the function data cannot be 
       },
     ],
     "functionName": "balanceOf",
-    "rawData": "0x30783432343234323432",
+    "rawData": "0x42424242",
   },
   "errors": [
     {
       "_tag": "DecodeFunctionDataError",
       "message": 
-"Data size of 10 bytes is too small for given parameters.
+"Data size of 4 bytes is too small for given parameters.
 
 Params: (uint256 balance)
-Data:   0x30783432343234323432 (10 bytes)
+Data:   0x42424242 (4 bytes)
 
 Version: viem@2.8.18"
 ,

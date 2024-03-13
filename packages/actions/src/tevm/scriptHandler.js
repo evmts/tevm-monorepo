@@ -30,7 +30,7 @@ export const scriptHandler = (client, options = {}) => async (params) => {
 	if (/** @type any*/ (params).data) {
 		functionData = /** @type any*/ (params).data
 	} else {
-		const errors = validateScriptParams(/** @type any*/ (params))
+		const errors = validateScriptParams(/** @type any*/(params))
 		if (errors.length > 0) {
 			return maybeThrowOnFail(throwOnFail, {
 				errors,
@@ -44,12 +44,12 @@ export const scriptHandler = (client, options = {}) => async (params) => {
 		functionData =
 			functionData === '0x'
 				? encodeFunctionData(
-						/** @type {any} */ ({
-							abi: params.abi,
-							functionName: params.functionName,
-							args: params.args,
-						}),
-				  )
+						/** @type {any} */({
+						abi: params.abi,
+						functionName: params.functionName,
+						args: params.args,
+					}),
+				)
 				: functionData
 	} catch (e) {
 		/**
@@ -107,7 +107,12 @@ export const scriptHandler = (client, options = {}) => async (params) => {
 	}
 
 	const result = await callHandler(
-		{ ...client, getVm: () => clonedVmPromise },
+		{
+			...client,
+			getVm: () => clonedVmPromise,
+			mode: client.mode,
+			getTxPool: client.getTxPool,
+		},
 		options,
 	)({
 		...callParams,
@@ -118,7 +123,7 @@ export const scriptHandler = (client, options = {}) => async (params) => {
 		result.errors = result.errors.map((err) => {
 			if (isHex(err.message) && err._tag === 'revert') {
 				const decodedError = decodeErrorResult(
-					/** @type {any} */ ({
+					/** @type {any} */({
 						abi: params.abi,
 						data: err.message,
 						functionName: params.functionName,
@@ -144,7 +149,7 @@ export const scriptHandler = (client, options = {}) => async (params) => {
 	let decodedResult
 	try {
 		decodedResult = decodeFunctionResult(
-			/** @type {any} */ ({
+			/** @type {any} */({
 				abi: params.abi,
 				data: result.rawData,
 				functionName: params.functionName,

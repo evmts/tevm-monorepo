@@ -10,6 +10,7 @@
 
 ## Parameters
 
+<<<<<<< HEAD
 ▪ **client**: `object`
 
 ▪ **client.extend**: \<`TExtension`\>(`decorator`) => `BaseClient`\<`"fork"` \| `"proxy"` \| `"normal"`, `object` & `TExtension`\>
@@ -89,6 +90,9 @@ await client.ready()
 ▪ **client.setChainId**: (`chainId`) => `void`
 
 Sets the chain id of the current EVM
+=======
+▪ **client**: `Pick`\<`object`, `"miningConfig"` \| `"mode"` \| `"getVm"` \| `"getTxPool"`\>
+>>>>>>> 86ee7f7d4 (:sparkles: Feat: Add getReceipt and logs to tevm)
 
 ## Returns
 

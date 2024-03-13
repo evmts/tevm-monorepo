@@ -71,7 +71,8 @@
     "@tevm/sync-storage-persister": "workspace:1.0.0-next.40",
     "@tevm/txpool": "workspace:1.0.0-next.42",
     "@tevm/utils": "workspace:^",
-    "@tevm/vm": "workspace:^"
+    "@tevm/vm": "workspace:^",
+    "memory-level": "^1.0.0"
   },
   "devDependencies": {
     "@tevm/tsconfig": "workspace:^",

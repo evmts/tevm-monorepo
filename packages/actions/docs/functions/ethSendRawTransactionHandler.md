@@ -10,13 +10,17 @@
 
 ## Parameters
 
-▪ **client**: `Pick`\<`object`, `"getVm"` \| `"getTxPool"`\>
+▪ **client**: `Pick`\<`object`, `"miningConfig"` \| `"mode"` \| `"getVm"` \| `"getTxPool"`\>
 
 ## Returns
 
 ## Source
 
+<<<<<<< HEAD
 [packages/actions/src/eth/ethSendRawTransactionHandler.js:72](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/ethSendRawTransactionHandler.js#L72)
+=======
+[packages/actions/src/eth/ethSendRawTransactionHandler.js:71](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/ethSendRawTransactionHandler.js#L71)
+>>>>>>> b7441cef7 (:bug: Fetch the first block correctly)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
