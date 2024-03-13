@@ -53,10 +53,13 @@ export const fetchAbi: FetchAbi = async (
   chain,
   onProgress,
 ) => {
+  // Get the default api url for the chain (if it exists)
+  const apiUrl = chain.blockExplorers?.default.apiUrl;
+
   // We can't use the default ABI loader as it doesn't specify the chain id to the loaders
   const loaders = [
     new EtherscanABILoader({
-      baseURL: chain.blockExplorers?.default.apiUrl,
+      baseURL: apiUrl,
       // If the key is there, there is an Etherscan-compatible explorer
       // Whether an api key was fed to the environment or not (default ''), it will
       // still work, in the worst case with a rate limit
@@ -68,11 +71,8 @@ export const fetchAbi: FetchAbi = async (
   try {
     const res = await autoload(contractAddress, {
       provider: chain.custom.provider,
-      // If there is no explorerApiKey property, don't even attempt to use the Etherscan loader
-      abiLoader:
-        chain.custom.explorerApiKey !== undefined
-          ? new MultiABILoader(loaders)
-          : loaders[1],
+      // If there is no api url, don't even attempt to use the Etherscan loader
+      abiLoader: apiUrl ? new MultiABILoader(loaders) : loaders[1],
       // Wrap the onProgress function to just resolve the phase into a message
       onProgress: (phase) => {
         onProgress('Fetching ABI', phaseToMessage[phase]);

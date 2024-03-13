@@ -6,7 +6,6 @@ const env = {
   BASESCAN_API_KEY: process.env.BASESCAN_API_KEY,
   OPTIMISTIC_ETHERSCAN_API_KEY: process.env.OPTIMISTIC_ETHERSCAN_API_KEY,
   POLYGONSCAN_API_KEY: process.env.POLYGONSCAN_API_KEY,
-  ZORA_SUPERSCAN_API_KEY: process.env.ZORA_SUPERSCAN_API_KEY,
 };
 
 Object.keys(env).forEach((key) => {
