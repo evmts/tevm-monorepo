@@ -1,4 +1,5 @@
 import { ABI } from '@shazow/whatsabi/lib.types/abi';
+import { toast } from 'sonner';
 import { GetAccountResult } from 'tevm';
 import { Address } from 'tevm/utils';
 import { create } from 'zustand';
@@ -8,10 +9,7 @@ import { UpdateAccountOptions } from '@/lib/types/config';
 import { DEFAULT_CALLER } from '@/lib/constants/defaults';
 import { TEVM_PREFIX } from '@/lib/local-storage';
 import { getAccount } from '@/lib/tevm';
-import { toastProgress } from '@/lib/toast';
 import { fetchAbi } from '@/lib/whatsabi';
-
-const { onStart, onProgress, onError, onSuccess } = toastProgress;
 
 /* ---------------------------------- TYPES --------------------------------- */
 type ConfigInitialState = {
@@ -71,26 +69,23 @@ export const useConfigStore = create<ConfigStore>()(
         // If we can't be sure if it's a contract, we can attempt to fetch the abi anyway
         if (updateAbi && account.isContract) {
           // TODO maybe it's bad practice to manage the toast here—i.e. in a zuistand store?
-          const toastId = onStart('Fetching ABI', 'Please wait...');
+          const toastId = toast.loading('Fetching ABI');
 
-          const { success, data: abi } = await fetchAbi(
-            account.address,
-            chain,
-            (title: string, description: string) =>
-              onProgress(toastId, title, description),
-          );
+          const { success, data: abi } = await fetchAbi(account.address, chain);
 
           // Set the abi in the store if it's successful
           if (success && abi && abi.length > 0) {
             set({ abi });
-            onSuccess(toastId, 'Success', 'The ABI has been fetched');
+            toast.success('ABI fetched', {
+              id: toastId,
+            });
           } else {
             set({ abi: null });
-            onError(
-              toastId,
-              'No ABI found',
-              'Please make sure this contract is deployed on the selected chain.',
-            );
+            toast.error('Failed to retrieve the ABI', {
+              id: toastId,
+              description:
+                'Please make sure this contract is deployed on the selected chain.',
+            });
           }
         } else {
           if (updateAbi) set({ abi: null });

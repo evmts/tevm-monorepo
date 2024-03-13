@@ -12,10 +12,10 @@ import { Address, encodeFunctionData, Hex, isAddress } from 'tevm/utils';
 
 import { Chain } from '@/lib/types/providers';
 import { ExpectedType, TxResponse } from '@/lib/types/tx';
-import { DEFAULT_ALCHEMY_API_KEY } from '@/lib/constants/defaults';
-import { STANDALONE_RPC_CHAINS } from '@/lib/constants/providers';
-
-const alchemyApiKey = process.env.ALCHEMY_API_KEY || DEFAULT_ALCHEMY_API_KEY;
+import {
+  ALCHEMY_API_KEY,
+  STANDALONE_RPC_CHAINS,
+} from '@/lib/constants/providers';
 
 /* -------------------------------------------------------------------------- */
 /*                                    TYPES                                   */
@@ -335,7 +335,7 @@ export const createClient: CreateClient = async (chainId, forkUrl) => {
     fork: {
       url: STANDALONE_RPC_CHAINS.includes(chainId)
         ? forkUrl
-        : `${forkUrl}${alchemyApiKey}`,
+        : `${forkUrl}${ALCHEMY_API_KEY}`,
     },
   });
 };

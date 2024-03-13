@@ -717,7 +717,7 @@ importers:
         version: 1.0.7(@types/react-dom@18.2.15)(@types/react@18.2.37)(react-dom@18.2.0)(react@18.2.0)
       '@shazow/whatsabi':
         specifier: ^0.11.0
-        version: 0.11.0(@noble/hashes@1.3.3)
+        version: 0.11.0(@noble/hashes@1.3.2)
       '@tanstack/react-table':
         specifier: ^8.12.0
         version: 8.13.2(react-dom@18.2.0)(react@18.2.0)
@@ -764,8 +764,8 @@ importers:
         specifier: ^0.9.0
         version: 0.9.0(@types/react-dom@18.2.15)(@types/react@18.2.37)(react-dom@18.2.0)(react@18.2.0)
       viem:
-        specifier: ^2.7.11
-        version: 2.7.16(typescript@5.3.3)(zod@3.22.4)
+        specifier: ^2.8.5
+        version: 2.8.5(typescript@5.3.3)(zod@3.22.4)
       web-streams-polyfill:
         specifier: ^3.3.3
         version: 3.3.3
@@ -2523,7 +2523,7 @@ packages:
       '@babel/traverse': 7.24.0
       '@babel/types': 7.24.0
       convert-source-map: 2.0.0
-      debug: 4.3.4
+      debug: 4.3.4(supports-color@8.1.1)
       gensync: 1.0.0-beta.2
       json5: 2.2.3
       semver: 6.3.1
@@ -2908,7 +2908,7 @@ packages:
       '@babel/helper-split-export-declaration': 7.22.6
       '@babel/parser': 7.24.0
       '@babel/types': 7.24.0
-      debug: 4.3.4
+      debug: 4.3.4(supports-color@8.1.1)
       globals: 11.12.0
     transitivePeerDependencies:
       - supports-color
@@ -4394,7 +4394,7 @@ packages:
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dependencies:
       ajv: 6.12.6
-      debug: 4.3.4
+      debug: 4.3.4(supports-color@8.1.1)
       espree: 9.6.1
       globals: 13.24.0
       ignore: 5.3.1
@@ -4442,7 +4442,7 @@ packages:
       '@ethereumjs/trie': 6.1.1
       '@ethereumjs/tx': 5.2.1
       '@ethereumjs/util': 9.0.2
-      debug: 4.3.4
+      debug: 4.3.4(supports-color@8.1.1)
       ethereum-cryptography: 2.1.3
       lru-cache: 10.2.0
     transitivePeerDependencies:
@@ -4480,7 +4480,7 @@ packages:
       '@ethereumjs/tx': 5.2.1
       '@ethereumjs/util': 9.0.2
       '@types/debug': 4.1.12
-      debug: 4.3.4
+      debug: 4.3.4(supports-color@8.1.1)
       ethereum-cryptography: 2.1.3
       rustbn-wasm: 0.2.0
     transitivePeerDependencies:
@@ -4500,7 +4500,7 @@ packages:
       '@ethereumjs/trie': 6.1.1
       '@ethereumjs/util': 9.0.2
       '@ethereumjs/verkle': 0.0.1
-      debug: 4.3.4
+      debug: 4.3.4(supports-color@8.1.1)
       ethereum-cryptography: 2.1.3
       js-sdsl: 4.4.2
       lru-cache: 10.2.0
@@ -4529,7 +4529,7 @@ packages:
       '@ethereumjs/rlp': 5.0.2
       '@ethereumjs/util': 9.0.2
       '@types/readable-stream': 2.3.15
-      debug: 4.3.4
+      debug: 4.3.4(supports-color@8.1.1)
       ethereum-cryptography: 2.1.3
       lru-cache: 10.2.0
       readable-stream: 3.6.2
@@ -4587,7 +4587,7 @@ packages:
       '@ethereumjs/trie': 6.1.1
       '@ethereumjs/tx': 5.2.1
       '@ethereumjs/util': 9.0.2
-      debug: 4.3.4
+      debug: 4.3.4(supports-color@8.1.1)
       ethereum-cryptography: 2.1.3
     transitivePeerDependencies:
       - c-kzg
@@ -5105,7 +5105,7 @@ packages:
     engines: {node: '>=10.10.0'}
     dependencies:
       '@humanwhocodes/object-schema': 2.0.2
-      debug: 4.3.4
+      debug: 4.3.4(supports-color@8.1.1)
       minimatch: 3.1.2
     transitivePeerDependencies:
       - supports-color
@@ -7832,7 +7832,7 @@ packages:
     resolution: {integrity: sha512-LJaN3HwRbfQK0X1xFSi0Q9amqOgzQnnDngIt+ZlsBC3Bm7/nE7K0kwshZHyaru79yIVRv/e1mQAjZyuZG6jOFQ==}
     dependencies:
       '@noble/curves': 1.3.0
-      '@noble/hashes': 1.3.3
+      '@noble/hashes': 1.3.2
       '@scure/base': 1.1.5
 
   /@scure/bip39@1.1.1:
@@ -7851,7 +7851,7 @@ packages:
   /@scure/bip39@1.2.2:
     resolution: {integrity: sha512-HYf9TUXG80beW+hGAt3TRM8wU6pQoYur9iNypTROm42dorCGmLnFe3eWjz3gOq6G62H2WRh0FCzAR1PI+29zIA==}
     dependencies:
-      '@noble/hashes': 1.3.3
+      '@noble/hashes': 1.3.2
       '@scure/base': 1.1.5
 
   /@sentry/core@5.30.0:
@@ -7924,12 +7924,12 @@ packages:
       tslib: 1.14.1
     dev: true
 
-  /@shazow/whatsabi@0.11.0(@noble/hashes@1.3.3):
+  /@shazow/whatsabi@0.11.0(@noble/hashes@1.3.2):
     resolution: {integrity: sha512-dIjhgynJeqPLwSI179E37yFElq+IDyy6xBk9fthkhZp/NO6o2AvtJUq9hWotCBNX/ZQzh6ak7CmdHevwralW8w==}
     peerDependencies:
       '@noble/hashes': ^1
     dependencies:
-      '@noble/hashes': 1.3.3
+      '@noble/hashes': 1.3.2
       ethers: 6.10.0
     transitivePeerDependencies:
       - bufferutil
@@ -8496,7 +8496,7 @@ packages:
       '@tevm/procedures': 1.0.0-next.42(typescript@5.3.3)
       '@tevm/procedures-types': 1.0.0-next.41(typescript@5.3.3)
       '@tevm/utils': 1.0.0-next.40(typescript@5.3.3)
-      viem: 2.7.16(typescript@5.3.3)(zod@3.22.4)
+      viem: 2.8.5(typescript@5.3.3)(zod@3.22.4)
     transitivePeerDependencies:
       - bufferutil
       - c-kzg
@@ -8530,8 +8530,8 @@ packages:
     resolution: {integrity: sha512-N1zvVe1O8+i3EiZynd36GhmrO/n0/XElPc374hAS7DK8eM3SD0uCvMLXsetalycc6usFDMT8J+f/sDaPK8AtsQ==}
     dependencies:
       '@tevm/contract': 1.0.0-next.40(typescript@5.3.3)
-      '@tevm/viem': 1.0.0-next.41(viem@2.7.16)
-      viem: 2.7.16(typescript@5.3.3)(zod@3.22.4)
+      '@tevm/viem': 1.0.0-next.41(viem@2.8.5)
+      viem: 2.8.5(typescript@5.3.3)(zod@3.22.4)
     transitivePeerDependencies:
       - bufferutil
       - c-kzg
@@ -8639,7 +8639,7 @@ packages:
       '@ethereumjs/trie': 6.0.1
       '@tevm/utils': 1.0.0-next.40(typescript@5.3.3)
       ethereum-cryptography: 2.1.3
-      viem: 2.7.16(typescript@5.3.3)(zod@3.22.4)
+      viem: 2.8.5(typescript@5.3.3)(zod@3.22.4)
     transitivePeerDependencies:
       - bufferutil
       - c-kzg
@@ -8667,7 +8667,7 @@ packages:
     dependencies:
       '@ethereumjs/util': 9.0.2
       abitype: 1.0.0(typescript@5.3.3)(zod@3.22.4)
-      viem: 2.7.16(typescript@5.3.3)(zod@3.22.4)
+      viem: 2.8.5(typescript@5.3.3)(zod@3.22.4)
     transitivePeerDependencies:
       - bufferutil
       - c-kzg
@@ -8676,13 +8676,13 @@ packages:
       - zod
     dev: false
 
-  /@tevm/viem@1.0.0-next.41(viem@2.7.16):
+  /@tevm/viem@1.0.0-next.41(viem@2.8.5):
     resolution: {integrity: sha512-EJqE3EOVRFAkiB9AwyyhzHtF/rpEp2+is1f33j4sFKsb6f/sZ4S7z4QbLPbc+3UdbL2nDhMkpmvNWeIZQkMTdw==}
     peerDependencies:
       viem: 2.x.x
     dependencies:
       '@tevm/jsonrpc': 1.0.0-next.40
-      viem: 2.7.16(typescript@5.3.3)(zod@3.22.4)
+      viem: 2.8.5(typescript@5.3.3)(zod@3.22.4)
     dev: false
 
   /@tevm/vm@1.0.0-next.42(typescript@5.3.3):
@@ -8705,7 +8705,7 @@ packages:
     resolution: {integrity: sha512-7J/oafqRDYOB7S+zC0vRJF47O3YutfGQNw288LVondVQVCOP8+qI/AyCIufyFsiKQjg8OgJlUMyoGI0B9vjW0Q==}
     dependencies:
       abitype: 1.0.0(typescript@5.3.3)(zod@3.22.4)
-      viem: 2.7.16(typescript@5.3.3)(zod@3.22.4)
+      viem: 2.8.5(typescript@5.3.3)(zod@3.22.4)
       zod: 3.22.4
     transitivePeerDependencies:
       - bufferutil
@@ -9168,7 +9168,7 @@ packages:
       '@typescript-eslint/type-utils': 7.1.1(eslint@8.57.0)(typescript@5.3.3)
       '@typescript-eslint/utils': 7.1.1(eslint@8.57.0)(typescript@5.3.3)
       '@typescript-eslint/visitor-keys': 7.1.1
-      debug: 4.3.4
+      debug: 4.3.4(supports-color@8.1.1)
       eslint: 8.57.0
       graphemer: 1.4.0
       ignore: 5.3.1
@@ -9194,7 +9194,7 @@ packages:
       '@typescript-eslint/types': 6.21.0
       '@typescript-eslint/typescript-estree': 6.21.0(typescript@5.3.3)
       '@typescript-eslint/visitor-keys': 6.21.0
-      debug: 4.3.4
+      debug: 4.3.4(supports-color@8.1.1)
       eslint: 8.57.0
       typescript: 5.3.3
     transitivePeerDependencies:
@@ -9215,7 +9215,7 @@ packages:
       '@typescript-eslint/types': 7.1.1
       '@typescript-eslint/typescript-estree': 7.1.1(typescript@5.3.3)
       '@typescript-eslint/visitor-keys': 7.1.1
-      debug: 4.3.4
+      debug: 4.3.4(supports-color@8.1.1)
       eslint: 8.57.0
       typescript: 5.3.3
     transitivePeerDependencies:
@@ -9250,7 +9250,7 @@ packages:
     dependencies:
       '@typescript-eslint/typescript-estree': 7.1.1(typescript@5.3.3)
       '@typescript-eslint/utils': 7.1.1(eslint@8.57.0)(typescript@5.3.3)
-      debug: 4.3.4
+      debug: 4.3.4(supports-color@8.1.1)
       eslint: 8.57.0
       ts-api-utils: 1.2.1(typescript@5.3.3)
       typescript: 5.3.3
@@ -9279,7 +9279,7 @@ packages:
     dependencies:
       '@typescript-eslint/types': 6.21.0
       '@typescript-eslint/visitor-keys': 6.21.0
-      debug: 4.3.4
+      debug: 4.3.4(supports-color@8.1.1)
       globby: 11.1.0
       is-glob: 4.0.3
       minimatch: 9.0.3
@@ -9301,7 +9301,7 @@ packages:
     dependencies:
       '@typescript-eslint/types': 7.1.1
       '@typescript-eslint/visitor-keys': 7.1.1
-      debug: 4.3.4
+      debug: 4.3.4(supports-color@8.1.1)
       globby: 11.1.0
       is-glob: 4.0.3
       minimatch: 9.0.3
@@ -13127,17 +13127,6 @@ packages:
     dependencies:
       ms: 2.1.3
 
-  /debug@4.3.4:
-    resolution: {integrity: sha512-PRWFHuSU3eDtQJPvnNY7Jcket1j0t5OuOsFzPPzsekD52Zl8qUfFIPEiswXqIvHWGVHOgX+7G/vCNNhehwxfkQ==}
-    engines: {node: '>=6.0'}
-    peerDependencies:
-      supports-color: '*'
-    peerDependenciesMeta:
-      supports-color:
-        optional: true
-    dependencies:
-      ms: 2.1.2
-
   /debug@4.3.4(supports-color@8.1.1):
     resolution: {integrity: sha512-PRWFHuSU3eDtQJPvnNY7Jcket1j0t5OuOsFzPPzsekD52Zl8qUfFIPEiswXqIvHWGVHOgX+7G/vCNNhehwxfkQ==}
     engines: {node: '>=6.0'}
@@ -14163,7 +14152,7 @@ packages:
       eslint: '*'
       eslint-plugin-import: '*'
     dependencies:
-      debug: 4.3.4
+      debug: 4.3.4(supports-color@8.1.1)
       enhanced-resolve: 5.15.0
       eslint: 8.57.0
       eslint-module-utils: 2.8.1(@typescript-eslint/parser@6.21.0)(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.1)(eslint@8.57.0)
@@ -14403,7 +14392,7 @@ packages:
       ajv: 6.12.6
       chalk: 4.1.2
       cross-spawn: 7.0.3
-      debug: 4.3.4
+      debug: 4.3.4(supports-color@8.1.1)
       doctrine: 3.0.0
       escape-string-regexp: 4.0.0
       eslint-scope: 7.2.2
@@ -24082,6 +24071,29 @@ packages:
       - bufferutil
       - utf-8-validate
       - zod
+
+  /viem@2.8.5(typescript@5.3.3)(zod@3.22.4):
+    resolution: {integrity: sha512-EAmZ/jP7Ycmu72zRrB+N/fINEXMVBaLLsUaHwu5LoIjAzmE/f/33RV9AlhUA6RNZ5kujomylSytIyDakzQYXCQ==}
+    peerDependencies:
+      typescript: '>=5.0.4'
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+    dependencies:
+      '@adraffy/ens-normalize': 1.10.0
+      '@noble/curves': 1.2.0
+      '@noble/hashes': 1.3.2
+      '@scure/bip32': 1.3.2
+      '@scure/bip39': 1.2.1
+      abitype: 1.0.0(typescript@5.3.3)(zod@3.22.4)
+      isows: 1.0.3(ws@8.13.0)
+      typescript: 5.3.3
+      ws: 8.13.0
+    transitivePeerDependencies:
+      - bufferutil
+      - utf-8-validate
+      - zod
+    dev: false
 
   /vite-node@0.34.6(@types/node@20.11.19):
     resolution: {integrity: sha512-nlBMJ9x6n7/Amaz6F3zJ97EBwR2FkzhBRxF5e+jE6LA3yi6Wtc2lyTij1OnDMIr34v5g/tVQtsVAzhT0jc5ygA==}
