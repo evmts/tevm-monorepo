@@ -488,9 +488,7 @@ const InterfaceTable: FC<InterfaceTableProps> = ({ data, loading }) => {
   return (
     <DataTable<ABIFunction>
       table={table}
-      pagination={{
-        enabled: dataMemoized.length > 10,
-      }}
+      pagination={dataMemoized.length > 10}
       className="rounded-none border-x border-secondary px-2"
       header={
         <div className="flex w-full items-center justify-between gap-4">
