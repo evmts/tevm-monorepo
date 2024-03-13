@@ -10,6 +10,5 @@ export type Chain = BaseChain & {
   custom: {
     rpcUrl: string;
     provider: PublicClient;
-    explorerApiKey?: string;
   };
 };
