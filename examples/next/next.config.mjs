@@ -1,6 +1,5 @@
-// Api keys
-const env = {
-  ALCHEMY_API_KEY: process.env.ALCHEMY_API_KEY,
+// Explorer keys for Etherscan-like APIs
+const etherscanApiKeys = {
   ETHERSCAN_API_KEY: process.env.ETHERSCAN_API_KEY,
   ARBISCAN_API_KEY: process.env.ARBISCAN_API_KEY,
   BASESCAN_API_KEY: process.env.BASESCAN_API_KEY,
@@ -8,8 +7,8 @@ const env = {
   POLYGONSCAN_API_KEY: process.env.POLYGONSCAN_API_KEY,
 };
 
-Object.keys(env).forEach((key) => {
-  if (!env[key]) {
+Object.keys(etherscanApiKeys).forEach((key) => {
+  if (!etherscanApiKeys[key]) {
     console.warn(
       `No ${key} environment variable set. You may face throttling.`,
     );
@@ -36,7 +35,9 @@ const nextConfig = {
   // These will get exposed to the browser
   // If you would like to keep this key private, use an API route/server components to
   // access it and return the data instead
-  env,
+  env: {
+    ALCHEMY_API_KEY: process.env.ALCHEMY_API_KEY,
+  },
 };
 
 export default nextConfig;
