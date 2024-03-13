@@ -228,7 +228,7 @@ export const requestProcedure = (client) => {
 					)
 				}
 				const fetcher = createJsonRpcFetcher(client.forkUrl)
-				return fetcher.request(/** @type any*/ (request))
+				return fetcher.request(/** @type any*/(request))
 			}
 			// TODO move this to it's own procedure
 			case 'eth_sendTransaction': {
@@ -367,6 +367,59 @@ export const requestProcedure = (client) => {
 					...(debugTraceCallRequest.id ? { id: debugTraceCallRequest.id } : {}),
 				}
 			}
+			case 'eth_getTransactionReceipt':
+				const getTransactionReceiptRequest =
+					/** @type {import('@tevm/procedures-types').EthGetTransactionReceiptJsonRpcRequest}*/
+					(request)
+				const [
+					txHash
+				] = getTransactionReceiptRequest.params[0]
+
+				if (!this.receiptsManager) throw new Error('missing receiptsManager')
+				const result = await this.receiptsManager.getReceiptByTxHash(hexToBytes(txHash))
+				if (!result) return null
+				const [receipt, blockHash, txIndex, logIndex] = result
+				const block = await this._chain.getBlock(blockHash)
+				// Check if block is in canonical chain
+				const blockByNumber = await this._chain.getBlock(block.header.number)
+				if (!equalsBytes(blockByNumber.hash(), block.hash())) {
+					return null
+				}
+
+				const parentBlock = await this._chain.getBlock(block.header.parentHash)
+				const tx = block.transactions[txIndex]
+				const effectiveGasPrice = tx.supports(Capability.EIP1559FeeMarket)
+					? (tx as FeeMarketEIP1559Transaction).maxPriorityFeePerGas <
+						(tx as FeeMarketEIP1559Transaction).maxFeePerGas - block.header.baseFeePerGas!
+						? (tx as FeeMarketEIP1559Transaction).maxPriorityFeePerGas
+						: (tx as FeeMarketEIP1559Transaction).maxFeePerGas -
+						block.header.baseFeePerGas! +
+						block.header.baseFeePerGas!
+					: (tx as LegacyTransaction).gasPrice
+
+				const vmCopy = await this._vm!.shallowCopy()
+				vmCopy.common.setHardfork(tx.common.hardfork())
+				// Run tx through copied vm to get tx gasUsed and createdAddress
+				const runBlockResult = await vmCopy.runBlock({
+					block,
+					root: parentBlock.header.stateRoot,
+					skipBlockValidation: true,
+				})
+
+				const { totalGasSpent, createdAddress } = runBlockResult.results[txIndex]
+				const { blobGasPrice, blobGasUsed } = runBlockResult.receipts[txIndex] as EIP4844BlobTxReceipt
+				return jsonRpcReceipt(
+					receipt,
+					totalGasSpent,
+					effectiveGasPrice,
+					block,
+					tx,
+					txIndex,
+					logIndex,
+					createdAddress,
+					blobGasUsed,
+					blobGasPrice
+				)
 			case 'eth_getLogs':
 			case 'eth_newFilter':
 			case 'eth_getFilterLogs':
@@ -378,7 +431,6 @@ export const requestProcedure = (client) => {
 			case 'eth_getFilterChanges':
 			case 'eth_getTransactionCount':
 			case 'eth_getTransactionByHash':
-			case 'eth_getTransactionReceipt':
 			case 'eth_getUncleCountByBlockHash':
 			case 'eth_getUncleCountByBlockNumber':
 			case 'eth_getUncleByBlockHashAndIndex':
@@ -409,7 +461,7 @@ export const requestProcedure = (client) => {
 					name: 'UnsupportedMethodError',
 					message: `UnsupportedMethodError: Unknown method ${
 						/**@type any*/ (request).method
-					}`,
+						}`,
 				}
 				return /** @type {any}*/ ({
 					id: /** @type any*/ (request).id ?? null,
