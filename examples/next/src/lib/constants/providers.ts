@@ -23,7 +23,6 @@ const explorerApiKey = {
   base: process.env.BASESCAN_API_KEY || '',
   optimism: process.env.OPTIMISTIC_ETHERSCAN_API_KEY || '',
   polygon: process.env.POLYGONSCAN_API_KEY || '',
-  zora: process.env.ZORA_SUPERSCAN_API_KEY || '',
 };
 
 // Chains that don't need an API key
@@ -89,7 +88,6 @@ const CHAINS_DATA = {
     ...zora,
     custom: {
       rpcUrl: 'https://rpc.zora.energy/',
-      explorerApiKey: explorerApiKey.zora,
     },
   },
 };
