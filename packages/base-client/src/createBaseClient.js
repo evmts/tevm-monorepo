@@ -209,6 +209,9 @@ export const createBaseClient = (options = {}) => {
 	 * @type {import('./BaseClient.js').BaseClient}
 	 */
 	const baseClient = {
+		getChain: () => {
+			return chainPromise
+		},
 		getReceiptsManager: () => {
 			return receiptManagerPromise
 		},

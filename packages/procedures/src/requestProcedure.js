@@ -23,7 +23,27 @@ import {
 	traceCallHandler,
 } from '@tevm/actions'
 import { createJsonRpcFetcher } from '@tevm/jsonrpc'
-import { hexToBigInt, numberToHex } from '@tevm/utils'
+import { bytesToHex, hexToBigInt, hexToBytes, numberToHex } from '@tevm/utils'
+
+
+/**
+ * @param {Uint8Array} a
+ * @param {Uint8Array} b
+ */
+const uintEquals = (a, b) => {
+	if (a.length !== b.length) {
+		return false;
+	}
+
+	for (let i = 0; i < a.length; i++) {
+		if (a[i] !== b[i]) {
+			return false;
+		}
+	}
+
+	return true;
+}
+
 
 // Keep this in sync with TevmProvider.ts
 
@@ -375,29 +395,57 @@ export const requestProcedure = (client) => {
 					txHash
 				] = getTransactionReceiptRequest.params[0]
 
-				if (!this.receiptsManager) throw new Error('missing receiptsManager')
-				const result = await this.receiptsManager.getReceiptByTxHash(hexToBytes(txHash))
+				if (!txHash) {
+					return {
+						jsonrpc: '2.0',
+						...(request.id ? { id: request.id } : {}),
+						method: request.method,
+						error: {
+							code: -32602,
+							message: 'Invalid params',
+						},
+					}
+				}
+
+				const receiptsManager = await client.getReceiptsManager()
+				const chain = await client.getChain()
+
+				const result = await receiptsManager.getReceiptByTxHash(hexToBytes(/** @type {import('@tevm/utils').Hex}*/(txHash)))
 				if (!result) return null
 				const [receipt, blockHash, txIndex, logIndex] = result
-				const block = await this._chain.getBlock(blockHash)
+				const block = await chain.getBlock(blockHash)
 				// Check if block is in canonical chain
-				const blockByNumber = await this._chain.getBlock(block.header.number)
-				if (!equalsBytes(blockByNumber.hash(), block.hash())) {
+				const blockByNumber = await chain.getBlock(block.header.number)
+				if (!uintEquals(blockByNumber.hash(), block.hash())) {
 					return null
 				}
 
-				const parentBlock = await this._chain.getBlock(block.header.parentHash)
+				const parentBlock = await chain.getBlock(block.header.parentHash)
 				const tx = block.transactions[txIndex]
-				const effectiveGasPrice = tx.supports(Capability.EIP1559FeeMarket)
-					? (tx as FeeMarketEIP1559Transaction).maxPriorityFeePerGas <
-						(tx as FeeMarketEIP1559Transaction).maxFeePerGas - block.header.baseFeePerGas!
-						? (tx as FeeMarketEIP1559Transaction).maxPriorityFeePerGas
-						: (tx as FeeMarketEIP1559Transaction).maxFeePerGas -
-						block.header.baseFeePerGas! +
-						block.header.baseFeePerGas!
-					: (tx as LegacyTransaction).gasPrice
+				if (!tx) {
+					// TODO check proxy url
+					return {
+						jsonrpc: '2.0',
+						...(request.id ? { id: request.id } : {}),
+						method: request.method,
+						error: {
+							// TODO wrong code
+							code: -32602,
+							message: 'No tx found',
+						},
+					}
+				}
+				// TODO handle legacy tx
+				const effectiveGasPrice =
+					 /** @type any*/(tx).maxPriorityFeePerGas <
+						/** @type any*/(tx).maxFeePerGas - (block.header.baseFeePerGas ?? 0n)
+						? /** @type any*/(tx).maxPriorityFeePerGas
+						: /** @type any*/(tx).maxFeePerGas -
+						(block.header.baseFeePerGas ?? 0n) +
+						(block.header.baseFeePerGas ?? 0n)
 
-				const vmCopy = await this._vm!.shallowCopy()
+				const vm = await client.getVm()
+				const vmCopy = await vm.shallowCopy()
 				vmCopy.common.setHardfork(tx.common.hardfork())
 				// Run tx through copied vm to get tx gasUsed and createdAddress
 				const runBlockResult = await vmCopy.runBlock({
@@ -406,20 +454,51 @@ export const requestProcedure = (client) => {
 					skipBlockValidation: true,
 				})
 
-				const { totalGasSpent, createdAddress } = runBlockResult.results[txIndex]
-				const { blobGasPrice, blobGasUsed } = runBlockResult.receipts[txIndex] as EIP4844BlobTxReceipt
-				return jsonRpcReceipt(
-					receipt,
-					totalGasSpent,
-					effectiveGasPrice,
-					block,
-					tx,
-					txIndex,
-					logIndex,
-					createdAddress,
-					blobGasUsed,
-					blobGasPrice
-				)
+				const res = runBlockResult.results[txIndex]
+				if (!res) {
+					throw new Error('No result for tx this indicates a bug in the client')
+				}
+				const { totalGasSpent, createdAddress } = res
+				const { blobGasPrice, blobGasUsed } = /** @type {any}*/(runBlockResult.receipts[txIndex])
+				return ({
+					blockHash: bytesToHex(block.hash()),
+					blockNumber: numberToHex(block.header.number),
+					cumulativeGasUsed: numberToHex(receipt.cumulativeBlockGasUsed),
+					effectiveGasPrice: numberToHex(effectiveGasPrice),
+					from: tx.getSenderAddress().toString(),
+					gasUsed: numberToHex(totalGasSpent),
+					to: tx.to?.toString() ?? null,
+					transactionHash: bytesToHex(tx.hash()),
+					transactionIndex: numberToHex(txIndex),
+					contractAddress: createdAddress?.toString() ?? null,
+					logs: await Promise.all(
+						receipt.logs.map((log, i) =>
+						({
+							address: bytesToHex(log[0]),
+							blockHash: block ? bytesToHex(block.hash()) : null,
+							blockNumber: block ? numberToHex(block.header.number) : null,
+							data: bytesToHex(log[2]),
+							logIndex: numberToHex(logIndex + i),
+							removed: false,
+							topics: log[1].map(bytes => bytesToHex(bytes)),
+							transactionIndex: txIndex !== undefined ? numberToHex(txIndex) : null,
+							transactionHash: tx !== undefined ? bytesToHex(tx.hash()) : null,
+						})
+						),
+					),
+					logsBloom: bytesToHex(receipt.bitvector),
+					root:
+						/** @type any*/(receipt).stateRoot instanceof Uint8Array
+							? bytesToHex(/** @type any*/(receipt).stateRoot)
+							: undefined,
+					status:
+						(/** @type any*/(receipt).status) instanceof Uint8Array
+							? numberToHex(/** @type any*/(receipt).status)
+							: undefined,
+					blobGasUsed: blobGasUsed !== undefined ? numberToHex(blobGasUsed) : undefined,
+					blobGasPrice: blobGasPrice !== undefined ? numberToHex(blobGasPrice) : undefined,
+				})
+
 			case 'eth_getLogs':
 			case 'eth_newFilter':
 			case 'eth_getFilterLogs':
