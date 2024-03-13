@@ -1,13 +1,14 @@
 import { DEFAULT_CHAIN_ID } from './DEFAULT_CHAIN_ID.js'
 import { addPredeploy } from './addPredeploy.js'
 import { getChainId } from './getChainId.js'
-import { createBlockchain } from '@tevm/blockchain'
+import { Chain, ReceiptsManager, createBlockchain } from '@tevm/blockchain'
 import { TevmCommon } from '@tevm/common'
 import { createEvm } from '@tevm/evm'
 import { createTevmStateManager } from '@tevm/state'
 import { TxPool } from '@tevm/txpool'
 import { hexToBigInt, toHex } from '@tevm/utils'
 import { createVm } from '@tevm/vm'
+import { MemoryLevel } from 'memory-level'
 
 /**
  * Creates the base instance of a memory client
@@ -187,6 +188,19 @@ export const createBaseClient = (options = {}) => {
 	const vmPromise = initVm()
 	const txPoolPromise = vmPromise.then((vm) => new TxPool({ vm }))
 	const chainIdPromise = initChainId()
+	const chainPromise = vmPromise.then(vm => {
+		return Chain.create({
+			blockchain: vm.blockchain,
+			common: vm.common,
+		})
+	})
+	const receiptManagerPromise = chainPromise.then(chain => {
+		return new ReceiptsManager({
+			common: chain.common,
+			chain,
+			metaDB: /** @type any*/(new MemoryLevel())
+		})
+	})
 
 	/**
 	 * Create and return the baseClient
@@ -195,6 +209,9 @@ export const createBaseClient = (options = {}) => {
 	 * @type {import('./BaseClient.js').BaseClient}
 	 */
 	const baseClient = {
+		getReceiptsManager: () => {
+			return receiptManagerPromise
+		},
 		getTxPool: () => {
 			return txPoolPromise
 		},

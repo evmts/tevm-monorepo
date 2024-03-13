@@ -1,6 +1,7 @@
 import type { MiningConfig } from './MiningConfig.js'
 import type { TxPool } from '@tevm/txpool'
 import type { TevmVm } from '@tevm/vm'
+import type { ReceiptsManager } from '@tevm/blockchain'
 
 /**
  * The base client used by Tevm. Add extensions to add additional functionality
@@ -9,6 +10,10 @@ export type BaseClient<
 	TMode extends 'fork' | 'proxy' | 'normal' = 'fork' | 'proxy' | 'normal',
 	TExtended = {},
 > = {
+	/**
+	 * Interface for querying receipts and historical state
+	 */
+	readonly getReceiptsManager: () => Promise<ReceiptsManager>
 	/**
 	 * The configuration for mining. Defaults to 'auto'
 	 * - 'auto' will mine a block on every transaction
