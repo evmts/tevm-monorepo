@@ -347,6 +347,17 @@ export class Chain {
    * @param block block hash or number
    * @throws if block is not found
    */
+  async hasBlock(block: Uint8Array | bigint): Promise<boolean> {
+    if (!this.opened) throw new Error('Chain closed')
+    return this.blockchain.getBlock(block).then(() => true).catch(() => false)
+  }
+
+
+  /**
+   * Get a block by its hash or number
+   * @param block block hash or number
+   * @throws if block is not found
+   */
   async getBlock(block: Uint8Array | bigint): Promise<Block> {
     if (!this.opened) throw new Error('Chain closed')
     return this.blockchain.getBlock(block)
