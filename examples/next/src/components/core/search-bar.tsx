@@ -76,7 +76,15 @@ const SearchBar: FC<SearchBarProps> = ({
     if (initialAddress === inputValue && !address) return;
     // targetChain means it's called from the example button
     // No need to wait for completion, the loading state will be explicit enough
-    setProvider(targetChain ?? chain, (address ?? inputValue) as Address);
+    setProvider(
+      // Either the target chain (example) or the current chain (search)
+      targetChain ?? chain,
+      // If the example button is clicked and it's already the example contract's page but on the wrong chain,
+      // we still want to update the account
+      initialAddress === address && targetChain?.id !== chain.id
+        ? (address as Address)
+        : undefined,
+    );
     // Don't push the prefix if we're already on the address page
     push(`${initialAddress ? '' : 'address/'}${address ?? inputValue}`);
   };
