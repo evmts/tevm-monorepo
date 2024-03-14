@@ -1,7 +1,11 @@
 'use client';
 
+import { useEffect } from 'react';
 import dynamic from 'next/dynamic';
+import { Address, isAddress } from 'tevm/utils';
 
+import { useConfigStore } from '@/lib/store/use-config';
+import { useProviderStore } from '@/lib/store/use-provider';
 import { Separator } from '@/components/ui/separator';
 import AccountState from '@/components/core/account-state';
 
@@ -20,6 +24,33 @@ export default function AccountPage({
 }: {
   params: { account: string };
 }) {
+  // The chain and corresponding client
+  const { chain, client } = useProviderStore((state) => ({
+    chain: state.chain,
+    client: state.client,
+  }));
+
+  // The current account and the function to update it
+  const { account, updateAccount } = useConfigStore((state) => ({
+    account: state.account,
+    updateAccount: state.updateAccount,
+  }));
+
+  // Update the account if the address in the URL changes (on search, reload, or navigation)
+  useEffect(() => {
+    if (
+      client &&
+      account &&
+      isAddress(params.account) &&
+      account.address !== params.account
+    )
+      updateAccount(params.account as Address, {
+        updateAbi: true,
+        chain,
+        client,
+      });
+  }, [params.account, account, chain, client, updateAccount]);
+
   return (
     <div className="flex grow flex-col gap-4">
       <Header initialAddress={params.account} />
