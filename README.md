@@ -84,4 +84,7 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md) for contributing information
 
 ## License 📄
 
+Most files are licensed under [MIT license](./LICENSE). There are some files that are copied from ethereumjs that inherit the [MPL-2.0](https://www.tldrlegal.com/license/mozilla-public-license-2-0-mpl-2). These files are individually marked at the top of the file and are all in the `@tevm/state` `@tevm/blockchain` and other packages that wrap ethereumjs libraries.
+
 <a href="./LICENSE"><img src="https://user-images.githubusercontent.com/35039927/231030761-66f5ce58-a4e9-4695-b1fe-255b1bceac92.png" width="200" /></a>
+
