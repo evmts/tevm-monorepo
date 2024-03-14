@@ -764,7 +764,7 @@ importers:
         specifier: ^0.9.0
         version: 0.9.0(@types/react-dom@18.2.15)(@types/react@18.2.37)(react-dom@18.2.0)(react@18.2.0)
       viem:
-        specifier: ^2.8.5
+        specifier: ^2.8.6
         version: 2.8.18(typescript@5.4.3)(zod@3.22.4)
       web-streams-polyfill:
         specifier: ^3.3.3

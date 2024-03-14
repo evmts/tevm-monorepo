@@ -44,8 +44,7 @@ export const fetchAbi: FetchAbi = async (contractAddress, chain) => {
     body: JSON.stringify({
       chainId: chain.id,
       contractAddress,
-      // TODO Remove this when the API link for OP Mainnet is fixed
-      apiUrl: apiUrl?.endsWith('/api') ? apiUrl : `${apiUrl}/api`,
+      apiUrl,
     }),
   });
 
