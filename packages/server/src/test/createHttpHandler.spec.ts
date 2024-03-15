@@ -13,9 +13,6 @@ import supertest from 'supertest'
 const contractAddress = '0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1'
 
 describe('createHttpHandler', () => {
-	// this doesn't work yet
-	// haven't debugged if code is broke or test is broke yet
-	// landing immediately to avoid merge conflicts in other prs but need to circle back
 	it('should create an http handler', async () => {
 		const tevm = createMemoryClient({
 			fork: {
