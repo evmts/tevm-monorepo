@@ -1,4 +1,5 @@
 ignores: [
-  "@types/node"
+  "@types/node",
+  "@tevm/contract"
 ]
 skip-missing: true
