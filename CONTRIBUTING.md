@@ -55,9 +55,9 @@ Tevm is a monorepo using
 
 - [nx](https://nx.dev/concepts/mental-model) for caching and task management
 - [bun](https://bun.sh/docs) for script runner and workspace node_module management
-- [changesets](./.changeset/) for package versionning
+- [changesets](./.changeset/) for package versioning
 
-For a list of all packages see the `workspaces` key in the root level [package.json](./package.json)
+For a list of all packages, see the `workspaces` key in the root level [package.json](./package.json)
 
 ## Packages
 
@@ -78,11 +78,11 @@ For more information the [reference docs](https://tevm.sh) are a useful resource
 
 #### Runtime packages
 
-- [@tevm/contract](./core) is the main entrypoint for all runtime functionality.
+- [@tevm/contract](./core) is the main entry point for all runtime functionality.
 
 #### Docs
 
-- [@tevm/docs](./docs) is the [vitepress docs site](https://tevm.sh). It's reference docs are generated via `bun generate:docs`
+- [@tevm/docs](./docs) is the [vitepress docs site](https://tevm.sh). Its reference docs are generated via `bun generate:docs`
 
 #### Example apps
 
@@ -92,7 +92,7 @@ Example apps are in [/examples/*](./examples). [@tevm/example-esbuild](./example
 
 #### JavaScript with jsdoc
 
-`@tevm` is written in javascript with jsdoc so it's `esm` build does not need to be built. This means any user using modern `esm` will be using the same src code in their node_modules as what is here.
+`@tevm` is written in javascript with jsdoc so its `esm` build does not need to be built. This means any user using modern `esm` will be using the same src code in their node_modules as what is here.
 
 This means all tevm packages run without being built by default and the same src code is shipped to most users
 
@@ -126,7 +126,7 @@ Note `bun test` will run bun instead of [vitest](https://vitest.dev) resulting i
 
 Fixtures in [src/fixtures](./src/fixtures/) exist both for the vitest tests and also can be loaded in watch mode.
 
-Best way to debug a bug or implement a new feature is to first add a new fixture to use in test or dev server
+The best way to debug a bug or implement a new feature is to first add a new fixture to use in test or dev server
 
 Some fixtures are expected to error and the dev server will succeed if they do error. Which fixtures should error is configured in [scripts/runFixture.ts](./scripts/runFixture.ts)
 
@@ -175,18 +175,18 @@ Docs are generated based on the jsdoc and type errors
 
 #### Barrel files
 
-Whenever a new api is added you will need to update a lot of barrel files. Though tedious this helps keep the packages stable from accidental breaking changes or exporting something that should be private. You will need to update the following places:
+Whenever a new API is added, you will need to update a lot of barrel files. Though tedious this helps keep the packages stable from accidental breaking changes or exporting something that should be private. You will need to update the following places:
 
 - All the `index.js` in your package
 - Possibly the top level `src/index.ts` to update the types too if
 - Update the [tevm](./tevm) package (unless it's a build tool change)
 - Update the [@tevm/bundler](./bundler/) package if it's a build tool api
 
-If you add a lot of files there is a tool to automatically generate a barrel file in your folder in [`scripts`](./scripts/createBarrelFiles.ts)
+If you add a lot of files, there is a tool to automatically generate a barrel file in your folder in [`scripts`](./scripts/createBarrelFiles.ts)
 
 ## Clean build
 
-If you ever have a `wtf` moment consider doing a clean build. It will remove node_modules and then rebuild repo from scratch
+If you ever have a `wtf` moment, consider doing a clean build. It will remove node_modules and then rebuild repo from scratch
 
 ```
 pnpm all:clean
