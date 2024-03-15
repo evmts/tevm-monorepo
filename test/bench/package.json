@@ -63,6 +63,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@tevm/contract": "workspace:1.0.0-next.40",
     "tevm": "workspace:^"
   },
   "devDependencies": {
