@@ -1947,6 +1947,9 @@ importers:
 
   test/bench:
     dependencies:
+      '@tevm/contract':
+        specifier: workspace:1.0.0-next.40
+        version: link:../../packages/contract
       tevm:
         specifier: workspace:^
         version: link:../../tevm
