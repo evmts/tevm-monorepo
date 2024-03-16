@@ -45,14 +45,13 @@
     "types"
   ],
   "scripts": {
-    "all": "bun run build && bun run bench:run && bun run lint && bun run format && bun run generate:docs && bun lint:deps",
+    "all": "bun run build && bun run bench:run && bun run lint && bun run format && bun lint:deps",
     "build": "nx run-many --targets=build:dist,build:types --projects=@tevm/bench ",
     "build:dist": "tsup",
     "build:types": "tsup --dts-only",
     "clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
     "format": "rome format . --write",
     "format:check": "rome format .",
-    "generate:docs": "typedoc",
     "lint": "rome check . --apply-unsafe",
     "lint:check": "rome check . --verbose",
     "lint:deps": "bunx depcheck",
