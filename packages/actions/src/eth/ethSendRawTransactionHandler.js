@@ -1,5 +1,6 @@
 import { BlobEIP4844Transaction, TransactionFactory } from '@ethereumjs/tx'
 import { bytesToHex, hexToBytes } from '@tevm/utils'
+import { callHandler } from '../index.js'
 
 const txType = {
 	LEGACY: 0x00,
@@ -64,12 +65,11 @@ const getTx = (vm, txBuf) => {
 }
 
 /**
- * @param {Pick<import('@tevm/base-client').BaseClient, 'getVm' | 'getTxPool'>} client
+ * @param {Pick<import('@tevm/base-client').BaseClient, 'getVm' | 'getTxPool' | 'mode' | 'miningConfig'>} client
  * @returns {import('@tevm/actions-types').EthSendRawTransactionHandler}
  */
 export const ethSendRawTransactionHandler = (client) => async (params) => {
 	const vm = await client.getVm()
-	const txPool = await client.getTxPool()
 	const txBuf = hexToBytes(params.data)
 	/**
 	 * @type {import('@ethereumjs/tx').BlobEIP4844Transaction | import('@ethereumjs/tx').LegacyTransaction | import('@ethereumjs/tx').AccessListEIP2930Transaction | import('@ethereumjs/tx').FeeMarketEIP1559Transaction}
@@ -86,11 +86,30 @@ export const ethSendRawTransactionHandler = (client) => async (params) => {
 		throw new Error('Invalid transaction. Transaction is not signed')
 	}
 
+	/**
+	 * @type {import('@tevm/actions-types').CallResult}
+	 */
+	let res
 	try {
-		await txPool.add(tx)
+		res = await callHandler(client)({
+			throwOnFail: false,
+			createTransaction: 'always',
+			...tx,
+			from: /** @type {import('@tevm/utils').Address}*/(tx.getSenderAddress().toString()),
+			to: /** @type {import('@tevm/utils').Address}*/(tx.to?.toString()),
+			blobVersionedHashes: /** @type {import('@ethereumjs/tx').EIP4844CompatibleTx}*/(tx).blobVersionedHashes.map(bytes => bytesToHex(bytes)),
+			data: bytesToHex(tx.data),
+		})
 	} catch (error) {
 		// TODO type this error
 		throw new Error('Invalid transaction. Unable to add transaction to pool')
+	}
+
+	if (res.errors?.length === 1) {
+		throw res.errors[0]
+	}
+	if (res.errors?.length ?? 0 > 0) {
+		throw new AggregateError(res.errors ?? [])
 	}
 
 	return bytesToHex(tx.hash())

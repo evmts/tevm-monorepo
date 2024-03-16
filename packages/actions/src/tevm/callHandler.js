@@ -1,93 +1,164 @@
+import { TransactionFactory } from '@ethereumjs/tx'
 import { callHandlerOpts } from './callHandlerOpts.js'
 import { callHandlerResult } from './callHandlerResult.js'
 import { maybeThrowOnFail } from './maybeThrowOnFail.js'
 import { validateCallParams } from '@tevm/zod'
+import { bytesToHex } from '@tevm/utils'
 
 /**
  * Creates an CallHandler for handling call params with Ethereumjs EVM
- * @param {Pick<import('@tevm/base-client').BaseClient, 'getVm'>} client
+ * @param {Pick<import('@tevm/base-client').BaseClient, 'getVm' | 'getTxPool' | 'mode'>} client
  * @param {object} [options]
  * @param {boolean} [options.throwOnFail]
  * @returns {import('@tevm/actions-types').CallHandler}
  */
 export const callHandler =
 	(client, { throwOnFail: defaultThrowOnFail = true } = {}) =>
-	async (params) => {
-		/**
-		 * @type {import('@tevm/vm').TevmVm}
-		 */
-		let copiedVm
+		async (params) => {
+			/**
+			 * @type {import('@tevm/vm').TevmVm}
+			 */
+			let copiedVm
 
-		const vm = await client.getVm()
+			const vm = await client.getVm()
 
-		try {
-			copiedVm = params.createTransaction ? vm : await vm.deepCopy()
-		} catch (e) {
-			return maybeThrowOnFail(params.throwOnFail ?? defaultThrowOnFail, {
-				errors: [
-					{
-						name: 'UnexpectedError',
-						_tag: 'UnexpectedError',
-						message:
-							typeof e === 'string'
-								? e
-								: e instanceof Error
-								? e.message
-								: 'unknown error',
-					},
-				],
-				executionGasUsed: 0n,
-				rawData: '0x',
-			})
-		}
-
-		const validationErrors = validateCallParams(params)
-		if (validationErrors.length > 0) {
-			return maybeThrowOnFail(params.throwOnFail ?? defaultThrowOnFail, {
-				errors: validationErrors,
-				executionGasUsed: 0n,
-				/**
-				 * @type {`0x${string}`}
-				 */
-				rawData: '0x',
-			})
-		}
-
-		try {
-			const evmResult = await copiedVm.evm.runCall({
-				...callHandlerOpts(params),
-				block: await copiedVm.blockchain.getCanonicalHeadBlock(),
-			})
-			if (params.createTransaction && !evmResult.execResult.exceptionError) {
-				copiedVm.stateManager.checkpoint()
-				copiedVm.stateManager.commit()
+			try {
+				copiedVm = params.createTransaction ? vm : await vm.deepCopy()
+			} catch (e) {
+				return maybeThrowOnFail(params.throwOnFail ?? defaultThrowOnFail, {
+					errors: [
+						{
+							name: 'UnexpectedError',
+							_tag: 'UnexpectedError',
+							message:
+								typeof e === 'string'
+									? e
+									: e instanceof Error
+										? e.message
+										: 'unknown error',
+						},
+					],
+					executionGasUsed: 0n,
+					rawData: '0x',
+				})
 			}
-			return /** @type {any}*/ (
-				maybeThrowOnFail(
-					params.throwOnFail ?? defaultThrowOnFail,
-					callHandlerResult(evmResult),
+
+			const validationErrors = validateCallParams(params)
+			if (validationErrors.length > 0) {
+				return maybeThrowOnFail(params.throwOnFail ?? defaultThrowOnFail, {
+					errors: validationErrors,
+					executionGasUsed: 0n,
+					/**
+					 * @type {`0x${string}`}
+					 */
+					rawData: '0x',
+				})
+			}
+
+			/**
+			 * @type {import('@tevm/utils').Hex | undefined}
+			 */
+			let txHash = undefined
+
+			try {
+				const evmResult = await copiedVm.evm.runCall({
+					...callHandlerOpts(params),
+					block: await copiedVm.blockchain.getCanonicalHeadBlock(),
+				})
+				// Note there could be other errors when attempting to add to chain
+				// We don't even need to try if this is false though.
+				const shouldCreateTransaction = (() => {
+					if (params.createTransaction === undefined) {
+						return false
+					}
+					if (params.createTransaction === true || params.createTransaction === 'always') {
+						return true
+					}
+					if (params.createTransaction === false || params.createTransaction === 'never') {
+						return false
+					}
+					if (params.createTransaction === 'on-success') {
+						return evmResult.execResult.exceptionError === undefined
+					}
+					/**
+					 * @type {never} this typechecks that we've exhausted all cases
+					 */
+					const invalidOption = params.createTransaction
+					throw new Error(`Invalid createTransaction value: ${invalidOption}`)
+				})()
+				if (shouldCreateTransaction) {
+					const pool = await client.getTxPool()
+					// TODO known bug here we should be allowing unlimited code size here based on user providing option
+					// Just lazily not looking up how to get it from client.getVm().evm yet
+					// Possible we need to make property public on client
+					const tx = TransactionFactory.fromTxData(params, { allowUnlimitedInitCodeSize: false, common: copiedVm.common, freeze: true })
+					try {
+						pool.add(tx)
+						txHash = bytesToHex(tx.hash())
+						// Try to add to chain before checkpointing state manager
+						// If these error we are in big trouble we might want a way of making the entire vm `panic` in this case
+						await copiedVm.stateManager.checkpoint()
+						await copiedVm.stateManager.commit()
+					} catch (e) {
+						pool.removeByHash(bytesToHex(tx.hash()))
+						// don't expect this to ever happen at this point but being defensive
+						await copiedVm.stateManager.revert()
+						return maybeThrowOnFail(params.throwOnFail ?? defaultThrowOnFail, {
+							...callHandlerResult(evmResult),
+							errors: [
+								{
+									name: 'UnexpectedError',
+									_tag: 'UnexpectedError',
+									message:
+										typeof e === 'string'
+											? e
+											: e instanceof Error
+												? e.message
+												: 'unknown error',
+								},
+							],
+							executionGasUsed: 0n,
+							/**
+							 * @type {`0x${string}`}
+							 */
+							rawData: '0x',
+						})
+					}
+				} else {
+					// we want to revert state manager if the transaction should NOT be added to chain 
+					// Don't bother though if the state manager is just a copy
+					if (vm === copiedVm) {
+						await copiedVm.stateManager.revert()
+					}
+				}
+				return /** @type {any}*/ (
+					maybeThrowOnFail(
+						params.throwOnFail ?? defaultThrowOnFail,
+						{
+							...callHandlerResult(evmResult),
+							...(txHash === undefined ? {} : { txHash })
+						}
+					)
 				)
-			)
-		} catch (e) {
-			console.error('not good', e)
-			return maybeThrowOnFail(params.throwOnFail ?? defaultThrowOnFail, {
-				errors: [
-					{
-						name: 'UnexpectedError',
-						_tag: 'UnexpectedError',
-						message:
-							typeof e === 'string'
-								? e
-								: e instanceof Error
-								? e.message
-								: 'unknown error',
-					},
-				],
-				executionGasUsed: 0n,
-				/**
-				 * @type {`0x${string}`}
-				 */
-				rawData: '0x',
-			})
+			} catch (e) {
+				return maybeThrowOnFail(params.throwOnFail ?? defaultThrowOnFail, {
+					errors: [
+						{
+							name: 'UnexpectedError',
+							_tag: 'UnexpectedError',
+							message:
+								typeof e === 'string'
+									? e
+									: e instanceof Error
+										? e.message
+										: 'unknown error',
+						},
+					],
+					executionGasUsed: 0n,
+					/**
+					 * @type {`0x${string}`}
+					 */
+					rawData: '0x',
+				})
+			}
 		}
-	}
