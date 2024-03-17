@@ -1,9 +1,9 @@
-import { hexToBytes } from '@tevm/utils'
 import { MOCKERC20_ABI, MOCKERC20_BYTECODE } from '../test/contractConstants.js'
 import { contractHandler } from './contractHandler.js'
 import { setAccountHandler } from './setAccountHandler.js'
 import { createBaseClient } from '@tevm/base-client'
 import type { ContractError } from '@tevm/errors'
+import { hexToBytes } from '@tevm/utils'
 import { describe, expect, it } from 'bun:test'
 
 const ERC20_ADDRESS = `0x${'3'.repeat(40)}` as const
@@ -469,7 +469,7 @@ describe('contractHandler', () => {
 				...originalResult,
 				execResult: {
 					...originalResult.execResult,
-					returnValue: hexToBytes('0x42424242')
+					returnValue: hexToBytes('0x42424242'),
 				},
 			}
 		}
@@ -489,7 +489,7 @@ describe('contractHandler', () => {
 				functionName: 'balanceOf',
 				args: [ERC20_ADDRESS],
 				to: ERC20_ADDRESS,
-				gas: 16784800n,
+				gas: 5000n,
 				createTransaction: true,
 				throwOnFail: false,
 			}),
