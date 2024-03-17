@@ -1,6 +1,6 @@
-import { createBaseClient } from '@tevm/base-client'
 import { setAccountHandler } from '../tevm/index.js'
 import { ethCallHandler } from './ethCallHandler.js'
+import { createBaseClient } from '@tevm/base-client'
 import { EthjsAddress } from '@tevm/utils'
 import { encodeFunctionData } from '@tevm/utils'
 import { describe, expect, it } from 'bun:test'

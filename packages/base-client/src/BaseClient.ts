@@ -1,7 +1,7 @@
 import type { MiningConfig } from './MiningConfig.js'
+import type { Chain, ReceiptsManager } from '@tevm/blockchain'
 import type { TxPool } from '@tevm/txpool'
 import type { TevmVm } from '@tevm/vm'
-import type { Chain, ReceiptsManager } from '@tevm/blockchain'
 
 /**
  * The base client used by Tevm. Add extensions to add additional functionality

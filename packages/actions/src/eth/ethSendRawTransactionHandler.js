@@ -1,6 +1,6 @@
+import { callHandler } from '../index.js'
 import { BlobEIP4844Transaction, TransactionFactory } from '@ethereumjs/tx'
 import { bytesToHex, hexToBytes } from '@tevm/utils'
-import { callHandler } from '../index.js'
 
 const txType = {
 	LEGACY: 0x00,
@@ -95,9 +95,14 @@ export const ethSendRawTransactionHandler = (client) => async (params) => {
 			throwOnFail: false,
 			createTransaction: 'always',
 			...tx,
-			from: /** @type {import('@tevm/utils').Address}*/(tx.getSenderAddress().toString()),
-			to: /** @type {import('@tevm/utils').Address}*/(tx.to?.toString()),
-			blobVersionedHashes: /** @type {import('@ethereumjs/tx').EIP4844CompatibleTx}*/(tx).blobVersionedHashes.map(bytes => bytesToHex(bytes)),
+			from: /** @type {import('@tevm/utils').Address}*/ (
+				tx.getSenderAddress().toString()
+			),
+			to: /** @type {import('@tevm/utils').Address}*/ (tx.to?.toString()),
+			blobVersionedHashes:
+				/** @type {import('@ethereumjs/tx').EIP4844CompatibleTx}*/ (
+					tx
+				).blobVersionedHashes.map((bytes) => bytesToHex(bytes)),
 			data: bytesToHex(tx.data),
 		})
 	} catch (error) {
@@ -108,7 +113,7 @@ export const ethSendRawTransactionHandler = (client) => async (params) => {
 	if (res.errors?.length === 1) {
 		throw res.errors[0]
 	}
-	if (res.errors?.length ?? 0 > 0) {
+	if ((res.errors?.length ?? 0) > 0) {
 		throw new AggregateError(res.errors ?? [])
 	}
 

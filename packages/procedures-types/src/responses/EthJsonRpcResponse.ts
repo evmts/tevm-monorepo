@@ -31,7 +31,11 @@ export type EthBlockNumberJsonRpcResponse = JsonRpcResponse<
 /**
  * JSON-RPC response for `eth_call` procedure
  */
-export type EthCallJsonRpcResponse = JsonRpcResponse<'eth_call', Hex, string | number>
+export type EthCallJsonRpcResponse = JsonRpcResponse<
+	'eth_call',
+	Hex,
+	string | number
+>
 
 // eth_chainId
 /**
@@ -316,7 +320,11 @@ export type EthSendTransactionJsonRpcResponse = JsonRpcResponse<
 /**
  * JSON-RPC response for `eth_sign` procedure
  */
-export type EthSignJsonRpcResponse = JsonRpcResponse<'eth_sign', Hex, string | number>
+export type EthSignJsonRpcResponse = JsonRpcResponse<
+	'eth_sign',
+	Hex,
+	string | number
+>
 
 // eth_signTransaction
 /**
@@ -336,24 +344,24 @@ export type EthSyncingJsonRpcResponse = JsonRpcResponse<
 	'eth_syncing',
 	| boolean
 	| {
-		startingBlock: Hex
-		currentBlock: Hex
-		highestBlock: Hex
-		// some clients return these
-		// geth
-		headedBytecodebytes?: Hex
-		healedBytecodes?: Hex
-		healedTrienodes?: Hex
-		healingBytecode?: Hex
-		healingTrienodes?: Hex
-		syncedBytecodeBytes?: Hex
-		syncedBytecodes?: Hex
-		syncedStorage?: Hex
-		syncedStorageBytes?: Hex
-		// besu
-		pulledStates: Hex
-		knownStates: Hex
-	},
+			startingBlock: Hex
+			currentBlock: Hex
+			highestBlock: Hex
+			// some clients return these
+			// geth
+			headedBytecodebytes?: Hex
+			healedBytecodes?: Hex
+			healedTrienodes?: Hex
+			healingBytecode?: Hex
+			healingTrienodes?: Hex
+			syncedBytecodeBytes?: Hex
+			syncedBytecodes?: Hex
+			syncedStorage?: Hex
+			syncedStorageBytes?: Hex
+			// besu
+			pulledStates: Hex
+			knownStates: Hex
+	  },
 	string | number
 >
 

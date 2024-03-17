@@ -32,7 +32,7 @@ export const gasPriceHandler = ({ forkUrl, getVm }) => {
 					id: 1,
 				})
 				.then(({ result }) => {
-					return hexToBigInt(/** @type {import('@tevm/utils').Hex} */(result))
+					return hexToBigInt(/** @type {import('@tevm/utils').Hex} */ (result))
 				})
 		}
 		return gasPrice

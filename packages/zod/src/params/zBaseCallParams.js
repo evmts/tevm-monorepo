@@ -15,7 +15,6 @@ export const zBaseCallParams = zBaseParams
 			z.literal('on-success'),
 			z.literal('always'),
 			z.literal('never'),
-
 		]),
 		skipBalance: z
 			.boolean()

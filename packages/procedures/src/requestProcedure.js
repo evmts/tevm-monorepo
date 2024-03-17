@@ -229,7 +229,7 @@ export const requestProcedure = (client) => {
 					)
 				}
 				const fetcher = createJsonRpcFetcher(client.forkUrl)
-				return fetcher.request(/** @type any*/(request))
+				return fetcher.request(/** @type any*/ (request))
 			}
 			// TODO move this to it's own procedure
 			case 'eth_sendTransaction': {
@@ -368,11 +368,14 @@ export const requestProcedure = (client) => {
 					...(debugTraceCallRequest.id ? { id: debugTraceCallRequest.id } : {}),
 				}
 			}
-			case 'eth_getTransactionReceipt':
+			case 'eth_getTransactionReceipt': {
 				const getTransactionReceiptRequest =
 					/** @type {import('@tevm/procedures-types').EthGetTransactionReceiptJsonRpcRequest}*/
 					(request)
-				return ethGetTransactionReceiptJsonRpcProcedure(client)(getTransactionReceiptRequest)
+				return ethGetTransactionReceiptJsonRpcProcedure(client)(
+					getTransactionReceiptRequest,
+				)
+			}
 			case 'eth_getLogs':
 			case 'eth_newFilter':
 			case 'eth_getFilterLogs':
@@ -414,7 +417,7 @@ export const requestProcedure = (client) => {
 					name: 'UnsupportedMethodError',
 					message: `UnsupportedMethodError: Unknown method ${
 						/**@type any*/ (request).method
-						}`,
+					}`,
 				}
 				return /** @type {any}*/ ({
 					id: /** @type any*/ (request).id ?? null,

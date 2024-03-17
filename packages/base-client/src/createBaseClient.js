@@ -188,17 +188,17 @@ export const createBaseClient = (options = {}) => {
 	const vmPromise = initVm()
 	const txPoolPromise = vmPromise.then((vm) => new TxPool({ vm }))
 	const chainIdPromise = initChainId()
-	const chainPromise = vmPromise.then(vm => {
+	const chainPromise = vmPromise.then((vm) => {
 		return Chain.create({
 			blockchain: vm.blockchain,
 			common: vm.common,
 		})
 	})
-	const receiptManagerPromise = chainPromise.then(chain => {
+	const receiptManagerPromise = chainPromise.then((chain) => {
 		return new ReceiptsManager({
 			common: chain.common,
 			chain,
-			metaDB: /** @type any*/(new MemoryLevel())
+			metaDB: /** @type any*/ (new MemoryLevel()),
 		})
 	})
 
