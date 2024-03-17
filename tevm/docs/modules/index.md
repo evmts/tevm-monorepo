@@ -297,7 +297,7 @@ ___
 
 ### BaseClient
 
-Ƭ **BaseClient**\<`TMode`, `TExtended`\>: \{ `extend`: \<TExtension\>(`decorator`: (`client`: [`BaseClient`](index.md#baseclient)\<`TMode`, `TExtended`\>) => `TExtension`) => [`BaseClient`](index.md#baseclient)\<`TMode`, `TExtended` & `TExtension`\> ; `forkUrl?`: `string` ; `getChainId`: () => `Promise`\<`number`\> ; `getTxPool`: () => `Promise`\<`TxPool`\> ; `getVm`: () => `Promise`\<`TevmVm`\> ; `miningConfig`: `MiningConfig` ; `mode`: `TMode` ; `ready`: () => `Promise`\<``true``\> ; `setChainId`: (`chainId`: `number`) => `void`  } & `TExtended`
+Ƭ **BaseClient**\<`TMode`, `TExtended`\>: \{ `extend`: \<TExtension\>(`decorator`: (`client`: [`BaseClient`](index.md#baseclient)\<`TMode`, `TExtended`\>) => `TExtension`) => [`BaseClient`](index.md#baseclient)\<`TMode`, `TExtended` & `TExtension`\> ; `forkUrl?`: `string` ; `getChain`: () => `Promise`\<`Chain`\> ; `getChainId`: () => `Promise`\<`number`\> ; `getReceiptsManager`: () => `Promise`\<`ReceiptsManager`\> ; `getTxPool`: () => `Promise`\<`TxPool`\> ; `getVm`: () => `Promise`\<`TevmVm`\> ; `miningConfig`: `MiningConfig` ; `mode`: `TMode` ; `ready`: () => `Promise`\<``true``\> ; `setChainId`: (`chainId`: `number`) => `void`  } & `TExtended`
 
 The base client used by Tevm. Add extensions to add additional functionality
 
@@ -310,7 +310,7 @@ The base client used by Tevm. Add extensions to add additional functionality
 
 #### Defined in
 
-evmts-monorepo/packages/base-client/types/BaseClient.d.ts:7
+evmts-monorepo/packages/base-client/types/BaseClient.d.ts:8
 
 ___
 
@@ -435,6 +435,7 @@ Result of a Tevm VM Call method
 | `logs?` | [`Log`](actions_types.md#log)[] | Array of logs that the contract emitted |
 | `rawData` | [`Hex`](actions_types.md#hex) | Encoded return value from the contract as hex string |
 | `selfdestruct?` | `Set`\<[`Address`](actions_types.md#address)\> | A set of accounts to selfdestruct |
+| `txHash?` | [`Hex`](actions_types.md#hex) | The returned tx hash if the call was included in the chain Will not be defined if the call was not included in the chain Whether a call is included in the chain depends on if the `createTransaction` option and the result of the call |
 
 #### Defined in
 
@@ -1408,7 +1409,7 @@ ___
 | :------ | :------ |
 | `TMethod` | extends `string` |
 | `TResult` | `TResult` |
-| `TErrorCode` | extends `string` |
+| `TErrorCode` | extends `string` \| `number` |
 
 #### Defined in
 

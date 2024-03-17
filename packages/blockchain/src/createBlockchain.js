@@ -1,8 +1,8 @@
 import { TevmBlock } from './TevmBlock.js'
 import { TevmBlockchain } from './TevmBlockchain.js'
 import { genesisStateRoot } from '@ethereumjs/trie'
-import { createMemoryDb, numberToHex, parseGwei } from '@tevm/utils'
 import { createJsonRpcFetcher } from '@tevm/jsonrpc'
+import { createMemoryDb, numberToHex, parseGwei } from '@tevm/utils'
 
 /**
  * @param {object} options
@@ -11,8 +11,11 @@ import { createJsonRpcFetcher } from '@tevm/jsonrpc'
  * @param {import('@tevm/utils').BlockTag | import('@tevm/utils').Hex | bigint} options.blockTag
  * @returns {Promise<TevmBlockchain>}
  */
-export const createBlockchain = async ({ common, forkUrl, blockTag = 'latest' }) => {
-
+export const createBlockchain = async ({
+	common,
+	forkUrl,
+	blockTag = 'latest',
+}) => {
 	const db = createMemoryDb()
 	/**
 	 * @type {import('@ethereumjs/util').GenesisState}
@@ -28,9 +31,9 @@ export const createBlockchain = async ({ common, forkUrl, blockTag = 'latest' })
 			},
 			...(common.isActivatedEIP(4895)
 				? {
-					withdrawals:
+						withdrawals:
 							/** @type {Array<import('@ethereumjs/util').WithdrawalData>}*/ ([]),
-				}
+				  }
 				: {}),
 		},
 		{ common, setHardfork: false, skipConsensusFormatValidation: true },
@@ -57,9 +60,12 @@ export const createBlockchain = async ({ common, forkUrl, blockTag = 'latest' })
 			jsonrpc: '2.0',
 			id: 1,
 			method: 'eth_getBlockByNumber',
-			params: [typeof blockTag === 'bigint' ? numberToHex(blockTag) : blockTag, true],
+			params: [
+				typeof blockTag === 'bigint' ? numberToHex(blockTag) : blockTag,
+				true,
+			],
 		})
-		const latestBlock = TevmBlock.fromRPC(/** @type {any}*/(jsonRpcBlock))
+		const latestBlock = TevmBlock.fromRPC(/** @type {any}*/ (jsonRpcBlock))
 		out.putBlock(latestBlock)
 	}
 

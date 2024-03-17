@@ -27,10 +27,12 @@
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `options` | `Object` |
-| `options.common` | `Common` |
+| Name | Type | Default value |
+| :------ | :------ | :------ |
+| `options` | `Object` | `undefined` |
+| `options.blockTag` | `bigint` \| `BlockTag` \| \`0x$\{string}\` | `'latest'` |
+| `options.common` | `Common` | `undefined` |
+| `options.forkUrl` | `undefined` \| `string` | `undefined` |
 
 #### Returns
 
@@ -38,4 +40,4 @@
 
 #### Defined in
 
-[packages/blockchain/src/createBlockchain.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/createBlockchain.js#L11)
+[packages/blockchain/src/createBlockchain.js:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/createBlockchain.js#L14)

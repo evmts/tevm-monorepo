@@ -1322,7 +1322,7 @@ ___
 
 ### EthAccountsJsonRpcResponse
 
-Ƭ **EthAccountsJsonRpcResponse**: [`JsonRpcResponse`](index.md#jsonrpcresponse)\<``"eth_accounts"``, [`Address`](index.md#address)[], `string`\>
+Ƭ **EthAccountsJsonRpcResponse**: [`JsonRpcResponse`](index.md#jsonrpcresponse)\<``"eth_accounts"``, [`Address`](index.md#address)[], `string` \| `number`\>
 
 JSON-RPC response for `eth_accounts` procedure
 
@@ -1370,7 +1370,7 @@ ___
 
 ### EthBlockNumberJsonRpcResponse
 
-Ƭ **EthBlockNumberJsonRpcResponse**: [`JsonRpcResponse`](index.md#jsonrpcresponse)\<``"eth_blockNumber"``, [`SerializeToJson`](procedures_types.md#serializetojson)\<[`EthBlockNumberResult`](actions_types.md#ethblocknumberresult)\>, `string`\>
+Ƭ **EthBlockNumberJsonRpcResponse**: [`JsonRpcResponse`](index.md#jsonrpcresponse)\<``"eth_blockNumber"``, [`SerializeToJson`](procedures_types.md#serializetojson)\<[`EthBlockNumberResult`](actions_types.md#ethblocknumberresult)\>, `string` \| `number`\>
 
 JSON-RPC response for `eth_blockNumber` procedure
 
@@ -1418,7 +1418,7 @@ ___
 
 ### EthCallJsonRpcResponse
 
-Ƭ **EthCallJsonRpcResponse**: [`JsonRpcResponse`](index.md#jsonrpcresponse)\<``"eth_call"``, [`Hex`](index.md#hex), `string`\>
+Ƭ **EthCallJsonRpcResponse**: [`JsonRpcResponse`](index.md#jsonrpcresponse)\<``"eth_call"``, [`Hex`](index.md#hex), `string` \| `number`\>
 
 JSON-RPC response for `eth_call` procedure
 
@@ -1466,7 +1466,7 @@ ___
 
 ### EthChainIdJsonRpcResponse
 
-Ƭ **EthChainIdJsonRpcResponse**: [`JsonRpcResponse`](index.md#jsonrpcresponse)\<``"eth_chainId"``, [`Hex`](index.md#hex), `string`\>
+Ƭ **EthChainIdJsonRpcResponse**: [`JsonRpcResponse`](index.md#jsonrpcresponse)\<``"eth_chainId"``, [`Hex`](index.md#hex), `string` \| `number`\>
 
 JSON-RPC response for `eth_chainId` procedure
 
@@ -1514,7 +1514,7 @@ ___
 
 ### EthCoinbaseJsonRpcResponse
 
-Ƭ **EthCoinbaseJsonRpcResponse**: [`JsonRpcResponse`](index.md#jsonrpcresponse)\<``"eth_coinbase"``, [`Hex`](index.md#hex), `string`\>
+Ƭ **EthCoinbaseJsonRpcResponse**: [`JsonRpcResponse`](index.md#jsonrpcresponse)\<``"eth_coinbase"``, [`Hex`](index.md#hex), `string` \| `number`\>
 
 JSON-RPC response for `eth_coinbase` procedure
 
@@ -1562,7 +1562,7 @@ ___
 
 ### EthEstimateGasJsonRpcResponse
 
-Ƭ **EthEstimateGasJsonRpcResponse**: [`JsonRpcResponse`](index.md#jsonrpcresponse)\<``"eth_estimateGas"``, [`Hex`](index.md#hex), `string`\>
+Ƭ **EthEstimateGasJsonRpcResponse**: [`JsonRpcResponse`](index.md#jsonrpcresponse)\<``"eth_estimateGas"``, [`Hex`](index.md#hex), `string` \| `number`\>
 
 JSON-RPC response for `eth_estimateGas` procedure
 
@@ -1610,7 +1610,7 @@ ___
 
 ### EthGasPriceJsonRpcResponse
 
-Ƭ **EthGasPriceJsonRpcResponse**: [`JsonRpcResponse`](index.md#jsonrpcresponse)\<``"eth_gasPrice"``, [`Hex`](index.md#hex), `string`\>
+Ƭ **EthGasPriceJsonRpcResponse**: [`JsonRpcResponse`](index.md#jsonrpcresponse)\<``"eth_gasPrice"``, [`Hex`](index.md#hex), `string` \| `number`\>
 
 JSON-RPC response for `eth_gasPrice` procedure
 
@@ -1658,7 +1658,7 @@ ___
 
 ### EthGetBalanceJsonRpcResponse
 
-Ƭ **EthGetBalanceJsonRpcResponse**: [`JsonRpcResponse`](index.md#jsonrpcresponse)\<``"eth_getBalance"``, [`Hex`](index.md#hex), `string`\>
+Ƭ **EthGetBalanceJsonRpcResponse**: [`JsonRpcResponse`](index.md#jsonrpcresponse)\<``"eth_getBalance"``, [`Hex`](index.md#hex), `string` \| `number`\>
 
 JSON-RPC response for `eth_getBalance` procedure
 
@@ -1706,7 +1706,7 @@ ___
 
 ### EthGetBlockByHashJsonRpcResponse
 
-Ƭ **EthGetBlockByHashJsonRpcResponse**: [`JsonRpcResponse`](index.md#jsonrpcresponse)\<``"eth_getBlockByHash"``, [`BlockResult`](actions_types.md#blockresult), `string`\>
+Ƭ **EthGetBlockByHashJsonRpcResponse**: [`JsonRpcResponse`](index.md#jsonrpcresponse)\<``"eth_getBlockByHash"``, [`BlockResult`](actions_types.md#blockresult), `string` \| `number`\>
 
 JSON-RPC response for `eth_getBlockByHash` procedure
 
@@ -1754,7 +1754,7 @@ ___
 
 ### EthGetBlockByNumberJsonRpcResponse
 
-Ƭ **EthGetBlockByNumberJsonRpcResponse**: [`JsonRpcResponse`](index.md#jsonrpcresponse)\<``"eth_getBlockByNumber"``, [`BlockResult`](actions_types.md#blockresult), `string`\>
+Ƭ **EthGetBlockByNumberJsonRpcResponse**: [`JsonRpcResponse`](index.md#jsonrpcresponse)\<``"eth_getBlockByNumber"``, [`BlockResult`](actions_types.md#blockresult), `string` \| `number`\>
 
 JSON-RPC response for `eth_getBlockByNumber` procedure
 
@@ -1802,7 +1802,7 @@ ___
 
 ### EthGetBlockTransactionCountByHashJsonRpcResponse
 
-Ƭ **EthGetBlockTransactionCountByHashJsonRpcResponse**: [`JsonRpcResponse`](index.md#jsonrpcresponse)\<``"eth_getBlockTransactionCountByHash"``, [`Hex`](index.md#hex), `string`\>
+Ƭ **EthGetBlockTransactionCountByHashJsonRpcResponse**: [`JsonRpcResponse`](index.md#jsonrpcresponse)\<``"eth_getBlockTransactionCountByHash"``, [`Hex`](index.md#hex), `string` \| `number`\>
 
 JSON-RPC response for `eth_getBlockTransactionCountByHash` procedure
 
@@ -1850,7 +1850,7 @@ ___
 
 ### EthGetBlockTransactionCountByNumberJsonRpcResponse
 
-Ƭ **EthGetBlockTransactionCountByNumberJsonRpcResponse**: [`JsonRpcResponse`](index.md#jsonrpcresponse)\<``"eth_getBlockTransactionCountByNumber"``, [`Hex`](index.md#hex), `string`\>
+Ƭ **EthGetBlockTransactionCountByNumberJsonRpcResponse**: [`JsonRpcResponse`](index.md#jsonrpcresponse)\<``"eth_getBlockTransactionCountByNumber"``, [`Hex`](index.md#hex), `string` \| `number`\>
 
 JSON-RPC response for `eth_getBlockTransactionCountByNumber` procedure
 
@@ -1898,7 +1898,7 @@ ___
 
 ### EthGetCodeJsonRpcResponse
 
-Ƭ **EthGetCodeJsonRpcResponse**: [`JsonRpcResponse`](index.md#jsonrpcresponse)\<``"eth_getCode"``, [`Hex`](index.md#hex), `string`\>
+Ƭ **EthGetCodeJsonRpcResponse**: [`JsonRpcResponse`](index.md#jsonrpcresponse)\<``"eth_getCode"``, [`Hex`](index.md#hex), `string` \| `number`\>
 
 JSON-RPC response for `eth_getCode` procedure
 
@@ -1946,7 +1946,7 @@ ___
 
 ### EthGetFilterChangesJsonRpcResponse
 
-Ƭ **EthGetFilterChangesJsonRpcResponse**: [`JsonRpcResponse`](index.md#jsonrpcresponse)\<``"eth_getFilterChanges"``, [`FilterLog`](actions_types.md#filterlog)[], `string`\>
+Ƭ **EthGetFilterChangesJsonRpcResponse**: [`JsonRpcResponse`](index.md#jsonrpcresponse)\<``"eth_getFilterChanges"``, [`FilterLog`](actions_types.md#filterlog)[], `string` \| `number`\>
 
 JSON-RPC response for `eth_getFilterChanges` procedure
 
@@ -1994,7 +1994,7 @@ ___
 
 ### EthGetFilterLogsJsonRpcResponse
 
-Ƭ **EthGetFilterLogsJsonRpcResponse**: [`JsonRpcResponse`](index.md#jsonrpcresponse)\<``"eth_getFilterLogs"``, [`FilterLog`](actions_types.md#filterlog)[], `string`\>
+Ƭ **EthGetFilterLogsJsonRpcResponse**: [`JsonRpcResponse`](index.md#jsonrpcresponse)\<``"eth_getFilterLogs"``, [`FilterLog`](actions_types.md#filterlog)[], `string` \| `number`\>
 
 JSON-RPC response for `eth_getFilterLogs` procedure
 
@@ -2042,7 +2042,7 @@ ___
 
 ### EthGetLogsJsonRpcResponse
 
-Ƭ **EthGetLogsJsonRpcResponse**: [`JsonRpcResponse`](index.md#jsonrpcresponse)\<``"eth_getLogs"``, [`FilterLog`](actions_types.md#filterlog)[], `string`\>
+Ƭ **EthGetLogsJsonRpcResponse**: [`JsonRpcResponse`](index.md#jsonrpcresponse)\<``"eth_getLogs"``, [`FilterLog`](actions_types.md#filterlog)[], `string` \| `number`\>
 
 JSON-RPC response for `eth_getLogs` procedure
 
@@ -2090,7 +2090,7 @@ ___
 
 ### EthGetStorageAtJsonRpcResponse
 
-Ƭ **EthGetStorageAtJsonRpcResponse**: [`JsonRpcResponse`](index.md#jsonrpcresponse)\<``"eth_getStorageAt"``, [`Hex`](index.md#hex), `string`\>
+Ƭ **EthGetStorageAtJsonRpcResponse**: [`JsonRpcResponse`](index.md#jsonrpcresponse)\<``"eth_getStorageAt"``, [`Hex`](index.md#hex), `string` \| `number`\>
 
 JSON-RPC response for `eth_getStorageAt` procedure
 
@@ -2138,7 +2138,7 @@ ___
 
 ### EthGetTransactionByBlockHashAndIndexJsonRpcResponse
 
-Ƭ **EthGetTransactionByBlockHashAndIndexJsonRpcResponse**: [`JsonRpcResponse`](index.md#jsonrpcresponse)\<``"eth_getTransactionByBlockHashAndIndex"``, [`TransactionResult`](actions_types.md#transactionresult), `string`\>
+Ƭ **EthGetTransactionByBlockHashAndIndexJsonRpcResponse**: [`JsonRpcResponse`](index.md#jsonrpcresponse)\<``"eth_getTransactionByBlockHashAndIndex"``, [`TransactionResult`](actions_types.md#transactionresult), `string` \| `number`\>
 
 JSON-RPC response for `eth_getTransactionByBlockHashAndIndex` procedure
 
@@ -2186,7 +2186,7 @@ ___
 
 ### EthGetTransactionByBlockNumberAndIndexJsonRpcResponse
 
-Ƭ **EthGetTransactionByBlockNumberAndIndexJsonRpcResponse**: [`JsonRpcResponse`](index.md#jsonrpcresponse)\<``"eth_getTransactionByBlockNumberAndIndex"``, [`TransactionResult`](actions_types.md#transactionresult), `string`\>
+Ƭ **EthGetTransactionByBlockNumberAndIndexJsonRpcResponse**: [`JsonRpcResponse`](index.md#jsonrpcresponse)\<``"eth_getTransactionByBlockNumberAndIndex"``, [`TransactionResult`](actions_types.md#transactionresult), `string` \| `number`\>
 
 JSON-RPC response for `eth_getTransactionByBlockNumberAndIndex` procedure
 
@@ -2234,7 +2234,7 @@ ___
 
 ### EthGetTransactionByHashJsonRpcResponse
 
-Ƭ **EthGetTransactionByHashJsonRpcResponse**: [`JsonRpcResponse`](index.md#jsonrpcresponse)\<``"eth_getTransactionByHash"``, [`TransactionResult`](actions_types.md#transactionresult), `string`\>
+Ƭ **EthGetTransactionByHashJsonRpcResponse**: [`JsonRpcResponse`](index.md#jsonrpcresponse)\<``"eth_getTransactionByHash"``, [`TransactionResult`](actions_types.md#transactionresult), `string` \| `number`\>
 
 JSON-RPC response for `eth_getTransactionByHash` procedure
 
@@ -2282,7 +2282,7 @@ ___
 
 ### EthGetTransactionCountJsonRpcResponse
 
-Ƭ **EthGetTransactionCountJsonRpcResponse**: [`JsonRpcResponse`](index.md#jsonrpcresponse)\<``"eth_getTransactionCount"``, [`Hex`](index.md#hex), `string`\>
+Ƭ **EthGetTransactionCountJsonRpcResponse**: [`JsonRpcResponse`](index.md#jsonrpcresponse)\<``"eth_getTransactionCount"``, [`Hex`](index.md#hex), `string` \| `number`\>
 
 JSON-RPC response for `eth_getTransactionCount` procedure
 
@@ -2330,7 +2330,7 @@ ___
 
 ### EthGetTransactionReceiptJsonRpcResponse
 
-Ƭ **EthGetTransactionReceiptJsonRpcResponse**: [`JsonRpcResponse`](index.md#jsonrpcresponse)\<``"eth_getTransactionReceipt"``, [`TransactionReceiptResult`](actions_types.md#transactionreceiptresult), `string`\>
+Ƭ **EthGetTransactionReceiptJsonRpcResponse**: [`JsonRpcResponse`](index.md#jsonrpcresponse)\<``"eth_getTransactionReceipt"``, [`SerializeToJson`](procedures_types.md#serializetojson)\<[`TransactionReceiptResult`](actions_types.md#transactionreceiptresult)\> \| ``null``, `string` \| `number`\>
 
 JSON-RPC response for `eth_getTransactionReceipt` procedure
 
@@ -2378,7 +2378,7 @@ ___
 
 ### EthGetUncleByBlockHashAndIndexJsonRpcResponse
 
-Ƭ **EthGetUncleByBlockHashAndIndexJsonRpcResponse**: [`JsonRpcResponse`](index.md#jsonrpcresponse)\<``"eth_getUncleByBlockHashAndIndex"``, [`Hex`](index.md#hex), `string`\>
+Ƭ **EthGetUncleByBlockHashAndIndexJsonRpcResponse**: [`JsonRpcResponse`](index.md#jsonrpcresponse)\<``"eth_getUncleByBlockHashAndIndex"``, [`Hex`](index.md#hex), `string` \| `number`\>
 
 JSON-RPC response for `eth_getUncleByBlockHashAndIndex` procedure
 
@@ -2426,7 +2426,7 @@ ___
 
 ### EthGetUncleByBlockNumberAndIndexJsonRpcResponse
 
-Ƭ **EthGetUncleByBlockNumberAndIndexJsonRpcResponse**: [`JsonRpcResponse`](index.md#jsonrpcresponse)\<``"eth_getUncleByBlockNumberAndIndex"``, [`Hex`](index.md#hex), `string`\>
+Ƭ **EthGetUncleByBlockNumberAndIndexJsonRpcResponse**: [`JsonRpcResponse`](index.md#jsonrpcresponse)\<``"eth_getUncleByBlockNumberAndIndex"``, [`Hex`](index.md#hex), `string` \| `number`\>
 
 JSON-RPC response for `eth_getUncleByBlockNumberAndIndex` procedure
 
@@ -2474,7 +2474,7 @@ ___
 
 ### EthGetUncleCountByBlockHashJsonRpcResponse
 
-Ƭ **EthGetUncleCountByBlockHashJsonRpcResponse**: [`JsonRpcResponse`](index.md#jsonrpcresponse)\<``"eth_getUncleCountByBlockHash"``, [`Hex`](index.md#hex), `string`\>
+Ƭ **EthGetUncleCountByBlockHashJsonRpcResponse**: [`JsonRpcResponse`](index.md#jsonrpcresponse)\<``"eth_getUncleCountByBlockHash"``, [`Hex`](index.md#hex), `string` \| `number`\>
 
 JSON-RPC response for `eth_getUncleCountByBlockHash` procedure
 
@@ -2522,7 +2522,7 @@ ___
 
 ### EthGetUncleCountByBlockNumberJsonRpcResponse
 
-Ƭ **EthGetUncleCountByBlockNumberJsonRpcResponse**: [`JsonRpcResponse`](index.md#jsonrpcresponse)\<``"eth_getUncleCountByBlockNumber"``, [`Hex`](index.md#hex), `string`\>
+Ƭ **EthGetUncleCountByBlockNumberJsonRpcResponse**: [`JsonRpcResponse`](index.md#jsonrpcresponse)\<``"eth_getUncleCountByBlockNumber"``, [`Hex`](index.md#hex), `string` \| `number`\>
 
 JSON-RPC response for `eth_getUncleCountByBlockNumber` procedure
 
@@ -2570,7 +2570,7 @@ ___
 
 ### EthHashrateJsonRpcResponse
 
-Ƭ **EthHashrateJsonRpcResponse**: [`JsonRpcResponse`](index.md#jsonrpcresponse)\<``"eth_hashrate"``, [`Hex`](index.md#hex), `string`\>
+Ƭ **EthHashrateJsonRpcResponse**: [`JsonRpcResponse`](index.md#jsonrpcresponse)\<``"eth_hashrate"``, [`Hex`](index.md#hex), `string` \| `number`\>
 
 JSON-RPC response for `eth_hashrate` procedure
 
@@ -2628,7 +2628,7 @@ ___
 
 ### EthMiningJsonRpcResponse
 
-Ƭ **EthMiningJsonRpcResponse**: [`JsonRpcResponse`](index.md#jsonrpcresponse)\<``"eth_mining"``, `boolean`, `string`\>
+Ƭ **EthMiningJsonRpcResponse**: [`JsonRpcResponse`](index.md#jsonrpcresponse)\<``"eth_mining"``, `boolean`, `string` \| `number`\>
 
 JSON-RPC response for `eth_mining` procedure
 
@@ -2676,7 +2676,7 @@ ___
 
 ### EthNewBlockFilterJsonRpcResponse
 
-Ƭ **EthNewBlockFilterJsonRpcResponse**: [`JsonRpcResponse`](index.md#jsonrpcresponse)\<``"eth_newBlockFilter"``, [`Hex`](index.md#hex), `string`\>
+Ƭ **EthNewBlockFilterJsonRpcResponse**: [`JsonRpcResponse`](index.md#jsonrpcresponse)\<``"eth_newBlockFilter"``, [`Hex`](index.md#hex), `string` \| `number`\>
 
 JSON-RPC response for `eth_newBlockFilter` procedure
 
@@ -2724,7 +2724,7 @@ ___
 
 ### EthNewFilterJsonRpcResponse
 
-Ƭ **EthNewFilterJsonRpcResponse**: [`JsonRpcResponse`](index.md#jsonrpcresponse)\<``"eth_newFilter"``, [`Hex`](index.md#hex), `string`\>
+Ƭ **EthNewFilterJsonRpcResponse**: [`JsonRpcResponse`](index.md#jsonrpcresponse)\<``"eth_newFilter"``, [`Hex`](index.md#hex), `string` \| `number`\>
 
 JSON-RPC response for `eth_newFilter` procedure
 
@@ -2772,7 +2772,7 @@ ___
 
 ### EthNewPendingTransactionFilterJsonRpcResponse
 
-Ƭ **EthNewPendingTransactionFilterJsonRpcResponse**: [`JsonRpcResponse`](index.md#jsonrpcresponse)\<``"eth_newPendingTransactionFilter"``, [`Hex`](index.md#hex), `string`\>
+Ƭ **EthNewPendingTransactionFilterJsonRpcResponse**: [`JsonRpcResponse`](index.md#jsonrpcresponse)\<``"eth_newPendingTransactionFilter"``, [`Hex`](index.md#hex), `string` \| `number`\>
 
 JSON-RPC response for `eth_newPendingTransactionFilter` procedure
 
@@ -2820,7 +2820,7 @@ ___
 
 ### EthProtocolVersionJsonRpcResponse
 
-Ƭ **EthProtocolVersionJsonRpcResponse**: [`JsonRpcResponse`](index.md#jsonrpcresponse)\<``"eth_protocolVersion"``, [`Hex`](index.md#hex), `string`\>
+Ƭ **EthProtocolVersionJsonRpcResponse**: [`JsonRpcResponse`](index.md#jsonrpcresponse)\<``"eth_protocolVersion"``, [`Hex`](index.md#hex), `string` \| `number`\>
 
 JSON-RPC response for `eth_protocolVersion` procedure
 
@@ -2978,7 +2978,7 @@ ___
 
 ### EthSendRawTransactionJsonRpcResponse
 
-Ƭ **EthSendRawTransactionJsonRpcResponse**: [`JsonRpcResponse`](index.md#jsonrpcresponse)\<``"eth_sendRawTransaction"``, [`Hex`](index.md#hex), `string`\>
+Ƭ **EthSendRawTransactionJsonRpcResponse**: [`JsonRpcResponse`](index.md#jsonrpcresponse)\<``"eth_sendRawTransaction"``, [`Hex`](index.md#hex), `string` \| `number`\>
 
 JSON-RPC response for `eth_sendRawTransaction` procedure
 
@@ -3026,7 +3026,7 @@ ___
 
 ### EthSendTransactionJsonRpcResponse
 
-Ƭ **EthSendTransactionJsonRpcResponse**: [`JsonRpcResponse`](index.md#jsonrpcresponse)\<``"eth_sendTransaction"``, [`Hex`](index.md#hex), `string`\>
+Ƭ **EthSendTransactionJsonRpcResponse**: [`JsonRpcResponse`](index.md#jsonrpcresponse)\<``"eth_sendTransaction"``, [`Hex`](index.md#hex), `string` \| `number`\>
 
 JSON-RPC response for `eth_sendTransaction` procedure
 
@@ -3074,7 +3074,7 @@ ___
 
 ### EthSignJsonRpcResponse
 
-Ƭ **EthSignJsonRpcResponse**: [`JsonRpcResponse`](index.md#jsonrpcresponse)\<``"eth_sign"``, [`Hex`](index.md#hex), `string`\>
+Ƭ **EthSignJsonRpcResponse**: [`JsonRpcResponse`](index.md#jsonrpcresponse)\<``"eth_sign"``, [`Hex`](index.md#hex), `string` \| `number`\>
 
 JSON-RPC response for `eth_sign` procedure
 
@@ -3122,7 +3122,7 @@ ___
 
 ### EthSignTransactionJsonRpcResponse
 
-Ƭ **EthSignTransactionJsonRpcResponse**: [`JsonRpcResponse`](index.md#jsonrpcresponse)\<``"eth_signTransaction"``, [`Hex`](index.md#hex), `string`\>
+Ƭ **EthSignTransactionJsonRpcResponse**: [`JsonRpcResponse`](index.md#jsonrpcresponse)\<``"eth_signTransaction"``, [`Hex`](index.md#hex), `string` \| `number`\>
 
 JSON-RPC response for `eth_signTransaction` procedure
 
@@ -3170,7 +3170,7 @@ ___
 
 ### EthSyncingJsonRpcResponse
 
-Ƭ **EthSyncingJsonRpcResponse**: [`JsonRpcResponse`](index.md#jsonrpcresponse)\<``"eth_syncing"``, `boolean` \| \{ `currentBlock`: [`Hex`](index.md#hex) ; `headedBytecodebytes?`: [`Hex`](index.md#hex) ; `healedBytecodes?`: [`Hex`](index.md#hex) ; `healedTrienodes?`: [`Hex`](index.md#hex) ; `healingBytecode?`: [`Hex`](index.md#hex) ; `healingTrienodes?`: [`Hex`](index.md#hex) ; `highestBlock`: [`Hex`](index.md#hex) ; `knownStates`: [`Hex`](index.md#hex) ; `pulledStates`: [`Hex`](index.md#hex) ; `startingBlock`: [`Hex`](index.md#hex) ; `syncedBytecodeBytes?`: [`Hex`](index.md#hex) ; `syncedBytecodes?`: [`Hex`](index.md#hex) ; `syncedStorage?`: [`Hex`](index.md#hex) ; `syncedStorageBytes?`: [`Hex`](index.md#hex)  }, `string`\>
+Ƭ **EthSyncingJsonRpcResponse**: [`JsonRpcResponse`](index.md#jsonrpcresponse)\<``"eth_syncing"``, `boolean` \| \{ `currentBlock`: [`Hex`](index.md#hex) ; `headedBytecodebytes?`: [`Hex`](index.md#hex) ; `healedBytecodes?`: [`Hex`](index.md#hex) ; `healedTrienodes?`: [`Hex`](index.md#hex) ; `healingBytecode?`: [`Hex`](index.md#hex) ; `healingTrienodes?`: [`Hex`](index.md#hex) ; `highestBlock`: [`Hex`](index.md#hex) ; `knownStates`: [`Hex`](index.md#hex) ; `pulledStates`: [`Hex`](index.md#hex) ; `startingBlock`: [`Hex`](index.md#hex) ; `syncedBytecodeBytes?`: [`Hex`](index.md#hex) ; `syncedBytecodes?`: [`Hex`](index.md#hex) ; `syncedStorage?`: [`Hex`](index.md#hex) ; `syncedStorageBytes?`: [`Hex`](index.md#hex)  }, `string` \| `number`\>
 
 JSON-RPC response for `eth_syncing` procedure
 
@@ -3218,7 +3218,7 @@ ___
 
 ### EthUninstallFilterJsonRpcResponse
 
-Ƭ **EthUninstallFilterJsonRpcResponse**: [`JsonRpcResponse`](index.md#jsonrpcresponse)\<``"eth_uninstallFilter"``, `boolean`, `string`\>
+Ƭ **EthUninstallFilterJsonRpcResponse**: [`JsonRpcResponse`](index.md#jsonrpcresponse)\<``"eth_uninstallFilter"``, `boolean`, `string` \| `number`\>
 
 JSON-RPC response for `eth_uninstallFilter` procedure
 

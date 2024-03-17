@@ -44,7 +44,7 @@ export const createBaseClient = (options = {}) => {
 			networkId: 10,
 		},
 		// Optimism has not implemented the London hardfork yet (targeting Q1.22)
-		{ hardfork: options.hardfork ?? 'cancun', baseChain: 1, }
+		{ hardfork: options.hardfork ?? 'cancun', baseChain: 1 },
 	)
 	/**
 	 * @returns {import('@tevm/state').TevmStateManagerOptions }
@@ -153,7 +153,9 @@ export const createBaseClient = (options = {}) => {
 		}
 
 		const blockTag = (() => {
-			const blockTag = /** @type {import('@tevm/state').ForkStateManager}*/(stateManager).blockTag || { blockTag: 'latest' }
+			const blockTag = /** @type {import('@tevm/state').ForkStateManager}*/ (
+				stateManager
+			).blockTag || { blockTag: 'latest' }
 			if ('blockNumber' in blockTag && blockTag.blockNumber !== undefined) {
 				return numberToHex(blockTag.blockNumber)
 			}
@@ -162,7 +164,11 @@ export const createBaseClient = (options = {}) => {
 			}
 			return 'latest'
 		})()
-		const blockchain = await createBlockchain({ common, forkUrl: options.fork?.url, blockTag })
+		const blockchain = await createBlockchain({
+			common,
+			forkUrl: options.fork?.url,
+			blockTag,
+		})
 		const evm = createEvm({
 			common,
 			stateManager,

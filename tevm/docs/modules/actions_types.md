@@ -999,7 +999,7 @@ ___
 
 ### BaseCallParams
 
-Ƭ **BaseCallParams**\<`TThrowOnFail`\>: `BaseParams`\<`TThrowOnFail`\> & \{ `blobVersionedHashes?`: [`Hex`](actions_types.md#hex)[] ; `blockTag?`: [`BlockParam`](index.md#blockparam) ; `caller?`: [`Address`](actions_types.md#address) ; `createTransaction?`: `boolean` ; `depth?`: `number` ; `from?`: [`Address`](actions_types.md#address) ; `gas?`: `bigint` ; `gasPrice?`: `bigint` ; `gasRefund?`: `bigint` ; `origin?`: [`Address`](actions_types.md#address) ; `selfdestruct?`: `Set`\<[`Address`](actions_types.md#address)\> ; `skipBalance?`: `boolean` ; `to?`: [`Address`](actions_types.md#address) ; `value?`: `bigint`  }
+Ƭ **BaseCallParams**\<`TThrowOnFail`\>: `BaseParams`\<`TThrowOnFail`\> & \{ `blobVersionedHashes?`: [`Hex`](actions_types.md#hex)[] ; `blockTag?`: [`BlockParam`](index.md#blockparam) ; `caller?`: [`Address`](actions_types.md#address) ; `createTransaction?`: ``"on-success"`` \| ``"always"`` \| ``"never"`` \| `boolean` ; `depth?`: `number` ; `from?`: [`Address`](actions_types.md#address) ; `gas?`: `bigint` ; `gasPrice?`: `bigint` ; `gasRefund?`: `bigint` ; `origin?`: [`Address`](actions_types.md#address) ; `selfdestruct?`: `Set`\<[`Address`](actions_types.md#address)\> ; `skipBalance?`: `boolean` ; `to?`: [`Address`](actions_types.md#address) ; `value?`: `bigint`  }
 
 Properties shared accross call-like params
 
@@ -2504,7 +2504,7 @@ ___
 
 ### EthGetTransactionReceiptResult
 
-Ƭ **EthGetTransactionReceiptResult**: [`TransactionReceiptResult`](actions_types.md#transactionreceiptresult)
+Ƭ **EthGetTransactionReceiptResult**: [`TransactionReceiptResult`](actions_types.md#transactionreceiptresult) \| ``null``
 
 JSON-RPC response for `eth_getTransactionReceipt` procedure
 
@@ -3363,13 +3363,13 @@ FilterLog type for eth JSON-RPC procedures
 | :------ | :------ |
 | `address` | [`Hex`](actions_types.md#hex) |
 | `blockHash` | [`Hex`](actions_types.md#hex) |
-| `blockNumber` | [`Hex`](actions_types.md#hex) |
+| `blockNumber` | `bigint` |
 | `data` | [`Hex`](actions_types.md#hex) |
-| `logIndex` | [`Hex`](actions_types.md#hex) |
+| `logIndex` | `bigint` |
 | `removed` | `boolean` |
 | `topics` | readonly [`Hex`](actions_types.md#hex)[] |
 | `transactionHash` | [`Hex`](actions_types.md#hex) |
-| `transactionIndex` | [`Hex`](actions_types.md#hex) |
+| `transactionIndex` | `bigint` |
 
 #### Defined in
 
@@ -3736,18 +3736,20 @@ Transaction receipt result type for eth JSON-RPC procedures
 
 | Name | Type |
 | :------ | :------ |
+| `blobGasPrice` | `bigint` |
+| `blobGasUsed` | `bigint` |
 | `blockHash` | [`Hex`](actions_types.md#hex) |
-| `blockNumber` | [`Hex`](actions_types.md#hex) |
+| `blockNumber` | `bigint` |
 | `contractAddress` | [`Hex`](actions_types.md#hex) |
-| `cumulativeGasUsed` | [`Hex`](actions_types.md#hex) |
+| `cumulativeGasUsed` | `bigint` |
 | `from` | [`Hex`](actions_types.md#hex) |
-| `gasUsed` | [`Hex`](actions_types.md#hex) |
+| `gasUsed` | `bigint` |
 | `logs` | readonly [`FilterLog`](actions_types.md#filterlog)[] |
 | `logsBloom` | [`Hex`](actions_types.md#hex) |
 | `status` | [`Hex`](actions_types.md#hex) |
 | `to` | [`Hex`](actions_types.md#hex) |
 | `transactionHash` | [`Hex`](actions_types.md#hex) |
-| `transactionIndex` | [`Hex`](actions_types.md#hex) |
+| `transactionIndex` | `bigint` |
 
 #### Defined in
 
