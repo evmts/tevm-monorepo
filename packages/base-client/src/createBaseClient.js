@@ -43,8 +43,7 @@ export const createBaseClient = (options = {}) => {
 			chainId: 10,
 			networkId: 10,
 		},
-		// Optimism has not implemented the London hardfork yet (targeting Q1.22)
-		{ hardfork: options.hardfork ?? 'cancun', baseChain: 1 },
+		{ hardfork: options.hardfork ?? 'cancun', baseChain: 1, eips: [...(options.eips ?? []), 1559, 4895, 4844, 4788] },
 	)
 	/**
 	 * @returns {import('@tevm/state').TevmStateManagerOptions }

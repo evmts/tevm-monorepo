@@ -4,6 +4,10 @@ import { genesisStateRoot } from '@ethereumjs/trie'
 import { createJsonRpcFetcher } from '@tevm/jsonrpc'
 import { createMemoryDb, numberToHex, parseGwei } from '@tevm/utils'
 
+// TODO user should be able to pass in header information to json rpc requests anywhere createJsonRpcFetcher is used
+
+const OP_DEPOSIT_TX_TYPE = '0x7e'
+
 /**
  * @param {object} options
  * @param {import('@ethereumjs/common').Common} options.common
@@ -22,22 +26,42 @@ export const createBlockchain = async ({
 	 */
 	const genesisState = {}
 
-	const genesisBlock = TevmBlock.fromBlockData(
-		{
-			header: {
-				...common.genesis(),
-				baseFeePerGas: parseGwei('1'),
-				coinbase: '0xc014ba5ec014ba5ec014ba5ec014ba5ec014ba5e',
-			},
-			...(common.isActivatedEIP(4895)
-				? {
+	const genesisBlock = await (() => {
+		if (forkUrl) {
+			return createJsonRpcFetcher(forkUrl).request({
+				jsonrpc: '2.0',
+				id: 1,
+				method: 'eth_getBlockByNumber',
+				params: [
+					'0x0',
+					true
+				],
+			}).then(response => {
+				return TevmBlock.fromRPC(/** @type {any}*/(response.result), undefined, {
+					common,
+					freeze: true,
+					setHardfork: false,
+					skipConsensusFormatValidation: true,
+				})
+			})
+		}
+		return TevmBlock.fromBlockData(
+			{
+				header: {
+					...common.genesis(),
+					baseFeePerGas: parseGwei('1'),
+					coinbase: '0xc014ba5ec014ba5ec014ba5ec014ba5ec014ba5e',
+				},
+				...(common.isActivatedEIP(4895)
+					? {
 						withdrawals:
 							/** @type {Array<import('@ethereumjs/util').WithdrawalData>}*/ ([]),
-				  }
-				: {}),
-		},
-		{ common, setHardfork: false, skipConsensusFormatValidation: true },
-	)
+					}
+					: {}),
+			},
+			{ common, setHardfork: false, skipConsensusFormatValidation: true },
+		)
+	})()
 	const stateRoot = await genesisStateRoot(genesisState)
 
 	const out = await TevmBlockchain.create({
@@ -54,9 +78,8 @@ export const createBlockchain = async ({
 	})
 
 	if (forkUrl) {
-		const fetcher = createJsonRpcFetcher(forkUrl)
 		// TODO we shoudl validate this
-		const jsonRpcBlock = await fetcher.request({
+		const { result: jsonRpcBlock } = await createJsonRpcFetcher(forkUrl).request({
 			jsonrpc: '2.0',
 			id: 1,
 			method: 'eth_getBlockByNumber',
@@ -64,10 +87,27 @@ export const createBlockchain = async ({
 				typeof blockTag === 'bigint' ? numberToHex(blockTag) : blockTag,
 				true,
 			],
+		});
+		console.log({ jsonRpcBlock })
+		const latestBlock = TevmBlock.fromRPC({
+			.../** @type {any}*/(jsonRpcBlock),
+			// as a hack until optimism deposit tx type is supported filter out all those tx
+			parentHash: genesisBlock.hash(),
+			transactions: /** @type {any}*/(jsonRpcBlock).transactions.filter(
+				/** @param {any} tx */
+				tx => tx.type !== OP_DEPOSIT_TX_TYPE,
+			)
+		}, undefined, {
+			common,
+			freeze: true,
+			setHardfork: false,
+			skipConsensusFormatValidation: true,
 		})
-		const latestBlock = TevmBlock.fromRPC(/** @type {any}*/ (jsonRpcBlock))
-		out.putBlock(latestBlock)
+		console.log('putting block')
+		await out.putBlock(latestBlock)
+		console.log('successfully created blockchain with genesis block and state root')
 	}
+
 
 	return out
 }

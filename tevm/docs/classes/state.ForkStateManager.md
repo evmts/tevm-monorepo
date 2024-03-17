@@ -40,9 +40,9 @@ const stateManager = new ForkStateManager({
 ### Properties
 
 - [\_accountCache](state.ForkStateManager.md#_accountcache)
-- [\_blockTag](state.ForkStateManager.md#_blocktag)
 - [\_contractCache](state.ForkStateManager.md#_contractcache)
 - [\_storageCache](state.ForkStateManager.md#_storagecache)
+- [blockTag](state.ForkStateManager.md#blocktag)
 - [client](state.ForkStateManager.md#client)
 - [dumpCanonicalGenesis](state.ForkStateManager.md#dumpcanonicalgenesis)
 - [generateCanonicalGenesis](state.ForkStateManager.md#generatecanonicalgenesis)
@@ -109,16 +109,6 @@ evmts-monorepo/packages/state/types/ForkStateManager.d.ts:41
 
 ___
 
-### \_blockTag
-
-• `Protected` **\_blockTag**: \{ `blockNumber`: `bigint`  } \| \{ `blockTag`: [`BlockTag`](../modules/index.md#blocktag)  }
-
-#### Defined in
-
-evmts-monorepo/packages/state/types/ForkStateManager.d.ts:42
-
-___
-
 ### \_contractCache
 
 • `Protected` **\_contractCache**: `Map`\<`string`, `Uint8Array`\>
@@ -136,6 +126,16 @@ ___
 #### Defined in
 
 evmts-monorepo/packages/state/types/ForkStateManager.d.ts:40
+
+___
+
+### blockTag
+
+• **blockTag**: \{ `blockNumber`: `bigint`  } \| \{ `blockTag`: [`BlockTag`](../modules/index.md#blocktag)  }
+
+#### Defined in
+
+evmts-monorepo/packages/state/types/ForkStateManager.d.ts:42
 
 ___
 
