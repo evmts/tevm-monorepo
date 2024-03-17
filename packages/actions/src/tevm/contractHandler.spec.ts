@@ -1,7 +1,8 @@
-import { createBaseClient } from '@tevm/base-client'
+import { hexToBytes } from '@tevm/utils'
 import { MOCKERC20_ABI, MOCKERC20_BYTECODE } from '../test/contractConstants.js'
 import { contractHandler } from './contractHandler.js'
 import { setAccountHandler } from './setAccountHandler.js'
+import { createBaseClient } from '@tevm/base-client'
 import type { ContractError } from '@tevm/errors'
 import { describe, expect, it } from 'bun:test'
 
@@ -462,10 +463,14 @@ describe('contractHandler', () => {
 		const client = createBaseClient()
 		const vm = await client.getVm()
 		const originalRunCall = vm.evm.runCall.bind(vm.evm)
-		vm.evm.runCall = function(args) {
+		vm.evm.runCall = async function(args) {
+			const originalResult = await originalRunCall(args)
 			return {
-				...originalRunCall(args),
-				execResult: { returnValue: '0x42424242' },
+				...originalResult,
+				execResult: {
+					...originalResult.execResult,
+					returnValue: hexToBytes('0x42424242')
+				},
 			}
 		}
 		// deploy contract

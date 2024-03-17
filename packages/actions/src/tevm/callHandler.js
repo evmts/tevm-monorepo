@@ -1,9 +1,12 @@
-import { TransactionFactory } from '@ethereumjs/tx'
 import { callHandlerOpts } from './callHandlerOpts.js'
 import { callHandlerResult } from './callHandlerResult.js'
 import { maybeThrowOnFail } from './maybeThrowOnFail.js'
+import { TransactionFactory } from '@ethereumjs/tx'
+import { EthjsAddress, bytesToHex } from '@tevm/utils'
 import { validateCallParams } from '@tevm/zod'
-import { bytesToHex } from '@tevm/utils'
+
+// TODO tevm_call should optionally take a signature too
+const requireSig = false
 
 /**
  * Creates an CallHandler for handling call params with Ethereumjs EVM
@@ -71,10 +74,16 @@ export const callHandler =
 					if (params.createTransaction === undefined) {
 						return false
 					}
-					if (params.createTransaction === true || params.createTransaction === 'always') {
+					if (
+						params.createTransaction === true ||
+						params.createTransaction === 'always'
+					) {
 						return true
 					}
-					if (params.createTransaction === false || params.createTransaction === 'never') {
+					if (
+						params.createTransaction === false ||
+						params.createTransaction === 'never'
+					) {
 						return false
 					}
 					if (params.createTransaction === 'on-success') {
@@ -88,15 +97,50 @@ export const callHandler =
 				})()
 				if (shouldCreateTransaction) {
 					const pool = await client.getTxPool()
+					const opts = callHandlerOpts(params)
 					// TODO known bug here we should be allowing unlimited code size here based on user providing option
 					// Just lazily not looking up how to get it from client.getVm().evm yet
 					// Possible we need to make property public on client
-					const tx = TransactionFactory.fromTxData(params, { allowUnlimitedInitCodeSize: false, common: copiedVm.common, freeze: true })
+					const tx = TransactionFactory.fromTxData({
+						// TODO tevm_call should take nonce
+						// TODO should write tests that this works with multiple tx nonces
+						nonce: (
+							await copiedVm.stateManager.getAccount(
+								EthjsAddress.fromString(
+									params.from ?? params.caller ?? `0x${'00'.repeat(20)}`),
+							) ?? { nonce: 0n }
+						).nonce + 1n,
+						...opts,
+					}, {
+						allowUnlimitedInitCodeSize: false,
+						common: copiedVm.common,
+						freeze: true,
+					})
+					// So we can `impersonate` accounts we need to hack the `hash()` method to always exist whether signed or unsigned
+					// TODO we should be configuring tevm_call to sometimes only accept signed transactions
+					const wrappedTx = new Proxy(tx, {
+						get(target, prop) {
+							if (prop === 'hash') {
+								return () => {
+									try {
+										return target.hash()
+									} catch (e) {
+										return target.getHashedMessageToSign()
+									}
+								}
+							}
+							if (prop === 'isSigned') {
+								return () => true
+							}
+							if (prop === 'getSenderAddress') {
+								return () => EthjsAddress.fromString(params.from ?? params.caller ?? `0x${'00'.repeat(20)}`)
+							}
+							return Reflect.get(target, prop)
+						},
+					})
 					try {
-						pool.add(tx)
-						txHash = bytesToHex(tx.hash())
-						// Try to add to chain before checkpointing state manager
-						// If these error we are in big trouble we might want a way of making the entire vm `panic` in this case
+						pool.add(wrappedTx, requireSig, opts.skipBalance)
+						txHash = bytesToHex(wrappedTx.hash())
 						await copiedVm.stateManager.checkpoint()
 						await copiedVm.stateManager.commit()
 					} catch (e) {
@@ -125,20 +169,17 @@ export const callHandler =
 						})
 					}
 				} else {
-					// we want to revert state manager if the transaction should NOT be added to chain 
+					// we want to revert state manager if the transaction should NOT be added to chain
 					// Don't bother though if the state manager is just a copy
 					if (vm === copiedVm) {
 						await copiedVm.stateManager.revert()
 					}
 				}
 				return /** @type {any}*/ (
-					maybeThrowOnFail(
-						params.throwOnFail ?? defaultThrowOnFail,
-						{
-							...callHandlerResult(evmResult),
-							...(txHash === undefined ? {} : { txHash })
-						}
-					)
+					maybeThrowOnFail(params.throwOnFail ?? defaultThrowOnFail, {
+						...callHandlerResult(evmResult),
+						...(txHash === undefined ? {} : { txHash }),
+					})
 				)
 			} catch (e) {
 				return maybeThrowOnFail(params.throwOnFail ?? defaultThrowOnFail, {

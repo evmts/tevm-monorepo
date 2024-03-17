@@ -6,7 +6,7 @@ import { TevmCommon } from '@tevm/common'
 import { createEvm } from '@tevm/evm'
 import { createTevmStateManager } from '@tevm/state'
 import { TxPool } from '@tevm/txpool'
-import { hexToBigInt, toHex } from '@tevm/utils'
+import { hexToBigInt, numberToHex, toHex } from '@tevm/utils'
 import { createVm } from '@tevm/vm'
 import { MemoryLevel } from 'memory-level'
 
@@ -152,7 +152,17 @@ export const createBaseClient = (options = {}) => {
 			}
 		}
 
-		const blockchain = await createBlockchain({ common })
+		const blockTag = (() => {
+			const blockTag = /** @type {import('@tevm/state').ForkStateManager}*/(stateManager).blockTag || { blockTag: 'latest' }
+			if ('blockNumber' in blockTag && blockTag.blockNumber !== undefined) {
+				return numberToHex(blockTag.blockNumber)
+			}
+			if ('blockTag' in blockTag && blockTag.blockTag !== undefined) {
+				return blockTag.blockTag
+			}
+			return 'latest'
+		})()
+		const blockchain = await createBlockchain({ common, forkUrl: options.fork?.url, blockTag })
 		const evm = createEvm({
 			common,
 			stateManager,

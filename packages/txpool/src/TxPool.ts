@@ -170,12 +170,12 @@ export class TxPool {
 		const minTipCap =
 			existingTxGasPrice.tip +
 			(existingTxGasPrice.tip * BigInt(MIN_GAS_PRICE_BUMP_PERCENT)) /
-				BigInt(100)
+			BigInt(100)
 
 		const minFeeCap =
 			existingTxGasPrice.maxFee +
 			(existingTxGasPrice.maxFee * BigInt(MIN_GAS_PRICE_BUMP_PERCENT)) /
-				BigInt(100)
+			BigInt(100)
 		if (newGasPrice.tip < minTipCap || newGasPrice.maxFee < minFeeCap) {
 			throw new Error(
 				`replacement gas too low, got tip ${newGasPrice.tip}, min: ${minTipCap}, got fee ${newGasPrice.maxFee}, min: ${minFeeCap}`,
@@ -189,7 +189,7 @@ export class TxPool {
 			const minblobGasFee =
 				existingTx.maxFeePerBlobGas +
 				(existingTx.maxFeePerBlobGas * BigInt(MIN_GAS_PRICE_BUMP_PERCENT)) /
-					BigInt(100)
+				BigInt(100)
 			if (addedTx.maxFeePerBlobGas < minblobGasFee) {
 				throw new Error(
 					`replacement blob gas too low, got: ${addedTx.maxFeePerBlobGas}, min: ${minblobGasFee}`,
@@ -202,8 +202,8 @@ export class TxPool {
 	 * Validates a transaction against the pool and other constraints
 	 * @param tx The tx to validate
 	 */
-	private async validate(tx: TypedTransaction, isLocalTransaction = false) {
-		if (!tx.isSigned()) {
+	private async validate(tx: TypedTransaction, isLocalTransaction = false, requireSignature = true, skipBalance = false) {
+		if (requireSignature && !tx.isSigned()) {
 			throw new Error('Attempting to add tx to txpool which is not signed')
 		}
 		if (tx.data.length > TX_MAX_DATA_SIZE) {
@@ -274,8 +274,9 @@ export class TxPool {
 
 		// Copy VM in order to not overwrite the state root of the VMExecution module which may be concurrently running blocks
 		const vmCopy = await this.vm.shallowCopy()
-		// Set state root to latest block so that account balance is correct when doing balance check
-		await vmCopy.stateManager.setStateRoot(block.stateRoot)
+		// TODO We should set state root to latest block so that account balance is correct when doing balance check
+		// This should be fixed via abstracting chain history wrt state and blockchain in the new `chain` object
+		// await vmCopy.stateManager.setStateRoot(block.stateRoot)
 		let account = await vmCopy.stateManager.getAccount(senderAddress)
 		if (account === undefined) {
 			account = new Account()
@@ -286,7 +287,7 @@ export class TxPool {
 			)
 		}
 		const minimumBalance = tx.value + currentGasPrice.maxFee * tx.gasLimit
-		if (account.balance < minimumBalance) {
+		if (!skipBalance && account.balance < minimumBalance) {
 			throw new Error(
 				`0x${sender} does not have enough balance to cover transaction costs, need ${minimumBalance}, but have ${account.balance} (insufficient balance)`,
 			)
@@ -332,8 +333,8 @@ export class TxPool {
 	 * @param tx Transaction
 	 * @param isLocalTransaction if this is a local transaction (loosens some constraints) (default: false)
 	 */
-	async add(tx: TypedTransaction) {
-		await this.validate(tx, true)
+	async add(tx: TypedTransaction, requireSignature = true, skipBalance = false) {
+		await this.validate(tx, true, requireSignature, skipBalance)
 		return this.addUnverified(tx)
 	}
 
@@ -539,7 +540,7 @@ export class TxPool {
 		const byPrice = new Heap({
 			comparBefore: (a: TypedTransaction, b: TypedTransaction) =>
 				this.normalizedGasPrice(b, baseFee) -
-					this.normalizedGasPrice(a, baseFee) <
+				this.normalizedGasPrice(a, baseFee) <
 				BIGINT_0,
 		}) as QHeap<TypedTransaction>
 		for (const [address, txs] of byNonce) {
@@ -572,7 +573,7 @@ export class TxPool {
 				!(best instanceof BlobEIP4844Transaction) ||
 				allowedBlobs === undefined ||
 				((best as BlobEIP4844Transaction).blobs ?? []).length + blobsCount <=
-					allowedBlobs
+				allowedBlobs
 			) {
 				if (accTxs.length > 0) {
 					if (!accTxs[0]) {

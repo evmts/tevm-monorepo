@@ -30,6 +30,10 @@ const client = createMemoryClient({ forkUrl: 'https://mainnet.infura.io/v3/your-
 console.log(client.forkUrl)
 ```
 
+▪ **client.getChain**: () => `Promise`\<`Chain`\>
+
+Represents the entire blockchain including it's logs and historical state
+
 ▪ **client.getChainId**: () => `Promise`\<`number`\>
 
 Gets the chainId of the current EVM
@@ -41,6 +45,10 @@ const client = createMemoryClient()
 const chainId = await client.getChainId()
 console.log(chainId)
 ```
+
+▪ **client.getReceiptsManager**: () => `Promise`\<`ReceiptsManager`\>
+
+Interface for querying receipts and historical state
 
 ▪ **client.getTxPool**: () => `Promise`\<`TxPool`\>
 

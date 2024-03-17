@@ -111,7 +111,7 @@ ___
 | :------ | :------ |
 | `TMethod` | extends `string` |
 | `TResult` | `TResult` |
-| `TErrorCode` | extends `string` |
+| `TErrorCode` | extends `string` \| `number` |
 
 #### Defined in
 

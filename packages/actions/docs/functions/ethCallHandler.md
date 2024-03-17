@@ -10,7 +10,7 @@
 
 ## Parameters
 
-▪ **client**: `Pick`\<`object`, `"getVm"`\>
+▪ **client**: `Pick`\<`object`, `"getChainId"` \| `"miningConfig"` \| `"mode"` \| `"getVm"` \| `"getTxPool"`\>
 
 ## Returns
 

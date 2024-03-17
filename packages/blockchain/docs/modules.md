@@ -4,8 +4,14 @@
 
 ## Table of contents
 
+### Enumerations
+
+- [Event](enums/Event.md)
+
 ### Classes
 
+- [Chain](classes/Chain.md)
+- [ReceiptsManager](classes/ReceiptsManager.md)
 - [TevmBlock](classes/TevmBlock.md)
 - [TevmBlockchain](classes/TevmBlockchain.md)
 

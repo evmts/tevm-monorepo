@@ -71,6 +71,7 @@
 		"@ethereumjs/tx": "^5.2.1",
 		"@ethereumjs/util": "^9.0.2",
 		"@ethereumjs/vm": "^7.2.1",
+		"@tevm/jsonrpc": "workspace:1.0.0-next.40",
 		"abstract-level": "^2.0.0",
 		"memory-level": "^1.0.0"
 	},

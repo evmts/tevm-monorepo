@@ -912,7 +912,7 @@ ___
 
 ### BaseCallParams
 
-Ƭ **BaseCallParams**\<`TThrowOnFail`\>: `BaseParams`\<`TThrowOnFail`\> & \{ `blobVersionedHashes?`: [`Hex`](modules.md#hex)[] ; `blockTag?`: [`BlockParam`](modules.md#blockparam) ; `caller?`: [`Address`](modules.md#address) ; `createTransaction?`: `boolean` ; `depth?`: `number` ; `from?`: [`Address`](modules.md#address) ; `gas?`: `bigint` ; `gasPrice?`: `bigint` ; `gasRefund?`: `bigint` ; `origin?`: [`Address`](modules.md#address) ; `selfdestruct?`: `Set`\<[`Address`](modules.md#address)\> ; `skipBalance?`: `boolean` ; `to?`: [`Address`](modules.md#address) ; `value?`: `bigint`  }
+Ƭ **BaseCallParams**\<`TThrowOnFail`\>: `BaseParams`\<`TThrowOnFail`\> & \{ `blobVersionedHashes?`: [`Hex`](modules.md#hex)[] ; `blockTag?`: [`BlockParam`](modules.md#blockparam) ; `caller?`: [`Address`](modules.md#address) ; `createTransaction?`: ``"on-success"`` \| ``"always"`` \| ``"never"`` \| `boolean` ; `depth?`: `number` ; `from?`: [`Address`](modules.md#address) ; `gas?`: `bigint` ; `gasPrice?`: `bigint` ; `gasRefund?`: `bigint` ; `origin?`: [`Address`](modules.md#address) ; `selfdestruct?`: `Set`\<[`Address`](modules.md#address)\> ; `skipBalance?`: `boolean` ; `to?`: [`Address`](modules.md#address) ; `value?`: `bigint`  }
 
 Properties shared accross call-like params
 
@@ -1108,6 +1108,7 @@ Result of a Tevm VM Call method
 | `logs?` | [`Log`](modules.md#log)[] | Array of logs that the contract emitted |
 | `rawData` | [`Hex`](modules.md#hex) | Encoded return value from the contract as hex string |
 | `selfdestruct?` | `Set`\<[`Address`](modules.md#address)\> | A set of accounts to selfdestruct |
+| `txHash?` | [`Hex`](modules.md#hex) | The returned tx hash if the call was included in the chain Will not be defined if the call was not included in the chain Whether a call is included in the chain depends on if the `createTransaction` option and the result of the call |
 
 #### Defined in
 
@@ -2529,7 +2530,7 @@ ___
 
 ### EthGetTransactionReceiptResult
 
-Ƭ **EthGetTransactionReceiptResult**: [`TransactionReceiptResult`](modules.md#transactionreceiptresult)
+Ƭ **EthGetTransactionReceiptResult**: [`TransactionReceiptResult`](modules.md#transactionreceiptresult) \| ``null``
 
 JSON-RPC response for `eth_getTransactionReceipt` procedure
 
@@ -3388,13 +3389,13 @@ FilterLog type for eth JSON-RPC procedures
 | :------ | :------ |
 | `address` | [`Hex`](modules.md#hex) |
 | `blockHash` | [`Hex`](modules.md#hex) |
-| `blockNumber` | [`Hex`](modules.md#hex) |
+| `blockNumber` | `bigint` |
 | `data` | [`Hex`](modules.md#hex) |
-| `logIndex` | [`Hex`](modules.md#hex) |
+| `logIndex` | `bigint` |
 | `removed` | `boolean` |
 | `topics` | readonly [`Hex`](modules.md#hex)[] |
 | `transactionHash` | [`Hex`](modules.md#hex) |
-| `transactionIndex` | [`Hex`](modules.md#hex) |
+| `transactionIndex` | `bigint` |
 
 #### Defined in
 
@@ -3980,18 +3981,20 @@ Transaction receipt result type for eth JSON-RPC procedures
 
 | Name | Type |
 | :------ | :------ |
+| `blobGasPrice` | `bigint` |
+| `blobGasUsed` | `bigint` |
 | `blockHash` | [`Hex`](modules.md#hex) |
-| `blockNumber` | [`Hex`](modules.md#hex) |
+| `blockNumber` | `bigint` |
 | `contractAddress` | [`Hex`](modules.md#hex) |
-| `cumulativeGasUsed` | [`Hex`](modules.md#hex) |
+| `cumulativeGasUsed` | `bigint` |
 | `from` | [`Hex`](modules.md#hex) |
-| `gasUsed` | [`Hex`](modules.md#hex) |
+| `gasUsed` | `bigint` |
 | `logs` | readonly [`FilterLog`](modules.md#filterlog)[] |
 | `logsBloom` | [`Hex`](modules.md#hex) |
 | `status` | [`Hex`](modules.md#hex) |
 | `to` | [`Hex`](modules.md#hex) |
 | `transactionHash` | [`Hex`](modules.md#hex) |
-| `transactionIndex` | [`Hex`](modules.md#hex) |
+| `transactionIndex` | `bigint` |
 
 #### Defined in
 

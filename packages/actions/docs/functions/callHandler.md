@@ -12,7 +12,7 @@ Creates an CallHandler for handling call params with Ethereumjs EVM
 
 ## Parameters
 
-▪ **client**: `Pick`\<`object`, `"getVm"`\>
+▪ **client**: `Pick`\<`object`, `"mode"` \| `"getVm"` \| `"getTxPool"`\>
 
 ▪ **options?**: `object`= `{}`
 
@@ -22,7 +22,7 @@ Creates an CallHandler for handling call params with Ethereumjs EVM
 
 ## Source
 
-[packages/actions/src/tevm/callHandler.js:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm/callHandler.js#L14)
+[packages/actions/src/tevm/callHandler.js:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm/callHandler.js#L16)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,10 +1,10 @@
-import { createBaseClient } from '@tevm/base-client'
 import { callHandler } from './callHandler.js'
 import { setAccountHandler } from './setAccountHandler.js'
+import { createBaseClient } from '@tevm/base-client'
 import { EvmErrorMessage } from '@tevm/evm'
-import { EthjsAddress } from '@tevm/utils'
 import { encodeFunctionData } from '@tevm/utils'
 import { describe, expect, it } from 'bun:test'
+import { getAccountHandler } from './getAccountHandler.js'
 
 const ERC20_ADDRESS = `0x${'3'.repeat(40)}` as const
 const ERC20_BYTECODE =
@@ -340,12 +340,12 @@ describe('callHandler', () => {
 		).toEqual({
 			executionGasUsed: 0n,
 			rawData: '0x',
+			txHash: "0x0cdc21ceaf65aee7cc4008cf6f31b1ec9037d05b478a0c0536b698843b0539a1"
 		})
-
-		const vm = await client.getVm()
-
 		expect(
-			(await vm.evm.stateManager.getAccount(EthjsAddress.fromString(to)))?.balance,
+			(await getAccountHandler(client)({
+				address: to,
+			})).balance,
 		).toEqual(420n)
 	})
 
