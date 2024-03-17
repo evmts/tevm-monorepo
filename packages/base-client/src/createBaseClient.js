@@ -37,12 +37,15 @@ export const createBaseClient = (options = {}) => {
 			'Unable to initialize BaseClient. Cannot use both fork and proxy options at the same time!',
 		)
 	}
-	const common = new TevmCommon({
-		chain: 1,
-		hardfork: options.hardfork ?? 'shanghai',
-		eips: /**@type number[]*/ (options.eips ?? [1559, 4895]),
-	})
-
+	const common = TevmCommon.custom(
+		{
+			name: 'TevmCustom',
+			chainId: 10,
+			networkId: 10,
+		},
+		// Optimism has not implemented the London hardfork yet (targeting Q1.22)
+		{ hardfork: options.hardfork ?? 'cancun', baseChain: 1, }
+	)
 	/**
 	 * @returns {import('@tevm/state').TevmStateManagerOptions }
 	 */
