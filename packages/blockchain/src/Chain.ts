@@ -2,8 +2,8 @@ import { LevelDB } from './LevelDb.js'
 // this is from ethereumjs and carries the same license as the original
 // https://github.com/ethereumjs/ethereumjs-monorepo/blob/master/packages/client/src/execution/receipt.ts
 import { Block, BlockHeader } from '@ethereumjs/block'
-import { Blockchain } from '@ethereumjs/blockchain'
-import { Common, Hardfork } from '@ethereumjs/common'
+import { Blockchain, CasperConsensus, CliqueConsensus, EthashConsensus, type Consensus } from '@ethereumjs/blockchain'
+import { Common, ConsensusAlgorithm, Hardfork } from '@ethereumjs/common'
 import {
 	BIGINT_0,
 	type DB,
@@ -21,16 +21,12 @@ export interface ChainOptions {
 	/**
 	 * Database to store blocks and metadata. Should be an abstract-leveldown compliant store.
 	 */
-	chainDB?: AbstractLevel<
+	db?: AbstractLevel<
 		string | Uint8Array,
 		string | Uint8Array,
 		string | Uint8Array
 	>
 
-	/**
-	 * Specify a blockchain which implements the Chain interface
-	 */
-	blockchain: Blockchain
 	common: Common
 
 	genesisState?: GenesisState
@@ -120,14 +116,51 @@ type BlockCache = {
 	invalidBlocks: Map<String, Error>
 }
 
+type BlockchainProps =
+	| 'validateHeader'
+	| 'getBlock'
+	| 'putBlock'
+	| 'db'
+	| 'consensus'
+	| 'common'
+	| 'delBlock'
+	| 'putBlocks'
+	| 'validateBlock'
+	| 'resetCanonicalHead'
+	| 'getCanonicalHeader'
+	| 'getCanonicalHeadBlock'
+	| 'getCanonicalHeadHeader'
+	| 'getBlocks'
+	| 'getParentTD'
+	| 'genesisBlock'
+	| 'putHeader'
+	| 'putHeaders'
+
 /**
  * Blockchain
  * @memberof module:blockchain
  */
-export class Chain {
-	public chainDB: DB<string | Uint8Array, string | Uint8Array | DBObject>
-	public blockchain: Blockchain
+export class TevmBlockchain implements Pick<Blockchain, BlockchainProps>{
+	public readonly shallowCopy = () => {
+		return new TevmBlockchain({
+			db: this.db.shallowCopy() as any,
+			common: this.common,
+			genesisState: this.genesisState,
+			genesisStateRoot: this.genesisStateRoot,
+		})
+	}
 	public common: Common
+	public db: DB<string | Uint8Array, string | Uint8Array | DBObject>
+	/**
+	 * Validates a block header, throwing if invalid. 
+	 * @warning currently stubbed to noop
+	 * @param header - header to be validated
+	 * @param height - If this is an uncle header, this is the height of the block that is including it
+	 */
+	public async validateHeader() {
+		// stub
+	}
+	consensus: Consensus
 	public blockCache: BlockCache
 	public _customGenesisState?: GenesisState | undefined
 	public _customGenesisStateRoot?: Uint8Array | undefined
@@ -159,24 +192,6 @@ export class Chain {
 	 * @param options
 	 */
 	public static async create(options: ChainOptions) {
-		const validateConsensus = false
-
-		options.blockchain =
-			options.blockchain ??
-			(await Blockchain.create({
-				db: new LevelDB(options.chainDB),
-				common: options.common,
-				hardforkByHeadBlockNumber: true,
-				validateBlocks: true,
-				validateConsensus,
-				...(options.genesisState !== undefined
-					? { genesisState: options.genesisState }
-					: {}),
-				...(options.genesisStateRoot !== undefined
-					? { genesisStateRoot: options.genesisStateRoot }
-					: {}),
-			}))
-
 		return new this(options)
 	}
 
@@ -189,18 +204,29 @@ export class Chain {
 	 * @param options
 	 */
 	protected constructor(options: ChainOptions) {
-		this.blockchain = options.blockchain
 		this.common = options.common
 		this.blockCache = {
 			remoteBlocks: new Map(),
 			executedBlocks: new Map(),
 			invalidBlocks: new Map(),
 		}
-
-		this.chainDB = this.blockchain.db
+		this.db = new LevelDB(options.db)
 		this._customGenesisState = options.genesisState
 		this._customGenesisStateRoot = options.genesisStateRoot
 		this.opened = false
+		switch (this.common.consensusAlgorithm()) {
+			case ConsensusAlgorithm.Casper:
+				this.consensus = new CasperConsensus()
+				break
+			case ConsensusAlgorithm.Clique:
+				this.consensus = new CliqueConsensus()
+				break
+			case ConsensusAlgorithm.Ethash:
+				this.consensus = new EthashConsensus()
+				break
+			default:
+				throw new Error(`consensus algorithm ${this.common.consensusAlgorithm()} not supported`)
+		}
 	}
 
 	/**
@@ -278,10 +304,10 @@ export class Chain {
 	/**
 	 * Resets the chain to canonicalHead number
 	 */
-	async resetCanonicalHead(canonicalHead: bigint): Promise<boolean | void> {
-		if (!this.opened) return false
+	async resetCanonicalHead(canonicalHead: bigint): Promise<void> {
+		if (!this.opened) return
 		await this.blockchain.resetCanonicalHead(canonicalHead)
-		return this.update()
+		this.update()
 	}
 
 	/**
@@ -383,11 +409,10 @@ export class Chain {
 	 * Insert new blocks into blockchain
 	 * @param blocks list of blocks to add
 	 * @param fromEngine pass true to process post-merge blocks, otherwise they will be skipped
-	 * @returns number of blocks added
 	 */
-	async putBlocks(blocks: Block[], fromEngine = false): Promise<number> {
+	async putBlocks(blocks: Block[], fromEngine = false): Promise<void> {
 		if (!this.opened) throw new Error('Chain closed')
-		if (blocks.length === 0) return 0
+		if (blocks.length === 0) return
 
 		let numAdded = 0
 		// filter out finalized blocks
@@ -436,7 +461,7 @@ export class Chain {
 			numAdded++
 			await this.update()
 		}
-		return numAdded
+		return
 	}
 
 	/**
@@ -466,9 +491,9 @@ export class Chain {
 	async putHeaders(
 		headers: BlockHeader[],
 		mergeIncludes = false,
-	): Promise<number> {
+	): Promise<void> {
 		if (!this.opened) throw new Error('Chain closed')
-		if (headers.length === 0) return 0
+		if (headers.length === 0) return
 
 		let numAdded = 0
 		for (const [i, h] of headers.entries()) {
@@ -487,7 +512,7 @@ export class Chain {
 			numAdded++
 			await this.update()
 		}
-		return numAdded
+		return
 	}
 
 	/**
