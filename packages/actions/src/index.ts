@@ -12,6 +12,7 @@ export {
 	testAccounts,
 	ethSendRawTransactionHandler,
 	ethSendTransactionHandler,
+	ethGetTransactionReceiptHandler,
 	BlobGasLimitExceededError,
 	MissingAccountError,
 	NoForkUrlSetError,

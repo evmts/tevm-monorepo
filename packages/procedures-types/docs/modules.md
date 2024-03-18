@@ -1316,7 +1316,7 @@ ___
 
 ### EthAccountsJsonRpcResponse
 
-Ƭ **EthAccountsJsonRpcResponse**: `JsonRpcResponse`\<``"eth_accounts"``, `Address`[], `string`\>
+Ƭ **EthAccountsJsonRpcResponse**: `JsonRpcResponse`\<``"eth_accounts"``, `Address`[], `string` \| `number`\>
 
 JSON-RPC response for `eth_accounts` procedure
 
@@ -1364,7 +1364,7 @@ ___
 
 ### EthBlockNumberJsonRpcResponse
 
-Ƭ **EthBlockNumberJsonRpcResponse**: `JsonRpcResponse`\<``"eth_blockNumber"``, [`SerializeToJson`](modules.md#serializetojson)\<`EthBlockNumberResult`\>, `string`\>
+Ƭ **EthBlockNumberJsonRpcResponse**: `JsonRpcResponse`\<``"eth_blockNumber"``, [`SerializeToJson`](modules.md#serializetojson)\<`EthBlockNumberResult`\>, `string` \| `number`\>
 
 JSON-RPC response for `eth_blockNumber` procedure
 
@@ -1412,7 +1412,7 @@ ___
 
 ### EthCallJsonRpcResponse
 
-Ƭ **EthCallJsonRpcResponse**: `JsonRpcResponse`\<``"eth_call"``, `Hex`, `string`\>
+Ƭ **EthCallJsonRpcResponse**: `JsonRpcResponse`\<``"eth_call"``, `Hex`, `string` \| `number`\>
 
 JSON-RPC response for `eth_call` procedure
 
@@ -1460,13 +1460,13 @@ ___
 
 ### EthChainIdJsonRpcResponse
 
-Ƭ **EthChainIdJsonRpcResponse**: `JsonRpcResponse`\<``"eth_chainId"``, `Hex`, `string`\>
+Ƭ **EthChainIdJsonRpcResponse**: `JsonRpcResponse`\<``"eth_chainId"``, `Hex`, `string` \| `number`\>
 
 JSON-RPC response for `eth_chainId` procedure
 
 #### Defined in
 
-[responses/EthJsonRpcResponse.ts:40](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L40)
+[responses/EthJsonRpcResponse.ts:44](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L44)
 
 ___
 
@@ -1508,13 +1508,13 @@ ___
 
 ### EthCoinbaseJsonRpcResponse
 
-Ƭ **EthCoinbaseJsonRpcResponse**: `JsonRpcResponse`\<``"eth_coinbase"``, `Hex`, `string`\>
+Ƭ **EthCoinbaseJsonRpcResponse**: `JsonRpcResponse`\<``"eth_coinbase"``, `Hex`, `string` \| `number`\>
 
 JSON-RPC response for `eth_coinbase` procedure
 
 #### Defined in
 
-[responses/EthJsonRpcResponse.ts:50](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L50)
+[responses/EthJsonRpcResponse.ts:54](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L54)
 
 ___
 
@@ -1556,13 +1556,13 @@ ___
 
 ### EthEstimateGasJsonRpcResponse
 
-Ƭ **EthEstimateGasJsonRpcResponse**: `JsonRpcResponse`\<``"eth_estimateGas"``, `Hex`, `string`\>
+Ƭ **EthEstimateGasJsonRpcResponse**: `JsonRpcResponse`\<``"eth_estimateGas"``, `Hex`, `string` \| `number`\>
 
 JSON-RPC response for `eth_estimateGas` procedure
 
 #### Defined in
 
-[responses/EthJsonRpcResponse.ts:60](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L60)
+[responses/EthJsonRpcResponse.ts:64](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L64)
 
 ___
 
@@ -1604,13 +1604,13 @@ ___
 
 ### EthGasPriceJsonRpcResponse
 
-Ƭ **EthGasPriceJsonRpcResponse**: `JsonRpcResponse`\<``"eth_gasPrice"``, `Hex`, `string`\>
+Ƭ **EthGasPriceJsonRpcResponse**: `JsonRpcResponse`\<``"eth_gasPrice"``, `Hex`, `string` \| `number`\>
 
 JSON-RPC response for `eth_gasPrice` procedure
 
 #### Defined in
 
-[responses/EthJsonRpcResponse.ts:80](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L80)
+[responses/EthJsonRpcResponse.ts:84](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L84)
 
 ___
 
@@ -1652,13 +1652,13 @@ ___
 
 ### EthGetBalanceJsonRpcResponse
 
-Ƭ **EthGetBalanceJsonRpcResponse**: `JsonRpcResponse`\<``"eth_getBalance"``, `Hex`, `string`\>
+Ƭ **EthGetBalanceJsonRpcResponse**: `JsonRpcResponse`\<``"eth_getBalance"``, `Hex`, `string` \| `number`\>
 
 JSON-RPC response for `eth_getBalance` procedure
 
 #### Defined in
 
-[responses/EthJsonRpcResponse.ts:90](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L90)
+[responses/EthJsonRpcResponse.ts:94](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L94)
 
 ___
 
@@ -1700,13 +1700,13 @@ ___
 
 ### EthGetBlockByHashJsonRpcResponse
 
-Ƭ **EthGetBlockByHashJsonRpcResponse**: `JsonRpcResponse`\<``"eth_getBlockByHash"``, `BlockResult`, `string`\>
+Ƭ **EthGetBlockByHashJsonRpcResponse**: `JsonRpcResponse`\<``"eth_getBlockByHash"``, `BlockResult`, `string` \| `number`\>
 
 JSON-RPC response for `eth_getBlockByHash` procedure
 
 #### Defined in
 
-[responses/EthJsonRpcResponse.ts:100](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L100)
+[responses/EthJsonRpcResponse.ts:104](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L104)
 
 ___
 
@@ -1748,13 +1748,13 @@ ___
 
 ### EthGetBlockByNumberJsonRpcResponse
 
-Ƭ **EthGetBlockByNumberJsonRpcResponse**: `JsonRpcResponse`\<``"eth_getBlockByNumber"``, `BlockResult`, `string`\>
+Ƭ **EthGetBlockByNumberJsonRpcResponse**: `JsonRpcResponse`\<``"eth_getBlockByNumber"``, `BlockResult`, `string` \| `number`\>
 
 JSON-RPC response for `eth_getBlockByNumber` procedure
 
 #### Defined in
 
-[responses/EthJsonRpcResponse.ts:110](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L110)
+[responses/EthJsonRpcResponse.ts:114](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L114)
 
 ___
 
@@ -1796,13 +1796,13 @@ ___
 
 ### EthGetBlockTransactionCountByHashJsonRpcResponse
 
-Ƭ **EthGetBlockTransactionCountByHashJsonRpcResponse**: `JsonRpcResponse`\<``"eth_getBlockTransactionCountByHash"``, `Hex`, `string`\>
+Ƭ **EthGetBlockTransactionCountByHashJsonRpcResponse**: `JsonRpcResponse`\<``"eth_getBlockTransactionCountByHash"``, `Hex`, `string` \| `number`\>
 
 JSON-RPC response for `eth_getBlockTransactionCountByHash` procedure
 
 #### Defined in
 
-[responses/EthJsonRpcResponse.ts:120](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L120)
+[responses/EthJsonRpcResponse.ts:124](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L124)
 
 ___
 
@@ -1844,13 +1844,13 @@ ___
 
 ### EthGetBlockTransactionCountByNumberJsonRpcResponse
 
-Ƭ **EthGetBlockTransactionCountByNumberJsonRpcResponse**: `JsonRpcResponse`\<``"eth_getBlockTransactionCountByNumber"``, `Hex`, `string`\>
+Ƭ **EthGetBlockTransactionCountByNumberJsonRpcResponse**: `JsonRpcResponse`\<``"eth_getBlockTransactionCountByNumber"``, `Hex`, `string` \| `number`\>
 
 JSON-RPC response for `eth_getBlockTransactionCountByNumber` procedure
 
 #### Defined in
 
-[responses/EthJsonRpcResponse.ts:130](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L130)
+[responses/EthJsonRpcResponse.ts:134](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L134)
 
 ___
 
@@ -1892,13 +1892,13 @@ ___
 
 ### EthGetCodeJsonRpcResponse
 
-Ƭ **EthGetCodeJsonRpcResponse**: `JsonRpcResponse`\<``"eth_getCode"``, `Hex`, `string`\>
+Ƭ **EthGetCodeJsonRpcResponse**: `JsonRpcResponse`\<``"eth_getCode"``, `Hex`, `string` \| `number`\>
 
 JSON-RPC response for `eth_getCode` procedure
 
 #### Defined in
 
-[responses/EthJsonRpcResponse.ts:137](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L137)
+[responses/EthJsonRpcResponse.ts:141](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L141)
 
 ___
 
@@ -1940,13 +1940,13 @@ ___
 
 ### EthGetFilterChangesJsonRpcResponse
 
-Ƭ **EthGetFilterChangesJsonRpcResponse**: `JsonRpcResponse`\<``"eth_getFilterChanges"``, `FilterLog`[], `string`\>
+Ƭ **EthGetFilterChangesJsonRpcResponse**: `JsonRpcResponse`\<``"eth_getFilterChanges"``, `FilterLog`[], `string` \| `number`\>
 
 JSON-RPC response for `eth_getFilterChanges` procedure
 
 #### Defined in
 
-[responses/EthJsonRpcResponse.ts:147](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L147)
+[responses/EthJsonRpcResponse.ts:151](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L151)
 
 ___
 
@@ -1988,13 +1988,13 @@ ___
 
 ### EthGetFilterLogsJsonRpcResponse
 
-Ƭ **EthGetFilterLogsJsonRpcResponse**: `JsonRpcResponse`\<``"eth_getFilterLogs"``, `FilterLog`[], `string`\>
+Ƭ **EthGetFilterLogsJsonRpcResponse**: `JsonRpcResponse`\<``"eth_getFilterLogs"``, `FilterLog`[], `string` \| `number`\>
 
 JSON-RPC response for `eth_getFilterLogs` procedure
 
 #### Defined in
 
-[responses/EthJsonRpcResponse.ts:157](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L157)
+[responses/EthJsonRpcResponse.ts:161](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L161)
 
 ___
 
@@ -2036,13 +2036,13 @@ ___
 
 ### EthGetLogsJsonRpcResponse
 
-Ƭ **EthGetLogsJsonRpcResponse**: `JsonRpcResponse`\<``"eth_getLogs"``, `FilterLog`[], `string`\>
+Ƭ **EthGetLogsJsonRpcResponse**: `JsonRpcResponse`\<``"eth_getLogs"``, `FilterLog`[], `string` \| `number`\>
 
 JSON-RPC response for `eth_getLogs` procedure
 
 #### Defined in
 
-[responses/EthJsonRpcResponse.ts:167](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L167)
+[responses/EthJsonRpcResponse.ts:171](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L171)
 
 ___
 
@@ -2084,13 +2084,13 @@ ___
 
 ### EthGetStorageAtJsonRpcResponse
 
-Ƭ **EthGetStorageAtJsonRpcResponse**: `JsonRpcResponse`\<``"eth_getStorageAt"``, `Hex`, `string`\>
+Ƭ **EthGetStorageAtJsonRpcResponse**: `JsonRpcResponse`\<``"eth_getStorageAt"``, `Hex`, `string` \| `number`\>
 
 JSON-RPC response for `eth_getStorageAt` procedure
 
 #### Defined in
 
-[responses/EthJsonRpcResponse.ts:177](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L177)
+[responses/EthJsonRpcResponse.ts:181](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L181)
 
 ___
 
@@ -2132,13 +2132,13 @@ ___
 
 ### EthGetTransactionByBlockHashAndIndexJsonRpcResponse
 
-Ƭ **EthGetTransactionByBlockHashAndIndexJsonRpcResponse**: `JsonRpcResponse`\<``"eth_getTransactionByBlockHashAndIndex"``, `TransactionResult`, `string`\>
+Ƭ **EthGetTransactionByBlockHashAndIndexJsonRpcResponse**: `JsonRpcResponse`\<``"eth_getTransactionByBlockHashAndIndex"``, `TransactionResult`, `string` \| `number`\>
 
 JSON-RPC response for `eth_getTransactionByBlockHashAndIndex` procedure
 
 #### Defined in
 
-[responses/EthJsonRpcResponse.ts:227](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L227)
+[responses/EthJsonRpcResponse.ts:231](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L231)
 
 ___
 
@@ -2180,13 +2180,13 @@ ___
 
 ### EthGetTransactionByBlockNumberAndIndexJsonRpcResponse
 
-Ƭ **EthGetTransactionByBlockNumberAndIndexJsonRpcResponse**: `JsonRpcResponse`\<``"eth_getTransactionByBlockNumberAndIndex"``, `TransactionResult`, `string`\>
+Ƭ **EthGetTransactionByBlockNumberAndIndexJsonRpcResponse**: `JsonRpcResponse`\<``"eth_getTransactionByBlockNumberAndIndex"``, `TransactionResult`, `string` \| `number`\>
 
 JSON-RPC response for `eth_getTransactionByBlockNumberAndIndex` procedure
 
 #### Defined in
 
-[responses/EthJsonRpcResponse.ts:238](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L238)
+[responses/EthJsonRpcResponse.ts:242](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L242)
 
 ___
 
@@ -2228,13 +2228,13 @@ ___
 
 ### EthGetTransactionByHashJsonRpcResponse
 
-Ƭ **EthGetTransactionByHashJsonRpcResponse**: `JsonRpcResponse`\<``"eth_getTransactionByHash"``, `TransactionResult`, `string`\>
+Ƭ **EthGetTransactionByHashJsonRpcResponse**: `JsonRpcResponse`\<``"eth_getTransactionByHash"``, `TransactionResult`, `string` \| `number`\>
 
 JSON-RPC response for `eth_getTransactionByHash` procedure
 
 #### Defined in
 
-[responses/EthJsonRpcResponse.ts:217](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L217)
+[responses/EthJsonRpcResponse.ts:221](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L221)
 
 ___
 
@@ -2276,13 +2276,13 @@ ___
 
 ### EthGetTransactionCountJsonRpcResponse
 
-Ƭ **EthGetTransactionCountJsonRpcResponse**: `JsonRpcResponse`\<``"eth_getTransactionCount"``, `Hex`, `string`\>
+Ƭ **EthGetTransactionCountJsonRpcResponse**: `JsonRpcResponse`\<``"eth_getTransactionCount"``, `Hex`, `string` \| `number`\>
 
 JSON-RPC response for `eth_getTransactionCount` procedure
 
 #### Defined in
 
-[responses/EthJsonRpcResponse.ts:187](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L187)
+[responses/EthJsonRpcResponse.ts:191](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L191)
 
 ___
 
@@ -2324,13 +2324,13 @@ ___
 
 ### EthGetTransactionReceiptJsonRpcResponse
 
-Ƭ **EthGetTransactionReceiptJsonRpcResponse**: `JsonRpcResponse`\<``"eth_getTransactionReceipt"``, `TransactionReceiptResult`, `string`\>
+Ƭ **EthGetTransactionReceiptJsonRpcResponse**: `JsonRpcResponse`\<``"eth_getTransactionReceipt"``, [`SerializeToJson`](modules.md#serializetojson)\<`TransactionReceiptResult`\> \| ``null``, `string` \| `number`\>
 
 JSON-RPC response for `eth_getTransactionReceipt` procedure
 
 #### Defined in
 
-[responses/EthJsonRpcResponse.ts:249](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L249)
+[responses/EthJsonRpcResponse.ts:253](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L253)
 
 ___
 
@@ -2372,13 +2372,13 @@ ___
 
 ### EthGetUncleByBlockHashAndIndexJsonRpcResponse
 
-Ƭ **EthGetUncleByBlockHashAndIndexJsonRpcResponse**: `JsonRpcResponse`\<``"eth_getUncleByBlockHashAndIndex"``, `Hex`, `string`\>
+Ƭ **EthGetUncleByBlockHashAndIndexJsonRpcResponse**: `JsonRpcResponse`\<``"eth_getUncleByBlockHashAndIndex"``, `Hex`, `string` \| `number`\>
 
 JSON-RPC response for `eth_getUncleByBlockHashAndIndex` procedure
 
 #### Defined in
 
-[responses/EthJsonRpcResponse.ts:259](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L259)
+[responses/EthJsonRpcResponse.ts:263](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L263)
 
 ___
 
@@ -2420,13 +2420,13 @@ ___
 
 ### EthGetUncleByBlockNumberAndIndexJsonRpcResponse
 
-Ƭ **EthGetUncleByBlockNumberAndIndexJsonRpcResponse**: `JsonRpcResponse`\<``"eth_getUncleByBlockNumberAndIndex"``, `Hex`, `string`\>
+Ƭ **EthGetUncleByBlockNumberAndIndexJsonRpcResponse**: `JsonRpcResponse`\<``"eth_getUncleByBlockNumberAndIndex"``, `Hex`, `string` \| `number`\>
 
 JSON-RPC response for `eth_getUncleByBlockNumberAndIndex` procedure
 
 #### Defined in
 
-[responses/EthJsonRpcResponse.ts:269](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L269)
+[responses/EthJsonRpcResponse.ts:273](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L273)
 
 ___
 
@@ -2468,13 +2468,13 @@ ___
 
 ### EthGetUncleCountByBlockHashJsonRpcResponse
 
-Ƭ **EthGetUncleCountByBlockHashJsonRpcResponse**: `JsonRpcResponse`\<``"eth_getUncleCountByBlockHash"``, `Hex`, `string`\>
+Ƭ **EthGetUncleCountByBlockHashJsonRpcResponse**: `JsonRpcResponse`\<``"eth_getUncleCountByBlockHash"``, `Hex`, `string` \| `number`\>
 
 JSON-RPC response for `eth_getUncleCountByBlockHash` procedure
 
 #### Defined in
 
-[responses/EthJsonRpcResponse.ts:197](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L197)
+[responses/EthJsonRpcResponse.ts:201](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L201)
 
 ___
 
@@ -2516,13 +2516,13 @@ ___
 
 ### EthGetUncleCountByBlockNumberJsonRpcResponse
 
-Ƭ **EthGetUncleCountByBlockNumberJsonRpcResponse**: `JsonRpcResponse`\<``"eth_getUncleCountByBlockNumber"``, `Hex`, `string`\>
+Ƭ **EthGetUncleCountByBlockNumberJsonRpcResponse**: `JsonRpcResponse`\<``"eth_getUncleCountByBlockNumber"``, `Hex`, `string` \| `number`\>
 
 JSON-RPC response for `eth_getUncleCountByBlockNumber` procedure
 
 #### Defined in
 
-[responses/EthJsonRpcResponse.ts:207](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L207)
+[responses/EthJsonRpcResponse.ts:211](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L211)
 
 ___
 
@@ -2564,13 +2564,13 @@ ___
 
 ### EthHashrateJsonRpcResponse
 
-Ƭ **EthHashrateJsonRpcResponse**: `JsonRpcResponse`\<``"eth_hashrate"``, `Hex`, `string`\>
+Ƭ **EthHashrateJsonRpcResponse**: `JsonRpcResponse`\<``"eth_hashrate"``, `Hex`, `string` \| `number`\>
 
 JSON-RPC response for `eth_hashrate` procedure
 
 #### Defined in
 
-[responses/EthJsonRpcResponse.ts:70](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L70)
+[responses/EthJsonRpcResponse.ts:74](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L74)
 
 ___
 
@@ -2622,13 +2622,13 @@ ___
 
 ### EthMiningJsonRpcResponse
 
-Ƭ **EthMiningJsonRpcResponse**: `JsonRpcResponse`\<``"eth_mining"``, `boolean`, `string`\>
+Ƭ **EthMiningJsonRpcResponse**: `JsonRpcResponse`\<``"eth_mining"``, `boolean`, `string` \| `number`\>
 
 JSON-RPC response for `eth_mining` procedure
 
 #### Defined in
 
-[responses/EthJsonRpcResponse.ts:279](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L279)
+[responses/EthJsonRpcResponse.ts:283](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L283)
 
 ___
 
@@ -2670,13 +2670,13 @@ ___
 
 ### EthNewBlockFilterJsonRpcResponse
 
-Ƭ **EthNewBlockFilterJsonRpcResponse**: `JsonRpcResponse`\<``"eth_newBlockFilter"``, `Hex`, `string`\>
+Ƭ **EthNewBlockFilterJsonRpcResponse**: `JsonRpcResponse`\<``"eth_newBlockFilter"``, `Hex`, `string` \| `number`\>
 
 JSON-RPC response for `eth_newBlockFilter` procedure
 
 #### Defined in
 
-[responses/EthJsonRpcResponse.ts:374](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L374)
+[responses/EthJsonRpcResponse.ts:382](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L382)
 
 ___
 
@@ -2718,13 +2718,13 @@ ___
 
 ### EthNewFilterJsonRpcResponse
 
-Ƭ **EthNewFilterJsonRpcResponse**: `JsonRpcResponse`\<``"eth_newFilter"``, `Hex`, `string`\>
+Ƭ **EthNewFilterJsonRpcResponse**: `JsonRpcResponse`\<``"eth_newFilter"``, `Hex`, `string` \| `number`\>
 
 JSON-RPC response for `eth_newFilter` procedure
 
 #### Defined in
 
-[responses/EthJsonRpcResponse.ts:364](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L364)
+[responses/EthJsonRpcResponse.ts:372](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L372)
 
 ___
 
@@ -2766,13 +2766,13 @@ ___
 
 ### EthNewPendingTransactionFilterJsonRpcResponse
 
-Ƭ **EthNewPendingTransactionFilterJsonRpcResponse**: `JsonRpcResponse`\<``"eth_newPendingTransactionFilter"``, `Hex`, `string`\>
+Ƭ **EthNewPendingTransactionFilterJsonRpcResponse**: `JsonRpcResponse`\<``"eth_newPendingTransactionFilter"``, `Hex`, `string` \| `number`\>
 
 JSON-RPC response for `eth_newPendingTransactionFilter` procedure
 
 #### Defined in
 
-[responses/EthJsonRpcResponse.ts:385](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L385)
+[responses/EthJsonRpcResponse.ts:393](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L393)
 
 ___
 
@@ -2814,13 +2814,13 @@ ___
 
 ### EthProtocolVersionJsonRpcResponse
 
-Ƭ **EthProtocolVersionJsonRpcResponse**: `JsonRpcResponse`\<``"eth_protocolVersion"``, `Hex`, `string`\>
+Ƭ **EthProtocolVersionJsonRpcResponse**: `JsonRpcResponse`\<``"eth_protocolVersion"``, `Hex`, `string` \| `number`\>
 
 JSON-RPC response for `eth_protocolVersion` procedure
 
 #### Defined in
 
-[responses/EthJsonRpcResponse.ts:289](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L289)
+[responses/EthJsonRpcResponse.ts:293](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L293)
 
 ___
 
@@ -2972,13 +2972,13 @@ ___
 
 ### EthSendRawTransactionJsonRpcResponse
 
-Ƭ **EthSendRawTransactionJsonRpcResponse**: `JsonRpcResponse`\<``"eth_sendRawTransaction"``, `Hex`, `string`\>
+Ƭ **EthSendRawTransactionJsonRpcResponse**: `JsonRpcResponse`\<``"eth_sendRawTransaction"``, `Hex`, `string` \| `number`\>
 
 JSON-RPC response for `eth_sendRawTransaction` procedure
 
 #### Defined in
 
-[responses/EthJsonRpcResponse.ts:299](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L299)
+[responses/EthJsonRpcResponse.ts:303](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L303)
 
 ___
 
@@ -3020,13 +3020,13 @@ ___
 
 ### EthSendTransactionJsonRpcResponse
 
-Ƭ **EthSendTransactionJsonRpcResponse**: `JsonRpcResponse`\<``"eth_sendTransaction"``, `Hex`, `string`\>
+Ƭ **EthSendTransactionJsonRpcResponse**: `JsonRpcResponse`\<``"eth_sendTransaction"``, `Hex`, `string` \| `number`\>
 
 JSON-RPC response for `eth_sendTransaction` procedure
 
 #### Defined in
 
-[responses/EthJsonRpcResponse.ts:309](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L309)
+[responses/EthJsonRpcResponse.ts:313](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L313)
 
 ___
 
@@ -3068,13 +3068,13 @@ ___
 
 ### EthSignJsonRpcResponse
 
-Ƭ **EthSignJsonRpcResponse**: `JsonRpcResponse`\<``"eth_sign"``, `Hex`, `string`\>
+Ƭ **EthSignJsonRpcResponse**: `JsonRpcResponse`\<``"eth_sign"``, `Hex`, `string` \| `number`\>
 
 JSON-RPC response for `eth_sign` procedure
 
 #### Defined in
 
-[responses/EthJsonRpcResponse.ts:319](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L319)
+[responses/EthJsonRpcResponse.ts:323](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L323)
 
 ___
 
@@ -3116,13 +3116,13 @@ ___
 
 ### EthSignTransactionJsonRpcResponse
 
-Ƭ **EthSignTransactionJsonRpcResponse**: `JsonRpcResponse`\<``"eth_signTransaction"``, `Hex`, `string`\>
+Ƭ **EthSignTransactionJsonRpcResponse**: `JsonRpcResponse`\<``"eth_signTransaction"``, `Hex`, `string` \| `number`\>
 
 JSON-RPC response for `eth_signTransaction` procedure
 
 #### Defined in
 
-[responses/EthJsonRpcResponse.ts:325](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L325)
+[responses/EthJsonRpcResponse.ts:333](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L333)
 
 ___
 
@@ -3164,13 +3164,13 @@ ___
 
 ### EthSyncingJsonRpcResponse
 
-Ƭ **EthSyncingJsonRpcResponse**: `JsonRpcResponse`\<``"eth_syncing"``, `boolean` \| \{ `currentBlock`: `Hex` ; `headedBytecodebytes?`: `Hex` ; `healedBytecodes?`: `Hex` ; `healedTrienodes?`: `Hex` ; `healingBytecode?`: `Hex` ; `healingTrienodes?`: `Hex` ; `highestBlock`: `Hex` ; `knownStates`: `Hex` ; `pulledStates`: `Hex` ; `startingBlock`: `Hex` ; `syncedBytecodeBytes?`: `Hex` ; `syncedBytecodes?`: `Hex` ; `syncedStorage?`: `Hex` ; `syncedStorageBytes?`: `Hex`  }, `string`\>
+Ƭ **EthSyncingJsonRpcResponse**: `JsonRpcResponse`\<``"eth_syncing"``, `boolean` \| \{ `currentBlock`: `Hex` ; `headedBytecodebytes?`: `Hex` ; `healedBytecodes?`: `Hex` ; `healedTrienodes?`: `Hex` ; `healingBytecode?`: `Hex` ; `healingTrienodes?`: `Hex` ; `highestBlock`: `Hex` ; `knownStates`: `Hex` ; `pulledStates`: `Hex` ; `startingBlock`: `Hex` ; `syncedBytecodeBytes?`: `Hex` ; `syncedBytecodes?`: `Hex` ; `syncedStorage?`: `Hex` ; `syncedStorageBytes?`: `Hex`  }, `string` \| `number`\>
 
 JSON-RPC response for `eth_syncing` procedure
 
 #### Defined in
 
-[responses/EthJsonRpcResponse.ts:335](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L335)
+[responses/EthJsonRpcResponse.ts:343](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L343)
 
 ___
 
@@ -3212,13 +3212,13 @@ ___
 
 ### EthUninstallFilterJsonRpcResponse
 
-Ƭ **EthUninstallFilterJsonRpcResponse**: `JsonRpcResponse`\<``"eth_uninstallFilter"``, `boolean`, `string`\>
+Ƭ **EthUninstallFilterJsonRpcResponse**: `JsonRpcResponse`\<``"eth_uninstallFilter"``, `boolean`, `string` \| `number`\>
 
 JSON-RPC response for `eth_uninstallFilter` procedure
 
 #### Defined in
 
-[responses/EthJsonRpcResponse.ts:396](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L396)
+[responses/EthJsonRpcResponse.ts:404](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L404)
 
 ___
 

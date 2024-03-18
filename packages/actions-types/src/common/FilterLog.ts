@@ -6,11 +6,11 @@ import type { Hex } from './Hex.js'
 export type FilterLog = {
 	readonly address: Hex
 	readonly blockHash: Hex
-	readonly blockNumber: Hex
+	readonly blockNumber: bigint
 	readonly data: Hex
-	readonly logIndex: Hex
+	readonly logIndex: bigint
 	readonly removed: boolean
 	readonly topics: readonly Hex[]
 	readonly transactionHash: Hex
-	readonly transactionIndex: Hex
+	readonly transactionIndex: bigint
 }

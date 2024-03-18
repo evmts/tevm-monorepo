@@ -38,9 +38,9 @@ const stateManager = new ForkStateManager({
 ### Properties
 
 - [\_accountCache](ForkStateManager.md#_accountcache)
-- [\_blockTag](ForkStateManager.md#_blocktag)
 - [\_contractCache](ForkStateManager.md#_contractcache)
 - [\_storageCache](ForkStateManager.md#_storagecache)
+- [blockTag](ForkStateManager.md#blocktag)
 - [client](ForkStateManager.md#client)
 - [opts](ForkStateManager.md#opts)
 - [originalStorageCache](ForkStateManager.md#originalstoragecache)
@@ -107,16 +107,6 @@ const stateManager = new ForkStateManager({
 
 ___
 
-### \_blockTag
-
-• `Protected` **\_blockTag**: \{ `blockNumber`: `bigint`  } \| \{ `blockTag`: `BlockTag`  }
-
-#### Defined in
-
-[packages/state/src/ForkStateManager.ts:59](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L59)
-
-___
-
 ### \_contractCache
 
 • `Protected` **\_contractCache**: `Map`\<`string`, `Uint8Array`\>
@@ -134,6 +124,16 @@ ___
 #### Defined in
 
 [packages/state/src/ForkStateManager.ts:57](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L57)
+
+___
+
+### blockTag
+
+• **blockTag**: \{ `blockNumber`: `bigint`  } \| \{ `blockTag`: `BlockTag`  }
+
+#### Defined in
+
+[packages/state/src/ForkStateManager.ts:59](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L59)
 
 ___
 

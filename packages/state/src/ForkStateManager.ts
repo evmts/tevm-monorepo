@@ -56,7 +56,7 @@ export class ForkStateManager implements TevmStateManagerInterface {
 	protected _contractCache: Map<string, Uint8Array>
 	protected _storageCache: StorageCache
 	protected _accountCache: AccountCache
-	protected _blockTag: { blockNumber: bigint } | { blockTag: BlockTag }
+	public blockTag: { blockNumber: bigint } | { blockTag: BlockTag }
 	originalStorageCache: Cache
 	protected client: PublicClient
 	constructor(public readonly opts: ForkStateManagerOpts) {
@@ -65,7 +65,7 @@ export class ForkStateManager implements TevmStateManagerInterface {
 			transport: http(opts.url),
 			name: 'tevm-state-manager-viem-client',
 		})
-		this._blockTag =
+		this.blockTag =
 			typeof opts.blockTag === 'bigint'
 				? { blockNumber: opts.blockTag }
 				: { blockTag: opts.blockTag ?? 'latest' }
@@ -90,7 +90,7 @@ export class ForkStateManager implements TevmStateManagerInterface {
 	async deepCopy(): Promise<ForkStateManager> {
 		const newState = new ForkStateManager({
 			url: this.opts.url,
-			blockTag: Object.values(this._blockTag)[0],
+			blockTag: Object.values(this.blockTag)[0],
 		})
 		newState._contractCache = new Map(this._contractCache)
 
@@ -108,7 +108,7 @@ export class ForkStateManager implements TevmStateManagerInterface {
 	shallowCopy(): ForkStateManager {
 		const newState = new ForkStateManager({
 			url: this.opts.url,
-			blockTag: Object.values(this._blockTag)[0],
+			blockTag: Object.values(this.blockTag)[0],
 		})
 		newState._contractCache = new Map(this._contractCache)
 		newState._storageCache = new StorageCache({
@@ -142,7 +142,7 @@ export class ForkStateManager implements TevmStateManagerInterface {
 		if (codeBytes !== undefined) return codeBytes
 		const code = await this.client.getBytecode({
 			address: address.toString() as Address,
-			...this._blockTag,
+			...this.blockTag,
 		})
 		if (!code) {
 			return new Uint8Array(0)
@@ -192,7 +192,7 @@ export class ForkStateManager implements TevmStateManagerInterface {
 		const storage = await this.client.getStorageAt({
 			address: address.toString() as Address,
 			slot: bytesToHex(key),
-			...this._blockTag,
+			...this.blockTag,
 		})
 		const value = hexToBytes(storage ?? '0x0')
 
@@ -262,7 +262,7 @@ export class ForkStateManager implements TevmStateManagerInterface {
 		const proof = await this.client.getProof({
 			address: address.toString() as Address,
 			storageKeys: [],
-			...this._blockTag,
+			...this.blockTag,
 		})
 		const proofBuf = proof.accountProof.map((proofNode: string) =>
 			toBytes(proofNode),
@@ -302,7 +302,7 @@ export class ForkStateManager implements TevmStateManagerInterface {
 		const accountData = await this.client.getProof({
 			address: address.toString() as Address,
 			storageKeys: [],
-			...this._blockTag,
+			...this.blockTag,
 		})
 		const account = EthjsAccount.fromAccountData({
 			balance: BigInt(accountData.balance),
@@ -370,7 +370,7 @@ export class ForkStateManager implements TevmStateManagerInterface {
 		const proof = await this.client.getProof({
 			address: address.toString() as Address,
 			storageKeys: storageSlots.map((slot) => bytesToHex(slot)),
-			...this._blockTag,
+			...this.blockTag,
 		})
 		return {
 			address: proof.address,

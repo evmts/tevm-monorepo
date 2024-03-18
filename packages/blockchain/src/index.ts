@@ -1,3 +1,6 @@
 export { createBlockchain } from './createBlockchain.js'
 export { type TevmBlockchain } from './TevmBlockchain.js'
 export { type TevmBlock } from './TevmBlock.js'
+export { Chain } from './Chain.js'
+export { Event } from './Event.js'
+export { ReceiptsManager } from './RecieptManager.js'

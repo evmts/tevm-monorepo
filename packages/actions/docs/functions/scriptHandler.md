@@ -12,7 +12,7 @@ Creates an ScriptHandler for handling script params with Ethereumjs EVM
 
 ## Parameters
 
-▪ **client**: `Pick`\<`object`, `"getVm"`\>
+▪ **client**: `Pick`\<`object`, `"mode"` \| `"getVm"` \| `"getTxPool"`\>
 
 ▪ **options?**: `object`= `{}`
 
