@@ -68,6 +68,14 @@ const chainId = await client.getChainId()
 console.log(chainId)
 ```
 
+### getTxPool
+
+> **`readonly`** **getTxPool**: () => `Promise`\<`TxPool`\>
+
+Gets the pool of pending transactions to be included in next block
+
+Gets the pool of pending transactions to be included in next block
+
 ### getVm
 
 > **`readonly`** **getVm**: () => `Promise`\<[`TevmVm`](/reference/tevm/vm/classes/tevmvm/)\>
@@ -79,6 +87,15 @@ on top of Tevm.
 Internal instance of the VM. Can be used for lower level operations.
 Normally not recomended to use unless building libraries or extensions
 on top of Tevm.
+
+### miningConfig
+
+> **`readonly`** **miningConfig**: [`MiningConfig`](/reference/tevm/base-client/type-aliases/miningconfig/)
+
+The configuration for mining. Defaults to 'auto'
+- 'auto' will mine a block on every transaction
+- 'interval' will mine a block every `interval` milliseconds
+- 'manual' will not mine a block automatically and requires a manual call to `mineBlock`
 
 ### mode
 
@@ -147,7 +164,7 @@ Sets the chain id of the current EVM
 
 ## Source
 
-[BaseClient.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/BaseClient.ts#L6)
+[BaseClient.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/BaseClient.ts#L8)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

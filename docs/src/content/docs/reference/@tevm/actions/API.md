@@ -9,6 +9,7 @@ title: "@tevm/actions"
 
 ### Classes
 
+- [BlobGasLimitExceededError](/reference/tevm/actions/classes/blobgaslimitexceedederror/)
 - [MissingAccountError](/reference/tevm/actions/classes/missingaccounterror/)
 - [NoForkUrlSetError](/reference/tevm/actions/classes/noforkurlseterror/)
 
@@ -25,6 +26,8 @@ title: "@tevm/actions"
 - [dumpStateHandler](/reference/tevm/actions/functions/dumpstatehandler/)
 - [ethAccountsHandler](/reference/tevm/actions/functions/ethaccountshandler/)
 - [ethCallHandler](/reference/tevm/actions/functions/ethcallhandler/)
+- [ethSendRawTransactionHandler](/reference/tevm/actions/functions/ethsendrawtransactionhandler/)
+- [ethSendTransactionHandler](/reference/tevm/actions/functions/ethsendtransactionhandler/)
 - [ethSignHandler](/reference/tevm/actions/functions/ethsignhandler/)
 - [ethSignTransactionHandler](/reference/tevm/actions/functions/ethsigntransactionhandler/)
 - [gasPriceHandler](/reference/tevm/actions/functions/gaspricehandler/)
