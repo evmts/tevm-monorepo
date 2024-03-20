@@ -1269,6 +1269,9 @@ importers:
 
   extensions/viem:
     dependencies:
+      '@tevm/decorators':
+        specifier: workspace:1.0.0-next.42
+        version: link:../../packages/decorators
       '@tevm/jsonrpc':
         specifier: workspace:1.0.0-next.40
         version: link:../../packages/jsonrpc
