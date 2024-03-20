@@ -1,10 +1,6 @@
 import type { ViemTevmClientDecorator } from './ViemTevmClientDecorator.js'
 
 /**
- * @deprecated in favor of the viem transport
- * @experimental
- * This extension is highly experimental and should not be used in production.
- *
  * Creates a decorator to a viem wallet client that adds the `writeContractOptimistic` method to the `tevm` property.
  * This enables viem to optimistically update the tevm state before the transaction is mined.
  * @example

@@ -27,7 +27,7 @@ describe('tevmViemExtension', () => {
 	})
 
 	it('tevmRequest should call client.request and parse the response', async () => {
-		const decorated = tevmViemExtension()(client)
+		const decorated = client.extend(tevmViemExtension())
 		const params = { address: `0x${'77'.repeat(20)}`, balance: 420n } as const
 		const response = await decorated.tevm.setAccount(params)
 
@@ -42,7 +42,7 @@ describe('tevmViemExtension', () => {
 	})
 
 	it('runScript should call client.request with "tevm_script" and parse the response', async () => {
-		const decorated = tevmViemExtension()(client)
+		const decorated = client.extend(tevmViemExtension())
 		const params = {
 			caller: `0x${'4'.repeat(40)}`,
 			...ERC20.read.balanceOf(`0x${'4'.repeat(40)}`),
@@ -57,7 +57,7 @@ describe('tevmViemExtension', () => {
 	})
 
 	it('putAccount should call client.request with "tevm_putAccount" and parse the response', async () => {
-		const decorated = tevmViemExtension()(client)
+		const decorated = client.extend(tevmViemExtension())
 		const params = { balance: 420n, address: `0x${'88'.repeat(20)}` } as const
 		const response = await decorated.tevm.setAccount(params)
 
