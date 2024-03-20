@@ -2,16 +2,18 @@
 editUrl: false
 next: false
 prev: false
-title: "Block"
+title: "TevmBlock"
 ---
 
-An object that represents the block.
+## Extends
+
+- `Block`
 
 ## Constructors
 
-### new Block(header, transactions, uncleHeaders, withdrawals, opts, executionWitness)
+### new TevmBlock(header, transactions, uncleHeaders, withdrawals, opts, executionWitness)
 
-> **new Block**(`header`?, `transactions`?, `uncleHeaders`?, `withdrawals`?, `opts`?, `executionWitness`?): [`Block`](/reference/tevm/blockchain/classes/block/)
+> **new TevmBlock**(`header`?, `transactions`?, `uncleHeaders`?, `withdrawals`?, `opts`?, `executionWitness`?): [`TevmBlock`](/reference/tevm/blockchain/classes/tevmblock/)
 
 This constructor takes the values, validates them, assigns them and freezes the object.
 Use the static factory methods to assist in creating a Block object from varying data types and options.
@@ -30,6 +32,10 @@ Use the static factory methods to assist in creating a Block object from varying
 
 ▪ **executionWitness?**: `null` \| `VerkleExecutionWitness`
 
+#### Inherited from
+
+Block.constructor
+
 #### Source
 
 node\_modules/.pnpm/@ethereumjs+block@5.1.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:95
@@ -46,6 +52,10 @@ node\_modules/.pnpm/@ethereumjs+block@5.1.1/node\_modules/@ethereumjs/block/dist
 
 > **txTrieRoot**?: `Uint8Array`
 
+#### Inherited from
+
+Block.cache
+
 #### Source
 
 node\_modules/.pnpm/@ethereumjs+block@5.1.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:25
@@ -55,6 +65,10 @@ node\_modules/.pnpm/@ethereumjs+block@5.1.1/node\_modules/@ethereumjs/block/dist
 ### common
 
 > **`readonly`** **common**: `Common`
+
+#### Inherited from
+
+Block.common
 
 #### Source
 
@@ -70,6 +84,10 @@ EIP-6800: Verkle Proof Data (experimental)
 null implies that the non default executionWitness might exist but not available
 and will not lead to execution of the block via vm with verkle stateless manager
 
+#### Inherited from
+
+Block.executionWitness
+
 #### Source
 
 node\_modules/.pnpm/@ethereumjs+block@5.1.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:24
@@ -79,6 +97,10 @@ node\_modules/.pnpm/@ethereumjs+block@5.1.1/node\_modules/@ethereumjs/block/dist
 ### header
 
 > **`readonly`** **header**: `BlockHeader`
+
+#### Inherited from
+
+Block.header
 
 #### Source
 
@@ -94,6 +116,10 @@ node\_modules/.pnpm/@ethereumjs+block@5.1.1/node\_modules/@ethereumjs/block/dist
 
 ▪ **msg**: `Uint8Array`
 
+#### Inherited from
+
+Block.keccakFunction
+
 #### Source
 
 node\_modules/.pnpm/@ethereumjs+block@5.1.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:18
@@ -103,6 +129,10 @@ node\_modules/.pnpm/@ethereumjs+block@5.1.1/node\_modules/@ethereumjs/block/dist
 ### transactions
 
 > **`readonly`** **transactions**: `TypedTransaction`[]
+
+#### Inherited from
+
+Block.transactions
 
 #### Source
 
@@ -114,6 +144,10 @@ node\_modules/.pnpm/@ethereumjs+block@5.1.1/node\_modules/@ethereumjs/block/dist
 
 > **`readonly`** **uncleHeaders**: `BlockHeader`[]
 
+#### Inherited from
+
+Block.uncleHeaders
+
 #### Source
 
 node\_modules/.pnpm/@ethereumjs+block@5.1.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:15
@@ -124,6 +158,10 @@ node\_modules/.pnpm/@ethereumjs+block@5.1.1/node\_modules/@ethereumjs/block/dist
 
 > **`readonly`** **withdrawals**?: `Withdrawal`[]
 
+#### Inherited from
+
+Block.withdrawals
+
 #### Source
 
 node\_modules/.pnpm/@ethereumjs+block@5.1.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:16
@@ -132,9 +170,9 @@ node\_modules/.pnpm/@ethereumjs+block@5.1.1/node\_modules/@ethereumjs/block/dist
 
 ### fromJsonRpcProvider
 
-> **`static`** **fromJsonRpcProvider**: (`provider`, `blockTag`, `opts`) => `Promise`\<[`Block`](/reference/tevm/blockchain/classes/block/)\>
+> **`static`** **fromJsonRpcProvider**: (`provider`, `blockTag`, `opts`) => `Promise`\<`Block`\>
 
-Method to retrieve a block from a JSON-RPC provider and format as a [Block](/reference/tevm/blockchain/classes/block/)
+Method to retrieve a block from a JSON-RPC provider and format as a [Block]([object Object])
 
 #### Param
 
@@ -148,7 +186,7 @@ block hash or block number to be run
 
 [BlockOptions]([object Object])
 
-Method to retrieve a block from a JSON-RPC provider and format as a [Block](/reference/tevm/blockchain/classes/block/)
+Method to retrieve a block from a JSON-RPC provider and format as a [Block]([object Object])
 
 #### Parameters
 
@@ -168,6 +206,10 @@ block hash or block number to be run
 
 the block specified by `blockTag`
 
+#### Inherited from
+
+Block.fromJsonRpcProvider
+
 #### Source
 
 node\_modules/.pnpm/@ethereumjs+block@5.1.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:76
@@ -179,6 +221,10 @@ node\_modules/.pnpm/@ethereumjs+block@5.1.1/node\_modules/@ethereumjs/block/dist
 > **errorStr**(): `string`
 
 Return a compact error string representation of the object
+
+#### Inherited from
+
+Block.errorStr
 
 #### Source
 
@@ -194,9 +240,13 @@ Returns the canonical difficulty for this block.
 
 #### Parameters
 
-▪ **parentBlock**: [`Block`](/reference/tevm/blockchain/classes/block/)
+▪ **parentBlock**: `Block`
 
 the parent of this `Block`
+
+#### Inherited from
+
+Block.ethashCanonicalDifficulty
 
 #### Source
 
@@ -209,6 +259,10 @@ node\_modules/.pnpm/@ethereumjs+block@5.1.1/node\_modules/@ethereumjs/block/dist
 > **genTxTrie**(): `Promise`\<`Uint8Array`\>
 
 Generates transaction trie for validation.
+
+#### Inherited from
+
+Block.genTxTrie
 
 #### Source
 
@@ -226,6 +280,10 @@ Validates transaction signatures and minimum gas requirements.
 
 an array of error strings
 
+#### Inherited from
+
+Block.getTransactionsValidationErrors
+
 #### Source
 
 node\_modules/.pnpm/@ethereumjs+block@5.1.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:126
@@ -237,6 +295,10 @@ node\_modules/.pnpm/@ethereumjs+block@5.1.1/node\_modules/@ethereumjs/block/dist
 > **hash**(): `Uint8Array`
 
 Returns the hash of the block.
+
+#### Inherited from
+
+Block.hash
 
 #### Source
 
@@ -250,6 +312,10 @@ node\_modules/.pnpm/@ethereumjs+block@5.1.1/node\_modules/@ethereumjs/block/dist
 
 Determines if this block is the genesis block.
 
+#### Inherited from
+
+Block.isGenesis
+
 #### Source
 
 node\_modules/.pnpm/@ethereumjs+block@5.1.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:107
@@ -261,6 +327,10 @@ node\_modules/.pnpm/@ethereumjs+block@5.1.1/node\_modules/@ethereumjs/block/dist
 > **raw**(): `BlockBytes`
 
 Returns a Array of the raw Bytes Arrays of this block, in order.
+
+#### Inherited from
+
+Block.raw
 
 #### Source
 
@@ -274,6 +344,10 @@ node\_modules/.pnpm/@ethereumjs+block@5.1.1/node\_modules/@ethereumjs/block/dist
 
 Returns the rlp encoding of the block.
 
+#### Inherited from
+
+Block.serialize
+
 #### Source
 
 node\_modules/.pnpm/@ethereumjs+block@5.1.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:111
@@ -285,6 +359,10 @@ node\_modules/.pnpm/@ethereumjs+block@5.1.1/node\_modules/@ethereumjs/block/dist
 > **toJSON**(): `JsonBlock`
 
 Returns the block in JSON format.
+
+#### Inherited from
+
+Block.toJSON
 
 #### Source
 
@@ -301,6 +379,10 @@ Validates transaction signatures and minimum gas requirements.
 #### Returns
 
 True if all transactions are valid, false otherwise
+
+#### Inherited from
+
+Block.transactionsAreValid
 
 #### Source
 
@@ -319,6 +401,10 @@ and do a check on the root hash.
 
 True if the transaction trie is valid, false otherwise
 
+#### Inherited from
+
+Block.transactionsTrieIsValid
+
 #### Source
 
 node\_modules/.pnpm/@ethereumjs+block@5.1.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:121
@@ -334,6 +420,10 @@ Validates the uncle's hash.
 #### Returns
 
 true if the uncle's hash is valid, false otherwise.
+
+#### Inherited from
+
+Block.uncleHashIsValid
 
 #### Source
 
@@ -354,6 +444,10 @@ blob gas per block
 ▪ **parentHeader**: `BlockHeader`
 
 header of parent block
+
+#### Inherited from
+
+Block.validateBlobTransactions
 
 #### Source
 
@@ -382,6 +476,10 @@ if only passed the header, skip validating txTrie and unclesHash (default: false
 
 if set to `false`, will not check for transaction validation errors (default: true)
 
+#### Inherited from
+
+Block.validateData
+
 #### Source
 
 node\_modules/.pnpm/@ethereumjs+block@5.1.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:142
@@ -397,9 +495,13 @@ Throws if invalid
 
 #### Parameters
 
-▪ **parentBlock**: [`Block`](/reference/tevm/blockchain/classes/block/)
+▪ **parentBlock**: `Block`
 
 the parent of this `Block`
+
+#### Inherited from
+
+Block.validateGasLimit
 
 #### Source
 
@@ -419,6 +521,10 @@ The rules for uncles checked are the following:
 Header has at most 2 uncles.
 Header does not count an uncle twice.
 
+#### Inherited from
+
+Block.validateUncles
+
 #### Source
 
 node\_modules/.pnpm/@ethereumjs+block@5.1.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:169
@@ -435,6 +541,10 @@ Validates the withdrawal root
 
 true if the withdrawals trie root is valid, false otherwise
 
+#### Inherited from
+
+Block.withdrawalsTrieIsValid
+
 #### Source
 
 node\_modules/.pnpm/@ethereumjs+block@5.1.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:159
@@ -443,7 +553,7 @@ node\_modules/.pnpm/@ethereumjs+block@5.1.1/node\_modules/@ethereumjs/block/dist
 
 ### fromBeaconPayloadJson()
 
-> **`static`** **fromBeaconPayloadJson**(`payload`, `opts`?): `Promise`\<[`Block`](/reference/tevm/blockchain/classes/block/)\>
+> **`static`** **fromBeaconPayloadJson**(`payload`, `opts`?): `Promise`\<`Block`\>
 
 Method to retrieve a block from a beacon payload json
 
@@ -461,6 +571,10 @@ json of a beacon beacon fetched from beacon apis
 
 the block constructed block
 
+#### Inherited from
+
+Block.fromBeaconPayloadJson
+
 #### Source
 
 node\_modules/.pnpm/@ethereumjs+block@5.1.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:90
@@ -469,7 +583,7 @@ node\_modules/.pnpm/@ethereumjs+block@5.1.1/node\_modules/@ethereumjs/block/dist
 
 ### fromBlockData()
 
-> **`static`** **fromBlockData**(`blockData`?, `opts`?): [`Block`](/reference/tevm/blockchain/classes/block/)
+> **`static`** **fromBlockData**(`blockData`?, `opts`?): `Block`
 
 Static constructor to create a block from a block data dictionary
 
@@ -479,6 +593,10 @@ Static constructor to create a block from a block data dictionary
 
 ▪ **opts?**: `BlockOptions`
 
+#### Inherited from
+
+Block.fromBlockData
+
 #### Source
 
 node\_modules/.pnpm/@ethereumjs+block@5.1.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:46
@@ -487,7 +605,7 @@ node\_modules/.pnpm/@ethereumjs+block@5.1.1/node\_modules/@ethereumjs/block/dist
 
 ### fromExecutionPayload()
 
-> **`static`** **fromExecutionPayload**(`payload`, `opts`?): `Promise`\<[`Block`](/reference/tevm/blockchain/classes/block/)\>
+> **`static`** **fromExecutionPayload**(`payload`, `opts`?): `Promise`\<`Block`\>
 
 Method to retrieve a block from an execution payload
 
@@ -503,6 +621,10 @@ Method to retrieve a block from an execution payload
 
 the block constructed block
 
+#### Inherited from
+
+Block.fromExecutionPayload
+
 #### Source
 
 node\_modules/.pnpm/@ethereumjs+block@5.1.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:83
@@ -511,7 +633,7 @@ node\_modules/.pnpm/@ethereumjs+block@5.1.1/node\_modules/@ethereumjs/block/dist
 
 ### fromRLPSerializedBlock()
 
-> **`static`** **fromRLPSerializedBlock**(`serialized`, `opts`?): [`Block`](/reference/tevm/blockchain/classes/block/)
+> **`static`** **fromRLPSerializedBlock**(`serialized`, `opts`?): `Block`
 
 Static constructor to create a block from a RLP-serialized block
 
@@ -521,6 +643,10 @@ Static constructor to create a block from a RLP-serialized block
 
 ▪ **opts?**: `BlockOptions`
 
+#### Inherited from
+
+Block.fromRLPSerializedBlock
+
 #### Source
 
 node\_modules/.pnpm/@ethereumjs+block@5.1.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:53
@@ -529,7 +655,7 @@ node\_modules/.pnpm/@ethereumjs+block@5.1.1/node\_modules/@ethereumjs/block/dist
 
 ### fromRPC()
 
-> **`static`** **fromRPC**(`blockData`, `uncles`?, `opts`?): [`Block`](/reference/tevm/blockchain/classes/block/)
+> **`static`** **fromRPC**(`blockData`, `uncles`?, `opts`?): `Block`
 
 Creates a new block object from Ethereum JSON RPC.
 
@@ -545,6 +671,10 @@ Optional list of Ethereum JSON RPC of uncles (eth_getUncleByBlockHashAndIndex)
 
 An object describing the blockchain
 
+#### Inherited from
+
+Block.fromRPC
+
 #### Source
 
 node\_modules/.pnpm/@ethereumjs+block@5.1.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:68
@@ -553,7 +683,7 @@ node\_modules/.pnpm/@ethereumjs+block@5.1.1/node\_modules/@ethereumjs/block/dist
 
 ### fromValuesArray()
 
-> **`static`** **fromValuesArray**(`values`, `opts`?): [`Block`](/reference/tevm/blockchain/classes/block/)
+> **`static`** **fromValuesArray**(`values`, `opts`?): `Block`
 
 Static constructor to create a block from an array of Bytes values
 
@@ -562,6 +692,10 @@ Static constructor to create a block from an array of Bytes values
 ▪ **values**: `BlockBytes`
 
 ▪ **opts?**: `BlockOptions`
+
+#### Inherited from
+
+Block.fromValuesArray
 
 #### Source
 
@@ -583,6 +717,10 @@ array of TypedTransaction to compute the root of
 
 ▪ **emptyTrie?**: `Trie`
 
+#### Inherited from
+
+Block.genTransactionsTrieRoot
+
 #### Source
 
 node\_modules/.pnpm/@ethereumjs+block@5.1.1/node\_modules/@ethereumjs/block/dist/esm/block.d.ts:39
@@ -602,6 +740,10 @@ Returns the withdrawals trie root for array of Withdrawal.
 array of Withdrawal to compute the root of
 
 ▪ **emptyTrie?**: `Trie`
+
+#### Inherited from
+
+Block.genWithdrawalsTrieRoot
 
 #### Source
 
