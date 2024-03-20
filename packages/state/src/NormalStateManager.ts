@@ -7,14 +7,7 @@ import {
 	type DefaultStateManagerOpts,
 } from '@ethereumjs/statemanager'
 import { EthjsAccount, EthjsAddress } from '@tevm/utils'
-import {
-	type Address,
-	type Hex,
-	bytesToHex,
-	fromRlp,
-	hexToBytes,
-	isHex,
-} from 'viem'
+import { type Address, bytesToHex, fromRlp, hexToBytes, isHex } from 'viem'
 
 export type NormalStateManagerOpts = DefaultStateManagerOpts & {
 	/**
@@ -66,39 +59,7 @@ export class NormalStateManager
 			prefixCodeHashes: this._prefixCodeHashes,
 		})
 
-		await Promise.all(
-			this.getAccountAddresses().map(async (address) => {
-				const ethjsAddress = EthjsAddress.fromString(`0x${address}`)
-
-				const [account, code] = await Promise.all([
-					this.getAccount(ethjsAddress),
-					this.getContractCode(ethjsAddress),
-				])
-
-				if (account === undefined) {
-					return
-				}
-
-				await newState.putAccount(ethjsAddress, account)
-
-				if (code.length === 0) {
-					return
-				}
-				await newState.putContractCode(ethjsAddress, code)
-
-				const storage = await this.dumpStorage(ethjsAddress)
-
-				await Promise.all(
-					Object.entries(storage).map(async ([key, value]) => {
-						await newState.putContractStorage(
-							ethjsAddress,
-							hexToBytes(key as Hex),
-							hexToBytes(value as Hex),
-						)
-					}),
-				)
-			}),
-		)
+		await newState.generateCanonicalGenesis(await this.dumpCanonicalGenesis())
 
 		await newState.checkpoint()
 		await newState.commit()
