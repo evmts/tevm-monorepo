@@ -187,7 +187,7 @@ export default defineConfig({
 ' > vite.config.js
 ```
 
-## Creating a Tevm VM
+## Using the TevmTransport
 
 Now let's create a Tevm VM client. This client will serve as the backend RPC transport provider for viem rather than a normal [http](https://viem.sh/docs/clients/transports/http.html)
 
