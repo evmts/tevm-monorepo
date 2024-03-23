@@ -5,8 +5,8 @@ import {
   DoubleArrowRightIcon,
 } from '@radix-ui/react-icons';
 import { Table } from '@tanstack/react-table';
+import { useMedia } from 'react-use';
 
-import { useMediaQuery } from '@/lib/hooks/use-media-query';
 import { Button } from '@/components/ui/button';
 import {
   Select,
@@ -35,7 +35,7 @@ const PAGE_SIZES = [5, 10, 20, 30, 40, 50];
 const DataTablePagination = <TData,>({
   table,
 }: DataTablePaginationProps<TData>) => {
-  const isDesktop = useMediaQuery('(min-width: 768px)'); // md
+  const isDesktop = useMedia('(min-width: 768px)'); // md
 
   return (
     <div className="flex flex-col items-center gap-2 md:flex-row md:justify-between md:gap-6 lg:gap-8">

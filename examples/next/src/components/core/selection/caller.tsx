@@ -1,11 +1,11 @@
 'use client';
 
 import { useMemo, useState } from 'react';
+import { useMedia } from 'react-use';
 import { toast } from 'sonner';
 import { Hex, isAddress } from 'tevm/utils';
 
 import { DEFAULT_CALLER } from '@/lib/constants/defaults';
-import { useMediaQuery } from '@/lib/hooks/use-media-query';
 import { useConfigStore } from '@/lib/store/use-config';
 import { useProviderStore } from '@/lib/store/use-provider';
 import { callContract } from '@/lib/tevm';
@@ -34,7 +34,7 @@ const CallerSelection = () => {
   const [fetchingOwner, setFetchingOwner] = useState<boolean>(false);
 
   // Expand from tablet breakpoint
-  const isTablet = useMediaQuery('(min-width: 640px)'); // sm
+  const isTablet = useMedia('(min-width: 640px)'); // sm
 
   // The current chain client (Tevm)
   const client = useProviderStore((state) => state.client);

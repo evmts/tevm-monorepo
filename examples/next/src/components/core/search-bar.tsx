@@ -2,10 +2,10 @@
 
 import { FC, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { useMedia } from 'react-use';
 import { Address, isAddress } from 'tevm/utils';
 
 import { Chain } from '@/lib/types/providers';
-import { useMediaQuery } from '@/lib/hooks/use-media-query';
 import { useConfigStore } from '@/lib/store/use-config';
 import { useProviderStore } from '@/lib/store/use-provider';
 import { cn } from '@/lib/utils';
@@ -40,7 +40,7 @@ const SearchBar: FC<SearchBarProps> = ({
     useState<boolean>(!!initialAddress);
 
   // Expand from tablet breakpoint
-  const isTablet = useMediaQuery('(min-width: 640px)'); // sm
+  const isTablet = useMedia('(min-width: 640px)'); // sm
 
   // Get the chain, client initialization status
   const { chain, initializing, setProvider } = useProviderStore((state) => ({

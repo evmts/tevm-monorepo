@@ -1,6 +1,6 @@
 import { FC, ReactNode, useMemo } from 'react';
+import { useMedia } from 'react-use';
 
-import { useMediaQuery } from '@/lib/hooks/use-media-query';
 import { cn } from '@/lib/utils';
 import {
   Popover,
@@ -63,7 +63,7 @@ const TooltipResponsive: FC<TooltipResponsiveProps> = ({
   classNameContent,
   disabled,
 }) => {
-  const isDesktop = useMediaQuery('(min-width: 768px)'); // md
+  const isDesktop = useMedia('(min-width: 768px)'); // md
   const triggerMapped = useMemo(() => {
     if (typeof trigger === 'string' && trigger in specialTriggerIcons)
       return specialTriggerIcons[trigger as SpecialTrigger];

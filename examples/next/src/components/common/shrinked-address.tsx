@@ -2,9 +2,9 @@
 
 import { FC, useMemo, useState } from 'react';
 import Link from 'next/link';
+import { useMedia } from 'react-use';
 import { Address } from 'tevm/utils';
 
-import { useMediaQuery } from '@/lib/hooks/use-media-query';
 import { Icons } from '@/components/common/icons';
 
 type ShrinkedAddressProps = {
@@ -27,7 +27,7 @@ const ShrinkedAddress: FC<ShrinkedAddressProps> = ({
   explorer,
   adapt = true,
 }) => {
-  const isLargeScreen = useMediaQuery('(min-width: 1280px)'); // xl
+  const isLargeScreen = useMedia('(min-width: 1280px)'); // xl
   const [copy, setCopy] = useState(false);
 
   // Display the full address only on large screens (if adapt is true)
