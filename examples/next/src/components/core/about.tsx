@@ -34,7 +34,7 @@ const About = () => {
               <span className="font-semibold">Think ~ Etherscan + Remix</span>.
             </P>
             <P>
-              Basically, it&apos;s a way to interact with contracts and EOAs{' '}
+              A way to interact with contracts and EOAs{' '}
               <span className="font-semibold">
                 in a simulated environment, from a forked chain
               </span>
@@ -49,17 +49,15 @@ const About = () => {
               .
             </P>
             <P>
-              As you interact with accounts, all{' '}
               <LinkTo href="https://tevm.sh/reference/tevm/actions-types/type-aliases/callhandler">
-                transactions are processed
+                Transactions are processed
               </LinkTo>{' '}
               and recorded by the client, which always considers the latest
               state of the chain; i.e. the initial state at the time of the
               fork, plus all the local transactions.
             </P>
             <P>
-              When you search for a contract, it will attempt to retrieve its
-              ABI with{' '}
+              When you search for a contract, it will retrieve its ABI with{' '}
               <LinkTo href="https://github.com/shazow/whatsabi">
                 WhatsABI
               </LinkTo>
@@ -67,10 +65,8 @@ const About = () => {
               any arbitrary call with encoded data.
             </P>
             <P>
-              The clients for each chain are synced with the local storage, as
-              well as the transaction history. When the chain is reset, the
-              client forks the chain again at the latest block, which
-              incidentally resets the local transactions history.
+              The clients and transaction history are synced with the local
+              storage.
             </P>
           </AccordionContent>
         </AccordionItem>
@@ -154,35 +150,6 @@ const About = () => {
                   </InlineCode>{' '}
                   to see more details (data, errors, logs, inputs...), and click
                   on an address to search for it.
-                </>,
-              ]}
-            />
-          </AccordionContent>
-        </AccordionItem>
-        {/* -------------------------------------------------------------------------- */}
-        {/*                              NOTES                                         */}
-        {/* -------------------------------------------------------------------------- */}
-        <AccordionItem value="notes">
-          <AccordionTrigger className={triggerClasses}>Notes</AccordionTrigger>
-          <AccordionContent>
-            There are a few issues/pitfalls to be aware of:
-            <List
-              items={[
-                <>
-                  Obviously, there might (will probably) be some unhandled
-                  errors, rejections, or bugs. Please report them so we can fix
-                  them and improve either Tevm or this example!
-                </>,
-                <>
-                  WhatsABI might struggle with proxies, currently the app
-                  doesn&apos;t support redirecting to the implementation
-                  contract.
-                </>,
-                <>
-                  Currently, to use Tevm on the browser we need to expose the
-                  API keys to the browser (for RPC queries). This is definitely
-                  not ideal, but the only way to be able to use Tevm clients
-                  synced with local storage.
                 </>,
               ]}
             />

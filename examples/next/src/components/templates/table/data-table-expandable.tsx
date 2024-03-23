@@ -95,7 +95,7 @@ const DataTableExpandable = <TData,>({
                 <>
                   <TableRow
                     data-state={row.getIsSelected() && 'selected'}
-                    className={cn(collapsed === row.id && 'border-b-[0px]')}
+                    className={cn(collapsed === row.id && 'border-b-0')}
                   >
                     {row.getVisibleCells().map((cell) => (
                       <TableCell key={cell.id} className="font-mono">
