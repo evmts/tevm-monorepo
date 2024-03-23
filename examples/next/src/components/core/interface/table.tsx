@@ -20,7 +20,7 @@ import { formatTx as formatTxForLocalStorage } from '@/lib/local-storage';
 import { useConfigStore } from '@/lib/store/use-config';
 import { useProviderStore } from '@/lib/store/use-provider';
 import { useTxStore } from '@/lib/store/use-tx';
-import { callContract } from '@/lib/tevm';
+import { callContract } frm '@/lib/tevm';
 import { formatInputValue, getFunctionId } from '@/lib/utils';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -162,16 +162,15 @@ const InterfaceTable: FC<InterfaceTableProps> = ({ data, loading }) => {
       });
 
       // Start processing the transaction
-      const tx = await callContract(
-        client,
-        caller,
-        account.address,
+      const tx = await client.contract({
+        from: caller,
+        to: account.address,
         functionName,
         abi,
-        formattedInputs.map((input) => input.value),
-        value,
+        args: formattedInputs.map((input) => input.value),
+        value: BigInt(value),
         skipBalance,
-      );
+      });
 
       // Report the result of the transaction to the user
       if (tx.errors?.length) {
