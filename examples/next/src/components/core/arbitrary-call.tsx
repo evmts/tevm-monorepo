@@ -3,22 +3,19 @@
 import { useMemo, useState } from 'react';
 import { useMedia } from 'react-use';
 import { toast } from 'sonner';
-import { Hex, isHex } from 'tevm/utils';
+import { isHex } from 'tevm/utils';
 
-import { ExpectedType } from '@/lib/types/tx';
-import { formatTx as formatTxForLocalStorage } from '@/lib/local-storage';
-import { useConfigStore } from '@/lib/store/use-config';
-import { useProviderStore } from '@/lib/store/use-provider';
-import { useTxStore } from '@/lib/store/use-tx';
-import { callWithArbitraryData } from '@/lib/tevm';
-import { cn } from '@/lib/utils';
+import { Icons } from '@/components/common/icons';
+import TooltipResponsive from '@/components/common/tooltip-responsive';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Icons } from '@/components/common/icons';
-import TooltipResponsive from '@/components/common/tooltip-responsive';
+import { useConfigStore } from '@/lib/store/use-config';
+import { useProviderStore } from '@/lib/store/use-provider';
+import { useTxStore } from '@/lib/store/use-tx';
+import { cn } from '@/lib/utils';
 
 /**
  * @notice Make an arbitrary call with specified parameters
@@ -93,45 +90,37 @@ const ArbitraryCall = () => {
     });
 
     // Process the transaction
-    const tx = await callWithArbitraryData(
-      client,
-      caller,
-      // We can safely cast the following as the call could not be made if the types
-      // were invalid
-      account.address,
-      (dataInput || '0x') as Hex,
-      valueInput === '' ? '0' : valueInput,
-      skipBalance,
+    const tx = await client.call(
+      {
+        from: caller,
+        to: account.address,
+        data: isHex(dataInput) ? dataInput : '0x',
+value: valueInput === '' ? BigInt(0) : BigInt(valueInput),
+      skipBalance
+      }
     );
 
     // Report the result of the transaction to the user
     if (tx.errors?.length) {
-      toast.error(tx.errors[0].title, {
+      toast.error(tx.errors[0].name, {
         id: loading,
         description: tx.errors[0].message,
       });
     } else {
       // The result provided by the call
-      const result = tx.result;
-      // Prefer the data if it was decoded and not an array (too long), otherwise the raw data
-      const data =
-        'data' in result &&
-        result.data !== undefined &&
-        !Array.isArray(result.data)
-          ? (result.data as ExpectedType)
-          : result.rawData;
+      const result = tx.rawData;
       const adaptedData =
         // Show the first 100 characters of the data if it's too long
-        data.toString().length > 100
-          ? `${data.toString().slice(0, 100)}...`
+        tx.rawData.toString().length > 100
+          ? `${tx.rawData.toString().slice(0, 100)}...`
           : // or the entire data if it's less than 100 characters
-            data;
+            tx.rawData;
 
       toast.success('Transaction successful!', {
         id: loading,
         description:
           // Don't try to display if there was no return value/transaction reverted/failed to retrieve it
-          data === '0x'
+          tx.rawData === '0x'
             ? 'See below for more details.'
             : `Returned: ${adaptedData}. See below for more details.`,
       });
@@ -142,22 +131,6 @@ const ArbitraryCall = () => {
 
     // Update the account state after the call
     updateAccount(account.address, { updateAbi: false, chain, client }); // no need to wait for completion
-
-    // Save the transaction to the local storage regardless of the result
-    saveTx(
-      chain.id,
-      formatTxForLocalStorage(tx, {
-        chainId: chain.id,
-        target: account,
-        caller,
-        functionName: undefined,
-        // Convert bigints to strings for local storage
-        inputValues: [
-          { name: 'data', type: 'bytes', value: dataInput || '0x' },
-        ],
-        value: tx.value,
-      }),
-    );
   };
 
   /* --------------------------------- RENDER --------------------------------- */
