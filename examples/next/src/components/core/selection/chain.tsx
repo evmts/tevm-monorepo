@@ -1,11 +1,11 @@
 'use client';
 
 import { FC } from 'react';
+import { useMedia } from 'react-use';
 import { toast } from 'sonner';
 import { extractChain } from 'viem';
 
 import { CHAINS } from '@/lib/constants/providers';
-import { useMediaQuery } from '@/lib/hooks/use-media-query';
 import { useConfigStore } from '@/lib/store/use-config';
 import { useProviderStore } from '@/lib/store/use-provider';
 import { useTxStore } from '@/lib/store/use-tx';
@@ -30,7 +30,7 @@ type ChainSelectionProps = {
 const ChainSelection: FC<ChainSelectionProps> = ({ hydrating = false }) => {
   /* ---------------------------------- STATE --------------------------------- */
   // Expand from tablet breakpoint
-  const isTablet = useMediaQuery('(min-width: 640px)'); // sm
+  const isTablet = useMedia('(min-width: 640px)'); // sm
   // Get the account and loading (fetching) status of the account & abi (+ method to fetch & update)
   const { account, fetchingAccount, updateAccount } = useConfigStore(
     (state) => ({

@@ -1,9 +1,9 @@
 'use client';
 
 import { FC, useState } from 'react';
+import { useMedia } from 'react-use';
 
 import { ComboboxOption } from '@/lib/types/templates';
-import { useMediaQuery } from '@/lib/hooks/use-media-query';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import {
@@ -52,7 +52,7 @@ const ComboBoxResponsive: FC<ComboBoxResponsiveProps> = (props) => {
   const { label, className, selected, disabled, header, setSelected } = props;
   const [open, setOpen] = useState<boolean>(false);
 
-  const isDesktop = useMediaQuery('(min-width: 768px)'); // md
+  const isDesktop = useMedia('(min-width: 768px)'); // md
 
   /* --------------------------------- DESKTOP -------------------------------- */
   if (isDesktop) {

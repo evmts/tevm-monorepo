@@ -12,10 +12,10 @@ import {
   SortingState,
   useReactTable,
 } from '@tanstack/react-table';
+import { useMedia } from 'react-use';
 import { toast } from 'sonner';
 
 import { ExpectedType, Input as InputType } from '@/lib/types/tx';
-import { useMediaQuery } from '@/lib/hooks/use-media-query';
 import { formatTx as formatTxForLocalStorage } from '@/lib/local-storage';
 import { useConfigStore } from '@/lib/store/use-config';
 import { useProviderStore } from '@/lib/store/use-provider';
@@ -56,7 +56,7 @@ const InterfaceTable: FC<InterfaceTableProps> = ({ data, loading }) => {
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 
   // Expand the table from tablet
-  const isTablet = useMediaQuery('(min-width: 640px)'); // sm
+  const isTablet = useMedia('(min-width: 640px)'); // sm
 
   // The current blockchain data for the call
   const { chain, client } = useProviderStore((state) => ({

@@ -1,11 +1,11 @@
 'use client';
 
 import { useMemo, useState } from 'react';
+import { useMedia } from 'react-use';
 import { toast } from 'sonner';
 import { Hex, isHex } from 'tevm/utils';
 
 import { ExpectedType } from '@/lib/types/tx';
-import { useMediaQuery } from '@/lib/hooks/use-media-query';
 import { formatTx as formatTxForLocalStorage } from '@/lib/local-storage';
 import { useConfigStore } from '@/lib/store/use-config';
 import { useProviderStore } from '@/lib/store/use-provider';
@@ -35,7 +35,7 @@ const ArbitraryCall = () => {
   const [calling, setCalling] = useState<boolean>(false);
 
   // Expand from tablet breakpoint
-  const isTablet = useMediaQuery('(min-width: 640px)'); // sm
+  const isTablet = useMedia('(min-width: 640px)'); // sm
 
   // The current chain and client (Tevm), and their initialization status
   const { chain, client, initializing } = useProviderStore((state) => ({

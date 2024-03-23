@@ -1,10 +1,10 @@
 'use client';
 
 import { FC } from 'react';
+import { useMedia } from 'react-use';
 
 import { Chain } from '@/lib/types/providers';
 import { EXAMPLE_VALUES } from '@/lib/constants/defaults';
-import { useMediaQuery } from '@/lib/hooks/use-media-query';
 import { Button } from '@/components/ui/button';
 
 type ExampleButtonProps = {
@@ -17,7 +17,7 @@ type ExampleButtonProps = {
  */
 const ExampleButton: FC<ExampleButtonProps> = ({ handleAccountSearch }) => {
   // Expand from tablet breakpoint
-  const isTablet = useMediaQuery('(min-width: 640px)'); // sm
+  const isTablet = useMedia('(min-width: 640px)'); // sm
 
   /* --------------------------------- RENDER --------------------------------- */
   return (
