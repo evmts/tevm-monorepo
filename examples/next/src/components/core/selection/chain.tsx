@@ -5,16 +5,15 @@ import { useMedia } from 'react-use';
 import { toast } from 'sonner';
 import { extractChain } from 'viem';
 
+import ElapsedTime from '@/components/common/elapsed-time';
+import TooltipResponsive from '@/components/common/tooltip-responsive';
+import ComboBoxResponsive from '@/components/templates/combobox-responsive';
+import { Button } from '@/components/ui/button';
+import { Skeleton } from '@/components/ui/skeleton';
 import { CHAINS } from '@/lib/constants/providers';
 import { useConfigStore } from '@/lib/store/use-config';
 import { useProviderStore } from '@/lib/store/use-provider';
 import { useTxStore } from '@/lib/store/use-tx';
-import { resetClient } from '@/lib/tevm';
-import { Button } from '@/components/ui/button';
-import { Skeleton } from '@/components/ui/skeleton';
-import ElapsedTime from '@/components/common/elapsed-time';
-import TooltipResponsive from '@/components/common/tooltip-responsive';
-import ComboBoxResponsive from '@/components/templates/combobox-responsive';
 
 type ChainSelectionProps = {
   hydrating?: boolean;
@@ -69,7 +68,8 @@ const ChainSelection: FC<ChainSelectionProps> = ({ hydrating = false }) => {
     });
     // This will set forkTime to 0 (loading) and then to the current time (update)
     setForkTime(chain.id, 'loading');
-    const { success, error } = await resetClient(client);
+    // TODO implement me
+    const { success, error } = client.reset()
     setForkTime(chain.id, 'update');
 
     if (success) {

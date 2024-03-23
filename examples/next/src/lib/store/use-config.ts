@@ -5,10 +5,9 @@ import { Address } from 'tevm/utils';
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 
-import { UpdateAccountOptions } from '@/lib/types/config';
 import { DEFAULT_CALLER } from '@/lib/constants/defaults';
 import { TEVM_PREFIX } from '@/lib/local-storage';
-import { getAccount } from '@/lib/tevm';
+import { UpdateAccountOptions } from '@/lib/types/config';
 import { fetchAbi } from '@/lib/whatsabi';
 
 /* ---------------------------------- TYPES --------------------------------- */
@@ -64,7 +63,7 @@ export const useConfigStore = create<ConfigStore>()(
       // This will be called upon search, chain change/reset, and after making a call
       updateAccount: async (address, { updateAbi, chain, client }) => {
         set({ fetchingAccount: true });
-        const account = await getAccount(client, address);
+        const account = await client.getAccount({address});
 
         // If we can't be sure if it's a contract, we can attempt to fetch the abi anyway
         if (updateAbi && account.isContract) {
