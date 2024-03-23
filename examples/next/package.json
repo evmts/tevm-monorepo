@@ -7,6 +7,7 @@
     "0xpolarzero"
   ],
   "scripts": {
+    "all": "bun run format && bun run lint && bun run typecheck && bun run build",
     "build": "next build",
     "clean": "rm -rf .next",
     "dev": "next dev",
