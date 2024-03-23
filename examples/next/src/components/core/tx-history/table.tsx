@@ -12,10 +12,10 @@ import {
   SortingState,
   useReactTable,
 } from '@tanstack/react-table';
+import { useMedia } from 'react-use';
 
 import { TxEntry } from '@/lib/types/tx';
 import { CHAINS } from '@/lib/constants/providers';
-import { useMediaQuery } from '@/lib/hooks/use-media-query';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -83,7 +83,7 @@ const TxHistoryTable: FC<TxHistoryTableProps> = ({ data, loading }) => {
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 
   // Display table layout from large desktop
-  const isLargeDesktop = useMediaQuery('(min-width: 1024px)'); // lg
+  const isLargeDesktop = useMedia('(min-width: 1024px)'); // lg
 
   /* --------------------------------- COLUMNS -------------------------------- */
   // Id, type, function/selector (if relevant), timestamp, status
