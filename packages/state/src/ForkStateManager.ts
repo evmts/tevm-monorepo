@@ -1,12 +1,9 @@
 // [mozilla public license 2.0](https://github.com/ethereumjs/ethereumjs-monorepo/blob/master/packages/statemanager/LICENSE)
-import { Trie } from '@ethereumjs/trie'
+import { Trie } from '@tevm/trie'
 import { keccak256 } from 'ethereum-cryptography/keccak.js'
 
 import { AccountCache, CacheType, StorageCache } from '@ethereumjs/statemanager'
 
-import { Cache } from './Cache.js'
-import type { TevmState } from './TevmState.js'
-import type { TevmStateManagerInterface } from './TevmStateManagerInterface.js'
 import type { AccountFields, StorageDump } from '@ethereumjs/common'
 import type { StorageRange } from '@ethereumjs/common'
 import type { Proof } from '@ethereumjs/statemanager'
@@ -22,7 +19,10 @@ import {
 	toHex,
 } from '@tevm/utils'
 // TODO remove me for using `@tevm/jsonrpc` package
-import { type PublicClient, createPublicClient, http } from 'viem'
+import { http, type PublicClient, createPublicClient } from 'viem'
+import { Cache } from './Cache.js'
+import type { TevmState } from './TevmState.js'
+import type { TevmStateManagerInterface } from './TevmStateManagerInterface.js'
 
 export interface ForkStateManagerOpts {
 	url: string

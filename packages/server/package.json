@@ -69,7 +69,6 @@
     "@tevm/zod": "workspace:^"
   },
   "devDependencies": {
-    "@ethereumjs/evm": "^2.2.1",
     "@tevm/actions-types": "workspace:^",
     "@tevm/jsonrpc": "workspace:^",
     "@tevm/memory-client": "workspace:^",

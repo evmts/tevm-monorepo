@@ -1,5 +1,5 @@
-import { genesisStateRoot } from '@ethereumjs/trie'
 import { Block } from '@tevm/block'
+import { genesisStateRoot } from '@tevm/trie'
 import { createMemoryDb, parseGwei } from '@tevm/utils'
 import { TevmBlockchain } from './TevmBlockchain.js'
 
