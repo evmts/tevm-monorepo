@@ -1,5 +1,4 @@
-import type { CallResult } from './CallResult.js'
-import { EVMErrorMessage, EvmError, type ExecResult } from '@ethereumjs/evm'
+import { EvmError, EvmErrorMessage, type ExecResult } from '@tevm/evm'
 import {
 	type Abi,
 	type AbiEvent,
@@ -12,6 +11,7 @@ import {
 	encodeFunctionResult,
 	hexToBytes,
 } from '@tevm/utils'
+import type { CallResult } from './CallResult.js'
 
 type Handler<
 	TAbi extends Abi,
@@ -89,7 +89,7 @@ export const defineCall = <TAbi extends Abi>(
 				executionGasUsed: BigInt(0),
 				returnValue: Buffer.alloc(0),
 				exceptionError: {
-					...new EvmError(EVMErrorMessage.REVERT),
+					...new EvmError(EvmErrorMessage.REVERT),
 					...{
 						message:
 							typeof e === 'string'

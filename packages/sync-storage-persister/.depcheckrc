@@ -1,5 +1,4 @@
 ignores: [
-  "@ethereumjs/evm",
   "@ethereumjs/blockchain",
   "@ethereumjs/vm",
   "@tevm/actions-types",

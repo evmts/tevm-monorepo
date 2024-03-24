@@ -7,6 +7,7 @@ export type {
 } from './CustomPrecompile.js'
 export {
 	EVMErrorMessage as EvmErrorMessage,
+	EvmError,
 	EOF as Eof,
 	Message as EthjsMessage,
 	type PrecompileInput,

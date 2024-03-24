@@ -1,5 +1,4 @@
 ignores: [
-  "@ethereumjs/evm",
   "@tevm/actions-types",
   "@tevm/jsonrpc",
   "next",
