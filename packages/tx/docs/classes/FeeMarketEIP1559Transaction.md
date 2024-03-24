@@ -1,119 +1,110 @@
-[@tevm/tx](../README.md) / [Exports](../modules.md) / BlobEIP4844Transaction
+[@tevm/tx](../README.md) / [Exports](../modules.md) / FeeMarketEIP1559Transaction
 
-# Class: BlobEIP4844Transaction
+# Class: FeeMarketEIP1559Transaction
 
-Typed transaction with a new gas fee market mechanism for transactions that include "blobs" of data
+Typed transaction with a new gas fee market mechanism
 
-- TransactionType: 3
-- EIP: [EIP-4844](https://eips.ethereum.org/EIPS/eip-4844)
+- TransactionType: 2
+- EIP: [EIP-1559](https://eips.ethereum.org/EIPS/eip-1559)
 
 ## Hierarchy
 
-- `BaseTransaction`\<`TransactionType.BlobEIP4844`\>
+- `BaseTransaction`\<`TransactionType.FeeMarketEIP1559`\>
 
-  ↳ **`BlobEIP4844Transaction`**
+  ↳ **`FeeMarketEIP1559Transaction`**
 
 ## Table of contents
 
 ### Constructors
 
-- [constructor](BlobEIP4844Transaction.md#constructor)
+- [constructor](FeeMarketEIP1559Transaction.md#constructor)
 
 ### Properties
 
-- [AccessListJSON](BlobEIP4844Transaction.md#accesslistjson)
-- [\_type](BlobEIP4844Transaction.md#_type)
-- [accessList](BlobEIP4844Transaction.md#accesslist)
-- [activeCapabilities](BlobEIP4844Transaction.md#activecapabilities)
-- [blobVersionedHashes](BlobEIP4844Transaction.md#blobversionedhashes)
-- [blobs](BlobEIP4844Transaction.md#blobs)
-- [cache](BlobEIP4844Transaction.md#cache)
-- [chainId](BlobEIP4844Transaction.md#chainid)
-- [common](BlobEIP4844Transaction.md#common)
-- [data](BlobEIP4844Transaction.md#data)
-- [gasLimit](BlobEIP4844Transaction.md#gaslimit)
-- [kzgCommitments](BlobEIP4844Transaction.md#kzgcommitments)
-- [kzgProofs](BlobEIP4844Transaction.md#kzgproofs)
-- [maxFeePerBlobGas](BlobEIP4844Transaction.md#maxfeeperblobgas)
-- [maxFeePerGas](BlobEIP4844Transaction.md#maxfeepergas)
-- [maxPriorityFeePerGas](BlobEIP4844Transaction.md#maxpriorityfeepergas)
-- [nonce](BlobEIP4844Transaction.md#nonce)
-- [r](BlobEIP4844Transaction.md#r)
-- [s](BlobEIP4844Transaction.md#s)
-- [to](BlobEIP4844Transaction.md#to)
-- [txOptions](BlobEIP4844Transaction.md#txoptions)
-- [v](BlobEIP4844Transaction.md#v)
-- [value](BlobEIP4844Transaction.md#value)
+- [AccessListJSON](FeeMarketEIP1559Transaction.md#accesslistjson)
+- [\_type](FeeMarketEIP1559Transaction.md#_type)
+- [accessList](FeeMarketEIP1559Transaction.md#accesslist)
+- [activeCapabilities](FeeMarketEIP1559Transaction.md#activecapabilities)
+- [cache](FeeMarketEIP1559Transaction.md#cache)
+- [chainId](FeeMarketEIP1559Transaction.md#chainid)
+- [common](FeeMarketEIP1559Transaction.md#common)
+- [data](FeeMarketEIP1559Transaction.md#data)
+- [gasLimit](FeeMarketEIP1559Transaction.md#gaslimit)
+- [maxFeePerGas](FeeMarketEIP1559Transaction.md#maxfeepergas)
+- [maxPriorityFeePerGas](FeeMarketEIP1559Transaction.md#maxpriorityfeepergas)
+- [nonce](FeeMarketEIP1559Transaction.md#nonce)
+- [r](FeeMarketEIP1559Transaction.md#r)
+- [s](FeeMarketEIP1559Transaction.md#s)
+- [to](FeeMarketEIP1559Transaction.md#to)
+- [txOptions](FeeMarketEIP1559Transaction.md#txoptions)
+- [v](FeeMarketEIP1559Transaction.md#v)
+- [value](FeeMarketEIP1559Transaction.md#value)
 
 ### Accessors
 
-- [type](BlobEIP4844Transaction.md#type)
+- [type](FeeMarketEIP1559Transaction.md#type)
 
 ### Methods
 
-- [\_getSharedErrorPostfix](BlobEIP4844Transaction.md#_getsharederrorpostfix)
-- [\_validateCannotExceedMaxInteger](BlobEIP4844Transaction.md#_validatecannotexceedmaxinteger)
-- [addSignature](BlobEIP4844Transaction.md#addsignature)
-- [errorStr](BlobEIP4844Transaction.md#errorstr)
-- [getBaseFee](BlobEIP4844Transaction.md#getbasefee)
-- [getDataFee](BlobEIP4844Transaction.md#getdatafee)
-- [getEffectivePriorityFee](BlobEIP4844Transaction.md#geteffectivepriorityfee)
-- [getHashedMessageToSign](BlobEIP4844Transaction.md#gethashedmessagetosign)
-- [getMessageToSign](BlobEIP4844Transaction.md#getmessagetosign)
-- [getMessageToVerifySignature](BlobEIP4844Transaction.md#getmessagetoverifysignature)
-- [getSenderAddress](BlobEIP4844Transaction.md#getsenderaddress)
-- [getSenderPublicKey](BlobEIP4844Transaction.md#getsenderpublickey)
-- [getUpfrontCost](BlobEIP4844Transaction.md#getupfrontcost)
-- [getValidationErrors](BlobEIP4844Transaction.md#getvalidationerrors)
-- [hash](BlobEIP4844Transaction.md#hash)
-- [isSigned](BlobEIP4844Transaction.md#issigned)
-- [isValid](BlobEIP4844Transaction.md#isvalid)
-- [numBlobs](BlobEIP4844Transaction.md#numblobs)
-- [raw](BlobEIP4844Transaction.md#raw)
-- [serialize](BlobEIP4844Transaction.md#serialize)
-- [serializeNetworkWrapper](BlobEIP4844Transaction.md#serializenetworkwrapper)
-- [sign](BlobEIP4844Transaction.md#sign)
-- [supports](BlobEIP4844Transaction.md#supports)
-- [toCreationAddress](BlobEIP4844Transaction.md#tocreationaddress)
-- [toJSON](BlobEIP4844Transaction.md#tojson)
-- [verifySignature](BlobEIP4844Transaction.md#verifysignature)
-- [\_validateNotArray](BlobEIP4844Transaction.md#_validatenotarray)
-- [fromSerializedBlobTxNetworkWrapper](BlobEIP4844Transaction.md#fromserializedblobtxnetworkwrapper)
-- [fromSerializedTx](BlobEIP4844Transaction.md#fromserializedtx)
-- [fromTxData](BlobEIP4844Transaction.md#fromtxdata)
-- [fromValuesArray](BlobEIP4844Transaction.md#fromvaluesarray)
-- [minimalFromNetworkWrapper](BlobEIP4844Transaction.md#minimalfromnetworkwrapper)
+- [\_getSharedErrorPostfix](FeeMarketEIP1559Transaction.md#_getsharederrorpostfix)
+- [\_validateCannotExceedMaxInteger](FeeMarketEIP1559Transaction.md#_validatecannotexceedmaxinteger)
+- [addSignature](FeeMarketEIP1559Transaction.md#addsignature)
+- [errorStr](FeeMarketEIP1559Transaction.md#errorstr)
+- [getBaseFee](FeeMarketEIP1559Transaction.md#getbasefee)
+- [getDataFee](FeeMarketEIP1559Transaction.md#getdatafee)
+- [getEffectivePriorityFee](FeeMarketEIP1559Transaction.md#geteffectivepriorityfee)
+- [getHashedMessageToSign](FeeMarketEIP1559Transaction.md#gethashedmessagetosign)
+- [getMessageToSign](FeeMarketEIP1559Transaction.md#getmessagetosign)
+- [getMessageToVerifySignature](FeeMarketEIP1559Transaction.md#getmessagetoverifysignature)
+- [getSenderAddress](FeeMarketEIP1559Transaction.md#getsenderaddress)
+- [getSenderPublicKey](FeeMarketEIP1559Transaction.md#getsenderpublickey)
+- [getUpfrontCost](FeeMarketEIP1559Transaction.md#getupfrontcost)
+- [getValidationErrors](FeeMarketEIP1559Transaction.md#getvalidationerrors)
+- [hash](FeeMarketEIP1559Transaction.md#hash)
+- [isSigned](FeeMarketEIP1559Transaction.md#issigned)
+- [isValid](FeeMarketEIP1559Transaction.md#isvalid)
+- [raw](FeeMarketEIP1559Transaction.md#raw)
+- [serialize](FeeMarketEIP1559Transaction.md#serialize)
+- [sign](FeeMarketEIP1559Transaction.md#sign)
+- [supports](FeeMarketEIP1559Transaction.md#supports)
+- [toCreationAddress](FeeMarketEIP1559Transaction.md#tocreationaddress)
+- [toJSON](FeeMarketEIP1559Transaction.md#tojson)
+- [verifySignature](FeeMarketEIP1559Transaction.md#verifysignature)
+- [\_validateNotArray](FeeMarketEIP1559Transaction.md#_validatenotarray)
+- [fromSerializedTx](FeeMarketEIP1559Transaction.md#fromserializedtx)
+- [fromTxData](FeeMarketEIP1559Transaction.md#fromtxdata)
+- [fromValuesArray](FeeMarketEIP1559Transaction.md#fromvaluesarray)
 
 ## Constructors
 
 ### constructor
 
-• **new BlobEIP4844Transaction**(`txData`, `opts?`): [`BlobEIP4844Transaction`](BlobEIP4844Transaction.md)
+• **new FeeMarketEIP1559Transaction**(`txData`, `opts?`): [`FeeMarketEIP1559Transaction`](FeeMarketEIP1559Transaction.md)
 
 This constructor takes the values, validates them, assigns them and freezes the object.
 
 It is not recommended to use this constructor directly. Instead use
-the static constructors or factory methods to assist in creating a Transaction object from
+the static factory methods to assist in creating a Transaction object from
 varying data types.
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `txData` | `BlobEIP4844TxData` |
+| `txData` | `FeeMarketEIP1559TxData` |
 | `opts?` | `TxOptions` |
 
 #### Returns
 
-[`BlobEIP4844Transaction`](BlobEIP4844Transaction.md)
+[`FeeMarketEIP1559Transaction`](FeeMarketEIP1559Transaction.md)
 
 #### Overrides
 
-BaseTransaction\&lt;TransactionType.BlobEIP4844\&gt;.constructor
+BaseTransaction\&lt;TransactionType.FeeMarketEIP1559\&gt;.constructor
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+tx@5.3.0/node_modules/@ethereumjs/tx/dist/esm/eip4844Transaction.d.ts:32
+node_modules/.pnpm/@ethereumjs+tx@5.3.0/node_modules/@ethereumjs/tx/dist/esm/eip1559Transaction.d.ts:52
 
 ## Properties
 
@@ -123,7 +114,7 @@ node_modules/.pnpm/@ethereumjs+tx@5.3.0/node_modules/@ethereumjs/tx/dist/esm/eip
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+tx@5.3.0/node_modules/@ethereumjs/tx/dist/esm/eip4844Transaction.d.ts:16
+node_modules/.pnpm/@ethereumjs+tx@5.3.0/node_modules/@ethereumjs/tx/dist/esm/eip1559Transaction.d.ts:16
 
 ___
 
@@ -147,7 +138,7 @@ ___
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+tx@5.3.0/node_modules/@ethereumjs/tx/dist/esm/eip4844Transaction.d.ts:15
+node_modules/.pnpm/@ethereumjs+tx@5.3.0/node_modules/@ethereumjs/tx/dist/esm/eip1559Transaction.d.ts:15
 
 ___
 
@@ -166,26 +157,6 @@ BaseTransaction.activeCapabilities
 #### Defined in
 
 node_modules/.pnpm/@ethereumjs+tx@5.3.0/node_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:31
-
-___
-
-### blobVersionedHashes
-
-• **blobVersionedHashes**: `Uint8Array`[]
-
-#### Defined in
-
-node_modules/.pnpm/@ethereumjs+tx@5.3.0/node_modules/@ethereumjs/tx/dist/esm/eip4844Transaction.d.ts:21
-
-___
-
-### blobs
-
-• `Optional` **blobs**: `Uint8Array`[]
-
-#### Defined in
-
-node_modules/.pnpm/@ethereumjs+tx@5.3.0/node_modules/@ethereumjs/tx/dist/esm/eip4844Transaction.d.ts:22
 
 ___
 
@@ -209,7 +180,7 @@ ___
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+tx@5.3.0/node_modules/@ethereumjs/tx/dist/esm/eip4844Transaction.d.ts:14
+node_modules/.pnpm/@ethereumjs+tx@5.3.0/node_modules/@ethereumjs/tx/dist/esm/eip1559Transaction.d.ts:14
 
 ___
 
@@ -223,7 +194,7 @@ BaseTransaction.common
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+tx@5.3.0/node_modules/@ethereumjs/tx/dist/esm/eip4844Transaction.d.ts:20
+node_modules/.pnpm/@ethereumjs+tx@5.3.0/node_modules/@ethereumjs/tx/dist/esm/eip1559Transaction.d.ts:19
 
 ___
 
@@ -255,43 +226,13 @@ node_modules/.pnpm/@ethereumjs+tx@5.3.0/node_modules/@ethereumjs/tx/dist/esm/bas
 
 ___
 
-### kzgCommitments
-
-• `Optional` **kzgCommitments**: `Uint8Array`[]
-
-#### Defined in
-
-node_modules/.pnpm/@ethereumjs+tx@5.3.0/node_modules/@ethereumjs/tx/dist/esm/eip4844Transaction.d.ts:23
-
-___
-
-### kzgProofs
-
-• `Optional` **kzgProofs**: `Uint8Array`[]
-
-#### Defined in
-
-node_modules/.pnpm/@ethereumjs+tx@5.3.0/node_modules/@ethereumjs/tx/dist/esm/eip4844Transaction.d.ts:24
-
-___
-
-### maxFeePerBlobGas
-
-• `Readonly` **maxFeePerBlobGas**: `bigint`
-
-#### Defined in
-
-node_modules/.pnpm/@ethereumjs+tx@5.3.0/node_modules/@ethereumjs/tx/dist/esm/eip4844Transaction.d.ts:19
-
-___
-
 ### maxFeePerGas
 
 • `Readonly` **maxFeePerGas**: `bigint`
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+tx@5.3.0/node_modules/@ethereumjs/tx/dist/esm/eip4844Transaction.d.ts:18
+node_modules/.pnpm/@ethereumjs+tx@5.3.0/node_modules/@ethereumjs/tx/dist/esm/eip1559Transaction.d.ts:18
 
 ___
 
@@ -301,7 +242,7 @@ ___
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+tx@5.3.0/node_modules/@ethereumjs/tx/dist/esm/eip4844Transaction.d.ts:17
+node_modules/.pnpm/@ethereumjs+tx@5.3.0/node_modules/@ethereumjs/tx/dist/esm/eip1559Transaction.d.ts:17
 
 ___
 
@@ -476,7 +417,7 @@ ___
 
 ### addSignature
 
-▸ **addSignature**(`v`, `r`, `s`, `convertV?`): [`BlobEIP4844Transaction`](BlobEIP4844Transaction.md)
+▸ **addSignature**(`v`, `r`, `s`, `convertV?`): [`FeeMarketEIP1559Transaction`](FeeMarketEIP1559Transaction.md)
 
 #### Parameters
 
@@ -489,7 +430,7 @@ ___
 
 #### Returns
 
-[`BlobEIP4844Transaction`](BlobEIP4844Transaction.md)
+[`FeeMarketEIP1559Transaction`](FeeMarketEIP1559Transaction.md)
 
 #### Overrides
 
@@ -497,7 +438,7 @@ BaseTransaction.addSignature
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+tx@5.3.0/node_modules/@ethereumjs/tx/dist/esm/eip4844Transaction.d.ts:139
+node_modules/.pnpm/@ethereumjs+tx@5.3.0/node_modules/@ethereumjs/tx/dist/esm/eip1559Transaction.d.ts:127
 
 ___
 
@@ -517,7 +458,7 @@ BaseTransaction.errorStr
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+tx@5.3.0/node_modules/@ethereumjs/tx/dist/esm/eip4844Transaction.d.ts:143
+node_modules/.pnpm/@ethereumjs+tx@5.3.0/node_modules/@ethereumjs/tx/dist/esm/eip1559Transaction.d.ts:135
 
 ___
 
@@ -557,7 +498,7 @@ BaseTransaction.getDataFee
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+tx@5.3.0/node_modules/@ethereumjs/tx/dist/esm/eip4844Transaction.d.ts:71
+node_modules/.pnpm/@ethereumjs+tx@5.3.0/node_modules/@ethereumjs/tx/dist/esm/eip1559Transaction.d.ts:56
 
 ___
 
@@ -583,7 +524,7 @@ BaseTransaction.getEffectivePriorityFee
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+tx@5.3.0/node_modules/@ethereumjs/tx/dist/esm/eip4844Transaction.d.ts:38
+node_modules/.pnpm/@ethereumjs+tx@5.3.0/node_modules/@ethereumjs/tx/dist/esm/eip1559Transaction.d.ts:61
 
 ___
 
@@ -607,7 +548,7 @@ BaseTransaction.getHashedMessageToSign
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+tx@5.3.0/node_modules/@ethereumjs/tx/dist/esm/eip4844Transaction.d.ts:125
+node_modules/.pnpm/@ethereumjs+tx@5.3.0/node_modules/@ethereumjs/tx/dist/esm/eip1559Transaction.d.ts:111
 
 ___
 
@@ -635,13 +576,15 @@ BaseTransaction.getMessageToSign
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+tx@5.3.0/node_modules/@ethereumjs/tx/dist/esm/eip4844Transaction.d.ts:117
+node_modules/.pnpm/@ethereumjs+tx@5.3.0/node_modules/@ethereumjs/tx/dist/esm/eip1559Transaction.d.ts:103
 
 ___
 
 ### getMessageToVerifySignature
 
 ▸ **getMessageToVerifySignature**(): `Uint8Array`
+
+Computes a sha3-256 hash which can be used to verify the signature
 
 #### Returns
 
@@ -653,7 +596,7 @@ BaseTransaction.getMessageToVerifySignature
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+tx@5.3.0/node_modules/@ethereumjs/tx/dist/esm/eip4844Transaction.d.ts:133
+node_modules/.pnpm/@ethereumjs+tx@5.3.0/node_modules/@ethereumjs/tx/dist/esm/eip1559Transaction.d.ts:122
 
 ___
 
@@ -693,7 +636,7 @@ BaseTransaction.getSenderPublicKey
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+tx@5.3.0/node_modules/@ethereumjs/tx/dist/esm/eip4844Transaction.d.ts:137
+node_modules/.pnpm/@ethereumjs+tx@5.3.0/node_modules/@ethereumjs/tx/dist/esm/eip1559Transaction.d.ts:126
 
 ___
 
@@ -719,7 +662,7 @@ BaseTransaction.getUpfrontCost
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+tx@5.3.0/node_modules/@ethereumjs/tx/dist/esm/eip4844Transaction.d.ts:76
+node_modules/.pnpm/@ethereumjs+tx@5.3.0/node_modules/@ethereumjs/tx/dist/esm/eip1559Transaction.d.ts:66
 
 ___
 
@@ -752,7 +695,7 @@ ___
 Computes a sha3-256 hash of the serialized tx.
 
 This method can only be used for signed txs (it throws otherwise).
-Use [BlobEIP4844Transaction.getMessageToSign](BlobEIP4844Transaction.md#getmessagetosign) to get a tx hash for the purpose of signing.
+Use [FeeMarketEIP1559Transaction.getMessageToSign](FeeMarketEIP1559Transaction.md#getmessagetosign) to get a tx hash for the purpose of signing.
 
 #### Returns
 
@@ -764,7 +707,7 @@ BaseTransaction.hash
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+tx@5.3.0/node_modules/@ethereumjs/tx/dist/esm/eip4844Transaction.d.ts:132
+node_modules/.pnpm/@ethereumjs+tx@5.3.0/node_modules/@ethereumjs/tx/dist/esm/eip1559Transaction.d.ts:118
 
 ___
 
@@ -808,41 +751,25 @@ node_modules/.pnpm/@ethereumjs+tx@5.3.0/node_modules/@ethereumjs/tx/dist/esm/bas
 
 ___
 
-### numBlobs
-
-▸ **numBlobs**(): `number`
-
-#### Returns
-
-`number`
-
-the number of blobs included with this transaction
-
-#### Defined in
-
-node_modules/.pnpm/@ethereumjs+tx@5.3.0/node_modules/@ethereumjs/tx/dist/esm/eip4844Transaction.d.ts:154
-
-___
-
 ### raw
 
-▸ **raw**(): `BlobEIP4844TxValuesArray`
+▸ **raw**(): `FeeMarketEIP1559TxValuesArray`
 
-Returns a Uint8Array Array of the raw Bytes of the EIP-4844 transaction, in order.
+Returns a Uint8Array Array of the raw Bytes of the EIP-1559 transaction, in order.
 
-Format: [chain_id, nonce, max_priority_fee_per_gas, max_fee_per_gas, gas_limit, to, value, data,
-access_list, max_fee_per_data_gas, blob_versioned_hashes, y_parity, r, s]`.
+Format: `[chainId, nonce, maxPriorityFeePerGas, maxFeePerGas, gasLimit, to, value, data,
+accessList, signatureYParity, signatureR, signatureS]`
 
-Use {@link BlobEIP4844Transaction.serialize} to add a transaction to a block
-with {@link Block.fromValuesArray}.
+Use [FeeMarketEIP1559Transaction.serialize](FeeMarketEIP1559Transaction.md#serialize) to add a transaction to a block
+with Block.fromValuesArray.
 
 For an unsigned tx this method uses the empty Bytes values for the
 signature parameters `v`, `r` and `s` for encoding. For an EIP-155 compliant
-representation for external signing use [BlobEIP4844Transaction.getMessageToSign](BlobEIP4844Transaction.md#getmessagetosign).
+representation for external signing use [FeeMarketEIP1559Transaction.getMessageToSign](FeeMarketEIP1559Transaction.md#getmessagetosign).
 
 #### Returns
 
-`BlobEIP4844TxValuesArray`
+`FeeMarketEIP1559TxValuesArray`
 
 #### Overrides
 
@@ -850,7 +777,7 @@ BaseTransaction.raw
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+tx@5.3.0/node_modules/@ethereumjs/tx/dist/esm/eip4844Transaction.d.ts:90
+node_modules/.pnpm/@ethereumjs+tx@5.3.0/node_modules/@ethereumjs/tx/dist/esm/eip1559Transaction.d.ts:80
 
 ___
 
@@ -858,10 +785,10 @@ ___
 
 ▸ **serialize**(): `Uint8Array`
 
-Returns the serialized encoding of the EIP-4844 transaction.
+Returns the serialized encoding of the EIP-1559 transaction.
 
-Format: `0x03 || rlp([chainId, nonce, maxPriorityFeePerGas, maxFeePerGas, gasLimit, to, value, data,
-access_list, max_fee_per_data_gas, blob_versioned_hashes, y_parity, r, s])`.
+Format: `0x02 || rlp([chainId, nonce, maxPriorityFeePerGas, maxFeePerGas, gasLimit, to, value, data,
+accessList, signatureYParity, signatureR, signatureS])`
 
 Note that in contrast to the legacy tx serialization format this is not
 valid RLP any more due to the raw tx type preceding and concatenated to
@@ -877,29 +804,13 @@ BaseTransaction.serialize
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+tx@5.3.0/node_modules/@ethereumjs/tx/dist/esm/eip4844Transaction.d.ts:101
-
-___
-
-### serializeNetworkWrapper
-
-▸ **serializeNetworkWrapper**(): `Uint8Array`
-
-#### Returns
-
-`Uint8Array`
-
-the serialized form of a blob transaction in the network wrapper format (used for gossipping mempool transactions over devp2p)
-
-#### Defined in
-
-node_modules/.pnpm/@ethereumjs+tx@5.3.0/node_modules/@ethereumjs/tx/dist/esm/eip4844Transaction.d.ts:105
+node_modules/.pnpm/@ethereumjs+tx@5.3.0/node_modules/@ethereumjs/tx/dist/esm/eip1559Transaction.d.ts:91
 
 ___
 
 ### sign
 
-▸ **sign**(`privateKey`): [`BlobEIP4844Transaction`](BlobEIP4844Transaction.md)
+▸ **sign**(`privateKey`): [`FeeMarketEIP1559Transaction`](FeeMarketEIP1559Transaction.md)
 
 Signs a transaction.
 
@@ -917,7 +828,7 @@ const signedTx = tx.sign(privateKey)
 
 #### Returns
 
-[`BlobEIP4844Transaction`](BlobEIP4844Transaction.md)
+[`FeeMarketEIP1559Transaction`](FeeMarketEIP1559Transaction.md)
 
 #### Inherited from
 
@@ -992,6 +903,8 @@ ___
 
 ▸ **toJSON**(): `JsonTx`
 
+Returns an object with the JSON representation of the transaction
+
 #### Returns
 
 `JsonTx`
@@ -1002,7 +915,7 @@ BaseTransaction.toJSON
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+tx@5.3.0/node_modules/@ethereumjs/tx/dist/esm/eip4844Transaction.d.ts:138
+node_modules/.pnpm/@ethereumjs+tx@5.3.0/node_modules/@ethereumjs/tx/dist/esm/eip1559Transaction.d.ts:131
 
 ___
 
@@ -1050,39 +963,14 @@ node_modules/.pnpm/@ethereumjs+tx@5.3.0/node_modules/@ethereumjs/tx/dist/esm/bas
 
 ___
 
-### fromSerializedBlobTxNetworkWrapper
-
-▸ **fromSerializedBlobTxNetworkWrapper**(`serialized`, `opts?`): [`BlobEIP4844Transaction`](BlobEIP4844Transaction.md)
-
-Creates a transaction from the network encoding of a blob transaction (with blobs/commitments/proof)
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `serialized` | `Uint8Array` | a buffer representing a serialized BlobTransactionNetworkWrapper |
-| `opts?` | `TxOptions` | any TxOptions defined |
-
-#### Returns
-
-[`BlobEIP4844Transaction`](BlobEIP4844Transaction.md)
-
-a BlobEIP4844Transaction
-
-#### Defined in
-
-node_modules/.pnpm/@ethereumjs+tx@5.3.0/node_modules/@ethereumjs/tx/dist/esm/eip4844Transaction.d.ts:67
-
-___
-
 ### fromSerializedTx
 
-▸ **fromSerializedTx**(`serialized`, `opts?`): [`BlobEIP4844Transaction`](BlobEIP4844Transaction.md)
+▸ **fromSerializedTx**(`serialized`, `opts?`): [`FeeMarketEIP1559Transaction`](FeeMarketEIP1559Transaction.md)
 
 Instantiate a transaction from the serialized tx.
 
-Format: `0x03 || rlp([chain_id, nonce, max_priority_fee_per_gas, max_fee_per_gas, gas_limit, to, value, data,
-access_list, max_fee_per_data_gas, blob_versioned_hashes, y_parity, r, s])`
+Format: `0x02 || rlp([chainId, nonce, maxPriorityFeePerGas, maxFeePerGas, gasLimit, to, value, data,
+accessList, signatureYParity, signatureR, signatureS])`
 
 #### Parameters
 
@@ -1093,38 +981,47 @@ access_list, max_fee_per_data_gas, blob_versioned_hashes, y_parity, r, s])`
 
 #### Returns
 
-[`BlobEIP4844Transaction`](BlobEIP4844Transaction.md)
+[`FeeMarketEIP1559Transaction`](FeeMarketEIP1559Transaction.md)
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+tx@5.3.0/node_modules/@ethereumjs/tx/dist/esm/eip4844Transaction.d.ts:53
+node_modules/.pnpm/@ethereumjs+tx@5.3.0/node_modules/@ethereumjs/tx/dist/esm/eip1559Transaction.d.ts:37
 
 ___
 
 ### fromTxData
 
-▸ **fromTxData**(`txData`, `opts?`): [`BlobEIP4844Transaction`](BlobEIP4844Transaction.md)
+▸ **fromTxData**(`txData`, `opts?`): [`FeeMarketEIP1559Transaction`](FeeMarketEIP1559Transaction.md)
+
+Instantiate a transaction from a data dictionary.
+
+Format: { chainId, nonce, maxPriorityFeePerGas, maxFeePerGas, gasLimit, to, value, data,
+accessList, v, r, s }
+
+Notes:
+- `chainId` will be set automatically if not provided
+- All parameters are optional and have some basic default values
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `txData` | `BlobEIP4844TxData` |
+| `txData` | `FeeMarketEIP1559TxData` |
 | `opts?` | `TxOptions` |
 
 #### Returns
 
-[`BlobEIP4844Transaction`](BlobEIP4844Transaction.md)
+[`FeeMarketEIP1559Transaction`](FeeMarketEIP1559Transaction.md)
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+tx@5.3.0/node_modules/@ethereumjs/tx/dist/esm/eip4844Transaction.d.ts:33
+node_modules/.pnpm/@ethereumjs+tx@5.3.0/node_modules/@ethereumjs/tx/dist/esm/eip1559Transaction.d.ts:30
 
 ___
 
 ### fromValuesArray
 
-▸ **fromValuesArray**(`values`, `opts?`): [`BlobEIP4844Transaction`](BlobEIP4844Transaction.md)
+▸ **fromValuesArray**(`values`, `opts?`): [`FeeMarketEIP1559Transaction`](FeeMarketEIP1559Transaction.md)
 
 Create a transaction from a values array.
 
@@ -1135,39 +1032,13 @@ accessList, signatureYParity, signatureR, signatureS]`
 
 | Name | Type |
 | :------ | :------ |
-| `values` | `BlobEIP4844TxValuesArray` |
+| `values` | `FeeMarketEIP1559TxValuesArray` |
 | `opts?` | `TxOptions` |
 
 #### Returns
 
-[`BlobEIP4844Transaction`](BlobEIP4844Transaction.md)
+[`FeeMarketEIP1559Transaction`](FeeMarketEIP1559Transaction.md)
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+tx@5.3.0/node_modules/@ethereumjs/tx/dist/esm/eip4844Transaction.d.ts:60
-
-___
-
-### minimalFromNetworkWrapper
-
-▸ **minimalFromNetworkWrapper**(`txData`, `opts?`): [`BlobEIP4844Transaction`](BlobEIP4844Transaction.md)
-
-Creates the minimal representation of a blob transaction from the network wrapper version.
-The minimal representation is used when adding transactions to an execution payload/block
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `txData` | [`BlobEIP4844Transaction`](BlobEIP4844Transaction.md) | a [BlobEIP4844Transaction](BlobEIP4844Transaction.md) containing optional blobs/kzg commitments |
-| `opts?` | `TxOptions` | dictionary of TxOptions |
-
-#### Returns
-
-[`BlobEIP4844Transaction`](BlobEIP4844Transaction.md)
-
-the "minimal" representation of a BlobEIP4844Transaction (i.e. transaction object minus blobs and kzg commitments)
-
-#### Defined in
-
-node_modules/.pnpm/@ethereumjs+tx@5.3.0/node_modules/@ethereumjs/tx/dist/esm/eip4844Transaction.d.ts:46
+node_modules/.pnpm/@ethereumjs+tx@5.3.0/node_modules/@ethereumjs/tx/dist/esm/eip1559Transaction.d.ts:44
