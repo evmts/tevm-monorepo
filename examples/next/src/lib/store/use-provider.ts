@@ -8,7 +8,6 @@ import { DEFAULT_CHAIN } from '@/lib/constants/defaults'
 import { ALCHEMY_API_KEY, CHAINS, STANDALONE_RPC_CHAINS } from '@/lib/constants/providers'
 import { TEVM_PREFIX } from '@/lib/local-storage'
 import { useConfigStore } from '@/lib/store/use-config'
-import { initializeClient } from '@/lib/tevm'
 import { Chain } from '@/lib/types/providers'
 
 /* ---------------------------------- TYPES --------------------------------- */
@@ -108,7 +107,7 @@ export const useProviderStore = create<ProviderStore>()(
 						client = createMemoryClient({
 							persister: createSyncStoragePersister({
 								storage: localStorage,
-								key: `TEVM_CLIENT_${chainId.toString()}`,
+								key: `TEVM_CLIENT_${chain.id.toString()}`,
 							}),
 							fork: {
 								url: STANDALONE_RPC_CHAINS.includes(chain.id)
@@ -117,7 +116,6 @@ export const useProviderStore = create<ProviderStore>()(
 							},
 						})
 
-						client = await initializeClient(chain)
 						await client.ready()
 
 						// Set its fork time if it's never been initialized
