@@ -1,8 +1,8 @@
 {
-	"name": "@tevm/blockchain",
+	"name": "@tevm/trie",
 	"version": "1.0.0-next.42",
 	"private": false,
-	"description": "A custom implementation of ethereumjs blockchain",
+	"description": "A custom implementation of ethereumjs trie",
 	"keywords": [
 		"solidity",
 		"ethereumjs",
@@ -13,7 +13,7 @@
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/evmts/tevm-monorepo.git",
-		"directory": "packages/blockchain"
+		"directory": "packages/trie"
 	},
 	"license": "MIT",
 	"contributors": [
@@ -44,7 +44,7 @@
 	],
 	"scripts": {
 		"all": "pnpm i  && bun run build && bun lint && bun format && bun test:run && bun generate:docs",
-		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/blockchain",
+		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/trie",
 		"build:dist": "tsup",
 		"build:types": "tsup --dts-only && tsc --emitDeclarationOnly --declaration",
 		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
@@ -62,14 +62,11 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
-		"@ethereumjs/blockchain": "^7.1.0",
-		"@ethereumjs/common": "^4.2.0",
-		"@tevm/trie": "workspace:^"
+		"@ethereumjs/trie": "6.0.1"
 	},
 	"devDependencies": {
 		"@tevm/tsconfig": "workspace:^",
-		"@tevm/tsupconfig": "workspace:^",
-		"@tevm/utils": "workspace:^"
+		"@tevm/tsupconfig": "workspace:^"
 	},
 	"publishConfig": {
 		"access": "public"
