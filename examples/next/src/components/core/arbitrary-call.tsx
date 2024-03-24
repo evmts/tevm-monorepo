@@ -5,17 +5,17 @@ import { useMedia } from 'react-use';
 import { toast } from 'sonner';
 import { isHex } from 'tevm/utils';
 
-import { Icons } from '@/components/common/icons';
-import TooltipResponsive from '@/components/common/tooltip-responsive';
+import { useConfigStore } from '@/lib/store/use-config';
+import { useProviderStore } from '@/lib/store/use-provider';
+import { useTxStore } from '@/lib/store/use-tx';
+import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
 import { Skeleton } from '@/components/ui/skeleton';
-import { useConfigStore } from '@/lib/store/use-config';
-import { useProviderStore } from '@/lib/store/use-provider';
-import { useTxStore } from '@/lib/store/use-tx';
-import { cn } from '@/lib/utils';
+import { Icons } from '@/components/common/icons';
+import TooltipResponsive from '@/components/common/tooltip-responsive';
 
 /**
  * @notice Make an arbitrary call with specified parameters
@@ -55,7 +55,7 @@ const ArbitraryCall = () => {
   );
 
   // Save a tx in the history and set the current processing state
-  const { saveTx, setProcessing } = useTxStore((state) => ({
+  const { setProcessing } = useTxStore((state) => ({
     saveTx: state.saveTx,
     setProcessing: state.setProcessing,
   }));
@@ -90,15 +90,13 @@ const ArbitraryCall = () => {
     });
 
     // Process the transaction
-    const tx = await client.call(
-      {
-        from: caller,
-        to: account.address,
-        data: isHex(dataInput) ? dataInput : '0x',
-value: valueInput === '' ? BigInt(0) : BigInt(valueInput),
-      skipBalance
-      }
-    );
+    const tx = await client.call({
+      from: caller,
+      to: account.address,
+      data: isHex(dataInput) ? dataInput : '0x',
+      value: valueInput === '' ? BigInt(0) : BigInt(valueInput),
+      skipBalance,
+    });
 
     // Report the result of the transaction to the user
     if (tx.errors?.length) {
@@ -107,8 +105,6 @@ value: valueInput === '' ? BigInt(0) : BigInt(valueInput),
         description: tx.errors[0].message,
       });
     } else {
-      // The result provided by the call
-      const result = tx.rawData;
       const adaptedData =
         // Show the first 100 characters of the data if it's too long
         tx.rawData.toString().length > 100

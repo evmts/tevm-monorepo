@@ -115,7 +115,7 @@ const CallerSelection = () => {
       functionName: ownerMethod,
       abi,
       args: [],
-      value: BigInt(0)
+      value: BigInt(0),
     });
 
     // Report the result of the retrieval to the user
@@ -126,7 +126,7 @@ const CallerSelection = () => {
       });
     } else {
       // We can assume the result is an address because that's what we were looking for
-      const owner = tx.data
+      const owner = tx.data;
 
       if (owner && isAddress(owner as Hex)) {
         setCaller(owner as Hex);
