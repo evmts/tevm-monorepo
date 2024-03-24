@@ -1,4 +1,0 @@
-ignores: [
-  "@ethereumjs/evm"
-]
-skip-missing: true

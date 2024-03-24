@@ -1,4 +1,0 @@
-ignores: [
-  "@ethereumjs/block"
-]
-skip-missing: true
