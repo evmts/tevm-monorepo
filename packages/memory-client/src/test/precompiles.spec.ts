@@ -1,6 +1,6 @@
 import { createMemoryClient } from '../createMemoryClient.js'
-import { Address } from '@ethereumjs/util'
 import { type CustomPrecompile } from '@tevm/base-client'
+import { EthjsAddress } from '@tevm/utils'
 import { bytesToHex, hexToBytes } from '@tevm/utils'
 import { describe, expect, it } from 'bun:test'
 
@@ -13,7 +13,7 @@ describe('precompiles option', () => {
 
 		const precompile: CustomPrecompile = {
 			// TODO modify the api to take a hex address instead of ethjs address
-			address: new Address(hexToBytes(address)),
+			address: new EthjsAddress(hexToBytes(address)),
 			// Note ethereumjs fails if you don't include the args here because it checks code.length for some reason
 			// code.length returns the number of arguments in the case of a function
 			// see https://github.com/ethereumjs/ethereumjs-monorepo/pull/3158/files
@@ -28,7 +28,7 @@ describe('precompiles option', () => {
 		const tevm = createMemoryClient({ customPrecompiles: [precompile] })
 		expect(
 			((await tevm.getVm()).evm as any).getPrecompile(
-				new Address(hexToBytes(address)),
+				new EthjsAddress(hexToBytes(address)),
 			),
 		).toEqual(precompile.function)
 		const result = await tevm.call({
