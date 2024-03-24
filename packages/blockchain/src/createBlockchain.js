@@ -11,7 +11,7 @@ import { TevmBlockchain } from './TevmBlockchain.js'
 export const createBlockchain = async ({ common }) => {
 	const db = createMemoryDb()
 	/**
-	 * @type {import('@ethereumjs/util').GenesisState}
+	 * @type {import('@tevm/utils').GenesisState}
 	 */
 	const genesisState = {}
 
@@ -25,7 +25,7 @@ export const createBlockchain = async ({ common }) => {
 			...(common.isActivatedEIP(4895)
 				? {
 						withdrawals:
-							/** @type {Array<import('@ethereumjs/util').WithdrawalData>}*/ ([]),
+							/** @type {Array<import('@tevm/utils').WithdrawalData>}*/ ([]),
 				  }
 				: {}),
 		},

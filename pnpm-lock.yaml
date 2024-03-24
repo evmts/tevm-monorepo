@@ -1406,9 +1406,6 @@ importers:
       '@ethereumjs/trie':
         specifier: 6.0.1
         version: 6.0.1
-      '@ethereumjs/util':
-        specifier: ^9.0.2
-        version: 9.0.2
     devDependencies:
       '@tevm/tsconfig':
         specifier: workspace:^
@@ -1579,9 +1576,6 @@ importers:
         specifier: ^2.7.16
         version: 2.7.16(typescript@5.3.3)(zod@3.22.4)
     devDependencies:
-      '@ethereumjs/util':
-        specifier: ^9.0.2
-        version: 9.0.2
       '@tevm/client-types':
         specifier: workspace:^
         version: link:../client-types
@@ -1671,9 +1665,6 @@ importers:
 
   packages/predeploys:
     dependencies:
-      '@ethereumjs/util':
-        specifier: ^9.0.2
-        version: 9.0.2
       '@tevm/contract':
         specifier: workspace:^
         version: link:../contract
@@ -1690,12 +1681,6 @@ importers:
 
   packages/procedures:
     dependencies:
-      '@ethereumjs/block':
-        specifier: ^5.1.1
-        version: 5.1.1
-      '@ethereumjs/util':
-        specifier: ^9.0.2
-        version: 9.0.2
       '@tevm/actions':
         specifier: workspace:^
         version: link:../actions
@@ -1864,11 +1849,8 @@ importers:
 
   packages/txpool:
     dependencies:
-      '@ethereumjs/util':
-        specifier: ^9.0.2
-        version: 9.0.2
       '@tevm/tx':
-        specifier: workspace:1.0.0-next.42
+        specifier: workspace:^
         version: link:../tx
       qheap:
         specifier: ^1.4.0
