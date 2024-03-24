@@ -1,0 +1,7 @@
+ignores: [
+  "@ethereumjs/util",
+  "@ethereumjs/block",
+  "@ethereumjs/common",
+  "@ethereumjs/util"
+]
+skip-missing: true

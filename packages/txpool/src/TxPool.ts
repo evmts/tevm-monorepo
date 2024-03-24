@@ -1,12 +1,3 @@
-// this file is adapted from https://github.com/ethereumjs/ethereumjs-monorepo/blob/master/packages/client/src/service/txpool.ts and thus carries the same license
-import {
-	BlobEIP4844Transaction,
-	Capability,
-	isAccessListEIP2930Tx,
-	isBlobEIP4844Tx,
-	isFeeMarketEIP1559Tx,
-	isLegacyTx,
-} from '@ethereumjs/tx'
 import {
 	Account,
 	Address,
@@ -17,6 +8,15 @@ import {
 	equalsBytes,
 	hexToBytes,
 } from '@ethereumjs/util'
+// this file is adapted from https://github.com/ethereumjs/ethereumjs-monorepo/blob/master/packages/client/src/service/txpool.ts and thus carries the same license
+import {
+	BlobEIP4844Transaction,
+	Capability,
+	isAccessListEIP2930Tx,
+	isBlobEIP4844Tx,
+	isFeeMarketEIP1559Tx,
+	isLegacyTx,
+} from '@tevm/tx'
 import { TevmVm } from '@tevm/vm'
 
 import type { Block } from '@ethereumjs/block'
@@ -24,7 +24,7 @@ import type {
 	FeeMarketEIP1559Transaction,
 	LegacyTransaction,
 	TypedTransaction,
-} from '@ethereumjs/tx'
+} from '@tevm/tx'
 import type QHeap from 'qheap'
 import Heap from 'qheap'
 
