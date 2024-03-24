@@ -3,6 +3,7 @@ export {
 	type TxData,
 	type TypedTransaction,
 	LegacyTransaction,
+	AccessListEIP2930Transaction,
 	FeeMarketEIP1559Transaction,
 	AccessListEIP2930Transaction,
 	BlobEIP4844Transaction,
