@@ -1,5 +1,5 @@
 import { createMemoryClient } from '../createMemoryClient.js'
-import { EVMErrorMessage } from '@ethereumjs/evm'
+import { EvmErrorMessage } from '@tevm/evm'
 import { hexToBigInt } from '@tevm/utils'
 import { describe, expect, test } from 'bun:test'
 
@@ -27,7 +27,7 @@ describe('allowUnlimitedContractSize option', () => {
 			skipBalance: true,
 			throwOnFail: false,
 		})
-		expect(res.errors?.[0]?.name).toBe(EVMErrorMessage.CODESIZE_EXCEEDS_MAXIMUM)
+		expect(res.errors?.[0]?.name).toBe(EvmErrorMessage.CODESIZE_EXCEEDS_MAXIMUM)
 	})
 
 	test('Should deploy large files if allowUnlimitedContractSize option is true', async () => {

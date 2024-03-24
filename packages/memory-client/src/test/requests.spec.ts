@@ -1,10 +1,10 @@
 import { createMemoryClient } from '../createMemoryClient.js'
 import { DaiContract } from './DaiContract.sol.js'
-import { Address, bigIntToHex } from '@ethereumjs/util'
 import type {
 	ContractJsonRpcRequest,
 	ScriptJsonRpcRequest,
 } from '@tevm/procedures-types'
+import { EthjsAddress, numberToHex } from '@tevm/utils'
 import {
 	decodeFunctionResult,
 	encodeFunctionData,
@@ -49,7 +49,7 @@ describe('Tevm.request', async () => {
 				functionName: 'balanceOf',
 			}) satisfies bigint,
 		).toBe(0n)
-		expect(res.executionGasUsed).toBe(bigIntToHex(2447n) as any)
+		expect(res.executionGasUsed).toBe(numberToHex(2447n))
 		expect(res.logs).toEqual([])
 	})
 
@@ -141,14 +141,14 @@ describe('Tevm.request', async () => {
 			(
 				await (
 					await tevm.getVm()
-				).stateManager.getAccount(new Address(hexToBytes(address2)))
+				).stateManager.getAccount(new EthjsAddress(hexToBytes(address2)))
 			)?.balance,
 		).toBe(transferAmount)
 		expect(
 			(
 				await (
 					await tevm.getVm()
-				).stateManager.getAccount(new Address(hexToBytes(address1)))
+				).stateManager.getAccount(new EthjsAddress(hexToBytes(address1)))
 			)?.balance,
 		).toBe(balance - transferAmount)
 	})
@@ -170,7 +170,7 @@ describe('Tevm.request', async () => {
 		const account = await (
 			await tevm.getVm()
 		).stateManager.getAccount(
-			Address.fromString('0xff420000000000000000000000000000000000ff'),
+			EthjsAddress.fromString('0xff420000000000000000000000000000000000ff'),
 		)
 		expect(account?.balance).toEqual(balance)
 		expect(account?.codeHash).toEqual(

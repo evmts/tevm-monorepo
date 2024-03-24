@@ -1,8 +1,8 @@
 import { createMemoryClient } from '../createMemoryClient.js'
 import { DaiContract } from '../test/DaiContract.sol.js'
-import { Address, hexToBytes, toBytes } from '@ethereumjs/util'
 import { createScript } from '@tevm/contract'
 import { definePredeploy } from '@tevm/predeploys'
+import { EthjsAddress, hexToBytes, toBytes } from '@tevm/utils'
 import { formatAbi } from '@tevm/utils'
 import { expect, test } from 'bun:test'
 
@@ -30,7 +30,9 @@ test('Call predeploy from TypeScript', async () => {
 	expect(
 		await (
 			await tevm.getVm()
-		).stateManager.getContractCode(new Address(hexToBytes(predeployAddress))),
+		).stateManager.getContractCode(
+			new EthjsAddress(hexToBytes(predeployAddress)),
+		),
 	).toEqual(toBytes(deployedBytecode))
 
 	// Test predeploy contract call
