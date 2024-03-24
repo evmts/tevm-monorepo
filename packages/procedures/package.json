@@ -64,8 +64,6 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@ethereumjs/block": "^5.1.1",
-    "@ethereumjs/util": "^9.0.2",
     "@tevm/actions": "workspace:^"
   },
   "devDependencies": {

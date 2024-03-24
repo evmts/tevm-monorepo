@@ -64,7 +64,6 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@ethereumjs/util": "^9.0.2",
     "@tevm/contract": "workspace:^",
     "@tevm/utils": "workspace:^"
   },

@@ -1409,9 +1409,6 @@ importers:
       '@ethereumjs/trie':
         specifier: 6.0.1
         version: 6.0.1
-      '@ethereumjs/util':
-        specifier: ^9.0.2
-        version: 9.0.2
     devDependencies:
       '@tevm/tsconfig':
         specifier: workspace:^
@@ -1582,9 +1579,6 @@ importers:
         specifier: ^2.7.16
         version: 2.7.16(typescript@5.3.3)(zod@3.22.4)
     devDependencies:
-      '@ethereumjs/util':
-        specifier: ^9.0.2
-        version: 9.0.2
       '@tevm/client-types':
         specifier: workspace:^
         version: link:../client-types
@@ -1677,9 +1671,6 @@ importers:
 
   packages/predeploys:
     dependencies:
-      '@ethereumjs/util':
-        specifier: ^9.0.2
-        version: 9.0.2
       '@tevm/contract':
         specifier: workspace:^
         version: link:../contract
@@ -1696,12 +1687,6 @@ importers:
 
   packages/procedures:
     dependencies:
-      '@ethereumjs/block':
-        specifier: ^5.1.1
-        version: 5.1.1
-      '@ethereumjs/util':
-        specifier: ^9.0.2
-        version: 9.0.2
       '@tevm/actions':
         specifier: workspace:^
         version: link:../actions
@@ -1870,11 +1855,8 @@ importers:
 
   packages/txpool:
     dependencies:
-      '@ethereumjs/util':
-        specifier: ^9.0.2
-        version: 9.0.2
       '@tevm/tx':
-        specifier: workspace:1.0.0-next.42
+        specifier: workspace:^
         version: link:../tx
       qheap:
         specifier: ^1.4.0
@@ -1893,14 +1875,14 @@ importers:
   packages/utils:
     dependencies:
       '@ethereumjs/util':
-        specifier: ^9.0.2
-        version: 9.0.2
+        specifier: ^9.0.3
+        version: 9.0.3
       abitype:
-        specifier: ^1.0.0
-        version: 1.0.0(typescript@5.3.3)(zod@3.22.4)
+        specifier: ^1.0.2
+        version: 1.0.2(typescript@5.3.3)(zod@3.22.4)
       viem:
-        specifier: ^2.7.16
-        version: 2.7.16(typescript@5.3.3)(zod@3.22.4)
+        specifier: ^2.8.18
+        version: 2.8.18(typescript@5.3.3)(zod@3.22.4)
     devDependencies:
       '@tevm/tsconfig':
         specifier: workspace:^
@@ -4515,21 +4497,6 @@ packages:
     requiresBuild: true
     dev: false
 
-  /@ethereumjs/block@5.1.1:
-    resolution: {integrity: sha512-YRu5vzL+cCqr/0anGkgrMB/wLGmIbFrwLRFazAIXijb0VkxPqjWI2fMLhB4B8pOV6Xlp07jfjr25fLOAIzYYqA==}
-    engines: {node: '>=18'}
-    dependencies:
-      '@ethereumjs/common': 4.2.0
-      '@ethereumjs/rlp': 5.0.2
-      '@ethereumjs/trie': 6.1.1
-      '@ethereumjs/tx': 5.3.0
-      '@ethereumjs/util': 9.0.2
-      ethereum-cryptography: 2.1.3
-    transitivePeerDependencies:
-      - c-kzg
-      - supports-color
-    dev: false
-
   /@ethereumjs/block@5.2.0:
     resolution: {integrity: sha512-NuVDtD58zyjm5lO3AKPaelzX9VywNwRpDF7WTCY0SKFlD5OeewK5Rdb6LWhwmdQ0ngiIg0Nh/36AQ/8W1nEhjw==}
     engines: {node: '>=18'}
@@ -4554,21 +4521,18 @@ packages:
       '@ethereumjs/rlp': 5.0.2
       '@ethereumjs/trie': 6.1.1
       '@ethereumjs/tx': 5.3.0
-      '@ethereumjs/util': 9.0.2
+      '@ethereumjs/util': 9.0.3
       debug: 4.3.4(supports-color@8.1.1)
       ethereum-cryptography: 2.1.3
       lru-cache: 10.2.0
     transitivePeerDependencies:
-      - c-kzg
       - supports-color
     dev: false
 
   /@ethereumjs/common@4.2.0:
     resolution: {integrity: sha512-UWqovZQksxEY9cU+s1cF3JwFyJdKrJsURM+ORHpZZLQfsqQf+1uGbD3N0AvQ7M+Jz/LxkiVY98+Cd3OMzsrOcA==}
     dependencies:
-      '@ethereumjs/util': 9.0.2
-    transitivePeerDependencies:
-      - c-kzg
+      '@ethereumjs/util': 9.0.3
 
   /@ethereumjs/common@4.3.0:
     resolution: {integrity: sha512-shBNJ0ewcPNTUfZduHiczPmqkfJDn0Dh/9BR5fq7xUFTuIq7Fu1Vx00XDwQVIrpVL70oycZocOhBM6nDO+4FEQ==}
@@ -4581,11 +4545,10 @@ packages:
     dependencies:
       '@ethereumjs/block': 5.2.0
       '@ethereumjs/rlp': 5.0.2
-      '@ethereumjs/util': 9.0.2
+      '@ethereumjs/util': 9.0.3
       bigint-crypto-utils: 3.3.0
       ethereum-cryptography: 2.1.3
     transitivePeerDependencies:
-      - c-kzg
       - supports-color
     dev: false
 
@@ -4596,7 +4559,7 @@ packages:
       '@ethereumjs/common': 4.2.0
       '@ethereumjs/statemanager': 2.2.2
       '@ethereumjs/tx': 5.3.0
-      '@ethereumjs/util': 9.0.2
+      '@ethereumjs/util': 9.0.3
       '@types/debug': 4.1.12
       debug: 4.3.4(supports-color@8.1.1)
       ethereum-cryptography: 2.1.3
@@ -4616,7 +4579,7 @@ packages:
       '@ethereumjs/common': 4.2.0
       '@ethereumjs/rlp': 5.0.2
       '@ethereumjs/trie': 6.1.1
-      '@ethereumjs/util': 9.0.2
+      '@ethereumjs/util': 9.0.3
       '@ethereumjs/verkle': 0.0.1
       debug: 4.3.4(supports-color@8.1.1)
       ethereum-cryptography: 2.1.3
@@ -4631,13 +4594,11 @@ packages:
     engines: {node: '>=18'}
     dependencies:
       '@ethereumjs/rlp': 5.0.2
-      '@ethereumjs/util': 9.0.2
+      '@ethereumjs/util': 9.0.3
       '@types/readable-stream': 2.3.15
       ethereum-cryptography: 2.1.3
       lru-cache: 10.2.0
       readable-stream: 3.6.2
-    transitivePeerDependencies:
-      - c-kzg
     dev: false
 
   /@ethereumjs/trie@6.1.1:
@@ -4645,14 +4606,13 @@ packages:
     engines: {node: '>=18'}
     dependencies:
       '@ethereumjs/rlp': 5.0.2
-      '@ethereumjs/util': 9.0.2
+      '@ethereumjs/util': 9.0.3
       '@types/readable-stream': 2.3.15
       debug: 4.3.4(supports-color@8.1.1)
       ethereum-cryptography: 2.1.3
       lru-cache: 10.2.0
       readable-stream: 3.6.2
     transitivePeerDependencies:
-      - c-kzg
       - supports-color
 
   /@ethereumjs/trie@6.2.0:
@@ -4721,7 +4681,7 @@ packages:
       '@ethereumjs/statemanager': 2.2.2
       '@ethereumjs/trie': 6.1.1
       '@ethereumjs/tx': 5.3.0
-      '@ethereumjs/util': 9.0.2
+      '@ethereumjs/util': 9.0.3
       debug: 4.3.4(supports-color@8.1.1)
       ethereum-cryptography: 2.1.3
     transitivePeerDependencies:
@@ -6884,7 +6844,7 @@ packages:
     resolution: {integrity: sha512-gYw0ki/EAuV1oSyMxpqandHjnthZjYYy+YWpTAzf8BqfXM3ItcZLpjxfg+3+mXW8HIO+3jw6T9iiqEXsqHaMMw==}
     dependencies:
       '@safe-global/safe-gateway-typescript-sdk': 3.13.2
-      viem: 1.21.4(typescript@5.2.2)(zod@3.22.4)
+      viem: 1.19.4(typescript@5.2.2)(zod@3.22.4)
     transitivePeerDependencies:
       - bufferutil
       - typescript
@@ -6895,7 +6855,7 @@ packages:
     resolution: {integrity: sha512-gYw0ki/EAuV1oSyMxpqandHjnthZjYYy+YWpTAzf8BqfXM3ItcZLpjxfg+3+mXW8HIO+3jw6T9iiqEXsqHaMMw==}
     dependencies:
       '@safe-global/safe-gateway-typescript-sdk': 3.13.2
-      viem: 1.21.4(typescript@5.3.3)(zod@3.22.4)
+      viem: 1.19.11(typescript@5.3.3)(zod@3.22.4)
     transitivePeerDependencies:
       - bufferutil
       - typescript
@@ -6907,7 +6867,7 @@ packages:
     resolution: {integrity: sha512-XJbEPuaVc7b9n23MqlF6c+ToYIS3f7P2Sel8f3cSBQ9WORE4xrSuvhMpK9fDSFqJ7by/brc+rmJR/5HViRr0/w==}
     dependencies:
       '@safe-global/safe-gateway-typescript-sdk': 3.13.2
-      viem: 1.21.4(typescript@5.2.2)(zod@3.22.4)
+      viem: 1.19.4(typescript@5.2.2)(zod@3.22.4)
     transitivePeerDependencies:
       - bufferutil
       - typescript
@@ -6918,7 +6878,7 @@ packages:
     resolution: {integrity: sha512-XJbEPuaVc7b9n23MqlF6c+ToYIS3f7P2Sel8f3cSBQ9WORE4xrSuvhMpK9fDSFqJ7by/brc+rmJR/5HViRr0/w==}
     dependencies:
       '@safe-global/safe-gateway-typescript-sdk': 3.13.2
-      viem: 1.21.4(typescript@5.3.3)(zod@3.22.4)
+      viem: 1.19.11(typescript@5.3.3)(zod@3.22.4)
     transitivePeerDependencies:
       - bufferutil
       - typescript
@@ -9418,6 +9378,21 @@ packages:
       typescript: 5.4.3
       zod: 3.22.4
     dev: true
+
+  /abitype@1.0.2(typescript@5.3.3)(zod@3.22.4):
+    resolution: {integrity: sha512-aFt4k2H+eiAKy/zxtnORa9iIb10BMBeWL18l8v4+QuwYEBXPxxjSB1bFZCzQmKPoj8m7j68K705l3uY+E2gAjg==}
+    peerDependencies:
+      typescript: '>=5.0.4'
+      zod: ^3 >=3.22.0
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+      zod:
+        optional: true
+    dependencies:
+      typescript: 5.3.3
+      zod: 3.22.4
+    dev: false
 
   /accepts@1.3.8:
     resolution: {integrity: sha512-PYAthTa2m2VKxuvSD3DPC/Gy+U+sOA1LAuT8mkmRuvw+NACSaeXEQ+NHcVF7rONl6qcaxV3Uuemwawk+7+SJLw==}
@@ -21571,52 +21546,6 @@ packages:
       - bufferutil
       - utf-8-validate
       - zod
-    dev: false
-
-  /viem@1.21.4(typescript@5.2.2)(zod@3.22.4):
-    resolution: {integrity: sha512-BNVYdSaUjeS2zKQgPs+49e5JKocfo60Ib2yiXOWBT6LuVxY1I/6fFX3waEtpXvL1Xn4qu+BVitVtMh9lyThyhQ==}
-    peerDependencies:
-      typescript: '>=5.0.4'
-    peerDependenciesMeta:
-      typescript:
-        optional: true
-    dependencies:
-      '@adraffy/ens-normalize': 1.10.0
-      '@noble/curves': 1.2.0
-      '@noble/hashes': 1.3.2
-      '@scure/bip32': 1.3.2
-      '@scure/bip39': 1.2.1
-      abitype: 0.9.8(typescript@5.2.2)(zod@3.22.4)
-      isows: 1.0.3(ws@8.13.0)
-      typescript: 5.2.2
-      ws: 8.13.0
-    transitivePeerDependencies:
-      - bufferutil
-      - utf-8-validate
-      - zod
-
-  /viem@1.21.4(typescript@5.3.3)(zod@3.22.4):
-    resolution: {integrity: sha512-BNVYdSaUjeS2zKQgPs+49e5JKocfo60Ib2yiXOWBT6LuVxY1I/6fFX3waEtpXvL1Xn4qu+BVitVtMh9lyThyhQ==}
-    peerDependencies:
-      typescript: '>=5.0.4'
-    peerDependenciesMeta:
-      typescript:
-        optional: true
-    dependencies:
-      '@adraffy/ens-normalize': 1.10.0
-      '@noble/curves': 1.2.0
-      '@noble/hashes': 1.3.2
-      '@scure/bip32': 1.3.2
-      '@scure/bip39': 1.2.1
-      abitype: 0.9.8(typescript@5.3.3)(zod@3.22.4)
-      isows: 1.0.3(ws@8.13.0)
-      typescript: 5.3.3
-      ws: 8.13.0
-    transitivePeerDependencies:
-      - bufferutil
-      - utf-8-validate
-      - zod
-    dev: true
 
   /viem@1.21.4(typescript@5.4.3)(zod@3.22.4):
     resolution: {integrity: sha512-BNVYdSaUjeS2zKQgPs+49e5JKocfo60Ib2yiXOWBT6LuVxY1I/6fFX3waEtpXvL1Xn4qu+BVitVtMh9lyThyhQ==}
@@ -21754,6 +21683,29 @@ packages:
       - utf-8-validate
       - zod
     dev: true
+
+  /viem@2.8.18(typescript@5.3.3)(zod@3.22.4):
+    resolution: {integrity: sha512-Kq3kwkKziJ8rQeLkmdbSLheHDnA+tx2EdLKLmQ3N4FVtjKYjBP9tPL1r+fI6KltVUM1TDOhIHOdslDSp57VMMg==}
+    peerDependencies:
+      typescript: '>=5.0.4'
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+    dependencies:
+      '@adraffy/ens-normalize': 1.10.0
+      '@noble/curves': 1.2.0
+      '@noble/hashes': 1.3.2
+      '@scure/bip32': 1.3.2
+      '@scure/bip39': 1.2.1
+      abitype: 1.0.0(typescript@5.3.3)(zod@3.22.4)
+      isows: 1.0.3(ws@8.13.0)
+      typescript: 5.3.3
+      ws: 8.13.0
+    transitivePeerDependencies:
+      - bufferutil
+      - utf-8-validate
+      - zod
+    dev: false
 
   /viem@2.8.18(typescript@5.4.3)(zod@3.22.4):
     resolution: {integrity: sha512-Kq3kwkKziJ8rQeLkmdbSLheHDnA+tx2EdLKLmQ3N4FVtjKYjBP9tPL1r+fI6KltVUM1TDOhIHOdslDSp57VMMg==}

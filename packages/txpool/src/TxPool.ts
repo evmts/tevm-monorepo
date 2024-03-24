@@ -1,13 +1,3 @@
-import {
-	Account,
-	Address,
-	BIGINT_0,
-	BIGINT_2,
-	bytesToHex,
-	bytesToUnprefixedHex,
-	equalsBytes,
-	hexToBytes,
-} from '@ethereumjs/util'
 // this file is adapted from https://github.com/ethereumjs/ethereumjs-monorepo/blob/master/packages/client/src/service/txpool.ts and thus carries the same license
 import {
 	BlobEIP4844Transaction,
@@ -17,6 +7,14 @@ import {
 	isFeeMarketEIP1559Tx,
 	isLegacyTx,
 } from '@tevm/tx'
+import {
+	Account,
+	Address,
+	bytesToHex,
+	bytesToUnprefixedHex,
+	equalsBytes,
+	hexToBytes,
+} from '@tevm/util'
 import { TevmVm } from '@tevm/vm'
 
 import type {
@@ -170,12 +168,12 @@ export class TxPool {
 		const minTipCap =
 			existingTxGasPrice.tip +
 			(existingTxGasPrice.tip * BigInt(MIN_GAS_PRICE_BUMP_PERCENT)) /
-				BigInt(100)
+			BigInt(100)
 
 		const minFeeCap =
 			existingTxGasPrice.maxFee +
 			(existingTxGasPrice.maxFee * BigInt(MIN_GAS_PRICE_BUMP_PERCENT)) /
-				BigInt(100)
+			BigInt(100)
 		if (newGasPrice.tip < minTipCap || newGasPrice.maxFee < minFeeCap) {
 			throw new Error(
 				`replacement gas too low, got tip ${newGasPrice.tip}, min: ${minTipCap}, got fee ${newGasPrice.maxFee}, min: ${minFeeCap}`,
@@ -189,7 +187,7 @@ export class TxPool {
 			const minblobGasFee =
 				existingTx.maxFeePerBlobGas +
 				(existingTx.maxFeePerBlobGas * BigInt(MIN_GAS_PRICE_BUMP_PERCENT)) /
-					BigInt(100)
+				BigInt(100)
 			if (addedTx.maxFeePerBlobGas < minblobGasFee) {
 				throw new Error(
 					`replacement blob gas too low, got: ${addedTx.maxFeePerBlobGas}, min: ${minblobGasFee}`,
@@ -255,10 +253,10 @@ export class TxPool {
 		const block = await this.vm.blockchain.getCanonicalHeadHeader()
 		if (
 			typeof block.baseFeePerGas === 'bigint' &&
-			block.baseFeePerGas !== BIGINT_0
+			block.baseFeePerGas !== 0n
 		) {
 			if (
-				currentGasPrice.maxFee < block.baseFeePerGas / BIGINT_2 &&
+				currentGasPrice.maxFee < block.baseFeePerGas / 2n &&
 				!isLocalTransaction
 			) {
 				throw new Error(
@@ -436,7 +434,7 @@ export class TxPool {
 	 */
 	private normalizedGasPrice(tx: TypedTransaction, baseFee?: bigint) {
 		const supports1559 = tx.supports(Capability.EIP1559FeeMarket)
-		if (typeof baseFee === 'bigint' && baseFee !== BIGINT_0) {
+		if (typeof baseFee === 'bigint' && baseFee !== 0n) {
 			if (supports1559) {
 				return (tx as FeeMarketEIP1559Transaction).maxPriorityFeePerGas
 			} else {
@@ -522,7 +520,7 @@ export class TxPool {
 				skippedStats.byNonce += txsSortedByNonce.length
 				continue
 			}
-			if (typeof baseFee === 'bigint' && baseFee !== BIGINT_0) {
+			if (typeof baseFee === 'bigint' && baseFee !== 0n) {
 				// If any tx has an insufficient gasPrice,
 				// remove all txs after that since they cannot be executed
 				const found = txsSortedByNonce.findIndex(
@@ -539,8 +537,8 @@ export class TxPool {
 		const byPrice = new Heap({
 			comparBefore: (a: TypedTransaction, b: TypedTransaction) =>
 				this.normalizedGasPrice(b, baseFee) -
-					this.normalizedGasPrice(a, baseFee) <
-				BIGINT_0,
+				this.normalizedGasPrice(a, baseFee) <
+				0n,
 		}) as QHeap<TypedTransaction>
 		for (const [address, txs] of byNonce) {
 			if (!txs[0]) {
@@ -572,7 +570,7 @@ export class TxPool {
 				!(best instanceof BlobEIP4844Transaction) ||
 				allowedBlobs === undefined ||
 				((best as BlobEIP4844Transaction).blobs ?? []).length + blobsCount <=
-					allowedBlobs
+				allowedBlobs
 			) {
 				if (accTxs.length > 0) {
 					if (!accTxs[0]) {
