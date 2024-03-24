@@ -14,6 +14,10 @@ lib/**/*
 **/artifacts/
 **/cache/
 docs/src/content/docs/reference/
+packages/*/docs
+bundler/*/docs
+extensions/*/docs
+docs/src/content/reference
 **/docs
 lsp/*/docs
 vm/*/docs
