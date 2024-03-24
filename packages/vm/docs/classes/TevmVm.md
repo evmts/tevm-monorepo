@@ -128,7 +128,7 @@ ___
 
 ### common
 
-• **common**: `TevmCommon`
+• **common**: `Common`
 
 #### Overrides
 

@@ -1400,12 +1400,9 @@ importers:
       '@ethereumjs/blockchain':
         specifier: ^7.1.0
         version: 7.1.0
-      '@ethereumjs/common':
-        specifier: ^4.2.0
-        version: 4.2.0
-      '@ethereumjs/trie':
-        specifier: 6.0.1
-        version: 6.0.1
+      '@tevm/trie':
+        specifier: workspace:^
+        version: link:../trie
     devDependencies:
       '@tevm/tsconfig':
         specifier: workspace:^
@@ -1756,9 +1753,6 @@ importers:
         specifier: workspace:^
         version: link:../zod
     devDependencies:
-      '@ethereumjs/evm':
-        specifier: ^2.2.1
-        version: 2.2.1
       '@tevm/actions-types':
         specifier: workspace:^
         version: link:../actions-types
@@ -1795,15 +1789,12 @@ importers:
 
   packages/state:
     dependencies:
-      '@ethereumjs/common':
-        specifier: ^4.2.0
-        version: 4.2.0
       '@ethereumjs/statemanager':
         specifier: ^2.2.2
         version: 2.2.2
-      '@ethereumjs/trie':
-        specifier: 6.0.1
-        version: 6.0.1
+      '@tevm/trie':
+        specifier: workspace:^
+        version: link:../trie
       '@tevm/utils':
         specifier: workspace:^
         version: link:../utils
@@ -1826,6 +1817,19 @@ importers:
       '@tevm/state':
         specifier: workspace:1.0.0-next.40
         version: link:../state
+    devDependencies:
+      '@tevm/tsconfig':
+        specifier: workspace:^
+        version: link:../../configs/tsconfig
+      '@tevm/tsupconfig':
+        specifier: workspace:^
+        version: link:../../configs/tsupconfig
+
+  packages/trie:
+    dependencies:
+      '@ethereumjs/trie':
+        specifier: 6.0.1
+        version: 6.0.1
     devDependencies:
       '@tevm/tsconfig':
         specifier: workspace:^
@@ -4531,6 +4535,7 @@ packages:
       '@ethereumjs/util': 9.0.2
     transitivePeerDependencies:
       - c-kzg
+    dev: false
 
   /@ethereumjs/common@4.3.0:
     resolution: {integrity: sha512-shBNJ0ewcPNTUfZduHiczPmqkfJDn0Dh/9BR5fq7xUFTuIq7Fu1Vx00XDwQVIrpVL70oycZocOhBM6nDO+4FEQ==}
@@ -4566,6 +4571,7 @@ packages:
     transitivePeerDependencies:
       - c-kzg
       - supports-color
+    dev: false
 
   /@ethereumjs/rlp@5.0.2:
     resolution: {integrity: sha512-DziebCdg4JpGlEqEdGgXmjqcFoJi+JGulUXwEjsZGAscAQ7MyD/7LE/GVCP29vEQxKc7AAwjT3A2ywHp2xfoCA==}
@@ -4587,6 +4593,7 @@ packages:
     transitivePeerDependencies:
       - c-kzg
       - supports-color
+    dev: false
 
   /@ethereumjs/trie@6.0.1:
     resolution: {integrity: sha512-fPdiTaT2aZ2b3LUdBAZVLKnlHz9CV3dR8zdBEX7eDWLOuQ2E9rM2smk2sGdyzXPr9Sf2gmeE1od+CjY0ea8ICg==}
@@ -4616,6 +4623,7 @@ packages:
     transitivePeerDependencies:
       - c-kzg
       - supports-color
+    dev: false
 
   /@ethereumjs/tx@5.3.0:
     resolution: {integrity: sha512-uv++XYuIfuqYbvymL3/o14hHuC6zX0nRQ1nI2FHsbkkorLZ2ChEIDqVeeVk7Xc9/jQNU/22sk9qZZkRlsveXxw==}
@@ -4625,6 +4633,7 @@ packages:
       '@ethereumjs/rlp': 5.0.2
       '@ethereumjs/util': 9.0.3
       ethereum-cryptography: 2.1.3
+    dev: false
 
   /@ethereumjs/util@9.0.2:
     resolution: {integrity: sha512-dasKCj6Vb5spVPnNmRDFHmbfBySvokE440F0RDroPLzO4Mb4hyDqeoOMUxlbLz/BscK2pOpWUendGA+AOvGpNQ==}
@@ -4655,6 +4664,7 @@ packages:
       rust-verkle-wasm: 0.0.1
     transitivePeerDependencies:
       - c-kzg
+    dev: false
 
   /@ethereumjs/vm@7.2.1:
     resolution: {integrity: sha512-exmyhDPlfiBtV/nIPY7gE5iu3QC62F7hf/fALLgQaUS8ezxmJQG2MRaFI1eqYwvsAhfNBfst7K6KcCE4jbGbhw==}

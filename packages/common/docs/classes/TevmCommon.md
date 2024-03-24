@@ -1,85 +1,85 @@
-[@tevm/common](../README.md) / [Exports](../modules.md) / TevmCommon
+[@tevm/common](../README.md) / [Exports](../modules.md) / Common
 
-# Class: TevmCommon
+# Class: Common
 
 ## Hierarchy
 
 - `Common`
 
-  ↳ **`TevmCommon`**
+  ↳ **`Common`**
 
 ## Table of contents
 
 ### Constructors
 
-- [constructor](TevmCommon.md#constructor)
+- [constructor](Common.md#constructor)
 
 ### Properties
 
-- [DEFAULT\_HARDFORK](TevmCommon.md#default_hardfork)
-- [HARDFORK\_CHANGES](TevmCommon.md#hardfork_changes)
-- [\_activatedEIPsCache](TevmCommon.md#_activatedeipscache)
-- [\_chainParams](TevmCommon.md#_chainparams)
-- [\_customChains](TevmCommon.md#_customchains)
-- [\_eips](TevmCommon.md#_eips)
-- [\_hardfork](TevmCommon.md#_hardfork)
-- [\_paramsCache](TevmCommon.md#_paramscache)
-- [customCrypto](TevmCommon.md#customcrypto)
-- [events](TevmCommon.md#events)
+- [DEFAULT\_HARDFORK](Common.md#default_hardfork)
+- [HARDFORK\_CHANGES](Common.md#hardfork_changes)
+- [\_activatedEIPsCache](Common.md#_activatedeipscache)
+- [\_chainParams](Common.md#_chainparams)
+- [\_customChains](Common.md#_customchains)
+- [\_eips](Common.md#_eips)
+- [\_hardfork](Common.md#_hardfork)
+- [\_paramsCache](Common.md#_paramscache)
+- [customCrypto](Common.md#customcrypto)
+- [events](Common.md#events)
 
 ### Methods
 
-- [\_buildActivatedEIPsCache](TevmCommon.md#_buildactivatedeipscache)
-- [\_buildParamsCache](TevmCommon.md#_buildparamscache)
-- [\_calcForkHash](TevmCommon.md#_calcforkhash)
-- [\_getHardfork](TevmCommon.md#_gethardfork)
-- [\_mergeWithParamsCache](TevmCommon.md#_mergewithparamscache)
-- [activeOnBlock](TevmCommon.md#activeonblock)
-- [bootstrapNodes](TevmCommon.md#bootstrapnodes)
-- [chainId](TevmCommon.md#chainid)
-- [chainName](TevmCommon.md#chainname)
-- [consensusAlgorithm](TevmCommon.md#consensusalgorithm)
-- [consensusConfig](TevmCommon.md#consensusconfig)
-- [consensusType](TevmCommon.md#consensustype)
-- [copy](TevmCommon.md#copy)
-- [dnsNetworks](TevmCommon.md#dnsnetworks)
-- [eipBlock](TevmCommon.md#eipblock)
-- [eips](TevmCommon.md#eips)
-- [forkHash](TevmCommon.md#forkhash)
-- [genesis](TevmCommon.md#genesis)
-- [getHardforkBy](TevmCommon.md#gethardforkby)
-- [gteHardfork](TevmCommon.md#gtehardfork)
-- [hardfork](TevmCommon.md#hardfork)
-- [hardforkBlock](TevmCommon.md#hardforkblock)
-- [hardforkForForkHash](TevmCommon.md#hardforkforforkhash)
-- [hardforkGteHardfork](TevmCommon.md#hardforkgtehardfork)
-- [hardforkIsActiveOnBlock](TevmCommon.md#hardforkisactiveonblock)
-- [hardforkTTD](TevmCommon.md#hardforkttd)
-- [hardforkTimestamp](TevmCommon.md#hardforktimestamp)
-- [hardforks](TevmCommon.md#hardforks)
-- [isActivatedEIP](TevmCommon.md#isactivatedeip)
-- [networkId](TevmCommon.md#networkid)
-- [nextHardforkBlockOrTimestamp](TevmCommon.md#nexthardforkblockortimestamp)
-- [param](TevmCommon.md#param)
-- [paramByBlock](TevmCommon.md#parambyblock)
-- [paramByEIP](TevmCommon.md#parambyeip)
-- [paramByHardfork](TevmCommon.md#parambyhardfork)
-- [setChain](TevmCommon.md#setchain)
-- [setEIPs](TevmCommon.md#seteips)
-- [setForkHashes](TevmCommon.md#setforkhashes)
-- [setHardfork](TevmCommon.md#sethardfork)
-- [setHardforkBy](TevmCommon.md#sethardforkby)
-- [\_getChainParams](TevmCommon.md#_getchainparams)
-- [custom](TevmCommon.md#custom)
-- [fromGethGenesis](TevmCommon.md#fromgethgenesis)
-- [getInitializedChains](TevmCommon.md#getinitializedchains)
-- [isSupportedChainId](TevmCommon.md#issupportedchainid)
+- [\_buildActivatedEIPsCache](Common.md#_buildactivatedeipscache)
+- [\_buildParamsCache](Common.md#_buildparamscache)
+- [\_calcForkHash](Common.md#_calcforkhash)
+- [\_getHardfork](Common.md#_gethardfork)
+- [\_mergeWithParamsCache](Common.md#_mergewithparamscache)
+- [activeOnBlock](Common.md#activeonblock)
+- [bootstrapNodes](Common.md#bootstrapnodes)
+- [chainId](Common.md#chainid)
+- [chainName](Common.md#chainname)
+- [consensusAlgorithm](Common.md#consensusalgorithm)
+- [consensusConfig](Common.md#consensusconfig)
+- [consensusType](Common.md#consensustype)
+- [copy](Common.md#copy)
+- [dnsNetworks](Common.md#dnsnetworks)
+- [eipBlock](Common.md#eipblock)
+- [eips](Common.md#eips)
+- [forkHash](Common.md#forkhash)
+- [genesis](Common.md#genesis)
+- [getHardforkBy](Common.md#gethardforkby)
+- [gteHardfork](Common.md#gtehardfork)
+- [hardfork](Common.md#hardfork)
+- [hardforkBlock](Common.md#hardforkblock)
+- [hardforkForForkHash](Common.md#hardforkforforkhash)
+- [hardforkGteHardfork](Common.md#hardforkgtehardfork)
+- [hardforkIsActiveOnBlock](Common.md#hardforkisactiveonblock)
+- [hardforkTTD](Common.md#hardforkttd)
+- [hardforkTimestamp](Common.md#hardforktimestamp)
+- [hardforks](Common.md#hardforks)
+- [isActivatedEIP](Common.md#isactivatedeip)
+- [networkId](Common.md#networkid)
+- [nextHardforkBlockOrTimestamp](Common.md#nexthardforkblockortimestamp)
+- [param](Common.md#param)
+- [paramByBlock](Common.md#parambyblock)
+- [paramByEIP](Common.md#parambyeip)
+- [paramByHardfork](Common.md#parambyhardfork)
+- [setChain](Common.md#setchain)
+- [setEIPs](Common.md#seteips)
+- [setForkHashes](Common.md#setforkhashes)
+- [setHardfork](Common.md#sethardfork)
+- [setHardforkBy](Common.md#sethardforkby)
+- [\_getChainParams](Common.md#_getchainparams)
+- [custom](Common.md#custom)
+- [fromGethGenesis](Common.md#fromgethgenesis)
+- [getInitializedChains](Common.md#getinitializedchains)
+- [isSupportedChainId](Common.md#issupportedchainid)
 
 ## Constructors
 
 ### constructor
 
-• **new TevmCommon**(`opts`): [`TevmCommon`](TevmCommon.md)
+• **new Common**(`opts`): [`Common`](Common.md)
 
 #### Parameters
 
@@ -89,7 +89,7 @@
 
 #### Returns
 
-[`TevmCommon`](TevmCommon.md)
+[`Common`](Common.md)
 
 #### Inherited from
 

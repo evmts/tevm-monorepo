@@ -5,7 +5,7 @@ import { TevmBlockchain } from './TevmBlockchain.js'
 
 /**
  * @param {object} options
- * @param {import('@ethereumjs/common').Common} options.common
+ * @param {import('@tevm/common').Common} options.common
  * @returns {Promise<TevmBlockchain>}
  */
 export const createBlockchain = async ({ common }) => {

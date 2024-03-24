@@ -1,4 +1,4 @@
-import type { StorageDump } from '@ethereumjs/common'
+import type { StorageDump } from '@tevm/common'
 import type { Hex } from 'viem'
 
 export type SerializableTevmState = {

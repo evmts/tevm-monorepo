@@ -27,7 +27,7 @@
 | Name | Type |
 | :------ | :------ |
 | `blockchain` | `TevmBlockchain` |
-| `common` | `TevmCommon` |
+| `common` | `Common` |
 | `evm` | `Evm` |
 | `stateManager` | `TevmStateManager` |
 
