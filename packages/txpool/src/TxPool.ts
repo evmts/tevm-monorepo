@@ -19,12 +19,12 @@ import {
 } from '@tevm/tx'
 import { TevmVm } from '@tevm/vm'
 
-import type { Block } from '@ethereumjs/block'
 import type {
 	FeeMarketEIP1559Transaction,
 	LegacyTransaction,
 	TypedTransaction,
 } from '@tevm/tx'
+import type { Block } from '@tevm/block'
 import type QHeap from 'qheap'
 import Heap from 'qheap'
 

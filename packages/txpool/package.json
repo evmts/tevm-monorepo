@@ -62,7 +62,6 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@ethereumjs/block": "^5.1.1",
     "@ethereumjs/util": "^9.0.2",
     "@tevm/tx": "workspace:1.0.0-next.42",
     "qheap": "^1.4.0"

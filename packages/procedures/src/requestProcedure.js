@@ -1,3 +1,11 @@
+import {
+	ethSendTransactionHandler,
+	testAccounts,
+	traceCallHandler,
+} from '@tevm/actions'
+import { BlockHeader } from '@tevm/block'
+import { createJsonRpcFetcher } from '@tevm/jsonrpc'
+import { hexToBigInt, numberToHex } from '@tevm/utils'
 import { ethAccountsProcedure } from './eth/ethAccountsProcedure.js'
 import { ethCallProcedure } from './eth/ethCallProcedure.js'
 import { ethSignProcedure } from './eth/ethSignProcedure.js'
@@ -16,14 +24,6 @@ import {
 	scriptProcedure,
 	setAccountProcedure,
 } from './index.js'
-import { BlockHeader } from '@ethereumjs/block'
-import {
-	ethSendTransactionHandler,
-	testAccounts,
-	traceCallHandler,
-} from '@tevm/actions'
-import { createJsonRpcFetcher } from '@tevm/jsonrpc'
-import { hexToBigInt, numberToHex } from '@tevm/utils'
 
 // Keep this in sync with TevmProvider.ts
 
