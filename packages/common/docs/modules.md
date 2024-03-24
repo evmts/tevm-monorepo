@@ -6,7 +6,7 @@
 
 ### Classes
 
-- [TevmCommon](classes/TevmCommon.md)
+- [Common](classes/Common.md)
 
 ### Type Aliases
 
@@ -52,7 +52,7 @@ Ethereum hardfork option
 
 ### createCommon
 
-▸ **createCommon**(`options`): [`TevmCommon`](classes/TevmCommon.md)
+▸ **createCommon**(`options`): [`Common`](classes/Common.md)
 
 Creates an ethereumjs Common object used by the EVM
 to access chain and hardfork parameters and to provide
@@ -66,7 +66,7 @@ a unified and shared view on the network and hardfork state.
 
 #### Returns
 
-[`TevmCommon`](classes/TevmCommon.md)
+[`Common`](classes/Common.md)
 
 #### Defined in
 

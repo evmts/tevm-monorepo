@@ -4,9 +4,8 @@ import { keccak256 } from 'ethereum-cryptography/keccak.js'
 
 import { AccountCache, CacheType, StorageCache } from '@ethereumjs/statemanager'
 
-import type { AccountFields, StorageDump } from '@ethereumjs/common'
-import type { StorageRange } from '@ethereumjs/common'
 import type { Proof } from '@ethereumjs/statemanager'
+import type { AccountFields, StorageDump, StorageRange } from '@tevm/common'
 import {
 	type Address,
 	type BlockTag,

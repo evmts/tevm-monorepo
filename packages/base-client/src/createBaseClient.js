@@ -1,13 +1,13 @@
-import { DEFAULT_CHAIN_ID } from './DEFAULT_CHAIN_ID.js'
-import { addPredeploy } from './addPredeploy.js'
-import { getChainId } from './getChainId.js'
 import { createBlockchain } from '@tevm/blockchain'
-import { TevmCommon } from '@tevm/common'
+import { Common } from '@tevm/common'
 import { createEvm } from '@tevm/evm'
 import { createTevmStateManager } from '@tevm/state'
 import { TxPool } from '@tevm/txpool'
 import { hexToBigInt, toHex } from '@tevm/utils'
 import { createVm } from '@tevm/vm'
+import { DEFAULT_CHAIN_ID } from './DEFAULT_CHAIN_ID.js'
+import { addPredeploy } from './addPredeploy.js'
+import { getChainId } from './getChainId.js'
 
 /**
  * Creates the base instance of a memory client
@@ -36,7 +36,7 @@ export const createBaseClient = (options = {}) => {
 			'Unable to initialize BaseClient. Cannot use both fork and proxy options at the same time!',
 		)
 	}
-	const common = new TevmCommon({
+	const common = new Common({
 		chain: 1,
 		hardfork: options.hardfork ?? 'shanghai',
 		eips: /**@type number[]*/ (options.eips ?? [1559, 4895]),

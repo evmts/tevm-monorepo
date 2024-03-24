@@ -63,7 +63,6 @@
 	},
 	"dependencies": {
 		"@ethereumjs/blockchain": "^7.1.0",
-		"@ethereumjs/common": "^4.2.0",
 		"@tevm/trie": "workspace:^"
 	},
 	"devDependencies": {

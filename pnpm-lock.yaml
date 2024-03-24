@@ -1403,9 +1403,6 @@ importers:
       '@ethereumjs/blockchain':
         specifier: ^7.1.0
         version: 7.1.0
-      '@ethereumjs/common':
-        specifier: ^4.2.0
-        version: 4.2.0
       '@tevm/trie':
         specifier: workspace:^
         version: link:../trie
@@ -1442,8 +1439,8 @@ importers:
   packages/common:
     dependencies:
       '@ethereumjs/common':
-        specifier: ^4.2.0
-        version: 4.2.0
+        specifier: ^4.3.0
+        version: 4.3.0
     devDependencies:
       '@tevm/tsconfig':
         specifier: workspace:^
@@ -1798,9 +1795,6 @@ importers:
 
   packages/state:
     dependencies:
-      '@ethereumjs/common':
-        specifier: ^4.2.0
-        version: 4.2.0
       '@ethereumjs/statemanager':
         specifier: ^2.2.2
         version: 2.2.2
@@ -4526,7 +4520,7 @@ packages:
     engines: {node: '>=18'}
     dependencies:
       '@ethereumjs/block': 5.2.0
-      '@ethereumjs/common': 4.2.0
+      '@ethereumjs/common': 4.3.0
       '@ethereumjs/ethash': 3.0.2
       '@ethereumjs/rlp': 5.0.2
       '@ethereumjs/trie': 6.2.0
@@ -4538,11 +4532,6 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: false
-
-  /@ethereumjs/common@4.2.0:
-    resolution: {integrity: sha512-UWqovZQksxEY9cU+s1cF3JwFyJdKrJsURM+ORHpZZLQfsqQf+1uGbD3N0AvQ7M+Jz/LxkiVY98+Cd3OMzsrOcA==}
-    dependencies:
-      '@ethereumjs/util': 9.0.3
 
   /@ethereumjs/common@4.3.0:
     resolution: {integrity: sha512-shBNJ0ewcPNTUfZduHiczPmqkfJDn0Dh/9BR5fq7xUFTuIq7Fu1Vx00XDwQVIrpVL70oycZocOhBM6nDO+4FEQ==}
@@ -4566,7 +4555,7 @@ packages:
     resolution: {integrity: sha512-equF3QqssDgfZyVDEoMqJUsMCjO9SwgFdpUTc7yHFOU74X43l/MHM+Cqdey+wcBhdU2yOwD9S2AbW6wh7tDYfQ==}
     engines: {node: '>=18'}
     dependencies:
-      '@ethereumjs/common': 4.2.0
+      '@ethereumjs/common': 4.3.0
       '@ethereumjs/statemanager': 2.2.2
       '@ethereumjs/tx': 5.3.0
       '@ethereumjs/util': 9.0.3
@@ -4586,7 +4575,7 @@ packages:
   /@ethereumjs/statemanager@2.2.2:
     resolution: {integrity: sha512-4CxZgsL0M3hePXEQjrvXasGrGxGNMhURWb6i0UPCynPogR9PT7AD1pq80IYJ5vSd5PvIqvw7BtqSOgJGdQrBHw==}
     dependencies:
-      '@ethereumjs/common': 4.2.0
+      '@ethereumjs/common': 4.3.0
       '@ethereumjs/rlp': 5.0.2
       '@ethereumjs/trie': 6.2.0
       '@ethereumjs/util': 9.0.3
@@ -4658,7 +4647,7 @@ packages:
     dependencies:
       '@ethereumjs/block': 5.2.0
       '@ethereumjs/blockchain': 7.1.0
-      '@ethereumjs/common': 4.2.0
+      '@ethereumjs/common': 4.3.0
       '@ethereumjs/evm': 2.2.1
       '@ethereumjs/rlp': 5.0.2
       '@ethereumjs/statemanager': 2.2.2
