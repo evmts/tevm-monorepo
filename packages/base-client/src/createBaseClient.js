@@ -149,7 +149,7 @@ export const createBaseClient = (options = {}) => {
 		}
 
 		const blockchain = await createBlockchain({ common })
-		const evm = createEvm({
+		const evm = await createEvm({
 			common,
 			stateManager,
 			blockchain,

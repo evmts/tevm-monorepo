@@ -12,7 +12,7 @@ export const createEvm = ({
 	profiler,
 	allowUnlimitedContractSize,
 }) => {
-	const evm = new Evm({
+	return Evm.create({
 		common,
 		stateManager,
 		blockchain,
@@ -25,5 +25,4 @@ export const createEvm = ({
 			enabled: profiler ?? false,
 		},
 	})
-	return evm
 }

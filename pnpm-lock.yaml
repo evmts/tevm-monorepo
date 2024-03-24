@@ -1460,7 +1460,7 @@ importers:
         version: 1.0.0-next.18(fast-check@3.17.0)(typescript@5.4.3)
       '@evmts/vite-plugin':
         specifier: 1.0.0-next.19
-        version: 1.0.0-next.19(esbuild@0.20.2)(fast-check@3.17.0)(typescript@5.4.3)(zod@3.22.4)
+        version: 1.0.0-next.19(esbuild@0.19.5)(fast-check@3.17.0)(typescript@5.4.3)(zod@3.22.4)
       '@tevm/tsconfig':
         specifier: workspace:^
         version: link:../../configs/tsconfig
@@ -1539,8 +1539,8 @@ importers:
   packages/evm:
     dependencies:
       '@ethereumjs/evm':
-        specifier: ^2.2.1
-        version: 2.2.1
+        specifier: ^3.0.0
+        version: 3.0.0
       '@tevm/blockchain':
         specifier: workspace:^
         version: link:../blockchain
@@ -1892,8 +1892,8 @@ importers:
   packages/vm:
     dependencies:
       '@ethereumjs/vm':
-        specifier: ^7.2.1
-        version: 7.2.1
+        specifier: ^8.0.0
+        version: 8.0.0
       '@tevm/blockchain':
         specifier: workspace:^
         version: link:../blockchain
@@ -4527,10 +4527,29 @@ packages:
       - supports-color
     dev: false
 
+  /@ethereumjs/blockchain@7.2.0:
+    resolution: {integrity: sha512-VIylDQR81n1a0BpDZwihGNYHQdxPpz2LfQ4m2jGRtLnY6mu3PEdrriikVN4VKjRDsWInr5Pcz2u2CJsriVXusQ==}
+    engines: {node: '>=18'}
+    dependencies:
+      '@ethereumjs/block': 5.2.0
+      '@ethereumjs/common': 4.3.0
+      '@ethereumjs/ethash': 3.0.3
+      '@ethereumjs/rlp': 5.0.2
+      '@ethereumjs/trie': 6.2.0
+      '@ethereumjs/tx': 5.3.0
+      '@ethereumjs/util': 9.0.3
+      debug: 4.3.4(supports-color@8.1.1)
+      ethereum-cryptography: 2.1.3
+      lru-cache: 10.1.0
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
+
   /@ethereumjs/common@4.3.0:
     resolution: {integrity: sha512-shBNJ0ewcPNTUfZduHiczPmqkfJDn0Dh/9BR5fq7xUFTuIq7Fu1Vx00XDwQVIrpVL70oycZocOhBM6nDO+4FEQ==}
     dependencies:
       '@ethereumjs/util': 9.0.3
+    dev: false
 
   /@ethereumjs/ethash@3.0.2:
     resolution: {integrity: sha512-iJEH63xudwzSYxYb81RX2Mf2+Wkuu6P7ism29wpM7fxQE+pcI9S6V65CaITprH98SAZjuMrZU6ZGHDGbqolSkg==}
@@ -4545,21 +4564,34 @@ packages:
       - supports-color
     dev: false
 
-  /@ethereumjs/evm@2.2.1:
-    resolution: {integrity: sha512-equF3QqssDgfZyVDEoMqJUsMCjO9SwgFdpUTc7yHFOU74X43l/MHM+Cqdey+wcBhdU2yOwD9S2AbW6wh7tDYfQ==}
+  /@ethereumjs/ethash@3.0.3:
+    resolution: {integrity: sha512-AYW1HviuHmmgl/DlbzC50i7P5/XxMofxXSMfGmC8717WO3fvjAClYrwsHETtpuETkwwVNW4sY+4m2HR13K226w==}
+    engines: {node: '>=18'}
+    dependencies:
+      '@ethereumjs/block': 5.2.0
+      '@ethereumjs/rlp': 5.0.2
+      '@ethereumjs/util': 9.0.3
+      bigint-crypto-utils: 3.3.0
+      ethereum-cryptography: 2.1.3
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
+
+  /@ethereumjs/evm@3.0.0:
+    resolution: {integrity: sha512-hG5VajXG28UWab0LkptDun8ZnUnB1y2cZeNTjrmnz9Q0+UZxFJaU8RaFqaIoOOOoAt3vqMI7tXvnc+VPdNnhLg==}
     engines: {node: '>=18'}
     dependencies:
       '@ethereumjs/common': 4.3.0
-      '@ethereumjs/statemanager': 2.2.2
+      '@ethereumjs/statemanager': 2.3.0
       '@ethereumjs/tx': 5.3.0
       '@ethereumjs/util': 9.0.3
       '@types/debug': 4.1.12
       debug: 4.3.4(supports-color@8.1.1)
       ethereum-cryptography: 2.1.3
-      rustbn-wasm: 0.2.0
+      rustbn-wasm: 0.4.0
     transitivePeerDependencies:
-      - c-kzg
       - supports-color
+    dev: false
 
   /@ethereumjs/rlp@5.0.2:
     resolution: {integrity: sha512-DziebCdg4JpGlEqEdGgXmjqcFoJi+JGulUXwEjsZGAscAQ7MyD/7LE/GVCP29vEQxKc7AAwjT3A2ywHp2xfoCA==}
@@ -4581,6 +4613,23 @@ packages:
     transitivePeerDependencies:
       - c-kzg
       - supports-color
+    dev: false
+
+  /@ethereumjs/statemanager@2.3.0:
+    resolution: {integrity: sha512-mHxbtvjN126qwT+dqA5Vev99QR4L+RD/BeZEnFbPsEDrBflMssLMaXZahKzQnMu5iqGOc1KLtT0g1ONl6+JpCA==}
+    dependencies:
+      '@ethereumjs/common': 4.3.0
+      '@ethereumjs/rlp': 5.0.2
+      '@ethereumjs/trie': 6.2.0
+      '@ethereumjs/util': 9.0.3
+      '@ethereumjs/verkle': 0.0.2
+      debug: 4.3.4(supports-color@8.1.1)
+      ethereum-cryptography: 2.1.3
+      js-sdsl: 4.4.2
+      lru-cache: 10.1.0
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
 
   /@ethereumjs/trie@6.2.0:
     resolution: {integrity: sha512-4k9SrfIBTMi8MROXglKxk+jS15qcELUeLwI+NnKJOTCdci2ArhoQpiuRHT6aeXB+2P2cWX2OQHbSVtW9AqabDQ==}
@@ -4595,6 +4644,7 @@ packages:
       readable-stream: 3.6.2
     transitivePeerDependencies:
       - supports-color
+    dev: false
 
   /@ethereumjs/tx@5.3.0:
     resolution: {integrity: sha512-uv++XYuIfuqYbvymL3/o14hHuC6zX0nRQ1nI2FHsbkkorLZ2ChEIDqVeeVk7Xc9/jQNU/22sk9qZZkRlsveXxw==}
@@ -4604,6 +4654,7 @@ packages:
       '@ethereumjs/rlp': 5.0.2
       '@ethereumjs/util': 9.0.3
       ethereum-cryptography: 2.1.3
+    dev: false
 
   /@ethereumjs/util@9.0.2:
     resolution: {integrity: sha512-dasKCj6Vb5spVPnNmRDFHmbfBySvokE440F0RDroPLzO4Mb4hyDqeoOMUxlbLz/BscK2pOpWUendGA+AOvGpNQ==}
@@ -4623,6 +4674,7 @@ packages:
     dependencies:
       '@ethereumjs/rlp': 5.0.2
       ethereum-cryptography: 2.1.3
+    dev: false
 
   /@ethereumjs/verkle@0.0.1:
     resolution: {integrity: sha512-w1FXJV8t+1yAbSR5n9kpuS6tN4+XXyptWYdSKFdHNQAt9Ie2H5leaEL2ufClA6B6KxaF8FMyMe/VhHn8xdw+uQ==}
@@ -4634,24 +4686,34 @@ packages:
       rust-verkle-wasm: 0.0.1
     transitivePeerDependencies:
       - c-kzg
+    dev: false
 
-  /@ethereumjs/vm@7.2.1:
-    resolution: {integrity: sha512-exmyhDPlfiBtV/nIPY7gE5iu3QC62F7hf/fALLgQaUS8ezxmJQG2MRaFI1eqYwvsAhfNBfst7K6KcCE4jbGbhw==}
+  /@ethereumjs/verkle@0.0.2:
+    resolution: {integrity: sha512-uUVdUJnkugHBHz6aNRBzQZCqZGtjDigfMYtJ7GfjWN0g7hIftnNWn1NEWRU7Fi+ypD8fvedrV5wcZ20Uofmz2Q==}
+    engines: {node: '>=18'}
+    dependencies:
+      '@ethereumjs/rlp': 5.0.2
+      '@ethereumjs/util': 9.0.3
+      lru-cache: 10.1.0
+      rust-verkle-wasm: 0.0.1
+    dev: false
+
+  /@ethereumjs/vm@8.0.0:
+    resolution: {integrity: sha512-eC5ghbSYKSG7qQZHlKh/tBTWEYOHx/ZAm8tmwt29e5N33m/FR2i9Rjx7Bb3Y3j+hlkR53FBFRGG6VQl0eiA4sw==}
     engines: {node: '>=18'}
     dependencies:
       '@ethereumjs/block': 5.2.0
-      '@ethereumjs/blockchain': 7.1.0
+      '@ethereumjs/blockchain': 7.2.0
       '@ethereumjs/common': 4.3.0
-      '@ethereumjs/evm': 2.2.1
+      '@ethereumjs/evm': 3.0.0
       '@ethereumjs/rlp': 5.0.2
-      '@ethereumjs/statemanager': 2.2.2
+      '@ethereumjs/statemanager': 2.3.0
       '@ethereumjs/trie': 6.2.0
       '@ethereumjs/tx': 5.3.0
       '@ethereumjs/util': 9.0.3
       debug: 4.3.4(supports-color@8.1.1)
       ethereum-cryptography: 2.1.3
     transitivePeerDependencies:
-      - c-kzg
       - supports-color
     dev: false
 
@@ -4838,6 +4900,28 @@ packages:
       - zod
     dev: true
 
+  /@evmts/config@1.0.0-next.17(esbuild@0.19.5)(fast-check@3.17.0)(solc@0.8.22)(typescript@5.4.3)(zod@3.22.4):
+    resolution: {integrity: sha512-rxyLCYOROZ7rDGYrcKpnK0ulXTWJwAyyqKbbogAikLZkUh2VSH8GVpYzNpHj2Uy2ZMiNHlYrpEMbWRt53rCsgg==}
+    peerDependencies:
+      solc: '*'
+    dependencies:
+      '@effect/schema': 0.47.7(effect@2.0.0-next.54)(fast-check@3.17.0)
+      '@evmts/effect': 1.0.0-next.9(esbuild@0.19.5)(fast-check@3.17.0)(solc@0.8.22)(typescript@5.4.3)(zod@3.22.4)
+      '@types/node': 20.11.24
+      bundle-require: 4.0.2(esbuild@0.19.5)
+      effect: 2.0.0-next.54
+      jsonc-parser: 3.2.1
+      solc: 0.8.22
+      viem: 1.21.4(typescript@5.4.3)(zod@3.22.4)
+    transitivePeerDependencies:
+      - bufferutil
+      - esbuild
+      - fast-check
+      - typescript
+      - utf-8-validate
+      - zod
+    dev: true
+
   /@evmts/config@1.0.0-next.17(esbuild@0.19.5)(fast-check@3.17.0)(solc@0.8.23-fixed)(typescript@5.4.3)(zod@3.22.4):
     resolution: {integrity: sha512-rxyLCYOROZ7rDGYrcKpnK0ulXTWJwAyyqKbbogAikLZkUh2VSH8GVpYzNpHj2Uy2ZMiNHlYrpEMbWRt53rCsgg==}
     peerDependencies:
@@ -4860,17 +4944,24 @@ packages:
       - zod
     dev: true
 
-  /@evmts/config@1.0.0-next.17(esbuild@0.20.2)(fast-check@3.17.0)(solc@0.8.22)(typescript@5.4.3)(zod@3.22.4):
-    resolution: {integrity: sha512-rxyLCYOROZ7rDGYrcKpnK0ulXTWJwAyyqKbbogAikLZkUh2VSH8GVpYzNpHj2Uy2ZMiNHlYrpEMbWRt53rCsgg==}
+  /@evmts/core@1.0.0-next.12(viem@2.8.18):
+    resolution: {integrity: sha512-1Hqxfl3C9K5b2eSjbXc0KpXU2kjSsh4O6mOcKILTujceJ4QwRVQNmSiVddYi1zvpGS7WYiXGyE1S2XACZMbdZw==}
+    peerDependencies:
+      viem: '>1.0.0'
+    dependencies:
+      viem: 2.8.18(typescript@5.4.3)(zod@3.22.4)
+    dev: true
+
+  /@evmts/effect@1.0.0-next.9(esbuild@0.19.5)(fast-check@3.17.0)(solc@0.8.22)(typescript@5.4.3)(zod@3.22.4):
+    resolution: {integrity: sha512-EDhjN26goPELm2XjxBcY3/8xx7J3HTGdOqgKQoolWt/5eghyxXcvcFFnynN3KSd6mSciozBWGuOFms8HEi4QTg==}
     peerDependencies:
       solc: '*'
     dependencies:
       '@effect/schema': 0.47.7(effect@2.0.0-next.54)(fast-check@3.17.0)
-      '@evmts/effect': 1.0.0-next.9(esbuild@0.20.2)(fast-check@3.17.0)(solc@0.8.22)(typescript@5.4.3)(zod@3.22.4)
-      '@types/node': 20.11.24
-      bundle-require: 4.0.2(esbuild@0.20.2)
+      bundle-require: 4.0.2(esbuild@0.19.5)
       effect: 2.0.0-next.54
       jsonc-parser: 3.2.1
+      resolve: 1.22.8
       solc: 0.8.22
       viem: 1.21.4(typescript@5.4.3)(zod@3.22.4)
     transitivePeerDependencies:
@@ -4880,14 +4971,6 @@ packages:
       - typescript
       - utf-8-validate
       - zod
-    dev: true
-
-  /@evmts/core@1.0.0-next.12(viem@2.8.18):
-    resolution: {integrity: sha512-1Hqxfl3C9K5b2eSjbXc0KpXU2kjSsh4O6mOcKILTujceJ4QwRVQNmSiVddYi1zvpGS7WYiXGyE1S2XACZMbdZw==}
-    peerDependencies:
-      viem: '>1.0.0'
-    dependencies:
-      viem: 2.8.18(typescript@5.4.3)(zod@3.22.4)
     dev: true
 
   /@evmts/effect@1.0.0-next.9(esbuild@0.19.5)(fast-check@3.17.0)(solc@0.8.23-fixed)(typescript@5.4.3)(zod@3.22.4):
@@ -4911,22 +4994,24 @@ packages:
       - zod
     dev: true
 
-  /@evmts/effect@1.0.0-next.9(esbuild@0.20.2)(fast-check@3.17.0)(solc@0.8.22)(typescript@5.4.3)(zod@3.22.4):
-    resolution: {integrity: sha512-EDhjN26goPELm2XjxBcY3/8xx7J3HTGdOqgKQoolWt/5eghyxXcvcFFnynN3KSd6mSciozBWGuOFms8HEi4QTg==}
-    peerDependencies:
-      solc: '*'
+  /@evmts/resolutions@1.0.0-next.18(esbuild@0.19.5)(fast-check@3.17.0)(solc@0.8.22)(typescript@5.4.3)(zod@3.22.4):
+    resolution: {integrity: sha512-+VB+sh5IF1KtuXuyDHH5KOJjNEJs/REtVz0yzht/RaEOql+cOqtprVivemzzTwPT04bzNhilykas5EfKU08PNw==}
     dependencies:
-      '@effect/schema': 0.47.7(effect@2.0.0-next.54)(fast-check@3.17.0)
-      bundle-require: 4.0.2(esbuild@0.20.2)
+      '@evmts/config': 1.0.0-next.17(esbuild@0.19.5)(fast-check@3.17.0)(solc@0.8.22)(typescript@5.4.3)(zod@3.22.4)
+      '@evmts/effect': 1.0.0-next.9(esbuild@0.19.5)(fast-check@3.17.0)(solc@0.8.22)(typescript@5.4.3)(zod@3.22.4)
+      '@evmts/tsconfig': 1.0.0-next.5
+      '@types/node': 20.11.24
+      '@types/resolve': 1.20.5
       effect: 2.0.0-next.54
-      jsonc-parser: 3.2.1
+      glob: 10.3.10
       resolve: 1.22.8
-      solc: 0.8.22
-      viem: 1.21.4(typescript@5.4.3)(zod@3.22.4)
+      solidity-ast: 0.4.53
+      unplugin: 1.5.1
     transitivePeerDependencies:
       - bufferutil
       - esbuild
       - fast-check
+      - solc
       - typescript
       - utf-8-validate
       - zod
@@ -4955,29 +5040,6 @@ packages:
       - zod
     dev: true
 
-  /@evmts/resolutions@1.0.0-next.18(esbuild@0.20.2)(fast-check@3.17.0)(solc@0.8.22)(typescript@5.4.3)(zod@3.22.4):
-    resolution: {integrity: sha512-+VB+sh5IF1KtuXuyDHH5KOJjNEJs/REtVz0yzht/RaEOql+cOqtprVivemzzTwPT04bzNhilykas5EfKU08PNw==}
-    dependencies:
-      '@evmts/config': 1.0.0-next.17(esbuild@0.20.2)(fast-check@3.17.0)(solc@0.8.22)(typescript@5.4.3)(zod@3.22.4)
-      '@evmts/effect': 1.0.0-next.9(esbuild@0.20.2)(fast-check@3.17.0)(solc@0.8.22)(typescript@5.4.3)(zod@3.22.4)
-      '@evmts/tsconfig': 1.0.0-next.5
-      '@types/node': 20.11.24
-      '@types/resolve': 1.20.5
-      effect: 2.0.0-next.54
-      glob: 10.3.10
-      resolve: 1.22.8
-      solidity-ast: 0.4.53
-      unplugin: 1.5.1
-    transitivePeerDependencies:
-      - bufferutil
-      - esbuild
-      - fast-check
-      - solc
-      - typescript
-      - utf-8-validate
-      - zod
-    dev: true
-
   /@evmts/runtime@1.0.0-next.13:
     resolution: {integrity: sha512-sYyyZn40vecJLMwxIX2pWUumLfk/6DfRmoUebx4kshDz8QAwMVk4mtLZbpUNDibqa80YTMOV/8/Cpvr1ax7e1g==}
     dependencies:
@@ -4985,11 +5047,11 @@ packages:
       effect: 2.0.0-next.54
     dev: true
 
-  /@evmts/solc@1.0.0-next.18(esbuild@0.19.5)(fast-check@3.17.0)(solc@0.8.23-fixed)(typescript@5.4.3)(zod@3.22.4):
+  /@evmts/solc@1.0.0-next.18(esbuild@0.19.5)(fast-check@3.17.0)(solc@0.8.22)(typescript@5.4.3)(zod@3.22.4):
     resolution: {integrity: sha512-MGGIz+a8ZKtkmh2z8tmjfJ+DRSLdJV7lSBge0a0sIEhtUFSfc24MVEvHt4KOPms5bNc0OI6BLMM1j72xj4/UDw==}
     dependencies:
-      '@evmts/config': 1.0.0-next.17(esbuild@0.19.5)(fast-check@3.17.0)(solc@0.8.23-fixed)(typescript@5.4.3)(zod@3.22.4)
-      '@evmts/resolutions': 1.0.0-next.18(esbuild@0.19.5)(fast-check@3.17.0)(solc@0.8.23-fixed)(typescript@5.4.3)(zod@3.22.4)
+      '@evmts/config': 1.0.0-next.17(esbuild@0.19.5)(fast-check@3.17.0)(solc@0.8.22)(typescript@5.4.3)(zod@3.22.4)
+      '@evmts/resolutions': 1.0.0-next.18(esbuild@0.19.5)(fast-check@3.17.0)(solc@0.8.22)(typescript@5.4.3)(zod@3.22.4)
       '@evmts/tsconfig': 1.0.0-next.5
       '@types/node': 20.11.24
       '@types/resolve': 1.20.5
@@ -5008,11 +5070,11 @@ packages:
       - zod
     dev: true
 
-  /@evmts/solc@1.0.0-next.18(esbuild@0.20.2)(fast-check@3.17.0)(solc@0.8.22)(typescript@5.4.3)(zod@3.22.4):
+  /@evmts/solc@1.0.0-next.18(esbuild@0.19.5)(fast-check@3.17.0)(solc@0.8.23-fixed)(typescript@5.4.3)(zod@3.22.4):
     resolution: {integrity: sha512-MGGIz+a8ZKtkmh2z8tmjfJ+DRSLdJV7lSBge0a0sIEhtUFSfc24MVEvHt4KOPms5bNc0OI6BLMM1j72xj4/UDw==}
     dependencies:
-      '@evmts/config': 1.0.0-next.17(esbuild@0.20.2)(fast-check@3.17.0)(solc@0.8.22)(typescript@5.4.3)(zod@3.22.4)
-      '@evmts/resolutions': 1.0.0-next.18(esbuild@0.20.2)(fast-check@3.17.0)(solc@0.8.22)(typescript@5.4.3)(zod@3.22.4)
+      '@evmts/config': 1.0.0-next.17(esbuild@0.19.5)(fast-check@3.17.0)(solc@0.8.23-fixed)(typescript@5.4.3)(zod@3.22.4)
+      '@evmts/resolutions': 1.0.0-next.18(esbuild@0.19.5)(fast-check@3.17.0)(solc@0.8.23-fixed)(typescript@5.4.3)(zod@3.22.4)
       '@evmts/tsconfig': 1.0.0-next.5
       '@types/node': 20.11.24
       '@types/resolve': 1.20.5
@@ -5056,12 +5118,12 @@ packages:
     resolution: {integrity: sha512-GWguzA58Ry2CPQhvNAH0x2Au0Bdm+MsBORWHF9usCVD44yC++joPHaIWBSbe3SrF0BccLEf5yIfOKgS5XIEecQ==}
     dev: true
 
-  /@evmts/unplugin@1.0.0-next.19(esbuild@0.20.2)(fast-check@3.17.0)(typescript@5.4.3)(zod@3.22.4):
+  /@evmts/unplugin@1.0.0-next.19(esbuild@0.19.5)(fast-check@3.17.0)(typescript@5.4.3)(zod@3.22.4):
     resolution: {integrity: sha512-NgIXsZ5IEliByfgM/TBhyibLTawCipZs6oIGe7XIehGAVBADOBEWaT7QgIjGQkS5dEyE0OMTEAmgRQhbYhUIog==}
     dependencies:
-      '@evmts/config': 1.0.0-next.17(esbuild@0.20.2)(fast-check@3.17.0)(solc@0.8.22)(typescript@5.4.3)(zod@3.22.4)
+      '@evmts/config': 1.0.0-next.17(esbuild@0.19.5)(fast-check@3.17.0)(solc@0.8.22)(typescript@5.4.3)(zod@3.22.4)
       '@evmts/runtime': 1.0.0-next.13
-      '@evmts/solc': 1.0.0-next.18(esbuild@0.20.2)(fast-check@3.17.0)(solc@0.8.22)(typescript@5.4.3)(zod@3.22.4)
+      '@evmts/solc': 1.0.0-next.18(esbuild@0.19.5)(fast-check@3.17.0)(solc@0.8.22)(typescript@5.4.3)(zod@3.22.4)
       '@evmts/tsconfig': 1.0.0-next.5
       '@types/node': 20.11.20
       '@types/resolve': 1.20.5
@@ -5081,10 +5143,10 @@ packages:
       - zod
     dev: true
 
-  /@evmts/vite-plugin@1.0.0-next.19(esbuild@0.20.2)(fast-check@3.17.0)(typescript@5.4.3)(zod@3.22.4):
+  /@evmts/vite-plugin@1.0.0-next.19(esbuild@0.19.5)(fast-check@3.17.0)(typescript@5.4.3)(zod@3.22.4):
     resolution: {integrity: sha512-rZ3cMVskpkeiHr5N4HtN2tVLm2PJtSyoWMZqFnEPGsbH3nK7FEh8ZX9134kbCuk7SFM/S49GgNqPEoRb2OzkLg==}
     dependencies:
-      '@evmts/unplugin': 1.0.0-next.19(esbuild@0.20.2)(fast-check@3.17.0)(typescript@5.4.3)(zod@3.22.4)
+      '@evmts/unplugin': 1.0.0-next.19(esbuild@0.19.5)(fast-check@3.17.0)(typescript@5.4.3)(zod@3.22.4)
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -6861,7 +6923,6 @@ packages:
 
   /@scure/base@1.1.6:
     resolution: {integrity: sha512-ok9AWwhcgYuGG3Zfhyqg+zwl+Wn5uE+dwC0NV/2qQkx4dABbb/bx96vWu8NSj+BNjjSjno+JRYRjle1jV08k3g==}
-    dev: true
 
   /@scure/bip32@1.1.5:
     resolution: {integrity: sha512-XyNh1rB0SkEqd3tXcXMi+Xe1fvg+kUIcoRIEujP1Jgv7DqW2r9lg3Ah0NkFaCs9sTkQAQA8kw7xiRXzENi9Rtw==}
@@ -7806,6 +7867,7 @@ packages:
     dependencies:
       '@types/node': 20.11.30
       safe-buffer: 5.1.2
+    dev: false
 
   /@types/resolve@1.20.5:
     resolution: {integrity: sha512-aten5YPFp8G+cMpkTK5MCcUW5GlwZUby+qlt0/3oFgOCooFgzqvZQ9/0tROY49sUYmhEybBBj3jwpkQ/R3rjjw==}
@@ -10649,16 +10711,6 @@ packages:
       esbuild: '>=0.17'
     dependencies:
       esbuild: 0.19.5
-      load-tsconfig: 0.2.5
-    dev: true
-
-  /bundle-require@4.0.2(esbuild@0.20.2):
-    resolution: {integrity: sha512-jwzPOChofl67PSTW2SGubV9HBQAhhR2i6nskiOThauo9dzwDUgOWQScFVaJkjEfYX+UXiD+LEx8EblQMc2wIag==}
-    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
-    peerDependencies:
-      esbuild: '>=0.17'
-    dependencies:
-      esbuild: 0.20.2
       load-tsconfig: 0.2.5
     dev: true
 
@@ -15258,6 +15310,7 @@ packages:
 
   /js-sdsl@4.4.2:
     resolution: {integrity: sha512-dwXFwByc/ajSV6m5bcKAPwe4yDDF6D614pxmIi5odytzxRlwqF6nwoiCek80Ixc7Cvma5awClxrzFtxCQvcM8w==}
+    dev: false
 
   /js-sha3@0.8.0:
     resolution: {integrity: sha512-gF1cRrHhIzNfToc802P800N8PpXS+evLLXfsVpowqmAFR9uwbi89WvXg2QspOmXL8QL86J4T1EpFu+yUkwJY3Q==}
@@ -18923,11 +18976,13 @@ packages:
 
   /rust-verkle-wasm@0.0.1:
     resolution: {integrity: sha512-BN6fiTsxcd2dCECz/cHtGTt9cdLJR925nh7iAuRcj8ymKw7OOaPmCneQZ7JePOJ/ia27TjEL91VdOi88Yf+mcA==}
+    dev: false
 
-  /rustbn-wasm@0.2.0:
-    resolution: {integrity: sha512-FThvYFNTqrEKGqXuseeg0zR7yROh/6U1617mCHF68OVqrN1tNKRN7Tdwy4WayPVsCmmK+eMxtIZX1qL6JxTkMg==}
+  /rustbn-wasm@0.4.0:
+    resolution: {integrity: sha512-C2ujvPv05hXC69MD7YwSsoUEsT/X/dKHkkgwN9B0ZTgb0OXDC9yaHhE6Pq+uaRAzMyW0Y97bwc4JO4cqPDzVuQ==}
     dependencies:
-      '@scure/base': 1.1.5
+      '@scure/base': 1.1.6
+    dev: false
 
   /rxjs@6.6.7:
     resolution: {integrity: sha512-hTdwr+7yYNIT5n4AMYp85KA6yw2Va0FLa3Rguvbpa4W3I5xynaBZo41cM3XM+4Q6fRMj3sBYIR1VAmZMXYJvRQ==}
