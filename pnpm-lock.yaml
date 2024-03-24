@@ -1375,9 +1375,6 @@ importers:
         specifier: workspace:^
         version: link:../vm
     devDependencies:
-      '@ethereumjs/evm':
-        specifier: ^2.2.1
-        version: 2.2.1
       '@tevm/tsconfig':
         specifier: workspace:^
         version: link:../../configs/tsconfig
@@ -1637,9 +1634,6 @@ importers:
 
   packages/precompiles:
     dependencies:
-      '@ethereumjs/evm':
-        specifier: ^2.2.1
-        version: 2.2.1
       '@tevm/contract':
         specifier: workspace:^
         version: link:../contract
