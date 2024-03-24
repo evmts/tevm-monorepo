@@ -8,7 +8,6 @@ import { Hex, isAddress } from 'tevm/utils';
 import { DEFAULT_CALLER } from '@/lib/constants/defaults';
 import { useConfigStore } from '@/lib/store/use-config';
 import { useProviderStore } from '@/lib/store/use-provider';
-import { callContract } from '@/lib/tevm';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -110,25 +109,24 @@ const CallerSelection = () => {
     setFetchingOwner(true);
     const loading = toast.loading('Fetching the owner...');
 
-    const tx = await callContract(
-      client,
-      caller,
-      account.address,
-      ownerMethod,
+    const tx = await client.contract({
+      from: caller,
+      to: account.address,
+      functionName: ownerMethod,
       abi,
-      [],
-      '0',
-    );
+      args: [],
+      value: BigInt(0)
+    });
 
     // Report the result of the retrieval to the user
     if (tx.errors?.length) {
-      toast.error(tx.errors[0].title, {
+      toast.error(tx.errors[0].name, {
         id: loading,
         description: tx.errors[0].message,
       });
     } else {
       // We can assume the result is an address because that's what we were looking for
-      const owner = 'data' in tx.result ? tx.result.data : tx.result.rawData;
+      const owner = tx.data
 
       if (owner && isAddress(owner as Hex)) {
         setCaller(owner as Hex);

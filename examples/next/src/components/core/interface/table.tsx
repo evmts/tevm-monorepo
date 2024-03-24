@@ -20,7 +20,6 @@ import { formatTx as formatTxForLocalStorage } from '@/lib/local-storage';
 import { useConfigStore } from '@/lib/store/use-config';
 import { useProviderStore } from '@/lib/store/use-provider';
 import { useTxStore } from '@/lib/store/use-tx';
-import { callContract } frm '@/lib/tevm';
 import { formatInputValue, getFunctionId } from '@/lib/utils';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -174,32 +173,24 @@ const InterfaceTable: FC<InterfaceTableProps> = ({ data, loading }) => {
 
       // Report the result of the transaction to the user
       if (tx.errors?.length) {
-        toast.error(tx.errors[0].title, {
+        toast.error(tx.errors[0].name, {
           id: loading,
           description: tx.errors[0].message,
         });
       } else {
-        // The result provided by the call
-        const result = tx.result;
-        // Prefer the data if it was decoded and not an array (too long), otherwise the raw data
-        const data =
-          'data' in result &&
-          result.data !== undefined &&
-          !Array.isArray(result.data)
-            ? (result.data as ExpectedType)
-            : result.rawData;
+        const strData = typeof tx === 'string' ? tx : JSON.stringify(tx);
         const adaptedData =
           // Show the first 100 characters of the data if it's too long
-          data.toString().length > 100
-            ? `${data.toString().slice(0, 100)}...`
+          strData.toString().length > 100
+            ? `${strData.toString().slice(0, 100)}...`
             : // or the entire data if it's less than 100 characters
-              data;
+            data;
 
         toast.success('Transaction successful!', {
           id: loading,
           description:
             // Don't try to display if there was no return value/transaction reverted/failed to retrieve it
-            data === '0x'
+            tx.rawData === '0x'
               ? 'See below for more details.'
               : `Returned: ${adaptedData}. See below for more details.`,
         });
@@ -213,7 +204,14 @@ const InterfaceTable: FC<InterfaceTableProps> = ({ data, loading }) => {
       // Save the transaction to the local storage regardless of the result
       saveTx(
         chain.id,
-        formatTxForLocalStorage(tx, {
+        // TODO remove this util
+        // TODO I likely broke this
+        formatTxForLocalStorage({
+          errors: tx.errors as any,
+          result: tx as any,
+          couldDecodeOutput: true,
+          value: tx.data as any,
+        }, {
           chainId: chain.id,
           target: account,
           caller,
@@ -224,7 +222,7 @@ const InterfaceTable: FC<InterfaceTableProps> = ({ data, loading }) => {
               typeof value === 'bigint' ? value.toString() : value,
             ),
           ),
-          value: tx.value,
+          value: tx.data as any,
         }),
       );
     },
@@ -381,12 +379,12 @@ const InterfaceTable: FC<InterfaceTableProps> = ({ data, loading }) => {
                   row.original.name || '', // we're actually confident this is not undefined
                   row.original.inputs?.length
                     ? row.original.inputs.map((input, index) => ({
-                        type: input.type,
-                        name: input.name,
-                        value: inputValues[id]['args'][index] as
-                          | string
-                          | number,
-                      }))
+                      type: input.type,
+                      name: input.name,
+                      value: inputValues[id]['args'][index] as
+                        | string
+                        | number,
+                    }))
                     : [],
                   inputValues[id]['value'],
                 )
@@ -436,29 +434,29 @@ const InterfaceTable: FC<InterfaceTableProps> = ({ data, loading }) => {
     columns: isTablet
       ? columns
       : [
-          {
-            ...columns[0],
-            cell: ({ row }) => {
-              const mut = row.original.stateMutability;
+        {
+          ...columns[0],
+          cell: ({ row }) => {
+            const mut = row.original.stateMutability;
 
-              if (loading) return <SkeletonCell />;
+            if (loading) return <SkeletonCell />;
 
-              return (
-                <div className="flex flex-col gap-1">
-                  <pre className="text-xs sm:text-sm">{row.original.name}</pre>
-                  {/* We can't show for sure write functions, because sometimes the abi will specify
+            return (
+              <div className="flex flex-col gap-1">
+                <pre className="text-xs sm:text-sm">{row.original.name}</pre>
+                {/* We can't show for sure write functions, because sometimes the abi will specify
                   "nonpayable/payable" for all functions if it couldn't determine the state */}
-                  <span>
-                    {mut && (mut === 'pure' || mut === 'view') ? (
-                      <Badge variant="secondary">read</Badge>
-                    ) : null}
-                  </span>
-                </div>
-              );
-            },
+                <span>
+                  {mut && (mut === 'pure' || mut === 'view') ? (
+                    <Badge variant="secondary">read</Badge>
+                  ) : null}
+                </span>
+              </div>
+            );
           },
-          ...columns.slice(2, columns.length),
-        ],
+        },
+        ...columns.slice(2, columns.length),
+      ],
     getCoreRowModel: getCoreRowModel(),
     // Pagination
     getPaginationRowModel: getPaginationRowModel(),
