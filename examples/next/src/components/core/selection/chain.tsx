@@ -69,7 +69,8 @@ const ChainSelection: FC<ChainSelectionProps> = ({ hydrating = false }) => {
     // This will set forkTime to 0 (loading) and then to the current time (update)
     setForkTime(chain.id, 'loading');
     // TODO implement me
-    const { success, error } = client.reset()
+    (client as any).reset = async () => ({ success: false, error: 'not implemented' })
+    const { success, error } = await (client as any).reset()
     setForkTime(chain.id, 'update');
 
     if (success) {
