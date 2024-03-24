@@ -1385,11 +1385,21 @@ importers:
         specifier: workspace:^
         version: link:../../configs/tsupconfig
 
-  packages/blockchain:
+  packages/block:
     dependencies:
       '@ethereumjs/block':
         specifier: ^5.1.1
         version: 5.1.1
+    devDependencies:
+      '@tevm/tsconfig':
+        specifier: workspace:^
+        version: link:../../configs/tsconfig
+      '@tevm/tsupconfig':
+        specifier: workspace:^
+        version: link:../../configs/tsupconfig
+
+  packages/blockchain:
+    dependencies:
       '@ethereumjs/blockchain':
         specifier: ^7.1.0
         version: 7.1.0
@@ -1860,9 +1870,6 @@ importers:
 
   packages/txpool:
     dependencies:
-      '@ethereumjs/block':
-        specifier: ^5.1.1
-        version: 5.1.1
       '@ethereumjs/util':
         specifier: ^9.0.2
         version: 9.0.2
