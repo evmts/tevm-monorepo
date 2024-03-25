@@ -24,9 +24,13 @@ export type {
 export type {
 	JsonRpcRequest,
 	JsonRpcResponse,
+	HeadersInit,
+	JsonRpcClient,
+	JsonRpcProcedure,
+	createJsonRpcFetcher,
 } from '@tevm/jsonrpc'
 export type {
-	TevmClient
+	TevmClient,
 } from '@tevm/client-types'
 export {
 	type Predeploy,
@@ -145,6 +149,7 @@ export {
 	type BaseClient,
 	type CustomPrecompile,
 	type BaseClientOptions,
+	type AutoMining
 } from '@tevm/base-client'
 
 export {
@@ -155,7 +160,7 @@ export {
 export {
 	type ConstructorArgument,
 	defineCall,
-	definePrecompile
+	definePrecompile,
 } from '@tevm/precompiles'
 
 export {

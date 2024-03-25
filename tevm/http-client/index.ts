@@ -1,5 +1,5 @@
 export {
 	createHttpClient,
 	type HttpClient,
-	type HttpClientOptions
+	type HttpClientOptions,
 } from '@tevm/http-client'

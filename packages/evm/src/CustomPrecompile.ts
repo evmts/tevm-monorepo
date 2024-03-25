@@ -1,3 +1,4 @@
+import { Evm } from '@tevm/evm'
 /**
  * TODO This should be publically exported from ethereumjs but isn't
  * Typing this by hand is tedious so we are using some typescript inference to get it
@@ -9,7 +10,7 @@
  */
 export type CustomPrecompile = Exclude<
 	Exclude<
-		Parameters<typeof import('@tevm/evm').Evm['create']>[0],
+		Parameters<typeof Evm['create']>[0],
 		undefined
 	>['customPrecompiles'],
 	undefined

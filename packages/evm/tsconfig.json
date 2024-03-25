@@ -6,5 +6,5 @@
     "skipLibCheck": true,
     "types": ["bun-types"]
   },
-  "include": ["src"]
+  "include": ["src/*.js", "src/*.ts"]
 }

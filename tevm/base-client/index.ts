@@ -4,5 +4,9 @@ export {
   type Extension,
   type BaseClient,
   type CustomPrecompile,
-  type BaseClientOptions
+  type BaseClientOptions,
+  type AutoMining,
+  type ManualMining,
+  type MiningConfig,
+  type IntervalMining,
 } from '@tevm/base-client'

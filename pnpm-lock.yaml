@@ -1558,7 +1558,7 @@ importers:
         version: link:../predeploys
     devDependencies:
       '@tevm/state':
-        specifier: workspace:1.0.0-next.40
+        specifier: workspace:^
         version: link:../state
       '@tevm/tsconfig':
         specifier: workspace:^
