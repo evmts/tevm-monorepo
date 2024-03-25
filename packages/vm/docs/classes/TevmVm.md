@@ -30,7 +30,6 @@
 - [buildBlock](TevmVm.md#buildblock)
 - [deepCopy](TevmVm.md#deepcopy)
 - [errorStr](TevmVm.md#errorstr)
-- [init](TevmVm.md#init)
 - [runBlock](TevmVm.md#runblock)
 - [runTx](TevmVm.md#runtx)
 - [shallowCopy](TevmVm.md#shallowcopy)
@@ -66,7 +65,7 @@ VM.constructor
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+vm@7.2.1/node_modules/@ethereumjs/vm/dist/esm/vm.d.ts:63
+node_modules/.pnpm/@ethereumjs+vm@8.0.0/node_modules/@ethereumjs/vm/dist/esm/vm.d.ts:63
 
 ## Properties
 
@@ -80,7 +79,7 @@ VM.\_isInitialized
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+vm@7.2.1/node_modules/@ethereumjs/vm/dist/esm/vm.d.ts:32
+node_modules/.pnpm/@ethereumjs+vm@8.0.0/node_modules/@ethereumjs/vm/dist/esm/vm.d.ts:32
 
 ___
 
@@ -94,7 +93,7 @@ VM.\_opts
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+vm@7.2.1/node_modules/@ethereumjs/vm/dist/esm/vm.d.ts:31
+node_modules/.pnpm/@ethereumjs+vm@8.0.0/node_modules/@ethereumjs/vm/dist/esm/vm.d.ts:31
 
 ___
 
@@ -108,7 +107,7 @@ VM.\_setHardfork
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+vm@7.2.1/node_modules/@ethereumjs/vm/dist/esm/vm.d.ts:33
+node_modules/.pnpm/@ethereumjs+vm@8.0.0/node_modules/@ethereumjs/vm/dist/esm/vm.d.ts:33
 
 ___
 
@@ -122,13 +121,13 @@ VM.blockchain
 
 #### Defined in
 
-[packages/vm/src/TevmVm.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/TevmVm.ts#L9)
+[packages/vm/src/TevmVm.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/TevmVm.ts#L10)
 
 ___
 
 ### common
 
-• **common**: `TevmCommon`
+• **common**: `Common`
 
 #### Overrides
 
@@ -136,7 +135,7 @@ VM.common
 
 #### Defined in
 
-[packages/vm/src/TevmVm.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/TevmVm.ts#L10)
+[packages/vm/src/TevmVm.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/TevmVm.ts#L11)
 
 ___
 
@@ -150,7 +149,7 @@ VM.events
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+vm@7.2.1/node_modules/@ethereumjs/vm/dist/esm/vm.d.ts:26
+node_modules/.pnpm/@ethereumjs+vm@8.0.0/node_modules/@ethereumjs/vm/dist/esm/vm.d.ts:26
 
 ___
 
@@ -164,7 +163,7 @@ VM.evm
 
 #### Defined in
 
-[packages/vm/src/TevmVm.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/TevmVm.ts#L8)
+[packages/vm/src/TevmVm.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/TevmVm.ts#L9)
 
 ___
 
@@ -178,7 +177,7 @@ VM.stateManager
 
 #### Defined in
 
-[packages/vm/src/TevmVm.ts:28](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/TevmVm.ts#L28)
+[packages/vm/src/TevmVm.ts:94](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/TevmVm.ts#L94)
 
 ## Methods
 
@@ -214,7 +213,7 @@ VM.buildBlock
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+vm@7.2.1/node_modules/@ethereumjs/vm/dist/esm/vm.d.ts:102
+node_modules/.pnpm/@ethereumjs+vm@8.0.0/node_modules/@ethereumjs/vm/dist/esm/vm.d.ts:99
 
 ___
 
@@ -228,7 +227,7 @@ ___
 
 #### Defined in
 
-[packages/vm/src/TevmVm.ts:30](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/TevmVm.ts#L30)
+[packages/vm/src/TevmVm.ts:96](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/TevmVm.ts#L96)
 
 ___
 
@@ -248,32 +247,7 @@ VM.errorStr
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+vm@7.2.1/node_modules/@ethereumjs/vm/dist/esm/vm.d.ts:120
-
-___
-
-### init
-
-▸ **init**(`«destructured»?`): `Promise`\<`void`\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `«destructured»` | `Object` |
-| › `genesisState?` | `GenesisState` |
-
-#### Returns
-
-`Promise`\<`void`\>
-
-#### Inherited from
-
-VM.init
-
-#### Defined in
-
-node_modules/.pnpm/@ethereumjs+vm@7.2.1/node_modules/@ethereumjs/vm/dist/esm/vm.d.ts:64
+node_modules/.pnpm/@ethereumjs+vm@8.0.0/node_modules/@ethereumjs/vm/dist/esm/vm.d.ts:117
 
 ___
 
@@ -303,7 +277,7 @@ VM.runBlock
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+vm@7.2.1/node_modules/@ethereumjs/vm/dist/esm/vm.d.ts:77
+node_modules/.pnpm/@ethereumjs+vm@8.0.0/node_modules/@ethereumjs/vm/dist/esm/vm.d.ts:74
 
 ___
 
@@ -333,7 +307,7 @@ VM.runTx
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+vm@7.2.1/node_modules/@ethereumjs/vm/dist/esm/vm.d.ts:87
+node_modules/.pnpm/@ethereumjs+vm@8.0.0/node_modules/@ethereumjs/vm/dist/esm/vm.d.ts:84
 
 ___
 
@@ -367,7 +341,7 @@ VM.shallowCopy
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+vm@7.2.1/node_modules/@ethereumjs/vm/dist/esm/vm.d.ts:116
+node_modules/.pnpm/@ethereumjs+vm@8.0.0/node_modules/@ethereumjs/vm/dist/esm/vm.d.ts:113
 
 ___
 
@@ -393,4 +367,4 @@ VM.create
 
 #### Defined in
 
-[packages/vm/src/TevmVm.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/TevmVm.ts#L16)
+[packages/vm/src/TevmVm.ts:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/TevmVm.ts#L17)

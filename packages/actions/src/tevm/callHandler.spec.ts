@@ -296,7 +296,7 @@ const ERC20_ABI = [
 describe('callHandler', () => {
 	it('should execute a contract call', async () => {
 		const stateManager = new NormalStateManager()
-		const evm = new Evm({ stateManager })
+		const evm = await Evm.create({ stateManager })
 		const vm = await TevmVm.create({ evm, stateManager })
 		// deploy contract
 		expect(
@@ -331,7 +331,7 @@ describe('callHandler', () => {
 
 	it('should be able to send value', async () => {
 		const stateManager = new NormalStateManager()
-		const evm = new Evm({ stateManager })
+		const evm = await Evm.create({ stateManager })
 		const vm = await TevmVm.create({ evm, stateManager })
 		const to = `0x${'69'.repeat(20)}` as const
 		// send value
@@ -354,7 +354,7 @@ describe('callHandler', () => {
 
 	it('should handle errors returned during contract call', async () => {
 		const stateManager = new NormalStateManager()
-		const evm = new Evm({ stateManager })
+		const evm = await Evm.create({ stateManager })
 		const vm = await TevmVm.create({ evm, stateManager })
 		// deploy contract
 		expect(
@@ -400,7 +400,7 @@ describe('callHandler', () => {
 
 	it('should handle the EVM unexpectedly throwing', async () => {
 		const stateManager = new NormalStateManager()
-		const evm = new Evm({ stateManager })
+		const evm = await Evm.create({ stateManager })
 		const vm = await TevmVm.create({ evm, stateManager })
 		vm.evm.runCall = () => {
 			throw new Error('Unexpected error')

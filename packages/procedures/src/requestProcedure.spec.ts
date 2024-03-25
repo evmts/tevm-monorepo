@@ -7,10 +7,10 @@ import {
 	scriptProcedure,
 } from './index.js'
 import { requestProcedure } from './requestProcedure.js'
-import { Account, Address } from '@ethereumjs/util'
 import { testAccounts } from '@tevm/actions'
 import { type BaseClient, createBaseClient } from '@tevm/base-client'
 import type { EthSignTransactionJsonRpcRequest } from '@tevm/procedures-types'
+import { EthjsAccount, EthjsAddress } from '@tevm/utils'
 import {
 	bytesToHex,
 	encodeFunctionData,
@@ -369,7 +369,9 @@ describe('requestProcedure', () => {
 			expect(res.error).toBeUndefined()
 			const account = (await (
 				await client.getVm()
-			).stateManager.getAccount(Address.fromString(ERC20_ADDRESS))) as Account
+			).stateManager.getAccount(
+				EthjsAddress.fromString(ERC20_ADDRESS),
+			)) as EthjsAccount
 			expect(account?.balance).toBe(420n)
 			expect(account?.nonce).toBe(69n)
 			expect(bytesToHex(account.codeHash)).toBe(keccak256(ERC20_BYTECODE))
@@ -440,7 +442,7 @@ describe('requestProcedure', () => {
 				(
 					await (
 						await client.getVm()
-					).stateManager.getAccount(Address.fromString(to))
+					).stateManager.getAccount(EthjsAddress.fromString(to))
 				)?.balance,
 			).toEqual(420n)
 		})

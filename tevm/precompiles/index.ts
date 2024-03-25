@@ -4,5 +4,5 @@ export {
   type ConstructorArgument,
   type CustomPrecompile,
   type CallResult,
-  type TypedError
-} from '@tevm/precompiles'
+  type TypedError,
+} from "@tevm/precompiles";

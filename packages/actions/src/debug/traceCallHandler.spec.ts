@@ -295,7 +295,7 @@ const ERC20_ABI = [
 describe('traceCallHandler', () => {
 	it('should execute a contract call', async () => {
 		const stateManager = new NormalStateManager()
-		const evm = new Evm({ stateManager })
+		const evm = await Evm.create({ stateManager })
 		const vm = await TevmVm.create({ evm, stateManager })
 		// deploy contract
 		expect(

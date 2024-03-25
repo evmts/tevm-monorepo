@@ -45,6 +45,5 @@ export {
   type InvalidBlobVersionedHashesError,
   type ForkError,
   type InvalidUrlError,
-  type FailedToForkError
-} from '@tevm/errors'
-
+  type FailedToForkError,
+} from "@tevm/errors";

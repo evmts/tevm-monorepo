@@ -6,25 +6,23 @@ import {
 	isBlobEIP4844Tx,
 	isFeeMarketEIP1559Tx,
 	isLegacyTx,
-} from '@ethereumjs/tx'
+} from '@tevm/tx'
 import {
-	Account,
-	Address,
-	BIGINT_0,
-	BIGINT_2,
+	EthjsAccount,
+	EthjsAddress,
 	bytesToHex,
 	bytesToUnprefixedHex,
 	equalsBytes,
 	hexToBytes,
-} from '@ethereumjs/util'
+} from '@tevm/utils'
 import { TevmVm } from '@tevm/vm'
 
-import type { Block } from '@ethereumjs/block'
+import type { Block } from '@tevm/block'
 import type {
 	FeeMarketEIP1559Transaction,
 	LegacyTransaction,
 	TypedTransaction,
-} from '@ethereumjs/tx'
+} from '@tevm/tx'
 import type QHeap from 'qheap'
 import Heap from 'qheap'
 
@@ -253,12 +251,9 @@ export class TxPool {
 		}
 		// TODO
 		const block = await this.vm.blockchain.getCanonicalHeadHeader()
-		if (
-			typeof block.baseFeePerGas === 'bigint' &&
-			block.baseFeePerGas !== BIGINT_0
-		) {
+		if (typeof block.baseFeePerGas === 'bigint' && block.baseFeePerGas !== 0n) {
 			if (
-				currentGasPrice.maxFee < block.baseFeePerGas / BIGINT_2 &&
+				currentGasPrice.maxFee < block.baseFeePerGas / 2n &&
 				!isLocalTransaction
 			) {
 				throw new Error(
@@ -278,7 +273,7 @@ export class TxPool {
 		await vmCopy.stateManager.setStateRoot(block.stateRoot)
 		let account = await vmCopy.stateManager.getAccount(senderAddress)
 		if (account === undefined) {
-			account = new Account()
+			account = new EthjsAccount()
 		}
 		if (account.nonce > tx.nonce) {
 			throw new Error(
@@ -436,7 +431,7 @@ export class TxPool {
 	 */
 	private normalizedGasPrice(tx: TypedTransaction, baseFee?: bigint) {
 		const supports1559 = tx.supports(Capability.EIP1559FeeMarket)
-		if (typeof baseFee === 'bigint' && baseFee !== BIGINT_0) {
+		if (typeof baseFee === 'bigint' && baseFee !== 0n) {
 			if (supports1559) {
 				return (tx as FeeMarketEIP1559Transaction).maxPriorityFeePerGas
 			} else {
@@ -510,10 +505,10 @@ export class TxPool {
 				.sort((a, b) => Number(a.nonce - b.nonce))
 			// Check if the account nonce matches the lowest known tx nonce
 			let account = await vm.stateManager.getAccount(
-				new Address(hexToBytes(`0x${address}`)),
+				new EthjsAddress(hexToBytes(`0x${address}`)),
 			)
 			if (account === undefined) {
-				account = new Account()
+				account = new EthjsAccount()
 			}
 			const { nonce } = account
 			if (txsSortedByNonce[0]?.nonce !== nonce) {
@@ -522,7 +517,7 @@ export class TxPool {
 				skippedStats.byNonce += txsSortedByNonce.length
 				continue
 			}
-			if (typeof baseFee === 'bigint' && baseFee !== BIGINT_0) {
+			if (typeof baseFee === 'bigint' && baseFee !== 0n) {
 				// If any tx has an insufficient gasPrice,
 				// remove all txs after that since they cannot be executed
 				const found = txsSortedByNonce.findIndex(
@@ -540,7 +535,7 @@ export class TxPool {
 			comparBefore: (a: TypedTransaction, b: TypedTransaction) =>
 				this.normalizedGasPrice(b, baseFee) -
 					this.normalizedGasPrice(a, baseFee) <
-				BIGINT_0,
+				0n,
 		}) as QHeap<TypedTransaction>
 		for (const [address, txs] of byNonce) {
 			if (!txs[0]) {

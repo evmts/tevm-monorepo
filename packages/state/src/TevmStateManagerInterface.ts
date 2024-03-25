@@ -1,6 +1,6 @@
-import type { EVMStateManagerInterface } from '@ethereumjs/common'
+import type { EvmStateManagerInterface } from '@tevm/common'
 import type { Address } from 'viem'
 
-export interface TevmStateManagerInterface extends EVMStateManagerInterface {
+export interface TevmStateManagerInterface extends EvmStateManagerInterface {
 	getAccountAddresses: () => Address[]
 }

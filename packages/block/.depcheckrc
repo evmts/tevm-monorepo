@@ -1,4 +1,4 @@
 ignores: [
-  "@ethereumjs/evm"
+  "@ethereumjs/block"
 ]
 skip-missing: true

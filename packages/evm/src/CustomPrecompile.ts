@@ -1,12 +1,4 @@
-/**
- * Infers the the first argument of a class
- */
-export type ConstructorArgument<T> = T extends new (
-	...args: infer P
-) => any
-	? P[0]
-	: never
-
+import { Evm } from './Evm.js'
 /**
  * TODO This should be publically exported from ethereumjs but isn't
  * Typing this by hand is tedious so we are using some typescript inference to get it
@@ -17,9 +9,6 @@ export type ConstructorArgument<T> = T extends new (
  * Custom precompiles allow you to run arbitrary JavaScript code in the EVM
  */
 export type CustomPrecompile = Exclude<
-	Exclude<
-		ConstructorArgument<typeof import('@ethereumjs/evm').EVM>,
-		undefined
-	>['customPrecompiles'],
+	Exclude<Parameters<typeof Evm['create']>[0], undefined>['customPrecompiles'],
 	undefined
 >[number]

@@ -80,5 +80,8 @@ export {
   bytesToBigInt,
   bytesToNumber,
   EthjsAccount,
-  EthjsAddress
-} from '@tevm/utils'
+  EthjsAddress,
+  type GenesisState,
+  equalsBytes,
+  type WithdrawalData,
+} from "@tevm/utils";

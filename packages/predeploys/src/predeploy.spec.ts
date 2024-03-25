@@ -1,7 +1,7 @@
 import { definePredeploy } from './definePredeploy.js'
 import { DaiContract } from './test/DaiContract.sol.js'
-import { Address } from '@ethereumjs/util'
 import { createScript } from '@tevm/contract'
+import { EthjsAddress } from '@tevm/utils'
 import { formatAbi } from '@tevm/utils'
 import { expect, test } from 'bun:test'
 
@@ -26,6 +26,6 @@ test('definePredeploy should define a predeploy', async () => {
 	const expectedContract = contract.withAddress(predeployAddress)
 	expect(predeploy.contract).toMatchObject(expectedContract)
 	expect(predeploy.predeploy().address).toEqual(
-		Address.fromString(predeployAddress),
+		EthjsAddress.fromString(predeployAddress),
 	)
 })

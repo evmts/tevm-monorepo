@@ -68,7 +68,7 @@ ___
 
 ### CustomPrecompile
 
-Ƭ **CustomPrecompile**: `Exclude`\<`Exclude`\<[`ConstructorArgument`](modules.md#constructorargument)\<`EVM`\>, `undefined`\>[``"customPrecompiles"``], `undefined`\>[`number`]
+Ƭ **CustomPrecompile**: `Exclude`\<`Exclude`\<[`ConstructorArgument`](modules.md#constructorargument)\<`Evm`\>, `undefined`\>[``"customPrecompiles"``], `undefined`\>[`number`]
 
 Custom precompiles allow you to run arbitrary JavaScript code in the EVM
 

@@ -296,7 +296,7 @@ const ERC20_ABI = [
 describe('contractHandler', () => {
 	it('should execute a contract call', async () => {
 		const stateManager = new NormalStateManager()
-		const evm = new Evm({ stateManager })
+		const evm = await Evm.create({ stateManager })
 		const vm = await TevmVm.create({ evm, stateManager })
 		// deploy contract
 		expect(
@@ -330,7 +330,7 @@ describe('contractHandler', () => {
 
 	it('should handle errors returned during contract call', async () => {
 		const stateManager = new NormalStateManager()
-		const evm = new Evm({ stateManager })
+		const evm = await Evm.create({ stateManager })
 		const vm = await TevmVm.create({ evm, stateManager })
 		// deploy contract
 		expect(
@@ -356,7 +356,7 @@ describe('contractHandler', () => {
 
 	it('should handle a contract not existing', async () => {
 		const stateManager = new NormalStateManager()
-		const evm = new Evm({ stateManager })
+		const evm = await Evm.create({ stateManager })
 		const vm = await TevmVm.create({ evm, stateManager })
 		const caller = `0x${'23'.repeat(20)}` as const
 		expect(
@@ -385,7 +385,7 @@ describe('contractHandler', () => {
 
 	it('should handle the EVM unexpectedly throwing', async () => {
 		const stateManager = new NormalStateManager()
-		const evm = new Evm({ stateManager })
+		const evm = await Evm.create({ stateManager })
 		const vm = await TevmVm.create({ evm, stateManager })
 		// deploy contract
 		expect(
@@ -426,7 +426,7 @@ describe('contractHandler', () => {
 
 	it('should handle the invalid contract params', async () => {
 		const stateManager = new NormalStateManager()
-		const evm = new Evm({ stateManager })
+		const evm = await Evm.create({ stateManager })
 		const vm = await TevmVm.create({ evm, stateManager })
 		// deploy contract
 		expect(
@@ -471,7 +471,7 @@ describe('contractHandler', () => {
 
 	it('Handles the unlikely event the function data cannot be decoded', async () => {
 		const stateManager = new NormalStateManager()
-		const evm = new Evm({ stateManager })
+		const evm = await Evm.create({ stateManager })
 		const vm = await TevmVm.create({ evm, stateManager })
 		const originalRunCall = evm.runCall.bind(evm)
 		vm.evm.runCall = function (args) {
@@ -505,7 +505,7 @@ describe('contractHandler', () => {
 
 	it('Handls function data not being encodable', async () => {
 		const stateManager = new NormalStateManager()
-		const evm = new Evm({ stateManager })
+		const evm = await Evm.create({ stateManager })
 		const vm = await TevmVm.create({ evm, stateManager })
 		// deploy contract
 		expect(
@@ -535,7 +535,7 @@ describe('contractHandler', () => {
 		const amount = BigInt(1e18)
 		const token = `0x${'3'.repeat(40)}` as const
 		const stateManager = new NormalStateManager()
-		const evm = new Evm({ stateManager })
+		const evm = await Evm.create({ stateManager })
 		const vm = await TevmVm.create({ evm, stateManager })
 
 		// Set the token contract

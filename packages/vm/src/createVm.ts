@@ -25,7 +25,6 @@ export const createVm = async ({
 		},
 	})
 
-	// TODO move me to the @tevm/vm package
 	const originalDeepCopy = vm.deepCopy.bind(vm)
 	vm.deepCopy = async (...args) => {
 		const newVm = await originalDeepCopy(...args)

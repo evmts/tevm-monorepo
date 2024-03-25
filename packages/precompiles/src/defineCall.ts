@@ -1,5 +1,5 @@
 import type { CallResult } from './CallResult.js'
-import { EVMErrorMessage, EvmError, type ExecResult } from '@ethereumjs/evm'
+import { EvmError, EvmErrorMessage, type ExecResult } from '@tevm/evm'
 import {
 	type Abi,
 	type AbiEvent,
@@ -35,7 +35,10 @@ export const defineCall = <TAbi extends Abi>(
 	return async ({
 		data,
 		gasLimit,
-	}: { data: `0x${string}`; gasLimit: bigint }): Promise<ExecResult> => {
+	}: {
+		data: `0x${string}`
+		gasLimit: bigint
+	}): Promise<ExecResult> => {
 		const d = decodeFunctionData({
 			abi: abi,
 			data: data,
@@ -89,7 +92,7 @@ export const defineCall = <TAbi extends Abi>(
 				executionGasUsed: BigInt(0),
 				returnValue: Buffer.alloc(0),
 				exceptionError: {
-					...new EvmError(EVMErrorMessage.REVERT),
+					...new EvmError(EvmErrorMessage.REVERT),
 					...{
 						message:
 							typeof e === 'string'

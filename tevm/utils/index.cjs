@@ -92,6 +92,10 @@ Object.defineProperty(exports, "encodePacked", {
   enumerable: true,
   get: function () { return utils.encodePacked; }
 });
+Object.defineProperty(exports, "equalsBytes", {
+  enumerable: true,
+  get: function () { return utils.equalsBytes; }
+});
 Object.defineProperty(exports, "formatAbi", {
   enumerable: true,
   get: function () { return utils.formatAbi; }

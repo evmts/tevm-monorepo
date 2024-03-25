@@ -28,6 +28,7 @@
 - [AbiParametersToPrimitiveTypes](index.md#abiparameterstoprimitivetypes)
 - [Account](index.md#account)
 - [Address](index.md#address)
+- [AutoMining](index.md#automining)
 - [BaseClient](index.md#baseclient)
 - [BaseClientOptions](index.md#baseclientoptions)
 - [BlockNumber](index.md#blocknumber)
@@ -69,7 +70,10 @@
 - [GetEventArgs](index.md#geteventargs)
 - [HDAccount](index.md#hdaccount)
 - [Hardfork](index.md#hardfork)
+- [HeadersInit](index.md#headersinit)
 - [Hex](index.md#hex)
+- [JsonRpcClient](index.md#jsonrpcclient)
+- [JsonRpcProcedure](index.md#jsonrpcprocedure)
 - [JsonRpcRequest](index.md#jsonrpcrequest)
 - [JsonRpcRequestTypeFromMethod](index.md#jsonrpcrequesttypefrommethod)
 - [JsonRpcResponse](index.md#jsonrpcresponse)
@@ -105,6 +109,7 @@
 - [bytesToNumber](index.md#bytestonumber)
 - [createBaseClient](index.md#createbaseclient)
 - [createContract](index.md#createcontract-1)
+- [createJsonRpcFetcher](index.md#createjsonrpcfetcher)
 - [createMemoryClient](index.md#creatememoryclient)
 - [createMemoryDb](index.md#creatememorydb)
 - [createScript](index.md#createscript-1)
@@ -167,7 +172,7 @@ Contract [ABI Specification](https://docs.soliditylang.org/en/latest/abi-spec.ht
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/abitype@1.0.0_typescript@5.3.3_zod@3.22.4/node_modules/abitype/dist/types/abi.d.ts:118
+evmts-monorepo/node_modules/.pnpm/abitype@1.0.2_typescript@5.3.3_zod@3.22.4/node_modules/abitype/dist/types/abi.d.ts:118
 
 ___
 
@@ -188,7 +193,7 @@ ABI ["constructor"](https://docs.soliditylang.org/en/latest/abi-spec.html#json) 
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/abitype@1.0.0_typescript@5.3.3_zod@3.22.4/node_modules/abitype/dist/types/abi.d.ts:74
+evmts-monorepo/node_modules/.pnpm/abitype@1.0.2_typescript@5.3.3_zod@3.22.4/node_modules/abitype/dist/types/abi.d.ts:74
 
 ___
 
@@ -209,7 +214,7 @@ ABI ["event"](https://docs.soliditylang.org/en/latest/abi-spec.html#events) type
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/abitype@1.0.0_typescript@5.3.3_zod@3.22.4/node_modules/abitype/dist/types/abi.d.ts:101
+evmts-monorepo/node_modules/.pnpm/abitype@1.0.2_typescript@5.3.3_zod@3.22.4/node_modules/abitype/dist/types/abi.d.ts:101
 
 ___
 
@@ -234,7 +239,7 @@ ABI ["function"](https://docs.soliditylang.org/en/latest/abi-spec.html#json) typ
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/abitype@1.0.0_typescript@5.3.3_zod@3.22.4/node_modules/abitype/dist/types/abi.d.ts:51
+evmts-monorepo/node_modules/.pnpm/abitype@1.0.2_typescript@5.3.3_zod@3.22.4/node_modules/abitype/dist/types/abi.d.ts:51
 
 ___
 
@@ -246,7 +251,7 @@ ___
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/abitype@1.0.0_typescript@5.3.3_zod@3.22.4/node_modules/abitype/dist/types/abi.d.ts:114
+evmts-monorepo/node_modules/.pnpm/abitype@1.0.2_typescript@5.3.3_zod@3.22.4/node_modules/abitype/dist/types/abi.d.ts:114
 
 ___
 
@@ -265,7 +270,7 @@ Converts array of AbiParameter to corresponding TypeScript primitive types.
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/abitype@1.0.0_typescript@5.3.3_zod@3.22.4/node_modules/abitype/dist/types/utils.d.ts:86
+evmts-monorepo/node_modules/.pnpm/abitype@1.0.2_typescript@5.3.3_zod@3.22.4/node_modules/abitype/dist/types/utils.d.ts:86
 
 ___
 
@@ -277,11 +282,11 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `TAddress` | extends [`Address`](index.md#address) = [`Address`](index.md#address) |
+| `TAddress` | extends `Address` = `Address` |
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/accounts/types.d.ts:9
+evmts-monorepo/node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/accounts/types.d.ts:9
 
 ___
 
@@ -291,13 +296,29 @@ ___
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/abitype@1.0.0_typescript@5.3.3_zod@3.22.4/node_modules/abitype/dist/types/abi.d.ts:3
+evmts-monorepo/node_modules/.pnpm/abitype@1.0.2_typescript@5.3.3_zod@3.22.4/node_modules/abitype/dist/types/abi.d.ts:3
+
+___
+
+### AutoMining
+
+Ƭ **AutoMining**: `Object`
+
+#### Type declaration
+
+| Name | Type |
+| :------ | :------ |
+| `type` | ``"auto"`` |
+
+#### Defined in
+
+evmts-monorepo/packages/base-client/types/MiningConfig.d.ts:8
 
 ___
 
 ### BaseClient
 
-Ƭ **BaseClient**\<`TMode`, `TExtended`\>: \{ `extend`: \<TExtension\>(`decorator`: (`client`: [`BaseClient`](index.md#baseclient)\<`TMode`, `TExtended`\>) => `TExtension`) => [`BaseClient`](index.md#baseclient)\<`TMode`, `TExtended` & `TExtension`\> ; `forkUrl?`: `string` ; `getChainId`: () => `Promise`\<`number`\> ; `getTxPool`: () => `Promise`\<`TxPool`\> ; `getVm`: () => `Promise`\<`TevmVm`\> ; `miningConfig`: `MiningConfig` ; `mode`: `TMode` ; `ready`: () => `Promise`\<``true``\> ; `setChainId`: (`chainId`: `number`) => `void`  } & `TExtended`
+Ƭ **BaseClient**\<`TMode`, `TExtended`\>: \{ `extend`: \<TExtension\>(`decorator`: (`client`: [`BaseClient`](index.md#baseclient)\<`TMode`, `TExtended`\>) => `TExtension`) => [`BaseClient`](index.md#baseclient)\<`TMode`, `TExtended` & `TExtension`\> ; `forkUrl?`: `string` ; `getChainId`: () => `Promise`\<`number`\> ; `getTxPool`: () => `Promise`\<`TxPool`\> ; `getVm`: () => `Promise`\<`TevmVm`\> ; `miningConfig`: [`MiningConfig`](base_client.md#miningconfig) ; `mode`: `TMode` ; `ready`: () => `Promise`\<``true``\> ; `setChainId`: (`chainId`: `number`) => `void`  } & `TExtended`
 
 The base client used by Tevm. Add extensions to add additional functionality
 
@@ -331,7 +352,7 @@ Options for creating an Tevm MemoryClient instance
 | `eips?` | `ReadonlyArray`\<`number`\> | Eips to enable. Defaults to `[1559, 4895]` |
 | `fork?` | [`ForkStateManagerOpts`](../interfaces/index.ForkStateManagerOpts.md) | Fork options fork a live network if enabled. When in fork mode Tevm will fetch and cache all state from the block forked from the provided URL Cannot be set if `proxy` is also set |
 | `hardfork?` | [`Hardfork`](index.md#hardfork) | Hardfork to use. Defaults to `shanghai` |
-| `miningConfig?` | `MiningConfig` | The configuration for mining. Defaults to 'auto' - 'auto' will mine a block on every transaction - 'interval' will mine a block every `interval` milliseconds - 'manual' will not mine a block automatically and requires a manual call to `mineBlock` |
+| `miningConfig?` | [`MiningConfig`](base_client.md#miningconfig) | The configuration for mining. Defaults to 'auto' - 'auto' will mine a block on every transaction - 'interval' will mine a block every `interval` milliseconds - 'manual' will not mine a block automatically and requires a manual call to `mineBlock` |
 | `persister?` | [`SyncStoragePersister`](index.md#syncstoragepersister) | The memory client can optionally initialize and persist it's state to an external source like local storage using `createSyncPersister` **`Example`** ```typescript import { createMemoryClient, createSyncPersister } from 'tevm' const persister = createSyncPersister({ storage: { getItem: (key: string) => localStorage.getItem(key), setItem: (key: string, value: string) => localStorage.setItem(key, value), } }) const memoryClient = createMemoryClient({ persister }) ``` |
 | `profiler?` | `boolean` | Enable profiler. Defaults to false. |
 | `proxy?` | [`ProxyStateManagerOpts`](../interfaces/index.ProxyStateManagerOpts.md) | Options to initialize the client in `proxy` mode When in proxy mode Tevm will fetch all state from the latest block of the provided proxy URL Cannot be set if `fork` is also set |
@@ -354,7 +375,7 @@ ___
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/types/block.d.ts:68
+evmts-monorepo/node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/types/block.d.ts:68
 
 ___
 
@@ -374,7 +395,7 @@ ___
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/types/block.d.ts:69
+evmts-monorepo/node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/types/block.d.ts:69
 
 ___
 
@@ -456,7 +477,7 @@ Infers the the first argument of a class
 
 #### Defined in
 
-evmts-monorepo/packages/precompiles/dist/index.d.ts:11
+evmts-monorepo/packages/precompiles/dist/index.d.ts:10
 
 ___
 
@@ -557,18 +578,18 @@ ___
 
 ### ContractFunctionName
 
-Ƭ **ContractFunctionName**\<`abi`, `mutability`\>: [`ExtractAbiFunctionNames`](index.md#extractabifunctionnames)\<`abi` extends [`Abi`](index.md#abi) ? `abi` : [`Abi`](index.md#abi), `mutability`\> extends infer functionName ? [`functionName`] extends [`never`] ? `string` : `functionName` : `string`
+Ƭ **ContractFunctionName**\<`abi`, `mutability`\>: `ExtractAbiFunctionNames`\<`abi` extends `Abi` ? `abi` : `Abi`, `mutability`\> extends infer functionName ? [`functionName`] extends [`never`] ? `string` : `functionName` : `string`
 
 #### Type parameters
 
 | Name | Type |
 | :------ | :------ |
-| `abi` | extends [`Abi`](index.md#abi) \| readonly `unknown`[] = [`Abi`](index.md#abi) |
+| `abi` | extends `Abi` \| readonly `unknown`[] = `Abi` |
 | `mutability` | extends `AbiStateMutability` = `AbiStateMutability` |
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/types/contract.d.ts:5
+evmts-monorepo/node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/types/contract.d.ts:5
 
 ___
 
@@ -697,14 +718,14 @@ ___
 
 ### CreateEventFilterParameters
 
-Ƭ **CreateEventFilterParameters**\<`TAbiEvent`, `TAbiEvents`, `TStrict`, `TFromBlock`, `TToBlock`, `_EventName`, `_Args`\>: \{ `address?`: [`Address`](index.md#address) \| [`Address`](index.md#address)[] ; `fromBlock?`: `TFromBlock` \| [`BlockNumber`](index.md#blocknumber) \| [`BlockTag`](index.md#blocktag) ; `toBlock?`: `TToBlock` \| [`BlockNumber`](index.md#blocknumber) \| [`BlockTag`](index.md#blocktag)  } & `MaybeExtractEventArgsFromAbi`\<`TAbiEvents`, `_EventName`\> extends infer TEventFilterArgs ? \{ `args`: `TEventFilterArgs` \| `_Args` extends `TEventFilterArgs` ? `_Args` : `never` ; `event`: `TAbiEvent` ; `events?`: `never` ; `strict?`: `TStrict`  } \| \{ `args?`: `never` ; `event?`: `TAbiEvent` ; `events?`: `never` ; `strict?`: `TStrict`  } \| \{ `args?`: `never` ; `event?`: `never` ; `events`: `TAbiEvents` ; `strict?`: `TStrict`  } \| \{ `args?`: `never` ; `event?`: `never` ; `events?`: `never` ; `strict?`: `never`  } : \{ `args?`: `never` ; `event?`: `never` ; `events?`: `never` ; `strict?`: `never`  }
+Ƭ **CreateEventFilterParameters**\<`TAbiEvent`, `TAbiEvents`, `TStrict`, `TFromBlock`, `TToBlock`, `_EventName`, `_Args`\>: \{ `address?`: `Address` \| `Address`[] ; `fromBlock?`: `TFromBlock` \| [`BlockNumber`](index.md#blocknumber) \| [`BlockTag`](index.md#blocktag) ; `toBlock?`: `TToBlock` \| [`BlockNumber`](index.md#blocknumber) \| [`BlockTag`](index.md#blocktag)  } & `MaybeExtractEventArgsFromAbi`\<`TAbiEvents`, `_EventName`\> extends infer TEventFilterArgs ? \{ `args`: `TEventFilterArgs` \| `_Args` extends `TEventFilterArgs` ? `_Args` : `never` ; `event`: `TAbiEvent` ; `events?`: `never` ; `strict?`: `TStrict`  } \| \{ `args?`: `never` ; `event?`: `TAbiEvent` ; `events?`: `never` ; `strict?`: `TStrict`  } \| \{ `args?`: `never` ; `event?`: `never` ; `events`: `TAbiEvents` \| `undefined` ; `strict?`: `TStrict`  } \| \{ `args?`: `never` ; `event?`: `never` ; `events?`: `never` ; `strict?`: `never`  } : \{ `args?`: `never` ; `event?`: `never` ; `events?`: `never` ; `strict?`: `never`  }
 
 #### Type parameters
 
 | Name | Type |
 | :------ | :------ |
-| `TAbiEvent` | extends [`AbiEvent`](index.md#abievent) \| `undefined` = `undefined` |
-| `TAbiEvents` | extends readonly [`AbiEvent`](index.md#abievent)[] \| readonly `unknown`[] \| `undefined` = `TAbiEvent` extends [`AbiEvent`](index.md#abievent) ? [`TAbiEvent`] : `undefined` |
+| `TAbiEvent` | extends `AbiEvent` \| `undefined` = `undefined` |
+| `TAbiEvents` | extends readonly `AbiEvent`[] \| readonly `unknown`[] \| `undefined` = `TAbiEvent` extends `AbiEvent` ? [`TAbiEvent`] : `undefined` |
 | `TStrict` | extends `boolean` \| `undefined` = `undefined` |
 | `TFromBlock` | extends [`BlockNumber`](index.md#blocknumber) \| [`BlockTag`](index.md#blocktag) \| `undefined` = `undefined` |
 | `TToBlock` | extends [`BlockNumber`](index.md#blocknumber) \| [`BlockTag`](index.md#blocktag) \| `undefined` = `undefined` |
@@ -713,7 +734,7 @@ ___
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/actions/public/createEventFilter.d.ts:13
+evmts-monorepo/node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/actions/public/createEventFilter.d.ts:13
 
 ___
 
@@ -872,13 +893,13 @@ ___
 
 ### CustomPrecompile
 
-Ƭ **CustomPrecompile**: `Exclude`\<`Exclude`\<`ConstructorArgument`\<`EVM`\>, `undefined`\>[``"customPrecompiles"``], `undefined`\>[`number`]
+Ƭ **CustomPrecompile**: `Exclude`\<`Exclude`\<`Parameters`\<`Evm`[``"create"``]\>[``0``], `undefined`\>[``"customPrecompiles"``], `undefined`\>[`number`]
 
 Custom precompiles allow you to run arbitrary JavaScript code in the EVM
 
 #### Defined in
 
-evmts-monorepo/packages/base-client/types/CustomPrecompile.d.ts:14
+evmts-monorepo/packages/base-client/types/CustomPrecompile.d.ts:10
 
 ___
 
@@ -916,13 +937,13 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `abi` | extends [`Abi`](index.md#abi) \| readonly `unknown`[] = [`Abi`](index.md#abi) |
+| `abi` | extends `Abi` \| readonly `unknown`[] = `Abi` |
 | `functionName` | extends [`ContractFunctionName`](index.md#contractfunctionname)\<`abi`\> \| `undefined` = [`ContractFunctionName`](index.md#contractfunctionname)\<`abi`\> |
 | `args` | extends `ContractFunctionArgs`\<`abi`, `AbiStateMutability`, `functionName` extends [`ContractFunctionName`](index.md#contractfunctionname)\<`abi`\> ? `functionName` : [`ContractFunctionName`](index.md#contractfunctionname)\<`abi`\>\> = `ContractFunctionArgs`\<`abi`, `AbiStateMutability`, `functionName` extends [`ContractFunctionName`](index.md#contractfunctionname)\<`abi`\> ? `functionName` : [`ContractFunctionName`](index.md#contractfunctionname)\<`abi`\>\> |
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/decodeFunctionResult.d.ts:23
+evmts-monorepo/node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/decodeFunctionResult.d.ts:23
 
 ___
 
@@ -1002,21 +1023,21 @@ ___
 
 ### EncodeFunctionDataParameters
 
-Ƭ **EncodeFunctionDataParameters**\<`abi`, `functionName`, `hasFunctions`, `allArgs`, `allFunctionNames`\>: \{ `abi`: `abi`  } & `UnionEvaluate`\<`IsNarrowable`\<`abi`, [`Abi`](index.md#abi)\> extends ``true`` ? `abi`[``"length"``] extends ``1`` ? \{ `functionName?`: `functionName` \| `allFunctionNames`  } : \{ `functionName`: `functionName` \| `allFunctionNames`  } : \{ `functionName?`: `functionName` \| `allFunctionNames`  }\> & `UnionEvaluate`\<readonly [] extends `allArgs` ? \{ `args?`: `allArgs`  } : \{ `args`: `allArgs`  }\> & `hasFunctions` extends ``true`` ? `unknown` : `never`
+Ƭ **EncodeFunctionDataParameters**\<`abi`, `functionName`, `hasFunctions`, `allArgs`, `allFunctionNames`\>: \{ `abi`: `abi`  } & `UnionEvaluate`\<`IsNarrowable`\<`abi`, `Abi`\> extends ``true`` ? `abi`[``"length"``] extends ``1`` ? \{ `functionName?`: `functionName` \| `allFunctionNames` \| [`Hex`](index.md#hex)  } : \{ `functionName`: `functionName` \| `allFunctionNames` \| [`Hex`](index.md#hex)  } : \{ `functionName?`: `functionName` \| `allFunctionNames` \| [`Hex`](index.md#hex)  }\> & `UnionEvaluate`\<readonly [] extends `allArgs` ? \{ `args?`: `allArgs`  } : \{ `args`: `allArgs`  }\> & `hasFunctions` extends ``true`` ? `unknown` : `never`
 
 #### Type parameters
 
 | Name | Type |
 | :------ | :------ |
-| `abi` | extends [`Abi`](index.md#abi) \| readonly `unknown`[] = [`Abi`](index.md#abi) |
-| `functionName` | extends [`ContractFunctionName`](index.md#contractfunctionname)\<`abi`\> \| `undefined` = [`ContractFunctionName`](index.md#contractfunctionname)\<`abi`\> |
-| `hasFunctions` | `abi` extends [`Abi`](index.md#abi) ? [`Abi`](index.md#abi) extends `abi` ? ``true`` : [`ExtractAbiFunctions`\<`abi`\>] extends [`never`] ? ``false`` : ``true`` : ``true`` |
+| `abi` | extends `Abi` \| readonly `unknown`[] = `Abi` |
+| `functionName` | extends [`ContractFunctionName`](index.md#contractfunctionname)\<`abi`\> \| [`Hex`](index.md#hex) \| `undefined` = [`ContractFunctionName`](index.md#contractfunctionname)\<`abi`\> |
+| `hasFunctions` | `abi` extends `Abi` ? `Abi` extends `abi` ? ``true`` : [`ExtractAbiFunctions`\<`abi`\>] extends [`never`] ? ``false`` : ``true`` : ``true`` |
 | `allArgs` | `ContractFunctionArgs`\<`abi`, `AbiStateMutability`, `functionName` extends [`ContractFunctionName`](index.md#contractfunctionname)\<`abi`\> ? `functionName` : [`ContractFunctionName`](index.md#contractfunctionname)\<`abi`\>\> |
 | `allFunctionNames` | [`ContractFunctionName`](index.md#contractfunctionname)\<`abi`\> |
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/encodeFunctionData.d.ts:12
+evmts-monorepo/node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/encodeFunctionData.d.ts:12
 
 ___
 
@@ -1125,7 +1146,7 @@ Extracts [AbiEvent](index.md#abievent) with name from [Abi](index.md#abi).
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/abitype@1.0.0_typescript@5.3.3_zod@3.22.4/node_modules/abitype/dist/types/utils.d.ts:149
+evmts-monorepo/node_modules/.pnpm/abitype@1.0.2_typescript@5.3.3_zod@3.22.4/node_modules/abitype/dist/types/utils.d.ts:149
 
 ___
 
@@ -1143,7 +1164,7 @@ Extracts all [AbiEvent](index.md#abievent) names from [Abi](index.md#abi).
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/abitype@1.0.0_typescript@5.3.3_zod@3.22.4/node_modules/abitype/dist/types/utils.d.ts:141
+evmts-monorepo/node_modules/.pnpm/abitype@1.0.2_typescript@5.3.3_zod@3.22.4/node_modules/abitype/dist/types/utils.d.ts:141
 
 ___
 
@@ -1161,7 +1182,7 @@ Extracts all [AbiEvent](index.md#abievent) types from [Abi](index.md#abi).
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/abitype@1.0.0_typescript@5.3.3_zod@3.22.4/node_modules/abitype/dist/types/utils.d.ts:132
+evmts-monorepo/node_modules/.pnpm/abitype@1.0.2_typescript@5.3.3_zod@3.22.4/node_modules/abitype/dist/types/utils.d.ts:132
 
 ___
 
@@ -1181,7 +1202,7 @@ Extracts [AbiFunction](index.md#abifunction) with name from [Abi](index.md#abi).
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/abitype@1.0.0_typescript@5.3.3_zod@3.22.4/node_modules/abitype/dist/types/utils.d.ts:123
+evmts-monorepo/node_modules/.pnpm/abitype@1.0.2_typescript@5.3.3_zod@3.22.4/node_modules/abitype/dist/types/utils.d.ts:123
 
 ___
 
@@ -1200,20 +1221,20 @@ Extracts all [AbiFunction](index.md#abifunction) names from [Abi](index.md#abi).
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/abitype@1.0.0_typescript@5.3.3_zod@3.22.4/node_modules/abitype/dist/types/utils.d.ts:114
+evmts-monorepo/node_modules/.pnpm/abitype@1.0.2_typescript@5.3.3_zod@3.22.4/node_modules/abitype/dist/types/utils.d.ts:114
 
 ___
 
 ### Filter
 
-Ƭ **Filter**\<`TFilterType`, `TAbi`, `TEventName`, `TArgs`, `TStrict`, `TFromBlock`, `TToBlock`\>: \{ `id`: [`Hex`](index.md#hex) ; `request`: `EIP1193RequestFn`\<`FilterRpcSchema`\> ; `type`: `TFilterType`  } & `TFilterType` extends ``"event"`` ? \{ `fromBlock?`: `TFromBlock` ; `toBlock?`: `TToBlock`  } & `TAbi` extends [`Abi`](index.md#abi) ? `undefined` extends `TEventName` ? \{ `abi`: `TAbi` ; `args?`: `never` ; `eventName?`: `never` ; `strict`: `TStrict`  } : `TArgs` extends `MaybeExtractEventArgsFromAbi`\<`TAbi`, `TEventName`\> ? \{ `abi`: `TAbi` ; `args`: `TArgs` ; `eventName`: `TEventName` ; `strict`: `TStrict`  } : \{ `abi`: `TAbi` ; `args?`: `never` ; `eventName`: `TEventName` ; `strict`: `TStrict`  } : \{ `abi?`: `never` ; `args?`: `never` ; `eventName?`: `never` ; `strict?`: `never`  } : {}
+Ƭ **Filter**\<`TFilterType`, `TAbi`, `TEventName`, `TArgs`, `TStrict`, `TFromBlock`, `TToBlock`\>: \{ `id`: [`Hex`](index.md#hex) ; `request`: `EIP1193RequestFn`\<`FilterRpcSchema`\> ; `type`: `TFilterType`  } & `TFilterType` extends ``"event"`` ? \{ `fromBlock?`: `TFromBlock` ; `toBlock?`: `TToBlock`  } & `TAbi` extends `Abi` ? `undefined` extends `TEventName` ? \{ `abi`: `TAbi` ; `args?`: `never` ; `eventName?`: `never` ; `strict`: `TStrict`  } : `TArgs` extends `MaybeExtractEventArgsFromAbi`\<`TAbi`, `TEventName`\> ? \{ `abi`: `TAbi` ; `args`: `TArgs` ; `eventName`: `TEventName` ; `strict`: `TStrict`  } : \{ `abi`: `TAbi` ; `args?`: `never` ; `eventName`: `TEventName` ; `strict`: `TStrict`  } : \{ `abi?`: `never` ; `args?`: `never` ; `eventName?`: `never` ; `strict?`: `never`  } : {}
 
 #### Type parameters
 
 | Name | Type |
 | :------ | :------ |
 | `TFilterType` | extends `FilterType` = ``"event"`` |
-| `TAbi` | extends [`Abi`](index.md#abi) \| readonly `unknown`[] \| `undefined` = `undefined` |
+| `TAbi` | extends `Abi` \| readonly `unknown`[] \| `undefined` = `undefined` |
 | `TEventName` | extends `string` \| `undefined` = `undefined` |
 | `TArgs` | extends `MaybeExtractEventArgsFromAbi`\<`TAbi`, `TEventName`\> \| `undefined` = `MaybeExtractEventArgsFromAbi`\<`TAbi`, `TEventName`\> |
 | `TStrict` | extends `boolean` \| `undefined` = `undefined` |
@@ -1222,7 +1243,7 @@ ___
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/types/filter.d.ts:11
+evmts-monorepo/node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/types/filter.d.ts:11
 
 ___
 
@@ -1240,7 +1261,7 @@ Parses JSON ABI into human-readable ABI
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/abitype@1.0.0_typescript@5.3.3_zod@3.22.4/node_modules/abitype/dist/types/human-readable/formatAbi.d.ts:9
+evmts-monorepo/node_modules/.pnpm/abitype@1.0.2_typescript@5.3.3_zod@3.22.4/node_modules/abitype/dist/types/human-readable/formatAbi.d.ts:9
 
 ___
 
@@ -1310,16 +1331,16 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `TAbi` | extends [`Abi`](index.md#abi) \| readonly `unknown`[] |
+| `TAbi` | extends `Abi` \| readonly `unknown`[] |
 | `TEventName` | extends `string` |
 | `TConfig` | extends `EventParameterOptions` = `DefaultEventParameterOptions` |
-| `TAbiEvent` | extends [`AbiEvent`](index.md#abievent) & \{ `type`: ``"event"``  } = `TAbi` extends [`Abi`](index.md#abi) ? [`ExtractAbiEvent`](index.md#extractabievent)\<`TAbi`, `TEventName`\> : [`AbiEvent`](index.md#abievent) & \{ `type`: ``"event"``  } |
+| `TAbiEvent` | extends `AbiEvent` & \{ `type`: ``"event"``  } = `TAbi` extends `Abi` ? `ExtractAbiEvent`\<`TAbi`, `TEventName`\> : `AbiEvent` & \{ `type`: ``"event"``  } |
 | `TArgs` | `AbiEventParametersToPrimitiveTypes`\<`TAbiEvent`[``"inputs"``], `TConfig`\> |
 | `FailedToParseArgs` | [`TArgs`] extends [`never`] ? ``true`` : ``false`` \| readonly `unknown`[] extends `TArgs` ? ``true`` : ``false`` |
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/types/contract.d.ts:68
+evmts-monorepo/node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/types/contract.d.ts:68
 
 ___
 
@@ -1329,7 +1350,7 @@ ___
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/accounts/types.d.ts:31
+evmts-monorepo/node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/accounts/types.d.ts:31
 
 ___
 
@@ -1345,13 +1366,77 @@ evmts-monorepo/packages/base-client/types/Hardfork.d.ts:4
 
 ___
 
+### HeadersInit
+
+Ƭ **HeadersInit**: `string`[][] \| `Record`\<`string`, `string` \| `ReadonlyArray`\<`string`\>\> \| `Headers`
+
+The headers interface of the Fetch API
+
+#### Defined in
+
+evmts-monorepo/packages/jsonrpc/types/HeadersInit.d.ts:4
+
+___
+
 ### Hex
 
 Ƭ **Hex**: \`0x$\{string}\`
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/types/misc.d.ts:2
+evmts-monorepo/node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/types/misc.d.ts:3
+
+___
+
+### JsonRpcClient
+
+Ƭ **JsonRpcClient**: `Object`
+
+A client for making JsonRpc requests over http
+
+#### Type declaration
+
+| Name | Type |
+| :------ | :------ |
+| `request` | [`JsonRpcProcedure`](index.md#jsonrpcprocedure)\<`string`, `unknown`, `unknown`, `string`\> |
+| `url` | `string` |
+
+#### Defined in
+
+evmts-monorepo/packages/jsonrpc/types/JsonRpcClient.d.ts:5
+
+___
+
+### JsonRpcProcedure
+
+Ƭ **JsonRpcProcedure**\<`TMethod`, `TParams`, `TResult`, `TErrorCode`\>: (`request`: [`JsonRpcRequest`](index.md#jsonrpcrequest)\<`TMethod`, `TParams`\>) => `Promise`\<[`JsonRpcResponse`](index.md#jsonrpcresponse)\<`TMethod`, `TResult`, `TErrorCode`\>\>
+
+#### Type parameters
+
+| Name | Type |
+| :------ | :------ |
+| `TMethod` | extends `string` |
+| `TParams` | `TParams` |
+| `TResult` | `TResult` |
+| `TErrorCode` | extends `string` |
+
+#### Type declaration
+
+▸ (`request`): `Promise`\<[`JsonRpcResponse`](index.md#jsonrpcresponse)\<`TMethod`, `TResult`, `TErrorCode`\>\>
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `request` | [`JsonRpcRequest`](index.md#jsonrpcrequest)\<`TMethod`, `TParams`\> |
+
+##### Returns
+
+`Promise`\<[`JsonRpcResponse`](index.md#jsonrpcresponse)\<`TMethod`, `TResult`, `TErrorCode`\>\>
+
+#### Defined in
+
+evmts-monorepo/packages/jsonrpc/types/JsonRpcProcedure.d.ts:3
 
 ___
 
@@ -1530,7 +1615,7 @@ type Result = ParseAbi<
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/abitype@1.0.0_typescript@5.3.3_zod@3.22.4/node_modules/abitype/dist/types/human-readable/parseAbi.d.ts:21
+evmts-monorepo/node_modules/.pnpm/abitype@1.0.2_typescript@5.3.3_zod@3.22.4/node_modules/abitype/dist/types/human-readable/parseAbi.d.ts:21
 
 ___
 
@@ -2276,7 +2361,7 @@ const data = boolToBytes(true, { size: 32 })
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/toBytes.d.ts:62
+evmts-monorepo/node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/toBytes.d.ts:62
 
 ___
 
@@ -2327,7 +2412,7 @@ const data = boolToHex(true, { size: 32 })
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/toHex.d.ts:66
+evmts-monorepo/node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/toHex.d.ts:66
 
 ___
 
@@ -2362,7 +2447,7 @@ const data = bytesToBigInt(new Uint8Array([1, 164]))
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/fromBytes.d.ts:59
+evmts-monorepo/node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/fromBytes.d.ts:59
 
 ___
 
@@ -2397,7 +2482,7 @@ const data = bytesToBool(new Uint8Array([1]))
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/fromBytes.d.ts:79
+evmts-monorepo/node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/fromBytes.d.ts:79
 
 ___
 
@@ -2440,7 +2525,7 @@ const data = bytesToHex(Uint8Array.from([72, 101, 108, 108, 111, 32, 87, 111, 11
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/toHex.d.ts:91
+evmts-monorepo/node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/toHex.d.ts:91
 
 ___
 
@@ -2475,7 +2560,7 @@ const data = bytesToNumber(new Uint8Array([1, 164]))
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/fromBytes.d.ts:96
+evmts-monorepo/node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/fromBytes.d.ts:96
 
 ___
 
@@ -2553,6 +2638,27 @@ const contract = createContract({
 #### Defined in
 
 evmts-monorepo/packages/contract/types/createContract.d.ts:29
+
+___
+
+### createJsonRpcFetcher
+
+▸ **createJsonRpcFetcher**(`url`, `headers?`): `JsonRpcClient`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `url` | `string` |
+| `headers?` | [`HeadersInit`](index.md#headersinit) |
+
+#### Returns
+
+`JsonRpcClient`
+
+#### Defined in
+
+evmts-monorepo/packages/jsonrpc/types/fetchJsonRpc.d.ts:1
 
 ___
 
@@ -2715,7 +2821,7 @@ ___
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/decodeAbiParameters.d.ts:14
+evmts-monorepo/node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/decodeAbiParameters.d.ts:14
 
 ___
 
@@ -2727,7 +2833,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `TAbi` | extends [`Abi`](index.md#abi) \| readonly `unknown`[] |
+| `TAbi` | extends `Abi` \| readonly `unknown`[] |
 
 #### Parameters
 
@@ -2741,7 +2847,7 @@ ___
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/decodeErrorResult.d.ts:26
+evmts-monorepo/node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/decodeErrorResult.d.ts:26
 
 ___
 
@@ -2753,7 +2859,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `abi` | extends [`Abi`](index.md#abi) \| readonly `unknown`[] |
+| `abi` | extends `Abi` \| readonly `unknown`[] |
 | `eventName` | extends `undefined` \| `string` = `undefined` |
 | `topics` | extends \`0x$\{string}\`[] = \`0x$\{string}\`[] |
 | `data` | extends `undefined` \| \`0x$\{string}\` = `undefined` |
@@ -2771,7 +2877,7 @@ ___
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/decodeEventLog.d.ts:32
+evmts-monorepo/node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/decodeEventLog.d.ts:32
 
 ___
 
@@ -2783,7 +2889,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `abi` | extends [`Abi`](index.md#abi) \| readonly `unknown`[] |
+| `abi` | extends `Abi` \| readonly `unknown`[] |
 
 #### Parameters
 
@@ -2797,7 +2903,7 @@ ___
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/decodeFunctionData.d.ts:25
+evmts-monorepo/node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/decodeFunctionData.d.ts:25
 
 ___
 
@@ -2809,7 +2915,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `abi` | extends [`Abi`](index.md#abi) \| readonly `unknown`[] |
+| `abi` | extends `Abi` \| readonly `unknown`[] |
 | `functionName` | extends `undefined` \| `string` = `undefined` |
 | `args` | extends `unknown` = `ContractFunctionArgs`\<`abi`, `AbiStateMutability`, `functionName` extends [`ContractFunctionName`](index.md#contractfunctionname)\<`abi`\> ? `functionName` : [`ContractFunctionName`](index.md#contractfunctionname)\<`abi`\>\> |
 
@@ -2817,7 +2923,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `parameters` | `DecodeFunctionResultParameters`\<`abi`, `functionName`, `args`, `abi` extends [`Abi`](index.md#abi) ? [`Abi`](index.md#abi) extends `abi` ? ``true`` : [`Extract`\<`abi`[`number`], \{ `stateMutability`: `AbiStateMutability` ; `type`: ``"function"``  }\>] extends [`never`] ? ``false`` : ``true`` : ``true``, `ContractFunctionArgs`\<`abi`, `AbiStateMutability`, `functionName` extends [`ContractFunctionName`](index.md#contractfunctionname)\<`abi`, `AbiStateMutability`\> ? `functionName` : [`ContractFunctionName`](index.md#contractfunctionname)\<`abi`, `AbiStateMutability`\>\>, [`ContractFunctionName`](index.md#contractfunctionname)\<`abi`, `AbiStateMutability`\>\> |
+| `parameters` | `DecodeFunctionResultParameters`\<`abi`, `functionName`, `args`, `abi` extends `Abi` ? `Abi` extends `abi` ? ``true`` : [`Extract`\<`abi`[`number`], \{ `stateMutability`: `AbiStateMutability` ; `type`: ``"function"``  }\>] extends [`never`] ? ``false`` : ``true`` : ``true``, `ContractFunctionArgs`\<`abi`, `AbiStateMutability`, `functionName` extends [`ContractFunctionName`](index.md#contractfunctionname)\<`abi`, `AbiStateMutability`\> ? `functionName` : [`ContractFunctionName`](index.md#contractfunctionname)\<`abi`, `AbiStateMutability`\>\>, [`ContractFunctionName`](index.md#contractfunctionname)\<`abi`, `AbiStateMutability`\>\> |
 
 #### Returns
 
@@ -2825,7 +2931,7 @@ ___
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/decodeFunctionResult.d.ts:25
+evmts-monorepo/node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/decodeFunctionResult.d.ts:25
 
 ___
 
@@ -2866,7 +2972,7 @@ ___
 
 #### Defined in
 
-evmts-monorepo/packages/precompiles/dist/index.d.ts:113
+evmts-monorepo/packages/precompiles/dist/index.d.ts:112
 
 ___
 
@@ -2893,7 +2999,7 @@ ___
 
 #### Defined in
 
-evmts-monorepo/packages/precompiles/dist/index.d.ts:97
+evmts-monorepo/packages/precompiles/dist/index.d.ts:96
 
 ___
 
@@ -2960,10 +3066,10 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `params` | `TParams` |
-| `values` | `TParams` extends readonly `AbiParameter`[] ? \{ [K in string \| number \| symbol]: \{ [K in string \| number \| symbol]: AbiParameterToPrimitiveType\<TParams[K], AbiParameterKind\> }[K] } : `never` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `params` | `TParams` | a set of ABI Parameters (params), that can be in the shape of the inputs or outputs attribute of an ABI Item. |
+| `values` | `TParams` extends readonly `AbiParameter`[] ? \{ [K in string \| number \| symbol]: \{ [K in string \| number \| symbol]: AbiParameterToPrimitiveType\<TParams[K], AbiParameterKind\> }[K] } : `never` | a set of values (values) that correspond to the given params. |
 
 #### Returns
 
@@ -2973,9 +3079,41 @@ ___
 
 Encodes a list of primitive values into an ABI-encoded hex value.
 
+- Docs: https://viem.sh/docs/abi/encodeAbiParameters#encodeabiparameters
+
+  Generates ABI encoded data using the [ABI specification](https://docs.soliditylang.org/en/latest/abi-spec), given a set of ABI parameters (inputs/outputs) and their corresponding values.
+
+**`Example`**
+
+```typescript
+import { encodeAbiParameters } from 'viem'
+
+const encodedData = encodeAbiParameters(
+  [
+    { name: 'x', type: 'string' },
+    { name: 'y', type: 'uint' },
+    { name: 'z', type: 'bool' }
+  ],
+  ['wagmi', 420n, true]
+)
+```
+
+You can also pass in Human Readable parameters with the parseAbiParameters utility.
+
+**`Example`**
+
+```typescript
+import { encodeAbiParameters, parseAbiParameters } from 'viem'
+
+const encodedData = encodeAbiParameters(
+  parseAbiParameters('string x, uint y, bool z'),
+  ['wagmi', 420n, true]
+)
+```
+
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/encodeAbiParameters.d.ts:17
+evmts-monorepo/node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/encodeAbiParameters.d.ts:49
 
 ___
 
@@ -2987,13 +3125,13 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `abi` | extends [`Abi`](index.md#abi) \| readonly `unknown`[] |
+| `abi` | extends `Abi` \| readonly `unknown`[] |
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `parameters` | `EncodeDeployDataParameters`\<`abi`, `abi` extends [`Abi`](index.md#abi) ? [`Abi`](index.md#abi) extends `abi` ? ``true`` : [`Extract`\<`abi`[`number`], \{ `type`: ``"constructor"``  }\>] extends [`never`] ? ``false`` : ``true`` : ``true``, `ContractConstructorArgs`\<`abi`\>\> |
+| `parameters` | `EncodeDeployDataParameters`\<`abi`, `abi` extends `Abi` ? `Abi` extends `abi` ? ``true`` : [`Extract`\<`abi`[`number`], \{ `type`: ``"constructor"``  }\>] extends [`never`] ? ``false`` : ``true`` : ``true``, `ContractConstructorArgs`\<`abi`\>\> |
 
 #### Returns
 
@@ -3001,7 +3139,7 @@ ___
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/encodeDeployData.d.ts:21
+evmts-monorepo/node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/encodeDeployData.d.ts:21
 
 ___
 
@@ -3013,14 +3151,14 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `abi` | extends [`Abi`](index.md#abi) \| readonly `unknown`[] |
+| `abi` | extends `Abi` \| readonly `unknown`[] |
 | `errorName` | extends `undefined` \| `string` = `undefined` |
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `parameters` | `EncodeErrorResultParameters`\<`abi`, `errorName`, `abi` extends [`Abi`](index.md#abi) ? [`Abi`](index.md#abi) extends `abi` ? ``true`` : [`Extract`\<`abi`[`number`], \{ `type`: ``"error"``  }\>] extends [`never`] ? ``false`` : ``true`` : ``true``, `ContractErrorArgs`\<`abi`, `errorName` extends `ContractErrorName`\<`abi`\> ? `errorName` : `ContractErrorName`\<`abi`\>\>, `ContractErrorName`\<`abi`\>\> |
+| `parameters` | `EncodeErrorResultParameters`\<`abi`, `errorName`, `abi` extends `Abi` ? `Abi` extends `abi` ? ``true`` : [`Extract`\<`abi`[`number`], \{ `type`: ``"error"``  }\>] extends [`never`] ? ``false`` : ``true`` : ``true``, `ContractErrorArgs`\<`abi`, `errorName` extends `ContractErrorName`\<`abi`\> ? `errorName` : `ContractErrorName`\<`abi`\>\>, `ContractErrorName`\<`abi`\>\> |
 
 #### Returns
 
@@ -3028,7 +3166,7 @@ ___
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/encodeErrorResult.d.ts:23
+evmts-monorepo/node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/encodeErrorResult.d.ts:23
 
 ___
 
@@ -3040,14 +3178,14 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `abi` | extends [`Abi`](index.md#abi) \| readonly `unknown`[] |
+| `abi` | extends `Abi` \| readonly `unknown`[] |
 | `eventName` | extends `undefined` \| `string` = `undefined` |
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `parameters` | `EncodeEventTopicsParameters`\<`abi`, `eventName`, `abi` extends [`Abi`](index.md#abi) ? [`Abi`](index.md#abi) extends `abi` ? ``true`` : [`Extract`\<`abi`[`number`], \{ `type`: ``"event"``  }\>] extends [`never`] ? ``false`` : ``true`` : ``true``, `ContractEventArgs`\<`abi`, `eventName` extends `ContractEventName`\<`abi`\> ? `eventName` : `ContractEventName`\<`abi`\>\>, `ContractEventName`\<`abi`\>\> |
+| `parameters` | `EncodeEventTopicsParameters`\<`abi`, `eventName`, `abi` extends `Abi` ? `Abi` extends `abi` ? ``true`` : [`Extract`\<`abi`[`number`], \{ `type`: ``"event"``  }\>] extends [`never`] ? ``false`` : ``true`` : ``true``, `ContractEventArgs`\<`abi`, `eventName` extends `ContractEventName`\<`abi`\> ? `eventName` : `ContractEventName`\<`abi`\>\>, `ContractEventName`\<`abi`\>\> |
 
 #### Returns
 
@@ -3055,7 +3193,7 @@ ___
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/encodeEventTopics.d.ts:24
+evmts-monorepo/node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/encodeEventTopics.d.ts:24
 
 ___
 
@@ -3067,14 +3205,14 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `abi` | extends [`Abi`](index.md#abi) \| readonly `unknown`[] |
+| `abi` | extends `Abi` \| readonly `unknown`[] |
 | `functionName` | extends `undefined` \| `string` = `undefined` |
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `parameters` | [`EncodeFunctionDataParameters`](index.md#encodefunctiondataparameters)\<`abi`, `functionName`, `abi` extends [`Abi`](index.md#abi) ? [`Abi`](index.md#abi) extends `abi` ? ``true`` : [`Extract`\<`abi`[`number`], \{ `stateMutability`: `AbiStateMutability` ; `type`: ``"function"``  }\>] extends [`never`] ? ``false`` : ``true`` : ``true``, `ContractFunctionArgs`\<`abi`, `AbiStateMutability`, `functionName` extends [`ContractFunctionName`](index.md#contractfunctionname)\<`abi`, `AbiStateMutability`\> ? `functionName` : [`ContractFunctionName`](index.md#contractfunctionname)\<`abi`, `AbiStateMutability`\>\>, [`ContractFunctionName`](index.md#contractfunctionname)\<`abi`, `AbiStateMutability`\>\> |
+| `parameters` | [`EncodeFunctionDataParameters`](index.md#encodefunctiondataparameters)\<`abi`, `functionName`, `abi` extends `Abi` ? `Abi` extends `abi` ? ``true`` : [`Extract`\<`abi`[`number`], \{ `stateMutability`: `AbiStateMutability` ; `type`: ``"function"``  }\>] extends [`never`] ? ``false`` : ``true`` : ``true``, `ContractFunctionArgs`\<`abi`, `AbiStateMutability`, `functionName` extends [`ContractFunctionName`](index.md#contractfunctionname)\<`abi`, `AbiStateMutability`\> ? `functionName` : [`ContractFunctionName`](index.md#contractfunctionname)\<`abi`, `AbiStateMutability`\>\>, [`ContractFunctionName`](index.md#contractfunctionname)\<`abi`, `AbiStateMutability`\>\> |
 
 #### Returns
 
@@ -3082,7 +3220,7 @@ ___
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/encodeFunctionData.d.ts:27
+evmts-monorepo/node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/encodeFunctionData.d.ts:27
 
 ___
 
@@ -3094,14 +3232,14 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `abi` | extends [`Abi`](index.md#abi) \| readonly `unknown`[] |
+| `abi` | extends `Abi` \| readonly `unknown`[] |
 | `functionName` | extends `undefined` \| `string` = `undefined` |
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `parameters` | `EncodeFunctionResultParameters`\<`abi`, `functionName`, `abi` extends [`Abi`](index.md#abi) ? [`Abi`](index.md#abi) extends `abi` ? ``true`` : [`Extract`\<`abi`[`number`], \{ `stateMutability`: `AbiStateMutability` ; `type`: ``"function"``  }\>] extends [`never`] ? ``false`` : ``true`` : ``true``, [`ContractFunctionName`](index.md#contractfunctionname)\<`abi`, `AbiStateMutability`\>\> |
+| `parameters` | `EncodeFunctionResultParameters`\<`abi`, `functionName`, `abi` extends `Abi` ? `Abi` extends `abi` ? ``true`` : [`Extract`\<`abi`[`number`], \{ `stateMutability`: `AbiStateMutability` ; `type`: ``"function"``  }\>] extends [`never`] ? ``false`` : ``true`` : ``true``, [`ContractFunctionName`](index.md#contractfunctionname)\<`abi`, `AbiStateMutability`\>\> |
 
 #### Returns
 
@@ -3109,7 +3247,7 @@ ___
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/encodeFunctionResult.d.ts:21
+evmts-monorepo/node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/encodeFunctionResult.d.ts:21
 
 ___
 
@@ -3136,7 +3274,7 @@ ___
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/encodePacked.d.ts:17
+evmts-monorepo/node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/encodePacked.d.ts:17
 
 ___
 
@@ -3166,7 +3304,7 @@ Human-readable ABI
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/abitype@1.0.0_typescript@5.3.3_zod@3.22.4/node_modules/abitype/dist/types/human-readable/formatAbi.d.ts:18
+evmts-monorepo/node_modules/.pnpm/abitype@1.0.2_typescript@5.3.3_zod@3.22.4/node_modules/abitype/dist/types/human-readable/formatAbi.d.ts:18
 
 ___
 
@@ -3200,7 +3338,7 @@ formatEther(1000000000000000000n)
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/unit/formatEther.d.ts:14
+evmts-monorepo/node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/unit/formatEther.d.ts:14
 
 ___
 
@@ -3234,7 +3372,7 @@ formatGwei(1000000000n)
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/unit/formatGwei.d.ts:14
+evmts-monorepo/node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/unit/formatGwei.d.ts:14
 
 ___
 
@@ -3246,7 +3384,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `log` | `Partial`\<`RpcLog`\> |
+| `log` | `ExactPartial`\<`RpcLog`\> |
 | `«destructured»` | `Object` |
 | › `args?` | `unknown` |
 | › `eventName?` | `string` |
@@ -3257,7 +3395,7 @@ ___
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/formatters/log.d.ts:5
+evmts-monorepo/node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/formatters/log.d.ts:6
 
 ___
 
@@ -3310,7 +3448,7 @@ const data = fromBytes(
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/fromBytes.d.ts:37
+evmts-monorepo/node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/fromBytes.d.ts:37
 
 ___
 
@@ -3371,7 +3509,7 @@ const data = fromHex('0x48656c6c6f20576f726c642100000000000000000000000000000000
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/fromHex.d.ts:47
+evmts-monorepo/node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/fromHex.d.ts:47
 
 ___
 
@@ -3398,13 +3536,13 @@ ___
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/fromRlp.d.ts:12
+evmts-monorepo/node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/fromRlp.d.ts:12
 
 ___
 
 ### getAddress
 
-▸ **getAddress**(`address`, `chainId?`): [`Address`](index.md#address)
+▸ **getAddress**(`address`, `chainId?`): `Address`
 
 #### Parameters
 
@@ -3415,11 +3553,11 @@ ___
 
 #### Returns
 
-[`Address`](index.md#address)
+`Address`
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/address/getAddress.d.ts:9
+evmts-monorepo/node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/address/getAddress.d.ts:9
 
 ___
 
@@ -3462,7 +3600,7 @@ const data = hexToBigInt('0x0000000000000000000000000000000000000000000000000000
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/fromHex.d.ts:74
+evmts-monorepo/node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/fromHex.d.ts:74
 
 ___
 
@@ -3505,7 +3643,7 @@ const data = hexToBool('0x000000000000000000000000000000000000000000000000000000
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/fromHex.d.ts:99
+evmts-monorepo/node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/fromHex.d.ts:99
 
 ___
 
@@ -3548,7 +3686,7 @@ const data = hexToBytes('0x48656c6c6f20776f726c6421', { size: 32 })
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/toBytes.d.ts:87
+evmts-monorepo/node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/toBytes.d.ts:87
 
 ___
 
@@ -3591,7 +3729,7 @@ const data = hexToBigInt('0x0000000000000000000000000000000000000000000000000000
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/fromHex.d.ts:121
+evmts-monorepo/node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/fromHex.d.ts:121
 
 ___
 
@@ -3636,7 +3774,7 @@ const data = hexToString('0x48656c6c6f20576f726c64210000000000000000000000000000
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/fromHex.d.ts:148
+evmts-monorepo/node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/fromHex.d.ts:148
 
 ___
 
@@ -3657,7 +3795,7 @@ address is \`0x$\{string}\`
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/address/isAddress.d.ts:14
+evmts-monorepo/node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/address/isAddress.d.ts:14
 
 ___
 
@@ -3677,7 +3815,7 @@ value is Uint8Array
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/data/isBytes.d.ts:4
+evmts-monorepo/node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/data/isBytes.d.ts:4
 
 ___
 
@@ -3699,7 +3837,7 @@ value is \`0x$\{string}\`
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/data/isHex.d.ts:4
+evmts-monorepo/node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/data/isHex.d.ts:4
 
 ___
 
@@ -3726,7 +3864,7 @@ ___
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/hash/keccak256.d.ts:9
+evmts-monorepo/node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/hash/keccak256.d.ts:9
 
 ___
 
@@ -3753,7 +3891,7 @@ Creates an Account from a mnemonic phrase.
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/accounts/mnemonicToAccount.d.ts:10
+evmts-monorepo/node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/accounts/mnemonicToAccount.d.ts:10
 
 ___
 
@@ -3796,7 +3934,7 @@ const data = numberToHex(420, { size: 32 })
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/toHex.d.ts:122
+evmts-monorepo/node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/toHex.d.ts:122
 
 ___
 
@@ -3836,7 +3974,7 @@ const abi = parseAbi([
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/abitype@1.0.0_typescript@5.3.3_zod@3.22.4/node_modules/abitype/dist/types/human-readable/parseAbi.d.ts:37
+evmts-monorepo/node_modules/.pnpm/abitype@1.0.2_typescript@5.3.3_zod@3.22.4/node_modules/abitype/dist/types/human-readable/parseAbi.d.ts:37
 
 ___
 
@@ -3870,7 +4008,7 @@ parseEther('420')
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/unit/parseEther.d.ts:15
+evmts-monorepo/node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/unit/parseEther.d.ts:15
 
 ___
 
@@ -3904,7 +4042,7 @@ parseGwei('420')
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/unit/parseGwei.d.ts:15
+evmts-monorepo/node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/unit/parseGwei.d.ts:15
 
 ___
 
@@ -3947,7 +4085,7 @@ const data = stringToHex('Hello World!', { size: 32 })
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/toHex.d.ts:147
+evmts-monorepo/node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/toHex.d.ts:147
 
 ___
 
@@ -3999,7 +4137,7 @@ const data = toBytes(420, { size: 4 })
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/toBytes.d.ts:37
+evmts-monorepo/node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/toBytes.d.ts:37
 
 ___
 
@@ -4051,7 +4189,7 @@ const data = toHex('Hello world', { size: 32 })
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/toHex.d.ts:36
+evmts-monorepo/node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/toHex.d.ts:36
 
 ___
 
@@ -4078,4 +4216,4 @@ ___
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/toRlp.d.ts:10
+evmts-monorepo/node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/toRlp.d.ts:10

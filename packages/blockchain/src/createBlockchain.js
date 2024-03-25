@@ -1,21 +1,21 @@
-import { TevmBlock } from './TevmBlock.js'
 import { TevmBlockchain } from './TevmBlockchain.js'
-import { genesisStateRoot } from '@ethereumjs/trie'
+import { Block } from '@tevm/block'
+import { genesisStateRoot } from '@tevm/trie'
 import { createMemoryDb, parseGwei } from '@tevm/utils'
 
 /**
  * @param {object} options
- * @param {import('@ethereumjs/common').Common} options.common
+ * @param {import('@tevm/common').Common} options.common
  * @returns {Promise<TevmBlockchain>}
  */
 export const createBlockchain = async ({ common }) => {
 	const db = createMemoryDb()
 	/**
-	 * @type {import('@ethereumjs/util').GenesisState}
+	 * @type {import('@tevm/utils').GenesisState}
 	 */
 	const genesisState = {}
 
-	const genesisBlock = TevmBlock.fromBlockData(
+	const genesisBlock = Block.fromBlockData(
 		{
 			header: {
 				...common.genesis(),
@@ -25,7 +25,7 @@ export const createBlockchain = async ({ common }) => {
 			...(common.isActivatedEIP(4895)
 				? {
 						withdrawals:
-							/** @type {Array<import('@ethereumjs/util').WithdrawalData>}*/ ([]),
+							/** @type {Array<import('@tevm/utils').WithdrawalData>}*/ ([]),
 				  }
 				: {}),
 		},

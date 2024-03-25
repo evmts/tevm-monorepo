@@ -1,5 +1,5 @@
 // [mozilla public license 2.0](https://github.com/ethereumjs/ethereumjs-monorepo/blob/master/packages/statemanager/LICENSE)
-import { Trie } from '@ethereumjs/trie'
+import { Trie } from '@tevm/trie'
 import { keccak256 } from 'ethereum-cryptography/keccak.js'
 
 import { AccountCache, CacheType, StorageCache } from '@ethereumjs/statemanager'
@@ -7,9 +7,8 @@ import { AccountCache, CacheType, StorageCache } from '@ethereumjs/statemanager'
 import { Cache } from './Cache.js'
 import type { TevmState } from './TevmState.js'
 import type { TevmStateManagerInterface } from './TevmStateManagerInterface.js'
-import type { AccountFields, StorageDump } from '@ethereumjs/common'
-import type { StorageRange } from '@ethereumjs/common'
 import type { Proof } from '@ethereumjs/statemanager'
+import type { AccountFields, StorageDump, StorageRange } from '@tevm/common'
 import {
 	type Address,
 	type BlockTag,

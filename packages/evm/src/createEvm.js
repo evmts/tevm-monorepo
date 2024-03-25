@@ -2,7 +2,7 @@ import { Evm } from './Evm.js'
 
 /**
  * @param {import('./CreateEvmOptions.js').CreateEvmOptions} options
- * @returns {import('./Evm.js').Evm}
+ * @returns {Promise<import('./Evm.js').Evm>}
  */
 export const createEvm = ({
 	common,
@@ -12,7 +12,7 @@ export const createEvm = ({
 	profiler,
 	allowUnlimitedContractSize,
 }) => {
-	const evm = new Evm({
+	return Evm.create({
 		common,
 		stateManager,
 		blockchain,
@@ -25,5 +25,4 @@ export const createEvm = ({
 			enabled: profiler ?? false,
 		},
 	})
-	return evm
 }

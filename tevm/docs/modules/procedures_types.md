@@ -47,6 +47,8 @@
 - [AnvilSetCodeJsonRpcRequest](procedures_types.md#anvilsetcodejsonrpcrequest)
 - [AnvilSetCodeJsonRpcResponse](procedures_types.md#anvilsetcodejsonrpcresponse)
 - [AnvilSetCodeProcedure](procedures_types.md#anvilsetcodeprocedure)
+- [AnvilSetCoinbaseJsonRpcRequest](procedures_types.md#anvilsetcoinbasejsonrpcrequest)
+- [AnvilSetCoinbaseJsonRpcResponse](procedures_types.md#anvilsetcoinbasejsonrpcresponse)
 - [AnvilSetNonceJsonRpcRequest](procedures_types.md#anvilsetnoncejsonrpcrequest)
 - [AnvilSetNonceJsonRpcResponse](procedures_types.md#anvilsetnoncejsonrpcresponse)
 - [AnvilSetNonceProcedure](procedures_types.md#anvilsetnonceprocedure)
@@ -449,7 +451,7 @@ ___
 
 ### AnvilJsonRpcRequest
 
-Ƭ **AnvilJsonRpcRequest**: [`AnvilImpersonateAccountJsonRpcRequest`](procedures_types.md#anvilimpersonateaccountjsonrpcrequest) \| [`AnvilStopImpersonatingAccountJsonRpcRequest`](procedures_types.md#anvilstopimpersonatingaccountjsonrpcrequest) \| [`AnvilGetAutomineJsonRpcRequest`](procedures_types.md#anvilgetautominejsonrpcrequest) \| [`AnvilMineJsonRpcRequest`](procedures_types.md#anvilminejsonrpcrequest) \| [`AnvilResetJsonRpcRequest`](procedures_types.md#anvilresetjsonrpcrequest) \| [`AnvilDropTransactionJsonRpcRequest`](procedures_types.md#anvildroptransactionjsonrpcrequest) \| [`AnvilSetBalanceJsonRpcRequest`](procedures_types.md#anvilsetbalancejsonrpcrequest) \| [`AnvilSetCodeJsonRpcRequest`](procedures_types.md#anvilsetcodejsonrpcrequest) \| [`AnvilSetNonceJsonRpcRequest`](procedures_types.md#anvilsetnoncejsonrpcrequest) \| [`AnvilSetStorageAtJsonRpcRequest`](procedures_types.md#anvilsetstorageatjsonrpcrequest) \| [`AnvilSetChainIdJsonRpcRequest`](procedures_types.md#anvilsetchainidjsonrpcrequest) \| [`AnvilDumpStateJsonRpcRequest`](procedures_types.md#anvildumpstatejsonrpcrequest) \| [`AnvilLoadStateJsonRpcRequest`](procedures_types.md#anvilloadstatejsonrpcrequest) \| `AnvilSetCoinbaseJsonRpcRequest`
+Ƭ **AnvilJsonRpcRequest**: [`AnvilImpersonateAccountJsonRpcRequest`](procedures_types.md#anvilimpersonateaccountjsonrpcrequest) \| [`AnvilStopImpersonatingAccountJsonRpcRequest`](procedures_types.md#anvilstopimpersonatingaccountjsonrpcrequest) \| [`AnvilGetAutomineJsonRpcRequest`](procedures_types.md#anvilgetautominejsonrpcrequest) \| [`AnvilMineJsonRpcRequest`](procedures_types.md#anvilminejsonrpcrequest) \| [`AnvilResetJsonRpcRequest`](procedures_types.md#anvilresetjsonrpcrequest) \| [`AnvilDropTransactionJsonRpcRequest`](procedures_types.md#anvildroptransactionjsonrpcrequest) \| [`AnvilSetBalanceJsonRpcRequest`](procedures_types.md#anvilsetbalancejsonrpcrequest) \| [`AnvilSetCodeJsonRpcRequest`](procedures_types.md#anvilsetcodejsonrpcrequest) \| [`AnvilSetNonceJsonRpcRequest`](procedures_types.md#anvilsetnoncejsonrpcrequest) \| [`AnvilSetStorageAtJsonRpcRequest`](procedures_types.md#anvilsetstorageatjsonrpcrequest) \| [`AnvilSetChainIdJsonRpcRequest`](procedures_types.md#anvilsetchainidjsonrpcrequest) \| [`AnvilDumpStateJsonRpcRequest`](procedures_types.md#anvildumpstatejsonrpcrequest) \| [`AnvilLoadStateJsonRpcRequest`](procedures_types.md#anvilloadstatejsonrpcrequest) \| [`AnvilSetCoinbaseJsonRpcRequest`](procedures_types.md#anvilsetcoinbasejsonrpcrequest)
 
 #### Defined in
 
@@ -657,7 +659,7 @@ A mapping of `anvil_*` method names to their return type
 | `anvil_setBalance` | [`AnvilSetBalanceJsonRpcResponse`](procedures_types.md#anvilsetbalancejsonrpcresponse) |
 | `anvil_setChainId` | [`AnvilSetChainIdJsonRpcResponse`](procedures_types.md#anvilsetchainidjsonrpcresponse) |
 | `anvil_setCode` | [`AnvilSetCodeJsonRpcResponse`](procedures_types.md#anvilsetcodejsonrpcresponse) |
-| `anvil_setCoinbase` | `AnvilSetCoinbaseJsonRpcResponse` |
+| `anvil_setCoinbase` | [`AnvilSetCoinbaseJsonRpcResponse`](procedures_types.md#anvilsetcoinbasejsonrpcresponse) |
 | `anvil_setNonce` | [`AnvilSetNonceJsonRpcResponse`](procedures_types.md#anvilsetnoncejsonrpcresponse) |
 | `anvil_setStorageAt` | [`AnvilSetStorageAtJsonRpcResponse`](procedures_types.md#anvilsetstorageatjsonrpcresponse) |
 | `anvil_stopImpersonatingAccount` | [`AnvilStopImpersonatingAccountJsonRpcResponse`](procedures_types.md#anvilstopimpersonatingaccountjsonrpcresponse) |
@@ -815,6 +817,31 @@ JSON-RPC procedure for `anvil_setCode`
 #### Defined in
 
 evmts-monorepo/packages/procedures-types/dist/index.d.ts:743
+
+___
+
+### AnvilSetCoinbaseJsonRpcRequest
+
+Ƭ **AnvilSetCoinbaseJsonRpcRequest**: [`JsonRpcRequest`](index.md#jsonrpcrequest)\<``"anvil_setCoinbase"``, [[`Address`](index.md#address)]\>
+
+JSON-RPC request for `anvil_setCoinbase` method
+Not included atm because tevm_call supports it and i was getting methodNotFound errors trying it in anvil
+
+#### Defined in
+
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:45
+
+___
+
+### AnvilSetCoinbaseJsonRpcResponse
+
+Ƭ **AnvilSetCoinbaseJsonRpcResponse**: [`JsonRpcResponse`](index.md#jsonrpcresponse)\<``"anvil_setCoinbase"``, [`Address`](index.md#address), `AnvilError`\>
+
+JSON-RPC response for `anvil_setCoinbase` procedure
+
+#### Defined in
+
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:430
 
 ___
 

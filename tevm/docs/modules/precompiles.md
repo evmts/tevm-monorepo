@@ -62,19 +62,19 @@ A result of a precompile javascript call
 
 #### Defined in
 
-evmts-monorepo/packages/precompiles/dist/index.d.ts:27
+evmts-monorepo/packages/precompiles/dist/index.d.ts:26
 
 ___
 
 ### CustomPrecompile
 
-Ƭ **CustomPrecompile**: `Exclude`\<`Exclude`\<[`ConstructorArgument`](index.md#constructorargument)\<typeof `_ethereumjs_evm.EVM`\>, `undefined`\>[``"customPrecompiles"``], `undefined`\>[`number`]
+Ƭ **CustomPrecompile**: `Exclude`\<`Exclude`\<[`ConstructorArgument`](index.md#constructorargument)\<typeof `_tevm_evm.Evm`\>, `undefined`\>[``"customPrecompiles"``], `undefined`\>[`number`]
 
 Custom precompiles allow you to run arbitrary JavaScript code in the EVM
 
 #### Defined in
 
-evmts-monorepo/packages/precompiles/dist/index.d.ts:16
+evmts-monorepo/packages/precompiles/dist/index.d.ts:15
 
 ___
 
@@ -98,4 +98,4 @@ ___
 
 #### Defined in
 
-evmts-monorepo/packages/precompiles/dist/index.d.ts:18
+evmts-monorepo/packages/precompiles/dist/index.d.ts:17

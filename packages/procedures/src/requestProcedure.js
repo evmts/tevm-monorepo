@@ -16,12 +16,12 @@ import {
 	scriptProcedure,
 	setAccountProcedure,
 } from './index.js'
-import { BlockHeader } from '@ethereumjs/block'
 import {
 	ethSendTransactionHandler,
 	testAccounts,
 	traceCallHandler,
 } from '@tevm/actions'
+import { BlockHeader } from '@tevm/block'
 import { createJsonRpcFetcher } from '@tevm/jsonrpc'
 import { hexToBigInt, numberToHex } from '@tevm/utils'
 

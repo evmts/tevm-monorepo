@@ -12,7 +12,7 @@ import type { ConstructorArgument } from './ConstructorArgument.js'
  */
 export type CustomPrecompile = Exclude<
 	Exclude<
-		ConstructorArgument<typeof import('@ethereumjs/evm').EVM>,
+		ConstructorArgument<typeof import('@tevm/evm').Evm>,
 		undefined
 	>['customPrecompiles'],
 	undefined

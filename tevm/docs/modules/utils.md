@@ -85,6 +85,10 @@
 - [EthjsAccount](../classes/utils.EthjsAccount.md)
 - [EthjsAddress](../classes/utils.EthjsAddress.md)
 
+### Interfaces
+
+- [GenesisState](../interfaces/utils.GenesisState.md)
+
 ### Type Aliases
 
 - [BigIntToHex](utils.md#biginttohex)
@@ -94,6 +98,11 @@
 - [JsonSerializableSet](utils.md#jsonserializableset)
 - [SerializeToJson](utils.md#serializetojson)
 - [SetToHex](utils.md#settohex)
+- [WithdrawalData](utils.md#withdrawaldata)
+
+### Functions
+
+- [equalsBytes](utils.md#equalsbytes)
 
 ## References
 
@@ -645,3 +654,46 @@ A helper type that converts a set to a hex string.
 #### Defined in
 
 evmts-monorepo/packages/utils/types/SerializeToJson.d.ts:27
+
+___
+
+### WithdrawalData
+
+Ƭ **WithdrawalData**: `Object`
+
+Flexible input data type for EIP-4895 withdrawal data with amount in Gwei to
+match CL representation and for eventual ssz withdrawalsRoot
+
+#### Type declaration
+
+| Name | Type |
+| :------ | :------ |
+| `address` | `AddressLike` |
+| `amount` | `BigIntLike` |
+| `index` | `BigIntLike` |
+| `validatorIndex` | `BigIntLike` |
+
+#### Defined in
+
+evmts-monorepo/node_modules/.pnpm/@ethereumjs+util@9.0.3/node_modules/@ethereumjs/util/dist/esm/withdrawal.d.ts:7
+
+## Functions
+
+### equalsBytes
+
+▸ **equalsBytes**(`a`, `b`): `boolean`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `a` | `Uint8Array` |
+| `b` | `Uint8Array` |
+
+#### Returns
+
+`boolean`
+
+#### Defined in
+
+evmts-monorepo/node_modules/.pnpm/ethereum-cryptography@2.1.3/node_modules/ethereum-cryptography/utils.d.ts:7

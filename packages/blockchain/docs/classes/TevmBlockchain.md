@@ -19,7 +19,6 @@ This class stores and interacts with blocks.
 
 ### Properties
 
-- [\_isInitialized](TevmBlockchain.md#_isinitialized)
 - [common](TevmBlockchain.md#common)
 - [consensus](TevmBlockchain.md#consensus)
 - [db](TevmBlockchain.md#db)
@@ -89,23 +88,9 @@ Blockchain.constructor
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+blockchain@7.1.0/node_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:71
+node_modules/.pnpm/@ethereumjs+blockchain@7.2.0/node_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:70
 
 ## Properties
-
-### \_isInitialized
-
-• `Protected` **\_isInitialized**: `boolean`
-
-#### Inherited from
-
-Blockchain.\_isInitialized
-
-#### Defined in
-
-node_modules/.pnpm/@ethereumjs+blockchain@7.1.0/node_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:34
-
-___
 
 ### common
 
@@ -117,7 +102,7 @@ Blockchain.common
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+blockchain@7.1.0/node_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:36
+node_modules/.pnpm/@ethereumjs+blockchain@7.2.0/node_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:35
 
 ___
 
@@ -131,7 +116,7 @@ Blockchain.consensus
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+blockchain@7.1.0/node_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:12
+node_modules/.pnpm/@ethereumjs+blockchain@7.2.0/node_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:12
 
 ___
 
@@ -145,7 +130,7 @@ Blockchain.db
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+blockchain@7.1.0/node_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:13
+node_modules/.pnpm/@ethereumjs+blockchain@7.2.0/node_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:13
 
 ___
 
@@ -159,7 +144,7 @@ Blockchain.dbManager
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+blockchain@7.1.0/node_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:14
+node_modules/.pnpm/@ethereumjs+blockchain@7.2.0/node_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:14
 
 ___
 
@@ -173,7 +158,7 @@ Blockchain.events
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+blockchain@7.1.0/node_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:15
+node_modules/.pnpm/@ethereumjs+blockchain@7.2.0/node_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:15
 
 ## Accessors
 
@@ -193,7 +178,7 @@ Blockchain.genesisBlock
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+blockchain@7.1.0/node_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:373
+node_modules/.pnpm/@ethereumjs+blockchain@7.2.0/node_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:362
 
 ## Methods
 
@@ -219,7 +204,7 @@ Blockchain.checkAndTransitionHardForkByNumber
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+blockchain@7.1.0/node_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:358
+node_modules/.pnpm/@ethereumjs+blockchain@7.2.0/node_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:347
 
 ___
 
@@ -245,7 +230,7 @@ Blockchain.createGenesisBlock
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+blockchain@7.1.0/node_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:378
+node_modules/.pnpm/@ethereumjs+blockchain@7.2.0/node_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:367
 
 ___
 
@@ -278,7 +263,7 @@ Blockchain.delBlock
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+blockchain@7.1.0/node_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:264
+node_modules/.pnpm/@ethereumjs+blockchain@7.2.0/node_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:253
 
 ___
 
@@ -305,7 +290,7 @@ Blockchain.getBlock
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+blockchain@7.1.0/node_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:227
+node_modules/.pnpm/@ethereumjs+blockchain@7.2.0/node_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:216
 
 ___
 
@@ -335,7 +320,7 @@ Blockchain.getBlocks
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+blockchain@7.1.0/node_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:245
+node_modules/.pnpm/@ethereumjs+blockchain@7.2.0/node_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:234
 
 ___
 
@@ -355,7 +340,7 @@ Blockchain.getCanonicalHeadBlock
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+blockchain@7.1.0/node_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:127
+node_modules/.pnpm/@ethereumjs+blockchain@7.2.0/node_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:116
 
 ___
 
@@ -375,7 +360,7 @@ Blockchain.getCanonicalHeadHeader
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+blockchain@7.1.0/node_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:123
+node_modules/.pnpm/@ethereumjs+blockchain@7.2.0/node_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:112
 
 ___
 
@@ -401,7 +386,7 @@ Blockchain.getCanonicalHeader
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+blockchain@7.1.0/node_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:362
+node_modules/.pnpm/@ethereumjs+blockchain@7.2.0/node_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:351
 
 ___
 
@@ -432,7 +417,7 @@ Blockchain.getIteratorHead
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+blockchain@7.1.0/node_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:112
+node_modules/.pnpm/@ethereumjs+blockchain@7.2.0/node_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:101
 
 ___
 
@@ -458,7 +443,7 @@ Blockchain.getIteratorHeadSafe
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+blockchain@7.1.0/node_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:118
+node_modules/.pnpm/@ethereumjs+blockchain@7.2.0/node_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:107
 
 ___
 
@@ -484,7 +469,7 @@ Blockchain.getParentTD
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+blockchain@7.1.0/node_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:236
+node_modules/.pnpm/@ethereumjs+blockchain@7.2.0/node_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:225
 
 ___
 
@@ -511,7 +496,7 @@ Blockchain.getTotalDifficulty
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+blockchain@7.1.0/node_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:231
+node_modules/.pnpm/@ethereumjs+blockchain@7.2.0/node_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:220
 
 ___
 
@@ -544,7 +529,7 @@ Blockchain.iterator
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+blockchain@7.1.0/node_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:296
+node_modules/.pnpm/@ethereumjs+blockchain@7.2.0/node_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:285
 
 ___
 
@@ -574,7 +559,7 @@ Blockchain.putBlock
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+blockchain@7.1.0/node_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:146
+node_modules/.pnpm/@ethereumjs+blockchain@7.2.0/node_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:135
 
 ___
 
@@ -605,7 +590,7 @@ Blockchain.putBlocks
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+blockchain@7.1.0/node_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:137
+node_modules/.pnpm/@ethereumjs+blockchain@7.2.0/node_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:126
 
 ___
 
@@ -635,7 +620,7 @@ Blockchain.putHeader
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+blockchain@7.1.0/node_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:165
+node_modules/.pnpm/@ethereumjs+blockchain@7.2.0/node_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:154
 
 ___
 
@@ -666,7 +651,7 @@ Blockchain.putHeaders
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+blockchain@7.1.0/node_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:156
+node_modules/.pnpm/@ethereumjs+blockchain@7.2.0/node_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:145
 
 ___
 
@@ -695,7 +680,7 @@ Blockchain.resetCanonicalHead
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+blockchain@7.1.0/node_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:173
+node_modules/.pnpm/@ethereumjs+blockchain@7.2.0/node_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:162
 
 ___
 
@@ -723,7 +708,7 @@ Blockchain.safeNumberToHash
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+blockchain@7.1.0/node_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:369
+node_modules/.pnpm/@ethereumjs+blockchain@7.2.0/node_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:358
 
 ___
 
@@ -751,7 +736,7 @@ Blockchain.selectNeededHashes
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+blockchain@7.1.0/node_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:252
+node_modules/.pnpm/@ethereumjs+blockchain@7.2.0/node_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:241
 
 ___
 
@@ -779,7 +764,7 @@ Blockchain.setIteratorHead
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+blockchain@7.1.0/node_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:303
+node_modules/.pnpm/@ethereumjs+blockchain@7.2.0/node_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:292
 
 ___
 
@@ -807,7 +792,7 @@ Blockchain.shallowCopy
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+blockchain@7.1.0/node_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:83
+node_modules/.pnpm/@ethereumjs+blockchain@7.2.0/node_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:82
 
 ___
 
@@ -834,7 +819,7 @@ Blockchain.validateBlock
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+blockchain@7.1.0/node_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:209
+node_modules/.pnpm/@ethereumjs+blockchain@7.2.0/node_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:198
 
 ___
 
@@ -872,7 +857,7 @@ Blockchain.validateHeader
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+blockchain@7.1.0/node_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:203
+node_modules/.pnpm/@ethereumjs+blockchain@7.2.0/node_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:192
 
 ___
 
@@ -899,7 +884,7 @@ Blockchain.create
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+blockchain@7.1.0/node_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:52
+node_modules/.pnpm/@ethereumjs+blockchain@7.2.0/node_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:51
 
 ___
 
@@ -908,7 +893,7 @@ ___
 ▸ **fromBlocksData**(`blocksData`, `opts?`): `Promise`\<`Blockchain`\>
 
 Creates a blockchain from a list of block objects,
-objects must be readable by [Block.fromBlockData](TevmBlock.md#fromblockdata)
+objects must be readable by Block.fromBlockData
 
 #### Parameters
 
@@ -927,4 +912,4 @@ Blockchain.fromBlocksData
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+blockchain@7.1.0/node_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:60
+node_modules/.pnpm/@ethereumjs+blockchain@7.2.0/node_modules/@ethereumjs/blockchain/dist/esm/blockchain.d.ts:59

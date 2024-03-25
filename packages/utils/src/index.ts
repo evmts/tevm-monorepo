@@ -76,7 +76,13 @@ export {
 	parseGwei,
 	toRlp,
 } from './viem.js'
-export { EthjsAccount, EthjsAddress } from './ethereumjs.js'
+export {
+	EthjsAccount,
+	EthjsAddress,
+	equalsBytes,
+	bytesToUnprefixedHex,
+} from './ethereumjs.js'
+export { type GenesisState, type WithdrawalData } from '@ethereumjs/util'
 export type {
 	SetToHex,
 	BigIntToHex,

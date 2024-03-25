@@ -51,7 +51,7 @@ Type of predeploy contract for tevm
 
 #### Defined in
 
-evmts-monorepo/packages/predeploys/types/Predeploy.d.ts:9
+evmts-monorepo/packages/predeploys/types/Predeploy.d.ts:8
 
 ___
 
@@ -61,7 +61,7 @@ ___
 
 #### Defined in
 
-evmts-monorepo/packages/predeploys/types/Predeploy.d.ts:8
+evmts-monorepo/packages/predeploys/types/Predeploy.d.ts:7
 
 ___
 
@@ -79,7 +79,7 @@ ___
 
 #### Defined in
 
-evmts-monorepo/packages/predeploys/types/Predeploy.d.ts:10
+evmts-monorepo/packages/predeploys/types/Predeploy.d.ts:9
 
 ___
 
@@ -101,4 +101,4 @@ ___
 
 #### Defined in
 
-evmts-monorepo/packages/predeploys/types/Predeploy.d.ts:11
+evmts-monorepo/packages/predeploys/types/Predeploy.d.ts:10

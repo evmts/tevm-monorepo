@@ -1,5 +1,5 @@
 import { callHandler } from '../index.js'
-import { TransactionFactory } from '@ethereumjs/tx'
+import { TransactionFactory } from '@tevm/tx'
 import { bytesToHex } from '@tevm/utils'
 
 /**

@@ -64,8 +64,8 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@ethereumjs/tx": "^5.2.1",
     "@tevm/jsonrpc": "workspace:^",
+    "@tevm/tx": "workspace:1.0.0-next.42",
     "@tevm/utils": "workspace:^",
     "@tevm/vm": "workspace:^",
     "@tevm/zod": "workspace:^"

@@ -24,7 +24,7 @@ Defaults to 2000ms (2s)
 
 #### Defined in
 
-evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:20
+evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:19
 
 ___
 
@@ -52,7 +52,7 @@ Called when state manager commits state
 
 #### Defined in
 
-evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:24
+evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:23
 
 ___
 
@@ -64,4 +64,4 @@ Url to a JSON-RPC provider to proxy state from
 
 #### Defined in
 
-evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:14
+evmts-monorepo/packages/state/types/ProxyStateManager.d.ts:13

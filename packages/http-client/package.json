@@ -67,7 +67,6 @@
     "viem": "^2.7.16"
   },
   "devDependencies": {
-    "@ethereumjs/util": "^9.0.2",
     "@tevm/client-types": "workspace:^",
     "@tevm/memory-client": "workspace:^",
     "@tevm/server": "workspace:^",

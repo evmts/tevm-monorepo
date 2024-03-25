@@ -62,7 +62,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@ethereumjs/common": "^4.2.0"
+    "@ethereumjs/common": "^4.3.0"
   },
   "devDependencies": {
     "@tevm/tsconfig": "workspace:^",

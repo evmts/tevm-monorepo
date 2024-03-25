@@ -1,4 +1,4 @@
-import { BlobEIP4844Transaction, TransactionFactory } from '@ethereumjs/tx'
+import { BlobEIP4844Transaction, TransactionFactory } from '@tevm/tx'
 import { bytesToHex, hexToBytes } from '@tevm/utils'
 
 const txType = {
@@ -40,7 +40,9 @@ const getTx = (vm, txBuf) => {
 		case txType.LEGACY:
 		case txType.ACCESS_LIST:
 		case txType.EIP1559:
-			return TransactionFactory.fromSerializedData(txBuf, { common: vm.common })
+			return TransactionFactory.fromSerializedData(txBuf, {
+				common: vm.common,
+			})
 		case txType.BLOB: {
 			const tx = BlobEIP4844Transaction.fromSerializedBlobTxNetworkWrapper(
 				txBuf,
@@ -72,7 +74,7 @@ export const ethSendRawTransactionHandler = (client) => async (params) => {
 	const txPool = await client.getTxPool()
 	const txBuf = hexToBytes(params.data)
 	/**
-	 * @type {import('@ethereumjs/tx').BlobEIP4844Transaction | import('@ethereumjs/tx').LegacyTransaction | import('@ethereumjs/tx').AccessListEIP2930Transaction | import('@ethereumjs/tx').FeeMarketEIP1559Transaction}
+	 * @type {import('@tevm/tx').BlobEIP4844Transaction | import('@tevm/tx').LegacyTransaction | import('@tevm/tx').AccessListEIP2930Transaction | import('@tevm/tx').FeeMarketEIP1559Transaction}
 	 */
 	let tx
 	try {

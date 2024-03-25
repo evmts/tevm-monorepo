@@ -14,6 +14,5 @@ export {
   type ParameterizedAccountStorage,
   type TevmStateManager,
   type SerializableTevmState,
-  type TevmStateManagerOptions
-} from '@tevm/state'
-
+  type TevmStateManagerOptions,
+} from "@tevm/state";

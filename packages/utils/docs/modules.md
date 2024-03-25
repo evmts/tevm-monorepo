@@ -13,6 +13,10 @@
 - [EthjsAccount](classes/EthjsAccount.md)
 - [EthjsAddress](classes/EthjsAddress.md)
 
+### Interfaces
+
+- [GenesisState](interfaces/GenesisState.md)
+
 ### Type Aliases
 
 - [Abi](modules.md#abi)
@@ -49,6 +53,7 @@
 - [ParseAbi](modules.md#parseabi)
 - [SerializeToJson](modules.md#serializetojson)
 - [SetToHex](modules.md#settohex)
+- [WithdrawalData](modules.md#withdrawaldata)
 
 ### Functions
 
@@ -58,6 +63,7 @@
 - [bytesToBool](modules.md#bytestobool)
 - [bytesToHex](modules.md#bytestohex)
 - [bytesToNumber](modules.md#bytestonumber)
+- [bytesToUnprefixedHex](modules.md#bytestounprefixedhex)
 - [createMemoryDb](modules.md#creatememorydb)
 - [decodeAbiParameters](modules.md#decodeabiparameters)
 - [decodeErrorResult](modules.md#decodeerrorresult)
@@ -71,6 +77,7 @@
 - [encodeFunctionData](modules.md#encodefunctiondata)
 - [encodeFunctionResult](modules.md#encodefunctionresult)
 - [encodePacked](modules.md#encodepacked)
+- [equalsBytes](modules.md#equalsbytes)
 - [formatAbi](modules.md#formatabi-1)
 - [formatEther](modules.md#formatether)
 - [formatGwei](modules.md#formatgwei)
@@ -114,7 +121,7 @@ Contract [ABI Specification](https://docs.soliditylang.org/en/latest/abi-spec.ht
 
 #### Defined in
 
-node_modules/.pnpm/abitype@1.0.0_typescript@5.3.3_zod@3.22.4/node_modules/abitype/dist/types/abi.d.ts:118
+node_modules/.pnpm/abitype@1.0.2_typescript@5.3.3_zod@3.22.4/node_modules/abitype/dist/types/abi.d.ts:118
 
 ___
 
@@ -135,7 +142,7 @@ ABI ["constructor"](https://docs.soliditylang.org/en/latest/abi-spec.html#json) 
 
 #### Defined in
 
-node_modules/.pnpm/abitype@1.0.0_typescript@5.3.3_zod@3.22.4/node_modules/abitype/dist/types/abi.d.ts:74
+node_modules/.pnpm/abitype@1.0.2_typescript@5.3.3_zod@3.22.4/node_modules/abitype/dist/types/abi.d.ts:74
 
 ___
 
@@ -156,7 +163,7 @@ ABI ["event"](https://docs.soliditylang.org/en/latest/abi-spec.html#events) type
 
 #### Defined in
 
-node_modules/.pnpm/abitype@1.0.0_typescript@5.3.3_zod@3.22.4/node_modules/abitype/dist/types/abi.d.ts:101
+node_modules/.pnpm/abitype@1.0.2_typescript@5.3.3_zod@3.22.4/node_modules/abitype/dist/types/abi.d.ts:101
 
 ___
 
@@ -181,7 +188,7 @@ ABI ["function"](https://docs.soliditylang.org/en/latest/abi-spec.html#json) typ
 
 #### Defined in
 
-node_modules/.pnpm/abitype@1.0.0_typescript@5.3.3_zod@3.22.4/node_modules/abitype/dist/types/abi.d.ts:51
+node_modules/.pnpm/abitype@1.0.2_typescript@5.3.3_zod@3.22.4/node_modules/abitype/dist/types/abi.d.ts:51
 
 ___
 
@@ -193,7 +200,7 @@ ___
 
 #### Defined in
 
-node_modules/.pnpm/abitype@1.0.0_typescript@5.3.3_zod@3.22.4/node_modules/abitype/dist/types/abi.d.ts:114
+node_modules/.pnpm/abitype@1.0.2_typescript@5.3.3_zod@3.22.4/node_modules/abitype/dist/types/abi.d.ts:114
 
 ___
 
@@ -212,7 +219,7 @@ Converts array of AbiParameter to corresponding TypeScript primitive types.
 
 #### Defined in
 
-node_modules/.pnpm/abitype@1.0.0_typescript@5.3.3_zod@3.22.4/node_modules/abitype/dist/types/utils.d.ts:86
+node_modules/.pnpm/abitype@1.0.2_typescript@5.3.3_zod@3.22.4/node_modules/abitype/dist/types/utils.d.ts:86
 
 ___
 
@@ -224,11 +231,11 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `TAddress` | extends [`Address`](modules.md#address) = [`Address`](modules.md#address) |
+| `TAddress` | extends `Address` = `Address` |
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/accounts/types.d.ts:9
+node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/accounts/types.d.ts:9
 
 ___
 
@@ -238,7 +245,7 @@ ___
 
 #### Defined in
 
-node_modules/.pnpm/abitype@1.0.0_typescript@5.3.3_zod@3.22.4/node_modules/abitype/dist/types/abi.d.ts:3
+node_modules/.pnpm/abitype@1.0.2_typescript@5.3.3_zod@3.22.4/node_modules/abitype/dist/types/abi.d.ts:3
 
 ___
 
@@ -272,7 +279,7 @@ ___
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/types/block.d.ts:68
+node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/types/block.d.ts:68
 
 ___
 
@@ -282,37 +289,37 @@ ___
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/types/block.d.ts:69
+node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/types/block.d.ts:69
 
 ___
 
 ### ContractFunctionName
 
-Ƭ **ContractFunctionName**\<`abi`, `mutability`\>: [`ExtractAbiFunctionNames`](modules.md#extractabifunctionnames)\<`abi` extends [`Abi`](modules.md#abi) ? `abi` : [`Abi`](modules.md#abi), `mutability`\> extends infer functionName ? [`functionName`] extends [`never`] ? `string` : `functionName` : `string`
+Ƭ **ContractFunctionName**\<`abi`, `mutability`\>: `ExtractAbiFunctionNames`\<`abi` extends `Abi` ? `abi` : `Abi`, `mutability`\> extends infer functionName ? [`functionName`] extends [`never`] ? `string` : `functionName` : `string`
 
 #### Type parameters
 
 | Name | Type |
 | :------ | :------ |
-| `abi` | extends [`Abi`](modules.md#abi) \| readonly `unknown`[] = [`Abi`](modules.md#abi) |
+| `abi` | extends `Abi` \| readonly `unknown`[] = `Abi` |
 | `mutability` | extends `AbiStateMutability` = `AbiStateMutability` |
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/types/contract.d.ts:5
+node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/types/contract.d.ts:5
 
 ___
 
 ### CreateEventFilterParameters
 
-Ƭ **CreateEventFilterParameters**\<`TAbiEvent`, `TAbiEvents`, `TStrict`, `TFromBlock`, `TToBlock`, `_EventName`, `_Args`\>: \{ `address?`: [`Address`](modules.md#address) \| [`Address`](modules.md#address)[] ; `fromBlock?`: `TFromBlock` \| [`BlockNumber`](modules.md#blocknumber) \| [`BlockTag`](modules.md#blocktag) ; `toBlock?`: `TToBlock` \| [`BlockNumber`](modules.md#blocknumber) \| [`BlockTag`](modules.md#blocktag)  } & `MaybeExtractEventArgsFromAbi`\<`TAbiEvents`, `_EventName`\> extends infer TEventFilterArgs ? \{ `args`: `TEventFilterArgs` \| `_Args` extends `TEventFilterArgs` ? `_Args` : `never` ; `event`: `TAbiEvent` ; `events?`: `never` ; `strict?`: `TStrict`  } \| \{ `args?`: `never` ; `event?`: `TAbiEvent` ; `events?`: `never` ; `strict?`: `TStrict`  } \| \{ `args?`: `never` ; `event?`: `never` ; `events`: `TAbiEvents` ; `strict?`: `TStrict`  } \| \{ `args?`: `never` ; `event?`: `never` ; `events?`: `never` ; `strict?`: `never`  } : \{ `args?`: `never` ; `event?`: `never` ; `events?`: `never` ; `strict?`: `never`  }
+Ƭ **CreateEventFilterParameters**\<`TAbiEvent`, `TAbiEvents`, `TStrict`, `TFromBlock`, `TToBlock`, `_EventName`, `_Args`\>: \{ `address?`: `Address` \| `Address`[] ; `fromBlock?`: `TFromBlock` \| [`BlockNumber`](modules.md#blocknumber) \| [`BlockTag`](modules.md#blocktag) ; `toBlock?`: `TToBlock` \| [`BlockNumber`](modules.md#blocknumber) \| [`BlockTag`](modules.md#blocktag)  } & `MaybeExtractEventArgsFromAbi`\<`TAbiEvents`, `_EventName`\> extends infer TEventFilterArgs ? \{ `args`: `TEventFilterArgs` \| `_Args` extends `TEventFilterArgs` ? `_Args` : `never` ; `event`: `TAbiEvent` ; `events?`: `never` ; `strict?`: `TStrict`  } \| \{ `args?`: `never` ; `event?`: `TAbiEvent` ; `events?`: `never` ; `strict?`: `TStrict`  } \| \{ `args?`: `never` ; `event?`: `never` ; `events`: `TAbiEvents` \| `undefined` ; `strict?`: `TStrict`  } \| \{ `args?`: `never` ; `event?`: `never` ; `events?`: `never` ; `strict?`: `never`  } : \{ `args?`: `never` ; `event?`: `never` ; `events?`: `never` ; `strict?`: `never`  }
 
 #### Type parameters
 
 | Name | Type |
 | :------ | :------ |
-| `TAbiEvent` | extends [`AbiEvent`](modules.md#abievent) \| `undefined` = `undefined` |
-| `TAbiEvents` | extends readonly [`AbiEvent`](modules.md#abievent)[] \| readonly `unknown`[] \| `undefined` = `TAbiEvent` extends [`AbiEvent`](modules.md#abievent) ? [`TAbiEvent`] : `undefined` |
+| `TAbiEvent` | extends `AbiEvent` \| `undefined` = `undefined` |
+| `TAbiEvents` | extends readonly `AbiEvent`[] \| readonly `unknown`[] \| `undefined` = `TAbiEvent` extends `AbiEvent` ? [`TAbiEvent`] : `undefined` |
 | `TStrict` | extends `boolean` \| `undefined` = `undefined` |
 | `TFromBlock` | extends [`BlockNumber`](modules.md#blocknumber) \| [`BlockTag`](modules.md#blocktag) \| `undefined` = `undefined` |
 | `TToBlock` | extends [`BlockNumber`](modules.md#blocknumber) \| [`BlockTag`](modules.md#blocktag) \| `undefined` = `undefined` |
@@ -321,7 +328,7 @@ ___
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/actions/public/createEventFilter.d.ts:13
+node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/actions/public/createEventFilter.d.ts:13
 
 ___
 
@@ -364,33 +371,33 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `abi` | extends [`Abi`](modules.md#abi) \| readonly `unknown`[] = [`Abi`](modules.md#abi) |
+| `abi` | extends `Abi` \| readonly `unknown`[] = `Abi` |
 | `functionName` | extends [`ContractFunctionName`](modules.md#contractfunctionname)\<`abi`\> \| `undefined` = [`ContractFunctionName`](modules.md#contractfunctionname)\<`abi`\> |
 | `args` | extends `ContractFunctionArgs`\<`abi`, `AbiStateMutability`, `functionName` extends [`ContractFunctionName`](modules.md#contractfunctionname)\<`abi`\> ? `functionName` : [`ContractFunctionName`](modules.md#contractfunctionname)\<`abi`\>\> = `ContractFunctionArgs`\<`abi`, `AbiStateMutability`, `functionName` extends [`ContractFunctionName`](modules.md#contractfunctionname)\<`abi`\> ? `functionName` : [`ContractFunctionName`](modules.md#contractfunctionname)\<`abi`\>\> |
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/decodeFunctionResult.d.ts:23
+node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/decodeFunctionResult.d.ts:23
 
 ___
 
 ### EncodeFunctionDataParameters
 
-Ƭ **EncodeFunctionDataParameters**\<`abi`, `functionName`, `hasFunctions`, `allArgs`, `allFunctionNames`\>: \{ `abi`: `abi`  } & `UnionEvaluate`\<`IsNarrowable`\<`abi`, [`Abi`](modules.md#abi)\> extends ``true`` ? `abi`[``"length"``] extends ``1`` ? \{ `functionName?`: `functionName` \| `allFunctionNames`  } : \{ `functionName`: `functionName` \| `allFunctionNames`  } : \{ `functionName?`: `functionName` \| `allFunctionNames`  }\> & `UnionEvaluate`\<readonly [] extends `allArgs` ? \{ `args?`: `allArgs`  } : \{ `args`: `allArgs`  }\> & `hasFunctions` extends ``true`` ? `unknown` : `never`
+Ƭ **EncodeFunctionDataParameters**\<`abi`, `functionName`, `hasFunctions`, `allArgs`, `allFunctionNames`\>: \{ `abi`: `abi`  } & `UnionEvaluate`\<`IsNarrowable`\<`abi`, `Abi`\> extends ``true`` ? `abi`[``"length"``] extends ``1`` ? \{ `functionName?`: `functionName` \| `allFunctionNames` \| [`Hex`](modules.md#hex)  } : \{ `functionName`: `functionName` \| `allFunctionNames` \| [`Hex`](modules.md#hex)  } : \{ `functionName?`: `functionName` \| `allFunctionNames` \| [`Hex`](modules.md#hex)  }\> & `UnionEvaluate`\<readonly [] extends `allArgs` ? \{ `args?`: `allArgs`  } : \{ `args`: `allArgs`  }\> & `hasFunctions` extends ``true`` ? `unknown` : `never`
 
 #### Type parameters
 
 | Name | Type |
 | :------ | :------ |
-| `abi` | extends [`Abi`](modules.md#abi) \| readonly `unknown`[] = [`Abi`](modules.md#abi) |
-| `functionName` | extends [`ContractFunctionName`](modules.md#contractfunctionname)\<`abi`\> \| `undefined` = [`ContractFunctionName`](modules.md#contractfunctionname)\<`abi`\> |
-| `hasFunctions` | `abi` extends [`Abi`](modules.md#abi) ? [`Abi`](modules.md#abi) extends `abi` ? ``true`` : [`ExtractAbiFunctions`\<`abi`\>] extends [`never`] ? ``false`` : ``true`` : ``true`` |
+| `abi` | extends `Abi` \| readonly `unknown`[] = `Abi` |
+| `functionName` | extends [`ContractFunctionName`](modules.md#contractfunctionname)\<`abi`\> \| [`Hex`](modules.md#hex) \| `undefined` = [`ContractFunctionName`](modules.md#contractfunctionname)\<`abi`\> |
+| `hasFunctions` | `abi` extends `Abi` ? `Abi` extends `abi` ? ``true`` : [`ExtractAbiFunctions`\<`abi`\>] extends [`never`] ? ``false`` : ``true`` : ``true`` |
 | `allArgs` | `ContractFunctionArgs`\<`abi`, `AbiStateMutability`, `functionName` extends [`ContractFunctionName`](modules.md#contractfunctionname)\<`abi`\> ? `functionName` : [`ContractFunctionName`](modules.md#contractfunctionname)\<`abi`\>\> |
 | `allFunctionNames` | [`ContractFunctionName`](modules.md#contractfunctionname)\<`abi`\> |
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/encodeFunctionData.d.ts:12
+node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/encodeFunctionData.d.ts:12
 
 ___
 
@@ -409,7 +416,7 @@ Extracts [AbiEvent](modules.md#abievent) with name from [Abi](modules.md#abi).
 
 #### Defined in
 
-node_modules/.pnpm/abitype@1.0.0_typescript@5.3.3_zod@3.22.4/node_modules/abitype/dist/types/utils.d.ts:149
+node_modules/.pnpm/abitype@1.0.2_typescript@5.3.3_zod@3.22.4/node_modules/abitype/dist/types/utils.d.ts:149
 
 ___
 
@@ -427,7 +434,7 @@ Extracts all [AbiEvent](modules.md#abievent) names from [Abi](modules.md#abi).
 
 #### Defined in
 
-node_modules/.pnpm/abitype@1.0.0_typescript@5.3.3_zod@3.22.4/node_modules/abitype/dist/types/utils.d.ts:141
+node_modules/.pnpm/abitype@1.0.2_typescript@5.3.3_zod@3.22.4/node_modules/abitype/dist/types/utils.d.ts:141
 
 ___
 
@@ -445,7 +452,7 @@ Extracts all [AbiEvent](modules.md#abievent) types from [Abi](modules.md#abi).
 
 #### Defined in
 
-node_modules/.pnpm/abitype@1.0.0_typescript@5.3.3_zod@3.22.4/node_modules/abitype/dist/types/utils.d.ts:132
+node_modules/.pnpm/abitype@1.0.2_typescript@5.3.3_zod@3.22.4/node_modules/abitype/dist/types/utils.d.ts:132
 
 ___
 
@@ -465,7 +472,7 @@ Extracts [AbiFunction](modules.md#abifunction) with name from [Abi](modules.md#a
 
 #### Defined in
 
-node_modules/.pnpm/abitype@1.0.0_typescript@5.3.3_zod@3.22.4/node_modules/abitype/dist/types/utils.d.ts:123
+node_modules/.pnpm/abitype@1.0.2_typescript@5.3.3_zod@3.22.4/node_modules/abitype/dist/types/utils.d.ts:123
 
 ___
 
@@ -484,20 +491,20 @@ Extracts all [AbiFunction](modules.md#abifunction) names from [Abi](modules.md#a
 
 #### Defined in
 
-node_modules/.pnpm/abitype@1.0.0_typescript@5.3.3_zod@3.22.4/node_modules/abitype/dist/types/utils.d.ts:114
+node_modules/.pnpm/abitype@1.0.2_typescript@5.3.3_zod@3.22.4/node_modules/abitype/dist/types/utils.d.ts:114
 
 ___
 
 ### Filter
 
-Ƭ **Filter**\<`TFilterType`, `TAbi`, `TEventName`, `TArgs`, `TStrict`, `TFromBlock`, `TToBlock`\>: \{ `id`: [`Hex`](modules.md#hex) ; `request`: `EIP1193RequestFn`\<`FilterRpcSchema`\> ; `type`: `TFilterType`  } & `TFilterType` extends ``"event"`` ? \{ `fromBlock?`: `TFromBlock` ; `toBlock?`: `TToBlock`  } & `TAbi` extends [`Abi`](modules.md#abi) ? `undefined` extends `TEventName` ? \{ `abi`: `TAbi` ; `args?`: `never` ; `eventName?`: `never` ; `strict`: `TStrict`  } : `TArgs` extends `MaybeExtractEventArgsFromAbi`\<`TAbi`, `TEventName`\> ? \{ `abi`: `TAbi` ; `args`: `TArgs` ; `eventName`: `TEventName` ; `strict`: `TStrict`  } : \{ `abi`: `TAbi` ; `args?`: `never` ; `eventName`: `TEventName` ; `strict`: `TStrict`  } : \{ `abi?`: `never` ; `args?`: `never` ; `eventName?`: `never` ; `strict?`: `never`  } : {}
+Ƭ **Filter**\<`TFilterType`, `TAbi`, `TEventName`, `TArgs`, `TStrict`, `TFromBlock`, `TToBlock`\>: \{ `id`: [`Hex`](modules.md#hex) ; `request`: `EIP1193RequestFn`\<`FilterRpcSchema`\> ; `type`: `TFilterType`  } & `TFilterType` extends ``"event"`` ? \{ `fromBlock?`: `TFromBlock` ; `toBlock?`: `TToBlock`  } & `TAbi` extends `Abi` ? `undefined` extends `TEventName` ? \{ `abi`: `TAbi` ; `args?`: `never` ; `eventName?`: `never` ; `strict`: `TStrict`  } : `TArgs` extends `MaybeExtractEventArgsFromAbi`\<`TAbi`, `TEventName`\> ? \{ `abi`: `TAbi` ; `args`: `TArgs` ; `eventName`: `TEventName` ; `strict`: `TStrict`  } : \{ `abi`: `TAbi` ; `args?`: `never` ; `eventName`: `TEventName` ; `strict`: `TStrict`  } : \{ `abi?`: `never` ; `args?`: `never` ; `eventName?`: `never` ; `strict?`: `never`  } : {}
 
 #### Type parameters
 
 | Name | Type |
 | :------ | :------ |
 | `TFilterType` | extends `FilterType` = ``"event"`` |
-| `TAbi` | extends [`Abi`](modules.md#abi) \| readonly `unknown`[] \| `undefined` = `undefined` |
+| `TAbi` | extends `Abi` \| readonly `unknown`[] \| `undefined` = `undefined` |
 | `TEventName` | extends `string` \| `undefined` = `undefined` |
 | `TArgs` | extends `MaybeExtractEventArgsFromAbi`\<`TAbi`, `TEventName`\> \| `undefined` = `MaybeExtractEventArgsFromAbi`\<`TAbi`, `TEventName`\> |
 | `TStrict` | extends `boolean` \| `undefined` = `undefined` |
@@ -506,7 +513,7 @@ ___
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/types/filter.d.ts:11
+node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/types/filter.d.ts:11
 
 ___
 
@@ -524,7 +531,7 @@ Parses JSON ABI into human-readable ABI
 
 #### Defined in
 
-node_modules/.pnpm/abitype@1.0.0_typescript@5.3.3_zod@3.22.4/node_modules/abitype/dist/types/human-readable/formatAbi.d.ts:9
+node_modules/.pnpm/abitype@1.0.2_typescript@5.3.3_zod@3.22.4/node_modules/abitype/dist/types/human-readable/formatAbi.d.ts:9
 
 ___
 
@@ -536,16 +543,16 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `TAbi` | extends [`Abi`](modules.md#abi) \| readonly `unknown`[] |
+| `TAbi` | extends `Abi` \| readonly `unknown`[] |
 | `TEventName` | extends `string` |
 | `TConfig` | extends `EventParameterOptions` = `DefaultEventParameterOptions` |
-| `TAbiEvent` | extends [`AbiEvent`](modules.md#abievent) & \{ `type`: ``"event"``  } = `TAbi` extends [`Abi`](modules.md#abi) ? [`ExtractAbiEvent`](modules.md#extractabievent)\<`TAbi`, `TEventName`\> : [`AbiEvent`](modules.md#abievent) & \{ `type`: ``"event"``  } |
+| `TAbiEvent` | extends `AbiEvent` & \{ `type`: ``"event"``  } = `TAbi` extends `Abi` ? `ExtractAbiEvent`\<`TAbi`, `TEventName`\> : `AbiEvent` & \{ `type`: ``"event"``  } |
 | `TArgs` | `AbiEventParametersToPrimitiveTypes`\<`TAbiEvent`[``"inputs"``], `TConfig`\> |
 | `FailedToParseArgs` | [`TArgs`] extends [`never`] ? ``true`` : ``false`` \| readonly `unknown`[] extends `TArgs` ? ``true`` : ``false`` |
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/types/contract.d.ts:68
+node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/types/contract.d.ts:68
 
 ___
 
@@ -555,7 +562,7 @@ ___
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/accounts/types.d.ts:31
+node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/accounts/types.d.ts:31
 
 ___
 
@@ -565,7 +572,7 @@ ___
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/types/misc.d.ts:2
+node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/types/misc.d.ts:3
 
 ___
 
@@ -670,7 +677,7 @@ type Result = ParseAbi<
 
 #### Defined in
 
-node_modules/.pnpm/abitype@1.0.0_typescript@5.3.3_zod@3.22.4/node_modules/abitype/dist/types/human-readable/parseAbi.d.ts:21
+node_modules/.pnpm/abitype@1.0.2_typescript@5.3.3_zod@3.22.4/node_modules/abitype/dist/types/human-readable/parseAbi.d.ts:21
 
 ___
 
@@ -708,6 +715,28 @@ A helper type that converts a set to a hex string.
 #### Defined in
 
 [packages/utils/src/SerializeToJson.ts:42](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/SerializeToJson.ts#L42)
+
+___
+
+### WithdrawalData
+
+Ƭ **WithdrawalData**: `Object`
+
+Flexible input data type for EIP-4895 withdrawal data with amount in Gwei to
+match CL representation and for eventual ssz withdrawalsRoot
+
+#### Type declaration
+
+| Name | Type |
+| :------ | :------ |
+| `address` | `AddressLike` |
+| `amount` | `BigIntLike` |
+| `index` | `BigIntLike` |
+| `validatorIndex` | `BigIntLike` |
+
+#### Defined in
+
+node_modules/.pnpm/@ethereumjs+util@9.0.3/node_modules/@ethereumjs/util/dist/esm/withdrawal.d.ts:7
 
 ## Functions
 
@@ -750,7 +779,7 @@ const data = boolToBytes(true, { size: 32 })
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/toBytes.d.ts:62
+node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/toBytes.d.ts:62
 
 ___
 
@@ -801,7 +830,7 @@ const data = boolToHex(true, { size: 32 })
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/toHex.d.ts:66
+node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/toHex.d.ts:66
 
 ___
 
@@ -836,7 +865,7 @@ const data = bytesToBigInt(new Uint8Array([1, 164]))
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/fromBytes.d.ts:59
+node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/fromBytes.d.ts:59
 
 ___
 
@@ -871,7 +900,7 @@ const data = bytesToBool(new Uint8Array([1]))
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/fromBytes.d.ts:79
+node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/fromBytes.d.ts:79
 
 ___
 
@@ -914,7 +943,7 @@ const data = bytesToHex(Uint8Array.from([72, 101, 108, 108, 111, 32, 87, 111, 11
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/toHex.d.ts:91
+node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/toHex.d.ts:91
 
 ___
 
@@ -949,7 +978,29 @@ const data = bytesToNumber(new Uint8Array([1, 164]))
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/fromBytes.d.ts:96
+node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/fromBytes.d.ts:96
+
+___
+
+### bytesToUnprefixedHex
+
+▸ **bytesToUnprefixedHex**(`bytes`): `string`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `bytes` | `Uint8Array` |
+
+#### Returns
+
+`string`
+
+**`Deprecated`**
+
+#### Defined in
+
+node_modules/.pnpm/@ethereumjs+util@9.0.3/node_modules/@ethereumjs/util/dist/esm/bytes.d.ts:6
 
 ___
 
@@ -999,7 +1050,7 @@ ___
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/decodeAbiParameters.d.ts:14
+node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/decodeAbiParameters.d.ts:14
 
 ___
 
@@ -1011,7 +1062,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `TAbi` | extends [`Abi`](modules.md#abi) \| readonly `unknown`[] |
+| `TAbi` | extends readonly `unknown`[] \| `Abi` |
 
 #### Parameters
 
@@ -1025,7 +1076,7 @@ ___
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/decodeErrorResult.d.ts:26
+node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/decodeErrorResult.d.ts:26
 
 ___
 
@@ -1037,7 +1088,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `abi` | extends [`Abi`](modules.md#abi) \| readonly `unknown`[] |
+| `abi` | extends readonly `unknown`[] \| `Abi` |
 | `eventName` | extends `undefined` \| `string` = `undefined` |
 | `topics` | extends \`0x$\{string}\`[] = \`0x$\{string}\`[] |
 | `data` | extends `undefined` \| \`0x$\{string}\` = `undefined` |
@@ -1055,7 +1106,7 @@ ___
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/decodeEventLog.d.ts:32
+node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/decodeEventLog.d.ts:32
 
 ___
 
@@ -1067,7 +1118,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `abi` | extends [`Abi`](modules.md#abi) \| readonly `unknown`[] |
+| `abi` | extends readonly `unknown`[] \| `Abi` |
 
 #### Parameters
 
@@ -1081,7 +1132,7 @@ ___
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/decodeFunctionData.d.ts:25
+node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/decodeFunctionData.d.ts:25
 
 ___
 
@@ -1093,7 +1144,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `abi` | extends [`Abi`](modules.md#abi) \| readonly `unknown`[] |
+| `abi` | extends readonly `unknown`[] \| `Abi` |
 | `functionName` | extends `undefined` \| `string` = `undefined` |
 | `args` | extends `unknown` = `ContractFunctionArgs`\<`abi`, `AbiStateMutability`, `functionName` extends [`ContractFunctionName`](modules.md#contractfunctionname)\<`abi`\> ? `functionName` : [`ContractFunctionName`](modules.md#contractfunctionname)\<`abi`\>\> |
 
@@ -1101,7 +1152,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `parameters` | `DecodeFunctionResultParameters`\<`abi`, `functionName`, `args`, `abi` extends [`Abi`](modules.md#abi) ? [`Abi`](modules.md#abi) extends `abi` ? ``true`` : [`Extract`\<`abi`[`number`], \{ `stateMutability`: `AbiStateMutability` ; `type`: ``"function"``  }\>] extends [`never`] ? ``false`` : ``true`` : ``true``, `ContractFunctionArgs`\<`abi`, `AbiStateMutability`, `functionName` extends [`ContractFunctionName`](modules.md#contractfunctionname)\<`abi`, `AbiStateMutability`\> ? `functionName` : [`ContractFunctionName`](modules.md#contractfunctionname)\<`abi`, `AbiStateMutability`\>\>, [`ContractFunctionName`](modules.md#contractfunctionname)\<`abi`, `AbiStateMutability`\>\> |
+| `parameters` | `DecodeFunctionResultParameters`\<`abi`, `functionName`, `args`, `abi` extends `Abi` ? `Abi` extends `abi` ? ``true`` : [`Extract`\<`abi`[`number`], \{ `stateMutability`: `AbiStateMutability` ; `type`: ``"function"``  }\>] extends [`never`] ? ``false`` : ``true`` : ``true``, `ContractFunctionArgs`\<`abi`, `AbiStateMutability`, `functionName` extends [`ContractFunctionName`](modules.md#contractfunctionname)\<`abi`, `AbiStateMutability`\> ? `functionName` : [`ContractFunctionName`](modules.md#contractfunctionname)\<`abi`, `AbiStateMutability`\>\>, [`ContractFunctionName`](modules.md#contractfunctionname)\<`abi`, `AbiStateMutability`\>\> |
 
 #### Returns
 
@@ -1109,7 +1160,7 @@ ___
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/decodeFunctionResult.d.ts:25
+node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/decodeFunctionResult.d.ts:25
 
 ___
 
@@ -1125,10 +1176,10 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `params` | `TParams` |
-| `values` | `TParams` extends readonly `AbiParameter`[] ? \{ [K in string \| number \| symbol]: \{ [K in string \| number \| symbol]: AbiParameterToPrimitiveType\<TParams[K], AbiParameterKind\> }[K] } : `never` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `params` | `TParams` | a set of ABI Parameters (params), that can be in the shape of the inputs or outputs attribute of an ABI Item. |
+| `values` | `TParams` extends readonly `AbiParameter`[] ? \{ [K in string \| number \| symbol]: \{ [K in string \| number \| symbol]: AbiParameterToPrimitiveType\<TParams[K], AbiParameterKind\> }[K] } : `never` | a set of values (values) that correspond to the given params. |
 
 #### Returns
 
@@ -1138,9 +1189,41 @@ ___
 
 Encodes a list of primitive values into an ABI-encoded hex value.
 
+- Docs: https://viem.sh/docs/abi/encodeAbiParameters#encodeabiparameters
+
+  Generates ABI encoded data using the [ABI specification](https://docs.soliditylang.org/en/latest/abi-spec), given a set of ABI parameters (inputs/outputs) and their corresponding values.
+
+**`Example`**
+
+```typescript
+import { encodeAbiParameters } from 'viem'
+
+const encodedData = encodeAbiParameters(
+  [
+    { name: 'x', type: 'string' },
+    { name: 'y', type: 'uint' },
+    { name: 'z', type: 'bool' }
+  ],
+  ['wagmi', 420n, true]
+)
+```
+
+You can also pass in Human Readable parameters with the parseAbiParameters utility.
+
+**`Example`**
+
+```typescript
+import { encodeAbiParameters, parseAbiParameters } from 'viem'
+
+const encodedData = encodeAbiParameters(
+  parseAbiParameters('string x, uint y, bool z'),
+  ['wagmi', 420n, true]
+)
+```
+
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/encodeAbiParameters.d.ts:17
+node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/encodeAbiParameters.d.ts:49
 
 ___
 
@@ -1152,13 +1235,13 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `abi` | extends [`Abi`](modules.md#abi) \| readonly `unknown`[] |
+| `abi` | extends readonly `unknown`[] \| `Abi` |
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `parameters` | `EncodeDeployDataParameters`\<`abi`, `abi` extends [`Abi`](modules.md#abi) ? [`Abi`](modules.md#abi) extends `abi` ? ``true`` : [`Extract`\<`abi`[`number`], \{ `type`: ``"constructor"``  }\>] extends [`never`] ? ``false`` : ``true`` : ``true``, `ContractConstructorArgs`\<`abi`\>\> |
+| `parameters` | `EncodeDeployDataParameters`\<`abi`, `abi` extends `Abi` ? `Abi` extends `abi` ? ``true`` : [`Extract`\<`abi`[`number`], \{ `type`: ``"constructor"``  }\>] extends [`never`] ? ``false`` : ``true`` : ``true``, `ContractConstructorArgs`\<`abi`\>\> |
 
 #### Returns
 
@@ -1166,7 +1249,7 @@ ___
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/encodeDeployData.d.ts:21
+node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/encodeDeployData.d.ts:21
 
 ___
 
@@ -1178,14 +1261,14 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `abi` | extends [`Abi`](modules.md#abi) \| readonly `unknown`[] |
+| `abi` | extends readonly `unknown`[] \| `Abi` |
 | `errorName` | extends `undefined` \| `string` = `undefined` |
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `parameters` | `EncodeErrorResultParameters`\<`abi`, `errorName`, `abi` extends [`Abi`](modules.md#abi) ? [`Abi`](modules.md#abi) extends `abi` ? ``true`` : [`Extract`\<`abi`[`number`], \{ `type`: ``"error"``  }\>] extends [`never`] ? ``false`` : ``true`` : ``true``, `ContractErrorArgs`\<`abi`, `errorName` extends `ContractErrorName`\<`abi`\> ? `errorName` : `ContractErrorName`\<`abi`\>\>, `ContractErrorName`\<`abi`\>\> |
+| `parameters` | `EncodeErrorResultParameters`\<`abi`, `errorName`, `abi` extends `Abi` ? `Abi` extends `abi` ? ``true`` : [`Extract`\<`abi`[`number`], \{ `type`: ``"error"``  }\>] extends [`never`] ? ``false`` : ``true`` : ``true``, `ContractErrorArgs`\<`abi`, `errorName` extends `ContractErrorName`\<`abi`\> ? `errorName` : `ContractErrorName`\<`abi`\>\>, `ContractErrorName`\<`abi`\>\> |
 
 #### Returns
 
@@ -1193,7 +1276,7 @@ ___
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/encodeErrorResult.d.ts:23
+node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/encodeErrorResult.d.ts:23
 
 ___
 
@@ -1205,14 +1288,14 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `abi` | extends [`Abi`](modules.md#abi) \| readonly `unknown`[] |
+| `abi` | extends readonly `unknown`[] \| `Abi` |
 | `eventName` | extends `undefined` \| `string` = `undefined` |
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `parameters` | `EncodeEventTopicsParameters`\<`abi`, `eventName`, `abi` extends [`Abi`](modules.md#abi) ? [`Abi`](modules.md#abi) extends `abi` ? ``true`` : [`Extract`\<`abi`[`number`], \{ `type`: ``"event"``  }\>] extends [`never`] ? ``false`` : ``true`` : ``true``, `ContractEventArgs`\<`abi`, `eventName` extends `ContractEventName`\<`abi`\> ? `eventName` : `ContractEventName`\<`abi`\>\>, `ContractEventName`\<`abi`\>\> |
+| `parameters` | `EncodeEventTopicsParameters`\<`abi`, `eventName`, `abi` extends `Abi` ? `Abi` extends `abi` ? ``true`` : [`Extract`\<`abi`[`number`], \{ `type`: ``"event"``  }\>] extends [`never`] ? ``false`` : ``true`` : ``true``, `ContractEventArgs`\<`abi`, `eventName` extends `ContractEventName`\<`abi`\> ? `eventName` : `ContractEventName`\<`abi`\>\>, `ContractEventName`\<`abi`\>\> |
 
 #### Returns
 
@@ -1220,7 +1303,7 @@ ___
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/encodeEventTopics.d.ts:24
+node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/encodeEventTopics.d.ts:24
 
 ___
 
@@ -1232,14 +1315,14 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `abi` | extends [`Abi`](modules.md#abi) \| readonly `unknown`[] |
+| `abi` | extends readonly `unknown`[] \| `Abi` |
 | `functionName` | extends `undefined` \| `string` = `undefined` |
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `parameters` | [`EncodeFunctionDataParameters`](modules.md#encodefunctiondataparameters)\<`abi`, `functionName`, `abi` extends [`Abi`](modules.md#abi) ? [`Abi`](modules.md#abi) extends `abi` ? ``true`` : [`Extract`\<`abi`[`number`], \{ `stateMutability`: `AbiStateMutability` ; `type`: ``"function"``  }\>] extends [`never`] ? ``false`` : ``true`` : ``true``, `ContractFunctionArgs`\<`abi`, `AbiStateMutability`, `functionName` extends [`ContractFunctionName`](modules.md#contractfunctionname)\<`abi`, `AbiStateMutability`\> ? `functionName` : [`ContractFunctionName`](modules.md#contractfunctionname)\<`abi`, `AbiStateMutability`\>\>, [`ContractFunctionName`](modules.md#contractfunctionname)\<`abi`, `AbiStateMutability`\>\> |
+| `parameters` | [`EncodeFunctionDataParameters`](modules.md#encodefunctiondataparameters)\<`abi`, `functionName`, `abi` extends `Abi` ? `Abi` extends `abi` ? ``true`` : [`Extract`\<`abi`[`number`], \{ `stateMutability`: `AbiStateMutability` ; `type`: ``"function"``  }\>] extends [`never`] ? ``false`` : ``true`` : ``true``, `ContractFunctionArgs`\<`abi`, `AbiStateMutability`, `functionName` extends [`ContractFunctionName`](modules.md#contractfunctionname)\<`abi`, `AbiStateMutability`\> ? `functionName` : [`ContractFunctionName`](modules.md#contractfunctionname)\<`abi`, `AbiStateMutability`\>\>, [`ContractFunctionName`](modules.md#contractfunctionname)\<`abi`, `AbiStateMutability`\>\> |
 
 #### Returns
 
@@ -1247,7 +1330,7 @@ ___
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/encodeFunctionData.d.ts:27
+node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/encodeFunctionData.d.ts:27
 
 ___
 
@@ -1259,14 +1342,14 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `abi` | extends [`Abi`](modules.md#abi) \| readonly `unknown`[] |
+| `abi` | extends readonly `unknown`[] \| `Abi` |
 | `functionName` | extends `undefined` \| `string` = `undefined` |
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `parameters` | `EncodeFunctionResultParameters`\<`abi`, `functionName`, `abi` extends [`Abi`](modules.md#abi) ? [`Abi`](modules.md#abi) extends `abi` ? ``true`` : [`Extract`\<`abi`[`number`], \{ `stateMutability`: `AbiStateMutability` ; `type`: ``"function"``  }\>] extends [`never`] ? ``false`` : ``true`` : ``true``, [`ContractFunctionName`](modules.md#contractfunctionname)\<`abi`, `AbiStateMutability`\>\> |
+| `parameters` | `EncodeFunctionResultParameters`\<`abi`, `functionName`, `abi` extends `Abi` ? `Abi` extends `abi` ? ``true`` : [`Extract`\<`abi`[`number`], \{ `stateMutability`: `AbiStateMutability` ; `type`: ``"function"``  }\>] extends [`never`] ? ``false`` : ``true`` : ``true``, [`ContractFunctionName`](modules.md#contractfunctionname)\<`abi`, `AbiStateMutability`\>\> |
 
 #### Returns
 
@@ -1274,7 +1357,7 @@ ___
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/encodeFunctionResult.d.ts:21
+node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/encodeFunctionResult.d.ts:21
 
 ___
 
@@ -1301,7 +1384,28 @@ ___
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/encodePacked.d.ts:17
+node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/abi/encodePacked.d.ts:17
+
+___
+
+### equalsBytes
+
+▸ **equalsBytes**(`a`, `b`): `boolean`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `a` | `Uint8Array` |
+| `b` | `Uint8Array` |
+
+#### Returns
+
+`boolean`
+
+#### Defined in
+
+node_modules/.pnpm/ethereum-cryptography@2.1.3/node_modules/ethereum-cryptography/utils.d.ts:7
 
 ___
 
@@ -1331,7 +1435,7 @@ Human-readable ABI
 
 #### Defined in
 
-node_modules/.pnpm/abitype@1.0.0_typescript@5.3.3_zod@3.22.4/node_modules/abitype/dist/types/human-readable/formatAbi.d.ts:18
+node_modules/.pnpm/abitype@1.0.2_typescript@5.3.3_zod@3.22.4/node_modules/abitype/dist/types/human-readable/formatAbi.d.ts:18
 
 ___
 
@@ -1365,7 +1469,7 @@ formatEther(1000000000000000000n)
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/unit/formatEther.d.ts:14
+node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/unit/formatEther.d.ts:14
 
 ___
 
@@ -1399,7 +1503,7 @@ formatGwei(1000000000n)
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/unit/formatGwei.d.ts:14
+node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/unit/formatGwei.d.ts:14
 
 ___
 
@@ -1411,7 +1515,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `log` | `Partial`\<`RpcLog`\> |
+| `log` | `ExactPartial`\<`RpcLog`\> |
 | `«destructured»` | `Object` |
 | › `args?` | `unknown` |
 | › `eventName?` | `string` |
@@ -1422,7 +1526,7 @@ ___
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/formatters/log.d.ts:5
+node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/formatters/log.d.ts:6
 
 ___
 
@@ -1475,7 +1579,7 @@ const data = fromBytes(
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/fromBytes.d.ts:37
+node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/fromBytes.d.ts:37
 
 ___
 
@@ -1536,7 +1640,7 @@ const data = fromHex('0x48656c6c6f20576f726c642100000000000000000000000000000000
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/fromHex.d.ts:47
+node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/fromHex.d.ts:47
 
 ___
 
@@ -1563,13 +1667,13 @@ ___
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/fromRlp.d.ts:12
+node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/fromRlp.d.ts:12
 
 ___
 
 ### getAddress
 
-▸ **getAddress**(`address`, `chainId?`): [`Address`](modules.md#address)
+▸ **getAddress**(`address`, `chainId?`): `Address`
 
 #### Parameters
 
@@ -1580,11 +1684,11 @@ ___
 
 #### Returns
 
-[`Address`](modules.md#address)
+`Address`
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/address/getAddress.d.ts:9
+node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/address/getAddress.d.ts:9
 
 ___
 
@@ -1627,7 +1731,7 @@ const data = hexToBigInt('0x0000000000000000000000000000000000000000000000000000
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/fromHex.d.ts:74
+node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/fromHex.d.ts:74
 
 ___
 
@@ -1670,7 +1774,7 @@ const data = hexToBool('0x000000000000000000000000000000000000000000000000000000
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/fromHex.d.ts:99
+node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/fromHex.d.ts:99
 
 ___
 
@@ -1713,7 +1817,7 @@ const data = hexToBytes('0x48656c6c6f20776f726c6421', { size: 32 })
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/toBytes.d.ts:87
+node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/toBytes.d.ts:87
 
 ___
 
@@ -1756,7 +1860,7 @@ const data = hexToBigInt('0x0000000000000000000000000000000000000000000000000000
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/fromHex.d.ts:121
+node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/fromHex.d.ts:121
 
 ___
 
@@ -1801,7 +1905,7 @@ const data = hexToString('0x48656c6c6f20576f726c64210000000000000000000000000000
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/fromHex.d.ts:148
+node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/fromHex.d.ts:148
 
 ___
 
@@ -1822,7 +1926,7 @@ address is \`0x$\{string}\`
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/address/isAddress.d.ts:14
+node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/address/isAddress.d.ts:14
 
 ___
 
@@ -1842,7 +1946,7 @@ value is Uint8Array
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/data/isBytes.d.ts:4
+node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/data/isBytes.d.ts:4
 
 ___
 
@@ -1864,7 +1968,7 @@ value is \`0x$\{string}\`
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/data/isHex.d.ts:4
+node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/data/isHex.d.ts:4
 
 ___
 
@@ -1891,7 +1995,7 @@ ___
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/hash/keccak256.d.ts:9
+node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/hash/keccak256.d.ts:9
 
 ___
 
@@ -1918,7 +2022,7 @@ Creates an Account from a mnemonic phrase.
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/accounts/mnemonicToAccount.d.ts:10
+node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/accounts/mnemonicToAccount.d.ts:10
 
 ___
 
@@ -1961,7 +2065,7 @@ const data = numberToHex(420, { size: 32 })
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/toHex.d.ts:122
+node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/toHex.d.ts:122
 
 ___
 
@@ -2001,7 +2105,7 @@ const abi = parseAbi([
 
 #### Defined in
 
-node_modules/.pnpm/abitype@1.0.0_typescript@5.3.3_zod@3.22.4/node_modules/abitype/dist/types/human-readable/parseAbi.d.ts:37
+node_modules/.pnpm/abitype@1.0.2_typescript@5.3.3_zod@3.22.4/node_modules/abitype/dist/types/human-readable/parseAbi.d.ts:37
 
 ___
 
@@ -2035,7 +2139,7 @@ parseEther('420')
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/unit/parseEther.d.ts:15
+node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/unit/parseEther.d.ts:15
 
 ___
 
@@ -2069,7 +2173,7 @@ parseGwei('420')
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/unit/parseGwei.d.ts:15
+node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/unit/parseGwei.d.ts:15
 
 ___
 
@@ -2112,7 +2216,7 @@ const data = stringToHex('Hello World!', { size: 32 })
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/toHex.d.ts:147
+node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/toHex.d.ts:147
 
 ___
 
@@ -2164,7 +2268,7 @@ const data = toBytes(420, { size: 4 })
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/toBytes.d.ts:37
+node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/toBytes.d.ts:37
 
 ___
 
@@ -2216,7 +2320,7 @@ const data = toHex('Hello world', { size: 32 })
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/toHex.d.ts:36
+node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/toHex.d.ts:36
 
 ___
 
@@ -2243,4 +2347,4 @@ ___
 
 #### Defined in
 
-node_modules/.pnpm/viem@2.7.16_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/toRlp.d.ts:10
+node_modules/.pnpm/viem@2.8.18_typescript@5.3.3_zod@3.22.4/node_modules/viem/_types/utils/encoding/toRlp.d.ts:10

@@ -20,7 +20,7 @@
 
 #### Defined in
 
-evmts-monorepo/packages/state/types/ForkStateManager.d.ts:12
+evmts-monorepo/packages/state/types/ForkStateManager.d.ts:11
 
 ___
 
@@ -48,7 +48,7 @@ Called when state manager commits state
 
 #### Defined in
 
-evmts-monorepo/packages/state/types/ForkStateManager.d.ts:16
+evmts-monorepo/packages/state/types/ForkStateManager.d.ts:15
 
 ___
 
@@ -58,4 +58,4 @@ ___
 
 #### Defined in
 
-evmts-monorepo/packages/state/types/ForkStateManager.d.ts:11
+evmts-monorepo/packages/state/types/ForkStateManager.d.ts:10
