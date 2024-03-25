@@ -31,4 +31,4 @@ export {
   type EIP1193RequestOptions,
   type Eip1193RequestProvider,
   type AddEthereumChainParameter,
-} from '@tevm/decorators'
+} from "@tevm/decorators";

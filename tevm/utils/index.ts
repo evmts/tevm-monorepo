@@ -84,4 +84,4 @@ export {
   type GenesisState,
   equalsBytes,
   type WithdrawalData,
-} from '@tevm/utils'
+} from "@tevm/utils";

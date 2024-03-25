@@ -9,4 +9,4 @@ export {
   type ManualMining,
   type MiningConfig,
   type IntervalMining,
-} from '@tevm/base-client'
+} from "@tevm/base-client";

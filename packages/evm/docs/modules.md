@@ -35,6 +35,7 @@
 ### Functions
 
 - [createEvm](modules.md#createevm)
+- [getActivePrecompiles](modules.md#getactiveprecompiles)
 
 ## Type Aliases
 
@@ -135,3 +136,24 @@ node_modules/.pnpm/@ethereumjs+evm@3.0.0/node_modules/@ethereumjs/evm/dist/esm/e
 #### Defined in
 
 [packages/evm/src/createEvm.js:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/src/createEvm.js#L7)
+
+___
+
+### getActivePrecompiles
+
+▸ **getActivePrecompiles**(`common`, `customPrecompiles?`): `Map`\<`string`, `PrecompileFunc`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `common` | `Common` |
+| `customPrecompiles?` | `CustomPrecompile`[] |
+
+#### Returns
+
+`Map`\<`string`, `PrecompileFunc`\>
+
+#### Defined in
+
+node_modules/.pnpm/@ethereumjs+evm@3.0.0/node_modules/@ethereumjs/evm/dist/esm/precompiles/index.d.ts:37

@@ -35,7 +35,10 @@ export const defineCall = <TAbi extends Abi>(
 	return async ({
 		data,
 		gasLimit,
-	}: { data: `0x${string}`; gasLimit: bigint }): Promise<ExecResult> => {
+	}: {
+		data: `0x${string}`
+		gasLimit: bigint
+	}): Promise<ExecResult> => {
 		const d = decodeFunctionData({
 			abi: abi,
 			data: data,

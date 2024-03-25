@@ -15,5 +15,4 @@ export {
   type TevmStateManager,
   type SerializableTevmState,
   type TevmStateManagerOptions,
-} from '@tevm/state'
-
+} from "@tevm/state";

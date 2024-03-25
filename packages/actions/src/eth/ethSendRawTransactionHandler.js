@@ -40,7 +40,9 @@ const getTx = (vm, txBuf) => {
 		case txType.LEGACY:
 		case txType.ACCESS_LIST:
 		case txType.EIP1559:
-			return TransactionFactory.fromSerializedData(txBuf, { common: vm.common })
+			return TransactionFactory.fromSerializedData(txBuf, {
+				common: vm.common,
+			})
 		case txType.BLOB: {
 			const tx = BlobEIP4844Transaction.fromSerializedBlobTxNetworkWrapper(
 				txBuf,

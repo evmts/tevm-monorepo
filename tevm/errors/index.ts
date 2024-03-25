@@ -46,5 +46,4 @@ export {
   type ForkError,
   type InvalidUrlError,
   type FailedToForkError,
-} from '@tevm/errors'
-
+} from "@tevm/errors";

@@ -2,7 +2,7 @@ import { VM } from '@ethereumjs/vm'
 import { type TevmBlockchain, createBlockchain } from '@tevm/blockchain'
 import { Common } from '@tevm/common'
 import { Evm, createEvm, getActivePrecompiles } from '@tevm/evm'
-import { createTevmStateManager, type TevmStateManager } from '@tevm/state'
+import { type TevmStateManager, createTevmStateManager } from '@tevm/state'
 import { EthjsAccount, EthjsAddress, hexToBytes } from '@tevm/utils'
 
 export class TevmVm extends VM {
@@ -40,9 +40,12 @@ export class TevmVm extends VM {
 
 		if (opts.profilerOpts !== undefined) {
 			const profilerOpts = opts.profilerOpts
-			if (profilerOpts.reportAfterBlock === true && profilerOpts.reportAfterTx === true) {
+			if (
+				profilerOpts.reportAfterBlock === true &&
+				profilerOpts.reportAfterTx === true
+			) {
 				throw new Error(
-					'Cannot have `reportProfilerAfterBlock` and `reportProfilerAfterTx` set to `true` at the same time'
+					'Cannot have `reportProfilerAfterBlock` and `reportProfilerAfterTx` set to `true` at the same time',
 				)
 			}
 		}

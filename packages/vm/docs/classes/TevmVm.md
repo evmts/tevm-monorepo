@@ -121,7 +121,7 @@ VM.blockchain
 
 #### Defined in
 
-[packages/vm/src/TevmVm.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/TevmVm.ts#L9)
+[packages/vm/src/TevmVm.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/TevmVm.ts#L10)
 
 ___
 
@@ -135,7 +135,7 @@ VM.common
 
 #### Defined in
 
-[packages/vm/src/TevmVm.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/TevmVm.ts#L10)
+[packages/vm/src/TevmVm.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/TevmVm.ts#L11)
 
 ___
 
@@ -163,7 +163,7 @@ VM.evm
 
 #### Defined in
 
-[packages/vm/src/TevmVm.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/TevmVm.ts#L8)
+[packages/vm/src/TevmVm.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/TevmVm.ts#L9)
 
 ___
 
@@ -177,7 +177,7 @@ VM.stateManager
 
 #### Defined in
 
-[packages/vm/src/TevmVm.ts:30](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/TevmVm.ts#L30)
+[packages/vm/src/TevmVm.ts:94](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/TevmVm.ts#L94)
 
 ## Methods
 
@@ -227,7 +227,7 @@ ___
 
 #### Defined in
 
-[packages/vm/src/TevmVm.ts:32](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/TevmVm.ts#L32)
+[packages/vm/src/TevmVm.ts:96](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/TevmVm.ts#L96)
 
 ___
 
@@ -367,4 +367,4 @@ VM.create
 
 #### Defined in
 
-[packages/vm/src/TevmVm.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/TevmVm.ts#L16)
+[packages/vm/src/TevmVm.ts:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/TevmVm.ts#L17)
