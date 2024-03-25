@@ -63,11 +63,11 @@
 	},
 	"dependencies": {
 		"@ethereumjs/blockchain": "^7.2.0",
-		"@tevm/block": "workspace:1.0.0-next.42",
-		"@tevm/common": "workspace:1.0.0-next.40",
+		"@tevm/block": "workspace:^",
 		"@tevm/trie": "workspace:^"
 	},
 	"devDependencies": {
+		"@tevm/common": "workspace:1.0.0-next.40",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",
 		"@tevm/utils": "workspace:^"

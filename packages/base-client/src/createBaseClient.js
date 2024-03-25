@@ -1,3 +1,6 @@
+import { DEFAULT_CHAIN_ID } from './DEFAULT_CHAIN_ID.js'
+import { addPredeploy } from './addPredeploy.js'
+import { getChainId } from './getChainId.js'
 import { createBlockchain } from '@tevm/blockchain'
 import { Common } from '@tevm/common'
 import { createEvm } from '@tevm/evm'
@@ -5,9 +8,6 @@ import { createTevmStateManager } from '@tevm/state'
 import { TxPool } from '@tevm/txpool'
 import { hexToBigInt, toHex } from '@tevm/utils'
 import { createVm } from '@tevm/vm'
-import { DEFAULT_CHAIN_ID } from './DEFAULT_CHAIN_ID.js'
-import { addPredeploy } from './addPredeploy.js'
-import { getChainId } from './getChainId.js'
 
 /**
  * Creates the base instance of a memory client

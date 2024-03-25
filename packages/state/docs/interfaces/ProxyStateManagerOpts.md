@@ -22,7 +22,7 @@ Defaults to 2000ms (2s)
 
 #### Defined in
 
-[packages/state/src/ProxyStateManager.ts:37](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L37)
+[packages/state/src/ProxyStateManager.ts:36](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L36)
 
 ___
 
@@ -50,7 +50,7 @@ Called when state manager commits state
 
 #### Defined in
 
-[packages/state/src/ProxyStateManager.ts:41](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L41)
+[packages/state/src/ProxyStateManager.ts:40](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L40)
 
 ___
 
@@ -62,4 +62,4 @@ Url to a JSON-RPC provider to proxy state from
 
 #### Defined in
 
-[packages/state/src/ProxyStateManager.ts:31](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L31)
+[packages/state/src/ProxyStateManager.ts:30](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L30)

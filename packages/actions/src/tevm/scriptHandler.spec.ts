@@ -402,7 +402,7 @@ describe('scriptHandler', () => {
 		const evm = await Evm.create({ stateManager })
 		const originalRunCall = evm.runCall.bind(evm)
 		const vm = await TevmVm.create({ evm, stateManager })
-		vm.evm.runCall = async function(args) {
+		vm.evm.runCall = async function (args) {
 			const realResult = await originalRunCall(args)
 			return {
 				...realResult,

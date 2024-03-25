@@ -1,3 +1,4 @@
+import type { CallResult } from './CallResult.js'
 import { EvmError, EvmErrorMessage, type ExecResult } from '@tevm/evm'
 import {
 	type Abi,
@@ -11,7 +12,6 @@ import {
 	encodeFunctionResult,
 	hexToBytes,
 } from '@tevm/utils'
-import type { CallResult } from './CallResult.js'
 
 type Handler<
 	TAbi extends Abi,

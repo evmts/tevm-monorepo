@@ -12,6 +12,7 @@
 
 - [EthjsMessage](classes/EthjsMessage.md)
 - [Evm](classes/Evm.md)
+- [EvmError](classes/EvmError.md)
 
 ### Interfaces
 
@@ -22,9 +23,9 @@
 
 ### Type Aliases
 
-- [ConstructorArgument](modules.md#constructorargument)
 - [CreateEvmOptions](modules.md#createevmoptions)
 - [CustomPrecompile](modules.md#customprecompile)
+- [EVMOpts](modules.md#evmopts)
 - [EthjsLog](modules.md#ethjslog)
 
 ### Variables
@@ -36,24 +37,6 @@
 - [createEvm](modules.md#createevm)
 
 ## Type Aliases
-
-### ConstructorArgument
-
-Ƭ **ConstructorArgument**\<`T`\>: `T` extends (...`args`: infer P) => `any` ? `P`[``0``] : `never`
-
-Infers the the first argument of a class
-
-#### Type parameters
-
-| Name |
-| :------ |
-| `T` |
-
-#### Defined in
-
-[packages/evm/src/CustomPrecompile.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/src/CustomPrecompile.ts#L4)
-
-___
 
 ### CreateEvmOptions
 
@@ -79,13 +62,27 @@ ___
 
 ### CustomPrecompile
 
-Ƭ **CustomPrecompile**: `Exclude`\<`Exclude`\<[`ConstructorArgument`](modules.md#constructorargument)\<`EVM`\>, `undefined`\>[``"customPrecompiles"``], `undefined`\>[`number`]
+Ƭ **CustomPrecompile**: `Exclude`\<`Exclude`\<`Parameters`\<typeof [`Evm`](classes/Evm.md)[``"create"``]\>[``0``], `undefined`\>[``"customPrecompiles"``], `undefined`\>[`number`]
 
 Custom precompiles allow you to run arbitrary JavaScript code in the EVM
 
 #### Defined in
 
-[packages/evm/src/CustomPrecompile.ts:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/src/CustomPrecompile.ts#L19)
+[packages/evm/src/CustomPrecompile.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/src/CustomPrecompile.ts#L11)
+
+___
+
+### EVMOpts
+
+Ƭ **EVMOpts**: `Parameters`\<typeof `EVM.create`\>[``0``]
+
+**`See`**
+
+https://github.com/ethereumjs/ethereumjs-monorepo/pull/3334
+
+#### Defined in
+
+[packages/evm/src/Evm.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/src/Evm.ts#L7)
 
 ___
 
@@ -97,7 +94,7 @@ Log that the contract emits.
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+evm@2.2.1/node_modules/@ethereumjs/evm/dist/esm/types.d.ts:296
+node_modules/.pnpm/@ethereumjs+evm@3.0.0/node_modules/@ethereumjs/evm/dist/esm/types.d.ts:299
 
 ## Variables
 
@@ -117,13 +114,13 @@ node_modules/.pnpm/@ethereumjs+evm@2.2.1/node_modules/@ethereumjs/evm/dist/esm/t
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+evm@2.2.1/node_modules/@ethereumjs/evm/dist/esm/eof.d.ts:18
+node_modules/.pnpm/@ethereumjs+evm@3.0.0/node_modules/@ethereumjs/evm/dist/esm/eof.d.ts:18
 
 ## Functions
 
 ### createEvm
 
-▸ **createEvm**(`options`): [`Evm`](classes/Evm.md)
+▸ **createEvm**(`options`): `Promise`\<[`Evm`](classes/Evm.md)\>
 
 #### Parameters
 
@@ -133,7 +130,7 @@ node_modules/.pnpm/@ethereumjs+evm@2.2.1/node_modules/@ethereumjs/evm/dist/esm/e
 
 #### Returns
 
-[`Evm`](classes/Evm.md)
+`Promise`\<[`Evm`](classes/Evm.md)\>
 
 #### Defined in
 

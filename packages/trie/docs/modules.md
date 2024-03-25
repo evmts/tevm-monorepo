@@ -1,35 +1,35 @@
-[@tevm/blockchain](README.md) / Exports
+[@tevm/trie](README.md) / Exports
 
-# @tevm/blockchain
+# @tevm/trie
 
 ## Table of contents
 
 ### Classes
 
-- [TevmBlock](classes/TevmBlock.md)
-- [TevmBlockchain](classes/TevmBlockchain.md)
+- [Trie](classes/Trie.md)
 
 ### Functions
 
-- [createBlockchain](modules.md#createblockchain)
+- [genesisStateRoot](modules.md#genesisstateroot)
 
 ## Functions
 
-### createBlockchain
+### genesisStateRoot
 
-▸ **createBlockchain**(`options`): `Promise`\<[`TevmBlockchain`](classes/TevmBlockchain.md)\>
+▸ **genesisStateRoot**(`genesisState`): `Promise`\<`Uint8Array`\>
+
+Derives the stateRoot of the genesis block based on genesis allocations
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `options` | `Object` |
-| `options.common` | `Common` |
+| `genesisState` | `GenesisState` |
 
 #### Returns
 
-`Promise`\<[`TevmBlockchain`](classes/TevmBlockchain.md)\>
+`Promise`\<`Uint8Array`\>
 
 #### Defined in
 
-[packages/blockchain/src/createBlockchain.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/createBlockchain.js#L11)
+node_modules/.pnpm/@ethereumjs+trie@6.2.0/node_modules/@ethereumjs/trie/dist/esm/util/genesisState.d.ts:5

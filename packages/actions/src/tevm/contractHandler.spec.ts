@@ -474,7 +474,7 @@ describe('contractHandler', () => {
 		const evm = await Evm.create({ stateManager })
 		const vm = await TevmVm.create({ evm, stateManager })
 		const originalRunCall = evm.runCall.bind(evm)
-		vm.evm.runCall = function(args) {
+		vm.evm.runCall = function (args) {
 			return {
 				...originalRunCall(args),
 				execResult: { returnValue: '0x42424242' },

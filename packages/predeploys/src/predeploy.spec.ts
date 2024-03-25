@@ -1,8 +1,8 @@
+import { definePredeploy } from './definePredeploy.js'
+import { DaiContract } from './test/DaiContract.sol.js'
 import { createScript } from '@tevm/contract'
 import { EthjsAddress } from '@tevm/utils'
 import { formatAbi } from '@tevm/utils'
-import { definePredeploy } from './definePredeploy.js'
-import { DaiContract } from './test/DaiContract.sol.js'
 import { expect, test } from 'bun:test'
 
 // There is a more complete usage example in the @tevm/vm package

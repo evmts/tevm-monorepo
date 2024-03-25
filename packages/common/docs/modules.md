@@ -8,8 +8,15 @@
 
 - [Common](classes/Common.md)
 
+### Interfaces
+
+- [EvmStateManagerInterface](interfaces/EvmStateManagerInterface.md)
+- [StorageDump](interfaces/StorageDump.md)
+- [StorageRange](interfaces/StorageRange.md)
+
 ### Type Aliases
 
+- [AccountFields](modules.md#accountfields)
 - [CommonOptions](modules.md#commonoptions)
 - [Hardfork](modules.md#hardfork)
 
@@ -18,6 +25,16 @@
 - [createCommon](modules.md#createcommon)
 
 ## Type Aliases
+
+### AccountFields
+
+Ƭ **AccountFields**: `Partial`\<`Pick`\<`Account`, ``"nonce"`` \| ``"balance"`` \| ``"storageRoot"`` \| ``"codeHash"``\>\>
+
+#### Defined in
+
+node_modules/.pnpm/@ethereumjs+common@4.3.0/node_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:30
+
+___
 
 ### CommonOptions
 

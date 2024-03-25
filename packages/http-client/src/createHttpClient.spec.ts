@@ -1,11 +1,11 @@
-import { Server, createServer } from 'http'
+import { createHttpClient } from './createHttpClient.js'
 import type { TevmClient } from '@tevm/client-types'
 import { type MemoryClient, createMemoryClient } from '@tevm/memory-client'
 import { createHttpHandler } from '@tevm/server'
 import { EthjsAddress } from '@tevm/utils'
-import { bytesToHex, keccak256 } from 'viem'
-import { createHttpClient } from './createHttpClient.js'
 import { afterAll, beforeAll, describe, expect, it } from 'bun:test'
+import { Server, createServer } from 'http'
+import { bytesToHex, keccak256 } from 'viem'
 
 describe(createHttpClient.name, () => {
 	let tevm: MemoryClient

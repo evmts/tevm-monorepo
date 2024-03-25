@@ -87,13 +87,13 @@ ___
 
 ### CustomPrecompile
 
-Ƭ **CustomPrecompile**: `Exclude`\<`Exclude`\<`ConstructorArgument`\<`EVM`\>, `undefined`\>[``"customPrecompiles"``], `undefined`\>[`number`]
+Ƭ **CustomPrecompile**: `Exclude`\<`Exclude`\<`Parameters`\<`Evm`[``"create"``]\>[``0``], `undefined`\>[``"customPrecompiles"``], `undefined`\>[`number`]
 
 Custom precompiles allow you to run arbitrary JavaScript code in the EVM
 
 #### Defined in
 
-[CustomPrecompile.ts:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/CustomPrecompile.ts#L19)
+[CustomPrecompile.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/CustomPrecompile.ts#L10)
 
 ___
 

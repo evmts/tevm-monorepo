@@ -1,8 +1,8 @@
+import type { CustomPrecompile } from './CustomPrecompile.js'
 import type { TevmBlockchain } from '@tevm/blockchain'
 import type { Common } from '@tevm/common'
 import type { CustomPredeploy } from '@tevm/predeploys'
 import type { TevmStateManager } from '@tevm/state'
-import type { CustomPrecompile } from './CustomPrecompile.js'
 
 export type CreateEvmOptions = {
 	/**

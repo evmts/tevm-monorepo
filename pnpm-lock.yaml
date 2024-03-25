@@ -1401,15 +1401,15 @@ importers:
         specifier: ^7.2.0
         version: 7.2.0
       '@tevm/block':
-        specifier: workspace:1.0.0-next.42
+        specifier: workspace:^
         version: link:../block
-      '@tevm/common':
-        specifier: workspace:1.0.0-next.40
-        version: link:../common
       '@tevm/trie':
         specifier: workspace:^
         version: link:../trie
     devDependencies:
+      '@tevm/common':
+        specifier: workspace:1.0.0-next.40
+        version: link:../common
       '@tevm/tsconfig':
         specifier: workspace:^
         version: link:../../configs/tsconfig

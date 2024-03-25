@@ -12,6 +12,6 @@ export type EVMOpts = Parameters<typeof EVM.create>[0]
  * @internal
  */
 export class Evm extends EVM {
-	public static declare create: (options?: EVMOpts) => Promise<Evm>
+	public declare static create: (options?: EVMOpts) => Promise<Evm>
 	public declare stateManager: TevmStateManager
 }

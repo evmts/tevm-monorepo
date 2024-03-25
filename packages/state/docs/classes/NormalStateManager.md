@@ -66,6 +66,7 @@ Internally this state manager gets used when no proxy or fork url is passed into
 - [generateCanonicalGenesis](NormalStateManager.md#generatecanonicalgenesis)
 - [getAccount](NormalStateManager.md#getaccount)
 - [getAccountAddresses](NormalStateManager.md#getaccountaddresses)
+- [getAppliedKey](NormalStateManager.md#getappliedkey)
 - [getContractCode](NormalStateManager.md#getcontractcode)
 - [getContractStorage](NormalStateManager.md#getcontractstorage)
 - [getProof](NormalStateManager.md#getproof)
@@ -117,7 +118,7 @@ DefaultStateManager.\_accountCache
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+statemanager@2.2.2/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:118
+node_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:118
 
 ___
 
@@ -131,7 +132,7 @@ DefaultStateManager.\_accountCacheSettings
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+statemanager@2.2.2/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:128
+node_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:128
 
 ___
 
@@ -145,7 +146,7 @@ DefaultStateManager.\_checkpointCount
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+statemanager@2.2.2/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:132
+node_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:132
 
 ___
 
@@ -159,7 +160,7 @@ DefaultStateManager.\_codeCache
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+statemanager@2.2.2/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:120
+node_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:120
 
 ___
 
@@ -173,7 +174,7 @@ DefaultStateManager.\_codeCacheSettings
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+statemanager@2.2.2/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:130
+node_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:130
 
 ___
 
@@ -187,7 +188,7 @@ DefaultStateManager.\_debug
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+statemanager@2.2.2/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:117
+node_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:117
 
 ___
 
@@ -201,7 +202,7 @@ DefaultStateManager.\_prefixCodeHashes
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+statemanager@2.2.2/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:126
+node_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:126
 
 ___
 
@@ -215,7 +216,7 @@ DefaultStateManager.\_prefixStorageTrieKeys
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+statemanager@2.2.2/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:127
+node_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:127
 
 ___
 
@@ -229,7 +230,7 @@ DefaultStateManager.\_storageCache
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+statemanager@2.2.2/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:119
+node_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:119
 
 ___
 
@@ -243,7 +244,7 @@ DefaultStateManager.\_storageCacheSettings
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+statemanager@2.2.2/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:129
+node_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:129
 
 ___
 
@@ -261,7 +262,7 @@ DefaultStateManager.\_storageTries
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+statemanager@2.2.2/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:123
+node_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:123
 
 ___
 
@@ -275,7 +276,7 @@ DefaultStateManager.\_trie
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+statemanager@2.2.2/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:122
+node_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:122
 
 ___
 
@@ -289,7 +290,7 @@ DefaultStateManager.common
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+statemanager@2.2.2/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:131
+node_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:131
 
 ___
 
@@ -317,7 +318,7 @@ DefaultStateManager.originalStorageCache
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+statemanager@2.2.2/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:121
+node_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:121
 
 ## Methods
 
@@ -338,7 +339,7 @@ DefaultStateManager.\_getAccountTrie
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+statemanager@2.2.2/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:196
+node_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:196
 
 ___
 
@@ -359,7 +360,7 @@ DefaultStateManager.\_getCodeDB
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+statemanager@2.2.2/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:202
+node_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:202
 
 ___
 
@@ -387,7 +388,7 @@ DefaultStateManager.\_getStorageTrie
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+statemanager@2.2.2/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:190
+node_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:190
 
 ___
 
@@ -415,7 +416,7 @@ DefaultStateManager.\_modifyContractStorage
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+statemanager@2.2.2/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:219
+node_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:219
 
 ___
 
@@ -442,7 +443,7 @@ DefaultStateManager.\_writeContractStorage
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+statemanager@2.2.2/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:220
+node_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:220
 
 ___
 
@@ -469,7 +470,7 @@ DefaultStateManager.addProofData
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+statemanager@2.2.2/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:286
+node_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:285
 
 ___
 
@@ -495,7 +496,7 @@ DefaultStateManager.checkpoint
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+statemanager@2.2.2/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:241
+node_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:241
 
 ___
 
@@ -515,7 +516,7 @@ DefaultStateManager.clearCaches
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+statemanager@2.2.2/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:361
+node_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:360
 
 ___
 
@@ -545,7 +546,7 @@ DefaultStateManager.clearContractStorage
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+statemanager@2.2.2/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:235
+node_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:235
 
 ___
 
@@ -570,7 +571,7 @@ DefaultStateManager.commit
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+statemanager@2.2.2/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:246
+node_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:246
 
 ___
 
@@ -616,7 +617,7 @@ DefaultStateManager.deleteAccount
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+statemanager@2.2.2/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:170
+node_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:170
 
 ___
 
@@ -666,7 +667,7 @@ DefaultStateManager.dumpStorage
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+statemanager@2.2.2/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:314
+node_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:313
 
 ___
 
@@ -702,7 +703,7 @@ DefaultStateManager.dumpStorageRange
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+statemanager@2.2.2/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:324
+node_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:323
 
 ___
 
@@ -722,7 +723,7 @@ DefaultStateManager.flush
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+statemanager@2.2.2/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:255
+node_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:255
 
 ___
 
@@ -782,7 +783,7 @@ DefaultStateManager.getAccount
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+statemanager@2.2.2/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:151
+node_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:151
 
 ___
 
@@ -805,6 +806,39 @@ An array of account addresses.
 #### Defined in
 
 [packages/state/src/NormalStateManager.ts:45](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/NormalStateManager.ts#L45)
+
+___
+
+### getAppliedKey
+
+▸ **getAppliedKey**(`address`): `Uint8Array`
+
+Returns the applied key for a given address
+Used for saving preimages
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `address` | `Uint8Array` | The address to return the applied key |
+
+#### Returns
+
+`Uint8Array`
+
+- The applied key (e.g. hashed address)
+
+#### Implementation of
+
+[TevmStateManagerInterface](../interfaces/TevmStateManagerInterface.md).[getAppliedKey](../interfaces/TevmStateManagerInterface.md#getappliedkey)
+
+#### Inherited from
+
+DefaultStateManager.getAppliedKey
+
+#### Defined in
+
+node_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:367
 
 ___
 
@@ -837,7 +871,7 @@ DefaultStateManager.getContractCode
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+statemanager@2.2.2/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:184
+node_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:184
 
 ___
 
@@ -873,7 +907,7 @@ DefaultStateManager.getContractStorage
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+statemanager@2.2.2/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:212
+node_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:212
 
 ___
 
@@ -904,7 +938,7 @@ DefaultStateManager.getProof
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+statemanager@2.2.2/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:261
+node_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:261
 
 ___
 
@@ -932,7 +966,7 @@ DefaultStateManager.getStateRoot
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+statemanager@2.2.2/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:298
+node_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:297
 
 ___
 
@@ -962,7 +996,7 @@ DefaultStateManager.hasStateRoot
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+statemanager@2.2.2/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:334
+node_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:333
 
 ___
 
@@ -995,7 +1029,7 @@ DefaultStateManager.modifyAccountFields
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+statemanager@2.2.2/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:165
+node_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:165
 
 ___
 
@@ -1026,7 +1060,7 @@ DefaultStateManager.putAccount
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+statemanager@2.2.2/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:157
+node_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:157
 
 ___
 
@@ -1058,7 +1092,7 @@ DefaultStateManager.putContractCode
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+statemanager@2.2.2/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:177
+node_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:177
 
 ___
 
@@ -1091,7 +1125,7 @@ DefaultStateManager.putContractStorage
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+statemanager@2.2.2/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:230
+node_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:230
 
 ___
 
@@ -1116,7 +1150,7 @@ DefaultStateManager.revert
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+statemanager@2.2.2/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:251
+node_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:251
 
 ___
 
@@ -1150,7 +1184,7 @@ DefaultStateManager.setStateRoot
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+statemanager@2.2.2/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:306
+node_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:305
 
 ___
 
@@ -1206,7 +1240,7 @@ DefaultStateManager.verifyProof
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+statemanager@2.2.2/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:291
+node_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:290
 
 ___
 
@@ -1222,8 +1256,8 @@ This generates a (partial) StateManager where one can retrieve all items from th
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `proof` | `Proof` \| `Proof`[] | Either a proof retrieved from `getProof`, or an array of those proofs |
-| `safe?` | `boolean` | Wether or not to verify that the roots of the proof items match the reported roots |
-| `opts?` | `DefaultStateManagerOpts` | - |
+| `safe?` | `boolean` | Whether or not to verify that the roots of the proof items match the reported roots |
+| `opts?` | `DefaultStateManagerOpts` | a dictionary of StateManager opts |
 
 #### Returns
 
@@ -1237,4 +1271,4 @@ DefaultStateManager.fromProof
 
 #### Defined in
 
-node_modules/.pnpm/@ethereumjs+statemanager@2.2.2/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:271
+node_modules/.pnpm/@ethereumjs+statemanager@2.3.0/node_modules/@ethereumjs/statemanager/dist/esm/stateManager.d.ts:270

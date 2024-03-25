@@ -20,7 +20,11 @@ export class TevmVm extends VM {
 			opts.stateManager === undefined && opts.genesisState === undefined
 				? { genesisState: {} }
 				: undefined
-		return TevmVm.create({ ...genesisStateOpts, ...opts })
+		return new TevmVm({
+			activatePrecompiles: true,
+			...genesisStateOpts,
+			...opts,
+		})
 	}
 
 	declare stateManager: TevmStateManager

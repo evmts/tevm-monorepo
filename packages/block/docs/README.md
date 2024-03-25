@@ -1,4 +1,4 @@
-@tevm/blockchain / [Exports](modules.md)
+@tevm/block / [Exports](modules.md)
 
 <p align="center">
   <a href="https://tevm.sh/">
