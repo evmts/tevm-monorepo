@@ -1,11 +1,3 @@
-/**
- * Infers the the first argument of a class
- */
-export type ConstructorArgument<T> = T extends new (
-	...args: infer P
-) => any
-	? P[0]
-	: never
 
 /**
  * TODO This should be publically exported from ethereumjs but isn't
@@ -18,7 +10,7 @@ export type ConstructorArgument<T> = T extends new (
  */
 export type CustomPrecompile = Exclude<
 	Exclude<
-		ConstructorArgument<typeof import('@tevm/evm').Evm>,
+		Parameters<typeof import('@tevm/evm').Evm['create']>[0],
 		undefined
 	>['customPrecompiles'],
 	undefined

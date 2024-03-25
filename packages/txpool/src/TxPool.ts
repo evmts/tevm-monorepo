@@ -8,13 +8,13 @@ import {
 	isLegacyTx,
 } from '@tevm/tx'
 import {
-	Account,
-	Address,
+	EthjsAccount,
+	EthjsAddress,
 	bytesToHex,
 	bytesToUnprefixedHex,
 	equalsBytes,
 	hexToBytes,
-} from '@tevm/util'
+} from '@tevm/utils'
 import { TevmVm } from '@tevm/vm'
 
 import type { Block } from '@tevm/block'
@@ -276,7 +276,7 @@ export class TxPool {
 		await vmCopy.stateManager.setStateRoot(block.stateRoot)
 		let account = await vmCopy.stateManager.getAccount(senderAddress)
 		if (account === undefined) {
-			account = new Account()
+			account = new EthjsAccount()
 		}
 		if (account.nonce > tx.nonce) {
 			throw new Error(
@@ -508,10 +508,10 @@ export class TxPool {
 				.sort((a, b) => Number(a.nonce - b.nonce))
 			// Check if the account nonce matches the lowest known tx nonce
 			let account = await vm.stateManager.getAccount(
-				new Address(hexToBytes(`0x${address}`)),
+				new EthjsAddress(hexToBytes(`0x${address}`)),
 			)
 			if (account === undefined) {
-				account = new Account()
+				account = new EthjsAccount()
 			}
 			const { nonce } = account
 			if (txsSortedByNonce[0]?.nonce !== nonce) {

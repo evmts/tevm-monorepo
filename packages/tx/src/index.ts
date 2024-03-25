@@ -5,7 +5,6 @@ export {
 	LegacyTransaction,
 	AccessListEIP2930Transaction,
 	FeeMarketEIP1559Transaction,
-	AccessListEIP2930Transaction,
 	BlobEIP4844Transaction,
 	TransactionFactory,
 	Capability,

@@ -16,13 +16,11 @@ export class TevmVm extends VM {
 	static override async create(
 		opts: Parameters<typeof VM.create>[0] = {},
 	): Promise<TevmVm> {
-		const vm = new TevmVm(opts)
 		const genesisStateOpts =
 			opts.stateManager === undefined && opts.genesisState === undefined
 				? { genesisState: {} }
 				: undefined
-		await vm.init({ ...genesisStateOpts, ...opts })
-		return vm
+		return TevmVm.create({ ...genesisStateOpts, ...opts })
 	}
 
 	declare stateManager: TevmStateManager
@@ -42,7 +40,7 @@ export class TevmVm extends VM {
 			this.stateManager as TevmStateManager
 		).deepCopy()
 
-		const evmCopy = createEvm({
+		const evmCopy = await createEvm({
 			blockchain,
 			common,
 			stateManager,

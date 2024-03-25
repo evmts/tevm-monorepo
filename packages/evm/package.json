@@ -68,7 +68,7 @@
     "@tevm/predeploys": "workspace:^"
   },
   "devDependencies": {
-    "@tevm/state": "workspace:1.0.0-next.40",
+    "@tevm/state": "workspace:^",
     "@tevm/tsconfig": "workspace:^",
     "@tevm/tsupconfig": "workspace:^"
   },

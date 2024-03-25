@@ -1,7 +1,7 @@
 import { testAccounts } from '@tevm/actions'
 import { type BaseClient, createBaseClient } from '@tevm/base-client'
 import type { EthSignTransactionJsonRpcRequest } from '@tevm/procedures-types'
-import { EthjsAccount, EthjsAddress } from '@tevm/util'
+import { EthjsAccount, EthjsAddress } from '@tevm/utils'
 import {
 	bytesToHex,
 	encodeFunctionData,

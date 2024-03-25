@@ -11,7 +11,7 @@ const ERC20_BYTECODE =
 
 describe('setAccountHandler', () => {
 	it('should put an account and contract bytecode into state', async () => {
-		const evm = new Evm({})
+		const evm = await Evm.create()
 		const vm = await TevmVm.create({ evm })
 		const res = await setAccountHandler({ getVm: async () => vm })({
 			address: ERC20_ADDRESS,
@@ -29,7 +29,7 @@ describe('setAccountHandler', () => {
 	})
 
 	it('should validate params', async () => {
-		const evm = new Evm({})
+		const evm = await Evm.create()
 		const vm = await TevmVm.create({ evm })
 		// @ts-expect-error
 		const res = await setAccountHandler({ vm })({
@@ -55,7 +55,7 @@ describe('setAccountHandler', () => {
 				throw new Error('test')
 			},
 		}
-		const evm = new Evm({
+		const evm = await Evm.create({
 			stateManager: stateManager as any,
 		})
 		const vm = await TevmVm.create({ evm, stateManager: stateManager as any })
