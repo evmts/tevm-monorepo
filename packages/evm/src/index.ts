@@ -7,6 +7,7 @@ export {
 	EvmError,
 	EOF as Eof,
 	Message as EthjsMessage,
+	getActivePrecompiles,
 	type PrecompileInput,
 	type InterpreterStep,
 	type ExecResult,
