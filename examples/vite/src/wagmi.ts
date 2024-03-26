@@ -12,8 +12,15 @@ const { chains, publicClient, webSocketPublicClient } = configureChains(
 		jsonRpcProvider({
 			rpc: (chain) => {
 				const urls = {
-					1: { http: import.meta.env.VITE_RPC_URL_1 },
-					420: { http: import.meta.env.VITE_RPC_URL_420 },
+					1: {
+						http:
+							import.meta.env.VITE_RPC_URL_1 ?? mainnet.rpcUrls.default.http[0],
+					},
+					420: {
+						http:
+							import.meta.env.VITE_RPC_URL_420 ??
+							optimismGoerli.rpcUrls.default.http[0],
+					},
 				}
 				return [1, 420].includes(chain.id) ? urls[chain.id as 1 | 420] : null
 			},

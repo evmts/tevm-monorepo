@@ -1,10 +1,31 @@
+import type { MessageResult } from './SolcWorker'
 import { useQuery } from '@tanstack/react-query'
 import { highlight, languages } from 'prismjs'
 import 'prismjs/components/prism-core'
 import 'prismjs/themes/prism.css' //Example style, you can use another
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import Editor from 'react-simple-code-editor'
-const solcCompile = () => {}
+import { v4 as uuidv4 } from 'uuid'
+
+const solcWorkerCompile = (worker: Worker, code: string) => {
+	console.log('compiling...', code)
+	const id = uuidv4()
+	return new Promise((resolve, reject) => {
+		worker.onmessage = function (e) {
+			console.log('onmessage', e.data)
+			if (e.data.id !== id) return
+			const { success, result, error } = e.data
+
+			if (success) {
+				resolve(result)
+			} else {
+				reject(error)
+			}
+		}
+		worker.postMessage({ code, id })
+	})
+}
+
 languages.solidity = languages.extend('clike', {
 	'class-name': {
 		pattern:
@@ -41,35 +62,20 @@ contract AddNumbers {
 }
 `,
 	)
-
+	const worker = useMemo(
+		() =>
+			new Worker(new URL('./solcWorker.ts', import.meta.url), {
+				type: 'module',
+			}),
+		[],
+	)
 	const {
 		data: artifacts,
 		isLoading,
 		error,
 	} = useQuery({
 		queryKey: ['artifacts', code],
-		queryFn: () => {
-			return solcCompile({
-				language: 'Solidity',
-				sources: {
-					userContract: {
-						content: code,
-					},
-				},
-				settings: {
-					outputSelection: {
-						'*': {
-							'*': [
-								'abi',
-								'userdoc',
-								'evm.bytecode.object',
-								'evm.deployedBytecode.object',
-							],
-						},
-					},
-				},
-			})
-		},
+		queryFn: () => solcWorkerCompile(worker, code) as Promise<MessageResult>,
 	})
 
 	return (

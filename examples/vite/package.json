@@ -32,6 +32,7 @@
     "@tevm/contract": "workspace:^",
     "@tevm/ethers": "workspace:^",
     "@tevm/solc": "workspace:^",
+    "@types/uuid": "^9.0.8",
     "buffer": "^6.0.3",
     "ds-test": "github:dapphub/ds-test",
     "ethers": "^6.8.1",
@@ -41,8 +42,11 @@
     "react-dom": "^18.2.0",
     "react-simple-code-editor": "^0.13.1",
     "util": "^0.12.5",
+    "uuid": "^9.0.1",
     "viem": "~1.19.4",
-    "wagmi": "^1.4.7"
+    "vite-plugin-wasm": "^3.3.0",
+    "wagmi": "^1.4.7",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@openzeppelin/contracts": "^4.9.3",
