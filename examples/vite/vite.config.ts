@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
 import { nodePolyfills } from 'vite-plugin-node-polyfills'
 import topLevelAwait from 'vite-plugin-top-level-await'
+import vitePluginWasm from 'vite-plugin-wasm'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -29,5 +30,6 @@ export default defineConfig({
 		react(),
 		vitePluginTevm({}) as any,
 		topLevelAwait(),
+		vitePluginWasm(),
 	],
 })
