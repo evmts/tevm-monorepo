@@ -22,9 +22,9 @@ const formatBlockTag = (blockTag) => {
 /**
  * Decorates a viem [public client](https://viem.sh/) with the [tevm api](https://tevm.sh/generated/tevm/api/type-aliases/tevm/) with tevm
  * specif actions namspaced under `client.tevm`
- * It is used together with [tevmTransport](https://tevm.sh/generated/tevm/tevmTransport) 
+ * It is used together with [tevmTransport](https://tevm.sh/generated/tevm/tevmTransport)
  * @type {import('./ViemTevmExtension.js').ViemTevmExtension}
- * @example 
+ * @example
  * ```js
  * import { tevmViemExtension, tevmTransport } from 'tevm/viem'
  * import { createPublicClient } from 'viem'
@@ -35,7 +35,7 @@ const formatBlockTag = (blockTag) => {
  * ```
  * ## With a backend server
  *
- * This decorator can also be used with a [@tevm/server](https://tevm.sh/generated/tevm/server/functions/createserver) 
+ * This decorator can also be used with a [@tevm/server](https://tevm.sh/generated/tevm/server/functions/createserver)
  * @example
  * ```typescript
  * // Server code
@@ -48,7 +48,7 @@ const formatBlockTag = (blockTag) => {
  * })
  *
  * server.listen(8545)
- * 
+ *
  * // Client code
  * import { tevmViemExtension } from 'tevm/viem'
  * import { createPublicClient, http } from 'viem'
@@ -185,7 +185,7 @@ export const tevmViemExtension = () => {
 		 */
 		const request = async (req) => {
 			try {
-				const result = await client.request(/** @type any*/(req))
+				const result = await client.request(/** @type any*/ (req))
 				return /** @type any */ ({
 					jsonrpc: '2.0',
 					method: req.method,
@@ -226,7 +226,7 @@ export const tevmViemExtension = () => {
 								...getCallArgs(params),
 								deployedBytecode: params.deployedBytecode,
 								data: encodeFunctionData(
-									/** @type any*/({
+									/** @type any*/ ({
 										abi: params.abi,
 										functionName: params.functionName,
 										args: params.args,
@@ -238,7 +238,7 @@ export const tevmViemExtension = () => {
 				)
 			)
 			out.data = decodeFunctionResult(
-				/** @type any*/({
+				/** @type any*/ ({
 					data: out.rawData,
 					abi: params.abi,
 					functionName: params.functionName,
@@ -383,7 +383,7 @@ export const tevmViemExtension = () => {
 			const out = await call({
 				...params,
 				data: encodeFunctionData(
-					/** @type any*/({
+					/** @type any*/ ({
 						abi: params.abi,
 						functionName: params.functionName,
 						args: params.args,
@@ -392,7 +392,7 @@ export const tevmViemExtension = () => {
 			})
 
 			const data = decodeFunctionResult(
-				/** @type any*/({
+				/** @type any*/ ({
 					data: out.rawData,
 					abi: params.abi,
 					functionName: params.functionName,

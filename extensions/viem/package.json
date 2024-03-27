@@ -26,7 +26,7 @@
     "./package.json": "./package.json",
     ".": {
       "import": {
-        "types": "./types/index.d.ts",
+        "types": "./dist/index.d.ts",
         "default": "./dist/index.js"
       },
       "require": {
@@ -37,7 +37,7 @@
   },
   "main": "dist/index.cjs",
   "module": "dist/index.js",
-  "types": "types/index.d.ts",
+  "types": "dist/index.d.ts",
   "files": [
     "dist",
     "types",
@@ -48,7 +48,7 @@
     "all": "pnpm i  && bun run build && bun lint && bun format && bun test:run && bun generate:docs && bun run lint:deps && bun run lint:package",
     "build": "nx run-many --targets=build:dist,build:types --projects=@tevm/viem",
     "build:dist": "tsup",
-    "build:types": "tsup --dts-only && tsc --emitDeclarationOnly --declaration",
+    "build:types": "tsup --dts-only",
     "clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
     "format": "rome format . --write",
     "format:check": "rome format .",
@@ -64,8 +64,8 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@tevm/decorators": "workspace:1.0.0-next.42",
-    "@tevm/jsonrpc": "workspace:1.0.0-next.40"
+    "@tevm/decorators": "workspace:^",
+    "@tevm/jsonrpc": "workspace:^"
   },
   "devDependencies": {
     "@ethereumjs/util": "^9.0.2",
@@ -78,8 +78,7 @@
     "@tevm/state": "workspace:^",
     "@tevm/tsconfig": "workspace:^",
     "@tevm/tsupconfig": "workspace:^",
-    "@tevm/utils": "workspace:1.0.0-next.40",
-    "abitype": "^1.0.0",
+    "@tevm/utils": "workspace:^",
     "viem": "^2.7.16"
   },
   "peerDependencies": {

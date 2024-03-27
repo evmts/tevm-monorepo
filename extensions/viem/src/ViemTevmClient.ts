@@ -1,5 +1,12 @@
-import type { CallHandler, ContractHandler, DumpStateHandler, LoadStateHandler, ScriptHandler, SetAccountHandler } from '@tevm/actions-types'
 import type { GetAccountHandler } from '../../../packages/actions-types/dist/index.cjs'
+import type {
+	CallHandler,
+	ContractHandler,
+	DumpStateHandler,
+	LoadStateHandler,
+	ScriptHandler,
+	SetAccountHandler,
+} from '@tevm/actions-types'
 
 /**
  * The decorated properties added by the `tevmViemExtension`

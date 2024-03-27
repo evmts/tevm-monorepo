@@ -11,14 +11,14 @@ import { createTransport } from 'viem'
  * ## Why use viem?
  *
  * Viem is the recomended api for interacting with Tevm for most developers. Tevm can be used without
- * viem but using viem provides a more consistent experience across a code base and a standard for 
+ * viem but using viem provides a more consistent experience across a code base and a standard for
  * plugging into third party tools that you may already be using.
  *
  * Tevm supports the following
  * - [publicClients](https://viem.sh/docs/clients/public.html)
  * - [testClient](https://viem.sh/docs/clients/test.html)
  *
- * Tevm does not support the following but will in future release. 
+ * Tevm does not support the following but will in future release.
  * - [walletClient](https://viem.sh/docs/clients/wallet.html)
  *
  * You can still send writes to tevm using the `client.request` method with the `eth_sendTransaction` method.
@@ -71,7 +71,7 @@ import { createTransport } from 'viem'
  *
  * Tevm does not fully support wallet clients yet but you can use `sendTransaction` and `sendRawTransaction` to send transactions to tevm
  * as a workaround in meantime.
- * 
+ *
  * ## viemTevmExtension
  *
  * Optionally use the `viemTevmExtension` to add additional actions to your viem client
