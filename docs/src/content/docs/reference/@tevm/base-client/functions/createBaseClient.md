@@ -72,6 +72,14 @@ Creates the base instance of a memory client
 > console.log(chainId)
 > ```
 >
+> ### getTxPool
+>
+> > **`readonly`** **getTxPool**: () => `Promise`\<`TxPool`\>
+>
+> Gets the pool of pending transactions to be included in next block
+>
+> Gets the pool of pending transactions to be included in next block
+>
 > ### getVm
 >
 > > **`readonly`** **getVm**: () => `Promise`\<[`TevmVm`](/reference/tevm/vm/classes/tevmvm/)\>
@@ -83,6 +91,15 @@ Creates the base instance of a memory client
 > Internal instance of the VM. Can be used for lower level operations.
 > Normally not recomended to use unless building libraries or extensions
 > on top of Tevm.
+>
+> ### miningConfig
+>
+> > **`readonly`** **miningConfig**: [`MiningConfig`](/reference/tevm/base-client/type-aliases/miningconfig/)
+>
+> The configuration for mining. Defaults to 'auto'
+> - 'auto' will mine a block on every transaction
+> - 'interval' will mine a block every `interval` milliseconds
+> - 'manual' will not mine a block automatically and requires a manual call to `mineBlock`
 >
 > ### mode
 >
@@ -150,7 +167,7 @@ Creates the base instance of a memory client
 
 ## Source
 
-[createBaseClient.js:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/createBaseClient.js#L19)
+[createBaseClient.js:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/createBaseClient.js#L20)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

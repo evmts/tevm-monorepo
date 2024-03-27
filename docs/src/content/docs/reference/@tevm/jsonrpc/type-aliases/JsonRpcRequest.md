@@ -13,15 +13,15 @@ Helper type for creating JSON-RPC request types
 
 ### id
 
-> **id**?: `string` \| `number` \| `null`
+> **`readonly`** **id**?: `string` \| `number` \| `null`
 
 ### jsonrpc
 
-> **jsonrpc**: `"2.0"`
+> **`readonly`** **jsonrpc**: `"2.0"`
 
 ### method
 
-> **method**: `TMethod`
+> **`readonly`** **method**: `TMethod`
 
 ## Type parameters
 

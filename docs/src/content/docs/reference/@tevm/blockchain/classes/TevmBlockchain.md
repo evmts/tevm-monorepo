@@ -131,9 +131,9 @@ node\_modules/.pnpm/@ethereumjs+blockchain@7.1.0/node\_modules/@ethereumjs/block
 
 ### genesisBlock
 
-> **`get`** **genesisBlock**(): [`Block`](/reference/tevm/blockchain/classes/block/)
+> **`get`** **genesisBlock**(): `Block`
 
-The genesis [Block](/reference/tevm/blockchain/classes/block/) for the blockchain.
+The genesis [Block]([object Object]) for the blockchain.
 
 #### Source
 
@@ -165,9 +165,9 @@ node\_modules/.pnpm/@ethereumjs+blockchain@7.1.0/node\_modules/@ethereumjs/block
 
 ### createGenesisBlock()
 
-> **createGenesisBlock**(`stateRoot`): [`Block`](/reference/tevm/blockchain/classes/block/)
+> **createGenesisBlock**(`stateRoot`): `Block`
 
-Creates a genesis [Block](/reference/tevm/blockchain/classes/block/) for the blockchain with params from [Common.genesis](/reference/tevm/common/classes/tevmcommon/#genesis)
+Creates a genesis [Block]([object Object]) for the blockchain with params from [Common.genesis](/reference/tevm/common/classes/tevmcommon/#genesis)
 
 #### Parameters
 
@@ -216,7 +216,7 @@ node\_modules/.pnpm/@ethereumjs+blockchain@7.1.0/node\_modules/@ethereumjs/block
 
 ### getBlock()
 
-> **getBlock**(`blockId`): `Promise`\<[`Block`](/reference/tevm/blockchain/classes/block/)\>
+> **getBlock**(`blockId`): `Promise`\<`Block`\>
 
 Gets a block by its hash or number.  If a number is provided, the returned
 block will be the canonical block at that number in the chain
@@ -241,7 +241,7 @@ node\_modules/.pnpm/@ethereumjs+blockchain@7.1.0/node\_modules/@ethereumjs/block
 
 ### getBlocks()
 
-> **getBlocks**(`blockId`, `maxBlocks`, `skip`, `reverse`): `Promise`\<[`Block`](/reference/tevm/blockchain/classes/block/)[]\>
+> **getBlocks**(`blockId`, `maxBlocks`, `skip`, `reverse`): `Promise`\<`Block`[]\>
 
 Looks up many blocks relative to blockId Note: due to `GetBlockHeaders
 (0x03)` (ETH wire protocol) we have to support skip/reverse as well.
@@ -276,7 +276,7 @@ node\_modules/.pnpm/@ethereumjs+blockchain@7.1.0/node\_modules/@ethereumjs/block
 
 ### getCanonicalHeadBlock()
 
-> **getCanonicalHeadBlock**(): `Promise`\<[`Block`](/reference/tevm/blockchain/classes/block/)\>
+> **getCanonicalHeadBlock**(): `Promise`\<`Block`\>
 
 Returns the latest full block in the canonical chain.
 
@@ -328,7 +328,7 @@ node\_modules/.pnpm/@ethereumjs+blockchain@7.1.0/node\_modules/@ethereumjs/block
 
 ### getIteratorHead()
 
-> **getIteratorHead**(`name`?): `Promise`\<[`Block`](/reference/tevm/blockchain/classes/block/)\>
+> **getIteratorHead**(`name`?): `Promise`\<`Block`\>
 
 Returns the specified iterator head.
 
@@ -355,7 +355,7 @@ node\_modules/.pnpm/@ethereumjs+blockchain@7.1.0/node\_modules/@ethereumjs/block
 
 ### getIteratorHeadSafe()
 
-> **getIteratorHeadSafe**(`name`?): `Promise`\<`undefined` \| [`Block`](/reference/tevm/blockchain/classes/block/)\>
+> **getIteratorHeadSafe**(`name`?): `Promise`\<`undefined` \| `Block`\>
 
 This method differs from `getIteratorHead`. If the head is not found, it returns `undefined`.
 
@@ -473,7 +473,7 @@ heads/hashes are overwritten.
 
 #### Parameters
 
-▪ **block**: [`Block`](/reference/tevm/blockchain/classes/block/)
+▪ **block**: `Block`
 
 The block to be added to the blockchain
 
@@ -500,7 +500,7 @@ chain is rebuilt and any stale heads/hashes are overwritten.
 
 #### Parameters
 
-▪ **blocks**: [`Block`](/reference/tevm/blockchain/classes/block/)[]
+▪ **blocks**: `Block`[]
 
 The blocks to be added to the blockchain
 
@@ -698,7 +698,7 @@ whether the block is internally consistent
 
 #### Parameters
 
-▪ **block**: [`Block`](/reference/tevm/blockchain/classes/block/)
+▪ **block**: `Block`
 
 block to be validated
 
@@ -777,7 +777,7 @@ node\_modules/.pnpm/@ethereumjs+blockchain@7.1.0/node\_modules/@ethereumjs/block
 > **`static`** **fromBlocksData**(`blocksData`, `opts`?): `Promise`\<`Blockchain`\>
 
 Creates a blockchain from a list of block objects,
-objects must be readable by [Block.fromBlockData](/reference/tevm/blockchain/classes/block/#fromblockdata)
+objects must be readable by [Block.fromBlockData](/reference/tevm/blockchain/classes/tevmblock/#fromblockdata)
 
 #### Parameters
 

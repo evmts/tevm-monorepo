@@ -1,9 +1,24 @@
-import type { TevmClient } from '@tevm/client-types'
+import type { GetAccountHandler } from '../../../packages/actions-types/dist/index.cjs'
+import type {
+	CallHandler,
+	ContractHandler,
+	DumpStateHandler,
+	LoadStateHandler,
+	ScriptHandler,
+	SetAccountHandler,
+} from '@tevm/actions-types'
 
 /**
- * @deprecated in favor of the viem transport
  * The decorated properties added by the `tevmViemExtension`
  */
 export type ViemTevmClient = {
-	tevm: TevmClient
+	tevm: {
+		call: CallHandler
+		contract: ContractHandler
+		script: ScriptHandler
+		setAccount: SetAccountHandler
+		getAccount: GetAccountHandler
+		dumpState: DumpStateHandler
+		loadState: LoadStateHandler
+	}
 }

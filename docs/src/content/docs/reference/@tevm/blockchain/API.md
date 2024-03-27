@@ -9,7 +9,7 @@ title: "@tevm/blockchain"
 
 ### Classes
 
-- [Block](/reference/tevm/blockchain/classes/block/)
+- [TevmBlock](/reference/tevm/blockchain/classes/tevmblock/)
 - [TevmBlockchain](/reference/tevm/blockchain/classes/tevmblockchain/)
 
 ### Functions

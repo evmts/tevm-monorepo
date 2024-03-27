@@ -11,7 +11,7 @@ JSON-RPC response for `anvil_mine` procedure
 
 ## Source
 
-[responses/AnvilJsonRpcResponse.ts:61](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/AnvilJsonRpcResponse.ts#L61)
+[responses/AnvilJsonRpcResponse.ts:71](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/AnvilJsonRpcResponse.ts#L71)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

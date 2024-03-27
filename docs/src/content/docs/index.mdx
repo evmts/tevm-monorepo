@@ -1,9 +1,9 @@
 ---
 title: Tevm docs
-description: Build applications powered by the EVM, simplified
+description: JavaScript EVM client and a Solidity-to-TypeScript compiler.
 template: splash
 hero:
-  tagline: Build applications powered by the EVM, simplified
+  tagline: Build EVM applications with the EVM
   image:
     file: ../../assets/logo.webp
   actions:
@@ -26,14 +26,17 @@ import { Card, CardGrid } from '@astrojs/starlight/components';
 ## Features
 
 <CardGrid>
-	<Card title="Tevm memory devnet" icon="pencil">
-		[EVM execution and forking](/learn/clients) akin to [anvil](https://github.com/foundry-rs/foundry/tree/master/crates/anvil)
+	<Card title="EVM Client" icon="pencil">
+		Execute the EVM directly in your JavaScript code. It's like having anvil in your browser, node, or bun enviornments.
 	</Card>
-	<Card title="Solidity scripting" icon="add-document">
-		A powerful [solidity scripting](/learn/scripting) support akin to [foundry scripts](https://book.getfoundry.sh/tutorials/solidity-scripting)
+	<Card title="Built as viem transport" icon="add-document">
+		Plugs directly into viem and wagmi via a viem transport. Ethers.js provider is also available.
 	</Card>
-	<Card title="Solidity imports" icon="setting">
-		[Importing solidity files](/learn/solidity-imports) directly into TypeScript. Never juggle an ABI again!
+	<Card title="Solidity to TypeScript compiler" icon="setting">
+		With tevm you don't need a seperate compiler to generate abis and bytecode from solidity. You can import solidity directly into TypeScript files with ESM imports.
+	</Card>
+	<Card title="Powerful scripting" icon="setting">
+		Tevm can run arbitrary solidity script with advanced features such as JavaScript precompiles
 	</Card>
 	<Card title="Runs in all environments" icon="open-book">
 		Tevm runs in the browser, node.js, and bun
