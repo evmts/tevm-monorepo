@@ -8,12 +8,6 @@
 
 > **ViemTevmExtension**: () => [`ViemTevmClientDecorator`](ViemTevmClientDecorator.md)
 
-## Deprecated
-
-in favor of the viem transport
-
-This extension is highly experimental and should not be used in production.
-
 Creates a decorator to a viem wallet client that adds the `writeContractOptimistic` method to the `tevm` property.
 This enables viem to optimistically update the tevm state before the transaction is mined.
 
@@ -73,7 +67,7 @@ for (const result of client.tevm.writeContractOptimistic({
 
 ## Source
 
-[ViemTevmExtension.ts:63](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/ViemTevmExtension.ts#L63)
+[ViemTevmExtension.ts:59](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/ViemTevmExtension.ts#L59)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
