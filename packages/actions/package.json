@@ -1,6 +1,6 @@
 {
   "name": "@tevm/actions",
-  "version": "1.0.0-next.42",
+  "version": "1.0.0-next.45",
   "private": false,
   "description": "A typesafe library for writing forge scripts in typescript",
   "keywords": [
@@ -65,7 +65,7 @@
   },
   "dependencies": {
     "@tevm/jsonrpc": "workspace:^",
-    "@tevm/tx": "workspace:1.0.0-next.42",
+    "@tevm/tx": "workspace:1.0.0-next.45",
     "@tevm/utils": "workspace:^",
     "@tevm/vm": "workspace:^",
     "@tevm/zod": "workspace:^"
