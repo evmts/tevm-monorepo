@@ -1,5 +1,18 @@
 # @tevm/client
 
+## 1.0.0-next.45
+
+### Patch Changes
+
+- [#985](https://github.com/evmts/tevm-monorepo/pull/985) [`07a10a3eeef7a417d43a492668da1bf35db0e921`](https://github.com/evmts/tevm-monorepo/commit/07a10a3eeef7a417d43a492668da1bf35db0e921) Thanks [@roninjin10](https://github.com/roninjin10)! - Upgraded all deps to latest version
+
+- Updated dependencies [[`95ecf927b4c93aff6007887c0d72579ebe50d423`](https://github.com/evmts/tevm-monorepo/commit/95ecf927b4c93aff6007887c0d72579ebe50d423), [`5bc2874287bce7c3ccec0f543ba719b600e209cb`](https://github.com/evmts/tevm-monorepo/commit/5bc2874287bce7c3ccec0f543ba719b600e209cb), [`07a10a3eeef7a417d43a492668da1bf35db0e921`](https://github.com/evmts/tevm-monorepo/commit/07a10a3eeef7a417d43a492668da1bf35db0e921)]:
+  - @tevm/procedures@1.0.0-next.45
+  - @tevm/actions@1.0.0-next.45
+  - @tevm/utils@1.0.0-next.45
+  - @tevm/actions-types@1.0.0-next.45
+  - @tevm/procedures-types@1.0.0-next.45
+
 ## 1.0.0-next.42
 
 ### Patch Changes

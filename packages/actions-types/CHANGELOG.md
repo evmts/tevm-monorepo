@@ -1,5 +1,11 @@
 # @tevm/contract
 
+## 1.0.0-next.45
+
+### Minor Changes
+
+- [`5bc2874287bce7c3ccec0f543ba719b600e209cb`](https://github.com/evmts/tevm-monorepo/commit/5bc2874287bce7c3ccec0f543ba719b600e209cb) - Added eth*sendTransaction and eth_sendRawTransaction along with various anvil* methods
+
 ## 1.0.0-next.41
 
 ### Patch Changes

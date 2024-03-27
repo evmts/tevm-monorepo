@@ -1,5 +1,15 @@
 # @tevm/ethers
 
+## 1.0.0-next.45
+
+### Patch Changes
+
+- Updated dependencies [[`95ecf927b4c93aff6007887c0d72579ebe50d423`](https://github.com/evmts/tevm-monorepo/commit/95ecf927b4c93aff6007887c0d72579ebe50d423), [`5bc2874287bce7c3ccec0f543ba719b600e209cb`](https://github.com/evmts/tevm-monorepo/commit/5bc2874287bce7c3ccec0f543ba719b600e209cb), [`07a10a3eeef7a417d43a492668da1bf35db0e921`](https://github.com/evmts/tevm-monorepo/commit/07a10a3eeef7a417d43a492668da1bf35db0e921)]:
+  - @tevm/utils@1.0.0-next.45
+  - @tevm/procedures-types@1.0.0-next.45
+  - @tevm/memory-client@1.0.0-next.45
+  - @tevm/client-types@1.0.0-next.45
+
 ## 1.0.0-next.42
 
 ### Patch Changes
@@ -191,13 +201,13 @@
   ```typescript
   function createEthersContract<
     TAddresses extends Record<number, Address>,
-    TAbi extends Abi
+    TAbi extends Abi,
   >(
     contract: Pick<
       TevmContract<any, TAddresses, TAbi, any>,
       "abi" | "addresses"
     >,
-    options: CreateEthersContractOptions<keyof TAddresses & number>
+    options: CreateEthersContractOptions<keyof TAddresses & number>,
   ): TypesafeEthersContract<TAbi>;
   ```
 
