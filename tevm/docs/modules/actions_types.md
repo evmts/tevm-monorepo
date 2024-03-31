@@ -1476,13 +1476,13 @@ Based on the JSON-RPC request for `eth_call` procedure
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `blockOverride?` | `BlockOverrideSet` | - |
+| `blockOverride?` | `BlockOverrideSet` | The block override set to provide different block values while executing the call |
 | `blockTag?` | [`BlockParam`](index.md#blockparam) | The block number hash or block tag |
 | `data?` | [`Hex`](actions_types.md#hex) | The hash of the method signature and encoded parameters. For more information, see the Contract ABI description in the Solidity documentation Defaults to zero data |
 | `from?` | [`Address`](actions_types.md#address) | The address from which the transaction is sent. Defaults to zero address |
 | `gas?` | `bigint` | The integer of gas provided for the transaction execution |
 | `gasPrice?` | `bigint` | The integer of gasPrice used for each paid gas |
-| `stateOverrideSet?` | `StateOverrideSet` | - |
+| `stateOverrideSet?` | `StateOverrideSet` | The state override set to provide different state values while executing the call |
 | `to?` | [`Address`](actions_types.md#address) | The address to which the transaction is addressed. Defaults to zero address |
 | `value?` | `bigint` | The integer of value sent with this transaction |
 
@@ -1536,7 +1536,7 @@ Based on the JSON-RPC request for `eth_chainId` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:50
+evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:56
 
 ___
 
@@ -1584,7 +1584,7 @@ Based on the JSON-RPC request for `eth_coinbase` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:54
+evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:60
 
 ___
 
@@ -1633,7 +1633,7 @@ This type is a placeholder
 
 #### Defined in
 
-evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:59
+evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:65
 
 ___
 
@@ -1681,7 +1681,7 @@ Based on the JSON-RPC request for `eth_gasPrice` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:67
+evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:73
 
 ___
 
@@ -1736,7 +1736,7 @@ Based on the  JSON-RPC request for `eth_getBalance` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:71
+evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:77
 
 ___
 
@@ -1791,7 +1791,7 @@ Based on the JSON-RPC request for `eth_getBlockByHash` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:78
+evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:84
 
 ___
 
@@ -1846,7 +1846,7 @@ Based on the JSON-RPC request for `eth_getBlockByNumber` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:85
+evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:91
 
 ___
 
@@ -1900,7 +1900,7 @@ Based on the JSON-RPC request for `eth_getBlockTransactionCountByHash` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:92
+evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:98
 
 ___
 
@@ -1954,7 +1954,7 @@ Based on the JSON-RPC request for `eth_getBlockTransactionCountByNumber` procedu
 
 #### Defined in
 
-evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:98
+evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:104
 
 ___
 
@@ -2009,7 +2009,7 @@ Based on the JSON-RPC request for `eth_getCode` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:104
+evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:110
 
 ___
 
@@ -2063,7 +2063,7 @@ Based on the JSON-RPC request for `eth_getFilterChanges` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:111
+evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:117
 
 ___
 
@@ -2117,7 +2117,7 @@ Based on the JSON-RPC request for `eth_getFilterLogs` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:117
+evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:123
 
 ___
 
@@ -2171,7 +2171,7 @@ Based on the JSON-RPC request for `eth_getLogs` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:123
+evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:129
 
 ___
 
@@ -2227,7 +2227,7 @@ Based on the JSON-RPC request for `eth_getStorageAt` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:129
+evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:135
 
 ___
 
@@ -2282,7 +2282,7 @@ Based on the JSON-RPC request for `eth_getTransactionByBlockHashAndIndex` proced
 
 #### Defined in
 
-evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:162
+evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:168
 
 ___
 
@@ -2337,7 +2337,7 @@ Based on the JSON-RPC request for `eth_getTransactionByBlockNumberAndIndex` proc
 
 #### Defined in
 
-evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:169
+evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:175
 
 ___
 
@@ -2391,7 +2391,7 @@ Based on the JSON-RPC request for `eth_getTransactionByHash` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:156
+evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:162
 
 ___
 
@@ -2446,7 +2446,7 @@ Based on the JSON-RPC request for `eth_getTransactionCount` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:137
+evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:143
 
 ___
 
@@ -2500,7 +2500,7 @@ Based on the JSON-RPC request for `eth_getTransactionReceipt` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:176
+evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:182
 
 ___
 
@@ -2555,7 +2555,7 @@ Based on the JSON-RPC request for `eth_getUncleByBlockHashAndIndex` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:182
+evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:188
 
 ___
 
@@ -2610,7 +2610,7 @@ Based on the JSON-RPC request for `eth_getUncleByBlockNumberAndIndex` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:189
+evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:195
 
 ___
 
@@ -2664,7 +2664,7 @@ Based on the JSON-RPC request for `eth_getUncleCountByBlockHash` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:144
+evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:150
 
 ___
 
@@ -2718,7 +2718,7 @@ Based on the JSON-RPC request for `eth_getUncleCountByBlockNumber` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:150
+evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:156
 
 ___
 
@@ -2766,7 +2766,7 @@ Based on the JSON-RPC request for `eth_hashrate` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:63
+evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:69
 
 ___
 
@@ -2814,7 +2814,7 @@ Based on the JSON-RPC request for `eth_mining` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:196
+evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:202
 
 ___
 
@@ -2862,7 +2862,7 @@ Based on the JSON-RPC request for `eth_newBlockFilter` procedure (no params)
 
 #### Defined in
 
-evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:271
+evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:277
 
 ___
 
@@ -2910,7 +2910,7 @@ Based on the JSON-RPC request for `eth_newFilter` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:267
+evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:273
 
 ___
 
@@ -2958,7 +2958,7 @@ Based on the JSON-RPC request for `eth_newPendingTransactionFilter` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:275
+evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:281
 
 ___
 
@@ -2980,7 +2980,7 @@ ___
 
 #### Defined in
 
-evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:282
+evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:288
 
 ___
 
@@ -3016,7 +3016,7 @@ Based on the JSON-RPC request for `eth_protocolVersion` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:200
+evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:206
 
 ___
 
@@ -3071,7 +3071,7 @@ This type is a placeholder
 
 #### Defined in
 
-evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:205
+evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:211
 
 ___
 
@@ -3120,7 +3120,7 @@ This type is a placeholder
 
 #### Defined in
 
-evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:213
+evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:219
 
 ___
 
@@ -3175,7 +3175,7 @@ Based on the JSON-RPC request for `eth_sign` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:218
+evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:224
 
 ___
 
@@ -3235,7 +3235,7 @@ Based on the JSON-RPC request for `eth_signTransaction` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:226
+evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:232
 
 ___
 
@@ -3283,7 +3283,7 @@ Based on the JSON-RPC request for `eth_syncing` procedure (no params)
 
 #### Defined in
 
-evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:263
+evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:269
 
 ___
 
@@ -3337,7 +3337,7 @@ Based on the JSON-RPC request for `eth_uninstallFilter` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:279
+evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:285
 
 ___
 
