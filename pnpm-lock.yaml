@@ -24,11 +24,11 @@ importers:
         specifier: ^0.34.6
         version: 0.34.7(vitest@0.34.6)
       bun:
-        specifier: ^1.0.26
-        version: 1.0.26
+        specifier: ^1.0.36
+        version: 1.0.36
       bun-types:
-        specifier: ^1.0.26
-        version: 1.0.26
+        specifier: ^1.0.36
+        version: 1.0.36
       concurrently:
         specifier: ^8.2.2
         version: 8.2.2
@@ -70,7 +70,7 @@ importers:
         version: 5.3.3
       vite:
         specifier: ^5.0.6
-        version: 5.0.12
+        version: 5.0.12(@types/node@20.11.19)
       vitest:
         specifier: ^0.34.6
         version: 0.34.6(@vitest/ui@0.34.7)
@@ -6319,48 +6319,48 @@ packages:
     resolution: {integrity: sha512-yQJaT5HDp9hYOOp4jTYxMsR02gdFZFXhewX5HW9Jo4fsqSVqqyIO/xTHdWDaKX5a3pv1txmf076Lziz+sO7L1w==}
     dev: true
 
-  /@oven/bun-darwin-aarch64@1.0.26:
-    resolution: {integrity: sha512-7FgUZz2EpMgFdEI9sA68bnHhrnrDBmCwcewpm6641HK0x2RIO1EcFl/7GKSGsD1JmbNfGqxYU16Sc+rgKFtXAg==}
+  /@oven/bun-darwin-aarch64@1.0.36:
+    resolution: {integrity: sha512-w4PkIgM0E4s93l+sT3UuAHA+D9WYl8YQA+hiUSU9qaIHxkAvFXf7+/mbWJ2ltlr9vOefAoJWNXMlDQNFljj6aQ==}
     cpu: [arm64]
     os: [darwin]
     requiresBuild: true
     dev: true
     optional: true
 
-  /@oven/bun-darwin-x64-baseline@1.0.26:
-    resolution: {integrity: sha512-ssVJJs6tAvVZKnCx5bXAXZ05nSbfLHJ4qD/XFlVYb+3aue81YhXzQpbsOr9DShv209rBp9756SqHs9KZH66cbQ==}
+  /@oven/bun-darwin-x64-baseline@1.0.36:
+    resolution: {integrity: sha512-JAwk3erMgnC9l0Tn5eRSHFexkjisZDBCpAFzO1kqzIDVaq6uUC1tA38He4x6tKAsqSWghh+2b8ryA9SsJljt5w==}
     cpu: [x64]
     os: [darwin]
     requiresBuild: true
     dev: true
     optional: true
 
-  /@oven/bun-darwin-x64@1.0.26:
-    resolution: {integrity: sha512-kWO6ThQEMm4OPfqlhFlWrDRiIFtaUl//bRJfomOHE4BABaP9bdgHjDsaxt0pUWiKP9j9YnPFXtMw91iUbTbCWg==}
+  /@oven/bun-darwin-x64@1.0.36:
+    resolution: {integrity: sha512-D7PiEEswWbdYKyJTiU+ENrdvtQ5NwKFVzOIjljDgIZXx/tBVsASFXuREyFeicSGQexr77oUuN0m0zlB3okYiQg==}
     cpu: [x64]
     os: [darwin]
     requiresBuild: true
     dev: true
     optional: true
 
-  /@oven/bun-linux-aarch64@1.0.26:
-    resolution: {integrity: sha512-YSG6pOFMpXquGf3i4/Ta05NAlsSkiZVk5P5EAlfO1fnJANlkcu1QfD/IYvddQ5YY4aOTwlQFqA29pYxYj+2A/A==}
+  /@oven/bun-linux-aarch64@1.0.36:
+    resolution: {integrity: sha512-GeWtoSfTfSNyvlhWJ4NHZcGGe7nX8nHzCovV+c2Mk5A2UmnBYYFewq3sRT9ET6m+yMGf9qDLhgqmm5XjWjmKCA==}
     cpu: [arm64]
     os: [linux]
     requiresBuild: true
     dev: true
     optional: true
 
-  /@oven/bun-linux-x64-baseline@1.0.26:
-    resolution: {integrity: sha512-1EjD6t6BFkspGqTRqYGVSQw5eIktDsappweG+1yh/QpmhV95/vDKKoPGXCwoyeSoJIjJMl9VaApX8Fr1vpnUfA==}
+  /@oven/bun-linux-x64-baseline@1.0.36:
+    resolution: {integrity: sha512-G+erHwcV/ndaCHVkqF8tgwatlk1pohMjeOK+3zxgp/UEMAT9Bbt7dSPHwOdD0BRMcA9ytxLoGVfFZWqXEhR9dA==}
     cpu: [x64]
     os: [linux]
     requiresBuild: true
     dev: true
     optional: true
 
-  /@oven/bun-linux-x64@1.0.26:
-    resolution: {integrity: sha512-ErEH7yBkWIt01qROMysM6ZQqz8epY+2DtQW0rfjKbaPm8JuEdZVyeA5zoKES3e2J37FUY073MdbwdzE5KPX2cQ==}
+  /@oven/bun-linux-x64@1.0.36:
+    resolution: {integrity: sha512-swLgGuUKDcoDzIf8YQmK8ewGUaHDJwIQ8o7hXA7GWZGmFSfbY6UM4no99uztuT6BXPY3AboE7Hc8sdP91T1tVQ==}
     cpu: [x64]
     os: [linux]
     requiresBuild: true
@@ -8922,7 +8922,6 @@ packages:
     resolution: {integrity: sha512-7xMnVEcZFu0DikYjWOlRq7NTPETrm7teqUT2WkQjrTIkEgUyyGdWsj/Zg8bEJt5TNklzbPD1X3fqfsHw3SpapQ==}
     dependencies:
       undici-types: 5.26.5
-    dev: true
 
   /@types/node@20.11.20:
     resolution: {integrity: sha512-7/rR21OS+fq8IyHTgtLkDK949uzsa6n8BkziAKtPVpugIkO6D+/ooXMvzXxDnZrmtXVfjb1bKQafYpb8s89LOg==}
@@ -11268,7 +11267,7 @@ packages:
       tsconfck: 3.0.1(typescript@5.4.3)
       unist-util-visit: 5.0.0
       vfile: 6.0.1
-      vite: 5.0.12
+      vite: 5.0.12(@types/node@20.11.19)
       vitefu: 0.2.5(vite@5.0.12)
       which-pm: 2.1.1
       yargs-parser: 21.1.1
@@ -12052,26 +12051,26 @@ packages:
       undici-types: 5.28.2
     dev: true
 
-  /bun-types@1.0.26:
-    resolution: {integrity: sha512-VcSj+SCaWIcMb0uSGIAtr8P92zq9q+unavcQmx27fk6HulCthXHBVrdGuXxAZbFtv7bHVjizRzR2mk9r/U8Nkg==}
+  /bun-types@1.0.36:
+    resolution: {integrity: sha512-gaIb1SyhB0JZfIEg73/kSFhqolUqJXC68peguhXGwqr27HuvI8nkD0LTIHp/1DY4cNadfXHYgYrZIWX7oEoXlg==}
     dependencies:
-      '@types/node': 20.11.19
+      '@types/node': 20.11.30
       '@types/ws': 8.5.10
     dev: true
 
-  /bun@1.0.26:
-    resolution: {integrity: sha512-+aSzKvGLE9hWwCRDwvnhoMTDntCYEk5bKn16L0QGD0v630WJMPhazAMxaSJmfq6dSAtiqPpauPpmHbzwoGPjlQ==}
+  /bun@1.0.36:
+    resolution: {integrity: sha512-GUCWqouaaKf85KZLJwk27+12/55x857YVo6KGCM+ohKlzoJ6AtCea8/kDS16HoMOZ9/XKvyP3Cc+ZXUFYwoKjA==}
     cpu: [arm64, x64]
     os: [darwin, linux]
     hasBin: true
     requiresBuild: true
     optionalDependencies:
-      '@oven/bun-darwin-aarch64': 1.0.26
-      '@oven/bun-darwin-x64': 1.0.26
-      '@oven/bun-darwin-x64-baseline': 1.0.26
-      '@oven/bun-linux-aarch64': 1.0.26
-      '@oven/bun-linux-x64': 1.0.26
-      '@oven/bun-linux-x64-baseline': 1.0.26
+      '@oven/bun-darwin-aarch64': 1.0.36
+      '@oven/bun-darwin-x64': 1.0.36
+      '@oven/bun-darwin-x64-baseline': 1.0.36
+      '@oven/bun-linux-aarch64': 1.0.36
+      '@oven/bun-linux-x64': 1.0.36
+      '@oven/bun-linux-x64-baseline': 1.0.36
     dev: true
 
   /bundle-require@4.0.2(esbuild@0.19.11):
@@ -13126,17 +13125,6 @@ packages:
         optional: true
     dependencies:
       ms: 2.0.0
-
-  /debug@3.1.0:
-    resolution: {integrity: sha512-OX8XqP7/1a9cqkxYw2yXss15f26NKWBpDXQd0/uK/KPqdQhxbPa994hnzjcE2VqQpDslf55723cKPUOGSmMY3g==}
-    peerDependencies:
-      supports-color: '*'
-    peerDependenciesMeta:
-      supports-color:
-        optional: true
-    dependencies:
-      ms: 2.0.0
-    dev: true
 
   /debug@3.2.7:
     resolution: {integrity: sha512-CFjzYYAi4ThfiQvizrFQevTTXHtnCqWfe7x1AhgEscTz6ZbLbfoLRLPugTQyBth6f8ZERVUSyWHFD/7Wu4t1XQ==}
@@ -17713,7 +17701,7 @@ packages:
       object-assign: 4.1.1
       opn: 6.0.0
       proxy-middleware: 0.15.0
-      send: 1.0.0-beta.2
+      send: 0.18.0
       serve-index: 1.9.1
     transitivePeerDependencies:
       - supports-color
@@ -21572,26 +21560,6 @@ packages:
       - supports-color
     dev: true
 
-  /send@1.0.0-beta.2:
-    resolution: {integrity: sha512-k1yHu/FNK745PULKdsGpQ+bVSXYNwSk+bWnYzbxGZbt5obZc0JKDVANsCRuJD1X/EG15JtP9eZpwxkhUxIYEcg==}
-    engines: {node: '>= 0.10'}
-    dependencies:
-      debug: 3.1.0
-      destroy: 1.2.0
-      encodeurl: 1.0.2
-      escape-html: 1.0.3
-      etag: 1.8.1
-      fresh: 0.5.2
-      http-errors: 2.0.0
-      mime-types: 2.1.35
-      ms: 2.1.3
-      on-finished: 2.4.1
-      range-parser: 1.2.1
-      statuses: 2.0.1
-    transitivePeerDependencies:
-      - supports-color
-    dev: true
-
   /serialize-javascript@6.0.0:
     resolution: {integrity: sha512-Qr3TosvguFt8ePWqsvRfrKyQXIiW+nGbYpy8XK24NQHE83caxWt+mIymTT19DGFbNWNLfEwsrkSmN64lVWB9ag==}
     dependencies:
@@ -24601,40 +24569,6 @@ packages:
     optionalDependencies:
       fsevents: 2.3.3
 
-  /vite@5.0.12:
-    resolution: {integrity: sha512-4hsnEkG3q0N4Tzf1+t6NdN9dg/L3BM+q8SWgbSPnJvrgH2kgdyzfVJwbR1ic69/4uMJJ/3dqDZZE5/WwqW8U1w==}
-    engines: {node: ^18.0.0 || >=20.0.0}
-    hasBin: true
-    peerDependencies:
-      '@types/node': ^18.0.0 || >=20.0.0
-      less: '*'
-      lightningcss: ^1.21.0
-      sass: '*'
-      stylus: '*'
-      sugarss: '*'
-      terser: ^5.4.0
-    peerDependenciesMeta:
-      '@types/node':
-        optional: true
-      less:
-        optional: true
-      lightningcss:
-        optional: true
-      sass:
-        optional: true
-      stylus:
-        optional: true
-      sugarss:
-        optional: true
-      terser:
-        optional: true
-    dependencies:
-      esbuild: 0.19.11
-      postcss: 8.4.33
-      rollup: 4.9.5
-    optionalDependencies:
-      fsevents: 2.3.3
-
   /vite@5.0.12(@types/node@20.11.19):
     resolution: {integrity: sha512-4hsnEkG3q0N4Tzf1+t6NdN9dg/L3BM+q8SWgbSPnJvrgH2kgdyzfVJwbR1ic69/4uMJJ/3dqDZZE5/WwqW8U1w==}
     engines: {node: ^18.0.0 || >=20.0.0}
@@ -24665,11 +24599,10 @@ packages:
     dependencies:
       '@types/node': 20.11.19
       esbuild: 0.19.11
-      postcss: 8.4.38
+      postcss: 8.4.33
       rollup: 4.9.5
     optionalDependencies:
       fsevents: 2.3.3
-    dev: true
 
   /vite@5.2.6:
     resolution: {integrity: sha512-FPtnxFlSIKYjZ2eosBQamz4CbyrTizbZ3hnGJlh/wMtCrlp1Hah6AzBLjGI5I2urTfNnpovpHdrL6YRuBOPnCA==}
@@ -24725,7 +24658,7 @@ packages:
       vite:
         optional: true
     dependencies:
-      vite: 5.0.12
+      vite: 5.0.12(@types/node@20.11.19)
     dev: false
 
   /vitefu@0.2.5(vite@5.2.6):

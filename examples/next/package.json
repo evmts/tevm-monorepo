@@ -2,10 +2,6 @@
   "name": "@tevm/example-next",
   "version": "0.0.1",
   "private": true,
-  "contritors": [
-    "Will Cory <willcory10@gmail.com>",
-    "0xpolarzero"
-  ],
   "scripts": {
     "all": "bun run format && bun run lint && bun run typecheck && bun run build",
     "build": "next build",
@@ -70,5 +66,9 @@
     "prettier-plugin-tailwindcss": "^0.5.11",
     "tailwindcss": "^3.3.0",
     "typescript": "^5"
-  }
+  },
+  "contritors": [
+    "Will Cory <willcory10@gmail.com>",
+    "0xpolarzero"
+  ]
 }

@@ -10,7 +10,7 @@ runs:
     - name: Set up Bun
       uses: oven-sh/setup-bun@v1
       with:
-        bun-version: 1.0.26
+        bun-version: 1.0.36
 
     - uses: pnpm/action-setup@v2
       name: Install pnpm
