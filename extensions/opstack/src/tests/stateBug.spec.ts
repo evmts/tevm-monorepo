@@ -66,15 +66,12 @@ const setEcotoneAndCheck = async (client: L1Client) => {
 }
 
 /* ---------------------------------- MAIN ---------------------------------- */
-test(
-	'The optimism memory clients that are running in normal mode with a normal state manager should successfully deep clone state when running a call with `createTransaction=false`',
-	async () => {
-		const client = await prepare()
+test('The optimism memory clients that are running in normal mode with a normal state manager should successfully deep clone state when running a call with `createTransaction=false`', async () => {
+	const client = await prepare()
 
-		// Set Ecotone and get both results
-		expect(await setEcotoneAndCheck(client)).toEqual({
-			ecotoneActivatedCreateTransactionFalse: true,
-			ecotoneActivatedcreateTransactionTrue: true,
-		})
-	},
-)
+	// Set Ecotone and get both results
+	expect(await setEcotoneAndCheck(client)).toEqual({
+		ecotoneActivatedCreateTransactionFalse: true,
+		ecotoneActivatedcreateTransactionTrue: true,
+	})
+})

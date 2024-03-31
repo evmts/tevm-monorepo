@@ -163,7 +163,7 @@ Error.prepareStackTrace
 
 evmts-monorepo/node_modules/.pnpm/@types+node@20.11.5/node_modules/@types/node/globals.d.ts:28
 
-evmts-monorepo/node_modules/.pnpm/@types+node@20.11.19/node_modules/@types/node/globals.d.ts:28
+evmts-monorepo/node_modules/.pnpm/@types+node@20.11.30/node_modules/@types/node/globals.d.ts:28
 
 evmts-monorepo/node_modules/.pnpm/bun-types@1.0.26/node_modules/bun-types/globals.d.ts:1532
 
@@ -181,7 +181,7 @@ Error.stackTraceLimit
 
 evmts-monorepo/node_modules/.pnpm/@types+node@20.11.5/node_modules/@types/node/globals.d.ts:30
 
-evmts-monorepo/node_modules/.pnpm/@types+node@20.11.19/node_modules/@types/node/globals.d.ts:30
+evmts-monorepo/node_modules/.pnpm/@types+node@20.11.30/node_modules/@types/node/globals.d.ts:30
 
 evmts-monorepo/node_modules/.pnpm/bun-types@1.0.26/node_modules/bun-types/globals.d.ts:1534
 
@@ -233,7 +233,7 @@ Error.captureStackTrace
 
 #### Defined in
 
-evmts-monorepo/node_modules/.pnpm/@types+node@20.11.19/node_modules/@types/node/globals.d.ts:21
+evmts-monorepo/node_modules/.pnpm/@types+node@20.11.30/node_modules/@types/node/globals.d.ts:21
 
 ▸ **captureStackTrace**(`targetObject`, `constructorOpt?`): `void`
 
