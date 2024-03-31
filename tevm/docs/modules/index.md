@@ -1480,11 +1480,7 @@ type BlockNumberRequestType = JsonRpcRequestTypeFromMethod<'eth_blockNumber'>
 
 #### Defined in
 
-<<<<<<< HEAD
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:1031
-=======
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:1028
->>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:1040
 
 ___
 
@@ -1526,11 +1522,7 @@ type BlockNumberReturnType = JsonRpcReturnTypeFromMethod<'eth_blockNumber'>
 
 #### Defined in
 
-<<<<<<< HEAD
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:1052
-=======
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:1049
->>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:1061
 
 ___
 
@@ -2091,11 +2083,7 @@ response - [EthGetBalanceJsonRpcResponse](procedures_types.md#ethgetbalancejsonr
 
 #### Defined in
 
-<<<<<<< HEAD
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:1220
-=======
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:1217
->>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:1229
 
 ___
 
@@ -2108,11 +2096,7 @@ A Tevm JSON-RPC request
 
 #### Defined in
 
-<<<<<<< HEAD
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:416
-=======
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:418
->>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:425
 
 ___
 
@@ -2223,11 +2207,7 @@ response - [EthGetBalanceJsonRpcResponse](procedures_types.md#ethgetbalancejsonr
 
 #### Defined in
 
-<<<<<<< HEAD
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:1134
-=======
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:1131
->>>>>>> 9707baebd (:sparkles: Feat: Add state and block override params to tevm_call and eth_call)
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:1143
 
 ___
 

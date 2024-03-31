@@ -2862,7 +2862,7 @@ Based on the JSON-RPC request for `eth_newBlockFilter` procedure (no params)
 
 #### Defined in
 
-evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:269
+evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:271
 
 ___
 
@@ -2910,7 +2910,7 @@ Based on the JSON-RPC request for `eth_newFilter` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:265
+evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:267
 
 ___
 
@@ -2958,7 +2958,7 @@ Based on the JSON-RPC request for `eth_newPendingTransactionFilter` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:273
+evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:275
 
 ___
 
@@ -2980,7 +2980,7 @@ ___
 
 #### Defined in
 
-evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:280
+evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:282
 
 ___
 
@@ -3120,7 +3120,7 @@ This type is a placeholder
 
 #### Defined in
 
-evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:211
+evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:213
 
 ___
 
@@ -3175,7 +3175,7 @@ Based on the JSON-RPC request for `eth_sign` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:216
+evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:218
 
 ___
 
@@ -3235,7 +3235,7 @@ Based on the JSON-RPC request for `eth_signTransaction` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:224
+evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:226
 
 ___
 
@@ -3283,7 +3283,7 @@ Based on the JSON-RPC request for `eth_syncing` procedure (no params)
 
 #### Defined in
 
-evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:261
+evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:263
 
 ___
 
@@ -3337,7 +3337,7 @@ Based on the JSON-RPC request for `eth_uninstallFilter` procedure
 
 #### Defined in
 
-evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:277
+evmts-monorepo/packages/actions-types/types/params/EthParams.d.ts:279
 
 ___
 
