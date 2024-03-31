@@ -41,49 +41,45 @@ const setEcotoneAndCheck = async (client: L1Client) => {
 			createTransaction: true,
 		})
 		expect(writeRes).toEqual({
-			"createdAddresses": new Set(),
-			"data": undefined,
-			"executionGasUsed": 25588n,
-			"gas": 16751627n,
-			"logs": [],
-			"rawData": "0x",
-			"selfdestruct": new Set(),
-		}
-		)
+			createdAddresses: new Set(),
+			data: undefined,
+			executionGasUsed: 25588n,
+			gas: 16751627n,
+			logs: [],
+			rawData: '0x',
+			selfdestruct: new Set(),
+		})
 
 		// Check if Ecotone is active
 		const res = await client.contract({
 			...GasPriceOracle.read.isEcotone(),
 		})
-		expect(res).toEqual(
-			{
-				"createdAddresses": new Set(),
-				"data": true,
-				"executionGasUsed": 2377n,
-				"gas": 16774838n,
-				"logs": [],
-				"rawData": "0x0000000000000000000000000000000000000000000000000000000000000001",
-				"selfdestruct": new Set(),
-			}
-		)
+		expect(res).toEqual({
+			createdAddresses: new Set(),
+			data: true,
+			executionGasUsed: 2377n,
+			gas: 16774838n,
+			logs: [],
+			rawData:
+				'0x0000000000000000000000000000000000000000000000000000000000000001',
+			selfdestruct: new Set(),
+		})
 
 		// Check again with createTransaction: true
 		const res2 = await client.contract({
 			...GasPriceOracle.read.isEcotone(),
 			createTransaction: true,
 		})
-		expect(res2).toEqual(
-
-			{
-				"createdAddresses": new Set(),
-				"data": true,
-				"executionGasUsed": 377n,
-				"gas": 16776838n,
-				"logs": [],
-				"rawData": "0x0000000000000000000000000000000000000000000000000000000000000001",
-				"selfdestruct": new Set(),
-			}
-		)
+		expect(res2).toEqual({
+			createdAddresses: new Set(),
+			data: true,
+			executionGasUsed: 377n,
+			gas: 16776838n,
+			logs: [],
+			rawData:
+				'0x0000000000000000000000000000000000000000000000000000000000000001',
+			selfdestruct: new Set(),
+		})
 
 		return {
 			ecotoneActivatedCreateTransactionFalse: res.data,

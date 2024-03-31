@@ -159,6 +159,24 @@ const result = client.contract(
 console.log(result) // hello world
 ```
 
+## State overrides
+
+The `script`, `call`, `eth.call` and `contract` methods along with their corresponding JSON-RPC procedures support [state overrides](https://geth.ethereum.org/docs/interacting-with-geth/rpc/ns-eth). This allows you to do any of the following:
+
+- set contract storage for a specific contract
+- set value for a specific account
+- set nonce for an account
+- set contract bytecode for an account
+
+## Block overrides
+
+The `script`, `call`, `eth.call` and `contract` methods along with their corresponding JSON-RPC procedures support [block overrides](https://geth.ethereum.org/docs/interacting-with-geth/rpc/ns-eth). This allows you to do any of the following:
+
+- set the block number for a call
+- set the baseFee or blobBaseFee for a call
+- set the coinbase for a call
+- more
+
 ## Best practices
 
 1. Distributing your precompiles if building a library

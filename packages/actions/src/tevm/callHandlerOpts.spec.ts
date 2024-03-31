@@ -1,155 +1,163 @@
 import { callHandlerOpts } from './callHandlerOpts.js'
+import { createBaseClient } from '@tevm/base-client'
 import { EthjsAddress } from '@tevm/utils'
 import { hexToBytes } from '@tevm/utils'
 import { describe, expect, it } from 'bun:test'
 
 describe('callHandlerOpts', () => {
-	it('should handle empty params', () => {
-		const result = callHandlerOpts({})
-		expect(result).toEqual({})
+	const client = createBaseClient()
+	it('should handle empty params', async () => {
+		const result = await callHandlerOpts(client, {})
+		expect(result.data).toEqual({
+			block: await client
+				.getVm()
+				.then((vm) => vm.blockchain.getCanonicalHeadBlock()),
+		})
 	})
 
-	it('should parse caller address correctly', () => {
+	it('should parse caller address correctly', async () => {
 		const params = { caller: `0x${'4'.repeat(40)}` } as const
-		const result = callHandlerOpts(params)
-		expect(result.caller).toEqual(EthjsAddress.fromString(params.caller))
+		const result = await callHandlerOpts(client, params)
+		expect(result.data?.caller).toEqual(EthjsAddress.fromString(params.caller))
 	})
 
-	it('should set both origin and caller to from address if provided', () => {
+	it('should set both origin and caller to from address if provided', async () => {
 		const params = { from: `0x${'4'.repeat(40)}` } as const
-		const result = callHandlerOpts(params)
-		expect(result.caller).toEqual(EthjsAddress.fromString(params.from))
-		expect(result.origin).toEqual(EthjsAddress.fromString(params.from))
+		const result = await callHandlerOpts(client, params)
+		expect(result.data?.caller).toEqual(EthjsAddress.fromString(params.from))
+		expect(result.data?.origin).toEqual(EthjsAddress.fromString(params.from))
 	})
 
-	it('origin and caller take presidence over from', () => {
+	it('origin and caller take presidence over from', async () => {
 		const params = {
 			from: `0x${'4'.repeat(40)}`,
 			origin: `0x${'5'.repeat(40)}`,
 			caller: `0x${'6'.repeat(40)}`,
 		} as const
-		const result = callHandlerOpts(params)
-		expect(result.caller).toEqual(EthjsAddress.fromString(params.caller))
-		expect(result.origin).toEqual(EthjsAddress.fromString(params.origin))
+		const result = await callHandlerOpts(client, params)
+		expect(result.data?.caller).toEqual(EthjsAddress.fromString(params.caller))
+		expect(result.data?.origin).toEqual(EthjsAddress.fromString(params.origin))
 	})
 
-	it('origin and caller take presidence over from', () => {
+	it('origin and caller take presidence over from', async () => {
 		const params = {
 			from: `0x${'4'.repeat(40)}`,
 			origin: `0x${'5'.repeat(40)}`,
 			caller: `0x${'6'.repeat(40)}`,
 		} as const
-		const result = callHandlerOpts(params)
-		expect(result.caller).toEqual(EthjsAddress.fromString(params.caller))
-		expect(result.origin).toEqual(EthjsAddress.fromString(params.origin))
+		const result = await callHandlerOpts(client, params)
+		expect(result.data?.caller).toEqual(EthjsAddress.fromString(params.caller))
+		expect(result.data?.origin).toEqual(EthjsAddress.fromString(params.origin))
 	})
 
-	it('origin and caller take presidence over from', () => {
+	it('origin and caller take presidence over from', async () => {
 		const params = {
 			from: `0x${'4'.repeat(40)}`,
 			origin: `0x${'5'.repeat(40)}`,
 			caller: `0x${'6'.repeat(40)}`,
 		} as const
-		const result = callHandlerOpts(params)
-		expect(result.caller).toEqual(EthjsAddress.fromString(params.caller))
-		expect(result.origin).toEqual(EthjsAddress.fromString(params.origin))
+		const result = await callHandlerOpts(client, params)
+		expect(result.data?.caller).toEqual(EthjsAddress.fromString(params.caller))
+		expect(result.data?.origin).toEqual(EthjsAddress.fromString(params.origin))
 	})
 
-	it('should parse transaction to address', () => {
+	it('should parse transaction to address', async () => {
 		const to = `0x${'3'.repeat(40)}` as const
-		const result = callHandlerOpts({
+		const result = await callHandlerOpts(client, {
 			to,
 		})
-		expect(result.to).toEqual(EthjsAddress.fromString(to))
+		expect(result.data?.to).toEqual(EthjsAddress.fromString(to))
 	})
 
-	it('should parse data to bytes', () => {
+	it('should parse data to bytes', async () => {
 		const data = `0x${'3'.repeat(40)}` as const
-		const result = callHandlerOpts({
+		const result = await callHandlerOpts(client, {
 			data,
 		})
-		expect(result.data).toEqual(hexToBytes(data))
+		expect(result.data?.data).toEqual(hexToBytes(data))
 	})
 
-	it('should parse salt to bytes', () => {
+	it('should parse salt to bytes', async () => {
 		const salt = `0x${'3'.repeat(40)}` as const
-		const result = callHandlerOpts({
+		const result = await callHandlerOpts(client, {
 			salt,
 		})
-		expect(result.salt).toEqual(hexToBytes(salt))
+		expect(result.data?.salt).toEqual(hexToBytes(salt))
 	})
 
-	it('should handle depth', () => {
+	it('should handle depth', async () => {
 		const depth = 5
-		const result = callHandlerOpts({
+		const result = await callHandlerOpts(client, {
 			depth,
 		})
-		expect(result.depth).toEqual(depth)
+		expect(result.data?.depth).toEqual(depth)
 	})
 
-	it('should parse blob versioned hashes to buffers', () => {
+	it('should parse blob versioned hashes to buffers', async () => {
 		const versionedHash = `0x${'3'.repeat(40)}` as const
-		const result = callHandlerOpts({
+		const result = await callHandlerOpts(client, {
 			blobVersionedHashes: [versionedHash],
 		})
-		expect(result.blobVersionedHashes?.[0]).toEqual(hexToBytes(versionedHash))
+		expect(result.data?.blobVersionedHashes?.[0]).toEqual(
+			hexToBytes(versionedHash),
+		)
 	})
 
-	it('should handle selfdestruct', () => {
+	it('should handle selfdestruct', async () => {
 		const selfdestruct = new Set([
 			EthjsAddress.zero().toString() as `0x${string}`,
 		])
-		const result = callHandlerOpts({
+		const result = await callHandlerOpts(client, {
 			selfdestruct,
 		})
-		expect(result.selfdestruct).toEqual(selfdestruct)
+		expect(result.data?.selfdestruct).toEqual(selfdestruct)
 	})
 
-	it('should handle skipBalance', () => {
+	it('should handle skipBalance', async () => {
 		const skipBalance = true
-		const result = callHandlerOpts({
+		const result = await callHandlerOpts(client, {
 			skipBalance,
 		})
-		expect(result.skipBalance).toEqual(skipBalance)
+		expect(result.data?.skipBalance).toEqual(skipBalance)
 	})
 
-	it('should handle gasRefund', () => {
+	it('should handle gasRefund', async () => {
 		const gasRefund = 100n
-		const result = callHandlerOpts({
+		const result = await callHandlerOpts(client, {
 			gasRefund,
 		})
-		expect(result.gasRefund).toEqual(gasRefund)
+		expect(result.data?.gasRefund).toEqual(gasRefund)
 	})
 
-	it('should handle gasPrice', () => {
+	it('should handle gasPrice', async () => {
 		const gasPrice = 100n
-		const result = callHandlerOpts({
+		const result = await callHandlerOpts(client, {
 			gasPrice,
 		})
-		expect(result).toEqual({ gasPrice })
+		expect(result.data).toMatchObject({ gasPrice })
 	})
 
-	it('should handle value', () => {
+	it('should handle value', async () => {
 		const value = 100n
-		const result = callHandlerOpts({
+		const result = await callHandlerOpts(client, {
 			value,
 		})
-		expect(result.value).toEqual(value)
+		expect(result.data?.value).toEqual(value)
 	})
 
-	it('should handle origin', () => {
+	it('should handle origin', async () => {
 		const origin = EthjsAddress.zero().toString() as `0x${string}`
-		const result = callHandlerOpts({
+		const result = await callHandlerOpts(client, {
 			origin,
 		})
-		expect(result.origin).toEqual(EthjsAddress.zero())
+		expect(result.data?.origin).toEqual(EthjsAddress.zero())
 	})
 
-	it('should handle gasLimit', () => {
+	it('should handle gasLimit', async () => {
 		const gas = 100n
-		const result = callHandlerOpts({
+		const result = await callHandlerOpts(client, {
 			gas,
 		})
-		expect(result).toEqual({ gasLimit: gas })
+		expect(result.data).toMatchObject({ gasLimit: gas })
 	})
 })

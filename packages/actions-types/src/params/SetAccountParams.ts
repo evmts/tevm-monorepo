@@ -36,4 +36,12 @@ export type SetAccountParams<TThrowOnFail extends boolean = boolean> =
 		 * Storage root to set account to
 		 */
 		storageRoot?: Hex
+		/**
+		 * key-value mapping to override all slots in the account storage before executing the calls
+		 */
+		state?: Record<Hex, Hex>
+		/**
+		 * key-value mapping to override individual slots in the account storage before executing the calls
+		 */
+		stateDiff?: Record<Hex, Hex>
 	}

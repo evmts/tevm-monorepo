@@ -1267,7 +1267,7 @@ ___
 
 ### GetAccountParams
 
-Ƭ **GetAccountParams**\<`TThrowOnFail`\>: `BaseParams`\<`TThrowOnFail`\> & \{ `address`: [`Address`](actions_types.md#address)  }
+Ƭ **GetAccountParams**\<`TThrowOnFail`\>: `BaseParams`\<`TThrowOnFail`\> & \{ `address`: [`Address`](actions_types.md#address) ; `returnStorage?`: `boolean`  }
 
 Tevm params to get an account
 
@@ -1315,6 +1315,7 @@ Result of GetAccount Action
 | `isContract` | `boolean` | True if account is a contract |
 | `isEmpty` | `boolean` | True if account is empty |
 | `nonce` | `bigint` | Nonce to set account to |
+| `storage?` | \{ `[key: Hex]`: [`Hex`](actions_types.md#hex);  } | Contract storage for the account only included if `returnStorage` is set to true in the request |
 | `storageRoot` | [`Hex`](actions_types.md#hex) | Storage root to set account to |
 
 #### Defined in
@@ -1479,7 +1480,7 @@ type BlockNumberRequestType = JsonRpcRequestTypeFromMethod<'eth_blockNumber'>
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:1031
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:1040
 
 ___
 
@@ -1521,7 +1522,7 @@ type BlockNumberReturnType = JsonRpcReturnTypeFromMethod<'eth_blockNumber'>
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:1052
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:1061
 
 ___
 
@@ -1787,7 +1788,7 @@ ___
 
 ### SetAccountParams
 
-Ƭ **SetAccountParams**\<`TThrowOnFail`\>: `BaseParams`\<`TThrowOnFail`\> & \{ `address`: [`Address`](index.md#address) ; `balance?`: `bigint` ; `deployedBytecode?`: [`Hex`](index.md#hex) ; `nonce?`: `bigint` ; `storageRoot?`: [`Hex`](index.md#hex)  }
+Ƭ **SetAccountParams**\<`TThrowOnFail`\>: `BaseParams`\<`TThrowOnFail`\> & \{ `address`: [`Address`](index.md#address) ; `balance?`: `bigint` ; `deployedBytecode?`: [`Hex`](index.md#hex) ; `nonce?`: `bigint` ; `state?`: `Record`\<[`Hex`](index.md#hex), [`Hex`](index.md#hex)\> ; `stateDiff?`: `Record`\<[`Hex`](index.md#hex), [`Hex`](index.md#hex)\> ; `storageRoot?`: [`Hex`](index.md#hex)  }
 
 Tevm params to set an account in the vm state
 all fields are optional except address
@@ -2082,7 +2083,7 @@ response - [EthGetBalanceJsonRpcResponse](procedures_types.md#ethgetbalancejsonr
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:1220
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:1229
 
 ___
 
@@ -2095,7 +2096,7 @@ A Tevm JSON-RPC request
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:416
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:425
 
 ___
 
@@ -2206,7 +2207,7 @@ response - [EthGetBalanceJsonRpcResponse](procedures_types.md#ethgetbalancejsonr
 
 #### Defined in
 
-evmts-monorepo/packages/procedures-types/dist/index.d.ts:1134
+evmts-monorepo/packages/procedures-types/dist/index.d.ts:1143
 
 ___
 

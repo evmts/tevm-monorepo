@@ -22,24 +22,60 @@ export const setAccountHandler = (client, options = {}) => async (params) => {
 	}
 
 	const address = new EthjsAddress(hexToBytes(params.address))
+
+	/**
+	 * @type {Array<Promise<any>>}
+	 */
+	const promises = []
 	try {
 		const vm = await client.getVm()
-		await vm.stateManager.putAccount(
-			address,
-			new EthjsAccount(
-				params.nonce,
-				params.balance,
-				params.storageRoot && hexToBytes(params.storageRoot),
-				params.deployedBytecode &&
-					hexToBytes(keccak256(params.deployedBytecode)),
+		promises.push(
+			vm.stateManager.putAccount(
+				address,
+				new EthjsAccount(
+					params.nonce,
+					params.balance,
+					params.storageRoot && hexToBytes(params.storageRoot),
+					params.deployedBytecode &&
+						hexToBytes(keccak256(params.deployedBytecode)),
+				),
 			),
 		)
 		if (params.deployedBytecode) {
-			await vm.stateManager.putContractCode(
-				address,
-				hexToBytes(params.deployedBytecode),
+			promises.push(
+				vm.stateManager.putContractCode(
+					address,
+					hexToBytes(params.deployedBytecode),
+				),
 			)
 		}
+		if (params.state) {
+			// wait first so we don't accidentally clear storage we want
+			await vm.stateManager.clearContractStorage(address)
+		}
+		const state = params.state ?? params.stateDiff
+		if (state) {
+			for (const [key, value] of Object.entries(state)) {
+				promises.push(
+					vm.stateManager.putContractStorage(
+						address,
+						hexToBytes(/** @type {import('@tevm/utils').Hex}*/ (key)),
+						hexToBytes(value),
+					),
+				)
+			}
+		}
+		const results = await Promise.allSettled(promises)
+		for (const result of results) {
+			if (result.status === 'rejected') {
+				errors.push(result.reason)
+			}
+		}
+
+		if (errors.length > 0) {
+			return maybeThrowOnFail(throwOnFail, { errors })
+		}
+
 		await vm.stateManager.checkpoint()
 		await vm.stateManager.commit()
 		// TODO offer way of setting contract storage with evm.stateManager.putContractStorage

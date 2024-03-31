@@ -49,6 +49,7 @@
 - [AnvilStopImpersonatingAccountResult](modules.md#anvilstopimpersonatingaccountresult)
 - [BaseCallParams](modules.md#basecallparams)
 - [Block](modules.md#block)
+- [BlockOverrideSet](modules.md#blockoverrideset)
 - [BlockParam](modules.md#blockparam)
 - [BlockResult](modules.md#blockresult)
 - [BlockTag](modules.md#blocktag)
@@ -199,6 +200,7 @@
 - [SetAccountHandler](modules.md#setaccounthandler)
 - [SetAccountParams](modules.md#setaccountparams)
 - [SetAccountResult](modules.md#setaccountresult)
+- [StateOverrideSet](modules.md#stateoverrideset)
 - [StructLog](modules.md#structlog)
 - [TraceCall](modules.md#tracecall)
 - [TraceParams](modules.md#traceparams)
@@ -912,7 +914,7 @@ ___
 
 ### BaseCallParams
 
-Ƭ **BaseCallParams**\<`TThrowOnFail`\>: `BaseParams`\<`TThrowOnFail`\> & \{ `blobVersionedHashes?`: [`Hex`](modules.md#hex)[] ; `blockTag?`: [`BlockParam`](modules.md#blockparam) ; `caller?`: [`Address`](modules.md#address) ; `createTransaction?`: `boolean` ; `depth?`: `number` ; `from?`: [`Address`](modules.md#address) ; `gas?`: `bigint` ; `gasPrice?`: `bigint` ; `gasRefund?`: `bigint` ; `origin?`: [`Address`](modules.md#address) ; `selfdestruct?`: `Set`\<[`Address`](modules.md#address)\> ; `skipBalance?`: `boolean` ; `to?`: [`Address`](modules.md#address) ; `value?`: `bigint`  }
+Ƭ **BaseCallParams**\<`TThrowOnFail`\>: `BaseParams`\<`TThrowOnFail`\> & \{ `blobVersionedHashes?`: [`Hex`](modules.md#hex)[] ; `blockOverrideSet?`: [`BlockOverrideSet`](modules.md#blockoverrideset) ; `blockTag?`: [`BlockParam`](modules.md#blockparam) ; `caller?`: [`Address`](modules.md#address) ; `createTransaction?`: `boolean` ; `depth?`: `number` ; `from?`: [`Address`](modules.md#address) ; `gas?`: `bigint` ; `gasPrice?`: `bigint` ; `gasRefund?`: `bigint` ; `origin?`: [`Address`](modules.md#address) ; `selfdestruct?`: `Set`\<[`Address`](modules.md#address)\> ; `skipBalance?`: `boolean` ; `stateOverrideSet?`: [`StateOverrideSet`](modules.md#stateoverrideset) ; `to?`: [`Address`](modules.md#address) ; `value?`: `bigint`  }
 
 Properties shared accross call-like params
 
@@ -924,7 +926,7 @@ Properties shared accross call-like params
 
 #### Defined in
 
-[params/BaseCallParams.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/BaseCallParams.ts#L7)
+[params/BaseCallParams.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/BaseCallParams.ts#L13)
 
 ___
 
@@ -949,6 +951,31 @@ Header information of an ethereum block
 #### Defined in
 
 [common/Block.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/common/Block.ts#L6)
+
+___
+
+### BlockOverrideSet
+
+Ƭ **BlockOverrideSet**: `Object`
+
+The fields of this optional object customize the block as part of which the call is simulated. The object contains the following fields:
+This option cannot be used when `createTransaction` is set to `true`
+Setting the block number to past block will not run in the context of that blocks state. To do that fork that block number first.
+
+#### Type declaration
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `baseFee?` | `bigint` | Block base fee (see EIP-1559) |
+| `blobBaseFee?` | `bigint` | Block blob base fee (see EIP-4844) |
+| `coinbase?` | `Address` | Block fee recipient |
+| `gasLimit?` | `bigint` | Block gas capacity |
+| `number?` | `bigint` | Fake block number |
+| `time?` | `bigint` | Fake block timestamp |
+
+#### Defined in
+
+[common/BlockOverrideSet.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/common/BlockOverrideSet.ts#L8)
 
 ___
 
@@ -1405,7 +1432,7 @@ Params taken by `eth_accounts` handler (no params)
 
 #### Defined in
 
-[params/EthParams.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L14)
+[params/EthParams.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L16)
 
 ___
 
@@ -1451,7 +1478,7 @@ Based on the JSON-RPC request for `eth_blockNumber` procedure (no params)
 
 #### Defined in
 
-[params/EthParams.ts:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L19)
+[params/EthParams.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L21)
 
 ___
 
@@ -1501,17 +1528,19 @@ Based on the JSON-RPC request for `eth_call` procedure
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
+| `blockOverride?` | [`BlockOverrideSet`](modules.md#blockoverrideset) | The block override set to provide different block values while executing the call |
 | `blockTag?` | [`BlockParam`](modules.md#blockparam) | The block number hash or block tag |
 | `data?` | [`Hex`](modules.md#hex) | The hash of the method signature and encoded parameters. For more information, see the Contract ABI description in the Solidity documentation Defaults to zero data |
 | `from?` | [`Address`](modules.md#address) | The address from which the transaction is sent. Defaults to zero address |
 | `gas?` | `bigint` | The integer of gas provided for the transaction execution |
 | `gasPrice?` | `bigint` | The integer of gasPrice used for each paid gas |
+| `stateOverrideSet?` | [`StateOverrideSet`](modules.md#stateoverrideset) | The state override set to provide different state values while executing the call |
 | `to?` | [`Address`](modules.md#address) | The address to which the transaction is addressed. Defaults to zero address |
 | `value?` | `bigint` | The integer of value sent with this transaction |
 
 #### Defined in
 
-[params/EthParams.ts:24](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L24)
+[params/EthParams.ts:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L26)
 
 ___
 
@@ -1559,7 +1588,7 @@ Based on the JSON-RPC request for `eth_chainId` procedure
 
 #### Defined in
 
-[params/EthParams.ts:61](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L61)
+[params/EthParams.ts:71](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L71)
 
 ___
 
@@ -1607,7 +1636,7 @@ Based on the JSON-RPC request for `eth_coinbase` procedure
 
 #### Defined in
 
-[params/EthParams.ts:66](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L66)
+[params/EthParams.ts:76](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L76)
 
 ___
 
@@ -1656,7 +1685,7 @@ This type is a placeholder
 
 #### Defined in
 
-[params/EthParams.ts:72](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L72)
+[params/EthParams.ts:82](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L82)
 
 ___
 
@@ -1704,7 +1733,7 @@ Based on the JSON-RPC request for `eth_gasPrice` procedure
 
 #### Defined in
 
-[params/EthParams.ts:82](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L82)
+[params/EthParams.ts:92](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L92)
 
 ___
 
@@ -1759,7 +1788,7 @@ Based on the  JSON-RPC request for `eth_getBalance` procedure
 
 #### Defined in
 
-[params/EthParams.ts:87](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L87)
+[params/EthParams.ts:97](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L97)
 
 ___
 
@@ -1814,7 +1843,7 @@ Based on the JSON-RPC request for `eth_getBlockByHash` procedure
 
 #### Defined in
 
-[params/EthParams.ts:92](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L92)
+[params/EthParams.ts:102](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L102)
 
 ___
 
@@ -1869,7 +1898,7 @@ Based on the JSON-RPC request for `eth_getBlockByNumber` procedure
 
 #### Defined in
 
-[params/EthParams.ts:100](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L100)
+[params/EthParams.ts:110](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L110)
 
 ___
 
@@ -1923,7 +1952,7 @@ Based on the JSON-RPC request for `eth_getBlockTransactionCountByHash` procedure
 
 #### Defined in
 
-[params/EthParams.ts:108](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L108)
+[params/EthParams.ts:118](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L118)
 
 ___
 
@@ -1977,7 +2006,7 @@ Based on the JSON-RPC request for `eth_getBlockTransactionCountByNumber` procedu
 
 #### Defined in
 
-[params/EthParams.ts:113](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L113)
+[params/EthParams.ts:123](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L123)
 
 ___
 
@@ -2032,7 +2061,7 @@ Based on the JSON-RPC request for `eth_getCode` procedure
 
 #### Defined in
 
-[params/EthParams.ts:120](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L120)
+[params/EthParams.ts:130](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L130)
 
 ___
 
@@ -2086,7 +2115,7 @@ Based on the JSON-RPC request for `eth_getFilterChanges` procedure
 
 #### Defined in
 
-[params/EthParams.ts:125](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L125)
+[params/EthParams.ts:135](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L135)
 
 ___
 
@@ -2140,7 +2169,7 @@ Based on the JSON-RPC request for `eth_getFilterLogs` procedure
 
 #### Defined in
 
-[params/EthParams.ts:130](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L130)
+[params/EthParams.ts:140](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L140)
 
 ___
 
@@ -2194,7 +2223,7 @@ Based on the JSON-RPC request for `eth_getLogs` procedure
 
 #### Defined in
 
-[params/EthParams.ts:135](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L135)
+[params/EthParams.ts:145](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L145)
 
 ___
 
@@ -2250,7 +2279,7 @@ Based on the JSON-RPC request for `eth_getStorageAt` procedure
 
 #### Defined in
 
-[params/EthParams.ts:140](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L140)
+[params/EthParams.ts:150](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L150)
 
 ___
 
@@ -2305,7 +2334,7 @@ Based on the JSON-RPC request for `eth_getTransactionByBlockHashAndIndex` proced
 
 #### Defined in
 
-[params/EthParams.ts:172](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L172)
+[params/EthParams.ts:182](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L182)
 
 ___
 
@@ -2360,7 +2389,7 @@ Based on the JSON-RPC request for `eth_getTransactionByBlockNumberAndIndex` proc
 
 #### Defined in
 
-[params/EthParams.ts:180](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L180)
+[params/EthParams.ts:190](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L190)
 
 ___
 
@@ -2414,7 +2443,7 @@ Based on the JSON-RPC request for `eth_getTransactionByHash` procedure
 
 #### Defined in
 
-[params/EthParams.ts:167](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L167)
+[params/EthParams.ts:177](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L177)
 
 ___
 
@@ -2469,7 +2498,7 @@ Based on the JSON-RPC request for `eth_getTransactionCount` procedure
 
 #### Defined in
 
-[params/EthParams.ts:149](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L149)
+[params/EthParams.ts:159](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L159)
 
 ___
 
@@ -2523,7 +2552,7 @@ Based on the JSON-RPC request for `eth_getTransactionReceipt` procedure
 
 #### Defined in
 
-[params/EthParams.ts:188](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L188)
+[params/EthParams.ts:198](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L198)
 
 ___
 
@@ -2578,7 +2607,7 @@ Based on the JSON-RPC request for `eth_getUncleByBlockHashAndIndex` procedure
 
 #### Defined in
 
-[params/EthParams.ts:193](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L193)
+[params/EthParams.ts:203](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L203)
 
 ___
 
@@ -2633,7 +2662,7 @@ Based on the JSON-RPC request for `eth_getUncleByBlockNumberAndIndex` procedure
 
 #### Defined in
 
-[params/EthParams.ts:201](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L201)
+[params/EthParams.ts:211](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L211)
 
 ___
 
@@ -2687,7 +2716,7 @@ Based on the JSON-RPC request for `eth_getUncleCountByBlockHash` procedure
 
 #### Defined in
 
-[params/EthParams.ts:157](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L157)
+[params/EthParams.ts:167](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L167)
 
 ___
 
@@ -2741,7 +2770,7 @@ Based on the JSON-RPC request for `eth_getUncleCountByBlockNumber` procedure
 
 #### Defined in
 
-[params/EthParams.ts:162](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L162)
+[params/EthParams.ts:172](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L172)
 
 ___
 
@@ -2789,7 +2818,7 @@ Based on the JSON-RPC request for `eth_hashrate` procedure
 
 #### Defined in
 
-[params/EthParams.ts:77](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L77)
+[params/EthParams.ts:87](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L87)
 
 ___
 
@@ -2837,7 +2866,7 @@ Based on the JSON-RPC request for `eth_mining` procedure
 
 #### Defined in
 
-[params/EthParams.ts:209](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L209)
+[params/EthParams.ts:219](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L219)
 
 ___
 
@@ -2885,7 +2914,7 @@ Based on the JSON-RPC request for `eth_newBlockFilter` procedure (no params)
 
 #### Defined in
 
-[params/EthParams.ts:288](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L288)
+[params/EthParams.ts:298](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L298)
 
 ___
 
@@ -2933,7 +2962,7 @@ Based on the JSON-RPC request for `eth_newFilter` procedure
 
 #### Defined in
 
-[params/EthParams.ts:283](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L283)
+[params/EthParams.ts:293](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L293)
 
 ___
 
@@ -2981,7 +3010,7 @@ Based on the JSON-RPC request for `eth_newPendingTransactionFilter` procedure
 
 #### Defined in
 
-[params/EthParams.ts:293](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L293)
+[params/EthParams.ts:303](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L303)
 
 ___
 
@@ -3003,7 +3032,7 @@ ___
 
 #### Defined in
 
-[params/EthParams.ts:300](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L300)
+[params/EthParams.ts:310](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L310)
 
 ___
 
@@ -3039,7 +3068,7 @@ Based on the JSON-RPC request for `eth_protocolVersion` procedure
 
 #### Defined in
 
-[params/EthParams.ts:214](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L214)
+[params/EthParams.ts:224](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L224)
 
 ___
 
@@ -3094,7 +3123,7 @@ This type is a placeholder
 
 #### Defined in
 
-[params/EthParams.ts:220](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L220)
+[params/EthParams.ts:230](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L230)
 
 ___
 
@@ -3143,7 +3172,7 @@ This type is a placeholder
 
 #### Defined in
 
-[params/EthParams.ts:227](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L227)
+[params/EthParams.ts:237](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L237)
 
 ___
 
@@ -3198,7 +3227,7 @@ Based on the JSON-RPC request for `eth_sign` procedure
 
 #### Defined in
 
-[params/EthParams.ts:233](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L233)
+[params/EthParams.ts:243](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L243)
 
 ___
 
@@ -3258,7 +3287,7 @@ Based on the JSON-RPC request for `eth_signTransaction` procedure
 
 #### Defined in
 
-[params/EthParams.ts:239](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L239)
+[params/EthParams.ts:249](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L249)
 
 ___
 
@@ -3306,7 +3335,7 @@ Based on the JSON-RPC request for `eth_syncing` procedure (no params)
 
 #### Defined in
 
-[params/EthParams.ts:278](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L278)
+[params/EthParams.ts:288](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L288)
 
 ___
 
@@ -3360,7 +3389,7 @@ Based on the JSON-RPC request for `eth_uninstallFilter` procedure
 
 #### Defined in
 
-[params/EthParams.ts:298](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L298)
+[params/EthParams.ts:308](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L308)
 
 ___
 
@@ -3460,7 +3489,7 @@ ___
 
 ### GetAccountParams
 
-Ƭ **GetAccountParams**\<`TThrowOnFail`\>: `BaseParams`\<`TThrowOnFail`\> & \{ `address`: [`Address`](modules.md#address)  }
+Ƭ **GetAccountParams**\<`TThrowOnFail`\>: `BaseParams`\<`TThrowOnFail`\> & \{ `address`: [`Address`](modules.md#address) ; `returnStorage?`: `boolean`  }
 
 Tevm params to get an account
 
@@ -3508,6 +3537,7 @@ Result of GetAccount Action
 | `isContract` | `boolean` | True if account is a contract |
 | `isEmpty` | `boolean` | True if account is empty |
 | `nonce` | `bigint` | Nonce to set account to |
+| `storage?` | \{ `[key: Hex]`: [`Hex`](modules.md#hex);  } | Contract storage for the account only included if `returnStorage` is set to true in the request |
 | `storageRoot` | [`Hex`](modules.md#hex) | Storage root to set account to |
 
 #### Defined in
@@ -3794,7 +3824,7 @@ ___
 
 ### SetAccountParams
 
-Ƭ **SetAccountParams**\<`TThrowOnFail`\>: `BaseParams`\<`TThrowOnFail`\> & \{ `address`: `Address` ; `balance?`: `bigint` ; `deployedBytecode?`: `Hex` ; `nonce?`: `bigint` ; `storageRoot?`: `Hex`  }
+Ƭ **SetAccountParams**\<`TThrowOnFail`\>: `BaseParams`\<`TThrowOnFail`\> & \{ `address`: `Address` ; `balance?`: `bigint` ; `deployedBytecode?`: `Hex` ; `nonce?`: `bigint` ; `state?`: `Record`\<`Hex`, `Hex`\> ; `stateDiff?`: `Record`\<`Hex`, `Hex`\> ; `storageRoot?`: `Hex`  }
 
 Tevm params to set an account in the vm state
 all fields are optional except address
@@ -3844,6 +3874,45 @@ Result of SetAccount Action
 #### Defined in
 
 [result/SetAccountResult.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/result/SetAccountResult.ts#L6)
+
+___
+
+### StateOverrideSet
+
+Ƭ **StateOverrideSet**: `Object`
+
+The state override set is an optional address-to-state mapping, where each entry specifies some state to be ephemerally overridden prior to executing the call. Each address maps to an object containing:
+This option cannot be used when `createTransaction` is set to `true`
+
+The goal of the state override set is manyfold:
+
+It can be used by DApps to reduce the amount of contract code needed to be deployed on chain. Code that simply returns internal state or does pre-defined validations can be kept off chain and fed to the node on-demand.
+It can be used for smart contract analysis by extending the code deployed on chain with custom methods and invoking them. This avoids having to download and reconstruct the entire state in a sandbox to run custom code against.
+It can be used to debug smart contracts in an already deployed large suite of contracts by selectively overriding some code or state and seeing how execution changes. Specialized tooling will probably be necessary.
+
+**`Example`**
+
+```ts
+{
+  "0xd9c9cd5f6779558b6e0ed4e6acf6b1947e7fa1f3": {
+    "balance": "0xde0b6b3a7640000"
+  },
+  "0xebe8efa441b9302a0d7eaecc277c09d20d684540": {
+    "code": "0x...",
+    "state": {
+      "0x...": "0x..."
+    }
+  }
+}
+```
+
+#### Index signature
+
+▪ [address: `Address`]: \{ `balance?`: `bigint` ; `code?`: `Hex` ; `nonce?`: `bigint` ; `state?`: `Record`\<`Hex`, `Hex`\> ; `stateDiff?`: `Record`\<`Hex`, `Hex`\>  }
+
+#### Defined in
+
+[common/StateOverrideSet.ts:29](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/common/StateOverrideSet.ts#L29)
 
 ___
 

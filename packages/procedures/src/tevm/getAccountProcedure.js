@@ -11,6 +11,7 @@ export const getAccountProcedure = (client) => async (request) => {
 	const { errors = [], ...result } = await getAccountHandler(client)({
 		address: request.params[0].address,
 		throwOnFail: false,
+		returnStorage: request.params[0].returnStorage ?? false,
 	})
 	if (errors.length > 0) {
 		const error = /** @type {import('@tevm/errors').GetAccountError}*/ (
@@ -40,6 +41,7 @@ export const getAccountProcedure = (client) => async (request) => {
 			isContract: result.isContract,
 			isEmpty: result.isEmpty,
 			codeHash: result.codeHash,
+			storage: result.storage,
 		}),
 		method: 'tevm_getAccount',
 		...(request.id === undefined ? {} : { id: request.id }),
