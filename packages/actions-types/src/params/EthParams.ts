@@ -54,7 +54,13 @@ export type EthCallParams = {
 	 * The block number hash or block tag
 	 */
 	blockTag?: BlockParam
+	/**
+	 * The state override set to provide different state values while executing the call
+	 */
 	stateOverrideSet?: StateOverrideSet
+	/**
+	 * The block override set to provide different block values while executing the call
+	 */
 	blockOverride?: BlockOverrideSet
 }
 

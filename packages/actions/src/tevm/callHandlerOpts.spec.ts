@@ -8,7 +8,11 @@ describe('callHandlerOpts', () => {
 	const client = createBaseClient()
 	it('should handle empty params', async () => {
 		const result = await callHandlerOpts(client, {})
-		expect(result.data).toEqual({})
+		expect(result.data).toEqual({
+			block: await client
+				.getVm()
+				.then((vm) => vm.blockchain.getCanonicalHeadBlock()),
+		})
 	})
 
 	it('should parse caller address correctly', async () => {
@@ -130,7 +134,7 @@ describe('callHandlerOpts', () => {
 		const result = await callHandlerOpts(client, {
 			gasPrice,
 		})
-		expect(result.data).toEqual({ gasPrice })
+		expect(result.data).toMatchObject({ gasPrice })
 	})
 
 	it('should handle value', async () => {
@@ -154,6 +158,6 @@ describe('callHandlerOpts', () => {
 		const result = await callHandlerOpts(client, {
 			gas,
 		})
-		expect(result.data).toEqual({ gasLimit: gas })
+		expect(result.data).toMatchObject({ gasLimit: gas })
 	})
 })

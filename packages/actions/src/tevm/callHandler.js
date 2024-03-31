@@ -77,7 +77,6 @@ export const callHandler =
 				)
 			)
 		} catch (e) {
-			console.error('not good', e)
 			return maybeThrowOnFail(params.throwOnFail ?? defaultThrowOnFail, {
 				errors: [
 					{

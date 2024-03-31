@@ -13,10 +13,10 @@ export const callHandlerOpts = async (client, params) => {
 	 * @type {Parameters<import('@tevm/evm').Evm['runCall']>[0]}
 	 */
 	const opts = {}
+	const vm = await client.getVm()
 
 	// handle block overrides
 	if (params.blockOverrideSet) {
-		const vm = await client.getVm()
 		// TODO this is a known bug we need to implement better support for block tags
 		// We are purposefully ignoring this until the block creation is implemented
 		const header = await vm.blockchain.getCanonicalHeadHeader()
@@ -55,6 +55,11 @@ export const callHandlerOpts = async (client, params) => {
 				},
 			},
 		}
+	} else if (params.blockTag) {
+		// TODO handle getting block tags
+		opts.block = await vm.blockchain.getCanonicalHeadBlock()
+	} else {
+		opts.block = await vm.blockchain.getCanonicalHeadBlock()
 	}
 
 	/**
@@ -126,5 +131,5 @@ export const callHandlerOpts = async (client, params) => {
 		opts.gasLimit = BigInt(params.gas)
 	}
 
-	return { data: opts, errors }
+	return errors.length > 0 ? { data: opts, errors } : { data: opts }
 }
