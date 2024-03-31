@@ -3,532 +3,632 @@ title: Quick start guide
 description: Tevm introduction
 ---
 
-# Tevm Quick Start Guide
-
-:::tip
-🚧 If you are already familiar with how Tevm works you can bootstrap a project with the tevm cli (Coming soon)
-
-```bash
-npm create tevm my-app
-```
-
-If you are not familiar with Tevm we recomend you go through the tutorial to set up a new project from scratch
-:::
+# Vanilla Tevm Quick Start Guide
 
 ## Introduction
 
+We will be creating a simple counter app using TypeScript and html.
+
 This guide will get you familiar with the most essential features of Tevm and start interacting with the Ethereum Virtual Machine (EVM) in Node.js or browser environments. By the end of this guide you will understand:
 
+:::tip
+Looking for a more specific guide? Try the alternative quick start guides:
+
+- [Next.js](todo.todo)
+- [Bun](todo.todo)
+- [Vitest](todo.todo)
+:::
 1. How to create a forked EVM in JavaScript using [`createMemoryClient`](/reference/tevm/memory-client/functions/creatememoryclient)
 2. How to write, build, and execute solidity scripts with a [`TevmClient`](/reference/tevm/client-types/type-aliases/tevmclient)
 3. How to streamline your workflow using [`tevm contract imports`](/reference/tevm/bun-plugin/functions/bunplugintevm) with the tevm bundler
 4. How to write solidity scripts with the [`tevm script action`](/reference/tevm/client-types/type-aliases/tevmclient#script)
 
+We will be creating a project from scratch.
+
 ## Prerequisites
 
-- [Bun](https://bun.sh/).
+This tutorial uses [Node.js >18.0](https://nodejs.org/en) and assumes basic knowledge of [JavaScript](https://www.youtube.com/watch?v=g7T23Xzys-A), [solidity](https://docs.soliditylang.org/en/v0.8.25/), and [viem](https://viem.sh)
 
-This tutorial uses Bun but you can follow along in [Node.js >18.0](https://nodejs.org/en) as well. Bun can be installed with NPM.
+Make sure you have a compatable version of node
 
 ```bash
-npm install --global bun
+node --version
 ```
-
-For more details visit the [Bun Installation Guide](https://bun.sh/docs/installation).
 
 ## Creating Your Tevm Project
 
 1. Create a new project directory:
 
+We will be doing everything from scratch so we understand where each piece comes from.
+
 ```bash
 mkdir tevm-app && cd tevm-app
 ```
 
-2. Initialize your project with [bun init](https://bun.sh/docs/cli/init):
+2. Initialize your project with npm init:
+
+`npm init` will scaffold a new project. Omit `--yes` if you want to customize the package.json if you want to customize the package.json.
 
 ```bash
-bun init
+npm init --yes
 ```
 
-3. Install tevm
+3. Install `tevm` and `viem` as runtime dependencies
+
+The recomended way to use `tevm` is as a a viem transport. 
 
 ```bash
-bun install tevm
+npm install tevm viem
+```
+
+4. Install `vite` and `typescript` as buildtime dependency
+
+Vite will provide us a pretty minimal setup to import TypeScript into our HTML
+
+```bash
+npm install --save-dev vite typescript
+```
+
+## Scaffold the initial project
+
+We are going to be using a minimal vanilla setup with no framework. There are guides for specific frameworks including [Next.js](todo.todo).0
+
+1. Create a tsconfig
+
+The following config works quite nicely with vite apps.
+
+See the [tsconfig docs](https://www.typescriptlang.org/tsconfig) for more information about these options.
+
+```bash
+echo '{
+  "compilerOptions": {
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "module": "ESNext",
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "skipLibCheck": true,
+
+    /* Bundler mode */
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true
+  },
+  "include": ["src"]
+}' > tsconfig.json
+
+```
+
+2. Create an html file
+
+The HTML file will be the entrypoint to our app. Add it to `index.html`
+
+```bash
+echo '
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tevm Example</title>
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.tsx"></script>
+</body>
+
+</html>
+'
+```
+
+You will see it is importing a `src/main.tsx` file in a script tag. Go ahead and add that too
+
+```bash
+echo '
+const app = document.querySelector('#app')
+app.innerHtml = "<div>Hello Tevm</div.";
+'
+```
+
+Now double check that you can run your application
+
+```bash
+npx vitest ./index.html
+```
+
+Hit `o` key on keyboard to open up [`http://localhost:5173`](http://localhost:5173) in your browser
+
+You should see `Hello Tevm` rendered
+
+3. Add pollyfills
+
+To use Tevm and viem in the browser it is necessary to add some polyfills. These will inject code into your final build that will allow apis that do not exist in the browser natively to work.
+
+First install polyfill librarys to polyfill `node` 
+
+```bash
+npm i --save-dev vite-plugin-node-polyfills  
+```
+
+Then create a basic vite config. This will build our app with ['stream'](https://nodejs.org/api/stream.html), ['process'](https://nodejs.org/api/process.html), ['Buffer'](https://nodejs.org/api/buffer.html), and ['global'](https://nodejs.org/api/globals.html) polyfills
+
+If you are using Tevm in node.js or bun no polyfills are necessary. Over time tevm has been and will continue to remove the need for polyfills.
+
+```
+echo '
+import { defineConfig } from 'vite'
+import { nodePolyfills } from 'vite-plugin-node-polyfills'
+
+// https://vitejs.dev/config/
+export default defineConfig({
+	define: {
+		global: 'globalThis',
+	},
+	plugins: [
+		nodePolyfills({
+			include: ['stream'],
+			globals: {
+				process: true,
+				Buffer: true,
+				global: true,
+			},
+		}),
+	],
+})
+' > vite.config.js
 ```
 
 ## Creating a Tevm VM
 
-Now let's create a Tevm VM to execute Ethereum bytecode in our JavaScript
+Now let's create a Tevm VM client. This client will serve as the backend RPC transport provider for viem rather than a normal [http](https://viem.sh/docs/clients/transports/http.html)
 
-1. Open the index.ts file
+1. In the `index.ts` file initialize a [MemoryClient](/reference/tevm/memory-client/type-aliases/memoryclient) with [createMemoryClient](/reference/tevm/memory-client/functions/creatememoryclient)
 
-2. Now initialize a [MemoryClient](/reference/tevm/memory-client/type-aliases/memoryclient) with [createMemoryClient](/reference/tevm/memory-client/functions/creatememoryclient)
-
-```typescript
-import { createMemoryClient } from 'tevm';
-
-const tevm = createMemoryClient();
-```
-
-This initializes an an ethereum VM instance akin to starting anvil but in memory.
-
-## Using ethereum JSON-RPC
-
-The entrypoint to using Tevm is [`TevmClient.request`](/reference/tevm/procedures-types/type-aliases/tevmjsonrpcrequesthandler). It implements the
-
-- much of the [ethereum JSON-RPC](https://ethereum.org/en/developers/docs/apis/json-rpc)
-- custom [tevm_*](/reference/tevm/procedures-types/type-aliases/tevmjsonrpcrequest) requests
-- will support anvil_* and ganache_* in future versions
-
-Let's use [eth_getBalance](https://ethereum.org/en/developers/docs/apis/json-rpc#eth_getbalance)
-
-1. Create a [eth_getBalance](/reference/tevm/procedures-types/type-aliases/ethgetbalancejsonrpcrequest)
+The `memoryClient` is an in memory instance of the ethereum VM that will be running in the browser. Similar to `anvil` it can fork an existing network. Let's fork [`optimism`](https://docs.optimism.io) and render the blockNumber.
 
 ```typescript
-import { createMemoryClient } from 'tevm';
-import { EthGetBalanceJsonRpcRequest } from 'tevm/procedures-types'
+import { createMemoryClient, hexToNumber } from 'tevm';
 
-const tevm = createMemoryClient();
+const app = document.querySelector('#app')
+app.innerHtml = `<div id="blocknumber"></div>`;
 
-const request: EthGetBalanceJsonRpcRequest = {
-  jsonrpc: '2.0',
-  id: 1,
-  method: 'eth_getBalance',
-  params: ["0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045", "latest"]
-}
-```
-
-2. Now pass our request into [`@tevm/request`](/reference/tevm/client-types/type-aliases/tevmclient#request)
-
-```typescript
-import { createMemoryClient } from 'tevm';
-import { EthGetBalanceJsonRpcRequest } from 'tevm/procedures-types'
-
-const tevm = createMemoryClient();
-
-const request: EthGetBalanceJsonRpcRequest = {
-  jsonrpc: '2.0',
-  id: 1,
-  method: 'eth_getBalance'
-  params: ["0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045", "latest"]
-}
-
-const response = await tevm.request(request)
-
-console.log(response.error)
-console.log(response.result)
-```
-
-3. Now run it
-
-```bash
-bun run index.ts
-```
-
-This address has 0 eth because we have a brand new vm. Let's make our VM fork ethereum now.
-
-## Forking a live network
-
-Similar to anvil or ganache `Tevm` has the ability to fork a live network.
-
-1. Update [createMemoryClient](/reference/tevm/memory-client/functions/creatememoryclient) to fork ethereum using [forkUrl](/reference/tevm/memory-client/type-aliases/createevmoptions)
-
-Add any ethereum RPC url to the [`options.fork.url`](/reference/tevm/memory-client/type-aliases/createevmoptions)
-
-```typescript
-import { createMemoryClient } from 'tevm';
-import { EthGetBalanceJsonRpcRequest } from 'tevm/procedures-types'
-
-const tevm = createMemoryClient({
+const memoryClient = createMemoryClient({
   fork: {
     url: 'https://mainnet.optimism.io'
-  }
-});
-
-const request: EthGetBalanceJsonRpcRequest = {
-  jsonrpc: '2.0',
-  id: 1,
-  method: 'eth_getBalance',
-  params: ["0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045", "latest"]
-}
-
-const response = await tevm.request(request)
-
-console.log(response)
-```
-
-Tevm will fork latest block by default.
-
-Now run script again vs the forked network
-
-```bash
-bun run index.js
-```
-
-This is equivelent to issuing a JSON-RPC request directly to the RPC
-
-```typescript
-fetch("https://mainnet.optimism.io", {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json'
   },
-  body: JSON.stringify({
-    jsonrpc: '2.0',
-    id: 1,
-    method: 'eth_getBalance',
-    params: ["0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045", "latest"]
-  })
-})
-  .then(response => response.json())
-  .then(console.log);
-```
-
-But with [`MemoryClient`](/reference/tevm/memory-client/type-aliases/memoryclient) all requests will be issued to the same block number we forked and cached in memory once made.
-
-## Using `Actions` API to execute a contract
-
-Tevm exposes a [viem-like](https://viem.sh) `actions api` to provide a higher level of abstraction than the JSON-RPC interface.
-
-1. Replace [`tevm_getAccount` JSON-RPC procedure](/reference/tevm/procedures-types/type-aliases/getaccountjsonrpcprocedure) with the [getAccount action](/reference/tevm/actions-types/type-aliases/getaccounthandler)
-
-```typescript
-import { createMemoryClient } from 'tevm';
-- import { EthGetBalanceJsonRpcRequest } from 'tevm/procedures-types'
-
-const tevm = createMemoryClient({
-  fork: {
-    url: 'https://mainnet.optimism.io'
-  }
 });
 
-- const request: EthGetBalanceJsonRpcRequest = {
--   jsonrpc: '2.0',
--   id: 1,
--   method: 'eth_getBalance',
--   params: ["0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045", "latest"]
-- }
-+ const address = "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
-
-- const response = await tevm.request(request)
-+ const result = await tevm.eth.getBalance({address})
-
-- console.log(response)
-+ console.log(result)
-```
-
-2. Handle errors
-
-Let's see what happens when we throw an error
-
-```typescript
-const {errors} = await tevm.setAccount({address: '0xnot a valid address', balance: BigInt(0)})
-console.log(errors)
-```
-
-All tevm actions return errors as values. They do not every throw. This is consistent with the JSON-RPC api.
-
-:::tip
-All error types are available in the `tevm/errors` subpackage. Errors are strongly typed with a `name` property.
-:::
-
-3. Run a transaction
-
-Now send a transaction using [TevmClient.call](/reference/tevm/client-types/type-aliases/tevmclient#call). This is equivelent to using [`eth_call`](/reference/tevm/procedures-types/type-aliases/ethcalljsonrpcprocedure).
-
-`Tevm.call` wraps `tevm_call` which is similar to `eth_call` or `Tevm.eth.call` but has extra parameters for modifying the VM.
-
-```typescript
-import { createMemoryClient, parseEth } from 'tevm';
-
-const tevm = createMemoryClient({
-  fork: {
-    url: 'https://mainnet.optimism.io'
-  }
-});
-
-const fromAddress = `0x${'01'.repeat(20)}` as const
-const toAddress = `0x${'02'.repeat(20)}` as const
-
-// skipBalanceCheck will mint any eth if account has less than 0
-await tevm.call({
-  from: fromAddress,
-  to: toAddress,
-  value: parseEth('1'),
-  skipBalanceCheck: true
+memoryClient.request({
+  method: 'eth_blockNumber'
+}).then(bn => {
+  document.querySelector('#blocknumber').innerText = `${hexToNumber(bn)}`
 })
-
-const balance = await tevm.eth.balanceOf({address: toAddress})
-console.log(balance)
 ```
 
-4. Now run script again to see the expected result of running the contract call.
+You will see the block number appear on the page. Feel free to experiment with interacting with the tevm client more. It supports the following methods
+
+- [much of the ethereum json-rpc api](/reference/tevm/procedures-types/type-aliases/tevmjsonrpcrequesthandler) such as `eth_call` and `eth_sendRawTransaction`
+- [anvil_, hardhat_, and ganache_](https://hardhat.org/hardhat-network/docs/reference#hardhat-network-methods) methods
+- Special `tevm_` apis such as `tevm_getAccount` which can retrieve account information such as bytecode, balance, and storage.
+
+## Connecting the Tevm VM to viem
+
+Tevm can be used standalone as we did but for the best experience and maximum compatability with other tools it is recomended most people use Tevm along with [viem](https://viem.sh). 
+
+Viem transports are how viem communicates with [ethereum using jsonrpc](https://ethereum.org/en/developers/docs/apis/json-rpc/). With Tevm viem can communicate with an in-memory instance of Tevm via a `TevmTransport`.
+
+1. Initialize a [Client](https://viem.sh/docs/clients/intro) 
+
+We are going to decorate our client with the following actions.
+
+- [viem publicActions](https://viem.sh/docs/actions/public/introduction) - action that maps one-to-one with a "public" Ethereum RPC method (eth_blockNumber, eth_getBalance, etc)
+- [viem testActions](https://viem.sh/docs/actions/test/introduction) - actions that map one-to-one with "test" Ethereum RPC methods (evm_mine, anvil_setBalance, anvil_impersonate, etc)
+- [custom tevm actions](https://todo.todo.todo) - powerful custom actions build specifically for tevm.
+
+Let's create a new file for our client.
 
 ```bash
-bun run vm.js
+touch src/client.ts
 ```
 
-To see more options check out [CallParams](/reference/tevm/actions-types/type-aliases/callparams) docs
+And now initialize a new client with all our actions. We will make a Tevm client just like before and pass it into `createTevmTransport`
 
-## Executing contract calls
-
-We can execute a contract call by sending encoded contract data just like [`eth_call`](/reference/tevm/procedures-types/type-aliases/ethcalljsonrpcprocedure)
-
-1. Use [`encodeFunctionData`](/reference/tevm/utils/functions/encodefunctiondata) to pass in a contract call to [`tevm.call`](/reference/tevm/client-types/type-aliases/tevmclient#call)
+We won't bother forking any network this time .
 
 ```typescript
-import { createMemoryClient, encodeFunctionData, decodeFunctionData, parseAbi } from 'tevm';
+import {createClient, publicActions, testActions} from 'viem'
+import {createMemoryClient, createTevmTransport, tevmActions } from 'tevm'
 
-const tevm = createMemoryClient({
-  fork: {
-    url: 'https://mainnet.optimism.io'
-  }
-});
+const memoryClient = createMemoryClient()
 
-const abi = parseAbi(['function balanceOf(address owner) returns (uint256 balance)'])
-
-const owner = `0x${'01'.repeat(20)}` as const
-const contractAddress = `0x${'02'.repeat(20)}` as const
-
-const {rawData} = await tevm.call({
-  to: contractAddress,
-  data: encodeFunctionData({
-    args: [owner]
-    functionName: 'balanceOf',
-    abi,
-  })
+export const client = createClient({
+  transport: createTevmTransport(memoryClient)
 })
-
-const balance = decodeFunctionData({
-  functionName: 'balanceOf',
-  abi,
-  data: rawData
-})
-console.log(balance)
+  .extend(publicActions())
+  .extend(testActions({mode: 'anvil'}))
+  .extend(tevmActions())
 ```
 
-2. Use `TevmClient.contract`
+2. Refactor our `main.js` code to use our viem client rather than tevm client directly
 
-Rather than encoding and decoding data with `TevmClient.call` we can instead use the [`TevmClient.contract`](/reference/tevm/client-types/type-aliases/tevmclient#contract) method. It wraps the `eth_call` JSON-rpc method and matches much of [viems readContract](https://viem.sh/docs/contract/readContract.html) API but with some extra VM control.
-
-Refactor our call to use `Tevm.contract`
+Using viem provides a much smoother dev experience than using tevm client directly
 
 ```typescript
-import { createMemoryClient, parseAbi } from 'tevm';
+import { client } from './client';
 
-const tevm = createMemoryClient({
-  fork: {
-    url: 'https://mainnet.optimism.io'
-  }
-});
+const app = document.querySelector('#app')
+app.innerHtml = `<div id="blocknumber"></div>`;
 
-const owner = `0x${'01'.repeat(20)}` as const
-const contractAddress = `0x${'02'.repeat(20)}` as const
-
-const {data: balance} = await tevm.contract({
-  to: contractAddress,
-  args: [owner],
-  functionName: 'balanceOf',
-  abi: parseAbi(['function balanceOf(address owner) returns (uint256 balance)']),
+client.getBlockNumber.then(bn => {
+  document.querySelector('#blocknumber').innerText = `${bn}`
 })
-
-console.log(balance)
 ```
 
-## Scripting with Tevm
+Since we didn't fork a live network we should see a block number of 0 now
 
-In the previous section we called the [`Dai`](https://optimistic.etherscan.io/token/0xda10009cbd5d07dd0cecc66161fc93d7c9000da1) which is deployed to optimism. But Tevm can also execute arbitrary contracts that are not deployed.
+## Creating Tevm contracts
 
-We could use the `tevm.setAccount` feature to deploy bytecode
+Next we will use `createContract` to create a `tevm` contract instance.
 
-```typescript
-await tevm.setAccount({address: `0x${'42'.repeat(20)}`, deployedBytecode: '0x000'})
-```
+A tevm contract is optional but highly recomended api to use. A tevm contract instance provides a typesafe api for interacting with viem and tevm actions.
 
-And then use `tevm.contract` as we did in last section.
-
-But Tevm provides a convenient [`tevm_script`](/reference/tevm/procedures-types/type-aliases/scriptjsonrpcprocedure) JSON-RPC request and matching [TevmClient.script action](/reference/tevm/client-types/type-aliases/tevmclient#script)
-
-1. First let's make a new solidity file
+Create a new file called `counterContract.ts`
 
 ```bash
-touch HelloWorld.s.sol
+touch src/counterContract.ts
 ```
 
-2. Next write a simple HelloWorld contract
+Then initialize our counter contract. We will enter the bytecode and abi ourselves here but later we will refactor this to instead compile a solidity contract to get the bytecode and abi.
+
+We are initializing our contract as a script. Don't worry too much about the difference between a script and a contract yet but at a high level a script is a contract that isn't already deployed to the chain.
+
+```typescript [counterContract.ts]
+import {createScript} from 'tevm'
+
+const address = `0x${'1234'.repeat(10)}`
+
+export const counterContract = createScript({
+  deployedBytecode: '0xtodo',
+  humanReadableAbi: [
+    'function increment() external'
+    'function count() external view returns (uint256)'
+  ],
+}).withAddress(address)
+```
+
+## Deploying our contract 
+
+Because tevm has anvil and hardhat compatability, we can deploy our contract via [setCode](https://viem.sh/docs/actions/test/setCode) from viem. 
+
+Add the following code to the top of your `main.js` file
+
+```typescript
+import { client } from './client';
+import {counterContract} from './counterContract'
+
+const app = document.querySelector('#app')
+app.innerHtml = `<div id="blocknumber"></div>`;
+
+client.getBlockNumber.then(bn => {
+  document.querySelector('#blocknumber').innerText = `${bn}`
+})
+
+client.setCode({
+  address: counterContract.address,
+  bytecode: counterContract.deployedBytecode
+})
+```
+
+## Interacting with our contract
+
+One can interact with contracts via normal viem methods like [readContract](https://viem.sh/docs/contract/readContract#readcontract) or [sendRawTransaction](https://viem.sh/docs/actions/wallet/sendRawTransaction) but the best way to interact with tevm contracts is via the custom `tevm.call` family of methods. This includes the following
+
+- `client.tevm.call` - execute a low level call vs the evm
+- `client.tevm.contract` - execute a call vs the evm with an api that takes `abi`, `functionName` and `args` similar to `readContract`
+- `client.tevm.script` - executes arbitrary bytecode vs the evm
+
+1. Use `client.tevm.contract` to read a contract
+
+Since our contract is deployed to tevm via `setCode` already we will use `client.tevm.contract`
+
+Read the contract count and add display it. Let's also put all our code into a `main` function.
+
+```typescript
+import { client } from './client';
+import {counterContract} from './counterContract'
+
+const appEl = document.querySelector('#app')
+app.innerHtml = `<div id="blocknumber"></div>
+<div id="count"></div>
+`;
+const blockNumberEl = appEl.querySelector('#blocknumber')
+const countEl = appEl.querySelector('#count')
+
+async function main() {
+  client.getBlockNumber.then(bn => {
+    blockNumberEl.innerText = `${bn}`
+  })
+
+  // wait for contract to be deployed
+  await client.setCode({
+    address: counterContract.address,
+    bytecode: counterContract.deployedBytecode
+  })
+
+  const count = await client.tevm.contract({
+    // can set from address to any account
+    // You can alternatively individually set `origin` and `caller` 
+    from: `0x${'01'.repeat(20)}`,
+    to: counterContract.address,
+    // the api for tevm.contract is similar to viem
+    abi: counterContract.abi,
+    functionName: 'count',
+    // advanced options such as skipBalanceCheck are available
+    // skipBalanceCheck will automatically mint the value if the account doesn't have it
+    value: 420n,
+    skipBalanceCheck: true,
+  })
+
+  countEl.innerText = count.toString()
+}
+```
+
+2. Use `client.tevm.contract` with `createTransaction: true` to modify the blockchain state.
+
+We will move our count rendering logic to an `updateCount` function and add a button to update the count.
+
+This initial example will intentionally have a bug in it.
+
+```typescript
+import { client } from './client';
+import {counterContract} from './counterContract'
+
+const app = document.querySelector('#app')
+app.innerHtml = `<div id="blocknumber"></div>
+<div id="count"></div>
+<button id="increment>Increment</div>"
+`;
+const blockNumberDiv = app.querySelector('#blocknumber')
+const countDiv = app.querySelector('#count')
+const incrementButton = app.querySelector('#increment')
+
+main()
+
+async function main() {
+  client.getBlockNumber.then(bn => {
+    blockNumberEl.innerText = `${bn}`
+  })
+
+  // wait for contract to be deployed
+  await client.setCode({
+    address: counterContract.address,
+    bytecode: counterContract.deployedBytecode
+  })
+
+  await updateCount()
+
+  incrementButton.onClick(increment)
+}
+
+async function updateCount() {
+  const count = await client.tevm.contract({
+    // can set from address to any account
+    // You can alternatively individually set `origin` and `caller` 
+    from: `0x${'01'.repeat(20)}`,
+    to: counterContract.address,
+    // the api for tevm.contract is similar to viem
+    abi: counterContract.abi,
+    functionName: 'count',
+    // advanced options such as skipBalanceCheck are available
+    // skipBalanceCheck will automatically mint the value if the account doesn't have it
+    value: 420n,
+    skipBalanceCheck: true,
+  })
+  countEl.innerText = count.toString()
+}
+
+async function increment() {
+  await client.tevm.contract({
+    // by default `calls` are readonly
+    // set createTransaction to true to actually submit a tx
+    createTransaction: true,
+    from: `0x${'01'.repeat(20)}`,
+    to: counterContract.address,
+    abi: counterContract.abi,
+    functionName: 'increment',
+  })
+  await updateCount()
+}
+```
+
+We will notice the increment does actually increase the counter. This is because the transaction is `pending` and not actually mined yet.
+
+There are 3 ways to fix this.
+
+#### Fix 1 - Explicitly call `client.mine()`
+
+The simplist fix is to just mine a new block before calling updateCount
+
+```typescript
+await client.tevm.contract({
+    // by default `calls` are readonly
+    // set createTransaction to true to actually submit a tx
+    createTransaction: true,
+    from: `0x${'01'.repeat(20)}`,
+    to: counterContract.address,
+    abi: counterContract.abi,
+    functionName: 'increment',
+})
+await client.mine({blocks: 1})
+await updateCount()
+```
+
+#### Fix 2 - Read from `pending` block tag
+
+Tevm and other ethereum clients has a special block tag `pending` which predicts what the next block will look like based on the current pending transaction pool (mempool). We could update our count read to use this block tag.
+
+```typescript
+const count = await client.tevm.contract({
+    from: `0x${'01'.repeat(20)}`,
+    to: counterContract.address,
+    abi: counterContract.abi,
+    functionName: 'count',
+    value: 420n,
+    skipBalanceCheck: true,
+    # Add a block tag of `pending` to read state including unmined tx
+    blockTag: 'pending,'
+})
+countEl.innerText = count.toString()
+```
+
+#### Fix 3 - Set a different mining mode
+
+By default the mining mode is `manual` meaning tevm will not mine a new block unless explicitly told to do so. We can set it to `auto` and then it will mine a block everytime it receives a tx.
+
+Let's just update `client.ts` to automine so we don't need to remember to mine any blocks.
+
+```typescript
+const memoryClient = createMemoryClient({
+  miningConfig: {
+   type: 'auto'
+  }
+})
+```
+
+## Compiling contracts with the Tevm bundler
+
+Remember before we created our contract via hardcoding the abi and bytecode using `createContract`. Tevm supports an optional bundler which can generate these from you directly from contract imports.
+
+This bundler will also give you a lot of other great features such as
+
+- natspec on hover
+- go-to-definition taking you directly to the solidity contract definitions
+- automatically recompiling when you change the contract code 
+- support for most bundlers including webpack, vite, esbuild, rollup, and bun
+
+To use the bundler we must first install `@tevm/bundler` and configure vite and typescript.
+
+1. Install `@tevm/bundler`
+
+```bash
+npm i --save-dev @tevm/bundler
+```
+
+2. Configure vite
+
+Configuring vite will allow vite to recognize solidity imports. When it sees solidity it will compile it into the abi and bytecode to make a `tevm contract` just like we made manually in `counterContract.ts`
+
+Add the `viteExtensionTevm` to your vite config
+
+```bash
+import { defineConfig } from 'vite'
+import { nodePolyfills } from 'vite-plugin-node-polyfills'
+import { vitePluginTevm } from '@tevm/bundler/vite'
+
+// https://vitejs.dev/config/
+export default defineConfig({
+	define: {
+		global: 'globalThis',
+	},
+	plugins: [
+	    vitePluginTevm(),
+		nodePolyfills({
+			include: ['stream'],
+			globals: {
+				process: true,
+				Buffer: true,
+				global: true,
+			},
+		}),
+	],
+})
+
+```
+
+3. Refactor counterContract.ts to import our solidity implementation
+
+Now that vite can compile solidity we can add our contract.
+
+Note: we must name our contract with a `.s.sol` extension rather than `.sol`. Compiling bytecode is expensive and usually unnecessary for contracts that are already deployed thus the compiler will only do it for files marked with `.s.sol`
+
+```bash
+mkdir contracts && touch contracts/Counter.s.sol
+```
+
+Then add the contract
 
 ```solidity
 // SPDX-License-Identifier: MIT
-pragma solidity >0.8.0;
+pragma solidity ^0.8.0;
 
-contract HelloWorld {
-    function greet(string memory name) public pure returns (string memory) {
-        return string(abi.encodePacked("Hello ", name));
+contract Counter {
+    uint256 public count;
+
+    constructor() {
+        count = 0;
+    }
+
+    function increment() public {
+        count += 1;
     }
 }
 ```
 
-We now need a way of turning our contract into bytecode.
+4. Replace the old import with an import to the contract
 
-3. 🚧 Use Tevm to compile the contract into bytecode and abi (not yet implemented but will be soon)
+With the tevm compiler you simple just import solidity file and your bundler (in this case vite) will take care ofyour bundler (in this case vite) will take care of the rest.
 
-```bash
-bunx tevm compile HelloWorld.s.sol
-```
-
-You should see a `.js` file get generated with the JavaScript version of your contract. Inspect the file. We will talk more about this later.
-
-4. Import contract and use it in a [`Tevm.script`](/reference/tevm/client-types/type-aliases/tevmclient#script) action.
+We will compile the bytecode in `counterContract.ts` and continue to add our address to it.
 
 ```typescript
-import { HelloWorld } from './HelloWorld.s.sol.js';
-import { createMemoryClient, encodeFunctionData, parseAbi } from 'tevm';
+import {Counter} from '../contracts/Counter.sol'
 
-const tevm = createMemoryClient({
-  fork: {
-    url: 'https://mainnet.optimism.io'
-  }
-});
+const address = `0x${'1234'.repeat(10)}`
 
-const scriptResult = await tevm.script({
-  abi: HelloWorld.abi,
-  deployedBytecode: HelloWorld.deployedBytecode,
-  functionName: 'greet',
-  args: ['Vitalik'],
-});
-
-console.log(scriptResult.data); // Hello Vitalik!
+export counterContract = Counter.withAddress(address)
 ```
 
-Now run the script
+Now restart your vite app and you should see no differences from before.
 
-```bash
-bun run script.js
-```
+5. Configure the LSP
 
-## Working with Contract Action Creators
+You may notice that typescript started giving you red underlines even though the application works. This is because though vite is able to compile contracts we haven't told typescript to do the same.
 
-Tevm offers an streamlined typesafe dev experience for working with solidity scripts and contracts via `TevmContracts`.
-
-`TevmContracts` are created via using the `createContract` method. You may have noticed it being used in the `HelloWorld.s.sol.js` file.
-
-Let's refactor our script code to take advantage of tevm contracts `actionCreators`.
-
-```typescript
-- const scriptResult = await tevm.script({
--   abi: HelloWorld.abi,
--   functionName: 'greet',
--   args: ['Vitalik'],
--   deployedBytecode: HelloWorld.deployedBytecode
-- });
-+ const scriptResult = await tevm.script(
-+   HelloWorld.read.greet('Vitalik')
-+ );
-```
-
-## Build Contracts and scripts directly from JavaScript imports
-
-Remember before we used `tevm generate` to generate JavaScript from our contract. Tevm offers tooling to do this automatically. After installing this tooling you can simply just import your contract directly.
-
-```typescript
-import {HelloWorld} from './MyContract.sol'
-```
-
-This direct solidity import will be recognized by Bun and Tevm at build time and automatically generate the JavaScript and typescript types behind the scene. You will also get enhanced `LSP` support in your editors such as Vim or VSCode. This includes
-
-- Instant update whenever the contract changes without an additional generation step
-- Great typesafety
-- Go-to-definition taking you directly to the solidity line of code a given method is defined
-- Natspec definitions on hover
-
-First let's configure Bun to recognize solidity files
-
-1. Install the `@tevm/bundler` package
-
-```bash
-bun install @tevm/bundler
-```
-
-This package installs two tools we need:
-
-- Bundler support to bundle our solidity contracts. Plugins exist for webpack, vite, rollup, esbuild and more. We will use the [bun plugin](/reference/tevm/bun-plugin/functions/bunplugintevm).
-- [LSP](https://microsoft.github.io/language-server-protocol/) support for TypeScript via a [typescript language service plugin](https://github.com/microsoft/TypeScript/wiki/Writing-a-Language-Service-Plugin)
-
-
-2. Create a `plugin.js` file to install the `Tevm bun plugin` into Bun
-
-```typescript
-import { tevmBunPlugin } from '@tevm/bundler/bun-plugin';
-import { plugin } from 'bun';
-
-plugin(tevmBunPlugin({}));
-```
-
-3. Now add the `plugin.js` file to the `bunfig.toml` to tell bun to load our plugin in normal mode and dev mode
-
-```toml
-preload = ["./plugins.js"]
-[test]
-preload = ["./plugins.js"]
-```
-
-4. Remove the generated files from before
-
-```bash
-rm -rf HelloWorld.sol.js HelloWorld.sol.d.ts
-```
-
-5. Now rerun bun
-
-```bash
-bun run script.ts
-```
-
-You will see bun still generated the same files and cached them in the `.tevm` folder this time. The plugin is taking care of this generation for you whenever you run bun.
-
-6. Configure the TypeScript LSP
-
-Though bun is working you may notice your editor is not recognizing the solidity import. We need to also configure the TypeScript language server protocol that your editor such as `VIM` or `VSCode` uses.
-
-Add `{"name": "@tevm/bundler/ts-plugin"}` to `compilerOptions.plugins` array to enable tevm in typescript language server.
+Add the `@tevm/bundler/ts-plugin` to the typescript config
 
 ```json
 {
   "compilerOptions": {
     "plugins": [
-      {"name": "@tevm/plugin/ts-plugin"}
+       {name: '@tevm/bundler/ts-plugin'}
     ]
-  }
+    "target": "ES2020",
+    ...
 }
 ```
 
-Note: ts-plugins only operate on the language server. Running `tsc` from command line will still trigger errors on solidity imports. A command line tool for this is coming soon.
+Now restart your editor/lsp and typescript will now be able to recognize your contract imports.
 
-## Use external contracts
-
-Contracts from external repo can be used via installing with npm.
-
-```bash
-bun install @openzeppelin/contracts -D
-```
-
-You can now use any common contract implementation in your code via extending the contracts or importing them directly into JavaScript.
-
-The following executes a ERC721 balanceOf call against a forked contract on mainnet.
-
-```typescript
-import { ERC721 } from '@openzeppelin/contracts/tokens/ERC721/ERC721.sol'
-import { createMemoryClient } from './vm.js'
-
-// Note it is recomended to use a more reliable rpc provider than the free tier cloudflare rpc
-const result = createMemoryClient({fork: {url: 'https://cloudflare-eth.com'}}).contract(
-  ERC721
-    .withAddress('0x5180db8F5c931aaE63c74266b211F580155ecac8')
-    .balanceOf(' 0xB72900a2e885dF6A2824969B6e40B969C8ae3CB7')
-)
-console.log(result)
-```
+Note: If using vscode you will need to [set the workspace version](https://code.visualstudio.com/docs/typescript/typescript-compiling#_using-the-workspace-version-of-typescript) to load ts-plugins
 
 ## Summary
 
-Congrats. You now have learned all the basics you need to start building with `Tevm`. Consider [joining the telegram](https://t.me/+ANThR9bHDLAwMjUx) to discuss Tevm.
+We have now implemented all major features of Tevm into a simple application running the EVM. The use cases from here are vast
+
+- You can execute transactions locally in the browser to implement optimistic updates
+- You can reuse solidity code rather than reimplementing logic in JavaScript
+- You can use `tevm scripts` to add custom view functions to contracts
+- You can now do difficult tasks such as estimating gas after modifying the state
+- You can use tevm as a more javascript native alternative to anvil ganache or hardhat for your tests
+- You can use tevm as a playground to experiment with solidity contracts
+- You can take advantage of powerful tevm precompiles to write a server in solidity with the full power of node.js behind it.
+
