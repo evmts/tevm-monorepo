@@ -62,5 +62,9 @@ export const callHandlerResult = (evmResult) => {
 		)
 	}
 
+	if (evmResult.createdAddress) {
+		out.createdAddress = getAddress(evmResult.createdAddress.toString())
+	}
+
 	return out
 }
