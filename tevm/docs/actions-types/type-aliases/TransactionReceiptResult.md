@@ -12,13 +12,21 @@ Transaction receipt result type for eth JSON-RPC procedures
 
 ## Type declaration
 
+### blobGasPrice
+
+> **`readonly`** **blobGasPrice**: `bigint`
+
+### blobGasUsed
+
+> **`readonly`** **blobGasUsed**: `bigint`
+
 ### blockHash
 
 > **`readonly`** **blockHash**: [`Hex`](Hex.md)
 
 ### blockNumber
 
-> **`readonly`** **blockNumber**: [`Hex`](Hex.md)
+> **`readonly`** **blockNumber**: `bigint`
 
 ### contractAddress
 
@@ -26,7 +34,7 @@ Transaction receipt result type for eth JSON-RPC procedures
 
 ### cumulativeGasUsed
 
-> **`readonly`** **cumulativeGasUsed**: [`Hex`](Hex.md)
+> **`readonly`** **cumulativeGasUsed**: `bigint`
 
 ### from
 
@@ -34,7 +42,7 @@ Transaction receipt result type for eth JSON-RPC procedures
 
 ### gasUsed
 
-> **`readonly`** **gasUsed**: [`Hex`](Hex.md)
+> **`readonly`** **gasUsed**: `bigint`
 
 ### logs
 
@@ -58,7 +66,7 @@ Transaction receipt result type for eth JSON-RPC procedures
 
 ### transactionIndex
 
-> **`readonly`** **transactionIndex**: [`Hex`](Hex.md)
+> **`readonly`** **transactionIndex**: `bigint`
 
 ## Source
 

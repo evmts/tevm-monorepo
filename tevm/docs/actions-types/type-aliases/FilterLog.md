@@ -22,7 +22,7 @@ FilterLog type for eth JSON-RPC procedures
 
 ### blockNumber
 
-> **`readonly`** **blockNumber**: [`Hex`](Hex.md)
+> **`readonly`** **blockNumber**: `bigint`
 
 ### data
 
@@ -30,7 +30,7 @@ FilterLog type for eth JSON-RPC procedures
 
 ### logIndex
 
-> **`readonly`** **logIndex**: [`Hex`](Hex.md)
+> **`readonly`** **logIndex**: `bigint`
 
 ### removed
 
@@ -46,7 +46,7 @@ FilterLog type for eth JSON-RPC procedures
 
 ### transactionIndex
 
-> **`readonly`** **transactionIndex**: [`Hex`](Hex.md)
+> **`readonly`** **transactionIndex**: `bigint`
 
 ## Source
 

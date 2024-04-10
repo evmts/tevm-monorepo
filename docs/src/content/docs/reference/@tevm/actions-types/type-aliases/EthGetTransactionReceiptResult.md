@@ -5,7 +5,7 @@ prev: false
 title: "EthGetTransactionReceiptResult"
 ---
 
-> **EthGetTransactionReceiptResult**: [`TransactionReceiptResult`](/reference/tevm/actions-types/type-aliases/transactionreceiptresult/)
+> **EthGetTransactionReceiptResult**: [`TransactionReceiptResult`](/reference/tevm/actions-types/type-aliases/transactionreceiptresult/) \| `null`
 
 JSON-RPC response for `eth_getTransactionReceipt` procedure
 
