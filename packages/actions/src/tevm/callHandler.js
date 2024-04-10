@@ -5,7 +5,7 @@ import { validateCallParams } from '@tevm/zod'
 
 /**
  * Creates an CallHandler for handling call params with Ethereumjs EVM
- * @param {Pick<import('@tevm/base-client').BaseClient, 'getVm'>} client
+ * @param {import('@tevm/base-client').BaseClient} client
  * @param {object} [options]
  * @param {boolean} [options.throwOnFail]
  * @returns {import('@tevm/actions-types').CallHandler}

@@ -9,10 +9,17 @@ title: "@tevm/common"
 
 ### Classes
 
-- [TevmCommon](/reference/tevm/common/classes/tevmcommon/)
+- [Common](/reference/tevm/common/classes/common/)
+
+### Interfaces
+
+- [EvmStateManagerInterface](/reference/tevm/common/interfaces/evmstatemanagerinterface/)
+- [StorageDump](/reference/tevm/common/interfaces/storagedump/)
+- [StorageRange](/reference/tevm/common/interfaces/storagerange/)
 
 ### Type Aliases
 
+- [AccountFields](/reference/tevm/common/type-aliases/accountfields/)
 - [CommonOptions](/reference/tevm/common/type-aliases/commonoptions/)
 - [Hardfork](/reference/tevm/common/type-aliases/hardfork/)
 

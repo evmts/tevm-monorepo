@@ -17,7 +17,7 @@ Amount of blob gas consumed by the transaction
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+evm@2.2.1/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:291
+node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:294
 
 ***
 
@@ -29,19 +29,19 @@ Map of addresses which were created (used in EIP 6780)
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+evm@2.2.1/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:283
+node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:286
 
 ***
 
 ### exceptionError
 
-> **exceptionError**?: `EvmError`
+> **exceptionError**?: [`EvmError`](/reference/tevm/evm/classes/evmerror/)
 
 Description of the exception, if any occurred
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+evm@2.2.1/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:259
+node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:262
 
 ***
 
@@ -53,7 +53,7 @@ Amount of gas the code used to run
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+evm@2.2.1/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:267
+node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:270
 
 ***
 
@@ -65,7 +65,7 @@ Amount of gas left
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+evm@2.2.1/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:263
+node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:266
 
 ***
 
@@ -77,7 +77,7 @@ The gas refund counter
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+evm@2.2.1/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:287
+node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:290
 
 ***
 
@@ -89,7 +89,7 @@ Array of logs that the contract emitted
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+evm@2.2.1/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:275
+node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:278
 
 ***
 
@@ -101,7 +101,7 @@ Return value from the contract
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+evm@2.2.1/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:271
+node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:274
 
 ***
 
@@ -111,7 +111,7 @@ node\_modules/.pnpm/@ethereumjs+evm@2.2.1/node\_modules/@ethereumjs/evm/dist/esm
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+evm@2.2.1/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:255
+node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:258
 
 ***
 
@@ -123,7 +123,7 @@ A set of accounts to selfdestruct
 
 #### Source
 
-node\_modules/.pnpm/@ethereumjs+evm@2.2.1/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:279
+node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:282
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

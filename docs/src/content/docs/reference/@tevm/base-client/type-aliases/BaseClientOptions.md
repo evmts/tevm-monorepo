@@ -13,19 +13,19 @@ Options for creating an Tevm MemoryClient instance
 
 ### allowUnlimitedContractSize
 
-> **allowUnlimitedContractSize**?: `boolean`
+> **`readonly`** **allowUnlimitedContractSize**?: `boolean`
 
 Enable/disable unlimited contract size. Defaults to false.
 
 ### chainId
 
-> **chainId**?: `number`
+> **`readonly`** **chainId**?: `number`
 
 Optionally set the chainId. Defaults to chainId of fokred/proxied chain or 900
 
 ### customPrecompiles
 
-> **customPrecompiles**?: [`CustomPrecompile`](/reference/tevm/base-client/type-aliases/customprecompile/)[]
+> **`readonly`** **customPrecompiles**?: [`CustomPrecompile`](/reference/tevm/base-client/type-aliases/customprecompile/)[]
 
 Custom precompiles allow you to run arbitrary JavaScript code in the EVM.
 See the [Precompile guide](https://todo.todo) documentation for a deeper dive
@@ -76,7 +76,7 @@ const tevm = createMemoryClient({ customPrecompiles: [fsPrecompile] })
 
 ### customPredeploys
 
-> **customPredeploys**?: `ReadonlyArray`\<[`CustomPredeploy`](/reference/tevm/predeploys/type-aliases/custompredeploy/)\<`any`, `any`\>\>
+> **`readonly`** **customPredeploys**?: `ReadonlyArray`\<[`CustomPredeploy`](/reference/tevm/predeploys/type-aliases/custompredeploy/)\<`any`, `any`\>\>
 
 Custom predeploys allow you to deploy arbitrary EVM bytecode to an address.
 This is a convenience method and equivalent to calling tevm.setAccount() manually
@@ -96,13 +96,13 @@ const tevm = createMemoryClient({
 
 ### eips
 
-> **eips**?: `ReadonlyArray`\<`number`\>
+> **`readonly`** **eips**?: `ReadonlyArray`\<`number`\>
 
 Eips to enable. Defaults to `[1559, 4895]`
 
 ### fork
 
-> **fork**?: [`ForkStateManagerOpts`](/reference/tevm/state/interfaces/forkstatemanageropts/)
+> **`readonly`** **fork**?: [`ForkStateManagerOpts`](/reference/tevm/state/interfaces/forkstatemanageropts/)
 
 Fork options fork a live network if enabled.
 When in fork mode Tevm will fetch and cache all state from the block forked from the provided URL
@@ -110,13 +110,22 @@ Cannot be set if `proxy` is also set
 
 ### hardfork
 
-> **hardfork**?: [`Hardfork`](/reference/tevm/base-client/type-aliases/hardfork/)
+> **`readonly`** **hardfork**?: [`Hardfork`](/reference/tevm/base-client/type-aliases/hardfork/)
 
 Hardfork to use. Defaults to `shanghai`
 
+### miningConfig
+
+> **`readonly`** **miningConfig**?: [`MiningConfig`](/reference/tevm/base-client/type-aliases/miningconfig/)
+
+The configuration for mining. Defaults to 'auto'
+- 'auto' will mine a block on every transaction
+- 'interval' will mine a block every `interval` milliseconds
+- 'manual' will not mine a block automatically and requires a manual call to `mineBlock`
+
 ### persister
 
-> **persister**?: [`SyncStoragePersister`](/reference/tevm/sync-storage-persister/type-aliases/syncstoragepersister/)
+> **`readonly`** **persister**?: [`SyncStoragePersister`](/reference/tevm/sync-storage-persister/type-aliases/syncstoragepersister/)
 
 The memory client can optionally initialize and persist it's state to an external source like local storage
 using `createSyncPersister`
@@ -138,13 +147,13 @@ const memoryClient = createMemoryClient({ persister })
 
 ### profiler
 
-> **profiler**?: `boolean`
+> **`readonly`** **profiler**?: `boolean`
 
 Enable profiler. Defaults to false.
 
 ### proxy
 
-> **proxy**?: [`ProxyStateManagerOpts`](/reference/tevm/state/interfaces/proxystatemanageropts/)
+> **`readonly`** **proxy**?: [`ProxyStateManagerOpts`](/reference/tevm/state/interfaces/proxystatemanageropts/)
 
 Options to initialize the client in `proxy` mode
 When in proxy mode Tevm will fetch all state from the latest block of the provided proxy URL
@@ -152,7 +161,7 @@ Cannot be set if `fork` is also set
 
 ## Source
 
-[BaseClientOptions.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/BaseClientOptions.ts#L10)
+[BaseClientOptions.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/BaseClientOptions.ts#L11)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

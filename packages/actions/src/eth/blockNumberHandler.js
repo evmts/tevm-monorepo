@@ -1,6 +1,6 @@
 /**
  * Handler for the `eth_blockNumber` RPC call
- * @param {Pick<import('@tevm/base-client').BaseClient, 'getVm'>} client
+ * @param {import('@tevm/base-client').BaseClient} client
  * @returns {import('@tevm/actions-types').EthBlockNumberHandler}
  */
 export const blockNumberHandler = (client) => async () => {

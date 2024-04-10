@@ -301,7 +301,7 @@ describe('callHandler', () => {
 		// deploy contract
 		expect(
 			(
-				await setAccountHandler({ getVm: async () => vm })({
+				await setAccountHandler({ getVm: async () => vm } as any)({
 					address: ERC20_ADDRESS,
 					deployedBytecode: ERC20_BYTECODE,
 				})
@@ -309,7 +309,7 @@ describe('callHandler', () => {
 		).toBeUndefined()
 
 		expect(
-			await callHandler({ getVm: async () => vm })({
+			await callHandler({ getVm: async () => vm } as any)({
 				data: encodeFunctionData({
 					abi: ERC20_ABI,
 					functionName: 'balanceOf',
@@ -336,7 +336,7 @@ describe('callHandler', () => {
 		const to = `0x${'69'.repeat(20)}` as const
 		// send value
 		expect(
-			await callHandler({ getVm: async () => vm })({
+			await callHandler({ getVm: async () => vm } as any)({
 				createTransaction: true,
 				to,
 				value: 420n,
@@ -359,7 +359,7 @@ describe('callHandler', () => {
 		// deploy contract
 		expect(
 			(
-				await setAccountHandler({ getVm: async () => vm })({
+				await setAccountHandler({ getVm: async () => vm } as any)({
 					address: ERC20_ADDRESS,
 					deployedBytecode: ERC20_BYTECODE,
 				})
@@ -369,7 +369,7 @@ describe('callHandler', () => {
 		await vm.evm.stateManager.commit()
 		const caller = `0x${'23'.repeat(20)}` as const
 		expect(
-			await callHandler({ getVm: async () => vm })({
+			await callHandler({ getVm: async () => vm } as any)({
 				data: encodeFunctionData({
 					abi: ERC20_ABI,
 					functionName: 'transferFrom',
@@ -406,7 +406,7 @@ describe('callHandler', () => {
 			throw new Error('Unexpected error')
 		}
 		expect(
-			await callHandler({ getVm: async () => vm })({
+			await callHandler({ getVm: async () => vm } as any)({
 				data: '0x0',
 				to: ERC20_ADDRESS,
 				value: 420n,

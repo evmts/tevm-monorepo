@@ -9,5 +9,8 @@ export const chainIdProcedure = (getChainId) => async (req) => ({
 	...(req.id ? { id: req.id } : {}),
 	jsonrpc: '2.0',
 	method: req.method,
-	result: await chainIdHandler({ getChainId })({}).then(numberToHex),
+	// TODO pass in a client instead
+	result: await chainIdHandler(/** @type any*/ ({ getChainId }))({}).then(
+		numberToHex,
+	),
 })

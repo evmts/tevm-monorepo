@@ -300,7 +300,7 @@ describe('traceCallHandler', () => {
 		// deploy contract
 		expect(
 			(
-				await setAccountHandler({ getVm: async () => vm })({
+				await setAccountHandler({ getVm: async () => vm } as any)({
 					address: ERC20_ADDRESS,
 					deployedBytecode: ERC20_BYTECODE,
 					nonce: parseEther('1000'),
@@ -308,7 +308,7 @@ describe('traceCallHandler', () => {
 			).errors,
 		).toBeUndefined()
 		expect(
-			await traceCallHandler({ getVm: () => Promise.resolve(vm) })({
+			await traceCallHandler({ getVm: () => Promise.resolve(vm) } as any)({
 				tracer: 'callTracer',
 				data: encodeFunctionData({
 					abi: ERC20_ABI,

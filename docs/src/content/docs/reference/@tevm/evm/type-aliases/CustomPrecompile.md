@@ -5,13 +5,13 @@ prev: false
 title: "CustomPrecompile"
 ---
 
-> **CustomPrecompile**: `Exclude`\<`Exclude`\<[`ConstructorArgument`](/reference/tevm/evm/type-aliases/constructorargument/)\<`EVM`\>, `undefined`\>[`"customPrecompiles"`], `undefined`\>[`number`]
+> **CustomPrecompile**: `Exclude`\<`Exclude`\<`Parameters`\<*typeof* [`Evm`](/reference/tevm/evm/classes/evm/)[`"create"`]\>[`0`], `undefined`\>[`"customPrecompiles"`], `undefined`\>[`number`]
 
 Custom precompiles allow you to run arbitrary JavaScript code in the EVM
 
 ## Source
 
-[packages/evm/src/CustomPrecompile.ts:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/src/CustomPrecompile.ts#L19)
+[packages/evm/src/CustomPrecompile.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/src/CustomPrecompile.ts#L11)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

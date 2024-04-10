@@ -15,7 +15,7 @@ describe(gasPriceHandler.name, () => {
 		expect(
 			await gasPriceHandler({
 				getVm: () => ({ blockchain }) as any,
-			})({}),
+			} as any)({}),
 		).toBe(parseGwei('1'))
 	})
 
@@ -43,7 +43,7 @@ describe(gasPriceHandler.name, () => {
 		const handler = gasPriceHandler({
 			getVm: async () => ({ blockchain }) as any,
 			forkUrl: 'https://mainnet.optimism.io',
-		})
+		} as any)
 		expect(await handler({})).toBe(6n)
 		expect(await handler({})).toBe(6n)
 		expect(global.fetch).toHaveBeenCalledTimes(1)
@@ -79,13 +79,13 @@ describe(gasPriceHandler.name, () => {
 			await gasPriceHandler({
 				getVm: async () => ({ blockchain }) as any,
 				forkUrl: 'https://mainnet.optimism.io',
-			})({}),
+			} as any)({}),
 		).toBe(7n)
 		expect(
 			await gasPriceHandler({
 				getVm: async () => ({ blockchain }) as any,
 				forkUrl: 'https://mainnet.optimism.io',
-			})({}),
+			} as any)({}),
 		).toBe(8n)
 		expect(global.fetch).toHaveBeenCalledTimes(2)
 	})

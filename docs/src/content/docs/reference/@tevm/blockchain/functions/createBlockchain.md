@@ -11,7 +11,7 @@ title: "createBlockchain"
 
 ▪ **options**: `object`
 
-▪ **options.common**: `Common`
+▪ **options.common**: [`Common`](/reference/tevm/common/classes/common/)
 
 ## Returns
 

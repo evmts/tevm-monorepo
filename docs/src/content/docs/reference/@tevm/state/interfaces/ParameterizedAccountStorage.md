@@ -39,7 +39,7 @@ title: "ParameterizedAccountStorage"
 
 ### storage
 
-> **storage**?: `StorageDump`
+> **storage**?: [`StorageDump`](/reference/tevm/common/interfaces/storagedump/)
 
 #### Source
 

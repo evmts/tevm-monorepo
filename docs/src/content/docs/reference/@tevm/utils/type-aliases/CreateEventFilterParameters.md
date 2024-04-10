@@ -11,7 +11,7 @@ title: "CreateEventFilterParameters"
 
 ### address
 
-> **address**?: [`Address`](/reference/tevm/utils/type-aliases/address/) \| [`Address`](/reference/tevm/utils/type-aliases/address/)[]
+> **address**?: `Address` \| `Address`[]
 
 ### fromBlock
 
@@ -25,8 +25,8 @@ title: "CreateEventFilterParameters"
 
 | Parameter | Default |
 | :------ | :------ |
-| `TAbiEvent` extends [`AbiEvent`](/reference/tevm/utils/type-aliases/abievent/) \| `undefined` | `undefined` |
-| `TAbiEvents` extends readonly [`AbiEvent`](/reference/tevm/utils/type-aliases/abievent/)[] \| readonly `unknown`[] \| `undefined` | `TAbiEvent` extends [`AbiEvent`](/reference/tevm/utils/type-aliases/abievent/) ? [`TAbiEvent`] : `undefined` |
+| `TAbiEvent` extends `AbiEvent` \| `undefined` | `undefined` |
+| `TAbiEvents` extends readonly `AbiEvent`[] \| readonly `unknown`[] \| `undefined` | `TAbiEvent` extends `AbiEvent` ? [`TAbiEvent`] : `undefined` |
 | `TStrict` extends `boolean` \| `undefined` | `undefined` |
 | `TFromBlock` extends [`BlockNumber`](/reference/tevm/utils/type-aliases/blocknumber/) \| [`BlockTag`](/reference/tevm/utils/type-aliases/blocktag/) \| `undefined` | `undefined` |
 | `TToBlock` extends [`BlockNumber`](/reference/tevm/utils/type-aliases/blocknumber/) \| [`BlockTag`](/reference/tevm/utils/type-aliases/blocktag/) \| `undefined` | `undefined` |
@@ -35,7 +35,7 @@ title: "CreateEventFilterParameters"
 
 ## Source
 
-node\_modules/.pnpm/viem@2.7.16\_typescript@5.3.3\_zod@3.22.4/node\_modules/viem/\_types/actions/public/createEventFilter.d.ts:13
+node\_modules/.pnpm/viem@2.8.18\_typescript@5.3.3\_zod@3.22.4/node\_modules/viem/\_types/actions/public/createEventFilter.d.ts:13
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

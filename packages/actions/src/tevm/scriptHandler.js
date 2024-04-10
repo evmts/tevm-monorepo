@@ -12,7 +12,7 @@ import { validateScriptParams } from '@tevm/zod'
 
 /**
  * Creates an ScriptHandler for handling script params with Ethereumjs EVM
- * @param {Pick<import('@tevm/base-client').BaseClient, 'getVm'>} client
+ * @param {import("@tevm/base-client").BaseClient} client
  * @param {object} [options]
  * @param {boolean} [options.throwOnFail] whether to default to throwing or not when errors occur
  * @returns {import("@tevm/actions-types").ScriptHandler}
@@ -79,6 +79,7 @@ export const scriptHandler = (client, options = {}) => async (params) => {
 
 	const accountRes = await setAccountHandler(
 		{
+			...client,
 			getVm: () => clonedVmPromise,
 		},
 		options,
@@ -106,7 +107,7 @@ export const scriptHandler = (client, options = {}) => async (params) => {
 	}
 
 	const result = await callHandler(
-		{ getVm: () => clonedVmPromise },
+		{ ...client, getVm: () => clonedVmPromise },
 		options,
 	)({
 		...callParams,

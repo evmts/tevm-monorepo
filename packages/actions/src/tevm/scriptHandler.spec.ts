@@ -298,7 +298,7 @@ describe('scriptHandler', () => {
 		expect(
 			await scriptHandler({
 				getVm: () => TevmVm.create({ evm, stateManager }),
-			})({
+			} as any)({
 				deployedBytecode: ERC20_BYTECODE,
 				abi: ERC20_ABI,
 				functionName: 'balanceOf',
@@ -324,7 +324,7 @@ describe('scriptHandler', () => {
 		expect(
 			await scriptHandler({
 				getVm: () => TevmVm.create({ evm, stateManager }),
-			})({
+			} as any)({
 				throwOnFail: false,
 			} as any),
 		).toEqual({
@@ -358,7 +358,7 @@ describe('scriptHandler', () => {
 		expect(
 			await scriptHandler({
 				getVm: () => TevmVm.create({ evm, stateManager }),
-			})({
+			} as any)({
 				deployedBytecode: ERC20_BYTECODE,
 				...{
 					data: encodeFunctionData({
@@ -386,7 +386,7 @@ describe('scriptHandler', () => {
 		expect(
 			await scriptHandler({
 				getVm: () => TevmVm.create({ evm, stateManager }),
-			})({
+			} as any)({
 				deployedBytecode: ERC20_BYTECODE,
 				abi: ERC20_ABI,
 				functionName: 'balanceOf',
@@ -413,7 +413,7 @@ describe('scriptHandler', () => {
 			}
 		}
 		expect(
-			await scriptHandler({ getVm: async () => vm })({
+			await scriptHandler({ getVm: async () => vm } as any)({
 				deployedBytecode: ERC20_BYTECODE,
 				abi: ERC20_ABI,
 				functionName: 'balanceOf',
@@ -430,7 +430,7 @@ describe('scriptHandler', () => {
 		const vm = await TevmVm.create({ evm, stateManager })
 		const caller = `0x${'1'.repeat(40)}` as const
 		expect(
-			await scriptHandler({ getVm: async () => vm })({
+			await scriptHandler({ getVm: async () => vm } as any)({
 				deployedBytecode: ERC20_BYTECODE,
 				abi: ERC20_ABI,
 				functionName: 'transferFrom',

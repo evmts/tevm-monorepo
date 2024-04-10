@@ -1,7 +1,7 @@
 import { callHandler } from '../index.js'
 
 /**
- * @param {Pick<import('@tevm/base-client').BaseClient, 'getVm'>} client
+ * @param {import('@tevm/base-client').BaseClient} client
  * @returns {import('@tevm/actions-types').EthCallHandler}
  */
 export const ethCallHandler = (client) => async (params) => {

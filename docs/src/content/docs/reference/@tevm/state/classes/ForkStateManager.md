@@ -44,7 +44,7 @@ const stateManager = new ForkStateManager({
 
 #### Source
 
-[packages/state/src/ForkStateManager.ts:62](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L62)
+[packages/state/src/ForkStateManager.ts:61](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L61)
 
 ## Properties
 
@@ -54,7 +54,7 @@ const stateManager = new ForkStateManager({
 
 #### Source
 
-[packages/state/src/ForkStateManager.ts:58](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L58)
+[packages/state/src/ForkStateManager.ts:57](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L57)
 
 ***
 
@@ -64,7 +64,7 @@ const stateManager = new ForkStateManager({
 
 #### Source
 
-[packages/state/src/ForkStateManager.ts:59](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L59)
+[packages/state/src/ForkStateManager.ts:58](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L58)
 
 ***
 
@@ -74,7 +74,7 @@ const stateManager = new ForkStateManager({
 
 #### Source
 
-[packages/state/src/ForkStateManager.ts:56](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L56)
+[packages/state/src/ForkStateManager.ts:55](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L55)
 
 ***
 
@@ -84,7 +84,7 @@ const stateManager = new ForkStateManager({
 
 #### Source
 
-[packages/state/src/ForkStateManager.ts:57](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L57)
+[packages/state/src/ForkStateManager.ts:56](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L56)
 
 ***
 
@@ -263,7 +263,7 @@ Creates a Filter to retrieve event logs that can be used with [`getFilterChanges
 
 ###### Type parameters
 
-▪ **TAbi** extends [`Abi`](/reference/tevm/utils/type-aliases/abi/) \| readonly `unknown`[]
+▪ **TAbi** extends `Abi` \| readonly `unknown`[]
 
 ▪ **TEventName** extends `undefined` \| `string`
 
@@ -335,9 +335,9 @@ Creates a [`Filter`](https://viem.sh/docs/glossary/types#filter) to listen for n
 
 ###### Type parameters
 
-▪ **TAbiEvent** extends `undefined` \| [`AbiEvent`](/reference/tevm/utils/type-aliases/abievent/) = `undefined`
+▪ **TAbiEvent** extends `undefined` \| `AbiEvent` = `undefined`
 
-▪ **TAbiEvents** extends `undefined` \| readonly `unknown`[] \| readonly [`AbiEvent`](/reference/tevm/utils/type-aliases/abievent/)[] = `TAbiEvent` extends [`AbiEvent`](/reference/tevm/utils/type-aliases/abievent/) ? [`TAbiEvent`] : `undefined`
+▪ **TAbiEvents** extends `undefined` \| readonly `unknown`[] \| readonly `AbiEvent`[] = `TAbiEvent` extends `AbiEvent` ? [`TAbiEvent`] : `undefined`
 
 ▪ **TStrict** extends `undefined` \| `boolean` = `undefined`
 
@@ -462,7 +462,7 @@ Estimates the gas required to successfully execute a contract write function cal
 
 ▪ **TChain** extends `undefined` \| `Chain`
 
-▪ **abi** extends [`Abi`](/reference/tevm/utils/type-aliases/abi/) \| readonly `unknown`[]
+▪ **abi** extends `Abi` \| readonly `unknown`[]
 
 ▪ **functionName** extends `string`
 
@@ -692,7 +692,7 @@ const maxPriorityFeePerGas = await client.estimateMaxPriorityFeePerGas()
 
 ###### Type parameters
 
-▪ **client** extends `object` & `Partial`\<`ExtendableProtectedActions`\<`Transport`, `undefined` \| `Chain`, `undefined`\>\>
+▪ **client** extends `object` & `ExactPartial`\<`ExtendableProtectedActions`\<`Transport`, `undefined` \| `Chain`, `undefined`\>\>
 
 ###### Parameters
 
@@ -782,6 +782,56 @@ const balance = await client.getBalance({
   address: '0xA0Cf798816D4b9b9866b5330EEa46a18382f251e',
 })
 // 10000000000000000000000n (wei)
+```
+
+##### getBlobBaseFee
+
+> **getBlobBaseFee**: () => `Promise`\<`bigint`\>
+
+Returns the base fee per blob gas in wei.
+
+- Docs: https://viem.sh/docs/actions/public/getBlobBaseFee
+- JSON-RPC Methods: [`eth_blobBaseFee`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_blobBaseFee)
+
+###### Param
+
+Client to use
+
+###### Example
+
+```ts
+import { createPublicClient, http } from 'viem'
+import { mainnet } from 'viem/chains'
+import { getBlobBaseFee } from 'viem/public'
+
+const client = createPublicClient({
+  chain: mainnet,
+  transport: http(),
+})
+const blobBaseFee = await client.getBlobBaseFee()
+```
+
+Returns the base fee per blob gas in wei.
+
+- Docs: https://viem.sh/docs/actions/public/getBlobBaseFee
+- JSON-RPC Methods: [`eth_blobBaseFee`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_blobBaseFee)
+
+###### Returns
+
+The blob base fee (in wei). [GetBlobBaseFeeReturnType]([object Object])
+
+###### Example
+
+```ts
+import { createPublicClient, http } from 'viem'
+import { mainnet } from 'viem/chains'
+import { getBlobBaseFee } from 'viem/public'
+
+const client = createPublicClient({
+  chain: mainnet,
+  transport: http(),
+})
+const blobBaseFee = await client.getBlobBaseFee()
 ```
 
 ##### getBlock
@@ -1112,7 +1162,7 @@ Returns a list of event logs emitted by a contract.
 
 ###### Type parameters
 
-▪ **abi** extends [`Abi`](/reference/tevm/utils/type-aliases/abi/) \| readonly `unknown`[]
+▪ **abi** extends `Abi` \| readonly `unknown`[]
 
 ▪ **eventName** extends `undefined` \| `string` = `undefined`
 
@@ -1832,7 +1882,7 @@ Returns a list of logs or hashes based on a [Filter](/docs/glossary/terms#filter
 
 ▪ **TFilterType** extends `FilterType`
 
-▪ **TAbi** extends `undefined` \| [`Abi`](/reference/tevm/utils/type-aliases/abi/) \| readonly `unknown`[]
+▪ **TAbi** extends `undefined` \| `Abi` \| readonly `unknown`[]
 
 ▪ **TEventName** extends `undefined` \| `string`
 
@@ -1975,7 +2025,7 @@ Returns a list of event logs since the filter was created.
 
 ###### Type parameters
 
-▪ **TAbi** extends `undefined` \| [`Abi`](/reference/tevm/utils/type-aliases/abi/) \| readonly `unknown`[]
+▪ **TAbi** extends `undefined` \| `Abi` \| readonly `unknown`[]
 
 ▪ **TEventName** extends `undefined` \| `string`
 
@@ -2095,9 +2145,9 @@ Returns a list of event logs matching the provided parameters.
 
 ###### Type parameters
 
-▪ **TAbiEvent** extends `undefined` \| [`AbiEvent`](/reference/tevm/utils/type-aliases/abievent/) = `undefined`
+▪ **TAbiEvent** extends `undefined` \| `AbiEvent` = `undefined`
 
-▪ **TAbiEvents** extends `undefined` \| readonly `unknown`[] \| readonly [`AbiEvent`](/reference/tevm/utils/type-aliases/abievent/)[] = `TAbiEvent` extends [`AbiEvent`](/reference/tevm/utils/type-aliases/abievent/) ? [`TAbiEvent`] : `undefined`
+▪ **TAbiEvents** extends `undefined` \| readonly `unknown`[] \| readonly `AbiEvent`[] = `TAbiEvent` extends `AbiEvent` ? [`TAbiEvent`] : `undefined`
 
 ▪ **TStrict** extends `undefined` \| `boolean` = `undefined`
 
@@ -2612,7 +2662,7 @@ Frequency (in ms) for polling enabled actions & events. Defaults to 4_000 millis
 
 ##### prepareTransactionRequest
 
-> **prepareTransactionRequest**: \<`TParameterType`, `TChainOverride`, `TAccountOverride`\>(`args`) => `Promise`\<`PrepareTransactionRequestReturnType`\<`Chain`, `undefined` \| [`Account`](/reference/tevm/utils/type-aliases/account/), `TChainOverride`, `TAccountOverride`, `TParameterType`\>\>
+> **prepareTransactionRequest**: \<`TRequest`, `TChainOverride`, `TAccountOverride`\>(`args`) => `Promise`\<`{ [K in string | number | symbol]: (UnionRequiredBy<Extract<UnionOmit<ExtractChainFormatterParameters<DeriveChain<Chain, TChainOverride>, "transactionRequest", TransactionRequest>, "from"> & (DeriveChain<Chain, TChainOverride> extends Chain ? Object : Object) & (DeriveAccount<undefined | Account, TAccountOverride> extends Account ? Object : Object), IsNever<((TRequest["type"] extends string ? any[any] : GetTransactionType<TRequest, (TRequest extends LegacyProperties | Opaque<TransactionSerializableLegacy, TRequest> | Opaque<TransactionRequestLegacy, TRequest> ? "legacy" : never) | (TRequest extends EIP1559Properties | Opaque<TransactionSerializableEIP1559, TRequest> | Opaque<TransactionRequestEIP1559, TRequest> ? "eip1559" : never) | (TRequest extends EIP2930Properties | Opaque<TransactionSerializableEIP2930, TRequest> | Opaque<TransactionRequestEIP2930, TRequest> ? "eip2930" : never) | (TRequest extends EIP4844Properties | Opaque<TransactionSerializableEIP4844, TRequest> | Opaque<TransactionRequestEIP4844, TRequest> ? "eip4844" : never) | (TRequest["type"] extends string ? any[any] : never)> extends "legacy" ? unknown : GetTransactionType<TRequest, (TRequest extends LegacyProperties | Opaque<TransactionSerializableLegacy, TRequest> | Opaque<TransactionRequestLegacy, TRequest> ? "legacy" : never) | (TRequest extends EIP1559Properties | Opaque<TransactionSerializableEIP1559, TRequest> | Opaque<TransactionRequestEIP1559, TRequest> ? "eip1559" : never) | (TRequest extends EIP2930Properties | Opaque<TransactionSerializableEIP2930, TRequest> | Opaque<TransactionRequestEIP2930, TRequest> ? "eip2930" : never) | (TRequest extends EIP4844Properties | Opaque<TransactionSerializableEIP4844, TRequest> | Opaque<TransactionRequestEIP4844, TRequest> ? "eip4844" : never) | (TRequest["type"] extends string ? any[any] : never)>) extends "legacy" ? TransactionRequestLegacy : never) | ((TRequest["type"] extends string ? any[any] : GetTransactionType<TRequest, (TRequest extends LegacyProperties | Opaque<TransactionSerializableLegacy, TRequest> | Opaque<TransactionRequestLegacy, TRequest> ? "legacy" : never) | (TRequest extends EIP1559Properties | Opaque<TransactionSerializableEIP1559, TRequest> | Opaque<TransactionRequestEIP1559, TRequest> ? "eip1559" : never) | (TRequest extends EIP2930Properties | Opaque<TransactionSerializableEIP2930, TRequest> | Opaque<TransactionRequestEIP2930, TRequest> ? "eip2930" : never) | (TRequest extends EIP4844Properties | Opaque<TransactionSerializableEIP4844, TRequest> | Opaque<TransactionRequestEIP4844, TRequest> ? "eip4844" : never) | (TRequest["type"] extends string ? any[any] : never)> extends "legacy" ? unknown : GetTransactionType<TRequest, (TRequest extends LegacyProperties | Opaque<TransactionSerializableLegacy, TRequest> | Opaque<TransactionRequestLegacy, TRequest> ? "legacy" : never) | (TRequest extends EIP1559Properties | Opaque<TransactionSerializableEIP1559, TRequest> | Opaque<TransactionRequestEIP1559, TRequest> ? "eip1559" : never) | (TRequest extends EIP2930Properties | Opaque<TransactionSerializableEIP2930, TRequest> | Opaque<TransactionRequestEIP2930, TRequest> ? "eip2930" : never) | (TRequest extends EIP4844Properties | Opaque<TransactionSerializableEIP4844, TRequest> | Opaque<TransactionRequestEIP4844, TRequest> ? "eip4844" : never) | (TRequest["type"] extends string ? any[any] : never)>) extends "eip1559" ? TransactionRequestEIP1559 : never) | ((TRequest["type"] extends string ? any[any] : GetTransactionType<TRequest, (TRequest extends LegacyProperties | Opaque<TransactionSerializableLegacy, TRequest> | Opaque<TransactionRequestLegacy, TRequest> ? "legacy" : never) | (TRequest extends EIP1559Properties | Opaque<TransactionSerializableEIP1559, TRequest> | Opaque<TransactionRequestEIP1559, TRequest> ? "eip1559" : never) | (TRequest extends EIP2930Properties | Opaque<TransactionSerializableEIP2930, TRequest> | Opaque<TransactionRequestEIP2930, TRequest> ? "eip2930" : never) | (TRequest extends EIP4844Properties | Opaque<TransactionSerializableEIP4844, TRequest> | Opaque<TransactionRequestEIP4844, TRequest> ? "eip4844" : never) | (TRequest["type"] extends string ? any[any] : never)> extends "legacy" ? unknown : GetTransactionType<TRequest, (TRequest extends LegacyProperties | Opaque<TransactionSerializableLegacy, TRequest> | Opaque<TransactionRequestLegacy, TRequest> ? "legacy" : never) | (TRequest extends EIP1559Properties | Opaque<TransactionSerializableEIP1559, TRequest> | Opaque<TransactionRequestEIP1559, TRequest> ? "eip1559" : never) | (TRequest extends EIP2930Properties | Opaque<TransactionSerializableEIP2930, TRequest> | Opaque<TransactionRequestEIP2930, TRequest> ? "eip2930" : never) | (TRequest extends EIP4844Properties | Opaque<TransactionSerializableEIP4844, TRequest> | Opaque<TransactionRequestEIP4844, TRequest> ? "eip4844" : never) | (TRequest["type"] extends string ? any[any] : never)>) extends "eip2930" ? TransactionRequestEIP2930 : never) | ((TRequest["type"] extends string ? any[any] : GetTransactionType<TRequest, (TRequest extends LegacyProperties | Opaque<TransactionSerializableLegacy, TRequest> | Opaque<TransactionRequestLegacy, TRequest> ? "legacy" : never) | (TRequest extends EIP1559Properties | Opaque<TransactionSerializableEIP1559, TRequest> | Opaque<TransactionRequestEIP1559, TRequest> ? "eip1559" : never) | (TRequest extends EIP2930Properties | Opaque<TransactionSerializableEIP2930, TRequest> | Opaque<TransactionRequestEIP2930, TRequest> ? "eip2930" : never) | (TRequest extends EIP4844Properties | Opaque<TransactionSerializableEIP4844, TRequest> | Opaque<TransactionRequestEIP4844, TRequest> ? "eip4844" : never) | (TRequest["type"] extends string ? any[any] : never)> extends "legacy" ? unknown : GetTransactionType<TRequest, (TRequest extends LegacyProperties | Opaque<TransactionSerializableLegacy, TRequest> | Opaque<TransactionRequestLegacy, TRequest> ? "legacy" : never) | (TRequest extends EIP1559Properties | Opaque<TransactionSerializableEIP1559, TRequest> | Opaque<TransactionRequestEIP1559, TRequest> ? "eip1559" : never) | (TRequest extends EIP2930Properties | Opaque<TransactionSerializableEIP2930, TRequest> | Opaque<TransactionRequestEIP2930, TRequest> ? "eip2930" : never) | (TRequest extends EIP4844Properties | Opaque<TransactionSerializableEIP4844, TRequest> | Opaque<TransactionRequestEIP4844, TRequest> ? "eip4844" : never) | (TRequest["type"] extends string ? any[any] : never)>) extends "eip4844" ? TransactionRequestEIP4844 : never)> extends true ? unknown : ExactPartial<((TRequest["type"] extends string ? any[any] : GetTransactionType<TRequest, (TRequest extends LegacyProperties | Opaque<TransactionSerializableLegacy, TRequest> | Opaque<TransactionRequestLegacy, TRequest> ? "legacy" : never) | (TRequest extends EIP1559Properties | Opaque<TransactionSerializableEIP1559, TRequest> | Opaque<TransactionRequestEIP1559, TRequest> ? "eip1559" : never) | (TRequest extends EIP2930Properties | Opaque<TransactionSerializableEIP2930, TRequest> | Opaque<TransactionRequestEIP2930, TRequest> ? "eip2930" : never) | (TRequest extends EIP4844Properties | Opaque<TransactionSerializableEIP4844, TRequest> | Opaque<TransactionRequestEIP4844, TRequest> ? "eip4844" : never) | (TRequest["type"] extends string ? any[any] : never)> extends "legacy" ? unknown : GetTransactionType<TRequest, (TRequest extends LegacyProperties | Opaque<TransactionSerializableLegacy, TRequest> | Opaque<TransactionRequestLegacy, TRequest> ? "legacy" : never) | (TRequest extends EIP1559Properties | Opaque<TransactionSerializableEIP1559, TRequest> | Opaque<TransactionRequestEIP1559, TRequest> ? "eip1559" : never) | (TRequest extends EIP2930Properties | Opaque<TransactionSerializableEIP2930, TRequest> | Opaque<TransactionRequestEIP2930, TRequest> ? "eip2930" : never) | (TRequest extends EIP4844Properties | Opaque<TransactionSerializableEIP4844, TRequest> | Opaque<TransactionRequestEIP4844, TRequest> ? "eip4844" : never) | (TRequest["type"] extends string ? any[any] : never)>) extends "legacy" ? TransactionRequestLegacy : never) | ((TRequest["type"] extends string ? any[any] : GetTransactionType<TRequest, (TRequest extends LegacyProperties | Opaque<TransactionSerializableLegacy, TRequest> | Opaque<TransactionRequestLegacy, TRequest> ? "legacy" : never) | (TRequest extends EIP1559Properties | Opaque<TransactionSerializableEIP1559, TRequest> | Opaque<TransactionRequestEIP1559, TRequest> ? "eip1559" : never) | (TRequest extends EIP2930Properties | Opaque<TransactionSerializableEIP2930, TRequest> | Opaque<TransactionRequestEIP2930, TRequest> ? "eip2930" : never) | (TRequest extends EIP4844Properties | Opaque<TransactionSerializableEIP4844, TRequest> | Opaque<TransactionRequestEIP4844, TRequest> ? "eip4844" : never) | (TRequest["type"] extends string ? any[any] : never)> extends "legacy" ? unknown : GetTransactionType<TRequest, (TRequest extends LegacyProperties | Opaque<TransactionSerializableLegacy, TRequest> | Opaque<TransactionRequestLegacy, TRequest> ? "legacy" : never) | (TRequest extends EIP1559Properties | Opaque<TransactionSerializableEIP1559, TRequest> | Opaque<TransactionRequestEIP1559, TRequest> ? "eip1559" : never) | (TRequest extends EIP2930Properties | Opaque<TransactionSerializableEIP2930, TRequest> | Opaque<TransactionRequestEIP2930, TRequest> ? "eip2930" : never) | (TRequest extends EIP4844Properties | Opaque<TransactionSerializableEIP4844, TRequest> | Opaque<TransactionRequestEIP4844, TRequest> ? "eip4844" : never) | (TRequest["type"] extends string ? any[any] : never)>) extends "eip1559" ? TransactionRequestEIP1559 : never) | ((TRequest["type"] extends string ? any[any] : GetTransactionType<TRequest, (TRequest extends LegacyProperties | Opaque<TransactionSerializableLegacy, TRequest> | Opaque<TransactionRequestLegacy, TRequest> ? "legacy" : never) | (TRequest extends EIP1559Properties | Opaque<TransactionSerializableEIP1559, TRequest> | Opaque<TransactionRequestEIP1559, TRequest> ? "eip1559" : never) | (TRequest extends EIP2930Properties | Opaque<TransactionSerializableEIP2930, TRequest> | Opaque<TransactionRequestEIP2930, TRequest> ? "eip2930" : never) | (TRequest extends EIP4844Properties | Opaque<TransactionSerializableEIP4844, TRequest> | Opaque<TransactionRequestEIP4844, TRequest> ? "eip4844" : never) | (TRequest["type"] extends string ? any[any] : never)> extends "legacy" ? unknown : GetTransactionType<TRequest, (TRequest extends LegacyProperties | Opaque<TransactionSerializableLegacy, TRequest> | Opaque<TransactionRequestLegacy, TRequest> ? "legacy" : never) | (TRequest extends EIP1559Properties | Opaque<TransactionSerializableEIP1559, TRequest> | Opaque<TransactionRequestEIP1559, TRequest> ? "eip1559" : never) | (TRequest extends EIP2930Properties | Opaque<TransactionSerializableEIP2930, TRequest> | Opaque<TransactionRequestEIP2930, TRequest> ? "eip2930" : never) | (TRequest extends EIP4844Properties | Opaque<TransactionSerializableEIP4844, TRequest> | Opaque<TransactionRequestEIP4844, TRequest> ? "eip4844" : never) | (TRequest["type"] extends string ? any[any] : never)>) extends "eip2930" ? TransactionRequestEIP2930 : never) | ((TRequest["type"] extends string ? any[any] : GetTransactionType<TRequest, (TRequest extends LegacyProperties | Opaque<TransactionSerializableLegacy, TRequest> | Opaque<TransactionRequestLegacy, TRequest> ? "legacy" : never) | (TRequest extends EIP1559Properties | Opaque<TransactionSerializableEIP1559, TRequest> | Opaque<TransactionRequestEIP1559, TRequest> ? "eip1559" : never) | (TRequest extends EIP2930Properties | Opaque<TransactionSerializableEIP2930, TRequest> | Opaque<TransactionRequestEIP2930, TRequest> ? "eip2930" : never) | (TRequest extends EIP4844Properties | Opaque<TransactionSerializableEIP4844, TRequest> | Opaque<TransactionRequestEIP4844, TRequest> ? "eip4844" : never) | (TRequest["type"] extends string ? any[any] : never)> extends "legacy" ? unknown : GetTransactionType<TRequest, (TRequest extends LegacyProperties | Opaque<TransactionSerializableLegacy, TRequest> | Opaque<TransactionRequestLegacy, TRequest> ? "legacy" : never) | (TRequest extends EIP1559Properties | Opaque<TransactionSerializableEIP1559, TRequest> | Opaque<TransactionRequestEIP1559, TRequest> ? "eip1559" : never) | (TRequest extends EIP2930Properties | Opaque<TransactionSerializableEIP2930, TRequest> | Opaque<TransactionRequestEIP2930, TRequest> ? "eip2930" : never) | (TRequest extends EIP4844Properties | Opaque<TransactionSerializableEIP4844, TRequest> | Opaque<TransactionRequestEIP4844, TRequest> ? "eip4844" : never) | (TRequest["type"] extends string ? any[any] : never)>) extends "eip4844" ? TransactionRequestEIP4844 : never)>> & Object, ParameterTypeToParameters<TRequest["parameters"] extends PrepareTransactionRequestParameterType[] ? any[any][number] : PrepareTransactionRequestParameterType>> & (unknown extends TRequest["kzg"] ? Object : Pick<TRequest, "kzg">))[K] }`\>
 
 Prepares a transaction request for signing.
 
@@ -2664,7 +2714,7 @@ Prepares a transaction request for signing.
 
 ###### Type parameters
 
-▪ **TParameterType** extends `PrepareTransactionRequestParameterType`
+▪ **TRequest** extends `Omit`\<`object`, `"from"`\> \| `Omit`\<`object`, `"from"`\> \| `Omit`\<`object`, `"from"`\> \| `Omit`\<`object`, `"from"`\> & `object` & `object`
 
 ▪ **TChainOverride** extends `undefined` \| `Chain` = `undefined`
 
@@ -2672,7 +2722,7 @@ Prepares a transaction request for signing.
 
 ###### Parameters
 
-▪ **args**: `PrepareTransactionRequestParameters`\<`undefined` \| `Chain`, `undefined` \| [`Account`](/reference/tevm/utils/type-aliases/account/), `TChainOverride`, `TAccountOverride`, `TParameterType`\>
+▪ **args**: `PrepareTransactionRequestParameters`\<`undefined` \| `Chain`, `undefined` \| [`Account`](/reference/tevm/utils/type-aliases/account/), `TChainOverride`, `TAccountOverride`, `TRequest`\>
 
 [PrepareTransactionRequestParameters]([object Object])
 
@@ -2762,7 +2812,7 @@ Calls a read-only function on a contract, and returns the response.
 
 ###### Type parameters
 
-▪ **abi** extends [`Abi`](/reference/tevm/utils/type-aliases/abi/) \| readonly `unknown`[]
+▪ **abi** extends `Abi` \| readonly `unknown`[]
 
 ▪ **functionName** extends `string`
 
@@ -2919,7 +2969,7 @@ Simulates/validates a contract interaction. This is useful for retrieving **retu
 
 ###### Type parameters
 
-▪ **abi** extends [`Abi`](/reference/tevm/utils/type-aliases/abi/) \| readonly `unknown`[]
+▪ **abi** extends `Abi` \| readonly `unknown`[]
 
 ▪ **functionName** extends `string`
 
@@ -3329,7 +3379,7 @@ Watches and returns emitted contract event logs.
 
 ###### Type parameters
 
-▪ **TAbi** extends [`Abi`](/reference/tevm/utils/type-aliases/abi/) \| readonly `unknown`[]
+▪ **TAbi** extends `Abi` \| readonly `unknown`[]
 
 ▪ **TEventName** extends `string`
 
@@ -3421,9 +3471,9 @@ Watches and returns emitted [Event Logs](https://viem.sh/docs/glossary/terms#eve
 
 ###### Type parameters
 
-▪ **TAbiEvent** extends `undefined` \| [`AbiEvent`](/reference/tevm/utils/type-aliases/abievent/) = `undefined`
+▪ **TAbiEvent** extends `undefined` \| `AbiEvent` = `undefined`
 
-▪ **TAbiEvents** extends `undefined` \| readonly `unknown`[] \| readonly [`AbiEvent`](/reference/tevm/utils/type-aliases/abievent/)[] = `TAbiEvent` extends [`AbiEvent`](/reference/tevm/utils/type-aliases/abievent/) ? [`TAbiEvent`] : `undefined`
+▪ **TAbiEvents** extends `undefined` \| readonly `unknown`[] \| readonly `AbiEvent`[] = `TAbiEvent` extends `AbiEvent` ? [`TAbiEvent`] : `undefined`
 
 ▪ **TStrict** extends `undefined` \| `boolean` = `undefined`
 
@@ -3534,7 +3584,7 @@ const unwatch = await client.watchPendingTransactions({
 
 #### Source
 
-[packages/state/src/ForkStateManager.ts:61](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L61)
+[packages/state/src/ForkStateManager.ts:60](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L60)
 
 ***
 
@@ -3544,7 +3594,7 @@ const unwatch = await client.watchPendingTransactions({
 
 #### Source
 
-[packages/state/src/ForkStateManager.ts:62](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L62)
+[packages/state/src/ForkStateManager.ts:61](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L61)
 
 ***
 
@@ -3558,7 +3608,7 @@ const unwatch = await client.watchPendingTransactions({
 
 #### Source
 
-[packages/state/src/ForkStateManager.ts:60](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L60)
+[packages/state/src/ForkStateManager.ts:59](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L59)
 
 ## Methods
 
@@ -3576,7 +3626,7 @@ Address of the `account` to check
 
 #### Source
 
-[packages/state/src/ForkStateManager.ts:259](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L259)
+[packages/state/src/ForkStateManager.ts:258](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L258)
 
 ***
 
@@ -3596,7 +3646,7 @@ Partial implementation, called from the subclass.
 
 #### Source
 
-[packages/state/src/ForkStateManager.ts:397](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L397)
+[packages/state/src/ForkStateManager.ts:396](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L396)
 
 ***
 
@@ -3608,7 +3658,7 @@ Resets all internal caches
 
 #### Source
 
-[packages/state/src/ForkStateManager.ts:128](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L128)
+[packages/state/src/ForkStateManager.ts:127](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L127)
 
 ***
 
@@ -3630,7 +3680,7 @@ Address to clear the storage of
 
 #### Source
 
-[packages/state/src/ForkStateManager.ts:225](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L225)
+[packages/state/src/ForkStateManager.ts:224](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L224)
 
 ***
 
@@ -3649,7 +3699,7 @@ Partial implementation, called from the subclass.
 
 #### Source
 
-[packages/state/src/ForkStateManager.ts:408](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L408)
+[packages/state/src/ForkStateManager.ts:407](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L407)
 
 ***
 
@@ -3661,7 +3711,7 @@ Returns a new instance of the ForkStateManager with the same opts and all storag
 
 #### Source
 
-[packages/state/src/ForkStateManager.ts:90](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L90)
+[packages/state/src/ForkStateManager.ts:89](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L89)
 
 ***
 
@@ -3683,7 +3733,7 @@ Address of the account which should be deleted
 
 #### Source
 
-[packages/state/src/ForkStateManager.ts:356](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L356)
+[packages/state/src/ForkStateManager.ts:355](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L355)
 
 ***
 
@@ -3695,13 +3745,13 @@ Dumps the state of the state manager as a [TevmState](/reference/tevm/state/type
 
 #### Source
 
-[packages/state/src/ForkStateManager.ts:491](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L491)
+[packages/state/src/ForkStateManager.ts:490](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L490)
 
 ***
 
 ### dumpStorage()
 
-> **dumpStorage**(`address`): `Promise`\<`StorageDump`\>
+> **dumpStorage**(`address`): `Promise`\<[`StorageDump`](/reference/tevm/common/interfaces/storagedump/)\>
 
 Dumps the RLP-encoded storage values for an `account` specified by `address`.
 
@@ -3723,13 +3773,13 @@ Both are represented as `0x` prefixed hex strings.
 
 #### Source
 
-[packages/state/src/ForkStateManager.ts:236](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L236)
+[packages/state/src/ForkStateManager.ts:235](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L235)
 
 ***
 
 ### dumpStorageRange()
 
-> **dumpStorageRange**(`_address`, `_startKey`, `_limit`): `Promise`\<`StorageRange`\>
+> **dumpStorageRange**(`_address`, `_startKey`, `_limit`): `Promise`\<[`StorageRange`](/reference/tevm/common/interfaces/storagerange/)\>
 
 #### Parameters
 
@@ -3745,7 +3795,7 @@ Both are represented as `0x` prefixed hex strings.
 
 #### Source
 
-[packages/state/src/ForkStateManager.ts:247](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L247)
+[packages/state/src/ForkStateManager.ts:246](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L246)
 
 ***
 
@@ -3755,7 +3805,7 @@ Both are represented as `0x` prefixed hex strings.
 
 #### Source
 
-[packages/state/src/ForkStateManager.ts:426](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L426)
+[packages/state/src/ForkStateManager.ts:425](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L425)
 
 ***
 
@@ -3775,7 +3825,7 @@ Loads a [TevmState](/reference/tevm/state/type-aliases/tevmstate/) into the stat
 
 #### Source
 
-[packages/state/src/ForkStateManager.ts:462](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L462)
+[packages/state/src/ForkStateManager.ts:461](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L461)
 
 ***
 
@@ -3795,7 +3845,7 @@ Gets the code corresponding to the provided `address`.
 
 #### Source
 
-[packages/state/src/ForkStateManager.ts:282](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L282)
+[packages/state/src/ForkStateManager.ts:281](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L281)
 
 ***
 
@@ -3809,7 +3859,7 @@ Gets the code corresponding to the provided `address`.
 
 #### Source
 
-[packages/state/src/ForkStateManager.ts:449](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L449)
+[packages/state/src/ForkStateManager.ts:448](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L448)
 
 ***
 
@@ -3827,7 +3877,7 @@ Address of account to be retrieved from provider
 
 #### Source
 
-[packages/state/src/ForkStateManager.ts:301](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L301)
+[packages/state/src/ForkStateManager.ts:300](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L300)
 
 ***
 
@@ -3854,7 +3904,7 @@ Returns an empty `Uint8Array` if the account has no associated code.
 
 #### Source
 
-[packages/state/src/ForkStateManager.ts:140](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L140)
+[packages/state/src/ForkStateManager.ts:139](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L139)
 
 ***
 
@@ -3887,7 +3937,7 @@ If this does not exist an empty `Uint8Array` is returned.
 
 #### Source
 
-[packages/state/src/ForkStateManager.ts:178](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L178)
+[packages/state/src/ForkStateManager.ts:177](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L177)
 
 ***
 
@@ -3917,7 +3967,7 @@ an EIP-1186 formatted proof
 
 #### Source
 
-[packages/state/src/ForkStateManager.ts:366](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L366)
+[packages/state/src/ForkStateManager.ts:365](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L365)
 
 ***
 
@@ -3937,7 +3987,7 @@ This method is not used by the Fork State Manager and is a stub required by the 
 
 #### Source
 
-[packages/state/src/ForkStateManager.ts:433](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L433)
+[packages/state/src/ForkStateManager.ts:432](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L432)
 
 ***
 
@@ -3957,7 +4007,7 @@ This method is not used by the Fork State Manager and is a stub required by the 
 
 #### Source
 
-[packages/state/src/ForkStateManager.ts:445](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L445)
+[packages/state/src/ForkStateManager.ts:444](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L444)
 
 ***
 
@@ -3985,7 +4035,7 @@ Object containing account fields and values to modify
 
 #### Source
 
-[packages/state/src/ForkStateManager.ts:337](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L337)
+[packages/state/src/ForkStateManager.ts:336](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L336)
 
 ***
 
@@ -4007,7 +4057,7 @@ Saves an account into state under the provided `address`.
 
 #### Source
 
-[packages/state/src/ForkStateManager.ts:319](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L319)
+[packages/state/src/ForkStateManager.ts:318](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L318)
 
 ***
 
@@ -4034,7 +4084,7 @@ The value of the `code`
 
 #### Source
 
-[packages/state/src/ForkStateManager.ts:161](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L161)
+[packages/state/src/ForkStateManager.ts:160](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L160)
 
 ***
 
@@ -4067,7 +4117,7 @@ If it is empty or filled with zeros, deletes the value.
 
 #### Source
 
-[packages/state/src/ForkStateManager.ts:213](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L213)
+[packages/state/src/ForkStateManager.ts:212](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L212)
 
 ***
 
@@ -4086,7 +4136,7 @@ Partial implementation , called from the subclass.
 
 #### Source
 
-[packages/state/src/ForkStateManager.ts:420](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L420)
+[packages/state/src/ForkStateManager.ts:419](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L419)
 
 ***
 
@@ -4110,7 +4160,7 @@ This method is not used by the Fork State Manager and is a stub required by the 
 
 #### Source
 
-[packages/state/src/ForkStateManager.ts:440](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L440)
+[packages/state/src/ForkStateManager.ts:439](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L439)
 
 ***
 
@@ -4126,7 +4176,7 @@ Returns a new instance of the ForkStateManager with the same opts
 
 #### Source
 
-[packages/state/src/ForkStateManager.ts:108](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L108)
+[packages/state/src/ForkStateManager.ts:107](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L107)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

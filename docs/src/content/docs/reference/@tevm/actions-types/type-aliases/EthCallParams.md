@@ -15,6 +15,8 @@ Based on the JSON-RPC request for `eth_call` procedure
 
 > **blockOverride**?: [`BlockOverrideSet`](/reference/tevm/actions-types/type-aliases/blockoverrideset/)
 
+The block override set to provide different block values while executing the call
+
 ### blockTag
 
 > **blockTag**?: [`BlockParam`](/reference/tevm/actions-types/type-aliases/blockparam/)
@@ -49,6 +51,8 @@ The integer of gasPrice used for each paid gas
 ### stateOverrideSet
 
 > **stateOverrideSet**?: [`StateOverrideSet`](/reference/tevm/actions-types/type-aliases/stateoverrideset/)
+
+The state override set to provide different state values while executing the call
 
 ### to
 

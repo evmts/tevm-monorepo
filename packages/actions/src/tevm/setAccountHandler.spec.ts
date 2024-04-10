@@ -13,7 +13,7 @@ describe('setAccountHandler', () => {
 	it('should put an account and contract bytecode into state', async () => {
 		const evm = await Evm.create()
 		const vm = await TevmVm.create({ evm })
-		const res = await setAccountHandler({ getVm: async () => vm })({
+		const res = await setAccountHandler({ getVm: async () => vm } as any)({
 			address: ERC20_ADDRESS,
 			deployedBytecode: ERC20_BYTECODE,
 			balance: 420n,
@@ -59,7 +59,7 @@ describe('setAccountHandler', () => {
 			stateManager: stateManager as any,
 		})
 		const vm = await TevmVm.create({ evm, stateManager: stateManager as any })
-		const res = await setAccountHandler({ getVm: async () => vm })({
+		const res = await setAccountHandler({ getVm: async () => vm } as any)({
 			address: ERC20_ADDRESS,
 			deployedBytecode: ERC20_BYTECODE,
 			balance: 420n,

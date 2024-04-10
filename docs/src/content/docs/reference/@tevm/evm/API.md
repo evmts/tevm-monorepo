@@ -15,6 +15,7 @@ title: "@tevm/evm"
 
 - [EthjsMessage](/reference/tevm/evm/classes/ethjsmessage/)
 - [Evm](/reference/tevm/evm/classes/evm/)
+- [EvmError](/reference/tevm/evm/classes/evmerror/)
 
 ### Interfaces
 
@@ -25,9 +26,9 @@ title: "@tevm/evm"
 
 ### Type Aliases
 
-- [ConstructorArgument](/reference/tevm/evm/type-aliases/constructorargument/)
 - [CreateEvmOptions](/reference/tevm/evm/type-aliases/createevmoptions/)
 - [CustomPrecompile](/reference/tevm/evm/type-aliases/customprecompile/)
+- [EVMOpts](/reference/tevm/evm/type-aliases/evmopts/)
 - [EthjsLog](/reference/tevm/evm/type-aliases/ethjslog/)
 
 ### Variables
@@ -37,6 +38,7 @@ title: "@tevm/evm"
 ### Functions
 
 - [createEvm](/reference/tevm/evm/functions/createevm/)
+- [getActivePrecompiles](/reference/tevm/evm/functions/getactiveprecompiles/)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

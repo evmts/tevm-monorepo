@@ -13,7 +13,7 @@ title: "ForkStateManagerOpts"
 
 #### Source
 
-[packages/state/src/ForkStateManager.ts:29](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L29)
+[packages/state/src/ForkStateManager.ts:28](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L28)
 
 ***
 
@@ -31,7 +31,7 @@ Called when state manager commits state
 
 #### Source
 
-[packages/state/src/ForkStateManager.ts:33](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L33)
+[packages/state/src/ForkStateManager.ts:32](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L32)
 
 ***
 
@@ -41,7 +41,7 @@ Called when state manager commits state
 
 #### Source
 
-[packages/state/src/ForkStateManager.ts:28](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L28)
+[packages/state/src/ForkStateManager.ts:27](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L27)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

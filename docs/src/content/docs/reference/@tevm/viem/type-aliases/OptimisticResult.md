@@ -17,8 +17,8 @@ This API should not be used in production and may be trimmed from a public relea
 
 | Parameter |
 | :------ |
-| `TAbi` extends [`Abi`](/reference/tevm/utils/type-aliases/abi/) \| readonly `unknown`[] |
-| `TFunctionName` extends [`ContractFunctionName`](/reference/tevm/utils/type-aliases/contractfunctionname/)\<`TAbi`\> |
+| `TAbi` extends `Abi` \| readonly `unknown`[] |
+| `TFunctionName` extends `ContractFunctionName`\<`TAbi`\> |
 | `TChain` extends `Chain` \| `undefined` |
 
 ## Source

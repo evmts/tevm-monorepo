@@ -15,11 +15,11 @@ title: "CreateVmOptions"
 
 ### common
 
-> **common**: [`TevmCommon`](/reference/tevm/common/classes/tevmcommon/)
+> **common**: [`Common`](/reference/tevm/common/classes/common/)
 
 ### evm
 
-> **evm**: [`Evm`](/reference/tevm/evm/classes/evm/)
+> **evm**: `Evm`
 
 ### stateManager
 
