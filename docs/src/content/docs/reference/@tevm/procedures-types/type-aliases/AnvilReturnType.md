@@ -51,6 +51,10 @@ A mapping of `anvil_*` method names to their return type
 
 > **anvil\_setCode**: [`AnvilSetCodeJsonRpcResponse`](/reference/tevm/procedures-types/type-aliases/anvilsetcodejsonrpcresponse/)
 
+### anvil\_setCoinbase
+
+> **anvil\_setCoinbase**: [`AnvilSetCoinbaseJsonRpcResponse`](/reference/tevm/procedures-types/type-aliases/anvilsetcoinbasejsonrpcresponse/)
+
 ### anvil\_setNonce
 
 > **anvil\_setNonce**: [`AnvilSetNonceJsonRpcResponse`](/reference/tevm/procedures-types/type-aliases/anvilsetnoncejsonrpcresponse/)
@@ -65,7 +69,7 @@ A mapping of `anvil_*` method names to their return type
 
 ## Source
 
-[tevm-request-handler/AnvilReturnType.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/tevm-request-handler/AnvilReturnType.ts#L20)
+[tevm-request-handler/AnvilReturnType.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/tevm-request-handler/AnvilReturnType.ts#L21)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

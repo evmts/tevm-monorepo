@@ -22,7 +22,7 @@ This API should not be used in production and may be trimmed from a public relea
 | Parameter | Default |
 | :------ | :------ |
 | `TChain` extends `Chain` \| `undefined` | `Chain` |
-| `TAccount` extends [`Account`](/reference/tevm/utils/type-aliases/account/) \| `undefined` | [`Account`](/reference/tevm/utils/type-aliases/account/) \| `undefined` |
+| `TAccount` extends `Account` \| `undefined` | `Account` \| `undefined` |
 
 ## Type declaration
 
@@ -36,9 +36,9 @@ This API should not be used in production and may be trimmed from a public relea
 
 ###### Type parameters
 
-▪ **TAbi** extends [`Abi`](/reference/tevm/utils/type-aliases/abi/) \| readonly `unknown`[] = [`Abi`](/reference/tevm/utils/type-aliases/abi/)
+▪ **TAbi** extends `Abi` \| readonly `unknown`[] = `Abi`
 
-▪ **TFunctionName** extends `string` = [`ContractFunctionName`](/reference/tevm/utils/type-aliases/contractfunctionname/)\<`TAbi`\>
+▪ **TFunctionName** extends `string` = `ContractFunctionName`\<`TAbi`\>
 
 ▪ **TArgs** extends `unknown` = `ContractFunctionArgs`\<`TAbi`, `"nonpayable"` \| `"payable"`, `TFunctionName`\>
 

@@ -10,14 +10,14 @@ const ERC20_BYTECODE =
 describe('getAccount', () => {
 	it('should get an account from evm', async () => {
 		const vm = await TevmVm.create()
-		const res = await setAccountHandler({ getVm: async () => vm })({
+		const res = await setAccountHandler({ getVm: async () => vm } as any)({
 			address: ERC20_ADDRESS,
 			deployedBytecode: ERC20_BYTECODE,
 			balance: 420n,
 			nonce: 69n,
 		})
 		expect(res.errors).toBeUndefined()
-		const account = await getAccountHandler({ getVm: async () => vm })({
+		const account = await getAccountHandler({ getVm: async () => vm } as any)({
 			address: ERC20_ADDRESS,
 		})
 		expect(account?.balance).toBe(420n)
@@ -27,7 +27,7 @@ describe('getAccount', () => {
 
 	it('should validate params', async () => {
 		const vm = await TevmVm.create()
-		const res = await setAccountHandler({ getVm: async () => vm })({
+		const res = await setAccountHandler({ getVm: async () => vm } as any)({
 			// @ts-expect-error
 			address: 'not an address',
 			throwOnFail: false,

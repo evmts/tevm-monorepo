@@ -7,7 +7,7 @@ import {
 } from '@tevm/state'
 
 /**
- * @param {Pick<import("@tevm/base-client").BaseClient, 'getVm'>} client
+ * @param {import("@tevm/base-client").BaseClient} client
  * @param {object} [options]
  * @param {boolean} [options.throwOnFail] whether to default to throwing or not when errors occur
  * @returns {import('@tevm/actions-types').DumpStateHandler}

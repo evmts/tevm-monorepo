@@ -5,7 +5,7 @@ prev: false
 title: "createCommon"
 ---
 
-> **createCommon**(`options`): [`TevmCommon`](/reference/tevm/common/classes/tevmcommon/)
+> **createCommon**(`options`): [`Common`](/reference/tevm/common/classes/common/)
 
 Creates an ethereumjs Common object used by the EVM
 to access chain and hardfork parameters and to provide

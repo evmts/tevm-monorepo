@@ -5,7 +5,7 @@ prev: false
 title: "Filter"
 ---
 
-> **Filter**\<`TFilterType`, `TAbi`, `TEventName`, `TArgs`, `TStrict`, `TFromBlock`, `TToBlock`\>: `object` & `TFilterType` extends `"event"` ? `object` & `TAbi` extends [`Abi`](/reference/tevm/utils/type-aliases/abi/) ? `undefined` extends `TEventName` ? `object` : `TArgs` extends `MaybeExtractEventArgsFromAbi`\<`TAbi`, `TEventName`\> ? `object` : `object` : `object` : `object`
+> **Filter**\<`TFilterType`, `TAbi`, `TEventName`, `TArgs`, `TStrict`, `TFromBlock`, `TToBlock`\>: `object` & `TFilterType` extends `"event"` ? `object` & `TAbi` extends `Abi` ? `undefined` extends `TEventName` ? `object` : `TArgs` extends `MaybeExtractEventArgsFromAbi`\<`TAbi`, `TEventName`\> ? `object` : `object` : `object` : `object`
 
 ## Type declaration
 
@@ -26,7 +26,7 @@ title: "Filter"
 | Parameter | Default |
 | :------ | :------ |
 | `TFilterType` extends `FilterType` | `"event"` |
-| `TAbi` extends [`Abi`](/reference/tevm/utils/type-aliases/abi/) \| readonly `unknown`[] \| `undefined` | `undefined` |
+| `TAbi` extends `Abi` \| readonly `unknown`[] \| `undefined` | `undefined` |
 | `TEventName` extends `string` \| `undefined` | `undefined` |
 | `TArgs` extends `MaybeExtractEventArgsFromAbi`\<`TAbi`, `TEventName`\> \| `undefined` | `MaybeExtractEventArgsFromAbi`\<`TAbi`, `TEventName`\> |
 | `TStrict` extends `boolean` \| `undefined` | `undefined` |
@@ -35,7 +35,7 @@ title: "Filter"
 
 ## Source
 
-node\_modules/.pnpm/viem@2.7.16\_typescript@5.3.3\_zod@3.22.4/node\_modules/viem/\_types/types/filter.d.ts:11
+node\_modules/.pnpm/viem@2.8.18\_typescript@5.3.3\_zod@3.22.4/node\_modules/viem/\_types/types/filter.d.ts:11
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

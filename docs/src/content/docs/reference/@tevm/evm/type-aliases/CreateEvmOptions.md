@@ -21,7 +21,7 @@ Enable/disable unlimited contract size. Defaults to false.
 
 ### common
 
-> **common**: [`TevmCommon`](/reference/tevm/common/classes/tevmcommon/)
+> **common**: [`Common`](/reference/tevm/common/classes/common/)
 
 Ethereumjs common object
 

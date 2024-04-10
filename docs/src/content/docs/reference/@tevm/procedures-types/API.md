@@ -42,6 +42,8 @@ title: "@tevm/procedures-types"
 - [AnvilSetCodeJsonRpcRequest](/reference/tevm/procedures-types/type-aliases/anvilsetcodejsonrpcrequest/)
 - [AnvilSetCodeJsonRpcResponse](/reference/tevm/procedures-types/type-aliases/anvilsetcodejsonrpcresponse/)
 - [AnvilSetCodeProcedure](/reference/tevm/procedures-types/type-aliases/anvilsetcodeprocedure/)
+- [AnvilSetCoinbaseJsonRpcRequest](/reference/tevm/procedures-types/type-aliases/anvilsetcoinbasejsonrpcrequest/)
+- [AnvilSetCoinbaseJsonRpcResponse](/reference/tevm/procedures-types/type-aliases/anvilsetcoinbasejsonrpcresponse/)
 - [AnvilSetNonceJsonRpcRequest](/reference/tevm/procedures-types/type-aliases/anvilsetnoncejsonrpcrequest/)
 - [AnvilSetNonceJsonRpcResponse](/reference/tevm/procedures-types/type-aliases/anvilsetnoncejsonrpcresponse/)
 - [AnvilSetNonceProcedure](/reference/tevm/procedures-types/type-aliases/anvilsetnonceprocedure/)

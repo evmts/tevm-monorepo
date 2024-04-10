@@ -4,7 +4,7 @@ import { hexToBytes } from '@tevm/utils'
 
 /**
  * Parses user provided params into ethereumjs options to pass into the EVM
- * @param {Pick<import('@tevm/base-client').BaseClient, 'getVm'>} client
+ * @param {import('@tevm/base-client').BaseClient} client
  * @param {import('@tevm/actions-types').CallParams} params
  * @returns {Promise<{data?: Parameters<import('@tevm/evm').Evm['runCall']>[0], errors?: Array<Error>}>}
  */

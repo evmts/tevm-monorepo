@@ -6,7 +6,7 @@ import { validateGetAccountParams } from '@tevm/zod'
 
 /**
  * Creates an GetAccountHandler for handling account params with Ethereumjs VM
- * @param {Pick<import('@tevm/base-client').BaseClient, 'getVm'>} client
+ * @param {import("@tevm/base-client").BaseClient} client
  * @param {object} [options]
  * @param {boolean} [options.throwOnFail] whether to default to throwing or not when errors occur
  * @returns {import('@tevm/actions-types').GetAccountHandler}

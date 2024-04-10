@@ -301,7 +301,7 @@ describe('contractHandler', () => {
 		// deploy contract
 		expect(
 			(
-				await setAccountHandler({ getVm: async () => vm })({
+				await setAccountHandler({ getVm: async () => vm } as any)({
 					address: ERC20_ADDRESS,
 					deployedBytecode: ERC20_BYTECODE,
 				})
@@ -309,7 +309,7 @@ describe('contractHandler', () => {
 		).toBeUndefined()
 		// test contract call
 		expect(
-			await contractHandler({ getVm: async () => vm })({
+			await contractHandler({ getVm: async () => vm } as any)({
 				abi: ERC20_ABI,
 				functionName: 'balanceOf',
 				args: [ERC20_ADDRESS],
@@ -335,7 +335,7 @@ describe('contractHandler', () => {
 		// deploy contract
 		expect(
 			(
-				await setAccountHandler({ getVm: async () => vm })({
+				await setAccountHandler({ getVm: async () => vm } as any)({
 					address: ERC20_ADDRESS,
 					deployedBytecode: ERC20_BYTECODE,
 				})
@@ -344,7 +344,7 @@ describe('contractHandler', () => {
 		// test contract call that should fail from lack of owning any tokens
 		const caller = `0x${'23'.repeat(20)}` as const
 		expect(
-			await contractHandler({ getVm: async () => vm })({
+			await contractHandler({ getVm: async () => vm } as any)({
 				abi: ERC20_ABI,
 				functionName: 'transferFrom',
 				args: [caller, caller, 1n],
@@ -360,7 +360,7 @@ describe('contractHandler', () => {
 		const vm = await TevmVm.create({ evm, stateManager })
 		const caller = `0x${'23'.repeat(20)}` as const
 		expect(
-			await contractHandler({ getVm: async () => vm })({
+			await contractHandler({ getVm: async () => vm } as any)({
 				abi: ERC20_ABI,
 				functionName: 'transferFrom',
 				args: [caller, caller, 1n],
@@ -390,7 +390,7 @@ describe('contractHandler', () => {
 		// deploy contract
 		expect(
 			(
-				await setAccountHandler({ getVm: async () => vm })({
+				await setAccountHandler({ getVm: async () => vm } as any)({
 					address: ERC20_ADDRESS,
 					deployedBytecode: ERC20_BYTECODE,
 				})
@@ -401,7 +401,7 @@ describe('contractHandler', () => {
 		}
 		const caller = `0x${'23'.repeat(20)}` as const
 		expect(
-			await contractHandler({ getVm: async () => vm })({
+			await contractHandler({ getVm: async () => vm } as any)({
 				abi: ERC20_ABI,
 				functionName: 'transferFrom',
 				args: [caller, caller, 1n],
@@ -431,7 +431,7 @@ describe('contractHandler', () => {
 		// deploy contract
 		expect(
 			(
-				await setAccountHandler({ getVm: async () => vm })({
+				await setAccountHandler({ getVm: async () => vm } as any)({
 					address: ERC20_ADDRESS,
 					deployedBytecode: ERC20_BYTECODE,
 					throwOnFail: false,
@@ -440,7 +440,7 @@ describe('contractHandler', () => {
 		).toBeUndefined()
 
 		expect(
-			await contractHandler({ getVm: async () => vm })({
+			await contractHandler({ getVm: async () => vm } as any)({
 				throwOnFail: false,
 			} as any),
 		).toEqual({
@@ -483,7 +483,7 @@ describe('contractHandler', () => {
 		// deploy contract
 		expect(
 			(
-				await setAccountHandler({ getVm: async () => vm })({
+				await setAccountHandler({ getVm: async () => vm } as any)({
 					address: ERC20_ADDRESS,
 					deployedBytecode: ERC20_BYTECODE,
 				})
@@ -491,7 +491,7 @@ describe('contractHandler', () => {
 		).toBeUndefined()
 		// test contract call
 		expect(
-			await contractHandler({ getVm: async () => vm })({
+			await contractHandler({ getVm: async () => vm } as any)({
 				abi: ERC20_ABI,
 				functionName: 'balanceOf',
 				args: [ERC20_ADDRESS],
@@ -510,7 +510,7 @@ describe('contractHandler', () => {
 		// deploy contract
 		expect(
 			(
-				await setAccountHandler({ getVm: async () => vm })({
+				await setAccountHandler({ getVm: async () => vm } as any)({
 					address: ERC20_ADDRESS,
 					deployedBytecode: ERC20_BYTECODE,
 					throwOnFail: false,
@@ -519,7 +519,7 @@ describe('contractHandler', () => {
 		).toBeUndefined()
 		// test contract call
 		expect(
-			await contractHandler({ getVm: async () => vm })({
+			await contractHandler({ getVm: async () => vm } as any)({
 				abi: ERC20_ABI,
 				functionName: 'balanceOf',
 				args: ['not correct type' as any],
@@ -539,7 +539,7 @@ describe('contractHandler', () => {
 		const vm = await TevmVm.create({ evm, stateManager })
 
 		// Set the token contract
-		await setAccountHandler({ getVm: async () => vm })({
+		await setAccountHandler({ getVm: async () => vm } as any)({
 			address: token,
 			deployedBytecode: MOCKERC20_BYTECODE,
 		})
@@ -547,7 +547,7 @@ describe('contractHandler', () => {
 		// No matter if the transaction should succeed or fail, it will throw the same error:
 		// `TypeError: Cannot read properties of undefined (reading 'join')`
 		// at `@tevm/actions/src/tevm/contractHandler.js:37`
-		const { errors } = await contractHandler({ getVm: async () => vm })({
+		const { errors } = await contractHandler({ getVm: async () => vm } as any)({
 			caller,
 			to: token,
 			abi: MOCKERC20_ABI,

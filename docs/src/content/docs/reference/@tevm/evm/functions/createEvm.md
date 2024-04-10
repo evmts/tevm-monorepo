@@ -5,7 +5,7 @@ prev: false
 title: "createEvm"
 ---
 
-> **createEvm**(`options`): [`Evm`](/reference/tevm/evm/classes/evm/)
+> **createEvm**(`options`): `Promise`\<[`Evm`](/reference/tevm/evm/classes/evm/)\>
 
 ## Parameters
 

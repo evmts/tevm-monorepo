@@ -187,7 +187,7 @@ Error.captureStackTrace
 
 ##### Source
 
-node\_modules/.pnpm/@types+node@20.11.19/node\_modules/@types/node/globals.d.ts:21
+node\_modules/.pnpm/@types+node@20.11.30/node\_modules/@types/node/globals.d.ts:21
 
 #### captureStackTrace(targetObject, constructorOpt)
 
@@ -207,7 +207,7 @@ Error.captureStackTrace
 
 ##### Source
 
-node\_modules/.pnpm/bun-types@1.0.26/node\_modules/bun-types/globals.d.ts:1525
+node\_modules/.pnpm/bun-types@1.0.36/node\_modules/bun-types/globals.d.ts:1637
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

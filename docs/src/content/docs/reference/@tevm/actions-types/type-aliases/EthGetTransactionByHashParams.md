@@ -17,7 +17,7 @@ Based on the JSON-RPC request for `eth_getTransactionByHash` procedure
 
 ## Source
 
-[params/EthParams.ts:171](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L171)
+[params/EthParams.ts:177](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L177)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

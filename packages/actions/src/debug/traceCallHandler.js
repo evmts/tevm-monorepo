@@ -2,7 +2,7 @@ import { EthjsAddress, bytesToHex, hexToBytes, numberToHex } from '@tevm/utils'
 
 /**
  * Returns a trace of an eth_call within the context of the given block execution using the final state of the parent block
- * @param {Pick<import('@tevm/base-client').BaseClient, 'getVm'>} client
+ * @param {import('@tevm/base-client').BaseClient} client
  * @returns {import('@tevm/actions-types').DebugTraceCallHandler} an execution trace of an {@link eth_call} in the context of a given block execution
  * mirroring the output from {@link traceTransaction}
  */

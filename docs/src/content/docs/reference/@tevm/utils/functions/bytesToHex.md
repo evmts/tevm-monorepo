@@ -43,7 +43,7 @@ const data = bytesToHex(Uint8Array.from([72, 101, 108, 108, 111, 32, 87, 111, 11
 
 ## Source
 
-node\_modules/.pnpm/viem@2.7.16\_typescript@5.3.3\_zod@3.22.4/node\_modules/viem/\_types/utils/encoding/toHex.d.ts:91
+node\_modules/.pnpm/viem@2.8.18\_typescript@5.3.3\_zod@3.22.4/node\_modules/viem/\_types/utils/encoding/toHex.d.ts:91
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

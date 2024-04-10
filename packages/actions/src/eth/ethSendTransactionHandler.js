@@ -3,7 +3,7 @@ import { TransactionFactory } from '@tevm/tx'
 import { bytesToHex } from '@tevm/utils'
 
 /**
- * @param {Pick<import('@tevm/base-client').BaseClient, 'getVm' | 'getTxPool'>} client
+ * @param {import('@tevm/base-client').BaseClient} client
  * @returns {import('@tevm/actions-types').EthSendTransactionHandler}
  */
 export const ethSendTransactionHandler = (client) => async (params) => {

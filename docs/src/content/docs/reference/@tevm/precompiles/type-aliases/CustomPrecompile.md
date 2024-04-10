@@ -5,7 +5,7 @@ prev: false
 title: "CustomPrecompile"
 ---
 
-> **CustomPrecompile**: `Exclude`\<`Exclude`\<[`ConstructorArgument`](/reference/tevm/precompiles/type-aliases/constructorargument/)\<`EVM`\>, `undefined`\>[`"customPrecompiles"`], `undefined`\>[`number`]
+> **CustomPrecompile**: `Exclude`\<`Exclude`\<[`ConstructorArgument`](/reference/tevm/precompiles/type-aliases/constructorargument/)\<`Evm`\>, `undefined`\>[`"customPrecompiles"`], `undefined`\>[`number`]
 
 Custom precompiles allow you to run arbitrary JavaScript code in the EVM
 

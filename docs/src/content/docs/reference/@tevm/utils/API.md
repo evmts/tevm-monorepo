@@ -12,6 +12,10 @@ title: "@tevm/utils"
 - [EthjsAccount](/reference/tevm/utils/classes/ethjsaccount/)
 - [EthjsAddress](/reference/tevm/utils/classes/ethjsaddress/)
 
+### Interfaces
+
+- [GenesisState](/reference/tevm/utils/interfaces/genesisstate/)
+
 ### Type Aliases
 
 - [Abi](/reference/tevm/utils/type-aliases/abi/)
@@ -48,6 +52,7 @@ title: "@tevm/utils"
 - [ParseAbi](/reference/tevm/utils/type-aliases/parseabi/)
 - [SerializeToJson](/reference/tevm/utils/type-aliases/serializetojson/)
 - [SetToHex](/reference/tevm/utils/type-aliases/settohex/)
+- [WithdrawalData](/reference/tevm/utils/type-aliases/withdrawaldata/)
 
 ### Functions
 
@@ -57,6 +62,7 @@ title: "@tevm/utils"
 - [bytesToBool](/reference/tevm/utils/functions/bytestobool/)
 - [bytesToHex](/reference/tevm/utils/functions/bytestohex/)
 - [bytesToNumber](/reference/tevm/utils/functions/bytestonumber/)
+- [bytesToUnprefixedHex](/reference/tevm/utils/functions/bytestounprefixedhex/)
 - [createMemoryDb](/reference/tevm/utils/functions/creatememorydb/)
 - [decodeAbiParameters](/reference/tevm/utils/functions/decodeabiparameters/)
 - [decodeErrorResult](/reference/tevm/utils/functions/decodeerrorresult/)
@@ -70,6 +76,7 @@ title: "@tevm/utils"
 - [encodeFunctionData](/reference/tevm/utils/functions/encodefunctiondata/)
 - [encodeFunctionResult](/reference/tevm/utils/functions/encodefunctionresult/)
 - [encodePacked](/reference/tevm/utils/functions/encodepacked/)
+- [equalsBytes](/reference/tevm/utils/functions/equalsbytes/)
 - [formatAbi](/reference/tevm/utils/functions/formatabi/)
 - [formatEther](/reference/tevm/utils/functions/formatether/)
 - [formatGwei](/reference/tevm/utils/functions/formatgwei/)

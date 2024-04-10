@@ -21,7 +21,7 @@ Based on the JSON-RPC request for `eth_getCode` procedure
 
 ## Source
 
-[params/EthParams.ts:124](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L124)
+[params/EthParams.ts:130](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/params/EthParams.ts#L130)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
