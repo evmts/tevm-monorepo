@@ -6,13 +6,13 @@
 
 # Type alias: EthNewBlockFilterJsonRpcResponse
 
-> **EthNewBlockFilterJsonRpcResponse**: `JsonRpcResponse`\<`"eth_newBlockFilter"`, `Hex`, `string`\>
+> **EthNewBlockFilterJsonRpcResponse**: `JsonRpcResponse`\<`"eth_newBlockFilter"`, `Hex`, `string` \| `number`\>
 
 JSON-RPC response for `eth_newBlockFilter` procedure
 
 ## Source
 
-[responses/EthJsonRpcResponse.ts:374](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L374)
+[responses/EthJsonRpcResponse.ts:382](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L382)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

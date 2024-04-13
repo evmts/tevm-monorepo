@@ -6,7 +6,7 @@
 
 # Type alias: EthGasPriceJsonRpcResponse
 
-> **EthGasPriceJsonRpcResponse**: [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"eth_gasPrice"`, [`Hex`](../../index/type-aliases/Hex.md), `string`\>
+> **EthGasPriceJsonRpcResponse**: [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"eth_gasPrice"`, [`Hex`](../../index/type-aliases/Hex.md), `string` \| `number`\>
 
 JSON-RPC response for `eth_gasPrice` procedure
 

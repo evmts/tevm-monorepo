@@ -6,13 +6,13 @@
 
 # Type alias: EthUninstallFilterJsonRpcResponse
 
-> **EthUninstallFilterJsonRpcResponse**: `JsonRpcResponse`\<`"eth_uninstallFilter"`, `boolean`, `string`\>
+> **EthUninstallFilterJsonRpcResponse**: `JsonRpcResponse`\<`"eth_uninstallFilter"`, `boolean`, `string` \| `number`\>
 
 JSON-RPC response for `eth_uninstallFilter` procedure
 
 ## Source
 
-[responses/EthJsonRpcResponse.ts:396](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L396)
+[responses/EthJsonRpcResponse.ts:404](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L404)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
