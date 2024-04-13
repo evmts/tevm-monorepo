@@ -2,6 +2,7 @@ export {
 	type EIP1559CompatibleTx,
 	type TxData,
 	type TypedTransaction,
+	TransactionType,
 	LegacyTransaction,
 	AccessListEIP2930Transaction,
 	FeeMarketEIP1559Transaction,
