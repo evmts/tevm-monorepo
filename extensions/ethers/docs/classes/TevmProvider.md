@@ -1,4 +1,8 @@
-[@tevm/ethers](../README.md) / [Exports](../modules.md) / TevmProvider
+**@tevm/ethers** ∙ [README](../README.md) ∙ [API](../API.md)
+
+***
+
+[API](../API.md) > TevmProvider
 
 # Class: TevmProvider
 
@@ -8,7 +12,7 @@ An [ethers JsonRpcApiProvider](https://docs.ethers.org/v6/api/providers/jsonrpc/
 
 The TevmProvider class is an instance of an ethers provider using Tevm as it's backend. The `createMemoryProvider` method can be used to create an in memory instance of tevm using a [memoryClient](../clients/) as it's backend.
 
-**`Example`**
+## Example
 
 ```typescript
 import {TevmProvider} from '@tevm/ethers'
@@ -24,7 +28,7 @@ const provider = await TevmProvider.createMemoryProvider({
 
 The constructor takes any instance of tevm including the `httpClient`.
 
-**`Example`**
+## Example
 
 ```typescript
 import {createHttpClient} from '@tevm/http-client'
@@ -35,7 +39,7 @@ const provider = new TevmProvider(createHttpClient({url: 'https://localhost:8080
 
 You can use all the normal ethers apis to interact with tevm.
 
-**`Example`**
+## Example
 
 ```typescript
 const provider = await TevmProvider.createMemoryProvider({
@@ -53,7 +57,7 @@ console.log(
 
 The entire [tevm api](../clients/) exists on the `tevm` property. For example the `tevm.script` method can be used to run an arbitrary script.
 
-**`Example`**
+## Example
 
 ```typescript
 import {TevmProvider} from '@tevm/ethers'
@@ -90,7 +94,7 @@ console.log(result)
 
 An ethers TevmProvider supports the tevm [JSON-RPC methods](../json-rpc). For example you can use `tevm_account` to set account
 
-**`Example`**
+## Example
 
 ```typescript
 await provider.send('tevm_setAccount', {
@@ -108,126 +112,31 @@ console.log(await provider.send('tevm_getAccount', {
 //	storageRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
 ```
 
-**`See`**
+## See
 
 [Tevm Clients Docs](https://tevm.sh/learn/clients/)
 
-## Hierarchy
+## Extends
 
 - `JsonRpcApiProvider`
 
-  ↳ **`TevmProvider`**
-
-## Table of contents
-
-### Constructors
-
-- [constructor](TevmProvider.md#constructor)
-
-### Properties
-
-- [#private](TevmProvider.md##private)
-- [#private](TevmProvider.md##private-1)
-- [tevm](TevmProvider.md#tevm)
-
-### Accessors
-
-- [\_network](TevmProvider.md#_network)
-- [destroyed](TevmProvider.md#destroyed)
-- [disableCcipRead](TevmProvider.md#disableccipread)
-- [paused](TevmProvider.md#paused)
-- [plugins](TevmProvider.md#plugins)
-- [pollingInterval](TevmProvider.md#pollinginterval)
-- [provider](TevmProvider.md#provider)
-- [ready](TevmProvider.md#ready)
-
-### Methods
-
-- [\_clearTimeout](TevmProvider.md#_cleartimeout)
-- [\_detectNetwork](TevmProvider.md#_detectnetwork)
-- [\_forEachSubscriber](TevmProvider.md#_foreachsubscriber)
-- [\_getAddress](TevmProvider.md#_getaddress)
-- [\_getBlockTag](TevmProvider.md#_getblocktag)
-- [\_getFilter](TevmProvider.md#_getfilter)
-- [\_getOption](TevmProvider.md#_getoption)
-- [\_getProvider](TevmProvider.md#_getprovider)
-- [\_getSubscriber](TevmProvider.md#_getsubscriber)
-- [\_getTransactionRequest](TevmProvider.md#_gettransactionrequest)
-- [\_perform](TevmProvider.md#_perform)
-- [\_recoverSubscriber](TevmProvider.md#_recoversubscriber)
-- [\_send](TevmProvider.md#_send)
-- [\_setTimeout](TevmProvider.md#_settimeout)
-- [\_start](TevmProvider.md#_start)
-- [\_waitUntilReady](TevmProvider.md#_waituntilready)
-- [\_wrapBlock](TevmProvider.md#_wrapblock)
-- [\_wrapLog](TevmProvider.md#_wraplog)
-- [\_wrapTransactionReceipt](TevmProvider.md#_wraptransactionreceipt)
-- [\_wrapTransactionResponse](TevmProvider.md#_wraptransactionresponse)
-- [addListener](TevmProvider.md#addlistener)
-- [attachPlugin](TevmProvider.md#attachplugin)
-- [broadcastTransaction](TevmProvider.md#broadcasttransaction)
-- [call](TevmProvider.md#call)
-- [ccipReadFetch](TevmProvider.md#ccipreadfetch)
-- [destroy](TevmProvider.md#destroy)
-- [emit](TevmProvider.md#emit)
-- [estimateGas](TevmProvider.md#estimategas)
-- [getAvatar](TevmProvider.md#getavatar)
-- [getBalance](TevmProvider.md#getbalance)
-- [getBlock](TevmProvider.md#getblock)
-- [getBlockNumber](TevmProvider.md#getblocknumber)
-- [getCode](TevmProvider.md#getcode)
-- [getFeeData](TevmProvider.md#getfeedata)
-- [getLogs](TevmProvider.md#getlogs)
-- [getNetwork](TevmProvider.md#getnetwork)
-- [getPlugin](TevmProvider.md#getplugin)
-- [getResolver](TevmProvider.md#getresolver)
-- [getRpcError](TevmProvider.md#getrpcerror)
-- [getRpcRequest](TevmProvider.md#getrpcrequest)
-- [getRpcTransaction](TevmProvider.md#getrpctransaction)
-- [getSigner](TevmProvider.md#getsigner)
-- [getStorage](TevmProvider.md#getstorage)
-- [getTransaction](TevmProvider.md#gettransaction)
-- [getTransactionCount](TevmProvider.md#gettransactioncount)
-- [getTransactionReceipt](TevmProvider.md#gettransactionreceipt)
-- [getTransactionResult](TevmProvider.md#gettransactionresult)
-- [listAccounts](TevmProvider.md#listaccounts)
-- [listenerCount](TevmProvider.md#listenercount)
-- [listeners](TevmProvider.md#listeners)
-- [lookupAddress](TevmProvider.md#lookupaddress)
-- [off](TevmProvider.md#off)
-- [on](TevmProvider.md#on)
-- [once](TevmProvider.md#once)
-- [pause](TevmProvider.md#pause)
-- [removeAllListeners](TevmProvider.md#removealllisteners)
-- [removeListener](TevmProvider.md#removelistener)
-- [resolveName](TevmProvider.md#resolvename)
-- [resume](TevmProvider.md#resume)
-- [send](TevmProvider.md#send)
-- [waitForBlock](TevmProvider.md#waitforblock)
-- [waitForTransaction](TevmProvider.md#waitfortransaction)
-- [createMemoryProvider](TevmProvider.md#creatememoryprovider)
-
 ## Constructors
 
-### constructor
+### new TevmProvider(tevm)
 
-• **new TevmProvider**(`tevm`): [`TevmProvider`](TevmProvider.md)
+> **new TevmProvider**(`tevm`): [`TevmProvider`](TevmProvider.md)
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `tevm` | `MemoryClient` | An instance of the Tevm interface. |
+▪ **tevm**: `MemoryClient`
 
-#### Returns
-
-[`TevmProvider`](TevmProvider.md)
+An instance of the Tevm interface.
 
 #### Overrides
 
 JsonRpcApiProvider.constructor
 
-#### Defined in
+#### Source
 
 [extensions/ethers/src/TevmProvider.js:172](https://github.com/evmts/tevm-monorepo/blob/main/extensions/ethers/src/TevmProvider.js#L172)
 
@@ -235,43 +144,43 @@ JsonRpcApiProvider.constructor
 
 ### #private
 
-• `Private` **#private**: `any`
+> **`private`** **#private**: `any`
 
 #### Inherited from
 
 JsonRpcApiProvider.#private
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/ethers@6.10.0/node_modules/ethers/lib.esm/providers/provider-jsonrpc.d.ts:212
+node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/provider-jsonrpc.d.ts:212
 
-___
+***
 
 ### #private
 
-• `Private` **#private**: `any`
+> **`private`** **#private**: `any`
 
 #### Inherited from
 
 JsonRpcApiProvider.#private
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/ethers@6.10.0/node_modules/ethers/lib.esm/providers/abstract-provider.d.ts:253
+node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:253
 
-___
+***
 
 ### tevm
 
-• **tevm**: `MemoryClient`
+> **tevm**: `MemoryClient`
 
 An instance of the TevmClient interface.
 
-**`See`**
+#### See
 
 [Tevm Client reference](https://tevm.sh/reference/tevm/client-types/type-aliases/tevmclient/)
 
-**`Example`**
+#### Example
 
 ```typescript
 import {TevmProvider} from '@tevm/ethers'
@@ -304,7 +213,7 @@ console.log(result)
 //  selfdestruct: new Set(),
 ```
 
-#### Defined in
+#### Source
 
 [extensions/ethers/src/TevmProvider.js:167](https://github.com/evmts/tevm-monorepo/blob/main/extensions/ethers/src/TevmProvider.js#L167)
 
@@ -312,28 +221,20 @@ console.log(result)
 
 ### \_network
 
-• `get` **_network**(): `Network`
+> **`get`** **\_network**(): `Network`
 
 Gets the [[Network]] this provider has committed to. On each call, the network
  is detected, and if it has changed, the call will reject.
 
-#### Returns
+#### Source
 
-`Network`
+node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/provider-jsonrpc.d.ts:224
 
-#### Inherited from
-
-JsonRpcApiProvider.\_network
-
-#### Defined in
-
-node_modules/.pnpm/ethers@6.10.0/node_modules/ethers/lib.esm/providers/provider-jsonrpc.d.ts:224
-
-___
+***
 
 ### destroyed
 
-• `get` **destroyed**(): `boolean`
+> **`get`** **destroyed**(): `boolean`
 
 If this provider has been destroyed using the [[destroy]] method.
 
@@ -341,64 +242,34 @@ If this provider has been destroyed using the [[destroy]] method.
  and timers are cleaned up and no further requests may be sent to
  the provider.
 
-#### Returns
+#### Source
 
-`boolean`
+node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:419
 
-#### Inherited from
-
-JsonRpcApiProvider.destroyed
-
-#### Defined in
-
-node_modules/.pnpm/ethers@6.10.0/node_modules/ethers/lib.esm/providers/abstract-provider.d.ts:419
-
-___
+***
 
 ### disableCcipRead
 
-• `get` **disableCcipRead**(): `boolean`
+> **`get`** **disableCcipRead**(): `boolean`
 
 Prevent any CCIP-read operation, regardless of whether requested
  in a [[call]] using ``enableCcipRead``.
 
-#### Returns
-
-`boolean`
-
-#### Inherited from
-
-JsonRpcApiProvider.disableCcipRead
-
-#### Defined in
-
-node_modules/.pnpm/ethers@6.10.0/node_modules/ethers/lib.esm/providers/abstract-provider.d.ts:282
-
-• `set` **disableCcipRead**(`value`): `void`
+> **`set`** **disableCcipRead**(`value`): `void`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `value` | `boolean` |
+▪ **value**: `boolean`
 
-#### Returns
+#### Source
 
-`void`
+node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:282
 
-#### Inherited from
-
-JsonRpcApiProvider.disableCcipRead
-
-#### Defined in
-
-node_modules/.pnpm/ethers@6.10.0/node_modules/ethers/lib.esm/providers/abstract-provider.d.ts:283
-
-___
+***
 
 ### paused
 
-• `get` **paused**(): `boolean`
+> **`get`** **paused**(): `boolean`
 
 Whether the provider is currently paused.
 
@@ -410,148 +281,88 @@ Whether the provider is currently paused.
  which will buffer any events that occur while paused until the
  provider is unpaused.
 
-#### Returns
-
-`boolean`
-
-#### Inherited from
-
-JsonRpcApiProvider.paused
-
-#### Defined in
-
-node_modules/.pnpm/ethers@6.10.0/node_modules/ethers/lib.esm/providers/abstract-provider.d.ts:438
-
-• `set` **paused**(`pause`): `void`
+> **`set`** **paused**(`pause`): `void`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `pause` | `boolean` |
+▪ **pause**: `boolean`
 
-#### Returns
+#### Source
 
-`void`
+node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:438
 
-#### Inherited from
-
-JsonRpcApiProvider.paused
-
-#### Defined in
-
-node_modules/.pnpm/ethers@6.10.0/node_modules/ethers/lib.esm/providers/abstract-provider.d.ts:439
-
-___
+***
 
 ### plugins
 
-• `get` **plugins**(): `AbstractProviderPlugin`[]
+> **`get`** **plugins**(): `AbstractProviderPlugin`[]
 
 Returns all the registered plug-ins.
 
-#### Returns
+#### Source
 
-`AbstractProviderPlugin`[]
+node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:269
 
-#### Inherited from
-
-JsonRpcApiProvider.plugins
-
-#### Defined in
-
-node_modules/.pnpm/ethers@6.10.0/node_modules/ethers/lib.esm/providers/abstract-provider.d.ts:269
-
-___
+***
 
 ### pollingInterval
 
-• `get` **pollingInterval**(): `number`
+> **`get`** **pollingInterval**(): `number`
 
-#### Returns
+#### Source
 
-`number`
+node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:260
 
-#### Inherited from
-
-JsonRpcApiProvider.pollingInterval
-
-#### Defined in
-
-node_modules/.pnpm/ethers@6.10.0/node_modules/ethers/lib.esm/providers/abstract-provider.d.ts:260
-
-___
+***
 
 ### provider
 
-• `get` **provider**(): `this`
+> **`get`** **provider**(): `this`
 
 Returns ``this``, to allow an **AbstractProvider** to implement
  the [[ContractRunner]] interface.
 
-#### Returns
+#### Source
 
-`this`
+node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:265
 
-#### Inherited from
-
-JsonRpcApiProvider.provider
-
-#### Defined in
-
-node_modules/.pnpm/ethers@6.10.0/node_modules/ethers/lib.esm/providers/abstract-provider.d.ts:265
-
-___
+***
 
 ### ready
 
-• `get` **ready**(): `boolean`
+> **`get`** **ready**(): `boolean`
 
 Returns true only if the [[_start]] has been called.
 
-#### Returns
+#### Source
 
-`boolean`
-
-#### Inherited from
-
-JsonRpcApiProvider.ready
-
-#### Defined in
-
-node_modules/.pnpm/ethers@6.10.0/node_modules/ethers/lib.esm/providers/provider-jsonrpc.d.ts:270
+node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/provider-jsonrpc.d.ts:270
 
 ## Methods
 
-### \_clearTimeout
+### \_clearTimeout()
 
-▸ **_clearTimeout**(`timerId`): `void`
+> **\_clearTimeout**(`timerId`): `void`
 
 Clear a timer created using the [[_setTimeout]] method.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `timerId` | `number` |
-
-#### Returns
-
-`void`
+▪ **timerId**: `number`
 
 #### Inherited from
 
 JsonRpcApiProvider.\_clearTimeout
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/ethers@6.10.0/node_modules/ethers/lib.esm/providers/abstract-provider.d.ts:374
+node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:374
 
-___
+***
 
-### \_detectNetwork
+### \_detectNetwork()
 
-▸ **_detectNetwork**(): `Promise`\<`Network`\>
+> **\_detectNetwork**(): `Promise`\<`Network`\>
 
 Sub-classes may override this; it detects the *actual* network that
  we are **currently** connected to.
@@ -559,49 +370,39 @@ Sub-classes may override this; it detects the *actual* network that
  Keep in mind that [[send]] may only be used once [[ready]], otherwise the
  _send primitive must be used instead.
 
-#### Returns
-
-`Promise`\<`Network`\>
-
 #### Inherited from
 
 JsonRpcApiProvider.\_detectNetwork
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/ethers@6.10.0/node_modules/ethers/lib.esm/providers/provider-jsonrpc.d.ts:245
+node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/provider-jsonrpc.d.ts:245
 
-___
+***
 
-### \_forEachSubscriber
+### \_forEachSubscriber()
 
-▸ **_forEachSubscriber**(`func`): `void`
+> **\_forEachSubscriber**(`func`): `void`
 
 Perform %%func%% on each subscriber.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `func` | (`s`: `Subscriber`) => `void` |
-
-#### Returns
-
-`void`
+▪ **func**: (`s`) => `void`
 
 #### Inherited from
 
 JsonRpcApiProvider.\_forEachSubscriber
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/ethers@6.10.0/node_modules/ethers/lib.esm/providers/abstract-provider.d.ts:387
+node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:387
 
-___
+***
 
-### \_getAddress
+### \_getAddress()
 
-▸ **_getAddress**(`address`): `string` \| `Promise`\<`string`\>
+> **\_getAddress**(`address`): `string` \| `Promise`\<`string`\>
 
 Returns or resolves to the address for %%address%%, resolving ENS
  names and [[Addressable]] objects and returning if already an
@@ -609,54 +410,42 @@ Returns or resolves to the address for %%address%%, resolving ENS
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `address` | `AddressLike` |
-
-#### Returns
-
-`string` \| `Promise`\<`string`\>
+▪ **address**: `AddressLike`
 
 #### Inherited from
 
 JsonRpcApiProvider.\_getAddress
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/ethers@6.10.0/node_modules/ethers/lib.esm/providers/abstract-provider.d.ts:332
+node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:332
 
-___
+***
 
-### \_getBlockTag
+### \_getBlockTag()
 
-▸ **_getBlockTag**(`blockTag?`): `string` \| `Promise`\<`string`\>
+> **\_getBlockTag**(`blockTag`?): `string` \| `Promise`\<`string`\>
 
 Returns or resolves to a valid block tag for %%blockTag%%, resolving
  negative values and returning if already a valid block tag.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `blockTag?` | `BlockTag` |
-
-#### Returns
-
-`string` \| `Promise`\<`string`\>
+▪ **blockTag?**: `BlockTag`
 
 #### Inherited from
 
 JsonRpcApiProvider.\_getBlockTag
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/ethers@6.10.0/node_modules/ethers/lib.esm/providers/abstract-provider.d.ts:337
+node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:337
 
-___
+***
 
-### \_getFilter
+### \_getFilter()
 
-▸ **_getFilter**(`filter`): `PerformActionFilter` \| `Promise`\<`PerformActionFilter`\>
+> **\_getFilter**(`filter`): `PerformActionFilter` \| `Promise`\<`PerformActionFilter`\>
 
 Returns or resolves to a filter for %%filter%%, resolving any ENS
  names or [[Addressable]] object and returning if already a valid
@@ -664,27 +453,21 @@ Returns or resolves to a filter for %%filter%%, resolving any ENS
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `filter` | `Filter` \| `FilterByBlockHash` |
-
-#### Returns
-
-`PerformActionFilter` \| `Promise`\<`PerformActionFilter`\>
+▪ **filter**: `Filter` \| `FilterByBlockHash`
 
 #### Inherited from
 
 JsonRpcApiProvider.\_getFilter
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/ethers@6.10.0/node_modules/ethers/lib.esm/providers/abstract-provider.d.ts:343
+node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:343
 
-___
+***
 
-### \_getOption
+### \_getOption()
 
-▸ **_getOption**\<`K`\>(`key`): `JsonRpcApiProviderOptions`[`K`]
+> **\_getOption**\<`K`\>(`key`): `JsonRpcApiProviderOptions`[`K`]
 
 Returns the value associated with the option %%key%%.
 
@@ -692,57 +475,43 @@ Returns the value associated with the option %%key%%.
 
 #### Type parameters
 
-| Name | Type |
-| :------ | :------ |
-| `K` | extends keyof `JsonRpcApiProviderOptions` |
+▪ **K** extends keyof `JsonRpcApiProviderOptions`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `key` | `K` |
-
-#### Returns
-
-`JsonRpcApiProviderOptions`[`K`]
+▪ **key**: `K`
 
 #### Inherited from
 
 JsonRpcApiProvider.\_getOption
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/ethers@6.10.0/node_modules/ethers/lib.esm/providers/provider-jsonrpc.d.ts:219
+node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/provider-jsonrpc.d.ts:219
 
-___
+***
 
-### \_getProvider
+### \_getProvider()
 
-▸ **_getProvider**(`chainId`): `AbstractProvider`
+> **\_getProvider**(`chainId`): `AbstractProvider`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `chainId` | `number` |
-
-#### Returns
-
-`AbstractProvider`
+▪ **chainId**: `number`
 
 #### Inherited from
 
 JsonRpcApiProvider.\_getProvider
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/ethers@6.10.0/node_modules/ethers/lib.esm/providers/abstract-provider.d.ts:364
+node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:364
 
-___
+***
 
-### \_getSubscriber
+### \_getSubscriber()
 
-▸ **_getSubscriber**(`sub`): `Subscriber`
+> **\_getSubscriber**(`sub`): `Subscriber`
 
 Return a Subscriber that will manage the %%sub%%.
 
@@ -751,27 +520,21 @@ Return a Subscriber that will manage the %%sub%%.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `sub` | `Subscription` |
-
-#### Returns
-
-`Subscriber`
+▪ **sub**: `Subscription`
 
 #### Inherited from
 
 JsonRpcApiProvider.\_getSubscriber
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/ethers@6.10.0/node_modules/ethers/lib.esm/providers/provider-jsonrpc.d.ts:266
+node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/provider-jsonrpc.d.ts:266
 
-___
+***
 
-### \_getTransactionRequest
+### \_getTransactionRequest()
 
-▸ **_getTransactionRequest**(`_request`): `PerformActionTransaction` \| `Promise`\<`PerformActionTransaction`\>
+> **\_getTransactionRequest**(`_request`): `PerformActionTransaction` \| `Promise`\<`PerformActionTransaction`\>
 
 Returns or resovles to a transaction for %%request%%, resolving
  any ENS names or [[Addressable]] and returning if already a valid
@@ -779,27 +542,21 @@ Returns or resovles to a transaction for %%request%%, resolving
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_request` | `TransactionRequest` |
-
-#### Returns
-
-`PerformActionTransaction` \| `Promise`\<`PerformActionTransaction`\>
+▪ **\_request**: `TransactionRequest`
 
 #### Inherited from
 
 JsonRpcApiProvider.\_getTransactionRequest
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/ethers@6.10.0/node_modules/ethers/lib.esm/providers/abstract-provider.d.ts:349
+node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:349
 
-___
+***
 
-### \_perform
+### \_perform()
 
-▸ **_perform**(`req`): `Promise`\<`any`\>
+> **\_perform**(`req`): `Promise`\<`any`\>
 
 Resolves to the non-normalized value by performing %%req%%.
 
@@ -808,27 +565,21 @@ Resolves to the non-normalized value by performing %%req%%.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `req` | `PerformActionRequest` |
-
-#### Returns
-
-`Promise`\<`any`\>
+▪ **req**: `PerformActionRequest`
 
 #### Inherited from
 
 JsonRpcApiProvider.\_perform
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/ethers@6.10.0/node_modules/ethers/lib.esm/providers/provider-jsonrpc.d.ts:237
+node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/provider-jsonrpc.d.ts:237
 
-___
+***
 
-### \_recoverSubscriber
+### \_recoverSubscriber()
 
-▸ **_recoverSubscriber**(`oldSub`, `newSub`): `void`
+> **\_recoverSubscriber**(`oldSub`, `newSub`): `void`
 
 If a [[Subscriber]] fails and needs to replace itself, this
  method may be used.
@@ -840,54 +591,43 @@ If a [[Subscriber]] fails and needs to replace itself, this
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `oldSub` | `Subscriber` |
-| `newSub` | `Subscriber` |
+▪ **oldSub**: `Subscriber`
 
-#### Returns
-
-`void`
+▪ **newSub**: `Subscriber`
 
 #### Inherited from
 
 JsonRpcApiProvider.\_recoverSubscriber
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/ethers@6.10.0/node_modules/ethers/lib.esm/providers/abstract-provider.d.ts:402
+node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:402
 
-___
+***
 
-### \_send
+### \_send()
 
-▸ **_send**(`payload`): `Promise`\<(`JsonRpcResult` \| `JsonRpcError`)[]\>
+> **\_send**(`payload`): `Promise`\<(`JsonRpcResult` \| `JsonRpcError`)[]\>
 
 Sends a JSON-RPC %%payload%% (or a batch) to the underlying tevm instance.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `payload` | `JsonRpcPayload` \| `JsonRpcPayload`[] |
-
-#### Returns
-
-`Promise`\<(`JsonRpcResult` \| `JsonRpcError`)[]\>
+▪ **payload**: `JsonRpcPayload` \| `JsonRpcPayload`[]
 
 #### Overrides
 
 JsonRpcApiProvider.\_send
 
-#### Defined in
+#### Source
 
 [extensions/ethers/src/TevmProvider.js:186](https://github.com/evmts/tevm-monorepo/blob/main/extensions/ethers/src/TevmProvider.js#L186)
 
-___
+***
 
-### \_setTimeout
+### \_setTimeout()
 
-▸ **_setTimeout**(`_func`, `timeout?`): `number`
+> **\_setTimeout**(`_func`, `timeout`?): `number`
 
 Create a timer that will execute %%func%% after at least %%timeout%%
  (in ms). If %%timeout%% is unspecified, then %%func%% will execute
@@ -898,28 +638,23 @@ Create a timer that will execute %%func%% after at least %%timeout%%
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_func` | () => `void` |
-| `timeout?` | `number` |
+▪ **\_func**: () => `void`
 
-#### Returns
-
-`number`
+▪ **timeout?**: `number`
 
 #### Inherited from
 
 JsonRpcApiProvider.\_setTimeout
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/ethers@6.10.0/node_modules/ethers/lib.esm/providers/abstract-provider.d.ts:383
+node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:383
 
-___
+***
 
-### \_start
+### \_start()
 
-▸ **_start**(): `void`
+> **\_start**(): `void`
 
 Sub-classes **MUST** call this. Until [[_start]] has been called, no calls
  will be passed to [[_send]] from [[send]]. If it is overridden, then
@@ -927,45 +662,37 @@ Sub-classes **MUST** call this. Until [[_start]] has been called, no calls
 
  Calling it multiple times is safe and has no effect.
 
-#### Returns
-
-`void`
-
 #### Inherited from
 
 JsonRpcApiProvider.\_start
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/ethers@6.10.0/node_modules/ethers/lib.esm/providers/provider-jsonrpc.d.ts:253
+node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/provider-jsonrpc.d.ts:253
 
-___
+***
 
-### \_waitUntilReady
+### \_waitUntilReady()
 
-▸ **_waitUntilReady**(): `Promise`\<`void`\>
+> **\_waitUntilReady**(): `Promise`\<`void`\>
 
 Resolves once the [[_start]] has been called. This can be used in
  sub-classes to defer sending data until the connection has been
  established.
 
-#### Returns
-
-`Promise`\<`void`\>
-
 #### Inherited from
 
 JsonRpcApiProvider.\_waitUntilReady
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/ethers@6.10.0/node_modules/ethers/lib.esm/providers/provider-jsonrpc.d.ts:259
+node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/provider-jsonrpc.d.ts:259
 
-___
+***
 
-### \_wrapBlock
+### \_wrapBlock()
 
-▸ **_wrapBlock**(`value`, `network`): `Block`
+> **\_wrapBlock**(`value`, `network`): `Block`
 
 Provides the opportunity for a sub-class to wrap a block before
  returning it, to add additional properties or an alternate
@@ -973,28 +700,23 @@ Provides the opportunity for a sub-class to wrap a block before
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `value` | `BlockParams` |
-| `network` | `Network` |
+▪ **value**: `BlockParams`
 
-#### Returns
-
-`Block`
+▪ **network**: `Network`
 
 #### Inherited from
 
 JsonRpcApiProvider.\_wrapBlock
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/ethers@6.10.0/node_modules/ethers/lib.esm/providers/abstract-provider.d.ts:293
+node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:293
 
-___
+***
 
-### \_wrapLog
+### \_wrapLog()
 
-▸ **_wrapLog**(`value`, `network`): `Log`
+> **\_wrapLog**(`value`, `network`): `Log`
 
 Provides the opportunity for a sub-class to wrap a log before
  returning it, to add additional properties or an alternate
@@ -1002,28 +724,23 @@ Provides the opportunity for a sub-class to wrap a log before
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `value` | `LogParams` |
-| `network` | `Network` |
+▪ **value**: `LogParams`
 
-#### Returns
-
-`Log`
+▪ **network**: `Network`
 
 #### Inherited from
 
 JsonRpcApiProvider.\_wrapLog
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/ethers@6.10.0/node_modules/ethers/lib.esm/providers/abstract-provider.d.ts:299
+node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:299
 
-___
+***
 
-### \_wrapTransactionReceipt
+### \_wrapTransactionReceipt()
 
-▸ **_wrapTransactionReceipt**(`value`, `network`): `TransactionReceipt`
+> **\_wrapTransactionReceipt**(`value`, `network`): `TransactionReceipt`
 
 Provides the opportunity for a sub-class to wrap a transaction
  receipt before returning it, to add additional properties or an
@@ -1031,28 +748,23 @@ Provides the opportunity for a sub-class to wrap a transaction
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `value` | `TransactionReceiptParams` |
-| `network` | `Network` |
+▪ **value**: `TransactionReceiptParams`
 
-#### Returns
-
-`TransactionReceipt`
+▪ **network**: `Network`
 
 #### Inherited from
 
 JsonRpcApiProvider.\_wrapTransactionReceipt
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/ethers@6.10.0/node_modules/ethers/lib.esm/providers/abstract-provider.d.ts:305
+node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:305
 
-___
+***
 
-### \_wrapTransactionResponse
+### \_wrapTransactionResponse()
 
-▸ **_wrapTransactionResponse**(`tx`, `network`): `TransactionResponse`
+> **\_wrapTransactionResponse**(`tx`, `network`): `TransactionResponse`
 
 Provides the opportunity for a sub-class to wrap a transaction
  response before returning it, to add additional properties or an
@@ -1060,455 +772,355 @@ Provides the opportunity for a sub-class to wrap a transaction
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `tx` | `TransactionResponseParams` |
-| `network` | `Network` |
+▪ **tx**: `TransactionResponseParams`
 
-#### Returns
-
-`TransactionResponse`
+▪ **network**: `Network`
 
 #### Inherited from
 
 JsonRpcApiProvider.\_wrapTransactionResponse
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/ethers@6.10.0/node_modules/ethers/lib.esm/providers/abstract-provider.d.ts:311
+node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:311
 
-___
+***
 
-### addListener
+### addListener()
 
-▸ **addListener**(`event`, `listener`): `Promise`\<[`TevmProvider`](TevmProvider.md)\>
+> **addListener**(`event`, `listener`): `Promise`\<[`TevmProvider`](TevmProvider.md)\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `event` | `ProviderEvent` |
-| `listener` | `Listener` |
+▪ **event**: `ProviderEvent`
 
-#### Returns
-
-`Promise`\<[`TevmProvider`](TevmProvider.md)\>
+▪ **listener**: `Listener`
 
 #### Inherited from
 
 JsonRpcApiProvider.addListener
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/ethers@6.10.0/node_modules/ethers/lib.esm/providers/abstract-provider.d.ts:410
+node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:410
 
-___
+***
 
-### attachPlugin
+### attachPlugin()
 
-▸ **attachPlugin**(`plugin`): `this`
+> **attachPlugin**(`plugin`): `this`
 
 Attach a new plug-in.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `plugin` | `AbstractProviderPlugin` |
-
-#### Returns
-
-`this`
+▪ **plugin**: `AbstractProviderPlugin`
 
 #### Inherited from
 
 JsonRpcApiProvider.attachPlugin
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/ethers@6.10.0/node_modules/ethers/lib.esm/providers/abstract-provider.d.ts:273
+node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:273
 
-___
+***
 
-### broadcastTransaction
+### broadcastTransaction()
 
-▸ **broadcastTransaction**(`signedTx`): `Promise`\<`TransactionResponse`\>
+> **broadcastTransaction**(`signedTx`): `Promise`\<`TransactionResponse`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `signedTx` | `string` |
-
-#### Returns
-
-`Promise`\<`TransactionResponse`\>
+▪ **signedTx**: `string`
 
 #### Inherited from
 
 JsonRpcApiProvider.broadcastTransaction
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/ethers@6.10.0/node_modules/ethers/lib.esm/providers/abstract-provider.d.ts:358
+node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:358
 
-___
+***
 
-### call
+### call()
 
-▸ **call**(`_tx`): `Promise`\<`string`\>
+> **call**(`_tx`): `Promise`\<`string`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_tx` | `TransactionRequest` |
-
-#### Returns
-
-`Promise`\<`string`\>
+▪ **\_tx**: `TransactionRequest`
 
 #### Inherited from
 
 JsonRpcApiProvider.call
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/ethers@6.10.0/node_modules/ethers/lib.esm/providers/abstract-provider.d.ts:353
+node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:353
 
-___
+***
 
-### ccipReadFetch
+### ccipReadFetch()
 
-▸ **ccipReadFetch**(`tx`, `calldata`, `urls`): `Promise`\<``null`` \| `string`\>
+> **ccipReadFetch**(`tx`, `calldata`, `urls`): `Promise`\<`null` \| `string`\>
 
 Resolves to the data for executing the CCIP-read operations.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `tx` | `PerformActionTransaction` |
-| `calldata` | `string` |
-| `urls` | `string`[] |
+▪ **tx**: `PerformActionTransaction`
 
-#### Returns
+▪ **calldata**: `string`
 
-`Promise`\<``null`` \| `string`\>
+▪ **urls**: `string`[]
 
 #### Inherited from
 
 JsonRpcApiProvider.ccipReadFetch
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/ethers@6.10.0/node_modules/ethers/lib.esm/providers/abstract-provider.d.ts:287
+node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:287
 
-___
+***
 
-### destroy
+### destroy()
 
-▸ **destroy**(): `void`
-
-#### Returns
-
-`void`
+> **destroy**(): `void`
 
 #### Inherited from
 
 JsonRpcApiProvider.destroy
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/ethers@6.10.0/node_modules/ethers/lib.esm/providers/provider-jsonrpc.d.ts:320
+node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/provider-jsonrpc.d.ts:320
 
-___
+***
 
-### emit
+### emit()
 
-▸ **emit**(`event`, `...args`): `Promise`\<`boolean`\>
+> **emit**(`event`, ...`args`): `Promise`\<`boolean`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `event` | `ProviderEvent` |
-| `...args` | `any`[] |
+▪ **event**: `ProviderEvent`
 
-#### Returns
-
-`Promise`\<`boolean`\>
+▪ ...**args**: `any`[]
 
 #### Inherited from
 
 JsonRpcApiProvider.emit
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/ethers@6.10.0/node_modules/ethers/lib.esm/providers/abstract-provider.d.ts:405
+node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:405
 
-___
+***
 
-### estimateGas
+### estimateGas()
 
-▸ **estimateGas**(`_tx`): `Promise`\<`bigint`\>
+> **estimateGas**(`_tx`): `Promise`\<`bigint`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_tx` | `TransactionRequest` |
-
-#### Returns
-
-`Promise`\<`bigint`\>
+▪ **\_tx**: `TransactionRequest`
 
 #### Inherited from
 
 JsonRpcApiProvider.estimateGas
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/ethers@6.10.0/node_modules/ethers/lib.esm/providers/abstract-provider.d.ts:352
+node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:352
 
-___
+***
 
-### getAvatar
+### getAvatar()
 
-▸ **getAvatar**(`name`): `Promise`\<``null`` \| `string`\>
+> **getAvatar**(`name`): `Promise`\<`null` \| `string`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `name` | `string` |
-
-#### Returns
-
-`Promise`\<``null`` \| `string`\>
+▪ **name**: `string`
 
 #### Inherited from
 
 JsonRpcApiProvider.getAvatar
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/ethers@6.10.0/node_modules/ethers/lib.esm/providers/abstract-provider.d.ts:366
+node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:366
 
-___
+***
 
-### getBalance
+### getBalance()
 
-▸ **getBalance**(`address`, `blockTag?`): `Promise`\<`bigint`\>
+> **getBalance**(`address`, `blockTag`?): `Promise`\<`bigint`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `address` | `AddressLike` |
-| `blockTag?` | `BlockTag` |
+▪ **address**: `AddressLike`
 
-#### Returns
-
-`Promise`\<`bigint`\>
+▪ **blockTag?**: `BlockTag`
 
 #### Inherited from
 
 JsonRpcApiProvider.getBalance
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/ethers@6.10.0/node_modules/ethers/lib.esm/providers/abstract-provider.d.ts:354
+node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:354
 
-___
+***
 
-### getBlock
+### getBlock()
 
-▸ **getBlock**(`block`, `prefetchTxs?`): `Promise`\<``null`` \| `Block`\>
+> **getBlock**(`block`, `prefetchTxs`?): `Promise`\<`null` \| `Block`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `block` | `BlockTag` |
-| `prefetchTxs?` | `boolean` |
+▪ **block**: `BlockTag`
 
-#### Returns
-
-`Promise`\<``null`` \| `Block`\>
+▪ **prefetchTxs?**: `boolean`
 
 #### Inherited from
 
 JsonRpcApiProvider.getBlock
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/ethers@6.10.0/node_modules/ethers/lib.esm/providers/abstract-provider.d.ts:359
+node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:359
 
-___
+***
 
-### getBlockNumber
+### getBlockNumber()
 
-▸ **getBlockNumber**(): `Promise`\<`number`\>
-
-#### Returns
-
-`Promise`\<`number`\>
+> **getBlockNumber**(): `Promise`\<`number`\>
 
 #### Inherited from
 
 JsonRpcApiProvider.getBlockNumber
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/ethers@6.10.0/node_modules/ethers/lib.esm/providers/abstract-provider.d.ts:326
+node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:326
 
-___
+***
 
-### getCode
+### getCode()
 
-▸ **getCode**(`address`, `blockTag?`): `Promise`\<`string`\>
+> **getCode**(`address`, `blockTag`?): `Promise`\<`string`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `address` | `AddressLike` |
-| `blockTag?` | `BlockTag` |
+▪ **address**: `AddressLike`
 
-#### Returns
-
-`Promise`\<`string`\>
+▪ **blockTag?**: `BlockTag`
 
 #### Inherited from
 
 JsonRpcApiProvider.getCode
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/ethers@6.10.0/node_modules/ethers/lib.esm/providers/abstract-provider.d.ts:356
+node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:356
 
-___
+***
 
-### getFeeData
+### getFeeData()
 
-▸ **getFeeData**(): `Promise`\<`FeeData`\>
-
-#### Returns
-
-`Promise`\<`FeeData`\>
+> **getFeeData**(): `Promise`\<`FeeData`\>
 
 #### Inherited from
 
 JsonRpcApiProvider.getFeeData
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/ethers@6.10.0/node_modules/ethers/lib.esm/providers/abstract-provider.d.ts:351
+node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:351
 
-___
+***
 
-### getLogs
+### getLogs()
 
-▸ **getLogs**(`_filter`): `Promise`\<`Log`[]\>
+> **getLogs**(`_filter`): `Promise`\<`Log`[]\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_filter` | `Filter` \| `FilterByBlockHash` |
-
-#### Returns
-
-`Promise`\<`Log`[]\>
+▪ **\_filter**: `Filter` \| `FilterByBlockHash`
 
 #### Inherited from
 
 JsonRpcApiProvider.getLogs
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/ethers@6.10.0/node_modules/ethers/lib.esm/providers/abstract-provider.d.ts:363
+node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:363
 
-___
+***
 
-### getNetwork
+### getNetwork()
 
-▸ **getNetwork**(): `Promise`\<`Network`\>
-
-#### Returns
-
-`Promise`\<`Network`\>
+> **getNetwork**(): `Promise`\<`Network`\>
 
 #### Inherited from
 
 JsonRpcApiProvider.getNetwork
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/ethers@6.10.0/node_modules/ethers/lib.esm/providers/abstract-provider.d.ts:350
+node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:350
 
-___
+***
 
-### getPlugin
+### getPlugin()
 
-▸ **getPlugin**\<`T`\>(`name`): ``null`` \| `T`
+> **getPlugin**\<`T`\>(`name`): `null` \| `T`
 
 Get a plugin by name.
 
 #### Type parameters
 
-| Name | Type |
-| :------ | :------ |
-| `T` | extends `AbstractProviderPlugin` = `AbstractProviderPlugin` |
+▪ **T** extends `AbstractProviderPlugin` = `AbstractProviderPlugin`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `name` | `string` |
-
-#### Returns
-
-``null`` \| `T`
+▪ **name**: `string`
 
 #### Inherited from
 
 JsonRpcApiProvider.getPlugin
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/ethers@6.10.0/node_modules/ethers/lib.esm/providers/abstract-provider.d.ts:277
+node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:277
 
-___
+***
 
-### getResolver
+### getResolver()
 
-▸ **getResolver**(`name`): `Promise`\<``null`` \| `EnsResolver`\>
+> **getResolver**(`name`): `Promise`\<`null` \| `EnsResolver`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `name` | `string` |
-
-#### Returns
-
-`Promise`\<``null`` \| `EnsResolver`\>
+▪ **name**: `string`
 
 #### Inherited from
 
 JsonRpcApiProvider.getResolver
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/ethers@6.10.0/node_modules/ethers/lib.esm/providers/abstract-provider.d.ts:365
+node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:365
 
-___
+***
 
-### getRpcError
+### getRpcError()
 
-▸ **getRpcError**(`payload`, `_error`): `Error`
+> **getRpcError**(`payload`, `_error`): `Error`
 
 Returns an ethers-style Error for the given JSON-RPC error
  %%payload%%, coalescing the various strings and error shapes
@@ -1517,55 +1129,44 @@ Returns an ethers-style Error for the given JSON-RPC error
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `payload` | `JsonRpcPayload` |
-| `_error` | `JsonRpcError` |
+▪ **payload**: `JsonRpcPayload`
 
-#### Returns
-
-`Error`
+▪ **\_error**: `JsonRpcError`
 
 #### Inherited from
 
 JsonRpcApiProvider.getRpcError
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/ethers@6.10.0/node_modules/ethers/lib.esm/providers/provider-jsonrpc.d.ts:291
+node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/provider-jsonrpc.d.ts:291
 
-___
+***
 
-### getRpcRequest
+### getRpcRequest()
 
-▸ **getRpcRequest**(`req`): ``null`` \| \{ `args`: `any`[] ; `method`: `string`  }
+> **getRpcRequest**(`req`): `null` \| `object`
 
 Returns the request method and arguments required to perform
  %%req%%.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `req` | `PerformActionRequest` |
-
-#### Returns
-
-``null`` \| \{ `args`: `any`[] ; `method`: `string`  }
+▪ **req**: `PerformActionRequest`
 
 #### Inherited from
 
 JsonRpcApiProvider.getRpcRequest
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/ethers@6.10.0/node_modules/ethers/lib.esm/providers/provider-jsonrpc.d.ts:281
+node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/provider-jsonrpc.d.ts:281
 
-___
+***
 
-### getRpcTransaction
+### getRpcTransaction()
 
-▸ **getRpcTransaction**(`tx`): `JsonRpcTransactionRequest`
+> **getRpcTransaction**(`tx`): `JsonRpcTransactionRequest`
 
 Returns %%tx%% as a normalized JSON-RPC transaction request,
  which has all values hexlified and any numeric values converted
@@ -1573,27 +1174,21 @@ Returns %%tx%% as a normalized JSON-RPC transaction request,
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `tx` | `TransactionRequest` |
-
-#### Returns
-
-`JsonRpcTransactionRequest`
+▪ **tx**: `TransactionRequest`
 
 #### Inherited from
 
 JsonRpcApiProvider.getRpcTransaction
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/ethers@6.10.0/node_modules/ethers/lib.esm/providers/provider-jsonrpc.d.ts:276
+node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/provider-jsonrpc.d.ts:276
 
-___
+***
 
-### getSigner
+### getSigner()
 
-▸ **getSigner**(`address?`): `Promise`\<`JsonRpcSigner`\>
+> **getSigner**(`address`?): `Promise`\<`JsonRpcSigner`\>
 
 Resolves to the [[Signer]] account for  %%address%% managed by
  the client.
@@ -1608,315 +1203,245 @@ Resolves to the [[Signer]] account for  %%address%% managed by
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `address?` | `string` \| `number` |
-
-#### Returns
-
-`Promise`\<`JsonRpcSigner`\>
+▪ **address?**: `string` \| `number`
 
 #### Inherited from
 
 JsonRpcApiProvider.getSigner
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/ethers@6.10.0/node_modules/ethers/lib.esm/providers/provider-jsonrpc.d.ts:318
+node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/provider-jsonrpc.d.ts:318
 
-___
+***
 
-### getStorage
+### getStorage()
 
-▸ **getStorage**(`address`, `_position`, `blockTag?`): `Promise`\<`string`\>
+> **getStorage**(`address`, `_position`, `blockTag`?): `Promise`\<`string`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `address` | `AddressLike` |
-| `_position` | `BigNumberish` |
-| `blockTag?` | `BlockTag` |
+▪ **address**: `AddressLike`
 
-#### Returns
+▪ **\_position**: `BigNumberish`
 
-`Promise`\<`string`\>
+▪ **blockTag?**: `BlockTag`
 
 #### Inherited from
 
 JsonRpcApiProvider.getStorage
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/ethers@6.10.0/node_modules/ethers/lib.esm/providers/abstract-provider.d.ts:357
+node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:357
 
-___
+***
 
-### getTransaction
+### getTransaction()
 
-▸ **getTransaction**(`hash`): `Promise`\<``null`` \| `TransactionResponse`\>
+> **getTransaction**(`hash`): `Promise`\<`null` \| `TransactionResponse`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `hash` | `string` |
-
-#### Returns
-
-`Promise`\<``null`` \| `TransactionResponse`\>
+▪ **hash**: `string`
 
 #### Inherited from
 
 JsonRpcApiProvider.getTransaction
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/ethers@6.10.0/node_modules/ethers/lib.esm/providers/abstract-provider.d.ts:360
+node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:360
 
-___
+***
 
-### getTransactionCount
+### getTransactionCount()
 
-▸ **getTransactionCount**(`address`, `blockTag?`): `Promise`\<`number`\>
+> **getTransactionCount**(`address`, `blockTag`?): `Promise`\<`number`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `address` | `AddressLike` |
-| `blockTag?` | `BlockTag` |
+▪ **address**: `AddressLike`
 
-#### Returns
-
-`Promise`\<`number`\>
+▪ **blockTag?**: `BlockTag`
 
 #### Inherited from
 
 JsonRpcApiProvider.getTransactionCount
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/ethers@6.10.0/node_modules/ethers/lib.esm/providers/abstract-provider.d.ts:355
+node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:355
 
-___
+***
 
-### getTransactionReceipt
+### getTransactionReceipt()
 
-▸ **getTransactionReceipt**(`hash`): `Promise`\<``null`` \| `TransactionReceipt`\>
+> **getTransactionReceipt**(`hash`): `Promise`\<`null` \| `TransactionReceipt`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `hash` | `string` |
-
-#### Returns
-
-`Promise`\<``null`` \| `TransactionReceipt`\>
+▪ **hash**: `string`
 
 #### Inherited from
 
 JsonRpcApiProvider.getTransactionReceipt
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/ethers@6.10.0/node_modules/ethers/lib.esm/providers/abstract-provider.d.ts:361
+node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:361
 
-___
+***
 
-### getTransactionResult
+### getTransactionResult()
 
-▸ **getTransactionResult**(`hash`): `Promise`\<``null`` \| `string`\>
+> **getTransactionResult**(`hash`): `Promise`\<`null` \| `string`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `hash` | `string` |
-
-#### Returns
-
-`Promise`\<``null`` \| `string`\>
+▪ **hash**: `string`
 
 #### Inherited from
 
 JsonRpcApiProvider.getTransactionResult
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/ethers@6.10.0/node_modules/ethers/lib.esm/providers/abstract-provider.d.ts:362
+node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:362
 
-___
+***
 
-### listAccounts
+### listAccounts()
 
-▸ **listAccounts**(): `Promise`\<`JsonRpcSigner`[]\>
-
-#### Returns
-
-`Promise`\<`JsonRpcSigner`[]\>
+> **listAccounts**(): `Promise`\<`JsonRpcSigner`[]\>
 
 #### Inherited from
 
 JsonRpcApiProvider.listAccounts
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/ethers@6.10.0/node_modules/ethers/lib.esm/providers/provider-jsonrpc.d.ts:319
+node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/provider-jsonrpc.d.ts:319
 
-___
+***
 
-### listenerCount
+### listenerCount()
 
-▸ **listenerCount**(`event?`): `Promise`\<`number`\>
+> **listenerCount**(`event`?): `Promise`\<`number`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `event?` | `ProviderEvent` |
-
-#### Returns
-
-`Promise`\<`number`\>
+▪ **event?**: `ProviderEvent`
 
 #### Inherited from
 
 JsonRpcApiProvider.listenerCount
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/ethers@6.10.0/node_modules/ethers/lib.esm/providers/abstract-provider.d.ts:406
+node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:406
 
-___
+***
 
-### listeners
+### listeners()
 
-▸ **listeners**(`event?`): `Promise`\<`Listener`[]\>
+> **listeners**(`event`?): `Promise`\<`Listener`[]\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `event?` | `ProviderEvent` |
-
-#### Returns
-
-`Promise`\<`Listener`[]\>
+▪ **event?**: `ProviderEvent`
 
 #### Inherited from
 
 JsonRpcApiProvider.listeners
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/ethers@6.10.0/node_modules/ethers/lib.esm/providers/abstract-provider.d.ts:407
+node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:407
 
-___
+***
 
-### lookupAddress
+### lookupAddress()
 
-▸ **lookupAddress**(`address`): `Promise`\<``null`` \| `string`\>
+> **lookupAddress**(`address`): `Promise`\<`null` \| `string`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `address` | `string` |
-
-#### Returns
-
-`Promise`\<``null`` \| `string`\>
+▪ **address**: `string`
 
 #### Inherited from
 
 JsonRpcApiProvider.lookupAddress
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/ethers@6.10.0/node_modules/ethers/lib.esm/providers/abstract-provider.d.ts:368
+node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:368
 
-___
+***
 
-### off
+### off()
 
-▸ **off**(`event`, `listener?`): `Promise`\<[`TevmProvider`](TevmProvider.md)\>
+> **off**(`event`, `listener`?): `Promise`\<[`TevmProvider`](TevmProvider.md)\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `event` | `ProviderEvent` |
-| `listener?` | `Listener` |
+▪ **event**: `ProviderEvent`
 
-#### Returns
-
-`Promise`\<[`TevmProvider`](TevmProvider.md)\>
+▪ **listener?**: `Listener`
 
 #### Inherited from
 
 JsonRpcApiProvider.off
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/ethers@6.10.0/node_modules/ethers/lib.esm/providers/abstract-provider.d.ts:408
+node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:408
 
-___
+***
 
-### on
+### on()
 
-▸ **on**(`event`, `listener`): `Promise`\<[`TevmProvider`](TevmProvider.md)\>
+> **on**(`event`, `listener`): `Promise`\<[`TevmProvider`](TevmProvider.md)\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `event` | `ProviderEvent` |
-| `listener` | `Listener` |
+▪ **event**: `ProviderEvent`
 
-#### Returns
-
-`Promise`\<[`TevmProvider`](TevmProvider.md)\>
+▪ **listener**: `Listener`
 
 #### Inherited from
 
 JsonRpcApiProvider.on
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/ethers@6.10.0/node_modules/ethers/lib.esm/providers/abstract-provider.d.ts:403
+node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:403
 
-___
+***
 
-### once
+### once()
 
-▸ **once**(`event`, `listener`): `Promise`\<[`TevmProvider`](TevmProvider.md)\>
+> **once**(`event`, `listener`): `Promise`\<[`TevmProvider`](TevmProvider.md)\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `event` | `ProviderEvent` |
-| `listener` | `Listener` |
+▪ **event**: `ProviderEvent`
 
-#### Returns
-
-`Promise`\<[`TevmProvider`](TevmProvider.md)\>
+▪ **listener**: `Listener`
 
 #### Inherited from
 
 JsonRpcApiProvider.once
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/ethers@6.10.0/node_modules/ethers/lib.esm/providers/abstract-provider.d.ts:404
+node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:404
 
-___
+***
 
-### pause
+### pause()
 
-▸ **pause**(`dropWhilePaused?`): `void`
+> **pause**(`dropWhilePaused`?): `void`
 
 Pause the provider. If %%dropWhilePaused%%, any events that occur
  while paused are dropped, otherwise all events will be emitted once
@@ -1924,120 +1449,93 @@ Pause the provider. If %%dropWhilePaused%%, any events that occur
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `dropWhilePaused?` | `boolean` |
-
-#### Returns
-
-`void`
+▪ **dropWhilePaused?**: `boolean`
 
 #### Inherited from
 
 JsonRpcApiProvider.pause
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/ethers@6.10.0/node_modules/ethers/lib.esm/providers/abstract-provider.d.ts:445
+node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:445
 
-___
+***
 
-### removeAllListeners
+### removeAllListeners()
 
-▸ **removeAllListeners**(`event?`): `Promise`\<[`TevmProvider`](TevmProvider.md)\>
+> **removeAllListeners**(`event`?): `Promise`\<[`TevmProvider`](TevmProvider.md)\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `event?` | `ProviderEvent` |
-
-#### Returns
-
-`Promise`\<[`TevmProvider`](TevmProvider.md)\>
+▪ **event?**: `ProviderEvent`
 
 #### Inherited from
 
 JsonRpcApiProvider.removeAllListeners
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/ethers@6.10.0/node_modules/ethers/lib.esm/providers/abstract-provider.d.ts:409
+node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:409
 
-___
+***
 
-### removeListener
+### removeListener()
 
-▸ **removeListener**(`event`, `listener`): `Promise`\<[`TevmProvider`](TevmProvider.md)\>
+> **removeListener**(`event`, `listener`): `Promise`\<[`TevmProvider`](TevmProvider.md)\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `event` | `ProviderEvent` |
-| `listener` | `Listener` |
+▪ **event**: `ProviderEvent`
 
-#### Returns
-
-`Promise`\<[`TevmProvider`](TevmProvider.md)\>
+▪ **listener**: `Listener`
 
 #### Inherited from
 
 JsonRpcApiProvider.removeListener
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/ethers@6.10.0/node_modules/ethers/lib.esm/providers/abstract-provider.d.ts:411
+node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:411
 
-___
+***
 
-### resolveName
+### resolveName()
 
-▸ **resolveName**(`name`): `Promise`\<``null`` \| `string`\>
+> **resolveName**(`name`): `Promise`\<`null` \| `string`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `name` | `string` |
-
-#### Returns
-
-`Promise`\<``null`` \| `string`\>
+▪ **name**: `string`
 
 #### Inherited from
 
 JsonRpcApiProvider.resolveName
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/ethers@6.10.0/node_modules/ethers/lib.esm/providers/abstract-provider.d.ts:367
+node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:367
 
-___
+***
 
-### resume
+### resume()
 
-▸ **resume**(): `void`
+> **resume**(): `void`
 
 Resume the provider.
-
-#### Returns
-
-`void`
 
 #### Inherited from
 
 JsonRpcApiProvider.resume
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/ethers@6.10.0/node_modules/ethers/lib.esm/providers/abstract-provider.d.ts:449
+node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:449
 
-___
+***
 
-### send
+### send()
 
-▸ **send**(`method`, `params`): `Promise`\<`any`\>
+> **send**(`method`, `params`): `Promise`\<`any`\>
 
 Requests the %%method%% with %%params%% via the JSON-RPC protocol
  over the underlying channel. This can be used to call methods
@@ -2053,98 +1551,81 @@ Requests the %%method%% with %%params%% via the JSON-RPC protocol
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `method` | `string` |
-| `params` | `any`[] \| `Record`\<`string`, `any`\> |
+▪ **method**: `string`
 
-#### Returns
-
-`Promise`\<`any`\>
+▪ **params**: `any`[] \| `Record`\<`string`, `any`\>
 
 #### Inherited from
 
 JsonRpcApiProvider.send
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/ethers@6.10.0/node_modules/ethers/lib.esm/providers/provider-jsonrpc.d.ts:305
+node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/provider-jsonrpc.d.ts:305
 
-___
+***
 
-### waitForBlock
+### waitForBlock()
 
-▸ **waitForBlock**(`blockTag?`): `Promise`\<`Block`\>
+> **waitForBlock**(`blockTag`?): `Promise`\<`Block`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `blockTag?` | `BlockTag` |
-
-#### Returns
-
-`Promise`\<`Block`\>
+▪ **blockTag?**: `BlockTag`
 
 #### Inherited from
 
 JsonRpcApiProvider.waitForBlock
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/ethers@6.10.0/node_modules/ethers/lib.esm/providers/abstract-provider.d.ts:370
+node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:370
 
-___
+***
 
-### waitForTransaction
+### waitForTransaction()
 
-▸ **waitForTransaction**(`hash`, `_confirms?`, `timeout?`): `Promise`\<``null`` \| `TransactionReceipt`\>
+> **waitForTransaction**(`hash`, `_confirms`?, `timeout`?): `Promise`\<`null` \| `TransactionReceipt`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `hash` | `string` |
-| `_confirms?` | ``null`` \| `number` |
-| `timeout?` | ``null`` \| `number` |
+▪ **hash**: `string`
 
-#### Returns
+▪ **\_confirms?**: `null` \| `number`
 
-`Promise`\<``null`` \| `TransactionReceipt`\>
+▪ **timeout?**: `null` \| `number`
 
 #### Inherited from
 
 JsonRpcApiProvider.waitForTransaction
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/ethers@6.10.0/node_modules/ethers/lib.esm/providers/abstract-provider.d.ts:369
+node\_modules/.pnpm/ethers@6.10.0/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:369
 
-___
+***
 
-### createMemoryProvider
+### createMemoryProvider()
 
-▸ **createMemoryProvider**(`options`): `Promise`\<[`TevmProvider`](TevmProvider.md)\>
+> **`static`** **`readonly`** **createMemoryProvider**(`options`): `Promise`\<[`TevmProvider`](TevmProvider.md)\>
 
 Creates a new TevmProvider instance with a TevmMemoryClient.
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `options` | `BaseClientOptions` | Options to create a new TevmProvider. |
+▪ **options**: `BaseClientOptions`
+
+Options to create a new TevmProvider.
 
 #### Returns
 
-`Promise`\<[`TevmProvider`](TevmProvider.md)\>
-
 A new TevmProvider instance.
 
-**`See`**
+#### See
 
 [Tevm Clients Docs](https://tevm.sh/learn/clients/)
 
-**`Example`**
+#### Example
 
 ```ts
 import { TevmProvider } from '@tevm/ethers'
@@ -2154,6 +1635,9 @@ const provider = await TevmProvider.createMemoryProvider()
 const blockNumber = await provider.getBlockNumber()
 ```
 
-#### Defined in
+#### Source
 
 [extensions/ethers/src/TevmProvider.js:123](https://github.com/evmts/tevm-monorepo/blob/main/extensions/ethers/src/TevmProvider.js#L123)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

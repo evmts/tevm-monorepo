@@ -1,155 +1,126 @@
-[@tevm/errors](../README.md) / [Exports](../modules.md) / UnknownMethodError
+**@tevm/errors** ∙ [README](../README.md) ∙ [API](../API.md)
+
+***
+
+[API](../API.md) > UnknownMethodError
 
 # Class: UnknownMethodError
 
 Error thrown when a request is made with an unknown method
 
-## Hierarchy
+## Extends
 
 - `Error`
 
-  ↳ **`UnknownMethodError`**
-
-## Table of contents
-
-### Constructors
-
-- [constructor](UnknownMethodError.md#constructor)
-
-### Properties
-
-- [\_tag](UnknownMethodError.md#_tag)
-- [cause](UnknownMethodError.md#cause)
-- [message](UnknownMethodError.md#message)
-- [name](UnknownMethodError.md#name)
-- [stack](UnknownMethodError.md#stack)
-- [prepareStackTrace](UnknownMethodError.md#preparestacktrace)
-- [stackTraceLimit](UnknownMethodError.md#stacktracelimit)
-
-### Methods
-
-- [captureStackTrace](UnknownMethodError.md#capturestacktrace)
-
 ## Constructors
 
-### constructor
+### new UnknownMethodError(request)
 
-• **new UnknownMethodError**(`request`): [`UnknownMethodError`](UnknownMethodError.md)
+> **new UnknownMethodError**(`request`): [`UnknownMethodError`](UnknownMethodError.md)
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `request` | `never` | a request that must be of type `never` such that all valid requests are handled |
+▪ **request**: `never`
 
-#### Returns
-
-[`UnknownMethodError`](UnknownMethodError.md)
+a request that must be of type `never` such that all valid requests are handled
 
 #### Overrides
 
 Error.constructor
 
-#### Defined in
+#### Source
 
-[evmts-monorepo/packages/errors/src/procedures/UnknownMethodError.js:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/procedures/UnknownMethodError.js#L19)
+[packages/errors/src/procedures/UnknownMethodError.js:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/procedures/UnknownMethodError.js#L19)
 
 ## Properties
 
 ### \_tag
 
-• **\_tag**: ``"UnknownMethodError"``
+> **\_tag**: `"UnknownMethodError"` = `'UnknownMethodError'`
 
-#### Defined in
+#### Source
 
-[evmts-monorepo/packages/errors/src/procedures/UnknownMethodError.js:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/procedures/UnknownMethodError.js#L15)
+[packages/errors/src/procedures/UnknownMethodError.js:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/procedures/UnknownMethodError.js#L15)
 
-___
+***
 
 ### cause
 
-• `Optional` **cause**: `unknown`
+> **cause**?: `unknown`
 
 #### Inherited from
 
 Error.cause
 
-#### Defined in
+#### Source
 
-.nvm/versions/node/v20.9.0/lib/node_modules/typescript/lib/lib.es2022.error.d.ts:24
+node\_modules/.pnpm/typescript@5.3.3/node\_modules/typescript/lib/lib.es2022.error.d.ts:24
 
-___
+***
 
 ### message
 
-• **message**: `string`
+> **message**: `string`
 
 #### Inherited from
 
 Error.message
 
-#### Defined in
+#### Source
 
-.nvm/versions/node/v20.9.0/lib/node_modules/typescript/lib/lib.es5.d.ts:1076
+node\_modules/.pnpm/typescript@5.3.3/node\_modules/typescript/lib/lib.es5.d.ts:1076
 
-___
+***
 
 ### name
 
-• **name**: ``"UnknownMethodError"``
+> **name**: `"UnknownMethodError"` = `'UnknownMethodError'`
 
 #### Overrides
 
 Error.name
 
-#### Defined in
+#### Source
 
-[evmts-monorepo/packages/errors/src/procedures/UnknownMethodError.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/procedures/UnknownMethodError.js#L11)
+[packages/errors/src/procedures/UnknownMethodError.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/procedures/UnknownMethodError.js#L11)
 
-___
+***
 
 ### stack
 
-• `Optional` **stack**: `string`
+> **stack**?: `string`
 
 #### Inherited from
 
 Error.stack
 
-#### Defined in
+#### Source
 
-.nvm/versions/node/v20.9.0/lib/node_modules/typescript/lib/lib.es5.d.ts:1077
+node\_modules/.pnpm/typescript@5.3.3/node\_modules/typescript/lib/lib.es5.d.ts:1077
 
-___
+***
 
 ### prepareStackTrace
 
-▪ `Static` `Optional` **prepareStackTrace**: (`err`: `Error`, `stackTraces`: `CallSite`[]) => `any`
+> **`static`** **prepareStackTrace**?: (`err`, `stackTraces`) => `any`
 
 Optional override for formatting stack traces
 
-**`See`**
+#### See
 
 https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
-#### Type declaration
-
-▸ (`err`, `stackTraces`): `any`
-
 Optional override for formatting stack traces
 
-##### Parameters
+#### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `err` | `Error` |
-| `stackTraces` | `CallSite`[] |
+▪ **err**: `Error`
 
-##### Returns
+▪ **stackTraces**: `CallSite`[]
 
-`any`
+#### Returns
 
-**`See`**
+#### See
 
 https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
@@ -157,101 +128,67 @@ https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
 Error.prepareStackTrace
 
-#### Defined in
+#### Source
 
-evmts-monorepo/node_modules/.pnpm/@types+node@20.11.5/node_modules/@types/node/globals.d.ts:28
+node\_modules/@types/node/globals.d.ts:28
 
-evmts-monorepo/node_modules/.pnpm/@types+node@20.11.30/node_modules/@types/node/globals.d.ts:28
-
-evmts-monorepo/node_modules/.pnpm/bun-types@1.0.36/node_modules/bun-types/globals.d.ts:1644
-
-___
+***
 
 ### stackTraceLimit
 
-▪ `Static` **stackTraceLimit**: `number`
+> **`static`** **stackTraceLimit**: `number`
 
 #### Inherited from
 
 Error.stackTraceLimit
 
-#### Defined in
+#### Source
 
-evmts-monorepo/node_modules/.pnpm/@types+node@20.11.5/node_modules/@types/node/globals.d.ts:30
-
-evmts-monorepo/node_modules/.pnpm/@types+node@20.11.30/node_modules/@types/node/globals.d.ts:30
-
-evmts-monorepo/node_modules/.pnpm/bun-types@1.0.36/node_modules/bun-types/globals.d.ts:1648
+node\_modules/@types/node/globals.d.ts:30
 
 ## Methods
 
-### captureStackTrace
+### captureStackTrace()
 
-▸ **captureStackTrace**(`targetObject`, `constructorOpt?`): `void`
+#### captureStackTrace(targetObject, constructorOpt)
 
-Create .stack property on a target object
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `targetObject` | `object` |
-| `constructorOpt?` | `Function` |
-
-#### Returns
-
-`void`
-
-#### Inherited from
-
-Error.captureStackTrace
-
-#### Defined in
-
-evmts-monorepo/node_modules/.pnpm/@types+node@20.11.5/node_modules/@types/node/globals.d.ts:21
-
-▸ **captureStackTrace**(`targetObject`, `constructorOpt?`): `void`
+> **`static`** **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
 
 Create .stack property on a target object
 
-#### Parameters
+##### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `targetObject` | `object` |
-| `constructorOpt?` | `Function` |
+▪ **targetObject**: `object`
 
-#### Returns
+▪ **constructorOpt?**: `Function`
 
-`void`
-
-#### Inherited from
+##### Inherited from
 
 Error.captureStackTrace
 
-#### Defined in
+##### Source
 
-evmts-monorepo/node_modules/.pnpm/@types+node@20.11.30/node_modules/@types/node/globals.d.ts:21
+node\_modules/@types/node/globals.d.ts:21
 
-▸ **captureStackTrace**(`targetObject`, `constructorOpt?`): `void`
+#### captureStackTrace(targetObject, constructorOpt)
+
+> **`static`** **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
 
 Create .stack property on a target object
 
-#### Parameters
+##### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `targetObject` | `object` |
-| `constructorOpt?` | `Function` |
+▪ **targetObject**: `object`
 
-#### Returns
+▪ **constructorOpt?**: `Function`
 
-`void`
-
-#### Inherited from
+##### Inherited from
 
 Error.captureStackTrace
 
-#### Defined in
+##### Source
 
-evmts-monorepo/node_modules/.pnpm/bun-types@1.0.36/node_modules/bun-types/globals.d.ts:1637
+node\_modules/.pnpm/bun-types@1.0.36/node\_modules/bun-types/globals.d.ts:1637
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

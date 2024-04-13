@@ -1,54 +1,44 @@
-[@tevm/evm](../README.md) / [Exports](../modules.md) / EvmError
+**@tevm/evm** ∙ [README](../README.md) ∙ [API](../API.md)
+
+***
+
+[API](../API.md) > EvmError
 
 # Class: EvmError
 
-## Table of contents
-
-### Constructors
-
-- [constructor](EvmError.md#constructor)
-
-### Properties
-
-- [error](EvmError.md#error)
-- [errorType](EvmError.md#errortype)
-
 ## Constructors
 
-### constructor
+### new EvmError(error)
 
-• **new EvmError**(`error`): [`EvmError`](EvmError.md)
+> **new EvmError**(`error`): [`EvmError`](EvmError.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `error` | [`EvmErrorMessage`](../enums/EvmErrorMessage.md) |
+▪ **error**: [`EvmErrorMessage`](../enumerations/EvmErrorMessage.md)
 
-#### Returns
+#### Source
 
-[`EvmError`](EvmError.md)
-
-#### Defined in
-
-node_modules/.pnpm/@ethereumjs+evm@3.0.0/node_modules/@ethereumjs/evm/dist/esm/exceptions.d.ts:39
+node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm/exceptions.d.ts:39
 
 ## Properties
 
 ### error
 
-• **error**: [`EvmErrorMessage`](../enums/EvmErrorMessage.md)
+> **error**: [`EvmErrorMessage`](../enumerations/EvmErrorMessage.md)
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/@ethereumjs+evm@3.0.0/node_modules/@ethereumjs/evm/dist/esm/exceptions.d.ts:37
+node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm/exceptions.d.ts:37
 
-___
+***
 
 ### errorType
 
-• **errorType**: `string`
+> **errorType**: `string`
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/@ethereumjs+evm@3.0.0/node_modules/@ethereumjs/evm/dist/esm/exceptions.d.ts:38
+node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm/exceptions.d.ts:38
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

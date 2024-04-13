@@ -1,156 +1,125 @@
-[@tevm/errors](../README.md) / [Exports](../modules.md) / NoProxyConfiguredError
+**@tevm/errors** ∙ [README](../README.md) ∙ [API](../API.md)
+
+***
+
+[API](../API.md) > NoProxyConfiguredError
 
 # Class: NoProxyConfiguredError
 
 Error thrown when a action or request cannot be fulfilled
 without a proxy url being configured
 
-## Hierarchy
+## Extends
 
 - `Error`
 
-  ↳ **`NoProxyConfiguredError`**
-
-## Table of contents
-
-### Constructors
-
-- [constructor](NoProxyConfiguredError.md#constructor)
-
-### Properties
-
-- [\_tag](NoProxyConfiguredError.md#_tag)
-- [cause](NoProxyConfiguredError.md#cause)
-- [message](NoProxyConfiguredError.md#message)
-- [name](NoProxyConfiguredError.md#name)
-- [stack](NoProxyConfiguredError.md#stack)
-- [prepareStackTrace](NoProxyConfiguredError.md#preparestacktrace)
-- [stackTraceLimit](NoProxyConfiguredError.md#stacktracelimit)
-
-### Methods
-
-- [captureStackTrace](NoProxyConfiguredError.md#capturestacktrace)
-
 ## Constructors
 
-### constructor
+### new NoProxyConfiguredError(method)
 
-• **new NoProxyConfiguredError**(`method`): [`NoProxyConfiguredError`](NoProxyConfiguredError.md)
+> **new NoProxyConfiguredError**(`method`): [`NoProxyConfiguredError`](NoProxyConfiguredError.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `method` | `string` |
-
-#### Returns
-
-[`NoProxyConfiguredError`](NoProxyConfiguredError.md)
+▪ **method**: `string`
 
 #### Overrides
 
 Error.constructor
 
-#### Defined in
+#### Source
 
-[evmts-monorepo/packages/errors/src/client/NoProxyConfiguredError.js:18](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/client/NoProxyConfiguredError.js#L18)
+[packages/errors/src/client/NoProxyConfiguredError.js:18](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/client/NoProxyConfiguredError.js#L18)
 
 ## Properties
 
 ### \_tag
 
-• **\_tag**: ``"NoProxyConfiguredError"``
+> **\_tag**: `"NoProxyConfiguredError"` = `'NoProxyConfiguredError'`
 
-#### Defined in
+#### Source
 
-[evmts-monorepo/packages/errors/src/client/NoProxyConfiguredError.js:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/client/NoProxyConfiguredError.js#L14)
+[packages/errors/src/client/NoProxyConfiguredError.js:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/client/NoProxyConfiguredError.js#L14)
 
-___
+***
 
 ### cause
 
-• `Optional` **cause**: `unknown`
+> **cause**?: `unknown`
 
 #### Inherited from
 
 Error.cause
 
-#### Defined in
+#### Source
 
-.nvm/versions/node/v20.9.0/lib/node_modules/typescript/lib/lib.es2022.error.d.ts:24
+node\_modules/.pnpm/typescript@5.3.3/node\_modules/typescript/lib/lib.es2022.error.d.ts:24
 
-___
+***
 
 ### message
 
-• **message**: `string`
+> **message**: `string`
 
 #### Inherited from
 
 Error.message
 
-#### Defined in
+#### Source
 
-.nvm/versions/node/v20.9.0/lib/node_modules/typescript/lib/lib.es5.d.ts:1076
+node\_modules/.pnpm/typescript@5.3.3/node\_modules/typescript/lib/lib.es5.d.ts:1076
 
-___
+***
 
 ### name
 
-• **name**: ``"NoProxyConfiguredError"``
+> **name**: `"NoProxyConfiguredError"` = `'NoProxyConfiguredError'`
 
 #### Overrides
 
 Error.name
 
-#### Defined in
+#### Source
 
-[evmts-monorepo/packages/errors/src/client/NoProxyConfiguredError.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/client/NoProxyConfiguredError.js#L10)
+[packages/errors/src/client/NoProxyConfiguredError.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/client/NoProxyConfiguredError.js#L10)
 
-___
+***
 
 ### stack
 
-• `Optional` **stack**: `string`
+> **stack**?: `string`
 
 #### Inherited from
 
 Error.stack
 
-#### Defined in
+#### Source
 
-.nvm/versions/node/v20.9.0/lib/node_modules/typescript/lib/lib.es5.d.ts:1077
+node\_modules/.pnpm/typescript@5.3.3/node\_modules/typescript/lib/lib.es5.d.ts:1077
 
-___
+***
 
 ### prepareStackTrace
 
-▪ `Static` `Optional` **prepareStackTrace**: (`err`: `Error`, `stackTraces`: `CallSite`[]) => `any`
+> **`static`** **prepareStackTrace**?: (`err`, `stackTraces`) => `any`
 
 Optional override for formatting stack traces
 
-**`See`**
+#### See
 
 https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
-#### Type declaration
-
-▸ (`err`, `stackTraces`): `any`
-
 Optional override for formatting stack traces
 
-##### Parameters
+#### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `err` | `Error` |
-| `stackTraces` | `CallSite`[] |
+▪ **err**: `Error`
 
-##### Returns
+▪ **stackTraces**: `CallSite`[]
 
-`any`
+#### Returns
 
-**`See`**
+#### See
 
 https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
@@ -158,101 +127,67 @@ https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
 Error.prepareStackTrace
 
-#### Defined in
+#### Source
 
-evmts-monorepo/node_modules/.pnpm/@types+node@20.11.5/node_modules/@types/node/globals.d.ts:28
+node\_modules/@types/node/globals.d.ts:28
 
-evmts-monorepo/node_modules/.pnpm/@types+node@20.11.30/node_modules/@types/node/globals.d.ts:28
-
-evmts-monorepo/node_modules/.pnpm/bun-types@1.0.36/node_modules/bun-types/globals.d.ts:1644
-
-___
+***
 
 ### stackTraceLimit
 
-▪ `Static` **stackTraceLimit**: `number`
+> **`static`** **stackTraceLimit**: `number`
 
 #### Inherited from
 
 Error.stackTraceLimit
 
-#### Defined in
+#### Source
 
-evmts-monorepo/node_modules/.pnpm/@types+node@20.11.5/node_modules/@types/node/globals.d.ts:30
-
-evmts-monorepo/node_modules/.pnpm/@types+node@20.11.30/node_modules/@types/node/globals.d.ts:30
-
-evmts-monorepo/node_modules/.pnpm/bun-types@1.0.36/node_modules/bun-types/globals.d.ts:1648
+node\_modules/@types/node/globals.d.ts:30
 
 ## Methods
 
-### captureStackTrace
+### captureStackTrace()
 
-▸ **captureStackTrace**(`targetObject`, `constructorOpt?`): `void`
+#### captureStackTrace(targetObject, constructorOpt)
 
-Create .stack property on a target object
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `targetObject` | `object` |
-| `constructorOpt?` | `Function` |
-
-#### Returns
-
-`void`
-
-#### Inherited from
-
-Error.captureStackTrace
-
-#### Defined in
-
-evmts-monorepo/node_modules/.pnpm/@types+node@20.11.5/node_modules/@types/node/globals.d.ts:21
-
-▸ **captureStackTrace**(`targetObject`, `constructorOpt?`): `void`
+> **`static`** **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
 
 Create .stack property on a target object
 
-#### Parameters
+##### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `targetObject` | `object` |
-| `constructorOpt?` | `Function` |
+▪ **targetObject**: `object`
 
-#### Returns
+▪ **constructorOpt?**: `Function`
 
-`void`
-
-#### Inherited from
+##### Inherited from
 
 Error.captureStackTrace
 
-#### Defined in
+##### Source
 
-evmts-monorepo/node_modules/.pnpm/@types+node@20.11.30/node_modules/@types/node/globals.d.ts:21
+node\_modules/@types/node/globals.d.ts:21
 
-▸ **captureStackTrace**(`targetObject`, `constructorOpt?`): `void`
+#### captureStackTrace(targetObject, constructorOpt)
+
+> **`static`** **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
 
 Create .stack property on a target object
 
-#### Parameters
+##### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `targetObject` | `object` |
-| `constructorOpt?` | `Function` |
+▪ **targetObject**: `object`
 
-#### Returns
+▪ **constructorOpt?**: `Function`
 
-`void`
-
-#### Inherited from
+##### Inherited from
 
 Error.captureStackTrace
 
-#### Defined in
+##### Source
 
-evmts-monorepo/node_modules/.pnpm/bun-types@1.0.36/node_modules/bun-types/globals.d.ts:1637
+node\_modules/.pnpm/bun-types@1.0.36/node\_modules/bun-types/globals.d.ts:1637
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

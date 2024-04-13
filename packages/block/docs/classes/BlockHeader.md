@@ -1,530 +1,422 @@
-[@tevm/block](../README.md) / [Exports](../modules.md) / BlockHeader
+**@tevm/block** ∙ [README](../README.md) ∙ [API](../API.md)
+
+***
+
+[API](../API.md) > BlockHeader
 
 # Class: BlockHeader
 
 An object that represents the block header.
 
-## Table of contents
-
-### Constructors
-
-- [constructor](BlockHeader.md#constructor)
-
-### Properties
-
-- [\_getBlobGasPrice](BlockHeader.md#_getblobgasprice)
-- [baseFeePerGas](BlockHeader.md#basefeepergas)
-- [blobGasUsed](BlockHeader.md#blobgasused)
-- [cache](BlockHeader.md#cache)
-- [coinbase](BlockHeader.md#coinbase)
-- [common](BlockHeader.md#common)
-- [difficulty](BlockHeader.md#difficulty)
-- [excessBlobGas](BlockHeader.md#excessblobgas)
-- [extraData](BlockHeader.md#extradata)
-- [gasLimit](BlockHeader.md#gaslimit)
-- [gasUsed](BlockHeader.md#gasused)
-- [keccakFunction](BlockHeader.md#keccakfunction)
-- [logsBloom](BlockHeader.md#logsbloom)
-- [mixHash](BlockHeader.md#mixhash)
-- [nonce](BlockHeader.md#nonce)
-- [number](BlockHeader.md#number)
-- [parentBeaconBlockRoot](BlockHeader.md#parentbeaconblockroot)
-- [parentHash](BlockHeader.md#parenthash)
-- [receiptTrie](BlockHeader.md#receipttrie)
-- [stateRoot](BlockHeader.md#stateroot)
-- [timestamp](BlockHeader.md#timestamp)
-- [transactionsTrie](BlockHeader.md#transactionstrie)
-- [uncleHash](BlockHeader.md#unclehash)
-- [withdrawalsRoot](BlockHeader.md#withdrawalsroot)
-
-### Accessors
-
-- [prevRandao](BlockHeader.md#prevrandao)
-
-### Methods
-
-- [\_consensusFormatValidation](BlockHeader.md#_consensusformatvalidation)
-- [\_genericFormatValidation](BlockHeader.md#_genericformatvalidation)
-- [\_requireClique](BlockHeader.md#_requireclique)
-- [\_validateDAOExtraData](BlockHeader.md#_validatedaoextradata)
-- [calcDataFee](BlockHeader.md#calcdatafee)
-- [calcNextBaseFee](BlockHeader.md#calcnextbasefee)
-- [calcNextBlobGasPrice](BlockHeader.md#calcnextblobgasprice)
-- [calcNextExcessBlobGas](BlockHeader.md#calcnextexcessblobgas)
-- [cliqueEpochTransitionSigners](BlockHeader.md#cliqueepochtransitionsigners)
-- [cliqueExtraSeal](BlockHeader.md#cliqueextraseal)
-- [cliqueExtraVanity](BlockHeader.md#cliqueextravanity)
-- [cliqueIsEpochTransition](BlockHeader.md#cliqueisepochtransition)
-- [cliqueSigHash](BlockHeader.md#cliquesighash)
-- [cliqueSigner](BlockHeader.md#cliquesigner)
-- [cliqueVerifySignature](BlockHeader.md#cliqueverifysignature)
-- [errorStr](BlockHeader.md#errorstr)
-- [ethashCanonicalDifficulty](BlockHeader.md#ethashcanonicaldifficulty)
-- [getBlobGasPrice](BlockHeader.md#getblobgasprice)
-- [hash](BlockHeader.md#hash)
-- [isGenesis](BlockHeader.md#isgenesis)
-- [raw](BlockHeader.md#raw)
-- [serialize](BlockHeader.md#serialize)
-- [toJSON](BlockHeader.md#tojson)
-- [validateGasLimit](BlockHeader.md#validategaslimit)
-- [fromHeaderData](BlockHeader.md#fromheaderdata)
-- [fromRLPSerializedHeader](BlockHeader.md#fromrlpserializedheader)
-- [fromValuesArray](BlockHeader.md#fromvaluesarray)
-
 ## Constructors
 
-### constructor
+### new BlockHeader(headerData, opts)
 
-• **new BlockHeader**(`headerData`, `opts?`): [`BlockHeader`](BlockHeader.md)
+> **new BlockHeader**(`headerData`, `opts`?): [`BlockHeader`](BlockHeader.md)
 
 This constructor takes the values, validates them, assigns them and freezes the object.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `headerData` | `HeaderData` |
-| `opts?` | `BlockOptions` |
+▪ **headerData**: `HeaderData`
+
+▪ **opts?**: `BlockOptions`
 
 #### Returns
 
-[`BlockHeader`](BlockHeader.md)
-
-**`Deprecated`**
+#### Deprecated
 
 Use the public static factory methods to assist in creating a Header object from
 varying data types. For a default empty header, use [BlockHeader.fromHeaderData](BlockHeader.md#fromheaderdata).
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/@ethereumjs+block@5.2.0/node_modules/@ethereumjs/block/dist/esm/header.d.ts:66
+node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:66
 
 ## Properties
 
 ### \_getBlobGasPrice
 
-• `Private` **\_getBlobGasPrice**: `any`
+> **`private`** **\_getBlobGasPrice**: `any`
 
 Returns the blob gas price depending upon the `excessBlobGas` value
 
-**`Param`**
+#### Param
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/@ethereumjs+block@5.2.0/node_modules/@ethereumjs/block/dist/esm/header.d.ts:96
+node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:96
 
-___
+***
 
 ### baseFeePerGas
 
-• `Optional` `Readonly` **baseFeePerGas**: `bigint`
+> **`readonly`** **baseFeePerGas**?: `bigint`
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/@ethereumjs+block@5.2.0/node_modules/@ethereumjs/block/dist/esm/header.d.ts:26
+node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:26
 
-___
+***
 
 ### blobGasUsed
 
-• `Optional` `Readonly` **blobGasUsed**: `bigint`
+> **`readonly`** **blobGasUsed**?: `bigint`
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/@ethereumjs+block@5.2.0/node_modules/@ethereumjs/block/dist/esm/header.d.ts:28
+node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:28
 
-___
+***
 
 ### cache
 
-• `Protected` **cache**: `HeaderCache`
+> **`protected`** **cache**: `HeaderCache`
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/@ethereumjs+block@5.2.0/node_modules/@ethereumjs/block/dist/esm/header.d.ts:33
+node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:33
 
-___
+***
 
 ### coinbase
 
-• `Readonly` **coinbase**: `Address`
+> **`readonly`** **coinbase**: `Address`
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/@ethereumjs+block@5.2.0/node_modules/@ethereumjs/block/dist/esm/header.d.ts:13
+node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:13
 
-___
+***
 
 ### common
 
-• `Readonly` **common**: `Common`
+> **`readonly`** **common**: `Common`
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/@ethereumjs+block@5.2.0/node_modules/@ethereumjs/block/dist/esm/header.d.ts:31
+node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:31
 
-___
+***
 
 ### difficulty
 
-• `Readonly` **difficulty**: `bigint`
+> **`readonly`** **difficulty**: `bigint`
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/@ethereumjs+block@5.2.0/node_modules/@ethereumjs/block/dist/esm/header.d.ts:18
+node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:18
 
-___
+***
 
 ### excessBlobGas
 
-• `Optional` `Readonly` **excessBlobGas**: `bigint`
+> **`readonly`** **excessBlobGas**?: `bigint`
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/@ethereumjs+block@5.2.0/node_modules/@ethereumjs/block/dist/esm/header.d.ts:29
+node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:29
 
-___
+***
 
 ### extraData
 
-• `Readonly` **extraData**: `Uint8Array`
+> **`readonly`** **extraData**: `Uint8Array`
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/@ethereumjs+block@5.2.0/node_modules/@ethereumjs/block/dist/esm/header.d.ts:23
+node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:23
 
-___
+***
 
 ### gasLimit
 
-• `Readonly` **gasLimit**: `bigint`
+> **`readonly`** **gasLimit**: `bigint`
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/@ethereumjs+block@5.2.0/node_modules/@ethereumjs/block/dist/esm/header.d.ts:20
+node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:20
 
-___
+***
 
 ### gasUsed
 
-• `Readonly` **gasUsed**: `bigint`
+> **`readonly`** **gasUsed**: `bigint`
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/@ethereumjs+block@5.2.0/node_modules/@ethereumjs/block/dist/esm/header.d.ts:21
+node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:21
 
-___
+***
 
 ### keccakFunction
 
-• `Protected` **keccakFunction**: (`msg`: `Uint8Array`) => `Uint8Array`
+> **`protected`** **keccakFunction**: (`msg`) => `Uint8Array`
 
-#### Type declaration
+#### Parameters
 
-▸ (`msg`): `Uint8Array`
+▪ **msg**: `Uint8Array`
 
-##### Parameters
+#### Source
 
-| Name | Type |
-| :------ | :------ |
-| `msg` | `Uint8Array` |
+node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:32
 
-##### Returns
-
-`Uint8Array`
-
-#### Defined in
-
-node_modules/.pnpm/@ethereumjs+block@5.2.0/node_modules/@ethereumjs/block/dist/esm/header.d.ts:32
-
-___
+***
 
 ### logsBloom
 
-• `Readonly` **logsBloom**: `Uint8Array`
+> **`readonly`** **logsBloom**: `Uint8Array`
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/@ethereumjs+block@5.2.0/node_modules/@ethereumjs/block/dist/esm/header.d.ts:17
+node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:17
 
-___
+***
 
 ### mixHash
 
-• `Readonly` **mixHash**: `Uint8Array`
+> **`readonly`** **mixHash**: `Uint8Array`
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/@ethereumjs+block@5.2.0/node_modules/@ethereumjs/block/dist/esm/header.d.ts:24
+node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:24
 
-___
+***
 
 ### nonce
 
-• `Readonly` **nonce**: `Uint8Array`
+> **`readonly`** **nonce**: `Uint8Array`
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/@ethereumjs+block@5.2.0/node_modules/@ethereumjs/block/dist/esm/header.d.ts:25
+node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:25
 
-___
+***
 
 ### number
 
-• `Readonly` **number**: `bigint`
+> **`readonly`** **number**: `bigint`
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/@ethereumjs+block@5.2.0/node_modules/@ethereumjs/block/dist/esm/header.d.ts:19
+node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:19
 
-___
+***
 
 ### parentBeaconBlockRoot
 
-• `Optional` `Readonly` **parentBeaconBlockRoot**: `Uint8Array`
+> **`readonly`** **parentBeaconBlockRoot**?: `Uint8Array`
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/@ethereumjs+block@5.2.0/node_modules/@ethereumjs/block/dist/esm/header.d.ts:30
+node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:30
 
-___
+***
 
 ### parentHash
 
-• `Readonly` **parentHash**: `Uint8Array`
+> **`readonly`** **parentHash**: `Uint8Array`
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/@ethereumjs+block@5.2.0/node_modules/@ethereumjs/block/dist/esm/header.d.ts:11
+node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:11
 
-___
+***
 
 ### receiptTrie
 
-• `Readonly` **receiptTrie**: `Uint8Array`
+> **`readonly`** **receiptTrie**: `Uint8Array`
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/@ethereumjs+block@5.2.0/node_modules/@ethereumjs/block/dist/esm/header.d.ts:16
+node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:16
 
-___
+***
 
 ### stateRoot
 
-• `Readonly` **stateRoot**: `Uint8Array`
+> **`readonly`** **stateRoot**: `Uint8Array`
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/@ethereumjs+block@5.2.0/node_modules/@ethereumjs/block/dist/esm/header.d.ts:14
+node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:14
 
-___
+***
 
 ### timestamp
 
-• `Readonly` **timestamp**: `bigint`
+> **`readonly`** **timestamp**: `bigint`
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/@ethereumjs+block@5.2.0/node_modules/@ethereumjs/block/dist/esm/header.d.ts:22
+node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:22
 
-___
+***
 
 ### transactionsTrie
 
-• `Readonly` **transactionsTrie**: `Uint8Array`
+> **`readonly`** **transactionsTrie**: `Uint8Array`
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/@ethereumjs+block@5.2.0/node_modules/@ethereumjs/block/dist/esm/header.d.ts:15
+node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:15
 
-___
+***
 
 ### uncleHash
 
-• `Readonly` **uncleHash**: `Uint8Array`
+> **`readonly`** **uncleHash**: `Uint8Array`
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/@ethereumjs+block@5.2.0/node_modules/@ethereumjs/block/dist/esm/header.d.ts:12
+node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:12
 
-___
+***
 
 ### withdrawalsRoot
 
-• `Optional` `Readonly` **withdrawalsRoot**: `Uint8Array`
+> **`readonly`** **withdrawalsRoot**?: `Uint8Array`
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/@ethereumjs+block@5.2.0/node_modules/@ethereumjs/block/dist/esm/header.d.ts:27
+node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:27
 
 ## Accessors
 
 ### prevRandao
 
-• `get` **prevRandao**(): `Uint8Array`
+> **`get`** **prevRandao**(): `Uint8Array`
 
 EIP-4399: After merge to PoS, `mixHash` supplanted as `prevRandao`
 
-#### Returns
+#### Source
 
-`Uint8Array`
-
-#### Defined in
-
-node_modules/.pnpm/@ethereumjs+block@5.2.0/node_modules/@ethereumjs/block/dist/esm/header.d.ts:37
+node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:37
 
 ## Methods
 
-### \_consensusFormatValidation
+### \_consensusFormatValidation()
 
-▸ **_consensusFormatValidation**(): `void`
+> **`protected`** **\_consensusFormatValidation**(): `void`
 
 Checks static parameters related to consensus algorithm
 
 #### Returns
 
-`void`
-
-**`Throws`**
+#### Throws
 
 if any check fails
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/@ethereumjs+block@5.2.0/node_modules/@ethereumjs/block/dist/esm/header.d.ts:75
+node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:75
 
-___
+***
 
-### \_genericFormatValidation
+### \_genericFormatValidation()
 
-▸ **_genericFormatValidation**(): `void`
+> **`protected`** **\_genericFormatValidation**(): `void`
 
 Validates correct buffer lengths, throws if invalid.
 
-#### Returns
+#### Source
 
-`void`
+node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:70
 
-#### Defined in
+***
 
-node_modules/.pnpm/@ethereumjs+block@5.2.0/node_modules/@ethereumjs/block/dist/esm/header.d.ts:70
+### \_requireClique()
 
-___
-
-### \_requireClique
-
-▸ **_requireClique**(`name`): `void`
+> **`protected`** **\_requireClique**(`name`): `void`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `name` | `string` |
+▪ **name**: `string`
 
-#### Returns
+#### Source
 
-`void`
+node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:125
 
-#### Defined in
+***
 
-node_modules/.pnpm/@ethereumjs+block@5.2.0/node_modules/@ethereumjs/block/dist/esm/header.d.ts:125
+### \_validateDAOExtraData()
 
-___
-
-### \_validateDAOExtraData
-
-▸ **_validateDAOExtraData**(): `void`
+> **`protected`** **\_validateDAOExtraData**(): `void`
 
 Validates extra data is DAO_ExtraData for DAO_ForceExtraDataRange blocks after DAO
 activation block (see: https://blog.slock.it/hard-fork-specification-24b889e70703)
 
-#### Returns
+#### Source
 
-`void`
+node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:189
 
-#### Defined in
+***
 
-node_modules/.pnpm/@ethereumjs+block@5.2.0/node_modules/@ethereumjs/block/dist/esm/header.d.ts:189
+### calcDataFee()
 
-___
-
-### calcDataFee
-
-▸ **calcDataFee**(`numBlobs`): `bigint`
+> **calcDataFee**(`numBlobs`): `bigint`
 
 Returns the total fee for blob gas spent for including blobs in block.
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `numBlobs` | `number` | number of blobs in the transaction/block |
+▪ **numBlobs**: `number`
+
+number of blobs in the transaction/block
 
 #### Returns
-
-`bigint`
 
 the total blob gas fee for numBlobs blobs
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/@ethereumjs+block@5.2.0/node_modules/@ethereumjs/block/dist/esm/header.d.ts:103
+node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:103
 
-___
+***
 
-### calcNextBaseFee
+### calcNextBaseFee()
 
-▸ **calcNextBaseFee**(): `bigint`
+> **calcNextBaseFee**(): `bigint`
 
 Calculates the base fee for a potential next block
 
-#### Returns
+#### Source
 
-`bigint`
+node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:86
 
-#### Defined in
+***
 
-node_modules/.pnpm/@ethereumjs+block@5.2.0/node_modules/@ethereumjs/block/dist/esm/header.d.ts:86
+### calcNextBlobGasPrice()
 
-___
-
-### calcNextBlobGasPrice
-
-▸ **calcNextBlobGasPrice**(): `bigint`
+> **calcNextBlobGasPrice**(): `bigint`
 
 Calculate the blob gas price of the block built on top of this one
 
 #### Returns
 
-`bigint`
-
 The blob gas price
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/@ethereumjs+block@5.2.0/node_modules/@ethereumjs/block/dist/esm/header.d.ts:112
+node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:112
 
-___
+***
 
-### calcNextExcessBlobGas
+### calcNextExcessBlobGas()
 
-▸ **calcNextExcessBlobGas**(): `bigint`
+> **calcNextExcessBlobGas**(): `bigint`
 
 Calculates the excess blob gas for next (hopefully) post EIP 4844 block.
 
-#### Returns
+#### Source
 
-`bigint`
+node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:107
 
-#### Defined in
+***
 
-node_modules/.pnpm/@ethereumjs+block@5.2.0/node_modules/@ethereumjs/block/dist/esm/header.d.ts:107
+### cliqueEpochTransitionSigners()
 
-___
-
-### cliqueEpochTransitionSigners
-
-▸ **cliqueEpochTransitionSigners**(): `Address`[]
+> **cliqueEpochTransitionSigners**(): `Address`[]
 
 Returns a list of signers
 (only clique PoA, throws otherwise)
@@ -533,102 +425,78 @@ This function throws if not called on an epoch
 transition block and should therefore be used
 in conjunction with [BlockHeader.cliqueIsEpochTransition](BlockHeader.md#cliqueisepochtransition)
 
-#### Returns
+#### Source
 
-`Address`[]
+node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:165
 
-#### Defined in
+***
 
-node_modules/.pnpm/@ethereumjs+block@5.2.0/node_modules/@ethereumjs/block/dist/esm/header.d.ts:165
+### cliqueExtraSeal()
 
-___
-
-### cliqueExtraSeal
-
-▸ **cliqueExtraSeal**(): `Uint8Array`
+> **cliqueExtraSeal**(): `Uint8Array`
 
 Returns extra seal data
 (only clique PoA, throws otherwise)
 
-#### Returns
+#### Source
 
-`Uint8Array`
+node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:150
 
-#### Defined in
+***
 
-node_modules/.pnpm/@ethereumjs+block@5.2.0/node_modules/@ethereumjs/block/dist/esm/header.d.ts:150
+### cliqueExtraVanity()
 
-___
-
-### cliqueExtraVanity
-
-▸ **cliqueExtraVanity**(): `Uint8Array`
+> **cliqueExtraVanity**(): `Uint8Array`
 
 Returns extra vanity data
 (only clique PoA, throws otherwise)
 
-#### Returns
+#### Source
 
-`Uint8Array`
+node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:145
 
-#### Defined in
+***
 
-node_modules/.pnpm/@ethereumjs+block@5.2.0/node_modules/@ethereumjs/block/dist/esm/header.d.ts:145
+### cliqueIsEpochTransition()
 
-___
-
-### cliqueIsEpochTransition
-
-▸ **cliqueIsEpochTransition**(): `boolean`
+> **cliqueIsEpochTransition**(): `boolean`
 
 Checks if the block header is an epoch transition
 header (only clique PoA, throws otherwise)
 
-#### Returns
+#### Source
 
-`boolean`
+node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:140
 
-#### Defined in
+***
 
-node_modules/.pnpm/@ethereumjs+block@5.2.0/node_modules/@ethereumjs/block/dist/esm/header.d.ts:140
+### cliqueSigHash()
 
-___
-
-### cliqueSigHash
-
-▸ **cliqueSigHash**(): `Uint8Array`
+> **cliqueSigHash**(): `Uint8Array`
 
 PoA clique signature hash without the seal.
 
-#### Returns
+#### Source
 
-`Uint8Array`
+node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:135
 
-#### Defined in
+***
 
-node_modules/.pnpm/@ethereumjs+block@5.2.0/node_modules/@ethereumjs/block/dist/esm/header.d.ts:135
+### cliqueSigner()
 
-___
-
-### cliqueSigner
-
-▸ **cliqueSigner**(): `Address`
+> **cliqueSigner**(): `Address`
 
 Returns the signer address
 
-#### Returns
+#### Source
 
-`Address`
+node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:176
 
-#### Defined in
+***
 
-node_modules/.pnpm/@ethereumjs+block@5.2.0/node_modules/@ethereumjs/block/dist/esm/header.d.ts:176
+### cliqueVerifySignature()
 
-___
-
-### cliqueVerifySignature
-
-▸ **cliqueVerifySignature**(`signerList`): `boolean`
+> **cliqueVerifySignature**(`signerList`): `boolean`
 
 Verifies the signature of the block (last 65 bytes of extraData field)
 (only clique PoA, throws otherwise)
@@ -637,242 +505,190 @@ Verifies the signature of the block (last 65 bytes of extraData field)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `signerList` | `Address`[] |
+▪ **signerList**: `Address`[]
 
-#### Returns
+#### Source
 
-`boolean`
+node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:172
 
-#### Defined in
+***
 
-node_modules/.pnpm/@ethereumjs+block@5.2.0/node_modules/@ethereumjs/block/dist/esm/header.d.ts:172
+### errorStr()
 
-___
-
-### errorStr
-
-▸ **errorStr**(): `string`
+> **errorStr**(): `string`
 
 Return a compact error string representation of the object
 
-#### Returns
+#### Source
 
-`string`
+node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:193
 
-#### Defined in
+***
 
-node_modules/.pnpm/@ethereumjs+block@5.2.0/node_modules/@ethereumjs/block/dist/esm/header.d.ts:193
+### ethashCanonicalDifficulty()
 
-___
-
-### ethashCanonicalDifficulty
-
-▸ **ethashCanonicalDifficulty**(`parentBlockHeader`): `bigint`
+> **ethashCanonicalDifficulty**(`parentBlockHeader`): `bigint`
 
 Returns the canonical difficulty for this block.
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `parentBlockHeader` | [`BlockHeader`](BlockHeader.md) | the header from the parent `Block` of this header |
+▪ **parentBlockHeader**: [`BlockHeader`](BlockHeader.md)
 
-#### Returns
+the header from the parent `Block` of this header
 
-`bigint`
+#### Source
 
-#### Defined in
+node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:131
 
-node_modules/.pnpm/@ethereumjs+block@5.2.0/node_modules/@ethereumjs/block/dist/esm/header.d.ts:131
+***
 
-___
+### getBlobGasPrice()
 
-### getBlobGasPrice
-
-▸ **getBlobGasPrice**(): `bigint`
+> **getBlobGasPrice**(): `bigint`
 
 Returns the price per unit of blob gas for a blob transaction in the current/pending block
 
 #### Returns
 
-`bigint`
-
 the price in gwei per unit of blob gas spent
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/@ethereumjs+block@5.2.0/node_modules/@ethereumjs/block/dist/esm/header.d.ts:91
+node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:91
 
-___
+***
 
-### hash
+### hash()
 
-▸ **hash**(): `Uint8Array`
+> **hash**(): `Uint8Array`
 
 Returns the hash of the block header.
 
-#### Returns
+#### Source
 
-`Uint8Array`
+node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:120
 
-#### Defined in
+***
 
-node_modules/.pnpm/@ethereumjs+block@5.2.0/node_modules/@ethereumjs/block/dist/esm/header.d.ts:120
+### isGenesis()
 
-___
-
-### isGenesis
-
-▸ **isGenesis**(): `boolean`
+> **isGenesis**(): `boolean`
 
 Checks if the block header is a genesis header.
 
-#### Returns
+#### Source
 
-`boolean`
+node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:124
 
-#### Defined in
+***
 
-node_modules/.pnpm/@ethereumjs+block@5.2.0/node_modules/@ethereumjs/block/dist/esm/header.d.ts:124
+### raw()
 
-___
-
-### raw
-
-▸ **raw**(): `BlockHeaderBytes`
+> **raw**(): `BlockHeaderBytes`
 
 Returns a Uint8Array Array of the raw Bytes in this header, in order.
 
-#### Returns
+#### Source
 
-`BlockHeaderBytes`
+node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:116
 
-#### Defined in
+***
 
-node_modules/.pnpm/@ethereumjs+block@5.2.0/node_modules/@ethereumjs/block/dist/esm/header.d.ts:116
+### serialize()
 
-___
-
-### serialize
-
-▸ **serialize**(): `Uint8Array`
+> **serialize**(): `Uint8Array`
 
 Returns the rlp encoding of the block header.
 
-#### Returns
+#### Source
 
-`Uint8Array`
+node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:180
 
-#### Defined in
+***
 
-node_modules/.pnpm/@ethereumjs+block@5.2.0/node_modules/@ethereumjs/block/dist/esm/header.d.ts:180
+### toJSON()
 
-___
-
-### toJSON
-
-▸ **toJSON**(): `JsonHeader`
+> **toJSON**(): `JsonHeader`
 
 Returns the block header in JSON format.
 
-#### Returns
+#### Source
 
-`JsonHeader`
+node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:184
 
-#### Defined in
+***
 
-node_modules/.pnpm/@ethereumjs+block@5.2.0/node_modules/@ethereumjs/block/dist/esm/header.d.ts:184
+### validateGasLimit()
 
-___
-
-### validateGasLimit
-
-▸ **validateGasLimit**(`parentBlockHeader`): `void`
+> **validateGasLimit**(`parentBlockHeader`): `void`
 
 Validates if the block gasLimit remains in the boundaries set by the protocol.
 Throws if out of bounds.
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `parentBlockHeader` | [`BlockHeader`](BlockHeader.md) | the header from the parent `Block` of this header |
+▪ **parentBlockHeader**: [`BlockHeader`](BlockHeader.md)
 
-#### Returns
+the header from the parent `Block` of this header
 
-`void`
+#### Source
 
-#### Defined in
+node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:82
 
-node_modules/.pnpm/@ethereumjs+block@5.2.0/node_modules/@ethereumjs/block/dist/esm/header.d.ts:82
+***
 
-___
+### fromHeaderData()
 
-### fromHeaderData
-
-▸ **fromHeaderData**(`headerData?`, `opts?`): [`BlockHeader`](BlockHeader.md)
+> **`static`** **fromHeaderData**(`headerData`?, `opts`?): [`BlockHeader`](BlockHeader.md)
 
 Static constructor to create a block header from a header data dictionary
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `headerData?` | `HeaderData` |
-| `opts?` | `BlockOptions` |
+▪ **headerData?**: `HeaderData`
 
-#### Returns
+▪ **opts?**: `BlockOptions`
 
-[`BlockHeader`](BlockHeader.md)
+#### Source
 
-#### Defined in
+node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:44
 
-node_modules/.pnpm/@ethereumjs+block@5.2.0/node_modules/@ethereumjs/block/dist/esm/header.d.ts:44
+***
 
-___
+### fromRLPSerializedHeader()
 
-### fromRLPSerializedHeader
-
-▸ **fromRLPSerializedHeader**(`serializedHeaderData`, `opts?`): [`BlockHeader`](BlockHeader.md)
+> **`static`** **fromRLPSerializedHeader**(`serializedHeaderData`, `opts`?): [`BlockHeader`](BlockHeader.md)
 
 Static constructor to create a block header from a RLP-serialized header
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `serializedHeaderData` | `Uint8Array` |
-| `opts?` | `BlockOptions` |
+▪ **serializedHeaderData**: `Uint8Array`
 
-#### Returns
+▪ **opts?**: `BlockOptions`
 
-[`BlockHeader`](BlockHeader.md)
+#### Source
 
-#### Defined in
+node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:51
 
-node_modules/.pnpm/@ethereumjs+block@5.2.0/node_modules/@ethereumjs/block/dist/esm/header.d.ts:51
+***
 
-___
+### fromValuesArray()
 
-### fromValuesArray
-
-▸ **fromValuesArray**(`values`, `opts?`): [`BlockHeader`](BlockHeader.md)
+> **`static`** **fromValuesArray**(`values`, `opts`?): [`BlockHeader`](BlockHeader.md)
 
 Static constructor to create a block header from an array of Bytes values
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `values` | `BlockHeaderBytes` |
-| `opts?` | `BlockOptions` |
+▪ **values**: `BlockHeaderBytes`
 
-#### Returns
+▪ **opts?**: `BlockOptions`
 
-[`BlockHeader`](BlockHeader.md)
+#### Source
 
-#### Defined in
+node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist/esm/header.d.ts:58
 
-node_modules/.pnpm/@ethereumjs+block@5.2.0/node_modules/@ethereumjs/block/dist/esm/header.d.ts:58
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

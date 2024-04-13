@@ -1,139 +1,104 @@
-[@tevm/solc](../README.md) / [Exports](../modules.md) / Solc
+**@tevm/solc** ∙ [README](../README.md) ∙ [API](../API.md)
+
+***
+
+[API](../API.md) > Solc
 
 # Interface: Solc
-
-## Table of contents
-
-### Properties
-
-- [compile](Solc.md#compile)
-- [features](Solc.md#features)
-- [license](Solc.md#license)
-- [loadRemoteVersion](Solc.md#loadremoteversion)
-- [lowlevel](Solc.md#lowlevel)
-- [semver](Solc.md#semver)
-- [setupMethods](Solc.md#setupmethods)
-- [version](Solc.md#version)
 
 ## Properties
 
 ### compile
 
-• **compile**: (`input`: [`SolcInputDescription`](../modules.md#solcinputdescription)) => [`SolcOutput`](../modules.md#solcoutput)
+> **compile**: (`input`) => [`SolcOutput`](../type-aliases/SolcOutput.md)
 
-#### Type declaration
+#### Parameters
 
-▸ (`input`): [`SolcOutput`](../modules.md#solcoutput)
+▪ **input**: [`SolcInputDescription`](../type-aliases/SolcInputDescription.md)
 
-##### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `input` | [`SolcInputDescription`](../modules.md#solcinputdescription) |
-
-##### Returns
-
-[`SolcOutput`](../modules.md#solcoutput)
-
-#### Defined in
+#### Source
 
 [solcTypes.ts:757](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L757)
 
-___
+***
 
 ### features
 
-• **features**: `FeaturesConfig`
+> **features**: `FeaturesConfig`
 
-#### Defined in
+#### Source
 
 [solcTypes.ts:756](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L756)
 
-___
+***
 
 ### license
 
-• **license**: `string`
+> **license**: `string`
 
-#### Defined in
+#### Source
 
 [solcTypes.ts:754](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L754)
 
-___
+***
 
 ### loadRemoteVersion
 
-• **loadRemoteVersion**: (`versionString`: `string`, `callback`: (`err`: ``null`` \| `Error`, `solc?`: [`Solc`](Solc.md)) => `void`) => `void`
+> **loadRemoteVersion**: (`versionString`, `callback`) => `void`
 
-#### Type declaration
+#### Parameters
 
-▸ (`versionString`, `callback`): `void`
+▪ **versionString**: `string`
 
-##### Parameters
+▪ **callback**: (`err`, `solc`?) => `void`
 
-| Name | Type |
-| :------ | :------ |
-| `versionString` | `string` |
-| `callback` | (`err`: ``null`` \| `Error`, `solc?`: [`Solc`](Solc.md)) => `void` |
-
-##### Returns
-
-`void`
-
-#### Defined in
+#### Source
 
 [solcTypes.ts:758](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L758)
 
-___
+***
 
 ### lowlevel
 
-• **lowlevel**: `LowLevelConfig`
+> **lowlevel**: `LowLevelConfig`
 
-#### Defined in
+#### Source
 
 [solcTypes.ts:755](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L755)
 
-___
+***
 
 ### semver
 
-• **semver**: `string`
+> **semver**: `string`
 
-#### Defined in
+#### Source
 
 [solcTypes.ts:753](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L753)
 
-___
+***
 
 ### setupMethods
 
-• **setupMethods**: (`soljson`: `any`) => `void`
+> **setupMethods**: (`soljson`) => `void`
 
-#### Type declaration
+#### Parameters
 
-▸ (`soljson`): `void`
+▪ **soljson**: `any`
 
-##### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `soljson` | `any` |
-
-##### Returns
-
-`void`
-
-#### Defined in
+#### Source
 
 [solcTypes.ts:762](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L762)
 
-___
+***
 
 ### version
 
-• **version**: `string`
+> **version**: `string`
 
-#### Defined in
+#### Source
 
 [solcTypes.ts:752](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L752)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

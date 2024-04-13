@@ -1,41 +1,22 @@
-[@tevm/state](../README.md) / [Exports](../modules.md) / Cache
+**@tevm/state** ∙ [README](../README.md) ∙ [API](../API.md)
+
+***
+
+[API](../API.md) > Cache
 
 # Class: Cache
 
-## Table of contents
-
-### Constructors
-
-- [constructor](Cache.md#constructor)
-
-### Properties
-
-- [getContractStorage](Cache.md#getcontractstorage)
-- [map](Cache.md#map)
-
-### Methods
-
-- [clear](Cache.md#clear)
-- [get](Cache.md#get)
-- [put](Cache.md#put)
-
 ## Constructors
 
-### constructor
+### new Cache(getContractStorage)
 
-• **new Cache**(`getContractStorage`): [`Cache`](Cache.md)
+> **new Cache**(`getContractStorage`): [`Cache`](Cache.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `getContractStorage` | [`GetContractStorage`](../modules.md#getcontractstorage) |
+▪ **getContractStorage**: [`GetContractStorage`](../type-aliases/GetContractStorage.md)
 
-#### Returns
-
-[`Cache`](Cache.md)
-
-#### Defined in
+#### Source
 
 [packages/state/src/Cache.ts:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/Cache.ts#L17)
 
@@ -43,75 +24,65 @@
 
 ### getContractStorage
 
-• `Private` **getContractStorage**: [`GetContractStorage`](../modules.md#getcontractstorage)
+> **`private`** **getContractStorage**: [`GetContractStorage`](../type-aliases/GetContractStorage.md)
 
-#### Defined in
+#### Source
 
 [packages/state/src/Cache.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/Cache.ts#L16)
 
-___
+***
 
 ### map
 
-• `Private` **map**: `Map`\<`string`, `Map`\<`string`, `Uint8Array`\>\>
+> **`private`** **map**: `Map`\<`string`, `Map`\<`string`, `Uint8Array`\>\>
 
-#### Defined in
+#### Source
 
 [packages/state/src/Cache.ts:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/Cache.ts#L15)
 
 ## Methods
 
-### clear
+### clear()
 
-▸ **clear**(): `void`
+> **clear**(): `void`
 
-#### Returns
-
-`void`
-
-#### Defined in
+#### Source
 
 [packages/state/src/Cache.ts:47](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/Cache.ts#L47)
 
-___
+***
 
-### get
+### get()
 
-▸ **get**(`address`, `key`): `Promise`\<`Uint8Array`\>
+> **get**(`address`, `key`): `Promise`\<`Uint8Array`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `address` | `Address` |
-| `key` | `Uint8Array` |
+▪ **address**: `Address`
 
-#### Returns
+▪ **key**: `Uint8Array`
 
-`Promise`\<`Uint8Array`\>
-
-#### Defined in
+#### Source
 
 [packages/state/src/Cache.ts:22](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/Cache.ts#L22)
 
-___
+***
 
-### put
+### put()
 
-▸ **put**(`address`, `key`, `value`): `void`
+> **put**(`address`, `key`, `value`): `void`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `address` | `Address` |
-| `key` | `Uint8Array` |
-| `value` | `Uint8Array` |
+▪ **address**: `Address`
 
-#### Returns
+▪ **key**: `Uint8Array`
 
-`void`
+▪ **value**: `Uint8Array`
 
-#### Defined in
+#### Source
 
 [packages/state/src/Cache.ts:34](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/Cache.ts#L34)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

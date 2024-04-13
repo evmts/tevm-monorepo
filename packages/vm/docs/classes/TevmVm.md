@@ -1,259 +1,218 @@
-[@tevm/vm](../README.md) / [Exports](../modules.md) / TevmVm
+**@tevm/vm** ∙ [README](../README.md) ∙ [API](../API.md)
+
+***
+
+[API](../API.md) > TevmVm
 
 # Class: TevmVm
 
-## Hierarchy
+## Extends
 
 - `VM`
 
-  ↳ **`TevmVm`**
-
-## Table of contents
-
-### Constructors
-
-- [constructor](TevmVm.md#constructor)
-
-### Properties
-
-- [\_isInitialized](TevmVm.md#_isinitialized)
-- [\_opts](TevmVm.md#_opts)
-- [\_setHardfork](TevmVm.md#_sethardfork)
-- [blockchain](TevmVm.md#blockchain)
-- [common](TevmVm.md#common)
-- [events](TevmVm.md#events)
-- [evm](TevmVm.md#evm)
-- [stateManager](TevmVm.md#statemanager)
-
-### Methods
-
-- [buildBlock](TevmVm.md#buildblock)
-- [deepCopy](TevmVm.md#deepcopy)
-- [errorStr](TevmVm.md#errorstr)
-- [runBlock](TevmVm.md#runblock)
-- [runTx](TevmVm.md#runtx)
-- [shallowCopy](TevmVm.md#shallowcopy)
-- [create](TevmVm.md#create)
-
 ## Constructors
 
-### constructor
+### new TevmVm(opts)
 
-• **new TevmVm**(`opts?`): [`TevmVm`](TevmVm.md)
+> **`protected`** **new TevmVm**(`opts`?): [`TevmVm`](TevmVm.md)
 
-Instantiates a new VM Object.
+Instantiates a new [VM]([object Object]) Object.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `opts?` | `VMOpts` |
+▪ **opts?**: `VMOpts`
 
 #### Returns
-
-[`TevmVm`](TevmVm.md)
-
-**`Deprecated`**
-
-The direct usage of this constructor is discouraged since
-non-finalized async initialization might lead to side effects. Please
-use the async VM.create constructor instead (same API).
 
 #### Inherited from
 
 VM.constructor
 
-#### Defined in
+#### Deprecated
 
-node_modules/.pnpm/@ethereumjs+vm@8.0.0/node_modules/@ethereumjs/vm/dist/esm/vm.d.ts:63
+The direct usage of this constructor is discouraged since
+non-finalized async initialization might lead to side effects. Please
+use the async [VM.create]([object Object]) constructor instead (same API).
+
+#### Source
+
+node\_modules/.pnpm/@ethereumjs+vm@8.0.0/node\_modules/@ethereumjs/vm/dist/esm/vm.d.ts:63
 
 ## Properties
 
 ### \_isInitialized
 
-• `Protected` **\_isInitialized**: `boolean`
+> **`protected`** **\_isInitialized**: `boolean`
 
 #### Inherited from
 
 VM.\_isInitialized
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/@ethereumjs+vm@8.0.0/node_modules/@ethereumjs/vm/dist/esm/vm.d.ts:32
+node\_modules/.pnpm/@ethereumjs+vm@8.0.0/node\_modules/@ethereumjs/vm/dist/esm/vm.d.ts:32
 
-___
+***
 
 ### \_opts
 
-• `Protected` `Readonly` **\_opts**: `VMOpts`
+> **`protected`** **`readonly`** **\_opts**: `VMOpts`
 
 #### Inherited from
 
 VM.\_opts
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/@ethereumjs+vm@8.0.0/node_modules/@ethereumjs/vm/dist/esm/vm.d.ts:31
+node\_modules/.pnpm/@ethereumjs+vm@8.0.0/node\_modules/@ethereumjs/vm/dist/esm/vm.d.ts:31
 
-___
+***
 
 ### \_setHardfork
 
-• `Protected` `Readonly` **\_setHardfork**: `boolean` \| `BigIntLike`
+> **`protected`** **`readonly`** **\_setHardfork**: `boolean` \| `BigIntLike`
 
 #### Inherited from
 
 VM.\_setHardfork
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/@ethereumjs+vm@8.0.0/node_modules/@ethereumjs/vm/dist/esm/vm.d.ts:33
+node\_modules/.pnpm/@ethereumjs+vm@8.0.0/node\_modules/@ethereumjs/vm/dist/esm/vm.d.ts:33
 
-___
+***
 
 ### blockchain
 
-• **blockchain**: `TevmBlockchain`
+> **blockchain**: `TevmBlockchain`
 
 #### Overrides
 
 VM.blockchain
 
-#### Defined in
+#### Source
 
 [packages/vm/src/TevmVm.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/TevmVm.ts#L10)
 
-___
+***
 
 ### common
 
-• **common**: `Common`
+> **common**: `Common`
 
 #### Overrides
 
 VM.common
 
-#### Defined in
+#### Source
 
 [packages/vm/src/TevmVm.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/TevmVm.ts#L11)
 
-___
+***
 
 ### events
 
-• `Readonly` **events**: `AsyncEventEmitter`\<`VMEvents`\>
+> **`readonly`** **events**: `AsyncEventEmitter`\<`VMEvents`\>
 
 #### Inherited from
 
 VM.events
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/@ethereumjs+vm@8.0.0/node_modules/@ethereumjs/vm/dist/esm/vm.d.ts:26
+node\_modules/.pnpm/@ethereumjs+vm@8.0.0/node\_modules/@ethereumjs/vm/dist/esm/vm.d.ts:26
 
-___
+***
 
 ### evm
 
-• **evm**: `Evm`
+> **evm**: `Evm`
 
 #### Overrides
 
 VM.evm
 
-#### Defined in
+#### Source
 
 [packages/vm/src/TevmVm.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/TevmVm.ts#L9)
 
-___
+***
 
 ### stateManager
 
-• **stateManager**: `TevmStateManager`
+> **stateManager**: `TevmStateManager`
 
 #### Overrides
 
 VM.stateManager
 
-#### Defined in
+#### Source
 
 [packages/vm/src/TevmVm.ts:94](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/TevmVm.ts#L94)
 
 ## Methods
 
-### buildBlock
+### buildBlock()
 
-▸ **buildBlock**(`opts`): `Promise`\<`BlockBuilder`\>
+> **buildBlock**(`opts`): `Promise`\<`BlockBuilder`\>
 
 Build a block on top of the current state
 by adding one transaction at a time.
 
 Creates a checkpoint on the StateManager and modifies the state
-as transactions are run. The checkpoint is committed on BlockBuilder.build
-or discarded with BlockBuilder.revert.
+as transactions are run. The checkpoint is committed on [BlockBuilder.build]([object Object])
+or discarded with [BlockBuilder.revert]([object Object]).
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `opts` | `BuildBlockOpts` |
+▪ **opts**: `BuildBlockOpts`
 
 #### Returns
 
-`Promise`\<`BlockBuilder`\>
-
-An instance of BlockBuilder with methods:
-- BlockBuilder.addTransaction
-- BlockBuilder.build
-- BlockBuilder.revert
+An instance of [BlockBuilder]([object Object]) with methods:
+- [BlockBuilder.addTransaction]([object Object])
+- [BlockBuilder.build]([object Object])
+- [BlockBuilder.revert]([object Object])
 
 #### Inherited from
 
 VM.buildBlock
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/@ethereumjs+vm@8.0.0/node_modules/@ethereumjs/vm/dist/esm/vm.d.ts:99
+node\_modules/.pnpm/@ethereumjs+vm@8.0.0/node\_modules/@ethereumjs/vm/dist/esm/vm.d.ts:99
 
-___
+***
 
-### deepCopy
+### deepCopy()
 
-▸ **deepCopy**(): `Promise`\<[`TevmVm`](TevmVm.md)\>
+> **deepCopy**(): `Promise`\<[`TevmVm`](TevmVm.md)\>
 
-#### Returns
-
-`Promise`\<[`TevmVm`](TevmVm.md)\>
-
-#### Defined in
+#### Source
 
 [packages/vm/src/TevmVm.ts:96](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/TevmVm.ts#L96)
 
-___
+***
 
-### errorStr
+### errorStr()
 
-▸ **errorStr**(): `string`
+> **errorStr**(): `string`
 
 Return a compact error string representation of the object
-
-#### Returns
-
-`string`
 
 #### Inherited from
 
 VM.errorStr
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/@ethereumjs+vm@8.0.0/node_modules/@ethereumjs/vm/dist/esm/vm.d.ts:117
+node\_modules/.pnpm/@ethereumjs+vm@8.0.0/node\_modules/@ethereumjs/vm/dist/esm/vm.d.ts:117
 
-___
+***
 
-### runBlock
+### runBlock()
 
-▸ **runBlock**(`opts`): `Promise`\<`RunBlockResult`\>
+> **runBlock**(`opts`): `Promise`\<`RunBlockResult`\>
 
 Processes the `block` running all of the transactions it contains and updating the miner's account
 
@@ -263,27 +222,24 @@ invalid. If an error is thrown from an event handler, the state may or may not b
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `opts` | `RunBlockOpts` | Default values for options: - `generate`: false |
+▪ **opts**: `RunBlockOpts`
 
-#### Returns
-
-`Promise`\<`RunBlockResult`\>
+Default values for options:
+ - `generate`: false
 
 #### Inherited from
 
 VM.runBlock
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/@ethereumjs+vm@8.0.0/node_modules/@ethereumjs/vm/dist/esm/vm.d.ts:74
+node\_modules/.pnpm/@ethereumjs+vm@8.0.0/node\_modules/@ethereumjs/vm/dist/esm/vm.d.ts:74
 
-___
+***
 
-### runTx
+### runTx()
 
-▸ **runTx**(`opts`): `Promise`\<`RunTxResult`\>
+> **runTx**(`opts`): `Promise`\<`RunTxResult`\>
 
 Process a transaction. Run the vm. Transfers eth. Checks balances.
 
@@ -293,29 +249,23 @@ reverted.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `opts` | `RunTxOpts` |
-
-#### Returns
-
-`Promise`\<`RunTxResult`\>
+▪ **opts**: `RunTxOpts`
 
 #### Inherited from
 
 VM.runTx
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/@ethereumjs+vm@8.0.0/node_modules/@ethereumjs/vm/dist/esm/vm.d.ts:84
+node\_modules/.pnpm/@ethereumjs+vm@8.0.0/node\_modules/@ethereumjs/vm/dist/esm/vm.d.ts:84
 
-___
+***
 
-### shallowCopy
+### shallowCopy()
 
-▸ **shallowCopy**(`downlevelCaches?`): `Promise`\<`VM`\>
+> **shallowCopy**(`downlevelCaches`?): `Promise`\<`VM`\>
 
-Returns a copy of the VM instance.
+Returns a copy of the [VM]([object Object]) instance.
 
 Note that the returned copy will share the same db as the original for the blockchain and the statemanager.
 
@@ -327,44 +277,39 @@ the `downlevelCaches` option to `false`.
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `downlevelCaches?` | `boolean` | Downlevel (so: adopted for short-term usage) associated state caches (default: true) |
+▪ **downlevelCaches?**: `boolean`
 
-#### Returns
-
-`Promise`\<`VM`\>
+Downlevel (so: adopted for short-term usage) associated state caches (default: true)
 
 #### Inherited from
 
 VM.shallowCopy
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/@ethereumjs+vm@8.0.0/node_modules/@ethereumjs/vm/dist/esm/vm.d.ts:113
+node\_modules/.pnpm/@ethereumjs+vm@8.0.0/node\_modules/@ethereumjs/vm/dist/esm/vm.d.ts:113
 
-___
+***
 
-### create
+### create()
 
-▸ **create**(`opts?`): `Promise`\<[`TevmVm`](TevmVm.md)\>
+> **`static`** **create**(`opts`): `Promise`\<[`TevmVm`](TevmVm.md)\>
 
 VM async constructor. Creates engine instance and initializes it.
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `opts` | `undefined` \| `VMOpts` | VM engine constructor options |
+▪ **opts**: `undefined` \| `VMOpts`= `{}`
 
-#### Returns
-
-`Promise`\<[`TevmVm`](TevmVm.md)\>
+VM engine constructor options
 
 #### Overrides
 
 VM.create
 
-#### Defined in
+#### Source
 
 [packages/vm/src/TevmVm.ts:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/TevmVm.ts#L17)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
