@@ -1,10 +1,8 @@
 import { setAccountHandler } from '../tevm/index.js'
 import { ethCallHandler } from './ethCallHandler.js'
-import { Evm } from '@tevm/evm'
-import { NormalStateManager } from '@tevm/state'
+import { createBaseClient } from '@tevm/base-client'
 import { EthjsAddress } from '@tevm/utils'
 import { encodeFunctionData } from '@tevm/utils'
-import { TevmVm } from '@tevm/vm'
 import { describe, expect, it } from 'bun:test'
 
 const ERC20_ADDRESS = `0x${'3'.repeat(40)}` as const
@@ -295,13 +293,11 @@ const ERC20_ABI = [
 
 describe('callHandler', () => {
 	it('should execute a contract call', async () => {
-		const stateManager = new NormalStateManager()
-		const evm = await Evm.create({ stateManager })
-		const vm = await TevmVm.create({ evm, stateManager })
+		const client = createBaseClient()
 		// deploy contract
 		expect(
 			(
-				await setAccountHandler({ getVm: async () => vm } as any)({
+				await setAccountHandler(client)({
 					address: ERC20_ADDRESS,
 					deployedBytecode: ERC20_BYTECODE,
 				})
@@ -309,7 +305,7 @@ describe('callHandler', () => {
 		).toBeUndefined()
 		// test contract call
 		expect(
-			await ethCallHandler({ getVm: async () => vm } as any)({
+			await ethCallHandler(client)({
 				data: encodeFunctionData({
 					abi: ERC20_ABI,
 					functionName: 'balanceOf',
@@ -324,13 +320,12 @@ describe('callHandler', () => {
 	})
 
 	it('should not modify state', async () => {
-		const stateManager = new NormalStateManager()
-		const evm = await Evm.create({})
-		const vm = await TevmVm.create({ evm, stateManager })
+		const client = createBaseClient()
+		const vm = await client.getVm()
 		const to = `0x${'69'.repeat(20)}` as const
 		// send value
 		expect(
-			await ethCallHandler({ getVm: async () => vm } as any)({
+			await ethCallHandler(client)({
 				to,
 				value: 420n,
 			}),
