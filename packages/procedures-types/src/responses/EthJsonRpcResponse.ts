@@ -14,7 +14,7 @@ import type { Address, Hex } from '@tevm/utils'
 export type EthAccountsJsonRpcResponse = JsonRpcResponse<
 	'eth_accounts',
 	Address[],
-	string
+	string | number
 >
 
 // eth_blockNumber
@@ -24,14 +24,18 @@ export type EthAccountsJsonRpcResponse = JsonRpcResponse<
 export type EthBlockNumberJsonRpcResponse = JsonRpcResponse<
 	'eth_blockNumber',
 	SerializeToJson<EthBlockNumberResult>,
-	string
+	string | number
 >
 
 // eth_call
 /**
  * JSON-RPC response for `eth_call` procedure
  */
-export type EthCallJsonRpcResponse = JsonRpcResponse<'eth_call', Hex, string>
+export type EthCallJsonRpcResponse = JsonRpcResponse<
+	'eth_call',
+	Hex,
+	string | number
+>
 
 // eth_chainId
 /**
@@ -40,7 +44,7 @@ export type EthCallJsonRpcResponse = JsonRpcResponse<'eth_call', Hex, string>
 export type EthChainIdJsonRpcResponse = JsonRpcResponse<
 	'eth_chainId',
 	Hex,
-	string
+	string | number
 >
 
 // eth_coinbase
@@ -50,7 +54,7 @@ export type EthChainIdJsonRpcResponse = JsonRpcResponse<
 export type EthCoinbaseJsonRpcResponse = JsonRpcResponse<
 	'eth_coinbase',
 	Hex,
-	string
+	string | number
 >
 
 // eth_estimateGas
@@ -60,7 +64,7 @@ export type EthCoinbaseJsonRpcResponse = JsonRpcResponse<
 export type EthEstimateGasJsonRpcResponse = JsonRpcResponse<
 	'eth_estimateGas',
 	Hex,
-	string
+	string | number
 >
 
 // eth_hashrate
@@ -70,7 +74,7 @@ export type EthEstimateGasJsonRpcResponse = JsonRpcResponse<
 export type EthHashrateJsonRpcResponse = JsonRpcResponse<
 	'eth_hashrate',
 	Hex,
-	string
+	string | number
 >
 
 // eth_gasPrice
@@ -80,7 +84,7 @@ export type EthHashrateJsonRpcResponse = JsonRpcResponse<
 export type EthGasPriceJsonRpcResponse = JsonRpcResponse<
 	'eth_gasPrice',
 	Hex,
-	string
+	string | number
 >
 
 // eth_getBalance
@@ -90,7 +94,7 @@ export type EthGasPriceJsonRpcResponse = JsonRpcResponse<
 export type EthGetBalanceJsonRpcResponse = JsonRpcResponse<
 	'eth_getBalance',
 	Hex,
-	string
+	string | number
 >
 
 // eth_getBlockByHash
@@ -100,7 +104,7 @@ export type EthGetBalanceJsonRpcResponse = JsonRpcResponse<
 export type EthGetBlockByHashJsonRpcResponse = JsonRpcResponse<
 	'eth_getBlockByHash',
 	BlockResult,
-	string
+	string | number
 >
 
 // eth_getBlockByNumber
@@ -110,7 +114,7 @@ export type EthGetBlockByHashJsonRpcResponse = JsonRpcResponse<
 export type EthGetBlockByNumberJsonRpcResponse = JsonRpcResponse<
 	'eth_getBlockByNumber',
 	BlockResult,
-	string
+	string | number
 >
 
 // eth_getBlockTransactionCountByHash
@@ -120,7 +124,7 @@ export type EthGetBlockByNumberJsonRpcResponse = JsonRpcResponse<
 export type EthGetBlockTransactionCountByHashJsonRpcResponse = JsonRpcResponse<
 	'eth_getBlockTransactionCountByHash',
 	Hex,
-	string
+	string | number
 >
 
 // eth_getBlockTransactionCountByNumber
@@ -128,7 +132,7 @@ export type EthGetBlockTransactionCountByHashJsonRpcResponse = JsonRpcResponse<
  * JSON-RPC response for `eth_getBlockTransactionCountByNumber` procedure
  */
 export type EthGetBlockTransactionCountByNumberJsonRpcResponse =
-	JsonRpcResponse<'eth_getBlockTransactionCountByNumber', Hex, string>
+	JsonRpcResponse<'eth_getBlockTransactionCountByNumber', Hex, string | number>
 
 // eth_getCode
 /**
@@ -137,7 +141,7 @@ export type EthGetBlockTransactionCountByNumberJsonRpcResponse =
 export type EthGetCodeJsonRpcResponse = JsonRpcResponse<
 	'eth_getCode',
 	Hex,
-	string
+	string | number
 >
 
 // eth_getFilterChanges
@@ -147,7 +151,7 @@ export type EthGetCodeJsonRpcResponse = JsonRpcResponse<
 export type EthGetFilterChangesJsonRpcResponse = JsonRpcResponse<
 	'eth_getFilterChanges',
 	Array<FilterLog>,
-	string
+	string | number
 >
 
 // eth_getFilterLogs
@@ -157,7 +161,7 @@ export type EthGetFilterChangesJsonRpcResponse = JsonRpcResponse<
 export type EthGetFilterLogsJsonRpcResponse = JsonRpcResponse<
 	'eth_getFilterLogs',
 	Array<FilterLog>,
-	string
+	string | number
 >
 
 // eth_getLogs
@@ -167,7 +171,7 @@ export type EthGetFilterLogsJsonRpcResponse = JsonRpcResponse<
 export type EthGetLogsJsonRpcResponse = JsonRpcResponse<
 	'eth_getLogs',
 	Array<FilterLog>,
-	string
+	string | number
 >
 
 // eth_getStorageAt
@@ -177,7 +181,7 @@ export type EthGetLogsJsonRpcResponse = JsonRpcResponse<
 export type EthGetStorageAtJsonRpcResponse = JsonRpcResponse<
 	'eth_getStorageAt',
 	Hex,
-	string
+	string | number
 >
 
 // eth_getTransactionCount
@@ -187,7 +191,7 @@ export type EthGetStorageAtJsonRpcResponse = JsonRpcResponse<
 export type EthGetTransactionCountJsonRpcResponse = JsonRpcResponse<
 	'eth_getTransactionCount',
 	Hex,
-	string
+	string | number
 >
 
 // eth_getUncleCountByBlockHash
@@ -197,7 +201,7 @@ export type EthGetTransactionCountJsonRpcResponse = JsonRpcResponse<
 export type EthGetUncleCountByBlockHashJsonRpcResponse = JsonRpcResponse<
 	'eth_getUncleCountByBlockHash',
 	Hex,
-	string
+	string | number
 >
 
 // eth_getUncleCountByBlockNumber
@@ -207,7 +211,7 @@ export type EthGetUncleCountByBlockHashJsonRpcResponse = JsonRpcResponse<
 export type EthGetUncleCountByBlockNumberJsonRpcResponse = JsonRpcResponse<
 	'eth_getUncleCountByBlockNumber',
 	Hex,
-	string
+	string | number
 >
 
 // eth_getTransactionByHash
@@ -217,7 +221,7 @@ export type EthGetUncleCountByBlockNumberJsonRpcResponse = JsonRpcResponse<
 export type EthGetTransactionByHashJsonRpcResponse = JsonRpcResponse<
 	'eth_getTransactionByHash',
 	TransactionResult,
-	string
+	string | number
 >
 
 // eth_getTransactionByBlockHashAndIndex
@@ -228,7 +232,7 @@ export type EthGetTransactionByBlockHashAndIndexJsonRpcResponse =
 	JsonRpcResponse<
 		'eth_getTransactionByBlockHashAndIndex',
 		TransactionResult,
-		string
+		string | number
 	>
 
 // eth_getTransactionByBlockNumberAndIndex
@@ -239,7 +243,7 @@ export type EthGetTransactionByBlockNumberAndIndexJsonRpcResponse =
 	JsonRpcResponse<
 		'eth_getTransactionByBlockNumberAndIndex',
 		TransactionResult,
-		string
+		string | number
 	>
 
 // eth_getTransactionReceipt
@@ -248,8 +252,8 @@ export type EthGetTransactionByBlockNumberAndIndexJsonRpcResponse =
  */
 export type EthGetTransactionReceiptJsonRpcResponse = JsonRpcResponse<
 	'eth_getTransactionReceipt',
-	TransactionReceiptResult,
-	string
+	SerializeToJson<TransactionReceiptResult> | null,
+	string | number
 >
 
 // eth_getUncleByBlockHashAndIndex
@@ -259,7 +263,7 @@ export type EthGetTransactionReceiptJsonRpcResponse = JsonRpcResponse<
 export type EthGetUncleByBlockHashAndIndexJsonRpcResponse = JsonRpcResponse<
 	'eth_getUncleByBlockHashAndIndex',
 	Hex,
-	string
+	string | number
 >
 
 // eth_getUncleByBlockNumberAndIndex
@@ -269,7 +273,7 @@ export type EthGetUncleByBlockHashAndIndexJsonRpcResponse = JsonRpcResponse<
 export type EthGetUncleByBlockNumberAndIndexJsonRpcResponse = JsonRpcResponse<
 	'eth_getUncleByBlockNumberAndIndex',
 	Hex,
-	string
+	string | number
 >
 
 // eth_mining
@@ -279,7 +283,7 @@ export type EthGetUncleByBlockNumberAndIndexJsonRpcResponse = JsonRpcResponse<
 export type EthMiningJsonRpcResponse = JsonRpcResponse<
 	'eth_mining',
 	boolean,
-	string
+	string | number
 >
 
 // eth_protocolVersion
@@ -289,7 +293,7 @@ export type EthMiningJsonRpcResponse = JsonRpcResponse<
 export type EthProtocolVersionJsonRpcResponse = JsonRpcResponse<
 	'eth_protocolVersion',
 	Hex,
-	string
+	string | number
 >
 
 // eth_sendRawTransaction
@@ -299,7 +303,7 @@ export type EthProtocolVersionJsonRpcResponse = JsonRpcResponse<
 export type EthSendRawTransactionJsonRpcResponse = JsonRpcResponse<
 	'eth_sendRawTransaction',
 	Hex,
-	string
+	string | number
 >
 
 // eth_sendTransaction
@@ -309,14 +313,18 @@ export type EthSendRawTransactionJsonRpcResponse = JsonRpcResponse<
 export type EthSendTransactionJsonRpcResponse = JsonRpcResponse<
 	'eth_sendTransaction',
 	Hex,
-	string
+	string | number
 >
 
 // eth_sign
 /**
  * JSON-RPC response for `eth_sign` procedure
  */
-export type EthSignJsonRpcResponse = JsonRpcResponse<'eth_sign', Hex, string>
+export type EthSignJsonRpcResponse = JsonRpcResponse<
+	'eth_sign',
+	Hex,
+	string | number
+>
 
 // eth_signTransaction
 /**
@@ -325,7 +333,7 @@ export type EthSignJsonRpcResponse = JsonRpcResponse<'eth_sign', Hex, string>
 export type EthSignTransactionJsonRpcResponse = JsonRpcResponse<
 	'eth_signTransaction',
 	Hex,
-	string
+	string | number
 >
 
 // eth_syncing
@@ -354,7 +362,7 @@ export type EthSyncingJsonRpcResponse = JsonRpcResponse<
 			pulledStates: Hex
 			knownStates: Hex
 	  },
-	string
+	string | number
 >
 
 // eth_newFilter
@@ -364,7 +372,7 @@ export type EthSyncingJsonRpcResponse = JsonRpcResponse<
 export type EthNewFilterJsonRpcResponse = JsonRpcResponse<
 	'eth_newFilter',
 	Hex,
-	string
+	string | number
 >
 
 // eth_newBlockFilter
@@ -375,7 +383,7 @@ export type EthNewBlockFilterJsonRpcResponse = JsonRpcResponse<
 	'eth_newBlockFilter',
 	// FilterId
 	Hex,
-	string
+	string | number
 >
 
 // eth_newPendingTransactionFilter
@@ -386,7 +394,7 @@ export type EthNewPendingTransactionFilterJsonRpcResponse = JsonRpcResponse<
 	'eth_newPendingTransactionFilter',
 	// FilterId
 	Hex,
-	string
+	string | number
 >
 
 // eth_uninstallFilter
@@ -396,5 +404,5 @@ export type EthNewPendingTransactionFilterJsonRpcResponse = JsonRpcResponse<
 export type EthUninstallFilterJsonRpcResponse = JsonRpcResponse<
 	'eth_uninstallFilter',
 	boolean,
-	string
+	string | number
 >
