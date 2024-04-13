@@ -152,7 +152,7 @@ export type EthGetTransactionByBlockNumberAndIndexResult = TransactionResult
 /**
  * JSON-RPC response for `eth_getTransactionReceipt` procedure
  */
-export type EthGetTransactionReceiptResult = TransactionReceiptResult
+export type EthGetTransactionReceiptResult = TransactionReceiptResult | null
 
 // eth_getUncleByBlockHashAndIndex
 /**

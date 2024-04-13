@@ -21,7 +21,7 @@ FilterLog type for eth JSON-RPC procedures
 
 ### blockNumber
 
-> **`readonly`** **blockNumber**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
+> **`readonly`** **blockNumber**: `bigint`
 
 ### data
 
@@ -29,7 +29,7 @@ FilterLog type for eth JSON-RPC procedures
 
 ### logIndex
 
-> **`readonly`** **logIndex**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
+> **`readonly`** **logIndex**: `bigint`
 
 ### removed
 
@@ -45,7 +45,7 @@ FilterLog type for eth JSON-RPC procedures
 
 ### transactionIndex
 
-> **`readonly`** **transactionIndex**: [`Hex`](/reference/tevm/actions-types/type-aliases/hex/)
+> **`readonly`** **transactionIndex**: `bigint`
 
 ## Source
 
