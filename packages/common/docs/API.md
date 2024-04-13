@@ -6,6 +6,10 @@
 
 ## Exports
 
+### Enumerations
+
+- [ConsensusAlgorithm](enumerations/ConsensusAlgorithm.md)
+
 ### Classes
 
 - [Common](classes/Common.md)
