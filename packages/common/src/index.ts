@@ -7,4 +7,5 @@ export {
 	type EVMStateManagerInterface as EvmStateManagerInterface,
 	type AccountFields,
 	type StorageRange,
+	ConsensusAlgorithm,
 } from '@ethereumjs/common'
