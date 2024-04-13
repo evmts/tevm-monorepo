@@ -61,7 +61,9 @@
   },
   "dependencies": {
     "@tevm/contract": "workspace:1.0.0-next.40",
-    "tevm": "workspace:^"
+    "@tevm/viem": "workspace:1.0.0-next.41",
+    "tevm": "workspace:^",
+    "viem": "^2.9.9"
   },
   "devDependencies": {
     "@tevm/bundler": "workspace:1.0.0-next.41",
