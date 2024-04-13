@@ -200,8 +200,13 @@ export class TxPool {
 	 * Validates a transaction against the pool and other constraints
 	 * @param tx The tx to validate
 	 */
-	private async validate(tx: TypedTransaction, isLocalTransaction = false) {
-		if (!tx.isSigned()) {
+	private async validate(
+		tx: TypedTransaction,
+		isLocalTransaction = false,
+		requireSignature = true,
+		skipBalance = false,
+	) {
+		if (requireSignature && !tx.isSigned()) {
 			throw new Error('Attempting to add tx to txpool which is not signed')
 		}
 		if (tx.data.length > TX_MAX_DATA_SIZE) {
@@ -269,8 +274,9 @@ export class TxPool {
 
 		// Copy VM in order to not overwrite the state root of the VMExecution module which may be concurrently running blocks
 		const vmCopy = await this.vm.shallowCopy()
-		// Set state root to latest block so that account balance is correct when doing balance check
-		await vmCopy.stateManager.setStateRoot(block.stateRoot)
+		// TODO We should set state root to latest block so that account balance is correct when doing balance check
+		// This should be fixed via abstracting chain history wrt state and blockchain in the new `chain` object
+		// await vmCopy.stateManager.setStateRoot(block.stateRoot)
 		let account = await vmCopy.stateManager.getAccount(senderAddress)
 		if (account === undefined) {
 			account = new EthjsAccount()
@@ -281,7 +287,7 @@ export class TxPool {
 			)
 		}
 		const minimumBalance = tx.value + currentGasPrice.maxFee * tx.gasLimit
-		if (account.balance < minimumBalance) {
+		if (!skipBalance && account.balance < minimumBalance) {
 			throw new Error(
 				`0x${sender} does not have enough balance to cover transaction costs, need ${minimumBalance}, but have ${account.balance} (insufficient balance)`,
 			)
@@ -327,8 +333,12 @@ export class TxPool {
 	 * @param tx Transaction
 	 * @param isLocalTransaction if this is a local transaction (loosens some constraints) (default: false)
 	 */
-	async add(tx: TypedTransaction) {
-		await this.validate(tx, true)
+	async add(
+		tx: TypedTransaction,
+		requireSignature = true,
+		skipBalance = false,
+	) {
+		await this.validate(tx, true, requireSignature, skipBalance)
 		return this.addUnverified(tx)
 	}
 

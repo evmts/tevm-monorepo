@@ -169,13 +169,13 @@ The number of txs currently in the pool
 
 #### Source
 
-[TxPool.ts:615](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L615)
+[TxPool.ts:625](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L625)
 
 ***
 
 ### add()
 
-> **add**(`tx`): `Promise`\<`void`\>
+> **add**(`tx`, `requireSignature`, `skipBalance`): `Promise`\<`void`\>
 
 Adds a tx to the pool.
 
@@ -189,9 +189,13 @@ This also verifies certain constraints, if these are not met, tx will not be add
 
 Transaction
 
+▪ **requireSignature**: `boolean`= `true`
+
+▪ **skipBalance**: `boolean`= `false`
+
 #### Source
 
-[TxPool.ts:330](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L330)
+[TxPool.ts:336](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L336)
 
 ***
 
@@ -213,7 +217,7 @@ Transaction
 
 #### Source
 
-[TxPool.ts:300](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L300)
+[TxPool.ts:306](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L306)
 
 ***
 
@@ -225,7 +229,7 @@ Regular tx pool cleanup
 
 #### Source
 
-[TxPool.ts:398](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L398)
+[TxPool.ts:408](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L408)
 
 ***
 
@@ -237,7 +241,7 @@ Close pool
 
 #### Source
 
-[TxPool.ts:608](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L608)
+[TxPool.ts:618](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L618)
 
 ***
 
@@ -257,7 +261,7 @@ Array with tx objects
 
 #### Source
 
-[TxPool.ts:340](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L340)
+[TxPool.ts:350](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L350)
 
 ***
 
@@ -282,7 +286,7 @@ gasPrice to determine the leftover priority tip.
 
 #### Source
 
-[TxPool.ts:432](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L432)
+[TxPool.ts:442](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L442)
 
 ***
 
@@ -312,7 +316,7 @@ Hash of the transaction
 
 #### Source
 
-[TxPool.ts:363](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L363)
+[TxPool.ts:373](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L373)
 
 ***
 
@@ -328,7 +332,7 @@ Remove txs included in the latest blocks from the tx pool
 
 #### Source
 
-[TxPool.ts:385](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L385)
+[TxPool.ts:395](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L395)
 
 ***
 
@@ -352,7 +356,7 @@ Stop pool execution
 
 #### Source
 
-[TxPool.ts:597](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L597)
+[TxPool.ts:607](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L607)
 
 ***
 
@@ -374,7 +378,7 @@ Gas price (both tip and max fee)
 
 #### Source
 
-[TxPool.ts:453](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L453)
+[TxPool.ts:463](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L463)
 
 ***
 
@@ -407,13 +411,13 @@ the head transaction from each account. This is done via a heap to keep it fast.
 
 #### Source
 
-[TxPool.ts:494](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L494)
+[TxPool.ts:504](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L504)
 
 ***
 
 ### validate()
 
-> **`private`** **validate**(`tx`, `isLocalTransaction`): `Promise`\<`void`\>
+> **`private`** **validate**(`tx`, `isLocalTransaction`, `requireSignature`, `skipBalance`): `Promise`\<`void`\>
 
 Validates a transaction against the pool and other constraints
 
@@ -424,6 +428,10 @@ Validates a transaction against the pool and other constraints
 The tx to validate
 
 ▪ **isLocalTransaction**: `boolean`= `false`
+
+▪ **requireSignature**: `boolean`= `true`
+
+▪ **skipBalance**: `boolean`= `false`
 
 #### Source
 
