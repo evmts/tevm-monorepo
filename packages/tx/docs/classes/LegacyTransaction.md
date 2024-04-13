@@ -10,7 +10,7 @@ An Ethereum non-typed (legacy) transaction
 
 ## Extends
 
-- `BaseTransaction`\<`TransactionType.Legacy`\>
+- `BaseTransaction`\<[`Legacy`](../enumerations/TransactionType.md#legacy)\>
 
 ## Constructors
 
@@ -42,7 +42,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/l
 
 ### \_type
 
-> **`protected`** **`readonly`** **\_type**: `TransactionType`
+> **`protected`** **`readonly`** **\_type**: [`TransactionType`](../enumerations/TransactionType.md)
 
 #### Inherited from
 
@@ -248,7 +248,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/b
 
 ### type
 
-> **`get`** **type**(): `TransactionType`
+> **`get`** **type**(): [`TransactionType`](../enumerations/TransactionType.md)
 
 Returns the transaction type.
 

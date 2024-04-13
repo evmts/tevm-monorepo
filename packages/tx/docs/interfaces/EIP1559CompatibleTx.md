@@ -12,7 +12,7 @@
 
 ## Type parameters
 
-▪ **T** extends `TransactionType` = `TransactionType`
+▪ **T** extends [`TransactionType`](../enumerations/TransactionType.md) = [`TransactionType`](../enumerations/TransactionType.md)
 
 ## Properties
 
@@ -192,7 +192,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 ### type
 
-> **type**: `TransactionType`
+> **type**: [`TransactionType`](../enumerations/TransactionType.md)
 
 #### Inherited from
 

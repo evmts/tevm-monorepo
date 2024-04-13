@@ -9,6 +9,7 @@
 ### Enumerations
 
 - [Capability](enumerations/Capability.md)
+- [TransactionType](enumerations/TransactionType.md)
 
 ### Classes
 
