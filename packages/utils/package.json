@@ -62,6 +62,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@ethereumjs/evm": "^3.0.0",
     "@ethereumjs/util": "^9.0.3",
     "abitype": "^1.0.2",
     "viem": "^2.8.18"
