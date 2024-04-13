@@ -6,13 +6,20 @@
 
 ## Exports
 
+### Enumerations
+
+- [KeyEncoding](enumerations/KeyEncoding.md)
+- [ValueEncoding](enumerations/ValueEncoding.md)
+
 ### Classes
 
+- [Bloom](classes/Bloom.md)
 - [EthjsAccount](classes/EthjsAccount.md)
 - [EthjsAddress](classes/EthjsAddress.md)
 
 ### Interfaces
 
+- [Db](interfaces/Db.md)
 - [GenesisState](interfaces/GenesisState.md)
 
 ### Type Aliases
@@ -25,14 +32,18 @@
 - [AbiParametersToPrimitiveTypes](type-aliases/AbiParametersToPrimitiveTypes.md)
 - [Account](type-aliases/Account.md)
 - [Address](type-aliases/Address.md)
+- [BatchDbOp](type-aliases/BatchDbOp.md)
 - [BigIntToHex](type-aliases/BigIntToHex.md)
 - [BlockNumber](type-aliases/BlockNumber.md)
 - [BlockTag](type-aliases/BlockTag.md)
 - [ContractFunctionName](type-aliases/ContractFunctionName.md)
 - [CreateEventFilterParameters](type-aliases/CreateEventFilterParameters.md)
 - [CreateMemoryDbFn](type-aliases/CreateMemoryDbFn.md)
+- [DbObject](type-aliases/DbObject.md)
 - [DecodeFunctionResultReturnType](type-aliases/DecodeFunctionResultReturnType.md)
 - [EncodeFunctionDataParameters](type-aliases/EncodeFunctionDataParameters.md)
+- [EncodingOpts](type-aliases/EncodingOpts.md)
+- [EthjsLog](type-aliases/EthjsLog.md)
 - [ExtractAbiEvent](type-aliases/ExtractAbiEvent.md)
 - [ExtractAbiEventNames](type-aliases/ExtractAbiEventNames.md)
 - [ExtractAbiEvents](type-aliases/ExtractAbiEvents.md)
@@ -62,6 +73,7 @@
 - [bytesToHex](functions/bytesToHex.md)
 - [bytesToNumber](functions/bytesToNumber.md)
 - [bytesToUnprefixedHex](functions/bytesToUnprefixedHex.md)
+- [concatBytes](functions/concatBytes.md)
 - [createMemoryDb](functions/createMemoryDb.md)
 - [decodeAbiParameters](functions/decodeAbiParameters.md)
 - [decodeErrorResult](functions/decodeErrorResult.md)

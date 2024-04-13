@@ -6,11 +6,7 @@
 
 # Type alias: EthCallJsonRpcResponse
 
-<<<<<<< HEAD
 > **EthCallJsonRpcResponse**: `JsonRpcResponse`\<`"eth_call"`, `Hex`, `string` \| `number`\>
-=======
-> **EthCallJsonRpcResponse**: `JsonRpcResponse`\<`"eth_call"`, `Hex`, `string`\>
->>>>>>> 52c3c297 (:recycle: Chore: docs gen)
 
 JSON-RPC response for `eth_call` procedure
 
