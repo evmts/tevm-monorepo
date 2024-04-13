@@ -59,16 +59,6 @@ packages/state/types/ForkStateManager.d.ts:40
 
 ***
 
-### \_blockTag
-
-> **`protected`** **\_blockTag**: `object` \| `object`
-
-#### Source
-
-packages/state/types/ForkStateManager.d.ts:41
-
-***
-
 ### \_contractCache
 
 > **`protected`** **\_contractCache**: `Map`\<`string`, `Uint8Array`\>
@@ -86,6 +76,16 @@ packages/state/types/ForkStateManager.d.ts:38
 #### Source
 
 packages/state/types/ForkStateManager.d.ts:39
+
+***
+
+### blockTag
+
+> **blockTag**: `object` \| `object`
+
+#### Source
+
+packages/state/types/ForkStateManager.d.ts:41
 
 ***
 

@@ -1913,6 +1913,19 @@ importers:
         specifier: workspace:^
         version: link:../../configs/tsupconfig
 
+  packages/rlp:
+    dependencies:
+      '@ethereumjs/rlp':
+        specifier: ^5.0.2
+        version: 5.0.2
+    devDependencies:
+      '@tevm/tsconfig':
+        specifier: workspace:^
+        version: link:../../configs/tsconfig
+      '@tevm/tsupconfig':
+        specifier: workspace:^
+        version: link:../../configs/tsupconfig
+
   packages/server:
     dependencies:
       '@tevm/errors':

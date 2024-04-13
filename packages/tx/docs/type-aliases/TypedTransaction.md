@@ -6,7 +6,7 @@
 
 # Type alias: TypedTransaction
 
-> **TypedTransaction**: `Transaction`[`TransactionType`]
+> **TypedTransaction**: `Transaction`[[`TransactionType`](../enumerations/TransactionType.md)]
 
 ## Source
 
