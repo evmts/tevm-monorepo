@@ -6,13 +6,13 @@
 
 # Type alias: EthGetBalanceJsonRpcResponse
 
-> **EthGetBalanceJsonRpcResponse**: `JsonRpcResponse`\<`"eth_getBalance"`, `Hex`, `string`\>
+> **EthGetBalanceJsonRpcResponse**: `JsonRpcResponse`\<`"eth_getBalance"`, `Hex`, `string` \| `number`\>
 
 JSON-RPC response for `eth_getBalance` procedure
 
 ## Source
 
-[responses/EthJsonRpcResponse.ts:90](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L90)
+[responses/EthJsonRpcResponse.ts:94](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L94)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

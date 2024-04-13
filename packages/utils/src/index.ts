@@ -76,13 +76,25 @@ export {
 	parseGwei,
 	toRlp,
 } from './viem.js'
+export { Bloom } from './Bloom.js'
 export {
 	EthjsAccount,
 	EthjsAddress,
 	equalsBytes,
 	bytesToUnprefixedHex,
+	concatBytes,
+	KeyEncoding,
+	ValueEncoding,
 } from './ethereumjs.js'
-export { type GenesisState, type WithdrawalData } from '@ethereumjs/util'
+export type {
+	GenesisState,
+	WithdrawalData,
+	DB as Db,
+	DBObject as DbObject,
+	BatchDBOp as BatchDbOp,
+	EncodingOpts,
+} from '@ethereumjs/util'
+export type { Log as EthjsLog } from '@ethereumjs/evm'
 export type {
 	SetToHex,
 	BigIntToHex,

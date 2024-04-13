@@ -6,7 +6,7 @@
 
 # Type alias: EthMiningJsonRpcResponse
 
-> **EthMiningJsonRpcResponse**: [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"eth_mining"`, `boolean`, `string`\>
+> **EthMiningJsonRpcResponse**: [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"eth_mining"`, `boolean`, `string` \| `number`\>
 
 JSON-RPC response for `eth_mining` procedure
 

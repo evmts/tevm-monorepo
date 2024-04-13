@@ -6,13 +6,13 @@
 
 # Type alias: EthChainIdJsonRpcResponse
 
-> **EthChainIdJsonRpcResponse**: `JsonRpcResponse`\<`"eth_chainId"`, `Hex`, `string`\>
+> **EthChainIdJsonRpcResponse**: `JsonRpcResponse`\<`"eth_chainId"`, `Hex`, `string` \| `number`\>
 
 JSON-RPC response for `eth_chainId` procedure
 
 ## Source
 
-[responses/EthJsonRpcResponse.ts:40](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L40)
+[responses/EthJsonRpcResponse.ts:44](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L44)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

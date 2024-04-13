@@ -3,4 +3,7 @@ export {
 	Account as EthjsAccount,
 	bytesToUnprefixedHex,
 	equalsBytes,
+	concatBytes,
+	KeyEncoding,
+	ValueEncoding,
 } from '@ethereumjs/util'

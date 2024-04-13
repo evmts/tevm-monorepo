@@ -14,7 +14,7 @@
 | :------ |
 | `TMethod` extends `string` |
 | `TResult` |
-| `TErrorCode` extends `string` |
+| `TErrorCode` extends `string` \| `number` |
 
 ## Source
 

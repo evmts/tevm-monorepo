@@ -6,13 +6,13 @@
 
 # Type alias: EthEstimateGasJsonRpcResponse
 
-> **EthEstimateGasJsonRpcResponse**: `JsonRpcResponse`\<`"eth_estimateGas"`, `Hex`, `string`\>
+> **EthEstimateGasJsonRpcResponse**: `JsonRpcResponse`\<`"eth_estimateGas"`, `Hex`, `string` \| `number`\>
 
 JSON-RPC response for `eth_estimateGas` procedure
 
 ## Source
 
-[responses/EthJsonRpcResponse.ts:60](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L60)
+[responses/EthJsonRpcResponse.ts:64](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L64)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -6,13 +6,13 @@
 
 # Type alias: EthGetLogsJsonRpcResponse
 
-> **EthGetLogsJsonRpcResponse**: `JsonRpcResponse`\<`"eth_getLogs"`, `FilterLog`[], `string`\>
+> **EthGetLogsJsonRpcResponse**: `JsonRpcResponse`\<`"eth_getLogs"`, `FilterLog`[], `string` \| `number`\>
 
 JSON-RPC response for `eth_getLogs` procedure
 
 ## Source
 
-[responses/EthJsonRpcResponse.ts:167](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L167)
+[responses/EthJsonRpcResponse.ts:171](https://github.com/evmts/tevm-monorepo/blob/main/packages/procedures-types/src/responses/EthJsonRpcResponse.ts#L171)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
