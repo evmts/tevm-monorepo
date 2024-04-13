@@ -13,9 +13,16 @@ import type { BaseParams } from './BaseParams.js'
 export type BaseCallParams<TThrowOnFail extends boolean = boolean> =
 	BaseParams<TThrowOnFail> & {
 		/**
-		 * Whether or not to update the state or run call in a dry-run. Defaults to `false`
+		 * Whether or not to update the state or run call in a dry-run. Defaults to `never`
+		 * - `on-success`: Only update the state if the call is successful
+		 * - `always`: Always include tx even if it reverted
+		 * - `never`: Never include tx
+		 * - `true`: alias for `on-success`
+		 * - `false`: alias for `never`
+		 * Always will still not include the transaction if it's not valid to be included in
+		 * the chain such as the gas limit being too low.
 		 */
-		createTransaction?: boolean
+		createTransaction?: 'on-success' | 'always' | 'never' | boolean
 		/**
 		 * The block number or block tag to execute the call at. Defaults to `latest`
 		 */

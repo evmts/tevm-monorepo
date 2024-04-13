@@ -10,12 +10,17 @@ import { z } from 'zod'
 
 export const zBaseCallParams = zBaseParams
 	.extend({
-		createTransaction: z
-			.boolean()
-			.optional()
-			.describe(
-				'If true, this call is a create transaction. Defaults to false.',
-			),
+		createTransaction: z.union([
+			z
+				.boolean()
+				.optional()
+				.describe(
+					'If true, this call is a create transaction. Defaults to false.',
+				),
+			z.literal('on-success'),
+			z.literal('always'),
+			z.literal('never'),
+		]),
 		skipBalance: z
 			.boolean()
 			.optional()
