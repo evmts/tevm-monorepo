@@ -59,16 +59,6 @@ const stateManager = new ForkStateManager({
 
 ***
 
-### \_blockTag
-
-> **`protected`** **\_blockTag**: `object` \| `object`
-
-#### Source
-
-[packages/state/src/ForkStateManager.ts:58](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L58)
-
-***
-
 ### \_contractCache
 
 > **`protected`** **\_contractCache**: `Map`\<`string`, `Uint8Array`\>
@@ -86,6 +76,16 @@ const stateManager = new ForkStateManager({
 #### Source
 
 [packages/state/src/ForkStateManager.ts:56](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L56)
+
+***
+
+### blockTag
+
+> **blockTag**: `object` \| `object`
+
+#### Source
+
+[packages/state/src/ForkStateManager.ts:58](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L58)
 
 ***
 
