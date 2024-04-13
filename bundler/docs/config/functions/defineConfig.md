@@ -40,7 +40,11 @@ export default defineConfig(() => ({
 
 ## Source
 
+<<<<<<< HEAD
 bundler-packages/config/types/defineConfig.d.ts:38
+=======
+bundler-packages/config/types/defineConfig.d.ts:35
+>>>>>>> 52c3c297 (:recycle: Chore: docs gen)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
