@@ -41,9 +41,16 @@ This defaults to `from` address if set otherwise it defaults to the zero address
 
 ### createTransaction
 
-> **createTransaction**?: `boolean`
+> **createTransaction**?: `"on-success"` \| `"always"` \| `"never"` \| `boolean`
 
-Whether or not to update the state or run call in a dry-run. Defaults to `false`
+Whether or not to update the state or run call in a dry-run. Defaults to `never`
+- `on-success`: Only update the state if the call is successful
+- `always`: Always include tx even if it reverted
+- `never`: Never include tx
+- `true`: alias for `on-success`
+- `false`: alias for `never`
+Always will still not include the transaction if it's not valid to be included in
+the chain such as the gas limit being too low.
 
 ### depth
 

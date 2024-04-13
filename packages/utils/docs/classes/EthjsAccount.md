@@ -1,229 +1,175 @@
-[@tevm/utils](../README.md) / [Exports](../modules.md) / EthjsAccount
+**@tevm/utils** ∙ [README](../README.md) ∙ [API](../API.md)
+
+***
+
+[API](../API.md) > EthjsAccount
 
 # Class: EthjsAccount
 
-## Table of contents
-
-### Constructors
-
-- [constructor](EthjsAccount.md#constructor)
-
-### Properties
-
-- [\_validate](EthjsAccount.md#_validate)
-- [balance](EthjsAccount.md#balance)
-- [codeHash](EthjsAccount.md#codehash)
-- [nonce](EthjsAccount.md#nonce)
-- [storageRoot](EthjsAccount.md#storageroot)
-
-### Methods
-
-- [isContract](EthjsAccount.md#iscontract)
-- [isEmpty](EthjsAccount.md#isempty)
-- [raw](EthjsAccount.md#raw)
-- [serialize](EthjsAccount.md#serialize)
-- [fromAccountData](EthjsAccount.md#fromaccountdata)
-- [fromRlpSerializedAccount](EthjsAccount.md#fromrlpserializedaccount)
-- [fromValuesArray](EthjsAccount.md#fromvaluesarray)
-
 ## Constructors
 
-### constructor
+### new EthjsAccount(nonce, balance, storageRoot, codeHash)
 
-• **new EthjsAccount**(`nonce?`, `balance?`, `storageRoot?`, `codeHash?`): [`EthjsAccount`](EthjsAccount.md)
+> **new EthjsAccount**(`nonce`?, `balance`?, `storageRoot`?, `codeHash`?): [`EthjsAccount`](EthjsAccount.md)
 
 This constructor assigns and validates the values.
 Use the static factory methods to assist in creating an Account from varying data types.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `nonce?` | `bigint` |
-| `balance?` | `bigint` |
-| `storageRoot?` | `Uint8Array` |
-| `codeHash?` | `Uint8Array` |
+▪ **nonce?**: `bigint`
 
-#### Returns
+▪ **balance?**: `bigint`
 
-[`EthjsAccount`](EthjsAccount.md)
+▪ **storageRoot?**: `Uint8Array`
 
-#### Defined in
+▪ **codeHash?**: `Uint8Array`
 
-node_modules/.pnpm/@ethereumjs+util@9.0.3/node_modules/@ethereumjs/util/dist/esm/account.d.ts:21
+#### Source
+
+node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:21
 
 ## Properties
 
 ### \_validate
 
-• `Private` **\_validate**: `any`
+> **`private`** **\_validate**: `any`
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/@ethereumjs+util@9.0.3/node_modules/@ethereumjs/util/dist/esm/account.d.ts:22
+node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:22
 
-___
+***
 
 ### balance
 
-• **balance**: `bigint`
+> **balance**: `bigint`
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/@ethereumjs+util@9.0.3/node_modules/@ethereumjs/util/dist/esm/account.d.ts:11
+node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:11
 
-___
+***
 
 ### codeHash
 
-• **codeHash**: `Uint8Array`
+> **codeHash**: `Uint8Array`
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/@ethereumjs+util@9.0.3/node_modules/@ethereumjs/util/dist/esm/account.d.ts:13
+node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:13
 
-___
+***
 
 ### nonce
 
-• **nonce**: `bigint`
+> **nonce**: `bigint`
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/@ethereumjs+util@9.0.3/node_modules/@ethereumjs/util/dist/esm/account.d.ts:10
+node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:10
 
-___
+***
 
 ### storageRoot
 
-• **storageRoot**: `Uint8Array`
+> **storageRoot**: `Uint8Array`
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/@ethereumjs+util@9.0.3/node_modules/@ethereumjs/util/dist/esm/account.d.ts:12
+node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:12
 
 ## Methods
 
-### isContract
+### isContract()
 
-▸ **isContract**(): `boolean`
+> **isContract**(): `boolean`
 
 Returns a `Boolean` determining if the account is a contract.
 
-#### Returns
+#### Source
 
-`boolean`
+node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:34
 
-#### Defined in
+***
 
-node_modules/.pnpm/@ethereumjs+util@9.0.3/node_modules/@ethereumjs/util/dist/esm/account.d.ts:34
+### isEmpty()
 
-___
-
-### isEmpty
-
-▸ **isEmpty**(): `boolean`
+> **isEmpty**(): `boolean`
 
 Returns a `Boolean` determining if the account is empty complying to the definition of
 account emptiness in [EIP-161](https://eips.ethereum.org/EIPS/eip-161):
 "An account is considered empty when it has no code and zero nonce and zero balance."
 
-#### Returns
+#### Source
 
-`boolean`
+node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:40
 
-#### Defined in
+***
 
-node_modules/.pnpm/@ethereumjs+util@9.0.3/node_modules/@ethereumjs/util/dist/esm/account.d.ts:40
+### raw()
 
-___
-
-### raw
-
-▸ **raw**(): `Uint8Array`[]
+> **raw**(): `Uint8Array`[]
 
 Returns an array of Uint8Arrays of the raw bytes for the account, in order.
 
-#### Returns
+#### Source
 
-`Uint8Array`[]
+node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:26
 
-#### Defined in
+***
 
-node_modules/.pnpm/@ethereumjs+util@9.0.3/node_modules/@ethereumjs/util/dist/esm/account.d.ts:26
+### serialize()
 
-___
-
-### serialize
-
-▸ **serialize**(): `Uint8Array`
+> **serialize**(): `Uint8Array`
 
 Returns the RLP serialization of the account as a `Uint8Array`.
 
-#### Returns
+#### Source
 
-`Uint8Array`
+node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:30
 
-#### Defined in
+***
 
-node_modules/.pnpm/@ethereumjs+util@9.0.3/node_modules/@ethereumjs/util/dist/esm/account.d.ts:30
+### fromAccountData()
 
-___
-
-### fromAccountData
-
-▸ **fromAccountData**(`accountData`): [`EthjsAccount`](EthjsAccount.md)
+> **`static`** **fromAccountData**(`accountData`): [`EthjsAccount`](EthjsAccount.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `accountData` | `AccountData` |
+▪ **accountData**: `AccountData`
 
-#### Returns
+#### Source
 
-[`EthjsAccount`](EthjsAccount.md)
+node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:14
 
-#### Defined in
+***
 
-node_modules/.pnpm/@ethereumjs+util@9.0.3/node_modules/@ethereumjs/util/dist/esm/account.d.ts:14
+### fromRlpSerializedAccount()
 
-___
-
-### fromRlpSerializedAccount
-
-▸ **fromRlpSerializedAccount**(`serialized`): [`EthjsAccount`](EthjsAccount.md)
+> **`static`** **fromRlpSerializedAccount**(`serialized`): [`EthjsAccount`](EthjsAccount.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `serialized` | `Uint8Array` |
+▪ **serialized**: `Uint8Array`
 
-#### Returns
+#### Source
 
-[`EthjsAccount`](EthjsAccount.md)
+node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:15
 
-#### Defined in
+***
 
-node_modules/.pnpm/@ethereumjs+util@9.0.3/node_modules/@ethereumjs/util/dist/esm/account.d.ts:15
+### fromValuesArray()
 
-___
-
-### fromValuesArray
-
-▸ **fromValuesArray**(`values`): [`EthjsAccount`](EthjsAccount.md)
+> **`static`** **fromValuesArray**(`values`): [`EthjsAccount`](EthjsAccount.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `values` | `Uint8Array`[] |
+▪ **values**: `Uint8Array`[]
 
-#### Returns
+#### Source
 
-[`EthjsAccount`](EthjsAccount.md)
+node\_modules/.pnpm/@ethereumjs+util@9.0.3/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:16
 
-#### Defined in
-
-node_modules/.pnpm/@ethereumjs+util@9.0.3/node_modules/@ethereumjs/util/dist/esm/account.d.ts:16
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

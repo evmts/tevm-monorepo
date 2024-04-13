@@ -1,65 +1,54 @@
-[@tevm/state](../README.md) / [Exports](../modules.md) / ProxyStateManagerOpts
+**@tevm/state** ∙ [README](../README.md) ∙ [API](../API.md)
+
+***
+
+[API](../API.md) > ProxyStateManagerOpts
 
 # Interface: ProxyStateManagerOpts
-
-## Table of contents
-
-### Properties
-
-- [expectedBlockTime](ProxyStateManagerOpts.md#expectedblocktime)
-- [onCommit](ProxyStateManagerOpts.md#oncommit)
-- [url](ProxyStateManagerOpts.md#url)
 
 ## Properties
 
 ### expectedBlockTime
 
-• `Optional` **expectedBlockTime**: `number`
+> **expectedBlockTime**?: `number`
 
 The expected time between blocks in milliseconds
 This is used to avoid fetching blockNumber if the blockNumber is not expected to have changed
 Defaults to 2000ms (2s)
 
-#### Defined in
+#### Source
 
 [packages/state/src/ProxyStateManager.ts:36](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L36)
 
-___
+***
 
 ### onCommit
 
-• `Optional` **onCommit**: (`stateManager`: [`ProxyStateManager`](../classes/ProxyStateManager.md)) => `void`
+> **onCommit**?: (`stateManager`) => `void`
 
 Called when state manager commits state
 
-#### Type declaration
-
-▸ (`stateManager`): `void`
-
 Called when state manager commits state
 
-##### Parameters
+#### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `stateManager` | [`ProxyStateManager`](../classes/ProxyStateManager.md) |
+▪ **stateManager**: [`ProxyStateManager`](../classes/ProxyStateManager.md)
 
-##### Returns
-
-`void`
-
-#### Defined in
+#### Source
 
 [packages/state/src/ProxyStateManager.ts:40](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L40)
 
-___
+***
 
 ### url
 
-• **url**: `string`
+> **url**: `string`
 
 Url to a JSON-RPC provider to proxy state from
 
-#### Defined in
+#### Source
 
 [packages/state/src/ProxyStateManager.ts:30](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ProxyStateManager.ts#L30)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,40 +1,26 @@
-[@tevm/tx](../README.md) / [Exports](../modules.md) / TransactionFactory
+**@tevm/tx** ∙ [README](../README.md) ∙ [API](../API.md)
+
+***
+
+[API](../API.md) > TransactionFactory
 
 # Class: TransactionFactory
 
-## Table of contents
-
-### Constructors
-
-- [constructor](TransactionFactory.md#constructor)
-
-### Methods
-
-- [fromBlockBodyData](TransactionFactory.md#fromblockbodydata)
-- [fromJsonRpcProvider](TransactionFactory.md#fromjsonrpcprovider)
-- [fromRPC](TransactionFactory.md#fromrpc)
-- [fromSerializedData](TransactionFactory.md#fromserializeddata)
-- [fromTxData](TransactionFactory.md#fromtxdata)
-
 ## Constructors
 
-### constructor
+### new TransactionFactory()
 
-• **new TransactionFactory**(): [`TransactionFactory`](TransactionFactory.md)
+> **`private`** **new TransactionFactory**(): [`TransactionFactory`](TransactionFactory.md)
 
-#### Returns
+#### Source
 
-[`TransactionFactory`](TransactionFactory.md)
-
-#### Defined in
-
-node_modules/.pnpm/@ethereumjs+tx@5.3.0/node_modules/@ethereumjs/tx/dist/esm/transactionFactory.d.ts:9
+node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/transactionFactory.d.ts:9
 
 ## Methods
 
-### fromBlockBodyData
+### fromBlockBodyData()
 
-▸ **fromBlockBodyData**(`data`, `txOptions?`): [`LegacyTransaction`](LegacyTransaction.md) \| [`AccessListEIP2930Transaction`](AccessListEIP2930Transaction.md) \| [`FeeMarketEIP1559Transaction`](FeeMarketEIP1559Transaction.md) \| [`BlobEIP4844Transaction`](BlobEIP4844Transaction.md)
+> **`static`** **fromBlockBodyData**(`data`, `txOptions`?): [`LegacyTransaction`](LegacyTransaction.md) \| [`AccessListEIP2930Transaction`](AccessListEIP2930Transaction.md) \| [`FeeMarketEIP1559Transaction`](FeeMarketEIP1559Transaction.md) \| [`BlobEIP4844Transaction`](BlobEIP4844Transaction.md)
 
 When decoding a BlockBody, in the transactions field, a field is either:
 A Uint8Array (a TypedTransaction - encoded as TransactionType || rlp(TransactionPayload))
@@ -43,129 +29,128 @@ This method returns the right transaction.
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `data` | `Uint8Array` \| `Uint8Array`[] | A Uint8Array or Uint8Array[] |
-| `txOptions?` | `TxOptions` | The transaction options |
+▪ **data**: `Uint8Array` \| `Uint8Array`[]
 
-#### Returns
+A Uint8Array or Uint8Array[]
 
-[`LegacyTransaction`](LegacyTransaction.md) \| [`AccessListEIP2930Transaction`](AccessListEIP2930Transaction.md) \| [`FeeMarketEIP1559Transaction`](FeeMarketEIP1559Transaction.md) \| [`BlobEIP4844Transaction`](BlobEIP4844Transaction.md)
+▪ **txOptions?**: `TxOptions`
 
-#### Defined in
+The transaction options
 
-node_modules/.pnpm/@ethereumjs+tx@5.3.0/node_modules/@ethereumjs/tx/dist/esm/transactionFactory.d.ts:33
+#### Source
 
-___
+node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/transactionFactory.d.ts:33
 
-### fromJsonRpcProvider
+***
 
-▸ **fromJsonRpcProvider**(`provider`, `txHash`, `txOptions?`): `Promise`\<[`LegacyTransaction`](LegacyTransaction.md) \| [`AccessListEIP2930Transaction`](AccessListEIP2930Transaction.md) \| [`FeeMarketEIP1559Transaction`](FeeMarketEIP1559Transaction.md) \| [`BlobEIP4844Transaction`](BlobEIP4844Transaction.md)\>
+### fromJsonRpcProvider()
+
+> **`static`** **fromJsonRpcProvider**(`provider`, `txHash`, `txOptions`?): `Promise`\<[`LegacyTransaction`](LegacyTransaction.md) \| [`AccessListEIP2930Transaction`](AccessListEIP2930Transaction.md) \| [`FeeMarketEIP1559Transaction`](FeeMarketEIP1559Transaction.md) \| [`BlobEIP4844Transaction`](BlobEIP4844Transaction.md)\>
 
 Method to retrieve a transaction from the provider
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `provider` | `string` \| `EthersProvider` | a url string for a JSON-RPC provider or an Ethers JsonRPCProvider object |
-| `txHash` | `string` | Transaction hash |
-| `txOptions?` | `TxOptions` | The transaction options |
+▪ **provider**: `string` \| `EthersProvider`
+
+a url string for a JSON-RPC provider or an Ethers JsonRPCProvider object
+
+▪ **txHash**: `string`
+
+Transaction hash
+
+▪ **txOptions?**: `TxOptions`
+
+The transaction options
 
 #### Returns
 
-`Promise`\<[`LegacyTransaction`](LegacyTransaction.md) \| [`AccessListEIP2930Transaction`](AccessListEIP2930Transaction.md) \| [`FeeMarketEIP1559Transaction`](FeeMarketEIP1559Transaction.md) \| [`BlobEIP4844Transaction`](BlobEIP4844Transaction.md)\>
-
 the transaction specified by `txHash`
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/@ethereumjs+tx@5.3.0/node_modules/@ethereumjs/tx/dist/esm/transactionFactory.d.ts:41
+node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/transactionFactory.d.ts:41
 
-___
+***
 
-### fromRPC
+### fromRPC()
 
-▸ **fromRPC**\<`T`\>(`txData`, `txOptions?`): `Promise`\<`Transaction`[`T`]\>
+> **`static`** **fromRPC**\<`T`\>(`txData`, `txOptions`?): `Promise`\<`Transaction`[`T`]\>
 
 Method to decode data retrieved from RPC, such as `eth_getTransactionByHash`
 Note that this normalizes some of the parameters
 
 #### Type parameters
 
-| Name | Type |
-| :------ | :------ |
-| `T` | extends `TransactionType` |
+▪ **T** extends `TransactionType`
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `txData` | [`TxData`](../interfaces/TxData.md)[`T`] | The RPC-encoded data |
-| `txOptions?` | `TxOptions` | The transaction options |
+▪ **txData**: [`TxData`](../interfaces/TxData.md)[`T`]
+
+The RPC-encoded data
+
+▪ **txOptions?**: `TxOptions`
+
+The transaction options
 
 #### Returns
 
-`Promise`\<`Transaction`[`T`]\>
+#### Source
 
-#### Defined in
+node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/transactionFactory.d.ts:49
 
-node_modules/.pnpm/@ethereumjs+tx@5.3.0/node_modules/@ethereumjs/tx/dist/esm/transactionFactory.d.ts:49
+***
 
-___
+### fromSerializedData()
 
-### fromSerializedData
-
-▸ **fromSerializedData**\<`T`\>(`data`, `txOptions?`): `Transaction`[`T`]
+> **`static`** **fromSerializedData**\<`T`\>(`data`, `txOptions`?): `Transaction`[`T`]
 
 This method tries to decode serialized data.
 
 #### Type parameters
 
-| Name | Type |
-| :------ | :------ |
-| `T` | extends `TransactionType` |
+▪ **T** extends `TransactionType`
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `data` | `Uint8Array` | The data Uint8Array |
-| `txOptions?` | `TxOptions` | The transaction options |
+▪ **data**: `Uint8Array`
 
-#### Returns
+The data Uint8Array
 
-`Transaction`[`T`]
+▪ **txOptions?**: `TxOptions`
 
-#### Defined in
+The transaction options
 
-node_modules/.pnpm/@ethereumjs+tx@5.3.0/node_modules/@ethereumjs/tx/dist/esm/transactionFactory.d.ts:23
+#### Source
 
-___
+node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/transactionFactory.d.ts:23
 
-### fromTxData
+***
 
-▸ **fromTxData**\<`T`\>(`txData`, `txOptions?`): `Transaction`[`T`]
+### fromTxData()
+
+> **`static`** **fromTxData**\<`T`\>(`txData`, `txOptions`?): `Transaction`[`T`]
 
 Create a transaction from a `txData` object
 
 #### Type parameters
 
-| Name | Type |
-| :------ | :------ |
-| `T` | extends `TransactionType` |
+▪ **T** extends `TransactionType`
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `txData` | `TypedTxData` | The transaction data. The `type` field will determine which transaction type is returned (if undefined, creates a legacy transaction) |
-| `txOptions?` | `TxOptions` | Options to pass on to the constructor of the transaction |
+▪ **txData**: `TypedTxData`
 
-#### Returns
+The transaction data. The `type` field will determine which transaction type is returned (if undefined, creates a legacy transaction)
 
-`Transaction`[`T`]
+▪ **txOptions?**: `TxOptions`
 
-#### Defined in
+Options to pass on to the constructor of the transaction
 
-node_modules/.pnpm/@ethereumjs+tx@5.3.0/node_modules/@ethereumjs/tx/dist/esm/transactionFactory.d.ts:16
+#### Source
+
+node\_modules/.pnpm/@ethereumjs+tx@5.3.0/node\_modules/@ethereumjs/tx/dist/esm/transactionFactory.d.ts:16
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

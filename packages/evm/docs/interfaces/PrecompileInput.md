@@ -1,63 +1,60 @@
-[@tevm/evm](../README.md) / [Exports](../modules.md) / PrecompileInput
+**@tevm/evm** ∙ [README](../README.md) ∙ [API](../API.md)
+
+***
+
+[API](../API.md) > PrecompileInput
 
 # Interface: PrecompileInput
-
-## Table of contents
-
-### Properties
-
-- [\_EVM](PrecompileInput.md#_evm)
-- [\_debug](PrecompileInput.md#_debug)
-- [common](PrecompileInput.md#common)
-- [data](PrecompileInput.md#data)
-- [gasLimit](PrecompileInput.md#gaslimit)
 
 ## Properties
 
 ### \_EVM
 
-• **\_EVM**: `EVMInterface`
+> **\_EVM**: `EVMInterface`
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/@ethereumjs+evm@3.0.0/node_modules/@ethereumjs/evm/dist/esm/precompiles/types.d.ts:11
+node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm/precompiles/types.d.ts:11
 
-___
+***
 
 ### \_debug
 
-• `Optional` **\_debug**: `Debugger`
+> **\_debug**?: `Debugger`
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/@ethereumjs+evm@3.0.0/node_modules/@ethereumjs/evm/dist/esm/precompiles/types.d.ts:12
+node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm/precompiles/types.d.ts:12
 
-___
+***
 
 ### common
 
-• **common**: `Common`
+> **common**: `Common`
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/@ethereumjs+evm@3.0.0/node_modules/@ethereumjs/evm/dist/esm/precompiles/types.d.ts:10
+node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm/precompiles/types.d.ts:10
 
-___
+***
 
 ### data
 
-• **data**: `Uint8Array`
+> **data**: `Uint8Array`
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/@ethereumjs+evm@3.0.0/node_modules/@ethereumjs/evm/dist/esm/precompiles/types.d.ts:8
+node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm/precompiles/types.d.ts:8
 
-___
+***
 
 ### gasLimit
 
-• **gasLimit**: `bigint`
+> **gasLimit**: `bigint`
 
-#### Defined in
+#### Source
 
-node_modules/.pnpm/@ethereumjs+evm@3.0.0/node_modules/@ethereumjs/evm/dist/esm/precompiles/types.d.ts:9
+node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm/precompiles/types.d.ts:9
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -1,59 +1,48 @@
-[@tevm/state](../README.md) / [Exports](../modules.md) / ForkStateManagerOpts
+**@tevm/state** ∙ [README](../README.md) ∙ [API](../API.md)
+
+***
+
+[API](../API.md) > ForkStateManagerOpts
 
 # Interface: ForkStateManagerOpts
-
-## Table of contents
-
-### Properties
-
-- [blockTag](ForkStateManagerOpts.md#blocktag)
-- [onCommit](ForkStateManagerOpts.md#oncommit)
-- [url](ForkStateManagerOpts.md#url)
 
 ## Properties
 
 ### blockTag
 
-• `Optional` **blockTag**: `bigint` \| `BlockTag`
+> **blockTag**?: `bigint` \| `BlockTag`
 
-#### Defined in
+#### Source
 
 [packages/state/src/ForkStateManager.ts:28](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L28)
 
-___
+***
 
 ### onCommit
 
-• `Optional` **onCommit**: (`stateManager`: [`ForkStateManager`](../classes/ForkStateManager.md)) => `void`
+> **onCommit**?: (`stateManager`) => `void`
 
 Called when state manager commits state
 
-#### Type declaration
-
-▸ (`stateManager`): `void`
-
 Called when state manager commits state
 
-##### Parameters
+#### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `stateManager` | [`ForkStateManager`](../classes/ForkStateManager.md) |
+▪ **stateManager**: [`ForkStateManager`](../classes/ForkStateManager.md)
 
-##### Returns
-
-`void`
-
-#### Defined in
+#### Source
 
 [packages/state/src/ForkStateManager.ts:32](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L32)
 
-___
+***
 
 ### url
 
-• **url**: `string`
+> **url**: `string`
 
-#### Defined in
+#### Source
 
 [packages/state/src/ForkStateManager.ts:27](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ForkStateManager.ts#L27)
+
+***
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
