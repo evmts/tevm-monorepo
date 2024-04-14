@@ -167,12 +167,13 @@ export const createBaseClient = (options = {}) => {
 			}
 			return 'latest'
 		})()
+		// TODO replace with chain
 		const blockchain = await createBlockchain({
 			common,
-			forkUrl: options.fork?.url,
-			blockTag,
+			...(options.fork?.url !== undefined ? { forkUrl: options.fork.url } : {}),
+			...(blockTag !== undefined ? { blockTag } : {}),
 		})
-		const evm = createEvm({
+		const evm = await createEvm({
 			common,
 			stateManager,
 			blockchain,
@@ -212,7 +213,6 @@ export const createBaseClient = (options = {}) => {
 	const chainIdPromise = initChainId()
 	const chainPromise = vmPromise.then((vm) => {
 		return Chain.create({
-			blockchain: vm.blockchain,
 			common: vm.common,
 		})
 	})

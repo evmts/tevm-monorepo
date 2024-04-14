@@ -121,37 +121,33 @@ type BlockCache = {
 	invalidBlocks: Map<String, Error>
 }
 
-type BlockchainProps =
-	| 'validateHeader'
-	| 'getBlock'
-	| 'putBlock'
-	| 'db'
-	| 'consensus'
-	| 'common'
-	| 'delBlock'
-	| 'putBlocks'
-	| 'validateBlock'
-	| 'resetCanonicalHead'
-	| 'getCanonicalHeader'
-	| 'getCanonicalHeadBlock'
-	| 'getCanonicalHeadHeader'
-	| 'getBlocks'
-	| 'getParentTD'
-	| 'genesisBlock'
-	| 'putHeader'
-	| 'putHeaders'
-
 /**
  * Blockchain
  * @memberof module:blockchain
  */
-export class Chain implements Pick<Blockchain, BlockchainProps> {
-	public readonly shallowCopy = () => {
-		return new TevmBlockchain({
+export class Chain implements Pick<
+	Blockchain,
+	| 'consensus'
+	| 'db'
+	| 'genesisBlock'
+	| 'getCanonicalHeadHeader'
+	| 'getIteratorHead'
+	| 'getIteratorHeadSafe'
+	| 'getCanonicalHeadBlock'
+	| 'getCanonicalHeadHeader'
+	| 'getParentTD'
+	| 'getBlock'
+	| 'getTotalDifficulty'
+	| 'checkAndTransitionHardForkByNumber'
+	| 'putBlock'
+	| 'putHeader'
+> {
+	public readonly shallowCopy = (): Chain => {
+		return new Chain({
 			db: this.db.shallowCopy() as any,
 			common: this.common,
-			genesisState: this.genesisState,
-			genesisStateRoot: this.genesisStateRoot,
+			...(this._customGenesisState !== undefined ? { genesisState: this._customGenesisState } : {}),
+			...(this._customGenesisStateRoot !== undefined ? { genesisStateRoot: this._customGenesisStateRoot } : {}),
 		})
 	}
 	public common: Common
@@ -235,6 +231,37 @@ export class Chain implements Pick<Blockchain, BlockchainProps> {
 				)
 		}
 	}
+	checkAndTransitionHardForkByNumber(number: bigint, td?: bigint | undefined, timestamp?: bigint | undefined): Promise<void> {
+		console.log(number, td, timestamp)
+		throw new Error('Method not implemented.')
+	}
+	get genesisBlock(): Block {
+		throw new Error('Method not implemented.')
+	}
+	getIteratorHead(name?: string | undefined): Promise<Block> {
+		console.log(name)
+		throw new Error('Method not implemented.')
+	}
+	getIteratorHeadSafe(name?: string | undefined): Promise<Block | undefined> {
+		console.log(name)
+		throw new Error('Method not implemented.')
+	}
+	getParentTD(header: BlockHeader): Promise<bigint> {
+		console.log(header)
+		throw new Error('Method not implemented.')
+	}
+	getTotalDifficulty(hash: Uint8Array, number?: bigint | undefined): Promise<bigint> {
+		console.log(hash, number)
+		throw new Error('Method not implemented.')
+	}
+	putBlock(block: Block): Promise<void> {
+		console.log(block)
+		throw new Error('Method not implemented.')
+	}
+	putHeader(header: BlockHeader): Promise<void> {
+		console.log(header)
+		throw new Error('Method not implemented.')
+	}
 
 	/**
 	 * Resets _header, _blocks
@@ -260,7 +287,7 @@ export class Chain implements Pick<Blockchain, BlockchainProps> {
 
 	/**
 	 * Network ID
-	 */
+	 *ssj
 	get networkId(): bigint {
 		return this.common.networkId()
 	}
@@ -269,7 +296,7 @@ export class Chain implements Pick<Blockchain, BlockchainProps> {
 	 * Genesis block for the chain
 	 */
 	get genesis() {
-		return this.blockchain.genesisBlock
+		return this.genesisBlock
 	}
 
 	/**
@@ -292,7 +319,7 @@ export class Chain implements Pick<Blockchain, BlockchainProps> {
 	 */
 	async open(): Promise<boolean | void> {
 		if (this.opened) return false
-		await this.blockchain.db.open()
+		await this.db.open()
 		this.opened = true
 		await this.update()
 	}
@@ -304,7 +331,7 @@ export class Chain implements Pick<Blockchain, BlockchainProps> {
 	async close(): Promise<boolean | void> {
 		if (!this.opened) return false
 		this.reset()
-		await (this.blockchain.db as any)?.close?.()
+		await (this.db as any)?.close?.()
 		this.opened = false
 	}
 
@@ -313,7 +340,7 @@ export class Chain implements Pick<Blockchain, BlockchainProps> {
 	 */
 	async resetCanonicalHead(canonicalHead: bigint): Promise<void> {
 		if (!this.opened) return
-		await this.blockchain.resetCanonicalHead(canonicalHead)
+		await this.resetCanonicalHead(canonicalHead)
 		this.update()
 	}
 
@@ -363,7 +390,7 @@ export class Chain implements Pick<Blockchain, BlockchainProps> {
 		this._headers = headers
 		this._blocks = blocks
 
-		const parentTd = await this.blockchain.getParentTD(headers.latest)
+		const parentTd = await this.getParentTD(headers.latest)
 		this.common.setHardforkBy({
 			blockNumber: headers.latest.number,
 			td: parentTd,
@@ -386,7 +413,7 @@ export class Chain implements Pick<Blockchain, BlockchainProps> {
 		reverse = false,
 	): Promise<Block[]> {
 		if (!this.opened) throw new Error('Chain closed')
-		return this.blockchain.getBlocks(block, max, skip, reverse)
+		return this.getBlocks(block, max, skip, reverse)
 	}
 
 	/**
@@ -396,7 +423,7 @@ export class Chain implements Pick<Blockchain, BlockchainProps> {
 	 */
 	async hasBlock(block: Uint8Array | bigint): Promise<boolean> {
 		if (!this.opened) throw new Error('Chain closed')
-		return this.blockchain
+		return this
 			.getBlock(block)
 			.then(() => true)
 			.catch(() => false)
@@ -409,7 +436,7 @@ export class Chain implements Pick<Blockchain, BlockchainProps> {
 	 */
 	async getBlock(block: Uint8Array | bigint): Promise<Block> {
 		if (!this.opened) throw new Error('Chain closed')
-		return this.blockchain.getBlock(block)
+		return this.getBlock(block)
 	}
 
 	/**
@@ -441,7 +468,7 @@ export class Chain implements Pick<Blockchain, BlockchainProps> {
 		}
 
 		for (const [i, b] of newBlocks.entries()) {
-			if (!fromEngine && this.common.gteHardfork(Hardfork.Paris)) {
+			if (!fromEngine && this.common.gteHardfork('paris')) {
 				if (i > 0) {
 					// emitOnLast below won't be reached, so run an update here
 					await this.update()
@@ -449,14 +476,14 @@ export class Chain implements Pick<Blockchain, BlockchainProps> {
 				break
 			}
 
-			const td = await this.blockchain.getParentTD(b.header)
+			const td = await this.getParentTD(b.header)
 			if (b.header.number <= this.headers.height) {
-				await this.blockchain.checkAndTransitionHardForkByNumber(
+				await this.checkAndTransitionHardForkByNumber(
 					b.header.number,
 					td,
 					b.header.timestamp,
 				)
-				await this.blockchain.consensus.setup({ blockchain: this.blockchain })
+				await this.consensus.setup({ blockchain: this })
 			}
 
 			const block = Block.fromValuesArray(b.raw(), {
@@ -464,7 +491,7 @@ export class Chain implements Pick<Blockchain, BlockchainProps> {
 				setHardfork: td,
 			})
 
-			await this.blockchain.putBlock(block)
+			await this.putBlock(block)
 			numAdded++
 			await this.update()
 		}
@@ -504,7 +531,7 @@ export class Chain implements Pick<Blockchain, BlockchainProps> {
 
 		let numAdded = 0
 		for (const [i, h] of headers.entries()) {
-			if (!mergeIncludes && this.common.gteHardfork(Hardfork.Paris)) {
+			if (!mergeIncludes && this.common.gteHardfork('paris')) {
 				if (i > 0) {
 					// emitOnLast below won't be reached, so run an update here
 					await this.update()
@@ -515,7 +542,7 @@ export class Chain implements Pick<Blockchain, BlockchainProps> {
 				common: this.common,
 				setHardfork: this.headers.td,
 			})
-			await this.blockchain.putHeader(header)
+			await this.putHeader(header)
 			numAdded++
 			await this.update()
 		}
@@ -527,7 +554,7 @@ export class Chain implements Pick<Blockchain, BlockchainProps> {
 	 */
 	async getCanonicalHeadHeader(): Promise<BlockHeader> {
 		if (!this.opened) throw new Error('Chain closed')
-		return this.blockchain.getCanonicalHeadHeader()
+		return this.getCanonicalHeadHeader()
 	}
 
 	/**
@@ -535,7 +562,7 @@ export class Chain implements Pick<Blockchain, BlockchainProps> {
 	 */
 	async getCanonicalHeadBlock(): Promise<Block> {
 		if (!this.opened) throw new Error('Chain closed')
-		return this.blockchain.getCanonicalHeadBlock()
+		return this.getCanonicalHeadBlock()
 	}
 
 	/**
@@ -543,7 +570,7 @@ export class Chain implements Pick<Blockchain, BlockchainProps> {
 	 */
 	async getCanonicalSafeBlock(): Promise<Block | undefined> {
 		if (!this.opened) throw new Error('Chain closed')
-		return this.blockchain.getIteratorHeadSafe('safe')
+		return this.getIteratorHeadSafe('safe')
 	}
 
 	/**
@@ -551,7 +578,7 @@ export class Chain implements Pick<Blockchain, BlockchainProps> {
 	 */
 	async getCanonicalFinalizedBlock(): Promise<Block | undefined> {
 		if (!this.opened) throw new Error('Chain closed')
-		return this.blockchain.getIteratorHeadSafe('finalized')
+		return this.getIteratorHeadSafe('finalized')
 	}
 
 	/**
@@ -559,7 +586,7 @@ export class Chain implements Pick<Blockchain, BlockchainProps> {
 	 */
 	async getCanonicalVmHead(): Promise<Block> {
 		if (!this.opened) throw new Error('Chain closed')
-		return this.blockchain.getIteratorHead()
+		return this.getIteratorHead()
 	}
 
 	/**
@@ -570,6 +597,6 @@ export class Chain implements Pick<Blockchain, BlockchainProps> {
 	 */
 	async getTd(hash: Uint8Array, num: bigint): Promise<bigint> {
 		if (!this.opened) throw new Error('Chain closed')
-		return this.blockchain.getTotalDifficulty(hash, num)
+		return this.getTotalDifficulty(hash, num)
 	}
 }

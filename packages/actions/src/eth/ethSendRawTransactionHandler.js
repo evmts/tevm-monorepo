@@ -67,7 +67,7 @@ const getTx = (vm, txBuf) => {
 }
 
 /**
- * @param {Pick<import('@tevm/base-client').BaseClient, 'getVm' | 'getTxPool' | 'mode' | 'miningConfig'>} client
+ * @param {import('@tevm/base-client').BaseClient} client
  * @returns {import('@tevm/actions-types').EthSendRawTransactionHandler}
  */
 export const ethSendRawTransactionHandler = (client) => async (params) => {
@@ -102,7 +102,7 @@ export const ethSendRawTransactionHandler = (client) => async (params) => {
 			),
 			to: /** @type {import('@tevm/utils').Address}*/ (tx.to?.toString()),
 			blobVersionedHashes:
-				/** @type {import('@ethereumjs/tx').EIP4844CompatibleTx}*/ (
+				/** @type {import('@tevm/tx').EIP4844CompatibleTx}*/ (
 					tx
 				).blobVersionedHashes.map((bytes) => bytesToHex(bytes)),
 			data: bytesToHex(tx.data),

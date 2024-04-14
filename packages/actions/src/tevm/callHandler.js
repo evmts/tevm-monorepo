@@ -136,7 +136,7 @@ export const callHandler =
 
 			if (shouldCreateTransaction) {
 				const pool = await client.getTxPool()
-				const opts = callHandlerOpts(client, params)
+				const { data: txOpts } = await callHandlerOpts(client, params)
 				// TODO known bug here we should be allowing unlimited code size here based on user providing option
 				// Just lazily not looking up how to get it from client.getVm().evm yet
 				// Possible we need to make property public on client
@@ -152,7 +152,7 @@ export const callHandler =
 									),
 								)) ?? { nonce: 0n }
 							).nonce + 1n,
-						...opts,
+						...txOpts
 					},
 					{
 						allowUnlimitedInitCodeSize: false,
@@ -186,7 +186,7 @@ export const callHandler =
 					},
 				})
 				try {
-					pool.add(wrappedTx, requireSig, opts.skipBalance)
+					pool.add(wrappedTx, requireSig, txOpts?.skipBalance ?? false)
 					txHash = bytesToHex(wrappedTx.hash())
 					await copiedVm.stateManager.checkpoint()
 					await copiedVm.stateManager.commit()

@@ -1,5 +1,6 @@
 export {
 	type EIP1559CompatibleTx,
+	type EIP4844CompatibleTx,
 	type TxData,
 	type TypedTransaction,
 	TransactionType,
