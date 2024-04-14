@@ -1,5 +1,6 @@
 import type { MiningConfig } from './MiningConfig.js'
 import type { Chain, ReceiptsManager } from '@tevm/blockchain'
+import type { Logger } from '@tevm/logger'
 import type { TxPool } from '@tevm/txpool'
 import type { TevmVm } from '@tevm/vm'
 
@@ -10,6 +11,10 @@ export type BaseClient<
 	TMode extends 'fork' | 'proxy' | 'normal' = 'fork' | 'proxy' | 'normal',
 	TExtended = {},
 > = {
+	/**
+	 * The logger instance
+	 */
+	readonly logger: Logger
 	/**
 	 * Interface for querying receipts and historical state
 	 */

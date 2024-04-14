@@ -1,19 +1,19 @@
 {
-  "name": "@tevm/base-client",
+  "name": "@tevm/logger",
   "version": "1.0.0-next.42",
   "private": false,
-  "description": "Client implementations of Tevm",
+  "description": "A logger used by tevm",
   "keywords": [
     "solidity",
-    "sol",
+    "ethereumjs",
     "typescript",
     "web3",
-    "blockchain"
+    "evm"
   ],
   "repository": {
     "type": "git",
     "url": "https://github.com/evmts/tevm-monorepo.git",
-    "directory": "core/base-client"
+    "directory": "packages/logger"
   },
   "license": "MIT",
   "contributors": [
@@ -24,7 +24,7 @@
     "./package.json": "./package.json",
     ".": {
       "import": {
-        "types": "./types/index.d.ts",
+        "types": "./dist/index.d.ts",
         "default": "./dist/index.js"
       },
       "require": {
@@ -35,18 +35,18 @@
   },
   "main": "dist/index.cjs",
   "module": "dist/index.js",
-  "types": "types/index.d.ts",
+  "types": "dist/index.d.ts",
   "files": [
     "dist",
+    "types",
     "src",
-    "!src/**/*.spec.ts",
-    "types"
+    "!src/**/*.spec.ts"
   ],
   "scripts": {
-    "all": "pnpm i  && bun run build && bun lint && bun format && bun test:run && bun generate:docs && bun lint:deps && bun lint:package",
-    "build": "nx run-many --targets=build:dist,build:types --projects=@tevm/base-client",
+    "all": "pnpm i  && bun run build && bun lint && bun format && bun test:run && bun generate:docs",
+    "build": "nx run-many --targets=build:dist,build:types --projects=@tevm/logger",
     "build:dist": "tsup",
-    "build:types": "tsup --dts-only && tsc --emitDeclarationOnly --declaration",
+    "build:types": "tsup --dts-only",
     "clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
     "format": "rome format . --write",
     "format:check": "rome format .",
@@ -61,25 +61,14 @@
     "test:run": "bun test",
     "typecheck": "tsc --noEmit"
   },
-  "dependencies": {
-    "@tevm/blockchain": "workspace:^",
-    "@tevm/common": "workspace:^",
-    "@tevm/evm": "workspace:^",
-    "@tevm/jsonrpc": "workspace:^",
-    "@tevm/logger": "workspace:1.0.0-next.42",
-    "@tevm/predeploys": "workspace:^",
-    "@tevm/state": "workspace:^",
-    "@tevm/sync-storage-persister": "workspace:1.0.0-next.40",
-    "@tevm/txpool": "workspace:1.0.0-next.42",
-    "@tevm/utils": "workspace:^",
-    "@tevm/vm": "workspace:^",
-    "memory-level": "^1.0.0"
-  },
   "devDependencies": {
     "@tevm/tsconfig": "workspace:^",
     "@tevm/tsupconfig": "workspace:^"
   },
   "publishConfig": {
     "access": "public"
+  },
+  "dependencies": {
+    "pino": "^8.20.0"
   }
 }
