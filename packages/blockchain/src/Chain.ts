@@ -125,29 +125,36 @@ type BlockCache = {
  * Blockchain
  * @memberof module:blockchain
  */
-export class Chain implements Pick<
-	Blockchain,
-	| 'consensus'
-	| 'db'
-	| 'genesisBlock'
-	| 'getCanonicalHeadHeader'
-	| 'getIteratorHead'
-	| 'getIteratorHeadSafe'
-	| 'getCanonicalHeadBlock'
-	| 'getCanonicalHeadHeader'
-	| 'getParentTD'
-	| 'getBlock'
-	| 'getTotalDifficulty'
-	| 'checkAndTransitionHardForkByNumber'
-	| 'putBlock'
-	| 'putHeader'
-> {
+export class Chain
+	implements
+		Pick<
+			Blockchain,
+			| 'consensus'
+			| 'db'
+			| 'genesisBlock'
+			| 'getCanonicalHeadHeader'
+			| 'getIteratorHead'
+			| 'getIteratorHeadSafe'
+			| 'getCanonicalHeadBlock'
+			| 'getCanonicalHeadHeader'
+			| 'getParentTD'
+			| 'getBlock'
+			| 'getTotalDifficulty'
+			| 'checkAndTransitionHardForkByNumber'
+			| 'putBlock'
+			| 'putHeader'
+		>
+{
 	public readonly shallowCopy = (): Chain => {
 		return new Chain({
 			db: this.db.shallowCopy() as any,
 			common: this.common,
-			...(this._customGenesisState !== undefined ? { genesisState: this._customGenesisState } : {}),
-			...(this._customGenesisStateRoot !== undefined ? { genesisStateRoot: this._customGenesisStateRoot } : {}),
+			...(this._customGenesisState !== undefined
+				? { genesisState: this._customGenesisState }
+				: {}),
+			...(this._customGenesisStateRoot !== undefined
+				? { genesisStateRoot: this._customGenesisStateRoot }
+				: {}),
 		})
 	}
 	public common: Common
@@ -231,7 +238,11 @@ export class Chain implements Pick<
 				)
 		}
 	}
-	checkAndTransitionHardForkByNumber(number: bigint, td?: bigint | undefined, timestamp?: bigint | undefined): Promise<void> {
+	checkAndTransitionHardForkByNumber(
+		number: bigint,
+		td?: bigint | undefined,
+		timestamp?: bigint | undefined,
+	): Promise<void> {
 		console.log(number, td, timestamp)
 		throw new Error('Method not implemented.')
 	}
@@ -250,7 +261,10 @@ export class Chain implements Pick<
 		console.log(header)
 		throw new Error('Method not implemented.')
 	}
-	getTotalDifficulty(hash: Uint8Array, number?: bigint | undefined): Promise<bigint> {
+	getTotalDifficulty(
+		hash: Uint8Array,
+		number?: bigint | undefined,
+	): Promise<bigint> {
 		console.log(hash, number)
 		throw new Error('Method not implemented.')
 	}
@@ -423,8 +437,7 @@ export class Chain implements Pick<
 	 */
 	async hasBlock(block: Uint8Array | bigint): Promise<boolean> {
 		if (!this.opened) throw new Error('Chain closed')
-		return this
-			.getBlock(block)
+		return this.getBlock(block)
 			.then(() => true)
 			.catch(() => false)
 	}

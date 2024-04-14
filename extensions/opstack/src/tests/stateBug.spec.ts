@@ -41,6 +41,8 @@ const setEcotoneAndCheck = async (client: L1Client) => {
 			createTransaction: true,
 		})
 		expect(writeRes).toEqual({
+			txHash:
+				'0x7ee048dd02317d35781ef64e803eb1d3638cf539def0b6d6d9f2b86264d9dc60',
 			createdAddresses: new Set(),
 			data: undefined,
 			executionGasUsed: 25588n,
@@ -71,6 +73,8 @@ const setEcotoneAndCheck = async (client: L1Client) => {
 			createTransaction: true,
 		})
 		expect(res2).toEqual({
+			txHash:
+				'0x0aca6409d550c4841d025f2054eb7ec66ca777d5237926917e5a310f23638e4d',
 			createdAddresses: new Set(),
 			data: true,
 			executionGasUsed: 377n,

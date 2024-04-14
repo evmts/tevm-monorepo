@@ -56,6 +56,8 @@ describe('SystemConfig', () => {
 				...client.op.SystemConfig.write.setGasLimit(newGasLimit),
 			}),
 		).toEqual({
+			txHash:
+				'0x9b7fb395707e1e509f8bddde0d5b1f3e217f8c58a465c196bb8a048f6f4126f8',
 			createdAddresses: new Set(),
 			data: undefined,
 			executionGasUsed: 6619n,

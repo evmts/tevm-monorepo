@@ -12,7 +12,6 @@ Creates an ContractHandler for handling contract params with Ethereumjs EVM
 
 ## Parameters
 
-<<<<<<< HEAD
 ▪ **client**: `object`
 
 ▪ **client.extend**: \<`TExtension`\>(`decorator`) => `BaseClient`\<`"fork"` \| `"proxy"` \| `"normal"`, `object` & `TExtension`\>
@@ -31,6 +30,10 @@ const client = createMemoryClient({ forkUrl: 'https://mainnet.infura.io/v3/your-
 console.log(client.forkUrl)
 ```
 
+▪ **client.getChain?**: () => `Promise`\<`Chain`\>
+
+Represents the entire blockchain including it's logs and historical state
+
 ▪ **client.getChainId?**: () => `Promise`\<`number`\>
 
 Gets the chainId of the current EVM
@@ -42,6 +45,10 @@ const client = createMemoryClient()
 const chainId = await client.getChainId()
 console.log(chainId)
 ```
+
+▪ **client.getReceiptsManager?**: () => `Promise`\<`ReceiptsManager`\>
+
+Interface for querying receipts and historical state
 
 ▪ **client.getTxPool?**: () => `Promise`\<`TxPool`\>
 
@@ -92,9 +99,6 @@ await client.ready()
 ▪ **client.setChainId?**: (`chainId`) => `void`
 
 Sets the chain id of the current EVM
-=======
-▪ **client**: `Pick`\<`object`, `"mode"` \| `"getVm"` \| `"getTxPool"`\>
->>>>>>> 86ee7f7d4 (:sparkles: Feat: Add getReceipt and logs to tevm)
 
 ▪ **options?**: `object`= `{}`
 

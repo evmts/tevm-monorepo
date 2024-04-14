@@ -387,7 +387,7 @@ describe('scriptHandler', () => {
 		const client = createBaseClient()
 		const vm = await client.getVm()
 		const originalRunCall = vm.evm.runCall.bind(vm.evm)
-		vm.evm.runCall = async function(args) {
+		vm.evm.runCall = async function (args) {
 			const realResult = await originalRunCall(args)
 			return {
 				...realResult,

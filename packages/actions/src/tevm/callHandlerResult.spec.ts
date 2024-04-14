@@ -1,6 +1,6 @@
 import { callHandlerResult } from './callHandlerResult.js'
 import type { EvmResult } from '@tevm/evm'
-import type { EthjsLog} from '@tevm/utils'
+import type { EthjsLog } from '@tevm/utils'
 import { bytesToHex, getAddress, toHex } from '@tevm/utils'
 import { describe, expect, it } from 'bun:test'
 

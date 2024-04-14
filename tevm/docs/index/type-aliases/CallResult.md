@@ -78,6 +78,15 @@ Encoded return value from the contract as hex string
 
 A set of accounts to selfdestruct
 
+### txHash
+
+> **txHash**?: [`Hex`](../../actions-types/type-aliases/Hex.md)
+
+The returned tx hash if the call was included in the chain
+Will not be defined if the call was not included in the chain
+Whether a call is included in the chain depends on if the
+`createTransaction` option and the result of the call
+
 ## Source
 
 packages/actions-types/types/result/CallResult.d.ts:6

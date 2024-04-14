@@ -10,7 +10,7 @@
 
 ## Parameters
 
-▪ **client**: `Pick`\<`object`, `"getReceiptsManager"` \| `"getChain"` \| `"forkUrl"` \| `"getVm"`\>
+▪ **client**: `Pick`\<`object`, `"getVm"` \| `"forkUrl"` \| `"getReceiptsManager"` \| `"getChain"`\>
 
 ## Returns
 

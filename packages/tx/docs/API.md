@@ -22,6 +22,7 @@
 ### Interfaces
 
 - [EIP1559CompatibleTx](interfaces/EIP1559CompatibleTx.md)
+- [EIP4844CompatibleTx](interfaces/EIP4844CompatibleTx.md)
 - [TxData](interfaces/TxData.md)
 
 ### Type Aliases
