@@ -8,6 +8,8 @@
 
 ### Classes
 
+- [Chain](classes/Chain.md)
+- [ReceiptsManager](classes/ReceiptsManager.md)
 - [TevmBlockchain](classes/TevmBlockchain.md)
 
 ### Functions

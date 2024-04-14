@@ -84,7 +84,7 @@ node\_modules/.pnpm/@ethereumjs+evm@3.0.0/node\_modules/@ethereumjs/evm/dist/esm
 
 ### logs
 
-> **logs**?: [`EthjsLog`](../type-aliases/EthjsLog.md)[]
+> **logs**?: `Log`[]
 
 Array of logs that the contract emitted
 

@@ -11,6 +11,7 @@ export {
 	ethSignTransactionHandler,
 	ethSendTransactionHandler,
 	ethSendRawTransactionHandler,
+	ethGetTransactionReceiptHandler,
 	testAccounts,
 	BlobGasLimitExceededError,
 	MissingAccountError,

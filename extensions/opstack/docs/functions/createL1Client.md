@@ -282,6 +282,14 @@ All constants including vital OP stack addresses and owners are available and tr
 > console.log(res.balance)
 > ```
 >
+> ### getChain
+>
+> > **`readonly`** **getChain**: () => `Promise`\<`Chain`\>
+>
+> Represents the entire blockchain including it's logs and historical state
+>
+> Represents the entire blockchain including it's logs and historical state
+>
 > ### getChainId
 >
 > > **`readonly`** **getChainId**: () => `Promise`\<`number`\>
@@ -307,6 +315,14 @@ All constants including vital OP stack addresses and owners are available and tr
 > const chainId = await client.getChainId()
 > console.log(chainId)
 > ```
+>
+> ### getReceiptsManager
+>
+> > **`readonly`** **getReceiptsManager**: () => `Promise`\<`ReceiptsManager`\>
+>
+> Interface for querying receipts and historical state
+>
+> Interface for querying receipts and historical state
 >
 > ### getTxPool
 >

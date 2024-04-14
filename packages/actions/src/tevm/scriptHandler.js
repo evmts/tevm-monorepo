@@ -107,7 +107,12 @@ export const scriptHandler = (client, options = {}) => async (params) => {
 	}
 
 	const result = await callHandler(
-		{ ...client, getVm: () => clonedVmPromise },
+		{
+			...client,
+			getVm: () => clonedVmPromise,
+			mode: client.mode,
+			getTxPool: client.getTxPool,
+		},
 		options,
 	)({
 		...callParams,

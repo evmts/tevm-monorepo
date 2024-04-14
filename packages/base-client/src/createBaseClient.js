@@ -1,13 +1,14 @@
 import { DEFAULT_CHAIN_ID } from './DEFAULT_CHAIN_ID.js'
 import { addPredeploy } from './addPredeploy.js'
 import { getChainId } from './getChainId.js'
-import { createBlockchain } from '@tevm/blockchain'
+import { Chain, ReceiptsManager, createBlockchain } from '@tevm/blockchain'
 import { Common } from '@tevm/common'
 import { createEvm } from '@tevm/evm'
 import { createTevmStateManager } from '@tevm/state'
 import { TxPool } from '@tevm/txpool'
-import { hexToBigInt, toHex } from '@tevm/utils'
+import { hexToBigInt, numberToHex, toHex } from '@tevm/utils'
 import { createVm } from '@tevm/vm'
+import { MemoryLevel } from 'memory-level'
 
 /**
  * Creates the base instance of a memory client
@@ -36,12 +37,18 @@ export const createBaseClient = (options = {}) => {
 			'Unable to initialize BaseClient. Cannot use both fork and proxy options at the same time!',
 		)
 	}
-	const common = new Common({
-		chain: 1,
-		hardfork: options.hardfork ?? 'shanghai',
-		eips: /**@type number[]*/ (options.eips ?? [1559, 4895]),
-	})
-
+	const common = Common.custom(
+		{
+			name: 'TevmCustom',
+			chainId: 10,
+			networkId: 10,
+		},
+		{
+			hardfork: options.hardfork ?? 'cancun',
+			baseChain: 1,
+			eips: [...(options.eips ?? []), 1559, 4895, 4844, 4788],
+		},
+	)
 	/**
 	 * @returns {import('@tevm/state').TevmStateManagerOptions }
 	 */
@@ -148,7 +155,24 @@ export const createBaseClient = (options = {}) => {
 			}
 		}
 
-		const blockchain = await createBlockchain({ common })
+		const blockTag = (() => {
+			const blockTag = /** @type {import('@tevm/state').ForkStateManager}*/ (
+				stateManager
+			).blockTag || { blockTag: 'latest' }
+			if ('blockNumber' in blockTag && blockTag.blockNumber !== undefined) {
+				return numberToHex(blockTag.blockNumber)
+			}
+			if ('blockTag' in blockTag && blockTag.blockTag !== undefined) {
+				return blockTag.blockTag
+			}
+			return 'latest'
+		})()
+		// TODO replace with chain
+		const blockchain = await createBlockchain({
+			common,
+			...(options.fork?.url !== undefined ? { forkUrl: options.fork.url } : {}),
+			...(blockTag !== undefined ? { blockTag } : {}),
+		})
 		const evm = await createEvm({
 			common,
 			stateManager,
@@ -187,6 +211,18 @@ export const createBaseClient = (options = {}) => {
 	const vmPromise = initVm()
 	const txPoolPromise = vmPromise.then((vm) => new TxPool({ vm }))
 	const chainIdPromise = initChainId()
+	const chainPromise = vmPromise.then((vm) => {
+		return Chain.create({
+			common: vm.common,
+		})
+	})
+	const receiptManagerPromise = chainPromise.then((chain) => {
+		return new ReceiptsManager({
+			common: chain.common,
+			chain,
+			metaDB: /** @type any*/ (new MemoryLevel()),
+		})
+	})
 
 	/**
 	 * Create and return the baseClient
@@ -195,6 +231,12 @@ export const createBaseClient = (options = {}) => {
 	 * @type {import('./BaseClient.js').BaseClient}
 	 */
 	const baseClient = {
+		getChain: () => {
+			return chainPromise
+		},
+		getReceiptsManager: () => {
+			return receiptManagerPromise
+		},
 		getTxPool: () => {
 			return txPoolPromise
 		},

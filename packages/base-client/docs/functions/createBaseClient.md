@@ -47,6 +47,14 @@ Creates the base instance of a memory client
 > console.log(client.forkUrl)
 > ```
 >
+> ### getChain
+>
+> > **`readonly`** **getChain**: () => `Promise`\<`Chain`\>
+>
+> Represents the entire blockchain including it's logs and historical state
+>
+> Represents the entire blockchain including it's logs and historical state
+>
 > ### getChainId
 >
 > > **`readonly`** **getChainId**: () => `Promise`\<`number`\>
@@ -72,6 +80,14 @@ Creates the base instance of a memory client
 > const chainId = await client.getChainId()
 > console.log(chainId)
 > ```
+>
+> ### getReceiptsManager
+>
+> > **`readonly`** **getReceiptsManager**: () => `Promise`\<`ReceiptsManager`\>
+>
+> Interface for querying receipts and historical state
+>
+> Interface for querying receipts and historical state
 >
 > ### getTxPool
 >
@@ -168,7 +184,7 @@ Creates the base instance of a memory client
 
 ## Source
 
-[createBaseClient.js:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/createBaseClient.js#L20)
+[createBaseClient.js:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/createBaseClient.js#L21)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -6,6 +6,8 @@ import { createMemoryDb, parseGwei } from '@tevm/utils'
 /**
  * @param {object} options
  * @param {import('@tevm/common').Common} options.common
+ * @param {string} [options.forkUrl]
+ * @param {import('@tevm/utils').BlockTag | import('@tevm/utils').Hex} [options.blockTag]
  * @returns {Promise<TevmBlockchain>}
  */
 export const createBlockchain = async ({ common }) => {

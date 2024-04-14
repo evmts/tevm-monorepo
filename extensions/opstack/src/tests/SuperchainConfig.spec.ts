@@ -54,6 +54,8 @@ describe('SuperchainConfig', () => {
 			}),
 		).toEqual({
 			createdAddresses: new Set(),
+			txHash:
+				'0x7fa270b31cbaec530b5943753bae8003344d80057140dde7bdea0505c8e60c07',
 			data: undefined,
 			executionGasUsed: 24893n,
 			gas: 16752322n,
@@ -81,6 +83,8 @@ describe('SuperchainConfig', () => {
 				...SuperchainConfig.write.unpause(),
 			}),
 		).toEqual({
+			txHash:
+				'0x5395668bd4fe43e49f0a7ad7297f90e92fb6340da58b469f252f777000c81eee',
 			createdAddresses: new Set(),
 			data: undefined,
 			executionGasUsed: 4146n,
