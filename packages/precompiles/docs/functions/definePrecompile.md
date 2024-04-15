@@ -6,7 +6,7 @@
 
 # Function: definePrecompile()
 
-> **definePrecompile**\<`TName`, `THumanReadableAbi`\>(`__namedParameters`): `Precompile`\<`TName`, `THumanReadableAbi`, `ReturnType`\<\<`TAddress`\>(`address`) => `Omit`\<`Script`\<`TName`, `THumanReadableAbi`\>, `"events"` \| `"read"` \| `"write"` \| `"address"`\> & `object`\>\>
+> **definePrecompile**\<`TName`, `THumanReadableAbi`\>(`__namedParameters`): `Precompile`\<`TName`, `THumanReadableAbi`, `ReturnType`\<\<`TAddress`\>(`address`) => `Omit`\<`Script`\<`TName`, `THumanReadableAbi`\>, `"address"` \| `"events"` \| `"read"` \| `"write"`\> & `object`\>\>
 
 ## Type parameters
 
@@ -16,7 +16,7 @@
 
 ## Parameters
 
-▪ **\_\_namedParameters**: `Pick`\<`Precompile`\<`TName`, `THumanReadableAbi`, `ReturnType`\<\<`TAddress`\>(`address`) => `Omit`\<`Script`\<`TName`, `THumanReadableAbi`\>, `"events"` \| `"read"` \| `"write"` \| `"address"`\> & `object`\>\>, `"contract"` \| `"call"`\>
+▪ **\_\_namedParameters**: `Pick`\<`Precompile`\<`TName`, `THumanReadableAbi`, `ReturnType`\<\<`TAddress`\>(`address`) => `Omit`\<`Script`\<`TName`, `THumanReadableAbi`\>, `"address"` \| `"events"` \| `"read"` \| `"write"`\> & `object`\>\>, `"contract"` \| `"call"`\>
 
 ## Source
 

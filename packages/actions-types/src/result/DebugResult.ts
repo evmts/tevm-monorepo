@@ -9,8 +9,8 @@ export type StructLog = {
 	readonly pc: number
 	readonly stack: ReadonlyArray<Hex>
 	readonly error?: {
-		error: string,
-		errorType: string,
+		error: string
+		errorType: string
 	}
 }
 

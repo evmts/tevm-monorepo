@@ -61,14 +61,14 @@
     "test:run": "bun test",
     "typecheck": "tsc --noEmit"
   },
+  "dependencies": {
+    "pino": "^8.20.0"
+  },
   "devDependencies": {
     "@tevm/tsconfig": "workspace:^",
     "@tevm/tsupconfig": "workspace:^"
   },
   "publishConfig": {
     "access": "public"
-  },
-  "dependencies": {
-    "pino": "^8.20.0"
   }
 }

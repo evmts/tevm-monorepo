@@ -51,8 +51,8 @@ describe('generateDtsBody', () => {
 
 	it('should generate correct body with etherscan links', () => {
 		expect(runSync(generateDtsBody(artifacts, false))).toMatchInlineSnapshot(`
-			"const _abiMyContract = [\\"constructor() payable\\"] as const;
-			const _nameMyContract = \\"MyContract\\" as const;
+			"const _abiMyContract = ["constructor() payable"] as const;
+			const _nameMyContract = "MyContract" as const;
 			/**
 			 * MyContract Contract
 			 * @notice MyContract
@@ -60,14 +60,14 @@ describe('generateDtsBody', () => {
 			 */
 			export const MyContract: Contract<typeof _nameMyContract, typeof _abiMyContract>;
 			const _abiAnotherContract = [] as const;
-			const _nameAnotherContract = \\"AnotherContract\\" as const;
+			const _nameAnotherContract = "AnotherContract" as const;
 			/**
 			 * AnotherContract Contract
 			 * @notice MyContract
 			 */
 			export const AnotherContract: Contract<typeof _nameAnotherContract, typeof _abiAnotherContract>;
 			const _abiMissingContract = [] as const;
-			const _nameMissingContract = \\"MissingContract\\" as const;
+			const _nameMissingContract = "MissingContract" as const;
 			/**
 			 * MissingContract Contract
 			 * @notice MyContract

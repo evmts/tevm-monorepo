@@ -14,6 +14,18 @@
 
 > **`readonly`** **depth**: `number`
 
+### error
+
+> **`readonly`** **error**?: `object`
+
+### error.error
+
+> **error.error**: `string`
+
+### error.errorType
+
+> **error.errorType**: `string`
+
 ### gas
 
 > **`readonly`** **gas**: `bigint`

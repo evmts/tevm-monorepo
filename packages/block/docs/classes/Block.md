@@ -137,20 +137,6 @@ node\_modules/.pnpm/@ethereumjs+block@5.2.0/node\_modules/@ethereumjs/block/dist
 
 Method to retrieve a block from a JSON-RPC provider and format as a [Block](Block.md)
 
-#### Param
-
-either a url for a remote provider or an Ethers JsonRpcProvider object
-
-#### Param
-
-block hash or block number to be run
-
-#### Param
-
-[BlockOptions]([object Object])
-
-Method to retrieve a block from a JSON-RPC provider and format as a [Block](Block.md)
-
 #### Parameters
 
 ▪ **provider**: `string` \| `EthersProvider`
@@ -164,10 +150,6 @@ block hash or block number to be run
 ▪ **opts**: `BlockOptions`
 
 [BlockOptions]([object Object])
-
-#### Returns
-
-the block specified by `blockTag`
 
 #### Source
 

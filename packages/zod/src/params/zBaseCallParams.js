@@ -13,7 +13,9 @@ export const zBaseCallParams = zBaseParams
 		createTrace: z
 			.boolean()
 			.optional()
-			.describe('If true, the call will also return a `trace` on the trace property'),
+			.describe(
+				'If true, the call will also return a `trace` on the trace property',
+			),
 		createTransaction: z.union([
 			z
 				.boolean()

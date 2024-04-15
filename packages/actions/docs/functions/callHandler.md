@@ -60,6 +60,10 @@ Internal instance of the VM. Can be used for lower level operations.
 Normally not recomended to use unless building libraries or extensions
 on top of Tevm.
 
+▪ **client.logger?**: `Logger`
+
+The logger instance
+
 ▪ **client.miningConfig?**: `MiningConfig`
 
 The configuration for mining. Defaults to 'auto'
@@ -108,7 +112,7 @@ Sets the chain id of the current EVM
 
 ## Source
 
-[packages/actions/src/tevm/callHandler.js:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm/callHandler.js#L19)
+[packages/actions/src/tevm/callHandler.js:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm/callHandler.js#L20)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

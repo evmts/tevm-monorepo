@@ -28,7 +28,7 @@
 
 ## Source
 
-[result/DebugResult.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/result/DebugResult.ts#L16)
+[result/DebugResult.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/result/DebugResult.ts#L20)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

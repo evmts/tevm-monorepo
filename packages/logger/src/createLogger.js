@@ -7,9 +7,9 @@ import { pino } from 'pino'
  * @returns {import('./Logger.js').Logger} A logger instance
  */
 export const createLogger = (options) => {
-  const pinoLogger = pino({
-    name: options.name,
-    level: options.level,
-  })
-  return pinoLogger
+	const pinoLogger = pino({
+		name: options.name,
+		level: options.level,
+	})
+	return pinoLogger
 }

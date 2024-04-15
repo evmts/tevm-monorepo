@@ -179,9 +179,6 @@ const MyScript = MyScript.withAddress('0x420...')
 Note this is not necessary with `tevm.script` method that doesn't require
 a contract address to execute
 
-Adds an address to the contract. All action creators will return
-the address property if added.
-
 #### Type parameters
 
 ▪ **TAddress** extends [`Address`](Address.md)
@@ -189,17 +186,6 @@ the address property if added.
 #### Parameters
 
 ▪ **address**: `TAddress`
-
-#### Returns
-
-#### Example
-
-```typescript
-import { MyScript } from './MyScript.sol'
-const MyScript = MyScript.withAddress('0x420...')
-```
-Note this is not necessary with `tevm.script` method that doesn't require
-a contract address to execute
 
 ### write
 

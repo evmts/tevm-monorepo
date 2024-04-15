@@ -19,6 +19,7 @@
 ### Interfaces
 
 - [EvmResult](interfaces/EvmResult.md)
+- [EvmRunCallOpts](interfaces/EvmRunCallOpts.md)
 - [ExecResult](interfaces/ExecResult.md)
 - [InterpreterStep](interfaces/InterpreterStep.md)
 - [PrecompileInput](interfaces/PrecompileInput.md)

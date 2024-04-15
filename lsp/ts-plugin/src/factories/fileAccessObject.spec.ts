@@ -26,7 +26,7 @@ describe('createFileAccessObject', () => {
 		expect(
 			fileAccessObject.readFile('test.ts', 'utf8'),
 		).rejects.toThrowErrorMatchingInlineSnapshot(
-			'"@tevm/ts-plugin: unable to read file test.ts"',
+			'[Error: @tevm/ts-plugin: unable to read file test.ts]',
 		)
 	})
 

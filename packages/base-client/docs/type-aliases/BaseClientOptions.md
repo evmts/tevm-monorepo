@@ -115,6 +115,12 @@ Cannot be set if `proxy` is also set
 
 Hardfork to use. Defaults to `shanghai`
 
+### loggingOptions
+
+> **`readonly`** **loggingOptions**?: `LogOptions`
+
+Configure logging options for the client
+
 ### miningConfig
 
 > **`readonly`** **miningConfig**?: [`MiningConfig`](MiningConfig.md)
@@ -162,7 +168,7 @@ Cannot be set if `fork` is also set
 
 ## Source
 
-[BaseClientOptions.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/BaseClientOptions.ts#L11)
+[BaseClientOptions.ts:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/BaseClientOptions.ts#L12)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

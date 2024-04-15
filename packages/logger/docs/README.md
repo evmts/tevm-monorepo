@@ -1,4 +1,4 @@
-**@tevm/rlp** ∙ [README](README.md) ∙ [API](API.md)
+**@tevm/logger** ∙ [README](README.md) ∙ [API](API.md)
 
 ***
 
@@ -17,18 +17,16 @@
 
 [![CI](https://github.com/evmts/tevm-monorepo/actions/workflows/e2e.yml/badge.svg)](https://github.com/evmts/tevm-monorepo/actions/workflows/e2e.yml)
 [![CI](https://github.com/evmts/tevm-monorepo/actions/workflows/unit.yml/badge.svg)](https://github.com/evmts/tevm-monorepo/actions/workflows/unit.yml)
-<a href="https://www.npmjs.com/package/@tevm/rlp" target="\_parent">
-<img alt="" src="https://img.shields.io/npm/dm/@tevm/rlp.svg" />
+<a href="https://www.npmjs.com/package/@tevm/logger" target="\_parent">
+<img alt="" src="https://img.shields.io/npm/dm/@tevm/logger.svg" />
 </a>
-<a href="https://bundlephobia.com/package/@tevm/rlp@latest" target="\_parent">
-<img alt="" src="https://badgen.net/bundlephobia/minzip/@tevm/rlp" />
+<a href="https://bundlephobia.com/package/@tevm/logger@latest" target="\_parent">
+<img alt="" src="https://badgen.net/bundlephobia/minzip/@tevm/logger" />
 </a>
 
-# @tevm/rlp
+# @tevm/logger
 
-ethereumjs rlp wrapper.
-
-Some files are adapted from [ethereumjs](https://github.com/ethereumjs/ethereumjs-monorepo) and are thus licensed under [mozilla public license 2.0](https://github.com/ethereumjs/ethereumjs-monorepo/blob/master/packages/statemanager/LICENSE)
+A lightweight wrapper around pino
 
 ## Visit [Docs](https://tevm.sh/) for docs, guides, API and more!
 

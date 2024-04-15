@@ -243,9 +243,6 @@ All constants including vital OP stack addresses and owners are available and tr
 > Extends the base client with additional functionality. This enables optimal code splitting
 > and extensibility
 >
-> Extends the base client with additional functionality. This enables optimal code splitting
-> and extensibility
->
 > #### Type parameters
 >
 > ▪ **TExtension** extends `Record`\<`string`, `any`\>
@@ -288,25 +285,11 @@ All constants including vital OP stack addresses and owners are available and tr
 >
 > Represents the entire blockchain including it's logs and historical state
 >
-> Represents the entire blockchain including it's logs and historical state
->
 > ### getChainId
 >
 > > **`readonly`** **getChainId**: () => `Promise`\<`number`\>
 >
 > Gets the chainId of the current EVM
->
-> #### Example
->
-> ```ts
-> const client = createMemoryClient()
-> const chainId = await client.getChainId()
-> console.log(chainId)
-> ```
->
-> Gets the chainId of the current EVM
->
-> #### Returns
 >
 > #### Example
 >
@@ -322,23 +305,15 @@ All constants including vital OP stack addresses and owners are available and tr
 >
 > Interface for querying receipts and historical state
 >
-> Interface for querying receipts and historical state
->
 > ### getTxPool
 >
 > > **`readonly`** **getTxPool**: () => `Promise`\<`TxPool`\>
 >
 > Gets the pool of pending transactions to be included in next block
 >
-> Gets the pool of pending transactions to be included in next block
->
 > ### getVm
 >
 > > **`readonly`** **getVm**: () => `Promise`\<`TevmVm`\>
->
-> Internal instance of the VM. Can be used for lower level operations.
-> Normally not recomended to use unless building libraries or extensions
-> on top of Tevm.
 >
 > Internal instance of the VM. Can be used for lower level operations.
 > Normally not recomended to use unless building libraries or extensions
@@ -367,6 +342,12 @@ All constants including vital OP stack addresses and owners are available and tr
 > const state = JSON.parse(fs.readFileSync('state.json'))
 > await tevm.loadState({state})
 > ```
+>
+> ### logger
+>
+> > **`readonly`** **logger**: `Logger`
+>
+> The logger instance
 >
 > ### miningConfig
 >
@@ -1032,8 +1013,6 @@ All constants including vital OP stack addresses and owners are available and tr
 > ### setChainId
 >
 > > **`readonly`** **setChainId**: (`chainId`) => `void`
->
-> Sets the chain id of the current EVM
 >
 > Sets the chain id of the current EVM
 >

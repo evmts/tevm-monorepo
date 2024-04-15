@@ -1,10 +1,10 @@
 import type { CustomPrecompile } from './CustomPrecompile.js'
 import type { Hardfork } from './Hardfork.js'
 import type { MiningConfig } from './MiningConfig.js'
+import type { LogOptions } from '@tevm/logger'
 import type { CustomPredeploy } from '@tevm/predeploys'
 import type { ForkStateManagerOpts, ProxyStateManagerOpts } from '@tevm/state'
 import type { SyncStoragePersister } from '@tevm/sync-storage-persister'
-import type { LogOptions } from '@tevm/logger'
 
 /**
  * Options for creating an Tevm MemoryClient instance

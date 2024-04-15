@@ -232,7 +232,9 @@ export const createBaseClient = (options = {}) => {
 	 * @type {import('./BaseClient.js').BaseClient}
 	 */
 	const baseClient = {
-		logger: createLogger(options.loggingOptions ?? { name: 'TevmClient', level: 'warn' }),
+		logger: createLogger(
+			options.loggingOptions ?? { name: 'TevmClient', level: 'warn' },
+		),
 		getChain: () => {
 			return chainPromise
 		},

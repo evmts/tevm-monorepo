@@ -596,7 +596,7 @@ if an exception happens during the message execution.
 
 #### Parameters
 
-▪ **opts**: `EVMRunCallOpts`
+▪ **opts**: [`EvmRunCallOpts`](../interfaces/EvmRunCallOpts.md)
 
 #### Inherited from
 

@@ -1,6 +1,6 @@
-import { createBaseClient } from '@tevm/base-client'
 import { setAccountHandler } from '../index.js'
 import { traceCallHandler } from './traceCallHandler.js'
+import { createBaseClient } from '@tevm/base-client'
 import { encodeFunctionData, parseEther } from '@tevm/utils'
 import { describe, expect, it } from 'bun:test'
 

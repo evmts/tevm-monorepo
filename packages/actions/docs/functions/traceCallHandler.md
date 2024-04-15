@@ -60,6 +60,10 @@ Internal instance of the VM. Can be used for lower level operations.
 Normally not recomended to use unless building libraries or extensions
 on top of Tevm.
 
+▪ **client.logger**: `Logger`
+
+The logger instance
+
 ▪ **client.miningConfig**: `MiningConfig`
 
 The configuration for mining. Defaults to 'auto'
@@ -107,7 +111,7 @@ mirroring the output from traceTransaction
 
 ## Source
 
-[packages/actions/src/debug/traceCallHandler.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/traceCallHandler.js#L10)
+[packages/actions/src/debug/traceCallHandler.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/traceCallHandler.js#L11)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

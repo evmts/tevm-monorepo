@@ -39,6 +39,12 @@ The block number or block tag to execute the call at. Defaults to `latest`
 The address that ran this code (`msg.sender`). Defaults to the zero address.
 This defaults to `from` address if set otherwise it defaults to the zero address
 
+### createTrace
+
+> **createTrace**?: `boolean`
+
+Whether to return a complete trace with the call
+
 ### createTransaction
 
 > **createTransaction**?: `"on-success"` \| `"always"` \| `"never"` \| `boolean`

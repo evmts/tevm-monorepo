@@ -24,8 +24,6 @@ packages/state/types/ForkStateManager.d.ts:11
 
 Called when state manager commits state
 
-Called when state manager commits state
-
 #### Parameters
 
 ▪ **stateManager**: [`ForkStateManager`](../../state/classes/ForkStateManager.md)

@@ -28,8 +28,6 @@ Defaults to 2000ms (2s)
 
 Called when state manager commits state
 
-Called when state manager commits state
-
 #### Parameters
 
 ▪ **stateManager**: [`ProxyStateManager`](../classes/ProxyStateManager.md)

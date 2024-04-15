@@ -58,6 +58,10 @@ Internal instance of the VM. Can be used for lower level operations.
 Normally not recomended to use unless building libraries or extensions
 on top of Tevm.
 
+▪ **options.logger**: `Logger`
+
+The logger instance
+
 ▪ **options.miningConfig**: `MiningConfig`
 
 The configuration for mining. Defaults to 'auto'

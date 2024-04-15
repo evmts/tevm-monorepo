@@ -33,7 +33,7 @@ export const ethGetTransactionReceiptHandler = (client) => async (params) => {
 	)
 
 	/**
-	 * If we don't have the receipt check the fork for a receipt 
+	 * If we don't have the receipt check the fork for a receipt
 	 * We currently do not cache it in future we may consider fetching
 	 * entire block here and caching it
 	 */
@@ -116,8 +116,8 @@ export const ethGetTransactionReceiptHandler = (client) => async (params) => {
 		/** @type any*/ (tx).maxFeePerGas - (block.header.baseFeePerGas ?? 0n)
 			? /** @type any*/ (tx).maxPriorityFeePerGas
 			: /** @type any*/ (tx).maxFeePerGas -
-			(block.header.baseFeePerGas ?? 0n) +
-			(block.header.baseFeePerGas ?? 0n)
+			  (block.header.baseFeePerGas ?? 0n) +
+			  (block.header.baseFeePerGas ?? 0n)
 
 	vm.common.setHardfork(tx.common.hardfork())
 	// Run tx through copied vm to get tx gasUsed and createdAddress
@@ -154,7 +154,7 @@ export const ethGetTransactionReceiptHandler = (client) => async (params) => {
 		blobGasPrice: blobGasPrice !== undefined ? blobGasPrice : undefined,
 		root:
 			/** @type any*/ (receipt).stateRoot instanceof Uint8Array
-				? bytesToHex(/** @type any*/(receipt).stateRoot)
+				? bytesToHex(/** @type any*/ (receipt).stateRoot)
 				: undefined,
 		status:
 			/** @type any*/ (receipt).status instanceof Uint8Array

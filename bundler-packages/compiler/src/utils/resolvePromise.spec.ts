@@ -52,7 +52,7 @@ describe('resolvePromise', () => {
 			Effect.runPromise(
 				resolveEffect('./resolvePromise.spec.tst', './src/utils', fao, logger),
 			),
-		).rejects.toThrowErrorMatchingInlineSnapshot('"readFile error"')
+		).rejects.toThrowErrorMatchingInlineSnapshot('[Error: readFile error]')
 		expect((logger.error as Mock).mock.calls).toMatchInlineSnapshot(`
 			[
 			  [
@@ -78,7 +78,7 @@ describe('resolvePromise', () => {
 				resolveEffect('./resolvePromise.spec.tst', './src/utils', fao, logger),
 			),
 		).rejects.toThrowErrorMatchingInlineSnapshot(
-			"\"Cannot find module './resolvePromise.spec.tst' from './src/utils'\"",
+			`[Error: Cannot find module './resolvePromise.spec.tst' from './src/utils']`,
 		)
 		expect((logger.error as Mock).mock.calls).toMatchInlineSnapshot(`
 			[
@@ -100,7 +100,7 @@ describe('resolvePromise', () => {
 			Effect.runPromise(
 				resolveEffect('./resolvePromise.spec.ts', './src/utils', fao, logger),
 			),
-		).rejects.toThrowErrorMatchingInlineSnapshot('"exists error"')
+		).rejects.toThrowErrorMatchingInlineSnapshot('[Error: exists error]')
 		expect(
 			(logger.error as Mock).mock.calls[0].slice(0, 2),
 		).toMatchInlineSnapshot(`
