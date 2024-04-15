@@ -13,7 +13,7 @@ export type BaseClientOptions = {
 	/**
 	 * Configure logging options for the client
 	 */
-	readonly loggingOptions?: LogOptions
+	readonly loggingLevel?: LogOptions['level']
 	/**
 	 * The configuration for mining. Defaults to 'auto'
 	 * - 'auto' will mine a block on every transaction
