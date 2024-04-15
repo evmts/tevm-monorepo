@@ -78,6 +78,12 @@ Encoded return value from the contract as hex string
 
 A set of accounts to selfdestruct
 
+### trace
+
+> **trace**?: [`DebugTraceCallResult`](DebugTraceCallResult.md)
+
+The call trace if tracing is enabled on call
+
 ### txHash
 
 > **txHash**?: [`Hex`](Hex.md)
@@ -89,7 +95,7 @@ Whether a call is included in the chain depends on if the
 
 ## Source
 
-[result/CallResult.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/result/CallResult.ts#L7)
+[result/CallResult.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions-types/src/result/CallResult.ts#L8)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

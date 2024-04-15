@@ -19,9 +19,6 @@ The base client used by Tevm. Add extensions to add additional functionality
 Extends the base client with additional functionality. This enables optimal code splitting
 and extensibility
 
-Extends the base client with additional functionality. This enables optimal code splitting
-and extensibility
-
 #### Type parameters
 
 ▪ **TExtension** extends `Record`\<`string`, `any`\>
@@ -49,25 +46,11 @@ console.log(client.forkUrl)
 
 Represents the entire blockchain including it's logs and historical state
 
-Represents the entire blockchain including it's logs and historical state
-
 ### getChainId
 
 > **`readonly`** **getChainId**: () => `Promise`\<`number`\>
 
 Gets the chainId of the current EVM
-
-#### Example
-
-```ts
-const client = createMemoryClient()
-const chainId = await client.getChainId()
-console.log(chainId)
-```
-
-Gets the chainId of the current EVM
-
-#### Returns
 
 #### Example
 
@@ -83,13 +66,9 @@ console.log(chainId)
 
 Interface for querying receipts and historical state
 
-Interface for querying receipts and historical state
-
 ### getTxPool
 
 > **`readonly`** **getTxPool**: () => `Promise`\<`TxPool`\>
-
-Gets the pool of pending transactions to be included in next block
 
 Gets the pool of pending transactions to be included in next block
 
@@ -101,9 +80,11 @@ Internal instance of the VM. Can be used for lower level operations.
 Normally not recomended to use unless building libraries or extensions
 on top of Tevm.
 
-Internal instance of the VM. Can be used for lower level operations.
-Normally not recomended to use unless building libraries or extensions
-on top of Tevm.
+### logger
+
+> **`readonly`** **logger**: `Logger`
+
+The logger instance
 
 ### miningConfig
 
@@ -147,24 +128,9 @@ const client = createMemoryClient()
 await client.ready()
 ```
 
-Returns promise that resulves when the client is ready
-The client is usable without calling this method but may
-have extra latency on the first call from initialization
-
-#### Returns
-
-#### Example
-
-```ts
-const client = createMemoryClient()
-await client.ready()
-```
-
 ### setChainId
 
 > **`readonly`** **setChainId**: (`chainId`) => `void`
-
-Sets the chain id of the current EVM
 
 Sets the chain id of the current EVM
 
@@ -181,7 +147,7 @@ Sets the chain id of the current EVM
 
 ## Source
 
-packages/base-client/types/BaseClient.d.ts:8
+packages/base-client/types/BaseClient.d.ts:9
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

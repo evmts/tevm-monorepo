@@ -78,7 +78,9 @@ import { ERC20 } from "@openzeppelin/contracts/token/ERC20/ERC20.sol"
 		const code = 'import { Something } from ""'
 		expect(() =>
 			runSync(resolveImports('/project/src', code, {}, [], true)),
-		).toThrowErrorMatchingInlineSnapshot('"Import does not exist"')
+		).toThrowErrorMatchingInlineSnapshot(
+			'[ImportDoesNotExistError: Import does not exist]',
+		)
 	})
 
 	it('should correctly resolve import nothing statements', () => {
@@ -105,14 +107,18 @@ import { ERC20 } from "@openzeppelin/contracts/token/ERC20/ERC20.sol"
 		const code = 'console.log("import { Something } from \\"./something\\"")'
 		expect(() =>
 			runSync(resolveImports(52n as any, code, {}, [], true)),
-		).toThrowErrorMatchingInlineSnapshot('"Type bigint is not of type string"')
+		).toThrowErrorMatchingInlineSnapshot(
+			'[Error: Type bigint is not of type string]',
+		)
 	})
 
 	it('should die if non string is passed in for absolute path', () => {
 		const code = 52n as any
 		expect(() =>
 			runSync(resolveImports('/project/src', code, {}, [], true)),
-		).toThrowErrorMatchingInlineSnapshot('"Type bigint is not of type string"')
+		).toThrowErrorMatchingInlineSnapshot(
+			'[Error: Type bigint is not of type string]',
+		)
 	})
 
 	it('should die if non boolean is passed in for sync', () => {
@@ -126,6 +132,8 @@ import { ERC20 } from "@openzeppelin/contracts/token/ERC20/ERC20.sol"
 					5 as any,
 				),
 			),
-		).toThrowErrorMatchingInlineSnapshot('"Type number is not of type boolean"')
+		).toThrowErrorMatchingInlineSnapshot(
+			'[Error: Type number is not of type boolean]',
+		)
 	})
 })

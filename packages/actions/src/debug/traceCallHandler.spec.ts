@@ -1,9 +1,7 @@
 import { setAccountHandler } from '../index.js'
 import { traceCallHandler } from './traceCallHandler.js'
-import { Evm } from '@tevm/evm'
-import { NormalStateManager } from '@tevm/state'
+import { createBaseClient } from '@tevm/base-client'
 import { encodeFunctionData, parseEther } from '@tevm/utils'
-import { TevmVm } from '@tevm/vm'
 import { describe, expect, it } from 'bun:test'
 
 const ERC20_ADDRESS = `0x${'3'.repeat(40)}` as const
@@ -294,13 +292,11 @@ const ERC20_ABI = [
 
 describe('traceCallHandler', () => {
 	it('should execute a contract call', async () => {
-		const stateManager = new NormalStateManager()
-		const evm = await Evm.create({ stateManager })
-		const vm = await TevmVm.create({ evm, stateManager })
+		const client = createBaseClient()
 		// deploy contract
 		expect(
 			(
-				await setAccountHandler({ getVm: async () => vm } as any)({
+				await setAccountHandler(client)({
 					address: ERC20_ADDRESS,
 					deployedBytecode: ERC20_BYTECODE,
 					nonce: parseEther('1000'),
@@ -308,7 +304,7 @@ describe('traceCallHandler', () => {
 			).errors,
 		).toBeUndefined()
 		expect(
-			await traceCallHandler({ getVm: () => Promise.resolve(vm) } as any)({
+			await traceCallHandler(client)({
 				tracer: 'callTracer',
 				data: encodeFunctionData({
 					abi: ERC20_ABI,

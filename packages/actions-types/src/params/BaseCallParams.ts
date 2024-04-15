@@ -13,6 +13,10 @@ import type { BaseParams } from './BaseParams.js'
 export type BaseCallParams<TThrowOnFail extends boolean = boolean> =
 	BaseParams<TThrowOnFail> & {
 		/**
+		 * Whether to return a complete trace with the call
+		 */
+		createTrace?: boolean
+		/**
 		 * Whether or not to update the state or run call in a dry-run. Defaults to `never`
 		 * - `on-success`: Only update the state if the call is successful
 		 * - `always`: Always include tx even if it reverted

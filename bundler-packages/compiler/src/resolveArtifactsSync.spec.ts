@@ -66,7 +66,7 @@ describe('resolveArtifactsSync', () => {
 				fao,
 				require('solc'),
 			),
-		).toThrowErrorMatchingInlineSnapshot('"Not a solidity file"')
+		).toThrowErrorMatchingInlineSnapshot('[Error: Not a solidity file]')
 	})
 
 	it('should throw an error if the compilation failed', () => {
@@ -85,7 +85,7 @@ describe('resolveArtifactsSync', () => {
 				fao,
 				require('solc'),
 			),
-		).toThrowErrorMatchingInlineSnapshot('"Oops"')
+		).toThrowErrorMatchingInlineSnapshot('[Error: Oops]')
 	})
 
 	it('should return the contract artifacts', () => {
@@ -181,7 +181,7 @@ describe('resolveArtifactsSync', () => {
 				fao,
 				require('solc'),
 			),
-		).toThrowErrorMatchingInlineSnapshot('"Compilation failed"')
+		).toThrowErrorMatchingInlineSnapshot('[Error: Compilation failed]')
 	})
 
 	it('should throw an error if file doesnt end in .sol', () => {
@@ -196,7 +196,7 @@ describe('resolveArtifactsSync', () => {
 				fao,
 				require('solc'),
 			),
-		).toThrowErrorMatchingInlineSnapshot('"Not a solidity file"')
+		).toThrowErrorMatchingInlineSnapshot('[Error: Not a solidity file]')
 	})
 })
 

@@ -2,41 +2,62 @@
   <a href="https://tevm.sh/">
     <picture>
       <source media="(prefers-color-scheme: dark)" srcset="https://user-images.githubusercontent.com/35039927/218812217-92f0f784-cb85-43b9-9ca6-e2b9effd9eb2.png">
-      <img alt="wagmi logo" src="https://user-images.githubusercontent.com/35039927/218812217-92f0f784-cb85-43b9-9ca6-e2b9effd9eb2.png" width="auto" height="300">
+      <img alt="tevm logo" src="https://user-images.githubusercontent.com/35039927/218812217-92f0f784-cb85-43b9-9ca6-e2b9effd9eb2.png" width="auto" height="300">
     </picture>
   </a>
 </p>
-
-<p align="center">
-  Execute solidity scripts in browser
-<p>
-
-[![CI](https://github.com/evmts/tevm-monorepo/actions/workflows/e2e.yml/badge.svg)](https://github.com/evmts/tevm-monorepo/actions/workflows/e2e.yml)
-[![CI](https://github.com/evmts/tevm-monorepo/actions/workflows/unit.yml/badge.svg)](https://github.com/evmts/tevm-monorepo/actions/workflows/unit.yml)
-<a href="https://www.npmjs.com/package/@tevm/actions" target="\_parent">
-<img alt="" src="https://img.shields.io/npm/dm/@tevm/actions.svg" />
-</a>
-<a href="https://bundlephobia.com/package/@tevm/actions@latest" target="\_parent">
-<img alt="" src="https://badgen.net/bundlephobia/minzip/@tevm/actions" />
-</a>
 
 # @tevm/actions
 
 Ethereumjs implementation of the [@tevm/actions-types](../actions-types)
 
+Actions add functionality to the [base client](https://github.com/evmts/tevm-monorepo/tree/main/packages/base-client)
+
 ## Installation
 
-Tevm actions is available in the main `tevm` package
+Action handlers can be imported from `tevm/actions` or `@tevm/actions`
 
-```typescript
-import * as actions from 'tevm/actions'
+```bash
+npm install tevm
 ```
 
-Or it can be installed as a standalone package
+or 
 
 ```bash
 npm install @tevm/actions
 ```
+
+## Usage
+
+Action handlers take a client and return an tevm action handler function
+
+```typescript
+import {createBaseClient} from 'tevm/base-client'
+import {callHandler} from 'tevm/actions'
+
+/**
+ * Most action handlers wrap the base client
+ */
+const client = createBaseClient()
+
+/**
+ * To use the action first instanciate it with the base client
+ * @type {import('tevm/actions-types').CallHandler}
+ */
+const call = callHandler(client)
+
+/**
+ * @type{import('tevm/actions-types').CallHandlerResult}
+ */
+const callResult = await call({
+  to: `0x${'01'.repeat(20)}`,
+  value: 1n,
+})
+```
+
+## Actions
+
+See [generated actions docs](./docs/API.md)
 
 ## License 📄
 

@@ -54,7 +54,7 @@ Error.cause
 
 #### Source
 
-node\_modules/.pnpm/typescript@5.3.3/node\_modules/typescript/lib/lib.es2022.error.d.ts:24
+node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es2022.error.d.ts:24
 
 ***
 
@@ -68,7 +68,7 @@ Error.message
 
 #### Source
 
-node\_modules/.pnpm/typescript@5.3.3/node\_modules/typescript/lib/lib.es5.d.ts:1076
+node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1077
 
 ***
 
@@ -82,7 +82,7 @@ Error.name
 
 #### Source
 
-node\_modules/.pnpm/typescript@5.3.3/node\_modules/typescript/lib/lib.es5.d.ts:1075
+node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1076
 
 ***
 
@@ -96,7 +96,7 @@ Error.stack
 
 #### Source
 
-node\_modules/.pnpm/typescript@5.3.3/node\_modules/typescript/lib/lib.es5.d.ts:1077
+node\_modules/.pnpm/typescript@5.4.5/node\_modules/typescript/lib/lib.es5.d.ts:1078
 
 ***
 
@@ -110,19 +110,11 @@ Optional override for formatting stack traces
 
 https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
-Optional override for formatting stack traces
-
 #### Parameters
 
 ▪ **err**: `Error`
 
 ▪ **stackTraces**: `CallSite`[]
-
-#### Returns
-
-#### See
-
-https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
 #### Inherited from
 

@@ -31,6 +31,12 @@ export const ethGetTransactionReceiptHandler = (client) => async (params) => {
 	const result = await receiptsManager.getReceiptByTxHash(
 		hexToBytes(params.hash),
 	)
+
+	/**
+	 * If we don't have the receipt check the fork for a receipt
+	 * We currently do not cache it in future we may consider fetching
+	 * entire block here and caching it
+	 */
 	if (!result && client.forkUrl) {
 		const fetcher = createJsonRpcFetcher(client.forkUrl)
 		const { result } = await fetcher.request({
@@ -81,6 +87,7 @@ export const ethGetTransactionReceiptHandler = (client) => async (params) => {
 			}
 		)
 	}
+
 	if (!result) {
 		return null
 	}

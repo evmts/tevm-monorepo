@@ -10,6 +10,12 @@ import { z } from 'zod'
 
 export const zBaseCallParams = zBaseParams
 	.extend({
+		createTrace: z
+			.boolean()
+			.optional()
+			.describe(
+				'If true, the call will also return a `trace` on the trace property',
+			),
 		createTransaction: z.union([
 			z
 				.boolean()

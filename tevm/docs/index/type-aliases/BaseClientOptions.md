@@ -115,6 +115,12 @@ Cannot be set if `proxy` is also set
 
 Hardfork to use. Defaults to `shanghai`
 
+### loggingOptions
+
+> **`readonly`** **loggingOptions**?: `LogOptions`
+
+Configure logging options for the client
+
 ### miningConfig
 
 > **`readonly`** **miningConfig**?: [`MiningConfig`](../../base-client/type-aliases/MiningConfig.md)
@@ -162,7 +168,7 @@ Cannot be set if `fork` is also set
 
 ## Source
 
-packages/base-client/types/BaseClientOptions.d.ts:10
+packages/base-client/types/BaseClientOptions.d.ts:11
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

@@ -18,7 +18,7 @@ Infers the the first argument of a class
 
 ## Source
 
-packages/precompiles/dist/index.d.ts:10
+packages/precompiles/dist/index.d.ts:9
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

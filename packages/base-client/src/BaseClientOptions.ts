@@ -1,6 +1,7 @@
 import type { CustomPrecompile } from './CustomPrecompile.js'
 import type { Hardfork } from './Hardfork.js'
 import type { MiningConfig } from './MiningConfig.js'
+import type { LogOptions } from '@tevm/logger'
 import type { CustomPredeploy } from '@tevm/predeploys'
 import type { ForkStateManagerOpts, ProxyStateManagerOpts } from '@tevm/state'
 import type { SyncStoragePersister } from '@tevm/sync-storage-persister'
@@ -9,6 +10,10 @@ import type { SyncStoragePersister } from '@tevm/sync-storage-persister'
  * Options for creating an Tevm MemoryClient instance
  */
 export type BaseClientOptions = {
+	/**
+	 * Configure logging options for the client
+	 */
+	readonly loggingOptions?: LogOptions
 	/**
 	 * The configuration for mining. Defaults to 'auto'
 	 * - 'auto' will mine a block on every transaction

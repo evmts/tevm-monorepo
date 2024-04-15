@@ -25,7 +25,7 @@ describe('callHandlerResult', () => {
 	} as const satisfies EvmResult
 
 	it('should handle EVMResult correctly', () => {
-		const result = callHandlerResult(dummyEVMResult)
+		const result = callHandlerResult(dummyEVMResult, undefined, undefined)
 		expect(result.rawData).toEqual(toHex(Buffer.from('test')))
 		expect(result.executionGasUsed).toEqual(21000n)
 		expect(result.gasRefund).toEqual(1000n)
@@ -55,7 +55,7 @@ describe('callHandlerResult', () => {
 			},
 		} as any
 
-		const result = callHandlerResult(modifiedResult)
+		const result = callHandlerResult(modifiedResult, undefined, undefined)
 		expect(result).not.toHaveProperty('gasRefund')
 		expect(result).not.toHaveProperty('selfdestruct')
 		expect(result).not.toHaveProperty('blobGasUsed')

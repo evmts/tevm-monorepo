@@ -28,8 +28,6 @@ packages/state/types/ProxyStateManager.d.ts:19
 
 Called when state manager commits state
 
-Called when state manager commits state
-
 #### Parameters
 
 ▪ **stateManager**: [`ProxyStateManager`](../../state/classes/ProxyStateManager.md)

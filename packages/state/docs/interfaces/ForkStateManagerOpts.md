@@ -24,8 +24,6 @@
 
 Called when state manager commits state
 
-Called when state manager commits state
-
 #### Parameters
 
 ▪ **stateManager**: [`ForkStateManager`](../classes/ForkStateManager.md)

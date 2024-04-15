@@ -66,6 +66,7 @@
     "@tevm/common": "workspace:^",
     "@tevm/evm": "workspace:^",
     "@tevm/jsonrpc": "workspace:^",
+    "@tevm/logger": "workspace:1.0.0-next.42",
     "@tevm/predeploys": "workspace:^",
     "@tevm/state": "workspace:^",
     "@tevm/sync-storage-persister": "workspace:1.0.0-next.40",

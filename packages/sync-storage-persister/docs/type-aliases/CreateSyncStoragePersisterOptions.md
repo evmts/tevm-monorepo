@@ -22,17 +22,9 @@ How to deserialize the data from storage.
 
 `JSON.parse`
 
-How to deserialize the data from storage.
-
 #### Parameters
 
 ▪ **cachedString**: `string`
-
-#### Returns
-
-#### Default
-
-`JSON.parse`
 
 ### key
 
@@ -50,17 +42,9 @@ How to serialize the data to storage.
 
 `JSON.stringify`
 
-How to serialize the data to storage.
-
 #### Parameters
 
 ▪ **client**: `SerializableTevmState`
-
-#### Returns
-
-#### Default
-
-`JSON.stringify`
 
 ### storage
 

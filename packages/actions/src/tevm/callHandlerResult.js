@@ -3,16 +3,21 @@ import { bytesToHex, getAddress, isBytes, toHex } from '@tevm/utils'
 /**
  * Creates an CallHandler for handling call params with Ethereumjs EVM
  * @param {import('@tevm/evm').EvmResult} evmResult
- * @param {import('@tevm/utils').Hex} [txHash]
+ * @param {import('@tevm/utils').Hex | undefined} txHash
+ * @param {import('@tevm/actions-types').DebugTraceCallResult | undefined} trace
  * @returns {import('@tevm/actions-types').CallResult}
  */
-export const callHandlerResult = (evmResult, txHash) => {
+export const callHandlerResult = (evmResult, txHash, trace) => {
 	/**
 	 * @type {import('@tevm/actions-types').CallResult}
 	 */
 	const out = {
 		rawData: toHex(evmResult.execResult.returnValue),
 		executionGasUsed: evmResult.execResult.executionGasUsed,
+	}
+
+	if (trace) {
+		out.trace = trace
 	}
 
 	if (txHash) {

@@ -39,7 +39,7 @@ describe('resolveSafe', () => {
 				resolveSafe('./resolveSafe.spec.ts', './src/utils', safeFao(fao)),
 			),
 		).rejects.toThrowErrorMatchingInlineSnapshot(
-			'"Read file error: Read file error: undefined"',
+			'[ReadFileError: Read file error: Read file error: undefined]',
 		)
 	})
 
@@ -49,7 +49,9 @@ describe('resolveSafe', () => {
 			Effect.runPromise(
 				resolveSafe('./resolveSafe.spec.ts', './src/utils', safeFao(fao)),
 			),
-		).rejects.toThrowErrorMatchingInlineSnapshot('"Failed to resolve"')
+		).rejects.toThrowErrorMatchingInlineSnapshot(
+			'[ResolveError: Failed to resolve]',
+		)
 	})
 
 	it('should throw an error if existsSync throws', async () => {

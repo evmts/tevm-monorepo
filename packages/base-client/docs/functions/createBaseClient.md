@@ -23,9 +23,6 @@ Creates the base instance of a memory client
 > Extends the base client with additional functionality. This enables optimal code splitting
 > and extensibility
 >
-> Extends the base client with additional functionality. This enables optimal code splitting
-> and extensibility
->
 > #### Type parameters
 >
 > ▪ **TExtension** extends `Record`\<`string`, `any`\>
@@ -53,25 +50,11 @@ Creates the base instance of a memory client
 >
 > Represents the entire blockchain including it's logs and historical state
 >
-> Represents the entire blockchain including it's logs and historical state
->
 > ### getChainId
 >
 > > **`readonly`** **getChainId**: () => `Promise`\<`number`\>
 >
 > Gets the chainId of the current EVM
->
-> #### Example
->
-> ```ts
-> const client = createMemoryClient()
-> const chainId = await client.getChainId()
-> console.log(chainId)
-> ```
->
-> Gets the chainId of the current EVM
->
-> #### Returns
 >
 > #### Example
 >
@@ -87,13 +70,9 @@ Creates the base instance of a memory client
 >
 > Interface for querying receipts and historical state
 >
-> Interface for querying receipts and historical state
->
 > ### getTxPool
 >
 > > **`readonly`** **getTxPool**: () => `Promise`\<`TxPool`\>
->
-> Gets the pool of pending transactions to be included in next block
 >
 > Gets the pool of pending transactions to be included in next block
 >
@@ -105,9 +84,11 @@ Creates the base instance of a memory client
 > Normally not recomended to use unless building libraries or extensions
 > on top of Tevm.
 >
-> Internal instance of the VM. Can be used for lower level operations.
-> Normally not recomended to use unless building libraries or extensions
-> on top of Tevm.
+> ### logger
+>
+> > **`readonly`** **logger**: `Logger`
+>
+> The logger instance
 >
 > ### miningConfig
 >
@@ -151,24 +132,9 @@ Creates the base instance of a memory client
 > await client.ready()
 > ```
 >
-> Returns promise that resulves when the client is ready
-> The client is usable without calling this method but may
-> have extra latency on the first call from initialization
->
-> #### Returns
->
-> #### Example
->
-> ```ts
-> const client = createMemoryClient()
-> await client.ready()
-> ```
->
 > ### setChainId
 >
 > > **`readonly`** **setChainId**: (`chainId`) => `void`
->
-> Sets the chain id of the current EVM
 >
 > Sets the chain id of the current EVM
 >
@@ -184,7 +150,7 @@ Creates the base instance of a memory client
 
 ## Source
 
-[createBaseClient.js:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/createBaseClient.js#L21)
+[createBaseClient.js:22](https://github.com/evmts/tevm-monorepo/blob/main/packages/base-client/src/createBaseClient.js#L22)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

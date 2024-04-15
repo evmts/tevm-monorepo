@@ -121,7 +121,7 @@ node\_modules/.pnpm/@ethereumjs+common@4.3.0/node\_modules/@ethereumjs/common/di
 
 ### events
 
-> **events**: `EventEmitter`\<`DefaultEventMap`\>
+> **events**: `EventEmitter`
 
 #### Source
 

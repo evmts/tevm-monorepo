@@ -78,6 +78,12 @@ Encoded return value from the contract as hex string
 
 A set of accounts to selfdestruct
 
+### trace
+
+> **trace**?: [`DebugTraceCallResult`](../../actions-types/type-aliases/DebugTraceCallResult.md)
+
+The call trace if tracing is enabled on call
+
 ### txHash
 
 > **txHash**?: [`Hex`](../../actions-types/type-aliases/Hex.md)
@@ -89,7 +95,7 @@ Whether a call is included in the chain depends on if the
 
 ## Source
 
-packages/actions-types/types/result/CallResult.d.ts:6
+packages/actions-types/types/result/CallResult.d.ts:7
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

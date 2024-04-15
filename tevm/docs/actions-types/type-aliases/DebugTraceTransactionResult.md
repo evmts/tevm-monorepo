@@ -10,7 +10,7 @@
 
 ## Source
 
-packages/actions-types/types/result/DebugResult.d.ts:11
+packages/actions-types/types/result/DebugResult.d.ts:15
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

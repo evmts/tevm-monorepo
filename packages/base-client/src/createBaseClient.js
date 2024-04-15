@@ -4,6 +4,7 @@ import { getChainId } from './getChainId.js'
 import { Chain, ReceiptsManager, createBlockchain } from '@tevm/blockchain'
 import { Common } from '@tevm/common'
 import { createEvm } from '@tevm/evm'
+import { createLogger } from '@tevm/logger'
 import { createTevmStateManager } from '@tevm/state'
 import { TxPool } from '@tevm/txpool'
 import { hexToBigInt, numberToHex, toHex } from '@tevm/utils'
@@ -231,6 +232,9 @@ export const createBaseClient = (options = {}) => {
 	 * @type {import('./BaseClient.js').BaseClient}
 	 */
 	const baseClient = {
+		logger: createLogger(
+			options.loggingOptions ?? { name: 'TevmClient', level: 'warn' },
+		),
 		getChain: () => {
 			return chainPromise
 		},
