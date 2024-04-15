@@ -8,6 +8,10 @@ export type StructLog = {
 	readonly op: string
 	readonly pc: number
 	readonly stack: ReadonlyArray<Hex>
+	readonly error?: {
+		error: string,
+		errorType: string,
+	}
 }
 
 // debug_traceTransaction

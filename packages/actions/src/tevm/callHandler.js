@@ -227,7 +227,7 @@ export const callHandler =
 					// don't expect this to ever happen at this point but being defensive
 					await copiedVm.stateManager.revert()
 					return maybeThrowOnFail(params.throwOnFail ?? defaultThrowOnFail, {
-						...callHandlerResult(evmResult),
+						...callHandlerResult(evmResult, undefined, trace),
 						errors: [
 							{
 								name: 'UnexpectedError',
@@ -258,7 +258,7 @@ export const callHandler =
 			return /** @type {any}*/ (
 				maybeThrowOnFail(
 					params.throwOnFail ?? defaultThrowOnFail,
-					callHandlerResult(evmResult, txHash),
+					callHandlerResult(evmResult, txHash, trace),
 				)
 			)
 		}
