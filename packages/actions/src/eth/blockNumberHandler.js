@@ -4,6 +4,7 @@
  * @returns {import('@tevm/actions-types').EthBlockNumberHandler}
  */
 export const blockNumberHandler = (client) => async () => {
+	client.logger.debug('blockNumberHandler called')
 	const vm = await client.getVm()
 	return vm.blockchain
 		.getCanonicalHeadBlock()

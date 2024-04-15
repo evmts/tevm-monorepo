@@ -18,6 +18,8 @@ import { validateScriptParams } from '@tevm/zod'
  * @returns {import("@tevm/actions-types").ScriptHandler}
  */
 export const scriptHandler = (client, options = {}) => async (params) => {
+	client.logger.debug(params, 'Called with params')
+
 	const vm = await client.getVm()
 	const { throwOnFail = options.throwOnFail ?? true } = params
 	const clonedVm = params.createTransaction ? vm : await vm.deepCopy()
@@ -30,7 +32,7 @@ export const scriptHandler = (client, options = {}) => async (params) => {
 	if (/** @type any*/ (params).data) {
 		functionData = /** @type any*/ (params).data
 	} else {
-		const errors = validateScriptParams(/** @type any*/ (params))
+		const errors = validateScriptParams(/** @type any*/(params))
 		if (errors.length > 0) {
 			return maybeThrowOnFail(throwOnFail, {
 				errors,
@@ -44,14 +46,17 @@ export const scriptHandler = (client, options = {}) => async (params) => {
 		functionData =
 			functionData === '0x'
 				? encodeFunctionData(
-						/** @type {any} */ ({
-							abi: params.abi,
-							functionName: params.functionName,
-							args: params.args,
-						}),
-				  )
+						/** @type {any} */({
+						abi: params.abi,
+						functionName: params.functionName,
+						args: params.args,
+					}),
+				)
 				: functionData
+
+		client.logger.debug(functionData, 'Decoded function data')
 	} catch (e) {
+		client.logger.error(e, 'Error decoding function data')
 		/**
 		 * @type {import('@tevm/errors').InvalidRequestError}
 		 */
@@ -89,6 +94,11 @@ export const scriptHandler = (client, options = {}) => async (params) => {
 		throwOnFail: false,
 	})
 
+	client.logger.debug({
+		address: scriptAddress,
+		deployedBytecode: params.deployedBytecode,
+	}, 'Deployed script bytecode to random address')
+
 	/**
 	 * @type {import('@tevm/actions-types').CallParams}
 	 */
@@ -120,10 +130,11 @@ export const scriptHandler = (client, options = {}) => async (params) => {
 	})
 
 	if (result.errors && result.errors.length > 0) {
+		client.logger.error(result.errors, 'call errors')
 		result.errors = result.errors.map((err) => {
 			if (isHex(err.message) && err._tag === 'revert') {
 				const decodedError = decodeErrorResult(
-					/** @type {any} */ ({
+					/** @type {any} */({
 						abi: params.abi,
 						data: err.message,
 						functionName: params.functionName,
@@ -149,12 +160,13 @@ export const scriptHandler = (client, options = {}) => async (params) => {
 	let decodedResult
 	try {
 		decodedResult = decodeFunctionResult(
-			/** @type {any} */ ({
+			/** @type {any} */({
 				abi: params.abi,
 				data: result.rawData,
 				functionName: params.functionName,
 			}),
 		)
+		client.logger.debug(decodedResult, 'Successfully decoded script result with provided abi and function name')
 	} catch (e) {
 		/**
 		 * @type {import('@tevm/errors').ContractError}

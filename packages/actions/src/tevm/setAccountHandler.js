@@ -12,12 +12,15 @@ import { validateSetAccountParams } from '@tevm/zod'
  * @returns {import('@tevm/actions-types').SetAccountHandler}
  */
 export const setAccountHandler = (client, options = {}) => async (params) => {
+	client.logger.debug(params, 'setAccountHandler: Called with params')
+
 	const { throwOnFail = options.throwOnFail ?? true } = params
 	/**
 	 * @type {Array<import('@tevm/errors').SetAccountError>}
 	 */
 	const errors = validateSetAccountParams(params)
 	if (errors.length > 0) {
+		client.logger.error(errors, 'Invalid params passed to setAccountHandler')
 		return maybeThrowOnFail(throwOnFail, { errors })
 	}
 
@@ -37,7 +40,7 @@ export const setAccountHandler = (client, options = {}) => async (params) => {
 					params.balance,
 					params.storageRoot && hexToBytes(params.storageRoot),
 					params.deployedBytecode &&
-						hexToBytes(keccak256(params.deployedBytecode)),
+					hexToBytes(keccak256(params.deployedBytecode)),
 				),
 			),
 		)
@@ -59,7 +62,7 @@ export const setAccountHandler = (client, options = {}) => async (params) => {
 				promises.push(
 					vm.stateManager.putContractStorage(
 						address,
-						hexToBytes(/** @type {import('@tevm/utils').Hex}*/ (key)),
+						hexToBytes(/** @type {import('@tevm/utils').Hex}*/(key)),
 						hexToBytes(value),
 					),
 				)
@@ -73,6 +76,7 @@ export const setAccountHandler = (client, options = {}) => async (params) => {
 		}
 
 		if (errors.length > 0) {
+			client.logger.error(errors, 'There was 1 or more error setting account')
 			return maybeThrowOnFail(throwOnFail, { errors })
 		}
 
@@ -81,14 +85,15 @@ export const setAccountHandler = (client, options = {}) => async (params) => {
 		// TODO offer way of setting contract storage with evm.stateManager.putContractStorage
 		return {}
 	} catch (e) {
+		client.logger.error(e, 'Unexpected error thrown in setAccountHandler')
 		errors.push(
 			createError(
 				'UnexpectedError',
 				typeof e === 'string'
 					? e
 					: e instanceof Error
-					? e.message
-					: 'unknown error',
+						? e.message
+						: 'unknown error',
 			),
 		)
 		return maybeThrowOnFail(throwOnFail, { errors })

@@ -1,14 +1,12 @@
 import { callHandler } from '../index.js'
-import { TransactionFactory } from '@tevm/tx'
-import { bytesToHex } from '@tevm/utils'
 
 /**
  * @param {import('@tevm/base-client').BaseClient} client
  * @returns {import('@tevm/actions-types').EthSendTransactionHandler}
  */
 export const ethSendTransactionHandler = (client) => async (params) => {
-	const tx = TransactionFactory.fromTxData(params)
-	const { errors } = await callHandler(client)({
+	client.logger.debug(params, 'ethSendTransactionHandler called with params')
+	const { errors, txHash } = await callHandler(client)({
 		...params,
 		createTransaction: true,
 		skipBalance: true,
@@ -19,5 +17,14 @@ export const ethSendTransactionHandler = (client) => async (params) => {
 	if (errors?.length && errors.length > 1) {
 		throw new AggregateError(errors)
 	}
-	return bytesToHex(tx.hash())
+	if (txHash === undefined) {
+		client.logger.error(
+			txHash,
+			'UnexpectedError: No tx hash returned from callHandler. This indicates a bug in the client.',
+		)
+		throw new Error(
+			'UnexpectedError: No tx hash returned from callHandler. This indicates a bug in the client.',
+		)
+	}
+	return txHash
 }

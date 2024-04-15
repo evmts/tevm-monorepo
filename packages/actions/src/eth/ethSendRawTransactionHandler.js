@@ -35,16 +35,23 @@ export class BlobGasLimitExceededError extends Error {
  * @internal
  * @param {import('@tevm/vm').TevmVm} vm
  * @param {Uint8Array} txBuf
+ * @param {import('@tevm/base-client').BaseClient} client
  */
-const getTx = (vm, txBuf) => {
+const getTx = (vm, txBuf, client) => {
+	client.logger.info(txBuf, 'creating tx from buffer')
 	switch (txBuf[0]) {
 		case txType.LEGACY:
 		case txType.ACCESS_LIST:
 		case txType.EIP1559:
+			client.logger.info(
+				txBuf[0],
+				'identified legacy access list or eip1559 tx type',
+			)
 			return TransactionFactory.fromSerializedData(txBuf, {
 				common: vm.common,
 			})
 		case txType.BLOB: {
+			client.logger.info(txBuf[0], 'identified blob tx type')
 			const tx = BlobEIP4844Transaction.fromSerializedBlobTxNetworkWrapper(
 				txBuf,
 				{ common: vm.common },
@@ -52,14 +59,24 @@ const getTx = (vm, txBuf) => {
 			const blobGasLimit = vm.common.param('gasConfig', 'maxblobGasPerBlock')
 			const blobGasPerBlob = vm.common.param('gasConfig', 'blobGasPerBlob')
 
+			client.logger.info(
+				{ blobGasLimit, blobGasPerBlob },
+				'read common for blob gas config options',
+			)
+
 			const blobCount = BigInt(tx.blobs?.length ?? 0)
 			const blobGas = blobCount * blobGasPerBlob
 			if (blobGas > blobGasLimit) {
+				client.logger.error(
+					{ blobGas, blobGasLimit },
+					'Error: BlobGasLimit is lower than BlobGas',
+				)
 				throw new BlobGasLimitExceededError()
 			}
 			return tx
 		}
 		case txType.OPTIMISM_DEPOSIT:
+			client.logger.info(txBuf[0], 'identified optimism deposit tx type')
 			throw new Error('Optimism deposit tx are not supported')
 		default:
 			throw new Error(`Invalid transaction type ${txBuf[0]}`)
@@ -71,6 +88,8 @@ const getTx = (vm, txBuf) => {
  * @returns {import('@tevm/actions-types').EthSendRawTransactionHandler}
  */
 export const ethSendRawTransactionHandler = (client) => async (params) => {
+	client.logger.debug(params, 'ethSendRawTransaction called with params')
+
 	const vm = await client.getVm()
 	const txBuf = hexToBytes(params.data)
 	/**
@@ -78,12 +97,15 @@ export const ethSendRawTransactionHandler = (client) => async (params) => {
 	 */
 	let tx
 	try {
-		tx = getTx(vm, txBuf)
+		tx = getTx(vm, txBuf, client)
+		client.logger.debug(tx, 'parsed tx')
 	} catch (e) {
+		client.logger.error(e, 'There was an error parsing transaction')
 		// TODO type this error
 		throw new Error('Invalid transaction. Unable to parse data')
 	}
 	if (!tx.isSigned()) {
+		client.logger.error('Invalid transaction unsigned')
 		// TODO type this error
 		throw new Error('Invalid transaction. Transaction is not signed')
 	}
@@ -108,16 +130,35 @@ export const ethSendRawTransactionHandler = (client) => async (params) => {
 			data: bytesToHex(tx.data),
 		})
 	} catch (error) {
+		client.logger.error(error, 'There was an error adding transaction to pool')
 		// TODO type this error
 		throw new Error('Invalid transaction. Unable to add transaction to pool')
 	}
 
 	if (res.errors?.length === 1) {
-		throw res.errors[0]
+		client.logger.error(
+			res.errors,
+			`There was an error in transaction${res.txHash}`
+				? '. The transaction was still added to mempool to be included in cannonical chain'
+				: '',
+		)
+		if (!res.txHash) {
+			throw res.errors[0]
+		}
 	}
 	if ((res.errors?.length ?? 0) > 0) {
-		throw new AggregateError(res.errors ?? [])
+		client.logger.error(
+			res.errors,
+			`There was an error in transaction${res.txHash}`
+				? '. The transaction was still added to mempool to be included in cannonical chain'
+				: '',
+		)
+		if (!res.txHash) {
+			throw new AggregateError(res.errors ?? [])
+		}
 	}
+
+	client.logger.debug(tx.hash(), 'ethSendRawTransactionHandler successful')
 
 	return bytesToHex(tx.hash())
 }

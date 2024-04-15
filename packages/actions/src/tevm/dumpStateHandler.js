@@ -14,33 +14,35 @@ import {
  */
 export const dumpStateHandler =
 	(client, options = {}) =>
-	async ({ throwOnFail = options.throwOnFail } = {}) => {
-		try {
-			const vm = await client.getVm()
-			if (
-				vm.stateManager instanceof NormalStateManager ||
-				vm.stateManager instanceof ProxyStateManager ||
-				vm.stateManager instanceof ForkStateManager
-			) {
-				return { state: await vm.stateManager.dumpCanonicalGenesis() }
-			} else {
-				throw new Error(
-					'Unsupported state manager. Must use a NormalStateManager, ProxyStateManager, or ForkStateManager. This indicates a bug in tevm internal code.',
-				)
+		async (params) => {
+			client.logger.debug(params, 'Called with params')
+			const { throwOnFail = options.throwOnFail } = params ?? {}
+			try {
+				const vm = await client.getVm()
+				if (
+					vm.stateManager instanceof NormalStateManager ||
+					vm.stateManager instanceof ProxyStateManager ||
+					vm.stateManager instanceof ForkStateManager
+				) {
+					return { state: await vm.stateManager.dumpCanonicalGenesis() }
+				} else {
+					throw new Error(
+						'Unsupported state manager. Must use a NormalStateManager, ProxyStateManager, or ForkStateManager. This indicates a bug in tevm internal code.',
+					)
+				}
+			} catch (e) {
+				return maybeThrowOnFail(throwOnFail ?? true, {
+					state: {},
+					errors: [
+						createError(
+							'UnexpectedError',
+							typeof e === 'string'
+								? e
+								: e instanceof Error
+									? e.message
+									: 'unknown error',
+						),
+					],
+				})
 			}
-		} catch (e) {
-			return maybeThrowOnFail(throwOnFail ?? true, {
-				state: {},
-				errors: [
-					createError(
-						'UnexpectedError',
-						typeof e === 'string'
-							? e
-							: e instanceof Error
-							? e.message
-							: 'unknown error',
-					),
-				],
-			})
 		}
-	}

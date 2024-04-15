@@ -5,6 +5,7 @@ import { callHandler } from '../index.js'
  * @returns {import('@tevm/actions-types').EthCallHandler}
  */
 export const ethCallHandler = (client) => async (params) => {
+	client.logger.debug(params, 'ethCallHandler called with params')
 	return callHandler(client)({
 		...params,
 		createTransaction: false,
