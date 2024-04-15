@@ -1,10 +1,15 @@
 import type { Address, Hex, Log } from '../common/index.js'
 import type { CallError } from '@tevm/errors'
+import type { DebugTraceCallResult } from './DebugResult.js'
 
 /**
  * Result of a Tevm VM Call method
  */
 export type CallResult<ErrorType = CallError> = {
+	/**
+	 * The call trace if tracing is enabled on call
+	 */
+	trace?: DebugTraceCallResult
 	/**
 	 * The returned tx hash if the call was included in the chain
 	 * Will not be defined if the call was not included in the chain

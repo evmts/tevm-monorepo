@@ -16,11 +16,21 @@ export const callHandlerOpts = async (client, params) => {
 	const vm = await client.getVm()
 
 	// handle block overrides
+	if (params.blockTag) {
+		client.logger.debug(params.blockTag, 'callHandlerOpts: Fetching specific block tag for call. This feature is not currently implemented so just using cannonical head')
+		// TODO handle getting block tags
+		opts.block = await vm.blockchain.getCanonicalHeadBlock()
+	} else {
+		opts.block = await vm.blockchain.getCanonicalHeadBlock()
+	}
+
 	if (params.blockOverrideSet) {
+		client.logger.debug(params.blockOverrideSet, 'callHandlerOpts: Detected a block override set')
 		// TODO this is a known bug we need to implement better support for block tags
 		// We are purposefully ignoring this until the block creation is implemented
 		const header = await vm.blockchain.getCanonicalHeadHeader()
 		opts.block = {
+			...opts.block,
 			header: {
 				coinbase:
 					params.blockOverrideSet.coinbase !== undefined
@@ -55,11 +65,6 @@ export const callHandlerOpts = async (client, params) => {
 				},
 			},
 		}
-	} else if (params.blockTag) {
-		// TODO handle getting block tags
-		opts.block = await vm.blockchain.getCanonicalHeadBlock()
-	} else {
-		opts.block = await vm.blockchain.getCanonicalHeadBlock()
 	}
 
 	/**
@@ -69,6 +74,7 @@ export const callHandlerOpts = async (client, params) => {
 
 	// handle state overrides
 	if (params.stateOverrideSet) {
+		client.logger.debug(params.stateOverrideSet, 'callHandlerOpts: Detected a stateOverrideSet')
 		for (const [address, state] of Object.entries(params.stateOverrideSet)) {
 			const res = await setAccountHandler(client)({
 				address: /** @type import('@tevm/utils').Address*/ (address),

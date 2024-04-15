@@ -12,4 +12,5 @@ export {
 	type InterpreterStep,
 	type ExecResult,
 	type EVMResult as EvmResult,
+	type EVMRunCallOpts as EvmRunCallOpts,
 } from '@ethereumjs/evm'
