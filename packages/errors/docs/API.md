@@ -8,6 +8,7 @@
 
 ### Classes
 
+- [InvalidCreateParams](classes/InvalidCreateParams.md)
 - [NoProxyConfiguredError](classes/NoProxyConfiguredError.md)
 - [ProxyFetchError](classes/ProxyFetchError.md)
 - [UnexpectedInternalServerError](classes/UnexpectedInternalServerError.md)

@@ -17,31 +17,31 @@ import { hexToBytes, keccak256 } from '@tevm/utils'
  * @returns {Promise<void>}
  */
 export const addPredeploy = async ({
-  vm,
-  nonce,
-  balance,
-  storageRoot,
-  deployedBytecode,
-  address,
+	vm,
+	nonce,
+	balance,
+	storageRoot,
+	deployedBytecode,
+	address,
 }) => {
-  const ethjsAddress = EthjsAddress.fromString(address)
-
-  if (deployedBytecode) {
-    await vm.stateManager.putContractCode(
-      ethjsAddress,
-      hexToBytes(deployedBytecode),
-    )
-  }
-  await vm.stateManager.putAccount(
-    ethjsAddress,
-    EthjsAccount.fromAccountData({
-      ...(nonce !== undefined ? { nonce } : {}),
-      ...(balance !== undefined ? { balance } : {}),
-      ...(storageRoot !== undefined ? { storageRoot } : {}),
-      ...(deployedBytecode !== undefined ? { codeHash: keccak256(deployedBytecode, 'bytes') } : {}),
-    })
-  )
-  await vm.stateManager.checkpoint()
-  await vm.stateManager.commit()
+	const ethjsAddress = EthjsAddress.fromString(address)
+	await vm.stateManager.putAccount(
+		ethjsAddress,
+		EthjsAccount.fromAccountData({
+			...(nonce !== undefined ? { nonce } : {}),
+			...(balance !== undefined ? { balance } : {}),
+			...(storageRoot !== undefined ? { storageRoot } : {}),
+			...(deployedBytecode !== undefined
+				? { codeHash: keccak256(deployedBytecode, 'bytes') }
+				: {}),
+		}),
+	)
+	if (deployedBytecode) {
+		await vm.stateManager.putContractCode(
+			ethjsAddress,
+			hexToBytes(deployedBytecode),
+		)
+	}
+	await vm.stateManager.checkpoint()
+	await vm.stateManager.commit()
 }
-
