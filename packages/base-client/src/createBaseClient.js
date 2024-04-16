@@ -3,6 +3,7 @@ import { addPredeploy } from './addPredeploy.js'
 import { getChainId } from './getChainId.js'
 import { Chain, ReceiptsManager, createBlockchain } from '@tevm/blockchain'
 import { Common } from '@tevm/common'
+import {} from '@tevm/errors'
 import { createEvm } from '@tevm/evm'
 import { createLogger } from '@tevm/logger'
 import { createTevmStateManager } from '@tevm/state'
@@ -232,9 +233,10 @@ export const createBaseClient = (options = {}) => {
 	 * @type {import('./BaseClient.js').BaseClient}
 	 */
 	const baseClient = {
-		logger: createLogger(
-			options.loggingOptions ?? { name: 'TevmClient', level: 'warn' },
-		),
+		logger: createLogger({
+			name: 'TevmClient',
+			level: options.loggingLevel ?? 'warn',
+		}),
 		getChain: () => {
 			return chainPromise
 		},

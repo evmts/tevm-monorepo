@@ -1,1 +1,1 @@
-export { RLP as Rlp } from '@ethereumjs/rlp'
+export { Rlp } from './Rlp.js'

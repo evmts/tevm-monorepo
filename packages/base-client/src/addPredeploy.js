@@ -24,15 +24,17 @@ export const addPredeploy = async ({
 	deployedBytecode,
 	address,
 }) => {
-	const ethjsAddress = new EthjsAddress(hexToBytes(address))
+	const ethjsAddress = EthjsAddress.fromString(address)
 	await vm.stateManager.putAccount(
 		ethjsAddress,
-		new EthjsAccount(
-			nonce,
-			balance,
-			storageRoot && hexToBytes(storageRoot),
-			deployedBytecode && hexToBytes(keccak256(deployedBytecode)),
-		),
+		EthjsAccount.fromAccountData({
+			...(nonce !== undefined ? { nonce } : {}),
+			...(balance !== undefined ? { balance } : {}),
+			...(storageRoot !== undefined ? { storageRoot } : {}),
+			...(deployedBytecode !== undefined
+				? { codeHash: keccak256(deployedBytecode, 'bytes') }
+				: {}),
+		}),
 	)
 	if (deployedBytecode) {
 		await vm.stateManager.putContractCode(
