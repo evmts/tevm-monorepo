@@ -8,11 +8,14 @@ import { Common } from '@ethereumjs/common'
  * @param {import('./CommonOptions.js').CommonOptions} [options]
  * @returns {Common}
  */
-export const createCommon = (options = {}) => {
-  return new Common({
-    chain: 1,
-    hardfork: options.hardfork ?? Hardfork.Cancun,
-    eips: [...(options.eips ?? []), 1559, 4895],
-    customChains: [],
-  })
+export const createCommon = ({
+	hardfork = Hardfork.Cancun,
+	eips = [],
+} = {}) => {
+	return new Common({
+		chain: 1,
+		hardfork: hardfork,
+		eips: [1559, 4788, 4844, 4895, ...eips],
+		customChains: [],
+	})
 }

@@ -6,17 +6,22 @@
 
 # Function: createEvm()
 
-> **createEvm**(`options`): `Promise`\<[`Evm`](../classes/Evm.md)\>
+> **createEvm**(`__namedParameters`): `Promise`\<[`Evm`](../classes/Evm.md)\>
+
+Creates the Tevm Evm to execute ethereum bytecode
+Wraps [ethereumjs EVM](https://github.com/ethereumjs/ethereumjs-monorepo/tree/master/packages/evm)
 
 ## Parameters
 
-▪ **options**: [`CreateEvmOptions`](../type-aliases/CreateEvmOptions.md)
+▪ **\_\_namedParameters**: [`CreateEvmOptions`](../type-aliases/CreateEvmOptions.md)
 
 ## Returns
 
+A tevm Evm instance with tevm specific defaults
+
 ## Source
 
-[packages/evm/src/createEvm.js:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/src/createEvm.js#L7)
+[packages/evm/src/createEvm.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/src/createEvm.ts#L9)
 
 ***
 Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)
